@@ -148,7 +148,7 @@ local function onEquipment()
 	local done = waiting
 	waiting = nil
 	local gain = done.pct and G.GainText and (G.GainText(done.pct))
-	ns.Print(gain and format(L["Wearing %s (%s)."], done.link, gain) or format(L["Wearing %s."], done.link))
+	ns.Notice(gain and format(L["Wearing %s (%s)."], done.link, gain) or format(L["Wearing %s."], done.link))
 	if #landed > 0 then QoL.Secure("rewardEquip", wear) end
 end
 

@@ -4708,5 +4708,71 @@
 			}
 		],
 		"note": "Elemental Slaves, for Dalaran Patrols (545), are met around the ruins outside the Dalaran dome in Alterac Mountains. The merged data also had them at 10-20,73-81, where no player meets them, and the pick-up guide's spots led there or up the stairs to the guards (#2861). Replaces the map's points; Silverpine and Hillsbrad keep theirs."
+	},
+	"8888": {
+		"set": {
+			"ghostOnly": true
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3009 (Nostaroi: \"you have to be dead to get this quest\"); #558"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 14 people met Franclorn Forgewright at Forgewright's Tomb in Blackrock Mountain"
+			}
+		],
+		"note": "Franclorn Forgewright (Blackrock Mountain), giver and ender of Dark Iron Legacy, is a ghost only a dead character can see (#558, #3009)."
+	},
+	"14637": {
+		"set": {
+			"vendorAfter": 7003
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 14 merchant windows of Zorbin Fandazzle, every one opened by a character who had handed in Zapped Giants (7003); 41 people opened his windows"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3138 (Meta, Forsaken Paladin 47): Zorbin sold nothing before Zapped Giants; \"the vendor unlocks after doing the Zapped giants quest\""
+			}
+		],
+		"note": "Zorbin Fandazzle (Feralas) opens his shop only once Zapped Giants is handed in. The merged data listed him as a plain vendor, so the bags-full stop could send a player to him before that (#3138)."
+	},
+	"12277": {
+		"set": {
+			"spawns": {
+				"1443": {
+					"f": "l",
+					"pts": [
+						[
+							33.79,
+							54.04
+						],
+						[
+							33.83,
+							53.53
+						],
+						[
+							33.93,
+							54.73
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 54 of Melizza Brimbuzzle's quest windows, from 22 people, opened at the Maraudine camp (median 33.90,53.58); 16 windows and accepts, from 10 people, along her escort path down to Hornizz's camp, while an escort was under way"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3301 (Everlast): the map pointed along the escort path while she offered the quest in the camp"
+			}
+		],
+		"note": "Melizza Brimbuzzle stands in the Maraudine camp in Desolace, where she offers Get Me Out of Here!. The merged data also had points along her escort path, down to Hornizz's camp where an escort ends, so the arrow and the map could point there (#3301). Her points are the camp's only."
 	}
 }

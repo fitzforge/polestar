@@ -38,8 +38,10 @@ one into the other. The addons:
 | `Polestar_Travel` (`addon/Polestar_Travel/`) | Zone crossings for the travel planner, from an optional local crossings file; loaded with Polestar | `travel build` | no (local, gitignored) | no, never packaged (Nav, "Travel planner and zone crossings") |
 | `Polestar_SkinAPI` (`addon/Polestar_SkinAPI/`) | The Skin API's checks for a skin or colour scheme from another addon (its fields, colours, legibility, variants, preset: `docs/skins/reference.md`); loaded on demand by `Theme.RegisterSkin` / `Theme.RegisterScheme` the first time another addon registers one, so a player who uses no other addon's skin never loads it (Polestar's own skins and schemes need none of it) | hand-written | yes | yes |
 | `Polestar_Looks` (`addon/Polestar_Looks/`) | The game looks (WoW Forever, Blizzard, Classic: their kits, art tables and painters, `GameSkins.lua`, `GameArt.lua`; their sizes and type ladder, and their own waypoint arrow and map pin medallion in the client's art, given as a skin's `media` is, `Parts.lua`) and Hearth's painters (`Hearth.lua`); loaded on demand (`Theme.LoadLooks`) the first time one of them, or a skin built on one, is painted, so a player on the house look never loads them. Until then the core's `Theme.Kit` is nil and its `Theme.Kit*` stand-ins draw nothing; the part replaces them as it loads. Their palettes and fonts, and Hearth's sizes, stay in the core | hand-written; `GameArt.lua` by `media game-art` | yes | yes |
+| `Polestar_TabStyles` (`addon/Polestar_TabStyles/`) | The guide window's tab styles past the strip above the step bar (`guideWindow.tabStyle`): the title switcher, the top edge's and the left side's icon tabs (`TabStyles.lua`) and the switcher's menu rows (`Menu.lua`: headings, notes, the mark of the one in use, a close glyph; `W.MenuRows`); loaded on demand (`UI/GuideFrameTabStyles.lua`) the first time one of them is drawn, so a player on the strip never loads them. Without it the tabs stay above the step bar and the chat says so once | hand-written | yes | yes |
 | `Polestar_Options` (`addon/Polestar_Options/`) | The settings window, its Look pages and previews, the Profiles page and profile strings, Move frames; loaded on demand the first time the settings open (`UI/OptionsLoader.lua` is its door in the core) | hand-written | yes | yes |
-| `Polestar_Skin_<Name>` (`addon/Polestar_Skin_Vellum/` … `Polestar_Skin_Sheen/`) | The nine skins that ship (Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen), each an addon on the Skin API (`## X-Polestar-Skin`), loaded only when picked; `Polestar_Skin_Example` never ships (docs/SKINS-API.md) | hand-written | yes | yes |
+| `Polestar_Skin_<Name>` (`addon/Polestar_Skin_Vellum/` … `Polestar_Skin_Atlas/`) | The ten skins that ship (Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen, Atlas), each an addon on the Skin API (`## X-Polestar-Skin`), loaded only when picked; `Polestar_Skin_Example` never ships (docs/SKINS-API.md) | hand-written | yes | yes |
+| `Polestar_Layout_<Name>` (`addon/Polestar_Layout_Atlas/`) | The guide window's layouts on Skin API 2 (`## X-Polestar-Layout`): Atlas, the step on a timeline with cards above the window (a beta); loaded only when picked; the folders in the release are `forge_release::addons::LAYOUT_ADDONS` | hand-written | yes | yes |
 | `Polestar_Arcade` (`addon/Polestar_Arcade/`) | Freedoom Arcade by petllama, a program of its own (GPL-2.0-or-later, its `LICENSE` and `CREDITS.md`): his DOOM engine port and three Freedoom levels, offered on flights by `Maps/Arcade.lua` and loaded on demand the first time Play is pressed; never loaded when his standalone `FreedoomArcade` addon is installed and enabled. Polestar talks to it only through `LoadAddOn` and `FreedoomArcadeAPI` | `git subtree` of github.com/petllama/FreedoomArcade with our commits on top; assets by its `tools/build_assets.py` and `tools/subset.py` | yes | yes |
 | `Polestar_Recorder` (`addon/Polestar_Recorder/`) | The optional standalone recorder of play sessions, for authoring | hand-written | yes | yes, as its own zip |
 
@@ -155,7 +157,7 @@ Messages:
 | `POLESTAR_PAUSED` | state ("armed" \| "inside" \| nil), why ("hand", "entered", "left", "expired", "window") | Core, `Polestar.SetPaused`: Polestar paused or resumed, or armed to inside (or into another instance); see "Pause" |
 | `SHOW_PICKER` | — | commands → UI |
 | `SHOW_OPTIONS` | section or nil, question or nil | commands (`/polestar ask <question>`: the question in the search box) → UI |
-| `SHOW_WELCOME` | page or nil | About's Install tile, the settings window's Install button and its search result, `/polestar install` (and `/polestar welcome`) → UI/Welcome.lua (Install) |
+| `SHOW_WELCOME` | page or nil | About's Install tile, the settings search's Install result, `/polestar install` (and `/polestar welcome`) → UI/Welcome.lua (Install) |
 | `SHOW_WHATSNEW` | — | About's "What's new", `/polestar whatsnew` → UI/WhatsNew.lua |
 | `WELCOME_CLOSED` | — | UI/Welcome.lua, Install closed (not stepped aside) → UI/WhatsNew.lua |
 | `SHOW_COPY` | title, text | `/polestar where` → UI/Copy.lua |
@@ -392,14 +394,14 @@ back and on a control whose category is not its page's.
 
 | Category (`id`) | Its settings |
 |---|---|
-| Skin & colours (`skin`) | Theme: Colour, Names and Frames (the skin, its variant `ui.skinVariants.*`, the accent, backgrounds, names' colours, frames and motion); EllesmereUI's accent |
+| Skin & colours (`skin`) | Theme: Colour, Names and Frames (the skin, its variant `ui.skinVariants.*`, the accent, backgrounds, names' colours, frames and motion); the game menu's button (`ui.gameMenuButton`); EllesmereUI's accent |
 | Fonts & text size (`fonts`) | Theme: Text (fonts, sizes, outline, shadow, text colours); EllesmereUI's font (`ui.matchFont`) |
-| Guide window (`window`) | The Guide window page; Guide > Window but Dynamic Questing (what it shows, show and hide, pause, lock and growth); Buttons > Launcher & minimap; Gamepad; the guide menu's scale and faction |
+| Guide window (`window`) | The Guide window page (what it shows, when it hides, show and hide, lock and growth); Guide > While you play > Pause; Guide > Automation > Profession guides; Setup > Profiles > Install & updates; Buttons > Launcher & minimap; Gamepad; the guide menu's scale and faction |
 | Arrow & map pins (`arrow`) | The Arrow and Map pins pages; Guide > Arrow & routes > Arrow and Other waypoints; the Map page (guide pins, quest markers, rares', dungeons' and travel's pins, NPC services, zones and coordinates); TomTom |
 | Route lines & travel (`routes`) | The Route lines page; Guide > Arrow & routes > Routes, Along the route, Getting around; Quality of Life > Travel; Trackers > Travel (flight timer, journey); Alerts & toasts > Transport alert; Shortest Path Forever |
-| Quests & automation (`quests`) | Guide > Automation (but the two below); Guide > Window > Dynamic Questing; Questing > Quests; Quality of Life > Quests, Social, Game; guide suggestions; the other integrations |
-| Buttons, alerts & trackers (`hud`) | Buttons > Action buttons; Questing > Buttons; Alerts & toasts (Rare alert, Heads-up card, Class quest card); Trackers > Instances & XP, Party panel; Discovery > Rares; Quality of Life > Trackers & map |
-| Gear & rewards (`gear`) | Questing > Rewards & gear (and Talents); Quality of Life > Vendors (merchants, restock, bags, trainers); `talents.*` |
+| Quests & automation (`quests`) | Guide > Automation (but the two below); Guide > While you play > Dynamic Questing; Questing > Quests and Group (the quests-new-in-Forever mark too); Quality of Life > Quests, Social, Game; guide suggestions; the other integrations |
+| Buttons, alerts & trackers (`hud`) | Buttons > Action buttons; Questing > Buttons; Alerts & toasts (Rare alert, Heads-up card, Class quest card); Trackers > Instances & XP, Party panel; Discovery > Rares; Quality of Life > Leveling (less Trainers) |
+| Gear & rewards (`gear`) | Questing > Rewards & gear (and Talents); Quality of Life > Vendors (merchants, restock, bags) and Leveling > Trainers; `talents.*` |
 | Dungeons & lookup (`dungeons`) | Discovery > Lookup and Dungeons; Dungeons in my route (`behavior.dungeons`) and Group quests (`behavior.groupQuests`); `dungeons.*` |
 | Window positions (`positions`) | Every registered position (the guide window, the arrow, the floating button, the alerts, the trackers, the party panel); Move frames' snap and grid (`movers.*`); the minimap button's angle; the settings window's size |
 
@@ -942,15 +944,33 @@ is not kept, so Names and Guide texts still try the folder later) right after
 `Polestar.Names` and `GuideTexts` as it loads, and every file after it may
 read `L` at load. The files before it, Init.lua included, read `L` only when
 they print (the commands register in Core/Commands.lua). An English client
-loads nothing; a missing or disabled folder leaves the interface in English,
-and when the folder of a language Polestar ships is still not loaded at
-login, one English chat line says so ("the German language files
-(Polestar_deDE) are missing or turned off in the AddOns list…").
+loads nothing; a missing or disabled folder leaves the interface in English.
 If the early load fails and Names' or Guide texts' later one succeeds, `L`
 fills then: what was read at load (key binding names, the options' labels)
 stays English, the rest is translated. To try this load on an English
 client, `tools/dev/!PolestarLocaleTest` makes Polestar's own files see
 another `GetLocale()` (its .lua says how).
+
+The Language setting (#3643) picks the language Polestar shows: Follow the
+game (the default), English, or any shipped language. It is account-wide and
+lives in a saved variable of its own, `PolestarLanguage` (nil: follow; else
+`enUS` or the locale), on Polestar's TOC, which the game hands over only at
+ADDON_LOADED. `Core/Locale.lua` reads it there (`Polestar.Language.Get`):
+another language than the client's empties `L`, `Names.SetLanguage` and
+`GuideTexts.SetLanguage` drop what the client's folder brought, and the
+chosen folder loads (none for English), its `Interface.lua` checking
+`Polestar.Names.Language()` rather than `GetLocale()`. A change takes effect
+at the next /reload, which the setting says, and what is read while the files
+load (key binding names, the options' labels) is read before the setting is,
+so it stays in the client's language. With another language shown, Names gives the pack's names only:
+the client's own (quest titles, learned NPC names, spells, areas) are in its
+language. `Polestar.Language.Set(name)` (one of `Language.CHOICES`: `game`,
+`enUS`, the shipped locales) and `/polestar language <name>` change it until
+the setting has its row in Options. When Language follows the game and the
+client's folder is still not loaded at login because it is not in the
+AddOns folder at all, one English chat line says so ("the German language
+files (Polestar_deDE) are missing…"); a folder turned off in the AddOns list
+was turned off on purpose and gets none.
 docs/TRANSLATING.md describes the files and `forge i18n`.
 
 A word with more than one meaning gets a key per meaning:
@@ -2798,7 +2818,11 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   guide is open in a tab (`dungeon`: what `Dungeons.HandinPlan` turns in
   after the run; read only while the dungeon data is loaded). So a
   dungeon's pick-up guide in the active tab never lists the dungeon's
-  quests or the leveling guide's (#1830). With no route handing it in, a
+  quests or the leveling guide's (#1830). When no tab has that dungeon's
+  hand-in guide open, only its pick-up guide, the result carries
+  `pickupOnly`: the status stays `other` (so `Unneeded()` never offers it),
+  but `Carried()` lists it, and `Describe` and the "While you're here" line
+  say the route ahead doesn't hand it in. With no route handing it in, a
   route still to settle makes the list nil; else the status is a passed or
   skipped hand-in's, the leveling routes' first. The routes are built when
   asked and kept until a tab, guide, route choice or pack changes.
@@ -2820,7 +2844,9 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
 - **Finished quests you're still carrying** (jaff's report).
   `RoutePlan.Carried()` lists the log's finished quests (ready to hand in)
   no open route hands in (`missed`, `skipped`, `unplanned`: never a later
-  guide's `carriedTo` quest nor another tab's or open dungeon's `other`),
+  guide's `carriedTo` quest nor another tab's or open dungeon's `other`,
+  except a dungeon `other` with `pickupOnly`, whose pick-up guide hands
+  nothing in),
   each with whether it is grey and what it gives now (the Codex's XP times
   `Levels.Share`); `RoutePlan.Ender(q)` is the Codex ender of the
   character's side nearest the player (`Lookup.QuestEnd`). The guide
@@ -3338,16 +3364,15 @@ and both of its values start on `"ask"`.
   whole); `GUIDE_END` fires after the evaluation and the guide-end window
   (`UI/GuideEnd.lua`, frame `PolestarGuideEnd`) says "You've completed
   <guide>" or "You've reached the end of <guide>" with the open steps left,
-  and offers Start <next> (`StartNext`), Choose where to go next (the route
-  choice window) or Pick a guide (the guide menu); the second button (Not now,
-  Back to step N, Close) keeps the guide. For `GUIDE_STEPS_LEFT` the same
-  window says "2 steps left in <guide>" and what follows once they are done
-  or skipped (the next guide, a route choice, or the guide's end), and has
-  one button, Back to step N (the guide's tab at its live step), with no
-  next guide shown, no quest lists and no chime; it closes once the live
-  step moves on. While steps are open the guide
-  window's banner then offers the next guide (`GF.EndOffer`) until dismissed;
-  a finished guide's completed state offers it as before.
+  and names the next guide; it is a summary, its one button (Close, or Back
+  to step N) keeps the guide. For `GUIDE_STEPS_LEFT` the same window says
+  "2 steps left in <guide>" and what follows once they are done or skipped
+  (the next guide, a route choice, or the guide's end), with Back to step N
+  (the guide's tab at its live step), no next guide shown, no quest lists
+  and no chime; it closes once the live step moves on. The guide window owns
+  the next guide's button: while steps are open its banner offers the next
+  guide (`GF.EndOffer`) until dismissed, and a finished guide's completed
+  state offers it.
 - **Continue:** the hand-off at completion as under "At completion", and
   `GUIDE_CONTINUED(fromId, toId, carried)`: the guide window's banner reads
   "Durotar complete — continuing with The Barrens" for 20 seconds (chat while
@@ -8014,7 +8039,7 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   is the XP short over the QoL tracker's XP an hour. Nothing without the
   Codex (Lookup), at 60, or with no target (a guide that is not a leveling
   one with no `level` goal ahead), or with the Pace line switch off
-  (`guideWindow.pace`, Guide window > Parts > Below the goals; #2371,
+  (`guideWindow.pace`, Guide window > Parts > Progress & pace; #2371,
   #2379: the row keeps the XP an hour). Re-read with the XP row, on that
   switch and on `STEP_CHANGED`.
 
@@ -8054,7 +8079,7 @@ Polestar.QoL.Rest.Refresh(force)                      -- read the aura and the b
 
 ```lua
 Polestar.QoL.Kept(itemID) -> stepIndex | nil                 -- Engine.KeptItems()[itemID]
-Polestar.QoL.KeptLine(itemID) -> text, r, g, b | nil          -- its tooltip line
+Polestar.QoL.KeptLines(itemID) -> { header, lines } | nil     -- its tooltip block: the guides that use it
 Polestar.QoL.KeptToSell() -> { { item, link }, ... }          -- kept items in the bags a merchant buys, once each
 ```
 
@@ -8065,9 +8090,15 @@ Polestar.QoL.KeptToSell() -> { { item, link }, ... }          -- kept items in t
   in the log, kept for the first later step that hands it in. Steps and
   goals for another character, and those the player skipped, keep nothing.
 - **Never sold:** QoL/Vendor.lua's grey selling passes over a kept item.
-- **Marked:** its tooltip (Hooks.ItemLines, owner "keep") reads "Kept for
-  the guide: step N needs it" in the accent colour, and "Don't sell: the
-  guide needs it at step N" in the warning colour while a merchant is open;
+- **Marked:** any item's tooltip (Hooks.ItemLines, owner "keep") lists the
+  guides whose steps use it (`Engine.ItemGuides`): "Used in guides:" in the
+  accent colour (while a merchant is open: "Don't sell, used in guides:" in
+  the warning colour), then one line per guide, "12-13 Elwynn Forest: step 4
+  (<step title>)" for the active guide (no title: "...: step 4") and "13-15
+  Westfall" for each of up to three guides ahead (`Engine.NextGuide` chain;
+  scanned once per guide change, items of steps for this character by
+  `Engine.StepHiddenFor`). An item only a guide ahead uses is listed but not
+  Kept: it can still be sold;
   in the bags (QoL/BagGlow.lua, under `qol.bagGlow`) a kept item a merchant
   would buy gets a small lock in its bottom-left corner (Baganator and
   BagSmith: a bottom-left corner widget), unless it is the glowing step item.
@@ -8564,7 +8595,9 @@ this character's state per step: a quest `done`, `ready`, `log`, `open`,
 `level`, `rep` (the quest's standing, `Compat.GetFactionStanding`), `na`
 (faction, race or class through `Lookup.QuestBlock`) or `skip` (an
 alternative not taken: of `any` goals the one whose standing fits best, the
-highest first; a `preAny` sibling of a done one); a drop, chest or gift is
+highest first; a `preAny` sibling of a done one); a quest that ends the
+chain at its accept (`accept`: Heart of Disruption, which hands over the
+Dalaran Sewer Key) is `done` once in the log; a drop, chest, gift or use is
 `done` once its item is owned (`Compat.GetItemCount(id, true)`, the bank
 included) or the quest it starts is taken; a standing once reached. The
 attunement is `done` when its item is owned (a key, the Drakefire Amulet,
@@ -8576,14 +8609,22 @@ stops it waits on, ordered by `Dungeons.OrderStops` from where the player
 stands with no fixed end (`CharState().dungeonAttune["<key>:<id>"]`). Each
 quest step is whole (accept, objectives, turn-in): `Lookup.QuestStep`'s
 `opts.inside` places a giver, target, chest or turn-in without a spawn at
-the entrance of the instance it is in (the Codex NPC's `instance`, else the
-attunement's `inside` from the cited table) and the step's note says what is
-inside where; without it such a quest would be a lone "First do the quest"
+the entrance of the instance it is in (the Codex NPC's or object's
+`instance`, else the attunement's `inside` from the cited table) and the
+step's note says what is inside where, after the quest's `how` (our public
+mechanics words: the Core Fragment by the Molten Core portal, Squire Rowe
+before Reginald Windsor, the Amulet of Draconic Subversion for
+Emberstrife); without it such a quest would be a lone "First do the quest"
 note, which the Engine passes as done. An accept above the character's
-level stays, the Engine's detail adding "from level N". A drop
+level stays, the Engine's detail adding "from level N"; a quest whose
+standing this character lacks starts with a rep goal for it (Agent of
+Hydraxis, The Dread Citadel). An `accept` step is its accept alone, its
+note saying to keep the quest in the log. A drop
 or chest is a collect step at its NPC or object (inside an instance: at its
 entrance, with a note naming it), a standing a rep step, a gift a talk step,
-each after the quest before it in the list; the last step holds the note and
+a use a use of the `from` item and a collect of the made item where the
+named NPC stands (the Engine closes the use with that collect), each after
+the quest before it in the list; the last step holds the note and
 the entrance. Nothing left: nil, "done"; the other side's attunement: nil,
 "nothing". `Dungeons.Attune(key, id)` opens it in a new tab.
 
@@ -8616,15 +8657,16 @@ Polestar.RegisterOptions({
   jump = { tab = "Markers", section = "Quest markers" },   -- optional: a More link in the section's header, to that tab and section
   columns = { "World map", "Minimap" },                    -- optional: a caption over each half of the section's rows
   move = "flightTimer",                                     -- optional: a Move in the header for that frame (a mover key, below)
+  link = { text = "Lead:", page = "guidewindow", tab = "Window", to = "Look \226\128\186 Guide window" }, -- optional: a row over the tab's sections, `to` a link to that page's tab
   controls = {
     { kind = "toggle",   key = "qol.mapObjectives", label = "Objectives", help = "One line: the tooltip.",
       search = "map pins, icons, markers",                              -- optional: English words players may search with
-      new = "0.3.7",                                                    -- optional: the release it came in (the section's New pill)
+      new = "0.3.7",                                                    -- optional: the release it came in (a ring in the row's gutter)
       info = true,                                                      -- optional: an (i) after the label (1-2 a page at most)
       move = "launcher" },                                              -- optional: a Move on the row for that frame (below)
     { kind = "slider",   key = "qol.markerScale", label = "Size", min = 0.5, max = 2, step = 0.05, format = "%.2f\195\151", -- example key
       release = true,                                                   -- optional: write when the drag ends
-      extras = { { kind = "color", key = "qol.markerColor", label = "Colour", alpha = true },  -- inline before the control, right to left
+      extras = { { kind = "color", key = "qol.markerColor", label = "Colour", alpha = true },  -- inline after the control, left to right
                  { kind = "toggle", key = "qol.markerGlow", label = "Glow" } },               -- (a 20px chip; a small switch)
       more = { { kind = "toggle", key = "qol.markerOutline", label = "Outline" } } },        -- behind the row's cog, in its popup
     { kind = "dropdown", key = "gear.spec", label = "Weights", choices = { { value = "auto", label = "Automatic" }, ... } }, -- example key (the real one is gear.spec.<CLASS>)
@@ -8657,12 +8699,10 @@ Polestar.RegisterOptions({
 **Layout** (DESIGN.md "The Row Rule"). A section is a card across the body:
 a 36px header with its title (heading) and, at the right, its `toggle` (a switch), a
 Reset link while one of its settings is off its default (more than three ask
-first, `O.ResetSection`) and a New pill while it holds settings new to the
-player. A reset can be taken back once: a row's right-click (every kit row
+first, `O.ResetSection`). A reset can be taken back once: a row's right-click (every kit row
 resets through `W.ResetSetting(path, get?, set?)`, which hands what it held to
 the listener `W.OnReset` installs), a section's Reset and Reset page keep what
-the settings held as stored, and a chip in the footer (in the thanks line's
-place) says what was reset with an Undo (`O.Undo`) for 10 s; a new reset takes
+the settings held as stored, and a chip in the footer says what was reset with an Undo (`O.Undo`) for 10 s; a new reset takes
 its place. Reset page (`O.ResetPage`) puts back every setting a control of the
 page writes, its row on screen or hidden by its `needs` (a section's Reset
 only the rows on screen), and calls `set(nil)` on its rows of state that is no
@@ -8697,20 +8737,47 @@ open popup. A custom page builds the same parts with `W.SectionCard`,
 `W.CompactRow`, `W.HeaderSwitch`, `W.InlineSwatch`, `W.InlineToggle` and
 `W.Cog` (all but `W.CompactRow`, which Quick settings shares, are the
 settings' addon's own: `Polestar_Options/UI/Controls.lua`, with `W.Swatch`,
-`W.Cards`, `W.ActionRow` and `W.ActionTile`). The first open shows one line over the first card ("Hover a setting
-for what it does. Right-click resets it.") until its close button
-(`PolestarDB.optionsIntro`). Search results stand in a card per page, tab and
+`W.Cards`, `W.ActionRow` and `W.ActionTile`). Search results stand in a card per page, tab and
 section, the best first, the chevron to the row in a gutter inside the card;
 a result its section's toggle stops comes after an equally good one that
 works, its card carrying that toggle in the header. A setting that places a
-frame on screen carries a ghost Move (`move` = the frame's mover key in
-`UI/Movers.lua`): on the row in the cog's column (left of a cog), or in its
-section's header after the toggle. `O.MoveFrame(key, lit)` hides the window,
+frame on screen carries a Move (`move` = the frame's mover key in
+`UI/Movers.lua`): on the row a move glyph in the extras' Move column (after
+the cog's), or in its section's header after the toggle. `O.MoveFrame(key, lit)` hides the window,
 opens Move frames with that frame's box picked and pulsing
 (`Movers.Unlock(key, { pulse, back })`; an alert in the alerts' line picks the
 line, the spec's `via`), and when the session ends brings the window back on
 its page, search and scroll with the row or section lit. Move is off while the
 frame has no box (`Movers.Movable(key)`) or its setting is.
+
+The window's header carries a "New settings page" switch (`Polestar_Options/UI/Grouped.lua`,
+`UI.Options.Grouped`; `PolestarDB.optionsLayout` = "grouped", account-wide, off by default): after Menu
+scale on the current page, first of the icon buttons beside the search once on, narrower than 1000 px
+the switch alone. A tool of the header with `psHeadAfterScale` stands between the scale and the close
+button (`W.HeaderScale`). The switch only keeps the choice; `UI.Options.Kit` hands another layout the
+window and the page it shows.
+
+Switched on, the new page (`UI/Grouped.lua`, the same rows from the same registry) lays the window out in
+fewer doors: a sidebar tree of groups (`G.TREE`: Guiding, Look, Quality of Life, Setup) with each page's
+changed count, Expand all (`PolestarDB.optionsNavAll`), an icon rail with fly-outs (`optionsRail`), live pinned
+settings, About and Guiding Stars, and the profile card at its foot; each page's own tabs as folder tabs; a search-first header (a "Group > Page"
+crumb, the wide search, the switch, Peek, Fold, Reload UI and the ··· menu for Settings scale, Move frames and the
+resets, Undo beside the crumb) with no footer; an All / Changed filter (Changed: one card per page with
+changes); a jump index for tabs of more than 30 rows; Legend card headers with their changed count and Reset
+and a pill for a module's switch; and the live preview of a page beside the rows (`optionsPreviewHidden`).
+`UI/Kit.lua` holds the widgets only this window uses (`W.PinControl`, the sidebar's pin and profile rows
+`W.NavParts`, `W.ShellNavRail`, `W.ShellFlyout`, `W.FolderTabs`, `W.LegendHeader`, `W.PillSwitch`,
+`W.HeaderMenu`), so `Theme/Widgets.lua` stays small and nothing extra loads at login; `W.ShellNav` calls them
+only for rows this window gives it (`part`, `W.NavRowAfter`, `W.NavRowEnter`). `UI.Options.Kit` hands the layout the registry and
+the window's own builders; `O.Select`, the sidebar, the search, the relayout, LB / RB and a jump to a row ask
+`UI.Options.Grouped` first while it is on.
+
+On the new page Guide, Questing, Quality of Life, Guide window and Alerts & toasts open on an Essentials tab
+(`UI/Essentials.lua`, `G.ESSENTIALS`: each page's picks by key), first in the tab band with the star. Each row is
+a reference to its home row (`O.Ref`): the same setting, changed in either place; search, the counts, the
+Changed view and the resets see the home alone. A row's `psAfter` frame (a muted link after the label, laid out
+by `W.LayoutCompact`) names the home's tab and opens it. On Guide window and Alerts & toasts the page's Presets
+and preview come first. The current page keeps its own tabs.
 
 **Essentials, references and presets.** Each Look page opens on its lead
 tab, Essentials: a spec with `lead = true` puts its tab first, whatever
@@ -8723,7 +8790,7 @@ the home control with that key (label, help, range, choices, extras,
 disabled, needs), found on first use (`O.HomeOf`; on its own page first),
 and keeps its own `page`, `tab`, `section`, `more`, `new`, `child` and every
 `ps*` field; fields given beside `ref` win (a shorter label). A reference
-with no home is not shown. Search, New pills and `O.AllControls()` count
+with no home is not shown. Search, new rings and `O.AllControls()` count
 homes only (`O.References()` lists the references); a reference's tooltip
 ends with its home's path, and over a whole page `O.Controls` maps a key to
 its home row. An Essentials section's `jump = { tab, section }` puts a
@@ -8815,11 +8882,16 @@ one setting through `W.ResetSetting` (so the footer's Undo offers it back), and 
 at its default. It is no gamepad stop of its own (`psPadSkip`): the gamepad's reset (Y) on the row does
 the same.
 
-**New settings.** A setting's `new` puts a New pill in its section's header
-(nothing on the row: its gutter is the changed dot's or the reset's), and its page's sidebar row counts the
-page's new settings until the page is opened:
+**New settings.** A setting's `new` puts a 6px accent ring in its row's
+gutter while the row is at its default (off it, the reset stands there), and
+its page's sidebar row carries one ring, no count, until the page is opened (a
+page with nothing new carries the changed dot instead, while one of its
+settings is off its default; never both):
 `PolestarDB.optionsSeen[page key]` keeps the newest `new` release seen there
-(account-wide, not a setting, so profiles and resets leave it). The pills keep
+(account-wide, not a setting, so profiles and resets leave it). A fresh install
+sees nothing new: core's `UI/OptionsLoader.lua` starts its record as
+`{ ["*"] = true }`, and the window's first opening takes that as the newest
+`new` release among its settings, seen on every page. The rows' rings keep
 through the session the page is first opened in (they read the seen state as
 it was when the window first opened), and go the next.
 
@@ -9044,7 +9116,7 @@ The built-in pages are grouped by what the player is doing: **Guide** (10:
 Window, Arrow & routes, Automation), **Map** (30: Guide & quests, Rares, travel & zones), **Questing**
 (40: Quests, Rewards & gear, Buttons), **Discovery** (50: Lookup, Dungeons, Rares, Group quests; Dungeons
 and Group quests while this character's guides have dungeon or group steps to choose), **Quality of Life** (60:
-Quests, Travel, Social, Vendors, Trackers & map, Game), **Community guides** (70, a custom page:
+Quests, Vendors, Travel, Leveling, Social, Game), **Community guides** (70, a custom page:
 `UI/Packs.lua`), **Gamepad** (75, registered by `UI/GamepadGuide.lua`:
 Navigation, Key bindings), **Guiding Stars** (80, key `thanks`, a custom page:
 `UI/Thanks.lua`: three columns, the top supporter, the top contributor and the
@@ -9147,7 +9219,8 @@ more of the sidebar lies below a chevron at its foot glides it to the bottom
 another (above, "Layout"). The footer has
 Reset page, Reload UI and Move frames (with `ns.Movers`: unlock mode) on the
 left; Close, the profile in use (with `ns.Profiles`: a menu of the profiles
-and Manage profiles) and "Special thanks to" on the right. Nothing of the
+and Manage profiles) on the right; "Special thanks to" is on About, under
+the credits. Nothing of the
 window is built before it first opens, a page tab only when first shown, and
 nothing runs while it is idle.
 
@@ -9177,7 +9250,12 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
 - **Guide window files**: `UI/GuideFrame.lua` holds the window's state,
   its goal rows and goals area, the render and the build. Its other parts
   are files of their own, loaded right after it (`UI/UI.xml`):
-  `GuideFrameTabs.lua` (the tab strip), `GuideFrameBanner.lua` (the
+  `GuideFrameTabs.lua` (the tab strip), `GuideFrameTabStyles.lua` (the
+  style in use of `guideWindow.tabStyle` and the loader
+  of the other styles: the title switcher, the top edge's and the left
+  side's icon tabs live in `Polestar_TabStyles`, a part of the window,
+  `GF.Part`, that joins the live window and every copy as it loads),
+  `GuideFrameBanner.lua` (the
   banner's notices, the wheel and the overview over the step number),
   `GuideFrameHere.lua` ("While you're here"), `GuideFrameLayout.lua` (where
   each part goes, the window's height, the progress bar),
@@ -9334,7 +9412,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   shows only once no group of the step is open after the focus (it names the
   next step's first person). The goals sit in a scroll area (`W.Scroll`)
   between the header and the tip: the window never grows past `ui.maxHeight`
-  of the screen's height (0.5; 0.3 to 0.9 in Options > Guide > Window, in
+  of the screen's height (0.5; 0.3 to 0.9 in Options > Guide window > Window, in
   the window's own units, so its scale and the UI scale count), the goals
   area giving up the difference (never below 72 px), the header, the tip
   and everything under the card staying whole. Past the cap the goals area
@@ -9516,7 +9594,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `/polestar dungeontoast [dungeon]` shows it again ("Nothing to pick up" for
   a dungeon with no quest to take now).
 - **Class spells** (`QoL/Spells.lua`, the cards in `UI/SpellCards.lua` on
-  `UI.ClassToast.ShowCard`; Options > Quality of Life > Vendors > Trainers,
+  `UI.ClassToast.ShowCard`; Options > Quality of Life > Leveling > Trainers,
   `qol.levelUpSpells` and `qol.oldRanks`, both on). `QoL/ClassSpells.lua`
   (generated by `forge data classspells` from the TDB extract's sniffed class
   training lists and the Forever client's SpellName, Spell and
@@ -9591,7 +9669,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   another heads-up or in the first 120 s of a fresh install
   (`update.firstRun`): it waits for `PLAYER_REGEN_ENABLED`,
   `PLAYER_ENTERING_WORLD`, `HEADS_UP_HIDDEN` or the end of those seconds.
-  `update.card` (Options > Guide > Window, on by default) turns it off,
+  `update.card` (Options > About, under Install; on by default) turns it off,
   except two or more behind: then it shows at most once a day
   (`update.shownAt`). The guide window's last banner (`update`, shown with
   no guide open too): "Polestar 0.3.7 is out: you're on 0.3.6." with
@@ -9971,9 +10049,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   character gets the welcome, the choices that are its own (the stat
   weights, kept per class) and the last page. The page set is fixed when a
   showing starts. Any close marks the account (and the character). About's
-  Install tile, the settings window's Install button (left of its search;
-  left out while the main column is under 780 wide),
-  the search's Install result (About, "install", "setup", "wizard", "first
+  Install tile, the settings search's Install result (About, "install", "setup", "wizard", "first
   run") and `/polestar install` (`/polestar welcome` too) open it with every
   page.
 - **What's new** (`UI/WhatsNew.lua`, frame `PolestarWhatsNew`, `SHOW_WHATSNEW`):
@@ -10120,6 +10196,10 @@ opens on its card. The open state is not saved. `GuideFrame.Layout` asks `StepLi
 and stacks it at `StepList.Layout(width, room)`, filling the space within
 the window's height captured on opening (still limited by the screen's top
 with Grow upward). Overflow scrolls; a short list leaves the spare space.
+While the list is open the window's grip drags its height too (away from
+the pinned edge: down, or up with Grow upward, 120 at least); letting go
+saves it in `ui.stepListHeight`, which later openings use in place of the
+window's height (0, the default: the window's height on opening).
 In compact mode the window is too short to browse in: Layout passes
 `StepList.Layout(width, room, least)` with the height cap as `room` and the
 captured height as `least`, so the list grows the window to fit its cards up
@@ -11027,16 +11107,21 @@ was already built without it.
   oldest first, each with `after`/`afterAny`; a quest only an item starts
   gets that item's drops before it (Blackhand's Command from the Scarshield
   Quartermaster); an item goal adds the item's own sources (a dropped key's
-  drops and chests, best chance first, three at most; Aqual Quintessence's
-  standing and the NPC handing it out). `links` add a prerequisite our quest
-  data lacks, with its source (Forever's City of Dalaran: Blood in the
-  Streets after Dalaran Patrols and Key to the City, Heart of Disruption
-  after it). `inside` places an NPC or object of a chain that has no
+  drops and chests, best chance first, three at most, each with the
+  instance it is in; Aqual Quintessence's standing and the NPC handing it
+  out). `via` adds the drops and chests of the item a goal item is made
+  from, and `useAt` (the NPC or object standing where it is used) a use step
+  there: `{ kind: 'use', from, item, at }` (the Black Tome, from Shadowfang
+  Keep, used at the Ambermill Leyline Focus beside Archmage Ataeric, becomes
+  the Tome of Dalaran). `onAccept` marks the goal steps `accept`: the quest
+  hands the item over as it is taken and takes it back if it is dropped
+  (Heart of Disruption's Dalaran Sewer Key, Forever's provided item), so the
+  chain ends at that accept. `links` add a prerequisite our quest
+  data lacks, with its source. `inside` places an NPC or object of a chain that has no
   open-world spawn and no Codex instance in the instance it is in, each with
-  its Forever quest data entry (Marshal Windsor, the Monument of Franclorn
-  Forgewright and the Core Fragment in Blackrock Depths; the Inconspicuous
-  Documents and Drakkisath's Brand in Blackrock Spire; Doan's Strongbox in
-  Scarlet Monastery); each attunement carries the entries its steps meet as
+  its Forever quest data entry (the Core Fragment in Blackrock Depths; the
+  Codex places Marshal Windsor, Franclorn's monument, the Inconspicuous
+  Documents, Drakkisath's Brand and Doan's Strongbox itself); each attunement carries the entries its steps meet as
   `inside: [{ kind, id, instance }]`. `removed` lists what Forever took out,
   with its evidence (the Seal of Ascension: 4743 no longer rewards it, no
   Forever `ItemSparse` row), read only by the local comparison. Covered: Molten Core (Attunement
@@ -11046,7 +11131,11 @@ was already built without it.
   side), Blackrock Depths (the Shadowforge and Prison Cell keys), Stratholme
   (Key to the City), Dire Maul (Crescent Key), Gnomeregan (Workshop Key),
   Scarlet Monastery (The Scarlet Key), the City of Dalaran (the Horde's
-  Dalaran Sewer Key). A goal the Codex lacks drops its entry with a warning
+  Dalaran Sewer Key; the Tome of Dalaran, which calls up Lyn the Ignored),
+  Maraudon (the Scepter of Celebras), Krol'dok Stronghold (the Krol'dok
+  Compound Key, each side) and Zul'Farrak (the Mallet of Zul'Farrak). The
+  addontest `dungeons-attune` pins every chain the local Codex builds to the
+  reviewed list in `tests/fixtures/codex/attunements-golden.json`. A goal the Codex lacks drops its entry with a warning
   (`codex build` prints it); an instance the build lacks has none. The
   journal puts each list on its page as `attunement` and counts them
   (`meta.counts.attunements`, the summary's `attune = { A, H }`).

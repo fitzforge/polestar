@@ -412,9 +412,10 @@ emit(out)
 	}
 }
 
-// The guide list's star on the zone painting keeps a dark ground under its glyphs: the star and the window's close in
-// the house look and Halo (68 wide), the star alone in the game looks, whose close is the frame's own on its corner
-// (36 wide, on the star): the ground used to run on under nothing where the close had been.
+// The guide list's star on the zone painting keeps a dark ground under its glyphs: the Guides scale's size button, the
+// star and the window's close in the house look and Halo (68 wide, 32 more for the size button), the size button and
+// the star in the game looks, whose close is the frame's own on its corner (36 wide and the 32, on the star): the
+// ground used to run on under nothing where the close had been.
 #[test]
 fn the_guide_list_s_star_ground_holds_only_the_glyphs_it_backs() {
 	let script = r#"
@@ -433,10 +434,10 @@ emit(out)
 	let addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Looks")];
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script: script.into(), ..Default::default() }).remove(0);
 	for id in ["polestar", "halo"] {
-		assert_eq!(out[id], serde_json::json!({ "width": 68, "on": "close", "close": true }), "{id}: the star and the close: {out}");
+		assert_eq!(out[id], serde_json::json!({ "width": 100, "on": "close", "close": true }), "{id}: the size button, the star and the close: {out}");
 	}
 	for id in ["forever", "blizzard", "classic"] {
-		assert_eq!(out[id], serde_json::json!({ "width": 36, "on": "star", "close": false }), "{id}: the star alone: {out}");
+		assert_eq!(out[id], serde_json::json!({ "width": 68, "on": "star", "close": false }), "{id}: the size button and the star: {out}");
 	}
 }
 

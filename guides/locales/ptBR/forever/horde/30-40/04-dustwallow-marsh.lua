@@ -158,7 +158,7 @@ return {
 
 	-- Step 30: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} está presa no acampamento Maraudino, na ponta oeste do vale; liberte-a e escolte-a para fora, a leste do vale.\nCuidado: os grupos da escolta vêm juntos e só aparecem durante ela, então não dá para limpar antes nem puxar um de cada vez. Limpar os centauros comuns do caminho antes de começar ajuda.",
+	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "",
 
 	-- Step 31: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
@@ -285,6 +285,7 @@ return {
 	-- ["grind on {npc:4377}"] = "mate {npc:4377} até subir",
 	-- ["{npc:11624} stands in the village."] = "{npc:11624} fica na aldeia.",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "A caravana de {npc:11626} para na estrada na borda do {area:602}. Escolte-a para leste passando o conciliábulo; demônios a atacam duas vezes.",
+	-- ["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} está presa no acampamento Maraudino, na ponta oeste do vale; liberte-a e escolte-a para fora, a leste do vale.\nCuidado: os grupos da escolta vêm juntos e só aparecem durante ela, então não dá para limpar antes nem puxar um de cada vez. Limpar os centauros comuns do caminho antes de começar ajuda.",
 	-- ["{npc:3391} waits upstairs in the house by the flight master; {npc:3446} stands below it, towards the docks."] = "{npc:3391} espera no andar de cima da casa junto ao mestre de voo; {npc:3446} fica no andar de baixo, rumo às docas.",
 	-- ["{npc:3391}'s next errand takes you to {area:35}, off this part of the route: leave it."] = "A próxima tarefa de {npc:3391} leva você a {area:35}, fora desta parte da rota: deixe de lado.",
 	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}: para {npc:4631}, em {area:35}, na primeira parada em {area:35} do guia 40-50",

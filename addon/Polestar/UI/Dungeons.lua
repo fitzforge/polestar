@@ -775,9 +775,11 @@ local function tie(i)
 	t.Text = W.Text(t, "label", "textDim")
 	t.Text:SetPoint("LEFT", t, "LEFT", 24, 0)
 	t:SetScript("OnClick", function(self) DS.ShowQuest(self.psQuest) end)
-	t:SetScript("OnEnter", W.SimpleTip)
+	-- The quest's tooltip (UI.QuestTip), what a click does under it.
+	t:SetScript("OnEnter", function(self)
+		if self.psQuest then UI.QuestTip(self, self.psQuest, "ANCHOR_TOP", { { L["Show the quest"], Theme.Accent() } }, self.psTitle) end
+	end)
 	t:SetScript("OnLeave", W.HideTip)
-	t.psTip = L["Show the quest"]
 	ties[i] = t
 	return t
 end
@@ -1945,7 +1947,7 @@ local function renderBosses(key, f, plevel)
 				else
 					row.Text:SetText(format(spec[2], qh))
 				end
-				row.psQuest = q.id
+				row.psQuest, row.psTitle = q.id, q.title
 				row:ClearAllPoints()
 				row:SetPoint("TOPLEFT", pg.Body, "TOPLEFT", PAD - 4, -(y + h - 6))
 				row:SetWidth(MW - PAD * 2 + 4)
@@ -2096,11 +2098,15 @@ local function stepLine(s, plevel)
 	elseif s.kind == "drop" then
 		return format(L["%s from %s"], colored("item", s.item.name), colored("npc", s.npc and s.npc.name)), s.npc
 	elseif s.kind == "object" then
-		return format(L["%s from %s"], colored("item", s.item.name), colored("object", s.object and s.object.name)), s.object
+		-- A chest the Codex names no object for (the Black Tome's table): the item alone.
+		if not (s.object and s.object.name) then return colored("item", s.item.name), s.object end
+		return format(L["%s from %s"], colored("item", s.item.name), colored("object", s.object.name)), s.object
 	elseif s.kind == "rep" then
 		return format(L["Reach %s with %s"], standingName(s.standing), colored("faction", factionName(s.faction, s.name))), nil
 	elseif s.kind == "gift" then
 		return format(L["%s gives you %s"], colored("npc", s.npc and s.npc.name), colored("item", s.item.name)), s.npc
+	elseif s.kind == "use" then
+		return format(L["Use %s beside %s"], colored("item", s.from and s.from.name), colored("npc", s.at and s.at.name)), s.at
 	end
 	return "", nil
 end
@@ -2126,7 +2132,7 @@ local function stepSub(s, state)
 	elseif (s.kind == "drop" or s.kind == "object") and s.chance then
 		t[#t + 1] = format(L["%d%% chance"], floor(s.chance + 0.5))
 	end
-	if s.kind == "drop" and s.instance then
+	if (s.kind == "drop" or s.kind == "object") and s.instance then
 		local inst = D().Get(s.instance)
 		if inst then t[#t + 1] = format(L["inside %s"], inst.name) end
 	end
@@ -2363,7 +2369,7 @@ local function renderEmpty(reason)
 	home.Watermark:Show()
 	local text
 	if reason == "off" then
-		text = L["The Dungeons section is turned off. Turn it on under Options > Discovery > Lookup."]
+		text = L["The Dungeons section is turned off. Turn it on under Settings > Discovery > Lookup."]
 	else
 		local LK = UI.Lookup
 		text = REASON[reason] or (LK and LK.ReasonText and LK.ReasonText(reason)) or tostring(reason)

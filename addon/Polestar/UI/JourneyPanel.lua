@@ -20,7 +20,8 @@
 -- (Nav.IsOverride: "Guide me to the entrance", a map click), the header has
 -- an x, "Back to the guide" (Nav.BackToGuide): the point lets go and the
 -- journey ends (#1686). Off with nav.journeySteps, collapsed with
--- nav.journeyOpen = false, never in compact mode. How many legs it lists and
+-- nav.journeyOpen = false, not in compact mode unless the skin keeps it
+-- (GF.Shows "journey"). How many legs it lists and
 -- whether their numbers show: trackers.journey.rows, .numbers (Options >
 -- Trackers > Journey).
 --
@@ -141,6 +142,7 @@ end
 local function glyphOf(leg)
 	return (leg.kind == "walk" and STEP_GLYPH[leg.step]) or GLYPH[leg.kind] or "icon-note"
 end
+JP.Glyph = glyphOf -- for a layout that draws the legs its own way
 
 -- "Hostile town: <names>" for a walk whose path enters the other faction's
 -- towns (leg.hubs, Nav.travel.HubText), else nil.
@@ -433,9 +435,9 @@ local function subHeight(r)
 	return h > SUB_H and ceil(h) + 2 or SUB_H
 end
 
-local function build()
+local function build(parent)
 	local G = GF()
-	local body = G and G.parts and G.parts.body
+	local body = parent or G and G.parts and G.parts.body
 	if F or not body then return end
 	F = CreateFrame("Frame", nil, body)
 	F:Hide()
@@ -696,6 +698,97 @@ function JP.Layout(width)
 	list:SetHeight(y)
 	F:SetHeight(HEAD_H + y)
 	return HEAD_H + y
+end
+
+---------------------------------------------------------------------------
+-- A sample panel for a guide window copy (the settings preview), which has
+-- no journey of its own: the same frames, built and painted by the code
+-- above with the panel's state swapped for the sample's own, on a fixed
+-- route that never counts down and takes no clicks. A layout reads it as
+-- it reads JP (frame.psPanel: Route, Rows, plan, rows, head, Compute...).
+---------------------------------------------------------------------------
+
+local SAMPLE_LEGS = {
+	{ kind = "walk", label = L["Walk to %s"]:format(L["the next stop"]), yards = 420, seconds = 56 },
+	{ kind = "fly", yards = 2400, seconds = 95 },
+	{ kind = "boat", yards = 900, seconds = 90 },
+}
+
+local function swap(s)
+	local live = { F = F, head = head, dest = dest, more = more, rows = rows, view = view, plan = plan, laid = laid,
+		shownLegs = shownLegs, shownCi = shownCi, shownN = shownN,
+		jf = JP.frame, jh = JP.head, jd = JP.dest, jm = JP.more }
+	F, head, dest, more, rows, view, plan, laid = s.F, s.head, s.dest, s.more, s.rows, s.view, s.plan, s.laid
+	shownLegs, shownCi, shownN = s.shownLegs, s.shownCi, s.shownN
+	return live
+end
+
+local function swapBack(s, live)
+	s.F, s.head, s.dest, s.more, s.rows, s.view, s.plan, s.laid = F, head, dest, more, rows, view, plan, laid
+	s.shownLegs, s.shownCi, s.shownN = shownLegs, shownCi, shownN
+	F, head, dest, more, rows, view, plan, laid = live.F, live.head, live.dest, live.more, live.rows, live.view, live.plan, live.laid
+	shownLegs, shownCi, shownN = live.shownLegs, live.shownCi, live.shownN
+	JP.frame, JP.head, JP.dest, JP.more = live.jf, live.jh, live.jd, live.jm
+end
+
+-- Run fn(...) on sample `s`'s panel. -> fn's first answer
+local function with(s, fn, ...)
+	local live = swap(s)
+	local ok, a = pcall(fn, ...)
+	swapBack(s, live)
+	if not ok then geterrorhandler()(a) end
+	return a
+end
+
+-- The sample's times: each row its legs' planned seconds, no departures.
+local function sampleTimes(legs, ci)
+	local p = JP.Rows(legs, ci)
+	local total, yards = 0, 0
+	for n = 1, p.n do
+		local secs = 0
+		for i = p.first[n], p.last[n] do
+			secs = secs + whole(legs[i].seconds)
+			yards = yards + (legs[i].yards or 0)
+		end
+		view.secs[n], view.dep[n], view.board[n] = secs, false, false
+		total = total + secs
+	end
+	view.n, view.total, view.yards = p.n, total, yards
+	return view
+end
+
+-- A sample panel in `parent` (hidden until a layout shows it). -> sample
+function JP.Sample(parent)
+	local s = {
+		rows = {}, legs = SAMPLE_LEGS,
+		view = { n = 0, total = 0, yards = 0, secs = {}, wait = {}, ride = {}, timed = {}, board = {}, dep = {} },
+		plan = { n = 0, first = {}, last = {}, num = {}, legs = nil, ci = nil, len = nil },
+		laid = { open = nil, n = 0, more = false, h = {} },
+	}
+	with(s, build, parent)
+	if not s.F then return nil end
+	s.frame = s.F
+	s.F.psPanel = s
+	s.F:SetScript("OnShow", nil)
+	s.F:SetScript("OnHide", nil)
+	s.head:EnableMouse(false)
+	s.Glyph, s.StepText, s.FormatTime = glyphOf, JP.StepText, JP.FormatTime
+	function s.Route() return s.legs, 1 end
+	function s.Rows(legs, ci) return with(s, JP.Rows, legs, ci) end
+	function s.Compute(legs, ci) return with(s, sampleTimes, legs, ci) end
+	-- Paint at `width` and lay out. -> height
+	function s.Layout(width)
+		return with(s, function()
+			fillStructure(s.legs, 1)
+			for i = 1, #rows do rows[i]:EnableMouse(false) end
+			dest:SetText(format(L["To %s"], "|c" .. Theme.Hex("place") .. L["your goal"] .. "|r"))
+			head.Icon:SetTexture(Theme.Media(open() and "chevron-up" or "chevron-down"))
+			sampleTimes(s.legs, 1)
+			fillTimes()
+			return JP.Layout(width)
+		end) or 0
+	end
+	return s
 end
 
 -------------------------------------------------------------------------

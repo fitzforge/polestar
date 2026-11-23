@@ -33,7 +33,7 @@ function view()
 	return {
 		shown = F:IsShown(), title = F.Title:GetText(), undone = F.Undone:IsShown() and F.Undone:GetText() or false,
 		next = F.Art:IsShown() and F.Next:GetText() or false, text = F.Text:IsShown() and F.Text:GetText() or false,
-		go = F.Go.Label:GetText(), later = F.Later.Label:GetText(), primary = F.Go.psPrimary == true,
+		go = rawget(F, "Go") ~= nil, later = F.Later.Label:GetText(),
 		strata = F:GetFrameStrata(), point = point, alpha = F:GetAlpha(),
 	}
 end
@@ -81,8 +81,7 @@ fn the_end_with_steps_left_open_names_the_guide_the_steps_and_the_next_guide_bac
 	assert!(out["title"].as_str().unwrap().contains("|c"), "the guide's name in the accent");
 	assert_eq!(out["undone"], "3 steps were left undone.");
 	assert_eq!(out["next"], "Next: Westfall (12–17)");
-	assert_eq!(out["go"], "Start Westfall");
-	assert_eq!(out["primary"], true);
+	assert_eq!(out["go"], false, "no Start button: the guide window owns the next guide's button");
 	assert_eq!(out["later"], "Back to step 3");
 	assert_eq!(out["strata"], "DIALOG");
 	assert_eq!(out["point"], "CENTER");
@@ -101,8 +100,7 @@ fn the_last_step_done_early_says_how_many_steps_are_left_with_back_to_the_live_s
 		uistub.setGuide(uistub.elwynn, 5); uistub.live = 3
 		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 2, live = 3, next = NEXT }))
 		local r = view()
-		r.laterShown = PolestarGuideEnd.Later:IsShown()
-		PolestarGuideEnd.Go:Click()
+		PolestarGuideEnd.Later:Click()
 		r.goto, r.after, r.start = lastCall("Goto"), PolestarGuideEnd:IsShown(), lastCall("StartNext")
 		-- The live step moved on while a fight held the window back: its count is stale, nothing shows.
 		uistub.live = 4
@@ -129,15 +127,13 @@ fn the_last_step_done_early_says_how_many_steps_are_left_with_back_to_the_live_s
 		E.GetTabs = tabs
 		Polestar.Fire("GUIDE_END", uistub.elwynn, info({ undone = 0, next = NEXT }))
 		r.theEnd = view()
-		r.theEnd.laterShown = PolestarGuideEnd.Later:IsShown()
 		emit(r)"#);
 	assert_eq!(plain(&out["title"]), "2 steps left in\nElwynn Forest (1–13)");
 	assert_eq!(out["undone"], false);
 	assert_eq!(out["next"], false, "no next guide yet");
 	assert_eq!(out["text"], "Do or skip what's left, and the next guide follows.");
-	assert_eq!(out["go"], "Back to step 3");
-	assert_eq!(out["primary"], true);
-	assert_eq!(out["laterShown"], false, "one button");
+	assert_eq!(out["later"], "Back to step 3");
+	assert_eq!(out["go"], false, "its one button");
 	assert_eq!(out["goto"], json!(["Goto", 3]));
 	assert_eq!(out["after"], false);
 	assert_eq!(out["start"], false, "no guide started");
@@ -145,21 +141,20 @@ fn the_last_step_done_early_says_how_many_steps_are_left_with_back_to_the_live_s
 	assert_eq!(out["one"]["text"], "Do or skip what's left, and the guide ends.", "no next guide");
 	assert_eq!(out["choice"]["text"], "Do or skip what's left, and you choose where to go next.");
 	assert_eq!(out["staleAfterFight"], false);
-	assert_eq!(out["one"]["go"], "Back to step 4");
+	assert_eq!(out["one"]["later"], "Back to step 4");
 	assert_eq!(plain(&out["numbered"]["title"]), "Elwynn Forest (1–13): noch 3 Schritte");
 	assert_eq!(out["closed"], false);
 	assert_eq!(plain(&out["theEnd"]["title"]), "You've completed\nElwynn Forest (1–13)");
-	assert_eq!(out["theEnd"]["go"], "Start Westfall");
-	assert_eq!(out["theEnd"]["laterShown"], true);
+	assert_eq!(out["theEnd"]["later"], "Close", "the end itself, as usual");
 }
 
 #[test]
-fn a_guide_done_whole_says_completed_start_loads_the_next_guide_not_now_only_closes() {
+fn a_guide_done_whole_says_completed_and_its_one_button_closes_it_without_starting_the_next_guide() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 1); uistub.complete()
 		Polestar.Fire("GUIDE_END", uistub.elwynn, info({ undone = 0, next = NEXT }))
 		local r = view()
-		PolestarGuideEnd.Go:Click()
+		PolestarGuideEnd.Later:Click()
 		r.start, r.after = lastCall("StartNext"), PolestarGuideEnd:IsShown()
 		Polestar.Fire("GUIDE_END", uistub.elwynn, info({ undone = 0, next = NEXT }))
 		PolestarGuideEnd.Later:Click()
@@ -167,38 +162,33 @@ fn a_guide_done_whole_says_completed_start_loads_the_next_guide_not_now_only_clo
 		emit(r)"#);
 	assert_eq!(plain(&out["title"]), "You've completed\nElwynn Forest (1–13)");
 	assert_eq!(out["undone"], false);
-	assert_eq!(out["later"], "Not now");
-	assert_eq!(out["start"], json!(["StartNext", "forever/alliance/human/01-elwynn-forest"]));
+	assert_eq!(out["later"], "Close");
+	assert_eq!(out["start"], false, "the button closes, the guide window offers the next guide");
 	assert_eq!(out["after"], false);
 	assert_eq!(out["again"], json!({ "shown": false, "goto": false }));
 }
 
 #[test]
-fn a_route_choice_opens_the_route_choice_window_and_no_next_guide_offers_the_guide_menu() {
+fn a_route_choice_or_no_next_guide_says_so_in_the_text_and_closes_with_its_one_button() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 1); uistub.complete()
 		CHOICE = true
 		Polestar.Fire("GUIDE_END", uistub.elwynn, info({ undone = 0, choose = true }))
 		local r = { choice = view() }
-		PolestarGuideEnd.Go:Click()
+		PolestarGuideEnd.Later:Click()
 		r.routeChoice = PolestarRouteChoice and PolestarRouteChoice:IsShown() or false
-		Polestar.UI.RouteChoice.Hide()
 		CHOICE = false
-		local picked = false
-		Polestar.UI.ShowPicker = function() picked = true end
 		Polestar.Fire("GUIDE_END", uistub.elwynn, info({ undone = 0 }))
 		r.none = view()
-		PolestarGuideEnd.Go:Click()
-		r.picked = picked
 		emit(r)"#);
-	assert_eq!(out["choice"]["go"], "Choose where to go next");
+	assert_eq!(out["choice"]["go"], false);
+	assert_eq!(out["choice"]["later"], "Close");
 	assert_eq!(out["choice"]["text"], "Pick where you want to level next.");
 	assert_eq!(out["choice"]["next"], false);
-	assert_eq!(out["routeChoice"], true);
-	assert_eq!(out["none"]["go"], "Pick a guide");
+	assert_eq!(out["routeChoice"], false, "the guide window offers the choice, not this window");
+	assert_eq!(out["none"]["go"], false);
 	assert_eq!(out["none"]["later"], "Close");
 	assert_eq!(out["none"]["text"], "Nice work. Pick your next guide to keep going.");
-	assert_eq!(out["picked"], true);
 }
 
 #[test]

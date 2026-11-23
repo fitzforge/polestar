@@ -5,8 +5,7 @@
 //! the welcome, Questing, Groups and dungeons, Your route, Your look and the last page, with "Install · Step 2
 //! of 6", the step dots, Skip install, Back, Next and Finish; each choice writing its real setting at once, its
 //! default picked on a fresh account; Enter, Backspace and Escape; scaled down to fit a small screen; opened by
-//! /polestar install (and /polestar welcome), About's Install tile, the settings window's Install button and its
-//! search.
+//! /polestar install (and /polestar welcome), About's Install tile and the settings window's search.
 
 use std::collections::HashSet;
 
@@ -1181,20 +1180,17 @@ fn polestar_install_its_welcome_alias_and_abouts_install_tile_reopen_it_on_its_f
 }
 
 #[test]
-fn the_settings_windows_header_has_an_install_button_and_its_search_finds_install_by_install_setup_wizard_and_first_run() {
+// The settings window's header has no Install button (it read as installing the addon): About's tile and the
+// search have it.
+fn the_settings_windows_header_has_no_install_button_and_its_search_finds_install_by_install_setup_wizard_and_first_run() {
 	let out = run(r#"
 		Polestar.UI.ShowOptions("guide")
 		local win = PolestarOptions
-		local b = win.Install
-		local header = { shown = b ~= nil and b:IsShown(), label = b and b.Label:GetText(), inHeader = b and b:GetParent() == win.Header }
-		b:Click()
-		header.opens = shown() and title() == "Hello, Testchar"
-		PolestarWelcome:Hide()
-		-- Too narrow a window for it beside the page's title: left out, back with the room.
-		Polestar.Set("ui.optionsSize", { 860, 600 })
-		header.narrow = b:IsShown()
-		Polestar.Set("ui.optionsSize", nil)
-		header.wide = b:IsShown()
+		local inHeader = false
+		for _, f in ipairs({ win.Header:GetChildren() }) do
+			if rawget(f, "Label") and f.Label.GetText and f.Label:GetText() == "Install" and f:IsShown() then inHeader = true end
+		end
+		local header = { button = rawget(win, "Install") ~= nil, inHeader = inHeader }
 		local O = Polestar.UI.Options
 		local found = {}
 		for _, q in ipairs({ "install", "setup", "wizard", "first run" }) do
@@ -1209,8 +1205,9 @@ fn the_settings_windows_header_has_an_install_button_and_its_search_finds_instal
 			for _, c in ipairs(g.controls) do if c.button == "Install" then c.onClick() end end
 		end
 		emit({ header = header, found = found, opened = shown() and step() })"#);
-	assert_eq!(out["header"], json!({ "shown": true, "label": "Install", "inHeader": true, "opens": true, "narrow": false, "wide": true }));
-	let hit = json!({ "title": "About  \u{b7}  Install", "label": "Set Polestar up again" });
+	assert_eq!(out["header"], json!({ "button": false, "inHeader": false }), "no Install in the header");
+	// Install sits on Setup > Profiles' Install & updates card, where a first install and troubleshooting look.
+	let hit = json!({ "title": "Profiles  \u{b7}  Profiles  \u{b7}  Install & updates", "label": "Set Polestar up again" });
 	assert_eq!(out["found"], json!({ "install": hit.clone(), "setup": hit.clone(), "wizard": hit.clone(), "first run": hit }));
 	assert_eq!(out["opened"], "1 of 5", "the result opens it, every page");
 }

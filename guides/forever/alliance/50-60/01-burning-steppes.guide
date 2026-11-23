@@ -65,6 +65,7 @@ step Royal Historian Archesonus
 
 step Fly to Aerie Peak
   when group 2944
+  when onquest 2944
   zone Ironforge
   goto 55.9,47.9 "Ironforge flight master"
   fly "Aerie Peak"
@@ -77,16 +78,26 @@ step Fly to Southshore
   fly "Southshore"
   zone Hillsbrad Foothills
 
+step Fly to Southshore
+  when group 2944
+  when !onquest 2944
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
+  fly "Southshore"
+  zone Hillsbrad Foothills
+
 # ---------------------------------------------------------------- The Hinterlands and the Western Plaguelands
 
 step The Super Snapper FX
   when group 2944
+  when onquest 2944
   tip Gammerita need not die: target her and use the Super Snapper FX. She is a level 48 elite, so keep your distance.
   tip Gammerita walks the Hinterlands shore below the Overlook Cliffs, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore.
   use 9328 quest 2944.1 @80.4,58.2 map 1425 -- the Super Snapper FX on Gammerita: no kill
 
 step Fly to Southshore
   when group 2944
+  when onquest 2944
   zone The Hinterlands
   goto 11.1,46.1 "Aerie Peak flight master"
   fly "Southshore"
@@ -349,6 +360,7 @@ step Mountaineer Pebblebitty
 
 step Fly to Ironforge
   when group 3181
+  when onquest 3182
   zone Loch Modan
   goto 33.9,50.8 "Thelsamar flight master"
   fly "Ironforge"

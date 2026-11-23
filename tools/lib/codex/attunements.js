@@ -12,11 +12,16 @@
 // adds the item's own sources (drops and chests for a dropped key, the
 // standing and the NPC that hands it out for Aqual Quintessence), and `via`
 // the drops of the item it is made from (the Sacred Mallet before the Mallet
-// of Zul'Farrak, which the note says where to use). `links`
+// of Zul'Farrak, which the note says where to use); with `useAt` (the NPC
+// standing where it is used) a use step follows them, at that place (the
+// Black Tome at the Ambermill Leyline Focus becomes the Tome of Dalaran).
+// `onAccept` says the goal quests hand over the item as they are taken
+// (Forever's provided item: Heart of Disruption's Dalaran Sewer Key), so the
+// chain ends at their accept and its steps say `accept`. `links`
 // in the table add a prerequisite our quest data lacks, each with its public
-// source (Forever's City of Dalaran chain); `inside` places an NPC or object
+// source; `inside` places an NPC or object
 // of a chain with no open-world spawn that the Codex puts in no instance
-// (Marshal Windsor, the Core Fragment), each with its public source, so the
+// (the Core Fragment), each with its public source, so the
 // guide sends the player to that instance's entrance; `removed` lists what
 // Forever took out (the Seal of Ascension), shown in the local comparison only.
 //
@@ -30,11 +35,13 @@
 //   item: { id, name, quality }|null, note, level, any: bool, goal: [questIds], steps: [Step],
 //   inside: [{ kind: 'npc'|'object', id, instance }]|null }   (the table's `inside` its steps use)
 // Step: { kind: 'quest', id, title, level, minLevel, faction, classes, start, finish, startItem,
-//          after: [ids], afterAny: [ids], goal: bool, rep: { faction, name, standing }|null }
+//          after: [ids], afterAny: [ids], goal: bool, accept: bool (an `onAccept` goal: taking it is the end),
+//          rep: { faction, name, standing }|null }
 //     | { kind: 'drop', item: { id, name }, npc: Place, chance, instance }
-//     | { kind: 'object', item: { id, name }, object: Place, chance }
+//     | { kind: 'object', item: { id, name }, object: Place, chance, instance }
 //     | { kind: 'rep', faction, name, standing }
 //     | { kind: 'gift', item: { id, name }, npc: Place }
+//     | { kind: 'use', from: { id, name }, item: { id, name }, at: Place }   (`via` used at `useAt`: makes `item`)
 // Place: { kind: 'npc'|'object', id, name, map, x, y, f }  (first spawn; map nil when none is known)
 //
 // Facts only (ids, names, levels, standings, coordinates); the notes are our
@@ -83,7 +90,8 @@ function sourceSteps(itemId, codex, { drops = true, grants = false } = {}) {
 		found.sort((a, b) => (b.chance ?? -1) - (a.chance ?? -1) || (a.npc || a.object) - (b.npc || b.object));
 		for (const s of found.slice(0, MAX_SOURCES)) {
 			if (s.type === 'drop') out.push({ kind: 'drop', item, npc: placeOf('npc', s.npc, codex), chance: s.chance ?? null, instance: s.instance || (codex.npcs && codex.npcs[s.npc] && codex.npcs[s.npc].instance) || null });
-			else out.push({ kind: 'object', item, object: placeOf('object', s.object, codex), chance: s.chance ?? null });
+			// A chest's instance too (the Black Tome in Shadowfang Keep, Doan's Strongbox), so the guide sends the player to its entrance.
+			else out.push({ kind: 'object', item, object: placeOf('object', s.object, codex), chance: s.chance ?? null, instance: s.instance || (codex.objects && codex.objects[s.object] && codex.objects[s.object].instance) || null });
 		}
 	}
 	if (grants) {
@@ -197,13 +205,26 @@ function buildOne(entry, codex, warn, inside = []) {
 	});
 	if ((entry.goal || []).length && !goal.length) return null;
 	for (const id of goal) visit(id);
-	for (const s of steps) if (s.kind === 'quest' && goal.includes(s.id)) s.goal = true;
+	for (const s of steps) {
+		if (s.kind !== 'quest' || !goal.includes(s.id)) continue;
+		s.goal = true;
+		// `onAccept`: the quest hands over the item as it is taken and takes it back if it is dropped
+		// (Heart of Disruption's Dalaran Sewer Key): the chain ends at the accept.
+		if (entry.onAccept) s.accept = true;
+	}
 	// `via`: the item the goal item is made from, by a use the steps can't show (#2338: the Sacred Mallet, used at
 	// Jintha'Alor's altar, becomes the Mallet of Zul'Farrak). Its drops and chests come first; the note says how.
+	// `useAt` names the NPC standing where it is used (Archmage Ataeric by the Ambermill Leyline Focus, where the
+	// Black Tome becomes the Tome of Dalaran): a use step there follows the drops.
 	if (entry.via) {
 		if (!(codex.items && codex.items[entry.via])) warn(`${entry.id}: via item ${entry.via} is not in the Codex`);
 		steps.push(...sourceSteps(entry.via, codex, { drops: true, grants: false }));
-	}
+		if (entry.useAt) {
+			const at = placeOf(entry.useAt.kind === 'object' ? 'object' : 'npc', entry.useAt.id, codex);
+			if (at && at.map != null) steps.push({ kind: 'use', from: itemRef(entry.via, codex), item: itemRef(entry.item, codex), at });
+			else warn(`${entry.id}: useAt ${entry.useAt.kind} ${entry.useAt.id} has no spawn in the Codex`);
+		}
+	} else if (entry.useAt) warn(`${entry.id}: useAt without via`);
 	if (entry.item) {
 		if (!(codex.items && codex.items[entry.item])) warn(`${entry.id}: item ${entry.item} is not in the Codex`);
 		steps.push(...sourceSteps(entry.item, codex, { drops: !goal.length, grants: true }));
