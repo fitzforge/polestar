@@ -25,11 +25,11 @@
 -- Cost: off, nothing is built and nothing runs per frame. On: the marks of
 -- the quests shown (rebuilt only when the quests or their finished
 -- objectives change), drawn on the world map's view as it changes and on
--- Nav/Pins' minimap view. The Codex is never loaded for them: they build
--- once something else has loaded it (the guide's engine, Lookup) or the
--- world map opens with them on (CODEX_LOADED). /polestar spawns says what it
--- found; /polestar spawns preview marks 20 of this zone's quests instead of
--- your log (a test view, never saved).
+-- Nav/Pins' minimap view. The Codex is never loaded for them, not even by
+-- opening the world map: they build once something else has loaded it (the
+-- guide's engine, Lookup; CODEX_LOADED) or on /polestar spawns, which says
+-- what it found; /polestar spawns preview marks 20 of this zone's quests
+-- instead of your log (a test view, never saved).
 
 local ADDON, ns = ...
 local L = ns.L
@@ -812,8 +812,7 @@ end
 
 -- The world map's view (MapCanvas): another map or the map opened redraws with the legend; a zoom (the scale
 -- changes every frame of it) at most every ZOOM_STEP seconds, and once more when it settles; closed, or Polestar
--- hidden, the markers and the legend go. Opened with the markers on and the Codex not loaded yet, it loads
--- (CODEX_LOADED builds the marks).
+-- hidden, the markers and the legend go.
 local ZOOM_STEP = 0.1
 local zooming, zoomed, lastDraw = false, false, 0
 local function onMap(_, what)
@@ -826,8 +825,6 @@ local function onMap(_, what)
 		end
 	elseif what == "show" or what == "map" then
 		zooming, lastDraw = false, GetTime()
-		local C = ns.Codex
-		if on() and C and C.IsLoaded and not C.IsLoaded() and C.Load then C.Load() end
 		draw(true)
 	elseif what == "size" or what == "scale" then
 		zooming, zoomed = true, true
@@ -988,7 +985,7 @@ ns.OnLogin(function()
 end)
 ns.RegisterEvent("QUEST_TURNED_IN", function(_, qid) pruneHidden(qid) end)
 ns.RegisterEvent("QUEST_LOG_UPDATE", queue)
--- The Codex loaded (by the guide's engine, Lookup, or the world map opened with the markers on): the marks build.
+-- The Codex loaded (by the guide's engine, Lookup or /polestar spawns): the marks build.
 ns.On("CODEX_LOADED", function() if on() then rebuild(true) end end)
 -- Polestar hidden or shown again: the minimap's markers and Pins' view watch go or come back (the world map's go
 -- with its view), so nothing of theirs runs while hidden.

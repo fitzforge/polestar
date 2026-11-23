@@ -275,6 +275,15 @@ local function buildPinsPreview(view)
 	}) do
 		f:Light(key, unpack(parts))
 	end
+	-- The spawn markers (Maps/MobMarkers.lua) draw on the world map, its legend over it, and on the minimap.
+	if ns.MobMarkers then
+		for key, parts in pairs({
+			["mobMarkers.enabled"] = { h.Map, mm }, ["mobMarkers.showMinimap"] = { mm }, ["mobMarkers.showLegend"] = { h.Map },
+			["mobMarkers.stepOnly"] = { h.Map, mm }, ["mobMarkers.questPalette"] = { h.Map, mm }, ["mobMarkers.mobPalette"] = { h.Map, mm },
+		}) do
+			f:Light(key, unpack(parts))
+		end
+	end
 	return f
 end
 

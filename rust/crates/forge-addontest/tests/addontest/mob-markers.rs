@@ -183,17 +183,18 @@ fn on_for_a_new_install_off_for_a_profile_from_before_and_off_builds_nothing() {
 	assert_eq!(before, vec![json!([false, 0, 0, 0, false, 0])]);
 }
 
-// The markers never load the Codex by themselves: on at login with nothing else asking for it, they wait; the world
-// map opened (or /polestar spawns) loads it and they build.
+// The markers never load the Codex by themselves, not even with the world map open: on at login with nothing else
+// asking for it, they wait; once something loads it (the guide's engine, Lookup) they build at once.
 #[test]
-fn the_markers_wait_for_the_codex_and_opening_the_world_map_loads_it() {
+fn the_markers_wait_for_the_codex_and_build_when_something_loads_it() {
 	let out = run_with(
 		None,
 		"",
 		r#"
+		open()
 		local s = state()
 		emit({ Polestar.Codex.IsLoaded(), s[1] })
-		open()
+		Polestar.Codex.Load()
 		s = state()
 		emit({ Polestar.Codex.IsLoaded(), s[1], s[3] })"#,
 	);
