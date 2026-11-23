@@ -70,7 +70,7 @@ return {
 	-- plural, as words: Darkfang Lurkers = {npc:4411} Darkfang Lurker · Theramore Infiltrators = {npc:4834} Theramore Infiltrator · Darkmist Lurkers = {npc:4377} Darkmist Lurker
 	["Head west back across the marsh. The Darkfang Lurkers (36-37) and Venomspitters (37-38) on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.\nThe Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes. Work its outer edge, where the Spiders and Recluses (35-37) stand: the Lurkers and Silkspinners (37-39) deeper in are two or three over you.\nCareful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.\nCareful: Stealthed spiders in the same area will attack you on sight.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "向西返回，穿过沼泽。蕨墙村北面山脊上的暗牙潜伏者（36-37级）和暗牙毒蜘蛛（37-38级）会掉落毒囊。塞拉摩间谍（35-36级）潜行穿行于同一片树林中：它们处于潜行状态，要仔细寻找。\n暗雾蜘蛛聚集在蕨墙村西北面的洞口；所有种类都会掉落眼睛。在外围打蜘蛛和隐士蛛（35-37级）：更深处的潜伏者和织丝蛛（37-39级）比你高两三级。\n小心：暗牙潜伏者（36-37级）会在脱战时使用潜行，战斗时施放毒药。\n小心：同一区域内潜行的蜘蛛看到你就会攻击。\n小心：暗雾潜伏者会潜行移动，进入战斗后使用毒药。蜘蛛站得很密，经常会引到额外怪物；从外围逐个引怪能减少这种情况。",
 	-- plural, as words: Giant Darkfang Spiders = {npc:4415} Giant Darkfang Spider
-	["Every Darkfang spider drops them: Lurkers, Spiders, Venomspitters and the Giant Darkfang Spiders"] = "",
+	["Every Darkfang spider drops them: Lurkers, Spiders, Venomspitters and the Giant Darkfang Spiders"] = "每只暗牙蜘蛛都会掉落：潜伏者、蜘蛛、暗牙毒蜘蛛和巨型暗牙蜘蛛",
 
 	-- Step 16: Questioning Reethe
 	-- {npc:4983} Ogron · {area:2302} Quagmire · {npc:5045} Private Hallan
@@ -95,7 +95,7 @@ return {
 	-- {npc:4503} Mudcrush Durtfeet · {npc:4791} Nazeer Bloodpike · {npc:4926} Krog
 	["Head back west to Brackenwall with the head: {npc:4503} stands at the south edge of the village where the road comes in, {npc:4791} and {npc:4926} in the village."] = "带着头颅向西返回蕨墙村：{npc:4503}站在道路进入村庄处的南缘，{npc:4791}和{npc:4926}在村子里。",
 	-- {npc:2519} Kin'weelay · {object:3202} Grom'gol · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
-	["For {npc:2519} at {object:3202}, in the {zone:1434} & {zone:1435} guide"] = "",
+	["For {npc:2519} at {object:3202}, in the {zone:1434} & {zone:1435} guide"] = "走{zone:1434}与{zone:1435}路线到{object:3202}时，交给{npc:2519}。",
 
 	-- Step 20: Level 36
 	["Level 36"] = "等级 36",

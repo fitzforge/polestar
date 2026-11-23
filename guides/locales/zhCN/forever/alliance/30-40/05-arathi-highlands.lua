@@ -156,7 +156,7 @@ return {
 	-- {area:1057} Thoradin's Wall · {area:320} Refuge Pointe
 	["From the Syndicate camp, follow the road east over {area:1057} to {area:320}."] = "从辛迪加营地出发，沿道路向东越过{area:1057}前往{area:320}。",
 	-- {npc:2700} Captain Nials · {npc:1075} Rhag Garmason · {zone:1437} Wetlands
-	["{npc:2700}: {npc:1075}'s plea, from the {zone:1437}"] = "",
+	["{npc:2700}: {npc:1075}'s plea, from the {zone:1437}"] = "把{npc:1075}在{zone:1437}托付的求援任务交给{npc:2700}。",
 
 	-- Step 32: Northfold Manor
 	-- {area:320} Refuge Pointe
@@ -301,7 +301,7 @@ return {
 	-- {item:3658} Recovered Tome
 	["{item:3658}: Crushridge ogres"] = "{item:3658}：破碎岭食人魔",
 	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase · {quest:540} Preserving Knowledge
-	["{item:3659}: the {object:1760}, beside Muckrake (40, elite): get it with a group, or abandon {quest:540}; inside"] = "{item:3659}：{object:1760}，在Muckrake（40级，精英）旁边：组队去拿，或放弃{quest:540}；在里面",
+	["{item:3659}: the {object:1760}, beside Muckrake (40, elite): get it with a group, or abandon {quest:540}; inside"] = "{item:3659}：{object:1760}，在玛克拉克（40级，精英）旁边：组队去拿，或放弃{quest:540}；在里面",
 
 	-- Step 61: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
