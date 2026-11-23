@@ -303,10 +303,10 @@ return {
 
 	-- Step 69: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
-	["{npc:2986} stands on a mesa top east of the Galak camps. Taking his {quest:1149} puts you on a high cliff far to the west: follow the stone path to the end of the wooden planks and step off there, and you land safely. Jump from anywhere else and you fall to your death."] = "",
+	["{npc:2986} stands on a mesa top east of the Galak camps. Taking his {quest:1149} puts you on a high cliff far to the west: follow the stone path to the end of the wooden planks and step off there, and you land safely. Jump from anywhere else and you fall to your death."] = "{npc:2986} fica no topo de um platô a leste dos acampamentos Galath. Aceitar a {quest:1149} dele o coloca num penhasco alto bem a oeste: siga a trilha de pedra até o fim das tábuas e salte dali, e você cai em segurança. Salte de qualquer outro ponto e você cai até a morte.",
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}, below ground"] = "{npc:2986}, no subterrâneo",
-	["the end of the planks"] = "",
+	["the end of the planks"] = "o fim das tábuas",
 	-- {npc:2986} Dorn Plainstalker · {npc:4490} Grenka Bloodscreech
 	["{npc:2986}: {npc:4490}, in the harpy den west of the post"] = "{npc:2986}: {npc:4490}, no covil das harpias a oeste do posto",
 	-- {quest:1150} Test of Endurance · {npc:4490} Grenka Bloodscreech

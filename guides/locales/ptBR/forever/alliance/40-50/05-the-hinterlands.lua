@@ -16,8 +16,7 @@ return {
 	["Vilebranch Soothsayers"] = "Adivinhos Ramatorpe",
 	-- {area:355} Altar of Zul · {npc:7996} Qiaga the Keeper · {npc:8636} Morta'gya the Keeper
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer · Vilebranch Totems = {item:279225} Vilebranch Totem
-	-- was: ["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Os Adivinhos Ramatorpe (46-47) andam pelo terreno ao redor da base do {area:355}: os totens deles são para Maret Firetend. Cuidado: {npc:7996} e {npc:8636} (50, elites) ficam no lado sudeste do altar: enfrente os Adivinhos no lado oeste, longe delas, e fique fora do altar."
-	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "",
+	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Os Adivinhos Ramatorpe (46-47) andam pelo terreno ao redor da base do {area:355}: os totens deles são para Maret Firetend, e mais Totens Ramatorpe jazem no chão entre eles: pegue-os também. Cuidado: {npc:7996} e {npc:8636} (50, elites) ficam no lado sudeste do altar: enfrente os Adivinhos no lado oeste, longe deles, e fique fora do altar.",
 
 	-- Step 3: Skulk Rock
 	-- {area:351} Skulk Rock · {zone:1425} The Hinterlands
@@ -161,14 +160,14 @@ return {
 
 	-- Step 35: Negolash's bait
 	-- {npc:1494} Negolash
-	["{npc:1494}'s bait"] = "",
+	["{npc:1494}'s bait"] = "a isca de {npc:1494}",
 	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
 	-- plural, as words: Barbecued Buzzard Wings = {item:4457} Barbecued Buzzard Wing
-	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "",
+	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "{npc:1494} vem só pela comida: entregue {quest:619} no barco salva-vidas em ruínas do Capitão Smotts, na costa a sudeste de {area:35}, com 10 Asas de Urubu Grelhadas e 5 {item:4595}, e ele vem ao barco. {npc:2832}, o vendedor de comidas e bebidas da estalagem, vende o vinho. As asas são um prato de cozinheiro: se você não cozinha, traga-as da casa de leilões.",
 	-- {item:4457} Barbecued Buzzard Wing
-	["{item:4457}: in your bags already if you cook"] = "",
+	["{item:4457}: in your bags already if you cook"] = "{item:4457}: já está na sua bolsa, se você cozinha",
 	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash
-	["{object:2289}: the food goes in, {npc:1494} comes"] = "",
+	["{object:2289}: the food goes in, {npc:1494} comes"] = "{object:2289}: a comida vai nela, {npc:1494} vem",
 
 	-- Step 36: Facing Negolash
 	-- {npc:1494} Negolash
