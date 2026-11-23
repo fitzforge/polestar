@@ -13430,7 +13430,7 @@ test('forever/alliance/03-loch-modan.guide: the flight to Ironforge goes by the 
 test('Alliance: gotos typed with an NPC\'s live coordinates are live-frame', { skip }, () => {
 	const cases = [
 		['forever/alliance/03-loch-modan.guide', 25.5, 59.4],
-		['forever/alliance/05-duskwood.guide', 25.5, 59.4],
+		// Duskwood's opening flight to Darkshire leaves from wherever you are since #3771: no goto to Lakeshire.
 		['forever/alliance/05-duskwood.guide', 50.5, 47.5],
 	];
 	for (const [guide, x, y] of cases) {
@@ -15752,7 +15752,8 @@ test('forever/horde/04-the-barrens.guide: Horde 21-30 audit: the southern Barren
 	assert.equal(next[at(next, 'accept 4542', is('accept', 4542))].s, next[lift].s, 'Grish and Moonhorn on one Great Lift step');
 	assert.ok(lift < at(next, 'turnin 4542', is('turnin', 4542)), 'before Freewind (The Tear of the Moons is left out since the 0.4.0 level tidy)');
 	const first = next[0];
-	assert.ok(first.goal.t === 'goto' && Math.abs(first.goal.x - 51.5) < 0.5 && Math.abs(first.goal.y - 30.4) < 0.5, 'Ashenvale opens at the Crossroads\' flight master, the walk east from Seereth');
+	// Since #3771 the opening flight leaves from wherever you are: no walk to a fixed flight master first.
+	assert.ok(first.goal.t === 'fly' && /Zoram'gar/.test(first.goal.location || first.goal.text || ''), 'Ashenvale opens with the flight to Zoram\'gar Outpost');
 });
 
 // Horde 21-30 audit (0.4.0, #2025): Faranell's Elixir of Agony (515) needs a Lesser Troll's Blood Elixir (3388), an
@@ -16449,7 +16450,7 @@ test(`${BADLANDS}: split at Thelsamar: the Badlands, then Desolace's south loop 
 	assert.ok(is('turnin', 2500)(last.goal), 'the Badlands guide ends on Ghak Healtouch in Thelsamar');
 	assert.equal(compiled(BADLANDS).next, 'forever/alliance/30-40/06b-desolace', 'the south loop is the default next guide');
 	assert.equal(compiled(DESOLACE_SOUTH).next, 'forever/alliance/40-50/01-stranglethorn-vale', 'and 40-50/01 follows it');
-	assert.equal(south[0].goal.t, 'goto', 'the south loop opens with the walk to the Thelsamar flight master');
+	assert.equal(south[0].goal.t, 'fly', 'the south loop opens with the flight to Menethil Harbor, from wherever you are (#3771)');
 	assert.ok(south.some(({ goal }) => goal.t === 'fly' && /Nijel's Point/.test(goal.location || goal.text || '')), "the flight to Nijel's Point");
 	for (const q of [6141, 261, 1466, 5501, 6132, 6134, 6161, 6027, 1456]) {
 		assert.ok(south.some(({ goal }) => is('turnin', q)(goal)), `06b hands in ${q}`);
@@ -18151,19 +18152,25 @@ test('#2801: Desolace (Alliance): Karnitol\'s Satchel drops from the naga and ne
 // #2825 (Thyndare, 0.4.0.1, Horde Riverglades): Jom-jom's spawn data holds his escort's walk, and the accept led to
 // the walk's point nearest the player, not to the cave where he waits (22 of 22 recorded accepts at 73.3-74.0,
 // 24.6-24.9). The sweep of escort givers found Melizza Brimbuzzle (Desolace) and Tooga (Tanaris) sent to their
-// escorts' ends the same way.
+// escorts' ends the same way. Since #3712 Tooga's accept searches the places he waits along the valley's west edge,
+// 30.2,70.7 among them, none along his escort.
 test('#2825: escort givers are looked for where they wait, not along their escort', { skip }, () => {
 	const cases = [
 		[H40('01b-riverglades'), 94556, 73.4, 24.7],
 		['forever/alliance/30-40/06b-desolace.guide', 6132, 33.9, 53.5],
 		['forever/horde/30-40/04-dustwallow-marsh.guide', 6132, 33.9, 53.5],
-		['forever/alliance/40-50/04-tanaris.guide', 1560, 30.2, 70.7],
-		[H40('04-tanaris'), 1560, 30.2, 70.7],
 	];
 	for (const [guide, quest, x, y] of cases) {
 		const list = goals(guide);
 		const { goal } = list[at(list, `accept ${quest}`, is('accept', quest))];
 		assert.deepEqual([goal.x, goal.y], [x, y], `${guide}: accept ${quest}`);
+	}
+	for (const guide of ['forever/alliance/40-50/04-tanaris.guide', H40('04-tanaris')]) {
+		const list = goals(guide);
+		const { goal } = list[at(list, 'accept 1560', is('accept', 1560))];
+		const spots = (goal.spots || []).map(({ x, y }) => [x, y]);
+		assert.ok(spots.some(([x, y]) => Math.abs(x - 30.2) < 0.1 && Math.abs(y - 70.7) < 0.1), `${guide}: accept 1560 searches 30.2,70.7: ${JSON.stringify(spots)}`);
+		assert.ok(spots.every(([x]) => x < 32), `${guide}: accept 1560 only at the valley's west edge: ${JSON.stringify(spots)}`);
 	}
 });
 
