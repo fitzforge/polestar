@@ -41,8 +41,9 @@
 -- an item it does not hold reads what the client reports.
 --
 -- Prices: what the searches made through Polestar's shopping list showed (Materials.NoteSearch), the cheapest
--- listings, so a count is priced for that many, kept per auction house (realm and faction) for PRICE_DAYS; else
--- Auctionator's when it is installed (its public API). Shown with their age; they decide nothing.
+-- listings, so a count is priced for that many, kept per auction house (realm and faction; the faction alone while
+-- the client does not give the realm) for PRICE_DAYS; else Auctionator's when it is installed (its public API).
+-- Shown with their age; they decide nothing.
 
 local _, ns = ...
 local Compat = ns.Compat
@@ -402,15 +403,30 @@ function Materials.Nearest(kind)
 	return (nearby.Find(kind))
 end
 
+-- A realm name or nil: "" (an entry written while the client read "" for it) is unknown.
+local function known(realm)
+	return type(realm) == "string" and realm ~= "" and realm or nil
+end
+
 -- The account's other characters of this realm and faction holding `item`: { { name, count } }, most first.
+-- This realm: the client's, else the one saved on this character's entry (Alts keeps it when the client stops
+-- giving it). An entry or a player whose realm is unknown matches any realm.
 local function altsWith(item)
 	local A = ns.Alts
 	local out = {}
 	if not (A and A.List and A.Enabled and A.Enabled()) then return out end
 	local info = Compat.GetPlayerInfo()
-	for _, e in ipairs(A.List()) do
+	local list = A.List()
+	local mine = known(info.realm)
+	if not mine then
+		for _, e in ipairs(list) do
+			if A.IsCurrent(e) then mine = known(e.realm) end
+		end
+	end
+	for _, e in ipairs(list) do
 		local n = type(e.mats) == "table" and e.mats[item]
-		if type(n) == "number" and n > 0 and not A.IsCurrent(e) and e.faction == info.faction and (e.realm == nil or e.realm == info.realm) then
+		local realm = known(e.realm)
+		if type(n) == "number" and n > 0 and not A.IsCurrent(e) and e.faction == info.faction and (not realm or not mine or realm == mine) then
 			out[#out + 1] = { name = e.name or e.key, count = n }
 		end
 	end
@@ -450,9 +466,39 @@ end
 -- Prices
 ---------------------------------------------------------------------------
 
+-- An auction house's key: "Realm-Faction", or the faction alone while the client does not give the realm
+-- (Compat.RealmName).
 local function house()
 	local info = Compat.GetPlayerInfo()
-	return (info.realm or "?") .. "-" .. (info.faction or "?")
+	local faction = info.faction or "?"
+	return info.realm and (info.realm .. "-" .. faction) or faction
+end
+
+-- With the realm unknown, the prices kept as "Realm-Faction" move to the faction's key once, when exactly one realm
+-- has them for this faction; with several, none moves (they age out). "-Faction", kept while the client read "" for
+-- the realm, always moves. An item's newer price wins.
+local function claimPrices()
+	if Compat.RealmName() then return end
+	local all, to = prices(), house()
+	local suffix = "-" .. to
+	local blank, realmed = nil, {}
+	for k, items in pairs(all) do
+		if type(k) == "string" and type(items) == "table" and k:sub(-#suffix) == suffix then
+			if k == suffix then blank = k else realmed[#realmed + 1] = k end
+		end
+	end
+	local from = {}
+	if #realmed == 1 then from[1] = realmed[1] end
+	if blank then from[#from + 1] = blank end
+	for _, k in ipairs(from) do
+		local dest = type(all[to]) == "table" and all[to] or {}
+		all[to] = dest
+		for item, rec in pairs(all[k]) do
+			local held = dest[item]
+			if type(rec) == "table" and (type(held) ~= "table" or (rec.t or 0) > (held.t or 0)) then dest[item] = rec end
+		end
+		all[k] = nil
+	end
 end
 
 function Materials.NoteSearch(item, rows)
@@ -504,8 +550,9 @@ function Materials.Price(item, count)
 	return nil
 end
 
--- Prices older than PRICE_DAYS are forgotten at login.
+-- Prices older than PRICE_DAYS are forgotten at login, after the move to the realm-less key.
 ns.OnLogin(function()
+	claimPrices()
 	local cutoff = Compat.Now() - PRICE_DAYS * 86400
 	for _, items in pairs(prices()) do
 		if type(items) == "table" then

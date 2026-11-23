@@ -201,6 +201,7 @@ step Mountaineer Ylva
   tip South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then Headsplitter.
   tip Careful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the Badlands: stay by the banner and don't chase troggs south.
   accept 86585                                -- Mountaineer Ylva
+  use 253247 quest 86585.1 @31.7,86.3         -- Banner of Ironforge: raise it beside Ylva, then hold the spot until Headsplitter comes
   kill 269185 quest 86585                     -- Headsplitter
 
 # Captain Rugelfuss stands inside Algaz Station, the dwarven bunker by the tunnel; the walking maps
@@ -263,6 +264,15 @@ step Henze Faulk
   tip From the bridge, head north to Stone Cairn Lake. Henze Faulk lies south of the lake: use the Symbol of Life on him. The Defias Rogue Wizards around him carry the Defias Script.
   use 6866 quest 1786.1 @72.6,51.41 map 1429 era only Human -- Use the Symbol of Life on Henze Faulk
   turnin 1786 only Human -- Henze Faulk
+  accept 1787 only Human
+  collect 6846 quest 1787.1 only Human -- Defias Script: Defias Rogue Wizards
+
+step Henze Faulk
+  only Human,Paladin
+  zone Elwynn Forest
+  when turnedin 1786
+  when available 1787
+  tip Henze Faulk is already raised: take the next part of The Tome of Divinity from him, south of Stone Cairn Lake. The Defias Rogue Wizards around him carry the Defias Script.
   accept 1787 only Human
   collect 6846 quest 1787.1 only Human -- Defias Script: Defias Rogue Wizards
 
@@ -355,6 +365,7 @@ step Stormwind's gate
   when !turnedin 65
   zone Stormwind City
   tip No Defias Brotherhood from Wiley (it starts with Gryan Stoutmantle's letter in Westfall): skip Westfall. North along the road from Goldshire to Stormwind: General Marcus Jonathan sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the Trade District, back to Lakeshire.
+  tip If General Marcus Jonathan isn't at the arrow, he is walking his horse along the Valley of Heroes nearby: look along the avenue or wait a moment.
   turnin 120                                  -- General Marcus Jonathan, outside the main gate
   accept 121
   fly "Lakeshire"
@@ -384,6 +395,7 @@ step Stormwind
   when turnedin 65
   zone Stormwind City
   tip Master Mathias Shaw is upstairs in the SI:7 building in Old Town: the stairs are hard to see at first. General Marcus Jonathan sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the Trade District.
+  tip If General Marcus Jonathan isn't at the arrow, he is walking his horse along the Valley of Heroes nearby: look along the avenue or wait a moment.
   turnin 135                                  -- Master Mathias Shaw, SI:7; upstairs
   accept 141
   turnin 120                                  -- General Marcus Jonathan, outside the main gate
@@ -543,6 +555,14 @@ step Baros Alexston
   turnin 97914                                -- Baros Alexston: Thundris' letter from Auberdine
   accept 97926 optional                       -- For Thundris Windweaver, where the boat lands
 
+step Baros Alexston
+  when turnedin 97914
+  when available 97926
+  when !zone "Darkshore"
+  zone Stormwind City
+  tip Thundris' letter is already with Baros Alexston: his reply waits at the east side of Cathedral Square.
+  accept 97926 optional                       -- For Thundris Windweaver, where the boat lands
+
 step Gazin Tenorm
   only Human,Paladin
   zone Stormwind City
@@ -577,6 +597,12 @@ step Baros Alexston
   zone Stormwind City
   tip For your Stockade run, later in Stormwind: keep it until then.
   accept 389                                  -- Baros Alexston: for Warden Thelwater, at the Stockade's gate
+
+step Argos Nightwhisper
+  when !zone "Darkshore"
+  zone Stormwind City
+  tip On the way to the harbour: Argos Nightwhisper's message goes to Gershala Nightwhisper in Auberdine, beside Terenthis, where the boat lands.
+  accept 3765                                 -- Argos Nightwhisper
 
 step Boat to Auberdine
   when !zone "Darkshore"

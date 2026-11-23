@@ -25,8 +25,8 @@ return {
 	["What 1-75 takes that the Auction House sells: 349 {item:2318}. The counts drop by what your bags, bank and mail hold."] = "Что нужно на 1-75 и продается на аукционе: 349 {item:2318}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 4: Light Leather (Elwynn Forest)
-	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:525} Mangy Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "{item:2318} 349 для {spell:2152}, {spell:3756} и {spell:3763} (210 из них на 75-150: соберите все сейчас): {skill:393}: звери 5-20 уровня. Снимайте шкуры с {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} и {npc:822} здесь (5-20 уровня); маршрут ведет гайд {skill:393}.",
+	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "",
 
 	-- Step 5: Light Leather (Dun Morogh)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1125} Crag Boar · {npc:1127} Elder Crag Boar · {npc:1196} Ice Claw Bear · {npc:1199} Juvenile Snow Leopard · {npc:1126} Large Crag Boar · {npc:1689} Scarred Crag Boar · {npc:1201} Snow Leopard · {npc:1138} Snow Tracker Wolf · {npc:1131} Winter Wolf · {npc:1128} Young Black Bear
@@ -383,4 +383,5 @@ return {
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}: распыляйте необычные (зеленые) вещи (или аукцион)",
 	-- ["{spell:3768} to 150"] = "{spell:3768} до 150",
 	-- ["{spell:3776} to 185"] = "{spell:3776} до 185",
+	-- ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "{item:2318} 349 для {spell:2152}, {spell:3756} и {spell:3763} (210 из них на 75-150: соберите все сейчас): {skill:393}: звери 5-20 уровня. Снимайте шкуры с {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} и {npc:822} здесь (5-20 уровня); маршрут ведет гайд {skill:393}.",
 }

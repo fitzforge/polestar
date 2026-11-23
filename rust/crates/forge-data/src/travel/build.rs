@@ -306,6 +306,9 @@ fn set_v(s: &Set) -> V {
 				pairs.push(("zmin", lo.into()));
 				pairs.push(("zmax", hi.into()));
 			}
+			if let Some(id) = a.subzone {
+				pairs.push(("subzone", id.into()));
+			}
 			obj(pairs)
 		};
 		pairs.push(("areas", s.areas.iter().map(area).collect::<Vec<V>>().into()));

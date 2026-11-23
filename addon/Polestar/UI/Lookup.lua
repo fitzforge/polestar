@@ -148,7 +148,7 @@ function LK.ReasonText(reason)
 	if reason == "loading" then
 		return L["Loading the Codex\226\128\166"]
 	elseif reason == "off" then
-		return L["Lookup is turned off in Options > Discovery > Lookup. Items, mounts, NPCs and quests are not searched."]
+		return L["Lookup is turned off in Settings > Discovery > Lookup. Items, mounts, NPCs and quests are not searched."]
 	elseif reason == "missing" then
 		return L["The Polestar_Codex addon is not installed. Get Polestar from CurseForge or the GitHub Releases page (the Polestar zip under Assets, not \"Source code\"), install it and restart the game."]
 	elseif reason == "disabled" then
@@ -839,6 +839,10 @@ local function factsFor(s, entity, list, chain)
 		end
 	elseif k == "quest" then
 		if e.level then add(L["Level"], (e.minLevel and e.minLevel ~= e.level) and format(L["%d (from %d)"], e.level, e.minLevel) or tostring(e.level)) end
+		-- Offered only from a level above the character's: said in the warning
+		-- colour (#3370: In Demand reads "Level 60", and a level 57 went for it).
+		local own = ns.Compat.GetPlayerInfo().level
+		if e.minLevel and own and own < e.minLevel then add(L["Requires"], format(L["Level %d"], e.minLevel), "warning") end
 		add(L["Faction"], e.faction and (FACTION[e.faction] or L[e.faction]) or L["Both factions"])
 		if e.zone then
 			local z = UI.MapName(e.zone) or (codexRecord("zone", e.zone) or {}).name
@@ -1544,7 +1548,7 @@ function LK.Render()
 	elseif #list == 0 then
 		empty = format(L["Nothing matches %s."], LQ .. query .. RQ)
 		if reason == "off" then
-			empty = empty .. " " .. L["Lookup is turned off in Options > Discovery > Lookup, so items, mounts, NPCs and quests are not searched."]
+			empty = empty .. " " .. L["Lookup is turned off in Settings > Discovery > Lookup, so items, mounts, NPCs and quests are not searched."]
 		elseif not loaded then
 			empty = empty .. " " .. L["Items, mounts, NPCs and quests are searched once the Codex loads."]
 		end

@@ -3,8 +3,8 @@
 -- in Durotar, as engine-guide-end.rs and engine-routes.rs have them. Each check finishes a fresh leveling guide of
 -- two quests: the guide-end window asks, or The Barrens loads in its tab; a guide that offers The Barrens or
 -- Silverpine Forest asks where to go, or takes the recommended zone. The guide opened at login when no tab is
--- saved. And Polestar Experimental's guides (Core/Guides.lua, Guides.OWN_EXTRA), its pack registered as its own
--- addon registers it, listed with ours or taken out.
+-- saved. And Polestar Experimental's guides (Core/Guides.lua, Guides.OWN_EXTRA), one registered into the pack
+-- Polestar registers itself (Polestar/Experimental), listed with ours or taken out.
 local w, E
 local n = 0
 local function flush() stub.advance(0.6) end
@@ -23,8 +23,6 @@ local function world()
 		zoneName = "The Barrens", steps = { { goals = { { t = "level", level = 20 } } } } })
 	Polestar.RegisterGuide({ id = "test/silverpine", pack = "test", title = "Silverpine Forest", faction = "Horde", minLevel = 10, maxLevel = 18, zone = 1421,
 		zoneName = "Silverpine Forest", steps = { { goals = { { t = "level", level = 18 } } } } })
-	Polestar.RegisterPack({ addon = "Polestar_Experimental", id = "polestar-experimental", format = 1, title = "Polestar Experimental", author = "Polestar",
-		version = "1", license = "GPL-3.0-only" })
 	Polestar.RegisterGuide({ id = "polestar-experimental/barrens", pack = "polestar-experimental", title = "The Barrens (experimental)", faction = "Horde",
 		minLevel = 10, maxLevel = 20, zone = 1413, zoneName = "The Barrens", steps = { { goals = { { t = "level", level = 20 } } } } })
 end

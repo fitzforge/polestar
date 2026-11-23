@@ -92,8 +92,8 @@ return {
 	-- Step 15: The Venture Co. Mine: the Clearcutter
 	-- {area:360} The Venture Co. Mine
 	["{area:360}: the Clearcutter"] = "{area:360}: «Отсекатель»",
-	-- {quest:98427} Ceasing Operations
-	["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "Элитный крошер Торговой компании «Отсекатель» работает глубоко внутри шахты, дальше того места, где стоял Физсрокет: его ключ нужен для {quest:98427}.",
+	-- {npc:272173} Venture Co. Clearclutter · {quest:98427} Ceasing Operations
+	["The elite shredder {npc:272173} works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "",
 
 	-- Step 16: Bloodhoof Village: last hand-in
 	-- {area:222} Bloodhoof Village
@@ -174,21 +174,21 @@ return {
 	-- {quest:4882} Guarding Secrets · {npc:5770} Nara Wildmane · {faction:81} Thunder Bluff
 	["{quest:4882}, +100: to {npc:5770} in {faction:81}"] = "{quest:4882}, +100: к {npc:5770} в {faction:81}",
 
-	-- Step 30: Thunder Bluff: Nara Wildmane
+	-- Step 31: Thunder Bluff: Nara Wildmane
 	-- {npc:5770} Nara Wildmane · {area:1639} Elder Rise · {npc:5769} Arch Druid Hamuul Runetotem
 	["{npc:5770} stands on {area:1639}, beside {npc:5769}."] = "{npc:5770} стоит на {area:1639}, рядом с {npc:5769}.",
 
-	-- Step 31: Morrowgrain (optional)
+	-- Step 32: Morrowgrain (optional)
 	-- {item:11040} Morrowgrain
 	["{item:11040} (optional)"] = "{item:11040} (необязательно)",
 	-- {quest:3804} Morrowgrain to Thunder Bluff · {item:11040} Morrowgrain · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {npc:6746} Innkeeper Pala · {npc:5769} Arch Druid Hamuul Runetotem · {area:1639} Elder Rise
 	["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "{quest:3804} берёт 10 {item:11040} за 50, сколько угодно раз, и платит полностью на 60-м, но это медленно: {item:11020} выращивает одну капсулу каждые 10 минут, а в капсуле в среднем один {item:11040}, поэтому на каждую сдачу уходит около 90 минут ожидания, 18 {quest:3761} и 9 пакетов семян (90 серебра). Это идёт параллельно остальному: чуть больше 30 репутации в час. Цепочка перед этим — 50-го уровня. {npc:6746} отправляет вас к {npc:5769} на {area:1639}; ему нужно 20 {quest:3761}.",
 
-	-- Step 32: Un'Goro Crater: Un'Goro Soil
+	-- Step 33: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain
 	["Nearly every beast, plant and silithid in the crater drops {quest:3761}, about one kill in three (the Bloodpetals and the Gorishi wasps about one in two), and the dirt mounds give it too. Take far more than 20: every casing uses 2, about 18 for each {item:11040} hand-in."] = "Почти каждый зверь, растение и силитид в кратере роняет {quest:3761}, примерно одно убийство из трёх (у Кроволепестников и ос Гориши — примерно одно из двух), и земляные насыпи тоже дают его. Берите далеко больше 20: каждая капсула использует 2, примерно 18 на каждую сдачу {item:11040}.",
 
-	-- Step 33: Thunder Bluff: Morrowgrain Research
+	-- Step 34: Thunder Bluff: Morrowgrain Research
 	-- {npc:9076} Ghede · {npc:9087} Bashana Runetotem · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {item:11024} Evergreen Herb Casing · {item:11040} Morrowgrain
 	["{npc:9076} takes the soil. {npc:9087} sells the {item:11020} (1 gold) and Packets of Tharlendris Seeds (10 silver each). With a seed packet and 2 {quest:3761} in your bags, use the pouch: it grows an {item:11024}, once every 10 minutes. Open each casing: about one in three holds 1 to 5 {item:11040}, the rest common herbs. Use the pouch whenever it is ready while you follow the rest of this guide."] = "{npc:9076} берёт землю. {npc:9087} продаёт {item:11020} (1 золото) и пакеты семян Тарлендриса (по 10 серебра). С пакетом семян и 2 {quest:3761} в сумке примените мешочек: он выращивает {item:11024}, раз в 10 минут. Открывайте каждую капсулу: примерно одна из трёх содержит от 1 до 5 {item:11040}, остальные — простые травы. Применяйте мешочек всякий раз, когда он готов, пока следуете остальной части этого гайда.",
 	-- {item:11020} Evergreen Pouch
@@ -196,17 +196,17 @@ return {
 	-- {item:11022} Packet of Tharlendris Seeds
 	["{item:11022}, 10 silver each"] = "{item:11022}, по 10 серебра",
 
-	-- Step 34: Morrowgrain as you go
+	-- Step 35: Morrowgrain as you go
 	-- {item:11040} Morrowgrain
 	["{item:11040} as you go"] = "{item:11040} по пути",
 	-- {item:11040} Morrowgrain · {npc:9087} Bashana Runetotem
 	["{item:11040}: use the pouch every 10 minutes and open the casings; {npc:9087} takes it"] = "{item:11040}: применяйте мешочек каждые 10 минут и открывайте капсулы; {npc:9087} принимает его",
 
-	-- Step 35: Bashana Runetotem: Morrowgrain Research
+	-- Step 36: Bashana Runetotem: Morrowgrain Research
 	-- {npc:9087} Bashana Runetotem · {area:1639} Elder Rise · {item:11040} Morrowgrain
 	["{npc:9087} stands on {area:1639}. If your 10 {item:11040} are not ready yet, skip this step and go on with the cloth: the cloth steps below list the {item:11040} hand-in too."] = "{npc:9087} стоит на {area:1639}. Если ваши 10 {item:11040} ещё не готовы, пропустите этот шаг и продолжайте с тканью: шаги с тканью ниже тоже перечисляют сдачу {item:11040}.",
 
-	-- Step 36: Additional Runecloth to Honored
+	-- Step 37: Additional Runecloth to Honored
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Honored"] = "{quest:7825} до уровня «Уважение»",
 	-- {quest:7825} Additional Runecloth · {item:14047} Runecloth
@@ -214,7 +214,7 @@ return {
 	-- {item:11040} Morrowgrain · {npc:9087} Bashana Runetotem
 	["{item:11040}, if you grow it: {npc:9087} takes it"] = "{item:11040}, если вы его выращиваете: {npc:9087} принимает его",
 
-	-- Step 37: Additional Runecloth to Revered
+	-- Step 38: Additional Runecloth to Revered
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Revered"] = "{quest:7825} до уровня «Почтение»",
 	-- {item:14047} Runecloth · {item:11040} Morrowgrain · {area:1584} Blackrock Depths · {area:340} Kargath · {npc:9017} Lord Incendius
@@ -222,7 +222,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040}, if you grow it"] = "{item:11040}, если вы его выращиваете",
 
-	-- Step 38: Additional Runecloth to Exalted
+	-- Step 39: Additional Runecloth to Exalted
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Exalted"] = "{quest:7825} до уровня «Превознесение»",
 	-- {item:14047} Runecloth · {npc:3685} Harb Clawhoof · {area:222} Bloodhoof Village
@@ -241,4 +241,5 @@ return {
 	-- ["{npc:14728}: {item:14047} delivered"] = "{npc:14728}: {item:14047} сдано",
 	-- ["{quest:7825} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7825}: 20 шт. ({item:14047}) за сдачу, повторяется сколько угодно. Приносите {item:14047} партиями по 20 и сдавайте все сразу, одну сдачу за другой. {item:14047}: Адепты Тьмы и темные маги (уровень 58-60) – зона {zone:1423}, или аукцион.",
 	-- ["{zone:1452}'s level 56-60 quests, {item:11040} and {item:14047} to Exalted, with {zone:1412}'s old quests as an optional extra."] = "Задания зоны {zone:1452} (уровень 56-60), {item:11040} и {item:14047} до превознесения; по желанию – старые задания зоны {zone:1412}.",
+	-- ["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "Элитный крошер Торговой компании «Отсекатель» работает глубоко внутри шахты, дальше того места, где стоял Физсрокет: его ключ нужен для {quest:98427}.",
 }

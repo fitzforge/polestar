@@ -80,6 +80,8 @@ Polestar.RegisterEvent("QUEST_LOG_UPDATE", seven)
 Polestar.On("TEST_MSG", slow(3))
 -- A handler that fires a message inside it: its own time leaves out the message's.
 Polestar.RegisterEvent("PLAYER_TARGET_CHANGED", function() fake = fake + 1; Polestar.Fire("TEST_MSG") end)
+-- A unit event asked for the player alone (its own bus).
+Polestar.RegisterEvent("UNIT_AURA", slow(2.5), "player")
 SlashCmdList.POLESTAR("perf")
 -- Made while the probe is on: named by where it was made.
 debugstack = function() return '[string "@Interface/AddOns/Polestar/Core/Perf.lua"]:1: in function\n[string "@Interface/AddOns/Polestar/Core/Init.lua"]:2: in function\n[string "@Interface/AddOns/Polestar/Quests/Fake.lua"]:42: in function <x>\n' end
@@ -89,6 +91,7 @@ stub.inCombat = true
 stub.fire("QUEST_LOG_UPDATE")
 stub.inCombat = false
 stub.fire("PLAYER_TARGET_CHANGED")
+stub.fire("UNIT_AURA", "player")
 stub.advance(0.1)
 local spikes = {}
 for _, e in ipairs(P.Spikes()) do
@@ -114,6 +117,7 @@ emit({ spikes = spikes, stats = stats, report = P.ReportText(), lines = P.Report
 	assert_eq!(outer["where"], "PLAYER_TARGET_CHANGED");
 	assert!((outer["own"].as_f64().unwrap() - 1.0).abs() < 1e-6, "its own time leaves the message out: {outer}");
 	assert!(find(3, 4.0).is_some(), "the timer is a spike: {spikes:?}");
+	assert!(spikes.iter().any(|e| e["kind"] == 1 && e["where"] == "UNIT_AURA"), "a unit event on its own bus is timed too: {spikes:?}");
 	let report = out[0]["report"].as_str().unwrap();
 	assert!(report.contains("timer Quests/Fake.lua:42 4.0 ms"), "a timer made while on is named by where it was made: {report}");
 	let place = out[0]["place"].as_str().unwrap();
@@ -209,6 +213,70 @@ emit({ report = P.ReportText(), lines = P.ReportLines() })
 	assert!(report.contains("1 game hitches over 50 ms (Polestar in 1)"), "{report}");
 	let lines = texts(&out[0]["lines"]);
 	assert!(lines.iter().any(|l| l.starts_with("  profiler: Polestar avg 0.25") && l.contains("most >10ms: OtherAddon 12")), "{lines:?}");
+}
+
+// #3640 (Fitz's 0.4.2.2 report): "timer ?" x3 and "call ?" with a 126.8 ms max, and a 416 ms frame with no name. The
+// OnUpdate scripts and tickers made as the addon loads (before anyone turns the probe on) and every ticker go by
+// where they were made; a SafeCall'd function by where it was called; a slow frame no handler accounts for says what
+// else happened in it (an addon loaded, a collection).
+#[test]
+fn handlers_made_before_the_probe_and_safecalled_functions_have_names_and_a_slow_frame_says_what_else_ran() {
+	let out = emitted(&RunAddon {
+		before: r#"
+rawset(Enum, "AddOnProfilerMetric", { SessionAverageTime = 0, RecentAverageTime = 1, EncounterAverageTime = 2, LastTime = 3, PeakTime = 4,
+	CountTimeOver1Ms = 5, CountTimeOver5Ms = 6, CountTimeOver10Ms = 7, CountTimeOver50Ms = 8, CountTimeOver100Ms = 9, CountTimeOver500Ms = 10, CountTimeOver1000Ms = 11 })
+prof = { last = 0, app = 16 }
+C_AddOnProfiler = {
+	IsEnabled = function() return true end,
+	GetAddOnMetric = function(name, m) if m == 3 then return prof.last end return 0 end,
+	GetOverallMetric = function(m) if m == 3 then return prof.last end return 0 end,
+	GetApplicationMetric = function(m) if m == 3 then return prof.app end return 0 end,
+	GetTopKAddOnsForMetric = function() return {} end,
+}"#
+		.into(),
+		addons: vec![Addon::files("Polestar", &FILES)],
+		login: false,
+		script: format!(
+			"{CLOCK}\n{}",
+			r#"
+local function at(file, line) return function() return '[string "@Interface/AddOns/Polestar/Core/Init.lua"]:1: in function\n[string "@Interface/AddOns/Polestar/' .. file .. '"]:' .. line .. ': in main chunk\n' end end
+-- Made as the addon loads: an OnUpdate script.
+debugstack = at("UI/NameTargets.lua", 183)
+local f = CreateFrame("Frame")
+f:SetScript("OnUpdate", Polestar.Safe(slow(2.5)))
+stub.login()
+-- After login: a ticker (named), and a plain ns.Safe made while the probe is off (gone soon, not noted).
+debugstack = at("Nav/Nav.lua", 322)
+Polestar.NewTicker(0.05, slow(2.4))
+debugstack = at("QoL/Breath.lua", 98)
+local g = CreateFrame("Frame")
+g:SetScript("OnUpdate", Polestar.Safe(slow(2.125)))
+SlashCmdList.POLESTAR("perf")
+-- On: a function made anywhere, run through SafeCall from Nav.lua's module loop.
+debugstack = at("Nav/Nav.lua", 211)
+Polestar.SafeCall(slow(2.75))
+stub.advance(0.05)
+f:SetScript("OnUpdate", nil)
+g:SetScript("OnUpdate", nil)
+stub.advance(0.2)
+-- A frame where Polestar took 300 ms outside any handler, a continent pack loading in it.
+prof.last, prof.app = 300, 320
+stub.fire("ADDON_LOADED", "Polestar_Nav_EK")
+stub.advance(0.05)
+prof.last, prof.app = 0, 16
+SlashCmdList.POLESTAR("perf")
+emit({ report = P.ReportText() })
+"#
+		),
+		..Default::default()
+	});
+	let report = out[0]["report"].as_str().unwrap();
+	assert!(report.contains("timer UI/NameTargets.lua:183 2.5 ms"), "an OnUpdate made at load by its line: {report}");
+	assert!(report.contains("timer Nav/Nav.lua:322 2.4 ms"), "a ticker by its line: {report}");
+	assert!(report.contains("call Nav/Nav.lua:211 2.8 ms"), "a SafeCall'd function by the line that called it: {report}");
+	assert!(report.contains("ms outside the handlers; loaded Polestar_Nav_EK"), "a slow frame outside the handlers says what loaded: {report}");
+	let unnamed = report.lines().filter(|l| l.contains(" ? ")).collect::<Vec<_>>();
+	assert!(!unnamed.is_empty() && unnamed.iter().all(|l| l.contains("timer ? 2.1")), "only the plain ns.Safe made after login with the probe off is unnamed: {unnamed:?}");
 }
 
 #[test]

@@ -13,14 +13,16 @@
 -- the card with its tick box. Once that accept is done, the card shrinks to
 -- one slim line in the class colour ("Mage quest taken: hand it in to
 -- Marryk Nurribit"), so the step's person keeps the focus; it goes once the
--- quest is handed in or its reward known.
+-- quest is handed in or its reward known. A skin may keep it to the chain's
+-- first step in the guide (guideShows "classCardLater").
 -- The step's quest names take the class colour too (GuideFrame fillCard).
 --
 -- The first time a chain's card shows on a character it shines once (a soft
 -- flash under ui.reduceMotion) and, with ui.classCardSound on, plays a short
 -- chime on the game's sound effects channel. The glow's strength, the
 -- stripe's width, the shine, the "Only you see this" note and the type sizes
--- are the player's (toasts.classcard.*, Options > Alerts & toasts).
+-- are the player's (toasts.classcard.*, Settings > Alerts & toasts), and so
+-- is whether it shows full, compact or not at all (toasts.classcard.mode).
 --
 -- What each chain gives comes from UI/ClassRewards.lua (classrewards build).
 -- GuideFrame calls Fill on every render and Layout in its card layout; the
@@ -57,9 +59,7 @@ local function text(parent, role, color)
 	return W.Text(parent, role, color)
 end
 
-local function compact() return ns.Get("ui.compact") and true or false end
-
--- The card's look (Options > Alerts & toasts, UI/Looks/Toasts.lua): its
+-- The card's look (Settings > Alerts & toasts, UI/Looks/Toasts.lua): its
 -- glow, stripe, first-time shine, the "Only you see this" note and type sizes.
 local function look(prop, fallback)
 	local TS = UI.Toasts
@@ -67,6 +67,12 @@ local function look(prop, fallback)
 	if v == nil then return fallback end
 	return v
 end
+
+-- toasts.classcard.mode: "full" (compact with the window, ui.compact),
+-- "compact" (a smaller ring, no trip or note) or "off" (no card: the accept
+-- reads as a row like any other).
+local function mode() return look("mode", "full") end
+local function compact() return mode() == "compact" or (ns.Get("ui.compact") and true or false) end
 local function stripe() return tonumber(look("stripe", STRIPE)) or STRIPE end
 
 ---------------------------------------------------------------------------
@@ -175,6 +181,24 @@ local function chainOf(quest)
 	return e and e[2] or quest
 end
 
+-- Whether a step before `index` carries a quest of the chain, when the skin
+-- in use shows the card on the chain's first step in the guide only (Skin
+-- API 2, hooks.guideShows "classCardLater" false): not again on each step
+-- after. Polestar's own look shows it on every step of the chain.
+local function chainBefore(guide, index, chain, p)
+	local G = GF()
+	if not (G and G.Shows) or G.Shows("classCardLater", true) then return false end
+	for s = 1, index - 1 do
+		local step = guide.steps[s]
+		if step and matches(step.only, p) then
+			for _, goal in ipairs(step.goals) do
+				if goal.quest and matches(goal.only, p) and chainOf(goal.quest) == chain then return true end
+			end
+		end
+	end
+	return false
+end
+
 -- The steps from `index` on that carry a quest of the chain: their count and
 -- the zones they go through, in order, each once in a row.
 local function trip(guide, index, chain, quest, p)
@@ -245,11 +269,16 @@ local function spellName(id, fallback)
 	return (type(n) == "string" and n ~= "") and n or fallback
 end
 
+-- An item's name in the client's language; one the client has not cached
+-- yet is asked for (GET_ITEM_INFO_RECEIVED: the class card names it then,
+-- UI/ClassToast.lua, #3727) and reads `fallback` meanwhile.
 local function itemName(id, fallback)
 	local n
 	if C_Item and C_Item.GetItemNameByID then n = C_Item.GetItemNameByID(id) end
 	if not n and GetItemInfo then n = GetItemInfo(id) end
-	return (type(n) == "string" and n ~= "") and n or fallback
+	if type(n) == "string" and n ~= "" then return n end
+	if ns.Compat.RequestItem then ns.Compat.RequestItem(id) end
+	return fallback
 end
 
 local function spellIcon(id)
@@ -515,6 +544,8 @@ function CC.Fill(guide, index, view)
 	local step = guide and index and guide.steps and guide.steps[index]
 	local p = player()
 	local gi = step and view and p and p.class and cardGoal(step, view, p)
+	if mode() == "off" then gi = nil end
+	if gi and chainBefore(guide, index, chainOf(step.goals[gi].quest), p) then gi = nil end
 	if not gi then
 		if F then F:Hide() end
 		return nil
@@ -607,6 +638,9 @@ function CC.Fill(guide, index, view)
 	return hex
 end
 
+-- The live card's frame (nil until the first card shows), for the tests.
+function CC.Frame() return F end
+
 -- The goal the card stands for, when it is an accept to fold into it (open,
 -- or done, not skipped or out of reach): its index in the step. nil when no
 -- card shows or the card is for a turn-in.
@@ -615,7 +649,8 @@ function CC.Fold(guide, view)
 	local p = step and player()
 	local gi = p and p.class and cardGoal(step, view, p)
 	local goal, gv = gi and step.goals[gi], gi and view.goals[gi]
-	if not (goal and goal.t == "accept" and gv) then return nil end
+	if not (goal and goal.t == "accept" and gv) or mode() == "off" then return nil end
+	if chainBefore(guide, view.index, chainOf(goal.quest), p) then return nil end
 	if gv.status == "skipped" or gv.unavailable or gv.folded then return nil end
 	return gi
 end
@@ -625,6 +660,9 @@ function CC.Colours(goal)
 	if not (shown and goal) then return false end
 	return classQuest(goal, shown.class)
 end
+
+-- The card's frame, once built (a skin places it: guidePlace "classCard").
+function CC.Frame() return F end
 
 -- Place the card at the top of the guide window's card, `width` wide. -> its height (0 hidden)
 function CC.Layout(width, c)
@@ -735,11 +773,11 @@ function CC.FillDemo(c, d, width)
 	c.Badge:SetShown(d.badge ~= nil)
 	c.Icon:SetTexture(d.icon)
 	c.Trip:SetText(d.trip or "")
-	c.psCompact, c.psSlim = false, false
+	c.psCompact, c.psSlim = mode() == "compact", false
 	c.Glow:Show()
 	for _, part in ipairs({ c.Ring, c.Disc, c.Icon, c.Head, c.Title }) do part:Show() end
-	c.Trip:SetShown(d.trip ~= nil)
-	c.Only:SetShown(d.trip ~= nil and look("note", true) ~= false)
+	c.Trip:SetShown(d.trip ~= nil and not c.psCompact)
+	c.Only:SetShown(d.trip ~= nil and not c.psCompact and look("note", true) ~= false)
 	c.Accept:Hide()
 	c:Show()
 	return CC.Layout(width, c)

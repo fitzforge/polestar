@@ -3,7 +3,8 @@
 //! `--pack`), else the nearest folder holding a pack.json (this one or a parent), else our guides/.
 //! Another pack is compiled with our guides as context and written to <pack>/dist/<folder>/; ours to
 //! <checkout>/addon/<folder>/, and so is one of Polestar's own extra packs (forge_guide::project::OWN_EXTRAS:
-//! experimental/ into addon/Polestar_Experimental/, with our guides as context). `--force` writes the files
+//! experimental/ into addon/Polestar/Experimental/, inside Polestar with no TOC of its own, with our guides as
+//! context). `--force` writes the files
 //! even with errors; lint's `--sim <dir>` (default <checkout>/data/sim with the default data) reads
 //! world-<faction>.json's `excluded` for the solo policy, skipping a world built from other data.
 //!
@@ -565,7 +566,9 @@ fn run() -> i32 {
 				eprintln!("forge guide {cmd}: refusing the pack folder {folder:?}: not a plain folder name");
 				return 1;
 			}
-			if official || own_extra.is_some() {
+			if let Some(e) = own_extra {
+				root.join("addon").join(e.dir)
+			} else if official {
 				root.join("addon").join(folder)
 			} else {
 				pack_dir.join("dist").join(folder)

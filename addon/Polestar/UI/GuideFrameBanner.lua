@@ -49,14 +49,19 @@ ns.UI.GuideFrame.Part(function(GF)
 	GF.notices = notices
 
 	-- The step on screen when it is not the live step: { guideId, index, live,
-	-- skipped }, or nil. Dismissed per step (notices.away holds the key).
+	-- skipped }, or nil. Dismissed per step (notices.away holds the key). A
+	-- skipped step that holds nothing for the character (the view's `why`:
+	-- passed because its condition failed, its quest not in the log) is not
+	-- offered back: unskipped, it would still hold nothing (#2847). The card
+	-- says why; the banner offers the way back to the live step.
 	local function awayNotice(E, g)
 		local view = GF.View()
 		if not (E.GetLiveStep and view and g) then return nil end
 		local index, live = E.GetStepIndex(), E.GetLiveStep()
 		if not index or index ~= view.index or index == live then return nil end
-		if not view.skipped and not live then return nil end
-		local a = { guideId = g.id, index = index, live = live, skipped = view.skipped and true or false }
+		local skipped = view.skipped and not view.why
+		if not skipped and not live then return nil end
+		local a = { guideId = g.id, index = index, live = live, skipped = skipped and true or false }
 		if notices.away == g.id .. ":" .. index then return nil end
 		return a
 	end
@@ -353,31 +358,90 @@ ns.UI.GuideFrame.Part(function(GF)
 		return t.npcName or zone
 	end
 
+	-- The riding notice's Class guide (a class mount's quest chain, #2898), when
+	-- this character has it: the banner opens it instead of a trip to the NPC.
+	local function ridingGuide(n)
+		local G = ns.Guides
+		return n.guide and G and G.Get and G.Get(n.guide) and n.guide or nil
+	end
+
 	-- One link-style action in the banner (label, chevron), `x` right of the
 	-- text's left edge. It never runs past the text's column: a label too long
-	-- for it (a guide's whole title) is cut short with "…".
+	-- for it (a guide's whole title) is cut short with "…". A second action
+	-- that would be cut short beside the first takes its own line under it.
+	-- With guideWindow.bannerLinks "right", a notice's one action sits on the
+	-- text's first line by the × instead (GF.LayoutBanner narrows the text
+	-- for it); a second action (Later) puts both back under.
+	local secondRow = false -- a second action on its own line
+	-- The second action (banner.Later) placed by this layout. It is hidden
+	-- only when a layout leaves it out: hidden and shown again on every
+	-- redraw, a click in progress on it was lost ("Not this one", "Do it with
+	-- a group" took several clicks, #3726, #3563).
+	local laterPlaced = false
+	-- A notice's tint and glyph by its kind (the wash and the icon); any
+	-- other kind is neutral. The accent stays the main action's.
+	GF.BANNER_ROLE = { bags = "warning", away = "npc", train = "npc", riding = "npc", skipped = "textMuted", questSkip = "textMuted" }
+	local onRight = 0 -- the width the action on the right takes, else 0
+	local closeRoom = 24 -- the ×'s room at the right; 0 for a notice shown without it
 	local function placeLink(link, text, x, y)
 		link.Label:SetWordWrap(false)
+		if link == banner.Later then laterPlaced = true end
 		link.Label:SetWidth(0)
 		link.Label:SetText(text)
-		local room = floor(banner.Text:GetWidth() - x - 16)
-		if room > 0 and link.Label:GetStringWidth() > room then link.Label:SetWidth(room) end
-		link:SetWidth(floor(link.Label:GetStringWidth() + 16 + 0.5))
+		local right = link == banner.Jump and ns.Get("guideWindow.bannerLinks") == "right"
+		local room = right and floor(banner.Text:GetWidth() * 0.45) or floor(banner.Text:GetWidth() - x - 16)
+		if not right and x > 0 and link.Label:GetStringWidth() > room then
+			x, y = 0, y - 18 - 4
+			room = floor(banner.Text:GetWidth() - 16)
+			secondRow = true
+		end
+		-- The link as wide as the label it draws: cut at room, the whole text's
+		-- width (all some clients report once it is cut) would put the label
+		-- far left of a link set by its right edge.
+		local textW = link.Label:GetStringWidth()
+		if room > 0 and textW > room then
+			link.Label:SetWidth(room)
+			textW = room
+		end
+		link:SetWidth(floor(textW + 16 + 0.5))
 		link:ClearAllPoints()
-		link:SetPoint("TOPLEFT", banner.Text, "BOTTOMLEFT", x, y)
+		if right then
+			link:SetPoint("TOPRIGHT", banner, "TOPRIGHT", -(5 + closeRoom + 4), -7)
+			onRight = link:GetWidth() + 10
+		else
+			if onRight > 0 then
+				-- A second action: the first goes back under the text too.
+				onRight = 0
+				banner.Jump:ClearAllPoints()
+				banner.Jump:SetPoint("TOPLEFT", banner.Text, "BOTTOMLEFT", 0, y)
+			end
+			link:SetPoint("TOPLEFT", banner.Text, "BOTTOMLEFT", x, y)
+		end
 		link:Show()
 		return link:GetWidth()
 	end
 
 	-- known, kind, n: the notice GF.Layout just read (bannerNotice), with
 	-- nothing run in between; else it is read here.
-	function GF.LayoutBanner(width, known, kind, n)
+	local function layoutBanner(width, known, kind, n)
 		if not known then kind, n = bannerNotice() end
 		banner.psKind = kind
+		banner.psRole = GF.BANNER_ROLE[kind] or "textDim"
+		ns.Widgets.Color(banner.Icon, banner.psRole)
+		if banner.Fill.psPaint then banner.Fill.psPaint(banner.Fill) end
+		-- A layout may show a notice without its × (GF.Shows "bannerClose",
+		-- by kind): the text and the action on the right take its room.
+		local noClose = not GF.Shows("bannerClose", true, kind)
+		closeRoom = noClose and 0 or 24
 		banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
-		banner.Text:SetWidth(width - PAD * 2 - 21 - 24)
-		banner.Later:Hide()
+		banner.Text:SetWidth(width - PAD * 2 - 21 - closeRoom)
+		secondRow = false
+		onRight = 0
 		local oneLine = false -- no link row under the text
+		-- The item the notice names, for its text's tooltip (banner.Item): the gear offer's, the spare bag's or the junk's.
+		local item = (kind == "wear" and n) or (kind == "bags" and (n.spare or n.junk)) or nil
+		banner.Item.psItem = item and (item.link or item.id) or nil
+		banner.Item:SetShown(banner.Item.psItem ~= nil)
 		if kind == "skipped" then
 			banner.Icon:SetTexture(Theme.Media("skip"))
 			local lines = {}
@@ -503,11 +567,21 @@ ns.UI.GuideFrame.Part(function(GF)
 			banner.Icon:SetTexture(Theme.Media(n.skipped and "skip" or (n.live and n.index > n.live and "chevron-right" or "chevron-left")))
 			if n.skipped then
 				banner.Text:SetText(L["You skipped this step."])
-				placeLink(banner.Jump, L["Unskip it"], 0, -4)
+				local w = placeLink(banner.Jump, L["Unskip it"], 0, -4)
+				-- The way back to the live step stays beside it (LaterBanner).
+				if n.live and n.live ~= n.index then
+					placeLink(banner.Later, string.format(L["Back to step %d"], UI.StepNo(n.live)), w + 10, -4)
+				end
 			else
 				local live = UI.StepNo(n.live)
-				banner.Text:SetText(string.format(n.index > n.live and L["Looking ahead. The guide is at step %d."]
-					or L["Looking back. The guide is at step %d."], live))
+				-- With its link on the right ("Back to step 2" on the same line), the
+				-- step number is said once: the text keeps to one line.
+				if ns.Get("guideWindow.bannerLinks") == "right" then
+					banner.Text:SetText(n.index > n.live and L["Looking ahead."] or L["Looking back."])
+				else
+					banner.Text:SetText(string.format(n.index > n.live and L["Looking ahead. The guide is at step %d."]
+						or L["Looking back. The guide is at step %d."], live))
+				end
 				placeLink(banner.Jump, string.format(L["Back to step %d"], live), 0, -4)
 			end
 			banner.Close:Show()
@@ -620,7 +694,9 @@ ns.UI.GuideFrame.Part(function(GF)
 				body = table.concat(bodyParts, DOT)
 			end
 			banner.Text:SetText(title .. "\n" .. body)
-			if canAfford then
+			if ridingGuide(n) then
+				placeLink(banner.Jump, L["Open in a tab"], 0, -4)
+			elseif canAfford then
 				placeLink(banner.Jump, L["Take me there"], 0, -4)
 			else
 				banner.Jump:Hide()
@@ -677,8 +753,21 @@ ns.UI.GuideFrame.Part(function(GF)
 			placeLink(banner.Jump, n.kind == "old" and L["How to update"] or L["Update"], 0, -4)
 			banner.Close:SetShown(n.closable)
 		end
-		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + 9 + 0.5)
+		-- The action on the right: the text stops short of it, no row under.
+		if onRight > 0 and banner.Jump:IsShown() then
+			banner.Text:SetWidth(width - PAD * 2 - 21 - closeRoom - onRight)
+			oneLine = true
+		end
+		if noClose then banner.Close:Hide() end
+		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + (secondRow and laterPlaced and 4 + 18 or 0) + 9 + 0.5)
 		banner:SetHeight(h)
+		return h
+	end
+
+	function GF.LayoutBanner(width, known, kind, n)
+		laterPlaced = false
+		local h = layoutBanner(width, known, kind, n)
+		if not laterPlaced then banner.Later:Hide() end
 		return h
 	end
 
@@ -753,9 +842,18 @@ ns.UI.GuideFrame.Part(function(GF)
 			end
 		elseif kind == "riding" then
 			notices.riding = nil
-			local t, nav2 = n.trainer, ns.Nav
-			if t and t.map and t.x and nav2 and nav2.SetTarget then
-				nav2.StartTrip(nav2.SetTarget(t.map, t.x, t.y, t.npcName or L["Riding trainer"], t.f, "trainer"), nil, L["Riding trainer"])
+			local guide = ridingGuide(n)
+			if guide then
+				-- The guide's own card for it is answered too.
+				if notices.classQuest and notices.classQuest.guideId == guide then notices.classQuest = nil end
+				if E and E.OpenTab then E.OpenTab(guide) end
+				local CQ = ns.QoL and ns.QoL.ClassQuests
+				if CQ and CQ.Resolve then CQ.Resolve(guide) end
+			else
+				local t, nav2 = n.trainer, ns.Nav
+				if t and t.map and t.x and nav2 and nav2.SetTarget then
+					nav2.StartTrip(nav2.SetTarget(t.map, t.x, t.y, t.npcName or L["Riding trainer"], t.f, "trainer"), nil, L["Riding trainer"])
+				end
 			end
 			local R = ns.QoL and ns.QoL.Riding
 			if R and R.OnResolve then R.OnResolve(n.tier) end
@@ -793,6 +891,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		elseif kind == "wear" then
 			ns.QoL.Wear.Decline()
 			GF.Layout()
+		elseif kind == "away" and n.live then
+			-- A skipped step looked at: back to the live one, the skip kept.
+			if E and E.Goto then E.Goto(n.live) end
 		else
 			GF.DismissBanner(true)
 		end

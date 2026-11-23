@@ -299,3 +299,17 @@ emit({ upper = upper, upstairs = upstairs, off = off })`);
 	assert.deepEqual(out.upstairs, { from: 30, to: 60 }, 'the baked endpoint is below the goal: search to its proper floor');
 	assert.deepEqual(out.off, { from: 75, to: 30 }, 'the whole leg is below the player: search from their floor');
 });
+
+// Fitz, 0.4.2.1: Forever's client gives no height, so a guide walk is taken as 0.4.1.1 took it, without the floor
+// checks a client height allows: here the goal's height (60, an NPC on a balcony) is not the leg's end (30). 0.4.2
+// refused the leg and searched every such step's walk live.
+test('with no height from the client a guide walk is taken as in 0.4.1.1, whatever the goal’s height', () => {
+	const s = B.encodeLeg({ pts: [[0, 0, 0], [100, 0, 0], [150, 50, 15], [100, 2, 30], [-100, 2, 30]], cls: [0, 0, 0, 0], tail: 0, strip: [] });
+	const [out] = arrow(s, `
+nav.place(-50, 2)
+nav.Compat.GetPlayerUnitPosition = function() return -50, 2, nil, 0 end
+N.walk.Clear()
+local _, _, _, left = N.walk.Aim(0, -50, 2, 0, -100, 2, false, 60)
+emit({ left = left and floor(left + 0.5) or false, calls = #fake.calls })`);
+	assert.deepEqual(out, { left: 50, calls: 0 }, 'the guide walk, no live search');
+});
