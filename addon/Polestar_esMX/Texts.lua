@@ -10158,7 +10158,7 @@ t.guides["forever/miscellaneous/stalk-with-the-earthmother"] = (function() retur
 } end)()
 t.guides["forever/miscellaneous/the-drowned-city-alliance"] = (function() return {
 		["A dungeon for five players of level 35 to 42. Meet your group at its entrance in {area:17853}, under the {area:104}: due west of {object:3202} and south-west of the reef's tablet. {object:3202} is the Horde's camp: keep clear of its guards. Water breathing helps."] = "Una mazmorra para cinco jugadores de nivel 35 a 42. Reúnete con tu grupo en su entrada, en {area:17853}, bajo {area:104}: justo al oeste de {object:3202} y al suroeste de la tabla del arrecife. {object:3202} es el campamento de la Horda: aléjate de sus guardias. Respirar bajo el agua ayuda.",
-		["At the {area:99} in northern Stranglethorn."] = "En {area:99}, en el norte de Stranglethorn.",
+		["At the {area:99} in northern Stranglethorn."] = "En {area:99}, en el norte de Tuercespina.",
 		["Brinescale Explorers and Sorceresses guard the way to {npc:258924}, the second boss. The second tablet is close to him. No Alliance quest asks for him, but once he is dead, disrupt the barrier close to where he fell; you do it once more after {npc:260042}."] = "Los Exploradores y Hechiceras Brinescale custodian el camino hacia {npc:258924}, el segundo jefe. La segunda tabla está cerca de él. Ninguna misión de la Alianza lo pide, pero una vez muerto, altera la barrera cerca de donde cayó; lo haces una vez más después de {npc:260042}.",
 		["Every Alliance quest of the {area:16550} in one run, lead-ins included."] = "Todas las misiones de la Alianza de {area:16550} en una sola pasada, incluidas las previas.",
 		["First tablet"] = "Primera tabla",
