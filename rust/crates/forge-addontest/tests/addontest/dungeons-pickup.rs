@@ -3083,10 +3083,7 @@ fn a_hand_in_errand_from_a_walking_seller_shows_her_circuit_3744_tawny_grisette(
 	let mut i = inputs.clone();
 	c["npcs"]["92055"] = json!({ "id": 92055, "name": "Master Apothecary Faranell", "level": 30, "levelMax": null, "faction": "H", "rare": false,
 		"elite": false, "boss": false, "instance": null, "roles": [], "spawns": [{ "map": 1458, "x": 48.8, "y": 69.3, "f": "e" }] });
-	let ring: Vec<Value> = [(62.0, 38.0), (66.0, 41.0), (70.0, 45.0), (68.0, 50.0), (63.0, 49.0)]
-		.iter()
-		.map(|(x, y)| json!({ "map": 1458, "x": x, "y": y, "f": "e" }))
-		.collect();
+	let ring: Vec<Value> = [(62.0, 38.0), (66.0, 41.0), (70.0, 45.0), (68.0, 50.0), (63.0, 49.0)].iter().map(|(x, y)| json!({ "map": 1458, "x": x, "y": y, "f": "e" })).collect();
 	c["npcs"]["94554"] = json!({ "id": 94554, "name": "Tawny Grisette", "level": 30, "levelMax": null, "faction": "H", "rare": false,
 		"elite": false, "boss": false, "instance": null, "roles": [], "spawns": ring });
 	c["objects"]["973933"] = json!({ "id": 973933, "name": "Blisterweed", "treasure": false, "spawns": [{ "map": 1458, "x": 54.0, "y": 49.3, "f": "e" }] });
@@ -3122,7 +3119,8 @@ for _, s in ipairs(D.HandinGuide("{KEY}").steps or {}) do
 end
 emit(out)"#);
 	let out =
-		run(&own, &script, Opts { level: 20, race: "Scourge", faction: "Horde", cls: "PALADIN", at: Some(UNDERCITY), done: vec![997290], log: vec![997291], ready: vec![], ..Default::default() }).remove(0);
+		run(&own, &script, Opts { level: 20, race: "Scourge", faction: "Horde", cls: "PALADIN", at: Some(UNDERCITY), done: vec![997290], log: vec![997291], ready: vec![], ..Default::default() })
+			.remove(0);
 	assert_eq!(out, json!([{ "item": 981246, "spots": 5 }, { "item": 981300, "spots": 0 }]), "her whole circuit; the weed's one place");
 }
 
