@@ -2,13 +2,15 @@
 -- needs in the bags (Engine.KeptItems: a `use` item, a `collect`'s or a
 -- `buy`'s, a `craft`'s reagents, the item an `accept` starts from, a quest's
 -- items until its turn-in). They are never sold as junk (QoL/Vendor.lua),
--- their bag slot carries a lock (QoL/BagGlow.lua), their tooltip says which
--- step needs them, in the warning colour while a merchant is open, and
--- opening a merchant with any that sell in the bags names them in chat
--- first, so none goes by mistake.
+-- their bag slot carries a lock (QoL/BagGlow.lua), and opening a merchant
+-- with any that sell in the bags names them in chat first, so none goes by
+-- mistake. Any item's tooltip lists the guides whose steps use it
+-- (Engine.ItemGuides: the active guide with its step, then the guides
+-- ahead), headed "Don't sell, used in guides:" in the warning colour while a
+-- merchant is open. An item only a guide ahead uses is listed but not Kept.
 --
---   QoL.Kept(itemID) -> the step that needs it | nil
---   QoL.KeptLine(itemID) -> text, r, g, b | nil   -- its tooltip line (a warning while a merchant is open)
+--   QoL.Kept(itemID) -> the step that needs it | nil   -- the active guide only
+--   QoL.KeptLines(itemID) -> { header = { text, r, g, b }, lines = { { text, r, g, b }, ... } } | nil
 --   QoL.KeptToSell() -> { { item, link }, ... }   -- kept items in the bags a merchant buys, once each, in bag order
 --
 -- Client: C_Container.GetContainerItemInfo (hasNoValue, hyperlink), C_Item.GetItemInfo's sell price.
@@ -53,22 +55,80 @@ local function color(name, r, g, b)
 	return r, g, b
 end
 
-function QoL.KeptLine(itemID)
-	local s = QoL.Kept(itemID)
-	if not s then return nil end
-	-- The step as the player counts it (#942: steps not theirs left out).
+-- A guide's levels as "12-13" ("12" for one level), for the player's side.
+-- A step title cut to at most TITLE_MAX characters (UTF-8, not bytes) at a
+-- word's end, with an ellipsis, so a long step title keeps the tooltip narrow.
+local TITLE_MAX = 32
+local function shortTitle(t)
+	local n = 0
+	for pos in t:gmatch("()[%z\1-\127\194-\244][\128-\191]*") do
+		n = n + 1
+		if n > TITLE_MAX then
+			local head = t:sub(1, pos - 1)
+			if not t:sub(pos, pos):match("%s") then head = head:match("^(.*%S)%s") or head end
+			return (head:gsub("[%s%p]+$", "")) .. "\226\128\166"
+		end
+	end
+	return t
+end
+
+local function levelsText(g)
+	local G = ns.Guides
+	local lo, hi
+	if G and G.Levels then lo, hi = G.Levels(g) else lo, hi = g.minLevel, g.maxLevel end
+	if not (lo or hi) then return nil end
+	lo, hi = lo or hi, hi or lo
+	if lo == hi then return format("%d", lo) end
+	return format("%d-%d", lo, hi)
+end
+
+-- The tooltip block for itemID: every guide whose steps use it, the active
+-- one (with its step) first, then those ahead (Engine.ItemGuides).
+-- -> { header = { text, r, g, b }, lines = { { text, r, g, b }, ... } } | nil
+-- The header is the accent colour, "Don't sell, used in guides:" in the
+-- warning colour while a merchant is open. An item only a guide ahead uses
+-- gets the block but is not Kept: it can still be sold.
+function QoL.KeptLines(itemID)
 	local E = ns.Engine
-	if E and E.StepNumber then s = E.StepNumber(s) end
-	if atMerchant then return format(L["Don't sell: the guide needs it at step %d"], s), color("warning", 1, 0.6, 0.25) end
-	return format(L["Kept for the guide: step %d needs it"], s), color("accent", 1, 0.82, 0)
+	local list = itemID and E and E.ItemGuides and E.ItemGuides(itemID)
+	if not list then return nil end
+	local lines = {}
+	for i, e in ipairs(list) do
+		local g = e.guide
+		local text = g.title or g.id or "?"
+		local levels = levelsText(g)
+		if levels then text = levels .. " " .. text end
+		local s = e.step
+		if s then
+			-- The step as the player counts it (#942: steps not theirs left out)
+			-- and its title when it has one.
+			local step = g.steps and g.steps[s]
+			local title = step and type(step.title) == "string" and step.title ~= "" and step.title or nil
+			if title then title = shortTitle(title) end
+			if E.StepNumberOf then s = E.StepNumberOf(g, s) end
+			text = title and format(L["%s: step %d (%s)"], text, s, title) or format(L["%s: step %d"], text, s)
+		end
+		local r, gr, b = color("textDim", 0.8, 0.8, 0.8)
+		lines[i] = { text, r, gr, b }
+	end
+	local header
+	if atMerchant then
+		header = { L["Don't sell, used in guides:"], color("warning", 1, 0.6, 0.25) }
+	else
+		header = { L["Used in guides:"], color("accent", 1, 0.82, 0) }
+	end
+	return { header = header, lines = lines }
 end
 
 -- Hooks (Core/Hooks.lua) owns the tooltips; a partial load without it has none.
 local H = ns.Hooks
 if H and H.ItemLines then
 	H.ItemLines("keep", function(tooltip, _, itemID)
-		local text, r, g, b = QoL.KeptLine(itemID)
-		if text then H.AddLine(tooltip, text, nil, r, g, b) end
+		local block = QoL.KeptLines(itemID)
+		if not block then return end
+		local h = block.header
+		H.AddLine(tooltip, h[1], nil, h[2], h[3], h[4])
+		for _, l in ipairs(block.lines) do H.AddLine(tooltip, "  " .. l[1], nil, l[2], l[3], l[4]) end
 	end)
 end
 

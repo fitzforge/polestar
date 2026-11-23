@@ -1,9 +1,10 @@
 //! Undoing a step skip undoes what the skip stored on the way (addon/Polestar/Core/Engine.lua, Own.skipStore and
 //! Own.skipRestore; docs/ARCHITECTURE.md, "Navigation"). A Skip moves the live step past more steps than the one
 //! skipped, and the route stores what it finds there: a passed step's `when` outcome (failed: as a skip) and the
-//! `skipto` jumps taken. Before, Unskip cleared only the skipped step, so a step passed at level 19 for
-//! `when level>=20` stayed passed at 20, and a jump taken because of the skip stayed taken. A feeder step's skip
-//! also left its quests in CharState().feedSkips for good. Real Core manifest, stub world.
+//! `skipto` jumps taken. Before, Unskip cleared only the skipped step, so a step passed with a failed `when` stayed
+//! passed, and a jump taken because of the skip stayed taken. A feeder step's skip also left its quests in
+//! CharState().feedSkips for good. A `when level>=20` passed at 19 is not stored at all while the guide lasts
+//! (Own.whenPending): it comes back at 20 whenever the route reaches it again. Real Core manifest, stub world.
 
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
@@ -50,35 +51,66 @@ end
 "#;
 
 fn run(script: &str) -> Value {
+	run_with(GUIDE, script)
+}
+
+// Step 3 gated on money in the bags instead of a level: a `when` the guide can't bring about, stored as the route
+// passes it.
+fn money_guide() -> String {
+	GUIDE.replace(r#"{ k = "level", op = ">=", n = 20 }"#, r#"{ k = "money", op = ">=", n = 100000 }"#)
+}
+
+fn run_with(guide: &str, script: &str) -> Value {
 	json!(emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.into(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/undo" }"#.into())],
-		script: [TEST_PACK, TEST_SOURCE, GUIDE, HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, script].join("\n"),
+		script: [TEST_PACK, TEST_SOURCE, guide, HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, script].join("\n"),
 		..Default::default()
 	}))
 }
 
 #[test]
-fn undoing_a_skip_forgets_the_when_outcome_it_stored_so_a_level_gated_step_comes_back_at_the_level() {
+fn undoing_a_skip_brings_back_the_route_before_a_level_gated_step_and_it_applies_at_the_level() {
 	let out = run(r#"
 		local w = stub.world
 		w.accept(7, { 10 }); flush()
 		emit(state())                                  -- live 2 (Walk)
 		E.Skip(); flush()
-		emit(state())                                  -- 2 skipped, 3 passed at 19 (stored failed), live 4
+		emit(state())                                  -- 2 skipped, 3 passed at 19 (waiting for 20, not stored), live 4
 		E.Unskip(2); flush()
-		emit(state())                                  -- back on 2, step 3's outcome gone with the skip
+		emit(state())                                  -- back on 2
 		w.setLevel(20); flush()
 		E.ToggleGoal(2, 1); flush()
 		emit(state())                                  -- level 20 before the route reaches step 3: it applies
 		emit(Polestar.CharState().skipStored == nil)"#);
 	assert_eq!(out[0], json!({ "live": 2, "skipped": "- - - - - - -", "when": "- - - - - - -" }));
-	assert_eq!(out[1], json!({ "live": 4, "skipped": "- true true - - - -", "when": "- - - - - - -" }));
-	assert_eq!(out[2], json!({ "live": 2, "skipped": "- - - - - - -", "when": "- - - - - - -" }), "the undo takes step 3's stored outcome back");
+	assert_eq!(out[1], json!({ "live": 4, "skipped": "- true - - - - -", "when": "- - - - - - -" }), "step 3 waits for level 20 (Own.whenPending)");
+	assert_eq!(out[2], json!({ "live": 2, "skipped": "- - - - - - -", "when": "- - - - - - -" }));
 	assert_eq!(out[3]["live"], 3, "At 20 is the live step at level 20");
 	assert_eq!(out[4], true, "nothing left to undo");
+}
+
+#[test]
+fn undoing_a_skip_forgets_the_when_outcome_it_stored() {
+	let out = run_with(
+		&money_guide(),
+		r#"
+		local w = stub.world
+		w.accept(7, { 10 }); flush()
+		E.Skip(); flush()
+		emit(state())                                  -- 2 skipped, 3 passed without the money (stored failed), live 4
+		E.Unskip(2); flush()
+		emit(state())                                  -- back on 2, step 3's outcome gone with the skip
+		w.setMoney(100000); E.ToggleGoal(2, 1); flush()
+		emit(state())                                  -- the money in the bags before the route reaches step 3: it applies
+		emit(Polestar.CharState().skipStored == nil)"#,
+	);
+	assert_eq!(out[0], json!({ "live": 4, "skipped": "- true true - - - -", "when": "- - - - - - -" }));
+	assert_eq!(out[1], json!({ "live": 2, "skipped": "- - - - - - -", "when": "- - - - - - -" }), "the undo takes step 3's stored outcome back");
+	assert_eq!(out[2]["live"], 3, "step 3 is the live step with the money");
+	assert_eq!(out[3], true, "nothing left to undo");
 }
 
 #[test]
@@ -92,21 +124,24 @@ fn undoing_a_skip_takes_back_the_jump_it_led_to() {
 		emit(state())
 		w.removeItem(750); E.ToggleGoal(2, 1); flush()
 		emit(state())                                  -- no candle now: Willem is the live step, no jump"#);
-	assert_eq!(out[0], json!({ "live": 6, "skipped": "- true true jump jump - -", "when": "- - - - - - -" }));
+	assert_eq!(out[0], json!({ "live": 6, "skipped": "- true - jump jump - -", "when": "- - - - - - -" }));
 	assert_eq!(out[1], json!({ "live": 2, "skipped": "- - - - - - -", "when": "- - - - - - -" }));
 	assert_eq!(out[2]["live"], 4);
-	assert_eq!(out[2]["skipped"], "- - true - - - -", "step 3 passed again at 19, stored as the route passes it");
+	assert_eq!(out[2]["skipped"], "- - - - - - -", "step 3 passed again at 19: it waits for level 20, nothing stored");
 }
 
 #[test]
 fn a_step_the_player_brought_back_meanwhile_stays_when_the_skip_is_undone() {
-	let out = run(r#"
+	let out = run_with(
+		&money_guide(),
+		r#"
 		local w = stub.world
 		w.accept(7, { 10 }); flush()
-		E.Skip(); flush()                              -- 2 skipped, 3 stored failed
+		E.Skip(); flush()                              -- 2 skipped, 3 stored failed (no money)
 		E.Unskip(3); flush()                           -- the player brings step 3 back: kept for good
 		E.Unskip(2); flush()
-		emit(state())"#);
+		emit(state())"#,
+	);
 	assert_eq!(out[0], json!({ "live": 2, "skipped": "- - - - - - -", "when": "- - true - - - -" }), "step 3 kept (Own.keep)");
 }
 

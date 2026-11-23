@@ -68,12 +68,13 @@ return {
 	settle = 0.3,
 	probes = {
 		["ui.lockHud"] = arrowDrag,
-		["Guide:Move frames"] = { press = true, prepare = lock, cleanup = lock,
+		-- Move frames, Reset all positions and Keep the arrow when hidden sit on Look > Guide window.
+		["Guide window:Move frames"] = { press = true, prepare = lock, cleanup = lock,
 			probe = function() return { M.IsUnlocked() and true or false, PolestarMovers ~= nil and PolestarMovers:IsShown() or false } end },
 		["movers.grid"] = grid,
 		["movers.gridSize"] = { value = 8, probe = grid },
 		["movers.snap"] = { with = { ["ui.launcher"] = true, ["movers.grid"] = false }, probe = drag },
-		["Guide:Reset all positions"] = { press = true,
+		["Guide window:Reset all positions"] = { press = true,
 			prepare = function() Polestar.Set("ui.pos", { 100, 900 }); Polestar.Set("nav.arrowPos", { point = "TOP", relPoint = "TOP", x = 300, y = -300 }) end,
 			probe = function() return { guide = point(PolestarGuideFrame), arrow = point(PolestarNavArrow) } end },
 		["Guide:Reset arrow position"] = { press = true,
@@ -82,7 +83,7 @@ return {
 		["ui.launcher"] = function() return PolestarLauncher ~= nil and PolestarLauncher:IsShown() or false end,
 		["maps.minimapButton"] = function() return PolestarMinimapButton ~= nil and PolestarMinimapButton:IsShown() or false end,
 		-- Polestar hidden (the minimap button's click) with the step's arrow up: whether the arrow stays.
-		["Guide:Keep the arrow when hidden"] = { prepare = function() Polestar.SetHidden(true); stub.advance(0.2) end,
+		["Guide window:Keep the arrow when hidden"] = { prepare = function() Polestar.SetHidden(true); stub.advance(0.2) end,
 			cleanup = function() Polestar.SetHidden(false); stub.advance(0.2) end,
 			probe = function() stub.runTimers(); return PolestarNavArrow:IsShown() and true or false end },
 		-- The accept's row: the quest's name with Forever's mark, or without.

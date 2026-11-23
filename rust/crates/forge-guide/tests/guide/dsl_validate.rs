@@ -1022,6 +1022,31 @@ fn elite_work_in_a_leveling_guide_collecting_an_item_only_elites_drop_is_an_erro
 	assert!(only(&compile_with(&reputation, &data).errors, "elite").is_empty());
 }
 
+/// Low elites (Fitz, 2026-11-20): an elite two or more levels under the player is solo content. The check sees the
+/// player's level only through the step's own gate, so a solo step with elite work passes when it carries `when
+/// level>=N` or a `level N` line with N at least the elite's top level + 2 (the Elite Kobold is 7); a lower gate or no
+/// gate is still the error.
+#[test]
+fn elite_work_on_a_step_gated_two_levels_over_the_elite_is_solo_content() {
+	let data = elite_data();
+	let tip = elite_tip("Elite Kobold");
+	let at9 = guide_text(&["step S", "  when level>=9", "  kill 95003", "  collect 95100 x3"]);
+	assert!(only(&compile_with(&at9, &data).errors, "elite").is_empty(), "a `when level>=9` gate covers a level 7 elite");
+	let line9 = guide_text(&["step S", "  level 9", "  kill 95003"]);
+	assert!(only(&compile_with(&line9, &data).errors, "elite").is_empty(), "so does a `level 9` line on the step");
+	let at8 = guide_text(&["step S", "  when level>=8", "  kill 95003"]);
+	assert_eq!(
+		only(&compile_with(&at8, &data).errors, "elite"),
+		vec![format!("test.guide:{}: `kill` npc 95003 (Elite Kobold) is elite; {tip}", line_of(&at8, "  kill 95003"))],
+		"one level over the elite is not enough"
+	);
+	let ungated = guide_text(&["step S", "  collect 95100 x3"]);
+	assert_eq!(
+		only(&compile_with(&ungated, &data).errors, "elite"),
+		vec![format!("test.guide:{}: `collect` item 95100 (Elite Tusk) drops only from elites (Elite Kobold); {tip}", line_of(&ungated, "  collect 95100 x3"))]
+	);
+}
+
 /// validate_solo_policy's `{ <Faction>: { <quest id>: entry } }` from (faction, entries).
 fn excluded(faction: &str, entries: Value) -> V {
 	let m = serde_json::Map::from_iter(entries.as_array().unwrap().iter().map(|e| (e["id"].to_string(), e.clone())));

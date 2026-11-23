@@ -340,9 +340,10 @@ return {
 	-- Step 60: Tirisfal Glades: kill these as you meet them
 	-- {zone:1420} Tirisfal Glades
 	["{zone:1420}: kill these as you meet them"] = "{zone:1420}: убивайте их по пути",
-	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {area:164} Garren's Haunt · {npc:1753} Maggot Eye
+	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {area:164} Garren's Haunt · {npc:1753} Maggot Eye · {area:157} Agamand Mills
 	-- plural, as words: Greater Duskbats = {npc:1553} Greater Duskbat · Vampiric Duskbats = {npc:1554} Vampiric Duskbat · Rot Hide Graverobbers = {npc:1941} Rot Hide Graverobber · Rot Hide Mongrels = {npc:1675} Rot Hide Mongrel
-	["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "Большие сумеречницы (6-7) летают над полями вокруг места {area:159} и вдоль дороги на север: Гретхен нужны их шкурки, {npc:3549} – их крылья. Сумеречницы-вампиры (8-9) подальше тоже их роняют, но бьют сильнее.\n{quest:5482} растет на кладбищенских полях чуть к северу от места {area:159}, где роются грабители могил из стаи Гнилошкуров; лимфа падает со всех Гнилошкуров.\nПолукровки из стаи Гнилошкуров занимают холмы дальше к северу, вокруг места {area:164}. {npc:1753} (11-й уровень) пока оставьте в его хижине: гайд вернется к нему в конце.\nМурлоки из племени Злобного Плавника занимают северный берег: чешуя падает со всех, а кожа для {npc:3549} – с младших оракулов и илистых жителей. Прямо к северу от места {area:159} на берегу прыгуны и младшие оракулы (7-9), а илистых жителей (9-10) рядом нет.",
+	-- was: ["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "Большие сумеречницы (6-7) летают над полями вокруг места {area:159} и вдоль дороги на север: Гретхен нужны их шкурки, {npc:3549} – их крылья. Сумеречницы-вампиры (8-9) подальше тоже их роняют, но бьют сильнее.\n{quest:5482} растет на кладбищенских полях чуть к северу от места {area:159}, где роются грабители могил из стаи Гнилошкуров; лимфа падает со всех Гнилошкуров.\nПолукровки из стаи Гнилошкуров занимают холмы дальше к северу, вокруг места {area:164}. {npc:1753} (11-й уровень) пока оставьте в его хижине: гайд вернется к нему в конце.\nМурлоки из племени Злобного Плавника занимают северный берег: чешуя падает со всех, а кожа для {npc:3549} – с младших оракулов и илистых жителей. Прямо к северу от места {area:159} на берегу прыгуны и младшие оракулы (7-9), а илистых жителей (9-10) рядом нет."
+	["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him after {area:157}.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "",
 	-- {npc:1675} Rot Hide Mongrel · {area:164} Garren's Haunt
 	["{npc:1675} walks around {area:164}: look inside the circle on the map"] = "{npc:1675} ходит по месту {area:164}: ищите внутри круга на карте",
 
@@ -369,8 +370,9 @@ return {
 	["{npc:267009} stands at the camp beside Linnea."] = "",
 
 	-- Step 65: Magistrate Sevren
-	-- {area:159} Brill · {area:157} Agamand Mills
-	["Back up the road to {area:159}, on the way north-west to {area:157}."] = "Назад по дороге сюда: {area:159}, по пути на северо-запад к месту {area:157}.",
+	-- {area:159} Brill · {area:157} Agamand Mills · {npc:1753} Maggot Eye · {npc:1515} Executor Zygand
+	["Back up the road to {area:159}, on the way north-west to {area:157}. The Wanted poster for {npc:1753} stands beside {npc:1515}, in front of the inn."] = "",
+	["The Wanted poster beside Zygand"] = "Плакат «Разыскивается» рядом с Зигандом",
 
 	-- Step 66: Agamand Mills
 	-- {area:157} Agamand Mills · {npc:1657} Devlin Agamand · {npc:1656} Thurman Agamand · {item:2839} A Letter to Yvette
@@ -382,7 +384,13 @@ return {
 	["{item:2839}, a rare drop"] = "{item:2839}, редкая добыча",
 	["Only if the letter dropped"] = "Только если выпало письмо",
 
-	-- Step 67: Brill
+	-- Step 67: Maggot Eye
+	-- {area:159} Brill · {area:164} Garren's Haunt · {npc:1753} Maggot Eye
+	["On the way back to {area:159}, {area:164} is the Rot Hide camp on the hill east of the mills, south of the shore. {npc:1753} stands in the hut.\nCareful: {npc:1753} is level 11 and gnoll guards stand outside the hut and can join the fight: clear them one at a time first. If you slip past them and fight him inside, he fights alone."] = "",
+	-- {item:3635} Maggot Eye's Paw
+	["{item:3635}; inside"] = "",
+
+	-- Step 68: Brill
 	-- {npc:1560} Yvette Farthing
 	["{npc:1560}, in the inn"] = "{npc:1560}, в таверне",
 	-- {npc:2128} Cain Firesong · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity
@@ -392,11 +400,11 @@ return {
 	-- {npc:1738} Deathguard Terrence · {area:159} Brill
 	["{npc:1738}, if you were below 10 on the last {area:159} visit"] = "",
 
-	-- Step 68: Ulag the Cleaver
+	-- Step 69: Ulag the Cleaver
 	-- {npc:6390} Ulag the Cleaver
 	["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390} ждет в склепе на холме чуть к северу от городка: откройте ворота и сразитесь с ним.",
 
-	-- Step 69: Carendin Halgar
+	-- Step 70: Carendin Halgar
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Идите на юг от места {area:159} сюда: {area:153} и спуститесь в город {area:1497}. {npc:5675} стоит здесь: {object:36082}. Лагерь Алого ордена – чуть к западу от руин.",
 	-- {npc:4551} Michael Garrett
@@ -404,30 +412,30 @@ return {
 	-- {npc:5675} Carendin Halgar · {quest:1473} Creature of the Void
 	["{npc:5675}: he offers {quest:1473} only once this is handed in"] = "{npc:5675}: задание {quest:1473} он дает, только когда это сдано",
 
-	-- Step 70: Anastasia Hartwell
+	-- Step 71: Anastasia Hartwell
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Идите на юг от места {area:159} сюда: {area:153} и спуститесь в город {area:1497}. {npc:4568} стоит здесь: {object:36082}. Лагерь Алого ордена – чуть к западу от руин.",
 
-	-- Step 71: Back to Tirisfal Glades
+	-- Step 72: Back to Tirisfal Glades
 	-- {zone:1420} Tirisfal Glades
 	["Back to {zone:1420}"] = "Обратно: {zone:1420}",
 	["The Scarlet camp"] = "Лагерь Алого ордена",
 
-	-- Step 72: Tirisfal Glades: kill these as you meet them
+	-- Step 73: Tirisfal Glades: kill these as you meet them
 	-- {area:159} Brill · {npc:1662} Captain Perrine
 	["Follow the road south-west from {area:159} to the Scarlet Crusade camp. {npc:1662} stands at its south end; every Scarlet there can drop a ring."] = "Идите по дороге на юго-запад от места {area:159} к лагерю Алого ордена. {npc:1662} стоит в его южной части; кольцо может упасть с любого воина Алого ордена.",
 	-- {npc:1537} Scarlet Zealot
 	["{npc:1537} walks around here: look inside the circle on the map"] = "",
 
-	-- Step 73: Perrine's Chest
+	-- Step 74: Perrine's Chest
 	-- {object:37098} Perrine's Chest · {npc:1662} Captain Perrine
 	["{object:37098} stands beside {npc:1662} at the camp's south end."] = "{object:37098} стоит рядом с персонажем {npc:1662} в южной части лагеря.",
 
-	-- Step 75: Hadric Harlson
+	-- Step 76: Hadric Harlson
 	-- {npc:267009} Hadric Harlson · {npc:1495} Deathguard Linnea
 	["{npc:267009} stands at {npc:1495}'s camp, on the road to the cult's farm."] = "{npc:267009} стоит в лагере ({npc:1495}), на дороге к ферме культа.",
 
-	-- Step 76: Balnir Farmstead: kill these as you meet them
+	-- Step 77: Balnir Farmstead: kill these as you meet them
 	-- {area:165} Balnir Farmstead
 	["{area:165}: kill these as you meet them"] = "{area:165}: убивайте их по пути",
 	-- {quest:99142} Tomb Weed · {npc:1664} Captain Vachon
@@ -436,29 +444,23 @@ return {
 	-- {item:7227} Balnir Snapdragons
 	["{item:7227}, in the farmstead's garden"] = "{item:7227}, в саду фермы",
 
-	-- Step 77: Tirisfal Glades: kill these as you meet them
+	-- Step 78: Tirisfal Glades: kill these as you meet them
 	-- {npc:1495} Deathguard Linnea
 	-- plural, as words: Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
 	["On the way back west, the Cult of the Damned holds the farm just south-east of {npc:1495}'s camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.\nCareful: the cultists (10-12) stand close together and the Neophytes cast: pull one at a time from the edge of the farm."] = "На обратном пути на запад: ферму чуть к юго-востоку от лагеря {npc:1495} занимает Культ Проклятых. Осколки некротического кристалла лежат на земле среди культистов, и у самих культистов они тоже есть.\nОсторожно: культисты (10-12) стоят плотно, а неофиты колдуют: выманивайте по одному с края фермы.",
 
-	-- Step 79: Brill
+	-- Step 80: Brill
 	-- {area:159} Brill · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["Back up the road to {area:159}. {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Назад по дороге сюда: {area:159}. {npc:2128} (маги), {npc:2129} (жрецы), {npc:2127} (чернокнижники) и {npc:2130} (разбойники) стоят наверху в таверне: поднимитесь по лестнице внутри, Стрелка не различает этажи.",
 	-- {npc:1518} Apothecary Johaan · {area:228} Sepulcher
 	["{npc:1518}: for Renferrel at the {area:228}"] = "",
-	["The Wanted poster beside Zygand"] = "Плакат «Разыскивается» рядом с Зигандом",
 	-- {npc:2211} Captured Mountaineer
 	["The {npc:2211}, in the inn's cellar"] = "{npc:2211}, в подвале таверны",
 
-	-- Step 80: Maggot Eye
-	-- {area:164} Garren's Haunt · {npc:1753} Maggot Eye
-	["North to {area:164}, the Rot Hide camp on the hill south of the shore. {npc:1753} (level 11) stands in the hut: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone."] = "На север сюда: {area:164}, лагерь Гнилошкуров на холме к югу от берега. {npc:1753} (11-й уровень) стоит в хижине: сначала перебейте гноллов вокруг него.\nОсторожно: стражи-гноллы стоят у хижины и могут вмешаться. Если проскользнуть мимо них и сразиться с ним внутри, он будет один.",
-	-- {item:3635} Maggot Eye's Paw
-	["{item:3635}; inside"] = "",
-
 	-- Step 81: Leonid Barthalomew the Revered
-	-- {area:164} Garren's Haunt · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
-	["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "На запад от места {area:164} мимо места {area:157} сюда: {area:16616}. Леонид стоит чуть к северу от лагеря {npc:246389}.\n{npc:246389} и {npc:259190} стоят лагерем на опушке леса чуть к югу от Леонида. Когда задание {quest:96896} сдано (10-й уровень), любой класс может взять оба задания. Они отправят вас в подвал под местом {area:16881} – это следующая остановка.",
+	-- {area:159} Brill · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
+	-- was: ["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "На запад от места {area:164} мимо места {area:157} сюда: {area:16616}. Леонид стоит чуть к северу от лагеря {npc:246389}.\n{npc:246389} и {npc:259190} стоят лагерем на опушке леса чуть к югу от Леонида. Когда задание {quest:96896} сдано (10-й уровень), любой класс может взять оба задания. Они отправят вас в подвал под местом {area:16881} – это следующая остановка."
+	["North-west from {area:159} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "",
 	-- {npc:246378} Danitha Morr
 	["Listen to Leonid and {npc:246378}, then talk to him again"] = "Выслушайте Леонида и персонажа {npc:246378}, затем снова поговорите с ним",
 
@@ -512,6 +514,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:159}."] = "Назад сюда: {area:159}.",
+	-- ["Back up the road to {area:159}, on the way north-west to {area:157}."] = "Назад по дороге сюда: {area:159}, по пути на северо-запад к месту {area:157}.",
 	-- ["Back up the road to {area:159}."] = "Назад по дороге сюда: {area:159}.",
 	-- ["Balnir graves"] = "Могилы фермы Балнира",
 	-- ["Duskbats and Darkhounds roam all along the road back west; finish the wings and hides on the way."] = "Сумеречницы и псы тьмы бродят вдоль всей дороги на запад; доберите крылья и шкуры по пути.",
@@ -528,6 +531,7 @@ return {
 	-- ["Follow the road west past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "Идите по дороге на запад мимо места {area:157} сюда: {area:16616}. Леонид стоит чуть к северу от лагеря {npc:246389}.\n{npc:246389} и {npc:259190} стоят лагерем на опушке леса чуть к югу от Леонида. Когда задание {quest:96896} сдано (10-й уровень), любой класс может взять оба задания. Они отправят вас в подвал под местом {area:16881} – это следующая остановка.",
 	-- ["Free six Webbed Victims inside the cave for {npc:244808}"] = "Освободите шесть жертв в коконах в пещере для {npc:244808}",
 	-- ["Greater Duskbats"] = "Большие сумеречницы",
+	-- ["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "Большие сумеречницы (6-7) летают над полями вокруг места {area:159} и вдоль дороги на север: Гретхен нужны их шкурки, {npc:3549} – их крылья. Сумеречницы-вампиры (8-9) подальше тоже их роняют, но бьют сильнее.\n{quest:5482} растет на кладбищенских полях чуть к северу от места {area:159}, где роются грабители могил из стаи Гнилошкуров; лимфа падает со всех Гнилошкуров.\nПолукровки из стаи Гнилошкуров занимают холмы дальше к северу, вокруг места {area:164}. {npc:1753} (11-й уровень) пока оставьте в его хижине: гайд вернется к нему в конце.\nМурлоки из племени Злобного Плавника занимают северный берег: чешуя падает со всех, а кожа для {npc:3549} – с младших оракулов и илистых жителей. Прямо к северу от места {area:159} на берегу прыгуны и младшие оракулы (7-9), а илистых жителей (9-10) рядом нет.",
 	-- ["Greater Duskbats fly over the fields around {area:159} and along the road north."] = "Большие сумеречницы летают над полями вокруг места {area:159} и вдоль дороги на север.",
 	-- ["Greater Duskbats fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}."] = "Большие сумеречницы летают над полями вокруг места {area:159} и вдоль дороги на север: Гретхен нужны их шкурки, {npc:3549} – их крылья.\n{quest:5482} растет на кладбищенских полях чуть к северу от места {area:159}, где роются грабители могил из стаи Гнилошкуров; лимфа падает со всех Гнилошкуров.\nПолукровки из стаи Гнилошкуров занимают холмы дальше к северу. {npc:1753} (11-й уровень) стоит в их лагере на холме к югу от берега: сначала перебейте гноллов вокруг него.\nОсторожно: стражи-гноллы стоят у хижины и могут вмешаться. Если проскользнуть мимо них и сразиться с ним внутри, он будет один.\nМурлоки из племени Злобного Плавника занимают северный берег: чешуя падает со всех, а кожа для {npc:3549} – с младших оракулов и илистых жителей.",
 	-- ["Head west into the {area:16616}; {npc:246389} and {npc:259190} camp at its edge."] = "Идите на запад сюда: {area:16616}; {npc:246389} и {npc:259190} стоят лагерем на окраине.",
@@ -535,6 +539,7 @@ return {
 	-- ["Hearth to {area:159}"] = "Камень возвращения: {area:159}",
 	-- ["Leave {area:154} by the road north-east. {npc:6784} stands by the farmhouse at the {area:156}."] = "Покиньте место {area:154} по дороге на северо-восток. {npc:6784} стоит у дома фермы ({area:156}).",
 	-- ["More Vile Fin murlocs walk the shore just north of the outpost."] = "Еще мурлоки Злобного Плавника бродят по берегу чуть к северу от заставы.",
+	-- ["North to {area:164}, the Rot Hide camp on the hill south of the shore. {npc:1753} (level 11) stands in the hut: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone."] = "На север сюда: {area:164}, лагерь Гнилошкуров на холме к югу от берега. {npc:1753} (11-й уровень) стоит в хижине: сначала перебейте гноллов вокруг него.\nОсторожно: стражи-гноллы стоят у хижины и могут вмешаться. Если проскользнуть мимо них и сразиться с ним внутри, он будет один.",
 	-- ["Paladin: {area:16616}"] = "Паладин: {area:16616}",
 	-- ["Rattlecage Skeletons wander the ruined houses in the north half of {area:154}. Young Scavengers and Duskbats roam all around the village; the Ragged Scavengers and Mangy Duskbats are on its east side."] = "Скелеты-костетрясы бродят по разрушенным домам в северной половине места {area:154}. Молодые падальщики и сумеречницы бродят вокруг деревни; косматые падальщики и облезлые сумеречницы – в ее восточной части.",
 	-- ["Rattlecage skulls"] = "Черепа костетрясов",
@@ -567,6 +572,7 @@ return {
 	-- ["Walk south-west from the mills: the pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "Идите на юго-запад от мельниц: тыквы растут на полях Алого ордена к северо-западу от фермы Соллиден.",
 	-- ["Walk south-west to the {area:156}; Simmer stands at the farm."] = "Идите на юго-запад сюда: {area:156}; Симмер стоит на ферме.",
 	-- ["Webbed Victims"] = "Жертвы в коконах",
+	-- ["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "На запад от места {area:164} мимо места {area:157} сюда: {area:16616}. Леонид стоит чуть к северу от лагеря {npc:246389}.\n{npc:246389} и {npc:259190} стоят лагерем на опушке леса чуть к югу от Леонида. Когда задание {quest:96896} сдано (10-й уровень), любой класс может взять оба задания. Они отправят вас в подвал под местом {area:16881} – это следующая остановка.",
 	-- ["With {skill:129} learned, Eleanor also offers its Camping 101: {npc:5759} in the {area:159} inn takes it."] = "Если у вас изучен навык {skill:129}, Элеанор также предлагает соответствующее задание «Основы походной жизни»: его принимает {npc:5759} в таверне ({area:159}).",
 	-- ["With {skill:164} learned, Eleanor also offers its Camping 101: {npc:4605} in the {zone:1458} (next guide) takes it."] = "Если у вас изучен навык {skill:164}, Элеанор также предлагает соответствующее задание «Основы походной жизни»: его принимает {npc:4605} ({zone:1458}, следующее руководство).",
 	-- ["With {skill:165} learned, Eleanor also offers its Camping 101: {npc:3549} at {npc:1495}'s camp takes it."] = "Если у вас изучен навык {skill:165}, Элеанор также предлагает соответствующее задание «Основы походной жизни»: его принимает {npc:3549} в лагере ({npc:1495}).",

@@ -83,7 +83,7 @@ jobs:
         run: |
           bad=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[].filename' | grep -E '^(guides/GENERATED\.json|forge/seed/)' || true)
           if [ -n "$bad" ]; then
-            msg="This pull request changes files only forge build writes: $(echo $bad). A fix goes into forever-db/corrections, data/mechanics-public.json or data/route-fixes.json, and the next build applies it (docs/FORGE.md, \"Fixing a generated guide\")."
+            msg="This pull request changes files only forge build writes: $(echo $bad). A fix goes into forever-db/corrections, data/mechanics-public.json, data/route-fixes.json, data/places.json (arrow points) or data/guide-fixes.json (tips, gates, when), with its test, and the next build applies it (docs/FORGE.md, \"Fixing a generated guide\")."
             echo "::error::$msg"
             {
               echo '## Generated guides'

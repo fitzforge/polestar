@@ -25,7 +25,7 @@ do
 						{ t = "getfp", npc = 3615, npcName = "Devrak", location = "Crossroads", node = 25, map = 1413, x = 51.5, y = 30.3, z = 95.9, f = "e", note = "{npc:3615}, the wind rider master" },
 						{ t = "sethome", npc = 3934, npcName = "Innkeeper Boorand Plainswind", location = "The Crossroads", map = 1413, x = 52, y = 29.9, z = 96.3, f = "e" },
 						{ t = "accept", quest = 870, title = "The Forgotten Pools", npc = 3448, npcName = "Tonga Runetotem", minLevel = 10, qlvl = 13, pre = { 886 }, preTitles = { [886] = "The Barrens Oases" }, map = 1413, x = 52.3, y = 31.9, z = 95.9, f = "e" },
-						{ t = "accept", quest = 844, title = "Plainstrider Menace", npc = 3338, npcName = "Sergra Darkthorn", minLevel = 10, qlvl = 12, pre = { 860 }, preTitles = { [860] = "Sergra Darkthorn" }, map = 1413, x = 52.2, y = 31, z = 97.5, f = "e" },
+						{ t = "accept", quest = 844, title = "Plainstrider Menace", npc = 3338, npcName = "Sergra Darkthorn", minLevel = 10, qlvl = 12, crumbs = { 860 }, preTitles = { [860] = "Sergra Darkthorn" }, map = 1413, x = 52.2, y = 31, z = 97.5, f = "e" },
 						{ t = "accept", quest = 867, title = "Harpy Raiders", npc = 3449, npcName = "Darsok Swiftdagger", minLevel = 12, qlvl = 15, map = 1413, x = 51.6, y = 30.9, z = 127.9, f = "e", note = "{npc:3449}: the harpies come later, in the Dry Hills" },
 						{ t = "accept", quest = 871, title = "Disrupt the Attacks", npc = 3429, npcName = "Thork", minLevel = 9, qlvl = 12, map = 1413, x = 51.5, y = 30.9, z = 103.8, f = "e" },
 						{ t = "accept", quest = 5041, title = "Supplies for the Crossroads", npc = 3429, npcName = "Thork", minLevel = 9, qlvl = 14, map = 1413, x = 51.5, y = 30.9, z = 103.8, f = "e" },
@@ -983,7 +983,7 @@ do
 					note = "You arrive from Far Watch Post. {npc:3338} stands by the inn; {npc:3429} and {npc:3449} on the tower platform; Helbrim and {npc:3464} by the north gate; {npc:3448} at the south gate.",
 					goals = {
 						{ t = "turnin", quest = 842, title = "Crossroads Conscription", npc = 3338, npcName = "Sergra Darkthorn", map = 1413, x = 52.2, y = 31, z = 97.5, f = "e" },
-						{ t = "accept", quest = 844, title = "Plainstrider Menace", npc = 3338, npcName = "Sergra Darkthorn", minLevel = 10, qlvl = 12, pre = { 860 }, preTitles = { [860] = "Sergra Darkthorn" }, map = 1413, x = 52.2, y = 31, z = 97.5, f = "e" },
+						{ t = "accept", quest = 844, title = "Plainstrider Menace", npc = 3338, npcName = "Sergra Darkthorn", minLevel = 10, qlvl = 12, crumbs = { 860 }, preTitles = { [860] = "Sergra Darkthorn" }, map = 1413, x = 52.2, y = 31, z = 97.5, f = "e" },
 						{ t = "accept", quest = 871, title = "Disrupt the Attacks", npc = 3429, npcName = "Thork", minLevel = 9, qlvl = 12, map = 1413, x = 51.5, y = 30.9, z = 103.8, f = "e" },
 						{ t = "accept", quest = 5041, title = "Supplies for the Crossroads", npc = 3429, npcName = "Thork", minLevel = 9, qlvl = 14, map = 1413, x = 51.5, y = 30.9, z = 103.8, f = "e" },
 						{ t = "accept", quest = 848, title = "Fungal Spores", npc = 3390, npcName = "Apothecary Helbrim", minLevel = 10, qlvl = 15, map = 1413, x = 51.4, y = 30.2, z = 95.9, f = "e" },

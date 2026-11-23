@@ -100,6 +100,44 @@ end
 
 local land -- forward: flight landing check
 
+-- What the client gives for the player's height, once a session: a `mark` "height: <mode>" (docs/RECORDING.md).
+-- Each tick on foot (own speed, not swimming, not riding) HEIGHT_STEP yards or more from the last counted one reads
+-- UnitPosition's height; after HEIGHT_MOVES of them: "real" (it changed), "none" (always none or secret), "zero"
+-- (always exactly 0), "fixed" (the same non-zero height every time) or "mixed". A "real" height seen after another
+-- answer is said once more. `pos` itself has no height.
+local HEIGHT_STEP, HEIGHT_MOVES = 5, 10
+local height = { n = 0, none = 0, zero = 0, changed = false }
+
+local function noteHeight(moving)
+	local h = height
+	if h.said == "real" or type(UnitPosition) ~= "function" then return end
+	local ok, wx, wy, wz = pcall(UnitPosition, "player")
+	if not ok then return end
+	wx, wy = Num(wx), Num(wy)
+	if not (wx and wy) then return end
+	if h.x and (wx - h.x) ^ 2 + (wy - h.y) ^ 2 < HEIGHT_STEP * HEIGHT_STEP then return end
+	h.x, h.y = wx, wy
+	if not moving or call(IsSwimming) or (ownSpeed() or 0) <= 0 then return end
+	wz = Num(wz)
+	if not wz then
+		h.none = h.none + 1
+	elseif wz == 0 then
+		h.zero = h.zero + 1
+	else
+		if h.z and h.z ~= wz then h.changed = true end
+		h.z = wz
+	end
+	h.n = h.n + 1
+	local mode
+	if h.changed then mode = "real"
+	elseif h.said or h.n < HEIGHT_MOVES then return
+	elseif h.none == h.n then mode = "none"
+	elseif h.zero == h.n then mode = "zero"
+	elseif h.none + h.zero == 0 then mode = "fixed"
+	else mode = "mixed" end
+	if ns.Rec("mark", ns.P(), "height: " .. mode) then h.said = mode end
+end
+
 local function tick()
 	if not ns.Recording() then return end
 	if land() or onTaxi() then
@@ -142,6 +180,7 @@ local function tick()
 	else
 		ride.moving = 0
 	end
+	noteHeight(not ride.on and isMoving())
 	if ride.on or isMoving() then breadcrumb(map, x, y) end
 end
 
