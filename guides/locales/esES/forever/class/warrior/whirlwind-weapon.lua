@@ -32,11 +32,11 @@ return {
 
 	-- Step 6: Fray Island
 	-- {area:392} Ratchet · {area:391} Merchant Coast · {area:720} Fray Island · {npc:6236} Klannoc Macleod
-	["Fly to {area:392} and go south along the {area:391}. {area:720} lies offshore to the south-east: wade across on the shallow sand bar; off it the water is deep and fatigue sets in. {npc:6236} stands by the arena."] = "",
+	["Fly to {area:392} and go south along the {area:391}. {area:720} lies offshore to the south-east: wade across on the shallow sand bar; off it the water is deep and fatigue sets in. {npc:6236} stands by the arena."] = "Vuela a {area:392} y ve al sur por {area:391}. {area:720} está mar adentro al sureste: cruza vadeando por el banco de arena poco profundo; fuera el agua es profunda y entra la fatiga. {npc:6236} está junto a la arena.",
 
 	-- Step 7: The Affray
 	-- {npc:6248} Twiggy Flathead · {npc:6238} Big Will · {spell:1160} Demoralizing Shout
-	["You have 10 minutes. Eat and drink to full, then step onto the grate in the middle of the crowd: {npc:6248} announces the challengers (level 26-27), who come one at a time, 15-20 seconds apart, and only while you stand near the grate. After each kill, step off the grate to eat or bandage; step back on when ready for the next. Six of them, then {npc:6238} (level 33, not elite) walks out; he stays neutral until you attack him, so bandage or eat first. Do not use {spell:1160}: it sends the challengers running and more of them pile in at once. If nothing starts, step off and on the grate again, or abandon the quest and take it again."] = "",
+	["You have 10 minutes. Eat and drink to full, then step onto the grate in the middle of the crowd: {npc:6248} announces the challengers (level 26-27), who come one at a time, 15-20 seconds apart, and only while you stand near the grate. After each kill, step off the grate to eat or bandage; step back on when ready for the next. Six of them, then {npc:6238} (level 33, not elite) walks out; he stays neutral until you attack him, so bandage or eat first. Do not use {spell:1160}: it sends the challengers running and more of them pile in at once. If nothing starts, step off and on the grate again, or abandon the quest and take it again."] = "Tienes 10 minutos. Come y bebe hasta llenarte, y luego pisa la reja en medio de la multitud: {npc:6248} anuncia a los retadores (nivel 26-27), que llegan de uno en uno, con 15-20 segundos entre ellos, y solo mientras estés cerca de la reja. Después de cada muerte, sal de la reja para comer o vendar; vuelve a pisarla cuando estés listo para el siguiente. Seis de ellos, y luego {npc:6238} (nivel 33, no élite) sale; se queda neutral hasta que lo ataques, así que véndate o come primero. No uses {spell:1160}: hace salir corriendo a los retadores y se amontonan más de una vez. Si no empieza nada, sal y pisa la reja de nuevo, o abandona la misión y tómala otra vez.",
 
 	-- Step 8: Bath'rah the Windwatcher
 	-- {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill · {zone:1416} Alterac Mountains · {area:271} Southshore · {quest:1712} Cyclonian · {item:6929} Bath'rah's Parchment · {item:3357} Liferoot · {item:6851} Essence of the Exile
@@ -45,13 +45,13 @@ return {
 
 	-- Step 9: Liferoot
 	-- {item:3357} Liferoot · {zone:1437} Wetlands · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {npc:1302} Bernard Gump · {npc:1313} Maria Lumere · {zone:1453} Stormwind · {npc:844} Antonio Perelli · {area:460} Sun Rock Retreat · {zone:1441} Thousand Needles
-	["You need 8 {item:3357}. Herbalists pick it by rivers and lakes in the {zone:1437}, {zone:1417} and {zone:1434}; otherwise the auction house. Herb vendors keep only one at a time and restock every two hours: {npc:1302} and {npc:1313} in {zone:1453}, {npc:844} on the road in eastern Elwynn, Jeeda at {area:460} in Stonetalon, Montarr in {zone:1441}. Kurzen Medicine Men in northern Stranglethorn drop one about one kill in twelve."] = "",
+	["You need 8 {item:3357}. Herbalists pick it by rivers and lakes in the {zone:1437}, {zone:1417} and {zone:1434}; otherwise the auction house. Herb vendors keep only one at a time and restock every two hours: {npc:1302} and {npc:1313} in {zone:1453}, {npc:844} on the road in eastern Elwynn, Jeeda at {area:460} in Stonetalon, Montarr in {zone:1441}. Kurzen Medicine Men in northern Stranglethorn drop one about one kill in twelve."] = "Necesitas 8 {item:3357}. Los herboristas las recogen junto a ríos y lagos en {zone:1437}, {zone:1417} y {zone:1434}; si no, en la casa de subastas. Los vendedores de hierbas guardan solo una cada vez y reponen cada dos horas: {npc:1302} y {npc:1313} en {zone:1453}, {npc:844} en el camino del este de Elwynn, Jeeda en {area:460}, en Stonetalon, Montarr en {zone:1441}. Los hombres de medicina Kurzen del norte de Tuercespina sueltan una una de cada doce muertes.",
 
 	-- Step 10: Bloodscalp Tusks
 	-- plural, as words: Bloodscalp Tusks = {item:3901} Bloodscalp Tusk
-	["Bloodscalp Tusks"] = "",
+	["Bloodscalp Tusks"] = "Colmillos Sangrapellejo",
 	-- {area:117} Grom'gol Base Camp · {area:123} Bal'lal Ruins
-	["You need 30 tusks. Every Bloodscalp troll (level 33-37) of north-west Stranglethorn drops one about one kill in three, so plan on some 80 kills: the camps and ruins north and north-west of {area:117} and around the {area:123} on the coast. They enrage below 30% health and the Warriors disarm; back in 5 minutes."] = "",
+	["You need 30 tusks. Every Bloodscalp troll (level 33-37) of north-west Stranglethorn drops one about one kill in three, so plan on some 80 kills: the camps and ruins north and north-west of {area:117} and around the {area:123} on the coast. They enrage below 30% health and the Warriors disarm; back in 5 minutes."] = "Necesitas 30 colmillos. Cada trol Bloodscalp (nivel 33-37) del noroeste de Tuercespina suelta uno unas una de cada tres muertes, así que calcula unas 80 muertes: los campamentos y ruinas al norte y noroeste de {area:117} y alrededor de {area:123}, en la costa. Entran en furia por debajo del 30% de vida y los guerreros desarman; vuelven en 5 minutos.",
 
 	-- Step 11: The exiles of Arathi
 	["The exiles of Arathi"] = "Los exiliados de Arathi",
@@ -72,15 +72,15 @@ return {
 	-- {object:89931} Bath'rah's Cauldron · {quest:1712} Cyclonian · {quest:1714} Essence of the Exile
 	["Click {object:89931} with the 24 charms in your bags and {quest:1712} in your log. Its window asks for the charms straight away, with nothing to accept: Continue, then Complete, and it hands you the {quest:1714}."] = "Haz clic en {object:89931} con los 24 talismanes en tus bolsas y {quest:1712} en tu registro. Su ventana pide los talismanes directamente, sin nada que aceptar: Continuar y luego Completar, y te entrega la {quest:1714}.",
 	-- {quest:1714} Essence of the Exile · {npc:6176} Bath'rah the Windwatcher
-	["{quest:1714}, from the cauldron by {npc:6176}"] = "",
+	["{quest:1714}, from the cauldron by {npc:6176}"] = "{quest:1714}, de la marmita junto a {npc:6176}",
 
 	-- Step 13: The Summoning
 	-- {npc:6176} Bath'rah the Windwatcher · {quest:1713} The Summoning · {quest:1712} Cyclonian · {item:6052} Nature Protection Potion · {spell:10101} Knock Away · {item:6894} Whirlwind Heart
-	["Back to {npc:6176}. Accepting {quest:1713} starts his ritual, and {quest:1712} appears just north of his camp. {quest:1712} is elite (level 40): grouping up is encouraged; it needs a group of two or three around level 40. It deals nature damage (a {item:6052} soaks it), whirls, and {spell:10101} throws you far while it heals itself as you run back: fight with your back to a slope or rock. The {item:6894} always drops. If the fight fails {npc:6176} stops answering: abandon {quest:1713} and take it again for a new summon; the earlier items are not needed again."] = "",
+	["Back to {npc:6176}. Accepting {quest:1713} starts his ritual, and {quest:1712} appears just north of his camp. {quest:1712} is elite (level 40): grouping up is encouraged; it needs a group of two or three around level 40. It deals nature damage (a {item:6052} soaks it), whirls, and {spell:10101} throws you far while it heals itself as you run back: fight with your back to a slope or rock. The {item:6894} always drops. If the fight fails {npc:6176} stops answering: abandon {quest:1713} and take it again for a new summon; the earlier items are not needed again."] = "De vuelta con {npc:6176}. Aceptar {quest:1713} inicia su ritual, y {quest:1712} aparece justo al norte de su campamento. {quest:1712} es de élite (nivel 40): se recomienda ir en grupo; hace falta un grupo de dos o tres sobre el nivel 40. Hace daño de naturaleza (un {item:6052} lo absorbe), gira, y {spell:10101} te lanza lejos mientras se cura al volver corriendo: lucha con la espalda contra una ladera o una roca. El {item:6894} siempre cae. Si la pelea falla, {npc:6176} deja de responder: abandona {quest:1713} y tómala de nuevo para una nueva invocación; los objetos anteriores no hacen falta otra vez.",
 	-- {item:6894} Whirlwind Heart · {quest:1712} Cyclonian
 	["{item:6894}, from {quest:1712}"] = "{item:6894}, de {quest:1712}",
 	-- {npc:6176} Bath'rah the Windwatcher · {item:6975} Whirlwind Axe
-	["{npc:6176}: {item:6975}, Sword or Warhammer"] = "",
+	["{npc:6176}: {item:6975}, Sword or Warhammer"] = "{npc:6176}: {item:6975}, espada o mazo de guerra",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Defeat the challengers and {npc:6238}"] = "Derrota a los aspirantes y a {npc:6238}",

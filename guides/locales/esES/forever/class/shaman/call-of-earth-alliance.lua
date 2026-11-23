@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {quest:94373} Call of Earth
-	["{quest:94373} (Alliance)"] = "",
+	["{quest:94373} (Alliance)"] = "{quest:94373} (Alianza)",
 	-- {item:5175} Earth Totem · {spell:8071} Stoneskin Totem
-	["Your {item:5175}: without it no earth totem can be cast. {spell:8071} comes with it at level 4."] = "",
+	["Your {item:5175}: without it no earth totem can be cast. {spell:8071} comes with it at level 4."] = "Tu {item:5175}: sin él no puedes lanzar ningún tótem de tierra. {spell:8071} viene con él a nivel 4.",
 
 	-- Step 1: Archaic Rune
 	-- {quest:94373} Call of Earth · {quest:98581} Archaic Rune · {npc:658} Sten Stoutarm · {area:132} Coldridge Valley · {quest:179} Dwarven Outfitters · {npc:257446} Teo Hammerstorm · {area:77} Anvilmar
@@ -46,12 +46,12 @@ return {
 	-- {item:6635} Earth Sapta
 	["{item:6635}, beside the Spirit Stone"] = "{item:6635}, junto a la piedra de espíritu",
 	-- {item:6656} Rough Quartz
-	["it hands you the {item:6656}: keep it"] = "",
+	["it hands you the {item:6656}: keep it"] = "te da {item:6656}: guárdalo",
 
 	-- Step 7: Teo Hammerstorm
 	-- {item:6656} Rough Quartz · {area:77} Anvilmar · {item:5175} Earth Totem
 	["Bring the {item:6656} back to Teo inside {area:77}. Keep the {item:5175} in your bags for good: every earth totem needs it."] = "",
 	-- {npc:257446} Teo Hammerstorm · {spell:8071} Stoneskin Totem · {item:5175} Earth Totem
-	["{npc:257446}: {spell:8071} and your {item:5175}"] = "",
-	["the level 4 shaman spells"] = "",
+	["{npc:257446}: {spell:8071} and your {item:5175}"] = "{npc:257446}: {spell:8071} y tu {item:5175}",
+	["the level 4 shaman spells"] = "los hechizos de chamán de nivel 4",
 }
