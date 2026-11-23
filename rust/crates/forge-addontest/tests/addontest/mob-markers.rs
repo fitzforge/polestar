@@ -70,8 +70,7 @@ fn with_no_guide_running_every_open_quest_in_the_log_with_mobs_is_marked() {
 
 #[test]
 fn only_the_current_steps_quests_are_marked_until_the_option_is_turned_off() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		Polestar.Engine.GetStepIndex = function() return 1 end
 		Polestar.Engine.GetStepView = function() return { goals = {
 			{ quest = 200, t = "kill" },
@@ -82,28 +81,24 @@ fn only_the_current_steps_quests_are_marked_until_the_option_is_turned_off() {
 		open()
 		emit(state())
 		Polestar.Set("mobMarkers.stepOnly", false)
-		emit(state())"#,
-	);
+		emit(state())"#);
 	assert_eq!(out, vec![json!([1, 1, 0]), json!([2, 6, 5])], "the step works on 200 only; a hand-in or a done goal does not count");
 }
 
 #[test]
 fn a_finished_objectives_mobs_drop_off_matched_by_name_not_by_the_logs_order() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		open()
 		stub.world.progress(100, 2, 8)
 		emit(state())
 		stub.world.progress(100, 1, 5)
-		emit(state())"#,
-	);
+		emit(state())"#);
 	assert_eq!(out, vec![json!([2, 4, 3]), json!([1, 1, 0])], "the wolves go first, then the bears (quest 100 is then ready: off the list)");
 }
 
 #[test]
 fn hiding_the_guide_hides_the_markers_and_legend_and_showing_it_brings_them_back() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		open()
 		local function shown() local s = state(); emit({ s[3], PolestarMobMarkersLegend:IsShown() }) end
 		shown()
@@ -111,16 +106,14 @@ fn hiding_the_guide_hides_the_markers_and_legend_and_showing_it_brings_them_back
 		shown()
 		Polestar.Set("ui.shown", true)
 		shown()
-		emit(#stub.underGameFrames)"#,
-	);
+		emit(#stub.underGameFrames)"#);
 	assert_eq!(out, vec![json!([5, true]), json!([0, false]), json!([5, true]), json!(0)], "and no frame is made under the game's own");
 }
 
 // The player on the wolves' first spawn (1429 at 10,10): the minimap shows the markers inside its rim.
 #[test]
 fn the_minimap_shows_the_spawns_inside_its_rim_and_none_while_the_guide_is_hidden() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		stub.world.moveTo(1429, 10, 10)
 		local function drawn() stub.advance(0.5); emit(Polestar.MobMarkers.State().minimap) end
 		drawn()
@@ -129,8 +122,7 @@ fn the_minimap_shows_the_spawns_inside_its_rim_and_none_while_the_guide_is_hidde
 		Polestar.Set("ui.shown", true)
 		drawn()
 		Polestar.Set("mobMarkers.showMinimap", false)
-		drawn()"#,
-	);
+		drawn()"#);
 	assert_eq!(out[0], out[2]);
 	assert!(out[0].as_i64().unwrap() >= 1, "the wolf under the player is drawn: {out:?}");
 	assert_eq!(out[1], json!(0));
@@ -139,8 +131,7 @@ fn the_minimap_shows_the_spawns_inside_its_rim_and_none_while_the_guide_is_hidde
 
 #[test]
 fn an_item_picked_from_objects_marks_the_objects_with_the_pickup_bag() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		stub.world.accept(500, { { text = "Dry Branch", type = "item", required = 2 } })
 		Polestar.Engine.GetStepIndex = function() return 1 end
 		Polestar.Engine.GetStepView = function() return { goals = { { quest = 500, t = "collect" } } } end
@@ -151,8 +142,7 @@ fn an_item_picked_from_objects_marks_the_objects_with_the_pickup_bag() {
 		for _, f in ipairs({ WorldMapFrame:GetCanvas():GetChildren() }) do
 			if f.skull and f:IsShown() then icons[#icons + 1] = f.skull:GetTexture() end
 		end
-		emit(icons)"#,
-	);
+		emit(icons)"#);
 	assert_eq!(out[0], json!([1, 2, 2]), "both Dry Branch spawns on 1429");
 	let loot = r"Interface\AddOns\Polestar\Media\UI\icon-collect";
 	assert_eq!(out[1], json!([loot, loot]), "not the skull");
@@ -162,8 +152,7 @@ fn an_item_picked_from_objects_marks_the_objects_with_the_pickup_bag() {
 // turned in leaves the hidden list.
 #[test]
 fn a_quest_turned_off_from_the_legend_stays_off_for_the_character_until_turned_in() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		open()
 		local hidden = Polestar.CharState()
 		hidden.mobMarkersHidden = { [100] = true }
@@ -171,8 +160,7 @@ fn a_quest_turned_off_from_the_legend_stays_off_for_the_character_until_turned_i
 		emit(state())
 		stub.world.turnIn(100)
 		stub.advance(0.5)
-		emit(hidden.mobMarkersHidden[100] == nil)"#,
-	);
+		emit(hidden.mobMarkersHidden[100] == nil)"#);
 	assert_eq!(out[0], json!([2, 6, 0]), "100's spawns count, none is drawn; 200's are on 1430");
 	assert_eq!(out[1], json!(true));
 }
