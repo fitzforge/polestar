@@ -1257,56 +1257,101 @@ local function sizeDesc()
 	W.SetScrollContent(F.DescScroll, content, view - 16)
 end
 
+-- A string's height, or a frame's, rounded once, where it is measured.
+local function textH(fs) return floor(fs:GetStringHeight() + 0.5) end
+local function frameH(f) return floor(f:GetHeight() + 0.5) end
+
+-- The flip guard (#3847): with the same inputs, a pass that would undo the
+-- last change by the same step keeps the height the window has, so two
+-- passes can never take turns frame after frame. Noted once in the Log.
+local function settle(h, key)
+	local was = F.psLayoutH
+	if was and key == F.psLayoutKey and F.psLayoutStep and h - was == -F.psLayoutStep then
+		if not F.psFlipNoted then
+			F.psFlipNoted = true
+			ns.Log(("Report window: a layout pass undid the last one (%+d); kept the first"):format(h - was))
+		end
+		return was
+	end
+	if key ~= F.psLayoutKey then F.psLayoutStep = nil end
+	if was and h ~= was then F.psLayoutStep = h - was end
+	F.psLayoutH, F.psLayoutKey = h, key
+	return h
+end
+
+-- Where the window stands: its top-left corner on UIParent at whole pixels,
+-- kept on the screen here at its height now, so the client's clamp never
+-- has to move it (#3847: the window shook by a few pixels every other
+-- frame). It opens centred, 40 up, and grows down from there; after a drag
+-- it stays where the player put it.
+local function fit()
+	local k = UIParent:GetEffectiveScale() / F:GetEffectiveScale()
+	local sw, sh = UIParent:GetWidth() * k, UIParent:GetHeight() * k
+	local w, h = F:GetWidth(), F:GetHeight()
+	if not F.psLeft then F.psLeft, F.psTop = (sw - w) / 2, (sh + h) / 2 + 40 end
+	local left = min(max(F.psLeft, 0), max(0, sw - w))
+	local top = max(min(F.psTop, sh), min(sh, h))
+	local px = Theme.PixelsPerUnit(F)
+	left, top = floor(left * px + 0.5) / px, floor(top * px + 0.5) / px
+	if F.psAtLeft == left and F.psAtTop == top and F:GetNumPoints() == 1 then return end
+	F.psAtLeft, F.psAtTop = left, top
+	F:ClearAllPoints()
+	F:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left, top)
+end
+
+-- One pass that settles at once: every label is measured at the width it
+-- is drawn at, nothing reads the window's own height or an earlier pass,
+-- and the report box's view comes from the rest of the content's total.
 local function layout()
 	local y = HEAD_H + 12
 	if F.Outdated:IsShown() then
 		put(F.Outdated, PAD, y)
-		y = y + F.Outdated:GetStringHeight() + 12
+		y = y + textH(F.Outdated) + 12
 	end
 	put(F.Context, PAD, y)
-	y = y + F.Context:GetStringHeight() + 16
+	y = y + textH(F.Context) + 16
 	put(F.DescLabel, PAD, y)
-	y = y + F.DescLabel:GetStringHeight() + 6
+	y = y + textH(F.DescLabel) + 6
 	put(F.DescWell, PAD, y)
-	y = y + F.DescWell:GetHeight() + 12
+	y = y + frameH(F.DescWell) + 12
 	put(F.SpotNote, PAD, y)
-	y = y + F.SpotNote:GetStringHeight() + 8
+	y = y + textH(F.SpotNote) + 8
 	put(F.Mark, PAD, y)
 	F.Clear:ClearAllPoints()
 	F.Clear:SetPoint("LEFT", F.Mark, "RIGHT", 8, 0)
-	y = y + F.Mark:GetHeight() + 16
+	y = y + frameH(F.Mark) + 16
 	put(F.Rule, PAD, y)
 	y = y + 1 + 16
 	-- The mark's ink starts 2px into its texture and 5px down.
 	put(F.Logo, PAD - 2, y - 4)
 	put(F.DiscordTitle, TEXT_X, y)
-	y = y + F.DiscordTitle:GetStringHeight() + 4
+	y = y + textH(F.DiscordTitle) + 4
 	put(F.DiscordNote, TEXT_X, y)
-	y = y + F.DiscordNote:GetStringHeight() + 10
+	y = y + textH(F.DiscordNote) + 10
 	put(F.Copy, TEXT_X, y)
 	F.Invite:ClearAllPoints()
 	F.Invite:SetPoint("LEFT", F.Copy, "RIGHT", 8, 0)
-	y = y + F.Copy:GetHeight()
+	y = y + frameH(F.Copy)
 	-- What goes under the box: its gap, the GitHub rule and row, the edge.
 	local bw = F.GitHub:GetWidth()
 	F.GitHubNote:SetWidth(BOX_W - bw - 12)
-	local nh, bh = F.GitHubNote:GetStringHeight(), F.GitHub:GetHeight()
+	local nh, bh = textH(F.GitHubNote), frameH(F.GitHub)
 	local row = max(nh, bh)
-	if F.BoxWell:IsShown() then
+	local shown = F.BoxWell:IsShown()
+	if shown then
 		y = y + 12
 		put(F.CopyHint, PAD, y)
-		y = y + F.CopyHint:GetStringHeight() + 6
+		y = y + textH(F.CopyHint) + 6
 		put(F.BoxWell, PAD, y)
-		local content = F.Box:GetHeight()
-		local room = WINDOW_MAX - y - (16 + 1 + 12 + row + PAD)
-		local view = min(content, max(BOX_VIEW_MIN, floor(room)))
+		local content = frameH(F.Box)
+		local view = min(content, max(BOX_VIEW_MIN, WINDOW_MAX - y - (16 + 1 + 12 + row + PAD)))
 		F.BoxWell:SetHeight(view)
 		W.SetScrollContent(F.BoxScroll, content, view)
 		y = y + view
 	else
 		y = y + 10
 		put(F.SettingsNote, TEXT_X, y)
-		y = y + F.SettingsNote:GetStringHeight()
+		y = y + textH(F.SettingsNote)
 	end
 	y = y + 16
 	put(F.GitHubRule, PAD, y)
@@ -1315,7 +1360,10 @@ local function layout()
 	put(F.GitHubNote, PAD, y + floor((row - nh) / 2 + 0.5))
 	put(F.GitHub, WIDTH - PAD - bw, y + floor((row - bh) / 2 + 0.5))
 	y = y + row
-	F:SetHeight(floor(y + PAD + 0.5))
+	local key = table.concat({ tostring(shown), F.Outdated:IsShown() and F.Outdated:GetText() or "", F.Context:GetText() or "",
+		F.SpotNote:GetText() or "", frameH(F.DescWell), frameH(F.Box) }, "\1")
+	F:SetHeight(settle(y + PAD, key))
+	fit()
 end
 
 local function showSpot()
@@ -1534,7 +1582,7 @@ local function build()
 	F:EnableMouse(true)
 	F:SetMovable(true)
 	F:SetWidth(WIDTH)
-	F:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
+	-- Placed by fit() at its first layout.
 	F:Hide()
 	Theme.Skin(F, "window")
 
@@ -1542,7 +1590,7 @@ local function build()
 	head:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 	head:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
 	head:SetHeight(HEAD_H)
-	ns.DragWindow(head, F)
+	ns.DragWindow(head, F, { onStop = function(f) f.psLeft, f.psTop = f:GetLeft(), f:GetTop() end })
 	F.Band = Theme.Band(head, "BACKGROUND", -5)
 	F.Band:SetAllPoints(head)
 	F.Band:SetTexCoord(Theme.BandCoords(WIDTH - 2, HEAD_H))
