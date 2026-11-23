@@ -207,16 +207,22 @@ fn the_first_page_greets_the_character_by_name_says_what_polestar_does_shows_its
 		end
 		local line = said(body.Line)
 		local ahead = plain(body.Ahead:GetText())
+		local follow = { said(body.Follow), plain(body.Follow:GetText()), select(5, body.Follow:GetPoint(1)) > select(5, body.Ahead:GetPoint(1)) }
 		F:Hide()
 		uistub.player = {}
 		Wel.Show()
-		emit({ named = named, line = line, cards = parts, anonymous = title(), ahead = ahead })"#);
+		emit({ named = named, line = line, cards = parts, anonymous = title(), ahead = ahead, follow = follow })"#);
 	assert_eq!(out["named"], "Hello, Testchar");
 	assert_eq!(out["anonymous"], "Welcome to Polestar", "without a name");
 	assert_eq!(out["line"], true, "a line on what Polestar does");
 	let part = json!({ "shown": true, "title": true, "line": true, "media": true });
 	assert_eq!(out["cards"], json!([part, part, part]), "three parts, each a card with its miniature, title and line");
 	assert_eq!(out["ahead"], "The next pages set Polestar up for how you play. Each choice works at once, and Skip install keeps everything as it is.");
+	assert_eq!(
+		out["follow"],
+		json!([true, "The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup.", true]),
+		"what the arrow follows, over the line on the next pages (#3701)"
+	);
 }
 
 #[test]
