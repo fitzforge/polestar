@@ -11620,6 +11620,33 @@
 				"issue": "-"
 			},
 			{
+				"q": 98205,
+				"after": [
+					"accept",
+					1169
+				],
+				"reason": "Horde Dustwallow (40-50/03, #3656): Whelps are the Worst! (level 44, 3,750 XP) from Drazzit Dripvalve in Mudsprocket, south-east of the Musty Scroll on the way into the Dragonmurk. Its Searing Hatchlings and Whelps (41-43) are the ones Draz'Zilb's Searing Tongues and Hearts (1169) come from, on the same Wyrmbog loop; handed back at Mudsprocket before the ride north to Brackenwall. The Alliance guide had it; the Horde route walked past.",
+				"issue": "#3656"
+			},
+			{
+				"q": 98215,
+				"after": [
+					"accept",
+					1169
+				],
+				"reason": "Horde Dustwallow (40-50/03, #3656): Dragon Scales, Post Burnt Tails (level 44, 3,750 XP): the scales drop from the same whelps and the Firemane dragonkin (41-44) the Dragonmurk step kills for Tharg and Draz'Zilb, taken and handed in with Whelps are the Worst!.",
+				"issue": "#3656"
+			},
+			{
+				"q": 98231,
+				"after": [
+					"accept",
+					1169
+				],
+				"reason": "Horde Dustwallow (40-50/03, #3656): Active Ingredient (level 44, 3,750 XP): the Wyrmtail grows in the bog just east of Mudsprocket (players' recordings at 44-48,74-83), on the same Wyrmbog loop as the two quests above.",
+				"issue": "#3656"
+			},
+			{
 				"q": 93585,
 				"after": [
 					"turnin",
