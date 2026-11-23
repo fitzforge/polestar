@@ -222,6 +222,28 @@ fn far_or_other_zone_feeders_stay_out_and_their_quests_and_empty_steps_go() {
 	assert_eq!(other["hidden"], json!([6621]));
 }
 
+// The guide window's "Left out" line for a quest left out names the quest it needs in the game's language, as the
+// quest's own line does (#3015's group quest question had the same slip): on a German client King of the
+// Foulweald reads "Requires “Zwischen Fels und Distelfell” first", not the guide's English title.
+#[test]
+fn a_left_out_quest_names_the_quest_it_needs_in_the_game_s_language() {
+	let out = run(
+		"function GetLocale() return \"deDE\" end\nw.titles[216] = \"Zwischen Fels und Distelfell\"\n",
+		FAR,
+		&format!(
+			r#"{OPEN}
+local why = {{}}
+for i = 1, E.GetStepCount() do
+	for _, o in ipairs(E.LeftOutHere(i, true)) do
+		if o.quest == 6621 then why[#why + 1] = o.text end
+	end
+end
+emit({{ hidden = r.hidden, why = why }})"#
+		),
+	);
+	assert_eq!(out, json!({ "hidden": [6621], "why": ["Requires “Zwischen Fels und Distelfell” first"] }));
+}
+
 #[test]
 fn a_player_who_did_the_route_gets_the_guide_as_written() {
 	let out = run("w.complete({ 6382, 6383, 216, 98 }); w.abandon(6382)\n", NEAR, &format!("{OPEN}\nemit(r)"));
@@ -465,14 +487,66 @@ fn t_1353_joe_fresh_at_24_in_the_barrens_and_stonetalon_mountains_gets_a_clean_g
 	assert!(out["cost"].as_f64().unwrap() <= 300.0 * lines(&out["feeders"]).len().max(1) as f64);
 }
 
+// A routed flight (Menethil to Chillwind Camp, f3a8ce54cf): the feeder's work lies on the arrival side, in the zone of
+// the camp the next step stands at, far from the flight master the travel step points at. Either end of that routed
+// leg serves the feeder, so it goes in at the camp instead of the accept being left out. The geometry: the flight
+// master (FM) stands on the border of the travel zone (1437), the camp (CAMP) just over it in the arrival zone
+// (1422), the feeder's kills (KILLS) 1,500 yd on, beside a place the guide went earlier (EARLIER): a cheap feeder
+// (Own.feedCost), its kills ~1,640 yd from the flight master (more than FEED_LOCAL there and back).
 #[test]
-fn a_routed_flight_to_chillwind_keeps_its_arrival_feeder() {
-	let out = shipped("Alliance", "Human", "WARRIOR", 53, "", "", "forever/alliance/50-60/03-winterspring");
-	assert!(!ids(&out["hidden"]).contains(&5097), "the cauldron pickup at the arrival camp stays in the guide: {out}");
-	let feeders = lines(&out["feeders"]);
-	for goal in ["accept:5092", "turnin:5092"] {
-		assert!(feeders.iter().any(|step| step.split_whitespace().any(|g| g == goal)), "{goal} at Chillwind: {feeders:?}");
-	}
+fn a_routed_flight_keeps_the_feeder_at_its_arrival_end() {
+	let out = run(
+		r#"
+stub.world.addMap(1437, { name = "Wetlands", c = 0, left = 0, right = -2000, top = 0, bottom = -2000 })
+stub.world.addMap(1422, { name = "Western Plaguelands", c = 0, left = 0, right = -2000, top = 2000, bottom = 0 })
+"#,
+		NEAR,
+		r#"
+local EARLIER, ELSEWHERE, FM, CAMP, KILLS = { 1422, 50, 25 }, { 1437, 50, 50 }, { 1437, 50, 2 }, { 1422, 50, 95 }, { 1422, 50, 20 }
+local function at(goal, p) goal.map, goal.x, goal.y = p[1], p[2], p[3]; return goal end
+local function register(id, steps, after)
+	Polestar.RegisterGuide({ id = id, pack = "test", title = id, faction = "Horde", minLevel = 24, maxLevel = 30, steps = steps, next = after })
+end
+register("test/source", {
+	{ title = "Camp", goals = { at({ t = "accept", quest = 901, title = "Clear the Way" }, CAMP) } },
+	{ title = "Fields", goals = { at({ t = "kill", target = "Skeletal Flayer", count = 10, quest = 901, oi = 1 }, KILLS) } },
+	{ title = "Camp", goals = { at({ t = "turnin", quest = 901, title = "Clear the Way" }, CAMP) } },
+}, "test/trip")
+register("test/trip", {
+	{ title = "Earlier", goals = { at({ t = "accept", quest = 902, title = "An errand" }, EARLIER) } },
+	{ title = "Elsewhere", goals = { at({ t = "turnin", quest = 902, title = "An errand" }, ELSEWHERE) } },
+	{ title = "Fly to the camp", goals = { at({ t = "goto" }, FM), { t = "fly", location = "Camp" } } },
+	{ title = "Camp", goals = { at({ t = "accept", quest = 903, title = "The watchtowers", pre = { 901 } }, CAMP) } },
+})
+E.SetGuide("test/trip"); flush()
+local g = E.GetGuide()
+emit({ guide = g.id, shape = shape(), hidden = (g.hidden or {})[903] ~= nil })
+"#,
+	);
+	assert_eq!(out["guide"], "test/trip", "{out}");
+	assert_eq!(out["hidden"], false, "the camp's accept stays: {out}");
+	assert_eq!(
+		out["shape"],
+		json!([
+			"Earlier accept:902",
+			"Elsewhere turnin:902",
+			"Fly to the camp goto fly",
+			"Camp <test/source 1> accept:901",
+			"Fields <test/source 2> kill:901",
+			"Camp <test/source 3> turnin:901",
+			"Camp accept:903",
+		]),
+		"the feeder goes in at the arrival camp: {out}"
+	);
+}
+
+// The shipped route since 0.4.2: the Plaguelands guide writes Chillwind Camp's first quest (Clear the Way, 5092) for a
+// character without the Burning Steppes guide's stop there, so the cauldron pickup (5097) stays for a fresh start.
+#[test]
+fn a_fresh_start_on_the_plaguelands_guide_keeps_the_chillwind_chain() {
+	let out = shipped("Alliance", "Human", "WARRIOR", 55, "", "", "forever/alliance/50-60/04-western-plaguelands");
+	assert!(!ids(&out["hidden"]).contains(&5097), "the cauldron pickup at Chillwind Camp stays in the guide: {out}");
+	assert!(!ids(&out["hidden"]).contains(&5092), "Clear the Way is the guide's own step: {out}");
 }
 
 #[test]

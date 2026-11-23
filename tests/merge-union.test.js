@@ -28,7 +28,7 @@ function unionFiles() {
 
 // A locale file's lines: its fixed opening, blank lines, comments (group headings, keys still to translate,
 // retired translations) and one translation a line.
-const LOCALE_LINE = [/^$/, /^--( .*)?$/, /^L\["(?:[^"\\]|\\.)*"\] = "(?:[^"\\]|\\.)*"$/, /^local ns = Polestar$/, /^if not \(ns and GetLocale and GetLocale\(\) == "[a-z]{2}[A-Z]{2}"\) then return end$/, /^local L = ns\.L$/];
+const LOCALE_LINE = [/^$/, /^--( .*)?$/, /^L\["(?:[^"\\]|\\.)*"\] = "(?:[^"\\]|\\.)*"$/, /^local ns = Polestar$/, /^if not \(ns and ns\.Names and ns\.Names\.Language and ns\.Names\.Language\(\) == "[a-z]{2}[A-Z]{2}"\) then return end$/, /^local L = ns\.L$/];
 
 test('merge=union covers the interface translation files and nothing else', () => {
 	const locales = git(['ls-files', 'addon/']).split('\n').filter((f) => /^addon\/Polestar_[a-z]{2}[A-Z]{2}\/Interface\.lua$/.test(f)).sort();

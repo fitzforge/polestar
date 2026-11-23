@@ -39,15 +39,32 @@ return {
 	["The wrecked ship lies just south-west of {npc:11863}'s tower; its chest sits beside {object:177787}."] = "L'épave du navire se trouve juste au sud-ouest de la tour d'{npc:11863} ; son coffre est posé à côté de {object:177787}.",
 	-- {npc:5638} Kreldig Ungor
 	["For {npc:5638}, at the end of this guide"] = "Pour {npc:5638}, à la fin de ce guide",
-	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
-	["{object:177787}, beside the chest: keep it, its keys and chest come on {zone:1443}'s south loop at the end of 30-40"] = "{object:177787}, à côté du coffre : gardez-le, ses clés et son coffre viennent lors de la boucle sud de {zone:1443}, à la fin de 30-40",
+	-- {object:177787} Rackmore's Log
+	["{object:177787}, beside the chest: its two keys drop only while you have the quest"] = "",
 
-	-- Step 8: Dalinda Malem
-	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point
-	["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644} se cache dans la forteresse de la Lame ardente, au sud-ouest de {area:608}.",
+	-- Step 8: Rackmore's Silver Key
+	-- {item:15878} Rackmore's Silver Key
+	-- plural, as words: Drysnap Crawlers = {npc:11562} Drysnap Crawler
+	["West to the shore: the Drysnap Crawlers and Pincers (33-35) on the beach and the clam beds around the wreck carry {item:15878}, about one in seven."] = "",
+	-- {item:15878} Rackmore's Silver Key
+	["{item:15878}, from the Drysnap crabs"] = "{item:15878}, sur les crabes Sèchepince",
+
+	-- Step 9: Sar'theris Strand
+	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key
+	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it. Work the Naga, Sorceresses and Warriors (32-34) of the strand's southern half until it drops.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), and Tidehunters (36-37) swim off the northern tip: on the way to the chest, keep to the beach and swim straight across."] = "",
+	-- {item:15881} Rackmore's Golden Key
+	["{item:15881}, from the Slitherblade naga"] = "",
+
+	-- Step 10: Rackmore's Chest
+	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
+	["Swim out to {area:2406} off the far northern tip: {object:177786} stands on the shore beside the {object:177673}. Open it with both keys; leave the statue alone."] = "Nagez jusqu'à {area:2406}, au large de la pointe nord : le {object:177786} se trouve sur le rivage à côté de la {object:177673}. Ouvrez-le avec les deux clés ; ne touchez pas à la statue.",
+
+	-- Step 11: Dalinda Malem
+	-- {npc:11863} Azore Aldamort · {npc:5644} Dalinda Malem
+	["Back south-east past {npc:11863}'s tower to the Burning Blade's fortress: {npc:5644} hides inside it."] = "",
 	["Inside"] = "À l'intérieur",
 
-	-- Step 9: Tyranis Malem and the Seer
+	-- Step 12: Tyranis Malem and the Seer
 	-- {npc:5643} Tyranis Malem
 	["{npc:5643} and the Seer"] = "{npc:5643} et le Prophète",
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
@@ -57,7 +74,7 @@ return {
 	-- {quest:5741} Sceptre of Light
 	["{quest:5741}; on the top floor"] = "{quest:5741} ; au dernier étage",
 
-	-- Step 10: Escort Dalinda Malem
+	-- Step 13: Escort Dalinda Malem
 	-- {npc:5644} Dalinda Malem
 	["Escort {npc:5644}"] = "Escortez {npc:5644}",
 	-- {npc:5644} Dalinda Malem
@@ -66,36 +83,66 @@ return {
 	-- {npc:5644} Dalinda Malem · {npc:5642} Vahlarriel Demonslayer · {area:608} Nijel's Point
 	["Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {area:608} at the end of the guide."] = "Faites sortir {npc:5644} de la forteresse ; elle s'en va une fois que vous en êtes sortis. La quête se rend à {npc:5642}, à {area:608}, à la fin du guide.",
 
-	-- Step 11: Smeed Scrabblescrew
+	-- Step 14: Azore Aldamort
+	-- {npc:11863} Azore Aldamort · {area:2407} Kormek's Hut
+	["Back west up the hill to {npc:11863}'s tower with the sceptre, then south along the road to {area:2407}."] = "",
+	-- {npc:11863} Azore Aldamort · {npc:12369} Lord Kragaru · {object:177673} Serpent Statue
+	["{npc:11863}: {npc:12369} (38) rises at the {object:177673}, for the south loop at the end of 30-40 (06b): keep it"] = "",
+
+	-- Step 15: Bibbly F'utzbuckle
+	-- {area:2407} Kormek's Hut · {npc:11596} Smeed Scrabblescrew · {npc:11438} Bibbly F'utzbuckle · {object:176751} Kodo Bones · {area:596} Kodo Graveyard
+	["{area:2407} stands by the road south of the fortress, on the way to {npc:11596}'s camp. {npc:11438} collects {object:176751}; they lie among the skeletons of the {area:596}, where {npc:11596}'s kodos are."] = "",
+
+	-- Step 16: Smeed Scrabblescrew
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:596} Kodo Graveyard
 	["{npc:11596}'s camp is on the road south of {area:609}, by the {area:596}."] = "Le camp de {npc:11596} est sur la route au sud de {area:609}, près de {area:596}.",
 
-	-- Step 12: Kodo Graveyard
+	-- Step 17: Kodo Bones
+	-- {area:596} Kodo Graveyard · {npc:11438} Bibbly F'utzbuckle · {object:176751} Kodo Bones · {object:417353} Extinguished Campfire (no name in this language: may be words) · {quest:79229} Highway Robbery
+	["West into the {area:596} first: {npc:11438}'s {object:176751} lie among the skeletons on its western side. Just north of them an {object:417353} starts {quest:79229}, also for {npc:11438}."] = "",
+	-- {item:13703} Kodo Bone
+	["{item:13703}, among the skeletons"] = "",
+	-- {quest:79229} Highway Robbery · {object:417353} Extinguished Campfire (no name in this language: may be words)
+	["{quest:79229}: the {object:417353}"] = "",
+
+	-- Step 18: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
-	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
-	-- was: ["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "Utilisez le {item:13892} de {npc:11596} sur un Kodo âgé, un Kodo mourant ou un {npc:4702} : il devient un kodo apprivoisé qui vous suit. Ramenez-le au camp de {npc:11596} ; là, parlez au kodo : cela le compte et vous permet d'apprivoiser le suivant. Cinq kodos, un à la fois ; les Kodos âgés lâchent aussi les peaux, et les Flagelleurs scorpashi qui chassent autour du cimetière portent le venin."
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom. Careful: the Ancient Kodos (36-37) hit hard: tame them, and fight only the Aged Kodos for the hides."] = "",
+	-- plural, as words: Ancient Kodos = {npc:4702} Ancient Kodo
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them."] = "",
 	-- {npc:4702} Ancient Kodo
 	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "sur un Kodo âgé, un Kodo mourant ou un {npc:4702} dans le cimetière ; ne le tuez pas",
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "le kodo apprivoisé, au camp de {npc:11596} : parlez-lui, cinq fois",
 
-	-- Step 14: Kolkar Village
+	-- Step 19: Kodo Graveyard: hides and venom
+	-- {area:596} Kodo Graveyard
+	["{area:596}: hides and venom"] = "",
+	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
+	["The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos."] = "",
+
+	-- Step 21: Kolkar Village
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:5752} Corporal Melkins · {quest:93224} Carved Centaur Totems · {npc:5396} Captain Pentigast
 	-- plural, as words: Centaur Ears = {item:6067} Centaur Ear
 	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "",
 
-	-- Step 15: Nijel's Point
-	-- {npc:5638} Kreldig Ungor
-	["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638} : la sacoche se trouve au large de la côte nord-ouest, sur la boucle sud à la fin de 30-40 (06-badlands) : gardez-la",
+	-- Step 22: Kormek's Hut
+	-- {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:11438} Bibbly F'utzbuckle · {area:2407} Kormek's Hut · {area:35} Booty Bay
+	["North-west from {area:609} back along the road to {area:608}: {npc:11438} waits at {area:2407}. He sends you after the robber to {area:35}, where the next guide ends: keep it."] = "",
+	-- {npc:11438} Bibbly F'utzbuckle · {area:35} Booty Bay
+	["{npc:11438}: Tokal waits in {area:35}, at the end of the next guide"] = "",
 
-	-- Step 16: Fly to Auberdine
+	-- Step 23: Nijel's Point
+	-- {npc:5638} Kreldig Ungor · {zone:1443} Desolace
+	-- was: ["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638} : la sacoche se trouve au large de la côte nord-ouest, sur la boucle sud à la fin de 30-40 (06-badlands) : gardez-la"
+	["{npc:5638}: the satchel lies off the north-west coast, on {zone:1443}'s south loop at the end of 30-40: keep it"] = "",
+
+	-- Step 24: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Prendre un vol pour {area:442}",
 	-- {area:608} Nijel's Point
 	["{area:608} flight master"] = "Maître de vol du {area:608}",
 
-	-- Step 17: Boat to Stormwind Harbor
+	-- Step 25: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "Bateau pour {area:17203}",
 
@@ -122,4 +169,7 @@ return {
 	-- ["{item:190309}, north of {area:413}"] = "{item:190309}, au nord de {area:413}",
 	-- ["{item:6249} on the way"] = "{item:6249} en chemin",
 	-- ["{npc:3649}: {item:279915}, from Sylessa in Menethil"] = "{npc:3649} : {item:279915}, de la part de Sylessa au Port de Menethil",
+	-- ["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638} : la sacoche se trouve au large de la côte nord-ouest, sur la boucle sud à la fin de 30-40 (06-badlands) : gardez-la",
+	-- ["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644} se cache dans la forteresse de la Lame ardente, au sud-ouest de {area:608}.",
+	-- ["{object:177787}, beside the chest: keep it, its keys and chest come on {zone:1443}'s south loop at the end of 30-40"] = "{object:177787}, à côté du coffre : gardez-le, ses clés et son coffre viennent lors de la boucle sud de {zone:1443}, à la fin de 30-40",
 }

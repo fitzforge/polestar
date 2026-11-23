@@ -26,18 +26,18 @@ step My Little Friends
 
 step Arbor Tarantula in Stranglethorn Vale
   zone Stranglethorn Vale
-  tip The Arbor Tarantulas sit in northern Stranglethorn. Use the kit's tool on one to catch it.
-  collect 213566 "Arbor Tarantula Specimen" @43.1,16.7
+  tip The Arbor Tarantulas sit in northern Stranglethorn. Open the Entomology Starter Kit and use its Bug Catching Net on one to catch it: don't kill it.
+  use 213562 quest 93176.1 @43.1,16.7   -- Bug Catching Net, on an Arbor Tarantula
 
 step Hay Weevil in Arathi Highlands
   zone Arathi Highlands
-  tip The Hay Weevils crawl in the north-west of Arathi Highlands. Use the kit's tool on one.
-  collect 213568 "Hay Weevil Specimen" @31.9,28.2
+  tip The Hay Weevils crawl in the north-west of Arathi Highlands. Use the Bug Catching Net on one.
+  use 213562 quest 93176.2 @31.9,28.2   -- Bug Catching Net, on a Hay Weevil
 
 step Flesh Picker in Desolace
   zone Desolace
-  tip The Flesh Pickers feed in the Kodo Graveyard in the middle of southern Desolace. Use the kit's tool on one.
-  collect 213567 "Flesh Picker Specimen" @48.1,57.1
+  tip The Flesh Pickers feed in the Kodo Graveyard in the middle of southern Desolace. Use the Bug Catching Net on one.
+  use 213562 quest 93176.3 @48.1,57.1   -- Bug Catching Net, on a Flesh Picker
 
 step Back to Amaryllis Webb
   zone Swamp of Sorrows

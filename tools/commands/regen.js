@@ -33,7 +33,7 @@ module.exports = {
 		'do not commit themselves:',
 		'',
 		'  compile     addon/Polestar_Guides/Guides.lua from guides/ and data/forever (forge guide compile),',
-		'              then addon/Polestar_Experimental from experimental/ (forge guide compile experimental)',
+		'              then addon/Polestar/Experimental from experimental/ (forge guide compile experimental)',
 		'  i18n sync   locale files from the addon\u2019s English strings',
 		'  preview     docs/preview/*.svg from the addon\u2019s Lua (no reference data)',
 		'  media       addon/Polestar/Media/*.tga from tools/media/ (no reference data)',

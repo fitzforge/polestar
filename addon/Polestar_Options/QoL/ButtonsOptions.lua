@@ -448,15 +448,19 @@ Buttons.EssentialsPreview = buildEssentialsBand
 
 local ACTION, OTHER = L["Action buttons"], L["Launcher & minimap"]
 
--- A button's size, with its on/off inline beside it (toggleKey), if any;
--- toggleLabel: the switch's own name, where the button's alone is not enough.
-local function sizeRow(kind, label, help, toggleKey, toggleHelp, off, toggleLabel)
+-- The buttons' switches have their home on Questing > Buttons (QoL/Options.lua);
+-- this page shows references to them (UI.Options.Ref).
+local Ref = W.Ref
+
+-- A button's size, with a reference to its on/off inline beside it
+-- (toggleKey), if any; toggleLabel: the switch's own name, where the
+-- button's alone is not enough.
+local function sizeRow(kind, label, help, toggleKey, off, toggleLabel)
 	local row = { kind = "slider", key = "buttons." .. kind .. "Size", label = label, min = 20, max = 80, step = 1, format = px, new = NEW,
 		disabled = off, help = help,
 		search = "size, bigger, smaller, huge, tiny, large, button size, scale, pixels, " .. kind }
 	if toggleKey then
-		row.extras = { { kind = "toggle", key = toggleKey, label = toggleLabel or label, help = toggleHelp,
-			search = "show, hide, on, off, button, keybind, hotkey, " .. kind } }
+		row.extras = { Ref("toggle", toggleKey, { label = toggleLabel or label }) }
 	end
 	return row
 end
@@ -464,11 +468,9 @@ end
 -- The Hearthstone's two buttons side by side (QoL/Options.lua's pair): its
 -- size and switch in the action set, then the travel button under the arrow
 -- (its switch; the Nav module's, when it is loaded).
-local HO = QoL.HearthOptions or {}
 local hearthRow = sizeRow("hearth", L["Hearthstone"], L["The Hearthstone button's size, before the scale. The switch beside it shows or hides the button."],
-	"qol.hearthButton", HO.hearthHelp, nil, L["Hearthstone in the button set"])
-hearthRow.extras[1].search = hearthRow.extras[1].search .. ", hearthstone, hs, hs button, action button"
-local travelRow = HO.travel and HO.travel()
+	"qol.hearthButton", nil, L["Hearthstone in the button set"])
+local travelRow = Ref("toggle", "nav.castPrompt")
 
 -- The rows given, without the ones not there (nil).
 local function present(...)
@@ -520,14 +522,14 @@ local SPECS = {
 	-- two buttons side by side on one line.
 	{ page = PAGE, tab = ACTION, section = L["Buttons"], controls = present(
 		sizeRow("item", L["Quest item"], L["The quest item button's size, before the scale. The switch beside it shows or hides the button."],
-			"qol.itemButton", L["A button for the current step's quest item, with count, cooldown and range. Bind it under Key Bindings > AddOns."]),
+			"qol.itemButton"),
 		sizeRow("target", L["Target"], L["The target button's size, before the scale. The switch beside it shows or hides the button."],
-			"qol.targetButton", L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."]),
+			"qol.targetButton"),
 		hearthRow,
 		travelRow,
 		sizeRow("rare", L["Rare"], L["The rare button's size, before the scale. The switch beside it shows or hides the button."],
-			"qol.rareButton", L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."]),
-		sizeRow("bag", L["Bag"], L["The bag space button's size (the cheapest junk, when your bags are nearly full), before the scale."], nil, nil,
+			"qol.rareButton"),
+		sizeRow("bag", L["Bag"], L["The bag space button's size (the cheapest junk, when your bags are nearly full), before the scale."], nil,
 			function() return not QoL.On("bagSpace") end),
 		{ kind = "slider", key = "buttons.padding", label = L["Icon inset"], min = 0, max = 8, step = 1, format = px, new = NEW,
 			help = L["How far the icon sits in from the button's edge."],
@@ -581,14 +583,14 @@ local SPECS = {
 				search = "outline, font outline, thick outline, shadow, readable, legible",
 				choices = { { value = "auto", label = L["Automatic"] }, { value = "theme", label = L["The theme's"] },
 					{ value = "outline", label = L["Outline"] }, { value = "thick", label = L["Thick outline"] } } } } },
-		{ kind = "toggle", key = "qol.targetPlate", label = L["Who it targets"], info = true,
-			help = L["The target button's icon shows what you do next: talk, accept, turn in, kill or loot, a skull for an elite, rare or boss, or their face once you have seen them. Their name sits beside it, green for a friendly NPC, red for a mob, gold for an elite or rare, with small icons for the names after it. The cog sets those icons' size."],
-			search = "target icon, target name, portrait, npc name, elite, boss, plate, show who it targets",
-			disabled = function() return not (QoL.On("targetButton") and QoL.On("targetSimple")) end,
-			more = { { kind = "slider", key = "buttons.miniSize", label = L["Next names' icons"], min = 8, max = 32, step = 1, format = px, new = NEW,
-				disabled = function() return not (QoL.On("targetButton") and QoL.On("targetSimple") and QoL.On("targetPlate")) end,
-				help = L["The small icons for the names after the next one, under the target's name, and the action badge on a face."],
-				search = "small icons, mini icons, next targets, badge size, queue" } } },
+		-- A reference to its home on Questing > Buttons > Targeting; the size of
+		-- the next names' icons, this page's own, on the row under it.
+		Ref("toggle", "qol.targetPlate", { label = L["Who it targets"], info = true,
+			disabled = function() return not (QoL.On("targetButton") and QoL.On("targetSimple")) end }),
+		{ kind = "slider", key = "buttons.miniSize", label = L["Next names' icons"], min = 8, max = 32, step = 1, format = px, new = NEW, child = true,
+			disabled = function() return not (QoL.On("targetButton") and QoL.On("targetSimple") and QoL.On("targetPlate")) end,
+			help = L["The small icons for the names after the next one, under the target's name, and the action badge on a face."],
+			search = "small icons, mini icons, next targets, badge size, queue" },
 		{ kind = "toggle", key = "buttons.hotkey", label = L["Key binding"], new = NEW,
 			help = L["The key a button is bound to, in its top corner. The cog sets its size."],
 			search = "keybind, hotkey, key text, binding label, shortcut",
@@ -609,9 +611,7 @@ local SPECS = {
 		{ kind = "slider", key = "ui.launcherSize", label = L["Floating button"], min = 16, max = 96, step = 1, format = px, new = NEW, move = "launcher",
 			help = L["The floating button's size. The switch beside it shows it: a small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it."],
 			search = "launcher size, floating button size, bigger, smaller, huge, tiny",
-			extras = { { kind = "toggle", key = "ui.launcher", label = L["Floating button"],
-				help = L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."],
-				search = "launcher, floating icon, floating button, show, hide, toggle, open polestar, quick" } } },
+			extras = { Ref("toggle", "ui.launcher", { label = L["Floating button"] }) } },
 		{ kind = "slider", key = "ui.launcherAlpha", label = L["Opacity"], min = 0.1, max = 1, step = 0.05, format = percent, new = NEW,
 			help = L["How solid the floating button is."],
 			search = "launcher opacity, transparency, alpha, fade, faint" },
@@ -624,9 +624,7 @@ local SPECS = {
 		{ kind = "slider", key = "maps.minimapButtonSize", label = L["Minimap button"], min = 20, max = 64, step = 1, format = px, new = NEW,
 			help = L["The minimap button's size. The switch beside it shows it on the edge of the minimap. A minimap addon that gathers buttons may size it its own way."],
 			search = "minimap button size, bigger, smaller, icon size",
-			extras = { { kind = "toggle", key = "maps.minimapButton", label = L["Minimap button"],
-				help = L["A Polestar button on the edge of the minimap. Click to hide or show Polestar, right-click for a menu, drag to move it."],
-				search = "minimap icon, minimap button, hide button, launcher" } } },
+			extras = { Ref("toggle", "maps.minimapButton", { label = L["Minimap button"] }) } },
 		{ kind = "dropdown", key = "maps.minimapButtonIcon", label = L["Minimap icon"], new = NEW,
 			help = L["The minimap button's mark: Polestar's logo, or its emblem alone in your accent colour or in white."],
 			search = "minimap icon, logo, emblem, colour, white, accent, monochrome", choices = ICON_CHOICES },

@@ -1,0 +1,514 @@
+{
+	"164": {
+		"id": 164,
+		"name": "Blacksmithing",
+		"ranks": [
+			{
+				"max": 75,
+				"minSkill": 0,
+				"trainers": {
+					"Alliance": [
+						514,
+						957,
+						5511
+					],
+					"Horde": [
+						1383,
+						3174,
+						3355,
+						3478
+					]
+				}
+			},
+			{
+				"max": 150,
+				"minSkill": 50,
+				"trainers": {
+					"Alliance": [
+						5511
+					],
+					"Horde": [
+						1383,
+						3355,
+						3478
+					]
+				}
+			},
+			{
+				"max": 225,
+				"minSkill": 125,
+				"trainers": {
+					"Alliance": [],
+					"Horde": [
+						3355
+					]
+				}
+			},
+			{
+				"max": 300,
+				"minSkill": 200,
+				"trainers": {
+					"Alliance": [],
+					"Horde": []
+				}
+			}
+		],
+		"trainerSkill": {}
+	},
+	"165": {
+		"id": 165,
+		"name": "Leatherworking",
+		"ranks": [
+			{
+				"max": 75,
+				"minSkill": 0,
+				"trainers": {
+					"Alliance": [
+						1632,
+						5564,
+						11096
+					],
+					"Horde": [
+						3365,
+						3703,
+						5811
+					]
+				}
+			},
+			{
+				"max": 150,
+				"minSkill": 50,
+				"trainers": {
+					"Alliance": [
+						5564
+					],
+					"Horde": [
+						3365,
+						3703
+					]
+				}
+			},
+			{
+				"max": 225,
+				"minSkill": 125,
+				"trainers": {
+					"Alliance": [],
+					"Horde": []
+				}
+			},
+			{
+				"max": 300,
+				"minSkill": 200,
+				"trainers": {
+					"Alliance": [],
+					"Horde": []
+				}
+			}
+		],
+		"trainerSkill": {}
+	},
+	"171": {
+		"id": 171,
+		"name": "Alchemy",
+		"ranks": [
+			{
+				"max": 75,
+				"minSkill": 0,
+				"trainers": {
+					"Alliance": [
+						1215,
+						5499,
+						5500
+					],
+					"Horde": [
+						3184,
+						3347,
+						11046
+					]
+				}
+			},
+			{
+				"max": 150,
+				"minSkill": 50,
+				"trainers": {
+					"Alliance": [
+						5499
+					],
+					"Horde": [
+						3347
+					]
+				}
+			},
+			{
+				"max": 225,
+				"minSkill": 125,
+				"trainers": {
+					"Alliance": [],
+					"Horde": []
+				}
+			},
+			{
+				"max": 300,
+				"minSkill": 200,
+				"trainers": {
+					"Alliance": [],
+					"Horde": []
+				}
+			}
+		],
+		"trainerSkill": {}
+	},
+	"182": {
+		"id": 182,
+		"name": "Herbalism",
+		"ranks": [
+			{
+				"max": 75,
+				"minSkill": 0,
+				"trainers": {
+					"Alliance": [
+						1218,
+						5502,
+						5566
+					],
+					"Horde": [
+						3185,
+						3404
+					]
+				}
+			},
+			{
+				"max": 150,
+				"minSkill": 50,
+				"trainers": {
+					"Alliance": [
+						1218,
+						5502,
+						5566
+					],
+					"Horde": [
+						3185,
+						3404
+					]
+				}
+			},
+			{
+				"max": 225,
+				"minSkill": 125,
+				"trainers": {
+					"Alliance": [
+						1218,
+						5502,
+						5566
+					],
+					"Horde": [
+						3185,
+						3404
+					]
+				}
+			},
+			{
+				"max": 300,
+				"minSkill": 200,
+				"trainers": {
+					"Alliance": [
+						1218,
+						5502,
+						5566
+					],
+					"Horde": [
+						3185,
+						3404
+					]
+				}
+			}
+		],
+		"trainerSkill": {}
+	},
+	"186": {
+		"id": 186,
+		"name": "Mining",
+		"ranks": [
+			{
+				"max": 75,
+				"minSkill": 0,
+				"trainers": {
+					"Alliance": [
+						5513
+					],
+					"Horde": [
+						3175,
+						3357
+					]
+				}
+			},
+			{
+				"max": 150,
+				"minSkill": 50,
+				"trainers": {
+					"Alliance": [
+						5513
+					],
+					"Horde": [
+						3175,
+						3357
+					]
+				}
+			},
+			{
+				"max": 225,
+				"minSkill": 125,
+				"trainers": {
+					"Alliance": [
+						5513
+					],
+					"Horde": [
+						3175,
+						3357
+					]
+				}
+			},
+			{
+				"max": 300,
+				"minSkill": 200,
+				"trainers": {
+					"Alliance": [
+						5513
+					],
+					"Horde": [
+						3175,
+						3357
+					]
+				}
+			}
+		],
+		"trainerSkill": {}
+	},
+	"197": {
+		"id": 197,
+		"name": "Tailoring",
+		"ranks": [
+			{
+				"max": 75,
+				"minSkill": 0,
+				"trainers": {
+					"Alliance": [
+						1103,
+						1300,
+						1346,
+						5567
+					],
+					"Horde": [
+						2855,
+						3363,
+						3704
+					]
+				}
+			},
+			{
+				"max": 150,
+				"minSkill": 50,
+				"trainers": {
+					"Alliance": [
+						1346,
+						5567
+					],
+					"Horde": [
+						3363,
+						3704
+					]
+				}
+			},
+			{
+				"max": 225,
+				"minSkill": 125,
+				"trainers": {
+					"Alliance": [
+						1346
+					],
+					"Horde": []
+				}
+			},
+			{
+				"max": 300,
+				"minSkill": 200,
+				"trainers": {
+					"Alliance": [],
+					"Horde": []
+				}
+			}
+		],
+		"trainerSkill": {}
+	},
+	"202": {
+		"id": 202,
+		"name": "Engineering",
+		"ranks": [
+			{
+				"max": 75,
+				"minSkill": 0,
+				"trainers": {
+					"Alliance": [
+						5518,
+						10993,
+						11026
+					],
+					"Horde": [
+						3412,
+						10993,
+						11017,
+						11025
+					]
+				}
+			},
+			{
+				"max": 150,
+				"minSkill": 50,
+				"trainers": {
+					"Alliance": [
+						5518
+					],
+					"Horde": [
+						3412,
+						11017
+					]
+				}
+			},
+			{
+				"max": 225,
+				"minSkill": 125,
+				"trainers": {
+					"Alliance": [],
+					"Horde": [
+						11017
+					]
+				}
+			},
+			{
+				"max": 300,
+				"minSkill": 200,
+				"trainers": {
+					"Alliance": [],
+					"Horde": []
+				}
+			}
+		],
+		"trainerSkill": {}
+	},
+	"333": {
+		"id": 333,
+		"name": "Enchanting",
+		"ranks": [
+			{
+				"max": 75,
+				"minSkill": 0,
+				"trainers": {
+					"Alliance": [
+						1317,
+						11068,
+						11072
+					],
+					"Horde": [
+						3345,
+						11066
+					]
+				}
+			},
+			{
+				"max": 150,
+				"minSkill": 50,
+				"trainers": {
+					"Alliance": [
+						1317,
+						11072
+					],
+					"Horde": [
+						3345
+					]
+				}
+			},
+			{
+				"max": 225,
+				"minSkill": 125,
+				"trainers": {
+					"Alliance": [
+						11072
+					],
+					"Horde": []
+				}
+			},
+			{
+				"max": 300,
+				"minSkill": 200,
+				"trainers": {
+					"Alliance": [],
+					"Horde": []
+				}
+			}
+		],
+		"trainerSkill": {}
+	},
+	"393": {
+		"id": 393,
+		"name": "Skinning",
+		"ranks": [
+			{
+				"max": 75,
+				"minSkill": 0,
+				"trainers": {
+					"Alliance": [
+						1292,
+						6306
+					],
+					"Horde": [
+						6387,
+						7088
+					]
+				}
+			},
+			{
+				"max": 150,
+				"minSkill": 50,
+				"trainers": {
+					"Alliance": [
+						1292,
+						6306
+					],
+					"Horde": [
+						6387,
+						7088
+					]
+				}
+			},
+			{
+				"max": 225,
+				"minSkill": 125,
+				"trainers": {
+					"Alliance": [
+						1292,
+						6306
+					],
+					"Horde": [
+						6387,
+						7088
+					]
+				}
+			},
+			{
+				"max": 300,
+				"minSkill": 200,
+				"trainers": {
+					"Alliance": [
+						1292,
+						6306
+					],
+					"Horde": [
+						6387,
+						7088
+					]
+				}
+			}
+		],
+		"trainerSkill": {}
+	}
+}

@@ -179,6 +179,28 @@ fn sources_required_item_level_quest_minlevel_and_mob_level_gate_a_source() {
 	assert!(truthy(&ok[0]["available"]));
 }
 
+// #3370 (Zack: a level 57 went to Pix Xizzix for In Demand, which the game offers from level 60): a quest's Lookup
+// line (its row, its page's header) says from which level it is offered while the character is below it, after its
+// quest level when that is higher ("Level 32 · From level 30"), alone when the two are one ("From level 10"); at or
+// above that level the line is as before.
+#[test]
+fn a_quest_s_lookup_line_says_from_which_level_it_is_offered_while_the_character_is_below_it_3370() {
+	let line = |level: i32| {
+		run_with(
+			r#"
+		Polestar.Codex.Load()
+		local S = Polestar.Lookup.Subtitle
+		emit({ peril = S("quest", 7005), taming = S("quest", 7009) })
+	"#,
+			&Opts { level, ..Default::default() },
+		)
+		.remove(0)
+	};
+	assert_eq!(line(9), json!({ "peril": "Level 32 \u{b7} From level 30 \u{b7} Amber Vale", "taming": "From level 10 \u{b7} Amber Vale" }));
+	assert_eq!(line(15), json!({ "peril": "Level 32 \u{b7} From level 30 \u{b7} Amber Vale", "taming": "Level 10 \u{b7} Amber Vale" }));
+	assert_eq!(line(30), json!({ "peril": "Level 32 \u{b7} Amber Vale", "taming": "Level 10 \u{b7} Amber Vale" }));
+}
+
 // #1745: the level gate is for creatures you fight. A level 30 vendor of the character's side and a level 55
 // factionless banker (a goblin town's) stay open to a level 20 character; a level 40 beast and a vendor of the
 // other side are still out of reach.
@@ -214,6 +236,38 @@ fn sources_professions_gate_crafts_unless_the_character_can_still_learn_them() {
 	assert!(num(&none[0]["effort"]) > num(&low[0]["effort"]), "learning the profession costs more than skilling up");
 	assert!(num(&low[0]["effort"]) > num(&high[0]["effort"]), "missing skill points cost effort");
 	assert_eq!(high[0]["effort"], stubbed[0]["effort"]);
+}
+
+// #3784: item 8005 needs Tailoring 100 (Journeyman). 5010 (nearer) teaches only Apprentice; 5011 teaches the
+// next ranks. A trainer is chosen only when it teaches the rank the character lacks and accepts their skill.
+#[test]
+fn sources_a_crafts_trainer_teaches_the_rank_it_needs_3784() {
+	let ranks = |journeyman_a: Value| {
+		json!([
+			{ "minSkill": 0, "max": 75, "trainers": { "Alliance": [5010], "Horde": [] } },
+			{ "minSkill": 50, "max": 150, "trainers": { "Alliance": journeyman_a, "Horde": [] } },
+			{ "minSkill": 125, "max": 225, "trainers": { "Alliance": [5011], "Horde": [] } },
+			{ "minSkill": 200, "max": 300, "trainers": { "Alliance": [], "Horde": [] } },
+		])
+	};
+	let trainer = |journeyman_a: Value, gates: Value, skill: &str| {
+		let mut c = codex();
+		let mut tobin = c["npcs"]["5010"].clone();
+		tobin["id"] = json!(5011);
+		tobin["name"] = json!("Tailor Tobin");
+		tobin["spawns"] = json!([{ "map": 9001, "x": 70, "y": 70, "f": "e" }]);
+		c["npcs"]["5011"] = tobin;
+		c["professions"] = json!({ "197": { "id": 197, "name": "Tailoring", "ranks": ranks(journeyman_a), "trainerSkill": gates } });
+		let pack = write_codex_pack(&c, &CodexOpts::default());
+		let setup = format!("{}\nw.learnSkill(197, \"Tailoring\", {skill})", pack.stub_lua);
+		let rows = run_with(r#"emit((rows("item", 8005)))"#, &Opts { with_pack: false, setup, ..Default::default() }).remove(0);
+		drop(pack);
+		rows[0]["trainer"].clone()
+	};
+	assert_eq!(trainer(json!([5011]), json!({}), "60, 75"), 5011, "Apprentice only so far: the trainer of the next rank, not the nearer one");
+	assert_eq!(trainer(json!([5011]), json!({}), "120, 150"), 5010, "the rank is held: the nearest trainer");
+	assert_eq!(trainer(json!([5011]), json!({ "5010": 125 }), "120, 150"), 5011, "5010 turns the character away below 125");
+	assert_eq!(trainer(json!([]), json!({}), "60, 75"), Value::Null, "no trainer teaches the rank: none, not the wrong one");
 }
 
 #[test]
@@ -871,6 +925,9 @@ fn translated_search_keeps_only_the_extra_names_and_ranks_them_with_english() {
 			end
 			error("retained Lua heap did not settle")
 		end
+		-- Lua 5.1's string table doubles when full and a full collect halves it only while it is under a quarter
+		-- full: grown first, a resize the query's short-lived strings set off is not counted as kept.
+		do local t = {} for i = 1, 100000 do t[i] = "\3" .. i end end
 		local before = retainedKiB()
 		ready = true
 		Polestar.Search.Query("unmatched", opts)

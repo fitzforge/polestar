@@ -73,7 +73,7 @@ return {
 	-- Step 11: Northshire: last hand-in
 	["Northshire: last hand-in"] = "北郡：最后一次交还任务",
 	-- {object:563442} Kobold Tracks (no name in this language: may be words)
-	["{object:563442}, east of the abbey"] = "{object:563442}，位于修道院东面",
+	["{object:563442}, east of the abbey"] = "狗头人足迹，位于修道院东面",
 
 	-- Step 12: Northshire: the books end in Goldshire
 	-- {area:87} Goldshire

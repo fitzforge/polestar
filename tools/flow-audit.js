@@ -9,8 +9,8 @@
 //                                                                   (both styles), alone and with the route choices
 //   node tools/flow-audit.js gate <before> <after> [--reasons F]   the gate: two audits, or two --out-dir folders
 //
-//   --addon DIR      the compiled guides: the folder holding Polestar_Guides* (and Polestar_Experimental for the route
-//                    choices), as `forge guide compile --out <dir>/Polestar_Guides` writes them
+//   --addon DIR      the compiled guides: the folder holding Polestar_Guides* (and Polestar/Experimental for the
+//                    route choices), as `forge guide compile --out <dir>/Polestar_Guides` writes them
 //   --data DIR       reference data (default data/forever)
 //   --faction F      Horde or Alliance (default both); --start, --class: comma lists to narrow the branches
 //   --route LIST     route choices to take where a guide offers them (comma list: riverglades, shendralas, hyjal)

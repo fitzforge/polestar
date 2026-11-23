@@ -537,6 +537,10 @@
 			"title": "Install flow: an Install button in Settings and a setup in a few pages",
 			"why": "HOLDS (feature): feature shipped in 0.4.0"
 		},
+		"2052": {
+			"title": "Materials in guides: gather, buy or both; fishing recipes; gathering spots in While you're here",
+			"why": "PINNED (sibling): split into #3648, #3649, #3650 and #3651, which carry the rest of the work and their own pins"
+		},
 		"2053": {
 			"title": "Route tools: the format and writer changes the guide audit needs",
 			"why": "HOLDS (feature): feature shipped in 0.4.0"
@@ -552,6 +556,10 @@
 		"2057": {
 			"title": "Performance: the guide window's layout and the remaining speed items",
 			"why": "HOLDS (feature): feature shipped in 0.4.0"
+		},
+		"2058": {
+			"title": "Arrow replays on the new walking maps, and the indoor rule",
+			"why": "PINNED (sibling): the 0.4.1 walking-map round (#2571) that closed it; its zone-border fix is #2048's, pinned by rust/crates/forge-addontest/tests/addontest/nav-e2e.rs following_the_arrow_from_the_riverglades_along_the_zone_line_to_a_redridge_goal_never_flips_and_arrives_2048"
 		},
 		"2061": {
 			"title": "Release gate tools: what the gates need before they can run",
@@ -584,6 +592,10 @@
 		"2144": {
 			"title": "Incorrect guidance on the client",
 			"why": "HOLDS (code): client text fix line present (1/1)"
+		},
+		"2214": {
+			"title": "Sleeping bag questchain",
+			"why": "HOLDS (nav): fixed by the 0.4.2 walking maps (#3210): the walk from the camp's Pocket Litter to the Mound of Dirt goes straight down to the ledge (about 124 yd, was about 640 round the valley); held by the nav eval's acceptance route stonetalon-camp-mound-of-dirt (tools/lib/nav/eval/acceptance.json:81), which runs on the walking maps, not in the test suites"
 		},
 		"2221": {
 			"title": "hearth and astral recall",
@@ -677,6 +689,10 @@
 			"title": "zum'rah's head görevini aldırmıyor. skywatcher platosunda camp gev'rek de",
 			"why": "HOLDS (codex): shipped Codex (Polestar_Codex/Dungeons1.lua): Zum'rah's Head 96775 on the zulfarrak page, start Mazu'kon (264074) map 1412 32.5,20.7"
 		},
+		"2524": {
+			"title": "Mount Hyjal: measure it as part of the Alliance route once players have recorded it",
+			"why": "PINNED (pr-test): an enhancement, built by #3253 (Mount Hyjal in the 50-60 route for both factions); its tests are still present: tests/guides-reported.test.js 'Mount Hyjal: in both routes before the Silithus guides, no route choice for it' and the quest-log check per faction"
+		},
 		"2577": {
 			"title": "Bug: Ruins of Lordaeron guide is incomplete, it leaves the remaining steps for Une...",
 			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
@@ -688,23 +704,57 @@
 		"2639": {
 			"title": "Wrong location",
 			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2807": {
+			"title": "Feature: see what the recordings say about kill time by class, mob level and elites",
+			"why": "PINNED (pr-test): an enhancement, built by #2798 (forge sim fights); its tests are still present: rust/crates/forge/tests/fights.rs (a_sample_is_the_seconds_between_two_kills_less_the_walk, kills_that_are_no_solo_fight_are_left_out, the_fit_gives_back_the_terms_the_players_were_made_from)"
+		},
+		"2850": {
+			"title": "Wrong step: Riverglades, step 16",
+			"why": "HOLDS (data): fixed by 0.4.1's data build, with no correction record: Goren Grayfellow (272435) has one spot, 37.71,76.15 on map 2548 (data/forever/npcs.json, the 0.4.2 build too), where the sell reminder sends the player"
+		},
+		"2866": {
+			"title": "Bug: community guides on polestar.guide don’t show real installs",
+			"why": "PINNED (linked): fixed in the site's repository (fitzforge/polestar-site#4); nothing in this repository to test"
+		},
+		"3077": {
+			"title": "Bug: You need to go into deadmines to blow up the forge.",
+			"why": "NOT-A-FIX: the reporter was on 0.3.4; closed after the reply asking them to update to 0.4.1, with no change made"
+		},
+		"3134": {
+			"title": "Step 3 of 125 - Sorrow Hill",
+			"why": "HOLDS (guide): the 0.4.2 Alliance route (#3285) moved the seam: alliance/50-60/03-winterspring ends at Moonglade's flight master (Sindrayl, :604), and 04-western-plaguelands reaches Chillwind Camp by the flight to Southshore (:124) before Sorrow Hill (:151), no ride across the Plaguelands at the start"
+		},
+		"3169": {
+			"title": "The Experimental Method Quest wrong place marked",
+			"why": "HOLDS (guide): forever/50-60/mount-hyjal.guide:287-288 points the Slime and Alchemy Workstations at 42.5,73.1 and 44.3,68.3, the spots the reporters gave (about 42.4,72.9 and 44.3,68.5), carried in by the 0.4.2 route PRs (#3284, #3285)"
+		},
+		"3203": {
+			"title": "Feature: Freedoom Arcade playable on AZERTY and other keyboard layouts",
+			"why": "PINNED (pr-test): fixed by #3204; its test (maps-arcade.rs) still present"
+		},
+		"3278": {
+			"title": "Feature: changing distance units",
+			"why": "NOT-A-FIX: already there: Options, Guide, Arrow & routes, Distances: Metres; closed with no change made"
 		}
 	},
 	"records": {
 		"data/guide-fixes.json fixes 1175-needles-rokalim-back-west": "no guide has quest 1151 (0.4.0)",
 		"data/guide-fixes.json fixes 1333-tear-of-the-moons-twinbraid": "no guide has quest 857 (0.4.0)",
-		"data/guide-fixes.json fixes 1893-cozzle-step-waits-for-goblin-sponsorship": "no guide has quest 1182 (0.4.0)",
+		"data/guide-fixes.json fixes 1791-sweep-andorhal-araj-accept": "no guide has quest 105 (2026-11-20: Alas, Andorhal left out of the Horde route; its prerequisite 5098 is taken in 50-60/02, so a character starting at 05 never gets it)",
+		"data/guide-fixes.json fixes 1791-sweep-andorhal-araj-shard": "no guide has quest 105 (2026-11-20: Alas, Andorhal left out of the Horde route; its prerequisite 5098 is taken in 50-60/02, so a character starting at 05 never gets it)",
 		"data/guide-fixes.json fixes 1999-feralas-level-45-before-rage-scar": "no guide has quest 7733 (0.4.0)",
 		"data/guide-fixes.json fixes 1999-feralas-pristine-yeti-hide-from-45": "no guide has quest 7735 (0.4.0)",
 		"data/guide-fixes.json fixes 1999-feralas-rage-scar-heads-up": "no guide has quest 7733 (0.4.0)",
 		"data/guide-fixes.json fixes horde-4060-accept-rise-of-the-machines-52": "no guide has quest 4061 (0.4.0)",
 		"data/guide-fixes.json fixes redridge-second-pass-115-tip": "no guide has quest 115 (0.4.0)",
+		"data/guide-fixes.json fixes silithus-rutheran-by-air": "no guide has quest 4901 (2026-11-20: Guardians of the Altar needs Find Ranshalla (979), which Erelas gives only after Wildkin of Elune (978); 978 is handed to him on 50-60/04's Rut'theran stop, after the Winterspring loop, so Ranshalla is behind the Alliance route)",
 		"data/places.json places 1414-hillsbrad-vial-north": "no guide has quest 98095 (0.4.0)",
 		"data/places.json places 1414-hillsbrad-vial-south": "no guide has quest 98095 (0.4.0)",
 		"data/places.json places 1414-hillsbrad-vial-west": "no guide has quest 98095 (0.4.0)",
+		"data/route-fixes.json deliberate.group q=105": "no guide has quest 105 (2026-11-20: Alas, Andorhal left out of the Horde route; the group record keeps why if it comes back)",
 		"data/route-fixes.json deliberate.group q=1380": "no guide has quest 1380 (0.4.0)",
 		"data/route-fixes.json deliberate.group q=304": "no guide has quest 304 (0.4.0)",
-		"data/route-fixes.json deliberate.group q=3378": "no guide has quest 3378 (0.4.0)",
 		"data/route-fixes.json deliberate.group q=3566": "no guide has quest 3566 (0.4.0)",
 		"data/route-fixes.json deliberate.group q=517": "no guide has quest 517 (0.4.0)",
 		"data/route-fixes.json deliberate.group q=630": "no guide has quest 630 (0.4.0)",
@@ -719,27 +769,34 @@
 		"data/route-fixes.json deliberate.pairs a=turnin 1150 b=accept 1151 Horde": "no guide has quest 1151 (0.4.0)",
 		"data/route-fixes.json deliberate.pairs a=turnin 356 b=accept 99156": "no guide has quest 99156 (0.4.0)",
 		"data/route-fixes.json deliberate.pairs a=turnin 4449 b=turnin 782": "no guide has quest 782 (0.4.0)",
+		"data/route-fixes.json deliberate.pairs a=turnin 4504 b=accept 5801 Alliance": "no guide has quest 5801 (2026-11-20: Fire Plume Forged needs Mold Rhymes With... (5538, from Arbington in the Western Plaguelands, minimum 55), and the Alliance route's last Tanaris stop (50-60/03, about 53.5) now comes before the Plaguelands guide)",
+		"data/route-fixes.json deliberate.pairs a=turnin 5206 b=task 6133 Horde": "no guide has quest 5206 (2026-11-20: the Alliance 50-60 redraw left it out and the Horde route skips it)",
 		"data/route-fixes.json deliberate.pairs a=turnin 528 b=accept 98094": "no guide has quest 98094 (0.4.0)",
+		"data/route-fixes.json deliberate.pairs a=turnin 5904 b=task 6023 Alliance": "no guide has quest 5904 (2026-11-20: A Plague Upon Thee's Termite Barrel goes to the Northridge lumber mill, which 50-60/04's Plaguelands sweep works before Dumah's last Chillwind stop offers it; left out rather than a ride back north for 2,800 XP before the flight out)",
 		"data/route-fixes.json deliberate.pairs a=turnin 92910 b=accept 92911": "no guide has quest 92911 (0.4.0)",
 		"data/route-fixes.json deliberate.pairs a=turnin 98094 b=task 509 Horde": "no guide has quest 98094 (0.4.0)",
 		"data/route-fixes.json deliberate.pairs a=turnin 98291 b=accept 98297": "no guide has quest 98291, 98297 (0.4.0)",
 		"data/route-fixes.json deliberate.pairs a=turnin 98417 b=accept 98418": "no guide has quest 98418 (0.4.0)",
 		"data/route-fixes.json deliberate.pairs a=turnin 99 b=accept 98298": "no guide has quest 99, 98298 (0.4.0)",
 		"data/route-fixes.json deliberate.stay s=turnin 7733": "no guide has quest 7733 (0.4.0)",
+		"data/route-fixes.json overrides.include q=5846": "no guide has quest 5846 (2026-11-20: neither route takes it since the 0.4.2 route round: the Alliance 50-60 redraw left it out and the Horde route skips it)",
 		"data/route-fixes.json overrides.pairs a=task 529 b=turnin 98095 Horde": "no guide has quest 98095 (0.4.0)",
 		"data/route-fixes.json overrides.pairs a=turnin 228 b=accept 583 Alliance": "no guide has quest 228 (0.4.0)",
 		"data/route-fixes.json overrides.pairs a=turnin 231 b=accept 583 Alliance": "no guide has quest 231 (0.4.0)",
 		"data/route-fixes.json overrides.pairs a=turnin 253 b=accept 583 Alliance": "no guide has quest 253 (0.4.0)",
+		"data/route-fixes.json overrides.pairs a=turnin 3763 b=accept 1395 Alliance": "no guide has quest 1395 (2026-11-20: Supplies for Nethergarde left out: its crate from Darkshire runs for an hour and no Alliance guide rides from Darkshire to Nethergarde any more since the Swamp of Sorrows leg ends at Nethergarde at about 41)",
+		"data/route-fixes.json overrides.pairs a=turnin 4261 b=turnin 4496 Alliance": "no guide has quest 4261 (2026-11-20: Arei's escort (Ancient Spirit) ends at Kayneth Stillwind in Forest Song, south of 50-60/03's Felwood pass, which goes north from the Emerald Sanctuary to Timbermaw and Winterspring)",
+		"data/route-fixes.json overrides.pairs a=turnin 5542 b=task 6024": "no guide has quest 6024 (2026-11-20: the Alliance 50-60 redraw left it out and the Horde route skips it)",
 		"data/route-fixes.json overrides.pairs a=turnin 857 b=turnin 4542 Horde": "no guide has quest 857 (0.4.0)",
 		"data/route-fixes.json overrides.pairs a=turnin 857 b=turnin 5881 Horde": "no guide has quest 857 (0.4.0)",
 		"data/route-fixes.json overrides.pairs a=turnin 96259 b=accept 857 Horde": "no guide has quest 857 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=115 Alliance": "no guide has quest 115 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=1151 Horde": "no guide has quest 1151 (0.4.0)",
-		"data/route-fixes.json overrides.skip q=1164 Horde": "no guide has quest 1164 (0.4.0)",
-		"data/route-fixes.json overrides.skip q=1182 Horde": "no guide has quest 1182 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=1187 Horde": "no guide has quest 1187 (2026-11-20: left out, the Horde route does not pass the Mirage Raceway after Dustwallow)",
 		"data/route-fixes.json overrides.skip q=1282 Alliance": "no guide has quest 1282 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=1288 Alliance": "no guide has quest 1288 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=1361 Horde": "no guide has quest 1361 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=1395 Alliance": "no guide has quest 1395 (2026-11-20: the skip record keeps why Supplies for Nethergarde is left out: an hour's crate from Darkshire and no Darkshire to Nethergarde ride left in the Alliance route)",
 		"data/route-fixes.json overrides.skip q=19 Alliance": "no guide has quest 19 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=212 Alliance": "no guide has quest 212 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=3301 Horde": "no guide has quest 3301 (0.4.0)",
@@ -747,19 +804,20 @@
 		"data/route-fixes.json overrides.skip q=3381 Horde": "no guide has quest 3381 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=343 Alliance": "no guide has quest 343 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=3504 Horde": "no guide has quest 3504 (0.4.0)",
-		"data/route-fixes.json overrides.skip q=3518 Horde": "no guide has quest 3518 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=3562 Horde": "no guide has quest 3562 (0.4.0)",
-		"data/route-fixes.json overrides.skip q=3563 Horde": "no guide has quest 3563 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=3564 Horde": "no guide has quest 3564 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=372": "no guide has quest 372 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=4061 Horde": "no guide has quest 4061 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=4293": "no guide has quest 4293 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=4294": "no guide has quest 4294 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=443 Horde": "no guide has quest 443 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=4973": "no guide has quest 4973 (2026-11-20, #3001: the repeatable second Counting Out Time left the Alliance route; the skip keeps a build from taking it back)",
 		"data/route-fixes.json overrides.skip q=4987 Horde": "no guide has quest 4987 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=507 Horde": "no guide has quest 507 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=508 Horde": "no guide has quest 508 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=5088 Horde": "no guide has quest 5088 (2026-11-20: left out, a trip back to Darkcloud Pinnacle for one quest)",
 		"data/route-fixes.json overrides.skip q=515 Horde": "no guide has quest 515 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=5206 Horde": "no guide has quest 5206 (2026-11-20: the Alliance 50-60 redraw left it out too)",
 		"data/route-fixes.json overrides.skip q=5218": "no guide has quest 5218 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=5221": "no guide has quest 5221 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=5224": "no guide has quest 5224 (0.4.0)",
@@ -773,7 +831,10 @@
 		"data/route-fixes.json overrides.skip q=566 Horde": "no guide has quest 566 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=5721": "no guide has quest 5721 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=5821": "no guide has quest 5821 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=5846 Horde": "no guide has quest 5846 (2026-11-20: the Alliance 50-60 redraw left it out too)",
+		"data/route-fixes.json overrides.skip q=5941 Horde": "no guide has quest 5941 (2026-11-20: the Alliance 50-60 redraw left it out too)",
 		"data/route-fixes.json overrides.skip q=5943": "no guide has quest 5943 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=6024 Horde": "no guide has quest 6024 (2026-11-20: the Alliance 50-60 redraw left it out too)",
 		"data/route-fixes.json overrides.skip q=620": "no guide has quest 620 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=6384 Horde": "no guide has quest 6384 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=652": "no guide has quest 652 (0.4.0)",
@@ -788,9 +849,10 @@
 		"data/route-fixes.json overrides.skip q=78133": "no guide has quest 78133 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=78134": "no guide has quest 78134 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=857 Horde": "no guide has quest 857 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=91899 Horde": "no guide has quest 91899 (2026-11-20, #3265: Dokimi's Sealed Crate hand-ins left the Horde route, nothing on it gives the crates; the skip keeps a build from taking them back)",
+		"data/route-fixes.json overrides.skip q=91904 Horde": "no guide has quest 91904 (2026-11-20, #3265: as 91899)",
 		"data/route-fixes.json overrides.skip q=98094 Horde": "no guide has quest 98094 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=98095 Horde": "no guide has quest 98095 (0.4.0)",
-		"data/route-fixes.json overrides.skip q=98240 Alliance": "no guide has quest 98240 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=98297": "no guide has quest 98297 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=98298": "no guide has quest 98298 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=98300": "no guide has quest 98300 (0.4.0)"
