@@ -128,17 +128,17 @@ return {
 
 	-- Step 22: Shadowmaw Panthers
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["Shadowmaw Panthers"] = "",
+	["Shadowmaw Panthers"] = "Panthères Ombregueule",
 	-- {quest:192} Panther Mastery
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
-	["{quest:192} is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone."] = "",
+	["{quest:192} is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone."] = "{quest:192} est encore ouvert : les Panthères Ombregueule (37-38) rôdent dans la jungle au nord de la mine, vers les collines Mosh'Ogg. Elles se camouflent, elles ne se montrent que quand vous êtes proche : attirez-les une par une et laissez les Anciennes panthères Ombregueule (42-43) tranquilles.",
 
 	-- Step 24: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["Lashtail Raptors"] = "Raptors Fouette-queue",
 	-- {quest:195} Raptor Mastery · {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "",
+	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "{quest:195} est encore ouvert : les Raptors flagellants (35-36) chassent la jungle entre {object:3202} et le camp de Nesingwary, sur votre chemin vers le nord.",
 
 	-- Step 25: Foreman Cozzle's house
 	-- {npc:4723} Foreman Cozzle
