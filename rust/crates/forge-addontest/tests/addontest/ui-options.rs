@@ -3066,7 +3066,19 @@ fn general_s_language_row_lists_every_shipped_language_keeps_the_pick_and_asks_f
 	assert_eq!(out["values"], json!(["game", "enUS", "deDE", "esES", "esMX", "frFR", "koKR", "ptBR", "ruRU", "zhCN", "zhTW"]));
 	assert_eq!(
 		out["labels"],
-		json!(["Follow the game", "English", "German", "Spanish (Spain)", "Spanish (Latin America)", "French", "Korean", "Portuguese (Brazil)", "Russian", "Simplified Chinese", "Traditional Chinese"])
+		json!([
+			"Follow the game",
+			"English",
+			"German",
+			"Spanish (Spain)",
+			"Spanish (Latin America)",
+			"French",
+			"Korean",
+			"Portuguese (Brazil)",
+			"Russian",
+			"Simplified Chinese",
+			"Traditional Chinese"
+		])
 	);
 	assert!(out["help"].as_str().unwrap().contains("/reload"), "the row says it takes a /reload: {}", out["help"]);
 	assert_eq!(out["before"], json!(["Follow the game", true]), "the default follows the game, nothing saved");
