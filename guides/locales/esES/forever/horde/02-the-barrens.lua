@@ -155,13 +155,8 @@ return {
 	-- {npc:3391} Gazlowe · {area:392} Ratchet
 	["{npc:3391}: the crates lie at the south end of the beach camp, on the next {area:392} stop at 18"] = "{npc:3391}: las cajas están en el extremo sur del campamento de la playa, en la próxima parada en {area:392}, a nivel 18",
 
-<<<<<<< HEAD
 	-- Step 33: Fly to Crossroads
-	["Fly to Crossroads"] = "",
-=======
-	-- Step 27: Fly to Crossroads
 	["Fly to Crossroads"] = "Vuela al Cruce",
->>>>>>> origin/next
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
@@ -221,13 +216,8 @@ return {
 	-- {quest:881} Echeyakee · {npc:3682} Vrang Wildgore
 	["East from the keg toward {quest:881}: {npc:3682} camps below the hills, and his errands lie in the plains beside his camp."] = "Al este, desde el barril hacia {quest:881}: {npc:3682} acampa bajo las colinas, y sus encargos están en las llanuras junto a su campamento.",
 
-<<<<<<< HEAD
 	-- Step 49: Savannah lions
-	["Savannah lions"] = "",
-=======
-	-- Step 42: Savannah lions
 	["Savannah lions"] = "Leones de la sabana",
->>>>>>> origin/next
 	-- {npc:3682} Vrang Wildgore
 	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap
 	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "Los patriarcas de la sabana recorren las llanuras al este del campamento de {npc:3682}, y las trampas activadas están entre ellos.",
@@ -244,13 +234,8 @@ return {
 	-- plural, as words: Raptor Heads = {item:5062} Raptor Head
 	["Finish the Raptor Heads"] = "Termina las cabezas de raptor",
 	-- {quest:881} Echeyakee
-<<<<<<< HEAD
 	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
 	["Still short of twelve? Sunscale Screechers are thickest on the open plains just north of {quest:881}'s lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp."] = "",
-=======
-	-- plural, as words: Sunscale Lashtails = {npc:3254} Sunscale Lashtail
-	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "¿Aún te faltan para doce? Los colazotes y chilladores Solescama recorren las llanuras al noreste del Cruce, de vuelta al sur desde la guarida de {quest:881}.",
->>>>>>> origin/next
 
 	-- Step 53: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
@@ -408,13 +393,8 @@ return {
 	-- {quest:3923} Rilli Greasygob · {zone:1454} Orgrimmar · {object:172958} Valley of Honor
 	["Keep it: {quest:3923} is in {zone:1454}'s {object:172958}, on the {zone:1454} trip at 20"] = "Guárdala: {quest:3923} está en {object:172958} de {zone:1454}, en el viaje a {zone:1454} del paso 20",
 
-<<<<<<< HEAD
 	-- Step 86: the Crossroads
-	["the Crossroads"] = "",
-=======
-	-- Step 79: the Crossroads
 	["the Crossroads"] = "el Cruce",
->>>>>>> origin/next
 	-- {npc:3449} Darsok Swiftdagger · {npc:3448} Tonga Runetotem
 	["South down the road to the Crossroads: {npc:3449} stands on the tower platform, {npc:3448} at the south gate."] = "Al sur por el camino hasta el Cruce: {npc:3449} está en la plataforma de la torre, {npc:3448} en la puerta sur.",
 	-- {item:15826} Curative Animal Salve
@@ -783,6 +763,7 @@ return {
 	-- ["South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank; {npc:3448} takes the result on the next Crossroads stop, so carry on north-west to the {area:383} from here."] = "Al sureste del Cruce. Prueba las semillas en la fisura burbujeante de la orilla este del oasis; {npc:3448} recibe el resultado en la próxima parada en el Cruce, así que desde aquí sigue al noroeste hacia {area:383}.",
 	-- ["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "Al sureste de {area:380}. Prueba las semillas en la fisura burbujeante de la orilla este del oasis.",
 	-- ["Southsea beach"] = "Playa del Mar del Sur",
+	-- ["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "¿Aún te faltan para doce? Los colazotes y chilladores Solescama recorren las llanuras al noreste del Cruce, de vuelta al sur desde la guarida de {quest:881}.",
 	-- ["The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end."] = "Los Merodeadores de la savana cazan en las llanuras entre el pueblo y el campamento Crines de Acero, al este. En el campamento, los buscadores de agua y los tejespinas ocupan la mitad oeste y los cazadores el centro; las cajas de suministros están en el extremo este.",
 	-- ["The Witchwing Slayers hold the western {area:383}; they wear the rings."] = "Los Destripadores Alabruja ocupan el oeste de {area:383}; llevan los anillos.",
 	-- ["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to {npc:6394} in {area:378}, before the thunderhawks. Careful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds; Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds. A {npc:3253} (24, rare) also wanders the mounds: leave it."] = "Las antenas desaparecen quince minutos después de caer: mata a los Enjambradores y Trepadores silítidos de los mismos montículos hasta tener cinco y llévalas directamente a {npc:6394} en {area:378}, antes de los halcones del trueno. Cuidado: los Enjambradores silítidos (nivel 21-22) lanzan {npc:4196} dentro y fuera de combate, lo que trae varios enemigos pequeños; los Trepadores silítidos (nivel 20-21) lanzan de vez en cuando {npc:5781} en combate, lo que hace aparecer más enemigos. Un {npc:3253} (24, raro) también ronda los montículos: déjalo.",
