@@ -684,8 +684,9 @@ return {
 	-- Step 161: Innkeeper Vizzie
 	-- {npc:11118} Innkeeper Vizzie · {area:2255} Everlook · {zone:1452} Winterspring
 	["{npc:11118} is in {area:2255}'s inn. She has more mail for you in {zone:1452}, outside this guide."] = "{npc:11118} está en la posada de {area:2255}. Tiene más correo para ti en {zone:1452}, fuera de esta guía.",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Southeast Bonfire"] = "Southeast Bonfire",
-	-- ["South Bonfire"] = "South Bonfire",
 	-- ["A group choice: {npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them. Drain each one first, then fight it; players in our recordings killed both once drained. Grouping up is advised."] = "Para ir en grupo: {npc:263394} y {npc:252457} son élites de nivel 60 hasta que el ojo de {npc:263406} los drena. Drena a cada uno primero y luego pelea; los jugadores de nuestras grabaciones mataron a los dos una vez drenados. Se recomienda ir en grupo.",
+	-- ["South Bonfire"] = "South Bonfire",
+	-- ["Southeast Bonfire"] = "Southeast Bonfire",
 }
