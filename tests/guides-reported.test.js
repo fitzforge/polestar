@@ -19006,3 +19006,54 @@ test('an escort or taming has a step of its own, so skipping it skips no other q
 		}
 	}
 });
+
+// #3823 (charlesketchup): Cooking 1-300, step 63 "Hot Lion Chops (130-175)": `learn 3398` waits for the recipe in
+// the bags but had no place, so the arrow had nowhere to go once the shopping step three steps earlier was passed
+// without the recipe. Until the recipe is in the bags or known, the learn leads to the recipe's vendor, the same one
+// the shopping step's `buy 3735 nearest` picks; with the recipe in the bags it has no place again.
+test('#3823 Cooking 1-300: a recipe\'s learn leads to its vendor until the recipe is in the bags', { skip }, () => {
+	data = data || loadData(DATA);
+	const file = path.join(OFFICIAL_DIR, 'forever/professions/cooking.guide');
+	const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], data);
+	const { dir, scripts } = writeTestPack(guides, data);
+	try {
+		const loads = scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", ns)`).join('\n');
+		const { emitted } = runAddon({
+			stubs: ['stub_world.lua'],
+			before: `local w = stub.world
+				w.race, w.raceName, w.faction, w.class, w.className, w.level = "Troll", "Troll", "Horde", "WARLOCK", "Warlock", 32`,
+			addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+			saved: { Polestar: 'PolestarDB = { schema = 1, settings = { behavior = { autoSelectGuide = false } } }' },
+			script: `do local ns = {}
+				${loads}
+				end
+				stub.login(); stub.advance(0.5)
+				local E = Polestar.Engine
+				E.SetGuide("forever/professions/cooking")
+				local function find(t, key, id)
+					for i, step in ipairs(E.GetGuide().steps) do
+						for j, g in ipairs(step.goals) do
+							if g.t == t and g[key] == id then
+								for _, v in ipairs(E.GetStepView(i).goals) do if v.index == j then return i, v end end
+							end
+						end
+					end
+				end
+				local function at(v) return v and v.map and { v.map, v.x, v.y } or false end
+				local ls, learn = find("learn", "spell", 3398)
+				local bs, buy = find("buy", "item", 3735)
+				local out = { step = ls, shopping = bs, learn = at(learn), buy = at(buy) }
+				stub.world.addItem(3735, 1); stub.advance(0.5)
+				out.inBags = at(select(2, find("learn", "spell", 3398)))
+				emit(out)`,
+		});
+		const out = emitted[0];
+		assert.equal(out.step, 63, 'the report\'s step 63');
+		assert.ok(out.shopping < out.step, 'the shopping step comes before it');
+		assert.ok(out.buy, `the shopping step's vendor has a place: ${JSON.stringify(out)}`);
+		assert.deepEqual(out.learn, out.buy, 'the learn leads to the vendor the shopping step picks');
+		assert.equal(out.inBags, false, 'the recipe in the bags: nothing to walk to');
+	} finally {
+		fs.rmSync(dir, { recursive: true, force: true });
+	}
+});
