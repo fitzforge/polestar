@@ -150,8 +150,10 @@ function values(c)
 	if c.kind == "color" then return { { 1, 0, 0, 1 }, { 0, 1, 0, 0.5 }, { 0.2, 0.4, 0.6 } } end
 	return {}
 end
--- The game's image sharpening is the game's own CVar, which no reset writes and the game keeps (settings-game.rs).
-GAME = { ["Quality of Life:Increase game image quality"] = true }
+-- Kept outside the settings, so a reload of PolestarDB alone does not bring them back: the game's image sharpening
+-- (the game's own CVar, which no reset writes and the game keeps, settings-game.rs) and the Language (#3643: its own
+-- saved variable, PolestarLanguage, read once at load; ui_options and locale_load check it across a reload).
+GAME = { ["Quality of Life:Increase game image quality"] = true, ["General:Language"] = true }
 "#;
 
 fn run_saved(saved: Option<String>, script: &str) -> Value {

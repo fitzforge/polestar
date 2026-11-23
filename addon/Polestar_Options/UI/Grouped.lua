@@ -76,7 +76,7 @@ G.TREE = {
 	{ key = "look", label = L["Look"], iconPage = "theme",
 		pages = { "guidewindow", "theme", "arrow", "mappins", "routelines", "buttons", "alerts", "trackers" } },
 	{ key = "setup", label = L["Setup"], iconPage = "profiles",
-		pages = { "profiles", "integrations", "guidepacks", "gamepad", "recorder" } },
+		pages = { "language", "profiles", "integrations", "guidepacks", "gamepad", "recorder" } },
 	-- foot: the group's pages stand at the sidebar's foot, over the profile
 	-- card, as rows of their own (folded to the rail, a group like the rest).
 	{ key = "about", label = L["About"], iconPage = "about", foot = true,
