@@ -63,7 +63,8 @@
 --   Gear.GetWeightsInfo() -> { source, note, upTo, level } of the weights in use
 --       (source "flbis" for Forever Leveling BiS's)
 --   Gear.GetPlayer() -> { class, classID, level, race, raceID, faction } (read-only)
---   Gear.GetRacial() -> the racial gear traits in use (Gear.RACIALS by raceID) | nil
+--   Gear.GetRacial() -> the racial gear traits in use: { weaponCrit, statMult }
+--       composed from Gear.RACIALS[raceID]'s traits for the player's class | nil
 --   Gear.IsEnabled() -> bool
 --   Gear.Scales, Gear.Pawn: custom weights from Pawn scale strings (Pawn.lua)
 --   Gear.FLB: Forever Leveling BiS's public API, guarded (FLB.lua)
@@ -76,9 +77,11 @@
 -- Race and class are independent: Forever's new pairs (Undead Paladin,
 -- Dwarf Shaman, Skyborne of every class) score with their class's weights
 -- and proficiencies, plus their race's gear traits (weapon crit, stat
--- multipliers) from Gear.RACIALS. Weapon crit counts by how much the spec
--- fights with that kind of weapon (weaponShare): whole for a Warrior's axe,
--- a little for a Hunter's, whose crit weight is the bow's.
+-- multipliers) from Gear.RACIALS, a list of traits per race (from the
+-- Forever client's racial spells), each for the classes in its classMask
+-- (none: every class). Weapon crit counts by how much the spec fights with
+-- that kind of weapon (weaponShare): whole for a Warrior's axe, a little for
+-- a Hunter's, whose crit weight is the bow's.
 
 local ADDON, ns = ...
 
@@ -676,12 +679,32 @@ local scoredText = {} -- Gear.ScoredFor's text by `short`, for the spec resolved
 local weightTalents -- what the stat-turning talents added to the weights in use (withTalentStats)
 local racial
 
+-- The race's traits (Gear.RACIALS[raceID], a list) that apply to the class,
+-- as one { weaponCrit, statMult }: the first weapon crit, the stat
+-- multipliers multiplied together. nil when none applies.
+local function racialFor(traits, classID)
+	if type(traits) ~= "table" then return nil end
+	local bit = classID and 2 ^ (classID - 1)
+	local out
+	for _, t in ipairs(traits) do
+		if not t.classMask or (bit and floor(t.classMask / bit) % 2 == 1) then
+			out = out or {}
+			if t.weaponCrit and not out.weaponCrit then out.weaponCrit = t.weaponCrit end
+			for k, m in pairs(t.statMult or {}) do
+				out.statMult = out.statMult or {}
+				out.statMult[k] = (out.statMult[k] or 1) * m
+			end
+		end
+	end
+	return out
+end
+
 local function refreshPlayer()
 	local class, classID = Client.PlayerClass()
 	player.class, player.classID = class, classID
 	player.level = Client.PlayerLevel()
 	player.race, player.raceID, player.faction = Client.PlayerRace()
-	racial = player.raceID and RACIALS[player.raceID] or nil
+	racial = player.raceID and racialFor(RACIALS[player.raceID], classID) or nil
 end
 
 function Gear.GetPlayer()
