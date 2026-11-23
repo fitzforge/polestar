@@ -2958,6 +2958,15 @@ t.guides["forever/collectibles/mounts/horde/pack-kodo"] = (function() return {
 		["The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier."] = "Las riendas requieren nivel 60 y Equitación de oficial para montar (cliente de Forever); puedes comprarlas antes.",
 		["{faction:2587} camp"] = "Campamento de {faction:2587}",
 } end)()
+t.guides["forever/collectibles/mounts/horde/paladin-warhorse"] = (function() return {
+		["At 40 {npc:260093}, the paladin trainer in the {zone:1458}, sends you to {npc:246378} at {area:16602}. Train your new spells with him while you are there. Already at {area:16602}? Skip this step: {npc:246378} gives you the mount quest without it."] = "A nivel 40, {npc:260093}, el instructor de paladines de {zone:1458}, te manda con {npc:246378} a {area:16602}. Aprende tus nuevos hechizos con él mientras estás allí. ¿Ya estás en {area:16602}? Sáltate este paso: {npc:246378} te da la misión de la montura sin él.",
+		["Paladin Warhorse (Forsaken)"] = "Caballo de guerra de paladín (Renegados)",
+		["Your first mount at 40, summoned at will: a Forsaken paladin buys no horse and pays no riding trainer."] = "Tu primera montura a nivel 40, invocada a voluntad: un paladín renegado no compra caballo ni paga a un instructor de equitación.",
+		["{area:16602} stands on the bluffs in western Tirisfal, north-west of the {area:156}: leave the {zone:1458} and follow the road west past {area:159}. {npc:246378} is inside the keep, upstairs."] = "{area:16602} se alza en los riscos del oeste de Tirisfal, al noroeste de {area:156}: sal de {zone:1458} y sigue el camino hacia el oeste pasando {area:159}. {npc:246378} está dentro del bastión, en el piso de arriba.",
+		["{area:16602}'s south gate"] = "Puerta sur de {area:16602}",
+		["{npc:246378}, upstairs in {area:16602}, offers {quest:94971} at 40: accept it and hand it straight back. It teaches you {spell:1279399} and Apprentice Riding together, so you need no horse and no riding trainer."] = "{npc:246378}, en el piso de arriba de {area:16602}, ofrece {quest:94971} a nivel 40: acéptala y entrégala enseguida. Te enseña {spell:1279399} y a montar a la vez, así que no necesitas caballo ni instructor de equitación.",
+		["{npc:260093}: your level 40 spells"] = "{npc:260093}: tus hechizos de nivel 40",
+} end)()
 t.guides["forever/collectibles/mounts/horde/raptor"] = (function() return {
 		["Learn to ride"] = "Aprende a montar",
 		["Pick a colour"] = "Elige un color",
