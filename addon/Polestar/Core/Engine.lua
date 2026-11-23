@@ -2267,6 +2267,22 @@ function Own.feederPlan(g)
 		end
 		return false
 	end
+	-- A prerequisite is a feeder only when no step of g accepts/hands it in before the dependent step (#3880).
+	local function internal(p, s, a)
+		s = s or (a and l.stepOf[a])
+		if not s then return false end
+		for _, t in ipairs(l.accepts[p] or NONE) do
+			if (t.s < s or (t.s == s and a and t.goal ~= a)) and Guides.Matches(t.step.only, player) and Guides.Matches(t.goal.only, player) and Own.whenMayHold(t.step) then
+				return true
+			end
+		end
+		for _, t in ipairs(l.turnins[p] or NONE) do
+			if t.s <= s and Guides.Matches(t.step.only, player) and Guides.Matches(t.goal.only, player) and Own.whenMayHold(t.step) and not t.goal.optional then
+				return true
+			end
+		end
+		return false
+	end
 	-- As Own.preBlocked, for g whether or not a tab shows it.
 	local blocker
 	-- As Own.coming: p held (not skipped) is coming when g turns it in or
@@ -2293,17 +2309,18 @@ function Own.feederPlan(g)
 		local a = acceptOf(p)
 		if not a then return false end
 		if depth > 8 then return true end
-		return blocker(a.goal, depth + 1) == nil
+		return blocker(a.goal, depth + 1, a.s) == nil
 	end
-	blocker = function(a, depth)
+	blocker = function(a, depth, s)
+		s = s or (l and l.stepOf[a])
 		if type(a.preAll) == "table" then
 			for _, p in ipairs(a.preAll) do
-				if not questDone(p) and not coming(p, depth) then return p end
+				if not questDone(p) and not (s and internal(p, s, a)) and not coming(p, depth) then return p end
 			end
 		end
 		if type(a.pre) == "table" and #a.pre > 0 then
 			for _, p in ipairs(a.pre) do
-				if questDone(p) or coming(p, depth) then return nil end
+				if questDone(p) or (s and internal(p, s, a)) or coming(p, depth) then return nil end
 			end
 			return Own.heldOf(a.pre) or a.pre[1]
 		end
@@ -2314,17 +2331,18 @@ function Own.feederPlan(g)
 	-- player holds (Own.heldOf), else its first.
 	-- (Split Bone Necklace needs Bloody Bone Necklace and The Vile Reef: one
 	-- chain alone opens nothing.)
-	local function blockers(a)
+	local function blockers(a, s)
+		s = s or (l and l.stepOf[a])
 		local out = {}
 		if type(a.preAll) == "table" then
 			for _, p in ipairs(a.preAll) do
-				if not questDone(p) and not coming(p, 0) then out[#out + 1] = p end
+				if not questDone(p) and not (s and internal(p, s, a)) and not coming(p, 0) then out[#out + 1] = p end
 			end
 		end
 		if type(a.pre) == "table" and #a.pre > 0 then
 			local any = false
 			for _, p in ipairs(a.pre) do
-				if questDone(p) or coming(p, 0) then any = true break end
+				if questDone(p) or (s and internal(p, s, a)) or coming(p, 0) then any = true break end
 			end
 			if not any then out[#out + 1] = Own.heldOf(a.pre) or a.pre[1] end
 		end
@@ -2339,7 +2357,7 @@ function Own.feederPlan(g)
 				if goal.t == "accept" and q and not seen[q] and (goal.pre or goal.preAll) and Guides.Matches(goal.only, player)
 					and not Own.goneIn(g, s, goal) then
 					seen[q] = true
-					local roots = not (C.IsOnQuest(q) or questDone(q) or Own.questSkipped(q)) and blockers(goal) or NONE
+					local roots = not (C.IsOnQuest(q) or questDone(q) or Own.questSkipped(q)) and blockers(goal, s) or NONE
 					-- One record for the accept, in the chain of each missing root: it
 					-- opens only once every one of them is put in (else it is left out
 					-- with any chain not put in; a root no guide gives keeps its line).
@@ -2351,7 +2369,7 @@ function Own.feederPlan(g)
 						for _ = 1, 8 do
 							local a = p and acceptOf(p)
 							if not a then break end
-							p = blocker(a.goal, 0)
+							p = blocker(a.goal, 0, a.s)
 						end
 						if p and not idx then
 							idx, read = Own.feederIndex(g)
@@ -2567,9 +2585,10 @@ function Own.feederPlan(g)
 	-- A chain the player skipped is theirs: its accepts stay, passed as
 	-- "skipped" (Engine.SkipQuest), not left out. So do those waiting on a
 	-- quest the player holds: "Hand in X first" says what to do. A waiting
-	-- accept that could not go in (`carry`) leaves g as it is.
+	-- accept that could not go in (`carry`) leaves g as it is. A chain within
+	-- g is never hidden (#3880).
 	for _, ch in ipairs(list) do
-		if not ch.inserted and not ch.skipped and not ch.work and not ch.carry and ch.quests[ch.p] ~= "turnin" then
+		if not ch.inserted and not ch.skipped and not ch.work and not ch.carry and ch.quests[ch.p] ~= "turnin" and ch.from.id ~= g.id then
 			for _, d in ipairs(ch.deps) do
 				hidden[d.q] = { title = d.title, need = ch.p, needTitle = ch.from.title, from = ch.from.guide, fromId = ch.from.id }
 				drop[d.q] = true

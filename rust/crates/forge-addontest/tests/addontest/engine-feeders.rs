@@ -1051,3 +1051,30 @@ fn t_3021_duskwood_only_offers_viktori_while_carrying_the_bronze_tube() {
 	assert!(offered("", "174", 0).is_empty(), "holding the quest does not pay for it");
 	assert!(offered("174", "175", 0).is_empty(), "the player already paid");
 }
+
+// #3880: A prerequisite is a feeder only when no step of the current guide accepts/hands it in before the
+// dependent step; a chain within the guide is never hidden.
+#[test]
+fn t_3880_chains_within_a_guide_are_never_hidden_as_feeders() {
+	// Step 11 report's case: character with Barrens quests up to 24 done (913 and 5052 complete).
+	// Neither Isha Awak (873) nor Betrayal from Within (906) hides as needing quests from this same guide.
+	let out = shipped(
+		"Horde",
+		"Tauren",
+		"WARRIOR",
+		25,
+		&format!("{JOE_DONE}, 913, 5052"),
+		"",
+		"forever/horde/04-the-barrens",
+	);
+	let hidden = ids(&out["hidden"]);
+	assert!(!hidden.contains(&873), "Isha Awak is not hidden: {out}");
+	assert!(!hidden.contains(&906), "Betrayal from Within is not hidden: {out}");
+
+	// A real feeder from guide 02 (913 Cry of the Thunderhawk) still hides when not done.
+	let fresh = shipped("Horde", "Tauren", "WARRIOR", 24, JOE_DONE, "264", "forever/horde/04-the-barrens");
+	let fresh_hidden = ids(&fresh["hidden"]);
+	assert!(fresh_hidden.contains(&874), "874 hides when its guide 02 prerequisite is missing: {fresh}");
+	assert!(!fresh_hidden.contains(&873), "873 never hides as needing 874 from the same guide: {fresh}");
+	assert!(!fresh_hidden.contains(&906), "906 never hides as needing 879 from the same guide: {fresh}");
+}
