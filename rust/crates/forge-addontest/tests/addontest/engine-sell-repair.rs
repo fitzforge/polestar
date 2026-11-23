@@ -282,3 +282,24 @@ fn the_reminder_poll_allocates_nothing_per_tick() {
 	assert!(shown < 0.5, "2000 polls with the line shown allocated {shown:.2} KiB");
 	assert!(idle < 0.5, "2000 polls with the kind spent allocated {idle:.2} KiB");
 }
+
+// #3432 (Stö): Mount Hyjal's "Sell before heading out" picked Pexmit ("Someone's Minion"), a rare merchant with 8
+// spawns across the zone, often not there. A rare whose spawns lie more than 100 yd apart is no place to send the
+// player (Nav/Nearby.lua); one that stays at one spot still is.
+#[test]
+fn a_rare_merchant_who_wanders_is_never_the_place_to_sell_one_who_stays_put_is_3432() {
+	let line = |spawns: &str| {
+		let out = run(&format!(
+			r#"
+		npcs[104] = {{ id = 104, name = "Pexmit", subName = "Someone's Minion", faction = "AH", rare = true, spawns = {spawns} }}
+		roles.vendor = {{ 102, 103, 104 }}
+		bags(2)
+		headOut()
+		r.out = vendors()
+		"#
+		));
+		out["out"][0][2].clone()
+	};
+	assert_eq!(line("{ { map = 1429, x = 42.3, y = 65 }, { map = 1429, x = 80, y = 20 } }"), "Brog Hamfist (General Supplies)", "9 yd off, but it wanders");
+	assert_eq!(line("{ { map = 1429, x = 42.3, y = 65 }, { map = 1429, x = 42.5, y = 65.2 } }"), "Pexmit (Someone's Minion)", "at one spot: the nearest");
+}
