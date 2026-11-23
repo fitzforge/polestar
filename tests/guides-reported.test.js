@@ -193,7 +193,13 @@ test("Tyr's Watch: Tanis Alderwood's goals carry his Undercity floor's height, f
 // Blitz's report (#2898): Forsaken paladins get their warhorse from a quest chain, not the riding trainer, and have a
 // Class guide for it: Report to Danitha (97022, Garen Largo in the Undercity), then A Paladin's Steed (94971, Danitha
 // Morr at Bandarion Keep), whose hand-in teaches Summon Warhorse. Only Undead Paladins see the guide.
-test('Paladin Warhorse (Forsaken): only Undead Paladins see it, and it ends handing in A Paladin\'s Steed (#2898, Blitz)', { skip }, () => {
+// Forever's warhorse quests and their givers are in the release data only (the public data's quest and NPC sets
+// predate them): without them the guide cannot resolve its givers.
+const warhorseData = !skip && (() => {
+	const has = (file, ids) => { const t = JSON.parse(fs.readFileSync(path.join(DATA, file), 'utf8')); return ids.every((id) => t[id]); };
+	return has('quests.json', [97022, 94971]) && has('npcs.json', [260093, 246378]);
+})();
+test('Paladin Warhorse (Forsaken): only Undead Paladins see it, and it ends handing in A Paladin\'s Steed (#2898, Blitz)', { skip: skip || (!warhorseData && 'release data only: no Forsaken warhorse quests or givers in this data') }, () => {
 	const id = 'forever/collectibles/mounts/horde/paladin-warhorse';
 	const guide = compiled(`${id}.guide`);
 	const list = goals(`${id}.guide`);
