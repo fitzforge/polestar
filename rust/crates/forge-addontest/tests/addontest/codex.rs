@@ -1102,7 +1102,10 @@ fn buildcodex_writes_deterministic_json_and_a_pack_whose_memory_it_measures() {
 	let b = build_n(2);
 	let mut files: Vec<&str> = a.json.iter().map(|(f, _)| f.as_str()).collect();
 	files.sort();
-	assert_eq!(files, vec!["factions.json", "frames.json", "instances.json", "items.json", "journal.json", "meta.json", "npcs.json", "objects.json", "professions.json", "quests.json", "spells.json", "zones.json"]);
+	assert_eq!(
+		files,
+		vec!["factions.json", "frames.json", "instances.json", "items.json", "journal.json", "meta.json", "npcs.json", "objects.json", "professions.json", "quests.json", "spells.json", "zones.json"]
+	);
 	for (f, text) in a.json.iter().filter(|(f, _)| f != "meta.json") {
 		let other = &b.json.iter().find(|(g, _)| g == f).unwrap_or_else(|| panic!("no {f}")).1;
 		assert_eq!(text, other, "{f}");
