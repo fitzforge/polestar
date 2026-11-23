@@ -160,6 +160,18 @@ test('planner: a vendor recipe whose only seller has no faction is left out (Pex
 	assert.ok(!planProfession(prof, data, { to: 75 }).excluded.some((e) => e.spell === 2));
 });
 
+test('planner: a vendor recipe only a rare spawn sells is left out (Pexmit\'s Supple Scorpid Vest in Mount Hyjal)', () => {
+	const { prof, data } = smallProfession([rec(1, 1, 40, 60, 10), rec(2, 1, 70, 90, 10, { source: 'vendor', recipeItem: 50, cost: 100 })]);
+	prof.materials[50] = { name: 'Pattern: Vest', buy: 100, buyCount: 1, sell: 25, quality: 1, vendors: { Alliance: [9], Horde: [9] } };
+	data.npcs = { 9: { id: 9, name: 'Pexmit', faction: 'AH', rank: 4, roles: ['rare', 'vendor'] } };
+	assert.ok(planProfession(prof, data, { to: 75 }).excluded.some((e) => e.spell === 2 && /rare spawn/.test(e.why)));
+	// A standing seller beside the rare one: the recipe stays.
+	prof.materials[50].vendors.Alliance.push(10);
+	prof.materials[50].vendors.Horde.push(10);
+	data.npcs[10] = { id: 10, name: 'Vendor', faction: 'AH', roles: ['vendor'] };
+	assert.ok(!planProfession(prof, data, { to: 75 }).excluded.some((e) => e.spell === 2));
+});
+
 test('planner: a faction-less vendor Classic knows serves both sides (Kania\'s Formula: Lesser Mana Oil in Cenarion Hold)', () => {
 	const { prof, data } = smallProfession([rec(1, 1, 40, 60, 10), rec(2, 1, 70, 90, 10, { source: 'vendor', recipeItem: 50, cost: 100 })]);
 	prof.materials[50] = { name: 'Formula: Oil', buy: 100, buyCount: 1, sell: 25, quality: 1, vendors: { Alliance: [9], Horde: [9] } };
@@ -371,6 +383,17 @@ test('draft: a rank only a few trainers teach comes after the shopping, and its 
 	assert.match(text, /\n {2}tip Still at the Expert trainer: R2 \(from 160\)\.\n {2}learn 2\n/);
 	// Journeyman is taught by every trainer: its step stays first.
 	assert.ok(steps.indexOf('step Journeyman Tailoring') < steps.indexOf('step Tailoring 75-150: vendor goods'));
+});
+
+test('draft: the first recipes at a rank visit use their own trainers (#3136)', () => {
+	const { prof, data } = smallProfession([rec(1, 1, 70, 75, 10), rec(2, 75, 90, 100, 10)]);
+	prof.ranks = [
+		{ name: 'Apprentice', max: 75, minSkill: 0, minLevel: 1 },
+		{ name: 'Journeyman', max: 150, minSkill: 50, minLevel: 10, trainers: { Alliance: [7], Horde: [8] } },
+	];
+	const { text } = draftGuide('Tailoring', data, { to: 90, spec: { taughtBy: { 2: 'Journeyman' } } });
+	const visit = text.split('\nstep Journeyman Tailoring\n')[1].split('\nstep ')[0];
+	assert.deepEqual(visit.split('\n').filter((l) => l.startsWith('  learn 2')), ['  learn 2 npc 7 only Alliance', '  learn 2 npc 8 only Horde']);
 });
 
 test('draft: a learn pinned to a later rank\'s trainers keeps its own trip after a one-visit bracket (Rugged Leather at Drakk Stonehand)', () => {

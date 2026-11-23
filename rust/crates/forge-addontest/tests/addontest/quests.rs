@@ -1460,8 +1460,12 @@ local out, other = { Questing = {}, Map = {} }, {}
 local reg = Polestar.Widgets and Polestar.Widgets.OptionsRegistry or {}
 if #reg == 0 then reg = Q.OPTIONS end
 for _, spec in ipairs(reg) do
-	for _, c in ipairs(spec.controls) do
-		if c.key and mine[c.key] then
+	-- Quest data's switch is its section's header (the module switch, its rows under it); the Map page's header
+	-- over the quest markers is a reference to it.
+	local list = { spec.toggle }
+	for _, c in ipairs(spec.controls) do list[#list + 1] = c end
+	for _, c in ipairs(list) do
+		if c.key and mine[c.key] and not c.ref then
 			local list = out[spec.page]
 			if list and (spec.page == "Map" or spec.tab == "Quests") then
 				list[#list + 1] = c.key .. (c.help and "+help" or "")

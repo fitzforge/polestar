@@ -13,7 +13,16 @@ return {
 	["The boat from {area:392}'s dock crosses to {area:35}, on Stranglethorn's southern cape."] = "",
 
 	-- Step 2: Booty Bay
-	["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "",
+	-- {npc:4631} Wharfmaster Lozgil
+	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "",
+	-- {npc:4631} Wharfmaster Lozgil
+	["{npc:4631}, on the dock"] = "",
+	-- {npc:4631} Wharfmaster Lozgil · {npc:2496} Baron Revilgaz
+	["{npc:4631}: for {npc:2496}, upstairs in the tavern"] = "",
+	-- {npc:3945} Caravaneer Ruzzgot
+	["{npc:3945}, on the dock"] = "",
+	-- {npc:3945} Caravaneer Ruzzgot · {npc:267} Clerk Daltry · {area:42} Darkshire
+	["{npc:3945}: for {npc:267} in {area:42}, where the second Stranglethorn loop starts"] = "",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, by the bank; inside"] = "{npc:2495}, 은행, 안",
 	-- {npc:2498} Crank Fizzlebub
@@ -28,11 +37,11 @@ return {
 	["{npc:773}: Nesingwary's camp, on the way"] = "",
 	-- {npc:737} Kebok
 	["{npc:737}, in the tavern"] = "{npc:737}, 선술집 안",
-	-- {npc:737} Kebok
-	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, 선술집 위층",
+	-- {npc:250660} The Baron · {area:37} Lake Nazferiti
+	-- plural, as words: Venture Co. Agents = {npc:260429} Venture Co. Agent
+	["{npc:250660}'s next errand sends you into the Venture Co. house at {area:37}, among Venture Co. Agents (39): leave it."] = "",
 
 	-- Step 3: North to Nesingwary's Expedition
 	-- {area:100} Nesingwary's Expedition
@@ -127,7 +136,7 @@ return {
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn
 	["{npc:716} collects the {item:2755}: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go."] = "{npc:716}이(가) {item:2755}을(를) 모읍니다. 책장은 밀림의 거의 모든 인간형 몹이 떨어뜨립니다. 모이는 대로 책장을 장(章)으로 묶으세요.",
 	-- {npc:729} Sin'Dall
-	["keep it: {npc:729} (37) comes in the 40-50 Stranglethorn guide, at about 41"] = "보관하세요: {npc:729}(37)은(는) 40-50 가시덤불 골짜기 가이드에서 41레벨쯤 잡습니다",
+	["Keep it for another visit: {npc:729} (37) prowls the Lashtail hill."] = "",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["keep it: the Lashtail Raptors come on the second loop (04b), around {npc:729}'s hill"] = "보관하세요: 채찍꼬리랩터는 두 번째 순회(04b)에서 {npc:729}의 언덕 주변에서 잡습니다",
@@ -188,8 +197,8 @@ return {
 	["Warlocks fly to {area:415} for the {quest:1738}, on the way west."] = "흑마법사는 서쪽으로 가는 길에 {quest:1738}을(를) 위해 {area:415}(으)로 날아가세요.",
 
 	-- Step 30: Heartswood
-	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
-	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "",
+	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {item:190307} Unlit Torch
+	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0): light the {item:190307} from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon."] = "",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}, {area:413} 북쪽",
 
@@ -227,6 +236,7 @@ return {
 	-- ["The ore drops from Drywhisker kobolds in {zone:1417}"] = "광석은 {zone:1417}의 마른수염 코볼트가 떨어뜨립니다",
 	-- ["Thorsen patrols the road north of camp, toward the {area:99}."] = "토르센은 야영지 북쪽, {area:99} 방향 길을 순찰합니다.",
 	-- ["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards."] = "북쪽으로 걸어 돌아가세요. {area:310}은(는) 밀림 한가운데, 길 서쪽에 있습니다. 그곳의 {npc:689}이(가) 파편을 떨어뜨립니다.",
+	-- ["keep it: {npc:729} (37) comes in the 40-50 Stranglethorn guide, at about 41"] = "보관하세요: {npc:729}(37)은(는) 40-50 가시덤불 골짜기 가이드에서 41레벨쯤 잡습니다",
 	-- ["{area:1537} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "{area:1537}에는 드루이드 상급자가 없습니다. {object:171524}에서 {area:2257}을(를) 타고 {zone:1453}(으)로 가서 {npc:5504}에게 배우세요.",
 	-- ["{npc:2859}, on the top floor by the docks"] = "{npc:2859}, 부두 옆 꼭대기 층",
 	-- ["{npc:729} and the Lashtail raptors"] = "{npc:729}와(과) 채찍꼬리랩터",

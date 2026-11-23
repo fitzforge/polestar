@@ -1,8 +1,8 @@
 -- env: world stub_maps.lua
--- The Integrations page's Freedoom Arcade (Polestar_Options/Maps/Options.lua; Maps/Arcade.lua) on the whole addon in
+-- The Integrations page's Flight arcade (Polestar_Options/Maps/Options.lua; Maps/Arcade.lua) on the whole addon in
 -- stub_maps.lua's travel world, as maps-arcade.rs plays it: Polestar_Arcade in the addon list, and each check takes
 -- a flight from West Hold to Mid Camp this character has flown in 5 minutes, reads whether the card under the
--- flight timer asks, then lands (away from Mid Camp: nothing learned).
+-- flight timer asks, then lands (away from Mid Camp: nothing learned). The game on flights is checked at "none".
 local m
 return {
 	setup = function()
@@ -17,7 +17,7 @@ return {
 	end,
 	settle = 0.2,
 	probes = {
-		["maps.flightArcade"] = function()
+		["arcade.game"] = { value = "none", probe = function()
 			m.openTaxi(1, { 3, 2 })
 			TakeTaxiNode(2)
 			m.board()
@@ -27,6 +27,6 @@ return {
 			m.land()
 			stub.advance(0.5)
 			return out
-		end,
+		end },
 	},
 }

@@ -503,6 +503,7 @@ builders.drop = function(src, p, from, direct)
 		if inst.entrance then
 			local t = travel(from, inst.entrance, direct)
 			place(r, inst.entrance, t)
+			r.z = inst.entrance.z
 		end
 		r.instance = inst.key
 		r.detail = detail(L["Drop"], inst.name)
@@ -583,7 +584,8 @@ builders.craft = function(src, p, from, direct)
 	r.detail = L["Crafted"]
 	local effort = CRAFT_BASE
 	if src.spell and not ns.Compat.IsSpellKnown(src.spell) then effort = effort + CRAFT_LEARN end
-	local rank = line and ns.Compat.GetSkillRank(line)
+	local rank, maxRank
+	if line then rank, maxRank = ns.Compat.GetSkillRank(line) end
 	if rank then
 		if src.skill and rank < src.skill then effort = effort + (src.skill - rank) * SKILL_POINT end
 	elseif not name then
@@ -594,13 +596,20 @@ builders.craft = function(src, p, from, direct)
 		block(r, "profession", L["Requires"] .. " " .. L[name])
 	end
 	r.effort = effort
-	-- The nearest trainer of the profession, when the Codex lists them.
+	-- The nearest trainer of the profession, when the Codex lists them. A recipe needing a rank
+	-- the character doesn't hold yet goes to a trainer who teaches that rank and accepts the
+	-- character's skill (#3784).
 	local C = Codex()
 	if line and C.WithRole then
+		local PT = ns.ProfessionTrainers
+		local want, cap
+		if PT then want, cap = PT.RankFor(line, src.skill or 1) end
+		local needRank = want and cap and (maxRank or 0) < cap and want or nil
+		local ok = PT and PT.Accepts(line, p.code, rank or 0, needRank)
 		local best, bestT, bestNpc
 		for _, id in ipairs(C.WithRole("trainer:" .. line) or {}) do
 			local npc, s, t = npcSpawn(id, from, direct)
-			if npc and s and sideOK(npc.faction, p) and (not best or (t and (not bestT or t < bestT))) then
+			if npc and s and sideOK(npc.faction, p) and (not ok or ok(id)) and (not best or (t and (not bestT or t < bestT))) then
 				best, bestT, bestNpc = s, t, npc
 			end
 		end
@@ -985,6 +994,7 @@ function Lookup.Sources(kind, id, direct)
 			local r = newRow(nil, "entrance")
 			r.label = entity.name
 			place(r, entity.entrance, travel(from, entity.entrance, direct))
+			r.z = entity.entrance.z
 			r.detail = detail(L["Entrance"], r.zone)
 			local need = entity.levels and entity.levels[1]
 			if need and need > p.level then block(r, "level", levelText(need)) end
@@ -1046,6 +1056,11 @@ local function sourceLine(src)
 	return nil
 end
 
+-- A Codex entity's one line under its name (a Lookup row, its page's
+-- header). A quest offered only from a level above the character's says
+-- from which ("Level 27 · From level 18 · Silverpine Forest"; "From level
+-- 60 · Stranglethorn Vale" when that is its level too): #3370, a level 57
+-- went to Pix Xizzix for In Demand, offered from level 60.
 function Lookup.Subtitle(kind, id)
 	local C = Codex()
 	if not (C and C.IsLoaded and C.IsLoaded()) then return nil end
@@ -1057,7 +1072,12 @@ function Lookup.Subtitle(kind, id)
 		local q = C.Quest(id)
 		if not q then return nil end
 		local zone = q.zone and zoneName(q.zone)
-		if q.level then return detail(L["Level"] .. " " .. q.level, zone) end
+		local level = q.level and (L["Level"] .. " " .. q.level)
+		if q.minLevel and q.minLevel > playerInfo().level then
+			local from = format(L["From level %d"], q.minLevel)
+			level = (level and q.level > q.minLevel) and (level .. SEP .. from) or from
+		end
+		if level then return detail(level, zone) end
 		return zone
 	elseif kind == "npc" or kind == "rare" then
 		local npc = C.Npc(id)
