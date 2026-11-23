@@ -4441,8 +4441,12 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
   demand, never in combat), friendly to the player's faction and outside
   instances; reagents are vendors listed in `QoL.data.reagentVendors` (`qol
   build`: a vendor whose subtitle names reagents); the class trainer is
-  `Engine.NearestClassTrainer()`. The nearest spawn of each NPC by straight
-  line (the player's continent first), the six nearest of those estimated by
+  `Engine.NearestClassTrainer()`. A profession trainer must also teach the
+  character's next rank and accept their skill (`ProfessionTrainers`, from the
+  Codex's `profession` records, #3784); when none on the player's side does,
+  one chat line says so and the arrow stays where it was. The nearest spawn
+  of each NPC by straight line (the player's continent first), the six nearest
+  of those estimated by
   `Journey.Estimate`, the quickest becomes the target and one chat line names
   it, its zone and the time.
 - **The guide window's button** (`nav.nearbyButton`, on: Options, Guide,
@@ -8228,7 +8232,7 @@ Options). Everything is off with `lookup.enabled`; `lookup.tooltip`,
 
 ```lua
 Polestar.Codex.Load() / IsLoaded() / Meta()       -- the local Polestar_Codex pack through Data.Pack; CODEX_LOADED(meta)
-Polestar.Codex.Item(id) / Npc(id) / Object(id) / Quest(id) / Instance(key) / Zone(id) / Faction(id) / Spell(spellId)
+Polestar.Codex.Item(id) / Npc(id) / Object(id) / Quest(id) / Instance(key) / Zone(id) / Faction(id) / Spell(spellId) / Profession(skillLine)
 Polestar.Codex.Name(kind, id) ; Codex.WithRole(role) ; Codex.Loot(kind, id) ; Codex.Each(kind, fn(id, name, quality, status))
 
 Polestar.Lookup.Sources(kind, id, direct) -> rows, entity  -- ranked for this character; direct: straight-line travel, no route plan (tooltips)
