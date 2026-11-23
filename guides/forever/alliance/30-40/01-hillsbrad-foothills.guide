@@ -164,7 +164,6 @@ step Rhag Garmason again
   accept 634                          -- for Captain Nials at Refuge Pointe, in the Arathi Highlands guide
 
 step The Green Belt
-  turnin 98240                        -- Howin Kindfeather: James Halloran's crate, from Menethil Harbor
   turnin 98245                        -- Howin Kindfeather
 
 step Rethiel the Greenwarden

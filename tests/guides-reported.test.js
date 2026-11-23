@@ -2483,10 +2483,9 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		[SILVERPINE, 98024, [95350]],
 		[SILVERPINE, 93739, [95350], true],
 		// #1134: James Halloran offers Crimson Crate Delivery only after Crocs of
-		// the Sky; 06-wetlands takes it with that hand-in on its last Menethil stop
-		// since the Alliance 12-31 fix round (2026-11-20), for Howin on Hillsbrad's Wetlands loop.
+		// the Sky; since #3782 no Alliance guide takes it (the breadcrumb test below).
 		[ASHENVALE, 98240, [98072], true],
-		[WETLANDS, 98240, [98072]],
+		[WETLANDS, 98240, [98072], true],
 		[HILLSBRAD_ALLIANCE, 98240, [98072], true],
 	]) {
 		const list = [].concat(guide).flatMap((g) => goals(g));
