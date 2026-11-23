@@ -174,10 +174,7 @@ if not at then error("the previous release loaded no guide, or none that hands i
 	assert_eq!(out["options"], true, "the settings window (Polestar_Options) did not load after the update: {out}");
 	assert_eq!(out["welcome"], false, "Install opened again after the update: {out}");
 	let card = &out["layoutCard"];
-	assert!(
-		card["shown"] == true || (card["seen"].is_string() && card["snaps"] == 0),
-		"#3629: an update from before 0.4.3 shows the layout card once (an account that saw it: not again): {card}"
-	);
+	assert!(card["shown"] == true || (card["seen"].is_string() && card["snaps"] == 0), "#3629: an update from before 0.4.3 shows the layout card once (an account that saw it: not again): {card}");
 	assert!(empty(&out["lines"]), "chat lines at the first login after the update: {}", out["lines"]);
 	assert!(empty(&out["sounds"]), "sounds at the first login after the update: {}", out["sounds"]);
 	assert!(empty(&out["alerts"]), "alerts at the first login after the update: {}", out["alerts"]);

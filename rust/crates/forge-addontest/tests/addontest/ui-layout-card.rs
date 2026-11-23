@@ -33,9 +33,7 @@ fn run_with(script: &str, saved: Option<&str>) -> Value {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &FILES), Addon::name("Polestar_Layout_Atlas")],
 		saved: saved.map(|s| ("Polestar".to_string(), s.to_string())).into_iter().collect(),
-		script: format!(
-			"local savedCard = PolestarDB and PolestarDB.layoutCardSeen\nuistub.install()\nPolestar.DB().layoutCardSeen = savedCard\nstub.login()\n{TEN}\n{script}"
-		),
+		script: format!("local savedCard = PolestarDB and PolestarDB.layoutCardSeen\nuistub.install()\nPolestar.DB().layoutCardSeen = savedCard\nstub.login()\n{TEN}\n{script}"),
 		..Default::default()
 	})
 	.remove(0)
@@ -66,11 +64,7 @@ fn after_an_update_it_shows_once_the_buttons_switch_the_real_window_live_and_kee
 	let opened = &out["opened"];
 	assert_eq!(opened["shown"], true);
 	assert_eq!(json!([opened["current"], opened["atlas"]]), json!([true, false]), "the player's design is the one showing");
-	assert_eq!(
-		opened["styles"],
-		json!([["underline", false], ["switcher", false], ["edge", true], ["strip", false]]),
-		"the tab style showing is marked"
-	);
+	assert_eq!(opened["styles"], json!([["underline", false], ["switcher", false], ["edge", true], ["strip", false]]), "the tab style showing is marked");
 	assert_eq!(opened["credit"], "Atlas layout and tab styles by TTik3r");
 	assert_eq!(opened["saved"], "Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets.");
 	assert!(out["snapName"].as_str().unwrap().starts_with("Before Atlas ("), "{}", out["snapName"]);
