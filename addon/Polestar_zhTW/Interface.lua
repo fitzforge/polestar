@@ -557,6 +557,7 @@ L["Bullets"] = "子彈"
 L["Bows & guns"] = "弓與槍"
 L["Mailbox"] = "郵箱"
 -- L["Transmogrifier"] = ""
+-- L["No %s for your side."] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "右鍵點擊以跳過這一段。"
@@ -1349,6 +1350,7 @@ L["Opens the doors of the Armory and the Cathedral."] = "打開軍械庫和大�
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 -- L["Use %s beside %s: it becomes %s."] = ""
 -- L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = ""
+-- L["Not open on Forever yet: the attunement is ready for when it opens."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "地圖 %d"
@@ -1424,6 +1426,7 @@ L["%s has %s"] = "%s 有 %s 個"
 L["%s to buy"] = "需購買 %s 個"
 L["(only %s listed)"] = "（僅有 %s 個在售）"
 L["(old price)"] = "（舊價格）"
+-- L["Elites nearby"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -2045,6 +2048,9 @@ L["%d-%d players"] = "%d-%d 名玩家"
 -- L["No boss drops known"] = ""
 -- L["Drops (%d)"] = ""
 -- L["Use %s beside %s"] = ""
+-- L["All attunements and keys"] = ""
+-- L["Every attunement and key, with how far you are"] = ""
+-- L["Not open on Forever yet"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "就在這裡"
@@ -2548,7 +2554,6 @@ L["Step key targets their mobs"] = "步驟鍵選取其怪物"
 L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = "步驟鍵在選取目前步驟自身的怪物之後，也會選取建議中的怪物，由近到遠。僅在非戰鬥中變更。"
 L["Mark quests new in Forever"] = "標記 Forever 新增的任務"
 L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = "在 Forever 新增的任務名稱旁顯示小小的無限符號，適用於指南、順道完成、Codex 與任務滑鼠提示。"
-L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "在地圖與小地圖上顯示通往目標的路：步行處為線條或圓點，飛行、航行或搭乘處為線，之後的路段較淡。繪法與 Cillian Berragan 的 Shortest Path Forever 相同。"
 L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = "路線的繪製方式：一條實線、Polestar 的圓點，或沿著前往目標的路上飄動的閃光（開啟「減少動態效果」時為圓點）。"
 L["A Polestar button in the game menu (Esc) that opens the guide menu."] = "在遊戲選單（Esc）中放一個開啟指南選單的 Polestar 按鈕。"
 L["Backing"] = "底襯"
@@ -2569,7 +2574,6 @@ L["Under a walk in the journey, say when it goes round a town of the other facti
 L["Manual check-offs and skips, current guide, from your last quest progress on."] = "目前指南中，從最近一次任務進度起的手動勾選與跳過。"
 L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "從你最近一次任務進度起，你在 %s 中手動勾選與跳過的步驟將被清除。已完成的任務仍保持完成，指南也會停留在這些任務所對應的位置。"
 L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "從你最近一次任務進度起，你在目前指南中手動勾選與跳過的步驟將被清除。已完成的任務仍保持完成，指南也會停留在這些任務所對應的位置。"
-L["Points to the current goal. Its look and colours are on the Arrow page."] = "指向目前的目標。其外觀與顏色在「箭頭」頁面。"
 L["Reset this section?"] = "重置此區塊？"
 L["Reset section"] = "重置區塊"
 L["%d settings in %s go back to their defaults."] = "%d 項設定將在 %s 中恢復預設值。"
@@ -2654,6 +2658,17 @@ L["Nothing to reset"] = "沒有可重置的內容"
 L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "將指南視窗、箭頭、卡片和警示拖到你想要的位置。在你按下「儲存並退出」之前，此視窗會暫時讓開。也可使用 /polestar unlock。"
 -- L["play Sky Jewels by RikyZ90"] = ""
 -- L["play Tetris by beemerwt"] = ""
+-- L["Points to the current goal. Off hides only the arrow: the route lines have their own switch, under Routes. Its look and colours are on the Arrow page."] = ""
+-- L["The way to the goal on the world map and the minimap, with the arrow on or off: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = ""
+-- L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."] = ""
+-- L["Reload now?"] = ""
+-- L["Polestar shows the new language after a /reload."] = ""
+-- L["Follow the game"] = ""
+-- L["English"] = ""
+-- L["Simplified Chinese"] = ""
+-- L["Traditional Chinese"] = ""
+-- L["General"] = ""
+-- L["The language Polestar shows."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
@@ -4664,6 +4679,8 @@ L["A look in one click: it sets the settings it names and puts the others of the
 -- L["Alpha: /reload after picking it."] = ""
 -- L["Beta: /reload after picking it."] = ""
 -- L["Any issues: @%s in a bug report or on Discord."] = ""
+-- L["Before %s (%s)"] = ""
+-- L["Your setup as it was saved: a click puts back every window setting it holds."] = ""
 
 -- Theme/SkinApi.lua
 L["The skin %s (from %s) could not be added: %s. Polestar's own look stands in."] = "無法新增皮膚 %s（來自 %s）：%s。改以 Polestar 本身的外觀代替。"
@@ -5034,9 +5051,33 @@ L["Most used"] = "常用設定"
 -- L["Hold"] = ""
 -- L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = ""
 -- L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = ""
+
 -- UI/TabStyles/TabStyles.lua
 L["Open guides"] = "已開啟的指南"
 L["%d of %d"] = "%d / %d"
+
+-- UI/Attunements.lua
+-- L["Finish %s"] = ""
+-- L["Pick up %s from %s"] = ""
+-- L["Pick up %s"] = ""
+-- L["Every step, on the dungeon's page"] = ""
+-- L["Opens %s"] = ""
+-- L["%d of %d steps"] = ""
+-- L["Attunements"] = ""
+-- L["What lets you into each raid and opens a dungeon's doors, and how far you are"] = ""
+-- L["No attunement or key is known for your faction."] = ""
+
+-- UI/LayoutCard.lua
+-- L["Before Atlas (%s)"] = ""
+-- L["New in 0.4.3: the Atlas layout"] = ""
+-- L["Try it on your own guide window: each button switches it now, as often as you like."] = ""
+-- L["Layout"] = ""
+-- L["Your current design"] = ""
+-- L["Tabs are off in Settings > Guide window > Parts."] = ""
+-- L["Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets."] = ""
+-- L["The guide window is hidden: open it to see each choice on your guide."] = ""
+-- L["Atlas layout and tab styles by %s"] = ""
+-- L["Keep this"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐頁重新設定 Polestar。每項選擇立即生效。"
@@ -5297,3 +5338,5 @@ L["%d of %d"] = "%d / %d"
 -- L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "飛行剩餘一分鐘或更久時，Polestar 會詢問你是否想在等待時玩 petllama 的 Freedoom Arcade：Freedoom 的三個關卡，若已安裝 Freedoom Arcade 插件則是完整遊戲。降落前 10 秒，遊戲會存檔、暫停並關閉。隨時可用 /polestar arcade 開啟。"
 -- L["a game: Play"] = "開始遊戲"
 -- L["Do you want to play Doom while waiting?"] = "等待時想玩 Doom 嗎？"
+-- L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "在地圖與小地圖上顯示通往目標的路：步行處為線條或圓點，飛行、航行或搭乘處為線，之後的路段較淡。繪法與 Cillian Berragan 的 Shortest Path Forever 相同。"
+-- L["Points to the current goal. Its look and colours are on the Arrow page."] = "指向目前的目標。其外觀與顏色在「箭頭」頁面。"

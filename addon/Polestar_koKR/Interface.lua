@@ -557,6 +557,7 @@ L["Bullets"] = "탄환"
 L["Bows & guns"] = "활 및 총"
 L["Mailbox"] = "우체통"
 -- L["Transmogrifier"] = ""
+-- L["No %s for your side."] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "오른쪽 클릭: 이 구간 건너뛰기."
@@ -1349,6 +1350,7 @@ L["Opens the doors of the Armory and the Cathedral."] = "무기고와 대성당�
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 -- L["Use %s beside %s: it becomes %s."] = ""
 -- L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = ""
+-- L["Not open on Forever yet: the attunement is ready for when it opens."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "지도 %d"
@@ -1424,6 +1426,7 @@ L["%s has %s"] = "%s: %s개"
 L["%s to buy"] = "%s개 구매 필요"
 L["(only %s listed)"] = "(%s개만 등록됨)"
 L["(old price)"] = "(오래된 가격)"
+-- L["Elites nearby"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "위치"
@@ -2045,6 +2048,9 @@ L["%d-%d players"] = "%d-%d인"
 -- L["No boss drops known"] = ""
 -- L["Drops (%d)"] = ""
 -- L["Use %s beside %s"] = ""
+-- L["All attunements and keys"] = ""
+-- L["Every attunement and key, with how far you are"] = ""
+-- L["Not open on Forever yet"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "바로 여기"
@@ -2548,7 +2554,6 @@ L["Step key targets their mobs"] = "단계 키가 제안의 몹 대상 지정"
 L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = "단계 키가 현재 단계의 몹 다음으로, 제안의 몹도 가까운 순서대로 대상 지정합니다. 전투 중이 아닐 때만 바뀝니다."
 L["Mark quests new in Forever"] = "Forever 신규 퀘스트 표시"
 L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = "Forever가 추가한 퀘스트의 이름 옆에 작은 무한대 표시를 붙입니다. 가이드, 이곳에 온 김에, Codex, 퀘스트 툴팁에 표시됩니다."
-L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "지도와 미니맵에 목표까지의 길: 걷는 곳은 선 또는 점, 비행·항해·탑승은 선, 이후 구간은 흐리게. Cillian Berragan의 Shortest Path Forever 방식으로 그립니다."
 L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = "경로선을 그리는 방식: 하나의 실선, Polestar 점, 또는 목표를 향해 흘러가는 반짝임 (움직임 줄이기가 켜져 있으면 점)."
 L["A Polestar button in the game menu (Esc) that opens the guide menu."] = "게임 메뉴(Esc)에 가이드 메뉴를 여는 Polestar 버튼을 둡니다."
 L["Backing"] = "배경"
@@ -2569,7 +2574,6 @@ L["Under a walk in the journey, say when it goes round a town of the other facti
 L["Manual check-offs and skips, current guide, from your last quest progress on."] = "현재 가이드의 수동 체크와 건너뛰기, 마지막 퀘스트 진행 지점부터."
 L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "%s에서 마지막 퀘스트 진행 지점부터 직접 체크한 항목과 건너뛴 단계가 지워집니다. 완료한 퀘스트는 그대로 완료 상태이며, 가이드는 그 퀘스트들이 가리키는 위치에 그대로 남습니다."
 L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "현재 가이드에서 마지막 퀘스트 진행 지점부터 직접 체크한 항목과 건너뛴 단계가 지워집니다. 완료한 퀘스트는 그대로 완료 상태이며, 가이드는 그 퀘스트들이 가리키는 위치에 그대로 남습니다."
-L["Points to the current goal. Its look and colours are on the Arrow page."] = "현재 목표를 가리킵니다. 모양과 색은 화살표 페이지에 있습니다."
 L["Reset this section?"] = "이 항목을 초기화할까요?"
 L["Reset section"] = "항목 초기화"
 L["%d settings in %s go back to their defaults."] = "설정 %d개가 기본값으로 돌아갑니다 (%s)."
@@ -2654,6 +2658,17 @@ L["Nothing to reset"] = "초기화할 항목 없음"
 L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "가이드 창, 화살표, 카드, 알림을 원하는 곳으로 끌어 옮기세요. 저장 후 나가기를 누를 때까지 이 창은 비켜 있습니다. /polestar unlock으로도 열 수 있습니다."
 -- L["play Sky Jewels by RikyZ90"] = ""
 -- L["play Tetris by beemerwt"] = ""
+-- L["Points to the current goal. Off hides only the arrow: the route lines have their own switch, under Routes. Its look and colours are on the Arrow page."] = ""
+-- L["The way to the goal on the world map and the minimap, with the arrow on or off: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = ""
+-- L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."] = ""
+-- L["Reload now?"] = ""
+-- L["Polestar shows the new language after a /reload."] = ""
+-- L["Follow the game"] = ""
+-- L["English"] = ""
+-- L["Simplified Chinese"] = ""
+-- L["Traditional Chinese"] = ""
+-- L["General"] = ""
+-- L["The language Polestar shows."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -4664,6 +4679,8 @@ L["A look in one click: it sets the settings it names and puts the others of the
 -- L["Alpha: /reload after picking it."] = ""
 -- L["Beta: /reload after picking it."] = ""
 -- L["Any issues: @%s in a bug report or on Discord."] = ""
+-- L["Before %s (%s)"] = ""
+-- L["Your setup as it was saved: a click puts back every window setting it holds."] = ""
 
 -- Theme/SkinApi.lua
 L["The skin %s (from %s) could not be added: %s. Polestar's own look stands in."] = "스킨 %s(%s 제공)을(를) 추가할 수 없습니다: %s. Polestar 기본 모양을 대신 씁니다."
@@ -5034,9 +5051,33 @@ L["Most used"] = "자주 쓰는 설정"
 -- L["Hold"] = ""
 -- L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = ""
 -- L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = ""
+
 -- UI/TabStyles/TabStyles.lua
 L["Open guides"] = "열린 가이드"
 L["%d of %d"] = "%d / %d"
+
+-- UI/Attunements.lua
+-- L["Finish %s"] = ""
+-- L["Pick up %s from %s"] = ""
+-- L["Pick up %s"] = ""
+-- L["Every step, on the dungeon's page"] = ""
+-- L["Opens %s"] = ""
+-- L["%d of %d steps"] = ""
+-- L["Attunements"] = ""
+-- L["What lets you into each raid and opens a dungeon's doors, and how far you are"] = ""
+-- L["No attunement or key is known for your faction."] = ""
+
+-- UI/LayoutCard.lua
+-- L["Before Atlas (%s)"] = ""
+-- L["New in 0.4.3: the Atlas layout"] = ""
+-- L["Try it on your own guide window: each button switches it now, as often as you like."] = ""
+-- L["Layout"] = ""
+-- L["Your current design"] = ""
+-- L["Tabs are off in Settings > Guide window > Parts."] = ""
+-- L["Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets."] = ""
+-- L["The guide window is hidden: open it to see each choice on your guide."] = ""
+-- L["Atlas layout and tab styles by %s"] = ""
+-- L["Keep this"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."
@@ -5297,3 +5338,5 @@ L["%d of %d"] = "%d / %d"
 -- L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "남은 비행 시간이 1분 이상이면 Polestar가 기다리는 동안 petllama의 Freedoom Arcade를 플레이할지 묻습니다. Freedoom 3개 레벨이며, Freedoom Arcade 애드온이 설치되어 있으면 전체 게임입니다. 착륙 10초 전에 게임을 저장하고 일시 정지한 뒤 닫습니다. /polestar arcade로 언제든 열 수 있습니다."
 -- L["a game: Play"] = "플레이"
 -- L["Do you want to play Doom while waiting?"] = "기다리는 동안 Doom을 플레이할까요?"
+-- L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "지도와 미니맵에 목표까지의 길: 걷는 곳은 선 또는 점, 비행·항해·탑승은 선, 이후 구간은 흐리게. Cillian Berragan의 Shortest Path Forever 방식으로 그립니다."
+-- L["Points to the current goal. Its look and colours are on the Arrow page."] = "현재 목표를 가리킵니다. 모양과 색은 화살표 페이지에 있습니다."

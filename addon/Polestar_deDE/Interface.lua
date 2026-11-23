@@ -914,6 +914,7 @@ L["%s has %s"] = "%s hat %s"
 L["%s to buy"] = "%s zu kaufen"
 L["(only %s listed)"] = "(nur %s im Angebot)"
 L["(old price)"] = "(alter Preis)"
+-- L["Elites nearby"] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "Stufe %d, %s"
@@ -1492,7 +1493,6 @@ L["Step key targets their mobs"] = "Schrittetaste visiert ihre Mobs an"
 L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = "Die Schrittetaste visiert nach denen des aktuellen Schritts auch die Mobs der Vorschläge an, die nächsten zuerst. Das ändert sich nur außerhalb des Kampfes."
 L["Mark quests new in Forever"] = "In Forever neue Quests markieren"
 L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = "Ein kleines Unendlichkeitszeichen neben dem Namen einer Quest, die Forever hinzugefügt hat, im Guide, bei „Wenn du schon hier bist“, im Codex und in Quest-Tooltips."
-L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "Der Weg zum Ziel auf der Weltkarte und der Minikarte: eine Linie oder Punkte, wo du läufst, Linien, wo du fliegst, segelst oder reitest, die Etappen nach dieser blasser. Gezeichnet, wie Shortest Path Forever von Cillian Berragan sie zeichnet."
 L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = "Wie die Routenlinien gezeichnet werden: als durchgehende Linie, als Punkte von Polestar oder als Funken, die auf dem Weg zum Ziel treiben (Punkte, solange Bewegung reduzieren an ist)."
 L["A Polestar button in the game menu (Esc) that opens the guide menu."] = "Ein Polestar-Button im Spielmenü (Esc), der das Guide-Menü öffnet."
 L["Backing"] = "Unterlegung"
@@ -1513,7 +1513,6 @@ L["Under a walk in the journey, say when it goes round a town of the other facti
 L["Manual check-offs and skips, current guide, from your last quest progress on."] = "Manuelle Haken und übersprungene Schritte, aktueller Guide, ab deinem letzten Questfortschritt."
 L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Deine manuellen Häkchen und übersprungenen Schritte in %s werden ab deinem letzten Questfortschritt gelöscht. Erledigte Quests bleiben erledigt, und der Guide bleibt dort, wo sie dich hingebracht haben."
 L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Deine manuellen Häkchen und übersprungenen Schritte im aktuellen Guide werden ab deinem letzten Questfortschritt gelöscht. Erledigte Quests bleiben erledigt, und der Guide bleibt dort, wo sie dich hingebracht haben."
-L["Points to the current goal. Its look and colours are on the Arrow page."] = "Zeigt auf das aktuelle Ziel. Aussehen und Farben findest du auf der Seite „Pfeil“."
 L["Reset this section?"] = "Diesen Abschnitt zurücksetzen?"
 L["Reset section"] = "Abschnitt zurücksetzen"
 L["%d settings in %s go back to their defaults."] = "%d Einstellungen in %s kehren zu ihrem Standard zurück."
@@ -1596,6 +1595,17 @@ L["Nothing to reset"] = "Nichts zurückzusetzen"
 L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "Zieh das Guide-Fenster, den Pfeil, die Karten und die Alarme dorthin, wo du sie haben willst. Dieses Fenster tritt beiseite, bis du „Speichern und beenden“ drückst. Auch /polestar unlock."
 -- L["play Sky Jewels by RikyZ90"] = ""
 -- L["play Tetris by beemerwt"] = ""
+-- L["Points to the current goal. Off hides only the arrow: the route lines have their own switch, under Routes. Its look and colours are on the Arrow page."] = ""
+-- L["The way to the goal on the world map and the minimap, with the arrow on or off: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = ""
+-- L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."] = ""
+-- L["Reload now?"] = ""
+-- L["Polestar shows the new language after a /reload."] = ""
+-- L["Follow the game"] = ""
+-- L["English"] = ""
+-- L["Simplified Chinese"] = ""
+-- L["Traditional Chinese"] = ""
+-- L["General"] = ""
+-- L["The language Polestar shows."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -1702,6 +1712,9 @@ L["%d-%d players"] = "%d-%d Spieler"
 -- L["No boss drops known"] = ""
 -- L["Drops (%d)"] = ""
 -- L["Use %s beside %s"] = ""
+-- L["All attunements and keys"] = ""
+-- L["Every attunement and key, with how far you are"] = ""
+-- L["Not open on Forever yet"] = ""
 
 -- UI/Lookup.lua
 L["Mount"] = "Reittier"
@@ -2527,6 +2540,7 @@ L["Bullets"] = "Kugeln"
 L["Bows & guns"] = "Bögen & Schusswaffen"
 L["Mailbox"] = "Briefkasten"
 -- L["Transmogrifier"] = ""
+-- L["No %s for your side."] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "Rechtsklick, um diese Etappe zu überspringen."
@@ -3036,6 +3050,7 @@ L["Opens the doors of the Armory and the Cathedral."] = "Öffnet die Türen der 
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 -- L["Use %s beside %s: it becomes %s."] = ""
 -- L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = ""
+-- L["Not open on Forever yet: the attunement is ready for when it opens."] = ""
 
 -- Nav/Handoff.lua
 L["Hand guiding to Shortest Path Forever"] = "Führung an Shortest Path Forever abgeben"
@@ -4651,6 +4666,8 @@ L["A look in one click: it sets the settings it names and puts the others of the
 -- L["Alpha: /reload after picking it."] = ""
 -- L["Beta: /reload after picking it."] = ""
 -- L["Any issues: @%s in a bug report or on Discord."] = ""
+-- L["Before %s (%s)"] = ""
+-- L["Your setup as it was saved: a click puts back every window setting it holds."] = ""
 
 -- Theme/SkinApi.lua
 L["The skin %s (from %s) could not be added: %s. Polestar's own look stands in."] = "Das Design %s (von %s) konnte nicht hinzugefügt werden: %s. Polestars eigenes Aussehen springt ein."
@@ -5027,9 +5044,33 @@ L["Boss emote"] = "Boss-Emote"
 -- L["Hold"] = ""
 -- L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = ""
 -- L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = ""
+
 -- UI/TabStyles/TabStyles.lua
 L["Open guides"] = "Offene Guides"
 L["%d of %d"] = "%d von %d"
+
+-- UI/Attunements.lua
+-- L["Finish %s"] = ""
+-- L["Pick up %s from %s"] = ""
+-- L["Pick up %s"] = ""
+-- L["Every step, on the dungeon's page"] = ""
+-- L["Opens %s"] = ""
+-- L["%d of %d steps"] = ""
+-- L["Attunements"] = ""
+-- L["What lets you into each raid and opens a dungeon's doors, and how far you are"] = ""
+-- L["No attunement or key is known for your faction."] = ""
+
+-- UI/LayoutCard.lua
+-- L["Before Atlas (%s)"] = ""
+-- L["New in 0.4.3: the Atlas layout"] = ""
+-- L["Try it on your own guide window: each button switches it now, as often as you like."] = ""
+-- L["Layout"] = ""
+-- L["Your current design"] = ""
+-- L["Tabs are off in Settings > Guide window > Parts."] = ""
+-- L["Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets."] = ""
+-- L["The guide window is hidden: open it to see each choice on your guide."] = ""
+-- L["Atlas layout and tab styles by %s"] = ""
+-- L["Keep this"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen. Jede Wahl wirkt sofort."
@@ -5336,3 +5377,5 @@ L["%d of %d"] = "%d von %d"
 -- L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "Auf einem Flug, der noch mindestens eine Minute dauert, fragt Polestar, ob du währenddessen Freedoom Arcade von petllama spielen möchtest: drei Level von Freedoom, oder das ganze Spiel, wenn das Addon Freedoom Arcade installiert ist. 10 Sekunden vor der Landung wird das Spiel gespeichert, pausiert und geschlossen. /polestar arcade öffnet es jederzeit."
 -- L["a game: Play"] = "Spielen"
 -- L["Do you want to play Doom while waiting?"] = "Möchtest du Doom spielen, während du wartest?"
+-- L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "Der Weg zum Ziel auf der Weltkarte und der Minikarte: eine Linie oder Punkte, wo du läufst, Linien, wo du fliegst, segelst oder reitest, die Etappen nach dieser blasser. Gezeichnet, wie Shortest Path Forever von Cillian Berragan sie zeichnet."
+-- L["Points to the current goal. Its look and colours are on the Arrow page."] = "Zeigt auf das aktuelle Ziel. Aussehen und Farben findest du auf der Seite „Pfeil“."
