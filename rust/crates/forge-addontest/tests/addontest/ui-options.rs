@@ -3090,3 +3090,44 @@ fn general_s_language_row_lists_every_shipped_language_keeps_the_pick_and_asks_f
 	assert_eq!(out["reset"], json!([true, "game"]), "Reset follows the game again");
 	assert_eq!(out["reloads"], 0, "nothing reloads until the player says so");
 }
+
+// #3425: the footer's left group (Reset page, Reload UI) and right group (Close, Profile) never run into each
+// other: in a footer too narrow for both (German at the window's smallest size, a long profile name) the widest
+// button gives, its label cut and whole in its tooltip; wide again, every button has its own width back.
+#[test]
+fn the_footer_groups_never_overlap_the_widest_button_gives_and_gets_its_width_back() {
+	let out = run(r#"
+		UI.ShowOptions("guide")
+		local F = PolestarOptions.Footer
+		local function buttons()
+			local list = {}
+			for _, side in ipairs({ "left", "right" }) do
+				for _, b in ipairs(PolestarOptions.footerButtons[side]) do if b:IsShown() then list[#list + 1] = b end end
+			end
+			return list
+		end
+		local function widths()
+			local out, sum = {}, 0
+			for i, b in ipairs(buttons()) do out[i] = b:GetWidth(); sum = sum + b:GetWidth() end
+			return out, sum
+		end
+		F:SetWidth(2000)
+		stub.RunScript(F, "OnSizeChanged")
+		local natural, wide = widths()
+		local n = #buttons()
+		-- Pads either side, 8 between the buttons of a group, 16 between the groups; the first left button is a ghost (-8).
+		local least = wide + 2 * Polestar.Widgets.SHELL.pad + 8 * (n - 2) + 16 - 8
+		F:SetWidth(least - 60)
+		stub.RunScript(F, "OnSizeChanged")
+		local cut, narrow = widths()
+		local tipped
+		for _, b in ipairs(buttons()) do if b.psFooterCut then tipped = b.psTip == b.Label:GetText() and b.Label:GetWidth() > 0 end end
+		F:SetWidth(2000)
+		stub.RunScript(F, "OnSizeChanged")
+		local back = widths()
+		emit({ n = n, gave = wide - narrow, natural = natural, back = back, tipped = tipped or false, cut = cut })"#);
+	assert!(n(&out["n"]) >= 3.0, "{out}");
+	assert!((n(&out["gave"]) - 60.0).abs() < 0.5, "the groups give exactly what they overran: {out}");
+	assert_eq!(out["tipped"], true, "the cut button's tooltip holds its whole label: {out}");
+	assert_eq!(out["back"], out["natural"], "wide again, each button has its own width: {out}");
+}
