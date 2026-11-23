@@ -205,7 +205,7 @@ return {
 	-- {item:14227} Ironweb Spider Silk
 	["{item:14227} (Alliance)"] = "{item:14227} (얼라이언스)",
 	-- {item:14227} Ironweb Spider Silk · {item:13867} Runecloth Shoulders · {npc:1824} Plague Lurker
-	["124 {item:14227} for {item:13867}: it drops from {npc:1824} (level 54-55) at the marked spot."] = "{item:13867}에 필요한 {item:14227} 124개: it drops from {npc:1824} (level 54-55) at the marked spot.",
+	["124 {item:14227} for {item:13867}: it drops from {npc:1824} (level 54-55) at the marked spot."] = "{item:13867}에 필요한 {item:14227} 124개: 표시된 지점의 {npc:1824}(54-55레벨)에게서 떨어집니다.",
 
 	-- Step 37: Ironweb Spider Silk (Horde)
 	-- {item:14227} Ironweb Spider Silk
