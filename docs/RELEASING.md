@@ -580,6 +580,15 @@ version throughout.
     refresh the project description: the steps and settings are in
     [docs/curseforge/README.md](curseforge/README.md).
 
+11. Copy the release's signed data into `releases/<tag>/` on the
+    maintainers' runner: `$POLESTAR_DATA/releases/v0.2.0/forever` (a copy
+    of the signed `data/forever` the release was built and gated on) with
+    `sources/` beside it (links to the data's sources). The weekly
+    route-health run plays the last release's guides on that data
+    (`polestar flow-diff --base-data`): on newer data they may name quests
+    the data has dropped since, and the release's side would not compile.
+    Without the folder the run says the flow check did not run.
+
 
 ## Patch releases
 

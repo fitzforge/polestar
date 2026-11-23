@@ -1416,6 +1416,18 @@ function Compat.IsPlayerSpell(spellID)
 	return known and true or false
 end
 
+-- Whether the game lets the character cast the spell, its reagents and power
+-- included (a talent can do away with a reagent: a mage's Reagent Economy,
+-- #3815): true, false, or nil when the client cannot tell; then true when it
+-- is only the mana that is short.
+function Compat.IsSpellUsable(spellID)
+	local fn = (C_Spell and C_Spell.IsSpellUsable) or IsUsableSpell
+	if not (spellID and fn) then return nil end
+	local ok, usable, noMana = pcall(fn, spellID)
+	if not ok or (issecretvalue and (issecretvalue(usable) or issecretvalue(noMana))) then return nil end
+	return usable and true or false, noMana and true or false
+end
+
 -- Spells in the spellbook, and profession recipes (which are not).
 function Compat.IsSpellKnown(spellID)
 	if not spellID then return false end

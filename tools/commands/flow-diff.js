@@ -36,7 +36,9 @@ revisit or a one-quest trip that the allow file doesn't name with a reason,
 
 Without --head the working tree is the head (uncommitted edits included).
 Both trees play against the same reference data (--data), so only the
-guides and the engine differ. A play of a guide whose compiled form and
+guides and the engine differ, unless --base-data gives the base its own: a
+release's guides on the data that release shipped with, whose quests the
+newer data may have dropped. A play of a guide whose compiled form and
 engine didn't change comes from the cache.
 
 options:
@@ -56,6 +58,8 @@ options:
   --allow <file>      accepted new revisits and trips (default the head's
                       data/flow-diff-allow.json)
   --data <dir>        reference data (default data/forever)
+  --base-data <dir>   reference data the base plays on (default --data): the
+                      release's own when the base is a release tag
   --out <file>        the diff as JSON
   --md <file>         the markdown table (default: printed)
   --work <dir>        where the trees are checked out (default a temp folder,
@@ -162,7 +166,7 @@ function sharedLegs(a, b) {
 }
 
 async function run(argv) {
-	const { opts, error } = parseArgs(argv, { options: ['--base', '--head', '--guides', '--class', '--skip-quest', '--level-offset', '--trip-yd', '--allow', '--data', '--out', '--md', '--work', '--cache', '--workers'] });
+	const { opts, error } = parseArgs(argv, { options: ['--base', '--head', '--guides', '--class', '--skip-quest', '--level-offset', '--trip-yd', '--allow', '--data', '--base-data', '--out', '--md', '--work', '--cache', '--workers'] });
 	const tripYd = opts.tripYd == null ? 300 : Number(opts.tripYd);
 	const workers = opts.workers == null ? null : Number(opts.workers);
 	const levelOffset = parseLevelOffset(opts.levelOffset);
@@ -178,9 +182,12 @@ async function run(argv) {
 		return 2;
 	}
 	const data = path.resolve(opts.data || DATA);
-	if (!fs.existsSync(path.join(data, 'quests.json'))) {
-		console.error(`no reference data in ${data}: run forge data build (or pass --data)`);
-		return 2;
+	const baseData = path.resolve(opts.baseData || data);
+	for (const d of new Set([data, baseData])) {
+		if (!fs.existsSync(path.join(d, 'quests.json'))) {
+			console.error(`no reference data in ${d}: run forge data build (or pass --data / --base-data)`);
+			return 2;
+		}
 	}
 	const work = opts.work ? path.resolve(opts.work) : fs.mkdtempSync(path.join(os.tmpdir(), 'polestar-flow-diff-'));
 	fs.mkdirSync(work, { recursive: true });
@@ -193,7 +200,7 @@ async function run(argv) {
 		cache: path.resolve(opts.cache || path.join(os.tmpdir(), 'polestar-flow-diff-cache')),
 	};
 	try {
-		const base = checkout(opts.base, work, data);
+		const base = checkout(opts.base, work, baseData);
 		const head = opts.head ? checkout(opts.head, work, data) : { dir: ROOT, sha: null };
 		const a = play('base', base.dir, path.join(base.dir, 'data', 'forever'), playOpts, work);
 		const b = play('head', head.dir, opts.head ? path.join(head.dir, 'data', 'forever') : data, playOpts, work);
@@ -217,4 +224,4 @@ async function run(argv) {
 	}
 }
 
-module.exports = { name: 'flow-diff', summary: "What a change does to the leveling route's flow, played on both trees", usage, run };
+module.exports = { name: 'flow-diff', summary: "What a change does to the leveling route's flow, played on both trees", usage, run, link };
