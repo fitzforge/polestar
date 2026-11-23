@@ -197,7 +197,6 @@ return {
 	-- plural, as words: Razormaw Incisors = {item:280103} Razormaw Incisor · Fen Creepers = {npc:1040} Fen Creeper
 	["Razormaw Incisors: from the raptors by the {area:1038}, after the Fen Creepers"] = "Incisivos de Tajobuche: de los raptores junto a {area:1038}, después de los trepadores del cubil",
 	-- {quest:98246} Trying Times
-	-- was: ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}: los huevos Tajobuche, en el mismo circuito"
 	["{quest:98246}: the Razormaw eggs, on the same walk"] = "{quest:98246}: los huevos de Tajobuche, en la misma caminata",
 
 	-- Step 37: Einar Stonegrip
@@ -295,7 +294,6 @@ return {
 
 	-- Step 53: Captain Stoutfist
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:2094} James Halloran
-	-- was: ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "Usa la piedra de hogar para volver a {area:150} si la vinculaste en {area:2104}, o camina al oeste por el camino: {npc:2104} está en el piso de arriba de {area:2103}, y {npc:2094} junto a los muelles, de camino al barco."
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks."] = "Usa la piedra de hogar para volver a {area:150} si la vinculaste en {area:2104}, o camina al oeste por el camino: {npc:2104} está en el piso de arriba de {area:2103}, y {npc:2094}, junto a los muelles.",
 	["On the top floor"] = "En el piso superior",
 	-- {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
@@ -342,7 +340,6 @@ return {
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["{npc:3649} stands at the north end of {area:442}."] = "{npc:3649} está en el extremo norte de {area:442}.",
 	-- {zone:1439} Darkshore · {area:442} Auberdine
-	-- was: ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "La respuesta de Alexston, si todavía la llevas (la ruta la entrega en la primera parada en {area:442} de 03-darkshore-return)"
 	["Alexston's reply, if you still carry it (the route hands it in on the {zone:1439} return's first {area:442} stop)"] = "La respuesta de Alexston, si todavía la llevas (la ruta la entrega en la primera parada en {area:442} de la vuelta a {zone:1439})",
 
 	-- Step 61: Auberdine
@@ -571,7 +568,6 @@ return {
 
 	-- Step 107: Astranaar
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3691} Raene Wolfrunner
-	-- was: ["South-east along the road to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "Al sureste por el camino hasta {area:415}: {npc:3691} en la posada, el maestro de vuelo en el extremo oeste."
 	["Back east along the road from {area:413} to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "De vuelta al este por el camino desde {area:413} hasta {area:415}: {npc:3691} en la posada, y el maestro de vuelo en el extremo oeste.",
 
 	-- Step 108: Fly to Auberdine

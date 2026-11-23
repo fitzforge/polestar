@@ -88,7 +88,6 @@ return {
 	-- Step 13: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
-	-- was: ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Ve al norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; están llenas de grells salvajes y duendes viles, y los sátiros Deth'ryll ocupan el borde este. {quest:1001} está junto al camino al oeste de las ruinas; un {quest:4723} yace en la orilla de camino hacia él."
 	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road north-north-west of {npc:3650}; a {quest:4723} lies on the shore on the way to him."] = "Ve al norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; están llenas de grells salvajes y duendes viles, y los sátiros Deth'ryll ocupan el borde este. {quest:1001} está junto al camino al nor-noroeste de {npc:3650}; un {quest:4723} yace en la orilla de camino hacia él.",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
 	["Grell Earrings"] = "Pendientes grell",

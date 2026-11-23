@@ -116,6 +116,7 @@ return {
 
 	-- Step 22: Thrall
 	-- {npc:4949} Thrall · {item:14544} Lieutenant's Insignia · {area:817} Skull Rock · {quest:829} Neeru Fireblade · {zone:1454} Orgrimmar
+	-- was: ["{npc:4949}, on his throne in Grommash Hold, takes the {item:14544} from {area:817}. His next errand is only a word with {npc:3216}, on this guide's last {zone:1454} walk."] = "{npc:4949}, en su trono de Grommash Hold, recibe la {item:14544} de {area:817}. Su siguiente encargo es solo hablar con {npc:3216}, en la última caminata por {zone:1454} de esta guía."
 	["{npc:4949}, on his throne in Grommash Hold, takes the {item:14544} from {area:817}. His next errand is only a word with {quest:829}, on this guide's last {zone:1454} walk."] = "",
 
 	-- Step 23: Thrall
@@ -317,7 +318,6 @@ return {
 
 	-- Step 63: Ragefire Chasm
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow · {npc:3216} Neeru Fireblade · {npc:11520} Taragaman the Hungerer · {npc:11518} Jergosh the Invoker · {quest:5726} Hidden Enemies
-	-- was: ["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {npc:4949}'s Hidden Enemies, which this route leaves out."] = "{area:2437} es una mazmorra para un grupo de cinco, de nivel 13 a 18 más o menos, y un recorrido completo dura de 30 a 45 minutos. Su portal está en {object:172960}, junto a {npc:3216}.\nAdentro: pasando a Oggleflint y sus troggs, {npc:11520} espera en la cueva de lava y suelta su corazón. {npc:11518} y Bazzalan, más adentro, son para “Hidden Enemies” de {npc:4949}, que esta ruta deja fuera."
 	["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {quest:5726}' Ragefire part, which this route leaves out."] = "{area:2437} es una mazmorra para un grupo de cinco, de nivel 13 a 18 más o menos, y un recorrido completo dura de 30 a 45 minutos. Su portal está en {object:172960}, junto a {npc:3216}.\nAdentro: pasando a Oggleflint y sus troggs, {npc:11520} espera en la cueva de lava y suelta su corazón. {npc:11518} y Bazzalan, más adentro, son para la parte de Sima Ígnea de {quest:5726}, que esta ruta deja fuera.",
 
 	-- Step 64: Neeru Fireblade
@@ -331,7 +331,6 @@ return {
 	-- Step 70: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:362} Razor Hill · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	-- was: ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} y {npc:268682} están detrás de la fortaleza de Thrall en {object:172957}; las Rocas lisas están a su alrededor. La siguiente guía camina desde aquí hasta {area:379} y el Cruce."
 	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:362}, then {area:379} and the Crossroads."] = "{npc:268684} y {npc:268682} están detrás de Grommash Hold en {object:172957}; las rocas lisas están a su alrededor. La siguiente guía camina desde aquí hasta {area:362}, luego {area:379} y Crossroads.",
 
 	-- Step 71: Thrall
@@ -393,11 +392,11 @@ return {
 	-- ["{npc:3365}, the leatherworking trainer, works in the {object:172958}."] = "{npc:3365}, el instructor de peletería, trabaja en {object:172958}.",
 	-- ["{npc:3404}, the herbalism trainer, keeps her shop in the Drag."] = "{npc:3404}, la instructora de herboristería, tiene su tienda en la calle comercial de la ciudad.",
 	-- ["{npc:4551}: keep {item:16210}, Podrig takes it on the ride through the {area:228} at 22"] = "{npc:4551}: guarda {item:16210}, Podrig lo recibe en el viaje por {area:228} a nivel 22",
+	-- ["{npc:4949}, on his throne in Grommash Hold, takes the {item:14544} from {area:817}. His next errand is only a word with {npc:3216}, on this guide's last {zone:1454} walk."] = "{npc:4949}, en su trono de Grommash Hold, recibe la {item:14544} de {area:817}. Su siguiente encargo es solo hablar con {npc:3216}, en la última caminata por {zone:1454} de esta guía.",
 	-- ["{npc:6018} stands in the {object:172961} on the city's west side."] = "{npc:6018} está en {object:172961}, en el lado oeste de la ciudad.",
 	-- ["{npc:7088}, the skinning trainer, stands in the {object:172958}."] = "{npc:7088}, el instructor de desuello, está en {object:172958}.",
 	-- ["{object:112888}, inside the keep"] = "{object:112888}, dentro de la fortaleza",
 	-- ["{object:1599}, just east of the keep"] = "{object:1599}, justo al este de la fortaleza",
 	-- ["{quest:6127}: {area:384}, next guide"] = "{quest:6127}: {area:384}, siguiente guía",
 	-- ["{zone:1454} class quests"] = "Misiones de clase en {zone:1454}",
-	-- ["{npc:4949}, on his throne in Grommash Hold, takes the {item:14544} from {area:817}. His next errand is only a word with {npc:3216}, on this guide's last {zone:1454} walk."] = "{npc:4949}, en su trono de Grommash Hold, recibe la {item:14544} de {area:817}. Su siguiente encargo es solo hablar con {npc:3216}, en la última caminata por {zone:1454} de esta guía.",
 }

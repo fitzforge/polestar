@@ -56,12 +56,10 @@ return {
 	["{area:286}: kill these as you meet them"] = "{area:286}: mata a estos según te los encuentres",
 	-- {area:287} Hillsbrad
 	-- plural, as words: Kirin Tor Guards = {npc:246848} Kirin Tor Guard
-	-- was: ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Los campesinos trabajan los campos al sur de las granjas. Todos los humanos de {area:287} sueltan cráneos; los campesinos, con más frecuencia.\nCuidado: Un campesino que huye y llega al ayuntamiento puede traer muchos refuerzos, entre ellos infantes de {area:287}; las ralentizaciones, raíces o efectos similares les impiden escapar. Los guardias del Kirin Tor (55) están al norte de las granjas, en el camino que sube hacia Alterac: no te salgas de los campos."
 	["The Peasants work the fields south of the farmhouses.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Los campesinos trabajan los campos al sur de las granjas.\nCuidado: Un campesino que huye y llega al ayuntamiento puede traer muchos refuerzos, entre ellos infantes de {area:287}; las ralentizaciones, raíces o efectos similares les impiden escapar. Los guardias del Kirin Tor (55) están al norte de las granjas, en el camino que sube hacia Alterac: no te salgas de los campos.",
 
 	-- Step 9: Tarren Mill
 	-- {quest:528} Battle of Hillsbrad
-	-- was: ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "La siguiente {quest:528} de Darthalia y el Elixir de agonía de Lydon son para la próxima visita, a nivel 30 aprox."
 	["Darthalia's next {quest:528}, Samsa's Souvenirs of Death and Lydon's Elixir of Agony are for the next visit, at about 30."] = "La siguiente {quest:528} de Darthalia, Recuerdos de muerte de Samsa y el Elixir de agonía de Lydon son para la próxima visita, a nivel 30 aprox.",
 
 	-- Step 10: Durnholde Keep: kill these as you meet them

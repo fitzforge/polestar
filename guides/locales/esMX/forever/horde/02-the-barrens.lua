@@ -106,7 +106,6 @@ return {
 
 	-- Step 24: Ratchet
 	-- {area:392} Ratchet · {npc:3391} Gazlowe · {npc:7161} Wrenix the Wretched · {npc:3442} Sputtervalve · {npc:16227} Bragok · {npc:3446} Mebok Mizzyrix · {quest:1492} Wharfmaster Dizzywig
-	-- was: ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "Sigue el camino al sureste hasta {area:392}, en la costa: {npc:3391} y {npc:7161} en el extremo norte del pueblo, {npc:3442} y {npc:16227}, {npc:3446} y el cartel de {object:3972}, y luego {quest:1492} en el muelle al salir hacia el sur."
 	["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the WANTED poster, then {quest:1492} on the dock on the way out south."] = "Sigue el camino al sureste hasta {area:392}, en la costa: {npc:3391} y {npc:7161} en el extremo norte del pueblo, {npc:3442} y {npc:16227}, {npc:3446} y el cartel de ¡Se busca!, y luego {quest:1492} en el muelle al salir hacia el sur.",
 	-- {npc:3391} Gazlowe
 	["{npc:3391}, upstairs"] = "{npc:3391}, arriba",
@@ -115,10 +114,8 @@ return {
 	-- {npc:16227} Bragok · {npc:3442} Sputtervalve
 	["{npc:16227}, beside {npc:3442}"] = "{npc:16227}, junto a {npc:3442}",
 	-- {npc:3446} Mebok Mizzyrix · {area:392} Ratchet
-	-- was: ["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{npc:3446}, junto al cartel de {object:3972}: los raptores Solescama vienen en la próxima parada en {area:392}, a nivel 18"
 	["{npc:3446}, beside the WANTED poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{npc:3446}, junto al cartel de ¡Se busca!: los raptores Solescama vienen en la próxima parada en {area:392}, a nivel 18",
 	-- {npc:3467} Baron Longshore · {area:392} Ratchet
-	-- was: ["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "El cartel de {object:3972}: {npc:3467} también viene en la próxima parada en {area:392}"
 	["The WANTED poster: {npc:3467} comes on the next {area:392} stop too"] = "El cartel de ¡Se busca!: {npc:3467} también viene en la próxima parada en {area:392}",
 	-- {quest:1492} Wharfmaster Dizzywig
 	["{quest:1492}, on the dock"] = "{quest:1492}, en el muelle",
@@ -519,7 +516,6 @@ return {
 	-- {area:392} Ratchet · {area:718} Wailing Caverns
 	["{area:392}: {area:718} quests"] = "{area:392}: misiones de {area:718}",
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {npc:3665} Crane Operator Bigglefuzz · {npc:3396} Hezrul Bloodmark
-	-- was: ["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "Tus misiones de {area:718}, si todavía no las tomaste: {npc:3446} junto al cartel de {object:3972}, {npc:3665} en el muelle junto al maestro de vuelo. El recorrido es más adelante en esta guía, después de {npc:3396}."
 	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the WANTED poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "Tus misiones de {area:718}, si todavía no las tomaste: {npc:3446} junto al cartel de ¡Se busca!, {npc:3665} en el muelle junto al maestro de vuelo. El recorrido es más adelante en esta guía, después de {npc:3396}.",
 
 	-- Step 114: Islen Waterseer

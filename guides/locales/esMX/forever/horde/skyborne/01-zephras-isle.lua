@@ -466,7 +466,6 @@ return {
 
 	-- Step 100: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form · {zone:1413} Barrens
-	-- was: ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} entrena a los druidas en {area:1639}. Te enseña {spell:18960}; la bienvenida de {npc:11802} espera a tu viaje de {spell:499} alrededor del nivel 21 (forever/horde/02-the-barrens)."
 	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21, in the {zone:1413} guide."] = "{npc:3033} entrena a los druidas en {area:1639}. Te enseña {spell:18960}; la bienvenida de {npc:11802} espera a tu viaje de {spell:499} alrededor del nivel 21, en la guía de {zone:1413}.",
 
 	-- Step 101: Hunter Rise

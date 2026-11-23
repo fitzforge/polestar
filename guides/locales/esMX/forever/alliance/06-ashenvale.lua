@@ -22,7 +22,6 @@ return {
 
 	-- Step 6: Astranaar
 	-- {area:413} Maestra's Post · {npc:3845} Shindrell Swiftfire · {npc:4079} Sentinel Thenysil · {npc:3996} Faldreas Goeth'Shael · {npc:3691} Raene Wolfrunner · {npc:3894} Pelturas Whitemoon
-	-- was: ["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "El camino desde {area:413} llega junto al maestro de vuelo: {npc:3845} y {npc:4079} están ahí, {npc:3691} en la posada, {npc:3894} dentro del edificio de más allá."
 	["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3996} just east of them, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "El camino desde {area:413} llega junto al maestro de vuelo: {npc:3845} y {npc:4079} están ahí, {npc:3996} justo al este de ellos, {npc:3691} en la posada y {npc:3894} dentro del edificio de más allá.",
 	-- {npc:3996} Faldreas Goeth'Shael · {npc:3994} Keeper Albagorm · {area:467} Stonetalon Peak
 	["{npc:3996}: for {npc:3994} at {area:467}, at the end of the Stonetalon trip"] = "{npc:3996}: para {npc:3994} en {area:467}, al final del viaje a Sierra Espolón",
@@ -58,14 +57,12 @@ return {
 
 	-- Step 12: Teronis' Corpse
 	-- {area:441} Lake Falathim · {item:5463} Glowing Gem
-	-- was: ["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "Ve al oeste hasta la orilla de {area:441}. Teronis yace entre los múrlocs Gapo Salino; cualquier múrloc puede soltar {item:5463}."
 	["North again to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "Otra vez al norte, hasta la orilla de {area:441}. Teronis yace entre los múrlocs Gapo Salino; cualquier múrloc puede soltar la {item:5463}.",
 
 	-- Step 13: Maestra's Post
 	-- {area:413} Maestra's Post
 	["North-east from the lake to {area:413}."] = "Al noreste del lago hasta {area:413}.",
 	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
-	-- was: ["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}: sus círculos son para tu próxima visita a {zone:1440}, cerca del nivel 28"
 	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 30"] = "{npc:3663}: sus círculos son para tu próxima visita a {zone:1440}, cerca del nivel 30",
 
 	-- Step 14: The Zoram Strand
@@ -259,7 +256,6 @@ return {
 
 	-- Step 47: Ormer Ironbraid
 	-- {npc:1078} Ormer Ironbraid · {zone:1437} Wetlands
-	-- was: ["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}: los raptores más grandes del valle al oeste de la excavación son para tu próxima visita a {zone:1437}, cerca del nivel 27"
 	["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 29"] = "{npc:1078}: los raptores más grandes del valle al oeste de la excavación son para tu próxima visita a {zone:1437}, cerca del nivel 29",
 
 	-- Step 48: The Green Belt
@@ -339,7 +335,6 @@ return {
 
 	-- Step 61: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {zone:1432} Loch Modan
-	-- was: ["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "El tranvía llega a {object:28027}; camina al oeste hasta {object:2098}: {npc:1646} está en su lado este. (La ruta entrega su carta al final de 03-loch-modan; esto es para un personaje que todavía la lleve)."
 	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of the {zone:1432} guide; this is for a character still carrying it.)"] = "El tranvía llega a {object:28027}; camina al oeste hasta {object:2098}: {npc:1646} está en su lado este. (La ruta entrega su carta al final de la guía de {zone:1432}; esto es para un personaje que todavía la lleve).",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}: la Carta de Thundris de {area:442}",

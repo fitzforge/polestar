@@ -210,7 +210,6 @@ return {
 
 	-- Step 34: Dun Morogh: kill these as you meet them
 	-- {area:1} Dun Morogh
-	-- was: ["{zone:1426}: kill these as you meet them"] = "{zone:1426}: mata a estos según te los encuentres"
 	["{area:1}: kill these as you meet them"] = "{area:1}: mata a estos según te los encuentres",
 	-- {area:131} Kharanos
 	-- plural, as words: Crag Boars = {npc:1125} Crag Boar · Young Black Bears = {npc:1128} Young Black Bear
@@ -294,7 +293,6 @@ return {
 	-- Step 47: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village
 	-- plural, as words: Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
-	-- was: ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} es la cueva de los trols en las colinas al suroeste de {area:137}. Mata cazacabezas en la entrada y recórrela hasta el fondo.\nCuidado: los desolladores Peloescarcha del interior son de nivel 9-10 y están en parejas: atráelos de uno en uno de vuelta a la entrada."
 	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore {area:135} ticks only in there, not on the hill above it.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} es la cueva de los trols en las colinas al suroeste de {area:137}. Mata cazacabezas en la entrada y luego recorre la cueva hasta el fondo: Explorar {area:135} solo se marca ahí adentro, no en la colina de arriba.\nCuidado: los desolladores Peloescarcha del interior son de nivel 9-10 y están en parejas: atráelos de uno en uno de vuelta a la entrada.",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "{npc:1123}, bajo tierra",
@@ -318,7 +316,6 @@ return {
 
 	-- Step 50: Steelgrill's Depot
 	-- {area:131} Kharanos · {area:1} Dun Morogh
-	-- was: ["Follow the road north-east from {area:131} to the depot: the whole east of {zone:1426} is one sweep from here."] = "Sigue el camino al noreste desde {area:131} hasta el depósito: todo el este de {zone:1426} es un solo recorrido desde aquí."
 	["Follow the road north-east from {area:131} to the depot: the whole east of {area:1} is one sweep from here."] = "Sigue el camino al noreste desde {area:131} hasta el depósito: todo el este de {area:1} es un solo recorrido desde aquí.",
 	-- {npc:1377} Pilot Stonegear
 	["{npc:1377}, beside him"] = "{npc:1377}, a su lado",
@@ -394,7 +391,6 @@ return {
 
 	-- Step 75: Protecting the Herd
 	-- {npc:1388} Vagash · {area:38} Loch Modan
-	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "Son enemigos élite: se recomienda ir en grupo, busca gente para hacerlo. {npc:1388} es un élite de nivel 12: enfréntalo con un grupo. Si vas solo, omítelo: las misiones de {zone:1432} que siguen compensan la experiencia."
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {area:38} quests ahead make up the experience."] = "Son enemigos élite: se recomienda ir en grupo; busca gente con quien hacerla. {npc:1388} es un élite de nivel 12: enfréntalo con un grupo. Si vas solo, omítela: las misiones de {area:38} que siguen compensan la experiencia.",
 	["Below ground"] = "Bajo tierra",
 
@@ -404,7 +400,6 @@ return {
 
 	-- Step 78: South Gate Outpost
 	-- {area:806} South Gate Outpost · {area:38} Loch Modan
-	-- was: ["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "Sigue el camino todo al este hasta {area:806}, en el túnel de {zone:1432}."
 	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "Sigue el camino todo al este hasta {area:806}, en el túnel de {area:38}.",
 
 	-- Step 79: Bruegs Kindleborn
@@ -413,7 +408,6 @@ return {
 
 	-- Step 81: Braldir Ashmantle
 	-- {area:38} Loch Modan · {npc:257808} Braldir Ashmantle
-	-- was: ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "Cruza el túnel hasta {zone:1432}. Justo después, un sendero marcado con piedras sube por las colinas a la derecha del camino, al norte, hasta el campamento de {npc:257808}."
 	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "Cruza el túnel hasta {area:38}. Justo después, un sendero marcado con piedras sube por las colinas a la derecha del camino, al norte, hasta el campamento de {npc:257808}.",
 
 	-- Step 82: North Gate Outpost
@@ -423,7 +417,6 @@ return {
 	-- Step 83: The tunnel post
 	["The tunnel post"] = "El puesto del túnel",
 	-- {area:38} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
-	-- was: ["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "Al este por el túnel de la Puerta Sur hasta {zone:1432}. {npc:1089} y {npc:1092} están en el puesto enano justo después."
 	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "Al este por el túnel de la Puerta Sur hasta {area:38}. {npc:1089} y {npc:1092} están en el puesto enano justo después.",
 
 	-- Step 84: Stonesplinter troggs
@@ -610,7 +603,6 @@ return {
 	["Tram to {zone:1453}"] = "Tranvía a {zone:1453}",
 	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
 	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	-- was: ["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "En el andén de {zone:1455} de {area:2257}, {npc:12997} pide ayuda con las ratas: usa su {item:17117} en las ratas del Tranvía alrededor del andén, entrégalas y luego lleva su carta a su hermano {npc:13018}, en el extremo de {zone:1453}."
 	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "En el andén de {zone:1455} de {area:2257}, {npc:12997} pide ayuda con las ratas: usa su {item:17117} en las ratas del subterráneo alrededor del andén, entrégalas y luego lleva su carta a su hermano {npc:13018}, en el extremo de {zone:1453}. El tranvía no tiene mapa adentro. Las marcas de la ciudad muestran las entradas, no a los dos hermanos.",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}, en el andén de {zone:1455}",
