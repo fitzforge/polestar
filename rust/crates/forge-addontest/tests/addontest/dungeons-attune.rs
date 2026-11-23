@@ -347,7 +347,11 @@ fn with_the_local_codex_every_attunement_builds_the_reviewed_steps_and_each_cite
 	assert!(diff.is_empty(), "attunements differ from the reviewed list (review, then POLESTAR_WRITE_GOLDEN=1):\n{}", diff.join("\n"));
 	// Every cited `inside` place is one a chain meets, of an NPC or object that has no spawn and that the Codex
 	// places in no instance (the guide reads the Codex's instance itself; Drakkisath's Brand, Franclorn's monument,
-	// Doan's Strongbox and the Inconspicuous Documents are the Codex's).
+	// Doan's Strongbox and the Inconspicuous Documents are the Codex's). A place cited for a quest of a raid Forever
+	// has not opened, whose quests are out of the data (the Core Fragment for Attunement to the Core, #3392), is in
+	// no chain until the raid opens.
+	let closed_out: HashSet<String> =
+		list(&table["attunements"]).iter().filter(|a| a["open"] == false).flat_map(|a| list(&a["goal"])).map(|q| q.to_string()).filter(|q| !truthy(&real["quests"][q.as_str()])).collect();
 	let mut used: HashSet<String> = HashSet::new();
 	for l in by.as_object().unwrap().values() {
 		for a in list(l) {
@@ -357,6 +361,10 @@ fn with_the_local_codex_every_attunement_builds_the_reviewed_steps_and_each_cite
 		}
 	}
 	for e in list(&table["inside"]) {
+		let for_closed = list(&e["sources"]).iter().any(|s| s["kind"] == "quest" && closed_out.contains(&s["id"].to_string()));
+		if for_closed {
+			continue;
+		}
 		assert!(used.contains(&format!("{}:{}:{}", text(&e["kind"]), e["id"], text(&e["instance"]))), "{} is in no chain", text(&e["name"]));
 		let records = if e["kind"] == "npc" { &real["npcs"] } else { &real["objects"] };
 		let rec = &records[e["id"].to_string()];
