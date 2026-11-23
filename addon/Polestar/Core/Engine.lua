@@ -145,9 +145,12 @@ end
 -- this character can take it (faction, race, class) and it needs q itself:
 -- q among its `preAll`, or its one-of `pre` naming no other quest this
 -- character can take (a follow-up open after either side's lead-in proves
--- neither for a character who could take both). Static per character and
--- database: kept per quest, rebuilt when more quest chunks arrive. Without
--- the database loaded, none.
+-- neither for a character who could take both). First, the quests the data
+-- names in q's `doneBy` and theirs in turn: a quest the game never flags
+-- completed though the chain after it goes on (Seeking the Kor Gem, done once
+-- An Underrated Talent is taken, #2465), which no prerequisite links. Static
+-- per character and database: kept per quest, rebuilt when more quest chunks
+-- arrive. Without the database loaded, none.
 Own.NO_LATER = {}
 Own.LATER_MAX = 100 -- the most quests followed after one (the longest chain in the data has 65)
 Own.laterCache = { ids = nil, lists = {} }
@@ -184,6 +187,14 @@ function Own.laterOf(q)
 		return named
 	end
 	local seen, queue, head = { [q] = true }, { q }, 1
+	local own = F.DONE_BY and Q.QuestRecord(q)
+	for _, s in Q.Each(own and own[F.DONE_BY] or nil) do
+		if not seen[s] then
+			seen[s] = true
+			list[#list + 1] = s
+			queue[#queue + 1] = s
+		end
+	end
 	while queue[head] and #list < Own.LATER_MAX do
 		local p = queue[head]
 		head = head + 1
@@ -8888,6 +8899,33 @@ function Engine.GetTabs(counts)
 	return out, activeIndex
 end
 
+-- Where each other open tab's live step goes next: its first open goal with
+-- a place, { index, guideId, title, category, dungeon, step, stepNumber, map,
+-- x, y, f }, in tab order; a complete tab or a step with no place is left
+-- out (the other-tab card, UI/OtherTab.lua).
+function Engine.OtherTabPlaces()
+	sync()
+	local out = {}
+	for i = 1, #tabs do
+		local t = tabs[i]
+		if i ~= activeIndex and t.computed then
+			use(t)
+			local s = computed
+			local step = guide.steps[s]
+			for g, goal in ipairs(step and step.goals or {}) do
+				local map, x, y, f = posOf(goal)
+				if map and x and y and goalStatus(s, g, goal, true) == "active" then
+					out[#out + 1] = { index = i, guideId = guide.id, title = guide.title, category = guide.category or "Leveling",
+						dungeon = guide.dungeon, step = s, stepNumber = (Engine.StepNumberOf(guide, s)), map = map, x = x, y = y, f = f }
+					break
+				end
+			end
+		end
+	end
+	useActive()
+	return out
+end
+
 local function fireTabs()
 	tabsDirty = false
 	local list, active = Engine.GetTabs()
@@ -10023,7 +10061,7 @@ function Own.queueGroupSkips(from, to)
 				queue.seen[q] = true
 				local one = ns.CharState().groupQuests[q] == "skip"
 				queue.skips[#queue.skips + 1] = { quest = q, title = titleOfQuest(q), reason = "group",
-					text = one and L["Group quest you chose to skip (Discovery, Group quests)"] or L["Group quest: Options, Automation, Group quests skips them all"] }
+					text = one and L["Group quest you chose to skip (Discovery, Group quests)"] or L["Group quest: Settings, Automation, Group quests skips them all"] }
 			end
 		end
 	end
@@ -14077,7 +14115,9 @@ function Own.hereStranded(list, n, live)
 			local goal = not have[q] and Own.strandGoal(q, map)
 			if goal then
 				local plan = ns.RoutePlan and ns.RoutePlan.GetTurnIn(q)
-				local later = plan and (plan.status == "later" or plan.status == "future" or plan.status == "other")
+				-- A dungeon quest only its pick-up guide covers (pickupOnly) is
+				-- not handed in ahead, though its status is "other".
+				local later = plan and not plan.pickupOnly and (plan.status == "later" or plan.status == "future" or plan.status == "other")
 				n = n + 1
 				list[n] = { s = Own.STRAND_STEP, g = q, goal = goal, kind = "turnin", left = 0, places = 1,
 					npcs = false, seen = false, spot = false, d = false, pick = 0,
@@ -16405,6 +16445,94 @@ function Engine.KeptItems()
 		if s then keep(goal.item, s) end
 	end
 	return items
+end
+
+-- The guides after the active one that Polestar goes on with (Engine.NextGuide
+-- from each in turn), at most Own.ahead.n, stopping at none or at one already
+-- listed (a loop): their ids, in route order. One Own key holds all of it
+-- (Own.ahead: n, key, index, ids, build): a key more on Own doubles its table.
+Own.ahead = { n = 3, key = false, index = {} }
+function Own.ahead.ids()
+	local ids, seen = {}, {}
+	local id = guide and guide.id
+	if not id then return ids end
+	seen[id] = true
+	for _ = 1, Own.ahead.n do
+		id = Engine.NextGuide(id)
+		if not id or seen[id] then break end
+		seen[id] = true
+		ids[#ids + 1] = id
+	end
+	return ids
+end
+
+-- { [itemID] = { guideId, ... } } for the guides ahead (Own.ahead.ids): the
+-- items their steps use, by the same goals as Engine.KeptItems (`use`,
+-- `collect`, `buy`, `auction`, an `accept`'s item, a `craft`'s reagents).
+-- The filter for a guide that is not loaded is the raw one: a step that is a
+-- step of its own for this character (Engine.StepHiddenFor, so not another
+-- class's, race's or faction's; not a hearth-only or along step) outside a
+-- dungeon the player skips (Own.dungeonHidden), and a goal whose `only`
+-- fits them. stepApplies and goalApplies read the active guide's state
+-- (its quest layout, left-out quests, skips, `when` answers), which a guide
+-- not in a tab has none of; an item a later `when` or a quest left out
+-- would hide still counts here: the line says "used in", not "needed now".
+-- Rebuilt when the active guide or the chain after it changes, not per
+-- hover. Steps are decoded to scan and released again (a guide no tab shows);
+-- the index holds ids only.
+function Own.ahead.build()
+	local ids = Own.ahead.ids()
+	local key = (guide and guide.id or "") .. ">" .. table.concat(ids, ">")
+	local a = Own.ahead
+	if a.key == key then return a.index end
+	local index = {}
+	a.key, a.index = key, index
+	if not player then refreshPlayer() end
+	local tabs = Engine.TabIds()
+	for _, id in ipairs(ids) do
+		local g = Guides.Get(id)
+		local steps = g and g.steps
+		if type(steps) == "table" then
+			local function add(item)
+				if type(item) ~= "number" then return end
+				local list = index[item]
+				if not list then index[item] = { id } elseif list[#list] ~= id then list[#list + 1] = id end
+			end
+			for _, step in ipairs(steps) do
+				if not Engine.StepHiddenFor(step) and not Own.dungeonHidden(step) then
+					for _, goal in ipairs(step.goals) do
+						local t = goal.t
+						if Guides.Matches(goal.only, player) then
+							if t == "use" or t == "collect" or t == "buy" or t == "auction" or (t == "accept" and goal.item) then
+								add(goal.item)
+							elseif t == "craft" and type(goal.reagents) == "table" then
+								for _, r in ipairs(goal.reagents) do add(r.item) end
+							end
+						end
+					end
+				end
+			end
+			if not tabs[id] then Guides.Release(id) end
+		end
+	end
+	return index
+end
+
+-- The guides whose steps use itemID, for its tooltip (QoL/Keep.lua), in
+-- route order: the active guide first when it still needs the item
+-- (Engine.KeptItems; step: that step's index in the guide, as the Engine
+-- counts it), then the guides ahead (step nil: not looked up for a guide
+-- that is not loaded). -> { { guide = g, step = s | nil }, ... } | nil
+function Engine.ItemGuides(itemID)
+	if type(itemID) ~= "number" then return nil end
+	local out = {}
+	local s = Engine.KeptItems()[itemID]
+	if s and guide then out[1] = { guide = guide, step = s } end
+	for _, id in ipairs(Own.ahead.build()[itemID] or NONE) do
+		local g = Guides.Get(id)
+		if g then out[#out + 1] = { guide = g } end
+	end
+	return out[1] and out or nil
 end
 
 -- A guide of the other faction (Guides.OtherFaction: loaded from an import

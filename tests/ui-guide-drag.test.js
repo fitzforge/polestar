@@ -66,3 +66,18 @@ for (const growUp of [false, true]) {
 		assert.deepEqual(out.pos, [out.x, out.y], 'saved as it is pinned');
 	});
 }
+
+test('a readable floor: ui.scale is held inside UI.MIN_SCALE..UI.MAX_SCALE, and the height cap never goes under UI.MIN_HEIGHT', () => {
+	const [out] = run(`
+		local F, UI = PolestarGuideFrame, Polestar.UI
+		Polestar.Set("ui.scale", 0.05)
+		local low = F:GetScale()
+		Polestar.Set("ui.scale", 9)
+		local high = F:GetScale()
+		Polestar.Set("ui.scale", 1.6)
+		Polestar.Set("ui.maxHeight", 0.01)
+		emit({ low = low, high = high, min = UI.MIN_SCALE, max = UI.MAX_SCALE, cap = GF.CapHeight(), minH = UI.MIN_HEIGHT })`);
+	assert.equal(out.low, out.min);
+	assert.equal(out.high, out.max);
+	assert.equal(out.cap, out.minH, 'a tiny share of the screen still leaves MIN_HEIGHT');
+});

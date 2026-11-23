@@ -78,7 +78,11 @@ return {
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "进入{area:498}内部",
 
-	-- Step 13: The Dragonmurk: kill these as you meet them
+	-- Step 13: The Musty Scroll
+	-- {object:2555} Musty Scroll
+	["The {object:2555} lies to the south-west."] = "",
+
+	-- Step 14: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510}：沿途遇到就击杀",
 	-- {area:511} Wyrmbog
@@ -87,27 +91,27 @@ return {
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329}在{area:510}附近巡逻，请在地图标出的圆圈内寻找",
 	["Below ground"] = "在地下",
 
-	-- Step 14: Brackenwall Village
+	-- Step 15: Brackenwall Village
 	["Ride back north to Brackenwall."] = "向北骑回蕨墙村。",
 
-	-- Step 15: Onyxia's eggs
+	-- Step 16: Onyxia's eggs
 	["Onyxia's eggs"] = "奥妮克希亚的蛋",
 	-- {area:511} Wyrmbog
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "奥妮克希亚的蛋在{area:511}东南的龙穴里，由火鬃守卫看守；砸碎五个。",
 
-	-- Step 16: Muckshell crabs
+	-- Step 17: Muckshell crabs
 	["Muckshell crabs"] = "",
 	-- plural, as words: Muckshell Razorclaws = {npc:4405} Muckshell Razorclaw
 	["On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for."] = "",
 
-	-- Step 17: Level 45.37
+	-- Step 18: Level 45.37
 	["Level 45.37"] = "等级 45.37",
 	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak
 	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon instead."] = "回到蕨墙村后，{npc:4500}的挑战需要三人小队。独自一人的话，在向北骑回去之前，就在{area:511}北缘这里击杀火鬃斥候刷到45.37级，免得之后还要专程回来。也可组队挑战{area:978}地下城。",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "击杀{npc:4329}刷经验",
 
-	-- Step 18: Brackenwall Village
+	-- Step 19: Brackenwall Village
 	-- {npc:4791} Nazeer Bloodpike · {item:5942} Jeweled Pendant
 	["{npc:4791}: the {item:5942}"] = "",
 	-- {npc:4047} Zor Lonetree · {zone:1454} Orgrimmar · {zone:1447} Azshara
@@ -115,7 +119,7 @@ return {
 	-- {quest:3128} Natural Materials · {zone:1444} Feralas
 	["Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain."] = "",
 
-	-- Step 19: Challenge Overlord Mok'Morokk
+	-- Step 20: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "这些是精英怪：建议组队，找人一起做。{quest:1173} 需要三人小队。独自一人就跳过：路线会让你打怪补回这部分经验。\n{npc:4500} 是精英：建议组队。把他打到投降，然后向 {npc:4501} 汇报。",
 

@@ -94,7 +94,9 @@ local function weights(st, profile, style, danger)
 	if st.zoned then
 		kept, signature = dangerOf(danger)
 	end
+	-- A walked trail (Path.SetTrail) opens ways the grid doesn't have: its searches are their own (caches keyed by tag).
 	local tag = (Costs.Profile(profile) or "") .. ":" .. style .. (kept and ":" .. signature or "")
+		.. (st.trail and ":trail" .. st.trail.version or "")
 	local mult = mults[tag]
 	if not mult then
 		if multCount >= 32 then
@@ -429,6 +431,7 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 	-- without danger).
 	local dz = mult and mult.danger and chunkDanger(st, k, mult.danger)
 	local weighted = mult ~= nil
+	local trail = st.trail and st.trail.arcs[k] -- the walked trail's steps in this cluster (Path.SetTrail)
 	tree.gen = tree.gen + 1
 	local open = 2 * tree.gen * SPAN -- pm at or above it: open in this search; at or above settled: settled
 	local settled = open + SPAN
@@ -638,6 +641,13 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 						relax((t1 * 256 + t2) * 256 + t3, (y1 * 256 + y2) / unit)
 					end
 					a = a + 6
+				end
+			end
+			-- The player's own steps where the grid has no way (Path.SetTrail): both ways, at their length.
+			local t = trail and trail[u]
+			if t then
+				for e = 1, #t, 2 do
+					relax(t[e], t[e + 1])
 				end
 			end
 		end
@@ -2645,6 +2655,94 @@ function Path.ZoneTile(map, x, y)
 	end
 	local side = st.C * st.cs
 	return s, 16 * (floor(st.x0 / side + 0.5) + floor(k / st.ny)), 16 * (floor(st.y0 / side + 0.5) + k % st.ny)
+end
+
+-- The player's own steps as evidence (#3641, Fitz in Hillsbrad Fields: he walked round the farmhouse's left side
+-- while every walk the arrow asked went round its right, the maps' 4-yd cells closing the orchard and the fence gaps
+-- he walked through). samples = { x1, y1, z1, x2, y2, z2, ... }: the player's recent places on map, oldest first, a
+-- couple of yards apart (z false where unknown). Two places in a row at most TRAIL_STEP yards apart, on nodes of one
+-- cluster that the grid joins by no way at most TRAIL_DETOUR times their distance (plus TRAIL_SLACK cells), are
+-- joined for this map's searches (st.trail: a step each way at its length, read by `search`), until the next
+-- SetTrail; nil clears it. A walk then goes where the player walked. Nothing is stored or shipped, and the profile's
+-- costs and the walk's policy apply to those steps as to any. Each place stands on the surface nearest the last
+-- one's height (its own when it has one); two whose surfaces lie further apart in height than Path.trailRise yards a
+-- yard plus Path.trailPad (a fence's step, a bank) are never joined: another floor, not a gap. The searches of a set
+-- trail are their own (weights' tag carries its
+-- version; a trail with the same joins keeps it, so caches stay). -> the joins made (map gaps the player walked
+-- through) and the middle of the first: n, x, y (0 for none).
+local TRAIL_STEP, TRAIL_DETOUR, TRAIL_SLACK = 6, 3, 2
+Path.trailRise, Path.trailPad = 1.2, 3
+local trailVersion = 0
+function Path.SetTrail(map, samples)
+	local st = State(map)
+	if not st then
+		return 0
+	end
+	if not samples then
+		st.trail = nil
+		return 0
+	end
+	local arcs, keys, gaps, gx, gy = {}, {}, 0, nil, nil
+	-- The grid's own ways, without the trail set before (its joins would hide the gaps they bridge).
+	local before = st.trail
+	st.trail = nil
+	local tree = Tree()
+	local C, cs = st.C, st.cs
+	local N = C * C
+	local pk, pn, px, py, pz, pc
+	for i = 1, #samples - 2, 3 do
+		local x, y, z = samples[i], samples[i + 1], samples[i + 2]
+		if z == false then
+			z = nil
+		end
+		local k, lc = locate(st, x, y)
+		local node = k and snap(st, k, lc, x, y, z or pz)
+		local c = node and grid(st, k)
+		if node and c then
+			local cell = node < N and node or floorCell(c, node)
+			local nz = zOf(c, node)
+			if pn and pk == k and pn ~= node and (x - px) ^ 2 + (y - py) ^ 2 <= TRAIL_STEP * TRAIL_STEP
+				and abs(nz - pz) <= Path.trailRise * (abs(x - px) + abs(y - py)) + Path.trailPad then
+				local dx, dy = floor(cell / C) - floor(pc / C), cell % C - pc % C
+				local d = sqrt(dx * dx + dy * dy)
+				local key = k .. ":" .. (pn < node and pn .. ":" .. node or node .. ":" .. pn)
+				if not keys[key] then
+					keys[key] = true
+					hn = 0
+					if not search(st, k, 1, nil, pn, tree, node, nil, nil, false, (TRAIL_DETOUR * d + TRAIL_SLACK) * cs) then
+						local A = arcs[k] or {}
+						arcs[k] = A
+						local a, b = A[pn] or {}, A[node] or {}
+						A[pn], A[node] = a, b
+						a[#a + 1], a[#a + 2] = node, d
+						b[#b + 1], b[#b + 2] = pn, d
+						gaps = gaps + 1
+						keys[#keys + 1] = key
+						if not gx then
+							gx, gy = (x + px) / 2, (y + py) / 2
+						end
+					end
+				end
+			end
+			pk, pn, px, py, pz, pc = k, node, x, y, nz, cell
+		else
+			pn = nil
+		end
+	end
+	Release(tree)
+	if gaps == 0 then
+		st.trail = nil
+		return 0
+	end
+	table.sort(keys)
+	local sig = table.concat(keys, ",")
+	if before and before.sig == sig then
+		st.trail = before
+	else
+		trailVersion = trailVersion + 1
+		st.trail = { version = trailVersion, sig = sig, arcs = arcs }
+	end
+	return gaps, gx, gy
 end
 
 -- The town hostile to profile (Costs.Profile) whose ground holds the world point (x, y) on map: one of its disks in

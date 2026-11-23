@@ -138,28 +138,30 @@ return {
 	["Theramore"] = "Theramore",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "{npc:4944}, au dernier étage",
+
+	-- Step 31: Morgan Stern
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}, à l'intérieur",
 
-	-- Step 31: Mudsprocket
+	-- Step 32: Mudsprocket
 	["Mudsprocket"] = "Gouffrefange",
 	-- {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle
 	["Take the road south-west out of Theramore to Mudsprocket, the goblin camp at the edge of the {area:511}. {npc:270723} and {npc:270727} stand together in the camp."] = "Prenez la route au sud-ouest de Theramore jusqu'à Gouffrefange, le camp gobelin en bordure de la {area:511}. {npc:270723} et {npc:270727} se tiennent ensemble dans le camp.",
 
-	-- Step 32: The Wyrmbog
+	-- Step 33: The Wyrmbog
 	-- {area:511} Wyrmbog
 	["The {area:511}"] = "{area:511}",
 	-- {item:280092} Wyrmtail
 	-- plural, as words: Searing Hatchlings = {npc:4323} Searing Hatchling · Firemane Scalebanes = {npc:4328} Firemane Scalebane
 	["The {item:280092} grows in the bog east of the camp: gather it first. Then the Searing Hatchlings and Whelps (41-43) and the Firemane dragonkin nest in the bog north and west of Mudsprocket, on the way back; all of them drop the shed scales.\nCareful: the Firemane Scalebanes and Flamecallers are 43-44 and cast fire: pull them one at a time."] = "La {item:280092} pousse dans le marais à l'est du camp : récoltez-la d'abord. Ensuite, les Jeunes incendiaires et les dragonnets (41-43) ainsi que les draconiens Crins-de-feu nichent dans le marais au nord et à l'ouest de Gouffrefange, sur le chemin du retour ; tous lâchent les écailles tombées.\nAttention : les Plaiedécailles Crins-de-feu et les Implorateurs des flammes sont de niveau 43-44 et lancent des sorts de feu : attirez-les un par un.",
 
-	-- Step 33: Mudsprocket
+	-- Step 34: Mudsprocket
 	["Then ride back north-east to Theramore's flight master."] = "Puis retournez au nord-est jusqu'au maître de vol de Theramore.",
 
-	-- Step 34: Theramore flight master
+	-- Step 35: Theramore flight master
 	["Theramore flight master"] = "Maître de vol de Theramore",
 
-	-- Step 36: Warlock: Summon Felsteed
+	-- Step 37: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "Démoniste : {quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan

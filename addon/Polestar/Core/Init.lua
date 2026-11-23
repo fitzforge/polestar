@@ -166,10 +166,11 @@ end
 -- status "ai"; tests/i18n.test.js keeps the two lists equal).
 ns.AI_LOCALES = { koKR = true, ptBR = true, ruRU = true, zhCN = true, zhTW = true }
 
--- True when this client reads an AI-made translation: its locale is one of
--- AI_LOCALES and its file filled L. Options' About then says so.
+-- True when Polestar shows an AI-made translation: the language it shows
+-- (Polestar.Names.Language) is one of AI_LOCALES and its file filled L.
+-- Options' About then says so.
 function ns.AITranslation()
-	return (GetLocale and ns.AI_LOCALES[GetLocale()] == true and next(L) ~= nil) or false
+	return (ns.AI_LOCALES[ns.Names.Language()] == true and next(L) ~= nil) or false
 end
 
 -- Game terms in the client's own words, so they read as the game writes them
@@ -1004,16 +1005,32 @@ function ns.RegisterDefaults(section, tbl)
 	for k, v in pairs(tbl) do d[k] = v end
 end
 
+-- The layout in use's defaults (Theme.RegisterLayout's spec.defaults, set
+-- by Theme/SkinApi.lua): "guideWindow.tabs" -> value. A setting reads the
+-- player's saved value, else the layout's default, else Polestar's.
+local layered = {}
+local function defaultOf(path, keys)
+	local v = layered[path]
+	if v == nil then v = lookup(defaults, keys) end
+	return v
+end
+
 -- Values are shared, not copied: treat returned tables as read-only and Set a
 -- new table to change one.
 function ns.Get(path)
 	local keys = keysOf(path)
 	local v = lookup(DB().settings, keys)
-	if v == nil then v = lookup(defaults, keys) end
+	if v == nil then v = defaultOf(path, keys) end
 	return v
 end
 
+-- The default a setting goes back to on reset: the layout's, else Polestar's.
 function ns.GetDefault(path)
+	return defaultOf(path, keysOf(path))
+end
+
+-- Polestar's own default, whatever the layout.
+function ns.GetBaseDefault(path)
 	return lookup(defaults, keysOf(path))
 end
 
@@ -1021,6 +1038,12 @@ end
 -- Set(path, value) puts back exactly: undo, a frame's place before a move).
 function ns.GetStored(path)
 	return lookup(DB().settings, keysOf(path))
+end
+
+-- Put the layout's defaults in place (t: path -> value, or nil for none).
+function ns.SetLayoutDefaults(t)
+	layered = {}
+	for p, v in pairs(t or {}) do layered[p] = v end
 end
 
 ---------------------------------------------------------------------------
@@ -1050,7 +1073,7 @@ function ns.Set(path, value)
 		if type(node[k]) ~= "table" then node[k] = {} end
 		node = node[k]
 	end
-	if value == lookup(defaults, keys) then value = nil end
+	if value == defaultOf(path, keys) then value = nil end
 	node[keys[#keys]] = value
 	if liveDepth > 0 then
 		if not livePaths[path] then
@@ -1481,6 +1504,16 @@ function ns.Print(...)
 	local parts = {}
 	for i = 1, n do parts[i] = tostring((select(i, ...))) end
 	DEFAULT_CHAT_FRAME:AddMessage(PREFIX .. table.concat(parts, " "))
+end
+
+-- A line telling what Polestar did or wants by itself (a turn-in waiting on a
+-- reward, buttons upgraded, junk sold): silent with Settings > Guide >
+-- Window > Show and hide > Chat messages off (#2527). Errors and command replies use
+-- ns.Print.
+ns.RegisterDefaults("ui", { chatMessages = true })
+function ns.Notice(...)
+	if ns.Get("ui.chatMessages") == false then return end
+	ns.Print(...)
 end
 
 ns.debug = false

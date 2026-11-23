@@ -97,14 +97,14 @@ jobs:
           node --test --test-timeout=900000 --test-reporter=dot --test-reporter-destination=stdout \
             --test-reporter=./tools/ci-failures.js --test-reporter-destination=.ci/baseline.jsonl \
             "tests/**/*.test.js" || rc=$?
-          if [ "$rc" != 0 ] && [ ! -s .ci/baseline.jsonl ]; then echo "::error::the suite failed ($rc) with no test failing: no baseline"; exit 1; fi
-          n=$(wc -l < .ci/baseline.jsonl)
+          if [ "$rc" != 0 ] && ! grep -qv '"ok":true' .ci/baseline.jsonl; then echo "::error::the suite failed ($rc) with no test failing: no baseline"; exit 1; fi
+          n=$(jq -s '[.[] | select(.ok | not)] | length' .ci/baseline.jsonl)
           {
             echo "## Public data baseline"
             echo
-            echo "$n failing test line(s) on next with the public data (pull requests leave these out)."
+            echo "$n failing test line(s) on next with the public data (pull requests leave these out), of $(wc -l < .ci/baseline.jsonl) tests run."
             echo
-            jq -r '"- \(.file): \(.name)"' .ci/baseline.jsonl | sort -u | head -n 200
+            jq -r 'select(.ok | not) | "- \(.file): \(.name)"' .ci/baseline.jsonl | sort -u | head -n 200
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Save for pull requests

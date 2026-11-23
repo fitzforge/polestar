@@ -342,7 +342,11 @@ return {
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine · {zone:1437} Wetlands
 	["For {npc:3649}, back in {area:442} (the {zone:1437} guide)"] = "",
 
-	-- Step 62: Cathedral Square
+	-- Step 62: Baros Alexston
+	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square
+	["Thundris' letter is already with {npc:1646}: his reply waits at the east side of {object:2098}."] = "",
+
+	-- Step 63: Cathedral Square
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena
 	["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:376} is in the Cathedral of Light."] = "",
 	-- {npc:376} High Priestess Laurena · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
@@ -352,19 +356,19 @@ return {
 	-- {npc:376} High Priestess Laurena · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
 	["{npc:376}: {npc:11401} in {zone:1457} takes it, later"] = "{npc:376}: {zone:1457}의 {npc:11401}에게 제출합니다. 나중에",
 
-	-- Step 63: Master Mathias Shaw
+	-- Step 64: Master Mathias Shaw
 	-- {object:2100} Old Town
 	["Mathias Shaw is at SI:7 in {object:2100}, south of the Keep."] = "",
 	-- {npc:332} Master Mathias Shaw · {npc:7024} Agent Kearnen · {zone:1436} Westfall · {zone:1431} Duskwood
 	["{npc:332}: {npc:7024} in {zone:1436} takes it, at the end of {zone:1431}'s second loop"] = "",
 
-	-- Step 64: Collin Mauren
+	-- Step 65: Collin Mauren
 	-- {object:2164} The Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6122} Gakin the Darkbinder
 	["{object:2164} is in the {object:2101}. Warlocks: {npc:6122} is in its cellar."] = "{object:2164}은(는) {object:2101}에 있습니다. 흑마법사: {npc:6122}은(는) 그 지하실에 있습니다.",
 	-- {npc:6122} Gakin the Darkbinder · {npc:6244} Takar the Seer · {zone:1413} Barrens
 	["{npc:6122}: {npc:6244} in the {zone:1413} takes it, later"] = "{npc:6122}: {zone:1413}의 {npc:6244}에게 제출합니다. 나중에",
 
-	-- Step 65: Trade District
+	-- Step 66: Trade District
 	-- {zone:1453} Stormwind · {zone:1431} Duskwood
 	["Next: training in {zone:1453}, then the road east through Elwynn and south to {zone:1431}."] = "",
 

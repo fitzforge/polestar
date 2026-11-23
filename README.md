@@ -1381,6 +1381,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `install` | Set Polestar up again, a page at a time (Install) |
 | `welcome` | Opens Install, as `install` does |
 | `profile [name]` | List your settings profiles, or switch to one |
+| `language [name]` | Choose the language Polestar shows, from the next `/reload`: `game` (follow the game's language, the default), `enUS` (English) or a language code such as `deDE`; no name shows the current choice |
 | `whatsnew` | Show what's new in this version |
 | `where` | Print your map and position as guide lines (`zone map <id>`, `goto x,y live`), in a box to copy |
 | `report` | Report a problem with the step on screen (the guide window's bug button) |

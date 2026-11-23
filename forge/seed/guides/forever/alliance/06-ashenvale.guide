@@ -107,6 +107,7 @@ step Ilkrud Magthrull
   collect 5533 quest 973                  -- Ilkrud Magthrull's Tome
 
 step Shrine of Aessina
+  when complete 945
   tip North of the Fire Scar Shrine, Therysil waits at the Shrine of Aessina.
   turnin 945                              -- Therysil
 
@@ -273,6 +274,7 @@ step Fly to Auberdine
 
 step Terenthis
   zone Darkshore
+  when complete 994
   tip Terenthis stands by the flight master, at the east end of the main street. No Trek to Ashenvale yet? Give it a minute after the hand-in: Sentinel Selarin comes to Terenthis's side shortly after Volcor's escort is handed in. Changing layer can also find her. Then back west to the dock.
   turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
   accept 990 optional                     -- Sentinel Selarin, once she comes: Trek to Ashenvale, for Raene Wolfrunner in Astranaar on your next Ashenvale visit
@@ -434,6 +436,13 @@ step Baros Alexston
   when onquest 97914
   tip The tram comes in at the Dwarven District; walk west to the Cathedral Square: Baros Alexston stands at its east side. (The route hands his letter in at the end of the Loch Modan guide; this is for a character still carrying it.)
   turnin 97914                            -- Baros Alexston: Thundris' letter from Auberdine
+  accept 97926 optional                   -- For Thundris Windweaver, back in Auberdine (the Wetlands guide)
+
+step Baros Alexston
+  zone Stormwind City
+  when turnedin 97914
+  when available 97926
+  tip Thundris' letter is already with Baros Alexston: his reply waits at the east side of Cathedral Square.
   accept 97926 optional                   -- For Thundris Windweaver, back in Auberdine (the Wetlands guide)
 
 step Cathedral Square
