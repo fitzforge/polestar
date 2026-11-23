@@ -44,7 +44,6 @@ step Boat to Theramore
   goto 5.13,63.61 "Boat to Theramore"
 
 step Theramore
-  tip The Gadgetzan stop is for players coming from the Tanaris guide with its quests; opened with none of those quests in the log, the guide starts in Un'Goro Crater.
   zone Dustwallow Marsh
   tip Privateer Groy stands on the docks where the boat lands.
   turnin 623                          -- Privateer Groy

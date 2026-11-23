@@ -33,7 +33,6 @@ step Fly to Grom'gol
 
 step Grom'gol Base Camp
   skipto feralas when !onquest 209,348,573,576,587,604,609,617,621,624,728,1137,1183,1426,1430,2872,95033,95296
-  tip These Stranglethorn errands, and the Swamp of Sorrows, Undercity and Orgrimmar stops after them, are for players carrying quests from the earlier guides; opened with none of those quests in the log, the guide starts in Feralas.
   zone Stranglethorn Vale
   tip The flight lands at Grom'gol. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, Booty Bay's pirates, the naga coast and Mokk, before the Swamp of Sorrows and the Undercity. The Bubbling Cauldron beside Nimboya has the Skullsplitter chief's quest.
   accept 586                          -- the Bubbling Cauldron: Speaking with Gan'zulah

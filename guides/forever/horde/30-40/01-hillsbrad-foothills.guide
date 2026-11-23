@@ -95,7 +95,6 @@ step Camp Taurajo flight master
 
 step Ratchet
   skipto tarren-mill when !onquest 220,93739
-  tip The Ratchet, Crossroads, Orgrimmar and Undercity stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts at Tarren Mill.
   only Shaman
   zone The Barrens
   tip Fly to Ratchet (from Camp Taurajo if you come from the Thousand Needles guide, else from the flight master nearest you). Islen Waterseer camps on the coast a short walk south of the town; fly on to the Crossroads from Ratchet.

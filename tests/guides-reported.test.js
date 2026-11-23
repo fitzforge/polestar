@@ -19065,3 +19065,128 @@ test('#3823 Cooking 1-300: a recipe\'s learn leads to its vendor until the recip
 		fs.rmSync(dir, { recursive: true, force: true });
 	}
 });
+
+// #3858 (gidi_, 0.4.2.2) and the sweep #3859: a leveling guide opened fresh (no quest history, at its level, in its
+// zone) sent the player out of the zone it is named for, to the carried errands and stops on the way that are there
+// for players coming from the guides before it (Horde Feralas & Tanaris: the second Stranglethorn visit, the Swamp
+// of Sorrows, the Undercity and Orgrimmar). Those stops now jump, for a player holding none of the quests the guide
+// hands in from earlier guides, to the guide's first step in its own zone; a player carrying them keeps the route.
+const FRESH_OPEN = [
+	'forever/horde/02-the-barrens.guide',
+	'forever/horde/04-the-barrens.guide',
+	'forever/horde/30-40/01-hillsbrad-foothills.guide',
+	'forever/horde/30-40/02-thousand-needles.guide',
+	'forever/horde/30-40/04-dustwallow-marsh.guide',
+	'forever/horde/40-50/02-feralas.guide',
+	'forever/horde/40-50/03-feralas.guide',
+	'forever/alliance/04-redridge-mountains.guide',
+	'forever/alliance/06-ashenvale.guide',
+	'forever/alliance/40-50/07-un-goro-crater.guide',
+	'forever/alliance/50-60/01-burning-steppes.guide',
+	'forever/alliance/50-60/04-western-plaguelands.guide',
+];
+for (const guide of FRESH_OPEN) {
+	test(`#3859: ${guide} opened with none of its carried quests jumps to its own zone`, { skip }, () => {
+		const g = compiled(guide);
+		const jumps = g.steps.flatMap((s, i) => (s.skipto || []).map((k) => ({ i, k })));
+		assert.ok(jumps.length, 'the stops before the zone carry a jump');
+		assert.ok(g.steps[0].skipto && g.steps[0].skipto.length, 'the first step carries one');
+		for (const { i, k } of jumps) {
+			assert.ok(k.when.k === 'onquest' && k.when.neg, `step ${i + 1}: jumps only while none of the carried quests is in the log`);
+			const to = g.steps.findIndex((s) => s.label === k.to);
+			assert.ok(to > i, `step ${i + 1}: the jump goes forward`);
+			assert.ok(g.steps[to].goals.some((x) => x.map === g.zone), `step ${i + 1}: it lands in ${g.zoneName}`);
+			const handed = new Set(g.steps.flatMap((s) => s.goals.filter((x) => x.t === 'turnin').map((x) => x.quest)));
+			assert.ok([].concat(k.when.q).every((q) => handed.has(q)), `step ${i + 1}: every quest it waits on is handed in by this guide`);
+		}
+	});
+}
+
+test('#3858: Feralas & Tanaris (Horde) opened fresh starts in Feralas; carrying a Stranglethorn errand keeps Stranglethorn', { skip }, () => {
+	const pack = buildSimPack(allGuides().filter((f) => f.startsWith('forever/horde/') || f === 'forever/40-50/shendralas.guide' || f === 'forever/50-60/mount-hyjal.guide'));
+	try {
+		const g = pack.guides.find((x) => x.id === 'forever/horde/40-50/02-feralas');
+		const first = (before) => {
+			const [out] = playGuide(pack, g, {
+				race: 'Orc', faction: 'Horde', cls: 'WARRIOR', before: `w.moveTo(1444, 75.7, 44.3)\n${before}`,
+				script: `stub.advance(11)
+local E = Polestar.Engine
+local i = E.GetStepIndex()
+local maps = {}
+for _, x in ipairs(E.GetGuide().steps[i].goals) do if x.map then maps[#maps + 1] = x.map end end
+emit({ i = i, maps = maps })`,
+			});
+			return out;
+		};
+		const fresh = first('');
+		assert.ok([].concat(fresh.maps).includes(1444), `a fresh open starts in Feralas: ${JSON.stringify(fresh)}`);
+		const carrying = first('w.onQuest(609, {})');
+		assert.ok([].concat(carrying.maps).includes(1434), `carrying Stranglethorn's Voodoo Dues keeps Stranglethorn: ${JSON.stringify(carrying)}`);
+	} finally {
+		pack.dispose();
+	}
+});
+
+// #3846 (TheMoon, 0.4.2.2): the Dun Morogh starts handed in Shimmer Stout at the South Gate, went up to Pilot
+// Hammerfoot at the North Gate and came back down to the South Gate's tunnel. The North Gate comes first now, on the
+// road east, and the South Gate and the tunnel after it.
+for (const guide of ['forever/alliance/gnome/01-dun-morogh.guide', 'forever/alliance/dwarf/01-dun-morogh.guide']) {
+	test(`#3846: ${guide}: the North Gate Outpost comes before the South Gate and its tunnel`, { skip }, () => {
+		const list = goals(guide);
+		const pilot = at(list, 'turnin 417', is('turnin', 417));
+		assert.ok(pilot < at(list, 'turnin 413', is('turnin', 413)), 'Pilot Hammerfoot before Mountaineer Barleybrew');
+		assert.ok(pilot < at(list, 'accept 224', is('accept', 224)), 'and before the tunnel post in Loch Modan');
+	});
+}
+
+// #3843 (nick, 0.4.2.2): the Alliance tiger step's tip sent players south and west of Nesingwary's camp; about half
+// the Stranglethorn Tigers are east of it, where the step's arrow leads.
+test('#3843: Stranglethorn Vale (Alliance 30-40): the tiger tip names the eastern group the arrow leads to', { skip }, () => {
+	const list = goals('forever/alliance/30-40/04-stranglethorn-vale.guide');
+	const tigers = list[at(list, 'kill 682', (x) => x.t === 'kill' && x.quest === 186)];
+	assert.match(tigers.step.note || '', /east of it/);
+	assert.ok(tigers.goal.x > 36, `the arrow takes the eastern group: ${tigers.goal.x}`);
+});
+
+// #3567 (Winnersville, 0.4.2.1): a Night Elf who had learned riding was sent on the boat from Stormwind to Auberdine
+// although the riding trip after it held nothing for them (its steps were skipped), and straight back. The boat is
+// for a Night Elf who still has riding to learn, as the rest of the trip.
+test('#3567: Stranglethorn Vale (Alliance 40-50): the boat to Auberdine is only for a Night Elf without riding', { skip }, () => {
+	const g = compiled('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const boat = g.steps.find((s) => s.title === 'Boat to Auberdine');
+	assert.ok(boat, 'the boat step');
+	assert.ok((boat.when || []).some((p) => p.k === 'skill' && p.neg), `only without riding: ${JSON.stringify(boat.when)}`);
+});
+
+// #3578 (Soggy, 0.4.2.1): "Kill Alshirr Banebreath (rare) for Jadefire Felbind": the rare drops it most often but is
+// often not there, and every Jadefire satyr drops it (23%). A rare that tops an item's droppers gives way to the
+// common ones whenever one of them drops it at 5% or more; the same held for Rackmore's Golden Key (the Slitherblade
+// naga), the Ironfur Liver (the Ironfur bears) and the Thunder Lizard Horn (the thunder lizards).
+test('#3578: a collect a rare and common mobs both drop leads to the common mobs', { skip }, () => {
+	const cases = [
+		['forever/alliance/50-60/02-felwood.guide', 11674, 14340],
+		['forever/alliance/30-40/02-desolace.guide', 15881, 14229],
+		['forever/horde/30-40/02-thousand-needles.guide', 15881, 14229],
+		['forever/alliance/40-50/03-feralas.guide', 6258, 5352],
+	];
+	for (const [guide, item, rare] of cases) {
+		const list = goals(guide);
+		const g = list[at(list, `collect ${item}`, (x) => x.t === 'collect' && x.item === item)].goal;
+		assert.notEqual(g.fromId, rare, `${guide}: item ${item} is not named after the rare`);
+	}
+});
+
+// #3681 (MattMaximo): Witherbark Village sent players to farm tusks and pouches round the huts first and only then
+// into the far end for the Shadow Hunter Knife, though the far end is where the tusk droppers are packed (all 16
+// Shadow Hunters at 66-70,79-82 with most Headhunters and Zalas Witherbark) and most Witch Doctors stand among the
+// huts. The knife and the tusks at the far end come first, the pouches among the huts on the way back out; the walk
+// from Drywhisker Gorge to Quae is the same length either way (about 2,060 yd between the step's points).
+test('#3681: Arathi Highlands (Alliance 30-40): Witherbark Village farms the far end first, the huts on the way out', { skip }, () => {
+	const list = goals('forever/alliance/30-40/05-arathi-highlands.guide');
+	const knife = at(list, 'collect 5040', (x) => x.t === 'collect' && x.item === 5040);
+	const tusk = at(list, 'collect 4503', (x) => x.t === 'collect' && x.item === 4503);
+	const pouch = at(list, 'collect 4522', (x) => x.t === 'collect' && x.item === 4522);
+	assert.ok(knife < tusk && tusk < pouch, 'knife, tusks, then pouches');
+	assert.ok(list[tusk].goal.y >= 78, `the tusks at the far end: ${list[tusk].goal.x},${list[tusk].goal.y}`);
+	assert.ok(list[pouch].goal.y < 75, `the pouches among the huts: ${list[pouch].goal.x},${list[pouch].goal.y}`);
+});

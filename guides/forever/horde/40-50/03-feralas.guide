@@ -32,7 +32,6 @@ con Skips Shen'dralas: about a dozen fewer quests, a third of a level lower into
 
 step Orgrimmar
   skipto brackenwall when !onquest 625,1261,2976,3002,3121,7732
-  tip The Orgrimmar, Thunder Bluff and Camp Mojache stops are for players coming from the previous guides with their quests; opened with none of those quests in the log, the guide starts at Brackenwall Village.
   zone Orgrimmar
   tip From the flight master: the Cleft of Shadow, then the Drag, then the Valley of Honor.
   turnin 3121                           -- Neeru Fireblade, Cleft of Shadow

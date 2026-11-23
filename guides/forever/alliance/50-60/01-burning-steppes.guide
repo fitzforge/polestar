@@ -32,7 +32,6 @@ next forever/alliance/50-60/02-felwood
 
 step To Ironforge
   skipto burning-steppes when !onquest 2990,3181,3449
-  tip The Ironforge, Hinterlands and Western Plaguelands stops are on the way for players coming from the previous guides; opened with none of their quests in the log, the guide starts in the Burning Steppes.
   zone Ironforge
   tip Your Hearthstone is set at Ironforge (the Hinterlands guide binds it there): hearth back to the inn from Un'Goro.
   goto 18.15,51.45 "Ironforge inn"

@@ -120,7 +120,6 @@ next forever/alliance/05-duskwood
 
 step Stormwind
   skipto three-corners when !onquest 150
-  tip The Stormwind and Elwynn Forest stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in Redridge Mountains.
   zone Stormwind City
   tip Train, then leave by the main gate and follow the road east through Elwynn Forest.
   tip Look to the Stars in Darkshire needs a Bronze Tube. Its vendors keep only one or two, and Herble Baubbletump in Darkshire is nearly always sold out: buy one at the Auction House in the Trade District on your way out. An engineer can make one too.

@@ -96,7 +96,6 @@ step Zeppelin to Orgrimmar
 
 step Alliance Relations
   skipto freewind-post when !onquest 96,1146,1150
-  tip The Orgrimmar, Crossroads and Thunder Bluff stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts at Freewind Post.
   when level>=30
   zone Orgrimmar
   tip The zeppelin lands at the tower outside Orgrimmar's main gate. Craven Drok walks the Drag: if he isn't at the arrow, look along its streets to the south-west. Keldran stands in the Valley of Spirits on the west side of the city.
