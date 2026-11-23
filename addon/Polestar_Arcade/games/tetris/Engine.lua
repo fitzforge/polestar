@@ -1,5 +1,8 @@
+-- Tetris by beemerwt, a falling-block game in Polestar's Arcade (Polestar_Arcade/games/tetris).
+-- GPL-3.0-only, as Polestar: see LICENSE in this folder and in the Polestar folder.
 -- Original falling-block game. All positions are integer cells; y <= 0 is
 -- the hidden spawn area. The saved run is account-wide like Doom's quicksave.
+local ADDON = ...
 local db = Polestar_TetrisDB
 if type(db) ~= "table" then db = {}; Polestar_TetrisDB = db end
 db.high = tonumber(db.high) or 0
@@ -11,7 +14,7 @@ T.width, T.height = 10, 20
 local saved = CreateFrame("Frame")
 saved:RegisterEvent("ADDON_LOADED")
 saved:SetScript("OnEvent", function(_, _, name)
- if name ~= "Polestar_Tetris" then return end
+ if name ~= ADDON then return end
  if type(Polestar_TetrisDB) ~= "table" then Polestar_TetrisDB = {} end
  db = Polestar_TetrisDB
  db.high = tonumber(db.high) or 0

@@ -1,16 +1,23 @@
-//! Polestar's original Tetris engine: modern piece queue and persistence of a
+//! Tetris by beemerwt (addon/Polestar_Arcade/games/tetris): modern piece queue and persistence of a
 //! paused run, including the deliberate repositioning of the active piece.
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::json;
 
+const ENGINE: &str = "games/tetris/Engine.lua";
+const WINDOW: &str = "games/tetris/Window.lua";
+
 fn run(script: &str) -> serde_json::Value {
-	emitted(&RunAddon { addons: vec![Addon::files("Polestar_Tetris", &["Engine.lua"])], script: script.into(), ..Default::default() }).remove(0)
+	emitted(&RunAddon { addons: vec![Addon::files("Polestar_Arcade", &[ENGINE])], script: script.into(), ..Default::default() }).remove(0)
 }
+
+// The window on its own: Polestar's locale table, and the Arcade it registers with (Maps/Arcade.lua) and the events
+// it listens to as stand-ins.
+const POLESTAR: &str = "Polestar = { L = setmetatable({}, { __index = function(_, key) return key end }), RegisterEvent = function() end, Print = function() end, Arcade = { Register = function() end } }";
 
 fn window(script: &str) -> serde_json::Value {
 	emitted(&RunAddon {
-		before: "Polestar = { L = setmetatable({}, { __index = function(_, key) return key end }) }".into(),
-		addons: vec![Addon::files("Polestar_Tetris", &["Engine.lua", "Window.lua"])],
+		before: POLESTAR.into(),
+		addons: vec![Addon::files("Polestar_Arcade", &[ENGINE, WINDOW])],
 		script: script.into(),
 		..Default::default()
 	})
@@ -138,9 +145,9 @@ fn next_and_hold_show_shapes_inside_the_widened_side_panel() {
 #[test]
 fn restored_account_save_is_used_after_addon_load() {
 	let out = emitted(&RunAddon {
-		addons: vec![Addon::files("Polestar_Tetris", &["Engine.lua"])],
+		addons: vec![Addon::files("Polestar_Arcade", &[ENGINE])],
 		saved: vec![(
-			"Polestar_Tetris".into(),
+			"Polestar_Arcade".into(),
 			r#"
    Polestar_TetrisDB = {high = 900, run = {board = {}, queue = {"I","T","L","S","Z","J","O"},
     score = 400, lines = 5, level = 1, paused = false,

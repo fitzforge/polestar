@@ -49,7 +49,11 @@ const NO_PAD: &str = "stub.pad.enabled = false";
 fn tetris_window_receives_gamepad_navigation_buttons() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua", "stub_gamepad.lua"],
-		addons: vec![Addon::files("Polestar", FILES), Addon::files("Polestar_Tetris", &["Engine.lua", "Window.lua"])],
+		// Maps for the Arcade the window registers with.
+		addons: vec![
+			Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Maps/Maps.xml", "UI/UI.xml"]),
+			Addon::files("Polestar_Arcade", &["games/tetris/Engine.lua", "games/tetris/Window.lua"]),
+		],
 		script: r#"
 			uistub.install()
 			stub.login()

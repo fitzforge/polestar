@@ -562,7 +562,7 @@ fn neither_the_flight_code_nor_the_game_calls_a_protected_function() {
 #[test]
 fn every_file_of_the_game_names_its_authors_and_licence() {
 	let dir = addons_dir().join("Polestar_Arcade");
-	for f in ["LICENSE", "CREDITS.md", "FREEDOOM-COPYING.txt", "FREEDOOM-CREDITS.txt", "games/skyjewels/CREDITS.md"] {
+	for f in ["LICENSE", "CREDITS.md", "FREEDOOM-COPYING.txt", "FREEDOOM-CREDITS.txt", "games/skyjewels/CREDITS.md", "games/tetris/LICENSE"] {
 		assert!(dir.join(f).is_file(), "{f} is missing from Polestar_Arcade");
 	}
 	let toc = std::fs::read_to_string(dir.join("Polestar_Arcade.toc")).unwrap();
@@ -571,7 +571,7 @@ fn every_file_of_the_game_names_its_authors_and_licence() {
 		let path = dir.join(line.replace('\\', "/"));
 		let text = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{line}: {e}"));
 		let head: String = text.lines().take(4).collect::<Vec<_>>().join("\n");
-		let whose = head.contains("petllama") || head.contains("Contributors to the Freedoom project") || head.contains("Sky Jewels by RikyZ90");
+		let whose = head.contains("petllama") || head.contains("Contributors to the Freedoom project") || head.contains("Sky Jewels by RikyZ90") || head.contains("Tetris by beemerwt");
 		let licence = head.contains("GPL") || head.contains("BSD licence: see FREEDOOM-COPYING.txt");
 		if !(head.starts_with("-- ") && whose && licence) {
 			missing.push(line.to_string());
@@ -854,12 +854,12 @@ fn the_card_offers_each_game_and_the_one_played_becomes_the_choice() {
 		stub.frame("PolestarArcadeOffer").Row:Click()
 		emit({{ asked = asked, played = played, landing = landing, notices = notices, landed = landed, again = again, row = row, open = A.Active() }})"#
 	));
-	assert_eq!(out["asked"], json!({ "mode": "ask", "games": ["freedoom", "skyjewels"], "loaded": false }));
+	assert_eq!(out["asked"], json!({ "mode": "ask", "games": ["freedoom", "skyjewels", "tetris"], "loaded": false }));
 	assert_eq!(out["played"], json!({ "card": false, "open": "skyjewels", "choice": "skyjewels", "loaded": true }));
 	assert_eq!(out["landing"], false, "Sky Jewels was not put away before the landing");
 	assert_eq!(out["notices"], json!([["Landing in 10 seconds", "Sky Jewels is saved and paused.", 10]]));
 	assert_eq!(out["landed"], json!(["Polestar: Landed. Sky Jewels is saved and paused: type /polestar jewels to continue."]));
-	assert_eq!(out["again"], json!(["skyjewels", "freedoom"]));
+	assert_eq!(out["again"], json!(["skyjewels", "freedoom", "tetris"]));
 	assert_eq!(out["row"], "Play Sky Jewels");
 	assert_eq!(out["open"], "skyjewels");
 }
@@ -932,4 +932,71 @@ fn a_profile_with_the_old_offer_off_offers_no_game() {
 		Some("PolestarDB = { schema = 1, settings = { maps = { flightArcade = true } } }"),
 	);
 	assert_eq!(on, json!({ "game": "freedoom", "old": false }));
+}
+
+// beemerwt's Tetris on the card beside the other two: the three games in the picker's order; Tetris played becomes
+// the choice; 10 seconds before landing its run is saved and paused (the piece goes back to the top when it resumes),
+// and the next flight's card puts it first and its row plays it.
+#[test]
+fn tetris_played_from_the_card_becomes_the_choice_and_is_put_away_before_landing() {
+	let out = run(&format!(
+		r#"{PICKER}
+		present("Polestar_Arcade", {{ reason = "DEMAND_LOADED" }})
+		takeoff(300)
+		local offered = games()
+		stub.frame("PolestarArcadeOffer").Ask.Games.tetris:Click()
+		local played = {{ open = A.Active(), choice = Polestar.Get("arcade.game") }}
+		stub.advance(300 - 1 - 9)
+		local run = PolestarTetris.Run()
+		local landing = {{ open = A.IsOpen("tetris"), paused = run.paused, respawn = run.needsRespawn }}
+		land()
+		local landed = said("Tetris")
+		takeoff(300)
+		local again = games()
+		emit({{ offered = offered, played = played, landing = landing, notices = notices, landed = landed, again = again }})"#
+	));
+	assert_eq!(out["offered"], json!(["freedoom", "skyjewels", "tetris"]));
+	assert_eq!(out["played"], json!({ "open": "tetris", "choice": "tetris" }));
+	assert_eq!(out["landing"], json!({ "open": false, "paused": true, "respawn": true }));
+	assert_eq!(out["notices"], json!([["Landing in 10 seconds", "Tetris is saved and paused.", 10]]));
+	assert_eq!(out["landed"], json!(["Polestar: Landed. Tetris is saved and paused: type /polestar tetris to continue."]));
+	assert_eq!(out["again"], json!(["tetris", "freedoom", "skyjewels"]));
+}
+
+// A fight on a flight closes Tetris with its run saved and paused, and one line says how to go on.
+#[test]
+fn a_fight_on_the_way_puts_tetris_away_with_one_line() {
+	let out = run(&format!(
+		r#"{PICKER}
+		present("Polestar_Arcade", {{ reason = "DEMAND_LOADED" }})
+		takeoff(300)
+		A.Play("tetris")
+		stub.advance(5)
+		stub.inCombat = true
+		stub.fire("PLAYER_REGEN_DISABLED")
+		local run = PolestarTetris.Run()
+		emit({{ open = A.IsOpen(), paused = run.paused, respawn = run.needsRespawn, said = said("Tetris") }})"#
+	));
+	assert_eq!(
+		out,
+		json!({ "open": false, "paused": true, "respawn": true, "said": ["Polestar: Tetris is saved and paused for the fight: type /polestar tetris to continue."] })
+	);
+}
+
+// One game at a time with Tetris too: Freedoom Arcade opened over it puts it away (its run paused), and the other way
+// round. (#3485's two games shared a helper that #3119 removed: each game is now one entry of the picker.)
+#[test]
+fn opening_another_game_puts_tetris_away_and_the_other_way_round() {
+	let out = run(r#"
+		present("Polestar_Arcade", { reason = "DEMAND_LOADED" })
+		A.Open("tetris")
+		local first = A.Active()
+		A.Open("freedoom")
+		local second = { active = A.Active(), tetris = A.IsOpen("tetris"), paused = PolestarTetris.Run().paused }
+		A.Open("tetris")
+		emit({ first = first, second = second, third = A.Active(), doom = A.IsOpen("freedoom") })"#);
+	assert_eq!(
+		out,
+		json!({ "first": "tetris", "second": { "active": "freedoom", "tetris": false, "paused": true }, "third": "tetris", "doom": false })
+	);
 }

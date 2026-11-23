@@ -1,3 +1,7 @@
+-- Tetris by beemerwt, a falling-block game in Polestar's Arcade (Polestar_Arcade/games/tetris).
+-- GPL-3.0-only, as Polestar: see LICENSE in this folder and in the Polestar folder.
+-- The window and its keys; Maps/Arcade.lua opens it (the flight card, /polestar tetris, the guide
+-- menu), puts it away before a landing, and keeps one game open at a time.
 local T = PolestarTetris
 local L = Polestar.L
 local tile = 20
@@ -108,7 +112,6 @@ local function make()
  f:EnableMouse(true)
  f:EnableKeyboard(true)
  if f.EnableGamePadButton then f:EnableGamePadButton(true) end
- if f.SetPropagateKeyboardInput then f:SetPropagateKeyboardInput(false) end
  f:SetBackdrop({bgFile = "Interface/Buttons/WHITE8X8", edgeFile = "Interface/Tooltips/UI-Tooltip-Border", edgeSize = 14})
  f:SetBackdropColor(0.04, 0.05, 0.09, 0.96)
  label(f, L["Polestar Tetris"], 14, -12)
@@ -191,3 +194,13 @@ PolestarTetrisAPI = {
  end,
  IsOpen = function() return frame and frame:IsShown() or false end,
 }
+
+-- A fight with the window open (on the ground as on a flight): the run is saved and paused and the
+-- keys are the character's again.
+Polestar.RegisterEvent("PLAYER_REGEN_DISABLED", function()
+ if not PolestarTetrisAPI.IsOpen() then return end
+ PolestarTetrisAPI.Close(true)
+ Polestar.Print(L["Tetris is saved and paused for the fight: type %s to continue."]:format("/polestar tetris"))
+end)
+
+Polestar.Arcade.Register("tetris", PolestarTetrisAPI)

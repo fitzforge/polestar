@@ -78,7 +78,7 @@ fn polestar_keys_include_the_tetris_windows_display_text() {
 		"Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game",
 		"D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause",
 	] {
-		assert!(keys.get(key).is_some_and(|uses| uses.iter().any(|u| u.file == "Window.lua")), "Tetris locale key {key:?}");
+		assert!(keys.get(key).is_some_and(|uses| uses.iter().any(|u| u.file == "games/tetris/Window.lua")), "Tetris locale key {key:?}");
 	}
 }
 

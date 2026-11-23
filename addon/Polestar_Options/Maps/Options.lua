@@ -27,9 +27,9 @@ end
 if ns.Arcade then
 	register({ page = L["Integrations"], section = L["Flight arcade"], controls = {
 		{ kind = "dropdown", key = "arcade.game", label = L["Game on flights"],
-			help = L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed) or Sky Jewels by RikyZ90, a match-three game. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade and /polestar jewels open them any time."],
-			search = "doom, freedoom, arcade, game, flight, taxi, petllama, sky jewels, match three, jewels, rikyz90",
-			choices = { { value = "freedoom", label = L["Freedoom Arcade"] }, { value = "skyjewels", label = L["Sky Jewels"] }, { value = "none", label = L["None: don't offer a game"] } },
+			help = L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time."],
+			search = "doom, freedoom, arcade, game, flight, taxi, petllama, sky jewels, match three, jewels, rikyz90, tetris, blocks, beemerwt",
+			choices = { { value = "freedoom", label = L["Freedoom Arcade"] }, { value = "skyjewels", label = L["Sky Jewels"] }, { value = "tetris", label = L["Tetris"] }, { value = "none", label = L["None: don't offer a game"] } },
 			needs = function() return ns.Arcade.Available() end },
 	} })
 end

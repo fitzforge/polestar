@@ -63,17 +63,6 @@ pub fn readme(version: &str, names: &[String]) -> String {
 			.map(|s| s.to_string()),
 		);
 	}
-	if names.iter().any(|n| n == crate::addons::TETRIS) {
-		lines.extend(
-			[
-				"   Polestar_Tetris is an original falling-block game for flights,",
-				"   loaded when you choose Tetris. It saves your game and high score",
-				"   across characters (GPL-3.0, see Polestar_Tetris/LICENSE).",
-			]
-			.iter()
-			.map(|s| s.to_string()),
-		);
-	}
 	if names.iter().any(|n| forge_guide::project::own_extra(n).is_some()) {
 		lines.extend(
 			[
@@ -220,23 +209,6 @@ mod tests {
 		assert!(text.contains("\r\nPolestar_Arcade/ is a program of its own: Freedoom Arcade, Copyright\r\n(C) 2026 petllama, from id Software's DOOM source, GPL-2.0 or later;\r\n"));
 		let without = readme("0.4.0", &[with[0].clone(), with[1].clone()]);
 		assert!(!without.contains("Polestar_Arcade is Freedoom Arcade"));
-	}
-
-	#[test]
-	fn the_readme_names_tetris_and_its_licence_only_when_it_ships() {
-		let with = ["Polestar", "Polestar_Tetris"].map(str::to_string);
-		let text = readme("0.4.1", &with);
-		assert!(text.contains("\r\n     Polestar_Tetris\r\n"));
-		assert!(text.contains("\r\n   Polestar_Tetris is an original falling-block game for flights,\r\n"));
-		assert!(text.contains("GPL-3.0, see Polestar_Tetris/LICENSE"));
-		assert!(!readme("0.4.1", &["Polestar".to_string()]).contains("Polestar_Tetris"));
-	}
-
-	#[test]
-	fn the_tetris_archive_contains_its_game_files_and_licence() {
-		let addons = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../addon");
-		let names: Vec<String> = archive_entries(&addons, &["Polestar_Tetris".to_string()], &[]).unwrap().into_iter().map(|e| e.name).collect();
-		assert_eq!(names, ["Polestar_Tetris/", "Polestar_Tetris/Engine.lua", "Polestar_Tetris/LICENSE", "Polestar_Tetris/Polestar_Tetris.toc", "Polestar_Tetris/Window.lua"]);
 	}
 
 	#[test]

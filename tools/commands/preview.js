@@ -1256,9 +1256,10 @@ ${open ? `for _, l in ipairs(Polestar.UI.GuideFrame.lines) do
 	if l:IsShown() and (l.Text:GetText() or ""):find("left out here", 1, true) then stub.RunScript(l, "OnClick", "LeftButton") break end
 end` : ''}`;
 const LOOKS = ['polestar', 'hearth', 'halo', 'forever', 'blizzard', 'classic'];
-// Tetris needs only Polestar's locale table; keep its standalone window
+// Tetris (Polestar_Arcade/games/tetris) needs only Polestar's locale table and
+// stand-ins for the Arcade and events it registers with; keep its window
 // preview independent of the guide engine and its sample guide data.
-const TETRIS_BEFORE = 'Polestar = { L = setmetatable({}, { __index = function(_, key) return key end }), Set = function() end }';
+const TETRIS_BEFORE = 'Polestar = { L = setmetatable({}, { __index = function(_, key) return key end }), Set = function() end, RegisterEvent = function() end, Print = function() end, Arcade = { Register = function() end } }';
 function tetrisPanel(state) {
 	const setup = `local T = PolestarTetris
 local g = T.New()
@@ -1274,7 +1275,7 @@ PolestarTetrisAPI.Open()
 if g.paused then T.Pause(); PolestarTetrisAPI.Open() end`;
 	const transition = state === 'paused' ? 'T.Pause(); PolestarTetrisAPI.Open()'
 		: state === 'over' ? 'g.over, g.paused = true, true; PolestarTetrisAPI.Open()' : '';
-	return { files: [], stubs: [], before: TETRIS_BEFORE, addons: ['Polestar_Tetris'], roots: ['PolestarTetrisFrame'], script: `${setup}\n${transition}` };
+	return { files: [], stubs: [], before: TETRIS_BEFORE, addons: [{ name: 'Polestar_Arcade', files: ['games/tetris/Engine.lua', 'games/tetris/Window.lua'] }], roots: ['PolestarTetrisFrame'], script: `${setup}\n${transition}` };
 }
 const SCENES = [
 	{

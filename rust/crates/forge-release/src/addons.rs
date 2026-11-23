@@ -9,7 +9,6 @@ pub const RELEASE_ADDONS: [&str; 6] = ["Polestar", "Polestar_Guides", "Polestar_
 /// FREEDOOM-COPYING.txt, CREDITS.md), loaded on demand the first time Play is pressed; shipped when present
 /// (committed), right after the game looks.
 pub const ARCADE: &str = "Polestar_Arcade";
-pub const TETRIS: &str = "Polestar_Tetris";
 /// Parts of a shipped folder that stay in the repository and out of the release zip (archive paths; a name
 /// ending in `/` is a folder and everything in it): Freedoom Arcade's own build, test and publish scripts, its
 /// CurseForge page images, and the standalone addon's TOC under src/ (the client never reads a TOC there).
@@ -71,7 +70,6 @@ pub fn release_addons(addons: &Path) -> Result<Release, String> {
 	let (data, skipped): (Vec<String>, Vec<String>) = data_addons().into_iter().partition(|n| has_toc(addons, n));
 	let mut names: Vec<String> = RELEASE_ADDONS.iter().map(|s| s.to_string()).collect();
 	names.extend(std::iter::once(ARCADE.to_string()).filter(|n| has_toc(addons, n)));
-	names.extend(std::iter::once(TETRIS.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(NAV_PARTS.iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(factions.chain(parts).filter(|n| has_toc(addons, n)));
 	names.extend(forge_guide::project::OWN_EXTRAS.iter().map(|e| e.folder.to_string()).filter(|n| has_toc(addons, n)));
@@ -249,12 +247,6 @@ mod tests {
 		let at = |n: &str| names.iter().position(|x| x == n).unwrap();
 		assert_eq!(at(ARCADE), at("Polestar_Looks") + 1);
 		assert!(at(ARCADE) < at("Polestar_Nav_EK"));
-		assert!(!names.contains(&TETRIS.to_string()));
-		addon(&root, TETRIS);
-		let names = release_addons(&root).unwrap().names;
-		let at = |n: &str| names.iter().position(|x| x == n).unwrap();
-		assert_eq!(at(TETRIS), at(ARCADE) + 1);
-		assert!(at(TETRIS) < at("Polestar_Nav_EK"));
 	}
 
 	// The tab styles and the Atlas layout ship when they are there (they are committed), after the skins, Atlas's
