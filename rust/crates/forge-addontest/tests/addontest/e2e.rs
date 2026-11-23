@@ -187,7 +187,8 @@ const GROUP_SCRIPT: &str = r#"
 				Polestar.UI.Picker.SetCategory("All")
 				local chips = {}
 				for _, f in ipairs(stub.frames) do
-					if f.psGuide and rawget(f, "Range") and f:IsShown() then
+					-- The list's rows, not the Play next card above them.
+					if f.psGuide and rawget(f, "Range") and not rawget(f, "psPlayNext") and f:IsShown() then
 						chips[f.psGuide.id] = f.Group:IsShown() and f.Group.Text:GetText() or false
 					end
 				end
@@ -330,10 +331,11 @@ fn the_map_page_gathers_every_map_setting_from_its_modules_into_the_declared_tab
 			"Rares, travel & zones": ["Rares and treasures", "Dungeons and travel", "NPC services", "Zones and coordinates"],
 		})
 	);
+	// The minimap button has its home on Look > Guide window (Show and hide), no row here; the quest data's switch
+	// heads the Quest markers card as a reference to its home on Questing.
 	assert_eq!(
 		out["keys"]["Guide & quests"],
 		json!([
-			"maps.minimapButton",
 			"nav.minimapPins",
 			"nav.minimapRoute",
 			"nav.upcomingPins",
@@ -346,6 +348,7 @@ fn the_map_page_gathers_every_map_setting_from_its_modules_into_the_declared_tab
 			"qol.minimapObjectives",
 			"qol.objectiveAreaAlpha",
 			"qol.objectiveSpots",
+			"qol.questDB",
 			"qol.questLevelWindow",
 			"qol.questMarkerSize",
 			"qol.turnInMarkers",

@@ -4,7 +4,7 @@
 --   nav.route   where the travel route changes mode: flight masters, docks, the inn (world map)
 --   nav.goals   the current step's other open goals; click one to point the arrow there (world map)
 --   nav.spots   the target's other spawn places, small marks (other places it spawns fainter);
---               click one to search there next (world map). A target of exact points
+--               click one to search there next (world map); nav.spawnSpots off hides them. A target of exact points
 --               (Engine.SpotsExact: an object's spawns, a mob at a few fixed places, #1944)
 --               marks every point on the minimap too, those checked lately fainter
 --   nav.areas   the regions the target's goal spawns in, in the arrow's colour (world
@@ -56,7 +56,7 @@ end
 -- The target's look (Options > Map pins): nav.targetPinSize scales it (its
 -- cap on screen with it), nav.targetGlow its halo, nav.targetPulse makes the
 -- halo breathe (Pins' `pulse`).
-ns.RegisterDefaults("nav", { targetPinSize = 1, targetGlow = true, targetPulse = false })
+ns.RegisterDefaults("nav", { targetPinSize = 1, targetGlow = true, targetPulse = false, spawnSpots = true })
 Layers.TARGET_SCALE = 1.4
 
 -- The target pin's look: glow, pulse, its size setting (grow) and its layer's scale.
@@ -96,7 +96,7 @@ local function updateSpots(world, minimap)
 	local target = Nav.GetTarget()
 	local spots = target and target.spots
 	minimap = minimap and spots and target.exact or false
-	if not (spots and (world or minimap)) then
+	if not (spots and (world or minimap)) or ns.Get("nav.spawnSpots") == false then
 		Pins.ClearLayer(SPOTS)
 		return
 	end

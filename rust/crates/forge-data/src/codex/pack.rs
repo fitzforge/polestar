@@ -334,7 +334,14 @@ fn encode_spawns(spawns: &V) -> Result<Vec<String>, String> {
 }
 
 fn encode_npc(rec: &V) -> Result<String, String> {
-	let flags = format!("{}{}{}", if rec.get("rare").truthy() { "r" } else { "" }, if rec.get("elite").truthy() { "e" } else { "" }, if rec.get("boss").truthy() { "b" } else { "" });
+	// r rare, e elite, b boss, g seen only by a dead character (#558: Franclorn Forgewright).
+	let flags = format!(
+		"{}{}{}{}",
+		if rec.get("rare").truthy() { "r" } else { "" },
+		if rec.get("elite").truthy() { "e" } else { "" },
+		if rec.get("boss").truthy() { "b" } else { "" },
+		if rec.get("ghostOnly").truthy() { "g" } else { "" }
+	);
 	let fac = rec.get("faction");
 	let mut parts = vec![
 		num(&rec.get("level"))?,
@@ -348,6 +355,10 @@ fn encode_npc(rec: &V) -> Result<String, String> {
 	parts.extend(encode_spawns(&rec.get("spawns"))?);
 	if rec.get("subName").truthy() {
 		parts.push(format!("t{}", esc(&rec.get("subName"))));
+	}
+	// The quest after which it sells (#3138: Zorbin Fandazzle after Zapped Giants): v<quest>, last.
+	if rec.get("vendorAfter").num() > 0.0 {
+		parts.push(format!("v{}", num(&rec.get("vendorAfter"))?));
 	}
 	Ok(parts.join(";"))
 }
@@ -466,6 +477,12 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 	if rec.get("direct").truthy() {
 		parts.push("d".into());
 	}
+	// One of a set the game offers one at a time (#3601: Pix's weekly In Demand quests): v<set name>. An older
+	// reader skips it (no objective kind is v).
+	let rot = rec.get("rotation");
+	if rot.truthy() {
+		parts.push(format!("v{}", esc(&rot)));
+	}
 	Ok(parts.join(";"))
 }
 
@@ -494,11 +511,16 @@ fn encode_instance(rec: &V) -> Result<String, String> {
 		let f = e.get("f");
 		let mut p = vec![num(&e.get("map"))?, coord(&e.get("x")), coord(&e.get("y")), if f.truthy() { f.to_js_string() } else { String::new() }];
 		let a = e.get("A");
-		if e.get("approx").truthy() || a.truthy() {
-			p.push(if e.get("approx").truthy() { "a".into() } else { String::new() });
+		let approx = e.get("approx").truthy();
+		let z = num(&e.get("z"))?;
+		if approx || a.truthy() || !z.is_empty() {
+			p.push(if approx { "a".into() } else { String::new() });
 		}
 		if a.truthy() {
 			p.extend([num(&a.get("map"))?, coord(&a.get("x")), coord(&a.get("y"))]);
+		}
+		if !z.is_empty() {
+			p.push(z);
 		}
 		p.join(",")
 	} else {
@@ -736,7 +758,10 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 	}
 	let mut roles: Vec<(String, Vec<String>)> = Vec::new();
 	for id in &npc_ids {
-		for r in npcs.get(id).get("roles").items() {
+		// `vendorAfter`: the NPCs whose selling waits on a quest (v<quest> on their record), so the addon reads only
+		// those records to filter its vendor lists (#3138).
+		let after = (npcs.get(id).get("vendorAfter").num() > 0.0).then(|| V::str("vendorAfter"));
+		for r in npcs.get(id).get("roles").items().into_iter().chain(after) {
 			let r = r.to_js_string();
 			match roles.iter_mut().find(|(x, _)| *x == r) {
 				Some(e) => e.1.push(id.clone()),
@@ -907,15 +932,17 @@ mod tests {
 	}
 
 	#[test]
-	fn an_entrance_carries_its_approximate_flag_and_the_alliance_way_in_after_it() {
+	fn an_entrance_carries_its_approximate_flag_alliance_way_in_and_height() {
 		let line = |entrance: &str| {
 			let rec = forge_guide::js::parse_json(&format!(r#"{{ "kind": "dungeon", "forever": true, "areaId": 279, "map": 2959, "entrance": {entrance}, "levels": null, "bosses": [] }}"#)).unwrap();
 			encode_instance(&rec).unwrap().split(';').nth(4).unwrap().to_string()
 		};
 		assert_eq!(line(r#"{ "map": 1436, "x": 30, "y": 50, "f": null, "approx": true }"#), "1436,300,500,,a");
 		assert_eq!(line(r#"{ "map": 1436, "x": 30, "y": 50, "f": null }"#), "1436,300,500,");
+		assert_eq!(line(r#"{ "map": 1455, "x": 28.3, "y": 47.6, "z": 399 }"#), "1455,283,476,,,399");
 		// The City of Dalaran (#706): the Horde's tunnel, then the Alliance's pipe in Cantrips & Crows.
 		assert_eq!(line(r#"{ "map": 1416, "x": 8.5, "y": 59.2, "f": null, "A": { "map": 1416, "x": 14.7, "y": 63 } }"#), "1416,85,592,,,1416,147,630");
+		assert_eq!(line(r#"{ "map": 1416, "x": 8.5, "y": 59.2, "z": 0, "A": { "map": 1416, "x": 14.7, "y": 63 } }"#), "1416,85,592,,,1416,147,630,0");
 	}
 
 	#[test]
@@ -957,5 +984,28 @@ mod tests {
 		};
 		assert!(line(r#", "direct": true"#).ends_with(";x5300;d"), "Bloodpetal Sprouts: handed in at one talk");
 		assert!(line("").ends_with(";x5300"), "taken into the log: no field");
+	}
+
+	#[test]
+	fn a_ghost_only_npc_carries_g_and_a_conditional_vendor_its_quest_558_3138() {
+		let npc = |extra: &str| {
+			let rec = forge_guide::js::parse_json(&format!(
+				r#"{{ "id": 8888, "level": 60, "levelMax": null, "faction": "AH", "rare": false, "elite": false, "boss": false, "instance": null, "roles": [], "spawns": []{extra} }}"#
+			))
+			.unwrap();
+			encode_npc(&rec).unwrap()
+		};
+		assert_eq!(npc(""), "60;;AH;;;;");
+		assert_eq!(npc(r#", "ghostOnly": true"#), "60;;AH;g;;;", "Franclorn Forgewright: seen only by the dead");
+		assert_eq!(npc(r#", "vendorAfter": 7003"#), "60;;AH;;;;;v7003", "Zorbin Fandazzle sells after Zapped Giants");
+	}
+
+	#[test]
+	fn a_quest_of_a_rotation_carries_its_set_name_3601() {
+		let rec = forge_guide::js::parse_json(
+			r#"{ "id": 96075, "level": 45, "minLevel": 40, "faction": null, "races": null, "classes": null, "zone": 1444, "start": { "npc": [1], "object": [], "item": [] }, "end": { "npc": [1], "object": [] }, "pre": [], "rewards": [], "choices": [], "preAny": [], "objectives": [], "rotation": "pix-weekly" }"#,
+		)
+		.unwrap();
+		assert!(encode_quest(&rec).unwrap().ends_with(";vpix-weekly"), "{}", encode_quest(&rec).unwrap());
 	}
 }

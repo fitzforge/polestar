@@ -46,6 +46,11 @@ local function menuPick(text)
 	GF.menuButton:Click()
 	for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == text then r:Click() return r end end
 end
+-- A toggle on the menu's top bar (Compact mode, Transparent, Lock window, Pause).
+local function barPick(text)
+	GF.menuButton:Click()
+	for _, b in ipairs(PolestarMenu.Bar.buttons) do if b:IsShown() and b.psEntry.text == text then b:Click() return b end end
+end
 local TABS = { { uistub.elwynn, 3 }, { uistub.tailoring, 2 }, { uistub.stormwindRep, 2 } }
 "#;
 
@@ -150,7 +155,7 @@ fn a_field_step_reads_as_one_focus_the_step_title_its_few_objectives_with_counte
 	assert!(is_match(text(&collect["text"]), r"3/8\|r$"));
 	assert_eq!(kill["size"], 14, "goal text is 14px");
 	assert!(is_match(text(&out["tip"]), r"^Kobolds wander"));
-	assert!(is_match(text(&out["after"]), r"^Then: \|c[0-9a-f]{8}Marshal McBride\|r$"), "the next step's first person");
+	assert!(is_match(text(&out["after"]), r"^Next step: \|c[0-9a-f]{8}Marshal McBride\|r$"), "the next step's first person");
 	assert_eq!(out["persons"], "", "a field group is not a person");
 	assert_eq!(out["upnext"], false, "Up next is off by default");
 	assert_eq!(out["footShown"], true);
@@ -213,7 +218,7 @@ fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_the_others_on_a_line_each
 	assert_eq!(second["sliding"], true, "the next person slides in");
 	assert_eq!(third["person"], "Brother Neals");
 	assert_eq!(plain(&third["lines"]), ["Marshal McBride, Eagan Peltskinner"]);
-	assert!(is_match(text(&third["after"]), r"^Then: \|c[0-9a-f]{8}Goldshire\|r$"), "after the last person: the next step");
+	assert!(is_match(text(&third["after"]), r"^Next step: \|c[0-9a-f]{8}Goldshire\|r$"), "after the last person: the next step");
 	assert_eq!(third["persons"], "");
 	assert_eq!(
 		third["target"],
@@ -1066,11 +1071,14 @@ fn combat_by_default_the_window_stays_as_it_is_fade_dims_it_hide_hides_it_both_r
 fn empty_states_no_guides_no_guide_open_with_suggestion_guide_complete() {
 	let out = run(r#"
 		local function state()
-			local e = GF.parts.empty
+			local e, pn = GF.parts.empty, GF.PlayNext.card()
 			return { shown = e:IsShown(), title = e.Title:GetText(), text = e.Text:GetText(),
 				primary = e.Primary:IsShown() and e.Primary.Label:GetText() or false,
-				secondary = e.Secondary:IsShown() and e.Secondary.Label:GetText() or false, card = GF.parts.card:IsShown() }
+				secondary = e.Secondary:IsShown() and e.Secondary.Label:GetText() or false, card = GF.parts.card:IsShown(),
+				playNext = pn:IsShown() and pn.Title:GetText() or false }
 		end
+		-- The Play next card's Start hands off through Engine.StartNext (not in the stub engine).
+		Polestar.Engine.StartNext = function(from) uistub.calls[#uistub.calls + 1] = { "StartNext", from } end
 		local order = uistub.order
 		uistub.order = {}
 		Polestar.Fire("GUIDES_REGISTERED")
@@ -1081,7 +1089,7 @@ fn empty_states_no_guides_no_guide_open_with_suggestion_guide_complete() {
 		GF.parts.empty.Primary:Click()
 		uistub.complete()
 		local s = state()
-		GF.parts.empty.Primary:Click()
+		GF.PlayNext.card().Start:Click()
 		s.calls = uistub.calls
 		emit(s)"#);
 	let (no_guides, no_guide, complete) = (&out[0], &out[1], &out[2]);
@@ -1093,10 +1101,15 @@ fn empty_states_no_guides_no_guide_open_with_suggestion_guide_complete() {
 	assert_eq!(no_guide["primary"], "Start guide");
 	assert_eq!(no_guide["secondary"], "Browse guides");
 	assert_eq!(complete["title"], "Guide complete");
-	assert!(is_match(text(&complete["text"]), r"Westfall"));
-	assert_eq!(complete["primary"], "Continue");
+	assert!(is_match(text(&complete["text"]), r"Elwynn Forest.* is done\."));
+	assert!(is_match(text(&complete["playNext"]), r"^Westfall"), "Play next names the next guide: {complete}");
+	assert_eq!(complete["primary"], false, "the card's Start is the one button");
 	let calls: Value = complete["calls"].as_array().unwrap().iter().map(|c| Value::Array(c.as_array().unwrap().iter().take(2).cloned().collect())).collect();
-	assert_eq!(calls, json!([["OpenTab", "forever/alliance/human/01-elwynn-forest"], ["SetGuide", "forever/alliance/02-westfall"]]), "start opens a tab; continue replaces the guide in the same tab");
+	assert_eq!(
+		calls,
+		json!([["OpenTab", "forever/alliance/human/01-elwynn-forest"], ["StartNext", "forever/alliance/human/01-elwynn-forest"]]),
+		"start opens a tab; Play next's Start hands off from the finished guide"
+	);
 }
 
 #[test]
@@ -1223,6 +1236,8 @@ fn compact_mode_with_six_tabs_truncates_the_titles_before_the_close_and_new_tab(
 #[test]
 fn outside_compact_mode_the_strip_is_unchanged_full_height_with_ranges_close_and_new_tab() {
 	let out = run(r#"
+		-- Wide enough for the range beside a few letters of the title (a narrower tab drops the range first).
+		Polestar.Set("ui.width", 450)
 		uistub.openTabs(TABS, 1)
 		local strip, b = GF.parts.strip, shownTabs()[2]
 		emit({ h = strip:GetHeight(), full = GF.Metrics().tabH, range = b.Range:IsShown(), add = strip.Add:IsShown(), rest = b.Close:GetAlpha() })"#)
@@ -1310,7 +1325,8 @@ fn a_tab_s_close_button_shows_faintly_at_rest_and_in_full_under_the_pointer() {
 #[test]
 fn a_narrow_tab_truncates_its_title_and_keeps_its_level_range_whole_also_with_the_close_button_shown() {
 	let out = run(r#"
-		Polestar.Set("ui.width", 300)
+		-- Wide enough for the range beside a few letters of the title in every look (a narrower tab drops the range first).
+		Polestar.Set("ui.width", 360)
 		uistub.openTabs(TABS, 1)
 		local b = shownTabs()[1]
 		local function measure()
@@ -1342,7 +1358,7 @@ fn a_narrow_tab_truncates_its_title_and_keeps_its_level_range_whole_also_with_th
 #[test]
 fn in_the_game_looks_a_narrow_tab_s_text_ends_6_clear_of_its_close_and_classic_s_close_rests_whole() {
 	let out = run(r#"
-		Polestar.Set("ui.width", 300)
+		Polestar.Set("ui.width", 360)
 		uistub.openTabs(TABS, 1)
 		local out = {}
 		for _, look in ipairs({ "forever", "blizzard", "classic" }) do
@@ -1751,38 +1767,28 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		GF.menuButton:Click()
-		local items = {}
+		local items, bar = {}, {}
 		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then items[#items + 1] = r.Text:GetText() end end
+		for _, b in ipairs(PolestarMenu.Bar.buttons) do if b:IsShown() then bar[#bar + 1] = b.psEntry.text end end
 		GF.menuButton:Click()
-		menuPick("Lock window")
-		menuPick("Transparent")
+		barPick("Lock window")
+		barPick("Transparent")
 		local style = Polestar.Get("ui.style")
 		local reset = menuPick("Reset guide progress")
 		local armed = { label = reset.Text:GetText(), open = PolestarMenu:IsShown() }
 		reset:Click()
 		menuPick("Choose guide")
 		local picker = PolestarPicker:IsShown()
-		menuPick("Options")
-		emit({ items = items, locked = Polestar.Get("ui.locked"), style = style, armed = armed, reset = lastCall("ResetProgress"),
+		menuPick("Settings")
+		emit({ items = items, bar = bar, locked = Polestar.Get("ui.locked"), style = style, armed = armed, reset = lastCall("ResetProgress"),
 			picker = picker, options = PolestarOptions:IsShown(), pickerAfter = PolestarPicker:IsShown() })"#)
 	.remove(0);
 	assert_eq!(
 		out["items"],
-		json!([
-			"Choose guide",
-			"Open in new tab",
-			"Skip this step",
-			"Report a problem",
-			"Compact mode",
-			"Transparent",
-			"Lock window",
-			"Reset guide progress",
-			"Quick settings",
-			"Options",
-			"Pause",
-			"Hide window"
-		])
+		json!(["Choose guide", "Open in new tab", "None to hand in", "Quest log is clean", "Quick settings", "Settings", "Reset window size", "Reset guide progress"]),
+		"Skip, the bug and Lookup are in the header, so not in the menu; the quest log rows are always there, off when they have nothing to do; #3095's Reset window size in the settings group"
 	);
+	assert_eq!(out["bar"], json!(["Compact mode", "Transparent", "Lock window", "Pause"]), "the window's toggles are the bar on top");
 	assert_eq!(out["locked"], true);
 	assert_eq!(out["style"], "transparent");
 	assert_eq!(out["armed"], json!({ "label": "Click again to confirm", "open": true }));
@@ -1793,7 +1799,7 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 }
 
 #[test]
-fn the_menu_offers_the_quest_log_cleanup_with_its_count_and_hides_it_when_there_is_nothing_to_clean() {
+fn the_menu_offers_the_quest_log_cleanup_with_its_count_and_shows_it_off_when_there_is_nothing_to_clean() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		local list = { { quest = 77, title = "Stray", status = "unplanned" }, { quest = 78, title = "Old", status = "grey" } }
@@ -1815,11 +1821,12 @@ fn the_menu_offers_the_quest_log_cleanup_with_its_count_and_hides_it_when_there_
 		Polestar.RoutePlan.Unneeded = function() return nil end
 		emit({ two = two, before = before, opened = opened, none = none, unsettled = items() })"#)
 	.remove(0);
-	assert_eq!(out["two"][4], "Clean up quest log (2)", "right after Report a problem");
+	assert_eq!(out["two"][3], "Clean up quest log (2)", "the quest log's group, after the guide's and the hand-in row");
 	assert_eq!(out["before"], false);
 	assert_eq!(out["opened"], true, "the entry opens the cleanup window");
 	for key in ["none", "unsettled"] {
-		assert!(!joined(&out[key]).contains("Clean up quest log"), "{key}: no entry with nothing to list");
+		assert!(!joined(&out[key]).contains("Clean up quest log"), "{key}: no count with nothing to list");
+		assert!(joined(&out[key]).contains("Quest log is clean"), "{key}: the row stays, off");
 	}
 }
 
@@ -2345,7 +2352,7 @@ fn in_dungeons_and_battlegrounds_what_goes_with_the_guide_goes_while_it_waits_an
 // hide (Keep visible, or the window off anyway). Showing the window takes the notice down.
 #[test]
 fn in_dungeons_and_battlegrounds_the_first_hide_on_the_account_shows_once_how_to_show_it() {
-	let line = "The guide window hides in dungeons and battlegrounds. Type /polestar to show it. Change it in Options > Guide > Window.";
+	let line = "The guide window hides in dungeons and battlegrounds. Type /polestar to show it. Change it in Settings > Guide window.";
 	let out = run(&[
 		ENTER,
 		r#"
@@ -3067,6 +3074,26 @@ fn looking_at_another_step_than_the_live_one_offers_the_way_back_a_skipped_step_
 	assert_eq!(out["unskip"], json!(["Unskip", 3]));
 }
 
+// #2847: a skipped step that holds nothing for the character (the view's `why`, its quest not in the log) offers the
+// way back to the live step, not an unskip that would bring back nothing.
+#[test]
+fn a_skipped_step_that_holds_nothing_offers_the_way_back_not_an_unskip_2847() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local B = GF.parts.banner
+		uistub.live = 4
+		uistub.skipped[3] = true
+		uistub.guides[uistub.elwynn].steps[3].why = "Only with \226\128\156Kobold Camp Cleanup\226\128\157 in your quest log"
+		uistub.setStep(3)
+		local shown = { B.Text:GetText(), B.Jump.Label:GetText() }
+		B.Jump:Click()
+		emit({ shown = shown, back = lastCall("Goto"), unskip = lastCall("Unskip") or false })"#)
+	.remove(0);
+	assert_eq!(out["shown"], json!(["Looking back. The guide is at step 4.", "Back to step 4"]));
+	assert_eq!(out["back"], json!(["Goto", 4]));
+	assert_eq!(out["unskip"], false);
+}
+
 // Fitz, testing 0.3.3: the "Looking ahead" banner's Dismiss button did nothing (GF.DismissBanner took the banner for
 // one that is answered, never dismissed). Dismissed, it stays away on that step; another step brings it back.
 #[test]
@@ -3109,19 +3136,20 @@ fn the_next_spot_of_an_area_objective_takes_the_arrow_there_over_a_point_picked_
 
 #[test]
 fn labels_kept_in_tables_are_in_the_client_language_the_group_line_and_the_guide_menu_s_tabs() {
+	let strings = [("Rare elite: group advised", "Rarer Elite: Gruppe empfohlen"), ("Home", "Start"), ("Browse", "Stöbern"), ("Current", "Aktuell"), ("Recent", "Zuletzt"), ("Guides", "Anleitungen")];
 	let out = run_with(
 		r#"
 		UI.ShowPicker()
 		local tabs = {}
 		for _, b in ipairs(PolestarPicker.tabButtons) do if b:IsShown() then tabs[#tabs + 1] = b.Label:GetText() end end
 		emit({ elite = UI.GroupLine({ party = { kind = "elite", rank = 2 } }), tabs = tabs, title = PolestarPicker.Title:GetText() })"#,
-		&fake_locale("itIT", &[("Rare elite: group advised", "Rarer Elite: Gruppe empfohlen"), ("Home", "Start"), ("Browse", "Stöbern"), ("Current", "Aktuell"), ("Recent", "Zuletzt")]),
+		&fake_locale("itIT", &strings),
 		"",
 	)
 	.remove(0);
 	assert!(is_match(text(&out["elite"]), r"\|c\w+Rarer Elite: Gruppe empfohlen\|r"));
 	assert_eq!(out["tabs"], json!(["Start", "Stöbern", "Aktuell", "Zuletzt"]));
-	assert_eq!(out["title"], "Start");
+	assert_eq!(out["title"], "Anleitungen", "Home's header names the section");
 }
 
 #[test]
@@ -3209,8 +3237,9 @@ fn a_quest_to_complete_reads_as_its_objectives_each_with_its_count_and_keeps_its
 fn guide_complete_up_next_names_where_the_hand_off_goes_now_and_asks_for_a_guide_when_none_is_offered() {
 	let out = run(r#"
 		local function state()
-			local e = GF.parts.empty
-			return { text = e.Text:GetText(), primary = e.Primary:IsShown() and e.Primary.Label:GetText() or false }
+			local e, pn = GF.parts.empty, GF.PlayNext
+			return { text = e.Text:GetText(), primary = e.Primary:IsShown() and e.Primary.Label:GetText() or false,
+				playNext = pn.card():IsShown() and pn.card().Title:GetText() or false, other = pn.other():IsShown() }
 		end
 		GF.parts.empty.Primary:Click()
 		Polestar.Engine.NextGuide = function() return "forever/alliance/03-darkshore" end
@@ -3220,9 +3249,9 @@ fn guide_complete_up_next_names_where_the_hand_off_goes_now_and_asks_for_a_guide
 		Polestar.Fire("STEP_CHANGED", nil)
 		emit(state())"#);
 	let (next, none) = (&out[0], &out[1]);
-	assert!(is_match(text(&next["text"]), r"Darkshore"));
-	assert_eq!(next["primary"], "Continue");
-	assert_eq!(*none, json!({ "text": "Nice work. Pick your next guide to keep going.", "primary": "Choose a guide" }));
+	assert!(is_match(text(&next["playNext"]), r"^Darkshore"), "Play next names where the hand-off goes: {next}");
+	assert_eq!(next["primary"], false);
+	assert_eq!(*none, json!({ "text": "Nice work. Pick your next guide to keep going.", "primary": false, "playNext": false, "other": true }));
 }
 
 #[test]
