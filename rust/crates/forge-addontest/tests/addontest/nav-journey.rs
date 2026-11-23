@@ -113,6 +113,26 @@ fn plan_anywhere_shift_click_on_the_world_map_points_the_arrow_there_named_after
 	assert_eq!(out[2], json!({ "took": false, "label": "Guide step" }), "a plain click stays the map's own");
 }
 
+// #3843: a point the player picks on the map is marked as theirs (`mine`), so the guide window can say the arrow is
+// on it; a point set any other way (a goal's line clicked in the guide window, another addon's API.Navigate) is not.
+#[test]
+fn plan_anywhere_a_picked_point_is_the_players_own_a_goal_click_or_another_addons_point_is_not() {
+	let out = run(r#"
+		nav.showWorldMap(9000)
+		keys(true)
+		stub.canvas.cursor = { 0.7, 0.3 }
+		stub.canvasClick()
+		local picked = N.GetTarget().mine == true
+		local way = J.PlanTo(9000, 40, 60, "Camp")
+		local wayMine = way and way.mine == true
+		local goal = N.SetTarget(9000, 30, 30, "Kill Stranglethorn Tiger")
+		local goalMine = goal.mine == true
+		API.Navigate("Helper", 9000, 0.25, 0.75, "Camp")
+		emit({ picked = picked, way = wayMine, goal = goalMine, api = N.GetTarget().mine == true, override = N.IsOverride() })
+	"#);
+	assert_eq!(out[0], json!({ "picked": true, "way": true, "goal": false, "api": false, "override": true }));
+}
+
 #[test]
 fn plan_anywhere_a_continent_click_lands_on_the_zone_under_it_c13_open_sea_prints_a_line_and_plans_nothing() {
 	let out = run(r#"
