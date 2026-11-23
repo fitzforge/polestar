@@ -194,3 +194,33 @@ test('branches: each start race down its guides\' default `next`, experimental c
 		],
 	);
 });
+
+// #3826: the weekly run compiled the last release's guides (v0.4.2.2) on today's data, which had dropped quests those
+// guides name, so the base did not compile and nothing was compared. --base-data gives the base tree the data its
+// release shipped with: a checked-out tree links it as its data/forever, with the sources beside it.
+test('--base-data: the base tree plays on its own reference data; missing data is a usage error naming it', async () => {
+	const fs = require('node:fs');
+	const os = require('node:os');
+	const path = require('node:path');
+	const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'flow-diff-base-data-'));
+	try {
+		const now = path.join(tmp, 'now', 'forever');
+		const release = path.join(tmp, 'releases', 'v1', 'forever');
+		for (const d of [now, release]) {
+			fs.mkdirSync(d, { recursive: true });
+			fs.writeFileSync(path.join(d, 'quests.json'), '{}');
+		}
+		fs.mkdirSync(path.join(tmp, 'releases', 'v1', 'sources'));
+		const tree = path.join(tmp, 'tree');
+		fs.mkdirSync(tree);
+		flowDiff.link(tree, release);
+		assert.equal(fs.realpathSync(path.join(tree, 'data', 'forever')), fs.realpathSync(release));
+		assert.equal(fs.realpathSync(path.join(tree, 'data', 'sources')), fs.realpathSync(path.join(tmp, 'releases', 'v1', 'sources')));
+		const missing = path.join(tmp, 'releases', 'v0', 'forever');
+		const bad = await quiet(() => flowDiff.run(['--base', 'v0', '--data', now, '--base-data', missing]));
+		assert.equal(bad.result, 2);
+		assert.ok(bad.out.includes(`no reference data in ${missing}`), bad.out);
+	} finally {
+		fs.rmSync(tmp, { recursive: true, force: true });
+	}
+});
