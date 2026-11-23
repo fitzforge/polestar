@@ -1429,10 +1429,12 @@ const SCENES = [
 	},
 	{
 		file: 'whats-new.svg',
-		title: 'What\'s new, once per account on the first login after an update (/polestar whatsnew, About); its notes scrolled to the end',
+		title: 'What\'s new, once per account on the first login after an update (/polestar whatsnew, About); its notes scrolled to the end; with Atlas installed, the layout section under the notes (Standard, your current; Atlas), and a player already on Atlas',
 		panels: [
 			{ roots: ['PolestarWhatsNew'], script: 'Polestar.UI.WhatsNew.Show()' },
 			{ roots: ['PolestarWhatsNew'], script: 'Polestar.UI.WhatsNew.Show(); Polestar.Widgets.ScrollTo(PolestarWhatsNew.Scroll, 10000)' },
+			{ roots: ['PolestarWhatsNew'], addons: [{ name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }], script: 'Polestar.UI.WhatsNew.Show()' },
+			{ roots: ['PolestarWhatsNew'], addons: [{ name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }], script: 'Polestar.Theme.SetLayout("atlas"); Polestar.UI.WhatsNew.Show()' },
 		],
 	},
 	{
