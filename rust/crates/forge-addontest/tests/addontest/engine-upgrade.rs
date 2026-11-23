@@ -492,3 +492,92 @@ fn what_an_update_added_behind_the_player_that_they_have_done_shows_done() {
 	assert_eq!(out["status"][1], "done", "{out}");
 	assert_eq!(out["changed"], json!(["done", "done"]), "{out}");
 }
+
+// #3440 (0.4.1.1 -> 0.4.2, Wetlands 25/50/75%: 8, 51 and 88 steps back): a save keeps the keys of its steps as
+// planned for the character (Own.feederPlan leaves out the quests waiting on a chain no guide here gives, with all
+// their goals), and Core/LegacySteps.lua lists the steps as released. The save's step for 102's accept was released
+// with 111's accept beside it, 111 left out for this character: its key is "accept:102"'s, which no release lists.
+// Read as unknown, 109 (added to that step behind the player) held them there; read as the released step without
+// 111, it passes as in the first test.
+#[test]
+fn a_saved_step_planned_without_a_quest_is_read_from_its_released_step_and_never_holds_the_player_back() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved(""))],
+		login: false,
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{}", SCRIPT.replace(r#"{ [h("accept:102")] = "accept:102" }"#, r#"{ [h("accept:102,accept:111")] = "accept:102,accept:111" }"#)),
+	})
+	.remove(0);
+	assert_eq!(out["live"], 8, "at 103's hand-in, where the player was: {out}");
+	assert_eq!(out["changed"], json!(["done", "na"]), "109 passes behind the player: {out}");
+	assert_eq!(out["status"][1], "na", "{out}");
+}
+
+// #3440: the same for a step the update left as released (Ashenvale, Desolace, Arathi Highlands): the guide has
+// it with 112's accept, the save without (112 left out for the character), and the update put a new step (115's
+// accept) right after it, behind the player. Unknown, that stretch held them at 112's accept.
+const KEPT_GUIDE: &str = r#"
+local M = 1429
+local function a(q, x) return { t = "accept", quest = q, title = "Quest " .. q, map = M, x = x or 50, y = 50 } end
+local function t(q, x) return { t = "turnin", quest = q, title = "Quest " .. q, map = M, x = x or 50, y = 50 } end
+Polestar.RegisterGuide({ id = "test/up", pack = "test", title = "Upgraded", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ title = "Start", goals = { a(100) } },
+	{ title = "Hand in 100", goals = { t(100) } },
+	{ title = "Take 102", goals = { a(102), a(112, 45) } },
+	{ title = "New after it", goals = { a(115, 40) } },
+	{ title = "Hand in 102", goals = { t(102) } },
+	{ title = "Take 103", goals = { a(103) } },
+	{ title = "Hand in 103", goals = { t(103) } },
+} })
+"#;
+
+#[test]
+fn a_saved_step_planned_without_a_quest_from_a_step_the_update_kept_never_holds_the_player_back() {
+	let saved = saved("")
+		.replace(
+			r#"local OLD = { "accept:100", "turnin:100", "accept:102", "goto:1429", "turnin:102", "accept:103", "turnin:103" }"#,
+			r#"local OLD = { "accept:100", "turnin:100", "accept:102", "turnin:102", "accept:103", "turnin:103" }"#,
+		)
+		.replace(r#""7-1""#, r#""6-1""#);
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved)],
+		login: false,
+		script: format!(
+			r#"{TEST_PACK}
+{TEST_SOURCE}
+{KEPT_GUIDE}
+E = Polestar.Engine
+Polestar.LegacyStepsLoad = function() return {{}} end
+stub.login(); stub.advance(0.25)
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)
+emit({{ live = E.GetLiveStep(), took112 = E.GetStepView(3).goals[2].status, new = E.GetStepView(4).status }})"#
+		),
+	})
+	.remove(0);
+	assert_eq!(out["live"], 7, "at 103's hand-in, where the player was: {out}");
+	assert_eq!(json!([out["took112"], out["new"]]), json!(["na", "na"]), "112 and the new step pass behind the player: {out}");
+}
+
+// #3440: the step's key keeps every goal of it, a class's own too (a Mage-only accept in a Warrior's save), and a
+// step can lose more than one quest to the plan: released as 102, 116 (Mages), 111 and 117, saved without 111 and
+// 117.
+#[test]
+fn a_saved_step_with_a_class_goal_and_two_quests_left_out_is_read_from_its_released_step() {
+	let released = "accept:102,accept:116,accept:111,accept:117";
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved("").replace(r#""accept:102", "goto:1429""#, r#""accept:102,accept:116", "goto:1429""#))],
+		login: false,
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{}", SCRIPT.replace(r#"{ [h("accept:102")] = "accept:102" }"#, &format!(r#"{{ [h("{released}")] = "{released}" }}"#))),
+	})
+	.remove(0);
+	assert_eq!(out["live"], 8, "at 103's hand-in, where the player was: {out}");
+	assert_eq!(out["changed"], json!(["done", "na"]), "{out}");
+}

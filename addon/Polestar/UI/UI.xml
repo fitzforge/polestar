@@ -6,9 +6,11 @@
 	<Script file="NameTargets.lua"/>
 	<Script file="GuideFrame.lua"/>
 	<Script file="GuideFrameTabs.lua"/>
+	<Script file="GuideFrameTabStyles.lua"/>
 	<Script file="GuideFrameBanner.lua"/>
 	<Script file="GuideFrameHere.lua"/>
 	<Script file="GuideFrameLayout.lua"/>
+	<Script file="GuideFramePlayNext.lua"/>
 	<Script file="GuideFrameLook.lua"/>
 	<Script file="GuideFrameMenu.lua"/>
 	<Script file="GuideFrameWindow.lua"/>
@@ -22,6 +24,7 @@
 	<Script file="PartyLoot.lua"/>
 	<Script file="ClassRewards.lua"/>
 	<Script file="ClassCard.lua"/>
+	<Script file="OtherTab.lua"/>
 	<Script file="ClassToast.lua"/>
 	<Script file="DungeonToast.lua"/>
 	<Script file="SpellCards.lua"/>
@@ -35,10 +38,12 @@
 	<Script file="QuestLinks.lua"/>
 	<Script file="Lookup.lua"/>
 	<Script file="Dungeons.lua"/>
+	<Script file="Attunements.lua"/>
 	<Script file="RouteChoice.lua"/>
 	<Script file="GuideEnd.lua"/>
 	<Script file="Welcome.lua"/>
 	<Script file="WhatsNew.lua"/>
+	<Script file="LayoutCard.lua"/>
 	<Script file="Copy.lua"/>
 	<Script file="QuestRoom.lua"/>
 	<Script file="Materials.lua"/>
@@ -53,4 +58,6 @@
 	<Script file="Trackers.lua"/>
 	<Script file="QuestieTurnIns.lua"/>
 	<Script file="Movers.lua"/>
+	<Script file="TabStyles\Menu.lua"/>
+	<Script file="TabStyles\TabStyles.lua"/>
 </Ui>

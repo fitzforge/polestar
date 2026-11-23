@@ -77,11 +77,11 @@ while row and not row:GetScript("OnEnter") do row = row:GetParent() end
 assert(row, "no row with ${text}")
 studio.hover(row)`;
 
-// Options > Guide > Window, scrolled to the Dynamic Questing section (its
+// Options > Guide > While you play, scrolled to the Dynamic Questing section (its
 // help is written under each row, no hover needed).
 const OPTIONS = `Polestar.UI.ShowOptions("guide")
 stub.advance(0.3)
-Polestar.UI.Options.Select("guide", "Window")
+Polestar.UI.Options.Select("guide", "While you play")
 stub.advance(0.5)
 local sf = PolestarOptions.Scroll
 local child = sf and sf:GetScrollChild()
@@ -121,7 +121,7 @@ module.exports = {
 			lua: AT('Fly to Ironforge', 1, [36.0, 46.0]),
 		},
 		options: {
-			title: 'Options > Guide > Window, Dynamic Questing: "How close" with its help, "Flight paths you pass" under the hand-ins slider',
+			title: 'Options > Guide > While you play, Dynamic Questing: "How close" with its help, "Flight paths you pass" under the hand-ins slider',
 			capture: ['PolestarOptions', 'GameTooltip'],
 			lua: OPTIONS,
 		},

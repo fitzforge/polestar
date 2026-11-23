@@ -175,9 +175,6 @@ ran.
   file before the registration (see below). With `## LoadOnDemand: 1`,
   check the `## X-Polestar-Skin` line names your ids exactly: Polestar loads
   your addon only for those.
-- Every registration answers "the Skin API's checks did not load": the
-  `Polestar_SkinAPI` folder that comes with Polestar is missing or disabled
-  in the AddOns window. Reinstall or enable Polestar's folders.
 - Polestar's debug log also records refusals and corrections as `scheme
   <id> (<addon>): refused: <reason>`: `/polestar debug` turns debug output on.
 

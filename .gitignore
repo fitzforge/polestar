@@ -13,6 +13,9 @@ data/local/
 data/recordings/*
 !data/recordings/.gitkeep
 
+# CI's reference-data baseline (tools/ci-failures.js, docs/CI.md "Reference data").
+.ci/
+
 # Build output and drafts.
 dist/
 guides/drafts/

@@ -144,7 +144,7 @@ fn run(script: &str) -> Value {
 fn run_with(files: &[&str], script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
-		addons: vec![Addon::files("Polestar", files), Addon::name("Polestar_Skin_Lanterns")],
+		addons: vec![Addon::files("Polestar", files), Addon::files("Polestar_Skins", &["Skins/Lanterns/Lanterns.lua"])],
 		script: format!("uistub.install()\nstub.login()\nlocal GF = Polestar.UI.GuideFrame\nlocal F = PolestarGuideFrame\n{HELPERS}\n{script}"),
 		..Default::default()
 	})

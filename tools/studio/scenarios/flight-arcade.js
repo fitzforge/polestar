@@ -1,12 +1,12 @@
 'use strict';
-// Freedoom Arcade on a flight (Maps/Arcade.lua) in every look at the game's UI
+// The games on a flight (Maps/Arcade.lua) in every look at the game's UI
 // scales 0.64, 1.0 and 1.5: the flight timer on a flight to Ratchet with the
-// card under it asking "Do you want to play Doom while waiting?" (Play, Not
+// card under it asking "Play a game while you fly?" (a button per game, Not
 // now, Don't ask again), the timer with the row a "Not now" leaves
-// (Play Freedoom Arcade), and the game's window from Polestar_Arcade, loaded
-// as the first Play loads it, on its menu (its title in the theme's type, the
-// look's frame round the game). At 1.0 also the settings window on
-// Integrations, its Freedoom Arcade section. The looks are the built-in six
+// (Play Freedoom Arcade), and Freedoom Arcade's window from Polestar_Arcade,
+// loaded as the first Play loads it, on its menu (its title in the theme's
+// type, the look's frame round the game). At 1.0 also the settings window on
+// Integrations, its Flight arcade section. The looks are the built-in six
 // and the skin addons in the download with the variants skins.js shows, each
 // picked as skins.js picks it.
 //

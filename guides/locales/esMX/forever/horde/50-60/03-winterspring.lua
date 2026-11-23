@@ -89,19 +89,23 @@ return {
 	-- {zone:1448} Felwood · {area:1761} Deadwood Village
 	["Ride north-west along the road into {zone:1448}. Ror stands at the far south end of {area:1761}, just inside the border."] = "Cabalga al noroeste por el camino hacia {zone:1448}. Ror está en el extremo sur de {area:1761}, justo pasando el límite.",
 
-	-- Step 14: Emerald Sanctuary
+	-- Step 14: Taronn Redfeather
 	["North to the druids' camp."] = "Al norte hasta el campamento de los druidas.",
+
+	-- Step 16: Maybess Riverbreeze
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the Sanctuary"] = "{npc:9529}, en el lado oeste del Santuario",
+
+	-- Step 18: Emerald Sanctuary
 	-- {quest:5158} Seeking Spiritual Aid · {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["Keep {quest:5158}: {npc:5901} is by {area:392}, on the next guide."] = "Guarda {quest:5158}: {npc:5901} está junto a {area:392}, en la siguiente guía.",
 
-	-- Step 15: The Jadefire moonwell
+	-- Step 19: The Jadefire moonwell
 	["The Jadefire moonwell"] = "El pozo de la luna Fuego de Jade",
 	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
 	["Ride north-west past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "Cabalga al noroeste pasando {area:1763} hasta el pozo de la luna corrupto de los sátiros Fuego de Jade y llena ahí el frasquito de {npc:9996}.",
 
-	-- Step 16: Bloodvenom Post
+	-- Step 20: Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
 	["North up the road to {area:1997}."] = "Al norte por el camino hasta {area:1997}.",
 	-- {npc:9996} Winna Hazzard · {quest:86612} Stag Lord's Bauble
@@ -110,7 +114,7 @@ return {
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["{npc:10306}'s Moontouched Owlbeasts are 57-58, in {zone:1452}: keep it for the {zone:1423} guide's {zone:1452} stop."] = "Las lechubestias lunadón de {npc:10306} son de nivel 57-58, en {zone:1452}: guárdala para la parada en {zone:1452} de la guía de {zone:1423}.",
 
-	-- Step 17: Winna Hazzard's kitten
+	-- Step 21: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "El gatito de {npc:9996}",
 	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
@@ -118,43 +122,47 @@ return {
 	-- {item:12565} Winna's Kitten Carrier
 	["{item:12565}, at the Jadefire moonwell"] = "{item:12565}, en el pozo de la luna Fuego de Jade",
 
-	-- Step 19: Fly to Camp Mojache
+	-- Step 23: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Vuela a {area:1099}",
 	-- {area:1997} Bloodvenom Post
 	["{area:1997} flight master"] = "Maestro de vuelo de {area:1997}",
 
-	-- Step 21: Evoroot
+	-- Step 25: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
 	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "La {item:11242} crece dentro de un edificio en ruinas al norte del campamento de {npc:7775}, al este de {area:1114} de las arpías: entra por la parte rota de su muro.",
 
-	-- Step 22: The Videre Elixir
+	-- Step 26: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:976} Gadgetzan
 	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "De vuelta al sur con {npc:7775}. Guarda el elixir y no lo bebas todavía: te mata, y así es como conocerás a Gaeriyan junto a {area:976} más adelante.",
 	-- {item:11243} Videre Elixir · {npc:7775} Gregan Brewspewer
 	["{item:11243}, {npc:7775}'s reward"] = "{item:11243}, recompensa de {npc:7775}",
 
-	-- Step 24: Fly to Thunder Bluff
+	-- Step 28: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Vuela a {area:1638}",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "Maestro de vuelo de {area:2408}",
 
-	-- Step 25: Bluff Runner Windstrider
+	-- Step 29: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
 	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881} y {npc:14728} están en {area:1641}. Cada donación de Rumstag se lleva sesenta de lana, seda o tejido mágico de tus bolsas: entrega lo que lleves y omite el resto.",
 
-	-- Step 26: Elder Rise
+	-- Step 30: Ghede
+	-- {npc:9076} Ghede · {area:1639} Elder Rise
+	["{npc:9076} stands on {area:1639}."] = "",
+
+	-- Step 31: Elder Rise
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{npc:3033} en {area:1639}; {npc:246344}",
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
 	["{quest:1123} waits in {zone:1450}: keep it for later."] = "{quest:1123} te espera en {zone:1450}: guárdala para después.",
 
-	-- Step 27: Bashana Runetotem
+	-- Step 32: Bashana Runetotem
 	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch
 	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "{npc:9087} compra {item:11040} cultivado de tu {quest:3761}. {quest:3782} pide diez, y {item:11020} da un intento cada diez minutos: tómala solo si ya tienes el grano.",
 
-	-- Step 29: Magatha Grimtotem
+	-- Step 34: Magatha Grimtotem
 	-- {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise
 	["{npc:4046} stands on {area:1639}."] = "{npc:4046} está en {area:1639}.",
 	-- {npc:4046} Magatha Grimtotem · {zone:1447} Azshara

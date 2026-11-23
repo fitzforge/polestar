@@ -310,7 +310,7 @@ local function routesLine()
 end
 
 -- The travel plan from the current leg on (Nav.GetRoute): each leg's caption
--- and time, "(maybe)" on a flight to a flight master the character may not
+-- and time, "(assumed)" on a flight to a flight master the character may not
 -- have (#1795: the first flight map there settles it); no line without a plan
 -- (the arrow leads straight). The words stay English like Routes; after
 -- Routes, so Arrow, Where and Routes keep their places for the bug bot.
@@ -324,9 +324,53 @@ local function travelLine()
 	for i = ci or 1, #legs do
 		local leg = legs[i]
 		local s = floor((leg.seconds or 0) + 0.5)
-		parts[#parts + 1] = ("%s %d:%02d%s"):format(plain(leg.label or leg.kind or "?"), floor(s / 60), s % 60, leg.maybe and " (maybe)" or "")
+		parts[#parts + 1] = ("%s %d:%02d%s"):format(plain(leg.label or leg.kind or "?"), floor(s / 60), s % 60, leg.maybe and " (assumed)" or "")
 	end
+	-- A walk a flight would beat with a flight path Polestar doesn't know of (Nav.FlightHint).
+	local hint = N.FlightHint and N.FlightHint()
+	if hint then parts[#parts + 1] = ("faster with the flight path at %s"):format(plain(hint.name or "?")) end
 	return cut((L["Travel: %s"]):format(table.concat(parts, SEP)), 300)
+end
+
+-- Where this session's walks went through what the walking maps close (Nav/Walk.lua Walk.WalkedGaps: the player's
+-- own steps the router took as open, #3641): the places, as the guides write them (map, @x,y), and the steps; the newest
+-- last. English words, as Routes; a free finder of map gaps for the data round. No line without one.
+local function walkedLine()
+	local N, C = ns.Nav, ns.Compat
+	local W, T = N and N.walk, N and N.travel
+	local gaps = W and W.WalkedGaps and W.WalkedGaps()
+	if not (gaps and #gaps > 0) then return nil end
+	local parts = {}
+	for i, g in ipairs(gaps) do
+		local zone = T and T.ZoneOf and T.ZoneOf(nil, g.c, g.x, g.y)
+		local x, y
+		if zone and C and C.WorldToMap then x, y = C.WorldToMap(g.c, g.x, g.y, zone) end
+		parts[i] = (where(zone, x, y) or ("continent %d %.0f,%.0f"):format(g.c, g.x, g.y)) .. (" (%d steps)"):format(g.n)
+	end
+	return cut("Walked where the map says blocked: " .. table.concat(parts, SEP))
+end
+
+-- The flight paths Polestar takes this character to know on the continent
+-- they stand on (Nav.GetKnownTaxiNodes: from the flight maps opened, plus
+-- flight masters met by name), by name, and whether a flight map has been
+-- opened there yet (Nav.GetTaxiSeen: until then a path learnt before
+-- Polestar ran may be missing). A report of a "Fly to" the character can't
+-- take (#3290: Theramore and Ratchet not on the map, the route flying there)
+-- then says what Polestar thought. The words stay English like Routes; after
+-- Travel. Nothing without the travel data or a position.
+local function flightsLine()
+	local N, C = ns.Nav, ns.Compat
+	if not (N and N.GetKnownTaxiNodes and N.GetTaxiNode and C and C.GetPlayerWorldPosition) then return nil end
+	local c = C.GetPlayerWorldPosition()
+	if c == nil then return nil end
+	local names = {}
+	for id in pairs(N.GetKnownTaxiNodes() or {}) do
+		local node = N.GetTaxiNode(id)
+		if node and node.c == c then names[#names + 1] = plain(node.name or tostring(id)) end
+	end
+	table.sort(names)
+	local seen = N.GetTaxiSeen and (N.GetTaxiSeen() or {})[c] and "flight map opened here" or "no flight map opened here yet"
+	return cut(("Flight paths: %d known here%s%s"):format(#names, SEP, seen) .. (#names > 0 and (SEP .. table.concat(names, ", ")) or ""), 400)
 end
 
 -- The "While you're here" line (Engine.WhileHereState): the lines shown
@@ -879,6 +923,8 @@ function R.Details()
 	add(d, "where", playerLine())
 	add(d, "routes", routesLine())
 	add(d, "travel", travelLine())
+	add(d, "walked", walkedLine())
+	add(d, "flights", flightsLine())
 	add(d, "whilehere", whileHereLine())
 	add(d, "packs", packsLine())
 	add(d, "install", installLine())
@@ -982,6 +1028,7 @@ local function cutOrder(details)
 	all("perf", -1, 1, -1)
 	all("planned", -1, 1, -1)
 	all("leftout", -1, 1, -1)
+	all("flights")
 	all("whilehere")
 	all("travel")
 	all("install")

@@ -37,6 +37,7 @@ step Fly to Rut'theran Village
 
 step Rut'theran Village
   zone Teldrassil
+  when complete 978
   tip The flight lands in Rut'theran Village. Erelas Ambersky stands a short walk north-west of the flight master.
   turnin 978                          -- Erelas Ambersky
   note Erelas' next task sends you back to Ranshalla in Winterspring, behind the route now: skip it.
@@ -96,13 +97,17 @@ step Fly to Ironforge
 
 # ---------------------------------------------------------------- Ironforge
 
+step Laris Geardawdle
+  zone Ironforge
+  when complete 4512
+  turnin 4512                         -- Laris Geardawdle, Hall of Explorers
+  note Laris' next task fills his jars in Un'Goro, behind the route now: skip it.
+
 step Ironforge
   zone Ironforge
   tip Bubulo Acerbus and Mistina Steelshield each take sixty Wool, sixty Silk and sixty Mageweave, then sixty Runecloth: hand in what you carry (or buy at the Auction House), skip the rest.
   accept 8275                         -- Cenarion Emissary Jademoon, by the flight master where you land: for Windcaller Proudhorn in Silithus, on the last guide; keep it
   turnin 3461                         -- Tymor, Mystic Ward
-  turnin 4512                         -- Laris Geardawdle, Hall of Explorers
-  note Laris' next task fills his jars in Un'Goro, behind the route now: skip it.
   accept 7261                         -- Lieutenant Rotimer: for Lieutenant Haggerdin, on the way to Chillwind Camp
   collect 2592 x60 optional @24.2,74.7 map 1455 -- Wool Cloth, from your bags
   collect 4306 x60 optional @24.2,74.7 map 1455 -- Silk Cloth, from your bags
@@ -506,6 +511,7 @@ step Light's Hope Chapel
 # ---------------------------------------------------------------- The Plaguewood and Terrordale
 
 step Aurora Skycaller
+  when complete 5245
   tip Ride north-west to Quel'Lithien Lodge, at the edge of the Plaguewood.
   turnin 5245
 

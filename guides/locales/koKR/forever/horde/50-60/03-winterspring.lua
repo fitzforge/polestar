@@ -89,19 +89,23 @@ return {
 	-- {zone:1448} Felwood · {area:1761} Deadwood Village
 	["Ride north-west along the road into {zone:1448}. Ror stands at the far south end of {area:1761}, just inside the border."] = "",
 
-	-- Step 14: Emerald Sanctuary
+	-- Step 14: Taronn Redfeather
 	["North to the druids' camp."] = "",
+
+	-- Step 16: Maybess Riverbreeze
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the Sanctuary"] = "성소 서쪽의 {npc:9529}",
+
+	-- Step 18: Emerald Sanctuary
 	-- {quest:5158} Seeking Spiritual Aid · {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["Keep {quest:5158}: {npc:5901} is by {area:392}, on the next guide."] = "",
 
-	-- Step 15: The Jadefire moonwell
+	-- Step 19: The Jadefire moonwell
 	["The Jadefire moonwell"] = "비취불꽃 달샘",
 	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
 	["Ride north-west past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "",
 
-	-- Step 16: Bloodvenom Post
+	-- Step 20: Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
 	["North up the road to {area:1997}."] = "",
 	-- {npc:9996} Winna Hazzard · {quest:86612} Stag Lord's Bauble
@@ -110,7 +114,7 @@ return {
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["{npc:10306}'s Moontouched Owlbeasts are 57-58, in {zone:1452}: keep it for the {zone:1423} guide's {zone:1452} stop."] = "",
 
-	-- Step 17: Winna Hazzard's kitten
+	-- Step 21: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "{npc:9996}의 새끼 고양이",
 	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
@@ -118,43 +122,47 @@ return {
 	-- {item:12565} Winna's Kitten Carrier
 	["{item:12565}, at the Jadefire moonwell"] = "비취불꽃 달샘에서 {item:12565}",
 
-	-- Step 19: Fly to Camp Mojache
+	-- Step 23: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "{area:1099}(으)로 날아가기",
 	-- {area:1997} Bloodvenom Post
 	["{area:1997} flight master"] = "",
 
-	-- Step 21: Evoroot
+	-- Step 25: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
 	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "{item:11242}은(는) 하피의 {area:1114} 동쪽, {npc:7775} 야영지 북쪽의 무너진 건물 안에서 자랍니다. 벽의 부서진 곳으로 들어가세요.",
 
-	-- Step 22: The Videre Elixir
+	-- Step 26: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:976} Gadgetzan
 	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "남쪽의 {npc:7775}에게 돌아가세요. 비약은 보관하고 아직 마시지 마세요. 마시면 죽는데, 나중에 {area:976} 근처에서 가에리얀을 만나는 방법이 바로 그것입니다.",
 	-- {item:11243} Videre Elixir · {npc:7775} Gregan Brewspewer
 	["{item:11243}, {npc:7775}'s reward"] = "{item:11243}, {npc:7775}의 보상",
 
-	-- Step 24: Fly to Thunder Bluff
+	-- Step 28: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "{area:1638}(으)로 날아가기",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "{area:2408} 비행 조련사",
 
-	-- Step 25: Bluff Runner Windstrider
+	-- Step 29: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
 	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
-	-- Step 26: Elder Rise
+	-- Step 30: Ghede
+	-- {npc:9076} Ghede · {area:1639} Elder Rise
+	["{npc:9076} stands on {area:1639}."] = "",
+
+	-- Step 31: Elder Rise
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{area:1639}의 {npc:3033}, {npc:246344}",
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
 	["{quest:1123} waits in {zone:1450}: keep it for later."] = "{quest:1123}은(는) {zone:1450}에서 기다립니다. 나중을 위해 보관하세요.",
 
-	-- Step 27: Bashana Runetotem
+	-- Step 32: Bashana Runetotem
 	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch
 	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "",
 
-	-- Step 29: Magatha Grimtotem
+	-- Step 34: Magatha Grimtotem
 	-- {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise
 	["{npc:4046} stands on {area:1639}."] = "",
 	-- {npc:4046} Magatha Grimtotem · {zone:1447} Azshara
