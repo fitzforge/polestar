@@ -998,7 +998,7 @@
 			{ "node": "tests/guides-reported.test.js", "test": "Alliance Arathi Highlands: the Shadowy Assassin never holds the Southshore step (#1542)" }
 		] },
 		"1544": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#1544: Alliance: My Little Friends' specimens are collects, shown with the quest in the log" },
+			{ "node": "tests/guides-reported.test.js", "test": "#1544: Alliance: My Little Friends' specimens are caught with the net, shown with the quest in the log" },
 			{ "node": "tests/guides-reported.test.js", "test": "Alliance Desolace south loop: the Flesh Picker is only for players on My Little Friends" }
 		] },
 		"1550": { "tests": [

@@ -190,13 +190,12 @@ test("Tyr's Watch: Tanis Alderwood's goals carry his Undercity floor's height, f
 	}
 });
 
-test('Horde objective follow-ups: camp discovery, Silithyst delivery and cooking point at their actual objective', { skip }, () => {
+test('Horde objective follow-ups: camp discovery and cooking point at their actual objective', { skip }, () => {
 	// Betrayed (3505): the camp, where the Kaldorei Tome of Summoning takes the hand-in. The game counts only
 	// the two kill lines (players' recordings, #2585), so the data may have no event line for it.
 	const camp = { f: 'e', x: 59.53, y: 31.47 };
 	for (const [file, quest, map, npc] of [
 		['forever/horde/50-60/02-felwood.guide', 3505, 1447, null], // Azshara moved into the Felwood guide (2026-11-20)
-		['forever/horde/50-60/06-silithus.guide', 9422, 1451, 18199],
 		['forever/horde/tauren/01-mulgore.guide', 96661, 1412, 3067],
 	]) {
 		const { goal } = goals(file).find(({ goal }) => goal.t === 'complete' && goal.quest === quest);
@@ -3266,16 +3265,18 @@ test(`${WETLANDS}: Bennistrov's report: From the Ashes points at each of the fou
 // --- Never seen taken (#1314's pattern; the never-taken sweep, 2026-11-08): Hearts of the Lost turned
 // out not to be in the game. Two more Forever quests nobody has been recorded taking or being offered, whose giver
 // nobody has ever seen, from another addon's data and the web only, are optional, with a tip to skip them when the
-// giver isn't there: every goal of theirs is optional, so nothing in the guide waits on them.
+// giver isn't there: every goal of theirs is optional, so nothing in the guide waits on them. (A goal on a step shown
+// only with the quest in the log, `when onquest`, never waits for a player without it: #3545's net goals.)
 for (const [q, title, giver, files] of [
 	[93176, 'My Little Friends', 'Amaryllis Webb', ['forever/alliance/30-40/05-arathi-highlands.guide', 'forever/alliance/40-50/01-stranglethorn-vale.guide']],
 ]) {
 	test(`${title} (${q}): every goal is optional and the accept says to skip it when ${giver} doesn't offer it (#1314)`, { skip }, () => {
 		let n = 0;
 		for (const file of files) {
-			for (const { goal } of goals(file).filter(({ goal }) => goal.quest === q)) {
+			for (const { goal, step } of goals(file).filter(({ goal }) => goal.quest === q)) {
 				n++;
-				assert.ok(goal.optional, `${file}: ${goal.t} ${q} is optional`);
+				const carried = (step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(q));
+				assert.ok(goal.optional || (carried && goal.t !== 'accept' && goal.t !== 'turnin'), `${file}: ${goal.t} ${q} is optional`);
 				if (goal.t === 'accept') assert.match(stepTips(file, new RegExp(`^\\s+accept ${q}\\b`)).join(' '), new RegExp(`${giver} may not be here on Forever: if ${giver} doesn't offer ${title}, skip it\\.`), `${file}: the accept's step says to skip it`);
 			}
 		}
@@ -8145,14 +8146,16 @@ test('A Meal Served Cold (30-minute limit) is in no leveling guide', { skip }, (
 });
 
 // Flow re-order (2026-11-07): Alliance Desolace made the Scorpashi venom a stop of its own at Kormek's Hut
-// after the Kodo Graveyard, then walked back to the graveyard for the last hides.
+// after the Kodo Graveyard, then walked back to the graveyard for the last hides. Since #3385 the hides and venom are
+// the step right after the taming (a skip touches one quest only), still at the graveyard on the same visit.
 test('forever/alliance/30-40/02-desolace.guide: flow re-order: the Scorpashi venom with the kodos at the Kodo Graveyard, not a Kormek\'s Hut stop of its own', { skip }, () => {
 	const list = goals('forever/alliance/30-40/02-desolace.guide');
-	const kodos = list.find(({ goal }) => goal.quest === 5561 && ['kill', 'talk', 'use'].includes(goal.t)); // #1458: a talk at Smeed's camp, not a kill
+	const kodos = list.filter(({ goal }) => goal.quest === 5561 && ['kill', 'talk', 'use'].includes(goal.t)).pop(); // #1458: a talk at Smeed's camp, not a kill
 	const venom = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 6248);
 	const hides = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 6249);
-	assert.ok(kodos && venom.length === 1 && venom[0].s === kodos.s, 'the venom on the Kodo Graveyard step');
-	assert.ok(hides.length === 1 && hides[0].s === kodos.s, 'the hides there, once');
+	assert.ok(kodos && venom.length === 1 && venom[0].s === kodos.s + 1, 'the venom on the Kodo Graveyard step right after the taming');
+	assert.match(venom[0].step.title, /^Kodo Graveyard/, 'at the graveyard');
+	assert.ok(hides.length === 1 && hides[0].s === venom[0].s, 'the hides there, once');
 });
 
 // Route audit (2026-11-20): Highway Robbery's campfire lies about 200 yards north of the Kodo Bones, its hand-in is
@@ -12488,7 +12491,8 @@ test('Alliance 30-40 audit: Arathi hands in at Refuge Pointe on the way west, th
 	assert.ok(at(list, 'turnin 1389', is('turnin', 1389)) < at(list, 'turnin 1421', is('turnin', 1421)), 'the Harborage, then Watcher Biggs');
 	assert.ok(!list[at(list, 'turnin 1392', is('turnin', 1392))].goal.optional, 'a quest the route makes you do (1392) is handed in');
 	for (const q of [523, 537, 551]) assert.ok(!list.some(({ goal }) => goal.quest === q), `${q} (Vardus or Nagaz, 40) is left out at 38 (level tidy)`);
-	const weevil = list[at(list, 'collect 213568 (Hay Weevil Specimen)', (g) => g.t === 'collect' && g.item === 213568)];
+	// (#3545: the specimen is caught with the kit's Bug Catching Net, a `use` on its objective, not a collect.)
+	const weevil = list[at(list, 'use 213562 quest 93176.2 (Hay Weevil Specimen)', (g) => g.t === 'use' && g.quest === 93176 && g.oi === 2)];
 	assert.ok(whenOn(weevil.step, 'onquest', 93176), 'the Hay Weevil only for players on My Little Friends');
 });
 
@@ -12766,16 +12770,16 @@ test('forever/alliance 40-60: givers and hand-ins taken when the route passes th
 	assert.ok(!wpl.some(({ goal }) => goal.quest === 5211), 'and on the Plaguelands sweep');
 	const sp = (what, pred) => wpl[at(wpl, what, pred)].s;
 	assert.ok(sp('turnin 978', is('turnin', 978)) < sp('accept 1047', is('accept', 1047)), 'Erelas before the portal up to Darnassus');
-	// Fix round 2 (0.4.0): Torrig and Larksbane are taken on the Silithus guide's first Cenarion Hold stop, a stop the
-	// route makes anyway where their work and hand-ins are: carried from earlier they rode through Mount Hyjal.
-	for (const q of [9415, 8284, 8318]) assert.ok(!wpl.some(({ goal }) => is('accept', q)(goal)), `${q} not carried from here`);
+	// Fix round 2 (0.4.0): Larksbane and Bor Wildmane are taken on the Silithus guide's first Cenarion Hold stop, a stop
+	// the route makes anyway where their work and hand-ins are: carried from earlier they rode through Mount Hyjal.
+	for (const q of [8284, 8318]) assert.ok(!wpl.some(({ goal }) => is('accept', q)(goal)), `${q} not carried from here`);
 	const si = goals('forever/alliance/50-60/06-silithus.guide');
 	const ss = (what, pred) => si[at(si, what, pred)].s;
 	assert.ok(ss('turnin 1124', is('turnin', 1124)) < ss('accept 8277', is('accept', 8277)), 'Layo where the pass comes out, before Cenarion Hold');
-	// Since the 0.4.3 fix round Silithus is one visit, over Secret Communication's (57) minimum: Bor Wildmane, Torrig and
+	// Since the 0.4.3 fix round Silithus is one visit, over Secret Communication's (57) minimum: Bor Wildmane and
 	// Larksbane are on the first Cenarion Hold stop. Dearest Natalia (8304) needs 58, which the corrected level model
 	// reaches only after the first stop (57.94 there): Mar'alith gives it on the third, still before Bronzebeard's Encampment.
-	for (const q of [8318, 9415, 8284]) assert.equal(ss(`accept ${q}`, is('accept', q)), ss('accept 8277', is('accept', 8277)), `${q} on the first Cenarion Hold stop of the Silithus guide`);
+	for (const q of [8318, 8284]) assert.equal(ss(`accept ${q}`, is('accept', q)), ss('accept 8277', is('accept', 8277)), `${q} on the first Cenarion Hold stop of the Silithus guide`);
 	assert.equal(ss('accept 8304', is('accept', 8304)), ss('accept 8282', is('accept', 8282)), 'Dearest Natalia on the third Cenarion Hold stop');
 	assert.ok(ss('accept 8304', is('accept', 8304)) < ss('talk 15171', (g) => g.t === 'talk' && g.npc === 15171), 'before Bronzebeard\'s Encampment');
 });
@@ -13171,7 +13175,8 @@ test('Alliance Arathi & Alterac: Quae and Baron Vardus tips match the map', { sk
 test('Alliance Desolace south loop: the Flesh Picker is only for players on My Little Friends', { skip }, () => {
 	const list = goals('forever/alliance/30-40/06b-desolace.guide');
 	assert.ok(!list.some(({ goal }) => goal.t === 'kill' && goal.npc === 217590), 'no bare Flesh Picker check-off');
-	const pick = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 213567);
+	// (#3545: caught with the kit's Bug Catching Net, a `use` on objective 93176.3.)
+	const pick = list.filter(({ goal }) => goal.t === 'use' && goal.quest === 93176 && goal.oi === 3);
 	assert.equal(pick.length, 1, 'one Flesh Picker Specimen goal');
 	assert.ok((pick[0].step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'only while My Little Friends is in the log');
 });
@@ -15064,14 +15069,13 @@ test("jaff's report, hand-written guides: a quest held finished is handed in by 
 		['forever/class/mage/staff-or-orb-alliance.guide', [93791]],
 		['forever/legacy/legacy-challenges.guide', [8997, 8998]],
 		[R('brood-of-nozdormu'), [8575, 8577, 8597, 8598, 8599, 8584, 8587, 8733, 8734, 8741, 8801]],
-		[R('cenarion-circle'), [8275, 8276, 8307, 8313, 8308, 1000, 1047, 6761, 1123, 6762, 1124, 6844, 6845, 8800, 9415, 9416, 8331, 8349, 8343, 8351, 8791]],
+		[R('cenarion-circle'), [8275, 8276, 8307, 8313, 8308, 1000, 1047, 6761, 1123, 6762, 1124, 6844, 6845, 8800, 8331, 8349, 8343, 8351, 8791]],
 		[R('darkspear-trolls'), [97281]],
 		[R('orgrimmar'), [97281, 4882]],
 		[R('darnassus'), [2159]],
 		[R('stormwind'), [35]],
 		[R('gnomeregan-exiles'), [96408]],
 		[R('ironforge'), [96408]],
-		[R('hydraxian-waterlords'), [7486]],
 		[R('thorium-brotherhood'), [7704, 3801]],
 		[R('thunder-bluff'), [781, 98424]],
 		[R('zandalar-tribe'), [8183]],
@@ -17565,10 +17569,11 @@ test('#1483: Elwynn Forest: the Warlock\'s Stormwind walk names Gakin the Darkbi
 
 // Fyurie (#1544): My Little Friends' critters are caught with the Entomology Starter Kit, not killed: each is a collect
 // of its specimen, shown only with the quest in the log.
-test('#1544: Alliance: My Little Friends\' specimens are collects, shown with the quest in the log', { skip }, () => {
-	for (const [guide, item] of [[ARATHI, 213568], ['forever/alliance/40-50/01-stranglethorn-vale.guide', 213566]]) {
+// (#3545 since: each specimen is caught with the kit's Bug Catching Net, a `use` on its objective, not a collect.)
+test('#1544: Alliance: My Little Friends\' specimens are caught with the net, shown with the quest in the log', { skip }, () => {
+	for (const [guide, oi] of [[ARATHI, 2], ['forever/alliance/40-50/01-stranglethorn-vale.guide', 1]]) {
 		const list = goals(guide);
-		const { step } = list[at(list, `${guide}: collect ${item}`, (g) => g.t === 'collect' && g.item === item)];
+		const { step } = list[at(list, `${guide}: use 93176.${oi}`, (g) => g.t === 'use' && g.quest === 93176 && g.oi === oi)];
 		assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg && [p.q].flat().includes(93176)), `${guide}: when onquest 93176`);
 		assert.ok(!step.goals.some((g) => g.t === 'kill'), `${guide}: no kill on the specimen step`);
 	}
@@ -18700,4 +18705,155 @@ test('forever/alliance/50-60/01-burning-steppes.guide: Kum\'isha\'s fragment ste
 	const { steps } = compiled('forever/alliance/50-60/01-burning-steppes.guide');
 	const kum = steps.find((st) => st.goals.some(is('accept', 3501)));
 	assert.ok((kum.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 10593), 'when has 10593');
+});
+
+// #3299 (fekz): the Bulwark step named the Box of Incendiaries in a note and never asked for the Flame in a Bottle
+// that torches the Scarlet tent; taken from the crate next to Derrington, it is a goal now on both guides that take
+// Scarlet Diversions there.
+test('Scarlet Diversions: the Flame in a Bottle from the crate next to Derrington is a goal (#3299)', { skip }, () => {
+	for (const file of ['forever/horde/50-60/01-un-goro-crater.guide', 'forever/horde/50-60/02-felwood.guide']) {
+		const list = goals(file);
+		const take = at(list, 'accept 5096', is('accept', 5096));
+		const flame = list.findIndex(({ goal }) => goal.t === 'collect' && goal.item === 12814);
+		assert.ok(flame > take, `${file}: the flame after the accept`);
+		const { goal } = list[flame];
+		assert.deepEqual([goal.map, Math.round(goal.x), Math.round(goal.y)], [1420, 83, 69], `${file}: at the Box of Incendiaries`);
+		assert.ok(flame < at(list, 'complete 5096', is('complete', 5096)), `${file}: before the tent`);
+	}
+});
+
+// #3346 (Bussincider): What Is Love?'s figurine is taken by throwing the lit torch onto the archaeologist's cart
+// outside the house; the steps said only where the figurine lies.
+test('What Is Love?: the figurine steps say to throw the lit torch onto the cart (#3346)', { skip }, () => {
+	for (const file of ['forever/class/warlock/incubus-alliance.guide', 'forever/alliance/30-40/04-stranglethorn-vale.guide']) {
+		const st = compiled(file).steps.find((s) => s.goals.some((g) => g.t === 'collect' && g.item === 190309));
+		assert.match([st.note, st.tip].flat().filter(Boolean).join(' '), /throw (the lit torch|it) onto the archaeologist's cart/i, file);
+	}
+});
+
+// #3036 (Joogz): the Monstrous Threshadon is called up from what floats in the water at 74.4,72.4; the step followed
+// his other possible spots instead. Both factions' Riverglades guides lead there and say how.
+test('The Monster Surfaces: the head is taken where the Threshadon is called up (#3036)', { skip }, () => {
+	for (const file of ['forever/alliance/40-50/01b-riverglades.guide', 'forever/horde/40-50/01b-riverglades.guide']) {
+		const list = goals(file);
+		const { goal, step } = list[at(list, 'the head', (g) => g.t === 'collect' && g.quest === 95267)];
+		assert.deepEqual([goal.map, goal.x, goal.y], [2548, 74.4, 72.4], file);
+		assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /right-click the thing floating in the water/, file);
+	}
+});
+
+// #3550 (imp): While you're here offered Loose Soil before the player had a Farmers' Memento, which each grave takes.
+// The graves are a step of their own, shown with a Memento in the bags, after the cult step that gathers five.
+test('forever/alliance/40-50/01b-riverglades.guide: the Loose Soil only with a Farmers\' Memento (#3550)', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01b-riverglades.guide');
+	const soil = list[at(list, 'Loose Soil', (g) => g.t === 'interact' && g.quest === 94829)].step;
+	assert.ok((soil.when || []).some((p) => p.k === 'has' && !p.neg && Number(p.item) === 266148), 'when has 266148');
+	assert.ok(soil.goals.every((g) => g.t === 'interact' || g.t === 'note'), 'the step holds only the graves');
+	assert.ok(at(list, 'Mementos', (g) => g.t === 'collect' && g.item === 266148) < list.findIndex((e) => e.step === soil), 'the Mementos first');
+});
+
+// #3537 (Stö): Drawing Down the Malevolent was a group choice, but Elaena's eye makes both bosses non-elite and
+// players killed both once drained: a normal step for everyone, with the "drain first" tip kept.
+test('forever/50-60/mount-hyjal.guide: Drawing Down the Malevolent is a normal step with the drain-first tip (#3537)', { skip }, () => {
+	const { steps } = compiled('forever/50-60/mount-hyjal.guide');
+	const its = steps.filter((st) => st.goals.some((g) => g.quest === 96003));
+	assert.ok(its.length >= 3);
+	for (const st of its) assert.ok(!(st.when || []).some((p) => p.k === 'group'), `"${st.title}": no group choice`);
+	const accept = its.find((st) => st.goals.some(is('accept', 96003)));
+	assert.match([accept.note, accept.tip].flat().filter(Boolean).join(' '), /drain each one first/);
+});
+
+// #3545 (Rockout): My Little Friends' specimens are caught with the kit's Bug Catching Net, not killed for; the
+// goal lines said "Kill". Each is a `use` of the net now, counted by its objective.
+test('My Little Friends: each specimen is a use of the Bug Catching Net (#3545)', { skip }, () => {
+	for (const [file, oi] of [['forever/alliance/30-40/05-arathi-highlands.guide', 2], ['forever/alliance/30-40/06b-desolace.guide', 3], ['forever/alliance/40-50/01-stranglethorn-vale.guide', 1]]) {
+		const list = goals(file);
+		assert.ok(!list.some(({ goal }) => goal.t === 'collect' && [213566, 213567, 213568].includes(goal.item)), `${file}: no specimen collect`);
+		const { goal } = list[at(list, `93176.${oi}`, (g) => g.t === 'use' && g.quest === 93176 && g.oi === oi)];
+		assert.equal(goal.item, 213562, `${file}: the Bug Catching Net`);
+	}
+});
+
+// #3531 (Stö): Blademaster's Bonfires had no objectives in our data, so the Dae'gun step only led past the two
+// bonfires and moved on with them unlit. The bonfires are goals of the step now, by the quest's two objectives.
+test('forever/50-60/mount-hyjal.guide: Blademaster\'s Bonfires are lit before the hand-in (#3531)', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const south = at(list, 'South Bonfire', (g) => g.t === 'interact' && g.object === 656668);
+	const east = at(list, 'Southeast Bonfire', (g) => g.t === 'interact' && g.object === 656669);
+	const turnin = at(list, 'turnin 96959', is('turnin', 96959));
+	assert.ok(south < turnin && east < turnin);
+	assert.deepEqual([list[south].goal.quest, list[east].goal.quest], [96959, 96959]);
+});
+
+// #3192 (PierreAnken): Stinky Ignatz offered nothing at 35; nobody took Stinky's Escape below 36 in the recordings.
+// #3347 (Cobra), #2755 (Gindry): Get Me Out of Here!'s six attackers are said up front, and a player who skips the
+// escort is not sent to Hornizz for its hand-in.
+test('Dustwallow & Desolace: Stinky from 36, the escort\'s heads-up and Hornizz only with the escort done (#3192, #3347, #2755)', { skip }, () => {
+	const stinky = compiled('forever/horde/30-40/04-dustwallow-marsh.guide').steps.find((st) => st.goals.some(is('accept', 1270)));
+	assert.equal(levelFrom(stinky), 36);
+	for (const file of ['forever/horde/30-40/04-dustwallow-marsh.guide', 'forever/alliance/30-40/06b-desolace.guide']) {
+		const { steps } = compiled(file);
+		const escort = steps.find((st) => st.goals.some(is('accept', 6132)));
+		assert.match([escort.note, escort.tip].flat().filter(Boolean).join(' '), /six centaurs attack during the escort/, file);
+		const hornizz = steps.find((st) => st.goals.some(is('turnin', 6132)));
+		assert.ok((hornizz.when || []).some((p) => p.k === 'complete' && [].concat(p.q).includes(6132)), `${file}: Hornizz only with the escort done`);
+	}
+});
+
+// #3546 (Gindry): Oasis (97540) is offered by Tooga only after her escort, Tooga's Quest (1560), is handed in; While
+// you're here offered it before, from data with no prerequisite (the data side adds `pre: [1560]`). The guide takes
+// it right after 1560's hand-in at Torta, and must keep that order.
+test('forever/alliance/40-50/04-tanaris.guide: Oasis only after Tooga\'s Quest is handed in (#3546)', { skip }, () => {
+	const list = goals('forever/alliance/40-50/04-tanaris.guide');
+	assert.ok(at(list, 'turnin 1560', is('turnin', 1560)) < at(list, 'accept 97540', is('accept', 97540)));
+});
+
+// #3522 (Fitz's decision, 22 Nov): Duke Hydraxis's chain is not offered on Forever (live quest scans of builds
+// 70959 and 71037, no recorded quest window). The Waterlords guide drops its quest steps and keeps the reputation
+// kills to Honored, with one line saying the chain comes back when the Molten Core opens.
+test('forever/reputation/hydraxian-waterlords.guide: no Duke Hydraxis quest, the reputation kills stay (#3522)', { skip }, () => {
+	const file = 'forever/reputation/hydraxian-waterlords.guide';
+	const list = goals(file);
+	const chain = [6804, 6805, 6821, 6822, 6823, 6824, 7486, 7848];
+	assert.deepEqual(list.filter(({ goal }) => chain.includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest}`), []);
+	const kills = list.filter(({ goal }) => goal.t === 'kill').map(({ goal }) => goal.npc);
+	for (const npc of [11744, 11746, 14478, 9017, 9816]) assert.ok(kills.includes(npc), `the reputation kill of ${npc} stays`);
+	assert.ok(list.some(({ goal }) => goal.t === 'rep'), 'the reputation goals stay');
+	const tips = compiled(file).steps.flatMap((st) => [st.tip, st.note]).flat().filter(Boolean).join(' ');
+	assert.match(tips, /come back when the Molten Core opens/);
+});
+
+// #3338 (Zack): nobody was offered Report to General Kirika (9416) or Report to Marshal Bluewall (9415), nor the
+// Silithyst quests after them (9419, 9422): Scout Bloodfist and Rifleman Torrig were never seen, 0 runs in players'
+// recordings while the other Cenarion Hold quests are recorded many times, and the reporter checked a second layer.
+// The two Silithus guides and the Cenarion Circle guide leave all four out.
+test('Silithus and Cenarion Circle: the scouts\' reports and Scouring the Desert are left out (#3338)', { skip }, () => {
+	for (const file of ['forever/horde/50-60/06-silithus.guide', 'forever/alliance/50-60/06-silithus.guide', 'forever/reputation/cenarion-circle.guide']) {
+		const left = goals(file).filter(({ goal }) => [9415, 9416, 9419, 9422].includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest}`);
+		assert.deepEqual(left, [], file);
+	}
+});
+
+// #3385 (Tilman): skipping the kodo-taming step at the Kodo Graveyard skipped Reagents for Reclaimers Inc.'s venom
+// too, since both were in one step. A skip only touches its own quest (Fitz, 22 Nov): an escort or a taming, the
+// work a player may skip on its own, has a step of its own, with no other quest's work beside it.
+test('an escort or taming has a step of its own, so skipping it skips no other quest (#3385)', { skip }, () => {
+	const WORK = new Set(['complete', 'kill', 'collect', 'use', 'interact', 'talk', 'explore', 'cast']);
+	for (const [file, quest] of [
+		['forever/alliance/30-40/02-desolace.guide', 5561], // Kodo Roundup
+		['forever/alliance/03-darkshore-return.guide', 945], // Therylune's Escape
+		['forever/alliance/03-darkshore-return.guide', 994], // Escape Through Force (Volcor)
+		['forever/alliance/30-40/04b-stranglethorn-vale.guide', 97331], // Zimmix's Great Escape
+		['forever/horde/30-40/03-stranglethorn-vale.guide', 97331],
+		['forever/horde/07-ashenvale.guide', 6482], // Freedom to Ruul
+		['forever/horde/07-ashenvale.guide', 4904], // Free at Last
+		['forever/horde/07-ashenvale.guide', 4770], // Homeward Bound
+	]) {
+		const steps = compiled(file).steps.filter((st) => st.goals.some((g) => g.quest === quest && WORK.has(g.t)));
+		assert.ok(steps.length > 0, `${file}: ${quest} is worked`);
+		for (const st of steps) {
+			const others = st.goals.filter((g) => WORK.has(g.t) && g.quest != null && g.quest !== quest && !g.optional);
+			assert.deepEqual(others.map((g) => `${g.t} ${g.quest}`), [], `${file} "${st.title}": only ${quest}'s work`);
+		}
+	}
 });

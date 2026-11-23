@@ -4,7 +4,7 @@
 -- first uses each key. docs/TRANSLATING.md explains the rest.
 
 local ns = Polestar
-if not (ns and GetLocale and GetLocale() == "ptBR") then return end
+if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ptBR") then return end
 local L = ns.L
 
 -- Core/Init.lua
@@ -230,6 +230,7 @@ L["Ride to the flight master"] = "Vá montado até o mestre de voo"
 -- L["Requires level %d: kept for a later guide"] = ""
 -- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
 -- L["For %s, later on your route."] = ""
+-- L["kill %s as you meet them"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Escolha uma recompensa para concluir a entrega."
@@ -472,6 +473,11 @@ L["Ride to the cave mouth in %s"] = "Vá montado até a entrada da caverna em %s
 L["Ride to the entrance in %s"] = "Vá montado até a entrada em %s"
 L["Ride to the cave mouth"] = "Vá montado até a entrada da caverna"
 L["Ride to the entrance"] = "Vá montado até a entrada"
+-- L["Known flight paths forgotten: open a flight map on each continent to settle them again."] = ""
+-- L["No flight paths known yet: open a flight map to record them."] = ""
+-- L["Known flight paths (%d): %s"] = ""
+-- L["List the flight paths Polestar knows you have (reset: forget them)"] = ""
+-- L["Faster if you have the flight path at %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -1333,8 +1339,14 @@ L["Opens the Eastwall Gate into Stratholme's Scourge-held districts."] = "Abre o
 L["Opens the inner doors of Dire Maul's North and West wings."] = "Abre as portas internas das alas Norte e Oeste de Gládio Cruel."
 L["Opens Gnomeregan's back door, the Workshop entrance."] = "Abre a porta dos fundos de Gnomeregan, a entrada da Oficina."
 L["Opens the doors of the Armory and the Cathedral."] = "Abre as portas do Arsenal e da Catedral."
-L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "Abre o portão do caminho da Horda para a Cidade de Dalaran; uma chave o abre para o grupo. A Aliança entra pelo cano de esgoto em Cantrips & Crows."
 L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites."] = "Toca o gongo junto ao lago sagrado em Zul'Farrak para chamar Gahz'rilla; uma marreta basta para o grupo. Qiaga, a Guardiã (elite), no topo do Altar de Zul, nas Terras Agrestes, solta a Marreta Sagrada: use-a no altar bem no topo de Jintha'Alor e ela vira a Marreta de Zul'Farrak. Os dois lugares estão cheios de elites."
+-- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Image of Archmage Modera gives it with Heart of Disruption: keep that quest in your log until you are inside. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = ""
+-- L["Calls up Lyn the Ignored, a hidden boss, at the summoning circle in the City of Dalaran's Underbelly, in the small room past Atrexis the Grave Knight. The Black Tome lies on a table up the stairs behind Archmage Arugal in Shadowfang Keep; use it at the Ambermill Leyline Focus, the blue crystal beside Archmage Ataeric in Ambermill's town hall, and it becomes the Tome of Dalaran."] = ""
+-- L["Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside."] = ""
+-- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
+-- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
+-- L["Use %s beside %s: it becomes %s."] = ""
+-- L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "Mapa %d"
@@ -2030,6 +2042,7 @@ L["The Dungeons section is turned off. Turn it on under Settings > Discovery > L
 L["%d-%d players"] = "%d-%d jogadores"
 L["No boss drops known"] = "Nenhum saque de chefe conhecido"
 L["Drops (%d)"] = "Saques (%d)"
+-- L["Use %s beside %s"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Bem aqui"
@@ -4918,6 +4931,11 @@ L["A preview of the settings in groups, with tabs, a filter and a preview beside
 
 -- UI/Essentials.lua
 L["Most used"] = "Mais usados"
+-- Core/Locale.lua
+-- L["Language: %s. Change it with /polestar language <name>, one of: %s."] = ""
+-- L["No language '%s'. Choose one of: %s."] = ""
+-- L["Language: %s, from the next /reload."] = ""
+-- L["Choose Polestar's language (game, enUS, deDE...), from the next /reload"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Configurar o Polestar de novo, uma página por vez. Cada escolha vale na hora."
@@ -5186,3 +5204,4 @@ L["Most used"] = "Mais usados"
 -- L["Options"] = "Opções"
 -- L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "Personagens está desativado. Ative em Opções > Descoberta > Consulta."
 -- L["Boss whisper"] = "Sussurro de chefe"
+-- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "Abre o portão do caminho da Horda para a Cidade de Dalaran; uma chave o abre para o grupo. A Aliança entra pelo cano de esgoto em Cantrips & Crows."

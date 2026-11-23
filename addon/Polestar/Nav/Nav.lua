@@ -917,8 +917,24 @@ local function groundLeg()
 	return T and T.Active() and T.CurrentLeg() or nil
 end
 
+-- An area objective (a kill's or a collect's spawn area: target.search) within Nav.NEAR_LINE yards on open ground,
+-- its walk no longer than Nav.NEAR_BEND times the straight way: the arrow alone, no route line (#3641 E: in Hillsbrad
+-- Fields a line looped round the farm for a 79 yd target the player was already walking to through the field).
+Nav.NEAR_LINE, Nav.NEAR_BEND = 60, 1.25
+function Nav.NearOpenArea()
+	if not (target and target.search and tC) or (IsIndoors and IsIndoors()) then return false end
+	local C = ns.Compat
+	local pc, px, py = C.GetPlayerWorldPosition()
+	if pc ~= tC then return false end
+	local d = math.sqrt((tX - px) ^ 2 + (tY - py) ^ 2)
+	if d > Nav.NEAR_LINE then return false end
+	local W = Nav.walk
+	local left = W and W.LiveLeft and W.LiveLeft(tC, tX, tY)
+	return left ~= nil and left <= d * Nav.NEAR_BEND + 5
+end
 function Nav.CanDrawGroundApproach(c, x, y, gx, gy)
 	if not target then return false end
+	if Nav.NearOpenArea() then return false end
 	if refusedTarget == target and refusedLeg == groundLeg() then return false end
 	local W = Nav.walk
 	local T = Nav.travel

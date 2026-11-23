@@ -94,7 +94,9 @@ local function weights(st, profile, style, danger)
 	if st.zoned then
 		kept, signature = dangerOf(danger)
 	end
+	-- A walked trail (Path.SetTrail) opens ways the grid doesn't have: its searches are their own (caches keyed by tag).
 	local tag = (Costs.Profile(profile) or "") .. ":" .. style .. (kept and ":" .. signature or "")
+		.. (st.trail and ":trail" .. st.trail.version or "")
 	local mult = mults[tag]
 	if not mult then
 		if multCount >= 32 then
@@ -115,12 +117,15 @@ end
 -- Balanced), danger = { [uiMapID] = multiplier >= 1 } | nil (a step into a zone the table holds costs that many
 -- times; weights), homeHub = true | nil (the walk starts or ends inside a town hostile to profile: it is priced as
 -- for no profile, so it takes the town's own way in or out instead of the shortest way off the town's ground, over
--- its walls or the mountains; the hostile towns its drawn line enters are still reported for profile) }.
--- -> waterWalking, profile (the one that prices), style, danger, report (the profile job.hubs is read for)
+-- its walls or the mountains, and a quest goal inside the town is walked to as the town's own people walk; the
+-- hostile towns its drawn line enters are still reported for profile, and the walk's policy (Safe) is still
+-- profile's) }.
+-- -> waterWalking, profile (the one that prices), style, danger, report (the profile job.hubs is read for, and the
+-- policy's), walkLevel
 local function options(opts)
 	if type(opts) == "table" then
-		if opts.homeHub and opts.walkLevel == nil then
-			return opts.waterWalking, nil, opts.style, opts.danger, opts.profile
+		if opts.homeHub then
+			return opts.waterWalking, nil, opts.style, opts.danger, opts.profile, opts.walkLevel
 		end
 		return opts.waterWalking, opts.profile, opts.style, opts.danger, opts.profile, opts.walkLevel
 	end
@@ -132,10 +137,11 @@ end
 local Safe = { refusal = "no safe walking route" }
 function Safe.setup(job)
 	local d = Polestar and Polestar.Nav and Polestar.Nav.danger
-	if not Costs.Profile(job.profile) then return "unknown faction" end
+	local profile = job.report or job.profile
+	if not Costs.Profile(profile) then return "unknown faction" end
 	if not d or type(d.Blocked) ~= "function" then return "missing danger policy" end
 	if not State(job.map) then return "missing walking data" end
-	local blocked, map, profile = d.Blocked, job.map, job.profile
+	local blocked, map = d.Blocked, job.map
 	job.policy = blocked
 	job.check = function(x, y, X, Y) return blocked(map, x, y, X, Y, profile) end
 end
@@ -388,8 +394,9 @@ end
 function Safe.weights(st, profile, style, danger, job, from, to)
 	local base, hmin = weights(st, profile, style, danger)
 	if not job.check then return base, hmin end
+	local policy = tostring(job.report or profile)
 	return { min = base and base.min or 1, kinds = kindMults(base), danger = base and base.danger,
-		tag = (base and base.tag or profile) .. ":strict:" .. profile .. ":" .. tostring(job.policy)
+		tag = (base and base.tag or tostring(profile)) .. ":strict:" .. policy .. ":" .. tostring(job.policy)
 			.. (job.filtered and ":checked" or ":candidate"),
 		check = job.filtered and job.check, policy = job.policy, from = from, to = to }, hmin
 end
@@ -424,6 +431,7 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 	-- without danger).
 	local dz = mult and mult.danger and chunkDanger(st, k, mult.danger)
 	local weighted = mult ~= nil
+	local trail = st.trail and st.trail.arcs[k] -- the walked trail's steps in this cluster (Path.SetTrail)
 	tree.gen = tree.gen + 1
 	local open = 2 * tree.gen * SPAN -- pm at or above it: open in this search; at or above settled: settled
 	local settled = open + SPAN
@@ -633,6 +641,13 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left, back
 						relax((t1 * 256 + t2) * 256 + t3, (y1 * 256 + y2) / unit)
 					end
 					a = a + 6
+				end
+			end
+			-- The player's own steps where the grid has no way (Path.SetTrail): both ways, at their length.
+			local t = trail and trail[u]
+			if t then
+				for e = 1, #t, 2 do
+					relax(t[e], t[e + 1])
 				end
 			end
 		end
@@ -1846,6 +1861,9 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 				if aclosed[u] ~= gen then
 					aclosed[u] = gen
 					tick()
+					-- An abstract expansion (an entrance's edges, the clusters they reach decoded, a landing's grid
+					-- searches) can take far longer than a grid one: read the clock after each (#3640).
+					Path.Checkpoint()
 					if u == GOAL then
 						found = true
 						break
@@ -2538,6 +2556,7 @@ local function runMany(map, from, targets, waterWalking, reverse, job, profile, 
 			job.radius = hn > 0 and hk[1] or huge
 		end
 		tick()
+		Path.Checkpoint() -- after each abstract expansion, as run's (#3640)
 	end
 	for i = 1, #targets do
 		if costs[i] == nil then
@@ -2636,6 +2655,94 @@ function Path.ZoneTile(map, x, y)
 	end
 	local side = st.C * st.cs
 	return s, 16 * (floor(st.x0 / side + 0.5) + floor(k / st.ny)), 16 * (floor(st.y0 / side + 0.5) + k % st.ny)
+end
+
+-- The player's own steps as evidence (#3641, Fitz in Hillsbrad Fields: he walked round the farmhouse's left side
+-- while every walk the arrow asked went round its right, the maps' 4-yd cells closing the orchard and the fence gaps
+-- he walked through). samples = { x1, y1, z1, x2, y2, z2, ... }: the player's recent places on map, oldest first, a
+-- couple of yards apart (z false where unknown). Two places in a row at most TRAIL_STEP yards apart, on nodes of one
+-- cluster that the grid joins by no way at most TRAIL_DETOUR times their distance (plus TRAIL_SLACK cells), are
+-- joined for this map's searches (st.trail: a step each way at its length, read by `search`), until the next
+-- SetTrail; nil clears it. A walk then goes where the player walked. Nothing is stored or shipped, and the profile's
+-- costs and the walk's policy apply to those steps as to any. Each place stands on the surface nearest the last
+-- one's height (its own when it has one); two whose surfaces lie further apart in height than Path.trailRise yards a
+-- yard plus Path.trailPad (a fence's step, a bank) are never joined: another floor, not a gap. The searches of a set
+-- trail are their own (weights' tag carries its
+-- version; a trail with the same joins keeps it, so caches stay). -> the joins made (map gaps the player walked
+-- through) and the middle of the first: n, x, y (0 for none).
+local TRAIL_STEP, TRAIL_DETOUR, TRAIL_SLACK = 6, 3, 2
+Path.trailRise, Path.trailPad = 1.2, 3
+local trailVersion = 0
+function Path.SetTrail(map, samples)
+	local st = State(map)
+	if not st then
+		return 0
+	end
+	if not samples then
+		st.trail = nil
+		return 0
+	end
+	local arcs, keys, gaps, gx, gy = {}, {}, 0, nil, nil
+	-- The grid's own ways, without the trail set before (its joins would hide the gaps they bridge).
+	local before = st.trail
+	st.trail = nil
+	local tree = Tree()
+	local C, cs = st.C, st.cs
+	local N = C * C
+	local pk, pn, px, py, pz, pc
+	for i = 1, #samples - 2, 3 do
+		local x, y, z = samples[i], samples[i + 1], samples[i + 2]
+		if z == false then
+			z = nil
+		end
+		local k, lc = locate(st, x, y)
+		local node = k and snap(st, k, lc, x, y, z or pz)
+		local c = node and grid(st, k)
+		if node and c then
+			local cell = node < N and node or floorCell(c, node)
+			local nz = zOf(c, node)
+			if pn and pk == k and pn ~= node and (x - px) ^ 2 + (y - py) ^ 2 <= TRAIL_STEP * TRAIL_STEP
+				and abs(nz - pz) <= Path.trailRise * (abs(x - px) + abs(y - py)) + Path.trailPad then
+				local dx, dy = floor(cell / C) - floor(pc / C), cell % C - pc % C
+				local d = sqrt(dx * dx + dy * dy)
+				local key = k .. ":" .. (pn < node and pn .. ":" .. node or node .. ":" .. pn)
+				if not keys[key] then
+					keys[key] = true
+					hn = 0
+					if not search(st, k, 1, nil, pn, tree, node, nil, nil, false, (TRAIL_DETOUR * d + TRAIL_SLACK) * cs) then
+						local A = arcs[k] or {}
+						arcs[k] = A
+						local a, b = A[pn] or {}, A[node] or {}
+						A[pn], A[node] = a, b
+						a[#a + 1], a[#a + 2] = node, d
+						b[#b + 1], b[#b + 2] = pn, d
+						gaps = gaps + 1
+						keys[#keys + 1] = key
+						if not gx then
+							gx, gy = (x + px) / 2, (y + py) / 2
+						end
+					end
+				end
+			end
+			pk, pn, px, py, pz, pc = k, node, x, y, nz, cell
+		else
+			pn = nil
+		end
+	end
+	Release(tree)
+	if gaps == 0 then
+		st.trail = nil
+		return 0
+	end
+	table.sort(keys)
+	local sig = table.concat(keys, ",")
+	if before and before.sig == sig then
+		st.trail = before
+	else
+		trailVersion = trailVersion + 1
+		st.trail = { version = trailVersion, sig = sig, arcs = arcs }
+	end
+	return gaps, gx, gy
 end
 
 -- The town hostile to profile (Costs.Profile) whose ground holds the world point (x, y) on map: one of its disks in
@@ -3255,7 +3362,7 @@ function Safe.find(job)
 	-- Cost work also needs the actual line. Leave the enqueued job's costOnly
 	-- untouched (the scheduler uses it for priority between coroutine slices).
 	local solve = { map = job.map, from = from, to = to, waterWalking = job.waterWalking,
-		profile = job.profile, report = job.profile, style = job.style, danger = job.danger,
+		profile = job.profile, report = job.report or job.profile, style = job.style, danger = job.danger,
 		walkLevel = job.walkLevel, check = job.check, policy = job.policy, skipReport = job.costOnly }
 	repeat
 		solve.replan = nil
@@ -3345,7 +3452,7 @@ function Safe.many(job)
 	end)
 	local function search(target, source)
 		local child = { map = job.map, from = job.reverse and target or source, to = job.reverse and source or target,
-			profile = job.profile, walkLevel = job.walkLevel, style = job.style, danger = job.danger,
+			profile = job.profile, report = job.report, walkLevel = job.walkLevel, style = job.style, danger = job.danger,
 			waterWalking = job.waterWalking, costOnly = true, check = job.check, policy = job.policy }
 		return Safe.find(child), child
 	end

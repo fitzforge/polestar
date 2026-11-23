@@ -91,7 +91,7 @@ return {
 
 	-- Step 15: The Venture Co. Mine: the Clearcutter
 	-- {area:360} The Venture Co. Mine
-	["{area:360}: the Clearcutter"] = "{area:360}：Clearcutter",
+	["{area:360}: the Clearcutter"] = "{area:360}：精英伐木机",
 	-- {npc:272173} Venture Co. Clearclutter · {quest:98427} Ceasing Operations
 	["The elite shredder {npc:272173} works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "精英伐木机{npc:272173}在矿洞深处作业，比菲兹普罗克原先所在的位置更深；它的钥匙用于{quest:98427}。",
 
@@ -162,7 +162,7 @@ return {
 	-- {npc:10807} Brumeran · {quest:5056} Shy-Rotam
 	["{npc:10807} and {quest:5056}"] = "{npc:10807}和{quest:5056}",
 	-- {npc:10807} Brumeran · {area:2255} Everlook · {quest:5056} Shy-Rotam · {item:12733} Sacred Frostsaber Meat · {object:103819} Stone of Shy-Rotam (no name in this language: may be words) · {npc:10306} Trull Failbane · {zone:1454} Orgrimmar · {item:12558} Blue-feathered Necklace · {quest:4882} Guarding Secrets · {faction:81} Thunder Bluff
-	["{npc:10807}, an elite chimera, spawns south of {area:2255}. For {quest:5056}, kill frostsabers north of {area:2255} until one drops {item:12733} (about one in ten), then use the meat at the {object:103819}, far to the north, and kill the great cat that comes. If you have done {npc:10306}'s Wild Guardians quests (the {zone:1454} guide), the Crazed, Moontouched and Berserk owlbeasts around {area:2255} sometimes drop a {item:12558}: it starts {quest:4882}, 50 {zone:1454} and then 100 {faction:81} reputation in full."] = "精英奇美拉{npc:10807}出现在{area:2255}南面。做{quest:5056}时，在{area:2255}北面击杀霜刃豹，直到掉落{item:12733}（约十分之一概率），然后在最北面的{object:103819}使用肉，击杀出现的巨型猫科野兽。如果已完成{npc:10306}的“冬泉谷的枭兽”任务（{zone:1454}指南），{area:2255}周围的狂乱、月光和狂暴枭兽有时会掉落{item:12558}：它触发{quest:4882}，先奖励50点{zone:1454}声望，再奖励100点{faction:81}声望，均为全额。",
+	["{npc:10807}, an elite chimera, spawns south of {area:2255}. For {quest:5056}, kill frostsabers north of {area:2255} until one drops {item:12733} (about one in ten), then use the meat at the {object:103819}, far to the north, and kill the great cat that comes. If you have done {npc:10306}'s Wild Guardians quests (the {zone:1454} guide), the Crazed, Moontouched and Berserk owlbeasts around {area:2255} sometimes drop a {item:12558}: it starts {quest:4882}, 50 {zone:1454} and then 100 {faction:81} reputation in full."] = "精英奇美拉{npc:10807}出现在{area:2255}南面。做{quest:5056}时，在{area:2255}北面击杀霜刃豹，直到掉落{item:12733}（约十分之一概率），然后在最北面的希洛塔姆之石使用肉，击杀出现的巨型猫科野兽。如果已完成{npc:10306}的“冬泉谷的枭兽”任务（{zone:1454}指南），{area:2255}周围的狂乱、月光和狂暴枭兽有时会掉落{item:12558}：它触发{quest:4882}，先奖励50点{zone:1454}声望，再奖励100点{faction:81}声望，均为全额。",
 	-- {npc:10807} Brumeran
 	["{npc:10807}, elite"] = "{npc:10807}，精英",
 	-- {item:12733} Sacred Frostsaber Meat

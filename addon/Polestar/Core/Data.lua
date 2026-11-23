@@ -30,6 +30,9 @@
 --     player who copied only some folders, or an old zip over a new one,
 --     finds out; the old folders get a line of their own saying to delete
 --     them.
+--   Data.Installed(name) -> bool
+--     The folder is in the AddOns folder, loaded or not, turned off or not
+--     (true without the client's API to ask).
 --   Data.InstallLine() -> string|nil
 --     A mixed install (stale non-empty) in one English line for the report
 --     (UI/Report.lua).
@@ -133,6 +136,7 @@ local function installed(name)
 	local ok, _, _, _, _, reason = pcall(A.GetAddOnInfo, name)
 	return ok and readable(reason) ~= "MISSING"
 end
+Data.Installed = installed
 
 local function versionOf(name)
 	local get = C_AddOns and C_AddOns.GetAddOnMetadata

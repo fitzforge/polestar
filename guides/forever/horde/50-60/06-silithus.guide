@@ -112,7 +112,6 @@ step Cenarion Hold
   turnin 8276                         -- Windcaller Proudhorn
   accept 8280
   accept 8284                         -- Geologist Larksbane
-  accept 9416                         -- Scout Bloodfist
   getfp "Cenarion Hold"
 
 step Calandrath
@@ -163,18 +162,8 @@ step Dredge Crushers and Pincers
   collect 20375 quest 8278.1
   collect 20377 quest 8278.3
 
-step General Kirika
-  tip Ride west to the Horde camp north of Hive'Regal.
-  turnin 9416
-  accept 9422
-
-step Scouring the Desert
-  tip Silithyst geysers erupt across the southern desert. Walk into the Silithyst one leaves behind and carry it to the Horde's Silithyst Extractor at Kirika's camp; fighting or mounting drops it.
-  complete 9422 @50.93,69.33 map 1451 era
-  turnin 9422                         -- General Kirika
-
 step Flayers and Rock Stalkers
-  tip Stonelash Flayers and Rock Stalkers roam the dunes south-west of Kirika's camp.
+  tip Stonelash Flayers and Rock Stalkers roam the dunes north of Hive'Regal, in the south-east of Silithus.
   collect 20377 quest 8278.3
   collect 20375 quest 8278.1
 

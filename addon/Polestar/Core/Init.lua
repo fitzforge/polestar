@@ -166,10 +166,11 @@ end
 -- status "ai"; tests/i18n.test.js keeps the two lists equal).
 ns.AI_LOCALES = { koKR = true, ptBR = true, ruRU = true, zhCN = true, zhTW = true }
 
--- True when this client reads an AI-made translation: its locale is one of
--- AI_LOCALES and its file filled L. Options' About then says so.
+-- True when Polestar shows an AI-made translation: the language it shows
+-- (Polestar.Names.Language) is one of AI_LOCALES and its file filled L.
+-- Options' About then says so.
 function ns.AITranslation()
-	return (GetLocale and ns.AI_LOCALES[GetLocale()] == true and next(L) ~= nil) or false
+	return (ns.AI_LOCALES[ns.Names.Language()] == true and next(L) ~= nil) or false
 end
 
 -- Game terms in the client's own words, so they read as the game writes them
@@ -404,8 +405,20 @@ local run = call
 -- fn wrapped so its errors are caught, noted and passed on like an event
 -- handler's (nil stays nil): for OnUpdate scripts and timer callbacks, which
 -- the client would otherwise run bare.
+-- Until login is done, and for every ticker and timer, where fn was made is
+-- noted for the perf probe (ns.NoteMadeAt): the OnUpdate scripts and tickers
+-- made as the addon loads run for the whole session, and the probe, turned on
+-- later, could not name them ("timer ?" in a report, #3640). Once logged in a
+-- plain ns.Safe/ns.After (made often, gone soon) notes nothing; the probe
+-- notes those itself while it is on.
+local noteMaking = true
+local INIT = ADDON .. "/Core/Init.lua"
+local function noteMade(fn)
+	if madeAt[fn] == nil then ns.NoteMadeAt(fn, INIT) end
+end
 function ns.Safe(fn)
 	if fn == nil then return nil end
+	if noteMaking then noteMade(fn) end
 	return function(...)
 		serial = serial + 1
 		run(fn, ...)
@@ -414,8 +427,14 @@ end
 
 -- C_Timer's After, NewTicker and NewTimer with the callback through ns.Safe.
 function ns.After(seconds, fn) return C_Timer.After(seconds, ns.Safe(fn)) end
-function ns.NewTicker(seconds, fn, n) return C_Timer.NewTicker(seconds, ns.Safe(fn), n) end
-function ns.NewTimer(seconds, fn) return C_Timer.NewTimer(seconds, ns.Safe(fn)) end
+function ns.NewTicker(seconds, fn, n)
+	if fn ~= nil then noteMade(fn) end
+	return C_Timer.NewTicker(seconds, ns.Safe(fn), n)
+end
+function ns.NewTimer(seconds, fn)
+	if fn ~= nil then noteMade(fn) end
+	return C_Timer.NewTimer(seconds, ns.Safe(fn))
+end
 
 -- A frame of Polestar's that goes under the game's own UI (the world map's
 -- canvas, the minimap, a quest reward or talent button): made with no parent,
@@ -1465,6 +1484,7 @@ local function onLogin()
 	local queue = loginQueue
 	loginQueue = nil
 	for i = 1, #queue do call(queue[i]) end
+	noteMaking = false
 end
 
 ns.RegisterEvent("ADDON_LOADED", onAddonLoaded)
