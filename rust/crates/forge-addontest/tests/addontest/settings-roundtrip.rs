@@ -144,7 +144,11 @@ function values(c)
 	end
 	if c.kind == "dropdown" or c.kind == "cards" or c.kind == "font" then
 		local out = {}
-		for _, ch in ipairs(choices(c)) do out[#out + 1] = ch.value end
+		-- A saved setup's card in the guide window's Presets (a look snapshot, UI/LayoutCard.lua) puts its keys back
+		-- and is never lit: no value the row reads back, so not one the walks write (ui_layout_card checks it).
+		for _, ch in ipairs(choices(c)) do
+			if not (type(ch.value) == "string" and ch.value:find("^snapshot:")) then out[#out + 1] = ch.value end
+		end
 		return out
 	end
 	if c.kind == "color" then return { { 1, 0, 0, 1 }, { 0, 1, 0, 0.5 }, { 0.2, 0.4, 0.6 } } end
