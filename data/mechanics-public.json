@@ -770,18 +770,6 @@
 			],
 			"note": "My Little Friends (93176): each specimen is caught by using the Bug Catching Net (213562, from the Entomology Starter Kit Amaryllis Webb gives with the quest) on an Arbor Tarantula (217588), a Hay Weevil (217589) or a Flesh Picker (217590). Our data listed the specimens as their drops, so the goal read \"Kill Hay Weevil\" (#3545). Source: players' in-game recordings to 2026-11-22: 22 people, every objective tick right after a cast of Collect Specimen (spell 434957); the client's item tables give that spell as the net's use."
 		},
-		"7848": {
-			"steps": [
-				{
-					"n": 1,
-					"action": "interact",
-					"target": { "type": "object", "id": 179553 },
-					"fact": "The Core Fragment lies beside the Molten Core portal deep inside Blackrock Depths: click it there, then bring it back to Lothos Riftwaker outside. Once you are attuned, Lothos sends you straight into the Molten Core.",
-					"confidence": "high"
-				}
-			],
-			"note": "Attunement to the Core (7848), the Molten Core attunement: its only objective, the Core Fragment (18412), comes from the Core Fragment object (179553), which has no open-world spawn. Source: the game's quest text ('Venture to the Molten Core entry portal in Blackrock Depths and recover a Core Fragment. Return to Lothos Riftwaker in Blackrock Mountain'); the quest's reward spell (22877) is the attunement Lothos checks."
-		},
 		"6402": {
 			"steps": [
 				{
