@@ -474,6 +474,11 @@ L["Ride to the cave mouth in %s"] = "Vá montado até a entrada da caverna em %s
 L["Ride to the entrance in %s"] = "Vá montado até a entrada em %s"
 L["Ride to the cave mouth"] = "Vá montado até a entrada da caverna"
 L["Ride to the entrance"] = "Vá montado até a entrada"
+-- L["Known flight paths forgotten: open a flight map on each continent to settle them again."] = ""
+-- L["No flight paths known yet: open a flight map to record them."] = ""
+-- L["Known flight paths (%d): %s"] = ""
+-- L["List the flight paths Polestar knows you have (reset: forget them)"] = ""
+-- L["Faster if you have the flight path at %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -1347,6 +1352,8 @@ L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one malle
 -- L["Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside."] = ""
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
+-- L["Use %s beside %s: it becomes %s."] = ""
+-- L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "Mapa %d"
@@ -2028,6 +2035,7 @@ L["The Dungeons section is turned off. Turn it on under Options > Discovery > Lo
 L["%d-%d players"] = "%d-%d jogadores"
 L["No boss drops known"] = "Nenhum saque de chefe conhecido"
 L["Drops (%d)"] = "Saques (%d)"
+-- L["Use %s beside %s"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Bem aqui"
@@ -4808,6 +4816,12 @@ L["XP remaining after turn-ins"] = "EXP restante após as entregas"
 -- L["Perf probe: measurements cleared."] = ""
 -- L["/polestar perf: on, off, report or reset"] = ""
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
+
+-- Core/Locale.lua
+-- L["Language: %s. Change it with /polestar language <name>, one of: %s."] = ""
+-- L["No language '%s'. Choose one of: %s."] = ""
+-- L["Language: %s, from the next /reload."] = ""
+-- L["Choose Polestar's language (game, enUS, deDE...), from the next /reload"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."

@@ -314,13 +314,13 @@ return {
 	["{item:271653}, from {npc:260565}"] = "{item:271653}，从{npc:260565}处购买",
 	-- {item:271654} Expired Poison · {npc:260560} Krikshank
 	["{item:271654}, from {npc:260560}"] = "{item:271654}，从{npc:260560}处购买",
-	-- {object:628948} WANTED! (no name in this language: may be words) · {npc:260235} Trapclaw
+	-- {object:628948} WANTED! · {npc:260235} Trapclaw
 	["The {object:628948} poster by the inn: {npc:260235}"] = "旅店旁的{object:628948}告示：{npc:260235}",
 
 	-- Step 60: WANTED: Old Rot-Chum
 	-- {npc:257001} Old Rot-Chum
 	["{npc:257001} is an elite (level 42) on the south shore: grouping up is advised."] = "{npc:257001}是南岸的精英（42级）：建议组队。",
-	-- {object:628948} WANTED! (no name in this language: may be words)
+	-- {object:628948} WANTED!
 	["The {object:628948} poster by the inn"] = "旅店旁的{object:628948}告示",
 
 	-- Step 61: The murlocs, south-west
