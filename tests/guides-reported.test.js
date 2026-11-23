@@ -17607,6 +17607,28 @@ test('#190, #297, #1958, #1808: profession guides craft and learn what Forever\'
 	assert.deepEqual(goal.candidates.map((c) => c.npc).sort((a, b) => a - b), [11072, 11074], 'Kitta Firewind and Hgarth only');
 });
 
+// Encrypt512bit (#3140) and Sylliad (#3272): Magnus Frostwake's house in Caer Darrow was empty. He is a ghost: the
+// server gives him the Caer Darrow Ghosts invisibility aura, seen through only with the Spectral Essence on, the reward
+// of a level 55 Scholomance chain. His two plans are optional buys that say so; their learns and the Dense Grinding
+// Stones they take never hold a step, and the skill reaches 285 by any recipe.
+test('#3140, #3272: Blacksmithing: Magnus Frostwake\'s plans are optional and name the Spectral Essence', { skip }, () => {
+	const bs = goals('forever/professions/blacksmithing.guide');
+	for (const item of [12819, 12823]) {
+		const { goal, step } = bs[at(bs, `buy ${item}`, (g) => g.t === 'buy' && g.item === item)];
+		assert.ok(goal.optional, `buy ${item} is optional`);
+		assert.ok(step.goals.every((g) => g.optional || g.t === 'tip' || g.t === 'note'), `nothing on the ${item} step holds it`);
+	}
+	const tips = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/professions/blacksmithing.guide'), 'utf8').split('\n').filter((l) => /^ {2}tip Plans: (Ornate Thorium Handaxe|Huge Thorium Battleaxe) teaches/.test(l));
+	assert.equal(tips.length, 2);
+	for (const t of tips) assert.match(t, /Magnus is a ghost: you see him only with the Spectral Essence on/);
+	for (const spell of [16969, 16971]) {
+		const { goal, s } = bs[at(bs, `learn ${spell}`, (g) => g.t === 'learn' && g.spell === spell)];
+		assert.ok(goal.optional, `learn ${spell} is optional`);
+		const held = bs.filter((e) => e.s === s && !e.goal.optional && e.goal.t === 'craft' && !e.goal.untilSkill).map(({ goal: g }) => `craft ${g.spell}`);
+		assert.deepEqual(held, [], `only the skill holds the ${spell} step`);
+	}
+});
+
 // #2563 (Kiber_Mazai, 0.4.0): Harlo Barnaby stops offering Fall of Dun Modr (472) once A Grim Task (304) is handed
 // in, and no prerequisite, exclusive group or breadcrumb in the quest data says so. The accept shared the Menethil
 // Harbor step, which then waited on a quest nobody could take. It is a step of its own, shown only while A Grim Task
