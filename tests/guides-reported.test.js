@@ -6969,14 +6969,17 @@ test("Alliance later Stranglethorn: Sin'Dall is a carried hunt, not a new camp t
 	} finally { fs.rmSync(pack.dir, { recursive: true, force: true }); }
 });
 
-test('Culling the Competition: linked surface camps are a group choice; solo daggers come from the furnaces', { skip }, () => {
+// Insomniaq (#3722): the Taskmasters' search stayed on the surface ledges while four of their 24 places are in the
+// Slag Pit below (spawn heights 176-184 against 241-248 on the ledges). Fitz's pick: the pit is the loop's last stop,
+// with the lift named in the tip; the bounty stays a group choice.
+test('Culling the Competition: linked surface camps are a group choice, the Slag Pit the Taskmasters\' last stop (#3722); solo daggers come from the furnaces', { skip }, () => {
 	const list = goals('forever/alliance/40-50/06-searing-gorge.guide');
 	const bounty = list.filter(({ goal }) => goal.quest === 7729 && ['accept', 'kill'].includes(goal.t));
 	assert.equal(bounty.length, 3);
 	for (const { step } of bounty) assert.ok(step.when.some(p => p.k === 'group' && !p.neg && [p.q].flat().includes(7729)));
 	const target = id => list.find(({ goal }) => goal.npc === id && (goal.quest === 7729 || goal.item === 10551));
 	for (const [id, radius, points] of [
-		[5846, 12, [[43.12, 40.38], [45.68, 39.66], [49.15, 39.93], [44.79, 51.93]]],
+		[5846, 12, [[43.12, 40.38], [45.68, 39.66], [49.15, 39.93], [44.79, 51.93], [39.6, 50.8], [40.6, 53.6]]],
 		[5844, 10, [[42.81, 40.54], [43.2, 51.97], [35.32, 58.47]]],
 		[5840, 10, [[38.15, 51.36], [37.69, 49.65], [40.58, 49.48], [40.01, 48.33]]],
 	]) {
