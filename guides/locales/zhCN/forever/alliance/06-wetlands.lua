@@ -459,10 +459,10 @@ return {
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}：交给{area:415}的{npc:3961}",
 
 	-- Step 83: Satyrnaar
-	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {object:673431} Kurothel's Knapsack (no name in this language: may be words) · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
+	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {object:673431} Kurothel's Knapsack · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
 	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
 	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and {object:673431} lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "从湖边向北前往{area:2358}西边不远处的{area:430}萨特营地：{object:19901}就在营地里，旁边是{object:673431}，里面有{item:281014}。\n注意：{area:428}的魔草潜行者经常潜行，{area:430}也有萨特施法者。",
-	-- {item:281014} Vine-Wrapped Scroll · {object:673431} Kurothel's Knapsack (no name in this language: may be words)
+	-- {item:281014} Vine-Wrapped Scroll · {object:673431} Kurothel's Knapsack
 	["{item:281014}, from {object:673431}"] = "{item:281014}，从{object:673431}中获取",
 
 	-- Step 84: Kayneth Stillwind
