@@ -140,7 +140,7 @@ fn an_item_picked_from_objects_marks_the_objects_with_the_pickup_bag() {
 		open()
 		emit(state())
 		local icons = {}
-		for _, f in ipairs({ WorldMapFrame:GetCanvas():GetChildren() }) do
+		for _, f in ipairs({ Polestar.MapCanvas.Get(WorldMapFrame).frame:GetChildren() }) do
 			if f.skull and f:IsShown() then icons[#icons + 1] = f.skull:GetTexture() end
 		end
 		emit(icons)"#);

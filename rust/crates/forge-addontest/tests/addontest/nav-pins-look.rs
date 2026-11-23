@@ -300,7 +300,7 @@ fn the_preview_paints_sandbox_pins_with_the_pins_code_and_repaints_only_while_sh
 	assert_eq!(out["page"], json!({ "key": "mappins", "order": 23, "group": "look" }));
 	assert_eq!(
 		out["sections"],
-		json!(["Pins / Target pin", "Pins / Numbered pins [nav.upcomingPins]", "Pins / Spawn markers [mobMarkers.enabled]", "Icons / Icons", "Icons / Medallions",]),
+		json!(["Pins / Target pin", "Pins / Numbered pins [nav.upcomingPins]", "Icons / Icons", "Icons / Medallions",]),
 		"two tabs, a section per element, the first card live at defaults"
 	);
 	// Nothing a player could set is gone: every Map pins setting is on the page once (extras and cogs included).
@@ -340,12 +340,6 @@ fn the_preview_paints_sandbox_pins_with_the_pins_code_and_repaints_only_while_sh
 		"nav.worldPinAlpha",
 		"nav.worldPins",
 		"nav.stepMinimapSize",
-		"mobMarkers.enabled",
-		"mobMarkers.mobPalette",
-		"mobMarkers.questPalette",
-		"mobMarkers.showLegend",
-		"mobMarkers.showMinimap",
-		"mobMarkers.stepOnly",
 	];
 	want.sort();
 	assert_eq!(out["keys"], json!(want));

@@ -949,7 +949,7 @@ end
 local function apply()
 	local yes = on()
 	if yes then install() end
-	minimapOn(yes and opt("showMinimap") and true or false)
+	minimapOn(yes and opt("showMinimap") and not ns.Hidden() and true or false)
 	rebuild(true)
 	draw(true)
 end
@@ -990,8 +990,9 @@ ns.RegisterEvent("QUEST_TURNED_IN", function(_, qid) pruneHidden(qid) end)
 ns.RegisterEvent("QUEST_LOG_UPDATE", queue)
 -- The Codex loaded (by the guide's engine, Lookup, or the world map opened with the markers on): the marks build.
 ns.On("CODEX_LOADED", function() if on() then rebuild(true) end end)
--- Polestar hidden or shown again: the minimap's markers go or come back (the world map's go with its view).
-ns.On("POLESTAR_HIDDEN", function() minimapRedraw() end)
+-- Polestar hidden or shown again: the minimap's markers and Pins' view watch go or come back (the world map's go
+-- with its view), so nothing of theirs runs while hidden.
+ns.On("POLESTAR_HIDDEN", function(hidden) minimapOn(not hidden and on() and opt("showMinimap") and true or false) end)
 ns.RegisterEvent("ADDON_LOADED", function(_, name)
 	if name == "Blizzard_WorldMap" and on() then apply() end
 end)

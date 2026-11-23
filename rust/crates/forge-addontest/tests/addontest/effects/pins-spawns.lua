@@ -13,7 +13,7 @@ end
 -- The first shown world map marker's texture colour (its skull, or its mob ring) on map.
 local function colour(map, part)
 	state("drawn", map)
-	for _, f in ipairs({ WorldMapFrame:GetCanvas():GetChildren() }) do
+	for _, f in ipairs({ Polestar.MapCanvas.Get(WorldMapFrame).frame:GetChildren() }) do
 		local t = f.skull and f:IsShown() and f[part]
 		if t and t:IsShown() then return { t:GetVertexColor() } end
 	end
