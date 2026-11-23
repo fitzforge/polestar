@@ -1,5 +1,6 @@
 //! The five concept skins in the download (Hairline, Umbra, Waymark, Lanterns, Sheen), one load test each:
-//! the skin's addon names its skin in its TOC to load on demand, loads after Polestar on its own, registers
+//! the folder that holds them (Polestar_Skins/Skins/<skin>, since 0.4.3) names each skin in its TOC
+//! to load on demand, loads after Polestar on its own, each registers
 //! through the Skin API with nothing refused and nothing corrected, and in every variant it has paints every surface it covers (the guide window and its
 //! progress, the arrow, a step pin and a map mark, the alert toast, the settings window on its Theme page)
 //! without a painter or hook raising; then what makes each skin itself is checked: Hairline's own art and
@@ -67,15 +68,16 @@ local function kept()
 end
 "#;
 
-/// Polestar and one skin addon, the player a level-18 Tauren Hunter, `script` after PAINT_ALL; the
-/// registration notes (refused, corrected) and the checks of every variant are added to its output.
-fn run(addon: &str, id: &str, variants: &[&str], before: &str, script: &str) -> Value {
+/// Polestar and our skins' folder, the player a level-18 Tauren Hunter, `script` after
+/// PAINT_ALL; the registration notes (refused, corrected: Polestar's own skins name the addon Polestar) and the
+/// checks of every variant are added to its output.
+fn run(id: &str, variants: &[&str], before: &str, script: &str) -> Value {
 	let v = variants.iter().map(|v| format!("{v:?}")).collect::<Vec<_>>().join(", ");
 	let script = format!(
 		r#"{PAINT_ALL}
 local out = {{ id = {id:?}, notes = {{}}, runs = {{}} }}
 for _, l in ipairs(Polestar.DebugLog(800)) do
-	if tostring(l):find("({addon}", 1, true) then out.notes[#out.notes + 1] = tostring(l) end
+	if tostring(l):find("(Polestar)", 1, true) then out.notes[#out.notes + 1] = tostring(l) end
 end
 local listed
 for _, c in ipairs(T.SkinChoices()) do if c.value == {id:?} then listed = c.addon end end
@@ -94,35 +96,36 @@ emit(out)
 		"stub.world.race, stub.world.raceName, stub.world.class, stub.world.className, stub.world.faction = \
 		 'Tauren', 'Tauren', 'HUNTER', 'Hunter', 'Horde'\nstub.world.level = 18\n{before}"
 	);
-	emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar"), Addon::name(addon)], login: true, script, ..Default::default() }).remove(0)
+	emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar"), Addon::name("Polestar_Skins")], login: true, script, ..Default::default() }).remove(0)
 }
 
-fn loads_and_paints(out: &Value, addon: &str, variants: &[&str]) {
-	// Loaded on demand: only a player who picks the skin pays for it (Polestar loads it for the saved skin,
-	// on a pick and when the settings list the skins, by the id its TOC names).
-	let toc = std::fs::read_to_string(root().join("addon").join(addon).join(format!("{addon}.toc"))).unwrap();
+fn loads_and_paints(out: &Value, skin: &str, variants: &[&str]) {
+	// Loaded on demand: only a player who picks a skin of ours, or opens the settings, pays for it (Polestar
+	// loads our skins' folder for the saved skin, on a pick and when the settings list the skins, by the ids
+	// its TOC names).
+	let toc = std::fs::read_to_string(root().join("addon/Polestar_Skins/Polestar_Skins.toc")).unwrap();
 	let id = out["id"].as_str().unwrap();
-	assert!(toc.lines().any(|l| l.trim() == "## LoadOnDemand: 1"), "{addon} loads on demand");
-	assert!(toc.lines().any(|l| l.trim() == format!("## X-Polestar-Skin: {id}")), "{addon} names its skin {id} in its TOC");
+	assert!(toc.lines().any(|l| l.trim() == "## LoadOnDemand: 1"), "our skins' folder loads on demand");
+	let named = toc.lines().find_map(|l| l.trim().strip_prefix("## X-Polestar-Skin:")).unwrap_or_default();
+	assert!(named.split(',').any(|s| s.trim() == id), "{skin}: our skins' folder names its skin {id} in its TOC");
 	// An empty Lua table is emitted as {} (no array to tell it by).
 	let notes = &out["notes"];
-	assert!(notes.as_array().is_some_and(Vec::is_empty) || notes.as_object().is_some_and(serde_json::Map::is_empty), "{addon}: refused or corrected: {notes}");
-	assert_eq!(out["listed"], addon, "{addon}: in the skin picker with its addon");
+	assert!(notes.as_array().is_some_and(Vec::is_empty) || notes.as_object().is_some_and(serde_json::Map::is_empty), "{skin}: refused or corrected: {notes}");
+	assert_eq!(out["listed"], "Polestar", "{skin}: in the skin picker as Polestar's");
 	let runs = out["runs"].as_array().unwrap();
-	assert_eq!(runs.len(), variants.len().max(1), "{addon}: every variant painted");
+	assert_eq!(runs.len(), variants.len().max(1), "{skin}: every variant painted");
 	for r in runs {
 		let v = &r["variant"];
-		assert_eq!(r["inUse"], true, "{addon} {v}: in use once picked");
-		assert_eq!(r["failed"], false, "{addon} {v}: a painter or hook raised (the skin would be switched off)");
-		assert_eq!(r["legible"], true, "{addon} {v}: legible as painted");
+		assert_eq!(r["inUse"], true, "{skin} {v}: in use once picked");
+		assert_eq!(r["failed"], false, "{skin} {v}: a painter or hook raised (the skin would be switched off)");
+		assert_eq!(r["legible"], true, "{skin} {v}: legible as painted");
 	}
 }
 
 #[test]
 fn hairline_loads_paints_everything_and_brings_its_own_dart_pins_font_and_class_accent() {
-	let addon = "Polestar_Skin_Hairline";
+	let addon = "Hairline";
 	let out = run(
-		addon,
 		"hairline",
 		&[],
 		"",
@@ -137,10 +140,10 @@ out.accent, out.hunter = hexOf({ T.Accent() }), hexOf({ r, g, b })
 	);
 	loads_and_paints(&out, addon, &[]);
 	assert_eq!(out["arrow"], "halo", "the skins' dart style, with Hairline's own dart");
-	let dir = root().join("addon").join(addon);
+	let dir = root().join("addon/Polestar_Skins/Skins").join(addon);
 	for key in ["dart", "dartEdge", "medallion"] {
 		let p = out["media"][key].as_str().unwrap_or_else(|| panic!("media.{key} given"));
-		let rel = p.strip_prefix(&format!("Interface\\AddOns\\{addon}\\")).unwrap_or_else(|| panic!("media.{key} in its own folder: {p}"));
+		let rel = p.strip_prefix(&format!("Interface\\AddOns\\Polestar_Skins\\Skins\\{addon}\\")).unwrap_or_else(|| panic!("media.{key} in its own folder: {p}"));
 		let file = dir.join(format!("{}.tga", rel.replace('\\', "/")));
 		assert!(file.is_file(), "media.{key}: {} is in the addon", file.display());
 	}
@@ -153,10 +156,9 @@ out.accent, out.hunter = hexOf({ T.Accent() }), hexOf({ r, g, b })
 
 #[test]
 fn umbra_loads_paints_everything_in_each_variant_and_its_variants_dim_the_games_looks() {
-	let addon = "Polestar_Skin_Umbra";
+	let addon = "Umbra";
 	let variants = ["flat", "forever", "blizzard", "classic"];
 	let out = run(
-		addon,
 		"umbra",
 		&variants,
 		"",
@@ -187,7 +189,7 @@ fn umbra_s_dimmed_variants_dim_the_guide_window_s_lit_goal_and_progress_bar_and_
 	return { file = "atlas:" .. name, leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1, width = 234, height = 24 }
 end }"#
 			.into(),
-		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"]), Addon::name("Polestar_Skin_Umbra")],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"]), Addon::files("Polestar_Skins", &["Skins/Umbra/Umbra.lua"])],
 		script: r#"uistub.install()
 stub.login()
 local GF = Polestar.UI.GuideFrame
@@ -276,9 +278,8 @@ emit(out)"#
 
 #[test]
 fn waymark_loads_paints_everything_and_its_colour_follows_the_continent_and_a_card_keeps_its_rose_at_the_foot() {
-	let addon = "Polestar_Skin_Waymark";
+	let addon = "Waymark";
 	let out = run(
-		addon,
 		"waymark",
 		&[],
 		r#"
@@ -327,10 +328,9 @@ out.cardRose = { corner = own.rose and own.rose:IsShown() or false, foot = foot 
 
 #[test]
 fn lanterns_loads_paints_everything_in_all_ten_moods_each_with_its_pair_of_colours() {
-	let addon = "Polestar_Skin_Lanterns";
+	let addon = "Lanterns";
 	let variants = ["forge", "tidepool", "glade", "hoarfrost", "duskrose", "starfall", "ashen", "highsun", "gloam", "plain"];
 	let out = run(
-		addon,
 		"lanterns",
 		&variants,
 		"",
@@ -361,9 +361,8 @@ end)
 // no menu) in its own colour and opacity: lowering the window opacity used to fade every panel with the windows.
 #[test]
 fn lanterns_takes_the_window_opacity_on_windows_alone() {
-	let addon = "Polestar_Skin_Lanterns";
+	let addon = "Lanterns";
 	let out = run(
-		addon,
 		"lanterns",
 		&[],
 		"",
@@ -394,9 +393,8 @@ out.opacity = { window = groundAlpha(win), panel = groundAlpha(panel), own = mat
 
 #[test]
 fn sheen_loads_paints_everything_and_its_pins_take_the_class_colour() {
-	let addon = "Polestar_Skin_Sheen";
+	let addon = "Sheen";
 	let out = run(
-		addon,
 		"sheen",
 		&[],
 		"",

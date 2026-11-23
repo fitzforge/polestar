@@ -1,6 +1,6 @@
 'use strict';
-// The Atlas look: its skin (addon/Polestar_Skin_Atlas, tokens only) and its
-// layout (addon/Polestar_Layout_Atlas, structure hooks only). The layout
+// The Atlas look: its skin (addon/Polestar_Skins/Skins/Atlas, tokens only) and its
+// layout (addon/Polestar_Skins/Layouts/Atlas, structure hooks only). The layout
 // registers through Theme.RegisterLayout and is picked with SetLayout, any
 // skin's tokens on top. Its hooks are also run here one by one on the live
 // window's parts, to show they keep to the parts they are handed.
@@ -9,19 +9,24 @@ const assert = require('node:assert/strict');
 const path = require('node:path');
 const { runAddon, ADDONS } = require('./helpers/lua');
 
-const LAYOUT = path.join(ADDONS, 'Polestar_Layout_Atlas', 'Atlas.lua');
+const LAYOUT = path.join(ADDONS, 'Polestar_Skins', 'Layouts', 'Atlas', 'Atlas.lua');
+// Our skins and layouts live in Polestar_Skins since 0.4.3 (#3507): the files a test loads, alone.
+const SKIN_ATLAS = 'Skins/Atlas/Atlas.lua';
+const LAYOUT_ATLAS = 'Layouts/Atlas/Atlas.lua';
+const own = (...files) => ({ name: 'Polestar_Skins', files });
+const SKINS_TOC = path.join(ADDONS, 'Polestar_Skins', 'Polestar_Skins.toc');
 const luaPath = (p) => JSON.stringify(p);
 
 test('the Atlas skin registers as given and is legible', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS)],
 		login: true,
 		script: `
 local T = Polestar.Theme
 local notes = {}
 for _, l in ipairs(Polestar.DebugLog(800)) do
-	if tostring(l):find("Polestar_Skin_Atlas", 1, true) then notes[#notes + 1] = tostring(l) end
+	if tostring(l):find("skin atlas (", 1, true) then notes[#notes + 1] = tostring(l) end
 end
 Polestar.Set("ui.skin", "atlas")
 emit({ inUse = T.SkinId(), notes = #notes, legible = T.Legibility(T.Palette()) >= 1 })`,
@@ -58,7 +63,7 @@ local spec
 local register = T.RegisterLayout
 T.RegisterLayout = function(id, s) spec = s; spec.id = id; return true end
 local chunk = assert(loadfile(${luaPath(LAYOUT)}))
-chunk("Polestar_Layout_Atlas", {})
+chunk("Polestar_Skins", {})
 T.RegisterLayout = register
 Polestar.Set("ui.skin", "atlas")
 Polestar.Set("ui.shown", true)
@@ -101,7 +106,7 @@ stub.advance(1)
 emit({ id = spec.id, api = spec.api, ran = #ran, rows = #(parts.rows or {}), person = parts.person ~= nil })`;
 
 test('the Atlas layout hooks run on the window parts without raising', () => {
-	const [out] = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar', 'Polestar_Skin_Atlas'], script: RUN_HOOKS(false) }).emitted;
+	const [out] = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar', own(SKIN_ATLAS)], script: RUN_HOOKS(false) }).emitted;
 	assert.equal(out.id, 'atlas');
 	assert.equal(out.api, 2);
 	assert.ok(out.ran > 5, `hooks ran: ${out.ran}`);
@@ -109,7 +114,7 @@ test('the Atlas layout hooks run on the window parts without raising', () => {
 });
 
 test('the Atlas layout hooks run in compact mode without raising', () => {
-	const [out] = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar', 'Polestar_Skin_Atlas'], script: RUN_HOOKS(true) }).emitted;
+	const [out] = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar', own(SKIN_ATLAS)], script: RUN_HOOKS(true) }).emitted;
 	assert.ok(out.ran > 5, `hooks ran: ${out.ran}`);
 });
 
@@ -121,7 +126,7 @@ test('the Atlas layout hooks run in compact mode without raising', () => {
 test('the Atlas layout opens up its gaps in full mode only', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `${GUIDE}
 local T, GF = Polestar.Theme, Polestar.UI.GuideFrame
 Polestar.Set("ui.shown", true)
@@ -167,7 +172,7 @@ emit(out)`,
 test("under Atlas the step number is three quarters of its size, the arrows round it and the title up to it", () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `${GUIDE}
 local T, GF = Polestar.Theme, Polestar.UI.GuideFrame
 Polestar.Set("ui.shown", true)
@@ -211,7 +216,7 @@ emit(out)`,
 test("under Atlas the player's gaps win in full mode, compact keeps its own, a reset gives Atlas's back", () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `${GUIDE}
 local T, GF = Polestar.Theme, Polestar.UI.GuideFrame
 Polestar.Set("ui.shown", true)
@@ -253,7 +258,7 @@ emit(out)`,
 test('without a Journey the window keeps its own bottom border, never a solid line', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `${GUIDE}
 local T, GF = Polestar.Theme, Polestar.UI.GuideFrame
 Polestar.Set("ui.shown", true)
@@ -301,7 +306,7 @@ emit(out)`,
 test('the Atlas XP row grows by a line when its whole text wraps', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `${GUIDE}
 local T, GF = Polestar.Theme, Polestar.UI.GuideFrame
 Polestar.Set("ui.shown", true)
@@ -348,7 +353,7 @@ emit(out)`,
 test('the Atlas goal rows draw the quest level a size smaller', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `${GUIDE}
 local T, GF = Polestar.Theme, Polestar.UI.GuideFrame
 Polestar.Set("ui.shown", true)
@@ -394,7 +399,7 @@ emit(out)`,
 test('the Atlas layout registers, draws under another skin and leaves', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Skin_Beacon', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, 'Skins/Beacon/Beacon.lua', LAYOUT_ATLAS)],
 		script: `${GUIDE}
 local T = Polestar.Theme
 local function hex(c) return string.format("%02x%02x%02x", math.floor(c[1] * 255 + 0.5), math.floor(c[2] * 255 + 0.5), math.floor(c[3] * 255 + 0.5)) end
@@ -405,7 +410,7 @@ local function draw()
 end
 local refused = {}
 for _, l in ipairs(Polestar.DebugLog(800)) do
-	if tostring(l):find("Polestar_Layout_Atlas", 1, true) then refused[#refused + 1] = tostring(l) end
+	if tostring(l):find("layout atlas (", 1, true) then refused[#refused + 1] = tostring(l) end
 end
 Polestar.Set("ui.shown", true)
 Polestar.Set("ui.skin", "beacon")
@@ -480,7 +485,7 @@ local T = Polestar.Theme
 local spec
 local register = T.RegisterLayout
 T.RegisterLayout = function(id, s) spec = s; return true end
-assert(loadfile(${luaPath(LAYOUT)}))("Polestar_Layout_Atlas", {})
+assert(loadfile(${luaPath(LAYOUT)}))("Polestar_Skins", {})
 T.RegisterLayout = register
 Polestar.Set("ui.skin", "atlas")
 Polestar.Set("ui.shown", true)
@@ -488,7 +493,7 @@ Polestar.UI.GuideFrame.Layout()
 stub.advance(1)
 local h, parts = spec.hooks, T.GuideParts()`;
 
-const hooks = (script) => runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar', 'Polestar_Skin_Atlas'], script: `${HOOKS}\n${script}` }).emitted[0];
+const hooks = (script) => runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar', own(SKIN_ATLAS)], script: `${HOOKS}\n${script}` }).emitted[0];
 
 test('an area goal loses its spots line, and on the rail its next-spot button', () => {
 	const out = hooks(`
@@ -566,7 +571,7 @@ emit({ rows = #rows, text = math.floor(r.Text:GetWidth() + 0.5) })`);
 test('on the rail a folded Up next shows its heading and no rows; a click on it opens it to rows without one', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `${GUIDE}
 local T, GF = Polestar.Theme, Polestar.UI.GuideFrame
 Polestar.Set("ui.shown", true)
@@ -607,7 +612,7 @@ emit(out)`,
 test('Atlas opens Up next by default, the player\'s choice wins, a layout cannot default the skin', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `${GUIDE}
 local T = Polestar.Theme
 local out = { before = Polestar.Get("ui.upcomingOpen") }
@@ -636,7 +641,7 @@ emit(out)`,
 test('the steps before show on the rail: as many as asked and come before, done or skipped, oldest on top', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `
 w = stub.world
 w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
@@ -795,7 +800,7 @@ emit({
 
 const outside = (layout) => runAddon({
 	stubs: ['stub_world.lua'],
-	addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+	addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 	script: OUTSIDE(layout),
 }).emitted[0];
 
@@ -897,7 +902,7 @@ const withSteps = (src, steps) => src.replace(/steps = \{[\s\S]*?\n\t\},\n\}\)/,
 const GOTO_STEPS = '\t\t{ goals = { { t = "goto", map = 1429, x = 0.40, y = 0.30, text = "Go to the hill" } } },';
 const TWO_STEPS = '\t\t{ goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride" }, { t = "accept", quest = 33, title = "Wolves Across the Border", npc = 197, npcName = "Marshal McBride" } } },';
 const guideHooks = (steps) => (script) => runAddon({
-	stubs: ['stub_world.lua'], addons: ['Polestar', 'Polestar_Skin_Atlas'],
+	stubs: ['stub_world.lua'], addons: ['Polestar', own(SKIN_ATLAS)],
 	script: `${withSteps(HOOKS, steps)}\n${script}`,
 }).emitted[0];
 const gotoHooks = guideHooks(GOTO_STEPS);
@@ -989,7 +994,7 @@ local function looks(r)
 end`;
 const live = (steps, script) => runAddon({
 	stubs: ['stub_world.lua'],
-	addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+	addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 	script: `${steps ? withSteps(GUIDE, steps) : GUIDE}
 local T = Polestar.Theme
 Polestar.Set("ui.shown", true)
@@ -1090,7 +1095,7 @@ emit(out)`);
 test("under Atlas a notice's long jump link stays inside its card", () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `${GUIDE}
 local T, GF = Polestar.Theme, Polestar.UI.GuideFrame
 Polestar.Set("ui.shown", true)
@@ -1120,7 +1125,7 @@ emit({
 test('under Atlas the class card is handed to the layout, not stacked in the window', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `${GUIDE}
 local T, GF, UI = Polestar.Theme, Polestar.UI.GuideFrame, Polestar.UI
 Polestar.Set("ui.shown", true)
@@ -1155,7 +1160,7 @@ test('Atlas writes its caps labels through Polestar.Upper, so accents and Cyrill
 test('Atlas compact mode keeps Still to do, the XP row and the Journey; Polestar compact leaves them out', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `${GUIDE}
 local T, GF = Polestar.Theme, Polestar.UI.GuideFrame
 local function draw() GF.Layout(); if GF.Render then GF.Render() end; stub.advance(1) end
@@ -1190,15 +1195,15 @@ emit(out)`,
 // The Atlas card in Presets carries a Beta tag, from its TOC
 // (## X-Polestar-Layout-Stage: beta), loaded or not.
 test('the Atlas layout preset is tagged beta', () => {
-	const toc = require('node:fs').readFileSync(path.join(ADDONS, 'Polestar_Layout_Atlas', 'Polestar_Layout_Atlas.toc'), 'utf8');
+	const toc = require('node:fs').readFileSync(SKINS_TOC, 'utf8');
 	const fields = [...toc.matchAll(/^## (X-[\w-]+):\s*(.*?)\s*$/gm)].map((m) => `[${JSON.stringify(m[1])}] = ${JSON.stringify(m[2])}`);
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(LAYOUT_ATLAS)],
 		login: true,
 		script: `
-stub.addons = { { name = "Polestar", loaded = true }, { name = "Polestar_Layout_Atlas", loaded = true } }
-stub.addonMeta["Polestar_Layout_Atlas"] = { ${fields.join(', ')} }
+stub.addons = { { name = "Polestar", loaded = true }, { name = "Polestar_Skins", loaded = true } }
+stub.addonMeta["Polestar_Skins"] = { ${fields.join(', ')} }
 local stage
 for _, lp in ipairs(Polestar.Theme.LayoutPresets()) do if lp.id == "atlas" then stage = lp.stage end end
 emit({ stage = stage or false })`,
@@ -1210,15 +1215,15 @@ emit({ stage = stage or false })`,
 // addon is installed: Polestar's own, then Atlas tagged Beta; picking it
 // puts it on.
 test('the install offers Atlas as the guide window layout, tagged Beta', () => {
-	const toc = require('node:fs').readFileSync(path.join(ADDONS, 'Polestar_Layout_Atlas', 'Polestar_Layout_Atlas.toc'), 'utf8');
+	const toc = require('node:fs').readFileSync(SKINS_TOC, 'utf8');
 	const fields = [...toc.matchAll(/^## (X-[\w-]+):\s*(.*?)\s*$/gm)].map((m) => `[${JSON.stringify(m[1])}] = ${JSON.stringify(m[2])}`);
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(LAYOUT_ATLAS)],
 		login: true,
 		script: `
-stub.addons = { { name = "Polestar", loaded = true }, { name = "Polestar_Layout_Atlas", loaded = true } }
-stub.addonMeta["Polestar_Layout_Atlas"] = { ${fields.join(', ')} }
+stub.addons = { { name = "Polestar", loaded = true }, { name = "Polestar_Skins", loaded = true } }
+stub.addonMeta["Polestar_Skins"] = { ${fields.join(', ')} }
 local UI = Polestar.UI
 UI.Welcome.Show("look")
 stub.advance(0.5)
@@ -1241,15 +1246,15 @@ emit({ names = names, layout = Polestar.Theme.LayoutId() or false })`,
 // look (the pointer over the looks) shows the last look alone, as a fresh
 // picture of it does: no paper, corners or glare of a look drawn before.
 test("under Atlas a look's card drawn again shows that look alone", () => {
-	const toc = require('node:fs').readFileSync(path.join(ADDONS, 'Polestar_Layout_Atlas', 'Polestar_Layout_Atlas.toc'), 'utf8');
+	const toc = require('node:fs').readFileSync(SKINS_TOC, 'utf8');
 	const fields = [...toc.matchAll(/^## (X-[\w-]+):\s*(.*?)\s*$/gm)].map((m) => `[${JSON.stringify(m[1])}] = ${JSON.stringify(m[2])}`);
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Options', 'Polestar_Layout_Atlas', 'Polestar_Skin_Vellum', 'Polestar_Skin_Lumen', 'Polestar_Skin_Sheen', 'Polestar_Skin_Aurora'],
+		addons: ['Polestar', 'Polestar_Skins'],
 		login: true,
 		script: `
-stub.addons = { { name = "Polestar", loaded = true }, { name = "Polestar_Layout_Atlas", loaded = true } }
-stub.addonMeta["Polestar_Layout_Atlas"] = { ${fields.join(', ')} }
+stub.addons = { { name = "Polestar", loaded = true }, { name = "Polestar_Skins", loaded = true } }
+stub.addonMeta["Polestar_Skins"] = { ${fields.join(', ')} }
 local T, UI = Polestar.Theme, Polestar.UI
 UI.Welcome.Show("look")
 stub.advance(0.5)
@@ -1292,7 +1297,7 @@ emit({ layout = T.LayoutId() or false, fresh = fresh, again = shown() })`,
 test('under Atlas a goal row follows a text size changed after Atlas dressed it', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(LAYOUT_ATLAS)],
 		script: `${GUIDE}
 Polestar.Set("ui.shown", true)
 local GF = Polestar.UI.GuideFrame
@@ -1331,7 +1336,7 @@ emit({ plain = plain, large = large, atlasLarge = atlasLarge, after = goalSize()
 test('under Atlas a game look draws no title band and no wash over its lit goal', () => {
 	const run = (layout) => runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Looks', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `${GUIDE}
 local T = Polestar.Theme
 local GF = Polestar.UI.GuideFrame
@@ -1369,9 +1374,9 @@ emit({ kit = T.Kit() ~= nil, header = header, kitLit = rawget(r, "psKitLit") or 
 	assert.equal(atlas.wash, false, 'no wash over the kit-lit goal');
 	assert.equal(atlas.count.top, true, "the count sits on the text's first line");
 	assert.equal(atlas.litInset, 0, "the layout sets where the kit's card stands: the row's edges");
-	const own = run(null);
-	assert.equal(own.header, true, "Polestar's own layout keeps the band");
-	assert.equal(own.litInset, own.inset, "Polestar's own layout keeps the look's inset");
+	const plain = run(null);
+	assert.equal(plain.header, true, "Polestar's own layout keeps the band");
+	assert.equal(plain.litInset, plain.inset, "Polestar's own layout keeps the look's inset");
 });
 
 // Still to do's carried row reads as Optional's rows do: one line, the XP on
@@ -1381,7 +1386,7 @@ emit({ kit = T.Kit() ~= nil, header = header, kitLit = rawget(r, "psKitLit") or 
 test("under Atlas Still to do's carried row is one line, its View shown on hover", () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `${GUIDE}
 local T = Polestar.Theme
 local GF = Polestar.UI.GuideFrame
@@ -1434,7 +1439,7 @@ emit(out)`,
 test('under Atlas every card above the window has the same heading, row and foot', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `${GUIDE}
 local T = Polestar.Theme
 local GF = Polestar.UI.GuideFrame
@@ -1534,7 +1539,7 @@ emit(out)`;
 test('on the rail a three-digit step number clears its node, in the steps before and Up next', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `
 w = stub.world
 w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
@@ -1626,7 +1631,7 @@ emit({ rows = rows, twos = twos })`,
 test('under Atlas a narrow window keeps the title: arrows go, then the total, then the title', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
 		script: `${GUIDE}
 local T, GF = Polestar.Theme, Polestar.UI.GuideFrame
 Polestar.Set("ui.shown", true)

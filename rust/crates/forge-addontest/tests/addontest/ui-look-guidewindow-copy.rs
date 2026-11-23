@@ -6,23 +6,14 @@
 //! sample (GF.UseContent) and both are drawn anew; every shown frame and region of each, by kind, draw layer, texture
 //! or atlas, text and colour, under frames of the same kinds, must match. A copy hears nothing (no event, message,
 //! setting, login, init or theme hook of its own, no global function hooked) and takes no click, wheel or tooltip: only
-//! its frame sees the pointer's hover. The whole addon and every bundled skin over stub_world.lua.
+//! its frame sees the pointer's hover. The whole addon and every bundled skin (Polestar_Skins) over
+//! stub_world.lua.
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::Value;
 
-// The skins in the download (forge_release::addons::SKIN_ADDONS), each a look of its own.
-const SKINS: &[(&str, &str)] = &[
-	("vellum", "Polestar_Skin_Vellum"),
-	("lumen", "Polestar_Skin_Lumen"),
-	("beacon", "Polestar_Skin_Beacon"),
-	("aurora", "Polestar_Skin_Aurora"),
-	("hairline", "Polestar_Skin_Hairline"),
-	("umbra", "Polestar_Skin_Umbra"),
-	("waymark", "Polestar_Skin_Waymark"),
-	("lanterns", "Polestar_Skin_Lanterns"),
-	("sheen", "Polestar_Skin_Sheen"),
-];
+// The skins in the download (Polestar_Skins/Skins since 0.4.3, #3507), each a look of its own.
+const SKINS: &[&str] = &["vellum", "lumen", "beacon", "aurora", "hairline", "umbra", "waymark", "lanterns", "sheen"];
 // The six built in: Polestar's own, Halo, Hearth, and the game's looks.
 const BUILT_IN: [&str; 6] = ["polestar", "halo", "hearth", "forever", "blizzard", "classic"];
 
@@ -97,15 +88,15 @@ local function minus(a, b)
 end
 "#;
 
+// Polestar and our skins' folder (UI.LoadOptions in HELPERS loads Polestar_Options, as the client does).
 fn run(script: &str) -> Value {
-	let mut addons = vec![Addon::name("Polestar")];
-	addons.extend(SKINS.iter().map(|(_, a)| Addon::name(a)));
+	let addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Skins")];
 	emitted(&RunAddon { stubs: vec!["stub_world.lua"], before: BEFORE.into(), addons, login: true, script: format!("{HELPERS}\n{script}"), ..Default::default() }).remove(0)
 }
 
 #[test]
 fn the_preview_s_window_shows_the_live_window_s_parts_in_every_look_and_setting() {
-	let looks = BUILT_IN.iter().copied().chain(SKINS.iter().map(|(id, _)| *id)).map(|l| format!("{l:?}")).collect::<Vec<_>>().join(", ");
+	let looks = BUILT_IN.iter().chain(SKINS.iter()).map(|l| format!("{l:?}")).collect::<Vec<_>>().join(", ");
 	let out = run(&format!(
 		r#"
 local LOOKS = {{ {looks} }}

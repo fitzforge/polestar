@@ -157,7 +157,7 @@ fn a_pack_update_keeps_a_loch_modan_save_where_it_was() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: LOCH_WORLD.to_string(),
-		addons: vec![Addon::name("Polestar"), Addon::name("Polestar_Guides"), Addon::name("Polestar_Guides_Alliance"), Addon::name("Polestar_Guides_NightElf")],
+		addons: vec![Addon::name("Polestar"), Addon::name("Polestar_Guides"), Addon::name("Polestar_Guides_Alliance")],
 		saved: vec![("Polestar".to_string(), LOCH_SAVE.to_string())],
 		login: false,
 		script: r#"

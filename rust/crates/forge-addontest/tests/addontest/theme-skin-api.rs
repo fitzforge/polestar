@@ -12,10 +12,9 @@ use forge_addontest::run::addons_dir;
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
 
-// Core and Theme are all the Skin API needs (Theme/Theme.xml loads Theme.lua, the Skin API, the widgets); its
-// checks (Polestar_SkinAPI) load on demand with the first registration, the game looks and Hearth
-// (Polestar_Looks) the first time one is painted, and the picker's cards and the presets load with the settings
-// window (Polestar_Options/Theme/SkinPicker.lua).
+// Core and Theme are all the Skin API needs (Theme/Theme.xml loads Theme.lua, the Skin API and its checks, the
+// game looks and Hearth, the widgets), and the picker's cards and the presets load with the settings window
+// (Polestar_Options/Theme/SkinPicker.lua).
 const FILES: &[&str] = &["Core/Core.xml", "Theme/Theme.xml"];
 
 fn picker() -> Addon {
@@ -1693,23 +1692,10 @@ fn a_variant_s_card_shows_its_own_second_accent_and_glow_beside_the_accent() {
 	}
 }
 
-// The skins in the download, with Polestar and the example skin, as the Theme page gets them.
-const CONCEPT_SKINS: [&str; 10] = [
-	"Polestar_Skin_Vellum",
-	"Polestar_Skin_Lumen",
-	"Polestar_Skin_Beacon",
-	"Polestar_Skin_Aurora",
-	"Polestar_Skin_Hairline",
-	"Polestar_Skin_Umbra",
-	"Polestar_Skin_Waymark",
-	"Polestar_Skin_Lanterns",
-	"Polestar_Skin_Sheen",
-	"Polestar_Skin_Example",
-];
-
+// The skins in the download (our skins' folder, Polestar_Skins) and the example skin, as the Theme
+// page gets them.
 fn run_all_cards(script: &str) -> Value {
-	let mut addons = vec![Addon::files("Polestar", &CARD_FILES)];
-	addons.extend(CONCEPT_SKINS.iter().map(|a| Addon::name(a)));
+	let addons = vec![Addon::files("Polestar", &CARD_FILES), Addon::name("Polestar_Skins"), Addon::name("Polestar_Skin_Example")];
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons,
@@ -1768,7 +1754,7 @@ fn the_skin_picker_shows_every_installed_look_in_its_group_on_a_grid_that_fits_t
 		end
 		emit({ count = #ids, cards = cards, heads = heads, narrow = grid(560), mid = grid(720), wide = grid(980) })"##,
 	);
-	assert_eq!(out["count"], 16, "the six built in, the nine in the download and the example");
+	assert_eq!(out["count"], 17, "the six built in, the nine in the download, Atlas (in the same folder) and the example");
 	for c in out["cards"].as_array().unwrap() {
 		let id = c["id"].as_str().unwrap();
 		assert_eq!(c["shown"], true, "{id}: its card");

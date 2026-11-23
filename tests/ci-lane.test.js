@@ -23,7 +23,7 @@ test('documentation alone takes the docs lane; guides, Lua, data and fragments t
 		[['addon/Polestar/Core/Core.lua'], ['lua']],
 		[['tests/lua/stub.lua'], ['lua']],
 		[['guides/forever/horde/02-the-barrens.guide', 'addon/Polestar_Guides_Horde/Guides.lua', 'addon/Polestar_deDE/Texts.lua', 'guides/locales/deDE/forever/horde/40-50/04-tanaris.lua'], ['guides']],
-		[['experimental/guides/x.guide', 'addon/Polestar_Experimental/Guides.lua', 'forge/seed/SEED.json'], ['guides']],
+		[['experimental/guides/x.guide', 'addon/Polestar/Experimental/Guides.lua', 'forge/seed/SEED.json'], ['guides']],
 		[['data/guide-fixes.json', 'forever-db/corrections/quests.json'], ['data']],
 		[['changes/some-fix.md'], ['changes']],
 		[['addon/Polestar_deDE/Interface.lua', 'changes/x.md', 'docs/CI.md'], ['changes', 'lua']],

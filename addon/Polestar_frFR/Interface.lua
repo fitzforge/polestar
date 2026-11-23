@@ -27,6 +27,7 @@ L["%s not installed"] = "%s non installé"
 L["Polestar no longer uses the old folders Polestar_Guides_<language> and Polestar_Names_<language> (%s): Polestar_<language> holds both now. Close the game and delete them from Interface/AddOns."] = "Polestar n'utilise plus les anciens dossiers Polestar_Guides_<langue> et Polestar_Names_<langue> (%s) : Polestar_<langue> contient désormais les deux. Fermez le jeu et supprimez-les de Interface/AddOns."
 L["Polestar no longer uses its %d walking map folders named Polestar_Nav_R (Polestar_Nav_R0_6_6 and the like): Polestar_Nav_EK and Polestar_Nav_Kalimdor hold those maps now. Close the game and delete the Polestar_Nav_R folders from Interface/AddOns."] = "Polestar n'utilise plus ses %d dossiers de cartes de marche nommés Polestar_Nav_R (Polestar_Nav_R0_6_6 et autres) : Polestar_Nav_EK et Polestar_Nav_Kalimdor contiennent désormais ces cartes. Fermez le jeu et supprimez les dossiers Polestar_Nav_R de Interface/AddOns."
 L["Your install is mixed or incomplete (%s). Close the game, delete every Polestar folder in Interface/AddOns and install Polestar again: with the Polestar Client, the CurseForge app, or the latest zip from GitHub Releases (not \"Source code\")."] = "Votre installation est mélangée ou incomplète (%s). Fermez le jeu, supprimez tous les dossiers Polestar dans Interface/AddOns et réinstallez Polestar : avec le Polestar Client, l’application CurseForge ou la dernière archive de GitHub Releases (pas « Source code »)."
+L["Polestar no longer uses these folders (%s): since 0.4.3 they are inside Polestar, Polestar_Guides_Alliance, Polestar_Guides_Horde and Polestar_Skins. Close the game and delete them from Interface/AddOns."] = "Polestar n'utilise plus ces dossiers (%s) : depuis la 0.4.3, ils sont inclus dans Polestar, Polestar_Guides_Alliance, Polestar_Guides_Horde et Polestar_Skins. Fermez le jeu et supprimez-les de Interface/AddOns."
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Nécessite Polestar %s ou plus récent."
@@ -4920,9 +4921,6 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Atterr
 -- L["/polestar perf: on, off, report or reset"] = ""
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
--- UI/GuideFrameTabStyles.lua
--- L["The other tab styles are missing or turned off (Polestar_TabStyles): the tabs show above the step bar."] = ""
-
 -- UI/GuideFramePlayNext.lua
 -- L["Play next"] = ""
 -- L["Start"] = ""
@@ -5037,6 +5035,9 @@ L["Most used"] = "Les plus utilisés"
 -- L["Hold"] = ""
 -- L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = ""
 -- L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = ""
+-- UI/TabStyles/TabStyles.lua
+L["Open guides"] = "Guides ouverts"
+L["%d of %d"] = "%d sur %d"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Reconfigurer Polestar, une page à la fois. Chaque choix s'applique tout de suite."

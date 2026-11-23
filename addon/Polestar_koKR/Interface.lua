@@ -26,6 +26,7 @@ L["%s not installed"] = "%s 미설치"
 L["Polestar no longer uses the old folders Polestar_Guides_<language> and Polestar_Names_<language> (%s): Polestar_<language> holds both now. Close the game and delete them from Interface/AddOns."] = "Polestar는 더 이상 이전 폴더인 Polestar_Guides_<language> 및 Polestar_Names_<language>(%s)를 사용하지 않습니다. 이제 Polestar_<language>에 두 폴더의 내용이 모두 들어 있습니다. 게임을 종료하고 Interface/AddOns에서 해당 폴더를 삭제하세요."
 L["Polestar no longer uses its %d walking map folders named Polestar_Nav_R (Polestar_Nav_R0_6_6 and the like): Polestar_Nav_EK and Polestar_Nav_Kalimdor hold those maps now. Close the game and delete the Polestar_Nav_R folders from Interface/AddOns."] = "Polestar는 더 이상 Polestar_Nav_R로 시작하는 도보 지도 폴더 %d개(Polestar_Nav_R0_6_6 등)를 사용하지 않습니다. 이제 Polestar_Nav_EK와 Polestar_Nav_Kalimdor에 해당 지도가 들어 있습니다. 게임을 종료하고 Interface/AddOns에서 Polestar_Nav_R 폴더를 삭제하세요."
 L["Your install is mixed or incomplete (%s). Close the game, delete every Polestar folder in Interface/AddOns and install Polestar again: with the Polestar Client, the CurseForge app, or the latest zip from GitHub Releases (not \"Source code\")."] = "설치가 섞여 있거나 불완전합니다(%s). 게임을 종료하고 Interface/AddOns의 Polestar 폴더를 모두 삭제한 뒤 Polestar를 다시 설치하십시오: Polestar Client, CurseForge 앱, 또는 GitHub Releases의 최신 zip(\"Source code\" 아님)."
+L["Polestar no longer uses these folders (%s): since 0.4.3 they are inside Polestar, Polestar_Guides_Alliance, Polestar_Guides_Horde and Polestar_Skins. Close the game and delete them from Interface/AddOns."] = "Polestar는 더 이상 이 폴더들(%s)을 사용하지 않습니다. 0.4.3부터 Polestar, Polestar_Guides_Alliance, Polestar_Guides_Horde, Polestar_Skins 안에 들어 있습니다. 게임을 종료하고 Interface/AddOns에서 삭제하세요."
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Polestar %s 이상이 필요합니다."
@@ -4919,9 +4920,6 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙
 -- L["/polestar perf: on, off, report or reset"] = ""
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
--- UI/GuideFrameTabStyles.lua
--- L["The other tab styles are missing or turned off (Polestar_TabStyles): the tabs show above the step bar."] = ""
-
 -- UI/GuideFramePlayNext.lua
 -- L["Play next"] = ""
 -- L["Start"] = ""
@@ -5036,6 +5034,9 @@ L["Most used"] = "자주 쓰는 설정"
 -- L["Hold"] = ""
 -- L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = ""
 -- L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = ""
+-- UI/TabStyles/TabStyles.lua
+L["Open guides"] = "열린 가이드"
+L["%d of %d"] = "%d / %d"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."

@@ -380,10 +380,11 @@ fn env(name: &str) -> Env {
 			login: false,
 			prelude: "uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\n".into(),
 		},
-		// The "ui" environment with the Atlas layout's addon loaded, for a setting only that layout draws.
+		// The "ui" environment with our skins' folder loaded (the Atlas layout is in it since 0.4.3), for a setting
+		// only that layout draws.
 		"atlas" => {
 			let mut e = env("ui");
-			e.addons.push(Addon::name("Polestar_Layout_Atlas"));
+			e.addons.push(Addon::name("Polestar_Skins"));
 			e
 		}
 		// The whole addon with EllesmereUI installed before it loads (theme.rs).
