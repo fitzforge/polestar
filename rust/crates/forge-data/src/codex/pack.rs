@@ -3,7 +3,7 @@
 
 use forge_guide::js::{num_str, str_to_num, V};
 
-use super::util::{kstr, math_round};
+use super::util::{by_num, kstr, math_round, oentries};
 
 pub const SCHEMA: f64 = 1.0;
 pub const ADDON: &str = "Polestar_Codex";
@@ -541,6 +541,28 @@ fn encode_spell(rec: &V) -> Result<String, String> {
 	Ok([esc(&rec.get("kind")), num(&rec.get("item"))?, esc(&rec.get("class"))].join(";"))
 }
 
+/// A profession's record (#3784): `minSkill,max,<Alliance ids>,<Horde ids>` per rank, then
+/// `trainerSkill` as `npc,skill,npc,skill` (sorted by npc). Id lists are space-joined, so `,` and `;`
+/// stay the field and rank separators Codex.lua's `split` knows.
+fn encode_profession(rec: &V) -> Result<String, String> {
+	let mut parts: Vec<String> = Vec::new();
+	for r in rec.get("ranks").items() {
+		let t = r.get("trainers");
+		let side = |k: &str| -> Result<String, String> {
+			let ids: Vec<String> = t.get(k).items().iter().map(num).collect::<Result<Vec<_>, _>>()?;
+			Ok(ids.join(" "))
+		};
+		parts.push(format!("{},{},{},{}", num(&r.get("minSkill"))?, num(&r.get("max"))?, side("Alliance")?, side("Horde")?));
+	}
+	let mut gates: Vec<(String, String)> = Vec::new();
+	for (npc, skill) in oentries(&rec.get("trainerSkill")) {
+		gates.push((npc.to_string(), num(&skill)?));
+	}
+	gates.sort_by(|a, b| by_num(str_to_num(&a.0), str_to_num(&b.0)));
+	parts.push(gates.iter().map(|(npc, skill)| format!("{npc},{skill}")).collect::<Vec<_>>().join(","));
+	Ok(parts.join(";"))
+}
+
 /// pack.js `luaValue(v, indent)`.
 fn lua_value(v: &V, indent: &str) -> String {
 	match v {
@@ -645,6 +667,7 @@ pub struct PackCodex<'a> {
 	pub spells: &'a V,
 	pub meta: &'a V,
 	pub frames: &'a V,
+	pub professions: &'a V,
 }
 
 /// `emitPack(codex, { version, build, extraFiles })` -> [(file, text)] (TOC order, then the TOC and
@@ -774,6 +797,16 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 	let role_entries: Vec<Entry> = roles.iter().map(|(r, ids)| (r.clone(), V::str(&ids.join(",")), None, String::new())).collect();
 	if !role_entries.is_empty() {
 		emit_group("role", &role_entries, "Roles", &mut out, &mut order);
+	}
+	let profession_entries: Vec<Entry> = sorted_ids(codex.professions)
+		.into_iter()
+		.map(|id| {
+			let p = codex.professions.get(&id);
+			Ok::<Entry, String>((id, p.get("name"), Some(encode_profession(&p)?), String::new()))
+		})
+		.collect::<Result<Vec<_>, String>>()?;
+	if !profession_entries.is_empty() {
+		emit_group("profession", &profession_entries, "Professions", &mut out, &mut order);
 	}
 	let obj_ids = sorted_ids(objects);
 	let obj_entries = |treasure: bool| -> Result<Vec<Entry>, String> {

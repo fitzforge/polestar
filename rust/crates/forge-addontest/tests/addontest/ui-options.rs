@@ -2860,7 +2860,9 @@ fn every_page_keeps_the_layout_rules_at_defaults() {
 		-- the player's journey give these settings a section of their own where the player looks for them.
 		local ONE_ROW = { ["Level pace"] = true, ["Step errands"] = true, ["Along the route"] = true, ["Other waypoints"] = true,
 			["Step spacing"] = true, ["Up next"] = true, ["All alerts"] = true, ["Experience"] = true, ["XP tracker"] = true,
-			["Dungeon Journal"] = true, ["Characters"] = true }
+			["Dungeon Journal"] = true, ["Characters"] = true,
+			-- Setup > General > Language (#3643): the one setting players look for under that name.
+			["Language"] = true }
 		local bad, seen = {}, 0
 		for _, p in ipairs(O.Pages()) do
 			do
@@ -3030,4 +3032,61 @@ fn color_picker_opened_from_cog_raises_strata_and_restores_on_hide() {
 	assert_eq!(out["restoredStrata"], out["defaultStrata"], "strata restored on close");
 	assert_eq!(out["restoredLevel"], out["defaultLevel"], "frame level restored on close");
 	assert_eq!(out["externalLeft"], true, "closing popup does not close another addon's picker");
+}
+
+// #3643: Setup > General > Language: Follow the game (the default), English, then every language Polestar ships, each
+// named in the language shown now. A pick is kept account-wide (PolestarLanguage, Core/Locale.lua) and asks for a
+// /reload: Reload UI reloads, Later keeps the choice for the next one. Picking the language in use asks nothing;
+// right-click (Reset) follows the game again.
+#[test]
+fn general_s_language_row_lists_every_shipped_language_keeps_the_pick_and_asks_for_a_reload() {
+	let out = run(r#"
+		local reloads = 0
+		ReloadUI = function() reloads = reloads + 1 end
+		UI.ShowOptions("language")
+		local c
+		for _, x in ipairs(O.AllControls()) do if x.label == "Language" then c = x end end
+		local w = O.view.cache[c]
+		local labels, values = {}, {}
+		for _, ch in ipairs(c.choices()) do labels[#labels + 1], values[#values + 1] = ch.label, ch.value end
+		local before = { w.Button.Label:GetText(), PolestarLanguage == nil }
+		w.psSet("enUS")
+		local asked = { Polestar.Widgets.ModalShown(), PolestarLanguage, Polestar.Language.Get() }
+		Polestar.Widgets.HideModal()
+		w.psSet("enUS")
+		local again = Polestar.Widgets.ModalShown()
+		w.psSet("deDE")
+		local dialog = Polestar.Widgets.ModalShown()
+		Polestar.Widgets.HideModal()
+		w:Refresh()
+		local shown = w.Button.Label:GetText()
+		w.psSet(nil)
+		emit({ page = { c.page.name, c.page.key }, help = c.help, labels = labels, values = values, before = before, asked = asked, again = again,
+			dialog = dialog, shown = shown, reset = { PolestarLanguage == nil, Polestar.Language.Get() }, reloads = reloads })"#);
+	assert_eq!(out["page"], json!(["General", "language"]));
+	assert_eq!(out["values"], json!(["game", "enUS", "deDE", "esES", "esMX", "frFR", "koKR", "ptBR", "ruRU", "zhCN", "zhTW"]));
+	assert_eq!(
+		out["labels"],
+		json!([
+			"Follow the game",
+			"English",
+			"German",
+			"Spanish (Spain)",
+			"Spanish (Latin America)",
+			"French",
+			"Korean",
+			"Portuguese (Brazil)",
+			"Russian",
+			"Simplified Chinese",
+			"Traditional Chinese"
+		])
+	);
+	assert!(out["help"].as_str().unwrap().contains("/reload"), "the row says it takes a /reload: {}", out["help"]);
+	assert_eq!(out["before"], json!(["Follow the game", true]), "the default follows the game, nothing saved");
+	assert_eq!(out["asked"], json!([true, "enUS", "enUS"]), "a pick is kept and asks for a /reload");
+	assert_eq!(out["again"], false, "the language already picked asks nothing");
+	assert_eq!(out["dialog"], true);
+	assert_eq!(out["shown"], "German", "the row shows the pick");
+	assert_eq!(out["reset"], json!([true, "game"]), "Reset follows the game again");
+	assert_eq!(out["reloads"], 0, "nothing reloads until the player says so");
 }
