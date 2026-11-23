@@ -27,8 +27,8 @@
 --   Polestar.Language.Set(name) -> bool   -- one of Language.CHOICES; shown
 --     from the next /reload
 --   Polestar.Language.CHOICES   -- "game", "enUS", then the shipped languages
---   /polestar language [name]   -- the same, until the setting has its row in
---     Options
+--   /polestar language [name]   -- the same; the settings' row is Setup >
+--     General > Language (Polestar_Options/UI/Options.lua)
 --
 -- A folder still not loaded at login while Language follows the game, and
 -- not in the AddOns folder at all, gets one chat line, in English: the
