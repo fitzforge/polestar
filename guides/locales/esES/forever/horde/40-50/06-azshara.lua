@@ -9,8 +9,6 @@ return {
 	-- Step 2: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Vuela a {area:35}",
-	-- {area:75} Stonard
-	["{area:75} flight master"] = "Maestro de vuelo de {area:75}",
 
 	-- Step 3: Booty Bay
 	-- {area:75} Stonard · {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
@@ -306,6 +304,7 @@ return {
 	-- ["Xylem's tower stands on the cliff just north of {area:1237}; the path winds up its north side."] = "La torre del Archimago Xylem está en el acantilado justo al norte de {area:1237}; el sendero sube serpenteando por su lado norte.",
 	-- ["Zapped giants"] = "Gigantes encogidos",
 	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}: mátalos según te los encuentres",
+	-- ["{area:75} flight master"] = "Maestro de vuelo de {area:75}",
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} en {zone:1456}; {zone:1454} no tiene instructor de paladines",
 	-- ["{npc:6986}, the {object:172959}"] = "{npc:6986}, {object:172959}",
 	-- ["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}, La Calada: si aún lo llevas",
