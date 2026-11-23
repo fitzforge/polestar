@@ -390,23 +390,25 @@ return {
 	-- Step 90: Donova Snowden
 	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
 	["From the tunnel's {zone:1452} exit, ride south to {area:2246}."] = "От выхода из туннеля в зону {zone:1452} езжайте на юг: {area:2246}.",
+
+	-- Step 91: Donova Snowden
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "{quest:5086} – здесь: {zone:1448}, в следующий раз: сохраните задание.",
 
-	-- Step 91: Moontouched Owlbeasts
+	-- Step 92: Moontouched Owlbeasts
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Moontouched Owlbeasts"] = "Луноподобные совухи",
 	-- {area:2255} Everlook · {area:2241} Frostsaber Rock
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Careful: they are 57-58: pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "Езжайте на восток сюда: {area:2255} и дальше на север; луноподобные совухи бродят по южным склонам ({area:2241}). Осторожно: они 57-58-го уровня, выманивайте по одному.\nОсторожно: Hailspite, элитные противники 60-го уровня, собираются на снежных полях к юго-востоку от места {area:2255}, где тоже бродят несколько луноподобных совух: держитесь склонов к северу от городка.",
 
-	-- Step 92: Pristine Yeti Horns
+	-- Step 93: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Нетронутые рога йети",
 	-- {area:2255} Everlook
 	["Umi's horns, carried from your last {area:2255} stop: the yeti hills start just south-east of {area:2255}. Only Matriarchs and Patriarchs drop horns, and the Patriarchs reach 58: pull them one at a time."] = "Рога для Уми, взятые при прошлой остановке ({area:2255}): холмы йети начинаются чуть к юго-востоку от места {area:2255}. Рога падают только с матриархов и патриархов, а патриархи бывают 58-го уровня: выманивайте по одному.",
 
-	-- Step 93: Umi Rumplesnicker
+	-- Step 94: Umi Rumplesnicker
 	-- {area:976} Gadgetzan · {area:2255} Everlook · {zone:2482} Mount Hyjal · {zone:1451} Silithus
 	["Umi's third prank targets goblins in {area:976}, Un'Goro and {area:2255}: keep it. {zone:2482} is next: its way in starts here in {area:2255}; {area:976}, Linken's sword and {zone:1451} follow it."] = "",
 

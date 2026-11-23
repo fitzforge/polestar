@@ -158,7 +158,7 @@ return {
 
 	-- Step 30: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被关在山谷最西端的玛洛迪营地；救出她，向东护送她离开山谷。\n小心：脚本刷出的敌群会一起行动，而且仅在护送期间出现，因此无法提前清理，也无法逐个引出。开始前先清理路上的普通半人马仍有帮助。",
+	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "",
 
 	-- Step 31: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
@@ -284,6 +284,7 @@ return {
 	-- ["grind on {npc:4377}"] = "刷{npc:4377}升级",
 	-- ["{npc:11624} stands in the village."] = "{npc:11624}站在村里。",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "{npc:11626}的商队停在{area:602}边缘的路上。护送商队向东经过集会所；恶魔会袭击两次。",
+	-- ["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被关在山谷最西端的玛洛迪营地；救出她，向东护送她离开山谷。\n小心：脚本刷出的敌群会一起行动，而且仅在护送期间出现，因此无法提前清理，也无法逐个引出。开始前先清理路上的普通半人马仍有帮助。",
 	-- ["{npc:3391} waits upstairs in the house by the flight master; {npc:3446} stands below it, towards the docks."] = "{npc:3391}在飞行管理员旁房子的楼上等候；{npc:3446}在房子下方、靠码头的一侧。",
 	-- ["{npc:3391}'s next errand takes you to {area:35}, off this part of the route: leave it."] = "{npc:3391}的下一个差事要去{area:35}，偏离这段路线：先不接。",
 	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}：交给{area:35}的{npc:4631}，在40-50级指南第一次到{area:35}时处理",

@@ -19,8 +19,8 @@ return {
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
 	["Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "지나가는 구리(1, 주황색), 질 낮은 구리(1, 주황색) 광맥을 모두 캐고, {skill:186} 50까지 경유지를 도세요. 가방이 차면 제련소에서 제련하세요. {spell:2657}(25까지 주황색, 70에 회색)도 숙련도를 올려 줍니다. 지역 레벨 1-10. 이번 49점에는 광맥 약 60개가 필요합니다.",
 	["Copper"] = "구리",
-	["Copper, Poor Copper"] = "",
 	["Poor Copper"] = "",
+	["Copper, Poor Copper"] = "",
 
 	-- Step 3: Copper & Poor Copper: Dun Morogh (1-50)
 	-- {zone:1426} Dun Morogh
@@ -163,7 +163,7 @@ return {
 	-- {object:147516} Dark Iron · {zone:1427} Searing Gorge
 	["Mithril & {object:147516}: {zone:1427} (230-245)"] = "미스릴 및 {object:147516}: {zone:1427} (230-245)",
 	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths
-	["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "",
+	["Mine every Gold (155, green, rare), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "",
 	-- {object:147516} Dark Iron
 	["Mithril, {object:147516}"] = "",
 
@@ -172,18 +172,15 @@ return {
 	["Small Thorium: {zone:1448} (245-275)"] = "",
 	-- {skill:186} Mining · {npc:9528} Arathandris Silversky · {npc:9529} Maybess Riverbreeze
 	["Mine every Gold (155, green, rare), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until {skill:186} 275. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Quests here that need {skill:186}: Salve via {skill:186} (level 55, {npc:9528}; Alliance), Salve via {skill:186} (level 55, {npc:9529}; Horde). Zone level 48-55. Expect about 50 nodes for these 30 points."] = "",
-	["Mithril, Small Thorium"] = "",
 	["Small Thorium, Truesilver"] = "",
+	["Mithril, Small Thorium"] = "",
 
-	-- Step 30: Small Thorium & Rich Thorium: Winterspring (275-300)
-	-- {zone:1452} Winterspring
-	["Small Thorium & Rich Thorium: {zone:1452} (275-300)"] = "작은 토륨 및 풍부한 토륨: {zone:1452} (275-300)",
+	-- Step 30: Small Thorium & Rich Thorium: Eastern Plaguelands (275-300)
+	-- {zone:1423} Eastern Plaguelands
+	["Small Thorium & Rich Thorium: {zone:1423} (275-300)"] = "",
 	-- {skill:186} Mining
-	["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 55-60. Expect about 40 nodes for these 25 points."] = "",
+	["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 53-60. Expect about 30 nodes for these 25 points."] = "",
 	["Rich Thorium, Small Thorium"] = "",
-	["Rich Thorium, Truesilver"] = "",
-	["Rich Thorium"] = "",
-	["Small Thorium, Rich Thorium"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} (character level 5); the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it."] = "진영의 {skill:186} 상급자 누구에게서나 초급 {skill:186}을(를) 배울 수 있습니다(캐릭터 레벨 5). 화살표가 가장 가까운 상급자를 가리킵니다. 직업용품 상인이나 잡화 상인에게서 {item:2901}을(를) 사서 가방에 넣어 두세요. 없으면 채광할 수 없습니다.",
@@ -214,6 +211,7 @@ return {
 	-- ["Mine every Tin (65, green), Silver (75, green), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 18-30."] = "지나가는 주석(65, 초록색), 은(75, 초록색), 철(125, 주황색) 광맥을 모두 캐고, {skill:186} 155까지 경유지를 도세요. 가방이 차면 제련소에서 광석을 제련하세요. 제련도 {skill:186}을(를) 올립니다. 지역 레벨 18-30.",
 	-- ["Mine every {object:147516} (230, yellow), Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 50-58."] = "지나가는 {object:147516}(230, 노란색), 진은(230, 노란색), 작은 토륨(245, 노란색), 풍부한 토륨(275, 주황색) 광맥을 모두 캐고, {skill:186} 300까지 경유지를 도세요. 가방이 차면 제련소에서 광석을 제련하세요. 제련도 {skill:186}을(를) 올립니다. 지역 레벨 50-58.",
 	-- ["Silver, Tin"] = "은, 주석",
+	-- ["Small Thorium & Rich Thorium: {zone:1452} (275-300)"] = "작은 토륨 및 풍부한 토륨: {zone:1452} (275-300)",
 	-- ["Tin & Silver: {zone:1413} (65-125)"] = "주석 및 은: {zone:1413} (65-125)",
 	-- ["Tin & Silver: {zone:1433} (65-125)"] = "주석 및 은: {zone:1433} (65-125)",
 	-- ["Tin & Silver: {zone:1439} (65-125)"] = "주석 및 은: {zone:1439} (65-125)",

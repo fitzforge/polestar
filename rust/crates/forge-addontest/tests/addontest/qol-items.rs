@@ -790,3 +790,63 @@ fn banner_gear_offer_wear_it_or_not_this_one() {
 	assert_eq!(out[0], json!({ "text": "Upgrade: [Ridge Helm]  \u{b7}  +10%  \u{b7}  Head", "jump": "Wear it", "later": "Not this one" }));
 	assert_eq!(out[1], json!({ "shown": false, "log": ["take", "decline"] }));
 }
+
+// #3726 (imp), #3563: "Not this one" took several clicks. Every redraw hid the second link and showed it again,
+// and a click pressed across a redraw was lost. It stays shown while the notice keeps it; a notice without it hides it.
+#[test]
+fn banner_the_second_link_stays_shown_across_redraws_and_hides_only_when_the_notice_drops_it() {
+	let out = run_ui(
+		r#"
+		offer = { id = 14, link = "[Ridge Helm]", slot = 1, pct = 10 }
+		Polestar.Fire("WEAR_OFFER")
+		local hides = 0
+		B.Later:HookScript("OnHide", function() hides = hides + 1 end)
+		for _ = 1, 5 do
+			Polestar.Fire("WEAR_OFFER")
+			uistub.update()
+		end
+		local kept = { shown = B.Later:IsShown(), hides = hides, label = B.Later.Label:GetText() }
+		offer = nil
+		bags = { free = 0, junk = { id = 2, count = 2, value = 14, link = "[Broken Fang]" }, armed = false }
+		Polestar.Fire("WEAR_OFFER")
+		Polestar.Fire("BAG_SPACE")
+		emit({ kept = kept, after = { jump = B.Jump.Label:GetText(), later = B.Later:IsShown() } })
+	"#,
+	);
+	assert_eq!(out[0]["kept"], json!({ "shown": true, "hides": 0, "label": "Not this one" }), "never hidden while the offer shows");
+	assert_eq!(out[0]["after"], json!({ "jump": "Delete it", "later": false }), "the bags notice has one link");
+}
+
+// #2826: the item a banner names shows the game's tooltip for that copy, and a modified click links it.
+#[test]
+fn banner_item_shows_its_tooltip_on_hover_and_links_on_a_modified_click() {
+	let out = run_ui(
+		r#"
+		local links, handled, modified = {}, {}, false
+		GameTooltip.SetHyperlink = function(self, link) links[#links + 1] = link end
+		IsModifiedClick = function() return modified end
+		HandleModifiedItemClick = function(link) handled[#handled + 1] = link end
+		local function hover()
+			GameTooltip.owner, links = nil, {}
+			stub.RunScript(B.Item, "OnEnter")
+			local r = { shown = B.Item:IsShown(), owner = GameTooltip:GetOwner() == B.Item, link = links[#links] or false }
+			stub.RunScript(B.Item, "OnLeave")
+			return r
+		end
+		offer = { id = 14, link = "|Hitem:14::::::1184|h[Ridge Helm of the Bear]|h", slot = 1, pct = 10 }
+		Polestar.Fire("WEAR_OFFER")
+		local wear = hover()
+		B.Item:Click()
+		modified = true
+		B.Item:Click()
+		offer = nil
+		bags = { free = 0, junk = { id = 2, count = 2, value = 14, link = "[Broken Fang]" }, armed = false }
+		Polestar.Fire("BAG_SPACE")
+		local junk = hover()
+		emit({ wear = wear, junk = junk, handled = handled })
+	"#,
+	);
+	assert_eq!(out[0]["wear"], json!({ "shown": true, "owner": true, "link": "|Hitem:14::::::1184|h[Ridge Helm of the Bear]|h" }), "the offered copy's own link, suffix and all");
+	assert_eq!(out[0]["junk"], json!({ "shown": true, "owner": true, "link": "[Broken Fang]" }));
+	assert_eq!(out[0]["handled"], json!(["|Hitem:14::::::1184|h[Ridge Helm of the Bear]|h"]), "only the modified click goes to the client");
+}

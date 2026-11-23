@@ -2,6 +2,2093 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "3529-calder-gray-when-complete",
+			"faction": "Horde",
+			"at": {
+				"quest": 97985,
+				"goal": "turnin",
+				"guide": "forever/horde/30-40/05-arathi-highlands"
+			},
+			"when": "complete 97985",
+			"note": "#3529: Thundering Hearts is taken in Hillsbrad and worked in Thousand Needles; Calder Gray's step in the Undercity showed while it was in the log, finished or not, and asked for the hand-in with Stormheart (a level 30 elite) not killed. The step shows only with the heart.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "3339-stv-drizzlik-hand-in",
+			"faction": "Horde",
+			"at": {
+				"quest": 577,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"split": {
+				"title": "Drizzlik"
+			},
+			"note": "#3339's sweep: Some Assembly Required is taken and worked on the 30-40 Stranglethorn guide; the 40-50 guide's Booty Bay stop hands it in in a step of its own (its `when complete 577`: the next record). Excelsior's accept stays in the stop for a player who handed it in elsewhere.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3339"
+				}
+			],
+			"issue": 3339
+		},
+		{
+			"id": "3339-stv-drizzlik-hand-in-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 577,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"when": "complete 577",
+			"note": "#3339's sweep: Drizzlik's hand-in step only with the Snapjaw skins gathered.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3339"
+				}
+			],
+			"issue": 3339
+		},
+		{
+			"id": "3339-stv-kebok-hand-in",
+			"faction": "Horde",
+			"at": {
+				"quest": 213,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"split": {
+				"title": "Kebok"
+			},
+			"note": "#3339: Hostile Takeover is taken and its Tumbled Crystals gathered on the 30-40 Stranglethorn guide; the 40-50 guide sent a player who hadn't gathered them to Kebok. The hand-in is a step of its own (its `when complete 213`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3339"
+				}
+			],
+			"issue": 3339
+		},
+		{
+			"id": "3339-stv-kebok-hand-in-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 213,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"when": "complete 213",
+			"note": "#3339: Kebok's hand-in step only with the eight Tumbled Crystals.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3339"
+				}
+			],
+			"issue": 3339
+		},
+		{
+			"id": "3337-aerie-peak-walk-with-super-snapper",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2944,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"way": {
+				"when": [
+					"group 2944",
+					"onquest 2944"
+				]
+			},
+			"note": "#3337: the flight to Aerie Peak, Gammerita and the flight on to Southshore are for The Super Snapper FX only; they showed for a \"do it\" group answer without the quest in the log. They need the quest too; without it the guide flies from Ironforge straight to Southshore.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3337"
+				}
+			],
+			"issue": 3337
+		},
+		{
+			"id": "0430-carried-hand-in-1861-02-westfall",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1861,
+				"goal": "turnin",
+				"guide": "forever/alliance/02-westfall"
+			},
+			"split": {
+				"title": "Jennea Cannon"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Mirror Lake is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1861-02-westfall-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1861,
+				"goal": "turnin",
+				"guide": "forever/alliance/02-westfall"
+			},
+			"when": "complete 1861",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Mirror Lake is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-226-05-duskwood",
+			"faction": "Alliance",
+			"at": {
+				"quest": 226,
+				"goal": "turnin",
+				"guide": "forever/alliance/05-duskwood"
+			},
+			"split": {
+				"title": "Lars"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Wolves at Our Heels is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-226-05-duskwood-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 226,
+				"goal": "turnin",
+				"guide": "forever/alliance/05-duskwood"
+			},
+			"when": "complete 226",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Wolves at Our Heels is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-945-06-ashenvale",
+			"faction": "Alliance",
+			"at": {
+				"quest": 945,
+				"goal": "turnin",
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"when": "complete 945",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Therylune's Escape is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-994-06-ashenvale",
+			"faction": "Alliance",
+			"at": {
+				"quest": 994,
+				"goal": "turnin",
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"when": "complete 994",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Escape Through Force is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-994-06-wetlands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 994,
+				"goal": "turnin",
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"when": "complete 994",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Escape Through Force is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-945-06-wetlands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 945,
+				"goal": "turnin",
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"when": "complete 945",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Therylune's Escape is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-57-07-thousand-needles",
+			"faction": "Alliance",
+			"at": {
+				"quest": 57,
+				"goal": "turnin",
+				"guide": "forever/alliance/07-thousand-needles"
+			},
+			"split": {
+				"title": "Commander Althea Ebonlocke"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Night Watch is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-57-07-thousand-needles-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 57,
+				"goal": "turnin",
+				"guide": "forever/alliance/07-thousand-needles"
+			},
+			"when": "complete 57",
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Night Watch is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1738-05-arathi-highlands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1738,
+				"goal": "turnin",
+				"guide": "forever/alliance/30-40/05-arathi-highlands"
+			},
+			"split": {
+				"title": "Gakin the Darkbinder"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Heartswood is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1738-05-arathi-highlands-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1738,
+				"goal": "turnin",
+				"guide": "forever/alliance/30-40/05-arathi-highlands"
+			},
+			"when": "complete 1738",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Heartswood is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5741-06b-desolace",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5741,
+				"goal": "turnin",
+				"guide": "forever/alliance/30-40/06b-desolace"
+			},
+			"split": {
+				"title": "Azore Aldamort"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Sceptre of Light is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5741-06b-desolace-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5741,
+				"goal": "turnin",
+				"guide": "forever/alliance/30-40/06b-desolace"
+			},
+			"when": "complete 5741",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Sceptre of Light is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-543-01-stranglethorn-vale",
+			"faction": "Alliance",
+			"at": {
+				"quest": 543,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale"
+			},
+			"when": "complete 543",
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Perenolde Tiara is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1258-02-badlands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1258,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/02-badlands"
+			},
+			"split": {
+				"title": "Morgan Stern"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): ... and Bugs is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1258-02-badlands-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1258,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/02-badlands"
+			},
+			"when": "complete 1258",
+			"note": "Condition sweep (0.4.3, #3529/#3339): ... and Bugs is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3661-02-felwood",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3661,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/02-felwood"
+			},
+			"split": {
+				"title": "Erelas Ambersky"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Favored of Elune? is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3661-02-felwood-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3661,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/02-felwood"
+			},
+			"when": "complete 3661",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Favored of Elune? is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-2944-02-felwood",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2944,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/02-felwood"
+			},
+			"split": {
+				"title": "Daryn Lightwind"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Super Snapper FX is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-2944-02-felwood-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2944,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/02-felwood"
+			},
+			"when": "complete 2944",
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Super Snapper FX is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3764-02-felwood",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3764,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/02-felwood"
+			},
+			"when": "complete 3764",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Un'Goro Soil is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3909-03-winterspring",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3909,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"split": {
+				"title": "Donova Snowden"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Videre Elixir is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3909-03-winterspring-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3909,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"when": "complete 3909",
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Videre Elixir is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4441-03-winterspring",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4441,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"split": {
+				"title": "Eridan Bluewind"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Felbound Ancients is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4441-03-winterspring-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4441,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"when": "complete 4441",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Felbound Ancients is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4512-04-western-plaguelands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4512,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"split": {
+				"title": "Laris Geardawdle"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): A Little Slime Goes a Long Way is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4512-04-western-plaguelands-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4512,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"when": "complete 4512",
+			"note": "Condition sweep (0.4.3, #3529/#3339): A Little Slime Goes a Long Way is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-978-04-western-plaguelands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 978,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"when": "complete 978",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Moontouched Wildkin is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5245-04-western-plaguelands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5245,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"when": "complete 5245",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Troubled Spirits of Kel'Theril is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-99051-02-the-barrens",
+			"faction": "Horde",
+			"at": {
+				"quest": 99051,
+				"goal": "turnin",
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"split": {
+				"title": "Orgnil Soulscar"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Threat from Below is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-99051-02-the-barrens-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 99051,
+				"goal": "turnin",
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"when": "complete 99051",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Threat from Below is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1498-02-the-barrens",
+			"faction": "Horde",
+			"at": {
+				"quest": 1498,
+				"goal": "turnin",
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"split": {
+				"title": "Uzzek"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Path of Defense is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1498-02-the-barrens-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 1498,
+				"goal": "turnin",
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"when": "complete 1498",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Path of Defense is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5726-03-silverpine-forest",
+			"faction": "Horde",
+			"at": {
+				"quest": 5726,
+				"goal": "turnin",
+				"guide": "forever/horde/03-silverpine-forest"
+			},
+			"split": {
+				"title": "Thrall"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Hidden Enemies is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5726-03-silverpine-forest-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 5726,
+				"goal": "turnin",
+				"guide": "forever/horde/03-silverpine-forest"
+			},
+			"when": "complete 5726",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Hidden Enemies is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1536-04-the-barrens",
+			"faction": "Horde",
+			"at": {
+				"quest": 1536,
+				"goal": "turnin",
+				"guide": "forever/horde/04-the-barrens"
+			},
+			"split": {
+				"title": "Brine"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Call of Water is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1536-04-the-barrens-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 1536,
+				"goal": "turnin",
+				"guide": "forever/horde/04-the-barrens"
+			},
+			"when": "complete 1536",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Call of Water is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-479-06-hillsbrad-foothills",
+			"faction": "Horde",
+			"at": {
+				"quest": 479,
+				"goal": "turnin",
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"split": {
+				"title": "Shadow Priest Allister"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Ambermill Investigations is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-479-06-hillsbrad-foothills-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 479,
+				"goal": "turnin",
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"when": "complete 479",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Ambermill Investigations is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-95981-06-hillsbrad-foothills",
+			"faction": "Horde",
+			"at": {
+				"quest": 95981,
+				"goal": "turnin",
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"split": {
+				"title": "Shadow Priest Allister"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Watching the Roads is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-95981-06-hillsbrad-foothills-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 95981,
+				"goal": "turnin",
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"when": "complete 95981",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Watching the Roads is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1164-01-stranglethorn-vale",
+			"faction": "Horde",
+			"at": {
+				"quest": 1164,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"when": "complete 1164",
+			"note": "Condition sweep (0.4.3, #3529/#3339): To Steal From Thieves is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3520-04-tanaris",
+			"faction": "Horde",
+			"at": {
+				"quest": 3520,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"split": {
+				"title": "Yeh'kinya"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Screecher Spirits is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3520-04-tanaris-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 3520,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"when": "complete 3520",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Screecher Spirits is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-2932-06-azshara",
+			"faction": "Horde",
+			"at": {
+				"quest": 2932,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"when": "complete 2932",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Grim Message is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-580-06-azshara",
+			"faction": "Horde",
+			"at": {
+				"quest": 580,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"split": {
+				"title": "Whiskey Slim"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Whiskey Slim's Lost Grog is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-580-06-azshara-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 580,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"when": "complete 580",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Whiskey Slim's Lost Grog is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3123-06-azshara",
+			"faction": "Horde",
+			"at": {
+				"quest": 3123,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"split": {
+				"title": "Witch Doctor Uzer'i"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Testing the Vessel is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3123-06-azshara-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 3123,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"when": "complete 3123",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Testing the Vessel is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-2641-06-azshara",
+			"faction": "Horde",
+			"at": {
+				"quest": 2641,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"split": {
+				"title": "Sprinkle"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Sprinkle's Secret Ingredient is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-2641-06-azshara-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 2641,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"when": "complete 2641",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Sprinkle's Secret Ingredient is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3362-01-un-goro-crater",
+			"faction": "Horde",
+			"at": {
+				"quest": 3362,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"split": {
+				"title": "Tran'rek"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Thistleshrub Valley is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3362-01-un-goro-crater-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 3362,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"when": "complete 3362",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Thistleshrub Valley is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5863-01-un-goro-crater",
+			"faction": "Horde",
+			"at": {
+				"quest": 5863,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"split": {
+				"title": "Andi Lynn"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Dunemaul Compound is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5863-01-un-goro-crater-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 5863,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"when": "complete 5863",
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Dunemaul Compound is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-2995-01-un-goro-crater",
+			"faction": "Horde",
+			"at": {
+				"quest": 2995,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"split": {
+				"title": "Oran Snakewrithe"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Lines of Communication is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-2995-01-un-goro-crater-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 2995,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"when": "complete 2995",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Lines of Communication is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4300-02-felwood",
+			"faction": "Horde",
+			"at": {
+				"quest": 4300,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/02-felwood"
+			},
+			"when": "complete 4300",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Bone-Bladed Weapons is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4102-03-winterspring",
+			"faction": "Horde",
+			"at": {
+				"quest": 4102,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"split": {
+				"title": "Maybess Riverbreeze"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Cleansing Felwood is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4102-03-winterspring-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 4102,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"when": "complete 4102",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Cleansing Felwood is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5156-03-winterspring",
+			"faction": "Horde",
+			"at": {
+				"quest": 5156,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"split": {
+				"title": "Taronn Redfeather"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Verifying the Corruption is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5156-03-winterspring-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 5156,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"when": "complete 5156",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Verifying the Corruption is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5157-03-winterspring",
+			"faction": "Horde",
+			"at": {
+				"quest": 5157,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"split": {
+				"title": "Greta Mosshoof"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Collection of the Corrupt Water is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5157-03-winterspring-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 5157,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"when": "complete 5157",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Collection of the Corrupt Water is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-86577-03-winterspring",
+			"faction": "Horde",
+			"at": {
+				"quest": 86577,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"split": {
+				"title": "Kelek Skykeeper"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): A Sampling of Putrescence is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-86577-03-winterspring-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 86577,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"when": "complete 86577",
+			"note": "Condition sweep (0.4.3, #3529/#3339): A Sampling of Putrescence is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4120-03-winterspring",
+			"faction": "Horde",
+			"at": {
+				"quest": 4120,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"when": "complete 4120",
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Strength of Corruption is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3761-03-winterspring",
+			"faction": "Horde",
+			"at": {
+				"quest": 3761,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"split": {
+				"title": "Ghede"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Un'Goro Soil is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3761-03-winterspring-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 3761,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"when": "complete 3761",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Un'Goro Soil is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3568-04-azshara",
+			"faction": "Horde",
+			"at": {
+				"quest": 3568,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/04-azshara"
+			},
+			"split": {
+				"title": "Chemist Cuely"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Seeping Corruption is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3568-04-azshara-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 3568,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/04-azshara"
+			},
+			"when": "complete 3568",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Seeping Corruption is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4300-04-azshara",
+			"faction": "Horde",
+			"at": {
+				"quest": 4300,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/04-azshara"
+			},
+			"when": "complete 4300",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Bone-Bladed Weapons is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3909-05-eastern-plaguelands",
+			"faction": "Horde",
+			"at": {
+				"quest": 3909,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"split": {
+				"title": "Donova Snowden"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Videre Elixir is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3909-05-eastern-plaguelands-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 3909,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"when": "complete 3909",
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Videre Elixir is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3444-06-silithus",
+			"faction": "Horde",
+			"at": {
+				"quest": 3444,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/06-silithus"
+			},
+			"when": "complete 3444",
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Stone Circle is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5527-07-felwood",
+			"faction": "Horde",
+			"at": {
+				"quest": 5527,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/07-felwood"
+			},
+			"when": "complete 5527",
+			"note": "Condition sweep (0.4.3, #3529/#3339): A Reliquary of Purity is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4741-07-felwood",
+			"faction": "Horde",
+			"at": {
+				"quest": 4741,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/07-felwood"
+			},
+			"split": {
+				"title": "Trull Failbane"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Wild Guardians is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4741-07-felwood-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 4741,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/07-felwood"
+			},
+			"when": "complete 4741",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Wild Guardians is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "3192-stinky-from-36",
+			"faction": "Horde",
+			"at": {
+				"quest": 1270,
+				"goal": "accept",
+				"guide": "forever/horde/30-40/04-dustwallow-marsh"
+			},
+			"when": "level>=36",
+			"note": "#3192: Stinky Ignatz offered nothing to a level 35 player (PierreAnken: offered from 36); in players' recordings nobody took Stinky's Escape below 36. The step shows from 36; a lower character's accept waits for the level.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3192"
+				}
+			],
+			"issue": 3192
+		},
+		{
+			"id": "3347-melizza-escort-careful-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 6132,
+				"goal": "accept",
+				"guide": "forever/horde/30-40/04-dustwallow-marsh"
+			},
+			"tip": "Careful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help.",
+			"note": "#3347, #2755: Get Me Out of Here! sends six attackers during the escort; players at 38-39 found it too hard alone, and in the recordings 14 of 30 people who took it failed at least once (7 never finished). The step says so up front until the group choice (#3439, #3580) comes.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 6132: 30 people accepted, 14 failed at least once, 7 never completed"
+				}
+			],
+			"issue": 3347
+		},
+		{
+			"id": "3347-melizza-escort-careful-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6132,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/06b-desolace"
+			},
+			"tip": "Careful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help.",
+			"note": "#3347, #2755: as the Horde record; the Alliance's Desolace visit takes the same escort.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 6132: 30 people accepted, 14 failed at least once, 7 never completed"
+				}
+			],
+			"issue": 3347
+		},
+		{
+			"id": "3347-hornizz-hand-in-when-complete-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 6132,
+				"goal": "turnin",
+				"guide": "forever/horde/30-40/04-dustwallow-marsh"
+			},
+			"when": "complete 6132",
+			"note": "#3347: a player who skips the escort alone is not sent to Hornizz for its hand-in; the ghost-o-plasm accept after it needs the escort handed in anyway.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3347"
+				}
+			],
+			"issue": 3347
+		},
+		{
+			"id": "3347-hornizz-hand-in-when-complete-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6132,
+				"goal": "turnin",
+				"guide": "forever/alliance/30-40/06b-desolace"
+			},
+			"when": "complete 6132",
+			"note": "#3347: a player who skips the escort alone is not sent to Hornizz for its hand-in.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3347"
+				}
+			],
+			"issue": 3347
+		},
+		{
+			"id": "3036-threshadon-summon-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95267,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"tip": "The Monstrous Threshadon comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. Old Rot-Chum, an elite, walks the shore close by: give him room.",
+			"note": "#3036: the step never said that the Threshadon is called up from what floats in the water (place: 3036-riverglades-threshadon-summon).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3036"
+				}
+			],
+			"issue": 3036
+		},
+		{
+			"id": "3036-threshadon-summon-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 95267,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"tip": "The Monstrous Threshadon comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. Old Rot-Chum, an elite, walks the shore close by: give him room.",
+			"note": "#3036: as the Alliance record.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3036"
+				}
+			],
+			"issue": 3036
+		},
+		{
+			"id": "3550-loose-soil-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94829,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"split": {
+				"title": "Loose Soil"
+			},
+			"note": "#3550: each Loose Soil grave takes one of the Farmers' Mementos the Twilight Raiders drop, but While you're here offered the soil before the player had any. The graves are a step of their own after the cult (its `when has 266148`: the next record); the cult step collects the five Mementos.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3550"
+				}
+			],
+			"issue": 3550
+		},
+		{
+			"id": "3550-loose-soil-own-step-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94829,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"tip": "Back north-east to the loose soil west of Elbrim's farm: bury the Farmers' Mementos there, one in each grave.",
+			"when": "has 266148",
+			"note": "#3550: the Loose Soil step only with a Farmers' Memento in the bags, and its tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3550"
+				}
+			],
+			"issue": 3550
+		},
+		{
+			"id": "3346-figurine-torch-on-the-cart",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1738,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/04-stranglethorn-vale"
+			},
+			"tip": "From Astranaar head north-west into the hills: the Heartswood is a glowing tree north of the road to Maestra's Post. If you took What Is Love?, the Wooden Figurine lies in a house among the trees north of Maestra's Post (26.6,22.0): light the Unlit Torch from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon.",
+			"note": "#3346: the figurine is taken by throwing the lit torch onto the archaeologist's cart outside the house, which draws the figure inside away; the step said only where the figurine lies.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3346 (Bussincider)"
+				}
+			],
+			"issue": 3346
+		},
+		{
+			"id": "3385-kodo-hides-and-venom-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1459,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/alliance/30-40/02-desolace"
+			},
+			"split": {
+				"title": "Kodo Graveyard: hides and venom",
+				"tip": "The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos."
+			},
+			"note": "#3385 (Tilman): the Kodo Graveyard step held Kodo Roundup's taming with Reagents for Reclaimers Inc.'s hides and venom; skipping the taming skipped the venom too. The hides and venom are a step of their own after the taming.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-kodo-taming-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5561,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/02-desolace"
+			},
+			"tip": "Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo: it becomes a tamed kodo that follows you. Walk it back to Smeed's camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them.",
+			"note": "#3385's sweep: a skip only touches its own quest, so the taming step's tip says only the taming; the hides and venom have their own step (3385-kodo-hides-and-venom-own-step).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-therylune-escort-after-the-tome",
+			"faction": "Alliance",
+			"at": {
+				"quest": 945,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"follows": {
+				"quest": 98042,
+				"goal": "objective",
+				"objective": 1
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Therylune's escort (945) comes last at the Master's Glaive, after the pelts, the bowl and the tome, and is a step of its own (3385-therylune-escort-own-step).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-therylune-escort-complete-after-accept",
+			"faction": "Alliance",
+			"at": {
+				"quest": 945,
+				"goal": "complete",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"follows": {
+				"quest": 945,
+				"goal": "accept"
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so the escort's complete goes with its accept.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-therylune-escort-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 945,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"split": {
+				"title": "Therylune",
+				"tip": "Therylune stands on the north side of the crater: escort her out of the glaive. Therysil takes the turn-in in Ashenvale."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so skipping Therylune's escort no longer skips the Master's Glaive's pelts, bowl and tome.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-volcor-deer-before-escort",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6124,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"follows": {
+				"quest": 993,
+				"goal": "turnin"
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so the Sickly Deer stay with Volcor's hand-in, before his escort.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-volcor-escort-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 994,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"split": {
+				"title": "Escort Volcor",
+				"tip": "Help Volcor back to the road; he fights on his way out. Terenthis takes the escort in Auberdine on the next visit there."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Volcor's escort (994) is a step of its own; skipping it no longer skips Curing the Sick's deer.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-zimmix-escort-last-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97331,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale"
+			},
+			"follows": {
+				"quest": 342,
+				"goal": "complete"
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Zimmix's escort comes after the Zul'Kunda work (tablets, ears, shipments, pages), a step of its own (3385-zimmix-escort-own-step-alliance).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-zimmix-escort-complete-after-accept-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97331,
+				"goal": "complete",
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale"
+			},
+			"follows": {
+				"quest": 97331,
+				"goal": "accept"
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so the escort's complete goes with its accept.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-zimmix-escort-own-step-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97331,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale"
+			},
+			"split": {
+				"title": "Escort Zimmix",
+				"tip": "Lead Zimmix out of the ruins and keep him alive: Wharfmaster Lozgil in Booty Bay takes the news at the end of this loop."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so skipping Zimmix's escort no longer skips the Zul'Kunda tablets, ears and shipments.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-zimmix-escort-own-step-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97331,
+				"goal": "accept",
+				"guide": "forever/horde/30-40/03-stranglethorn-vale"
+			},
+			"split": {
+				"title": "Escort Zimmix",
+				"tip": "Lead Zimmix out of the ruins and keep him alive: Lozgil takes the news once he is safe."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so skipping Zimmix's escort no longer skips the Stolen Shipments and his key.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-ruul-escort-own-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 6482,
+				"goal": "accept",
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"split": {
+				"title": "Ruul Snowhoof",
+				"tip": "Ruul Snowhoof is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to Night Run."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Ruul Snowhoof's escort (6482) is a step of its own; skipping it no longer skips the Troll Charms.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-lakota-escort-own-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 4904,
+				"goal": "accept",
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"split": {
+				"title": "Escort Lakota Windsong",
+				"tip": "Lakota Windsong is held captive beside where Arnak stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Lakota Windsong's escort (4904) is a step of its own; skipping it no longer skips Arnak Grimtotem's hoof.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-paoka-escort-own-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 4770,
+				"goal": "accept",
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"split": {
+				"title": "Escort Pao'ka Swiftmountain",
+				"tip": "Pao'ka Swiftmountain waits on the east side of the nesting grounds: free him and keep him alive on the walk back to Whitereach Post."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Pao'ka's escort (4770) is a step of its own; skipping it no longer skips the wyvern eggs.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
 			"id": "a40-riverglades-second-wave-level-44",
 			"faction": "Alliance",
 			"at": {
@@ -6785,8 +8872,8 @@
 				"goal": "turnin",
 				"guide": "forever/alliance/05-duskwood"
 			},
-			"when": "onquest 1787,1788",
-			"note": "05-duskwood's Gazin Tenorm step (Stormwind) stays for a Human Paladin still carrying 1787 or 1788; 03-loch-modan's last Stormwind stop does it (tome-of-divinity-loch-modan-gazin). Gated so it no longer walks a finished Paladin to the Cathedral. 0.3.6 hand edit.",
+			"when": "complete 1787",
+			"note": "05-duskwood's Gazin Tenorm step (Stormwind) stays for a Human Paladin still carrying 1787 or 1788; 03-loch-modan's last Stormwind stop does it (tome-of-divinity-loch-modan-gazin). Gated so it no longer walks a finished Paladin to the Cathedral. 0.3.6 hand edit. Condition sweep (0.4.3, #3529): the Defias Script's hand-in only with the script in the bags (`when complete 1787`); a player who handed it in before gets a step of its own for Redemption's accept (`when available 1788`) and one for Duthorian Rall (`when onquest 1788`).",
 			"source": [
 				{
 					"kind": "questie",
@@ -14944,6 +17031,15 @@
 				}
 			],
 			"issue": 3574
+		},
+		{
+			"id": "3279-lines-of-communication-work-in-the-hinterlands",
+			"faction": "Horde",
+			"at": { "quest": 2995, "goal": "turnin" },
+			"goalNote": "Lines of Communication's work is not in this guide: burn the Highvale Report, Notes and Records in the elves' camps around Quel'Danil Lodge, in The Hinterlands & Blasted Lands (its Highvale step). Load that guide for the arrows.",
+			"note": "#3279: the Un'Goro guide hands Lines of Communication in, but its three Highvale objectives are in the Hinterlands guide (forever/horde/40-50/05-the-hinterlands, step Highvale), which a player who ran the earlier guides has already left. The hand-in alone left beardedoak with an arrow to the Undercity for a quest he could not finish. The next route update brings an unfinished quest's objectives back before its hand-in only when they are close to the route; the Hinterlands are too far from Un'Goro, so the hand-in says where the work is.",
+			"source": { "kind": "in-game-check", "ref": "#3279: beardedoak's report; fitzforge's confirmation naming the Highvale step and its three interact goals" },
+			"issue": 3279
 		}
 	]
 }

@@ -87,13 +87,13 @@ local function repair()
 		return
 	end
 	RepairAllItems(plan == "guild")
-	ns.Print(format(plan == "guild" and L["Repaired for %s, guild bank first."] or L["Repaired for %s."], QoL.Money(cost)))
+	ns.Notice(format(plan == "guild" and L["Repaired for %s, guild bank first."] or L["Repaired for %s."], QoL.Money(cost)))
 end
 
 local function finish()
 	stop()
 	if sold > 0 then
-		ns.Print(format(sold == 1 and L["Sold %d grey item for %s."] or L["Sold %d grey items for %s."], sold, QoL.Money(earned)))
+		ns.Notice(format(sold == 1 and L["Sold %d grey item for %s."] or L["Sold %d grey items for %s."], sold, QoL.Money(earned)))
 	end
 	sold, earned = 0, 0
 	qi, qn = 1, 0

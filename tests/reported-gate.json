@@ -1,6 +1,9 @@
 {
 	"about": "The reported-problems gate (npm run test:reported, tools/reported-gate.js): every player-reported problem that was fixed (closed, or labelled fix-merged, with the confirmed label) and the tests that fail if it comes back. The gate runs these tests with the whole of tests/guides-reported.test.js, the judge's player-report seeds (forge judge seed-tests) and the danger-at-the-spot gate (#1575). A fix for a report adds its issue here with the test that pins it; a report with nothing left to check says why (uncheckable). tests/reported-gate.test.js checks that every test named here exists. seedDrift: the judge's seeds that still assert an earlier form of a guides-reported case that has changed since and passes; the gate lists them and fails only on other seeds, until each is brought up to its case.",
 	"issues": {
+		"3706": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "Horde Triage (6622) is completed at Doctor Gregory Victor in Hammerfall (#3706)" }
+		] },
 		"3514": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Veyric Thunderhame stands only in Arathi Highlands, not at Eldrun Stormbreaker's spot (#2851)" }
 		] },
@@ -998,7 +1001,7 @@
 			{ "node": "tests/guides-reported.test.js", "test": "Alliance Arathi Highlands: the Shadowy Assassin never holds the Southshore step (#1542)" }
 		] },
 		"1544": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#1544: Alliance: My Little Friends' specimens are collects, shown with the quest in the log" },
+			{ "node": "tests/guides-reported.test.js", "test": "#1544: Alliance: My Little Friends' specimens are caught with the net, shown with the quest in the log" },
 			{ "node": "tests/guides-reported.test.js", "test": "Alliance Desolace south loop: the Flesh Picker is only for players on My Little Friends" }
 		] },
 		"1550": { "tests": [

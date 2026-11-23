@@ -38,7 +38,7 @@ step Fly to the Undercity
 
 step Genavie Callow
   only Warrior,Paladin,Rogue,Priest,Mage,Warlock
-  when onquest 1164
+  when complete 1164
   zone Undercity
   tip Genavie Callow stands beside the flight master you land at: the Dabyrie heads from the Arathi Highlands.
   turnin 1164                           -- Genavie Callow, beside the flight master
@@ -89,12 +89,22 @@ step Fly to Booty Bay
   goto 32.5,29.3 "Grom'gol flight master"
   fly "Booty Bay"
 
+step Drizzlik
+  zone Stranglethorn Vale
+  when complete 577
+  tip Drizzlik's shop is in the building east of the inn.
+  turnin 577                          -- Drizzlik: the Snapjaw skins gathered earlier; inside
+
 step Booty Bay
   zone Stranglethorn Vale
-  turnin 577                          -- Drizzlik: the Snapjaw skins gathered earlier; inside
-  accept 628                          -- Drizzlik: the Elder Saltwater Crocolisk suns on the coast between Zul'Kunda and Grom'gol, later on this loop
   tip Gringer, the flight master, waits on Booty Bay's upper deck. The quest givers stand on the boardwalks around the harbour and in the inn.
-  turnin 213                          -- Kebok
+  accept 628                          -- Drizzlik: the Elder Saltwater Crocolisk suns on the coast between Zul'Kunda and Grom'gol, later on this loop
+
+step Kebok
+  zone Stranglethorn Vale
+  when complete 213
+  tip Kebok stands upstairs, beside the flight master.
+  turnin 213                          -- Kebok: the Tumbled Crystals from the earlier Stranglethorn guide
 
 step Kebok
   when turnedin 189

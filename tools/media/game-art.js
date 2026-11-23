@@ -1,8 +1,7 @@
 'use strict';
 // Where the client keeps the retail art of the atlases the Blizzard skin draws
-// (Polestar.Theme, "Skins"): addon/Polestar_Looks/GameArt.lua, in the part
-// that holds the game looks (loaded on demand: it reads Polestar's namespace
-// through the Polestar global).
+// (Polestar.Theme, "Skins"): addon/Polestar/Theme/Looks/GameArt.lua, with
+// the game looks (it reads Polestar's namespace through the Polestar global).
 //
 // The Forever client swaps many atlas names for its own art (the "-c60"
 // members of an atlas element), so SetAtlas draws Forever's bronze there. The
@@ -21,7 +20,7 @@ const { pickBuild, cachedTable, fetchText } = require('../lib/data/wago');
 // The client tables this reads (and caches under data/sources/wago/<build>/).
 const TABLES = ['UiTextureAtlas', 'UiTextureAtlasElement', 'UiTextureAtlasMember', 'UiTextureAtlasElementSliceData'];
 
-// The atlas elements the Blizzard skin draws (Polestar_Looks/GameSkins.lua names them).
+// The atlas elements the Blizzard skin draws (Theme/Looks/GameSkins.lua names them).
 const ELEMENTS = [
 	'UI-Frame-Metal-CornerTopLeft', 'UI-Frame-Metal-CornerTopRight', 'UI-Frame-Metal-CornerBottomLeft',
 	'UI-Frame-Metal-CornerBottomRight', '_UI-Frame-Metal-EdgeTop', '_UI-Frame-Metal-EdgeBottom',
@@ -56,7 +55,7 @@ const ELEMENTS = [
 ];
 
 // Relative to the addon folder the generator is given (addon/Polestar).
-const OUT = path.join('..', 'Polestar_Looks', 'GameArt.lua');
+const OUT = path.join('Theme', 'Looks', 'GameArt.lua');
 
 const round = (n) => Math.round(n * 1e7) / 1e7;
 

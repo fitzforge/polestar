@@ -33,9 +33,14 @@ local Theme, W, L = ns.Theme, ns.Widgets, ns.L
 local floor, max, min = math.floor, math.max, math.min
 
 local NEW = "0.3.8"
-local PAGE, KEY, ORDER, ICON = L["Route lines"], "routelines", 24, "icon-goto"
+local PAGE, KEY, ORDER, ICON = L["Route lines"], "routelines", 24, "icon-bridge"
 
 local function percent(v) return floor(v * 100 + 0.5) .. "%" end
+-- A reference's own help, with the hand-off note its home carries (Nav.HandoffOption).
+local function handoffHelp(text)
+	local N = ns.Nav
+	return N and N.HandoffOption and N.HandoffOption({ help = text }).help or text
+end
 local function px(v) return string.format(L["%d px"], floor(v + 0.5)) end
 
 -- What each control waits for.
@@ -45,6 +50,10 @@ local function style() return ns.Get("nav.lineStyle") end
 local function uncoloured()
 	return off() or (style() == "sparkle" and not ns.Get("ui.reduceMotion") and ns.Get("nav.sparkleColor") ~= "route")
 end
+-- The route lines' switch and style have their home on Guide > Arrow &
+-- routes > Routes, the minimap's line on the Map page; this page shows
+-- references to them (its style as picture cards).
+local Ref = W.Ref
 local function ownWalk() return type(ns.Get("nav.walkColor")) == "table" end
 
 -- The minimap size setting of the style drawn (the dots for sparkles under
@@ -470,9 +479,7 @@ local function minimapSize(s)
 end
 
 register(L["Route lines"], {
-	{ kind = "cards", key = "nav.lineStyle", label = L["Style"], wide = true, disabled = off,
-		help = L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."],
-		search = "route style, line style, solid line, path line, dots, sparkles, breadcrumbs, look", choices = STYLE_CARDS },
+	Ref("cards", "nav.lineStyle", { label = L["Style"], wide = true, disabled = off, choices = STYLE_CARDS }),
 	{ kind = "slider", key = "nav.worldRouteAlpha", label = L["World map opacity"], min = 0.2, max = 1, step = 0.05, format = percent, new = NEW,
 		disabled = function() return off() or ns.Get("nav.worldRoute") == false end,
 		help = L["How strongly the route shows on the world map, line, dots or sparkles; the minimap keeps its own. The switch takes the lines off the world map."],
@@ -487,10 +494,10 @@ register(L["Route lines"], {
 		help = L["How strongly the route shows on the minimap, line, dots or sparkles; the world map keeps its own. The switch takes the line off the minimap (the guide pin stays)."],
 		search = "opacity, transparency, alpha, faint, minimap, see through, hide on minimap, radar",
 		extras = {
-			{ kind = "toggle", key = "nav.minimapRoute", label = L["Route on the minimap"],
-				disabled = function() return off() or not ns.Get("nav.minimapPins") end,
-				help = L["The route line (or the trail) on the minimap. Off keeps the guide pin there."],
-				search = "minimap route, minimap line, hide on minimap, radar" },
+			Ref("toggle", "nav.minimapRoute", { label = L["Route on the minimap"],
+				-- Its home's help points to this page; here it says what the switch does.
+				help = handoffHelp(L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map."]),
+				disabled = function() return off() or not ns.Get("nav.minimapPins") end }),
 		} },
 	minimapSize("line"), minimapSize("dots"), minimapSize("sparkle"),
 	{ kind = "toggle", key = "nav.drawIn", label = L["Draw-in"], new = NEW,
@@ -503,9 +510,7 @@ register(L["Route lines"], {
 	{ kind = "slider", key = "nav.lineOutline", label = L["Outline"], min = 0, max = 2, step = 0.05, format = percent, new = NEW, disabled = off,
 		help = L["The dark edge under the line and dots (the line's soft shadow), so they stand out on bright ground. 0% takes it away."],
 		search = "shadow, outline, border, contrast, edge, stroke, readability, dark edge, halo" },
-}, { toggle = { kind = "toggle", key = "nav.routeLines", label = L["Route lines"],
-	help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter."],
-	search = "path line, route on map, show route, hide route, sparkles, dots, trail" } })
+}, { toggle = Ref("toggle", "nav.routeLines", { label = L["Route lines"] }) })
 
 -- The walks' own colour and the route colour presets (nav.dotColor): the
 -- first line of the Line and the Dots sections both.
@@ -648,7 +653,7 @@ local O = ns.UI and ns.UI.Options
 if O and O.Ref then
 	local Ref = O.Ref
 	local ESSENTIALS = L["Essentials"]
-	register(L["Style"], { Ref("cards", "nav.lineStyle") }, { tab = ESSENTIALS, lead = true })
+	register(L["Style"], { Ref("cards", "nav.lineStyle", { label = L["Style"], wide = true, disabled = off, choices = STYLE_CARDS }) }, { tab = ESSENTIALS, lead = true })
 	register(L["Route lines"], {
 		Ref("slider", "nav.laterAlpha"), Ref("color", "nav.walkColor"),
 		Ref("slider", "nav.worldRouteAlpha"), Ref("slider", "nav.minimapRouteAlpha"),

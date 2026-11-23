@@ -807,7 +807,7 @@ function RV.Render()
 		actions(false, false, nil)
 		local text
 		if reason == "off" then
-			text = L["Rares is turned off. Turn it on under Options > Discovery > Rares."]
+			text = L["Rares is turned off. Turn it on under Settings > Discovery > Rares."]
 		else
 			local rt = LK() and LK().ReasonText
 			text = (rt and rt(reason)) or tostring(reason)

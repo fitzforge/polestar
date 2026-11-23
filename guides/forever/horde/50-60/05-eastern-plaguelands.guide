@@ -632,10 +632,15 @@ step Winterspring
 
 step Donova Snowden
   zone Winterspring
+  when complete 3909
+  tip From the tunnel's Winterspring exit, ride south to Frostfire Hot Springs.
+  turnin 3909
+
+step Donova Snowden
+  zone Winterspring
   tip From the tunnel's Winterspring exit, ride south to Frostfire Hot Springs.
   turnin 5085
   accept 5086
-  turnin 3909
   accept 3912
   note Toxic Horrors are in Felwood, on a later trip: keep it.
 
