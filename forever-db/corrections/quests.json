@@ -411,8 +411,14 @@
 			"xp": 875
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 9" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 421 requiredLevel 9" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 9"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 421 requiredLevel 9"
+			},
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings to 2026-11-12 (builds 70790, 70840, 70862, 70888): 13 people handed it in at a full-XP level (level up to the quest's 10 + 5); 13 of 13 hand-ins paid 875 XP"
@@ -849,390 +855,6 @@
 			}
 		],
 		"note": "On Guard in Stonetalon's second part (1085, Kaela Shadowspear in Stonetalon) is offered only once the first part (1070, Sentinel Thenysil in Astranaar) is handed in to Kaela. The quest data named 1070 as its prerequisite and also as its breadcrumb, and a breadcrumb never blocks, so the prerequisite was dropped: the Wildwood Chain's item guide started at Kaela, who had nothing to give. Taking the first part costs only a stop in Astranaar on the way."
-	},
-	"1580": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 1580: RequiredSkillID 356, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Electropellers (1580) needs Fishing: the quest data asks for rank 30, the Forever world database for Fishing at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"1582": {
-		"set": {
-			"skillLevel": 70
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 1582: RequiredSkillID 165, RequiredSkillPoints 70"
-			}
-		],
-		"note": "Moonglow Vest (1582) needs Leatherworking: the quest data asks for rank 90, the Forever world database for Leatherworking 70. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"2848": {
-		"set": {
-			"skillLevel": 200
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 2848: RequiredSkillID 165, RequiredSkillPoints 200"
-			}
-		],
-		"note": "Wild Leather Shoulders (2848) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"2849": {
-		"set": {
-			"skillLevel": 200
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 2849: RequiredSkillID 165, RequiredSkillPoints 200"
-			}
-		],
-		"note": "Wild Leather Vest (2849) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"2850": {
-		"set": {
-			"skillLevel": 200
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 2850: RequiredSkillID 165, RequiredSkillPoints 200"
-			}
-		],
-		"note": "Wild Leather Helmet (2850) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"2851": {
-		"set": {
-			"skillLevel": 200
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 2851: RequiredSkillID 165, RequiredSkillPoints 200"
-			}
-		],
-		"note": "Wild Leather Boots (2851) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"2852": {
-		"set": {
-			"skillLevel": 200
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 2852: RequiredSkillID 165, RequiredSkillPoints 200"
-			}
-		],
-		"note": "Wild Leather Leggings (2852) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"2853": {
-		"set": {
-			"skillLevel": 200
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 2853: RequiredSkillID 165, RequiredSkillPoints 200"
-			}
-		],
-		"note": "Master of the Wild Leather (2853) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"2855": {
-		"set": {
-			"skillLevel": 200
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 2855: RequiredSkillID 165, RequiredSkillPoints 200"
-			}
-		],
-		"note": "Wild Leather Shoulders (2855) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"2856": {
-		"set": {
-			"skillLevel": 200
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 2856: RequiredSkillID 165, RequiredSkillPoints 200"
-			}
-		],
-		"note": "Wild Leather Vest (2856) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"2857": {
-		"set": {
-			"skillLevel": 200
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 2857: RequiredSkillID 165, RequiredSkillPoints 200"
-			}
-		],
-		"note": "Wild Leather Helmet (2857) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"2858": {
-		"set": {
-			"skillLevel": 200
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 2858: RequiredSkillID 165, RequiredSkillPoints 200"
-			}
-		],
-		"note": "Wild Leather Boots (2858) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"2859": {
-		"set": {
-			"skillLevel": 200
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 2859: RequiredSkillID 165, RequiredSkillPoints 200"
-			}
-		],
-		"note": "Wild Leather Leggings (2859) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"2860": {
-		"set": {
-			"skillLevel": 200
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 2860: RequiredSkillID 165, RequiredSkillPoints 200"
-			}
-		],
-		"note": "Master of the Wild Leather (2860) needs Leatherworking: the quest data asks for rank 225, the Forever world database for Leatherworking 200. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"3402": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 3402: RequiredSkillID 197, RequiredSkillPoints 1"
-			}
-		],
-		"note": "The Undermarket (3402) needs Tailoring: the quest data asks for rank 230, the Forever world database for Tailoring at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"4104": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 4104: RequiredSkillID 186, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Salve via Mining (4104) needs Mining: the quest data asks for rank 200, the Forever world database for Mining at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"4105": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 4105: RequiredSkillID 182, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Salve via Gathering (4105) needs Herbalism: the quest data asks for rank 200, the Forever world database for Herbalism at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"4106": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 4106: RequiredSkillID 393, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Salve via Skinning (4106) needs Skinning: the quest data asks for rank 200, the Forever world database for Skinning at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"4107": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 4107: RequiredSkillID 333, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Salve via Disenchanting (4107) needs Enchanting: the quest data asks for rank 200, the Forever world database for Enchanting at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"4109": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 4109: RequiredSkillID 186, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Salve via Mining (4109) needs Mining: the quest data asks for rank 200, the Forever world database for Mining at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"4110": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 4110: RequiredSkillID 182, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Salve via Gathering (4110) needs Herbalism: the quest data asks for rank 200, the Forever world database for Herbalism at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"4111": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 4111: RequiredSkillID 393, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Salve via Skinning (4111) needs Skinning: the quest data asks for rank 200, the Forever world database for Skinning at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"4112": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 4112: RequiredSkillID 333, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Salve via Disenchanting (4112) needs Enchanting: the quest data asks for rank 200, the Forever world database for Enchanting at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"5883": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 5883: RequiredSkillID 186, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Salve via Mining (5883) needs Mining: the quest data asks for rank 200, the Forever world database for Mining at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"5884": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 5884: RequiredSkillID 182, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Salve via Gathering (5884) needs Herbalism: the quest data asks for rank 200, the Forever world database for Herbalism at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"5885": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 5885: RequiredSkillID 393, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Salve via Skinning (5885) needs Skinning: the quest data asks for rank 200, the Forever world database for Skinning at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"5886": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 5886: RequiredSkillID 333, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Salve via Disenchanting (5886) needs Enchanting: the quest data asks for rank 200, the Forever world database for Enchanting at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"5888": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 5888: RequiredSkillID 186, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Salve via Mining (5888) needs Mining: the quest data asks for rank 200, the Forever world database for Mining at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"5889": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 5889: RequiredSkillID 182, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Salve via Gathering (5889) needs Herbalism: the quest data asks for rank 200, the Forever world database for Herbalism at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"5890": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 5890: RequiredSkillID 393, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Salve via Skinning (5890) needs Skinning: the quest data asks for rank 200, the Forever world database for Skinning at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"5891": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 5891: RequiredSkillID 333, RequiredSkillPoints 1"
-			}
-		],
-		"note": "Salve via Disenchanting (5891) needs Enchanting: the quest data asks for rank 200, the Forever world database for Enchanting at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"8798": {
-		"set": {
-			"skillLevel": 1
-		},
-		"source": [
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 8798: RequiredSkillID 202, RequiredSkillPoints 1"
-			}
-		],
-		"note": "A Yeti of Your Own (8798) needs Engineering: the quest data asks for rank 250, the Forever world database for Engineering at any rank. Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752); the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
 	},
 	"1098": {
 		"set": {
@@ -2882,10 +2504,34 @@
 	"6185": {
 		"set": {
 			"objectives": [
-				{ "type": "item", "id": 16003, "count": 1, "text": "SI:7 Insignia (Rutger)" },
-				{ "type": "item", "id": 16001, "count": 1, "text": "SI:7 Insignia (Fredo)" },
-				{ "type": "item", "id": 16002, "count": 1, "text": "SI:7 Insignia (Turyen)" },
-				{ "type": "event", "id": 2726, "count": null, "text": "The Blightcaller Uncovered", "map": 1423, "f": "l", "x": 22.49, "y": 63.58 }
+				{
+					"type": "item",
+					"id": 16003,
+					"count": 1,
+					"text": "SI:7 Insignia (Rutger)"
+				},
+				{
+					"type": "item",
+					"id": 16001,
+					"count": 1,
+					"text": "SI:7 Insignia (Fredo)"
+				},
+				{
+					"type": "item",
+					"id": 16002,
+					"count": 1,
+					"text": "SI:7 Insignia (Turyen)"
+				},
+				{
+					"type": "event",
+					"id": 2726,
+					"count": null,
+					"text": "The Blightcaller Uncovered",
+					"map": 1423,
+					"f": "l",
+					"x": 22.49,
+					"y": 63.58
+				}
 			]
 		},
 		"source": [
@@ -3517,64 +3163,6 @@
 			}
 		],
 		"note": "Nat's Measuring Tape starts only at the Battered Tackle Box (object 180366). The merged data also listed the tape itself (item 19973) as a starter, but the client's ItemSparse (Forever 1.60.1 and Era 1.15.9) gives the item no StartQuestID: the box hands you the tape for the quest."
-	},
-	"8228": {
-		"set": {
-			"start": {
-				"npc": [
-					15116
-				],
-				"object": [],
-				"item": []
-			},
-			"end": {
-				"npc": [
-					15116
-				],
-				"object": []
-			},
-			"skillLevel": 150
-		},
-		"source": [
-			{
-				"kind": "factoruide",
-				"ref": "Factoruide row sources: questie"
-			},
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 8228: RequiredSkillID 356, RequiredSkillPoints 150"
-			}
-		],
-		"note": "Could I get a Fishing Flier?: starts with Grinkle (npc 15116) and ends with Grinkle (npc 15116); as its giver the merged data also listed Barrus (npc 15119); as its ender the merged data also listed Barrus (npc 15119). It needs Fishing: the quest data asks for rank 175, the Forever world database for 150; Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752), and the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
-	},
-	"8229": {
-		"set": {
-			"start": {
-				"npc": [
-					15119
-				],
-				"object": [],
-				"item": []
-			},
-			"end": {
-				"npc": [
-					15119
-				],
-				"object": []
-			},
-			"skillLevel": 150
-		},
-		"source": [
-			{
-				"kind": "factoruide",
-				"ref": "Factoruide row sources: questie"
-			},
-			{
-				"kind": "tdb",
-				"ref": "quest_template_addon 8229: RequiredSkillID 356, RequiredSkillPoints 150"
-			}
-		],
-		"note": "Could I get a Fishing Flier?: starts with Barrus (npc 15119) and ends with Barrus (npc 15119); as its giver the merged data also listed Grinkle (npc 15116); as its ender the merged data also listed Grinkle (npc 15116). It needs Fishing: the quest data asks for rank 175, the Forever world database for 150; Lookup's pick-up guides leave out a profession quest below the rank it needs (#2752), and the lower rank keeps it for every character the game may give it to until an in-game check settles which is right."
 	},
 	"8233": {
 		"set": {
@@ -4244,8 +3832,14 @@
 			"xp": 3708
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 43" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 79358 questLevel 43" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 43"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 79358 questLevel 43"
+			},
 			{
 				"kind": "factoruide",
 				"ref": "Factoruide row sources: questie"
@@ -4303,8 +3897,14 @@
 			"races": 8589934770
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 43" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 79361 questLevel 43" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 43"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 79361 questLevel 43"
+			},
 			{
 				"kind": "tdb",
 				"ref": "quest_objectives StorageIndex"
@@ -5215,14 +4815,24 @@
 	},
 	"92750": {
 		"set": {
-			"pre": [92748],
-			"preAny": [92748],
+			"pre": [
+				92748
+			],
+			"preAny": [
+				92748
+			],
 			"races": 4294967373,
 			"xp": 120
 		},
 		"source": [
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): the offer rules of forge record learn find Explosive Consultation (92748) a prerequisite, refusal-backed, with 30 counted of 34 players, and A Dynamite Plan (92749) not one, with 50 counted of 57 players offered it without 92749" },
-			{ "kind": "questie", "ref": "QuestieDB 1.1.3 (2026-11-18) and its 2026-11-20 build: quest 92750 preQuestSingle 92748" },
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): the offer rules of forge record learn find Explosive Consultation (92748) a prerequisite, refusal-backed, with 30 counted of 34 players, and A Dynamite Plan (92749) not one, with 50 counted of 57 players offered it without 92749"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 (2026-11-18) and its 2026-11-20 build: quest 92750 preQuestSingle 92748"
+			},
 			{
 				"kind": "eg",
 				"ref": "players' caches (EG Link): raceMask 0x55155555b1354c4d (every Alliance race, Human included), builds 1.60.1.70170-70450"
@@ -5497,12 +5107,30 @@
 	"93747": {
 		"set": {
 			"objectives": [
-				{ "type": "event", "id": null, "count": 1, "text": "Ruined Ballista reclaimed" },
-				{ "type": "event", "id": null, "count": 1, "text": "Ruined Catapult reclaimed" },
-				{ "type": "event", "id": null, "count": 1, "text": "Ruined Flying Machine reclaimed" }
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Ruined Ballista reclaimed"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Ruined Catapult reclaimed"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Ruined Flying Machine reclaimed"
+				}
 			]
 		},
-		"source": { "kind": "recording", "ref": "#3170: 14 people had three separate lines in the quest log. Cast 1287099 coincided with ballista credit for 12 people, catapult credit for 14 and flying machine credit for 13." },
+		"source": {
+			"kind": "recording",
+			"ref": "#3170: 14 people had three separate lines in the quest log. Cast 1287099 coincided with ballista credit for 12 people, catapult credit for 14 and flying machine credit for 13."
+		},
 		"note": "Each wreck needs its own Enchanted Seed. Reaching the wreck alone is not the planting objective."
 	},
 	"93797": {
@@ -5556,9 +5184,36 @@
 	"92914": {
 		"set": {
 			"objectives": [
-				{ "type": "event", "id": null, "count": 1, "text": "Western pylon found", "map": 2652, "f": "l", "x": 43.61, "y": 34.29 },
-				{ "type": "event", "id": null, "count": 1, "text": "Eastern pylon found", "map": 2652, "f": "l", "x": 73.01, "y": 23.64 },
-				{ "type": "event", "id": null, "count": 1, "text": "Temple pylon found", "map": 2652, "f": "l", "x": 47.6, "y": 76.66 }
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Western pylon found",
+					"map": 2652,
+					"f": "l",
+					"x": 43.61,
+					"y": 34.29
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Eastern pylon found",
+					"map": 2652,
+					"f": "l",
+					"x": 73.01,
+					"y": 23.64
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Temple pylon found",
+					"map": 2652,
+					"f": "l",
+					"x": 47.6,
+					"y": 76.66
+				}
 			]
 		},
 		"source": [
@@ -6184,8 +5839,14 @@
 			]
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 95216 requiredLevel 15" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 95216 requiredLevel 15"
+			},
 			{
 				"kind": "in-game-check",
 				"ref": "#867"
@@ -6239,7 +5900,15 @@
 					"id": 258134,
 					"count": null,
 					"text": "Naaleos Leafwhisper",
-					"credit": [258134, 258137, 258138, 258275, 258277, 258288, 258289]
+					"credit": [
+						258134,
+						258137,
+						258138,
+						258275,
+						258277,
+						258288,
+						258289
+					]
 				},
 				{
 					"type": "talk",
@@ -6768,9 +6437,24 @@
 				95883
 			],
 			"objectives": [
-				{ "type": "event", "id": null, "count": 1, "text": "Willingly offer blood" },
-				{ "type": "event", "id": null, "count": 1, "text": "Release Tortured Soul" },
-				{ "type": "kill", "id": 212753, "count": 1, "text": "Tortured Soul" }
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Willingly offer blood"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Release Tortured Soul"
+				},
+				{
+					"type": "kill",
+					"id": 212753,
+					"count": 1,
+					"text": "Tortured Soul"
+				}
 			]
 		},
 		"source": [
@@ -6994,11 +6678,17 @@
 			}
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 4, level 4" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96243 requiredLevel 4, questLevel 4" },
 			{
-			"kind": "factoruide",
-			"ref": "Factoruide row sources: questie"
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 4, level 4"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96243 requiredLevel 4, questLevel 4"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
 			}
 		],
 		"note": "Call of Earth: starts with Eldrun Stormbreaker (npc 258098) and Ingrid Dunwald (npc 258113); as its giver the merged data lacked Ingrid Dunwald (npc 258113). Call of Earth (96243) is a level 4 quest that players can take from level 4 on Forever; the data had level 10, from level 10."
@@ -7023,8 +6713,14 @@
 			]
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 29" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96259 questLevel 29" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 29"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96259 questLevel 29"
+			},
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings: the log lists 10 Gloomrise Hatchlings, then 5 Gloomrise Soldiers; Hatchling kills tick line 1, Soldier kills line 2"
@@ -7462,10 +7158,18 @@
 	"96322": {
 		"set": {
 			"objectives": [
-				{ "type": "talk", "id": 263757, "count": 1, "text": "Decide What to do with Felflick" }
+				{
+					"type": "talk",
+					"id": 263757,
+					"count": 1,
+					"text": "Decide What to do with Felflick"
+				}
 			]
 		},
-		"source": { "kind": "recording", "ref": "#3121, #3194: 10 people had one decision in the quest log. Eight gained credit in Felflick's conversation window and handed the quest in to the Curious Crow." },
+		"source": {
+			"kind": "recording",
+			"ref": "#3121, #3194: 10 people had one decision in the quest log. Eight gained credit in Felflick's conversation window and handed the quest in to the Curious Crow."
+		},
 		"note": "Choose Felflick's fate at his cage. The crow takes the finished quest; it does not grant the decision credit."
 	},
 	"96332": {
@@ -7754,11 +7458,17 @@
 			]
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 12" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96897 questLevel 12" },
 			{
-			"kind": "recording",
-			"ref": "players' in-game recordings since launch: the game lists two objectives at the accept, and the quest completes with those two"
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 12"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96897 questLevel 12"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: the game lists two objectives at the accept, and the quest completes with those two"
 			}
 		],
 		"note": "The Cult of the Damned: the game counts Dark Neophytes and Dark Enforcers only; the data's third objective, Decrepit Darkhounds, is not one (#859). The Cult of the Damned (96897) is a level 12 quest on Forever; the data had 13."
@@ -8108,8 +7818,14 @@
 			"races": 8589934770
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 6, level 10" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 97282 requiredLevel 6, questLevel 10" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 6, level 10"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 97282 requiredLevel 6, questLevel 10"
+			},
 			{
 				"kind": "tdb",
 				"ref": "quest_template_addon PrevQuestID"
@@ -8165,12 +7881,21 @@
 			]
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 97289 requiredLevel 15" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 1 took it at level 15, below the data's 16" },
 			{
-			"kind": "tdb",
-			"ref": "quest_template_addon PrevQuestID"
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 97289 requiredLevel 15"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 1 took it at level 15, below the data's 16"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
 			}
 		],
 		"note": "Unending Torment (97289, Master Apothecary Faranell, Undercity) is step 2 of the Ruins of Lordaeron chain 97288 -> 97289 -> 97290 -> 97291 -> 97292: Faranell hands back the Head of the Baron once 97288 has delivered it. QuestieDB has no prerequisite, so the Ruins of Lordaeron pick-up guide sent players to accept it before the run (issue #50). Players can take Unending Torment (97289) from level 15 on Forever; the data had 16. Players were recorded taking or being offered it below the old level."
@@ -8186,12 +7911,21 @@
 			]
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 97290 requiredLevel 15" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 1 took it at level 15, below the data's 16" },
 			{
-			"kind": "tdb",
-			"ref": "quest_template_addon PrevQuestID"
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 97290 requiredLevel 15"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 1 took it at level 15, below the data's 16"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
 			}
 		],
 		"note": "Unending Torment (97290) is step 3 of the chain 97288 -> 97289 -> 97290 -> 97291 -> 97292: the Unfinished Abomination 271613 that 97289 ends at gives it. QuestieDB has no prerequisite. Players can take Unending Torment (97290) from level 15 on Forever; the data had 16. Players were recorded taking or being offered it below the old level."
@@ -8207,12 +7941,21 @@
 			]
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 97291 requiredLevel 15" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 1 took it at level 15, below the data's 16" },
 			{
-			"kind": "tdb",
-			"ref": "quest_template_addon PrevQuestID"
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 97291 requiredLevel 15"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 1 took it at level 15, below the data's 16"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
 			}
 		],
 		"note": "Unending Torment (97291) is step 4 of the chain 97288 -> 97289 -> 97290 -> 97291 -> 97292, after the head is reattached. QuestieDB has no prerequisite. Players can take Unending Torment (97291) from level 15 on Forever; the data had 16. Players were recorded taking or being offered it below the old level."
@@ -8240,8 +7983,14 @@
 			]
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 97292 requiredLevel 15" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 97292 requiredLevel 15"
+			},
 			{
 				"kind": "tdb",
 				"ref": "quest_template_addon PrevQuestID"
@@ -8428,10 +8177,30 @@
 			"pre": [],
 			"preAny": [],
 			"objectives": [
-				{ "type": "object", "id": 671481, "count": 1, "text": "Attack Plan: Menethil Harbor destroyed" },
-				{ "type": "object", "id": 671486, "count": 1, "text": "Attack Plan: Thelsamar destroyed" },
-				{ "type": "object", "id": 671483, "count": 1, "text": "Attack Plan: Southshore destroyed" },
-				{ "type": "object", "id": 671487, "count": 1, "text": "Attack Plan: Ironforge destroyed" }
+				{
+					"type": "object",
+					"id": 671481,
+					"count": 1,
+					"text": "Attack Plan: Menethil Harbor destroyed"
+				},
+				{
+					"type": "object",
+					"id": 671486,
+					"count": 1,
+					"text": "Attack Plan: Thelsamar destroyed"
+				},
+				{
+					"type": "object",
+					"id": 671483,
+					"count": 1,
+					"text": "Attack Plan: Southshore destroyed"
+				},
+				{
+					"type": "object",
+					"id": 671487,
+					"count": 1,
+					"text": "Attack Plan: Ironforge destroyed"
+				}
 			]
 		},
 		"source": [
@@ -8496,8 +8265,14 @@
 			]
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70938: level 23" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 98252 questLevel 23" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70938: level 23"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 98252 questLevel 23"
+			},
 			{
 				"kind": "in-game-check",
 				"ref": "#1002, #984"
@@ -8935,11 +8710,17 @@
 			]
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 10" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 99053 questLevel 10" },
 			{
-			"kind": "factoruide",
-			"ref": "Factoruide row sources: questie"
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 10"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 99053 questLevel 10"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
 			}
 		],
 		"note": "Escaping Ban'ethil (Teldrassil) is an escort: one event objective, Escort Lynessa Duskblossom out of Ban'ethil (1), with no map point, so the event runs where it starts (Sentinel Lynessa Duskblossom 275744). QuestieDB has no objectives. Escaping Ban'ethil (99053) is a level 10 quest on Forever; the data had 9."
@@ -8956,8 +8737,14 @@
 			]
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 11" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 99080 questLevel 11" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 11"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 99080 questLevel 11"
+			},
 			{
 				"kind": "tdb",
 				"ref": "quest_template_addon PrevQuestID"
@@ -9006,8 +8793,14 @@
 			]
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 11" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 99082 questLevel 11" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 11"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 99082 questLevel 11"
+			},
 			{
 				"kind": "tdb",
 				"ref": "quest_template_addon PrevQuestID"
@@ -9343,22 +9136,41 @@
 	"4971": {
 		"set": {
 			"objectives": [
-				{ "type": "kill", "id": 10717, "count": 15, "text": "Temporal Parasite" }
+				{
+					"type": "kill",
+					"id": 10717,
+					"count": 15,
+					"text": "Temporal Parasite"
+				}
 			],
 			"objectiveText": "Use the Temporal Displacer at the silos in Andorhal. Kill 15 Temporal Parasites, then take the displacer back to Chromie at the inn."
 		},
-		"source": { "kind": "recording", "ref": "#3046" },
+		"source": {
+			"kind": "recording",
+			"ref": "#3046"
+		},
 		"note": "All eleven people's quest logs asked for fifteen parasites when they accepted A Matter of Time. Ten recorded the last kill at 15/15, including players of both factions."
 	},
 	"97536": {
 		"set": {
 			"objectives": [
-				{ "type": "event", "id": null, "count": 5, "text": "Experimental Refuse discarded" }
+				{
+					"type": "event",
+					"id": null,
+					"count": 5,
+					"text": "Experimental Refuse discarded"
+				}
 			]
 		},
 		"source": [
-			{ "kind": "recording", "ref": "Quest 97536, objective 1: seven people gained credit on cast 1303853, including all five casts without a kill." },
-			{ "kind": "in-game-check", "ref": "#3159" }
+			{
+				"kind": "recording",
+				"ref": "Quest 97536, objective 1: seven people gained credit on cast 1303853, including all five casts without a kill."
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3159"
+			}
 		],
 		"note": "Using the crate advances the refuse counter. The credit names the same ID as a Wastewander Rogue, but a rogue is not a target."
 	},
@@ -9781,9 +9593,36 @@
 				98094
 			],
 			"objectives": [
-				{ "type": "event", "id": null, "count": 1, "text": "Western vial placed", "map": 1416, "f": "l", "x": 38.37, "y": 87.21 },
-				{ "type": "event", "id": null, "count": 1, "text": "Northern vial placed", "map": 1424, "f": "l", "x": 72.3, "y": 31.16 },
-				{ "type": "event", "id": null, "count": 1, "text": "Southern vial placed", "map": 1424, "f": "l", "x": 73.78, "y": 72.73 }
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Western vial placed",
+					"map": 1416,
+					"f": "l",
+					"x": 38.37,
+					"y": 87.21
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Northern vial placed",
+					"map": 1424,
+					"f": "l",
+					"x": 72.3,
+					"y": 31.16
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Southern vial placed",
+					"map": 1424,
+					"f": "l",
+					"x": 73.78,
+					"y": 72.73
+				}
 			]
 		},
 		"source": {
@@ -9986,8 +9825,14 @@
 			"xp": 3050
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 30" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96261 questLevel 30" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 30"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96261 questLevel 30"
+			},
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings (20261106T155909Z-2a82cac44db7bb61-0pv36jv9vm2s-z3eglcvv4z, 20261107T053108Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz): Muln Earthfury's quest list leaves 96261 out while Defending the Dead (96259) is in the log, and offers it 0.1-0.2 s after 96259 is handed in to him, at the same level, with A Darker Truth (96294) still in the log"
@@ -10267,8 +10112,14 @@
 			"xp": 2350
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70938: level 29" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96241 questLevel 29" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70938: level 29"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96241 questLevel 29"
+			},
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings: 9 hand-ins of 96241 at a full-XP level (player level up to quest level 30 + 5) paid 2350 XP"
@@ -10286,8 +10137,14 @@
 			"xp": 1750
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 29" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96260 questLevel 29" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 29"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96260 questLevel 29"
+			},
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings: 9 hand-ins of 96260 at a full-XP level (player level up to quest level 30 + 5) paid 1750 XP"
@@ -10353,8 +10210,14 @@
 			"xp": 1050
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 15" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 97253 questLevel 15" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 15"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 97253 questLevel 15"
+			},
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings: 49 hand-ins of 97253 at a full-XP level (player level up to quest level 14 + 5) paid 1050 XP"
@@ -10388,8 +10251,14 @@
 			"xp": 1400
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 23" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 98251 questLevel 23" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 23"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 98251 questLevel 23"
+			},
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings: 14 hand-ins of 98251 at a full-XP level (player level up to quest level 23 + 5) paid 1400 XP"
@@ -10408,9 +10277,18 @@
 			"xp": 80
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 8, level 9" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 99048 requiredLevel 8, questLevel 9" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 17 took it at level 8, below the data's 9" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 8, level 9"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 99048 requiredLevel 8, questLevel 9"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 17 took it at level 8, below the data's 9"
+			},
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings: 20 hand-ins of 99048 at a full-XP level (player level up to quest level 11 + 5) paid 80 XP"
@@ -10429,9 +10307,18 @@
 			"xp": 390
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 8, level 9" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 99049 requiredLevel 8, questLevel 9" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 13 took it at level 8, below the data's 9" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 8, level 9"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 99049 requiredLevel 8, questLevel 9"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 13 took it at level 8, below the data's 9"
+			},
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings: 18 hand-ins of 99049 at a full-XP level (player level up to quest level 9 + 5) paid 390 XP"
@@ -10450,8 +10337,14 @@
 			"xp": 1100
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 8, level 11" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 99052 requiredLevel 8, questLevel 11" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 8, level 11"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 99052 requiredLevel 8, questLevel 11"
+			},
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings: 14 hand-ins of 99052 at a full-XP level (player level up to quest level 12 + 5) paid 1100 XP"
@@ -10482,8 +10375,22 @@
 	"503": {
 		"set": {
 			"objectives": [
-				{ "type": "item", "id": 3704, "count": 1, "text": "Rusted Iron Key" },
-				{ "type": "event", "id": 178, "count": null, "text": "Find where Gol'dir is being held", "map": 1416, "f": "e", "x": 60.6, "y": 43.8 }
+				{
+					"type": "item",
+					"id": 3704,
+					"count": 1,
+					"text": "Rusted Iron Key"
+				},
+				{
+					"type": "event",
+					"id": 178,
+					"count": null,
+					"text": "Find where Gol'dir is being held",
+					"map": 1416,
+					"f": "e",
+					"x": 60.6,
+					"y": 43.8
+				}
 			]
 		},
 		"source": [
@@ -10694,8 +10601,14 @@
 			"classes": null
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 27" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 79363 questLevel 27" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 27"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 79363 questLevel 27"
+			},
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 2 people took or handed in Silvia's Sword (79363), a Gnome Priest and a Dwarf Paladin, at Sirra Von'Indi in Darkshire"
@@ -11284,8 +11197,14 @@
 			"races": null
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70938: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 92844 requiredLevel 35" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70938: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 92844 requiredLevel 35"
+			},
 			{
 				"kind": "eg",
 				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70205 to 1.60.1.70532: raceMask ffffffffffffffff (every race)"
@@ -11319,8 +11238,14 @@
 			"races": null
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93044 requiredLevel 35" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 93044 requiredLevel 35"
+			},
 			{
 				"kind": "eg",
 				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: raceMask ffffffffffffffff (every race)"
@@ -11354,8 +11279,14 @@
 			"races": null
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93122 requiredLevel 35" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 93122 requiredLevel 35"
+			},
 			{
 				"kind": "eg",
 				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: raceMask ffffffffffffffff (every race)"
@@ -11380,8 +11311,14 @@
 			"preAny": []
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93128 requiredLevel 35" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 93128 requiredLevel 35"
+			},
 			{
 				"kind": "eg",
 				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, build 1.60.1.70862: raceMask ffffffffffffffff (every race)"
@@ -11765,8 +11702,14 @@
 			"races": 8589934770
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 12" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96896 questLevel 12" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 12"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96896 questLevel 12"
+			},
 			{
 				"kind": "eg",
 				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
@@ -11784,8 +11727,14 @@
 			"races": 8589934770
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 12" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96899 questLevel 12" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 12"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96899 questLevel 12"
+			},
 			{
 				"kind": "eg",
 				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
@@ -12157,8 +12106,14 @@
 			"races": 8589934770
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 10, level 12" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 99152 requiredLevel 10, questLevel 12" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 10, level 12"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 99152 requiredLevel 10, questLevel 12"
+			},
 			{
 				"kind": "eg",
 				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70790, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
@@ -12177,8 +12132,14 @@
 			"races": 8589934770
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 10, level 12" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 99153 requiredLevel 10, questLevel 12" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 10, level 12"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 99153 requiredLevel 10, questLevel 12"
+			},
 			{
 				"kind": "eg",
 				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70532, 1.60.1.70790, 1.60.1.70840, 1.60.1.70862: raceMask aa2aaaaa4e0ab3b2 (the Horde races)"
@@ -12269,8 +12230,14 @@
 			"xp": 525
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 6, level 8" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 91723 requiredLevel 6, questLevel 8" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 6, level 8"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 91723 requiredLevel 6, questLevel 8"
+			},
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 21 people handed it in at a full-XP level (level up to the quest's 10 + 5); 21 of 23 hand-ins paid 525 XP, the others 420 (2) (a 3% bonus on the base, or a level-reduced reward)"
@@ -12289,8 +12256,14 @@
 			"xp": 320
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 6, level 7" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 91732 requiredLevel 6, questLevel 7" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 6, level 7"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 91732 requiredLevel 6, questLevel 7"
+			},
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 18 people handed it in at a full-XP level (level up to the quest's 7 + 5); 18 of 18 hand-ins paid 320 XP"
@@ -12308,8 +12281,14 @@
 			"xp": 875
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 11" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 91740 questLevel 11" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 11"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 91740 questLevel 11"
+			},
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70862): 12 people handed it in at a full-XP level (level up to the quest's 11 + 5); 12 of 12 hand-ins paid 875 XP"
@@ -12375,8 +12354,14 @@
 			"xp": 1400
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 23" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96139 questLevel 23" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 23"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96139 questLevel 23"
+			},
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings to 2026-11-09 (builds 70790, 70840, 70862): 26 people handed it in at a full-XP level (level up to the quest's 23 + 5); 17 of 26 hand-ins paid 1,400 XP, the others 1442 (9) (a 3% bonus on the base, or a level-reduced reward)"
@@ -17895,8 +17880,14 @@
 			}
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 95250 requiredLevel 15" },
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 95250 requiredLevel 15"
+			},
 			{
 				"kind": "factoruide",
 				"ref": "Factoruide quest row: start and end npc 265701"
@@ -20027,11 +20018,17 @@
 			"xp": 11900
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 39" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 1 took it at level 42, below the data's 45" },
 			{
-			"kind": "recording",
-			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 5 people were given 11,900 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 39"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 1 took it at level 42, below the data's 45"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 5 people were given 11,900 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
 			}
 		],
 		"note": "Seed of Life rewards 11,900 XP on Forever; the merged data had 6,100, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number. Players can take Seed of Life (7066) from level 39 on Forever; the data had 45. Players were recorded taking or being offered it below the old level."
@@ -20101,12 +20098,21 @@
 			]
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 25, level 30" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 87491 requiredLevel 25, questLevel 30" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 3 took it at level 25, below the data's 27" },
 			{
-			"kind": "recording",
-			"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): 46 people's objective lists at the accept, each the one event line 'Escort the fire elemental out of Dun Modr'; 42 completions at Wetlands 47.8,16.8 on average (46.4-48.2, 16.2-17.1)"
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 25, level 30"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 87491 requiredLevel 25, questLevel 30"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 3 took it at level 25, below the data's 27"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): 46 people's objective lists at the accept, each the one event line 'Escort the fire elemental out of Dun Modr'; 42 completions at Wetlands 47.8,16.8 on average (46.4-48.2, 16.2-17.1)"
 			}
 		],
 		"note": "Spark of Freedom is an escort of the captive fire elemental out of the Dark Iron ruins of Dun Modr; the merged data had no objective, so the guide went from its accept straight to the hand-in to Roggo Harlbarrow. Spark of Freedom (87491) is a level 30 quest that players can take from level 25 on Forever; the data had level 32, from level 27. Players were recorded taking or being offered it below the old level."
@@ -20133,174 +20139,361 @@
 		"note": "This Light of Mine is an escort of Father Tuttle to the Harborage; the merged data had no objective, so the guide's step was done on the accept."
 	},
 	"969": {
-		"set": { "pre": [], "preAny": [] },
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
 		"source": [
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): Witch Doctor Mau'ari (10307) offered Luck Be With You to 8 people whose recordings, kept from before they could take A Little Luck (6606), never show it handed in or in their log; 0 more were offered it after handing it in; nobody without it was turned away" },
-			{ "kind": "questie", "ref": "QuestieDB 1.1.3 (2026-11-18) and its 2026-11-20 build: quest 969 has no prerequisite" }
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): Witch Doctor Mau'ari (10307) offered Luck Be With You to 8 people whose recordings, kept from before they could take A Little Luck (6606), never show it handed in or in their log; 0 more were offered it after handing it in; nobody without it was turned away"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 (2026-11-18) and its 2026-11-20 build: quest 969 has no prerequisite"
+			}
 		],
 		"note": "Luck Be With You (969) has no prerequisite on Forever: Witch Doctor Mau'ari offers it to players who never did A Little Luck (6606). The merged data still listed that quest as a prerequisite."
 	},
 	"2281": {
-		"set": { "pre": [], "preAny": [] },
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
 		"source": [
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): Renzik \"The Shiv\" (6946) offered Redridge Rendezvous to 4 people whose recordings, kept from before they could take Erion's Behest (2260), Kingly Shakedown (2298), SI:7 (2300), never show it handed in or in their log; 8 more were offered it after handing it in; nobody without it was turned away; the offer rules of forge record learn find it not a prerequisite with 5 counted of 5 players" },
-			{ "kind": "questie", "ref": "QuestieDB 1.1.3 (2026-11-18) and its 2026-11-20 build: quest 2281 has no prerequisite" }
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): Renzik \"The Shiv\" (6946) offered Redridge Rendezvous to 4 people whose recordings, kept from before they could take Erion's Behest (2260), Kingly Shakedown (2298), SI:7 (2300), never show it handed in or in their log; 8 more were offered it after handing it in; nobody without it was turned away; the offer rules of forge record learn find it not a prerequisite with 5 counted of 5 players"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 (2026-11-18) and its 2026-11-20 build: quest 2281 has no prerequisite"
+			}
 		],
 		"note": "Redridge Rendezvous (2281) has no prerequisite on Forever: Renzik \"The Shiv\" offers it to players who never did Erion's Behest (2260), Kingly Shakedown (2298), SI:7 (2300). The merged data still listed them as prerequisites."
 	},
 	"2379": {
-		"set": { "pre": [], "preAny": [] },
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
 		"source": [
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): Shenthul (3401) offered Zando'zan to 7 people whose recordings, kept from before they could take Find the Shattered Hand (2378), To Orgrimmar! (2380), never show it handed in or in their log; 4 more were offered it after handing it in; nobody without it was turned away; the offer rules of forge record learn find it not a prerequisite with 4 counted of 4 players" },
-			{ "kind": "questie", "ref": "QuestieDB 1.1.3 (2026-11-18) and its 2026-11-20 build: quest 2379 has no prerequisite" }
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): Shenthul (3401) offered Zando'zan to 7 people whose recordings, kept from before they could take Find the Shattered Hand (2378), To Orgrimmar! (2380), never show it handed in or in their log; 4 more were offered it after handing it in; nobody without it was turned away; the offer rules of forge record learn find it not a prerequisite with 4 counted of 4 players"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 (2026-11-18) and its 2026-11-20 build: quest 2379 has no prerequisite"
+			}
 		],
 		"note": "Zando'zan (2379) has no prerequisite on Forever: Shenthul offers it to players who never did Find the Shattered Hand (2378), To Orgrimmar! (2380). The merged data still listed them as prerequisites."
 	},
 	"786": {
-		"set": { "pre": [], "preAny": [] },
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
 		"source": [
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): Lar Prowltusk (3140) offered Thwarting Kolkar Aggression to 26 people whose recordings, kept from before they could take A Strategic Alliance (785), never show it handed in or in their log; 0 more were offered it after handing it in; nobody without it was turned away; the offer rules of forge record learn find it not a prerequisite with 44 counted of 56 players" },
-			{ "kind": "questie", "ref": "QuestieDB 1.1.3 (2026-11-18) and its 2026-11-20 build: quest 786 has no prerequisite" },
-			{ "kind": "eg", "ref": "players' caches (EG Link) quest prerequisites, builds 1.60.1.70862 and 70888: 8 characters took it with none of its listed lead-ins done" }
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): Lar Prowltusk (3140) offered Thwarting Kolkar Aggression to 26 people whose recordings, kept from before they could take A Strategic Alliance (785), never show it handed in or in their log; 0 more were offered it after handing it in; nobody without it was turned away; the offer rules of forge record learn find it not a prerequisite with 44 counted of 56 players"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 (2026-11-18) and its 2026-11-20 build: quest 786 has no prerequisite"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link) quest prerequisites, builds 1.60.1.70862 and 70888: 8 characters took it with none of its listed lead-ins done"
+			}
 		],
 		"note": "Thwarting Kolkar Aggression (786) has no prerequisite on Forever: Lar Prowltusk offers it to players who never did A Strategic Alliance (785). The merged data still listed that quest as a prerequisite."
 	},
 	"1716": {
-		"set": { "pre": [], "preAny": [] },
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
 		"source": [
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): Gakin the Darkbinder (6122) offered Devourer of Souls to 8 people whose recordings, kept from before they could take Gakin's Summons (1717), never show it handed in or in their log; 4 more were offered it after handing it in; nobody without it was turned away; the offer rules of forge record learn find it not a prerequisite with 7 counted of 7 players" },
-			{ "kind": "questie", "ref": "QuestieDB 1.1.3 (2026-11-18) and its 2026-11-20 build: quest 1716 has no prerequisite" }
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): Gakin the Darkbinder (6122) offered Devourer of Souls to 8 people whose recordings, kept from before they could take Gakin's Summons (1717), never show it handed in or in their log; 4 more were offered it after handing it in; nobody without it was turned away; the offer rules of forge record learn find it not a prerequisite with 7 counted of 7 players"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 (2026-11-18) and its 2026-11-20 build: quest 1716 has no prerequisite"
+			}
 		],
 		"note": "Devourer of Souls (1716) has no prerequisite on Forever: Gakin the Darkbinder offers it to players who never did Gakin's Summons (1717). The merged data still listed that quest as a prerequisite."
 	},
 	"1131": {
-		"set": { "pre": [] },
+		"set": {
+			"pre": []
+		},
 		"source": [
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): Melor Stonehoof (3441) offered Steelsnap to people who never had Melor Sends Word (1130); the offer rules of forge record learn find 1130 not a prerequisite with 6 counted of 6 players" },
-			{ "kind": "questie", "ref": "QuestieDB 1.1.3 (2026-11-18) and its 2026-11-20 build: quest 1131 has no prerequisite; 1130 is its breadcrumb" }
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): Melor Stonehoof (3441) offered Steelsnap to people who never had Melor Sends Word (1130); the offer rules of forge record learn find 1130 not a prerequisite with 6 counted of 6 players"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 (2026-11-18) and its 2026-11-20 build: quest 1131 has no prerequisite; 1130 is its breadcrumb"
+			}
 		],
 		"note": "Steelsnap (1131) has no prerequisite: Melor Sends Word (1130) only points players to Melor Stonehoof, and Melor offers Steelsnap without it. The merged data listed 1130 as a breadcrumb and also as a prerequisite; the guides already read it as a breadcrumb."
 	},
 	"303": {
-		"set": { "minLevel": 22 },
+		"set": {
+			"minLevel": 22
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 22" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 303 requiredLevel 22" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 6 took it at level 23, below the data's 25" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 22"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 303 requiredLevel 22"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 6 took it at level 23, below the data's 25"
+			}
 		],
 		"note": "Players can take The Dark Iron War (303) from level 22 on Forever; the data had 25. Players were recorded taking or being offered it below the old level."
 	},
 	"968": {
-		"set": { "level": 18 },
+		"set": {
+			"level": 18
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 18" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 968 questLevel 18" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 18"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 968 questLevel 18"
+			}
 		],
 		"note": "The Powers Below (968) is a level 18 quest on Forever; the data had 20."
 	},
 	"971": {
-		"set": { "minLevel": 18 },
+		"set": {
+			"minLevel": 18
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 18" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 971 requiredLevel 18" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 18"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 971 requiredLevel 18"
+			}
 		],
 		"note": "Players can take Knowledge in the Deeps (971) only from level 18 on Forever; the data had 10."
 	},
 	"82208": {
-		"set": { "minLevel": 35 },
+		"set": {
+			"minLevel": 35
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 82208 requiredLevel 35" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 82208 requiredLevel 35"
+			}
 		],
 		"note": "Players can take Greater Friend of the Library (82208) only from level 35 on Forever; the data had 30."
 	},
 	"86757": {
-		"set": { "minLevel": 25, "level": 30 },
+		"set": {
+			"minLevel": 25,
+			"level": 30
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 25, level 30" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 86757 requiredLevel 25, questLevel 30" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 4 took it at level 25, below the data's 27" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 25, level 30"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 86757 requiredLevel 25, questLevel 30"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 4 took it at level 25, below the data's 27"
+			}
 		],
 		"note": "Slowing the Orc Advance (86757) is a level 30 quest that players can take from level 25 on Forever; the data had level 32, from level 27. Players were recorded taking or being offered it below the old level."
 	},
 	"88756": {
-		"set": { "minLevel": 25, "level": 31 },
+		"set": {
+			"minLevel": 25,
+			"level": 31
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 25, level 31" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 88756 requiredLevel 25, questLevel 31" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 5 took it at level 25, below the data's 27" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 25, level 31"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 88756 requiredLevel 25, questLevel 31"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 5 took it at level 25, below the data's 27"
+			}
 		],
 		"note": "Bring Back a Bang (88756) is a level 31 quest that players can take from level 25 on Forever; the data had level 32, from level 27. Players were recorded taking or being offered it below the old level."
 	},
 	"91746": {
-		"set": { "level": 12 },
+		"set": {
+			"level": 12
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 12" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 91746 questLevel 12" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 12"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 91746 questLevel 12"
+			}
 		],
 		"note": "Elmpaw's Head (91746) is a level 12 quest on Forever; the data had 10."
 	},
 	"91751": {
-		"set": { "level": 8 },
+		"set": {
+			"level": 8
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 8" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 91751 questLevel 8" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 8"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 91751 questLevel 8"
+			}
 		],
 		"note": "Rough Wolf Pelts (91751) is a level 8 quest on Forever; the data had 7."
 	},
 	"92847": {
-		"set": { "minLevel": 35 },
+		"set": {
+			"minLevel": 35
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 92847 requiredLevel 35" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 92847 requiredLevel 35"
+			}
 		],
 		"note": "Players can take Corrupting Tears (92847) only from level 35 on Forever; the data had 30."
 	},
 	"92873": {
-		"set": { "minLevel": 35 },
+		"set": {
+			"minLevel": 35
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 92873 requiredLevel 35" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 92873 requiredLevel 35"
+			}
 		],
 		"note": "Players can take Proof of Concept (92873) only from level 35 on Forever; the data had 30."
 	},
 	"92893": {
-		"set": { "minLevel": 35 },
+		"set": {
+			"minLevel": 35
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 92893 requiredLevel 35" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 92893 requiredLevel 35"
+			}
 		],
 		"note": "Players can take No Mercy for the Weak (92893) only from level 35 on Forever; the data had 30."
 	},
 	"92894": {
-		"set": { "minLevel": 35 },
+		"set": {
+			"minLevel": 35
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 92894 requiredLevel 35" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 92894 requiredLevel 35"
+			}
 		],
 		"note": "Players can take Bone Raising (92894) only from level 35 on Forever; the data had 30."
 	},
 	"93035": {
-		"set": { "minLevel": 35 },
+		"set": {
+			"minLevel": 35
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93035 requiredLevel 35" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 93035 requiredLevel 35"
+			}
 		],
 		"note": "Players can take Ravaging Ravagers (93035) only from level 35 on Forever; the data had 30."
 	},
 	"93037": {
-		"set": { "minLevel": 35 },
+		"set": {
+			"minLevel": 35
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93037 requiredLevel 35" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 93037 requiredLevel 35"
+			}
 		],
 		"note": "Players can take Outing Outcasts (93037) only from level 35 on Forever; the data had 30."
 	},
 	"93041": {
-		"set": { "minLevel": 35 },
+		"set": {
+			"minLevel": 35
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93041 requiredLevel 35" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 93041 requiredLevel 35"
+			}
 		],
 		"note": "Players can take Facing the Truth (93041) only from level 35 on Forever; the data had 30."
 	},
@@ -20308,251 +20501,520 @@
 		"set": {
 			"minLevel": 35,
 			"objectives": [
-				{ "type": "event", "id": null, "count": 5, "text": "Gelkis Captive rescued" }
+				{
+					"type": "event",
+					"id": null,
+					"count": 5,
+					"text": "Gelkis Captive rescued"
+				}
 			]
 		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93058 requiredLevel 35" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20): 2 people's quest logs list 'Gelkis Captive rescued' x5 (and the Gelkis reputation line) at the accept" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 93058 requiredLevel 35"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20): 2 people's quest logs list 'Gelkis Captive rescued' x5 (and the Gelkis reputation line) at the accept"
+			}
 		],
 		"note": "Players can take Saving Our Own (93058) only from level 35 on Forever; the data had 30. Its counted line is five Gelkis Captives rescued: one recording had credited the line to a Decrepit Pylon Protector killed nearby, so it stays an event in the quest log's words."
 	},
 	"93062": {
-		"set": { "minLevel": 35 },
+		"set": {
+			"minLevel": 35
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70938: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93062 requiredLevel 35" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70938: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 93062 requiredLevel 35"
+			}
 		],
 		"note": "Players can take Bone Burying (93062) only from level 35 on Forever; the data had 30."
 	},
 	"93066": {
-		"set": { "minLevel": 35 },
+		"set": {
+			"minLevel": 35
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93066 requiredLevel 35" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 93066 requiredLevel 35"
+			}
 		],
 		"note": "Players can take Bristleback Retreat (93066) only from level 35 on Forever; the data had 30."
 	},
 	"93125": {
-		"set": { "minLevel": 35 },
+		"set": {
+			"minLevel": 35
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93125 requiredLevel 35" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 93125 requiredLevel 35"
+			}
 		],
 		"note": "Players can take Going Home (93125) only from level 35 on Forever; the data had 30."
 	},
 	"93196": {
-		"set": { "minLevel": 35 },
+		"set": {
+			"minLevel": 35
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93196 requiredLevel 35" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 93196 requiredLevel 35"
+			}
 		],
 		"note": "Players can take Khan Jehn (93196) only from level 35 on Forever; the data had 30."
 	},
 	"95189": {
-		"set": { "minLevel": 15 },
+		"set": {
+			"minLevel": 15
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 95189 requiredLevel 15" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 95189 requiredLevel 15"
+			}
 		],
 		"note": "Players can take Crest of Lordaeron (95189) from level 15 on Forever; the data had 16."
 	},
 	"95195": {
-		"set": { "minLevel": 15 },
+		"set": {
+			"minLevel": 15
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 95195 requiredLevel 15" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 95195 requiredLevel 15"
+			}
 		],
 		"note": "Players can take Bloodied Insignia (95195) from level 15 on Forever; the data had 16."
 	},
 	"95204": {
-		"set": { "minLevel": 15 },
+		"set": {
+			"minLevel": 15
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 95204 requiredLevel 15" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 95204 requiredLevel 15"
+			}
 		],
 		"note": "Players can take Crest of Lordaeron (95204) from level 15 on Forever; the data had 16."
 	},
 	"95328": {
-		"set": { "level": 13 },
+		"set": {
+			"level": 13
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 13" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 95328 questLevel 13" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 13"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 95328 questLevel 13"
+			}
 		],
 		"note": "Whispering Horror Residue (95328) is a level 13 quest on Forever; the data had 10."
 	},
 	"96137": {
-		"set": { "level": 25 },
+		"set": {
+			"level": 25
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 25" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96137 questLevel 25" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 25"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96137 questLevel 25"
+			}
 		],
 		"note": "Ira's Dagger (96137) is a level 25 quest on Forever; the data had 24."
 	},
 	"96138": {
-		"set": { "level": 30 },
+		"set": {
+			"level": 30
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 30" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96138 questLevel 30" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 30"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96138 questLevel 30"
+			}
 		],
 		"note": "Merrick's Bow (96138) is a level 30 quest on Forever; the data had 28."
 	},
 	"96222": {
-		"set": { "minLevel": 35 },
+		"set": {
+			"minLevel": 35
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96222 requiredLevel 35" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96222 requiredLevel 35"
+			}
 		],
 		"note": "Players can take Khan Hratha (96222) only from level 35 on Forever; the data had 30."
 	},
 	"96783": {
-		"set": { "level": 36 },
+		"set": {
+			"level": 36
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 36" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96783 questLevel 36" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 36"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96783 questLevel 36"
+			}
 		],
 		"note": "A Way In (96783) is a level 36 quest on Forever; the data had 34."
 	},
 	"96784": {
-		"set": { "level": 36 },
+		"set": {
+			"level": 36
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 36" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96784 questLevel 36" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 36"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96784 questLevel 36"
+			}
 		],
 		"note": "Master of Disguise (96784) is a level 36 quest on Forever; the data had 34."
 	},
 	"96785": {
-		"set": { "level": 36 },
+		"set": {
+			"level": 36
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 36" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96785 questLevel 36" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 36"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96785 questLevel 36"
+			}
 		],
 		"note": "Ain't No Telling (96785) is a level 36 quest on Forever; the data had 34."
 	},
 	"96786": {
-		"set": { "level": 36 },
+		"set": {
+			"level": 36
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 36" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96786 questLevel 36" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 36"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96786 questLevel 36"
+			}
 		],
 		"note": "The Syndicate Sting (96786) is a level 36 quest on Forever; the data had 34."
 	},
 	"96822": {
-		"set": { "level": 7 },
+		"set": {
+			"level": 7
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 7" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96822 questLevel 7" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 7"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96822 questLevel 7"
+			}
 		],
 		"note": "For Honor (96822) is a level 7 quest on Forever; the data had 6."
 	},
 	"96895": {
-		"set": { "level": 12 },
+		"set": {
+			"level": 12
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 12" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96895 questLevel 12" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 12"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96895 questLevel 12"
+			}
 		],
 		"note": "The Argent Emissary (96895) is a level 12 quest on Forever; the data had 13."
 	},
 	"96898": {
-		"set": { "level": 12 },
+		"set": {
+			"level": 12
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 12" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 96898 questLevel 12" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 12"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 96898 questLevel 12"
+			}
 		],
 		"note": "Remnants of War (96898) is a level 12 quest on Forever; the data had 13."
 	},
 	"97223": {
-		"set": { "level": 9 },
+		"set": {
+			"level": 9
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 9" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 97223 questLevel 9" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 9"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 97223 questLevel 9"
+			}
 		],
 		"note": "Bloodtalon Matriarch (97223) is a level 9 quest on Forever; the data had 8."
 	},
 	"97288": {
-		"set": { "minLevel": 15 },
+		"set": {
+			"minLevel": 15
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 97288 requiredLevel 15" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 2 took it at level 15, below the data's 16" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 15"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 97288 requiredLevel 15"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 2 took it at level 15, below the data's 16"
+			}
 		],
 		"note": "Players can take Unending Torment (97288) from level 15 on Forever; the data had 16. Players were recorded taking or being offered it below the old level."
 	},
 	"98027": {
-		"set": { "minLevel": 22, "level": 26 },
+		"set": {
+			"minLevel": 22,
+			"level": 26
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 22, level 26" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 98027 requiredLevel 22, questLevel 26" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 2 took it at level 22, below the data's 25" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 22, level 26"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 98027 requiredLevel 22, questLevel 26"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 2 took it at level 22, below the data's 25"
+			}
 		],
 		"note": "Gleaming Crescent Necklace (98027) is a level 26 quest that players can take from level 22 on Forever; the data had level 29, from level 25. Players were recorded taking or being offered it below the old level."
 	},
 	"98069": {
-		"set": { "minLevel": 25, "level": 30 },
+		"set": {
+			"minLevel": 25,
+			"level": 30
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 25, level 30" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 98069 requiredLevel 25, questLevel 30" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 1 took it at level 26, below the data's 27" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 25, level 30"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 98069 requiredLevel 25, questLevel 30"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 1 took it at level 26, below the data's 27"
+			}
 		],
 		"note": "Stolen Freewind Supplies (98069) is a level 30 quest that players can take from level 25 on Forever; the data had level 31, from level 27. Players were recorded taking or being offered it below the old level."
 	},
 	"98070": {
-		"set": { "minLevel": 25, "level": 30 },
+		"set": {
+			"minLevel": 25,
+			"level": 30
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 25, level 30" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 98070 requiredLevel 25, questLevel 30" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 1 took it at level 26, below the data's 27" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 25, level 30"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 98070 requiredLevel 25, questLevel 30"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 1 took it at level 26, below the data's 27"
+			}
 		],
 		"note": "Stop the Screeching (98070) is a level 30 quest that players can take from level 25 on Forever; the data had level 31, from level 27. Players were recorded taking or being offered it below the old level."
 	},
 	"98155": {
-		"set": { "minLevel": 24, "level": 29 },
+		"set": {
+			"minLevel": 24,
+			"level": 29
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 24, level 29" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 98155 requiredLevel 24, questLevel 29" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 24, level 29"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 98155 requiredLevel 24, questLevel 29"
+			}
 		],
 		"note": "Pristine Pesterhide Pelts (98155) is a level 29 quest that players can take from level 24 on Forever; the data had level 31, from level 27."
 	},
 	"98156": {
-		"set": { "minLevel": 24, "level": 29 },
+		"set": {
+			"minLevel": 24,
+			"level": 29
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 24, level 29" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 98156 requiredLevel 24, questLevel 29" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 24, level 29"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 98156 requiredLevel 24, questLevel 29"
+			}
 		],
 		"note": "Packaged Pristine Pelts (98156) is a level 29 quest that players can take from level 24 on Forever; the data had level 31, from level 27."
 	},
 	"98417": {
-		"set": { "level": 28 },
+		"set": {
+			"level": 28
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 28" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 98417 questLevel 28" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 28"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 98417 questLevel 28"
+			}
 		],
 		"note": "Vengeful Trail (98417) is a level 28 quest on Forever; the data had 30."
 	},
 	"98545": {
-		"set": { "level": 12 },
+		"set": {
+			"level": 12
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 12" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 98545 questLevel 12" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: level 12"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 98545 questLevel 12"
+			}
 		],
 		"note": "Leonid's Letter (98545) is a level 12 quest on Forever; the data had 13."
 	},
 	"99051": {
-		"set": { "minLevel": 8 },
+		"set": {
+			"minLevel": 8
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 8" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 99051 requiredLevel 8" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 5 took it at level 8, below the data's 9" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 8"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 99051 requiredLevel 8"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 5 took it at level 8, below the data's 9"
+			}
 		],
 		"note": "Players can take Threat from Below (99051) from level 8 on Forever; the data had 9. Players were recorded taking or being offered it below the old level."
 	},
 	"99411": {
-		"set": { "minLevel": 5 },
+		"set": {
+			"minLevel": 5
+		},
 		"source": [
-			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 5" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 99411 requiredLevel 5" },
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 1 took it at level 5, below the data's 7" }
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 5"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 2026-11-20 build: quest 99411 requiredLevel 5"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, builds 70790-70959; excluded contributors left out): 1 took it at level 5, below the data's 7"
+			}
 		],
 		"note": "Players can take Kyle's Gone Missing! (99411) from level 5 on Forever; the data had 7. Players were recorded taking or being offered it below the old level."
 	},
@@ -20582,59 +21044,140 @@
 	"91697": {
 		"set": {
 			"objectives": [
-				{ "type": "talk", "id": 256650, "count": 1, "text": "Elder Pinespeaker met" },
-				{ "type": "talk", "id": 256627, "count": 1, "text": "Elder Mistpaw met" }
+				{
+					"type": "talk",
+					"id": 256650,
+					"count": 1,
+					"text": "Elder Pinespeaker met"
+				},
+				{
+					"type": "talk",
+					"id": 256627,
+					"count": 1,
+					"text": "Elder Mistpaw met"
+				}
 			]
 		},
 		"source": [
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 17 people's quest logs list 'Elder Pinespeaker met' and 'Elder Mistpaw met' at the accept; the lines ticked beside Elder Pinespeaker (21.7,79.35, 15 people) and Elder Mistpaw (21.7,79.02, 14 people)" },
-			{ "kind": "questie", "ref": "QuestieDB 1.1.3: quest 91697's objective text asks you to find and speak with both elders" }
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 17 people's quest logs list 'Elder Pinespeaker met' and 'Elder Mistpaw met' at the accept; the lines ticked beside Elder Pinespeaker (21.7,79.35, 15 people) and Elder Mistpaw (21.7,79.02, 14 people)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 91697's objective text asks you to find and speak with both elders"
+			}
 		],
 		"note": "Meet the Elders (Barkskin Burrow, Mount Hyjal) is two talks, to Elder Pinespeaker and Elder Mistpaw. The data build had read the first line as a kill of a Hyjal Owl a player killed at the same moment."
 	},
 	"93615": {
 		"set": {
 			"objectives": [
-				{ "type": "talk", "id": 255685, "count": 1, "text": "Solstice found" },
-				{ "type": "talk", "id": 255771, "count": 1, "text": "Whisperfur found" },
-				{ "type": "talk", "id": 255773, "count": 1, "text": "Brie found" }
+				{
+					"type": "talk",
+					"id": 255685,
+					"count": 1,
+					"text": "Solstice found"
+				},
+				{
+					"type": "talk",
+					"id": 255771,
+					"count": 1,
+					"text": "Whisperfur found"
+				},
+				{
+					"type": "talk",
+					"id": 255773,
+					"count": 1,
+					"text": "Brie found"
+				}
 			]
 		},
 		"source": [
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 16 people's quest logs list 'Solstice found', 'Whisperfur found' and 'Brie found'; each line ticked where that kitten plays (38.52,47.26; 27.08,61.97; 41.76,36.73; 13-16 people each)" },
-			{ "kind": "questie", "ref": "QuestieDB 1.1.3: quest 93615's objective text asks you to find Shalla'kal's kittens" }
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 16 people's quest logs list 'Solstice found', 'Whisperfur found' and 'Brie found'; each line ticked where that kitten plays (38.52,47.26; 27.08,61.97; 41.76,36.73; 13-16 people each)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 93615's objective text asks you to find Shalla'kal's kittens"
+			}
 		],
 		"note": "Kits and Cats (Shalla'kal, Mount Hyjal) is finding her three kittens, Solstice, Whisperfur and Brie: each counts as you walk up to her. The data build had read the lines as kills of a Rustleaf Fox and an Eternal Sentry killed nearby."
 	},
 	"95006": {
 		"set": {
 			"objectives": [
-				{ "type": "talk", "id": 216289, "count": 1, "text": "Events Observed" }
+				{
+					"type": "talk",
+					"id": 216289,
+					"count": 1,
+					"text": "Events Observed"
+				}
 			]
 		},
 		"source": [
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 16 people's quest logs list 'Events Observed'; it ticked beside Orokai in Moonglade (41.08,43.44, 15 people)" },
-			{ "kind": "questie", "ref": "QuestieDB 1.1.3: quest 95006's objective text asks you to speak with Orokai" }
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 16 people's quest logs list 'Events Observed'; it ticked beside Orokai in Moonglade (41.08,43.44, 15 people)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 95006's objective text asks you to speak with Orokai"
+			}
 		],
 		"note": "Stolen Power: talk to Orokai again and watch what he shows you; the line 'Events Observed' ticks when it ends. The data build had read it as a kill of a Deer killed nearby."
 	},
 	"92015": {
 		"set": {
 			"objectives": [
-				{ "type": "event", "id": null, "count": 6, "text": "Skunks repelled", "map": 2482, "f": "l", "x": 43.56, "y": 36.68 }
+				{
+					"type": "event",
+					"id": null,
+					"count": 6,
+					"text": "Skunks repelled",
+					"map": 2482,
+					"f": "l",
+					"x": 43.56,
+					"y": 36.68
+				}
 			]
 		},
 		"source": [
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 8 people's quest logs list 'Skunks repelled' x6; the line ticked around 43.56,36.68 (8 people)" },
-			{ "kind": "questie", "ref": "QuestieDB 1.1.3: quest 92015's objective text asks you to make the skunks leave without killing them" }
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 8 people's quest logs list 'Skunks repelled' x6; the line ticked around 43.56,36.68 (8 people)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 92015's objective text asks you to make the skunks leave without killing them"
+			}
 		],
 		"note": "Area Denial Skunks (Mount Hyjal): six skunks repelled. The data build had read the line as kills of a Rustleaf Fox killed nearby."
 	},
 	"92169": {
 		"set": {
 			"objectives": [
-				{ "type": "event", "id": null, "count": 10, "text": "Slay Blackthorne Pact Members", "map": 2482, "f": "l", "x": 73.44, "y": 41.03 },
-				{ "type": "event", "id": null, "count": 10, "text": "Test the Staff of the Mountain", "map": 2482, "f": "l", "x": 72.74, "y": 39.43 }
+				{
+					"type": "event",
+					"id": null,
+					"count": 10,
+					"text": "Slay Blackthorne Pact Members",
+					"map": 2482,
+					"f": "l",
+					"x": 73.44,
+					"y": 41.03
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 10,
+					"text": "Test the Staff of the Mountain",
+					"map": 2482,
+					"f": "l",
+					"x": 72.74,
+					"y": 39.43
+				}
 			]
 		},
 		"source": {
@@ -20646,19 +21189,43 @@
 	"93567": {
 		"set": {
 			"objectives": [
-				{ "type": "event", "id": null, "count": 1, "text": "Veteran's story told", "map": 2482, "f": "l", "x": 27.51, "y": 50.99 }
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Veteran's story told",
+					"map": 2482,
+					"f": "l",
+					"x": 27.51,
+					"y": 50.99
+				}
 			]
 		},
 		"source": [
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 4 people's quest logs list 'Veteran's story told'; it ticked at 27.51,50.99 (4 people)" },
-			{ "kind": "questie", "ref": "QuestieDB 1.1.3: quest 93567's objective text asks you to let the veteran tell his story" }
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 4 people's quest logs list 'Veteran's story told'; it ticked at 27.51,50.99 (4 people)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 93567's objective text asks you to let the veteran tell his story"
+			}
 		],
 		"note": "Ends Meet (Mount Hyjal): hear a veteran's story. The data build had read the line as a kill of an Eternal Sentry killed nearby."
 	},
 	"96558": {
 		"set": {
 			"objectives": [
-				{ "type": "event", "id": null, "count": 1, "text": "Spirits put to rest", "map": 2482, "f": "l", "x": 29.18, "y": 52.6 }
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Spirits put to rest",
+					"map": 2482,
+					"f": "l",
+					"x": 29.18,
+					"y": 52.6
+				}
 			]
 		},
 		"source": {
@@ -20670,7 +21237,16 @@
 	"95534": {
 		"set": {
 			"objectives": [
-				{ "type": "event", "id": null, "count": 1, "text": "Discover the fiery mystery of Strahnbrad", "map": 1416, "f": "l", "x": 60.03, "y": 45.65 }
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Discover the fiery mystery of Strahnbrad",
+					"map": 1416,
+					"f": "l",
+					"x": 60.03,
+					"y": 45.65
+				}
 			]
 		},
 		"source": {
@@ -20716,24 +21292,48 @@
 	"90750": {
 		"set": {
 			"objectives": [
-				{ "type": "talk", "id": 251320, "count": 1, "text": "Speak with the worker" }
+				{
+					"type": "talk",
+					"id": 251320,
+					"count": 1,
+					"text": "Speak with the worker"
+				}
 			]
 		},
 		"source": [
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 8 people (6 established) ran More Work?; every accept listed one line, 'Speak with the worker' x1, and it ticked as the Peasant's (251320) window opened (rec.py quest 90750)" },
-			{ "kind": "in-game-check", "ref": "#3486" }
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 8 people (6 established) ran More Work?; every accept listed one line, 'Speak with the worker' x1, and it ticked as the Peasant's (251320) window opened (rec.py quest 90750)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3486"
+			}
 		],
 		"note": "More Work? (Mount Hyjal, Alliance): one line, speaking with the peasant north of Sefira Everbright; it ticks as his window opens. The data had no objectives, so the guide's talk to him waited for a gossip choice that never comes (#3486)."
 	},
 	"96622": {
 		"set": {
 			"objectives": [
-				{ "type": "talk", "id": 265862, "count": 1, "text": "Poultice Delivered to Enho" },
-				{ "type": "talk", "id": 265895, "count": 1, "text": "Poultice Delivered to Maruke" }
+				{
+					"type": "talk",
+					"id": 265862,
+					"count": 1,
+					"text": "Poultice Delivered to Enho"
+				},
+				{
+					"type": "talk",
+					"id": 265895,
+					"count": 1,
+					"text": "Poultice Delivered to Maruke"
+				}
 			]
 		},
 		"source": [
-			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 7 people (7 established) ran A Rest Without Pain; every accept listed two lines, 'Poultice Delivered to Enho' and 'Poultice Delivered to Maruke', each ticking as that NPC's window opened (Enho Runehoof 265862, Maruke 265895; rec.py quest 96622)" }
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 7 people (7 established) ran A Rest Without Pain; every accept listed two lines, 'Poultice Delivered to Enho' and 'Poultice Delivered to Maruke', each ticking as that NPC's window opened (Enho Runehoof 265862, Maruke 265895; rec.py quest 96622)"
+			}
 		],
 		"note": "A Rest Without Pain (Mount Hyjal, Horde): two lines, one per wounded, each done by opening the NPC's window. The data had no objectives, so the guide's talks to them waited for a gossip choice that never comes (the pattern of #3486)."
 	}

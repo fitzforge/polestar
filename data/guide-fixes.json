@@ -83,191 +83,342 @@
 		{
 			"id": "2282-darkcloud-arnak-navigation-warning",
 			"faction": "Horde",
-			"at": { "quest": 5147, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 5147,
+				"goal": "objective",
+				"objective": 1
+			},
 			"tip": "Great Lift detour warning: the arrow may miss the path up Darkcloud Pinnacle. If you are on the canyon floor, follow the path and rope bridges up Darkcloud Pinnacle. Lakota Windsong is held captive beside Arnak Grimtotem (29): clear the guards and Arnak first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way.",
 			"note": "#2282: put the Great Lift warning first so it leads the collapsed step tip. The existing darkcloud-pinnacle-climb record describes the path and rope bridges from the canyon floor to Arnak's plateau. No coordinates are added: the authored Era entrance and the reporter's live map position are different frames. Keep the shared combat and escort advice; this is a warning while #2027 tracks the walking-map repair, not a change to the target or route.",
-			"source": { "kind": "in-game-check", "ref": "#2282: TheBlackAbbot's Great Lift report and warning request (issuecomment-6893119864); shipped-navigation reproduction (issuecomment-6876523001); existing data/crossings.json darkcloud-pinnacle-climb and Lakota Windsong guide tip" },
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#2282: TheBlackAbbot's Great Lift report and warning request (issuecomment-6893119864); shipped-navigation reproduction (issuecomment-6876523001); existing data/crossings.json darkcloud-pinnacle-climb and Lakota Windsong guide tip"
+			},
 			"issue": 2282
 		},
 		{
 			"id": "2282-darkcloud-lakota-navigation-warning",
 			"faction": "Horde",
-			"at": { "quest": 4904, "goal": "accept" },
+			"at": {
+				"quest": 4904,
+				"goal": "accept"
+			},
 			"tip": "Great Lift detour warning: the arrow may miss the path up Darkcloud Pinnacle. If you are on the canyon floor, follow the path and rope bridges up Darkcloud Pinnacle. Lakota Windsong is held captive beside Arnak Grimtotem (29): clear the guards and Arnak first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way.",
 			"note": "#2282: carry the same warning and complete combat/escort advice at Lakota's pickup, including when the writer separates it from Arnak's objective or the route contains only Free at Last. Identical tips keep their current shared step unchanged apart from the warning. The canyon-floor directions do not send a player already on the plateau back down.",
-			"source": { "kind": "in-game-check", "ref": "#2282: TheBlackAbbot's Great Lift report and warning request (issuecomment-6893119864); shipped-navigation reproduction (issuecomment-6876523001); existing data/crossings.json darkcloud-pinnacle-climb and Lakota Windsong guide tip" },
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#2282: TheBlackAbbot's Great Lift report and warning request (issuecomment-6893119864); shipped-navigation reproduction (issuecomment-6876523001); existing data/crossings.json darkcloud-pinnacle-climb and Lakota Windsong guide tip"
+			},
 			"issue": 2282
 		},
 		{
 			"id": "2107-xabraxxis-demon-bag",
 			"faction": "Alliance",
-			"at": { "quest": 4763, "goal": "collect", "item": 12355 },
+			"at": {
+				"quest": 4763,
+				"goal": "collect",
+				"item": 12355
+			},
 			"goalNote": "After using the Filled Cleansing Bowl, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl.",
 			"note": "The live report confirms the sequence. The quest log only counts the talisman, so explain the fight and the object to click on its collection goal.",
-			"source": { "kind": "in-game-check", "ref": "#2107: UnknownBaronX summoned Xabraxxis, killed him and clicked the bag to obtain the talisman." },
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#2107: UnknownBaronX summoned Xabraxxis, killed him and clicked the bag to obtain the talisman."
+			},
 			"issue": 2107
 		},
 		{
 			"id": "1550-krazek-pickup-mining-advice",
 			"faction": "Alliance",
-			"at": { "quest": 627, "goal": "accept" },
+			"at": {
+				"quest": 627,
+				"goal": "accept"
+			},
 			"goalNote": "Krazek, upstairs: this optional quest needs four Lesser Bloodstone Ore. Mine Lesser Bloodstone Deposits in Arathi Highlands with Mining 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore.",
 			"note": "Fyurie's report #1550 and the maintainer's data check: Lesser Bloodstone Ore comes from deposits, not the Drywhisker kobolds. Explain Mining 75 and the alternatives at pickup, replacing the incorrect goal note.",
-			"source": { "kind": "in-game-check", "ref": "#1550: Fyurie's Mining 75 report and fitzforge's confirmation of the deposit-only source" },
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1550: Fyurie's Mining 75 report and fitzforge's confirmation of the deposit-only source"
+			},
 			"issue": 1550
 		},
 		{
 			"id": "1550-krazek-gorge-mining-advice",
 			"faction": "Alliance",
-			"at": { "quest": 627, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 627,
+				"goal": "objective",
+				"objective": 1
+			},
 			"tip": "The Drywhisker kobolds dig in the gorge east of Hammerfall (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need Mining 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them.",
 			"note": "#1550: repeat the Mining requirement and alternatives at collection without losing the shared Myzrael step's directions and fleeing-kobold warning.",
-			"source": { "kind": "in-game-check", "ref": "#1550: Fyurie's report and fitzforge's confirmation; current Drywhisker Gorge step for the unchanged directions and warning" },
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1550: Fyurie's report and fitzforge's confirmation; current Drywhisker Gorge step for the unchanged directions and warning"
+			},
 			"issue": 1550
 		},
 		{
 			"id": "1752-jungle-secrets-optional",
 			"faction": "Alliance",
-			"at": { "quest": 215, "goal": "accept" },
+			"at": {
+				"quest": 215,
+				"goal": "accept"
+			},
 			"optional": true,
 			"note": "#1752: Private Thorsen offers Jungle Secrets only while he is out of the Rebel Camp, at the foot of its path for a few minutes of each half-hour round (see places.json 1752-stv-thorsen-road-giver). A player who doesn't meet him there is not held at the Rebel Camp; the guide passes Bookie Herod (200, after 215) and The Hidden Key (328) with it.",
 			"source": [
-				{ "kind": "tdb", "ref": "conditions: quest 215 available only while Private Thorsen is not in area 99 (the Rebel Camp)" },
-				{ "kind": "recording", "ref": "Private Thorsen's (738) windows in players' recordings: 9 offered Jungle Secrets, all at 40.3,8.4; refusals at the camp spot" }
+				{
+					"kind": "tdb",
+					"ref": "conditions: quest 215 available only while Private Thorsen is not in area 99 (the Rebel Camp)"
+				},
+				{
+					"kind": "recording",
+					"ref": "Private Thorsen's (738) windows in players' recordings: 9 offered Jungle Secrets, all at 40.3,8.4; refusals at the camp spot"
+				}
 			],
 			"issue": 1752
 		},
 		{
 			"id": "1550-krazek-optional-pickup",
 			"faction": "Alliance",
-			"at": { "quest": 627, "goal": "accept" },
+			"at": {
+				"quest": 627,
+				"goal": "accept"
+			},
 			"optional": true,
 			"note": "#1550: players who cannot obtain the ore may leave Favor for Krazek untaken without holding the Booty Bay stop.",
-			"source": { "kind": "in-game-check", "ref": "#1550: fitzforge confirms nothing else in the Arathi guide needs this quest" },
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1550: fitzforge confirms nothing else in the Arathi guide needs this quest"
+			},
 			"issue": 1550
 		},
 		{
 			"id": "1550-krazek-optional-ore",
 			"faction": "Alliance",
-			"at": { "quest": 627, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 627,
+				"goal": "objective",
+				"objective": 1
+			},
 			"optional": true,
 			"note": "#1550: a player without Mining 75 or another source of ore must not be held in Drywhisker Gorge; the Myzrael collection stays required.",
-			"source": { "kind": "in-game-check", "ref": "#1550: Mining 75 requirement and fitzforge's confirmed workaround of skipping the ore line" },
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1550: Mining 75 requirement and fitzforge's confirmed workaround of skipping the ore line"
+			},
 			"issue": 1550
 		},
 		{
 			"id": "1550-krazek-optional-handin",
 			"faction": "Alliance",
-			"at": { "quest": 627, "goal": "turnin" },
+			"at": {
+				"quest": 627,
+				"goal": "turnin"
+			},
 			"optional": true,
 			"note": "#1550: skipping the ore must not hold the later Booty Bay hand-in stop; players who obtained it can still hand it in there.",
-			"source": { "kind": "in-game-check", "ref": "#1550: fitzforge confirms this quest can be skipped independently of the rest of the route" },
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1550: fitzforge confirms this quest can be skipped independently of the rest of the route"
+			},
 			"issue": 1550
 		},
 		{
 			"id": "1575-elwynn-jasperlode-elites",
 			"faction": "Alliance",
-			"at": { "quest": 91723, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 91723,
+				"goal": "objective",
+				"objective": 1
+			},
 			"tip": "Careful: Mother Fang (7-10), the Mine Spiders (7-9) and Geosculptor Yip (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend.",
 			"note": "Danger-at-the-spot sweep (#1575): Jasperlode Mine's tunnels hold three elites that a level 9-10 player meets beside the kobolds. Players' recordings: 11 people died within 60 yd of the step's goals at about level 10, with Mother Fang, a Mine Spider and Geosculptor Yip, recorded as elite, among what they fought.",
 			"source": [
-				{ "kind": "pfquest", "ref": "npcs.json 471 Mother Fang 7-10, 43 Mine Spider 7-9, 248474 Geosculptor Yip 7: rank elite, spawns in Elwynn 60-62,46-49" },
-				{ "kind": "recording", "ref": "rec index 2026-11-11: 11 people died within 60 yd of Jasperlode Mine's goals (median level 10); foes 471, 43 and 248474 recorded as elite" }
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 471 Mother Fang 7-10, 43 Mine Spider 7-9, 248474 Geosculptor Yip 7: rank elite, spawns in Elwynn 60-62,46-49"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 11 people died within 60 yd of Jasperlode Mine's goals (median level 10); foes 471, 43 and 248474 recorded as elite"
+				}
 			],
 			"issue": 1575
 		},
 		{
 			"id": "1575-elwynn-fargodeep-elites",
 			"faction": "Alliance",
-			"at": { "quest": 87, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 87,
+				"goal": "objective",
+				"objective": 1
+			},
 			"tip": "Careful: Nimsy (6), a kobold deep in the mine, is elite, and Narg the Taskmaster (10, rare) walks the tunnels: pull the kobolds one at a time.",
 			"note": "Danger-at-the-spot sweep (#1575): Goldtooth is at the back of the Fargodeep Mine, past Nimsy (elite) and Narg the Taskmaster (rare, 10). Players' recordings: 12 people died within 60 yd of the step's goal at about level 7, with Nimsy (elite) and Narg among what they fought.",
 			"source": [
-				{ "kind": "pfquest", "ref": "npcs.json 248464 Nimsy 6 rank elite at Elwynn 41.6,79.9; 79 Narg the Taskmaster 10 rank rare at 40.9,77.5" },
-				{ "kind": "recording", "ref": "rec index 2026-11-11: 12 people died within 60 yd of Bernice's Necklace (87.1) at Fargodeep (median level 7); foes 248464 (elite) and 79" }
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 248464 Nimsy 6 rank elite at Elwynn 41.6,79.9; 79 Narg the Taskmaster 10 rank rare at 40.9,77.5"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 12 people died within 60 yd of Bernice's Necklace (87.1) at Fargodeep (median level 7); foes 248464 (elite) and 79"
+				}
 			],
 			"issue": 1575
 		},
 		{
 			"id": "1575-elwynn-echo-ridge-narf",
 			"faction": "Alliance",
-			"at": { "quest": 21, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 21,
+				"goal": "objective",
+				"objective": 1
+			},
 			"tip": "Careful: Shinyfinder Narf (3) is elite: below level 5, leave him be.",
 			"note": "Danger-at-the-spot sweep (#1575): the Kobold Laborers' tunnels lead past Shinyfinder Narf, a level 3 elite. Players' recordings: 4 people died within 60 yd of the step's goal at about level 4, with Narf (elite) among what they fought. Alliance starts fix round (2026-11-20): his own quest (The Big Picture, 91752) is the next step, from level 5 (a-fix-elwynn-narf-from-5), so this tip says to leave him below 5.",
 			"source": [
-				{ "kind": "pfquest", "ref": "npcs.json 248362 Shinyfinder Narf 3 rank elite, Elwynn 49.2,28.0" },
-				{ "kind": "recording", "ref": "rec index 2026-11-11: 4 people died within 60 yd of Echo Ridge Mine's goal (21.1) at about level 4; foe 248362 recorded as elite" }
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 248362 Shinyfinder Narf 3 rank elite, Elwynn 49.2,28.0"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 4 people died within 60 yd of Echo Ridge Mine's goal (21.1) at about level 4; foe 248362 recorded as elite"
+				}
 			],
 			"issue": 1575
 		},
 		{
 			"id": "a-fix-elwynn-narf-from-5",
 			"faction": "Alliance",
-			"at": { "quest": 91752, "goal": "objective", "objective": 1, "guide": "forever/alliance/human/01-elwynn-forest" },
+			"at": {
+				"quest": 91752,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/human/01-elwynn-forest"
+			},
 			"when": "level>=5",
 			"tip": "From level 5 Shinyfinder Narf, a level 3 elite, is two levels under you: he waits down the second turn on the right inside the mine. Careful: clear the Laborers around him first and fight him at full health.",
 			"note": "Alliance starts fix round (2026-11-20), low elites (Fitz: an elite two or more levels under the player is solo content): The Big Picture's Shinyfinder Narf (3, elite) is on the solo route on a step of his own from level 5, two levels over him; the level model reaches it at about 5.3, so the route player always takes him, and a fresh starter below 5 passes him (his hand-in step is `when complete 91752`). The 5.48 and 5.77 top-ups that stood in for the chain are gone. Players' recordings: 56 people took 91752 (accept 25th percentile 5), 46 handed it in.",
 			"source": [
-				{ "kind": "pfquest", "ref": "npcs.json 248362 Shinyfinder Narf 3 rank elite, Elwynn 49.2,28.0" },
-				{ "kind": "recording", "ref": "rec quest 91752 (2026-11-20 archive): 56 people accepted, P25 level 5; 46 handed in" }
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 248362 Shinyfinder Narf 3 rank elite, Elwynn 49.2,28.0"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec quest 91752 (2026-11-20 archive): 56 people accepted, P25 level 5; 46 handed in"
+				}
 			]
 		},
 		{
 			"id": "a-fix-duskwood-proving-your-worth-from-28",
 			"faction": "Alliance",
-			"at": { "quest": 323, "goal": "objective", "objective": 1, "guide": "forever/alliance/05-duskwood" },
+			"at": {
+				"quest": 323,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/05-duskwood"
+			},
 			"when": "level>=28",
 			"tip": "From level 28: the Skeletal Raiders, Healers and Warders stand in the west part of the Raven Hill Cemetery, just east of Sven's camp. Careful: The Warders are 28-29 and the skeletons stand close together: pull one at a time.",
 			"note": "Fix round 2026-11-20 (Duskwood): Proving Your Worth (323) is accepted at Sven's camp, 05-duskwood's last stop, and worked on the spot from level 28 (Raiders 27-28, Healers 26-27, Warders 28-29, about 200 yd east of Sven), then handed back with Seeking Wisdom (269) taken for Bishop Farthing on the Stormwind walk. Below 28 it waits for 07-thousand-needles' cemetery loop, which keeps its steps. Players' recordings: 76 people took it (accept 25th percentile 26.8), 14 died at it, 5 of them two or more levels under the Warders: hence the gate, not a plain first-visit step.",
 			"source": [
-				{ "kind": "pfquest", "ref": "npcs.json 1110 Skeletal Raider 27-28 (16.3,36.2), 787 Skeletal Healer 26-27, 785 Skeletal Warder 28-29 (16.1,34.1); 311 Sven Yorgen 7.6,34.2" },
-				{ "kind": "recording", "ref": "rec quest 323 (2026-11-20 archive): 76 people, P25 26.8; 14 died, 5 while 2+ under" }
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 1110 Skeletal Raider 27-28 (16.3,36.2), 787 Skeletal Healer 26-27, 785 Skeletal Warder 28-29 (16.1,34.1); 311 Sven Yorgen 7.6,34.2"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec quest 323 (2026-11-20 archive): 76 people, P25 26.8; 14 died, 5 while 2+ under"
+				}
 			]
 		},
 		{
 			"id": "a-fix-wetlands-halyndor-from-29",
 			"faction": "Alliance",
-			"at": { "quest": 290, "goal": "objective", "objective": 1, "guide": "forever/alliance/06-wetlands" },
+			"at": {
+				"quest": 290,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-wetlands"
+			},
 			"when": "level>=29",
 			"tip": "From level 29: north along the coast from Menethil to the wreck of the Intrepid. Captain Halyndor (30) is aboard, and the locked strongbox sits in the wreck. Careful: Cursed Marines (27-28) crowd the deck around him: clear them first. Nightveiled Rotheap, a level 31-32 elite, roams the Wetlands: give it a wide berth.",
 			"note": "Fix round 2026-11-20 (Wetlands finished on the second visit): Lifting the Curse is worked at the end of 06-wetlands' Wetlands loop, from level 29 (Halyndor 30, at most one over; the 0.4.0 level tidy found him two over players at 28 then). Below 29 the quest is carried to 30-40/01's Menethil stop, which keeps the steps.",
 			"source": [
-				{ "kind": "pfquest", "ref": "npcs.json 1160 Captain Halyndor 30 at Wetlands 15.4,23.6; 1158 Cursed Marine 27-28 (19 spawns around 14.4,25.8)" },
-				{ "kind": "recording", "ref": "rec quest 290 (2026-11-20 archive): 66 people, accept 25th percentile 28.2" }
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 1160 Captain Halyndor 30 at Wetlands 15.4,23.6; 1158 Cursed Marine 27-28 (19 spawns around 14.4,25.8)"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec quest 290 (2026-11-20 archive): 66 people, accept 25th percentile 28.2"
+				}
 			]
 		},
 		{
 			"id": "1575-durotar-halikor-fizzle",
 			"faction": "Horde",
-			"at": { "quest": 806, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 806,
+				"goal": "objective",
+				"objective": 1
+			},
 			"tip": "Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.",
 			"note": "Danger-at-the-spot sweep (#1575): Halikor (12, elite) patrols Thunder Ridge, where the Orc and Troll Durotar guides send players of 11-12 for Fizzle and the lizards. Players' recordings: 13 people died within 60 yd of the step's goals at about level 11 (most to the Burning Blade, which the step already warns about); Halikor was recorded as elite among the foes on the ridge.",
 			"source": [
-				{ "kind": "pfquest", "ref": "npcs.json 266852 Halikor 12 rank elite, 20 spawn points on Thunder Ridge (Durotar 39,25-30)" },
-				{ "kind": "recording", "ref": "rec index 2026-11-11: 13 people died within 60 yd of Thunder Ridge's goals (median level 11); 266852 recorded as elite" }
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 266852 Halikor 12 rank elite, 20 spawn points on Thunder Ridge (Durotar 39,25-30)"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 13 people died within 60 yd of Thunder Ridge's goals (median level 11); 266852 recorded as elite"
+				}
 			],
 			"issue": 1575
 		},
 		{
 			"id": "level-tidy-040-durotar-halikor-lizards",
 			"faction": "Horde",
-			"at": { "quest": 97282, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 97282,
+				"goal": "objective",
+				"objective": 1
+			},
 			"tip": "Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.",
 			"note": "Level tidy 0.4.0: the Thunder Ridge lizards (Stormy Potential) are a step of their own again, before Misha, with Fizzle Darkstorm after; Halikor (12, elite) patrols among the lizards, so the warning the Fizzle step carries (1575-durotar-halikor-fizzle) goes on the lizards' step too.",
 			"source": [
-				{ "kind": "pfquest", "ref": "npcs.json 266852 Halikor 12 rank elite, 20 spawn points on Thunder Ridge (Durotar 39,25-30); 3130 Thunder Lizard 39-41,27-31, 3131 Lightning Hide 39-44,24" }
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 266852 Halikor 12 rank elite, 20 spawn points on Thunder Ridge (Durotar 39,25-30); 3130 Thunder Lizard 39-41,27-31, 3131 Lightning Hide 39-44,24"
+				}
 			],
 			"issue": 1575
 		},
 		{
 			"id": "1575-durotar-halikor-singed-scale",
 			"faction": "Horde",
-			"at": { "quest": 1498, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 1498,
+				"goal": "objective",
+				"objective": 1
+			},
 			"tip": "Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.",
 			"note": "Danger-at-the-spot sweep (#1575): the Warriors' Singed Scale comes from the same Thunder Ridge lizards Halikor (12, elite) patrols among. Players' recordings: 3 people died within 60 yd of the step's goal at about level 11, Halikor (elite) among what they fought.",
 			"source": [
-				{ "kind": "pfquest", "ref": "npcs.json 266852 Halikor 12 rank elite, 20 spawn points on Thunder Ridge (Durotar 39,25-30)" },
-				{ "kind": "recording", "ref": "rec index 2026-11-11: 3 people died within 60 yd of 1498.1's goal (median level 11); foe 266852 recorded as elite" }
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 266852 Halikor 12 rank elite, 20 spawn points on Thunder Ridge (Durotar 39,25-30)"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 3 people died within 60 yd of 1498.1's goal (median level 11); foe 266852 recorded as elite"
+				}
 			],
 			"issue": 1575
 		},
@@ -371,24 +522,44 @@
 		{
 			"id": "1575-barrens-razormane-elites-crates",
 			"faction": "Horde",
-			"at": { "quest": 5041, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 5041,
+				"goal": "objective",
+				"objective": 1
+			},
 			"tip": "Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time.",
 			"note": "Danger-at-the-spot sweep (#1575): the Crossroads' supply crates (58.8,25.8) stand among the Razormane Flesheaters (57.8-58.0,25.5-27.3) and next to the Berserkers (56.5-57.8,22.5-26.3), level 18-19 elites, at a route level of 15-16. Players' recordings: 5 people died within 60 yd of the crates at about level 14, a Berserker (elite) among what they fought.",
 			"source": [
-				{ "kind": "pfquest", "ref": "npcs.json 267308 Razormane Flesheater 18-19 and 267314 Razormane Berserker 18-19, rank elite, The Barrens 56.5-58,22.5-27.3" },
-				{ "kind": "recording", "ref": "rec index 2026-11-11: 5 people died within 60 yd of 5041.1 (median level 14); foe 267314 recorded as elite" }
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 267308 Razormane Flesheater 18-19 and 267314 Razormane Berserker 18-19, rank elite, The Barrens 56.5-58,22.5-27.3"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 5 people died within 60 yd of 5041.1 (median level 14); foe 267314 recorded as elite"
+				}
 			],
 			"issue": 1575
 		},
 		{
 			"id": "1575-barrens-razormane-elites-kreenig",
 			"faction": "Horde",
-			"at": { "quest": 872, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 872,
+				"goal": "objective",
+				"objective": 1
+			},
 			"tip": "Back to the Razormane camp. Geomancers and Defenders hold its eastern half; Kreenig Snarlsnout walks among them. Careful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near Kreenig and the supply crates, and Chol'aruk (20, elite) lies in the cave under Thorn Hill beside them: pull Kreenig and the quilboar away from them one at a time, and leave the cave alone unless you are in a group.",
 			"note": "Danger-at-the-spot sweep (#1575): The Disruption Ends sends players of about 16 back among the camp's level 18-19 elites; Kreenig's tusk is taken at 58.5,27.0, beside the Flesheaters. Players' recordings: 7 people died within 60 yd of the step's goals at about level 15, a Flesheater (elite) among what they fought. 0.4.0 audit: the tip also names Chol'aruk (267307, level 20, elite), who lies in the Thorn Hill cave beside the supply crates (danger-at-the-spot gate; players' recordings for the crates' objective: 53 people did it, 8 deaths, 9 abandons), and the step keeps one tip.",
 			"source": [
-				{ "kind": "pfquest", "ref": "npcs.json 267308 Razormane Flesheater 18-19 and 267314 Razormane Berserker 18-19, rank elite, The Barrens 56.5-58,22.5-27.3" },
-				{ "kind": "recording", "ref": "rec index 2026-11-11: 7 people died within 60 yd of 872's goals (median level 15); foe 267308 recorded as elite" }
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 267308 Razormane Flesheater 18-19 and 267314 Razormane Berserker 18-19, rank elite, The Barrens 56.5-58,22.5-27.3"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 7 people died within 60 yd of 872's goals (median level 15); foe 267308 recorded as elite"
+				}
 			],
 			"issue": 1575
 		},
@@ -458,52 +629,90 @@
 		{
 			"id": "1575-darkshore-althalaxx-voidcallers",
 			"faction": "Alliance",
-			"at": { "quest": 966, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 966,
+				"goal": "objective",
+				"objective": 1
+			},
 			"tip": "Careful: Dark Strand Voidcallers (28-29) with their voidwalkers and Athrikus Narassin (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower.",
 			"note": "Danger-at-the-spot sweep (#1575): the Worn Parchments are taken at about 18 from the Dark Strand Fanatics at the foot of the Tower of Althalaxx, a few yards from Voidcallers (28-29) and Athrikus Narassin (31). Players' recordings: the parchments drop south of the tower (55-56.6,26-28), the Voidcallers were seen at the tower by 17 people, and 4 people died there at 19-22 to a Voidcaller, its voidwalker or Athrikus.",
 			"source": [
-				{ "kind": "pfquest", "ref": "npcs.json 2337 Dark Strand Voidcaller 28-29 (Darkshore 56.1-56.5,25.7-26.4), 3660 Athrikus Narassin 31 (56.0,26.3)" },
-				{ "kind": "recording", "ref": "rec index 2026-11-11: 966.1 ticks, 134, at Darkshore 55-56.6,26-28 (levels 17-23); hostile 2337 seen at 56,26 by 17 people; deaths at 56,26 at 19-22 with foes 2337, 8996 and 3660" }
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 2337 Dark Strand Voidcaller 28-29 (Darkshore 56.1-56.5,25.7-26.4), 3660 Athrikus Narassin 31 (56.0,26.3)"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 966.1 ticks, 134, at Darkshore 55-56.6,26-28 (levels 17-23); hostile 2337 seen at 56,26 by 17 people; deaths at 56,26 at 19-22 with foes 2337, 8996 and 3660"
+				}
 			],
 			"issue": 1575
 		},
 		{
 			"id": "1575-hillsbrad-alliance-yeti-fur-caverns",
 			"faction": "Alliance",
-			"at": { "quest": 565, "goal": "objective", "objective": 4 },
+			"at": {
+				"quest": 565,
+				"goal": "objective",
+				"objective": 4
+			},
 			"tip": "Stay in the Foothill Caverns: the cave further north has Mountain and Giant Yetis (32-34) in pairs and The Abominable Greench, a level 36 elite.",
 			"note": "Danger-at-the-spot sweep (#1575), #1695's pattern on the Alliance side: Yeti Fur drops from every Hillsbrad yeti, so the goal toured the northern cave of Mountain and Giant Yetis (32-34), where The Abominable Greench (36, elite) roams, at a route level of 31. The goal now points at the Foothill Caverns' Cave and Ferocious Yetis (data/places.json 1575-hillsbrad-alliance-yeti-fur-caverns), and the tip says why.",
 			"source": [
-				{ "kind": "pfquest", "ref": "npcs.json 2248-2251 yetis on map 1424 (Cave and Ferocious at 42-47,25-34, Mountain and Giant at 36-47,3-13); 13602 The Abominable Greench 36 rank elite at Hillsbrad 38.9,8 / 44.6,7.7 / 45.1,4.1 and Alterac 29-32,50-64" },
-				{ "kind": "recording", "ref": "rec index 2026-11-11: 565.4 ticks by 5 people at 32-33" }
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 2248-2251 yetis on map 1424 (Cave and Ferocious at 42-47,25-34, Mountain and Giant at 36-47,3-13); 13602 The Abominable Greench 36 rank elite at Hillsbrad 38.9,8 / 44.6,7.7 / 45.1,4.1 and Alterac 29-32,50-64"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 565.4 ticks by 5 people at 32-33"
+				}
 			],
 			"issue": 1575
 		},
 		{
 			"id": "alliance-swamp-of-sorrows-noboru-roams",
 			"faction": "Alliance",
-			"at": { "quest": 1389, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 1389,
+				"goal": "objective",
+				"objective": 1
+			},
 			"tip": "East along the road to the Fallow Sanctuary. The Draenethyst Crystals are the glowing blue crystals among the Lost Ones' tents: click them. Any Lost One counts for Karana, and the Lost One Fishermen on the sanctuary's west side carry Pelluk's Lucky Lure. Noboru the Cudgel walks a long path through the ruins; his cudgel starts a quest for Magtoor. Don't wait for him.",
 			"note": "Roaming-NPC sweep: the step waited on Noboru the Cudgel (5477), who walks a waypoint path through the ruins; his cudgel (6196) and Noboru the Cudgel (1392) are optional now (route-fixes deliberate.optional 1392), so the tip says not to wait for him. #2416 (Yunra, a level 37 Gnome Warlock on client 70938): the crystals are clicked from the blue crystal objects in the camps (the quest data's objective comes from the Draenethyst Crystals object), not dropped by the Lost Ones; Karana's (93429) and Pelluk's (93430) quests are worked on the same stop.",
 			"issue": 2416,
 			"source": [
-				{ "kind": "tdb", "ref": "creature 5477: MovementType 2, waypoint path 810054770 (56 nodes, 221 x 544 yd)" }
+				{
+					"kind": "tdb",
+					"ref": "creature 5477: MovementType 2, waypoint path 810054770 (56 nodes, 221 x 544 yd)"
+				}
 			]
 		},
 		{
 			"id": "horde-thousand-needles-galak-messenger-roams",
 			"faction": "Horde",
-			"at": { "quest": 4841, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 4841,
+				"goal": "objective",
+				"objective": 1
+			},
 			"tip": "The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone Galak Messenger walks a long path between the camps: if you meet him, kill him, his note starts a quest for Whitereach Post. Don't wait for him. Careful: storm elementals roam the canyon floor around the camps: Stormheart (30), the Ravaging Tempests (40) and Ailgrha Splittusk (38), all elite. Keep clear of them.",
 			"note": "Discord question (2026-11-09): the Galak Messenger (10617), whose note (12564) starts Assassination Plot (4881), walks a waypoint path of about 1,300 yd between the camps. The note and the accept are optional (route-fixes deliberate.optional 4881); the tip says not to wait for him. Kanati Greycloud's hand-in has its own step for whoever carries the plot. Horde 21-30 audit (0.4.0, danger gate #1575): Forever's spawn data puts elite storm elementals (Stormheart 270094 level 30, Ravaging Tempest 216474 level 40, Ailgrha Splittusk 216463 level 38) on the canyon floor around the Galak camps; the tip names them. Players' recordings: 44 people did the step, 1 died within 60 yd; the 13 people who died around the camps were killed by Grimtotem and Galak where the killer is known.",
 			"source": [
-				{ "kind": "tdb", "ref": "creature 10617: MovementType 2, waypoint path 810106170 (66 nodes, 487 x 1215 yd)" }
+				{
+					"kind": "tdb",
+					"ref": "creature 10617: MovementType 2, waypoint path 810106170 (66 nodes, 487 x 1215 yd)"
+				}
 			]
 		},
 		{
 			"id": "elwynn-crystal-lake-murloc-packs-99128",
 			"faction": "Alliance",
-			"at": { "quest": 99128, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 99128,
+				"goal": "objective",
+				"objective": 1
+			},
 			"tip": "Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp. Careful: the murlocs stand close together, so a fight easily pulls two or three at once: pull them one at a time from the edge of the camp, and don't chase one into the next group.",
 			"note": "Slimy Menace (99128) and Bottles and Baubles (99143) at Crystal Lake's murloc camp, at about level 6-7 on the route: the deadliest spot of Elwynn in the recordings. A caution, not a route change.",
 			"source": [
@@ -516,122 +725,243 @@
 		{
 			"id": "1089-auberdine-selarin-respawns",
 			"faction": "Alliance",
-			"at": { "quest": 990, "goal": "accept", "guide": "forever/alliance/03-darkshore-return" },
+			"at": {
+				"quest": 990,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
 			"tip": "From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin (Trek to Ashenvale) is beside Terenthis only for a few minutes at a time: she comes shortly after someone hands in Volcor's escort and leaves again about 5 minutes later. If she isn't there, don't wait: the guide offers her quest again when you hand in Volcor's escort to Terenthis yourself. Changing layer can also find her.",
 			"note": "Trek to Ashenvale: Sentinel Selarin (npc 3694) stands beside Terenthis by Auberdine's flight master only for a few minutes at a time. She is not killed and respawning (#1089's first reading): she comes shortly after someone hands in Volcor's escort (Escape Through Force 994 / Stealth 995) and leaves about 5 minutes later (#1811, #2413). So her quest is optional (1811-selarin-optional: the step no longer holds a player while she is away), and the route offers it again right after the player's own escort hand-in (records 1811-selarin-after-escort-*). Her spot is right (players' recordings: 29 people opened her window at 38-40,43-45). Since 0.4.0 03-loch-modan's gryphon to Stormwind and boat are skipped by a player who hearths to Auberdine, so the tip names the inn as well as the dock.",
 			"source": [
-				{ "kind": "in-game-check", "ref": "#1811 (caltman24, 0.3.7.2): standing on her spot, no Selarin; she came a few minutes later and was gone again after about 5 minutes. mrdick47 found her right after finishing the escort, after waiting about 10 minutes on a quiet realm" },
-				{ "kind": "recording", "ref": "03-darkshore-return step 1 on the 0.3.6+ route: 8 of 27 players took 990 there (1-32 minutes after reaching the step), 19 left the step without it (some after 12-45 minutes); 3 players on 0.3.4 who handed in the escort took 990 0.6-2.9 minutes later; npc 3694 windows: 32 people at Darkshore 38-40,43-45" },
-				{ "kind": "in-game-check", "ref": "player check 2026-11-16: no Selarin on her spot; after a layer change she was there" }
+				{
+					"kind": "in-game-check",
+					"ref": "#1811 (caltman24, 0.3.7.2): standing on her spot, no Selarin; she came a few minutes later and was gone again after about 5 minutes. mrdick47 found her right after finishing the escort, after waiting about 10 minutes on a quiet realm"
+				},
+				{
+					"kind": "recording",
+					"ref": "03-darkshore-return step 1 on the 0.3.6+ route: 8 of 27 players took 990 there (1-32 minutes after reaching the step), 19 left the step without it (some after 12-45 minutes); 3 players on 0.3.4 who handed in the escort took 990 0.6-2.9 minutes later; npc 3694 windows: 32 people at Darkshore 38-40,43-45"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "player check 2026-11-16: no Selarin on her spot; after a layer change she was there"
+				}
 			],
 			"issue": 1811
 		},
 		{
 			"id": "1811-selarin-optional",
 			"faction": "Alliance",
-			"at": { "quest": 990, "goal": "accept" },
+			"at": {
+				"quest": 990,
+				"goal": "accept"
+			},
 			"optional": true,
 			"note": "Trek to Ashenvale never holds a step: Sentinel Selarin is beside Terenthis only for a few minutes after an escort hand-in (#1811; evidence on 1089-auberdine-selarin-respawns).",
 			"source": [
-				{ "kind": "in-game-check", "ref": "#1811 (caltman24, 0.3.7.2): no Selarin on her spot; she came a few minutes later and left after about 5 minutes" }
+				{
+					"kind": "in-game-check",
+					"ref": "#1811 (caltman24, 0.3.7.2): no Selarin on her spot; she came a few minutes later and left after about 5 minutes"
+				}
 			],
 			"issue": 1811
 		},
 		{
 			"id": "1811-selarin-after-escort-ashenvale",
 			"faction": "Alliance",
-			"at": { "quest": 990, "goal": "accept", "guide": "forever/alliance/06-ashenvale" },
-			"follows": { "quest": 994, "goal": "turnin" },
+			"at": {
+				"quest": 990,
+				"goal": "accept",
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"follows": {
+				"quest": 994,
+				"goal": "turnin"
+			},
 			"note": "06-ashenvale's Auberdine stop, Volcor's escort (994) to Terenthis: a player who missed Sentinel Selarin on 03-darkshore-return's first Auberdine stop (she is there only for a few minutes after an escort hand-in, #1811) gets her offer right after their own hand-in. Raene Wolfrunner takes it on 06-wetlands' Astranaar stop (`when onquest 990`).",
 			"source": [
-				{ "kind": "recording", "ref": "3 players on 0.3.4 who handed in the escort took 990 from Selarin 0.6-2.9 minutes later" },
-				{ "kind": "in-game-check", "ref": "#1811: she arrived after an escort hand-in and left about 5 minutes later" }
+				{
+					"kind": "recording",
+					"ref": "3 players on 0.3.4 who handed in the escort took 990 from Selarin 0.6-2.9 minutes later"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1811: she arrived after an escort hand-in and left about 5 minutes later"
+				}
 			],
 			"issue": 1811
 		},
 		{
 			"id": "1811-selarin-after-escort-ashenvale-tip",
 			"faction": "Alliance",
-			"at": { "quest": 990, "goal": "accept", "guide": "forever/alliance/06-ashenvale" },
+			"at": {
+				"quest": 990,
+				"goal": "accept",
+				"guide": "forever/alliance/06-ashenvale"
+			},
 			"tip": "Terenthis stands by the flight master, at the east end of the main street. No Trek to Ashenvale yet? Give it a minute after the hand-in: Sentinel Selarin comes to Terenthis's side shortly after Volcor's escort is handed in. Changing layer can also find her. Then back west to the dock.",
 			"note": "The tip of 06-ashenvale's Terenthis step with Selarin's second offer (1811-selarin-after-escort-ashenvale).",
 			"source": [
-				{ "kind": "in-game-check", "ref": "#1811: she arrived after an escort hand-in and left about 5 minutes later" },
-				{ "kind": "in-game-check", "ref": "player check 2026-11-16: no Selarin on her spot; after a layer change she was there" }
+				{
+					"kind": "in-game-check",
+					"ref": "#1811: she arrived after an escort hand-in and left about 5 minutes later"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "player check 2026-11-16: no Selarin on her spot; after a layer change she was there"
+				}
 			],
 			"issue": 1811
 		},
 		{
 			"id": "1811-selarin-after-escort-wetlands",
 			"faction": "Alliance",
-			"at": { "quest": 990, "goal": "accept", "guide": "forever/alliance/06-wetlands" },
-			"follows": { "quest": 994, "goal": "turnin" },
+			"at": {
+				"quest": 990,
+				"goal": "accept",
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"follows": {
+				"quest": 994,
+				"goal": "turnin"
+			},
 			"note": "06-wetlands' Auberdine stop (a player who still carries Volcor's escort hands it in here): Selarin's offer right after the hand-in, as on 06-ashenvale (1811-selarin-after-escort-ashenvale); Raene takes it on the Astranaar stop that follows the flight.",
 			"source": [
-				{ "kind": "recording", "ref": "3 players on 0.3.4 who handed in the escort took 990 from Selarin 0.6-2.9 minutes later" }
+				{
+					"kind": "recording",
+					"ref": "3 players on 0.3.4 who handed in the escort took 990 from Selarin 0.6-2.9 minutes later"
+				}
 			],
 			"issue": 1811
 		},
 		{
 			"id": "1811-selarin-after-escort-wetlands-tip",
 			"faction": "Alliance",
-			"at": { "quest": 990, "goal": "accept", "guide": "forever/alliance/06-wetlands" },
+			"at": {
+				"quest": 990,
+				"goal": "accept",
+				"guide": "forever/alliance/06-wetlands"
+			},
 			"tip": "Terenthis stands by the flight master. No Trek to Ashenvale yet? Give it a minute after the hand-in: Sentinel Selarin comes to Terenthis's side shortly after Volcor's escort is handed in. Changing layer can also find her.",
 			"note": "The tip of 06-wetlands' Auberdine step with Selarin's second offer (1811-selarin-after-escort-wetlands).",
 			"source": [
-				{ "kind": "in-game-check", "ref": "#1811: she arrived after an escort hand-in and left about 5 minutes later" },
-				{ "kind": "in-game-check", "ref": "player check 2026-11-16: no Selarin on her spot; after a layer change she was there" }
+				{
+					"kind": "in-game-check",
+					"ref": "#1811: she arrived after an escort hand-in and left about 5 minutes later"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "player check 2026-11-16: no Selarin on her spot; after a layer change she was there"
+				}
 			],
 			"issue": 1811
 		},
 		{
 			"id": "westfall-goretusk-livers-background",
 			"faction": "Alliance",
-			"at": { "quest": 22, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 22,
+				"goal": "objective",
+				"objective": 1
+			},
 			"background": {
 				"title": "Goretusk Livers as you go",
 				"tip": "Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers.",
-				"mobs": [157, 454, 547],
-				"finish": { "title": "Finish the Goretusk Livers", "tip": "Still short of eight? Young Goretusks root in the fields just west of Saldean's Farm.", "map": 1436, "x": 54.15, "y": 26.72 }
+				"mobs": [
+					157,
+					454,
+					547
+				],
+				"finish": {
+					"title": "Finish the Goretusk Livers",
+					"tip": "Still short of eight? Young Goretusks root in the fields just west of Saldean's Farm.",
+					"map": 1436,
+					"x": 54.15,
+					"y": 26.72
+				}
 			},
 			"note": "Goretusk Liver Pie: the livers drop from the goretusks that roam the whole north loop (items.json 723: 157, 454, 547 at about a third a kill); the old Molsen Farm step listed them with eleven other goals, and players flipped between that step and the coast step to find what came next (route review W3: the most frequent manual moves on 0.3.4, 32 people). The north loop is now one step per target in walking order, with the livers worked in the background. Young Goretusks spawn one by one all over the loop (11 points in 44-60,18-48); the finish point is the one on the way to Saldean's (54.15,26.72).",
 			"source": [
-				{ "kind": "recording", "ref": "route review 2026-11-08 (W3): manual step moves 11->12 x7, 12->11 x6 on 02-westfall, 0.3.4" },
-				{ "kind": "questie", "ref": "npcs.json 454 Young Goretusk: 11 of 24 spawns in Westfall 44-60,18-48, one at 54.15,26.72" }
+				{
+					"kind": "recording",
+					"ref": "route review 2026-11-08 (W3): manual step moves 11->12 x7, 12->11 x6 on 02-westfall, 0.3.4"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json 454 Young Goretusk: 11 of 24 spawns in Westfall 44-60,18-48, one at 54.15,26.72"
+				}
 			],
 			"pr": 1415
 		},
 		{
 			"id": "westfall-vulture-meat-background",
 			"faction": "Alliance",
-			"at": { "quest": 38, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 38,
+				"goal": "objective",
+				"objective": 1
+			},
 			"background": {
 				"title": "Stringy Vulture Meat as you go",
 				"tip": "Fleshrippers circle the fields along this loop: kill the ones you pass for the stew's meat.",
-				"mobs": [199, 1109, 154],
-				"finish": { "title": "Finish the Stringy Vulture Meat", "tip": "Still short of three? Young Fleshrippers circle the fields north-west of Saldean's Farm.", "map": 1436, "x": 51.87, "y": 27.69 }
+				"mobs": [
+					199,
+					1109,
+					154
+				],
+				"finish": {
+					"title": "Finish the Stringy Vulture Meat",
+					"tip": "Still short of three? Young Fleshrippers circle the fields north-west of Saldean's Farm.",
+					"map": 1436,
+					"x": 51.87,
+					"y": 27.69
+				}
 			},
 			"note": "Westfall Stew: the meat drops from the Fleshrippers over the whole north loop (items.json 729); worked in the background of the one-target steps (route review W3), finished at a Young Fleshripper spawn on the way to Saldean's (51.87,27.69; 11 spawns in 44-60,18-48).",
 			"source": [
-				{ "kind": "recording", "ref": "route review 2026-11-08 (W3)" },
-				{ "kind": "questie", "ref": "npcs.json 199 Young Fleshripper: 11 of 24 spawns in Westfall 44-60,18-48, one at 51.87,27.69" }
+				{
+					"kind": "recording",
+					"ref": "route review 2026-11-08 (W3)"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json 199 Young Fleshripper: 11 of 24 spawns in Westfall 44-60,18-48, one at 51.87,27.69"
+				}
 			],
 			"pr": 1415
 		},
 		{
 			"id": "westfall-red-leather-bandanas-background",
 			"faction": "Alliance",
-			"at": { "quest": 153, "goal": "objective", "objective": 1 },
+			"at": {
+				"quest": 153,
+				"goal": "objective",
+				"objective": 1
+			},
 			"background": {
 				"title": "Red Leather Bandanas as you go",
 				"tip": "Every Defias on this loop can drop a Red Leather Bandana: the Trappers and Smugglers, and the guards at Furlbrow's Wardrobe.",
-				"mobs": [95, 504],
-				"finish": { "title": "Finish the Red Leather Bandanas", "tip": "Still short of fifteen? Defias Trappers camp in the fields just west of Sentinel Hill.", "map": 1436, "x": 48.53, "y": 45.24 }
+				"mobs": [
+					95,
+					504
+				],
+				"finish": {
+					"title": "Finish the Red Leather Bandanas",
+					"tip": "Still short of fifteen? Defias Trappers camp in the fields just west of Sentinel Hill.",
+					"map": 1436,
+					"x": 48.53,
+					"y": 45.24
+				}
 			},
 			"note": "Red Leather Bandanas: fifteen bandanas at 40% from the Trappers and Smugglers People's Militia sends you to kill anyway (items.json 829), plus the wardrobe's guards; worked in the background of the one-target steps (route review W3), finished at the Trappers' camp just west of Sentinel Hill, the hand-in (five spawns at 47.2-48.6,43.4-47.7).",
 			"source": [
-				{ "kind": "recording", "ref": "route review 2026-11-08 (W3)" },
-				{ "kind": "questie", "ref": "items.json 829 drops: 95 and 504 at 40%; npcs.json 504 Defias Trapper: 48.53,45.24 with 47.15,46.18, 47.73,43.36, 48.17,46.72, 48.56,47.7" }
+				{
+					"kind": "recording",
+					"ref": "route review 2026-11-08 (W3)"
+				},
+				{
+					"kind": "questie",
+					"ref": "items.json 829 drops: 95 and 504 at 40%; npcs.json 504 Defias Trapper: 48.53,45.24 with 47.15,46.18, 47.73,43.36, 48.17,46.72, 48.56,47.7"
+				}
 			],
 			"pr": 1415
 		},
@@ -5263,11 +5593,17 @@
 		{
 			"id": "tidy040-branch-of-cenarius-optional",
 			"faction": "Alliance",
-			"at": { "quest": 1031, "goal": "accept" },
+			"at": {
+				"quest": 1031,
+				"goal": "accept"
+			},
 			"optional": true,
 			"note": "The Branch of Cenarius (1031): Geltharis (32) is 3 levels over a player at Xavian (about 29), so the quest is a group choice (route-fixes group 1031): Anilia's offer never holds the step.",
 			"source": [
-				{ "kind": "recording", "ref": "06-wetlands' Xavian stretch on 0.3.7+: 25th percentile 28.6-29.2 (5-14 people per step); 3 people died near Geltharis, 2 to Xavian Hellcallers (30)" }
+				{
+					"kind": "recording",
+					"ref": "06-wetlands' Xavian stretch on 0.3.7+: 25th percentile 28.6-29.2 (5-14 people per step); 3 people died near Geltharis, 2 to Xavian Hellcallers (30)"
+				}
 			]
 		},
 		{
@@ -6278,46 +6614,94 @@
 		{
 			"id": "stv-alliance-lashtails-optional-sindall",
 			"faction": "Alliance",
-			"at": { "guide": "forever/alliance/30-40/04b-stranglethorn-vale", "quest": 195, "goal": "objective", "objective": 1 },
+			"at": {
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale",
+				"quest": 195,
+				"goal": "objective",
+				"objective": 1
+			},
 			"tip": "East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have Tiger Mastery, are at least 36 and see Sin'Dall (37) alone, you can take her paw here or leave the hunt for your next visit.",
 			"note": "Players carrying Tiger Mastery can hand the paw in at the hunters' camp or keep the quest for the later visit.",
-			"source": [{ "kind": "questie", "ref": "npcs.json: Sin'Dall (729) at 31.5,15.5 and 32.2,17.4, among the Lashtail Raptors (686)" }],
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json: Sin'Dall (729) at 31.5,15.5 and 32.2,17.4, among the Lashtail Raptors (686)"
+				}
+			],
 			"pr": 3144
 		},
 		{
 			"id": "stv-alliance-sindall-on-the-raptor-hill",
 			"faction": "Alliance",
-			"at": { "guide": "forever/alliance/30-40/04b-stranglethorn-vale", "quest": 188, "goal": "objective", "objective": 1 },
+			"at": {
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale",
+				"quest": 188,
+				"goal": "objective",
+				"objective": 1
+			},
 			"when": "level>=36",
 			"note": "Sin'Dall is 37. Show her as a side hunt only to players who have Tiger Mastery and are already 36 or higher. The paw never holds up the raptor hunt.",
-			"source": [{ "kind": "questie", "ref": "npcs.json: 729 Sin'Dall, level 37" }],
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json: 729 Sin'Dall, level 37"
+				}
+			],
 			"pr": 3144
 		},
 		{
 			"id": "stv-alliance-sindall-paw-optional",
 			"faction": "Alliance",
-			"at": { "guide": "forever/alliance/30-40/04b-stranglethorn-vale", "quest": 188, "goal": "objective", "objective": 1 },
+			"at": {
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale",
+				"quest": 188,
+				"goal": "objective",
+				"objective": 1
+			},
 			"optional": true,
 			"note": "On the seed's hilltop approach, show the paw only while Tiger Mastery is unfinished. Reaching the hill is enough to continue to the raptors; there is no wait for a respawn and no hunt on the way to Booty Bay.",
-			"source": [{ "kind": "questie", "ref": "Quest 188 needs one Paw of Sin'Dall (3879)." }],
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "Quest 188 needs one Paw of Sin'Dall (3879)."
+				}
+			],
 			"pr": 3144
 		},
 		{
 			"id": "stv-alliance-sindall-optional-return",
 			"faction": "Alliance",
-			"at": { "guide": "forever/alliance/30-40/04b-stranglethorn-vale", "quest": 188, "goal": "turnin" },
+			"at": {
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale",
+				"quest": 188,
+				"goal": "turnin"
+			},
 			"optional": true,
 			"note": "Players who have the paw can hand it to Ajeck at the hunters' tents; the others keep Tiger Mastery for the next visit.",
-			"source": [{ "kind": "questie", "ref": "Quest 188 ends at Ajeck Rouack (717) beside Hemet Nesingwary." }],
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "Quest 188 ends at Ajeck Rouack (717) beside Hemet Nesingwary."
+				}
+			],
 			"pr": 3144
 		},
 		{
 			"id": "stv-alliance-sindall-ready-return",
 			"faction": "Alliance",
-			"at": { "guide": "forever/alliance/30-40/04b-stranglethorn-vale", "quest": 188, "goal": "turnin" },
+			"at": {
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale",
+				"quest": 188,
+				"goal": "turnin"
+			},
 			"when": "complete 188",
 			"note": "Only offer Ajeck's hand-in when Tiger Mastery is ready. Hemet's raptor hand-in and next quest stay available whether or not the player hunted Sin'Dall.",
-			"source": [{ "kind": "questie", "ref": "Quest 188 requires item 3879; Hemet's quests 195 and 196 do not." }],
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "Quest 188 requires item 3879; Hemet's quests 195 and 196 do not."
+				}
+			],
 			"pr": 3144
 		},
 		{
@@ -14233,11 +14617,10 @@
 			"at": {
 				"quest": 93747,
 				"goal": "objective",
-				"objective": 2,
 				"guide": "forever/50-60/mount-hyjal"
 			},
 			"tip": "The three wrecks Ketharas named lie at the east end of the fields: use the Bag of Enchanted Seeds beside each, the catapult and the flying machine first, then the ballista a little north of them.",
-			"note": "#3170: the wreck step had only gotos, which tick on arrival, and the ballista was one `complete` for the whole quest, so a player who rode past without planting was sent to Ketharas with nothing done. Each wreck is now a `use 269944` line on its own objective (93747.1 Ballista, .2 Catapult, .3 Flying Machine, as the corrections set them), held until the seed is planted there, and both steps' tips name the Bag of Enchanted Seeds. Players' recordings to 2026-11-20: 19 players, each wreck ticked by a cast of the bag (spell 1287099) beside it. ESp3cter's fix (#3257). #3400 (Stö, 0.4.2): the ballista stands with the other two wrecks at 66.3,79.2 (data/places.json 3400-hyjal-ruined-ballista-seed), not at the shrub field's north-eastern edge, so all three are planted in this step and the shrub field step has none.",
+			"note": "#3170 (0.4.2): the wreck step had only gotos, which tick on arrival, and the ballista was one `complete` for the whole quest, so a player who rode past without planting was sent to Ketharas with nothing done. Each wreck is a separate objective (93747.1 Ballista, .2 Catapult, .3 Flying Machine) held until the seed is planted; the reference-data export dropped quest 93747's objective array, so this fix now applies at quest level. Issues: #3170, #3400; PR #3257.",
 			"source": [
 				{
 					"kind": "recording",
