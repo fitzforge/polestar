@@ -1,0 +1,59 @@
+guide forever/collectibles/mounts/horde/paladin-warhorse
+title Paladin Warhorse (Forsaken)
+category Class
+folder Paladin
+keywords Summon Warhorse, Report to Danitha, A Paladin's Steed, Garen Largo, Danitha Morr, Bandarion Keep, Apprentice Riding, Forsaken Paladin, Paladin, class mount
+reward spell 1279399 "Summon Warhorse"
+why Your first mount at 40, summoned at will: a Forsaken paladin buys no horse and pays no riding trainer.
+faction Horde
+race Undead
+class Paladin
+levels 40-60
+zone Undercity
+
+# Summon Warhorse for Forsaken paladins, new in Forever (#2898, asked for by
+# Blitz): Report to Danitha (97022) from Garen Largo, the paladin trainer in
+# the Undercity, then A Paladin's Steed (94971) from Danitha Morr at Bandarion
+# Keep, accepted and handed straight back to her: the hand-in teaches the
+# mount. Both quests are level 40, Undead Paladins only, and ask for nothing.
+# Sources: players' recordings to 2026-11-18 (builds 70862 to 70938): Garen
+# Largo offered Report to Danitha at 40 to 5 people, who all handed it in to
+# Danitha Morr and took A Paladin's Steed from her window; 6 people handed A
+# Paladin's Steed in to her, and at each hand-in the game taught Apprentice
+# Riding (33388) and set Riding to 75 at once. One of them later summoned the
+# Forsaken Summon Warhorse (spell 1279399). Forever's client tables
+# (1.60.1.70888): the quest's teaching spell 1279400 teaches Summon Warhorse
+# 1279399 (Mount 2923) and Apprentice Riding 33388. Forever's quest data
+# (QuestieDB's Forever rows) for givers, enders, levels and the Undead Paladin
+# masks.
+# Report to Danitha is a lead-in, not a prerequisite: one player who never
+# had it was offered A Paladin's Steed by Danitha at 40 after training at the
+# keep, and QuestieDB's Forever data gives A Paladin's Steed no prerequisite
+# (forever-db/corrections/quests.json, 94971). The guide takes it anyway: it
+# pays XP, and the Undercity's trainer is where most Forsaken paladins train
+# at 40.
+# The keep's south gate (22.0,49.4, live frame) is where all 5 recorded
+# players came in from the road west, before climbing to Danitha.
+# The level 60 Forsaken Charger chain (A Worthy Endeavor 97174 and on) is not
+# here: Forever's data has no givers or steps for most of it and no recording
+# shows it yet.
+
+step Report to Danitha
+  tip At 40 Garen Largo, the paladin trainer in the Undercity, sends you to Danitha Morr at Bandarion Keep. Train your new spells with him while you are there. Already at Bandarion Keep? Skip this step: Danitha gives you the mount quest without it.
+  level 40
+  accept 97022 npc 260093             -- Garen Largo
+  train 260093 optional               -- Garen Largo: your level 40 spells
+
+step Danitha Morr
+  zone Tirisfal Glades
+  when onquest 97022
+  tip Bandarion Keep stands on the bluffs in western Tirisfal, north-west of the Solliden Farmstead: leave the Undercity and follow the road west past Brill. Danitha Morr is inside the keep, upstairs.
+  goto 22.0,49.4 "Bandarion Keep's south gate" live
+  turnin 97022                        -- Danitha Morr
+
+step Summon Warhorse
+  zone Tirisfal Glades
+  tip Danitha Morr, upstairs in Bandarion Keep, offers A Paladin's Steed at 40: accept it and hand it straight back. It teaches you Summon Warhorse and Apprentice Riding together, so you need no horse and no riding trainer.
+  level 40
+  accept 94971                        -- Danitha Morr
+  turnin 94971                        -- Danitha Morr: Summon Warhorse

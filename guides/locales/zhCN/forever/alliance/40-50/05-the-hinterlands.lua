@@ -86,36 +86,42 @@ return {
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}：在屋内",
 
-	-- Step 16: Oglethorpe Obnoticus
+	-- Step 16: Fin Fizracket
+	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	-- {npc:2486} Fin Fizracket
+	["{npc:2486}, beside the inn"] = "",
+
+	-- Step 17: Oglethorpe Obnoticus
 	-- {zone:1444} Feralas · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
 	["Only if you escorted the {zone:1444} robot: its reward waits with {npc:7406} here in {area:35}."] = "",
 
-	-- Step 17: Oglethorpe Obnoticus
+	-- Step 18: Oglethorpe Obnoticus
 	-- {zone:1425} The Hinterlands · {npc:7406} Oglethorpe Obnoticus
 	["Only if you escorted the {zone:1425} robot: {npc:7406} has its reward too."] = "",
 
-	-- Step 18: Wild Shore: kill these as you meet them
+	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
 	["{area:43}: kill these as you meet them"] = "{area:43}：沿途击杀以下目标",
 	-- {area:43} Wild Shore · {area:35} Booty Bay
 	["The charts and orders lie in the pirate camp on the {area:43}, just south of {area:35}; its Swashbucklers walk the shore. The Warlocks and Swashbucklers (41-43) are under you now."] = "海图和命令在{area:43}的海盗营地里，就在{area:35}南边；营地的海盗在海岸上巡逻。术士和海盗（41-43）现在比你等级低了。",
 
-	-- Step 20: The Bloodsail captains
+	-- Step 21: The Bloodsail captains
 	["The Bloodsail captains"] = "血帆船长",
 	-- {area:35} Booty Bay · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
 	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "三艘血帆海盗船停泊在{area:35}正南方的近海：{npc:2550}（45级）和{npc:2548}（46级）在较近的两艘船上，{npc:2546}（48级）在旗舰上，每艘船都有42-45级的海盗船员。游过去，从甲板边缘开始清理，一次引一个。",
 
-	-- Step 22: Naga Explorers
+	-- Step 23: Naga Explorers
 	-- plural, as words: Naga Explorers = {npc:1907} Naga Explorer
 	["Naga Explorers"] = "纳迦探险者",
 	["Leave town by the tunnel and ride north along the coast past the Bloodsail camp: the naga comb the beaches beyond it and drop the reeds."] = "从隧道出镇，沿海岸向北骑过血帆营地：更远处的海滩上有纳迦游荡，它们会掉落芦苇。",
 
-	-- Step 23: Zanzil's village
+	-- Step 24: Zanzil's village
 	["Zanzil's village"] = "赞吉尔的村子",
 	-- {npc:2537} Chucky "Ten Thumbs"
 	["Ride on north along the coast to Zanzil's village. Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "沿海岸继续向北骑到赞吉尔的村子。所有赞吉尔的信徒都可能掉落混合物；{npc:2537}在营地南部游荡。",
 
-	-- Step 24: Maury "Club Foot" Wilkins and Jon-Jon
+	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon
 	-- {npc:2535} Maury "Club Foot" Wilkins
 	-- was: ["{npc:2535} and {npc:2536}"] = "{npc:2535}和{npc:2536}"
 	["{npc:2535} and Jon-Jon"] = "",
@@ -124,20 +130,20 @@ return {
 	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
 	["{item:3925}, from {npc:2536}"] = "",
 
-	-- Step 25: Gorilla hills
+	-- Step 26: Gorilla hills
 	["Gorilla hills"] = "猩猩山丘",
 	-- {area:35} Booty Bay · {npc:1449} Witch Doctor Unbagwa
 	-- plural, as words: Gorilla Fangs = {item:2799} Gorilla Fang · Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
 	["Ride back south-east to the Mistvale gorilla hills above {area:35}. {npc:1449} sits among the gorillas: take ten Gorilla Fangs from the Elder Mistvale Gorillas first."] = "向东南骑回{area:35}上方迷雾谷猩猩所在的山丘。{npc:1449}坐在猩猩群中：先从老迈的迷雾谷猩猩身上收集十颗猩猩牙。",
 
-	-- Step 26: Unbagwa's ritual
+	-- Step 27: Unbagwa's ritual
 	["Unbagwa's ritual"] = "安巴格瓦的仪式",
 	-- {npc:1514} Mokk the Savage
 	["Hand in the fangs and stay: three waves of gorillas come, {npc:1514} last.\nCareful: three waves of gorillas come one after another with little rest between, then {npc:1514}. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy."] = "交还猩猩牙后留在原地：会来三波猩猩，最后是{npc:1514}。\n注意：三波猩猩接连出现，中间几乎没有喘息时间，之后是{npc:1514}。开始前回满生命值和法力值，并待在安巴格瓦附近。有些职业独自完成较难：找个朋友帮忙就轻松了。",
 	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
 	["{npc:1449}, inside {area:1742}"] = "{npc:1449}，位于{area:1742}内部",
 
-	-- Step 28: Booty Bay
+	-- Step 29: Booty Bay
 	["Ride back down to town."] = "骑回镇上。",
 	-- {npc:2616} Privateer Groy
 	["for {npc:2616} in Theramore: keep it, the Un'Goro guide lands there"] = "交给塞拉摩的{npc:2616}：保留它，安戈洛指南会在那里开始",
@@ -145,11 +151,15 @@ return {
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "{npc:2498}的下一个赞吉尔差事从{zone:1441}开始：跳过。",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "马克基雷的下一个任务要你对付精英食人魔：跳过。",
 
-	-- Step 29: Monogrammed Sash
+	-- Step 30: Fin Fizracket
+	-- {npc:2486} Fin Fizracket
+	["{npc:2486}, by the inn"] = "",
+
+	-- Step 31: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{quest:8552}需要 2 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
 
-	-- Step 33: Negolash's bait
+	-- Step 35: Negolash's bait
 	-- {npc:1494} Negolash
 	["{npc:1494}'s bait"] = "",
 	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
@@ -160,7 +170,7 @@ return {
 	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash
 	["{object:2289}: the food goes in, {npc:1494} comes"] = "",
 
-	-- Step 34: Facing Negolash
+	-- Step 36: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:1494}（52 级精英）需要 2 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
 

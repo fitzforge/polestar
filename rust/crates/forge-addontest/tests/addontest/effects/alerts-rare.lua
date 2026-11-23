@@ -79,7 +79,7 @@ return {
 		w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
 		w.moveTo(1429, 45, 50)
 		w.setLevel(10)
-		SOUNDKIT = setmetatable({ RAID_WARNING = 8959, READY_CHECK = 8960, UI_RAID_BOSS_WHISPER_WARNING = 37666 }, { __index = function() return 1 end })
+		SOUNDKIT = setmetatable({ RAID_WARNING = 8959, READY_CHECK = 8960, RAID_BOSS_EMOTE_WARNING = 12197 }, { __index = function() return 1 end })
 		-- The cards built once, and unlock mode (the settings' addon's).
 		T.Show(RARE)
 		A.ShowBanner("Boat to Menethil Harbor", "Arrives in %s", 20)

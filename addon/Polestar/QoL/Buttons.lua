@@ -1455,7 +1455,12 @@ local function addGoalNames(gv, rg, qdb)
 	-- point (`fromNpcs`). The item's droppers follow, and stand alone for
 	-- a goal with neither: they are ranked by drop chance over the whole
 	-- world, so for an item many creatures drop the best of them are
-	-- mostly in other zones.
+	-- mostly in other zones. A material gathered with a profession
+	-- (`collect … gather Skinning`: skinned, mined, picked, fished,
+	-- crafted) never takes them: its loot droppers are not where the step
+	-- gathers it (#3135: a Darkshore Medium Leather step named Feralas
+	-- ogres). Cloth and meat (`gather` with no skill) drop as loot and keep
+	-- them.
 	local npc = gv.npc or rg.npc
 	if npc then addName((N and N.Npc(npc)) or gv.npcName or rg.npcName, npc, rankedSource(rg, npc)) end
 	-- Spots holding other mobs than the point (`fromNpcsAt`: Centaur Bounty's
@@ -1469,7 +1474,8 @@ local function addGoalNames(gv, rg, qdb)
 		if #goalNames[goalCount] > before then return end
 	end
 	for i = 1, type(src) == "table" and #src or 0 do addSource(src[i], rg) end
-	if qdb then
+	local way = rg.gather or gv.gather
+	if qdb and not (type(way) == "table" and way.skill) then
 		if gv.quest and rg.oi and qdb.GetObjectiveMobs then
 			local mobs, meta = qdb.GetObjectiveMobs(gv.quest, rg.oi)
 			addDroppers(mobs, rg, meta)

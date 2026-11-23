@@ -170,6 +170,9 @@ fn buttons_page_registers_every_button_look_with_defaults_new_badges_search_and_
 		local function see(c)
 			if not c.key then return end
 			r.keys[#r.keys + 1] = c.key
+			-- A reference (W.Ref) is its home row's setting, with its home's help and search words (the buttons'
+			-- switches: Questing > Buttons; the travel button's: Nav's, not loaded here).
+			if c.ref then return end
 			if Polestar.GetDefault(c.key) == nil then r.missing[#r.missing + 1] = c.key end
 			local fresh = c.key:find("^buttons%.") or c.key:find("^ui%.launcher.") or c.key:find("^maps%.minimapButton.")
 			-- The page came in 0.3.8; a row added since carries its own version (Target list upward, #2590).
@@ -234,8 +237,9 @@ fn buttons_page_registers_every_button_look_with_defaults_new_badges_search_and_
 	assert!(n(&out["info"]) <= 2.0, "at most two (i): {}", out["info"]);
 	assert!(empty(&out["thin"]), "no one-row section: {}", out["thin"]);
 	assert!(empty(&out["crowded"]), "at most one switch and one swatch beside a control: {}", out["crowded"]);
-	// Who it targets draws on the single target button: dimmed beside the target list, the default (#1704).
-	assert_eq!(out["dim"], json!(["qol.targetPlate"]), "nothing else dimmed at defaults");
+	// Who it targets draws on the single target button: dimmed beside the target list, the default (#1704); the size
+	// of the next names' icons, the row under it, with it.
+	assert_eq!(out["dim"], json!(["qol.targetPlate", "buttons.miniSize"]), "nothing else dimmed at defaults");
 	assert_eq!(out["sections"], json!(["Button set", "Buttons", "Plate", "Text", "Floating & minimap"]), "one section per element");
 	assert_eq!(out["toggles"], 0, "the on/off switches sit beside their sizes");
 	for (main, extra) in [
@@ -251,7 +255,7 @@ fn buttons_page_registers_every_button_look_with_defaults_new_badges_search_and_
 	] {
 		assert_eq!(out["extras"][main], extra, "{extra} beside {main}");
 	}
-	for (main, cog) in [("buttons.border", "buttons.borderSize"), ("buttons.labelScale", "buttons.labelOutline"), ("qol.targetPlate", "buttons.miniSize"), ("buttons.hotkey", "buttons.hotkeyScale")] {
+	for (main, cog) in [("buttons.border", "buttons.borderSize"), ("buttons.labelScale", "buttons.labelOutline"), ("buttons.hotkey", "buttons.hotkeyScale")] {
 		assert_eq!(out["more"][main], cog, "{cog} behind {main}'s cog");
 	}
 	let keys: Vec<&str> = out["keys"].as_array().unwrap().iter().map(|k| k.as_str().unwrap()).collect();
@@ -528,11 +532,12 @@ fn buttons_preset_cards_draw_the_target_list_in_a_column_and_a_row_and_the_singl
 fn who_it_targets_on_the_buttons_page_follows_the_target_button_and_simple_target_button_as_questing_s_does() {
 	let out = run_ui(
 		r#"
-		-- The icons' size sits behind the row's cog, which opens only while the row is on: its own `disabled`.
+		-- The icons' size, on the row under it (Who it targets is a reference to Questing's row), is on only while
+		-- the row is: its own `disabled`.
 		local mini
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
 			for _, c in ipairs(spec.page == "Buttons" and spec.controls or {}) do
-				if c.key == "qol.targetPlate" then mini = c.more[1] end
+				if c.key == "buttons.miniSize" then mini = c end
 			end
 		end
 		local function look()

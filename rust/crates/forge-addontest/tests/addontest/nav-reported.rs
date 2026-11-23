@@ -761,3 +761,109 @@ fn stormwind_the_park_the_walk_down_from_the_path_to_the_lawn_goes_straight_down
 	let yards = yards_of(&points(&got));
 	assert!(yards < 20.0, "the walk down is {yards:.0} yd");
 }
+
+// The world gate's held-out walks (CityPaths' world stage, indoor places): Gazlowe's floor in Ratchet was joined to
+// nothing in the walking maps (no walk from him to Wharfmaster Dizzywig, 175 yd for players); the stair down from his
+// floor (103 recorded players) is a step join now. Both ways, and about the players' length.
+#[test]
+fn ratchet_the_walk_from_gazlowe_down_to_wharfmaster_dizzywig_is_found_both_ways() {
+	let gazlowe = Pt { c: 1, x: -838.0, y: -3727.6, z: Some(26.3) };
+	let dizzywig = Pt { c: 1, x: -984.6, y: -3795.5, z: Some(5.2) };
+	joined_both_ways(gazlowe, dizzywig, Some("Horde"), "Gazlowe's floor");
+	let yards = yards_of(&points(&walk(gazlowe, dizzywig, Some("Horde"))));
+	assert!(yards < 230.0, "the walk is {yards:.0} yd (players: 175)");
+}
+
+// #2027, Ban'ethil Barrow Den (Teldrassil): nothing below the den's mouth was reachable in the walking maps (from
+// Ban'ethil Hollow, Oben at the bottom was "unreachable"); the ramp's turn under the mouth (24 recorded players) is a
+// step join now.
+#[test]
+fn teldrassil_the_walk_from_banethil_hollow_down_to_oben_in_the_barrow_den_is_found_both_ways_2027() {
+	let hollow = Pt { c: 1, x: 9964.0, y: 1527.4, z: None };
+	let oben = Pt { c: 1, x: 9741.0, y: 1526.2, z: Some(1280.4) };
+	joined_both_ways(hollow, oben, Some("Alliance"), "Ban'ethil Barrow Den");
+}
+
+// #2027, Silver Stream Mine (Loch Modan): walks from Mountaineer Stormpike's hill to the mine's floor ran along a ledge
+// 10 yd over the floor and dropped off its far end (-4806, -2640), where players walk down the mouth's steps (a step
+// join now).
+#[test]
+fn loch_modan_the_walk_down_to_the_silver_stream_mines_floor_takes_the_steps_not_the_ledge_2027() {
+	let hill = Pt { c: 0, x: -4864.6, y: -2664.6, z: Some(340.0) };
+	let floor = Pt { c: 0, x: -4819.5, y: -2656.9, z: Some(327.1) };
+	let got = walk(hill, floor, Some("Alliance"));
+	assert!(truthy(&got), "the engine finds a walk to the mine's floor");
+	let pts = points(&got);
+	let ledge_end = Pt { c: 0, x: -4806.3, y: -2639.6, z: None };
+	let off = off_path(&pts, ledge_end);
+	assert!(off > 6.0, "the walk passes {off:.1} yd from the ledge's end ({} yd)", yards_of(&pts).round());
+}
+
+// Loch Modan, south of Algaz (23.36, 74.72): the upper floor where players stand (Algaz's bunker) had no way out in the
+// walking maps (no walk from it to Thelsamar); the ramp down round to the road (47 recorded players) is a step join
+// with via places along a navmesh's line now.
+#[test]
+fn loch_modan_the_walk_from_algazs_upper_floor_to_thelsamar_is_found_both_ways() {
+	let upper = Pt { c: 0, x: -5845.1, y: -2631.8, z: Some(323.0) };
+	let thelsamar = Pt { c: 0, x: -5425.3, y: -2928.5, z: Some(347.6) };
+	joined_both_ways(upper, thelsamar, Some("Alliance"), "Algaz's upper floor");
+}
+
+// Shen'dralas: from Historian Biraxas' floor players drop 22 yd to the hall below (21 of the 26 recorded players who
+// left him were flagged falling at the landing); the walking maps went round 354 yd to Mithera (players: 207). A drop
+// join now: the walk down takes it, the walk up still goes round.
+#[test]
+fn shendralas_the_walk_from_historian_biraxas_to_mithera_takes_the_drop_players_take() {
+	let biraxas = Pt { c: 1, x: -2970.4, y: 1085.1, z: Some(168.8) };
+	let mithera = Pt { c: 1, x: -2937.3, y: 936.0, z: Some(149.7) };
+	let down = yards_of(&points(&walk(biraxas, mithera, Some("Horde"))));
+	assert!(down < 260.0, "the walk down is {down:.0} yd (players: 207)");
+	let up = walk(mithera, biraxas, Some("Horde"));
+	assert!(truthy(&up), "the walk up is found");
+	assert!(yards_of(&points(&up)) > 300.0, "the walk up goes round");
+}
+
+// #3098, The Hinterlands: the Ancient Egg's cave at Jintha'Alor (57.5, 86.7) was unreachable in the walking maps from
+// the road below (the arrow drew a straight line over the mountain). The climb from the road up both terraces (62.0,
+// 71.3 to 59.0, 70.3; 17 recorded players walk it) is a grid join now. From the road at its height, both ways.
+#[test]
+fn hinterlands_the_walk_from_the_road_below_jintha_alor_to_the_ancient_eggs_cave_is_found_both_ways_3098() {
+	let road = Pt { c: 0, x: -330.2, y: -3961.5, z: Some(197.7) };
+	let egg = Pt { c: 0, x: -760.9, y: -3792.0, z: Some(233.9) };
+	joined_both_ways(road, egg, Some("Horde"), "the Ancient Egg's cave");
+	let yards = yards_of(&points(&walk(road, egg, Some("Horde"))));
+	assert!(yards < 1000.0, "the walk is {yards:.0} yd (our grid: 819)");
+}
+
+// #3618, Durotar: Telf Joolam's shrine (38.5, 58.9, height 168) joined nothing in the walking maps, so every walk to him
+// was "unreachable". The path up from the valley floor east of the shrine (9 recorded players) is a grid join now.
+#[test]
+fn durotar_the_walk_up_to_telf_joolams_shrine_is_found_both_ways_3618() {
+	let below = Pt { c: 1, x: -242.7, y: -3951.0, z: Some(110.8) };
+	let telf = Pt { c: 1, x: -270.0, y: -4000.9, z: Some(168.2) };
+	joined_both_ways(below, telf, Some("Horde"), "Telf Joolam's shrine");
+	let yards = yards_of(&points(&walk(below, telf, Some("Horde"))));
+	assert!(yards < 260.0, "the walk up is {yards:.0} yd (our grid: 184)");
+}
+
+// #3495, Northshire Abbey: the walking maps had no stair to the first floor, so a walk to Khelden Bremen (height 89.5)
+// ended on the ground floor under him with the last steps unmapped. The stair (8 recorded players walk to him) is a
+// grid join now: the walk ends beside him, on his floor.
+#[test]
+fn elwynn_the_walk_into_northshire_abbey_goes_up_the_stair_to_khelden_bremen_3495() {
+	let door = Pt { c: 0, x: -8905.0, y: -150.0, z: None };
+	let khelden = Pt { c: 0, x: -8851.6, y: -188.2, z: Some(89.5) };
+	joined_both_ways(door, khelden, Some("Alliance"), "Khelden Bremen's floor");
+}
+
+// #3581, Thandol Span: Foggy MacKreel's ledge on the broken section (height 75) joined nothing in the walking maps (a
+// walk to him at his height was not found). The way down from the lower deck onto the fallen pieces and along them (14
+// recorded players walk to him, none flagged falling) is a step join now.
+#[test]
+fn arathi_the_walk_to_foggy_mackreel_on_thandol_spans_broken_section_is_found_both_ways_3581() {
+	let arathi = Pt { c: 0, x: -2200.0, y: -2450.0, z: None };
+	let foggy = Pt { c: 0, x: -2356.7, y: -2423.4, z: Some(74.9) };
+	joined_both_ways(arathi, foggy, Some("Alliance"), "Foggy MacKreel's ledge");
+	let yards = yards_of(&points(&walk(arathi, foggy, Some("Alliance"))));
+	assert!(yards < 250.0, "the walk is {yards:.0} yd (players: about 180)");
+}

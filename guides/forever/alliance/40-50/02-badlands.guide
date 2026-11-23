@@ -193,6 +193,10 @@ step Boat to Theramore
 step Theramore
   zone Dustwallow Marsh
   turnin 1287                         -- Captain Garran Vimes, on the top floor
+
+step Morgan Stern
+  zone Dustwallow Marsh
+  when complete 1258
   turnin 1258                         -- Morgan Stern, inside
 
 # Mudsprocket: Drazzit Dripvalve's and Gizzix Grimegurgle's three Wyrmbog quests (98205, 98215, 98231, level 44,

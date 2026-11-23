@@ -115,6 +115,7 @@ step Brackenwall Village
 
 step Stinky Ignatz
   zone Dustwallow Marsh
+  when level>=36
   tip Head north to Witch Hill. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it.
   accept 1270
   complete 1270
@@ -247,12 +248,13 @@ step Valley of Spears
 step Melizza Brimbuzzle
   zone Desolace
   tip Melizza is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.
-  tip Careful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help.
+  tip Careful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help.
   accept 6132 @33.9,53.5 map 1443
   complete 6132
 
 step Hornizz Brimbuzzle
   zone Desolace
+  when complete 6132
   tip Hornizz waits at the goblin camp on the west side of the Kodo Graveyard.
   turnin 6132
   accept 6134                         -- Hornizz Brimbuzzle: the ghost-o-plasm, after Mannoroc Coven at the end of this visit

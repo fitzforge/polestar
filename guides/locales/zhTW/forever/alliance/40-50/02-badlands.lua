@@ -138,28 +138,30 @@ return {
 	["Theramore"] = "塞拉摩島",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "{npc:4944}，頂樓",
+
+	-- Step 31: Morgan Stern
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}，室內",
 
-	-- Step 31: Mudsprocket
+	-- Step 32: Mudsprocket
 	["Mudsprocket"] = "泥鏈營地",
 	-- {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle
 	["Take the road south-west out of Theramore to Mudsprocket, the goblin camp at the edge of the {area:511}. {npc:270723} and {npc:270727} stand together in the camp."] = "從塞拉摩沿道路往西南走到{area:511}邊緣的地精營地泥鏈營地。{npc:270723}和{npc:270727}一起站在營地裡。",
 
-	-- Step 32: The Wyrmbog
+	-- Step 33: The Wyrmbog
 	-- {area:511} Wyrmbog
 	["The {area:511}"] = "{area:511}",
 	-- {item:280092} Wyrmtail
 	-- plural, as words: Searing Hatchlings = {npc:4323} Searing Hatchling · Firemane Scalebanes = {npc:4328} Firemane Scalebane
 	["The {item:280092} grows in the bog east of the camp: gather it first. Then the Searing Hatchlings and Whelps (41-43) and the Firemane dragonkin nest in the bog north and west of Mudsprocket, on the way back; all of them drop the shed scales.\nCareful: the Firemane Scalebanes and Flamecallers are 43-44 and cast fire: pull them one at a time."] = "{item:280092}長在營地東邊的沼澤裡：先採集它。之後回程時，灼熱幼龍和雛龍（41-43）以及火鬃龍類在泥鏈營地北邊和西邊的沼澤築巢；牠們都會掉落蛻下的鱗片。\n小心：火鬃逆鱗守衛和喚焰者是43-44級，會施放火焰法術：一次只拉一隻。",
 
-	-- Step 33: Mudsprocket
+	-- Step 34: Mudsprocket
 	["Then ride back north-east to Theramore's flight master."] = "然後往東北騎回塞拉摩的飛行管理員。",
 
-	-- Step 34: Theramore flight master
+	-- Step 35: Theramore flight master
 	["Theramore flight master"] = "塞拉摩飛行管理員",
 
-	-- Step 36: Warlock: Summon Felsteed
+	-- Step 37: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "術士：{quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan

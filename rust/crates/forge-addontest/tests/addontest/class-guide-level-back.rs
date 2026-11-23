@@ -53,12 +53,7 @@ fn run(script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: BEFORE.to_string(),
-		addons: vec![
-			Addon::name("Polestar"),
-			Addon::dir("Polestar_Guides", dir.join("Polestar_Guides")),
-			Addon::dir("Polestar_Guides_Horde", dir.join("Polestar_Guides_Horde")),
-			Addon::dir("Polestar_Guides_Orc", dir.join("Polestar_Guides_Orc")),
-		],
+		addons: vec![Addon::name("Polestar"), Addon::dir("Polestar_Guides", dir.join("Polestar_Guides")), Addon::dir("Polestar_Guides_Horde", dir.join("Polestar_Guides_Horde"))],
 		script: format!("{PRE}{script}"),
 		..Default::default()
 	})

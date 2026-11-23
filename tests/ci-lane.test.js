@@ -1,34 +1,53 @@
 'use strict';
 // tools/ci-lane.js and the pull request workflows it serves (docs/CI.md, "Lanes"): which changes take ci.yml's
-// docs lane and skip forge.yml's suites, that the Tests and Format, lints, tests jobs report on every pull request
-// and run every step in a lane, that the Rust suites run on every document their tests read, and that a newer push
-// cancels a pull request's older run.
+// docs, part or full lane and forge.yml's run, addon or skip lane, that the Tests and Format, lints, tests jobs
+// report on every pull request and run every step in a lane, that the Rust suites run on every document their
+// tests read, and that a newer push cancels a pull request's older run.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
-const { lane, forgeLane, isDocPath, globRe, DOCS_TESTS, FORGE_PATHS } = require('../tools/ci-lane');
+const { lane, forgeLane, guideTextLocales, areaOf, isDocPath, globRe, DOCS_TESTS, FORGE_PATHS, RUST_PATHS } = require('../tools/ci-lane');
 
 const ROOT = path.join(__dirname, '..');
 const WORKFLOWS = path.join(ROOT, '.github', 'workflows');
 const workflow = (name) => fs.readFileSync(path.join(WORKFLOWS, name), 'utf8');
 
-test('documentation alone takes the docs lane; code, fragments, workflows and a mix take the full lane', () => {
+test('documentation alone takes the docs lane; guides, Lua, data and fragments the part lane; anything else the full lane', () => {
 	const docs = lane(['README.md', 'docs/CI.md', 'docs/preview/settings-theme.svg', '.github/ISSUE_TEMPLATE/bug.yml', '.github/pull_request_template.md']);
 	assert.equal(docs.lane, 'docs', docs.reasons.join('; '));
 	assert.deepEqual(docs.tests, DOCS_TESTS);
+	for (const [files, areas] of [
+		[['addon/Polestar/Core/Core.lua'], ['lua']],
+		[['tests/lua/stub.lua'], ['lua']],
+		[['guides/forever/horde/02-the-barrens.guide', 'addon/Polestar_Guides_Horde/Guides.lua', 'addon/Polestar_deDE/Texts.lua', 'guides/locales/deDE/forever/horde/40-50/04-tanaris.lua'], ['guides']],
+		[['experimental/guides/x.guide', 'addon/Polestar/Experimental/Guides.lua', 'forge/seed/SEED.json'], ['guides']],
+		[['data/guide-fixes.json', 'forever-db/corrections/quests.json'], ['data']],
+		[['changes/some-fix.md'], ['changes']],
+		[['addon/Polestar_deDE/Interface.lua', 'changes/x.md', 'docs/CI.md'], ['changes', 'lua']],
+		[['guides/forever/horde/02-the-barrens.guide', 'data/guide-fixes.json', 'tests/guides-reported.test.js'], ['data', 'guides', 'tests']],
+		[['addon/Polestar/Core/Core.lua', 'tests/helpers/cli.js'], null],
+	]) {
+		const r = lane(files);
+		if (!areas) {
+			assert.equal(r.lane, 'full', `${files.join(', ')}: ${r.reasons.join('; ')}`);
+			continue;
+		}
+		assert.equal(r.lane, 'part', `${files.join(', ')}: ${r.reasons.join('; ')}`);
+		assert.deepEqual(r.areas, areas, files.join(', '));
+		for (const t of DOCS_TESTS) assert.ok(r.tests.includes(t), `${files.join(', ')}: runs ${t}`);
+	}
 	for (const files of [
-		['addon/Polestar/Core/Core.lua'],
-		['guides/forever/horde/02-the-barrens.guide'],
 		['rust/crates/forge/src/main.rs'],
-		['changes/some-fix.md'],
+		['tests/fixtures/dsl/x.guide'],
 		['tools/discord-bot/README.md'],
 		['skills/polestar-triage/SKILL.md'],
 		['tests/fixtures/discord/elwynn-trainer.md'],
 		['.github/workflows/ci.yml'],
 		['docs/CI.md', 'tools/ci-lane.js'],
+		['addon/Polestar/Core/Core.lua', 'rust/Cargo.toml'],
 		[],
 	]) {
 		const r = lane(files);
@@ -37,15 +56,27 @@ test('documentation alone takes the docs lane; code, fragments, workflows and a 
 	}
 });
 
-test('a document the full lane reads takes the full lane: a Node test reads it, or ci.yml checks it', () => {
+test("the part lane runs the Node tests its changes can break: a guide's the guide suites, the addon's those loading it", () => {
+	const guide = lane(['guides/forever/horde/40-50/04-tanaris.guide']);
+	for (const t of ['tests/guides-reported.test.js', 'tests/guides-patterns.test.js']) assert.ok(guide.tests.includes(t), `a guide runs ${t}: ${guide.tests.join(' ')}`);
+	const lua = lane(['addon/Polestar/Core/Core.lua']);
+	assert.ok(lua.tests.length > DOCS_TESTS.length, lua.tests.join(' '));
+	// A test the pull request deletes is not run.
+	const reads = (test) => () => ({ selected: new Map([[path.join(ROOT, test), ['reads data/x.json']]]) });
+	assert.ok(lane(['data/x.json'], { select: reads('tests/other.test.js'), exists: () => true }).tests.includes('tests/other.test.js'));
+	assert.ok(!lane(['data/x.json'], { select: reads('tests/other.test.js'), exists: () => false }).tests.includes('tests/other.test.js'));
+});
+
+test('a document the full lane reads leaves the docs lane: a Node test reads it, or ci.yml checks it', () => {
 	const cheatsheet = lane(['docs/GUIDE_CHEATSHEET.md']);
-	assert.equal(cheatsheet.lane, 'full');
-	assert.ok(cheatsheet.reasons.some((r) => r.startsWith('tests/docs-cheatsheet.test.js')), cheatsheet.reasons.join('; '));
-	assert.equal(lane(['CHANGELOG.md']).lane, 'full', 'the changelog check reads it');
-	// Tests outside the docs lane's own reading a document send it to the full lane; the docs lane's own do not.
+	assert.equal(cheatsheet.lane, 'part');
+	assert.ok(cheatsheet.tests.includes('tests/docs-cheatsheet.test.js'), cheatsheet.tests.join(' '));
+	assert.equal(lane(['CHANGELOG.md']).lane, 'part', 'the changelog check reads it');
+	// Tests outside the docs lane's own reading a document send it to the part lane; the docs lane's own do not.
 	const reads = (test) => () => ({ selected: new Map([[path.join(ROOT, test), ['reads docs/X.md']]]) });
-	assert.equal(lane(['docs/X.md'], { select: reads('tests/other.test.js') }).lane, 'full');
+	assert.equal(lane(['docs/X.md'], { select: reads('tests/other.test.js'), exists: () => true }).lane, 'part');
 	assert.equal(lane(['docs/X.md'], { select: reads(DOCS_TESTS[0]) }).lane, 'docs');
+	assert.equal(areaOf('docs/CI.md'), null);
 });
 
 test('the docs lane runs test files that exist', () => {
@@ -72,19 +103,19 @@ function jobSteps(text, job) {
 	return steps;
 }
 
-test("ci.yml's Tests job: the lane step decides, and every step after it runs in one lane", () => {
+test("ci.yml's Tests job: the lane step decides, and every step after it runs in a lane", () => {
 	const text = workflow('ci.yml');
 	assert.match(text, /^ {4}name: Tests$/m, 'the required check keeps its name');
 	assert.doesNotMatch(text, /^ {2}pull_request:\n {4}paths/m, 'Tests starts on every pull request');
 	const steps = jobSteps(text, 'test');
 	const at = steps.findIndex((s) => s.id === 'lane');
 	assert.ok(at > 0, `a step with id lane: ${JSON.stringify(steps)}`);
-	assert.equal(steps.slice(0, at).filter((s) => s.if).length, 0, 'the steps before the lane run in both lanes');
+	assert.equal(steps.slice(0, at).filter((s) => s.if).length, 0, 'the steps before the lane run in every lane');
 	const after = steps.slice(at + 1);
-	assert.ok(after.some((s) => s.if === "steps.lane.outputs.lane == 'docs'"));
-	for (const s of after) {
-		assert.ok(["steps.lane.outputs.lane == 'full'", "steps.lane.outputs.lane == 'docs'"].includes(s.if), `${s.name}: runs in one lane (if: ${s.if})`);
+	for (const want of ["steps.lane.outputs.lane == 'docs'", "steps.lane.outputs.lane == 'part'", "steps.lane.outputs.lane == 'full'"]) {
+		assert.ok(after.some((s) => s.if === want), `a step for ${want}`);
 	}
+	for (const s of after) assert.match(s.if || '', /^steps\.lane\.outputs\.lane [!=]= '(docs|part|full)'/, `${s.name}: runs by the lane (if: ${s.if})`);
 	assert.match(text, /node "\$base\/tools\/ci-lane\.js" --github/, "the lane comes from the base's copy of the script");
 });
 
@@ -111,15 +142,26 @@ test("forge.yml's suites run on every document a Rust test reads, and its pushes
 	const lists = [...text.matchAll(/^ {4}paths: \[(.*)\]$/gm)].map((m) => JSON.parse(`[${m[1]}]`));
 	assert.equal(lists.length, 1, 'push paths only: every pull request runs forge.yml');
 	assert.deepEqual(lists[0], FORGE_PATHS, "push starts on tools/ci-lane.js's FORGE_PATHS");
+	for (const g of RUST_PATHS) assert.ok(FORGE_PATHS.includes(g), `${g}: in FORGE_PATHS too`);
 	const read = rustReadDocs();
 	assert.ok(read.has('docs/API.md') && read.has('docs/forge/*.md'), `the reader finds the known reads: ${[...read.keys()]}`);
-	const missing = [...read].filter(([p]) => !FORGE_PATHS.some((g) => globRe(g).test(p) || globRe(g).test(p.replace(/\*/g, 'x')))).map(([p, w]) => `${p} (${w.join(', ')})`);
-	assert.deepEqual(missing, [], "add these to FORGE_PATHS in tools/ci-lane.js and forge.yml's push paths");
+	const missing = [...read].filter(([p]) => !RUST_PATHS.some((g) => globRe(g).test(p) || globRe(g).test(p.replace(/\*/g, 'x')))).map(([p, w]) => `${p} (${w.join(', ')})`);
+	assert.deepEqual(missing, [], "add these to RUST_DOCS in tools/ci-lane.js");
 });
 
-test("forge.yml's lane: its paths run the suites, anything else skips them, no list runs them", () => {
-	for (const files of [['rust/crates/forge/src/main.rs'], ['addon/Polestar/Core/Core.lua'], ['guides/forever/horde/02-the-barrens.guide'], ['forever-db/corrections/quests.json'], ['data/route-fixes.json'], ['tests/lua/stub.lua'], ['docs/forge/routes.md'], ['README.md'], ['.github/workflows/forge.yml'], ['docs/CI.md', 'rust/Cargo.toml'], []]) {
+test('the guide texts check: a guide change checks every language, a language\'s texts that language, anything else none', () => {
+	assert.equal(guideTextLocales(['guides/forever/horde/40-50/04-tanaris.guide', 'guides/locales/deDE/forever/horde/40-50/04-tanaris.lua']), 'all');
+	assert.equal(guideTextLocales(['experimental/guides/x.guide']), 'all');
+	assert.deepEqual(guideTextLocales(['guides/locales/frFR/forever/a.lua', 'addon/Polestar_deDE/Texts.lua', 'guides/locales/frFR/forever/b.lua']), ['deDE', 'frFR']);
+	assert.deepEqual(guideTextLocales(['addon/Polestar_deDE/Interface.lua', 'docs/CI.md', 'data/guide-fixes.json']), []);
+});
+
+test("forge.yml's lane: Rust runs everything, the rest of its paths the Lua tests, anything else skips, no list runs", () => {
+	for (const files of [['rust/crates/forge/src/main.rs'], ['tests/fixtures/dsl/x.guide'], ['docs/forge/routes.md'], ['README.md'], ['.github/workflows/forge.yml'], ['docs/CI.md', 'rust/Cargo.toml'], ['addon/Polestar/Core/Core.lua', 'rust/Cargo.toml'], []]) {
 		assert.equal(forgeLane(files).forge, 'run', files.join(', ') || '(none)');
+	}
+	for (const files of [['addon/Polestar/Core/Core.lua'], ['guides/forever/horde/02-the-barrens.guide'], ['forever-db/corrections/quests.json'], ['data/route-fixes.json'], ['tests/lua/stub.lua'], ['addon/Polestar_Guides/Guides.lua', 'changes/x.md']]) {
+		assert.equal(forgeLane(files).forge, 'addon', files.join(', '));
 	}
 	for (const files of [['docs/CI.md'], ['CONTRIBUTING.md'], ['tools/ci-lane.js', 'tests/ci-lane.test.js'], ['changes/x.md'], ['.github/workflows/ci.yml'], ['skills/polestar-guide-fix/SKILL.md'], ['docs/forgery.md'], ['addons/x.lua']]) {
 		const r = forgeLane(files);
@@ -127,7 +169,7 @@ test("forge.yml's lane: its paths run the suites, anything else skips them, no l
 	}
 });
 
-test("forge.yml's Format, lints, tests: reports on every pull request, the base's lane decides, every later step runs in it", () => {
+test("forge.yml's Format, lints, tests: reports on every pull request, the base's lane decides, each job runs in its lane", () => {
 	const text = workflow('forge.yml');
 	assert.match(text, /^ {2}pull_request:\s*$/m, 'every pull request starts forge.yml');
 	assert.match(text, /^ {4}name: Format, lints, tests$/m, 'the required check keeps its name');
@@ -138,13 +180,15 @@ test("forge.yml's Format, lints, tests: reports on every pull request, the base'
 		return m[1];
 	};
 	const check = job('check');
-	assert.match(check, /^ {4}needs: lane$/m);
-	assert.match(check, /^ {4}if: \$\{\{ !cancelled\(\) \}\}$/m, 'the check runs whatever the lane job did, so it always reports');
-	const steps = jobSteps(text, 'check');
-	assert.equal(steps[0].if, null, 'the first step runs in both lanes');
-	assert.match(check, /needs\.lane\.result/, 'the first step fails when the lane job did not finish');
-	for (const s of steps.slice(1)) assert.equal(s.if, "needs.lane.outputs.forge != 'skip'", `${s.name}: runs unless the lane skips`);
-	for (const name of ['msrv', 'wasm']) assert.match(job(name), /^ {4}if: needs\.lane\.outputs\.forge != 'skip'$/m, `${name} skips with the lane`);
+	assert.match(check, /^ {4}needs: \[lane, rust, addontest-bin, addontest\]$/m, 'the check waits for every job a lane runs');
+	assert.match(check, /^ {4}if: \$\{\{ !cancelled\(\) \}\}$/m, 'the check runs whatever the other jobs did, so it always reports');
+	assert.match(check, /needs\.lane\.result/, 'the check fails when the lane job did not finish');
+	for (const name of ['rust', 'addontest']) assert.match(check, new RegExp(`needs\\.${name}\\.result`), `the check reads ${name}'s result`);
+	assert.equal(jobSteps(text, 'check').length, 1, 'the check checks out and runs nothing');
+	for (const name of ['rust', 'msrv', 'wasm']) assert.match(job(name), /^ {4}if: needs\.lane\.outputs\.forge == 'run'$/m, `${name} runs in the run lane only`);
+	assert.match(job('addontest-bin'), /^ {4}if: needs\.lane\.outputs\.forge == 'run' \|\| needs\.lane\.outputs\.forge == 'addon'$/m);
+	assert.match(job('addontest'), /^ {4}needs: \[lane, addontest-bin\]$/m);
+	assert.match(job('rust'), /--exclude forge-addontest/, 'the Rust suites leave the Lua tests to the addontest jobs');
 });
 
 test('every pull request workflow cancels its run for the same pull request when a newer push comes', () => {

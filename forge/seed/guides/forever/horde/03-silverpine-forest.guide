@@ -125,6 +125,14 @@ step Neeru Fireblade
   accept 809                          -- Neeru Fireblade: Ak'Zeloth stands at Far Watch Post, on the next guide's road to the Crossroads
   turnin 832                          -- Neeru Fireblade: Burning Shadows, from the Eye of Burning Shadow in Durotar
 
+step Neeru Fireblade
+  only Orc,Troll
+  zone Orgrimmar
+  when turnedin 829
+  when available 809
+  tip Neeru Fireblade stands at the far end of the Cleft of Shadow, the canyon under the Valley of Strength.
+  accept 809                          -- Neeru Fireblade: Ak'Zeloth stands at Far Watch Post, on the next guide's road to the Crossroads
+
 step The Drag
   only Orc,Troll,Tauren,Skyborne
   zone Orgrimmar
@@ -265,9 +273,16 @@ step Nazgrel
 step Thrall
   only Orc,Troll
   zone Orgrimmar
-  when onquest 5726
+  when complete 5726
   tip Thrall, on his throne in Grommash Hold, takes the Lieutenant's Insignia from Skull Rock. His next errand is only a word with Neeru Fireblade, on this guide's last Orgrimmar walk.
   turnin 5726                         -- Thrall
+
+step Thrall
+  only Orc,Troll
+  zone Orgrimmar
+  when turnedin 5726
+  when available 5727
+  tip Thrall sits on his throne in Grommash Hold. His next errand is only a word with Neeru Fireblade, on this guide's last Orgrimmar walk.
   accept 5727                         -- Thrall
 
 step Zeppelin to Undercity
