@@ -1,10 +1,11 @@
-//! Freedoom Arcade on flights (addon/Polestar/Maps/Arcade.lua): the card under the flight timer, the game opened
-//! through FreedoomArcadeAPI or else the standalone addon's slash command (never toggled closed), the game put
-//! away 10 seconds before landing, on the landing itself and in a fight on the way, and Polestar_Arcade, the copy in
-//! Polestar's download: loaded on demand, never beside the standalone addon, its commands left to whoever has them.
-//! With the setting off nothing of it is made or loaded, and flights leave nothing behind. Runs Core, Theme, Nav and
-//! Maps against stub_world.lua + stub_maps.lua (the small travel world: West Hold to Mid Camp, flown here in a set
-//! time).
+//! The games on flights (addon/Polestar/Maps/Arcade.lua): the card under the flight timer with a button for each
+//! game there (Freedoom Arcade, Sky Jewels; arcade.game picks the one offered, "none" none), Freedoom Arcade opened
+//! through FreedoomArcadeAPI or else the standalone addon's slash command (never toggled closed), the game put away
+//! 10 seconds before landing, on the landing itself and in a fight on the way, one game open at a time, and
+//! Polestar_Arcade, the games' folder in Polestar's download: loaded on demand, never beside the standalone addon, its
+//! commands left to whoever has them. With "none" nothing of it is made or loaded, and flights leave nothing behind.
+//! Runs Core, Theme, Nav and Maps against stub_world.lua + stub_maps.lua (the small travel world: West Hold to Mid
+//! Camp, flown here in a set time).
 
 use forge_addontest::run::addons_dir;
 use forge_addontest::{emitted, Addon, RunAddon};
@@ -99,7 +100,7 @@ fn run_with(script: &str, saved: Option<&str>) -> Value {
 	.remove(0)
 }
 
-const OFF: &str = "PolestarDB = { schema = 1, settings = { maps = { flightArcade = false } } }";
+const OFF: &str = "PolestarDB = { schema = 1, settings = { arcade = { game = \"none\" } } }";
 
 fn run(script: &str) -> Value {
 	run_with(script, None)
@@ -114,7 +115,7 @@ fn without_the_api_play_opens_by_the_command_once_and_landing_only_warns() {
 		local f = standalone(false)
 		takeoff(300)
 		local asked = card()
-		stub.frame("PolestarArcadeOffer").Ask.Play:Click()
+		stub.frame("PolestarArcadeOffer").Ask.Games.freedoom:Click()
 		local afterPlay = { card = card(), open = f:IsShown() }
 		A.Open()
 		local again = f:IsShown()
@@ -176,11 +177,11 @@ fn not_now_leaves_the_row_until_a_minute_is_left() {
 		stub.frame("PolestarArcadeOffer").Ask.Later:Click()
 		local row = card()
 		stub.advance(62)
-		emit({ first = first, row = row, late = card(), setting = Polestar.Get("maps.flightArcade") })"#);
-	assert_eq!(out, json!({ "first": "ask", "row": "row", "late": false, "setting": true }));
+		emit({ first = first, row = row, late = card(), setting = Polestar.Get("arcade.game") })"#);
+	assert_eq!(out, json!({ "first": "ask", "row": "row", "late": false, "setting": "freedoom" }));
 }
 
-// The setting off: nothing on a flight. "Don't ask again" turns it off from the card.
+// "None": nothing on a flight. "Don't ask again" sets it from the card.
 #[test]
 fn the_setting_off_offers_nothing_and_dont_ask_again_turns_it_off() {
 	let off = run_with(
@@ -188,7 +189,7 @@ fn the_setting_off_offers_nothing_and_dont_ask_again_turns_it_off() {
 		standalone(true)
 		takeoff(300)
 		emit({ card = card(), calls = calls })"#,
-		Some("PolestarDB = { schema = 1, settings = { maps = { flightArcade = false } } }"),
+		Some(OFF),
 	);
 	assert_eq!(off, json!({ "card": false, "calls": {} }));
 	let never = run(r#"
@@ -199,8 +200,8 @@ fn the_setting_off_offers_nothing_and_dont_ask_again_turns_it_off() {
 		c.Ask.Later:Click()
 		local now = card()
 		stub.advance(5)
-		emit({ now = now, later = card(), setting = Polestar.Get("maps.flightArcade"), calls = calls })"#);
-	assert_eq!(never, json!({ "now": false, "later": false, "setting": false, "calls": {} }));
+		emit({ now = now, later = card(), setting = Polestar.Get("arcade.game"), calls = calls })"#);
+	assert_eq!(never, json!({ "now": false, "later": false, "setting": "none", "calls": {} }));
 }
 
 // Neither copy there: no card, and /polestar arcade says why.
@@ -516,9 +517,17 @@ fn neither_the_flight_code_nor_the_game_calls_a_protected_function() {
 	let comment = regex::Regex::new(r"--.*$").unwrap();
 	let dir = addons_dir();
 	let mut files = vec![dir.join("Polestar/Maps/Arcade.lua")];
-	let mut src: Vec<_> = std::fs::read_dir(dir.join("Polestar_Arcade/src")).unwrap().map(|e| e.unwrap().path()).collect();
-	src.sort();
-	files.extend(src);
+	let lua = |d: std::path::PathBuf| -> Vec<std::path::PathBuf> {
+		let mut v: Vec<_> = std::fs::read_dir(d).unwrap().map(|e| e.unwrap().path()).filter(|p| p.extension().is_some_and(|x| x == "lua")).collect();
+		v.sort();
+		v
+	};
+	files.extend(lua(dir.join("Polestar_Arcade/src")));
+	let mut games: Vec<_> = std::fs::read_dir(dir.join("Polestar_Arcade/games")).unwrap().map(|e| e.unwrap().path()).collect();
+	games.sort();
+	for game in games {
+		files.extend(lua(game));
+	}
 	let mut found = vec![];
 	for file in &files {
 		let text = std::fs::read_to_string(file).unwrap();
@@ -547,13 +556,13 @@ fn neither_the_flight_code_nor_the_game_calls_a_protected_function() {
 	assert_eq!(out, json!({ "open": false, "underGameFrames": {}, "mapWrites": {} }));
 }
 
-// Every Lua file the game loads (its TOC) opens with whose work it is and its licence, and the licence and credit
+// Every Lua file the folder loads (its TOC) opens with whose work it is and its licence, and the licence and credit
 // files those notices name are in the folder: a file added from upstream or rebuilt by the asset tools without the
-// notice fails here.
+// notice fails here. Freedoom Arcade's are petllama's and Freedoom's; each other game's its author's.
 #[test]
 fn every_file_of_the_game_names_its_authors_and_licence() {
 	let dir = addons_dir().join("Polestar_Arcade");
-	for f in ["LICENSE", "CREDITS.md", "FREEDOOM-COPYING.txt", "FREEDOOM-CREDITS.txt"] {
+	for f in ["LICENSE", "CREDITS.md", "FREEDOOM-COPYING.txt", "FREEDOOM-CREDITS.txt", "games/skyjewels/CREDITS.md"] {
 		assert!(dir.join(f).is_file(), "{f} is missing from Polestar_Arcade");
 	}
 	let toc = std::fs::read_to_string(dir.join("Polestar_Arcade.toc")).unwrap();
@@ -562,7 +571,7 @@ fn every_file_of_the_game_names_its_authors_and_licence() {
 		let path = dir.join(line.replace('\\', "/"));
 		let text = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{line}: {e}"));
 		let head: String = text.lines().take(4).collect::<Vec<_>>().join("\n");
-		let whose = head.contains("petllama") || head.contains("Contributors to the Freedoom project");
+		let whose = head.contains("petllama") || head.contains("Contributors to the Freedoom project") || head.contains("Sky Jewels by RikyZ90");
 		let licence = head.contains("GPL") || head.contains("BSD licence: see FREEDOOM-COPYING.txt");
 		if !(head.starts_with("-- ") && whose && licence) {
 			missing.push(line.to_string());
@@ -793,4 +802,134 @@ fn doom_keys_sets_azerty_qwerty_or_wow_and_saves_it() {
 			"Freedoom Arcade: keys: wow (the keys your character moves with)"
 		])
 	);
+}
+
+// The flight's lines of chat about any game (chat() keeps Freedoom Arcade's), and the card's games in their order.
+const PICKER: &str = r#"
+local function said(word)
+	local out = {}
+	for _, s in ipairs(stub.messages) do
+		if s:find(word, 1, true) then out[#out + 1] = (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
+	end
+	return out
+end
+local function games()
+	local c, out = stub.frame("PolestarArcadeOffer"), {}
+	local b = nil
+	for id, g in pairs(c.Ask.Games) do
+		if g:IsShown() and select(2, g:GetPoint(1)) == c.Ask then b = id end
+	end
+	while b do
+		out[#out + 1] = b
+		local nextId = nil
+		for id, g in pairs(c.Ask.Games) do
+			if g:IsShown() and select(2, g:GetPoint(1)) == c.Ask.Games[b] then nextId = id end
+		end
+		b = nextId
+	end
+	return out
+end
+"#;
+
+// Polestar_Arcade there: the card offers each game, Freedoom Arcade first (the default choice). Sky Jewels' button
+// loads the folder, opens it and makes it the choice; 10 seconds before landing it is put away, and the landing says
+// how to go on. The next flight's card puts Sky Jewels first, and its row plays it.
+#[test]
+fn the_card_offers_each_game_and_the_one_played_becomes_the_choice() {
+	let out = run(&format!(
+		r#"{PICKER}
+		present("Polestar_Arcade", {{ reason = "DEMAND_LOADED" }})
+		takeoff(300)
+		local asked = {{ mode = card(), games = games(), loaded = C_AddOns.IsAddOnLoaded("Polestar_Arcade") }}
+		stub.frame("PolestarArcadeOffer").Ask.Games.skyjewels:Click()
+		local played = {{ card = card(), open = A.Active(), choice = Polestar.Get("arcade.game"), loaded = C_AddOns.IsAddOnLoaded("Polestar_Arcade") }}
+		stub.advance(300 - 1 - 9)
+		local landing = A.IsOpen("skyjewels")
+		land()
+		local landed = said("Sky Jewels")
+		takeoff(300)
+		local again = games()
+		stub.frame("PolestarArcadeOffer").Ask.Later:Click()
+		local row = stub.frame("PolestarArcadeOffer").Row.Label:GetText()
+		stub.frame("PolestarArcadeOffer").Row:Click()
+		emit({{ asked = asked, played = played, landing = landing, notices = notices, landed = landed, again = again, row = row, open = A.Active() }})"#
+	));
+	assert_eq!(out["asked"], json!({ "mode": "ask", "games": ["freedoom", "skyjewels"], "loaded": false }));
+	assert_eq!(out["played"], json!({ "card": false, "open": "skyjewels", "choice": "skyjewels", "loaded": true }));
+	assert_eq!(out["landing"], false, "Sky Jewels was not put away before the landing");
+	assert_eq!(out["notices"], json!([["Landing in 10 seconds", "Sky Jewels is saved and paused.", 10]]));
+	assert_eq!(out["landed"], json!(["Polestar: Landed. Sky Jewels is saved and paused: type /polestar jewels to continue."]));
+	assert_eq!(out["again"], json!(["skyjewels", "freedoom"]));
+	assert_eq!(out["row"], "Play Sky Jewels");
+	assert_eq!(out["open"], "skyjewels");
+}
+
+// One game at a time: opening Sky Jewels with Freedoom Arcade open puts Freedoom Arcade away (saved and paused) first,
+// and the other way round.
+#[test]
+fn opening_another_game_puts_the_open_one_away() {
+	let out = run(r#"
+		present("Polestar_Arcade", { reason = "DEMAND_LOADED" })
+		A.Open("freedoom")
+		local first = A.Active()
+		A.Open("skyjewels")
+		local second = { active = A.Active(), doom = A.IsOpen("freedoom") }
+		A.Open("freedoom")
+		emit({ first = first, second = second, third = A.Active(), jewels = A.IsOpen("skyjewels") })"#);
+	assert_eq!(out, json!({ "first": "freedoom", "second": { "active": "skyjewels", "doom": false }, "third": "freedoom", "jewels": false }));
+}
+
+// A fight on a flight puts Sky Jewels away with one line saying how to go on (its own pause on aggro or the flight's,
+// whichever comes first).
+#[test]
+fn a_fight_on_the_way_puts_sky_jewels_away_with_one_line() {
+	let out = run(&format!(
+		r#"{PICKER}
+		present("Polestar_Arcade", {{ reason = "DEMAND_LOADED" }})
+		takeoff(300)
+		A.Play("skyjewels")
+		stub.advance(5)
+		stub.inCombat = true
+		stub.fire("PLAYER_REGEN_DISABLED")
+		emit({{ open = A.IsOpen(), said = said("Sky Jewels") }})"#
+	));
+	assert_eq!(out["open"], false);
+	assert_eq!(out["said"].as_array().unwrap().len(), 1, "{out}");
+}
+
+// The standalone Freedoom Arcade installed: it is the only game offered (Polestar_Arcade's engine would share its
+// globals), so the card has one button, and /polestar jewels says why and loads nothing.
+#[test]
+fn with_the_standalone_addon_only_freedoom_arcade_is_offered() {
+	let out = run(&format!(
+		r#"{PICKER}
+		present("Polestar_Arcade", {{ reason = "DEMAND_LOADED" }})
+		standalone(true)
+		Polestar.Set("arcade.game", "skyjewels")
+		takeoff(300)
+		local offered = games()
+		Polestar.RunCommand("jewels")
+		emit({{ offered = offered, choice = A.Choice().id, ours = C_AddOns.IsAddOnLoaded("Polestar_Arcade"), said = said("Sky Jewels") }})"#
+	));
+	assert_eq!(
+		out,
+		json!({ "offered": ["freedoom"], "choice": "freedoom", "ours": false,
+			"said": ["Polestar: Sky Jewels can't open: its folder Polestar_Arcade is missing or turned off."] })
+	);
+}
+
+// Before the picker maps.flightArcade switched Freedoom Arcade's offer: a profile that had it off offers no game; one
+// that had it on keeps the default; the old key goes either way.
+#[test]
+fn a_profile_with_the_old_offer_off_offers_no_game() {
+	let off = run_with(
+		"emit({ game = Polestar.Get(\"arcade.game\"), old = PolestarDB.settings.maps and PolestarDB.settings.maps.flightArcade or false })",
+		Some("PolestarDB = { schema = 1, settings = { maps = { flightArcade = false } } }"),
+	);
+	assert_eq!(off, json!({ "game": "none", "old": false }));
+	let on = run_with(
+		"emit({ game = Polestar.Get(\"arcade.game\"), old = PolestarDB.settings.maps and PolestarDB.settings.maps.flightArcade or false })",
+		Some("PolestarDB = { schema = 1, settings = { maps = { flightArcade = true } } }"),
+	);
+	assert_eq!(on, json!({ "game": "freedoom", "old": false }));
 }
