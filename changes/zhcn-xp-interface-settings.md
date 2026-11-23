@@ -1,4 +1,5 @@
 ---
 section: players
 ---
-- Simplified Chinese: translate the quest experience bar, target list settings, and interface options.
+- Simplified Chinese: the quest experience bar, the target list settings and
+  the interface options read in Chinese (thanks nepyanbin, #3111).
