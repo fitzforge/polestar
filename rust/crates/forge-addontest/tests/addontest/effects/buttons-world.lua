@@ -42,6 +42,11 @@ local function pair(own)
 end
 return {
 	probes = {
+		-- Docked: the set in a row along the live guide window's bottom, the window keeping its strip (#2242).
+		["qol.buttonDock"] = function()
+			local F = Polestar.UI.GuideFrame.frame
+			return { Polestar.QoL.Buttons.Docked(), (Polestar.QoL.Buttons.Holder():GetPoint(1)), F.psDock or 0 }
+		end,
 		["ui.launcherSize"] = { with = LAUNCHER, probe = function() return PolestarLauncher:GetWidth() end },
 		["ui.launcherAlpha"] = { with = LAUNCHER, probe = function() return PolestarLauncher:GetAlpha() end },
 		["ui.launcherIcon"] = { with = LAUNCHER, probe = function() return icon(PolestarLauncher) end },

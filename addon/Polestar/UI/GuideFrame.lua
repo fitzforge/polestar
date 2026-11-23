@@ -919,12 +919,30 @@ GF.Part(function(GF)
 	-- `who`: the person a goal of another group is done with (rowWho), said
 	-- first on its line; `aside`: a goal outside the focus, open goals step back.
 	-- `questHex`: the quest name's colour (the class-quest card's class colour).
-	local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noEscort, who, aside, questHex, noFinder)
-		local sameGoal = sameStep and r.psGoal and r.psGoal.index == goal.index and r.psGoal.t == goal.t
-		r.psGoal = goal
+	-- Docked action buttons (QoL/Buttons.lua, Buttons.AimedGoal): whether
+	-- goal, on the step on screen, is the one the target button takes next.
+	function GF.Aimed(goal)
+		if not (GF.live and view and goal) then return false end
+		local QB = ns.QoL and ns.QoL.Buttons
+		local si, gi
+		if QB and QB.AimedGoal then si, gi = QB.AimedGoal() end
+		return si ~= nil and si == view.index and goal.index == gi
+	end
+
+	-- A row's glyph: the check, the skip or the verb's; the goal the docked
+	-- target button takes next wears its crosshair instead, in the danger
+	-- colour as on the button (r.psAimed). current: the first open goal of
+	-- the focus (r.psCurrent).
+	local function paintGlyph(r, goal, current)
 		local status = goal.status
-		local done = status == "done"
-		local skipped = status == "skipped"
+		local done, skipped = status == "done", status == "skipped"
+		local aimed = not done and not skipped and GF.Aimed(goal) or false
+		r.psAimed, r.psCurrent = aimed, current
+		if aimed then
+			r.Icon:SetTexture(Theme.Media("qol-target"))
+			W.Color(r.Icon, "danger")
+			return
+		end
 		r.Icon:SetTexture(done and Theme.Media("check") or (goal.dismissed and Theme.Media("skip")) or Theme.VerbIcon(goal.t))
 		if skipped then
 			W.Color(r.Icon, "textMuted", 0.8)
@@ -932,6 +950,15 @@ GF.Part(function(GF)
 			-- Gold is the live goal's alone; a goal at rest is dim.
 			W.Color(r.Icon, done and "success" or (current and "accent" or "textDim"))
 		end
+	end
+
+	local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noEscort, who, aside, questHex, noFinder)
+		local sameGoal = sameStep and r.psGoal and r.psGoal.index == goal.index and r.psGoal.t == goal.t
+		r.psGoal = goal
+		local status = goal.status
+		local done = status == "done"
+		local skipped = status == "skipped"
+		paintGlyph(r, goal, current)
 		-- The game's looks light the goal to do now with their own art.
 		r.psKitLit = Theme.KitRowLit(r, current and not done and not skipped and not transparent(), nil, GF.LookSpace("litInset", Theme.Metric("guideLitInset", 4))) or nil
 		UI.SetCounted(r.Text, UI.GoalLine(goal, questHex, true))
@@ -1011,8 +1038,27 @@ GF.Part(function(GF)
 			info = {}
 			r.psRowInfo = info
 		end
-		info.current, info.done, info.skipped = current and true or false, done, skipped
+		info.current, info.done, info.skipped, info.aimed = current and true or false, done, skipped, r.psAimed
 		GF.Hook("guideRow", r, goal, info)
+	end
+
+	-- The docked target button moved on to another name, or docked or floated
+	-- (TARGET_AIM): the rows whose crosshair comes or goes repaint their
+	-- glyph, and a skin's guideRow hook dresses them again.
+	function GF.PaintAim()
+		if not (F and GF.live) then return end
+		for i = 1, #rows do
+			local r = rows[i]
+			local goal = r.psGoal
+			if goal and r:IsShown() and (GF.Aimed(goal) and goal.status ~= "done" and goal.status ~= "skipped" or false) ~= (r.psAimed or false) then
+				paintGlyph(r, goal, r.psCurrent)
+				local info = r.psRowInfo
+				if info then
+					info.aimed = r.psAimed
+					GF.Hook("guideRow", r, goal, info)
+				end
+			end
+		end
 	end
 
 	local function layoutBar(b, tw)
@@ -3389,7 +3435,7 @@ GF.Part(function(GF)
 
 	local function draggable(frame)
 		if not GF.live then return frame end
-		ns.DragWindow(frame, F, { locked = function() return ns.Get("ui.locked") end, onStop = function() GF.DragStop() end })
+		ns.DragWindow(frame, F, { locked = function() return ns.Get("ui.locked") end, onStart = function() GF.DragStart() end, onStop = function() GF.DragStop() end })
 		return hoverable(frame)
 	end
 
@@ -4193,6 +4239,11 @@ GF.Part(function(GF)
 
 		ns.RegisterEvent("PLAYER_CONTROL_LOST", function() GF.TaxiChanged() end)
 		ns.RegisterEvent("PLAYER_CONTROL_GAINED", function() GF.TaxiChanged() end)
+
+		-- The docked action buttons (QoL/Buttons.lua): the target button moved
+		-- on to another name, and the row's strip came, went or changed height.
+		ns.On("TARGET_AIM", whenReady(function() GF.PaintAim() end))
+		ns.On("ACTION_DOCK", whenReady(function() GF.Layout() end))
 	end
 	-- A copy builds its window once every part is in (GF.Copy); the live
 	-- window, at init.

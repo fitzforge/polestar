@@ -54,6 +54,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		if not F then return end
 		local show = ns.Get("ui.shown") and not GF.RulesHide() and not ns.PauseHides("window")
 		F:SetShown(show and true or false)
+		-- Docked action buttons float again, or come back (QoL/Buttons.lua).
+		if GF.live then ns.Fire("GUIDE_WINDOW_PLACED") end
 	end
 
 	-- The toggle (/polestar, the key binding, the minimap button) inside, with
@@ -97,6 +99,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		else
 			F:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -64, -240)
 		end
+		if GF.live then ns.Fire("GUIDE_WINDOW_PLACED") end
 	end
 
 	-- The corner exactly where the window stands: rounded, the re-pin would move
@@ -151,6 +154,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			F:SetPoint(corner, UIParent, "BOTTOMLEFT", l * old / new, y * old / new)
 			ns.Set("ui.pos", { l * old / new, y * old / new })
 		end
+		-- The docked action buttons' strip is in the buttons' scale, not the
+		-- window's (QoL/Buttons.lua, Buttons.DockHeight).
+		if GF.live and ns.QoL and ns.QoL.On("buttonDock") then GF.Layout() end
 		Theme.Refresh()
 	end
 
@@ -259,8 +265,19 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	local savePosition = GF.SavePosition
 
+	-- While the window is dragged, docked action buttons follow it each
+	-- frame (QoL/Buttons.lua): out of combat, where they may move.
+	local follow
+	local function dragStart()
+		if not (ns.QoL and ns.QoL.On("buttonDock")) then return end
+		follow = follow or CreateFrame("Frame")
+		follow:SetScript("OnUpdate", ns.Safe(function() ns.Fire("GUIDE_WINDOW_PLACED", true) end))
+	end
+
 	-- After a move (ns.DragWindow, which the bars and the foot carry): the spot kept.
 	local function dragStop()
+		if follow then follow:SetScript("OnUpdate", nil) end
+		ns.Fire("GUIDE_WINDOW_PLACED")
 		savePosition()
 		-- The class quest card on the window flips below it when there is no room above.
 		if UI.ClassToast and UI.ClassToast.Place then UI.ClassToast.Place(false) end
@@ -489,7 +506,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 
 	GF.ApplyAll = applyAll
-	GF.DragStop, GF.ResizeStart, GF.ResizeStop = dragStop, resizeStart, resizeStop
+	GF.DragStart, GF.DragStop, GF.ResizeStart, GF.ResizeStop = dragStart, dragStop, resizeStart, resizeStop
 
 	-- In a fight now (PLAYER_REGEN_*).
 	function GF.InCombat() return inCombat end
