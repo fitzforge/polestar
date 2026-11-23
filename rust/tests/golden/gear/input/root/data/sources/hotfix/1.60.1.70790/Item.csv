@@ -1,0 +1,4 @@
+RecordID,Status,PushID,ID,ClassID,SubclassID,Material,InventoryType,SheatheType,ItemPetFoodID,Sound_override_subclassID,IconFileDataID,ItemGroupSoundsID,ContentTuningID,ModifiedCraftingReagentItemID,AmmunitionType,CraftingQualityID,ItemSquishEraID,RecraftReagentCountPercentage,OrderSource
+5404,1,16782620,5404,4,2,8,3,0,0,-1,135039,7,0,0,0,0,0,0,0
+279874,1,17057090,279874,2,4,1,21,3,0,-1,0,9,0,0,0,0,0,0,0
+279875,1,17057091,279875,4,2,8,9,0,0,-1,0,7,0,0,0,0,0,0,0

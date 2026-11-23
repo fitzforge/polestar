@@ -19016,8 +19016,10 @@ test('an escort or taming has a step of its own, so skipping it skips no other q
 // #3823 (charlesketchup): Cooking 1-300, step 63 "Hot Lion Chops (130-175)": `learn 3398` waits for the recipe in
 // the bags but had no place, so the arrow had nowhere to go once the shopping step three steps earlier was passed
 // without the recipe. Until the recipe is in the bags or known, the learn leads to the recipe's vendor, the same one
-// the shopping step's `buy 3735 nearest` picks; with the recipe in the bags it has no place again.
-test('#3823 Cooking 1-300: a recipe\'s learn leads to its vendor until the recipe is in the bags', { skip }, () => {
+// the shopping step's `buy 3735 nearest` picks; with the recipe in the bags it has no place again. The release data
+// only: the public data has no professions.json (its trainer lists are not public), so the guide's learn and craft
+// lines do not resolve and the pack has no Cooking guide to open.
+test('#3823 Cooking 1-300: a recipe\'s learn leads to its vendor until the recipe is in the bags', { skip: skip || needs('professions.json') }, () => {
 	data = data || loadData(DATA);
 	const file = path.join(OFFICIAL_DIR, 'forever/professions/cooking.guide');
 	const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], data);
