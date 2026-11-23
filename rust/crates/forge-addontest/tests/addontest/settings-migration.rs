@@ -12,6 +12,18 @@ use serde_json::{json, Value};
 
 const FIXTURE: &str = include_str!("settings-0.3.6.lua");
 
+// Lua: movedTo(path, saved) -> what a saved setting reads back as. One moves on purpose: the settings window draws at
+// 0.92 x ui.menuScale since 0.4.3 (0.8 before), so a saved scale is divided by 1.15 once (Theme.lua's migration
+// "menuScale092", #3789) and the window keeps its size; the stored 100 % is the default.
+const MOVED: &str = r#"
+local function movedTo(path, v)
+	if path == "ui.menuScale" and type(v) == "number" then
+		return math.min(1.4, math.max(0.7, math.floor(v / 1.15 * 100 + 0.5) / 100))
+	end
+	return v
+end
+"#;
+
 fn run(script: &str) -> Value {
 	let saved = format!(
 		r#"
@@ -36,6 +48,7 @@ __FIXTURE = F
 		login: true,
 		script: format!(
 			r#"
+{MOVED}
 local function same(a, b, depth)
 	if type(a) ~= type(b) then return false end
 	if type(a) ~= "table" then return a == b end
@@ -54,8 +67,8 @@ end
 local function check(label)
 	local wrong = {{}}
 	for path, e in pairs(__FIXTURE) do
-		local v = Polestar.Get(path)
-		if not same(v, e.value) then wrong[#wrong + 1] = path .. " " .. label .. ": " .. show(v) .. " (saved " .. show(e.value) .. ")" end
+		local v, want = Polestar.Get(path), movedTo(path, e.value)
+		if not same(v, want) then wrong[#wrong + 1] = path .. " " .. label .. ": " .. show(v) .. " (saved " .. show(e.value) .. ")" end
 	end
 	table.sort(wrong)
 	return wrong
@@ -178,6 +191,7 @@ local function same(a, b, depth)
 	return true
 end
 {SER}
+{MOVED}
 -- Every saved setting of the fixture's account as path -> value (ui.colors' own colours one by one).
 local function saved()
 	local out = {{}}
@@ -216,6 +230,7 @@ fn real_players_saved_settings_read_back_the_same_for_each_character_and_place_t
 				for path, v in pairs(saved()) do
 					if not moved[path] then
 						n = n + 1
+						v = movedTo(path, v)
 						if not same(Polestar.Get(path), v) then wrong[#wrong + 1] = path .. " = " .. ser(Polestar.Get(path)) .. " (saved " .. ser(v) .. ")" end
 					end
 				end
@@ -292,7 +307,7 @@ fn real_players_saved_settings_show_on_their_controls_in_the_settings_window() {
 			end
 			local menu = F.account.settings.ui and F.account.settings.ui.menuScale
 			local header = PolestarOptions.HeaderTools.Value:GetText()
-			emit({ wrong = wrong, shown = shown, menu = menu == nil or header == (math.floor(menu * 100 + 0.5) .. "%") })"#,
+			emit({ wrong = wrong, shown = shown, menu = menu == nil or header == (math.floor(movedTo("ui.menuScale", menu) * 100 + 0.5) .. "%") })"#,
 		);
 		let what = format!("snapshot {}", n + 1);
 		assert!(out["shown"].as_f64().unwrap() >= 3.0, "{what}: saved settings with a control: {}", out["shown"]);

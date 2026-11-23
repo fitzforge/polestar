@@ -204,7 +204,7 @@ Context
 | `xp` | xp, xpMax, rested | every 5 minutes and at level up |
 | `dropped` | count | after chunks were dropped for size |
 | `group` | size, raid (1/0) | at session start and whenever it changes: `size` 0 solo, the other party members (1–4) in a party, the raid's size (the player included) in a raid. Readers carry it onto the `kill`, `xp`, `progress` and `turnin` records after it. Never who is in the group |
-| `mark` | P, text | `/psrec mark <text>` |
+| `mark` | P, text | `/psrec mark <text>`; the trail's `trail on: …`/`trail off: …`; once a session `height: <mode>`, what `UnitPosition` gives for the player's height after 10 one-second ticks walking on foot, each 5 yd or more from the last: `real` (it changed), `none` (none or secret every time), `zero` (exactly 0 every time), `fixed` (the same non-zero height every time) or `mixed`; a `real` height seen after another answer is marked once more |
 
 Movement
 

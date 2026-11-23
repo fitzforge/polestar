@@ -285,6 +285,7 @@ fn lines() -> Addon {
 
 const PAINTED_PRELUDE: &str = r#"
 local N, R, Pins, nav = Polestar.Nav, Polestar.RouteLines, Polestar.Pins, stub.nav
+Polestar.Set("nav.navRouting", false) -- The painters draw a direct walk on this map unless the scene supplies a polyline.
 -- The dots style, drawn at once: the line style and the draw-in have tests of their own below.
 Polestar.Set("nav.lineStyle", "dots")
 Polestar.Set("ui.reduceMotion", true)
@@ -419,6 +420,45 @@ fn the_minimap_line_follows_every_rendered_frame_while_the_view_changes_and_read
 	assert_eq!(out["still"], 0, "nothing redrawn while the view holds still");
 	assert!(f(&out["stillLine"]) <= 10.0, "still, the line reads the position at its 10 Hz ({} a second)", out["stillLine"]);
 	assert!(f(&out["stillPins"]) <= 10.0, "and the pins at their watcher's 10 Hz ({} a second)", out["stillPins"]);
+}
+
+#[test]
+fn moving_a_route_stroke_updates_both_ends_without_reapplying_its_unchanged_look() {
+	let out = painted(
+		r#"
+		Polestar.Set("nav.travel", false)
+		nav.viewRadius = 200
+		nav.place(0, 0)
+		target(0, -600)
+		stub.advance(0.5)
+		local mm = R.GetMinimapFrame()
+		local line, shadow = mm.lines[1], mm.outlines[1]
+		local ends, styles = 0, 0
+		for _, region in ipairs({ line, shadow }) do
+			for _, method in ipairs({ "SetVertexColor", "SetThickness", "SetAlpha", "Show", "Hide", "SetStartPoint", "SetEndPoint" }) do
+				local fn = region[method]
+				region[method] = function(...)
+					if method == "SetStartPoint" or method == "SetEndPoint" then ends = ends + 1 else styles = styles + 1 end
+					return fn(...)
+				end
+			end
+		end
+		stub.fire("PLAYER_STARTED_MOVING")
+		for i = 1, 30 do nav.place(i / 10, -i / 10); stub.advance(1 / 60) end
+		local r = { ends = ends, styles = styles, width = line:GetThickness() }
+		Polestar.Set("nav.dotColor", "magenta")
+		Polestar.Set("nav.minimapDotsSize", 1.2)
+		Polestar.Set("nav.minimapRouteAlpha", 0.5)
+		stub.advance(0.1)
+		local red, green, blue = line:GetVertexColor()
+		r.rgb, r.alpha, r.wider = { red, green, blue }, line:GetAlpha(), line:GetThickness() > r.width
+		emit(r)"#,
+	);
+	assert!(f(&out["ends"]) >= 60.0, "the core follows every rendered frame, both ends");
+	assert_eq!(out["styles"], 0, "movement alone does not write tint, alpha, thickness or visibility again");
+	assert_eq!(out["rgb"], json!([1, 0.3, 0.85]));
+	assert_eq!(out["alpha"], 0.5);
+	assert_eq!(out["wider"], true);
 }
 
 // The lines are Polestar's own frame on the canvas (Nav/MapCanvas.lua): nothing is acquired from the map or
@@ -581,6 +621,7 @@ fn review_p3_8_blizzard_worldmap_loading_after_login_draws_the_route_lines_on_th
 		script: r#"
 local N, R, nav = Polestar.Nav, Polestar.RouteLines, stub.nav
 Polestar.Set("nav.travel", false)
+Polestar.Set("nav.navRouting", false)
 nav.place(0, 0)
 local m, x, y = nav.mapPoint(0, -600)
 N.SetTarget(m, x, y, "Target")
@@ -751,6 +792,7 @@ fn review_p3_9_a_theme_change_re_applies_the_outline_colour_to_pooled_lines() {
 local N, nav, T = Polestar.Nav, stub.nav, Polestar.Theme
 WorldMapFrame:GetCanvas():SetSize(1000, 1000)
 Polestar.Set("nav.travel", false)
+Polestar.Set("nav.navRouting", false)
 nav.place(0, 0)
 local m, x, y = nav.mapPoint(0, -600)
 N.SetTarget(m, x, y, "Target")

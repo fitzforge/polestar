@@ -3,7 +3,7 @@
 -- mode is asked for: core keeps its door (Polestar/UI/Movers.lua: the
 -- commands, the saved settings, ns.Movers until this loads).
 --
--- /polestar unlock (or Guide > Window > Position > Move frames) lays a dim box
+-- /polestar unlock (or Look > Guide window > Window > Position > Move frames) lays a dim box
 -- with an accent hairline, the frame's name and its size over each frame
 -- registered here, hidden ones too (at their default size). Drag a box to move
 -- its frame (Shift-drag keeps to one axis). It snaps to the screen's centre
@@ -1561,12 +1561,12 @@ ns.OnInit(function()
 end)
 
 ---------------------------------------------------------------------------
--- Settings: Guide > Window > Position
+-- Settings: Look > Guide window > Window > Position, with the window's own lock
 ---------------------------------------------------------------------------
 
 do
 	local ok, err = ns.RegisterOptions({
-		page = L["Guide"], tab = L["Window"], section = L["Position"],
+		page = L["Guide window"], tab = L["Window"], section = L["Position"],
 		controls = {
 			{ kind = "button", icon = "resize", button = L["Unlock"], label = L["Move frames"], new = "0.3.8",
 				help = L["A box over each of Polestar's frames (the guide window, the arrow, the buttons, the alerts and the trackers) to drag where you want it, with a grid and snapping. Also /polestar unlock."],

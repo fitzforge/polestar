@@ -1,7 +1,7 @@
 {
 	"ok": false,
 	"errors": 178,
-	"warnings": 93,
+	"warnings": 91,
 	"diagnostics": [
 		{
 			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
@@ -926,12 +926,6 @@
 		},
 		{
 			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
-			"line": 76,
-			"severity": "warning",
-			"message": "quest 844 needs 860 (Sergra Darkthorn) turned in first, but the chain never turns it in"
-		},
-		{
-			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
 			"line": 109,
 			"severity": "error",
 			"message": "quest 871.1 is kill Razormane Hunter x3, not this npc; Razormane Water Seeker is 871.2",
@@ -1707,12 +1701,6 @@
 			"severity": "warning",
 			"message": "quest 6082 has 0 objective(s) in data, not 1",
 			"hint": "drop the `.1`: write `quest 6082`"
-		},
-		{
-			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
-			"line": 62,
-			"severity": "warning",
-			"message": "quest 844 needs 860 (Sergra Darkthorn) turned in first, but the chain never turns it in"
 		},
 		{
 			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",

@@ -1,6 +1,17 @@
 # Polestar Arcade: credits
 
-The game in this folder is **Freedoom Arcade by petllama**
+This folder holds the games Polestar offers on a flight. Each has its own
+credits and licence:
+
+- **Freedoom Arcade by petllama**, below.
+- **Sky Jewels by RikyZ90**, a match-three game written for Polestar:
+  `games/skyjewels/` and its `CREDITS.md` (GPL, version 3, as Polestar).
+- **Tetris by beemerwt**, a falling-block game written for Polestar:
+  `games/tetris/` and its `LICENSE` (GPL, version 3, as Polestar).
+
+## Freedoom Arcade
+
+**Freedoom Arcade by petllama**
 ([github.com/petllama/FreedoomArcade](https://github.com/petllama/FreedoomArcade)):
 a port of id Software's DOOM engine (linuxdoom-1.10) to plain Lua 5.1 that
 plays Freedoom in a window inside the game. petllama said yes to bringing it
@@ -11,9 +22,10 @@ you, petllama.
 The whole game, all 36 Freedoom levels, is his addon
 [Freedoom Arcade](https://www.curseforge.com/wow/addons/freedoom-arcade).
 When it is installed and enabled, Polestar opens that one and never loads
-this folder.
+this folder (the two copies are one engine on the same globals), so the
+other games here wait until it is turned off.
 
-## What is here
+### What is here
 
 - **The engine**, `src/`: Freedoom Arcade v0.3.0 (commit
   [c27b559](https://github.com/petllama/FreedoomArcade/commit/c27b5591715f1ec363723fca53d1582f6e0bcf3f)),
@@ -31,7 +43,7 @@ this folder.
   ([freedoom.github.io](https://freedoom.github.io/)).
 - **His tools and README**, as he wrote them.
 
-## What Polestar changed
+### What Polestar changed
 
 Each change is a commit of its own on top of his, under
 `addon/Polestar_Arcade/` in Polestar's repository:
@@ -52,7 +64,7 @@ Each change is a commit of its own on top of his, under
   data under its BSD licence); his asset tools write the same notices into
   the files they build.
 
-## Building it again
+### Building it again
 
 ```sh
 python tools/build_assets.py freedoom1.wad build/FreedoomArcade DOOM/linuxdoom-1.10

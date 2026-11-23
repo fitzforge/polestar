@@ -149,3 +149,12 @@ test("Pyzx's report (#1956): recipes only the Artisan trainers teach are learned
 		}
 	}
 });
+
+test('the Artisan Blacksmithing visit learns Brikk’s recipes from him for both factions (#3136)', () => {
+	const guide = fs.readFileSync(path.join(__dirname, '..', 'guides', 'forever', 'professions', 'blacksmithing.guide'), 'utf8');
+	const visit = guide.split('\nstep Artisan Blacksmithing\n')[1].split('\nstep ')[0];
+	for (const spell of [16639, 16640, 9968, 10001]) {
+		const learns = visit.split('\n').filter((line) => new RegExp(`^\\s*learn ${spell}\\b`).test(line));
+		assert.deepEqual(learns, ['Alliance', 'Horde'].map((side) => `  learn ${spell} npc 2836 only ${side}`));
+	}
+});

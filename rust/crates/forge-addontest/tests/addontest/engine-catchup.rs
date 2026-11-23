@@ -244,6 +244,20 @@ fn with_no_guide_open_at_login_the_catch_up_starts_from_the_first_guide_and_goes
 	assert_eq!(off, "test/mid");
 }
 
+// #3395 (Fyurie, 0.4.2): a level 60 who had closed every guide got Silithus (58-60) opened at the first login after
+// an update. At the level cap the login opens nothing, with or without the catch-up; Start guide still opens one.
+#[test]
+fn at_level_60_with_no_guide_open_the_login_opens_none_start_guide_still_does_3395() {
+	let script = r#"local at = E.GetGuide() and E.GetGuide().id or false; E.StartGuide(); flush(); emit({ login = at, start = E.GetGuide() ~= nil })"#;
+	let capped = run(&format!("{DONE}; stub.world.level = 60"), GUIDES, &on(), script);
+	assert_eq!(capped, json!({ "login": false, "start": true }));
+	let off = run(&format!("{DONE}; stub.world.level = 60"), GUIDES, &format!("{OFF}; PolestarCharDB = nil"), script);
+	assert_eq!(off["login"], json!(false));
+	// One level below the cap: the login opens one, as before.
+	let below = run(&format!("{DONE}; stub.world.level = 59"), GUIDES, &on(), script);
+	assert_ne!(below["login"], json!(false));
+}
+
 // Yendi at 30 in Darkshore (15-18): The Tower of Althalaxx, grey and green there, leads to four quests at 28 and
 // 31 in Ashenvale. In a guide the character is past, a low chain is worth the detour only when at least three
 // quests from yellow up need it.

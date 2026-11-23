@@ -438,11 +438,15 @@ fn a_different_instance_copy_seen_in_a_creature_guid_splits_a_resumed_run_and_co
 		m.enter("The Stockade", 34)
 		w.units.target = "Creature-0-4372-34-100-1706-0000AAAA"
 		stub.fire("PLAYER_TARGET_CHANGED")
+		w.units.target = "Creature-0-4372-34-100-1707-0000AAAB"
+		stub.fire("PLAYER_TARGET_CHANGED")      -- two creatures agree on the copy
 		m.jump(600)
 		m.leave()
 		m.jump(60)
 		m.enter("The Stockade", 34)              -- looks like the same run...
 		w.units.target = "Creature-0-4372-34-200-1706-0000BBBB"
+		stub.fire("PLAYER_TARGET_CHANGED")
+		w.units.target = "Creature-0-4372-34-200-1707-0000BBBC"
 		stub.fire("PLAYER_TARGET_CHANGED")      -- ...but it is another copy
 		local s = M.GetInstanceStatus()
 		local runs = Polestar.CharState().instanceRuns
@@ -761,7 +765,7 @@ fn sorted_strings(v: &Value) -> Vec<String> {
 }
 
 #[test]
-fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_map_page_flights_and_instances_under_quality_of_life_freedoom_arcade_under_integrations() {
+fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_map_page_flights_and_instances_under_quality_of_life_the_flight_games_under_integrations() {
 	let out = run(r#"
 		local pages, missing = {}, {}
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
@@ -769,8 +773,9 @@ fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_ma
 			local list = { unpack(spec.controls or {}) }
 			if spec.toggle then table.insert(list, 1, spec.toggle) end
 			for _, c in ipairs(list) do
-				if c.key and c.key:find("^maps%.") then
-					if not (c.label and c.help) then missing[#missing + 1] = c.key end
+				if c.key and (c.key:find("^maps%.") or c.key:find("^arcade%.")) then
+					-- A reference (W.Ref) shows its home row's label and help.
+					if not c.ref and not (c.label and c.help) then missing[#missing + 1] = c.key end
 					pages[spec.page] = pages[spec.page] or {}
 					table.insert(pages[spec.page], c.key)
 				end
@@ -781,14 +786,13 @@ fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_ma
 	let mut pages: Vec<&str> = out["pages"].as_object().unwrap().keys().map(String::as_str).collect();
 	pages.sort();
 	assert_eq!(pages, vec!["Integrations", "Map", "Quality of Life"]);
-	// Freedoom Arcade's offer on flights is with the other addons Polestar works with (Maps/Arcade.lua).
-	assert_eq!(sorted_strings(&out["pages"]["Integrations"]), vec!["maps.flightArcade"]);
+	// The game on flights is with the other addons Polestar works with (Maps/Arcade.lua).
+	assert_eq!(sorted_strings(&out["pages"]["Integrations"]), vec!["arcade.game"]);
 	let mut want: Vec<String> = [
 		"maps.coords",
 		"maps.dockPins",
 		"maps.dungeonPins",
 		"maps.innPins",
-		"maps.minimapButton",
 		"maps.minimapCoords",
 		"maps.reveal",
 		"maps.taxiPins",
@@ -807,9 +811,7 @@ fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_ma
 	.collect();
 	want.sort();
 	assert_eq!(sorted_strings(&out["pages"]["Map"]), want);
-	// The flight timer and instances live there; coordinates and the minimap button are there too, as the same settings.
-	assert_eq!(
-		sorted_strings(&out["pages"]["Quality of Life"]),
-		vec!["maps.coords", "maps.flightTimer", "maps.instanceDisplay", "maps.instances", "maps.minimapButton", "maps.minimapCoords", "maps.perDay", "maps.perHour"]
-	);
+	// The flight timer and instances live there; the coordinates on the Map page alone. The minimap button's home is
+	// Look > Guide window > Show and hide (the settings window's own rows, not loaded here).
+	assert_eq!(sorted_strings(&out["pages"]["Quality of Life"]), vec!["maps.flightTimer", "maps.instanceDisplay", "maps.instances", "maps.perDay", "maps.perHour"]);
 }

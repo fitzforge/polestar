@@ -1,0 +1,66 @@
+name: First reply
+
+# One reply on every pull request someone outside the team opens, so the contribution rules (CONTRIBUTING.md,
+# "Before you build a feature") reach people before they spend more work. docs/process/pr-first-reply.md says when
+# it is posted and holds its text: everything between its `reply:start` and `reply:end` lines, read from the base
+# branch when this runs, with `@<author>` replaced by the pull request's author. Once per pull request: the text
+# carries the marker <!-- polestar:first-reply -->, and a pull request with a comment holding it gets no second one.
+# Not for the team (author association OWNER, MEMBER or COLLABORATOR) or bots.
+#
+# pull_request_target, so it can comment on a fork's pull request. It checks out only that one file of the base
+# branch, never the pull request's code, and reads the pull request as text from the event.
+
+on:
+  pull_request_target:
+    types: [opened]
+
+permissions: {}
+
+concurrency:
+  group: pr-first-reply-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  reply:
+    name: First reply
+    if: >-
+      github.event.pull_request.user.type != 'Bot'
+      && github.event.pull_request.author_association != 'OWNER'
+      && github.event.pull_request.author_association != 'MEMBER'
+      && github.event.pull_request.author_association != 'COLLABORATOR'
+      && github.event.pull_request.user.login != vars.BOT_GITHUB_LOGIN
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+          sparse-checkout: docs/process/pr-first-reply.md
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+
+      - name: Reply
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          AUTHOR: ${{ github.event.pull_request.user.login }}
+        run: |
+          f=docs/process/pr-first-reply.md
+          if [ ! -f "$f" ]; then echo "::notice::$f is not on this base branch: no reply"; exit 0; fi
+          text=$(sed -n '/^<!-- reply:start -->$/,/^<!-- reply:end -->$/p' "$f" | sed '1d;$d')
+          if [ -z "$text" ] || ! grep -q '<!-- polestar:first-reply -->' <<< "$text"; then
+            echo "::error file=$f::no reply between the reply:start and reply:end lines, or no marker in it"
+            exit 1
+          fi
+          if gh api --paginate "repos/$REPO/issues/$PR/comments" --jq '.[].body' | grep -q '<!-- polestar:first-reply -->'; then
+            echo "Already replied on #$PR"
+            exit 0
+          fi
+          body=${text//@<author>/@$AUTHOR}
+          gh api "repos/$REPO/issues/$PR/comments" -f body="$body" --jq '.html_url'
+          printf '## First reply\n\nPosted on #%s for @%s.\n' "$PR" "$AUTHOR" >> "$GITHUB_STEP_SUMMARY"

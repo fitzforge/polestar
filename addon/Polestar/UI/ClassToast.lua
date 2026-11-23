@@ -114,10 +114,18 @@ function CT.ChainTaken(q)
 	return false
 end
 
-local function spellKnown(id)
+-- The reward's spell known: by its id, else by its name in the spellbook
+-- (Compat.KnowsSpellNamed): a chain of another race teaches the same ability
+-- under another id, and the card came back for a Highborne hunter who knew
+-- Tame Beast (#3020) and a Skyborne druid with Bear Form (#1935).
+local function spellKnown(id, english)
 	if IsPlayerSpell and IsPlayerSpell(id) then return true end
 	if IsSpellKnown and IsSpellKnown(id) then return true end
-	return false
+	local C = ns.Compat
+	if not (C and C.KnowsSpellNamed) then return false end
+	local name = C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(id)
+	if type(name) ~= "string" or name == "" then name = english end
+	return C.KnowsSpellNamed(name) and true or false
 end
 
 local function itemOwned(id)
@@ -131,7 +139,7 @@ end
 -- too) known, or one of the items in the bags, the bank or worn.
 function CT.RewardKnown(reward)
 	if not reward then return false end
-	if reward.spell and spellKnown(reward.spell) then return true end
+	if reward.spell and spellKnown(reward.spell, reward.spellName) then return true end
 	for _, id in ipairs(reward.items or {}) do
 		if itemOwned(id) then return true end
 	end
@@ -496,8 +504,25 @@ end
 
 -- The quest buttons or the target list moved, grew, came or went
 -- (QoL/Buttons.lua): the card takes its side again, clear of them (#2629).
+-- Only when what they cover is not what the card's last placing read
+-- (placedCovers): most of these leave every button where it was, and a
+-- placing measures the window, its look's reach and the screen. On its own
+-- spot (free) the card never minds them.
+local placedCovers -- Buttons.Covers() as CT.Place last read it (nil: it read none)
+local function sameCovers(a, b)
+	if #a ~= #b then return false end
+	for i = 1, #a do
+		local x, y = a[i], b[i]
+		if x[1] ~= y[1] or x[2] ~= y[2] or x[3] ~= y[3] or x[4] ~= y[4] then return false end
+	end
+	return true
+end
 ns.On("QUEST_BUTTONS_PLACED", function()
-	if f and f:IsShown() then CT.Place(false) end
+	if not (f and f:IsShown()) then return end
+	if CT.side == "free" and CT.PlaceSetting() == "free" then return end
+	local B = ns.QoL and ns.QoL.Buttons
+	if placedCovers and B and B.Covers and sameCovers(B.Covers(), placedCovers) then return end
+	CT.Place(false)
 end)
 
 -- class: the class colour's stripe, ring and header (or facts); nil (another heads-up)
@@ -890,7 +915,7 @@ function CT.Place(animate)
 	if place == "free" then
 		local p = ns.Get("toasts.headsup.pos")
 		if type(p) ~= "table" or type(p[1]) ~= "string" then p = CT.FREE_AT end
-		CT.side = "free"
+		CT.side, placedCovers = "free", nil
 		f:SetClampedToScreen(true)
 		Anim.Anchor(f, p[1], UIParent, p[1], tonumber(p[2]) or 0, tonumber(p[3]) or 0)
 		dy = 18
@@ -902,6 +927,11 @@ function CT.Place(animate)
 		local edge = ran and type(own) == "table" and own.GetTop and own or w
 		-- The gaps in the edge's units; the card's anchors take them in its own (k).
 		local r = reach(edge)
+		-- The window's own parts past its edges (the edge tab style's tabs).
+		if edge == w then
+			r.top = math.max(r.top, tonumber(w.psTopReach) or 0)
+			r.bottom = math.max(r.bottom, tonumber(w.psBottomReach) or 0)
+		end
 		local gap = { above = r.top + GAP, below = r.bottom + GAP, left = r.left + GAP, right = r.right + GAP }
 		local top, bottom, left, right = edge:GetTop(), edge:GetBottom(), edge:GetLeft(), edge:GetRight()
 		local s, us = w:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
@@ -924,6 +954,7 @@ function CT.Place(animate)
 		}
 		local B = ns.QoL and ns.QoL.Buttons
 		local covers = box and B and B.Covers and B.Covers() or {}
+		placedCovers = box and covers or nil
 		local function clear(o)
 			local x = box and box[o]
 			if not x then return true end
@@ -1318,6 +1349,24 @@ ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
 	if loggedIn then return end
 	loggedIn = true
 	ns.After(2, function() CT.Check(nil, "login") end)
+end)
+
+-- A reward item the client had not cached showed as "#20083" (#3727): once
+-- it arrives, the card on screen names it.
+ns.RegisterEvent("GET_ITEM_INFO_RECEIVED", function(_, itemID)
+	local m = CT.current
+	local items = m and m.reward and m.reward.items
+	if not (items and f and f:IsShown() and f.psModel == m) then return end
+	for _, id in ipairs(items) do
+		if id == itemID then
+			local name = CC().RewardName(m.reward)
+			if name then
+				m.title = format(L["%s ready"], CT.ShortName(name))
+				f.Title:SetText(m.title)
+			end
+			return
+		end
+	end
 end)
 
 ns.RegisterCommand("classtoast", function(rest)

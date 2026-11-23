@@ -27,6 +27,15 @@ local PACK = "Polestar_Options"
 
 ns.RegisterDefaults("ui", { optionsSize = false })
 
+-- A fresh install has every setting there is: none of them is new to it. Its
+-- seen record (PolestarDB.optionsSeen, Polestar_Options/UI/Options.lua) starts
+-- marked, and the window takes the mark as its newest settings seen when it
+-- first opens, in this session or a later one.
+ns.OnInit(function()
+	local db = ns.DB()
+	if db.optionsSeen == nil and ns.IsNewAccount() then db.optionsSeen = { ["*"] = true } end
+end)
+
 local stub -- this file's UI.ShowOptions, until the window's addon replaces it
 
 function UI.LoadOptions()

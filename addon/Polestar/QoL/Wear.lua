@@ -186,7 +186,7 @@ local function onEquipment()
 		putting = nil
 		local G = ns.Gear
 		local gain = p.pct and G and G.GainText and G.GainText(p.pct)
-		ns.Print(gain and format(L["Wearing %s (%s)."], p.link, gain) or format(L["Wearing %s."], p.link))
+		ns.Notice(gain and format(L["Wearing %s (%s)."], p.link, gain) or format(L["Wearing %s."], p.link))
 	end
 	scanSoon()
 end
