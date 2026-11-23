@@ -46,9 +46,13 @@ step Booty Bay
   turnin 836 optional
   turnin 648 optional
   turnin 3721 direct optional
-  turnin 580                          -- Whiskey Slim, in the inn
   turnin 2874                         -- "Sea Wolf" MacKinley, on the top floor: Stoley's shipment from Tanaris
   accept 608                          -- Fleet Master Seahorn, on the balcony of the same building
+
+step Whiskey Slim
+  when complete 580
+  tip Whiskey Slim sits in the Booty Bay inn.
+  turnin 580                          -- Whiskey Slim, in the inn
 
 step The Bloodsail ships
   tip South of Booty Bay, three Bloodsail ships lie off the Wild Shore: Captain Stillwater, Captain Keelhaul and Fleet Master Firallon each stand on a deck with their crews. Swim out and work from ship to ship.
@@ -88,6 +92,7 @@ step Fly to Grom'gol
   fly "Grom'gol"
 
 step Grom'gol Base Camp
+  when complete 2932
   tip The flight lands at Grom'gol Base Camp; Nimboya stands by the Bubbling Cauldron.
   turnin 2932                         -- Nimboya
 
@@ -232,9 +237,13 @@ step Fly to Camp Mojache
   fly "Camp Mojache"
   zone Feralas
 
+step Witch Doctor Uzer'i
+  when complete 3123
+  zone Feralas
+  turnin 3123                         -- Witch Doctor Uzer'i
+
 step Camp Mojache
   sethome "Camp Mojache"
-  turnin 3123                         -- Witch Doctor Uzer'i
   accept 3124
   accept 3128                         -- Witch Doctor Uzer'i, if you don't carry it yet: the materials come on this loop
   accept 3380
@@ -367,9 +376,13 @@ step Alchemist Pestlezugg
   when available 4496
   accept 4496                         -- Alchemist Pestlezugg, inside
 
+step Sprinkle
+  zone Tanaris
+  when complete 2641
+  turnin 2641                         -- Sprinkle
+
 step Gadgetzan
   zone Tanaris
-  turnin 2641                         -- Sprinkle
   accept 2661
   accept 4504                         -- Tran'rek, beside the wind rider master
   sethome "Gadgetzan"

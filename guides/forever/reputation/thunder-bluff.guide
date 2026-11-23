@@ -280,6 +280,13 @@ step Bloodvenom Post: Trull Failbane
   turnin 4882                         -- Trull Failbane
   accept 4883                         -- Guarding Secrets, +100: to Nara Wildmane in Thunder Bluff
 
+step Bloodvenom Post: Trull Failbane
+  when turnedin 4882
+  when available 4883
+  zone Felwood
+  tip Trull Failbane stands at Bloodvenom Post, through the Timbermaw tunnel south of Winterspring.
+  accept 4883                         -- Guarding Secrets, +100: to Nara Wildmane in Thunder Bluff
+
 step Thunder Bluff: Nara Wildmane
   when onquest 4883
   zone Thunder Bluff

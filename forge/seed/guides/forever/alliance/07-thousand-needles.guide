@@ -26,8 +26,16 @@ step Darkshire
   sethome "Darkshire" npc 6790            -- Innkeeper Trelayne, Scarlet Raven Tavern
   turnin 1243                             -- Watcher Backus, at the north entrance of town; walks around Darkshire: look inside the circle on the map
   accept 1244
+
+step Commander Althea Ebonlocke
+  zone Duskwood
+  when complete 57
+  tip The Night Watch's skeletons, from your last Duskwood visit: Commander Althea is in the town hall.
   turnin 57                               -- Commander Althea Ebonlocke
-  accept 58
+
+step Commander Althea Ebonlocke
+  zone Duskwood
+  accept 58                               -- once The Night Watch's skeletons are handed in
 
 step Commander Althea Ebonlocke
   zone Duskwood
