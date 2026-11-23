@@ -72,9 +72,9 @@ return {
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "{npc:2261} anda por aqui: procure dentro do círculo no mapa",
 	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
-	["{item:3467}, from {npc:2427}"] = "",
+	["{item:3467}, from {npc:2427}"] = "{item:3467}, de {npc:2427}",
 	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen
-	["{item:3499}, from {npc:2428}"] = "",
+	["{item:3499}, from {npc:2428}"] = "{item:3499}, de {npc:2428}",
 	["Drull's ball and chain"] = "Bola e corrente de Drull",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Bola e corrente de {npc:2238}",
