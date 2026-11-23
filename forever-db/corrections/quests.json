@@ -13098,7 +13098,8 @@
 				"object": [
 					625582
 				]
-			}
+			},
+			"escort": true
 		},
 		"source": [
 			{
@@ -13112,9 +13113,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-11: 7 people accepted it, 7 handed it in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3676"
 			}
 		],
-		"note": "Forever's Riverglades quest 94963, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+		"note": "Forever's Riverglades quest 94963, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to. It is an escort (#3676): you lead Fuzzle out of Sunnyglade to his treasure west of the town and keep the cultists off him, and its one objective is that event, but its text never says escort, so the compiler's escort rule missed it and the step was not marked as one."
 	},
 	"95428": {
 		"set": {
@@ -21171,5 +21176,32 @@
 			}
 		],
 		"note": "Blademaster's Bonfires (Mount Hyjal, Dae'gun) is done by lighting two bonfires; our data had no objectives, so the guide could not see them lit and moved on to the hand-in with them still dark (#3531)."
+	},
+	"95198": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Relieve Jaina's guard and eavesdrop",
+					"map": 1445,
+					"f": "e",
+					"x": 66.3,
+					"y": 49
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-22: 5 characters at levels 49-51 took it from Sully Balloo (260271); at accept their quest log had one line, x1 \"Relieve Jaina's guard and eavesdrop\" (French client: \"Remplacer le garde de Jaina et espionner\"), ticked 1/1 before the hand-in to Sully"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3739"
+			}
+		],
+		"note": "The Return of the King? (Theramore) had no objectives in our data, so the Alcaz Prison pick-up guide sent players straight back to Sully Balloo to hand it in (#3739). Its one quest-log line is the eavesdropping: with Sully's SI:7 Disguise Kit, relieve Jaina's guard at the Theramore Mage Tower and listen in. The objective's place is Lady Jaina Proudmoore's spot in the tower (our NPC data: 1445 66.3,49.0); the quest's own text names the tower."
 	}
 }
