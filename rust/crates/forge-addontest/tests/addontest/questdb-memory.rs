@@ -33,7 +33,11 @@ use forge_addontest::{emitted, Addon, RunAddon};
 // Raised for 0.3.8 (Fitz, 2026-11-12: "raise memory budgets, it's fine; we can always compress and review
 // later"): QuestieDB 1.0.16, EG Link and the recordings bring +658 quests (Riverglades, Mount Hyjal,
 // Shen'dralas); measured resident 1334, peak 1385, read 1474 KiB; about 5 % headroom on each.
-const BUDGET: [(&str, f64); 3] = [("resident", 1400.0), ("peak", 1450.0), ("read", 1550.0)];
+// `read` raised by the string table's one doubling (256 KiB, the module comment) for 0.4.3 (Main, 2026-11-23):
+// the settings set (#3730) adds enough interface strings that the reads' strings cross a doubling even with
+// the id list built first: next read 1,523, #3730 1,778 on the 0.4.3 data (resident 1,382 and peak 1,434,
+// within theirs). The table is the whole addon's, not the quest database's: measuring the pack alone is #3762.
+const BUDGET: [(&str, f64); 3] = [("resident", 1400.0), ("peak", 1450.0), ("read", 1810.0)];
 
 /// Records read between full collects while `read` is measured.
 const READ_BATCH: usize = 256;

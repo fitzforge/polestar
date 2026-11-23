@@ -149,7 +149,15 @@ step The Sepulcher
   tip From Tarren Mill fly to the Sepulcher: Shadow Priest Allister stands by the crypt entrance.
   goto 60.21,18.75 map 1424 "Tarren Mill flight master"
   fly "The Sepulcher"
+
+step Shadow Priest Allister
+  when complete 95981
+  zone Silverpine Forest
   turnin 95981                        -- Shadow Priest Allister
+
+step Shadow Priest Allister
+  when complete 479
+  zone Silverpine Forest
   turnin 479                          -- Shadow Priest Allister: Ambermill's pendants
 
 step Shadow Priest Allister

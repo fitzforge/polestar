@@ -40,6 +40,7 @@ step The grells west of the tree
   collect 3297 quest 459.1
 
 step Back at Aldrassil
+  tip Shanda's quest, The Goddess Provides, asks for your two night elf racial spells: open your spellbook (P), cast Elune's Light and Shadowmeld once each, then hand it back to her.
   turnin 459                                  -- Tarindrella
   turnin 97977
   turnin 456                                  -- Conservator Ilthalaine

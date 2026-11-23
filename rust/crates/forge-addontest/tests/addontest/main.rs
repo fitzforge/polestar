@@ -156,12 +156,16 @@ mod engine_lost_quest;
 mod engine_manual;
 #[path = "engine-materials.rs"]
 mod engine_materials;
+#[path = "engine-meet-kills.rs"]
+mod engine_meet_kills;
 #[path = "engine-money-task.rs"]
 mod engine_money_task;
 #[path = "engine-next-when.rs"]
 mod engine_next_when;
 #[path = "engine-notyet.rs"]
 mod engine_notyet;
+#[path = "engine-npc-arrival.rs"]
+mod engine_npc_arrival;
 #[path = "engine-packs.rs"]
 mod engine_packs;
 #[path = "engine-pin.rs"]
@@ -496,6 +500,8 @@ mod ui_look_glow;
 mod ui_look_guidewindow;
 #[path = "ui-look-guidewindow-copy.rs"]
 mod ui_look_guidewindow_copy;
+#[path = "ui-look-guidewindow-tabstyles.rs"]
+mod ui_look_guidewindow_tabstyles;
 #[path = "ui-look-theme.rs"]
 mod ui_look_theme;
 #[path = "ui-look-toasts.rs"]

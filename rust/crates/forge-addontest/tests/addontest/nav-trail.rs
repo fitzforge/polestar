@@ -372,8 +372,10 @@ fn the_dots_crawl_toward_the_target_while_shown_and_hold_still_with_reduced_moti
 	}
 }
 
+// Main, 2026-11-21, Fitz: "go back to our original danger pathing": a town on the straight walk refuses nothing, so the
+// trail stays (0.4.2: no trail, "unsafe").
 #[test]
-fn the_target_stays_selected_but_an_unsafe_walk_has_no_fallback_trail() {
+fn the_target_stays_selected_and_a_walk_past_a_guard_post_keeps_its_trail() {
 	let out = run(r#"
 		Polestar.Set("nav.travel", false)
 		Polestar.Set("nav.routeLines", false)
@@ -383,11 +385,11 @@ fn the_target_stays_selected_but_an_unsafe_walk_has_no_fallback_trail() {
 		-- Enemy settlement halfway along the apparent straight walk.
 		N.danger.hubBins[0].Alliance[3] = nav.groundDisk(0, 400, 25)
 		Polestar.Fire("NAV_ROUTE_GEOMETRY")
-		r.blocked = { N.GetTarget() ~= nil, Pins.GetTrail() ~= nil, N.Sample() }
+		r.blocked = { N.GetTarget() ~= nil, Pins.GetTrail() ~= nil, (N.Sample()) }
 		target(0, -800)
 		r.other = Pins.GetTrail() ~= nil
 		emit(r)"#);
-	assert_eq!(out[0], json!({"clear":true,"blocked":[true,false,"unsafe"],"other":true}));
+	assert_eq!(out[0], json!({"clear":true,"blocked":[true,true,"travel"],"other":true}));
 }
 
 #[test]

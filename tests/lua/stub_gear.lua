@@ -4,7 +4,8 @@
 --
 --   local g = stub.gear
 --   g.defineItem("item:1482", { equipLoc = "INVTYPE_WEAPONMAINHAND", classID = 2, subclassID = 7, minLevel = 19,
---                stats = { ITEM_MOD_STRENGTH_SHORT = 5 } })  -- stats = what C_Item.GetItemStats returns (nil: uncached)
+--                stats = { ITEM_MOD_STRENGTH_SHORT = 5 }, sellPrice = 250 })  -- stats = what C_Item.GetItemStats
+--                                  -- returns (nil: uncached); sellPrice in copper (default 0); cached = false: no info yet
 --   g.equip(16, "item:1482")          -- fires PLAYER_EQUIPMENT_CHANGED
 --   g.bag(0, 1, "item:2041")          -- updates the shown bag frames holding bag 0, fires BAG_UPDATE_DELAYED
 --   g.setSpecs({ { "Arms", 31 }, { "Fury", 5 }, { "Protection", 0 } })   -- talent tabs; fires PLAYER_TALENT_UPDATE
@@ -73,7 +74,7 @@ function C_Item.GetItemInfo(link)
 	local def = g.items[link]
 	if not (def and def.cached ~= false) then return nil end
 	return def.name or "Item", link, def.quality or 2, def.itemLevel or 10, def.minLevel or 0, "", "", 1,
-		def.equipLoc or "", 0, 0, def.classID or 4, def.subclassID or 0
+		def.equipLoc or "", 0, def.sellPrice or 0, def.classID or 4, def.subclassID or 0
 end
 function C_Item.GetItemInfoInstant(link)
 	local def = g.items[link]

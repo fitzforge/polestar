@@ -1,7 +1,7 @@
 -- Class spells: what the class trainer has for the character at a new level
 -- (qol.levelUpSpells) and the spells on the action bars that are an old rank
 -- (qol.oldRanks). Both on by default, under Options > Quality of Life >
--- Vendors > Trainers; UI/SpellCards.lua shows them on the heads-up card.
+-- Leveling > Trainers; UI/SpellCards.lua shows them on the heads-up card.
 --
 -- New at a level (Spells.NewAt): the spells QoL/ClassSpells.lua (generated
 -- by `forge data classspells` from the class trainers' sniffed lists) lists
@@ -409,7 +409,7 @@ local function upgradeNow()
 	end
 	upgrading = false
 	if done > 0 then
-		ns.Print(string.format(done == 1 and L["Upgraded %d action button to the highest rank."] or L["Upgraded %d action buttons to the highest rank."], done))
+		ns.Notice(string.format(done == 1 and L["Upgraded %d action button to the highest rank."] or L["Upgraded %d action buttons to the highest rank."], done))
 	end
 	told = nil
 	Spells.CheckRanks()
@@ -421,7 +421,7 @@ function Spells.Upgrade()
 	local result
 	local now = QoL.Secure("oldRanks", function() result = upgradeNow() end)
 	if not now then
-		ns.Print(L["Upgrading your action buttons after combat."])
+		ns.Notice(L["Upgrading your action buttons after combat."])
 		return nil
 	end
 	return result
