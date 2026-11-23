@@ -275,7 +275,9 @@ planned in too), and the first
 placement with the quest log in passes what of it lies behind the player's
 place (`Own.passAdded`: the first step that holds for content the old guide
 had, by the step's own rule, `Own.holds`: a vendor check-off beside other
-work never holds it), as `gone` steps and goals that no longer apply; nothing shows as
+work never holds it, nor does work of a quest not taken whose every accept
+the update added, `Own.addedWork`, #3464: a kept kill step whose quest the
+update moved before it), as `gone` steps and goals that no longer apply; nothing shows as
 skipped, and what of it the player has done is not passed: it shows done (a
 step passes whole while work of it is open). An accept passed takes its
 quest's later goals with it (orphaned). A quest the player carries whose remaining work is among them (its
