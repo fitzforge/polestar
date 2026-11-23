@@ -3495,6 +3495,35 @@ fn an_ender_who_stands_only_inside_a_dungeon_is_its_entrance_2582() {
 	assert_eq!(out[0], json!({ "name": "Inside Ender", "zone": "Shadowfang Keep", "map": 1421, "x": 44.8, "y": 67.8, "inside": true }));
 }
 
+// Secret (#3774): the hand-in guide's stop for Daewyn Songblade was the Excavation Site's entrance, and only the
+// step's tip, folded away with the tips, said he is inside: the player read it as a point in the open world. Each
+// hand-in line to an ender inside a dungeon says so itself.
+#[test]
+fn a_hand_in_line_to_an_ender_inside_a_dungeon_says_he_is_inside_3774() {
+	let (mut codex, inputs) = fixture_parts();
+	codex["npcs"]["9001"] = json!({ "id": 9001, "name": "Inside Ender", "level": 30, "levelMax": null, "faction": null, "rare": false,
+		"elite": false, "boss": false, "instance": "shadowfang-keep", "roles": [], "spawns": [] });
+	codex["quests"]["9101"] = json!({ "id": 9101, "title": "Handed In Inside", "level": 20, "minLevel": 14, "faction": "H", "races": null,
+		"classes": null, "start": { "npc": [1937], "object": [], "item": [] }, "end": { "npc": [9001], "object": [] }, "objectives": [],
+		"pre": [], "zone": 1421, "rewards": [], "choices": [], "preAny": [] });
+	let pack = pack_of(&codex, &inputs);
+	let out = run(
+		&pack,
+		r#"
+		Polestar.Codex.Load(); stub.advance(1)
+		-- The quest is finished and no open route hands it in (RoutePlan.Carried's list, settled).
+		Polestar.RoutePlan.Carried = function() return { { quest = 9101, title = "Handed In Inside" } } end
+		local def, why = Polestar.Lookup.BuildGuide("carried", "log")
+		local notes = {}
+		for _, s in ipairs(def and def.steps or {}) do
+			for _, g in ipairs(s.goals) do if g.quest == 9101 then notes[#notes + 1] = g.note or false end end
+		end
+		emit({ why = why or false, notes = notes })"#,
+		Opts { whole: true, ready: vec![9101], ..Default::default() },
+	);
+	assert_eq!(out[0]["notes"], json!(["Inside Ender: inside Shadowfang Keep."]), "{}", out[0]);
+}
+
 // #2338 (Stompsville, 0.3.7.2): the Mallet of Zul'Farrak calls Gahz'rilla, and nothing in the pick-up guide said
 // how to get one. It drops nowhere: Qiaga the Keeper drops the Sacred Mallet, used at Jintha'Alor's altar. The
 // page's `item` entry (the made item, `via` the one it is made from) builds its drop step from the via item, and the
