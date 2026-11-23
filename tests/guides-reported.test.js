@@ -10400,6 +10400,65 @@ for (const { side, quest, after, says, todo } of FOLLOW_UPS) test(`Every ${side}
 	}
 });
 
+// Fitz's pick on #3782 (with #3783 and #3786): three players found James Halloran no longer offers Crimson Crate
+// Delivery (98240) once Razormaw Needling (98245), the quest it leads to, is done, and 06-wetlands asked for the crate
+// after handing Needling in to Howin. A quest whose follow-up (`next` in the data) the route has already taken is
+// never accepted, on any route; the crate and its hand-in are left out of both Alliance guides.
+test('Every route (#3782, #3783, #3786): no quest is accepted after the route has taken the quest it leads to', { skip }, () => {
+	for (const side of ['Alliance', 'Horde']) {
+		for (const { who, list } of routes(side)) {
+			const taken = new Set();
+			for (const e of list) {
+				if (e.goal.t !== 'accept') continue;
+				const next = data.quest(e.goal.quest)?.next;
+				assert.ok(!(next && taken.has(next)), `${who}: ${where(e)} accepts ${e.goal.quest} after its follow-up ${next} was taken`);
+				taken.add(e.goal.quest);
+			}
+		}
+	}
+	for (const guide of [WETLANDS, HILLSBRAD_ALLIANCE]) {
+		assert.ok(!goals(guide).some(({ goal }) => goal.quest === 98240), `${guide}: no Crimson Crate Delivery step`);
+	}
+});
+
+// cjtylr (#3771): Searing Gorge opened with "To Ironforge" and "Go to Ironforge flight master" before its flight to
+// Thelsamar, so a player in Redridge, a flight from Thelsamar, was sent home through Stormwind and the tram first.
+// Every leveling guide stands on its own: a guide whose first travel is a flight names no flight master to walk
+// to, and the arrow takes the way from wherever the player is. (Sweep: Searing Gorge and Un'Goro opened so; the ten
+// other fixed Ironforge flight-master steps come after the guide's own Ironforge stop.)
+test('Every leveling guide (#3771): an opening flight sends the player to no fixed flight master', { skip }, () => {
+	for (const guide of allGuides().filter((g) => /^forever\/(alliance|horde)\//.test(g))) {
+		for (const step of compiled(guide).steps) {
+			const ts = step.goals.map((g) => g.t);
+			if (ts.some((t) => t !== 'goto' && t !== 'fly' && t !== 'note')) break;
+			if (ts.includes('fly')) assert.ok(!ts.includes('goto'), `${guide}: its opening flight (${step.title}) walks to a fixed point first`);
+		}
+	}
+});
+
+// Redrett (#3712): Tooga wanders six places along the Thistleshrub Valley's west edge, and the accept showed one.
+// The step searches them in turn, both factions.
+test('Tanaris (#3712): Tooga\'s accept searches his places along the valley', { skip }, () => {
+	for (const guide of [TANARIS_ALLIANCE, 'forever/horde/40-50/04-tanaris.guide']) {
+		const list = goals(guide);
+		const { goal } = list[at(list, 'accept 1560', is('accept', 1560))];
+		assert.ok((goal.spots || []).length >= 5, `${guide}: ${JSON.stringify(goal.spots)}`);
+	}
+});
+
+// Etienne (#3656): Mudsprocket's Wyrmbog quests (Whelps are the Worst!, Dragon Scales, Post Burnt Tails, Active
+// Ingredient) were in the Alliance guide only; the Horde Dustwallow visit walked the same bog. They are taken and
+// handed in at Mudsprocket around the Dragonmurk step, before the ride back to Brackenwall.
+test('Horde Dustwallow (#3656): Mudsprocket\'s three Wyrmbog quests ride with the Dragonmurk', { skip }, () => {
+	const list = goals('forever/horde/40-50/03-feralas.guide');
+	const murk = list.find(({ step }) => step.title.startsWith('The Dragonmurk')).s;
+	for (const q of [98205, 98215, 98231]) {
+		assert.ok(list[at(list, `accept ${q}`, is('accept', q))].s < murk, `${q} taken before the Dragonmurk`);
+		const hand = list[at(list, `turnin ${q}`, is('turnin', q))].s;
+		assert.ok(hand > murk && hand < list.find(({ step, s }) => s > murk && step.title === 'Brackenwall Village').s, `${q} handed in before Brackenwall`);
+	}
+});
+
 // poro (#1065): Escorting Erland, a level 11 quest, came in the 16-19 Silverpine guide after a level 16.51
 // target. Players run about a level above the route's targets (their recordings), so the level reached is
 // rounded up: at 17 the quest is grey. It is taken while it still gives experience.

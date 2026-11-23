@@ -44,15 +44,23 @@
 					[
 						44.79,
 						51.93
+					],
+					[
+						39.6,
+						50.8
+					],
+					[
+						40.6,
+						53.6
 					]
 				]
 			},
-			"note": "Only the group bounty uses these exterior Taskmaster ledges; omit the mine floors underneath Thorium Point.",
+			"note": "Only the group bounty uses these Taskmaster places: the exterior ledges, then the Slag Pit below as the last stop (#3722, Fitz's pick: a player found more Taskmasters there; 4 of their 24 places). Their other low places stay out.",
 			"source": {
 				"kind": "client",
-				"ref": "Dark Iron Taskmaster 5846: surface spawn heights 241.0, 248.0, 242.4 and 243.1."
+				"ref": "Dark Iron Taskmaster 5846: surface spawn heights 241.0, 248.0, 242.4 and 243.1; in the Slag Pit 176.5, 178.4, 180.5 and 183.5 (38.8-41.2,50.5-54.2)."
 			},
-			"issue": 3144
+			"issue": 3722
 		},
 		{
 			"id": "searing-surface-slavers",
