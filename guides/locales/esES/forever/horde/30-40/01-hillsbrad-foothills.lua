@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Camp Taurajo flight master
 	-- {area:378} Camp Taurajo
-	["{area:378} flight master"] = "",
+	["{area:378} flight master"] = "Maestro de vuelo de {area:378}",
 	-- {zone:1441} Thousand Needles · {area:378} Camp Taurajo
 	["Coming from the {zone:1441} guide, you stand beside {area:378}'s flight master: this guide flies on from here."] = "",
 

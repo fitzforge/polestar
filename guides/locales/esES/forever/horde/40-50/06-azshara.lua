@@ -225,7 +225,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Back to {area:1099}"] = "De vuelta a {area:1099}",
 	-- {npc:7854} Jangdor Swiftstrider
-	["{npc:7854}, inside"] = "",
+	["{npc:7854}, inside"] = "{npc:7854}, dentro",
 
 	-- Step 57: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
