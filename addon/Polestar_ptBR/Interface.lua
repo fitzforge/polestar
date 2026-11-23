@@ -2653,6 +2653,7 @@ L["Every setting on %s goes back to its default. Other pages keep theirs."] = "T
 L["Nothing to reset"] = "Nada para redefinir"
 L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "Arraste a janela do guia, a seta, os cartões e os alertas para onde quiser. Esta janela sai da frente até você apertar Salvar e sair. Também /polestar unlock."
 -- L["play Sky Jewels by RikyZ90"] = ""
+-- L["play Tetris by beemerwt"] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"
@@ -4201,6 +4202,10 @@ L["%d changes"] = "%d alterações"
 L["Same as yours"] = "Igual ao seu"
 L["Nothing here differs from yours."] = "Nada aqui é diferente do seu."
 L["The positions were made on another screen or UI scale, so Window positions starts unticked: tick it to take them anyway."] = "As posições foram feitas em outra tela ou escala de interface, então Posições das janelas começa desmarcado: marque para usá-las mesmo assim."
+-- L["Start from"] = ""
+-- L["Your current settings"] = ""
+-- L["Defaults"] = ""
+-- L["Your current settings: the new profile is a copy of the one in use, window positions, skin and all. Defaults: every setting at its default."] = ""
 
 -- UI/Looks/Theme.lua
 L["Turn in %s"] = "Entregar %s"
@@ -4629,8 +4634,8 @@ L["Rares, travel & zones"] = "Raros, viagem e zonas"
 L["Zones and coordinates"] = "Zonas e coordenadas"
 -- L["Flight arcade"] = ""
 -- L["Game on flights"] = ""
--- L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed) or Sky Jewels by RikyZ90, a match-three game. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade and /polestar jewels open them any time."] = ""
 -- L["None: don't offer a game"] = ""
+-- L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time."] = ""
 
 -- Dungeons/Options.lua
 L["As for all dungeons"] = "Como todas as masmorras"
@@ -4873,6 +4878,14 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Pousou
 -- L["Landed. Sky Jewels is saved and paused: type %s to continue."] = ""
 -- L["Play a game while you fly?"] = ""
 -- L["Close the game that is open before you start another."] = ""
+-- L["Tetris"] = ""
+-- L["Tetris by beemerwt"] = ""
+-- L["Play Tetris"] = ""
+-- L["Tetris can't open: its folder Polestar_Arcade is missing or turned off."] = ""
+-- L["Tetris opens after the fight."] = ""
+-- L["Tetris is saved and paused for the fight: type %s to continue."] = ""
+-- L["Tetris is saved and paused."] = ""
+-- L["Landed. Tetris is saved and paused: type %s to continue."] = ""
 
 -- QoL/QuestXP.lua
 L["+1 level"] = "+1 nível"
@@ -4984,6 +4997,17 @@ L["Most used"] = "Mais usados"
 -- L["Sound on"] = ""
 -- L["Score"] = ""
 -- L["4 in a line: sweep\n5, T or L: burst\nSwap a bonus to fire it."] = ""
+
+-- games/tetris/Window.lua
+-- L["Score %d\nLines %d\nLevel %d\nBest %d"] = ""
+-- L["Game over — New game"] = ""
+-- L["Paused — press P or Start"] = ""
+-- L["New game"] = ""
+-- L["Resume"] = ""
+-- L["Polestar Tetris"] = ""
+-- L["Hold"] = ""
+-- L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = ""
+-- L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Configurar o Polestar de novo, uma página por vez. Cada escolha vale na hora."

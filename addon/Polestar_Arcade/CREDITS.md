@@ -6,6 +6,8 @@ credits and licence:
 - **Freedoom Arcade by petllama**, below.
 - **Sky Jewels by RikyZ90**, a match-three game written for Polestar:
   `games/skyjewels/` and its `CREDITS.md` (GPL, version 3, as Polestar).
+- **Tetris by beemerwt**, a falling-block game written for Polestar:
+  `games/tetris/` and its `LICENSE` (GPL, version 3, as Polestar).
 
 ## Freedoom Arcade
 

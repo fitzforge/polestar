@@ -843,6 +843,7 @@ local function buildAbout(view)
 		.. hex .. "/polestar report|r   " .. L["report a problem with a step on the Polestar Discord"] .. "\n"
 		.. hex .. "/polestar arcade|r   " .. L["play Freedoom Arcade by petllama"] .. "\n"
 		.. hex .. "/polestar jewels|r   " .. L["play Sky Jewels by RikyZ90"] .. "\n"
+		.. hex .. "/polestar tetris|r   " .. L["play Tetris by beemerwt"] .. "\n"
 		.. hex .. "/polestar help|r   " .. L["every command"])
 	-- Install (UI/Welcome.lua) and what's new, first under the hero: the
 	-- setup a new character gets, again whenever the player wants it.
