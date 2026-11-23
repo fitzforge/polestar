@@ -3072,6 +3072,58 @@ emit({ errand = errand, items = items, unplaced = describe(D.HandinGuide("{KEY}"
 	);
 }
 
+// #3744 (Uhohhotdog, Scourge Paladin 24, 0.4.2.2): the same errand's "Collect Toxic Skullcap from Tawny Grisette"
+// showed one point, but she walks a circuit round the Trade Quarter's inner ring (24 places in the data, 62,38 to
+// 70,50), and the reporter met her at 66,50. A seller or a source with several places now gets them all as the
+// collect's spots, as Lookup's own guides show a walking NPC (Lookup.SpawnSpots); a source with one place keeps it.
+#[test]
+fn a_hand_in_errand_from_a_walking_seller_shows_her_circuit_3744_tawny_grisette() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["92055"] = json!({ "id": 92055, "name": "Master Apothecary Faranell", "level": 30, "levelMax": null, "faction": "H", "rare": false,
+		"elite": false, "boss": false, "instance": null, "roles": [], "spawns": [{ "map": 1458, "x": 48.8, "y": 69.3, "f": "e" }] });
+	let ring: Vec<Value> = [(62.0, 38.0), (66.0, 41.0), (70.0, 45.0), (68.0, 50.0), (63.0, 49.0)].iter().map(|(x, y)| json!({ "map": 1458, "x": x, "y": y, "f": "e" })).collect();
+	c["npcs"]["94554"] = json!({ "id": 94554, "name": "Tawny Grisette", "level": 30, "levelMax": null, "faction": "H", "rare": false,
+		"elite": false, "boss": false, "instance": null, "roles": [], "spawns": ring });
+	c["objects"]["973933"] = json!({ "id": 973933, "name": "Blisterweed", "treasure": false, "spawns": [{ "map": 1458, "x": 54.0, "y": 49.3, "f": "e" }] });
+	c["items"]["981246"] = json!({ "id": 981246, "name": "Toxic Skullcap", "quality": 1, "kind": "item", "spell": null, "reqLevel": null,
+		"sources": [{ "type": "vendor", "npc": 94554 }] });
+	c["items"]["981300"] = json!({ "id": 981300, "name": "Blisterweed", "quality": 1, "kind": "item", "spell": null, "reqLevel": null,
+		"sources": [{ "type": "object", "object": 973933 }] });
+	let quest = |id: i32, pre: &[i32], objectives: Value| {
+		json!({
+			"id": id, "title": "Unending Torment", "level": 21, "minLevel": 16, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [92055], "object": [], "item": [] }, "end": { "npc": [92055], "object": [] },
+			"objectives": objectives, "pre": pre, "zone": 1458, "rewards": [], "choices": [], "preAny": pre,
+		})
+	};
+	c["quests"]["997290"] = quest(997290, &[], json!([]));
+	c["quests"]["997291"] = quest(
+		997291,
+		&[997290],
+		json!([
+			{ "type": "item", "id": 981246, "count": 1, "text": "Toxic Skullcap" },
+			{ "type": "item", "id": 981300, "count": 1, "text": "Blisterweed" },
+		]),
+	);
+	i["forever"]["quests"]["997290"] = json!({ "area": 209 });
+	i["forever"]["quests"]["997291"] = json!({ "area": 209 });
+	let own = pack_of(&c, &i);
+	let script = k(r#"
+local out = {}
+for _, s in ipairs(D.HandinGuide("{KEY}").steps or {}) do
+	for _, g in ipairs(s.goals) do
+		if g.t == "collect" then out[#out + 1] = { item = g.item, spots = #(g.spots or {}) } end
+	end
+end
+emit(out)"#);
+	let out =
+		run(&own, &script, Opts { level: 20, race: "Scourge", faction: "Horde", cls: "PALADIN", at: Some(UNDERCITY), done: vec![997290], log: vec![997291], ready: vec![], ..Default::default() })
+			.remove(0);
+	assert_eq!(out, json!([{ "item": 981246, "spots": 5 }, { "item": 981300, "spots": 0 }]), "her whole circuit; the weed's one place");
+}
+
 // #2686 (Fyurie, Night Elf Warrior 54, 0.4.0.1: Sunken Temple's hand-in guide): after Haze of Evil, the guide had
 // Muigin "give" Bloodpetal Sprouts as an accept, and nothing said it wants three Bloodpetal Sprouts picked in Un'Goro.
 // Forever hands it in at one talk and never puts it in the log (players' recordings: 7 hand-ins, no accept). A
