@@ -121,7 +121,11 @@ end
 -- Runs fn through the plain SafeCall and times it. The probe's own work
 -- inside a handler (its children's bookkeeping, noting where timers are
 -- made) is `debt`, taken off the handler's time.
+local noteSite
 local function timed(fn, kind, where, ...)
+	-- ns.SafeCall's callers pass functions made anywhere (a module's method, a
+	-- follower): noted where they are called from, once each ("call ?" before).
+	if kind == 4 and sites[fn] == nil and not ns.MadeAt(fn) then noteSite(fn) end
 	local d = depth + 1
 	depth = d
 	childMs[d] = 0
@@ -168,6 +172,14 @@ end
 local NAV = "Polestar_Nav"
 local navLoaded
 
+-- What happened in a frame outside the handlers the probe wraps, for a slow
+-- frame no handler accounts for (#3640: a 416 ms frame came with no name):
+-- the addons loaded in it (ADDON_LOADED) and the memory a collection freed.
+local frameLoads, lastKB = {}, nil
+local function onLoaded(_, event, name)
+	if event == "ADDON_LOADED" and #frameLoads < 4 then frameLoads[#frameLoads + 1] = tostring(name) end
+end
+
 -- Once a frame: the frame's handlers against the profiler's figures.
 local function onFrame()
 	local mine, nav, all, app
@@ -184,15 +196,22 @@ local function onFrame()
 		if app > hitches.worst then hitches.worst = app end
 		if ours then hitches.ours = hitches.ours + 1 end
 	end
+	local kb = collectgarbage("count")
 	if ours then
 		slowFrames = slowFrames + 1
 		local e = { t = now(), slow = true, ms = fSum, calls = fCalls, mine = mine, nav = nav, all = all, app = app, top = {} }
 		for i = 1, 3 do
 			if fKey[i] then e.top[i] = place({ key = fKey[i], kind = fKind[i], where = fWhere[i], ms = fMs[i] }) end
 		end
+		local outside = (mine or 0) + (nav or 0) - fSum
+		if outside >= 1 then e.outside = outside end
+		if #frameLoads > 0 then e.loads = table.concat(frameLoads, ",") end
+		if lastKB and lastKB - kb >= 1024 then e.freedKB = lastKB - kb end
 		context(e)
 		push(e)
 	end
+	lastKB = kb
+	if #frameLoads > 0 then frameLoads = {} end
 	clearFrame()
 end
 
@@ -256,7 +275,7 @@ local function sample()
 	topSlow = top(M.CountTimeOver10Ms) or topSlow
 end
 
-local function noteSite(fn)
+noteSite = function(fn)
 	if type(fn) ~= "function" or sites[fn] ~= nil then return end
 	local t = clock()
 	sites[fn] = type(debugstack) == "function" and ns.OurSite(debugstack(2, 12, 0) or "", SKIP) or false
@@ -266,9 +285,9 @@ end
 -- While on, handlers made are noted where they are made.
 local function wrapMaking()
 	plain.RegisterEvent, plain.On, plain.Safe = ns.RegisterEvent, ns.On, ns.Safe
-	ns.RegisterEvent = function(event, fn)
+	ns.RegisterEvent = function(event, fn, unit)
 		noteSite(fn)
-		return plain.RegisterEvent(event, fn)
+		return plain.RegisterEvent(event, fn, unit)
 	end
 	ns.On = function(msg, fn)
 		noteSite(fn)
@@ -348,6 +367,9 @@ function Perf.Start()
 	ns.SetProbe(timed)
 	watcher = watcher or CreateFrame("Frame")
 	watcher:SetScript("OnUpdate", onFrame)
+	watcher:SetScript("OnEvent", onLoaded)
+	watcher:RegisterEvent("ADDON_LOADED")
+	frameLoads, lastKB = {}, nil
 	-- Not ns.NewTicker: the probe's own sampling stays out of what it times.
 	sampler = C_Timer.NewTicker(SAMPLE_EVERY, function() call(sample) end)
 	return true
@@ -360,6 +382,7 @@ function Perf.Stop()
 	ns.SetProbe(nil)
 	unwrapMaking()
 	watcher:SetScript("OnUpdate", nil)
+	watcher:UnregisterEvent("ADDON_LOADED")
 	if sampler then sampler:Cancel() end
 	sampler = nil
 	call(sample)
@@ -447,6 +470,9 @@ local function spikeText(e)
 			s = s .. fmt(" (profiler: Polestar %s%s, addons %s, game %s)", ms1(e.mine), e.nav and (", Polestar_Nav " .. ms1(e.nav)) or "", ms1(e.all), ms1(e.app))
 		end
 		if #tops > 0 then s = s .. ": " .. concat(tops, ", ") end
+		if e.outside then s = s .. fmt("; %s ms outside the handlers", ms1(e.outside)) end
+		if e.loads then s = s .. "; loaded " .. e.loads end
+		if e.freedKB then s = s .. fmt("; garbage collected %.1f MB", e.freedKB / 1024) end
 	else
 		s = fmt("%s %s ms (own %s)", handler(e.key, e.kind, e.where, nil, e.at, e.of), ms1(e.ms), ms1(e.own))
 		if e.depth > 1 then s = s .. " nested" end

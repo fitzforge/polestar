@@ -153,9 +153,10 @@ fn lua_files(dir: &Path, skip: &Path, out: &mut Vec<PathBuf>) -> Result<(), Stri
 
 /// The load-on-demand folders whose interface strings are an addon's own: they share its locale files
 /// (addon/Polestar_<locale>/Interface.lua for Polestar), grouped by their paths inside their own folder.
-/// Polestar_Options is Polestar's settings window, loaded on first open; Polestar_SkinAPI the Skin API's checks,
-/// loaded with the first skin or scheme another addon registers.
-pub const PARTS: &[(&str, &[&str])] = &[("Polestar", &["Polestar_Options", "Polestar_SkinAPI"])];
+/// Polestar_Options is Polestar's settings window, loaded on first open; Polestar_Arcade
+/// the games to play on a flight, loaded on the first Play (Freedoom Arcade has no strings of Polestar's; the other
+/// games use Polestar's).
+pub const PARTS: &[(&str, &[&str])] = &[("Polestar", &["Polestar_Options", "Polestar_Arcade"])];
 
 /// The keys of the .lua files under `dir` (its `Locales` folder skipped) into `keys`, each use under its
 /// path inside `dir`, in the order the folder loads them (TOC, XML manifests; a folder without a TOC, a

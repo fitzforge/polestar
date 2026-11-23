@@ -249,7 +249,7 @@ return {
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Horde)"] = "{item:2836} (호드)",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "{item:6533}에 필요한 {item:2836} 31개: {skill:186}: {object:1732}(숙련도 65) {zone:1413}(10-25), {zone:1440}(18-30)와(과) {zone:1424}(20-30). {zone:1440}(18-30)에서 가장 많이 나는 {object:1732} 지점이 표시됩니다.",
+	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked."] = "",
 
 	-- Step 48: Heavy Stone (Alliance)
 	-- {item:2838} Heavy Stone
@@ -484,4 +484,5 @@ return {
 	-- ["{spell:3929} to 95"] = "{spell:3929}: 95까지",
 	-- ["{spell:3937} to 125"] = "{spell:3937}: 125까지",
 	-- ["{spell:3942} to 150"] = "{spell:3942}: 150까지",
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "{item:6533}에 필요한 {item:2836} 31개: {skill:186}: {object:1732}(숙련도 65) {zone:1413}(10-25), {zone:1440}(18-30)와(과) {zone:1424}(20-30). {zone:1440}(18-30)에서 가장 많이 나는 {object:1732} 지점이 표시됩니다.",
 }

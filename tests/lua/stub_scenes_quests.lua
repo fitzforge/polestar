@@ -4,9 +4,11 @@
 -- writes them at logout. Loaded after stub_world.lua.
 --
 --   ScenesQ.goldshire()                  Elwynn Forest (map 1429), standing by Marshal Dughan in Goldshire, level 10
+--   ScenesQ.wetlands()                   Wetlands (map 1437), at Menethil Harbor, level 27
 --   local at = ScenesQ.place(npc)        after login: the quest log and the quests turned in for the step of the
 --                                        loaded guide that hands in most quests to `npc` (its number: at.step);
 --                                        at.ready / at.working: the guide's quests in the log, finished or not
+--   ScenesQ.walked(at)                   then the goals of no quest before that step ticked: the guide stands there
 --   ScenesQ.inGuide(q)                   whether the loaded guide names quest q
 --   local added, named = ScenesQ.fillLog(25)   finished quests the guide does not name, until the log holds 25
 --   ScenesQ.talk(npc, "gossip"|"greeting")     opens the NPC's window with the log's quests it ends, again after
@@ -23,6 +25,13 @@ function ScenesQ.goldshire()
 	w.moveTo(1429, 42.3, 66.2)
 	w.level = 10
 	w.resting = true
+end
+
+function ScenesQ.wetlands()
+	w.addMap(1437, { name = "Wetlands", c = 0, left = -389.583, right = -4525, top = -2147.917, bottom = -4904.167 })
+	w.zone, w.subzone = "Wetlands", "Menethil Harbor"
+	w.moveTo(1437, 10.8, 59.7)
+	w.level = 27
 end
 
 local function guide()
@@ -95,6 +104,23 @@ function ScenesQ.place(npc)
 	stub.fire("QUEST_LOG_UPDATE")
 	stub.advance(3)
 	return at
+end
+
+-- After ScenesQ.place: the goals of no quest (travel, hearth, training, vendors) in the loaded guide's steps
+-- before `at` ticked in the save, as a player who walked the route there has them, so the guide stands at `at`.
+function ScenesQ.walked(at)
+	local g = guide()
+	if not (g and at) then return end
+	PolestarCharDB.manual = PolestarCharDB.manual or {}
+	local m = PolestarCharDB.manual[g.id] or {}
+	PolestarCharDB.manual[g.id] = m
+	for s = 1, at.step - 1 do
+		for i, goal in ipairs(g.steps[s].goals) do
+			if not goal.quest then m[s .. ":" .. i] = true end
+		end
+	end
+	stub.fire("QUEST_LOG_UPDATE")
+	stub.advance(3)
 end
 
 -- Finished quests the Elwynn guide does not name: five whose enders stand in Goldshire (quest -> NPC: Marshal

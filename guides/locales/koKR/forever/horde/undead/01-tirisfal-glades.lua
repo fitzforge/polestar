@@ -340,9 +340,10 @@ return {
 	-- Step 60: Tirisfal Glades: kill these as you meet them
 	-- {zone:1420} Tirisfal Glades
 	["{zone:1420}: kill these as you meet them"] = "{zone:1420}: 만나는 대로 처치하세요",
-	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {area:164} Garren's Haunt · {npc:1753} Maggot Eye
+	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {area:164} Garren's Haunt · {npc:1753} Maggot Eye · {area:157} Agamand Mills
 	-- plural, as words: Greater Duskbats = {npc:1553} Greater Duskbat · Vampiric Duskbats = {npc:1554} Vampiric Duskbat · Rot Hide Graverobbers = {npc:1941} Rot Hide Graverobber · Rot Hide Mongrels = {npc:1675} Rot Hide Mongrel
-	["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "거대한 그늘박쥐(6-7)는 {area:159} 주변 들판과 북쪽 길을 따라 날아다닙니다. 그레첸은 가죽을, {npc:3549}은(는) 날개를 원합니다. 더 멀리 있는 그늘흡혈박쥐(8-9)도 떨어뜨리지만 더 세게 때립니다.\n{quest:5482}은(는) {area:159} 바로 북쪽 묘지 들판에서 자라며, 썩은가죽일족 도굴꾼이 땅을 파고 있습니다. 썩은가죽일족은 모두 체액을 떨어뜨립니다.\n썩은가죽일족 싸움꾼은 더 북쪽 {area:164} 주변 언덕을 차지하고 있습니다. {npc:1753}(레벨 11)은(는) 지금은 오두막에 두세요. 가이드 끝에서 다시 옵니다.\n썩은지느러미 멀록은 북쪽 해안에 늘어서 있습니다. 모두 비늘을 떨어뜨리고, 하급 예언자와 진흙거주자는 {npc:3549}에게 줄 가죽을 떨어뜨립니다. {area:159} 바로 북쪽 해안에는 웅덩이뜀뛰기와 하급 예언자(7-9)가 있고 근처에 진흙거주자(9-10)는 없습니다.",
+	-- was: ["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "거대한 그늘박쥐(6-7)는 {area:159} 주변 들판과 북쪽 길을 따라 날아다닙니다. 그레첸은 가죽을, {npc:3549}은(는) 날개를 원합니다. 더 멀리 있는 그늘흡혈박쥐(8-9)도 떨어뜨리지만 더 세게 때립니다.\n{quest:5482}은(는) {area:159} 바로 북쪽 묘지 들판에서 자라며, 썩은가죽일족 도굴꾼이 땅을 파고 있습니다. 썩은가죽일족은 모두 체액을 떨어뜨립니다.\n썩은가죽일족 싸움꾼은 더 북쪽 {area:164} 주변 언덕을 차지하고 있습니다. {npc:1753}(레벨 11)은(는) 지금은 오두막에 두세요. 가이드 끝에서 다시 옵니다.\n썩은지느러미 멀록은 북쪽 해안에 늘어서 있습니다. 모두 비늘을 떨어뜨리고, 하급 예언자와 진흙거주자는 {npc:3549}에게 줄 가죽을 떨어뜨립니다. {area:159} 바로 북쪽 해안에는 웅덩이뜀뛰기와 하급 예언자(7-9)가 있고 근처에 진흙거주자(9-10)는 없습니다."
+	["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him after {area:157}.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "",
 	-- {npc:1675} Rot Hide Mongrel · {area:164} Garren's Haunt
 	["{npc:1675} walks around {area:164}: look inside the circle on the map"] = "{npc:1675}이(가) {area:164} 주변을 거닙니다. 지도의 원 안을 보세요.",
 
@@ -369,8 +370,9 @@ return {
 	["{npc:267009} stands at the camp beside Linnea."] = "{npc:267009}이(가) 린니아 곁 야영지에 서 있습니다.",
 
 	-- Step 65: Magistrate Sevren
-	-- {area:159} Brill · {area:157} Agamand Mills
-	["Back up the road to {area:159}, on the way north-west to {area:157}."] = "도로를 따라 북서쪽으로 올라가 {area:159}로, {area:157}로 가는 길입니다.",
+	-- {area:159} Brill · {area:157} Agamand Mills · {npc:1753} Maggot Eye · {npc:1515} Executor Zygand
+	["Back up the road to {area:159}, on the way north-west to {area:157}. The Wanted poster for {npc:1753} stands beside {npc:1515}, in front of the inn."] = "",
+	["The Wanted poster beside Zygand"] = "자이간드 옆의 현상수배 전단",
 
 	-- Step 66: Agamand Mills
 	-- {area:157} Agamand Mills · {npc:1657} Devlin Agamand · {npc:1656} Thurman Agamand · {item:2839} A Letter to Yvette
@@ -382,7 +384,13 @@ return {
 	["{item:2839}, a rare drop"] = "희귀 획득품 {item:2839}",
 	["Only if the letter dropped"] = "편지를 얻었을 때만",
 
-	-- Step 67: Brill
+	-- Step 67: Maggot Eye
+	-- {area:159} Brill · {area:164} Garren's Haunt · {npc:1753} Maggot Eye
+	["On the way back to {area:159}, {area:164} is the Rot Hide camp on the hill east of the mills, south of the shore. {npc:1753} stands in the hut.\nCareful: {npc:1753} is level 11 and gnoll guards stand outside the hut and can join the fight: clear them one at a time first. If you slip past them and fight him inside, he fights alone."] = "",
+	-- {item:3635} Maggot Eye's Paw
+	["{item:3635}; inside"] = "{item:3635}; 안쪽",
+
+	-- Step 68: Brill
 	-- {npc:1560} Yvette Farthing
 	["{npc:1560}, in the inn"] = "여관 안의 {npc:1560}",
 	-- {npc:2128} Cain Firesong · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity
@@ -392,11 +400,11 @@ return {
 	-- {npc:1738} Deathguard Terrence · {area:159} Brill
 	["{npc:1738}, if you were below 10 on the last {area:159} visit"] = "{npc:1738}, 지난 {area:159} 방문에서 10 미만이었다면",
 
-	-- Step 68: Ulag the Cleaver
+	-- Step 69: Ulag the Cleaver
 	-- {npc:6390} Ulag the Cleaver
 	["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390}은(는) 마을 바로 북쪽 언덕의 묘지에서 기다립니다. 문을 열고 그와 싸우십시오.",
 
-	-- Step 69: Carendin Halgar
+	-- Step 70: Carendin Halgar
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "{area:159}에서 남쪽 {area:153}(으)로 가서 {area:1497}(으)로 내려가세요. {npc:5675}은(는) {object:36082}에 있습니다. 붉은십자군 야영지는 폐허 바로 서쪽입니다.",
 	-- {npc:4551} Michael Garrett
@@ -404,30 +412,30 @@ return {
 	-- {npc:5675} Carendin Halgar · {quest:1473} Creature of the Void
 	["{npc:5675}: he offers {quest:1473} only once this is handed in"] = "{npc:5675}: 이것을 제출해야만 {quest:1473}을(를) 줍니다",
 
-	-- Step 70: Anastasia Hartwell
+	-- Step 71: Anastasia Hartwell
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "{area:159}에서 남쪽 {area:153}(으)로 가서 {area:1497}(으)로 내려가세요. {npc:4568}은(는) {object:36082}에 있습니다. 붉은십자군 야영지는 폐허 바로 서쪽입니다.",
 
-	-- Step 71: Back to Tirisfal Glades
+	-- Step 72: Back to Tirisfal Glades
 	-- {zone:1420} Tirisfal Glades
 	["Back to {zone:1420}"] = "{zone:1420}로 돌아가기",
 	["The Scarlet camp"] = "붉은십자군 야영지",
 
-	-- Step 72: Tirisfal Glades: kill these as you meet them
+	-- Step 73: Tirisfal Glades: kill these as you meet them
 	-- {area:159} Brill · {npc:1662} Captain Perrine
 	["Follow the road south-west from {area:159} to the Scarlet Crusade camp. {npc:1662} stands at its south end; every Scarlet there can drop a ring."] = "{area:159}에서 남서쪽 길을 따라 붉은십자군 야영지로 가세요. {npc:1662}은(는) 남쪽 끝에 있으며, 그곳의 붉은십자군은 모두 반지를 떨어뜨릴 수 있습니다.",
 	-- {npc:1537} Scarlet Zealot
 	["{npc:1537} walks around here: look inside the circle on the map"] = "{npc:1537}이(가) 이곳 주변을 거닙니다. 지도의 원 안을 보세요.",
 
-	-- Step 73: Perrine's Chest
+	-- Step 74: Perrine's Chest
 	-- {object:37098} Perrine's Chest · {npc:1662} Captain Perrine
 	["{object:37098} stands beside {npc:1662} at the camp's south end."] = "{object:37098}은(는) 야영지 남쪽 끝 {npc:1662} 옆에 있습니다.",
 
-	-- Step 75: Hadric Harlson
+	-- Step 76: Hadric Harlson
 	-- {npc:267009} Hadric Harlson · {npc:1495} Deathguard Linnea
 	["{npc:267009} stands at {npc:1495}'s camp, on the road to the cult's farm."] = "{npc:267009}은(는) 교단 농장으로 가는 길의 {npc:1495} 야영지에 있습니다.",
 
-	-- Step 76: Balnir Farmstead: kill these as you meet them
+	-- Step 77: Balnir Farmstead: kill these as you meet them
 	-- {area:165} Balnir Farmstead
 	["{area:165}: kill these as you meet them"] = "{area:165}: 만나는 대로 처치하세요",
 	-- {quest:99142} Tomb Weed · {npc:1664} Captain Vachon
@@ -436,29 +444,23 @@ return {
 	-- {item:7227} Balnir Snapdragons
 	["{item:7227}, in the farmstead's garden"] = "농장 정원의 {item:7227}",
 
-	-- Step 77: Tirisfal Glades: kill these as you meet them
+	-- Step 78: Tirisfal Glades: kill these as you meet them
 	-- {npc:1495} Deathguard Linnea
 	-- plural, as words: Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
 	["On the way back west, the Cult of the Damned holds the farm just south-east of {npc:1495}'s camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.\nCareful: the cultists (10-12) stand close together and the Neophytes cast: pull one at a time from the edge of the farm."] = "서쪽으로 돌아가는 길에, 저주받은 자의 교단이 {npc:1495}의 야영지 바로 남동쪽 농장을 차지하고 있습니다. 괴저 수정 파편은 교단원들 사이 땅에 놓여 있고, 교단원들도 일부 가지고 있습니다.\n주의: 교단원(10-12)은 붙어 서 있고 수습생은 주문을 씁니다. 농장 가장자리에서 하나씩 끄세요.",
 
-	-- Step 79: Brill
+	-- Step 80: Brill
 	-- {area:159} Brill · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["Back up the road to {area:159}. {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "도로를 따라 올라가 {area:159}로. {npc:2128}(마법사), {npc:2129}(사제), {npc:2127}(흑마법사), {npc:2130}(도적)은(는) 여관 2층에 서 있습니다. 안쪽 계단으로 올라가세요. 화살표는 층을 구분하지 못합니다.",
 	-- {npc:1518} Apothecary Johaan · {area:228} Sepulcher
 	["{npc:1518}: for Renferrel at the {area:228}"] = "{npc:1518}: {area:228}의 렌페를을 위해",
-	["The Wanted poster beside Zygand"] = "자이간드 옆의 현상수배 전단",
 	-- {npc:2211} Captured Mountaineer
 	["The {npc:2211}, in the inn's cellar"] = "여관 지하실의 {npc:2211}",
 
-	-- Step 80: Maggot Eye
-	-- {area:164} Garren's Haunt · {npc:1753} Maggot Eye
-	["North to {area:164}, the Rot Hide camp on the hill south of the shore. {npc:1753} (level 11) stands in the hut: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone."] = "북쪽 {area:164}, 해안 남쪽 언덕의 썩은가죽일족 야영지로 가세요. {npc:1753}(레벨 11)은(는) 오두막 안에 있습니다. 먼저 주변 놀을 처치하세요.\n주의: 오두막 밖의 놀 경비병이 싸움에 합류할 수 있습니다. 그들을 피해 안에서 싸우면 혼자 싸웁니다.",
-	-- {item:3635} Maggot Eye's Paw
-	["{item:3635}; inside"] = "{item:3635}; 안쪽",
-
 	-- Step 81: Leonid Barthalomew the Revered
-	-- {area:164} Garren's Haunt · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
-	["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "{area:164}에서 서쪽으로 {area:157}을(를) 지나 {area:16616}(으)로 가세요. 레오니드는 {npc:246389}의 야영지 바로 북쪽에 있습니다.\n{npc:246389}와(과) {npc:259190}은(는) 레오니드 바로 남쪽 숲 가장자리에서 야영합니다. {quest:96896}을(를) 제출하면(레벨 10) 모든 직업이 두 퀘스트를 수락할 수 있습니다. 다음 목적지인 {area:16881} 아래 지하실로 보냅니다.",
+	-- {area:159} Brill · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
+	-- was: ["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "{area:164}에서 서쪽으로 {area:157}을(를) 지나 {area:16616}(으)로 가세요. 레오니드는 {npc:246389}의 야영지 바로 북쪽에 있습니다.\n{npc:246389}와(과) {npc:259190}은(는) 레오니드 바로 남쪽 숲 가장자리에서 야영합니다. {quest:96896}을(를) 제출하면(레벨 10) 모든 직업이 두 퀘스트를 수락할 수 있습니다. 다음 목적지인 {area:16881} 아래 지하실로 보냅니다."
+	["North-west from {area:159} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "",
 	-- {npc:246378} Danitha Morr
 	["Listen to Leonid and {npc:246378}, then talk to him again"] = "리어니드와 {npc:246378}의 대화를 들은 뒤 그에게 다시 말을 거세요",
 
@@ -524,11 +526,13 @@ return {
 	-- ["Follow the road west past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp."] = "길을 따라 서쪽으로 {area:157}을(를) 지나 {area:16616}(으)로 가세요. 리어니드 바돌로매는 {npc:246389}의 야영지 바로 북쪽에 있습니다.",
 	-- ["Free six Webbed Victims inside the cave for {npc:244808}"] = "{npc:244808}을(를) 위해 동굴 안에서 거미줄에 갇힌 희생자 6명을 구출하세요",
 	-- ["Greater Duskbats"] = "거대한 그늘박쥐",
+	-- ["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "거대한 그늘박쥐(6-7)는 {area:159} 주변 들판과 북쪽 길을 따라 날아다닙니다. 그레첸은 가죽을, {npc:3549}은(는) 날개를 원합니다. 더 멀리 있는 그늘흡혈박쥐(8-9)도 떨어뜨리지만 더 세게 때립니다.\n{quest:5482}은(는) {area:159} 바로 북쪽 묘지 들판에서 자라며, 썩은가죽일족 도굴꾼이 땅을 파고 있습니다. 썩은가죽일족은 모두 체액을 떨어뜨립니다.\n썩은가죽일족 싸움꾼은 더 북쪽 {area:164} 주변 언덕을 차지하고 있습니다. {npc:1753}(레벨 11)은(는) 지금은 오두막에 두세요. 가이드 끝에서 다시 옵니다.\n썩은지느러미 멀록은 북쪽 해안에 늘어서 있습니다. 모두 비늘을 떨어뜨리고, 하급 예언자와 진흙거주자는 {npc:3549}에게 줄 가죽을 떨어뜨립니다. {area:159} 바로 북쪽 해안에는 웅덩이뜀뛰기와 하급 예언자(7-9)가 있고 근처에 진흙거주자(9-10)는 없습니다.",
 	-- ["Greater Duskbats fly over the fields around {area:159} and along the road north."] = "거대한 그늘박쥐는 {area:159} 주변 들판과 북쪽 길을 따라 날아다닙니다.",
 	-- ["Head west into the {area:16616}; {npc:246389} and {npc:259190} camp at its edge."] = "서쪽 {area:16616}(으)로 가세요. {npc:246389}와(과) {npc:259190}이(가) 숲 가장자리에서 야영합니다.",
 	-- ["Head west to the cave. The Young Night Web Spiders sit outside; the Night Web Spiders and the Webbed Victims are inside."] = "서쪽 동굴로 가세요. 새끼 검은그물거미는 밖에 있고, 검은그물거미와 거미줄에 갇힌 희생자는 안에 있습니다.",
 	-- ["Hearth to {area:159}"] = "귀환석으로 {area:159}에 가기",
 	-- ["More Vile Fin murlocs walk the shore just north of the outpost."] = "전초기지 바로 북쪽 해안에도 썩은지느러미멀록이 더 있습니다.",
+	-- ["North to {area:164}, the Rot Hide camp on the hill south of the shore. {npc:1753} (level 11) stands in the hut: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone."] = "북쪽 {area:164}, 해안 남쪽 언덕의 썩은가죽일족 야영지로 가세요. {npc:1753}(레벨 11)은(는) 오두막 안에 있습니다. 먼저 주변 놀을 처치하세요.\n주의: 오두막 밖의 놀 경비병이 싸움에 합류할 수 있습니다. 그들을 피해 안에서 싸우면 혼자 싸웁니다.",
 	-- ["Paladin: {area:16616}"] = "성기사: {area:16616}",
 	-- ["Rattlecage skulls"] = "덜그럭거리는 해골의 두개골",
 	-- ["Rattlecages, scavengers and duskbats"] = "해골, 승냥이, 그늘박쥐",
@@ -557,6 +561,7 @@ return {
 	-- ["Walk south-west from the mills: the pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "방앗간에서 남서쪽으로 가세요. 호박은 솔리덴 농장 북서쪽, 붉은십자군이 차지한 들판에 자랍니다.",
 	-- ["Walk south-west to the {area:156}; Simmer stands at the farm."] = "남서쪽 {area:156}(으)로 가세요. 죽음의경비병 시머가 농장에 있습니다.",
 	-- ["Webbed Victims"] = "거미줄에 갇힌 희생자",
+	-- ["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "{area:164}에서 서쪽으로 {area:157}을(를) 지나 {area:16616}(으)로 가세요. 레오니드는 {npc:246389}의 야영지 바로 북쪽에 있습니다.\n{npc:246389}와(과) {npc:259190}은(는) 레오니드 바로 남쪽 숲 가장자리에서 야영합니다. {quest:96896}을(를) 제출하면(레벨 10) 모든 직업이 두 퀘스트를 수락할 수 있습니다. 다음 목적지인 {area:16881} 아래 지하실로 보냅니다.",
 	-- ["With {skill:129} learned, Eleanor also offers its Camping 101: {npc:5759} in the {area:159} inn takes it."] = "{skill:129}을(를) 배웠다면 엘리노어가 해당 야영 기초 퀘스트도 줍니다. {area:159} 여관의 {npc:5759}에게 가져가세요.",
 	-- ["With {skill:164} learned, Eleanor also offers its Camping 101: {npc:4605} in the {zone:1458} (next guide) takes it."] = "{skill:164}을(를) 배웠다면 엘리노어가 해당 야영 기초 퀘스트도 줍니다. {zone:1458}(다음 가이드)의 {npc:4605}에게 가져가세요.",
 	-- ["With {skill:165} learned, Eleanor also offers its Camping 101: {npc:3549} at {npc:1495}'s camp takes it."] = "{skill:165}을(를) 배웠다면 엘리노어가 해당 야영 기초 퀘스트도 줍니다. {npc:1495}의 야영지에 있는 {npc:3549}에게 가져가세요.",
@@ -579,4 +584,5 @@ return {
 	-- ["{npc:244808} and {npc:5667}"] = "{npc:244808}와(과) {npc:5667}",
 	-- ["{npc:244808} and {npc:5667} stand beside the church."] = "{npc:244808}와(과) {npc:5667}이(가) 교회 옆에 서 있습니다.",
 	-- ["{npc:3615}, the wind rider master"] = "와이번 조련사 {npc:3615}",
+	-- ["Back up the road to {area:159}, on the way north-west to {area:157}."] = "도로를 따라 북서쪽으로 올라가 {area:159}로, {area:157}로 가는 길입니다.",
 }

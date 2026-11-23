@@ -42,7 +42,7 @@ step Lorekeeper Lydros
   accept 7463 @58.0,44.5                      -- Lorekeeper Lydros
 
 step Hydrospawn
-  tip Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. Riptide hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets.
+  tip Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. His knockback hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets.
   collect 18299 quest 7463.1 @58.0,44.5 group 5 -- Hydrospawn Essence: Hydrospawn
 
 step Back to Lydros

@@ -10,7 +10,7 @@
 
 const skins = require('./skins');
 
-const LOOKS = { polestar: ['polestar', null], halo: ['halo', null], vellum: ['vellum', 'Polestar_Skin_Vellum'] };
+const LOOKS = { polestar: ['polestar', null], halo: ['halo', null], vellum: ['vellum', 'Polestar_Skins'] };
 
 // UI scale `s` on the studio's 1920x1080 screen: UIParent drawn at s and 1920/s x 1080/s units big, the guide
 // window at the same place on screen at every scale.

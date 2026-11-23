@@ -516,7 +516,9 @@ elite, an escort): the player decides whether to do it. When the route
 reaches a step with `when group <quest>` or `when !group <quest>` and the
 player has not answered for that quest yet, the route waits there and the
 guide window asks: "Skip it" (the default, the solo route) or "Do it with a
-group". Quest automation leaves the quest alone until then. The answer is
+group". Quest automation leaves the quest alone until then. A quest already
+in the log and ready to hand in is not asked about: its group work is done,
+and the route goes on to the hand-in (#3402). The answer is
 kept per character, once per quest, for every guide; Options, Discovery,
 Group quests lists them and changes an answer until the route has passed
 the step. Options, Guide, Automation, "Group quests" answers every quest the
@@ -1389,7 +1391,8 @@ Written only from 10%; there is nothing to write in the guide.
 
 In the game the share left to a character is `share` scaled by the part of
 `needs` they have neither done, nor in the log, nor taken on the way (a
-lead-in step Polestar put in). From 30%, below the guide's top level and
+lead-in step Polestar put in). From 30% (in whole percent, as the note says
+it), below the guide's top level and
 with `from` a guide for them, the guide window says while the guide's live
 step is in its first third: "Fresh start: about N% of this guide's quest XP
 follows on from <guide>. Expect about M minutes of extra grinding, or start
@@ -1463,7 +1466,11 @@ Errors:
   to a side the goal applies to (a friendly one is a talk credit), or `collect` of
   an item whose every located dropper is such an npc; `lint` also errors on a
   non-`optional` quest goal of a quest the cached simulator world (below) excludes
-  as `elite`, unless the goal was already reported as elite
+  as `elite`, unless the goal was already reported as elite. A low elite is solo
+  content (2026-11-20: an elite two or more levels under the player): elite work
+  passes on a step gated at least two levels over the elite, by `when level>=N` or a
+  `level N` line on the step with N at least the elite's top level (`levelMax`) + 2;
+  keep a Careful tip on the step
 - one of the game's placeholder names ("[DNT] Kill Credit", "Credit", "PvP Tower Credit
   Marker", "Trigger Ichman", "<UNUSED>", anything tagged `[PH]` or `(DND)`) in a name or text a
   compiled goal shows (its target, NPC, object, item, source, objective lines, note):

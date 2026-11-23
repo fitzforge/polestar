@@ -206,13 +206,7 @@ return {
 	-- {quest:8800} Cenarion Battlegear · {npc:15176} Vargus
 	["{quest:8800}: {npc:15176}'s badge gear"] = "{quest:8800}: {npc:15176}의 배지 장비",
 
-	-- Step 31: Silithyst
-	["Silithyst"] = "실리시스트",
-	-- {quest:9419} Scouring the Desert · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora · {npc:17079} General Kirika · {area:2744} Hive'Regal
-	["Optional, 100 reputation once: {quest:9419}. Your side's camp sits by a hive: {npc:17080}'s by {area:2743} (Alliance), {npc:17079}'s by {area:2744} (Horde). Silithyst rises from glowing geysers around the desert: walk through one, carry the Silithyst to your camp's Silithyst Extractor, then talk to the camp's leader. It is a world PvP objective: players of the other side can take it from you."] = "선택 사항, 한 번만 평판 100: {quest:9419}. 진영 야영지는 우리 옆에 있습니다: {npc:17080}은(는) {area:2743} 옆(얼라이언스), {npc:17079}은(는) {area:2744} 옆(호드)에 있습니다. 실리시스트는 사막 주변의 빛나는 간헐천에서 솟아오릅니다: 하나를 지나 실리시스트를 야영지의 실리시스트 추출기로 운반한 뒤 야영지 지도자에게 말을 거세요. 월드 PvP 목표입니다: 상대 진영 플레이어가 빼앗을 수 있습니다.",
-	["deliver Silithyst at the extractor"] = "추출기에서 실리시스트 전달",
-
-	-- Step 32: Templars and the Abyssal Council
+	-- Step 31: Templars and the Abyssal Council
 	["Templars and the Abyssal Council"] = "기사와 심연 의회",
 	-- {object:180456} Lesser Wind Stone · {item:20513} Abyssal Crest · {quest:8361} Abyssal Contacts · {npc:15270} Huum Wildmane · {quest:8331} Aurel Goldleaf · {item:14344} Large Brilliant Shard · {object:180461} Wind Stone · {item:20514} Abyssal Signet
 	["Wearing a full set of Twilight Trappings (cultist Cowl, Mantle and Robe, about 8%, 8% and 6% per cultist) lets you use a {object:180456}: two stand in each of the three western camps. A random Abyssal Templar appears: a level 60 elite for 1 to 3 players, 5 reputation until the top of Honored and an {item:20513} 93% of the time. The summon uses up the set (and later the medallion and ring too), and if the elemental gets away they are gone: summon only when you can win. {quest:8361} pays 100 for the first crest; after that Bor takes 3 crests for 50. From Friendly, {npc:15270} sends you to {quest:8331}: 3 crests and a {item:14344} buy the Medallion of Station that, worn with a set, opens the larger {object:180461} for a Duke (level 62 elite, group of 5; 25 reputation, {item:20514} 85%)."] = "황혼 의복 세트(신도의 두건, 어깨걸이, 로브, 신도당 각각 약 8%, 8%, 6%)를 완전히 입으면 {object:180456}을(를) 쓸 수 있습니다: 서쪽 야영지 세 곳에 각각 둘씩 서 있습니다. 무작위 심연의 기사가 나타납니다: 1~3인용 60레벨 정예로, 우호적 정점까지 평판 5, {item:20513}은(는) 93%의 경우 나옵니다. 소환은 세트(나중에는 메달과 반지도)를 소모하고, 정령이 달아나면 사라집니다: 이길 수 있을 때만 소환하세요. {quest:8361}이(가) 첫 문장에 100을 주고, 이후 보르가 문장 3개를 50에 받습니다. 약간 우호적부터 {npc:15270}이(가) {quest:8331}(으)로 보냅니다: 문장 3개와 {item:14344}이(가) 직급의 메달을 사 주고, 세트와 함께 착용하면 62레벨 정예 공작(5인 파티, 평판 25, {item:20514} 85%)을 위해 더 큰 {object:180461}을(를) 엽니다.",
@@ -225,7 +219,7 @@ return {
 	-- {item:20514} Abyssal Signet
 	["{item:20514}: Duke, group of 5"] = "{item:20514}: 공작, 5인 파티",
 
-	-- Step 33: Signets and scepters to Exalted
+	-- Step 32: Signets and scepters to Exalted
 	["Signets and scepters to Exalted"] = "인장과 왕홀로 확고한 동맹까지",
 	-- {quest:8363} Abyssal Signets · {npc:15282} Aurel Goldleaf · {item:20515} Abyssal Scepter · {quest:9248} A Humble Offering · {quest:8343} Goldleaf's Discovery · {quest:8341} Lords of the Council · {object:180466} Greater Wind Stone · {item:22252} Satchel of Cenarius · {item:22660} Gaea's Embrace · {item:22756} Sylvan Vest · {npc:15176} Vargus
 	-- plural, as words: Large Brilliant Shards = {item:14344} Large Brilliant Shard
@@ -242,13 +236,13 @@ return {
 	-- {quest:8364} Abyssal Scepters
 	["3 {quest:8364}: 150, Revered"] = "{quest:8364} 3개: 150, 매우 우호적",
 
-	-- Step 34: The Ruins of Ahn'Qiraj, when they open
+	-- Step 33: The Ruins of Ahn'Qiraj, when they open
 	-- {area:3454} Ruins of Ahn'Qiraj
 	["The {area:3454}, when they open"] = "열리면 {area:3454}",
 	-- {area:2737} Scarab Wall · {zone:1451} Silithus · {quest:8791} The Fall of Ossirian · {npc:15185} Brood of Nozdormu · {npc:15498} Windcaller Yessendra · {npc:15500} Keyl Swiftclaw · {npc:15499} Warden Haro · {npc:16091} Dirk Thunderwood · {quest:9023} The Perfect Poison · {item:22217} Kurinnaxx's Venom Sac · {area:19} Zul'Gurub · {npc:15471} Lieutenant General Andorov · {item:22219} Plans: Jagged Obsidian Shield · {item:22191} Obsidian Mail Tunic
 	["A 20-player raid behind the {area:2737} in the far south-west of {zone:1451}. A full clear is about 1,600 Cenarion reputation: the trash 3 each until 20,999 of 21,000 Revered, Kurinnaxx, Moam, Buru and Ayamiss 150 each and Ossirian 300, to Exalted. Ossirian's head starts {quest:8791} (200 here and 200 {npc:15185}). Their drops buy the ring (Honored), cloak (Revered) and weapon (Exalted) quests of {npc:15498}, {npc:15500} and {npc:15499} in the Hold, 100 reputation each. {npc:16091} in the Hold pays 100 once for {quest:9023}: {item:22217} from here and Venoxis's from {area:19}. {npc:15471} sells {item:22219} (Revered, 5g) and {item:22191} (Exalted, 8g) inside."] = "{zone:1451} 먼 남서쪽 {area:2737} 뒤의 20인 레이드입니다. 전체 공략이면 세나리온 평판 약 1,600입니다: 잡몹이 매우 우호적 21,000 중 20,999까지 하나에 3, 카르낙스, 모암, 부루, 아야미스가 각각 150, 오시리안이 300으로 확고한 동맹까지입니다. 오시리안의 머리가 {quest:8791}을(를) 시작합니다(여기 200, {npc:15185} 200). 그들의 전리품이 전초기지의 {npc:15498}, {npc:15500}, {npc:15499}에게 반지(우호적), 망토(매우 우호적), 무기(확고한 동맹) 퀘스트를 사 주며 각각 평판 100입니다. 전초기지의 {npc:16091}이(가) {quest:9023}에 한 번 100을 줍니다: 여기서 나오는 {item:22217}과 {area:19}에서 나오는 베녹시스의 것. {npc:15471}이(가) 내부에서 {item:22219}(매우 우호적, 5골)와 {item:22191}(확고한 동맹, 8골)을 팝니다.",
 
-	-- Step 35: Venoxis's Venom Sac, Zul'Gurub
+	-- Step 34: Venoxis's Venom Sac, Zul'Gurub
 	-- {quest:9023} The Perfect Poison · {npc:14507} High Priest Venoxis · {area:19} Zul'Gurub · {zone:1434} Stranglethorn Vale
 	["Optional, for {quest:9023}: {npc:14507} is the first boss of {area:19}, a 20-player raid in north-east {zone:1434}."] = "선택 사항, {quest:9023}용: {npc:14507}은(는) {zone:1434} 북동부에 있는 20인 레이드 {area:19}의 첫 우두머리입니다.",
 	-- {item:22216} Venoxis's Venom Sac
@@ -267,4 +261,7 @@ return {
 	-- ["{faction:609} to Revered"] = "{faction:609} 존경까지",
 	-- ["{npc:15306}: Encrypted Twilight Texts"] = "{npc:15306}: 암호화된 황혼의 문서",
 	-- ["{quest:8320} needs level 60"] = "{quest:8320}은(는) 60레벨 필요",
+	-- ["Silithyst"] = "실리시스트",
+	-- ["Optional, 100 reputation once: {quest:9419}. Your side's camp sits by a hive: {npc:17080}'s by {area:2743} (Alliance), {npc:17079}'s by {area:2744} (Horde). Silithyst rises from glowing geysers around the desert: walk through one, carry the Silithyst to your camp's Silithyst Extractor, then talk to the camp's leader. It is a world PvP objective: players of the other side can take it from you."] = "선택 사항, 한 번만 평판 100: {quest:9419}. 진영 야영지는 우리 옆에 있습니다: {npc:17080}은(는) {area:2743} 옆(얼라이언스), {npc:17079}은(는) {area:2744} 옆(호드)에 있습니다. 실리시스트는 사막 주변의 빛나는 간헐천에서 솟아오릅니다: 하나를 지나 실리시스트를 야영지의 실리시스트 추출기로 운반한 뒤 야영지 지도자에게 말을 거세요. 월드 PvP 목표입니다: 상대 진영 플레이어가 빼앗을 수 있습니다.",
+	-- ["deliver Silithyst at the extractor"] = "추출기에서 실리시스트 전달",
 }

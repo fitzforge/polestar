@@ -181,6 +181,8 @@ fn reward_picks_a_known_upgrade_above_a_known_downgrade_the_same_in_any_order_ti
 		emit(pick({ "item:9103", "item:9101", "item:9102" }))
 		g.equip(1, "item:9105")
 		G.Invalidate("equipment")
+		-- Cached, none of them selling: the best this character can use.
+		for _, id in ipairs({ 9101, 9102, 9103 }) do g.defineItem("item:" .. id, {}) end
 		local p = G.QuestPick(5001)
 		emit({ p.entry.id, p.upgrade })
 	"#);
@@ -188,6 +190,44 @@ fn reward_picks_a_known_upgrade_above_a_known_downgrade_the_same_in_any_order_ti
 	assert_eq!(out[1], out[0]);
 	assert_eq!(out[2], out[0]);
 	assert_eq!(out[3], json!([9101, false]));
+}
+
+// #2865: a mage turning in Solution to Doom was sent to a -53% robe while the leather pants (no use to a mage) sold
+// for 13s more. With no upgrade among the choices the pick is the one that sells for the most, usable or not, as the
+// reward panel's coin; equal prices keep the usable one; an unknown price waits; an upgrade still wins.
+#[test]
+fn issue_2865_with_no_upgrade_the_reward_pick_is_the_best_sell_price_usable_or_not() {
+	let out = run(r#"
+		g.equip(1, "item:9105")
+		G.Invalidate("equipment")
+		local links = { "item:9101", "item:9150", "item:9102" }
+		local function ranked()
+			local list, p, best, pending, byValue = G.RankChoices(links)
+			return { id = p and list[p].id or false, usable = p and list[p].usable or false, best = best or false,
+				pending = pending, byValue = byValue }
+		end
+		g.defineItem("item:9101", { sellPrice = 500 })
+		g.defineItem("item:9150", { sellPrice = 900 })
+		g.defineItem("item:9102", { sellPrice = 100 })
+		emit(ranked())
+		g.defineItem("item:9150", { sellPrice = 500 })
+		emit(ranked())
+		g.defineItem("item:9102", { sellPrice = 100, cached = false })
+		emit(ranked())
+		g.defineItem("item:9102", { sellPrice = 100 })
+		g.defineItem("item:9103", { sellPrice = 2000 })
+		local q = G.QuestPick(5001)
+		emit({ id = q.entry.id, value = q.value, upgrade = q.upgrade })
+		g.equip(1, "item:9102")
+		G.Invalidate("equipment")
+		emit(ranked())
+	"#);
+	assert_eq!(out[0], json!({ "id": 9150, "usable": false, "best": false, "pending": false, "byValue": true }), "the dearest, though a warrior can't wear it");
+	assert_eq!(out[1], json!({ "id": 9101, "usable": true, "best": false, "pending": false, "byValue": true }), "equal prices: the usable one");
+	assert_eq!(out[2], json!({ "id": false, "usable": false, "best": false, "pending": true, "byValue": false }), "a price not cached yet waits");
+	assert_eq!(out[3], json!({ "id": 9103, "value": true, "upgrade": false }), "the guide window's pick");
+	assert_eq!(out[4]["byValue"], false, "an upgrade wins over any price: {}", out[4]);
+	assert_eq!(out[4]["id"], 9101);
 }
 
 #[test]

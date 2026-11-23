@@ -60,46 +60,52 @@ return {
 	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "정예 몹입니다. 파티를 맺는 것을 권장하니 함께할 사람을 찾아보십시오. {npc:8436}은(는) {area:1446} 서쪽, {area:1442}의 황혼의 망치단 야영지에서 황혼의망치단 화염경비병, 황혼의망치단 우상숭배자, 황혼의망치단 풍수사(48-49레벨 정예) 사이에 서 있고, 그 옆에는 {npc:8282}(51레벨 희귀 정예)이(가) 있습니다. {quest:3377}에는 4인 파티가 필요합니다. 혼자라면 건너뛰십시오.",
 
-	-- Step 15: Searing Lava Spiders
+	-- Step 15: Prayer to Elune: the page
+	-- {quest:3378} Prayer to Elune
+	["{quest:3378}: the page"] = "",
+	-- {npc:8436} Zamael Lunthistle · {quest:3378} Prayer to Elune
+	["The Twilight elites of {npc:8436}'s camp drop the {quest:3378} page, about one in five: keep the group together here until one drops."] = "",
+
+	-- Step 16: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
 	["Searing Lava Spiders"] = "이글거리는 용암거미",
 	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
 	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "거미는 {npc:8436} 남쪽, {npc:8479}에게 가는 길의 고원과 용암 웅덩이를 돌아다닙니다.",
 
-	-- Step 16: Velarok Windblade
+	-- Step 17: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
 	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "{npc:8479}은(는) {area:1446} 남쪽, 용광로 가장자리에 서 있습니다. 그의 이야기를 들으십시오.",
 
-	-- Step 19: Golems and elementals
+	-- Step 20: Golems and elementals
 	["Golems and elementals"] = "골렘과 정령",
 	-- {npc:8479} Velarok Windblade
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Magma Elementals = {npc:5855} Magma Elemental
 	["Heavy War Golems patrol the floor of the Cauldron below {npc:8479}; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "{npc:8479} 아래 용광로 바닥을 육중한 전투골렘이 순찰하고, 그 사이를 용암 정령이 떠다닙니다. 기름은 골렘과 정령이, 심장은 정령이 떨어뜨립니다.",
 
-	-- Step 21: Dark Iron Taskmasters
+	-- Step 22: Dark Iron Taskmasters
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster
 	["Dark Iron Taskmasters"] = "",
 	-- {area:1443} Slag Pit
 	["With your group, look for Taskmasters on the open ledges. Stay on the surface; don't follow the arrow into the {area:1443}."] = "",
 
-	-- Step 22: Dark Iron Slavers
+	-- Step 23: Dark Iron Slavers
 	-- plural, as words: Dark Iron Slavers = {npc:5844} Dark Iron Slaver
 	["Dark Iron Slavers"] = "",
 	["Careful: Slavers can net you and call allies within 15 yards. A Taskmaster or Steamsmith may be standing beside one. Wait for a clear pull or leave the pack; don't descend into the Cauldron for this bounty."] = "",
 
-	-- Step 23: The furnaces and southern ridges
+	-- Step 24: The furnaces and southern ridges
 	["The furnaces and southern ridges"] = "",
 	-- {item:18959} Smithing Tuyere · {item:11818} Grimesilt Outhouse Key
 	["The Steamsmiths at the furnaces carry the {item:18959}; the Lookouts on the southern ridges carry the Spyglass. Keep the {item:11818} if a dwarf drops it."] = "",
 
-	-- Step 24: Thorium Plated Daggers
+	-- Step 25: Thorium Plated Daggers
 	-- plural, as words: Thorium Plated Daggers = {item:10551} Thorium Plated Dagger
 	["Thorium Plated Daggers"] = "",
 	-- {item:18959} Smithing Tuyere
 	-- plural, as words: Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith · Thorium Plated Daggers = {item:10551} Thorium Plated Dagger
 	["Dark Iron Steamsmiths at the surface furnaces carry Thorium Plated Daggers as well as the {item:18959}. Pull from the outside of the camp."] = "",
 
-	-- Step 28: Searing Gorge: kill these as you meet them
+	-- Step 29: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
 	["{zone:1427}: kill these as you meet them"] = "",
 	-- {area:1443} Slag Pit · {npc:14621} Overseer Maltorius
@@ -108,74 +114,76 @@ return {
 	-- {item:18922} Secret Plans: Fiery Flux
 	["{item:18922}; below ground"] = "",
 
-	-- Step 29: Searing Gorge: kill these as you meet them
+	-- Step 30: Searing Gorge: kill these as you meet them
 	-- {npc:14621} Overseer Maltorius
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:14621} is a level 50 elite: most classes solo it at level 52, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 31: Level 48.66
+	-- Step 32: Level 48.66
 	["Level 48.66"] = "",
-	-- {quest:7701} WANTED: Overseer Maltorius
-	["If you skipped Culling the Competition or {quest:7701}, top up here if you are still below level 48.66."] = "",
+	-- {area:1443} Slag Pit · {quest:7701} WANTED: Overseer Maltorius · {npc:14621} Overseer Maltorius
+	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
+	["Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in."] = "",
 	-- {npc:9318} Incendosaur
 	["grind on {npc:9318}"] = "{npc:9318} 사냥",
 
-	-- Step 33: The Flame's Casing
+	-- Step 34: The Flame's Casing
 	-- {npc:5860} Twilight Dark Shaman
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 35: The Torch of Retribution
+	-- Step 36: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
 	["Listen to {npc:8479}'s story once more."] = "{npc:8479}의 이야기를 한 번 더 들으십시오.",
 
-	-- Step 36: Velarok Windblade
+	-- Step 37: Velarok Windblade
 	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
 	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "{quest:3453}은(는) {npc:8479}의 발치 땅바닥에 놓여 있고, {quest:3462}은(는) 그 옆에 서 있습니다.",
 	-- {quest:3462} Squire Maltrake · {area:1446} Thorium Point
 	["{quest:3462}: hand it in on the way back to {area:1446}"] = "{quest:3462}: {area:1446}(으)로 돌아가는 길에 완료하십시오",
 
-	-- Step 37: Sentry Braziers
+	-- Step 38: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Sentry Braziers"] = "감시용 화로",
 	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "{object:149047}을(를) 들고 용광로 가장자리를 따라 남쪽으로 가서, 남서쪽부터 남동쪽까지 돌며 감시용 화로 네 개에 불을 붙이십시오.",
 
-	-- Step 38: Level 48.98
+	-- Step 39: Level 48.98
 	["Level 48.98"] = "",
-	-- {quest:3452} The Flame's Casing
-	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "",
-	-- {npc:5844} Dark Iron Slaver
-	["grind on {npc:5844}"] = "{npc:5844} 사냥",
+	-- {quest:3452} The Flame's Casing · {object:147516} Dark Iron · {area:1442} Firewatch Ridge
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider · Magma Elementals = {npc:5855} Magma Elemental
+	["Still under level 48.98 (a solo player usually is; a group's {quest:3452} covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the {object:147516} camps.\nCareful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at {area:1442}, whose cultists are elites."] = "",
+	-- {npc:5858} Searing Lava Spider
+	["grind on {npc:5858}"] = "",
 
-	-- Step 39: Margol's Horn
+	-- Step 40: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:3181} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 	["Below ground"] = "지하",
 
-	-- Step 41: Squire Maltrake
+	-- Step 42: Squire Maltrake
 	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade · {area:1446} Thorium Point
 	["{npc:8509} and the dragonflight's hoard are beside {npc:8479}, on the rim south of {area:1446}."] = "{npc:8509}와(과) 용군단의 보물은 {area:1446} 남쪽 가장자리, {npc:8479} 옆에 있습니다.",
 	-- {object:149502} Hoard of the Black Dragonflight · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous · {zone:1428} Burning Steppes
 	["The {object:149502} it gives holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}"] = "보상으로 받는 {object:149502}에는 {item:10575}이(가) 들어 있습니다: {zone:1428}의 {npc:9459}에게 가져갈 수 있도록 간직하십시오",
 
-	-- Step 43: Fly to Ironforge
+	-- Step 44: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "{area:1446}의 비행 조련사",
 
-	-- Step 44: Hall of Explorers
+	-- Step 45: Hall of Explorers
 	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
 	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: 수액괴물은 {zone:1448}에 있으니 간직하십시오",
 
-	-- Step 45: Mystic Ward
+	-- Step 46: Mystic Ward
 	-- {zone:1447} Azshara
 	["Four rune rubbings in {zone:1447}: keep it"] = "{zone:1447}의 룬 탁본 네 개: 간직하십시오",
 
-	-- Step 46: Class trainer
+	-- Step 47: Class trainer
 	["Class trainer"] = "직업 전문가",
 
-	-- Step 47: Xiggs Fuselighter
+	-- Step 48: Xiggs Fuselighter
 	-- {object:32359} Military Ward (no name in this language: may be words)
 	["Xiggs waits in the {object:32359}."] = "직스 퓨즈라이터는 군사 지구에서 기다립니다({object:32359}).",
 
@@ -193,4 +201,5 @@ return {
 	-- ["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509}와(과) 용군단의 보물은 {area:1446} 남쪽 가장자리, 벨라록 옆에 있습니다.",
 	-- ["{object:147516} dwarves"] = "{object:147516} 드워프",
 	-- ["{quest:3453} lies on the ground at Velarok's feet; {quest:3462} stands beside him."] = "{quest:3453}은(는) 벨라록의 발치 땅바닥에 놓여 있고, {quest:3462}은(는) 그 옆에 서 있습니다.",
+	-- ["grind on {npc:5844}"] = "{npc:5844} 사냥",
 }

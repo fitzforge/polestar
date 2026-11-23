@@ -1,11 +1,14 @@
 //! A character in each capital of its faction, with the city's people around it: every NPC the shipped Codex
 //! places in that city on the player's side (guards, vendors, trainers, elites, the faction leaders), every leader
 //! of the faction in each of its capitals (Jaina, Mekkatorque and Vol'jin included), one elite the client calls
-//! "rare", and a vignette for each of them the Codex lists as a rare. Each is seen the four ways the rare
-//! detector listens to (nameplate, target, mouseover, minimap vignette), then two minutes pass. Nothing of it may
-//! reach the player: no rare alert or card, no sound, no chat line, no raid-warning, error-frame line or flash
-//! (#2929, #2942: 0.4.1 alerted Thrall, Magni and the other leaders). The same run ends outside the cities with a
-//! hostile rare on a nameplate, which alerts once: the detector was live all along.
+//! "rare", and a minimap vignette for each of them the client calls rare or the Codex lists as a rare (the data
+//! build lists none on a player faction's side since 0.4.2, so the elite's vignette is the one shown). Each is
+//! seen the four ways the rare detector listens to (nameplate, target, mouseover, minimap vignette), then two
+//! minutes pass. Nothing of it may reach the player: no rare alert or card, no sound, no chat line, no
+//! raid-warning, error-frame line or flash (#2929, #2942: 0.4.1 alerted Thrall, Magni and the other leaders). The
+//! same run ends outside the cities with a hostile rare on a nameplate, which alerts once: the detector was live
+//! all along. In each city the Rares section opens on the full list and the city's map pins only the rares
+//! that spawn there (none in most capitals; the Sewer Beast in Stormwind, Soboz in the Undercity).
 
 use crate::common::{play, release_or_skip, Play};
 use forge_addontest::assert_timing;
@@ -129,9 +132,10 @@ for _, cap in ipairs(CAPITALS[w.faction]) do
 	end
 	U.clear("mouseover")
 	stub.advance(4)
-	local vignettes = {}
+	local vignettes, codexRares = {}, 0
 	for _, u in ipairs(crowd) do
-		if u.codexRare then
+		if u.codexRare then codexRares = codexRares + 1 end
+		if u.codexRare or u.class == "rare" then
 			local g = "Vignette-" .. map .. "-" .. u.npc
 			U.vignette(g, { npc = u.npc, name = u.name, map = map, x = 50, y = 50 })
 			stub.fire("VIGNETTE_MINIMAP_UPDATED", g, true)
@@ -154,8 +158,25 @@ for _, cap in ipairs(CAPITALS[w.faction]) do
 		classes[u.class] = (classes[u.class] or 0) + 1
 		if u.class == "worldboss" then leaders[#leaders + 1] = u.name end
 	end
-	out.capitals[#out.capitals + 1] = { name = cap[2], units = #crowd, classes = classes, leaders = leaders, vignettes = vignettes,
-		seen = d, meanMs = total / #crowd, worstMs = worst }
+	-- The Rares section and the rare pins, opened in the city (after the counts above): with no friendly rare in the
+	-- Codex the section still lists every rare (the hostile ones of the city too: the Sewer Beast, Soboz) and the
+	-- city's map pins as many rares as spawn on it.
+	local RV = assert(Polestar.UI.RaresSection, "no Rares section")
+	RV.Show("rare")
+	local shown = RV.Shown()
+	local here, pins = 0, 0
+	local list = Polestar.Rares.ListOf("rare") or {}
+	for _, rec in ipairs(list) do
+		for _, sp in ipairs(rec.spawns) do
+			if sp.map == map then here = here + 1 break end
+		end
+	end
+	for _, p in ipairs(Polestar.Rares.BuildPins({ kind = "rare", list = list, level = w.level })) do
+		if p.map == map then pins = pins + 1 end
+	end
+	out.capitals[#out.capitals + 1] = { name = cap[2], units = #crowd, classes = classes, leaders = leaders, leaderCount = #leaders,
+		vignettes = vignettes, vignetteCount = #vignettes, codexRares = codexRares, seen = d, meanMs = total / #crowd, worstMs = worst,
+		section = { tab = shown.tab, listed = shown.list or 0, empty = shown.empty or false, selected = shown.selected or false, here = here, pins = pins } }
 end
 -- The control: out of the cities, a hostile rare on a nameplate.
 local r = assert(hostileRare(), "the Codex has no rare on no side")
@@ -196,8 +217,20 @@ fn check(faction: &str, out: &Value) {
 		let units = c["units"].as_u64().unwrap();
 		assert!(units >= 100, "{name}: only {units} people in the city from the Codex");
 		assert!(c["classes"]["rare"].as_u64().unwrap_or(0) >= 1, "{name}: no friendly NPC the client calls rare among {}", c["classes"]);
-		assert!(!c["leaders"].as_array().unwrap().is_empty(), "{name}: no faction leader shown");
-		assert!(!c["vignettes"].as_array().unwrap().is_empty(), "{name}: no vignette of a friendly Codex rare shown");
+		// Counts, not lists: an empty Lua table comes out as `{}`, not `[]`.
+		let leaders = c["leaderCount"].as_u64().unwrap();
+		let vignettes = c["vignetteCount"].as_u64().unwrap();
+		let codex_rares = c["codexRares"].as_u64().unwrap();
+		assert!(leaders >= 1, "{name}: no faction leader shown");
+		assert!(vignettes >= 1, "{name}: no vignette of a friendly NPC shown");
+		assert_eq!(codex_rares, 0, "{name}: the Codex lists {codex_rares} friendly NPCs in the city as rares (the data build leaves them out, #2929 #2942)");
+		let sec = &c["section"];
+		assert_eq!(sec["tab"], "rare", "{name}: the Rares section opened on {}", sec["tab"]);
+		assert_eq!(sec["empty"], false, "{name}: the Rares section is empty ({})", sec["empty"]);
+		assert!(sec["listed"].as_u64().unwrap() >= 100, "{name}: the Rares section lists {} rares", sec["listed"]);
+		assert!(sec["selected"].is_string(), "{name}: the Rares section selected nothing");
+		let (pins, here) = (sec["pins"].as_u64().unwrap(), sec["here"].as_u64().unwrap());
+		assert!(pins >= here && (here > 0 || pins == 0), "{name}: {pins} rare pins (one a spawn spot) on the city's map for {here} rares spawning there");
 		let said = format!("{faction} in {name}, {units} friendly NPCs (leaders {}, vignettes {}) on nameplate, target, mouseover and the minimap, then 2 minutes", c["leaders"], c["vignettes"]);
 		assert_eq!(seen["rares"], 0, "{said}: {} rare alerts for {}", seen["rares"], seen["alerted"]);
 		assert_eq!(seen["cards"], 0, "{said}: {} rare cards shown", seen["cards"]);

@@ -285,7 +285,8 @@ return {
 	-- Step 46: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village
 	-- plural, as words: Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
-	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135}은(는) {area:137} 남서쪽 언덕의 트롤 동굴입니다. 입구의 머리사냥꾼을 처치하고 가장 안쪽 끝까지 걸어가세요.\n주의: 소굴 안의 서리갈기부족 무두장이는 9-10레벨이고 둘씩 서 있습니다. 한 마리씩 입구로 끌어오세요.",
+	-- was: ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135}은(는) {area:137} 남서쪽 언덕의 트롤 동굴입니다. 입구의 머리사냥꾼을 처치하고 가장 안쪽 끝까지 걸어가세요.\n주의: 소굴 안의 서리갈기부족 무두장이는 9-10레벨이고 둘씩 서 있습니다. 한 마리씩 입구로 끌어오세요."
+	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore {area:135} ticks only in there, not on the hill above it.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "{npc:1123}, 지하",
 
@@ -628,6 +629,7 @@ return {
 	-- ["Subdue the voidwalker"] = "공허방랑자 제압",
 	-- ["The tram arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "지하철은 {object:28027}에 도착합니다. {npc:5480}은(는) {object:2100}에서 전사를 훈련시킵니다. {npc:6089}와(과) {npc:6090}은(는) 그곳 {object:2152} 옆에 함께 서 있습니다. {npc:6090}은(는) 자기 잔을 걸고 당신과 싸웁니다.",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "정예 몹들입니다. 파티를 권장하니 함께할 사람을 찾으세요. {npc:1388}은(는) 12레벨 정예입니다. 파티로 상대하세요. 혼자라면 건너뛰세요. 앞으로의 {zone:1432} 퀘스트로 경험치를 메울 수 있습니다.",
+	-- ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135}은(는) {area:137} 남서쪽 언덕의 트롤 동굴입니다. 입구의 머리사냥꾼을 처치하고 가장 안쪽 끝까지 걸어가세요.\n주의: 소굴 안의 서리갈기부족 무두장이는 9-10레벨이고 둘씩 서 있습니다. 한 마리씩 입구로 끌어오세요.",
 	-- ["{item:5026} and the {item:6652}"] = "{item:5026}와(과) {item:6652}",
 	-- ["{npc:1226}: {npc:258785} in {zone:1455} takes it"] = "{npc:1226}: {zone:1455}의 {npc:258785}에게 제출합니다",
 	-- ["{npc:1241}, below ground: Camping 101, blacksmiths"] = "{npc:1241}, 지하: 야영 기초, 대장장이",

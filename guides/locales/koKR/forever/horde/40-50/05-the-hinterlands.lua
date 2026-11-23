@@ -129,6 +129,8 @@ return {
 	-- Step 27: Grim Message
 	-- {item:15002} Nimboya's Pike
 	["South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use {item:15002} to make the Laden Pike, then plant it inside the village."] = "산장 남쪽에서 마른나무껍질부족 트롤이 마을을 차지하고 있습니다. 모두 해골을 지니고 있습니다. 스무 개를 모아 {item:15002}을(를) 사용해 님보야의 무거운 창을 만든 뒤 마을 안에 꽂으세요.",
+	-- {area:1885} Hiri'watha
+	["inside {area:1885}: it can't be planted outside a village"] = "",
 
 	-- Step 28: Aerie Peak
 	-- {area:348} Aerie Peak
