@@ -946,6 +946,8 @@ fn tetris_played_from_the_card_becomes_the_choice_and_is_put_away_before_landing
 		local offered = games()
 		stub.frame("PolestarArcadeOffer").Ask.Games.tetris:Click()
 		local played = {{ open = A.Active(), choice = Polestar.Get("arcade.game") }}
+		-- Paused by the player (P), so five minutes of falling pieces don't end the game before the landing.
+		PolestarTetris.Pause()
 		stub.advance(300 - 1 - 9)
 		local run = PolestarTetris.Run()
 		local landing = {{ open = A.IsOpen("tetris"), paused = run.paused, respawn = run.needsRespawn }}
