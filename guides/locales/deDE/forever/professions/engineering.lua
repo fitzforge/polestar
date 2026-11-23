@@ -248,7 +248,8 @@ return {
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Horde)"] = "{item:2836} (Horde)",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "31 {item:2836} für {item:6533}: {skill:186}: {object:1732} (Fertigkeit 65) in {zone:1413} (10-25), {zone:1440} (18-30) und {zone:1424} (20-30). Das dichteste Vorkommen von {object:1732} in {zone:1440} ist markiert.",
+	-- was: ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "31 {item:2836} für {item:6533}: {skill:186}: {object:1732} (Fertigkeit 65) in {zone:1413} (10-25), {zone:1440} (18-30) und {zone:1424} (20-30). Das dichteste Vorkommen von {object:1732} in {zone:1440} ist markiert."
+	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked."] = "",
 
 	-- Step 48: Heavy Stone (Alliance)
 	-- {item:2838} Heavy Stone
@@ -419,6 +420,7 @@ return {
 	-- ["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it; or the Auction House. The arrow picks a farm spot for your level and faction."] = "19 {item:2592} für {spell:3953}: Beute von Humanoiden der Stufen 15-30; oder im Auktionshaus. Der Pfeil wählt einen Farmplatz für deine Stufe und Fraktion.",
 	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:11880} (level 57-59) here."] = "24 {item:14047} für {item:15994}: Droppt bei Humanoiden der Stufen 45-60; oder im Auktionshaus. Droppt hier bei {npc:11880} (Stufe 57-59).",
 	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:7027} (level 56-57) here."] = "24 {item:14047} für {item:15994}: Beute von Humanoiden der Stufen 45-60; oder im Auktionshaus. Hier ist es Beute von {npc:7027} (Stufe 56-57).",
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "31 {item:2836} für {item:6533}: {skill:186}: {object:1732} (Fertigkeit 65) in {zone:1413} (10-25), {zone:1440} (18-30) und {zone:1424} (20-30). Das dichteste Vorkommen von {object:1732} in {zone:1440} ist markiert.",
 	-- ["Apprentice {skill:202}"] = "{skill:202} (Lehrling)",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "Fachmann erfordert Charakterstufe 35 und {skill:202} 200; damit steigt die Obergrenze auf 300. Die Materialien für 225-300 sind insgesamt etwa 67g wert.",
 	-- ["Back to an {skill:202} trainer: {spell:12585}, {spell:12596} are taught from {skill:202} 210."] = "Zurück zu einem Lehrer für {skill:202}: {spell:12585}, {spell:12596} werden ab {skill:202} 210 gelehrt.",

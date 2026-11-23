@@ -27,7 +27,16 @@ local NEW = "0.3.8"
 local function percent(v) return floor(v * 100 + 0.5) .. "%" end
 -- Guidance options with no effect while Shortest Path Forever guides (Nav/Handoff.lua).
 local function H(c) return Nav.HandoffOption and Nav.HandoffOption(c) or c end
+-- The arrow switch's help on this page, where its home's pointer to the
+-- Arrow page reads oddly, with the hand-off note its home carries too.
+local ARROW_HELP = H({ help = L["Points to the current goal."] }).help
+-- The units as this page's Text rows name them: short, beside the sizes.
+local UNITS = { { value = "yards", label = L["Yards"] }, { value = "metres", label = L["Metres"] } }
 local function arrowOff() return not ns.Get("nav.arrow") end
+-- The arrow's behaviour (its switch, hiding with the guide, the arrival time
+-- and sound, the distance units) has its home on Guide > Arrow & routes >
+-- Arrow; this page shows references to those rows (UI.Options.Ref).
+local Ref = W.Ref
 
 ---------------------------------------------------------------------------
 -- The previews
@@ -249,12 +258,10 @@ end
 
 local SPECS = {
 	-- Look: the arrow itself, its glow, its arrival, when it shows.
-	{ page = PAGE, key = "arrow", icon = "icon-goto", order = 22, group = "look", tab = L["Look"], section = L["Arrow"],
+	{ page = PAGE, key = "arrow", icon = "dart", order = 22, group = "look", tab = L["Look"], section = L["Arrow"],
 		preview = buildLookBand, move = "arrow",
 		subtitle = L["The waypoint arrow: its style, size, colours, glow, arrival, text and when it shows."],
-		toggle = H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"],
-			search = "arrow, waypoint, pointer, direction, compass, navigation, hud, hide arrow",
-			help = L["Points to the current goal."] }),
+		toggle = Ref("toggle", "nav.arrow", { label = L["Show arrow"], help = ARROW_HELP }),
 		controls = {
 		H({ kind = "cards", key = "nav.arrowStyle", label = L["Style"], wide = true,
 			search = "arrow style, arrow look, arrow type, 3d arrow, flat arrow, dart, pointer, halo, hearth, skin",
@@ -305,16 +312,13 @@ local SPECS = {
 					search = "glow on, glow off, halo, shine, light, bloom, soft light",
 					help = L["The soft light under the flat arrow, behind the arrival ring and behind a travel instruction's sign."] },
 			} },
-		H({ kind = "toggle", key = "nav.arrivalSound", label = L["Sound"],
-			search = "arrival sound, chime, audio, ding",
-			help = L["A soft chime when you reach a waypoint."] }),
+		Ref("toggle", "nav.arrivalSound", { label = L["Sound"] }),
 	} },
 	{ page = PAGE, tab = L["Look"], section = L["Visibility"], controls = {
-		H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide with guide"],
-			search = "hide the arrow with the guide, guide hidden, window closed",
-			help = L["When the guide window is hidden, hide the arrow too."],
-			disabled = arrowOff }),
-		{ kind = "dropdown", key = "nav.arrowNoTarget", label = L["No goal"], new = NEW,
+		-- Its own disabled replaces its home's: greyed while the arrow is off and, as at home, while Shortest Path
+		-- Forever guides.
+		Ref("toggle", "nav.hideArrowWithGuide", { label = L["Hide with guide"], disabled = function() return arrowOff() or (Nav.HandedOff ~= nil and Nav.HandedOff()) end }),
+		{ kind = "dropdown", key = "nav.arrowNoTarget", label = L["With nowhere to go"], new = NEW,
 			search = "no target, no waypoint, idle, empty, placeholder, dim, always show",
 			help = L["Hide the arrow when there is nowhere to go (the default), or keep a faint ring in its place."],
 			disabled = arrowOff,
@@ -345,10 +349,7 @@ local SPECS = {
 					shown = pickedOr("nav.arrowDistColor", "text"),
 					source = function() return L["Text"] end },
 			} },
-		{ kind = "dropdown", key = "nav.distanceUnit", label = L["Units"],
-			search = "distances, units, yards, metres, meters, metric, distance",
-			help = L["How the arrow, map tooltips, rares and the death helper show distances."],
-			choices = { { value = "yards", label = L["Yards"] }, { value = "metres", label = L["Metres"] } } },
+		Ref("dropdown", "nav.distanceUnit", { label = L["Units"], choices = UNITS }),
 		{ kind = "slider", key = "nav.arrowLabelSize", label = L["Label size"], min = 0.5, max = 2.5, step = 0.05, format = percent, new = NEW,
 			search = "label size, name size, bigger text, text size, font size",
 			help = L["The goal's name or the route's next leg, against the skin's size."],
@@ -373,9 +374,7 @@ local SPECS = {
 			search = "eta size, time size, arrival time size, smaller text, text size, font size",
 			help = L["The estimated time under the distance, and the arrow's last line, against the skin's size. The switch shows or hides the time."],
 			extras = {
-				H({ kind = "toggle", key = "nav.arrowEta", label = L["Arrival time"],
-					search = "eta, time left, travel time, minutes, show arrival time",
-					help = L["Estimated time under the distance."] }),
+				Ref("toggle", "nav.arrowEta", { label = L["Arrival time"] }),
 				{ kind = "color", key = "nav.arrowEtaColor", label = L["Arrival time colour"], new = NEW,
 					search = "eta colour, time colour, arrival time colour, text colour",
 					help = L["The arrival time and the arrow's last line. Right-click to go back to the text colour."],
@@ -409,7 +408,8 @@ local SPECS = {
 }
 
 -- Essentials (the page's lead tab): the arrow's styles, then the ten
--- settings players change most, each a reference to its row on Look or Text.
+-- settings players change most, each a reference to its home row (on Look or
+-- Text; the arrow's behaviour on Guide).
 local O = ns.UI and ns.UI.Options
 if O and O.Ref then
 	local R = O.Ref
@@ -418,11 +418,11 @@ if O and O.Ref then
 		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Style"], preview = buildEssentialsBand,
 			controls = { R("cards", "nav.arrowStyle") } },
 		{ page = PAGE, tab = ESSENTIALS, section = L["Arrow"], jump = { tab = L["Look"], section = L["Arrow"] },
-			toggle = R("toggle", "nav.arrow"),
+			toggle = R("toggle", "nav.arrow", { help = ARROW_HELP }),
 			controls = { R("slider", "nav.arrowScale"), R("slider", "nav.arrowAlpha"), R("color", "nav.arrowNearColor"), R("slider", "nav.arrowGlowStrength"),
-				R("toggle", "nav.hideArrowWithGuide"), R("slider", "nav.arrowCombatAlpha") } },
+				R("toggle", "nav.hideArrowWithGuide", { label = L["Hide with guide"] }), R("slider", "nav.arrowCombatAlpha") } },
 		{ page = PAGE, tab = ESSENTIALS, section = L["Text"], jump = { tab = L["Text"], section = L["Text"] },
-			controls = { R("slider", "nav.arrowDistSize"), R("slider", "nav.arrowLabelLines"), R("slider", "nav.arrowEtaSize"), R("dropdown", "nav.distanceUnit") } },
+			controls = { R("slider", "nav.arrowDistSize"), R("slider", "nav.arrowLabelLines"), R("slider", "nav.arrowEtaSize"), R("dropdown", "nav.distanceUnit", { label = L["Units"], choices = UNITS }) } },
 	}
 	for _, spec in ipairs(list) do SPECS[#SPECS + 1] = spec end
 end

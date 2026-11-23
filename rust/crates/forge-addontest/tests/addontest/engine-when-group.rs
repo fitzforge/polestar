@@ -276,7 +276,7 @@ fn a_group_quest_the_answer_skips_is_said_when_the_route_passes_its_steps_once_a
 	let all = run(Opts { guide: LATER_GUIDE, db: r#"PolestarDB = { schema = 1, settings = { behavior = { groupQuests = "skip" } } }; "#, ..opts(HAND_IN_783) });
 	assert_eq!(
 		all[0],
-		json!({ "before": 1, "at": 4, "events": [{ "from": 2, "to": 4, "quests": ["7:group:Group quest: Options, Automation, Group quests skips them all"] }] }),
+		json!({ "before": 1, "at": 4, "events": [{ "from": 2, "to": 4, "quests": ["7:group:Group quest: Settings, Automation, Group quests skips them all"] }] }),
 		"its accept and turn-in steps pass with one notice"
 	);
 	// This one answered skip (Discovery, Group quests).

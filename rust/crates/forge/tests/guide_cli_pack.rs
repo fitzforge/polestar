@@ -452,9 +452,10 @@ fn a_packs_license_placeholder_line_warns_until_replaced() {
 }
 
 /// Polestar's own experimental pack: `experimental/` in a checkout is linted and compiled as another pack (our
-/// guides as context, a community pack's pack.json, but its reserved id allowed) and written to the checkout's
-/// addon/Polestar_Experimental with Polestar's TOC, loaded on demand. Its pack.json may not name a Polestar_
-/// folder nor another author; the same pack anywhere else is a community pack, refused for the reserved id.
+/// guides as context, a community pack's pack.json, but its reserved id allowed) and written into the checkout's
+/// addon/Polestar/Experimental, inside Polestar with no TOC of its own (Polestar's lists its files), its guides
+/// handed to Polestar.DeferGuides. Its pack.json may not name a Polestar_ folder nor another author; the same pack
+/// anywhere else is a community pack, refused for the reserved id.
 #[test]
 fn the_checkout_s_experimental_pack_compiles_into_addon_polestar_experimental_as_polestar_s() {
 	let root = tmp("experimental-checkout");
@@ -473,13 +474,16 @@ fn the_checkout_s_experimental_pack_compiles_into_addon_polestar_experimental_as
 	assert_eq!(lint.status, 0, "{}", lint.stderr);
 	let compiled = go("compile");
 	assert_eq!(compiled.status, 0, "{}", compiled.stderr);
-	let toc = std::fs::read_to_string(root.join("addon/Polestar_Experimental/Polestar_Experimental.toc")).unwrap();
-	has(&toc, r"(?m)^## Title: Polestar Experimental$");
-	has(&toc, r"(?m)^## Notes: Part of Polestar\.$");
-	has(&toc, r"(?m)^## Title-frFR: Polestar : guides expérimentaux$");
-	has(&toc, r"(?m)^## Author: Polestar$");
-	has(&toc, r"(?m)^## LoadOnDemand: 1$");
-	has(&toc, r"(?m)^## X-Polestar-Pack: polestar-experimental$");
+	let built = root.join("addon/Polestar/Experimental");
+	let names: Vec<String> = std::fs::read_dir(&built).unwrap().flatten().map(|e| e.file_name().to_string_lossy().into_owned()).collect();
+	assert!(!names.iter().any(|n| n.ends_with(".toc")), "no TOC of its own: {names:?}");
+	assert!(!root.join("addon/Polestar_Experimental").exists(), "no folder of its own");
+	let pack = std::fs::read_to_string(built.join("Pack.lua")).unwrap();
+	has(&pack, r#"id = "polestar-experimental""#);
+	has(&pack, r#"title = "Polestar Experimental""#);
+	has(&pack, r#"author = "Polestar""#);
+	let guides = std::fs::read_to_string(built.join("Guides.lua")).unwrap();
+	has(&guides, r#"\nPolestar\.DeferGuides\("polestar-experimental", function\(\)\n[\s\S]*id = "polestar-experimental/elwynn"[\s\S]*\nend\)\n$"#);
 	assert!(!exp.join("dist").exists(), "never into experimental/dist");
 	// A Polestar_ folder in its pack.json is refused as for any pack, and so is another author.
 	std::fs::write(exp.join("pack.json"), manifest.replace("\"version\"", "\"folder\": \"Polestar_Experimental\",\n\t\"version\"")).unwrap();

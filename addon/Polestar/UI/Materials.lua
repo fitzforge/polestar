@@ -254,7 +254,6 @@ end
 local function choose(b, on)
 	if (b.psPrimary and true or false) == on then return end
 	b.psPrimary = on or nil
-	Theme.Repaint(b)
 	W.RepaintButton(b)
 end
 

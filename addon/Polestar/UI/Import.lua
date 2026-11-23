@@ -273,7 +273,7 @@ function IV.Build(parent, shell)
 		L["A set of guides, or one too big for a string, comes as a community addon:"],
 		"1. " .. L["Get it from wherever its author publishes it."],
 		"2. " .. L["Install it like any addon, then restart the game."],
-		"3. " .. L["Its guides appear in the guide menu under Community guides, with the author's name. Options, Community guides turns it on or off."],
+		"3. " .. L["Its guides appear in the guide menu under Community guides, with the author's name. Settings, Community guides turns it on or off."],
 	}, "\n"))
 	parts.DocsLabel = oneLine(W.Text(content, "note", "text"))
 	parts.Docs = W.Link(content, "", function()

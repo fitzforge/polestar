@@ -152,6 +152,7 @@ step Menethil Harbor
 step Harlo Barnaby
   zone Wetlands
   when !turnedin 304
+  when !onquest 304
   accept 472                              -- Harlo Barnaby, by the north gate: Longbraid the Grim takes it at Dun Modr, at the north end of this visit's east loop
 
 step Glorin Steelbrow

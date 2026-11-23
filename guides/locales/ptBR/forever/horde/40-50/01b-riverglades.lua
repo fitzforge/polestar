@@ -165,7 +165,7 @@ return {
 	["South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with {npc:263190}'s spears. The Alliance trains its scouts and priests at a camp on the far bank. {npc:257079}, the Alliance elite, rides the road just east of the camp: pull the scouts and priests away from it.\nCareful: {npc:263380}, an elite (level 42), hunts along this river: if he comes your way, back off and let him pass."] = "A sudoeste de Rog'mar, o rio corre entre as fazendas: empale os Crocoliscos de Água Doce com as lanças de {npc:263190}. A Aliança treina seus batedores e sacerdotes num acampamento na outra margem. {npc:257079}, o Elite da Aliança, percorre a estrada logo a leste do acampamento: puxe os batedores e sacerdotes para longe dela.\nCuidado: {npc:263380}, um Elite (nível 42), caça ao longo deste rio: se ele vier na sua direção, recue e deixe-o passar.",
 	-- {npc:263190} Tan'jani
 	-- plural, as words: Freshwater Crocolisks = {npc:259046} Freshwater Crocolisk
-	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "",
+	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "as lanças de {npc:263190}, nos Crocodilos de água doce do rio",
 
 	-- Step 39: Tran'gul
 	-- {npc:256710} Tran'gul · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
@@ -264,7 +264,7 @@ return {
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
 	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "",
 	-- {npc:258048} Jom-jom
-	["{npc:258048}, in the cave"] = "",
+	["{npc:258048}, in the cave"] = "{npc:258048}, na caverna",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
 	["help {npc:258048} reach {area:16726}"] = "ajude {npc:258048} a chegar a {area:16726}",
 
@@ -408,7 +408,9 @@ return {
 
 	-- Step 85: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} ronda as águas rasas a sudoeste do porto, abaixo das praias dos murlocs. {npc:257001}, um elite, anda pela costa ali perto: mantenha distância.",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "",
+	-- {item:268633} Sea Monster's Head
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "",
 
 	-- Step 87: The river: Riverweed
 	-- {item:265806} Riverweed
@@ -487,6 +489,7 @@ return {
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "Volte mais uma vez aos penhascos dos piratas. Plante as cargas de Whizzbuzz nos três navios atracados abaixo do acampamento, de sul para norte; {quest:95124} fica junto ao do meio, com seu baú de saque ao lado. Fique de olho em {npc:259758} no caminho.\nCuidado: {quest:95124} é de nível 45, um ou dois níveis acima de você aqui: limpe o convés ao redor dela primeiro e chegue com a vida cheia.",
 	-- ["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "Os acampamentos do culto ocupam o vale ao sul e a oeste de {npc:258570}. Liberte os Batedores Rog'mar cativos conforme encontrá-los. Executores do Crepúsculo (elites, nível 45) patrulham os acampamentos: observe por onde andam antes de cada puxada. {npc:256881} e {npc:256891} (elites, 46) ocupam a fortaleza na cabeceira do vale: afaste os cultistas deles. O acampamento da Aliança de {npc:258023} fica na ponta sul do vale, e seus Vigias de Farholde (nível 46) atacam a Horda: fique ao norte dele.",
 	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "O próximo Guia parte de voo de {area:340}, em {area:3}: siga para o norte saindo do vale de {npc:258570} e suba por {area:16685}, a passagem para {area:3}.",
+	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} ronda as águas rasas a sudoeste do porto, abaixo das praias dos murlocs. {npc:257001}, um elite, anda pela costa ali perto: mantenha distância.",
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Fuçafocinho e {npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548} ficam ao sul de {area:3}. Siga para leste de {area:657} até {area:75} e voe para {area:340}: o caminho de descida para a zona começa lá.",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "A oeste de Rog'mar, o culto do Crepúsculo domina a cidade agrícola de {area:16723}. {npc:259158}, um kobold que quer sair, se esconde no meio da cidade.",
