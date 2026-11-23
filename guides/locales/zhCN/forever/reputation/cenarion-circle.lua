@@ -206,13 +206,7 @@ return {
 	-- {quest:8800} Cenarion Battlegear · {npc:15176} Vargus
 	["{quest:8800}: {npc:15176}'s badge gear"] = "{quest:8800}：{npc:15176} 的徽章兑换装备",
 
-	-- Step 31: Silithyst
-	["Silithyst"] = "水晶尘",
-	-- {quest:9419} Scouring the Desert · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora · {npc:17079} General Kirika · {area:2744} Hive'Regal
-	["Optional, 100 reputation once: {quest:9419}. Your side's camp sits by a hive: {npc:17080}'s by {area:2743} (Alliance), {npc:17079}'s by {area:2744} (Horde). Silithyst rises from glowing geysers around the desert: walk through one, carry the Silithyst to your camp's Silithyst Extractor, then talk to the camp's leader. It is a world PvP objective: players of the other side can take it from you."] = "可选，一次性奖励 100 点声望：{quest:9419}。本方营地位于虫巢旁：{npc:17080} 在 {area:2743} 旁（联盟），{npc:17079} 在 {area:2744} 旁（部落）。沙漠中发光的喷泉会喷出水晶尘：走进去，携带水晶尘回到本方营地的水晶尘提取器，再与营地首领交谈。这是世界 PvP 目标：敌对阵营玩家可以抢走你携带的水晶尘。",
-	["deliver Silithyst at the extractor"] = "在提取器处交还 水晶尘",
-
-	-- Step 32: Templars and the Abyssal Council
+	-- Step 31: Templars and the Abyssal Council
 	["Templars and the Abyssal Council"] = "圣殿骑士与深渊议会",
 	-- {object:180456} Lesser Wind Stone · {item:20513} Abyssal Crest · {quest:8361} Abyssal Contacts · {npc:15270} Huum Wildmane · {quest:8331} Aurel Goldleaf · {item:14344} Large Brilliant Shard · {object:180461} Wind Stone · {item:20514} Abyssal Signet
 	["Wearing a full set of Twilight Trappings (cultist Cowl, Mantle and Robe, about 8%, 8% and 6% per cultist) lets you use a {object:180456}: two stand in each of the three western camps. A random Abyssal Templar appears: a level 60 elite for 1 to 3 players, 5 reputation until the top of Honored and an {item:20513} 93% of the time. The summon uses up the set (and later the medallion and ring too), and if the elemental gets away they are gone: summon only when you can win. {quest:8361} pays 100 for the first crest; after that Bor takes 3 crests for 50. From Friendly, {npc:15270} sends you to {quest:8331}: 3 crests and a {item:14344} buy the Medallion of Station that, worn with a set, opens the larger {object:180461} for a Duke (level 62 elite, group of 5; 25 reputation, {item:20514} 85%)."] = "穿齐暮光套装（教徒的兜帽、披肩和长袍，每个教徒的掉率分别约为8%、8%和6%）后，就能使用 {object:180456}：西边三个营地中每个都有两块。会随机出现一名深渊圣殿骑士：60级精英，适合一到三名玩家，击杀奖励5点声望，直到尊敬封顶，并有93%概率掉落一个 {item:20513}。召唤会消耗整套装备（之后还会消耗勋章和戒指），元素逃走后这些也无法找回：有把握获胜时再召唤。{quest:8361} 首次交还纹章奖励100点；之后鲍尔·蛮鬃每收取3个纹章奖励50点。从友善起，{npc:15270} 会指引你做 {quest:8331}：用3个纹章和一块 {item:14344} 换取身份勋章，佩戴它并穿齐套装即可使用更大的 {object:180461}，召唤公爵（62级精英，五人小队；25点声望，{item:20514} 掉率85%）。",
@@ -225,7 +219,7 @@ return {
 	-- {item:20514} Abyssal Signet
 	["{item:20514}: Duke, group of 5"] = "{item:20514}：公爵，五人小队",
 
-	-- Step 33: Signets and scepters to Exalted
+	-- Step 32: Signets and scepters to Exalted
 	["Signets and scepters to Exalted"] = "用徽记和节杖提升到崇拜",
 	-- {quest:8363} Abyssal Signets · {npc:15282} Aurel Goldleaf · {item:20515} Abyssal Scepter · {quest:9248} A Humble Offering · {quest:8343} Goldleaf's Discovery · {quest:8341} Lords of the Council · {object:180466} Greater Wind Stone · {item:22252} Satchel of Cenarius · {item:22660} Gaea's Embrace · {item:22756} Sylvan Vest · {npc:15176} Vargus
 	-- plural, as words: Large Brilliant Shards = {item:14344} Large Brilliant Shard
@@ -242,13 +236,13 @@ return {
 	-- {quest:8364} Abyssal Scepters
 	["3 {quest:8364}: 150, Revered"] = "3个 {quest:8364}：150，崇敬",
 
-	-- Step 34: The Ruins of Ahn'Qiraj, when they open
+	-- Step 33: The Ruins of Ahn'Qiraj, when they open
 	-- {area:3454} Ruins of Ahn'Qiraj
 	["The {area:3454}, when they open"] = "{area:3454}，开放后再去",
 	-- {area:2737} Scarab Wall · {zone:1451} Silithus · {quest:8791} The Fall of Ossirian · {npc:15185} Brood of Nozdormu · {npc:15498} Windcaller Yessendra · {npc:15500} Keyl Swiftclaw · {npc:15499} Warden Haro · {npc:16091} Dirk Thunderwood · {quest:9023} The Perfect Poison · {item:22217} Kurinnaxx's Venom Sac · {area:19} Zul'Gurub · {npc:15471} Lieutenant General Andorov · {item:22219} Plans: Jagged Obsidian Shield · {item:22191} Obsidian Mail Tunic
 	["A 20-player raid behind the {area:2737} in the far south-west of {zone:1451}. A full clear is about 1,600 Cenarion reputation: the trash 3 each until 20,999 of 21,000 Revered, Kurinnaxx, Moam, Buru and Ayamiss 150 each and Ossirian 300, to Exalted. Ossirian's head starts {quest:8791} (200 here and 200 {npc:15185}). Their drops buy the ring (Honored), cloak (Revered) and weapon (Exalted) quests of {npc:15498}, {npc:15500} and {npc:15499} in the Hold, 100 reputation each. {npc:16091} in the Hold pays 100 once for {quest:9023}: {item:22217} from here and Venoxis's from {area:19}. {npc:15471} sells {item:22219} (Revered, 5g) and {item:22191} (Exalted, 8g) inside."] = "这是位于 {zone:1451} 最西南端 {area:2737} 后方的20人团队副本。完整通关一次约获得1,600塞纳里奥声望：小怪每只3点，直到崇敬20,999/21,000；库林纳克斯、莫阿姆、布鲁和阿亚米斯各150点，奥斯里安300点，首领声望可到崇拜。奥斯里安的头颅触发 {quest:8791}（此处200点，另有200点 {npc:15185}）。他们的掉落可用于要塞内 {npc:15498}、{npc:15500} 和 {npc:15499} 的戒指（尊敬）、披风（崇敬）和武器（崇拜）任务，每个任务100声望。要塞内的 {npc:16091} 为一次性的 {quest:9023} 奖励100声望：需要这里的 {item:22217} 和 {area:19} 的高阶祭司温诺希斯对应物品。副本内 {npc:15471} 出售 {item:22219}（崇敬，5金币）和 {item:22191}（崇拜，8金币）。",
 
-	-- Step 35: Venoxis's Venom Sac, Zul'Gurub
+	-- Step 34: Venoxis's Venom Sac, Zul'Gurub
 	-- {quest:9023} The Perfect Poison · {npc:14507} High Priest Venoxis · {area:19} Zul'Gurub · {zone:1434} Stranglethorn Vale
 	["Optional, for {quest:9023}: {npc:14507} is the first boss of {area:19}, a 20-player raid in north-east {zone:1434}."] = "可选，供{quest:9023}使用：{npc:14507}是{area:19}的第一个首领，该副本是位于{zone:1434}东北部的20人团队副本。",
 	-- {item:22216} Venoxis's Venom Sac
@@ -261,9 +255,12 @@ return {
 	-- ["From here on, the {area:3454} raid and the Abyssal Council turn-ins (crests, signets, scepters) carry most of the reputation."] = "从这里开始，{area:3454}团队副本和深渊议会的上交物品（纹章、徽记、节杖）提供大部分声望。",
 	-- ["Keep farming the Twilight camps. Wearing the Twilight Trappings (the Twilight cultist set plus a Medallion of Station, from {npc:15282}'s Medallion of Station quest) lets you summon Abyssal Templars at the Wind Stones; their Abyssal Crests go to {npc:15306}."] = "继续刷暮光营地。穿上暮光信徒套装并带上暮光信徒身份勋章（来自{npc:15282}的“身份勋章”任务），就能在{object:180461}召唤深渊圣殿骑士；它们的{item:20513}交给{npc:15306}。",
 	-- ["Keep running the {area:3454} and turning in Abyssal Council insignia until Exalted."] = "继续刷{area:3454}并上交深渊议会的徽章，直到崇拜。",
+	-- ["Optional, 100 reputation once: {quest:9419}. Your side's camp sits by a hive: {npc:17080}'s by {area:2743} (Alliance), {npc:17079}'s by {area:2744} (Horde). Silithyst rises from glowing geysers around the desert: walk through one, carry the Silithyst to your camp's Silithyst Extractor, then talk to the camp's leader. It is a world PvP objective: players of the other side can take it from you."] = "可选，一次性奖励 100 点声望：{quest:9419}。本方营地位于虫巢旁：{npc:17080} 在 {area:2743} 旁（联盟），{npc:17079} 在 {area:2744} 旁（部落）。沙漠中发光的喷泉会喷出水晶尘：走进去，携带水晶尘回到本方营地的水晶尘提取器，再与营地首领交谈。这是世界 PvP 目标：敌对阵营玩家可以抢走你携带的水晶尘。",
 	-- ["Optional, and needed only for the Dredge quests later: {npc:15188} sends you to {zone:1451} with {quest:8275}, a 10-reputation letter. Skip it if you are already in {zone:1451}."] = "可选，仅后续掘泥虫任务需要：{npc:15188} 会给你 {quest:8275}，一封让你前往 {zone:1451} 的信，奖励 10 点声望。如果已经在 {zone:1451}，可以跳过。",
+	-- ["Silithyst"] = "水晶尘",
 	-- ["The {faction:609}'s other quests are spread over {zone:1414} and the Plaguelands. In Classic a quest pays less once it is 6 or more levels below you (a fifth less per level, down to a fifth): at 60, The Wildlife Suffers Too ({npc:10739}, {zone:1422}, levels 54 and 56) would pay 60 and 75 instead of 75 and 75, and Corruption of Earth and Seed ({area:2100}, level 51) 30 instead of 150. Your first turn-in shows which rule Forever uses. Shards of the Felvine ({quest:1123}, level 60, the {item:18501} from Alzzin in {area:2577}) pays 150 and its Reliquary 100 at any level."] = "{faction:609} 的其他任务分布在 {zone:1414} 和瘟疫之地。在经典旧世中，任务比你低 6 级及以上时，声望奖励会减少（每低一级减少五分之一，最低降至五分之一）：60 级时，“大自然的苦楚”（{npc:10739}，{zone:1422}，54 和 56 级）会从 75 和 75 点变为 60 和 75 点，“大地的污染”（{area:2100}，51 级）则从 150 点变为 30 点。第一次交还任务时，就能看出无限采用哪种规则。“魔藤碎片”（{quest:1123}，60 级，在 {area:2577} 从奥兹恩处取得 {item:18501}）在任何等级都提供 150 点，其圣物匣任务提供 100 点。",
 	-- ["Twilight's Hammer cultists hold the camps in western {zone:1451}. {quest:8320} and Stonecallers mix here; any cultist can drop an {item:20404}. Every cultist kill also counts toward the {faction:609}. The Geolords count for {quest:8320} only if you are 60 and took it."] = "暮光之锤的信徒占据着{zone:1451}西部的营地。{quest:8320}和暮光唤石者混在这里；任何信徒都可能掉落{item:20404}。每次击杀信徒也会提升{faction:609}声望。只有你60级并接了{quest:8320}时，击杀暮光地王才算数。",
+	-- ["deliver Silithyst at the extractor"] = "在提取器处交还 水晶尘",
 	-- ["{area:3425} is the walled town in north-central {zone:1451}. Bor and {npc:15270} stand together inside. The {faction:609} starts out Neutral. Forever's Legacy Diplomat perk increases reputation gains."] = "{area:3425}是{zone:1451}中北部有城墙的城镇。博尔和{npc:15270}一起站在里面。{faction:609}初始为中立。Forever的传承外交官特权可提高声望获取。",
 	-- ["{faction:609} to Exalted"] = "{faction:609}刷到崇拜",
 	-- ["{faction:609} to Honored"] = "{faction:609}刷到尊敬",

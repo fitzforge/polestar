@@ -285,6 +285,7 @@ fn lines() -> Addon {
 
 const PAINTED_PRELUDE: &str = r#"
 local N, R, Pins, nav = Polestar.Nav, Polestar.RouteLines, Polestar.Pins, stub.nav
+Polestar.Set("nav.navRouting", false) -- The painters draw a direct walk on this map unless the scene supplies a polyline.
 -- The dots style, drawn at once: the line style and the draw-in have tests of their own below.
 Polestar.Set("nav.lineStyle", "dots")
 Polestar.Set("ui.reduceMotion", true)
@@ -620,6 +621,7 @@ fn review_p3_8_blizzard_worldmap_loading_after_login_draws_the_route_lines_on_th
 		script: r#"
 local N, R, nav = Polestar.Nav, Polestar.RouteLines, stub.nav
 Polestar.Set("nav.travel", false)
+Polestar.Set("nav.navRouting", false)
 nav.place(0, 0)
 local m, x, y = nav.mapPoint(0, -600)
 N.SetTarget(m, x, y, "Target")
@@ -790,6 +792,7 @@ fn review_p3_9_a_theme_change_re_applies_the_outline_colour_to_pooled_lines() {
 local N, nav, T = Polestar.Nav, stub.nav, Polestar.Theme
 WorldMapFrame:GetCanvas():SetSize(1000, 1000)
 Polestar.Set("nav.travel", false)
+Polestar.Set("nav.navRouting", false)
 nav.place(0, 0)
 local m, x, y = nav.mapPoint(0, -600)
 N.SetTarget(m, x, y, "Target")

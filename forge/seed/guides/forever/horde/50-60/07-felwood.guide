@@ -1,7 +1,7 @@
 guide forever/horde/50-60/07-felwood
 title Felwood, Moonglade & Winterspring
 faction Horde
-levels 58-60
+levels 59-60
 zone Felwood
 # Built from the simulator's consensus route (Horde, visits 102-116) and
 # machine-checked with lint; not play-tested on Forever yet. The end of the

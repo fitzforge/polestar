@@ -11,7 +11,7 @@ const path = require('node:path');
 const { parseArgs, resolvePath, printDiagnostics, plural } = require('../lib/cli');
 const { LOCALE_CODES } = require('../lib/i18n/locales');
 const { retiredLanguageAddons } = require('../lib/i18n/toc');
-const { releaseAddons, packDirRefusal, textsDirRefusal, textsAddon, writePackDir } = require('../lib/dsl/project');
+const { releaseAddons, packDirRefusal, textsDirRefusal, textsAddon, writePackDir, FOLDED_ADDONS } = require('../lib/dsl/project');
 const { ROOT } = require('../lib/paths');
 const { detectAddonsDirs, isDir } = require('../lib/addons');
 const { PACK_OPTIONS, PACK_USAGE, otherPack, noDataConflict, noDataCache, buildPack, folderIn } = require('../lib/pack/build');
@@ -27,7 +27,8 @@ the data addons Polestar_QuestDB, Polestar_ItemDB, Polestar_Codex and the
 language folders Polestar_<locale> when they have been built (and with
 --recorder, addon/Polestar_Recorder) into World of Warcraft: Forever's AddOns
 folder, and removes the folders the language folders replaced there
-(Polestar_Guides_<locale>, Polestar_Names_<locale>).
+(Polestar_Guides_<locale>, Polestar_Names_<locale>) and the ones 0.4.3 folded
+into others (Polestar_Looks, the skins, the race parts...).
 
 Given another pack (<dir>, --pack, or run inside one) it lints and
 builds that pack into <pack>/dist/<folder>/ instead and installs that
@@ -170,7 +171,7 @@ function hasCompiledGuides(dir) {
 // chooseDest may return { dirs } (multiple auto-detected clients: install into all)
 // or { dir } (single). `prepare()` (unless --dry-run) runs once after every check
 // passed, before anything is installed; it returns an error message or null.
-// `ctx`: { env, native } (see run). `drop`: { drop: [folder name], owned(target) -> bool, why },
+// `ctx`: { env, native } (see run). `drop`: { drop: [folder name], owned(target) -> bool, why(name) },
 // folders removed from the destination where owned says they are ours to remove (`why` says why).
 function installFolders(folders, opts, ctx, prepare = null, drop = null) {
 	const dest = chooseDest(opts, ctx.env, ctx.env.HOME || os.homedir(), ctx.native);
@@ -214,7 +215,7 @@ function installFolders(folders, opts, ctx, prepare = null, drop = null) {
 		for (const name of (drop && drop.drop) || []) {
 			const target = path.join(d.dir, name);
 			if (!exists(target) || !drop.owned(target)) continue;
-			console.log(`  ${opts.dryRun ? 'would remove' : 'removed'} ${name} (${drop.why || 'the pack no longer translates that language'})`);
+			console.log(`  ${opts.dryRun ? 'would remove' : 'removed'} ${name} (${drop.why ? drop.why(name) : 'the pack no longer translates that language'})`);
 			if (!opts.dryRun) removePath(target);
 		}
 	}
@@ -303,7 +304,8 @@ async function run(argv, env = process.env, native = {}) {
 		console.warn('warning: Polestar_Guides has no compiled guides; run `forge guide compile` first');
 	}
 	const retired = LOCALE_CODES.flatMap(retiredLanguageAddons);
-	return installFolders(names.map((name) => ({ src: path.join(source, name), name })), opts, ctx, null, { drop: retired, owned: () => true, why: 'Polestar_<locale> replaced it' });
+	const why = (name) => (FOLDED_ADDONS.includes(name) ? 'inside Polestar, Polestar_Guides_Alliance, Polestar_Guides_Horde and Polestar_Skins since 0.4.3' : 'Polestar_<locale> replaced it');
+	return installFolders(names.map((name) => ({ src: path.join(source, name), name })), opts, ctx, null, { drop: [...retired, ...FOLDED_ADDONS], owned: () => true, why });
 }
 
 module.exports = { name: 'install', summary: 'Install the addons into the Forever client', usage, run, chooseDest };

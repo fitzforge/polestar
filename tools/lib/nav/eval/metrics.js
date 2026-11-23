@@ -4,7 +4,8 @@
 //
 //   metrics(result, { grid, layers, map }) -> null when not ok, else
 //     { yards, seconds, blocked, offRoad, hubYards: { Alliance, Horde }, hubYardsAway: { Alliance, Horde },
-//       endHubs: { Alliance: [name], Horde: [name] }, maxClimbDeg, indoorYards, endIndoor, zoneYards, swumYards }
+//       endHubs: { Alliance: [name], Horde: [name] }, maxClimbDeg, indoorYards, endIndoor, zoneYards, swumYards,
+//       lastLeg: { yards, blocked } }
 //   loadLayers(dir = data/local/nav-layers, { indoorGrid, city }) -> { roads, hubs, indoor } (each null when not built)
 //   indoorLayer(grid, city?) -> indoor(c, x, y, z): true | false | null (no surface there)
 //   measureIndoor(report, layers) -> report with indoorYards and endIndoor measured again on layers.indoor
@@ -30,7 +31,12 @@
 // (layers.indoor(c, x, y, z) -> bool, indoorLayer); endIndoor: an end of the line lies on indoor ground (a route
 // that goes inside on purpose). Each null until its layer exists. zoneYards: the drawn line's yards per zone
 // ({ [uiMapID]: yd }, the harness's zones: the router's own Path.ZoneAt), null on maps without zones. swumYards: the
-// drawn yards over water (the harness's wet: the router's points.wet), null when the result carries none.
+// drawn yards over water (the harness's wet: the router's points.wet), null when the result carries none. lastLeg: the
+// line's last segment (from its last point at least 0.5 yd from the goal, straightened from there to the goal: the
+// router draws the goal itself in place of the node it stands on) up to that node (the harness's goal; else the goal):
+// its flat yards, and as the city gate's judge measures a line on our grid (city/gate.js judge: 2 yd samples) its void
+// yards (no surface within 6 yd of the line's height) and walls (consecutive samples' surfaces our grid doesn't join
+// within 3x their distance + 10 yd); void and walls null without a grid folder.
 
 const fs = require('node:fs');
 const path = require('node:path');
@@ -167,6 +173,7 @@ function metrics(result, { grid = null, layers = {}, map = result.map } = {}) {
 		indoorYards = +indoorYards.toFixed(1);
 		endIndoor = (pts.length ? [pts[0], pts[pts.length - 1]] : []).some((p) => !!layers.indoor(map, p[0], p[1], p[2]));
 	}
+	const last = lastLeg(pts, result.goal);
 	return {
 		yards: +(typeof result.yards === 'number' ? result.yards : drawn).toFixed(1),
 		seconds: typeof result.cost === 'number' ? +(result.cost / RUN).toFixed(1) : null,
@@ -180,7 +187,33 @@ function metrics(result, { grid = null, layers = {}, map = result.map } = {}) {
 		endIndoor,
 		zoneYards: result.zones ? { ...result.zones } : null,
 		swumYards: typeof result.wet === 'number' ? +result.wet.toFixed(1) : null,
+		lastLeg: last && { yards: +lineLength(last).toFixed(1), ...judgeLeg(grid, map, last) },
 	};
+}
+
+// The line's last segment: its last point at least 0.5 yd from the goal (its last point), then the node the goal stands
+// on (else the goal); null for a line of one point.
+function lastLeg(pts, goal) {
+	if (pts.length < 2) return null;
+	const at = pts[pts.length - 1];
+	const off = (p) => Math.hypot(p[0] - at[0], p[1] - at[1], typeof p[2] === 'number' && typeof at[2] === 'number' ? p[2] - at[2] : 0);
+	let i = pts.length - 2;
+	while (i > 0 && off(pts[i]) < 0.5) i--;
+	return [pts[i], goal || at];
+}
+
+// The city gate's judge (void yards, walls) on one segment, on our grid round it (grid.dir: an openNav's folder).
+function judgeLeg(grid, map, seg) {
+	if (!grid || grid.available === false || !grid.dir) return { void: null, walls: null };
+	const { AreaGraph } = require('../city/graph');
+	const { judge } = require('../city/gate');
+	const PAD = 20;
+	const xs = seg.map((p) => p[0]);
+	const ys = seg.map((p) => p[1]);
+	const g = new AreaGraph({ c: map, wxMin: Math.min(...xs) - PAD, wxMax: Math.max(...xs) + PAD, wyMin: Math.min(...ys) - PAD, wyMax: Math.max(...ys) + PAD }, { grid: grid.dir });
+	const none = new Uint16Array(g.n);
+	const m = judge({ g, people: none, train: none }).measure(seg);
+	return { void: +m.void.toFixed(1), walls: m.crossings };
 }
 
 // The indoor layer from a grid (an openNav: tile(c, col, row) -> { first, z, flags, areas }), as the packer's indoor

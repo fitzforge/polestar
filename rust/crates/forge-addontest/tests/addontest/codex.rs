@@ -63,10 +63,22 @@ fn emit_codex(codex: &Value) -> Vec<(String, String)> {
 			V::obj()
 		}
 	};
-	let (items, npcs, objects, quests, instances, zones, factions, spells, meta, frames) =
-		(part("items"), part("npcs"), part("objects"), part("quests"), part("instances"), part("zones"), part("factions"), part("spells"), part("meta"), part("frames"));
+	let (items, npcs, objects, quests, instances, zones, factions, spells, meta, frames, professions) =
+		(part("items"), part("npcs"), part("objects"), part("quests"), part("instances"), part("zones"), part("factions"), part("spells"), part("meta"), part("frames"), part("professions"));
 	emit_pack(
-		&PackCodex { items: &items, npcs: &npcs, objects: &objects, quests: &quests, instances: &instances, zones: &zones, factions: &factions, spells: &spells, meta: &meta, frames: &frames },
+		&PackCodex {
+			items: &items,
+			npcs: &npcs,
+			objects: &objects,
+			quests: &quests,
+			instances: &instances,
+			zones: &zones,
+			factions: &factions,
+			spells: &spells,
+			meta: &meta,
+			frames: &frames,
+			professions: &professions,
+		},
 		"1",
 		&V::Null,
 		&[],
@@ -426,7 +438,7 @@ emit({ missing = table.concat(missing, ","), stale = table.concat(stale, ","), s
 
 #[test]
 fn a_complete_install_of_one_version_says_nothing_at_login_the_optional_data_packs_may_be_absent() {
-	let out = login_with(&[("Polestar", None), ("Polestar_Guides", None), ("Polestar_Codex", None), ("Polestar_Options", None), ("Polestar_Looks", None)]);
+	let out = login_with(&[("Polestar", None), ("Polestar_Guides", None), ("Polestar_Codex", None), ("Polestar_Options", None)]);
 	assert_eq!(out["missing"], "");
 	assert_eq!(out["stale"], "");
 	assert_eq!(len(&out["said"]), 0);
@@ -434,7 +446,7 @@ fn a_complete_install_of_one_version_says_nothing_at_login_the_optional_data_pac
 
 #[test]
 fn a_missing_codex_and_a_guides_folder_from_an_old_zip_are_named_once_in_chat_with_how_to_reinstall() {
-	let out = login_with(&[("Polestar", None), ("Polestar_Guides", Some("0.2.1")), ("Polestar_QuestDB", None), ("Polestar_Options", None), ("Polestar_Looks", None)]);
+	let out = login_with(&[("Polestar", None), ("Polestar_Guides", Some("0.2.1")), ("Polestar_QuestDB", None), ("Polestar_Options", None)]);
 	assert_eq!(out["missing"], "Polestar_Codex");
 	assert_eq!(out["stale"], "Polestar_Guides 0.2.1");
 	assert_eq!(out["said"].as_array().unwrap().len(), 1);
@@ -443,13 +455,43 @@ fn a_missing_codex_and_a_guides_folder_from_an_old_zip_are_named_once_in_chat_wi
 	assert!(is_match(said, r#"delete every Polestar folder.*not "Source code""#));
 }
 
+// #3507: a 0.4.3 zip copied over 0.4.2.2 leaves the folders 0.4.3 folded into others (the looks, a skin, a race
+// part, the experimental guides): an older version each, but no mixed install. One line names them to delete. The
+// Skin API's example and another author's skin addon (an older version of their own) are neither folded nor stale.
+#[test]
+fn the_folders_0_4_3_folded_left_from_an_older_install_get_one_line_to_delete_them_and_no_mixed_install() {
+	let out = emitted(&RunAddon {
+		before: r#"stub.addons = { { name = "Polestar" }, { name = "Polestar_Guides" }, { name = "Polestar_Codex" }, { name = "Polestar_Options" },
+	{ name = "Polestar_Looks" }, { name = "Polestar_Skin_Vellum" }, { name = "Polestar_Guides_Orc" }, { name = "Polestar_Experimental" }, { name = "Polestar_Skin_Example" },
+	{ name = "Polestar_Skin_Joes" } }
+for _, n in ipairs({ "Polestar_Looks", "Polestar_Skin_Vellum", "Polestar_Guides_Orc", "Polestar_Experimental", "Polestar_Skin_Example", "Polestar_Skin_Joes" }) do stub.addonMeta[n] = { Version = "0.4.2.2" } end"#
+			.into(),
+		addons: vec![files()],
+		login: true,
+		script: r#"
+local missing, stale, _, _, folded = Polestar.Data.CheckInstall()
+local said = {}
+for _, m in ipairs(stub.messages) do if m:find("Polestar no longer uses these folders", 1, true) or m:find("mixed", 1, true) then said[#said + 1] = m end end
+emit({ missing = table.concat(missing, ","), stale = table.concat(stale, ","), folded = folded, said = said, vellum = Polestar.Data.Folded("Polestar_Skin_Vellum"), example = Polestar.Data.Folded("Polestar_Skin_Example"), joes = Polestar.Data.Folded("Polestar_Skin_Joes") })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["missing"], "");
+	assert_eq!(out["stale"], "");
+	assert_eq!(out["folded"], json!(["Polestar_Experimental", "Polestar_Guides_Orc", "Polestar_Looks", "Polestar_Skin_Vellum"]));
+	assert_eq!(out["said"].as_array().unwrap().len(), 1);
+	assert!(out["said"][0].as_str().unwrap().contains("(Polestar_Experimental, Polestar_Guides_Orc, Polestar_Looks, Polestar_Skin_Vellum): since 0.4.3 they are inside Polestar"));
+	assert_eq!((out["vellum"].as_bool(), out["example"].as_bool(), out["joes"].as_bool()), (Some(true), Some(false), Some(false)), "the example and another author's skin are not ours to delete");
+}
+
 // Our guides' part for the player's faction (format 8) ships in every release: without it the player has no
 // leveling guides, so a copy that left it out is named like a missing Codex. The other faction's is never.
 #[test]
 fn a_missing_faction_part_of_our_guides_is_named_at_login_the_other_faction_s_is_not() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
-		before: "stub.addons = { { name = \"Polestar\" }, { name = \"Polestar_Guides\" }, { name = \"Polestar_Codex\" }, { name = \"Polestar_Options\" }, { name = \"Polestar_Looks\" }, { name = \"Polestar_Guides_Alliance\" } }\nstub.world.faction = \"Horde\""
+		before: "stub.addons = { { name = \"Polestar\" }, { name = \"Polestar_Guides\" }, { name = \"Polestar_Codex\" }, { name = \"Polestar_Options\" }, { name = \"Polestar_Guides_Alliance\" } }\nstub.world.faction = \"Horde\""
 			.into(),
 		addons: vec![files()],
 		login: true,
@@ -1090,7 +1132,10 @@ fn buildcodex_writes_deterministic_json_and_a_pack_whose_memory_it_measures() {
 	let b = build_n(2);
 	let mut files: Vec<&str> = a.json.iter().map(|(f, _)| f.as_str()).collect();
 	files.sort();
-	assert_eq!(files, vec!["factions.json", "frames.json", "instances.json", "items.json", "journal.json", "meta.json", "npcs.json", "objects.json", "quests.json", "spells.json", "zones.json"]);
+	assert_eq!(
+		files,
+		vec!["factions.json", "frames.json", "instances.json", "items.json", "journal.json", "meta.json", "npcs.json", "objects.json", "professions.json", "quests.json", "spells.json", "zones.json"]
+	);
 	for (f, text) in a.json.iter().filter(|(f, _)| f != "meta.json") {
 		let other = &b.json.iter().find(|(g, _)| g == f).unwrap_or_else(|| panic!("no {f}")).1;
 		assert_eq!(text, other, "{f}");

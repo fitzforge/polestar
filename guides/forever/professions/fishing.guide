@@ -143,7 +143,7 @@ step Fishing: Hillsbrad Foothills (125-225)
   only Undead
   zone Hillsbrad Foothills
   tip Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the Fishing Rack (from skill 140), is a blueprint that drops from Gelihast in Blackfathom Deeps. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap. To cook what you catch: Recipe: Bristle Whisker Catfish for the Raw Bristle Whisker Catfish of lakes and rivers (Cooking 100, 12s: Derak Nightfall (Hillsbrad Foothills) or Ronald Burch (Undercity)); Recipe: Rockscale Cod for the Raw Rockscale Cod of the coast (Cooking 175, 22s: Lizbeth Cromwell (Undercity)). Oily Blackmouth from the schools here is no food: alchemists make Blackmouth Oil from it (Alchemy 80); keep it to sell or trade.
-  goto 60.8,32.1 "Hillsbrad coast" r 25
+  goto 56.4,67.5 "Hillsbrad coast" r 25
   skill Fishing 225
 
 # ---------------------------------------------------------------- Artisan Fishing: Nat Pagle

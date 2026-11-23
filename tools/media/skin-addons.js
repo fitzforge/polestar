@@ -1,36 +1,36 @@
 'use strict';
-// The art of the skin addons in this repository (addon/Polestar_Skin_*),
+// The art of Polestar's own skins (addon/Polestar_Skins/Skins/<skin>/),
 // drawn in code like Polestar's own (tools/media/skins.js), so it stays
 // editable and owned by the project:
-//   Polestar_Skin_Vellum/Media/paper.tga  the parchment grain: tileable value
+//   Vellum/Media/paper.tga  the parchment grain: tileable value
 //       noise in four octaves, white with luminance 0.82-0.99, tinted in game
 //       with the paper colour (the player's ground colour applies)
-//   Polestar_Skin_Aurora/Media/curtain.tga  the aurora in the guide window's
+//   Aurora/Media/curtain.tga  the aurora in the guide window's
 //       band: a ribbon whose bright hem folds across the width, rays rising
 //       from it green-teal at the hem turning violet as they climb, clear
 //       below the hem; drawn additively, in its own colours
-//   Polestar_Skin_Aurora/Media/veil.tga  the same light for a window with no
+//   Aurora/Media/veil.tga  the same light for a window with no
 //       band: the rays alone, brightest at the top edge, fading downward
-//   Polestar_Skin_Hairline/Media/dart.tga, dart-edge.tga  Hairline's open
+//   Hairline/Media/dart.tga, dart-edge.tga  Hairline's open
 //       chevron dart and its dark edge (media.dart / media.dartEdge)
-//   Polestar_Skin_Hairline/Media/medallion.tga  the map marks' ground: a
+//   Hairline/Media/medallion.tga  the map marks' ground: a
 //       near-black square chip, a black one-pixel outline, a faint lighter
 //       line inside it (media.medallion, drawn untinted)
-//   Polestar_Skin_Hairline/Media/chip.tga, chip-rim.tga  the step pins'
+//   Hairline/Media/chip.tga, chip-rim.tga  the step pins'
 //       square body (a white mask Polestar tints) and its rim: a black
 //       outline round a white line Polestar tints (media.pinFill, pinRim)
-//   Polestar_Skin_Waymark/Media/paper.tga  dark map paper: grain and a faint
+//   Waymark/Media/paper.tga  dark map paper: grain and a faint
 //       graticule, tileable, tinted with the ground
-//   Polestar_Skin_Waymark/Media/compass.tga  the header's compass rose (mask)
-//   Polestar_Skin_Waymark/Media/needle.tga, needle-edge.tga  the arrow as a
+//   Waymark/Media/compass.tga  the header's compass rose (mask)
+//   Waymark/Media/needle.tga, needle-edge.tga  the arrow as a
 //       compass needle (media.dart / media.dartEdge)
-//   Polestar_Skin_Waymark/Media/medallion.tga  map marks in a brass-ringed
+//   Waymark/Media/medallion.tga  map marks in a brass-ringed
 //       chart disc (media.medallion, painted)
-//   Polestar_Skin_Waymark/Media/dash.tga  the dashed route rule's tile
-//   Polestar_Skin_Lanterns/Media/corner.tga, corner-rim.tga, cap.tga,
+//   Waymark/Media/dash.tga  the dashed route rule's tile
+//   Lanterns/Media/corner.tga, corner-rim.tga, cap.tga,
 //       cap-rim.tga  the rounded window's corner and the pill's cap, each a
 //       fill and a rim (white masks)
-//   Polestar_Skin_Sheen/Media/glare.tga  light across a pane of glass: two
+//   Sheen/Media/glare.tga  light across a pane of glass: two
 //       diagonal bands, stretched over a window at a low alpha
 
 const path = require('node:path');
@@ -289,12 +289,12 @@ function glare(size = 256) {
 }
 
 function generate(addonRoot) {
-	const addons = path.dirname(addonRoot);
-	const media = (skin, name) => path.join(addons, `Polestar_Skin_${skin}`, 'Media', `${name}.tga`);
+	const skins = path.join(path.dirname(addonRoot), 'Polestar_Skins', 'Skins');
+	const media = (skin, name) => path.join(skins, skin, 'Media', `${name}.tga`);
 	return [
-		paper().write(path.join(addons, 'Polestar_Skin_Vellum', 'Media', 'paper.tga')),
-		curtain().write(path.join(addons, 'Polestar_Skin_Aurora', 'Media', 'curtain.tga')),
-		veil().write(path.join(addons, 'Polestar_Skin_Aurora', 'Media', 'veil.tga')),
+		paper().write(media('Vellum', 'paper')),
+		curtain().write(media('Aurora', 'curtain')),
+		veil().write(media('Aurora', 'veil')),
 		dart().write(media('Hairline', 'dart')),
 		dartEdge().write(media('Hairline', 'dart-edge')),
 		medallion().write(media('Hairline', 'medallion')),

@@ -2,7 +2,7 @@
 guide forever/alliance/07-thousand-needles
 title Duskwood
 faction Alliance
-levels 29-31
+levels 30-31
 zone Duskwood
 next forever/alliance/30-40/01-hillsbrad-foothills
 
@@ -12,6 +12,10 @@ next forever/alliance/30-40/01-hillsbrad-foothills
 # Added here: Look to the Stars (181), The Weathered Grave (225).
 # Since 2026-11-07 the Wetlands and Ashenvale's 27-32 quests come before this guide (06-wetlands).
 # Thousand Needles' Mirage Raceway is done at 33-34 with Dustwallow Marsh, in 30-40/03.
+# Fix round 2026-11-20: 05-duskwood finishes The Night Watch (57), the Insane Ghoul (177) and, from level 28, Proving
+# Your Worth (323) on Duskwood's second visit, and takes The Night Watch's third part (58) and Look to the Stars (181)
+# there: this guide hands 58 in on its first Darkshire stop when it is done, and keeps every step of those quests for a
+# character who arrives without them.
 
 step Duskwood
   zone Duskwood
@@ -22,8 +26,22 @@ step Darkshire
   sethome "Darkshire" npc 6790            -- Innkeeper Trelayne, Scarlet Raven Tavern
   turnin 1243                             -- Watcher Backus, at the north entrance of town; walks around Darkshire: look inside the circle on the map
   accept 1244
+
+step Commander Althea Ebonlocke
+  zone Duskwood
+  when complete 57
+  tip The Night Watch's skeletons, from your last Duskwood visit: Commander Althea is in the town hall.
   turnin 57                               -- Commander Althea Ebonlocke
-  accept 58
+
+step Commander Althea Ebonlocke
+  zone Duskwood
+  accept 58                               -- once The Night Watch's skeletons are handed in
+
+step Commander Althea Ebonlocke
+  zone Duskwood
+  when complete 58
+  tip The Night Watch's Plague Spreaders, from your last Duskwood visit: Commander Althea is in the town hall.
+  turnin 58                               -- Commander Althea Ebonlocke
 
 # ---------------------------------------------------------------- Worgen
 

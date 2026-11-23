@@ -138,12 +138,10 @@ return {
 	["Theramore"] = "塞拉摩島",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "{npc:4944}，頂樓",
+
+	-- Step 31: Morgan Stern
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}，室內",
-
-	-- Step 31: Cortello's Riddle
-	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "在{area:498}內部",
 
 	-- Step 32: Mudsprocket
 	["Mudsprocket"] = "泥鏈營地",
@@ -172,6 +170,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "飛往{area:392}；{npc:6251}在銀行旁的房子裡授課。之後飛回塞拉摩島。",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "飛往{area:608}，向南騎過{zone:1443}進入{zone:1444}，沿道路前往{area:1108}的碼頭；船會駛往{area:1116}，下一份指南從那裡開始。",
+	-- ["Inside {area:498}"] = "在{area:498}內部",
 	-- ["On to Feathermoon"] = "前往羽月要塞",
 	-- ["Ride north to {area:144} and fly to {area:271}. {npc:3980} preaches by the inn."] = "向北騎到{area:144}，飛往{area:271}。{npc:3980}在旅店旁傳道。",
 	-- ["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "沿道路從{area:271}往東北騎進{area:47}；{area:348}就在邊界後方。{npc:5635}在頂層主持，{quest:1450}照料獅鷲棲所，{npc:7884}站在旅店旁。",
