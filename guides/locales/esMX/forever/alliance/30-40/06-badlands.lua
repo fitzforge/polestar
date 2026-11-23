@@ -26,7 +26,7 @@ return {
 	["{area:346}: kill these as you meet them"] = "{area:346}: mata a estos según te los encuentres",
 	-- {npc:269577} Dorgaron
 	-- plural, as words: Crag Coyotes = {npc:2727} Crag Coyote · Shadowforge Ruffians = {npc:4845} Shadowforge Ruffian
-	["The Shadowforge dwarves camp just north of the digsite; the crumpled map and {npc:269577}'s mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and {npc:269577}'s artifacts. Crag Coyotes roam the slopes around it. Careful: Shadowforge Ruffians (36-37, elite) walk among them, most on the slopes between the pass and the camp: pull the Tunnelers and Darkweavers away from them."] = "",
+	["The Shadowforge dwarves camp just north of the digsite; the crumpled map and {npc:269577}'s mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and {npc:269577}'s artifacts. Crag Coyotes roam the slopes around it. Careful: Shadowforge Ruffians (36-37, elite) walk among them, most on the slopes between the pass and the camp: pull the Tunnelers and Darkweavers away from them."] = "Los enanos Forjatiniebla acampan justo al norte de la excavación; el mapa arrugado y el casco de minería de {npc:269577} están entre sus tiendas. Los tuneladores y los tejeoscuros llevan el pico de Ryedol y los artefactos de {npc:269577}. Los coyotes del risco recorren las laderas de alrededor. Cuidado: los rufianes de Forjatiniebla (36-37, élite) andan entre ellos, sobre todo en las laderas entre el paso y el campamento: aleja de ellos a los tuneladores y tejeoscuros.",
 	-- {item:278403} Explorers' League Mining Helmet
 	["{item:278403}, in the Shadowforge camp"] = "{item:278403}, en el campamento Forjatiniebla",
 	-- {item:7847} Buzzard Gizzard
