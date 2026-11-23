@@ -4572,7 +4572,7 @@ do
 				},
 				{
 					title = "{npc:3429}'s supply crates",
-					note = "With your group: the supply crates sit at the camp's eastern end, among the Razormane Flesheaters and Berserkers (18-19, elite).",
+					note = "With your group: the supply crates sit at the camp's eastern end. Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand beside the crates.",
 					only = { classes = { "WARRIOR", "SHAMAN" }, races = { "Orc", "Troll" } },
 					when = { { k = "group", q = 5041 }, { k = "onquest", q = { 5041 } } },
 					goals = {
@@ -4674,7 +4674,7 @@ do
 				},
 				{
 					title = "{npc:3429}'s supply crates",
-					note = "With your group: the supply crates sit at the camp's eastern end, among the Razormane Flesheaters and Berserkers (18-19, elite).",
+					note = "With your group: the supply crates sit at the camp's eastern end. Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand beside the crates.",
 					when = { { k = "group", q = 5041 }, { k = "onquest", q = { 5041 } } },
 					goals = {
 						{ t = "collect", quest = 5041, title = "Supplies for the Crossroads", item = 12708, itemName = "Crossroads' Supply Crates", count = 1, oi = 1, map = 1413, x = 58.8, y = 25.8, f = "e", spotsPacked = "58.3,26.96,91.7,0;58.5,27.24,91.7,0;58.51,25.83,91.7,0;58.8,27.39,91.7,0;59.12,24.4,91.7,0;59.31,24.82,92.3,0;59.44,24.54,91.7,0", from = "Crossroads' Supply Crates", fromKind = "object", fromId = 175708, group = { kind = "elite", lvl = 19, near = true, rank = 1 } },
@@ -4695,6 +4695,12 @@ do
 						{ t = "turnin", quest = 844, title = "Plainstrider Menace", npc = 3338, npcName = "Sergra Darkthorn", map = 1413, x = 52.18, y = 31.02, z = 97.5 },
 						{ t = "accept", quest = 845, title = "The Zhevra", npc = 3338, npcName = "Sergra Darkthorn", minLevel = 10, qlvl = 13, pre = { 844 }, preTitles = { [844] = "Plainstrider Menace" }, map = 1413, x = 52.18, y = 31.02, z = 97.5 },
 						{ t = "turnin", quest = 871, title = "Disrupt the Attacks", npc = 3429, npcName = "Thork", map = 1413, x = 51.47, y = 30.83, z = 103.8 },
+					},
+				},
+				{
+					title = "{npc:3429}",
+					when = { { k = "group", q = 5041 } },
+					goals = {
 						{ t = "turnin", quest = 5041, title = "Supplies for the Crossroads", npc = 3429, npcName = "Thork", map = 1413, x = 51.47, y = 30.83, z = 103.8 },
 					},
 				},
@@ -4846,13 +4852,19 @@ do
 						{ t = "turnin", quest = 903, title = "Prowlers of the Barrens", npc = 3338, npcName = "Sergra Darkthorn", map = 1413, x = 52.18, y = 31.02, z = 97.5 },
 						{ t = "accept", quest = 881, title = "Echeyakee", npc = 3338, npcName = "Sergra Darkthorn", minLevel = 10, qlvl = 16, pre = { 903 }, preTitles = { [903] = "Prowlers of the Barrens" }, map = 1413, x = 52.18, y = 31.02, z = 97.5 },
 						{ t = "turnin", quest = 848, title = "Fungal Spores", npc = 3390, npcName = "Apothecary Helbrim", map = 1413, x = 51.42, y = 30.18, z = 95.9 },
-						{ t = "turnin", quest = 872, title = "The Disruption Ends", npc = 3429, npcName = "Thork", map = 1413, x = 51.47, y = 30.83, z = 103.8 },
 						{ t = "turnin", quest = 867, title = "Harpy Raiders", npc = 3449, npcName = "Darsok Swiftdagger", map = 1413, x = 51.58, y = 30.91, z = 127.9 },
 						{ t = "accept", quest = 875, title = "Harpy Lieutenants", npc = 3449, npcName = "Darsok Swiftdagger", minLevel = 12, qlvl = 16, pre = { 867 }, preTitles = { [867] = "Harpy Raiders" }, map = 1413, x = 51.58, y = 30.91, z = 127.9 },
 						{ t = "accept", quest = 4921, title = "Lost in Battle", npc = 3432, npcName = "Mankrik", minLevel = 14, qlvl = 20, map = 1413, x = 51.92, y = 31.58, z = 95.9, note = "{npc:3432}: his wife lies at the north edge of the Bristleback camps, later" },
 						{ t = "accept", quest = 899, title = "Consumed by Hatred", npc = 3432, npcName = "Mankrik", minLevel = 14, qlvl = 20, map = 1413, x = 51.92, y = 31.58, z = 95.9 },
 						{ t = "turnin", quest = 870, title = "The Forgotten Pools", npc = 3448, npcName = "Tonga Runetotem", map = 1413, x = 52.19, y = 31.94, z = 95.9 },
 						{ t = "accept", quest = 877, title = "The Stagnant Oasis", npc = 3448, npcName = "Tonga Runetotem", minLevel = 10, qlvl = 16, pre = { 870 }, preTitles = { [870] = "The Forgotten Pools" }, map = 1413, x = 52.19, y = 31.94, z = 95.9, note = "{npc:3448}: the bubbling fissure at the {area:388}, on the {npc:3395} pass" },
+					},
+				},
+				{
+					title = "{npc:3429}",
+					when = { { k = "group", q = 872 } },
+					goals = {
+						{ t = "turnin", quest = 872, title = "The Disruption Ends", npc = 3429, npcName = "Thork", map = 1413, x = 51.47, y = 30.83, z = 103.8 },
 					},
 				},
 				{

@@ -8024,7 +8024,8 @@ test("Fitz's report (#1135): the Raptor Heads and Plainstrider Beaks are worked 
 		const handIn = at(list, `turnin ${quest}`, is('turnin', quest));
 		const turnStep = list[handIn].step;
 		const along = g.steps.findIndex((s) => s.along && s.goals.some(mine));
-		assert.ok(along > crossroads && along <= crossroads + 2, `the ${what} are listed on the way right after the Crossroads accepts`);
+		// Thork's Supplies for the Crossroads, a group choice since the Razormane camp's elites (#3145), has its own step in between.
+		assert.ok(along > crossroads && along <= crossroads + 3, `the ${what} are listed on the way right after the Crossroads accepts`);
 		assert.equal(g.steps[along].along, turnStep.label, `the ${what}: until the step that hands them in`);
 		const workers = list.filter(({ step, goal }) => mine(goal) && !step.along);
 		assert.equal(workers.length, 1, `one step of the route works the ${what}: the finish step`);

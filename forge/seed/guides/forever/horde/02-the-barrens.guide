@@ -221,7 +221,7 @@ step Thork's supply crates
   only Orc,Troll,Warrior,Shaman
   when group 5041
   when onquest 5041
-  tip With your group: the supply crates sit at the camp's eastern end, among the Razormane Flesheaters and Berserkers (18-19, elite).
+  tip With your group: the supply crates sit at the camp's eastern end. Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand beside the crates.
   collect 12708 quest 5041.1 @58.8,25.8
 
 step Durotar
@@ -302,7 +302,7 @@ step Razormane camp
 step Thork's supply crates
   when group 5041
   when onquest 5041
-  tip With your group: the supply crates sit at the camp's eastern end, among the Razormane Flesheaters and Berserkers (18-19, elite).
+  tip With your group: the supply crates sit at the camp's eastern end. Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand beside the crates.
   collect 12708 quest 5041.1 @58.8,25.8
 
 step Finish the Plainstrider Beaks
@@ -315,7 +315,10 @@ step The Crossroads
   turnin 844                          -- Sergra Darkthorn
   accept 845
   turnin 871                          -- Thork
-  turnin 5041
+
+step Thork
+  when group 5041
+  turnin 5041                          -- Thork
 
 step Thork
   when group 872
@@ -430,13 +433,16 @@ step The Crossroads
   turnin 903                          -- Sergra Darkthorn
   accept 881
   turnin 848                          -- Apothecary Helbrim
-  turnin 872                          -- Thork
   turnin 867                          -- Darsok Swiftdagger
   accept 875
   accept 4921                         -- Mankrik: his wife lies at the north edge of the Bristleback camps, later
   accept 899                          -- Mankrik
   turnin 870                          -- Tonga Runetotem
   accept 877                          -- Tonga Runetotem: the bubbling fissure at the Stagnant Oasis, on the Verog pass
+
+step Thork
+  when group 872
+  turnin 872                          -- Thork
 
 step Gur'ak
   when group 97003
