@@ -219,6 +219,7 @@ fn the_journal_carries_the_attunements_on_their_pages_counts_them_and_the_pack_f
 fn the_goal_table_every_entry_cites_public_sources_names_a_goal_or_an_item_and_nothing_comes_from_attune() {
 	let t = attunement_table();
 	let mut ids: HashSet<String> = HashSet::new();
+	let mut closed: Vec<String> = Vec::new();
 	for a in list(&t["attunements"]) {
 		let js = a.to_string();
 		assert!(truthy(&a["key"]) && truthy(&a["id"]) && truthy(&a["name"]), "{js}");
@@ -237,7 +238,18 @@ fn the_goal_table_every_entry_cites_public_sources_names_a_goal_or_an_item_and_n
 			}
 		}
 		assert!(!names_attune(&js), "{id} names Attune");
+		// `open: false` (#3695): a raid Forever has not opened yet, saying how that is known.
+		if !a["open"].is_null() {
+			assert!(a["open"] == false && truthy(&a["openSource"]), "{id}: open is false or absent, with its openSource");
+			closed.push(format!("{}:{id}", text(&a["key"])));
+		}
 	}
+	closed.sort();
+	assert_eq!(
+		closed,
+		["blackwing-lair:blackhand", "molten-core:aqual", "molten-core:core", "naxxramas:dread-citadel"],
+		"Molten Core, Blackwing Lair and Naxxramas are not open on Forever yet; Onyxia's Lair is"
+	);
 	for r in list(&t["removed"]) {
 		assert!(truthy(&r["why"]) && !list(&r["sources"]).is_empty(), "{}", r["id"]);
 	}
