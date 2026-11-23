@@ -1,13 +1,14 @@
 'use strict';
 // The open step list (UI/StepList.lua) redraws when a quest is skipped or
-// brought back from elsewhere (the quest log, a slash command), not only at
-// the next redraw something else brings.
+// brought back from elsewhere (the guide window's quest line, its banner's
+// Undo) or with its own Unskip it, not only at the next redraw something else
+// brings.
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { runAddon } = require('./helpers/lua');
 const { TEST_PACK } = require('./helpers/packs');
 
-function run(first, q = 7) {
+function run(first, q = 7, click = false) {
 	return runAddon({
 		stubs: ['stub_world.lua', 'stub_packs.lua'],
 		addons: ['Polestar'],
@@ -49,7 +50,13 @@ local before = unskips()
 E.SkipQuest(${q}, true)
 stub.advance(0.5)
 local skipped = unskips()
-E.SkipQuest(${q}, false)
+${click ? `for i = 1, SL.n or 0 do
+	local r = SL.rows[i]
+	for j = 1, r.psN or 0 do
+		local b = r.G[j].Unskip
+		if b:IsShown() and b.psQuest == ${q} then b:GetScript("OnClick")(b) end
+	end
+end` : `E.SkipQuest(${q}, false)`}
 stub.advance(0.5)
 emit({ open = SL.On(), live = E.GetLiveStep(), before = before, skipped = skipped, back = unskips(), skips = SL.Skips() })
 `,
@@ -75,4 +82,11 @@ test('a quest outside the live step brought back elsewhere loses its Unskip it a
 	assert.equal(out.open, true, JSON.stringify(out));
 	assert.equal(out.skipped, 1, 'its accept offers Unskip it: ' + JSON.stringify(out));
 	assert.equal(out.back, 0, 'brought back: the link goes without another redraw: ' + JSON.stringify(out));
+});
+
+test('the step list\'s own Unskip it on a quest outside the live step brings it back and the link goes at once', () => {
+	const out = run(false, 9, true);
+	assert.equal(out.skipped, 1, JSON.stringify(out));
+	assert.equal(out.back, 0, 'the click redraws the list (PLAYER_UNSKIPPED_QUEST): ' + JSON.stringify(out));
+	assert.equal(out.skips, 0);
 });
