@@ -557,6 +557,7 @@ L["Bullets"] = "子弹"
 L["Bows & guns"] = "弓和枪"
 L["Mailbox"] = "邮箱"
 -- L["Transmogrifier"] = ""
+-- L["No %s for your side."] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "右键点击跳过这一段。"
@@ -959,9 +960,6 @@ L["Right-click for its settings. Shift-drag to move."] = "右键点击打开设�
 L["Right-click for its settings. Drag to move."] = "右键点击打开设置。拖动以移动。"
 L["Targets the first name in the list that is close. Click a name to target that one."] = "选中列表中附近的第一个名字。点击名字即可选中该目标。"
 L["Dragging the Polestar mark in combat places the buttons after the fight."] = "战斗中拖动 Polestar 标记，按钮会在战斗结束后移到新位置。"
--- L["Press to equip"] = ""
--- L["Press to equip it."] = ""
--- L["Dragging the Polestar mark in combat places the buttons after the fight."] = ""
 L["Press to equip"] = "按键装备"
 L["Press to equip it."] = "点击装备"
 
@@ -1353,6 +1351,7 @@ L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one malle
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 -- L["Use %s beside %s: it becomes %s."] = ""
 -- L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = ""
+-- L["Not open on Forever yet: the attunement is ready for when it opens."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "地图 %d"
@@ -1428,6 +1427,7 @@ L["%s has %s"] = "%s 有 %s 个"
 L["%s to buy"] = "需购买 %s 个"
 L["(only %s listed)"] = "（仅有 %s 个在售）"
 L["(old price)"] = "（旧价格）"
+-- L["Elites nearby"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -2049,6 +2049,9 @@ L["%d-%d players"] = "%d-%d 人"
 L["No boss drops known"] = "暂无已知的首领掉落"
 L["Drops (%d)"] = "掉落（%d）"
 -- L["Use %s beside %s"] = ""
+-- L["All attunements and keys"] = ""
+-- L["Every attunement and key, with how far you are"] = ""
+-- L["Not open on Forever yet"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "就在这里"
@@ -2647,7 +2650,6 @@ L["Reminds you to repair when a piece of your gear is below this share of its du
 L["play Freedoom Arcade by petllama"] = "玩 petllama 的 Freedoom Arcade"
 L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "petllama 的 Freedoom Arcade（GPL-2.0 或更高版本）从 Polestar_Arcade 文件夹运行 Freedoom 项目的三个 Freedoom 关卡（BSD 许可）。"
 L["While paused, quests are not accepted or turned in for you, no reward is picked, and flight masters do not open the flight map or fly you off, until Polestar resumes."] = "暂停期间，Polestar 不会自动接受或交还任务、选择奖励。与飞行管理员对话时，也不会自动打开飞行地图或搭乘航班。"
--- L["While paused, quests are not accepted or turned in for you, no reward is picked, and flight masters do not open the flight map or fly you off, until Polestar resumes."] = ""
 -- L["While you play"] = ""
 -- L["What the window shows, when it hides and where it sits:"] = ""
 -- L["New in %s"] = ""
@@ -2659,6 +2661,15 @@ L["Nothing to reset"] = "没有可重置的内容"
 L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "将指南窗口、箭头、卡片和提醒拖到你想要的位置。在你点击“保存并退出”之前，此窗口会暂时让开。也可使用 /polestar unlock。"
 -- L["play Sky Jewels by RikyZ90"] = ""
 -- L["play Tetris by beemerwt"] = ""
+-- L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."] = ""
+-- L["Reload now?"] = ""
+-- L["Polestar shows the new language after a /reload."] = ""
+-- L["Follow the game"] = ""
+-- L["English"] = ""
+-- L["Simplified Chinese"] = ""
+-- L["Traditional Chinese"] = ""
+-- L["General"] = ""
+-- L["The language Polestar shows."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -4411,7 +4422,6 @@ L["Stonefield Farm"] = "斯通菲尔德农场"
 L["Jasperlode Mine"] = "玉石矿洞"
 L["A dim line where the guide passes over quests: open it to see each one and why, with a way to bring it back. Grind steps say what else is worth doing, and a line offers to clean up quests that aren't part of your route."] = "在指南略过任务的地方显示一行淡色文字：展开可看到每个任务及原因，并可恢复。打怪升级的步骤会说明还有什么值得做，另有一行提示清理不在路线中的任务。"
 L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = "调整指南窗口的文字大小，与窗口缩放及「主题 > 文字」里的通用大小分开设置。职业任务卡片仍使用通用大小。修改立即生效，右键重置。"
--- L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = ""
 -- L["Northshire Abbey"] = ""
 -- L["Echo Ridge Mine"] = ""
 -- L["Northshire Vineyards"] = ""
@@ -4669,6 +4679,8 @@ L["A look in one click: it sets the settings it names and puts the others of the
 -- L["Alpha: /reload after picking it."] = ""
 -- L["Beta: /reload after picking it."] = ""
 -- L["Any issues: @%s in a bug report or on Discord."] = ""
+-- L["Before %s (%s)"] = ""
+-- L["Your setup as it was saved: a click puts back every window setting it holds."] = ""
 
 -- Theme/SkinApi.lua
 L["The skin %s (from %s) could not be added: %s. Polestar's own look stands in."] = "无法添加皮肤 %s（来自 %s）：%s。由 Polestar 自己的外观代替。"
@@ -5039,9 +5051,33 @@ L["Most used"] = "常用设置"
 -- L["Hold"] = ""
 -- L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = ""
 -- L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = ""
+
 -- UI/TabStyles/TabStyles.lua
 L["Open guides"] = "已打开的指南"
 L["%d of %d"] = "%d / %d"
+
+-- UI/Attunements.lua
+-- L["Finish %s"] = ""
+-- L["Pick up %s from %s"] = ""
+-- L["Pick up %s"] = ""
+-- L["Every step, on the dungeon's page"] = ""
+-- L["Opens %s"] = ""
+-- L["%d of %d steps"] = ""
+-- L["Attunements"] = ""
+-- L["What lets you into each raid and opens a dungeon's doors, and how far you are"] = ""
+-- L["No attunement or key is known for your faction."] = ""
+
+-- UI/LayoutCard.lua
+-- L["Before Atlas (%s)"] = ""
+-- L["New in 0.4.3: the Atlas layout"] = ""
+-- L["Try it on your own guide window: each button switches it now, as often as you like."] = ""
+-- L["Layout"] = ""
+-- L["Your current design"] = ""
+-- L["Tabs are off in Settings > Guide window > Parts."] = ""
+-- L["Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets."] = ""
+-- L["The guide window is hidden: open it to see each choice on your guide."] = ""
+-- L["Atlas layout and tab styles by %s"] = ""
+-- L["Keep this"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"
