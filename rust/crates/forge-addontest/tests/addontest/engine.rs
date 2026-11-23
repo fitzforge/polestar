@@ -400,7 +400,9 @@ emit(out)
 
 #[test]
 fn the_filled_cleansing_bowl_advances_to_xabraxxis_before_the_talisman_is_collected() {
-	let fixes: Value = serde_json::from_str(include_str!("../../../../../data/guide-fixes.json")).unwrap();
+	// Read at run time, not embedded: CI reuses the built test binary while only data changes (docs/CI.md).
+	let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../data/guide-fixes.json");
+	let fixes: Value = serde_json::from_str(&std::fs::read_to_string(path).unwrap()).unwrap();
 	let note = fixes["fixes"].as_array().unwrap().iter().find(|r| r["id"] == "2107-xabraxxis-demon-bag").unwrap()["goalNote"].as_str().unwrap();
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
@@ -2017,7 +2019,7 @@ fn a_hearth_step_never_offers_astral_recall_to_another_class_or_a_shaman_who_has
 				{ goals = { { t = "level", level = 99 } } },
 			} })
 		"#,
-		before: r#"w.setZone("Stormwind City", "Trade District")"#,
+		before: r#"stub.clientBuild = "70532"; w.setZone("Stormwind City", "Trade District")"#,
 		full: true,
 		script: r#"
 			local w = stub.world
@@ -2517,6 +2519,55 @@ fn without_the_quest_database_a_quest_collect_reads_its_quest_log_line_as_before
 	.replace("{NESTS}", NESTS);
 	let out = run(Run { guides: &guides, full: true, script: &script, ..Default::default() });
 	assert_eq!(json!(out), json!([[1, "active"]]));
+}
+
+// #3565 (Qabhal-Oğuz, 0.4.2.1, Eastern Plaguelands): Corin's Crossing collects seven Living Rot (a plain bag count)
+// for To Kill With Purpose (6022), whose objective is the Coagulated Rot they are ground into. A player who had
+// ground them before the step came up was sent to kill for Living Rot with the quest ready. An untied collect of an
+// item a later `complete` or `turnin` of its step uses without asking for it is done once that goal is.
+const ROT: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/rot", pack = "test", title = "Eastern Plaguelands", faction = "Horde", minLevel = 53, maxLevel = 60, zone = 1423,
+	steps = {
+		{ title = "Corin's Crossing", goals = {
+			{ t = "collect", item = 15447, itemName = "Living Rot", count = 7, map = 1423, x = 52.1, y = 61.7 },
+			{ t = "complete", quest = 6022, title = "To Kill With Purpose" },
+		} },
+		{ goals = { { t = "level", level = 60 } } },
+	},
+})
+"#;
+const ROT_DB: &str = r#"
+Polestar.QuestDB.SetMeta({ schema = 2 })
+AddRecords("quests", {
+	[6022] = { "To Kill With Purpose", 58, 54, nil, nil, 2, 11878, 11878, nil, nil, nil, { 2, 15448 }, 1423, nil, nil, nil, nil, 2, 15447 },
+})
+"#;
+
+#[test]
+fn an_untied_collect_of_an_item_its_quest_uses_is_done_once_that_quest_is_ready_3565_living_rot() {
+	let guides = format!("{NORTHSHIRE}{ROT}");
+	let script = r#"
+			local w = stub.world
+			{ROT_DB}
+			E.SetGuide("test/rot"); flush()
+			w.accept(6022, { { text = "Coagulated Rot: 0/1", type = "item" } }); flush()
+			local function state() return { E.GetStepIndex(), E.GetStepView(1).goals[1].status } end
+			emit(state())
+			w.progress(6022, 1, 1); flush()
+			emit(state())
+		"#
+	.replace("{ROT_DB}", &format!("{}{ROT_DB}", forge_addontest::questdb::ADD_RECORDS_LUA));
+	let out = run(Run { guides: &guides, full: true, script: &script, ..Default::default() });
+	assert_eq!(
+		json!(out),
+		json!([
+			// No rot in the bags, the quest not ready: the collect counts the bags.
+			[1, "active"],
+			// The rot ground into the Coagulated Rot, the quest ready: nothing holds the step.
+			[2, "done"],
+		])
+	);
 }
 
 #[test]
@@ -3023,10 +3074,34 @@ fn an_accept_and_hand_in_are_done_once_a_later_quest_of_the_chain_is_in_the_log_
 	assert_eq!(at("", "w.onQuest(3505, {})"), held, "no quest database loaded: nothing known, the accept holds as before");
 }
 
+// #2465 (Juamillas, Scourge Paladin, 0.4.1.1): the game never flags Seeking the Kor Gem (95042) completed, even with
+// An Underrated Talent (95111) and the rest of the chain done, and no prerequisite links them, so the paladin guide
+// waited on its accept. The quest database's `doneBy` (field 21) names the quests that prove it done: one of them in
+// the log or done, or one of their follow-ups, and its accept and hand-in are done.
+const KOR_GEM_DB: &str = r#"
+Polestar.QuestDB.SetMeta({ schema = 2 })
+AddRecords("quests", {
+	[3504] = { "Seeking the Kor Gem", 53, 44, 178, nil, 2, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 3505 },
+	[3505] = { "An Underrated Talent", 53, 44, 178, nil, 2 },
+	[3506] = { "Ott's Masterwork", 53, 44, 178, nil, 2, nil, nil, nil, { 3505 } },
+})
+"#;
+
+#[test]
+fn a_quest_the_game_never_flags_is_done_once_a_quest_its_done_by_names_is_taken_2465_kor_gem() {
+	let held = json!({ "index": 1, "accept": "active", "turnin": "pending" });
+	let past = json!({ "index": 3, "accept": "done", "turnin": "done" });
+	assert_eq!(betrayed(KOR_GEM_DB, ""), held, "nothing after it taken: the accept holds");
+	assert_eq!(betrayed(KOR_GEM_DB, "w.complete({ 3505 })"), past, "An Underrated Talent done (Juamillas's state)");
+	assert_eq!(betrayed(KOR_GEM_DB, "w.onQuest(3505, {})"), past, "in the log");
+	assert_eq!(betrayed(KOR_GEM_DB, "w.onQuest(3506, {})"), past, "a follow-up of it in the log");
+}
+
 // #2461 on the shipped guides (addon/Polestar_Guides_Horde): Erisez had Ag'tor's Betrayed (3505) in the log while
 // 06-azshara's Orgrimmar step held her on Belgrom's letter (3504). Since #2390 Betrayed starts at Ag'tor Bloodfist in
-// Valormok on Forever, so no Horde guide takes 3504 any more and 50-60/04-azshara takes 3505 from Ag'tor; the
-// engine's rule for an accept that a later part of its chain makes moot stays pinned by the test above.
+// Valormok on Forever, so no Horde guide takes 3504 any more and the route takes 3505 from Ag'tor (50-60/02-felwood's
+// Valormok stop since the 0.4.2 route round, 50-60/04-azshara before); the engine's rule for an accept that a later
+// part of its chain makes moot stays pinned by the test above.
 #[test]
 fn erisezs_betrayed_no_shipped_horde_guide_holds_on_belgroms_letter_2461() {
 	let dir = forge_addontest::run::addons_dir();
@@ -3043,7 +3118,7 @@ for _, h in ipairs(G.List()) do
 		for _, step in ipairs(def.steps or {}) do
 			for _, x in ipairs(step.goals or {}) do
 				if x.t == "accept" and x.quest == 3504 then r.belgrom[#r.belgrom + 1] = h.id end
-				if x.t == "accept" and x.quest == 3505 and h.id == "forever/horde/50-60/04-azshara" then r.agtor = true end
+				if x.t == "accept" and x.quest == 3505 and h.id == "forever/horde/50-60/02-felwood" then r.agtor = true end
 			end
 		end
 	end
@@ -3061,7 +3136,7 @@ emit(r)
 	.remove(0);
 	assert!(out["guides"].as_u64().unwrap_or(0) > 20, "the Horde guides are in: {out}");
 	assert_eq!(out["belgrom"], "", "no Horde guide takes Belgrom's letter (3504): {out}");
-	assert_eq!(out["agtor"], true, "50-60/04-azshara takes Betrayed (3505) from Ag'tor Bloodfist: {out}");
+	assert_eq!(out["agtor"], true, "50-60/02-felwood takes Betrayed (3505) from Ag'tor Bloodfist: {out}");
 }
 
 // #2681 and #2683 (roethlar and Fibrasek, Scourge Paladins 24 and 27, 0.4.0.1, Horde 02-the-barrens at Camp
@@ -3117,4 +3192,85 @@ fn a_quest_still_in_the_log_is_not_handed_in_whatever_its_later_chain_says_2681_
 	let alone = at("w.onQuest(882, { { required = 1, fulfilled = 0 } })");
 	assert_eq!(carrying, alone, "1130 in the log changes nothing while 882 is in it");
 	assert_eq!(at("w.onQuest(1130, {}); w.onQuest(907, { { required = 3, fulfilled = 0 } })")["turnin"], "done", "with 882 out of the log and 907 taken, #2461's rule still counts it handed in");
+}
+
+#[test]
+fn t_2939_bloodmage_supplies_count_each_unpaid_quest_against_the_same_stack() {
+	for (faction, race, guide) in [("Alliance", "Human", "forever/alliance/50-60/01-burning-steppes"), ("Horde", "Tauren", "forever/horde/40-50/05-the-hinterlands")] {
+		let dir = forge_addontest::run::addons_dir();
+		let part = format!("Polestar_Guides_{faction}");
+		let out = emitted(&RunAddon {
+			stubs: vec!["stub_world.lua"],
+			before: format!(r#"local w = stub.world; w.race, w.faction, w.level = "{race}", "{faction}", 51"#),
+			addons: vec![Addon::files("Polestar", &["Core/Core.xml"]), Addon::dir("Polestar_Guides", dir.join("Polestar_Guides")), Addon::dir(&part, dir.join(&part))],
+			script: format!(
+				r#"local w, E = stub.world, Polestar.Engine
+				local id = "{guide}"
+				local organs = {{ [8391]=true, [8392]=true, [8393]=true, [8394]=true, [8396]=true }}
+				stub.login()
+				-- Three of each item satisfies several individual lines, not all the payments.
+				for item in pairs(organs) do w.addItem(item, 3) end
+				local log = {{}}
+				for _, step in ipairs(Polestar.Guides.Get(id).steps) do
+					for _, g in ipairs(step.goals) do
+						if g.t == "collect" and organs[g.item] and g.quest then
+							local lines = log[g.quest] or {{}}
+							log[g.quest] = lines
+							lines[g.oi] = {{ type = "item", required = g.count, fulfilled = math.min(3, g.count) }}
+						end
+					end
+				end
+				for q, lines in pairs(log) do w.onQuest(q, lines) end
+				stub.fire("QUEST_LOG_UPDATE"); E.SetGuide(id); stub.advance(0.5)
+				local function view()
+					local rows = {{}}
+					for s, step in ipairs(E.GetGuide().steps) do
+						for gi, g in ipairs(step.goals) do
+							if g.t == "collect" and organs[g.item] and w.log[g.quest] then
+								local v = E.GetStepView(s).goals[gi]
+								if v.status ~= "skipped" and v.status ~= "na" and not v.folded then
+									rows[#rows + 1] = g.item .. ":" .. tostring(v.progress and v.progress.cur) .. "/" .. tostring(v.progress and v.progress.max)
+								end
+							end
+						end
+					end
+					table.sort(rows); emit(rows)
+				end
+				view()
+				w.turnIn(2583); w.addItem(8392, -3); w.addItem(8393, -2); w.addItem(8394, -1); stub.advance(0.5)
+				view()
+				E.SkipQuest(2585); stub.advance(0.5); view()"#
+			),
+			..Default::default()
+		});
+		assert_eq!(out[0], json!(["8391:3/5", "8392:3/6", "8393:3/6", "8394:3/11", "8396:3/14"]), "{faction}");
+		assert_eq!(out[1], json!(["8391:3/5", "8392:0/3", "8393:1/4", "8394:2/10", "8396:3/14"]), "{faction} after paying");
+		assert_eq!(out[2], json!(["8391:3/5", "8392:0/2", "8393:1/1", "8394:2/10", "8396:3/12"]), "{faction} after skipping");
+	}
+}
+
+#[test]
+fn shared_collect_does_not_charge_the_required_row_for_optional_or_skipped_work() {
+	let out = run(Run {
+		guides: r#"
+			local function supply(q, n, optional)
+				return { t = "collect", quest = q, item = 950, itemName = "Candle", oi = 1, count = n, optional = optional }
+			end
+			assert(Polestar.RegisterGuide({ id = "test/candles", pack = "test", title = "Candles", steps = {
+				{ goals = { supply(11, 2), supply(12, 4), supply(13, 8, true) } },
+			} }))
+		"#,
+		before: "w.onQuest(11, {2}); w.onQuest(12, {4}); w.onQuest(13, {8}); w.addItem(950, 3)",
+		script: r#"
+			stub.fire("QUEST_LOG_UPDATE"); assert(E.SetGuide("test/candles")); flush()
+			local function counts()
+				local g = E.GetStepView(1).goals
+				emit({g[1].progress.cur, g[1].progress.max, not not g[2].folded, not not g[3].folded, g[3].status == "skipped"})
+			end
+			counts(); assert(E.SkipGoal(1, 3)); counts(); assert(E.SkipGoal(1, 3)); counts()
+		"#,
+		..Default::default()
+	});
+	let open = json!([3, 6, true, false, false]);
+	assert_eq!(out, vec![open.clone(), json!([3, 6, true, false, true]), open]);
 }

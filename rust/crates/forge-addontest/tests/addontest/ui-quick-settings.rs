@@ -43,7 +43,7 @@ fn the_menu_s_entry_before_options_opens_the_popover_by_the_button_with_the_mid_
 		local built = PolestarQuickSettings ~= nil
 		GF.menuButton:Click()
 		local items, first = menuItems(), nil
-		for i, t in ipairs(items) do if t == "Options" then first = items[i - 1] end end
+		for i, t in ipairs(items) do if t == "Settings" then first = items[i - 1] end end
 		W.HideMenu()
 		menuPick("Quick settings")
 		local P = PolestarQuickSettings

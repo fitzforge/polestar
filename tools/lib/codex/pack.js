@@ -294,12 +294,21 @@ function encodeQuest(rec) {
 
 function encodeInstance(rec) {
 	const e = rec.entrance;
+	const entrance = [];
+	if (e) {
+		const z = num(e.z);
+		entrance.push(num(e.map), coord(e.x), coord(e.y), e.f || '');
+		if (e.approx || e.A || z !== '') entrance.push(e.approx ? 'a' : '');
+		if (e.A) entrance.push(num(e.A.map), coord(e.A.x), coord(e.A.y));
+		// The optional height follows the Alliance triplet if it is present.
+		if (z !== '') entrance.push(z);
+	}
 	const head = [
 		esc(rec.kind),
 		rec.forever ? '1' : '',
 		num(rec.areaId),
 		num(rec.map),
-		e ? [num(e.map), coord(e.x), coord(e.y), e.f || '', ...(e.approx || e.A ? [e.approx ? 'a' : ''] : []), ...(e.A ? [num(e.A.map), coord(e.A.x), coord(e.A.y)] : [])].join(',') : '',
+		entrance.join(','),
 		list(rec.levels),
 	];
 	const bosses = (rec.bosses || []).map((b) => [esc(b.name), bossRef(b), ...(b.items || []).map(num)].join(','));

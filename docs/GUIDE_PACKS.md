@@ -81,8 +81,8 @@ addon you have installed, with its author, version, licence and website.
 
 Polestar comes with one more set of guides, off until you want it:
 **Polestar Experimental**, guides for Forever's new zones while they are
-still being written and tested (alpha): Riverglades, Shen'dralas and Mount
-Hyjal. Nothing of them loads until you want them, and there is nothing to
+still being written and tested (alpha); none at the moment (the Riverglades,
+Shen'dralas and Mount Hyjal are part of both routes). Nothing of them loads until you want them, and there is nothing to
 install.
 
 - **Choose one on your route.** Where a leveling guide ends at one of these

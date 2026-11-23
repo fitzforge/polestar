@@ -33,7 +33,7 @@ next forever/horde/05-stonetalon-mountains
 # Choice) come back with Stonetalon's upper half at 24-26 in
 # forever/horde/04-the-barrens, after Ashenvale and Hillsbrad.
 #
-# Flow: Orgrimmar -> Far Watch Post (Orcs and Trolls: Kargal, Uzzek) -> the Crossroads (flight
+# Flow: Orgrimmar -> Razor Hill (Takrin: Conscript of the Horde) -> Far Watch Post (Kargal; Orcs and Trolls: Ak'Zeloth, Uzzek) -> the Crossroads (flight
 # path, bind) -> the Razormane camp -> the Crossroads -> Ratchet (Southsea beach) -> the oases and
 # Regthar -> the Dry Hills -> the Sludge Fen console -> the Razormane camp -> the Crossroads ->
 # the Dry Hills and Vrang -> Echeyakee -> the Crossroads -> Ratchet
@@ -61,8 +61,8 @@ next forever/horde/05-stonetalon-mountains
 # second visit with Serena Bloodfeather (876, offered only once Harpy Lieutenants is handed in): Unwelcome Guests
 # brings Terry Longdrink (19) up the ridge, two levels over the first loop.
 #
-# Orcs and Trolls: Far Watch Post first (Conscript of the Horde to Kargal and Crossroads Conscription
-# from him: only Warriors pass him at the end of their Durotar guide, everyone else carries 840 here;
+# Orcs and Trolls: Razor Hill (Threat from Below to Orgnil) and Far Watch Post first (Conscript of the Horde,
+# from Durotar's Razor Hill, to Kargal, and Crossroads Conscription from him;
 # Ak'Zeloth, from Neeru on Silverpine's Orgrimmar stop; Warriors hand Path of Defense to Uzzek), then their own Crossroads step (Meats to Orgrimmar to Devrak; Ride to Orgrimmar
 # is left out, as Gryshka would take it at 20, five levels late, and they have the city's flight
 # path from the Silverpine guide). Warriors finish
@@ -126,29 +126,54 @@ next forever/horde/05-stonetalon-mountains
 
 # ---------------------------------------------------------------- Far Watch Post
 
-# Orcs and Trolls take Crossroads Conscription (842) from Kargal, and Warriors hand Uzzek the Singed
-# Scales from Thunder Ridge (1498): Far Watch Post is on the road from Orgrimmar to the Crossroads.
+# Every start leaves Orgrimmar by the road south through Durotar: Razor Hill is a short step east of it
+# before the bridge. Tauren, Undead and Skyborne take Takrin Pathseeker's Conscript of the Horde (840) there
+# (Orcs and Trolls bring it from Durotar's Razor Hill) and hand it to Kargal at Far Watch Post, with
+# Crossroads Conscription (842) for Sergra at the Crossroads. Orcs and Trolls hand Orgnil Threat from Below
+# (99051) on the same Razor Hill step, Ak'Zeloth his letter (809) at Far Watch Post, and Warriors hand
+# Uzzek the Singed Scales from Thunder Ridge (1498) on that stop.
+step Razor Hill
+  zone Durotar
+  tip Leave Orgrimmar by the main gate and follow the road south through Durotar. Before it turns west to the Southfury River bridge, step east into Razor Hill: Takrin Pathseeker stands on the west side of town, Orgnil Soulscar in the middle.
+  accept 840 only Tauren,Undead,Skyborne -- Takrin Pathseeker: Kargal Battlescar at Far Watch Post, on the way
+
+step Orgnil Soulscar
+  zone Durotar
+  when complete 99051
+  tip Orgnil Soulscar stands in the middle of Razor Hill.
+  turnin 99051 only Orc,Troll         -- Orgnil Soulscar: Threat from Below, from Durotar's naga beach
+
 step The Barrens
-  only Orc,Troll
   zone The Barrens
   goto 62.3,19.4 "Far Watch Post"
 
-step Far Watch Post
-  only Orc,Troll
+step Uzzek
   zone The Barrens
-  tip Leave Orgrimmar by the main gate and follow the road south through Durotar, then west over the Southfury River bridge: Far Watch Post sits just above it on the Barrens side. Kargal Battlescar, Ak'Zeloth and Uzzek stand together.
-  turnin 840                          -- Kargal Battlescar: Conscript of the Horde, from Durotar
+  when complete 1498
+  tip Uzzek stands at Far Watch Post with Kargal Battlescar and Ak'Zeloth.
+  turnin 1498 only Orc,Troll,Warrior  -- Uzzek
+
+step Far Watch Post
+  zone The Barrens
+  tip Back west to the road and over the Southfury River bridge: Far Watch Post sits just above it on the Barrens side. Kargal Battlescar, Ak'Zeloth and Uzzek stand together.
+  turnin 840                          -- Kargal Battlescar
   accept 842
-  turnin 809                          -- Ak'Zeloth, beside Kargal: from Neeru Fireblade in Orgrimmar
-  turnin 1498 only Warrior            -- Uzzek
-  accept 1502 only Warrior
+  turnin 809 only Orc,Troll           -- Ak'Zeloth, beside Kargal: from Neeru Fireblade in Orgrimmar
+  accept 1502 only Orc,Troll,Warrior
 
 step Far Watch Post
   only Tauren,Warrior
-  when onquest 1498
+  when complete 1498
   zone The Barrens
   tip Leave Orgrimmar by the main gate and follow the road south through Durotar, then west over the Southfury River bridge: Uzzek stands at Far Watch Post just above it, on the road to the Crossroads.
   turnin 1498                         -- Uzzek
+
+step Far Watch Post
+  only Tauren,Warrior
+  when turnedin 1498
+  when available 1502
+  zone The Barrens
+  tip Uzzek stands at Far Watch Post, just above the Southfury River bridge.
   accept 1502
 
 # ---------------------------------------------------------------- The Crossroads
@@ -230,6 +255,7 @@ step The Crossroads
   label crossroads
   zone The Barrens
   tip The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn: Sergra by the inn, Helbrim and Gazrog by the north gate, then up the tower to Devrak, the wind rider master, Thork and Darsok, and Tonga at the south gate on the way out.
+  turnin 842 only Tauren,Undead,Skyborne -- Sergra Darkthorn: Crossroads Conscription, from Far Watch Post
   accept 844                          -- Sergra Darkthorn
   sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
   turnin 1358 only Tauren,Undead,Skyborne -- Apothecary Helbrim: Sample for Helbrim, from Zinge

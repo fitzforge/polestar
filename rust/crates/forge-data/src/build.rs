@@ -23,6 +23,21 @@ use crate::tables::{self, Source};
 /// Bumped when the output for the same inputs changes (forge build's stage key).
 pub const VERSION: &str = "polestar-data 1";
 
+/// What the data build does with a placeholder name a player would read (#2614), one the corrections
+/// give no words.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Placeholders {
+	/// Stop the build, naming each: our own builds (`forge build`, `forge data build
+	/// --strict-placeholders`).
+	Stop,
+	/// Name each as a warning and build on: `forge data build` without `--strict-placeholders`, a guide
+	/// author's build from their own sources, whose QuestieDB may be newer than the corrections (#3797).
+	Warn,
+	/// Count them only: `forge data publish`'s public builds, which take no corrections and whose
+	/// tables carry no objective text, so those corrections are not needed there.
+	Count,
+}
+
 pub struct Options {
 	/// The checkout (relative cache paths in meta.json, forever-db/corrections).
 	pub root: PathBuf,
@@ -52,10 +67,9 @@ pub struct Options {
 	/// wants is looked up first (`sources::web_xp`); the CLI fetches the other sources before the build.
 	pub offline: bool,
 	pub web_zones: bool,
-	/// Stop on a placeholder name a player would read (#2614). Off for `forge data publish`'s public
-	/// builds: they take no corrections (the tier decides which count), and the public tables carry no
-	/// objective text, so the corrections that give those objectives their words are not needed there.
-	pub placeholder_guard: bool,
+	/// What a placeholder name a player would read does to the build (#2614): [`Placeholders::Stop`]
+	/// by default, our own builds.
+	pub placeholders: Placeholders,
 	pub cap: usize,
 	/// meta.json builtAt (ISO 8601, as `new Date(x).toISOString()` prints it).
 	pub built_at: String,
@@ -208,7 +222,7 @@ impl Options {
 			web_xp: true,
 			offline: true,
 			web_zones: true,
-			placeholder_guard: true,
+			placeholders: Placeholders::Stop,
 			cap: DEFAULTS.cap,
 			built_at: now_iso(),
 			kb: None,
@@ -621,10 +635,24 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	// recordings give no spawns to those no source places.
 	let summoned = fwago.as_ref().and_then(|f| f.get("SpellEffect")).map(|effects| extras::summoned_creatures(effects));
 	let unplaced_summoned = summoned.as_ref().map(|s| extras::unplaced_summoned(s, &norm.npcs)).unwrap_or_default();
+	// Forever's gathering spells (its SpellEffect): a loot window right after one is a herb or an ore node's.
+	let gather_spells = fwago.as_ref().and_then(|f| f.get("SpellEffect")).map(|effects| extras::gathering_spells(effects)).unwrap_or_default();
+	// Its quest items (Item's Quest class): a loot window of these only is no chest's.
+	let quest_items = fwago.as_ref().and_then(|f| f.get("Item")).map(|items| extras::quest_items(items)).unwrap_or_default();
 	let mut revision = crate::recordings::Revision::default();
 	let mut unread: Option<String> = None;
 	let rec = apply_recordings(
-		&crate::recordings::Db { quests: &norm.quests, npcs: &norm.npcs, objects: &norm.objects, items: &norm.items, zones: &zones, factions: &factions, instances: &instances },
+		&crate::recordings::Db {
+			quests: &norm.quests,
+			npcs: &norm.npcs,
+			objects: &norm.objects,
+			items: &norm.items,
+			zones: &zones,
+			factions: &factions,
+			instances: &instances,
+			gather_spells: &gather_spells,
+			quest_items: &quest_items,
+		},
 		recordings.sessions().map_while(|r| match r {
 			Ok(r) => {
 				revision.add(&r);
@@ -728,6 +756,14 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		tdb_heights = crate::cmangos::add_tdb_heights(h, t);
 		log(&format!("spawn heights: {tdb_heights} NPCs and objects classic-db lacks, from the Forever TDB's sniffed spawns"));
 	}
+	// Players' floors at NPCs the spawn data gives no height where they are talked to (<root>/data/npc-floors.json).
+	if let Some(h) = heights.as_mut() {
+		match crate::extras::read_json(&o.root.join("data").join("npc-floors.json")) {
+			Ok(Some(doc)) => log(&format!("spawn heights: {} NPC floors from players' recordings (data/npc-floors.json)", crate::cmangos::add_recorded_heights(h, &doc))),
+			Ok(None) => {}
+			Err(e) => warnings.push(format!("data/npc-floors.json unreadable ({e}); NPCs without a spawn height keep none")),
+		}
+	}
 	let moves = match crate::cmangos::load_moves(&o.sources) {
 		Ok(m) => Some(m),
 		Err(e) => {
@@ -808,6 +844,12 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			corrections: corrections.clone(),
 			correction_origins: correction_origins.clone(),
 			npc_hand_ins: rec.npc_hand_ins.clone(),
+			not_pre: learned
+				.entries()
+				.into_iter()
+				.filter_map(|(id, r)| Some((id.parse::<i64>().ok()?, crate::learn::not_prereqs(&r).into_iter().collect::<FxHashSet<i64>>())))
+				.filter(|(_, n)| !n.is_empty())
+				.collect(),
 			// The fact check's local database is a local-only source.
 			facts_file: if cfg!(feature = "local-sources") { Some(local.join("factcheck").join("facts.sqlite")) } else { None },
 			tdb: tdb.as_ref().filter(|t| t.get("schema").num() >= 2.0).cloned(),
@@ -891,15 +933,22 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	let credits = crate::credit::retype(&norm.quests, &norm.npcs);
 	log(&format!("placeholder targets: {} quest(s) whose objective names a credit NPC are events", credits.len()));
 	let shown = crate::credit::scan(&norm.quests, &norm.npcs, &norm.objects, &norm.items);
-	if !shown.is_empty() && o.placeholder_guard {
-		return Err(format!(
-			"{} placeholder name(s) a player would read (#2614); give each objective its quest-log words in forever-db/corrections/quests.json, or the NPC, object or item its name:\n{}",
-			shown.len(),
-			shown.join("\n")
-		));
-	}
 	if !shown.is_empty() {
-		log(&format!("placeholder names left (public build, no corrections): {}", shown.len()));
+		match o.placeholders {
+			Placeholders::Stop => {
+				return Err(format!(
+					"{} placeholder name(s) a player would read (#2614); give each objective its quest-log words in forever-db/corrections/quests.json, or the NPC, object or item its name:\n{}",
+					shown.len(),
+					shown.join("\n")
+				))
+			}
+			Placeholders::Warn => log(&format!(
+				"warning: {} placeholder name(s) a player would read (#2614), kept as they are: their source (a newer QuestieDB?) is ahead of forever-db/corrections/quests.json. A guide step on one of these shows that name; --strict-placeholders stops here instead:\n{}",
+				shown.len(),
+				shown.join("\n")
+			)),
+			Placeholders::Count => log(&format!("placeholder names left (public build, no corrections): {}", shown.len())),
+		}
 	}
 
 	// ---- meta.json sources

@@ -22,73 +22,77 @@ return {
 	-- {quest:829} Neeru Fireblade · {quest:832} Burning Shadows · {item:4903} Eye of Burning Shadow · {zone:1411} Durotar
 	["{quest:829}: {quest:832}, from the {item:4903} in {zone:1411}"] = "{quest:829}：{quest:832}，來自{zone:1411}的{item:4903}",
 
-	-- Step 4: The Drag
+	-- Step 4: Neeru Fireblade
+	-- {quest:829} Neeru Fireblade · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength
+	["{quest:829} stands at the far end of the {object:172960}, the canyon under the {object:172982}."] = "",
+
+	-- Step 5: The Drag
 	-- {npc:3348} Kor'geld · {npc:3347} Yelmak · {npc:11046} Whuut
 	["{npc:3348} and {npc:3347} run the alchemy shop in the Drag; {npc:11046} is next door."] = "{npc:3348}和{npc:3347}在the Drag經營煉金店；{npc:11046}在隔壁。",
 
-	-- Step 5: Jandi
+	-- Step 6: Jandi
 	-- {npc:3404} Jandi
 	["{npc:3404}, the herbalism trainer, keeps her shop in the Drag."] = "{npc:3404}是草藥學訓練師，她的店在the Drag。",
 	-- {npc:3404} Jandi · {zone:1411} Durotar
 	["{npc:3404}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:3404}：野營入門，來自{zone:1411}布拉克的營火",
 
-	-- Step 6: Jhag
+	-- Step 7: Jhag
 	-- {npc:11066} Jhag
 	["{npc:11066}, the enchanting trainer, works in the Drag."] = "{npc:11066}是附魔訓練師，在the Drag工作。",
 	-- {npc:11066} Jhag · {zone:1411} Durotar
 	["{npc:11066}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:11066}：野營入門，來自{zone:1411}布拉克的營火",
 
-	-- Step 7: Valley of Honor
+	-- Step 8: Valley of Honor
 	-- {object:172958} Valley of Honor
 	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "香蒲和長矛草沿著the Drag東邊{object:172958}的水邊生長。",
 
-	-- Step 8: Thuwd
+	-- Step 9: Thuwd
 	-- {npc:7088} Thuwd · {object:172958} Valley of Honor
 	["{npc:7088}, the skinning trainer, stands in the {object:172958}."] = "{npc:7088}是剝皮訓練師，站在{object:172958}。",
 	-- {npc:7088} Thuwd · {zone:1411} Durotar
 	["{npc:7088}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:7088}：野營入門，來自{zone:1411}布拉克的營火",
 
-	-- Step 9: Karolek
+	-- Step 10: Karolek
 	-- {npc:3365} Karolek · {object:172958} Valley of Honor
 	["{npc:3365}, the leatherworking trainer, works in the {object:172958}."] = "{npc:3365}是製皮訓練師，在{object:172958}工作。",
 	-- {npc:3365} Karolek · {zone:1411} Durotar
 	["{npc:3365}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:3365}：野營入門，來自{zone:1411}布拉克的營火",
 
-	-- Step 10: Snang
+	-- Step 11: Snang
 	-- {npc:2855} Snang · {object:172958} Valley of Honor
 	["{npc:2855}, the tailoring trainer, is in the {object:172958}."] = "{npc:2855}是裁縫訓練師，在{object:172958}。",
 	-- {npc:2855} Snang · {zone:1411} Durotar
 	["{npc:2855}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:2855}：野營入門，來自{zone:1411}布拉克的營火",
 
-	-- Step 11: Class trainer
+	-- Step 12: Class trainer
 	["Class trainer"] = "職業訓練師",
 	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {quest:5654} Hex of Weakness
 	["Train while you are in the city: Druids and Paladins have no trainer here. Troll Priests: train with {npc:6018} in the {object:172961}, who takes {quest:5654}."] = "",
 
-	-- Step 12: Sayoc
+	-- Step 13: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor
 	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Warrior fastest."] = "順路：向{npc:11868}學習{spell:197}（{object:172958}，10銀）；戰士用雙手武器升級最快。",
 
-	-- Step 13: Hanashi
+	-- Step 14: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "順路：向{npc:2704}學習法杖（{object:172958}，10銀）；獵人的近戰武器主要看屬性，雙手武器提供的屬性最多。",
 
-	-- Step 14: Hanashi
+	-- Step 15: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "順路：向{npc:2704}學習法杖（{object:172958}，10銀）；升級期間法杖提供的法術屬性比單手武器多。",
 
-	-- Step 17: Whuut
+	-- Step 18: Whuut
 	-- {npc:11046} Whuut · {npc:3348} Kor'geld
 	["{npc:11046}, the alchemy trainer, stands next door to {npc:3348}."] = "{npc:11046}是煉金術訓練師，站在{npc:3348}隔壁。",
 	-- {npc:11046} Whuut · {zone:1411} Durotar
 	["{npc:11046}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:11046}：野營入門，來自{zone:1411}布拉克的營火",
 
-	-- Step 18: Valley of Wisdom
+	-- Step 19: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
 	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them."] = "{npc:268684}和{npc:268682}坐在{object:172957}格羅瑪什要塞後面；光滑的巨石就在他們周圍。",
 
-	-- Step 19: Thrall
+	-- Step 20: Thrall
 	-- {npc:4949} Thrall · {quest:98024} Journey to the Crossroads · {quest:93739} Exploring the Horde · {quest:95350} Welcome to Azeroth
 	["{npc:4949} stands in Grommash Hold. He offers {quest:98024} and {quest:93739} once {quest:95350} is handed in."] = "{npc:4949}站在格羅瑪什要塞裡。{quest:95350}交還後，他會提供{quest:98024}和{quest:93739}。",
 	-- {npc:4949} Thrall
@@ -106,15 +110,23 @@ return {
 	-- {npc:10540} Vol'jin
 	["Talk to {npc:10540}"] = "與{npc:10540}交談",
 
-	-- Step 20: Nazgrel
+	-- Step 21: Nazgrel
 	-- {npc:3230} Nazgrel
 	["{npc:3230}, in Grommash Hold"] = "{npc:3230}，在格羅瑪什要塞裡",
 
-	-- Step 21: Zeppelin to Undercity
+	-- Step 22: Thrall
+	-- {npc:4949} Thrall · {item:14544} Lieutenant's Insignia · {area:817} Skull Rock · {quest:829} Neeru Fireblade · {zone:1454} Orgrimmar
+	["{npc:4949}, on his throne in Grommash Hold, takes the {item:14544} from {area:817}. His next errand is only a word with {quest:829}, on this guide's last {zone:1454} walk."] = "",
+
+	-- Step 23: Thrall
+	-- {npc:4949} Thrall · {npc:3216} Neeru Fireblade · {zone:1454} Orgrimmar
+	["{npc:4949} sits on his throne in Grommash Hold. His next errand is only a word with {npc:3216}, on this guide's last {zone:1454} walk."] = "",
+
+	-- Step 24: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "搭飛艇前往{zone:1458}",
 
-	-- Step 22: Brill
+	-- Step 25: Brill
 	-- {area:159} Brill · {npc:1738} Deathguard Terrence · {npc:1518} Apothecary Johaan · {npc:246152} Shari Stilwell
 	["{area:159} is a short walk north up the road from the zeppelin towers: {npc:1738} stands by the road into town, {npc:1518} in the apothecary's house on the west side of the square; Paladins: {npc:246152} trains you in town."] = "",
 	-- {npc:1518} Apothecary Johaan
@@ -122,60 +134,62 @@ return {
 	-- {npc:246152} Shari Stilwell · {area:159} Brill
 	["{npc:246152}, in {area:159}"] = "{npc:246152}，在{area:159}",
 
-	-- Step 23: Hadric Harlson
+	-- Step 26: Hadric Harlson
 	-- {npc:1495} Deathguard Linnea · {npc:267009} Hadric Harlson
 	["Back down the road past the zeppelin towers and east to {npc:1495}'s camp: {npc:267009} stands beside her."] = "沿路往回走過飛艇塔，向東到{npc:1495}的營地：{npc:267009}站在她旁邊。",
 
-	-- Step 24: The Cult of the Damned
+	-- Step 27: The Cult of the Damned
 	-- {npc:267009} Hadric Harlson
 	-- plural, as words: Dark Neophytes = {npc:267006} Dark Neophyte · Dark Enforcers = {npc:275437} Dark Enforcer · Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
 	["The cultists camp a short walk south-east of {npc:267009}. Dark Neophytes and Dark Enforcers drop the Necrotic Crystal Fragments; more fragments, black crystals, lie on the ground among the tents."] = "教徒在{npc:267009}東南走一小段的地方紮營。黑暗新信徒和黑暗執行者掉死靈水晶碎片；更多碎片和黑色水晶就散落在帳篷間的地上。",
 
-	-- Step 27: The Sepulcher
+	-- Step 30: The Sepulcher
 	-- {area:228} The Sepulcher · {npc:2226} Karos Razok
 	["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it."] = "{area:228}是森林中央的被遺忘者墓穴城鎮。你需要找的人都站在墓穴入口周圍；蝙蝠管理員{npc:2226}就在入口東邊。",
 	-- {npc:2226} Karos Razok · {npc:4556} Gordon Wendham · {zone:1458} Undercity
 	["{npc:2226}: {npc:4556} in the {zone:1458}, at the end of this guide; no need to buy the flight"] = "{npc:2226}：{zone:1458}的{npc:4556}，在本指南的最後；不需要購買飛行路線",
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "{npc:1952}，在地下",
+	-- {npc:1937} Apothecary Renferrel
+	["{npc:1937}: bear hearts from the Grizzled Bears all over the forest, the spiders' blood in the north-west hills later"] = "",
 
-	-- Step 28: The Sepulcher
+	-- Step 31: The Sepulcher
 	-- {quest:264} Until Death Do Us Part · {object:24776} Yuriv's Tombstone
 	["{quest:264} is handed in at {object:24776}, a grave a few steps south of the crypt entrance, not to a person."] = "{quest:264}要在{object:24776}交，那是墓穴入口南邊幾步遠的一座墳墓，不是交給某個人。",
 
-	-- Step 29: Border Crossings
+	-- Step 32: Border Crossings
 	-- {object:1627} Dalaran Crate
 	-- plural, as words: Dalaran Apprentices = {npc:1867} Dalaran Apprentice
 	["Follow the road south. The {object:1627} sits beside it, north of Pyrewood. Careful: Dalaran Apprentices (13) stand around the crate: pull them one at a time before you open it."] = "沿著道路向南走。{object:1627}在路旁，位於焚木村北邊。小心：達拉然學徒（13級）站在箱子周圍：打開之前一次拉一個。",
 
-	-- Step 30: The Dead Field
+	-- Step 33: The Dead Field
 	-- {area:228} The Sepulcher · {npc:1983} Nightlash · {area:240} The Dead Field
 	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "在{area:228}北邊。{npc:1983}在{area:240}出沒：殺了它，然後走過整片田地。小心：在田裡殺掉腐皮豺狼人後，{npc:1983}（14級）就會出現：滿血再跟她打。",
 
-	-- Step 31: Malden's Orchard
+	-- Step 34: Malden's Orchard
 	-- {area:238} Malden's Orchard
 	["Follow the road north-east to the Yoricks' house at {area:238}."] = "沿著道路向東北前往{area:238}的尤瑞克家。",
 
-	-- Step 32: Mottled Worgs
+	-- Step 35: Mottled Worgs
 	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
 	["Mottled Worgs"] = "雜斑座狼",
 	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
 	["Mottled Worgs prowl the hills around the house."] = "雜斑座狼在房子周圍的山丘徘徊。",
 
-	-- Step 33: Escorting Erland
+	-- Step 36: Escorting Erland
 	-- {npc:1978} Deathstalker Erland · {npc:1950} Rane Yorick
 	["{npc:1978} waits north-east of the house. Escort him back to {npc:1950}; worgs attack on the way."] = "{npc:1978}在房子東北方等候。護送他回到{npc:1950}那裡；途中會有座狼攻擊。",
 	-- {npc:1978} Deathstalker Erland
 	["{npc:1978}, inside"] = "{npc:1978}，在裡面",
 
-	-- Step 36: The Sepulcher
+	-- Step 39: The Sepulcher
 	-- {npc:1938} Dalar Dawnweaver · {area:227} Valgan's Field
 	["{npc:1938}: his books lie in the {area:227} farmhouse, on the walk north"] = "{npc:1938}：他的書在{area:227}的農舍裡，往北走時會經過",
 	-- {npc:1937} Apothecary Renferrel · {zone:1458} Undercity
 	["{npc:1937}: Zinge in the {zone:1458}, on the way to the zeppelin at the end"] = "{npc:1937}：津格在{zone:1458}，最後去乘飛艇的路上",
 	["Allister's Ambermill Investigations is for the ride through Silverpine at 22; leave it."] = "艾利斯特的安伯米爾調查是22級穿越銀松森林時做的；先別接。",
 
-	-- Step 37: Valgan's Field farmhouse
+	-- Step 40: Valgan's Field farmhouse
 	-- {area:227} Valgan's Field
 	["{area:227} farmhouse"] = "{area:227}的農舍",
 	-- {area:227} Valgan's Field · {object:1571} Dusty Spellbooks · {npc:1770} Moonrage Darkrunner
@@ -183,21 +197,21 @@ return {
 	-- {object:1571} Dusty Spellbooks
 	["{object:1571}; upstairs"] = "{object:1571}，樓上",
 
-	-- Step 38: Quinn Yorick
+	-- Step 41: Quinn Yorick
 	["North again to the Yoricks' house."] = "再次向北前往尤瑞克家。",
 	-- {npc:1951} Quinn Yorick
 	["{npc:1951}, inside"] = "{npc:1951}，在裡面",
 
-	-- Step 39: Vile Fin murlocs
+	-- Step 42: Vile Fin murlocs
 	["Vile Fin murlocs"] = "邪鰭魚人",
 	-- plural, as words: Vile Fin Shredders = {npc:1767} Vile Fin Shredder
 	["Follow the lake shore south-east from the Yoricks' house: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "從約里克家沿著湖岸向東南走：沿途的邪鰭切割者和邪鰭潮行者會掉落魚人眼睛。",
 
-	-- Step 40: The Decrepit Ferry
+	-- Step 43: The Decrepit Ferry
 	-- {object:1593} Corpse Laden Boat
 	["Follow the lake shore south from the murlocs: the {object:1593} lies at the ferry landing."] = "從魚人那裡沿湖岸往南走：{object:1593}在渡口碼頭。",
 
-	-- Step 41: The Sepulcher
+	-- Step 44: The Sepulcher
 	-- {area:228} The Sepulcher
 	["From the ferry back west up the road to the {area:228}."] = "從渡口沿道路往西回到{area:228}。",
 	-- {npc:1937} Apothecary Renferrel
@@ -207,16 +221,35 @@ return {
 	-- {npc:1499} Magistrate Sevren · {area:159} Brill
 	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "{npc:1499}在{area:159}，在最後去乘飛艇的路上",
 
-	-- Step 42: The Ivar Patch
+	-- Step 45: North-west hills
+	["North-west hills"] = "",
+	-- {area:228} The Sepulcher · {item:3254} Skittering Blood
+	-- plural, as words: Moonrage Gluttons = {npc:1779} Moonrage Glutton · Moss Stalkers = {npc:1780} Moss Stalker · Mist Creepers = {npc:1781} Mist Creeper · Giant Grizzled Bears = {npc:1797} Giant Grizzled Bear
+	["North-west of the {area:228} the Moonrage Gluttons and Darksouls roam the hills between the road and the lake; their shackles drop from them. Past them, farther north-west, Moss Stalkers and Mist Creepers bleed the {item:3254}, and Giant Grizzled Bears roam among them for the hearts (any Grizzled Bear in the forest drops one)."] = "",
+	-- {item:3156} Glutton Shackle
+	-- plural, as words: Moonrage Gluttons = {npc:1779} Moonrage Glutton
+	["{item:3156}, from the Moonrage Gluttons"] = "",
+	-- {item:3157} Darksoul Shackle
+	-- plural, as words: Moonrage Darksouls = {npc:1782} Moonrage Darksoul
+	["{item:3157}, from the Moonrage Darksouls"] = "",
+	-- {item:3254} Skittering Blood
+	-- plural, as words: Moss Stalkers = {npc:1780} Moss Stalker · Mist Creepers = {npc:1781} Mist Creeper
+	["{item:3254}, from the Moss Stalkers and Mist Creepers"] = "",
+
+	-- Step 46: The Sepulcher
+	-- {area:228} The Sepulcher
+	["Back south-east to the {area:228}."] = "",
+
+	-- Step 47: The Ivar Patch
 	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
 	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "沿道路向北朝{zone:1420}走：{area:238}的尤瑞克家就在路上。{quest:425}潛伏在房子西邊不遠處。",
 	["Inside"] = "在裡面",
 
-	-- Step 44: Magistrate Sevren
+	-- Step 49: Magistrate Sevren
 	-- {area:159} Brill · {npc:1499} Magistrate Sevren
 	["{area:159} is a short walk north up the road from the zeppelin towers; {npc:1499} is in the town hall."] = "{area:159}從飛艇塔沿著道路往北走一小段就到；{npc:1499}在市政廳裡。",
 
-	-- Step 46: The Undercity
+	-- Step 51: The Undercity
 	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:2050} Raleigh Andrean · {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben · {npc:5204} Apothecary Zinge · {npc:2055} Master Apothecary Faranell
 	["{object:1661} lies under the {area:153}, beside the zeppelin towers. {npc:2050} stands at the inn by the way down; {npc:7683} on the way down to the Apothecarium, where {npc:11044} and {npc:5204} stand beside {npc:2055}."] = "{object:1661}位於{area:153}下方、飛艇塔旁。{npc:2050}站在下行路口的旅店旁；{npc:7683}在通往鍊金房的下行路上，{npc:11044}和{npc:5204}就站在那裡的{npc:2055}旁邊。",
 	-- {npc:4556} Gordon Wendham
@@ -229,30 +262,32 @@ return {
 	["{npc:11044}, in the Apothecarium"] = "{npc:11044}，在 Apothecarium",
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}, in the Apothecarium"] = "{npc:5204}，在鍊金房",
+	-- {npc:2055} Master Apothecary Faranell
+	["{npc:2055}, beside Zinge"] = "",
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}: Helbrim at the Crossroads, in the next guide"] = "{npc:5204}：赫布瑞姆在十字路口，下一份指南",
 	-- {npc:260093} Garen Largo · {area:1497} Undercity
 	["{npc:260093}, the {area:1497}'s paladin trainer"] = "{npc:260093}，{area:1497}的聖騎士訓練師",
 
-	-- Step 47: Brom Killian
+	-- Step 52: Brom Killian
 	-- {npc:4598} Brom Killian · {zone:1458} Undercity
 	["{npc:4598}, the mining trainer, works in the {zone:1458}."] = "{npc:4598}是採礦訓練師，在{zone:1458}工作。",
 	-- {npc:4598} Brom Killian · {npc:265812} Eleanor Shackleton
 	["{npc:4598}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4598}：野營入門，來自提里斯法{npc:265812}的營火",
 
-	-- Step 48: Basil Frye
+	-- Step 53: Basil Frye
 	-- {npc:4605} Basil Frye · {zone:1458} Undercity
 	["{npc:4605}, the blacksmithing trainer, works in the {zone:1458}."] = "{npc:4605}是鍛造訓練師，在{zone:1458}工作。",
 	-- {npc:4605} Basil Frye · {npc:265812} Eleanor Shackleton
 	["{npc:4605}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4605}：野營入門，來自提里斯法{npc:265812}的營火",
 
-	-- Step 49: Graham Van Talen
+	-- Step 54: Graham Van Talen
 	-- {npc:4586} Graham Van Talen · {zone:1458} Undercity
 	["{npc:4586}, the engineering trainer, works in the {zone:1458}."] = "{npc:4586}是工程學訓練師，在{zone:1458}工作。",
 	-- {npc:4586} Graham Van Talen · {npc:265812} Eleanor Shackleton
 	["{npc:4586}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4586}：野營入門，來自提里斯法{npc:265812}的營火",
 
-	-- Step 50: Lady Sylvanas Windrunner
+	-- Step 55: Lady Sylvanas Windrunner
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter
 	["{npc:10181} holds court in the {object:36126}."] = "{npc:10181}在{object:36126}裡坐鎮。",
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter · {quest:93739} Exploring the Horde
@@ -260,40 +295,50 @@ return {
 	-- {npc:10181} Lady Sylvanas Windrunner
 	["Talk to {npc:10181}"] = "與{npc:10181}交談",
 
-	-- Step 51: Zeppelin to Orgrimmar
+	-- Step 56: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "搭飛艇前往{zone:1454}",
 
-	-- Step 52: Orgrimmar
+	-- Step 57: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{zone:1454}的{object:172982}",
 
-	-- Step 53: Valley of Strength
+	-- Step 58: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength
 	["Walk in through the main gate. {npc:268701} stands in the {object:172982}."] = "從正門走進去。{npc:268701}站在{object:172982}。",
 
-	-- Step 56: Neeru Fireblade
+	-- Step 61: Neeru Fireblade
+	-- {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:3216} Neeru Fireblade · {npc:4949} Thrall
+	["The {object:172960} is the canyon under the {object:172982}; {npc:3216} stands at its far end. Tell him what {npc:4949} found."] = "",
+
+	-- Step 62: Neeru Fireblade
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:3216} Neeru Fireblade
 	["For your {area:2437} run: the {object:172960} is the canyon under the {object:172982}; {npc:3216} stands at its far end, next to the {area:2437} portal."] = "為了你的{area:2437}之行：{object:172960}是{object:172982}下方的峽谷；{npc:3216}站在峽谷盡頭，{area:2437}傳送門旁邊。",
 
-	-- Step 57: Ragefire Chasm
-	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow · {npc:3216} Neeru Fireblade · {npc:11520} Taragaman the Hungerer · {npc:11518} Jergosh the Invoker · {npc:4949} Thrall
-	["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {npc:4949}'s Hidden Enemies, which this route leaves out."] = "{area:2437}是五人地城，約13到18級，完整打一次要30到45分鐘。傳送門在{object:172960}，{npc:3216}旁邊。\n裡面：經過歐格弗林特和他的穴居人後，{npc:11520}在熔岩洞穴裡等著，會掉落他的心臟。更深處的{npc:11518}和巴札蘭是{npc:4949}的「隱藏的敵人」任務目標，本路線略過該任務。",
+	-- Step 63: Ragefire Chasm
+	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow · {npc:3216} Neeru Fireblade · {npc:11520} Taragaman the Hungerer · {npc:11518} Jergosh the Invoker · {quest:5726} Hidden Enemies
+	-- was: ["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {npc:4949}'s Hidden Enemies, which this route leaves out."] = "{area:2437}是五人地城，約13到18級，完整打一次要30到45分鐘。傳送門在{object:172960}，{npc:3216}旁邊。\n裡面：經過歐格弗林特和他的穴居人後，{npc:11520}在熔岩洞穴裡等著，會掉落他的心臟。更深處的{npc:11518}和巴札蘭是{npc:4949}的「隱藏的敵人」任務目標，本路線略過該任務。"
+	["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {quest:5726}' Ragefire part, which this route leaves out."] = "",
 
-	-- Step 58: Neeru Fireblade
+	-- Step 64: Neeru Fireblade
 	-- {npc:3216} Neeru Fireblade
 	["Back out through the portal: {npc:3216} stands beside it."] = "從傳送門出來：{npc:3216}就站在旁邊。",
 
-	-- Step 62: Sayoc
+	-- Step 68: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor
 	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "順路：向{npc:11868}學習{spell:197}（{object:172958}，10銀）；聖騎士用雙手武器升級最快。",
 
-	-- Step 64: Valley of Wisdom
-	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:379} Far Watch Post
+	-- Step 70: Valley of Wisdom
+	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:362} Razor Hill · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684}和{npc:268682}坐在{object:172957}的Grommash Hold後面；光滑巨石就在他們周圍。下一份指南從這裡走到{area:379}和十字路口。",
+	-- was: ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684}和{npc:268682}坐在{object:172957}的Grommash Hold後面；光滑巨石就在他們周圍。下一份指南從這裡走到{area:379}和十字路口。"
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:362}, then {area:379} and the Crossroads."] = "",
 
-	-- Step 65: Zor Lonetree
+	-- Step 71: Thrall
+	-- {npc:4949} Thrall · {npc:268684} Thra · {npc:268682} Migi
+	["{npc:4949} waits in Grommash Hold, beside {npc:268684} and {npc:268682}."] = "",
+
+	-- Step 72: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {npc:4049} Seereth Stonebreak
 	["{npc:4047}: {npc:4049}, on the road into Stonetalon in the next guide"] = "{npc:4047}：{npc:4049}在下一份指南進入石爪山的路上",
 
@@ -334,6 +379,7 @@ return {
 	-- ["grind on {npc:1909} at {area:1338}, {zone:1421}"] = "在{zone:1421}的{area:1338}擊殺{npc:1909}練等",
 	-- ["{area:1338} shore"] = "{area:1338}湖岸",
 	-- ["{area:233} comes later, down the lake shore"] = "{area:233}稍後沿著湖岸往下時前往",
+	-- ["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {npc:4949}'s Hidden Enemies, which this route leaves out."] = "{area:2437}是五人地城，約13到18級，完整打一次要30到45分鐘。傳送門在{object:172960}，{npc:3216}旁邊。\n裡面：經過歐格弗林特和他的穴居人後，{npc:11520}在熔岩洞穴裡等著，會掉落他的心臟。更深處的{npc:11518}和巴札蘭是{npc:4949}的「隱藏的敵人」任務目標，本路線略過該任務。",
 	-- ["{item:15877}, from a {object:177785} in the lake"] = "{item:15877}，來自湖中的{object:177785}",
 	-- ["{item:3317}: a rare drop from the gnolls"] = "{item:3317}：豺狼人的稀有掉落",
 	-- ["{npc:11066}, the enchanting trainer, works in the Drag."] = "{npc:11066}是附魔訓練師，在the Drag工作。",
@@ -341,6 +387,7 @@ return {
 	-- ["{npc:11799}, at the {area:2362}"] = "{npc:11799}，在{area:2362}",
 	-- ["{npc:1938}: take it if he offers it; it may follow his {quest:98298} series, which the route does not run"] = "{npc:1938}：如果他提供就接受；它可能接在他的{quest:98298}系列之後，而本路線不做那個系列",
 	-- ["{npc:2121}: {quest:516}, on the south loop"] = "{npc:2121}：{quest:516}，在南方路線",
+	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684}和{npc:268682}坐在{object:172957}的Grommash Hold後面；光滑巨石就在他們周圍。下一份指南從這裡走到{area:379}和十字路口。",
 	-- ["{npc:3365}, the leatherworking trainer, works in the {object:172958}."] = "{npc:3365}是製皮訓練師，在{object:172958}工作。",
 	-- ["{npc:3404}, the herbalism trainer, keeps her shop in the Drag."] = "{npc:3404}是草藥學訓練師，她的店在the Drag。",
 	-- ["{npc:4551}: keep {item:16210}, Podrig takes it on the ride through the {area:228} at 22"] = "{npc:4551}：保留{item:16210}，22級騎乘途經{area:228}時交給波崔格",

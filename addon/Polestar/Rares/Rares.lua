@@ -74,7 +74,8 @@ ns.RegisterDefaults("rares", {
 })
 
 -- Polestar's founder, Fitz, plays this character on Forever's EU PvP realms
--- (his client's GetRealmName reads "CAMWOW EU5 Realm 8 PvP"). Forever's
+-- (his client's GetRealmName read "CAMWOW EU5 Realm 8 PvP" until 1.60.1; the
+-- match never used the realm). Forever's
 -- names carry a surname, so this is the full name as Compat.UnitFullName
 -- gives it. When he comes into sight, one alert says so and the rare button
 -- offers to target him and wave (QoL/Buttons.lua, Buttons.FounderMacro).
@@ -104,10 +105,15 @@ Rares.NOT_RARE = NOT_RARE
 
 -- Sounds the alert may play: SOUNDKIT names in Blizzard_SharedXML/Mainline/
 -- SoundKitConstants.lua (Forever 1.60.1), with their ids as the fallback.
+-- The third was the boss whisper (UI_RAID_BOSS_WHISPER_WARNING, 37666), which
+-- Forever's SoundKit table plays at 1% volume, so it was never heard (#3158);
+-- the boss emote warning (12197) is the client's own raid-warning sound for
+-- boss emotes, at 40%. Its value stays "whisper" so a saved choice keeps
+-- working.
 Rares.SOUNDS = {
 	{ value = "raid", label = L["Raid warning"], kit = "RAID_WARNING", id = 8959 },
 	{ value = "ready", label = L["Ready check"], kit = "READY_CHECK", id = 8960 },
-	{ value = "whisper", label = L["Boss whisper"], kit = "UI_RAID_BOSS_WHISPER_WARNING", id = 37666 },
+	{ value = "whisper", label = L["Boss emote"], kit = "RAID_BOSS_EMOTE_WARNING", id = 12197 },
 }
 
 local function get(key) return ns.Get("rares." .. key) end
@@ -160,13 +166,59 @@ function Rares.Decide(s, ctx)
 end
 
 ---------------------------------------------------------------------------
--- History (account-wide, per realm: PolestarDB.rares.history[realm])
+-- History (account-wide, per realm: PolestarDB.rares.history[realm]; "?"
+-- while the client does not give the realm, Compat.RealmName)
 ---------------------------------------------------------------------------
 
 local function realm()
-	local r = GetRealmName and GetRealmName()
-	if type(r) ~= "string" or r == "" or (issecretvalue and issecretvalue(r)) then return "?" end
-	return r
+	return ns.Compat.RealmName() or "?"
+end
+
+-- The realms other than "?" with a history.
+local function otherRealms(all)
+	local out = {}
+	for k, h in pairs(all) do
+		if k ~= "?" and type(h) == "table" then out[#out + 1] = k end
+	end
+	return out
+end
+
+-- With the realm unknown, the history of the only realm that has one moves to
+-- "?" once (with several, none moves; Rares.UnclaimedRealms says how many).
+-- A rare in both keeps the newer entry, with both counts and the earliest
+-- `first`; the oldest go past HISTORY_MAX.
+local claimed -- the PolestarDB.rares.history the move ran on
+local function claim(all)
+	if claimed == all then return end
+	claimed = all
+	local others = otherRealms(all)
+	if #others ~= 1 then return end
+	local from = all[others[1]]
+	local into = type(all["?"]) == "table" and all["?"] or {}
+	all["?"] = into
+	for key, e in pairs(from) do
+		local held = into[key]
+		if type(e) == "table" then
+			if type(held) ~= "table" then
+				into[key] = e
+			else
+				local new, old = e, held
+				if (held.t or 0) > (e.t or 0) then new, old = held, e end
+				new.n = (new.n or 0) + (old.n or 0)
+				local first, alerted = math.min(new.first or math.huge, old.first or math.huge), math.max(new.alerted or 0, old.alerted or 0)
+				new.first = first < math.huge and first or nil
+				new.alerted = alerted > 0 and alerted or nil
+				into[key] = new
+			end
+		end
+	end
+	all[others[1]] = nil
+	local list = {}
+	for k, e in pairs(into) do list[#list + 1] = { k = k, t = type(e) == "table" and e.t or 0 } end
+	if #list > HISTORY_MAX then
+		table.sort(list, function(a, b) return a.t > b.t end)
+		for i = HISTORY_MAX + 1, #list do into[list[i].k] = nil end
+	end
 end
 
 function Rares.History()
@@ -178,12 +230,23 @@ function Rares.History()
 	end
 	if type(root.history) ~= "table" then root.history = {} end
 	local r = realm()
+	if r == "?" then claim(root.history) end
 	local h = root.history[r]
 	if type(h) ~= "table" then
 		h = {}
 		root.history[r] = h
 	end
 	return h
+end
+
+-- With the realm unknown, how many realms' histories were left apart (0 when
+-- the realm is known or one at most had a history).
+function Rares.UnclaimedRealms()
+	if ns.Compat.RealmName() then return 0 end
+	Rares.History()
+	local db = ns.DB()
+	local n = #otherRealms(type(db.rares) == "table" and type(db.rares.history) == "table" and db.rares.history or {})
+	return n > 1 and n or 0
 end
 
 local function prune(h)

@@ -13,7 +13,17 @@ return {
 	["The boat from {area:392}'s dock crosses to {area:35}, on Stranglethorn's southern cape."] = "Le bateau du quai de {area:392} traverse vers {area:35}, sur la pointe sud de Strangleronce.",
 
 	-- Step 2: Booty Bay
-	["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "Liez votre pierre de foyer à l'auberge : c'est votre moyen de revenir ici depuis le nord de la jungle à la fin de la boucle.",
+	-- {npc:4631} Wharfmaster Lozgil
+	-- was: ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "Liez votre pierre de foyer à l'auberge : c'est votre moyen de revenir ici depuis le nord de la jungle à la fin de la boucle."
+	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "",
+	-- {npc:4631} Wharfmaster Lozgil
+	["{npc:4631}, on the dock"] = "",
+	-- {npc:4631} Wharfmaster Lozgil · {npc:2496} Baron Revilgaz
+	["{npc:4631}: for {npc:2496}, upstairs in the tavern"] = "",
+	-- {npc:3945} Caravaneer Ruzzgot
+	["{npc:3945}, on the dock"] = "",
+	-- {npc:3945} Caravaneer Ruzzgot · {npc:267} Clerk Daltry · {area:42} Darkshire
+	["{npc:3945}: for {npc:267} in {area:42}, where the second Stranglethorn loop starts"] = "",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, by the bank; inside"] = "{npc:2495}, près de la banque ; à l'intérieur",
 	-- {npc:2498} Crank Fizzlebub
@@ -28,11 +38,11 @@ return {
 	["{npc:773}: Nesingwary's camp, on the way"] = "{npc:773} : camp de Nesingwary, sur le chemin",
 	-- {npc:737} Kebok
 	["{npc:737}, in the tavern"] = "{npc:737}, dans la taverne",
-	-- {npc:737} Kebok
-	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "{npc:737} : les Cristaux réduits, lors de la boucle nord",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, à l'étage de la taverne",
+	-- {npc:250660} The Baron · {area:37} Lake Nazferiti
+	-- plural, as words: Venture Co. Agents = {npc:260429} Venture Co. Agent
+	["{npc:250660}'s next errand sends you into the Venture Co. house at {area:37}, among Venture Co. Agents (39): leave it."] = "",
 
 	-- Step 3: North to Nesingwary's Expedition
 	-- {area:100} Nesingwary's Expedition
@@ -127,7 +137,7 @@ return {
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn
 	["{npc:716} collects the {item:2755}: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go."] = "{npc:716} collectionne {item:2755} : les pages tombent de presque tous les humanoïdes de la jungle. Assemblez les pages en chapitres au fur et à mesure.",
 	-- {npc:729} Sin'Dall
-	["keep it: {npc:729} (37) comes in the 40-50 Stranglethorn guide, at about 41"] = "gardez-la : {npc:729} (37) vient dans le guide Strangleronce 40-50, vers le niveau 41",
+	["Keep it for another visit: {npc:729} (37) prowls the Lashtail hill."] = "",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["keep it: the Lashtail Raptors come on the second loop (04b), around {npc:729}'s hill"] = "gardez-la : les Raptors flagellants viennent lors de la deuxième boucle (04b), autour de la colline de {npc:729}",
@@ -187,8 +197,8 @@ return {
 	["Warlocks fly to {area:415} for the {quest:1738}, on the way west."] = "Les démonistes prennent un vol pour {area:415} pour {quest:1738}, en route vers l'ouest.",
 
 	-- Step 30: Heartswood
-	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
-	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "Depuis {area:415}, allez au nord-ouest dans les collines : {quest:1738} est un arbre lumineux au nord de la route du {area:413}. Si vous avez pris {quest:65602}, la {item:190309} se trouve dans une maison parmi les arbres au nord du {area:413} (26.6,22.0). Prenez ensuite la route vers l'ouest jusqu'aux Serres-Rocheuses.",
+	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {item:190307} Unlit Torch
+	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0): light the {item:190307} from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon."] = "",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}, au nord de {area:413}",
 
@@ -198,6 +208,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["\"Sea Wolf\" MacKinley, on the top floor"] = "« Loup de mer » MacKinley, au dernier étage",
+	-- ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "Liez votre pierre de foyer à l'auberge : c'est votre moyen de revenir ici depuis le nord de la jungle à la fin de la boucle.",
 	-- ["Bloodscalp trolls"] = "Trolls Bloodscalp",
 	-- ["Down to {area:35}"] = "Descente vers {area:35}",
 	-- ["East of Zul'Kunda"] = "À l'est de Zul'Kunda",
@@ -212,6 +223,7 @@ return {
 	-- ["For Archmage Ansirem in {zone:1416}"] = "Pour l'archimage Ansirem dans {zone:1416}",
 	-- ["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north."] = "Depuis {area:108}, le chemin mène au sud hors de {zone:1436}, dans le nord-ouest de Strangleronce, jusqu'à {area:310}, près de la côte ; les Basilics à échine cristalline des environs lâchent les éclats.\nL'île hantée se trouve juste au large de la côte, au sud-ouest de la mine : il suffit de l'atteindre. Les trolls Bloodscalp tiennent les ruines sur la côte, au nord.",
 	-- ["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "Depuis {area:108}, le chemin mène au sud hors de {zone:1436}, dans le nord-ouest de Strangleronce, jusqu'à {area:310}, près de la côte ; les Basilics de cristal des environs lâchent les éclats.\nL'île hantée se trouve juste au large de la côte, au sud-ouest de la mine : il suffit d'en atteindre le bord. Attention : ses Elémentaires d'eau mineurs sont de niveau 36-37 : ne vous attardez pas. Les ruines Bloodscalp de Zul'Kunda, au nord, attendent la deuxième boucle de Strangleronce.",
+	-- ["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "Depuis {area:415}, allez au nord-ouest dans les collines : {quest:1738} est un arbre lumineux au nord de la route du {area:413}. Si vous avez pris {quest:65602}, la {item:190309} se trouve dans une maison parmi les arbres au nord du {area:413} (26.6,22.0). Prenez ensuite la route vers l'ouest jusqu'aux Serres-Rocheuses.",
 	-- ["From {zone:1431} take the road south into Stranglethorn; the hunters' tents stand just west of the road past the {area:99} turn-off."] = "Depuis {zone:1431}, prenez la route vers le sud jusqu'à Strangleronce ; les tentes des chasseurs se trouvent juste à l'ouest de la route, après l'embranchement de {area:99}.",
 	-- ["Gluggle, a rare murloc on the coast west of camp, drops the {item:4614}: take it if you meet him"] = "Gluggle, un murloc rare sur la côte à l'ouest du camp, laisse tomber le {item:4614} : prenez-le si vous le croisez",
 	-- ["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave. Pick up Green Hills pages as they drop."] = "Les Réducteurs de tête se tiennent plus loin dans la base ; les Commandos rôdent camouflés autour et dans la grotte. Ramassez les pages des Vertes collines quand elles tombent.",
@@ -244,6 +256,7 @@ return {
 	-- ["grind on {npc:1085}"] = "tuez en boucle : {npc:1085}",
 	-- ["grind on {npc:1096}"] = "tuez en boucle : {npc:1096}",
 	-- ["grind on {npc:682}"] = "tuez en boucle : {npc:682}",
+	-- ["keep it: {npc:729} (37) comes in the 40-50 Stranglethorn guide, at about 41"] = "gardez-la : {npc:729} (37) vient dans le guide Strangleronce 40-50, vers le niveau 41",
 	-- ["{area:108} flight master"] = "Maître de vol de {area:108}",
 	-- ["{area:150} flight master"] = "Maître de vol du {area:150}",
 	-- ["{area:1537} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "{area:1537} n'a pas de maître des druides : prenez le {area:2257} depuis {object:171524} jusqu'à {zone:1453} et entraînez-vous auprès de {npc:5504}.",

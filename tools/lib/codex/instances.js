@@ -52,7 +52,9 @@
 //                ContentTuning MinLevelSquish of the map's LFGDungeons entries
 //                (or MapDifficulty's); max: the highest boss level, at most 60.
 //   entrance     best evidence first: a recorded entrance (Recorder `enter`,
-//                the most-seen one), else the curated table
+//                the most-seen one inside the dungeon's known entrance
+//                zone; inside a capital, the most-seen one within
+//                TABLE_YARDS of the table's door), else the curated table
 //                (data/codex/entrances.json: the point on the zone map
 //                where one walks in, each with its public source), else a
 //                guide's `goto x,y "<instance name> ..."` line, else the map's
@@ -82,7 +84,9 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
-const { instanceMapsOf, zonePoint } = require('./journal');
+const { instanceMapsOf, zonePoint, ZONE_MAX } = require('./journal');
+
+const CAPITAL_MAPS = new Set([1453, 1455, 1457, 1454, 1456, 1458]);
 
 const JUNK_NPC = /^(?:\[|zz|Test |Monster - )|\(DND\)|\bDND\b|Trigger|Bunny|Invisible/i;
 const MIN_LOOT = 1;
@@ -231,17 +235,51 @@ function loadEntranceTable(file = path.join(__dirname, '..', '..', '..', 'data',
 // Recorder entrances [ { map, x, y, f?, n } ]; table: its entrances.json entry
 // or null; guides: curatedEntrances(); corpse: the Map row's { c, x, y } |
 // null; prefer: uiMap ids of the zones holding it (for the corpse point).
-// A table entry's `A` (the Alliance's own way in) rides along as entrance.A.
+// A table entry's `A` (the Alliance's own way in) rides along as entrance.A; its z (the door's floor where floors
+// stack) as entrance.z when the chosen point lies within DOOR_YARDS of the entry's on the same map (forge-data's
+// instances.rs choose_entrance).
+const DOOR_YARDS = 30;
 function chooseEntrance(args) {
-	const e = chooseEntrancePoint(args);
-	const a = args.table && args.table.A;
-	if (!e || !(a && a.map)) return e;
-	return { ...e, A: { map: Number(a.map), x: round1(a.x), y: round1(a.y) } };
+	let e = chooseEntrancePoint(args);
+	const t = args.table;
+	const a = t && t.A;
+	if (e && a && a.map) e = { ...e, A: { map: Number(a.map), x: round1(a.x), y: round1(a.y) } };
+	const f = e && t && typeof t.z === 'number' && Number(t.map) === e.map && (args.frames || {})[String(e.map)];
+	if (f && Math.hypot(((e.x - t.x) / 100) * (f.left - f.right), ((e.y - t.y) / 100) * (f.top - f.bottom)) <= DOOR_YARDS) e = { ...e, z: t.z };
+	return e;
 }
 
+// Inside the capitals the most-seen recorded point can lie far from the door: Orgrimmar's south gate for Ragefire
+// Chasm (86 entries against 57 + 14 in the Cleft of Shadow), Ironforge 15.1,86.0 for the Hall of Thanes (166 against
+// 80 below the city), where players stood when the game moved them in (#3562, #2447). There a recorded point within
+// TABLE_YARDS of the table entry's door wins, the most-seen of them; elsewhere the most-seen point anywhere does.
+const TABLE_YARDS = 60;
 function chooseEntrancePoint({ name, recorded = [], table = null, guides = [], corpse = null, zones = {}, frames = {}, prefer = [] }) {
-	const rec = recorded.slice().sort((a, b) => num(b.n) - num(a.n))[0];
-	if (rec && rec.map) return { map: Number(rec.map), x: round1(rec.x), y: round1(rec.y), f: rec.f === 'e' ? 'e' : null };
+	let rec = null;
+	let door = null;
+	const tf = table && CAPITAL_MAPS.has(Number(table.map)) && frames[table.map];
+	for (const r of recorded) {
+		if (num(r.n) < 2 && CAPITAL_MAPS.has(Number(r.map))) continue;
+		if (!rec || num(r.n) > num(rec.n)) rec = r;
+		const near = tf && Number(r.map) === Number(table.map) && Math.hypot(((r.x - table.x) / 100) * (tf.left - tf.right), ((r.y - table.y) / 100) * (tf.top - tf.bottom)) <= TABLE_YARDS;
+		if (near && (!door || num(r.n) > num(door.n))) door = r;
+	}
+	if (door) rec = door;
+	if (rec && rec.map) {
+		const f = rec.f === 'e' ? 'e' : null;
+		const frame = frames[rec.map];
+		const w = frame && frame.left - frame.right;
+		const h = frame && frame.top - frame.bottom;
+		const point = { map: Number(rec.map), x: round1(rec.x), y: round1(rec.y), f };
+		const expected = table?.map ? [Number(table.map)] : prefer;
+		const continent = w > ZONE_MAX || h > ZONE_MAX;
+		if (!continent && (!expected.length || expected.includes(point.map)) && rec.x >= 0 && rec.x <= 100 && rec.y >= 0 && rec.y <= 100) return point;
+		if (w > 0 && h > 0) {
+			const zone = zonePoint(frames, frame.c, frame.top - rec.y / 100 * h, frame.left - rec.x / 100 * w, expected);
+			if (zone && (!expected.length || expected.includes(zone.map))) return continent ? { ...zone, f } : point;
+			if (!expected.length) return point;
+		}
+	}
 	if (table && table.map) return { map: Number(table.map), x: round1(table.x), y: round1(table.y), f: null };
 	const n = norm(name);
 	const zoneId = (zname) => {
