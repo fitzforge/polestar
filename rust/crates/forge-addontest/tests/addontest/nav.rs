@@ -2791,7 +2791,9 @@ fn the_steps_ahead_get_numbered_pins_fading_with_distance_steps_together_share_o
 // its reason in the tooltip. A pin two steps share takes the group's. A step with neither has none.
 #[test]
 fn a_step_ahead_for_a_group_carries_the_two_heads_mark_on_its_numbered_pin_3580() {
-	let out = run(r#"
+	// The guide window's rule itself (UI/UI.lua's StepMark) and the theme's colours and media.
+	let files = ["Core/Init.lua", "Theme/Theme.xml", "Nav/Nav.xml", "UI/UI.lua"];
+	let out = run_scene(&files, "", r#"
 		local views = {
 			[1] = { status = "current", goals = { { map = 1429, x = 40, y = 40, status = "active" } } },
 			[2] = { title = "Escort", status = "upcoming", goals = { { map = 1429, x = 42, y = 65, status = "pending", escort = true } } },
@@ -2810,7 +2812,8 @@ fn a_step_ahead_for_a_group_carries_the_two_heads_mark_on_its_numbered_pin_3580(
 			out[i] = { text = p.text, state = c and c.state or false, tex = c and c.tex == T.Media("icon-group") or false,
 				warn = c and c.color[1] == warn[1] and c.color[2] == warn[2] and c.color[3] == warn[3] or false, tip = p.tooltip }
 		end
-		emit(out)"#);
+		emit(out)"#,
+	);
 	assert_eq!(out["1"]["state"], "group");
 	assert_eq!(out["1"]["tex"], true);
 	assert_eq!(out["1"]["warn"], true);
