@@ -4479,7 +4479,7 @@ do
 					title = "{npc:2097}",
 					when = { { k = "turnedin", neg = true, q = 304 }, { k = "onquest", neg = true, q = { 304 } } },
 					goals = {
-						{ t = "accept", quest = 472, title = "Fall of Dun Modr", npc = 2097, npcName = "Harlo Barnaby", minLevel = 25, qlvl = 30, map = 1437, x = 10.77, y = 55.8, z = 11.2, note = "{npc:2097}, by the north gate: {npc:1071} takes it at {area:205}, at the north end of this visit's east loop" },
+						{ t = "accept", quest = 472, title = "Fall of Dun Modr", npc = 2097, npcName = "Harlo Barnaby", minLevel = 25, qlvl = 30, closedBy = { 304 }, endNpcs = { 1071 }, xp = 1200, preTitles = { [304] = "A Grim Task" }, map = 1437, x = 10.77, y = 55.8, z = 11.2, note = "{npc:2097}, by the north gate: {npc:1071} takes it at {area:205}, at the north end of this visit's east loop" },
 					},
 				},
 				{
@@ -7662,7 +7662,7 @@ do
 					note = "Hay Weevils crawl about the north end of {quest:681}'s farm: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it.",
 					when = { { k = "onquest", q = { 93176 } } },
 					goals = {
-						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 2, map = 1417, x = 31.3, y = 27.2, f = "e", note = "{item:213562}, on a {npc:217589}: the {item:213568}", carriedTo = "forever/alliance/40-50/01-stranglethorn-vale" },
+						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 2, map = 1417, x = 31.3, y = 27.2, f = "e", note = "{item:213562}, on a {npc:217589}: the {item:213568}", fromNpcs = { { npc = 217588, npcName = "Arbor Tarantula" }, { npc = 217589, npcName = "Hay Weevil" }, { npc = 217590, npcName = "Flesh Picker" } }, carriedTo = "forever/alliance/40-50/01-stranglethorn-vale" },
 					},
 				},
 				{
@@ -8325,7 +8325,7 @@ do
 					note = "A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it.",
 					when = { { k = "onquest", q = { 93176 } } },
 					goals = {
-						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 3, map = 1443, x = 48.1, y = 57.1, f = "e", note = "{item:213562}, on a {npc:217590}: the {item:213567}", carriedTo = "forever/alliance/40-50/01-stranglethorn-vale" },
+						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 3, map = 1443, x = 48.1, y = 57.1, f = "e", note = "{item:213562}, on a {npc:217590}: the {item:213567}", fromNpcs = { { npc = 217588, npcName = "Arbor Tarantula" }, { npc = 217589, npcName = "Hay Weevil" }, { npc = 217590, npcName = "Flesh Picker" } }, carriedTo = "forever/alliance/40-50/01-stranglethorn-vale" },
 					},
 				},
 				{
@@ -8925,7 +8925,7 @@ do
 					note = "An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it.",
 					when = { { k = "onquest", q = { 93176 } } },
 					goals = {
-						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 1, map = 1434, x = 43.1, y = 16.7, f = "e", note = "{item:213562}, on an {npc:217588}: the {item:213566}" },
+						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 1, map = 1434, x = 43.1, y = 16.7, f = "e", note = "{item:213562}, on an {npc:217588}: the {item:213566}", fromNpcs = { { npc = 217588, npcName = "Arbor Tarantula" }, { npc = 217589, npcName = "Hay Weevil" }, { npc = 217590, npcName = "Flesh Picker" } } },
 					},
 				},
 				{
@@ -11235,7 +11235,7 @@ do
 						{ t = "accept", quest = 1560, title = "Tooga's Quest", npc = 5955, npcName = "Tooga", minLevel = 40, qlvl = 50, limit = 1800, map = 1446, x = 30.2, y = 70.7, f = "e", escort = true },
 						{ t = "complete", quest = 1560, title = "Tooga's Quest", map = 1446, x = 66.58, y = 25.67, f = "e", escort = true, objs = { { text = "Lead Tooga to Torta", count = 1 } } },
 						{ t = "turnin", quest = 1560, title = "Tooga's Quest", npc = 6015, npcName = "Torta", map = 1446, x = 66.48, y = 25.73, z = 0.8 },
-						{ t = "accept", quest = 97540, title = "Oasis", npc = 5955, npcName = "Tooga", qlvl = 50, map = 1446, x = 66.38, y = 25.79, z = 0.7, spotsPacked = "67,25.4,,52,4;29.5,60.4,,40,1;30.3,64.6,,40,1;28.6,67.4,,40,1;30.2,70.7,,40,1;29.8,73.9,,40,2", note = "{npc:5955}, beside her: Oasis" },
+						{ t = "accept", quest = 97540, title = "Oasis", npc = 5955, npcName = "Tooga", qlvl = 50, pre = { 1560 }, preTitles = { [1560] = "Tooga's Quest" }, map = 1446, x = 66.38, y = 25.79, z = 0.7, spotsPacked = "67,25.4,,52,4;29.5,60.4,,40,1;30.3,64.6,,40,1;28.6,67.4,,40,1;30.2,70.7,,40,1;29.8,73.9,,40,2", note = "{npc:5955}, beside her: Oasis" },
 						{ t = "turnin", quest = 97540, title = "Oasis", npc = 5955, npcName = "Tooga", map = 1446, x = 66.38, y = 25.79, z = 0.7, spotsPacked = "67,25.4,,52,4;29.5,60.4,,40,1;30.3,64.6,,40,1;28.6,67.4,,40,1;30.2,70.7,,40,1;29.8,73.9,,40,2" },
 					},
 				},
@@ -15247,7 +15247,7 @@ do
 					note = "The Ice Thistle yetis (53-57) in the hills east of {area:2255} carry the {item:258323}: take it from the ones at the edge of the hills.",
 					when = { { k = "onquest", q = { 93406 } } },
 					goals = {
-						{ t = "collect", quest = 93406, title = "Unfrozen Deliveries", item = 258323, itemName = "Missing Mail", count = 4, oi = 1, map = 1452, x = 64.05, y = 39.83, z = 714.9, f = "e", spotsPacked = "64.9,40.2,705,63,5,,58;67.7,46.3,781.4,40,1,,58;71.5,40.2,,40,4,,58;61.4,31.8,,55,3,,56;54.7,30.1,703.7,40,1,,56;51.4,37.9,700.1,40,1;47.3,43.9,724.9,55,4;45.6,37.6,,42,3;43.4,33.2,765.5,40,1;38.5,41.2,596.7,40,1;32.4,40,523.1,40,1;28.9,46.5,571.2,40,1;66.1,42.5,731.1,68,8,1,57;68,41.3,770,85,8,1,58;67.4,43.9,,56,5,1,56;66.5,45.5,749.5,62,6,1,58;69.9,40.1,753.5,47,4,1,58;69.9,41.7,,40,5,1,58;70.8,38.6,748.8,59,9,1,58;58.3,33.6,,40,2,1,56;57.8,29,638,40,1,1,56;55.2,33.2,725.8,40,1,1,56;54.4,36.3,715.9,40,1,1;53.2,36,701.8,40,1,1;52.5,33.1,,40,2,1,56;50.8,40.1,678.5,40,1,1;48.9,34.4,,40,2,1;49,46.9,726.7,40,1,1;47.8,37.7,717.9,40,1,1;44.7,41.2,668,40,1,1;44.8,35.5,716.3,40,2,1;44.5,44.5,647.1,40,1,1;43.4,38,,40,2,1;41.1,36.1,641,40,1,1;40.2,39.3,603.4,40,1,1;39.8,37.6,576,40,2,1;33.8,40.3,542.4,40,1,1;33.8,44,550.7,40,1,1;30.8,45.7,,40,1,1;30.3,39.2,540,40,1,1", spread = true, lvl = 55, fromNpcs = { { npc = 7458, npcName = "Ice Thistle Yeti" }, { npc = 7457, npcName = "Rogue Ice Thistle" }, { npc = 7459, npcName = "Ice Thistle Matriarch" }, { npc = 7460, npcName = "Ice Thistle Patriarch" }, { npc = 10197, npcName = "Mezzir the Howler" } } },
+						{ t = "collect", quest = 93406, title = "Unfrozen Deliveries", item = 258323, itemName = "Missing Mail", count = 4, oi = 1, map = 1452, x = 64.05, y = 39.83, z = 714.9, f = "e", spotsPacked = "64.5,40.3,,40,3,,58;66.2,43.8,736.3,47,4,,57;67.7,46.3,781.4,40,1,,58;67.8,41.3,,71,6,,58;69.6,41.6,753.7,58,7,,58;71.5,40.2,,40,4,,58;61.6,31.4,,40,2;58.8,34,715.8,40,1;57.8,29,638,40,1;54.7,30.1,703.7,40,1;55.2,33.2,725.8,40,1;52.5,33.1,,40,2;65.5,40,,40,2,1;66,41.9,714,59,5,1,57;67.4,43.1,,40,2,1;67.4,44.4,,40,3,1;66.6,45.7,749.5,62,5,1,58;60.9,32.7,749.2,40,1,1;69.9,40.1,753.5,47,4,1,58;70.8,38.6,748.8,59,9,1,58;57.8,33.3,735.1,40,1,1;45,37.4,686.8,40,1,1,55;30.8,45.7,,40,1,1,55", spread = true, lvl = 56, fromNpcs = { { npc = 7458, npcName = "Ice Thistle Yeti" }, { npc = 7459, npcName = "Ice Thistle Matriarch" }, { npc = 7460, npcName = "Ice Thistle Patriarch" }, { npc = 10197, npcName = "Mezzir the Howler" } } },
 					},
 				},
 				{
