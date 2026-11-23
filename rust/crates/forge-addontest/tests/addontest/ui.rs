@@ -1678,6 +1678,39 @@ fn guide_outleveled_a_dismissible_banner_offers_the_better_guide_in_the_same_tab
 	assert_eq!(out["tabs"], 3, "the jump replaced the guide in its tab");
 }
 
+// #3845: a Class guide outlevelled says it in its own words ("past this class quest's levels") and jumps on to the
+// leveling guide that fits. #3585: "Say when I've outlevelled a guide" off hides the notice on screen and keeps any
+// new one from coming; on again, the one still standing shows.
+#[test]
+fn guide_outleveled_a_class_guide_says_its_own_words_and_the_notice_has_an_off_switch() {
+	let out = run(r#"
+		local CLASS = "forever/class/mage/test-class-quest"
+		uistub.guides[CLASS] = { id = CLASS, pack = "guides", title = "A Mage's quest", classes = { "MAGE" }, minLevel = 15, maxLevel = 17,
+			category = "Class", folder = "Mage", zone = 0, zoneName = "Elwynn Forest", author = "Polestar", version = 1,
+			steps = { { title = "The tower", goals = { { t = "note", text = "Step 1", status = "pending" } } } } }
+		table.insert(uistub.order, CLASS)
+		uistub.openTabs({ { uistub.elwynn, 3 }, { CLASS, 1 } }, 2)
+		local B = GF.parts.banner
+		Polestar.Fire("GUIDE_OUTLEVELED", CLASS, "forever/alliance/02-westfall")
+		local class = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText() }
+		Polestar.Set("ui.outlevelNotice", false)
+		local off = B:IsShown()
+		Polestar.Set("ui.outlevelNotice", true)
+		local again = B:IsShown()
+		B.Close:Click()
+		Polestar.Set("ui.outlevelNotice", false)
+		Polestar.Fire("GUIDE_OUTLEVELED", CLASS, "forever/alliance/02-westfall")
+		local offNew = B:IsShown()
+		Polestar.Set("ui.outlevelNotice", true)
+		emit({ class = class, off = off, again = again, offNew = offNew, onAfter = B:IsShown() })"#)
+	.remove(0);
+	assert_eq!(out["class"], json!([true, "You are past this class quest's levels.", "Jump to Westfall"]));
+	assert_eq!(out["off"], false, "off hides the notice on screen");
+	assert_eq!(out["again"], true, "on again, the notice still standing shows");
+	assert_eq!(out["offNew"], false, "off, a new one does not come");
+	assert_eq!(out["onAfter"], false, "and none was kept for later");
+}
+
 #[test]
 fn non_leveling_guides_name_their_category_and_a_place_only_when_the_guide_has_a_faction() {
 	let out = run(r#"
