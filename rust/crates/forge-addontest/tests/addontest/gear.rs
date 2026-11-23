@@ -1084,7 +1084,7 @@ fn the_guide_window_s_reward_pick_opens_stat_weights_on_a_click() {
 fn the_reward_pick_s_click_hint_reads_on_the_game_s_tooltip_in_a_light_look() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua", "stub_gear.lua"],
-		addons: vec![Addon::name("Polestar"), Addon::name("Polestar_Skin_Vellum")],
+		addons: vec![Addon::name("Polestar"), Addon::files("Polestar_Skins", &["Skins/Vellum/Vellum.lua"])],
 		login: true,
 		script: r#"
 		stub.advance(1)

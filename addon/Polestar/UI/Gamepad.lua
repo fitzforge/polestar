@@ -358,7 +358,7 @@ G.ACTIONS = {
 	{ action = "POLESTAR_PAUSE", section = "guide", label = L["Pause the guide"], run = "Pause" },
 	{ action = "POLESTAR_REOPEN_TAB", section = "guide", label = L["Reopen closed tab"], run = "ReopenTab" },
 	{ action = "POLESTAR_MENU", section = "windows", label = L["Open the guide menu"], run = "Menu" },
-	{ action = "POLESTAR_OPTIONS", section = "windows", label = L["Open Polestar options"], run = "Options" },
+	{ action = "POLESTAR_OPTIONS", section = "windows", label = L["Open Polestar settings"], run = "Options" },
 	{ action = "POLESTAR_REPORT", section = "windows", label = L["Report a problem"], run = "Report" },
 	{ action = "CLICK PolestarQuestItemButton:LeftButton", section = "buttons", label = L["Use quest item"] },
 	{ action = "CLICK PolestarTargetButton:LeftButton", section = "buttons", label = L["Target quest mob"] },

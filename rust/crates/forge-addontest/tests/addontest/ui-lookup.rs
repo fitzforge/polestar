@@ -611,9 +611,9 @@ fn lookup_turned_off_in_options_guides_only_the_section_says_where_to_turn_it_on
 		Polestar.Lookup.Show(nil, "mount", 8631)
 		emit({ idle = idle, none = none, loads = loads })"#);
 	assert_eq!(out["idle"]["title"], "Lookup is turned off");
-	assert!(is_match(text(&out["idle"]["note"]), r"Options > Discovery > Lookup"));
+	assert!(is_match(text(&out["idle"]["note"]), r"Settings > Discovery > Lookup"));
 	assert_eq!(out["idle"]["codex"], "Lookup is off: searching guides only");
-	assert!(is_match(text(&out["none"]), r"Nothing matches .saber.\. Lookup is turned off in Options > Discovery > Lookup"));
+	assert!(is_match(text(&out["none"]), r"Nothing matches .saber.\. Lookup is turned off in Settings > Discovery > Lookup"));
 	assert_eq!(out["loads"], 0);
 }
 
@@ -685,6 +685,28 @@ fn a_quest_in_a_chain_shows_its_step_each_quest_s_state_and_its_branches_and_a_r
 	assert_eq!(f["clickHere"], false, "the quest's own row opens nothing");
 	assert_eq!(out["sel"], json!({ "kind": "quest", "id": 4970 }), "a row opens that quest's page");
 	assert_eq!(out["after"], false, "a quest standing alone has no chain");
+}
+
+// #3370 (Zack: a level 57 went to Pix Xizzix for In Demand, which the game offers from level 60): a quest's page says
+// which level it requires, in the warning colour, while the character is below it; its level alone read as a quest
+// to take. At that level the line goes.
+#[test]
+fn a_quest_s_page_says_the_level_it_requires_in_the_warning_colour_while_the_character_is_below_it_3370() {
+	let out = run(r#"
+		lookupstub.entity["quest:4970"] = { id = 4970, title = "Frostsaber Provisions", level = 60, minLevel = 60, faction = "A" }
+		uistub.player.level = 57
+		Polestar.Lookup.Show(nil, "quest", 4970)
+		local below = LK.detail.facts
+		local r, g, b = LK.details.Facts[2].Value:GetTextColor()
+		local wr, wg, wb = Polestar.Theme.Color("warning")
+		local warning = r == wr and g == wg and b == wb
+		LK.Select(nil)
+		uistub.player.level = 60
+		Polestar.Lookup.Show(nil, "quest", 4970)
+		emit({ below = below, warning = warning, at = LK.detail.facts })"#);
+	assert_eq!(out["below"], json!([["Level", "60"], ["Requires", "Level 60"], ["Faction", "Alliance"], ["Places", "None known"]]));
+	assert_eq!(out["warning"], true, "the requirement in the warning colour");
+	assert_eq!(out["at"], json!([["Level", "60"], ["Faction", "Alliance"], ["Places", "None known"]]), "at level 60: no line");
 }
 
 #[test]

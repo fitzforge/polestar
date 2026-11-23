@@ -286,7 +286,7 @@ Lua 5.1 is missing. [tests/README.md](tests/README.md) describes the suite;
 [docs/SUITE.md](docs/SUITE.md) what is in and out of scope.
 
 **A guide change commits its compiled guides and translation files**
-(`addon/Polestar_Guides*/`, `addon/Polestar_Experimental/`, the languages'
+(`addon/Polestar_Guides*/`, `addon/Polestar/Experimental/`, the languages'
 `Texts.lua`, `guides/locales/`; see [Fixing a guide](#fixing-a-guide)).
 **You do not commit** `docs/preview/*.svg`, the interface translation files
 (`Interface.lua` in `addon/Polestar_<locale>/`) or

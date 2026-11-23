@@ -414,7 +414,8 @@ local function questGoal(t, id, title, at)
 		goal.npc, goal.npcName = at.id, at.name
 	end
 	goal.z = LK().SpawnZ(at.kind == "object" and "object" or "npc", at.id, at)
-	return goal
+	-- An NPC only the dead see: optional, and its goal says so (Lookup.GhostOnly, #558).
+	return LK().GhostOnly(goal)
 end
 
 -- plan, follow-ups -> stops: one per place a quest is turned in, the

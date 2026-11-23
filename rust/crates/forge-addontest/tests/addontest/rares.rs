@@ -1616,3 +1616,20 @@ emit({ all = all, found = found, chest = chest, again = counts() })"#
 	assert_eq!(out["chest"], json!({ "rare": 0, "treasure": 1, "seen": 0 }));
 	assert_eq!(out["again"], out["all"]);
 }
+
+// #3158 (Vesper): "Boss whisper" never sounded, Play included: Forever's SoundKit table plays kit 37666 at 1% volume.
+// The third choice plays the boss emote warning (12197, at 40%); its saved value is unchanged.
+#[test]
+fn the_third_alert_sound_is_one_the_client_plays_aloud_3158() {
+	let out = run(r#"
+local R = Polestar.Rares
+SOUNDKIT = nil
+local kits = {}
+for _, s in ipairs(R.SOUNDS) do
+	stub.sounds = {}
+	R.PlaySoundOf(s.value)
+	kits[#kits + 1] = { value = s.value, played = stub.sounds[1] or false }
+end
+emit(kits)"#);
+	assert_eq!(out[0], json!([{ "value": "raid", "played": 8959 }, { "value": "ready", "played": 8960 }, { "value": "whisper", "played": 12197 }]), "never the silent 37666");
+}

@@ -107,7 +107,7 @@ function SC.LevelModel(n)
 	end
 	m.off = { label = L["Turn these off"], run = function()
 		ns.Set("qol.levelUpSpells", false)
-		ns.Print(L["Level-up spell cards are off. Turn them back on under Options > Quality of Life > Vendors > Trainers."])
+		ns.Print(L["Level-up spell cards are off. Turn them back on under Settings > Quality of Life > Leveling > Trainers."])
 	end }
 	return m
 end
@@ -147,7 +147,7 @@ function SC.RanksModel(n)
 	end
 	m.off = { label = L["Turn these off"], run = function()
 		ns.Set("qol.oldRanks", false)
-		ns.Print(L["Old rank cards are off. Turn them back on under Options > Quality of Life > Vendors > Trainers."])
+		ns.Print(L["Old rank cards are off. Turn them back on under Settings > Quality of Life > Leveling > Trainers."])
 	end }
 	return m
 end

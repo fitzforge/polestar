@@ -330,11 +330,12 @@ fn the_window_menu_and_the_commands_pause_and_resume_and_always_say_what_they_di
 	let out = run_ui(
 		"",
 		r#"
-		local function menuPick(text)
+		-- Pause is a toggle on the menu's top bar.
+		local function barPick(text)
 			GF.menuButton:Click()
-			for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == text then r:Click() return r end end
+			for _, b in ipairs(PolestarMenu.Bar.buttons) do if b:IsShown() and b.psEntry.text == text then b:Click() return b end end
 		end
-		menuPick("Pause")
+		barPick("Pause")
 		local fromMenu, menuLine = Polestar.Paused(), lastLine()
 		local lines = {}
 		for _, cmd in ipairs({ "pause on", "pause off", "pause off", "pause", "pause", "pause", "resume", "resume" }) do
@@ -462,7 +463,7 @@ fn the_pause_the_guide_key_binding_pauses_and_resumes() {
 	assert!(is_match(&xml, r#"(?s)<Binding name="POLESTAR_PAUSE" category="Polestar">\s*Polestar\.Bindings\.Pause\(\)\s*</Binding>"#), "{xml}");
 }
 
-// Options, Guide, Window: the Pause switch pauses and resumes, and repaints when Polestar resumes by itself (or by
+// Options, Guide, While you play: the Pause switch pauses and resumes, and repaints when Polestar resumes by itself (or by
 // any other way) while the page is open.
 #[test]
 fn the_options_pause_switch_pauses_and_repaints_when_polestar_resumes_another_way() {
@@ -472,7 +473,7 @@ fn the_options_pause_switch_pauses_and_repaints_when_polestar_resumes_another_wa
 		UI.ShowOptions("guide")
 		-- The settings window is its own addon, loaded on demand by the first ShowOptions.
 		local O = Polestar.UI.Options
-		local row = O.Controls("guide", "Window")["Pause"]
+		local row = O.Controls("guide", "While you play")["Pause"]
 		local before = row.checked
 		row:Click()
 		local clicked = { checked = row.checked, paused = Polestar.Paused() or false }

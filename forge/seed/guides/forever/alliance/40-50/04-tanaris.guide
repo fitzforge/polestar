@@ -213,7 +213,7 @@ step Dunemaul Compound
 step Tooga's escort
   tip The little turtle Tooga wanders the west edge of the Thistleshrub Valley, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife Torta, by the water just east of Steamwheedle Port: he walks slowly and the desert's beasts go for him, so keep him alive.
   accept 1560 @30.2,70.7 map 1446              -- Tooga
-  complete 1560
+  complete 1560 @66.58,25.67 map 1446 era
   turnin 1560                         -- Torta
   accept 97540                        -- Tooga, beside her: Oasis
   turnin 97540

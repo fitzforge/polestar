@@ -49,6 +49,15 @@ step Clerk Daltry
   turnin 1042                         -- Jonathan Carevin
   accept 1043                         -- Jonathan Carevin: the evidence lies in the Tranquil Gardens Cemetery, on the next guide's way to the Swamp of Sorrows: keep it
 
+step Clerk Daltry
+  when turnedin 1041
+  when available 1042
+  zone Duskwood
+  tip Clerk Daltry works in Darkshire's town hall; Jonathan Carevin stands just east of it.
+  accept 1042
+  turnin 1042                         -- Jonathan Carevin
+  accept 1043                         -- Jonathan Carevin: the evidence lies in the Tranquil Gardens Cemetery, on the next guide's way to the Swamp of Sorrows: keep it
+
 step Stranglethorn Vale
   zone Stranglethorn Vale
   goto 40.8,4.2 "Into Stranglethorn Vale"
@@ -73,6 +82,12 @@ step Bookie Herod
   turnin 200                          -- Bookie Herod's Records, upstairs
   accept 328
 
+step Bookie Herod
+  when turnedin 200
+  when available 328
+  tip Herod's records lie in a hut on the west side of Kurzen's Compound: take The Hidden Key there.
+  accept 328
+
 step Kurzen's Compound
   tip Wendel Mathers, a cook, is caged at the compound's western edge: take his quest now and keep it, his cage key and the fighter's uniform come on the 40-50 Stranglethorn guide, when the Subchiefs and Elites are your level. Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.
   tip Careful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use Smoke Bomb. Colonel Kurzen, an elite of 39-40, stands at the compound's north end: leave him be.
@@ -94,21 +109,25 @@ step Water Elementals
 
 step The Ruins of Zul'Kunda
   zone Stranglethorn Vale
-  tip North along the coast to the ruins on the hill: the last two tablets lie there. Zimmix Sputterspark, a goblin, is caged beside the third tablet: any Bloodscalp can drop his Primitive Key, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.
+  tip North along the coast to the ruins on the hill: the last two tablets lie there. Zimmix Sputterspark, a goblin, is caged beside the third tablet: any Bloodscalp can drop his Primitive Key. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.
   tip Careful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time.
   collect 2007 quest 207.3            -- The Third Troll Legend: Fall of Gurubashi
   accept 97329                        -- Zimmix Sputterspark, in his cage beside the third tablet
   collect 1519 quest 189              -- Bloodscalp Ear
   collect 277957 quest 97329          -- Primitive Key, from the Bloodscalp trolls
   turnin 97329
-  accept 97331                        -- For Wharfmaster Lozgil in Booty Bay, at the end of this loop
-  complete 97331 @26.8,11.4
   collect 277953 quest 97328 @24.8,13.0 map 1434 -- Stolen Shipment
   collect 2008 quest 207.4            -- The Fourth Troll Legend: The Emperor's Tomb
   complete 339 optional               -- Chapter I
   complete 340 optional               -- Chapter II
   complete 341 optional               -- Chapter III
   complete 342 optional               -- Chapter IV
+
+step Escort Zimmix
+  zone Stranglethorn Vale
+  tip Lead Zimmix out of the ruins and keep him alive: Wharfmaster Lozgil in Booty Bay takes the news at the end of this loop.
+  accept 97331                        -- For Wharfmaster Lozgil in Booty Bay, at the end of this loop
+  complete 97331 @26.8,11.4
 
 step Sin'Dall on the raptor hill
   when level>=36
