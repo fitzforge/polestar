@@ -895,3 +895,13 @@ test('The Return of the King? (95198) has its eavesdropping objective at the The
 test('Twilight Tablet Fragment (20378) drops from no elemental (#3773)', () => {
 	assert.deepEqual(corrections.items[20378].removeDrops.npc, [11744, 11746, 14455]);
 });
+
+// #3706: Horde Triage (6622) takes place at Doctor Gregory Victor in Hammerfall, Arathi Highlands (1417),
+// not at the Alliance clinic in Theramore Isle (1445).
+test('Horde Triage (6622) is completed at Doctor Gregory Victor in Hammerfall (#3706)', () => {
+	const objs = corrections.quests[6622].set.objectives;
+	assert.ok(objs && objs.length === 1, 'one objective');
+	assert.equal(objs[0].type, 'event');
+	assert.equal(objs[0].map, 1417);
+	assert.deepEqual([objs[0].x, objs[0].y], [73.4, 36.8]);
+});

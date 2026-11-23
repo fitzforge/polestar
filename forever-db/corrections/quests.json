@@ -2938,6 +2938,29 @@
 		],
 		"note": "Allegiance to the Old Gods (6564) starts from the Damp Note and needs no earlier quest: anyone holding the note can take it. The merged data made it wait for Trouble in the Deeps (6562)."
 	},
+	"6622": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "15 Patients Saved!",
+					"map": 1417,
+					"f": "e",
+					"x": 73.4,
+					"y": 36.8
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3706: Doctor Gregory Victor (12920) in Hammerfall (1417 73.3,36.9); the wounded soldiers are in the room with him"
+			}
+		],
+		"note": "Triage (6622, Horde): Doctor Gregory Victor and the wounded soldiers are in Hammerfall (Arathi Highlands 73.3,36.9), not at the Alliance clinic in Theramore."
+	},
 	"6641": {
 		"set": {
 			"escort": true

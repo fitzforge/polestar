@@ -42,7 +42,7 @@ one into the other. The addons:
 | `Polestar_Options` (`addon/Polestar_Options/`) | The settings window, its Look pages and previews, the Profiles page and profile strings, Move frames; loaded on demand the first time the settings open (`UI/OptionsLoader.lua` is its door in the core) | hand-written | yes | yes |
 | `Polestar_Skin_<Name>` (`addon/Polestar_Skin_Vellum/` … `Polestar_Skin_Atlas/`) | The ten skins that ship (Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen, Atlas), each an addon on the Skin API (`## X-Polestar-Skin`), loaded only when picked; `Polestar_Skin_Example` never ships (docs/SKINS-API.md) | hand-written | yes | yes |
 | `Polestar_Layout_<Name>` (`addon/Polestar_Layout_Atlas/`) | The guide window's layouts on Skin API 2 (`## X-Polestar-Layout`): Atlas, the step on a timeline with cards above the window (a beta); loaded only when picked; the folders in the release are `forge_release::addons::LAYOUT_ADDONS` | hand-written | yes | yes |
-| `Polestar_Arcade` (`addon/Polestar_Arcade/`) | The games offered on flights by `Maps/Arcade.lua` (one picker, `arcade.game`), loaded on demand the first time Play is pressed. Freedoom Arcade by petllama, a program of its own (GPL-2.0-or-later, its `LICENSE` and `CREDITS.md`): his DOOM engine port and three Freedoom levels; Polestar talks to it only through `LoadAddOn` and `FreedoomArcadeAPI`. Sky Jewels by RikyZ90 (`games/skyjewels/`, GPL-3.0-only, its `CREDITS.md`), a match-three game with 60 levels that hands `Arcade.Register` its `Open`, `Close` and `IsOpen`; progress in `PolestarCharDB.skyJewels`. The folder is never loaded when the standalone `FreedoomArcade` addon is installed and enabled (one engine, the same globals): then Freedoom Arcade is the only game offered | `git subtree` of github.com/petllama/FreedoomArcade with our commits on top; assets by its `tools/build_assets.py` and `tools/subset.py`; Sky Jewels' levels by `tools/sky-jewels.lua`, its textures by `tools/media/sky-jewels.js` | yes | yes |
+| `Polestar_Arcade` (`addon/Polestar_Arcade/`) | The games offered on flights by `Maps/Arcade.lua` (one picker, `arcade.game`), loaded on demand the first time Play is pressed. Freedoom Arcade by petllama, a program of its own (GPL-2.0-or-later, its `LICENSE` and `CREDITS.md`): his DOOM engine port and three Freedoom levels; Polestar talks to it only through `LoadAddOn` and `FreedoomArcadeAPI`. Sky Jewels by RikyZ90 (`games/skyjewels/`, GPL-3.0-only, its `CREDITS.md`), a match-three game with 60 levels, progress in `PolestarCharDB.skyJewels`; Tetris by beemerwt (`games/tetris/`, GPL-3.0-only, its `LICENSE`), its run and best score in `Polestar_TetrisDB`. Each hands `Arcade.Register` its `Open`, `Close` and `IsOpen`. The folder is never loaded when the standalone `FreedoomArcade` addon is installed and enabled (one engine, the same globals): then Freedoom Arcade is the only game offered | `git subtree` of github.com/petllama/FreedoomArcade with our commits on top; assets by its `tools/build_assets.py` and `tools/subset.py`; Sky Jewels' levels by `tools/sky-jewels.lua`, its textures by `tools/media/sky-jewels.js` | yes | yes |
 | `Polestar_Recorder` (`addon/Polestar_Recorder/`) | The optional standalone recorder of play sessions, for authoring | hand-written | yes | yes, as its own zip |
 
 A guide goes from a `.guide` file to the game in four steps. An author
@@ -483,12 +483,13 @@ modules add theirs (`xp`, `gear`, `instances`, `dungeons`, `lookup`, `mount`,
 `rares`, `talents`, `alts`, `questdb`, `import` (`SHOW_IMPORT`, Core/Import.lua),
 `update` (the update card, Core/Update.lua)).
 
-The flight games (`Maps/Arcade.lua`) register `arcade` (Freedoom Arcade) and
-`jewels` (Sky Jewels); each loads `Polestar_Arcade` on first use and puts any
-other game open away first. Sky Jewels keeps the current level and settled
-board in `PolestarCharDB.skyJewels` and its mute in
+The flight games (`Maps/Arcade.lua`) register `arcade` (Freedoom Arcade),
+`jewels` (Sky Jewels) and `tetris` (Tetris); each loads `Polestar_Arcade` on
+first use and puts any other game open away first. Sky Jewels keeps the
+current level and settled board in `PolestarCharDB.skyJewels` and its mute in
 `PolestarCharDB.skyJewelsMuted`; a saved board it can't use starts a new
-board at the saved level when that level still exists.
+board at the saved level when that level still exists. Tetris keeps its run
+and best score account-wide in `Polestar_TetrisDB`.
 
 `where` prints the player's map and position as two guide lines, `zone map
 <uiMapID>` and `goto <x>,<y> live` (two decimals, the client's live frame,
@@ -4440,8 +4441,12 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
   demand, never in combat), friendly to the player's faction and outside
   instances; reagents are vendors listed in `QoL.data.reagentVendors` (`qol
   build`: a vendor whose subtitle names reagents); the class trainer is
-  `Engine.NearestClassTrainer()`. The nearest spawn of each NPC by straight
-  line (the player's continent first), the six nearest of those estimated by
+  `Engine.NearestClassTrainer()`. A profession trainer must also teach the
+  character's next rank and accept their skill (`ProfessionTrainers`, from the
+  Codex's `profession` records, #3784); when none on the player's side does,
+  one chat line says so and the arrow stays where it was. The nearest spawn
+  of each NPC by straight line (the player's continent first), the six nearest
+  of those estimated by
   `Journey.Estimate`, the quickest becomes the target and one chat line names
   it, its zone and the time.
 - **The guide window's button** (`nav.nearbyButton`, on: Options, Guide,
@@ -8227,7 +8232,7 @@ Options). Everything is off with `lookup.enabled`; `lookup.tooltip`,
 
 ```lua
 Polestar.Codex.Load() / IsLoaded() / Meta()       -- the local Polestar_Codex pack through Data.Pack; CODEX_LOADED(meta)
-Polestar.Codex.Item(id) / Npc(id) / Object(id) / Quest(id) / Instance(key) / Zone(id) / Faction(id) / Spell(spellId)
+Polestar.Codex.Item(id) / Npc(id) / Object(id) / Quest(id) / Instance(key) / Zone(id) / Faction(id) / Spell(spellId) / Profession(skillLine)
 Polestar.Codex.Name(kind, id) ; Codex.WithRole(role) ; Codex.Loot(kind, id) ; Codex.Each(kind, fn(id, name, quality, status))
 
 Polestar.Lookup.Sources(kind, id, direct) -> rows, entity  -- ranked for this character; direct: straight-line travel, no route plan (tooltips)

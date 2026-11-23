@@ -1068,3 +1068,93 @@ emit(DS.atts[1].Meta:GetText())"#,
 	);
 	assert_eq!(out[0], "Zugangsquest  \u{b7}  Jeder braucht sie  \u{b7}  Ab Stufe 17");
 }
+
+// ---------------------------------------------------------------------------
+// The Attunements section (UI/Attunements.lua, #3695)
+// ---------------------------------------------------------------------------
+
+// A rail entry of its own after Dungeons: every attunement and key of this character's faction (the Alliance's
+// Ironclad Key left out for a Tauren), each with what it opens, a bar of the steps done as Dungeons.AttunementState
+// counts them, the next step in words and Guide me, which opens the same guide as the dungeon page's button. A raid
+// not open on Forever yet says so instead of its bar and comes after the open ones, its guide still built with that
+// line at the end; a done one is ticked at the bottom. The dungeon page's Attunement tab links here.
+#[test]
+fn the_attunements_section_lists_this_side_s_attunements_with_their_progress_next_step_and_guide_not_open_ones_after_done_ones_last() {
+	let f = Fx::new();
+	let out = f.run_ui(
+		r#"
+local AT, P, D = Polestar.UI.Attunements, Polestar.UI.Picker, Polestar.Dungeons
+local rail = {}
+for _, it in ipairs(P.RailItems()) do rail[#rail + 1] = it.key end
+AT.Show()
+local function list()
+	local out = {}
+	for i, s in ipairs(AT.Shown()) do out[i] = { s.id, s.opens, s.progress, s.nextStep, s.closed, s.guide, s.chip } end
+	return out
+end
+-- What AttunementState says, counted as the card counts it.
+local function counted(key, id)
+	for _, a in ipairs(D.Attunements(key, "H")) do
+		if a.id == id then
+			local st, did, total = D.AttunementState(a), 0, 0
+			for _, e in ipairs(st.steps) do
+				if e.state ~= "na" and e.state ~= "skip" then total = total + 1; if e.state == "done" then did = did + 1 end end
+			end
+			return { did, total }
+		end
+	end
+end
+emit({ rail = rail, section = P.Section(), fresh = list(), counted = counted("wailing-caverns", "fang") })
+done[90001] = true
+log[90002] = true
+AT.Render()
+local asked = {}
+D.Attune = function(key, id) asked[#asked + 1] = key .. ":" .. id return "lookup/attune/" .. key .. ":" .. id end
+for _, c in ipairs(AT.cards) do if c:IsShown() and c.psId == "fang" then c.Guide:Click() end end
+Polestar.Dungeons.Open("wailing-caverns")
+DS.SetTab("attune")
+DS.atts[1].Guide:Click()
+local _, _, pg = DS.Frames()
+emit({ progress = list(), counted = counted("wailing-caverns", "fang"), asked = asked, link = pg.AttLink and pg.AttLink:IsShown() and pg.AttLink.Label:GetText() or false })
+-- Fang's raid not open yet; the Smelting Key in the bags.
+Polestar.Compat.GetItemCount = function(id) return id == 90011 and 1 or 0 end
+local attunements = D.Attunements
+D.Attunements = function(key, side)
+	local l = attunements(key, side)
+	for _, a in ipairs(l) do if a.id == "fang" then a.open = false end end
+	return l
+end
+pg.AttLink:Click()
+local guide = D.AttuneGuide("wailing-caverns", "fang")
+local last = guide.steps[#guide.steps]
+local notes = {}
+for _, g in ipairs(last.goals) do if g.t == "note" then notes[#notes + 1] = g.text end end
+emit({ section = P.Section(), later = list(), notes = notes })"#,
+		"",
+	);
+	let (fresh, progress, later) = (&out[0], &out[1], &out[2]);
+	let at = fresh["rail"].as_array().unwrap().iter().position(|k| k == "Attunements").expect("a rail entry");
+	assert_eq!(fresh["rail"][at - 1], "Dungeons", "next to Dungeons: {}", fresh["rail"]);
+	assert_eq!(fresh["section"], "Attunements");
+	assert_eq!(
+		fresh["fresh"],
+		json!([
+			["fang", "Wailing Caverns", [0, 3], "Next: Pick up Rite of the Serpent from Nara Wildmane", false, true, false],
+			["smelting-key", "The Deadmines", [0, 1], "Next: Smelting Key from Edwin VanCleef", false, true, false],
+		]),
+		"the Horde's two, by level; the Alliance's Ironclad Key left out"
+	);
+	assert_eq!(fresh["fresh"][0][2], fresh["counted"], "the bar counts what AttunementState says");
+	assert_eq!(progress["progress"][0][2], json!([1, 3]));
+	assert_eq!(progress["progress"][0][2], progress["counted"]);
+	assert_eq!(progress["progress"][0][3], "Next: Finish The Serpent's Trial", "the quest in the log is the next step");
+	assert_eq!(progress["asked"], json!(["wailing-caverns:fang", "wailing-caverns:fang"]), "Guide me opens the dungeon page's guide");
+	assert_eq!(progress["link"], "All attunements and keys", "the dungeon page links here");
+	assert_eq!(later["section"], "Attunements", "the link opens the section");
+	assert_eq!(
+		later["later"],
+		json!([["fang", "Wailing Caverns", false, "Next: Finish The Serpent's Trial", "Not open on Forever yet", true, false], ["smelting-key", "The Deadmines", true, false, false, false, "Done"]]),
+		"not open: the line instead of the bar, Guide me still there; done: ticked, at the bottom"
+	);
+	assert_eq!(later["notes"].as_array().unwrap().last().unwrap(), "Not open on Forever yet: the attunement is ready for when it opens.");
+}

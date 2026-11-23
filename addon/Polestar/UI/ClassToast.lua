@@ -1351,6 +1351,24 @@ ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
 	ns.After(2, function() CT.Check(nil, "login") end)
 end)
 
+-- A reward item the client had not cached showed as "#20083" (#3727): once
+-- it arrives, the card on screen names it.
+ns.RegisterEvent("GET_ITEM_INFO_RECEIVED", function(_, itemID)
+	local m = CT.current
+	local items = m and m.reward and m.reward.items
+	if not (items and f and f:IsShown() and f.psModel == m) then return end
+	for _, id in ipairs(items) do
+		if id == itemID then
+			local name = CC().RewardName(m.reward)
+			if name then
+				m.title = format(L["%s ready"], CT.ShortName(name))
+				f.Title:SetText(m.title)
+			end
+			return
+		end
+	end
+end)
+
 ns.RegisterCommand("classtoast", function(rest)
 	local q = tonumber(rest and rest:match("%d+"))
 	if not q then q = CT.Candidates(nil, "any")[1] end

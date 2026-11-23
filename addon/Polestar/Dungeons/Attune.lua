@@ -413,6 +413,8 @@ function Dungeons.AttuneGuide(key, id)
 	local d = Dungeons.Get(key)
 	local last = { title = d and d.name or a.name, goals = {} }
 	if a.note then last.goals[#last.goals + 1] = { t = "note", text = L[a.note] } end
+	-- A raid Forever has not opened yet (#3695): the chain can be done, the door stays shut.
+	if a.open == false then last.goals[#last.goals + 1] = { t = "note", text = L["Not open on Forever yet: the attunement is ready for when it opens."] } end
 	local e = d and d.entrance
 	if located(e) then
 		last.goals[#last.goals + 1] = { t = "goto", text = d.name, map = e.map, x = e.x, y = e.y, f = e.f == "e" and "e" or nil, entrance = true }
