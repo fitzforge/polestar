@@ -36,6 +36,11 @@ const MAX_NAMED_SOURCES = 8;
 // an unknown chance (0), the data's drop list is no guide to where to farm it.
 const FEW_SOURCES_BAR = 20;
 
+// A rare that tops an item's droppers gives way to the normal ones (rareLeads)
+// when one of them drops it at this percentage or more: the common mobs are
+// where it is farmed (#3578).
+const COMMON_SOURCE_BAR = 5;
+
 // `fromNpcs` on a collect: the mobs its point and spots belong to, for the
 // target button, which cycles at most this many names.
 const MAX_SOURCE_NPCS = 5;
@@ -382,15 +387,17 @@ function levelSplit(data, cands, qlvl) {
 }
 
 // Whether a rare drops the item at the highest chance while normal sources
-// drop it at 50% or more (the `fromAlso` bar): the goal would read "Kill
-// <rare> or <normal>", and the arrow would lead to the rare's spawns, which
-// are the camps of other mobs (Ribchaser stands among the Redridge Mongrels,
-// who drop nothing). Not for an item that drops all over the world.
+// drop it at COMMON_SOURCE_BAR% or more: the goal would name the rare ("Kill
+// <rare>", or "Kill <rare> or <normal>"), and the arrow would lead to the
+// rare's spawns, which are the camps of other mobs (Ribchaser stands among the
+// Redridge Mongrels, who drop nothing) or a spot the rare is often away from
+// (Alshirr Banebreath, 80%, while every Jadefire satyr drops the Felbind at
+// 23%: #3578). Not for an item that drops all over the world.
 function rareLeads(data, cands, sides) {
 	const top = cands.reduce((a, b) => (b.chance > a.chance ? b : a), cands[0] || { chance: 0 });
 	const n = top.kind === 'npc' ? data.npc(top.id) : null;
 	if (!n || !isRare(n.rank, n.faction, sides)) return false;
-	return cands.some((c) => c.chance >= 50 && normalSource(data, c, sides, true));
+	return cands.some((c) => c.chance >= COMMON_SOURCE_BAR && normalSource(data, c, sides, true));
 }
 
 function eliteSource(data, cand, sides, rares) {

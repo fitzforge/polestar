@@ -133,6 +133,8 @@ next forever/horde/05-stonetalon-mountains
 # (99051) on the same Razor Hill step, Ak'Zeloth his letter (809) at Far Watch Post, and Warriors hand
 # Uzzek the Singed Scales from Thunder Ridge (1498) on that stop.
 step Razor Hill
+  skipto barrens when !onquest 809,1061,1358,1498,1525,94913,98024
+  tip The Razor Hill stop is on the way for players coming from Durotar; opened with none of the earlier quests in the log, the guide starts in the Barrens.
   zone Durotar
   tip Leave Orgrimmar by the main gate and follow the road south through Durotar. Before it turns west to the Southfury River bridge, step east into Razor Hill: Takrin Pathseeker stands on the west side of town, Orgnil Soulscar in the middle.
   accept 840 only Tauren,Undead,Skyborne -- Takrin Pathseeker: Kargal Battlescar at Far Watch Post, on the way
@@ -144,6 +146,7 @@ step Orgnil Soulscar
   turnin 99051 only Orc,Troll         -- Orgnil Soulscar: Threat from Below, from Durotar's naga beach
 
 step The Barrens
+  label barrens
   zone The Barrens
   goto 62.3,19.4 "Far Watch Post"
 

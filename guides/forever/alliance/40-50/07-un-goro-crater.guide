@@ -32,16 +32,19 @@ pitch For characters of 49 to 50, but most quests here are level 51-53: on purpo
 # and a Broken Pillar detour on 50-60/03, which keeps both steps for a character who arrives with the quest.
 
 step Fly to Menethil Harbor
+  skipto un-goro when !onquest 82,623,2605,2941,3362,3444,5863
   zone Ironforge
   goto 55.9,47.9 "Ironforge flight master"
   fly "Menethil Harbor"
   zone Wetlands
 
 step Boat to Theramore
+  skipto un-goro when !onquest 82,623,2605,2941,3362,3444,5863
   zone Wetlands
   goto 5.13,63.61 "Boat to Theramore"
 
 step Theramore
+  tip The Gadgetzan stop is for players coming from the Tanaris guide with its quests; opened with none of those quests in the log, the guide starts in Un'Goro Crater.
   zone Dustwallow Marsh
   tip Privateer Groy stands on the docks where the boat lands.
   turnin 623                          -- Privateer Groy
@@ -71,6 +74,7 @@ step Fly to Gadgetzan
   zone Tanaris
 
 step Fly to Gadgetzan
+  skipto un-goro when !onquest 82,623,2605,2941,3362,3444,5863
   when !complete 3444
   zone Dustwallow Marsh
   goto 67.5,51.2 "Theramore flight master"
@@ -85,6 +89,7 @@ step Gadgetzan
   turnin 2941
 
 step Marin Noggenfogger
+  skipto un-goro when !onquest 82,623,2605,2941,3362,3444,5863
   when !onquest 2605
   when !turnedin 2605
   zone Tanaris
@@ -92,6 +97,7 @@ step Marin Noggenfogger
   accept 2605                         -- Marin Noggenfogger
 
 step Gadgetzan
+  skipto un-goro when !onquest 82,623,2605,2941,3362,3444,5863
   when group 2944
   accept 2944
 
@@ -117,6 +123,7 @@ step Thistleshrub Valley: kill these as you meet them
   kill 5490 quest 3362                -- Gnarled Thistleshrub
 
 step Gadgetzan
+  skipto un-goro when !onquest 82,623,2605,2941,3362,3444,5863
   tip Ride back north-east to Gadgetzan: Andi Lynn stands on the east side of town.
   turnin 5863                         -- Andi Lynn
   turnin 2605                         -- Marin Noggenfogger
@@ -146,6 +153,7 @@ step Gadgetzan
   accept 162                          -- For Gracina Spiritmight in Darnassus, on the Felwood guide's Darnassus stop: keep it
 
 step Un'Goro Crater
+  label un-goro
   zone Un'Goro Crater
   goto 71.6,76.0 "Torwa Pathfinder"
 

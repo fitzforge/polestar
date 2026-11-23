@@ -87,12 +87,15 @@ pitch For characters of 29 to 31: the Battle of Hillsbrad, Tarren Mill's errands
 # ---------------------------------------------------------------- To Orgrimmar
 
 step Camp Taurajo flight master
+  skipto tarren-mill when !onquest 220,93739
   when turnedin 1153
   zone The Barrens
   tip Coming from the Thousand Needles guide, you stand beside Camp Taurajo's flight master: this guide flies on from here.
   goto 44.4,59.1 "Camp Taurajo flight master"
 
 step Ratchet
+  skipto tarren-mill when !onquest 220,93739
+  tip The Ratchet, Crossroads, Orgrimmar and Undercity stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts at Tarren Mill.
   only Shaman
   zone The Barrens
   tip Fly to Ratchet (from Camp Taurajo if you come from the Thousand Needles guide, else from the flight master nearest you). Islen Waterseer camps on the coast a short walk south of the town; fly on to the Crossroads from Ratchet.
@@ -101,24 +104,28 @@ step Ratchet
   accept 63
 
 step Fly to the Crossroads
+  skipto tarren-mill when !onquest 220,93739
   only Shaman
   zone The Barrens
   goto 63.1,37.1 "Ratchet flight master"
   fly "Crossroads"
 
 step Fly to the Crossroads
+  skipto tarren-mill when !onquest 220,93739
   only !Shaman
   zone The Barrens
   tip Fly to the Crossroads: from Camp Taurajo if you come from the Thousand Needles guide, else from the flight master nearest you.
   fly "Crossroads"
 
 step Korran
+  skipto tarren-mill when !onquest 220,93739
   when level>=29
   zone The Barrens
   tip Korran stands beside the Crossroads flight master. The Swarm Grows is offered from level 29.
   accept 1145                         -- Korran: for Belgrom Rockmaul in Orgrimmar
 
 step Fly to Orgrimmar
+  skipto tarren-mill when !onquest 220,93739
   zone The Barrens
   goto 51.5,30.4 "Crossroads flight master"
   fly "Orgrimmar"
@@ -191,6 +198,7 @@ step Fly to Tarren Mill
 # ---------------------------------------------------------------- Tarren Mill
 
 step Tarren Mill
+  label tarren-mill
   zone Hillsbrad Foothills
   tip The Dangerous! poster hangs by the inn; Apothecary Lydon stands inside it. Christoph Jeffcoat, the cook by the inn, wants turtle meat and sells the spices for it.
   accept 567                          -- Dangerous!, the poster by the inn
