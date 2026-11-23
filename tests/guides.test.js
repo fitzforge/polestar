@@ -27,7 +27,11 @@ test('every authored guide can be played to the end by every class it branches o
 	// chain out (Desperate Prayer is Dwarf-only) left with the generated routes.
 	const only = process.env.POLESTAR_GUIDES;
 	const filter = (rel) => !only || rel.includes(only);
-	const { results, diag, played } = await playtest({ dir: OFFICIAL_DIR, manifest, official: true, filter });
+	// Class guides open at their start gate as `polestar playtest` plays them (#3238): the simulated player meets
+	// the opening level or an outside prerequisite (Tyr's Watch: level 2 and The Mindless Ones, 364; Call of Earth:
+	// Dwarven Outfitters, 179) before the guide. The library stays strict by default, and since #3238 skipped goals
+	// are passed over as the addon does, so without this both guides wait at step 1 with every goal skipped.
+	const { results, diag, played } = await playtest({ dir: OFFICIAL_DIR, manifest, official: true, filter, openStartGates: true });
 	assert.deepEqual(diag.errors.map(format), [], 'guides must compile without errors');
 	assert.ok(played > 0, `no guide matches POLESTAR_GUIDES=${process.env.POLESTAR_GUIDES}`);
 	const failures = results.filter((r) => !r.ok).flatMap(resultLines);

@@ -15,6 +15,8 @@ return {
 	["{npc:3649}, north end of the village"] = "{npc:3649}, en el extremo norte del pueblo",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
 	["{npc:3649}: for {npc:1646} in {zone:1453}"] = "{npc:3649}: para {npc:1646} en {zone:1453}",
+	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
+	["{npc:3649}: {npc:1646}'s reply, if you brought it (Night Elves, from Night Elf Darkshore's {zone:1453} walk)"] = "",
 	-- {npc:3657} Sentinel Elissa Starbreeze · {npc:3693} Terenthis
 	["{npc:3657}, beside {npc:3693}"] = "",
 	["The WANTED poster outside the inn"] = "El cartel de SE BUSCA fuera de la posada",
@@ -86,7 +88,8 @@ return {
 	-- Step 13: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
-	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Ve al norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; están llenas de grells salvajes y duendes viles, y los sátiros Deth'ryll ocupan el borde este. {quest:1001} está junto al camino al oeste de las ruinas; un {quest:4723} yace en la orilla de camino hacia él.",
+	-- was: ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Ve al norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; están llenas de grells salvajes y duendes viles, y los sátiros Deth'ryll ocupan el borde este. {quest:1001} está junto al camino al oeste de las ruinas; un {quest:4723} yace en la orilla de camino hacia él."
+	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road north-north-west of {npc:3650}; a {quest:4723} lies on the shore on the way to him."] = "",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
 	["Grell Earrings"] = "Pendientes grell",
 	-- {item:5338} Ancient Moonstone Seal
@@ -161,6 +164,9 @@ return {
 	["{item:12191}; underwater"] = "{item:12191}; bajo el agua",
 	-- {item:12192} Mist Veil's Lockbox
 	["{item:12192}; underwater"] = "{item:12192}; bajo el agua",
+	-- {item:12237} Fine Crab Chunks
+	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
+	["{item:12237} from the Reef Crawlers and Encrusted Tide Crawlers on this shore, if you still need them"] = "",
 
 	-- Step 29: Darkshore: kill these as you meet them
 	-- {zone:1439} Darkshore
@@ -170,7 +176,11 @@ return {
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
 	["Moonstalker Fangs"] = "Colmillos de Acechalunas",
 
-	-- Step 31: The Tower of Althalaxx
+	-- Step 31: Beached Sea Turtle
+	-- {quest:4727} Beached Sea Turtle · {npc:10219} Gwennyth Bly'Leggonde · {area:442} Auberdine
+	["North from the falls to the shore: the {quest:4727} lies on the beach there, for {npc:10219} in {area:442}."] = "",
+
+	-- Step 32: The Tower of Althalaxx
 	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale · {npc:3660} Athrikus Narassin
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
 	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}.\nCareful: Dark Strand Voidcallers (28-29) with their voidwalkers and {npc:3660} (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower."] = "Al este de la Caja mecánica 323, {npc:3661} se esconde al pie de la torre entre las fanáticas de la Facción Oscura. Guarda su carta para Delgren el Purificador en {zone:1440}.\nCuidado: los Llamacíos de la Facción Oscura (28-29) con sus abisarios y {npc:3660} (31) están en la torre misma: consigue los pergaminos de las fanáticas al sur de ella y mantente lejos de la torre.",
@@ -178,7 +188,7 @@ return {
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
 	["{item:5348}: Dark Strand Fanatics"] = "{item:5348}: fanáticas de la Facción Oscura",
 
-	-- Step 32: The cave and the Den Mother
+	-- Step 33: The cave and the Den Mother
 	-- {npc:6788} Den Mother
 	["The cave and the {npc:6788}"] = "La cueva y la {npc:6788}",
 	-- {item:5270} Death Cap · {npc:6788} Den Mother
@@ -189,7 +199,7 @@ return {
 	-- {item:5270} Death Cap
 	["{item:5270}; below ground"] = "{item:5270}; bajo tierra",
 
-	-- Step 33: The northern Blackwood camp
+	-- Step 34: The northern Blackwood camp
 	["The northern Blackwood camp"] = "El campamento Bosquenegro del norte",
 	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
 	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "El campamento de fúrbolgs al sur de {area:456} guarda sus reservas de nueces, frutas y grano junto a las hogueras. Con una muestra de cada una y {item:12347} en tus bolsas ({item:12346} se llena en {object:174795}), usa el cuenco junto a la hoguera más cercana al río: invoca a Xabraxxis, el corruptor sátiro, y {item:12355} está en su bolsa demoníaca.",
@@ -197,12 +207,12 @@ return {
 	-- {item:12347} Filled Cleansing Bowl
 	["After using the {item:12347}, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl."] = "Después de usar {item:12347}, mata a Xabraxxis y luego haz clic en su bolsa de demonio en el suelo para recoger el talismán. Si Xabraxxis desaparece antes de que lo consigas, vuelve a tomar la misión para obtener un cuenco nuevo.",
 
-	-- Step 34: The cave and the Den Mother
+	-- Step 35: The cave and the Den Mother
 	["Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time."] = "Cuidado: Si atacas a un osezno, los demás oseznos y a menudo la madre se suman a la pelea, así que cuenta con enfrentarte a varios a la vez.",
 	-- {npc:6788} Den Mother
 	["{npc:6788}, below ground"] = "{npc:6788}, bajo tierra",
 
-	-- Step 35: Auberdine
+	-- Step 36: Auberdine
 	-- {quest:948} Onu · {zone:1439} Darkshore
 	["For {quest:948} at the Grove, on {zone:1439}'s southern loop after the trip east"] = "Para {quest:948} en la Arboleda, en el circuito sur de {zone:1439}, después del viaje al este",
 
@@ -230,6 +240,7 @@ return {
 	-- ["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path there. Take the portal up to {npc:4217} in the {area:1658}."] = "Los elfos de la noche vuelan de {area:442} a {area:702}; los Cielonatos toman el barco desde el muelle de {area:442} y aprenden allí la ruta de vuelo de la Aldea Rut'theran. Toma el portal para subir con {npc:4217} en {area:1658}.",
 	-- ["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path. Then take the portal up to {npc:4217} in the {area:1658}."] = "Los elfos de la noche vuelan de {area:442} a {area:702}; los Cielonatos toman el barco desde el muelle de {area:442} y aprenden la ruta de vuelo de la Aldea Rut'theran. Luego toma el portal para subir con {npc:4217} en {area:1658}.",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "Ve al norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; están llenas de grells salvajes y duendes viles, y los sátiros Deth'ryll ocupan el borde este. {quest:1001} está junto al camino al oeste de las ruinas.",
+	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Ve al norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; están llenas de grells salvajes y duendes viles, y los sátiros Deth'ryll ocupan el borde este. {quest:1001} está junto al camino al oeste de las ruinas; un {quest:4723} yace en la orilla de camino hacia él.",
 	-- ["Only if a Disciple or Thug dropped {item:5352}: right-click it"] = "Solo si un discípulo o matón soltó {item:5352}: haz clic derecho en él",
 	-- ["Read both tablets"] = "Lee ambas tablillas",
 	-- ["Scaber Stalks"] = "Boletos rudos",

@@ -4,6 +4,31 @@ local ADDON, ns = ...
 ns.UI.GuideFrame.Part(function(GF)
 	local UI, W, L = ns.UI, ns.Widgets, ns.L
 	local Engine, compact, transparent, tabsOf = GF.Engine, GF.Compact, GF.Transparent, GF.TabsOf
+	-- The pin glyph the menu's pin rows wear (Media/UI has none of its own).
+	local PIN_ICON = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Map\\icon-pin-small"
+
+	-- Is the header's button `key` (nav.Skip, nav.Report, nav.Lookup) on
+	-- screen? Its menu row then goes: the header already offers it.
+	local function inHeader(key)
+		local nav = GF.menuButton and GF.menuButton:GetParent()
+		local b = nav and nav[key]
+		return b ~= nil and b:IsVisible() and true or false
+	end
+
+	-- The window's toggles as the menu's top bar (W.ShowMenu's bar): Compact,
+	-- Transparent, Lock and Pause. No Hide: a window hidden from its own menu
+	-- left no way back but a slash command. Its caption names the toggle under
+	-- the pointer, else it is blank, or says Polestar is paused while it is.
+	local function windowBar(clear)
+		local paused = ns.Paused() ~= nil
+		return { caption = paused and L["Polestar is paused"] or nil, captionColor = paused and "warning" or nil, bar = {
+			{ text = L["Compact mode"], icon = "compact", checked = compact(), onClick = function() ns.Set("ui.compact", not compact()) end },
+			{ text = L["Transparent"], icon = "layers", checked = clear, onClick = function() ns.Set("ui.style", clear and "standard" or "transparent") end },
+			{ text = L["Lock window"], icon = "lock", checked = ns.Get("ui.locked") and true or false, onClick = function() ns.Set("ui.locked", not ns.Get("ui.locked")) end },
+			-- Pause (Core/Init.lua): the arrow, this window and its nudges step aside until you are back out of a dungeon alive.
+			{ text = L["Pause"], icon = "icon-dungeon", checked = paused, onClick = function() ns.TogglePaused() end },
+		} }
+	end
 
 	---------------------------------------------------------------------------
 	-- Menu
@@ -33,70 +58,85 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- (compact mode, Options), and the menu still lists and switches them.
 		local open = tabsOf(E)
 		local several = open and #open >= 2
+		-- The window's toggles on top, then groups, each after a separator: the
+		-- guide and its tabs; this step; the quest log; settings and tools; the
+		-- guide reset last. A row the header shows as a button is left out.
 		local items = {
+			windowBar(clear),
+			{ separator = true },
 			{ text = L["Choose guide"], icon = "search", onClick = function() UI.ShowPicker() end },
 			several and { text = string.format(L["Open tabs (%d)"], #open) .. "  \226\128\186", icon = "guides", onClick = function() openTabsPage(button) end }
 				or { text = L["Open in new tab"], icon = "plus", disabled = not (E and E.OpenTab), onClick = function() UI.ShowPicker({ newTab = true }) end },
-			-- No step on screen (a finished guide): nothing to skip, as with the navigator's Skip.
-			{ text = L["Skip this step"], icon = "skip", disabled = not (hasGuide and E.GetStepIndex and E.GetStepIndex()), onClick = function() GF.SkipStep() end },
-			{ text = L["Report a problem"], icon = "bug", onClick = function() UI.ShowReport() end },
-			{ separator = true },
 		}
+		local function add(it) items[#items + 1] = it end
+		local function group() if #items > 0 and not items[#items].separator then add({ separator = true }) end end
+		local reopen = not several and GF.ReopenItem()
+		if reopen then add(reopen) end
+		-- A header with no Lookup (a skin's layout hid it) has it here.
+		if not inHeader("Lookup") then
+			add({ text = L["Lookup"], icon = "search", onClick = function() UI.ShowLookup() end })
+		end
+		group()
+		-- No step on screen (a finished guide): nothing to skip, as with the navigator's Skip.
+		if not inHeader("Skip") then
+			add({ text = L["Skip this step"], icon = "skip", disabled = not (hasGuide and E.GetStepIndex and E.GetStepIndex()), onClick = function() GF.SkipStep() end })
+		end
+		group()
 		-- Pin the shown step's quests in the log as along the way, or unpin them (#644).
-		local pins = GF.PinItems(GF.View())
-		for _, it in ipairs(pins) do items[#items + 1] = it end
-		if #pins > 0 then items[#items + 1] = { separator = true } end
-		-- The quest log cleanup (UI/QuestRoom.lua), while it has quests to list.
+		for _, it in ipairs(GF.PinItems(GF.View())) do add(it) end
+		-- The finished quests no open route hands in (RoutePlan.Carried): one
+		-- click opens their hand-in guide (UI.GuideCarried). Both rows are
+		-- always here: with none, or while the plan cannot say (nil, as with
+		-- no guide, a route choice to make or a guide not loaded), disabled.
+		local carried = ns.RoutePlan and ns.RoutePlan.Carried() or nil
+		if carried and #carried > 0 then
+			add({ text = L["Hand in finished quests (%d)"]:format(#carried), icon = "icon-turnin", onClick = function() UI.GuideCarried() end })
+		else
+			add({ text = L["None to hand in"], icon = "icon-turnin", disabled = true })
+		end
+		-- The quest log cleanup (UI/QuestRoom.lua), over the quests it can list.
 		local unneeded = ns.RoutePlan and ns.RoutePlan.Unneeded() or nil
 		if unneeded and #unneeded > 0 then
-			table.insert(items, 5, { text = L["Clean up quest log (%d)"]:format(#unneeded), icon = "cross", onClick = function() UI.ShowQuestRoom() end })
+			add({ text = L["Clean up quest log (%d)"]:format(#unneeded), icon = "cross", onClick = function() UI.ShowQuestRoom() end })
+		else
+			add({ text = L["Quest log is clean"], icon = "cross", disabled = true })
 		end
 		-- The quest items to buy at the auction house (UI/AuctionBuys.lua), while there are any.
 		local ah = UI.AuctionBuys and UI.AuctionBuys.MenuItem()
-		if ah then table.insert(items, 5, ah) end
+		if ah then add(ah) end
 		-- Gather, buy or mix, for a guide with a material to choose a way for (UI/Materials.lua).
 		local mats = UI.Materials and UI.Materials.MenuItems()
-		for _, it in ipairs(mats or {}) do items[#items + 1] = it end
-		for _, it in ipairs({
-			{ text = L["Compact mode"], icon = "compact", checked = compact(), onClick = function() ns.Set("ui.compact", not compact()) end },
-			{ text = L["Transparent"], icon = "layers", checked = clear, onClick = function() ns.Set("ui.style", clear and "standard" or "transparent") end },
-			{ text = L["Lock window"], icon = "lock", checked = ns.Get("ui.locked") and true or false, onClick = function() ns.Set("ui.locked", not ns.Get("ui.locked")) end },
-			{ separator = true },
-			{ text = L["Reset guide progress"], icon = "reset", confirm = true, disabled = not hasGuide, tip = L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."],
-				onClick = function() if E and E.ResetProgress then E.ResetProgress() end end },
-			{ text = L["Options"], icon = "gear", onClick = function() UI.ShowOptions() end },
-			-- Pause (Core/Init.lua): the arrow, this window and its nudges step aside until you are back out of a dungeon alive.
-			{ text = L["Pause"], icon = "icon-dungeon", checked = ns.Paused() ~= nil, tip = L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."],
-				onClick = function() ns.TogglePaused() end },
-			{ text = L["Hide window"], icon = "close", onClick = function()
-				ns.Set("ui.shown", false)
-				ns.Print(L["Guide window hidden. Type /polestar to bring it back."])
-			end },
-		}) do items[#items + 1] = it end
-		-- Freedoom Arcade (Maps/Arcade.lua), while a copy of it is there.
-		local arcade = ns.Arcade
-		if arcade and arcade.Available() then
-			table.insert(items, 5, { text = L["Play Freedoom Arcade"], icon = "gamepad", onClick = function() arcade.Open() end })
+		for _, it in ipairs(mats or {}) do add(it) end
+		group()
+		-- The few settings changed mid-play (UI/QuickSettings.lua), by the button, just before Settings.
+		if UI.QuickSettings then
+			add({ text = L["Quick settings"], icon = "sliders", onClick = function() UI.QuickSettings.Show(button) end })
+		end
+		add({ text = L["Settings"], icon = "gear", onClick = function() UI.ShowOptions() end })
+		-- Width, scale and height cap back to their defaults (GF.ResetSize).
+		add({ text = L["Reset window size"], icon = "reset", disabled = not GF.SizeChanged(), onClick = function() GF.ResetSize() end })
+		if not inHeader("Report") then
+			add({ text = L["Report a problem"], icon = "bug", onClick = function() UI.ShowReport() end })
+		end
+		-- The flight games (Maps/Arcade.lua): the chosen one, else the first there.
+		local game = ns.Arcade and ns.Arcade.MenuGame()
+		if game then
+			add({ text = game.play, icon = "gamepad", onClick = function() ns.Arcade.Open(game.id) end })
 		end
 		-- The Recorder's window, while the Recorder addon is loaded.
 		if type(PolestarRecorder_Command) == "function" then
-			table.insert(items, 5, { text = L["Recorder window"], icon = "record", onClick = function() PolestarRecorder_Command("ui") end })
+			add({ text = L["Recorder window"], icon = "record", onClick = function() PolestarRecorder_Command("ui") end })
 		end
-		local reopen = not several and GF.ReopenItem()
-		if reopen then table.insert(items, 3, reopen) end
-		-- The few settings changed mid-play (UI/QuickSettings.lua), by the button, just before Options.
-		if UI.QuickSettings then
-			for i, it in ipairs(items) do
-				if it.icon == "gear" then
-					table.insert(items, i, { text = L["Quick settings"], icon = "sliders", onClick = function() UI.QuickSettings.Show(button) end })
-					break
-				end
-			end
-		end
+		group()
+		add({ text = L["Reset guide progress"], icon = "reset", color = "danger", confirm = true, disabled = not hasGuide, tip = L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."],
+			onClick = function() if E and E.ResetProgress then E.ResetProgress() end end })
 		-- A skin's own entries (Skin API 2, hooks.guideMenu(items, button)): it
 		-- may add, remove or reorder them; the list is made anew at each opening.
-		ns.Theme.SkinHook("guideMenu", items, button)
-		W.ShowMenu(button, items)
+		GF.Hook("guideMenu", items, button)
+		-- No separator left last (a skin may take the rows after it).
+		if items[#items] and items[#items].separator then items[#items] = nil end
+		-- Every entry in view, its groups apart: not a list to filter.
+		W.ShowMenu(button, items, { short = true })
 	end
 
 	-- "Reopen closed tab", the last tab closed (Engine.ClosedTabs) back as it
@@ -122,7 +162,7 @@ ns.UI.GuideFrame.Part(function(GF)
 				seen[q] = true
 				local title = ns.Quoted(C.GetQuestTitle(q) or (L["Quest"] .. " " .. q))
 				local pinned = E.IsPinned(q)
-				out[#out + 1] = { text = string.format(pinned and L["Unpin %s"] or L["Pin %s as along the way"], title), icon = "pin",
+				out[#out + 1] = { text = string.format(pinned and L["Unpin %s"] or L["Pin %s as along the way"], title), icon = PIN_ICON,
 					checked = pinned, onClick = function() E.PinQuest(q, not pinned) end }
 			end
 		end

@@ -30,6 +30,8 @@ return {
 	-- Step 4: Back at Aldrassil
 	-- {area:256} Aldrassil
 	["Back at {area:256}"] = "Снова здесь: {area:256}",
+	-- {npc:3595} Shanda · {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light
+	["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "",
 	-- {npc:2079} Conservator Ilthalaine · {npc:3596} Ayanna Everstride
 	["{npc:2079}: a sigil for {npc:3596}"] = "{npc:2079}: знак для персонажа {npc:3596}",
 	-- {npc:2082} Gilshalan Windwalker
@@ -188,9 +190,9 @@ return {
 	-- Step 29: Teldrassil: kill these as you meet them
 	-- {quest:940} Teldrassil
 	["{quest:940}: kill these as you meet them"] = "",
-	-- {area:186} Dolanaar · {area:260} Starbreeze Village
-	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker
-	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "Ночные саблезубы, совы и чащобные тенетники бродят по всей округе ({area:186}) и вдоль дороги на восток; с тенетников также падают паучьи лапки для рецепта. Лунный колодец – на западном краю деревни ({area:260}).",
+	-- {area:186} Dolanaar · {area:260} Starbreeze Village · {npc:3567} Tallonkai Swiftroot
+	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker · Befouled Webwoods = {npc:272096} Befouled Webwood
+	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}.\nCareful: the Befouled Webwoods (10-11) in the woods north-west of {area:186}, around 47-52,34-56, are over you now: take the silk from the Webwood Lurkers and leave the webwoods for {npc:3567}'s quest later. Duskstalker (9, a rare nightsaber) and Oakenscowl (9, elite) roam the woods south of {area:186}, around 54-62,73-77: leave them be."] = "",
 	["Nightsabers"] = "Ночные саблезубы",
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
 	["Webwood Lurkers"] = "Чащобные тенетники",
@@ -536,6 +538,9 @@ return {
 	["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "Прибрежные крабы снуют по берегу под деревней; {quest:983} стоит на пляже чуть южнее пристани. На мелководье плавают крепкозубы Темного берега. {object:175207} лежит на берегу чуть южнее деревни.",
 	-- plural, as words: Crawler Legs = {item:5385} Crawler Leg · Tide Crawlers = {npc:2232} Tide Crawler
 	["Crawler Legs: the Tide Crawlers"] = "Лапы краба: прибрежные крабы",
+	-- {quest:983} Buzzbox 827 · {zone:1439} Darkshore
+	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
+	["{quest:983}: Thresher Eyes, on the {zone:1439} guide's first beach stop"] = "",
 
 	-- Step 91: Auberdine
 	-- {npc:3649} Thundris Windweaver
@@ -600,6 +605,7 @@ return {
 	-- ["Learn the {area:442} flight path on the hill south of the inn, then cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path in {area:2361} and fly to {area:702} (by way of {area:442})."] = "Узнайте маршрут полета ({area:442}) на холме к югу от таверны, затем примените {spell:18960}. {npc:11802} – здесь: {area:2361}; {quest:5929} – в лесу к северо-западу. Узнайте маршрут полета ({area:493}) здесь: {area:2361} – и летите сюда: {area:702} (через {area:442}).",
 	-- ["Mangy Nightsabers and Thistle Boars roam north of {area:256}, on the way to the cave. {npc:8584} waits in the trees west of the cave mouth; {npc:1994} sits deep inside."] = "Облезлые ночные саблезубы и щетинистые вепри бродят к северу от древа ({area:256}), по пути к пещере. {npc:8584} ждет среди деревьев к западу от входа в пещеру; {npc:1994} – в ее глубине.",
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "Вдоль дороги на восток живут ночные саблезубы, совы и чащобные тенетники. Лунный колодец – на западном краю деревни ({area:260}).",
+	-- ["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "Ночные саблезубы, совы и чащобные тенетники бродят по всей округе ({area:186}) и вдоль дороги на восток; с тенетников также падают паучьи лапки для рецепта. Лунный колодец – на западном краю деревни ({area:260}).",
 	-- ["North-east from Ursal's den, back to {area:186}."] = "От логова Урсала на северо-восток, назад: {area:186}.",
 	-- ["South from the glade toward Ursal: Shayla walks the road west of {area:186}, from where the path down from the glade meets it south-west to the bend at about 38,54 and back."] = "С поляны на юг к Урсалу: Шейла ходит по дороге к западу от места {area:186} – от места, где к ней спускается тропа с поляны, на юго-запад до поворота примерно у 38,54 и обратно.",
 	-- ["South of the pools. The {object:6751} grows by the Hold; the furbolgs around it drop the rest of the fangs."] = "К югу от озер. {object:6751} растет у Лагеря у Кривой Сосны; остальные клыки падают с фурболгов вокруг.",

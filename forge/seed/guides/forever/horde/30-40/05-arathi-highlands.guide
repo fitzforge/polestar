@@ -47,7 +47,11 @@ next forever/horde/30-40/06-badlands
 #
 # Carried on: Trollbane (638) from Stranglethorn; Thundering Hearts (97985) from Thousand Needles,
 # for Calder Gray on the Undercity stop; Martek the Exiled (1106) and Sunken Treasure (669) for
-# later on the route.
+# later on the route; To Steal From Thieves (1164, 2026-11-20), for Warriors, Paladins, Rogues,
+# Priests, Mages and Warlocks: Genavie Callow gives it beside the Undercity flight master, the
+# Dabyrie farm lies on the road east between the Boulderfist camp and the Shards of Myzrael, and
+# forever/horde/40-50/01-stranglethorn-vale hands it in when those classes fly back to the
+# Undercity from Kargath for their level 40 training.
 
 # ---------------------------------------------------------------- The Undercity
 
@@ -65,12 +69,14 @@ step Undercity trainers
 
 step Calder Gray
   zone Undercity
-  when onquest 97985
+  when complete 97985
   tip Calder Gray stands in the Apothecarium.
   turnin 97985                        -- Calder Gray: Stormheart's heart from Thousand Needles
 
 step Fly to Tarren Mill
   zone Undercity
+  tip Warriors, Paladins, Rogues, Priests, Mages and Warlocks (not Hunters, Shamans or Druids): Genavie Callow stands beside the flight master. The Dabyrie family's farm lies on the road east through Arathi later in this guide, and your level 40 training brings you back to this flight master from Kargath: she takes the heads then.
+  accept 1164 only Warrior,Paladin,Rogue,Priest,Mage,Warlock -- Genavie Callow, beside the flight master
   goto 63.1,48.3 "Undercity flight master"
   fly "Tarren Mill"
   zone Hillsbrad Foothills
@@ -85,8 +91,13 @@ step Tarren Mill
   accept 93680                        -- Magus Wordeen Voidglare: Key to the City, the Grimy Key is by the traitors
   accept 556                          -- Keeper Bel'varil, inside
   accept 676                          -- Tallow: for Drum Fel in Hammerfall, later in this guide
-  buy 3703 x1 npc 2388                -- Southshore Stout, for Henchman Valik
   sethome "Tarren Mill"
+
+step Southshore Stout
+  when onquest 533
+  when !complete 533
+  zone Hillsbrad Foothills
+  buy 3703 x1 npc 2388                -- Southshore Stout, for Henchman Valik
 
 step Henchman Valik
   when onquest 533
@@ -177,6 +188,14 @@ step Boulderfist camp
   tip Head east out of Tarren Mill through Thoradin's Wall and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of Northfold Manor; the Enforcers stay in the cave there.
   kill 2562 quest 676.1
   kill 2564 quest 676.2               -- Below ground
+
+step Dabyrie's Farmstead
+  only Warrior,Paladin,Rogue,Priest,Mage,Warlock
+  zone Arathi Highlands
+  tip On along the road east: the Dabyrie farm lies just north of it. Marcel (34) and Fardel (33) Dabyrie walk the farm's western yard among their Laborers and Militia (30-32); Kenata (35) stands at the farm's north-eastern edge.
+  collect 5832 quest 1164.2 @54.2,38.1 map 1417 -- Marcel's Head, from Marcel Dabyrie
+  collect 5831 quest 1164.3 @54.8,38.2 map 1417 -- Fardel's Head, from Fardel Dabyrie
+  collect 5830 quest 1164.1 @56.4,36.1 map 1417 -- Kenata's Head, from Kenata Dabyrie
 
 step The Shards of Myzrael
   zone Arathi Highlands
@@ -342,7 +361,8 @@ step Doctor Draxlegauge
 
 step The Drowned Reef: kill these as you meet them
   zone Arathi Highlands
-  tip West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks.
+  tip Careful: west of the cove the Daggerspine Raiders and Sorceresses (38-40) stand close together on the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks.
+  tip Careful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy.
   kill 2595 quest 664.1               -- Underwater
   collect 4492 quest 666              -- Underwater
   kill 2596 quest 664.2               -- Underwater

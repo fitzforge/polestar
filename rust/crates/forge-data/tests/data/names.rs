@@ -115,17 +115,22 @@ fn the_ids_kept_are_the_ones_the_guides_the_quest_database_and_the_codex_name() 
 }
 
 // Polestar's own pack carries the experimental index (Polestar.RegisterExperimental) since 0.4.0, and Polestar
-// Experimental's guides sit in their own folder beside it: the index loads, and those guides' ids are kept too.
+// Experimental's guides sit inside Polestar's own folder (Polestar/Experimental, since 0.4.3): the index loads,
+// and those guides' ids are kept too.
 #[test]
 fn the_experimental_index_loads_and_polestar_experimental_s_guides_count() {
 	let f = fix();
 	let tmp = scratch("names-experimental");
-	for d in ["Polestar_Guides", "Polestar_Experimental"] {
+	for d in ["Polestar_Guides", "Polestar/Experimental"] {
 		std::fs::create_dir_all(tmp.join(d)).unwrap();
 	}
 	let ours = std::fs::read_to_string(f.join("Guides.lua")).unwrap();
 	std::fs::write(tmp.join("Polestar_Guides/Guides.lua"), format!("{ours}\nPolestar.RegisterExperimental({{ {{ id = \"polestar-experimental/x\", faction = \"Horde\" }} }})\n")).unwrap();
-	std::fs::write(tmp.join("Polestar_Experimental/Guides.lua"), "Polestar.RegisterGuide({ id = \"x\", steps = { { goals = { { t = \"accept\", quest = 93407, npc = 243815 } } } } })\n").unwrap();
+	std::fs::write(
+		tmp.join("Polestar/Experimental/Guides.lua"),
+		"Polestar.DeferGuides(\"polestar-experimental\", function()\nPolestar.RegisterGuide({ id = \"x\", steps = { { goals = { { t = \"accept\", quest = 93407, npc = 243815 } } } } })\nend)\n",
+	)
+	.unwrap();
 	let u = names::used_ids(&tmp.join("Polestar_Guides/Guides.lua"), &f.join("questdb"), &f.join("codex")).unwrap();
 	assert!(u.ids[0].contains(&93407) && u.ids[1].contains(&243815), "the experimental guide's quest and NPC: {:?} {:?}", u.ids[0], u.ids[1]);
 	assert_eq!(u.counts[0], ("guides", [5, 5, 1, 3]));
@@ -305,6 +310,29 @@ fn cached_web_lists_and_tooltips_bracketed_names_are_none_objectives_read() {
 	assert!(none.names.iter().all(|m| m.is_empty()) && none.objective.is_empty() && none.fetched.is_none());
 }
 
+#[test]
+fn quest_tooltip_title_level_is_excluded_from_the_objective() {
+	use serde_json::json;
+	let s = scratch("names-web-level");
+	let summaries = [
+		(92753, r#"<th><b class="q0">Level 18</b></th>"#, "Place the explosives."),
+		(92401, r#"<th align="right"><b class="q0">Niveau 22</b></th>"#, "Investigate the ruins."),
+		(94748, "", "Rescue five scouts."),
+		(94888, "", "Level 18 is the signal to proceed."),
+	];
+	for (id, level_cell, objective) in summaries {
+		let tooltip = format!(
+			r#"<table><tr><td><table width="100%"><tr><td><b class="q">Quest</b></td>{level_cell}</tr></table></td></tr></table><table><tr><td><br />{objective}<br /><br /><span class="q">Requirements:</span><br /> - Trigger</td></tr></table>"#
+		);
+		write_json(&s.join(format!("web/names/frFR/quest/{id}.json")), json!({ "id": id, "name": "Quête", "tooltip": tooltip }));
+	}
+	let web = src::load_web_names(&s, "frFR").unwrap();
+	assert_eq!(web.objective.len(), summaries.len());
+	for (id, _, objective) in summaries {
+		assert_eq!(web.objective.get(&id).map(String::as_str), Some(objective), "quest {id}");
+	}
+}
+
 fn m(pairs: &[(i64, &str)]) -> Names {
 	pairs.iter().map(|(k, v)| (*k, v.to_string())).collect()
 }
@@ -471,7 +499,7 @@ fn the_shipped_names_the_client_showed_load_and_each_language_file_is_its_own() 
 		src::load_observed_names(&dir, l).unwrap_or_else(|e| panic!("{e}"));
 	}
 	let zh = src::load_observed_names(&dir, "zhCN").unwrap();
-	assert_eq!(zh.refs.iter().copied().collect::<Vec<_>>(), [1448]);
+	assert_eq!(zh.refs.iter().copied().collect::<Vec<_>>(), [1448, 3005, 3162, 3226, 3236, 3237]);
 	// The client's own names where the web's differ (#1448): Forever renamed both quests "Chastise".
 	assert_eq!(zh.names[0].get(&5641).map(String::as_str), Some("惩击"));
 	assert_eq!(zh.names[0].get(&5645).map(String::as_str), Some("惩击"));

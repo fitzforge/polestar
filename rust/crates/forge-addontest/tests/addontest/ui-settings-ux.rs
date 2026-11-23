@@ -52,7 +52,7 @@ fn run(script: &str) -> Value {
 	.remove(0)
 }
 
-// A setting that places a frame carries a Move: on its row (the floating button) or in its section's header (the
+// A setting that places a frame carries a Move: a glyph on its row (the floating button) or in its section's header (the
 // flight timer's, Look > Trackers). A click hides the window, opens Move frames with that frame's box picked and
 // pulsing a few times; Save and exit brings the window back on its page, the row lit. Move is off while the frame
 // has no box (its feature off); an alert in the alerts' line picks the line; in a fight nothing opens.
@@ -64,7 +64,8 @@ fn a_settings_move_opens_move_frames_with_its_frame_picked_and_pulsing_and_bring
 		local w = ctl("ui.launcher")
 		local move = rawget(w, "MoveButton")
 		local row = { has = move ~= nil, shown = move and move:IsShown() or false, on = move and move:IsEnabled() or false,
-			label = move and move.Label:GetText() or false, inCogColumn = rawget(w, "Cog") == move }
+			glyph = move and rawget(move, "psMove") == true or false, inExtras = false }
+		for _, e in ipairs(rawget(w, "psExtras") or {}) do if e == move then row.inExtras = true end end
 		local page = O.page.key
 		move:Click()
 		local box = M.Box("launcher")
@@ -95,7 +96,7 @@ fn a_settings_move_opens_move_frames_with_its_frame_picked_and_pulsing_and_bring
 		local fought = { O.MoveFrame("launcher"), PolestarOptions:IsShown(), M.IsUnlocked() }
 		stub.inCombat = false
 		emit({ row = row, during = during, pulsed = pulsed, after = after, off = off, header = header, section = section, line = line, fought = fought })"#);
-	assert_eq!(out["row"], json!({ "has": true, "shown": true, "on": true, "label": "Move", "inCogColumn": true }), "the row's Move, in the cog's column");
+	assert_eq!(out["row"], json!({ "has": true, "shown": true, "on": true, "glyph": true, "inExtras": true }), "the row's Move, a glyph in its extras' Move column");
 	assert_eq!(out["during"], json!({ "settings": false, "unlocked": true, "selected": "launcher", "pulse": true }));
 	assert_eq!(out["pulsed"], true, "the pulse ends by itself");
 	assert_eq!(out["after"], json!({ "settings": true, "page": true, "lit": true }), "the window back on its page, the row lit");
@@ -117,19 +118,18 @@ fn a_reset_offers_one_undo_in_the_footer_for_a_while() {
 		local w = ctl("ui.launcher")
 		w:Click("RightButton")
 		local chip = PolestarOptions.UndoChip
-		local row = { value = Polestar.Get("ui.launcher"), shown = chip:IsShown(), text = chip.Text:GetText(),
-			thanks = PolestarOptions.ThanksLink:IsShown() }
+		local row = { value = Polestar.Get("ui.launcher"), shown = chip:IsShown(), text = chip.Text:GetText() }
 		chip.Undo:Click()
 		local undone = { Polestar.Get("ui.launcher"), chip:IsShown() }
 		-- Already at its default: nothing to undo.
 		ctl("ui.combat"):Click("RightButton")
 		local idle = chip:IsShown()
-		-- A section's Reset (three settings or fewer: at once).
+		-- A section's Reset (three settings or fewer: at once), the guide window's Behaviour.
 		Polestar.Set("ui.launcher", false)
 		Polestar.Set("ui.combat", "hide")
 		Polestar.Set("ui.instance", "show")
 		ctl("ui.combat")
-		cardOf("Show and hide").Reset:Click()
+		cardOf("Behaviour").Reset:Click()
 		local section = { Polestar.Get("ui.combat"), Polestar.Get("ui.instance"), chip.Text:GetText() }
 		stub.advance(11)
 		local gone = { chip:IsShown(), O.Undo(), Polestar.Get("ui.combat") }
@@ -140,7 +140,7 @@ fn a_reset_offers_one_undo_in_the_footer_for_a_while() {
 		local page = { Polestar.Get("ui.combat"), chip:IsShown() }
 		O.Undo()
 		emit({ row = row, undone = undone, idle = idle, section = section, gone = gone, page = page, back = Polestar.Get("ui.combat") })"#);
-	assert_eq!(out["row"], json!({ "value": false, "shown": true, "text": "Floating button reset.", "thanks": false }));
+	assert_eq!(out["row"], json!({ "value": false, "shown": true, "text": "Floating button reset." }));
 	assert_eq!(out["undone"], json!([true, false]), "Undo puts it back and the chip goes");
 	assert_eq!(out["idle"], false, "a row at its default: no Undo");
 	assert_eq!(out["section"], json!(["show", "hide", "2 settings reset."]), "both back to their defaults");
@@ -203,7 +203,7 @@ fn peek_fades_the_window_fold_leaves_its_header_and_shift_wheel_scales_it() {
 		local F = PolestarOptions
 		local peek, fold = F.PeekButton, F.FoldButton
 		local order = { select(2, fold:GetPoint(1)) == F.HeaderTools, select(2, peek:GetPoint(1)) == fold,
-			select(2, F.Search:GetPoint(1)) == peek }
+			select(2, F.MoveButton:GetPoint(1)) == peek, select(2, F.Search:GetPoint(1)) == F.MoveButton }
 		stub.RunScript(peek, "OnMouseDown", "LeftButton")
 		stub.advance(0.3)
 		local peeking = F:GetAlpha()
@@ -228,6 +228,10 @@ fn peek_fades_the_window_fold_leaves_its_header_and_shift_wheel_scales_it() {
 		stub.keys.shift = false
 		local shifted = Polestar.Get("ui.menuScale")
 		local lit = rawget(F.HeaderTools, "psFlash") ~= nil and F.HeaderTools.psFlash:IsShown()
+		-- Guide fits its view since the Settings Overhaul gave the guide window's settings a page of their own:
+		-- the plain wheel is tried on Theme, taller than its view.
+		O.Select("theme")
+		stub.advance(0.1)
 		local top = F.Scroll:GetVerticalScroll()
 		stub.RunScript(F.Scroll, "OnMouseWheel", -1)
 		stub.advance(0.5)
@@ -242,7 +246,7 @@ fn peek_fades_the_window_fold_leaves_its_header_and_shift_wheel_scales_it() {
 		local stepped = Polestar.Get("ui.scale") > guideScale
 		emit({ order = order, peeking = peeking, whole = whole, folded = folded, unfolded = unfolded, another = another,
 			scale = scale, shifted = shifted, lit = lit, scrolled = scrolled, overSlider = overSlider, stepped = stepped })"#);
-	assert_eq!(out["order"], json!([true, true, true]), "Fold and Peek between the search and the scale");
+	assert_eq!(out["order"], json!([true, true, true, true]), "Fold, Peek and Move frames between the search and the scale");
 	assert!(out["peeking"].as_f64().unwrap() < 0.2, "held down, the window fades: {}", out["peeking"]);
 	assert_eq!(out["whole"], 1.0, "let go, whole again");
 	assert_eq!(out["folded"], json!({ "h": 114, "header": true, "body": false, "footer": false, "nav": false, "shown": true, "tip": "Unfold" }));
@@ -299,11 +303,18 @@ fn a_dragged_slider_lands_on_its_default_zero_or_100_percent_when_near_it() {
 #[test]
 fn the_settings_scroll_glides_on_whole_pixels_and_the_sidebar_nudges_to_its_bottom() {
 	let out = run(r#"
-		Polestar.RegisterDefaults("many", { on = true })
+		-- A page long enough to glide through: forty lines of switches.
+		local rows, defaults = {}, { on = true }
+		for i = 1, 80 do
+			defaults["row" .. i] = true
+			rows[i] = { kind = "toggle", key = "many.row" .. i, label = "Row " .. i }
+		end
+		Polestar.RegisterDefaults("many", defaults)
+		Polestar.RegisterOptions({ page = "Long page", key = "longpage", order = 60, controls = rows })
 		for i = 1, 20 do
 			Polestar.RegisterOptions({ page = "Module " .. i, order = 60 + i, controls = { { kind = "toggle", key = "many.on", label = "On" } } })
 		end
-		UI.ShowOptions("guide")
+		UI.ShowOptions("longpage")
 		stub.advance(1)
 		local F = PolestarOptions
 		local sf = F.Scroll
@@ -344,13 +355,16 @@ fn the_settings_scroll_glides_on_whole_pixels_and_the_sidebar_nudges_to_its_bott
 	assert_eq!(out["gone"], false, "at the bottom it goes");
 }
 
-// A list longer than twelve rows (a profile menu, a long dropdown) scrolls under a filter box that takes the keys:
-// a list of choices (opts.current) opens with its current choice in view, typing narrows the rows (nothing left says
-// so), Enter picks the first left, Escape empties the box and then closes the list. A short list stays as it was: no
-// box, no scroll.
+// A list longer than twelve rows (a profile menu, a long dropdown) scrolls under a filter box: a list of choices
+// (opts.current) opens with its current choice in view, typing narrows the rows (nothing left says so), Enter picks
+// the first left, Escape empties the box and then closes the list. A short list stays as it was: no box, no scroll.
+// #3371 (Soggy: opening a menu on the run typed "wwww" into its filter): the box shows as the list opens but leaves
+// the keyboard where it was; a click on it gives it the keys.
 #[test]
 fn a_long_list_scrolls_under_a_filter_that_narrows_it_and_enter_picks_the_first_left() {
 	let out = run(r#"
+		local other = CreateFrame("EditBox", nil, UIParent)
+		other:SetFocus()
 		local anchor = CreateFrame("Frame", nil, UIParent)
 		anchor:SetSize(100, 20)
 		anchor:SetPoint("CENTER")
@@ -364,8 +378,14 @@ fn a_long_list_scrolls_under_a_filter_that_narrows_it_and_enter_picks_the_first_
 			for _, r in ipairs(m.rows) do if r:IsShown() then n = n + 1 end end
 			return n
 		end
-		local long = { scroll = m.Scroll:IsShown(), filter = m.Filter:IsShown(), focus = m.Filter:HasFocus(), rows = shown(),
-			view = m.Scroll.psView, content = m.Scroll.psContent, choiceInView = m.Scroll:GetVerticalScroll() > 0 }
+		local long = { scroll = m.Scroll:IsShown(), filter = m.Filter:IsShown(), focus = m.Filter:HasFocus(), keysStay = other:HasFocus(),
+			rows = shown(), view = m.Scroll.psView, content = m.Scroll.psContent, choiceInView = m.Scroll:GetVerticalScroll() > 0 }
+		other:ClearFocus()
+		W.HideMenu()
+		W.ShowMenu(anchor, items, { current = true })
+		local unclicked = m.Filter:HasFocus()
+		stub.RunScript(m.Filter, "OnMouseDown", "LeftButton")
+		local clicked = m.Filter:HasFocus()
 		local h = m:GetHeight()
 		m.Filter:SetText("1")
 		stub.RunScript(m.Filter, "OnTextChanged", true)
@@ -389,8 +409,13 @@ fn a_long_list_scrolls_under_a_filter_that_narrows_it_and_enter_picks_the_first_
 		W.ShowMenu(anchor, few)
 		local short = { filter = m.Filter:IsShown(), scroll = m.Scroll:IsShown(), rows = shown(), parent = m.rows[1]:GetParent() == m }
 		W.HideMenu()
-		emit({ long = long, narrowed = narrowed, none = none, enter = enter, esc1 = esc1, esc2 = esc2, short = short })"#);
-	assert_eq!(out["long"], json!({ "scroll": true, "filter": true, "focus": true, "rows": 20, "view": 312, "content": 520, "choiceInView": true }));
+		emit({ long = long, unclicked = unclicked, clicked = clicked, narrowed = narrowed, none = none, enter = enter, esc1 = esc1, esc2 = esc2, short = short })"#);
+	assert_eq!(
+		out["long"],
+		json!({ "scroll": true, "filter": true, "focus": false, "keysStay": true, "rows": 20, "view": 312, "content": 520, "choiceInView": true }),
+		"the filter shows, the keyboard stays where it was"
+	);
+	assert_eq!(json!([out["unclicked"].clone(), out["clicked"].clone()]), json!([false, true]), "nothing focused before: still none until the box is clicked");
 	assert_eq!(out["narrowed"], json!([11, true]), "\"1\": Choice 1 and 10 to 19; the list keeps its size");
 	assert_eq!(out["none"], json!([0, true]), "nothing left: it says so");
 	assert_eq!(out["enter"], json!([7, false]), "Enter picks the first left");
@@ -603,11 +628,15 @@ fn a_profile_key_switches_to_its_profile_and_follows_it() {
 }
 
 // A page title too long for the header's room takes it from the search first (down to the search's least width,
-// 130 px) before it is cut short; a shorter title gives the search its width back. Peek and Fold sit as a pair.
+// 104 px), then the scale's label, before it is cut short; a shorter title gives the search its width back. Peek
+// and Fold sit as a pair.
+// The window is 960 wide, near its least (860): there the header's Settings scale, Fold, Peek and Move frames leave
+// even a short title ("Guide", 65 px) 19 px short beside the search's own width (215, 30% of the 718 main column),
+// so the search gives those 19; at a wider window a short title leaves it all.
 #[test]
 fn a_long_title_takes_room_from_the_header_search_before_it_is_cut() {
 	let out = run(r#"
-		Polestar.Set("ui.optionsSize", { 1, 700 })
+		Polestar.Set("ui.optionsSize", { 960, 700 })
 		UI.ShowOptions("guide")
 		local F = PolestarOptions
 		local function header()
@@ -625,10 +654,13 @@ fn a_long_title_takes_room_from_the_header_search_before_it_is_cut() {
 		local back = header()
 		local _, rel, _, gap = F.PeekButton:GetPoint(1)
 		emit({ short = short, long = long, back = back, pair = { rel == F.FoldButton, gap } })"#);
-	assert_eq!(out["short"]["search"], 185, "a short title leaves the search its own width");
+	assert_eq!(out["short"]["search"], 196, "a short title takes only what it lacks from the search (215 less 19)");
 	assert!(out["short"]["room"].as_i64() >= out["short"]["need"].as_i64(), "{}", out["short"]);
-	assert_eq!(out["long"]["search"], 130, "a long one takes room from the search, down to its least");
-	assert_eq!(out["long"]["room"].as_i64().unwrap(), out["short"]["room"].as_i64().unwrap() + 55, "{}", out["long"]);
+	assert_eq!(out["long"]["search"], 104, "a long one takes room from the search, down to its least");
+	// The search gives 111 (215 to 104); Move frames in the header leaves that short of this title, so the scale's
+	// label goes too, and the title fits uncut.
+	assert!(out["long"]["room"].as_i64().unwrap() >= out["short"]["room"].as_i64().unwrap() + 111, "{}", out["long"]);
+	assert!(out["long"]["room"].as_i64() >= out["long"]["need"].as_i64(), "{}", out["long"]);
 	assert_eq!(out["back"], out["short"], "the search's width back for a shorter title");
 	assert_eq!(out["pair"], json!([true, -4]), "Peek sits close by Fold");
 }

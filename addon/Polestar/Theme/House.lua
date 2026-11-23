@@ -111,6 +111,7 @@ local ROLES = {
 	display = { "semibold", 18 },  -- the guide's step title, empty-state titles
 	title = { "semibold", 15 },    -- window and guide titles
 	heading = { "semibold", 13 },  -- section headers
+	cardTitle = { "semibold", 14 }, -- a settings card's title: the heading, 1px larger (every skin's, see Theme.FontSpec)
 	body = { "medium", 13 },       -- goal lines, row labels
 	label = { "medium", 12 },      -- controls
 	note = { "regular", 12 },      -- tips and descriptions
@@ -273,7 +274,9 @@ local HOUSE_PAINT = {
 		else
 			hideBorder(f)
 		end
-		local shadow = get("ui.shadow") ~= false
+		-- f.psNoShadow: a frame painted as a window that stands by another
+		-- (Atlas's cards over the guide window) casts none of its own.
+		local shadow = get("ui.shadow") ~= false and not f.psNoShadow
 		edges(f, alpha, Theme.House("edgeLight") ~= nil, shadow, n)
 		if not shadow then
 			if f.psShadow then f.psShadow:Hide() end
@@ -384,7 +387,7 @@ local HOUSE_PAINT = {
 		hoverWash(f):SetVertexColor(Theme.Wash("hover"))
 	end,
 	scrollbar = function(f)
-		-- Back from a game look's scroll bar (Polestar_Looks/GameSkins.lua): the slim
+		-- Back from a game look's scroll bar (Theme/Looks/GameSkins.lua): the slim
 		-- white thumb over the whole bar.
 		local thumb = f.thumb or f.psThumb
 		if f.psInset then
