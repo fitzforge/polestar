@@ -1649,6 +1649,34 @@ fn on_the_way_to_your_own_map_point_a_banner_offers_the_way_back_to_the_guide() 
 	assert_eq!(out["after"], false, "the banner goes with the point");
 }
 
+// #3878: with the action on the right (guideWindow.bannerLinks "right", Atlas's), a notice whose text would wrap
+// beside it (Fresh start's two sentences) keeps the text's full width and puts the action on its own line under it at
+// the right; a short one (Looking back.) keeps the action on its line.
+#[test]
+fn a_banner_s_action_on_the_right_takes_its_own_line_when_the_text_would_wrap_beside_it() {
+	let out = run(r#"
+		Polestar.Set("guideWindow.bannerLinks", "right")
+		local B = GF.parts.banner
+		local E = Polestar.Engine
+		E.FreshStart = function() return { share = 42, fromTitle = "The Barrens", minutes = 25 } end
+		uistub.setGuide(uistub.elwynn, 3)
+		local full = B:GetWidth()
+		local point, rel, relPoint = B.Jump:GetPoint(1)
+		local fresh = { B.psKind, B.Text:GetWidth(), point, rel == B.Text, relPoint }
+		B.Close:Click()
+		E.FreshStart = function() return nil end
+		uistub.live = 4
+		uistub.setStep(3)
+		local p2, r2 = B.Jump:GetPoint(1)
+		local short = { B.psKind, p2, r2 == B, B.Text:GetText() }
+		emit({ full = full, fresh = fresh, short = short })"#)
+	.remove(0);
+	assert_eq!(out["fresh"][0], "fresh", "{out}");
+	assert_eq!(json!([out["fresh"][2], out["fresh"][3], out["fresh"][4]]), json!(["TOPRIGHT", true, "BOTTOMRIGHT"]), "the action under the text, at its right: {out}");
+	assert!(out["fresh"][1].as_f64().unwrap() > out["full"].as_f64().unwrap() * 0.7, "the text keeps the card's width: {out}");
+	assert_eq!(out["short"], json!(["away", "TOPRIGHT", true, "Looking back."]), "a one-line notice keeps its action on its line: {out}");
+}
+
 #[test]
 fn guide_outleveled_a_dismissible_banner_offers_the_better_guide_in_the_same_tab() {
 	let out = run(r#"
