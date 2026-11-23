@@ -370,7 +370,6 @@ return {
 
 	-- Step 84: Deadwood Cauldron
 	-- {zone:1448} Felwood · {area:1997} Bloodvenom Post · {area:1762} Felpaw Village · {area:1769} Timbermaw Hold
-	-- was: ["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "Sube al norte por el camino. El caldero está en {area:1762}, justo al suroeste de {area:1769}; los fúrbolgs Muertobosque de ahí son hostiles."
 	["Ride north up the whole {zone:1448} road, past {area:1997}. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "Sube al norte por todo el camino de {zone:1448}, pasando {area:1997}. El caldero está en {area:1762}, justo al suroeste de {area:1769}; los fúrbolgs Muertobosque de ahí son hostiles.",
 
 	-- Step 85: Kernda

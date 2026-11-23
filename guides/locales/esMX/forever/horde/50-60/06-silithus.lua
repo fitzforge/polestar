@@ -63,7 +63,6 @@ return {
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}, bajo tierra",
 	-- {quest:3942} Linken's Memory · {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
-	-- was: ["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the next guide's way through {zone:1448}."] = "Guarda {quest:3942}: {npc:9116} está en {area:2479}, de camino por {zone:1448} en la siguiente guía."
 	["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the last guide's way through {zone:1448}."] = "Guarda {quest:3942}: {npc:9116} está en {area:2479}, de camino por {zone:1448} en la última guía.",
 	-- {item:12928} Umi's Mechanical Yeti · {npc:10977} Quixxil
 	["Use {item:12928} on {npc:10977}"] = "Usa el {item:12928} en {npc:10977}",
@@ -80,7 +79,6 @@ return {
 
 	-- Step 16: Cenarion Hold
 	-- {area:3077} Valor's Rest · {npc:15189} Beetix Ficklespragg
-	-- was: ["Ride west to the walled hold in the middle of the desert. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Ve al oeste hasta el bastión amurallado en el centro del desierto. {npc:15189} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos."
 	["Ride west from {area:3077} to the walled hold in the middle of the desert. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Cabalga al oeste desde {area:3077} hasta el bastión amurallado en el centro del desierto. {npc:15189} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 
 	-- Step 17: Calandrath
@@ -95,7 +93,6 @@ return {
 
 	-- Step 19: Twilight Base Camp
 	-- plural, as words: Dust Stormers = {npc:11744} Dust Stormer · Desert Rumblers = {npc:11746} Desert Rumbler · Whirling Invaders = {npc:14455} Whirling Invader
-	-- was: ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time."] = "Los fragmentos de tablilla brillantes están alrededor del campamento Crepuscular del extremo noroeste; los Agitadores sirocosos y los Estruendores del desierto de allí también los sueltan. Cuidado: los Estruendores más grandes y los Invasores giratorios son de nivel 58: atráelos de uno en uno."
 	["The glowing tablet fragments lie on the ground around the Twilight camp in the far north-west: pick them up. The Dust Stormers and Desert Rumblers there may carry them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time."] = "Los fragmentos de tablilla brillantes están en el suelo alrededor del campamento Crepuscular del extremo noroeste: recógelos. Los agitadores sirocosos y los estruendores del desierto de allí también pueden llevarlos. Cuidado: los estruendores más grandes y los invasores giratorios son de nivel 58: atráelos de uno en uno.",
 
 	-- Step 20: Cenarion Hold
@@ -173,7 +170,6 @@ return {
 
 	-- Step 35: Noggle's Lost Satchel
 	-- {npc:15196} Deathclasp
-	-- was: ["The satchel lies in the mountains of the far south, past Bronzebeard's Encampment. Deathclasp, an elite scorpid, patrols near it: grab it while he is away."] = "La cartera está en las montañas del extremo sur, pasando el campamento de Barbabronce. Pinzamorten, un escórpido élite, patrulla cerca: tómala mientras esté lejos."
 	["The satchel lies in the mountains of the far south, past Bronzebeard's Encampment. {npc:15196}, an elite scorpid, patrols near it: grab it while he is away."] = "La cartera está en las montañas del extremo sur, pasando el campamento de Barbabronce. {npc:15196}, un escórpido élite, patrulla cerca: tómala mientras esté lejos.",
 
 	-- Step 36: Deathclasp
@@ -214,7 +210,6 @@ return {
 
 	-- Step 45: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock
-	-- was: ["Through the pass and east along the northern cliffs to {area:541}. {npc:9997} stands beside the flight master."] = "Cruza el paso y ve al este por los acantilados del norte hasta {area:541}. {npc:9997} está junto al maestro de vuelo."
 	["You missed this on the Un'Goro guide's loop: through the pass and east along the northern cliffs to {area:541}. {npc:9997} stands beside the flight master."] = "Te lo saltaste en el recorrido de la guía de Un'Goro: cruza el paso y ve al este por los acantilados del norte hasta {area:541}. {npc:9997} está junto al maestro de vuelo.",
 
 	-- Step 46: Krakle
@@ -267,7 +262,6 @@ return {
 
 	-- Step 59: Gadgetzan
 	-- {quest:2741} The Super Egg-O-Matic · {area:976} Gadgetzan
-	-- was: ["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "Vuela a {area:976}. ¿Todavía llevas {quest:2741}? La máquina está en el centro del pueblo."
 	["Still carrying {quest:2741}? The machine stands in the middle of {area:976}."] = "¿Todavía llevas {quest:2741}? La máquina está en el centro de {area:976}.",
 
 	-- Step 62: Fly to Orgrimmar

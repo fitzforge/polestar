@@ -52,7 +52,6 @@ return {
 	-- Step 11: Toxic Horrors
 	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors · {npc:9116} Eridan Bluewind · {item:11173} Irontree Heart · {item:11172} Silvery Claws · {npc:14524} Vartrus the Ancient
 	-- plural, as words: Irontree Wanderers = {npc:7138} Irontree Wanderer · Ancient Irontree Walkers = {npc:235912} Ancient Irontree Walker
-	-- was: ["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "Sube al norte por el camino de {zone:1448} hasta {area:1767}; {quest:5086} se arrastran entre los árboles, y la mayoría sueltan una gota.\nCuidado: los Caminantes ancestrales de Troncoferro, élites de nivel 59, andan entre {quest:5086}, y {npc:14524} (63, élite) recorre el bosque: encárgate de los Horrores en la punta norte de {area:1767}, de uno en uno."
 	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet. The Irontree Wanderers and Stompers (52-53) there carry {npc:9116}'s {item:11173}, the Angerclaw bears and Felpaw wolves his {item:11172}.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "Sube al norte por el camino de {zone:1448} hasta {area:1767}; los {quest:5086} se arrastran entre los árboles, y la mayoría sueltan una gota. Los errantes y vapuleadores Troncoferro (52-53) de ahí llevan el {item:11173} de {npc:9116}, y los osos Zarpira y los lobos Zarpayel, sus {item:11172}.\nCuidado: los Ancient Irontree Walkers, élites de nivel 59, andan entre los {quest:5086}, y {npc:14524} (63, élite) recorre el bosque: encárgate de los Horrores en la punta norte de {area:1767}, de uno en uno.",
 
 	-- Step 13: Umber
@@ -98,7 +97,6 @@ return {
 
 	-- Step 26: Darkwhisper Gorge
 	-- {area:2249} Frostwhisper Gorge · {area:2256} Darkwhisper Gorge
-	-- was: ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Cabalga al este y luego al sur por {area:2249}. Los gigantes Machacahielo de allí son élite de nivel 59: mantente en el centro y no te detengas. La fuente extraña está en la entrada de {area:2256}, en el extremo sur."
 	["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59-60: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Cabalga al este y luego al sur por {area:2249}. Los gigantes Machacahielo de allí son élites de nivel 59-60: mantente en el centro y no te detengas. La fuente extraña está en la entrada de {area:2256}, en el extremo sur.",
 
 	-- Step 27: Frostmaul Shards
@@ -132,7 +130,6 @@ return {
 
 	-- Step 33: Winterfall Village
 	-- {area:2255} Everlook · {quest:5121} High Chief Winterfall
-	-- was: ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "El poblado furbolg llena el valle al noreste de {area:2255}. Mata primero a los Chamanes; curan. {npc:10738} (59, élite) y Xandivious (62) están en la cueva del fondo: no entres."
 	["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {quest:5121} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "El poblado fúrbolg llena el valle al noreste de {area:2255}. Mata primero a los chamanes; curan. {quest:5121} (59, élite) y Xandivious (62) están en la cueva del fondo: no entres.",
 
 	-- Step 34: Berserk Owlbeasts

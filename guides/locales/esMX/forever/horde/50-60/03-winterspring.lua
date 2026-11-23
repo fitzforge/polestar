@@ -49,7 +49,6 @@ return {
 	-- Step 8: Everlook
 	-- {zone:1423} Eastern Plaguelands · {area:2255} Everlook
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
-	-- was: ["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 57"] = "Umi: guárdala, los Cuernos prístinos de yeti tocan en la parada de {area:2255} de la Guía de {zone:1423}, hacia el nivel 57"
 	["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 56"] = "Umi: guárdala, los cuernos prístinos de yeti tocan en la parada de {area:2255} de la guía de {zone:1423}, hacia el nivel 56",
 	["The Matriarchs and Patriarchs that carry Umi's horns are 56-58: leave them for that later stop."] = "Las Matriarcas y Patriarcas que llevan los cuernos de Umi son de nivel 56-58: déjalos para esa parada posterior.",
 
@@ -58,7 +57,6 @@ return {
 	["Raging Owlbeasts"] = "Lechubestias enfurecidas ({npc:7451})",
 	-- {area:2251} Lake Kel'Theril · {area:2255} Everlook · {area:2246} Frostfire Hot Springs
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	-- was: ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Las Lechubestias enfurecidas recorren las colinas al norte de {area:2251}, junto al camino entre {area:2246} y {area:2255}. Cuidado: las más grandes son de nivel 56: atráelas de una en una."
 	["Ride back west: Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2255} and {area:2246}. Careful: the biggest are level 56: pull them one at a time."] = "De vuelta al oeste: las lechubestias enfurecidas recorren las colinas al norte de {area:2251}, junto al camino entre {area:2255} y {area:2246}. Cuidado: las más grandes son de nivel 56: atráelas de una en una.",
 
 	-- Step 10: Frostfire Hot Springs: kill these as you meet them
@@ -66,7 +64,6 @@ return {
 	["{area:2246}: kill these as you meet them"] = "{area:2246}: mata a estos según te los encuentres",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	-- was: ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Los Abrecaminos, Vigías del cubil y Totémicos comparten los campamentos fúrbolg alrededor de las aguas termales; las Lechubestias pulgosas recorren las laderas entre ellos. Mata primero a los Totémicos. Guarda todo el {item:14047} que obtengas para Meilosh.\nCuidado: los Vigías del cubil llegan a nivel 56: atráelos de uno en uno y aléjate de los tótems de los campamentos."
 	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers are 55-56: pull the 55s, one at a time, and keep clear of the camps' totems."] = "Los abrecaminos, vigías del cubil y totémicos comparten los campamentos fúrbolg alrededor de las aguas termales; las lechubestias pulgosas recorren las laderas entre ellos. Mata primero a los totémicos. Guarda todo el {item:14047} que obtengas para Meilosh.\nCuidado: los vigías del cubil son de nivel 55-56: atrae a los de 55, de uno en uno, y aléjate de los tótems de los campamentos.",
 	-- {item:12771} Empty Firewater Flask
 	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "{item:12771}: más o menos uno de cada diez fúrbolgs Nevada lleva uno; sigue matándolos hasta que caiga",

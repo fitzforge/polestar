@@ -224,7 +224,6 @@ return {
 	-- {area:340} Kargath
 	["{area:340}'s poster"] = "El cartel de {area:340}",
 	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
-	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Para tu recorrido por {area:1584}, lo siguiente, de paso por {area:254}: el cartel de {object:164867} en {area:340} quiere que diezmes a los enanos Anvilrage de adentro."
 	["For your {area:1584} run, next, on the way through {area:254}: the WANTED poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Para tu recorrido por {area:1584}, lo siguiente, de paso por {area:254}: el cartel de ¡Se busca! de {area:340} quiere que diezmes a los enanos Yunque Colérico de adentro.",
 
 	-- Step 48: Thunderheart
@@ -266,7 +265,6 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Into {area:254}"] = "Hacia {area:254}",
 	-- {area:254} Blackrock Mountain
-	-- was: ["Take the pass out of {area:340}'s west side into the {zone:1427}, then ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals."] = "Toma el paso del lado oeste de {area:340} hacia {zone:1427}; luego cabalga al sur cruzando la garganta hasta el largo puente hacia {area:254}. Dentro, baja por las pasarelas de cadenas y sal por la salida sur; evita los caminos a los portales de los calabozos."
 	["Ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals."] = "Cabalga al sur cruzando la garganta hasta el largo puente hacia {area:254}. Dentro, baja por las pasarelas de cadenas y sal por la salida sur; evita los caminos a los portales de los calabozos.",
 	-- {area:254} Blackrock Mountain
 	["Bridge into {area:254}"] = "Puente hacia {area:254}",
@@ -310,7 +308,6 @@ return {
 	["{area:250}: kill these as you meet them"] = "{area:250}: mata a estos según te los encuentres",
 	-- {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900 · {npc:7040} Black Dragonspawn · {npc:7044} Black Drake
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	-- was: ["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills: pull the broodlings away from them, or bring a group."] = "Ve al oeste hasta la excavación. {quest:4296} está en el centro, entre los enanos Thaurissan. Cópiala.\nLas Estirpes negras anidan en las colinas justo al este de {area:251}. Usa {item:12284} de {npc:10267} sobre una estirpe cuando esté casi muerta para capturar su esencia.\nCuidado: un {npc:7040} y un {npc:7044}, élites de nivel 50-53, deambulan por las mismas colinas: aleja a las estirpes de ellos o trae un grupo."
 	["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills, and Volchan (60, a rare fire elemental) roams them too: pull the broodlings away from them, or bring a group."] = "Ve al oeste hasta la excavación. {quest:4296} está en el centro, entre los enanos Thaurissan. Cópiala.\nLas estirpes negras anidan en las colinas justo al este de {area:251}. Usa el {item:12284} de {npc:10267} sobre una estirpe cuando esté casi muerta para capturar su esencia.\nCuidado: un {npc:7040} y un {npc:7044}, élites de nivel 50-53, deambulan por las mismas colinas, y Volchan (60, un elemental de fuego raro) también: aleja a las estirpes de ellos o trae un grupo.",
 
 	-- Step 66: Flame Crest
