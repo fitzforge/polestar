@@ -125,3 +125,17 @@ test('a quest both factions\' chains lead to joins neither chain to the other (#
 	const reward = of(96264).reward;
 	assert.ok(!reward || !(rewards[reward - 1].items || []).includes(BLADE), "the Alliance quest never shows the Horde chain's weapon");
 });
+
+// The 0.4.3 data knows many class trainers only on the client's live frame (Mathrengyl Bearwalker in Darnassus):
+// the card's point is an Era one, so the live point is carried onto the Era map, and the card still says where.
+test('a giver known only on the live frame gets the same place on the Era map', () => {
+	const live = { name: 'Live', faction: 'AH', spawns: { 1429: { f: 'l', pts: [[40, 60]] } } };
+	const frames = {
+		era: { 1429: { c: 0, left: 0, right: 1000, top: 0, bottom: 1000 } },
+		forever: { 1429: { c: 0, left: 100, right: 900, top: 100, bottom: 900 } },
+	};
+	const quests = { 10: quest(10, -61, 20, ROBE) };
+	const at = (f) => buildClassRewards({ quests, tdb: null, table, guides: [], npcs: { 1: live }, objects: {}, races, frames: f }).starts[0].givers[0];
+	assert.deepEqual([at(frames).map, at(frames).x, at(frames).y], [1429, 42, 58]);
+	assert.equal(at(null).map, undefined, 'without the frames: no point, as before');
+});
