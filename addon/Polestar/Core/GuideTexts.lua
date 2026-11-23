@@ -1,5 +1,6 @@
--- Guide texts in the client's language. Contract: docs/ARCHITECTURE.md,
--- "Guide texts".
+-- Guide texts in the language Polestar shows (Polestar.Names.Language: the
+-- client's unless the Language setting chose another). Contract:
+-- docs/ARCHITECTURE.md, "Guide texts".
 --
 -- A compiled guide's prose (its title, why, pitch, pros, cons and reward
 -- words; each step's title and tip; each goal's note and text, and a kill of no
@@ -7,7 +8,7 @@
 -- game's names as tokens, {kind:id} (tools/lib/dsl/tokens.js), and the
 -- guide's `names` give each token's English. RegisterGuide hands every guide
 -- here before escaping it, and each text is then shown as:
---   1. the guide pack's translation into the client's language, when its
+--   1. the guide pack's translation into that language, when its
 --      texts addon (<pack addon>_<locale>, load on demand, compiled from the
 --      pack's locales/<locale>/ files; for our own pack, Polestar_Guides, the
 --      language folder Polestar_<locale> it shares with Polestar.Names) has
@@ -16,7 +17,7 @@
 --      (Polestar.Names for quests, NPCs, objects, items, spells, factions
 --      and areas; the client's map name for a zone; L for a profession),
 --      else by its English.
--- An English client reads a text the guide's `written` holds (one that
+-- In English, a text the guide's `written` holds (one that
 -- spells a name otherwise than its token's English: "Dalinda") as the
 -- author's words there.
 -- A guide's `folder` and the pack's title and notes are the pack's own
@@ -31,14 +32,18 @@
 --   GuideTexts.Load(addon) -> "loaded" | "combat" | nil   -- loads the texts
 --     addon of the pack addon `addon` (Data.Pack), once; "combat": refused
 --     in combat, GuideTexts.Pending() lists it until it is tried again;
---     nil: none (not installed, or an English client)
+--     nil: none (not installed, or English)
 --   GuideTexts.TextsAddon(addon) -> "<addon>_<locale>" (our pack's:
---     "Polestar_<locale>") | nil (English)
+--     "Polestar_<locale>") | nil (English, or a pack inside Polestar itself)
 --   GuideTexts.PackText(packId, text) -> translation or text
 --   GuideTexts.GUIDE_FIELDS   -- the guide-level fields it rewrites
 --   Polestar.RegisterGuideTexts(locale, packId, { pack = {...}, guides = {
 --     [guideId] = {...} } })   -- a texts addon's one call; each table maps
---     the English (with its tokens) to the translation
+--     the English (with its tokens) to the translation; ignored unless
+--     locale is the language shown
+--   GuideTexts.SetLanguage(locale)   -- Core/Locale.lua, at ADDON_LOADED,
+--     when the Language setting asks for another than the client's: drops
+--     the texts the client's folder brought
 
 local ADDON, ns = ...
 local L = ns.L
@@ -50,7 +55,7 @@ local type, pairs, ipairs, tonumber = type, pairs, ipairs, tonumber
 local find, sub, upper, concat = string.find, string.sub, string.upper, table.concat
 
 local ENGLISH = { enUS = true, enGB = true }
-local locale = (GetLocale and GetLocale()) or "enUS"
+local locale = ns.Names.Language()
 local english = ENGLISH[locale] or false
 
 GuideTexts.GUIDE_FIELDS = { "title", "why", "pitch", "folder" }
@@ -85,9 +90,9 @@ function ns.RegisterGuideTexts(loc, packId, t)
 	return true
 end
 
--- A token's name in the client's language, or nil.
+-- A token's name in the language shown, or nil.
 local function localName(kind, id, en)
-	if kind == "zone" then return ns.Names.Localised() and ns.Compat.GetMapName(id) or nil end
+	if kind == "zone" then return ns.Names.Localised() and ns.Names.Native() and ns.Compat.GetMapName(id) or nil end
 	if kind == "skill" then return L[en] end
 	if kind == "spell" or kind == "faction" or kind == "area" then return ns.Names.Get(kind, id) end
 	return ns.Names.Cached(kind, id)
@@ -246,11 +251,15 @@ function GuideTexts.Refresh(def)
 	return entry and apply(def, entry, 1, true, ns.EscapeText) or false
 end
 
--- Our pack's texts are in the language folder, beside the game's names.
+-- Our pack's texts are in the language folder, beside the game's names. A
+-- pack inside Polestar itself (its experimental guides, #3507) has no texts
+-- addon: "Polestar_<locale>" is the language folder, which Polestar loads
+-- on its own (Core/Locale.lua), and asking for it as the pack registers,
+-- while Polestar loads, would settle Data.Pack's answer for it too early.
 local OWN = "Polestar_Guides"
 
 function GuideTexts.TextsAddon(addon)
-	if english or not valid(addon) then return nil end
+	if english or not valid(addon) or addon == ADDON then return nil end
 	if addon == OWN then return "Polestar_" .. locale end
 	return addon .. "_" .. locale
 end
@@ -272,4 +281,11 @@ function GuideTexts.Pending()
 		if state == "combat" then out[#out + 1] = addon end
 	end
 	return out
+end
+
+function GuideTexts.SetLanguage(loc)
+	if type(loc) ~= "string" or loc == locale then return end
+	locale = loc
+	english = ENGLISH[loc] or false
+	texts, tried = {}, {}
 end

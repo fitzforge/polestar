@@ -241,12 +241,12 @@ end
 
 -- The step's items and the kept ones again; a repaint only when they changed.
 local function refresh()
+	if not glowing() then return end -- reset already clears both sets when hidden or switched off
 	local view, raw = QoL.CurrentStep()
-	local on = glowing()
-	local now = on and BagGlow.Items(view, raw) or {}
+	local now = BagGlow.Items(view, raw)
 	local keep = {}
 	local E = ns.Engine
-	local all = on and E and E.KeptItems and E.KeptItems()
+	local all = E and E.KeptItems and E.KeptItems()
 	if all then for id, s in pairs(all) do keep[id] = s end end
 	if same(now, items) and same(keep, kept) then return end
 	items, kept = now, keep
@@ -256,11 +256,11 @@ local refreshSoon, refreshOnLog = QoL.Coalesce(refresh)
 BagGlow.Refresh = refresh
 
 QoL.OnStep(refreshSoon)
-ns.RegisterEvent("BAG_UPDATE_DELAYED", refreshSoon)
-ns.RegisterEvent("QUEST_LOG_UPDATE", refreshOnLog)
+QoL.WhileOn("bagGlow", "BAG_UPDATE_DELAYED", refreshSoon)
+QoL.WhileOn("bagGlow", "QUEST_LOG_UPDATE", refreshOnLog)
 local function reset()
 	items, kept = {}, {}
-	refreshSoon()
+	if glowing() then refreshSoon() end
 	BagGlow.Redraw()
 end
 ns.On("SETTING_CHANGED", function(path)

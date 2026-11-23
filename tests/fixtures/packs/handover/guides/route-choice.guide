@@ -1,0 +1,16 @@
+# Fixture: a route choice into two of ours (tests/playtest.test.js): the
+# engine takes the recommended option, which need not be the first. It ends
+# in Orgrimmar's Valley of Strength, a few steps from where the Silverpine
+# guide starts (its first located goal, the Orgrimmar flight master) and a
+# ride from the Barrens guide's start at Razor Hill: on one continent, so the
+# choice turns on the walk itself, not on pricing a zeppelin crossing.
+guide handover/route-choice
+title Route Choice
+faction Horde
+race Undead
+levels 11-12
+zone Orgrimmar
+next forever/horde/02-the-barrens, forever/horde/03-silverpine-forest
+
+step Valley of Strength
+  goto 50.0,70.0 "Valley of Strength"

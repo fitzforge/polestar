@@ -50,25 +50,28 @@ const START_SPOTS = {
 	'skyborne-h': { zone: 2521, at: 257008, label: 'Valanaar shore' },
 };
 const NEXT_SPOTS = {
-	human: { zone: 1436, pools: true, label: 'Westfall coast', full: 75 },
+	human: { zone: 1436, pools: true, coast: true, label: 'Westfall coast', full: 75 },
 	'dwarf-gnome': { zone: 1432, pools: true, label: 'The Loch', full: 75 },
-	nightelf: { zone: 1439, pools: true, label: 'Darkshore coast', full: 75 },
+	nightelf: { zone: 1439, pools: true, coast: true, label: 'Darkshore coast', full: 75 },
 	'orc-troll': { zone: 1413, pools: true, label: 'Barrens oasis', full: 75 },
 	tauren: { zone: 1413, pools: true, label: 'Barrens oasis', full: 75 },
 	undead: { zone: 1421, pools: true, label: 'Lordamere Lake', full: 75, anchor: 6570 }, // Fenwick Thatros at the Decrepit Ferry, not the west coast near the Sepulcher (#718)
-	'skyborne-a': { zone: 1436, pools: true, label: 'Westfall coast', full: 75 },
+	'skyborne-a': { zone: 1436, pools: true, coast: true, label: 'Westfall coast', full: 75 },
 	'skyborne-h': { zone: 1413, pools: true, label: 'Barrens oasis', full: 75 },
 };
 // Horde Kalimdor fishes Mirkfallon Lake's pools, north of Sun Rock Retreat:
 // Ashenvale's pools nearest Splintertree are Mystral Lake's, beside the
 // Alliance's Silverwind Refuge.
 const REGION_SPOTS = {
-	'alliance-ek': { zone: 1437, pools: true, label: 'Wetlands coast', full: 150 },
+	'alliance-ek': { zone: 1437, pools: true, coast: true, label: 'Wetlands coast', full: 150 },
 	'alliance-kalimdor': { zone: 1440, pools: true, label: 'Ashenvale waters', full: 150 },
 	'horde-kalimdor': { zone: 1442, pools: true, label: 'Mirkfallon Lake', full: 150 },
-	'horde-ek': { zone: 1424, pools: true, label: 'Hillsbrad coast', full: 150 },
+	// Hillsbrad's coast, not the lake south of Tarren Mill, whose Sagefish Schools lie nearer the flight master (#3759).
+	'horde-ek': { zone: 1424, pools: true, coast: true, label: 'Hillsbrad coast', full: 150 },
 };
-const LATE_SPOT = { zone: 1434, pools: true, label: 'Booty Bay coast', full: 225 };
+const LATE_SPOT = { zone: 1434, pools: true, coast: true, label: 'Booty Bay coast', full: 225 };
+// Sagefish live in lakes and rivers: a coast spot leaves their schools out.
+const FRESH_WATER = /^(Greater )?Sagefish School$/;
 
 // Nat Pagle's four fish (quest 6607): the fishing-location object of each
 // (objects.json), the spot nearest the faction's flight master in the zone.
@@ -177,19 +180,41 @@ function objectPoints(ctx, zone, id) {
 
 // The water cluster nearest `anchor`: pools (3+ in 80 yards when there are
 // such), or any spot of a fishing-location object; `at` is an NPC's shore.
-function spot(ctx, def, anchor) {
+// With `faction`, water within ENEMY_YARDS of the other side's NPCs (a town and
+// its guards) is left out when other water is left: the Hillsbrad coast nearest
+// Tarren Mill is Southshore's shore (#3759).
+const ENEMY_YARDS = 150;
+function spot(ctx, def, anchor, faction) {
 	if (def.at) {
 		const n = npcSpawn(ctx, def.at, def.zone);
 		return n ? { pt: n.pt } : null;
 	}
-	const pts = def.object ? objectPoints(ctx, def.zone, def.object) : fishingPoints(ctx, def.zone);
+	const pts = (def.object ? objectPoints(ctx, def.zone, def.object) : fishingPoints(ctx, def.zone)).filter((p) => !def.coast || !FRESH_WATER.test(p.name));
 	if (!pts.length) return null;
 	const cl = R.weightedClusters(pts, 80, ctx.project);
 	const big = def.object ? cl : cl.filter((c) => c.w >= 3);
-	const list = big.length ? big : cl;
+	let list = big.length ? big : cl;
+	if (faction) {
+		const enemy = enemyPoints(ctx, def.zone, faction);
+		const safe = list.filter((c) => !enemy.some((e) => dist(e, c.pt) < ENEMY_YARDS));
+		if (safe.length) list = safe;
+	}
 	let best = list[0];
 	if (anchor) for (const c of list) if (dist(anchor, c.pt) < dist(anchor, best.pt)) best = c;
 	return best;
+}
+
+// Every spawn on `zone` of an NPC of the side `faction` fights.
+function enemyPoints(ctx, zone, faction) {
+	const other = faction === 'Alliance' ? 'H' : 'A';
+	const out = [];
+	for (const n of Object.values(ctx.data.npcs)) {
+		if (n.faction !== other) continue;
+		const s = n.spawns && n.spawns[String(zone)];
+		if (!s) continue;
+		for (const [x, y] of R.allPoints(s)) out.push(ctx.project.point(zone, x, y, s.f));
+	}
+	return out;
 }
 
 // Where to look for water: the spot's own anchor NPC, else the faction's
@@ -215,8 +240,8 @@ function render(ctx) {
 		L.push('', `step ${title}`, ...lines.map((l) => `  ${l}`));
 	};
 	const section = (s) => L.push('', `# ---------------------------------------------------------------- ${s}`);
-	const spotLines = (def, anchor, to, tip) => {
-		const c = spot(ctx, def, anchor);
+	const spotLines = (def, anchor, to, tip, faction) => {
+		const c = spot(ctx, def, anchor, faction);
 		if (!c) throw new Error(`Fishing: no water found in ${zoneName(ctx, def.zone)}`);
 		return { pt: c.pt, lines: [`zone ${zoneName(ctx, def.zone)}`, `tip ${tip}`, `goto ${fmt(c.pt.x)},${fmt(c.pt.y)}${liveMark(c.pt)} "${def.label}" r 25`, `skill Fishing ${to}`] };
 	};
@@ -292,9 +317,9 @@ function render(ctx) {
 		}
 		for (const { def, races } of byKey.values()) {
 			const anchor = anchorFor(ctx, def, faction);
-			const c = spot(ctx, def, anchor);
+			const c = spot(ctx, def, anchor, faction);
 			const notes = c ? catchNotes(band, faction, def, c.pt) : { tip: '', buys: [] };
-			const s = spotLines(def, anchor, to, `${tip}${waterTip(ctx, def, from)}${notes.tip}`);
+			const s = spotLines(def, anchor, to, `${tip}${waterTip(ctx, def, from)}${notes.tip}`, faction);
 			step(`Fishing: ${zoneName(ctx, def.zone)} (${from}-${to})`, [`only ${raceCondition(races, [faction])}`, ...s.lines.slice(0, -1), ...notes.buys, ...s.lines.slice(-1)]);
 		}
 	};
@@ -313,7 +338,7 @@ function render(ctx) {
 			byKey.get(key).races.push(...g.races);
 		}
 		const waters = [...byKey.values()].map(({ def, races }) => {
-			const c = spot(ctx, def, anchorFor(ctx, def, faction));
+			const c = spot(ctx, def, anchorFor(ctx, def, faction), faction);
 			if (!c) throw new Error(`Fishing: no water found in ${zoneName(ctx, def.zone)}`);
 			return { def, pt: c.pt, only: races.every((r) => TWO_SIDED.has(r)) ? races : null };
 		});
@@ -430,7 +455,7 @@ function render(ctx) {
 			? ` This water loses fish below skill ${f.full}: at ${artisan.minSkill} most get away, so put ${itemName(ctx, BRIGHT_BAUBLES)} (+75) on the pole first.`
 			: ` At skill ${artisan.minSkill} nothing gets away here.`;
 		const tip = `tip Fish along ${f.where} until you catch a ${item}: ${PAGLE_RATE} there brings it up, and it bites nowhere else.${lure}`;
-		const per = FACTIONS.map((side) => ({ side, c: spot(ctx, f, anchorFor(ctx, f, side)) }));
+		const per = FACTIONS.map((side) => ({ side, c: spot(ctx, f, anchorFor(ctx, f, side), side) }));
 		if (per.some((p) => !p.c)) throw new Error(`Fishing: no ${item} spot in ${zoneName(ctx, f.zone)}`);
 		const same = dist(per[0].c.pt, per[1].c.pt) < 1;
 		const extra = f.full > artisan.minSkill ? [`buy ${BRIGHT_BAUBLES} x2 nearest`] : [];

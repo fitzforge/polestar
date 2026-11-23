@@ -2,7 +2,7 @@
 guide forever/alliance/40-50/02-badlands
 title Badlands & The Hinterlands
 faction Alliance
-levels 45-46
+levels 44-45
 zone Badlands
 next forever/40-50/shendralas
 
@@ -44,6 +44,7 @@ step Agmond's End
   collect 278404 quest 97617 @49.3,68.3 map 1418 -- Pristine Mattock
 
 step Valley of Fangs
+  when complete 705
   turnin 705                          -- Rigglefuzz: Blue Pearls from Stranglethorn
   note Rigglefuzz's next quest pays no experience: skip it.
 
@@ -192,11 +193,11 @@ step Boat to Theramore
 step Theramore
   zone Dustwallow Marsh
   turnin 1287                         -- Captain Garran Vimes, on the top floor
-  turnin 1258                         -- Morgan Stern, inside
 
-step Cortello's Riddle
-  when onquest 625
-  turnin 625                          -- Inside Bloodfen Burrow
+step Morgan Stern
+  zone Dustwallow Marsh
+  when complete 1258
+  turnin 1258                         -- Morgan Stern, inside
 
 # Mudsprocket: Drazzit Dripvalve's and Gizzix Grimegurgle's three Wyrmbog quests (98205, 98215, 98231, level 44,
 # whelps and Firemane 41-44), after Theramore at about 45.4, then back to Theramore's flight master for Shen'dralas.

@@ -52,7 +52,7 @@ const KEYS = {
 	node: ['map', 'x', 'y', 'z', 'radius', 'caption', 'back', 'alone', 'offMap'],
 	// (`box`: x1, y1, x2, y2 in map percent of the area's uiMap; `z`: min and max, a height range: a place only the
 	// portals that land in it reach.)
-	area: ['id', 'name', 'map', 'box', 'z', 'note', 'source'],
+	area: ['id', 'name', 'map', 'box', 'z', 'subzone', 'note', 'source'],
 };
 
 const isObj = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
@@ -251,10 +251,13 @@ function validateCrossings(doc, frames) {
 			if (!range) return void errors.push(`${where}: z must give min < max (yards)`);
 			zr = { zmin: e.z.min, zmax: e.z.max };
 		}
+		if (e.subzone !== undefined && !(Number.isInteger(e.subzone) && e.subzone > 0 && zr)) {
+			return void errors.push(`${where}: subzone must be a positive AreaTable id and requires z`);
+		}
 		if (!ok) return;
 		const a = frames.toWorld(e.map, x1, y1);
 		const far = frames.toWorld(e.map, x2, y2);
-		out.areas.push({ id: e.id, name: e.name, map: e.map, c: a.c, top: round(a.wx, 1), bottom: round(far.wx, 1), left: round(a.wy, 1), right: round(far.wy, 1), ...(zr || {}) });
+		out.areas.push({ id: e.id, name: e.name, map: e.map, c: a.c, top: round(a.wx, 1), bottom: round(far.wx, 1), left: round(a.wy, 1), right: round(far.wy, 1), ...(zr || {}), ...(e.subzone === undefined ? {} : { subzone: e.subzone }) });
 	});
 	return out;
 }
@@ -554,7 +557,8 @@ function crossingsLua(set, frames, { complete, live }) {
 		L.push('\tareas = {');
 		for (const a of set.areas) {
 			const z = a.zmin !== undefined ? `, zmin = ${num(a.zmin)}, zmax = ${num(a.zmax)}` : '';
-			L.push(`\t\t{ id = ${luaStr(a.id)}, name = ${luaStr(a.name)}, map = ${a.map}, c = ${a.c}, top = ${num(a.top)}, bottom = ${num(a.bottom)}, left = ${num(a.left)}, right = ${num(a.right)}${z} },`);
+			const subzone = a.subzone === undefined ? '' : `, subzone = ${a.subzone}`;
+			L.push(`\t\t{ id = ${luaStr(a.id)}, name = ${luaStr(a.name)}, map = ${a.map}, c = ${a.c}, top = ${num(a.top)}, bottom = ${num(a.bottom)}, left = ${num(a.left)}, right = ${num(a.right)}${z}${subzone} },`);
 		}
 		L.push('\t},');
 	}

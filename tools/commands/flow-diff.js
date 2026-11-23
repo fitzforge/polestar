@@ -7,6 +7,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { parseArgs } = require('../lib/cli');
+const { parseLevelOffset } = require('../lib/playtest-level');
 const { ROOT, DATA, SOURCES } = require('../lib/paths');
 const { Proj } = require('../lib/flow/data');
 const { measure, compare, narrow, renderMd } = require('../lib/flowdiff/analyse');
@@ -47,6 +48,9 @@ options:
                       it (default Warrior; a guide's class header wins)
   --skip-quest <ids>  the player skips these quests (Engine.SkipQuest, comma
                       list), as a player whose drop never came would
+  --level-offset <n>  play a character n levels ahead of each guide's level
+                      (negative: behind), as playtest --level-offset; its plays
+                      are cached apart from the plain ones
   --trip-yd <n>       how far a one-quest step must be from its neighbours'
                       work to count as a trip (default 300)
   --allow <file>      accepted new revisits and trips (default the head's
@@ -112,6 +116,7 @@ function play(label, tree, dataDir, opts, work) {
 			guides: opts.guides.length ? opts.guides : null,
 			skipQuests: opts.skipQuests,
 			cls: opts.cls,
+			levelOffset: opts.levelOffset,
 			workers: opts.workers,
 			cache: opts.cache,
 		}),
@@ -157,15 +162,17 @@ function sharedLegs(a, b) {
 }
 
 async function run(argv) {
-	const { opts, error } = parseArgs(argv, { options: ['--base', '--head', '--guides', '--class', '--skip-quest', '--trip-yd', '--allow', '--data', '--out', '--md', '--work', '--cache', '--workers'] });
+	const { opts, error } = parseArgs(argv, { options: ['--base', '--head', '--guides', '--class', '--skip-quest', '--level-offset', '--trip-yd', '--allow', '--data', '--out', '--md', '--work', '--cache', '--workers'] });
 	const tripYd = opts.tripYd == null ? 300 : Number(opts.tripYd);
 	const workers = opts.workers == null ? null : Number(opts.workers);
+	const levelOffset = parseLevelOffset(opts.levelOffset);
 	const problem =
 		error ||
 		(!opts.base && '--base is required') ||
 		(!(tripYd > 0) && '--trip-yd must be a positive number') ||
 		(workers != null && !(Number.isInteger(workers) && workers > 0) && '--workers must be a positive whole number') ||
-		(list(opts.skipQuest).some((q) => !/^\d+$/.test(q)) && '--skip-quest takes quest ids');
+		(list(opts.skipQuest).some((q) => !/^\d+$/.test(q)) && '--skip-quest takes quest ids') ||
+		levelOffset.error;
 	if (problem) {
 		console.error(`${problem}\n\n${usage}`);
 		return 2;
@@ -181,6 +188,7 @@ async function run(argv) {
 		guides: list(opts.guides),
 		skipQuests: list(opts.skipQuest).map(Number),
 		cls: opts.class ? String(opts.class).toUpperCase() : 'WARRIOR',
+		levelOffset,
 		workers,
 		cache: path.resolve(opts.cache || path.join(os.tmpdir(), 'polestar-flow-diff-cache')),
 	};
@@ -196,7 +204,7 @@ async function run(argv) {
 		if (playOpts.guides.length) narrow(diff, (id) => playOpts.guides.some((f) => id.includes(f)));
 		const names = { base: `${opts.base} (${base.sha.slice(0, 10)})`, head: opts.head ? `${opts.head} (${head.sha.slice(0, 10)})` : 'the working tree' };
 		const md = renderMd(diff, names);
-		if (opts.out) fs.writeFileSync(opts.out, `${JSON.stringify({ ...names, tripYd, skipQuests: playOpts.skipQuests, cls: playOpts.cls, ...diff }, null, 1)}\n`);
+		if (opts.out) fs.writeFileSync(opts.out, `${JSON.stringify({ ...names, tripYd, skipQuests: playOpts.skipQuests, cls: playOpts.cls, levelOffset, ...diff }, null, 1)}\n`);
 		if (opts.md) fs.writeFileSync(opts.md, `${md}\n`);
 		else console.log(md);
 		if (diff.blocking) console.error(`flow-diff: ${diff.blocking} new revisit(s) or one-quest trip(s) without a reason in the allow file`);

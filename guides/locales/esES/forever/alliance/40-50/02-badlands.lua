@@ -138,12 +138,10 @@ return {
 	["Theramore"] = "Theramore",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "",
+
+	-- Step 31: Morgan Stern
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "",
-
-	-- Step 31: Cortello's Riddle
-	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "",
 
 	-- Step 32: Mudsprocket
 	["Mudsprocket"] = "Barroñuela",

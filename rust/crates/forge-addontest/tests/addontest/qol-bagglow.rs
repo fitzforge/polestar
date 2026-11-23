@@ -75,6 +75,33 @@ fn the_step_s_use_item_glows_in_the_bags_the_next_step_s_quest_item_takes_over_o
 	assert!(is_empty(&out[2]), "nothing glows");
 }
 
+#[test]
+fn inactive_highlights_skip_guide_reads_and_resume_on_the_current_item() {
+	let out = run(r#"
+		local Q = Polestar.QoL
+		g.bag(0, 2, "item:10338"); g.bag(0, 5, "item:5101"); g.openBag(0)
+		Polestar.Set("qol.bagGlow", false); stub.advance(0.1)
+		local current, reads = Q.CurrentStep, 0
+		Q.CurrentStep = function(...) reads = reads + 1; return current(...) end
+		local function inactive()
+			reads = 0
+			Q.BagGlow.Refresh()
+			local n = reads
+			return { n, #glowing(0) }
+		end
+		emit(inactive())
+		Polestar.SetHidden(true)
+		Polestar.Set("qol.bagGlow", true)
+		Polestar.Engine.Goto(2); stub.advance(0.1)
+		emit(inactive())
+		Polestar.SetHidden(false); stub.advance(0.1)
+		emit(glowing(0))
+	"#);
+	assert_eq!(out[0], json!([0, 0]), "disabled");
+	assert_eq!(out[1], json!([0, 0]), "enabled but hidden");
+	assert_eq!(out[2], json!([5]), "show the new step's item, not the one visible before hiding");
+}
+
 // The client sends QUEST_LOG_UPDATE for much that leaves the log as it was (several per kill, some per loot). The
 // bag glow and the quest buttons each read the step's view on it (about half a millisecond each, #2537): now only
 // when what they read of the log (the step's quests, the While-here line's, how many quests the log holds) changed.

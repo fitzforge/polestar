@@ -1,6 +1,33 @@
 {
 	"about": "The reported-problems gate (npm run test:reported, tools/reported-gate.js): every player-reported problem that was fixed (closed, or labelled fix-merged, with the confirmed label) and the tests that fail if it comes back. The gate runs these tests with the whole of tests/guides-reported.test.js, the judge's player-report seeds (forge judge seed-tests) and the danger-at-the-spot gate (#1575). A fix for a report adds its issue here with the test that pins it; a report with nothing left to check says why (uncheckable). tests/reported-gate.test.js checks that every test named here exists. seedDrift: the judge's seeds that still assert an earlier form of a guides-reported case that has changed since and passes; the gate lists them and fails only on other seeds, until each is brought up to its case.",
 	"issues": {
+		"3706": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "Horde Triage (6622) is completed at Doctor Gregory Victor in Hammerfall (#3706)" }
+		] },
+		"3514": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "Veyric Thunderhame stands only in Arathi Highlands, not at Eldrun Stormbreaker's spot (#2851)" }
+		] },
+		"3415": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Dustwallow Marsh (Alliance 40): The Missing Diplomat handed in at Sentry Point and North Point Tower" }
+		] },
+		"3378": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "pick-up steps say what the objectives leave out: the Twilight Key (#3266), Maraudon (#3243), Franclorn the ghost (#3009), the slimes' chests (#3002)" }
+		] },
+		"3421": { "tests": [
+			{ "node": "tests/realm-unknown.test.js", "test": "the realm-less count on the Characters page reads in every shipped language" }
+		] },
+		"3408": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "a_held_flight_route_is_offered_once_its_landing_is_priced_and_the_arrow_never_searches_the_direct_walk_meanwhile" }
+		] },
+		"3388": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2825: escort givers are looked for where they wait, not along their escort" }
+		] },
+		"3387": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "forever/horde/50-60/02-felwood.guide: Sanath Lim-yo before Archmage Xylem (#3275)" }
+		] },
+		"3364": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Mount Hyjal: in both routes before the Silithus guides, no route choice for it" }
+		] },
 		"2833": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/lookup-guides.rs", "test": "a_quest_with_two_placed_events_has_a_goal_at_each_and_moves_on_as_each_ticks_2833" }
 		] },
@@ -116,8 +143,8 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_234_floor_fastest_at_the_dens_camp_walked_in_from_the_valley_floor_the_walk_to_hanazua_never_starts_on_the_rock_top" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_234_floor_balanced_at_the_dens_camp_walked_in_from_the_valley_floor_the_walk_to_hanazua_never_starts_on_the_rock_top" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_234_floor_off_the_undercitys_south_lift_indoors_the_walk_to_the_plundering_start_keeps_the_lower_level_and_the_search_from_there_starts_on_it" },
-			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_234_floor_after_a_reload_in_ironforges_gate_the_walk_out_starts_on_the_gates_floor_and_takes_the_road_never_over_the_mountains" },
-			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_234_floor_horde_in_stormwinds_trade_district_outdoors_the_walk_out_starts_on_the_street_and_goes_through_the_gate" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "ironforge_gate_after_reload_uses_the_road_below_the_mountain_and_horde_walks_out_too" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "horde_walks_out_of_stormwinds_trade_district_as_before_0_4_2" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_234_floor_alliance_in_stormwinds_trade_district_outdoors_the_walk_out_starts_on_the_street_and_goes_through_the_gate" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "t_234_floor_seeded_where_the_cell_has_one_surface_it_stays_on_the_ground_under_a_rock_top_a_first_cell_with_two_stays_unknown_today_s_search" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "t_234_floor_climbs_a_ramp_onto_a_bridge_falls_off_its_side_to_the_ground_and_stays_there_under_the_bridge" },
@@ -125,7 +152,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "t_234_floor_a_search_with_the_tracked_height_that_finds_nothing_is_asked_once_more_without_it_and_that_answer_stands" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "t_234_floor_the_planner_s_measure_takes_the_player_s_place_at_the_tracked_floor" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "t_234_floor_a_lift_resets_it_off_the_lift_indoors_it_seeds_on_the_one_indoor_surface_the_undercity_under_tirisfal_s_ground_never_overriding_a_followed_floor" },
-			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "t_234_floor_a_goal_s_height_off_its_floor_is_dropped_keeping_the_tracked_start_a_tracked_start_that_finds_nothing_is_dropped_keeping_the_goal_s_height" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "t_234_floor_a_goal_s_height_off_its_floor_stands_a_tracked_start_that_finds_nothing_is_dropped_keeping_the_goal_s_height" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "t_234_floor_on_a_map_with_areas_the_floor_is_the_surface_the_client_s_subzone_names_at_once_it_corrects_a_wrong_followed_floor" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "t_234_floor_the_router_may_drop_the_floor_s_cluster_when_the_target_is_cleared_or_the_arrow_has_not_updated_for_2_s" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "t_234_floor_a_style_change_or_a_level_up_clears_the_walk_but_keeps_the_floor_s_cluster_the_arrow_goes_on" },
@@ -812,7 +839,7 @@
 		] },
 		"1333": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "${ASHENVALE_HORDE}: Maazias's report: The Tear of the Moons is not sent at players two levels under it (#1333)" },
-			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/levels.rs", "test": "a_delivery_s_level_gives_no_hint_a_quest_with_work_elsewhere_still_does_1333" }
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/levels.rs", "test": "no_step_says_a_quest_s_level_and_the_pace_line_names_no_hard_quest_3438" }
 		] },
 		"1334": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-zone-walk.rs", "test": "a_walk_named_by_its_zone_reads_on_through_it_to_the_next_step_while_the_player_is_in_that_zone" }
@@ -974,7 +1001,7 @@
 			{ "node": "tests/guides-reported.test.js", "test": "Alliance Arathi Highlands: the Shadowy Assassin never holds the Southshore step (#1542)" }
 		] },
 		"1544": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#1544: Alliance: My Little Friends' specimens are collects, shown with the quest in the log" },
+			{ "node": "tests/guides-reported.test.js", "test": "#1544: Alliance: My Little Friends' specimens are caught with the net, shown with the quest in the log" },
 			{ "node": "tests/guides-reported.test.js", "test": "Alliance Desolace south loop: the Flesh Picker is only for players on My Little Friends" }
 		] },
 		"1550": { "tests": [
@@ -1164,7 +1191,8 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-unavailable.rs", "test": "moving_past_a_quest_s_starting_item_names_the_quest_it_starts_no_nil_index_1724" }
 		] },
 		"1728": { "tests": [
-			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "camp_taurajo_to_feegly_walks_south_never_flies_back_to_the_crossroads_1728" }
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "camp_taurajo_does_not_sell_a_flight_on_an_unchecked_walk_to_feegly_1728" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "camp_taurajo_uses_its_checked_road_instead_of_flying_back_to_a_more_distant_landing" }
 		] },
 		"1730": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui-dungeons.rs", "test": "a_quest_only_some_classes_or_races_may_take_says_who_it_is_for_and_one_not_for_you_says_so_1730" }
@@ -1524,6 +1552,140 @@
 		] },
 		"2832": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel.rs", "test": "the_shipped_farholde_inn_stands_at_its_innkeeper_and_the_airship_ends_on_their_docks_2830_2832" }
+		] },
+		"2382": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-crossings.rs", "test": "a_target_outside_the_zone_the_walking_maps_name_stays_on_its_map_grenka_1918" }
+		] },
+		"2388": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "after_the_run_the_hand_in_route_starts_with_the_givers_nearest_the_way_out_then_on_in_travel_order" }
+		] },
+		"2422": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-crossings.rs", "test": "a_target_outside_the_zone_the_walking_maps_name_stays_on_its_map_grenka_1918" }
+		] },
+		"2624": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_page_quest_is_not_picked_up_below_the_profession_rank_it_needs_2752_snakestone_of_the_shadow_huntress" }
+		] },
+		"2665": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2612: quests handed in at an object are never handed in to their giver" }
+		] },
+		"2687": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2612: quests handed in at an object are never handed in to their giver" }
+		] },
+		"2734": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2612: quests handed in at an object are never handed in to their giver" }
+		] },
+		"2756": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "a_quest_still_in_the_log_is_not_handed_in_whatever_its_later_chain_says_2681_ishamuhale" }
+		] },
+		"2770": { "tests": [
+			{ "node": "tests/step-counts.test.js", "test": "the step counter, the tab tooltip and the progress bar count a skipped-for-you step alike" }
+		] },
+		"2793": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "every leveling path hands in each accept's prerequisites before the accept, for every start, race and class" }
+		] },
+		"2803": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "quest givers who walk a path have points along it, not one spot (#2519, #2672, #1237)" }
+		] },
+		"2805": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui-welcome.rs", "test": "the_targeting_page_gives_its_preview_a_refresh_before_binding_it_to_its_settings_2592" }
+		] },
+		"2835": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "a_quest_still_in_the_log_is_not_handed_in_whatever_its_later_chain_says_2681_ishamuhale" }
+		] },
+		"2844": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-crossings.rs", "test": "a_target_outside_the_zone_the_walking_maps_name_stays_on_its_map_grenka_1918" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/compat.rs", "test": "the_tooltip_and_map_name_readers_ask_whether_a_text_is_secret_before_comparing_it_2595" }
+		] },
+		"2854": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_ten_quest_chain_starts_at_its_first_quest_918_testing_the_wells_before_the_state_of_the_mines" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_page_quest_whose_prerequisite_needs_an_item_from_an_object_looted_only_inside_an_instance_is_not_picked_up_2883" }
+		] },
+		"2870": { "tests": [
+			{ "cargo": "forge-data", "target": "lib", "file": "rust/crates/forge-data/src/recordings.rs", "test": "a_world_boss_sighting_gives_no_spawn_points_and_no_rare_role_2894" },
+			{ "cargo": "forge-data", "target": "lib", "file": "rust/crates/forge-data/src/diff.rs", "test": "the_0_4_1_faction_leader_rares_fail_every_invariant_they_broke_2929_2942_2894" }
+		] },
+		"2902": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "forever/horde/50-60/02-felwood.guide: Sanath Lim-yo before Archmage Xylem (#3275)" }
+		] },
+		"2905": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2612: quests handed in at an object are never handed in to their giver" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/compat.rs", "test": "the_tooltip_and_map_name_readers_ask_whether_a_text_is_secret_before_comparing_it_2595" }
+		] },
+		"2939": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "t_2939_bloodmage_supplies_count_each_unpaid_quest_against_the_same_stack" }
+		] },
+		"2999": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2825: escort givers are looked for where they wait, not along their escort" }
+		] },
+		"3011": { "tests": [
+			{ "cargo": "forge-data", "target": "lib", "file": "rust/crates/forge-data/src/recordings.rs", "test": "a_world_boss_sighting_gives_no_spawn_points_and_no_rare_role_2894" },
+			{ "cargo": "forge-data", "target": "lib", "file": "rust/crates/forge-data/src/diff.rs", "test": "the_0_4_1_faction_leader_rares_fail_every_invariant_they_broke_2929_2942_2894" }
+		] },
+		"3016": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2876: every goto at a boat or airship stop with a boarding point completes standing on it" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "a_walk_to_a_boat_whose_end_has_a_board_point_is_searched_to_the_deck_with_the_deck_s_height_a_later_walk_too" }
+		] },
+		"3021": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-feeders.rs", "test": "t_3021_duskwood_only_offers_viktori_while_carrying_the_bronze_tube" }
+		] },
+		"3022": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-feeders.rs", "test": "t_3021_duskwood_only_offers_viktori_while_carrying_the_bronze_tube" }
+		] },
+		"3033": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-feeders.rs", "test": "t_3033_unfinished_tusks_come_before_the_imported_gromgol_hand_in" }
+		] },
+		"3050": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2825: escort givers are looked for where they wait, not along their escort" }
+		] },
+		"3069": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "Test of Lore says its book lies at the bottom of the Dor'Danil Barrow Den (#3069)" }
+		] },
+		"3075": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2825: escort givers are looked for where they wait, not along their escort" }
+		] },
+		"3083": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2825: escort givers are looked for where they wait, not along their escort" }
+		] },
+		"3091": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2881: Questioning Reethe is an escort" }
+		] },
+		"3100": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2825: escort givers are looked for where they wait, not along their escort" }
+		] },
+		"3101": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-while-here.rs", "test": "t_3101_a_shared_drop_waits_for_the_imminent_partner_pickup" }
+		] },
+		"3128": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/compat.rs", "test": "no_addon_code_calls_the_client_s_lua_quest_log_openers_not_even_core_compat_lua_2924" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/compat.rs", "test": "the_quest_log_opens_by_selecting_the_quest_and_opening_the_map_through_c_map_at_its_zone_2924" }
+		] },
+		"3164": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/riding.rs", "test": "a_forsaken_paladin_is_sent_to_the_warhorse_chain_2898" }
+		] },
+		"3190": { "tests": [
+			{ "node": "tests/codex-entrances.test.js", "test": "a continent recording must land at the dungeon’s known zone" }
+		] },
+		"3222": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_page_quest_whose_prerequisite_needs_an_item_from_an_object_looted_only_inside_an_instance_is_not_picked_up_2883" }
+		] },
+		"3232": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Trek to Ashenvale (#1089, #1811): Sentinel Selarin comes and goes; her quest never holds a step and is offered again after the escort" }
+		] },
+		"3268": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "Veyric Thunderhame stands only in Arathi Highlands, not at Eldrun Stormbreaker's spot (#2851)" }
+		] },
+		"3282": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2825: escort givers are looked for where they wait, not along their escort" }
+		] },
+		"3287": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-feeders.rs", "test": "t_3021_duskwood_only_offers_viktori_while_carrying_the_bronze_tube" }
+		] },
+		"3288": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "forever/horde/07-ashenvale.guide: the Thousand Needles set rides the stops 07 makes, and no grind to 29" }
+		] },
+		"3438": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/levels.rs", "test": "no_step_says_a_quest_s_level_and_the_pace_line_names_no_hard_quest_3438" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui.rs", "test": "a_step_with_a_quest_well_over_your_level_shows_no_quest_level_3438" }
 		] }
 	},
 	"seedDrift": {
