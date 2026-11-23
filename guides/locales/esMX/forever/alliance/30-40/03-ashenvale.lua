@@ -162,6 +162,7 @@ return {
 
 	-- Step 27: Ratchet
 	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay · {npc:3391} Gazlowe · {quest:1111} Wharfmaster Dizzywig
+	-- was: ["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "Desde Theramore sigue el camino al noroeste por el pantano hasta el {zone:1413} y sube por la costa hasta {area:392}: Stranglethorn empieza en {area:35}, al otro lado del mar. El maestro de grifos de {area:392} está sobre el muelle."
 	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock; {npc:3391} is upstairs in the house above it; {quest:1111} waits on the dock by the boat."] = "Desde Theramore, sigue el camino al noroeste por el pantano hacia {zone:1413} y sube por la costa hasta {area:392}: Tuercespina empieza en {area:35}, al otro lado del mar. El maestro de grifos de {area:392} está sobre el muelle; {npc:3391}, en el piso de arriba de la casa que hay encima; {quest:1111} espera en el muelle junto al barco.",
 	-- {npc:3391} Gazlowe · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	["{npc:3391}: for {npc:4631}, on {area:35}'s dock where the boat lands"] = "{npc:3391}: para {npc:4631}, en el muelle de {area:35} donde llega el barco",
@@ -184,6 +185,7 @@ return {
 	-- ["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "Sigue el camino al este hasta los campamentos sátiros de {area:429}; {npc:3920} se esconde en su borde.",
 	-- ["Follow the road west out of Theramore to the burned inn on the road toward the {zone:1413}: the black shield lies in the ashes and the hoofprints are in the mud beside the inn."] = "Sigue el camino al oeste saliendo de Theramore hasta la posada quemada del camino hacia {zone:1413}: el escudo negro está entre las cenizas y las huellas de cascos están en el barro junto a la posada.",
 	-- ["Follow the road west out of {area:415}; {area:413} lies north of it."] = "Sigue el camino al oeste desde {area:415}; {area:413} está al norte de él.",
+	-- ["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "Desde Theramore sigue el camino al noroeste por el pantano hasta el {zone:1413} y sube por la costa hasta {area:392}: Stranglethorn empieza en {area:35}, al otro lado del mar. El maestro de grifos de {area:392} está sobre el muelle.",
 	-- ["From {area:608}"] = "Desde {area:608}",
 	-- ["Geltharis"] = "Geltharis",
 	-- ["Insane druids"] = "Druidas dementes",

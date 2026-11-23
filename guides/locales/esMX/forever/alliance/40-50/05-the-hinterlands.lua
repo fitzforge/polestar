@@ -9,15 +9,14 @@ return {
 	-- Step 1: The Altar of Zul
 	-- {area:355} Altar of Zul · {zone:1425} The Hinterlands · {npc:8636} Morta'gya the Keeper · {npc:7996} Qiaga the Keeper
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
-	["Ride south-east to the {area:355}, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down.\nCareful: Elite trolls guard the top platform, including {npc:7996} and {npc:8636}, along with several Vilebranch Soothsayers. The soothsayers cast spells and are linked to the rest of the group."] = "Cabalga al sureste hasta {area:355}, el templo escalonado Vilrama en el sur de {zone:1425}, y sube a la cima. Qiaga y {npc:8636} (élite, 50) están allí arriba: toca la cima y baja enseguida.\nCuidado: Trols élite vigilan la plataforma de arriba, entre ellos {npc:7996} y {npc:8636}, junto con varios adivinos Vilrama. Los adivinos lanzan hechizos y están vinculados al resto del grupo.",
+	["Ride south-east to the {area:355}, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down.\nCareful: Elite trolls guard the top platform, including {npc:7996} and {npc:8636}, along with several Vilebranch Soothsayers. The soothsayers cast spells and are linked to the rest of the group."] = "Cabalga al sureste hasta {area:355}, el templo escalonado Vilrama en el sur de {zone:1425}, y sube a la cima. Qiaga y {npc:8636} (élite, 50) están allí arriba: toca la cima y baja enseguida.\nCuidado: Trols élite vigilan la plataforma de arriba, entre ellos {npc:7996} y {npc:8636}, junto con varios Veritas Vilrama. Los adivinos lanzan hechizos y están vinculados al resto del grupo.",
 
 	-- Step 2: Vilebranch Soothsayers
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
 	["Vilebranch Soothsayers"] = "Veritas Vilrama",
 	-- {area:355} Altar of Zul · {npc:7996} Qiaga the Keeper · {npc:8636} Morta'gya the Keeper
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer · Vilebranch Totems = {item:279225} Vilebranch Totem
-	-- was: ["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Los Veritas Vilrama (46-47) recorren el terreno al pie de {area:355}: sus tótems son para Maret Firetend. Cuidado: {npc:7996} y {npc:8636} (50, élites) están en el lado sureste del altar: ataca a los Veritas del lado oeste, lejos de ellos, y no subas al altar."
-	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Los veritas Vilrama (46-47) recorren el terreno al pie de {area:355}: sus tótems son para Maret Firetend, y en el suelo, entre ellos, hay más tótems vilrama: recógelos también. Cuidado: {npc:7996} y {npc:8636} (50, élites) están en el lado sureste del altar: ataca a los veritas del lado oeste, lejos de ellos, y no subas al altar.",
+	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Los Veritas Vilrama (46-47) recorren el terreno al pie de {area:355}: sus tótems son para Maret Firetend, y hay más Tótems vilrama en el suelo entre ellos: recoge esos también. Cuidado: {npc:7996} y {npc:8636} (50, élites) están en el lado sureste del altar: encara a los Veritas Vilrama en su lado oeste, lejos de ellos, y no pises el altar.",
 
 	-- Step 3: Skulk Rock
 	-- {area:351} Skulk Rock · {zone:1425} The Hinterlands
@@ -153,7 +152,7 @@ return {
 
 	-- Step 30: Fin Fizracket
 	-- {npc:2486} Fin Fizracket
-	["{npc:2486}, by the inn"] = "",
+	["{npc:2486}, by the inn"] = "{npc:2486}, junto a la posada",
 
 	-- Step 31: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
@@ -161,14 +160,14 @@ return {
 
 	-- Step 35: Negolash's bait
 	-- {npc:1494} Negolash
-	["{npc:1494}'s bait"] = "El cebo de {npc:1494}",
+	["{npc:1494}'s bait"] = "el cebo de {npc:1494}",
 	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
 	-- plural, as words: Barbecued Buzzard Wings = {item:4457} Barbecued Buzzard Wing
-	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "{npc:1494} solo viene por su comida: entrega {quest:619} en el bote salvavidas en ruinas del capitán Smotts, en la orilla al sureste de {area:35}, con 10 alas de águila ratonera a la parrilla y 5 {item:4595}, y él viene al bote. {npc:2832}, el mercader de comida y bebida de la posada, vende el vino. Las alas son un plato de cocinero: si no cocinas, cómpralas en la casa de subastas.",
+	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "{npc:1494} viene solo por su comida: entrega {quest:619} en el bote salvavidas inservible del capitán Smotts, en la orilla al sureste de {area:35}, con 10 alas de águila ratonera a la parrilla y 5 {item:4595}, y él viene al bote. {npc:2832}, el vendedor de comida y bebida de la posada, vende el vino. Las alas son un plato de cocinero: si no cocinas, tráelas de la casa de subastas.",
 	-- {item:4457} Barbecued Buzzard Wing
 	["{item:4457}: in your bags already if you cook"] = "{item:4457}: ya en tus bolsas si cocinas",
 	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash
-	["{object:2289}: the food goes in, {npc:1494} comes"] = "{object:2289}: la comida va adentro y {npc:1494} viene",
+	["{object:2289}: the food goes in, {npc:1494} comes"] = "{object:2289}: la comida adentro, {npc:1494} viene",
 
 	-- Step 36: Facing Negolash
 	-- {npc:1494} Negolash

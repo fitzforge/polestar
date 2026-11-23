@@ -284,8 +284,7 @@ return {
 	-- {item:216616} Compound Cage Key
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}, de los subjefes (o de los élites)",
 	-- {item:216617} Kurzen Fighter's Uniform
-	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}, en la caja de suministros"
-	["{item:216617}, in the supply crate deep in the cave"] = "{item:216617}, en la caja de suministros al fondo de la cueva",
+	["{item:216617}, in the supply crate deep in the cave"] = "{item:216617}, en la caja de suministros en lo profundo de la cueva",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}, de vuelta en su jaula al salir",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
