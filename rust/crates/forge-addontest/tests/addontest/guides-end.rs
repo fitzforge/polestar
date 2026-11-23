@@ -12,7 +12,11 @@
 //! GUIDE_END must fire with steps left undone and the guide stay. Where the player stands, which NPC's
 //! window they opened or a flight path known (goto, explore, fly, hearth, enter, getfp; train, vendor, a talk with no quest: Own.byPresence)
 //! is no end ahead (0.3.5: the Undercity at the start of Hillsbrad ended it): a last step with such a goal not
-//! followed by other work must not end the guide; those are listed (`place`), not failed.
+//! followed by other work must not end the guide; those are listed (`place`), not failed. The character plays
+//! solo: it answers every group quest (`when group`) "skip", as the level model's and the playtest's solo player
+//! do (behavior.groupQuests), so a group step after the last solo one is not its end (Shen'dralas' Mana Mania,
+//! which Historian Biraxas's hand-in opens). The answer given at the group step's own banner is pinned by
+//! guides-end-places.rs.
 
 use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
 use forge_addontest::run::root;
@@ -27,6 +31,7 @@ stub.login()
 stub.fire("QUEST_LOG_UPDATE")
 Polestar.Set("behavior.autoAccept", false)
 Polestar.Set("behavior.autoTurnin", false)
+Polestar.Set("behavior.groupQuests", "skip")
 local E, G, w = Polestar.Engine, Polestar.Guides, stub.world
 local ENDS = {}
 Polestar.On("GUIDE_END", function(id, i) ENDS[#ENDS + 1] = { id = id, undone = i.undone } end)
@@ -126,14 +131,17 @@ if r.own then
 	r.ownEnded = ENDS[1] ~= nil
 end
 -- A last step whose `when` stops holding once done (`level<N`) leaves the
--- step before it as the last: that one next, a few times.
+-- step before it as the last: that one next, a few times. One whose work
+-- opens a later step (`when has`, `when turnedin`: Salfa's hand-in once the
+-- beads are in the bags, at the end of Horde 50-60/07) hands the end to that
+-- step: the player does it too.
 local s = lastWork(nil, true)
 for _ = 1, 3 do
 	if not s or s <= live or ENDS[1] then break end
 	satisfy(s)
 	stub.advance(2)
 	local now = lastWork(nil, true)
-	if not (now and now < s) then break end
+	if not now or now == s then break end
 	s = now
 end
 -- Where the player stands, an NPC's window or a flight path known (Engine,

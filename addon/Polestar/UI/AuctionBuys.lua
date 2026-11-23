@@ -95,7 +95,7 @@ end
 
 local function turnOff()
 	ns.Set("qol.auctionBuys", false)
-	ns.Print(L["Auction house buys are off. Turn them back on under Options > Questing > Quests."])
+	ns.Print(L["Auction house buys are off. Turn them back on under Settings > Questing > Quests."])
 end
 
 -- The heads-up card for `list` (AuctionBuys.List): kind "guide" (the guide's
@@ -388,7 +388,7 @@ function AU.Layout()
 	if #list == 0 and #mats > 0 then
 		hint = L["Your profession guide buys these at the Auction House: what is still to get after your bags, bank and mail."]
 	elseif not on() then
-		hint = L["Auction house buys are off. Turn them back on under Options > Questing > Quests."]
+		hint = L["Auction house buys are off. Turn them back on under Settings > Questing > Quests."]
 	elseif #list == 0 then
 		hint = L["Nothing to buy at the auction house: the quests ahead get what they need on the way."]
 	else

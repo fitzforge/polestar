@@ -37,9 +37,9 @@ return {
 	-- Step 6: Echo Ridge Mine: kill these as you meet them
 	-- {area:34} Echo Ridge Mine
 	["{area:34}: kill these as you meet them"] = "",
-	-- {object:83763} Stolen Books
+	-- {object:83763} Stolen Books · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
-	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "길을 따라 북쪽 광산으로 가십시오. 코볼트 잡역부가 광산 밖에 몰려 있으며, 골짜기의 모든 코볼트가 {object:83763}을(를) 떨어뜨릴 수 있습니다.",
+	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}.\nNow and then a kobold here drops a {quest:91741}: right-click it and hand it to {npc:951} on your next Abbey stop."] = "",
 
 	-- Step 7: Northshire Abbey
 	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
@@ -88,10 +88,9 @@ return {
 	-- Step 14: Inside Echo Ridge Mine
 	-- {area:34} Echo Ridge Mine
 	["Inside {area:34}"] = "{area:34} 안",
-	-- {npc:248362} Shinyfinder Narf
+	-- {npc:248362} Shinyfinder Narf · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	-- was: ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "코볼트 일꾼이 광산 안 터널에서 일합니다. {npc:248362}은(는) 두 번째 오른쪽 굽이 아래에서 기다립니다.\n주의: {npc:248362}(3)은(는) 정예입니다. 친구가 없으면 그냥 두세요."
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nNow and then a Laborer drops a {quest:91741}: right-click it and hand it to {npc:951} at the Abbey after the mine.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "",
 
@@ -494,6 +493,7 @@ return {
 	-- ["Bait ingredients"] = "미끼 재료",
 	-- ["Boar meat"] = "멧돼지 고기",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "데피아즈단 견습마술사가 {area:86} 기슭에 야영하며, 붉은 리넨 복면도 떨어뜨립니다. {object:56}은(는) 북동쪽 기슭의 멀록 마을에 있습니다.",
+	-- ["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "길을 따라 북쪽 광산으로 가십시오. 코볼트 잡역부가 광산 밖에 몰려 있으며, 골짜기의 모든 코볼트가 {object:83763}을(를) 떨어뜨릴 수 있습니다.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "길을 따라 북쪽으로 {area:87}에서 {zone:1453}(으)로 가십시오. {npc:6171}와(과) {npc:6173}은(는) 빛의 대성당에 있으며, {npc:6174}은(는) {object:2100}에서 {item:2589} 10개를 요구합니다(인간형 몹이 떨어뜨리고, 경매장에서도 판매합니다).",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "길을 따라 남쪽으로 골짜기를 빠져나가 {area:87}(으)로 가십시오. {npc:295}은(는) 사자무리 여관에, {npc:240}은(는) 길 건너 대장간 밖에, {npc:253}은(는) 여관 앞에, {npc:241}은(는) 그 남쪽 길가에 있습니다.",
 	-- ["Follow the road west back to {area:87}."] = "길을 따라 서쪽 {area:87}(으)로 돌아가십시오.",

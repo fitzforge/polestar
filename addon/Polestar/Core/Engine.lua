@@ -145,9 +145,12 @@ end
 -- this character can take it (faction, race, class) and it needs q itself:
 -- q among its `preAll`, or its one-of `pre` naming no other quest this
 -- character can take (a follow-up open after either side's lead-in proves
--- neither for a character who could take both). Static per character and
--- database: kept per quest, rebuilt when more quest chunks arrive. Without
--- the database loaded, none.
+-- neither for a character who could take both). First, the quests the data
+-- names in q's `doneBy` and theirs in turn: a quest the game never flags
+-- completed though the chain after it goes on (Seeking the Kor Gem, done once
+-- An Underrated Talent is taken, #2465), which no prerequisite links. Static
+-- per character and database: kept per quest, rebuilt when more quest chunks
+-- arrive. Without the database loaded, none.
 Own.NO_LATER = {}
 Own.LATER_MAX = 100 -- the most quests followed after one (the longest chain in the data has 65)
 Own.laterCache = { ids = nil, lists = {} }
@@ -184,6 +187,14 @@ function Own.laterOf(q)
 		return named
 	end
 	local seen, queue, head = { [q] = true }, { q }, 1
+	local own = F.DONE_BY and Q.QuestRecord(q)
+	for _, s in Q.Each(own and own[F.DONE_BY] or nil) do
+		if not seen[s] then
+			seen[s] = true
+			list[#list + 1] = s
+			queue[#queue + 1] = s
+		end
+	end
 	while queue[head] and #list < Own.LATER_MAX do
 		local p = queue[head]
 		head = head + 1
@@ -1077,14 +1088,17 @@ function Own.groupAskedLater(step, q)
 end
 
 -- Whether group quest q is worth asking about at step: not handed in nor
--- skipped by the player (Own.questSkipped), and in the log or, when the step
--- takes it, with an accept the character can take now. Not one the catch-up
--- left out (grey), one closed for good, or one not open yet (level,
--- prerequisite): the route would pass that accept anyway.
+-- skipped by the player (Own.questSkipped), and in the log with work left or,
+-- when the step takes it, with an accept the character can take now. Not one
+-- the catch-up left out (grey), one closed for good, or one not open yet
+-- (level, prerequisite): the route would pass that accept anyway. Nor one
+-- ready to hand in: its group work is behind the player, and the hand-in is
+-- all that is left (#3402, #3412: Mount Hyjal's Sunderbark and Awakened Fel
+-- Ash Slime, killed before the route asked, held the guide at the question).
 function Own.groupOpen(step, q)
 	local C = Compat()
 	if questDone(q) or Own.questSkipped(q) then return false end
-	if C.IsOnQuest(q) then return true end
+	if C.IsOnQuest(q) then return not C.IsQuestReadyForTurnIn(q) end
 	local takes = false
 	for _, goal in ipairs(step.goals) do
 		if goal.t == "accept" and goal.quest == q then
@@ -3402,11 +3416,25 @@ function Spots.waypointGoal()
 	return goal and goal.spots and goal or nil
 end
 
+-- A goal done with one NPC or object (accept, turn in, train, buy, talk) is
+-- done at that NPC: its spots are where the data's spawn records put it (three
+-- records of Marshal McBride spread over 29 yd in Northshire Abbey), not ground
+-- the goal is done on. Its place is the route's own point for it (the
+-- compiler's pick among those records), with no spawn area: the arrow says
+-- Arrived within the goal's radius of the NPC, as before NPCs had spots
+-- (0.4.0), not up to 27 yd away across the spread. One whose records lie in
+-- several places keeps them as places to try, each a point. Kills, loot,
+-- clicks, uses and grinds keep their spawn areas.
+function Own.onePlace(goal)
+	return (goal.npc or goal.object) and not (Own.FIELD[goal.t] or goal.t == "use" or goal.t == "level" or goal.grind or goal.spread) or false
+end
+
 -- map, x, y, f of the goal (the chosen candidate's when it has candidates,
 -- the chosen spawn area's when it has spots), then that area's radius in
--- yards, then the height `z` there (the compiler's, from the spawn of the
--- NPC or object it stands for): the candidate's or spawn area's own, else the
--- goal's while the position is the goal's own point.
+-- yards (none for a goal done at one NPC or object: Own.onePlace), then the
+-- height `z` there (the compiler's, from the spawn of the NPC or object it
+-- stands for): the candidate's or spawn area's own, else the goal's while the
+-- position is the goal's own point.
 local function posOf(goal)
 	-- A material whose rest waits in the mail or the bank: there (Own.materialPlace).
 	local held = (goal.t == "auction" or goal.gather) and Own.materialPlace(goal)
@@ -3414,6 +3442,10 @@ local function posOf(goal)
 	local c = chosen(goal)
 	if c then return c.map, c.x, c.y, c.f, nil, c.z end
 	local s = goal.spots and Spots.get(goal)
+	if s and Own.onePlace(goal) then
+		if #goal.spots == 1 and goal.x then return goal.map, goal.x, goal.y, goal.f, nil, goal.z end
+		return goal.map, s.x, s.y, goal.f, nil, s.z or (s.x == goal.x and s.y == goal.y and goal.z) or nil
+	end
 	if s then return goal.map, s.x, s.y, goal.f, s.r, s.z or (s.x == goal.x and s.y == goal.y and goal.z) or nil end
 	return goal.map, goal.x, goal.y, goal.f, nil, goal.z
 end
@@ -4382,6 +4414,27 @@ function Own.usedLaterDone(s, g, goal)
 	return false
 end
 
+-- Whether a later `complete` or `turnin` of step s is done for a quest that
+-- uses the item untied collect goal g gathers without asking for it
+-- (QuestDB.UsesOnly): the collect is then done too. The quest's objective is
+-- what the item becomes (seven Living Rot ground into To Kill With Purpose's
+-- Coagulated Rot, #3565; Witherbark Skulls on Nimboya's Pike; the two halves
+-- of the Good Luck Charm), so a character who gathered and used the item
+-- before the step came up was sent back for more.
+function Own.usedQuestDone(s, g, goal)
+	local Q = ns.QuestDB
+	if not (goal.item and Q and Q.IsLoaded()) then return false end
+	local goals = guide.steps[s].goals
+	for j = g + 1, #goals do
+		local later = goals[j]
+		if (later.t == "complete" or later.t == "turnin") and later.quest and goalApplies(later)
+			and Q.UsesOnly(later.quest, goal.item) and goalDone(s, j, later) then
+			return true
+		end
+	end
+	return false
+end
+
 -- Whether untied collect goal g of step s (one item at a time) feeds a later
 -- `use <item> quest Q.O` of its step whose objective takes more than one and
 -- is not done: each use spends the item and the next has to be fetched
@@ -4482,7 +4535,7 @@ function Own.goalDoneLive(s, g, goal)
 			return countState(goal)
 		end
 		if Own.starterTaken(s, g, goal) then return true end
-		if Own.usedLaterDone(s, g, goal) then return true end
+		if Own.usedLaterDone(s, g, goal) or Own.usedQuestDone(s, g, goal) then return true end
 		return countState(goal)
 	elseif t == "buy" or t == "auction" then
 		return countState(goal)
@@ -4827,8 +4880,10 @@ end
 -- evidence: class chains and item-started quests run on their own schedule (a
 -- Warlock may finish the succubus chain long before the route reaches it).
 -- After an update (`added`, Own.noteAdded), only what the save's guide had
--- in place counts (Own.goalMoved).
-local function anchorStep(added)
+-- in place counts (Own.goalMoved). In a tab an update reworked (`fromTab`,
+-- Own.logPlaced), a quest an earlier release offered in another guide counts
+-- too: the tab's old guide is where the player took it.
+local function anchorStep(added, fromTab)
 	local steps = guide.steps
 	-- Progress counts only on a quest the guide offers before (or at) that
 	-- goal: a quest taken in another guide (or further on in this one) is no
@@ -4848,7 +4903,7 @@ local function anchorStep(added)
 			if goal.t == "accept" and goal.quest and not offered[goal.quest] then offered[goal.quest] = s end
 		end
 	end
-	local moved = Own.movedIn(guide.id)
+	local moved = not fromTab and Own.movedIn(guide.id) or NONE
 	for s = #steps, 1, -1 do
 		local step = steps[s]
 		if not step.only then
@@ -5212,7 +5267,12 @@ local function place()
 	Own.leftOut[guide.id], Own.leftOutWhy[guide.id] = nil, nil
 	local addedAll = ns.CharState().added
 	local added = type(addedAll) == "table" and addedAll[guide.id] or nil
-	local anchor = anchorStep(added)
+	local fromTab = logReady and Own.logPlaced[guide.id]
+	local anchor = anchorStep(added, fromTab)
+	if fromTab then
+		Own.logPlaced[guide.id] = nil
+		added = Own.noteMovedBehind(anchor) or added
+	end
 	if catchUp then Own.leftOut[guide.id], Own.leftOutWhy[guide.id] = Own.catchUp(anchor, level) end
 	Own.passedNow[guide.id], Own.passedWhole[guide.id] = nil, nil
 	local function open(s, g, goal)
@@ -6655,8 +6715,9 @@ function Own.currentGoal(s, groups, focus)
 	end
 	if first and step.goals[first].t == "goto" then first = Own.grindAfter(s, grp, first) or first end
 	if first then
+		Own.meetKills[step] = nil
 		if fields and #fields >= 2 and fields[1] == first then
-			first = Own.nearestField(s, fields)
+			first = Own.nearestField(s, Own.pointFields(s, fields) or fields)
 		else
 			Own.nearPick[step] = nil
 		end
@@ -6826,7 +6887,19 @@ local function findWaypoint()
 		if wp then return wp end
 	end
 	local wp = cg and waypointOf(cg, goals[cg])
-	if wp then return wp end
+	if wp then
+		-- A place objective leading a step of kills done on the way (Own.pointFields): which ones, under the arrow.
+		local kills = Own.meetKills[guide.steps[current]]
+		if kills then
+			local names = {}
+			for _, g in ipairs(kills) do
+				local _, subject = describe(goals[g], current)
+				if subject and subject ~= "" then names[#names + 1] = subject end
+			end
+			if #names > 0 then wp.label = wp.label .. " · " .. L["kill %s as you meet them"]:format(table.concat(names, ", ")) end
+		end
+		return wp
+	end
 	wp = header and waypointOf(header, goals[header])
 	if wp then return wp end
 	for rank = 1, 3 do
@@ -6897,6 +6970,43 @@ Own.FIELD = { kill = true, collect = true, interact = true }
 Own.NEAR_SHARE, Own.NEAR_YARDS = 0.75, 40
 Own.DETOUR = 80 -- yards walked before a tour asks whether the player still heads for its stop
 Own.DELAY_YARDS, Own.DELAY_LEVELS = 40, 10 -- Own.fieldDelay
+-- A "kill these as you meet them" step (Own.MEET in its title) that mixes kill goals with objectives at places (a
+-- collect or interact not spread over mobs: Felix's three parts among the Frostmane whelps in Coldridge Valley,
+-- #3598): the kills are done as the player meets their mobs, so the arrow tours the place objectives, nearest first,
+-- and a kill goal leads only once none of them is left on this continent. ->
+-- the place objectives of step s's open field goals `fields` and Own.meetKills[step] the kills, while both are
+-- there; nil (and no note) otherwise. Own.meetKills says under the arrow what to kill on the way.
+Own.meetKills = setmetatable({}, { __mode = "k" })
+Own.MEET = "kill these as you meet them" -- the step title's words that mark such a step (the guides' English titles)
+function Own.pointFields(s, fields)
+	local step = guide.steps[s]
+	if type(step.title) ~= "string" or not step.title:find(Own.MEET, 1, true) then return nil end
+	local c, px, py = Compat().GetPlayerWorldPosition()
+	if not c then return nil end
+	local points, kills
+	for _, g in ipairs(fields) do
+		local goal = step.goals[g]
+		if goal.t == "kill" then
+			kills = kills or {}
+			kills[#kills + 1] = g
+		elseif not goal.spread and Own.fieldDistance(goal, c, px, py) then
+			points = points or {}
+			points[#points + 1] = g
+		end
+	end
+	if not (points and kills) then return nil end
+	Own.meetKills[step] = kills
+	return points
+end
+-- Whether every goal of step s in `list` is a kill: the field picks then measure to each spawn area's middle, not its
+-- edge, so one wide area of a step's mobs (a valley of whelps) does not read 0 yd from everywhere in it.
+function Own.allKills(s, list)
+	local step = guide.steps[s]
+	for _, g in ipairs(list) do
+		if step.goals[g].t ~= "kill" then return false end
+	end
+	return true
+end
 Own.nearPick = setmetatable({}, { __mode = "k" }) -- step -> goal index the arrow is on
 Own.fieldTours = setmetatable({}, { __mode = "k" }) -- step -> remaining independent work
 -- Scratch, by place in Own.nearestField's list: whether the goal has a place
@@ -6939,13 +7049,13 @@ function Own.grindAfter(s, grp, g)
 end
 
 -- Yards from the player (c, px, py) to a field goal's nearest spawn area
--- (its edge; alternatives left out, as the spot picks leave them), else to
+-- (its edge, or with `centre` its middle; alternatives left out, as the spot picks leave them), else to
 -- its point; nil on another continent. Second: the same to its nearest area
 -- whose mobs are at most `top` levels (its `lvl`, else the goal's; one with
 -- neither counts; nil without one, or with top nil). Places left after a
 -- dwell (Spots.isLeft) do not count: a goal with every place left measures
 -- nil, so another field goal of the step takes over.
-function Own.fieldDistance(goal, c, px, py, top)
+function Own.fieldDistance(goal, c, px, py, top, centre)
 	local best, low
 	local lvl = goal.lvl
 	local now, places = GetTime(), false
@@ -6953,7 +7063,7 @@ function Own.fieldDistance(goal, c, px, py, top)
 		if not s.alt then
 			places = true
 			if not Spots.isLeft(goal, s, now) then
-				local d = Spots.edge(goal, s, c, px, py)
+				local d = (centre and Spots.dist or Spots.edge)(goal, s, c, px, py)
 				if d then
 					if not best or d < best then best = d end
 					local l = s.lvl or lvl
@@ -7284,8 +7394,9 @@ function Own.nearestField(s, list)
 	if c and not (cur and (fighting or Spots.busy())) then
 		local top = player and player.level and player.level + Spots.ABOVE
 		local best, bestD, curD, low, lowD, curLow
+		local centre = Own.allKills(s, list)
 		for i, g in ipairs(list) do
-			local d, dl = Own.fieldDistance(step.goals[g], c, px, py, top)
+			local d, dl = Own.fieldDistance(step.goals[g], c, px, py, top, centre)
 			Own.fieldAny[i], Own.fieldLow[i] = d ~= nil, dl ~= nil
 			if g == cur then curD, curLow = d, dl end
 			if d and (not bestD or d < bestD) then best, bestD = g, d end
@@ -7665,6 +7776,10 @@ end
 function Own.legacyGoals(id, key)
 	local L = Own.legacy()
 	local p = L and L[id] and L[id][key]
+	if type(p) ~= "string" then
+		local planned = Own.plannedOld[id]
+		p = planned and planned[key]
+	end
 	if type(p) ~= "string" then return nil end
 	local out = {}
 	for x in (p .. ","):gmatch("([^,]*),") do out[#out + 1] = x end
@@ -7685,6 +7800,91 @@ end
 
 function Own.legacyDrop()
 	ns.LegacyStepsLoad, Own.legacyTable = nil, false
+end
+
+-- The save's steps of guide g as the plan had them for the character
+-- (Own.feederPlan: the quests it left out taken out of their steps), whose
+-- keys neither the guide nor Core/LegacySteps.lua has: both hold the steps
+-- as released, and the save stores them as planned. Such a step is a
+-- released one (the guide's own now, or an earlier release's) with every
+-- goal of some of its quests taken out, and the plan leaves a quest out of
+-- the whole guide, so none of those quests has a goal in a step the save
+-- shares with the guide or the list. Each released step's versions without
+-- some of its other quests are hashed against the save's unknown keys (#3440:
+-- 0.4.1.1 -> 0.4.2, Wetlands' Menethil Harbor stop with five goals left out
+-- read as unknown, and the accept 0.4.2 added there held the player 8 to 88
+-- steps back). `map`: the steps kept (old index -> new); `old`: the save's
+-- step keys. -> { [key] = parts as planned }, { [key] = true for one from a
+-- step the guide has now }. While the save is mapped, Own.plannedOld[id]
+-- holds the first for Own.legacyGoals.
+Own.plannedOld = {}
+Own.PLANNED_MAX_QUESTS = 12
+function Own.plannedSteps(g, map, old)
+	local found, now = {}, {}
+	local base = g.base or g
+	local L = Own.legacy()
+	local listed = L and L[g.id] or NONE
+	local partsOf = {}
+	for _, src in ipairs({ g, base }) do
+		local parts = Own.stepParts(src)
+		for j, key in ipairs(Own.stepKeys(src)) do partsOf[key] = parts[j] end
+	end
+	-- The ids of the save's steps known as they are: the plan kept their quests.
+	local kept, want, left = {}, {}, 0
+	for k, key in ipairs(old) do
+		local p = partsOf[key] or (type(listed[key]) == "string" and listed[key]) or nil
+		if p then
+			for x in (p .. ","):gmatch("[^,:]*:([^,]*),") do kept[x] = true end
+		elseif not map[k] and not want[key] then
+			want[key], left = true, left + 1
+		end
+	end
+	if left == 0 then return found, now end
+	-- The released steps, the guide's own first; the quests they name.
+	local sources, quests = {}, {}
+	for _, p in ipairs(Own.stepParts(base)) do sources[#sources + 1] = { p = p, now = true } end
+	for key, p in pairs(listed) do
+		if type(key) == "number" and type(p) == "string" then sources[#sources + 1] = { p = p } end
+	end
+	for _, src in ipairs(sources) do
+		for v, q in (src.p .. ","):gmatch("(%a+):(%d+),") do
+			if v == "accept" or v == "turnin" or v == "complete" then quests[q] = true end
+		end
+	end
+	for _, src in ipairs(sources) do
+		local entries, ids, qs, seen = {}, {}, {}, {}
+		for x in (src.p .. ","):gmatch("([^,]*),") do
+			local n = #entries + 1
+			entries[n], ids[n] = x, x:match(":(.*)$") or ""
+			local q = ids[n]
+			if quests[q] and not kept[q] and not seen[q] then
+				seen[q] = true
+				qs[#qs + 1] = q
+			end
+		end
+		if #qs > 0 and #qs <= Own.PLANNED_MAX_QUESTS then
+			for mask = 1, 2 ^ #qs - 1 do
+				local drop, m = {}, mask
+				for i = 1, #qs do
+					if m % 2 == 1 then drop[qs[i]] = true end
+					m = math.floor(m / 2)
+				end
+				local out = {}
+				for n, x in ipairs(entries) do
+					if not drop[ids[n]] then out[#out + 1] = x end
+				end
+				if #out > 0 then
+					local p = table.concat(out, ",")
+					local key = Own.hash(p)
+					if want[key] and not found[key] then
+						found[key], now[key], left = p, src.now, left - 1
+						if left == 0 then return found, now end
+					end
+				end
+			end
+		end
+	end
+	return found, now
 end
 
 -- Old step -> new step, and old goal (step, index) -> new (step, index), for
@@ -7890,12 +8090,19 @@ local function checkShape(g)
 		local upgrade = type(old) == "table" and Own.updated(g)
 		local snap = upgrade and Own.snapState(g.id)
 		if not upgrade or not Own.safely("mapping", g.id, function()
-			Own.noteAdded(g, map, old)
+			-- The save's steps as planned for the character, read as released
+			-- steps with quests left out (Own.plannedSteps).
+			Own.plannedOld[g.id] = Own.plannedSteps(g, map, old)
+			-- A guide the update reworked keeps few of the save's steps, so
+			-- nearly all of it would read as added and pass: its tab is placed
+			-- from the quest log instead (Own.followReworked, Own.noteMovedBehind).
+			if not Own.reworkedTabs[g.id] then Own.noteAdded(g, map, old) end
 			Own.remap(g.id, map, old, g)
 		end) then
 			if snap then Own.snapRestore(g.id, snap) end
 			Own.remap(g.id, map, nil, g)
 		end
+		Own.plannedOld[g.id] = nil
 		-- Its end reached is the old guide's (0.3.5 reused ids for new
 		-- content): the new one says so again when the player gets there.
 		if type(s.guideEnds) == "table" then s.guideEnds[g.id] = nil end
@@ -8458,7 +8665,10 @@ end
 -- with the pack's own version saw none, and its shape is the guide as
 -- planned for the character (feeders in, quests waiting on earlier guides
 -- left out), whose step keys differ from the guide as registered (a /reload
--- moved a fresh-start tab).
+-- moved a fresh-start tab). A save's step planned from one the guide still
+-- has (Own.plannedSteps) is kept too: 0.4.2's Horde Winterspring kept 15 of
+-- a 0.4.1.1 save's 22 steps, 5 of them with quests left out, and its tab
+-- moved to the Plaguelands' first step (#3440).
 function Own.reworked(g)
 	local s = ns.CharState()
 	local stored = type(s.shapes) == "table" and s.shapes[g.id]
@@ -8466,7 +8676,12 @@ function Own.reworked(g)
 	if not stored or stored == shapeOf(g) or type(old) ~= "table" or #old == 0 then return false end
 	if not Own.updated(g) then return false end
 	local kept = 0
-	for _ in pairs(Own.matchSteps(old, Own.stepKeys(g))) do kept = kept + 1 end
+	local map = Own.matchSteps(old, Own.stepKeys(g))
+	for _ in pairs(map) do kept = kept + 1 end
+	local ok, _, now = pcall(Own.plannedSteps, g, map, old)
+	for k, key in ipairs(old) do
+		if ok and not map[k] and now[key] then kept = kept + 1 end
+	end
 	return kept * 2 < #old
 end
 
@@ -8682,6 +8897,33 @@ function Engine.GetTabs(counts)
 	end
 	useActive()
 	return out, activeIndex
+end
+
+-- Where each other open tab's live step goes next: its first open goal with
+-- a place, { index, guideId, title, category, dungeon, step, stepNumber, map,
+-- x, y, f }, in tab order; a complete tab or a step with no place is left
+-- out (the other-tab card, UI/OtherTab.lua).
+function Engine.OtherTabPlaces()
+	sync()
+	local out = {}
+	for i = 1, #tabs do
+		local t = tabs[i]
+		if i ~= activeIndex and t.computed then
+			use(t)
+			local s = computed
+			local step = guide.steps[s]
+			for g, goal in ipairs(step and step.goals or {}) do
+				local map, x, y, f = posOf(goal)
+				if map and x and y and goalStatus(s, g, goal, true) == "active" then
+					out[#out + 1] = { index = i, guideId = guide.id, title = guide.title, category = guide.category or "Leveling",
+						dungeon = guide.dungeon, step = s, stepNumber = (Engine.StepNumberOf(guide, s)), map = map, x = x, y = y, f = f }
+					break
+				end
+			end
+		end
+	end
+	useActive()
+	return out
 end
 
 local function fireTabs()
@@ -9562,6 +9804,9 @@ end
 -- most TRAIN_KEEP seconds (kills come further apart than a few seconds), and
 -- dropped when a trainer window closes, at a level-up, on a zone change and
 -- when the travel the planner knows changes (a flight path, the hearth).
+-- On a flight the spot changes every few seconds and nobody can act on the
+-- answer: the pick is kept, whatever the spot, the time or the zones flown
+-- over, until the player lands (PLAYER_CONTROL_GAINED drops it).
 Own.TRAIN_KEEP, Own.TRAIN_SPOT = 60, 2
 Own.trainPick = false
 function Own.trainerOnRouteKept(list, tier)
@@ -9573,15 +9818,18 @@ function Own.trainerOnRouteKept(list, tier)
 	local level = player and player.level
 	local k = Own.trainPick
 	if k and k.first == list[1] and k.n == #list and k.guide == guide and k.step == computed and k.level == level
-		and k.map == map and k.bx == bx and k.by == by and now - k.at < Own.TRAIN_KEEP and now >= k.at then
+		and (Compat().IsOnTaxi() or k.map == map and k.bx == bx and k.by == by and now - k.at < Own.TRAIN_KEEP and now >= k.at) then
 		return k.best
 	end
 	local best = Own.trainerOnRoute(list, tier)
 	Own.trainPick = { first = list[1], n = #list, guide = guide, step = computed, level = level, map = map, bx = bx, by = by, at = now, best = best }
 	return best
 end
-for _, event in ipairs({ "TRAINER_CLOSED", "PLAYER_LEVEL_UP", "ZONE_CHANGED_NEW_AREA", "TAXIMAP_CLOSED", "HEARTHSTONE_BOUND" }) do
-	ns.RegisterEvent(event, function() Own.trainPick = false end)
+for _, event in ipairs({ "TRAINER_CLOSED", "PLAYER_LEVEL_UP", "ZONE_CHANGED_NEW_AREA", "TAXIMAP_CLOSED", "HEARTHSTONE_BOUND", "PLAYER_CONTROL_GAINED" }) do
+	ns.RegisterEvent(event, function(ev)
+		if ev == "ZONE_CHANGED_NEW_AREA" and Compat().IsOnTaxi() then return end
+		Own.trainPick = false
+	end)
 end
 
 -- The best class trainer for the character from where they stand, or nil;
@@ -9813,7 +10061,7 @@ function Own.queueGroupSkips(from, to)
 				queue.seen[q] = true
 				local one = ns.CharState().groupQuests[q] == "skip"
 				queue.skips[#queue.skips + 1] = { quest = q, title = titleOfQuest(q), reason = "group",
-					text = one and L["Group quest you chose to skip (Discovery, Group quests)"] or L["Group quest: Options, Automation, Group quests skips them all"] }
+					text = one and L["Group quest you chose to skip (Discovery, Group quests)"] or L["Group quest: Settings, Automation, Group quests skips them all"] }
 			end
 		end
 	end
@@ -10057,12 +10305,31 @@ function Engine.CarriedQuests(id)
 	return out
 end
 
+-- The titles guide `id` gives the quests of `want` (quest id -> true), into
+-- `into` (quest id -> title): the guide that passed a waiting accept, read
+-- when the next guide is the loaded one, whose titles don't have it. Steps
+-- read only for this are let go again.
+function Own.titlesIn(id, want, into)
+	local def = Guides.Get(id)
+	if not def then return end
+	local had = rawget(def, "steps") ~= nil
+	for _, step in ipairs(def.steps or NONE) do
+		for _, goal in ipairs(step.goals) do
+			local q = goal.quest
+			if q and want[q] and goal.title and not into[q] then into[q] = goal.title end
+		end
+	end
+	if not had and not Engine.TabIds()[id] then Guides.Release(id) end
+end
+
 -- The accepts leveling guide `id` passed for the character's level, still
 -- waiting (Own.waitList), by quest id: { quest, title, level, next } each,
 -- `next` true when guide `toId` (loaded, planned) takes it (a step put in by
 -- Own.carryChains; passed there already, it is listed all the same). The
 -- guide-end window lists them under the carried quests; "Continue
--- automatically" says them in chat (GUIDE_CONTINUED).
+-- automatically" says them in chat (GUIDE_CONTINUED), once the next guide is
+-- loaded: each title comes from the guide that passed the quest, the client's
+-- language first (titleOfQuest).
 function Engine.WaitingQuests(id, toId)
 	local out = {}
 	local t = id and Own.pruneWaits()
@@ -10074,13 +10341,21 @@ function Engine.WaitingQuests(id, toId)
 			if goal.t == "accept" and goal.quest and t[goal.quest] then taken[goal.quest] = true end
 		end
 	end
-	local qs = {}
+	local qs, byGuide = {}, {}
 	for q, w in pairs(t) do
-		if w.guide == id or taken[q] then qs[#qs + 1] = q end
+		if w.guide == id or taken[q] then
+			qs[#qs + 1] = q
+			if type(w.guide) == "string" then
+				byGuide[w.guide] = byGuide[w.guide] or {}
+				byGuide[w.guide][q] = true
+			end
+		end
 	end
 	table.sort(qs)
+	local named = {}
+	for gid, want in pairs(byGuide) do Own.titlesIn(gid, want, named) end
 	for i, q in ipairs(qs) do
-		out[i] = { quest = q, title = titleOfQuest(q), level = tonumber(t[q].level) or 0, next = taken[q] or false }
+		out[i] = { quest = q, title = titleOfQuest(q, named), level = tonumber(t[q].level) or 0, next = taken[q] or false }
 	end
 	return out
 end
@@ -11289,9 +11564,10 @@ end
 -- hinges on `needs`, quests of earlier guides, most of them `from`'s. For
 -- this character the share left is scaled by the part of `needs` neither
 -- done, in the log nor taken on the way (a feeder step of the guide's plan).
--- From FRESH_NOTE (30) percent, below the guide's top level, with `from` a
--- guide for this character: { guideId, from, fromTitle, share (whole
--- percent), minutes } | nil. minutes: the XP left out as same-level kills
+-- From FRESH_NOTE (30) percent as the note states it (whole percent: 29.75
+-- reads "about 30%"), below the guide's top level, with `from` a guide for
+-- this character: { guideId, from, fromTitle, share (whole percent),
+-- minutes } | nil. minutes: the XP left out as same-level kills
 -- at FRESH_KPM (1.5) a minute (farmSeconds' rate), in fives, at least 5;
 -- nil without the level tables. Guides.Suggestions ranks such a guide
 -- lower. (The two are locals: a key more on Own doubles its table at login.)
@@ -11324,12 +11600,13 @@ function Engine.FreshFor(g)
 		if questDone(q) or C.IsOnQuest(q) or onWay[q] then have = have + 1 end
 	end
 	local left = #needs > 0 and f.share * (1 - have / #needs) or f.share
-	if left < FRESH_NOTE then return nil end
+	local share = math.floor(left + 0.5)
+	if share < FRESH_NOTE then return nil end
 	local Lv = ns.Levels
 	local per = Lv and Lv.MobXP and Lv.MobXP(lvl, lvl, false) or 0
 	local xp = (tonumber(f.xp) or 0) * left / 100
 	local minutes = per > 0 and xp > 0 and math.max(5, math.floor(xp / (per * FRESH_KPM) / 5 + 0.5) * 5) or nil
-	return { guideId = g.id, from = f.from, fromTitle = from.title or f.from, share = math.floor(left + 0.5), minutes = minutes }
+	return { guideId = g.id, from = f.from, fromTitle = from.title or f.from, share = share, minutes = minutes }
 end
 
 -- The active guide's fresh-start note (Engine.FreshFor) once the quest log is
@@ -12086,8 +12363,10 @@ end
 -- material's other way (Own.materialWhy). The first `when` predicate that
 -- fails, or, when none of its goals applies (`goals`: its goal views), the
 -- group quest it waits on not answered "do" (Elwynn's Goldshire hand-in of
--- Book Return), else that none applies. nil while a goal applies, for a step
--- hidden from the character (Own.hiddenStep), or with no goals.
+-- Book Return), else the predicate that fails now on a step stored as passed
+-- (Hillsbrad's Razormaw nests without Trying Times in the log, #2847), else
+-- that none applies. nil while a goal applies, for a step hidden from the
+-- character (Own.hiddenStep), or with no goals.
 function Own.stepWhy(step, goals)
 	if #goals == 0 or Own.hiddenStep(step) then return nil end
 	if not step.when then return Own.materialWhy(step, goals) end
@@ -12101,6 +12380,8 @@ function Own.stepWhy(step, goals)
 	for _, p in ipairs(step.when) do
 		if p.k == "group" and not p.neg and Own.groupAnswer(p.q) ~= "do" then return Own.whenText(p) end
 	end
+	local p = Own.whenFails(step)
+	if p then return Own.whenText(p) end
 	return L["Skipped for your character: none of its goals apply"]
 end
 
@@ -12178,7 +12459,7 @@ function Engine.LeftOutHere(i, alone)
 			if not seen[q] and not questDone(q) then
 				seen[q] = true
 				out[#out + 1] = { quest = q, title = titleOfQuest(q, { [q] = h.title }), kind = "pre",
-					text = L["Requires %s first"]:format(ns.Quoted(h.needTitle or titleOfQuest(h.need))), fix = { kind = "chain", quest = q }, step = s }
+					text = L["Requires %s first"]:format(ns.Quoted(titleOfQuest(h.need, { [h.need] = h.needTitle }))), fix = { kind = "chain", quest = q }, step = s }
 			end
 		end
 	end
@@ -13555,35 +13836,144 @@ function Own.hereAfterOwn(s, g, q)
 	return false
 end
 
--- Two drops from the same hunt: don't invite the player to farm the first
--- before the upcoming pickup that lets them get both. Only the suggestion
--- waits; the live step and any drops already earned are untouched.
-function Own.waitForHuntPartner(s, goal, live, nearTo)
-	local npc = goal.fromKind == "npc" and goal.fromId
-	if not npc or s <= live or (goal.fromNpcs and #goal.fromNpcs > 1) then return false end
-	local C = Compat()
-	for gi, other in ipairs(guide.steps[s].goals) do
-		if other.t == "collect" and other.fromKind == "npc" and other.fromId == npc and other.quest and other.quest ~= goal.quest
-			and not C.IsOnQuest(other.quest) and not questDone(other.quest) and not Own.questSkipped(other.quest)
-			and Guides.Matches(other.only, player) and not Own.goalSkipped(s, gi) then
-			local ready, freed = Own.READY_NONE, 0
-			for i = live, math.min(nearTo, s - 1) do
-				local step = guide.steps[i]
-				if stepApplies(step) and not isSkipped(i) then
-					for j, g in ipairs(step.goals) do
-						if g.t == "accept" and g.quest == other.quest and Own.aheadOk(i, j, g, ready, true) and Own.logRoom() + freed > 0 then return true end
-						-- The visit may hand in a held parent before offering its follow-up.
-						if g.t == "turnin" and not g.optional and C.IsOnQuest(g.quest) and not ready[g.quest]
-							and goalApplies(g) and not Own.goalSkipped(i, j) and not Own.questSkipped(g.quest) then
-							if ready == Own.READY_NONE then ready = {} end
-							ready[g.quest], freed = true, freed + 1
-						end
-					end
+-- A planned visit can hand in a held parent before offering its follow-up.
+function Own.huntPartnerPickup(quest, live, last)
+	local C, ready, freed = Compat(), Own.READY_NONE, 0
+	for i = live, last do
+		local step = guide.steps[i]
+		if stepApplies(step) and not isSkipped(i) then
+			for j, g in ipairs(step.goals) do
+				if g.t == "accept" and g.quest == quest and Own.aheadOk(i, j, g, ready, true) and Own.logRoom() + freed > 0 then return true end
+				if g.t == "turnin" and not g.optional and C.IsOnQuest(g.quest) and not ready[g.quest]
+					and goalApplies(g) and not Own.goalSkipped(i, j) and not Own.questSkipped(g.quest) then
+					if ready == Own.READY_NONE then ready = {} end
+					ready[g.quest], freed = true, freed + 1
 				end
 			end
 		end
 	end
 	return false
+end
+
+-- A kill and a drop are both work on the creatures that give credit.
+function Own.huntSources(goal)
+	if goal.t == "kill" then return goal.npc end
+	if goal.t ~= "collect" or goal.fromKind == "object" then return nil end
+	local list = goal.fromNpcs
+	if list and #list > 1 then return list end
+	return (goal.fromKind == "npc" and goal.fromId) or (list and list[1] and list[1].npc)
+end
+
+function Own.huntNpc(source)
+	return type(source) == "table" and source.npc or source
+end
+
+function Own.huntShares(a, b)
+	if type(a) == "number" then
+		if type(b) == "number" then return a == b end
+		for _, source in ipairs(b) do
+			if Own.huntNpc(source) == a then return true end
+		end
+	else
+		for _, source in ipairs(a) do
+			if Own.huntShares(Own.huntNpc(source), b) then return true end
+		end
+	end
+	return false
+end
+
+-- A single source belongs to every camp of its goal. A mixed goal may
+-- record the sources per camp, or only say which creatures count overall.
+function Own.huntLocalSources(goal, sources)
+	if type(sources) == "number" or not (goal.spots and goal.fromNpcsAt) then return nil end
+	local at, i = {}, 0
+	for group in (goal.fromNpcsAt .. ";"):gmatch("([^;]*);") do
+		i = i + 1
+		local list = {}
+		for n in group:gmatch("%d+") do
+			local source = sources[tonumber(n)]
+			if source then list[#list + 1] = Own.huntNpc(source) end
+		end
+		at[i] = list
+	end
+	return at
+end
+
+-- Without the held camp's own source IDs, use same-map spawn overlap only
+-- where an upcoming objective places a shared creature.
+function Own.huntInCamp(sources, map, c, x, y, radius, partners)
+	for _, p in ipairs(partners) do
+		local other, ids, localIds = p.goal, p.sources, p.at
+		local placed = type(ids) == "number"
+		if other.map == map and other.spots then
+			for i, spot in ipairs(other.spots) do
+				local here = localIds and localIds[i]
+				if (here or placed) and Own.huntShares(sources, here or ids) then
+					local d = Spots.dist(other, spot, c, x, y)
+					if d and d <= radius + (spot.r or 0) then return true end
+				end
+			end
+		elseif other.map == map and placed and Own.huntShares(sources, ids) then
+			local oc, ox, oy = goalWorld(other)
+			if oc == c and (ox - x) ^ 2 + (oy - y) ^ 2 <= radius ^ 2 then return true end
+		end
+	end
+	return false
+end
+
+function Own.huntSharesAny(npc, partners)
+	for _, p in ipairs(partners) do
+		if Own.huntShares(npc, p.sources) then return true end
+	end
+	return false
+end
+
+Own.HERE_HUNT_POINT = 10 -- yards: two guide points for one camp can differ
+
+-- Wait at the camps where an upcoming quest would share the work. For a
+-- mixed camp with explicit sources, leave independent drop sources available.
+function Own.waitForHuntPartner(s, goal, live, nearTo)
+	if s <= live then return false end
+	local sources = Own.huntSources(goal)
+	if not sources then return false end
+	local C, last, partners = Compat(), math.min(nearTo, s - 1)
+	for gi, other in ipairs(guide.steps[s].goals) do
+		local q = other.quest
+		if q and q ~= goal.quest
+			and not C.IsOnQuest(q) and not questDone(q) and not Own.questSkipped(q)
+			and Guides.Matches(other.only, player) and not Own.goalSkipped(s, gi) then
+			local ids = Own.huntSources(other)
+			if ids and Own.huntShares(sources, ids) and Own.huntPartnerPickup(q, live, last) then
+				-- Every camp of a single-source hunt gives the same quest credit.
+				if type(sources) == "number" then return true end
+				partners = partners or {}
+				partners[#partners + 1] = { goal = other, sources = ids, at = Own.huntLocalSources(other, ids) }
+			end
+		end
+	end
+	if not partners then return false end
+	if not goal.spots then
+		local c, x, y = goalWorld(goal)
+		return c and Own.huntInCamp(sources, goal.map, c, x, y, Own.HERE_HUNT_POINT, partners) or false
+	end
+	local at, deferred = Own.huntLocalSources(goal, sources), false
+	for i, spot in ipairs(goal.spots) do
+		local here, wait = at and at[i], false
+		if here then
+			wait = #here > 0
+			for _, id in ipairs(here) do
+				if not Own.huntSharesAny(id, partners) then wait = false; break end
+			end
+		else
+			local c, x, y = C.MapToWorld(goal.map, spot.x, spot.y, goal.f)
+			wait = c and Own.huntInCamp(sources, goal.map, c, x, y, spot.r or 0, partners)
+		end
+		if wait then
+			deferred = deferred or {}
+			deferred[spot] = true
+		end
+	end
+	return deferred
 end
 
 -- Whether goal g of later step s, one of Own.hereGoalsOn's for a quest in
@@ -13636,10 +14026,11 @@ function Own.hereFits(s, g, goal, live, shown, nearTo)
 	if t == "interact" and not Own.hereCarries(q) then return nil end
 	if Own.hereAfterOwn(s, g, q) then return nil end
 	if not Own.hereLevelOk(goal, Own.hereTop) then return nil end
-	if t == "collect" and Own.waitForHuntPartner(s, goal, live, nearTo) then return nil end
+	local wait = Own.waitForHuntPartner(s, goal, live, nearTo)
+	if wait == true then return nil end
 	local left = (max or goal.count or 1) - (cur or 0)
 	if left < 1 then return nil end
-	return "work", left
+	return "work", left, false, wait
 end
 
 -- Finished quests the route does not hand in ahead (plan 0.3.7 "stranded
@@ -13664,6 +14055,26 @@ function Own.handedInAhead(q, live)
 		if t.s >= live and stepApplies(t.step) and not isSkipped(t.s) and goalApplies(t.goal) then return true end
 	end
 	return false
+end
+
+-- Whether goal (work: kill, collect, interact, use) of step s, behind the live
+-- step, stays a While you're here row though the player skipped its step: a
+-- skip moves the route past the step, and only the quest the player skipped
+-- (Engine.SkipQuest) goes with it (Fitz, #3385: skipping the kodo taming in
+-- Desolace also dropped another quest's Scorpashi Venom in the same step,
+-- and the guide later sent the player to hand that quest in).
+-- So for a step that holds more than one quest's work: the goal's quest in
+-- the log, not skipped, and still handed in ahead by this guide.
+function Own.skipLeftWork(s, goal, live)
+	local q = goal.quest
+	if not (q and Own.HERE_VERBS[goal.t] and isSkipped(s)) then return false end
+	local step = guide.steps[s]
+	local other = false
+	for _, x in ipairs(step.goals) do
+		if x.quest and x.quest ~= q then other = true break end
+	end
+	if not other or not Guides.Matches(step.only, player) then return false end
+	return Compat().IsOnQuest(q) and not Own.questSkipped(q) and Own.handedInAhead(q, live)
 end
 
 -- Quest q's built hand-in goal at its ender on map `map`, or nil (no Codex
@@ -13704,7 +14115,9 @@ function Own.hereStranded(list, n, live)
 			local goal = not have[q] and Own.strandGoal(q, map)
 			if goal then
 				local plan = ns.RoutePlan and ns.RoutePlan.GetTurnIn(q)
-				local later = plan and (plan.status == "later" or plan.status == "future" or plan.status == "other")
+				-- A dungeon quest only its pick-up guide covers (pickupOnly) is
+				-- not handed in ahead, though its status is "other".
+				local later = plan and not plan.pickupOnly and (plan.status == "later" or plan.status == "future" or plan.status == "other")
 				n = n + 1
 				list[n] = { s = Own.STRAND_STEP, g = q, goal = goal, kind = "turnin", left = 0, places = 1,
 					npcs = false, seen = false, spot = false, d = false, pick = 0,
@@ -13760,7 +14173,7 @@ function Own.hereNext(list, n)
 					list[n] = { s = Own.NEXT_STEP, g = q, goal = goal, kind = "take", left = 0, places = 1,
 						npcs = false, seen = false, spot = false, d = false, pick = 0,
 						budget = Own.hereSeconds, xp = false, soon = false, visit = false, detour = 0, town = false, near = false, key = "a" .. q,
-						sub = L["Saves a trip back: %s does it later."]:format(g.title or g.id), later = g,
+						sub = L["For %s, later on your route."]:format(g.title or g.id), later = g,
 						tip = L["A guide later on your route takes this quest here: taken now, its step is done when you get there."],
 						on = false, since = 0, yards = 0, serial = 0, view = false }
 				end
@@ -14023,7 +14436,10 @@ function Own.hereCollect(list, live, pc)
 			-- A carried accept the route passed waiting for the level (Own.carryPassed):
 			-- a pick-up line behind the live step too, its giver's next pass.
 			local carried = s < live and Own.carryPassed(s, goal)
-			if (back and Own.behindApplies(steps[s], goal)) or (not back and (s > live or carried)) then
+			-- Work of a skipped step behind the player for a quest still handed in ahead (Own.skipLeftWork): a
+			-- skip moves the route past the step, not past the other quests' items in it (#3385).
+			local leftWork = s < live and not back and not carried and Own.skipLeftWork(s, goal, live)
+			if (back and Own.behindApplies(steps[s], goal)) or (not back and (s > live or carried or leftWork)) then
 				local g = idx[i + 1]
 				local on = C.IsOnQuest(q)
 				local take = not on and takes and goal.t == "accept" and (s > live or carried) and not goal.limit and not goal.optional and not goal.either
@@ -14034,8 +14450,8 @@ function Own.hereCollect(list, live, pc)
 				end
 				if (on and not C.IsQuestFailed(q)) or take then
 					if s ~= at then at, ok = s, stepApplies(steps[s]) and not isSkipped(s) end
-					local kind, left, soon = nil, nil, false
-					if ok or back then kind, left, soon = Own.hereFits(s, g, goal, live, shown, nearTo) end
+					local kind, left, soon, wait = nil, nil, false, false
+					if ok or back or leftWork then kind, left, soon, wait = Own.hereFits(s, g, goal, live, shown, nearTo) end
 					if kind then
 						n = n + 1
 						-- places: where the target spawns on the map (Own.hereTick
@@ -14051,7 +14467,7 @@ function Own.hereCollect(list, live, pc)
 						local budget = Own.hereSeconds * (xp and Own.HERE_XP or 1)
 						if visit and budget > 0 then budget = budget + visit.credit end
 						list[n] = { s = s, g = g, goal = goal, kind = kind, left = left, places = spots and #spots or 1,
-							npcs = kind == "work" and Own.hereNpcsOf(goal), seen = false, spot = false, d = false, pick = 0,
+							npcs = kind == "work" and Own.hereNpcsOf(goal), wait = wait, seen = false, spot = false, d = false, pick = 0,
 							budget = budget, xp = xp or false, soon = soon or false, visit = visit, detour = 0, town = false, near = back or s <= nearTo,
 							-- A shown line's: on, since (its time), yards (shown), serial (`appeared`), view.
 							on = false, since = 0, yards = 0, serial = 0, view = false }
@@ -14206,6 +14622,8 @@ function Own.hereDistance(e, c, px, py)
 			local gc, gx, gy = goalWorld(goal)
 			if gc == c then best = ((gx - px) ^ 2 + (gy - py) ^ 2) ^ 0.5 end
 		end
+		-- The nearest camp is shared; another source is still offered when it is nearest.
+		if best and e.wait and e.wait[e.spot] then return nil end
 		local npcs, seen = e.npcs, false
 		if npcs then
 			for i = 1, #npcs do
@@ -15983,20 +16401,40 @@ function Engine.KeptItems()
 	local function wanted(s, g, goal)
 		return not (sk and sk[Own.key(s, g)]) and goalApplies(goal)
 	end
-	local handIn, early = {}, {}
+	-- A goal's kind and item are read first; the step's and the goal's applies (the costly part) only for a goal
+	-- that would add something. A turn-in matters only for a quest collected before the live step (early),
+	-- whose steps all come first.
+	local handIn, early, earlyQuest = {}, {}, {}
 	for s, step in ipairs(guide.steps) do
-		if not (sk and sk[s]) and stepApplies(step) then
+		if not (sk and sk[s]) then
+			local applies -- stepApplies(step), asked once, at its first goal that counts
 			for g, goal in ipairs(step.goals) do
-				local t = goal.t
+				local t, q = goal.t, goal.quest
+				local counts
 				if s < live then
-					if t == "collect" and goal.quest and C.IsOnQuest(goal.quest) and wanted(s, g, goal) then early[#early + 1] = goal end
-				elseif wanted(s, g, goal) then
-					if t == "use" or t == "collect" or t == "buy" or t == "auction" or (t == "accept" and goal.item) then
-						keep(goal.item, s)
-					elseif t == "craft" and type(goal.reagents) == "table" then
-						for _, r in ipairs(goal.reagents) do keep(r.item, s) end
-					elseif t == "turnin" and goal.quest and not handIn[goal.quest] then
-						handIn[goal.quest] = s
+					counts = t == "collect" and q and C.IsOnQuest(q)
+				elseif t == "turnin" then
+					counts = q and earlyQuest[q] and not handIn[q]
+				elseif t == "craft" then
+					counts = type(goal.reagents) == "table"
+				else
+					counts = (t == "use" or t == "collect" or t == "buy" or t == "auction" or (t == "accept" and goal.item))
+						and type(goal.item) == "number"
+				end
+				if counts then
+					if applies == nil then applies = stepApplies(step) and true or false end
+					if not applies then break end
+					if wanted(s, g, goal) then
+						if s < live then
+							early[#early + 1] = goal
+							earlyQuest[q] = true
+						elseif t == "turnin" then
+							handIn[q] = s
+						elseif t == "craft" then
+							for _, r in ipairs(goal.reagents) do keep(r.item, s) end
+						else
+							keep(goal.item, s)
+						end
 					end
 				end
 			end
@@ -16007,6 +16445,94 @@ function Engine.KeptItems()
 		if s then keep(goal.item, s) end
 	end
 	return items
+end
+
+-- The guides after the active one that Polestar goes on with (Engine.NextGuide
+-- from each in turn), at most Own.ahead.n, stopping at none or at one already
+-- listed (a loop): their ids, in route order. One Own key holds all of it
+-- (Own.ahead: n, key, index, ids, build): a key more on Own doubles its table.
+Own.ahead = { n = 3, key = false, index = {} }
+function Own.ahead.ids()
+	local ids, seen = {}, {}
+	local id = guide and guide.id
+	if not id then return ids end
+	seen[id] = true
+	for _ = 1, Own.ahead.n do
+		id = Engine.NextGuide(id)
+		if not id or seen[id] then break end
+		seen[id] = true
+		ids[#ids + 1] = id
+	end
+	return ids
+end
+
+-- { [itemID] = { guideId, ... } } for the guides ahead (Own.ahead.ids): the
+-- items their steps use, by the same goals as Engine.KeptItems (`use`,
+-- `collect`, `buy`, `auction`, an `accept`'s item, a `craft`'s reagents).
+-- The filter for a guide that is not loaded is the raw one: a step that is a
+-- step of its own for this character (Engine.StepHiddenFor, so not another
+-- class's, race's or faction's; not a hearth-only or along step) outside a
+-- dungeon the player skips (Own.dungeonHidden), and a goal whose `only`
+-- fits them. stepApplies and goalApplies read the active guide's state
+-- (its quest layout, left-out quests, skips, `when` answers), which a guide
+-- not in a tab has none of; an item a later `when` or a quest left out
+-- would hide still counts here: the line says "used in", not "needed now".
+-- Rebuilt when the active guide or the chain after it changes, not per
+-- hover. Steps are decoded to scan and released again (a guide no tab shows);
+-- the index holds ids only.
+function Own.ahead.build()
+	local ids = Own.ahead.ids()
+	local key = (guide and guide.id or "") .. ">" .. table.concat(ids, ">")
+	local a = Own.ahead
+	if a.key == key then return a.index end
+	local index = {}
+	a.key, a.index = key, index
+	if not player then refreshPlayer() end
+	local tabs = Engine.TabIds()
+	for _, id in ipairs(ids) do
+		local g = Guides.Get(id)
+		local steps = g and g.steps
+		if type(steps) == "table" then
+			local function add(item)
+				if type(item) ~= "number" then return end
+				local list = index[item]
+				if not list then index[item] = { id } elseif list[#list] ~= id then list[#list + 1] = id end
+			end
+			for _, step in ipairs(steps) do
+				if not Engine.StepHiddenFor(step) and not Own.dungeonHidden(step) then
+					for _, goal in ipairs(step.goals) do
+						local t = goal.t
+						if Guides.Matches(goal.only, player) then
+							if t == "use" or t == "collect" or t == "buy" or t == "auction" or (t == "accept" and goal.item) then
+								add(goal.item)
+							elseif t == "craft" and type(goal.reagents) == "table" then
+								for _, r in ipairs(goal.reagents) do add(r.item) end
+							end
+						end
+					end
+				end
+			end
+			if not tabs[id] then Guides.Release(id) end
+		end
+	end
+	return index
+end
+
+-- The guides whose steps use itemID, for its tooltip (QoL/Keep.lua), in
+-- route order: the active guide first when it still needs the item
+-- (Engine.KeptItems; step: that step's index in the guide, as the Engine
+-- counts it), then the guides ahead (step nil: not looked up for a guide
+-- that is not loaded). -> { { guide = g, step = s | nil }, ... } | nil
+function Engine.ItemGuides(itemID)
+	if type(itemID) ~= "number" then return nil end
+	local out = {}
+	local s = Engine.KeptItems()[itemID]
+	if s and guide then out[1] = { guide = guide, step = s } end
+	for _, id in ipairs(Own.ahead.build()[itemID] or NONE) do
+		local g = Guides.Get(id)
+		if g then out[#out + 1] = { guide = g } end
+	end
+	return out[1] and out or nil
 end
 
 -- A guide of the other faction (Guides.OtherFaction: loaded from an import
@@ -17423,13 +17949,28 @@ function Engine.EscortQuest(questID)
 end
 
 -- Saved tabs of leveling guides an update reworked (Own.reworked), by guide
--- id: the quest log decides where they go (Own.followReworked).
+-- id, each with its title as the player knew it (Own.titleThen): the quest
+-- log decides where they go (Own.followReworked).
 Own.reworkedTabs = {}
+
+-- Guide g's title as the character's save knew it: an earlier release's
+-- (Core/LegacySteps.lua `titles`, by the version of the guides the save was
+-- made with, CharState().shapeVersions), else today's. Read before
+-- checkShape stamps the new version. (#3440: 0.4.1.1 -> 0.4.2, the line for
+-- a moved Silithus, Felwood, Winterspring & the Plaguelands tab named it
+-- Silithus, its new title.)
+function Own.titleThen(g)
+	local s = ns.CharState()
+	local v = type(s.shapeVersions) == "table" and s.shapeVersions[g.id]
+	local L = v and Own.legacy()
+	local t = L and L[g.id] and L[g.id].titles
+	return type(t) == "table" and type(t[v]) == "string" and t[v] or g.title
+end
 
 -- A saved tab coming back: at the step the player was looking at (a pack
 -- update carries it to the step's new place first).
 local function restoredTab(g)
-	if (g.category == nil or g.category == "Leveling") and Own.reworked(g) then Own.reworkedTabs[g.id] = true end
+	if (g.category == nil or g.category == "Leveling") and Own.reworked(g) then Own.reworkedTabs[g.id] = Own.titleThen(g) end
 	Own.withFeeders(g.id)
 	g = Guides.Get(g.id) or g
 	checkShape(g)
@@ -17445,16 +17986,20 @@ end
 -- a 0.3.4 character at Sun Rock Retreat in Stonetalon Mountains &
 -- Ashenvale found the same tab holding Ashenvale & Silverpine Forest, and
 -- its Sun Rock quests in The Barrens & Stonetalon Mountains (#1328). The
--- chat says where it went.
+-- chat says where it went, naming the tab as the player knew it. Moved or
+-- not, the tab opens where the log puts the player (Own.logPlaced).
 function Own.followReworked()
 	local moved = {}
-	for id in pairs(Own.reworkedTabs) do
+	for id, title in pairs(Own.reworkedTabs) do
 		local i = tabIndexOf(id)
 		local to = i and Guides.FollowLog(id)
 		local g = to and not tabIndexOf(to) and Guides.Get(to)
 		if g then
-			moved[#moved + 1] = { from = tabs[i].guide, to = g, active = i == activeIndex }
+			moved[#moved + 1] = { title = title, to = g, active = i == activeIndex }
 			tabs[i] = restoredTab(g)
+			Own.logPlaced[g.id] = true
+		elseif i then
+			Own.logPlaced[id] = true
 		end
 	end
 	Own.reworkedTabs = {}
@@ -17463,10 +18008,57 @@ function Own.followReworked()
 	useActive()
 	persist()
 	for _, m in ipairs(moved) do
-		ns.Print(L["%s changed in this update and holds other quests now. Its tab moved to %s, which has the quests in your log."]:format(m.from.title, m.to.title))
+		ns.Print(L["%s changed in this update and holds other quests now. Its tab moved to %s, which has the quests in your log."]:format(m.title, m.to.title))
 		if m.active then ns.Fire("GUIDE_CHANGED", m.to.id) end
 	end
 	evaluate()
+end
+
+-- Guides of the tabs an update reworked (Own.followReworked: the guide a tab
+-- moved to, or the reworked one it stayed on), until their first placement
+-- with the quest log in.
+Own.logPlaced = {}
+
+-- The loaded guide opened in a tab an update reworked (Own.logPlaced): the
+-- quests of the log came with the tab's old guide, so the last of its steps
+-- with their progress (`anchor`, anchorStep), or with none the first with
+-- work of one of them (a kill, collect, use...; not a hand-in), is the
+-- player's place, and its steps before that are the update's, noted as
+-- added (CharState().added) to pass behind the player as an update's new
+-- steps do (Own.passAdded). (#3440: 0.4.1.1 -> 0.4.2, a Horde character
+-- mid-Azshara opened Western Plaguelands, Azshara & Felwood at its first
+-- step, in Western Plaguelands.) -> the guide's added note, or nil with no
+-- place.
+function Own.noteMovedBehind(anchor)
+	if anchor == 0 then
+		local C = Compat()
+		for s, step in ipairs(guide.steps) do
+			if anchor == 0 and stepApplies(step) then
+				for _, goal in ipairs(step.goals) do
+					if goal.t ~= "accept" and goal.t ~= "turnin" and isQuestGoal(goal) and goalApplies(goal) and C.IsOnQuest(goal.quest) then
+						anchor = s
+						break
+					end
+				end
+			end
+		end
+	end
+	if anchor <= 1 then return nil end
+	local s = ns.CharState()
+	if type(s.added) ~= "table" then s.added = {} end
+	local mine = s.added[guide.id] or {}
+	local keys = Own.stepKeys(guide)
+	for j = 1, anchor - 1 do
+		if not guide.steps[j].feeder then
+			mine[keys[j]] = true
+			local bk = Own.baseKey(guide, j)
+			if bk then mine[bk] = true end
+		end
+	end
+	-- Its feeder steps before the place count as added too (Own.feederAdded).
+	if type(mine.savedKeys) ~= "table" then mine.savedKeys = {} end
+	s.added[guide.id] = mine
+	return mine
 end
 
 -- The saved tabs came back before the quest log could be read: once it is,
@@ -17618,9 +18210,10 @@ end
 -- Reopen the saved tabs (registered and shown guides only, no duplicates, at
 -- most MAX_TABS); a guide that was absent returns to its old place, and the
 -- tabs of guides still absent stay saved. With none open, one tab with
--- Guides.Suggest(). A fresh start at the bottom of a level bracket whose
--- guide is one of a route choice also offers that choice (the suggested
--- route stays loaded meanwhile).
+-- Guides.Suggest(), except at the level cap: a level 60 who closed every
+-- guide chooses for themselves (#3395: Silithus opened after an update). A
+-- fresh start at the bottom of a level bracket whose guide is one of a route
+-- choice also offers that choice (the suggested route stays loaded meanwhile).
 ns.OnLogin(function()
 	fpTable()
 	refreshPlayer()
@@ -17672,7 +18265,7 @@ ns.OnLogin(function()
 	local activeId = s.tabs and list[tonumber(s.activeTab) or 0] or s.guide
 	if type(activeId) == "string" and not Guides.Get(activeId) then activeId = Guides.Successor(activeId) or activeId end
 	local offerFrom
-	if #ids == 0 and ns.Get("behavior.autoSelectGuide") then
+	if #ids == 0 and ns.Get("behavior.autoSelectGuide") and (player.level or 1) < ns.Levels.MAX_LEVEL then
 		local suggested = Engine.StartingGuide()
 		add(suggested)
 		if suggested then Own.opened[suggested] = true end -- opened for the player

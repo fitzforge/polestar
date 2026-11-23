@@ -23,61 +23,59 @@ return {
 	-- {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Cleansed Water goes to the {area:2479} in {zone:1448}: keep it for later."] = "A Água Purificada vai para o {area:2479} em {zone:1448}: guarde-a para depois.",
 
-	-- Step 4: Dokimi's crates
-	-- {npc:256386} Dokimi
-	["{npc:256386}'s crates"] = "As caixas de {npc:256386}",
-	-- {npc:256386} Dokimi · {zone:1454} Orgrimmar
-	-- was: ["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "Siga a cavalo pela estrada ao norte até a Encruzilhada; {npc:256386} fica lá. Abra cada caixa que ela entregar e traga de volta o que estiver dentro. Siga voando para {area:1237} a partir da Encruzilhada."
-	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {zone:1454} from the Crossroads."] = "",
-
-	-- Step 5: Fly to Orgrimmar
+	-- Step 4: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Voe para {area:1637}",
-	["Crossroads flight master"] = "Mestre de voo da Encruzilhada",
+	-- {area:392} Ratchet
+	["{area:392} flight master"] = "Mestre de voo de {area:392}",
 
-	-- Step 6: Jes'rimon
+	-- Step 5: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow (no name in this language: may be words)
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 
-	-- Step 7: Orgrimmar
+	-- Step 6: Orgrimmar
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom (no name in this language: may be words) · {zone:1451} Silithus
 	["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{npc:15188}, {object:172957}: guarde-a para {zone:1451}",
 
-	-- Step 8: Zilzibin Drumlore
+	-- Step 7: Zilzibin Drumlore
 	-- {npc:7010} Zilzibin Drumlore
 	["{npc:7010} works in the Drag."] = "{npc:7010} trabalha no Arrasto.",
 
-	-- Step 9: Zilzibin Drumlore
+	-- Step 8: Zilzibin Drumlore
 	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1451} Silithus · {zone:2482} Mount Hyjal
 	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "",
 
-	-- Step 10: Vehena
+	-- Step 9: Vehena
 	-- {object:172961} Valley of Spirits (no name in this language: may be words)
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "Em {object:172961}. Cada doação leva sessenta unidades de Lã, Seda ou Magitrama da sua bolsa: entregue o que tiver, ignore o resto.",
 
-	-- Step 11: Rashona Straglash
+	-- Step 10: Rashona Straglash
 	-- {object:172958} Valley of Honor (no name in this language: may be words)
 	-- was: ["In the {object:172958}."] = "No {object:172958}."
 	["In the {object:172958}."] = "",
 	-- {item:14047} Runecloth
 	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "As duas doações de {item:14047} são entregues mais adiante na rota: guarde sessenta {item:14047} para cada uma, se quiser fazê-las.",
 
-	-- Step 12: Paladin trainer
+	-- Step 11: Paladin trainer
 	["Paladin trainer"] = "Instrutor de paladino",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} em {zone:1456}; {zone:1454} não tem instrutor de paladino",
 
-	-- Step 13: Orgrimmar
+	-- Step 12: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Fly to {zone:1454} and train."] = "Voe para {zone:1454} e treine.",
 
-	-- Step 14: Into Durotar
+	-- Step 13: Into Durotar
 	-- {zone:1411} Durotar
 	["Into {zone:1411}"] = "Rumo a {zone:1411}",
 
-	-- Step 15: Zeppelin to Undercity
+	-- Step 14: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "Zepelim para {zone:1458}",
+
+	-- Step 15: Chemist Cuely
+	-- {npc:8390} Chemist Cuely
+	["{npc:8390} works in the Apothecarium."] = "",
 
 	-- Step 16: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
@@ -125,6 +123,7 @@ return {
 	-- ["Back north-west to {npc:8420}."] = "Volte para noroeste até {npc:8420}.",
 	-- ["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "Volte ao Tomo Sin'dorei: entregue os selos e use-o para invocar {npc:8578}.\nCuidado: qual cristal está ligado a Rimtori é aleatório. Cada um dos outros dois invoca um infernal hostil.",
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "As duas doações de {item:14047} são entregues mais adiante na rota: comece a guardar {item:14047}.",
+	-- ["Crossroads flight master"] = "Mestre de voo da Encruzilhada",
 	-- ["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "Cada um dos três oficiais do acampamento (53) carrega um selo: {npc:247006} no centro do acampamento, {npc:247013} no extremo leste e {npc:246991}, que patrulha a metade oeste: enfrente-o no lado leste da patrulha, onde a Seta aponta.\nCuidado: o {npc:250023}, elite de nível 55-57, fica na borda oeste do acampamento, perto do fim da patrulha de Hawkhelm: espere Hawkhelm voltar para o leste.",
 	-- ["Fly to the {area:380}"] = "Voe para {area:380}",
 	-- ["Fly to {area:1237}"] = "Voe para {area:1237}",
@@ -167,6 +166,7 @@ return {
 	-- ["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "{npc:235903}: {quest:86746}, os sátiros ao norte do acampamento dos elfos sangrentos",
 	-- ["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "{npc:247473}: {quest:91569}, uma varinha dos arcanistas elfos sangrentos",
 	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386} fica na {area:380}. Abra cada caixa que ela lhe entregar e traga de volta o que houver dentro.",
+	-- ["{npc:256386}'s crates"] = "As caixas de {npc:256386}",
 	-- ["{npc:3326}, the {object:172960}"] = "{npc:3326}, {object:172960}",
 	-- ["{npc:4485}, {object:172958}: carried from the first {zone:1447} visit, else take it here for {npc:8576} in {area:1237}"] = "{npc:4485}, {object:172958}: trazida da primeira visita a {zone:1447}; senão, pegue-a aqui para {npc:8576} em {area:1237}",
 	-- ["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "{npc:8576}: {quest:91531}, para {npc:4485} em {zone:1454}",

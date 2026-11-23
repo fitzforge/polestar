@@ -161,6 +161,7 @@ step Gadgetzan
   turnin 113                            -- Senior Surveyor Fizzledowser
   accept 32                             -- for Zilzibin Drumlore in Orgrimmar, around level 50
   accept 2741                           -- The Egg-O-Matic machine, in the middle of town: the egg is in southern Feralas, around level 50
+  collect 4306 x15 npc 8661 optional    -- Silk Cloth: Auctioneer Beardo, for Caught! at the Grimesilt Dig Site in the Searing Gorge
 
 step Orgrimmar
   only Hunter,Shaman
@@ -193,7 +194,7 @@ step Fly to Kargath
 
 step The Grimesilt Dig Site
   zone Searing Gorge
-  tip From Powderfuse Port, ride into the Searing Gorge by its eastern pass, then west to the dig site. The Wooden Outhouse stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 Silk Cloth (the Auction House sells it).
+  tip From Powderfuse Port, ride into the Searing Gorge by its eastern pass, then west to the dig site. The Wooden Outhouse stands at its southern end; the Dark Iron Geologists dig just north of it. Bring the 15 Silk Cloth from Gadgetzan's Auction House: the Geologists drop it only now and then.
   accept 4449 object 173265             -- the Wooden Outhouse
   kill 5839 quest 4449.1
   collect 4306 quest 4449.2

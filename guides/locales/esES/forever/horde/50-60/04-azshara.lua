@@ -23,60 +23,58 @@ return {
 	-- {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Cleansed Water goes to the {area:2479} in {zone:1448}: keep it for later."] = "El agua purificada se entrega en {area:2479}, en {zone:1448}: guárdala para más adelante.",
 
-	-- Step 4: Dokimi's crates
-	-- {npc:256386} Dokimi
-	["{npc:256386}'s crates"] = "Las cajas de {npc:256386}",
-	-- {npc:256386} Dokimi · {zone:1454} Orgrimmar
-	-- was: ["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "Cabalga al norte por el camino hasta el Cruce; {npc:256386} está allí. Abre cada caja que te dé y llévale lo que haya dentro. Desde el Cruce, sigue volando a {area:1237}."
-	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {zone:1454} from the Crossroads."] = "",
-
-	-- Step 5: Fly to Orgrimmar
+	-- Step 4: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Vuela a {area:1637}",
-	["Crossroads flight master"] = "Maestro de vuelo del Cruce",
+	-- {area:392} Ratchet
+	["{area:392} flight master"] = "",
 
-	-- Step 6: Jes'rimon
+	-- Step 5: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 
-	-- Step 7: Orgrimmar
+	-- Step 6: Orgrimmar
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom · {zone:1451} Silithus
 	["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{npc:15188}, {object:172957}: guárdala para {zone:1451}",
 
-	-- Step 8: Zilzibin Drumlore
+	-- Step 7: Zilzibin Drumlore
 	-- {npc:7010} Zilzibin Drumlore
 	["{npc:7010} works in the Drag."] = "{npc:7010} trabaja en La Calle Mayor.",
 
-	-- Step 9: Zilzibin Drumlore
+	-- Step 8: Zilzibin Drumlore
 	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1451} Silithus · {zone:2482} Mount Hyjal
 	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "",
 
-	-- Step 10: Vehena
+	-- Step 9: Vehena
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
-	-- Step 11: Rashona Straglash
+	-- Step 10: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "En {object:172958}.",
 	-- {item:14047} Runecloth
 	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
 
-	-- Step 12: Paladin trainer
+	-- Step 11: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
-	-- Step 13: Orgrimmar
+	-- Step 12: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Fly to {zone:1454} and train."] = "",
 
-	-- Step 14: Into Durotar
+	-- Step 13: Into Durotar
 	-- {zone:1411} Durotar
 	["Into {zone:1411}"] = "",
 
-	-- Step 15: Zeppelin to Undercity
+	-- Step 14: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "Zepelín a {zone:1458}",
+
+	-- Step 15: Chemist Cuely
+	-- {npc:8390} Chemist Cuely
+	["{npc:8390} works in the Apothecarium."] = "",
 
 	-- Step 16: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
@@ -124,6 +122,7 @@ return {
 	-- ["Back north-west to {npc:8420}."] = "Vuelve al noroeste con {npc:8420}.",
 	-- ["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "Vuelve al Tomo sin'dorei: entrega los sellos y úsalo para invocar a {npc:8578}.\nCuidado: el cristal vinculado a Rimtori es aleatorio. Cada uno de los otros dos invoca un infernal hostil.",
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "Las dos donaciones de {item:14047} se entregan más adelante en la ruta: empieza a guardar {item:14047}.",
+	-- ["Crossroads flight master"] = "Maestro de vuelo del Cruce",
 	-- ["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "Cada uno de los tres oficiales del campamento (53) lleva un sello: {npc:247006} en el centro del campamento, {npc:247013} en su extremo este y {npc:246991}, que patrulla su mitad oeste: enfréntate a él en el lado este de su recorrido, donde apunta la Flecha.\nCuidado: el {npc:250023}, élite de nivel 55-57, está en el borde oeste del campamento, cerca del extremo del recorrido de Hawkhelm: espera a que Hawkhelm vuelva al este.",
 	-- ["Fly to the {area:380}"] = "Vuela a {area:380}",
 	-- ["Fly to {area:1237}"] = "Vuela a {area:1237}",
@@ -160,6 +159,7 @@ return {
 	-- ["{npc:11044}, in the {object:36072}"] = "{npc:11044}, en {object:36072}",
 	-- ["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "{npc:235903}: {quest:86746}, los sátiros al norte del campamento de los elfos de sangre",
 	-- ["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "{npc:247473}: {quest:91569}, una varita de los arcanistas elfos de sangre",
+	-- ["{npc:256386}'s crates"] = "Las cajas de {npc:256386}",
 	-- ["{npc:3326}, the {object:172960}"] = "{npc:3326}, {object:172960}",
 	-- ["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "{npc:8576}: {quest:91531}, para {npc:4485} en {zone:1454}",
 	-- ["{npc:8578}'s camp"] = "Campamento de {npc:8578}",

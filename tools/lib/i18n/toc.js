@@ -50,20 +50,6 @@ const TEXT = {
 			zhTW: 'Polestar 的一部分：物品、坐騎、寵物、NPC、任務及其取得方式、地城與稀有怪物，供查詢、地城與稀有頁面使用。按需載入。',
 		},
 	},
-	Polestar_Experimental: {
-		title: { deDE: 'Polestar: experimentelle Guides', esES: 'Polestar: guías experimentales', esMX: 'Polestar: guías experimentales', frFR: 'Polestar : guides expérimentaux', koKR: 'Polestar 실험 가이드', ptBR: 'Polestar: guias experimentais', ruRU: 'Polestar: экспериментальные гайды', zhCN: 'Polestar 实验指南', zhTW: 'Polestar 實驗指南' },
-		notes: {
-			deDE: 'Teil von Polestar: experimentelle Guides für die neuen Zonen von Forever (Alpha), gelistet mit den Guides von Polestar.',
-			esES: 'Parte de Polestar: guías experimentales para las nuevas zonas de Forever (alfa), junto a las guías de Polestar.',
-			esMX: 'Parte de Polestar: guías experimentales para las nuevas zonas de Forever (alfa), junto a las guías de Polestar.',
-			frFR: 'Fait partie de Polestar : guides expérimentaux pour les nouvelles zones de Forever (alpha), aux côtés des guides de Polestar.',
-			koKR: 'Polestar의 일부: Forever 신규 지역용 실험 가이드(알파). Polestar 가이드와 함께 표시됩니다.',
-			ptBR: 'Parte do Polestar: guias experimentais para as novas zonas do Forever (alfa), junto aos guias do Polestar.',
-			ruRU: 'Часть Polestar: экспериментальные гайды для новых зон Forever (альфа), рядом с гайдами Polestar.',
-			zhCN: 'Polestar 的组成部分：Forever 新区域的实验性指南（Alpha 版），与 Polestar 的指南一同列出。',
-			zhTW: 'Polestar 的一部分：Forever 新區域的實驗性指南（Alpha 版），與 Polestar 的指南一同列出。',
-		},
-	},
 	Polestar_Guides: {
 		title: { deDE: 'Polestar Guides', esES: 'Polestar: guías', esMX: 'Polestar: guías', frFR: 'Polestar : guides', koKR: 'Polestar 가이드', ptBR: 'Polestar: guias', ruRU: 'Polestar: гайды', zhCN: 'Polestar 指南', zhTW: 'Polestar 指南' },
 		notes: {
@@ -81,29 +67,29 @@ const TEXT = {
 	Polestar_Guides_Alliance: {
 		title: { deDE: 'Polestar Guides (Allianz)', esES: 'Polestar: guías (Alianza)', esMX: 'Polestar: guías (Alianza)', frFR: 'Polestar : guides (Alliance)', koKR: 'Polestar 가이드 (얼라이언스)', ptBR: 'Polestar: guias (Aliança)', ruRU: 'Polestar: гайды (Альянс)', zhCN: 'Polestar 指南（联盟）', zhTW: 'Polestar 指南（聯盟）' },
 		notes: {
-			deDE: 'Guides von Polestar für Charaktere der Allianz. Wird bei Bedarf geladen.',
-			esES: 'Guías de Polestar para personajes de la Alianza. Se carga bajo demanda.',
-			esMX: 'Guías de Polestar para personajes de la Alianza. Se carga bajo demanda.',
-			frFR: 'Guides de Polestar pour les personnages de l\'Alliance. Chargé à la demande.',
-			koKR: '얼라이언스 캐릭터를 위한 Polestar 가이드. 필요할 때 불러옵니다.',
-			ptBR: 'Guias do Polestar para personagens da Aliança. Carregado sob demanda.',
-			ruRU: 'Гайды Polestar для персонажей Альянса. Загружается по требованию.',
-			zhCN: 'Polestar 的联盟角色指南。按需加载。',
-			zhTW: 'Polestar 的聯盟角色指南。按需載入。',
+			deDE: 'Guides von Polestar für Charaktere der Allianz, mit den Laufwegen jedes Volkes. Wird bei Bedarf geladen.',
+			esES: 'Guías de Polestar para personajes de la Alianza, con los recorridos de cada raza. Se carga bajo demanda.',
+			esMX: 'Guías de Polestar para personajes de la Alianza, con los recorridos de cada raza. Se carga bajo demanda.',
+			frFR: 'Guides de Polestar pour les personnages de l\'Alliance, avec les trajets de chaque race. Chargé à la demande.',
+			koKR: '얼라이언스 캐릭터를 위한 Polestar 가이드와 종족별 도보 경로. 필요할 때 불러옵니다.',
+			ptBR: 'Guias do Polestar para personagens da Aliança, com os trajetos de cada raça. Carregado sob demanda.',
+			ruRU: 'Гайды Polestar для персонажей Альянса с пешими маршрутами каждой расы. Загружается по требованию.',
+			zhCN: 'Polestar 的联盟角色指南，含各种族的步行路线。按需加载。',
+			zhTW: 'Polestar 的聯盟角色指南，含各種族的步行路線。按需載入。',
 		},
 	},
 	Polestar_Guides_Horde: {
 		title: { deDE: 'Polestar Guides (Horde)', esES: 'Polestar: guías (Horda)', esMX: 'Polestar: guías (Horda)', frFR: 'Polestar : guides (Horde)', koKR: 'Polestar 가이드 (호드)', ptBR: 'Polestar: guias (Horda)', ruRU: 'Polestar: гайды (Орда)', zhCN: 'Polestar 指南（部落）', zhTW: 'Polestar 指南（部落）' },
 		notes: {
-			deDE: 'Guides von Polestar für Charaktere der Horde. Wird bei Bedarf geladen.',
-			esES: 'Guías de Polestar para personajes de la Horda. Se carga bajo demanda.',
-			esMX: 'Guías de Polestar para personajes de la Horda. Se carga bajo demanda.',
-			frFR: 'Guides de Polestar pour les personnages de la Horde. Chargé à la demande.',
-			koKR: '호드 캐릭터를 위한 Polestar 가이드. 필요할 때 불러옵니다.',
-			ptBR: 'Guias do Polestar para personagens da Horda. Carregado sob demanda.',
-			ruRU: 'Гайды Polestar для персонажей Орды. Загружается по требованию.',
-			zhCN: 'Polestar 的部落角色指南。按需加载。',
-			zhTW: 'Polestar 的部落角色指南。按需載入。',
+			deDE: 'Guides von Polestar für Charaktere der Horde, mit den Laufwegen jedes Volkes. Wird bei Bedarf geladen.',
+			esES: 'Guías de Polestar para personajes de la Horda, con los recorridos de cada raza. Se carga bajo demanda.',
+			esMX: 'Guías de Polestar para personajes de la Horda, con los recorridos de cada raza. Se carga bajo demanda.',
+			frFR: 'Guides de Polestar pour les personnages de la Horde, avec les trajets de chaque race. Chargé à la demande.',
+			koKR: '호드 캐릭터를 위한 Polestar 가이드와 종족별 도보 경로. 필요할 때 불러옵니다.',
+			ptBR: 'Guias do Polestar para personagens da Horda, com os trajetos de cada raça. Carregado sob demanda.',
+			ruRU: 'Гайды Polestar для персонажей Орды с пешими маршрутами каждой расы. Загружается по требованию.',
+			zhCN: 'Polestar 的部落角色指南，含各种族的步行路线。按需加载。',
+			zhTW: 'Polestar 的部落角色指南，含各種族的步行路線。按需載入。',
 		},
 	},
 	Polestar_ItemDB: {
@@ -135,17 +121,32 @@ const TEXT = {
 		},
 	},
 	Polestar_Options: {
-		title: { deDE: 'Polestar-Einstellungen', esES: 'Polestar: configuración', esMX: 'Polestar: configuración', frFR: 'Polestar : réglages', koKR: 'Polestar 설정', ptBR: 'Polestar: opções', ruRU: 'Polestar: настройки', zhCN: 'Polestar 设置', zhTW: 'Polestar 設定' },
+		title: { deDE: 'Polestar-Einstellungen', esES: 'Polestar: configuración', esMX: 'Polestar: configuración', frFR: 'Polestar : réglages', koKR: 'Polestar 설정', ptBR: 'Polestar: configurações', ruRU: 'Polestar: настройки', zhCN: 'Polestar 设置', zhTW: 'Polestar 設定' },
 		notes: {
 			deDE: 'Teil von Polestar: das Einstellungsfenster, seine Darstellungsseiten und ihre Vorschauen. Wird geladen, wenn du die Einstellungen öffnest.',
 			esES: 'Parte de Polestar: la ventana de configuración, sus páginas de aspecto y sus vistas previas. Se carga al abrir la configuración.',
 			esMX: 'Parte de Polestar: la ventana de configuración, sus páginas de aspecto y sus vistas previas. Se carga al abrir la configuración.',
 			frFR: 'Fait partie de Polestar : la fenêtre des réglages, ses pages d\'apparence et leurs aperçus. Chargé à l\'ouverture des réglages.',
 			koKR: 'Polestar의 일부: 설정 창과 모양 페이지, 그 미리 보기. 설정을 열 때 불러옵니다.',
-			ptBR: 'Parte do Polestar: a janela de opções, suas páginas de aparência e as prévias delas. Carregado ao abrir as opções.',
+			ptBR: 'Parte do Polestar: a janela de configurações, suas páginas de aparência e as prévias delas. Carregado ao abrir as configurações.',
 			ruRU: 'Часть Polestar: окно настроек, его страницы оформления и их предпросмотр. Загружается при открытии настроек.',
 			zhCN: 'Polestar 的组成部分：设置窗口、外观页面及其预览。打开设置时加载。',
 			zhTW: 'Polestar 的一部分：設定視窗、外觀頁面及其預覽。開啟設定時載入。',
+		},
+	},
+	// Polestar's ten skins and the Atlas layout (one folder since 0.4.3, #3507): loaded with the first one used or listed.
+	Polestar_Skins: {
+		title: { deDE: 'Polestar-Skins', esES: 'Polestar: aspectos', esMX: 'Polestar: aspectos', frFR: 'Polestar : skins', koKR: 'Polestar 스킨', ptBR: 'Polestar: aparências', ruRU: 'Polestar: облики', zhCN: 'Polestar 皮肤', zhTW: 'Polestar 外觀主題' },
+		notes: {
+			deDE: 'Teil von Polestar: seine zehn Skins und das Atlas-Layout. Wird geladen, wenn du einen davon verwendest oder die Einstellungen sie auflisten.',
+			esES: 'Parte de Polestar: sus diez aspectos y el diseño Atlas. Se carga al usar uno de ellos o cuando la configuración los muestra.',
+			esMX: 'Parte de Polestar: sus diez aspectos y el diseño Atlas. Se carga al usar uno de ellos o cuando la configuración los muestra.',
+			frFR: 'Fait partie de Polestar : ses dix skins et la disposition Atlas. Chargé quand vous en utilisez un ou quand les réglages les affichent.',
+			koKR: 'Polestar의 일부: 스킨 열 가지와 Atlas 레이아웃. 그중 하나를 쓰거나 설정에서 목록을 보일 때 불러옵니다.',
+			ptBR: 'Parte do Polestar: suas dez aparências e o layout Atlas. Carregado ao usar uma delas ou quando as configurações as mostram.',
+			ruRU: 'Часть Polestar: его десять обликов и макет Atlas. Загружается, когда выбран один из них или когда настройки показывают их список.',
+			zhCN: 'Polestar 的组成部分：十款皮肤和 Atlas 布局。使用其中之一或在设置中列出它们时加载。',
+			zhTW: 'Polestar 的一部分：十款外觀主題與 Atlas 版面。使用其中之一或在設定中列出它們時載入。',
 		},
 	},
 	Polestar_QuestDB: {
@@ -176,49 +177,19 @@ const TEXT = {
 			zhTW: '在遊戲時記錄任務、路線與世界資料，用於撰寫 Polestar 指南。/psrec',
 		},
 	},
-	// The Skin API's checks for another addon's skin or scheme: loaded with the first one registered.
-	Polestar_SkinAPI: {
-		title: { deDE: 'Polestar: Design-Schnittstelle', esES: 'Polestar: API de temas', esMX: 'Polestar: API de temas', frFR: 'Polestar : API des habillages', koKR: 'Polestar 스킨 API', ptBR: 'Polestar: API de temas', ruRU: 'Polestar: API оформлений', zhCN: 'Polestar 皮肤接口', zhTW: 'Polestar 皮膚介面' },
-		notes: {
-			deDE: 'Teil von Polestar: die Prüfungen, die ein Design aus einem anderen Addon durchläuft. Wird geladen, wenn du eines verwendest.',
-			esES: 'Parte de Polestar: las comprobaciones por las que pasa un tema de otro addon. Se carga cuando usas uno.',
-			esMX: 'Parte de Polestar: las comprobaciones por las que pasa un tema de otro addon. Se carga cuando usas uno.',
-			frFR: "Fait partie de Polestar : les vérifications que passe un habillage venu d'un autre addon. Chargé quand vous en utilisez un.",
-			koKR: 'Polestar의 일부: 다른 애드온의 스킨이 거치는 검사. 스킨을 사용할 때 불러옵니다.',
-			ptBR: 'Parte do Polestar: as verificações pelas quais passa um tema de outro addon. Carregado quando você usa um.',
-			ruRU: 'Часть Polestar: проверки, которые проходит оформление из другого аддона. Загружается, когда вы его используете.',
-			zhCN: 'Polestar 的组成部分：其他插件提供的皮肤需通过的检查。使用皮肤时加载。',
-			zhTW: 'Polestar 的一部分：其他插件提供的皮膚需通過的檢查。使用皮膚時載入。',
-		},
-	},
-	// The game looks (WoW Forever, Blizzard, Classic) and Hearth: loaded the first time one is painted.
-	Polestar_Looks: {
-		title: { deDE: 'Polestar: Designs', esES: 'Polestar: temas', esMX: 'Polestar: temas', frFR: 'Polestar : habillages', koKR: 'Polestar 스킨', ptBR: 'Polestar: temas', ruRU: 'Polestar: оформления', zhCN: 'Polestar 皮肤', zhTW: 'Polestar 皮膚' },
-		notes: {
-			deDE: 'Teil von Polestar: die Designs WoW Forever, Blizzard, Classic und Hearth. Wird geladen, wenn du eines auswählst.',
-			esES: 'Parte de Polestar: los temas WoW Forever, Blizzard, Classic y Hearth. Se carga cuando eliges uno.',
-			esMX: 'Parte de Polestar: los temas WoW Forever, Blizzard, Classic y Hearth. Se carga cuando eliges uno.',
-			frFR: 'Fait partie de Polestar : les habillages WoW Forever, Blizzard, Classic et Hearth. Chargé quand vous en choisissez un.',
-			koKR: 'Polestar의 일부: WoW Forever, Blizzard, Classic, Hearth 스킨. 하나를 고를 때 불러옵니다.',
-			ptBR: 'Parte do Polestar: os temas WoW Forever, Blizzard, Classic e Hearth. Carregado quando você escolhe um.',
-			ruRU: 'Часть Polestar: оформления WoW Forever, Blizzard, Classic и Hearth. Загружается, когда вы выбираете одно из них.',
-			zhCN: 'Polestar 的组成部分：WoW Forever、Blizzard、Classic 和 Hearth 皮肤。选择其中一个时加载。',
-			zhTW: 'Polestar 的一部分：WoW Forever、Blizzard、Classic 和 Hearth 皮膚。選擇其中一個時載入。',
-		},
-	},
-	// Freedoom Arcade by petllama (Maps/Arcade.lua): loaded the first time Play is pressed.
+	// The games to play on a flight (Maps/Arcade.lua): loaded the first time Play is pressed.
 	Polestar_Arcade: {
 		title: { deDE: 'Polestar Arcade', esES: 'Polestar: arcade', esMX: 'Polestar: arcade', frFR: 'Polestar : arcade', koKR: 'Polestar 아케이드', ptBR: 'Polestar: arcade', ruRU: 'Polestar: аркада', zhCN: 'Polestar 街机', zhTW: 'Polestar 街機' },
 		notes: {
-			deDE: 'Teil von Polestar: Freedoom Arcade von petllama, drei Freedoom-Level zum Spielen während eines Flugs. Wird geladen, wenn du auf Spielen klickst.',
-			esES: 'Parte de Polestar: Freedoom Arcade de petllama, tres niveles de Freedoom para jugar durante un vuelo. Se carga cuando pulsas Jugar.',
-			esMX: 'Parte de Polestar: Freedoom Arcade de petllama, tres niveles de Freedoom para jugar durante un vuelo. Se carga cuando pulsas Jugar.',
-			frFR: 'Fait partie de Polestar : Freedoom Arcade de petllama, trois niveaux de Freedoom à jouer pendant un vol. Chargé quand vous cliquez sur Jouer.',
-			koKR: 'Polestar의 일부: petllama의 Freedoom Arcade, 비행 중에 즐기는 Freedoom 세 레벨. 플레이를 누르면 불러옵니다.',
-			ptBR: 'Parte do Polestar: Freedoom Arcade de petllama, três níveis de Freedoom para jogar durante um voo. Carregado quando você clica em Jogar.',
-			ruRU: 'Часть Polestar: Freedoom Arcade от petllama, три уровня Freedoom, чтобы поиграть в полёте. Загружается, когда вы нажимаете «Играть».',
-			zhCN: 'Polestar 的组成部分：petllama 的 Freedoom Arcade，飞行途中可玩的三个 Freedoom 关卡。点击“开始游戏”时加载。',
-			zhTW: 'Polestar 的一部分：petllama 的 Freedoom Arcade，飛行途中可玩的三個 Freedoom 關卡。點擊「開始遊戲」時載入。',
+			deDE: 'Teil von Polestar: Spiele zum Spielen während eines Flugs. Wird geladen, wenn du auf Spielen klickst.',
+			esES: 'Parte de Polestar: juegos para jugar durante un vuelo. Se carga cuando pulsas Jugar.',
+			esMX: 'Parte de Polestar: juegos para jugar durante un vuelo. Se carga cuando pulsas Jugar.',
+			frFR: 'Fait partie de Polestar : des jeux à jouer pendant un vol. Chargé quand vous cliquez sur Jouer.',
+			koKR: 'Polestar의 일부: 비행 중에 즐기는 게임. 플레이를 누르면 불러옵니다.',
+			ptBR: 'Parte do Polestar: jogos para jogar durante um voo. Carregado quando você clica em Jogar.',
+			ruRU: 'Часть Polestar: игры, чтобы поиграть в полёте. Загружается, когда вы нажимаете «Играть».',
+			zhCN: 'Polestar 的组成部分：飞行途中可玩的游戏。点击“开始游戏”时加载。',
+			zhTW: 'Polestar 的一部分：飛行途中可玩的遊戲。點擊「開始遊戲」時載入。',
 		},
 	},
 	// The Skin API's example (docs/SKINS-API.md): in the repository only, never in a release.
@@ -234,133 +205,6 @@ const TEXT = {
 			ruRU: 'Пример оформления для Polestar (Moonlit) для авторов оформлений. Не входит в выпуск Polestar.',
 			zhCN: '供皮肤作者参考的 Polestar 示例皮肤（Moonlit）。不属于 Polestar 的发行版。',
 			zhTW: '供皮膚作者參考的 Polestar 範例皮膚（Moonlit）。不屬於 Polestar 的發行版本。',
-		},
-	},
-	// The skins in the download (docs/skins): each an addon of its own, enabled in the AddOns list.
-	Polestar_Skin_Vellum: {
-		title: { deDE: 'Polestar-Design: Vellum', esES: 'Polestar, tema: Vellum', esMX: 'Polestar, tema: Vellum', frFR: 'Polestar, habillage : Vellum', koKR: 'Polestar 스킨: Vellum', ptBR: 'Polestar, tema: Vellum', ruRU: 'Polestar, оформление: Vellum', zhCN: 'Polestar 皮肤：Vellum', zhTW: 'Polestar 皮膚：Vellum' },
-		notes: {
-			deDE: 'Ein Pergament-Design für Polestar: der Guide als Seite des Questlogs, dunkle Tinte auf Papier.',
-			esES: 'Un tema de pergamino para Polestar: la guía como una página del registro de misiones, tinta oscura sobre papel.',
-			esMX: 'Un tema de pergamino para Polestar: la guía como una página del registro de misiones, tinta oscura sobre papel.',
-			frFR: 'Un habillage parchemin pour Polestar : le guide comme une page du journal de quêtes, encre sombre sur papier.',
-			koKR: 'Polestar의 양피지 스킨: 퀘스트 일지의 한 페이지처럼, 종이 위의 짙은 잉크.',
-			ptBR: 'Um tema de pergaminho para o Polestar: o guia como uma página do registro de missões, tinta escura sobre papel.',
-			ruRU: 'Пергаментное оформление для Polestar: гайд как страница журнала заданий, тёмные чернила на бумаге.',
-			zhCN: 'Polestar 的羊皮纸皮肤：指南如同任务日志的一页，纸上深色墨迹。',
-			zhTW: 'Polestar 的羊皮紙皮膚：指南如同任務日誌的一頁，紙上深色墨跡。',
-		},
-	},
-	Polestar_Skin_Lumen: {
-		title: { deDE: 'Polestar-Design: Lumen', esES: 'Polestar, tema: Lumen', esMX: 'Polestar, tema: Lumen', frFR: 'Polestar, habillage : Lumen', koKR: 'Polestar 스킨: Lumen', ptBR: 'Polestar, tema: Lumen', ruRU: 'Polestar, оформление: Lumen', zhCN: 'Polestar 皮肤：Lumen', zhTW: 'Polestar 皮膚：Lumen' },
-		notes: {
-			deDE: 'Ein Head-up-Design für Polestar: kein Rahmen, Eckmarken und eine cyanfarbene Linie, kompakte Schrift über der Spielwelt.',
-			esES: 'Un tema de visor para Polestar: sin marco, marcas en las esquinas y una línea cian, texto compacto sobre el mundo.',
-			esMX: 'Un tema de visor para Polestar: sin marco, marcas en las esquinas y una línea cian, texto compacto sobre el mundo.',
-			frFR: 'Un habillage tête haute pour Polestar : sans cadre, des repères aux coins et une ligne cyan, un texte compact sur le monde.',
-			koKR: 'Polestar의 HUD 스킨: 테두리 없이 모서리 표시와 청록색 선 하나, 월드 위의 촘촘한 글자.',
-			ptBR: 'Um tema de HUD para o Polestar: sem moldura, marcas nos cantos e uma linha ciano, texto compacto sobre o mundo.',
-			ruRU: 'HUD-оформление для Polestar: без рамки, метки по углам и одна бирюзовая линия, компактный текст поверх мира.',
-			zhCN: 'Polestar 的抬头显示皮肤：无边框，角标和一条青色线，游戏世界上的紧凑文字。',
-			zhTW: 'Polestar 的抬頭顯示皮膚：無邊框，角標與一條青色線，遊戲世界上的緊湊文字。',
-		},
-	},
-	Polestar_Skin_Beacon: {
-		title: { deDE: 'Polestar-Design: Beacon', esES: 'Polestar, tema: Beacon', esMX: 'Polestar, tema: Beacon', frFR: 'Polestar, habillage : Beacon', koKR: 'Polestar 스킨: Beacon', ptBR: 'Polestar, tema: Beacon', ruRU: 'Polestar, оформление: Beacon', zhCN: 'Polestar 皮肤：Beacon', zhTW: 'Polestar 皮膚：Beacon' },
-		notes: {
-			deDE: 'Ein kontrastreiches Design für Polestar: schwarze Flächen, größere weiße Schrift, gelber Akzent, kräftige Ränder, größere Markierungen und Pfeil.',
-			esES: 'Un tema de alto contraste para Polestar: fondos negros, texto blanco más grande, acento amarillo, bordes marcados, marcadores y flecha más grandes.',
-			esMX: 'Un tema de alto contraste para Polestar: fondos negros, texto blanco más grande, acento amarillo, bordes marcados, marcadores y flecha más grandes.',
-			frFR: 'Un habillage à fort contraste pour Polestar : fonds noirs, texte blanc plus grand, accent jaune, bords marqués, repères et flèche plus grands.',
-			koKR: 'Polestar의 고대비 스킨: 검은 바탕, 한 단계 큰 흰 글자, 노란 강조색, 굵은 테두리, 더 큰 표시와 화살표.',
-			ptBR: 'Um tema de alto contraste para o Polestar: fundos pretos, texto branco maior, destaque amarelo, bordas fortes, marcadores e seta maiores.',
-			ruRU: 'Высококонтрастное оформление для Polestar: чёрный фон, более крупный белый текст, жёлтый акцент, чёткие края, крупнее метки и стрелка.',
-			zhCN: 'Polestar 的高对比度皮肤：黑色底面，更大的白色文字，黄色强调色，清晰边框，更大的标记和箭头。',
-			zhTW: 'Polestar 的高對比皮膚：黑色底面，更大的白色文字，黃色強調色，清晰邊框，更大的標記與箭頭。',
-		},
-	},
-	Polestar_Skin_Aurora: {
-		title: { deDE: 'Polestar-Design: Aurora', esES: 'Polestar, tema: Aurora', esMX: 'Polestar, tema: Aurora', frFR: 'Polestar, habillage : Aurora', koKR: 'Polestar 스킨: Aurora', ptBR: 'Polestar, tema: Aurora', ruRU: 'Polestar, оформление: Aurora', zhCN: 'Polestar 皮肤：Aurora', zhTW: 'Polestar 皮膚：Aurora' },
-		notes: {
-			deDE: 'Nordlichter über Polestar: türkises und violettes Licht oben in jedem Fenster, leuchtende Kanten, eine tiefe Nacht.',
-			esES: 'La aurora boreal sobre Polestar: luz turquesa y violeta en lo alto de cada ventana, bordes que brillan, una noche profunda.',
-			esMX: 'La aurora boreal sobre Polestar: luz turquesa y violeta en lo alto de cada ventana, bordes que brillan, una noche profunda.',
-			frFR: 'Les aurores boréales sur Polestar : une lumière turquoise et violette en haut de chaque fenêtre, des bords lumineux, une nuit profonde.',
-			koKR: 'Polestar 위의 오로라: 모든 창 위쪽의 청록빛과 보랏빛, 빛나는 테두리, 깊은 밤.',
-			ptBR: 'A aurora boreal sobre o Polestar: luz turquesa e violeta no alto de cada janela, bordas que brilham, uma noite profunda.',
-			ruRU: 'Северное сияние над Polestar: бирюзовый и фиолетовый свет вверху каждого окна, светящиеся края, глубокая ночь.',
-			zhCN: 'Polestar 上空的极光：每个窗口顶部的青色与紫色光芒，发光的边框，深邃的夜色。',
-			zhTW: 'Polestar 上空的極光：每個視窗頂部的青色與紫色光芒，發光的邊框，深邃的夜色。',
-		},
-	},
-	Polestar_Skin_Hairline: {
-		title: { deDE: 'Polestar-Design: Hairline', esES: 'Polestar, tema: Hairline', esMX: 'Polestar, tema: Hairline', frFR: 'Polestar, habillage : Hairline', koKR: 'Polestar 스킨: Hairline', ptBR: 'Polestar, tema: Hairline', ruRU: 'Polestar, оформление: Hairline', zhCN: 'Polestar 皮肤：Hairline', zhTW: 'Polestar 皮膚：Hairline' },
-		notes: {
-			deDE: 'Der leichteste Strich für Polestar: Rahmen aus einzelnen Haarlinien, umrandete Schaltflächen, leichte schmale Schrift mit Luft, deine Klassenfarbe als Akzent.',
-			esES: 'El trazo más ligero para Polestar: marcos de una sola línea fina, botones solo con contorno, letra condensada ligera con aire alrededor, el color de tu clase como acento.',
-			esMX: 'El trazo más ligero para Polestar: marcos de una sola línea fina, botones solo con contorno, letra condensada ligera con aire alrededor, el color de tu clase como acento.',
-			frFR: "La touche la plus légère pour Polestar : des cadres d'un seul trait fin, des boutons en contour, des caractères condensés légers et aérés, la couleur de votre classe en accent.",
-			koKR: 'Polestar를 위한 가장 가벼운 스킨: 가는 선 하나로 된 테두리, 외곽선 버튼, 여유 있는 가는 좁은 글꼴, 직업 색상의 강조색.',
-			ptBR: 'O traço mais leve para o Polestar: molduras de uma só linha fina, botões só com contorno, letra condensada leve com espaço ao redor, a cor da sua classe como destaque.',
-			ruRU: 'Самое лёгкое оформление для Polestar: рамки из одной тонкой линии, кнопки-контуры, лёгкий узкий шрифт с простором, цвет вашего класса как акцент.',
-			zhCN: 'Polestar 最轻盈的皮肤：单根细线的边框，仅描边的按钮，疏朗的细窄字体，以职业颜色为强调色。',
-			zhTW: 'Polestar 最輕盈的皮膚：單根細線的邊框，僅描邊的按鈕，疏朗的細窄字體，以職業顏色為強調色。',
-		},
-	},
-	Polestar_Skin_Umbra: {
-		title: { deDE: 'Polestar-Design: Umbra', esES: 'Polestar, tema: Umbra', esMX: 'Polestar, tema: Umbra', frFR: 'Polestar, habillage : Umbra', koKR: 'Polestar 스킨: Umbra', ptBR: 'Polestar, tema: Umbra', ruRU: 'Polestar, оформление: Umbra', zhCN: 'Polestar 皮肤：Umbra', zhTW: 'Polestar 皮膚：Umbra' },
-		notes: {
-			deDE: 'Ein dunkler Modus für Polestar: anthrazitfarbene Fenster in einer weichen Vignette, ein stählernes Leuchten an den Kanten, ein tiefer Schatten; auf Polestars Rahmen oder auf der abgedunkelten Grafik des Spiels.',
-			esES: 'Un modo oscuro para Polestar: ventanas color carbón hundidas en una viñeta suave, un brillo acero en sus bordes, una sombra profunda; sobre los marcos de Polestar o sobre el arte del juego, atenuado.',
-			esMX: 'Un modo oscuro para Polestar: ventanas color carbón hundidas en una viñeta suave, un brillo acero en sus bordes, una sombra profunda; sobre los marcos de Polestar o sobre el arte del juego, atenuado.',
-			frFR: 'Un mode sombre pour Polestar : des fenêtres anthracite dans un vignettage doux, une lueur acier sur leurs bords, une ombre profonde ; sur les cadres de Polestar ou sur les graphismes du jeu, assombris.',
-			koKR: 'Polestar의 다크 모드: 부드러운 비네트에 잠긴 차콜 창, 가장자리의 강철빛, 깊은 그림자. Polestar의 프레임 또는 어둡게 한 게임 자체 그래픽 위에.',
-			ptBR: 'Um modo escuro para o Polestar: janelas cor de carvão numa vinheta suave, um brilho de aço nas bordas, uma sombra profunda; nas molduras do Polestar ou na arte do próprio jogo, escurecida.',
-			ruRU: 'Тёмный режим для Polestar: графитовые окна в мягкой виньетке, стальное свечение по краям, глубокая тень; на рамках Polestar или на затемнённой графике игры.',
-			zhCN: 'Polestar 的深色模式：沉在柔和暗角中的炭灰窗口，边缘钢色微光，深邃阴影；用于 Polestar 的窗框或调暗的游戏自带美术。',
-			zhTW: 'Polestar 的深色模式：沉在柔和暗角中的炭灰視窗，邊緣鋼色微光，深邃陰影；用於 Polestar 的窗框或調暗的遊戲自帶美術。',
-		},
-	},
-	Polestar_Skin_Waymark: {
-		title: { deDE: 'Polestar-Design: Waymark', esES: 'Polestar, tema: Waymark', esMX: 'Polestar, tema: Waymark', frFR: 'Polestar, habillage : Waymark', koKR: 'Polestar 스킨: Waymark', ptBR: 'Polestar, tema: Waymark', ruRU: 'Polestar, оформление: Waymark', zhCN: 'Polestar 皮肤：Waymark', zhTW: 'Polestar 皮膚：Waymark' },
-		notes: {
-			deDE: 'Ein Design für Polestar, das dem Land folgt, in dem du levelst: dunkles Kartenpapier, eine Kompassrose und eine gestrichelte Route, der Ladebildschirm des Kontinents hinter der Kopfzeile, seine Farbe auf dem Akzent und ein Pfeil als Kompassnadel.',
-			esES: 'Un tema para Polestar que sigue la tierra donde subes de nivel: papel de carta oscuro, una rosa de los vientos y una ruta discontinua, la pantalla de carga del continente tras la cabecera, su color en el acento y una flecha de aguja de brújula.',
-			esMX: 'Un tema para Polestar que sigue la tierra donde subes de nivel: papel de carta oscuro, una rosa de los vientos y una ruta discontinua, la pantalla de carga del continente tras la cabecera, su color en el acento y una flecha de aguja de brújula.',
-			frFR: "Un habillage pour Polestar qui suit la terre où vous montez de niveau : un papier de carte sombre, une rose des vents et une route en pointillés, l'écran de chargement du continent derrière l'en-tête, sa couleur en accent et une flèche en aiguille de boussole.",
-			koKR: '레벨업하는 땅을 따라가는 Polestar 스킨: 어두운 지도 종이, 나침반 장미와 점선 경로, 머리글 뒤의 대륙 로딩 화면, 강조색에 그 대륙의 색, 나침반 바늘 화살표.',
-			ptBR: 'Um tema para o Polestar que acompanha a terra onde você sobe de nível: papel de carta escuro, uma rosa dos ventos e uma rota tracejada, a tela de carregamento do continente atrás do cabeçalho, sua cor no destaque e uma seta de agulha de bússola.',
-			ruRU: 'Оформление для Polestar, которое следует за землёй, где вы качаетесь: тёмная бумага карты, роза ветров и пунктирный маршрут, экран загрузки континента за заголовком, его цвет на акценте и стрелка-стрелка компаса.',
-			zhCN: '随你升级所在之地变化的 Polestar 皮肤：深色海图纸，罗盘玫瑰与虚线航线，标题后方是大陆的载入画面，强调色取其颜色，罗盘指针箭头。',
-			zhTW: '隨你升級所在之地變化的 Polestar 皮膚：深色海圖紙，羅盤玫瑰與虛線航線，標題後方是大陸的載入畫面，強調色取其顏色，羅盤指針箭頭。',
-		},
-	},
-	Polestar_Skin_Lanterns: {
-		title: { deDE: 'Polestar-Design: Lanterns', esES: 'Polestar, tema: Lanterns', esMX: 'Polestar, tema: Lanterns', frFR: 'Polestar, habillage : Lanterns', koKR: 'Polestar 스킨: Lanterns', ptBR: 'Polestar, tema: Lanterns', ruRU: 'Polestar, оформление: Lanterns', zhCN: 'Polestar 皮肤：Lanterns', zhTW: 'Polestar 皮膚：Lanterns' },
-		notes: {
-			deDE: 'Zehn Stimmungsfarben für Polestar, je ein Paar: abgerundete Fenster, pillenförmige Reiter und Schaltflächen, getönte Flächen und zwei sanfte Lichter in gegenüberliegenden Ecken.',
-			esES: 'Diez colores de ambiente para Polestar, cada uno un par: ventanas redondeadas, pestañas y botones en forma de píldora, fondos teñidos y dos luces suaves en esquinas opuestas.',
-			esMX: 'Diez colores de ambiente para Polestar, cada uno un par: ventanas redondeadas, pestañas y botones en forma de píldora, fondos teñidos y dos luces suaves en esquinas opuestas.',
-			frFR: 'Dix ambiances colorées pour Polestar, chacune une paire : des fenêtres arrondies, des onglets et boutons en pilule, des fonds teintés et deux lueurs douces aux coins opposés.',
-			koKR: 'Polestar의 분위기 색 열 가지, 각각 한 쌍: 둥근 창, 알약 모양 탭과 버튼, 물든 바탕과 마주 보는 모서리의 부드러운 빛 두 개.',
-			ptBR: 'Dez cores de clima para o Polestar, cada uma um par: janelas arredondadas, abas e botões em pílula, fundos tingidos e duas luzes suaves em cantos opostos.',
-			ruRU: 'Десять цветовых настроений для Polestar, каждое парой: скруглённые окна, вкладки и кнопки-капсулы, подкрашенный фон и два мягких огня в противоположных углах.',
-			zhCN: 'Polestar 的十种氛围配色，每种一对颜色：圆角窗口，胶囊形标签与按钮，染色底面和对角两盏柔光。',
-			zhTW: 'Polestar 的十種氛圍配色，每種一對顏色：圓角視窗，膠囊形標籤與按鈕，染色底面和對角兩盞柔光。',
-		},
-	},
-	Polestar_Skin_Sheen: {
-		title: { deDE: 'Polestar-Design: Sheen', esES: 'Polestar, tema: Sheen', esMX: 'Polestar, tema: Sheen', frFR: 'Polestar, habillage : Sheen', koKR: 'Polestar 스킨: Sheen', ptBR: 'Polestar, tema: Sheen', ruRU: 'Polestar, оформление: Sheen', zhCN: 'Polestar 皮肤：Sheen', zhTW: 'Polestar 皮膚：Sheen' },
-		notes: {
-			deDE: 'Glas und Glanz für Polestar: abgeschrägte, durchscheinende Scheiben, Glanz auf jeder Schaltfläche und jedem Reiter, Licht über dem Glas, deine Klassenfarbe, die in den Akzent übergeht.',
-			esES: 'Cristal y brillo para Polestar: paneles translúcidos biselados, brillo en cada botón y pestaña, luz sobre el cristal, el color de tu clase fundiéndose con el acento.',
-			esMX: 'Cristal y brillo para Polestar: paneles translúcidos biselados, brillo en cada botón y pestaña, luz sobre el cristal, el color de tu clase fundiéndose con el acento.',
-			frFR: "Verre et brillance pour Polestar : des panneaux translucides biseautés, un reflet sur chaque bouton et onglet, de la lumière sur le verre, la couleur de votre classe qui se fond dans l'accent.",
-			koKR: 'Polestar를 위한 유리와 광택: 경사진 반투명 판, 모든 버튼과 탭의 광택, 유리를 가로지르는 빛, 강조색으로 이어지는 직업 색상.',
-			ptBR: 'Vidro e brilho para o Polestar: painéis translúcidos chanfrados, brilho em cada botão e aba, luz sobre o vidro, a cor da sua classe fundindo-se ao destaque.',
-			ruRU: 'Стекло и блеск для Polestar: полупрозрачные панели со скосом, блик на каждой кнопке и вкладке, свет поперёк стекла, цвет вашего класса, переходящий в акцент.',
-			zhCN: 'Polestar 的玻璃与光泽：带斜面的半透明面板，每个按钮和标签上的光泽，横过玻璃的光，职业颜色渐入强调色。',
-			zhTW: 'Polestar 的玻璃與光澤：帶斜面的半透明面板，每個按鈕和標籤上的光澤，橫過玻璃的光，職業顏色漸入強調色。',
 		},
 	},
 };
@@ -427,12 +271,6 @@ const RACE_NAMES = {
 function tocText(addon) {
 	const fixed = TEXT[addon];
 	if (fixed) return Object.fromEntries(LOCALE_CODES.map((l) => [l, { title: fixed.title[l], notes: fixed.notes[l] }]));
-	const region = /^Polestar_Nav_R(0|1|2991)_([0-9]|1[0-5])_([0-9]|1[0-5])$/.exec(addon);
-	if (region) {
-		const text = tocText('Polestar_Nav');
-		for (const l of LOCALE_CODES) text[l].title += ` [${region[1]}:${region[2]},${region[3]}]`;
-		return text;
-	}
 	const race = addon.startsWith(RACE_PART_PREFIX) ? addon.slice(RACE_PART_PREFIX.length) : null;
 	if (race && RACE_NAMES.deDE[race]) {
 		const fill = (s, l) => s.replace('%2', RACE_NAMES[l][race]);

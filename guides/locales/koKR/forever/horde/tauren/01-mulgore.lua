@@ -186,9 +186,9 @@ return {
 	-- Step 36: Mulgore: kill these as you meet them
 	-- {zone:1412} Mulgore
 	["{zone:1412}: kill these as you meet them"] = "",
-	-- {quest:96130} Chakuyak
+	-- {quest:96130} Chakuyak · {npc:3056} Ghost Howl
 	-- plural, as words: Prairie Stalkers = {npc:2959} Prairie Stalker · Flatland Cougars = {npc:3035} Flatland Cougar
-	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it."] = "외로운 늑대 {quest:96130}은(는) 마을 서쪽 평원을 돌아다닙니다. 긴발톱 초원늑대와 평원퓨마는 그 북쪽과 서쪽 평원을 돌아다닙니다.",
+	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it.\nCareful: {npc:3056} (12, a rare white wolf) roams the plains too: leave it be."] = "",
 
 	-- Step 37: Bloodhoof Village
 	-- {npc:277182} Ahab Wheathoof · {item:287505} Tender Strider Meat
@@ -490,4 +490,5 @@ return {
 	-- ["{npc:5888} stands in {area:221}. {quest:1516} needs level 4, which you reach with the turn-ins here."] = "{npc:5888}은(는) {area:221}에 서 있습니다. {quest:1516}에는 4레벨이 필요하며, 여기서 퀘스트를 완료하면 도달합니다.",
 	-- ["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to {npc:2980}."] = "{npc:6775}은(는) 야영지 서쪽 끝, 산지퓨마가 돌아다니는 언덕의 북서쪽 모퉁이에 서 있습니다. 그의 퀘스트를 받고, 거기서부터 남쪽과 동쪽으로 퓨마를 사냥한 뒤 {npc:2980}에게 돌아오세요.",
 	-- ["{quest:96130} and {quest:756}"] = "{quest:96130}와(과) {quest:756}",
+	-- ["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it."] = "외로운 늑대 {quest:96130}은(는) 마을 서쪽 평원을 돌아다닙니다. 긴발톱 초원늑대와 평원퓨마는 그 북쪽과 서쪽 평원을 돌아다닙니다.",
 }

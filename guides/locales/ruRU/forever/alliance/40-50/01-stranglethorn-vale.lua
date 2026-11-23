@@ -204,7 +204,8 @@ return {
 	-- Step 37: Bloodsail pirates: kill these as you meet them
 	["Bloodsail pirates: kill these as you meet them"] = "Пираты Кровавого Паруса: убивайте их по пути",
 	-- {npc:2493} Dizzy One-Eye · {area:43} Wild Shore
-	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "С каждого пирата Кровавого Паруса падает нюхательный табак, а у одного из них – глаз, который нужен NPC {npc:2493}: добывайте их с налетчиков и магов (39-41) в лагере Кровавого Паруса на пляже чуть к северу от города, где вы нашли письмо. Лагерь к югу от города ({area:43}; чернокнижники и головорезы 41-43) оставьте до визита на 48-м уровне.",
+	-- was: ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "С каждого пирата Кровавого Паруса падает нюхательный табак, а у одного из них – глаз, который нужен NPC {npc:2493}: добывайте их с налетчиков и магов (39-41) в лагере Кровавого Паруса на пляже чуть к северу от города, где вы нашли письмо. Лагерь к югу от города ({area:43}; чернокнижники и головорезы 41-43) оставьте до визита на 48-м уровне."
+	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.\nCareful: Rippa (44, a rare crocolisk) swims the shore beside the camp: stay out of the water."] = "",
 
 	-- Step 38: Gorilla hills
 	["Gorilla hills"] = "Холмы горилл",
@@ -262,8 +263,10 @@ return {
 	["{npc:717}, beside the other hunters"] = "",
 
 	-- Step 49: Arbor Tarantula
-	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
+	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	-- {item:213562} Bug Catching Net · {npc:217588} Arbor Tarantula · {item:213566} Arbor Tarantula Specimen
+	["{item:213562}, on an {npc:217588}: the {item:213566}"] = "",
 
 	-- Step 50: Rebel Camp
 	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "Идите на северо-восток мимо лагеря Несингвари и по дороге на север к лагерю в верхней части долины.",
@@ -477,6 +480,7 @@ return {
 	-- ["Bloodsail pirates"] = "Пираты из шайки Кровавого Паруса",
 	-- ["Cold Eye Basilisks"] = "Ледоглазые василиски",
 	-- ["Cortello's scroll"] = "Свиток Кортелло",
+	-- ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "С каждого пирата Кровавого Паруса падает нюхательный табак, а у одного из них – глаз, который нужен NPC {npc:2493}: добывайте их с налетчиков и магов (39-41) в лагере Кровавого Паруса на пляже чуть к северу от города, где вы нашли письмо. Лагерь к югу от города ({area:43}; чернокнижники и головорезы 41-43) оставьте до визита на 48-м уровне.",
 	-- ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye; the Swashbucklers walk the shore just north of town. The charts and orders lie in the pirate camp on the {area:43}, south of {area:35}.\nCareful: the {area:43} camp's Warlocks and Swashbucklers are level 41-43, a level or more above you, and stand close together: pull them singly from the edge."] = "С каждого пирата из шайки Кровавого Паруса падает понюшка, а у одного из них – глаз {npc:2493}; висельники бродят по берегу сразу к северу от города. Карты и приказы лежат в лагере пиратов ({area:43}), к югу от бухты ({area:35}).\nОсторожно: чернокнижники и висельники в лагере ({area:43}) 41-43 уровня, на уровень или больше выше вас, и стоят плотно: выманивайте их по одному с края.",
 	-- ["Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "Смесь может выпасть с любого последователя Занзила; {npc:2537} ходит в южной части лагеря.",
 	-- ["Fly to {area:144}"] = "Летите сюда: {area:144}",

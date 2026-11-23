@@ -195,7 +195,10 @@ step Tooga's escort
 
 step Steamwheedle Port
   turnin 1560                           -- Torta, Steamwheedle Port
-  turnin 3520                           -- Yeh'kinya
+
+step Yeh'kinya
+  when complete 3520
+  turnin 3520                           -- Yeh'kinya, Steamwheedle Port
 
 step Slake That Thirst
   tip Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and Shadow Bolt. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less.
@@ -236,7 +239,7 @@ step OOX-17/TN
   complete 648 optional
 
 step Tanaris Field Sampling
-  tip Back north, just south of Gadgetzan, use the Model 4711-FTZ Power Source now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each.
+  tip Back north, just south of Gadgetzan, use the Model 4711-FTZ Power Source now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon Tanaris Field Sampling if it is in your log, then take Another Power Source? from Chief Engineer Bilgewhizzle: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of Gadgetzan.
   accept 654                            -- Use the Model 4711-FTZ Power Source
   collect 9441 quest 654.2 @50.2,31.6 map 1446
   collect 9440 quest 654.1 @49.4,31.0 map 1446
@@ -251,6 +254,7 @@ step Gadgetzan
   accept 113
   turnin 113                            -- Senior Surveyor Fizzledowser
   accept 32                             -- for Zilzibin Drumlore in Orgrimmar, around level 50
+  collect 4306 x15 npc 8661 optional    -- Silk Cloth: Auctioneer Beardo, for Caught! at the Grimesilt Dig Site in the Searing Gorge
 
 step Boat to Powderfuse Port
   zone Tanaris
@@ -268,7 +272,7 @@ step Searing Gorge
 
 step The Grimesilt Dig Site
   zone Searing Gorge
-  tip From Powderfuse Port, ride into the Searing Gorge by its eastern pass, then west to the dig site. The Wooden Outhouse stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 Silk Cloth (the Auction House sells it).
+  tip From Powderfuse Port, ride into the Searing Gorge by its eastern pass, then west to the dig site. The Wooden Outhouse stands at its southern end; the Dark Iron Geologists dig just north of it. Bring the 15 Silk Cloth from Gadgetzan's Auction House: the Geologists drop it only now and then.
   accept 4449 object 173265             -- the Wooden Outhouse
   kill 5839 quest 4449.1
   collect 4306 quest 4449.2

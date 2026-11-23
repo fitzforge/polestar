@@ -120,9 +120,10 @@ return {
 	-- Step 21: Mirage Raceway: kill these as you meet them
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "{area:2240}：遇到就殺",
-	-- {object:19868} Rocket Car Rubble
+	-- {object:19868} Rocket Car Rubble · {npc:5935} Ironeye the Invincible
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
-	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}散布在整片鹽湖上。恐蠍搶奪者和鹽湖食腐鷲在北半部遊蕩，鹽殼龜（30-31）在鹽湖中部：獵殺牠們取得龜殼。注意：鹽殼鉗嘴龜（34-35）在整片鹽湖遊蕩，鹽石凝視者（34-35）和恐蠍（33-34）佔據最南端：別理牠們，待在北半部。",
+	-- was: ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}散布在整片鹽湖上。恐蠍搶奪者和鹽湖食腐鷲在北半部遊蕩，鹽殼龜（30-31）在鹽湖中部：獵殺牠們取得龜殼。注意：鹽殼鉗嘴龜（34-35）在整片鹽湖遊蕩，鹽石凝視者（34-35）和恐蠍（33-34）佔據最南端：別理牠們，待在北半部。"
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half.\nCareful: {npc:5935} (37, rare) roams the south-east of the flats, around 83-88,71-84: leave it be."] = "",
 	-- {item:5795} Hardened Tortoise Shell
 	-- plural, as words: Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise
 	["{item:5795}, from the Sparkleshell Tortoises"] = "{item:5795}，來自鹽殼龜",
@@ -209,5 +210,6 @@ return {
 	-- ["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "{npc:4456}在城鎮北邊，維姆斯上尉在{area:514}；{npc:4941}站在鎮裡。",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619}率領{area:429}的薩特；樹枝在他身上。",
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}、{npc:4963}和{npc:4962}·賈恩都在米奈希爾的旅店；你和{npc:4963}說話時塔伯克會攻擊你，但被打敗後就會投降。{npc:1480}站在旅店東北方不遠處。",
+	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}散布在整片鹽湖上。恐蠍搶奪者和鹽湖食腐鷲在北半部遊蕩，鹽殼龜（30-31）在鹽湖中部：獵殺牠們取得龜殼。注意：鹽殼鉗嘴龜（34-35）在整片鹽湖遊蕩，鹽石凝視者（34-35）和恐蠍（33-34）佔據最南端：別理牠們，待在北半部。",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}：交給{area:415}的{npc:3961}",
 }

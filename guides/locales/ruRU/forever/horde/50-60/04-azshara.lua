@@ -23,60 +23,58 @@ return {
 	-- {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Cleansed Water goes to the {area:2479} in {zone:1448}: keep it for later."] = "Очищенную воду нужно отнести сюда: {area:2479} ({zone:1448}) – сохраните на потом.",
 
-	-- Step 4: Dokimi's crates
-	-- {npc:256386} Dokimi
-	["{npc:256386}'s crates"] = "Ящики: {npc:256386}",
-	-- {npc:256386} Dokimi · {zone:1454} Orgrimmar
-	-- was: ["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "Езжайте на север по дороге к Перекрестку; там стоит {npc:256386}. Открывайте каждый ящик, который она дает, и приносите ей содержимое. Затем летите с Перекрестка сюда: {area:1237}."
-	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {zone:1454} from the Crossroads."] = "",
-
-	-- Step 5: Fly to Orgrimmar
+	-- Step 4: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
-	["Crossroads flight master"] = "Распорядитель полетов на Перекрестке",
+	-- {area:392} Ratchet
+	["{area:392} flight master"] = "Распорядитель полетов: {area:392}",
 
-	-- Step 6: Jes'rimon
+	-- Step 5: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 
-	-- Step 7: Orgrimmar
+	-- Step 6: Orgrimmar
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom · {zone:1451} Silithus
 	["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{npc:15188}, {object:172957}: сохраните для края {zone:1451}",
 
-	-- Step 8: Zilzibin Drumlore
+	-- Step 7: Zilzibin Drumlore
 	-- {npc:7010} Zilzibin Drumlore
 	["{npc:7010} works in the Drag."] = "{npc:7010} работает в Волоке.",
 
-	-- Step 9: Zilzibin Drumlore
+	-- Step 8: Zilzibin Drumlore
 	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1451} Silithus · {zone:2482} Mount Hyjal
 	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "",
 
-	-- Step 10: Vehena
+	-- Step 9: Vehena
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
-	-- Step 11: Rashona Straglash
+	-- Step 10: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "Ориентир: {object:172958}.",
 	-- {item:14047} Runecloth
 	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
 
-	-- Step 12: Paladin trainer
+	-- Step 11: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} – здесь: {zone:1456}; в городе {zone:1454} нет учителя паладинов",
 
-	-- Step 13: Orgrimmar
+	-- Step 12: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Fly to {zone:1454} and train."] = "",
 
-	-- Step 14: Into Durotar
+	-- Step 13: Into Durotar
 	-- {zone:1411} Durotar
 	["Into {zone:1411}"] = "В зону {zone:1411}",
 
-	-- Step 15: Zeppelin to Undercity
+	-- Step 14: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "Дирижабль: {zone:1458}",
+
+	-- Step 15: Chemist Cuely
+	-- {npc:8390} Chemist Cuely
+	["{npc:8390} works in the Apothecarium."] = "",
 
 	-- Step 16: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
@@ -124,6 +122,7 @@ return {
 	-- ["Back north-west to {npc:8420}."] = "Возвращайтесь на северо-запад к NPC {npc:8420}.",
 	-- ["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "Вернитесь к фолианту син'дорай: вложите печати, затем используйте его, чтобы призвать NPC {npc:8578}.\nОсторожно: какой кристалл связан с Римтори – случайно. Каждый из двух других вместо этого призывает враждебного инфернала.",
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "Оба пожертвования ({item:14047}) сдаются позже по маршруту: начните копить {item:14047}.",
+	-- ["Crossroads flight master"] = "Распорядитель полетов на Перекрестке",
 	-- ["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "У каждого из трех офицеров лагеря (53) есть печать: {npc:247006} – в центре лагеря, {npc:247013} – в его восточном конце, а {npc:246991} ходит по западной половине: атакуйте его в восточной части маршрута, куда указывает стрелка.\nОсторожно: {npc:250023}, элита 55-57 уровня, стоит у западного края лагеря, рядом с дальним концом маршрута Ястребиного Шлема: дождитесь, пока он вернется на восток.",
 	-- ["Fly to the {area:380}"] = "Летите сюда: {area:380}",
 	-- ["Fly to {area:1237}"] = "Летите сюда: {area:1237}",
@@ -162,6 +161,7 @@ return {
 	-- ["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "{npc:235903}: {quest:86746}, сатиры к северу от лагеря эльфов крови",
 	-- ["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "{npc:247473}: {quest:91569}, жезл с чародеев эльфов крови",
 	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386} стоит здесь: {area:380}. Открывайте каждый ящик, который она дает, и приносите ей содержимое.",
+	-- ["{npc:256386}'s crates"] = "Ящики: {npc:256386}",
 	-- ["{npc:3326}, the {object:172960}"] = "{npc:3326}, {object:172960}",
 	-- ["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "{npc:8576}: {quest:91531}, для NPC {npc:4485} ({zone:1454})",
 	-- ["{npc:8578}'s camp"] = "Лагерь: {npc:8578}",

@@ -173,7 +173,9 @@ return {
 
 	-- Step 40: Fuzzle
 	-- {area:16723} Sunnyglade · {npc:259158} Fuzzle
-	["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "Westlich von Rog'mar hält der Schattenhammerkult das Bauerndorf {area:16723}. {npc:259158}, ein Kobold, der aussteigen will, versteckt sich mitten im Dorf.",
+	["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, waits in a cage at the arrow."] = "",
+	-- {quest:94961} Biting the Hand · {npc:259158} Fuzzle
+	["{quest:94961}, {npc:259158} in his cage"] = "",
 
 	-- Step 41: Sunnyglade
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade
@@ -260,7 +262,7 @@ return {
 
 	-- Step 58: Jom-jom's Escape
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
-	["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048} wartet beim Lager der Schattenhammeroger nordöstlich von {npc:256728}: Bring ihn nach Hause nach {area:16726} und halte die Kultisten von ihm fern. Stirbt er, nimm die Quest erneut bei ihm an.",
+	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "",
 	-- {npc:258048} Jom-jom
 	["{npc:258048}, in the cave"] = "",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
@@ -380,7 +382,8 @@ return {
 	-- Step 81: The pirates' ships
 	["The pirates' ships"] = "Die Schiffe der Piraten",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
-	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "Noch einmal hinaus zu den Klippen der Piraten. Platziere Whizzbuzz' Sprengladungen auf den drei Schiffen, die unterhalb des Lagers vor Anker liegen, von Süden nach Norden; {quest:95124} steht beim mittleren, ihre Beutetruhe neben ihr. Halte unterwegs Ausschau nach {npc:259758}.\nVorsicht: {quest:95124} ist Stufe 45, hier ein oder zwei Stufen über dir: Räum zuerst das Deck um sie herum und geh mit voller Gesundheit rein.",
+	-- was: ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "Noch einmal hinaus zu den Klippen der Piraten. Platziere Whizzbuzz' Sprengladungen auf den drei Schiffen, die unterhalb des Lagers vor Anker liegen, von Süden nach Norden; {quest:95124} steht beim mittleren, ihre Beutetruhe neben ihr. Halte unterwegs Ausschau nach {npc:259758}.\nVorsicht: {quest:95124} ist Stufe 45, hier ein oder zwei Stufen über dir: Räum zuerst das Deck um sie herum und geh mit voller Gesundheit rein."
+	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "",
 	-- {item:268505} Remote Explosive Charge
 	["{item:268505}, the southern ship"] = "{item:268505}, das südliche Schiff",
 	["the middle ship"] = "das mittlere Schiff",
@@ -405,7 +408,9 @@ return {
 
 	-- Step 85: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} streift durch das seichte Wasser südwestlich des Hafens, unterhalb der Strände der Murlocs. {npc:257001}, ein Elite, läuft ganz in der Nähe am Ufer entlang: Halte Abstand zu ihm.",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "",
+	-- {item:268633} Sea Monster's Head
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "",
 
 	-- Step 87: The river: Riverweed
 	-- {item:265806} Riverweed
@@ -452,9 +457,10 @@ return {
 
 	-- Step 97: The Twilight camps
 	["The Twilight camps"] = "Die Lager des Schattenhammers",
-	-- {npc:258570} Da'grosh · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg · {npc:258023} Sergeant Riftan
-	-- plural, as words: Rog'mar Scouts = {npc:257450} Rog'mar Scout · Twilight Enforcers = {npc:256800} Twilight Enforcer · Farholde Lookouts = {npc:258686} Farholde Lookout
-	["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "Die Lager des Kults füllen das Tal südlich und westlich von {npc:258570}. Befreie die gefangenen Späher der Rog'mar, sobald du sie findest. Twilight-Vollstrecker (Elite, Stufe 45) patrouillieren durch die Lager: Achte vor jedem Pull darauf, wo sie langlaufen. {npc:256881} und {npc:256891} (Elite, 46) halten die Festung am Kopf des Tals: Zieh die Kultisten von ihnen weg. Das Lager der Allianz von {npc:258023} liegt am Südende des Tals, und seine Aufklärer von Farholde (Stufe 46) greifen die Horde an: Bleib nördlich davon.",
+	-- {npc:258570} Da'grosh · {item:265821} Twilight Key · {npc:257450} Rog'mar Scout · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg · {npc:258023} Sergeant Riftan
+	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer · Farholde Lookouts = {npc:258686} Farholde Lookout
+	-- was: ["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "Die Lager des Kults füllen das Tal südlich und westlich von {npc:258570}. Befreie die gefangenen Späher der Rog'mar, sobald du sie findest. Twilight-Vollstrecker (Elite, Stufe 45) patrouillieren durch die Lager: Achte vor jedem Pull darauf, wo sie langlaufen. {npc:256881} und {npc:256891} (Elite, 46) halten die Festung am Kopf des Tals: Zieh die Kultisten von ihnen weg. Das Lager der Allianz von {npc:258023} liegt am Südende des Tals, und seine Aufklärer von Farholde (Stufe 46) greifen die Horde an: Bleib nördlich davon."
+	["The cult's camps fill the valley south and west of {npc:258570}. Twilight Champions drop the {item:265821} that frees a captive {npc:257450}: free them as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "",
 	-- plural, as words: Rog'mar Scouts = {npc:257450} Rog'mar Scout
 	["free five captive Rog'mar Scouts"] = "Befreie fünf gefangene Späher der Rog'mar",
 
@@ -480,10 +486,15 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:16743} from the port, where your Hearthstone is set. {npc:256418} in the middle of the fort: {npc:255829}'s word sends him looking for {npc:258570}, his warrior in the west."] = "Vom Hafen zurück nach {area:16743}, wo dein Ruhestein gesetzt ist. {npc:256418} in der Mitte der Festung: {npc:255829}s Wort schickt ihn auf die Suche nach {npc:258570}, seinem Krieger im Westen.",
 	-- ["Careful: {npc:256899}, the two-headed ogre at the western edge of {area:16723}, is an elite (level 41): grouping up is advised under 43. Clear the cultists around him first and come in with full health and mana: recorded players of 42-43 killed him alone. {npc:255829}'s quests in {area:16726} wait on this one: skip him and {quest:95420}, the {area:16726} quests and {npc:258570}'s camp in the west go with him (about 21,000 XP); the guide then leaves them out."] = "Vorsicht: {npc:256899}, der zweiköpfige Oger am Westrand von {area:16723}, ist ein Elite (Stufe 41): Unter 43 wird eine Gruppe empfohlen. Räum zuerst die Kultisten um ihn herum weg und geh mit voller Gesundheit und vollem Mana rein: Erfasste Spieler der Stufe 42-43 haben ihn allein getötet. {npc:255829}s Quests in {area:16726} hängen davon ab: Überspringst du ihn, fallen auch {quest:95420}, die Quests in {area:16726} und {npc:258570}s Lager im Westen weg (etwa 21.000 EP); der Guide lässt sie dann aus.",
+	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "Noch einmal hinaus zu den Klippen der Piraten. Platziere Whizzbuzz' Sprengladungen auf den drei Schiffen, die unterhalb des Lagers vor Anker liegen, von Süden nach Norden; {quest:95124} steht beim mittleren, ihre Beutetruhe neben ihr. Halte unterwegs Ausschau nach {npc:259758}.\nVorsicht: {quest:95124} ist Stufe 45, hier ein oder zwei Stufen über dir: Räum zuerst das Deck um sie herum und geh mit voller Gesundheit rein.",
+	-- ["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "Die Lager des Kults füllen das Tal südlich und westlich von {npc:258570}. Befreie die gefangenen Späher der Rog'mar, sobald du sie findest. Twilight-Vollstrecker (Elite, Stufe 45) patrouillieren durch die Lager: Achte vor jedem Pull darauf, wo sie langlaufen. {npc:256881} und {npc:256891} (Elite, 46) halten die Festung am Kopf des Tals: Zieh die Kultisten von ihnen weg. Das Lager der Allianz von {npc:258023} liegt am Südende des Tals, und seine Aufklärer von Farholde (Stufe 46) greifen die Horde an: Bleib nördlich davon.",
 	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "Der nächste Guide fliegt ab {area:340} im {area:3}: nach Norden aus dem Tal von {npc:258570} und hinauf durch {area:16685}, den Weg ins {area:3}.",
+	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} streift durch das seichte Wasser südwestlich des Hafens, unterhalb der Strände der Murlocs. {npc:257001}, ein Elite, läuft ganz in der Nähe am Ufer entlang: Halte Abstand zu ihm.",
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Schnüffelschnauze und {npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548} liegt südlich von {area:3}. Reite von {area:657} nach Osten nach {area:75} und flieg nach {area:340}: Dort beginnt der Weg hinab ins Gebiet.",
+	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "Westlich von Rog'mar hält der Schattenhammerkult das Bauerndorf {area:16723}. {npc:259158}, ein Kobold, der aussteigen will, versteckt sich mitten im Dorf.",
 	-- ["the {object:707249} poster"] = "der Steckbrief {object:707249}",
 	-- ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "{npc:257062} bietet die letzten beiden an, sobald Gobams Aufträge erledigt sind (laut Spieleraufzeichnungen); dieser Guide lässt sie aus. Sie sind Stufe 44 und 45: Heb sie dir für später auf, wenn {npc:258626} knapp war.",
+	-- ["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048} wartet beim Lager der Schattenhammeroger nordöstlich von {npc:256728}: Bring ihn nach Hause nach {area:16726} und halte die Kultisten von ihm fern. Stirbt er, nimm die Quest erneut bei ihm an.",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "{npc:263190}s Speere, an den Süßwasserkrokilisken",
 }

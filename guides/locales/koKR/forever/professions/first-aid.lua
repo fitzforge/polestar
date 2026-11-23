@@ -131,8 +131,8 @@ return {
 	["{item:6451}: cloth"] = "{item:6451}: 천",
 
 	-- Step 27: Heavy Silk Bandage (180-210)
-	-- {item:6451} Heavy Silk Bandage
-	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451}은(는) 180부터 노란색입니다(노란색 180, 초록색 210, 회색 240). 210까지 약 42번 만드세요. 붕대는 불이 필요 없으니 어디서나 만드세요.",
+	-- {item:6451} Heavy Silk Bandage · {item:16112} Manual: Heavy Silk Bandage · {skill:129} First Aid
+	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
 
 	-- Step 28: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage
@@ -147,8 +147,8 @@ return {
 	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, or take it from your bank."] = "{item:4338}은(는) 35-50레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나 은행에서 꺼내세요.",
 
 	-- Step 30: Mageweave Bandage (210-225)
-	-- {item:8544} Mageweave Bandage
-	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544}은(는) 210부터 노란색입니다(노란색 210, 초록색 240, 회색 270). 225까지 약 18번 만드세요. 붕대는 불이 필요 없으니 어디서나 만드세요.",
+	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
+	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
 
 	-- Step 31: Trauma
 	["Trauma"] = "외상 치료",
@@ -231,6 +231,8 @@ return {
 	-- ["{item:1251} is orange from 1 (yellow at 30, grey at 60): about 61 crafts to 50. Bandages need no fire: craft them anywhere."] = "{item:1251}은(는) 1부터 주황색입니다(노란색 30, 회색 60). 50까지 약 61번 만드세요. 붕대는 불이 필요 없으니 어디서나 만드세요.",
 	-- ["{item:14529} is yellow from 260 (yellow at 260, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. {item:14529} stays yellow to 320, so it carries you to 300 without a trip for Heavy Runecloth."] = "{item:14529}은(는) 260부터 노란색입니다(260에서 노란색, 320에서 회색). 300까지 약 65번 만드세요. 붕대는 불이 필요 없어 어디서나 만들 수 있습니다. {item:14529}은(는) 320까지 노란색이라, 두꺼운 룬매듭 붕대를 배우러 가지 않고도 300까지 올릴 수 있습니다.",
 	-- ["{item:6450} is yellow from 150 (yellow at 150, grey at 210): about 42 crafts to 180. Bandages need no fire: craft them anywhere."] = "{item:6450}은(는) 150부터 노란색입니다(노란색 150, 회색 210). 180까지 약 42번 만드세요. 붕대는 불이 필요 없으니 어디서나 만드세요.",
+	-- ["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451}은(는) 180부터 노란색입니다(노란색 180, 초록색 210, 회색 240). 210까지 약 42번 만드세요. 붕대는 불이 필요 없으니 어디서나 만드세요.",
+	-- ["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544}은(는) 210부터 노란색입니다(노란색 210, 초록색 240, 회색 270). 225까지 약 18번 만드세요. 붕대는 불이 필요 없으니 어디서나 만드세요.",
 	-- ["{item:8544} is yellow from 225 (yellow at 210, grey at 270): about 88 crafts to 260. Bandages need no fire: craft them anywhere. {item:8544} stays yellow to 270; one recipe to 260 saves two trips to the doctor."] = "{item:8544}은(는) 225부터 노란색입니다(노란색 210, 회색 270). 260까지 약 88번 만드세요. 붕대는 불이 필요 없으니 어디서나 만드세요. {item:8544}은(는) 270까지 노란색이라, 이 제조법 하나로 260까지 올리면 의사에게 두 번 갈 필요가 없습니다.",
 	-- ["{quest:6622}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6622}: 의사의 천막에 있는 부상병을 의사가 주는 붕대로 치료하세요. 누구도 죽기 전에 가장 위독한 병사부터 치료하세요.",
 	-- ["{quest:6624}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6624}: 의사의 천막에 있는 부상병을 의사가 주는 붕대로 치료하세요. 누구도 죽기 전에 가장 위독한 병사부터 치료하세요.",

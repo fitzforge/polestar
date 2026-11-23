@@ -779,9 +779,9 @@ the checkout's `guides/` (it needs all ten trees and the checkout's seed, `forge
   the lead-ins). The Night Elves' Darkshore is no lead-in: it hands over to Westfall and stays a
   guide, "Darkshore".
 - **One `legs.json`**, per published guide id: the shared route's legs once (they must agree
-  between the starts), each start guide's from its start. The compiler writes them into the race
-  parts (docs/PACK_FORMAT.md, "Format 7"): each race part holds its own start guides' legs and its
-  faction's shared ones.
+  between the starts), each start guide's from its start. The compiler writes them into each race's
+  file of its faction part, `Legs_<Race>.lua` (docs/PACK_FORMAT.md, "Format 7"; race parts of their
+  own before 0.4.3): each holds its own start guides' legs and its faction's shared ones.
 
 The guides are listed in `guides/GENERATED.json`; a publish removes the files an earlier one wrote
 that this one does not. A build never reads them: `forge build` takes the seed instead, and leaves
