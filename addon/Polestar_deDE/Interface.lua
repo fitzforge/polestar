@@ -4976,6 +4976,7 @@ L["Boss emote"] = "Boss-Emote"
 -- L["Spawn markers are off: Settings, Map pins, Spawn markers."] = ""
 -- L["Spawn markers: %d quests, %d spawns in world positions, %d zone marks on %d maps (%d on map %s), %d markers drawn."] = ""
 -- L["Spawn markers for your quests: what they found here (preview: 20 of this zone's quests)"] = ""
+
 -- games/skyjewels/SkyJewels.lua
 -- L["Nightbloom Glade"] = ""
 -- L["Sunstone Canyon"] = ""
