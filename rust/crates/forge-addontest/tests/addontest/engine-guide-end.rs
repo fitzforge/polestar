@@ -882,8 +882,8 @@ fn bringing_a_skipped_step_back_after_the_last_step_done_in_turn_tells_nothing()
 }
 
 // A guide finished in turn keeps its end when a skipped step is brought back later (Unskip): the end is not told a
-// second time once that step is done. Only an end found with steps left when the guide is first placed (an older
-// version's) is forgotten.
+// second time once that step is done. Only an end still listed in guideEndsOld (one an older version recorded) is
+// forgotten when steps are left.
 #[test]
 fn an_end_told_in_turn_stands_when_a_skipped_step_is_brought_back() {
 	let out = run(Run {
