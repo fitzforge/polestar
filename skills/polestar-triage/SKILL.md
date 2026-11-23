@@ -148,7 +148,17 @@ gets its own issue.
 ## 5. Draft the reply
 
 A human reads it before it goes up. Don't post it yourself, and don't write
-as a maintainer. Keep it plain, warm and short, evidence first:
+as a maintainer. **Check first, then reply once.** Never answer before the
+guide file, the data and the recordings have been read: a reply written
+before the check is a hedge, and a correction after it makes the thread
+read as if the project argued with the reporter and lost. The reply is two
+or three lines in the maintainer's own voice, to someone who helped: "you're
+right, here's what we found, here's what changes", or "here's how it works,
+here's the switch". No process words ("route review", "data point", "noted",
+"we'll look into it"), no explaining why nothing might happen, no question
+unless one fact is missing and the question names it.
+
+Keep it plain, warm and short, evidence first:
 
 - Thank them, and say what you checked. When they wrote in another
   language, reply in that language.
