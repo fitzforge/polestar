@@ -533,3 +533,39 @@ emit(out)
 	}
 	assert_eq!(out["oneCompact"], false, "one guide in compact mode: no strip");
 }
+
+// #3881: loading Polestar_Skins builds none of its ten skins; applying Atlas (skin and layout) builds Atlas alone, the
+// nine others still waiting; the settings' list builds the rest. Fitz's preview5 froze 1.2 s while the folder built
+// all ten at once.
+#[test]
+fn applying_atlas_builds_atlas_alone_and_the_settings_list_builds_the_rest() {
+	let mut ids: Vec<String> = SKINS.iter().map(|(id, _, _)| format!("{id:?}")).collect();
+	ids.push("\"atlas\"".to_string());
+	let script = format!(
+		r#"
+local T = Polestar.Theme
+local IDS = {{ {} }}
+local function waiting()
+	local out = {{}}
+	for _, id in ipairs(IDS) do if T.SkinWaits(id) then out[#out + 1] = id end end
+	return out
+end
+local atLoad = #waiting()
+Polestar.Set("ui.skin", "atlas")
+T.SetLayout("atlas")
+local afterAtlas = waiting()
+local inUse = T.SkinId()
+T.SkinChoices()
+emit({{ atLoad = atLoad, afterAtlas = afterAtlas, inUse = inUse, afterList = #waiting(), atlasInfo = T.SkinInfo("atlas") ~= nil }})
+"#,
+		ids.join(", ")
+	);
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons: with_skins(), login: true, script, ..Default::default() }).remove(0);
+	assert_eq!(out["atLoad"], ids.len(), "loading the folder builds none: {out}");
+	assert_eq!(out["inUse"], "atlas", "{out}");
+	assert_eq!(out["atlasInfo"], true);
+	let after: Vec<&str> = out["afterAtlas"].as_array().unwrap().iter().map(|v| v.as_str().unwrap()).collect();
+	assert_eq!(after.len(), ids.len() - 1, "Atlas built alone: {out}");
+	assert!(!after.contains(&"atlas"), "{out}");
+	assert_eq!(out["afterList"], 0, "the settings' list builds the rest: {out}");
+}
