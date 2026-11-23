@@ -5,7 +5,7 @@
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::Value;
 
-use super::skins_bundled::SKINS;
+use super::skins_bundled::{with_skins, SKINS};
 
 fn lin(c: f64) -> f64 {
 	if c <= 0.04045 {
@@ -34,10 +34,7 @@ fn spread(v: &Value) -> f64 {
 }
 
 fn run(script: &str, skins: bool) -> Value {
-	let mut addons = vec![Addon::name("Polestar")];
-	if skins {
-		addons.extend(SKINS.iter().map(|(_, addon, _)| Addon::name(addon)));
-	}
+	let addons = if skins { with_skins() } else { vec![Addon::name("Polestar")] };
 	emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script: format!("local T, W = Polestar.Theme, Polestar.Widgets\n{script}"), ..Default::default() }).remove(0)
 }
 

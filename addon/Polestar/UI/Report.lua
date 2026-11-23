@@ -268,7 +268,8 @@ end
 -- Where the player is, and the height of the floor Polestar takes them to stand on (Nav/Walk.lua Walk.Floor: the
 -- client gives no height on Forever; the floor Walk follows while the arrow walks), "z 16": a walk searched from
 -- another floor than the player's goes round (#2215: beside an NPC on his upper floor, the route out of the building
--- and back up).
+-- and back up). Then what the client gives for the player's height (Compat.PlayerHeight), "height none": without a
+-- real one a point with a height is reached by map distance (Nav.lua, heightless).
 local function playerLine()
 	local C = ns.Compat
 	local zone, sub
@@ -282,6 +283,9 @@ local function playerLine()
 	if W and W.Floor and C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
 	local z = pc and W.Floor(pc, px, py)
 	if type(z) == "number" then line = line .. SEP .. ("z %d"):format(floor(z + 0.5)) end
+	if C and C.GetPlayerUnitPosition then C.GetPlayerUnitPosition() end -- a reading now, for PlayerHeight
+	local height = C and C.PlayerHeight and C.PlayerHeight()
+	if height then line = line .. SEP .. "height " .. height end
 	return cut(line)
 end
 
@@ -306,7 +310,7 @@ local function routesLine()
 end
 
 -- The travel plan from the current leg on (Nav.GetRoute): each leg's caption
--- and time, "(maybe)" on a flight to a flight master the character may not
+-- and time, "(assumed)" on a flight to a flight master the character may not
 -- have (#1795: the first flight map there settles it); no line without a plan
 -- (the arrow leads straight). The words stay English like Routes; after
 -- Routes, so Arrow, Where and Routes keep their places for the bug bot.
@@ -320,9 +324,53 @@ local function travelLine()
 	for i = ci or 1, #legs do
 		local leg = legs[i]
 		local s = floor((leg.seconds or 0) + 0.5)
-		parts[#parts + 1] = ("%s %d:%02d%s"):format(plain(leg.label or leg.kind or "?"), floor(s / 60), s % 60, leg.maybe and " (maybe)" or "")
+		parts[#parts + 1] = ("%s %d:%02d%s"):format(plain(leg.label or leg.kind or "?"), floor(s / 60), s % 60, leg.maybe and " (assumed)" or "")
 	end
+	-- A walk a flight would beat with a flight path Polestar doesn't know of (Nav.FlightHint).
+	local hint = N.FlightHint and N.FlightHint()
+	if hint then parts[#parts + 1] = ("faster with the flight path at %s"):format(plain(hint.name or "?")) end
 	return cut((L["Travel: %s"]):format(table.concat(parts, SEP)), 300)
+end
+
+-- Where this session's walks went through what the walking maps close (Nav/Walk.lua Walk.WalkedGaps: the player's
+-- own steps the router took as open, #3641): the places, as the guides write them (map, @x,y), and the steps; the newest
+-- last. English words, as Routes; a free finder of map gaps for the data round. No line without one.
+local function walkedLine()
+	local N, C = ns.Nav, ns.Compat
+	local W, T = N and N.walk, N and N.travel
+	local gaps = W and W.WalkedGaps and W.WalkedGaps()
+	if not (gaps and #gaps > 0) then return nil end
+	local parts = {}
+	for i, g in ipairs(gaps) do
+		local zone = T and T.ZoneOf and T.ZoneOf(nil, g.c, g.x, g.y)
+		local x, y
+		if zone and C and C.WorldToMap then x, y = C.WorldToMap(g.c, g.x, g.y, zone) end
+		parts[i] = (where(zone, x, y) or ("continent %d %.0f,%.0f"):format(g.c, g.x, g.y)) .. (" (%d steps)"):format(g.n)
+	end
+	return cut("Walked where the map says blocked: " .. table.concat(parts, SEP))
+end
+
+-- The flight paths Polestar takes this character to know on the continent
+-- they stand on (Nav.GetKnownTaxiNodes: from the flight maps opened, plus
+-- flight masters met by name), by name, and whether a flight map has been
+-- opened there yet (Nav.GetTaxiSeen: until then a path learnt before
+-- Polestar ran may be missing). A report of a "Fly to" the character can't
+-- take (#3290: Theramore and Ratchet not on the map, the route flying there)
+-- then says what Polestar thought. The words stay English like Routes; after
+-- Travel. Nothing without the travel data or a position.
+local function flightsLine()
+	local N, C = ns.Nav, ns.Compat
+	if not (N and N.GetKnownTaxiNodes and N.GetTaxiNode and C and C.GetPlayerWorldPosition) then return nil end
+	local c = C.GetPlayerWorldPosition()
+	if c == nil then return nil end
+	local names = {}
+	for id in pairs(N.GetKnownTaxiNodes() or {}) do
+		local node = N.GetTaxiNode(id)
+		if node and node.c == c then names[#names + 1] = plain(node.name or tostring(id)) end
+	end
+	table.sort(names)
+	local seen = N.GetTaxiSeen and (N.GetTaxiSeen() or {})[c] and "flight map opened here" or "no flight map opened here yet"
+	return cut(("Flight paths: %d known here%s%s"):format(#names, SEP, seen) .. (#names > 0 and (SEP .. table.concat(names, ", ")) or ""), 400)
 end
 
 -- The "While you're here" line (Engine.WhileHereState): the lines shown
@@ -706,7 +754,7 @@ local function profileName(P)
 	if name == P.DEFAULT then return "Default" end
 	local low, names = name:lower(), {}
 	if UnitName then names[#names + 1] = UnitName("player") end
-	if GetRealmName then names[#names + 1] = GetRealmName() end
+	names[#names + 1] = ns.Compat.RealmName()
 	local db = ns.DB()
 	local alts = type(db.alts) == "table" and type(db.alts.chars) == "table" and db.alts.chars or {}
 	for key, e in pairs(alts) do
@@ -875,11 +923,17 @@ function R.Details()
 	add(d, "where", playerLine())
 	add(d, "routes", routesLine())
 	add(d, "travel", travelLine())
+	add(d, "walked", walkedLine())
+	add(d, "flights", flightsLine())
 	add(d, "whilehere", whileHereLine())
 	add(d, "packs", packsLine())
 	add(d, "install", installLine())
 	errorLines(d)
 	add(d, "questlog", questLogLine())
+	-- The perf probe's figures when it ran this session (Core/Perf.lua).
+	for i, line in ipairs(ns.Perf and ns.Perf.ReportLines() or {}) do
+		add(d, i == 1 and "perfhead" or "perf", cut(line, LINE_MAX * 2))
+	end
 	settingsSection(d)
 	d.tail = logTail()
 	if on.view then
@@ -941,11 +995,12 @@ end
 -- window's current one, the two after it and the arrow's (the furthest
 -- after it first, then the ones before it), the looks line, the settings
 -- list (its last line first), the Packs line, the quest log, the errors but
--- the newest; then, so even the longest description fits, the planned and
--- hidden lines, While here, Travel, Install, Routes, the Settings line and
--- the newest error. Never the versions, the character, the guide and the
--- step, the current goal, Arrow, Where or the Errors header: the lines the
--- Discord bot finds the rest by and a fix starts from.
+-- the newest, the perf probe's lines but its first (its last line first);
+-- then, so even the longest description fits, the planned and hidden lines,
+-- While here, Travel, Install, Routes, the perf probe's first line, the
+-- Settings line and the newest error. Never the versions, the character,
+-- the guide and the step, the current goal, Arrow, Where or the Errors
+-- header: the lines the Discord bot finds the rest by and a fix starts from.
 local function cutOrder(details)
 	local kinds, order = details.kinds, {}
 	local function all(kind, from, to, step)
@@ -970,12 +1025,15 @@ local function cutOrder(details)
 	all("packs")
 	all("questlog")
 	all("error", 1, -2)
+	all("perf", -1, 1, -1)
 	all("planned", -1, 1, -1)
 	all("leftout", -1, 1, -1)
+	all("flights")
 	all("whilehere")
 	all("travel")
 	all("install")
 	all("routes")
+	all("perfhead")
 	all("settings")
 	all("error", -1, -1)
 	return order

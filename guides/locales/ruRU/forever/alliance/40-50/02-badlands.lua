@@ -138,12 +138,10 @@ return {
 	["Theramore"] = "Остров Терамор",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "",
+
+	-- Step 31: Morgan Stern
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}, внутри",
-
-	-- Step 31: Cortello's Riddle
-	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "Внутри: {area:498}",
 
 	-- Step 32: Mudsprocket
 	["Mudsprocket"] = "Шестермуть",
@@ -172,6 +170,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "Летите сюда: {area:392}; {npc:6251} обучает в доме у банка. Затем возвращайтесь на остров Терамор.",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "Летите сюда: {area:608}; езжайте на юг через зону {zone:1443} в зону {zone:1444} и по дороге до причала ({area:1108}); корабль переправит вас сюда: {area:1116}. Там начинается следующий гайд.",
+	-- ["Inside {area:498}"] = "Внутри: {area:498}",
 	-- ["On to Feathermoon"] = "В Крепость Оперенной Луны",
 	-- ["Ride north to {area:144} and fly to {area:271}. {npc:3980} preaches by the inn."] = "Езжайте на север. Цель: {area:144}; оттуда летите сюда: {area:271}. {npc:3980} проповедует у таверны.",
 	-- ["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Из места {area:271} езжайте по дороге на северо-восток во {area:47}; {area:348} – сразу за границей. {npc:5635} принимает наверху, у птичника – {quest:1450}, у таверны стоит {npc:7884}.",

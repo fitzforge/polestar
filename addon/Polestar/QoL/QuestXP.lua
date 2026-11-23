@@ -9,7 +9,19 @@ QoL.QuestXP = QuestXP
 local frame
 local hookedShows, hookedTips, hookedRested = {}, {}, {}
 local excluded = {}
+-- dirty: a quest may have become ready to hand in, or stopped being (a
+-- quest-log change); the XP of a kill alone leaves the total as it is.
 local dirty = true
+-- The quests in the log as last listed, and the log's entry count then: the
+-- list is read again only when a quest comes or goes (or a header folds),
+-- not on each QUEST_LOG_UPDATE of a kill. nil: list it again.
+local logQuests, logEntries
+-- questID -> its reward XP at rewardLevel (positive answers only: one the
+-- client can't give yet is asked again).
+local rewards, rewardLevel = {}, nil
+-- What the overlay was last drawn for (draw); a refresh that changes none
+-- of it leaves the drawing as it is.
+local drawnXp, drawnLimit, drawnTotal, drawnTick
 local schedule
 local SAGE_R, SAGE_G, SAGE_B = 91 / 255, 149 / 255, 80 / 255
 
@@ -17,6 +29,8 @@ local function draw()
 	if not frame then return end
 	if ns.Hidden() or not QoL.On("questXPOverlay") then frame:Hide(); return end
 	local xp, limit, total = QuestXP.xp, QuestXP.limit, QuestXP.total
+	drawnXp, drawnLimit, drawnTotal = xp, limit, total
+	drawnTick = frame.restedTick ~= nil and frame.restedTick:IsShown()
 	if not (xp and limit and limit > 0 and total > 0) then frame:Hide(); return end
 	local start = min(1, max(0, xp / limit))
 	local finish = min(1, max(start, (xp + total) / limit))
@@ -71,22 +85,33 @@ local function attach(bar)
 		frame:SetScript("OnSizeChanged", draw)
 		QuestXP.frame = frame
 	end
-	if frame.bar ~= bar then
+	local moved = frame.bar ~= bar
+	if moved then
 		frame.bar = bar
 		frame:SetParent(bar)
 		frame:ClearAllPoints()
 		frame:SetAllPoints(bar.StatusBar)
 	end
-	frame:SetFrameStrata("MEDIUM")
+	-- Strata and levels only where they differ: each set re-sorts the frame
+	-- and its children, and a refresh runs on every kill's XP.
+	if frame:GetFrameStrata() ~= "MEDIUM" then frame:SetFrameStrata("MEDIUM") end
 	local overlay = bar.OverlayFrame
-	frame:SetFrameLevel(max(1, (overlay and overlay:GetFrameLevel() or bar:GetFrameLevel()) - 1))
+	local level = max(1, (overlay and overlay:GetFrameLevel() or bar:GetFrameLevel()) - 1)
+	if frame:GetFrameLevel() ~= level then frame:SetFrameLevel(level) end
 	local tick = type(bar.ExhaustionTick) == "table" and bar.ExhaustionTick or nil
-	frame.Rested:SetFrameStrata(frame:GetFrameStrata())
-	frame.Rested:SetFrameLevel(max(frame:GetFrameLevel(), tick and tick:GetFrameLevel() or 0) + 1)
+	local rested = frame.Rested
+	local strata = frame:GetFrameStrata()
+	if rested:GetFrameStrata() ~= strata then rested:SetFrameStrata(strata) end
+	local restedLevel = max(frame:GetFrameLevel(), tick and tick:GetFrameLevel() or 0) + 1
+	if rested:GetFrameLevel() ~= restedLevel then rested:SetFrameLevel(restedLevel) end
 	if tick ~= frame.restedTick then
 		frame.restedTick = tick
-		frame.Rested:ClearAllPoints()
-		if tick then frame.Rested:SetAllPoints(tick) end
+		rested:ClearAllPoints()
+		if tick then rested:SetAllPoints(tick) end
+	end
+	if not moved and frame:IsShown() and drawnXp == QuestXP.xp and drawnLimit == QuestXP.limit
+		and drawnTotal == QuestXP.total and drawnTick == (tick ~= nil and tick:IsShown()) then
+		return
 	end
 	draw()
 end
@@ -186,13 +211,22 @@ function QuestXP.Refresh()
 		local total, count = 0, 0
 		for id in pairs(excluded) do if not C.IsOnQuest(id) then excluded[id] = nil end end
 		if type(GetQuestLogRewardXP) == "function" then
-			for _, questID in ipairs(C.GetLogQuests()) do
+			local QL = C_QuestLog
+			local entries = QL and QL.GetNumQuestLogEntries and QL.GetNumQuestLogEntries() or 0
+			if not logQuests or entries ~= logEntries then logQuests, logEntries = C.GetLogQuests(), entries end
+			if rewardLevel ~= level then
+				for id in pairs(rewards) do rewards[id] = nil end
+				rewardLevel = level
+			end
+			for _, questID in ipairs(logQuests) do
 				if not excluded[questID] and C.IsQuestReadyForTurnIn(questID) then
-					local ok, reward = pcall(GetQuestLogRewardXP, questID)
-					reward = ok and C.Readable(reward) or nil
-					if type(reward) == "number" and reward > 0 then
-						total, count = total + reward, count + 1
+					local reward = rewards[questID]
+					if not reward then
+						local ok, xpOf = pcall(GetQuestLogRewardXP, questID)
+						xpOf = ok and C.Readable(xpOf) or nil
+						if type(xpOf) == "number" and xpOf > 0 then reward, rewards[questID] = xpOf, xpOf end
 					end
+					if reward then total, count = total + reward, count + 1 end
 				end
 			end
 		end
@@ -209,24 +243,34 @@ local function rescan()
 	dirty = true
 	schedule()
 end
+-- A quest came or went: list the log again (QUEST_DATA_LOAD_RESULT, a
+-- level and a login: ask the client every reward XP again too).
+local function relist()
+	logQuests = nil
+	rescan()
+end
 local key = "questXPOverlay"
-for _, event in ipairs({ "QUEST_LOG_UPDATE", "QUEST_DATA_LOAD_RESULT", "PLAYER_LEVEL_UP", "PLAYER_ENTERING_WORLD" }) do
-	QoL.WhileOn(key, event, rescan)
+QoL.WhileOn(key, "QUEST_LOG_UPDATE", rescan)
+for _, event in ipairs({ "QUEST_DATA_LOAD_RESULT", "PLAYER_LEVEL_UP", "PLAYER_ENTERING_WORLD" }) do
+	QoL.WhileOn(key, event, function()
+		for id in pairs(rewards) do rewards[id] = nil end
+		relist()
+	end)
 end
 QoL.WhileOn(key, "PLAYER_XP_UPDATE", schedule)
 for _, event in ipairs({ "QUEST_TURNED_IN", "QUEST_REMOVED" }) do
 	QoL.WhileOn(key, event, function(_, id)
 		id = C.Readable(id)
 		if type(id) == "number" then excluded[id] = true end
-		rescan()
+		relist()
 	end)
 end
 QoL.WhileOn(key, "QUEST_ACCEPTED", function(_, id)
 	id = C.Readable(id)
 	if type(id) == "number" then excluded[id] = nil end
-	rescan()
+	relist()
 end)
-ns.OnLogin(rescan)
+ns.OnLogin(relist)
 ns.On("POLESTAR_HIDDEN", function(hidden)
 	if hidden then draw() else schedule() end
 end)
