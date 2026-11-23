@@ -1,4 +1,5 @@
 ---
 section: players
 ---
-- Simplified Chinese: translate quest lookup, prerequisites, quest tooltips and guide window reminders.
+- Simplified Chinese: the quest lookup, prerequisites, quest tooltips and the
+  guide window's reminders read in Chinese (thanks nepyanbin, #3109).
