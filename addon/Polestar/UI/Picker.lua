@@ -2208,11 +2208,15 @@ local GUIDES = { key = "Guides", label = L["Guides"], icon = "guides", order = 1
 local sections, section = { GUIDES }, nil
 P.GUIDES = GUIDES.key
 
+-- The rail's items as drawn, kept until a section registers (renderRail):
+-- built afresh on every render they were garbage each time the menu opened.
+local railItems, footItems
 function UI.RegisterSection(spec)
 	if type(spec) ~= "table" or type(spec.key) ~= "string" or type(spec.build) ~= "function" or type(spec.render) ~= "function" then return false end
 	if spec.key == GUIDES.key then return false end
 	for i = #sections, 1, -1 do if sections[i].key == spec.key then table.remove(sections, i) end end
 	sections[#sections + 1] = spec
+	railItems, footItems = nil, nil
 	table.sort(sections, function(a, b) return (a.order or 100) < (b.order or 100) end)
 	if win and win:IsShown() then P.Render() end
 	return true
@@ -2315,9 +2319,12 @@ function P.FootItems(onOptions)
 end
 
 -- The rail: every section, Options at its foot with the foot sections above it.
+local function openOptions() if UI.ShowOptions then UI.ShowOptions() end end
+local function showSection(key) P.ShowSection(key) end
 local function renderRail()
-	P.railShown = W.ShellRail(win, P.RailItems(), P.FootItems(function() if UI.ShowOptions then UI.ShowOptions() end end),
-		section or GUIDES.key, function(key) P.ShowSection(key) end)
+	railItems = railItems or P.RailItems()
+	footItems = footItems or P.FootItems(openOptions)
+	P.railShown = W.ShellRail(win, railItems, footItems, section or GUIDES.key, showSection)
 end
 
 -- The sidebar index of a section: its own nav, or for a one-view section
