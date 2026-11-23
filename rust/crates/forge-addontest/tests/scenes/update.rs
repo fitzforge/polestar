@@ -125,12 +125,15 @@ local P = Polestar.UI and Polestar.UI.Packs
 local needed = P and P.NeededOff and P.NeededOff() or {{}}
 local settings = {{ {checks} }}
 local welcome = PolestarWelcome ~= nil and PolestarWelcome:IsShown()
+-- #3629: the 0.4.3 layout card, once per account (seen before: never again).
+local LC = Polestar.UI.LayoutCard
+local layoutCard = {{ shown = LC ~= nil and LC.IsShown(), seen = PolestarDB.layoutCardSeen or false, snaps = LC and #LC.Snapshots() or 0 }}
 SlashCmdList.POLESTAR("options")
 stub.advance(2)
 local d = Scene.since(Scene.atLogin)
 emit({{ guide = E.GetGuide() and E.GetGuide().id or false, step = E.GetStepIndex() or false, live = E.GetLiveStep() or false,
 	stepAt = stepAt(E.GetStepIndex()), liveAt = stepAt(E.GetLiveStep()),
-	settings = settings, welcome = welcome, off = off, disabled = ScenesQ.disabled, needed = needed,
+	settings = settings, welcome = welcome, layoutCard = layoutCard, off = off, disabled = ScenesQ.disabled, needed = needed,
 	options = C_AddOns.IsAddOnLoaded("Polestar_Options"), lines = d.lines, sounds = d.soundIds, alerts = d.alerts, actions = d.actions,
 	loginMs = loginMs, settleMs = settle.ms }})
 "#,
@@ -170,6 +173,8 @@ if not at then error("the previous release loaded no guide, or none that hands i
 	assert!(empty(&out["needed"]), "Polestar reads its own addons as off (#2594): {}", out["needed"]);
 	assert_eq!(out["options"], true, "the settings window (Polestar_Options) did not load after the update: {out}");
 	assert_eq!(out["welcome"], false, "Install opened again after the update: {out}");
+	let card = &out["layoutCard"];
+	assert!(card["shown"] == true || (card["seen"].is_string() && card["snaps"] == 0), "#3629: an update from before 0.4.3 shows the layout card once (an account that saw it: not again): {card}");
 	assert!(empty(&out["lines"]), "chat lines at the first login after the update: {}", out["lines"]);
 	assert!(empty(&out["sounds"]), "sounds at the first login after the update: {}", out["sounds"]);
 	assert!(empty(&out["alerts"]), "alerts at the first login after the update: {}", out["alerts"]);

@@ -76,8 +76,10 @@ fn addons(pack: Option<&Path>) -> String {
 	s
 }
 
-/// The experimental guides switched off by the player (Options, Guide: Show experimental guides), saved.
-const SAVED_OFF: &str = r#"PolestarDB = { schema = 1, settings = { behavior = { experimentalGuides = false } } }"#;
+/// The experimental guides switched off by the player (Options, Guide: Show experimental guides), saved. The
+/// account has seen the 0.4.3 layout card (UI/LayoutCard.lua): one that has not waits a few seconds after login
+/// to show it (+0.86 KiB at login, 2026-11-23, gone once it shows), which is not the folder's cost.
+const SAVED_OFF: &str = r#"PolestarDB = { schema = 1, layoutCardSeen = "0.4.3", settings = { behavior = { experimentalGuides = false } } }"#;
 /// Before 0.4.0: switched on, or switched off, on the Community guides page.
 const LEGACY_ON: &str = r#"PolestarDB = { schema = 1, packs = { ["polestar-experimental"] = { on = true } } }"#;
 const LEGACY_OFF: &str = r#"PolestarDB = { schema = 1, packs = { ["polestar-experimental"] = { off = true } } }"#;

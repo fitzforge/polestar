@@ -489,6 +489,8 @@ mod ui_headsup_card;
 mod ui_import;
 #[path = "ui-journey.rs"]
 mod ui_journey;
+#[path = "ui-layout-card.rs"]
+mod ui_layout_card;
 #[path = "ui-left-out.rs"]
 mod ui_left_out;
 #[path = "ui-long-translations.rs"]
