@@ -269,11 +269,16 @@ local function spellName(id, fallback)
 	return (type(n) == "string" and n ~= "") and n or fallback
 end
 
+-- An item's name in the client's language; one the client has not cached
+-- yet is asked for (GET_ITEM_INFO_RECEIVED: the class card names it then,
+-- UI/ClassToast.lua, #3727) and reads `fallback` meanwhile.
 local function itemName(id, fallback)
 	local n
 	if C_Item and C_Item.GetItemNameByID then n = C_Item.GetItemNameByID(id) end
 	if not n and GetItemInfo then n = GetItemInfo(id) end
-	return (type(n) == "string" and n ~= "") and n or fallback
+	if type(n) == "string" and n ~= "" then return n end
+	if ns.Compat.RequestItem then ns.Compat.RequestItem(id) end
+	return fallback
 end
 
 local function spellIcon(id)

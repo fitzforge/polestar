@@ -3152,6 +3152,23 @@ fn labels_kept_in_tables_are_in_the_client_language_the_group_line_and_the_guide
 	assert_eq!(out["title"], "Anleitungen", "Home's header names the section");
 }
 
+// #3653 (TheLombaxLegend): Crossroads' Supply Crates read "Elite: group advised", though the crate needs no group;
+// the camp round it has elites (the compiled group's `near`). Work among elites says "Elites nearby"; elite work
+// itself keeps its line.
+#[test]
+fn work_near_elites_says_elites_nearby_elite_work_itself_says_group_advised() {
+	let out = run(r#"
+		local function plain(s) return s and (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) or false end
+		emit({
+			near = plain(UI.GroupLine({ party = { kind = "elite", rank = 1, lvl = 20, near = true } })),
+			elite = plain(UI.GroupLine({ party = { kind = "elite", rank = 1, lvl = 20 } })),
+			rare = plain(UI.GroupLine({ party = { kind = "elite", rank = 2 } })),
+			done = plain(UI.GroupLine({ party = { kind = "elite", near = true }, status = "done" })),
+		})"#)
+	.remove(0);
+	assert_eq!(out, json!({ "near": "Elites nearby", "elite": "Elite: group advised", "rare": "Rare elite: group advised", "done": false }));
+}
+
 #[test]
 fn an_escort_quest_s_open_goal_says_the_npc_may_have_to_respawn_in_the_dungeon_colour_once_per_card_not_once_done_or_skipped() {
 	let out = run(r#"
