@@ -1258,6 +1258,7 @@ L["Use %s to learn it."] = "Используйте %s, чтобы выучить
 L["Chain: finished, %d skipped"] = "Цепочка: завершена, пропущено: %d"
 L["Chain: all %d done"] = "Цепочка: выполнены все %d"
 L["Chain: %d of %d"] = "Цепочка: %d из %d"
+L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "Виден только мёртвым: умрите рядом и поговорите с ним в облике духа или пропустите это задание."
 
 -- Lookup/Spotter.lua
 L["From"] = "Источник:"
@@ -1312,7 +1313,8 @@ L["Comes back at level %d: %s"] = "Вернётся на уровне %d: %s"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "Уровень %d: теперь можно взять %s. Тот, кто его выдаёт, отмечен на карте; возьмите задания снова, чтобы добавить его в гайд."
 L["Leads to %s."] = "Ведет к %s."
 L["Needed for %s."] = "Нужно для %s."
-L["Prerequisite quests: %d of %d steps, about %s."] = "Предварительные задания: %d из %d шагов, примерно %s."
+L["%s offers one of these a week: take it if it is this week's."] = "%s выдаёт одно из этих заданий в неделю: возьмите его, если оно на этой неделе."
+L["%d of this guide's %d steps are prerequisite quests (about %s)."] = "%d из %d шагов этого руководства — предварительные задания (примерно %s)."
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "Еще не выполнено: %s"
@@ -5199,3 +5201,4 @@ L["Most used"] = "Самое нужное"
 -- L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "Раздел «Персонажи» отключен. Включите его в меню «Настройки > Открытия > Поиск»."
 -- L["Boss whisper"] = "Шепот босса"
 -- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "Открывает ворота на пути Орды в город Даларан; одного ключа достаточно для всей группы. Альянс проходит внутрь через канализационную трубу в «Фокусах и воронах»."
+-- L["Prerequisite quests: %d of %d steps, about %s."] = "Предварительные задания: %d из %d шагов, примерно %s."

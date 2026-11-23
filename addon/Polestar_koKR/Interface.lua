@@ -1257,6 +1257,7 @@ L["Use %s to learn it."] = "배우려면 %s 사용"
 -- L["Chain: finished, %d skipped"] = ""
 -- L["Chain: all %d done"] = ""
 -- L["Chain: %d of %d"] = ""
+L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "죽은 상태에서만 보입니다: 근처에서 죽은 뒤 유령 상태로 대화하거나, 이 퀘스트를 건너뛰세요."
 
 -- Lookup/Spotter.lua
 L["From"] = "출처"
@@ -1311,7 +1312,8 @@ L["Comes back at level %d: %s"] = "%2$s: 레벨 %1$d에 다시 표시"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "%1$d레벨: 이제 %2$s 퀘스트를 받을 수 있습니다. 퀘스트 제공자가 지도에 표시됩니다. 가이드에 추가하려면 퀘스트를 다시 수락하십시오."
 L["Leads to %s."] = "%s(으)로 이어집니다."
 L["Needed for %s."] = "%s의 선행 퀘스트입니다."
-L["Prerequisite quests: %d of %d steps, about %s."] = "선행 퀘스트: %d/%d단계, 약 %s."
+L["%s offers one of these a week: take it if it is this week's."] = "%s: 매주 이 중 하나를 줍니다. 이번 주 퀘스트라면 받으세요."
+L["%d of this guide's %d steps are prerequisite quests (about %s)."] = "이 가이드의 단계 중 %d개(전체 %d개)가 선행 퀘스트입니다(약 %s)."
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "아직 미완료: %s"
@@ -5192,3 +5194,4 @@ L["Most used"] = "자주 쓰는 설정"
 -- L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "캐릭터가 꺼져 있습니다. 설정 > 발견 > 찾아보기에서 켜십시오."
 -- L["Boss whisper"] = "우두머리 귓속말"
 -- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "달라란 시로 가는 호드 쪽 길의 문을 엽니다. 열쇠 하나로 파티 전체에게 열립니다. 얼라이언스는 주문과 까마귀의 하수관을 통해 들어갑니다."
+-- L["Prerequisite quests: %d of %d steps, about %s."] = "선행 퀘스트: %d/%d단계, 약 %s."

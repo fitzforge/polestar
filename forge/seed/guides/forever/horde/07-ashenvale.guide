@@ -338,6 +338,13 @@ step Zangen Stonehoof
   turnin 1195                         -- Zangen Stonehoof
   accept 1196                         -- Zangen Stonehoof: Rau Cliffrunner at Freewind Post, later in this guide
 
+step Zangen Stonehoof
+  zone Thunder Bluff
+  when turnedin 1195
+  when available 1196
+  tip The phial is already with Zangen Stonehoof: take The Sacred Flame from him, a short walk east of Tal.
+  accept 1196                         -- Zangen Stonehoof: Rau Cliffrunner at Freewind Post, later in this guide
+
 step Tah Winterhoof
   zone Thunder Bluff
   when complete 97538

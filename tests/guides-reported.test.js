@@ -6342,7 +6342,11 @@ test(`${LOCH_MODAN}: Human Paladins' Tome of Divinity on the Elwynn walk, Redemp
 	const red = goals(REDRIDGE);
 	assert.ok(carried(red[at(red, 'use 6866', (g) => g.t === 'use' && g.quest === 1786)], [1786, 1787]), '04\'s Henze step only for a Paladin still carrying it');
 	const dusk = goals('forever/alliance/05-duskwood.guide');
-	assert.ok(carried(dusk[at(dusk, 'turnin 1788', is('turnin', 1788))], [1787, 1788]), '05\'s Cathedral step only for a Paladin still carrying it');
+	// (#3529's sweep: Gazin's step takes the script only when it is ready, and Redemption's hand-in at Duthorian Rall is
+	// a step of its own for a Paladin carrying 1788, so a Paladin who handed the script in earlier still gets it.)
+	const rall = dusk[at(dusk, 'turnin 1788', is('turnin', 1788))];
+	assert.ok(carried(rall, [1788]), '05\'s Redemption step only for a Paladin still carrying it');
+	assert.ok((dusk[at(dusk, 'turnin 1787', is('turnin', 1787))].step.when || []).some((p) => p.k === 'complete' && !p.neg && [].concat(p.q).includes(1787)), '05\'s Gazin step only with the script');
 });
 
 // --- Cozy Sleeping Bag (Hotline, #698): every quest of the chain needs level
@@ -7592,7 +7596,7 @@ test('The Barrens (Horde): Tauren Warriors and Shamans finish Path of Defense an
 	const as = (cls) => list.filter(({ step, goal }) => fits(step.only, cls) && fits(goal.only, cls));
 	const war = as('WARRIOR');
 	const uzzek = war[at(war, 'turnin 1498', is('turnin', 1498))];
-	assert.ok((uzzek.step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(1498)), 'Uzzek only for a Warrior carrying Path of Defense');
+	assert.ok((uzzek.step.when || []).some((p) => (p.k === 'onquest' || p.k === 'complete') && !p.neg && [].concat(p.q).includes(1498)), 'Uzzek only for a Warrior carrying Path of Defense (ready: #3529\'s sweep)');
 	assert.ok(at(war, 'turnin 1503', is('turnin', 1503)) < at(war, 'accept 844', is('accept', 844)), 'Forged Steel before the Crossroads quests');
 	const sham = as('SHAMAN');
 	assert.equal(sham.filter(({ goal }) => is('turnin', 1525)(goal)).length, 1, 'one Telf hand-in');
@@ -9286,7 +9290,8 @@ test("forever/alliance/40-50/07-un-goro-crater.guide: final review: the pylon lo
 	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide');
 	assert.ok(!bs.some(({ goal }) => is('turnin', 3461)(goal)), 'no Tymor on the Burning Steppes guide');
 	const wpl = goals('forever/alliance/50-60/04-western-plaguelands.guide');
-	assert.equal(wpl[at(wpl, 'turnin 3461', is('turnin', 3461))].s, wpl[at(wpl, 'turnin 4512', is('turnin', 4512))].s, 'Tymor on the one Ironforge stop');
+	// (#3529's sweep: Laris's hand-in is a step of its own, shown with the oozes ready, right before the Ironforge stop.)
+	assert.equal(wpl[at(wpl, 'turnin 3461', is('turnin', 3461))].s, wpl[at(wpl, 'turnin 4512', is('turnin', 4512))].s + 1, 'Tymor on the one Ironforge stop');
 });
 
 // Final route review, Alliance 40-60: the trip to Mountaineer Pebblebitty only for The Horn of the Beast's group; no
@@ -10071,7 +10076,8 @@ test('Horde 40-60 flow pass: givers and enders are visited when the route passes
 	assert.ok(!goals(H('40-50/06-azshara')).some(({ goal }) => goal.quest === 588), 'no Fate of Yenniku stop left in 06');
 	const az = goals(H('40-50/06-azshara'));
 	// Deliver to MacKinley (2874) is handed in on 40-50/03's Booty Bay stop since the 0.4.0 level tidy.
-	assert.equal(az[at(az, 'turnin 580', is('turnin', 580))].s, az[at(az, 'accept 608', is('accept', 608))].s, "Whiskey Slim on the first Booty Bay stop");
+	// (#3529's sweep: Whiskey Slim's hand-in is a step of its own, shown with the grog ready, right after the stop.)
+	assert.equal(az[at(az, 'turnin 580', is('turnin', 580))].s, az[at(az, 'accept 608', is('accept', 608))].s + 1, "Whiskey Slim on the first Booty Bay stop");
 	// Since 2026-11-20 the Marshal's Refuge landing opens 50-60/06 after Mount Hyjal (Gadgetzan, then Linken and J.D.
 	// Collie, then Valor's Rest), and Lost! is taken on 50-60/01's refuge stop between the two loops.
 	const epl = goals(H('50-60/06-silithus'));
@@ -10988,7 +10994,8 @@ test('Horde 40-60 accept levels: quests are taken where the route reaches their 
 	assert.ok(at(fer2, 'accept 586', is('accept', 586)) < at(fer2, 'kill 586', (x) => x.t === 'kill' && x.quest === 586), '586 taken before its Skullsplitters');
 	assert.ok(!g('40-50/03-feralas').some(({ goal }) => is('accept', 4120)(goal)), 'The Strength of Corruption is not taken at 46');
 	const azs = g('40-50/06-azshara');
-	assert.equal(step(azs, 'accept', 4120), step(azs, 'turnin', 3123), "The Strength of Corruption from Talo on the Mojache stop at 49-50");
+	// (#3529's sweep: Uzer'i's Testing the Vessel hand-in is a step of its own, shown with the muisek ready, right before.)
+	assert.equal(step(azs, 'accept', 4120), step(azs, 'turnin', 3123) + 1, "The Strength of Corruption from Talo on the Mojache stop at 49-50");
 	// Since the 0.4.0 level tidy there is no grind to 50 in Azshara for one delivery: March of the Silithid is taken in
 	// Orgrimmar only once you are 50 (50-60/04's Orgrimmar stop offers it again).
 	const t50z = azs.findIndex(({ goal }) => goal.t === 'level' && goal.level === 50);
@@ -13210,7 +13217,7 @@ test('Horde 45 and 53 Orgrimmar stops: Belgrom and Jes\'rimon take their ready h
 	assert.equal(grim, fer[at(fer, 'turnin 3121', is('turnin', 3121))].s, 'with Neeru, same stop');
 	const fel = goals('forever/horde/50-60/02-felwood.guide');
 	const jes = fel[at(fel, 'turnin 4300', is('turnin', 4300))];
-	assert.ok(jes.step.when.some((p) => p.k === 'onquest' && !p.neg), 'only with the claws\' quest in the log');
+	assert.ok(jes.step.when.some((p) => (p.k === 'onquest' || p.k === 'complete') && !p.neg), 'only with the claws\' quest in the log (ready, since #3529\'s sweep)');
 	assert.ok(jes.s < fel[at(fel, 'fly Splintertree Post', (g) => g.t === 'fly')].s, 'before the flight out of Orgrimmar');
 });
 
@@ -13740,7 +13747,8 @@ test('Horde 40-50: The Super Egg-O-Matic is taken in Tanaris at 47 and finished 
 	// the Egg-O-Matic's hand-in its own since #2561's sweep): the hand-in is on the stop that hands March of the
 	// Silithid to Pestlezugg, at most three steps after it, with no travel in between.
 	const march = az[at(az, 'turnin 4494', is('turnin', 4494))];
-	assert.ok(tin.s >= march.s && tin.s - march.s <= 3, 'on the Gadgetzan stop');
+	// (#3529's sweep: Sprinkle's hand-in is a step of its own too, so the stop holds one more step.)
+	assert.ok(tin.s >= march.s && tin.s - march.s <= 4, 'on the Gadgetzan stop');
 	const between = compiled('forever/horde/40-50/06-azshara.guide').steps.slice(march.s - 1, tin.s);
 	assert.ok(between.every((st) => !st.goals.some((g) => ['fly', 'goto', 'hearth'].includes(g.t))), 'no travel between Pestlezugg and the Egg-O-Matic');
 	const epl = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
@@ -14069,7 +14077,9 @@ test('Horde Tanaris 46: Tanaris Field Sampling started after Scrimshank, handed 
 test('Horde Stranglethorn 40: Excelsior from Drizzlik, the elder crocolisk on the Zul\'Kunda coast, optional', { skip }, () => {
 	const stv = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
 	const take = at(stv, 'accept 628', is('accept', 628));
-	assert.equal(stv[take].s, stv[at(stv, 'turnin 577', is('turnin', 577))].s, 'with the Snapjaw skins');
+	// (#3339's sweep: Drizzlik's hand-in is a step of its own, shown with the skins ready; Excelsior is taken on the
+	// Booty Bay step right after it, so a player who handed the skins in elsewhere is offered it too.)
+	assert.equal(stv[take].s, stv[at(stv, 'turnin 577', is('turnin', 577))].s + 1, 'right after the Snapjaw skins');
 	const skin = at(stv, 'collect 4105', (g) => g.t === 'collect' && g.quest === 628);
 	assert.ok(stv[skin].goal.optional, 'the croc may be down: optional');
 	assert.equal(stv[skin].s, stv[at(stv, 'collect 2007', (g) => g.t === 'collect' && g.quest === 95748)].s, "on the Zul'Kunda step");
@@ -14197,7 +14207,9 @@ test('Horde Felwood 53: Cleansing Felwood taken and handed in on the Sanctuary s
 	// Sanctuary: still one Sanctuary stop each way.)
 	const ws = goals('forever/horde/50-60/03-winterspring.guide');
 	const tin = at(ws, 'turnin 4102', is('turnin', 4102));
-	assert.equal(ws[tin].s, ws[at(ws, 'turnin 5156', is('turnin', 5156))].s, "with Taronn's hand-in");
+	// (#3529's sweep: each Sanctuary hand-in is a step of its own, shown with its quest ready, on the same stop.)
+	const taronn = at(ws, 'turnin 5156', is('turnin', 5156));
+	assert.ok(ws[tin].s > ws[taronn].s && ws[tin].s - ws[taronn].s <= 3, "on Taronn's Sanctuary stop");
 	const ror = at(ws, 'collect 15879', (g) => g.t === 'collect' && g.quest === 6162);
 	assert.ok(ror < tin, 'Ror at the border on the way north to the Sanctuary');
 	assert.ok(![...fw, ...ws].some(({ goal }) => goal.t === 'level' && goal.grind === 7155), 'no Deadwood top-up');
@@ -16291,7 +16303,7 @@ test(`${WETLANDS}: carried Darkshore quests are handed in on the stops at their 
 	for (const q of [990, 945, 967, 97914]) {
 		const st = steps.find((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === q));
 		assert.ok(st, `${q} is handed in`);
-		assert.ok((st.when || []).some((p) => p.k === 'onquest' && !p.neg), `${q}: only while carried (when onquest)`);
+		assert.ok((st.when || []).some((p) => (p.k === 'onquest' || p.k === 'complete') && !p.neg), `${q}: only while carried (when onquest, or complete since #3529's sweep)`);
 	}
 });
 
@@ -18705,6 +18717,84 @@ test('forever/alliance/50-60/01-burning-steppes.guide: Kum\'isha\'s fragment ste
 	const { steps } = compiled('forever/alliance/50-60/01-burning-steppes.guide');
 	const kum = steps.find((st) => st.goals.some(is('accept', 3501)));
 	assert.ok((kum.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 10593), 'when has 10593');
+});
+
+// #3529 (FeelTheGurn): Arathi's Calder Gray step asked for Thundering Hearts' hand-in with Stormheart not killed.
+// #3339 (Darian): Stranglethorn 40-50 sent a player to Kebok with Hostile Takeover's crystals not gathered.
+// A hand-in of a quest the guide neither takes nor works on (carried from an earlier guide) waits for the quest
+// to be ready (`when complete`, or the item in the bags): the sweep found 47 more such hand-ins, all gated the
+// same way. Hand-ins a guide can't miss (the giver's object takes the items directly, a starter item, an
+// optional line, an objective that is the ender itself) are left alone.
+test('a carried hand-in waits for its quest to be ready, on every guide (#3529, #3339)', { skip }, () => {
+	const qOf = (id) => data.quest(id);
+	const WORK = new Set(['complete', 'kill', 'collect', 'use', 'interact', 'talk', 'explore', 'cast']);
+	const worksFor = (goal, q) => WORK.has(goal.t) && (goal.quest === q.id || (goal.quest == null && (q.objectives || []).some((o) => o.id != null && (
+		(o.type === 'item' && goal.item === o.id) || ((o.type === 'kill' || o.type === 'talk') && goal.npc === o.id) || (o.type === 'object' && goal.object === o.id)))));
+	const ready = (step, q) => (step.when || []).some((p) => !p.neg && ((p.k === 'complete' && [].concat(p.q).includes(q.id))
+		|| (p.k === 'has' && (q.objectives || []).some((o) => o.type === 'item' && o.id === Number(p.item)))))
+		|| [].concat(step.skipto || []).some((sk) => sk.when && sk.when.neg && sk.when.k === 'complete' && [].concat(sk.when.q).includes(q.id));
+	const atEnder = (q, open) => open.every((o) => o.id != null && ((['kill', 'talk'].includes(o.type) && (q.end?.npc || []).includes(o.id)) || (o.type === 'object' && (q.end?.object || []).includes(o.id))));
+	const bare = [];
+	for (const file of allGuides().filter((f) => !f.includes('/legacy/'))) {
+		const list = goals(file);
+		list.forEach(({ step, goal, s }, t) => {
+			if (goal.t !== 'turnin' || goal.direct || goal.optional) return;
+			const q = qOf(goal.quest);
+			const open = (q?.objectives || []).filter((o) => !(o.type === 'item' && q.sourceItem && o.id === q.sourceItem));
+			if (!q || !open.length || (q.start?.item || []).length || atEnder(q, open)) return;
+			const before = list.slice(0, t);
+			if (before.some((e) => (e.goal.t === 'accept' && e.goal.quest === q.id) || worksFor(e.goal, q))) return;
+			if (!ready(step, q)) bare.push(`${file} step ${s} "${step.title}": turnin ${q.id} ${q.title}`);
+		});
+	}
+	assert.deepEqual(bare, []);
+	const arathi = compiled('forever/horde/30-40/05-arathi-highlands.guide').steps.find((st) => st.goals.some(is('turnin', 97985)));
+	assert.ok(holdsQuest(arathi, 97985) && arathi.when.some((p) => p.k === 'complete'), 'Calder Gray: when complete 97985');
+	const stv = compiled('forever/horde/40-50/01-stranglethorn-vale.guide').steps;
+	const excelsior = stv.find((st) => st.goals.some(is('accept', 628)));
+	assert.ok(!holdsQuest(excelsior, 577), 'Excelsior is offered to a player who handed Some Assembly Required in elsewhere');
+});
+
+// #3623 (ODAHZ): Moktar Krin's step showed only while The Swarm Grows' second part was in the log; handed in
+// before the guide got there, the third part (its carapace drops only with it) was never offered. A step shown
+// only while a quest from an earlier guide is in the log, that hands it in and takes its follow-up, has a step
+// after it for a player who handed it in already (`when available <follow-up>`): 28 more found and given one.
+test('a follow-up is offered when its carried prerequisite was handed in before the guide (#3623)', { skip }, () => {
+	const missing = [];
+	for (const file of allGuides().filter((f) => !f.includes('/legacy/'))) {
+		const list = goals(file);
+		list.forEach(({ step, goal, s }, t) => {
+			if (goal.t !== 'turnin') return;
+			const x = goal.quest;
+			if (!holdsQuest(step, x) || list.slice(0, t).some((e) => is('accept', x)(e.goal))) return;
+			for (const y of step.goals.filter((g) => g.t === 'accept')) {
+				if (!(data.quest(y.quest)?.pre || []).includes(x)) continue;
+				if (!list.some((e) => e.step !== step && is('accept', y.quest)(e.goal))) missing.push(`${file} step ${s} "${step.title}": ${x} -> ${y.quest}`);
+			}
+		});
+	}
+	assert.deepEqual(missing, []);
+	const steps = compiled('forever/horde/30-40/02-thousand-needles.guide').steps;
+	const moktar = steps.findIndex((st) => st.goals.some(is('turnin', 1146)));
+	const again = steps.findIndex((st, i) => i > moktar && st.goals.some(is('accept', 1147)));
+	assert.ok(again > moktar, 'a second Moktar Krin step takes the third part');
+	assert.ok(steps[again].when.some((p) => p.k === 'available' && p.q === 1147), 'when available 1147');
+});
+
+// #3337 (Dahai.Li): the Burning Steppes guide flew to Aerie Peak and Gammerita for The Super Snapper FX whenever the
+// group answer was "do it", quest in the log or not. Those steps need the quest too; without it the guide flies
+// from Ironforge straight to Southshore. The Horn of the Beast's flight back from Thelsamar needs its next part.
+test('forever/alliance/50-60/01-burning-steppes.guide: the Hinterlands trip only with The Super Snapper FX in the log (#3337)', { skip }, () => {
+	const { steps } = compiled('forever/alliance/50-60/01-burning-steppes.guide');
+	const flies = (st, where) => st.goals.some((g) => g.t === 'fly' && String(g.name || g.to || g.label || '').includes(where)) || st.title === `Fly to ${where}`;
+	const has = (st, k, q, neg = false) => (st.when || []).some((p) => p.k === k && !!p.neg === neg && [].concat(p.q).includes(q));
+	const hinterlands = steps.filter((st) => has(st, 'group', 2944) && (flies(st, 'Aerie Peak') || st.goals.some(is('use', 2944)) || st.goals.some((g) => g.t === 'use' && g.item === 9328)));
+	assert.ok(hinterlands.length >= 2, 'the Aerie Peak flight and Gammerita');
+	for (const st of hinterlands) assert.ok(has(st, 'onquest', 2944), `"${st.title}": when onquest 2944`);
+	const back = steps.filter((st) => st.title === 'Fly to Southshore' && has(st, 'group', 2944));
+	assert.ok(back.some((st) => has(st, 'onquest', 2944, true)), 'a straight flight to Southshore for a "do it" answer without the quest');
+	const thelsamar = steps.find((st) => st.title === 'Fly to Ironforge' && has(st, 'group', 3181));
+	assert.ok(has(thelsamar, 'onquest', 3182), 'the flight back from Thelsamar only after Pebblebitty');
 });
 
 // #3299 (fekz): the Bulwark step named the Box of Incendiaries in a note and never asked for the Flame in a Bottle

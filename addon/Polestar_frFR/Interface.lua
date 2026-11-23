@@ -1258,6 +1258,7 @@ L["%s: click through what they say until the quest's line is done."] = "%s : cli
 -- L["Chain: finished, %d skipped"] = ""
 -- L["Chain: all %d done"] = ""
 -- L["Chain: %d of %d"] = ""
+L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "Visible seulement une fois mort : mourez à proximité et parlez-lui en fantôme, ou passez cette quête."
 
 -- Lookup/Spotter.lua
 L["From"] = "Provenance"
@@ -1312,7 +1313,8 @@ L["Comes back at level %d: %s"] = "Revient au niveau %d : %s"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "Niveau %d : vous pouvez prendre %s maintenant. Son donneur est marqué sur votre carte ; reprenez les quêtes pour l'ajouter au guide."
 L["Leads to %s."] = "Mène à %s."
 L["Needed for %s."] = "Requise pour %s."
-L["Prerequisite quests: %d of %d steps, about %s."] = "Quêtes prérequises : %d étapes sur %d, environ %s."
+L["%s offers one of these a week: take it if it is this week's."] = "%s propose une de ces quêtes par semaine : prenez-la si c'est celle de cette semaine."
+L["%d of this guide's %d steps are prerequisite quests (about %s)."] = "%d des %d étapes de ce guide sont des quêtes prérequises (environ %s)."
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "Pas encore terminée : %s"
@@ -5240,3 +5242,4 @@ L["Most used"] = "Les plus utilisés"
 -- L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "Personnages est désactivé. Activez-le dans Options > Découverte > Recherche."
 -- L["Boss whisper"] = "Murmure de boss"
 -- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "Ouvre la porte de l'accès de la Horde à la cité de Dalaran ; une seule clé l'ouvre pour tout le groupe. L'Alliance entre par la canalisation des égouts de Cantrips & Crows."
+-- L["Prerequisite quests: %d of %d steps, about %s."] = "Quêtes prérequises : %d étapes sur %d, environ %s."

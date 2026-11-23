@@ -270,6 +270,14 @@ step Trial of the Sea Lion
   turnin 272                                  -- Dendrite Starblaze
   accept 5061                                 -- Dendrite Starblaze: Aquatic Form, for Mathrengyl Bearwalker
 
+step Dendrite Starblaze
+  only NightElf,Skyborne,Druid
+  zone Moonglade
+  when turnedin 272
+  when available 5061
+  tip The Pendant of the Sea Lion is already with Dendrite Starblaze: take Aquatic Form from him, upstairs in his building.
+  accept 5061                                 -- Dendrite Starblaze: Aquatic Form, for Mathrengyl Bearwalker
+
 step Back to Dendrite
   zone Moonglade
   only Druid

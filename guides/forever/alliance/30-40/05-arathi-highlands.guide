@@ -137,10 +137,15 @@ step Stormwind
   zone Stormwind City
   accept 1260                         -- Angus Stern, Stormwind Harbor road
 
+step Gakin the Darkbinder
+  only Warlock
+  when complete 1738
+  tip Gakin the Darkbinder waits in the Slaughtered Lamb's cellar, in the Mage Quarter.
+  turnin 1738                         -- Gakin the Darkbinder
+
 step The Binding
   only Warlock
   tip Gakin the Darkbinder waits in the Slaughtered Lamb's cellar, in the Mage Quarter. Use the Heartswood Core at the summoning circle there and defeat the succubus it calls. If you took What Is Love?, hand him the Wooden Figurine too, place it at the same circle and defeat the incubus.
-  turnin 1738                         -- Gakin the Darkbinder
   accept 1739
   kill 5677 quest 1739.1 @39.2,84.4 live -- Summoned Succubus, at the summoning circle
   turnin 1739                         -- Summon Succubus

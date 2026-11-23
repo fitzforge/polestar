@@ -1257,6 +1257,7 @@ L["Use %s to learn it."] = "使用%s來學習。"
 -- L["Chain: finished, %d skipped"] = ""
 -- L["Chain: all %d done"] = ""
 -- L["Chain: %d of %d"] = ""
+L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "只有死亡後才能看見：在附近死亡，以靈魂狀態與其對話，或略過此任務。"
 
 -- Lookup/Spotter.lua
 L["From"] = "來自"
@@ -1311,7 +1312,8 @@ L["Comes back at level %d: %s"] = "%2$s：%1$d 級時再出現"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "%d 級：現在可以接取 %s。任務給予者已在地圖上標出；再次接取任務即可將其加入指南。"
 L["Leads to %s."] = "通往%s。"
 L["Needed for %s."] = "是%s的前置任務。"
-L["Prerequisite quests: %d of %d steps, about %s."] = "前置任務：%d/%d 個步驟，約 %s。"
+L["%s offers one of these a week: take it if it is this week's."] = "%s每週提供其中一個任務：如果是本週的就接取。"
+L["%d of this guide's %d steps are prerequisite quests (about %s)."] = "本指南有 %d 個步驟是前置任務（共 %d 個步驟，約 %s）。"
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "尚未完成：%s"
@@ -5192,3 +5194,4 @@ L["Most used"] = "常用設定"
 -- L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "「角色」已關閉。可在「選項」>「探索」>「查詢」中開啟。"
 -- L["Boss whisper"] = "首領悄悄話"
 -- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "開啟部落進入達拉然城的大門；一把鑰匙即可為整個隊伍開門。聯盟則從「咒語與烏鴉」的下水道管線進入。"
+-- L["Prerequisite quests: %d of %d steps, about %s."] = "前置任務：%d/%d 個步驟，約 %s。"

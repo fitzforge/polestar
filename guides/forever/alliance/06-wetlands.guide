@@ -189,6 +189,13 @@ step Glorin Steelbrow
   turnin 270                              -- Inside
   accept 321
 
+step Glorin Steelbrow
+  zone Wetlands
+  when turnedin 270
+  when available 321
+  tip The Doomed Fleet is already with Glorin: take Lightforge Iron from him in the Deepwater Tavern, south of the keep.
+  accept 321
+
 step James Halloran
   when dungeon "Excavation Site: Wetlands"
   when turnedin 484
@@ -420,6 +427,14 @@ step Prospector Whelgar
   turnin 95810                        -- Prospector Whelgar, below ground
   accept 98824                        -- Prospector Whelgar: for High Explorer Magellas in Ironforge, at the end of this guide
 
+step Prospector Whelgar
+  when dungeon "Excavation Site: Wetlands"
+  when turnedin 95810
+  when available 98824
+  zone Wetlands
+  tip The Titan Relic is already with Prospector Whelgar: take Prehistoric Prism from him, below ground in his dig.
+  accept 98824                        -- Prospector Whelgar: for High Explorer Magellas in Ironforge, at the end of this guide
+
 step Captain Stoutfist
   tip Hearth back to Menethil Harbor if you bound at the Deepwater Tavern, or walk west along the road: Captain Stoutfist stands on the top floor of Menethil Keep, James Halloran by the docks.
   turnin 464                              -- On the top floor
@@ -483,6 +498,7 @@ step Thundris Windweaver
 
 step Auberdine
   zone Darkshore
+  when complete 994
   tip Terenthis stands by the flight master. No Trek to Ashenvale yet? Give it a minute after the hand-in: Sentinel Selarin comes to Terenthis's side shortly after Volcor's escort is handed in. Changing layer can also find her.
   turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
   accept 990 optional                     -- Sentinel Selarin, once she comes: Trek to Ashenvale, for Raene Wolfrunner in Astranaar
@@ -538,7 +554,7 @@ step Melyria and Illiyana
 
 step Therysil
   zone Ashenvale
-  when onquest 945
+  when complete 945
   tip Therysil stands at the Shrine of Aessina, a short walk from Melyria and Illiyana.
   turnin 945                          -- Therysil: Therylune's Escape, if you still carry it from Darkshore
 

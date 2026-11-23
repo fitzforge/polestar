@@ -1258,6 +1258,7 @@ L["Use %s to learn it."] = "使用%s来学习。"
 L["Chain: finished, %d skipped"] = "任务链：已完成，跳过 %d 个"
 L["Chain: all %d done"] = "任务链：%d 个全部完成"
 L["Chain: %d of %d"] = "任务链：%d/%d"
+L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "只有死亡后才能看见：在附近死亡，以灵魂状态与其对话，或跳过此任务。"
 
 -- Lookup/Spotter.lua
 L["From"] = "来源"
@@ -1312,7 +1313,8 @@ L["Comes back at level %d: %s"] = "%2$s：%1$d级时再出现"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "%d级：现在可以接取%s。任务发布者已在地图上标出；再次接受任务即可将其加入指南。"
 L["Leads to %s."] = "通往%s。"
 L["Needed for %s."] = "是%s的前置任务。"
-L["Prerequisite quests: %d of %d steps, about %s."] = "前置任务：%d/%d 个步骤，约 %s。"
+L["%s offers one of these a week: take it if it is this week's."] = "%s每周提供其中一个任务：如果是本周的就接取。"
+L["%d of this guide's %d steps are prerequisite quests (about %s)."] = "本指南有 %d 个步骤是前置任务（共 %d 个步骤，约 %s）。"
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "尚未完成：%s"
@@ -5201,3 +5203,4 @@ L["Most used"] = "常用设置"
 -- L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "“角色”功能已关闭。请在“选项 > 发现 > 查询”中开启。"
 -- L["Boss whisper"] = "首领密语"
 -- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "打开部落进入达拉然城之路上的大门；一把钥匙即可为整个队伍开门。联盟从“戏法与乌鸦”中的下水管道走进去。"
+-- L["Prerequisite quests: %d of %d steps, about %s."] = "前置任务：%d/%d 个步骤，约 %s。"

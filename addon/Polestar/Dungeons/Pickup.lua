@@ -88,9 +88,11 @@
 --       A Recipe For Death's steps said they were there for the Ruins of
 --       Lordaeron's The New Plague).
 --   The pick-up guide's first goal also says how many of its steps are such
---   prerequisites and about how long they take: "Prerequisite quests: 5 of 10
---   steps, about 1 h 15 min." (Dungeons.PrereqTime of Dungeons.PrereqSeconds
---   summed; rounded to 5 minutes).
+--   prerequisites and about how long they take: "5 of this guide's 10 steps
+--   are prerequisite quests (about 1 h 15 min)." (Dungeons.PrereqTime of
+--   Dungeons.PrereqSeconds summed; rounded to 5 minutes). It once read
+--   "Prerequisite quests: 7 of 10 steps", which players took for their
+--   progress through the guide (#2709).
 --   Dungeons.PrereqSeconds(step, rec, pos) -> seconds   -- a prerequisite step's rough time:
 --       the travel from `pos` through the step's goal points in order (its
 --       giver, the places of its objectives, its turn-in: LK().Travel) times
@@ -1029,7 +1031,15 @@ local function acceptGoal(pq, rec, g)
 		goal.candidates = rec and LK().GiverCandidates(rec.start, g) or nil
 	end
 	goal.z = LK().SpawnZ(g.kind == "object" and "object" or "npc", g.id, g)
-	return goal
+	-- One of a set its giver offers one at a time (the Codex's rotation, #3601: Pix Xizzix's weekly In Demand
+	-- quests): optional, so the guide never waits on one not offered this week, and its goal says so.
+	if rec and rec.rotation then
+		goal.optional = true
+		local text = format(L["%s offers one of these a week: take it if it is this week's."], g.name or L["Quest giver"])
+		goal.note = goal.note and (text .. " " .. goal.note) or text
+	end
+	-- A giver only the dead see: optional, and its goal says so (Lookup.GhostOnly, #558).
+	return LK().GhostOnly(goal)
 end
 
 -- Collect the item that starts a quest at drop point d (Dungeons.DropPoint):
@@ -1929,7 +1939,7 @@ function Dungeons.PickupGuide(key)
 	-- the first goal, the first thing the window says.
 	local first = steps[1] and steps[1].goals and steps[1].goals[1]
 	if pre.n > 0 and first then
-		local head = format(L["Prerequisite quests: %d of %d steps, about %s."], pre.n, #steps, Dungeons.PrereqTime(pre.seconds))
+		local head = format(L["%d of this guide's %d steps are prerequisite quests (about %s)."], pre.n, #steps, Dungeons.PrereqTime(pre.seconds))
 		first.note = first.note and (head .. " " .. first.note) or head
 	end
 	return { title = format(L["%s: pick up the quests"], d.name), steps = steps, dungeon = key }
