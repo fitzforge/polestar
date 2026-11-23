@@ -56,6 +56,11 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "",
 	["Below ground"] = "지하",
 
+	-- Step 17: Saving Yenniku
+	["while he is alive: the gem fills; don't kill him"] = "",
+	-- {item:3912} Soul Gem
+	["Use the {item:3912} on Yenniku"] = "",
+
 	-- Step 19: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "비행선 타고 {zone:1454}(으)로",

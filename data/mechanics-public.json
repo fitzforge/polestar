@@ -902,6 +902,60 @@
 				}
 			],
 			"note": "Marshal Windsor (4241, the Alliance's Onyxia chain): its turn-in, Marshal Windsor (9023), has no open-world spawn; the Codex places him in Blackrock Depths. Source: the game's quest text ('enter Blackrock Depths. Find out what became of Marshal Windsor. You recall Ragged John talking about Windsor being dragged off to a prison')."
+		},
+		"98283": {
+			"kinds": [
+				{ "kind": "summon-by-item", "confidence": "high" }
+			],
+			"params": [
+				{ "kind": "summon-by-item", "item": 280331, "npc": 271336 }
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "kill",
+					"target": { "type": "npc", "id": 271334 },
+					"fact": "Kill Maddened Rotclaws (25-26) in the Green Belt and the hills north of it for the Malignant Rotclaw Flesh.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "use-item",
+					"item": { "id": 280331 },
+					"fact": "Use the Malignant Rotclaw Flesh at Carnage's lair on the hill north of the Dragonmaw Gates: Carnage comes out to it.",
+					"place": { "map": 1437, "x": 70.0, "y": 29.0, "f": "e" },
+					"confidence": "high"
+				},
+				{
+					"n": 3,
+					"action": "kill",
+					"target": { "type": "npc", "id": 271336 },
+					"fact": "Kill Carnage (level 30, elite) for Carnage's Head.",
+					"place": { "map": 1437, "x": 70.0, "y": 29.0, "f": "e" },
+					"confidence": "high"
+				}
+			],
+			"note": "Carnage (98283): Carnage (271336) only comes out when the Malignant Rotclaw Flesh (280331), a Maddened Rotclaw's (271334) drop, is used at his lair; the guide listed his head first and the flesh only once the head was in the bags (#3804, holyjezus). Source: players' in-game recordings: the flesh's cast (spell 1308246) 13 times, every one at Wetlands 70,29, Carnage's spawn; of the 39 people whose recordings have both items, 33 had the flesh first."
+		},
+		"592": {
+			"kinds": [
+				{ "kind": "use-item-on-mob", "confidence": "high" }
+			],
+			"params": [
+				{ "kind": "use-item-on-mob", "item": 3912, "npcs": [2530] }
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"target": { "type": "npc", "id": 2530 },
+					"item": { "id": 3912 },
+					"fact": "Use the Soul Gem on Yenniku while he is alive: the gem fills (the Filled Soul Gem). Don't kill him.",
+					"place": { "map": 1434, "x": 39.0, "y": 58.4, "f": "e" },
+					"confidence": "high"
+				}
+			],
+			"note": "Saving Yenniku (592): the Filled Soul Gem (3913) comes from using the Soul Gem (3912) on Yenniku (2530) while he is alive; our quest data lists it as his drop, so the step read \"Kill Yenniku for Filled Soul Gem\" before the gem's use (#3825, Meta). Source: an in-game check: the reporter used the gem on him alive and the quest completed (592 done in the report's quest log)."
 		}
 	}
 }

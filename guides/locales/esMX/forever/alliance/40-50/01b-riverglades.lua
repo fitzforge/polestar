@@ -199,6 +199,8 @@ return {
 	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
 	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
 	["{npc:259158}: {quest:94961}, in his cage"] = "",
+	["the way in: she is below the town"] = "",
+	["Claire's cave"] = "",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "El culto Crepuscular",
@@ -386,10 +388,13 @@ return {
 	["The pirates' ships"] = "Los barcos piratas",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
+	["on board, at the arrow"] = "",
 	-- {item:268505} Remote Explosive Charge
-	["{item:268505}, the southern ship"] = "{item:268505}, el barco del sur",
-	["the middle ship"] = "el barco del medio",
-	["the northern ship"] = "el barco del norte",
+	["Plant a {item:268505} on the southern ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the middle ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the northern ship"] = "",
 
 	-- Step 74: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
@@ -578,8 +583,11 @@ return {
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "Vuelve a los acantilados de los piratas. Coloca las cargas de Whizzbuzz en los tres barcos anclados bajo el campamento, de sur a norte; {quest:95124} (nivel 45) está junto al del medio, con su cofre de botín al lado. Ojo con {npc:259758} en el camino.",
 	-- ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "Los cultistas llenan las calles y los campos de {area:16723}. Empieza en los círculos rituales del centro (llena ahí el catalizador de Claire), avanza al oeste por las casas quemadas hasta el borde del pueblo y luego vuelve al noreste a la tierra suelta al oeste de la granja de Elbrim: entierra ahí los {item:266148} que sueltan los Asaltantes Crepusculares. Los amuletos, las páginas y los huesos de dedo los sueltan los cultistas.\nGuarda el {item:4338} que sueltan: {npc:263613} en {area:16724} te pide veinte cuando regreses. De vez en cuando un cultista suelta {quest:94885}: haz clic derecho para iniciar la misión.\nCuidado: {npc:256899}, un ogro élite (nivel 41), recorre las calles del oeste de {area:16723}, alrededor de 44-47,47-52. Atrae a los cultistas hacia ti y déjalo pasar; aquí murieron más jugadores que en ningún otro lugar de la zona.\n{npc:263380}, el élite del río (nivel 42), puede subir desde los campos del suroeste: déjalo pasar.",
 	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} merodea las aguas poco profundas al suroeste del puerto, bajo las playas de los múrlocs. {npc:257001}, un élite, recorre la orilla cerca: mantén distancia.",
+	-- ["the middle ship"] = "el barco del medio",
+	-- ["the northern ship"] = "el barco del norte",
 	-- ["the {object:707245} poster"] = "el cartel {object:707245}",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, de {npc:272437}",
+	-- ["{item:268505}, the southern ship"] = "{item:268505}, el barco del sur",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} espera junto al camino al este del paso.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} cuida la vieja catedral en la esquina suroeste de {area:16724}. Los murciélagos anidan en el piso superior; {npc:272437} reparte las velas sagradas junto a ella; las tumbas están en el cementerio de la capilla.\n{npc:271742}, un élite de nivel 53, está en la catedral: no te ataca, así que nunca lo ataques y aleja a los murciélagos de él.",
 	-- ["{object:621813}: bury the mementos"] = "{object:621813}: entierra los recuerdos",

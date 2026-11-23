@@ -56,6 +56,11 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "Son enemigos élite: se recomienda agruparse, busca gente para hacerlo. {npc:818} (élite de nivel 47) necesita un grupo de 2. Omítelo si estás solo: la ruta te hace recuperar esa experiencia matando enemigos.\nCuidado: Dos guardias lanzadores de hechizos élite, de nivel 45 más o menos, están con {npc:818} y se unen a la pelea junto con él.",
 	["Below ground"] = "Bajo tierra",
 
+	-- Step 17: Saving Yenniku
+	["while he is alive: the gem fills; don't kill him"] = "",
+	-- {item:3912} Soul Gem
+	["Use the {item:3912} on Yenniku"] = "",
+
 	-- Step 19: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zepelín a {zone:1454}",

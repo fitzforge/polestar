@@ -214,8 +214,8 @@ return {
 	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "从{npc:2093}向西北到河边：沼泽爬行者藏在水潭和两岸，一直向西分布到{area:1024}。沿河向西击杀十二只，再向东返回{npc:1244}处。\n注意：沼泽爬行者脱战后会不时使用潜行，进入潜行状态后很难看见。",
 
 	-- Step 39: Rethiel the Greenwarden
-	-- {quest:98283} Carnage · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
-	["{quest:98283}, an elite raptor, on the {zone:1437} loop of the {zone:1424} guide"] = "",
+	-- {quest:98283} Carnage · {npc:271334} Maddened Rotclaw · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
+	["{quest:98283}, an elite raptor called out with a {npc:271334}'s flesh, on the {zone:1437} loop of the {zone:1424} guide"] = "",
 
 	-- Step 40: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates

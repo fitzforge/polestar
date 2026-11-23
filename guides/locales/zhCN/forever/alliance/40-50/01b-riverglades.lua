@@ -199,6 +199,8 @@ return {
 	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
 	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
 	["{npc:259158}: {quest:94961}, in his cage"] = "",
+	["the way in: she is below the town"] = "",
+	["Claire's cave"] = "",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "暮光教派",
@@ -386,10 +388,13 @@ return {
 	["The pirates' ships"] = "海盗船",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
+	["on board, at the arrow"] = "",
 	-- {item:268505} Remote Explosive Charge
-	["{item:268505}, the southern ship"] = "{item:268505}，南边的船",
-	["the middle ship"] = "中间的船",
-	["the northern ship"] = "北边的船",
+	["Plant a {item:268505} on the southern ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the middle ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the northern ship"] = "",
 
 	-- Step 74: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
@@ -578,8 +583,11 @@ return {
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "再次前往海盗悬崖。从南到北，在营地下方停泊的三艘船上安放威兹巴兹的炸药；{quest:95124}（45级）站在中间那艘船旁，她的战利品箱就在旁边。途中留意{npc:259758}。",
 	-- ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "{area:16723}的街道和田地里到处是邪教徒。先从中央的仪式法阵开始（在那里装满克莱尔的催化剂），向西穿过烧毁的房屋到镇子边缘，再折回东北到埃尔布里姆农场西边的松软泥土：把暮光袭击者掉落的{item:266148}埋在那里。护符、书页和指骨都从邪教徒身上掉落。\n留着他们掉落的{item:4338}：回到{area:16724}时，{npc:263613}要二十块。邪教徒偶尔会掉落{quest:94885}：右键点击它接受任务。\n小心：精英食人魔{npc:256899}（41级）在{area:16723}西侧街道巡逻，大约在44-47,47-52。把邪教徒拉到你这边，等他走过去；这里是本地区玩家死得最多的地方。\n河边的精英{npc:263380}（42级）可能从西南的田地游荡过来：让他过去。",
 	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}在港口西南、鱼人海滩下方的浅水中游荡。精英{npc:257001}在附近岸边走动：离他远一点。",
+	-- ["the middle ship"] = "中间的船",
+	-- ["the northern ship"] = "北边的船",
 	-- ["the {object:707245} poster"] = "通缉令",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}，找{npc:272437}领取",
+	-- ["{item:268505}, the southern ship"] = "{item:268505}，南边的船",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026}在山口东边的路旁等候。",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}看守着{area:16724}西南角的旧大教堂。蝙蝠栖息在教堂上层；{npc:272437}在教堂旁发放圣洁蜡烛；坟墓在礼拜堂墓地里。\n{npc:271742}是53级精英，站在大教堂内：他不会主动攻击你，千万别打他，把蝙蝠拉离他身边再打。",
 	-- ["{object:621813}: bury the mementos"] = "{object:621813}：埋下纪念品",
