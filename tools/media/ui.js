@@ -192,6 +192,14 @@ const GLYPHS = {
 		subtract(union(box(12, 15.6, 7.6, 6), dot(12, 9.6, 7.6)), union(box(12, 17.4, 4.4, 4.6), dot(12, 12.8, 4.4))),
 		poly([[12, 10.4], [12.9, 13.2], [15.4, 14], [12.9, 14.8], [12, 17.6], [11.1, 14.8], [8.6, 14], [11.1, 13.2]]),
 	),
+	// Group content and hard fights (#3580): two heads side by side, the one
+	// in front cut clear of the one behind. A party, not a skull (a kill
+	// target) and not a sword (a fight): bring friends.
+	'icon-group': (() => {
+		const front = union(dot(8.4, 9.6, 3.7), sdf.intersect(dot(8.4, 22.6, 7.6), box(8.4, 18.8, 8, 3.4)));
+		const back = union(dot(16, 7.2, 3.3), sdf.intersect(dot(16, 19.8, 6.8), box(16, 16.4, 7.4, 3.4)));
+		return union(front, subtract(back, sdf.offset(front, g(1.5))));
+	})(),
 	// Options in the hub rail: three tracks with their knobs (not the gear,
 	// which is the Gear section's).
 	sliders: union(
