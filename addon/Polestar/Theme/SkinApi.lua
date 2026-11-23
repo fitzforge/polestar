@@ -447,10 +447,40 @@ local function loadSkinAddon(rec)
 	return true
 end
 
+-- A skin built when it is first wanted (#3881): a folder that holds several
+-- skins (Polestar_Skins: ten) registers each with Theme.SkinBuilder(id,
+-- build), and `build` (the skin's own file: its tables, textures and
+-- Theme.RegisterSkin) runs the first time that skin is applied, or when the
+-- settings list every skin. Loading the folder builds none of them: applying
+-- Atlas builds Atlas alone. -> nothing
+local BUILDERS = {} -- skin id -> its build, until it has run
+function Theme.SkinBuilder(id, build)
+	if type(id) ~= "string" or type(build) ~= "function" or SKINS[id] then return end
+	BUILDERS[id] = build
+end
+
+-- Skin `id`'s build, run once. -> registered now
+local function build(id)
+	local b = BUILDERS[id]
+	if not b then return false end
+	BUILDERS[id] = nil
+	local ok, err = pcall(b)
+	if not ok then report("skin", id, nil, "its build failed: " .. tostring(err)) end
+	return SKINS[id] ~= nil
+end
+
+-- Whether skin `id` waits to be built (the tests read it).
+function Theme.SkinWaits(id) return BUILDERS[id] ~= nil end
+
 -- Load the installed addon that declares skin (or scheme) `id`, when it is
--- not loaded and can be. -> ok (registered now, or already), why
+-- not loaded and can be, and build that skin alone. -> ok (registered now,
+-- or already), why
 function Theme.LoadSkinAddon(id)
 	if SKINS[id] or SCHEME_INFO[id] then return true end
+	if BUILDERS[id] then
+		if build(id) then return true end
+		return false, "its build did not register it"
+	end
 	for _, rec in ipairs(Theme.InstalledSkins()) do
 		for _, x in ipairs(rec.ids) do
 			if x == id then
@@ -458,6 +488,7 @@ function Theme.LoadSkinAddon(id)
 				if rec.reason then return false, rec.reason end
 				local ok, why = loadSkinAddon(rec)
 				if not ok then return false, why end
+				build(id)
 				if SKINS[id] or SCHEME_INFO[id] then return true end
 				return false, "its addon " .. rec.addon .. " loaded but did not register it"
 			end
@@ -467,15 +498,22 @@ function Theme.LoadSkinAddon(id)
 end
 
 -- Every installed skin addon that can load, loaded (once a session, out of
--- combat), so the settings' picker shows all of them. -> how many loaded
+-- combat), and every skin waiting to be built, built: the settings' picker
+-- shows all of them. -> how many addons loaded
 local loadedAll = false
 function Theme.LoadInstalledSkins()
-	if loadedAll or (InCombatLockdown and InCombatLockdown()) then return 0 end
-	loadedAll = true
+	if InCombatLockdown and InCombatLockdown() then return 0 end
 	local n = 0
-	for _, rec in ipairs(Theme.InstalledSkins()) do
-		if not rec.loaded and not rec.reason and loadSkinAddon(rec) then n = n + 1 end
+	if not loadedAll then
+		loadedAll = true
+		for _, rec in ipairs(Theme.InstalledSkins()) do
+			if not rec.loaded and not rec.reason and loadSkinAddon(rec) then n = n + 1 end
+		end
 	end
+	local ids = {}
+	for id in pairs(BUILDERS) do ids[#ids + 1] = id end
+	table.sort(ids)
+	for _, id in ipairs(ids) do build(id) end
 	return n
 end
 
