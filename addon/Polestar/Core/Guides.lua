@@ -1062,7 +1062,7 @@ ns.On("TABS_CHANGED", Own.sweep)
 ns.On("GUIDE_CHANGED", Own.sweep)
 
 -- Whether guide def carries deferred steps (read in on first use).
-function Guides.Deferred(def)
+function Guides.StepsDeferred(def)
 	return type(def) == "table" and type(rawget(def, "stepsSrc")) == "string"
 end
 
@@ -1074,7 +1074,7 @@ end
 function Guides.Peek(id)
 	local def = Guides.Get(id)
 	if not def then return nil, false end
-	local fresh = Guides.Deferred(def) and rawget(def, "steps") == nil
+	local fresh = Guides.StepsDeferred(def) and rawget(def, "steps") == nil
 	return def.steps, fresh
 end
 

@@ -44,7 +44,7 @@ local function guideIndex()
 	local player = ns.Compat.GetPlayerInfo()
 	for _, h in ipairs(Guides.List()) do
 		local g = Guides.Get(h.id)
-		local deferred = Guides.Deferred(g)
+		local deferred = Guides.StepsDeferred(g)
 		local steps, fresh = nil, false
 		if g and not (deferred and not Guides.GuideMatches(g, player)) then steps, fresh = Guides.Peek(h.id) end
 		for _, step in ipairs(steps or {}) do

@@ -97,8 +97,12 @@ fn pack_files(name: &str) -> String {
 /// own, so the part's load reads and compiles the races' files too (each returning at once but for the player's):
 /// Alliance resident 19,024 and peak 40,692, Horde resident 17,701 (next without it 17,597: +104) and peak 37,502.
 /// Fitz approved Alliance resident 19,100 and peak 40,800, Horde resident 17,800 and peak 37,600; the reads stay.
+/// 0.4.3 side shelves (#1863, 2026-11-23, the pack compiled on next with them): every guide that is not a leveling
+/// guide keeps its steps as source until it is opened. Alliance resident 13,259, peak 25,977, read 19,282; Horde
+/// resident 12,292, peak 23,442, read 18,402 (next without them: 19,024 / 40,690 / 27,072 and 17,700 / 37,500 /
+/// 25,976). Budgets: those plus ~1%.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 19100.0), ("peak", 40800.0), ("read", 27130.0)]), ("Horde", "Orc", [("resident", 17800.0), ("peak", 37600.0), ("read", 26140.0)])];
+	[("Alliance", "Human", [("resident", 13400.0), ("peak", 26240.0), ("read", 19480.0)]), ("Horde", "Orc", [("resident", 12420.0), ("peak", 23680.0), ("read", 18590.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {
