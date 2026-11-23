@@ -1096,8 +1096,5 @@ r.bearAt16 = E.Outgrown(bear, { level = 16, faction = "Alliance" })
 emit(r)"#
 			.into(),
 	});
-	assert_eq!(
-		out[0],
-		json!({ "levels": [15, 17], "robe21": true, "robe22": false, "robe25": false, "bearMissing": false, "bearKnown": true, "bearAt16": false })
-	);
+	assert_eq!(out[0], json!({ "levels": [15, 17], "robe21": true, "robe22": false, "robe25": false, "bearMissing": false, "bearKnown": true, "bearAt16": false }));
 }
