@@ -27,7 +27,7 @@ return {
 
 	-- Step 2: Shadowglen
 	-- {zone:1438} Teldrassil · {area:256} Aldrassil
-	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation in 30 minutes at 60. The givers stand around {area:256}, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "선택 사항: 북동부 {zone:1438}의 나이트엘프 시작 숲, 60에서 30분에 약 1,050 평판. 주는 이들이 거대 나무 {area:256} 주변에 서 있습니다. Forever는 이 오래된 퀘스트를 어떤 레벨에서도 정액으로 줍니다. 이 단계를 건어뛰면 허브도 건어뛰게 됩니다.",
+	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation in 30 minutes at 60. The givers stand around {area:256}, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "선택 사항: 북동부 {zone:1438}의 나이트엘프 시작 숲, 60에서 30분에 약 1,050 평판. 주는 이들이 거대 나무 {area:256} 주변에 서 있습니다. Forever는 이 오래된 퀘스트를 어떤 레벨에서도 정액으로 줍니다. 이 단계를 건너뛰면 허브도 건너뛰게 됩니다.",
 
 	-- Step 3: Shadowglen: the glade and the spider den
 	-- {area:188} Shadowglen
@@ -54,7 +54,7 @@ return {
 
 	-- Step 7: Dolanaar
 	-- {faction:69} Darnassus · {npc:2151} Moon Priestess Amara
-	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.\n{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "선택 사항: {faction:69}(으)로 가는 도로의 마을, 60에서 45분에 약 1,250 평판. Forever는 이 오래된 퀘스트를 어떤 레벨에서도 정액으로 줍니다. 이 단계를 건어뛰면 허브도 건어뛰게 습니다.\n{npc:2151}이(가) 마을 서쪽 도로를 순찰합니다. 화살표 자리에 없으면 만날 때까지 도로를 따라가세요.",
+	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.\n{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "선택 사항: {faction:69}(으)로 가는 도로의 마을, 60에서 45분에 약 1,250 평판. Forever는 이 오래된 퀘스트를 어떤 레벨에서도 정액으로 줍니다. 이 단계를 건너뛰면 허브도 건너뛰게 됩니다.\n{npc:2151}이(가) 마을 서쪽 도로를 순찰합니다. 화살표 자리에 없으면 만날 때까지 도로를 따라가세요.",
 
 	-- Step 8: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
@@ -94,7 +94,7 @@ return {
 
 	-- Step 14: Auberdine
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {area:702} Rut'theran Village
-	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "선택 사항: {zone:1439}의 {area:442}, {area:702}에서 배를 타고 가며 60에서 한 시간에 약 1,400 평판. 주는 이들이 마을 거리와 부두를 따라 서 있습니다. Forever는 이 오래된 퀘스트를 어떤 레벨에서도 정액으로 줍니다. 이 단계를 건어뛰면 허브도 건어뛰게 됩니다.",
+	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "선택 사항: {zone:1439}의 {area:442}, {area:702}에서 배를 타고 가며 60에서 한 시간에 약 1,400 평판. 주는 이들이 마을 거리와 부두를 따라 서 있습니다. Forever는 이 오래된 퀘스트를 어떤 레벨에서도 정액으로 줍니다. 이 단계를 건너뛰면 허브도 건너뛰게 됩니다.",
 
 	-- Step 15: Auberdine: the coast and the woods
 	-- {area:442} Auberdine

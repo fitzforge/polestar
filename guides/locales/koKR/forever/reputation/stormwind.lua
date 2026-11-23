@@ -29,11 +29,11 @@ return {
 	-- {faction:72} Stormwind
 	["{faction:72} errands"] = "{faction:72} 잔업",
 	-- {faction:72} Stormwind
-	["Optional: four quick deliveries inside {faction:72} for 200 reputation in about five minutes. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "선택 사항: {faction:72} 안에서 약 5분에 평판 200짜리 빠른 배달 넷. Forever는 이 오래된 퀘스트를 어떤 레벨에서도 정액으로 줍니다. 이 단계를 건너뛰면 허브도 건어뛰게 됩니다.",
+	["Optional: four quick deliveries inside {faction:72} for 200 reputation in about five minutes. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "선택 사항: {faction:72} 안에서 약 5분에 평판 200짜리 빠른 배달 넷. Forever는 이 오래된 퀘스트를 어떤 레벨에서도 정액으로 줍니다. 이 단계를 건너뛰면 허브도 건너뛰게 됩니다.",
 
 	-- Step 3: Northshire Valley
 	-- {area:87} Goldshire · {npc:823} Deputy Willem · {npc:197} Marshal McBride · {area:24} Northshire Abbey
-	["Optional: the Human start valley north of {area:87}: about 1,600 reputation in 40 minutes at 60, the best rate of the hubs. {npc:823} and {npc:197} stand at {area:24}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "선택 사항: {area:87} 북쪽의 인간 시작 계곡: 60에서 40분에 약 1,600 평판으로 허브 중 가장 좋은 비율입니다. {npc:823}과(와) {npc:197}이(가) {area:24}에 서 있습니다. Forever는 이 오래된 퀘스트를 어떤 레벨에서도 정액으로 줍니다. 이 단계를 건너뛰면 허브도 건어뛰게 됩니다.",
+	["Optional: the Human start valley north of {area:87}: about 1,600 reputation in 40 minutes at 60, the best rate of the hubs. {npc:823} and {npc:197} stand at {area:24}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "선택 사항: {area:87} 북쪽의 인간 시작 계곡: 60에서 40분에 약 1,600 평판으로 허브 중 가장 좋은 비율입니다. {npc:823}과(와) {npc:197}이(가) {area:24}에 서 있습니다. Forever는 이 오래된 퀘스트를 어떤 레벨에서도 정액으로 줍니다. 이 단계를 건너뛰면 허브도 건너뛰게 됩니다.",
 
 	-- Step 4: Northshire: kobolds, wolves and bandanas
 	["Northshire: kobolds, wolves and bandanas"] = "노스셔: 코볼트, 늑대, 복면",
@@ -87,7 +87,7 @@ return {
 
 	-- Step 13: Goldshire
 	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:253} William Pestle
-	["Optional: {area:87}, Westbrook and the farms south of {area:87}: about 1,450 reputation in an hour at 60. {npc:240}, {npc:241} and {npc:253} stand around the Lion's Pride Inn. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "선택 사항: {area:87}, 웨스트브룩, 그리고 {area:87} 남쪽의 농장: 60에서 한 시간에 약 1,450 평판. {npc:240}, {npc:241}, {npc:253}이(가) 사자 자부심 여관 주변에 서 있습니다. Forever는 이 오래된 퀘스트를 어떤 레벨에서도 정액으로 줍니다. 이 단계를 건너뛰면 허브도 건어뛰게 됩니다.",
+	["Optional: {area:87}, Westbrook and the farms south of {area:87}: about 1,450 reputation in an hour at 60. {npc:240}, {npc:241} and {npc:253} stand around the Lion's Pride Inn. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "선택 사항: {area:87}, 웨스트브룩, 그리고 {area:87} 남쪽의 농장: 60에서 한 시간에 약 1,450 평판. {npc:240}, {npc:241}, {npc:253}이(가) 사자 자부심 여관 주변에 서 있습니다. Forever는 이 오래된 퀘스트를 어떤 레벨에서도 정액으로 줍니다. 이 단계를 건너뛰면 허브도 건너뛰게 됩니다.",
 
 	-- Step 14: Goldshire: the mines
 	-- {area:87} Goldshire
@@ -139,7 +139,7 @@ return {
 	-- Step 22: Eastvale
 	["Eastvale"] = "이스트베일",
 	-- {npc:261} Guard Thomas · {area:91} Tower of Azora
-	["Optional: eastern Elwynn, around {npc:261} on the bridge and the {area:91}, about 1,000 reputation in 40 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "선택 사항: 동부 엘윈, 다리 위 {npc:261}과(와) {area:91} 주변으로 60에서 40분에 약 1,000 평판. Forever는 이 오래된 퀘스트를 어떤 레벨에서도 정액으로 줍니다. 이 단계를 건너뛰면 허브도 건어뛰게 됩니다.",
+	["Optional: eastern Elwynn, around {npc:261} on the bridge and the {area:91}, about 1,000 reputation in 40 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "선택 사항: 동부 엘윈, 다리 위 {npc:261}과(와) {area:91} 주변으로 60에서 40분에 약 1,000 평판. Forever는 이 오래된 퀘스트를 어떤 레벨에서도 정액으로 줍니다. 이 단계를 건너뛰면 허브도 건너뛰게 됩니다.",
 
 	-- Step 23: Eastvale: the work
 	["Eastvale: the work"] = "이스트베일: 일",
@@ -161,7 +161,7 @@ return {
 	-- {area:717} Stockade
 	["{area:717}: two quests"] = "{area:717}: 퀘스트 둘",
 	-- {area:717} Stockade · {faction:72} Stormwind · {object:2101} Mage Quarter · {npc:1719} Warden Thelwater · {npc:1721} Nikova Raskol · {object:2100} Old Town · {npc:1696} Targorr the Dread · {npc:859} Guard Berton · {area:69} Lakeshire · {npc:1663} Dextren Ward · {npc:270} Councilman Millstipe · {area:42} Darkshire · {npc:639} Edwin VanCleef · {area:1581} Deadmines
-	["Optional: the {area:717} is {faction:72}'s prison, a dungeon in the canals of the {object:2101}. At 60 you clear it alone in ten minutes: 300 reputation. {npc:1719} stands at the gate, {npc:1721} in {object:2100}. Two more {area:717} quests start outside the city, 100 each, if you pass by: What Comes Around... ({npc:1696}) from {npc:859} in {area:69} and Crime and Punishment ({npc:1663}) from {npc:270} in {area:42}. (The Stockade Riots, 100 more, needs the Unsent Letter from {npc:639} in the {area:1581} first.) Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "선택 사항: {area:717}은(는) {faction:72}의 감옥으로, {object:2101} 운하에 있는 던전입니다. 60이면 열 분에 혼자 공략합니다: 평판 300. {npc:1719}이(가) 문에, {npc:1721}이(가) {object:2100}에 서 있습니다. 지나가는 길이라면 {area:717} 퀘스트가 도시 밖에 두 개 더 있고 각각 100입니다: 「전 세계가 돌고 돌아」({npc:1696})는 {area:69}의 {npc:859}에게서, 「범죄와 벌」({npc:1663})은(는) {area:42}의 {npc:270}에게서. (「스토케이드 폭동」은(는) 100을 더 주지만 먼저 {area:1581}의 {npc:639}에게서 부치지 않은 편지가 필요합니다.) Forever는 이 오래된 퀘스트를 어떤 레벨에서도 정액으로 줍니다. 이 단계를 건너뛰면 허브도 건어뛰게 됩니다.",
+	["Optional: the {area:717} is {faction:72}'s prison, a dungeon in the canals of the {object:2101}. At 60 you clear it alone in ten minutes: 300 reputation. {npc:1719} stands at the gate, {npc:1721} in {object:2100}. Two more {area:717} quests start outside the city, 100 each, if you pass by: What Comes Around... ({npc:1696}) from {npc:859} in {area:69} and Crime and Punishment ({npc:1663}) from {npc:270} in {area:42}. (The Stockade Riots, 100 more, needs the Unsent Letter from {npc:639} in the {area:1581} first.) Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "선택 사항: {area:717}은(는) {faction:72}의 감옥으로, {object:2101} 운하에 있는 던전입니다. 60이면 열 분에 혼자 공략합니다: 평판 300. {npc:1719}이(가) 문에, {npc:1721}이(가) {object:2100}에 서 있습니다. 지나가는 길이라면 {area:717} 퀘스트가 도시 밖에 두 개 더 있고 각각 100입니다: 「전 세계가 돌고 돌아」({npc:1696})는 {area:69}의 {npc:859}에게서, 「범죄와 벌」({npc:1663})은(는) {area:42}의 {npc:270}에게서. (「스토케이드 폭동」은(는) 100을 더 주지만 먼저 {area:1581}의 {npc:639}에게서 부치지 않은 편지가 필요합니다.) Forever는 이 오래된 퀘스트를 어떤 레벨에서도 정액으로 줍니다. 이 단계를 건너뛰면 허브도 건너뛰게 됩니다.",
 
 	-- Step 27: Inside the Stockade
 	-- {area:717} Stockade

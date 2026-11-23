@@ -204,7 +204,7 @@ return {
 
 	-- Step 36: Bashana Runetotem: Morrowgrain Research
 	-- {npc:9087} Bashana Runetotem · {area:1639} Elder Rise · {item:11040} Morrowgrain
-	["{npc:9087} stands on {area:1639}. If your 10 {item:11040} are not ready yet, skip this step and go on with the cloth: the cloth steps below list the {item:11040} hand-in too."] = "{npc:9087}이(가) {area:1639}에 서 있습니다. {item:11040} 10개가 아직 준비되지 않았다면 이 단계를 건어뛰고 옷감을 이어가세요. 아래 옷감 단계에도 {item:11040} 반납이 나옵니다.",
+	["{npc:9087} stands on {area:1639}. If your 10 {item:11040} are not ready yet, skip this step and go on with the cloth: the cloth steps below list the {item:11040} hand-in too."] = "{npc:9087}이(가) {area:1639}에 서 있습니다. {item:11040} 10개가 아직 준비되지 않았다면 이 단계를 건너뛰고 옷감을 이어가세요. 아래 옷감 단계에도 {item:11040} 반납이 나옵니다.",
 
 	-- Step 37: Additional Runecloth to Honored
 	-- {quest:7825} Additional Runecloth
