@@ -734,6 +734,7 @@ return {
 	-- ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "길을 따라 남동쪽 해안의 {area:392}(으)로 가세요. 마을 북쪽 끝의 {npc:3391}와(과) {npc:7161}, {npc:3442}와(과) {npc:16227}, {npc:3446}와(과) {object:3972} 전단을 찾은 다음, 남쪽으로 나가는 길에 부두의 {quest:1492}을(를) 찾으세요.",
 	-- ["Keep it: {quest:3923} stands outside {zone:1454}; a later guide hands it in"] = "보관하세요: {quest:3923}은(는) {zone:1454} 밖에 있으며, 나중 가이드에서 완료합니다",
 	-- ["Kolkar Wranglers and Stormers hold the camps south of {npc:3389}."] = "콜카르일족 사냥꾼과 번개술사는 {npc:3389} 남쪽 야영지를 차지하고 있습니다.",
+	-- ["Leave {zone:1454} by the main gate and follow the road south through {zone:1411}, then west over the {area:814} bridge: {area:379} sits just above it on the {zone:1413} side. {npc:3337}, {quest:809} and {npc:5810} stand together."] = "{zone:1454} 정문으로 나가 도로를 따라 {zone:1411}을(를) 관통해 남쪽으로 가다가 {area:814} 다리를 서쪽으로 건너세요: {area:379}은(는) {zone:1413} 쪽, 바로 그 위에 자리합니다. {npc:3337}, {quest:809}, {npc:5810}은(는) 함께 서 있습니다.",
 	-- ["North to the {area:383}. {npc:3682} camps below the hills; {npc:261366}, the hermit on the ridge behind him, has work for you only once {npc:3682} sends you up."] = "북쪽 {area:383}(으)로 가십시오. {npc:3682}은(는) 언덕 아래에 야영하고 있으며, 그 뒤 능선의 은둔자 {npc:261366}은(는) {npc:3682}이 올려 보낸 뒤에만 일을 줍니다.",
 	-- ["Oasis Snapjaws crawl around {area:387}, south-west of the {area:380}, and around the {area:388}."] = "오아시스 무쇠턱거북은 {area:380} 남서쪽의 {area:387}와(과) {area:388} 주변을 기어다닙니다.",
 	-- ["Over the {area:814} bridge below {area:379} and south along the {zone:1411} bank to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "{area:379} 아래 {area:814} 다리를 건너 {zone:1411} 강변을 따라 남쪽으로 가면 좁은 오솔길이 산을 오릅니다. 정상의 성소에 {npc:5900}이(가) 있습니다. 올라가는 길에 낭떠러지를 조심하고, 같은 길로 내려오세요.",
@@ -768,6 +769,7 @@ return {
 	-- ["{npc:3337}: {quest:840}, from {zone:1411}"] = "{npc:3337}: {zone:1411}에서 받은 {quest:840}",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Oasis Snapjaws crawl in the water around it: their shells are for {npc:3448}."] = "{npc:3395}은(는) 십자로 남동쪽 {area:388}에서 콜카르일족 사이를 돌아다닙니다. 오아시스 무쇠턱거북이 그 주변 물속을 기어다니며, 그 껍질은 {npc:3448}에게 가져갑니다.",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395}은(는) 크로스로드 남동쪽 {area:388}의 콜카르일족 사이를 걸어 다닙니다. 그곳에 있는 동안 오아시스 동쪽 기슭의 부글거리는 균열에서 {npc:3448}의 씨앗을 시험하세요.",
+	-- ["{npc:3446}, beside the {object:3972} poster"] = "{npc:3446}, {object:3972} 전단 옆에",
 	-- ["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{object:3972} 전단 옆의 {npc:3446}: 태양비늘 랩터는 18레벨에 다음 {area:392} 방문 때 처리합니다",
 	-- ["{npc:3448}: the Oasis Snapjaws at the {area:388}, with {npc:3395}"] = "{npc:3448}: {area:388}의 오아시스 무쇠턱거북, {npc:3395}와(과) 함께",
 	-- ["{npc:3615}, the wind rider master"] = "윈드라이더 조련사 {npc:3615}",
@@ -777,6 +779,4 @@ return {
 	-- ["{object:3972} poster"] = "{object:3972} 게시판",
 	-- ["{quest:3301}: the {area:228} in {zone:1421}, next guide"] = "{quest:3301}: 다음 가이드에서 {zone:1421}의 {area:228}",
 	-- ["{quest:881}, a white lion, prowls the plains north of the Razormane camp."] = "흰 사자 {quest:881}은(는) 서슬갈기일족 야영지 북쪽 평원을 돌아다닙니다.",
-	-- ["Leave {zone:1454} by the main gate and follow the road south through {zone:1411}, then west over the {area:814} bridge: {area:379} sits just above it on the {zone:1413} side. {npc:3337}, {quest:809} and {npc:5810} stand together."] = "{zone:1454} 정문으로 나가 도로를 따라 {zone:1411}을(를) 관통해 남쪽으로 가다가 {area:814} 다리를 서쪽으로 건너세요: {area:379}은(는) {zone:1413} 쪽, 바로 그 위에 자리합니다. {npc:3337}, {quest:809}, {npc:5810}은(는) 함께 서 있습니다.",
-	-- ["{npc:3446}, beside the {object:3972} poster"] = "{npc:3446}, {object:3972} 전단 옆에",
 }

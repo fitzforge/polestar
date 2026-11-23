@@ -226,10 +226,10 @@ return {
 	-- ["only if still carried: the {zone:1423} guide hands it in on its way through"] = "아직 가지고 있을 때만: {zone:1423} 가이드가 지나가는 길에 제출합니다",
 	-- ["{npc:10306}'s next {quest:4741} would bring you back here from {area:618}. Skip it."] = "{npc:10306}의 다음 퀘스트 {quest:4741}은(는) {area:618}에서 여기로 다시 와야 합니다. 건너뛰세요.",
 	-- ["{npc:10306}'s next {quest:4741} would bring you back here from {zone:1452}. Skip it."] = "{npc:10306}의 다음 퀘스트 {quest:4741}은(는) {zone:1452}에서 여기로 다시 와야 합니다. 건너뛰세요.",
+	-- ["{npc:11016}, below ground"] = "{npc:11016}, 지하",
 	-- ["{npc:9116}'s Silver Heart needs an {item:11173} from northern {area:361} and a ride back here. Skip it."] = "{npc:9116}의 은색 심장은 {area:361} 북쪽의 {item:11173}을(를) 가지고 여기로 돌아와야 합니다. 건너뛰세요.",
 	-- ["{npc:9116}'s Silver Heart needs an {item:11173} from northern {zone:1448} and a ride back here. Skip it."] = "{npc:9116}의 은색 심장은 {zone:1448} 북쪽의 {item:11173}을(를) 가지고 여기로 돌아와야 합니다. 건너뛰세요.",
 	-- ["{npc:9298} next sends you after {npc:10738}, an elite in his cave. Skip it."] = "{npc:9298}은(는) 다음으로 동굴 속 정예인 {npc:10738}을(를) 처치하라고 보냅니다. 건너뛰세요.",
 	-- ["{npc:9529} stands on the west side of the Sanctuary, the way out to {area:1763}. With {quest:4102} done, her {quest:5887} asks for six Corrupted Soul Shards: the Shadow Council cultists in {area:1763} and {area:1770} drop them about one kill in three, and you fight dozens of them for {npc:10922}."] = "{npc:9529}은(는) 성소 서쪽, {area:1763}(으)로 나가는 길목에 서 있습니다. {quest:4102}을(를) 완료했다면 그녀의 {quest:5887}에서 오염된 영혼석 조각 여섯 개를 요구합니다. {area:1763}와(과) {area:1770}의 어둠의 의회 사교도가 대략 세 마리에 하나꼴로 떨어뜨리며, {npc:10922}의 퀘스트를 위해 어차피 수십 마리를 상대하게 됩니다.",
 	-- ["{npc:9861}, {npc:9860} and {npc:9517} wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "{npc:9861}, {npc:9860}, {npc:9517}은(는) {area:1763} 북쪽 동굴인 {area:1770} 안쪽 끝에 있습니다. 가는 길에 통로를 정리하세요.\n주의: 세 우두머리는 함께 싸웁니다. 몹을 더 끌어오지 않도록 근처 몹부터 처치하세요.",
-	-- ["{npc:11016}, below ground"] = "{npc:11016}, 지하",
 }

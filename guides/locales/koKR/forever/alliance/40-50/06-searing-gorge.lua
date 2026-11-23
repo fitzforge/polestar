@@ -197,9 +197,9 @@ return {
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "거미는 {npc:8436} 남쪽, 벨라로크에게 가는 길의 고원과 용암 웅덩이를 돌아다닙니다.",
 	-- ["Velarok Windblade"] = "벨라로크 윈드블레이드",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "벨라로크는 {area:1446} 남쪽, 용광로 가장자리에 서 있습니다. 그의 이야기를 들으십시오.",
+	-- ["grind on {npc:5844}"] = "{npc:5844} 사냥",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: 이전 가이드가 귀환석으로 이곳에 데려오므로 보통 바로 완료됩니다",
 	-- ["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509}와(과) 용군단의 보물은 {area:1446} 남쪽 가장자리, 벨라록 옆에 있습니다.",
 	-- ["{object:147516} dwarves"] = "{object:147516} 드워프",
 	-- ["{quest:3453} lies on the ground at Velarok's feet; {quest:3462} stands beside him."] = "{quest:3453}은(는) 벨라록의 발치 땅바닥에 놓여 있고, {quest:3462}은(는) 그 옆에 서 있습니다.",
-	-- ["grind on {npc:5844}"] = "{npc:5844} 사냥",
 }

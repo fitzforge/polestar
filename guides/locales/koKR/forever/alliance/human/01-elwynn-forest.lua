@@ -524,6 +524,7 @@ return {
 	-- ["Torn Murloc Fins"] = "찢어진 멀록 지느러미",
 	-- ["Use the {item:6866} on {npc:6172}"] = "{npc:6172}에게 {item:6866} 사용",
 	-- ["grind on {npc:113}"] = "{npc:113} 사냥",
+	-- ["grind on {npc:80}"] = "{npc:80} 사냥",
 	-- ["{area:18} and the wolves"] = "{area:18}와(과) 늑대",
 	-- ["{area:57}'s mouth"] = "{area:57} 입구",
 	-- ["{item:1006}: Princess"] = "{item:1006}: 공주",
@@ -548,5 +549,4 @@ return {
 	-- ["{npc:6306}: Camping 101, skinners; inside"] = "{npc:6306}: 야영 기초, 무두질; 실내",
 	-- ["{npc:927}: {npc:6171} in {zone:1453} takes it"] = "{npc:927}: {zone:1453}의 {npc:6171}이(가) 받습니다",
 	-- ["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it."] = "{quest:87}은(는) 언덕 위가 아니라 {area:57} 안에 있습니다. 입구로 들어가 왼쪽을 따라 광산 바닥 안쪽까지 가십시오. 위층 계단은 오르지 마십시오. 포도밭 주변의 데피아즈단 좀도둑이 가끔 {item:1972}을(를) 떨어뜨리니 오른쪽 클릭하십시오.",
-	-- ["grind on {npc:80}"] = "{npc:80} 사냥",
 }

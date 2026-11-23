@@ -203,7 +203,7 @@ return {
 	["{area:1108}: the giants' hills"] = "",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant · Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	-- was: ["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "바다 정령과 바다 물보라가 부두 주변 해안을 따라 밀려다닙니다.\n평지거인과 절벽거인이 부두 북쪽 언덕을 돌아다닙니다. 먼저 각각에게 {item:18904}을(를) 쏘세요. 줄어들면 더 이상 정예가 아닙니다. 축소된 거인은 모두 잔여물을 떨어뜨립니다. 시체에 뮤세크 단지도 사용하세요."
+	-- was: ["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "바다 정령과 바다 물보라 정령 정령가 부두 주변 해안을 따라 밀려다닙니다.\n평지거인과 절벽거인이 부두 북쪽 언덕을 돌아다닙니다. 먼저 각각에게 {item:18904}을(를) 쏘세요. 줄어들면 더 이상 정예가 아닙니다. 축소된 거인은 모두 잔여물을 떨어뜨립니다. 시체에 뮤세크 단지도 사용하세요."
 	["The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too.\nThe Sea Elementals and Sea Sprays along the shore have the last cores."] = "",
 
 	-- Step 52: Northspring harpies
@@ -225,7 +225,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Back to {area:1099}"] = "{area:1099}(으)로 돌아가기",
 	-- {npc:7854} Jangdor Swiftstrider
-	["{npc:7854}, inside"] = "",
+	["{npc:7854}, inside"] = "{npc:7854}, 내부",
 
 	-- Step 57: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -282,6 +282,7 @@ return {
 	-- ["Keep {npc:8659}'s payment and Ag'tor's {quest:3504}: they go back to {area:1237} on a later visit."] = "{npc:8659}의 대금과 아그토르의 {quest:3504}은(는) 보관하세요. 나중에 {area:1237}에 다시 갈 때 가져갑니다.",
 	-- ["On the way through {zone:1454} to the flight master, step into the Drag: {npc:7010} takes the insect report from {zone:1446}, and its experience shortens the top-up to 50 in {zone:1447}."] = "{zone:1454}을(를) 지나 비행 조련사로 가는 길에 골목길에 들르세요. {npc:7010}이(가) {zone:1446}의 곤충 보고서를 받으며, 그 경험치로 {zone:1447}에서 50 레벨까지 채우는 사냥이 줄어듭니다.",
 	-- ["Only once all three robots are home"] = "로봇 세 대가 모두 돌아온 뒤에만",
+	-- ["Paladin trainer"] = "성기사 상급자",
 	-- ["Ride into {area:16}"] = "{area:16}(으)로 이동",
 	-- ["Ride north-east to the goblin's camp on the cliffs above the {area:1227}."] = "북동쪽 {area:1227} 위 절벽의 고블린 야영지로 가세요.",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "북서쪽 {area:1108}(으)로 가세요. {npc:14637}이(가) 부두에서 기다립니다.",
@@ -292,7 +293,7 @@ return {
 	-- ["Take the zeppelin back to {zone:1454}."] = "비행선을 타고 {zone:1454}(으)로 돌아가세요.",
 	-- ["Take the zeppelin to {zone:1454} from the tower outside the {zone:1458}, then fly to {area:431}."] = "{zone:1458} 밖의 탑에서 비행선을 타고 {zone:1454}(으)로 간 뒤 {area:431}(으)로 날아가세요.",
 	-- ["The Sea Elementals and Sea Sprays wash along the shore around the dock."] = "바다 정령과 바다 물보라 정령이 부두 주변 해안을 따라 밀려다닙니다.",
-	-- ["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "바다 정령과 바다 물보라가 부두 주변 해안을 따라 밀려다닙니다.\n평지거인과 절벽거인이 부두 북쪽 언덕을 돌아다닙니다. 먼저 각각에게 {item:18904}을(를) 쏘세요. 줄어들면 더 이상 정예가 아닙니다. 축소된 거인은 모두 잔여물을 떨어뜨립니다. 시체에 뮤세크 단지도 사용하세요.",
+	-- ["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "바다 정령과 바다 물보라 정령 정령가 부두 주변 해안을 따라 밀려다닙니다.\n평지거인과 절벽거인이 부두 북쪽 언덕을 돌아다닙니다. 먼저 각각에게 {item:18904}을(를) 쏘세요. 줄어들면 더 이상 정예가 아닙니다. 축소된 거인은 모두 잔여물을 떨어뜨립니다. 시체에 뮤세크 단지도 사용하세요.",
 	-- ["The Thunderhead Hippogryphs fly over the hills just south of {area:1237}."] = "천둥뿔 히포그리프가 {area:1237} 바로 남쪽 언덕 위를 날아다닙니다.",
 	-- ["The blood elves' camp lies just south of {npc:8420}. His four pieces of equipment lie in the crates around the camp."] = "블러드 엘프 야영지는 {npc:8420} 바로 남쪽에 있습니다. 그의 장비 네 개는 야영지 주변 상자에 있습니다.",
 	-- ["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill."] = "요정용은 야영지 바로 서쪽 숲을 날아다닙니다. 처치할 때마다 단지를 사용하세요.",
@@ -305,6 +306,8 @@ return {
 	-- ["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (48-50) are {npc:7876}'s, carried from your first {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop, with {npc:11758}'s."] = "주둔지에서 서쪽, 운고로 비탈길로 가는 길목입니다. {quest:3362}의 옹이진 덤불나무괴물과 뿌리조각사(48-50)는 처음 {zone:1446}에 왔을 때 받아 둔 {npc:7876}의 퀘스트입니다. 많이 돌아다니니 하나씩 끌어오세요. 다음 가이드에서 {area:976}에 들를 때 {npc:11758}의 퀘스트와 함께 {npc:7876}에게 제출합니다.",
 	-- ["Xylem's tower stands on the cliff just north of {area:1237}; the path winds up its north side."] = "실렘의 탑은 {area:1237} 바로 북쪽 절벽 위에 있습니다. 길은 북쪽 면을 따라 구불구불 올라갑니다.",
 	-- ["Zapped giants"] = "축소된 거인",
+	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}: 만나는 대로 처치하세요",
+	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344}은(는) {zone:1456}에 있습니다. {zone:1454}에는 성전사 교관이 없습니다.",
 	-- ["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}, 골목길: 아직 가지고 있다면",
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}: 곰은 {zone:1448}에 있음",
 	-- ["{npc:7825} stands in the {object:36082}."] = "{npc:7825}은(는) {object:36082}에 있습니다.",
@@ -312,8 +315,4 @@ return {
 	-- ["{npc:8395}, at the east edge of the camp: no experience, only a teleport to Azshara Tower"] = "야영지 동쪽 끝의 {npc:8395}: 경험치 없음, 아즈샤라 탑으로 순간이동만 가능",
 	-- ["{quest:3761} is gathered in the next guide; {npc:4046}'s payment goes back to {npc:8587} later."] = "{quest:3761}은(는) 다음 가이드에서 모읍니다. {npc:4046}의 대금은 나중에 {npc:8587}에게 가져갑니다.",
 	-- ["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, the {zone:1447} guide at 55 offers it again."] = "{quest:4494}은(는) 50레벨이 필요합니다. 그때부터 골목길의 {npc:7010}이(가) 줍니다. 50레벨 미만이면 55레벨 {zone:1447} 가이드에서 다시 받을 수 있습니다.",
-	-- ["Paladin trainer"] = "성기사 상급자",
-	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344}은(는) {zone:1456}에 있습니다. {zone:1454}에는 성전사 교관이 없습니다.",
-	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}: 만나는 대로 처치하세요",
-	-- ["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "바다 정령과 바다 물보라 정령 정령가 부두 주변 해안을 따라 밀려다닙니다.\n평지거인과 절벽거인이 부두 북쪽 언덕을 돌아다닙니다. 먼저 각각에게 {item:18904}을(를) 쏘세요. 줄어들면 더 이상 정예가 아닙니다. 축소된 거인은 모두 잔여물을 떨어뜨립니다. 시체에 뮤세크 단지도 사용하세요.",
 }

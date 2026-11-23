@@ -79,7 +79,7 @@ return {
 
 	-- Step 12: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
-	["Fly to {area:431}"] = "",
+	["Fly to {area:431}"] = "{area:431}(으)로 날아가기",
 	-- {zone:1448} Felwood · {area:2255} Everlook · {area:431} Splintertree Post · {area:1237} Valormok
 	["{zone:1448}'s southern hand-ins are next: ride back east to {area:2255}'s flight master, fly to {area:431} (by way of {area:1237}) and ride north into {zone:1448}, so the forest is ridden once, south to north."] = "",
 	-- {area:2255} Everlook
@@ -175,6 +175,7 @@ return {
 	-- ["Back at {area:1099}."] = "{area:1099}에 돌아왔습니다.",
 	-- ["Back to {area:2255}"] = "{area:2255}(으)로 돌아가기",
 	-- ["Below ground"] = "지하",
+	-- ["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "두 {item:14047} 기부는 경로 뒤쪽에서 제출합니다. 원한다면 각각 {item:14047} 60개를 보관하세요.",
 	-- ["Chillwind chimaeras"] = "서리바람 키메라",
 	-- ["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
 	-- ["From Krakle in Un'Goro"] = "운고로 분화구의 크래클에게서",
@@ -185,6 +186,7 @@ return {
 	-- ["He stands on {area:1641}. Each donation wants cloth from your bags; hand them in when you have it, later in the route."] = "그는 {area:1641}에 서 있습니다. 기부마다 가방 속 옷감이 필요합니다. 나중에 경로 중 옷감이 모이면 건네세요.",
 	-- ["In the {object:172958}."] = "{object:172958}에 있습니다.",
 	-- ["In the {object:172961}."] = "{object:172961}에 있습니다.",
+	-- ["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{object:172961} 안. 기부마다 양모, 비단천, 마법천 60개가 필요합니다. 가진 만큼 제출하고 나머지는 건너뛰세요.",
 	-- ["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "맹렬한 설인과 덩치큰 설인은 세게 때립니다. 한 번에 한 마리씩 끌어오세요.",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "길잡이, 보초, 토템술사가 온천 주변 털보숭이 야영지에 함께 있고, 털복숭이 올빼미야수가 그 사이 비탈을 돌아다닙니다. 토템술사를 먼저 처치하세요. 얻는 {item:14047}은(는) 모두 메일로쉬를 위해 모아 두세요.",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "길잡이, 보초, 토템술사가 온천 주변 털보숭이 야영지에 함께 있고, 털복숭이 올빼미야수가 그 사이 비탈을 돌아다닙니다. 토템술사를 먼저 처치하세요. 얻는 {item:14047}은(는) 모두 메일로쉬를 위해 모아 두세요.\n주의: 보초는 56레벨까지 있습니다. 한 번에 한 마리씩 끌어오고 야영지의 토템은 피하세요.",
@@ -209,6 +211,4 @@ return {
 	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}."] = "{npc:9087}은(는) {quest:3761}(으)로 기른 {item:11040}을(를) 삽니다.",
 	-- ["{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide."] = "{quest:3909}은(는) 이 가이드 후반에 {zone:1444}의 {npc:7775}에게서 받습니다.",
 	-- ["{zone:1456} flight master"] = "{zone:1456} 비행 조련사",
-	-- ["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{object:172961} 안. 기부마다 양모, 비단천, 마법천 60개가 필요합니다. 가진 만큼 제출하고 나머지는 건너뛰세요.",
-	-- ["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "두 {item:14047} 기부는 경로 뒤쪽에서 제출합니다. 원한다면 각각 {item:14047} 60개를 보관하세요.",
 }

@@ -113,7 +113,7 @@ return {
 	-- {area:150} Menethil Harbor
 	["Back to Theramore for the boat to {area:150}."] = "",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392} 비행 조련사",
 
 	-- Step 22: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -439,11 +439,11 @@ return {
 	-- {npc:5385} Watcher Mahar Ba · {npc:5393} Quartermaster Lungertz
 	["{npc:5385} is upstairs in the keep and {npc:5393} inside it; the gryphon master stands south of the keep."] = "",
 	-- {npc:5385} Watcher Mahar Ba
-	["{npc:5385}, upstairs"] = "",
+	["{npc:5385}, upstairs"] = "{npc:5385}, 위층",
 
 	-- Step 92: Fly to Stormwind
 	-- {area:1438} Nethergarde Keep
-	["{area:1438} flight master"] = "",
+	["{area:1438} flight master"] = "{area:1438} 비행 조련사",
 
 	-- Step 93: Stormwind
 	-- {npc:5635} Falstad Wildhammer · {area:348} Aerie Peak

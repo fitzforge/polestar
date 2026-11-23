@@ -236,7 +236,7 @@ return {
 
 	-- Step 53: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "{area:415}(으)로 날아가기",
 	-- {area:442} Auberdine · {area:415} Astranaar · {zone:1448} Felwood · {zone:1457} Darnassus
 	["The boat lands in {area:442}: fly straight on to {area:415}. Erelas, Jenal and Gracina take their deliveries on the {zone:1448} guide's {zone:1457} stop, which goes there anyway."] = "",
 	-- {area:442} Auberdine
@@ -377,6 +377,7 @@ return {
 	-- ["Fly from {zone:1455} to {area:150} and take the boat to {area:442}."] = "{zone:1455}에서 {area:150}(으)로 날아가 배를 타고 {area:442}(으)로 가세요.",
 	-- ["Fly from {zone:1455} to {area:69}."] = "{zone:1455}에서 {area:69}(으)로 날아가세요.",
 	-- ["Fly to {area:150} and take the boat to {area:442}, then the boat on to {area:702}."] = "{area:150}(으)로 날아가 배를 타고 {area:442}(으)로 간 뒤, 다시 배를 타고 {area:702}(으)로 가세요.",
+	-- ["Fly to {area:702}"] = "{area:702}(으)로 날아가기",
 	-- ["For {npc:5594} in {area:976}, on the {zone:1422} guide: keep it"] = "{zone:1422} 가이드에서 {area:976}의 {npc:5594}에게 줄 것: 보관하세요",
 	-- ["For {zone:1453}: keep it"] = "{zone:1453}용: 보관하세요",
 	-- ["From the {area:442} dock, fly to {area:415}."] = "{area:442} 부두에서 {area:415}(으)로 날아가세요.",
@@ -418,7 +419,9 @@ return {
 	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "{area:251} 동쪽 비탈의 {npc:7047}이(가) 죽기 직전에 {item:12284}을(를) 사용한 뒤, 남긴 정수를 획득하세요.\n주의: {npc:8981}(56레벨, 희귀)이(가) 새끼용 근처 비탈을 돌아다니며, 주변의 {npc:7040}과(와) 용족은 정예입니다. 가장자리의 새끼용에게 속박장치를 사용하고, 끌어오기 전마다 주위를 살피세요.",
 	-- ["Wildkin feathers"] = "올빼미야수 깃털",
 	-- ["Your Hearthstone is set at {zone:1455} (the {zone:1425} guide binds it there): hearth back to the inn."] = "귀환석이 {zone:1455}에 설정되어 있습니다({zone:1425} 가이드에서 그곳으로 정합니다). 귀환석으로 여관에 돌아가십시오.",
+	-- ["grind on {npc:6196}"] = "{npc:6196} 사냥",
 	-- ["grind on {npc:7033}"] = "{npc:7033} 사냥",
+	-- ["grind on {npc:9690}"] = "{npc:9690} 사냥",
 	-- ["keep it: the {area:199} cauldron waits for the {zone:1452} guide's Chillwind stop, at about 55"] = "보관하세요: {area:199}의 가마솥은 약 55레벨, {zone:1452} 가이드의 서리바람 야영지 방문 때 진행합니다",
 	-- ["{area:199} cauldron"] = "{area:199} 가마솥",
 	-- ["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "{npc:10778}의 유령은 {area:200} 서쪽, {area:199}의 농가 근처를 떠돕니다. 소포는 농가 안에 있습니다.",
@@ -439,7 +442,4 @@ return {
 	-- ["{npc:9177}: the Blackrock orcs drop the medallions, keep it open all through the Steppes"] = "{npc:9177}: 검은바위부족 오크가 메달을 떨어뜨립니다. 불타는 평원 내내 열어 두세요",
 	-- ["{zone:1455} has no druid trainer"] = "{zone:1455}에는 드루이드 상급자가 없습니다",
 	-- ["{zone:1455} has no druid trainer: take the portal up to {zone:1457} and train in the {area:1658}, then come back down to {area:702}."] = "{zone:1455}에는 드루이드 상급자가 없습니다. 차원문을 타고 {zone:1457}(으)로 올라가 {area:1658}에서 수련한 뒤 {area:702}(으)로 내려오세요.",
-	-- ["grind on {npc:6196}"] = "{npc:6196} 사냥",
-	-- ["grind on {npc:9690}"] = "{npc:9690} 사냥",
-	-- ["Fly to {area:702}"] = "{area:702}(으)로 날아가기",
 }

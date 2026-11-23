@@ -439,6 +439,7 @@ return {
 	-- ["for a later stop in the {area:8}"] = "나중에 {area:8}에 들를 때",
 	-- ["the {object:2076}"] = "{object:2076}",
 	-- ["the {object:2076}, beside {npc:2497}"] = "{npc:2497} 옆의 {object:2076}",
+	-- ["{area:127}: kill these as you meet them"] = "{area:127}: 만나는 대로 처치하세요",
 	-- ["{area:1497} trainers"] = "{area:1497} 상급자",
 	-- ["{area:392} pier"] = "{area:392} 부두",
 	-- ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}: {quest:348}(40레벨부터 수락 가능), 운바과 부분은 {zone:1444} 가이드의 {object:3202} 방문 때",
@@ -446,5 +447,4 @@ return {
 	-- ["{npc:2497}: for the {zone:1425}, around level 48"] = "{npc:2497}: 48레벨쯤 {zone:1425}",
 	-- ["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}, 위층: {area:976}의 {quest:2864}에게",
 	-- ["{zone:1434} and the {zone:1435} at 40-43: {object:3202}, {area:35}'s pirates, Nesingwary's hunts and {area:75}."] = "40-43레벨 {zone:1434}와(과) {zone:1435}: {object:3202}, {area:35}의 해적, 네싱워리의 사냥, {area:75}.",
-	-- ["{area:127}: kill these as you meet them"] = "{area:127}: 만나는 대로 처치하세요",
 }

@@ -73,7 +73,7 @@ return {
 	-- Step 16: Glorin Steelbrow
 	-- {quest:270} The Doomed Fleet · {npc:1212} Bishop Farthing · {zone:1453} Stormwind City · {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {quest:321} Lightforge Iron · {item:279915} Nord'el
 	["{quest:270}, from {npc:1212} in {zone:1453}: {npc:1217} stands in the {area:2104}, south of the keep. His {quest:321} lies in the wreck just south of town, by {item:279915}."] = "",
-	["Inside"] = "",
+	["Inside"] = "내부",
 
 	-- Step 17: Glorin Steelbrow
 	-- {quest:270} The Doomed Fleet · {npc:1217} Glorin Steelbrow · {quest:321} Lightforge Iron · {area:2104} Deepwater Tavern
@@ -197,6 +197,7 @@ return {
 	-- plural, as words: Razormaw Incisors = {item:280103} Razormaw Incisor · Fen Creepers = {npc:1040} Fen Creeper
 	["Razormaw Incisors: from the raptors by the {area:1038}, after the Fen Creepers"] = "",
 	-- {quest:98246} Trying Times
+	-- was: ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}: 레이저메인 알, 같은 순환에"
 	["{quest:98246}: the Razormaw eggs, on the same walk"] = "",
 
 	-- Step 37: Einar Stonegrip
@@ -218,7 +219,7 @@ return {
 
 	-- Step 40: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates
-	["{area:1038}: kill these as you meet them"] = "",
+	["{area:1038}: kill these as you meet them"] = "{area:1038}: 만나는 대로 처치하세요",
 	-- {npc:1244} Rethiel the Greenwarden · {area:1036} Angerfang Encampment · {area:205} Dun Modr · {quest:98283} Carnage · {npc:270892} Goaz Warder · {area:1038} Dragonmaw Gates · {npc:270637} Howin Kindfeather
 	-- plural, as words: Crimson Whelps = {npc:1069} Crimson Whelp · Highland Razormaws = {npc:1018} Highland Razormaw · Perfect Razormaw Eggs = {item:280132} Perfect Razormaw Egg
 	["East from {npc:1244}: the Crimson Whelps (25-26) nest in the hills north-east of the {area:1036}, and the Highland Razormaws (27-28) hunt the highlands north of them, towards {area:205}. The Perfect Razormaw Eggs lie in the raptors' nests.\nCareful: {quest:98283}, an elite raptor, prowls the hills north of the whelps, and Ados, an elite {npc:270892} guardian, stands at the {area:1038}: give both room. The Dragonmaw east of {npc:270637} are elite too."] = "",
@@ -237,7 +238,7 @@ return {
 	-- plural, as words: Dark Iron Saboteurs = {npc:1052} Dark Iron Saboteur
 	["North along the road from {area:205} towards the {area:880}: Ebenezer Rustlocke's corpse lies under the span. His parchment goes back to {npc:1075}.\nCareful: Two elite Dark Iron Saboteurs (28-29) stand by the corpse inside the span: loot the corpse and walk straight out without fighting, or, from level 31, pull them one at a time."] = "",
 	-- {object:2652} Ebenezer Rustlocke's Corpse
-	["{object:2652}, inside"] = "",
+	["{object:2652}, inside"] = "{object:2652}, 던전 안",
 	["the same corpse"] = "",
 
 	-- Step 44: Rhag Garmason
@@ -246,7 +247,7 @@ return {
 
 	-- Step 45: The Cache of Explosives
 	-- {object:2704} Cache of Explosives
-	["The {object:2704}"] = "",
+	["The {object:2704}"] = "{object:2704}",
 	-- {area:880} Thandol Span
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron · Dark Iron Shadowcasters = {npc:2577} Dark Iron Shadowcaster
 	["Over the {area:880}: the Dark Irons' cache of explosives sits by its Arathi end.\nCareful: Dark Iron Shadowcasters (31-32) and Bombardiers (30-31), who fight from range, and a Supplier (31-32) stand within 15-25 yards of the cache: pull them one at a time to the bridge before you touch it."] = "",
@@ -258,7 +259,7 @@ return {
 
 	-- Step 47: Rhag Garmason again
 	-- {npc:1075} Rhag Garmason
-	["{npc:1075} again"] = "",
+	["{npc:1075} again"] = "다시 {npc:1075}",
 	-- {area:205} Dun Modr
 	["Back over the span and down the road to {area:205}, on the camp's east side, away from Modr (32, elite) in the ruins."] = "",
 	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands
@@ -313,7 +314,7 @@ return {
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
 	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "남쪽 메네실로 돌아가세요. {npc:1217}은(는) {area:2104}에 있습니다.",
 	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind City
-	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "",
+	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "{zone:1453}의 {npc:1284}에게, 이 가이드 마지막에",
 
 	-- Step 56: Level 28
 	["Level 28"] = "28레벨",
@@ -341,6 +342,7 @@ return {
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["{npc:3649} stands at the north end of {area:442}."] = "{npc:3649}은(는) {area:442} 북쪽 끝에 서 있습니다.",
 	-- {zone:1439} Darkshore · {area:442} Auberdine
+	-- was: ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "알렉스턴의 답장, 아직 가지고 있다면(03-darkshore-return의 첫 {area:442} 지점에서 제출합니다)"
 	["Alexston's reply, if you still carry it (the route hands it in on the {zone:1439} return's first {area:442} stop)"] = "",
 
 	-- Step 61: Auberdine
@@ -697,22 +699,22 @@ return {
 	["Next: fly to {area:42}."] = "다음: {area:42}(으)로 날아가세요.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "알렉스턴의 답장, 아직 가지고 있다면(03-darkshore-return의 첫 {area:442} 지점에서 제출합니다)",
+	-- ["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "용아귀 투석기를 위해, 30-40/01-hillsbrad-foothills의 {zone:1437} 순환에",
 	-- ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "{area:2104}에 귀환석을 귀속했다면 {area:150}(으)로 귀환하고, 아니면 길을 따라 서쪽으로 걸어가세요. {npc:2104}은(는) {area:2103} 꼭대기 층에, {npc:2094}은(는) 배로 가는 길의 부두 옆에 있습니다.",
+	-- ["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "칼날아귀 앞니: {area:1038} 옆 랩터에게서, 30-40/01-hillsbrad-foothills의 {zone:1437} 순환에",
 	-- ["South from {npc:3987}'s camp to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "{npc:3987}의 야영지에서 남쪽으로 {area:415}까지 가십시오. {npc:3691}은(는) 여관 안에, 비행 조련사는 서쪽 끝에 있습니다.",
+	-- ["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "포세이큰 야영지는 {area:2358} 남쪽 숲에 있습니다.\n녹슨 상자는 포세이큰 서쪽 그늘덤불 퍼볼그 야영지 주변에 있습니다. 손잡이가 들어 있는 상자가 나올 때까지 여세요.\n주의: 28-30레벨 비정예 포세이큰이 야영지를 지킵니다. 일부는 은신해 있고, 탁자 주변의 것들은 종종 함께 공격합니다.",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "선장은 난파선 갑판을 걸어다니고, 그의 금고는 선창에 있습니다.",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it.\nGoaz Warders (elite, 32) stand among the relics and the {object:331}: pull them away one at a time, or work around them."] = "유물은 발굴지 안에 있습니다. 커다란 무쇠턱 랩터인 {npc:1353}은(는) 그 바로 서쪽의 랩터 계곡을 어슬렁거립니다.\nGoaz Warder(정예, 32)가 유물과 {object:331} 사이에 서 있습니다. 하나씩 끌어내거나 피해서 작업하십시오.",
 	-- ["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there."] = "길 동쪽 끝의 나이트 엘프 전초기지 {area:2358}: {npc:3848}이(가) 그곳에 있습니다.",
+	-- ["{npc:2094}, by the docks, on the way to the boat"] = "{npc:2094}, 부두 옆, 배로 가는 길에",
+	-- ["{npc:2097}, by the north gate: {npc:1071} takes it on 30-40/01-hillsbrad-foothills' {area:205} stop"] = "{npc:2097}, 북쪽 관문 옆: {npc:1071}이(가) 30-40/01-hillsbrad-foothills의 {area:205} 지점에서 받습니다",
 	-- ["{npc:3691}, in the inn"] = "{npc:3691}, 여관 안",
 	-- ["{npc:3691}: {quest:1025}, the Foulweald on the way to {npc:3897}"] = "{npc:3691}: {quest:1025}, {npc:3897}에게 가는 길의 더러운숲 펄볼그",
 	-- ["{npc:3691}: {quest:1054}, {npc:3987} on the way back from {area:413}"] = "{npc:3691}: {quest:1054}, {area:413}에서 돌아오는 길의 {npc:3987}",
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "타락하지 않은 펄볼그 {npc:3897}은(는) {area:421} 아래 길 남쪽에 앉아 있습니다.",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619}은(는) {area:429} 사티로스의 우두머리이며 나뭇가지를 지니고 있습니다.",
-	-- ["{npc:2097}, by the north gate: {npc:1071} takes it on 30-40/01-hillsbrad-foothills' {area:205} stop"] = "{npc:2097}, 북쪽 관문 옆: {npc:1071}이(가) 30-40/01-hillsbrad-foothills의 {area:205} 지점에서 받습니다",
-	-- ["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "칼날아귀 앞니: {area:1038} 옆 랩터에게서, 30-40/01-hillsbrad-foothills의 {zone:1437} 순환에",
 	-- ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}: 레이저메인 알, 같은 순환에",
 	-- ["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "{quest:98283}, 정예 랩터, 30-40/01-hillsbrad-foothills의 {zone:1437} 순환에",
-	-- ["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "용아귀 투석기를 위해, 30-40/01-hillsbrad-foothills의 {zone:1437} 순환에",
-	-- ["{npc:2094}, by the docks, on the way to the boat"] = "{npc:2094}, 부두 옆, 배로 가는 길에",
-	-- ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "알렉스턴의 답장, 아직 가지고 있다면(03-darkshore-return의 첫 {area:442} 지점에서 제출합니다)",
-	-- ["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "포세이큰 야영지는 {area:2358} 남쪽 숲에 있습니다.\n녹슨 상자는 포세이큰 서쪽 그늘덤불 퍼볼그 야영지 주변에 있습니다. 손잡이가 들어 있는 상자가 나올 때까지 여세요.\n주의: 28-30레벨 비정예 포세이큰이 야영지를 지킵니다. 일부는 은신해 있고, 탁자 주변의 것들은 종종 함께 공격합니다.",
 }

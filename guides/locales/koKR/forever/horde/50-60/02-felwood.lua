@@ -80,7 +80,7 @@ return {
 
 	-- Step 17: Ruins of Eldarath: kill these as you meet them
 	-- {area:1221} Ruins of Eldarath
-	["{area:1221}: kill these as you meet them"] = "",
+	["{area:1221}: kill these as you meet them"] = "{area:1221}: 만나는 대로 처치하세요",
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "동쪽 해안의 폐허로 가세요. 석판 네 개가 폐허 곳곳에 있으며, 원한의꼬리일족 나가(52-55)가 지키고 있습니다. 한 번에 한 마리씩 끌어오세요.",
 
 	-- Step 18: Ruins of Eldarath
@@ -180,7 +180,7 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
 	-- {area:1237} Valormok
-	["{area:1237} flight master"] = "",
+	["{area:1237} flight master"] = "{area:1237} 비행 조련사",
 
 	-- Step 36: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
@@ -285,7 +285,7 @@ return {
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside. She speaks to you only from Neutral with the Timbermaw."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558} walks around here: look inside the circle on the map"] = "",
+	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558}이(가) 이 주변을 배회합니다. 지도 원 안을 살펴보세요.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "{item:13140}을(를) 얻었다면: 사용해 퀘스트를 시작한 뒤, {area:1763} 북쪽 끝 동굴인 {area:1770}의 우리에서 {npc:11018}을(를) 풀어 주세요.",
@@ -352,6 +352,7 @@ return {
 	-- ["grind on Deadwood Avengers at {area:1762}, {zone:1448}"] = "{zone:1448} {area:1762}에서 마른가지일족 복수자 사냥",
 	-- ["grind on Scarlet Knights at {area:192}, {zone:1422}"] = "{zone:1422} {area:192}에서 붉은십자군 기사 사냥",
 	-- ["grind on {npc:7157}"] = "{npc:7157} 사냥",
+	-- ["grind on {npc:8957}"] = "{npc:8957} 사냥",
 	-- ["{area:190}'s Scarlets are level 58-60. Ride in to the high point marked on your map, look over the town, and get out."] = "{area:190}의 붉은십자군은 58-60레벨입니다. 지도에 표시된 높은 곳까지 들어가 마을을 살펴본 뒤 빠져나오세요.",
 	-- ["{area:2627}: kill these as you meet them"] = "{area:2627}: 만나는 대로 처치하세요",
 	-- ["{item:12565}, at the Jadefire moonwell"] = "비취불꽃 달샘에서 {item:12565}",
@@ -371,5 +372,4 @@ return {
 	-- ["{quest:5408}: the {area:2627} undead drop them while you wear the {item:12846}"] = "{quest:5408}: {item:12846}을(를) 착용하고 있으면 {area:2627}의 언데드가 떨어뜨립니다",
 	-- ["{quest:8470}, a rare drop"] = "드물게 떨어지는 {quest:8470}",
 	-- ["{zone:1452}'s quests are 55-58. Below 55 after {npc:9996}'s hand-ins? {area:1762}'s Deadwood furbolgs (53-55) are at your level and on your way north to {area:1769}'s tunnel: kill them until level 55. Every kill also raises your Timbermaw reputation. Careful: the Den Watchers and Avengers call nearby allies once below half health and run off for help when nearly dead: pull one at a time from the village's edge. This is a long top-up for a player who follows only this route. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "{zone:1452}의 퀘스트는 55-58레벨입니다. {npc:9996}에게 제출한 뒤에도 55레벨 미만인가요? {area:1762}의 마른가지일족 털보숭이(53-55)는 레벨이 맞고 북쪽 {area:1769} 터널로 가는 길에 있습니다. 55레벨이 될 때까지 처치하세요. 처치할 때마다 나무구렁일족 평판도 오릅니다. 주의: 보초와 복수자는 생명력이 절반 아래로 떨어지면 주변 동료를 부르고, 죽기 직전에는 도움을 청하러 도망칩니다. 마을 가장자리에서 한 마리씩 끌어오세요. 이 경로만 따르는 플레이어에게는 오래 걸리는 레벨업입니다. 아니면 파티로 {area:1584} 던전이나 {area:1417} 던전을 도세요.",
-	-- ["grind on {npc:8957}"] = "{npc:8957} 사냥",
 }

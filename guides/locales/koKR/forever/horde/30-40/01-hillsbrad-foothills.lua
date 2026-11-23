@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Camp Taurajo flight master
 	-- {area:378} Camp Taurajo
-	["{area:378} flight master"] = "",
+	["{area:378} flight master"] = "{area:378} 비행 조련사",
 	-- {zone:1441} Thousand Needles · {area:378} Camp Taurajo
 	["Coming from the {zone:1441} guide, you stand beside {area:378}'s flight master: this guide flies on from here."] = "",
 
@@ -332,6 +332,7 @@ return {
 	-- ["With a {item:3388} in your bags, {npc:2055} offers {quest:513} in the Apothecarium; {npc:2216} takes the elixir in {area:272}."] = "가방에 {item:3388}이(가) 있으면 연금술 실험실의 {npc:2055}이(가) {quest:513}을(를) 줍니다. 비약은 {area:272}의 {npc:2216}이(가) 받습니다.",
 	-- ["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "22-25레벨 {area:287} 가이드에 있던 다살리아의 첫 심부름을 놓쳤습니다. 지금 그것부터 합니다. 레벨이 조금 낮고 금방 끝나며, 이 가이드에 있는 나머지 {quest:527}을(를) 열어 줍니다.",
 	-- ["grind on {npc:2375}"] = "{npc:2375} 사냥",
+	-- ["{area:484} flight master"] = "{area:484} 비행 조련사",
 	-- ["{item:3388}: auction house or an alchemist, for {quest:513}."] = "{item:3388}: {quest:513}을(를) 위해 경매장이나 연금술사에게서",
 	-- ["{item:3703}, for {npc:2333}"] = "{npc:2333}에게 줄 {item:3703}",
 	-- ["{npc:2229} wants his two scouts freed from {area:275} before he trusts you with Infiltration."] = "{npc:2229}은(는) '침투'를 맡기기 전에 {area:275}에서 정찰병 두 명을 풀어 주기를 원합니다.",
@@ -339,6 +340,5 @@ return {
 	-- ["{npc:2792}, by the gate"] = "{npc:2792}, 성문 옆",
 	-- ["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it."] = "{npc:3428}은(는) 십자로 비행 조련사 옆에 있습니다. {quest:1145}은(는) 29레벨부터 받을 수 있습니다. 그보다 낮다면 다음 가이드의 {zone:1454} 방문 때 받습니다.",
 	-- ["{quest:96986}: {npc:247126}, inside"] = "{quest:96986}: {npc:247126}, 내부",
-	-- ["{area:484} flight master"] = "{area:484} 비행 조련사",
 	-- ["{zone:1456} flight master"] = "{zone:1456} 비행 조련사",
 }

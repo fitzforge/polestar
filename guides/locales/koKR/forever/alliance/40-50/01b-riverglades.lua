@@ -219,6 +219,7 @@ return {
 	["Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave."] = "",
 	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
+	-- was: ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, 엘브림 농장 서쪽: 묘지마다 황혼 약탈자가 떨어뜨리는 {item:266148}이(가) 하나 필요하니 먼저 다섯 개를 모으세요"
 	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop"] = "",
 
 	-- Step 43: Apprentice Claire
@@ -582,6 +583,6 @@ return {
 	-- ["{item:17028}, from {npc:272437}"] = "{npc:272437}에게서 {item:17028}",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026}은(는) 고개 동쪽 길가에서 기다립니다.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}은(는) {area:16724} 남서쪽 구석의 옛 대성당을 지키고 있습니다. 박쥐는 대성당 위층에 둥지를 틀고 있고, 그 옆에서 {npc:272437}이(가) 신성한 양초를 나눠 주며, 무덤은 예배당 묘지에 있습니다.\n53레벨 정예인 {npc:271742}이(가) 대성당 안에 서 있습니다: 먼저 공격하지 않으니 절대 공격하지 말고, 박쥐는 그에게서 떨어진 곳으로 끌어내십시오.",
-	-- ["{object:621813}: bury the mementos"] = "{object:621813}: 유품 묻기",
 	-- ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, 엘브림 농장 서쪽: 묘지마다 황혼 약탈자가 떨어뜨리는 {item:266148}이(가) 하나 필요하니 먼저 다섯 개를 모으세요",
+	-- ["{object:621813}: bury the mementos"] = "{object:621813}: 유품 묻기",
 }

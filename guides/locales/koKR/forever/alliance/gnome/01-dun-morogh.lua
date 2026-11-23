@@ -369,7 +369,6 @@ return {
 
 	-- Step 72: Protecting the Herd
 	-- {npc:1388} Vagash · {area:38} Loch Modan
-	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "정예 몹들입니다. 파티를 권장하니 함께할 사람을 찾으세요. {npc:1388}은(는) 12레벨 정예입니다. 파티로 상대하세요. 혼자라면 건너뛰세요. 앞으로의 {zone:1432} 퀘스트로 경험치를 메울 수 있습니다."
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {area:38} quests ahead make up the experience."] = "정예 몹입니다. 파티를 권장하니 사람을 구해 함께 하세요. {npc:1388}은(는) 12레벨 정예이니 파티로 상대하세요. 혼자라면 건너뛰세요. 다음 {area:38} 퀘스트들이 경험치를 채워 줍니다.",
 	["Below ground"] = "지하",
 

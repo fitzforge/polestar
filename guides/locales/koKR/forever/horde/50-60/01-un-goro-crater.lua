@@ -439,6 +439,7 @@ return {
 	-- ["Western jungle"] = "서쪽 정글",
 	-- ["With {npc:11063}'s quest in your log, slain Scourge sometimes leave a {npc:11064}; talk to it to free it. Kill undead on the ride south-west to {area:2262}."] = "{npc:11063}의 퀘스트가 있으면 처치한 스컬지가 가끔 {npc:11064}을(를) 남깁니다. 말을 걸어 풀어 주세요. 남서쪽 {area:2262}(으)로 가는 길에 언데드를 처치하세요.",
 	-- ["grind on Tar Lurkers at {area:538}, {zone:1449}"] = "{zone:1449}, {area:538}에서 송진껍질괴물 사냥",
+	-- ["grind on {npc:6511}"] = "{npc:6511} 사냥",
 	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}의 유령은 남서쪽 {area:2262} 폐허에 있습니다.",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250}은(는) {area:2262} 바로 서쪽에 숨어 있습니다.",
 	-- ["{npc:6522}, the {object:36073}"] = "{object:36073}의 {npc:6522}",
@@ -447,5 +448,4 @@ return {
 	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "{npc:9684}의 소굴은 수정탑 바로 남쪽에 있습니다. 그곳에서 {npc:9619}의 미끼를 사용하세요. {npc:9684}은(는) 레벨 56이고 공격이 강하니 생명력을 가득 채우고 시작하세요.",
 	-- ["{npc:9999} sits on the ridge, lost and exhausted."] = "{npc:9999}이(가) 길을 잃고 지친 채 마루에 앉아 있습니다.",
 	-- ["{quest:5211}'s spirits come with the {zone:1423} guide's {area:2264} stop: keep it."] = "{quest:5211}의 영혼은 {zone:1423} 가이드의 {area:2264} 구간에서 모읍니다. 보관하세요.",
-	-- ["grind on {npc:6511}"] = "{npc:6511} 사냥",
 }

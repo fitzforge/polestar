@@ -93,6 +93,7 @@ return {
 	-- {area:360} The Venture Co. Mine
 	["{area:360}: the Clearcutter"] = "{area:360}: 클리어커터",
 	-- {npc:272173} Venture Co. Clearclutter · {quest:98427} Ceasing Operations
+	-- was: ["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "정예 파쇄기계 투자개발회사 클리어커터가 피즈스프로킷이 서 있던 곳 너머 광산 깊은 곳에서 일합니다. 그 열쇠가 {quest:98427}용입니다."
 	["The elite shredder {npc:272173} works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "",
 
 	-- Step 16: Bloodhoof Village: last hand-in
@@ -236,9 +237,9 @@ return {
 	-- ["Keep handing in {quest:7825} until {faction:81} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{faction:81}와(과) 확고한 동맹이 될 때까지 {quest:7825}을(를) 계속 제출하세요. {item:14047}: {zone:1423}의 {npc:8546}와(과) 어둠마법사(58-60레벨), 또는 경매장.",
 	-- ["Keep handing in {quest:7825}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7825}을(를) {item:14047} 20장씩 계속 제출하세요. {item:14047}: {zone:1423}의 {npc:8546}와(과) 어둠마법사(58-60레벨), 또는 경매장.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "콜카르 켄타우로스(30-33레벨)가 이곳에서 떨어뜨립니다. 경매장도 이용할 수 있습니다.",
+	-- ["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "정예 파쇄기계 투자개발회사 클리어커터가 피즈스프로킷이 서 있던 곳 너머 광산 깊은 곳에서 일합니다. 그 열쇠가 {quest:98427}용입니다.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "{area:381}의 {npc:3283}(16-17레벨)이 이곳에서 떨어뜨립니다. 경매장도 이용할 수 있습니다.",
 	-- ["{npc:14728} takes cloth for {faction:81} in {faction:81}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7825} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14728}은(는) {faction:81}을(를) 위해 {faction:81}에서 옷감을 받습니다. 양모, 비단, 마법 옷감, {item:14047}의 첫 기부(각 60장)는 한 번만 할 수 있으며 옷감당 평판이 가장 높습니다. 그 뒤에는 {quest:7825}을(를) 확고한 동맹까지 반복합니다. 다른 종족의 도시와 확고한 동맹이 되면 그 종족의 탈것을 살 수 있습니다. Forever의 외교관 유산 특전은 평판 획득량을 늘려 줍니다.",
 	-- ["{npc:14728}: {item:14047} delivered"] = "{npc:14728}: {item:14047} 기부 완료",
 	-- ["{quest:7825} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7825}은(는) 제출할 때마다 {item:14047} 20장을 받으며 원하는 만큼 반복할 수 있습니다. {item:14047}을(를) 20장 단위로 가져와 한 번에 연달아 모두 제출하세요. {item:14047}: {zone:1423}의 {npc:8546}와(과) 어둠마법사(58-60레벨), 또는 경매장.",
-	-- ["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "정예 파쇄기계 투자개발회사 클리어커터가 피즈스프로킷이 서 있던 곳 너머 광산 깊은 곳에서 일합니다. 그 열쇠가 {quest:98427}용입니다.",
 }

@@ -263,6 +263,7 @@ return {
 	-- {zone:1453} Stormwind
 	["{zone:1453}'s gate"] = "{zone:1453}의 문",
 	-- {npc:234} Gryan Stoutmantle · {zone:1436} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire · {area:1617} Valley of Heroes
+	-- was: ["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "와일리에게는 데피아즈단 결사대가 없습니다({zone:1436}, {npc:234}의 편지에서 시작): {zone:1436}은(는) 건너뛰세요. {area:87}에서 {zone:1453}으로 가는 길을 따라 북쪽으로 가세요: {npc:466}은(는) 정문 밖 다리 맞은편 끝에 말을 타고 앉아 있습니다. 이어서 {object:2096}의 그리폰으로 {area:69}까지 돌아가세요."
 	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "",
 	-- {npc:466} General Marcus Jonathan
 	["{npc:466}, outside the main gate"] = "{npc:466}, 정문 밖",
@@ -285,6 +286,7 @@ return {
 
 	-- Step 51: Stormwind
 	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:1617} Valley of Heroes
+	-- was: ["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332}은(는) {object:2100}의 SI:7 건물 위층에 있습니다: 계단은 처음에 잘 보이지 않습니다. {npc:466}은(는) 정문 밖 다리 맞은편 끝에 말을 타고 앉아 있고, 이어서 {object:2096}의 그리폰으로 돌아가세요."
 	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}, SI:7; upstairs"] = "{npc:332}, SI:7; 위층",
@@ -428,6 +430,7 @@ return {
 	-- Step 77: Argos Nightwhisper
 	-- {npc:4984} Argos Nightwhisper · {npc:8997} Gershala Nightwhisper · {area:442} Auberdine
 	["On the way to the harbour: {npc:4984}'s message goes to {npc:8997} in {area:442}, beside Terenthis, where the boat lands."] = "",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "와일리에게는 데피아즈단 결사대가 없습니다({zone:1436}, {npc:234}의 편지에서 시작): {zone:1436}은(는) 건너뛰세요. {area:87}에서 {zone:1453}으로 가는 길을 따라 북쪽으로 가세요: {npc:466}은(는) 정문 밖 다리 맞은편 끝에 말을 타고 앉아 있습니다. 이어서 {object:2096}의 그리폰으로 {area:69}까지 돌아가세요.",
 	-- ["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332}은(는) {object:2100}의 SI:7 건물 위층에 있습니다: 계단은 처음에 잘 보이지 않습니다. {npc:466}은(는) 정문 밖 다리 맞은편 끝에 말을 타고 앉아 있고, 이어서 {object:2096}의 그리폰으로 돌아가세요.",

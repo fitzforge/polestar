@@ -26,6 +26,7 @@ return {
 
 	-- Step 4: Light Leather (Elwynn Forest)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
+	-- was: ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "{spell:2152}, {spell:3756} 및 {spell:3763}에 필요한 {item:2318} 349개(75-150에 210개: 지금 모두 채집하세요): {skill:393}: 5-20레벨 야수. 여기서 {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113}와(과) {npc:822}을(를) 무두질하세요(레벨 5-20). {skill:393} 가이드가 이 루트를 안내합니다."
 	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "",
 
 	-- Step 5: Light Leather (Dun Morogh)
@@ -295,6 +296,7 @@ return {
 	["{item:15094} is orange at 269 (yellow 285, green 295, grey 305): about 43 crafts to 300. Each takes 14 {item:8170}, 10 {item:14047} and 1 {item:14341}. 14 {item:8170} and 10 {item:14047} a craft: the dearest stretch. {skill:165} 300 is a Legacy System milestone."] = "{item:15094}은(는) 269에 주황색입니다(노란색 285, 초록색 295, 회색 305). 300까지 약 43번 만드세요. 한 번에 {item:8170} 14개, {item:14047} 10개, {item:14341} 1개. 제작당 {item:8170} 14개와(과) {item:14047} 10개. 가장 비싼 구간입니다. {skill:165} 300은(는) 유산 시스템 이정표입니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "{spell:2152}, {spell:3756} 및 {spell:3763}에 필요한 {item:2318} 349개(75-150에 210개: 지금 모두 채집하세요): {skill:393}: 5-20레벨 야수. 여기서 {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113}와(과) {npc:822}을(를) 무두질하세요(레벨 5-20). {skill:393} 가이드가 이 루트를 안내합니다.",
 	-- ["Artisan needs character level 35 and {skill:165} 200; it raises the cap to 300. Materials for 225-300 are worth about 312g in all."] = "전문은(는) 캐릭터 레벨 35, {skill:165} 200이(가) 필요하며 최대 숙련도를 300(으)로 올립니다. 225-300 재료는 모두 약 312골드입니다.",
 	-- ["Back to a {skill:165} trainer: {spell:10482}, {spell:14932} are taught from {skill:165} 220."] = "{skill:165} 상급자에게 돌아가세요. {spell:10482}, {spell:14932}은(는) {skill:165} 220부터 배울 수 있습니다.",
 	-- ["Back to a {skill:165} trainer: {spell:10487} is taught from {skill:165} 195."] = "{skill:165} 상급자에게 돌아가세요. {spell:10487}은(는) {skill:165} 195부터 배울 수 있습니다.",
@@ -383,5 +385,4 @@ return {
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}: 고급(녹색) 장비 마력 추출 (또는 경매장)",
 	-- ["{spell:3768} to 150"] = "{spell:3768}: 150까지",
 	-- ["{spell:3776} to 185"] = "{spell:3776}: 185까지",
-	-- ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "{spell:2152}, {spell:3756} 및 {spell:3763}에 필요한 {item:2318} 349개(75-150에 210개: 지금 모두 채집하세요): {skill:393}: 5-20레벨 야수. 여기서 {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113}와(과) {npc:822}을(를) 무두질하세요(레벨 5-20). {skill:393} 가이드가 이 루트를 안내합니다.",
 }

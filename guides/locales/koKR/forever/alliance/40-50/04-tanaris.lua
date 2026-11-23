@@ -138,7 +138,6 @@ return {
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "{npc:5955} 호위",
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
-	-- was: ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "작은 거북 {npc:5955}은(는) {quest:3362} 북쪽 끝에 숨어 있습니다. 가장자리에서 데려가고 덤불나무(48-50레벨)는 건드리지 마십시오. {area:977} 바로 동쪽 물가에 있는 아내 {npc:6015}에게 데려다주십시오: 느리게 걷고 사막의 야수들이 노리니 살려 두십시오."
 	["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "작은 거북 {npc:5955}은(는) {quest:3362} 서쪽 가장자리를 배회하며 대체로 화살표가 가리키는 곳에 있습니다. 가장자리에서 데려가고 가시덤불(48-50레벨)은 건드리지 마세요. {area:977} 바로 동쪽 물가의 아내 {npc:6015}에게 데려다주세요. 천천히 걷고 사막 짐승들이 노리니 살려 두세요.",
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}, 토르타 옆: 오아시스",

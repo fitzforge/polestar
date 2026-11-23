@@ -53,7 +53,7 @@ return {
 
 	-- Step 11: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	["Fly to {area:541}"] = "",
+	["Fly to {area:541}"] = "{area:541}(으)로 날아가기",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976} 비행 조련사",
 
@@ -296,6 +296,8 @@ return {
 	-- ["From the zeppelin tower ride east along the road to the {area:152}, on the way into the {zone:1422}."] = "비행선 탑에서 길을 따라 동쪽의 {area:152}(으)로 가세요. {zone:1422}(으)로 들어가는 길에 있습니다.",
 	-- ["Hameya's mound"] = "하메야의 흙더미",
 	-- ["Hameya's scroll"] = "하메야의 두루마리",
+	-- ["Into {zone:1422}"] = "{zone:1422}(으)로",
+	-- ["Into {zone:1423}"] = "{zone:1423}(으)로",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "미끼는 보관하세요. {npc:9684}은(는) 레벨 56이며, 두 번째 순회 때 그 소굴을 지납니다.",
 	-- ["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the next guide's way through {zone:1448}."] = "{quest:3942}을(를) 보관하세요: {npc:9116}은(는) 다음 가이드에서 {zone:1448}을(를) 지나는 길의 {area:2479}에 있습니다.",
 	-- ["Knights and magi work the {area:192}; the medics and hunters camp south of it. Set {npc:11615}'s termite barrel down in the middle of the lumber mill while you are there.\nCareful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "기사와 마법사는 {area:192}에서 일하고, 의무병과 사냥꾼은 그 남쪽에 야영합니다. 간 김에 제재소 한가운데에 {npc:11615}의 흰개미 통을 내려놓으세요.\n주의: {zone:1422}의 다른 여러 곳처럼 벌목지에도 58-59레벨 정예인 {npc:10996}이(가) 서 있을 수 있으니 거리를 두세요.",
@@ -317,6 +319,7 @@ return {
 	-- ["Ride to {area:2262} in the south-west; Pamela plays among the houses. {npc:11886} lurks in the {area:2261}, the crypt just west of the town.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "남서쪽의 {area:2262}(으)로 가세요. 파멜라는 집들 사이에서 놀고 있습니다. {npc:11886}은(는) 마을 바로 서쪽의 납골당인 {area:2261}에 숨어 있습니다.\n주의: 머큐시오와 함께 정예가 아닌 몹 약 넷이 나옵니다. 그 자리에 나타나지 않고 무덤까지 걸어옵니다.",
 	-- ["Ride west to the Horde camp north of {area:2744}."] = "서쪽으로 {area:2744} 북쪽의 호드 야영지로 가세요.",
 	-- ["Ride west to the walled hold in the middle of the desert."] = "서쪽으로 사막 한가운데의 성벽 두른 요새로 가세요.",
+	-- ["Scare {npc:10977} with {npc:10980}"] = "{npc:10980}(으)로 {npc:10977}을(를) 겁주세요",
 	-- ["Scarlet Crusade"] = "붉은십자군",
 	-- ["Scourge Champions"] = "스컬지 용사",
 	-- ["Scourge Champions roam the {area:2270}, north of the chapel. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants."] = "스컬지 용사는 예배당 북쪽 {area:2270}을(를) 돌아다닙니다. 처치한 용사마다 {npc:11063}의 {item:13156}을(를) 대 보세요. 공명하는 해골이 그가 원하는 것입니다.",
@@ -326,6 +329,7 @@ return {
 	-- ["The Dredge Crushers (57-58) of the south-east are two over you below 57. First top up to 57 on the Dredge Strikers (55-56) on the sands east of {area:3425}, where Sand Skitterers and Stonelash Scorpids (54-56) roam among them, away from the Silithid Darters of the northern sands. Or, with a group, run the {area:1583} dungeon (Lower) or the {quest:838} dungeon instead."] = "남동쪽의 망치미늘벌레(57-58)는 57 미만이면 두 레벨 위입니다. 먼저 {area:3425} 동쪽 모래밭의 작살미늘벌레(55-56)로 57까지 채우세요. 그 사이에 모래그물 바위거미와 돌꼬리전갈(54-56)이 돌아다니며, 북쪽 모래밭의 실리시드 투창벌레와는 떨어져 있습니다. 또는 파티와 함께 {area:1583} 던전(하층)이나 {quest:838} 던전을 도세요.",
 	-- ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too."] = "빛나는 서판 조각은 맨 북서쪽 황혼의 망치단 야영지 주변에 있습니다. 그곳의 먼지 폭풍과 우레의 모래정령도 조각을 떨어뜨립니다.",
 	-- ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time."] = "빛나는 서판 조각은 맨 북서쪽 황혼의 망치단 야영지 주변에 있습니다. 그곳의 먼지 폭풍과 우레의 모래정령도 조각을 떨어뜨립니다. 주의: 가장 높은 우레의 모래정령과 회오리치는 침략자는 58레벨이니 한 번에 한 마리씩 끌어오세요.",
+	-- ["The lake for {quest:5845}"] = "{quest:5845}용 호수",
 	-- ["The libram lies further north, on the way to {area:190}."] = "성서는 더 북쪽, {area:190}(으)로 가는 길에 있습니다.",
 	-- ["The lumber mill is right beside Radley: set {npc:11615}'s termite barrel down in the middle of it."] = "제재소는 래들리 바로 옆에 있습니다. {npc:11615}의 흰개미 통을 제재소 한가운데에 내려놓으세요.",
 	-- ["The satchel lies in the mountains of the far south, past Bronzebeard's Encampment. Deathclasp, an elite scorpid, patrols near it: grab it while he is away."] = "가방은 남쪽 끝 산속, 브론즈비어드 야영지 너머에 있습니다. 정예 전갈 죽음의 갈고리가 근처를 순찰합니다. 그가 떠나 있을 때 챙기세요.",
@@ -342,9 +346,11 @@ return {
 	-- ["West to the {area:152}. The next guide starts in the {zone:1458}, a short ride west."] = "서쪽의 {area:152}로 가세요. 다음 가이드는 조금 서쪽의 {zone:1458}에서 시작합니다.",
 	-- ["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "경로의 이전 방문 때 이것을 놓쳤습니다. 지금 이것부터 합니다. 금방 끝나며 뒤에 이어지는 퀘스트를 열어 줍니다.",
 	-- ["Zeppelin to {zone:1458}"] = "{zone:1458}행 비행선",
+	-- ["grind on {npc:11740}"] = "{npc:11740} 사냥",
 	-- ["grind on {npc:11741}"] = "{npc:11741} 사냥",
 	-- ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "고블린 {npc:10302}은(는) 수정탑 바로 동쪽 {area:543}에 있습니다.",
 	-- ["{npc:10667}'s Battle of Darrowshire ends against elites. Skip it."] = "{npc:10667}의 다로우샤이어 전투는 정예와 싸우며 끝납니다. 건너뛰세요.",
+	-- ["{npc:10667}, upstairs"] = "{npc:10667}, 위층",
 	-- ["{npc:10739} camps by the {area:202}, beside the cauldron; his bears roam the hills north and east of it, on the way to {area:201}."] = "{npc:10739}은(는) {area:202}의 가마솥 옆에 있습니다. 그의 곰들은 그 북쪽과 동쪽 언덕, {area:201}(으)로 가는 길에 돌아다닙니다.",
 	-- ["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field."] = "{npc:10778}의 농장은 {area:152} 동쪽으로 첫 번째 농장입니다. 농장의 비명소리 구울이 그녀의 부적 나머지 반쪽을 지니고 있고, {npc:11075}은(는) 들판의 가마솥을 지키고 있습니다.",
 	-- ["{npc:10926}'s own errand is not on this route. Skip it."] = "{npc:10926}의 심부름은 이 경로에 없습니다. 건너뛰세요.",
@@ -357,10 +363,4 @@ return {
 	-- ["{npc:1855}'s next task, Of Lost Honor, is not on this route. Skip it."] = "{npc:1855}의 다음 임무인 명예의 상징은 이 경로에 없습니다. 건너뛰세요.",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "이제 {npc:9619}이(가) 북동쪽 동굴에 있는 {npc:9622}의 가죽을 요구합니다. 건너뛰세요.",
 	-- ["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "{quest:105}의 파편은 안돌할 한가운데, {npc:1852}의 발밑에 있습니다. 그는 정예 해골 전쟁군주에 둘러싸인 61레벨 정예이므로 파티용 전투입니다.",
-	-- ["grind on {npc:11740}"] = "{npc:11740} 사냥",
-	-- ["Scare {npc:10977} with {npc:10980}"] = "{npc:10980}(으)로 {npc:10977}을(를) 겁주세요",
-	-- ["{npc:10667}, upstairs"] = "{npc:10667}, 위층",
-	-- ["Into {zone:1423}"] = "{zone:1423}(으)로",
-	-- ["The lake for {quest:5845}"] = "{quest:5845}용 호수",
-	-- ["Into {zone:1422}"] = "{zone:1422}(으)로",
 }

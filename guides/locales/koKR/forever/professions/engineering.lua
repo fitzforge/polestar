@@ -17,7 +17,6 @@ return {
 	["{skill:202} 1-75: vendor goods"] = "{skill:202} 1-75: 상인 재료",
 	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
 	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2880} 18개(18실버)와(과) {item:5956}(도구: 하나를 사서 가방에 두세요, 18코퍼). 모두 약 18실버 18코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:5519}, {npc:5514}, {npc:1286}).",
-	-- was: ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}: 도구이니 가방에 넣어 두세요"
 	["a tool, keep it in your bags"] = "도구이니 가방에 두세요",
 
 	-- Step 3: Engineering 1-75: Auction House
@@ -249,6 +248,7 @@ return {
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Horde)"] = "{item:2836} (호드)",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
+	-- was: ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "{item:6533}에 필요한 {item:2836} 31개: {skill:186}: {object:1732}(숙련도 65) {zone:1413}(10-25), {zone:1440}(18-30)와(과) {zone:1424}(20-30). {zone:1440}(18-30)에서 가장 많이 나는 {object:1732} 지점이 표시됩니다."
 	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked."] = "",
 
 	-- Step 48: Heavy Stone (Alliance)
@@ -417,6 +417,7 @@ return {
 	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000}은(는) 287에 주황색입니다(노란색 295, 초록색 305, 회색 315). 300까지 약 14번 만드세요. 한 번에 {item:12359} 6개. 도면은 주울 때 귀속됩니다. 제작당 토륨 주괴 여섯 개. 근처에 모루가 필요합니다. {skill:202} 300은(는) 유산 시스템 이정표입니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "{item:6533}에 필요한 {item:2836} 31개: {skill:186}: {object:1732}(숙련도 65) {zone:1413}(10-25), {zone:1440}(18-30)와(과) {zone:1424}(20-30). {zone:1440}(18-30)에서 가장 많이 나는 {object:1732} 지점이 표시됩니다.",
 	-- ["Apprentice {skill:202}"] = "초급 {skill:202}",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "전문은(는) 캐릭터 레벨 35, {skill:202} 200이(가) 필요하며 최대 숙련도를 300(으)로 올립니다. 225-300 재료는 모두 약 67골드입니다.",
 	-- ["Back to an {skill:202} trainer: {spell:12590} is taught from {skill:202} 175."] = "{skill:202} 상급자에게 돌아가세요. {spell:12590}은(는) {skill:202} 175부터 배울 수 있습니다.",
@@ -484,5 +485,4 @@ return {
 	-- ["{spell:3929} to 95"] = "{spell:3929}: 95까지",
 	-- ["{spell:3937} to 125"] = "{spell:3937}: 125까지",
 	-- ["{spell:3942} to 150"] = "{spell:3942}: 150까지",
-	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "{item:6533}에 필요한 {item:2836} 31개: {skill:186}: {object:1732}(숙련도 65) {zone:1413}(10-25), {zone:1440}(18-30)와(과) {zone:1424}(20-30). {zone:1440}(18-30)에서 가장 많이 나는 {object:1732} 지점이 표시됩니다.",
 }

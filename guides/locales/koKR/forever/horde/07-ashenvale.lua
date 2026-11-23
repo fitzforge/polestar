@@ -407,7 +407,7 @@ return {
 
 	-- Step 89: Fly to Thunder Bluff
 	-- {area:484} Freewind Post
-	["{area:484} flight master"] = "",
+	["{area:484} flight master"] = "{area:484} 비행 조련사",
 
 	-- Step 90: Melor Stonehoof
 	-- {npc:3441} Melor Stonehoof · {area:1641} Hunter Rise · {quest:1131} Steelsnap

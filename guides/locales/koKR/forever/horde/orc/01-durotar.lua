@@ -441,6 +441,7 @@ return {
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "{zone:1454}(으)로",
 	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {area:379} Far Watch Post · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	-- was: ["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "{area:379}에서 도로를 따라 북쪽으로 가면 {zone:1454} 정문이 나옵니다. 다음 가이드는 {zone:1454}에서 시작합니다: {quest:829}가 신도의 퀘스트를 주고, 상급자들이 새 등급을 가르치며, 성문 밖의 탑에서 비행선이 {zone:1420}와(과) {zone:1421}로 떠납니다. {zone:1413}은(는) 은빛소나무 숲 다음에 옵니다."
 	["Head to {zone:1454}'s main gate, just west of {area:817} (Warriors: north along the road from {area:379}). The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{zone:1454}의 {object:172982}",
@@ -454,6 +455,7 @@ return {
 	-- ["Back to {area:362}."] = "{area:362}(으)로 돌아가세요.",
 	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "{object:172960}의 {npc:5875}에게 돌아가세요. 그곳 소환진에서 {item:7464}을(를) 사용하고 공허방랑자를 물리쳐 속박하세요.",
 	-- ["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "길을 따라 {area:379}에서 북쪽 {area:817} 바로 서쪽의 {zone:1454} 정문까지 가세요. {npc:3352}은(는) {object:172958}에서 사냥꾼 상급자들과 함께 서 있습니다.",
+	-- ["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "{area:379}에서 도로를 따라 북쪽으로 가면 {zone:1454} 정문이 나옵니다. 다음 가이드는 {zone:1454}에서 시작합니다: {quest:829}가 신도의 퀘스트를 주고, 상급자들이 새 등급을 가르치며, 성문 밖의 탑에서 비행선이 {zone:1420}와(과) {zone:1421}로 떠납니다. {zone:1413}은(는) 은빛소나무 숲 다음에 옵니다.",
 	-- ["Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. {quest:826} and Minshina's cage are on the southernmost isle."] = "섬들을 지나 남쪽으로 가세요. 로아 우상은 남쪽 섬 곳곳에 있으며, 부두교 트롤과 {npc:3207}이(가) 이를 지키고 {item:275724}을(를) 떨어뜨립니다. {quest:826}와(과) 민시나의 우리는 가장 남쪽 섬에 있습니다.",
 	-- ["Prickly pears"] = "가시투성이 배",
 	-- ["Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west."] = "가시멧돼지와 정찰병이 마을 서쪽 오두막을, 사막길잡이와 전투호위병이 더 서쪽의 야영지를 차지하고 있습니다.",
@@ -478,7 +480,6 @@ return {
 	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809}: {npc:3365}에게 전달",
 	-- ["{npc:265809}: for {npc:3404}"] = "{npc:265809}: {npc:3404}에게 전달",
 	-- ["{npc:265809}: for {npc:7088}"] = "{npc:265809}: {npc:7088}에게 전달",
-	-- ["{npc:3294}, by the inn"] = "{npc:3294}, 여관 옆",
 	-- ["{npc:3169}, inside"] = "{npc:3169}, 내부",
-	-- ["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "{area:379}에서 도로를 따라 북쪽으로 가면 {zone:1454} 정문이 나옵니다. 다음 가이드는 {zone:1454}에서 시작합니다: {quest:829}가 신도의 퀘스트를 주고, 상급자들이 새 등급을 가르치며, 성문 밖의 탑에서 비행선이 {zone:1420}와(과) {zone:1421}로 떠납니다. {zone:1413}은(는) 은빛소나무 숲 다음에 옵니다.",
+	-- ["{npc:3294}, by the inn"] = "{npc:3294}, 여관 옆",
 }

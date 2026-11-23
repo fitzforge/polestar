@@ -514,6 +514,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:159}."] = "{area:159}(으)로 돌아가세요.",
+	-- ["Back up the road to {area:159}, on the way north-west to {area:157}."] = "도로를 따라 북서쪽으로 올라가 {area:159}로, {area:157}로 가는 길입니다.",
 	-- ["Balnir graves"] = "발니르 농장 무덤",
 	-- ["Duskbats and Darkhounds roam all along the road back west; finish the wings and hides on the way."] = "서쪽으로 돌아가는 길 내내 그늘박쥐와 암흑사냥개가 돌아다닙니다. 가는 길에 날개와 가죽을 마저 모으세요.",
 	-- ["Eleanor camps just south-west of town."] = "엘리노어 섀클턴은 마을 바로 남서쪽에서 야영합니다.",
@@ -584,5 +585,4 @@ return {
 	-- ["{npc:244808} and {npc:5667}"] = "{npc:244808}와(과) {npc:5667}",
 	-- ["{npc:244808} and {npc:5667} stand beside the church."] = "{npc:244808}와(과) {npc:5667}이(가) 교회 옆에 서 있습니다.",
 	-- ["{npc:3615}, the wind rider master"] = "와이번 조련사 {npc:3615}",
-	-- ["Back up the road to {area:159}, on the way north-west to {area:157}."] = "도로를 따라 북서쪽으로 올라가 {area:159}로, {area:157}로 가는 길입니다.",
 }

@@ -39,7 +39,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "{area:1099}(으)로 날아가기",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "{zone:1456} 비행 조련사",
 
 	-- Step 6: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {zone:1446} Tanaris
@@ -166,6 +166,7 @@ return {
 	-- ["The {area:1108}"] = "{area:1108}",
 	-- ["The {area:511}"] = "{area:511}",
 	-- ["Three zones, lots of travel"] = "세 지역, 이동이 많음",
+	-- ["To {area:1099}"] = "{area:1099}(으)로",
 	-- ["To {area:75}"] = "{area:75}(으)로",
 	-- ["Underwater"] = "물속",
 	-- ["You start in {area:75}. Bind here: you hearth back after the coast."] = "{area:75}에서 시작합니다. 여기에 귀환 지점을 정하세요. 해안 다음에 귀환석으로 돌아옵니다.",
@@ -179,21 +180,20 @@ return {
 	-- ["for the {object:2555} in {zone:1445}, later in this guide"] = "이 가이드 후반에 {zone:1445}의 {object:2555}을(를) 위해",
 	-- ["for the {zone:1425} owlbeasts, around level 48"] = "48레벨쯤 {zone:1425}의 올빼미야수를 위해",
 	-- ["for the {zone:1425}, around level 50"] = "50레벨쯤 {zone:1425}에서",
+	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}: 만나는 대로 처치하세요",
+	-- ["{area:2403}: kill these as you meet them"] = "{area:2403}: 만나는 대로 처치하세요",
+	-- ["{area:496} flight master"] = "{area:496} 비행 조련사",
 	-- ["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904}, 물속의 파도 거인과 성큼걸이 바다거인에게 사용",
 	-- ["{item:18958}, from the Sea Sprays"] = "{item:18958}, 바다 물보라 정령에게서",
 	-- ["{npc:2934}, on the way back to Zinge"] = "징에에게 돌아가는 길의 {npc:2934}",
 	-- ["{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "{npc:4500}은(는) 정예입니다. 파티를 권장합니다. 그가 항복할 때까지 때린 뒤 {npc:4501}에게 보고하세요.",
 	-- ["{npc:4773}, riding trainer"] = "{npc:4773}, 탈것 상급자",
+	-- ["{npc:5591}, inside"] = "{npc:5591}, 내부",
 	-- ["{npc:7776}'s Northspring harpies (48-50) wait for your {zone:1444} visit at about 51: keep the quest."] = "{npc:7776}의 북녘샘 하피(48-50)는 51레벨쯤 {zone:1444}에 갈 때 처리합니다. 퀘스트를 보관하세요.",
 	-- ["{npc:7825}, the {object:36126}"] = "{object:36126}의 {npc:7825}",
+	-- ["{npc:7854}, inside"] = "{npc:7854}, 내부",
 	-- ["{npc:7875}: for {npc:7010} in {zone:1454}, around level 50"] = "{npc:7875}: 50레벨쯤 {zone:1454}의 {npc:7010}에게",
 	-- ["{object:172958}, then the {object:172960} and the {object:172961}."] = "{object:172958}, 그다음 {object:172960}와(과) {object:172961}.",
 	-- ["{quest:7738}, a rare drop"] = "드물게 떨어지는 {quest:7738}",
 	-- ["{zone:1435} and Dustwallow first, then {zone:1444}."] = "{zone:1435}와(과) 먼지진흙 습지대를 먼저, 그다음 {zone:1444}.",
-	-- ["{npc:5591}, inside"] = "{npc:5591}, 내부",
-	-- ["{area:2403}: kill these as you meet them"] = "{area:2403}: 만나는 대로 처치하세요",
-	-- ["To {area:1099}"] = "{area:1099}(으)로",
-	-- ["{area:496} flight master"] = "{area:496} 비행 조련사",
-	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}: 만나는 대로 처치하세요",
-	-- ["{npc:7854}, inside"] = "{npc:7854}, 내부",
 }

@@ -76,7 +76,6 @@ return {
 	["{skill:164} 75-150: vendor goods"] = "{skill:164} 75-150: 상인 재료",
 	-- {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra · {npc:3413} Sovik
 	["Buy the whole bracket's share in one go: {item:5956} (a tool: one, kept in your bags, 18c); about 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512}; {zone:1454}: {npc:3367}, {npc:5817} and {npc:3413})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:5956}(도구: 하나를 사서 가방에 두세요, 18코퍼). 모두 약 18코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:5519}, {npc:1286}, {npc:5512}; {zone:1454}: {npc:3367}, {npc:5817}, {npc:3413}).",
-	-- was: ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}: 도구이니 가방에 넣어 두세요"
 	["a tool, keep it in your bags"] = "도구이니 가방에 두세요",
 
 	-- Step 15: Blacksmithing 75-150: Auction House
@@ -441,6 +440,9 @@ return {
 	-- ["Yellow until 65, green until 85: not every craft gives a point."] = "65까지 노란색, 85까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다.",
 	-- ["Yellow until 65, green until 85: not every craft gives a point. 75 is the Apprentice cap."] = "65까지 노란색, 85까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다. 75은(는) 초급 최대치입니다.",
 	-- ["{item:12365} comes from {object:324} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:12365}은(는) {object:324} 채집지에서 나옵니다({skill:186}). 데이터상 가장 밀집된 곳입니다. 경매장도 됩니다.",
+	-- ["{item:12775} is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285. Each takes 40 {item:12359}, 6 {item:12644} and 6 {item:8170}. Make the 186 {item:12644} first. Plans from {npc:11278} ({area:2298}, {zone:1422}), unlimited stock, but they bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the {quest:7654} take over. Other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant's Favor sets. Needs an anvil nearby."] = "{item:12775}은(는) 255에 주황색입니다(노란색 280, 초록색 292, 회색 305). 285까지 약 31번 만드세요. 한 번에 {item:12359} 40개, {item:12644} 6개, {item:8170} 6개. 먼저 {item:12644} 186개를 만드세요. 제조법은 {npc:11278}({area:2298}, {zone:1422})에게서. 재고 무제한이지만 주울 때 귀속됩니다. 제작당 토륨 주괴 마흔 개와(과) 조밀한 숫돌 여섯 개. 가장 비싼 구간이니 {quest:7654}가 이어받는 곳에서 멈추세요. 다른 방법: 경매장의 월드 드롭 제조법(찬란한 세트: 찬란한 루트에 토륨 주괴 약 820개와(과) 불의 심장 190개)이나 상인의 호의 세트. 근처에 모루가 필요합니다.",
+	-- ["{item:12819} teaches {item:12773} ({skill:164} 250) for 1g 60s. Sold by {npc:11278} ({zone:1422})."] = "{item:12819}은(는) 1골드 60실버에 {item:12773}({skill:164} 250)을(를) 가르칩니다. {npc:11278}({zone:1422})이(가) 팝니다.",
+	-- ["{item:12823} teaches {item:12775} ({skill:164} 255) for 2g. Sold by {npc:11278} ({zone:1422})."] = "{item:12823}은(는) 2골드에 {item:12775}({skill:164} 255)을(를) 가르칩니다. {npc:11278}({zone:1422})이(가) 팝니다.",
 	-- ["{item:2319} (Alliance)"] = "{item:2319} (얼라이언스)",
 	-- ["{item:2319} (Horde)"] = "{item:2319} (호드)",
 	-- ["{item:250562} to 268"] = "{item:250562}: 268까지",
@@ -482,7 +484,4 @@ return {
 	-- ["{spell:2668} to 121"] = "{spell:2668}: 121까지",
 	-- ["{spell:3117} to 112"] = "{spell:3117}: 112까지",
 	-- ["{spell:3333} to 155"] = "{spell:3333}: 155까지",
-	-- ["{item:12819} teaches {item:12773} ({skill:164} 250) for 1g 60s. Sold by {npc:11278} ({zone:1422})."] = "{item:12819}은(는) 1골드 60실버에 {item:12773}({skill:164} 250)을(를) 가르칩니다. {npc:11278}({zone:1422})이(가) 팝니다.",
-	-- ["{item:12823} teaches {item:12775} ({skill:164} 255) for 2g. Sold by {npc:11278} ({zone:1422})."] = "{item:12823}은(는) 2골드에 {item:12775}({skill:164} 255)을(를) 가르칩니다. {npc:11278}({zone:1422})이(가) 팝니다.",
-	-- ["{item:12775} is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285. Each takes 40 {item:12359}, 6 {item:12644} and 6 {item:8170}. Make the 186 {item:12644} first. Plans from {npc:11278} ({area:2298}, {zone:1422}), unlimited stock, but they bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the {quest:7654} take over. Other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant's Favor sets. Needs an anvil nearby."] = "{item:12775}은(는) 255에 주황색입니다(노란색 280, 초록색 292, 회색 305). 285까지 약 31번 만드세요. 한 번에 {item:12359} 40개, {item:12644} 6개, {item:8170} 6개. 먼저 {item:12644} 186개를 만드세요. 제조법은 {npc:11278}({area:2298}, {zone:1422})에게서. 재고 무제한이지만 주울 때 귀속됩니다. 제작당 토륨 주괴 마흔 개와(과) 조밀한 숫돌 여섯 개. 가장 비싼 구간이니 {quest:7654}가 이어받는 곳에서 멈추세요. 다른 방법: 경매장의 월드 드롭 제조법(찬란한 세트: 찬란한 루트에 토륨 주괴 약 820개와(과) 불의 심장 190개)이나 상인의 호의 세트. 근처에 모루가 필요합니다.",
 }

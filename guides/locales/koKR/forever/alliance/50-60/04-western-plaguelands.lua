@@ -16,7 +16,7 @@ return {
 
 	-- Step 2: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:7916} Erelas Ambersky
-	["The flight lands in {area:702}. {npc:7916} stands a short walk north-west of the flight master."] = "",
+	["The flight lands in {area:702}. {npc:7916} stands a short walk north-west of the flight master."] = "비행은 {area:702}에 착지합니다. {npc:7916}은(는) 비행 마스터에서 북서쪽으로 조금 걸어간 곳에 서 있습니다.",
 	-- {npc:7916} Erelas Ambersky · {zone:1452} Winterspring
 	["{npc:7916}' next task sends you back to Ranshalla in {zone:1452}, behind the route now: skip it."] = "",
 
@@ -56,7 +56,7 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "{area:150} 비행 조련사",
 
 	-- Step 13: Laris Geardawdle
 	-- {npc:9616} Laris Geardawdle
@@ -70,13 +70,13 @@ return {
 	-- {npc:13843} Lieutenant Rotimer · {npc:13841} Lieutenant Haggerdin · {area:3197} Chillwind Camp
 	["{npc:13843}: for {npc:13841}, on the way to {area:3197}"] = "",
 	-- {item:2592} Wool Cloth
-	["{item:2592}, from your bags"] = "",
+	["{item:2592}, from your bags"] = "{item:2592}, 가방에서",
 	-- {item:4306} Silk Cloth
-	["{item:4306}, from your bags"] = "",
+	["{item:4306}, from your bags"] = "{item:4306}, 가방에서",
 	-- {item:4338} Mageweave Cloth
-	["{item:4338}, from your bags"] = "",
+	["{item:4338}, from your bags"] = "{item:4338}, 가방에서",
 	-- {item:14047} Runecloth
-	["{item:14047}, from your bags"] = "",
+	["{item:14047}, from your bags"] = "{item:14047}, 가방에서",
 
 	-- Step 15: Courier Hammerfall
 	-- {zone:1428} Burning Steppes · {area:3197} Chillwind Camp · {npc:10877} Courier Hammerfall · {zone:1455} Ironforge · {npc:10838} Commander Ashlam Valorfist
@@ -162,7 +162,6 @@ return {
 
 	-- Step 27: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
-	-- was: ["{area:1943}: kill these as you meet them"] = "{area:1943}: 만나는 대로 처치하세요"
 	["{area:197}: kill these as you meet them"] = "{area:197}: 만나는 대로 처치하세요",
 	-- {quest:5401} Argent Dawn Commission · {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
@@ -176,7 +175,7 @@ return {
 
 	-- Step 29: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
-	["Into {zone:1423}"] = "",
+	["Into {zone:1423}"] = "{zone:1423}(으)로",
 	-- {zone:1422} Western Plaguelands
 	["Follow the southern road east out of the {zone:1422}."] = "",
 
@@ -216,7 +215,6 @@ return {
 
 	-- Step 35: Writhing Haunt: kill these as you meet them
 	-- {area:202} Writhing Haunt
-	-- was: ["{area:1943}: kill these as you meet them"] = "{area:1943}: 만나는 대로 처치하세요"
 	["{area:202}: kill these as you meet them"] = "{area:202}: 만나는 대로 처치하세요",
 	-- {item:12841} Invader's Scourgestone · {quest:5401} Argent Dawn Commission
 	["{item:12841}: wear the {quest:5401} while you kill"] = "{item:12841}: 처치할 때 {quest:5401}을(를) 착용하세요",
@@ -294,7 +292,7 @@ return {
 
 	-- Step 52: Stormwind
 	-- {npc:14722} Clavicus Knavingham · {item:14047} Runecloth
-	["{npc:14722} takes sixty Silk, sixty Mageweave and sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "",
+	["{npc:14722} takes sixty Silk, sixty Mageweave and sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "{npc:14722}은(는) 실 예순, 마법물 예순, {item:14047} 예순을 받습니다: 가지고 있는 것을 제출하고(경매장에서 사도 됩니다) 나머지는 건너뛰세요.",
 	-- {npc:3520} Ol' Emma
 	["{npc:3520}, who walks the canals"] = "{npc:3520}, 운하를 걸어다님",
 	-- {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
@@ -306,7 +304,7 @@ return {
 	-- {area:3197} Chillwind Camp
 	["Fly to {area:3197}"] = "{area:3197}(으)로 비행",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "{zone:1453} 비행 조련사",
 
 	-- Step 54: Flint Shadowmore
 	-- {area:2260} Marris Stead · {zone:1423} Eastern Plaguelands
@@ -337,7 +335,7 @@ return {
 	-- {area:190} Hearthglen
 	["{area:190} overlook"] = "{area:190} 전망 지점",
 	-- {area:190} Hearthglen
-	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "",
+	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "{area:190} 서쪽 언덕을 올라 마을을 내려다보세요.\n주의: 관문에 배치된 파수병은 은신한 플레이어를 발견할 수 있습니다. 마을 안에 파수병이 더 있고, 근처를 순찰하는 정예가 있습니다.",
 
 	-- Step 62: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:2277} Plaguewood · {area:2627} Terrordale
@@ -356,7 +354,6 @@ return {
 
 	-- Step 65: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
-	-- was: ["{area:1943}: kill these as you meet them"] = "{area:1943}: 만나는 대로 처치하세요"
 	["{zone:1423}: kill these as you meet them"] = "{zone:1423}: 만나는 대로 처치하세요",
 	-- {zone:1423} Eastern Plaguelands · {area:2268} Light's Hope Chapel
 	-- plural, as words: Plaguehound Runts = {npc:8596} Plaguehound Runt · Plaguebats = {npc:8600} Plaguebat · Gargantuan Plaguebats = {npc:272342} Gargantuan Plaguebat
@@ -392,7 +389,6 @@ return {
 
 	-- Step 71: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
-	-- was: ["{area:1943}: kill these as you meet them"] = "{area:1943}: 만나는 대로 처치하세요"
 	["{area:2277}: kill these as you meet them"] = "{area:2277}: 만나는 대로 처치하세요",
 	-- {area:2277} Plaguewood · {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound · Carrion Devourers = {npc:8605} Carrion Devourer
@@ -427,9 +423,9 @@ return {
 	-- Step 80: Davil's Libram
 	-- {item:12954} Davil's Libram · {area:190} Hearthglen · {npc:1839} Scarlet High Clerist
 	-- plural, as words: Scarlet Paladins = {npc:1834} Scarlet Paladin
-	["Careful: Scarlet Paladins (55-56) and priests guard {item:12954} inside {area:190}'s town hall. They are elite, and a {npc:1839} (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach."] = "",
+	["Careful: Scarlet Paladins (55-56) and priests guard {item:12954} inside {area:190}'s town hall. They are elite, and a {npc:1839} (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach."] = "주의: 붉은십자군 성기사(55-56)와 사제가 {area:190} 마을회관 안의 {item:12954}을(를) 지킵니다. 그들은 정예이고, {npc:1839}(63, 정예)이(가) 책 근처에 서 있습니다. 파티와 함께 들어가고 클러리스트의 손이 닿지 않는 곳에 있으세요.",
 	-- {item:12954} Davil's Libram
-	["{item:12954}; inside"] = "",
+	["{item:12954}; inside"] = "{item:12954}; 안에",
 
 	-- Step 81: Redpath's Shield
 	-- {area:201} Gahrron's Withering
@@ -443,7 +439,7 @@ return {
 	-- {area:2277} Plaguewood · {area:2268} Light's Hope Chapel
 	["Ride to the lake south of the {area:2277}, north-west of {area:2268}."] = "",
 	-- {quest:5845} Of Lost Honor
-	["The lake for {quest:5845}"] = "",
+	["The lake for {quest:5845}"] = "{quest:5845}용 호수",
 
 	-- Step 84: Of Lost Honor
 	["Underwater"] = "물속",
@@ -488,6 +484,7 @@ return {
 	-- ["Back north to the {area:202}: the cauldron offers its own task now. The ghouls nearby drop Somatic Intensifiers."] = "북쪽 {area:202}(으)로 돌아가세요. 이제 가마솥이 직접 퀘스트를 줍니다. 근처 구울들이 체세포 강화물질을 떨어뜨립니다.",
 	-- ["Back to {npc:7775}'s camp, just south-east of {npc:7765}: the {item:11242} buys three Videre Elixirs. Keep them: {npc:9298} takes one, and {npc:9299} in {area:976} shows himself only to someone who has drunk one."] = "{npc:7765} 바로 남동쪽의 {npc:7775} 야영지로 돌아가세요. {item:11242}(으)로 비데레 비약 세 개를 받습니다. 보관하세요. {npc:9298}이(가) 하나를 가져가며, {area:976}의 {npc:9299}은(는) 비약을 마신 사람에게만 모습을 드러냅니다.",
 	-- ["Below ground"] = "지하",
+	-- ["Boat to {area:1108}"] = "배를 타고 {area:1108}(으)로",
 	-- ["Bones and equipment"] = "뼈와 장비",
 	-- ["Buy one {item:13320} from {npc:11056} for Felstone's cauldron, right before you go: the quickeners vanish after 30 minutes."] = "출발 직전에 펠스톤 가마솥에 쓸 {item:13320} 하나를 {npc:11056}에게서 구입하세요. 촉매제는 30분 후에 사라집니다.",
 	-- ["Buy two more Arcane Quickeners for the {area:202}'s and Dalson's cauldrons, and ride straight there: they vanish after 30 minutes."] = "{area:202} 가마솥과 달슨 가마솥에 쓸 비전 촉매제를 두 개 더 구입하고 곧장 가세요. 촉매제는 30분 후에 사라집니다.",
@@ -505,9 +502,11 @@ return {
 	-- ["Escort {npc:9999}"] = "{npc:9999} 호위",
 	-- ["Fly from {area:976} to {area:541}. {npc:8737} stands at the back of the refuge; {npc:9117} is in the cave behind him.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "{area:976}에서 {area:541}(으)로 날아가세요. {npc:8737}은(는) 피난처 안쪽에 있고, {npc:9117}은(는) 그 뒤 동굴에 있습니다.\n{npc:9997}의 친구 {npc:9999}이(가) 실종되었습니다.",
 	-- ["Fly to Theramore"] = "테라모어 섬으로 비행",
+	-- ["Fly to {area:2255}"] = "{area:2255}(으)로 날아가기",
 	-- ["Fly to {area:2268}"] = "{area:2268}(으)로 날아가기",
 	-- ["Fly to {area:392}"] = "{area:392}(으)로 비행",
 	-- ["Fly to {area:392}."] = "{area:392}(으)로 날아가세요.",
+	-- ["Fly to {area:541}"] = "{area:541}(으)로 날아가기",
 	-- ["Fly to {area:976}"] = "{area:976}(으)로 날아가기",
 	-- ["For the druids of {zone:1457}: keep it"] = "{zone:1457}의 드루이드용: 보관하세요",
 	-- ["For {area:1377}: keep it"] = "{area:1377}용: 보관하세요",
@@ -584,11 +583,18 @@ return {
 	-- ["Western Pylon"] = "서쪽 수정탑",
 	-- ["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "경로의 이전 방문 때 이것을 놓쳤습니다. 지금 이것부터 합니다. 금방 끝나며 뒤에 이어지는 퀘스트를 열어 줍니다.",
 	-- ["Zapped giants and sea elementals"] = "축소된 거인과 바다 정령",
+	-- ["grind on {npc:11740}"] = "{npc:11740} 사냥",
 	-- ["grind on {npc:1796} at the {area:202}, {zone:1422}"] = "{zone:1422} {area:202}에서 {npc:1796} 사냥",
 	-- ["their trainers are in {zone:1457} too"] = "이들의 상급자도 {zone:1457}에 있습니다",
+	-- ["{area:1942}: kill these as you meet them"] = "{area:1942}: 만나는 대로 처치하세요",
 	-- ["{area:1943}: kill these as you meet them"] = "{area:1943}: 만나는 대로 처치하세요",
 	-- ["{area:200} cauldron"] = "{area:200} 가마솥",
 	-- ["{area:201} cauldron"] = "{area:201} 가마솥",
+	-- ["{area:348} flight master"] = "{area:348} 비행 조련사",
+	-- ["{area:392} flight master"] = "{area:392} 비행 조련사",
+	-- ["{area:442} flight master"] = "{area:442} 비행 조련사",
+	-- ["{area:489} flight master"] = "{area:489} 비행 조련사",
+	-- ["{area:538}: kill these as you meet them"] = "{area:538}: 만나는 대로 처치하세요",
 	-- ["{area:976} flight master"] = "{area:976} 비행 조련사",
 	-- ["{item:12954} lies in the town hall of {area:190}, west of {npc:1855}: the Scarlet guards stand close together."] = "{item:12954}은(는) {npc:1855} 서쪽 {area:190}의 시청에 있습니다. 붉은십자군 경비병들이 가까이 붙어 서 있습니다.",
 	-- ["{item:12955} lies east of the barn at {area:201}."] = "{item:12955}은(는) {area:201}의 헛간 동쪽에 있습니다.",
@@ -613,6 +619,7 @@ return {
 	-- ["{npc:17082}, at the Alliance tents"] = "{npc:17082}, 얼라이언스 천막",
 	-- ["{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "{npc:1852}은(는) 정예이므로 파티를 권장합니다. 안돌할 중앙에서 성물함을 지킵니다.",
 	-- ["{npc:5411} in {area:976}: keep it"] = "{area:976}의 {npc:5411}: 보관하세요",
+	-- ["{npc:5594}, inside"] = "{npc:5594}, 내부",
 	-- ["{npc:5901}, on the coast north of town"] = "마을 북쪽 해안의 {npc:5901}",
 	-- ["{npc:7740}: keep it for {area:976}"] = "{npc:7740}: {area:976}용으로 보관하세요",
 	-- ["{npc:7775}'s camp lies north of the {area:1119}. He brews the {item:11243} from an {item:11242}: take his errand for one."] = "{npc:7775}의 야영지는 {area:1119} 북쪽에 있습니다. 그는 {item:11242}(으)로 {item:11243}을(를) 만듭니다. 그 재료를 구해 오는 심부름을 받으세요.",
@@ -621,30 +628,19 @@ return {
 	-- ["{npc:7900}: keep it for {zone:1446}"] = "{npc:7900}: {zone:1446}용으로 보관하세요",
 	-- ["{npc:8496}: keep it for Un'Goro; inside"] = "{npc:8496}: 운고로용으로 보관하세요. 안",
 	-- ["{npc:9047}, in the {area:1658}"] = "{area:1658}의 {npc:9047}",
+	-- ["{npc:9117}, below ground"] = "{npc:9117}, 지하",
 	-- ["{npc:9299} in {area:976}: keep it"] = "{area:976}의 {npc:9299}: 보관하세요",
 	-- ["{npc:9299} is a ghost at the graveyard just east of town: drink a {item:11243} there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby."] = "{npc:9299}은(는) 마을 바로 동쪽 묘지에 있는 유령입니다. 그곳에서 {item:11243}을(를) 마시면 죽습니다. 영혼을 해방한 뒤 유령 상태로 그에게 말을 거세요. 그런 다음 시체로 달려가 되살아나세요. 묘비는 근처에 있습니다.",
 	-- ["{npc:9299} waits at the graveyard just east of town; the gravestone stands nearby."] = "{npc:9299}은(는) 마을 바로 동쪽 묘지에서 기다리며, 묘비는 그 근처에 서 있습니다.",
 	-- ["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "{npc:9684}의 굴은 {npc:9619} 북쪽, 동쪽 절벽 아래 밀림에 있습니다. 그곳에서 {item:11568}을(를) 사용하세요. {npc:9684}은(는) 56레벨이니 생명력이 가득한 상태로 시작하세요.",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}은(는) 분화구 한가운데 {area:537}의 남동쪽 비탈에 앉아 있습니다.",
+	-- ["{object:179565}; inside"] = "{object:179565}; 안에",
 	-- ["{quest:3444} is in {area:392}"] = "{quest:3444}은(는) {area:392}에 있습니다",
 	-- ["{quest:4291}, if you still carry it from the first visit"] = "{quest:4291}, 첫 방문 때부터 아직 가지고 있다면",
 	-- ["{quest:6762} in {area:493}: keep it"] = "{area:493}의 {quest:6762}: 보관하세요",
 	-- ["{quest:6762} in {zone:1450}: keep it"] = "{zone:1450}의 {quest:6762}: 보관하세요",
 	-- ["{quest:87494}, if a ravasaur dropped the scale since the first visit"] = "{quest:87494}, 첫 방문 이후 라바사우루스가 비늘을 떨어뜨렸다면",
-	-- ["{zone:1455}, where the next guide trains, has no druid trainer"] = "다음 가이드에서 훈련하는 {zone:1455}에는 드루이드 상급자가 없습니다",
-	-- ["{area:348} flight master"] = "{area:348} 비행 조련사",
-	-- ["{area:442} flight master"] = "{area:442} 비행 조련사",
-	-- ["Boat to {area:1108}"] = "배를 타고 {area:1108}(으)로",
-	-- ["{area:489} flight master"] = "{area:489} 비행 조련사",
-	-- ["Fly to {area:2255}"] = "{area:2255}(으)로 날아가기",
-	-- ["{area:392} flight master"] = "{area:392} 비행 조련사",
-	-- ["{npc:5594}, inside"] = "{npc:5594}, 내부",
-	-- ["Fly to {area:541}"] = "{area:541}(으)로 날아가기",
-	-- ["{npc:9117}, below ground"] = "{npc:9117}, 지하",
-	-- ["{zone:1451}: kill these as you meet them"] = "{zone:1451}: 길에서 만나는 대로 잡으세요",
-	-- ["grind on {npc:11740}"] = "{npc:11740} 사냥",
-	-- ["{object:179565}; inside"] = "{object:179565}; 안에",
 	-- ["{zone:1449}: kill these as you meet them"] = "{zone:1449}: 만나는 대로 처치하세요",
-	-- ["{area:538}: kill these as you meet them"] = "{area:538}: 만나는 대로 처치하세요",
-	-- ["{area:1942}: kill these as you meet them"] = "{area:1942}: 만나는 대로 처치하세요",
+	-- ["{zone:1451}: kill these as you meet them"] = "{zone:1451}: 길에서 만나는 대로 잡으세요",
+	-- ["{zone:1455}, where the next guide trains, has no druid trainer"] = "다음 가이드에서 훈련하는 {zone:1455}에는 드루이드 상급자가 없습니다",
 }

@@ -10,7 +10,7 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "{area:392}(으)로 날아가기",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "{zone:1456} 비행 조련사",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -27,7 +27,7 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392} 비행 조련사",
 
 	-- Step 5: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
@@ -47,13 +47,13 @@ return {
 
 	-- Step 9: Vehena
 	-- {object:172961} Valley of Spirits
-	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{object:172961} 안. 기부마다 양모, 비단천, 마법천 60개가 필요합니다. 가진 만큼 제출하고 나머지는 건너뛰세요.",
 
 	-- Step 10: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "{object:172958}에 있습니다.",
 	-- {item:14047} Runecloth
-	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
+	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "두 {item:14047} 기부는 경로 뒤쪽에서 제출합니다. 원한다면 각각 {item:14047} 60개를 보관하세요.",
 
 	-- Step 11: Paladin trainer
 	["Paladin trainer"] = "성기사 상급자",
@@ -151,6 +151,8 @@ return {
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "비행선 탑은 {zone:1454} 정문 바로 북동쪽에 있습니다. {zone:1458}행 비행선을 타세요.",
 	-- ["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "자일렘의 탑은 {area:1237} 바로 북쪽 절벽 위에 있습니다. {area:1237}의 {npc:8395}에게 말을 걸면 무료로 순간이동시켜 줍니다. 아니면 북쪽 면의 구불구불한 길로 올라가세요.",
 	-- ["Zeppelin tower"] = "비행선 탑",
+	-- ["{area:1221}: kill these as you meet them"] = "{area:1221}: 만나는 대로 처치하세요",
+	-- ["{area:1237} flight master"] = "{area:1237} 비행 조련사",
 	-- ["{item:246680}, from the Blood Elf Arcanists"] = "블러드 엘프 비전술사에게서 얻는 {item:246680}",
 	-- ["{item:246721}, from {npc:246991}"] = "{npc:246991}에게서 얻는 {item:246721}",
 	-- ["{item:246722}, from {npc:247013}"] = "{npc:247013}에게서 얻는 {item:246722}",
@@ -166,6 +168,4 @@ return {
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050}은(는) {area:28}의 {npc:10778}에게 돌아갑니다. 보관하세요.",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: {area:1237}의 {npc:8587}에게",
 	-- ["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
-	-- ["{area:1221}: kill these as you meet them"] = "{area:1221}: 만나는 대로 처치하세요",
-	-- ["{area:1237} flight master"] = "{area:1237} 비행 조련사",
 }
