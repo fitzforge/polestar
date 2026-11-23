@@ -248,7 +248,8 @@ return {
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Horde)"] = "{item:2836} (Horda)",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "31 {item:2836} para {item:6533}: {skill:186}: {object:1732} (perícia 65) em {zone:1413} (10-25), {zone:1440} (18-30) e {zone:1424} (20-30). O maior aglomerado de {object:1732} em {zone:1440} está marcado.",
+	-- was: ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "31 {item:2836} para {item:6533}: {skill:186}: {object:1732} (perícia 65) em {zone:1413} (10-25), {zone:1440} (18-30) e {zone:1424} (20-30). O maior aglomerado de {object:1732} em {zone:1440} está marcado."
+	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked."] = "",
 
 	-- Step 48: Heavy Stone (Alliance)
 	-- {item:2838} Heavy Stone
@@ -419,6 +420,7 @@ return {
 	-- ["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it; or the Auction House. The arrow picks a farm spot for your level and faction."] = "19 {item:2592} para {spell:3953}: humanoides de nível 15-30 soltam; ou na Casa de Leilões. A seta escolhe um ponto de farm para seu nível e facção.",
 	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:11880} (level 57-59) here."] = "24 {item:14047} para {item:15994}: humanoides de nível 45-60 soltam; ou na Casa de Leilões. Vem de {npc:11880} (nível 57-59) aqui.",
 	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:7027} (level 56-57) here."] = "24 {item:14047} para {item:15994}: humanoides de nível 45-60 soltam; ou na Casa de Leilões. Vem de {npc:7027} (nível 56-57) aqui.",
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "31 {item:2836} para {item:6533}: {skill:186}: {object:1732} (perícia 65) em {zone:1413} (10-25), {zone:1440} (18-30) e {zone:1424} (20-30). O maior aglomerado de {object:1732} em {zone:1440} está marcado.",
 	-- ["Apprentice {skill:202}"] = "{skill:202} (Aprendiz)",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "Artífice exige nível de personagem 35 e {skill:202} 200; eleva o limite para 300. Os materiais de 225-300 valem cerca de 67g no total.",
 	-- ["Back to an {skill:202} trainer: {spell:12585}, {spell:12596} are taught from {skill:202} 210."] = "Volte a um instrutor de {skill:202}: {spell:12585}, {spell:12596} são ensinados a partir de {skill:202} 210.",

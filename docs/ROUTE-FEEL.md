@@ -17,7 +17,7 @@ route choices are wanted:
 
 ```sh
 forge guide compile --out build/Polestar_Guides
-forge guide compile experimental --out build/Polestar_Experimental
+forge guide compile experimental --out build/Polestar/Experimental
 node tools/flow-audit.js run --addon build --faction Horde --out horde.json --md horde.md
 ```
 

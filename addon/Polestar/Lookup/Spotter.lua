@@ -249,7 +249,7 @@ end
 
 function Lookup.ShowMount(unit)
 	if not ns.Get("lookup.enabled") then
-		ns.Print(L["Lookup is turned off (Options > Discovery > Lookup)."])
+		ns.Print(L["Lookup is turned off (Settings > Discovery > Lookup)."])
 		return false
 	end
 	unit = unit or (isPlayer("target") and "target") or "mouseover"

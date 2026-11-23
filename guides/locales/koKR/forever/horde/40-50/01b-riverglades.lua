@@ -408,7 +408,9 @@ return {
 
 	-- Step 85: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}은(는) 항구 남서쪽, 멀록 해변 아래 얕은 물을 배회합니다. 정예인 {npc:257001}이(가) 근처 해안을 걸어 다니니 거리를 두십시오.",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "",
+	-- {item:268633} Sea Monster's Head
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "",
 
 	-- Step 87: The river: Riverweed
 	-- {item:265806} Riverweed
@@ -487,6 +489,7 @@ return {
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "다시 해적 절벽으로 가세요. 야영지 아래 정박한 배 세 척에 남쪽부터 북쪽 순으로 위즈버즈의 폭약을 설치하세요. {quest:95124}은(는) 가운데 배 옆에 있고, 그 옆에 전리품 상자가 있습니다. 가는 길에 {npc:259758}을(를) 조심하세요.\n주의: {quest:95124}은(는) 45레벨로 여러분보다 한두 레벨 높습니다. 주변 갑판을 먼저 정리하고 생명력을 가득 채운 뒤 덤비세요.",
 	-- ["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "교단의 야영지가 {npc:258570}의 남쪽과 서쪽 골짜기를 채우고 있습니다. 붙잡힌 로그마르 정찰병을 보이는 대로 풀어 주세요. 황혼의 집행자(정예, 45레벨)가 야영지를 순찰합니다. 몹을 끌기 전에 매번 동선을 확인하세요. {npc:256881}와(과) {npc:256891}(정예, 46)이(가) 골짜기 끝의 요새를 지키고 있습니다. 교단원을 그들에게서 떨어진 곳으로 끌어내세요. 골짜기 남쪽 끝에는 {npc:258023}의 얼라이언스 야영지가 있으며, 그곳의 파홀드 감시병(46레벨)이 호드를 공격합니다. 그 북쪽에 머무르세요.",
 	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "다음 가이드는 {area:3}의 {area:340}에서 비행으로 시작합니다. {npc:258570}의 골짜기에서 북쪽으로 나가 {area:3}(으)로 통하는 {area:16685}을(를) 지나 올라가세요.",
+	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}은(는) 항구 남서쪽, 멀록 해변 아래 얕은 물을 배회합니다. 정예인 {npc:257001}이(가) 근처 해안을 걸어 다니니 거리를 두십시오.",
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: 킁킁코와 {npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548}은(는) {area:3} 남쪽에 있습니다. {area:657}에서 동쪽 {area:75}(으)로 가서 {area:340}(으)로 날아가세요. 지역으로 내려가는 길이 그곳에서 시작됩니다.",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "로그마르 서쪽에서 황혼의 망치단이 농장 마을 {area:16723}을(를) 장악하고 있습니다. 빠져나가고 싶어 하는 코볼트 {npc:259158}이(가) 마을 한가운데 숨어 있습니다.",

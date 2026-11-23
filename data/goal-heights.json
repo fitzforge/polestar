@@ -299,6 +299,45 @@
 				"ref": "#2509: before 72 hand-ins of The Captured Scarlet Zealot (407) by 66 people, players' trails run from the inn's ground floor along the west side of its north end to the cellar stairs; the walking grid's ground floor here is z 34"
 			},
 			"note": "01-tirisfal-glades, step \"The cellar stairs\": the top of the Gallows' End Tavern's cellar stairs, on the ground floor. The walk ends inside the inn, not on the ground outside above the cellar."
+		},
+		{
+			"id": "rec-2548-30-73.3",
+			"map": 2548,
+			"x": 30.0,
+			"y": 73.3,
+			"frame": "live",
+			"z": 190,
+			"source": {
+				"kind": "recording",
+				"ref": "#3394: 80 people looted the Cubic Draconia (object 648590) here, the position samples at each loot indoors (119 of the 121 kills of the hollow's dragonkin at this spot too); the walking grid has two indoor floors under the point, about 190 and 204, and only the 190 floor is walkable from Gelinda Coppergleam's camp (96% of that walk indoors), while the hill above is at 275-310"
+			},
+			"note": "40-50/01b-riverglades (both factions), step \"The Cinderscale hollow\": the Cubic Draconia for Proof of Profit, at the back of the dragonkin's hollow. The walk goes into the hollow, not over the hill above it."
+		},
+		{
+			"id": "rec-2548-30-72.2",
+			"map": 2548,
+			"x": 30.0,
+			"y": 72.2,
+			"frame": "live",
+			"z": 185,
+			"source": {
+				"kind": "recording",
+				"ref": "#3394: 204 of 205 kills of Cinderscale Whelps and Warriors at this spot by 72 people were indoors; the walking grid's indoor floors here are about 185 and 203, and only the 185 floor is walkable from Gelinda Coppergleam's camp"
+			},
+			"note": "40-50/01b-riverglades (both factions), step \"The Cinderscale hollow\": the whelps' kill point at the hollow's front, the step's first goal."
+		},
+		{
+			"id": "rec-2548-29.6-73.1",
+			"map": 2548,
+			"x": 29.6,
+			"y": 73.1,
+			"frame": "live",
+			"z": 189,
+			"source": {
+				"kind": "recording",
+				"ref": "#3394: 187 of 190 kills of Cinderscale dragonkin at this spot by 74 people were indoors; of the walking grid's indoor floors here (about 168, 172 and 189), 189 is the hollow's, the floor of the Cubic Draconia 20 yards away and of the whelps' point"
+			},
+			"note": "40-50/01b-riverglades (both factions), step \"The Cinderscale hollow\": the warriors' kill point by the Cubic Draconia."
 		}
 	]
 }

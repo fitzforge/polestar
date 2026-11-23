@@ -115,17 +115,22 @@ fn the_ids_kept_are_the_ones_the_guides_the_quest_database_and_the_codex_name() 
 }
 
 // Polestar's own pack carries the experimental index (Polestar.RegisterExperimental) since 0.4.0, and Polestar
-// Experimental's guides sit in their own folder beside it: the index loads, and those guides' ids are kept too.
+// Experimental's guides sit inside Polestar's own folder (Polestar/Experimental, since 0.4.3): the index loads,
+// and those guides' ids are kept too.
 #[test]
 fn the_experimental_index_loads_and_polestar_experimental_s_guides_count() {
 	let f = fix();
 	let tmp = scratch("names-experimental");
-	for d in ["Polestar_Guides", "Polestar_Experimental"] {
+	for d in ["Polestar_Guides", "Polestar/Experimental"] {
 		std::fs::create_dir_all(tmp.join(d)).unwrap();
 	}
 	let ours = std::fs::read_to_string(f.join("Guides.lua")).unwrap();
 	std::fs::write(tmp.join("Polestar_Guides/Guides.lua"), format!("{ours}\nPolestar.RegisterExperimental({{ {{ id = \"polestar-experimental/x\", faction = \"Horde\" }} }})\n")).unwrap();
-	std::fs::write(tmp.join("Polestar_Experimental/Guides.lua"), "Polestar.RegisterGuide({ id = \"x\", steps = { { goals = { { t = \"accept\", quest = 93407, npc = 243815 } } } } })\n").unwrap();
+	std::fs::write(
+		tmp.join("Polestar/Experimental/Guides.lua"),
+		"Polestar.DeferGuides(\"polestar-experimental\", function()\nPolestar.RegisterGuide({ id = \"x\", steps = { { goals = { { t = \"accept\", quest = 93407, npc = 243815 } } } } })\nend)\n",
+	)
+	.unwrap();
 	let u = names::used_ids(&tmp.join("Polestar_Guides/Guides.lua"), &f.join("questdb"), &f.join("codex")).unwrap();
 	assert!(u.ids[0].contains(&93407) && u.ids[1].contains(&243815), "the experimental guide's quest and NPC: {:?} {:?}", u.ids[0], u.ids[1]);
 	assert_eq!(u.counts[0], ("guides", [5, 5, 1, 3]));
@@ -494,7 +499,7 @@ fn the_shipped_names_the_client_showed_load_and_each_language_file_is_its_own() 
 		src::load_observed_names(&dir, l).unwrap_or_else(|e| panic!("{e}"));
 	}
 	let zh = src::load_observed_names(&dir, "zhCN").unwrap();
-	assert_eq!(zh.refs.iter().copied().collect::<Vec<_>>(), [1448, 3005]);
+	assert_eq!(zh.refs.iter().copied().collect::<Vec<_>>(), [1448, 3005, 3133, 3162, 3226, 3236, 3237]);
 	// The client's own names where the web's differ (#1448): Forever renamed both quests "Chastise".
 	assert_eq!(zh.names[0].get(&5641).map(String::as_str), Some("惩击"));
 	assert_eq!(zh.names[0].get(&5645).map(String::as_str), Some("惩击"));

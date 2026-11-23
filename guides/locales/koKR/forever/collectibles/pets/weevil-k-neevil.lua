@@ -13,22 +13,29 @@ return {
 	-- Step 2: Arbor Tarantula in Stranglethorn Vale
 	-- {npc:217588} Arbor Tarantula · {zone:1434} Stranglethorn Vale
 	["{npc:217588} in {zone:1434}"] = "",
+	-- {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
 	-- plural, as words: Arbor Tarantulas = {npc:217588} Arbor Tarantula
-	["The Arbor Tarantulas sit in northern Stranglethorn. Use the kit's tool on one to catch it."] = "",
+	["The Arbor Tarantulas sit in northern Stranglethorn. Open the {item:213565} and use its {item:213562} on one to catch it: don't kill it."] = "",
+	-- {item:213562} Bug Catching Net · {npc:217588} Arbor Tarantula
+	["{item:213562}, on an {npc:217588}"] = "",
 
 	-- Step 3: Hay Weevil in Arathi Highlands
 	-- {npc:217589} Hay Weevil · {zone:1417} Arathi Highlands
 	["{npc:217589} in {zone:1417}"] = "",
-	-- {zone:1417} Arathi Highlands
+	-- {zone:1417} Arathi Highlands · {item:213562} Bug Catching Net
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["The Hay Weevils crawl in the north-west of {zone:1417}. Use the kit's tool on one."] = "",
+	["The Hay Weevils crawl in the north-west of {zone:1417}. Use the {item:213562} on one."] = "",
+	-- {item:213562} Bug Catching Net · {npc:217589} Hay Weevil
+	["{item:213562}, on a {npc:217589}"] = "",
 
 	-- Step 4: Flesh Picker in Desolace
 	-- {npc:217590} Flesh Picker · {zone:1443} Desolace
 	["{npc:217590} in {zone:1443}"] = "",
-	-- {area:596} Kodo Graveyard · {zone:1443} Desolace
+	-- {area:596} Kodo Graveyard · {zone:1443} Desolace · {item:213562} Bug Catching Net
 	-- plural, as words: Flesh Pickers = {npc:217590} Flesh Picker
-	["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the kit's tool on one."] = "",
+	["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the {item:213562} on one."] = "",
+	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker
+	["{item:213562}, on a {npc:217590}"] = "",
 
 	-- Step 5: Back to Amaryllis Webb
 	-- {npc:217412} Amaryllis Webb
