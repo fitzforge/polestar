@@ -152,7 +152,7 @@ return {
 
 	-- Step 30: Fin Fizracket
 	-- {npc:2486} Fin Fizracket
-	["{npc:2486}, by the inn"] = "",
+	["{npc:2486}, by the inn"] = "{npc:2486}, junto a la posada",
 
 	-- Step 31: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash

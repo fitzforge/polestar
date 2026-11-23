@@ -225,7 +225,6 @@ return {
 
 	-- Step 43: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1458} Undercity · {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1444} Feralas · {zone:1446} Tanaris
-	-- was: ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "Equitación requiere nivel 40 y cuesta 100 de oro; al aprenderla obtienes una montura, y {zone:2548} después de Tuercespina son una larga caminata sin ella. Toma el zepelín desde la torre de {object:3202} a las torres de {area:1497}: {npc:4773} enseña a los Renegados en {area:159}, un poco al norte, con los caballos esqueléticos de {npc:4731} (20 de oro cada uno). Luego el zepelín de vuelta a {object:3202}. ¿Te falta oro? Omite este paso: la guía de {zone:1435} vuelve a pasar por {area:1497} hacia el nivel 47."
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} & {zone:1446} guide passes the {zone:1458} again at about 45."] = "Equitación requiere nivel 40 y cuesta 100 de oro; al aprenderla obtienes una montura, y {zone:2548} después de Tuercespina son una larga caminata sin ella. Toma el zepelín desde la torre de Grom'gol hasta las torres de {zone:1458}: {npc:4773} enseña a los Renegados en {area:159}, un poco al norte, con los caballos esqueléticos de {npc:4731} (20 de oro cada uno). Luego el zepelín de vuelta a Grom'gol. ¿Te falta oro? Omite este paso: la guía de {zone:1444} y {zone:1446} vuelve a pasar por {zone:1458} hacia el nivel 45.",
 
 	-- Step 44: Your mount at 40
@@ -271,6 +270,7 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "{npc:2491} y {npc:2486}",
 	-- {npc:2491} Whiskey Slim · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
+	-- was: ["{npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "{npc:2491}, en la posada, {npc:2486}, al lado, y MacKinley \"Lobo de Mar\", en el piso superior, ofrecen estas misiones desde el nivel 40: tómalas ahora. Si tienes menos de 40, la parada en {area:35} de la guía de {zone:1444} y {zone:1446} las vuelve a ofrecer."
 	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}, en la posada: sus botellas llegan a la costa de {zone:1425}, alrededor del nivel 48",
@@ -370,7 +370,6 @@ return {
 
 	-- Step 78: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass
-	-- was: ["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "Cabalga al oeste por el camino hasta el campamento draenei de {area:657}, cerca de la entrada desde {zone:1430}."
 	["Head west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "Dirígete al oeste por el camino hasta el campamento draenei de {area:657}, cerca de la entrada desde {zone:1430}.",
 
 	-- Step 79: Pool of Tears
@@ -414,6 +413,7 @@ return {
 	-- ["Inside {area:1742}"] = "Dentro de {area:1742}",
 	-- ["Into the {area:8}"] = "A {area:8}",
 	-- ["Ironjaw Basilisks"] = "Basiliscos Quijahierro",
+	-- ["Keep fangs from these same elders for Unbagwa."] = "Guarda los colmillos de estos mismos ancianos para Unbagwa.",
 	-- ["Keep riding north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "Sigue cabalgando al norte hacia {zone:1431} y luego al este por el camino a través de {zone:1430} hasta el pantano. {npc:1776} espera en {area:657}, el campamento draenei cerca de la entrada desde {zone:1430}.",
 	-- ["Level 42.68"] = "Nivel 42.68",
 	-- ["Level 42.74"] = "Nivel 42.74",
@@ -473,7 +473,9 @@ return {
 	-- ["{area:1577}: kill these as you meet them"] = "{area:1577}: mata a estos según te los encuentres",
 	-- ["{area:392} pier"] = "Muelle de {area:392}",
 	-- ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}: {quest:348} (disponible desde el nivel 40); la parte de Unbagwa va en la parada de {object:3202} de la guía de {zone:1444}",
+	-- ["{npc:2486}: {quest:348}, Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}: {quest:348}, la parte de Unbagwa va en la parada de Grom'gol de la guía de {zone:1444}",
 	-- ["{npc:2488}, on the top floor"] = "{npc:2488}, en el piso superior",
+	-- ["{npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "{npc:2491}, en la posada, {npc:2486}, al lado, y MacKinley \"Lobo de Mar\", en el piso superior, ofrecen estas misiones desde el nivel 40: tómalas ahora. Si tienes menos de 40, la parada en {area:35} de la guía de {zone:1444} y {zone:1446} las vuelve a ofrecer.",
 	-- ["{npc:2496}, on the balcony beside MacKinley, has one more errand: the fuel regulator blueprints from Cozzle's footlocker go to Pozzik at the {area:2240}, on the way to {zone:1446} around level 43."] = "{npc:2496}, en el balcón junto a MacKinley, tiene un encargo más: los planos del regulador de combustible del baúl de Cozzle van para Pozzik en {area:2240}, de camino a {zone:1446} cerca del nivel 43.",
 	-- ["{npc:2497}: for the {zone:1425}, around level 48"] = "{npc:2497}: para {zone:1425}, alrededor del nivel 48",
 	-- ["{npc:2498}, inside"] = "{npc:2498}, adentro",
@@ -485,7 +487,4 @@ return {
 	-- ["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}, en el piso de arriba: para {quest:2864} en {area:976}",
 	-- ["{npc:773}: for {quest:2864} in {area:976}"] = "{npc:773}: para {quest:2864} en {area:976}",
 	-- ["{zone:1434} and the {zone:1435} at 40-43: {object:3202}, {area:35}'s pirates, Nesingwary's hunts and {area:75}."] = "{zone:1434} y {zone:1435} a nivel 40-43: {object:3202}, los piratas de {area:35}, las cacerías de Nesingwary y {area:75}.",
-	-- ["Keep fangs from these same elders for Unbagwa."] = "Guarda los colmillos de estos mismos ancianos para Unbagwa.",
-	-- ["{npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "{npc:2491}, en la posada, {npc:2486}, al lado, y MacKinley \"Lobo de Mar\", en el piso superior, ofrecen estas misiones desde el nivel 40: tómalas ahora. Si tienes menos de 40, la parada en {area:35} de la guía de {zone:1444} y {zone:1446} las vuelve a ofrecer.",
-	-- ["{npc:2486}: {quest:348}, Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}: {quest:348}, la parte de Unbagwa va en la parada de Grom'gol de la guía de {zone:1444}",
 }

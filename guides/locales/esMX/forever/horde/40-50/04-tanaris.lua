@@ -8,7 +8,6 @@
 return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
-	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} y {zone:1427} a nivel 46-48: los campamentos Vagayermo, la escolta de {npc:5955} y {area:1446}."
 	["{area:976} and the {zone:1427} at 47-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} y {zone:1427} a nivel 47-49: los campamentos Vagayermo, la escolta de {npc:5955} y {area:1446}.",
 
 	-- Step 1: Fly to Gadgetzan
@@ -93,7 +92,6 @@ return {
 	["{quest:3362}: kill these as you meet them"] = "{quest:3362}: mata a estos según te los encuentres",
 	-- {zone:1446} Tanaris · {quest:2864} Tran'rek · {area:1938} Broken Pillar
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
-	-- was: ["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "Al oeste del recinto, las criaturas cactus llenan el valle; solo los recolectores de rocío (47-48) llevan una glándula de rocío. La mayoría de los enemigos de {zone:1446} pueden soltar la baliza de socorro de OOX-17/TN, rara vez: guárdala si te sale.\nCuidado: Los otros enemigos cardo de la zona son de nivel 48-50 y deambulan mucho, así que es fácil atraer de más: ve por los recolectores de rocío en el borde del valle, y deja los cardizales nudosos y los formarraíces de {quest:2864} para el viaje por {area:1938} hacia Un'Goro, hacia el nivel 51."
 	["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers (49-50) for the {area:1938} ride into Un'Goro at about 51."] = "Al oeste del recinto, las criaturas cactus llenan el valle; solo los recolectores de rocío (47-48) llevan una glándula de rocío. La mayoría de los enemigos de {zone:1446} pueden soltar el localizador de emergencia OOX-17/TN, rara vez: guárdalo si te sale.\nCuidado: los otros enemigos cardizal de la zona son de nivel 48-50 y deambulan mucho, así que es fácil atraer de más: ve por los recolectores de rocío en el borde del valle, y deja los cardizales nudosos y los enraizadores (49-50) de {quest:2864} para el viaje por {area:1938} hacia Un'Goro, hacia el nivel 51.",
 	-- {item:8623} OOX-17/TN Distress Beacon
 	["{item:8623}, a rare drop"] = "{item:8623}, botín raro",
@@ -118,7 +116,6 @@ return {
 
 	-- Step 24: Gadgetzan
 	-- {quest:2864} Tran'rek · {quest:3362} Thistleshrub Valley · {area:1938} Broken Pillar
-	-- was: ["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come with the {area:983} at the {area:1938}, on the way into Un'Goro at about 51."] = "Conserva {quest:3362} de {quest:2864}: sus formarraíces (49-50) van junto con {area:983} en {area:1938}, camino a Un'Goro hacia el nivel 51."
 	["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come at the {area:1938}, on the way into Un'Goro at about 51."] = "Conserva {quest:3362} de {quest:2864}: sus enraizadores (49-50) van en {area:1938}, camino a Un'Goro hacia el nivel 51.",
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "{item:8526} crece en {zone:1425}, alrededor del nivel 48",
@@ -164,7 +161,6 @@ return {
 	-- Step 33: The Grimesilt Dig Site
 	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth · {area:976} Gadgetzan
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	-- was: ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Desde {area:16727}, entra a {zone:1427} por su paso del este y luego ve al oeste hasta la excavación. {object:173265} está en su extremo sur; los geólogos Hierro Negro excavan justo al norte. Lleva 15 {item:4306} (se vende en la casa de subastas)."
 	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring the 15 {item:4306} from {area:976}'s Auction House: the Geologists drop it only now and then."] = "Desde {area:16727}, entra a {zone:1427} por su paso del este y luego ve al oeste hasta la excavación. El {object:173265} está en su extremo sur; los geólogos Hierro Negro excavan justo al norte. Lleva los 15 {item:4306} de la casa de subastas de {area:976}: los geólogos la sueltan solo de vez en cuando.",
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "{object:173265}",

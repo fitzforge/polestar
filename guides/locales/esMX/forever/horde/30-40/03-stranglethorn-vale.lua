@@ -124,7 +124,6 @@ return {
 	["{area:301}: kill these as you meet them"] = "{area:301}: mata a estos según te los encuentres",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	-- was: ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Al oeste pasando el campamento, los basiliscos Espina de Cristal (34-35) están sobre las rocas; cualquier Sangrapellejo de la aldea de más allá puede soltar una oreja.\nDeja por ahora a {npc:729}, el tigre de nivel 37 en la cima de la colina al suroeste del campamento: aquí te supera en dos niveles, y la guía de Tuercespina 40-50 vuelve por él.\nCuidado: En el nido de raptores hay raptores jóvenes que se unen a la pelea cuando atacas a los adultos."
 	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and this guide comes back to him at its end, from level 36.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Al oeste pasando el campamento, los basiliscos Espina de Cristal (34-35) están sobre las rocas; cualquier Sangrapellejo de la aldea de más allá puede soltar una oreja.\nDeja por ahora a {npc:729}, el tigre de nivel 37 en la cima de la colina al suroeste del campamento: aquí te supera en dos niveles, y esta guía vuelve por él al final, desde el nivel 36.\nCuidado: en el nido de raptores hay raptores jóvenes que se unen a la pelea cuando atacas a los adultos.",
 
 	-- Step 20: Zimmix Sputterspark
@@ -220,14 +219,12 @@ return {
 	-- {npc:2497} Nimboya · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
 	["{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "{npc:2497}: para la guía de {zone:1434} y {zone:1435}, a nivel 40 más o menos",
 	-- {npc:729} Sin'Dall · {zone:1454} Orgrimmar
-	-- was: ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "La siguiente guía toma el zepelín a {zone:1454} desde la torre del lado oeste del campamento."
 	["After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Después de {npc:729}, de vuelta aquí: la siguiente guía toma el zepelín a {zone:1454} desde la torre del lado oeste del campamento.",
 
 	-- Step 35: Level 36
 	["Level 36"] = "Nivel 36",
 	-- {npc:729} Sin'Dall · {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	-- was: ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "Las misiones de Marjal Revolcafango son de nivel 35-38. ¿Sigues por debajo del nivel 36 tras las entregas de {object:3202}? Los Crocoliscos Quijaforte (35-36) bordean el río justo al este del campamento, bajo las colinas Mosh'Ogg: mátalos hasta el nivel 36 y luego vuelve a pie a la torre del zepelín. Deja en paz a los ogros Mosh'Ogg (36-37) de arriba."
 	["Dustwallow's quests are 35-38, and {npc:729} (37) is next. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "Las misiones de Marjal Revolcafango son de nivel 35-38, y {npc:729} (37) viene a continuación. ¿Sigues por debajo del nivel 36 tras las entregas de Grom'gol? Los crocoliscos Quijaforte (35-36) bordean el río justo al este del campamento, bajo las colinas Mosh'Ogg: mátalos hasta el nivel 36. Deja en paz a los ogros Mosh'Ogg (36-37) de arriba.",
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "Crocoliscos Quijaforte",

@@ -24,7 +24,6 @@ return {
 	-- {npc:6986} Dran Droffers
 	["{npc:6986}, the Drag"] = "{npc:6986}, calle comercial de Orgrimmar",
 	-- {zone:1425} Hinterlands
-	-- was: ["for the {zone:1425}, around level 50"] = "para {zone:1425}, alrededor del nivel 50"
 	["for the {zone:1425}, around level 49"] = "para {zone:1425}, alrededor del nivel 49",
 
 	-- Step 3: Fly to Thunder Bluff
@@ -47,7 +46,6 @@ return {
 
 	-- Step 7: Camp Mojache
 	-- {zone:1425} Hinterlands
-	-- was: ["for the {zone:1425} owlbeasts, around level 48"] = "para los lechúcicos de {zone:1425}, alrededor del nivel 48"
 	["for the {zone:1425} owlbeasts, around level 49"] = "para las lechubestias de {zone:1425}, alrededor del nivel 49",
 
 	-- Step 8: Fly to Brackenwall Village

@@ -170,7 +170,6 @@ return {
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["Sprite Darters"] = "Duendes dardo",
 	-- {item:9589} Encrusted Minerals
-	-- was: ["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill."] = "Los dragones feéricos revolotean por el bosque justo al oeste del campamento. Usa la vasija en cada uno que mates."
 	["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill; they carry the {item:9589} too."] = "Los dragones feéricos revolotean por el bosque justo al oeste del campamento. Usa la vasija en cada uno que mates; también llevan los {item:9589}.",
 
 	-- Step 45: Wandering Forest Walkers
@@ -202,7 +201,6 @@ return {
 	["{area:1108}: the giants' hills"] = "{area:1108}: las colinas de los gigantes",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant · Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	-- was: ["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "Los elementales marinos y las espumas marinas recorren la orilla alrededor del muelle.\nLos caminantes terrestres y los gigantes del acantilado recorren las colinas al norte del muelle. Primero dale a cada uno con {item:18904}: reducidos, ya no son élite. Cada gigante reducido suelta residuo; usa también la Vasija Muisek sobre su cuerpo."
 	["The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too.\nThe Sea Elementals and Sea Sprays along the shore have the last cores."] = "Los caminatierras y los gigantes del risco recorren las colinas al norte del muelle. Primero dispárale a cada uno con el {item:18904}: encogidos, ya no son élite. Cada gigante encogido suelta residuo; usa también la vasija Muisek sobre su cuerpo.\nLos elementales de mar y los rocíos del mar de la orilla tienen los últimos núcleos.",
 
 	-- Step 52: Northspring harpies
@@ -263,7 +261,6 @@ return {
 	-- Step 66: Thistleshrub Valley
 	-- {quest:3362} Thistleshrub Valley · {npc:7876} Tran'rek · {zone:1446} Tanaris · {area:976} Gadgetzan
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
-	-- was: ["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (48-50) are {npc:7876}'s, carried from your first {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop, with {npc:11758}'s."] = "Al oeste del recinto, de camino a la rampa de Un'Goro: los Cardizales nudosos y los Formarraíces (48-50) de {quest:3362} son de {npc:7876}, que llevas desde tu primera visita a {zone:1446}. Deambulan mucho: atráelos de uno en uno. {npc:7876} la recibe en la parada de {area:976} de la siguiente guía, junto con la de {npc:11758}."
 	["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (49-50) are {npc:7876}'s, carried from your second {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop."] = "Al oeste del recinto, de camino a la rampa de Un'Goro: los cardizales nudosos y los enraizadores (49-50) de {quest:3362} son de {npc:7876}, que llevas desde tu segunda visita a {zone:1446}. Deambulan mucho: atráelos de uno en uno. {npc:7876} los recibe en la parada de {area:976} de la siguiente guía.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

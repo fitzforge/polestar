@@ -20,7 +20,6 @@ return {
 
 	-- Step 3: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1435} Swamp of Sorrows · {zone:1458} Undercity · {object:2076} Bubbling Cauldron
-	-- was: ["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "El vuelo aterriza en {object:3202}. Los encargos más difíciles de Tuercespina, pendientes de tu primera visita, ya son para ti: el jefe Partecráneos, los campamentos de Zanzil, los piratas de {area:35}, la costa de los naga y {npc:1514}, antes del zepelín a {zone:1454}. La {object:2076} junto a Nimboya tiene la misión del jefe Partecráneos."
 	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the {zone:1435} and the {zone:1458}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "El vuelo aterriza en Grom'gol. Los encargos más difíciles de Tuercespina, pendientes de tu primera visita, ya son para ti: el jefe Machacacráneos, los campamentos de Zanzil, los piratas de {area:35}, la costa de los naga y {npc:1514}, antes de {zone:1435} y {zone:1458}. El {object:2076} junto a Nimboya tiene la misión del jefe Machacacráneos.",
 	-- {object:2076} Bubbling Cauldron · {quest:586} Speaking with Gan'zulah
 	["the {object:2076}: {quest:586}"] = "{object:2076}: {quest:586}",
@@ -58,7 +57,6 @@ return {
 	["Pirate ghosts and Zanzil's camps"] = "Fantasmas piratas y campamentos de Zanzil",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2537} Chucky "Ten Thumbs" · {npc:2534} Zanzil the Outcast
 	-- plural, as words: Zanzil Witch Doctors = {npc:1490} Zanzil Witch Doctor
-	-- was: ["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and {npc:2536} stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "Sigue al suroeste hasta la jungla al noreste de Vallebruma: los tres piratas fantasmales la rondan junto a los campamentos de Zanzil. {npc:2535} y {npc:2536} están juntos, {npc:2537} más al este. Cualquier seguidor de Zanzil puede llevar el brebaje.\nCuidado: los médicos brujos Zanzil (44) lanzan hechizos y los campamentos están llenos: atráelos desde el borde, uno a la vez. El propio {npc:2534} (46) está en el campamento del sur alrededor de 39.6,58.6, a unos pasos del fantasma de {npc:2537}: lleva a {npc:2537} al norte o al este antes de pelear con él."
 	["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and Jon-Jon stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "Sigue al suroeste hasta la jungla al noreste de Velo de Bruma: los tres piratas fantasmales la rondan junto a los campamentos de Zanzil. {npc:2535} y Jon-Jon están juntos, {npc:2537} más al este. Cualquier seguidor de Zanzil puede llevar el brebaje.\nCuidado: los médicos brujos Zanzil (44) lanzan hechizos y los campamentos están llenos: atráelos desde el borde, uno a la vez. El propio {npc:2534} (46) está en el campamento del sur alrededor de 39.6,58.6, a unos pasos del fantasma de {npc:2537}: lleva a {npc:2537} al norte o al este antes de pelear con él.",
 
 	-- Step 10: Witch Doctor Unbagwa
@@ -96,6 +94,7 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "{npc:2491} y {npc:2486}",
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim
+	-- was: ["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "¿Tenías menos de 40 en tu primera visita a {area:35}? {npc:2491}, en la posada, {npc:2486}, al lado, y MacKinley \"Lobo de Mar\", en el piso superior, tienen sus misiones para ti ahora."
 	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}, en la posada: sus botellas llegan a la costa de {zone:1425}, alrededor del nivel 48",
@@ -324,7 +323,6 @@ return {
 	["{area:1937}: kill these as you meet them"] = "{area:1937}: mata a estos según te los encuentres",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	-- was: ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Los bandidos y ladrones acampan en las dunas al este de {area:976}. Cualquier Vagayermo puede llevar una bolsa de agua: Luglunket quiere cinco.\nCuidado: Los pícaros Vagayermo (nivel 43-44) se mueven en sigilo, así que pueden acercarse sin que los veas."
 	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five, and Bilgewhizzle five more.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Los bandidos y ladrones acampan en las dunas al este de {area:976}. Cualquier Vagayermo puede llevar una bolsa de agua: Luglunket quiere cinco, y Bilgewhizzle cinco más.\nCuidado: los pícaros Vagayermo (nivel 43-44) se mueven en sigilo, así que pueden acercarse sin que los veas.",
 
 	-- Step 82: Gadgetzan
@@ -346,7 +344,6 @@ return {
 	-- {area:1336} Lost Rigger Cove
 	["{area:1336}: kill these as you meet them"] = "{area:1336}: mata a estos según te los encuentres",
 	-- {npc:7883} Andre Firebeard · {item:9276} Pirate's Footlocker · {item:9250} Ship Schedule · {area:977} Steamwheedle Port
-	-- was: ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "Al sur por la costa, los piratas de los Mares del Sur ocupan la cala. {npc:7883} y la carga robada están en los muelles del extremo. Cualquier pirata puede soltar un sombrero, los secuestradores con más frecuencia.\nCuidado: Dos o tres piratas están con {npc:7883} (45), y muchos más piratas del pueblo se unen a la pelea cuando empieza: primero aleja a sus guardias de él."
 	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first.\nThe cove's pirates sometimes drop a {item:9276}: open it, and if it holds a {item:9250}, read it to start a quest for the Security Chief in {area:977}."] = "Al sur por la costa, los piratas de los Mares del Sur ocupan la cala. {npc:7883} y la carga robada están en los muelles del extremo. Cualquier pirata puede soltar un sombrero, los secuestradores con más frecuencia.\nCuidado: dos o tres piratas están con {npc:7883} (45), y muchos más piratas del pueblo se unen a la pelea cuando empieza: primero aleja a sus guardias de él.\nLos piratas de la cala a veces sueltan un {item:9276}: ábrelo, y si contiene un {item:9250}, léelo para iniciar una misión del jefe de seguridad de {area:977}.",
 	["Upstairs"] = "Arriba",
 	-- {item:9250} Ship Schedule · {item:9276} Pirate's Footlocker
@@ -377,14 +374,12 @@ return {
 	-- {npc:8115} Witch Doctor Uzer'i · {npc:263190} Tan'jani · {zone:2548} Riverglades
 	["{npc:8115}: {npc:263190}'s errand from the {zone:2548}, if you carry it"] = "{npc:8115}: el encargo de {npc:263190} de {zone:2548}, si lo llevas",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
-	-- was: ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: para {zone:1454}, alrededor del nivel 45"
 	["{npc:8115}: for {zone:1454}, around level 47"] = "{npc:8115}: para {zone:1454}, alrededor del nivel 47",
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "{npc:7854}, adentro",
 
 	-- Step 91: Gordunni Outpost
 	-- {npc:222233} Ohk'zi · {item:9466} Orwin's Shovel · {object:144064} Gordunni Dirt Mound
-	-- was: ["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "Al norte de los gnolls, los ogros ocupan una avanzada en una colina; atrae a los ogros magos hacia ti. El cobalto está en los montículos de tierra alrededor de la avanzada y el pergamino está en el suelo, adentro.\nCuidado: {npc:222233} (nivel 43, élite) está en la avanzada: atrae a los ogros hacia ti, lejos de él."
 	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him.\nUse {item:9466} on each {object:144064} around the outpost: the arrow goes from mound to mound."] = "Al norte de los gnolls, los ogros ocupan una avanzada en una colina; atrae a los ogros magos hacia ti. El cobalto está en los montículos de tierra alrededor de la avanzada y el pergamino está en el suelo, adentro.\nCuidado: {npc:222233} (nivel 43, élite) está en la avanzada: atrae a los ogros hacia ti, lejos de él.\nUsa la {item:9466} en cada {object:144064} alrededor de la avanzada: la flecha va de montículo en montículo.",
 
 	-- Step 92: Woodpaw north camp
@@ -494,6 +489,7 @@ return {
 	-- ["The {object:3202} zeppelin leaves from the tower just north-east of {zone:1454}'s main gate."] = "El zepelín a {object:3202} sale de la torre justo al noreste de la puerta principal de {zone:1454}.",
 	-- ["The {zone:1454} zeppelin leaves from the tower beside {object:3202}; it lands just outside {zone:1454}'s main gate."] = "El zepelín a {zone:1454} sale de la torre junto a {object:3202}; aterriza justo afuera de la puerta principal de {zone:1454}.",
 	-- ["Thysta, the flight master, stands just east of the zeppelin tower. Fly to {area:75}: the next guide starts there."] = "Thysta, la maestra de vuelo, está justo al este de la torre de zepelín. Vuela a {area:75}: la siguiente guía empieza allí.",
+	-- ["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "¿Tenías menos de 40 en tu primera visita a {area:35}? {npc:2491}, en la posada, {npc:2486}, al lado, y MacKinley \"Lobo de Mar\", en el piso superior, tienen sus misiones para ti ahora.",
 	-- ["West to the coast: the naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them. Then follow the coast south to {area:35}."] = "Al oeste hasta la costa: los exploradores naga recorren la orilla y llevan los haces de juncos; {object:759} burbujea en las colinas justo al este. Luego sigue la costa al sur hasta {area:35}.",
 	-- ["Your trainer is in {area:1638}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins). Fly there from {zone:1454}, then on to {area:484}."] = "Tu instructor está en {area:1638}: {npc:3033} (druidas) en {area:1639}, {npc:246344} (paladines). Vuela allí desde {zone:1454} y luego a {area:484}.",
 	-- ["Zeppelin to {object:3202}"] = "Zepelín a {object:3202}",
@@ -513,5 +509,4 @@ return {
 	-- ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: para {zone:1454}, alrededor del nivel 45",
 	-- ["{npc:8579}: the screechers live in {zone:1444}"] = "{npc:8579}: los estridadores viven en {zone:1444}",
 	-- ["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579}: los chilladores viven en {zone:1444}, en la próxima visita a {zone:1444}",
-	-- ["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "¿Tenías menos de 40 en tu primera visita a {area:35}? {npc:2491}, en la posada, {npc:2486}, al lado, y MacKinley \"Lobo de Mar\", en el piso superior, tienen sus misiones para ti ahora.",
 }
