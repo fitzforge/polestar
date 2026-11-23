@@ -426,6 +426,11 @@ fn build_one(entry: &V, codex: &V, warn: &mut Vec<String>, inside: &[V]) -> V {
 	o.set("note", or_null(entry.get("note")));
 	o.set("level", level.map(V::Num).unwrap_or(V::Null));
 	o.set("any", entry.get("any").truthy());
+	// `open: false`: a raid Forever has not opened yet (Molten Core, Blackwing Lair, Naxxramas at launch, #3695);
+	// the Attunements page and the guide say so. Absent while it is open.
+	if matches!(entry.get("open"), V::Bool(false)) {
+		o.set("open", false);
+	}
 	o.set("goal", V::from(goal));
 	let inside_v = placed_inside(&steps, codex, inside);
 	o.set("steps", V::from(steps));
@@ -550,5 +555,30 @@ mod tests {
 		assert_eq!(steps.iter().map(|s| (s.get("id").num(), s.get("accept").truthy())).collect::<Vec<_>>(), vec![(1.0, false), (2.0, true)]);
 		let (by_key, _) = attunements_of(&codex, &table(""));
 		assert!(!by_key[0].1[0].get("steps").items()[1].get("accept").truthy(), "without onAccept the goal is the whole quest");
+	}
+
+	// #3695: Molten Core, Blackwing Lair and Naxxramas are not open on Forever yet. `open: false` in the table rides
+	// through to the attunement (the Attunements page and the guide say so); an open one carries no `open` at all.
+	#[test]
+	fn open_false_marks_a_raid_not_open_yet_and_an_open_one_carries_nothing() {
+		let codex = parse_json(
+			r#"{ "instances": { "molten-core": {} },
+				"quests": { "7848": { "id": 7848, "title": "Attunement to the Core", "pre": [], "preAny": [], "start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [], "object": [] } } },
+				"items": {}, "npcs": {} }"#,
+		)
+		.unwrap();
+		let table = |open: &str| {
+			parse_json(&format!(
+				r#"{{ "attunements": [{{ "key": "molten-core", "id": "core", "name": "Attunement to the Core", "kind": "attunement", "need": "each", "goal": [7848]{open}, "note": "n" }}] }}"#
+			))
+			.unwrap()
+		};
+		let (by_key, warnings) = attunements_of(&codex, &table(r#", "open": false, "openSource": "s""#));
+		assert!(warnings.is_empty(), "{warnings:?}");
+		assert!(matches!(by_key[0].1[0].get("open"), V::Bool(false)));
+		let (by_key, _) = attunements_of(&codex, &table(""));
+		assert!(matches!(by_key[0].1[0].get("open"), V::Undef), "open: no field");
+		let (by_key, _) = attunements_of(&codex, &table(r#", "open": true"#));
+		assert!(matches!(by_key[0].1[0].get("open"), V::Undef), "open: true is the same as none");
 	}
 }

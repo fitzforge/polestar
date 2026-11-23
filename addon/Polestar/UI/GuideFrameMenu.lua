@@ -118,10 +118,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		if not inHeader("Report") then
 			add({ text = L["Report a problem"], icon = "bug", onClick = function() UI.ShowReport() end })
 		end
-		-- Freedoom Arcade (Maps/Arcade.lua), while a copy of it is there.
-		local arcade = ns.Arcade
-		if arcade and arcade.Available() then
-			add({ text = L["Play Freedoom Arcade"], icon = "gamepad", onClick = function() arcade.Open() end })
+		-- The flight games (Maps/Arcade.lua): the chosen one, else the first there.
+		local game = ns.Arcade and ns.Arcade.MenuGame()
+		if game then
+			add({ text = game.play, icon = "gamepad", onClick = function() ns.Arcade.Open(game.id) end })
 		end
 		-- The Recorder's window, while the Recorder addon is loaded.
 		if type(PolestarRecorder_Command) == "function" then
