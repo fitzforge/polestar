@@ -19,9 +19,9 @@ return {
 	-- Step 3: Rigglefuzz: Pearl Diving
 	-- {npc:2817} Rigglefuzz
 	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl · Giant Clams = {object:2744} Giant Clam
-	["{npc:2817} buys nine Blue Pearls (Giant Clams on the sea floor, or the Auction House): this step shows only when you carry them."] = "",
+	["{npc:2817} buys nine Blue Pearls (Giant Clams on the sea floor, or the Auction House): this step shows only when you carry them."] = "{npc:2817} compra nueve perlas azules (de las almejas gigantes del fondo del mar o de la casa de subastas): este paso solo aparece si las llevas.",
 	-- {item:4611} Blue Pearl
-	["{item:4611}, in your bags"] = "",
+	["{item:4611}, in your bags"] = "{item:4611}, en tus bolsas",
 
 	-- Step 4: The Dustbowl
 	-- {area:340} Kargath · {npc:2921} Lotwil Veriatus · {area:1878} The Dustbowl
@@ -29,23 +29,23 @@ return {
 
 	-- Step 5: Lotwil Veriatus: Coolant Heads Prevail
 	-- {npc:2921} Lotwil Veriatus · {item:3829} Frost Oil · {skill:171} Alchemy
-	["{npc:2921} wants a {item:3829} ({skill:171} or the Auction House): this step shows only when you carry one."] = "",
+	["{npc:2921} wants a {item:3829} ({skill:171} or the Auction House): this step shows only when you carry one."] = "{npc:2921} quiere un {item:3829} ({skill:171} o la casa de subastas): este paso solo aparece si llevas uno.",
 	-- {item:3829} Frost Oil
-	["{item:3829}, in your bags"] = "",
+	["{item:3829}, in your bags"] = "{item:3829}, en tus bolsas",
 
 	-- Step 6: Lotwil Veriatus: Gyro... What?
 	-- {item:4389} Gyrochronatom · {skill:202} Engineering
-	["Then a {item:4389} ({skill:202}, or the engineering supply vendors): this step shows only when you carry one."] = "",
+	["Then a {item:4389} ({skill:202}, or the engineering supply vendors): this step shows only when you carry one."] = "Luego un {item:4389} ({skill:202} o los proveedores de ingeniería): este paso solo aparece si llevas uno.",
 	-- {item:4389} Gyrochronatom
-	["{item:4389}, in your bags"] = "",
+	["{item:4389}, in your bags"] = "{item:4389}, en tus bolsas",
 
 	-- Step 7: Lucien Tosselwrench: Liquid Stone
 	-- {npc:2921} Lotwil Veriatus · {item:929} Healing Potion · {item:3823} Lesser Invisibility Potion · {skill:171} Alchemy
-	["Lucien, beside {npc:2921}, wants a {item:929} and a {item:3823} ({skill:171} or the Auction House): this step shows only when you carry both."] = "",
+	["Lucien, beside {npc:2921}, wants a {item:929} and a {item:3823} ({skill:171} or the Auction House): this step shows only when you carry both."] = "Lucien, junto a {npc:2921}, quiere una {item:929} y una {item:3823} ({skill:171} o la casa de subastas): este paso solo aparece si llevas las dos.",
 	-- {item:929} Healing Potion
-	["{item:929}, in your bags"] = "",
+	["{item:929}, in your bags"] = "{item:929}, en tus bolsas",
 	-- {item:3823} Lesser Invisibility Potion
-	["{item:3823}, in your bags"] = "",
+	["{item:3823}, in your bags"] = "{item:3823}, en tus bolsas",
 
 	-- Step 8: Kargath
 	-- {area:340} Kargath · {quest:1418} Neeka Bloodscar
@@ -67,8 +67,7 @@ return {
 	["{zone:1418}: kill these as you meet them"] = "{zone:1418}: mata a estos según te los encuentres",
 	-- {area:1878} The Dustbowl · {zone:1418} Badlands · {npc:2817} Rigglefuzz
 	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage
-	-- was: ["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely."] = "Los coyotes del risco mayores y las águilas ratoneras gigantes recorren la cuenca al sur de {area:1878}. Los coyotes sueltan tanto las mandíbulas como los colmillos; las águilas ratoneras gigantes sueltan las mollejas. Cuidado: Los espejismos malévolos (42, élite) flotan por {zone:1418}: mantente bien lejos de ellos.\nCuidado: las águilas ratoneras gigantes son de nivel 39-41, y las de 41 están dos niveles por encima de ti si eres 39: elige las de 39 y 40 y atráelas de una en una. Las águilas ratoneras (37) que matarás después por las alas para {npc:2817} también sueltan mollejas, pero con menos frecuencia."
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely.\nCareful: Zaricotl (55, a rare buzzard) circles over the {zone:1418} too: if you see him, keep away."] = "",
+	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely.\nCareful: Zaricotl (55, a rare buzzard) circles over the {zone:1418} too: if you see him, keep away."] = "Los coyotes del risco mayores y las águilas ratoneras gigantes recorren la cuenca al sur de {area:1878}. Los coyotes sueltan tanto las mandíbulas como los colmillos; las águilas ratoneras gigantes sueltan las mollejas. Cuidado: los Malevolent Mirages (42, élite) flotan por {zone:1418}: mantente bien lejos de ellos.\nCuidado: las águilas ratoneras gigantes son de nivel 39-41, y las de 41 están dos niveles por encima de ti si eres 39: elige las de 39 y 40 y atráelas de una en una. Las águilas ratoneras (37) que matarás después por las alas para {npc:2817} también sueltan mollejas, pero con menos frecuencia.\nCuidado: Zaricotl (55, un águila ratonera rara) también vuela en círculos sobre {zone:1418}: si lo ves, mantente lejos.",
 
 	-- Step 12: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
@@ -114,7 +113,7 @@ return {
 	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
 	["Head west back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "Regresa al oeste a {area:340}. {npc:5394} está en el nivel superior de {area:340}, muy por encima del maestro de vuelo: sube por las rampas, la flecha no distingue los niveles.",
 	-- {area:340} Kargath · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1458} Undercity · {npc:4486} Genavie Callow
-	["The next guide flies from {area:340} to {object:3202}; Warriors, Paladins, Rogues, Priests, Mages and Warlocks go by the {zone:1458} first, for their training and {npc:4486}."] = "",
+	["The next guide flies from {area:340} to {object:3202}; Warriors, Paladins, Rogues, Priests, Mages and Warlocks go by the {zone:1458} first, for their training and {npc:4486}."] = "La siguiente guía vuela de {area:340} a Grom'gol; los guerreros, paladines, pícaros, sacerdotes, magos y brujos pasan primero por {zone:1458}, por su entrenamiento y {npc:4486}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "Sigue al norte por el camino; el cofre está en la excavación de {area:1517}, al pie de las ruinas al noroeste del camino.",
