@@ -13,7 +13,7 @@ return {
 	-- {area:1581} The Deadmines
 	["{area:1581}: Cookie"] = "{area:1581}：曲奇",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
-	["{area:1581} is a group of five under {area:20}: the mine mouth is in {area:20}, the instance portal deep inside the mine. Cookie, the murloc cook, waits on a small island under the pirate ship at the far end, an optional boss; his cooking heals him, so interrupt it. He drops the Siamese about 15% of the time in Classic's data: expect several runs. The carrier can be traded, so check the Auction House too."] = "",
+	["{area:1581} is a group of five under {area:20}: the mine mouth is in {area:20}, the instance portal deep inside the mine. Cookie, the murloc cook, waits on a small island under the pirate ship at the far end, an optional boss; his cooking heals him, so interrupt it. He drops the Siamese about 15% of the time in Classic's data: expect several runs. The carrier can be traded, so check the Auction House too."] = "{area:1581} 是位於 {area:20} 下方的五人地下城：礦洞入口在 {area:20}，副本傳送門則在礦洞深處。可選首領曲奇是一名魚人廚師，在最深處海盜船下方的小島上等待；他的烹飪會治療自己，要打斷。按經典舊世資料，他掉落暹羅貓的機率約為 15%：預計要刷幾次。貓籠可以交易，也可以看看拍賣行。",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	["{area:1581}, in the {area:20} mine"] = "{area:1581}，在{area:20}礦坑內",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook

@@ -70,7 +70,7 @@ return {
 	-- plural, as words: Darkfang Lurkers = {npc:4411} Darkfang Lurker · Theramore Infiltrators = {npc:4834} Theramore Infiltrator · Darkmist Lurkers = {npc:4377} Darkmist Lurker
 	["Head west back across the marsh. The Darkfang Lurkers (36-37) and Venomspitters (37-38) on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.\nThe Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes. Work its outer edge, where the Spiders and Recluses (35-37) stand: the Lurkers and Silkspinners (37-39) deeper in are two or three over you.\nCareful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.\nCareful: Stealthed spiders in the same area will attack you on sight.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "向西穿過沼澤回去。蕨牆村北邊山脊上的暗牙潛伏者（36-37級）和暗牙毒液噴吐者（37-38級）會掉落毒囊。塞拉摩間諜（35-36級）在同一片樹林裡潛行：牠們處於潛行狀態，要仔細看。\n暗霧蜘蛛聚集在蕨牆村西北方的洞穴口；每一種都會掉落眼睛。在外圍打，那裡是蜘蛛和隱士蛛（35-37級）：更深處的潛伏者和織絲蛛（37-39級）比你高兩三級。\n小心：暗牙潛伏者（36-37級）在非戰鬥時會潛行，戰鬥中會施放毒素。\n小心：同一區域潛行的蜘蛛看到你就會攻擊。\n小心：暗霧潛伏者會潛行移動，戰鬥中會使用毒素。蜘蛛站得很近，很容易引來額外的怪；從外圍單拉可以減少這種情況。",
 	-- plural, as words: Giant Darkfang Spiders = {npc:4415} Giant Darkfang Spider
-	["Every Darkfang spider drops them: Lurkers, Spiders, Venomspitters and the Giant Darkfang Spiders"] = "",
+	["Every Darkfang spider drops them: Lurkers, Spiders, Venomspitters and the Giant Darkfang Spiders"] = "每隻暗牙蜘蛛都會掉落：潛伏者、蜘蛛、噴毒者和巨型暗牙蜘蛛",
 
 	-- Step 16: Questioning Reethe
 	-- {npc:4983} Ogron · {area:2302} Quagmire · {npc:5045} Private Hallan
@@ -170,7 +170,7 @@ return {
 	-- {area:599} Thunder Axe Fortress · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {item:13542} Demon Box
 	["North up the road to {area:599}. Clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}. The Burning Blade around it are well under you now."] = "沿道路向北前往{area:599}。清掉最大建築物的中央，然後對那裡紅色的{object:176581}使用{item:14523}。會出現一隻{npc:11876}（37級）：殺掉它取得{item:13542}。周圍的燃刃現在等級遠低於你。",
 	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal
-	["{item:14523}, on the {object:176581}"] = "",
+	["{item:14523}, on the {object:176581}"] = "{item:14523}，對{object:176581}使用",
 
 	-- Step 34: Sargeron
 	-- {area:603} Sargeron

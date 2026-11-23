@@ -54,7 +54,7 @@ return {
 
 	-- Step 7: Dolanaar
 	-- {faction:69} Darnassus · {npc:2151} Moon Priestess Amara
-	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.\n{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "",
+	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.\n{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "可選：通往{faction:69}道路上的村莊，60級時用45分鐘可獲得約1,250點聲望。Forever中，無論角色等級多少，這些舊任務都提供全額聲望。跳過本步驟即可跳過整個任務區。\n{npc:2151}在村莊西邊的道路上巡邏：如果她不在箭頭處，就沿道路走，直到遇到她。",
 
 	-- Step 8: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
@@ -185,7 +185,7 @@ return {
 	-- {quest:7801} Additional Runecloth
 	["{quest:7801} to Revered"] = "{quest:7801}到崇敬",
 	-- {item:14047} Runecloth
-	["Honored: in Classic Darnassus's vendors take 10% off for you, Lelanai's nightsabers (20g, the swift ones 200g) included; Forever has not settled it, and guide sites report 5% at Friendly rising to 20% at Exalted. Honored to Revered is 12,000 reputation: 240 turn-ins, 4,800 {item:14047}."] = "",
+	["Honored: in Classic Darnassus's vendors take 10% off for you, Lelanai's nightsabers (20g, the swift ones 200g) included; Forever has not settled it, and guide sites report 5% at Friendly rising to 20% at Exalted. Honored to Revered is 12,000 reputation: 240 turn-ins, 4,800 {item:14047}."] = "尊敬：經典懷舊服中，達納蘇斯商人會給你 10% 折扣，包括萊蘭奈出售的夜刃豹（20 金幣，迅捷型 200 金幣）；無限尚未確定，指南網站報告為友善 5%，逐步提高到崇拜 20%。尊敬到崇敬需要 12,000 點聲望：交還 240 次，共 4,800 個 {item:14047}。",
 
 	-- Step 37: Additional Runecloth to Exalted
 	-- {quest:7801} Additional Runecloth

@@ -52,6 +52,7 @@ return {
 	-- Step 11: Toxic Horrors
 	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors · {npc:9116} Eridan Bluewind · {item:11173} Irontree Heart · {item:11172} Silvery Claws · {npc:14524} Vartrus the Ancient
 	-- plural, as words: Irontree Wanderers = {npc:7138} Irontree Wanderer · Ancient Irontree Walkers = {npc:235912} Ancient Irontree Walker
+	-- was: ["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "沿{zone:1448}的道路向北騎往{area:1767}；{quest:5086}在樹木之間蠕動，大多數都會掉落一份液滴。\n小心：59級精英遠古鐵木行者在{quest:5086}之間走動，{npc:14524}（63級，精英）在樹林中遊蕩：在{area:1767}的最北端一次打一隻。"
 	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet. The Irontree Wanderers and Stompers (52-53) there carry {npc:9116}'s {item:11173}, the Angerclaw bears and Felpaw wolves his {item:11172}.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "",
 
 	-- Step 13: Umber
@@ -215,6 +216,7 @@ return {
 	-- ["Ride back west to {area:2246}."] = "向西騎回{area:2246}。",
 	-- ["Ride east along the road to {area:2255}."] = "沿著道路向東騎往{area:2255}。",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "向東騎，然後沿著{area:2249}向南走。那裡的霜槌巨人是59級精英：走在中間並持續移動。奇怪的來源在南端的{area:2256}入口。",
+	-- ["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "沿{zone:1448}的道路向北騎往{area:1767}；{quest:5086}在樹木之間蠕動，大多數都會掉落一份液滴。\n小心：59級精英遠古鐵木行者在{quest:5086}之間走動，{npc:14524}（63級，精英）在樹林中遊蕩：在{area:1767}的最北端一次打一隻。",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "向西北騎往{area:1763}。四個火盆位於教徒的建築之間；對每個火盆使用淨化過的水。\n小心：洞穴裡滿是53-55級的暗影議會怪物，常常成群連動，很多會擊暈。建議2-3人組隊。",
 	-- ["South to the Sanctuary once more."] = "再次向南前往聖地。",
 	-- ["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "{area:1762}的死木圖騰，如果當時{npc:11558}沒收：她在{area:1769}的隧道口等著，只要木喉聲望達到中立就會跟你說話——這個聲望是你在{zone:1448}打死木熊怪刷出來的。",
@@ -230,6 +232,7 @@ return {
 	-- ["only if still carried: the {zone:1423} guide hands it in on its way through"] = "只有在還帶著時：{zone:1423}指南會在途中繳交它",
 	-- ["{npc:10306}'s next {quest:4741} would bring you back here from {area:618}. Skip it."] = "{npc:10306}接下來的{quest:4741}會讓你從{area:618}跑回這裡。跳過。",
 	-- ["{npc:10306}'s next {quest:4741} would bring you back here from {zone:1452}. Skip it."] = "{npc:10306}接下來的{quest:4741}會讓你從{zone:1452}跑回這裡。跳過。",
+	-- ["{npc:11016}, below ground"] = "{npc:11016}，地下",
 	-- ["{npc:9116}'s Silver Heart needs an {item:11173} from northern {area:361} and a ride back here. Skip it."] = "{npc:9116}的「銀爪鐵心」需要{area:361}北部的{item:11173}，還要騎回這裡。跳過。",
 	-- ["{npc:9116}'s Silver Heart needs an {item:11173} from northern {zone:1448} and a ride back here. Skip it."] = "{npc:9116}的「銀爪鐵心」需要{zone:1448}北部的{item:11173}，還要騎回這裡。跳過。",
 	-- ["{npc:9298} next sends you after {npc:10738}, an elite in his cave. Skip it."] = "{npc:9298}接著會派你去對付洞穴裡的精英{npc:10738}。跳過。",
