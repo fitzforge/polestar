@@ -10390,7 +10390,7 @@ do
 					note = "Head north to {area:502}. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it.",
 					when = { { k = "level", op = ">=", n = 36 } },
 					goals = {
-						{ t = "accept", quest = 1270, title = "Stinky's Escape", npc = 4880, npcName = "\"Stinky\" Ignatz", minLevel = 36, qlvl = 37, map = 1445, x = 46.82, y = 17.53, z = 35.4, escort = true },
+						{ t = "accept", quest = 1270, title = "Stinky's Escape", npc = 4880, npcName = "\"Stinky\" Ignatz", minLevel = 30, qlvl = 37, map = 1445, x = 46.82, y = 17.53, z = 35.4, escort = true },
 						{ t = "complete", quest = 1270, title = "Stinky's Escape", escort = true, objs = { { text = "Help Stinky find Bogbean Leaves", count = 1 } } },
 					},
 				},
@@ -10841,9 +10841,9 @@ do
 					title = "{area:17707}: kill these as you meet them",
 					note = "From {area:280} follow the road south-west to {area:1357} and on west to the ruins north of the {area:279} crater, along the lake shore. The Dalaran Summoners lead Elemental Slaves; the bracers drop from the slaves. Careful: Arcane Sentries (55, elite) and Kirin Tor Guards (55) guard the dome itself and attack the Horde: work the ruins' outer edge and don't go up to the dome.",
 					goals = {
-						{ t = "kill", quest = 545, title = "Dalaran Patrols", target = "Elemental Slave", npc = 2359, count = 8, oi = 2, map = 1416, x = 22.4, y = 58.6, z = 42, f = "e", spotsPacked = "23.99,56.2,,98,19", lvl = 34 },
-						{ t = "collect", quest = 557, title = "Bracers of Binding", item = 3715, itemName = "Bracers of Earth Binding", count = 4, oi = 1, map = 1416, x = 21.6, y = 61.9, z = 42.4, f = "e", spotsPacked = "21.6,61.9,42.4,15,0;24.1,57.7,,57,8,,34;21.6,53.7,,47,9,,34;24.5,52.4,,58,5,,34;25.6,61.1,,38,5,1,34", from = "Elemental Slave", fromKind = "npc", fromFaction = "A", fromId = 2359, fromNpcs = { { npc = 2359, npcName = "Elemental Slave" } } },
-						{ t = "kill", quest = 545, title = "Dalaran Patrols", target = "Dalaran Summoner", npc = 2358, count = 6, oi = 1, map = 1416, x = 22, y = 57.9, z = 43.1, f = "e", spotsPacked = "22,57.9,43.1,15,0;24.3,56.7,,52,7,,35;25.5,60.5,,34,5,,35;21.7,53,,58,12,1,35" },
+						{ t = "kill", quest = 545, title = "Dalaran Patrols", target = "Elemental Slave", npc = 2359, count = 8, oi = 2, map = 1416, x = 22.4, y = 58.6, z = 42, f = "e", spotsPacked = "23.99,56.2,,98,4;19.4,75.5,,40,3,1;16,77.3,,40,3,1;11.8,74.5,42,40,1,1;11.1,78.6,,48,3,1", lvl = 34 },
+						{ t = "collect", quest = 557, title = "Bracers of Binding", item = 3715, itemName = "Bracers of Earth Binding", count = 4, oi = 1, map = 1416, x = 21.6, y = 61.9, z = 42.4, f = "e", spotsPacked = "21.6,61.9,42.4,89,6;19.9,56.1,42.1,57,6;19.4,75.5,,40,3,1;16,77.3,,40,3,1;11.8,74.5,42,40,1,1;11.1,78.6,,48,3,1", lvl = 34, from = "Elemental Slave", fromKind = "npc", fromFaction = "A", fromId = 2359, fromNpcs = { { npc = 2359, npcName = "Elemental Slave" } } },
+						{ t = "kill", quest = 545, title = "Dalaran Patrols", target = "Dalaran Summoner", npc = 2358, count = 6, oi = 1, map = 1416, x = 22, y = 57.9, z = 43.1, f = "e", spotsPacked = "22,57.9,43.1,93,6;21.8,61.8,42,40,3,1;18.7,75.5,43.4,40,5,1;15.3,76.8,44.7,40,3,1;11.8,77,,40,3,1", lvl = 35 },
 					},
 				},
 				{
@@ -18975,7 +18975,7 @@ do
 					note = "On the ride north to {area:2255}, the Ice Thistle Yetis (55-56) in the hills south-east of the town carry Vizzie's {item:258323}: four pieces.",
 					when = { { k = "onquest", q = { 93406 } } },
 					goals = {
-						{ t = "collect", item = 258323, itemName = "Missing Mail", count = 4, map = 1452, x = 66.78, y = 46.17, z = 760.1, f = "e", spotsPacked = "66.6,45.7,749.5,62,5,,58;66,41.9,714,59,5,,57;64.5,40.3,,40,3,,58;67.8,41.3,,71,6,,58;69.6,41.6,753.7,58,7,,58;70.8,38.6,748.8,59,9,,58;61.6,31.4,,40,2;58.8,34,715.8,40,1;57.8,29,638,40,1;54.7,30.1,703.7,40,1;55.2,33.2,725.8,40,1;52.5,33.1,,40,2;67.7,46.3,781.4,40,1,1,58;67.4,44.4,,40,3,1;66.2,43.8,736.3,47,4,1,57;67.4,43.1,,40,2,1;65.5,40,,40,2,1;69.9,40.1,753.5,47,4,1,58;71.5,40.2,,40,4,1,58;60.9,32.7,749.2,40,1,1;57.8,33.3,735.1,40,1,1;45,37.4,686.8,40,1,1,55;30.8,45.7,,40,1,1,55", spread = true, lvl = 56, fromNpcs = { { npc = 7458, npcName = "Ice Thistle Yeti" }, { npc = 7459, npcName = "Ice Thistle Matriarch" }, { npc = 7460, npcName = "Ice Thistle Patriarch" }, { npc = 10197, npcName = "Mezzir the Howler" } } },
+						{ t = "collect", item = 258323, itemName = "Missing Mail", count = 4, map = 1452, x = 66.78, y = 46.17, z = 760.1, f = "e", spotsPacked = "66.5,45.5,749.5,62,6,,58;70.8,38.6,748.8,59,9,,58;61.4,31.8,,55,3,,56;57.8,29,638,40,1,,56;54.4,36.3,715.9,40,1;47.8,37.7,717.9,40,1;43.4,33.2,765.5,40,1;38.5,41.2,596.7,40,1;32.4,40,523.1,40,1;28.9,46.5,571.2,40,1;44.5,44.5,647.1,40,1;49,46.9,726.7,40,1;67.7,46.3,781.4,40,1,1,58;67.4,43.9,,56,5,1,56;66.1,42.5,731.1,68,8,1,57;68,41.3,770,85,8,1,58;69.9,41.7,,40,5,1,58;64.9,40.2,705,63,5,1,58;69.9,40.1,753.5,47,4,1,58;71.5,40.2,,40,4,1,58;58.3,33.6,,40,2,1,56;55.2,33.2,725.8,40,1,1,56;53.2,36,701.8,40,1,1;54.7,30.1,703.7,40,1,1,56;51.4,37.9,700.1,40,1,1;50.8,40.1,678.5,40,1,1;52.5,33.1,,40,2,1,56;48.9,34.4,,40,2,1;47.3,43.9,724.9,55,4,1;45.6,37.6,,42,3,1;44.7,41.2,668,40,1,1;44.8,35.5,716.3,40,2,1;43.4,38,,40,2,1;41.1,36.1,641,40,1,1;40.2,39.3,603.4,40,1,1;39.8,37.6,576,40,2,1;33.8,44,550.7,40,1,1;33.8,40.3,542.4,40,1,1;30.8,45.7,,40,1,1;30.3,39.2,540,40,1,1", spread = true, lvl = 55, fromNpcs = { { npc = 7458, npcName = "Ice Thistle Yeti" }, { npc = 7457, npcName = "Rogue Ice Thistle" }, { npc = 7459, npcName = "Ice Thistle Matriarch" }, { npc = 7460, npcName = "Ice Thistle Patriarch" }, { npc = 10197, npcName = "Mezzir the Howler" } } },
 					},
 				},
 				{

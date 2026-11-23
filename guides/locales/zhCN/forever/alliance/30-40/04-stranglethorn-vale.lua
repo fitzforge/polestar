@@ -82,7 +82,7 @@ return {
 	["Back south past Nesingwary: Panthers and Stranglethorn Raptors run in the clearings west of the camp toward the coast; the elder tigers hold the hills south-west."] = "向南返回经过奈辛瓦里：黑豹和荆棘谷迅猛龙在营地西边通往海岸的空地上奔跑；老年荆棘谷猛虎占据西南方的山丘。",
 	-- {item:4614} Pendant of Myzrael
 	["Gluggle (37, rare) on the coast west of camp drops the {item:4614}: four levels over you, leave him unless you are grouped"] = "戈鲁格尔（37级，稀有）在营地西边海岸，掉落{item:4614}：比你高四级，除非组队否则别惹他",
-	-- {object:661516} Thoroughly Scavenged Supplies
+	-- {object:661516} Thoroughly Scavenged Supplies (no name in this language: may be words)
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
 	["{object:661516}, a looted crate west of Nesingwary's camp: the Stolen Shipments lie in the Bloodscalp ruins on the coast, for the second Stranglethorn loop"] = "{object:661516}，奈辛瓦里营地西边一个被洗劫过的箱子：被盗的货物在海岸边的血顶废墟中，第二轮荆棘谷路线再去",
 

@@ -1056,7 +1056,7 @@ do
 					note = "The worker {npc:244517} means is a peasant just north of her; {npc:264521} stands between them.",
 					only = { factions = { "Alliance" } },
 					goals = {
-						{ t = "talk", quest = 90750, title = "More Work?", npc = 251320, npcName = "Peasant", oi = 1, map = 2482, x = 15.1, y = 51.5, spotsPacked = "15.1,51.5,,40,8" },
+						{ t = "talk", quest = 90750, title = "More Work?", npc = 251320, npcName = "Peasant", map = 2482, x = 15.1, y = 51.5, spotsPacked = "15.1,51.5,,40,8" },
 						{ t = "turnin", quest = 90750, title = "More Work?", npc = 264521, npcName = "Daythor Brellan", map = 2482, x = 15.43, y = 52.05 },
 						{ t = "accept", quest = 95218, title = "More of the Same", npc = 264521, npcName = "Daythor Brellan", minLevel = 54, qlvl = 56, pre = { 90750 }, preTitles = { [90750] = "More Work?" }, map = 2482, x = 15.43, y = 52.05, note = "{quest:95218}" },
 						{ t = "turnin", quest = 95218, title = "More of the Same", npc = 244517, npcName = "Sefira Everbright", map = 2482, x = 15.55, y = 54.66 },
@@ -1083,8 +1083,8 @@ do
 					only = { factions = { "Horde" } },
 					when = { { k = "onquest", q = { 96622 } } },
 					goals = {
-						{ t = "talk", quest = 96622, title = "A Rest Without Pain", npc = 265895, npcName = "Maruke", oi = 2, map = 2482, x = 11.9, y = 48.6 },
-						{ t = "talk", quest = 96622, title = "A Rest Without Pain", npc = 265862, npcName = "Enho Runehoof", oi = 1, map = 2482, x = 12.9, y = 53.7 },
+						{ t = "talk", quest = 96622, title = "A Rest Without Pain", npc = 265895, npcName = "Maruke", map = 2482, x = 11.9, y = 48.6 },
+						{ t = "talk", quest = 96622, title = "A Rest Without Pain", npc = 265862, npcName = "Enho Runehoof", map = 2482, x = 12.9, y = 53.7 },
 						{ t = "turnin", quest = 96622, title = "A Rest Without Pain", npc = 244512, npcName = "Ortak Lomgok", map = 2482, x = 12.9, y = 52.9, z = 1343 },
 					},
 				},
@@ -1412,8 +1412,8 @@ do
 						{ t = "collect", quest = 92011, title = "Rubble Rummage", item = 250775, itemName = "Frayed Wire", count = 5, oi = 1, map = 2482, x = 51.5, y = 37, spotsPacked = "50.11,37.25,,0;51.47,37.99,,0;53.25,34.08,,0;56.8,44.23,,0;61.85,41.12,,0", from = "Frayed Wire", fromKind = "object", fromId = 571603, group = { kind = "elite", lvl = 61, near = true, rank = 1 } },
 						{ t = "collect", quest = 92011, title = "Rubble Rummage", item = 269244, itemName = "Calcified Excrement", count = 5, oi = 2, map = 2482, x = 62.5, y = 41.5, spotsPacked = "56.47,46.25,,0;60.12,46.59,,0;61.98,40.34,,0;63.81,40.3,,0", from = "Calcified Excrement", fromKind = "object", fromId = 572028 },
 						{ t = "collect", quest = 92011, title = "Rubble Rummage", item = 269246, itemName = "Warped Metal Scrap", count = 5, oi = 3, map = 2482, x = 56, y = 41.2, spotsPacked = "55.18,41.22,,0;55.52,41.75,,0;57.31,40.66,,0;58.78,28.27,,0;59,37.84,,0", group = { kind = "elite", lvl = 61, near = true, rank = 1 } },
-						{ t = "interact", quest = 96959, title = "Blademaster's Bonfires", object = 656669, objName = "Southeast Bonfire", oi = 2, map = 2482, x = 54.8, y = 40, note = "light it", group = { kind = "elite", lvl = 59, near = true, rank = 1 } },
-						{ t = "interact", quest = 96959, title = "Blademaster's Bonfires", object = 656668, objName = "South Bonfire", oi = 1, map = 2482, x = 49.1, y = 36, note = "light it", group = { kind = "elite", lvl = 59, near = true, rank = 1 } },
+						{ t = "interact", quest = 96959, title = "Blademaster's Bonfires", object = 656669, objName = "Southeast Bonfire", oi = 2, map = 2482, x = 54.8, y = 40, note = "light it" },
+						{ t = "interact", quest = 96959, title = "Blademaster's Bonfires", object = 656668, objName = "South Bonfire", oi = 1, map = 2482, x = 49.1, y = 36, note = "light it" },
 						{ t = "complete", quest = 92593, title = "Avalanche of Corruption", map = 2482, x = 53.7, y = 33.5, only = { factions = { "Alliance" } }, note = "scout the Horde tower", objs = { { text = "Dae'gun Horde Tower scouted", count = 1 } } },
 						{ t = "collect", quest = 96971, title = "To Outfox a Demon", item = 275958, itemName = "Abandoned Supplies", count = 8, oi = 1, map = 2482, x = 50.2, y = 37, spotsPacked = "49.25,36.02,,0;49.62,37.09,,0;50.11,37.25,,0;50.63,36.67,,0;51.47,37.99,,0;56.1,43.48,,0;56.76,43.84,,0;56.8,44.23,,0", from = "Abandoned Supplies", fromKind = "object", fromId = 656604, group = { kind = "elite", lvl = 61, near = true, rank = 1 } },
 						{ t = "collect", quest = 92335, title = "Ashes of the Legion Ascent", item = 253239, itemName = "Azgalor's Ashes", count = 1, oi = 1, map = 2482, x = 49.5, y = 34.6, from = "Azgalor's Ashes", fromKind = "object", fromId = 650227, group = { kind = "elite", lvl = 59, near = true, rank = 1 } },
@@ -6402,21 +6402,21 @@ do
 					title = "{npc:217588} in {zone:1434}",
 					note = "The Arbor Tarantulas sit in northern Stranglethorn. Open the {item:213565} and use its {item:213562} on one to catch it: don't kill it.",
 					goals = {
-						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 1, map = 1434, x = 43.1, y = 16.7, f = "e", note = "{item:213562}, on an {npc:217588}", fromNpcs = { { npc = 217588, npcName = "Arbor Tarantula" }, { npc = 217589, npcName = "Hay Weevil" }, { npc = 217590, npcName = "Flesh Picker" } } },
+						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 1, map = 1434, x = 43.1, y = 16.7, f = "e", note = "{item:213562}, on an {npc:217588}" },
 					},
 				},
 				{
 					title = "{npc:217589} in {zone:1417}",
 					note = "The Hay Weevils crawl in the north-west of {zone:1417}. Use the {item:213562} on one.",
 					goals = {
-						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 2, map = 1417, x = 31.9, y = 28.2, f = "e", note = "{item:213562}, on a {npc:217589}", fromNpcs = { { npc = 217588, npcName = "Arbor Tarantula" }, { npc = 217589, npcName = "Hay Weevil" }, { npc = 217590, npcName = "Flesh Picker" } } },
+						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 2, map = 1417, x = 31.9, y = 28.2, f = "e", note = "{item:213562}, on a {npc:217589}" },
 					},
 				},
 				{
 					title = "{npc:217590} in {zone:1443}",
 					note = "The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the {item:213562} on one.",
 					goals = {
-						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 3, map = 1443, x = 48.1, y = 57.1, f = "e", note = "{item:213562}, on a {npc:217590}", fromNpcs = { { npc = 217588, npcName = "Arbor Tarantula" }, { npc = 217589, npcName = "Hay Weevil" }, { npc = 217590, npcName = "Flesh Picker" } } },
+						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 3, map = 1443, x = 48.1, y = 57.1, f = "e", note = "{item:213562}, on a {npc:217590}" },
 					},
 				},
 				{

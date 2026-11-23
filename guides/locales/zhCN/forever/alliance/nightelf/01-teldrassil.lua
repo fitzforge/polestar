@@ -376,9 +376,9 @@ return {
 
 	-- Step 61: Sentinel Arynia again
 	["Sentinel Arynia again"] = "再次找哨兵阿瑞尼亚",
-	-- {object:673378} Oracle Tree Bark
+	-- {object:673378} Oracle Tree Bark (no name in this language: may be words)
 	["{object:673378}, just west of the moonwell"] = "{object:673378}，在月亮井西边不远处",
-	-- {object:673378} Oracle Tree Bark · {zone:1457} Darnassus
+	-- {object:673378} Oracle Tree Bark (no name in this language: may be words) · {zone:1457} Darnassus
 	["the same {object:673378}: Fandral in {zone:1457} takes it"] = "同一个{object:673378}：交给{zone:1457}的范达尔·鹿盔",
 
 	-- Step 62: Sentinel Shayla Nightbreeze

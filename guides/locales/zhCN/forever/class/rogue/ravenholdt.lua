@@ -50,7 +50,7 @@ return {
 	["{item:275635}, in the southern tower"] = "{item:275635}，在南面的塔楼中",
 
 	-- Step 7: A Way In
-	-- {area:324} Stromgarde Keep · {area:313} Northfold Manor · {object:656157} Syndicate Footlocker · {quest:96783} A Way In
+	-- {area:324} Stromgarde Keep · {area:313} Northfold Manor · {object:656157} Syndicate Footlocker (no name in this language: may be words) · {quest:96783} A Way In
 	["{area:324} in western Arathi is a Syndicate stronghold; to get in you need a uniform. {area:313}, in north-western Arathi, is held by Syndicate Highwaymen, Pathstalkers and Mercenaries (level 30-32): find the {object:656157} there and take the uniform; that ends {quest:96783}."] = "阿拉希西部的 {area:324} 是辛迪加的据点；要进去，需要一套制服。阿拉希西北部的 {area:313} 被辛迪加路霸、巡路者和雇佣兵（30-32 级）占据：在那里找到 {object:656157}，取走制服，即可完成 {quest:96783}。",
 	-- {quest:96784} Master of Disguise · {item:275706} Syndicate Uniform
 	["{quest:96784}: the {item:275706}"] = "{quest:96784}：{item:275706}",

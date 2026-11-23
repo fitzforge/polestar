@@ -50,9 +50,9 @@ return {
 
 	-- Step 11: The loch
 	["The loch"] = "洛克湖",
-	-- {object:665289} Discarded Fishing Toolbox · {area:144} Thelsamar · {item:278051} Monogrammed Silver Hair Clip
+	-- {object:665289} Discarded Fishing Toolbox (no name in this language: may be words) · {area:144} Thelsamar · {item:278051} Monogrammed Silver Hair Clip
 	["South along the west shore. The {object:665289} lies on the loch bed at one of several places: east of {area:144} (48.1,39.7), a little south-west of there (45.7,43.4), or at the south end of the loch (48.7,54.4 or 50.6,53.3). If it isn't at the arrow, try the next place. Click it for the quest; the {item:278051} comes with it."] = "沿西岸向南走。{object:665289}在湖底，可能在几处位置之一：{area:144}以东（48.1,39.7）、其西南一点（45.7,43.4）、或湖南端（48.7,54.4 或 50.6,53.3）。箭头指的那处没有，就试下一处。点击它接任务，{item:278051}也会一并获得。",
-	-- {object:665289} Discarded Fishing Toolbox
+	-- {object:665289} Discarded Fishing Toolbox (no name in this language: may be words)
 	["{object:665289}; underwater"] = "{object:665289}；在水下",
 
 	-- Step 12: Thelsamar

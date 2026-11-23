@@ -149,7 +149,7 @@ return {
 	-- Step 32: WANTED: Ghostmaw
 	-- {npc:263380} Ghostmaw · {area:16743} Rog'mar
 	["{npc:263380} is an elite (level 42) who hunts along the river south-west of {area:16743}, by the Farholde camp you go to next: grouping up is advised. The poster hangs in the middle of the fort."] = "{npc:263380}是精英（42级），在{area:16743}西南的河边猎食，就在你接下来要去的远岸营地旁：建议组队。告示贴在堡垒中央。",
-	-- {object:645164} WANTED!
+	-- {object:645164} WANTED! (no name in this language: may be words)
 	["the {object:645164} poster"] = "{object:645164}告示",
 
 	-- Step 33: The training grounds
@@ -313,7 +313,7 @@ return {
 	-- Step 66: Powderfuse Port
 	-- {area:16727} Powderfuse Port · {npc:255897} Friz Frazzlespark · {npc:259962} Fimbo Greasemitz · {npc:259961} Wharfmaster Whizzbuzz
 	["South-east down out of the hills to {area:16727}, the goblins' harbour on the coast. {npc:255897} keeps a stall at the west end of the docks, {npc:259962} cooks by the inn, and {npc:259961} works the north pier."] = "向东南下山前往海岸上的地精港口{area:16727}。{npc:255897}在码头西端摆摊，{npc:259962}在旅店旁做饭，{npc:259961}在北码头工作。",
-	-- {object:628948} WANTED! · {npc:260235} Trapclaw
+	-- {object:628948} WANTED! (no name in this language: may be words) · {npc:260235} Trapclaw
 	["The {object:628948} poster by the inn: {npc:260235}"] = "旅店旁的{object:628948}告示：{npc:260235}",
 
 	-- Step 67: Wharfmaster Whizzbuzz
@@ -323,7 +323,7 @@ return {
 	-- Step 68: WANTED: Old Rot-Chum
 	-- {npc:257001} Old Rot-Chum
 	["{npc:257001} is an elite (level 42) on the south shore: grouping up is advised."] = "{npc:257001}是南岸的精英（42级）：建议组队。",
-	-- {object:628948} WANTED!
+	-- {object:628948} WANTED! (no name in this language: may be words)
 	["The {object:628948} poster by the inn"] = "旅店旁的{object:628948}告示",
 
 	-- Step 69: The murlocs, south-west
