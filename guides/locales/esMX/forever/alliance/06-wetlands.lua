@@ -181,7 +181,7 @@ return {
 	["{item:3337}: the camp's Raiders and Swamprunners"] = "{item:3337}: los asaltantes y correpantanos del campamento",
 
 	-- Step 34: Mosshide gnolls
-	["Mosshide gnolls"] = "Gnolls Pellejomusgo",
+	["Mosshide gnolls"] = "gnolls Pellejomusgo",
 	-- {quest:277} Fire Taboo · {item:2611} Crude Flint · {area:309} Ironbeard's Tomb · {area:1025} Green Belt · {npc:1244} Rethiel the Greenwarden
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Maddened Rotclaws = {npc:271334} Maddened Rotclaw · Mosshide Brutes = {npc:1012} Mosshide Brute
 	["{quest:277} is still short of its nine {item:2611}: the Mosshide Fenrunners and Trappers (22-24) along the river north-west of the Angerfang camp, south-west of {area:309}, drop them. Almost every one carries some.\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244}; Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "A {quest:277} todavía le faltan sus nueve {item:2611}: los sueltan los correcubiles y tramperos Pellejomusgo (22-24) a lo largo del río al noroeste del campamento Colmicólera, al suroeste de {area:309}. Casi todos llevan algo.\nCuidado: los Maddened Rotclaws (25-26) recorren {area:1025} alrededor de {npc:1244}; los toscos, místicos y alfas Pellejomusgo (24-27) ocupan las colinas al noroeste del campamento de los correcubiles.",
