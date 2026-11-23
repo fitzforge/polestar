@@ -101,6 +101,7 @@ local RING_PAD, RING2_PAD = 5, 11
 local EDGE_W, EDGE_H = 0.42, 0.3
 local FOCUS_SCALE, DIM_ALPHA = 1.3, 0.6
 local BADGE_H = 14
+local CORNER_PX = 16 -- a pin's corner mark (p.corner), in the pin's own units
 local AREA_ALPHA = 0.32 -- area disc opacity, times the pin colour's alpha
 -- Hulls: fill and rim opacity (times the pin colour's alpha), the rim's width
 -- on screen (UI units), and the solid texture their pieces are cut from.
@@ -481,6 +482,10 @@ local function buildLook(f)
 	f.text = f:CreateFontString(nil, "OVERLAY")
 	f.text:SetPoint("CENTER", 0, 0)
 	f.text:Hide()
+	-- A corner mark (p.corner: the group mark on a step's numbered pin, #3580), over the pin's top-right corner.
+	f.corner = f:CreateTexture(nil, "OVERLAY", nil, 2)
+	f.corner:SetPoint("CENTER", f, "TOPRIGHT", -2, -2)
+	f.corner:Hide()
 	-- Map marks: the skin's medallion under the glyph, a dashed ring, a badge.
 	f.medal = f:CreateTexture(nil, "BORDER")
 	f.medal:SetPoint("CENTER")
@@ -626,6 +631,7 @@ local function showParts(f, p, clamped)
 		f.ring2:SetShown(not clamped and type(p.ring2) == "table")
 		f.glow:SetShown(not clamped and p.glow and true or false)
 		showBadge(f, not clamped and p.badge ~= nil)
+		if f.corner then f.corner:Hide() end
 		f.edge:SetShown(clamped and true or false)
 		f.text:Hide()
 		if p.pulse or f.pulsing then Pins.Pulse(f, not clamped and p.glow and p.pulse) end
@@ -640,6 +646,7 @@ local function showParts(f, p, clamped)
 	f.glow:SetShown(not clamped and p.glow and true or false)
 	f.edge:SetShown(clamped and true or false)
 	f.text:SetShown(not clamped and p.text ~= nil)
+	if f.corner then f.corner:SetShown(not clamped and type(p.corner) == "table" and p.corner.tex ~= nil) end
 	if p.pulse or f.pulsing then Pins.Pulse(f, not clamped and p.glow and p.pulse) end
 end
 
@@ -718,6 +725,7 @@ local function applyLook(f, p, size)
 		f.medal:Hide()
 		f.ring2:Hide()
 		showBadge(f, false)
+		if f.corner then f.corner:Hide() end
 		f.mark:SetTexture(MEDIA .. "ring")
 		f.glow:SetTexture(MEDIA .. "glow")
 		f.glow:SetBlendMode("ADD")
@@ -779,6 +787,13 @@ local function applyLook(f, p, size)
 		f.text:SetText(p.text)
 		local tc = p.textColor
 		if type(tc) == "table" then f.text:SetTextColor(tc[1] or 1, tc[2] or 1, tc[3] or 1, a) else f.text:SetTextColor(1, 1, 1, a) end
+	end
+	local corner = p.corner
+	if f.corner and type(corner) == "table" and corner.tex then
+		local c = corner.color or {}
+		f.corner:SetTexture(corner.tex)
+		f.corner:SetSize(CORNER_PX, CORNER_PX)
+		f.corner:SetVertexColor(c[1] or 1, c[2] or 1, c[3] or 1, a)
 	end
 	showParts(f, p, false)
 	Pins.SkinHook(f, "pin")
