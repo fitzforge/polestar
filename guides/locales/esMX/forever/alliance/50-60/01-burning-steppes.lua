@@ -10,7 +10,6 @@ return {
 	-- {zone:1455} Ironforge
 	["To {zone:1455}"] = "A {zone:1455}",
 	-- {zone:1455} Ironforge · {zone:1425} Hinterlands
-	-- was: ["Your Hearthstone is set at {zone:1455} (the {zone:1425} guide binds it there): hearth back to the inn."] = "Tu piedra de hogar está vinculada a {zone:1455} (la guía de {zone:1425} la vincula ahí): úsala para volver a la posada."
 	["Your Hearthstone is set at {zone:1455} (the {zone:1425} guide binds it there): hearth back to the inn from Un'Goro."] = "Tu piedra de hogar está vinculada a {zone:1455} (la guía de {zone:1425} la vincula ahí): úsala desde Un'Goro para volver a la posada.",
 	-- {zone:1455} Ironforge
 	["{zone:1455} inn"] = "Posada de {zone:1455}",
@@ -75,7 +74,6 @@ return {
 	["{area:197}: kill these as you meet them"] = "{area:197}: mata a estos según te los encuentres",
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
-	-- was: ["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "Los despellejadores esqueléticos y necrófagos esclavizantes rondan los campos al norte del campamento; toda la Plaga de aquí suelta piedras de la Plaga.\nCuidado: Estos no-muertos te detectan desde lejos, y otros no-muertos cercanos se suman a la pelea cuando atraes a uno.\nCuidado: {npc:10411} (3 apariciones, reaparece en 15 min) se vuelve invisible fuera de combate y llama a gárgolas Alarroca en cuanto empieza una pelea."
 	["Skeletal Flayers and Slavering Ghouls (50) roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "Los despellejadores esqueléticos y los necrófagos esclavizantes (50) rondan los campos al norte del campamento; toda la Plaga de aquí suelta piedras de la Plaga.\nCuidado: estos no-muertos te detectan desde lejos, y otros no-muertos cercanos se suman a la pelea cuando atraes a uno.\nCuidado: el {npc:10411} (3 apariciones, reaparece en 15 min) se vuelve invisible fuera de combate y llama a gárgolas Ventorroca en cuanto empieza una pelea.",
 
 	-- Step 16: Chillwind Camp
@@ -123,7 +121,6 @@ return {
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}: mata a estos según te los encuentres",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling · {area:251} Flame Crest · {npc:8981} Malfunctioning Reaver · {npc:7040} Black Dragonspawn
-	-- was: ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "Usa {item:12284} sobre un {npc:7047} en las laderas al este de {area:251} justo antes de que muera, luego saquea la esencia que deja.\nCuidado: un {npc:8981} (nivel 56, raro) recorre las laderas junto a las crías, y los {npc:7040} y dracónidos a su alrededor son élite: usa el Incarcinatrix sobre una cría del borde y mira alrededor antes de atraer a cada uno."
 	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, Volchan (60, a rare fire elemental) roams the hills east of {area:251}, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "Usa el {item:12284} sobre una {npc:7047} en las laderas al este de {area:251} justo antes de que muera, y luego saquea la esencia que deja.\nCuidado: un {npc:8981} (nivel 56, raro) recorre las laderas junto a las estirpes, Volchan (60, un elemental de fuego raro) recorre las colinas al este de {area:251}, y los {npc:7040} y vermintes de alrededor son élite: usa el Incarcinatrix sobre una estirpe del borde y mira alrededor antes de atraer a cada una.",
 
 	-- Step 25: Ruins of Thaurissan
@@ -144,7 +141,6 @@ return {
 
 	-- Step 29: A Taste of Flame
 	-- {npc:9461} Frenzied Black Drake
-	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:9461} is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:9461} es un élite de nivel 54: la mayoría de las clases lo hacen solas a nivel 56, pero puede que necesites ayuda. Sáltalo si vas solo: la ruta te hace recuperar la experiencia matando enemigos."
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:9461} is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone."] = "Son enemigos élite: se recomienda ir en grupo; busca gente con quien hacerla. {npc:9461} es un élite de nivel 54: la mayoría de las clases lo hacen solas a nivel 56, pero puede que necesites ayuda. Omítela si vas solo.",
 
 	-- Step 31: Morgan's Vigil
@@ -305,13 +301,11 @@ return {
 	-- {area:1221} Ruins of Eldarath
 	["The {area:1221}"] = "{area:1221}",
 	-- {area:1221} Ruins of Eldarath · {item:13815} Some Rune · {item:10445} Drawing Kit
-	-- was: ["The Spitelash naga of the {area:1221} carry {item:13815}. {npc:8507}'s four runes stand among the ruins: use his {item:10445} on each."] = "Los nagas Látigo de Ira de {area:1221} llevan {item:13815}. Las cuatro runas de {npc:8507} están entre las ruinas: usa su {item:10445} en cada una."
 	["The Spitelash naga of the {area:1221} carry {item:13815}. Tymor's runes stand among the ruins: use his {item:10445} on each."] = "Los nagas Látigo de Ira de {area:1221} llevan {item:13815}. Las runas de Tymor están entre las ruinas: usa su {item:10445} en cada una.",
 
 	-- Step 67: Lord Sarthiss
 	-- {npc:239939} Lord Sarthiss
 	-- plural, as words: Eldarath Relics = {item:280608} Eldarath Relic
-	-- was: ["The Spitelash naga of these ruins drop Truesong's Eldarath Relics, top-up or not. {npc:239939} (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone."] = "Los nagas Látigo de Ira de estas ruinas sueltan reliquias de Eldarath para Truesong, subas de nivel o no. {npc:239939} (52) está en las ruinas de Eldarath, al suroeste de los mirmidones: atráelo solo."
 	["The Spitelash naga of these ruins drop Truesong's Eldarath Relics. {npc:239939} (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone."] = "Los nagas Látigo de Ira de estas ruinas sueltan las reliquias de Eldarath para Truesong. {npc:239939} (52) está en las ruinas de Eldarath, al suroeste de los mirmidones: atráelo solo.",
 
 	-- Step 68: Ekkal
@@ -323,7 +317,6 @@ return {
 	["Mosshoof Coursers"] = "Trotadores Pezuñamusgo",
 	-- {area:1224} Bear's Head · {area:1219} Legashi Encampment
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser
-	-- was: ["The nearest Mosshoof Coursers graze the hills north-east of the {area:1224}, toward the {area:1219}; a larger herd roams the open ground to the south.\nCareful: the Mosshoof Coursers are 52-53, a level or two over you here: pull them one at a time from the herd's edge."] = "Los trotadores Pezuñamusgo más cercanos pastan en las colinas al noreste de {area:1224}, hacia {area:1219}; una manada mayor deambula por el terreno abierto del sur.\nCuidado: los trotadores Pezuñamusgo son de nivel 52-53, uno o dos por encima de ti aquí: atráelos de uno en uno desde el borde de la manada."
 	["The nearest Mosshoof Coursers graze the hills north-east of the {area:1224}, toward the {area:1219}; a larger herd roams the open ground to the south.\nCareful: the Mosshoof Coursers are 52-53: pull them one at a time from the herd's edge."] = "Los trotadores Pezuñamusgo más cercanos pastan en las colinas al noreste de {area:1224}, hacia {area:1219}; una manada mayor deambula por el terreno abierto del sur.\nCuidado: los trotadores Pezuñamusgo son de nivel 52-53: atráelos de uno en uno desde el borde de la manada.",
 
 	-- Step 72: Kim'jael

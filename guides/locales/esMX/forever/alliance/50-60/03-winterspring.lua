@@ -16,7 +16,6 @@ return {
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
 	["The flight lands in {area:2255}: {npc:11754} and Umi stand around the town before you ride west."] = "El vuelo aterriza en {area:2255}: {npc:11754} y Umi andan por el pueblo antes de que cabalgues al oeste.",
 	-- {npc:11754} Meggi Peppinrocker · {npc:9298} Donova Snowden · {area:2255} Everlook
-	-- was: ["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "{npc:11754} recorre {area:2255}: busca dentro del círculo del mapa"
 	["{npc:11754}, for {npc:9298}: walks around {area:2255}, look inside the circle on the map"] = "{npc:11754}, para {npc:9298}: recorre {area:2255}, busca dentro del círculo del mapa",
 	-- {npc:10305} Umi Rumplesnicker
 	-- plural, as words: Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle
@@ -441,7 +440,6 @@ return {
 	-- {npc:10301} Jaron Stoneshaper
 	["{npc:10301}'s camp"] = "El campamento de {npc:10301}",
 	-- {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2245} Mazthoril
-	-- was: ["Ride south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "Cabalga al sureste valle abajo hasta la caja dañada de {npc:10301} en la nieve, en {area:2245}, con su carreta destrozada justo al este."
 	["Ride south-east from {area:2255} down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "Cabalga al sureste desde {area:2255} valle abajo hasta la caja dañada de {npc:10301} en la nieve, en {area:2245}, con su carreta destrozada justo al este.",
 
 	-- Step 88: Sindrayl

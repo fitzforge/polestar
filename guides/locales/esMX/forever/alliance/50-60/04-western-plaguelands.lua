@@ -115,7 +115,6 @@ return {
 	-- Step 22: Chillwind Camp
 	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "Puricorazón, Dumah, Puño de Valor y MacDonnell están en el centro del campamento, junto al maestro de vuelo.",
 	-- {npc:11616} Nathaniel Dumah · {area:2277} Plaguewood
-	-- was: ["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: las termitas vienen después, en {area:2627}"
 	["{npc:11616}: the termites come later, in the {area:2277}"] = "{npc:11616}: las termitas vienen después, en {area:2277}",
 	-- {npc:10838} Commander Ashlam Valorfist · {area:199} Felstone Field
 	["{npc:10838}: the watchtowers stand around Andorhal, on the way to {area:199}"] = "{npc:10838}: las atalayas están alrededor de Andorhal, de camino a {area:199}",
@@ -128,7 +127,6 @@ return {
 	["The Andorhal watchtowers"] = "Las atalayas de Andorhal",
 	-- {item:12815} Beacon Torch · {area:199} Felstone Field · {npc:7572} Fallen Hero of the Horde
 	-- plural, as words: Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
-	-- was: ["Use the {item:12815} at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk Andorhal's streets, and the {npc:7572} (59, elite) wanders between Andorhal and Northridge: keep to the towers at the town's edge and let them pass."] = "Usa la {item:12815} al pie de cada una de las cuatro atalayas del borde de Andorhal, al norte del campamento.\nCuidado: Señores de la guerra esqueléticos y Gólems de carne (57, élites) recorren las calles de Andorhal, y el {npc:7572} (59, élite) deambula entre Andorhal y Cresta Norte: quédate en las torres del borde del pueblo y déjalos pasar."
 	["Use the {item:12815} at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp, on the way to {area:199}.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk Andorhal's streets, and the {npc:7572} (59, elite) wanders between Andorhal and Northridge: keep to the towers at the town's edge and let them pass."] = "Usa la {item:12815} al pie de cada una de las cuatro atalayas del borde de Andorhal, al norte del campamento, de camino a {area:199}.\nCuidado: los señores de la guerra esqueléticos y los gólems de carne (57, élites) recorren las calles de Andorhal, y el {npc:7572} (59, élite) deambula entre Andorhal y Cresta Norte: quédate en las torres del borde del pueblo y déjalos pasar.",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["Mark {npc:10902} with the {item:12815}"] = "Marca {npc:10902} con la {item:12815}",
@@ -253,7 +251,6 @@ return {
 	["Andorhal"] = "Andorhal",
 	-- {item:12627} Temporal Displacer · {quest:5154} The Annals of Darrowshire · {quest:5537} Skeletal Fragments · {npc:1852} Araj the Summoner
 	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite · Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
-	-- was: ["Use the {item:12627} by the grain silos to draw out Temporal Parasites. {quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: the Temporal Parasites are 55-57, and Skeletal Warlords and Flesh Golems (57, elites) walk the streets: draw the parasites out by the silos, one at a time, and let the elites pass."] = "Usa el {item:12627} junto a los silos de grano para hacer salir Parásitos temporales. {quest:5154} es uno de los tomos mohosos del ayuntamiento. Todos los esqueletos del pueblo sueltan {quest:5537}.\nCuidado: los Parásitos temporales son de nivel 55-57, y Señores de la guerra esqueléticos y Gólems de carne (57, élites) recorren las calles: haz salir a los parásitos junto a los silos, de uno en uno, y deja pasar a los élites."
 	["Use the {item:12627} by the grain silos to draw out Temporal Parasites. {quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: the Temporal Parasites are 55-57, and Skeletal Warlords and Flesh Golems (57, elites) walk the streets: draw the parasites out by the silos, one at a time, and let the elites pass.\n{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "Usa el {item:12627} junto a los silos de grano para hacer salir parásitos temporales. {quest:5154} es uno de los tomos mohosos del ayuntamiento. Todos los esqueletos del pueblo sueltan {quest:5537}.\nCuidado: los parásitos temporales son de nivel 55-57, y los señores de la guerra esqueléticos y los gólems de carne (57, élites) recorren las calles: haz salir a los parásitos junto a los silos, de uno en uno, y deja pasar a los élites.\n{npc:1852} es élite: se recomienda ir en grupo. Custodia su filacteria en el centro de Andorhal.",
 
 	-- Step 45: Chromie
@@ -261,14 +258,12 @@ return {
 	["{quest:5210}, at {area:2268}: keep it"] = "{quest:5210}, en {area:2268}: guárdala",
 
 	-- Step 46: Sorrow Hill: kill these as you meet them
-	-- was: ["{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal.\nSmall lockboxes lie in the rubble all over Andorhal; each holds a watch.\nCareful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "{npc:1852} es élite: se recomienda agruparse. Vigila su filacteria en el centro de Andorhal.\nHay cajas fuertes pequeñas entre los escombros por todo Andorhal; cada una tiene un reloj.\nCuidado: Suele haber necrófagos y esqueletos junto a las cajas, que atacan cuando te acercas. Los necrófagos abrasadores además dañan a quien esté cerca y rompen el sigilo."
 	["Small lockboxes lie in the rubble all over Andorhal; each holds a watch.\nCareful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "Hay pequeños cofres entre los escombros por todo Andorhal; cada uno guarda un reloj.\nCuidado: casi siempre hay necrófagos y esqueletos junto a los cofres, que atacan cuando te acercas. Los necrófagos abrasadores además dañan a todos los que están cerca y rompen el sigilo.",
 
 	-- Step 48: Writhing Haunt cauldron
 	-- {area:202} Writhing Haunt
 	["{area:202} cauldron"] = "Caldero de {area:202}",
 	-- {area:202} Writhing Haunt · {npc:10739} Mulgris Deepriver
-	-- was: ["The cauldron sits at the {area:202}, by {npc:10739}' farm."] = "El caldero está en {area:202}, junto a la granja de {npc:10739}."
 	["The cauldron sits at the {area:202}, by {npc:10739}' farm, east of Andorhal."] = "El caldero está en {area:202}, junto a la granja de {npc:10739}, al este de Andorhal.",
 
 	-- Step 49: Chillwind Camp
@@ -324,7 +319,6 @@ return {
 	-- Step 58: Radley and Durgen
 	["Radley and Durgen"] = "Radley y Durgen",
 	-- {npc:11613} Huntsman Radley · {npc:11610} Kirsta Deepshadow · {npc:11611} Cavalier Durgen · {area:190} Hearthglen
-	-- was: ["{npc:11613} walks the Northridge camp east of {npc:11610}; {npc:11611} guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613} recorre el campamento de Crestanorte al este de {npc:11610}; {npc:11611} vigila la torre del acceso sur a {area:190}.\nCuidado: Hay guardias en la base de la torre y uno más da vueltas a su alrededor patrullando. Despéjalos antes de enfrentar a Durgen para que no se sumen."
 	["{npc:11613} (56) walks the Northridge camp east of {npc:11610}; {npc:11611} (57) guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613} (56) recorre el campamento de Cresta Norte al este de {npc:11610}; {npc:11611} (57) vigila la torre del acceso sur a {area:190}.\nCuidado: hay guardias en la base de la torre y uno más da vueltas a su alrededor patrullando. Despéjalos antes de enfrentar a Durgen para que no se sumen a la pelea.",
 
 	-- Step 59: Kirsta Deepshadow
