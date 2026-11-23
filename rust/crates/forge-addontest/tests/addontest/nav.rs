@@ -773,6 +773,8 @@ fn a_near_walk_probe_measures_only_a_complete_path_to_the_requested_floor() {
 		local start, goal = { x = 0, y = 0, z = 12 }, { x = 20, y = 0, z = 14 }
 		probe()
 		request.answer(nil, "no safe walking route", {})
+		-- (no policy said no: asked once more without the goal's height, #2270; that one fails too)
+		request.answer(nil, "no safe walking route", {})
 		probe()
 		request.answer({start, goal}, 20, { reached = goal })
 		probe()
@@ -787,7 +789,7 @@ fn a_near_walk_probe_measures_only_a_complete_path_to_the_requested_floor() {
 		out[#out + 1] = { request.from.z, request.to.z }
 		request.answer({ start, { x = 0, y = 15, z = 12 }, goal }, 100, {})
 		emit(out)"#);
-	assert_eq!(out, json!([[false, 1], [false, 1], [false, 1], [false, 1], [false, 1], [false, 1], [12, 14], [40, 1]]));
+	assert_eq!(out, json!([[false, 2], [false, 1], [false, 1], [false, 1], [false, 1], [false, 1], [12, 14], [40, 1]]));
 }
 
 #[test]
@@ -1086,7 +1088,7 @@ fn a_skin_s_own_dart_and_edge_stand_in_for_polestar_s_tinted_never_the_baked_gol
 }
 
 // The game's looks draw their own waypoint arrow and map pins, through the parts a skin addon gives (Skin API 2's
-// media, read by Theme.SkinMedia; Polestar_Looks/Parts.lua): Classic the world map's arrow (the vanilla silver arrow,
+// media, read by Theme.SkinMedia; Theme/Looks/Parts.lua): Classic the world map's arrow (the vanilla silver arrow,
 // the client's sharpest) and the minimap's dark disc, WoW Forever its quest arrow and the campaign quest's shield,
 // Blizzard Polestar's own dart in the damage meter's light grey (its accent), edged in its black, and the quest
 // marker. The client's darts show in their own colours with no edge while far; every dart is tinted up close and in

@@ -114,6 +114,12 @@ step The Musty Scroll
   turnin 625                            -- the Musty Scroll
   accept 626 optional                 -- Inside Bloodfen Burrow
 
+step The Musty Scroll
+  when turnedin 625
+  when available 626
+  tip The Musty Scroll lies to the south-west.
+  accept 626 optional                 -- Inside Bloodfen Burrow
+
 step The Dragonmurk: kill these as you meet them
   zone Dustwallow Marsh
   tip East through the Wyrmbog: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps.

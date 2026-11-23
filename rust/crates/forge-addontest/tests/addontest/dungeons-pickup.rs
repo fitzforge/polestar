@@ -2693,10 +2693,12 @@ emit({ steps = describe(def), notes = notes, accepts = accepts, groups = groups,
 		json!([false, false, false, false, false, "In your log already: “The Book of Ur”"]),
 		"the steps' own notes (their folded tips) keep only what they had; the entrance its own (#1591)"
 	);
+	// The count reads as the guide's makeup, never as progress: "Prerequisite quests: 7 of 10 steps" was read as
+	// "you are at step 7" (#2709).
 	let head = |v: &Value| {
 		let s = v.as_str().unwrap_or_default().to_string();
-		let rest = s.strip_prefix("Prerequisite quests: 3 of 6 steps, about ").unwrap_or_else(|| panic!("the count first: {s}"));
-		let (time, tail) = rest.split_once(". ").unwrap_or_else(|| panic!("then the time: {s}"));
+		let rest = s.strip_prefix("3 of this guide's 6 steps are prerequisite quests (about ").unwrap_or_else(|| panic!("the count first: {s}"));
+		let (time, tail) = rest.split_once("). ").unwrap_or_else(|| panic!("then the time: {s}"));
 		assert!(time.ends_with(" min") && time.split(' ').next().unwrap().parse::<u32>().is_ok_and(|m| m >= 5 && m % 5 == 0), "about whole 5 minutes: {s}");
 		tail.to_string()
 	};
@@ -3521,4 +3523,113 @@ emit(lines())"#);
 	assert_eq!(out[0]["via"], "drop:8201@9080", "the page's step: the via item's drop");
 	assert_eq!(out[0]["lines"], json!(["Summoning Mallet: Use the Plain Mallet at the altar.", "After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."]));
 	assert_eq!(out[1], json!(["After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."]), "carried: no line");
+}
+
+// #558 (Blackrock Depths' pick-up guide): Franclorn Forgewright gives Dark Iron Legacy and takes it back, and only a
+// dead character sees him; compact mode folds the step's tip away, so a living player found nobody there. A giver
+// or ender the Codex marks ghostOnly is optional in the pick-up and hand-in guides, its goal saying so itself.
+#[test]
+fn a_ghost_only_giver_is_optional_with_a_note_on_the_goal_itself_558() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9080"] = sideless_npc(9080, "Franclorn Forgewright", 1421, 60, 40);
+	c["npcs"]["9080"]["ghostOnly"] = json!(true);
+	c["quests"]["90800"] = page_quest(90800, "Dark Iron Legacy", Value::Null, 9080, 9080);
+	c["quests"]["90800"]["xp"] = json!(2000);
+	i["forever"]["quests"]["90800"] = json!({ "area": 209, "xp": 2000 });
+	let own = pack_of(&c, &i);
+	let out = run(
+		&own,
+		&k(r#"
+local accept
+for _, s in ipairs((D.PickupGuide("{KEY}") or { steps = {} }).steps) do
+	for _, g in ipairs(s.goals) do
+		if g.t == "accept" and g.quest == 90800 then accept = g end
+	end
+end
+local other
+for _, s in ipairs((D.PickupGuide("{KEY}") or { steps = {} }).steps) do
+	for _, g in ipairs(s.goals) do
+		if g.t == "accept" and g.quest == 1010 then other = g end
+	end
+end
+-- Another accept keeps whatever note it had (a prerequisite line, #2709): only the ghost's note and optional are checked.
+local function ghostly(g) return g.optional or (type(g.note) == "string" and g.note:find("while dead", 1, true) and g.note) or false end
+emit({ found = accept ~= nil, optional = accept and accept.optional or false, note = accept and accept.note or false,
+	ghost = Polestar.Codex.Npc(9080).ghostOnly or false, other = other == nil and "none" or ghostly(other) })"#),
+		Opts::default(),
+	)
+	.remove(0);
+	assert_eq!(out["found"], true, "{out}");
+	assert_eq!(out["ghost"], true, "the Codex carries the flag");
+	assert_eq!(out["optional"], true, "the player can leave it");
+	assert_eq!(out["note"], "Only visible while dead: die nearby and talk to them as a ghost, or skip this quest.", "on the goal, which compact mode shows");
+	assert_eq!(out["other"], false, "a living giver's accept stays as it was");
+}
+
+// #3601 (Sugawolf, Dire Maul's pick-up guide): Pix Xizzix offers one In Demand quest a week, of four, and the guide
+// always sent the player for one he wasn't offering. A quest of a rotation (the Codex's `rotation`) is optional in
+// the pick-up guide, its goal saying so; the others stay as they were.
+#[test]
+fn a_quest_of_a_weekly_rotation_is_optional_with_a_note_3601() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9090"] = sideless_npc(9090, "Pix Xizzix", 1421, 60, 40);
+	for (id, title) in [(90900, "In Demand: Records"), (90901, "In Demand: Curiosities")] {
+		c["quests"][id.to_string()] = page_quest(id, title, Value::Null, 9090, 9090);
+		c["quests"][id.to_string()]["xp"] = json!(2000);
+		c["quests"][id.to_string()]["rotation"] = json!("pix-weekly");
+		i["forever"]["quests"][id.to_string()] = json!({ "area": 209, "xp": 2000 });
+	}
+	let own = pack_of(&c, &i);
+	let out = run(
+		&own,
+		&k(r#"
+local got, other = {}, false
+for _, s in ipairs((D.PickupGuide("{KEY}") or { steps = {} }).steps) do
+	for _, g in ipairs(s.goals) do
+		if g.t == "accept" and (g.quest == 90900 or g.quest == 90901) then got[#got + 1] = { g.quest, g.optional or false, g.note or false } end
+		if g.t == "accept" and g.quest == 1010 then other = g.optional or false end
+	end
+end
+table.sort(got, function(a, b) return a[1] < b[1] end)
+emit({ got = got, other = other, rotation = Polestar.Codex.Quest(90900).rotation or false })"#),
+		Opts::default(),
+	)
+	.remove(0);
+	let note = "Pix Xizzix offers one of these a week: take it if it is this week's.";
+	assert_eq!(out["rotation"], "pix-weekly");
+	assert_eq!(out["got"], json!([[90900, true, note], [90901, true, note]]), "{out}");
+	assert_eq!(out["other"], false, "a quest of no rotation stays required");
+}
+
+// #3138 (Meta): Zorbin Fandazzle sells only once Zapped Giants is handed in, and the bags-full stop sent a player to
+// him before that. Codex.WithRole("vendor") and ("repair") leave out an NPC whose `vendorAfter` quest isn't done, and
+// take him back after the hand-in.
+#[test]
+fn a_vendor_whose_shop_waits_on_a_quest_is_no_vendor_until_it_is_handed_in_3138() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	c["npcs"]["9091"] = sideless_npc(9091, "Zorbin Fandazzle", 1421, 61, 41);
+	c["npcs"]["9091"]["roles"] = json!(["vendor"]);
+	c["npcs"]["9091"]["vendorAfter"] = json!(7003);
+	c["npcs"]["9092"] = sideless_npc(9092, "A plain vendor", 1421, 62, 42);
+	c["npcs"]["9092"]["roles"] = json!(["vendor"]);
+	let own = pack_of(&c, &inputs);
+	let out = run(
+		&own,
+		r#"
+local X = Polestar.Codex
+local function has(id) for _, v in ipairs(X.WithRole("vendor")) do if v == id then return true end end return false end
+local r = { before = has(9091), plain = has(9092), after = X.Npc(9091).vendorAfter or false }
+stub.world.complete({ 7003 })
+stub.fire("QUEST_TURNED_IN", 7003, 0, 0)
+r.done = has(9091)
+emit(r)"#,
+		Opts::default(),
+	)
+	.remove(0);
+	assert_eq!(out, json!({ "before": false, "plain": true, "after": 7003, "done": true }));
 }

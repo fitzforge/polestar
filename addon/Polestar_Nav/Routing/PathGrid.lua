@@ -1859,12 +1859,21 @@ function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile, walls)
 	return clear
 end
 
--- Collapse a node path to its turns, then pull the string: from each anchor, jump to the furthest point in sight.
--- Water may only be crossed where the path itself swam. On a map with classes a straight segment replaces the path
--- between two entries only over ground no costlier for profile in style (times the zone danger of danger, Path.lua's
--- weights, when given) than the costliest node of that path stretch, and into a hub hostile to profile only where
--- that stretch already entered one: the drawn line (and the hubs it reports) never cuts a road's bend, a hostile
+-- Collapse a node path to its turns, then pull the string: from each anchor, the furthest turn in sight becomes the
+-- next anchor (the turns are where the path's own runs end; a segment ending partway along a run gave the arrow's
+-- follower lines it aimed back along, #3732). The next turn is always taken, as the path walks it. Further turns are
+-- galloped: probe 2, 4, 8, ... turns on while in sight; at the first blocked probe, take the furthest turn in sight up
+-- to SMOOTH_MISSES turns past it whose line saves at least SMOOTH_SAVE cells on the path's way round (the far side of
+-- the wall the path went round: 0.4.2 stopped at the first turn out of sight, so the line kept the grid's axis-aligned
+-- runs round every fence and house wall, #3641; a smaller cut in a zigzag only sharpens the turn the arrow swings
+-- through, Orgrimmar's Drag) and gallop on from there, else end at the furthest turn in sight before it. A segment
+-- spans at most SMOOTH_SPAN path nodes and never a ride. Water may only be crossed where the path itself swam.
+-- On a map with classes a straight segment replaces the path between two entries only over ground no costlier for
+-- profile in style (times the zone danger of danger, Path.lua's weights, when given) than the costliest node of that
+-- path stretch (than its cost per yard, once the line reaches past a wall), and into a hub hostile to profile only
+-- where that stretch already entered one: the drawn line (and the hubs it reports) never cuts a road's bend, a hostile
 -- hub's rim or a dangerous zone's edge the cost-best path kept to.
+local SMOOTH_MISSES, SMOOTH_SPAN, SMOOTH_SAVE = 8, 400, 1.5
 local function smooth(st, P, profile, style, danger)
 	local PX, PY, PW, PK, PN = P.x, P.y, P.w, P.k, P.n
 	local n = #PX
@@ -1902,37 +1911,94 @@ local function smooth(st, P, profile, style, danger)
 		end
 	end
 	local out, a = { keep[1] }, 1
+	local worstAt, meanAt, hostileAt = {}, {}, {}
 	while a < #keep do
-		local b = a + 1
-		-- The costliest node of the path after keep[a] up to keep[j], and whether it entered a hostile hub, grown with
-		-- j: the anchor's own node is never stepped into, by the path or by the straight segment (sight).
-		local limit, hostile, last
-		if classed then
-			limit, hostile, last = 0, false, keep[a]
-		end
+		-- For the path after keep[a] up to node q, filled as far as the probes reach: worstAt[q] its costliest node,
+		-- meanAt[q] its cost per yard (each step's multiplier times its length, over the length), hostileAt[q] whether
+		-- it entered a hostile hub. The anchor's own node is never stepped into, by the path or by the straight segment
+		-- (sight). While every probe from the anchor is in sight, a segment may cross ground up to the stretch's
+		-- costliest node (0.4.2's rule); once a probe was blocked and the line reaches past that wall, only up to the
+		-- stretch's cost per yard, so it never costs more than the way round the wall it replaces.
+		local p = keep[a]
+		local cost, length, worst, hostile, filled, past = 0, 0, 0, false, p, false
+		local walked, walkedTo = { [p] = 0 }, p
+		local stop = #keep
 		for j = a + 2, #keep do
-			local p, q = keep[a], keep[j]
-			if rides and (rides[keep[j-1]] or rides[q] or blocked(p, q)) then break end
+			if (rides and (rides[keep[j - 1]] or rides[keep[j]])) or keep[j] - p > SMOOTH_SPAN then
+				stop = j - 1
+				break
+			end
+		end
+		local function visible(j)
+			local q = keep[j]
 			if classed then
-				for i = last + 1, q do
-					local c = classOf(st, PK[i], PN[i])
+				while filled < q do
+					filled = filled + 1
+					local c = classOf(st, PK[filled], PN[filled])
 					local m = Mult(c, profile, style)
 					if dangerAt then
-						m = m * dangerAt(PK[i], PN[i])
+						m = m * dangerAt(PK[filled], PN[filled])
 					end
-					if m > limit then
-						limit = m
+					local step = sqrt((PX[filled] - PX[filled - 1]) ^ 2 + (PY[filled] - PY[filled - 1]) ^ 2)
+					cost, length = cost + m * step, length + step
+					if m > worst then
+						worst = m
 					end
 					if hb and c % (hb + hb) >= hb then
 						hostile = true
 					end
+					worstAt[filled], meanAt[filled], hostileAt[filled] = worst, length > 0 and cost / length + 1e-9 or m, hostile
 				end
-				last = q
 			end
-			if not sight(st, P, p, q, PW[q] - PW[p] > 0, limit, profile, hb, hostile, style, dangerAt) then
-				break
+			if rides and blocked(p, q) then
+				return false
 			end
-			b = j
+			local limit = classed and (past and meanAt[q] or worstAt[q]) or nil
+			return sight(st, P, p, q, PW[q] - PW[p] > 0, limit, profile, hb, classed and hostileAt[q], style, dangerAt)
+		end
+		local b, step, j = a + 1, 1, a + 2
+		while j <= stop do
+			if visible(j) then
+				b, step = j, step * 2
+				j = (b < stop and b + step > stop) and stop or b + step
+			else
+				local top = j + SMOOTH_MISSES
+				if top > stop then
+					top = stop
+				end
+				local found
+				local before = past
+				past = true
+				for t = top, j + 1, -1 do
+					-- Worth it only when the line saves SMOOTH_SAVE cells on the way round: a cut of a cell or two
+					-- in a zigzag (Orgrimmar's Drag) only sharpens the turn the arrow has to swing through.
+					local q = keep[t]
+					while walkedTo < q do
+						walkedTo = walkedTo + 1
+						walked[walkedTo] = walked[walkedTo - 1] + sqrt((PX[walkedTo] - PX[walkedTo - 1]) ^ 2 + (PY[walkedTo] - PY[walkedTo - 1]) ^ 2)
+					end
+					if walked[q] - sqrt((PX[q] - PX[p]) ^ 2 + (PY[q] - PY[p]) ^ 2) >= SMOOTH_SAVE and visible(t) then
+						found = t
+						break
+					end
+				end
+				if not found then
+					past = before
+					local lo, hi = b, j
+					while hi - lo > 1 do
+						local mid = floor((lo + hi) / 2)
+						if visible(mid) then
+							lo = mid
+						else
+							hi = mid
+						end
+					end
+					b = lo
+					break
+				end
+				b, step = found, 1
+				j = (b < stop and b + step > stop) and stop or b + step
+			end
 		end
 		out[#out + 1] = keep[b]
 		a = b

@@ -201,21 +201,21 @@ return {
 	-- {quest:96986} The Grave Knight
 	["{quest:96986}: Atrexis, inside"] = "",
 
-	-- Step 37: Azurelode Mine
+	-- Step 36: Azurelode Mine
 	-- {area:287} Hillsbrad · {area:288} Azurelode Mine · {npc:2305} Foreman Bonds · {npc:2450} Miner Hackett
-	["Head south-west past {area:287} town to the {area:288}. Miners (26-27) work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside. Keep killing Miners until Samsa's thirty skulls are in your bags: most {area:287} humans drop one."] = "",
+	["Head south-west past {area:287} town to the {area:288}. The miners work inside the {area:288}, below the hill: go in at its mouth on the west side, where the arrow leads first. Miners (26-27) work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside. Keep killing Miners until Samsa's thirty skulls are in your bags: most {area:287} humans drop one."] = "",
 	-- {area:288} Azurelode Mine
 	["Inside {area:288}"] = "在{area:288}里面",
 	-- {item:3692} Hillsbrad Human Skull · {area:287} Hillsbrad
 	["{item:3692}, from the Miners and every {area:287} human"] = "",
 
-	-- Step 38: Finish the Turtle Meat
+	-- Step 37: Finish the Turtle Meat
 	-- {item:3712} Turtle Meat
 	["Finish the {item:3712}"] = "收集完{item:3712}",
 	-- {item:3712} Turtle Meat · {area:272} Tarren Mill
 	["Still short of ten {item:3712}? The Snapjaws line the river just east of {area:272}, a short way from town."] = "",
 
-	-- Step 39: Tarren Mill
+	-- Step 38: Tarren Mill
 	-- {area:272} Tarren Mill · {area:271} Southshore
 	["North-east back to {area:272}, passing well north of {area:271} (its guards are 55)."] = "向东北返回{area:272}，从{area:271}北边远远绕过（那里的卫兵是55级）。",
 	-- {npc:2215} High Executor Darthalia · {quest:539} Battle of Hillsbrad · {npc:2419} Deathguard Humbert · {area:290} Dun Garok
@@ -225,14 +225,14 @@ return {
 	-- {area:272} Tarren Mill
 	["Keep Infiltration in your log: its Syndicate (32-35) are over you now, and the 38-39 guide (Alterac and Arathi) works it on its first {area:272} loop."] = "把“渗透”留在任务日志里：辛迪加成员（32-35级）现在比你高，38-39级指南（奥特兰克和阿拉希）第一次到{area:272}时会完成它。",
 
-	-- Step 40: Level 30
+	-- Step 39: Level 30
 	["Level 30"] = "30 级",
 	-- {npc:2410} Magus Wordeen Voidglare · {zone:1454} Orgrimmar · {area:272} Tarren Mill · {zone:1437} Wetlands
 	["{npc:2410}'s quests in the inn and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Still short of 30 after these hand-ins? The Snapjaws (29-31) line the river just east and south of {area:272}: kill them until level 30, then walk back into town. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "",
 	["Snapjaws"] = "钳嘴龟",
 	["grind on Snapjaw"] = "",
 
-	-- Step 41: Voidglare, Bel'varil and Tallow
+	-- Step 40: Voidglare, Bel'varil and Tallow
 	-- {npc:2770} Tallow
 	["Voidglare, Bel'varil and {npc:2770}"] = "伍德格莱尔、贝瓦里尔和{npc:2770}",
 	-- {npc:2410} Magus Wordeen Voidglare · {npc:2437} Keeper Bel'varil · {npc:2770} Tallow · {area:272} Tarren Mill
@@ -248,55 +248,55 @@ return {
 	-- {area:272} Tarren Mill · {area:321} Hammerfall
 	["Keep these in your log: their camps are two to four levels over you now, and the 38-39 guide works them on its first {area:272} loop and in {area:321}."] = "把这些任务留在任务日志里：它们的营地现在比你高二到四级，38-39级指南第一次到{area:272}时以及在{area:321}会完成它们。",
 
-	-- Step 42: Melisara
+	-- Step 41: Melisara
 	-- {quest:96986} The Grave Knight · {npc:2278} Melisara · {npc:2410} Magus Wordeen Voidglare
 	["{quest:96986} from your City of Dalaran run: {npc:2278}, a short walk east of {npc:2410}."] = "达拉然城之行得到的{quest:96986}：{npc:2278}，在{npc:2410}东边不远处。",
 
-	-- Step 43: Battle of Hillsbrad with a group
+	-- Step 42: Battle of Hillsbrad with a group
 	-- {quest:539} Battle of Hillsbrad
 	["{quest:539} with a group"] = "组队完成 {quest:539}",
 	-- {area:290} Dun Garok · {area:271} Southshore · {npc:2304} Captain Ironhill
 	["Darthalia's last battle is at {area:290}, the dwarven keep south-east of {area:271}: every dwarf there is elite (28-32), {npc:2304} too. Great XP if you have a group for it."] = "达萨利亚的最后一战在 {area:290}，即 {area:271} 东南侧的矮人要塞：那里所有矮人都是精英（28-32 级），{npc:2304} 也是。有队伍的话，经验很丰厚。",
 
-	-- Step 44: Humbert's Sword with a group
+	-- Step 43: Humbert's Sword with a group
 	-- {quest:547} Humbert's Sword
 	["{quest:547} with a group"] = "组队完成 {quest:547}",
 	-- {npc:2419} Deathguard Humbert · {area:290} Dun Garok
 	["{npc:2419}'s sword drops from the same {area:290} dwarves (about one in twelve)."] = "{npc:2419} 的剑也由 {area:290} 的这些矮人掉落（约十二分之一）。",
 
-	-- Step 45: Dun Garok
+	-- Step 44: Dun Garok
 	-- {area:290} Dun Garok
 	["Clear {area:290} from the gate in; the dwarves run for help at 30% health."] = "从大门开始向内清理 {area:290}；矮人会在生命值降到 30% 时逃跑求援。",
 
-	-- Step 46: Tarren Mill
+	-- Step 45: Tarren Mill
 	-- {npc:2425} Varimathras · {zone:1458} Undercity
 	["for {npc:2425} in the {zone:1458}, at the end of this guide"] = "交给 {zone:1458} 的 {npc:2425}，在本篇指南结尾完成",
 
-	-- Step 48: Fly to Undercity
+	-- Step 47: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "飞往{area:1497}",
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "{area:272}的飞行管理员",
 
-	-- Step 49: Master Apothecary Faranell
+	-- Step 48: Master Apothecary Faranell
 	-- {npc:2055} Master Apothecary Faranell · {object:36126} Royal Quarter
 	["{npc:2055} stands in the Apothecarium, in the {object:36126}."] = "{npc:2055}站在{object:36126}的炼金房里。",
 	-- {quest:513} Elixir of Agony · {item:3388} Lesser Troll's Blood Elixir · {skill:171} Alchemy · {area:287} Hillsbrad
 	["Faranell's next {quest:513} needs a {item:3388} ({skill:171}) and the {area:287} coast: leave it."] = "法拉尼尔的下一个任务{quest:513}需要一瓶{item:3388}（{skill:171}），还要去{area:287}海岸：先不要做。",
 
-	-- Step 50: Varimathras
+	-- Step 49: Varimathras
 	-- {npc:2425} Varimathras · {object:36126} Royal Quarter
 	["{npc:2425} stands beside Sylvanas in the {object:36126}."] = "{npc:2425} 站在 {object:36126}，就在希尔瓦娜斯旁边。",
 	-- {npc:2425} Varimathras
 	["{npc:2425}: Darthalia's commendation"] = "{npc:2425}：达萨利亚的表彰",
 
-	-- Step 51: Calder Gray
+	-- Step 50: Calder Gray
 	-- {npc:270038} Calder Gray · {quest:97985} Thundering Hearts · {area:484} Freewind Post · {area:439} Shimmering Flats
 	["{npc:270038} stands in the Apothecarium. His {quest:97985} is for Stormheart, a level 30 elite who walks the canyon east of {area:484}, on the next guide's way to the {area:439}."] = "{npc:270038}站在炼金房里。他的{quest:97985}的目标是Stormheart，一个30级精英，在{area:484}东边的峡谷里走动，就在下一份指南前往{area:439}的路上。",
 	-- {npc:270038} Calder Gray · {zone:1458} Undercity
 	["{npc:270038}: back to him on the next {zone:1458} stop, at about 38"] = "{npc:270038}：下次到{zone:1458}时（约38级）再回来找他",
 
-	-- Step 52: Undercity trainers
+	-- Step 51: Undercity trainers
 	-- {zone:1458} Undercity
 	["{zone:1458} trainers"] = "{zone:1458}的训练师",
 	-- {zone:1458} Undercity · {object:36070} War Quarter · {object:36073} Rogues' Quarter · {object:36082} Magic Quarter · {npc:260093} Garen Largo

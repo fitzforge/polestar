@@ -467,11 +467,25 @@ function Compat.IsOnQuest(questID)
 	return false
 end
 
+-- Whether questID is in the log and ready to hand in: the game's flag, and
+-- no counted item or kill line short of its count. The flag alone has been
+-- seen set with a line still at 0/1 (The Witch Doctor's Head with no
+-- Zum'rah's Head, #3639), which counted it among the hand-ins waiting
+-- elsewhere. Only those lines: their counts are the bag's and the kills';
+-- other kinds the client reports oddly (a skill line, #1952; an event the
+-- game ticks without a count), and there the flag stays the word. A quest
+-- with no lines (talk to someone, deliver an item) has only the flag.
+local COUNTED = { item = true, monster = true }
 function Compat.IsQuestReadyForTurnIn(questID)
 	if not (C_QuestLog and C_QuestLog.IsOnQuest and C_QuestLog.IsOnQuest(questID)) then return false end
-	if C_QuestLog.ReadyForTurnIn and C_QuestLog.ReadyForTurnIn(questID) then return true end
-	if C_QuestLog.IsComplete and C_QuestLog.IsComplete(questID) then return true end
-	return false
+	if not ((C_QuestLog.ReadyForTurnIn and C_QuestLog.ReadyForTurnIn(questID))
+		or (C_QuestLog.IsComplete and C_QuestLog.IsComplete(questID))) then return false end
+	local objs = Compat.GetQuestObjectives(questID)
+	for i = 1, objs and #objs or 0 do
+		local o = objs[i]
+		if COUNTED[o.type] and not o.finished and o.numFulfilled < o.numRequired then return false end
+	end
+	return true
 end
 
 -- Whether questID is in the log and failed (an escort lost, a timer run out,

@@ -52,8 +52,9 @@ or none.
   the cache has none for this code.
 - **skip** for anything else: `Format, lints, tests` passes in seconds.
 
-The addon's Lua tests run in four shards at once (`Addon tests 1/4` to
-`4/4`, addontest's tests dealt out in turn) from one build (`Addon tests
+The addon's Lua tests run in four shards at once (`Addon tests 1/4`: the
+crate's unit tests and the scenes; `2/4` to `4/4`: addontest's tests dealt
+out in turn) from one build (`Addon tests
 build`); `Format, lints, tests` waits for every job its lane runs and fails
 when one did not pass. Pushes to `main` and `next` run everything on
 `FORGE_PATHS` and save the caches the pull requests after them read.
@@ -145,7 +146,7 @@ every pull request's tests run with reference data, in two places:
 | Where | Data | Who | Fails on |
 |---|---|---|---|
 | `Tests` (`ci.yml`, GitHub's runners) | the public data `ci-data.yml` built on `next` | every pull request, forks too | a failure next's run on the same data does not have |
-| `Release data` (`ci.yml`, the maintainers' self-hosted runner) | the release data | pull requests from this repository's own branches | any failure |
+| `Release data` (`ci-release-data.yml`, the maintainers' self-hosted runner) | the release data | pull requests from this repository's own branches, not drafts | any failure |
 
 **Public data.** On every push to `next`, `ci-data.yml` builds the public
 data (below), runs the whole Node suite on it and saves both in the Actions
@@ -156,20 +157,27 @@ tests with it, and `tools/ci-failures.js` fails the job only on failures the
 baseline lacks: a test that fails on the public data on `next` too is the
 data's, not the change's. The data is built from `next`'s corrections, so
 a pull request's own corrections show in it after the merge. Pushes run
-without it (`ci-data.yml` is their data run).
+without it (`ci-data.yml` is their data run). A failing test `next` has
+never run (one the pull request adds or renames) has nothing to be held
+to: for this repository's own branches it is a warning, since their
+`Release data` job runs it on the release data; for a fork it fails. The
+baseline lists the tests that pass on `next` as well, to tell them apart.
 
 **Release data.** The release data is built from recordings and private
 sources and is never published: it stays on the maintainers' machine, where
-a self-hosted runner (labels `self-hosted`, `polestar-data`) holds a
-read-only copy. Only code from this repository's own branches runs there:
-the `Release data` job runs for a pull request whose head branch is in this
-repository, and gates on the merged tree can run on pushes to `next`. The
-runner checks every job before it
-starts and refuses anything else (a fork's pull request, a push to a branch
+two self-hosted runners hold a read-only copy: one for pull requests
+(labels `self-hosted`, `polestar-data`) and one for the gates on the merged
+tree (`polestar-gates`: [After a merge](#after-a-merge) and the weekly
+route run), so the gates never queue behind pull requests. Only code from
+this repository's own branches runs there: the `Release data` job runs for
+a pull request whose head branch is in this repository once it is not a
+draft (marking a draft ready starts it; a newer push cancels the older
+run), and the gates on pushes to `next`. Each runner checks every job
+before it starts and refuses anything else (a fork's pull request, a push to a branch
 other than `next`, `main`, `release/*` or `hotfix/*`, any other event), each
 job runs in a fresh sandbox (the data and toolchains
 read-only, no credentials of the machine, the job's own folder its only
-writable one) and the runner is registered for one job at a time
+writable one) and a runner is registered for one job at a time
 (ephemeral). What a fork's pull request can and cannot read:
 
 - it runs on GitHub's runners only, with the public data and a read-only
@@ -185,9 +193,9 @@ self-hosted runner, so its code can read the release data; write access is
 given with that in mind. A fork's change gets the release data's tests after
 a maintainer merges it (the post-merge gates) or pushes it to a branch here.
 
-`Release data` is not a required check: the runner is one machine that may
-be off. When it is off the job waits in the queue and the pull request can
-still merge on `Tests`.
+`Release data` is not a required check: the runners are on one machine that
+may be off. When it is off the job waits in the queue and the pull request
+can still merge on `Tests`.
 
 ### How the public data is built
 
@@ -221,6 +229,90 @@ like any other.
 
 The on-demand suites run with `data=none` (the default) as before: the tests
 that read `data/forever` skip with a reason.
+
+## Guide texts
+
+The guide translations (`guides/locales/`, docs/TRANSLATING.md "Guide
+texts") are checked with `forge i18n guides check`: a translation that drops
+or adds a line break (`\n`) or a `{kind:id}` name token, a stale translation
+(its English changed: the guide was edited without `forge i18n guides
+sync`), or a texts file no guide has. The check reads the reference data, so
+it runs where the data is:
+
+| Where | Languages | Fails on |
+|---|---|---|
+| `Tests` (public data) | those whose texts the pull request changes; every language when it changes a guide | an error the base's own texts do not have on the same data (`tools/ci-guide-texts.sh`) |
+| `Release data` | the same | any error |
+| Post-merge gates | every language | any error |
+
+The public-text rule (CONTRIBUTING.md, "Commits and pull requests") holds
+for the words players read as well: the `prose` rules of
+`tools/lib/public-text.json` (no wording that says a route follows or was
+checked against another guide, no claim about an update's size) cover the
+guides, the fix records' words, the changelog fragments
+(`changes/`), the Client's release notes and the CurseForge description, in
+every lane (`tests/wording.test.js`), and pull request titles, descriptions
+and commit messages (`Public text`).
+
+## Route integrity
+
+Triage after triage must not leave a route broken by something a fix took
+out (#3654). A pull request from this repository's own branches that edits
+a leveling guide gets these checks in its `Release data` job, against the
+branch it merges into, on the release data (`tools/ci-route-gate.sh`):
+
+| Check | Fails on |
+|---|---|
+| playtest of the edited guides and the next 3 of each one's chain | a stuck or failing play |
+| `playtest --honest` on both trees | a failing finding the base does not have (step numbers left out when they are matched) |
+| what the edited guides lose: every accept, hand-in, complete, kill and collect, and where each quest is now | a quest that leaves the route and is not named in the pull request's description; say there where its XP and time now come from |
+| the level model, one class, both trees, the chain's factions | a guide end reached more than 0.3 level lower |
+
+The headers against `data/route-levels.json` (`tests/route-levels.test.js`)
+and the prerequisite order (`tests/prereq-order.test.js`) run with the
+tests a guide change selects. The table goes to the run's summary and to
+one comment on the pull request, kept up to date as it is pushed again. A
+fork's guide change gets the playtest and the levels after the merge (the
+post-merge gates and the weekly run below).
+
+Every Monday `route-health.yml` runs the whole route on the release data:
+every leveling guide played, the level model for every race and class on
+`next` and on the last release, and the flow diff against the release
+(`polestar flow-diff`: zone visits, one-quest trips, carried quests, travel,
+moved quests). The table goes to the open issue labelled `route-health`;
+a stuck play or a guide end more than 0.3 level lower than in the release
+also files a `next-gates` issue.
+
+## After a merge
+
+![Post-merge gates](https://github.com/fitzforge/polestar/actions/workflows/next-gates.yml/badge.svg?branch=next)
+
+Every push to `next` runs `next-gates.yml` on the merged tree, on the
+release data, on the self-hosted runner ([Reference data](#reference-data)):
+the checks that only make sense on the tree two pull requests make
+together.
+
+| Gate | What fails it |
+|---|---|
+| Node suite on the release data | any failing test among those that read the data: the guide suites, danger, levels, guide ends, while-here (`tools/ci-data-tests.js`; `ci.yml`'s push run has the rest) |
+| Guide lint | a lint error, leveling or experimental guides |
+| Addon tests | any of forge-addontest's tests, all of them (the cached test binaries) |
+| Playtest | a guide stuck or failing, leveling or experimental |
+| Route speed | a time to the arrow's first walking route over 5 s in its 7 cases, or a settled route that differs from 0.4.2's |
+| Arrow corner cadence | a case whose corner lag is worse than 0.4.1.1's (mean over 3 degrees worse and 6 or more, max over 45 and 10 worse), 24 cases |
+| Arrow stretches | a guide stretch the arrow does not walk to its end; the table compares with 0.4.2's runs |
+
+The route-speed, cadence and stretch gates' harnesses and baselines come
+from the release gates and live with the runner (`$POLESTAR_GATES`), not in
+the repository. A gate that cannot run (no data, no harness) fails like one
+that finds something: nothing is skipped quietly.
+
+Each gate runs whatever the others did; the run's summary has a row per
+gate. A failing run turns the badge above red and files an issue labelled
+`next-gates` with that table (or comments on the open one); the next run
+that passes every gate closes it. Runs go one at a time, to the end: a newer
+push waits, and the newest waiting push replaces an older one, so on a busy
+day one run covers several merges.
 
 ## What stays local
 

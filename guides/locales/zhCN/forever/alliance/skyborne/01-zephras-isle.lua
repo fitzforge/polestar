@@ -58,9 +58,9 @@ return {
 	-- Step 7: Yala Windwatcher
 	-- {npc:249363} Yala Windwatcher · {npc:251143} Roiling Winds · {object:460002} Ley Line (no name in this language: may be words) · {spell:1259705} Read Leyline
 	-- plural, as words: Al'Aketh Converts = {npc:251160} Al'Aketh Convert
-	["{npc:249363} keeps watch east of the grove. The {npc:251143} and Al'Aketh Converts gather just north of her; the {object:460002} rises further north: cast your {spell:1259705} racial ability at it."] = "{npc:249363}在林地东边守望。{npc:251143}和{npc:251160}聚集在她北边不远处；{object:460002}在更北边升起：对它施放你的种族技能{spell:1259705}。",
+	["{npc:249363} keeps watch east of the grove. The {npc:251143} and Al'Aketh Converts gather just north of her; the {object:460002} rises further north: cast your {spell:1259705} racial ability at it."] = "{npc:249363}在林地东边守望。{npc:251143}和{npc:251160}聚集在她北边不远处；再往北就是魔网节点：对它施放你的种族技能{spell:1259705}。",
 	-- {spell:1259705} Read Leyline · {object:460002} Ley Line (no name in this language: may be words)
-	["Cast {spell:1259705} at the {object:460002}"] = "对{object:460002}施放{spell:1259705}",
+	["Cast {spell:1259705} at the {object:460002}"] = "对魔网节点施放{spell:1259705}",
 
 	-- Step 9: Thendal Grove turn-ins
 	["Level 4 spells"] = "4级法术",
@@ -468,13 +468,13 @@ return {
 
 	-- Step 97: High Priestess Lorthuna
 	-- {area:16630} Rohashi Spires · {npc:252475} Elaadrin Evengale · {object:617084} Portal to Valanaar (no name in this language: may be words)
-	["Lorthuna waits up on the {area:16630}, east of the shrine: take the Portal to {area:16630} in the inner sanctum, beside Valennia, and cross the heights east to {npc:252475}. When she falls, the {object:617084} beside her takes you back to town."] = "洛苏娜在神殿东侧高处的 {area:16630} 等待：从内殿瓦伦妮亚·风暴之拳旁边的传送门前往 {area:16630}，再沿高地向东前往 {npc:252475} 处。击败她后，她身旁的 {object:617084} 会将你送回城镇。",
+	["Lorthuna waits up on the {area:16630}, east of the shrine: take the Portal to {area:16630} in the inner sanctum, beside Valennia, and cross the heights east to {npc:252475}. When she falls, the {object:617084} beside her takes you back to town."] = "洛苏娜在神殿东侧高处的 {area:16630} 等待：从内殿瓦伦妮亚·风暴之拳旁边的传送门前往 {area:16630}，再沿高地向东前往 {npc:252475} 处。击败她后，可通过她身旁的传送门回镇。",
 
 	-- Step 98: Valanaar, the fate of Zephras
 	-- {area:16638} Valanaar
 	["{area:16638}, the fate of Zephras"] = "{area:16638}，泽风岛的命运",
 	-- {object:617084} Portal to Valanaar (no name in this language: may be words) · {npc:252475} Elaadrin Evengale · {npc:252476} Talaanis Shadowsong · {npc:259012} Ealaane Nimbuswalker
-	["The {object:617084} sets you down beside {npc:252475} at the south end of the town. {npc:252476} is at the north end, {npc:259012} a few steps north-west of her."] = "{object:617084}会把你送到城镇南端的{npc:252475}身旁。{npc:252476}在北端，{npc:259012}在她西北边几步远。",
+	["The {object:617084} sets you down beside {npc:252475} at the south end of the town. {npc:252476} is at the north end, {npc:259012} a few steps north-west of her."] = "回城传送门会把你送到城镇南端的{npc:252475}身旁。{npc:252476}在北端，{npc:259012}在她西北边几步远。",
 
 	-- Step 101: Elaadrin Evengale
 	-- {npc:252475} Elaadrin Evengale · {area:279} Dalaran · {area:16638} Valanaar · {npc:259084} Denaaris Stargale

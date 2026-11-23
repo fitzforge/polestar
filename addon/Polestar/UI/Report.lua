@@ -310,7 +310,7 @@ local function routesLine()
 end
 
 -- The travel plan from the current leg on (Nav.GetRoute): each leg's caption
--- and time, "(maybe)" on a flight to a flight master the character may not
+-- and time, "(assumed)" on a flight to a flight master the character may not
 -- have (#1795: the first flight map there settles it); no line without a plan
 -- (the arrow leads straight). The words stay English like Routes; after
 -- Routes, so Arrow, Where and Routes keep their places for the bug bot.
@@ -324,9 +324,30 @@ local function travelLine()
 	for i = ci or 1, #legs do
 		local leg = legs[i]
 		local s = floor((leg.seconds or 0) + 0.5)
-		parts[#parts + 1] = ("%s %d:%02d%s"):format(plain(leg.label or leg.kind or "?"), floor(s / 60), s % 60, leg.maybe and " (maybe)" or "")
+		parts[#parts + 1] = ("%s %d:%02d%s"):format(plain(leg.label or leg.kind or "?"), floor(s / 60), s % 60, leg.maybe and " (assumed)" or "")
 	end
+	-- A walk a flight would beat with a flight path Polestar doesn't know of (Nav.FlightHint).
+	local hint = N.FlightHint and N.FlightHint()
+	if hint then parts[#parts + 1] = ("faster with the flight path at %s"):format(plain(hint.name or "?")) end
 	return cut((L["Travel: %s"]):format(table.concat(parts, SEP)), 300)
+end
+
+-- Where this session's walks went through what the walking maps close (Nav/Walk.lua Walk.WalkedGaps: the player's
+-- own steps the router took as open, #3641): the places, as the guides write them (map, @x,y), and the steps; the newest
+-- last. English words, as Routes; a free finder of map gaps for the data round. No line without one.
+local function walkedLine()
+	local N, C = ns.Nav, ns.Compat
+	local W, T = N and N.walk, N and N.travel
+	local gaps = W and W.WalkedGaps and W.WalkedGaps()
+	if not (gaps and #gaps > 0) then return nil end
+	local parts = {}
+	for i, g in ipairs(gaps) do
+		local zone = T and T.ZoneOf and T.ZoneOf(nil, g.c, g.x, g.y)
+		local x, y
+		if zone and C and C.WorldToMap then x, y = C.WorldToMap(g.c, g.x, g.y, zone) end
+		parts[i] = (where(zone, x, y) or ("continent %d %.0f,%.0f"):format(g.c, g.x, g.y)) .. (" (%d steps)"):format(g.n)
+	end
+	return cut("Walked where the map says blocked: " .. table.concat(parts, SEP))
 end
 
 -- The flight paths Polestar takes this character to know on the continent
@@ -902,6 +923,7 @@ function R.Details()
 	add(d, "where", playerLine())
 	add(d, "routes", routesLine())
 	add(d, "travel", travelLine())
+	add(d, "walked", walkedLine())
 	add(d, "flights", flightsLine())
 	add(d, "whilehere", whileHereLine())
 	add(d, "packs", packsLine())

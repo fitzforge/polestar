@@ -35,36 +35,34 @@ return {
 	-- {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
 	["{npc:13220} stands at {area:3077}, where the pass comes out."] = "",
 
-	-- Step 8: Cenarion Hold
+	-- Step 9: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Езжайте дальше на запад: {area:3425}. {npc:15189} стоит наверху в своем здании: поднимитесь внутри, стрелка не различает этажи.",
-	-- {npc:17082} Rifleman Torrig · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora
-	["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082} – у палаток Альянса: для персонажа {npc:17080} ({area:2743})",
 	-- {npc:15183} Geologist Larksbane
 	["{npc:15183}: the tablet fragments come from the Twilight dig"] = "{npc:15183}: фрагменты табличек добываются на раскопках Сумеречного Молота",
 	-- {npc:15306} Bor Wildmane
 	["{npc:15306}: his Twilight texts come from the dig"] = "",
 
-	-- Step 9: Silithus: kill these as you meet them
+	-- Step 10: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
 	["{zone:1451}: kill these as you meet them"] = "{zone:1451}: убивайте их по пути",
 	-- {npc:15185} Brood of Nozdormu
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around.\nCareful: {npc:15185} (62, elite) guard the Caverns of Time's mouth in the south-west, around 21,82: stay out of there."] = "",
 
-	-- Step 10: Cenarion Hold
+	-- Step 11: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189}, upstairs"] = "{npc:15189} – наверху",
 
-	-- Step 11: Silithus: kill these as you meet them
+	-- Step 12: Silithus: kill these as you meet them
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer · Rock Stalkers = {npc:11739} Rock Stalker
 	["From the hold, west into the sands: Dredge Crushers dig there; Stonelash Pincers, Flayers and Rock Stalkers hunt the same sands."] = "От крепости на запад в пески: там копают земляные сокрушители; в тех же песках охотятся камнехвостые клешневики, живодеры и скальные пауки-скакуны.",
 	-- {npc:11741} Dredge Crusher
 	["{npc:11741} walks around here: look inside the circle on the map"] = "",
 
-	-- Step 12: Cenarion Hold
+	-- Step 13: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} стоит наверху в своем здании: поднимитесь внутри, стрелка не различает этажи.",
 	-- {npc:15190} Noggle Ficklespragg · {npc:15189} Beetix Ficklespragg
@@ -72,7 +70,7 @@ return {
 	-- {npc:15181} Commander Mar'alith
 	["{npc:15181} (from level 58): Bronzebeard's Encampment comes later, on the way south"] = "",
 
-	-- Step 13: Hive'Ashi: kill these as you meet them
+	-- Step 14: Hive'Ashi: kill these as you meet them
 	-- {area:2742} Hive'Ashi
 	["{area:2742}: kill these as you meet them"] = "{area:2742}: убивайте их по пути",
 	-- {item:20404} Encrypted Twilight Text · {npc:15306} Bor Wildmane · {npc:15194} Hermit Ortell · {area:2742} Hive'Ashi · {quest:8308} Brann Bronzebeard's Lost Letter
@@ -84,11 +82,6 @@ return {
 	["Twilight Tablet Fragments"] = "Фрагменты Сумеречной таблички",
 	-- {quest:8323} True Believers
 	["Ten more for {quest:8323}"] = "Еще десять для задания «{quest:8323}»",
-
-	-- Step 14: Hive'Zora
-	-- {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora · {spell:642} Divine Shield · {spell:5384} Feign Death · {spell:17} Power Word: Shield
-	["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080} стоит лагерем у западного улья ({area:2743}). Возьмите силитист у одного из красных гейзеров поблизости и отнесите его в экстрактор Альянса в его лагере.\nОсторожно: вы теряете силитист, если садитесь на транспорт, входите в незаметность, используете {spell:642}, {spell:5384} или «Исчезновение». «Скачок» и {spell:17} его не сбрасывают.",
-	["Bring a Silithyst to the Alliance extractor"] = "",
 
 	-- Step 16: Southwind Village
 	["The tortured druids and sentinels haunt the ruined village east of the hold."] = "",
@@ -292,7 +285,9 @@ return {
 	-- ["{npc:15174}, the innkeeper"] = "{npc:15174}, хозяйка таверны",
 	-- ["{npc:15181}: Bronzebeard's Encampment comes later, on the way south"] = "{npc:15181}: Лагерь Бронзоборода – позже, по пути на юг",
 	-- ["{npc:15306}: his Twilight texts come from the dig after the next stop here"] = "{npc:15306}: его Сумеречные тексты добываются на раскопках после следующей остановки",
+	-- ["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080} стоит лагерем у западного улья ({area:2743}). Возьмите силитист у одного из красных гейзеров поблизости и отнесите его в экстрактор Альянса в его лагере.\nОсторожно: вы теряете силитист, если садитесь на транспорт, входите в незаметность, используете {spell:642}, {spell:5384} или «Исчезновение». «Скачок» и {spell:17} его не сбрасывают.",
 	-- ["{npc:17082}, at the Alliance tents"] = "{npc:17082} – у палаток Альянса",
+	-- ["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082} – у палаток Альянса: для персонажа {npc:17080} ({area:2743})",
 	-- ["{npc:1852} is a level 61 elite"] = "{npc:1852} – элитный противник 61-го уровня",
 	-- ["{npc:1855} (optional)"] = "{npc:1855} (по желанию)",
 	-- ["{npc:1855} lives in a small hut on the border river, north-east of the lumber camp. Hand in {quest:5781} if you finished it."] = "{npc:1855} живет в маленькой хижине у пограничной реки, к северо-востоку от лесопилки. Сдайте задание «{quest:5781}», если выполнили его.",
