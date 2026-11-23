@@ -41,11 +41,16 @@ zone Stormwind City
 # news reports name their quests "A Trusty Steed" and "Justice and
 # Retribution", but Forever's quest data has no quest, giver or step for
 # either yet (searched 2026-10-29), so there is no Horde guide.
+# Dwarves take the Ironforge breadcrumb only while in Ironforge (#2778): Duthorian
+# Rall offers The Tome of Nobility without it (players' recordings: a Dwarf
+# Paladin at 40 was offered 1661 with neither breadcrumb taken), so a Dwarf
+# already in Stormwind is not sent to Ironforge and back for 320 XP.
 
 step The Tome of Nobility (Ironforge)
   only Dwarf
   zone Ironforge
   when available 4485
+  when zone "Ironforge"
   tip At 40 Tiza Battleforge, upstairs in the Hall of Mysteries, sends you to Duthorian Rall in Stormwind (Brandur Ironhammer downstairs gives the same errand; take one). Take the Deeprun Tram to Stormwind.
   level 40
   accept 4485                         -- Tiza Battleforge

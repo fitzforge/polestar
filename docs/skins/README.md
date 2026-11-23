@@ -152,17 +152,21 @@ pixel-exact border, a hover wash, a soft glow, a picture of the game, a
 tint over the game art, and a store for the skin's own pieces). Call the
 base painter and add to it, or paint the frame from scratch.
 
-Fourteen **hooks** reach the art Polestar's modules draw themselves, each
+Nineteen **hooks** reach the art Polestar's modules draw themselves, each
 after Polestar's own look is on, with its parts by name: `arrow` (the
 waypoint arrow), `pin` (a map or minimap pin), the guide window's
 `guideTitle` (its title row), `guideRow` (each goal's row), `guideLayout`
 (room of the skin's own under the window's parts), `guideRender` (every
 render), `guideProgress`, `guideAnchor` (the frame the heads-up card sits
 on), `guideTab` (each tab), `guidePlace` (a part the skin places itself,
-out of the window) and `guideMenu` (the window's menu), then `card` (the
-heads-up and class quest cards), `toast` (the rare alert, the transport
-heads-up, While you're here) and `actionButton` (the buttons Polestar puts
-on the screen).
+out of the window), `guideMenu` (the window's menu), `guideTakes` (a
+goal the skin shows on a card of its own), `guidePerson` (the step's
+header), `guideInset` (a part set in from the window's left edge),
+`guideUpRow` (each Up next row) and `guideShows` (whether a part shows the
+skin's way), then
+`card` (the heads-up and class quest cards), `toast` (the rare alert, the
+transport heads-up, While you're here) and `actionButton` (the buttons
+Polestar puts on the screen).
 
 Painters run again whenever anything they depend on changes, so they must be
 idempotent: create once, then show, hide, tint and place.
@@ -179,9 +183,8 @@ idempotent: create once, then show, hide, tint and place.
    text reads on the grounds) and answers `ok, message`. A refused spec
    registers nothing and says why. Ids are first come, first served, and a
    skin cannot be registered twice in a session: changes need `/reload`.
-   The checks themselves load with the first registration (Polestar's
-   `Polestar_SkinAPI` folder), so a player without skin addons never loads
-   them.
+   The checks come with Polestar itself (`Theme/SkinCheck.lua`; a folder
+   of their own, `Polestar_SkinAPI`, before 0.4.3).
 3. **Picking.** The player chooses under Settings > Look > Theme, and a
    variant under the skin's card. A saved choice that names a skin not yet
    registered draws Polestar's own look and **waits**: when the addon

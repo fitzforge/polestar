@@ -72,6 +72,8 @@ mod e2e;
 mod engine;
 #[path = "engine-abandon-destroy.rs"]
 mod engine_abandon_destroy;
+#[path = "engine-ahead-later.rs"]
+mod engine_ahead_later;
 #[path = "engine-aim-accept-first.rs"]
 mod engine_aim_accept_first;
 #[path = "engine-along.rs"]
@@ -80,6 +82,8 @@ mod engine_along;
 mod engine_already_across;
 #[path = "engine-alt-start.rs"]
 mod engine_alt_start;
+#[path = "engine-arrival-height.rs"]
+mod engine_arrival_height;
 #[path = "engine-carried.rs"]
 mod engine_carried;
 #[path = "engine-carried-work.rs"]
@@ -138,6 +142,8 @@ mod engine_left_out;
 mod engine_level;
 #[path = "engine-level-carry.rs"]
 mod engine_level_carry;
+#[path = "engine-level-gate.rs"]
+mod engine_level_gate;
 #[path = "engine-level-hold.rs"]
 mod engine_level_hold;
 #[path = "engine-level-pick.rs"]
@@ -150,12 +156,16 @@ mod engine_lost_quest;
 mod engine_manual;
 #[path = "engine-materials.rs"]
 mod engine_materials;
+#[path = "engine-meet-kills.rs"]
+mod engine_meet_kills;
 #[path = "engine-money-task.rs"]
 mod engine_money_task;
 #[path = "engine-next-when.rs"]
 mod engine_next_when;
 #[path = "engine-notyet.rs"]
 mod engine_notyet;
+#[path = "engine-npc-arrival.rs"]
+mod engine_npc_arrival;
 #[path = "engine-packs.rs"]
 mod engine_packs;
 #[path = "engine-pin.rs"]
@@ -182,6 +192,8 @@ mod engine_skipquest;
 mod engine_skipto;
 #[path = "engine-smart.rs"]
 mod engine_smart;
+#[path = "engine-stutter.rs"]
+mod engine_stutter;
 #[path = "engine-tab-restore.rs"]
 mod engine_tab_restore;
 #[path = "engine-tabs.rs"]
@@ -292,6 +304,8 @@ mod maps_reveal;
 mod maps_services;
 #[path = "memory-session.rs"]
 mod memory_session;
+#[path = "mob-markers.rs"]
+mod mob_markers;
 mod names;
 #[path = "names-memory.rs"]
 mod names_memory;
@@ -451,6 +465,7 @@ mod skins_sweep;
 mod stranded;
 mod syntax;
 mod talents;
+mod tetris;
 mod theme;
 #[path = "theme-skin-api.rs"]
 mod theme_skin_api;
@@ -476,6 +491,8 @@ mod ui_headsup_card;
 mod ui_import;
 #[path = "ui-journey.rs"]
 mod ui_journey;
+#[path = "ui-layout-card.rs"]
+mod ui_layout_card;
 #[path = "ui-left-out.rs"]
 mod ui_left_out;
 #[path = "ui-long-translations.rs"]
@@ -488,6 +505,8 @@ mod ui_look_glow;
 mod ui_look_guidewindow;
 #[path = "ui-look-guidewindow-copy.rs"]
 mod ui_look_guidewindow_copy;
+#[path = "ui-look-guidewindow-tabstyles.rs"]
+mod ui_look_guidewindow_tabstyles;
 #[path = "ui-look-theme.rs"]
 mod ui_look_theme;
 #[path = "ui-look-toasts.rs"]

@@ -233,8 +233,31 @@ function updatePoints(old, points = 3) {
 	return [...new Set(Array.from({ length: points }, (_, k) => Math.max(2, Math.round(((k + 1) * n) / (points + 1)))))];
 }
 
+// The quest lines a client's log shows for each quest of `guides`, as
+// SNAP_LINES Lua for SNAPSHOT: { [q] = { [line] = { type, n, item } } }.
+function snapshotLines(data, guides) {
+	const qs = new Set();
+	for (const g of guides) for (const s of g.steps || []) for (const x of s.goals) if (x.quest != null) qs.add(x.quest);
+	const rows = [];
+	for (const q of [...qs].sort((a, b) => a - b)) {
+		const lines = data.questObjectives(q).map((o, i) => {
+			const type = o.kind === 'item' ? 'item' : o.kind === 'object' ? 'object' : o.kind === 'event' ? 'event' : 'monster';
+			return `[${i + 1}] = { type = "${type}", n = ${o.count || 1}${o.kind === 'item' && o.id != null ? `, item = ${o.id}` : ''} }`;
+		});
+		if (lines.length) rows.push(`[${q}] = { ${lines.join(', ')} }`);
+	}
+	return `SNAP_LINES = { ${rows.join(',\n')} }`;
+}
+
 // Lua for the update persona's first play: at the step, log out and emit the
-// world (as Lua that restores it) and the save.
+// world (as Lua that restores it) and the save. Each quest in the log gets
+// the lines the game gives it on accept (SNAP_LINES): the simulated log holds
+// only those the old guide's goals pointed at (SIMULATE's objectivesFor), so
+// a line the updated guide works and the old one never did (Crocs of the
+// Sky's scales, Tiger Mastery's paw: taken in 0.4.1.1 for a later guide,
+// collected in 0.4.2's) would be missing, where no client's log lacks it.
+// A line the old play worked stays as it was; an added item line counts the
+// bags, the rest start at none.
 const SNAPSHOT_LUA = `
 local function __ser(v)
 	if type(v) == "string" then return string.format("%q", v) end
@@ -252,9 +275,15 @@ function SNAPSHOT(k)
 	for q in pairs(w.completed) do done[#done + 1] = q end
 	lines[#lines + 1] = "w.complete(" .. __ser(done) .. ")"
 	for q, e in pairs(w.log) do
-		local objs = {}
+		local objs, want = {}, SNAP_LINES and SNAP_LINES[q] or {}
 		for i, o in ipairs(e.objectives) do
 			objs[i] = { required = o.numRequired, fulfilled = o.numFulfilled, type = o.type, text = o.text }
+		end
+		for i, l in pairs(want) do
+			local o = objs[i]
+			if not o or (o.type ~= l.type and o.fulfilled == 0) then
+				objs[i] = { required = l.n, fulfilled = l.item and math.min(w.items[l.item] or 0, l.n) or 0, type = l.type, text = "Objective " .. i }
+			end
 		end
 		lines[#lines + 1] = ("w.onQuest(%d, %s, %s)"):format(q, __ser(objs), __ser(e.title))
 	end
@@ -266,4 +295,4 @@ function SNAPSHOT(k)
 end
 `;
 
-module.exports = { PERSONAS, personaTables, personaVariants, updatePoints, SNAPSHOT_LUA, itemNeeds, spread };
+module.exports = { PERSONAS, personaTables, personaVariants, updatePoints, snapshotLines, SNAPSHOT_LUA, itemNeeds, spread };

@@ -280,14 +280,11 @@ C_Map.GetMapArtID = function(id) local m = ART[id]; return m and m.artID end`);
 		if (fs.existsSync(path.join(ROOT, 'addon', 'Polestar_Nav', 'Polestar_Nav.toc'))) {
 			lines.push(`stub.packs.Polestar_Nav = { ${tocFiles('Polestar_Nav').map(luaString).join(', ')} }`);
 		}
-		// Polestar's own load-on-demand addons, where the addon has them, load from their TOC when Polestar
-		// asks (C_AddOns.LoadAddOn), as in the client and forge-addontest's run.rs: the settings window
-		// (Polestar_Options, UI/OptionsLoader.lua), the Skin API's checks (Polestar_SkinAPI, with the first
-		// skin or scheme another addon registers), the game looks with Hearth (Polestar_Looks,
-		// Theme.LoadLooks, the first time one is painted) and the experimental guides (Polestar_Experimental,
-		// at login unless switched off: Core/Guides.lua, Guides.OWN_EXTRA). Without them a game look draws as
-		// Polestar's own.
-		for (const part of ['Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks', 'Polestar_Experimental']) {
+		// Polestar's own load-on-demand addons, where the addon has them, load from their TOC when Polestar asks
+		// (C_AddOns.LoadAddOn), as in the client and forge-addontest's run.rs: the settings window
+		// (Polestar_Options, UI/OptionsLoader.lua) and our skins and layouts (Polestar_Skins, when one of them
+		// is picked under Theme: Theme/SkinApi.lua finds them by its TOC's `X-Polestar-Skin`, listed below).
+		for (const part of ['Polestar_Options', 'Polestar_Skins']) {
 			if (fs.existsSync(path.join(ADDONS, part, `${part}.toc`))) lines.push(`stub.packs.${part} = stub.packs.${part} or { ${tocFiles(part).map(luaString).join(', ')} }`);
 		}
 		// Freedoom Arcade (Polestar_Arcade), installed as in the client, loaded on demand by the first Play
@@ -295,20 +292,6 @@ C_Map.GetMapArtID = function(id) local m = ART[id]; return m and m.artID end`);
 		if (fs.existsSync(path.join(ADDONS, 'Polestar_Arcade', 'Polestar_Arcade.toc'))) {
 			lines.push(`stub.packs.Polestar_Arcade = stub.packs.Polestar_Arcade or { ${tocFiles('Polestar_Arcade').map(luaString).join(', ')} }`);
 			lines.push('stub.addons[#stub.addons + 1] = { name = "Polestar_Arcade", reason = "DEMAND_LOADED" }');
-		}
-		// The skins in the download (addon/Polestar_Skin_*), installed as in the client: listed with their TOC's
-		// `X-Polestar-Skin` (Theme/SkinApi.lua finds them by it), loaded on demand when picked under Theme.
-		for (const part of fs.readdirSync(ADDONS).filter((n) => /^Polestar_Skin_/.test(n) && n !== 'Polestar_Skin_Example').sort()) {
-			const toc = path.join(ADDONS, part, `${part}.toc`);
-			if (!fs.existsSync(toc)) continue;
-			const meta = {};
-			for (const line of fs.readFileSync(toc, 'utf8').split(/\r?\n/)) {
-				const m = /^## ([A-Za-z-]+):\s*(.*)$/.exec(line);
-				if (m) meta[m[1]] = m[2].trim();
-			}
-			lines.push(`stub.addons[#stub.addons + 1] = { name = ${luaString(part)}, title = ${luaString(meta.Title || part)}, reason = "DEMAND_LOADED" }`);
-			lines.push(`stub.addonMeta[${luaString(part)}] = { ["X-Polestar-Skin"] = ${luaString(meta['X-Polestar-Skin'] || '')}, Title = ${luaString(meta.Title || part)}, Version = ${luaString(meta.Version || '')} }`);
-			lines.push(`stub.packs.${part} = stub.packs.${part} or { ${tocFiles(part).map(luaString).join(', ')} }`);
 		}
 		// Our other folders in the AddOns list too, each with its TOC's version, as the client lists them: once the
 		// list is not empty, Polestar's install check (Core/Data.lua) reads it, and a folder missing from it or of
@@ -323,8 +306,9 @@ C_Map.GetMapArtID = function(id) local m = ART[id]; return m and m.artID end`);
 			}
 			const demand = meta.LoadOnDemand === '1' ? ', reason = "DEMAND_LOADED"' : '';
 			lines.push(`stub.addons[#stub.addons + 1] = { name = ${luaString(part)}, title = ${luaString(meta.Title || part)}${demand} }`);
-			// A pack's TOC fields too (X-Polestar-Pack, its format), as Core/Guides.lua's scan reads them.
-			const fields = meta['X-Polestar-Pack'] ? Object.entries(meta) : [['Version', meta.Version || ''], ['Title', meta.Title || part]];
+			// A pack's or our skins' TOC fields too (X-Polestar-Pack and its format, X-Polestar-Skin and the
+			// layout lines), as Core/Guides.lua's and Theme/SkinApi.lua's scans read them.
+			const fields = meta['X-Polestar-Pack'] || meta['X-Polestar-Skin'] ? Object.entries(meta) : [['Version', meta.Version || ''], ['Title', meta.Title || part]];
 			lines.push(`stub.addonMeta[${luaString(part)}] = { ${fields.map(([k, v]) => `[${luaString(k)}] = ${luaString(v)}`).join(', ')} }`);
 		}
 		lines.push(d.metrics);

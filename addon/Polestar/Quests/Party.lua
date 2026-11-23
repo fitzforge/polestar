@@ -958,7 +958,7 @@ local function tellOnce()
 	local db = ns.DB()
 	if db.partySyncTold or not (ns.Get("party.share") and ns.Get("party.show")) then return end
 	db.partySyncTold = true
-	ns.Print(ns.L["Party sync is on: you and your party see each other's quest progress. Turn it off in Options."])
+	ns.Print(ns.L["Party sync is on: you and your party see each other's quest progress. Turn it off in Settings."])
 end
 
 -- The member under roster key `key`, whose progress the guide is about to

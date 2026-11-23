@@ -19,8 +19,8 @@ return {
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
 	["Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Extrae cada nodo de cobre (1, naranja) y cobre pobre (1, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 50. Funde en una forja cuando se te llenen las bolsas: {spell:2657} (naranja hasta 25, gris a 70) también da puntos. Nivel de zona 1-10. Calcula unos 60 nodos para estos 49 puntos.",
 	["Copper"] = "Cobre",
-	["Copper, Poor Copper"] = "Cobre, Cobre pobre",
 	["Poor Copper"] = "Cobre pobre",
+	["Copper, Poor Copper"] = "Cobre, Cobre pobre",
 
 	-- Step 3: Copper & Poor Copper: Dun Morogh (1-50)
 	-- {zone:1426} Dun Morogh
@@ -163,7 +163,7 @@ return {
 	-- {object:147516} Dark Iron · {zone:1427} Searing Gorge
 	["Mithril & {object:147516}: {zone:1427} (230-245)"] = "Mitril y {object:147516}: {zone:1427} (230-245)",
 	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths
-	["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "Extrae cada nodo de Oro (155, verde), Mitril (175, verde), {object:147516} (230, naranja) y Veraplata (230, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 245. Desde aquí fundir no da puntos (las fundiciones superiores son grises en cuanto las aprendes): funde para fabricar o vender, o vende el mineral. {item:11099} solo se funde en {object:174824} de {area:1584} (8 minerales por barra). Nivel de la zona: 43-50. Cuenta con unos 40 nodos para estos 15 puntos.",
+	["Mine every Gold (155, green, rare), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "",
 	-- {object:147516} Dark Iron
 	["Mithril, {object:147516}"] = "Mitril, {object:147516}",
 
@@ -172,18 +172,15 @@ return {
 	["Small Thorium: {zone:1448} (245-275)"] = "Torio pequeño: {zone:1448} (245-275)",
 	-- {skill:186} Mining · {npc:9528} Arathandris Silversky · {npc:9529} Maybess Riverbreeze
 	["Mine every Gold (155, green, rare), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until {skill:186} 275. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Quests here that need {skill:186}: Salve via {skill:186} (level 55, {npc:9528}; Alliance), Salve via {skill:186} (level 55, {npc:9529}; Horde). Zone level 48-55. Expect about 50 nodes for these 30 points."] = "Extrae cada nodo de Oro (155, verde, raro), Mitril (175, verde), Veraplata (230, naranja) y Torio pequeño (245, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 275. Desde aquí fundir no da puntos (las fundiciones superiores son grises en cuanto las aprendes): funde para fabricar o vender, o vende el mineral. Misiones de aquí que requieren {skill:186}: Bálsamo mediante {skill:186} (nivel 55, {npc:9528}; Alianza) y Bálsamo mediante {skill:186} (nivel 55, {npc:9529}; Horda). Nivel de la zona: 48-55. Cuenta con unos 50 nodos para estos 30 puntos.",
-	["Mithril, Small Thorium"] = "Mitril, Torio pequeño",
 	["Small Thorium, Truesilver"] = "Torio pequeño, Veraplata",
+	["Mithril, Small Thorium"] = "Mitril, Torio pequeño",
 
-	-- Step 30: Small Thorium & Rich Thorium: Winterspring (275-300)
-	-- {zone:1452} Winterspring
-	["Small Thorium & Rich Thorium: {zone:1452} (275-300)"] = "Filón de torio pequeño y filón de torio enriquecido: {zone:1452} (275-300)",
+	-- Step 30: Small Thorium & Rich Thorium: Eastern Plaguelands (275-300)
+	-- {zone:1423} Eastern Plaguelands
+	["Small Thorium & Rich Thorium: {zone:1423} (275-300)"] = "",
 	-- {skill:186} Mining
-	["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 55-60. Expect about 40 nodes for these 25 points."] = "Extrae cada nodo de Veraplata (230, amarillo), Torio pequeño (245, amarillo) y Torio enriquecido (275, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 300. Desde aquí fundir no da puntos (las fundiciones superiores son grises en cuanto las aprendes): funde para fabricar o vender, o vende el mineral. Nivel de la zona: 55-60. Cuenta con unos 40 nodos para estos 25 puntos.",
+	["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 53-60. Expect about 30 nodes for these 25 points."] = "",
 	["Rich Thorium, Small Thorium"] = "Torio enriquecido, Torio pequeño",
-	["Rich Thorium, Truesilver"] = "Torio enriquecido, Veraplata",
-	["Rich Thorium"] = "Torio enriquecido",
-	["Small Thorium, Rich Thorium"] = "Torio pequeño, Torio enriquecido",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} (character level 5); the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it."] = "Cualquier instructor de {skill:186} de tu facción enseña {skill:186} de aprendiz (nivel de personaje 5); la flecha elige el más cercano. Compra un {item:2901} a un proveedor de mercancías o general: guárdalo en las bolsas, no puedes extraer sin ella.",
@@ -214,6 +211,7 @@ return {
 	-- ["Mine every Tin (65, green), Silver (75, green), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 18-30."] = "Extrae cada nodo de estaño (65, verde), plata (75, verde), hierro (125, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 155. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 18-30.",
 	-- ["Mine every {object:147516} (230, yellow), Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 50-58."] = "Extrae cada nodo de {object:147516} (230, amarillo), veraplata (230, amarillo), filón pequeño de torio (245, amarillo), filón de torio enriquecido (275, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 300. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 50-58.",
 	-- ["Silver, Tin"] = "Plata, estaño",
+	-- ["Small Thorium & Rich Thorium: {zone:1452} (275-300)"] = "Filón de torio pequeño y filón de torio enriquecido: {zone:1452} (275-300)",
 	-- ["Tin & Silver: {zone:1413} (65-125)"] = "Estaño y plata: {zone:1413} (65-125)",
 	-- ["Tin & Silver: {zone:1433} (65-125)"] = "Estaño y plata: {zone:1433} (65-125)",
 	-- ["Tin & Silver: {zone:1439} (65-125)"] = "Estaño y plata: {zone:1439} (65-125)",
@@ -222,4 +220,9 @@ return {
 	-- ["Truesilver, {object:147516}"] = "Veraplata, {object:147516}",
 	-- ["{object:147516}, Gold"] = "{object:147516}, oro",
 	-- ["{object:147516}, Rich Thorium"] = "{object:147516}, filón de torio enriquecido",
+	-- ["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "Extrae cada nodo de Oro (155, verde), Mitril (175, verde), {object:147516} (230, naranja) y Veraplata (230, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 245. Desde aquí fundir no da puntos (las fundiciones superiores son grises en cuanto las aprendes): funde para fabricar o vender, o vende el mineral. {item:11099} solo se funde en {object:174824} de {area:1584} (8 minerales por barra). Nivel de la zona: 43-50. Cuenta con unos 40 nodos para estos 15 puntos.",
+	-- ["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 55-60. Expect about 40 nodes for these 25 points."] = "Extrae cada nodo de Veraplata (230, amarillo), Torio pequeño (245, amarillo) y Torio enriquecido (275, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 300. Desde aquí fundir no da puntos (las fundiciones superiores son grises en cuanto las aprendes): funde para fabricar o vender, o vende el mineral. Nivel de la zona: 55-60. Cuenta con unos 40 nodos para estos 25 puntos.",
+	-- ["Rich Thorium, Truesilver"] = "Torio enriquecido, Veraplata",
+	-- ["Rich Thorium"] = "Torio enriquecido",
+	-- ["Small Thorium, Rich Thorium"] = "Torio pequeño, Torio enriquecido",
 }

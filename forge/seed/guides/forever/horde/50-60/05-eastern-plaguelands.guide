@@ -1,7 +1,7 @@
 guide forever/horde/50-60/05-eastern-plaguelands
-title Eastern Plaguelands, Winterspring & Tanaris
+title Western & Eastern Plaguelands, Felwood & Winterspring
 faction Horde
-levels 56-58
+levels 55-56
 zone Eastern Plaguelands
 next forever/50-60/mount-hyjal
 # Built from the playthrough simulator's consensus route (Horde, visits
@@ -180,7 +180,8 @@ step Kernda
 step Rabine Saturna
   zone Moonglade
   tip Go through Timbermaw Hold and take the Moonglade branch of the tunnel. Rabine is in Nighthaven.
-  accept 5527
+  tip Rabine offers A Reliquary of Purity only after you have been inside Dire Maul once: if he doesn't offer it, carry on without it.
+  accept 5527 optional
   turnin 1123
   accept 1124
   note Both quests lead to Silithus: keep them.
@@ -230,6 +231,8 @@ step Marvon Rivetseeker
 # ---------------------------------------------------------------- On to Silithus
 
 step On to Silithus
+# Older notes from the export, kept for its history; where they differ from the steps above (Tirion's hunts are
+# handed in on this guide, the bind and hearth are no longer as described), the steps hold.
   zone Un'Goro Crater
   tip Fly to Marshal's Refuge, then ride south-west through Un'Goro to the pass into Silithus. The next guide opens at Valor's Rest, where the pass comes out.
   fly "Marshal's Refuge"

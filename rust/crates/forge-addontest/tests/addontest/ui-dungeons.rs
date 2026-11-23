@@ -787,7 +787,7 @@ fn a_finished_pick_up_guide_offers_the_hand_in_while_the_dungeons_quests_are_in_
 			"asked": ["wailing-caverns"],
 		})
 	);
-	assert_eq!(out[1]["primary"], "Choose a guide", "nothing in the log: the usual end");
+	assert_eq!(out[1]["primary"], false, "nothing in the log: the usual end, no next guide: only the Other guides link");
 }
 
 #[test]

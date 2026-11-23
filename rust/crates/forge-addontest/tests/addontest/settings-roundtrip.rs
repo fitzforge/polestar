@@ -144,14 +144,20 @@ function values(c)
 	end
 	if c.kind == "dropdown" or c.kind == "cards" or c.kind == "font" then
 		local out = {}
-		for _, ch in ipairs(choices(c)) do out[#out + 1] = ch.value end
+		-- A saved setup's card in the guide window's Presets (a look snapshot, UI/LayoutCard.lua) puts its keys back
+		-- and is never lit: no value the row reads back, so not one the walks write (ui_layout_card checks it).
+		for _, ch in ipairs(choices(c)) do
+			if not (type(ch.value) == "string" and ch.value:find("^snapshot:")) then out[#out + 1] = ch.value end
+		end
 		return out
 	end
 	if c.kind == "color" then return { { 1, 0, 0, 1 }, { 0, 1, 0, 0.5 }, { 0.2, 0.4, 0.6 } } end
 	return {}
 end
--- The game's image sharpening is the game's own CVar, which no reset writes and the game keeps (settings-game.rs).
-GAME = { ["Quality of Life:Increase game image quality"] = true }
+-- Kept outside the settings, so a reload of PolestarDB alone does not bring them back: the game's image sharpening
+-- (the game's own CVar, which no reset writes and the game keeps, settings-game.rs) and the Language (#3643: its own
+-- saved variable, PolestarLanguage, read once at load; ui_options and locale_load check it across a reload).
+GAME = { ["Quality of Life:Increase game image quality"] = true, ["General:Language"] = true }
 "#;
 
 fn run_saved(saved: Option<String>, script: &str) -> Value {
@@ -196,7 +202,8 @@ fn every_control_reads_back_what_it_writes_and_keeps_it_through_a_reload() {
 		local keep = {}
 		for _, c in ipairs(list) do keep[idOf(c)] = { v = current(c) } end
 		emit({ n = #list, bad = bad, keep = "KEEP = " .. ser(keep), db = "PolestarDB = " .. ser(PolestarDB), char = "PolestarCharDB = " .. ser(PolestarCharDB) })"#);
-	assert!(first["n"].as_f64().unwrap() >= 600.0, "every setting and state of the window: {}", first["n"]);
+	// Each setting counts once, at its home: a reference to it elsewhere is no control of its own (574 at 0.4.0).
+	assert!(first["n"].as_f64().unwrap() >= 570.0, "every setting and state of the window: {}", first["n"]);
 	let bad = list(&first["bad"]);
 	assert!(bad.is_empty(), "{} controls do not read back what they write:\n{}", bad.len(), bad.join("\n"));
 	let saved = format!("{}\n{}\n{}", text(&first["db"]), text(&first["char"]), text(&first["keep"]));
@@ -214,7 +221,7 @@ fn every_control_reads_back_what_it_writes_and_keeps_it_through_a_reload() {
 		table.sort(bad)
 		emit({ n = n, bad = bad })"#,
 	);
-	assert!(again["n"].as_f64().unwrap() >= 600.0, "every control read after the reload: {}", again["n"]);
+	assert!(again["n"].as_f64().unwrap() >= 570.0, "every control read after the reload: {}", again["n"]);
 	let bad = list(&again["bad"]);
 	assert!(bad.is_empty(), "{} controls lose their value in a reload:\n{}", bad.len(), bad.join("\n"));
 }
@@ -430,11 +437,16 @@ fn a_child_and_a_row_s_detail_setting_are_off_while_the_switch_they_follow_is_of
 			if c.disabled then local ok, v = pcall(c.disabled); return ok and v and true or false end
 			return false
 		end
+		-- Children that work while their parent is off, and why.
+		local FREE_CHILD = {
+			["party.chatEcho"] = "it shows the loot lines too, which Tell my party when I loot an item sends on its own",
+			["party.chatOnlyNeeded"] = "it holds back the loot lines too, which Tell my party when I loot an item sends on its own",
+		}
 		local bad, children = {}, 0
 		for _, c in ipairs(O.AllControls()) do
 			local parent, owner = rawget(c, "psParent"), rawget(c, "psOwner")
 			-- A child follows the row before it; a toggle with no setting (Pause) has children that are its options.
-			if c.child and parent and parent.kind == "toggle" and parent.key then
+			if c.child and parent and parent.kind == "toggle" and parent.key and not FREE_CHILD[c.key] then
 				children = children + 1
 				local was = Polestar.Get(parent.key)
 				Polestar.Set(parent.key, false)
@@ -456,7 +468,8 @@ fn a_child_and_a_row_s_detail_setting_are_off_while_the_switch_they_follow_is_of
 }
 
 // The slash commands that set a setting or a character's state set the one the settings window shows: /polestar
-// arrow hide, show and reset (Guide > Arrow & routes), /polestar hide arrow (Keep the arrow when hidden), /polestar
+// arrow hide, show and reset (Guide > Arrow & routes), /polestar hide arrow (Look > Guide window's Keep the arrow
+// when hidden), /polestar
 // pause on and off and /polestar resume (Pause), /polestar profile <name> (the footer's profile), each read back
 // through its row.
 #[test]
@@ -469,8 +482,8 @@ fn the_slash_commands_that_set_a_setting_set_what_its_row_shows() {
 		cmd("arrow show"); r.arrowShown = current(row("nav.arrow"))
 		Polestar.Set("nav.arrowPos", { point = "TOP", relPoint = "TOP", x = 10, y = -50 })
 		cmd("arrow reset"); r.arrowPlaced = Polestar.Get("nav.arrowPos") ~= nil
-		cmd("hide arrow"); r.keep = current(row("Guide:Keep the arrow when hidden"))
-		cmd("hide arrow"); r.keepAgain = current(row("Guide:Keep the arrow when hidden"))
+		cmd("hide arrow"); r.keep = current(row("Guide window:Keep the arrow when hidden"))
+		cmd("hide arrow"); r.keepAgain = current(row("Guide window:Keep the arrow when hidden"))
 		cmd("pause on"); r.paused = current(row("Guide:Pause"))
 		cmd("pause off"); r.unpaused = current(row("Guide:Pause"))
 		cmd("pause"); r.toggled = current(row("Guide:Pause"))
