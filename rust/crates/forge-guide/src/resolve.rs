@@ -1103,7 +1103,10 @@ fn nearest_first(data: &Data, map: &V, spots: Vec<V>, x: f64, y: f64) -> Vec<V> 
 /// The goal's other spawn areas stay as they were, and so does its point, unless its first open spawn area
 /// (the one the arrow starts with) went and the point lies more than RECORDED_MISS_YARDS outside the spots.
 /// Recorded spots outside the region that no place of the goal overlaps are alternatives: the objective is
-/// done there too.
+/// done there too. For a `collect` whose sources spawn on the map, only where one of them spawns within
+/// RECORDED_MISS_YARDS of the spot's edge: an item ticked far from every place it comes from was in the bags
+/// already (looted before the quest was taken, ticked where it was taken: the Razormane drops at Camp Taurajo,
+/// 1,500 yd north of the Razormane at Blackthorn Ridge, #3788), and the arrow and While-here sent players there.
 ///
 /// With none at its places, the goal stays as it is while the data places its target there and knows a place
 /// players do it at too (a spawn of one of `known` in a recorded spot: the sources the compiler placed the
@@ -1237,8 +1240,9 @@ fn recorded_areas(data: &Data, goal: &V, sources: &[V], known: &[V], map: &V, f:
 	open.extend(still);
 	let mut alts: Vec<V> = rest.iter().map(|s| area(s, true)).collect();
 	alts.extend(other);
+	let sourced = |r: &Spot| goal.get("t").as_str() != Some("collect") || pts.is_empty() || pts.iter().any(|p| distance(data, map, px(p), py(p), r.x, r.y) <= radius(r) + RECORDED_MISS_YARDS);
 	for (i, r) in rec.iter().enumerate() {
-		if !region.contains(&i) && !had.iter().any(|s| overlaps(r, s)) {
+		if !region.contains(&i) && !had.iter().any(|s| overlaps(r, s)) && sourced(r) {
 			alts.push(area(r, true));
 		}
 	}
