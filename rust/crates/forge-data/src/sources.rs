@@ -736,6 +736,14 @@ mod tests {
 		assert_eq!(all.len(), without.optional.len());
 	}
 
+	// #3572 (creazy231): a pack's CI ran `forge data build` on a fresh runner, fetched SpellName but not
+	// SkillLineAbility, and its lint stopped: data listing SpellName needs both beside it.
+	#[test]
+	fn a_data_build_without_a_client_fetches_skilllineability_with_spellname_3572() {
+		let set = forever_tables(true, true, false);
+		assert!(set.optional.contains(&"SpellName") && set.optional.contains(&"SkillLineAbility"), "{:?}", set.optional);
+	}
+
 	#[test]
 	fn offline_table_is_an_error_naming_the_file() {
 		let d = std::env::temp_dir().join(format!("forge-sources-{}", std::process::id()));
