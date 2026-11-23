@@ -330,7 +330,6 @@ return {
 	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "Para o norte até {area:383}: {quest:876} leva às harpias Asabruxa nas colinas a oeste.\nCuidado: o caminho passa por Emboscadores de Harpia furtivos e uma harpia de elite que patrulha.",
 	-- {quest:865} Raptor Horns · {npc:3682} Vrang Wildgore
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	-- was: ["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions"] = "{quest:865}, se ainda estiver aberta: Garrafoices Helióscamo rondam no meio dos leões"
 	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions below {npc:3682}'s camp"] = "{quest:865}, se ainda estiver aberta: os Garrafoice Helióscamo rondam entre os leões abaixo do acampamento de {npc:3682}",
 
 	-- Step 69: Walton

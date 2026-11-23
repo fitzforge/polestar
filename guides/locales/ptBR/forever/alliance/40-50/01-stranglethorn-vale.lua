@@ -284,7 +284,6 @@ return {
 	-- {item:216616} Compound Cage Key
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}, dos Subchefes (ou dos Elites)",
 	-- {item:216617} Kurzen Fighter's Uniform
-	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}, no caixote de suprimentos"
 	["{item:216617}, in the supply crate deep in the cave"] = "{item:216617}, no caixote de suprimentos no fundo da caverna",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}, de volta à jaula dele, na saída",
