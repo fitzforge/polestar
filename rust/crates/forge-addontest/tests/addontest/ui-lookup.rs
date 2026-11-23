@@ -795,16 +795,24 @@ fn lookup_filter_drawer_clears_every_displayed_group_in_one_update() {
 		navLabel("Consumable"):Click()
 		assert(LK.root.Visibility.Label:GetText() == "Filters (9)", LK.root.Visibility.Label:GetText())
 		local drawer = openDrawer()
-		assert(drawer.Clear:IsVisible() and drawer.Clear.Label:GetText() == "Clear all")
-		local point, anchor, edge, _, y = drawer.Clear:GetPoint(1)
-		assert(drawer.Clear:GetParent() == drawer and point == "TOPRIGHT" and anchor == drawer.Status and edge == "BOTTOMRIGHT" and y < 0,
-			"Clear all sits below the availability switches")
+		local clear = drawer.Clear
+		assert(clear:IsVisible() and clear.Label:GetText() == "Clear all filters", "the reset button shows its full label")
+		assert(clear.psTextButton and not (clear.psGhost or clear.psPrimary or clear.psDanger), "the reset button uses the default filled style")
+		assert(not clear.psFixedWidth and clear:GetWidth() > clear.Label:GetUnboundedStringWidth() and not clear.Label:IsTruncated(),
+			"the reset button grows to fit its label")
+		GameTooltip:Hide()
+		stub.RunScript(clear, "OnEnter")
+		assert(not GameTooltip:IsShown(), "the reset button has no tooltip")
+		stub.RunScript(clear, "OnLeave")
+		local point, anchor, edge, x, y = clear:GetPoint(1)
+		assert(clear:GetParent() == drawer and point == "TOPRIGHT" and anchor == drawer.Status and edge == "BOTTOMRIGHT" and x == 0 and y < 0,
+			"the reset button sits right-aligned below the availability switches")
 		local query, calls = Polestar.Search.Query, 0
 		Polestar.Search.Query = function(...) calls = calls + 1; return query(...) end
 		type_("trial tunic")
-		drawer.Clear:Click()
-		assert(calls == 1 and drawer:IsShown() and LK.root.Visibility.Label:GetText() == "Filters", "Clear all queried " .. calls .. " times")
-		assert(LK.Kind() == "item" and PolestarPicker.Title:GetText() == "Items" and LK.Selected().id == 72, "Clear all returns to Items root")
+		clear:Click()
+		assert(calls == 1 and drawer:IsShown() and LK.root.Visibility.Label:GetText() == "Filters", "Clear all filters queried " .. calls .. " times")
+		assert(LK.Kind() == "item" and PolestarPicker.Title:GetText() == "Items" and LK.Selected().id == 72, "Clear all filters returns to Items root")
 		assert(next(LK.ItemFilters()) == nil and not Polestar.Get("lookup.hideRetired") and not Polestar.Get("lookup.hideNoSource"), "all filters reset")
 		assert(LK.Query() == "trial tunic" and LK.Order() == "az" and char.ui.recentLookups == history and #history == 1, "query, order and history are retained")
 		stub.advance(0.3)

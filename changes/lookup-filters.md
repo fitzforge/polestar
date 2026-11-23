@@ -15,5 +15,5 @@ section: players
   details show rarity, levels, slot, subtype, class restrictions and stats
   above acquisition sources. Once the game loads the item, the details also
   show tooltip lines such as binding, weapon damage, effects and set bonuses.
-  Item filters are saved per character. Use Clear all in the Filters drawer
-  to reset the active filters.
+  Item filters are saved per character. Use Clear all filters below
+  Availability to reset the active filters.
