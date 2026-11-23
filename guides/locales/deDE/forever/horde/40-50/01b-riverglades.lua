@@ -165,7 +165,7 @@ return {
 	["South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with {npc:263190}'s spears. The Alliance trains its scouts and priests at a camp on the far bank. {npc:257079}, the Alliance elite, rides the road just east of the camp: pull the scouts and priests away from it.\nCareful: {npc:263380}, an elite (level 42), hunts along this river: if he comes your way, back off and let him pass."] = "Südwestlich von Rog'mar fließt der Fluss zwischen den Höfen: Spieße die Süßwasserkrokilisken mit {npc:263190}s Speeren auf. Die Allianz bildet in einem Lager am anderen Ufer ihre Späher und Priester aus. {npc:257079}, der Allianz-Elite, reitet die Straße direkt östlich des Lagers ab: Zieh die Späher und Priester von ihr weg.\nVorsicht: {npc:263380}, ein Elite (Stufe 42), jagt entlang dieses Flusses: Wenn er in deine Richtung kommt, zieh dich zurück und lass ihn vorbeiziehen.",
 	-- {npc:263190} Tan'jani
 	-- plural, as words: Freshwater Crocolisks = {npc:259046} Freshwater Crocolisk
-	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "",
+	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "die Speere von {npc:263190}, auf den Süßwasserkrokilisken im Fluss",
 
 	-- Step 39: Tran'gul
 	-- {npc:256710} Tran'gul · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
@@ -264,7 +264,7 @@ return {
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
 	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "",
 	-- {npc:258048} Jom-jom
-	["{npc:258048}, in the cave"] = "",
+	["{npc:258048}, in the cave"] = "{npc:258048}, in der Höhle",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
 	["help {npc:258048} reach {area:16726}"] = "hilf {npc:258048}, {area:16726} zu erreichen",
 
