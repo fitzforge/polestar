@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Sergeant Yohwa
 	-- {area:99} Rebel Camp
-	["At the {area:99} in northern Stranglethorn."] = "En {area:99}, en el norte de Stranglethorn.",
+	["At the {area:99} in northern Stranglethorn."] = "En {area:99}, en el norte de Tuercespina.",
 
 	-- Step 2: Kurzen's Compound
 	-- {area:99} Rebel Camp · {item:2634} Venom Fern Extract · {object:263} Kurzen Supplies
