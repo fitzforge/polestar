@@ -2228,7 +2228,7 @@ fn lookup_most_draws_all_buckets_and_pages_in_preview_order_with_an_independent_
 }
 
 #[test]
-fn lookup_query_help_exact_ids_and_most_order_lifetime() {
+fn lookup_exact_ids_and_most_order_lifetime() {
 	let out = run_packed_lookup(
 		&json!({ "items": {
 			"19019": { "name": "Trial Blade", "levelsSource": "client", "stats": { "36": 0 } },
@@ -2237,10 +2237,7 @@ fn lookup_query_help_exact_ids_and_most_order_lifetime() {
 		r##"
 		UI.ShowLookup({ query = "19019" })
 		LK.SetKind("item")
-		local box, order = UI.Picker.search, LK.root.SearchOrder
-		stub.RunScript(box, "OnEnter")
-		assert(GameTooltip:GetOwner() == box)
-		assert(GameTooltip.lines[1] == "Search by name, item ID or stat. Try #19019 or haste.")
+		local order = LK.root.SearchOrder
 		assert(LK.shown.rows == 2 and LK.Selected().id == 19019)
 		local function query(q) type_(q); stub.advance(0.3) end
 		query("#19019")
@@ -2274,8 +2271,6 @@ fn lookup_query_help_exact_ids_and_most_order_lifetime() {
 		Polestar.Widgets.HideMenu()
 		LK.SetKind("all")
 		assert(not order:IsVisible())
-		UI.Picker.ShowSection("Guides")
-		assert(box.psTip == nil)
 		emit(true)
 		"##,
 	);

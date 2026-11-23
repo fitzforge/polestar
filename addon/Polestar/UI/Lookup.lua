@@ -3251,7 +3251,6 @@ if UI.RegisterSection then
 		nav = LK.Nav, onNav = selectNav,
 		search = onSearch, enter = onEnter, step = LK.Step, keyboard = sectionKeyboard,
 		searchPlaceholder = { L["Search items, mounts, NPCs"], L["Search items, mounts"], L["Search"] },
-		searchTip = L["Search by name, item ID or stat. Try #19019 or haste."],
 	})
 end
 
