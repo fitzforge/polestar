@@ -16784,7 +16784,7 @@
 				"objective": 1,
 				"guide": "forever/horde/50-60/02-felwood"
 			},
-			"tip": "Fill Cuely's four vials at the tide pools on the shore, from Southridge Beach north up the coast; Spitelash naga patrol between them.",
+			"tip": "Open Cuely's Box of Empty Vials in your bags for the four labelled vials. The tide pools cannot be clicked: stand in each pool and use its own vial from your bags, from Southridge Beach north up the coast; Spitelash naga patrol between them. No vials? Abandon the quest and take it again from Chemist Cuely in the Undercity.",
 			"note": "#3211: Seeping Corruption's step pointed at the Ruins of Eldarath (35.0,55.0) with a bare complete, so the arrow never led to the four tide pools on the shore east of them. Each vial is a goal at its own pool (the First to Fourth Tide Pool objects, 152598, 152604, 152605, 152606), south to north: 48.0,60.6 on Southridge Beach, then 48.0,51.2, 48.7,48.4 and 47.4,46.3; the seed's copy of the step (50-60/04) carries the same lines.",
 			"source": [
 				{
@@ -16793,6 +16793,95 @@
 				}
 			],
 			"issue": 3211
+		},
+		{
+			"id": "3707-cuely-box-of-empty-vials",
+			"faction": "Horde",
+			"at": {
+				"quest": 3568,
+				"goal": "accept"
+			},
+			"goalNote": "Chemist Cuely, the Apothecarium: a Box of Empty Vials comes with the quest. Keep four bag slots free and open it for Empty Vials Labeled #1 to #4, filled in Azshara later",
+			"note": "#3707 asked how to get the filled vials; an in-game check (2026-11-23, level 54 Horde hunter at the Second Tide Pool) found no vials in the bags, so nothing could be filled. The quest provides a Box of Empty Vials (10695) that holds the four Empty Vials Labeled #1-#4 (10687-10690); the accept never said so.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "2026-11-23: the Seeping Corruption step at 47.9,51.1 with no Empty Vials in the bags; the quest page (warcraft.wiki.gg, Seeping Corruption (1)) lists the Box of Empty Vials as provided"
+				}
+			],
+			"issue": 3707
+		},
+		{
+			"id": "3707-cuely-vial-1-use-at-pool",
+			"faction": "Horde",
+			"at": {
+				"quest": 3568,
+				"goal": "collect",
+				"item": 10691
+			},
+			"goalNote": "Stand in the First Tide Pool (48.0,60.6 on Southridge Beach) and use Empty Vial Labeled #1 from your bags: the pool cannot be clicked",
+			"note": "The tide pools are spell-focus objects (type 8: the First to Fourth Tide Pool, 152598, 152604-152606): the vial fills by using Empty Vial Labeled #1 (10687) at the pool, the cast the 3211 record's recording names. The collect line read as if the pool were clicked.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 3568: the vials fill on casts 12802-12808 at the pools"
+				}
+			],
+			"issue": 3707
+		},
+		{
+			"id": "3707-cuely-vial-2-use-at-pool",
+			"faction": "Horde",
+			"at": {
+				"quest": 3568,
+				"goal": "collect",
+				"item": 10692
+			},
+			"goalNote": "Stand in the Second Tide Pool (48.0,51.2, north along the shore) and use Empty Vial Labeled #2 from your bags: the pool cannot be clicked",
+			"note": "The tide pools are spell-focus objects (type 8: the First to Fourth Tide Pool, 152598, 152604-152606): the vial fills by using Empty Vial Labeled #2 (10688) at the pool, the cast the 3211 record's recording names. The collect line read as if the pool were clicked.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 3568: the vials fill on casts 12802-12808 at the pools"
+				}
+			],
+			"issue": 3707
+		},
+		{
+			"id": "3707-cuely-vial-3-use-at-pool",
+			"faction": "Horde",
+			"at": {
+				"quest": 3568,
+				"goal": "collect",
+				"item": 10693
+			},
+			"goalNote": "Stand in the Third Tide Pool (48.7,48.4) and use Empty Vial Labeled #3 from your bags: the pool cannot be clicked",
+			"note": "The tide pools are spell-focus objects (type 8: the First to Fourth Tide Pool, 152598, 152604-152606): the vial fills by using Empty Vial Labeled #3 (10689) at the pool, the cast the 3211 record's recording names. The collect line read as if the pool were clicked.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 3568: the vials fill on casts 12802-12808 at the pools"
+				}
+			],
+			"issue": 3707
+		},
+		{
+			"id": "3707-cuely-vial-4-use-at-pool",
+			"faction": "Horde",
+			"at": {
+				"quest": 3568,
+				"goal": "collect",
+				"item": 10694
+			},
+			"goalNote": "Stand in the Fourth Tide Pool (47.4,46.3) and use Empty Vial Labeled #4 from your bags: the pool cannot be clicked",
+			"note": "The tide pools are spell-focus objects (type 8: the First to Fourth Tide Pool, 152598, 152604-152606): the vial fills by using Empty Vial Labeled #4 (10690) at the pool, the cast the 3211 record's recording names. The collect line read as if the pool were clicked.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 3568: the vials fill on casts 12802-12808 at the pools"
+				}
+			],
+			"issue": 3707
 		},
 		{
 			"id": "3172-lamora-loot-below-deck",
