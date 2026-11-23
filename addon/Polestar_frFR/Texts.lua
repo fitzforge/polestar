@@ -5226,6 +5226,15 @@ t.guides["forever/collectibles/mounts/horde/pack-kodo"] = (function() return {
 		["The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier."] = "Les rênes demandent le niveau 60 et la monte Compagnon pour être utilisées (client Forever) ; vous pouvez les acheter avant.",
 		["{faction:2587} camp"] = "Camp de {faction:2587}",
 } end)()
+t.guides["forever/collectibles/mounts/horde/paladin-warhorse"] = (function() return {
+		["At 40 {npc:260093}, the paladin trainer in the {zone:1458}, sends you to {npc:246378} at {area:16602}. Train your new spells with him while you are there. Already at {area:16602}? Skip this step: {npc:246378} gives you the mount quest without it."] = "Au niveau 40, {npc:260093}, le maître des paladins de {zone:1458}, vous envoie voir {npc:246378} à {area:16602}. Apprenez vos nouveaux sorts auprès de lui tant que vous y êtes. Déjà à {area:16602} ? Passez cette étape : {npc:246378} vous donne la quête de la monture sans elle.",
+		["Paladin Warhorse (Forsaken)"] = "Cheval de guerre de paladin (Réprouvés)",
+		["Your first mount at 40, summoned at will: a Forsaken paladin buys no horse and pays no riding trainer."] = "Votre première monture au niveau 40, invoquée à volonté : un paladin réprouvé n'achète pas de cheval et ne paie aucun maître de manège.",
+		["{area:16602} stands on the bluffs in western Tirisfal, north-west of the {area:156}: leave the {zone:1458} and follow the road west past {area:159}. {npc:246378} is inside the keep, upstairs."] = "{area:16602} se dresse sur les falaises de l'ouest de Tirisfal, au nord-ouest de {area:156} : quittez {zone:1458} et suivez la route vers l'ouest au-delà de {area:159}. {npc:246378} se trouve dans le donjon, à l'étage.",
+		["{area:16602}'s south gate"] = "Porte sud de {area:16602}",
+		["{npc:246378}, upstairs in {area:16602}, offers {quest:94971} at 40: accept it and hand it straight back. It teaches you {spell:1279399} and Apprentice Riding together, so you need no horse and no riding trainer."] = "{npc:246378}, à l'étage de {area:16602}, propose {quest:94971} au niveau 40 : acceptez-la et rendez-la aussitôt. Elle vous apprend {spell:1279399} et l'équitation en même temps : ni cheval ni maître de manège nécessaires.",
+		["{npc:260093}: your level 40 spells"] = "{npc:260093} : vos sorts du niveau 40",
+} end)()
 t.guides["forever/collectibles/mounts/horde/raptor"] = (function() return {
 		["Any Horde race can buy these raptors, but riding one also takes {spell:10861}, which only Trolls get with {skill:762}. {npc:7953} teaches it to other races once they are Exalted with {faction:530} (the Darkspear Trolls Reputation guide shows the way). Until then, don't buy a raptor for this character."] = "Toute race de la Horde peut acheter ces raptors, mais en monter un demande aussi {spell:10861}, que seuls les Trolls reçoivent avec la {skill:762}. {npc:7953} l'enseigne aux autres races une fois Exaltées auprès des {faction:530} (le guide de réputation des Trolls Sombrelance montre le chemin). D'ici là, n'achetez pas de raptor pour ce personnage.",
 		["Learn to ride"] = "Apprendre la monte",
