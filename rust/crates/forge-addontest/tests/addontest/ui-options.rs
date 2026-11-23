@@ -1550,7 +1550,7 @@ fn polestar_ask_opens_the_settings_with_the_question_in_the_box_and_the_dropdown
 }
 
 // The box says it takes questions: the longest wording that fits shows ("Ask or search: how do I hide the arrow?"),
-// a shorter one in a narrow window.
+// a shorter one in a narrow window, "Search" at the least (#3425: the smallest window in German).
 #[test]
 fn the_search_box_placeholder_invites_a_question() {
 	let out = run_mods(
@@ -1560,7 +1560,7 @@ fn the_search_box_placeholder_invites_a_question() {
 		local box = PolestarOptions.Search
 		emit({ text = box.Placeholder:GetText(), list = box.psPlaceholders })"#,
 	);
-	assert_eq!(out["list"], json!(["Ask or search: how do I hide the arrow?", "Ask or search settings", "Search settings"]));
+	assert_eq!(out["list"], json!(["Ask or search: how do I hide the arrow?", "Ask or search settings", "Search settings", "Search"]));
 	assert!(includes(&out["list"], out["text"].as_str().unwrap()), "{}", out["text"]);
 }
 
