@@ -2188,6 +2188,7 @@ L["Leaves out grey quests, and quests behind you that pay less than full XP when
 -- L["%s: /reload after picking it."] = ""
 -- L["The step card, Up next under it."] = ""
 -- L["Alpha"] = ""
+-- L["The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "Sélectionné pour vous : copiez avec Ctrl+C (Cmd+C sur Mac), puis appuyez sur Échap."

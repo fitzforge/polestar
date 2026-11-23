@@ -2611,6 +2611,7 @@ L["Leaves out grey quests, and quests behind you that pay less than full XP when
 -- L["%s: /reload after picking it."] = ""
 -- L["The step card, Up next under it."] = ""
 -- L["Alpha"] = ""
+-- L["The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup."] = ""
 
 -- Nav/Transit.lua
 L["top"] = "arriba"

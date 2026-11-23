@@ -12,8 +12,10 @@
 -- what is showing and closes the card; the ✕ or Escape put the snapshot
 -- back, so nothing changes by accident. Atlas writes only its own key
 -- (ui.layout); a tab style only guideWindow.tabStyle. The credit line names
--- the author. A fresh install never sees it: Install's look step offers the
--- same choice (UI/Welcome.lua). Per account: PolestarDB.layoutCardSeen.
+-- the author. One line says what the arrow follows and where a quest of the
+-- player's own is found (#3701), as Install's first page does. A fresh install
+-- never sees the card: Install's look step offers the same choice
+-- (UI/Welcome.lua). Per account: PolestarDB.layoutCardSeen.
 -- It waits as What's new does: a few seconds after login, out of combat,
 -- cinematics and instances, after the welcome, the route choice and What's
 -- new itself.
@@ -308,6 +310,14 @@ local function build()
 	F.TabsOff:SetPoint("LEFT", F.TabsLabel, "RIGHT", 10, 0)
 	F.TabsOff:SetText(L["Tabs are off in Settings > Guide window > Parts."])
 	y = y + 20 + 24 + 6 + 24 + 18
+	-- What the arrow points at (#3701): the route's step, not any quest in the log.
+	F.Arrow = W.Text(F, "small", "textDim")
+	F.Arrow:SetPoint("TOPLEFT", F, "TOPLEFT", 24, -y)
+	F.Arrow:SetWidth(WIDTH - 48)
+	F.Arrow:SetWordWrap(true)
+	F.Arrow:SetJustifyH("LEFT")
+	F.Arrow:SetText(L["The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup."])
+	y = y + math.floor(F.Arrow:GetStringHeight() + 0.5) + 10
 	F.Saved = W.Text(F, "small", "textDim")
 	F.Saved:SetPoint("TOPLEFT", F, "TOPLEFT", 24, -y)
 	F.Saved:SetWidth(WIDTH - 48)
@@ -381,7 +391,7 @@ function LC.State()
 	local styles = {}
 	for _, b in ipairs(F.Styles) do styles[#styles + 1] = { b.psStyle, b.psPrimary and true or false } end
 	return { shown = F:IsShown(), title = F.Title:GetText(), current = F.Current.psPrimary and true or false, atlas = F.Atlas.psPrimary and true or false,
-		styles = styles, saved = F.Saved:GetText(), credit = F.Credit:GetText(), noWindow = F.NoWindow:IsShown(), snapshot = snapshot and snapshot.name }
+		styles = styles, saved = F.Saved:GetText(), arrow = F.Arrow:GetText(), credit = F.Credit:GetText(), noWindow = F.NoWindow:IsShown(), snapshot = snapshot and snapshot.name }
 end
 
 local function try()

@@ -67,6 +67,7 @@ fn after_an_update_it_shows_once_the_buttons_switch_the_real_window_live_and_kee
 	assert_eq!(opened["styles"], json!([["underline", false], ["switcher", false], ["edge", true], ["strip", false]]), "the tab style showing is marked");
 	assert_eq!(opened["credit"], "Atlas layout and tab styles by TTik3r");
 	assert_eq!(opened["saved"], "Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets.");
+	assert_eq!(opened["arrow"], "The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup.", "what the arrow follows (#3701)");
 	assert!(out["snapName"].as_str().unwrap().starts_with("Before Atlas ("), "{}", out["snapName"]);
 	assert_eq!(out["snapLayout"], false, "the snapshot holds Polestar's own layout");
 	assert_eq!(json!([out["atlas"]["layout"], out["atlas"]["lit"]]), json!(["atlas", true]), "Atlas on the real window");
