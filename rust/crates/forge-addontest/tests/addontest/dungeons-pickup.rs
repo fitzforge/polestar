@@ -1342,12 +1342,13 @@ for _, t in ipairs(plan.take) do
 	if t.quest.id == 90502 then for _, r in ipairs(t.pre) do pre[#pre + 1] = r.id end end
 end
 local def = D.PickupGuide("{KEY}")
-local steps = {}
+local steps, from = {}, false
 for _, s in ipairs(def and def.steps or {}) do
 	local verbs = {}
 	for _, g in ipairs(s.goals) do
 		if (g.quest and g.quest >= 90500) or g.item == 90520 then
 			verbs[#verbs + 1] = g.t .. ":" .. (g.quest or g.item) .. (g.npcName and ("@" .. g.npcName) or "")
+			if g.t == "collect" then from = g.from or false end
 		end
 	end
 	if #verbs > 0 then steps[#steps + 1] = table.concat(verbs, " ") end
@@ -1355,7 +1356,7 @@ end
 local pt, label, first = D.GiverTarget("{KEY}", 90502)
 local own, ownLabel = D.GiverTarget("{KEY}", 90501)
 emit({ take = take, pre = pre, steps = steps, target = pt and { pt.map, pt.x, pt.y, label, first } or false,
-	own = own and { own.map, own.x, own.y, ownLabel } or false, seconds = routeSeconds(def) })"#);
+	own = own and { own.map, own.x, own.y, ownLabel } or false, seconds = routeSeconds(def), from = from })"#);
 	let opts = || Opts { done: vec![1098], ..Default::default() };
 
 	let own = pack_of(&c, &i);
@@ -1370,6 +1371,8 @@ emit({ take = take, pre = pre, steps = steps, target = pt and { pt.map, pt.x, pt
 	);
 	assert_eq!(out["target"], json!([1421, 46, 46, "Tide Priestess", "Allegiance A"]), "B's pin: the mob that drops the note A starts from");
 	assert_eq!(out["own"], json!([1421, 46, 46, "Tide Priestess"]), "A's pin: the same mob");
+	// Kayloe1 (#3718): the step names the mob to kill for the note ("Kill Tide Priestess for Damp Note").
+	assert_eq!(out["from"], json!("Tide Priestess"), "the collect names its dropper");
 	drop(own);
 
 	// B not open before level 40: A is a take of its own, collected and taken at the mob.
