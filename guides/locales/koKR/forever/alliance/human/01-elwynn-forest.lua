@@ -10,7 +10,7 @@ return {
 	-- {npc:823} Deputy Willem · {npc:197} Marshal McBride · {npc:951} Brother Paxton · {npc:247229} Daniel · {npc:196} Eagan Peltskinner
 	["You start in front of the Abbey. {npc:823} stands at the foot of the steps, {npc:197} inside the hall, {npc:951} and {npc:247229} in the library to the right, {npc:196} outside the north-west corner."] = "대성당 앞에서 시작합니다. {npc:823}은(는) 계단 아래에, {npc:197}은(는) 홀 안에, {npc:951}와(과) {npc:247229}은(는) 오른쪽 도서관에, {npc:196}은(는) 북서쪽 모퉁이 밖에 있습니다.",
 	-- {npc:197} Marshal McBride
-	["{npc:197}, inside"] = "",
+	["{npc:197}, inside"] = "{npc:197}, 내부",
 	-- {npc:459} Drusilla La Salle
 	["{npc:459}, outside the Abbey"] = "{npc:459}, 대성당 밖",
 
@@ -30,13 +30,13 @@ return {
 	["{npc:6} dig in the vineyards north-east of the Abbey. Now and then one drops a {quest:91741}: right-click it."] = "{npc:6}이(가) 대성당 북동쪽 포도밭을 파헤치고 있습니다. 가끔 {quest:91741}을(를) 떨어뜨리니 오른쪽 클릭하십시오.",
 
 	-- Step 5: Northshire Abbey
-	["Inside"] = "",
+	["Inside"] = "내부",
 	-- {npc:247229} Daniel
 	["{npc:247229}, in the library; inside"] = "{npc:247229}, 도서관, 안",
 
 	-- Step 6: Echo Ridge Mine: kill these as you meet them
 	-- {area:34} Echo Ridge Mine
-	["{area:34}: kill these as you meet them"] = "",
+	["{area:34}: kill these as you meet them"] = "{area:34}: 만나는 대로 처치하세요",
 	-- {object:83763} Stolen Books · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
 	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}.\nNow and then a kobold here drops a {quest:91741}: right-click it and hand it to {npc:951} on your next Abbey stop."] = "",
@@ -116,9 +116,9 @@ return {
 	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle
 	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "",
 	-- {npc:295} Innkeeper Farley
-	["{npc:295}, inside"] = "",
+	["{npc:295}, inside"] = "{npc:295}, 내부",
 	-- {npc:253} William Pestle
-	["{npc:253}, inside"] = "",
+	["{npc:253}, inside"] = "{npc:253}, 내부",
 	-- {npc:377} Priestess Josetta
 	["{npc:377}, upstairs"] = "{npc:377}, 위층",
 	-- {npc:377} Priestess Josetta · {npc:12423} Guard Roberts · {area:18} Crystal Lake
@@ -189,7 +189,7 @@ return {
 
 	-- Step 35: Crystal Lake: kill these as you meet them
 	-- {area:18} Crystal Lake
-	["{area:18}: kill these as you meet them"] = "",
+	["{area:18}: kill these as you meet them"] = "{area:18}: 만나는 대로 처치하세요",
 	-- plural, as words: Murloc Streamrunners = {npc:735} Murloc Streamrunner · Junk Piles = {object:694785} Junk Pile
 	["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp. Careful: the murlocs stand close together, so a fight easily pulls two or three at once: pull them one at a time from the edge of the camp, and don't chase one into the next group."] = "멀록과 멀록 길잡이가 동쪽 기슭을 차지하고 있으며, 잡동사니 더미는 그들의 야영지에 있습니다. 주의: 멀록들이 서로 가까이 붙어 있어 전투 중에 두세 마리가 한꺼번에 끌려오기 쉽습니다. 야영지 가장자리에서 한 마리씩 끌어내고, 쫓아가다 다음 무리로 들어가지 마십시오.",
 
@@ -239,7 +239,7 @@ return {
 
 	-- Step 47: Maclure Vineyards: kill these as you meet them
 	-- {area:64} Maclure Vineyards
-	["{area:64}: kill these as you meet them"] = "",
+	["{area:64}: kill these as you meet them"] = "{area:64}: 만나는 대로 처치하세요",
 	-- {npc:248464} Nimsy
 	-- plural, as words: Kobold Miners = {npc:40} Kobold Miner
 	["The mine is west of the vineyards. Kobold Miners and Tunnelers fill both levels; {npc:248464}, a named kobold, holds the picture book in the lower tunnels. {npc:248464} is elite: grouping up is advised."] = "광산은 포도밭 서쪽에 있습니다. 코볼트 광부와 코볼트 굴착꾼이 두 층 모두에 가득합니다. 이름 있는 코볼트 {npc:248464}이(가) 아래쪽 터널에서 그림책을 가지고 있습니다. {npc:248464}은(는) 정예이므로 파티를 권장합니다.",
@@ -273,13 +273,13 @@ return {
 	-- {quest:91775} Book Return
 	["If you skipped {quest:91775}, grind here to level 8.39 to stay on the route's plan."] = "",
 	-- {npc:40} Kobold Miner
-	["grind on {npc:40}"] = "",
+	["grind on {npc:40}"] = "{npc:40} 사냥",
 
 	-- Step 53: Class trainer
 	["Class trainer"] = "직업 전문가",
 
 	-- Step 54: Shaman trainer
-	["Shaman trainer"] = "",
+	["Shaman trainer"] = "주술사 교관",
 	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "",
 
@@ -334,7 +334,7 @@ return {
 	-- {area:86} Stone Cairn Lake
 	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.\nCareful: Elmpaw, a level 12 elite gnoll, walks the woods and hills from the logging camp north to {area:86} and the gnoll camps: keep clear of him when you see him coming."] = "야영지는 다리 북동쪽에 있습니다. 나무 묶음은 야영지 주변과 그 북쪽 숲에 놓여 있습니다.\n주의: 12레벨 정예 놀인 엘름포가 벌목장에서 북쪽 {area:86}와(과) 놀 야영지까지 숲과 언덕을 돌아다닙니다. 다가오는 것이 보이면 피하세요.",
 	-- {npc:278} Sara Timberlain
-	["{npc:278}, inside"] = "",
+	["{npc:278}, inside"] = "{npc:278}, 내부",
 
 	-- Step 66: A half-eaten body
 	["It lies by the river north-west of the logging camp."] = "벌목장 북서쪽 강가에 있습니다.",
@@ -357,7 +357,7 @@ return {
 
 	-- Step 70: Jasperlode Mine: kill these as you meet them
 	-- {area:54} Jasperlode Mine
-	["{area:54}: kill these as you meet them"] = "",
+	["{area:54}: kill these as you meet them"] = "{area:54}: 만나는 대로 처치하세요",
 	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
 	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
 	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "광산은 놀 야영지 남서쪽에 있습니다. {item:247816}은(는) 입구 근처에 있고, 터널은 코볼트 흙점쟁이가 지키고 있습니다.\n주의: {npc:471}(7-10), 굴거미(7-9), {npc:248474}(7)은(는) 광산 깊숙한 곳의 정예입니다. 입구 근처에서 코볼트를 하나씩 끌어오고, 정예가 다가오면 물러나세요. 친구와 함께하면 더 쉽습니다.",
@@ -371,7 +371,7 @@ return {
 	-- Step 72: Guard Thomas
 	-- {area:91} Tower of Azora
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "길을 따라 동쪽으로 {area:91}을(를) 지나 다리로 가십시오. 다리 남쪽 강 주변의 굶주린 늑대와 새끼 숲곰을 마저 처치하십시오.",
+	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "길을 따라 동쪽으로 {area:91}을(를) 지나 다리로 가십시오. 다리 남쪽 강 주변의 굶주린 늑대와 새끼곰을 마저 처치하십시오.",
 
 	-- Step 74: Stone Cairn Lake
 	-- {npc:6866} Defias Bodyguard
@@ -385,7 +385,7 @@ return {
 	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["Follow the road west back to {area:87}; {npc:6306} stands on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:6306} Helene Peltskinner
-	["{npc:6306}, inside"] = "",
+	["{npc:6306}, inside"] = "{npc:6306}, 내부",
 	-- {npc:240} Marshal Dughan
 	["{npc:240}, while William brews"] = "",
 	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind · {zone:1436} Westfall
@@ -410,7 +410,7 @@ return {
 
 	-- Step 81: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
+	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "여기 있을 때: {npc:11867}에게 지팡이를 배우세요({object:2096}, 은화 10개); 성장 중에는 지팡이가 한손 무기보다 주문 능력치가 더 높습니다.",
 
 	-- Step 82: Mirror Lake
 	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
@@ -436,15 +436,15 @@ return {
 	-- {npc:524} Rockhide Boar · {item:15908} Taming Rod
 	["{npc:524}: tame it with the {item:15908}"] = "{npc:524}: {item:15908}(으)로 길들이기",
 	-- {npc:524} Rockhide Boar
-	["Tame {npc:524}"] = "",
+	["Tame {npc:524}"] = "{npc:524} 길들이기",
 	-- {npc:1922} Gray Forest Wolf · {item:15908} Taming Rod
 	["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}: {item:15908}(으)로 길들이기",
 	-- {npc:1922} Gray Forest Wolf
-	["Tame {npc:1922}"] = "",
+	["Tame {npc:1922}"] = "{npc:1922} 길들이기",
 	-- {npc:822} Young Forest Bear · {item:15908} Taming Rod
 	["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: {item:15908}(으)로 길들이기",
 	-- {npc:822} Young Forest Bear
-	["Tame {npc:822}"] = "",
+	["Tame {npc:822}"] = "{npc:822} 길들이기",
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
 	["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}, 그녀 옆: {spell:5149}",
 
@@ -524,6 +524,7 @@ return {
 	-- ["Torn Murloc Fins"] = "찢어진 멀록 지느러미",
 	-- ["Use the {item:6866} on {npc:6172}"] = "{npc:6172}에게 {item:6866} 사용",
 	-- ["grind on {npc:113}"] = "{npc:113} 사냥",
+	-- ["grind on {npc:80}"] = "{npc:80} 사냥",
 	-- ["{area:18} and the wolves"] = "{area:18}와(과) 늑대",
 	-- ["{area:57}'s mouth"] = "{area:57} 입구",
 	-- ["{item:1006}: Princess"] = "{item:1006}: 공주",

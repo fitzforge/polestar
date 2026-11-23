@@ -20,7 +20,7 @@ return {
 
 	-- Step 3: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} trainers"] = "",
+	["{zone:1454} trainers"] = "{zone:1454} 상급자",
 	["Train while you are in the city."] = "",
 
 	-- Step 4: Searn Firewarder
@@ -40,16 +40,16 @@ return {
 	-- {npc:3428} Korran
 	["{npc:3428} stands beside the Crossroads flight master."] = "",
 	-- {npc:3428} Korran · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
-	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "",
+	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "{npc:3428}: {zone:1454}의 {npc:4485}에게",
 
 	-- Step 7: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Back to {area:1637}"] = "",
+	["Back to {area:1637}"] = "{area:1637}(으)로 돌아가기",
 	["Crossroads flight master"] = "크로스로드 비행 조련사",
 
 	-- Step 8: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
-	["{npc:4485} stands in the {object:172958}."] = "",
+	["{npc:4485} stands in the {object:172958}."] = "{npc:4485}은(는) {object:172958}에 서 있습니다.",
 	-- {npc:4483} Moktar Krin · {area:439} Shimmering Flats
 	["for {npc:4483} in the {area:439}, later in this guide"] = "이 가이드 후반, {area:439}의 {npc:4483}용",
 
@@ -67,11 +67,11 @@ return {
 	-- {area:484} Freewind Post
 	["Fly to {area:484}"] = "{area:484}(으)로 날아가기",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "{zone:1456} 비행 조련사",
 
 	-- Step 13: Fly to Freewind Post
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392} 비행 조련사",
 
 	-- Step 15: Prate Cloudseer
 	-- {npc:5905} Prate Cloudseer
@@ -101,7 +101,7 @@ return {
 
 	-- Step 19: The Screeching Canyon: kill these as you meet them
 	-- {area:483} The Screeching Canyon
-	["{area:483}: kill these as you meet them"] = "",
+	["{area:483}: kill these as you meet them"] = "{area:483}: 만나는 대로 처치하세요",
 	-- {area:2097} Darkcloud Pinnacle · {area:487} Roguefeather Den · {npc:4490} Grenka Bloodscreech · {npc:2986} Dorn Plainstalker · {npc:4877} Jandia · {quest:98069} Stolen Freewind Supplies · {zone:1440} Ashenvale · {zone:1441} Thousand Needles
 	["West of Freewind Post, below {area:2097}, the harpies of {area:487} (28-30). {npc:4490} (31) walks among them: thin out the harpies around her before you pull her, for {npc:2986}'s claw. {npc:4877}'s harpies and {quest:98069} (on the ground along the foot of the cliff and in the cave up on top) are here for a character who didn't do them in the {zone:1440} & {zone:1441} guide."] = "",
 	-- {quest:98069} Stolen Freewind Supplies
@@ -141,7 +141,7 @@ return {
 
 	-- Step 26: Shimmering Flats: kill these as you meet them
 	-- {area:439} Shimmering Flats
-	["{area:439}: kill these as you meet them"] = "",
+	["{area:439}: kill these as you meet them"] = "{area:439}: 만나는 대로 처치하세요",
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Scorpid Terrors = {npc:4139} Scorpid Terror
 	["North-east of the raceway onto the flats. The Saltstone Basilisks (30-31) sun themselves north-west of it, and the Sparkleshell Tortoises (30-31) wander among them on the western flats; the Salt Flats Scavengers and Vultures circle the eastern flats. Every vulture drops a bone, about one tortoise in three a shell.\nCareful: Scavengers and Vultures use Execute when your health is low. The Sparkleshell Snappers (34-35) crowd round a half-buried ship in the north-east and are over you here: the Tortoises of the western flats drop the shells just as often, so stay with them. Take the venom from the Reavers (31-32) of the north half and leave the Scorpid Terrors (33-34) further south."] = "경주장 북동쪽의 평원으로 가세요. 소금바위 바실리스크(30-31)가 그 북서쪽에서 햇볕을 쬐고, 소금껍질거북(30-31)이 서쪽 평원에서 그 사이를 돌아다닙니다. 소금 평원 청소부독수리와 대머리수리는 동쪽 평원을 맴돕니다. 대머리수리는 모두 뼈를 떨어뜨리고, 거북은 약 세 마리 중 한 마리가 등껍질을 떨어뜨립니다.\n주의: 청소부독수리와 대머리수리는 생명력이 낮을 때 마무리 일격을 사용합니다. 무쇠턱 소금껍질거북(34-35)은 북동쪽의 반쯤 묻힌 배 주변에 몰려 있으며 레벨이 높습니다. 서쪽 평원의 소금껍질거북도 등껍질을 똑같이 자주 떨어뜨리니 그쪽에 머무르세요. 독은 북쪽의 붉은독전갈(31-32)에게서 얻고, 더 남쪽의 점박이독전갈(33-34)은 피하세요.",
 	-- {item:5795} Hardened Tortoise Shell
@@ -200,13 +200,13 @@ return {
 	-- {npc:10537} Cliffwatcher Longhorn
 	["{npc:10537} stands in the middle of the post, on the way to the flight master."] = "",
 	-- {npc:10537} Cliffwatcher Longhorn · {npc:11259} Nataka Longhorn · {zone:1443} Desolace
-	["{npc:10537}: for {npc:11259} in {zone:1443}, next"] = "",
+	["{npc:10537}: for {npc:11259} in {zone:1443}, next"] = "{npc:10537}: {zone:1443}의 {npc:11259}에게, 다음 단계",
 
 	-- Step 37: Fly to Sun Rock Retreat
 	-- {area:460} Sun Rock Retreat
 	["Fly to {area:460}"] = "{area:460}(으)로 날아가기",
 	-- {area:484} Freewind Post
-	["{area:484} flight master"] = "",
+	["{area:484} flight master"] = "{area:484} 비행 조련사",
 
 	-- Step 39: Scrabblescrew's Camp
 	-- {zone:1443} Desolace · {npc:11596} Smeed Scrabblescrew
@@ -229,7 +229,7 @@ return {
 	-- Step 44: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "동쪽 {area:599}(으)로 가세요. 불타는칼날단 사교도를 빈사 상태로 만든 뒤 죽기 전에 {item:6436}을(를) 사용해 {item:6435}을(를) 하나씩 채우세요. {npc:13019}은(는) 요새 꼭대기 층에서 홀을 가지고 있습니다. 사교도는 가끔(1-5%) {item:20310}도 떨어뜨리니, 얻으면 읽어 보세요. 붉은 {object:176581}은(는) 지금은 두세요. {npc:11876}이(가) 37레벨이라 두 번째 {zone:1443} 방문 때 다시 옵니다.",
-	["On the top floor"] = "",
+	["On the top floor"] = "최상층에",
 
 	-- Step 45: Sargeron
 	-- {area:603} Sargeron

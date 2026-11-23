@@ -18,7 +18,7 @@ return {
 	-- {npc:9528} Arathandris Silversky · {npc:11554} Grazle
 	["{npc:9528}, in the ruins just east of {npc:11554}"] = "{npc:9528}, {npc:11554} 바로 동쪽 폐허",
 	-- {npc:9116} Eridan Bluewind
-	["{npc:9116}, inside"] = "",
+	["{npc:9116}, inside"] = "{npc:9116}, 내부",
 	-- {npc:10920} Kelek Skykeeper · {quest:86577} A Sampling of Putrescence · {zone:1448} Felwood
 	["{npc:10920}: {quest:86577}, from the bears and wolves you meet in {zone:1448}"] = "{npc:10920}: {zone:1448}에서 만나는 곰과 늑대로 {quest:86577}",
 
@@ -72,7 +72,7 @@ return {
 
 	-- Step 13: Jadefire Run: kill these as you meet them
 	-- {area:2618} Jadefire Run
-	["{area:2618}: kill these as you meet them"] = "",
+	["{area:2618}: kill these as you meet them"] = "{area:2618}: 만나는 대로 처치하세요",
 	-- {area:2618} Jadefire Run · {npc:10648} Xavaric · {quest:939} Flute of Xavaric · {item:11674} Jadefire Felbind
 	["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}.\nCareful: {npc:10648} (55) stands at the valley's far end with Hellcallers (53-54) around him: clear them one at a time before you pull him."] = "{area:2618}은(는) 북서쪽의 사티로스 골짜기이며, 맨 끝에 {npc:10648}이(가) 있습니다. 그가 {quest:939}을(를) 떨어뜨리고, 비취불꽃의 사티로스는 누구나 {item:11674}을(를) 떨어뜨릴 수 있습니다.\n주의: {npc:10648}(55)은(는) 골짜기 맨 끝에 있고 주위에 지옥소환사(53-54)가 있습니다. 그를 끌어오기 전에 하나씩 처리하세요.",
 
@@ -113,11 +113,11 @@ return {
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside. She needs Neutral with the Timbermaw; the reputation guide gets you there."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558}: walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: walks around here: look inside the circle on the map"] = "{npc:11558}: 여기 돌아다닙니다: 지도에서 원 안을 보세요",
 
 	-- Step 23: Into Winterspring
 	-- {zone:1452} Winterspring
-	["Into {zone:1452}"] = "",
+	["Into {zone:1452}"] = "{zone:1452}(으)로",
 	-- {area:1769} Timbermaw Hold · {zone:1452} Winterspring
 	["Walk through {area:1769}'s tunnel to its {zone:1452} end."] = "",
 
@@ -139,7 +139,7 @@ return {
 
 	-- Step 27: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "{area:702}(으)로 날아가기",
 	-- {npc:11138} Maethrya
 	["{npc:11138}, the Alliance flight master"] = "",
 
@@ -205,7 +205,7 @@ return {
 
 	-- Step 45: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
-	["Boat to {area:1108}"] = "",
+	["Boat to {area:1108}"] = "배를 타고 {area:1108}(으)로",
 
 	-- Step 46: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
@@ -213,7 +213,7 @@ return {
 
 	-- Step 47: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
-	["{area:1108}: kill these as you meet them"] = "",
+	["{area:1108}: kill these as you meet them"] = "{area:1108}: 만나는 대로 처치하세요",
 	-- {item:18904} Zorbin's Ultra-Shrinker · {npc:14637} Zorbin Fandazzle
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray · Water Elemental Cores = {item:18958} Water Elemental Core · Sea Elementals = {npc:5461} Sea Elemental · Deep Striders = {npc:5360} Deep Strider
 	["The Sea Sprays (46-47) wash along the shore just south of the dock: they drop the Water Elemental Cores as well as the Sea Elementals (47) do. The Wave and Deep Striders (47) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength.\nThe Ultra-Shrinker lasts two hours: hand both quests back to {npc:14637} before you leave the coast."] = "",
@@ -261,6 +261,7 @@ return {
 	-- ["Ends in the {zone:1413}: keep it"] = "{zone:1413}에서 끝납니다: 보관하세요",
 	-- ["Five feathers buy a little Timbermaw reputation"] = "깃털 5개로 나무구렁 요새 평판을 조금 얻습니다",
 	-- ["Fly from {area:1998} to the Sanctuary's end of the road, or ride south along it."] = "{area:1998}에서 길의 성소 쪽 끝으로 날아가거나, 길을 따라 남쪽으로 가세요.",
+	-- ["Fly to {area:415}"] = "{area:415}(으)로 날아가기",
 	-- ["Follow the road north to the cratered vale and walk to each crater, killing the Entropic Beasts and Horrors between them."] = "길을 따라 북쪽의 구덩이 파인 골짜기로 가서 구덩이마다 들르며, 그 사이의 {npc:9878}와(과) 혼돈의 소산물을 처치하세요.",
 	-- ["Keep her alive until she is out of the cave"] = "동굴을 나갈 때까지 그녀를 살려 두세요",
 	-- ["Oozes"] = "수액괴물",
@@ -277,6 +278,10 @@ return {
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "비취불꽃의 사티로스가 길 서쪽 숲을 차지하고 있으며, {npc:9454}은(는) 그 안쪽에 있습니다.",
 	-- ["The vial is filled in {zone:1457}: keep it; inside"] = "유리병은 {zone:1457}에서 채웁니다: 보관하세요. 안",
 	-- ["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}. If you freed {npc:11018}, go back into {area:1770} for the succubus {npc:9518}; Trey Lightforge's remains lie beside her."] = "{area:1763} 한가운데의 타락한 달샘에서 {item:12922}을(를) 사용하세요. {npc:11018}을(를) 풀어 주었다면 {area:1770}에 다시 들어가 서큐버스 {npc:9518}을(를) 처치하세요. 트레이 라이트포지의 유해가 그녀 옆에 있습니다.",
+	-- ["grind on {npc:7109}"] = "{npc:7109} 사냥",
+	-- ["grind on {npc:7153}"] = "{npc:7153} 사냥",
+	-- ["grind on {npc:7155}"] = "{npc:7155} 사냥",
+	-- ["grind on {npc:9878}"] = "{npc:9878} 사냥",
 	-- ["{area:1763} is the ruined temple north of the glen. Some of its cultists drop a {item:13140}, about one kill in thirty: it opens {npc:11018}'s cell in {area:1770}, the cave at the back. If it drops, clear the way out before you free her; if not, skip her quests."] = "{area:1763}은(는) 숲 북쪽의 폐허가 된 사원입니다. 일부 이교도가 약 30마리에 한 번꼴로 {item:13140}을(를) 떨어뜨립니다. 이 열쇠로 안쪽 동굴인 {area:1770}의 {npc:11018} 감옥을 엽니다. 열쇠가 나오면 그녀를 풀어 주기 전에 나가는 길을 정리하고, 안 나오면 그녀의 퀘스트는 건너뛰세요.",
 	-- ["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}."] = "{area:2618}은(는) 북서쪽의 사티로스 골짜기이며, 맨 끝에 {npc:10648}이(가) 있습니다. 그가 {quest:939}을(를) 떨어뜨리고, 비취불꽃의 사티로스는 누구나 {item:11674}을(를) 떨어뜨릴 수 있습니다.",
 	-- ["{item:13140}, a rare drop"] = "{item:13140}, 드물게 획득",

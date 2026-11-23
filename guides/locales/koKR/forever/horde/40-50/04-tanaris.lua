@@ -17,7 +17,7 @@ return {
 	-- {zone:1445} Dustwallow Marsh · {area:496} Brackenwall Village · {area:976} Gadgetzan
 	["Coming from {zone:1445}: {area:496}'s flight master flies you to {area:976}."] = "",
 	-- {area:496} Brackenwall Village
-	["{area:496} flight master"] = "",
+	["{area:496} flight master"] = "{area:496} 비행 조련사",
 
 	-- Step 2: Fly to Gadgetzan
 	-- {area:1099} Camp Mojache
@@ -90,7 +90,7 @@ return {
 
 	-- Step 17: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
-	["{quest:3362}: kill these as you meet them"] = "",
+	["{quest:3362}: kill these as you meet them"] = "{quest:3362}: 만나는 대로 처치하세요",
 	-- {zone:1446} Tanaris · {quest:2864} Tran'rek · {area:1938} Broken Pillar
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	-- was: ["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "거주지 서쪽 골짜기에는 선인장 괴물이 가득합니다. 이슬먹는 덤불나무괴물(47-48)만 이슬샘을 지니고 있습니다. {zone:1446}의 몬스터 대부분이 드물게 OOX-17/TN 조난 탐지기를 떨어뜨릴 수 있습니다. 얻으면 보관하세요.\n주의: 이 지역의 다른 덤불나무괴물은 48-50레벨이며 많이 돌아다니므로 몹을 더 끌어오기 쉽습니다. 골짜기 가장자리의 이슬먹는 덤불나무괴물을 잡고, {quest:2864}의 옹이진 덤불나무괴물과 뿌리술사는 51레벨쯤 운고로로 가는 길의 {area:1938}을(를) 위해 남겨 두세요."
@@ -123,7 +123,7 @@ return {
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "{item:8526}은(는) 48레벨쯤 {zone:1425}에서 자랍니다",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, 내부",
 
 	-- Step 26: Scrimshank's gear
 	["Scrimshank's gear"] = "스크림섕크의 장비",
@@ -151,11 +151,11 @@ return {
 
 	-- Step 30: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "배를 타고 {area:16727}(으)로",
 
 	-- Step 31: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
-	["Into {zone:1427}"] = "",
+	["Into {zone:1427}"] = "{zone:1427}(으)로",
 
 	-- Step 32: Searing Gorge
 	-- {area:247} Grimesilt Dig Site

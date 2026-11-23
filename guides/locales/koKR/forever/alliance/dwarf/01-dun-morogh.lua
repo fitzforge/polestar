@@ -23,7 +23,7 @@ return {
 	-- {npc:713} Balir Frosthammer · {npc:658} Sten Stoutarm
 	["{npc:713}, next to {npc:658}"] = "{npc:713}, {npc:658} 옆",
 	-- {npc:912} Thran Khorman
-	["{npc:912}, the warrior trainer; inside"] = "",
+	["{npc:912}, the warrior trainer; inside"] = "전사 상급자 {npc:912}, 안",
 	-- {npc:926} Bromos Grummner
 	["{npc:926}, the paladin trainer"] = "{npc:926}, 성기사 상급자",
 	-- {npc:895} Thorgas Grimson
@@ -49,7 +49,7 @@ return {
 	-- {area:77} Anvilmar
 	["Back to {area:77}"] = "{area:77}(으)로 돌아가기",
 	-- {npc:8416} Felix Whindlebolt · {area:77} Anvilmar
-	["{npc:8416}, by the door of {area:77}; inside"] = "",
+	["{npc:8416}, by the door of {area:77}; inside"] = "{npc:8416}, {area:77} 문 앞, 안",
 
 	-- Step 6: Talin Keeneye
 	-- {npc:714} Talin Keeneye · {item:10438} Felix's Box
@@ -67,7 +67,7 @@ return {
 
 	-- Step 10: Coldridge Valley: kill these as you meet them
 	-- {area:132} Coldridge Valley
-	["{area:132}: kill these as you meet them"] = "",
+	["{area:132}: kill these as you meet them"] = "{area:132}: 만나는 대로 처치하세요",
 	-- {npc:786} Grelin Whitebeard
 	-- plural, as words: Frostmane Troll Whelps = {npc:706} Frostmane Troll Whelp
 	["Frostmane Troll Whelps fill the slopes south and east of {npc:786}'s camp."] = "{npc:706}은(는) {npc:786}의 야영지 남쪽과 동쪽 비탈에 가득합니다.",
@@ -82,17 +82,17 @@ return {
 	-- {npc:836} Durnan Furcutter · {area:77} Anvilmar
 	["The Scalding Mornbrew lasts five minutes: go straight north to {npc:836} inside {area:77}."] = "두르난의 뜨거운 새벽주는 5분 동안 유지됩니다. 곧장 북쪽으로 {area:77} 안의 {npc:836}에게 가세요.",
 	-- {npc:836} Durnan Furcutter · {area:77} Anvilmar
-	["{npc:836}, inside {area:77}; below ground"] = "",
+	["{npc:836}, inside {area:77}; below ground"] = "{npc:836}, {area:77} 안, 지하",
 	["Level 4 spells"] = "4레벨 주문",
 	-- {npc:8416} Felix Whindlebolt
-	["{npc:8416}, at the door on the way out; inside"] = "",
+	["{npc:8416}, at the door on the way out; inside"] = "{npc:8416}, 나가는 길의 문 앞, 안",
 	["The troll cave"] = "트롤 동굴",
 
 	-- Step 13: Grik'nir the Cold
 	-- {npc:808} Grik'nir the Cold · {npc:786} Grelin Whitebeard
 	["{npc:808} is inside the troll cave east of {npc:786}'s camp, not on the hill above it: go in at the mouth and follow the tunnel to the back."] = "{npc:808}은(는) {npc:786}의 야영지 동쪽 트롤 동굴 안에 있습니다. 그 위 언덕이 아닙니다. 입구로 들어가 굴을 따라 안쪽 끝까지 가세요.",
 	-- {item:2004} Grelin Whitebeard's Journal
-	["{item:2004}; below ground"] = "",
+	["{item:2004}; below ground"] = "{item:2004}, 지하",
 
 	-- Step 14: Grelin Whitebeard
 	-- {npc:12738} Nori Pridedrift
@@ -104,7 +104,7 @@ return {
 	-- {area:77} Anvilmar · {npc:2756} Grund Drokda · {npc:8416} Felix Whindlebolt · {npc:269075} Snow Leopard Prowler
 	["Back north to {area:77} on the way to the tunnel: {npc:2756} stands by {npc:8416} at its door. Gozwin's camp is in the hills just north-west; the {npc:269075} (level 6) prowls around it."] = "터널로 가는 길에 북쪽 {area:77}으로 돌아가세요. {npc:2756}은(는) 문 앞에서 {npc:8416} 옆에 서 있습니다. 고즈윈의 야영지는 바로 북서쪽 언덕에 있으며, {npc:269075}(6레벨)이(가) 그 주변을 배회합니다.",
 	-- {npc:2756} Grund Drokda
-	["{npc:2756}, inside"] = "",
+	["{npc:2756}, inside"] = "{npc:2756}, 내부",
 	-- {item:277976} Gozwin's Mechanic's Log
 	["{item:277976}, in the camp"] = "{item:277976}, 야영지 안",
 
@@ -129,7 +129,7 @@ return {
 
 	-- Step 19: Kharanos
 	-- {area:131} Kharanos · {npc:1252} Senir Whitebeard · {area:2102} Thunderbrew Distillery
-	["Follow the road through the tunnel and north-east to {area:131}. Start outside: {npc:1252} and Eric's campfire are in front of the {area:2102}."] = "",
+	["Follow the road through the tunnel and north-east to {area:131}. Start outside: {npc:1252} and Eric's campfire are in front of the {area:2102}."] = "터널을 지나 길을 따라 북동쪽 {area:131}(으)로 가세요. 밖에서 시작합니다: {npc:1252}과(와) 에릭의 모닥불이 {area:2102} 앞에 있습니다.",
 
 	-- Step 20: The Great Outdoors
 	-- {npc:1241} Tognus Flintfire · {skill:129} First Aid · {npc:2326} Thamner Pol · {area:131} Kharanos · {area:189} Steelgrill's Depot
@@ -155,16 +155,16 @@ return {
 
 	-- Step 24: Kharanos
 	-- {npc:1872} Tharek Blackstone · {npc:6806} Tannok Frosthammer · {npc:1226} Maxan Anvol · {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
-	["{npc:1872} works the forge west of the distillery.\nThen go in: {npc:6806}, the innkeeper, {npc:1226} and {npc:1267}. {npc:1699}'s {skill:185} lesson waits for the return with the ribs, when the copper is there for it."] = "",
+	["{npc:1872} works the forge west of the distillery.\nThen go in: {npc:6806}, the innkeeper, {npc:1226} and {npc:1267}. {npc:1699}'s {skill:185} lesson waits for the return with the ribs, when the copper is there for it."] = "{npc:1872}은(는) 증류장 서쪽의 대장간에서 일합니다.\n그런 다음 안으로 들어가세요: {npc:6806} 여관주인, {npc:1226}, {npc:1267}이(가) 있습니다. {npc:1699}의 {skill:185} 수업은 구리가 준비되면 갈비뼈를 갖고 돌아와서 받으세요.",
 	-- {npc:1241} Tognus Flintfire
-	["{npc:1241}, below ground"] = "",
+	["{npc:1241}, below ground"] = "{npc:1241}, 지하",
 	-- {npc:6806} Tannok Frosthammer
-	["{npc:6806}, inside"] = "",
+	["{npc:6806}, inside"] = "{npc:6806}, 내부",
 	-- {npc:1226} Maxan Anvol
-	["{npc:1226}, upstairs"] = "",
+	["{npc:1226}, upstairs"] = "{npc:1226}, 위층",
 	-- {npc:1226} Maxan Anvol · {npc:12427} Mountaineer Dolf · {area:131} Kharanos
 	["{npc:1226}: heal {npc:12427} south of {area:131}"] = "{npc:1226}: {area:131} 남쪽의 {npc:12427} 치유하기",
-	["Last: some classes' trainers stand outside"] = "",
+	["Last: some classes' trainers stand outside"] = "마지막: 일부 직업의 상급자는 밖에 서 있습니다",
 
 	-- Step 25: Camping 101: Blacksmithing
 	-- {npc:1241} Tognus Flintfire · {skill:164} Blacksmithing
@@ -183,7 +183,7 @@ return {
 	-- {area:131} Kharanos · {zone:1455} Ironforge
 	["Follow the road north-east from {area:131} to the depot below the {zone:1455} road."] = "{area:131}에서 길을 따라 북동쪽으로 {zone:1455} 길 아래의 정거장까지 가세요.",
 	-- {npc:1694} Loslor Rudge
-	["{npc:1694}, beside him"] = "",
+	["{npc:1694}, beside him"] = "{npc:1694}, 그의 옆",
 
 	-- Step 29: Yarr Hammerstone
 	-- {npc:5392} Yarr Hammerstone
@@ -200,13 +200,13 @@ return {
 
 	-- Step 32: Rumbleshot's Ammo
 	-- {object:176785} Ammo Crate · {npc:271546} Mountaineer Gretchen · {area:136} Grizzled Den
-	["The {object:176785} sits next to {npc:271546}, south of the {area:136}."] = "",
+	["The {object:176785} sits next to {npc:271546}, south of the {area:136}."] = "{object:176785}은(는) {area:136} 남쪽, {npc:271546} 옆에 있습니다.",
 	-- {item:13850} Rumbleshot's Ammo · {object:176785} Ammo Crate
 	["{item:13850}: the {object:176785}"] = "{item:13850}: {object:176785}",
 
 	-- Step 33: Rumbleshot's Ammo
 	-- {npc:1243} Hegnar Rumbleshot
-	["{npc:1243} camps south-west of it, by the road to Coldridge."] = "",
+	["{npc:1243} camps south-west of it, by the road to Coldridge."] = "{npc:1243}은(는) 그것 남서쪽, 콜드리지로 가는 길가에 진을 칩니다.",
 
 	-- Step 34: Dun Morogh: kill these as you meet them
 	-- {area:1} Dun Morogh
@@ -224,11 +224,11 @@ return {
 	-- Step 36: Thunderbrew Distillery
 	-- {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
 	-- plural, as words: Crag Boars = {npc:1125} Crag Boar
-	["Kill the Crag Boars on the way: their ribs drop before you have {npc:1267}'s quest and count toward it. Back in the distillery: {npc:1699} teaches {skill:185}, then the ribs go to {npc:1267}."] = "",
+	["Kill the Crag Boars on the way: their ribs drop before you have {npc:1267}'s quest and count toward it. Back in the distillery: {npc:1699} teaches {skill:185}, then the ribs go to {npc:1267}."] = "가는 길에 바위발굽멧돼지를 처치하세요: 갈비뼈는 {npc:1267}의 퀘스트를 받기 전에 떨어지며 그 퀘스트에 포함됩니다. 증류장으로 돌아가면 {npc:1699}이(가) {skill:185}을(를) 가르치고, 갈비뼈는 {npc:1267}에게 가져갑니다.",
 	-- {item:2894} Rhapsody Malt · {npc:1247} Innkeeper Belm
-	["{item:2894}, from {npc:1247}; upstairs"] = "",
+	["{item:2894}, from {npc:1247}; upstairs"] = "{item:2894}, {npc:1247}에게서, 위층",
 	-- {npc:1699} Gremlock Pilsnor
-	["{npc:1699}: Camping 101 asks you to learn it; below ground"] = "",
+	["{npc:1699}: Camping 101 asks you to learn it; below ground"] = "{npc:1699}: 야영 101을 배우게 합니다, 지하",
 	-- {npc:1226} Maxan Anvol · {item:16605} Friar's Robes of the Light
 	["{npc:1226}, upstairs: {item:16605}"] = "{npc:1226}, 위층: {item:16605}",
 	["Upstairs"] = "위층",
@@ -237,15 +237,15 @@ return {
 	-- {area:131} Kharanos
 	["{area:131} and the depot"] = "{area:131}와(과) 정거장",
 	-- {npc:1269} Razzle Sprysprocket · {area:131} Kharanos
-	["The pilots stand at the depot; {npc:1269} is on the road back west, north of {area:131}."] = "",
+	["The pilots stand at the depot; {npc:1269} is on the road back west, north of {area:131}."] = "비행 조종사들은 정거장에 서 있습니다; {npc:1269}은(는) {area:131} 북쪽, 서쪽으로 돌아가는 길에 있습니다.",
 	-- {npc:1269} Razzle Sprysprocket
-	["{npc:1269}, on the way back; below ground"] = "",
+	["{npc:1269}, on the way back; below ground"] = "{npc:1269}, 돌아가는 길, 지하",
 
 	-- Step 38: Brewnall Village
 	-- {area:137} Brewnall Village · {area:131} Kharanos · {npc:8508} Gretta Ganter · {npc:1374} Rejold Barleybrew · {npc:1375} Marleth Barleybrew
-	["{area:137} sits on the lake west of {area:131}. {npc:8508}'s dock is the first stop; {npc:1374} and {npc:1375} are in the village beyond it."] = "",
+	["{area:137} sits on the lake west of {area:131}. {npc:8508}'s dock is the first stop; {npc:1374} and {npc:1375} are in the village beyond it."] = "{area:137}은(는) {area:131} 서쪽 호수 위에 있습니다. {npc:8508}의 부두가 첫 번째 들름새이고, {npc:1374}와(과) {npc:1375}은(는) 그 너머 마을에 있습니다.",
 	-- {npc:8508} Gretta Ganter
-	["{npc:8508}, on the dock"] = "",
+	["{npc:8508}, on the dock"] = "부두의 {npc:8508}",
 
 	-- Step 39: Brewnall: kill these as you meet them
 	["Brewnall: kill these as you meet them"] = "브루날: 마주치는 대로 처치하세요",
@@ -264,18 +264,18 @@ return {
 	-- {npc:1252} Senir Whitebeard · {area:2102} Thunderbrew Distillery · {npc:1241} Tognus Flintfire · {npc:1373} Jarven Thunderbrew · {item:2686} Thunder Ale · {npc:1247} Innkeeper Belm · {spell:8553} Barleybrew Scalder
 	["{npc:1252} stands by Eric's campfire in front of the {area:2102}; {npc:1241} is in the cellar west of it. {npc:1373} guards the {item:2686} barrels in the distillery basement. Buy a {item:2686} from {npc:1247}, click the guarded barrel, then hand the ale to {npc:1373} from his quest window (there is no quest to accept); after that, the unguarded barrel takes the {spell:8553}."] = "{npc:1252}은(는) {area:2102} 앞 에릭의 모닥불 옆에 서 있고, {npc:1241}은(는) 그 서쪽 지하실에 있습니다. {npc:1373}은(는) 양조장 지하에서 {item:2686} 통을 지키고 있습니다. {npc:1247}에게서 {item:2686}을(를) 사서 지켜지는 통을 클릭한 뒤, {npc:1373}의 퀘스트 창에서 맥주를 건네세요(수락할 퀘스트는 없습니다). 그 후에는 지키는 이 없는 통에 {spell:8553}을(를) 넣을 수 있습니다.",
 	-- {item:2686} Thunder Ale · {npc:1247} Innkeeper Belm
-	["{item:2686}, from {npc:1247} in the distillery; upstairs"] = "",
+	["{item:2686}, from {npc:1247} in the distillery; upstairs"] = "{item:2686}, 증류장의 {npc:1247}에게서, 위층",
 	-- {object:269} Guarded Thunder Ale Barrel
 	["The {object:269} in the basement"] = "지하실의 {object:269}",
 	-- {npc:1373} Jarven Thunderbrew
-	["{npc:1373}, beside the barrel; below ground"] = "",
+	["{npc:1373}, beside the barrel; below ground"] = "{npc:1373}, 통 옆, 지하",
 	-- {object:270} Unguarded Thunder Ale Barrel
-	["The {object:270} in the distillery; below ground"] = "",
+	["The {object:270} in the distillery; below ground"] = "증류장의 {object:270}, 지하",
 
 	-- Step 44: Shimmerweed
 	-- {item:2676} Shimmerweed · {area:802} Shimmer Ridge · {area:131} Kharanos
 	-- plural, as words: Frostmane Seers = {npc:1397} Frostmane Seer
-	["The {item:2676} grows in baskets up on {area:802}, the snowy slope north of the road between {area:131} and Brewnall: climb from the road west of {area:131}. The Frostmane Seers camped on the ridge drop it too."] = "",
+	["The {item:2676} grows in baskets up on {area:802}, the snowy slope north of the road between {area:131} and Brewnall: climb from the road west of {area:131}. The Frostmane Seers camped on the ridge drop it too."] = "{item:2676}은(는) {area:131}과(와) 브루눌 사이 길 북쪽의 눈 덮인 비탈 {area:802} 위쪽 바구니에서 자랍니다: {area:131} 서쪽 길에서 오르세요. 능선에 진을 친 서리갈기부족 예언자도 이것을 떨어뜨립니다.",
 
 	-- Step 46: The Gnomeregan road
 	-- {area:133} Gnomeregan
@@ -296,22 +296,22 @@ return {
 	-- was: ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135}은(는) {area:137} 남서쪽 언덕의 트롤 동굴입니다. 입구의 머리사냥꾼을 처치하고 가장 안쪽 끝까지 걸어가세요.\n주의: 소굴 안의 서리갈기부족 무두장이는 9-10레벨이고 둘씩 서 있습니다. 한 마리씩 입구로 끌어오세요."
 	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore {area:135} ticks only in there, not on the hill above it.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "",
 	-- {npc:1123} Frostmane Headhunter
-	["{npc:1123}, below ground"] = "",
+	["{npc:1123}, below ground"] = "{npc:1123}, 지하",
 
 	-- Step 48: Tundra MacGrann
 	-- {npc:1266} Tundra MacGrann · {area:801} Chill Breeze Valley · {area:131} Kharanos · {npc:1271} Old Icebeard
-	["{npc:1266} camps in {area:801}, south of the road back east from Brewnall to {area:131}. His meats are in the locker in {npc:1271}'s cave, east of his camp. {npc:1271} is an elite yeti: wait out of sight until he wanders off on his patrol, then take the meats and leave before he comes back. You don't need to fight him."] = "",
+	["{npc:1266} camps in {area:801}, south of the road back east from Brewnall to {area:131}. His meats are in the locker in {npc:1271}'s cave, east of his camp. {npc:1271} is an elite yeti: wait out of sight until he wanders off on his patrol, then take the meats and leave before he comes back. You don't need to fight him."] = "{npc:1266}은(는) 브루눌에서 {area:131}로 돌아오는 동쪽 길 남쪽의 {area:801}에 진을 칩니다. 그의 고기는 야영지 동쪽 {npc:1271}의 동굴 안 보관함에 있습니다. {npc:1271}은(는) 정예 설인입니다: 그가 순찰을 돌아다니는 동안 보이지 않는 곳에서 기다렸다가 고기를 챙기고 그가 돌아오기 전에 나가세요. 싸울 필요는 없습니다.",
 	-- {item:2667} MacGrann's Dried Meats
-	["{item:2667}: the meat locker; below ground"] = "",
+	["{item:2667}: the meat locker; below ground"] = "{item:2667}: 고기 보관함, 지하",
 
 	-- Step 49: Kharanos
 	-- {area:131} Kharanos · {npc:1252} Senir Whitebeard · {quest:287} Frostmane Hold · {npc:1269} Razzle Sprysprocket
 	-- plural, as words: Ice Claw Bears = {npc:1196} Ice Claw Bear · Snow Leopards = {npc:1201} Snow Leopard · Large Crag Boars = {npc:1126} Large Crag Boar
 	["Back east through {area:131}: {npc:1252} by Eric's campfire takes the {quest:287} report, and {npc:1269} the cogs and gears. The Shaman quest here waits for level 10: a Shaman still short of it finishes on the Ice Claw Bears (7-8), Snow Leopards and Large Crag Boars in the fields just south of {area:131}."] = "{area:131}을(를) 지나 동쪽으로 돌아가세요. 에릭의 모닥불 옆 {npc:1252}에게 {quest:287} 보고를, {npc:1269}에게 톱니와 기어를 제출합니다. 이곳의 주술사 퀘스트는 10레벨이 필요합니다. 아직 모자라는 주술사는 {area:131} 바로 남쪽 들판의 얼음발톱흰곰(7-8), 눈표범, 큰 멧돼지를 잡아 채우세요.",
 	-- {npc:1252} Senir Whitebeard · {npc:1274} Senator Barin Redstone · {zone:1455} Ironforge
-	["{npc:1252}: {npc:1274} in {zone:1455} takes it"] = "",
+	["{npc:1252}: {npc:1274} in {zone:1455} takes it"] = "{npc:1252}: {zone:1455}의 {npc:1274}이(가) 받습니다",
 	-- {npc:1269} Razzle Sprysprocket
-	["{npc:1269}, below ground"] = "",
+	["{npc:1269}, below ground"] = "{npc:1269}, 지하",
 	-- {npc:258113} Ingrid Dunwald · {npc:257597} Bruegs Kindleborn
 	["{npc:258113}: {npc:257597} by the South Gate takes it"] = "{npc:258113}: 남문 옆 {npc:257597}에게 제출합니다",
 
@@ -319,7 +319,7 @@ return {
 	-- {area:131} Kharanos · {area:1} Dun Morogh
 	["Follow the road north-east from {area:131} to the depot: the whole east of {area:1} is one sweep from here."] = "",
 	-- {npc:1377} Pilot Stonegear
-	["{npc:1377}, beside him"] = "",
+	["{npc:1377}, beside him"] = "{npc:1377}, 그의 옆",
 
 	-- Step 51: Misty Pine Refuge
 	-- {area:138} Misty Pine Refuge
@@ -331,18 +331,18 @@ return {
 
 	-- Step 54: Minor Ice Elemental on the way
 	-- {npc:276003} Minor Ice Elemental
-	["{npc:276003} on the way"] = "",
+	["{npc:276003} on the way"] = "{npc:276003}, 가는 길에",
 	-- {npc:276003} Minor Ice Elemental · {npc:1253} Father Gavin
-	["{npc:276003} along the way to {npc:1253}"] = "",
+	["{npc:276003} along the way to {npc:1253}"] = "{npc:276003}, {npc:1253}에게 가는 길에",
 
 	-- Step 55: Misty Pine Refuge: kill these as you meet them
 	-- {area:138} Misty Pine Refuge
-	["{area:138}: kill these as you meet them"] = "",
+	["{area:138}: kill these as you meet them"] = "{area:138}: 만나는 대로 처치하세요",
 	-- {quest:99160} Rime's Wrath
 	-- plural, as words: Minor Ice Elementals = {npc:276003} Minor Ice Elemental
-	["The three rifles lie in the snow around the frozen lake by the refuge. Minor Ice Elementals drift around the lake and along the way: kill them as you go for {quest:99160}.\nFinish off the Minor Ice Elementals around the small lake just west of the refuge if you are still short."] = "",
+	["The three rifles lie in the snow around the frozen lake by the refuge. Minor Ice Elementals drift around the lake and along the way: kill them as you go for {quest:99160}.\nFinish off the Minor Ice Elementals around the small lake just west of the refuge if you are still short."] = "소총 세 자루는 야영지 옆 얼어붙은 호수 주변 눈 속에 놓여 있습니다. 하급 얼음 정령이 호수 주변과 길을 따라 떠다닙니다: {quest:99160}을(를) 위해 가는 길에 처치하세요.\n모자라면 야영지 바로 서쪽 작은 호수 주변의 하급 얼음 정령을 마저 처치하십시오.",
 	-- {npc:276003} Minor Ice Elemental
-	["{npc:276003}, around the small lake"] = "",
+	["{npc:276003}, around the small lake"] = "{npc:276003}, 작은 호수 주변",
 
 	-- Step 57: Avala's Core
 	-- {item:286325} Avala's Core
@@ -368,7 +368,7 @@ return {
 	["Farsen camps on the ridge overlooking the {area:134} from the west. Talk to him for his farsight."] = "파르센은 서쪽에서 {area:134}을(를) 내려다보는 능선에 진을 치고 있습니다. 그에게 말을 걸어 원시를 받으세요.",
 
 	-- Step 66: Gol'Bolar Quarry
-	["The quarry lies just east of Farsen's ridge."] = "",
+	["The quarry lies just east of Farsen's ridge."] = "채석장은 파르센 능선 바로 동쪽에 있습니다.",
 	-- {npc:1977} Senator Mehr Stonehallow
 	["{npc:1977}, in the quarry"] = "{npc:1977}, 채석장 안",
 	-- {npc:1698} Frast Dokner
@@ -383,7 +383,7 @@ return {
 	-- Step 70: Helm's Bed Lake
 	-- {area:212} Helm's Bed Lake · {quest:95214} Stolen Blasting Powder · {item:274268} Dark Iron Map
 	-- plural, as words: Rockjaw Ambushers = {npc:1116} Rockjaw Ambusher · Rockjaw Backbreakers = {npc:1118} Rockjaw Backbreaker
-	["Rockjaw Ambushers by {area:212}, north of the quarry, and Rockjaw Backbreakers further east drop the {quest:95214}. Dark Iron Spies sneak around the lake shore east of the quarry; one of them drops the {item:274268}."] = "",
+	["Rockjaw Ambushers by {area:212}, north of the quarry, and Rockjaw Backbreakers further east drop the {quest:95214}. Dark Iron Spies sneak around the lake shore east of the quarry; one of them drops the {item:274268}."] = "{area:212} 옆, 채석장 북쪽의 바위턱일족 잠복꾼과 더 동쪽의 바위턱일족 투사가 {quest:95214}을(를) 떨어뜨립니다. 검은무쇠 첩자가 채석장 동쪽 호숫가를 맴돌고, 그중 하나가 {item:274268}을(를) 떨어뜨립니다.",
 
 	-- Step 71: Dun Morogh: kill these as you meet them
 	-- {item:2770} Copper Ore
@@ -392,17 +392,16 @@ return {
 
 	-- Step 75: Protecting the Herd
 	-- {npc:1388} Vagash · {area:38} Loch Modan
-	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "정예 몹들입니다. 파티를 권장하니 함께할 사람을 찾으세요. {npc:1388}은(는) 12레벨 정예입니다. 파티로 상대하세요. 혼자라면 건너뛰세요. 앞으로의 {zone:1432} 퀘스트로 경험치를 메울 수 있습니다."
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {area:38} quests ahead make up the experience."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {area:38} quests ahead make up the experience."] = "정예 몹입니다. 파티를 권장하니 사람을 구해 함께 하세요. {npc:1388}은(는) 12레벨 정예이니 파티로 상대하세요. 혼자라면 건너뛰세요. 다음 {area:38} 퀘스트들이 경험치를 채워 줍니다.",
 	["Below ground"] = "지하",
 
 	-- Step 76: Amberstill Ranch
 	-- {zone:1455} Ironforge
-	["On the road back west to {zone:1455}."] = "",
+	["On the road back west to {zone:1455}."] = "{zone:1455}(으)로 서쪽으로 돌아가는 길에.",
 
 	-- Step 78: South Gate Outpost
 	-- {area:806} South Gate Outpost · {area:38} Loch Modan
-	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "",
+	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "도로를 따라 끝까지 동쪽으로 가 {area:38} 터널의 {area:806}까지 가세요.",
 
 	-- Step 79: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
@@ -410,21 +409,21 @@ return {
 
 	-- Step 81: Braldir Ashmantle
 	-- {area:38} Loch Modan · {npc:257808} Braldir Ashmantle
-	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "",
+	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "터널을 지나 {area:38}으로 들어가세요. 지나자마자 돌로 표시된 길이 도로 오른쪽 언덕을 올라 {npc:257808}의 야영지로 이어집니다.",
 
 	-- Step 82: North Gate Outpost
 	-- {npc:1960} Pilot Hammerfoot · {area:808} North Gate Outpost
-	["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "",
+	["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960}은(는) 남쪽 관문 북쪽의 {area:808}에서 기다립니다; 드워프 시체는 그의 서쪽 고개 위에 놓여 있습니다.",
 
 	-- Step 83: The tunnel post
-	["The tunnel post"] = "",
+	["The tunnel post"] = "터널 초소",
 	-- {area:38} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
-	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "",
+	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "남문 터널을 지나 동쪽으로 {area:38}에 들어가세요. {npc:1089}과(와) {npc:1092}은(는) 터널 바로 너머 드워프 초소에 있습니다.",
 
 	-- Step 84: Stonesplinter troggs
-	["Stonesplinter troggs"] = "",
+	["Stonesplinter troggs"] = "가루바위일족 트로그",
 	-- plural, as words: Stonesplinter Scouts = {npc:1162} Stonesplinter Scout
-	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps."] = "",
+	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps."] = "초소 북쪽, 도로 서쪽: 돌조각 트로그와 정찰병이 언덕에 야영합니다. 둘 다 트로그 이빨을 떨어뜨립니다.\n주의: 돌조각 정찰병과 트로그를 하나씩 끌어오세요. 계곡 북쪽 가장자리에 머무르세요. 머리갈라치기는 더 안쪽 야영지를 순찰합니다.",
 
 	-- Step 85: Linen for John Turner
 	-- {npc:6175} John Turner
@@ -434,49 +433,49 @@ return {
 	["Keep ten {item:2589} for {npc:6175} in {zone:1455}. Finish your stack here on the same Stonesplinter Troggs and Scouts; stay in the north camps."] = "",
 
 	-- Step 86: Back to the tunnel post
-	["Back to the tunnel post"] = "",
+	["Back to the tunnel post"] = "터널 초소로 돌아가기",
 
 	-- Step 87: Thelsamar
 	-- {area:144} Thelsamar · {npc:1340} Mountaineer Kadrell · {npc:1963} Vidra Hearthstove · {area:2101} Stoutlager Inn · {npc:1681} Brock Stoneseeker · {npc:1572} Thorgrum Borrelson
-	["North up the road to {area:144}. {npc:1340} walks the road through town, {npc:1963} stands outside the {area:2101}, {npc:1681} on the east side of town; {npc:1572} keeps the gryphons."] = "",
+	["North up the road to {area:144}. {npc:1340} walks the road through town, {npc:1963} stands outside the {area:2101}, {npc:1681} on the east side of town; {npc:1572} keeps the gryphons."] = "도로를 따라 북쪽 {area:144}(으)로 가세요. {npc:1340}은(는) 마을을 관통하는 길을 걷고, {npc:1963}은(는) {area:2101} 밖에 서 있으며, {npc:1681}은(는) 마을 동쪽에 있습니다; {npc:1572}은(는) 그리폰을 돌봅니다.",
 	-- {npc:1572} Thorgrum Borrelson
-	["{npc:1572}, the gryphon master"] = "",
+	["{npc:1572}, the gryphon master"] = "{npc:1572}, 그리폰 조련사",
 	-- {npc:1572} Thorgrum Borrelson · {npc:4256} Golnir Bouldertoe · {zone:1455} Ironforge
-	["{npc:1572}: for {npc:4256} in {zone:1455}"] = "",
+	["{npc:1572}: for {npc:4256} in {zone:1455}"] = "{npc:1572}: {zone:1455}의 {npc:4256}에게",
 
 	-- Step 88: The west hills and the Algaz Station
 	-- {area:925} Algaz Station
-	["The west hills and the {area:925}"] = "",
+	["The west hills and the {area:925}"] = "서쪽 언덕과 {area:925}",
 	-- {npc:1343} Mountaineer Stormpike · {area:925} Algaz Station
 	-- plural, as words: Elder Black Bears = {npc:1186} Elder Black Bear · Mountain Boars = {npc:1190} Mountain Boar · Forest Lurkers = {npc:1195} Forest Lurker
-	["North through the hills west of the road to {npc:1343} at the {area:925}. The Tunnel Rat kobolds dig in the hills on the way; Elder Black Bears, Mountain Boars and Forest Lurkers roam the same ground."] = "",
+	["North through the hills west of the road to {npc:1343} at the {area:925}. The Tunnel Rat kobolds dig in the hills on the way; Elder Black Bears, Mountain Boars and Forest Lurkers roam the same ground."] = "도로 서쪽 언덕을 통해 북쪽으로 {area:925}의 {npc:1343}에게 가세요. 터널 쥐 코볼트가 가는 길 언덕에서 땅을 파고, 덩치큰 흑곰, 산돼지, 숲늑대거미가 같은 땅을 배회합니다.",
 	-- {item:3110} Tunnel Rat Ear
-	["{item:3110}: Tunnel Rat kobolds"] = "",
+	["{item:3110}: Tunnel Rat kobolds"] = "{item:3110}: 터널 쥐 코볼트",
 	-- {item:3172} Boar Intestines
 	-- plural, as words: Mountain Boars = {npc:1190} Mountain Boar
-	["{item:3172}: Mountain Boars"] = "",
+	["{item:3172}: Mountain Boars"] = "{item:3172}: 산돼지",
 	-- {item:3173} Bear Meat
 	-- plural, as words: Elder Black Bears = {npc:1186} Elder Black Bear
-	["{item:3173}: Elder Black Bears"] = "",
+	["{item:3173}: Elder Black Bears"] = "{item:3173}: 덩치큰 흑곰",
 	-- {item:3174} Spider Ichor
 	-- plural, as words: Forest Lurkers = {npc:1195} Forest Lurker
-	["{item:3174}: Forest Lurkers"] = "",
+	["{item:3174}: Forest Lurkers"] = "{item:3174}: 숲늑대거미",
 	-- {npc:5413} Furen Longbeard · {zone:1453} Stormwind
-	["{npc:5413} in {zone:1453} takes it"] = "",
+	["{npc:5413} in {zone:1453} takes it"] = "{zone:1453}의 {npc:5413}에게 제출합니다",
 
 	-- Step 89: Silver Stream Mine
 	-- {item:5026} Fire Tar
 	-- plural, as words: Tunnel Rat Geomancers = {npc:1174} Tunnel Rat Geomancer
 	["East along the hills to the mine at the north end of the loch: the Miners' League crates sit in its tunnels, among more Tunnel Rats. Shamans: the Tunnel Rat Geomancers (level 12-13) here carry the {item:5026}.\nCareful: the Tunnel Rat Geomancers (12-13) cast from range in the narrow tunnels: pull them one at a time."] = "언덕을 따라 동쪽으로 호수 북쪽 끝의 광산으로 가세요. 광부 연맹 상자들이 굴 안 동굴쥐일족 사이에 있습니다. 주술사: 이곳의 동굴쥐일족 흙점쟁이(12-13레벨)가 {item:5026}을(를) 지니고 있습니다.\n주의: 동굴쥐일족 흙점쟁이(12-13)는 좁은 굴에서 원거리 주문을 시전합니다. 한 마리씩 끌어오세요.",
 	-- {item:2640} Miners' Gear
-	["{item:2640}, from the crates"] = "",
+	["{item:2640}, from the crates"] = "{item:2640}, 상자에서",
 	-- {item:5026} Fire Tar
 	-- plural, as words: Tunnel Rat Geomancers = {npc:1174} Tunnel Rat Geomancer
 	["{item:5026}: Tunnel Rat Geomancers"] = "{item:5026}: 동굴쥐일족 흙점쟁이",
 
 	-- Step 90: Back to the Algaz Station
 	-- {area:925} Algaz Station
-	["Back to the {area:925}"] = "",
+	["Back to the {area:925}"] = "{area:925}로 돌아가기",
 
 	-- Step 91: Thelsamar
 	-- {area:144} Thelsamar · {npc:1340} Mountaineer Kadrell
@@ -511,19 +510,19 @@ return {
 	-- {npc:4256} Golnir Bouldertoe · {object:32372} Great Forge (no name in this language: may be words) · {npc:1573} Gryth Thurden · {area:144} Thelsamar
 	["{npc:4256} works at the {object:32372}'s north end, and {npc:1573} keeps the gryphons in the {object:32372}, where the flight from {area:144} lands."] = "{npc:4256}은(는) {object:32372} 북쪽 끝에서 일하고, {npc:1573}은(는) {area:144}에서 오는 비행편이 내리는 {object:32372}에서 그리핀을 돌봅니다.",
 	-- {npc:4256} Golnir Bouldertoe · {object:32372} Great Forge (no name in this language: may be words)
-	["{npc:4256}, in the {object:32372}"] = "",
+	["{npc:4256}, in the {object:32372}"] = "{npc:4256}, {object:32372} 안",
 	-- {npc:1573} Gryth Thurden · {object:32372} Great Forge (no name in this language: may be words)
 	["{npc:1573}, the gryphon master in the {object:32372}"] = "{npc:1573}, {object:32372}의 그리핀 조련사",
 
 	-- Step 96: Tinker Town
 	-- {object:32372} Great Forge (no name in this language: may be words) · {object:171524} Tinker Town · {object:660964} Misplaced Packages · {object:32383} Forlorn Cavern · {object:32362} Mystic Ward (no name in this language: may be words) · {object:171709} High Seat · {object:32359} Military Ward (no name in this language: may be words)
-	["East from the {object:32372} into {object:171524}: the {object:660964} lie by its mailbox. From here the guide goes once round the city: north to the {object:32383}, west to the {object:32362}, south through the Commons to the {object:171709}, east through the {object:32359} and back to {object:171524} for the tram."] = "",
+	["East from the {object:32372} into {object:171524}: the {object:660964} lie by its mailbox. From here the guide goes once round the city: north to the {object:32383}, west to the {object:32362}, south through the Commons to the {object:171709}, east through the {object:32359} and back to {object:171524} for the tram."] = "{object:32372}에서 동쪽으로 {object:171524}(으)로 들어가세요: {object:660964}은(는) 그 쪽 우편함 옆에 있습니다. 여기서 가이드는 도시를 한 바퀴 돕니다: 북쪽으로 {object:32383}, 서쪽으로 {object:32362}, 공동 구역을 통해 남쪽으로 {object:171709}, 동쪽으로 {object:32359}를 지나 지하철을 탈 {object:171524}(으)로 돌아갑니다.",
 	-- {object:660964} Misplaced Packages · {object:171524} Tinker Town
 	["{object:660964}, by the mailbox in {object:171524}"] = "{object:660964}, {object:171524}의 우체통 옆",
 
 	-- Step 97: Forlorn Cavern
 	-- {object:32372} Great Forge (no name in this language: may be words) · {npc:258098} Eldrun Stormbreaker · {object:32383} Forlorn Cavern · {npc:6120} Lago Blackwrench
-	["North of the {object:32372}: {npc:258098}, the shaman trainer, stands at the south end of the {object:32383}, the rogue and warlock trainers and {npc:6120} just north of him."] = "",
+	["North of the {object:32372}: {npc:258098}, the shaman trainer, stands at the south end of the {object:32383}, the rogue and warlock trainers and {npc:6120} just north of him."] = "{object:32372} 북쪽: 샤먼 훈련사 {npc:258098}이(가) {object:32383} 남쪽 끝에 서 있고, 도적과 흑마법사 훈련사, {npc:6120}은(는) 그 바로 북쪽에 있습니다.",
 	-- {npc:6120} Lago Blackwrench · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
 	["{npc:6120}: {npc:6122} in {zone:1453} takes it"] = "{npc:6120}: {zone:1453}의 {npc:6122}에게 제출합니다",
 
@@ -551,7 +550,7 @@ return {
 
 	-- Step 102: Narm Faulk
 	-- {zone:1455} Ironforge · {area:212} Helm's Bed Lake · {npc:6177} Narm Faulk · {item:6866} Symbol of Life
-	["Head back out of {zone:1455} and east along the road to {area:212}. {npc:6177} lies dead by its shore: use the {item:6866} on him. The Dark Iron Spies sneaking around the lake carry the script."] = "",
+	["Head back out of {zone:1455} and east along the road to {area:212}. {npc:6177} lies dead by its shore: use the {item:6866} on him. The Dark Iron Spies sneaking around the lake carry the script."] = "{zone:1455}을(를) 나와 길을 따라 동쪽으로 {area:212}까지 가세요. {npc:6177}은(는) 그 기슭에서 죽어 있습니다: 그에게 {item:6866}을(를) 사용하세요. 호숫가를 맴도는 검은무쇠 첩자가 서류를 가지고 있습니다.",
 	-- {item:6866} Symbol of Life · {npc:6177} Narm Faulk
 	["Use the {item:6866} on {npc:6177}"] = "{npc:6177}에게 {item:6866}을(를) 사용하세요",
 	-- {item:6847} Dark Iron Script
@@ -563,31 +562,31 @@ return {
 
 	-- Step 105: Mystic Ward
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words)
-	["The paladin, priest and mage trainers are in the {object:32386}, in the {object:32362}."] = "",
+	["The paladin, priest and mage trainers are in the {object:32386}, in the {object:32362}."] = "성기사, 사제, 마법사 훈련사는 {object:32362}에 있는 {object:32386} 안에 있습니다.",
 	-- {npc:11406} High Priest Rohan · {quest:5639} Desperate Prayer
 	["{npc:11406}: {quest:5639}, his own copy of the letter"] = "{npc:11406}: {quest:5639}, 그 자신의 편지 사본",
 
 	-- Step 106: High Seat
 	-- {npc:1274} Senator Barin Redstone · {object:171709} High Seat
-	["South through the Commons: {npc:1274} stands in the {object:171709} with King Magni."] = "",
+	["South through the Commons: {npc:1274} stands in the {object:171709} with King Magni."] = "공동 구역을 통해 남쪽으로: {npc:1274}이(가) 국왕 마그니와 함께 {object:171709}에 서 있습니다.",
 	-- {npc:1274} Senator Barin Redstone · {object:171709} High Seat
-	["{npc:1274}, in the {object:171709} with King Magni"] = "",
+	["{npc:1274}, in the {object:171709} with King Magni"] = "{npc:1274}, 국왕 마그니와 함께 {object:171709}에",
 
 	-- Step 107: Buliwyf Stonehand
 	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "여기 있을 때: {npc:11865}에게 {spell:197}을(를) 배우세요({object:32359}, 은화 10개); 양손 무기가 성기사를 가장 빨리 키웁니다.",
 
 	-- Step 108: Military Ward
 	-- {object:32359} Military Ward (no name in this language: may be words) · {npc:11865} Buliwyf Stonehand · {object:32390} Hall of Arms (no name in this language: may be words)
-	["East to the {object:32359}: the warrior trainers and {npc:11865} in the {object:32390}, the hunter trainers beside it."] = "",
+	["East to the {object:32359}: the warrior trainers and {npc:11865} in the {object:32390}, the hunter trainers beside it."] = "동쪽으로 {object:32359}까지: 전사 훈련사와 {npc:11865}은(는) {object:32390} 안에, 사냥꼬 훈련사는 그 옆에 있습니다.",
 
 	-- Step 109: Buliwyf Stonehand
 	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "여기 있을 때: {npc:11865}에게 {spell:197}을(를) 배우세요({object:32359}, 은화 10개); 양손 무기가 전사를 가장 빨리 키웁니다.",
 
 	-- Step 110: Buliwyf Stonehand
 	-- {spell:199} Two-Handed Maces · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "여기 있을 때: {npc:11865}에게 {spell:199}을(를) 배우세요({object:32359}, 은화 10개); 양손 무기가 전사를 가장 빨리 키웁니다.",
 
 	-- Step 111: Druid trainer
 	["Druid trainer"] = "드루이드 상급자",
@@ -598,50 +597,50 @@ return {
 	-- {area:2257} Deeprun Tram
 	["The {area:2257}"] = "{area:2257}",
 	-- {object:171524} Tinker Town · {area:2257} Deeprun Tram · {zone:1453} Stormwind
-	["East back into {object:171524}: the {area:2257} leaves from its east end. Ride it to {zone:1453}."] = "",
+	["East back into {object:171524}: the {area:2257} leaves from its east end. Ride it to {zone:1453}."] = "동쪽으로 다시 {object:171524}(으)로 들어가세요: {area:2257}은(는) 그 동쪽 끝에서 출발합니다. 타고 {zone:1453}(으)로 가세요.",
 
 	-- Step 113: Tram to Stormwind
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "지하철을 타고 {zone:1453}(으)로",
 	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
 	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "",
+	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "{zone:1455}의 {area:2257} 승강장에서 {npc:12997}이(가) 쥐 문제를 도와달라고 합니다. 승강장 주변 깊은굴 쥐에게 {item:17117}을(를) 쓰고 제출한 뒤 그의 편지를 {zone:1453} 쪽 끝의 형제 {npc:13018}에게 전하세요. 전차 안에는 지도가 없습니다. 도시 표시는 출입구를 가리킬 뿐 두 형제를 가리키지 않습니다.",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
-	["{npc:12997}, on the {zone:1455} platform"] = "",
+	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}, {zone:1455} 승강장",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute
-	["{npc:13016}: use the {item:17117}"] = "",
+	["{npc:13016}: use the {item:17117}"] = "{npc:13016}: {item:17117} 사용",
 	-- {npc:13016} Deeprun Rat
-	["Catch {npc:13016}"] = "",
+	["Catch {npc:13016}"] = "{npc:13016} 잡기",
 
 	-- Step 114: Nipsy
 	-- {zone:1453} Stormwind · {npc:13018} Nipsy · {npc:5413} Furen Longbeard · {object:28027} Dwarven District
-	["Ride the tram to {zone:1453}: {npc:13018} waits on the {zone:1453} platform. {npc:5413} stands in the {object:28027}, just outside the tram."] = "",
+	["Ride the tram to {zone:1453}: {npc:13018} waits on the {zone:1453} platform. {npc:5413} stands in the {object:28027}, just outside the tram."] = "지하철을 타고 {zone:1453}(으)로 가세요: {npc:13018}이(가) {zone:1453} 승강장에서 기다립니다. {npc:5413}은(는) 지하철 바로 밖의 {object:28027}에 서 있습니다.",
 	-- {npc:13018} Nipsy · {zone:1453} Stormwind
-	["{npc:13018}, on the {zone:1453} platform"] = "",
+	["{npc:13018}, on the {zone:1453} platform"] = "{npc:13018}, {zone:1453} 승강장",
 
 	-- Step 115: From the tram to Stormwind
 	-- {area:1519} Stormwind
-	["From the tram to {area:1519}"] = "",
+	["From the tram to {area:1519}"] = "전차에서 {area:1519}(으)로",
 
 	-- Step 116: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {zone:1436} Westfall · {object:2096} Trade District
-	["From the {object:28027} south-west to {object:2098}: {npc:1646}'s compass is in his old house in {zone:1436}, on the way. The flight master and the {object:2096} are south of the square."] = "",
+	["From the {object:28027} south-west to {object:2098}: {npc:1646}'s compass is in his old house in {zone:1436}, on the way. The flight master and the {object:2096} are south of the square."] = "{object:28027}에서 남서쪽으로 {object:2098}까지: {npc:1646}의 나침반은 가는 길인 {zone:1436}, 그의 옛 집에 있습니다. 비행 조련사와 {object:2096}은(는) 광장 남쪽에 있습니다.",
 
 	-- Step 117: Stormwind flight master
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "{zone:1453} 비행 조련사",
 
 	-- Step 118: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "",
+	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "여기 있을 때: {npc:11867}에게 {spell:202}을(를) 배우세요({object:2096}, 은화 10개); 양손 무기가 성기사를 가장 빨리 키웁니다.",
 
 	-- Step 119: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
+	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "여기 있을 때: {npc:11867}에게 지팡이를 배우세요({object:2096}, 은화 10개); 사냥꼬의 근접 무기는 대개 능력치가 중요하고, 양손 무기가 가장 높습니다.",
 
 	-- Step 120: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "",
+	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "여기 있을 때: {npc:11867}에게 검을 배우세요({object:2096}, 은화 10개); 주무기에 검이면 도적이 꾸준히 성장합니다.",
 
 	-- Step 121: Defensive Stance
 	-- {npc:5480} Ilsa Corbin · {object:2100} Old Town · {zone:1455} Ironforge · {object:28027} Dwarven District · {npc:6089} Harry Burlguard · {npc:6090} Bartleby · {object:2152} Pig and Whistle Tavern · {quest:1638} A Warrior's Training · {quest:1639} Bartleby the Drunk
@@ -649,11 +648,11 @@ return {
 
 	-- Step 122: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "여기 있을 때: {npc:11867}에게 {spell:202}을(를) 배우세요({object:2096}, 은화 10개); 양손 무기가 전사를 가장 빨리 키웁니다.",
 
 	-- Step 123: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
+	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "여기 있을 때: {npc:11867}에게 지팡이를 배우세요({object:2096}, 은화 10개); 성장 중에는 지팡이가 한손 무기보다 주문 능력치가 더 높습니다.",
 
 	-- Step 124: Gakin the Darkbinder
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
@@ -663,7 +662,7 @@ return {
 
 	-- Step 126: Goldshire
 	-- {zone:1453} Stormwind · {area:87} Goldshire · {zone:1436} Westfall
-	["Leave {zone:1453} by the main gate and follow the road south to {area:87}: east Elwynn comes before {zone:1436}."] = "",
+	["Leave {zone:1453} by the main gate and follow the road south to {area:87}: east Elwynn comes before {zone:1436}."] = "정문으로 {zone:1453}을(를) 나가 길을 따라 남쪽 {area:87}까지 가세요: 동부 엘윈 삼림이 {zone:1436}보다 먼저 옵니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back through the tunnel to {npc:257597}' cave above the farm."] = "굴을 지나 농장 위 {npc:257597}의 동굴로 돌아가세요.",
