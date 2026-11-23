@@ -289,7 +289,7 @@ impl Planner {
 			return (None, diag.sorted());
 		}
 		let translations = self.pack.translations.as_deref().and_then(|t| parse_json(t).ok()).unwrap_or_else(V::obj);
-		let files = build_pack_files(&guides, &self.manifest, &self.data, self.pack.license.as_deref(), &translations, &retired, &self.pack.iface, Vec::new());
+		let files = build_pack_files(&guides, &self.manifest, &self.data, self.pack.license.as_deref(), &translations, &retired, &[], &self.pack.iface, Vec::new());
 		(Some(files), diag.sorted())
 	}
 

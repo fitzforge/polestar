@@ -3,9 +3,9 @@
 -- LEAKS = { locale = "ruRU" } set. It
 --   * makes the client answer in "its language": every name the client
 --     itself gives (quest titles, item, map, area, zone, spell, faction,
---     instance, class and race names, a few GlobalStrings) comes back as a
---     placeholder, ⟦q176⟧, that holds no word, so a word left on screen is
---     Polestar's;
+--     instance, class and race names, key names, a few GlobalStrings) comes
+--     back as a placeholder, ⟦q176⟧, that holds no word, so a word left on
+--     screen is Polestar's;
 --   * records every text the addons put up: font strings and buttons
 --     (SetText, SetFormattedText), tooltips, chat, error and popup texts,
 --     Settings panel names and menu entries, each with the scene it showed
@@ -132,6 +132,8 @@ for i, k in ipairs({ "FACTION_STANDING_LABEL1", "FACTION_STANDING_LABEL2", "FACT
 	"TRINKET0SLOT", "BACKSLOT", "MAINHANDSLOT", "SECONDARYHANDSLOT", "RANGEDSLOT", "ENCOUNTER_JOURNAL" }) do
 	_G[k] = P("g", i)
 end
+-- A key's name (Esc, Enter) is the client's own word for it.
+GetBindingText = function(key) if type(key) == "string" and key ~= "" then return P("k", key) end return key end
 
 ---------------------------------------------------------------------------
 -- What the addons put on screen.
@@ -312,13 +314,16 @@ function A.hookPolestar()
 	-- LEAKS.everyStep: every step and goal shows, whatever class, race or
 	-- faction it is for (the guide scenes: one character sees them all).
 	if LEAKS.everyStep and ns.Guides and ns.Guides.Matches then ns.Guides.Matches = function() return true end end
-	-- Guiding Stars' supporters, contributors and bug reporters are people's
-	-- names, the same in every language: placeholders, like the player's own.
+	-- Guiding Stars' supporters, contributors, bug reporters, translators and
+	-- ideas are people's names, the same in every language: placeholders, like
+	-- the player's own. (A translator's language is an interface key: it stays.)
 	local C = ns.Credits
 	if C then
 		for i in ipairs(C.supporters or {}) do C.supporters[i] = P("p", i) end
 		for i, e in ipairs(C.contributors or {}) do e.name = P("p", i) end
 		for i, e in ipairs(C.bugReporters or {}) do e.name = P("p", i) end
+		for i, e in ipairs(C.translators or {}) do e.name = P("p", i) end
+		for i, e in ipairs(C.ideas or {}) do e.name = P("p", i) end
 	end
 	local Names = ns.Names
 	-- A name Names had none for, with the Codex's English when it has one.

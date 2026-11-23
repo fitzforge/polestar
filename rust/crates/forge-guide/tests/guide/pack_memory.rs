@@ -94,7 +94,7 @@ fn our_pack_s_side_shelf_guides_ship_their_steps_as_source_read_when_opened() {
 }
 
 #[test]
-fn our_pack_with_baked_legs_is_format_8_its_legs_in_the_race_parts_beside_the_faction_part() {
+fn our_pack_with_baked_legs_is_format_8_its_legs_in_the_faction_part_one_file_per_race() {
 	let list = guides();
 	list[1].set_hidden("_legs", v(&json!({ "1": "CgA" })));
 	list[1].set_hidden("_legsGrid", "test");
@@ -102,19 +102,15 @@ fn our_pack_with_baked_legs_is_format_8_its_legs_in_the_race_parts_beside_the_fa
 	assert_match(&files["Polestar_Guides.toc"], r"## X-Polestar-Format: 8\n");
 	assert_match(&files["Pack.lua"], r"format = 8,");
 	assert_match(&files["../Polestar_Guides_Alliance/Guides.lua"], r#"id = "forever/alliance/elwynn""#);
-	// The faction's guide has no race part: each Alliance race gets one with Legs.lua only.
-	assert_match(&files["../Polestar_Guides_Human/Polestar_Guides_Human.toc"], r"## X-Polestar-Race: Human\n[\s\S]*\n\nLegs\.lua\n$");
-	// Like the faction parts: in Polestar's AddOns-list category and group, named in every client language.
-	let human = &files["../Polestar_Guides_Human/Polestar_Guides_Human.toc"];
-	assert_match(human, r"\n## Title-deDE: Polestar Guides \(Mensch\)\n## Notes-deDE: [^\n]*Mensch[^\n]*\n");
-	assert_match(human, r"\n## Title-zhTW: Polestar 指南（人類）\n");
-	assert_match(human, r"\n## Category: Polestar\n## Group: Polestar\n## LoadOnDemand: 1\n");
-	for race in forge_guide::races::RACE_FILES {
-		assert_eq!(forge_guide::toc::toc_lines(&format!("Polestar_Guides_{race}")).len(), 18, "{race}");
-	}
-	assert!(!files.contains_key("../Polestar_Guides_Human/Guides.lua"));
-	assert_match(&files["../Polestar_Guides_Human/Legs.lua"], r#"Polestar\.RegisterLegs\("guides", "test", \{\n\t\["forever/alliance/elwynn"\] = \{ \[1\] = "CgA" \},\n\}\)"#);
-	assert!(!files.contains_key("../Polestar_Guides_Orc/Legs.lua"), "no Horde race carries the Alliance guide's legs");
+	// The faction's guide's legs ride in its faction part (#3507): a Legs_<race>.lua per Alliance race, after the
+	// guides, each returning at once for a player of another race; no race part.
+	assert_match(&files["../Polestar_Guides_Alliance/Polestar_Guides_Alliance.toc"], r"\n\nGuides\.lua\nLegs_Dwarf\.lua\nLegs_Gnome\.lua\nLegs_Human\.lua\nLegs_NightElf\.lua\nLegs_Skyborne\.lua\n$");
+	assert!(files.keys().all(|k| !k.starts_with("../Polestar_Guides_Human/")), "no race part: {:?}", files.keys().collect::<Vec<_>>());
+	assert_match(
+		&files["../Polestar_Guides_Alliance/Legs_Human.lua"],
+		r#"^-- [^\n]*\nif not Polestar\.IsPlayerRace\("Human"\) then return end\n\nPolestar\.RegisterLegs\("guides", "test", \{\n\t\["forever/alliance/elwynn"\] = \{ \[1\] = "CgA" \},\n\}\)"#,
+	);
+	assert!(files.keys().all(|k| !k.ends_with("/Legs_Orc.lua")), "no Horde race carries the Alliance guide's legs");
 	assert_match(&files["LICENSE-DATA.txt"], r"Credit: Leffe's navigation maps\.");
 	// Each faction part carries the same notice as Polestar_Guides, the Leffe credit included.
 	assert_eq!(files["../Polestar_Guides_Alliance/LICENSE-DATA.txt"], files["LICENSE-DATA.txt"]);
@@ -125,7 +121,7 @@ fn a_faction_part_the_build_no_longer_has_is_removed_another_folder_of_that_name
 	let addons = scratch("faction-parts-addons");
 	let out = addons.join("Polestar_Guides");
 	let write = |guides: &[forge_guide::js::V]| {
-		let files = forge_guide::project::build_pack_files(guides, &manifest("guides", "Polestar_Guides"), &fixture_data(), None, &forge_guide::js::V::obj(), &[], "16001", Vec::new());
+		let files = forge_guide::project::build_pack_files(guides, &manifest("guides", "Polestar_Guides"), &fixture_data(), None, &forge_guide::js::V::obj(), &[], &[], "16001", Vec::new());
 		forge_guide::project::write_pack_dir(&out, &files)
 	};
 	write(&guides()).unwrap();

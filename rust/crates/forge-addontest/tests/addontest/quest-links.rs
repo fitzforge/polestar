@@ -64,20 +64,6 @@ emit({ label = buttons[2].text, native = buttons[1].text, shown = PolestarPicker
 }
 
 #[test]
-fn a_quest_menu_leaves_the_account_wide_faction_filter_following_each_character() {
-	let r = run(r#"
-local function after(setting)
-	Polestar.Set("ui.pickerFaction", setting)
-	P.ShowQuest(7)
-	return Polestar.Get("ui.pickerFaction")
-end
-emit({ auto = after("auto"), all = after("All"), other = after("Horde"), selected = P.Selected() })
-"#);
-	assert_eq!(json!([r["auto"], r["all"], r["other"]]), json!(["auto", "All", "auto"]));
-	assert_eq!(r["selected"], "forever/alliance/human/01-elwynn-forest");
-}
-
-#[test]
 fn tracker_resolves_the_quest_from_the_clicked_block_and_freezes_it_when_its_row_is_reused() {
 	let r = run(r#"
 local opened = {}

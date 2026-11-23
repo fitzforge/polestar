@@ -35,6 +35,31 @@ priced by the ground class of the node it enters and the player's faction
 (`Routing/Costs.lua`, Polestar's). Each keeps his copyright and the GPL notice
 under a header line saying where it started.
 
+**Ported from version 1.33.0** (commit
+[863815c](https://github.com/cjber/shortest-path-forever/commit/863815c6314f3143f6e52fa43fe4453c3d2b1dde),
+GPL-3.0-or-later, with the same permission), each written again for
+Polestar's maps and router and credited in its file:
+
+- *Only ground a player can reach* (his v1.24.8): the walking maps keep only
+  the surfaces a walk from a fixed place reaches (flight masters, inns, boat,
+  zeppelin, tram and lift landings, portal ends and the travel chains'
+  nodes), so a start or goal without a height never stands on a statue's
+  top, a sealed room or a roof no stair reaches
+  (`rust/crates/forge-nav/src/pack/reach.rs`, from his `tools/baker/gen_nav.py`
+  and `tools/baker/places.lua`).
+- *Ledge drops* (his v1.31): a fall of 2 to 14.57 yards (the height a fall
+  starts to hurt) off a ledge is a one-way step, never climbed, priced at the
+  time the fall takes, so a walk takes the short way down instead of going
+  round to a ramp (`rust/crates/forge-nav/src/pack/drops.rs`, on Polestar's
+  navigation grid's falls).
+- *Spawn heights where floors overlap* (his v1.30): the walking maps list the
+  height of every NPC and quest object spawn that stands within a cell of
+  another floor, so a goal without a height beside one ends on its floor (the
+  cellar under a house, the cave under a hill), never the floor over it
+  (`rust/crates/forge-nav/src/pack/spawns.rs` and `Routing/Path.lua`'s
+  spawnHeight, from his `tools/gen_heights.py` and `tools/bake_heights.lua`;
+  a packed field of the maps instead of a file of its own).
+
 ## Polestar's walking maps, grown from his format
 
 The walking maps of Eastern Kingdoms (`Nav/Nav0*.lua`), Kalimdor
@@ -88,8 +113,42 @@ permission), outside this folder, each file saying so at its top:
 The surfaces, floors, ground classes, zones, entrance graph and the jumps and
 drops in these walking maps (maps format 5) are **Leffe's navigation maps**,
 condensed for the game by `forge nav pack --leffe`, with his permission. His
-maps were built from the same Forever client; Polestar adds only the area names
-of the floors (from its own grid) and `Nav/Chokepoints.lua`. Thank you, Leffe.
+maps were built from the same Forever client. Polestar adds area names, chokepoints
+and finer evidence for local walks. Thank you, Leffe.
+
+### Reproducing the regional 70532 import
+
+Use the reviewed **derived** format-5 pack, not an installed copy of the
+regional addons. Its `Polestar_Nav/PACK.json` is the input manifest. The two
+continent folders and `Polestar_Nav/Nav` each also contain a derived
+`TerminalGround.lua`. Keep that input outside the checkout. No client archives,
+unprocessed navigation maps, recordings or router scripts are import inputs.
+
+From a checkout with the destination addon's TOC headers present, run:
+
+```sh
+node tools/lib/nav/import-regions.js "$DERIVED_ADDONS" addon
+forge nav check
+```
+
+The importer pins the source manifest and all three sidecars by SHA-256 and
+checks every source part against the manifest. It groups existing compressed
+pages by region without rebaking geometry. `Polestar_Nav/PACK.json` records
+the pins, resulting data hashes and loader hashes. Run over a 0.4.2 checkout,
+it also deletes that release's 127 `Polestar_Nav_R*` region folders once each
+matches the hashes 0.4.2's `PACK.json` pinned.
+To check a shipped pack without the source snapshot, only `forge nav check`
+is needed. Version and translated titles/notes can change without invalidating
+a loader; its file order, dependencies, interface and load mode cannot.
+
+The continent holds the routing graph and a directory. Each eight-by-four-tile
+sector's coarse floors and fine local geometry are two regions (even rows
+floors, the next odd row that sector's local geometry), and each region is one
+string in its continent's folder: `Region<map>_<row>_<col>.lua` in
+`Polestar_Nav_EK` and `Polestar_Nav_Kalimdor`, Zephras Isle's in
+`Polestar_Nav/Nav`. The router unpacks a region into its pages the first time
+a walk needs one of them and drops the string; a cost search need not unpack
+both of a sector's regions.
 
 ## With Shortest Path Forever installed too
 

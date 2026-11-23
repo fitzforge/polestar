@@ -68,6 +68,171 @@ Polestar.RegisterGuide({ id = "test/ashenvale", pack = "test", title = "Ashenval
 } })
 "#;
 
+// #1853: the Druid opening of Horde Stranglethorn Vale puts a bare flight and
+// Turak's training in one step. The navigation nodes use this file's fake world.
+const MIXED_FLIGHT: &str = r#"
+stub.world.class, stub.world.className, stub.world.level = "DRUID", "Druid", 36
+Polestar.Set("behavior.trainReminder", "off")
+Polestar.RegisterMapFrames({ era = { [1412] = { c = 1, left = 3000, right = -1000, top = -3000, bottom = -6000 } } })
+Polestar.RegisterGuide({ id = "test/mixed-flight", pack = "test", title = "Thunder Bluff", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Thunder Bluff", goals = {
+		{ t = "fly", location = "Thunder Bluff", node = 22 },
+		{ t = "train", class = true, npc = 3033, npcName = "Turak Runetotem", map = 1456, x = 76.48, y = 27.22 },
+	} },
+	{ title = "Fly to Astranaar", goals = { { t = "fly", location = "Astranaar", node = 28 } } },
+	{ title = "Astranaar", goals = { { t = "accept", quest = 1008, title = "The Zoram Strand", npc = 3880, map = 1440, x = 34.7, y = 48.8 } } },
+} })
+"#;
+
+#[test]
+fn a_flight_before_training_in_the_same_step_leads_to_its_landing_and_keeps_the_training_1853() {
+	for known in [true, false] {
+		let out = run(
+			MIXED_FLIGHT,
+			&format!(
+				r#"
+				KNOWN[22] = {known}
+				E.SetGuide("test/mixed-flight"); flush()
+				local function at()
+					local wp, v = E.GetWaypoint(), E.GetStepView(1)
+					return {{ E.GetStepIndex(), wp and wp.kind or false, wp and wp.goalIndex or false,
+						wp and wp.map or false, v.goals[1].status, v.goals[2].status }}
+				end
+				local r = {{ lead = at() }}
+				stub.world.moveTo(1412, 47, 50); stub.advance(1)
+				r.landed = at()
+				stub.world.trainer(3033); stub.world.learnSpell(774); flush()
+				r.trained = at()
+				emit(r)
+				"#
+			),
+		);
+		assert_eq!(out["lead"], json!([1, "fly", 1, 1412, "active", "active"]), "known={known}: {out}");
+		assert_eq!(out["landed"], json!([1, "train", 2, 1456, "done", "active"]), "known={known}: {out}");
+		assert_eq!(out["trained"], json!([2, "fly", 1, 1440, "done", "done"]), "known={known}: {out}");
+	}
+}
+
+#[test]
+fn earlier_work_keeps_its_waypoint_before_a_mixed_flight_1853() {
+	let guides = MIXED_FLIGHT.replace(
+		"{ t = \"fly\", location = \"Thunder Bluff\", node = 22 },",
+		r#"{ t = "accept", quest = 1436, title = "Alliance Relations", npc = 5641, map = 1442, x = 70, y = 50 },
+		{ t = "goto", map = 1442, x = 36.4, y = 7.2, text = "Stonetalon Peak flight master" },
+		{ t = "fly", location = "Thunder Bluff", node = 22 },"#,
+	);
+	let out = run(
+		&guides,
+		r#"
+		KNOWN[22] = true
+		E.SetGuide("test/mixed-flight"); flush()
+		local function at()
+			local wp = E.GetWaypoint()
+			return { wp and wp.kind or false, wp and wp.goalIndex or false, wp and wp.map or false }
+		end
+		local r = { before = at() }
+		stub.world.accept(1436, {}); flush()
+		r.accepted = at()
+		emit(r)
+		"#,
+	);
+	assert_eq!(out, json!({ "before": ["accept", 1, 1442], "accepted": ["fly", 3, 1412] }));
+}
+
+#[test]
+fn a_mixed_flight_does_not_aim_an_optional_or_inapplicable_flight_1853() {
+	let guides = MIXED_FLIGHT.replace(
+		"{ t = \"fly\", location = \"Thunder Bluff\", node = 22 },",
+		r#"{ t = "fly", location = "Auberdine", node = 26, optional = true },
+		{ t = "fly", location = "Astranaar", node = 28, only = { classes = { "MAGE" } } },
+		{ t = "fly", location = "Thunder Bluff", node = 22 },"#,
+	);
+	let out = run(
+		&guides,
+		r#"
+		KNOWN[22] = true
+		E.SetGuide("test/mixed-flight"); flush()
+		local function at()
+			local wp = E.GetWaypoint()
+			return { wp and wp.kind or false, wp and wp.goalIndex or false, wp and wp.map or false, E.GetStepView(1).current }
+		end
+		local r = { before = at() }
+		assert(E.SkipGoal(1, 1)); flush()
+		r.skipped = at()
+		emit(r)
+		"#,
+	);
+	assert_eq!(out, json!({ "before": ["fly", 3, 1412, 3], "skipped": ["fly", 3, 1412, 3] }));
+}
+
+#[test]
+fn a_mixed_flight_without_a_landing_does_not_aim_a_later_flight_1853() {
+	let guides = MIXED_FLIGHT.replace(
+		"{ t = \"fly\", location = \"Thunder Bluff\", node = 22 },",
+		r#"{ t = "fly", location = "Thunder Bluff", node = 22 },
+		{ t = "fly", location = "Astranaar", node = 28 },"#,
+	);
+	let out = run(
+		&guides,
+		r#"
+		NODES[22] = nil
+		E.SetGuide("test/mixed-flight"); flush()
+		emit({ E.GetWaypoint() or false, E.GetStepView(1).current })
+		"#,
+	);
+	assert_eq!(out, json!([false, 1]));
+}
+
+#[test]
+fn a_mixed_flight_keeps_the_named_departure_when_the_planner_is_not_leading_1853() {
+	let guides = MIXED_FLIGHT.replace(
+		"{ t = \"fly\", location = \"Thunder Bluff\", node = 22 },",
+		r#"{ t = "goto", map = 1442, x = 36.4, y = 7.2, text = "Stonetalon Peak flight master" },
+		{ t = "fly", location = "Thunder Bluff", node = 22 },"#,
+	);
+	for setup in [r#"Polestar.Set("nav.travel", false)"#, r#"Polestar.Set("nav.arrow", false)"#, "TOMTOM = true", "Polestar.Nav.HandedOff = function() return true end"] {
+		let out = run(
+			&guides,
+			&format!(
+				r#"
+				KNOWN[22] = true
+				{setup}
+				E.SetGuide("test/mixed-flight"); flush()
+				local wp = E.GetWaypoint()
+				emit({{ wp and wp.kind or false, wp and wp.goalIndex or false, wp and wp.map or false }})
+				"#
+			),
+		);
+		assert_eq!(out, json!(["goto", 1, 1442]), "{setup}: {out}");
+	}
+}
+
+// #1853 with #2260's arrow-off rule: with Polestar's arrow off, a flight to a landing never learned leads there as
+// travel even when training shares its step, and the training leads once there; a known landing holds as written
+// (a_mixed_flight_keeps_the_named_departure_when_the_planner_is_not_leading_1853).
+#[test]
+fn with_the_arrow_off_a_mixed_flight_to_a_landing_never_learned_leads_there_then_to_the_training_1853_2260() {
+	let out = run(
+		MIXED_FLIGHT,
+		r#"
+		Polestar.Set("nav.arrow", false)
+		KNOWN[22] = false
+		E.SetGuide("test/mixed-flight"); flush()
+		local function at()
+			local wp, v = E.GetWaypoint(), E.GetStepView(1)
+			return { E.GetStepIndex(), wp and wp.kind or false, wp and wp.goalIndex or false,
+				wp and wp.map or false, v.goals[1].status, v.goals[2].status }
+		end
+		local r = { lead = at() }
+		stub.world.moveTo(1412, 47, 50); stub.advance(1)
+		r.arrived = at()
+		emit(r)
+		"#,
+	);
+	assert_eq!(out["lead"], json!([1, "fly", 1, 1412, "active", "active"]), "{out}");
+	assert_eq!(out["arrived"], json!([1, "train", 2, 1456, "done", "active"]), "{out}");
+}
+
 #[test]
 fn a_walk_to_the_flight_master_passes_and_the_flight_step_leads_to_its_end_so_the_route_flies_there_directly_1191() {
 	let out = run(
@@ -365,6 +530,75 @@ fn a_flight_to_a_landing_the_character_never_learned_leads_there_as_travel_and_i
 	);
 }
 
+// With Polestar's arrow off the step read "Fly to Astranaar" at Auberdine's flight master, a flight path the character
+// never learned, with no way on said (#2260). A flight to a landing the character does not know leads there as travel
+// with the arrow off too: "Go to", the waypoint at the landing, done on arriving there; a known landing holds as
+// written, the walk to the named flight master first.
+#[test]
+fn with_the_arrow_off_a_flight_to_a_landing_never_learned_reads_go_to_and_is_done_on_arrival_2260() {
+	let out = run(
+		MENETHIL,
+		&format!(
+			r#"{MENETHIL_NAV}
+			Polestar.Set("nav.arrow", false)
+			KNOWN = {{ [2] = true }}
+			E.SetGuide("test/menethil"); flush()
+			local r = {{ unknown = at() }}
+			stub.world.moveTo(1437, 9.5, 59.7); stub.advance(1)
+			r.arrived = at()
+			emit(r)
+			"#
+		),
+	);
+	assert_eq!(
+		out,
+		json!({
+			"unknown": [1, 1437, "fly", "Go to Menethil Harbor"],
+			"arrived": [2, 1437, "getfp", "Get the flight path at Menethil Harbor"],
+		})
+	);
+	let known = run(
+		MENETHIL,
+		&format!(
+			r#"{MENETHIL_NAV}
+			Polestar.Set("nav.arrow", false)
+			KNOWN = {{ [2] = true, [7] = true }}
+			E.SetGuide("test/menethil"); flush()
+			emit(at())
+			"#
+		),
+	);
+	assert_eq!(known, json!([1, 1453, "goto", "Go to Stormwind flight master"]), "a known landing holds as written with the arrow off");
+}
+
+// #1795: a landing the character may have though Polestar doesn't know it (Nav.TaxiMaybe: no flight map opened on that
+// continent yet) stays a flight: "Fly to Menethil Harbor", led to its end like a known one, for the planner to fly
+// there at a cost; landing there ends the step, as a known landing does (#1530); the first flight map settles it.
+#[test]
+fn a_flight_to_a_landing_the_character_may_have_stays_a_flight_and_ends_on_landing_1795() {
+	let out = run(
+		MENETHIL,
+		&format!(
+			r#"{MENETHIL_NAV}
+			KNOWN = {{ [2] = true }}
+			Polestar.Nav.TaxiMaybe = function(id) return id == 7 end
+			E.SetGuide("test/menethil"); flush()
+			local r = {{ maybe = at() }}
+			stub.world.moveTo(1437, 9.5, 59.7); stub.advance(1)
+			r.landed = at()
+			emit(r)
+			"#
+		),
+	);
+	assert_eq!(
+		out,
+		json!({
+			"maybe": [1, 1437, "fly", "Fly to Menethil Harbor"],
+			"landed": [2, 1437, "getfp", "Get the flight path at Menethil Harbor"],
+		})
+	);
+}
+
 // 0.3.5's Wetlands "Fly to Astranaar" for a player whose Darkshore work around it was skipped: the step is only the
 // walk to Auberdine's flight master and the flight. Flying to Astranaar from another flight master (here Stonetalon
 // Peak), or getting there any other way when Astranaar is unknown, finishes the whole step, the walk to Auberdine's
@@ -647,4 +881,55 @@ fn a_step_with_work_of_its_own_or_one_looked_at_ahead_has_no_purpose_line() {
 		"#,
 	);
 	assert_eq!(out, json!({ "live": false, "ahead": false }));
+}
+
+// #1756 (Konky88, 0.3.6, Troll Shaman 33, TomTom's arrow): Thousand Needles' "Fly to Freewind Post" leads to
+// Ratchet's flight master, where the route expected the player after Islen Waterseer. He stood in Mulgore, 1,100
+// yd from Thunder Bluff's flight master, knowing Freewind Post. With TomTom's arrow leading (the planner's flight
+// handling is Polestar's own arrow's) the step still holds as written, but its arrow leads to the nearest flight
+// master the character knows when it is clearly nearer than the named one; the landing still finishes the step.
+// Near the named flight master, or with the landing not known, the step leads there as before.
+const FREEWIND: &str = r#"
+Polestar.RegisterGuide({ id = "test/needles", pack = "test", title = "Thousand Needles", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Fly to Freewind Post", goals = {
+		{ t = "goto", map = 1442, x = 90, y = 50, text = "Ratchet flight master" },
+		{ t = "fly", location = "Freewind Post", node = 30 },
+	} },
+	{ title = "Freewind Post", goals = { { t = "goto", map = 1412, x = 10, y = 90, text = "Freewind Post" } } },
+} })
+"#;
+
+#[test]
+fn a_flight_step_off_the_planner_leads_to_a_clearly_nearer_known_flight_master_not_the_named_one_1756() {
+	let out = run(
+		FREEWIND,
+		r#"
+		local w = stub.world
+		-- (This world's maps are live frames only: the nodes here too.)
+		NODES[30] = { id = 30, name = "Freewind Post, Thousand Needles", c = 1, map = 1412, x = 10, y = 90 }
+		NODES[22] = { id = 22, name = "Thunder Bluff, Mulgore", c = 1, map = 1412, x = 47, y = 50 }
+		local r = {}
+		local function aim()
+			local wp = E.GetWaypoint()
+			return { E.GetStepIndex(), wp and wp.map, wp and wp.x, wp and wp.kind, wp and wp.label }
+		end
+		-- TomTom's arrow leads (no planner), in Mulgore beside Thunder Bluff, knowing Thunder Bluff and Freewind Post.
+		TOMTOM = true
+		KNOWN = { [22] = true, [30] = true }
+		w.moveTo(1412, 50, 50)
+		E.SetGuide("test/needles"); flush()
+		r.mulgore = aim()
+		-- Beside the named flight master: it leads there.
+		w.moveTo(1442, 88, 50); stub.fire("QUEST_LOG_UPDATE"); flush()
+		r.named = aim()
+		-- Freewind Post not learned yet: the step holds as written.
+		KNOWN = { [22] = true }
+		w.moveTo(1412, 50, 50); stub.fire("QUEST_LOG_UPDATE"); flush()
+		r.unknown = aim()
+		emit(r)
+		"#,
+	);
+	assert_eq!(out["mulgore"], json!([1, 1412, 47, "goto", "Walk to the flight master"]), "Thunder Bluff's flight master: {out}");
+	assert_eq!(out["named"][1], 1442, "near the named flight master it leads there: {out}");
+	assert_eq!(out["unknown"][1], 1442, "a landing not known keeps the step as written: {out}");
 }

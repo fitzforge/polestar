@@ -1,7 +1,7 @@
 guide forever/horde/50-60/02-felwood
-title Felwood & Western Plaguelands
+title Western Plaguelands, Azshara & Felwood
 faction Horde
-levels 52-54
+levels 53-54
 zone Felwood
 next forever/horde/50-60/03-winterspring
 # Built from the playthrough simulator's consensus route (Horde, visits
@@ -133,6 +133,12 @@ step Diseased Wolves
   tip The wolves roam the fields between Andorhal, Dalson's Tears and the Writhing Haunt. Finish them on the ride back east.
   kill 1817 quest 4984
 
+step Level 53
+  when level<53
+  tip Top up here to level 53 before Mulgris sends you after the Diseased Grizzlies (55-56): the Carrion Lurkers (52-53) on the way from Dalson's Tears to the Writhing Haunt are at your level. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
+  goto 51.1,64.3 map 1422 "Carrion Lurker"
+  level 53 grind 1821                  -- grind on Carrion Lurker
+
 step Mulgris Deepriver
   turnin 4984
   accept 4985
@@ -154,9 +160,23 @@ step Tirion Fordring
   accept 5544
   note Tirion's hunts are in the Eastern Plaguelands: keep them for later.
 
+step Augustus the Touched
+  zone Eastern Plaguelands
+  tip Cross the river east into Terrordale, the ruined town in the north-west of the Eastern Plaguelands. Augustus sits in a hut at its edge.
+  accept 6164                         -- Inside
+
+step Terrordale: kill these as you meet them
+  zone Eastern Plaguelands
+  tip The book lies in the ruined inn of Terrordale; the undead in the town are 54-56, so pull them one at a time.
+  tip The Large Termite Mounds stand all over the hills east of Terrordale. Use the Empty Termite Jar on each mound you pass.
+  collect 15884 quest 6164 @17.4,31.1 -- Upstairs
+  collect 15043 quest 5901
+  collect 12840 quest 5408 optional   -- Minion's Scourgestones: the Terrordale undead drop them while you wear the Argent Dawn Commission
+  note Keep Augustus' Receipt Book: Augustus takes it back on the Eastern Plaguelands guide's Terrordale stop.
+
 step Kirsta Deepshadow
   zone Western Plaguelands
-  tip Ride west to the Northridge Lumber Camp; Kirsta hides on the hill north-east of it.
+  tip Ride back west over the river and on to the Northridge Lumber Camp; Kirsta hides on the hill north-east of it.
   accept 6004
 
 step Scarlet Crusade
@@ -224,6 +244,7 @@ step Emerald Sanctuary
 
 step Southern Jaedenar
   tip Follow the road north-west. The south of Jaedenar, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.
+  tip Careful: the Spirit of Trey Lightforge (53, elite) haunts the west end of Jaedenar, around 35,60: pull the cultists and hounds away from him.
   kill 7125 quest 5155.1
   kill 7115 quest 5155.3
   kill 7112 quest 5155.4
@@ -284,8 +305,8 @@ step Winna Hazzard
   accept 4506
 
 step Winna's kitten
-  tip Take the kitten to the same moonwell and release it there; once it has turned into a Corrupted Saber, bring it back to Winna and click on it to hand it over.
-  goto 32.3,66.6 "Jadefire moonwell"
+  tip Take the kitten to the same moonwell and release it there with Winna's Kitten Carrier; once it has turned into a Corrupted Saber, bring it back to Winna and click on it to hand it over.
+  use 12565 quest 4506.1 @32.3,66.6 map 1448 -- Winna's Kitten Carrier, at the Jadefire moonwell
   complete 4506
 
 step Winna Hazzard
@@ -301,7 +322,7 @@ step Shatter Scar Vale
   complete 5156
 
 step Irontree Woods
-  tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo.
+  tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at Bloodvenom Post and the Emerald Sanctuary take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
   collect 11503 quest 4102
   kill 8957 quest 4120.1
   kill 8961 quest 4120.2

@@ -15,6 +15,10 @@ return {
 	["{npc:3649}, north end of the village"] = "{npc:3649}, no extremo norte do vilarejo",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
 	["{npc:3649}: for {npc:1646} in {zone:1453}"] = "{npc:3649}: para {npc:1646} em {zone:1453}",
+	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
+	["{npc:3649}: {npc:1646}'s reply, if you brought it (Night Elves, from Night Elf Darkshore's {zone:1453} walk)"] = "",
+	-- {npc:3657} Sentinel Elissa Starbreeze · {npc:3693} Terenthis
+	["{npc:3657}, beside {npc:3693}"] = "",
 	["The WANTED poster outside the inn"] = "O cartaz de PROCURA-SE em frente à estalagem",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, no andar de cima da estalagem",
@@ -84,7 +88,8 @@ return {
 	-- Step 13: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
-	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Siga as colinas para o norte. {npc:3650} espera nas ruínas de {quest:954}; Capetas Selvagens e Duendes Torpes as enchem, e Sátiros Deth'ryll a borda leste. {quest:1001} fica junto à estrada a oeste das ruínas; uma {quest:4723} está na costa no caminho até ele.",
+	-- was: ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Siga as colinas para o norte. {npc:3650} espera nas ruínas de {quest:954}; Capetas Selvagens e Duendes Torpes as enchem, e Sátiros Deth'ryll a borda leste. {quest:1001} fica junto à estrada a oeste das ruínas; uma {quest:4723} está na costa no caminho até ele."
+	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road north-north-west of {npc:3650}; a {quest:4723} lies on the shore on the way to him."] = "",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
 	["Grell Earrings"] = "Brincos de Capeta",
 	-- {item:5338} Ancient Moonstone Seal
@@ -92,11 +97,13 @@ return {
 	["{item:5338}: Deth'ryll Satyrs"] = "{item:5338}: Sátiros Deth'ryll",
 
 	-- Step 14: Auberdine
+	-- {npc:3657} Sentinel Elissa Starbreeze · {npc:3693} Terenthis · {npc:3701} Tharnariun Treetender
+	["{npc:3657}, beside {npc:3693} and {npc:3701}"] = "",
 	["Fill the tube at the moonwell in the village"] = "Encha o tubo no poço lunar do vilarejo",
 
 	-- Step 15: A Lesson to Learn
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
-	["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "Voe de {area:442} para {area:702} e pegue o portal para subir até {npc:4217} em {area:1658}.",
+	["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path. Then take the portal up to {npc:4217} in the {area:1658}."] = "Elfos Noturnos voam de {area:442} para {area:702}; Celonatos pegam o barco na doca de {area:442} e aprendem a rota de voo de Rut'theran. Depois, pegue o portal para subir até {npc:4217} em {area:1658}.",
 
 	-- Step 18: Moonglade
 	-- {spell:18960} Teleport: Moonglade
@@ -157,6 +164,9 @@ return {
 	["{item:12191}; underwater"] = "{item:12191}; debaixo d'água",
 	-- {item:12192} Mist Veil's Lockbox
 	["{item:12192}; underwater"] = "{item:12192}; debaixo d'água",
+	-- {item:12237} Fine Crab Chunks
+	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
+	["{item:12237} from the Reef Crawlers and Encrusted Tide Crawlers on this shore, if you still need them"] = "",
 
 	-- Step 29: Darkshore: kill these as you meet them
 	-- {zone:1439} Darkshore
@@ -166,7 +176,11 @@ return {
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
 	["Moonstalker Fangs"] = "Presas de Espreitaluna",
 
-	-- Step 31: The Tower of Althalaxx
+	-- Step 31: Beached Sea Turtle
+	-- {quest:4727} Beached Sea Turtle · {npc:10219} Gwennyth Bly'Leggonde · {area:442} Auberdine
+	["North from the falls to the shore: the {quest:4727} lies on the beach there, for {npc:10219} in {area:442}."] = "",
+
+	-- Step 32: The Tower of Althalaxx
 	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale · {npc:3660} Athrikus Narassin
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
 	["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}.\nCareful: Dark Strand Voidcallers (28-29) with their voidwalkers and {npc:3660} (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower."] = "A leste de Caixazorra 323, {npc:3661} se esconde ao pé da torre entre os Fanáticos da Linhagem das Trevas. Guarde a carta dele para Dinis, o Purificador, em {zone:1440}.\nCuidado: Arautos do Caos da Linhagem das Trevas (28-29) com seus emissários do caos e {npc:3660} (31) ficam dentro da própria torre: pegue os pergaminhos dos Fanáticos ao sul dela e fique longe da torre.",
@@ -174,7 +188,7 @@ return {
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
 	["{item:5348}: Dark Strand Fanatics"] = "{item:5348}: Fanáticos da Linhagem das Trevas",
 
-	-- Step 32: The cave and the Den Mother
+	-- Step 33: The cave and the Den Mother
 	-- {npc:6788} Den Mother
 	["The cave and the {npc:6788}"] = "A caverna e a {npc:6788}",
 	-- {item:5270} Death Cap · {npc:6788} Den Mother
@@ -185,20 +199,20 @@ return {
 	-- {item:5270} Death Cap
 	["{item:5270}; below ground"] = "{item:5270}; no subterrâneo",
 
-	-- Step 33: The northern Blackwood camp
+	-- Step 34: The northern Blackwood camp
 	["The northern Blackwood camp"] = "O acampamento Bosquenero do norte",
 	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
 	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "O acampamento furbolg ao sul de {area:456} guarda as Reservas de Castanha, Fruta e Grão junto às fogueiras. Com uma amostra de cada e a {item:12347} nas bolsas (a {item:12346} se enche no {object:174795}), use a bacia junto à fogueira mais perto do rio: ela invoca Zabraxxis, o sátiro corruptor, e o {item:12355} está na Bolsa Demoníaca dele.",
 	["By the bonfire closest to the river: summons Xabraxxis"] = "Junto à fogueira mais perto do rio: invoca Zabraxxis",
-	-- {item:12355} Talisman of Corruption · {object:177624} Xabraxxis' Demon Bag
-	["{item:12355}, in {object:177624}"] = "{item:12355}, em {object:177624}",
+	-- {item:12347} Filled Cleansing Bowl
+	["After using the {item:12347}, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl."] = "Depois de usar a {item:12347}, mate Zabraxxis e clique na Bolsa Demoníaca dele no chão para pegar o talismã. Se Zabraxxis sumir antes de você pegá-lo, pegue a missão de novo para ganhar uma nova bacia.",
 
-	-- Step 34: The cave and the Den Mother
+	-- Step 35: The cave and the Den Mother
 	["Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time."] = "Cuidado: se você atacar um filhote, os outros filhotes e muitas vezes a mãe entram na briga, então conte com vários de uma vez.",
 	-- {npc:6788} Den Mother
 	["{npc:6788}, below ground"] = "{npc:6788}, no subterrâneo",
 
-	-- Step 35: Auberdine
+	-- Step 36: Auberdine
 	-- {quest:948} Onu · {zone:1439} Darkshore
 	["For {quest:948} at the Grove, on {zone:1439}'s southern loop after the trip east"] = "Para {quest:948}, no Bosque, no circuito sul de {zone:1439}, depois da viagem ao leste",
 
@@ -226,6 +240,7 @@ return {
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "Espreitalunas Machos rondam a mata ao redor da glaive. {object:10076} e {object:12666} ficam no fundo da cratera; {npc:3584} fica no lado norte.",
 	-- ["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path there. Take the portal up to {npc:4217} in the {area:1658}."] = "Elfos Noturnos voam de {area:442} para {area:702}; Celonatos pegam o barco na doca de {area:442} e aprendem lá a rota de voo. Pegue o portal para subir até {npc:4217} em {area:1658}.",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "Siga as colinas para o norte. {npc:3650} espera nas ruínas de {quest:954}; Capetas Selvagens e Duendes Torpes as enchem, e Sátiros Deth'ryll a borda leste. {quest:1001} fica junto à estrada a oeste das ruínas.",
+	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Siga as colinas para o norte. {npc:3650} espera nas ruínas de {quest:954}; Capetas Selvagens e Duendes Torpes as enchem, e Sátiros Deth'ryll a borda leste. {quest:1001} fica junto à estrada a oeste das ruínas; uma {quest:4723} está na costa no caminho até ele.",
 	-- ["Only if a Disciple or Thug dropped {item:5352}: right-click it"] = "Só se um Discipulo ou Capanga tiver deixado cair {item:5352}: clique com o botão direito nele",
 	-- ["Read both tablets"] = "Leia as duas tábuas",
 	-- ["Scaber Stalks"] = "Galhos de Piolho",
@@ -246,6 +261,7 @@ return {
 	-- ["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore."] = "Dois naufrágios estão no fundo do mar na baía ao norte de {area:442}; cada um guarda um cofre. Tiscorais e Maretiscos Incrustados ocupam esta costa.",
 	-- ["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil."] = "{area:450} fica na costa ao sul da praia de {npc:10323}. Proteja o garimpeiro enquanto ele procura o fóssil.",
 	-- ["{item:12289}, on the beach west of the docks"] = "{item:12289}, na praia a oeste das docas",
+	-- ["{item:12355}, in {object:177624}"] = "{item:12355}, em {object:177624}",
 	-- ["{item:15851} and {item:2449}"] = "{item:15851} e {item:2449}",
 	-- ["{item:15883}: the {object:177792} under the water off the north coast, west of the ruins"] = "{item:15883}: o {object:177792} debaixo d'água na costa norte, a oeste das ruínas",
 	-- ["{item:279279}: Twilight Disciples and Thugs"] = "{item:279279}: Discipulos do Crepúsculo e Capangas do Crepúsculo",

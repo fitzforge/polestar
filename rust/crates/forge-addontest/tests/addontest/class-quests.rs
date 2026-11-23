@@ -238,6 +238,22 @@ fn a_short_chain_with_low_mobs_has_no_heads_up_line() {
 	assert_eq!(out[0], true);
 }
 
+// coredump's report (#2947): Call of Earth (Horde)'s card read "mobs up to level 9999": one spawn area of the
+// Signet of Akir's droppers carries the level of a mob the game shows as "??". No real level is named.
+#[test]
+fn a_spawn_area_of_no_real_level_is_never_named_on_the_card_2947() {
+	let out = run_qol(
+		r#"
+		local g = { id = "c/earth", title = "Call of Earth", category = "Class", classes = { "SHAMAN" }, minLevel = 4, steps = {
+			{ goals = { { t = "accept", quest = 21, map = 2521 } } },
+			{ goals = { { t = "collect", quest = 21, item = 6, map = 2521, spotsPacked = "43.8,24.1,,40,1,,3;48.9,54.2,781.3,40,3,,9999;65.6,65.6,696,40,1,,10" } } },
+		} }
+		local h = CQ.Heads(g, { class = "SHAMAN" })
+		emit({ mobMax = h.mobMax, line = CQ.HeadsLine(h, g) or false })"#,
+	);
+	assert_eq!(out[0], json!({ "mobMax": 10, "line": "mobs up to level 10" }), "the real levels only");
+}
+
 // Discord feedback via Fitz (2026-11-10): the game offers The Eye of Bhossca (level 35) at 30, and class cards
 // stacked up there. A chain is offered from one level below its first quest's level; the guide list still opens it
 // as soon as its gate does (Engine.StartGate is not touched).
@@ -345,6 +361,30 @@ fn a_druid_on_a_druid_only_accept_sees_the_class_card_with_the_reward_spells_ico
 	let warrior = &out[1];
 	assert_eq!(warrior["shown"], false, "{warrior}");
 	assert_eq!(warrior["row"], "Accept “|cffffd673The Great Cat Spirit|r”");
+}
+
+// Discord (a Rogue on The Horn of Xelthos, 78261): the card read "ROGUE · LEVEL 1". The quest is level 23 and any
+// level may take it (minLevel 1); the head showed the minimum. It shows the quest's own level, and the minimum only
+// when there is no level and the minimum is one (above 1).
+#[test]
+fn the_class_card_shows_the_quest_s_level_not_a_minimum_of_1_horn_of_xelthos() {
+	let out = run_card(
+		r#"
+		local function horn(fields)
+			local accept = { verb = "Accept", subject = "The Horn of Xelthos", subjectKind = "quest", quest = 78261, object = 410369, objName = "Dead Drop", map = 1421, x = 46.5, y = 73.5, status = "active" }
+			for k, v in pairs(fields) do accept[k] = v end
+			uistub.guides["test/horn"] = { id = "test/horn", pack = "guides", title = "The Horn of Xelthos", minLevel = 23, maxLevel = 26,
+				category = "Class", zone = 1421, zoneName = "Silverpine Forest", author = "Polestar", version = 1, steps = {
+				{ title = "C's dead drop", goals = { G("accept", accept) } },
+				{ title = "Back", goals = { G("turnin", { verb = "Turn in", subject = "The Horn of Xelthos", subjectKind = "quest", quest = 78261, object = 410369, map = 1421, x = 46.5, y = 73.5, status = "pending" }) } },
+			} }
+			uistub.setGuide("test/horn", 1)
+			return card().head
+		end
+		uistub.player.class, uistub.player.race, uistub.player.level = "ROGUE", "Human", 23
+		emit({ quest = horn({ minLevel = 1, qlvl = 23 }), noLevel = horn({ minLevel = 1 }), minOnly = horn({ minLevel = 20 }) })"#,
+	);
+	assert_eq!(out[0], json!({ "quest": "ROGUE · LEVEL 23", "noLevel": "ROGUE", "minOnly": "ROGUE · LEVEL 20" }));
 }
 
 // Only the quest data makes a class quest (UI/ClassRewards.lua's class mask), never a line's
@@ -590,8 +630,8 @@ fn a_hand_in_in_a_later_step_reads_later_in_this_guide() {
 
 // A Warlock class guide with three chains in order (Imp, Voidwalker, Succubus: the Orc's quests,
 // Ruzan, Ophek and Gan'rul Bloodeye), a Druid one for Cat Form, and a Durotar leveling guide that
-// takes the Voidwalker chain at its third step.
-const TOAST_PRE: &str = r#"uistub.install()
+// takes the Voidwalker chain at its third step. The heads-up card's place and style (ui-headsup-card.rs) too.
+pub(crate) const TOAST_PRE: &str = r#"uistub.install()
 stub.login()
 local GF = Polestar.UI.GuideFrame
 local CT = Polestar.UI.ClassToast
@@ -670,6 +710,36 @@ fn a_druid_reaching_20_gets_the_cat_form_heads_up_once_a_warrior_does_not() {
 	let warrior = &out[2];
 	assert_ne!(warrior["quest"], 98393, "{warrior}");
 	assert!(!warrior["title"].as_str().unwrap_or("").contains("Cat Form"), "{warrior}");
+}
+
+// #3727 (Liquidor): a level 50 hunter's card read "#20083, #19991 or #19992 ready": reward items the client had not
+// cached had no name. The card asks for them and names them the moment they arrive.
+#[test]
+fn a_reward_item_the_client_has_not_cached_is_asked_for_and_the_card_names_it_when_it_arrives() {
+	let out = run_toast(
+		r#"
+		local names, asked = {}, {}
+		C_Item = C_Item or {}
+		C_Item.GetItemNameByID = function(id) return names[id] end
+		-- What the client is asked for (Compat.RequestItem: C_Item.RequestLoadItemDataByID in the game).
+		Polestar.Compat.RequestItem = function(id) asked[#asked + 1] = id return names[id] ~= nil end
+		GetItemInfo = function(id) return names[id] end
+		who("WARLOCK", "Orc", "Horde", 10)
+		uistub.openTabs({ { "test/durotar", 1 } }, 1)
+		local m = CT.Model(1506)
+		m.reward = { kind = "weapon", show = "item", items = { 20083, 19991 }, choice = true }
+		m.title = string.format("%s ready", Polestar.UI.ClassCard.RewardName(m.reward))
+		CT.ShowCard(m)
+		local before = CT.frame.Title:GetText()
+		names[20083], names[19991] = "Hunting Spear", "Devilsaur Eye"
+		stub.fire("GET_ITEM_INFO_RECEIVED", 20083)
+		emit({ before = before, asked = asked, after = CT.frame.Title:GetText() })"#,
+	);
+	let o = &out[0];
+	assert!(o["before"].as_str().unwrap().contains("#20083"), "{o}");
+	assert!(o["asked"].as_array().unwrap().iter().any(|x| x == 20083) && o["asked"].as_array().unwrap().iter().any(|x| x == 19991), "asked for: {o}");
+	let after = o["after"].as_str().unwrap();
+	assert!(after.contains("Hunting Spear") && after.contains("Devilsaur Eye") && !after.contains('#'), "named once they arrive: {o}");
 }
 
 #[test]
@@ -805,6 +875,25 @@ fn no_heads_up_for_a_reward_already_known_or_owned_or_a_chain_already_taken() {
 	assert_eq!(out[4]["quest"], 98393, "{}", out[4]);
 }
 
+// #3020 (FleshExpress): a Highborne hunter who had Tame Beast for days got the "Taming the Beast" card at 35: the
+// card checked the one spell id the data names, and another race's chain teaches it under another id. #1935: the
+// same for a Skyborne druid's Bear Form. The reward counts as known by its name in the spellbook too.
+#[test]
+fn issue_3020_a_reward_spell_known_under_another_id_counts_by_its_name() {
+	let out = run_toast(
+		r#"
+		local book = {}
+		Polestar.Compat.KnowsSpellNamed = function(name) return book[name] == true end
+		local tame = { kind = "pet", spell = 1515, spellName = "Tame Beast" }
+		local r = { CT.RewardKnown(tame) }
+		book["Tame Beast"] = true
+		r[2] = CT.RewardKnown(tame)
+		r[3] = CT.RewardKnown({ kind = "ability", spell = 5487, spellName = "Bear Form" })
+		emit(r)"#,
+	);
+	assert_eq!(out[0], json!([false, true, false]), "not known; known by name; another name stays unknown");
+}
+
 #[test]
 fn login_tells_only_of_chains_opened_in_the_last_two_levels_and_never_of_level_1_ones() {
 	let out = run_toast(
@@ -923,7 +1012,8 @@ local function ready()
 	return false
 end
 local r = { first = CQ.Heads(G.Get(id), Polestar.Compat.GetPlayerInfo()).firstLevel }
-for _, n in ipairs({ 30, 33, 34 }) do stub.world.level = n; r["at" .. n] = ready() end
+-- Each level reached as in game (PLAYER_LEVEL_UP): the engine reads the player's level then, not on every call.
+for _, n in ipairs({ 30, 33, 34 }) do stub.world.setLevel(n); stub.advance(2); r["at" .. n] = ready() end
 emit(r)"#
 			.into(),
 	});

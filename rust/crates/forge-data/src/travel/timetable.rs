@@ -28,7 +28,7 @@ const STEP: f64 = 0.05;
 
 fn board_of(kind: &str) -> f64 {
 	match kind {
-		"boat" | "zeppelin" => 10.0,
+		"boat" | "zeppelin" | "airship" => 10.0,
 		"tram" => 5.0,
 		"lift" => 2.0,
 		_ => f64::NAN,
@@ -623,11 +623,30 @@ struct PortalDef {
 	from_area: f64,
 	to: &'static str,
 	to_area: f64,
+	/// The floors of its two ends where our grid has none to give (the Wizard's Sanctum's chamber is no floor of
+	/// ours): each room's floor is where the other portal's teleport puts the player (classic-db's destination).
+	floors: Option<(f64, f64)>,
+	/// The item the trigger asks the player to carry (classic-db areatrigger_teleport.condition_id ->
+	/// conditions type 2, "has the item"), or None: the planner takes the portal only while it is in the bags.
+	item: Option<f64>,
 }
 
-const PORTALS: [PortalDef; 2] = [
-	PortalDef { trigger: 527, id: "portal-ruttheran", from: "Darnassus", from_area: 1657.0, to: "Rut'theran Village", to_area: 702.0 },
-	PortalDef { trigger: 542, id: "portal-darnassus", from: "Rut'theran Village", from_area: 702.0, to: "Darnassus", to_area: 1657.0 },
+// The Wizard's Sanctum in Stormwind (#1970): the mage trainers stand in a chamber 76 yd under its ground floor that
+// no walk reaches; the tower's top room has the portal down (trigger 704) and the chamber the one back up (702). No
+// AreaTable area names the Sanctum (its rooms are Stormwind City's, 1519), so its ends keep their own names (area 0:
+// none): "Take the portal to Wizard's Sanctum", not "to Stormwind City" in the city itself.
+// The Transpolyporter (#2156): Scooty's pad in Booty Bay (trigger 1103) puts a player carrying the Goblin
+// Transponder (9173, from Gnomer-gooooone!, 2843) on the Train Depot's pad by Gnomeregan's back door; 1104 there
+// takes them back (classic-db condition 2034 on both: item 9173). Players' recordings (over 20 contributors) land at
+// the Train Depot (Eastern Kingdoms 43.3,53.5) seconds after standing on the Booty Bay pad, and walk on into the
+// instance or round to the front door.
+const PORTALS: [PortalDef; 6] = [
+	PortalDef { trigger: 527, id: "portal-ruttheran", from: "Darnassus", from_area: 1657.0, to: "Rut'theran Village", to_area: 702.0, floors: None, item: None },
+	PortalDef { trigger: 542, id: "portal-darnassus", from: "Rut'theran Village", from_area: 702.0, to: "Darnassus", to_area: 1657.0, floors: None, item: None },
+	PortalDef { trigger: 704, id: "portal-sanctum-chamber", from: "Wizard's Sanctum tower", from_area: 0.0, to: "Wizard's Sanctum", to_area: 0.0, floors: Some((148.6, 29.6)), item: None },
+	PortalDef { trigger: 702, id: "portal-sanctum-tower", from: "Wizard's Sanctum", from_area: 0.0, to: "Wizard's Sanctum tower", to_area: 0.0, floors: Some((29.6, 148.6)), item: None },
+	PortalDef { trigger: 1103, id: "portal-gnomeregan", from: "Booty Bay", from_area: 35.0, to: "Gnomeregan", to_area: 133.0, floors: None, item: Some(9173.0) },
+	PortalDef { trigger: 1104, id: "portal-booty-bay", from: "Gnomeregan", from_area: 133.0, to: "Booty Bay", to_area: 35.0, floors: None, item: Some(9173.0) },
 ];
 const PORTAL_SECONDS: f64 = 5.0;
 
@@ -738,6 +757,8 @@ pub struct Portal {
 	pub a: End,
 	pub b: End,
 	pub seconds: f64,
+	/// The item the player must carry for the portal to take them (PortalDef.item).
+	pub item: Option<f64>,
 	pub source: String,
 }
 
@@ -756,7 +777,10 @@ fn build_portals(area_triggers: &Rows, db: &V, frames: &Frames, live: &LiveFrame
 		};
 		let mut a = place(p.from, int(t, "ContinentID"), number(t.get("Pos_0")), number(t.get("Pos_1")), frames, live, Some(p.from_area));
 		let mut b = place(p.to, dest.get("map").num(), dest.get("x").num(), dest.get("y").num(), frames, live, Some(p.to_area));
-		if let (Some(a), Some(b), Some(nav)) = (a.as_mut(), b.as_mut(), nav) {
+		if let (Some(a), Some(b), Some((fa, fb))) = (a.as_mut(), b.as_mut(), p.floors) {
+			a.z = Some(fa);
+			b.z = Some(fb);
+		} else if let (Some(a), Some(b), Some(nav)) = (a.as_mut(), b.as_mut(), nav) {
 			for (e, z) in [(a, number(t.get("Pos_2"))), (b, dest.get("z").as_num().unwrap_or(f64::NAN))] {
 				match end_height(nav, e.c, e.wx, e.wy, Some(z)) {
 					Some(h) => e.z = Some(h),
@@ -775,6 +799,7 @@ fn build_portals(area_triggers: &Rows, db: &V, frames: &Frames, live: &LiveFrame
 			a,
 			b,
 			seconds: PORTAL_SECONDS,
+			item: p.item,
 			source: format!("AreaTrigger {} -> classic-db areatrigger_teleport {}", p.trigger, p.trigger),
 		});
 	}
@@ -801,6 +826,7 @@ fn build_portals(area_triggers: &Rows, db: &V, frames: &Frames, live: &LiveFrame
 			a,
 			b,
 			seconds: PORTAL_SECONDS,
+			item: None,
 			source: format!("gameobject {} spawn (Forever world DB) -> {}", p.object, p.landing),
 		});
 	}

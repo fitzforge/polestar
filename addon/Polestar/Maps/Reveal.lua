@@ -64,6 +64,7 @@ end
 ---------------------------------------------------------------------------
 
 local maps = {} -- map frame -> { view, host = frame, tex = { texture, ... }, n, r, g, b }
+local added = {} -- MapCanvas.Add's maps, watched as the world map is
 local scratch = {}
 
 local function mode()
@@ -184,6 +185,7 @@ local function sync()
 	if mode() ~= "off" then
 		watch(WorldMapFrame)
 		if BattlefieldMapFrame then watch(BattlefieldMapFrame) end
+		for i = 1, #added do watch(added[i]) end
 	end
 	for _, rec in pairs(maps) do
 		if rec.view.shown then paint(rec) end
@@ -207,6 +209,12 @@ end)
 
 ns.OnLogin(function()
 	sync()
+	if ns.MapCanvas then
+		ns.MapCanvas.OnAdd(function(map)
+			added[#added + 1] = map
+			sync()
+		end)
+	end
 	local T = ns.Theme
 	if T and T.OnChanged then
 		T.OnChanged(function()

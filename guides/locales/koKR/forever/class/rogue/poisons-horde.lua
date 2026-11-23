@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Poisons (Horde)"] = "",
 	-- {item:7676} Thistle Tea
-	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "",
+	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "Forever에서는 독 조제를 상급자가 아니라 이 연계 퀘스트로 배웁니다. {item:7676} 제조법도 함께 얻습니다.",
 
 	-- Step 1: Lockpicking practice
 	["Lockpicking practice"] = "",
@@ -32,19 +32,21 @@ return {
 	-- {item:8051} Flare Gun
 	["{item:8051}, twice, at Fizzule"] = "",
 
-	-- Step 4: Silixiz's Tower Key
-	-- {item:8066} Fizzule's Whistle · {npc:7287} Foreman Silixiz · {spell:921} Pick Pocket
-	["Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. {npc:7287} (level 22) walks by the tower: hug the wall, stealth up behind him and {spell:921} the key. Killing him does not give it; if his pockets are empty, kill him and wait 4 1/2 minutes for him to come back."] = "",
+	-- Step 4: The Venture Co. tower, with a group
+	["The Venture Co. tower, with a group"] = "투자개발회사 탑, 파티로",
+	-- {npc:7288} Grand Foreman Puzik Gallywix · {item:8066} Fizzule's Whistle · {npc:7287} Foreman Silixiz · {object:129127} Gallywix's Lockbox · {spell:9810} Touch of Zanzil · {npc:2391} Serge Hinott
+	-- plural, as words: Mutated Venture Co. Drones = {npc:7310} Mutated Venture Co. Drone
+	["{npc:7288} on the top floor is a level 23 elite: easier at 23 or with a friend. Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. First Pick Pocket Silixiz's Tower Key from {npc:7287} (level 22), who walks by the tower: stealth up behind him (killing him does not give it). Then clear the tower floor by floor (everything comes back after 4 1/2 minutes): Mutated Venture Co. Drones (25) on the ground floor, Patrollers on the second, Lookouts on the open third, Gallywix on top, back 10 minutes after a kill. Pick {object:129127} beside him for the cache: it poisons you with the {spell:9810}, which weakens your stealth and agility until {npc:2391} cures it."] = "꼭대기 층의 {npc:7288}은(는) 23레벨 정예입니다. 23레벨이 되거나 친구와 함께하면 쉽습니다. {item:8066}을(를) 가방에 두고 그에게 다가갈 때마다 사용하세요. 그렇지 않으면 적대적으로 변합니다. 먼저 탑 옆을 걷는 {npc:7287}(22레벨)에게서 실릭시즈의 탑 열쇠를 소매치기하세요. 은신해서 뒤로 다가가세요(처치해도 얻을 수 없습니다). 그다음 층마다 정리하세요(모두 4분 30초 후 다시 나타납니다). 1층에 돌연변이 투자개발회사 일꾼(25), 2층에 순찰병, 트인 3층에 감시병, 꼭대기에 갤리윅스가 있으며 처치 후 10분 뒤 다시 나타납니다. 그 옆의 {object:129127}을(를) 따서 보관함을 얻으세요. 열면 {spell:9810}에 중독되어 {npc:2391}이(가) 치료해 줄 때까지 은신과 민첩성이 약해집니다.",
 	-- {item:8072} Silixiz's Tower Key
 	["Pick Pocket Foreman Silixiz for {item:8072}"] = "",
-
-	-- Step 5: The Venture Co. tower
-	["The Venture Co. tower"] = "",
-	-- {spell:1943} Rupture · {spell:2098} Eviscerate · {npc:7288} Grand Foreman Puzik Gallywix · {spell:1776} Gouge · {spell:5277} Evasion · {item:7676} Thistle Tea · {object:129127} Gallywix's Lockbox · {spell:9810} Touch of Zanzil · {npc:2391} Serge Hinott
-	-- plural, as words: Mutated Venture Co. Drones = {npc:7310} Mutated Venture Co. Drone
-	["Inside, floor by floor (everything comes back after 4 1/2 minutes): the Mutated Venture Co. Drones (level 25) on the ground floor die to one Ambush with a dagger; the Patrollers on the second floor take half their health from a one-point {spell:1943}; the Lookouts on the open third floor from a one-point {spell:2098}. {npc:7288} waits on the top floor: a level 23 elite, back 10 minutes after a kill. Open with Ambush (about half his health), then {spell:1776}, {spell:5277}, a healing potion and {item:7676}; a friend makes it easy. One head per kill. Then pick {object:129127} beside him for the cache: it poisons you with the {spell:9810}, which weakens your stealth and agility until {npc:2391} cures it."] = "",
 	-- {item:8074} Gallywix's Head · {npc:7288} Grand Foreman Puzik Gallywix
 	["{item:8074}: {npc:7288} (elite)"] = "{item:8074}: {npc:7288} (정예)",
+
+	-- Step 5: The Venture Co. tower, solo
+	["The Venture Co. tower, solo"] = "투자개발회사 탑, 혼자",
+	-- {item:8066} Fizzule's Whistle · {npc:7287} Foreman Silixiz · {spell:921} Pick Pocket · {spell:1943} Rupture · {spell:2098} Eviscerate · {npc:7288} Grand Foreman Puzik Gallywix · {spell:1776} Gouge · {spell:5277} Evasion · {item:7676} Thistle Tea · {object:129127} Gallywix's Lockbox · {spell:9810} Touch of Zanzil · {npc:2391} Serge Hinott
+	-- plural, as words: Mutated Venture Co. Drones = {npc:7310} Mutated Venture Co. Drone
+	["Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. {npc:7287} (level 22) walks by the tower: hug the wall, stealth up behind him and {spell:921} the key. Killing him does not give it; if his pockets are empty, kill him and wait 4 1/2 minutes for him to come back. Inside, floor by floor (everything comes back after 4 1/2 minutes): the Mutated Venture Co. Drones (level 25) on the ground floor die to one Ambush with a dagger; the Patrollers on the second floor take half their health from a one-point {spell:1943}; the Lookouts on the open third floor from a one-point {spell:2098}. {npc:7288} waits on the top floor: a level 23 elite, back 10 minutes after a kill. Open with Ambush (about half his health), then {spell:1776}, {spell:5277}, a healing potion and {item:7676}; a friend makes it easy. One head per kill. Then pick {object:129127} beside him for the cache: it poisons you with the {spell:9810}, which weakens your stealth and agility until {npc:2391} cures it."] = "{item:8066}을(를) 가방에 두고 그에게 다가갈 때마다 사용하세요. 그렇지 않으면 적대적으로 변합니다. {npc:7287}(22레벨)은(는) 탑 옆을 걷습니다. 벽에 붙어 은신한 뒤 뒤에서 열쇠를 {spell:921}하세요. 처치해도 얻을 수 없습니다. 주머니가 비어 있으면 처치하고 4분 30초 뒤 다시 나타날 때까지 기다리세요. 안에서는 층마다(모두 4분 30초 후 다시 나타납니다): 1층의 돌연변이 투자개발회사 일꾼(25레벨)은 단검 매복 한 방에 죽고, 2층의 순찰병은 1포인트 {spell:1943}로 생명력 절반이, 트인 3층의 감시병은 1포인트 {spell:2098}로 절반이 깎입니다. {npc:7288}은(는) 꼭대기 층에서 기다립니다. 23레벨 정예이며 처치 후 10분 뒤 다시 나타납니다. 매복(생명력 약 절반)으로 시작해 {spell:1776}, {spell:5277}, 치유 물약, {item:7676}을(를) 쓰세요. 친구가 있으면 쉽습니다. 처치당 머리 하나. 그다음 그 옆의 {object:129127}을(를) 따서 보관함을 얻으세요. 열면 {spell:9810}에 중독되어 {npc:2391}이(가) 치료해 줄 때까지 은신과 민첩성이 약해집니다.",
 
 	-- Step 6: Back to Shenthul
 	-- {npc:3401} Shenthul
@@ -66,7 +68,6 @@ return {
 	-- ["At 20 {npc:3401} stands in the {object:172960}, the canyon under the {object:172982}. Target him and type /salute."] = "20레벨에 {npc:3401}은(는) {object:172982} 아래 협곡인 {object:172960}에 서 있습니다. 그를 대상으로 잡고 /경례를 입력하세요.",
 	-- ["Fly back to {zone:1454}."] = "{zone:1454}(으)로 날아 돌아가세요.",
 	-- ["Fly to the {area:380} and ride north to the Venture Co. tower north of the {area:382}. In sight of the tower, fire the {item:8051} twice, then /salute {npc:7233} before he attacks you."] = "{area:380}(으)로 날아가 북쪽으로 {area:382} 북쪽의 투자개발회사 탑까지 가세요. 탑이 보이는 곳에서 {item:8051}을(를) 두 번 쏜 뒤, {npc:7233}이(가) 공격하기 전에 /경례를 하세요.",
-	-- ["Forever teaches {spell:2842} through this chain, not the trainer; the {item:7676} recipe comes with it."] = "Forever에서는 {spell:2842}을(를) 상급자가 아니라 이 연계 퀘스트로 배웁니다. {item:7676} 제조법도 함께 얻습니다.",
 	-- ["Stay stealthed. {npc:7287} carries the tower key; Gallywix (elite) and his lockbox are at the top of the tower. Kill two each of the drones, patrollers and lookouts around it."] = "은신을 유지하세요. {npc:7287}이(가) 탑 열쇠를 지니고 있습니다. 갤리윅스(정예)와 그의 금고는 탑 꼭대기에 있습니다. 주변의 일꾼, 순찰대원, 망꾼을 각각 두 명씩 처치하세요.",
 	-- ["Take the zeppelin from {zone:1454} to the {zone:1458} and ride south through {zone:1421} to {area:272} in {area:287}. {npc:2391} stands in {area:272}; wait beside him while he brews the cure."] = "{zone:1454}에서 비행선을 타고 {zone:1458}(으)로 간 뒤, 남쪽으로 {zone:1421}을(를) 지나 {area:287}의 {area:272}까지 가세요. {npc:2391}은(는) {area:272}에 서 있습니다. 그가 해독제를 만드는 동안 옆에서 기다리세요.",
 	-- ["{item:8051}, twice, in sight of the tower"] = "{item:8051}, 탑이 보이는 곳에서 두 번",

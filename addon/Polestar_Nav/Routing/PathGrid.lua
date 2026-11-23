@@ -159,6 +159,76 @@ local function EnsurePart(map, D)
 	return true
 end
 
+-- The directory is resident; a region's pages wait as one string in the map's part (Polestar_Nav itself for map
+-- 2991; tools/lib/nav/import-regions.js writes it: the fields' names, "packed.floor,localWalk.ground:", then each
+-- page as its field (1 byte, from 1), key (3), block count (1; 0 for a lone string) and each block's length (3)
+-- before its bytes). The first page a walk needs from a region unpacks all of it into the map's page tables, the
+-- same strings and block lists 0.4.2's region addons assigned, and drops the string (#3396).
+local function unpackRegion(D, blob)
+	local colon = string.find(blob, ":", 1, true)
+	if not colon then return end
+	local tables = {}
+	for name in string.gmatch(string.sub(blob, 1, colon - 1), "[^,]+") do
+		local t = D
+		for part in string.gmatch(name, "[^.]+") do
+			t = type(t) == "table" and t[part] or nil
+		end
+		if type(t) ~= "table" then return end
+		tables[#tables + 1] = t
+	end
+	local sub, pos, size = string.sub, colon + 1, #blob
+	while pos <= size do
+		local f, k1, k2, k3, n = byte(blob, pos, pos + 4)
+		pos = pos + 5
+		local value
+		if n == 0 then
+			local a, b, c = byte(blob, pos, pos + 2)
+			local len = (a * 256 + b) * 256 + c
+			value = sub(blob, pos + 3, pos + 2 + len)
+			pos = pos + 3 + len
+		else
+			value = {}
+			for i = 1, n do
+				local a, b, c = byte(blob, pos, pos + 2)
+				local len = (a * 256 + b) * 256 + c
+				value[i] = sub(blob, pos + 3, pos + 2 + len)
+				pos = pos + 3 + len
+			end
+		end
+		tables[f][(k1 * 256 + k2) * 256 + k3] = value
+	end
+end
+
+-- A promised page unavailable in combat is not absent terrain: a later request retries it. Regions unpack only out
+-- of combat, as each region's addon loaded in 0.4.2, so every answer stays what it was.
+local function loadRegion(map, id)
+	if map == nil or (InCombatLockdown and InCombatLockdown()) then return end
+	local D = Data(map)
+	local regions = D and D.regions
+	local blob = regions and regions[id]
+	if type(blob) ~= "string" then return end
+	regions[id] = nil
+	unpackRegion(D, blob)
+end
+local unavailablePages = 0
+local function regionPage(t, key)
+	if not t then return nil end
+	local value, directory = t[key], t.directory
+	if value or not directory then return value end
+	local lo, hi = 0, #directory / 4 - 1
+	while lo <= hi do
+		local mid = floor((lo + hi) / 2)
+		local a, b, c, id = byte(directory, 4 * mid + 1, 4 * mid + 4)
+		local k = (a * 256 + b) * 256 + c
+		if key == k then
+			loadRegion(t.detailMap, id)
+			if not t[key] then unavailablePages = unavailablePages + 1; return nil, true end
+			return t[key]
+		elseif key < k then hi = mid - 1 else lo = mid + 1 end
+	end
+	return nil
+end
+
 local states = {}
 
 -- A field's string for cluster key (k + 1), decoded on first use; nil when the map lacks it (format 1 has no class
@@ -176,21 +246,27 @@ local function unpackField(data, field, key)
 		return loose[key]
 	end
 	local blocks = data.packed[field][key]
+	if type(blocks) == "number" then
+		loadRegion(data.detailMap, blocks)
+		blocks = data.packed[field][key]
+		if type(blocks) ~= "table" then return nil end
+	end
 	if not blocks then
 		return nil
 	end
-	local chunks = {}
+	local chunks = #blocks > 1 and {} or nil
+	local raw
 	for i, block in ipairs(blocks) do
 		slice()
 		-- Maps format 5 may carry the zlib bytes themselves (D.blocks == "zlib") instead of base64.
 		local compressed = data.blocks == "zlib" and block or C_EncodingUtil.DecodeBase64(block)
-		local raw = compressed and C_EncodingUtil.DecompressString(compressed, Enum.CompressionMethod.Zlib)
+		raw = compressed and C_EncodingUtil.DecompressString(compressed, Enum.CompressionMethod.Zlib)
 		if not raw then
 			return nil
 		end
-		chunks[i] = raw
+		if chunks then chunks[i] = raw end
 	end
-	local raw = table.concat(chunks)
+	raw = chunks and table.concat(chunks) or raw or ""
 	loose[key] = raw
 	return raw
 end
@@ -271,6 +347,13 @@ end
 --                           248, direction, layer + 1), a one-way arc (254, its end (3), yards * 4 (2)), the same arc
 --                           backwards at its end, for a search out of a goal (255, its start (3), yards * 4 (2))
 local char, concat, unpack, min = string.char, table.concat, unpack, math.min
+-- Keep three-byte indexes in the chunks the decoder produces. Joining them into a second, contiguous
+-- string would copy every entry. An XO chunk repeats the next offset so reading a pair never straddles pages.
+local INDEX_N = 1024
+local function indexBytes(pages, node, count)
+	local j = node % INDEX_N
+	return byte(pages[(node - j) / INDEX_N + 1], 3 * j + 1, 3 * j + count)
+end
 local KINDS = 48 -- every byte a class field's run-length literal can hold
 local VAL, CLS = {}, {} -- [kind byte] = val, class byte
 for b = 0, 255 do
@@ -306,7 +389,7 @@ local function floorCell(c, node)
 end
 -- Local cell lc's first floor node in decoded cluster c and its floors' count; nil, 0 for none.
 local function floorsOf(c, lc)
-	local a, b, d = byte(c.first, 3 * lc + 1, 3 * lc + 3)
+	local a, b, d = indexBytes(c.first, lc, 3)
 	local v = (a * 256 + b) * 256 + d
 	if v == 0 then
 		return nil, 0
@@ -318,6 +401,7 @@ end
 -- height h), with its height gap for -1. The cluster must be decoded (c: its strings, st.cl[k] when not given).
 local function surface(st, k, lc, layer, h, c)
 	c = c or st.cl[k]
+	if not c then return nil end
 	local kind = c.kind
 	if layer == 0 then
 		return byte(kind, lc + 1) >= KINDS and lc or nil
@@ -380,9 +464,10 @@ end
 -- t[first .. last] plus bias, each as width (2 or 3) bytes, high first.
 local function wide(S, t, first, last, width, bias)
 	local buf, n = S.buf, 0
+	local pages = width == 3 and {}
 	S.np = 0
-	for i = first, last, CHUNK / 4 do
-		local j = min(last, i + CHUNK / 4 - 1)
+	for i = first, last, INDEX_N do
+		local j = min(last, i + INDEX_N - 1)
 		if width == 3 then
 			for e = i, j do
 				local v = t[e] + bias
@@ -398,10 +483,15 @@ local function wide(S, t, first, last, width, bias)
 				buf[n + 1], buf[n + 2], n = (v - lo) / 256, lo, n + 2
 			end
 		end
-		chunk(S, n)
+		if pages then
+			pages[#pages + 1] = char(unpack(buf, 1, n))
+			slice()
+		else
+			chunk(S, n)
+		end
 		n = 0
 	end
-	return finish(S)
+	return pages or finish(S)
 end
 
 -- Heights t[1 .. last] as height * 2 + 32768 in 2 bytes, high first.
@@ -841,6 +931,7 @@ local function decodeGrid(st, k)
 	S.xmax = nx
 	table.sort(X)
 	local buf, w, off = S.buf, 0, 0
+	local xo = {}
 	local o1, o2, o3 = 0, 0, 0 -- off's bytes
 	local xb, xw = S.xbuf, 0
 	local xparts, xnp = S.xparts or {}, 0
@@ -848,9 +939,10 @@ local function decodeGrid(st, k)
 	local j, nextNode = 1, nx > 0 and floor(X[1] / NODE) or T
 	for node = 0, T do
 		buf[w + 1], buf[w + 2], buf[w + 3], w = o1, o2, o3, w + 3
-		if w >= CHUNK then
-			chunk(S, w)
-			w = 0
+		if w == 3 * (INDEX_N + 1) then
+			xo[#xo + 1] = char(unpack(buf, 1, w))
+			buf[1], buf[2], buf[3], w = o1, o2, o3, 3
+			slice()
 		end
 		if node == nextNode and node < T then
 			local before = xw
@@ -887,14 +979,14 @@ local function decodeGrid(st, k)
 			end
 		end
 	end
-	if w > 0 then
-		chunk(S, w)
+	if w > 3 then
+		xo[#xo + 1] = char(unpack(buf, 1, w))
+		slice()
 	end
 	if xw > 0 then
 		xnp = xnp + 1
 		xparts[xnp] = char(unpack(xb, 1, xw))
 	end
-	local xo = finish(S)
 	local xstr = concat(xparts, "", 1, xnp)
 	for i = 1, xnp do
 		xparts[i] = nil
@@ -911,7 +1003,7 @@ local function decodeGrid(st, k)
 		first = wide(S, FIRST, 1, N, 3, 0),
 		lm = bytes(S, LM, 1, T),
 	}
-	c.bytes = #c.kind + #c.mv + #c.z + #c.fl + #c.first + #c.lm + #c.xo + #c.xs + 10 * 25 + 200
+	c.bytes = #c.kind + #c.mv + #c.z + #c.fl + #c.lm + #c.xs + 3 * (N + T + #xo) + 64 * (#c.first + #xo) + 10 * 25 + 200
 	spare = S
 	return c
 end
@@ -954,7 +1046,8 @@ local function grid(st, k)
 			return grid(st, k)
 		end
 		if not c then
-			st.cl[k] = false
+			-- A regional floor not loaded yet (for example in combat) is retryable.
+			if not (st.D.packed and type(st.D.packed.floor[k + 1]) == "number") then st.cl[k] = false end
 			return false
 		end
 		local area = unpackField(st.D, "area", k + 1)
@@ -1354,7 +1447,7 @@ local function neighbour(st, k, node, gx, gy, dx, dy, water)
 			return tk, v
 		end
 	end
-	local o1, o2, o3, p1, p2, p3 = byte(c.xo, 3 * node + 1, 3 * node + 6)
+	local o1, o2, o3, p1, p2, p3 = indexBytes(c.xo, node, 6)
 	local a, b, xs = (o1 * 256 + o2) * 256 + o3, (p1 * 256 + p2) * 256 + p3, c.xs
 	while a < b do
 		local e = byte(xs, a + 1)
@@ -1479,16 +1572,60 @@ local function chunkDanger(st, k, danger)
 	return any and out or nil
 end
 
+-- Sparse points on fixed collision faces, not filled boxes or extra walking edges.
+-- Each point is indexed in every cluster within shoulder reach. Visit only clusters
+-- crossed by the actual chord; no grid decode, even for a long line across tiles.
+local function solidSweep(bins, x0, y0, ny, x, y, z, X, Y, Z)
+	local r, c = floor((x-x0)/TILE), floor((y-y0)/TILE)
+	local R, C = floor((X-x0)/TILE), floor((Y-y0)/TILE)
+	local points = bins[r*ny+c]
+	if r == R and c == C and not points then return false end
+	local dx, dy, dz = X-x, Y-y, Z-z
+	local ds = dx*dx + dy*dy
+	local sx, sy = dx >= 0 and 1 or -1, dy >= 0 and 1 or -1
+	while true do
+		if points then
+			for i = 1, #points, 3 do
+				local u, v = points[i]-x, points[i+1]-y
+				local t = ds > 0 and math.min(1, max(0, (u*dx+v*dy)/ds)) or 0
+				local h = points[i+2] - (z+t*dz)
+				u, v = u-t*dx, v-t*dy
+				-- Inscribed shoulder disc minus source/coordinate rounding; ignore
+				-- toe-only contacts and points above the body or on another deck.
+				if h > .29 and h < 1.95 and u*u+v*v < .454^2 then return true end
+			end
+		end
+		if r == R and c == C then return false end
+		local tx = r == R and huge or (x0+(r+(sx>0 and 1 or 0))*TILE-x)/dx
+		local ty = c == C and huge or (y0+(c+(sy>0 and 1 or 0))*TILE-y)/dy
+		if tx <= ty then r = r+sx end
+		if ty <= tx then c = c+sy end
+		points = bins[r*ny+c]
+	end
+end
+local function solidChord(st, x, y, z, X, Y, Z)
+	local bins = st.D.solidSamples
+	return bins and z and Z and solidSweep(bins,st.x0,st.y0,st.ny,x,y,z,X,Y,Z) or false
+end
+
 -- Line of sight between two path entries, walking every cell the segment between their cell centres crosses and
 -- following the surface from node to node, so it cannot jump between floors. With limit (a map with classes), every
 -- node crossed must also cost no more than limit (Costs.Mult for profile in style, times dangerAt(k, node) when
 -- given: smooth's zone danger) and, unless hostileOK, carry no hub bit hb (the one hostile to profile; nil for none).
-local function sight(st, P, a, b, water, limit, profile, hb, hostileOK, style, dangerAt)
+local function sight(st, P, a, b, water, limit, profile, hb, hostileOK, style, dangerAt, sample)
 	local ax, ay, bx, by = P.x[a], P.y[a], P.x[b], P.y[b]
 	local k, node = P.k[a], P.n[a]
+	if st.D.solidSamples and (st.D.solidSamples[k] or k ~= P.k[b] or (a == 1 and P.from) or (b == #P.x and P.to)) then
+		local first, last = a == 1 and P.from, b == #P.x and P.to
+		if solidChord(st, first and first.x or st.x0+(ax+.5)*st.cs, first and first.y or st.y0+(ay+.5)*st.cs,
+			first and first.z or zOf(st.cl[k] or grid(st,k),node), last and last.x or st.x0+(bx+.5)*st.cs,
+			last and last.y or st.y0+(by+.5)*st.cs, last and last.z or zOf(st.cl[P.k[b]] or grid(st,P.k[b]),P.n[b])) then return false end
+	end
 	local dx, dy = bx - ax, by - ay
 	local sx, sy = dx > 0 and 1 or -1, dy > 0 and 1 or -1
 	local nx, ny = dx * sx, dy * sy
+	local major = sample and max(nx, ny)
+	local scale = major and major > 0 and (nx * nx + ny * ny) / major
 	local x, y, ix, iy = ax, ay, 0, 0
 	while ix < nx or iy < ny do
 		tick()
@@ -1518,8 +1655,88 @@ local function sight(st, P, a, b, water, limit, profile, hb, hostileOK, style, d
 		end
 		x, y = x + mx, y + my
 		ix, iy = ix + mx * sx, iy + my * sy
+		if scale then
+			-- Trace every touched cell for walls and floor continuity, but take only one height
+			-- per major-axis cell centre. A line barely clipping a side cell must not inherit
+			-- its whole height change over a fraction of a yard.
+			local m, side, minor
+			if nx >= ny then m, side, minor = ix, iy, ny else m, side, minor = iy, ix, nx end
+			if side == floor(m * minor / major + 0.5) then
+				sample(m == major and nx * nx + ny * ny or m * scale, zOf(st.cl[k] or grid(st, k), node))
+			end
+		end
 	end
 	return k == P.k[b] and node == P.n[b]
+end
+
+-- A straight run of original graph edges already names its exact floor at every cell. A fresh
+-- visibility trace can instead choose the other layer where a ramp and the ground coincide.
+-- No jumps, lifts, horizontal skips, floor changes in place, or non-walkable grades.
+local function straightGround(st, P, p, q, dx, dy, sample)
+	local n = q - p
+	if n < 2 or max(abs(dx), abs(dy)) ~= n or (dx ~= 0 and dy ~= 0 and abs(dx) ~= abs(dy)) then return false end
+	local sx, sy = dx / n, dy / n
+	local step = sx * dx + sy * dy
+	local rise = st.cs * (sx ~= 0 and sy ~= 0 and 1.41421356237 or 1) * 1.192 + 1 -- 50° walk slope, quantized yards
+	local x, y, z = P.x[p], P.y[p], zOf(grid(st, P.k[p]), P.n[p])
+	for j = p + 1, q do
+		tick()
+		x, y = x + sx, y + sy
+		if P.x[j] ~= x or P.y[j] ~= y then return false end
+		local h = zOf(grid(st, P.k[j]), P.n[j])
+		if abs(h - z) > rise then return false end
+		sample((j - p) * step, h)
+		z = h
+	end
+	return true
+end
+
+-- A line can have clear walking sight in XY yet put the arrow below a ridge or in the air over a
+-- valley. Keep the original turns, cost and yards. Sample the connected level along each long
+-- straight and emit a point only when extending its height chord would miss a sample by >3 yd.
+-- If the line is a transport, a drop, or an unmapped approach, do not infer an intermediate floor.
+local function groundLine(st, P, keep, points)
+	local out, i, a, b, dx, dy, total, anchor, za, prev, zp, lo, hi
+	local function sample(s, z)
+		if s == total then z = b.z end
+		local slope = (z - za) / (s - anchor)
+		if slope < lo or slope > hi then
+			if not out then
+				out = { wet = points.wet }
+				for j = 1, i - 1 do out[j] = points[j] end
+			end
+			local t = prev / total
+			out[#out + 1] = { map = a.map, x = a.x + dx * t, y = a.y + dy * t, z = zp }
+			anchor, za, lo, hi = prev, zp, -huge, huge
+		end
+		local ds = s - anchor
+		lo = max(lo, (z - za - 3) / ds)
+		hi = math.min(hi, (z - za + 3) / ds)
+		prev, zp = s, z
+	end
+	for j = 2, #keep do
+		i, a, b = j, points[j - 1], points[j]
+		local p, q = keep[j - 1], keep[j]
+		local gx, gy = P.x[q] - P.x[p], P.y[q] - P.y[p]
+		total = gx * gx + gy * gy
+		if not b.rideFrom and total >= 16 and a.z and b.z
+			and floor((a.x - st.x0) / st.cs) == P.x[p] and floor((a.y - st.y0) / st.cs) == P.y[p]
+			and floor((b.x - st.x0) / st.cs) == P.x[q] and floor((b.y - st.y0) / st.cs) == P.y[q]
+			and abs(a.z - zOf(grid(st, P.k[p]), P.n[p])) <= 4 and abs(b.z - zOf(grid(st, P.k[q]), P.n[q])) <= 4 then
+			local before = out and #out or j - 1
+			dx, dy = b.x - a.x, b.y - a.y
+			anchor, za, prev, zp, lo, hi = 0, a.z, 0, a.z, -huge, huge
+			if not straightGround(st, P, p, q, gx, gy, sample) then
+				if out then for t = #out, before + 1, -1 do out[t] = nil end end
+				anchor, za, prev, zp, lo, hi = 0, a.z, 0, a.z, -huge, huge
+				if not sight(st, P, p, q, P.w[q] > P.w[p], nil, nil, nil, nil, nil, nil, sample) and out then
+					for t = #out, before + 1, -1 do out[t] = nil end
+				end
+			end
+		end
+		if out then out[#out + 1] = b end
+	end
+	return out or points
 end
 
 -- Path.Sight's clusters: the ones its line has read and their use stamps before (reused, at most SIGHT_CLUSTERS).
@@ -1552,11 +1769,13 @@ local INDOOR_CLASS, CITY_CLASS = Costs.CLASS.INDOOR, Costs.CLASS.CITY
 -- the surface from the node under the start (the one nearest z1, within ZTOL), as the drawn line's straightening does
 -- (sight): never through a closed step (a wall, a cliff edge, a building's side), from one floor to another or into
 -- water, and on a map with classes never onto indoor or indoor city ground nor into a town hostile to profile ("Horde",
--- "Alliance"; nil: none is). True when it reaches the end cell on a surface within ZTOL of z2 (any, z2 nil); false
--- when blocked or the start stands on no surface within ZTOL of z1. Reads decoded clusters only, as Path.SurfacesAt:
+-- "Alliance"; nil: none is). With z2, the walk must reach the floor nearest that height, within ZTOL; without
+-- z2, the connected floor suffices. A blocked step or an unusable start returns false. Reads decoded clusters only:
 -- nil when the line (or a diagonal step's corner) touches one that is not, touches more than SIGHT_CLUSTERS, or
 -- leaves the map's data. It decodes nothing, puts back every use stamp it moved (the cache's order and the
--- reader's slot stay as they were), never yields and allocates nothing.
+-- reader's slot stay as they were), never yields and allocates nothing. With walls, indoor and indoor city ground
+-- pass: only walls, cliffs, floor changes, water and hostile towns block (the arrow's aim kept in reach,
+-- Nav/Follow.lua `reach`).
 ---@param map number
 ---@param x1 number
 ---@param y1 number
@@ -1565,8 +1784,9 @@ local INDOOR_CLASS, CITY_CLASS = Costs.CLASS.INDOOR, Costs.CLASS.CITY
 ---@param y2 number
 ---@param z2? number
 ---@param profile? string
+---@param walls? boolean
 ---@return boolean?
-function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile)
+function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile, walls)
 	local st = states[map]
 	if not (st and x1 and y1 and z1 and x2 and y2) then
 		return nil
@@ -1618,7 +1838,7 @@ function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile)
 			elseif classed then
 				local cb = CLS[byte(st.cl[k].kind, node + 1)]
 				local base = cb % 8
-				if base == INDOOR_CLASS or base == CITY_CLASS or (hb and cb % (hb + hb) >= hb) then
+				if (not walls and (base == INDOOR_CLASS or base == CITY_CLASS)) or (hb and cb % (hb + hb) >= hb) then
 					clear = false
 				end
 			end
@@ -1627,8 +1847,11 @@ function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile)
 		ix, iy = ix + mx * sx, iy + my * sy
 	end
 	if clear and z2 then
-		clear = abs(zOf(st.cl[k], node) - z2) <= ZTOL
+		-- A floor within the height tolerance can still be the storey below the requested one.
+		local target, gap = surface(st, k, (tx % C)*C + ty % C, -1, z2, st.cl[k])
+		clear = target == node and gap <= ZTOL
 	end
+	if clear and st.D.solidSamples and solidChord(st, x1,y1,z1, x2,y2,z2 or zOf(st.cl[k],node)) then clear = false end
 	for i = 1, sightN do
 		st.used[sightK[i]] = sightU[i]
 	end
@@ -1636,18 +1859,35 @@ function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile)
 	return clear
 end
 
--- Collapse a node path to its turns, then pull the string: from each anchor, jump to the furthest point in sight.
--- Water may only be crossed where the path itself swam. On a map with classes a straight segment replaces the path
--- between two entries only over ground no costlier for profile in style (times the zone danger of danger, Path.lua's
--- weights, when given) than the costliest node of that path stretch, and into a hub hostile to profile only where
--- that stretch already entered one: the drawn line (and the hubs it reports) never cuts a road's bend, a hostile
+-- Collapse a node path to its turns, then pull the string: from each anchor, the furthest turn in sight becomes the
+-- next anchor (the turns are where the path's own runs end; a segment ending partway along a run gave the arrow's
+-- follower lines it aimed back along, #3732). The next turn is always taken, as the path walks it. Further turns are
+-- galloped: probe 2, 4, 8, ... turns on while in sight; at the first blocked probe, take the furthest turn in sight up
+-- to SMOOTH_MISSES turns past it whose line saves at least SMOOTH_SAVE cells on the path's way round (the far side of
+-- the wall the path went round: 0.4.2 stopped at the first turn out of sight, so the line kept the grid's axis-aligned
+-- runs round every fence and house wall, #3641; a smaller cut in a zigzag only sharpens the turn the arrow swings
+-- through, Orgrimmar's Drag) and gallop on from there, else end at the furthest turn in sight before it. A segment
+-- spans at most SMOOTH_SPAN path nodes and never a ride. Water may only be crossed where the path itself swam.
+-- On a map with classes a straight segment replaces the path between two entries only over ground no costlier for
+-- profile in style (times the zone danger of danger, Path.lua's weights, when given) than the costliest node of that
+-- path stretch (than its cost per yard, once the line reaches past a wall), and into a hub hostile to profile only
+-- where that stretch already entered one: the drawn line (and the hubs it reports) never cuts a road's bend, a hostile
 -- hub's rim or a dangerous zone's edge the cost-best path kept to.
+local SMOOTH_MISSES, SMOOTH_SPAN, SMOOTH_SAVE = 8, 400, 1.5
 local function smooth(st, P, profile, style, danger)
 	local PX, PY, PW, PK, PN = P.x, P.y, P.w, P.k, P.n
 	local n = #PX
 	local keep = { 1 }
+	local rides = P.rides
+	local function blocked(p, q)
+		local a = p == 1 and P.from
+		local b = q == n and P.to
+		return P.check(a and a.x or st.x0 + (PX[p]+.5)*st.cs, a and a.y or st.y0 + (PY[p]+.5)*st.cs,
+			b and b.x or st.x0 + (PX[q]+.5)*st.cs, b and b.y or st.y0 + (PY[q]+.5)*st.cs)
+	end
 	for i = 2, n - 1 do
-		if PX[i + 1] - PX[i] ~= PX[i] - PX[i - 1] or PY[i + 1] - PY[i] ~= PY[i] - PY[i - 1] or PW[i + 1] ~= PW[i] then
+		if (rides and (rides[i] or rides[i+1] or i == 2 or i == n-1))
+			or PX[i + 1] - PX[i] ~= PX[i] - PX[i - 1] or PY[i + 1] - PY[i] ~= PY[i] - PY[i - 1] or PW[i + 1] ~= PW[i] then
 			keep[#keep + 1] = i
 		end
 	end
@@ -1671,36 +1911,94 @@ local function smooth(st, P, profile, style, danger)
 		end
 	end
 	local out, a = { keep[1] }, 1
+	local worstAt, meanAt, hostileAt = {}, {}, {}
 	while a < #keep do
-		local b = a + 1
-		-- The costliest node of the path after keep[a] up to keep[j], and whether it entered a hostile hub, grown with
-		-- j: the anchor's own node is never stepped into, by the path or by the straight segment (sight).
-		local limit, hostile, last
-		if classed then
-			limit, hostile, last = 0, false, keep[a]
-		end
+		-- For the path after keep[a] up to node q, filled as far as the probes reach: worstAt[q] its costliest node,
+		-- meanAt[q] its cost per yard (each step's multiplier times its length, over the length), hostileAt[q] whether
+		-- it entered a hostile hub. The anchor's own node is never stepped into, by the path or by the straight segment
+		-- (sight). While every probe from the anchor is in sight, a segment may cross ground up to the stretch's
+		-- costliest node (0.4.2's rule); once a probe was blocked and the line reaches past that wall, only up to the
+		-- stretch's cost per yard, so it never costs more than the way round the wall it replaces.
+		local p = keep[a]
+		local cost, length, worst, hostile, filled, past = 0, 0, 0, false, p, false
+		local walked, walkedTo = { [p] = 0 }, p
+		local stop = #keep
 		for j = a + 2, #keep do
-			local p, q = keep[a], keep[j]
+			if (rides and (rides[keep[j - 1]] or rides[keep[j]])) or keep[j] - p > SMOOTH_SPAN then
+				stop = j - 1
+				break
+			end
+		end
+		local function visible(j)
+			local q = keep[j]
 			if classed then
-				for i = last + 1, q do
-					local c = classOf(st, PK[i], PN[i])
+				while filled < q do
+					filled = filled + 1
+					local c = classOf(st, PK[filled], PN[filled])
 					local m = Mult(c, profile, style)
 					if dangerAt then
-						m = m * dangerAt(PK[i], PN[i])
+						m = m * dangerAt(PK[filled], PN[filled])
 					end
-					if m > limit then
-						limit = m
+					local step = sqrt((PX[filled] - PX[filled - 1]) ^ 2 + (PY[filled] - PY[filled - 1]) ^ 2)
+					cost, length = cost + m * step, length + step
+					if m > worst then
+						worst = m
 					end
 					if hb and c % (hb + hb) >= hb then
 						hostile = true
 					end
+					worstAt[filled], meanAt[filled], hostileAt[filled] = worst, length > 0 and cost / length + 1e-9 or m, hostile
 				end
-				last = q
 			end
-			if not sight(st, P, p, q, PW[q] - PW[p] > 0, limit, profile, hb, hostile, style, dangerAt) then
-				break
+			if rides and blocked(p, q) then
+				return false
 			end
-			b = j
+			local limit = classed and (past and meanAt[q] or worstAt[q]) or nil
+			return sight(st, P, p, q, PW[q] - PW[p] > 0, limit, profile, hb, classed and hostileAt[q], style, dangerAt)
+		end
+		local b, step, j = a + 1, 1, a + 2
+		while j <= stop do
+			if visible(j) then
+				b, step = j, step * 2
+				j = (b < stop and b + step > stop) and stop or b + step
+			else
+				local top = j + SMOOTH_MISSES
+				if top > stop then
+					top = stop
+				end
+				local found
+				local before = past
+				past = true
+				for t = top, j + 1, -1 do
+					-- Worth it only when the line saves SMOOTH_SAVE cells on the way round: a cut of a cell or two
+					-- in a zigzag (Orgrimmar's Drag) only sharpens the turn the arrow has to swing through.
+					local q = keep[t]
+					while walkedTo < q do
+						walkedTo = walkedTo + 1
+						walked[walkedTo] = walked[walkedTo - 1] + sqrt((PX[walkedTo] - PX[walkedTo - 1]) ^ 2 + (PY[walkedTo] - PY[walkedTo - 1]) ^ 2)
+					end
+					if walked[q] - sqrt((PX[q] - PX[p]) ^ 2 + (PY[q] - PY[p]) ^ 2) >= SMOOTH_SAVE and visible(t) then
+						found = t
+						break
+					end
+				end
+				if not found then
+					past = before
+					local lo, hi = b, j
+					while hi - lo > 1 do
+						local mid = floor((lo + hi) / 2)
+						if visible(mid) then
+							lo = mid
+						else
+							hi = mid
+						end
+					end
+					b = lo
+					break
+				end
+				b, step = found, 1
+				j = (b < stop and b + step > stop) and stop or b + step
+			end
 		end
 		out[#out + 1] = keep[b]
 		a = b
@@ -1709,14 +2007,44 @@ local function smooth(st, P, profile, style, danger)
 end
 
 -- With no search queued (PathJobs.lua's rest): drop the strings of clusters whose decode never finished and trim the
--- decoded graph to its resting ceiling. Decoded grids, the decoder's scratch and the endpoint trees stay for the next
--- search (within Path.cacheKB, ENDTREES), until Idle.
-local function Rest()
+-- decoded graph to its resting ceiling. Decoded grids and the decoder's scratch stay for the next search (within
+-- Path.cacheKB), until Idle; of the endpoint trees, Path.restTrees stay, the older ones' costs staying in st.ends. While
+-- a search runs st.endTrees keeps up to Path.lua's ENDTREES; at rest, each tree a city's cluster can make 2-3 MB.
+-- The newest start's tree (a walk's start or a batch's source, searched outward) is the one least likely read again:
+-- the player has moved on by the next search. It goes to release (Path.lua's pool, while it has room) as one of the
+-- restTrees, for the next search's first connection to fill instead of growing a new tree key by key (0.4.1 emptied
+-- the pool at every rest, so every search grew its first trees new: rehashes of up to 32,768 keys inside one frame's
+-- slice); the newest of the others keep their trees (a walk asked again to the same goal reads its tree).
+Path.restTrees = 2
+local function Rest(release)
 	for _, st in pairs(states) do
 		if st.D.packed then
 			st.D.grid, st.D.height, st.D.floor = {}, {}, {}
 			if st.classed then
 				st.D.class = {}
+			end
+		end
+		local kept = st.endTrees
+		if kept then
+			local keep = Path.restTrees
+			if release then
+				for i = #kept, 1, -1 do
+					local entry = kept[i]
+					local tree = entry.tree
+					if not entry.back and tree then
+						table.remove(kept, i)
+						st.endNodes = (st.endNodes or 0) - (entry.size or 0)
+						entry.tree = nil
+						release(tree)
+						keep = keep - 1
+						break
+					end
+				end
+			end
+			for _ = 1, #kept - keep do
+				local gone = table.remove(kept, 1)
+				st.endNodes = (st.endNodes or 0) - (gone.size or 0)
+				gone.tree = nil
 			end
 		end
 	end
@@ -1795,6 +2123,7 @@ ns.PathGrid = {
 	Classed = Classed,
 	surface = surface,
 	zOf = zOf,
+	solidChord = solidChord,
 	floorCell = floorCell,
 	floorsOf = floorsOf,
 	KINDS = KINDS,
@@ -1809,6 +2138,34 @@ ns.PathGrid = {
 	cellOf = cellOf,
 	chunkOf = chunkOf,
 	zoneAt = zoneAt,
+	-- Every chunk's zone of cluster k in one pass over its zone field (zoneAt reads one chunk a pass): a string of 512
+	-- bytes, chunk q (0-based, chunkOf's numbering) the uiMapID in bytes 2q + 1 (high) and 2q + 2 (low), 0 for none;
+	-- nil without the field. (A field, not a local: Path.ZoneTile is its only reader.)
+	zoneString = function(st, k)
+		local s = st.D.zone and st.D.zone[k + 1]
+		if not s then
+			return nil
+		end
+		local out, n, q, i, pair = {}, 0, 0, 1, "\0\0"
+		while i <= #s and q < 256 do
+			local a, reps = B64[byte(s, i)], 1
+			if a < 48 then
+				local value = a * 64 + B64[byte(s, i + 1)]
+				pair, i = string.char(floor(value / 256), value % 256), i + 2
+			else
+				reps, i = a - 47, i + 1
+			end
+			if q + reps > 256 then
+				reps = 256 - q
+			end
+			n, q = n + 1, q + reps
+			out[n] = string.rep(pair, reps)
+		end
+		if q < 256 then
+			out[n + 1] = string.rep("\0\0", 256 - q)
+		end
+		return table.concat(out)
+	end,
 	nodeArea = nodeArea,
 	chunkDanger = chunkDanger,
 	nodesOf = nodesOf,
@@ -1821,6 +2178,9 @@ ns.PathGrid = {
 	standing = standing,
 	snap = snap,
 	smooth = smooth,
+	groundLine = groundLine,
+	unpackField = unpackField,
+	indexBytes = indexBytes,
 	Rest = Rest,
 	Idle = Idle,
 	Reset = Reset,
@@ -1830,3 +2190,598 @@ ns.PathGrid = {
 	DX = DX,
 	DY = DY,
 }
+
+-- Build-matched local walks. XY is world north/west, never UI map coordinates.
+-- Never join separate corridors merely because they cross in XY.
+do
+local floor,abs,min,max,sqrt=math.floor,math.abs,math.min,math.max,math.sqrt
+local unit=25/3
+local cache,key,slot={}, {},0
+local function blob(t,k,parse)
+ local encoded=regionPage(t,k); if not encoded then return end
+ local found=cache[encoded]; if found then return found end
+ local bytes=t.directory and encoded or C_EncodingUtil.DecodeBase64(encoded); if not bytes then return end
+ local s=C_EncodingUtil.DecompressString(bytes,Enum.CompressionMethod.Zlib); if not s then return end
+ if parse then s=parse(s) end
+ slot=slot%6+1; if key[slot] then cache[key[slot]]=nil end; key[slot]=encoded; cache[encoded]=s; return s
+end
+local function ground(d,r,c,warmOnly)
+ if r<0 or c<0 or r>=4096 or c>=4096 then return end
+ local tile=floor(r/64)*64+floor(c/64);local s
+ if warmOnly then s=d.ground and cache[d.ground[tile]] else s=blob(d.ground,tile) end
+ if not s then return end
+ local a,b,u,v=s:byte(4*(r%64*64+c%64)+1,4*(r%64*64+c%64)+4); if not v then return end
+ local h=a+256*b; if h==32768 then return end
+ return (h>=32768 and h-65536 or h)/16,(u>=128 and u-256 or u)*unit/128,(v>=128 and v-256 or v)*unit/128
+end
+local function push(line,map,x,y,z)
+ local p=line[#line]; if p and abs(p.x-x)+abs(p.y-y)<1e-7 then return end
+ line[#line+1]={map=map,x=x,y=y,z=z,detail=true}
+end
+local function accepts(p,h) return p.z==nil or abs(p.z-h)<=1 end
+local function terrain(d,map,a,b)
+ local ax,ay=2048-a.x/unit,2048-a.y/unit; local vx,vy=(a.x-b.x)/unit,(a.y-b.y)/unit
+ local function first(x,v) local i=floor(x); if v<0 and x==i then return i-1 end; return i end
+ local r,c=first(ax,vx),first(ay,vy); local line={wet=0}; local t,last=0,nil
+ -- Each interval stays in one supported patch; check both limiting heights at every joint.
+ for step=1,80 do
+  local h,u,v=ground(d,r,c); if not h then return end
+  local tx=vx==0 and math.huge or ((vx>0 and r+1 or r)-ax)/vx
+  local ty=vy==0 and math.huge or ((vy>0 and c+1 or c)-ay)/vy
+  local stop=min(1,tx,ty); if stop<t-1e-8 then return end
+  local z=h-(ax+t*vx-r)*u-(ay+t*vy-c)*v
+  if (not last and not accepts(a,z)) or (last and abs(last-z)>.60) then return end
+  if not last then push(line,map,a.x,a.y,z) end
+  last=h-(ax+stop*vx-r)*u-(ay+stop*vy-c)*v
+  push(line,map,a.x+(b.x-a.x)*stop,a.y+(b.y-a.y)*stop,last)
+  if stop>=1 then if accepts(b,last) and #line>=2 then return line,'ground' end;return end
+  local xr=tx<=stop+1e-10; local yc=ty<=stop+1e-10
+  local dr=vx>0 and 1 or -1; local dc=vy>0 and 1 or -1
+  if xr and yc and (not ground(d,r+dr,c) or not ground(d,r,c+dc)) then return end
+  if xr then r=r+dr end; if yc then c=c+dc end; t=stop
+ end
+end
+local function traces(s)
+ local out={}; for row in s:gmatch('[^\n]+') do local pts={}; local sep=row:find(':',1,true); local w=tonumber(row:sub(1,sep-1)); for x,y,h in row:sub(sep+1):gmatch('([%-%d.]+),([%-%d.]+),([%-%d.]+);') do pts[#pts+1]={tonumber(x),tonumber(y),tonumber(h)} end;out[#out+1]={w,pts} end;return out
+end
+local function projection(line,p,width)
+ local best,at,bx,by,bz; for i=1,#line-1 do local a,b=line[i],line[i+1];local dx,dy=b[1]-a[1],b[2]-a[2];local dd=dx*dx+dy*dy; if dd>1e-10 then
+ local t=max(0,min(1,((p.x-a[1])*dx+(p.y-a[2])*dy)/dd)); local x,y,z=a[1]+t*dx,a[2]+t*dy,a[3]+t*(b[3]-a[3]);local e=(x-p.x)^2+(y-p.y)^2
+ if e<=(width+1e-7)^2 and abs(z-p.z)<=.35 and (not best or e<best) then best,at,bx,by,bz=e,i+t,x,y,z end end end
+ return at,bx,by,bz
+end
+local function bucket(x,y) return floor((17067-x)/64)*1024+floor((17067-y)/64) end
+local function strip(lines,map,a,b)
+ if a.z==nil or b.z==nil then return end
+ local rows=blob(lines,bucket(a.x,a.y),traces); if not rows then return end
+ for _,row in ipairs(rows) do local w,l=row[1],row[2]; local i,x,y,h=projection(l,a,w); if i then local j,ex,ey,eh=projection(l,b,w); if j and abs(i-j)>1e-8 then
+ local line={wet=0};push(line,map,a.x,a.y,h);push(line,map,x,y,h)
+ if i<j then for k=floor(i)+1,math.ceil(j)-1 do push(line,map,l[k][1],l[k][2],l[k][3]) end else for k=math.ceil(i)-1,floor(j)+1,-1 do push(line,map,l[k][1],l[k][2],l[k][3]) end end
+ push(line,map,ex,ey,eh);push(line,map,b.x,b.y,eh);if #line>=2 then return line,'strip' end end end end
+end
+-- Included inside LocalWalk.lua's private scope. Page offsets are zero based on disk.
+-- No joins across MCNK edges: the original chunks can have minute XY gaps.
+local quadUnit, chunkUnit = 25/6, 100/3
+local function word(s, i)
+ local a,b = s:byte(i,i+1); return a+256*b
+end
+local function signedWord(s,i)
+ local v=word(s,i); return v>=32768 and v-65536 or v
+end
+local function present(s,k,r,c)
+ return r>=1 and r<=6 and c>=1 and c<=6 and floor(s:byte(k+6+r)/2^c)%2==1
+end
+local function fanHeight(s,k,z0,r,c)
+ local y,x=floor(r),floor(c);local v=k+14+2*(17*y+x)
+ local a,b,d,e,m=signedWord(s,v),signedWord(s,v+2),signedWord(s,v+34),signedWord(s,v+36),signedWord(s,v+18)
+ r,c=r-y,c-x
+ local h
+ if r+c<=1 then
+  if r<=c then h=a+(b-a)*c+(2*m-a-b)*r else h=a+(d-a)*r+(2*m-a-d)*c end
+ elseif r>=c then h=d+(e-d)*c+(2*m-d-e)*(1-r) else h=b+(e-b)*r+(2*m-b-e)*(1-c) end
+ return z0+h/64
+end
+-- Include both native triangle diagonals, not just the borders of each quad.
+local function crossings(list,a,b)
+ if a==b then return end
+ for v=floor(min(a,b))+1,math.ceil(max(a,b))-1 do list[#list+1]=(v-a)/(b-a) end
+end
+local function nativePage(map,x,y,warmOnly)
+ local md=PolestarPathData and PolestarPathData[map];local pages=md and md.nativeTerrain
+ if not pages then return end
+ local r,c=floor(512-x/chunkUnit),floor(512-y/chunkUnit)
+ if r<0 or r>=1024 or c<0 or c>=1024 then return end
+ local key=(floor(r/16)*64+floor(c/16))*16+floor(r%16/4)*4+floor(c%16/4)
+ local s
+ if warmOnly then s=cache[pages[key]] else s=blob(pages,key) end
+ if not s then return end
+ local off=word(s,1+2*(r%4*4+c%4));if off==0 then return end
+ local k=off+1;local nx=(512-r)*chunkUnit+signedWord(s,k)/8192;local wy=(512-c)*chunkUnit+signedWord(s,k+2)/8192;local z0=signedWord(s,k+4)
+ return s,k,nx,wy,z0
+end
+function ns.nativeGround(map,x,y,warmOnly)
+ local s,k,nx,wy,z0=nativePage(map,x,y,warmOnly);if not s then return end
+ local r,c=(nx-x)/quadUnit,(wy-y)/quadUnit
+ if present(s,k,floor(r),floor(c)) then return fanHeight(s,k,z0,r,c) end
+end
+
+-- A straight terminal bearing on a single source terrain chunk. Each touched
+-- quad must accommodate the whole player, not only the line under their feet.
+-- The table excludes every placed model, liquid quad and protected volume in XY.
+local footprintBuild
+function Path.FootprintDrySight(map,x,y,z,gx,gy,gz)
+ if not z or not gz or (x-gx)^2+(y-gy)^2>8^2 then return false end
+ if footprintBuild==nil then
+  local ok,version,build=pcall(GetBuildInfo)
+  footprintBuild=ok and version=="1.60.1" and tostring(build)=="70532"
+ end
+ if not footprintBuild or not (C_EncodingUtil and C_EncodingUtil.DecodeBase64 and C_EncodingUtil.DecompressString and Enum and Enum.CompressionMethod) then return false end
+ local r,c=floor(512-x/chunkUnit),floor(512-y/chunkUnit)
+ if r<0 or r>=1024 or c<0 or c>=1024 or r~=floor(512-gx/chunkUnit) or c~=floor(512-gy/chunkUnit) then return false end
+ local md=PolestarPathData and PolestarPathData[map]
+ local key=(floor(r/16)*64+floor(c/16))*16+floor(r%16/4)*4+floor(c%16/4)
+ local mask=md and blob(md.terminalGround,key)
+ if not mask or #mask<32 then return false end
+ local offset=word(mask,1+2*(r%4*4+c%4))
+ if offset==0 then return false end
+ local s,k,north,west,z0,maskAt
+ if offset>=32768 then
+  maskAt=offset-32768+1
+  s,k,north,west,z0=nativePage(map,x,y)
+  if not s then return false end
+ else
+  s,k=mask,offset+1
+  if k+303>#s then return false end
+  north,west=(512-r)*chunkUnit+signedWord(s,k)/8192,(512-c)*chunkUnit+signedWord(s,k+2)/8192
+  z0,maskAt=signedWord(s,k+4),k+6
+ end
+ if maskAt+7>#mask then return false end
+ local ar,ac,br,bc=(north-x)/quadUnit,(west-y)/quadUnit,(north-gx)/quadUnit,(west-gy)/quadUnit
+ -- .46 yd player half-width plus margin for source and coordinate rounding.
+ local pad=.55/quadUnit
+ local r0,c0=floor(min(ar,br)-pad),floor(min(ac,bc)-pad)
+ local r1,c1=floor(max(ar,br)+pad),floor(max(ac,bc)+pad)
+ if r0<0 or c0<0 or r1>7 or c1>7 then return false end
+ for row=r0,r1 do
+  local bits=mask:byte(maskAt+row)
+  for col=c0,c1 do if floor(bits/2^col)%2==0 then return false end end
+ end
+ if abs(fanHeight(s,k,z0,ar,ac)-z)>.10 or abs(fanHeight(s,k,z0,br,bc)-gz)>.30 then return false end
+ return ns.noNewTailVolume and ns.noNewTailVolume(map,{x=x,y=y,z=z},nil,{x=gx,y=gy,z=gz}) or false
+end
+function ns.nativeTerrainWalk(map,a,b,directOnly)
+ if a.z==nil or b.z==nil or floor(512-b.x/chunkUnit)~=floor(512-a.x/chunkUnit) or floor(512-b.y/chunkUnit)~=floor(512-a.y/chunkUnit) then return end
+ local s,k,nx,wy,z0=nativePage(map,a.x,a.y);if not s then return end
+ local ar,ac=(nx-a.x)/quadUnit,(wy-a.y)/quadUnit;local br,bc=(nx-b.x)/quadUnit,(wy-b.y)/quadUnit
+ if not present(s,k,floor(ar),floor(ac)) or not present(s,k,floor(br),floor(bc)) then return end
+ if abs(fanHeight(s,k,z0,ar,ac)-a.z)>.50 or abs(fanHeight(s,k,z0,br,bc)-b.z)>.50 then return end
+ local function segment(r0,c0,r1,c1,line)
+  local t={0,1};crossings(t,r0,r1);crossings(t,c0,c1);crossings(t,r0+c0,r1+c1);crossings(t,r0-c0,r1-c1);table.sort(t)
+  local dr,dc=r1-r0,c1-c0;local last=0
+  for i=2,#t do
+   local hi=t[i];if hi>last then
+    local mid=(hi+last)*.5;local rr,cc=floor(r0+dr*mid),floor(c0+dc*mid)
+    if not present(s,k,rr,cc) then return false end
+    -- Avoid cutting the corner between two diagonally touching regions. The evaluated
+    -- interval itself is on one dry, native triangle; the adjacent quads were halo-checked.
+    if hi<1 and dr~=0 and dc~=0 then
+     local yr,xc=r0+hi*dr,c0+hi*dc;local y,x=floor(yr+.5),floor(xc+.5)
+     if abs(yr-y)<1e-9 and abs(xc-x)<1e-9 and not (present(s,k,y-1,x-1) and present(s,k,y-1,x) and present(s,k,y,x-1) and present(s,k,y,x)) then return false end
+    end
+    last=hi
+   end
+  end
+  for i=1,#t do local f=t[i];local yr,xc=r0+f*dr,c0+f*dc;push(line,map,nx-yr*quadUnit,wy-xc*quadUnit,fanHeight(s,k,z0,yr,xc)) end
+  return true
+ end
+ local line={wet=0};if segment(ar,ac,br,bc,line) and #line>=2 then return line,'ground-native' end
+ if directOnly then return end
+ local start=floor(ar)*8+floor(ac);local goal=floor(br)*8+floor(bc)
+ if start==goal then return end
+ local queue={start};local parent={[start]=false};local head=1
+ while head<=#queue do local u=queue[head];head=head+1;if u==goal then break end
+  local row,col=floor(u/8),u%8
+  for d=1,4 do local y=row+(d==1 and 1 or d==2 and -1 or 0);local x=col+(d==3 and 1 or d==4 and -1 or 0);local v=y*8+x
+   if parent[v]==nil and present(s,k,y,x) then parent[v]=u;queue[#queue+1]=v end
+  end
+ end
+ if not parent[goal] then return end
+ local back={};local u=goal;while u do back[#back+1]=u;u=parent[u] end
+ line={wet=0};local lr,lc=ar,ac
+ for i=#back,1,-1 do local y,x=floor(back[i]/8)+.5,back[i]%8+.5;if not segment(lr,lc,y,x,line) then return end;lr,lc=y,x end
+ if segment(lr,lc,br,bc,line) and #line>=2 then return line,'ground-native' end
+end
+-- On a long coarse segment either end may be outside the native patch. A hillside
+-- can still be corrected between two points where the coarse chord meets it.
+-- The unproved portions keep exactly their original XYZ chord; this never creates
+-- a routing edge, connects chunks or changes arrival status.
+function ns.nativeTerrainProfile(map,a,b,length)
+ local n=math.ceil(length/2);local dx,dy,dz=b.x-a.x,b.y-a.y,b.z-a.z
+ local entry,key,peak,out
+ for i=0,n do
+  if i>0 and i%32==0 then ns.PathGrid.tick() end
+  local t=i/n;local x,y,z=a.x+t*dx,a.y+t*dy,a.z+t*dz;local ck=floor(512-x/chunkUnit)*1024+floor(512-y/chunkUnit)
+  local h=ns.nativeGround(map,x,y)
+  if not h or ck~=key then entry,peak=nil,nil end
+  key=ck
+  if h then
+   local delta=abs(h-z)
+   if delta<=.35 then
+    if entry and peak then
+     local start={map=map,x=a.x+entry*dx,y=a.y+entry*dy,z=a.z+entry*dz}
+     local last={map=map,x=x,y=y,z=z}
+     local part=ns.nativeTerrainWalk(map,start,last,true)
+     if part and #part>2 then
+      if not out then out={wet=0};push(out,map,a.x,a.y,a.z) end
+      push(out,map,start.x,start.y,start.z)
+      for j=2,#part-1 do local p=part[j];push(out,map,p.x,p.y,p.z) end
+      push(out,map,x,y,z)
+     end
+    end
+    entry,peak=t,false
+   elseif entry and delta>.85 then peak=true end
+  end
+ end
+ if out then push(out,map,b.x,b.y,b.z);return out end
+end
+
+-- This veto cannot grant a walk. Reject a replacement tail that enters a policy
+-- volume the former final segment avoided. Do not treat a prior exposure as safe.
+do
+local function mm(s,k)
+ local a,b,c,d=s:byte(k,k+3);if d>=128 then d=d-256 end
+ return (a+256*(b+256*(c+256*d)))/1000
+end
+local function slab(a,b,lo,hi,t,u)
+ local d=b-a;if d==0 then if a>=lo and a<=hi then return t,u end;return end
+ local j,k=(lo-a)/d,(hi-a)/d;if j>k then j,k=k,j end
+ t,u=max(t,j),min(u,k);if t<=u then return t,u end
+end
+local function contact(a,b,x,y,z,X,Y,Z,e)
+ local t,u=slab(a.x,b.x,x-.46-e,X+.46+e,0,1);if not t then return false end
+ t,u=slab(a.y,b.y,y-.46-e,Y+.46+e,t,u);if not t then return false end
+ return slab(a.z,b.z,z-2-e,Z+.10+e,t,u)~=nil
+end
+function ns.noNewTailVolume(map,from,asked,landing)
+ if not (from.z and (not asked or asked.z) and landing.z) or (from.x-landing.x)^2+(from.y-landing.y)^2>64^2 then return false end
+ local d=PolestarPathData and PolestarPathData[map];local bins=d and d.obstructionBounds;if not bins then return false end
+ for r=floor(min(from.x,landing.x)/128),floor(max(from.x,landing.x)/128) do
+  for c=floor(min(from.y,landing.y)/128),floor(max(from.y,landing.y)/128) do
+   local k=(r+256)*512+c+256
+   local value,missing=regionPage(bins,k)
+   if missing then return false end
+   if value then
+    local s=blob(bins,k);if not s or #s%24~=0 or (not asked and #s>192*24) then return false end
+    for j=1,#s,24 do
+     local x,y,z,X,Y,Z=mm(s,j),mm(s,j+4),mm(s,j+8),mm(s,j+12),mm(s,j+16),mm(s,j+20)
+     -- Outward vs inward margin covers milliyard quantisation and replay rounding.
+     if contact(from,landing,x,y,z,X,Y,Z,.003) and (not asked or not contact(from,asked,x,y,z,X,Y,Z,-.003)) then return false end
+     if asked and (j-1)%(24*64)==0 then ns.PathGrid.tick() end
+    end
+   end
+  end
+ end
+ return true
+end
+end
+
+-- Only keep new vertices when they resolve meaningful vertical error, not just because a tile exists.
+function ns.groundProfile(d,a,b)
+ local dx,dy=b.x-a.x,b.y-a.y;local n=dx*dx+dy*dy;if n<144 or n>256^2 then return end
+ local l=terrain(d,a.map,a,b) or ns.nativeTerrainWalk(a.map,a,b,true)
+ if not l then return ns.nativeTerrainProfile(a.map,a,b,sqrt(n)) end
+ for j=2,#l-1 do local p=l[j]; local t=((p.x-a.x)*dx+(p.y-a.y)*dy)/n
+  if abs(p.z-a.z-t*(b.z-a.z))>.85 then return l end
+ end
+end
+-- A blocked direct segment need not disconnect the meadow. Search only certified
+-- four-neighbour cells, with a boundary-height check before crossing each edge.
+local function detour(d,map,a,b)
+ local function cell(p) return floor(2048-p.x/unit),floor(2048-p.y/unit) end
+ local sr,sc=cell(a);local gr,gc=cell(b);local start,goal=sr*4096+sc,gr*4096+gc
+ local function height(p,r,c) local h,u,v=ground(d,r,c);if h then return h-(2048-p.x/unit-r)*u-(2048-p.y/unit-c)*v end end
+ local za,zb=height(a,sr,sc),height(b,gr,gc)
+ if not za or not zb or not accepts(a,za) or not accepts(b,zb) or start==goal then return end
+ local ids,rank,n={}, {},0
+ local function add(id,score)
+  n=n+1;local i=n;while i>1 do local j=floor(i/2);if rank[j]<=score then break end;ids[i],rank[i]=ids[j],rank[j];i=j end;ids[i],rank[i]=id,score
+ end
+ local function take()
+  local id,k,v=ids[1],ids[n],rank[n];n=n-1;local i=1;while i*2<=n do local j=i*2;if j<n and rank[j+1]<rank[j] then j=j+1 end;if rank[j]>=v then break end;ids[i],rank[i]=ids[j],rank[j];i=j end;ids[i],rank[i]=k,v;return id
+ end
+ local score,prev,done={[start]=0},{},{};add(start,0);local visits=0
+ while n>0 and visits<384 do
+  local key=take()
+  if key==goal then
+   local nodes={b};local k=goal
+   while k do local r,c=floor(k/4096),k%4096;nodes[#nodes+1]={x=(2047.5-r)*unit,y=(2047.5-c)*unit};k=prev[k] end
+   nodes[#nodes+1]=a;local line={wet=0};local i=#nodes
+   while i>1 do local part,j
+    for t=max(1,i-8),i-1 do part=terrain(d,map,nodes[i],nodes[t]);if part then j=t;break end end
+    if not j then return end
+    for _,p in ipairs(part) do push(line,map,p.x,p.y,p.z) end;i=j
+   end
+   if #line>=2 then return line,'ground' end;return
+  end
+  if not done[key] then
+   visits=visits+1;done[key]=true;if visits%16==0 then ns.PathGrid.tick() end
+   local r,c=floor(key/4096),key%4096;local h,u,v=ground(d,r,c)
+   for q=1,4 do local dr=(q==1 and 1 or q==2 and -1 or 0);local dc=(q==3 and 1 or q==4 and -1 or 0)
+    local nr,nc=r+dr,c+dc;local nk=nr*4096+nc;local g=score[key]+1
+    if not done[nk] and (not score[nk] or g<score[nk]) then
+     local hh,uu,vv=ground(d,nr,nc)
+     if hh and abs((h-u*(1+dr)/2-v*(1+dc)/2)-(hh-uu*(1-dr)/2-vv*(1-dc)/2))<=.6 then
+      score[nk],prev[nk]=g,key;add(nk,g+abs(nr-gr)+abs(nc-gc))
+     end
+    end
+   end
+  end
+ end
+end
+function ns.provenWalk(map,a,b)
+ local md=PolestarPathData and PolestarPathData[map];local d=md and md.localWalk; if not d or (a.map and a.map~=map) or (b.map and b.map~=map) or (a.x-b.x)^2+(a.y-b.y)^2>256^2 then return end
+ local l,kind=strip(d.lines,map,a,b);if l then return l,kind end
+ l,kind=terrain(d,map,a,b);if l then return l,kind end
+ l,kind=detour(d,map,a,b);if l then return l,kind end
+ l,kind=ns.nativeTerrainWalk(map,a,b);if l then return l,kind end
+ l,kind=strip(md.approachLines,map,a,b);if l then return l,'approach' end
+ if ns.astraSurfaceWalk then return ns.astraSurfaceWalk(map,a,b) end
+end
+function ns.provenGround(map,x,y,warmOnly)
+ local md=PolestarPathData and PolestarPathData[map];local d=md and md.localWalk;if not d then return end
+ local ax,ay=2048-x/unit,2048-y/unit;local r,c=floor(ax),floor(ay);local h,u,v=ground(d,r,c,warmOnly);if h then return h-(ax-r)*u-(ay-c)*v end
+ return ns.nativeGround(map,x,y,warmOnly)
+end
+end
+
+-- 70532 native surface patches. All coordinates are world yards. Data lives in the owning lazy map.
+local ns = select(2, ...)
+do
+local U, floor, abs, min, max = 25/24, math.floor, math.abs, math.min, math.max
+local last, cache, slots = 0, {}, {}
+local function block(data,r,c)
+ if r<0 or c<0 or r>=32768 or c>=32768 then return end
+ local text=regionPage(data,floor(r/32)*1024+floor(c/32));if not text then return end
+ local v=cache[text];if v then return v end
+ if not(C_EncodingUtil and C_EncodingUtil.DecodeBase64 and C_EncodingUtil.DecompressString and Enum and Enum.CompressionMethod) then unavailablePages=unavailablePages+1;return end
+ local raw=data.directory and text or C_EncodingUtil.DecodeBase64(text);if not raw then unavailablePages=unavailablePages+1;return end
+ v=C_EncodingUtil.DecompressString(raw,Enum.CompressionMethod.Zlib);if not v or #v==0 or #v%11~=0 then unavailablePages=unavailablePages+1;return end
+ last=last%12+1;if slots[last] then cache[slots[last]]=nil end;slots[last],cache[text]=text,v;return v
+end
+local function key(r,c,layer) return (r*32768+c)*32+layer end
+local function center(i) return (16384-i)*U end
+local function signed(n) return n>=128 and n-256 or n end
+local function find(data,r,c,layer,p)
+ local v=block(data,r,c);if not v then return end
+ local k=((r%32)*32+c%32)*32;local addr=k+(layer or 0);local lo,hi=0,#v/11
+ while lo<hi do local m=floor((lo+hi)/2);local x,y=v:byte(11*m+1,11*m+2);if x+256*y<addr then lo=m+1 else hi=m end end
+ local found;for i=11*lo+1,#v,11 do
+  local a,b,h0,h1,h2,sx,sy=v:byte(i,i+6);local l=a+256*b-k;if l<0 or l>31 or (layer and l~=layer) then break end
+  local h=h0+256*h1+65536*h2;if h>=8388608 then h=h-16777216 end;h=h/64;sx=signed(sx)/64;sy=signed(sy)/64
+  if not p or abs(p.z-h-(p.x-center(r))*sx-(p.y-center(c))*sy)<=.55 then
+   if found then return end -- ambiguous endpoint layer
+   found={r=r,c=c,id=key(r,c,l),h=h,sx=sx,sy=sy,blob=v,edge=i+7}
+   if layer then return found end
+  end
+ end;return found
+end
+local function locate(data,p) return find(data,floor(16384-p.x/U+.5),floor(16384-p.y/U+.5),nil,p) end
+local function height(q,p) return q.h+(p.x-center(q.r))*q.sx+(p.y-center(q.c))*q.sy end
+local dr,dc={0,1,0,-1},{1,0,-1,0}
+local function step(data,q,d,known)
+ local n=q.blob:byte(q.edge+d-1);if n==0 or n>32 then return end
+ local r,c=q.r+dr[d],q.c+dc[d];local id=key(r,c,n-1)
+ local p=known[id] or find(data,r,c,n-1);if p and p.blob:byte(p.edge+(d+1)%4)==q.id%32+1 then known[id]=p;return p end
+end
+-- A chord may cross only explicitly joined adjacent cells. Every cell interval must agree with its floor plane.
+local function chord(data,a,b,known,bounded)
+ local q=a.cell;local dx,dy,dz=b.x-a.x,b.y-a.y,b.z-a.z;local vx,vy=-dx/U,-dy/U;local ax,ay=16384-a.x/U,16384-a.y/U;local t=0
+ for iter=1,128 do
+  if not bounded and iter%12==0 and ns.PathGrid and ns.PathGrid.tick then ns.PathGrid.tick() end
+  local tx=vx==0 and math.huge or ((q.r+(vx>0 and .5 or -.5))-ax)/vx
+  local ty=vy==0 and math.huge or ((q.c+(vy>0 and .5 or -.5))-ay)/vy
+  local s=min(1,tx,ty);if s<t-1e-8 then return end
+  local h=height(q,a);local err=a.z-h;local rate=dz-dx*q.sx-dy*q.sy
+  if max(abs(err+rate*t),abs(err+rate*s))>.19 then return end
+  if s>=1-1e-12 and q.id==b.cell.id then return true end
+  local crossX=tx<=s+1e-12;local crossY=ty<=s+1e-12;if not(crossX or crossY) then return end
+  local rd=vx>0 and 2 or 4;local cd=vy>0 and 1 or 3
+  if crossX and crossY then local one=step(data,q,rd,known);local two=step(data,q,cd,known);if not one or not two then return end;q=step(data,one,cd,known);local alt=step(data,two,rd,known);if not q or not alt or q.id~=alt.id then return end
+  else q=step(data,q,crossX and rd or cd,known);if not q then return end end
+  t=s
+ end
+end
+
+-- Trace the XY segment on reciprocally joined cells, not on an interpolated
+-- endpoint height: a real deck may change slope at each joint. At a corner
+-- both orders of crossing must select the same layer.
+local function cross(data,q,rd,cd,known)
+ if not (rd and cd) then return step(data,q,rd or cd,known) end
+ local r,c=step(data,q,rd,known),step(data,q,cd,known)
+ if not r or not c then return end
+ local rc,cr=step(data,r,cd,known),step(data,c,rd,known)
+ if rc and cr and rc.id==cr.id then return rc end
+end
+local function traceSheets(data,a,b,q,other,known)
+ local dx,dy=b.x-a.x,b.y-a.y;local vx,vy=-dx/U,-dy/U
+ local ax,ay=16384-a.x/U,16384-a.y/U;local t=0
+ local sign=other and (height(other,a)>height(q,a) and 1 or -1)
+ for i=1,16 do -- the caller only tests the five-yard visit sphere
+  local atEnd=q.r==b.cell.r and q.c==b.cell.c
+  local tx=vx==0 and math.huge or (q.r+(vx>0 and .5 or -.5)-ax)/vx
+  local ty=vy==0 and math.huge or (q.c+(vy>0 and .5 or -.5)-ay)/vy
+  local s=atEnd and 1 or min(1,tx,ty)
+  if s<t-1e-8 then return end
+  if other then
+   local gap=(height(other,a)-height(q,a))*sign
+   local rate=(dx*(other.sx-q.sx)+dy*(other.sy-q.sy))*sign
+   if min(gap+rate*t,gap+rate*s)<1.875 then return end
+  end
+  if atEnd then return q,other end
+  local rd=tx<=s+1e-12 and (vx>0 and 2 or 4)
+  local cd=ty<=s+1e-12 and (vy>0 and 1 or 3)
+  if not (rd or cd) then return end
+  q=cross(data,q,rd,cd,known);if not q then return end
+  if other then other=cross(data,other,rd,cd,known);if not other then return end end
+  t=s
+ end
+end
+-- A near point can be on a *different* walkable deck, even inside the
+-- arrival sphere. Require connected patches on both decks across the same
+-- XY interval. Missing cells, an ambiguous height or a ramp are not a veto.
+local sheetMap,sheetX,sheetY,sheetZ,sheetGX,sheetGY,sheetGZ,sheetResult
+local function separateFloors(map,x,y,z,gx,gy,gz)
+ if (x-gx)^2+(y-gy)^2<=.10^2 and abs(z-gz)<=.35 then return false end
+ local md=PolestarPathData and PolestarPathData[map];local data=md and md.astraSurfaces
+ if not data then return false end
+ if sheetMap==data and sheetX==x and sheetY==y and sheetZ==z and sheetGX==gx and sheetGY==gy and sheetGZ==gz then return sheetResult end
+ sheetMap,sheetX,sheetY,sheetZ,sheetGX,sheetGY,sheetGZ,sheetResult=data,x,y,z,gx,gy,gz,false
+ local ok,version,build=pcall(GetBuildInfo)
+ -- These three maps have identical base terrain, placements and model geometry
+ -- on both builds. Only reject a visit from the other deck; do not grant a walk.
+ build=tonumber(build)
+ if not ok or version~='1.60.1' or not (build==70532 or (build==70959 and (map==0 or map==1 or map==2991))) then return false end
+ local a,b={x=x,y=y,z=z},{x=gx,y=gy,z=gz}
+ local start,goal=locate(data,a),locate(data,b);if not start or not goal then return false end
+ a.cell,b.cell=start,goal
+ if start.id==goal.id or abs(height(start,a)-z)>.30 or abs(height(goal,b)-gz)>.30 then return false end
+ local known={[start.id]=start,[goal.id]=goal}
+ local endOnStart=traceSheets(data,a,b,start,nil,known)
+ if not endOnStart or endOnStart.id==goal.id then return false end
+ local otherStart,back=traceSheets(data,b,a,goal,endOnStart,known)
+ sheetResult=otherStart~=nil and otherStart.id~=start.id and back.id==start.id
+ return sheetResult
+end
+function ns.Path.OnSeparateLocalFloors(...)
+ local before=unavailablePages
+ local result=separateFloors(...)
+ if before~=unavailablePages then sheetMap=nil;return true end
+ return result
+end
+local function node(q) return {x=center(q.r),y=center(q.c),z=q.h,cell=q} end
+local function output(map,p) return {map=map,x=p.x,y=p.y,z=p.z,detail=true} end
+function ns.astraSurfaceWalk(map,a,b,directOnly)
+ if not(a and b and a.x and a.y and b.x and b.y and a.z and b.z) or (a.map and a.map~=map) or (b.map and b.map~=map) then return end
+ local dd=(b.x-a.x)^2+(b.y-a.y)^2;if dd<1e-12 or dd>128^2 then return end
+ local md=PolestarPathData and PolestarPathData[map];local data=md and md.astraSurfaces;if not data then return end
+ local start,goal=locate(data,a),locate(data,b);if not start or not goal then return end
+ local A={x=a.x,y=a.y,z=height(start,a),cell=start};local B={x=b.x,y=b.y,z=height(goal,b),cell=goal}
+ local known={[start.id]=start,[goal.id]=goal};if chord(data,A,B,known,directOnly) then return {output(map,A),output(map,B),wet=0},'surface' end
+ if directOnly then return end
+ local heap,rank,n={},{},0
+ local function add(id,f)
+  n=n+1;local i=n;while i>1 do local j=floor(i/2);if rank[j]<=f then break end;heap[i],rank[i]=heap[j],rank[j];i=j end;heap[i],rank[i]=id,f
+ end
+ local function pop()
+  local result,id,f=heap[1],heap[n],rank[n];n=n-1;local i=1;while 2*i<=n do local j=i*2;if j<n and rank[j+1]<rank[j] then j=j+1 end;if rank[j]>=f then break end;heap[i],rank[i]=heap[j],rank[j];i=j end;heap[i],rank[i]=id,f;return result
+ end
+ local g,prev,closed={[start.id]=0},{},{};local seen=0;add(start.id,0)
+ while n>0 and seen<2048 do local id=pop();if id==goal.id then
+   local route={B};local p=goal
+   while p do
+    route[#route+1]=node(p);local parent=known[prev[p.id]]
+    -- An actual floor can hinge at the shared edge. Don't require a straight height
+    -- chord between cell centres when their two half-segments are supported.
+    if parent then local mid={x=(center(p.r)+center(parent.r))*.5,y=(center(p.c)+center(parent.c))*.5,cell=p}
+     mid.z=(height(p,mid)+height(parent,mid))*.5;route[#route+1]=mid
+    end;p=parent
+   end;route[#route+1]=A
+   local line={wet=0};local i=#route;line[1]=output(map,A)
+   while i>1 do local nexti;for j=max(1,i-48),i-1 do if chord(data,route[i],route[j],known) then nexti=j;break end end
+    if not nexti then return end;local p=route[nexti];local tail=line[#line];if abs(p.x-tail.x)+abs(p.y-tail.y)>1e-9 then line[#line+1]=output(map,p) end;i=nexti
+   end;if #line>=2 then return line,'surface' end;return
+  end
+  if not closed[id] then closed[id]=true;seen=seen+1;if seen%24==0 and ns.PathGrid and ns.PathGrid.tick then ns.PathGrid.tick() end
+   local q=known[id];for d=1,4 do local p=step(data,q,d,known);if p and not closed[p.id] then local w=g[id]+1;if not g[p.id] or w<g[p.id] then g[p.id],prev[p.id]=w,id;local h=abs(goal.r-p.r)+abs(goal.c-p.c);add(p.id,w+h+h/65536) end end end
+  end
+ end
+end
+
+-- Veto only: the walking follower already chose this direction. Across the
+-- former arrival ring do not extend that bearing on a coarse graph alone.
+local oldMap,oldX,oldY,oldZ,oldGX,oldGY,oldGZ,lastClear
+function ns.Path.FinalDrySight(map,x,y,z,gx,gy,gz)
+ if not z or not gz or (x-gx)^2+(y-gy)^2>8^2 then return false end
+ if map==oldMap and x==oldX and y==oldY and z==oldZ and gx==oldGX and gy==oldGY and gz==oldGZ then return lastClear end
+ oldMap,oldX,oldY,oldZ,oldGX,oldGY,oldGZ,lastClear=map,x,y,z,gx,gy,gz,false
+ local a,b={x=x,y=y,z=z},{x=gx,y=gy,z=gz}
+ local before=unavailablePages
+ local line=ns.nativeTerrainWalk(map,a,b,true) or ns.astraSurfaceWalk(map,a,b,true)
+ if not line then if before~=unavailablePages then oldMap=nil end;return false end
+ for i=2,#line do if not ns.noNewTailVolume(map,line[i-1],nil,line[i]) then if before~=unavailablePages then oldMap=nil end;return false end end
+ lastClear=true;return true
+end
+end
+
+-- Negative evidence only: a known fixed face in the swept body, or two
+-- distinct near-parallel sides crossed by the torso ray. Neither grants a walk.
+do
+local ns=select(2,...);local abs,floor,min,sqrt=math.abs,math.floor,math.min,math.sqrt
+local function short(s,k) local a,b=s:byte(k,k+1);return ((b>=128 and b-256 or b)*256+a)/64 end
+local hot,page;local M,X,Y,Z,AX,AY,AZ,L,blocked;local hits,ex,ey={},{},{}
+function ns.Path.FinalBodyBlocked(map,x,y,z,ax,ay,limit,az)
+ if not z then return false end
+ if M==map and X==x and Y==y and Z==z and AX==ax and AY==ay and AZ==az and L==limit then return blocked end
+ M,X,Y,Z,AX,AY,AZ,L,blocked=map,x,y,z,ax,ay,az,limit,false
+ local md=Data(map)
+ -- The exact destination supplies both heights, even before a search warms its grid.
+ -- Leave the player's directly observed position alone; test only the requested reach.
+ if az and md and md.solidSamples then
+  local dx,dy=ax-x,ay-y
+  local dd=dx*dx+dy*dy
+  if dd>.10^2 then
+   local t=dd>limit*limit and limit/sqrt(dd) or 1
+   if solidSweep(md.solidSamples,md.cx0*TILE,md.cy0*TILE,md.ny,x,y,z,x+t*dx,y+t*dy,z+t*(az-z)) then blocked=true;return true end
+  end
+ end
+ local data=md and md.solidColumns;if not data then return false end
+ local side=100/3;local r,c=floor(512-x/side),floor(512-y/side)
+ local src,missing=regionPage(data,r*1024+c)
+ if missing then M=nil;return true end
+ if not src then return false end
+ if src~=hot then
+  if not (C_EncodingUtil and C_EncodingUtil.DecodeBase64 and C_EncodingUtil.DecompressString and Enum and Enum.CompressionMethod) then M=nil;return true end
+  local raw=data.directory and src or C_EncodingUtil.DecodeBase64(src);if not raw then M=nil;return true end
+  local s=C_EncodingUtil.DecompressString(raw,Enum.CompressionMethod.Zlib);if not s or #s<18 or (#s-4)%14~=0 or #s>7172 then M=nil;return true end
+  page,hot=s,src
+ end
+ local a,b,c0,d=page:byte(1,4);local zref=(a+256*(b+256*(c0+256*(d>=128 and d-256 or d))))/64
+ local dx,dy=ax-x,ay-y;local len=sqrt(dx*dx+dy*dy);if len<.12 then return false end;dx,dy=dx/len,dy/len
+ local ahead=min(len,limit);x,y=x-(512-r)*side,y-(512-c)*side
+ local torso=z+1.0-zref;local n=0
+ for k=5,#page,14 do
+  local bx,by=short(page,k),short(page,k+2);local vx,vy=short(page,k+4)-bx,short(page,k+6)-by
+  local den=dx*vy-dy*vx;local v2=vx*vx+vy*vy
+  if den*den>.035*v2 then
+   local sx,sy=bx-x,by-y;local t=(sx*vy-sy*vx)/den;local u=(sx*dy-sy*dx)/den
+   if t>.045 and t<ahead-.025 and u>0 and u<1 and min(u,1-u)^2*v2>.04^2 then
+    local lo,hi,tip=short(page,k+8),short(page,k+10),short(page,k+12)
+    -- Stay inside the original triangle, not its rounded edge.
+    if torso>lo+(tip-lo)*u+.07 and torso<hi+(tip-hi)*u-.07 then
+     local vl=sqrt(v2);local ux,uy=vx/vl,vy/vl
+     for j=1,n do local width=abs(t-hits[j]);if width>=.10 and width<=1.5 and abs(ux*ex[j]+uy*ey[j])>.985 then blocked=true;return true end end
+     n=n+1;hits[n],ex[n],ey[n]=t,ux,uy
+    end
+   end
+  end
+ end
+ return false
+end
+end
+
+-- Negative evidence for a proximity visit, not a walking edge. This native
+-- layer contains only isolated dry terrain with a single floor and no models.
+local ns=select(2,...)
+function ns.Path.ContradictsPointFloor(map,x,y,z,gx,gy,gz)
+ -- An actual observation at the target outweighs the base-world estimate.
+ if (x-gx)^2+(y-gy)^2<=.10^2 and math.abs(z-gz)<=.35 then return false end
+ local before=unavailablePages
+ local target=ns.nativeGround(map,gx,gy)
+ if before~=unavailablePages then return true end
+ -- Stored vertices round to 1/64 yd, chunk origins to 1/8192. On the
+ -- admitted slope the worst combined error is < .009 yd. Do not reject
+ -- a goal whose true height could still be inside the .35-yd stance band.
+ if not target or math.abs(target-gz)<=.359 then return false end
+ local player=ns.nativeGround(map,x,y)
+ return before~=unavailablePages or (player~=nil and math.abs(player-z)<=.10)
+end

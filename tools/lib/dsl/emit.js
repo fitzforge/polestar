@@ -6,21 +6,23 @@
 const { FORMAT, NEEDS, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX } = require('../pack/format');
 const { header } = require('../generated');
 
-const GUIDE_KEYS = ['id', 'pack', 'title', 'faction', 'races', 'classes', 'minLevel', 'maxLevel', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'zone', 'zoneName', 'next', 'nextChoices', 'nextWhen', 'pitch', 'pros', 'cons', 'author', 'version', 'group', 'names', 'written', 'sections', 'steps'];
+const GUIDE_KEYS = ['id', 'pack', 'title', 'faction', 'races', 'classes', 'minLevel', 'maxLevel', 'factionLevels', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'zone', 'zoneName', 'next', 'nextChoices', 'nextWhen', 'pitch', 'pros', 'cons', 'author', 'version', 'group', 'names', 'written', 'sections', 'steps'];
 // `image` follows note, so a step without one is emitted as before; so does `section`.
 const STEP_KEYS = ['title', 'note', 'image', 'label', 'only', 'when', 'along', 'skipto', 'section', 'goals'];
 // A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
 const IMAGE_KEYS = ['file', 'w', 'h'];
 // A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order.
-const WHEN_KEYS = ['k', 'neg', 'op', 'n', 'frac', 'q', 'item', 'spell', 'name', 'label', 'area', 'map', 'skillLine', 'minLevel', 'pre', 'preAll', 'closedBy', 'parent'];
+// `faction`, `standing` and `points` (a `rep` predicate) come last: no other predicate has them.
+const WHEN_KEYS = ['k', 'neg', 'op', 'n', 'frac', 'q', 'item', 'spell', 'name', 'label', 'area', 'node', 'map', 'skillLine', 'minLevel', 'pre', 'preAll', 'closedBy', 'parent', 'faction', 'standing', 'points'];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
 const GOAL_KEYS = [
-	't', 'class', 'zone', 'spell', 'spellName', 'faction', 'factionName', 'standing', 'achievement', 'achievementName', 'criteria',
-	'quest', 'title', 'target', 'npc', 'npcName', 'object', 'objName', 'item', 'itemName', 'count', 'oi', 'skill', 'skillLine', 'rank', 'rankMax', 'level', 'frac', 'grind', 'money', 'untilSkill', 'yellow', 'grey',
-	'reagents', 'location', 'minLevel', 'qlvl', 'pre', 'preAll', 'closedBy', 'parent', 'preTitles', 'text', 'node', 'area', 'map', 'x', 'y', 'z', 'f', 'r', 'spots', 'spread', 'optional', 'only', 'profLine', 'profName', 'profRank', 'note',
+	't', 'class', 'zone', 'spell', 'spellName', 'off', 'faction', 'factionName', 'standing', 'points', 'achievement', 'achievementName', 'criteria',
+	// `gather` (a `collect … gather`, true or { max, min, rank, skill, skillLine }) follows count: the item's gather way.
+	'quest', 'title', 'target', 'npc', 'npcName', 'object', 'objName', 'item', 'itemName', 'count', 'gather', 'oi', 'upto', 'skill', 'skillLine', 'rank', 'rankMax', 'level', 'frac', 'grind', 'money', 'untilSkill', 'yellow', 'grey',
+	'reagents', 'location', 'minLevel', 'qlvl', 'pre', 'preAll', 'closedBy', 'parent', 'preTitles', 'text', 'node', 'area', 'map', 'x', 'y', 'z', 'f', 'r', 'spots', 'spread', 'optional', 'either', 'only', 'profLine', 'profName', 'profRank', 'note',
 	'from', 'fromKind', 'fromRank', 'fromFaction', 'fromAlso', 'fromId', 'fromAlsoId', 'fromNpcs', 'fromNpcsAt', 'candidates', 'rewards', 'group', 'direct', 'escort',
 	// Quest work handed in only by a later guide of the chain: that guide's id (validate.js, markCarried).
 	'carriedTo',
@@ -241,6 +243,10 @@ function emitGuide(guide, sourceRel, { deferred = false } = {}) {
 		} else if (k === 'steps') {
 			const lines = stepLines(v, '\t\t\t', shared);
 			out.push(`\t\t\tsteps = {`, ...lines.slice(1, -1), '\t\t\t},');
+		} else if (k === 'factionLevels') {
+			// `levels <min>-<max> <Faction>`: each faction's range, Alliance first.
+			const parts = ['Alliance', 'Horde'].filter((f) => v[f]).map((f) => `${f} = { min = ${scalar(v[f].min)}, max = ${scalar(v[f].max)} }`);
+			out.push(`\t\t\tfactionLevels = { ${parts.join(', ')} },`);
 		} else if (k === 'nextWhen') {
 			// guide id -> its predicates, in the order of nextChoices.
 			out.push(`\t\t\tnextWhen = { ${Object.keys(v).map((id) => `[${luaString(id)}] = ${list(v[id], WHEN_KEYS)}`).join(', ')} },`);
@@ -307,6 +313,8 @@ function guideData(guide) {
 				}
 				return s;
 			});
+		} else if (k === 'factionLevels') {
+			out[k] = dataInline(v, Object.keys(v).sort());
 		} else if (k === 'nextWhen') {
 			const m = {};
 			for (const id of Object.keys(v)) m[id] = dataList(v[id], WHEN_KEYS);

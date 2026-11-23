@@ -2,7 +2,7 @@
 guide forever/alliance/30-40/02-desolace
 title Desolace
 faction Alliance
-levels 35-36
+levels 34-35
 zone Desolace
 next forever/alliance/30-40/04b-stranglethorn-vale
 
@@ -11,10 +11,23 @@ next forever/alliance/30-40/04b-stranglethorn-vale
 # into this file.
 # Added here: Vahlarriel's Vengeance (97284), on the Thunder Axe Fortress visit; The Karnitol Shipwreck (1454, 1455) and the
 # satchel's errand (1456), whose chest lies by Azore's tower on the way to the fortress; Carved Centaur Totems (93224),
-# whose totems the Kolkar drop with Centaur Bounty's ears (#1602; 30-40/06 keeps it for a player who loads it fresh).
+# whose totems the Kolkar drop with Centaur Bounty's ears (#1602; 30-40/06b keeps it for a player who loads it fresh).
 # Left out: Bodyguard for Hire (5821).
 # Since 2026-11-07 this first Desolace visit comes after Stranglethorn's first loop (33-35); the south loop stays at
-# the end of 30-40/06 (38-39), which dives for Karnitol's satchel on its north-west coast.
+# the end of 30-40, in 30-40/06b-desolace (38-39), which dives for Karnitol's satchel on its north-west coast.
+# Since the 2026-11-20 fix round Claim Rackmore's Treasure! (6161) is done here: its log lies beside Karnitol's Chest,
+# the silver key drops from the Drysnap crabs around the wreck (33-35), the golden key from the Slitherblade naga of
+# the coast north of it (32-35) and the chest stands at the coast's northern tip, so the coast is walked once, north
+# from the wreck and back south-east past Azore's tower to Thunder Axe Fortress (about 1,400 yards added). Bone
+# Collector (5501) is taken at Kormek's Hut on the way from the fortress to Smeed's camp, its Kodo Bones lie in the
+# graveyard the kodo taming already works, and Bibbly takes them on the way home from Kolkar Village. Both were carried
+# to the south loop at 38-39 before. Left there: Karnitol's satchel (1456), which Kreldig gives only on the last
+# Nijel's Point stop and which drops from the Tidehunters and Sea Witches (35-37), and the Book of the Ancients (6027),
+# whose Lord Kragaru (38) rises at the Serpent Statue: Azore gives it when the Sceptre of Light (5741, level 33) is
+# handed in, which is done here, back up his hill from the fortress (about 1,600 yards added; it rode five guides to
+# the south loop before), and it is carried there. Highway Robbery (79229) starts at an Extinguished
+# Campfire just north of the Kodo Bones, goes to Bibbly at Kormek's Hut on the way home, and Bibbly's On the Lam
+# (79235) is carried to Tokal at the end of 30-40/04b in Booty Bay (about 200 yards added).
 
 # ---------------------------------------------------------------- Getting there
 
@@ -26,8 +39,6 @@ step Nijel's Point
   turnin 1453                         -- Kreldig Ungor
   accept 1458
   accept 1454                         -- Kreldig Ungor: the wreck's chest lies below Azore's tower, on the way to Thunder Axe Fortress
-  accept 1387                         -- Corporal Melkins
-  accept 93224                        -- Captain Pentigast, beside Corporal Melkins
   accept 1437                         -- Vahlarriel Demonslayer
 
 step Malem chest
@@ -54,6 +65,8 @@ step Nijel's Point
   turnin 1465
   accept 1438
   accept 97284                        -- Vahlarriel Demonslayer: the Burning Blade in Thunder Axe Fortress, where her search leads
+  accept 1387                         -- Corporal Melkins: the Kolkar are at the end of this guide
+  accept 93224                        -- Captain Pentigast, beside Corporal Melkins
 
 # ---------------------------------------------------------------- Thunder Axe Fortress
 
@@ -65,9 +78,23 @@ step Karnitol's Chest
   tip The wrecked ship lies just south-west of Azore's tower; its chest sits beside Rackmore's Log.
   turnin 1454                         -- Karnitol's Chest
   accept 1455                         -- For Kreldig Ungor, at the end of this guide
+  accept 6161 object 177787           -- Rackmore's Log, beside the chest: its two keys drop only while you have the quest
+
+step Rackmore's Silver Key
+  tip West to the shore: the Drysnap Crawlers and Pincers (33-35) on the beach and the clam beds around the wreck carry Rackmore's Silver Key, about one in seven.
+  collect 15878 quest 6161.1 @33.4,30.1 map 1443 -- Rackmore's Silver Key, from the Drysnap crabs
+
+step Sar'theris Strand
+  tip Keep north to Sar'theris Strand for Rackmore's Golden Key: any Slitherblade can drop it. Work the Naga, Sorceresses and Warriors (32-34) of the strand's southern half until it drops.
+  tip Careful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), and Tidehunters (36-37) swim off the northern tip: on the way to the chest, keep to the beach and swim straight across.
+  collect 15881 quest 6161.2          -- Rackmore's Golden Key, from the Slitherblade naga
+
+step Rackmore's Chest
+  tip Swim out to Ranazjar Isle off the far northern tip: Rackmore's Chest stands on the shore beside the Serpent Statue. Open it with both keys; leave the statue alone.
+  turnin 6161 @30.0,8.7 map 1443     -- Rackmore's Chest
 
 step Dalinda Malem
-  tip Dalinda hides inside the Burning Blade's fortress south-west of Nijel's Point.
+  tip Back south-east past Azore's tower to the Burning Blade's fortress: Dalinda hides inside it.
   turnin 1438                         -- Inside
   accept 1439
 
@@ -87,14 +114,31 @@ step Escort Dalinda
   note Lead Dalinda out of the fortress; she walks off once you are clear of it. Vahlarriel takes the turn-in at Nijel's Point at the end of the guide.
   complete 1440
 
+step Azore Aldamort
+  tip Back west up the hill to Azore's tower with the sceptre, then south along the road to Kormek's Hut.
+  turnin 5741                         -- Azore Aldamort
+  accept 6027                         -- Azore Aldamort: Lord Kragaru (38) rises at the Serpent Statue, for the south loop at the end of 30-40 (06b): keep it
+
+step Bibbly F'utzbuckle
+  tip Kormek's Hut stands by the road south of the fortress, on the way to Smeed's camp. Bibbly collects Kodo Bones; they lie among the skeletons of the Kodo Graveyard, where Smeed's kodos are.
+  accept 5501
+
 step Smeed Scrabblescrew
   tip Smeed's camp is on the road south of Kolkar Village, by the Kodo Graveyard.
   accept 5561
 
+step Kodo Bones
+  tip West into the Kodo Graveyard first: Bibbly's Kodo Bones lie among the skeletons on its western side. Just north of them an Extinguished Campfire starts Highway Robbery, also for Bibbly.
+  collect 13703 quest 5501 @47.5,58.5 map 1443 -- Kodo Bone, among the skeletons
+  accept 79229 object 417353 @47.46,54.55 map 1443 -- Highway Robbery: the Extinguished Campfire
+
 step Kodo Graveyard
-  tip Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo: it becomes a tamed kodo that follows you. Walk it back to Smeed's camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom.
+  tip Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo: it becomes a tamed kodo that follows you. Walk it back to Smeed's camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them.
   use 13892 @51.0,58.5 "Kodo Kombobulator" -- on an Aged, Dying or Ancient Kodo in the graveyard; don't kill it
   talk 4700 quest 5561.1 @60.6,61.6   -- the tamed kodo, at Smeed's camp: talk to it, five times
+
+step Kodo Graveyard: hides and venom
+  tip The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos.
   collect 6249 quest 1459.2
   collect 6248 quest 1459.1           -- Scorpashi Venom
 
@@ -104,9 +148,18 @@ step Smeed Scrabblescrew
 # ---------------------------------------------------------------- The Kolkar
 
 step Kolkar Village
-  tip The Kolkar roam the plains around Kolkar Village; their ears are for Corporal Melkins.
-  collect 6067 quest 1387             -- Centaur Ear
-  collect 254432 quest 93224.1        -- Carved Centaur Totem
+  tip North-east from Smeed's camp to Kolkar Village, on the way back to Nijel's Point: every Kolkar drops Centaur Ears for Corporal Melkins and Carved Centaur Totems for Captain Pentigast. The Magram south-east of Smeed's camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35).
+  loop
+  goto 71.5,45.5 map 1443 era r 110
+  goto 71.7,41.6 map 1443 era r 120
+  collect 6067 quest 1387 -- Centaur Ear
+  collect 254432 quest 93224.1 -- Carved Centaur Totem
+
+step Kormek's Hut
+  tip North-west from Kolkar Village back along the road to Nijel's Point: Bibbly waits at Kormek's Hut. He sends you after the robber to Booty Bay, where the next guide ends: keep it.
+  turnin 5501                         -- Bibbly F'utzbuckle
+  turnin 79229
+  accept 79235                        -- Bibbly F'utzbuckle: Tokal waits in Booty Bay, at the end of the next guide
 
 # ---------------------------------------------------------------- Nijel's Point
 
@@ -117,7 +170,7 @@ step Nijel's Point
   turnin 93224                        -- Captain Pentigast
   turnin 1459                         -- Kreldig Ungor
   turnin 1455
-  accept 1456                         -- Kreldig Ungor: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it
+  accept 1456                         -- Kreldig Ungor: the satchel lies off the north-west coast, on Desolace's south loop at the end of 30-40: keep it
 
 # ---------------------------------------------------------------- To Stormwind
 
@@ -128,5 +181,6 @@ step Fly to Auberdine
   zone Darkshore
 
 step Boat to Stormwind Harbor
+  when !zone "Stormwind City"
   zone Darkshore
   goto 30.7,41.0 "Boat to Stormwind Harbor"

@@ -78,7 +78,7 @@ return {
 
 	-- Step 12: Feedback: High Priestess Laurena
 	-- {npc:376} High Priestess Laurena · {spell:13896} Feedback
-	["At 20, {npc:376} at the altar of the Cathedral of Light teaches {spell:13896} with a quest she gives and takes back at once."] = "",
+	["At 20, {npc:376} at the altar of the Cathedral of Light teaches {spell:13896} with a quest she gives and takes back at once."] = "На 20-м уровне {npc:376} у алтаря Собора Света обучает заклинанию {spell:13896} через задание, которое она дает и сразу принимает.",
 
 	-- Step 13: Feedback: Rohan's letter
 	-- {spell:13896} Feedback
@@ -93,7 +93,6 @@ return {
 	["Hand Alathea's letter to {npc:376} at the altar of {zone:1453}'s Cathedral of Light (from {zone:1457}: the portal down to {area:702}, the boat to {area:442}, then the boat to {area:17203}): she teaches {spell:13896}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 10, go to {npc:376} in the Cathedral of Light. {npc:377} in {area:87} sends you to her with a quest of the same name."] = "На 10-м уровне идите в Собор Света. Цель: {npc:376}. {npc:377} ({area:87}) отправит вас к ней с одноименным заданием.",
 	-- ["At 20, {npc:376} teaches {spell:13896}. {npc:11406} in {zone:1455} and {npc:11401} in {zone:1457} send you to her with a quest of the same name."] = "На 20-м уровне {npc:376} обучает: {spell:13896}. {npc:11406} ({zone:1455}) и {npc:11401} ({zone:1457}) отправят вас к ней с одноименным заданием.",
 	-- ["The Human priest spells: {quest:94773} at 10, {spell:13896} at 20."] = "Заклинания жрецов-людей: {quest:94773} на 10-м уровне, {spell:13896} на 20-м.",
 }

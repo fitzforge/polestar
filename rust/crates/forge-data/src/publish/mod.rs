@@ -56,6 +56,9 @@ pub struct Options {
 	/// The local evidence quotes (data/local/mechanics/evidence): steps running 8 words of page
 	/// text are held.
 	pub evidence: Option<PathBuf>,
+	/// A Markdown paragraph for this version's CHANGELOG.md section (`--release-note`): what the
+	/// generated counts can't say, such as why a table lost rows. Pass it on every run of that version.
+	pub release_note: Option<PathBuf>,
 }
 
 impl Options {
@@ -82,6 +85,7 @@ impl Options {
 			producer_commit: None,
 			date: None,
 			evidence: Some(local.join("mechanics").join("evidence")),
+			release_note: None,
 		}
 	}
 }
@@ -164,11 +168,16 @@ pub fn public_build_options(root: &Path, sources: &Path, questie: bool, empty_co
 	o.sources = sources.to_path_buf();
 	o.web_xp = false;
 	o.web_zones = false;
+	// No corrections here, and no objective text ships in the public tables (#2614's words come from
+	// corrections): the placeholder check is the full build's.
+	o.placeholders = crate::Placeholders::Count;
 	o.corrections = empty_corrections.to_path_buf();
 	o.questie = if questie { crate::questie::detect_questie() } else { None };
 	let defs = o.sources.join("wowdbdefs");
-	o.forever_source = match forge_gamedata::find_install() {
-		Some(w) if defs.join("definitions").is_dir() => Source::Client { wow: w, product: "wow_classic_beta".into(), defs },
+	// The installed Forever client (`wowf`, else the old beta `wow_classic_beta`), else wago.tools.
+	let client = forge_gamedata::find_install().and_then(|w| forge_gamedata::casc::forever_build(&w).ok().flatten().map(|b| (w, b.product)));
+	o.forever_source = match client {
+		Some((wow, product)) if defs.join("definitions").is_dir() => Source::Client { wow, product, defs },
 		_ => Source::Wago,
 	};
 	o
@@ -260,6 +269,15 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Summary, String> {
 			inputs::load_cm_db(p, &mut cmv)?;
 			have_cm = true;
 		}
+		// The maintainer's full release (with the KB) never goes out without CMaNGOS's loot: 2,995
+		// item_source rows left a 2026.11.2 candidate when its build tree lacked cm.db (#2585). A
+		// build without a KB (CI, contributors), or one that passes no path, notes it only.
+		None if o.kb.is_file() && o.cmangos.is_some() => {
+			return Err(format!(
+				"the CMaNGOS classic-db sqlite {} is missing: its loot rows (item sources and chances) would leave the release; pass --cmangos <cm.db>",
+				o.cmangos.as_ref().unwrap().display()
+			))
+		}
 		None => notes.push("no CMaNGOS classic-db sqlite: no loot chances, object or item names from it".into()),
 	}
 	let cm = have_cm.then_some(cmv);
@@ -332,12 +350,17 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Summary, String> {
 		return Err(format!("--version {version}: YYYY.MM.N"));
 	}
 	let client_build = data.client_build().unwrap_or_else(|| "unknown".into());
+	let note = match &o.release_note {
+		Some(p) => Some(std::fs::read_to_string(p).map_err(|e| format!("--release-note {}: {e}", p.display()))?),
+		None => None,
+	};
 	let meta = release::Meta {
 		client_build: client_build.clone(),
 		version: version.clone(),
 		date,
 		producer_commit: o.producer_commit.clone().unwrap_or_else(producer_commit),
 		pfquest_notice: data.pfquest_notice(),
+		note,
 	};
 	release::write(&o.out, &t, &meta, o.previous.as_deref(), &notes::ledger_md(&ledger))?;
 	if corrections.is_some() {

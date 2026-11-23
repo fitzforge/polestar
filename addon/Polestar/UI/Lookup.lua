@@ -20,7 +20,10 @@
 -- without) with the kind, the icon and the name; key facts; the sources
 -- from Lookup.Sources, best first (label, detail, travel time, chance, price
 -- or standing; ones this character cannot use yet dimmed and saying why);
--- the selected source carries its own "Guide" button; pinned at the bottom
+-- the selected source carries its own "Guide" button; for a quest in a
+-- chain, the chain under them (Lookup.ChainProgress, #2554): each quest done,
+-- in the log, open now or waiting and why, skipped ones marked, a click
+-- opens that quest's page; pinned at the bottom
 -- "Guide me" (or "Open guide" when a curated guide collects it), which opens
 -- the guide in a new tab (Lookup.Guide). Guides in the results open in a new
 -- tab or show among the guides; dungeons also open in the Dungeons section.
@@ -92,6 +95,7 @@ local FALLBACK_KINDS = {
 local SOURCE_ICON = {
 	vendor = "icon-vendor", drop = "icon-kill", object = "icon-interact", quest = "icon-accept", gift = "icon-talk", craft = "icon-craft",
 	rep = "icon-rep", pvp = "icon-achieve", container = "icon-use", world = "icon-explore",
+	flight = "icon-fly", inn = "icon-sethome", middle = "icon-explore",
 }
 
 -- The client's colours, for a client (or preview) without the API.
@@ -144,7 +148,7 @@ function LK.ReasonText(reason)
 	if reason == "loading" then
 		return L["Loading the Codex\226\128\166"]
 	elseif reason == "off" then
-		return L["Lookup is turned off in Options > Discovery > Lookup. Items, mounts, NPCs and quests are not searched."]
+		return L["Lookup is turned off in Settings > Discovery > Lookup. Items, mounts, NPCs and quests are not searched."]
 	elseif reason == "missing" then
 		return L["The Polestar_Codex addon is not installed. Get Polestar from CurseForge or the GitHub Releases page (the Polestar zip under Assets, not \"Source code\"), install it and restart the game."]
 	elseif reason == "disabled" then
@@ -259,14 +263,10 @@ local function paintName(fs, k, quality)
 	end
 end
 
+-- An amount of copper in the client's coin symbols (ns.MoneyText), nil for none.
 function LK.Money(copper)
 	if type(copper) ~= "number" or copper <= 0 then return nil end
-	local g, s, c = floor(copper / 10000), floor(copper / 100) % 100, copper % 100
-	local parts = {}
-	if g > 0 then parts[#parts + 1] = g .. L["g"] end
-	if s > 0 then parts[#parts + 1] = s .. L["s"] end
-	if c > 0 then parts[#parts + 1] = c .. L["c"] end
-	return table.concat(parts, " ")
+	return ns.MoneyText(copper)
 end
 
 function LK.Travel(seconds)
@@ -551,6 +551,9 @@ function LK.Activate()
 		LK.Guide(sourceSel)
 	elseif details and details.psPrimaryAction then
 		details.psPrimaryAction()
+	elseif sel.kind == "zone" and not (LK.detail and LK.detail.primary) then
+		-- A continent or a battleground: nothing to guide to, and the note says so.
+		return
 	else
 		LK.Guide(nil)
 	end
@@ -625,6 +628,17 @@ local function sourceRow(i)
 	return r
 end
 
+-- The details' icon: an item's page shows the game's own tooltip for it on
+-- hover (W.ItemTip), and Shift-click links it in chat, Ctrl-click tries it
+-- on (W.ItemClick), as the Dungeons section's tiles do; other pages have none.
+local function wellEnter(self)
+	if self.psItem then W.ItemTip(self, self.psItem) else W.HideTooltip(self) end
+end
+
+local function wellClick(self, button)
+	if self.psItem and button == "LeftButton" then W.ItemClick(self.psItem) end
+end
+
 local function buildDetails()
 	local d = CreateFrame("Frame", nil, root)
 	details = d
@@ -641,16 +655,16 @@ local function buildDetails()
 	d.Art = ZoneArt.Create(d, DETAIL_W, ART_H, "panel")
 	d.Art.psZoom = 1.5
 	d.Art:SetPoint("TOPLEFT", d, "TOPLEFT", 0, 0)
-	d.Art:EnableMouse(true)
-	d.Art:RegisterForDrag("LeftButton")
-	d.Art:SetScript("OnDragStart", function() shell:StartMoving() end)
-	d.Art:SetScript("OnDragStop", function() shell:StopMovingOrSizing() end)
+	ns.DragWindow(d.Art, shell)
 	-- The icon in a dark well with a hairline in the quality colour, the
 	-- name beside it and a muted line under the name.
 	d.Well = CreateFrame("Frame", nil, d.Art.Over)
 	d.Well:SetSize(ICON, ICON)
 	d.Well:SetPoint("BOTTOMLEFT", d.Art, "BOTTOMLEFT", DPAD, 16)
 	d.Well:SetFrameLevel(d.Art.Over:GetFrameLevel() + 2)
+	d.Well:SetScript("OnEnter", wellEnter)
+	d.Well:SetScript("OnLeave", W.HideTooltip)
+	d.Well:SetScript("OnMouseUp", wellClick)
 	d.WellGround = d.Well:CreateTexture(nil, "BACKGROUND")
 	d.WellGround:SetTexture(Theme.Media("white"))
 	d.WellGround:SetAllPoints(d.Well)
@@ -691,6 +705,13 @@ local function buildDetails()
 	d.NoSource:SetJustifyV("TOP")
 	d.NoSource:SetWidth(INNER)
 	d.NoSource:SetPoint("TOPLEFT", d.Scroll.Child, "TOPLEFT", 0, -4)
+	-- A quest's chain, under its sources (#2554).
+	d.ChainHead = makeFolder(d.Scroll.Child)
+	d.ChainHead:Hide()
+	d.ChainRows = {}
+	d.ChainBranches = W.Text(d.Scroll.Child, "small", "textDim")
+	d.ChainBranches:SetWordWrap(true)
+	d.ChainBranches:Hide()
 
 	-- Pinned at the bottom: a line saying what the button does, the button.
 	d.Note = W.Text(d, "note", "textDim")
@@ -731,14 +752,72 @@ local function setButton(b, text, enabled)
 	b:SetAlpha(enabled == false and 0.5 or 1)
 end
 
+-- A chain row: the state's glyph, the quest's title, and its state.
+local CHAIN_ROW_H = 40
+local CHAIN_GLYPH = {
+	done = { "check", "success" }, log = { "icon-accept", "accent" },
+	open = { "circle", "quest" }, later = { "lock", "textMuted" },
+}
+
+local function chainRowClick(self)
+	if self.psQuest then LK.Select("quest", self.psQuest) end
+end
+
+local function chainRow(i)
+	local d = details
+	local r = d.ChainRows[i]
+	if r then return r end
+	r = CreateFrame("Button", nil, d.Scroll.Child)
+	W.Hover(r)
+	r:SetHeight(CHAIN_ROW_H)
+	r.Icon = r:CreateTexture(nil, "ARTWORK")
+	r.Icon:SetSize(12, 12)
+	r.Icon:SetPoint("TOPLEFT", r, "TOPLEFT", 9, -8)
+	r.Label = W.Text(r, "body", "text")
+	r.Label:SetPoint("TOPLEFT", r, "TOPLEFT", 30, -6)
+	r.State = W.Text(r, "small", "textDim")
+	r.State:SetPoint("TOPLEFT", r, "TOPLEFT", 30, -23)
+	r:SetScript("OnClick", chainRowClick)
+	r:SetScript("OnEnter", W.SimpleTip)
+	r:SetScript("OnLeave", W.HideTip)
+	d.ChainRows[i] = r
+	return r
+end
+
+-- What a chain row says about its quest.
+local function chainStateText(e)
+	if e.state == "done" then return L["Done"] end
+	local t
+	if e.state == "log" then
+		t = L["In your quest log"]
+	elseif e.state == "open" then
+		t = L["You can take it now"]
+	else
+		t = e.why or L["Not yet"]
+	end
+	if e.skipped then t = L["Skipped"] .. DOT .. t end
+	return t
+end
+
+-- "Step 6 of 11", "All 11 done", or "Finished, 2 skipped" when only skipped
+-- quests are left.
+local function chainStepText(chain)
+	if chain.done and (chain.skippedCount or 0) > 0 then
+		return format(L["Finished, %d skipped"], chain.skippedCount)
+	end
+	if chain.done then return format(L["All %d done"], chain.total) end
+	return format(L["Step %d of %d"], chain.step, chain.total)
+end
+LK.ChainStepText = chainStepText
+
 -- Facts: { label, value, colour? }.
-local function factsFor(s, entity, list)
+local function factsFor(s, entity, list, chain)
 	local k, e, out = s.kind, entity or {}, {}
 	local function add(label, value, color) if value and value ~= "" then out[#out + 1] = { label, value, color } end end
 	if k == "guide" then
 		local g = guideHeader(s.id) or {}
 		add(L["Category"], g and UI.Category and L[UI.Category(g)])
-		add(L["Levels"], UI.LevelRange(g.minLevel, g.maxLevel))
+		add(L["Levels"], UI.GuideLevels(g))
 		add(L["Faction"], ns.FactionName(g.faction) or L["Both factions"])
 		if g.stepCount or g.steps then add(L["Steps"], tostring(g.stepCount or #g.steps)) end
 		return out
@@ -760,6 +839,10 @@ local function factsFor(s, entity, list)
 		end
 	elseif k == "quest" then
 		if e.level then add(L["Level"], (e.minLevel and e.minLevel ~= e.level) and format(L["%d (from %d)"], e.level, e.minLevel) or tostring(e.level)) end
+		-- Offered only from a level above the character's: said in the warning
+		-- colour (#3370: In Demand reads "Level 60", and a level 57 went for it).
+		local own = ns.Compat.GetPlayerInfo().level
+		if e.minLevel and own and own < e.minLevel then add(L["Requires"], format(L["Level %d"], e.minLevel), "warning") end
 		add(L["Faction"], e.faction and (FACTION[e.faction] or L[e.faction]) or L["Both factions"])
 		if e.zone then
 			local z = UI.MapName(e.zone) or (codexRecord("zone", e.zone) or {}).name
@@ -767,6 +850,7 @@ local function factsFor(s, entity, list)
 		end
 		local new = ns.NewQuests and ns.NewQuests.TooltipText(s.id)
 		add(L["Origin"], new, "accent")
+		if chain then add(L["Chain"], chainStepText(chain), chain.done and (chain.skippedCount or 0) == 0 and "success" or nil) end
 	elseif k == "instance" then
 		add(L["Type"], e.kind == "raid" and L["Raid"] or L["Dungeon"])
 		local lv = type(e.levels) == "table" and UI.LevelRange(e.levels[2] or e.levels[1], e.levels[3])
@@ -798,7 +882,8 @@ local function headText(k)
 end
 
 -- The band: where it is got (the best source with a place), or its own
--- map, else the night sky.
+-- map, else the night sky. A dungeon without a known entrance: the zone its
+-- page places it in (its own `map` is the instance's, no zone painting).
 local function bandMap(s, entity, list)
 	if s.kind == "zone" then return s.id end
 	if s.kind == "guide" then
@@ -809,6 +894,10 @@ local function bandMap(s, entity, list)
 		if row.map then return row.map, row.x, row.y end
 	end
 	if entity and type(entity.entrance) == "table" then return entity.entrance.map, entity.entrance.x, entity.entrance.y end
+	if s.kind == "instance" then
+		local d = ns.Dungeons and ns.Dungeons.Get and ns.Dungeons.Get(s.id)
+		return d and d.zone or nil
+	end
 	return entity and entity.map or nil
 end
 
@@ -816,6 +905,8 @@ local function emptyDetails(title, note)
 	local d = details
 	d.psArt = ZoneArt.Paint(d.Art, nil, nil, nil, 1)
 	for _, p in ipairs({ d.Well, d.Title, d.Sub, d.Status, d.Head, d.Scroll, d.Note, d.Primary, d.Secondary }) do p:Hide() end
+	d.Well.psItem = nil
+	W.HideTooltip(d.Well)
 	for _, f in ipairs(d.Facts) do
 		f.Label:Hide()
 		f.Value:Hide()
@@ -870,6 +961,9 @@ local function renderDetails(loaded, reason)
 	-- The band.
 	local map, fx, fy = bandMap(s, entity, list)
 	d.psArt = ZoneArt.Paint(d.Art, map, fx, fy, skyIndex(keyOf(s.kind, s.id)))
+	-- A dungeon with no zone known: its loading screen (Dungeons.Art).
+	local pic = not d.psArt and s.kind == "instance" and ns.Dungeons and ns.Dungeons.Art and ns.Dungeons.Art(s.id)
+	if pic then d.psArt = ZoneArt.Picture(d.Art, pic) end
 	local icon = KIND[s.kind] and KIND[s.kind].item and itemIcon(s.id)
 	d.Icon:ClearAllPoints()
 	if icon then
@@ -895,6 +989,12 @@ local function renderDetails(loaded, reason)
 		local ir, ig, ib = Theme.Color("ink")
 		Theme.Border(d.Well, ir, ig, ib, 0.18)
 	end
+	-- Only an item's icon takes the mouse, so the band still drags the window
+	-- from any other page's glyph; a tooltip already up follows the new page.
+	d.Well.psItem = KIND[s.kind] and KIND[s.kind].item and type(s.id) == "number" and s.id or nil
+	d.Well:EnableMouse(d.Well.psItem ~= nil)
+	-- (Through GetScript: this function is at Lua 5.1's 60 upvalues.)
+	if GameTooltip and GameTooltip.GetOwner and GameTooltip:GetOwner() == d.Well then d.Well:GetScript("OnEnter")(d.Well) end
 	d.Well:Show()
 	d.Title:SetText(title .. questMark(s))
 	paintName(d.Title, s.kind, quality)
@@ -919,7 +1019,9 @@ local function renderDetails(loaded, reason)
 	else
 		d.Status:Hide()
 	end
-	local facts = factsFor(s, entity, list)
+	local Lk = ns.Lookup
+	local chain = s.kind == "quest" and Lk and Lk.ChainProgress and Lk.ChainProgress(s.id) or nil
+	local facts = factsFor(s, entity, list, chain)
 	local shown = {}
 	for i, f in ipairs(facts) do
 		local row = factRow(i)
@@ -942,7 +1044,6 @@ local function renderDetails(loaded, reason)
 	y = y - FACT_GAP + 8
 
 	-- The bottom: what the button does, then the button(s).
-	local Lk = ns.Lookup
 	local curated = curatedOf(s.kind, s.id)
 	local note, primary, enabled, secondary
 	local best
@@ -959,7 +1060,8 @@ local function renderDetails(loaded, reason)
 		end
 		d.Secondary.psAction = function() LK.OpenGuide(s.id, true) end
 		note = g and g.pitch or nil
-	elseif s.kind == "zone" then
+	elseif s.kind == "zone" and not (list and #list > 0) then
+		-- A continent or a battleground: no flight master, inn or middle to go to.
 		note = L["Zones have no sources. Search for what is in them."]
 	elseif blocked then
 		note = STATUS_NOTE[status]
@@ -975,7 +1077,11 @@ local function renderDetails(loaded, reason)
 		note = MOUNT_NOTE
 	elseif best then
 		primary = L["Guide me"]
-		note = format(L["Builds a guide to %s, the best source for you, and opens it in a new tab."], list[best].label or "?")
+		if s.kind == "zone" then
+			note = format(L["Builds a guide to %s, the quickest of these to reach, and opens it in a new tab."], list[best].label or "?")
+		else
+			note = format(L["Builds a guide to %s, the best source for you, and opens it in a new tab."], list[best].label or "?")
+		end
 	elseif list and #list > 0 then
 		primary, enabled = L["Guide me"], false
 		note = L["No source is open to this character yet. Pick one above to be guided anyway."]
@@ -1021,7 +1127,7 @@ local function renderDetails(loaded, reason)
 
 	-- Sources.
 	local rowsShown = {}
-	if list and s.kind ~= "zone" then
+	if list and (s.kind ~= "zone" or #list > 0) then
 		d.Head.Text:SetText(headText(s.kind))
 		d.Head.Count:SetText(#list > 0 and tostring(#list) or "")
 		d.Head:ClearAllPoints()
@@ -1101,14 +1207,71 @@ local function renderDetails(loaded, reason)
 		else
 			d.NoSource:Hide()
 		end
+		-- The chain, under the sources (#2554).
+		local chainShown
+		if chain then
+			chainShown = { step = chainStepText(chain), quests = {}, branches = {} }
+			cy = cy + 10
+			d.ChainHead.Text:SetText(L["Chain"])
+			d.ChainHead.Count:SetText(chainStepText(chain))
+			d.ChainHead:SetWidth(cw + TEXT_X * 2 - 16)
+			d.ChainHead:ClearAllPoints()
+			d.ChainHead:SetPoint("TOPLEFT", child, "TOPLEFT", 8 - TEXT_X, -cy)
+			d.ChainHead:Show()
+			cy = cy + FOLDER_H + 4
+			for i, e in ipairs(chain.quests) do
+				local r = chainRow(i)
+				local here = e.id == s.id
+				local g = CHAIN_GLYPH[e.state] or CHAIN_GLYPH.later
+				setGlyph(r.Icon, e.skipped and "skip" or g[1], e.skipped and "warning" or g[2])
+				r.Label:SetText(e.title or (L["Quest"] .. " " .. e.id))
+				W.Color(r.Label, here and "accent" or (e.state == "done" and "textDim" or "quest"))
+				local st = chainStateText(e)
+				r.State:SetText(st)
+				W.Color(r.State, e.skipped and "warning" or "textDim")
+				r.Label:SetWidth(cw - 30 - 10)
+				r.State:SetWidth(cw - 30 - 10)
+				r.psQuest = not here and e.id or nil
+				r.psTip = not here and L["Click to open its page."] or nil
+				r:SetWidth(cw)
+				r:ClearAllPoints()
+				r:SetPoint("TOPLEFT", child, "TOPLEFT", 0, -cy)
+				r:Show()
+				cy = cy + CHAIN_ROW_H
+				chainShown.quests[i] = { id = e.id, title = e.title, state = st, here = here or nil }
+			end
+			for i = #chain.quests + 1, #d.ChainRows do d.ChainRows[i]:Hide() end
+			if chain.branches then
+				local titles = {}
+				for i, b in ipairs(chain.branches) do
+					titles[i] = b.title or (L["Quest"] .. " " .. b.id)
+					chainShown.branches[i] = titles[i]
+				end
+				d.ChainBranches:SetText(format(L["Then any of: %s"], table.concat(titles, ", ")))
+				d.ChainBranches:SetWidth(cw - 30 - 10)
+				d.ChainBranches:ClearAllPoints()
+				d.ChainBranches:SetPoint("TOPLEFT", child, "TOPLEFT", 30, -(cy + 4))
+				d.ChainBranches:Show()
+				cy = cy + d.ChainBranches:GetStringHeight() + 10
+			else
+				d.ChainBranches:Hide()
+			end
+		else
+			d.ChainHead:Hide()
+			d.ChainBranches:Hide()
+			for _, r in ipairs(d.ChainRows) do r:Hide() end
+		end
+		LK.chainShown = chainShown
 		W.SetScrollContent(d.Scroll, cy + 4, shell:GetHeight() - SH.top - y - bottom)
 	else
 		d.Head:Hide()
 		d.Scroll:Hide()
+		LK.chainShown = nil
 	end
 	LK.detail = {
 		kind = s.kind, id = s.id, title = title, facts = shown, sources = rowsShown, curated = curated, status = status,
 		primary = primary and d.Primary.Label:GetText() or nil, note = d.Note:GetText(), art = d.psArt,
+		chain = LK.chainShown,
 	}
 	if primary then LK.detail.enabled = d.Primary:IsEnabled() end
 end
@@ -1385,7 +1548,7 @@ function LK.Render()
 	elseif #list == 0 then
 		empty = format(L["Nothing matches %s."], LQ .. query .. RQ)
 		if reason == "off" then
-			empty = empty .. " " .. L["Lookup is turned off in Options > Discovery > Lookup, so items, mounts, NPCs and quests are not searched."]
+			empty = empty .. " " .. L["Lookup is turned off in Settings > Discovery > Lookup, so items, mounts, NPCs and quests are not searched."]
 		elseif not loaded then
 			empty = empty .. " " .. L["Items, mounts, NPCs and quests are searched once the Codex loads."]
 		end
@@ -1529,9 +1692,12 @@ function LK.Build(parent, hub)
 	-- It belongs to this section: other sections' tab rows stay theirs.
 	root:SetScript("OnShow", function() root.CodexLine:Show() end)
 	-- Leaving the section, not Polestar hiding (its layer hides the hub with
-	-- the section still open: a search running goes on).
+	-- the section still open: a search running goes on). The hub leaves a
+	-- section by hiding the section's frame, `parent`, not this one: with
+	-- only its own state read, the line stayed over the guide list's tabs
+	-- (#2692).
 	root:SetScript("OnHide", function(self)
-		if self:IsShown() then return end
+		if self:IsShown() and parent:IsShown() then return end
 		cancelPending()
 		root.CodexLine:Hide()
 	end)

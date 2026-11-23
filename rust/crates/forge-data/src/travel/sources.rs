@@ -17,7 +17,12 @@ pub enum Product {
 }
 
 pub const TABLES: &[&str] = &["TaxiNodes", "TaxiPath", "TaxiPathNode", "AreaTrigger"];
-pub const FOREVER_TABLES: &[&str] = &["TaxiPathNode"];
+/// The Forever client's (`forge data sources --only builders` fetches them): TaxiPathNode for the ship
+/// loops Forever added, and TaxiNodes and TaxiPath with it for the flight points it added.
+pub const FOREVER_TABLES: &[&str] = &["TaxiNodes", "TaxiPath", "TaxiPathNode"];
+/// The Forever tables a build may lack (a source cache filled for the ships alone): the build is still
+/// chosen by its TaxiPathNode, and the flight points Forever added are left out.
+pub const FOREVER_TAXI: &[&str] = &["TaxiNodes", "TaxiPath"];
 pub const TRANSIT_TABLES: &[&str] = &["TransportAnimation", "SpellEffect", "SpellName", "SpellMisc", "SpellCastTimes", "SpellReagents", "SkillLineAbility"];
 
 impl Product {
@@ -33,6 +38,10 @@ impl Product {
 			Product::Forever => FOREVER_TABLES,
 			Product::Transit => TRANSIT_TABLES,
 		}
+	}
+	/// Whether every build of the product used holds the table.
+	fn required(self, table: &str) -> bool {
+		self != Product::Forever || !FOREVER_TAXI.contains(&table)
 	}
 	/// era `^1\.1[0-5]\.`, forever `^1\.6\d\.`.
 	fn family(self, b: &str) -> bool {
@@ -94,25 +103,32 @@ impl Loaded {
 	}
 }
 
-/// loadTravelTables, offline.
+/// loadTravelTables, offline. A Forever build is chosen by its TaxiPathNode alone; its TaxiNodes and
+/// TaxiPath are read when both are cached (they are used together), else left out of `tables`.
 pub fn load_travel_tables(sources: &Path, build: Option<&str>, product: Product) -> Result<Loaded, String> {
 	let cache_root = sources.join("wago");
+	let required: Vec<&str> = product.tables().iter().copied().filter(|t| product.required(t)).collect();
+	let cached_in = |b: &str, t: &str| cache_root.join(b).join(format!("{t}.csv")).exists();
 	let chosen = match build {
 		Some(b) => b.to_string(),
 		None => {
 			let mut cached: Vec<String> = std::fs::read_dir(&cache_root).map(|rd| rd.flatten().map(|e| e.file_name().to_string_lossy().to_string()).collect()).unwrap_or_default();
-			cached.retain(|b| is_build(b) && product.family(b) && product.tables().iter().all(|t| cache_root.join(b).join(format!("{t}.csv")).exists()));
+			cached.retain(|b| is_build(b) && product.family(b) && required.iter().all(|t| cached_in(b, t)));
 			cached.sort_by(|a, b| compare_versions(a, b));
-			cached.pop().ok_or_else(|| format!("--offline: no cached {} build with {} under {}", product.key(), product.tables().join(", "), cache_root.display()))?
+			cached.pop().ok_or_else(|| format!("--offline: no cached {} build with {} under {}", product.key(), required.join(", "), cache_root.display()))?
 		}
 	};
 	if !is_build(&chosen) {
 		return Err(format!("travel sources: \"{chosen}\" is not a build version"));
 	}
+	let optional = product.tables().iter().all(|t| product.required(t) || cached_in(&chosen, t));
 	let dir = cache_root.join(&chosen);
 	let mut tables = IndexMap::new();
 	let mut urls = IndexMap::new();
 	for &t in product.tables() {
+		if !(product.required(t) || optional) {
+			continue;
+		}
 		let file = dir.join(format!("{t}.csv"));
 		urls.insert(t, table_url(t, &chosen));
 		if !file.exists() {

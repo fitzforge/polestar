@@ -53,8 +53,8 @@ return {
 	["{npc:8584}, outside the spider cave"] = "",
 
 	-- Step 7: Dolanaar
-	-- {faction:69} Darnassus
-	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	-- {faction:69} Darnassus · {npc:2151} Moon Priestess Amara
+	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.\n{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "",
 
 	-- Step 8: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
@@ -72,6 +72,8 @@ return {
 	-- Step 10: Dolanaar: first hand-in
 	-- {area:186} Dolanaar
 	["{area:186}: first hand-in"] = "",
+	-- {npc:2151} Moon Priestess Amara
+	["{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "{npc:2151} patrulla el camino al oeste de la aldea: si no está en la flecha, sigue el camino hasta encontrarla.",
 
 	-- Step 11: Dolanaar: the Ban'ethil Barrow Den's entrance
 	-- {area:186} Dolanaar · {area:262} Ban'ethil Barrow Den
@@ -100,6 +102,7 @@ return {
 	-- {area:445} Cliffspring Falls
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "",
+	["the corrupt furbolg camp south of town"] = "el campamento de fúrbolgs corruptos al sur del pueblo",
 	-- {npc:2164} Rabid Thistle Bear · {quest:2139} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
 	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "",
 	-- {npc:2164} Rabid Thistle Bear

@@ -96,7 +96,7 @@ end
 function unlockLines(lines)
 	local out = {}
 	for _, l in ipairs(lines) do
-		if l:find("^Leads to |") or l:find("^ |") or l:find("^Chain ends with |") or l:find("^Final reward |") then out[#out + 1] = l end
+		if l:find("^Leads to |") or l:find("^  |") or l:find("^Chain ends with |") or l:find("^Final reward |") then out[#out + 1] = l end
 	end
 	return out
 end
@@ -172,7 +172,7 @@ fn a_quest_that_another_giver_s_quest_needs_names_that_giver_after_the_chain_s_n
 	let out = run(true, r#"emit(unlockLines(tip(155)))"#);
 	assert_eq!(
 		out,
-		json!(["Leads to | “The Defias Brotherhood” (part 7 of 7)", " | “Red Silk Bandanas”, from Scout Riell"]),
+		json!(["Leads to | “The Defias Brotherhood” (part 7 of 7)", "  | “Red Silk Bandanas”, from Scout Riell"]),
 		"part 7 is the chain's end: no Chain ends with line; Red Silk Bandanas branches off it"
 	);
 }
@@ -195,8 +195,8 @@ fn more_than_four_follow_ups_list_four_then_how_many_more() {
 	);
 	assert_eq!(
 		out,
-		json!(["Leads to | “Side One”, from Scout Riell", " | “Side Two”, from Scout Riell", " | “Side Three”", " | “Side Four”", " | +2 more",]),
-		"the Horde quest is never this character's"
+		json!(["Leads to | “Side One”, from Scout Riell", "  | “Side Two”, from Scout Riell", "  | “Side Three”", "  | “Side Four”", "  | +2 more",]),
+		"the Horde quest is never this character's; the later lines' left half is a space, never empty: the game gives a double line with an empty left no height and draws the next over it (#2698)"
 	);
 }
 

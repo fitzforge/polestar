@@ -22,5 +22,6 @@ step Lower Blackrock Spire
   collect 12530 x15 quest 4862 @33.2,24.9 -- Lower Blackrock Spire
 
 step Back to Kibler
+  when !turnedin 4862
   turnin 4862
   collect 12529 @65.9,21.9            -- Smolderweb Carrier

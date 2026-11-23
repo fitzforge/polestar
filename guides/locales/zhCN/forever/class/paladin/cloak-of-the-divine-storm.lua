@@ -8,15 +8,16 @@
 return {
 	-- Guide
 	-- {area:444} Tower of Althalaxx
-	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "",
+	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "现在22级即可从{area:444}开始；任务怪为28-30级，建议接近30级或与朋友同行。目前仅限联盟。",
 
 	-- Step 1: The Strange Orb
-	["The Strange Orb"] = "Strange Orb",
-	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore · {spell:686} Shadow Bolt · {object:409311} Spear of Mannoroth (no name in this language: may be words)
+	-- {object:409289} Strange Orb (no name in this language: may be words)
+	["The {object:409289}"] = "奇异宝珠",
+	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore · {spell:686} Shadow Bolt · {object:409289} Strange Orb (no name in this language: may be words) · {item:209748} Althalaxx Orb · {object:409311} Spear of Mannoroth
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
-	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the Strange Orb at the top: it gives you the Althalaxx Orb; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "爬到 {zone:1439} 北部 {area:444} 的塔顶。周围的暗滩狂热者比较容易对付（16-17 级），但通往宝珠的塔内有四名暗滩唤魔师（28-29 级）：每名都会召唤虚空行者，并在远处施放 {spell:686}。22-25 级时，带一两位朋友来，每次只引一名，然后躲到墙后迫使对方靠近。拾取顶层的 Strange Orb，获得 奥萨拉克斯宝珠；右键点击它开始任务。在到达 {object:409311} 之前一直把宝珠放在背包里：后面有三个任务要用到它。",
-	-- {area:444} Tower of Althalaxx
-	["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "{area:444}顶端的Strange Orb：右键点击它给的奥萨拉克斯宝珠",
+	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the {object:409289} at the top: it gives you the {item:209748}; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "爬到 {zone:1439} 北部 {area:444} 的塔顶。周围的暗滩狂热者比较容易对付（16-17 级），但通往宝珠的塔内有四名暗滩唤魔师（28-29 级）：每名都会召唤虚空行者，并在远处施放 {spell:686}。22-25 级时，带一两位朋友来，每次只引一名，然后躲到墙后迫使对方靠近。拾取顶层的 奇异宝珠，获得 {item:209748}；右键点击它开始任务。在到达 {object:409311} 之前一直把宝珠放在背包里：后面有三个任务要用到它。",
+	-- {object:409289} Strange Orb (no name in this language: may be words) · {area:444} Tower of Althalaxx · {item:209748} Althalaxx Orb
+	["{object:409289} atop the {area:444}: right-click the {item:209748} it gives"] = "{area:444}顶端的奇异宝珠：右键点击它给的{item:209748}",
 
 	-- Step 2: Delgren the Purifier
 	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale · {zone:1439} Darkshore · {zone:1453} Stormwind
@@ -46,12 +47,12 @@ return {
 	["{area:435} is in south-east {zone:1440}, east of {area:431} (a Horde camp: go round it). The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds (level 29-30, not elite) drop the Motes of Mannoroth; you need 12. Below about 27 they are hard alone: come with a second player or later. Felguards knock you down, Lashers cast {spell:686} and {spell:348}, Infernals keep a fire shield up. They respawn in five minutes."] = "{area:435} 位于 {zone:1440} 东南、{area:431} 以东（那里是部落营地，要绕开）。玛诺洛克鞭笞者、灼热的地狱火、地狱卫士和恶魔指挥官（29-30 级，非精英）会掉落 玛诺洛斯微粒，需要收集 12 个。大约 27 级以下很难单人应付：找另一名玩家同行，或晚些再来。地狱卫士会击倒，鞭笞者会施放 {spell:686} 和 {spell:348}，地狱火会一直保持火焰护盾。它们每五分钟刷新一次。",
 
 	-- Step 8: The Spear of Mannoroth
-	-- {object:409311} Spear of Mannoroth (no name in this language: may be words)
+	-- {object:409311} Spear of Mannoroth
 	["The {object:409311}"] = "{object:409311}",
-	-- {object:409311} Spear of Mannoroth (no name in this language: may be words) · {area:435} Demon Fall Canyon · {object:409315} Shattered Orb (no name in this language: may be words)
-	["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the Althalaxx Orb in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "{object:409311} 位于 {area:435} 的东端。把 奥萨拉克斯宝珠 放在背包里，在长矛处交还微粒：宝珠会碎裂，旁边的 {object:409315} 随即提供最后一个任务。",
+	-- {object:409311} Spear of Mannoroth · {area:435} Demon Fall Canyon · {item:209748} Althalaxx Orb · {object:409315} Shattered Orb (no name in this language: may be words)
+	["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the {item:209748} in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "{object:409311} 位于 {area:435} 的东端。把 {item:209748} 放在背包里，在长矛处交还微粒：宝珠会碎裂，旁边的碎裂的宝珠随即提供最后一个任务。",
 	-- {object:409315} Shattered Orb (no name in this language: may be words)
-	["from the {object:409315}"] = "来自{object:409315}",
+	["from the {object:409315}"] = "来自碎裂的宝珠",
 
 	-- Step 9: Return to Delgren
 	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale
@@ -62,10 +63,7 @@ return {
 	-- ["Back to {area:413}."] = "回到{area:413}。",
 	-- ["Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the {item:209778}."] = "黑石召唤师、黑石勇士和黑石追踪者驻扎在赤脊山西北部；它们掉落{item:209778}。",
 	-- ["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "爬到{zone:1439}北部{area:444}的顶端。拾取上面的Strange Orb：它会给你奥萨拉克斯宝珠，由此开始任务。",
-	-- ["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the Strange Orb at the top: it gives you the Althalaxx Orb; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "爬到 {zone:1439} 北部 {area:444} 的塔顶。周围的暗滩狂热者比较容易对付（16-17 级），但通往宝珠的塔内有四名暗滩唤魔师（28-29 级）：每名都会召唤虚空行者，并在远处施放 {spell:686}。22-25 级时，带一两位朋友来，每次只引一名，然后躲到墙后迫使对方靠近。拾取顶层的 Strange Orb，获得 奥萨拉克斯宝珠；右键点击它开始任务。在到达 {object:409311} 之前一直把宝珠放在背包里：后面有三个任务要用到它。",
 	-- ["Katherine sends you to the warlocks in the {object:2101}; {npc:5495} speaks for them."] = "凯瑟琳让你去找{object:2101}的术士；{npc:5495}代表他们。",
-	-- ["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "{area:444}顶端的Strange Orb：右键点击它给的奥萨拉克斯宝珠",
-	-- ["The Strange Orb"] = "Strange Orb",
 	-- ["The {object:409311} stands at the east end of {area:435}. Shatter the orb on it; the {object:409315} appears beside it."] = "{object:409311}矗立在{area:435}东端。在它上面击碎宝珠；{object:409315}会出现在旁边。",
 	-- ["The {object:409311} stands at the east end of {area:435}. {spell:11170} the orb on it; the {object:409315} appears beside it."] = "{object:409311}矗立在{area:435}东端。对上面的宝珠施放{spell:11170}；{object:409315}会出现在旁边。",
 	-- ["{area:435} is in south-east {zone:1440}. The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds in it drop the Motes of Mannoroth."] = "{area:435}位于{zone:1440}东南部。里面的玛诺洛克鞭笞者、灼热的地狱火、恶魔守卫和恶魔指挥官掉落玛诺洛斯微粒。",

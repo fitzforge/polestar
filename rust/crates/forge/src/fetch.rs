@@ -37,7 +37,7 @@ fn open(url: &str) -> Result<Box<dyn Read>, String> {
 	if url.starts_with("http://") || url.starts_with("https://") {
 		let resp = ureq::get(url).call().map_err(|e| match e {
 			ureq::Error::StatusCode(404) if url == DEFAULT_URL => {
-				"no public data pack has been published yet. Build from your own game client instead: forge build --wow <game folder> --guides <dir> --out <dir>".to_string()
+				format!("public data pack index not found at {url} (404). Check https://github.com/fitzforge/polestar/releases/tag/data-pack, or use forge data fetch --url <pack index URL or path>")
 			}
 			ureq::Error::StatusCode(404) => format!("{url}: not found (404)"),
 			e => format!("{url}: {e}"),

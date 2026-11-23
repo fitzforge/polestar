@@ -38,6 +38,8 @@ return {
 	-- Step 6: Linen Cloth
 	-- {item:2589} Linen Cloth · {area:149} Silver Stream Mine · {object:2096} Trade District
 	["Any humanoid drops {item:2589}, and the Tunnel Rats in the {area:149} drop it while you gather the gems; the Auction House in the {object:2096} sells it. You hand in ten."] = "Qualquer humanoide deixa cair {item:2589}, e os Ratatúneis de {area:149} deixam cair enquanto você junta as gemas; a Casa de Leilões do {object:2096} vende. Você entrega dez.",
+	-- {item:2589} Linen Cloth
+	["{item:2589}: humanoids, or the Auction House"] = "{item:2589}: humanoides ou a Casa de Leilões",
 
 	-- Step 7: The Silver Stream Mine
 	-- {area:149} Silver Stream Mine

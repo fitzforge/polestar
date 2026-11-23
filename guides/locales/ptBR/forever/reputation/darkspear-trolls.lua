@@ -37,7 +37,7 @@ return {
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556}: acerte com {item:16114}",
 	-- {npc:10556} Lazy Peon
-	["Wake {npc:10556}"] = "",
+	["Wake {npc:10556}"] = "Acorde um {npc:10556}",
 
 	-- Step 4: The Den: hand in
 	-- {area:364} The Den

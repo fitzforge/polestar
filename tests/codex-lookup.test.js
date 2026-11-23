@@ -8,6 +8,9 @@
 // with the built Polestar_Codex present (local, skipped elsewhere), every id
 // of every chunk of the real pack lands on the same line a plain find of
 // "\n<id>\t" finds (its first), and ids next to them that no line holds on none.
+// Codex.FollowUps reads the quest records once, on its first ask: the same
+// follow-ups, in pack order, each once, chunks registered later included, and
+// no copy of the records on later asks.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -15,6 +18,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { runAddon, ADDONS } = require('./helpers/lua');
 const { localPacks } = require('./helpers/profile');
+const { assertTiming } = require('./helpers/timing');
 
 // Sorted ids, spread with gaps, in chunks of at most `per`, like the pack's.
 function chunks(ids, per) {
@@ -159,5 +163,195 @@ local function time(from)
 end
 emit({ first = time(1), last = time(${n} - 1999) })`,
 	}).emitted;
-	assert.ok(r.last <= Math.max(r.first * 5, 0.02), `last ids ${(r.last * 1000).toFixed(1)} ms vs first ${(r.first * 1000).toFixed(1)} ms`);
+	assertTiming(r.last <= Math.max(r.first * 5, 0.02), `last ids ${(r.last * 1000).toFixed(1)} ms vs first ${(r.first * 1000).toFixed(1)} ms`);
+});
+
+// Codex.FollowUps on quest records in the pack's format: field 12 is `pre`, 15 `preAny`; `f` maps a
+// field number to its text (the rest empty), `extra` holds the fields after 15 (objectives, x<xp>).
+const questRec = (id, { extra = [], ...f } = {}) => {
+	const t = Array(15).fill('');
+	for (const [k, v] of Object.entries(f)) t[Number(k) - 1] = v;
+	return `\n${id}\t${[...t, ...extra].join(';')}`;
+};
+const questNames = (ids) => ids.map((id) => `\n${id}\t\tQuest ${id}`).join('');
+const questChunk = (rows) => {
+	const ids = rows.map((r) => r[0]);
+	return `C.Register("quest", ${JSON.stringify(questNames(ids))}, ${JSON.stringify(rows.map(([id, f]) => questRec(id, f)).join(''))}, ${ids[0]}, ${ids[ids.length - 1]})`;
+};
+
+test('Codex: FollowUps lists the quests whose pre or preAny names a quest, once each, in pack order, late chunks too', () => {
+	const first = questChunk([
+		[100, { 6: '7', 13: '7' }], // the id in its zone and rewards only
+		[101, { 12: '7' }],
+		[102, { 12: '7,7', 15: '7' }], // named three times: one follow-up
+		[103, { 15: '50,7' }],
+		[104, { 12: '8', 13: '7', 14: '7', extra: ['k7,1,Seven', 'x700'] }],
+		[105, { 12: '70,17,77' }], // ids holding the digits of 7
+	]);
+	// Registered after the first ask, with lower ids: pack order puts them after the first chunk's.
+	const late = questChunk([
+		[60, { 12: '7' }],
+		[61, { 15: '101' }],
+	]);
+	const [r] = runAddon({
+		addons: [{ name: 'Polestar', files: ['Core/Core.xml', 'Lookup/Codex.lua'] }],
+		script: `
+local C = Polestar.Codex
+C.Register("meta", { sources = {} })
+local function ids(id)
+	local t = {}
+	for i, q in ipairs(C.FollowUps(id)) do t[i] = q.id .. "=" .. q.title end
+	return table.concat(t, ",")
+end
+local none = C.FollowUps(7)
+local before = { none = #none }
+${first}
+before.seven = ids(7)
+C.Register("quest", "\\n106\\t\\tQuest 106", "\\n106\\t" .. string.rep(";", 11) .. "23", 106, 106)
+before.short = ids(23)
+before.text = ids("7")
+before.eight, before.seventeen, before.seventy = ids(8), ids(17), ids(70)
+before.nohit = ids(9) .. ids(101) .. ids(100) .. ids(1.5) .. ids(-7) .. ids("abc") .. ids(nil) .. ids(5)
+${late}
+emit({ before = before, seven = ids(7), oneOhOne = ids(101), fifty = ids(50) })`,
+	}).emitted;
+	assert.deepEqual(r.before, {
+		none: 0,
+		seven: '101=Quest 101,102=Quest 102,103=Quest 103',
+		text: '101=Quest 101,102=Quest 102,103=Quest 103',
+		short: '106=Quest 106',
+		eight: '104=Quest 104',
+		seventeen: '105=Quest 105',
+		seventy: '105=Quest 105',
+		nohit: '',
+	});
+	assert.equal(r.seven, '101=Quest 101,102=Quest 102,103=Quest 103,60=Quest 60', 'a chunk registered later is read');
+	assert.equal(r.oneOhOne, '61=Quest 61');
+	assert.equal(r.fifty, '103=Quest 103');
+});
+
+// Hold the collector for one warm lookup: collecting the discarded records
+// during the call would hide the allocation we want to prevent.
+test('Codex: after the first FollowUps, an ask does not copy the quest records', () => {
+	const [r] = runAddon({
+		addons: [{ name: 'Polestar', files: ['Core/Core.xml', 'Lookup/Codex.lua'] }],
+		script: `
+local C = Polestar.Codex
+C.Register("meta", { sources = {} })
+local names, recs = {}, {}
+for i = 1, 1000 do
+	local id = i * 2
+	names[i] = "\\n" .. id .. "\\t\\tQuest " .. id
+	recs[i] = "\\n" .. id .. "\\t" .. (i % 60) .. ";;;;;" .. (i % 90) .. ";" .. (3000 + i) .. ";;;" .. (3000 + i) .. ";;" .. (id - 2) .. ";" .. (5000 + i) .. ";;;k" .. (7000 + i) .. ",8,Things;x" .. (i * 10)
+end
+local blob = table.concat(recs)
+C.Register("quest", table.concat(names), blob, 2, 2000)
+names, recs = nil, nil
+local function cost(id)
+	collectgarbage("collect")
+	local k0 = collectgarbage("count")
+	collectgarbage("stop")
+	local out = C.FollowUps(id)
+	local k = collectgarbage("count") - k0
+	collectgarbage("restart")
+	return k, out
+end
+local _, first = cost(10)
+local wrong, worst = (#first == 1 and first[1].id == 12) and 0 or 1, 0
+for _, id in ipairs({ 7, 16, 808, 1996, 2001 }) do
+	local k, got = cost(id)
+	worst = math.max(worst, k)
+	local want = id % 2 == 0 and id < 2000 and id + 2 or nil
+	if (want and not (#got == 1 and got[1].id == want)) or (not want and #got ~= 0) then wrong = wrong + 1 end
+end
+emit({ worst = worst, wrong = wrong })`,
+	}).emitted;
+	assert.equal(r.wrong, 0, 'every ask lists its follow-up');
+	assert.ok(r.worst < 16, `a warm lookup allocated ${r.worst.toFixed(1)} KiB`);
+});
+
+test('Codex: on the real pack, FollowUps of every quest is what reading each record\'s pre and preAny gives', { skip: !codexBuilt && 'Polestar_Codex not built' }, () => {
+	const packs = localPacks();
+	const [r] = runAddon({
+		stubs: ['stub_world.lua', ...packs.stubs],
+		before: packs.before,
+		addons: ['Polestar'],
+		script: `
+local C = Polestar.Codex
+local chunks, register = {}, C.Register
+C.Register = function(group, names, records, ...)
+	if group == "quest" and records then chunks[#chunks + 1] = records end
+	return register(group, names, records, ...)
+end
+stub.login()
+assert(C.Load(), "the Codex pack loads")
+C.Register = register
+local want, asked, rows = {}, {}, 0
+for _, records in ipairs(chunks) do
+	for qid, s in string.gmatch(records, "\\n([^\\t\\n]*)\\t([^\\n]*)") do
+		rows = rows + 1
+		local t, n = {}, 0
+		for f in string.gmatch(s .. ";", "([^;]*);") do n = n + 1; t[n] = f end
+		local named = {}
+		for _, f in ipairs({ t[12] or "", t[15] or "" }) do
+			for p in string.gmatch(f, "[^,]+") do
+				p = tonumber(p)
+				if p and not named[p] then
+					named[p] = true
+					if not want[p] then want[p] = {} end
+					table.insert(want[p], tonumber(qid))
+				end
+			end
+		end
+		local id = tonumber(qid)
+		if id then asked[id] = true end
+	end
+end
+local bad, edges = {}, 0
+for id in pairs(want) do asked[id] = true end
+for id in pairs(asked) do
+	local got = {}
+	for i, q in ipairs(C.FollowUps(id)) do got[i] = q.id end
+	local w = want[id] and table.concat(want[id], ",") or ""
+	if want[id] then edges = edges + #want[id] end
+	if table.concat(got, ",") ~= w and #bad < 10 then bad[#bad + 1] = id .. ": " .. table.concat(got, ",") .. " ~= " .. w end
+end
+emit({ rows = rows, edges = edges, nbad = #bad, bad = table.concat(bad, "; ") })`,
+	}).emitted;
+	assert.ok(r.rows > 1000 && r.edges > 1000, `the quest records were read: ${JSON.stringify(r)}`);
+	assert.equal(r.nbad, 0, `every quest's follow-ups: ${r.bad}`);
+});
+
+// Quest 67 in the shipped pack: the first hover walks a 13-quest chain. Count
+// full passes over a quest chunk instead of imposing a machine-dependent time limit.
+// The small fixture runs in CI without any installed packs.
+test('the first guide tooltip for a long quest chain reads each quest chunk at most once', () => {
+	const count = `local gmatch = string.gmatch
+stub.recordScans = 0
+string.gmatch = function(s, pattern)
+	if s == stub.questRecords then stub.recordScans = stub.recordScans + 1 end
+	return gmatch(s, pattern)
+end`;
+	const [r] = runAddon({
+		stubs: ['stub_world.lua'], before: count, addons: ['Polestar'],
+		script: `stub.login()
+local C, L = Polestar.Codex, Polestar.Lookup
+local names, records = {}, {}
+for id = 66, 1066 do
+	names[#names + 1] = "\\n" .. id .. "\\t\\tQuest " .. id
+	local pre = id > 66 and id <= 78 and tostring(id - 1) or ""
+	records[#records + 1] = "\\n" .. id .. "\\t" .. string.rep(";", 11) .. pre .. ";;;"
+end
+stub.questRecords = table.concat(records)
+C.Register("meta", { sources = {} })
+C.Register("quest", table.concat(names), stub.questRecords, 66, 1066)
+local first = L.ChainTooltipText(67)
+local scans = stub.recordScans
+local again = L.ChainTooltipText(67)
+emit({ first = first, again = again, scans = scans, repeatScans = stub.recordScans - scans })`,
+	}).emitted;
+	assert.equal(r.first, 'Chain: 1 of 13');
+	assert.equal(r.again, r.first);
+	assert.ok(r.scans <= 1, `first hover read the whole quest chunk ${r.scans} times`);
+	assert.equal(r.repeatScans, 0);
 });

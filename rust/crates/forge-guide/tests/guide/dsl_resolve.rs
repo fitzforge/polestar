@@ -42,6 +42,52 @@ fn quest_titles_quest_givers_and_their_positions_come_from_data_era_sourced_poin
 	assert_eq!(g[2]["title"], "My Own Title", "explicit title wins over data");
 }
 
+// #2318: direct hand-ins have no accept to carry the quest's minimum level.
+fn direct_quest_data(min_level: Option<u32>) -> Data {
+	let t = core_with(|t| {
+		let q = t.get_mut("quests").unwrap()["783"].as_object_mut().unwrap();
+		q.insert("level".into(), json!(10));
+		if let Some(level) = min_level {
+			q.insert("minLevel".into(), json!(level));
+		} else {
+			q.remove("minLevel");
+		}
+	});
+	data_from(&t, Value::Null, Value::Null)
+}
+
+#[test]
+fn direct_hand_ins_carry_the_minimum_quest_level_into_compiled_lua() {
+	let r = compile_with(&guide_text(&["step S", "  turnin 783 direct"]), &direct_quest_data(Some(7)));
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let g = &r.steps()[0]["goals"][0];
+	assert_eq!(g["direct"], true);
+	assert_eq!(g["minLevel"], 7);
+	assert_eq!(g["qlvl"], 10, "quest difficulty still controls grey-quest skipping");
+	assert_match(&emit(&r.guides), r#"\{ t = "turnin", [^\n]+minLevel = 7, qlvl = 10, [^\n]*direct = true"#);
+}
+
+#[test]
+fn ordinary_hand_ins_leave_the_minimum_level_on_their_accept_goal() {
+	let r = compile_with(&guide_text(&["step S", "  accept 783", "  turnin 783"]), &direct_quest_data(Some(7)));
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let goals = &r.steps()[0]["goals"];
+	assert_eq!(goals[0]["minLevel"], 7);
+	for key in ["minLevel", "qlvl", "direct"] {
+		assert!(goals[1].get(key).is_none(), "ordinary hand-in acquired {key}");
+	}
+}
+
+#[test]
+fn direct_hand_ins_omit_absent_and_zero_minimum_levels() {
+	for min_level in [None, Some(0)] {
+		let g = last_goal(&direct_quest_data(min_level), &["  turnin 783 direct"]);
+		assert!(g.get("minLevel").is_none());
+		assert_eq!(g["qlvl"], 10);
+		assert_eq!(g["direct"], true);
+	}
+}
+
 #[test]
 fn the_spawn_nearest_the_previous_goal_on_the_same_map_is_chosen_measured_in_yards() {
 	// From 47.6,35.1 the nearest Kobold Vermin in map percent is 47.6,31.2, but Elwynn is wider than tall: in
@@ -150,7 +196,8 @@ fn a_second_source_dropping_the_item_at_50_percent_or_more_is_named_beside_the_f
 }
 
 // #1556: the Wooden Key drops only from the Crazed (44%) and Withered (45%) Ancients, and its line named neither:
-// the 50% bar. An item only one or two located sources of one kind drop, each at 20% or more, names them.
+// the 50% bar. An item only one or two located sources of one kind drop, each at 20% or more, names them. Where the
+// item has other sources too (a dropper with no spawn, a vendor), the 20% bar holds.
 #[test]
 fn an_item_only_two_mobs_drop_at_20_percent_or_more_names_both_whatever_their_chance_1556() {
 	let t = core_with(|t| {
@@ -159,16 +206,64 @@ fn an_item_only_two_mobs_drop_at_20_percent_or_more_names_both_whatever_their_ch
 		npcs["95061"] = json!({ "id": 95061, "name": "Withered Ancient", "level": 26, "faction": null, "spawns": { "1429": { "f": "e", "pts": camp(42.0, 41.0) } } });
 		let items = t.get_mut("items").unwrap();
 		items["95120"] = item(95120, "Wooden Key", json!({ "95060": 43.8, "95061": 44.8 }));
-		items["95121"] = item(95121, "Splintered Bark", json!({ "95060": 10, "95061": 12 }));
-		items["95122"] = item(95122, "Ancient Sap", json!({ "95060": 30, "95061": 15 }));
+		// A third dropper with no spawn in the data: the two located ones are not its only sources.
+		items["95121"] = item(95121, "Splintered Bark", json!({ "95060": 10, "95061": 12, "95062": 8 }));
+		let mut sap = item(95122, "Ancient Sap", json!({ "95060": 30, "95061": 15 }));
+		sap["vendors"] = json!([95063]);
+		items["95122"] = sap;
 	});
 	let data = data_from(&t, Value::Null, Value::Null);
 	let key = last_goal(&data, &["  collect 95120"]);
 	assert_eq!(json!([key["from"], key["fromId"], key["fromAlso"], key["fromAlsoId"], key["fromKind"]]), json!(["Withered Ancient", 95061, "Crazed Ancient", 95060, "npc"]));
-	// Under 20% from either: the drop list says too little to name anyone.
+	// Under 20% from either, with another source: the drop list says too little to name anyone.
 	assert!(last_goal(&data, &["  collect 95121 x2"]).get("from").is_none());
-	// One of the two under it: neither is named (the other is no less a source).
+	// One of the two under it, and a vendor sells it: neither is named (the other is no less a source).
 	assert!(last_goal(&data, &["  collect 95122 x2"]).get("from").is_none());
+}
+
+// An item whose only sources are one or two creatures (every dropper located, no object, no vendor) names them
+// whatever their chance: Kron's Amulet drops 10% from two Dreadmaw Crocolisks, Rackmore's Silver Key 15% from two
+// Drysnap crabs, and their lines read "Collect" with no source under #1556's 20% bar. Not when one's chance is known
+// and the other's not (a stray record, often in another zone).
+#[test]
+fn an_item_whose_only_sources_are_two_mobs_names_both_at_any_chance() {
+	let t = core_with(|t| {
+		let npcs = t.get_mut("npcs").unwrap();
+		npcs["95060"] = json!({ "id": 95060, "name": "Saltwater Crocolisk", "level": 25, "faction": null, "spawns": { "1429": { "f": "e", "pts": camp(40.0, 40.0) } } });
+		npcs["95061"] = json!({ "id": 95061, "name": "Sawtooth Crocolisk", "level": 26, "faction": null, "spawns": { "1429": { "f": "e", "pts": camp(42.0, 41.0) } } });
+		let items = t.get_mut("items").unwrap();
+		items["95123"] = item(95123, "Kron's Amulet", json!({ "95060": 10, "95061": 10.5 }));
+		items["95124"] = item(95124, "Torn Scale", json!({ "95060": 30, "95061": 5 }));
+		items["95125"] = item(95125, "Snapped Tooth", json!({ "95060": 10, "95061": 0 }));
+	});
+	let data = data_from(&t, Value::Null, Value::Null);
+	let amulet = last_goal(&data, &["  collect 95123"]);
+	assert_eq!(json!([amulet["from"], amulet["fromId"], amulet["fromAlso"], amulet["fromAlsoId"], amulet["fromKind"]]), json!(["Sawtooth Crocolisk", 95061, "Saltwater Crocolisk", 95060, "npc"]));
+	let scale = last_goal(&data, &["  collect 95124 x2"]);
+	assert_eq!(json!([scale["from"], scale["fromAlso"]]), json!(["Saltwater Crocolisk", "Sawtooth Crocolisk"]), "one under 20%: both named, they are its only sources");
+	assert!(last_goal(&data, &["  collect 95125 x2"]).get("from").is_none(), "one chance known, one not: the 20% bar holds");
+}
+
+// #2275 (thmastin, Dwarf Shaman 12, Call of Fire in Loch Modan): the step read "Kill Razormane Water Seeker or
+// Razormane Thornweaver for Fire Tar", the Barrens' droppers at 75%, though the goal stood among Loch Modan's Tunnel
+// Rat Geomancers, the item's droppers there (the data has no chance for them). The goal is placed on the step's map
+// when a source spawns there, so its names come from the sources there; with none there, as before.
+#[test]
+fn a_collect_names_its_sources_on_the_step_s_map_not_better_droppers_elsewhere_2275() {
+	let t = core_with(|t| {
+		let npcs = t.get_mut("npcs").unwrap();
+		npcs["95070"] = json!({ "id": 95070, "name": "Razormane Water Seeker", "level": 10, "faction": null, "spawns": { "1411": { "f": "e", "pts": camp(50.0, 50.0) } } });
+		npcs["95071"] = json!({ "id": 95071, "name": "Razormane Thornweaver", "level": 10, "faction": null, "spawns": { "1411": { "f": "e", "pts": camp(52.0, 51.0) } } });
+		npcs["95072"] = json!({ "id": 95072, "name": "Tunnel Rat Geomancer", "level": 12, "faction": null, "spawns": { "1429": { "f": "e", "pts": camp(60.0, 60.0) } } });
+		let items = t.get_mut("items").unwrap();
+		items["95130"] = item(95130, "Fire Tar", json!({ "95070": 75, "95071": 75, "95072": null }));
+		items["95131"] = item(95131, "Razormane Charm", json!({ "95070": 75, "95071": 75 }));
+	});
+	let data = data_from(&t, Value::Null, Value::Null);
+	let tar = last_goal(&data, &["  collect 95130"]);
+	assert_eq!(json!([tar["from"], tar["fromId"], tar["fromAlso"], tar["map"]]), json!(["Tunnel Rat Geomancer", 95072, null, 1429]), "the step's own map's dropper: {tar}");
+	let charm = last_goal(&data, &["  collect 95131"]);
+	assert_eq!(json!([charm["from"], charm["fromAlso"]]), json!(["Razormane Water Seeker", "Razormane Thornweaver"]), "none on the step's map: {charm}");
 }
 
 fn camp(x: f64, y: f64) -> Value {
@@ -569,6 +664,119 @@ fn a_collect_whose_spots_hold_more_sources_than_its_point_names_lists_each_spots
 	assert!(goals_of(&["step One", "  collect 750 x4"]).0[0].get("fromNpcsAt").is_none());
 }
 
+fn spot_source_ids(goal: &Value, spot: usize) -> Vec<u64> {
+	let from = goal["fromNpcs"].as_array().unwrap();
+	goal["fromNpcsAt"]
+		.as_str()
+		.expect("the spots name their sources")
+		.split(';')
+		.nth(spot)
+		.unwrap()
+		.split(',')
+		.filter(|s| !s.is_empty())
+		.map(|s| from[s.parse::<usize>().unwrap() - 1]["npc"].as_u64().unwrap())
+		.collect()
+}
+
+/// The goal of `collect 95930 x5 <pin>` where each creature drops item 95930 (80%) at its points on Elwynn
+/// (1429), every point a camp of two spawns 0.5 apart in x (17 yd: one camp, not two exact points, #1944).
+fn token_goal(name: &str, camps: &[(u64, Vec<(f64, f64)>)], pin: &str) -> Value {
+	let dir = data_dir_with(name, &data_dir(), |raw| {
+		let drops: Map<String, Value> = camps.iter().map(|(id, _)| (id.to_string(), json!(80))).collect();
+		raw.get_mut("items.json").unwrap()["95930"] = json!({ "id": 95930, "name": "Wild Token", "drops": { "npc": drops, "object": {} }, "vendors": [] });
+		for (id, at) in camps {
+			let pts: Vec<Value> = at.iter().flat_map(|&(x, y)| [json!([x, y]), json!([x + 0.5, y])]).collect();
+			raw.get_mut("npcs.json").unwrap()[id.to_string()] = json!({ "id": id, "name": format!("Creature {id}"), "level": 5, "faction": null, "spawns": { "1429": { "f": "e", "pts": pts } } });
+		}
+	});
+	let r = compile_with(&guide_text(&["step One", &format!("  collect 95930 x5 {pin}")]), &forge_guide::data::load_data(&dir).unwrap());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	r.steps()[0]["goals"][0].clone()
+}
+
+fn spot_xs(goal: &Value) -> Vec<f64> {
+	goal["spots"].as_array().unwrap().iter().map(|s| s["x"].as_f64().unwrap().round()).collect()
+}
+
+fn from_npc_ids(goal: &Value) -> Vec<u64> {
+	goal["fromNpcs"].as_array().unwrap().iter().map(|n| n["npc"].as_u64().unwrap()).collect()
+}
+
+#[test]
+fn a_hand_pin_names_its_droppers_across_their_areas_never_one_only_a_chain_of_spawns_reaches_1869_1695() {
+	// B, 209 yd from the pin, is at the point (#1869's Gray Bears); C, 417 yd away and linked to the pin only
+	// through B, is not (#1695's 32-34 yetis beside the Foothill Caverns); E spawns only in A's far camp.
+	let (a, b, c, e) = (95931, 95932, 95933, 95935);
+	let goal = token_goal("hand-pin-spot-npcs", &[(a, vec![(20.0, 20.0), (70.0, 20.0)]), (b, vec![(26.0, 20.0), (76.0, 20.0)]), (c, vec![(32.0, 20.0)]), (e, vec![(70.3, 20.0)])], "@20,20");
+	assert_eq!(spot_xs(&goal), [20.0, 26.0, 70.0, 76.0]);
+	assert_eq!(from_npc_ids(&goal), [a, b, e], "C, linked to the pin only through B, is not a target");
+	let at: Vec<Vec<u64>> = (0..4).map(|i| spot_source_ids(&goal, i)).collect();
+	assert_eq!(at, [vec![a, b], vec![b, a], vec![a, e, b], vec![b, a]], "local targets first, then the droppers at the point in the same area; E only where it spawns");
+}
+
+#[test]
+fn a_picked_camp_keeps_linking_all_its_sources_through_a_chain_of_small_spawn_areas_1869() {
+	// Five more droppers in the first camp leave the goal's own names short of the chain.
+	let (a, b, c) = (95931, 95932, 95933);
+	let more: Vec<u64> = (95941..=95945).collect();
+	let mut camps = vec![(a, vec![(20.0, 20.0)]), (b, vec![(26.0, 20.0)]), (c, vec![(32.0, 20.0)])];
+	camps.extend(more.iter().enumerate().map(|(k, &id)| (id, vec![(20.0, 20.0 + 0.02 * (k + 1) as f64)])));
+	let goal = token_goal("picked-chain-spot-npcs", &camps, "");
+	assert_eq!(spot_xs(&goal), [20.0, 26.0, 32.0]);
+	assert_eq!(spot_source_ids(&goal, 0), [vec![a], more, vec![b, c]].concat(), "C, two links away, is a target at the first camp");
+}
+
+#[test]
+fn a_source_spawning_in_two_distant_areas_does_not_join_their_target_lists_1869() {
+	let (a, b, c, e) = (95931, 95932, 95933, 95935);
+	let goal = token_goal("separate-spot-npcs", &[(a, vec![(20.0, 20.0), (70.0, 20.0)]), (b, vec![(26.0, 20.0)]), (c, vec![(76.0, 20.0)]), (e, vec![(70.3, 20.0)])], "@20,20");
+	assert_eq!(from_npc_ids(&goal), [a, b, e]);
+	let at: Vec<Vec<u64>> = (0..3).map(|i| spot_source_ids(&goal, i)).collect();
+	assert_eq!(at, [vec![a, b], vec![b, a], vec![a, e]], "B is not a target at A's far camp");
+}
+
+#[test]
+fn an_unlikely_dropper_cannot_bridge_separate_target_areas_1869() {
+	let dir = data_dir_with("excluded-spot-npc", &data_dir(), |raw| {
+		raw.get_mut("items.json").unwrap()["95930"] = json!({ "id": 95930, "name": "Wild Token", "drops": { "npc": { "95931": 80, "95932": 1, "95933": 80 }, "object": {} }, "vendors": [] });
+		for (id, xs) in [(95931, vec![20.0, 70.0]), (95932, vec![26.0]), (95933, vec![32.0])] {
+			let pts: Vec<Value> = xs.iter().flat_map(|x| [json!([x, 20]), json!([x + 0.1, 20])]).collect();
+			raw.get_mut("npcs.json").unwrap()[id.to_string()] = json!({ "id": id, "name": format!("Creature {id}"), "level": 5, "faction": null, "spawns": { "1429": { "f": "e", "pts": pts } } });
+		}
+	});
+	let r = compile_with(&guide_text(&["step One", "  collect 95930 x5 @20,20"]), &forge_guide::data::load_data(&dir).unwrap());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let goal = &r.steps()[0]["goals"][0];
+	assert_eq!(goal["fromNpcs"], json!([{ "npc": 95931, "npcName": "Creature 95931" }]));
+	assert!(goal.get("fromNpcsAt").is_none(), "nothing eligible connected adds a name");
+}
+
+#[test]
+fn oversized_connected_target_lists_keep_the_existing_local_mapping_1869() {
+	let points: Vec<(u32, f64, f64)> = (0..64).map(|cell| (95940 + cell % 32, 10.0 + 6.0 * (cell % 8) as f64, 10.0 + 8.0 * (cell / 8) as f64)).collect();
+	let dir = data_dir_with("large-connected-spot-npcs", &data_dir(), |raw| {
+		let drops: Map<String, Value> = (95940..95972).map(|id| (id.to_string(), json!(80))).collect();
+		raw.get_mut("items.json").unwrap()["95930"] = json!({ "id": 95930, "name": "Wild Token", "drops": { "npc": drops, "object": {} }, "vendors": [] });
+		for id in 95940..95972 {
+			let pts: Vec<Value> = points.iter().filter(|p| p.0 == id).flat_map(|(_, x, y)| [json!([x, y]), json!([x + 0.1, y])]).collect();
+			raw.get_mut("npcs.json").unwrap()[id.to_string()] = json!({ "id": id, "name": format!("Creature {id}"), "level": 5, "faction": null, "spawns": { "1429": { "f": "e", "pts": pts } } });
+		}
+	});
+	let r = compile_with(&guide_text(&["step One", "  collect 95930 x5"]), &forge_guide::data::load_data(&dir).unwrap());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let goal = &r.steps()[0]["goals"][0];
+	let spots = goal["spots"].as_array().unwrap();
+	assert_eq!(spots.len(), 64);
+	assert_eq!(goal["fromNpcs"].as_array().unwrap().iter().map(|n| n["npc"].as_u64().unwrap()).collect::<Vec<_>>(), (95940..95972).collect::<Vec<_>>());
+	// All 32 names at all 64 spots would need 5567 bytes; the original local mapping fits.
+	assert!(goal["fromNpcsAt"].as_str().unwrap().len() <= 4096);
+	for (i, spot) in spots.iter().enumerate() {
+		let (x, y) = (spot["x"].as_f64().unwrap(), spot["y"].as_f64().unwrap());
+		let nearest = points.iter().min_by(|a, b| (a.1 - x).hypot(a.2 - y).total_cmp(&(b.1 - x).hypot(b.2 - y))).unwrap();
+		assert_eq!(spot_source_ids(goal, i), [nearest.0 as u64], "retain the local camp instead of dropping all per-spot targeting");
+	}
+}
+
 // #1614: Kodo Roundup counts a tamed Aged, Dying or Ancient Kodo, and the Kodo Kombobulator it hands over works on
 // all three. The objective's credit list names them on a `use` of the item the quest hands over or bound to the
 // objective, and on a `kill` bound to it (its own creature first).
@@ -596,4 +804,39 @@ fn a_use_of_the_item_a_quest_hands_over_and_a_kill_of_its_objective_name_every_c
 	assert_eq!(ids(3), json!([95911, 95912, 95913]), "a use bound to the objective");
 	assert_eq!(ids(4), Value::Null, "a kill with no credit list names its own target only");
 	assert_eq!(ids(5), Value::Null, "a use of an item no such quest hands over");
+}
+
+// #2238 (Fyurie, Feralas, Zapped Giants): Zorbin's Ultra-Shrinker shrinks the coast's giants, and the quest counts
+// only the residue the shrunken ones drop, so the target button named the zapped giants alone, never the giants to
+// use the shrinker on. A `use` goal names the creatures the quest mechanics say its item works on
+// (mechanics.json's `use-item-on-mob` params): its quest's own, or, with no quest, every quest's for the item.
+#[test]
+fn a_use_goal_names_the_creatures_the_quest_mechanics_say_its_item_works_on_2238() {
+	let dir = data_dir_with("item-targets", &data_dir(), |raw| {
+		raw.get_mut("quests.json").unwrap()["95930"] = json!({ "id": 95930, "title": "Shrunken Rams", "level": 5, "minLevel": 1, "races": null, "classes": null,
+			"start": { "npc": [95934], "object": [], "item": [] }, "end": { "npc": [95934], "object": [] }, "pre": [], "excl": [], "next": null,
+			"objectives": [{ "type": "item", "id": 95941, "count": 15, "text": "Ram Dust" }],
+			"objectiveText": "", "zone": 1429, "xp": 250, "source": ["fixture"] });
+		raw.get_mut("items.json").unwrap()["95940"] = json!({ "id": 95940, "name": "Ram Shrinker", "drops": { "npc": {}, "object": {} }, "vendors": [] });
+		raw.get_mut("items.json").unwrap()["95941"] = json!({ "id": 95941, "name": "Ram Dust", "drops": { "npc": { "95933": 100 }, "object": {} }, "vendors": [] });
+		for (id, name, faction) in [(95931, "Old Ram", Value::Null), (95932, "Cliff Ram", Value::Null), (95933, "Shrunken Ram", Value::Null), (95934, "Ram Herder", json!("AH"))] {
+			raw.get_mut("npcs.json").unwrap()[id.to_string()] = json!({ "id": id, "name": name, "level": 5, "faction": faction, "spawns": { "1429": { "f": "e", "pts": [[55, 55]] } } });
+		}
+		raw.insert(
+			"mechanics.json".into(),
+			json!({ "schema": 1, "sources": [], "quests": {
+			"95930": { "kinds": [{ "kind": "use-item-on-mob", "confidence": "high" }],
+				"params": [{ "kind": "use-item-on-mob", "item": 95940, "npcs": [95931, 95932], "dead": false, "source": "server" }] } } }),
+		);
+	});
+	let lines = ["step One", "  accept 95930", "  use 95940 quest 95930.1 @55,55", "  use 95940 @55,55", "  use 1210 @55,55"];
+	let r = compile_with(&guide_text(&lines), &forge_guide::data::load_data(&dir).unwrap());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let steps = r.steps();
+	let g = &steps[0]["goals"];
+	let ids = |i: usize| json!(g[i]["fromNpcs"].as_array().map(|l| l.iter().map(|n| n["npc"].clone()).collect::<Vec<_>>()));
+	assert_eq!(ids(1), json!([95931, 95932]), "bound to the quest: the creatures its mechanics name for the item: {}", g[1]);
+	assert_eq!(g[1]["fromNpcs"][1], json!({ "npc": 95932, "npcName": "Cliff Ram" }));
+	assert_eq!(ids(2), json!([95931, 95932]), "no quest: every quest's for the item");
+	assert_eq!(ids(3), Value::Null, "an item no quest's mechanics name creatures for");
 }

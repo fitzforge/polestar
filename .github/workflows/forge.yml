@@ -6,17 +6,26 @@ name: Forge
 # nothing the check job doesn't, and the Windows build added 10-15 minutes to every pull request). A
 # tag `forge-v*` also attaches the builds to a GitHub release. push and
 # pull_request only: a pull request's code never runs with this repository's secrets or write token.
-# The tests include the addon's Lua tests (forge-addontest: addon/ on the client stub tests/lua), so
-# a change to the addon, the stub or the compiler's test fixtures runs them too; the committed data
-# (data/, forever-db/) and the guides are what forge's checks read, so a change there runs them as well.
-# ci.yml builds forge on every push and pull request for the Node tests and the changelog check.
+# The addon's Lua tests (forge-addontest: addon/ on the client stub tests/lua) read the addon, the
+# stub, the guides and the committed data (data/, forever-db/); they run from one set of test
+# binaries in four shards at once. The binaries are cached by the code they are built from, so a
+# pull request that changes no Rust runs the ones next's run built and builds none.
+# Every pull request and merge group (the merge queue's run on top of next, docs/CI.md "Merge queue")
+# runs this workflow: "Format, lints, tests" is a required check, so it always reports.
+# The lane job decides from the base branch's copy of tools/ci-lane.js (a pull request cannot pick its
+# own lane): `run` for Rust, the compiler's fixtures and the documents the Rust tests read (RUST_PATHS)
+# runs everything; `addon` for the rest of what the suites read (FORGE_PATHS: the addon, the guides,
+# the data) runs the addon's Lua tests alone; `skip` for anything else passes the check at once. Every
+# push runs everything, on the same paths (the push paths below are FORGE_PATHS; tests/ci-lane.test.js
+# holds them equal).
+# ci.yml builds forge on every push and on every pull request but a documentation-only one.
 on:
   push:
     branches: [main, next]
     tags: ["forge-v*"]
-    paths: ["rust/**", "addon/**", "data/**", "forever-db/**", "guides/**", "tests/lua/**", "tests/fixtures/dsl/**", "docs/FORGE.md", "docs/forge/**", ".github/workflows/forge.yml"]
+    paths: ["rust/**", "addon/**", "data/**", "forever-db/**", "guides/**", "tests/lua/**", "tests/fixtures/dsl/**", "docs/FORGE.md", "docs/forge/**", "docs/API.md", "docs/GUIDE_FORMAT.md", "docs/PACK_FORMAT.md", "docs/PACKS.md", "README.md", "THIRD_PARTY.md", ".github/workflows/forge.yml"]
   pull_request:
-    paths: ["rust/**", "addon/**", "data/**", "forever-db/**", "guides/**", "tests/lua/**", "tests/fixtures/dsl/**", "docs/FORGE.md", "docs/forge/**", ".github/workflows/forge.yml"]
+  merge_group:
 
 permissions:
   contents: read
@@ -29,14 +38,66 @@ env:
   CARGO_TERM_COLOR: always
   CARGO_INCREMENTAL: "0"
   RUST_BACKTRACE: "1"
+  # Timing budgets (forge-addontest's assert_timing!) only warn on GitHub's shared runners; the release
+  # gate enforces them on a quiet machine (docs/RELEASING.md, step 3).
+  POLESTAR_TIMING_BUDGETS: warn
 
 defaults:
   run:
     working-directory: rust
 
 jobs:
-  check:
-    name: Format, lints, tests
+  # The lane: `forge=run`, `forge=addon` or `forge=skip`, from the base's own copy of the lane script
+  # (and testsel's mapping it reads), so a pull request cannot choose. Every push, and a base without
+  # the script, runs everything.
+  lane:
+    name: Forge lane
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      forge: ${{ steps.lane.outputs.forge }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
+    steps:
+      # Two commits: a pull request's merge commit and the base it merges into, whose difference is
+      # what the pull request changes. A merge group's base (next's tip) is fetched on its own.
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - name: Lane
+        id: lane
+        shell: bash
+        env:
+          EVENT: ${{ github.event_name }}
+          GROUP_BASE: ${{ github.event.merge_group.base_sha }}
+        run: |
+          changed="$RUNNER_TEMP/changed.txt" base="$RUNNER_TEMP/base" from=
+          case "$EVENT" in
+            pull_request) from=$(git rev-parse HEAD^1) || from= ;;
+            merge_group) git fetch --no-tags --quiet --depth=1 origin "$GROUP_BASE" && from=$GROUP_BASE ;;
+          esac
+          if [ -n "$from" ] && git diff --no-renames --name-only "$from" HEAD > "$changed" \
+            && git worktree add --detach --quiet "$base" "$from" && [ -f "$base/tools/ci-lane.js" ]; then
+            node "$base/tools/ci-lane.js" --forge --github --files "$changed"
+          else
+            echo "forge=run" >> "$GITHUB_OUTPUT"
+            printf '## Forge lane: run\n\n- %s\n' "$EVENT: every check" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  # Format, Clippy, the Rust tests but the addon's Lua tests (the addontest jobs run those) and the
+  # documented commands: Rust changes only.
+  rust:
+    name: Rust suites
+    needs: lane
+    if: needs.lane.outputs.forge == 'run'
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -64,7 +125,7 @@ jobs:
       # A fresh clone has no game client, no built data/forever and no local reference data: the
       # tests that need them are #[ignore]d with the input they need named.
       - name: Test
-        run: cargo test --profile quick --workspace --locked
+        run: cargo test --profile quick --workspace --locked --exclude forge-addontest
 
       # Every command's --help and every docs/FORGE.md, docs/forge/*.md block marked `<!-- ci -->`.
       - name: Documented commands
@@ -72,8 +133,159 @@ jobs:
           cargo build --profile quick --locked -p forge
           scripts/doc-commands.sh target/quick/forge
 
+  # forge-addontest's test binaries (its unit tests, addontest, scenes), cached by the code they are
+  # built from: rust/ and the stub's simulate.lua, which they embed (the tests read the data and the
+  # guides when they run). A hit (any pull request that changes neither, once next's run has built
+  # them) builds nothing. A miss builds them; pushes save them for the pull requests after.
+  addontest-bin:
+    name: Addon tests build
+    needs: lane
+    if: needs.lane.outputs.forge == 'run' || needs.lane.outputs.forge == 'addon'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+        working-directory: rust
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      - name: Cache key
+        id: key
+        run: echo "key=addontest-bin-${{ runner.os }}-${{ hashFiles('rust/**', 'tests/lua/simulate.lua') }}" >> "$GITHUB_OUTPUT"
+
+      - name: Test binaries (cache)
+        id: cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: rust/target/addontest-bin
+          key: ${{ steps.key.outputs.key }}
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        if: steps.cache.outputs.cache-hit != 'true'
+        with:
+          toolchain: stable
+
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        if: steps.cache.outputs.cache-hit != 'true'
+        with:
+          workspaces: rust
+          key: addontest
+
+      # The executables cargo test would run, each under its target's name (forge_addontest: the unit
+      # tests; addontest; scenes).
+      - name: Build
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          cargo test --profile quick --locked -p forge-addontest --no-run --message-format=json \
+            | jq -r 'select(.reason == "compiler-artifact" and .executable != null) | "\(.target.name)\t\(.executable)"' > "$RUNNER_TEMP/bins.tsv"
+          mkdir -p target/addontest-bin
+          while IFS=$'\t' read -r name exe; do cp "$exe" "target/addontest-bin/$name"; done < "$RUNNER_TEMP/bins.tsv"
+          ls -la target/addontest-bin
+          test -x target/addontest-bin/addontest
+
+      - name: Test binaries (save)
+        if: steps.cache.outputs.cache-hit != 'true' && github.event_name == 'push'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: rust/target/addontest-bin
+          key: ${{ steps.key.outputs.key }}
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: addontest-bin
+          path: rust/target/addontest-bin
+          retention-days: 1
+          if-no-files-found: error
+
+  # The addon's Lua tests in four shards: the crate's unit tests and the scenes in the first (about three
+  # minutes on their own), addontest's tests dealt out in turn (its --list order) over the other three. Run
+  # from the crate's folder, as cargo test does.
+  addontest:
+    name: Addon tests ${{ matrix.shard }}/4
+    needs: [lane, addontest-bin]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    defaults:
+      run:
+        shell: bash
+        working-directory: rust/crates/forge-addontest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: addontest-bin
+          path: rust/target/addontest-bin
+
+      - name: Test
+        env:
+          SHARD: ${{ matrix.shard }}
+        run: |
+          bin=../../target/addontest-bin
+          chmod +x "$bin"/*
+          if [ "$SHARD" = 1 ]; then
+            for t in "$bin"/*; do
+              case "${t##*/}" in addontest) ;; *) "$t" ;; esac
+            done
+            exit 0
+          fi
+          mapfile -t names < <("$bin/addontest" --list --format terse | sed -n 's/: test$//p' | awk -v k="$SHARD" 'NR % 3 == k % 3')
+          echo "addontest: ${#names[@]} tests in shard $SHARD"
+          test "${#names[@]}" -gt 0
+          "$bin/addontest" --exact "${names[@]}"
+
+  # The required check. It runs whatever the lane job did, so it always reports: it fails when the lane
+  # job did not finish or a job its lane runs did not pass, and passes at once when the lane is skip.
+  check:
+    name: Format, lints, tests
+    needs: [lane, rust, addontest-bin, addontest]
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Lane
+        working-directory: .
+        env:
+          LANE: ${{ needs.lane.result }}
+          FORGE: ${{ needs.lane.outputs.forge }}
+          RUST: ${{ needs.rust.result }}
+          BIN: ${{ needs.addontest-bin.result }}
+          ADDON: ${{ needs.addontest.result }}
+        run: |
+          if [ "$LANE" != success ]; then echo "::error::The Forge lane job did not finish ($LANE)."; exit 1; fi
+          bad=0
+          need() { if [ "$2" != success ]; then echo "::error::$1: $2"; bad=1; fi; }
+          case "$FORGE" in
+            skip)
+              echo "No path the Rust and Lua suites read changed: nothing to run."
+              printf '## Format, lints, tests: skipped\n\nNo path the suites read changed (tools/ci-lane.js, FORGE_PATHS).\n' >> "$GITHUB_STEP_SUMMARY"
+              ;;
+            addon)
+              need "Addon tests build" "$BIN"
+              need "Addon tests" "$ADDON"
+              printf '## Format, lints, tests: the Lua tests\n\nNo Rust changed: the Rust suites, MSRV and wasm32 are skipped.\n' >> "$GITHUB_STEP_SUMMARY"
+              ;;
+            *)
+              need "Rust suites" "$RUST"
+              need "Addon tests build" "$BIN"
+              need "Addon tests" "$ADDON"
+              ;;
+          esac
+          exit "$bad"
+
   msrv:
     name: Minimum Rust version
+    needs: lane
+    if: needs.lane.outputs.forge == 'run'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -100,6 +312,8 @@ jobs:
 
   wasm:
     name: wasm32 build
+    needs: lane
+    if: needs.lane.outputs.forge == 'run'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -137,7 +351,7 @@ jobs:
   build:
     name: Build ${{ matrix.name }}
     needs: check
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'push'
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     strategy:

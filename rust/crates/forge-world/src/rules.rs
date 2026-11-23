@@ -305,6 +305,8 @@ pub struct WalkRules<'a> {
 	pub turnin_at: FxHashMap<i64, usize>,
 	pub work: FxHashMap<i64, Vec<usize>>,
 	closed: crate::prereqs::ClosedBy,
+	crumbs: crate::prereqs::CrumbIndex,
+	abandon_at: FxHashMap<i64, Vec<usize>>,
 }
 
 const WORK_KINDS: [&str; 8] = ["kill", "collect", "interact", "use", "complete", "talk", "escort", "explore"];
@@ -314,6 +316,7 @@ impl<'a> WalkRules<'a> {
 		let mut accept_at = FxHashMap::default();
 		let mut turnin_at = FxHashMap::default();
 		let mut work: FxHashMap<i64, Vec<usize>> = FxHashMap::default();
+		let mut abandon_at: FxHashMap<i64, Vec<usize>> = FxHashMap::default();
 		for (k, g) in goals.iter().enumerate() {
 			let Some(q) = g.q else { continue };
 			match g.t.as_str() {
@@ -323,11 +326,12 @@ impl<'a> WalkRules<'a> {
 				"turnin" => {
 					turnin_at.entry(q).or_insert(g.i);
 				}
+				"abandon" => abandon_at.entry(q).or_default().push(g.i),
 				t if WORK_KINDS.contains(&t) => work.entry(q).or_default().push(k),
 				_ => {}
 			}
 		}
-		WalkRules { goals, quests, accept_at, turnin_at, work, closed: crate::prereqs::ClosedBy::new(quests) }
+		WalkRules { goals, quests, accept_at, turnin_at, work, closed: crate::prereqs::ClosedBy::new(quests), crumbs: crate::prereqs::CrumbIndex::new(quests), abandon_at }
 	}
 	pub fn lvl_at(&self, t: usize) -> f64 {
 		self.goals.get(t).map_or(1.0, |g| g.lvl_after.unwrap_or(g.lvl))
@@ -344,15 +348,52 @@ impl<'a> WalkRules<'a> {
 	pub fn ever(&self, q: i64) -> bool {
 		self.accept_at.contains_key(&q) || self.turnin_at.contains_key(&q)
 	}
-	/// acceptableAt(q, t) -> Ok or why not.
+	/// acceptableAt(q, t) -> Ok or why not: available, and not held back by a breadcrumb in the log.
 	pub fn acceptable_at(&self, q: i64, t: usize, prereqs_of: Option<&dyn Fn(&Quest) -> Prereqs>) -> Result<(), String> {
 		let done = |p: i64| self.done_by(p, t);
 		let taken = |p: i64| self.accepted_by(p, t);
 		let st = State { level: self.lvl_at(t), done: &done, taken: &taken, faction: None, race: None, cls: None };
-		available(u32::try_from(q).ok().and_then(|i| self.quests.get(&i)), &st, self.quests, prereqs_of)
+		available(u32::try_from(q).ok().and_then(|i| self.quests.get(&i)), &st, self.quests, prereqs_of)?;
+		match self.held_by(q, t) {
+			Some(c) => Err(format!("held back while its breadcrumb {c} is in the log")),
+			None => Ok(()),
+		}
+	}
+	/// A breadcrumb of q in the log after goal t (taken, neither handed in nor abandoned since): the
+	/// game holds q back until it is handed in (prereqs::CrumbIndex).
+	pub fn held_by(&self, q: i64, t: usize) -> Option<i64> {
+		self.crumbs.of(q).iter().copied().find(|&c| {
+			let Some(&a) = self.accept_at.get(&c) else { return false };
+			self.in_log_at(c, t) && !self.abandon_at.get(&c).is_some_and(|v| v.iter().any(|&x| x >= a && x <= t))
+		})
 	}
 	/// A breadcrumb whose target the walk takes, or a quest whose excl partner it takes.
 	pub fn closed_by_walk(&self, q: i64) -> bool {
 		u32::try_from(q).ok().and_then(|i| self.quests.get(&i)).is_none() || self.closed.of(q, self.quests).iter().any(|&x| self.ever(x))
+	}
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+	use crate::data::Ends;
+
+	fn goal(i: usize, t: &str, q: i64) -> Goal {
+		Goal { i, t: t.into(), q: Some(q), oi: None, lvl: 20.0, lvl_after: None }
+	}
+
+	// Players' recordings: the game holds a breadcrumb's target back while the breadcrumb is in the
+	// log (The Forgotten Pools 870, The Barrens Oases 886), and offers it once the breadcrumb is
+	// handed in or abandoned, or when it was never taken.
+	#[test]
+	fn a_breadcrumb_in_the_log_holds_its_target_back() {
+		let q = |id: u32, bf: Option<f64>| Quest { id, level: Some(12.0), min_level: Some(10.0), start: Ends { npc: vec![1], ..Default::default() }, breadcrumb_for: bf, ..Default::default() };
+		let quests: BTreeMap<u32, Quest> = [q(870, None), q(886, Some(870.0))].into_iter().map(|r| (r.id, r)).collect();
+		let held = |goals: &[Goal], t: usize| WalkRules::new(goals, &quests).acceptable_at(870, t, None);
+		let walk = [goal(0, "accept", 886), goal(1, "turnin", 886)];
+		assert_eq!(held(&walk, 0), Err("held back while its breadcrumb 886 is in the log".into()));
+		assert_eq!(held(&walk, 1), Ok(()), "handed in");
+		assert_eq!(held(&[goal(0, "accept", 886), goal(1, "abandon", 886)], 1), Ok(()), "abandoned");
+		assert_eq!(held(&[goal(0, "accept", 1)], 0), Ok(()), "never taken");
 	}
 }

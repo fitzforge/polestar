@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Warlock Felsteed"] = "흑마법사 지옥마",
-	["Your own mount at 40, summoned anywhere: no 100g riding training needed."] = "",
+	["Your own mount at 40, summoned anywhere: no 100g riding training needed."] = "40레벨에 얻는 나만의 탈것입니다. 어디서나 소환할 수 있으며, 100골드짜리 탈것 타기 훈련이 필요 없습니다.",
 
 	-- Step 1: Summon Felsteed (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet
@@ -20,11 +20,11 @@ return {
 
 	-- Step 3: Summon Felsteed (Orgrimmar)
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["At 40 {npc:3326}, in the {object:172960}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:3326}, in the {object:172960}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "40레벨이 되면 {object:172960}의 {npc:3326}이(가) {area:392}의 {npc:6251}에게 보냅니다. 퀘스트가 없나요? 먼저 지옥사냥개 연계 퀘스트를 마치세요. 플레이어들에 따르면 탈것은 그 뒤에 나옵니다.",
 
 	-- Step 4: Summon Felsteed (Undercity)
 	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {zone:1454} Orgrimmar
-	["At 40 {npc:4563}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}; {area:392} is a short flight from {zone:1454}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:4563}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}; {area:392} is a short flight from {zone:1454}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "40레벨이 되면 {object:36082}의 {npc:4563}이(가) {area:392}의 {npc:6251}에게 보냅니다. {zone:1420}에서 출발하는 비행선은 {zone:1411}(으)로 갑니다. {area:392}은(는) {zone:1454}에서 조금만 비행하면 됩니다. 퀘스트가 없나요? 먼저 지옥사냥개 연계 퀘스트를 마치세요. 플레이어들에 따르면 탈것은 그 뒤에 나옵니다.",
 
 	-- Step 5: Strahad Farsan in Ratchet
 	-- {npc:6251} Strahad Farsan · {area:392} Ratchet
@@ -33,10 +33,7 @@ return {
 	["{area:392} is the goblin port on the {zone:1413} coast, east of the Crossroads; from the Alliance side take the boat from {area:35}. {npc:6251} stands by his small tower on the hill above the town, not down at the docks. Hand in, then take his own {quest:3631} and hand it straight back: that teaches you the mount. No fight, and the quests ask for nothing."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 40 {npc:3326} in the {object:172960} sends you to {npc:6251} in {area:392}."] = "40레벨이 되면 {object:172960}의 {npc:3326}이(가) {area:392}의 {npc:6251}에게 보냅니다.",
-	-- ["At 40 {npc:4563} in the {object:36082} sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "40레벨이 되면 {object:36082}의 {npc:4563}이(가) {area:392}의 {npc:6251}에게 보냅니다. {zone:1420}에서 출발하는 비행선은 {zone:1411}(으)로 갑니다.",
 	-- ["At 40 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6251} in {area:392}."] = "40레벨이 되면 {object:2101} 안 {object:2164}의 {npc:461}이(가) {area:392}의 {npc:6251}에게 보냅니다.",
 	-- ["At 40 {npc:5172} in {zone:1455} sends you to {npc:6251} in {area:392}."] = "40레벨이 되면 {zone:1455}의 {npc:5172}이(가) {area:392}의 {npc:6251}에게 보냅니다.",
-	-- ["Your own mount at 40, summoned anywhere, with no gold spent on a riding horse."] = "40레벨에 얻는 나만의 탈것입니다. 어디서나 소환할 수 있고, 말에 골드를 쓸 필요가 없습니다.",
 	-- ["{area:392} is on the {zone:1413} coast east of the {area:380}; from the Alliance side, take the boat from {area:35}. {npc:6251}'s follow-up teaches {quest:3631}."] = "{area:392}은(는) {area:380} 동쪽 {zone:1413} 해안에 있습니다. 얼라이언스는 {area:35}에서 배를 타십시오. {npc:6251}의 후속 퀘스트가 {quest:3631}을(를) 가르칩니다.",
 }

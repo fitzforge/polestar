@@ -12,11 +12,8 @@ return {
 
 	-- Step 1: Yarlyn Amberstill
 	-- {npc:1263} Yarlyn Amberstill · {area:803} Amberstill Ranch · {area:131} Kharanos · {zone:1432} Loch Modan · {npc:1261} Veron Amberstill
-	["{npc:1263} stands at {area:803}, east of {area:131} on the road to {zone:1432}, beside {npc:1261}, the ram breeder. Each rabbit crate costs 20s; the Arctic and Brown crates are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:1263} stands at {area:803}, east of {area:131} on the road to {zone:1432}, beside {npc:1261}, the ram breeder. Each rabbit crate costs 20s; the Arctic and Brown crates are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:1263} está en {area:803}, al este de {area:131}, en el camino a {zone:1432}, junto a {npc:1261}, el criador de carneros. Cada cajón de conejos cuesta 20 p; los cajones ártico y marrón son nuevos en Forever. Cada objeto de mascota te enseña su compañero al usarlo; los objetivos siguen marcados después.",
 	-- {item:8497} Rabbit Crate (Snowshoe)
 	["{item:8497}, 20s"] = "{item:8497}, 20 p",
 	["20s"] = "20 p",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{npc:1263} stands at {area:803}, east of {area:131}. Each rabbit crate costs 20s; the Arctic and Brown crates are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:1263} está en {area:803}, al este de {area:131}. Cada cajón de conejos cuesta 20 p; los cajones ártico y marrón son nuevos en Forever. Cada objeto de mascota te enseña su compañero al usarlo; los objetivos siguen marcados después.",
 }

@@ -45,10 +45,22 @@ local seen, held
 local answered
 local ANSWER_WAIT = 5
 
--- Whether binding at `npc` is what the current step still asks for.
+-- Whether binding at `npc` is what the current step still asks for. The
+-- step's view only for a step with a `sethome` at this innkeeper (as
+-- Gossip.Wanted: most gossip windows are someone else's).
 function Bind.Wanted(npc)
 	local E = ns.Engine
-	if not (npc and E and E.IsSethomeInnkeeper) then return false end
+	if not (npc and E and E.IsSethomeInnkeeper and E.GetGuide and E.GetStepIndex) then return false end
+	local guide, i = E.GetGuide(), E.GetStepIndex()
+	local step = guide and i and guide.steps and guide.steps[i]
+	local here = false
+	for _, goal in ipairs(step and step.goals or {}) do
+		if goal.t == "sethome" and E.IsSethomeInnkeeper(goal, npc) then
+			here = true
+			break
+		end
+	end
+	if not here then return false end
 	local Nav = ns.Nav
 	local bound = Nav and Nav.BoundInn and Nav.BoundInn()
 	if bound and bound.npc == npc then return false end
@@ -105,7 +117,7 @@ function Bind.OnBound()
 	local a = answered
 	answered = nil
 	if not (a and GetTime() - a.at <= ANSWER_WAIT) then return end
-	ns.Print(a.area and string.format(L["Bound your Hearthstone to %s."], a.area) or L["Bound your Hearthstone."])
+	ns.Notice(a.area and string.format(L["Bound your Hearthstone to %s."], a.area) or L["Bound your Hearthstone."])
 end
 
 QoL.WhileOn("autoBind", "CONFIRM_BINDER", Bind.OnConfirm)

@@ -37,7 +37,7 @@ return {
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556}: acerte com {item:16114}",
 	-- {npc:10556} Lazy Peon
-	["Wake {npc:10556}"] = "",
+	["Wake {npc:10556}"] = "Acorde um {npc:10556}",
 
 	-- Step 4: The Den: hand in
 	-- {area:364} The Den
@@ -194,14 +194,14 @@ return {
 	-- Step 31: Far Watch Post
 	-- {faction:76} Orgrimmar · {zone:1413} Barrens · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth · {area:379} Far Watch Post
 	["Run out of {faction:76}'s west gate and over the bridge into the {zone:1413}. {npc:3337} and {quest:809} stand at {area:379}."] = "Saia correndo pelo portão oeste de {faction:76} e atravesse a ponte para {zone:1413}. {npc:3337} e {quest:809} ficam em {area:379}.",
-	-- {quest:842} Crossroads Conscription · {npc:3338} Sergra Darkthorn
-	["{quest:842}, +100: to {npc:3338}"] = "{quest:842}, +100: para {npc:3338}",
+	-- {quest:842} Crossroads Conscription · {quest:860} Sergra Darkthorn
+	["{quest:842}, +100: to {quest:860}"] = "{quest:842}, +100: para {quest:860}",
 
 	-- Step 33: The Crossroads (optional hub)
 	-- {area:380} The Crossroads
 	["{area:380} (optional hub)"] = "{area:380} (polo opcional)",
-	-- {area:380} The Crossroads · {faction:76} Orgrimmar · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:267310} Gur'ak · {npc:3432} Mankrik
-	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "O Forever paga estas missões antigas por inteiro em qualquer nível. {area:380}: cerca de 1.500 de reputação de {faction:76} em 70 minutos, só para {faction:76}. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} e {npc:267310} ficam na cidade, {npc:3432} junto à estalagem.",
+	-- {area:380} The Crossroads · {faction:76} Orgrimmar · {quest:860} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:267310} Gur'ak · {npc:3432} Mankrik
+	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {quest:860}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "O Forever paga estas missões antigas por inteiro em qualquer nível. {area:380}: cerca de 1.500 de reputação de {faction:76} em 70 minutos, só para {faction:76}. {quest:860}, {npc:3464}, {npc:3429}, {npc:3449} e {npc:267310} ficam na cidade, {npc:3432} junto à estalagem.",
 
 	-- Step 34: Around the Crossroads
 	["Around the Crossroads"] = "Em volta da Encruzilhada",
@@ -327,15 +327,11 @@ return {
 	-- {quest:4721} Wild Guardians · {faction:76} Orgrimmar
 	["{quest:4721}: 300 {faction:76} reputation."] = "{quest:4721}: 300 de reputação com {faction:76}.",
 
-	-- Step 54: Belgrom Rockmaul: Betrayed
-	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor (no name in this language: may be words) · {object:173084} Hall of the Brave (no name in this language: may be words) · {quest:3504} Betrayed
-	["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "{npc:4485} fica no {object:172958}, do lado de fora do {object:173084}. As duas primeiras missões de {quest:3504} são de nível 53 e também pagam por inteiro no 60, como toda missão no Forever.",
+	-- Step 54: Valormok: Betrayed
+	-- {area:1237} Valormok · {zone:1447} Azshara · {quest:3505} Betrayed · {npc:8576} Ag'tor Bloodfist · {npc:4485} Belgrom Rockmaul
+	["Fly to {area:1237} in western {zone:1447}: on Forever, {quest:3505} starts with {npc:8576} there, with no letter from {npc:4485} first. The {quest:3505} quests are level 53 and pay in full at 60 too, as every quest does in Forever. {npc:8576} sends you north-east to the blood elf camp on the bluffs of the northern peninsula."] = "Voe até {area:1237}, no oeste de {zone:1447}: no Forever, {quest:3505} começa com {npc:8576} lá mesmo, sem precisar antes da carta de {npc:4485}. As missões de {quest:3505} são de nível 53 e também pagam o valor cheio no 60, como toda missão no Forever. {npc:8576} manda você para o nordeste, até o acampamento dos elfos sangrentos nos penhascos da península norte.",
 
-	-- Step 55: Valormok
-	-- {area:1237} Valormok · {zone:1447} Azshara · {npc:8576} Ag'tor Bloodfist
-	["Fly to {area:1237} in western {zone:1447}. {npc:8576} sends you north-east to the blood elf camp on the bluffs of the northern peninsula."] = "Voe até {area:1237}, no oeste de {zone:1447}. {npc:8576} manda você para nordeste, até o acampamento dos elfos de sangue nos penhascos da península norte.",
-
-	-- Step 56: Magus Rimtori's camp
+	-- Step 55: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "O acampamento da {npc:8578}",
 	-- {object:151286} Kaldorei Tome of Summoning · {npc:8578} Magus Rimtori
@@ -345,7 +341,7 @@ return {
 	-- {object:151286} Kaldorei Tome of Summoning
 	["the {object:151286}"] = "o {object:151286}",
 
-	-- Step 57: Valormok and Orgrimmar
+	-- Step 56: Valormok and Orgrimmar
 	-- {area:1237} Valormok · {faction:76} Orgrimmar
 	["{area:1237} and {faction:76}"] = "{area:1237} e {faction:76}",
 	-- {npc:4485} Belgrom Rockmaul · {faction:76} Orgrimmar
@@ -353,7 +349,7 @@ return {
 	-- {quest:3506} Betrayed · {faction:76} Orgrimmar
 	["{quest:3506}: 300 {faction:76} reputation at 60."] = "{quest:3506}: 300 de reputação com {faction:76} no 60.",
 
-	-- Step 58: Blackrock Mountain, with a group
+	-- Step 57: Blackrock Mountain, with a group
 	["Blackrock Mountain, with a group"] = "Montanha Rocha Negra, com um grupo",
 	-- {area:340} Kargath · {zone:1418} Badlands · {faction:76} Orgrimmar · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire · {quest:4724} The Pack Mistress · {item:12652} Bijou's Reconnaissance Report · {quest:4903} Warlord's Command · {npc:3144} Eitrigg
 	["{area:340} in the {zone:1418} hands out {faction:76} quests for {area:1584} and {area:1583}, all level 58 to 60 and paid in full: Precarious Predicament and Operation: Death to Angerforge (150 each), {quest:4724} and {item:12652} (100 each), {quest:4903} (150), {npc:3144}'s Wisdom (100) and For The Horde! (Rend's head, 200 to every Horde city). These are dungeon quests: take them when your group goes."] = "{area:340}, em {zone:1418}, entrega missões de {faction:76} para {area:1584} e {area:1583}, todas de nível 58 a 60 e com pagamento cheio: Situação precária e Operação: Morte aos Ira de Ferro (150 cada), {quest:4724} e {item:12652} (100 cada), {quest:4903} (150), a Sabedoria de {npc:3144} (100) e Pela Horda! (a cabeça de Rend, 200 para cada cidade da Horda). São missões de masmorra: pegue-as quando o seu grupo for.",
@@ -362,19 +358,19 @@ return {
 	-- {npc:9081} Galamav the Marksman · {quest:4724} The Pack Mistress
 	["{npc:9081}: {quest:4724}, +100, a group of five"] = "{npc:9081}: {quest:4724}, +100, grupo de cinco",
 
-	-- Step 59: Additional Runecloth to Honored
+	-- Step 58: Additional Runecloth to Honored
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Honored"] = "{quest:7832} até Honrado",
 	-- {quest:7832} Additional Runecloth · {item:14047} Runecloth
 	["{quest:7832}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (an orc starts at Friendly 1,000: 100 hand-ins; an Undead or Skyborne starts at Neutral 2,000 and first needs 20 hand-ins, 400 {item:14047}, to reach Friendly). Hand in every 20 you carry, one after another."] = "{quest:7832}: 20 {item:14047} por 50 de reputação, quantas vezes você quiser. De Amigável a Honrado são 6.000: 120 entregas, 2.400 {item:14047}, menos o que as missões deram (um orc começa em Amigável 1.000: 100 entregas; um Renegado ou Celonato começa em Neutro 2.000 e antes precisa de 20 entregas, 400 {item:14047}, para chegar a Amigável). Entregue a cada 20 que você carregar, uma depois da outra.",
 
-	-- Step 60: Additional Runecloth to Revered
+	-- Step 59: Additional Runecloth to Revered
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Revered"] = "{quest:7832} até Reverenciado",
 	-- {item:14047} Runecloth
 	["Honored to Revered is 12,000: 240 hand-ins, 4,800 {item:14047}. The Auction House price of a stack decides whether to farm or buy."] = "De Honrado a Reverenciado são 12.000: 240 entregas, 4.800 {item:14047}. O preço de uma pilha na Casa de Leilões decide entre farmar e comprar.",
 
-	-- Step 61: Additional Runecloth to Exalted
+	-- Step 60: Additional Runecloth to Exalted
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Exalted"] = "{quest:7832} até Exaltado",
 	-- {item:14047} Runecloth · {faction:76} Orgrimmar · {npc:3362} Ogunaro Wolfrunner · {object:172958} Valley of Honor (no name in this language: may be words)
@@ -385,6 +381,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "Adeptos das Trevas e Umbramantes (nível 58-60) o deixam cair aqui; cada Flagelo morto aqui também conta para {object:92525} (veja esse guia). A Casa de Leilões também serve.",
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "Ogros Dunamalho (nível 45-48) o deixam cair aqui. A Casa de Leilões também serve.",
+	-- ["Fly to {area:1237} in western {zone:1447}. {npc:8576} sends you north-east to the blood elf camp on the bluffs of the northern peninsula."] = "Voe até {area:1237}, no oeste de {zone:1447}. {npc:8576} manda você para nordeste, até o acampamento dos elfos de sangue nos penhascos da península norte.",
 	-- ["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. The {area:363} is the best of them: about 1,400 {faction:76} and 1,400 Darkspear reputation in 25 minutes (about 280 each at a fifth). {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "No Classic, missões 6 ou mais níveis abaixo do seu pagam menos (um quinto no 60); um relato do beta do Forever diz que pagaram o valor cheio. Sua primeira entrega mostra qual é o caso: se pagar um quinto, pule estes polos. {area:363} é o melhor deles: cerca de 1.400 de {faction:76} e 1.400 de reputação com os Lançanegra em 25 minutos (cerca de 280 cada, com um quinto). {npc:3143} espera na Toca, a cabana grande; {npc:10176} fica do lado de fora.",
 	-- ["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. {area:362} and north {zone:1411}: about 1,800 {faction:76} and 1,650 Darkspear reputation in 80 minutes (360 and 330 at a fifth). {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and {npc:266940} at the edges."] = "No Classic, missões 6 ou mais níveis abaixo do seu pagam menos (um quinto no 60); um relato do beta do Forever diz que pagaram o valor cheio. Sua primeira entrega mostra qual é o caso: se pagar um quinto, pule estes polos. {area:362} e o norte de {zone:1411}: cerca de 1.800 de {faction:76} e 1.650 de reputação com os Lançanegra em 80 minutos (360 e 330, com um quinto). {npc:3142} e {npc:3139} ficam no meio da cidade, {npc:3191} perto do quartel, {npc:3147} e {npc:266940} nas bordas.",
 	-- ["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. {area:367} and the {area:368}: about 700 {faction:76} and 650 Darkspear reputation in 25 minutes (140 and 130 at a fifth). {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "No Classic, missões 6 ou mais níveis abaixo do seu pagam menos (um quinto no 60); um relato do beta do Forever diz que pagaram o valor cheio. Sua primeira entrega mostra qual é o caso: se pagar um quinto, pule estes polos. {area:367} e {area:368}: cerca de 700 de {faction:76} e 650 de reputação com os Lançanegra em 25 minutos (140 e 130, com um quinto). {npc:3188} e {npc:3304} ficam perto das cabanas, {npc:3194} perto da água, {npc:7953} ao sul da vila.",
@@ -399,5 +396,6 @@ return {
 	-- ["{npc:14726} takes cloth for {faction:76} in {faction:76}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7832} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14726} aceita tecido para {faction:76} em {faction:76}. Os primeiros donativos de Lã, Seda, Magitrama e {item:14047} (60 tecidos cada) são feitos uma vez só e dão mais reputação por tecido; depois deles, {quest:7832} se repete até Exaltado. Ficar Exaltado com a cidade de outra raça permite comprar as montarias dessa raça. A vantagem de Legado Diplomata do Forever aumenta os ganhos de reputação.",
 	-- ["{npc:14726}: {item:14047} delivered"] = "{npc:14726}: {item:14047} entregue",
 	-- ["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay a little less at 60 (in Classic 30 and 45); the last two pay in full."] = "{npc:4485} fica em {object:172958}, do lado de fora de {object:173084}. As duas primeiras missões de {quest:3504} são de nível 53 e pagam um pouco menos no 60 (no Classic, 30 e 45); as duas últimas pagam o valor cheio.",
+	-- ["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "{npc:4485} fica no {object:172958}, do lado de fora do {object:173084}. As duas primeiras missões de {quest:3504} são de nível 53 e também pagam por inteiro no 60, como toda missão no Forever.",
 	-- ["{quest:7832} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7832} pede 20 {item:14047} por entrega e se repete quantas vezes você quiser. Traga {item:14047} em múltiplos de 20 e entregue tudo de uma vez, uma entrega após a outra. {item:14047}: Adeptos das Trevas e Umbramantes (nível 58-60) em {zone:1423}, ou a Casa de Leilões.",
 }

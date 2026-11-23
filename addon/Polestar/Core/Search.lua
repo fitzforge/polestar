@@ -187,7 +187,7 @@ end
 -- by the client's map names.
 local NAMES_KIND = { item = "item", mount = "item", pet = "item", recipe = "item", tabard = "item",
 	npc = "npc", rare = "npc", quest = "quest", treasure = "object", zone = "zone" }
-local localIndex = {} -- kind -> { base = the Codex's blob, blob = it plus the localised lines }
+local localIndex = {} -- kind -> { base = Codex blob, extra = translated lines only }
 
 local function localised()
 	local N = ns.Names
@@ -196,7 +196,7 @@ end
 
 -- A Codex entity's name in the client's language, or nil; never asks the
 -- server (Names.Cached). A dungeon or raid by its map (Names.Instance).
-local function localName(kind, id)
+local function localName(kind, id, cursor)
 	if kind == "instance" then
 		local C = ns.Codex
 		local inst = C and C.Instance and C.Instance(id)
@@ -205,17 +205,18 @@ local function localName(kind, id)
 	local nk = NAMES_KIND[kind]
 	if not nk or type(id) ~= "number" then return nil end
 	if nk == "zone" then return ns.Compat.GetMapName(id) end
-	return ns.Names.Cached(nk, id)
+	return ns.Names.Cached(nk, id, cursor)
 end
 
-local function blobOf(kind)
-	local blob = codexBlob(kind)
-	if not (blob and NAMES_KIND[kind] and localised()) then return blob end
+local function translatedBlob(kind, blob)
+	if not (NAMES_KIND[kind] and localised()) then return nil end
 	local cached = localIndex[kind]
-	if cached and cached.base == blob then return cached.blob end
-	local lines = { blob }
+	if cached and cached.base == blob then return cached.extra end
+	-- These three catalogues read most of their names pack. The smaller
+	-- catalogues (mounts, rares, etc.) touch only a few rows per chunk.
+	local lines, cursor = {}, { dense = kind == "item" or kind == "npc" or kind == "quest" }
 	for folded, id, quality, st in gmatch(blob, "\2([^\1]*)\1([^,]*),(%d*),(%a?),%d+\n") do
-		local name = localName(kind, tonumber(id))
+		local name = localName(kind, tonumber(id), cursor)
 		if name then
 			local f = sub(fold(name), 2)
 			if f ~= folded and f ~= "" then
@@ -223,26 +224,32 @@ local function blobOf(kind)
 			end
 		end
 	end
-	local full = table.concat(lines)
-	-- Kept once the names pack is in (or will not come this session).
-	if ns.Names.Ready() then localIndex[kind] = { base = blob, blob = full } end
-	return full
+	local extra = lines[1] and table.concat(lines) or nil
+	-- Do not retain a copy of the English catalogue alongside its translations.
+	if ns.Names.Ready() then localIndex[kind] = { base = blob, extra = extra } end
+	return extra
 end
 
+-- The guides search offers: those this character can follow, as the guide
+-- menu lists them (Guides.GuideMatches, or their side's other starting
+-- zones): never the other faction's (#2462), nor another class's or race's.
 local function guideList()
-	local list = ns.Guides and ns.Guides.List and ns.Guides.List() or {}
-	local source = ns.Guides and ns.Guides.SuggestSource and ns.Guides.SuggestSource() or "guides"
+	local G = ns.Guides
+	local list = G and G.List and G.List() or {}
+	local source = G and G.SuggestSource and G.SuggestSource() or "guides"
 	if guideIndex and guideCount == #list and guideSource == source then return guideIndex end
 	guideCount, guideSource = #list, source
 	guideIndex = {}
 	curated = {}
+	local player = ns.Compat.GetPlayerInfo()
 	for _, h in ipairs(list) do
 		local id = h.id
-		if type(id) == "string" and sub(id, 1, 7) ~= "lookup/" and type(h.collects) == "table"
+		local fits = G.GuideMatches(h, player) or G.OtherStart(h, player)
+		if fits and type(id) == "string" and sub(id, 1, 7) ~= "lookup/" and type(h.collects) == "table"
 			and (h.pack == source or h.pack == "guides") then
 			for i = 1, #h.collects do curated[h.collects[i]] = true end
 		end
-		if type(id) == "string" and sub(id, 1, 7) ~= "lookup/" and type(h.title) == "string" then
+		if fits and type(id) == "string" and sub(id, 1, 7) ~= "lookup/" and type(h.title) == "string" then
 			local keys = {}
 			if type(h.keywords) == "table" then
 				for i = 1, #h.keywords do
@@ -256,8 +263,9 @@ local function guideList()
 			if type(zone) == "string" and zone ~= h.zoneName then where[#where + 1] = fold(zone) end
 			if type(h.category) == "string" then where[#where + 1] = fold(h.category) end
 			local sublabel = zone or h.category
-			if h.minLevel and h.maxLevel then
-				sublabel = (sublabel and (sublabel .. " \194\183 ") or "") .. h.minLevel .. "-" .. h.maxLevel
+			local lo, hi = G.Levels(h)
+			if lo and hi then
+				sublabel = (sublabel and (sublabel .. " \194\183 ") or "") .. lo .. "-" .. hi
 			end
 			guideIndex[#guideIndex + 1] = {
 				id = id, title = h.title, folded = fold(h.title), keys = keys, where = where, subtitle = sublabel,
@@ -298,16 +306,30 @@ local META = "^([^,]*),(%d*),(%a?),(%d+)"
 -- counts as "more", which keeps a keystroke within a few milliseconds.
 local BUDGET = 200
 
--- One kind's matches in its index blob, best `cap` kept in `top` (keys are
--- the positions of the lines' "\1"). Every line is matched by plain finds
--- over the one string, tier by tier: name prefixes ("\2" .. q), then (2+
+-- Reuse the tier checks across queries; building closures for each kind and
+-- tier made even English guide-menu searches allocate more garbage.
+local function matchTier(t, at, e, blob, blen, words)
+	if t == PREFIX then return e == at + 1 + blen and EXACT or PREFIX end
+	if t ~= WORDS then return t end
+	local s = at
+	while byte(blob, s) ~= 2 do s = s - 1 end
+	local f = sub(blob, s + 1, e - 1)
+	for i = 1, #words do
+		if not find(f, words[i], 1, true) then return nil end
+	end
+	return WORDS
+end
+
+-- One kind's matches in its English and translated blobs, best `cap` kept in
+-- `top` (offsets in the English blob, then the translation's offsets plus the
+-- English length). Match both languages at each tier: name prefixes, then (2+
 -- letters) word prefixes (" " .. q), anywhere, and (several words) lines
 -- holding every word. A line counts once, at its best tier. -> matches, more
-local function scanBlob(blob, kind, body, short, words, cap, top)
+local function scanBlob(base, extra, kind, body, short, words, cap, top)
 	local seen, ids, n, reads = {}, {}, 0, 0
-	local function hit(e, t)
-		if seen[e] then return end
-		seen[e] = true
+	local blen = #body
+	local function hit(blob, e, key, t)
+		seen[key] = true
 		local id, _, st, len = match(blob, META, e + 1)
 		-- An id found by its English and its localised name counts once, at
 		-- the better tier (the tiers run best first).
@@ -315,49 +337,43 @@ local function scanBlob(blob, kind, body, short, words, cap, top)
 		ids[id] = true
 		n = n + 1
 		local standing = st ~= "" and 0 or curated[tonumber(id)] and 2 or 1
-		keep(top, cap, score(t, kind, tonumber(len) or 0, standing), e)
+		keep(top, cap, score(t, kind, tonumber(len) or 0, standing), key)
 	end
 	-- -> true when the budget ran out with candidates left
-	local function each(q, tierOf)
-		local at = find(blob, q, 1, true)
-		while at do
-			local e = find(blob, "\1", at, true)
-			if not e then return false end
-			-- A find past the name (in a line's id or numbers) shows as the
-			-- next line's "\2" before the next "\1".
-			local s2 = find(blob, "\2", at + 1, true)
-			if s2 and s2 < e then
-				at = find(blob, q, s2, true)
-			else
-				if not seen[e] then
-					if reads >= BUDGET then return true end
-					reads = reads + 1
-					local t = tierOf(at, e)
-					if t then hit(e, t) end
+	local function each(q, tier)
+		for part = 1, extra and 2 or 1 do
+			local blob, offset = base, 0
+			if part == 2 then blob, offset = extra, #base end
+			local at = find(blob, q, 1, true)
+			while at do
+				local e = find(blob, "\1", at, true)
+				if not e then break end
+				-- A match in a line's metadata precedes the next name marker.
+				local s2 = find(blob, "\2", at + 1, true)
+				if s2 and s2 < e then
+					at = find(blob, q, s2, true)
+				else
+					local key = e + offset
+					if not seen[key] then
+						if reads >= BUDGET then return true end
+						reads = reads + 1
+						local t = matchTier(tier, at, e, blob, blen, words)
+						if t then hit(blob, e, key, t) end
+					end
+					at = find(blob, q, e, true)
 				end
-				at = find(blob, q, e, true)
 			end
 		end
 		return false
 	end
-	local blen = #body
-	if each("\2" .. body, function(at, e) return e == at + 1 + blen and EXACT or PREFIX end) then return n, true end
+	if each("\2" .. body, PREFIX) then return n, true end
 	if short then return n, false end
-	if each(" " .. body, function() return WORD end) then return n, true end
-	if each(body, function() return SUBSTRING end) then return n, true end
+	if each(" " .. body, WORD) then return n, true end
+	if each(body, SUBSTRING) then return n, true end
 	if words then
 		local longest = words[1]
 		for i = 2, #words do if #words[i] > #longest then longest = words[i] end end
-		if each(longest, function(at, e)
-			if seen[e] then return nil end
-			local s = at
-			while byte(blob, s) ~= 2 do s = s - 1 end
-			local f = sub(blob, s + 1, e - 1)
-			for i = 1, #words do
-				if not find(f, words[i], 1, true) then return nil end
-			end
-			return WORDS
-		end) then return n, true end
+		if each(longest, WORDS) then return n, true end
 	end
 	return n, false
 end
@@ -436,14 +452,17 @@ function Search.Query(text, opts)
 	if wantCodex and C and C.IsLoaded and not C.IsLoaded() and C.Load then C.Load() end
 	for _, k in ipairs(Search.KINDS) do
 		local kind = k.key
-		local blob = kind ~= "guide" and wants(kinds, kind) and blobOf(kind)
+		local blob = kind ~= "guide" and wants(kinds, kind) and codexBlob(kind)
 		if blob then
+			local extra = translatedBlob(kind, blob)
 			local top = { n = 0, s = {}, i = {} }
-			local n, capped = scanBlob(blob, kind, body, short, words, keepN, top)
+			local n, capped = scanBlob(blob, extra, kind, body, short, words, keepN, top)
 			if n > 0 then counts[kind] = n end
 			if capped then more[kind] = true end
 			for j = offset + 1, top.n do
-				local rawId, quality, st = match(blob, META, top.i[j] + 1)
+				local source, at = blob, top.i[j]
+				if at > #blob then source, at = extra, at - #blob end
+				local rawId, quality, st = match(source, META, at + 1)
 				local id = kind == "instance" and rawId or tonumber(rawId)
 				results[#results + 1] = {
 					kind = kind, id = id, title = (localised() and localName(kind, id)) or C.Name(kind, id) or rawId, quality = tonumber(quality), score = top.s[j],

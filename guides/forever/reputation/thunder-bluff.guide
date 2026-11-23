@@ -103,7 +103,7 @@ step Camp Narache: last hand-in
   turnin 780
   turnin 757                          -- Chief Hawkwind
   turnin 3376
-  turnin 781 optional
+  turnin 781
   accept 763                          -- Rites of the Earthmother, +75: to Baine Bloodhoof
 
 step Bloodhoof Village: Baine Bloodhoof
@@ -161,12 +161,12 @@ step Morin Cloudstalker
   when done bloodhoof
   turnin 764                          -- Morin Cloudstalker
   turnin 765
-  turnin 98424 optional
+  turnin 98424
   accept 98427 optional               -- Ceasing Operations, +150: needs Fizsprocket's Notes
 
 step The Venture Co. Mine: the Clearcutter
   when done bloodhoof
-  tip The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for Ceasing Operations.
+  tip The elite shredder Venture Co. Clearclutter works deep inside the mine, beyond where Fizsprocket stood: its key is for Ceasing Operations.
   collect 281048 quest 98427.1        -- Clearcutter Key
   turnin 98427                        -- Morin Cloudstalker
 
@@ -195,6 +195,7 @@ step Gloomrise (optional hub)
 step Gloomrise
   when done gloomrise
   tip Gloomrise is the tauren burial ground north of Thunder Bluff. Use the Toxin Extractor on the Gnawed Corpses. Broodmother Valraxx waits at the heart of it; her body carries a Bloody Parchment: read it to start A Darker Truth.
+  level 28
   kill 264079 x10 quest 96259.1       -- Gloomrise Hatchling
   kill 264083 x5 quest 96259.2        -- Gloomrise Soldier
   collect 273181 x3 quest 96260.1     -- Crystalline Silk, from Gloomrise Spinners
@@ -210,6 +211,7 @@ step The Skywatcher camp: hand in
 
 step Broodmother Valraxx
   when done gloomrise
+  level 28
   kill 264082 quest 96261.1           -- Broodmother Valraxx, at the heart of Gloomrise
   accept 96294 item 273658            -- Bloody Parchment: A Darker Truth, +100 (Orgrimmar +100)
 
@@ -261,6 +263,7 @@ step Everlook: Storm Shadowhoof
 
 step Brumeran and Shy-Rotam
   tip Brumeran, an elite chimera, spawns south of Everlook. For Shy-Rotam, kill frostsabers north of Everlook until one drops Sacred Frostsaber Meat (about one in ten), then use the meat at the Stone of Shy-Rotam, far to the north, and kill the great cat that comes. If you have done Trull Failbane's Wild Guardians quests (the Orgrimmar guide), the Crazed, Moontouched and Berserk owlbeasts around Everlook sometimes drop a Blue-feathered Necklace: it starts Guarding Secrets, 50 Orgrimmar and then 100 Thunder Bluff reputation in full.
+  level 58
   kill 10807 quest 5055.1             -- Brumeran, elite
   turnin 5055                         -- Storm Shadowhoof
   accept 5056                         -- Shy-Rotam, +150
@@ -275,6 +278,13 @@ step Bloodvenom Post: Trull Failbane
   zone Felwood
   tip Trull Failbane stands at Bloodvenom Post, through the Timbermaw tunnel south of Winterspring.
   turnin 4882                         -- Trull Failbane
+  accept 4883                         -- Guarding Secrets, +100: to Nara Wildmane in Thunder Bluff
+
+step Bloodvenom Post: Trull Failbane
+  when turnedin 4882
+  when available 4883
+  zone Felwood
+  tip Trull Failbane stands at Bloodvenom Post, through the Timbermaw tunnel south of Winterspring.
   accept 4883                         -- Guarding Secrets, +100: to Nara Wildmane in Thunder Bluff
 
 step Thunder Bluff: Nara Wildmane

@@ -16,8 +16,8 @@ return {
 	["At 30 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:6251} in {area:392}."] = "30级时，{object:172982}下方{object:172960}的{npc:5875}会让你去{area:392}找{npc:6251}。",
 
 	-- Step 2: Seeking Strahad (Undercity)
-	-- {npc:5675} Carendin Halgar · {object:36082} Magic Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {quest:2996} Seeking Strahad
-	["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}. Take only one {quest:2996}: if {npc:6251} offers nothing, drop the duplicate from your log."] = "30级时，{object:36082} 的 {npc:5675} 会派你去找 {area:392} 的 {npc:6251}。从 {zone:1420} 出发的飞艇前往 {zone:1411}。只接一个 {quest:2996}：如果 {npc:6251} 没有任务可接，就放弃任务日志中重复的那个。",
+	-- {npc:5675} Carendin Halgar · {object:36082} Magic Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {quest:3001} Seeking Strahad
+	["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}. Take only one {quest:3001}: if {npc:6251} offers nothing, drop the duplicate from your log."] = "30级时，{object:36082} 的 {npc:5675} 会派你去找 {area:392} 的 {npc:6251}。从 {zone:1420} 出发的飞艇前往 {zone:1411}。只接一个 {quest:3001}：如果 {npc:6251} 没有任务可接，就放弃任务日志中重复的那个。",
 
 	-- Step 3: Strahad Farsan
 	-- {area:392} Ratchet · {zone:1454} Orgrimmar · {npc:6251} Strahad Farsan · {npc:6266} Menara Voidrender · {npc:6293} Jorah Annison · {zone:1458} Undercity
@@ -59,6 +59,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "30级时，{object:36082}的{npc:5675}会让你去{area:392}找{npc:6251}。从{zone:1420}出发的飞艇飞往{zone:1411}。",
+	-- ["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}. Take only one {quest:2996}: if {npc:6251} offers nothing, drop the duplicate from your log."] = "30级时，{object:36082} 的 {npc:5675} 会派你去找 {area:392} 的 {npc:6251}。从 {zone:1420} 出发的飞艇前往 {zone:1411}。只接一个 {quest:2996}：如果 {npc:6251} 没有任务可接，就放弃任务日志中重复的那个。",
 	-- ["Back to {npc:6251} in {area:392}. Use the {quest:1804} on the summoning circle beside him and defeat the felhunter to bind it."] = "回到{area:392}找{npc:6251}。在他身旁的召唤法阵上使用{quest:1804}，击败地狱猎犬将其束缚。",
 	-- ["Fly to {area:392}; {npc:6251} stands on the hill in town."] = "飞往{area:392}；{npc:6251}站在镇里的山丘上。",
 	-- ["The Dragonmaw Bonewarders and Shadowwarders hold the hills east of the road through the {zone:1437}: the rods drop from them."] = "{npc:1057}和龙喉暗影守卫占据着穿过{zone:1437}的道路东边的山丘：魔棒由它们掉落。",

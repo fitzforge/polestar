@@ -3,7 +3,7 @@ guide forever/alliance/nightelf/02-darkshore
 title Darkshore
 race NightElf
 faction Alliance
-levels 12-14
+levels 13-16
 zone Darkshore
 next forever/alliance/02-westfall
 
@@ -12,14 +12,29 @@ next forever/alliance/02-westfall
 # into this file.
 # Added here: A Fishy Peril (40); Humble Beginnings (399), from Baros Alexston on the walk through
 # Stormwind (02-westfall hands it in); Philmor's Favor (97220) and Gatehouse Goods (97222) from the
-# harbor to the cheese shop beside the flight master.
-# Left out: Expanding Horizons (97914), The Absent Minded Prospector (729), Deep Ocean, Vast Sea (982), The Tower of Althalaxx (965), Cave Mushrooms (947), WANTED: Murkdeep! (4740), For Love Eternal (963), Fruit of the Sea (1138), Buzzbox 411 (1001), Cleansing of the Infected (2138), Thundris Windweaver (4761), Tharnariun's Hope (2139), The Cliffspring River (4762), Beached Sea Creature (4730), Beached Sea Turtle (4727), Beached Sea Turtle (4725), A Lost Master (986), The Blackwood Corrupted (4763), Buzzbox 323 (1002), Buzzbox 525 (1003), Onu (948), The Master's Glaive (944), Therylune's Escape (945), The Powers Below (968), The Twilight Camp (949), It's All Fun and Games Until... (98042), Return to Onu (950), The Absent Minded Prospector (731), Beached Sea Turtle (4731), Beached Sea Creature (4733), Beached Sea Turtle (4732), Mathystra Relics (951), The Sleeper Has Awakened (5321), Holy Diver (87760), A Lost Master (993), The Tower of Althalaxx (966), The Tower of Althalaxx (967), Gyromast's Retrieval (2098), Escape Through Force (994), Trek to Ashenvale (990).
+# harbor to the cheese shop beside the flight master. Cleansing of the Infected (2138) is taken from Tharnariun on the
+# second Auberdine stop: its Rabid Thistle Bears (13-14) roam the second loop's hills. For Love Eternal (963) is taken
+# there by everyone (fix pass 2026-11-20) and its pendant done on the second loop's Ameth'Aran pass from level 14.5
+# (Anaya Dawnrunner is 16, one and a half over: a Careful line); below 14.5 it is carried to the shared Darkshore guide.
+# Fix round 2026-11-20: Buzzbox 411 (1001) is taken from Buzzbox 827 when Buzzbox 827's own
+# quest goes in (end of nightelf/01-teldrassil) and worked on the Auberdine shore, handed in north of Bashal'Aran at the end of
+# the first loop with Buzzbox 323 (1002) taken there; Thundris Windweaver and The Cliffspring River (4761, 4762) are taken
+# on the second Auberdine stop. The second loop's Moonstalkers (14-15) give 1002's fangs, and it ends north-east at the
+# Cliffspring Falls (4762's sample, Buzzbox 323's hand-in) and the Beached Sea Turtle north of Bashal'Aran (4725) before the
+# walk back to Auberdine: 3,575 XP on the ground the loops already walk, at mobs 12-15. Deep Ocean, Vast Sea (982) is
+# taken on the second Auberdine stop, and The Tower of Althalaxx, Tharnariun's Hope, Cave Mushrooms and, from 15, The
+# Blackwood Corrupted (965, 2139, 947, 4763) on the last, all carried to 03-darkshore, where their work is; Expanding
+# Horizons (97914) goes from Thundris to Baros Alexston on this guide's Stormwind walk, and his reply (97926) back to
+# Thundris on 03-darkshore's first Auberdine stop. Grove of the Ancients (952, from Teldrassil) goes to Onu at the Grove,
+# east of the southern beaches step.
+# Left out: The Absent Minded Prospector (729), WANTED: Murkdeep! (4740), Fruit of the Sea (1138), Beached Sea Creature (4730), Beached Sea Turtle (4727), A Lost Master (986), Buzzbox 525 (1003), Onu (948), The Master's Glaive (944), Therylune's Escape (945), The Powers Below (968), The Twilight Camp (949), It's All Fun and Games Until... (98042), Return to Onu (950), The Absent Minded Prospector (731), Beached Sea Turtle (4731), Beached Sea Creature (4733), Beached Sea Turtle (4732), Mathystra Relics (951), The Sleeper Has Awakened (5321), Holy Diver (87760), A Lost Master (993), The Tower of Althalaxx (966), The Tower of Althalaxx (967), Gyromast's Retrieval (2098), Escape Through Force (994), Trek to Ashenvale (990).
 
 # ---------------------------------------------------------------- Auberdine
 
 step Auberdine
-  only Human,Dwarf,Gnome,Skyborne
+  when !turnedin 3524
   zone Darkshore
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
   tip The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street.
   accept 3524                                 -- Gwennyth Bly'Leggonde
   accept 98025                                -- The WANTED poster outside the inn
@@ -27,7 +42,7 @@ step Auberdine
 # ---------------------------------------------------------------- The beach
 
 step The beach
-  only Human,Dwarf,Gnome,Skyborne
+  when !turnedin 3524
   tip Tide Crawlers scuttle along the shore below the village; Buzzbox 827 stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The Beached Sea Creature lies on the shore just south of the village.
   collect 12242 quest 3524                    -- Sea Creature Bones
 
@@ -43,14 +58,30 @@ step Auberdine
 step Auberdine
   zone Darkshore
   tip The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. Wizbang Cranktoggle stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
-  sethome "Auberdine"
   accept 983                                  -- Wizbang Cranktoggle, upstairs in the inn
   accept 4811 only NightElf                   -- Sentinel Glynda Nal'Shea
   turnin 1141 optional                        -- Gubber Blump
 
+step Gwennyth Bly'Leggonde
+  when !turnedin 3524
+  zone Darkshore
+  turnin 3524                                 -- Gwennyth Bly'Leggonde
+  accept 4681
+
 step The skeletal turtle
   collect 12289 quest 4681                    -- Sea Turtle Remains, on the beach west of the docks; underwater
   turnin 4681                                 -- Gwennyth Bly'Leggonde
+
+step Buzzbox 827
+  when onquest 983
+  tip Only if you still carry Buzzbox 827's quest: the Tide Crawlers scuttle along the shore below the village, and Buzzbox 827 stands on the beach just south of the docks.
+  collect 5385 quest 983 @35.6,47.1           -- Crawler Legs: the Tide Crawlers
+  turnin 983                                  -- Buzzbox 827
+
+step Darkshore Threshers
+  tip Buzzbox 827 stands on the beach just south of the docks: once his crawler legs are in, he asks for Thresher Eyes. The Darkshore Threshers (12-14) swim in the shallows off the docks and up the shore to Mist's Edge; Buzzbox 411, who takes the eyes, stands north of Bashal'Aran at the end of the first loop.
+  accept 1001                                 -- Buzzbox 827
+  collect 5412 quest 1001 @33.8,38.4          -- Thresher Eyes; underwater
 
 # ---------------------------------------------------------------- First loop: south-east and north-east
 
@@ -71,11 +102,10 @@ step Ameth'Aran
 
 step The red crystal
   tip Climb the eastern mountains east of Ameth'Aran; the Mysterious Red Crystal sits on a ledge.
-  interact 175524 quest 4811.1                -- Mysterious Red Crystal
-  complete 4811
+  complete 4811 @47.2,48.7                    -- Mysterious Red Crystal
 
 step Bashal'Aran
-  tip North along the hills. Asterion waits in the ruins of Bashal'Aran; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. Buzzbox 411 stands by the road west of the ruins; a Beached Sea Creature lies on the shore on the way to him.
+  tip North along the hills. Asterion waits in the ruins of Bashal'Aran; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. Buzzbox 411 stands by the road north-north-west of Asterion; a Beached Sea Creature lies on the shore on the way to him.
   turnin 954                                  -- Asterion
   accept 955
   collect 5336 quest 955 @44.6,36.6 map 1439 -- Grell Earrings
@@ -86,27 +116,51 @@ step Bashal'Aran
   accept 957
   accept 4723                                 -- Beached Sea Creature
 
+step Buzzbox 411
+  tip North-north-west of Asterion by the road, past the Beached Sea Creature: Buzzbox 411 wants Moonstalker Fangs next, from the second loop's hills. Then south-west down to Auberdine.
+  turnin 1001                                 -- Buzzbox 411
+  accept 1002
+
 step Auberdine
   turnin 958
   turnin 984                                  -- Terenthis
   accept 985
+  accept 4761                                 -- Terenthis: for Thundris Windweaver, at the north end of the village
+  accept 982                                  -- Gorbold Steelhand, on the way north: the bay wrecks, on your next Darkshore visit
 
 step Auberdine
   turnin 2118                                 -- Tharnariun Treetender
+  accept 2138                                 -- Tharnariun Treetender: the bears are on the loop ahead
   turnin 4811                                 -- Sentinel Glynda Nal'Shea
   accept 4812
   turnin 98025
   turnin 4722                                 -- Gwennyth Bly'Leggonde
   turnin 4723
+  turnin 4761                                 -- Thundris Windweaver, north end of the village
+  accept 4762                                 -- Thundris Windweaver: his sample comes from the Cliffspring Falls, at the end of the next loop
   use 14338 quest 4812.1 @37.8,44.0 map 1439
   collect 14339 quest 4812                    -- Fill the tube at the moonwell in the village
   vendor nearest
+
+step Cerellean Whiteclaw
+  tip Cerellean Whiteclaw waits where the pier meets the shore. Anaya Dawnrunner (16), whose pendant he wants, walks Ameth'Aran on the loop ahead: from level 14.5 you take it there, else on your next Darkshore visit.
+  accept 963                                  -- Cerellean Whiteclaw, on the pier
+
+step Rabid Thistle Bear on the way
+  along until q2138
+  kill 2164 quest 2138
+
+step Moonstalkers on the way
+  along until q1002
+  tip The Moonstalkers (14-15) roam the hills of the loop ahead, south of Auberdine and around the Cliffspring River at its end: any of them drops the fangs. Leave the Moonstalker Sires (17-18) and Matriarchs (19-20) south of the Grove.
+  collect 5413 quest 1002                     -- Moonstalker Fangs
 
 # ---------------------------------------------------------------- Second loop
 
 step Blackwood furbolgs
   zone Darkshore
-  tip Blackwood Pathfinders and Windtalkers hold the camp south-east of Auberdine.
+  tip Blackwood Pathfinders and Windtalkers hold the camp south-east of Auberdine; Rabid Thistle Bears roam the hills around it.
+  tip Careful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time.
   kill 2167 quest 985
   kill 2324 quest 985
 
@@ -114,24 +168,75 @@ step The southern beaches
   tip Follow the coast south past Ameth'Aran: one Beached Sea Creature lies on the shore west of the Grove, another further south near Remtravel's Excavation. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level.
   accept 4728                                 -- Beached Sea Creature
 
+step Onu
+  when onquest 952
+  tip From the beached creature, head east to the Grove of the Ancients. Watch for level 16 bears and level 17 Moonstalker Sires between the beach and the grove; go around them. Onu stands beside Arbal and the sleeping Kerlonian Evershade.
+  turnin 952 only NightElf                    -- Onu
+
 step Ameth'Aran
+  label q2138
   tip Back north to Ameth'Aran: the flame burns in the south of the ruins.
   interact 16393 quest 957.1 @42.4,61.8 map 1439 -- Ancient Flame
+  kill 2164 quest 2138
+
+step Anaya's Pendant
+  when level>=14.5
+  when onquest 963
+  tip Careful: Anaya Dawnrunner (16) is over you: pull her on her own at full health. Lady Moongazer, a rare (17), also walks the ruins: leave her be.
+  collect 5382 quest 963                      -- Anaya's Pendant: Anaya Dawnrunner's ghost walks the ruins
 
 step The red crystal
   tip Back north-east into the mountains to the crystal.
   turnin 4812                                 -- Mysterious Red Crystal
   accept 4813
 
+step Rabid Thistle Bear
+  kill 2164 quest 2138
+
 step Bashal'Aran
-  tip North along the hills to Asterion, then west down to Auberdine.
+  tip North along the hills to Asterion, then on north-east to the Cliffspring River.
   turnin 957                                  -- Asterion
+
+step Cliffspring Falls
+  tip North-east up the Cliffspring River to the falls: fill the sampler at the water there. Moonstalkers (14-15) roam the hills around the river.
+  tip Careful: Encrusted Tide Crawlers (17-20) line the shore below the falls and the Den Mother's bears (18-19) lair in the hills south of them: keep to the river.
+  use 12350 quest 4762.1 @50.8,25.6 map 1439
+  collect 12349 quest 4762                    -- Cliffspring River Sample, at the waterfall
+
+step Buzzbox 323
+  label q1002
+  tip Buzzbox 323 stands on the hill above the falls. He offers Buzzbox 525 next: its bears are far south, for your next Darkshore visit.
+  collect 5413 quest 1002                     -- Moonstalker Fangs: the Moonstalkers around the river
+  turnin 1002                                 -- Buzzbox 323
+
+step Beached Sea Turtle
+  tip West along the north shore: the Beached Sea Turtle lies on the beach north of Bashal'Aran, among Reef Crawlers and Greymist Warriors (15). Then south-west down to Auberdine.
+  accept 4725                                 -- Beached Sea Turtle
 
 step Auberdine
   turnin 985                                  -- Terenthis
+  accept 965                                  -- Sentinel Elissa Starbreeze, beside Terenthis: for Balthule at the Tower of Althalaxx, on your next Darkshore visit
   turnin 4813                                 -- Sentinel Glynda Nal'Shea
+  turnin 2138                                 -- Tharnariun Treetender
+  accept 2139                                 -- Tharnariun Treetender: the Den Mother, on your next Darkshore visit
+  accept 947                                  -- Barithras Moonshade: the cave by the Cliffspring Falls, on your next Darkshore visit
+  turnin 4762                                 -- Thundris Windweaver, north end of the village
+  accept 97914                                -- Thundris Windweaver: for Baros Alexston in Stormwind, on the walk from the boat
   vendor nearest
   turnin 4728                                 -- Gwennyth Bly'Leggonde
+  turnin 4725
+
+step Thundris Windweaver
+  when level>=15
+  tip From level 15 Thundris also has The Blackwood Corrupted: its samples come from the northern Blackwood camp on your next Darkshore visit. Fill its bowl at the moonwell in the middle of the village now.
+  accept 4763                                 -- Thundris Windweaver
+  use 12346 @37.8,44.0 map 1439
+  collect 12347                               -- Filled Cleansing Bowl: fill the Empty Cleansing Bowl at the Auberdine Moonwell
+
+step Cerellean Whiteclaw
+  when complete 963
+  tip Cerellean Whiteclaw waits where the pier meets the shore, on the way to the boat.
+  turnin 963                                  -- Cerellean Whiteclaw, on the pier
 
 step Boat to Stormwind Harbor
   only NightElf
@@ -157,7 +262,9 @@ step Stormwind flight master
 step Baros Alexston
   only NightElf
   zone Stormwind City
-  tip Baros Alexston stands in Cathedral Square, west of the Trade District: his compass is in his old house in Westfall, on the way.
+  tip Baros Alexston stands in Cathedral Square, west of the Trade District: his compass is in his old house in Westfall, on the way. His reply to Thundris goes back to Auberdine with you.
+  turnin 97914                                -- Baros Alexston: Thundris Windweaver's letter
+  accept 97926 optional                       -- Baros Alexston: Making Do, for Thundris on your next Darkshore visit
   accept 399
 
 step Woo Ping
@@ -199,4 +306,3 @@ step Remy "Two Times"
   zone Elwynn Forest
   accept 40
   turnin 40
-  accept 35

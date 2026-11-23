@@ -211,3 +211,24 @@ test('travel chain prints a candidate entry, and with it the planner enters the 
 	assert.equal(none.status, 1);
 	assert.match(none.stdout, /no recorded walk reaches Westfall 90, 10 from 300 yd or more \(the nearest passes \d+ yd away\)/);
 });
+
+// Mouchoir (#2433, a Night Elf Druid): the arrow took the boat from Stormwind to Darnassus, where Teleport: Moonglade
+// and Silva Fil'naveth's Druid-only flight from Nighthaven to Rut'theran Village are faster. #2463: the addon's own
+// planner on the shipped TravelData.lua (and data/forever's travel.json) takes them for a Druid who has the spell,
+// with no flight path learnt in Moonglade, and never for another class; a Horde Druid in Orgrimmar still flies
+// straight to Thunder Bluff, which is faster than the teleport and Bunthen Plainswind's flight.
+test('a Druid with Teleport: Moonglade goes from Stormwind to Darnassus by Moonglade, not the boat (#2433, #2463)', { skip: require('./helpers/data').needs('travel.json', 'map-frames.json', 'zones.json') }, () => {
+	const travel = JSON.parse(fs.readFileSync(path.join(require('./helpers/data').DATA, 'travel.json'), 'utf8'));
+	const nodes = (side) => travel.taxi.nodes.filter((n) => n.faction === 3 || n.faction === side).filter((n) => !n.class).map((n) => n.id);
+	const moonglade = [{ spell: 18960, name: 'Teleport: Moonglade', cast: 10, ready: 0, to: { name: 'Moonglade', c: 1, wx: 7991.9, wy: -2679.8, map: 1450, x: 56.26, y: 32.46, f: 'e' } }];
+	const kinds = (legs) => legs.map((l) => `${l.kind}|${l.label}`);
+	const sw = { from: { map: 1453, x: 60, y: 70 }, to: { map: 1457, x: 40, y: 50 }, known: nodes(1) };
+	const druid = kinds(planRoute({ ...sw, cls: 'DRUID', teleports: moonglade }));
+	assert.equal(druid[0], 'teleport|Cast Teleport: Moonglade', druid.join(' > '));
+	assert.ok(druid.includes("fly|Fly to Rut'theran Village"), druid.join(' > '));
+	assert.ok(!druid.some((l) => l.startsWith('boat')), druid.join(' > '));
+	const warrior = kinds(planRoute({ ...sw, cls: 'WARRIOR' }));
+	assert.ok(warrior.some((l) => l.startsWith('boat')), `another class takes the boat: ${warrior.join(' > ')}`);
+	const horde = kinds(planRoute({ from: { map: 1454, x: 50, y: 60 }, to: { map: 1456, x: 50, y: 50 }, faction: 'Horde', known: nodes(2), cls: 'DRUID', teleports: moonglade }));
+	assert.deepEqual(horde.map((l) => l.split('|')[0]), ['walk', 'fly', 'walk'], `Orgrimmar to Thunder Bluff: the direct flight: ${horde.join(' > ')}`);
+});

@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Danitha Morr
 	-- {npc:246378} Danitha Morr · {area:16602} Bandarion Keep · {area:156} Solliden Farmstead · {area:228} Sepulcher · {zone:1421} Silverpine Forest
-	["At 18 {npc:246378}, inside {area:16602} on the bluffs north-west of the {area:156}, sends you south to the {area:228} in {zone:1421}."] = "",
+	["At 18 {npc:246378}, inside {area:16602} on the bluffs north-west of the {area:156}, sends you south to the {area:228} in {zone:1421}."] = "A nivel 18, {npc:246378}, desde el interior de {area:16602}, en los riscos al noroeste de {area:156}, te envía al sur a {area:228}, en {zone:1421}.",
 
 	-- Step 2: Sepulcher
 	-- {npc:248840} Trevan Rol · {area:228} Sepulcher · {npc:259611} Deathguard Baldren
@@ -43,12 +43,12 @@ return {
 	-- Step 6: Back to the Sepulcher
 	-- {area:228} Sepulcher
 	["Back to the {area:228}"] = "Vuelve a {area:228}",
-	-- {npc:259620} Lumina Windsinger · {npc:248840} Trevan Rol · {area:228} Sepulcher · {quest:95034} The Debt
-	["{npc:259620} waits beside {npc:248840} in the {area:228} (a different {npc:259620} from the one you escorted). For {quest:95034}, click through every line of her story."] = "",
-	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
-	["{npc:259620}, the {area:228}"] = "{npc:259620}, {area:228}",
-	-- {npc:259620} Lumina Windsinger
-	["{npc:259620}: hear her story to the end"] = "",
+	-- {npc:248840} Trevan Rol · {area:228} Sepulcher · {quest:95034} The Debt
+	["Lumina waits beside {npc:248840} in the {area:228} (a different Lumina from the one you escorted). For {quest:95034}, click through every line of her story."] = "",
+	-- {npc:248755} Lumina Windsinger · {area:228} Sepulcher
+	["{npc:248755}, the {area:228}"] = "{npc:248755}, {area:228}",
+	-- {npc:248755} Lumina Windsinger
+	["{npc:248755}: hear her story to the end"] = "",
 
 	-- Step 7: A Moon-Kissed Blade
 	-- {npc:259620} Lumina Windsinger · {quest:95140} Old Fire-Eye · {npc:248840} Trevan Rol
@@ -77,23 +77,29 @@ return {
 	-- {npc:259649} Ulric Frostveil · {area:2897} Zoram'gar Outpost · {zone:1440} Ashenvale · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1458} Undercity · {zone:1454} Orgrimmar · {zone:1413} Barrens
 	["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: take the zeppelin from {object:3202} (or the {zone:1458}) to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "",
 
-	-- Step 11: The Corrupted Kor Gem
+	-- Step 11: The north end of the Zoram Strand
+	-- {area:414} Zoram Strand
+	["The north end of the {area:414}"] = "",
+	-- {area:414} Zoram Strand
+	["The naga's flooded ruins lie just past the north end of the {area:414}. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins."] = "",
+
+	-- Step 12: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
 	["The {item:6995}"] = "La {item:6995}",
 	-- {area:2797} Blackfathom Deeps · {item:6995} Corrupted Kor Gem · {spell:122} Frost Nova
 	["The naga stand in the flooded ruins and passages around the {area:2797} entrance, just north of Zoram'gar: you do not need to enter the instance (its first naga drop the gem too). Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24) drop the {item:6995}, one in two. All are elite: grouping up is encouraged. Players solo them one at a time, with difficulty; a group of three makes it easy. They heal themselves, run for help at low health, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "",
 
-	-- Step 12: The Purified Kor Gem
+	-- Step 13: The Purified Kor Gem
 	-- {item:272448} Purified Kor Gem
 	["The {item:272448}"] = "",
 	-- {npc:259649} Ulric Frostveil · {item:272448} Purified Kor Gem · {npc:248840} Trevan Rol
 	["Back to {npc:259649} at Zoram'gar: he cleanses the gem. Keep the {item:272448} for {npc:248840}."] = "",
 
-	-- Step 13: Trevan Rol
+	-- Step 14: Trevan Rol
 	-- {npc:248840} Trevan Rol · {area:228} Sepulcher · {item:268192} Bundle of Blacksmithing Materials · {area:272} Tarren Mill
 	["Bring the lumber, the ingot and the gem to {npc:248840} in the {area:228}. He gives you a {item:268192} for a smith in {area:272}: keep it in your bags."] = "",
 
-	-- Step 14: Ott
+	-- Step 15: Ott
 	-- {npc:3539} Ott · {area:272} Tarren Mill · {zone:1424} Hillsbrad Foothills · {quest:95125} Ott's Masterwork
 	["{npc:3539}, the weaponsmith, stands just south of {area:272} in {zone:1424}. Accepting {quest:95125} starts the forging: step back and wait near him until he is done."] = "",
 	-- {npc:3539} Ott
@@ -101,25 +107,28 @@ return {
 	-- {npc:3539} Ott · {quest:95125} Ott's Masterwork
 	["{npc:3539} gives you {quest:95125}"] = "",
 
-	-- Step 15: The Moonsilver Blade
+	-- Step 16: The Moonsilver Blade
 	-- {npc:248840} Trevan Rol · {area:228} Sepulcher · {item:268484} Moonsilver Blade
 	["Back to {npc:248840} in the {area:228}'s lower part: he hands you the {item:268484}, a two-handed sword."] = "",
 
-	-- Step 16: Two-Handed Swords
+	-- Step 17: Two-Handed Swords
 	-- {npc:11870} Archibald · {zone:1458} Undercity · {object:36070} War Quarter · {spell:202} Two-Handed Swords
 	["The blade is a two-handed sword, and you need the skill to hit a level 25 elite with it. {npc:11870}, the weapon master in the {zone:1458}'s {object:36070}, teaches {spell:202} for a small fee; then swing it on easy mobs until the skill is near its cap (five points per level)."] = "",
 
-	-- Step 17: Old Fire-Eye
+	-- Step 18: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas
-	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "Equípate la {item:268484}. {quest:95140}, el gran huargen, recorre los bosques al sur de {area:228} hacia las puertas de {area:17065}. Es élite (nivel 25): la guía espera primero al nivel 22, y se recomienda ir en grupo; hay jugadores que lo han matado desde el 22: uno necesitó a un segundo jugador y otro lo mató en solitario a nivel 25. Un escudo morado lo protege hasta que acierte tu primer golpe con la hoja: un mensaje te avisa de que se ha roto.",
+	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 25 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "Equípate la {item:268484}. {quest:95140}, el gran huargen, recorre los bosques al sur de {area:228} hacia las puertas de {area:17065}. Es élite (nivel 25): la guía espera primero al nivel 25, y se recomienda ir en grupo; hay jugadores que lo han matado desde el 22: uno necesitó a un segundo jugador y otro lo mató en solitario a nivel 25. Un escudo morado lo protege hasta que acierte tu primer golpe con la hoja: un mensaje te avisa de que se ha roto.",
+	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
+	["{npc:259620}, the {area:228}"] = "{npc:259620}, {area:228}",
 	-- {quest:95140} Old Fire-Eye · {item:268484} Moonsilver Blade
 	["{quest:95140}, with the {item:268484} equipped"] = "",
 
-	-- Step 18: Wolfsbane
+	-- Step 19: Wolfsbane
 	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher · {item:268484} Moonsilver Blade · {item:267369} Wolfsbane
 	["Back to {npc:259620} in the {area:228} with the {item:268484} (the quest asks for it): she takes it and blesses it with the magic of her people into {item:267369}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "Equípate la {item:268484}. {quest:95140}, el gran huargen, recorre los bosques al sur de {area:228} hacia las puertas de {area:17065}. Es élite (nivel 25): la guía espera primero al nivel 22, y se recomienda ir en grupo; hay jugadores que lo han matado desde el 22: uno necesitó a un segundo jugador y otro lo mató en solitario a nivel 25. Un escudo morado lo protege hasta que acierte tu primer golpe con la hoja: un mensaje te avisa de que se ha roto.",
 	-- ["Free her with the key, then stay close while she fights her way out of the keep."] = "Libérala con la llave y quédate cerca mientras se abre paso luchando fuera del castillo.",
 	-- ["No item yet: a Forsaken paladin rescue story; its sequel, the {item:268484}, cannot be finished yet."] = "Aún sin objeto: una historia de rescate del paladín renegado; su continuación, la {item:268484}, todavía no se puede terminar.",
 	-- ["Once she is clear of {area:235}, Lumina waits for you in the {area:228}. Speak with her again to hear what really happened on the road."] = "Cuando salga de {area:235}, Lumina te espera en {area:228}. Habla de nuevo con ella para saber qué pasó realmente en el camino.",
@@ -128,7 +137,6 @@ return {
 	-- ["Ride south through {zone:1421} to the {area:228}. {npc:248840} stands in the town; {npc:259611} keeps watch near its entrance."] = "Cabalga hacia el sur por {zone:1421} hasta {area:228}. {npc:248840} está en el pueblo; {npc:259611} vigila cerca de la entrada.",
 	-- ["{area:172} lies in the lake east of the {area:228}. The charred remains are on its shore."] = "{area:172} está en el lago al este de {area:228}. Los restos calcinados están en su orilla.",
 	-- ["{item:267412}, from the {npc:14235} Hide gnolls"] = "{item:267412}, de los gnolls de {npc:14235}",
-	-- ["{npc:246378} leads the Paladins of Tyr's Watch from inside {area:16602}, on the bluffs north-west of the {area:156}."] = "{npc:246378} dirige a los Paladines de la Guardia de Tyr desde el interior de {area:16602}, en los riscos al noroeste de {area:156}.",
 	-- ["{quest:91862} is caged inside {area:235}, at the north end of the isle. The Rot Hide gnolls around her carry the key."] = "{quest:91862} está enjaulada dentro de {area:235}, en el extremo norte de la isla. Los gnolls Putrepellejo que la rodean llevan la llave.",
 	-- ["{quest:91862} is caged inside {area:235}, at the north end of the isle. {npc:14235} Hide gnolls around her carry the key."] = "{quest:91862} está enjaulada dentro de {area:235}, en el extremo norte de la isla. Los gnolls de {npc:14235} que la rodean llevan la llave.",
 	-- ["{zone:1458} and Earthen Ring reputation"] = "Reputación con {zone:1458} y el Anillo de la Tierra",

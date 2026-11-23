@@ -31,7 +31,7 @@ use crate::lexer::{js_trim, js_trim_end, lex_units, Lex, Tok, RE_WS};
 use crate::money::read_money;
 use crate::obj;
 use crate::re;
-use crate::when::{is_label, parse_when};
+use crate::when::{is_label, parse_when, read_standing_text, Standing};
 use crate::xp::level_point;
 
 /// ID_RE: slash-separated segments of a-z 0-9 _ -, none empty (an empty one would make a hidden `.lua` file).
@@ -61,54 +61,67 @@ pub const HEADER_KEYS: [&str; 20] =
 /// predicate holds, it jumps to the labelled step (resolve.rs, checkLabels).
 pub const STEP_KEYS: [&str; 10] = ["zone", "only", "tip", "image", "when", "label", "along", "background", "skipto", "loop"];
 
-// COMMON = text optional only group; COORDS = at map r frame (`frame` = the `era` / `live` modifiers).
+// COMMON = text optional only group either (`either`: one of a set in its step); COORDS = at map r frame (`frame` = the `era` / `live` modifiers).
 /// The modifiers each verb takes, in the JS object's order (VERBS is the verbs in this order).
-pub const MODS: [(&str, &[&str]); 32] = [
-	("accept", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "object", "item", "lvl"]),
+pub const MODS: [(&str, &[&str]); 36] = [
+	("accept", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "object", "item", "lvl"]),
 	// `reward`/`choose`/`xp`/`money`: what the turn-in pays, shown on the goal.
 	// `direct`: handed in straight from the NPC's window, with no accept.
-	("turnin", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "object", "reward", "choose", "xp", "money", "direct"]),
-	("complete", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
-	("abandon", &["text", "optional", "only"]),
-	("destroy", &["text", "optional", "only"]),
-	("kill", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count"]),
-	("collect", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count", "nearest", "anywhere"]),
-	("goto", &["text", "optional", "only", "group", "map", "r", "frame"]),
-	("talk", &["text", "optional", "only", "group", "at", "map", "r", "frame", "gossip", "quest"]),
-	("interact", &["text", "optional", "only", "group", "at", "map", "r", "frame", "quest"]),
-	("use", &["text", "optional", "only", "group", "at", "map", "r", "frame", "quest"]),
-	("sethome", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc"]),
-	("hearth", &["text", "optional", "only", "group"]),
+	("turnin", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "object", "reward", "choose", "xp", "money", "direct"]),
+	("complete", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame"]),
+	("abandon", &["text", "optional", "only", "either"]),
+	("destroy", &["text", "optional", "only", "either"]),
+	// `deposit <item> [xN]`: put the item in the bank (until the bags hold none, or the bank holds N).
+	("deposit", &["text", "optional", "only", "either", "at", "map", "r", "frame", "count"]),
+	// `equip <item>`: wear the item; with `off`, take it off.
+	("equip", &["text", "optional", "only", "either", "at", "map", "r", "frame", "off"]),
+	// `upto <N>`: on a quest objective goal, done at N of the objective's count (the rest is a later step's).
+	("kill", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "quest", "count", "upto"]),
+	// `gather [<Profession> <rank>] [levels <min>-<max>]`: this bag count is its item's gather way (a profession
+	// guide's material, which the section's `auction` goal buys instead when the player chooses to buy it).
+	("collect", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "quest", "count", "nearest", "anywhere", "gather", "upto"]),
+	("goto", &["text", "optional", "only", "group", "either", "map", "r", "frame"]),
+	("talk", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "gossip", "quest", "upto"]),
+	("interact", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "quest", "upto"]),
+	("use", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "quest", "upto"]),
+	("sethome", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc"]),
+	("hearth", &["text", "optional", "only", "group", "either"]),
 	// `die "<Graveyard>" @x,y`: die and take the Spirit Healer's resurrection there (a deathskip).
-	("die", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
-	("getfp", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc"]),
-	("fly", &["text", "optional", "only", "group"]),
+	("die", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame"]),
+	("getfp", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc"]),
+	("fly", &["text", "optional", "only", "group", "either"]),
 	// `enter "<Place>"`: be in that zone or area (the zone or subzone text); coordinates only point the arrow.
-	("enter", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
-	("train", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "gossip"]),
-	("buy", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "count", "nearest"]),
-	("vendor", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "gossip"]),
+	("enter", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame"]),
+	("train", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "gossip"]),
+	("buy", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "count", "nearest"]),
+	// `auction <item> xN`: buy it at the Auction House (the arrow: the nearest auctioneer of the player's faction);
+	// applies while the player gets the item by buying it (Core/Materials.lua).
+	("auction", &["text", "optional", "only", "count"]),
+	("vendor", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "gossip"]),
 	// `grind <npcId>`: the mob a level is reached on; the arrow leads to its nearest spawn area.
-	("level", &["text", "optional", "only", "group", "grind"]),
+	("level", &["text", "optional", "only", "group", "either", "grind"]),
 	// `money <amount>`: hold that much; `task "<text>"`: done when the player ticks it.
-	("money", &["text", "optional", "only"]),
-	("task", &["optional", "only", "at", "map", "r", "frame"]),
+	("money", &["text", "optional", "only", "either"]),
+	("task", &["optional", "only", "either", "at", "map", "r", "frame"]),
 	("note", &["optional", "only", "at", "map", "r", "frame"]),
-	("skill", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
-	("learn", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "item", "nearest"]),
+	// `skill <Profession> <N> nearest`: the step's `goto` points are its places; the arrow takes the nearest (#2529).
+	("skill", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "nearest"]),
+	("learn", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "item", "nearest"]),
 	// `cast <spellId> ["Name"]`: the player casts that spell while the goal is open.
-	("cast", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
-	("craft", &["text", "optional", "only", "group", "at", "map", "r", "frame", "count", "until"]),
-	("rep", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
-	("explore", &["text", "optional", "only", "group", "map", "r", "frame"]),
-	("achieve", &["text", "optional", "only", "group", "at", "map", "r", "frame", "criteria"]),
+	("cast", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame"]),
+	("craft", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "count", "until"]),
+	// `buff <spellId> ["Name"]`: have that aura; with `off`, be rid of it.
+	("buff", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "off"]),
+	("rep", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame"]),
+	("explore", &["text", "optional", "only", "group", "either", "map", "r", "frame"]),
+	("achieve", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "criteria"]),
 	// `wait <seconds> ["text"]`: done that long after the goals before it in the step are.
 	("wait", &["text", "optional", "only"]),
 ];
 /// Object.keys(MODS).
-pub const VERBS: [&str; 32] = [
-	"accept", "turnin", "complete", "abandon", "destroy", "kill", "collect", "goto", "talk", "interact", "use", "sethome", "hearth", "die", "getfp", "fly", "enter", "train", "buy", "vendor", "level",
-	"money", "task", "note", "skill", "learn", "cast", "craft", "rep", "explore", "achieve", "wait",
+pub const VERBS: [&str; 36] = [
+	"accept", "turnin", "complete", "abandon", "destroy", "deposit", "equip", "kill", "collect", "goto", "talk", "interact", "use", "sethome", "hearth", "die", "getfp", "fly", "enter", "train",
+	"buy", "auction", "vendor", "level", "money", "task", "note", "skill", "learn", "cast", "craft", "buff", "rep", "explore", "achieve", "wait",
 ];
 
 /// `MODS[verb]` (own properties only).
@@ -122,6 +135,7 @@ fn mod_label(m: &str) -> &str {
 		"count" => "xN",
 		"text" => "\"text\"",
 		"until" => "until <N>",
+		"upto" => "upto <N>",
 		"criteria" => "criteria <n>",
 		"frame" => "era`/`live",
 		"xp" => "xp <N>",
@@ -131,9 +145,9 @@ fn mod_label(m: &str) -> &str {
 		_ => m,
 	}
 }
-pub const MOD_WORDS: [&str; 23] = [
-	"map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "anywhere", "reward", "choose", "xp", "money", "group", "direct", "gossip",
-	"grind",
+pub const MOD_WORDS: [&str; 27] = [
+	"map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "anywhere", "gather", "reward", "choose", "xp", "money", "group", "direct",
+	"gossip", "grind", "either", "off", "upto",
 ];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN: f64 = 2.0;
@@ -143,8 +157,9 @@ const GROUP_MAX: f64 = 40.0;
 pub const QUALITIES: [&str; 8] = ["poor", "common", "uncommon", "rare", "epic", "legendary", "artifact", "heirloom"];
 /// Profession ranks in trainer order (rank 1..4).
 pub const RANKS: [&str; 4] = ["apprentice", "journeyman", "expert", "artisan"];
-/// Reputation standings as the client numbers them (1 Hated .. 8 Exalted).
-pub const STANDINGS: [(&str, f64); 8] = [("hated", 1.0), ("hostile", 2.0), ("unfriendly", 3.0), ("neutral", 4.0), ("friendly", 5.0), ("honored", 6.0), ("revered", 7.0), ("exalted", 8.0)];
+/// Reputation standings as the client numbers them (1 Hated .. 8 Exalted): when.rs reads them for
+/// the `rep` goal and the `rep` predicate alike.
+pub use crate::when::STANDINGS;
 
 struct Cx<'a> {
 	file: &'a str,
@@ -226,18 +241,11 @@ fn is_modifier_token(tok: Option<&Tok>) -> bool {
 	MOD_WORDS.contains(&w.as_str()) || w.starts_with('@') || w.strip_prefix('x').is_some_and(is_int)
 }
 
-/// A standing token -> Some(Ok(value)) | Some(Err(error)) | None (not a standing at all).
-fn read_standing(tok: Option<&Tok>) -> Option<Result<f64, String>> {
+/// A standing token (`Revered`, `7`, `Revered+12000`: that many points into the standing)
+/// -> Some(Ok(standing)) | Some(Err(error)) | None (not a standing at all).
+fn read_standing(tok: Option<&Tok>) -> Option<Result<Standing, String>> {
 	let tok = tok.filter(|t| !t.quoted)?;
-	let word = tok.text.to_lowercase();
-	if let Some((_, v)) = STANDINGS.iter().find(|(k, _)| *k == word) {
-		return Some(Ok(*v));
-	}
-	if !is_int(&tok.text) {
-		return None;
-	}
-	let n = str_to_num(&tok.text);
-	Some(if (1.0..=8.0).contains(&n) { Ok(n) } else { Err(format!("standing {} is out of range (1-8, or Hated..Exalted)", tok.text)) })
+	read_standing_text(&tok.text)
 }
 
 /// Unquoted words up to (not including) the first token `stop` accepts.
@@ -490,7 +498,8 @@ pub fn parse_guide(text: &str, file: &str, diag: &mut Diagnostics) -> V {
 				cx.err(ln, format!("unknown header key \"{}\"", toks[0].text), Some(&format!("header keys: {}", HEADER_KEYS.join(", "))));
 				continue;
 			}
-			let repeatable = matches!(kw_s, "pro" | "con" | "reward" | "next");
+			// `levels` repeats only as one plain line plus one per faction (parse_header checks).
+			let repeatable = matches!(kw_s, "pro" | "con" | "reward" | "next" | "levels");
 			let lines_o = guide.get("lines");
 			if lines_o.get(kw_s).truthy() && !repeatable {
 				cx.err(ln, format!("duplicate header key `{kw_s}` (first on line {})", lines_o.get(kw_s).to_js_string()), None);
@@ -656,6 +665,22 @@ pub fn parse_guide(text: &str, file: &str, diag: &mut Diagnostics) -> V {
 			cx.err(gline, format!("missing required header `{key}`"), None);
 		}
 	}
+	// `levels <min>-<max> <Faction>`: for a guide both factions play, each faction's range, or the plain one for the other.
+	let h = guide.get("header");
+	let by = h.get("factionLevels");
+	if by.truthy() {
+		let at = lines_o.get("levelsAt");
+		let first = by.keys().iter().map(|f| at.get(f).num()).fold(f64::INFINITY, f64::min);
+		let both = by.get("Alliance").truthy() && by.get("Horde").truthy();
+		if h.get("faction").truthy() {
+			cx.err(first, format!("a guide for one faction (`faction {}`) has one level range: write `levels <min>-<max>`", h.get("faction").to_js_string()), None);
+		} else if !h.get("levels").truthy() && !both {
+			let other = if by.get("Alliance").truthy() { "Horde" } else { "Alliance" };
+			cx.err(first, format!("`levels` for one faction only: add `levels <min>-<max> {other}`, or a plain `levels <min>-<max>` for {other}"), None);
+		} else if h.get("levels").truthy() && both {
+			cx.err(at.get("plain").num(), "plain `levels` is unused: both factions have their own `levels <min>-<max> Alliance|Horde`", None);
+		}
+	}
 	let steps = guide.get("steps").items();
 	if steps.is_empty() {
 		cx.err(gline, "guide has no steps", None);
@@ -813,16 +838,49 @@ fn parse_header(guide: &V, kw: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut 
 			push_to(&guide.get("lines"), key, ln);
 		}
 		"levels" => {
-			let m = re!(r"^([0-9]+){RE_WS}*-{RE_WS}*([0-9]+)$").captures(&rest);
+			// `levels <min>-<max>`, or `levels <min>-<max> Alliance|Horde`: the levels the route brings that
+			// faction's characters here at, for a guide both factions play (checked after the header).
+			let m = re!(r"^([0-9]+){RE_WS}*-{RE_WS}*([0-9]+)(?:{RE_WS}+([A-Za-z]+))?$").captures(&rest);
 			let ok = m.as_ref().filter(|m| {
 				let a = str_to_num(&m[1]);
 				!(a < 1.0 || a > str_to_num(&m[2]))
 			});
 			let Some(m) = ok else {
-				cx.err(ln, format!("malformed levels \"{rest}\" (expected <min>-<max>, min ≤ max)"), None);
+				cx.err(ln, format!("malformed levels \"{rest}\" (expected <min>-<max> [Alliance|Horde], min ≤ max)"), None);
 				return;
 			};
-			h.set("levels", obj! { "min" => str_to_num(&m[1]), "max" => str_to_num(&m[2]) });
+			// Where each was given (`plain`, `Alliance`, `Horde`), for the checks after the header.
+			let lines_o = guide.get("lines");
+			if !lines_o.get("levelsAt").truthy() {
+				lines_o.set("levelsAt", V::obj());
+			}
+			let at = lines_o.get("levelsAt");
+			let side = match m.get(3) {
+				None => "plain",
+				Some(s) => match faction(&s.as_str().to_lowercase()) {
+					Some(f) => f,
+					None => {
+						cx.err(ln, format!("`levels` names a faction: Alliance or Horde, not \"{}\"", s.as_str()), None);
+						return;
+					}
+				},
+			};
+			if at.get(side).truthy() {
+				let first = at.get(side).to_js_string();
+				let msg = if side == "plain" { format!("duplicate header key `levels` (first on line {first})") } else { format!("duplicate `levels ... {side}` (first on line {first})") };
+				cx.err(ln, msg, None);
+				return;
+			}
+			at.set(side, ln);
+			let range = obj! { "min" => str_to_num(&m[1]), "max" => str_to_num(&m[2]) };
+			if side == "plain" {
+				h.set("levels", range);
+				return;
+			}
+			if !h.get("factionLevels").truthy() {
+				h.set("factionLevels", V::obj());
+			}
+			h.get("factionLevels").set(side, range);
 		}
 		"zone" => {
 			if let Some(spec) = parse_zone_spec(line, lex, ln, cx) {
@@ -973,7 +1031,7 @@ fn parse_positional(verb: &str, goal: &V, toks: &[Tok], line: &[u16], lex: &Lex,
 			}
 			Some(i)
 		}
-		"collect" | "use" | "destroy" | "buy" => {
+		"collect" | "use" | "destroy" | "deposit" | "equip" | "buy" | "auction" => {
 			if t.is_none() {
 				fail!(format!("`{verb}` needs an item id"));
 			}
@@ -1156,7 +1214,7 @@ fn parse_positional(verb: &str, goal: &V, toks: &[Tok], line: &[u16], lex: &Lex,
 				}
 			}
 		}
-		"learn" | "craft" | "cast" => {
+		"learn" | "craft" | "buff" | "cast" => {
 			if t.is_none() {
 				fail!(format!("`{verb}` needs a spell id"));
 			}
@@ -1196,8 +1254,11 @@ fn parse_positional(verb: &str, goal: &V, toks: &[Tok], line: &[u16], lex: &Lex,
 					None => usage.to_string(),
 				}),
 				Some(Err(e)) => fail!(e),
-				Some(Ok(v)) => {
-					goal.set("standing", v);
+				Some(Ok(s)) => {
+					goal.set("standing", s.value);
+					if s.points > 0.0 {
+						goal.set("points", s.points);
+					}
 					Some(i + 1)
 				}
 			}
@@ -1461,9 +1522,56 @@ fn parse_goal(verb: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Opti
 				i += 1;
 				continue;
 			}
+			"gather" => {
+				use_!("gather");
+				goal.set("gather", true);
+				i += 1;
+				// What the gather way takes: `gather <Profession> <rank>` (Herbalism for a herb, Mining to smelt a
+				// bar, Skinning for leather, Enchanting for dust) and `gather levels <min>-<max>` (the mobs it drops
+				// from as the player levels: cloth, meat). Either, both (the profession first) or neither.
+				let rank = toks.get(i + 1).filter(|t| !t.quoted && is_int(&t.text));
+				if let (Some(p), Some(rk)) = (toks.get(i), rank) {
+					if p.quoted || !is_modifier_token(Some(p)) {
+						if str_to_num(&rk.text) <= 0.0 {
+							fail!(format!("malformed skill rank \"{}\" after `gather {}`", rk.text, p.text));
+						}
+						goal.set("gatherSkill", p.text.as_str());
+						if p.quoted {
+							goal.set("gatherSkillQuoted", true);
+						}
+						goal.set("gatherRank", str_to_num(&rk.text));
+						i += 2;
+					}
+				}
+				if toks.get(i).is_some_and(|t| !t.quoted && t.text.to_lowercase() == "levels") {
+					let tk = toks.get(i + 1);
+					let range = tk.filter(|t| !t.quoted).and_then(|t| t.text.split_once('-')).filter(|(a, b)| is_int(a) && is_int(b)).map(|(a, b)| (str_to_num(a), str_to_num(b)));
+					match range {
+						Some((lo, hi)) if lo >= 1.0 && hi > lo => {
+							goal.set("gatherMin", lo);
+							goal.set("gatherMax", hi);
+						}
+						_ => fail!(format!("malformed level range \"{}\" (write `gather levels <min>-<max>`, e.g. `gather levels 15-30`)", tok_text(tk))),
+					}
+					i += 2;
+				}
+				continue;
+			}
 			"optional" => {
 				use_!("optional");
 				goal.set("optional", true);
+				i += 1;
+				continue;
+			}
+			"either" => {
+				use_!("either");
+				goal.set("either", true);
+				i += 1;
+				continue;
+			}
+			"off" => {
+				use_!("off");
+				goal.set("off", true);
 				i += 1;
 				continue;
 			}
@@ -1471,6 +1579,13 @@ fn parse_goal(verb: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Opti
 				use_!("direct");
 				goal.set("direct", true);
 				i += 1;
+				continue;
+			}
+			"upto" => {
+				use_!("upto");
+				let v = int_arg(i + 1, "count", cx)?;
+				goal.set("upto", v);
+				i += 2;
 				continue;
 			}
 			"gossip" => {

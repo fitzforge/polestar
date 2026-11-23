@@ -16,6 +16,7 @@
 //
 //   art.dir() -> the folder (created, with an empty maps.json)
 //   await art.pull([fid | atlas element | interface path, ...], { offline }) -> { got, missing }
+//   art.addMaps({ [uiMapID]: { artID, layer, textures } }) -> [uiMapID, ...] written into maps.json
 //   art.importDir(dir) -> counts      (an older cache: tools/preview's POLESTAR_CLIENT_ART, ...)
 //   art.status() -> { dir, textures, atlases, files, maps, fonts }
 
@@ -104,6 +105,19 @@ async function pull(names, { offline = false } = {}) {
 	return { got: [...want].filter((fid) => has(d, fid)), missing };
 }
 
+// Writes the client's zone paintings (clientdata.zoneArt's maps) into
+// maps.json over what the cache held for those maps. -> the uiMapIDs written
+function addMaps(maps) {
+	const file = path.join(dir(), 'maps.json');
+	const cached = readJson(file, {});
+	const changed = Object.keys(maps).filter((id) => JSON.stringify(cached[id]) !== JSON.stringify(maps[id]));
+	if (changed.length) {
+		for (const id of changed) cached[id] = maps[id];
+		fs.writeFileSync(file, JSON.stringify(cached));
+	}
+	return changed;
+}
+
 // Copies another cache's textures, fonts and tables in (reflinked where the
 // file system can), and merges its maps/atlases/files lists.
 function importDir(src) {
@@ -145,4 +159,4 @@ function font(name) {
 	return fs.existsSync(f) ? f : null;
 }
 
-module.exports = { dir, pull, importDir, status, font, readJson, has, BUILD };
+module.exports = { dir, pull, addMaps, importDir, status, font, readJson, has, BUILD };

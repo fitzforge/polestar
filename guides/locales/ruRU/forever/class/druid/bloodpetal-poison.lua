@@ -11,7 +11,7 @@ return {
 
 	-- Step 1: Loganaar
 	-- {spell:18960} Teleport: Moonglade · {npc:12042} Loganaar · {area:2361} Nighthaven · {npc:3033} Turak Runetotem · {npc:4217} Mathrengyl Bearwalker · {zone:1453} Stormwind
-	["Cast {spell:18960}. {npc:12042} stands in {area:2361}; your class trainer ({npc:3033}, {npc:4217} or Theridran in {zone:1453}) offers the same quest."] = "",
+	["Cast {spell:18960}. {npc:12042} stands in {area:2361}; your class trainer ({npc:3033}, {npc:4217} or Theridran in {zone:1453}) offers the same quest."] = "Примените {spell:18960}. {npc:12042} стоит здесь: {area:2361}; ваш учитель класса ({npc:3033}, {npc:4217} или Теридран в городе {zone:1453}) дает то же задание.",
 
 	-- Step 2: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
@@ -26,13 +26,14 @@ return {
 	["Eight of each. The Gorishi Wasps and Stingers (level 51-52) in and around the {area:540}, the hive in the south-west of the crater, drop a sting about one kill in seven; the wasps share spawn points with the other bugs, so kill whatever stands near you to make room for more wasps (respawn five minutes). The bugs' {spell:8137} makes you take more physical damage for 30 minutes; Workers call for help when hurt. The Bloodpetal Sprouts grow all over the crater (around {area:541} and the western half): open them, about every other one gives a {item:22434}, back in three to five minutes."] = "",
 
 	-- Step 5: Toxic Test
-	-- {npc:6498} Devilsaur · {spell:14099} Mighty Blow · {spell:339} Entangling Roots · {item:22432} Devilsaur Barb · {spell:2637} Hibernate · {npc:6499} Ironhide Devilsaur · {npc:9619} Torwa Pathfinder
-	-- plural, as words: Tyrant Devilsaurs = {npc:6500} Tyrant Devilsaur · Devilsaurs = {npc:6498} Devilsaur
-	["Any {npc:6498} counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "",
-	-- {npc:6498} Devilsaur · {item:22432} Devilsaur Barb
-	["{npc:6498}: stab it with the {item:22432}"] = "{npc:6498}: уколите его ({item:22432})",
-	-- {npc:6498} Devilsaur · {item:22432} Devilsaur Barb
-	["Stab a {npc:6498} with the {item:22432}"] = "",
+	-- {spell:14099} Mighty Blow · {spell:339} Entangling Roots · {item:22432} Devilsaur Barb · {spell:2637} Hibernate · {npc:6499} Ironhide Devilsaur · {npc:9619} Torwa Pathfinder
+	-- plural, as words: Tyrant Devilsaurs = {npc:6500} Tyrant Devilsaur
+	["Any Devilsaur counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "",
+	-- {item:22432} Devilsaur Barb
+	-- was: ["{npc:6498}: stab it with the {item:22432}"] = "{npc:6498}: уколите его ({item:22432})"
+	["Devilsaur: stab it with the {item:22432}"] = "",
+	-- {item:22432} Devilsaur Barb
+	["Stab a Devilsaur with the {item:22432}"] = "",
 
 	-- Step 7: The Sunken Temple
 	-- {area:1417} Sunken Temple
@@ -47,9 +48,9 @@ return {
 	["{npc:9619}: the old item choice may be gone, count on the experience"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Cast {spell:18960}. {npc:12042} stands in {area:2361}; your class trainer offers the same quest."] = "Примените {spell:18960}. {npc:12042} стоит здесь: {area:2361}; ваш учитель класса дает то же задание.",
 	-- ["Experience in Un'Goro at 50 and two healing potions; Forever removed the Classic item choice."] = "Опыт в Кратере Ун'Горо на 50-м уровне и два лечебных зелья; в Forever убрали выбор предмета из Classic.",
 	-- ["The Gorishi wasps, workers and reavers of the hive in the south of the crater drop the stings; the Bloodpetal Sprouts that give the {item:22434} grow all over the crater's western half."] = "Осы, рабочие и разорители из улья Гориши на юге кратера оставляют жала; побеги кровоцвета, дающие {item:22434}, растут по всей западной половине кратера.",
 	-- ["Use the {item:22432} on a {npc:6498}. Devilsaurs are elite (level 54-55) and roam the crater: grouping up is advised."] = "Используйте {item:22432} на цели {npc:6498}. Девизавры — элитные (уровень 54-55) и бродят по кратеру: лучше собрать группу.",
 	-- ["{area:1477} lies in the {area:74} in the {zone:1435}. {npc:8580} guards the bottom of the temple: a dungeon boss, so bring a group."] = "{area:1477} находится здесь: {area:74} ({zone:1435}). {npc:8580} охраняет дно храма: это босс подземелья, так что возьмите группу.",
+	-- ["{npc:6498}: stab it with the {item:22432}"] = "{npc:6498}: уколите его ({item:22432})",
 }

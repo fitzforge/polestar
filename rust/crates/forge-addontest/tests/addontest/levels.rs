@@ -74,7 +74,8 @@ fn quests_in_turn_in_order_carry_the_character_over_a_level_the_client_s_xp_to_l
 
 #[test]
 fn a_quest_far_below_gives_its_share_at_the_level_reached_when_it_is_turned_in() {
-	// At 26 the level 17 quest is 9 below: 20%. The level 20 one is 6 below: 80%.
+	// At 26 the level 17 quest is 9 below: half, Forever's floor from 8 below (players' recordings,
+	// forge-sim's xp::SHARE test). The level 20 one is 6 below: 80%.
 	let s = run(
 		json!({ "level": 26, "xp": 0, "class": "MAGE", "faction": "Alliance" }),
 		json!([
@@ -84,7 +85,7 @@ fn a_quest_far_below_gives_its_share_at_the_level_reached_when_it_is_turned_in()
 		]),
 		&[],
 	);
-	assert_eq!(s["xp"], 200 + 800 + 1000);
+	assert_eq!(s["xp"], 500 + 800 + 1000);
 	assert_eq!(s["reduced"], 2);
 	assert_eq!(s["quests"], 3);
 	// The order counts: a level gained on the way reduces what comes after.
@@ -114,6 +115,37 @@ fn done_quests_another_class_s_and_those_with_no_xp_known_are_left_out_and_count
 	);
 	assert_eq!(s["xp"], 1000);
 	assert_eq!(json!([s["quests"], s["done"], s["other"], s["unknown"]]), json!([1, 1, 1, 1]));
+}
+
+// A quest the character may not take by class or race (Dungeons.QuestFor's verdict, which reads the Codex
+// masks the page greys it out by) is left out like another class's, not counted in the dungeon's XP.
+#[test]
+fn a_blocked_quest_is_left_out_like_another_class_s() {
+	let s = run(
+		json!({ "level": 20, "xp": 0, "class": "DRUID", "faction": "Horde" }),
+		json!([
+			{ "id": 1, "level": 20, "xp": 1000 },
+			{ "id": 2, "level": 20, "xp": 1000, "blocked": true }
+		]),
+		&[],
+	);
+	assert_eq!(s["xp"], 1000);
+	assert_eq!(json!([s["quests"], s["other"]]), json!([1, 1]));
+}
+
+#[test]
+fn quests_named_a_group_are_summed_per_group_with_the_highest_min_level() {
+	let s = run(
+		json!({ "level": 20, "xp": 0, "class": "DRUID", "faction": "Horde" }),
+		json!([
+			{ "id": 1, "level": 20, "xp": 1000, "group": "ready" },
+			{ "id": 2, "level": 22, "xp": 700, "group": "level", "minLevel": 21 },
+			{ "id": 3, "level": 23, "xp": 800, "group": "level", "minLevel": 22 },
+			{ "id": 4, "level": 20, "xp": null, "group": "ready" }
+		]),
+		&[],
+	);
+	assert_eq!(s["groups"], json!({ "ready": { "n": 1, "xp": 1000 }, "level": { "n": 2, "xp": 1500, "need": 22 } }));
 }
 
 #[test]
@@ -290,7 +322,42 @@ fn a_stray_drop_chance_beside_a_dropper_with_none_known_is_not_estimated_1697() 
 	assert_eq!(s["kills"], 50 + 50 + 50 + 10);
 }
 
-// A step change moves every span's start (the pace line, its hard-quest look, While-here's planned levels): the
+// Badlands' Lotwil takes a Frost Oil only from a player who carries one: the step shows only while the bags hold it
+// (`when has`), and nothing is farmed for it. Its one dropper at 0.02% made it "5,000 kills" and the 38-39 guide
+// "ends at 50". A step's `when has` covers that many of a loot goal's items; the rest still count, and a `!has`
+// covers none.
+#[test]
+fn a_loot_goal_for_items_the_step_s_when_has_needs_in_the_bags_asks_no_kills_for_them() {
+	let s = lua(&[
+		r#"
+local guide = { id = "carry", minLevel = 38, steps = {
+	{ when = { { k = "has", n = 1, item = 700 } }, goals = { { t = "collect", quest = 40, oi = 1, item = 700, count = 1 } } },
+	{ when = { { k = "has", n = 3, item = 701 } }, goals = { { t = "collect", quest = 41, oi = 1, item = 701, count = 5 } } },
+	{ when = { { k = "has", n = 1, item = 702, neg = true } }, goals = { { t = "collect", quest = 42, oi = 1, item = 702, count = 1 } } },
+	{ when = { { k = "has", n = 1, item = 700 } }, goals = { { t = "collect", quest = 43, oi = 1, item = 703, count = 2 } } },
+} }
+Polestar.Guides.Get = function(id) return id == "carry" and guide or nil end
+local NPCS = { [200] = { level = 38 } }
+local ITEMS = {
+	[700] = { sources = { { type = "drop", npc = 200, chance = 0.02 } } },
+	[701] = { sources = { { type = "drop", npc = 200, chance = 50 } } },
+	[702] = { sources = { { type = "drop", npc = 200, chance = 50 } } },
+	[703] = { sources = { { type = "drop", npc = 200, chance = 20 } } },
+}
+Polestar.Codex = { IsLoaded = function() return true end, Quest = function() return nil end,
+	Npc = function(id) return NPCS[id] end, Item = function(id) return ITEMS[id] end }
+"#,
+		r#"emit(Lv.ForGuide("carry", { level = 38, xp = 0, class = "WARRIOR", race = "Orc", faction = "Horde" }))"#,
+	]
+	.join("\n"))
+	.remove(0);
+	// 700: carried, none (not 5,000). 701: 3 of 5 carried, 2 / 50% = 4. 702: `!has`, 1 / 50% = 2. 703: another
+	// item than the one carried, 2 / 20% = 10.
+	assert_eq!(s["killsUnknown"], 0);
+	assert_eq!(s["kills"], 4 + 2 + 10);
+}
+
+// A step change moves every span's start (the pace line, While-here's planned levels): the
 // steps' Codex records are read once per guide and character, and a span from any start sums the same as one
 // worked out afresh. A quest done since still counts when the span is asked again.
 #[test]
@@ -393,7 +460,7 @@ fn pace_a_kill_s_xp_reruns_the_sums_a_turn_in_or_a_level_sums_again_from_the_rec
 		r#"local reads = 0
 local quest = Polestar.Codex.Quest
 Polestar.Codex.Quest = function(id) reads = reads + 1 return quest(id) end
-local function line(s) return { s.reach, s.short, s.xp, s.hard and s.hard.quest or false } end
+local function line(s) return { s.reach, s.short, s.xp } end
 local first = Lv.Pace(p)
 local scan = reads
 p.xp = p.xp + 300
@@ -440,7 +507,7 @@ fn pace_on_target_for_a_level_goal_ahead_nothing_hard_before_it() {
 	assert_eq!(out["bars"], 0, "on pace");
 	assert_eq!(out["short"], 0);
 	assert_eq!(out["xp"], 0);
-	assert!(out["hard"].is_null(), "quests at 20 and 21 before step 4 are not hard for a level 19");
+	assert!(out["hard"].is_null(), "the pace line names no quest (#3438)");
 	assert!((out["reach"].as_f64().unwrap() - (19.0 + 19050.0 / 19400.0)).abs() < 1e-9);
 }
 
@@ -458,7 +525,7 @@ fn pace_behind_with_a_level_goal_coming_says_how_far_and_that_its_step_grinds_it
 }
 
 #[test]
-fn pace_behind_with_no_grind_step_measures_against_the_guide_s_end_level_and_names_the_quest_that_will_be_too_hard() {
+fn pace_behind_with_no_grind_step_measures_against_the_guide_s_end_level() {
 	let out = lua(&[RIDGE, "emit(Lv.Pace(p))"].join("\n")).remove(0);
 	// No `level` goal: the guide's own end, level 24 (its `levels` top) at its last step. All three quests'
 	// 7,500 XP: 14,550 + 7,500 = 22,050, over the 19,400 of 19 into 20 by 2,650 of 23,200.
@@ -469,28 +536,8 @@ fn pace_behind_with_no_grind_step_measures_against_the_guide_s_end_level_and_nam
 	assert!((out["reach"].as_f64().unwrap() - reach).abs() < 1e-9);
 	assert!((out["short"].as_f64().unwrap() - (24.0 - reach)).abs() < 1e-9);
 	assert_eq!(out["xp"], (23200 - 2650) + LEVEL_XP[21] as i64 + LEVEL_XP[22] as i64 + LEVEL_XP[23] as i64);
-	// Step 4's level 25 escort: the route has you at 19.98 there, 6 levels under it; 23 makes it doable.
-	let hard = &out["hard"];
-	assert_eq!(hard["quest"], 25);
-	assert_eq!(hard["title"], "Missing In Action");
-	assert_eq!(hard["level"], 25);
-	assert_eq!(hard["step"], 4);
-	assert_eq!(hard["need"], 23);
-	assert_eq!(hard["xp"], xp_from_19_050(23));
-	assert!((hard["reach"].as_f64().unwrap() - (19.0 + 19050.0 / 19400.0)).abs() < 1e-9);
-	// Taken earlier (an accept alone at step 2): the line still points at step 4, which does it; step 2 says no
-	// quest level (Fitz, 0.3.6: taking a quest above your level early is normal).
-	let early = lua(&[
-		RIDGE,
-		r#"table.insert(guide.steps[2].goals, { t = "accept", quest = 25, qlvl = 25, title = "Missing In Action" })
-local s = Lv.Pace(p)
-local h = Lv.StepHint(2, p)
-emit({ step = s.hard.step, hint = h and h.level or false })"#,
-	]
-	.join("\n"))
-	.remove(0);
-	assert_eq!(early, json!({ "step": 4, "hint": false }));
-	// Done already: nothing hard is left, the gap to 24 still shows.
+	// Step 4's level 25 escort, 6 over where the route has you there: the line names no quest (#3438), done or not.
+	assert!(out["hard"].is_null(), "{out}");
 	let left = lua(&[RIDGE, "done[25] = true\nlocal s = Lv.Pace(p)\nemit({ hard = s.hard == nil, kind = s.kind, bars = s.bars })"].join("\n")).remove(0);
 	assert_eq!(left, json!({ "hard": true, "kind": "end", "bars": 81 }), "19.98 to 24: 4.02 levels, 81 bars");
 	// Not a leveling guide, no `level` goal ahead: no target, no line.
@@ -498,51 +545,22 @@ emit({ step = s.hard.step, hint = h and h.level or false })"#,
 	assert_eq!(other, true);
 }
 
+// #3438 (Foomix, 0.4.2): "Level 38 quest: you're 35.7" on a normal Stranglethorn step read as a warning, and the pace
+// line's "On pace, but <quest> (38) at step 13 is hard" said the same. Polestar doesn't tell players what level a
+// quest is: no step line (Levels.StepHint is gone) and no hard quest on the pace line, even for a level 25 escort a
+// level 19 works on (step 4) or a delivery (#1333's Calling in the Reserves).
 #[test]
-fn a_step_whose_quest_is_three_or_more_levels_over_the_character_says_so() {
-	let out = lua(&[
-		RIDGE,
-		r#"emit({ escort = Lv.StepHint(4, p), two = Lv.StepHint(2, p) == nil, handIn = Lv.StepHint(5, p) == nil })
-done[25] = true
-emit(Lv.StepHint(4, p) == nil)"#,
-	]
-	.join("\n"));
-	assert_eq!(out[0]["escort"]["level"], 25);
-	assert_eq!(out[0]["escort"]["quest"], 25);
-	assert_eq!(out[0]["escort"]["title"], "Missing In Action");
-	assert_eq!(out[0]["escort"]["you"], 19.75);
-	assert_eq!(out[0]["two"], true, "a level 21 quest is 2 over a level 19: no hint");
-	assert_eq!(out[0]["handIn"], true, "handing a quest in is never hard");
-	assert_eq!(out[1], true, "a done quest: no hint");
-}
-
-// #1333: Calling in the Reserves (level 28) is a delivery: taken at Sun Rock, handed in at the Great Lift. Its step
-// said "Level 28 quest" in red to everyone. A quest with no work (no objective goal in the guide, none in the
-// Codex) never counts as hard; one whose work the Codex lists (done in another guide) does for the pace line,
-// though its accept-only step says no quest level (Fitz, 0.3.6).
-#[test]
-fn a_delivery_s_level_gives_no_hint_a_quest_with_work_elsewhere_still_does_1333() {
+fn no_step_says_a_quest_s_level_and_the_pace_line_names_no_hard_quest_3438() {
 	let out = lua(&[
 		RIDGE,
 		r#"table.insert(guide.steps[2].goals, { t = "accept", quest = 26, qlvl = 28, title = "Calling in the Reserves" })
 table.insert(guide.steps[5].goals, { t = "turnin", quest = 26 })
-table.insert(guide.steps[3].goals, { t = "accept", quest = 27, qlvl = 23, title = "Work Elsewhere" })
-CODEX[26] = { level = 28, xp = 1000, objectives = {} }
-CODEX[27] = { level = 23, xp = 1000, objectives = { { type = "monster", id = 1, count = 8 } } }
-local d, w = Lv.StepHint(2, p), Lv.StepHint(3, p)
-local pace = Lv.Pace(p).hard.quest
--- Its work on step 3 (as the Codex has it elsewhere): that step hints.
-table.insert(guide.steps[3].goals, { t = "kill", target = "Raider", count = 8, quest = 27, oi = 1 })
-local k = Lv.StepHint(3, p)
-emit({ delivery = d and d.quest or false, elsewhere = w and w.quest or false, work = k and k.quest or false, pace = pace })"#,
+local s = Lv.Pace(p)
+emit({ stepHint = Lv.StepHint ~= nil, hard = s.hard ~= nil, kind = s.kind })"#,
 	]
 	.join("\n"))
 	.remove(0);
-	assert_eq!(
-		out,
-		json!({ "delivery": false, "elsewhere": false, "work": 27, "pace": 25 }),
-		"no hint for the delivery or an accept; work on the quest hints; the pace line still points at the escort"
-	);
+	assert_eq!(out, json!({ "stepHint": false, "hard": false, "kind": "end" }));
 }
 
 #[test]

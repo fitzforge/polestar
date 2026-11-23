@@ -11,8 +11,6 @@ return {
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "Sigue el camino hacia el oeste pasando por {area:460} (Horda) y hacia el suroeste por {area:465} hasta {zone:1443}; {area:608} está en lo alto del paso.",
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638}: el cofre del naufragio está debajo de la torre de {npc:11863}, de camino a {area:599}",
-	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
-	["{npc:5396}, beside {npc:5752}"] = "{npc:5396}, junto a {npc:5752}",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "Cofre de los Malem",
@@ -22,11 +20,15 @@ return {
 	-- Step 3: Sargeron
 	-- {area:603} Sargeron · {area:608} Nijel's Point
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
-	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "",
+	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "Los sátiros Odio Feroz ocupan las ruinas de {area:603}, al este de {area:608}.\nCuidado: Los pícaros Odio Feroz aparecen en sigilo, y los embaucadores Odio Feroz envenenan con sus ataques.",
 
 	-- Step 5: Nijel's Point
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
-	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
+	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "{npc:5642}: el Filo Ardiente en {area:599}, adonde lleva su búsqueda",
+	-- {npc:5752} Corporal Melkins
+	["{npc:5752}: the Kolkar are at the end of this guide"] = "{npc:5752}: los Kolkar están al final de esta guía",
+	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
+	["{npc:5396}, beside {npc:5752}"] = "{npc:5396}, junto a {npc:5752}",
 
 	-- Step 6: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
@@ -37,61 +39,112 @@ return {
 	["The wrecked ship lies just south-west of {npc:11863}'s tower; its chest sits beside {object:177787}."] = "El barco naufragado está justo al suroeste de la torre de {npc:11863}; su cofre está junto a {object:177787}.",
 	-- {npc:5638} Kreldig Ungor
 	["For {npc:5638}, at the end of this guide"] = "Para {npc:5638}, al final de esta guía",
+	-- {object:177787} Rackmore's Log
+	["{object:177787}, beside the chest: its two keys drop only while you have the quest"] = "",
 
-	-- Step 8: Dalinda Malem
-	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point
-	["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644} se esconde dentro de la fortaleza del Filo Ardiente, al suroeste de {area:608}.",
-	["Inside"] = "",
+	-- Step 8: Rackmore's Silver Key
+	-- {item:15878} Rackmore's Silver Key
+	-- plural, as words: Drysnap Crawlers = {npc:11562} Drysnap Crawler
+	["West to the shore: the Drysnap Crawlers and Pincers (33-35) on the beach and the clam beds around the wreck carry {item:15878}, about one in seven."] = "",
+	-- {item:15878} Rackmore's Silver Key
+	["{item:15878}, from the Drysnap crabs"] = "{item:15878}, de los cangrejos Secachasquido",
 
-	-- Step 9: Tyranis Malem and the Seer
+	-- Step 9: Sar'theris Strand
+	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key
+	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it. Work the Naga, Sorceresses and Warriors (32-34) of the strand's southern half until it drops.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), and Tidehunters (36-37) swim off the northern tip: on the way to the chest, keep to the beach and swim straight across."] = "",
+	-- {item:15881} Rackmore's Golden Key
+	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, de los naga Filozante",
+
+	-- Step 10: Rackmore's Chest
+	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
+	["Swim out to {area:2406} off the far northern tip: {object:177786} stands on the shore beside the {object:177673}. Open it with both keys; leave the statue alone."] = "Nada hasta {area:2406}, frente a la punta norte: {object:177786} está en la orilla junto a {object:177673}. Ábrelo con ambas llaves; no toques la estatua.",
+
+	-- Step 11: Dalinda Malem
+	-- {npc:11863} Azore Aldamort · {npc:5644} Dalinda Malem
+	["Back south-east past {npc:11863}'s tower to the Burning Blade's fortress: {npc:5644} hides inside it."] = "",
+	["Inside"] = "Adentro",
+
+	-- Step 12: Tyranis Malem and the Seer
 	-- {npc:5643} Tyranis Malem
 	["{npc:5643} and the Seer"] = "{npc:5643} y el vidente",
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
-	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "",
+	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "Su hermano {npc:5643} (36) recorre la fortaleza con los sectarios del Filo Ardiente (30-33): atráelo solo. {npc:13019} guarda el cetro en el edificio principal de la fortaleza. {npc:5642} quiere cuatro de cada tipo de sectario por el camino.",
 	-- {item:6767} Tyranis' Pendant
-	["{item:6767}; inside"] = "",
+	["{item:6767}; inside"] = "{item:6767}; adentro",
 	-- {quest:5741} Sceptre of Light
-	["{quest:5741}; on the top floor"] = "",
+	["{quest:5741}; on the top floor"] = "{quest:5741}; en el piso de arriba",
 
-	-- Step 10: Escort Dalinda Malem
+	-- Step 13: Escort Dalinda Malem
 	-- {npc:5644} Dalinda Malem
 	["Escort {npc:5644}"] = "Escolta a {npc:5644}",
 	-- {npc:5644} Dalinda Malem
-	["{npc:5644}, inside"] = "",
+	["{npc:5644}, inside"] = "{npc:5644}, adentro",
 	["Out of Thunder Axe Fortress"] = "Fuera de la Fortaleza del Hacha de Trueno",
 	-- {npc:5644} Dalinda Malem · {npc:5642} Vahlarriel Demonslayer · {area:608} Nijel's Point
 	["Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {area:608} at the end of the guide."] = "Saca a {npc:5644} de la fortaleza; se va por su cuenta una vez fuera. {npc:5642} recibe la entrega en {area:608} al final de la guía.",
 
-	-- Step 11: Smeed Scrabblescrew
+	-- Step 14: Azore Aldamort
+	-- {npc:11863} Azore Aldamort · {area:2407} Kormek's Hut
+	["Back west up the hill to {npc:11863}'s tower with the sceptre, then south along the road to {area:2407}."] = "",
+	-- {npc:11863} Azore Aldamort · {npc:12369} Lord Kragaru · {object:177673} Serpent Statue
+	["{npc:11863}: {npc:12369} (38) rises at the {object:177673}, for the south loop at the end of 30-40 (06b): keep it"] = "",
+
+	-- Step 15: Bibbly F'utzbuckle
+	-- {area:2407} Kormek's Hut · {npc:11596} Smeed Scrabblescrew · {npc:11438} Bibbly F'utzbuckle · {object:176751} Kodo Bones · {area:596} Kodo Graveyard
+	["{area:2407} stands by the road south of the fortress, on the way to {npc:11596}'s camp. {npc:11438} collects {object:176751}; they lie among the skeletons of the {area:596}, where {npc:11596}'s kodos are."] = "",
+
+	-- Step 16: Smeed Scrabblescrew
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:596} Kodo Graveyard
 	["{npc:11596}'s camp is on the road south of {area:609}, by the {area:596}."] = "El campamento de {npc:11596} está en el camino al sur de {area:609}, junto a {area:596}.",
 
-	-- Step 12: Kodo Graveyard
+	-- Step 17: Kodo Bones
+	-- {area:596} Kodo Graveyard · {npc:11438} Bibbly F'utzbuckle · {object:176751} Kodo Bones · {object:417353} Extinguished Campfire (no name in this language: may be words) · {quest:79229} Highway Robbery
+	["West into the {area:596} first: {npc:11438}'s {object:176751} lie among the skeletons on its western side. Just north of them an {object:417353} starts {quest:79229}, also for {npc:11438}."] = "",
+	-- {item:13703} Kodo Bone
+	["{item:13703}, among the skeletons"] = "",
+	-- {quest:79229} Highway Robbery · {object:417353} Extinguished Campfire (no name in this language: may be words)
+	["{quest:79229}: the {object:417353}"] = "",
+
+	-- Step 18: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
-	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "",
+	-- plural, as words: Ancient Kodos = {npc:4702} Ancient Kodo
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them."] = "",
 	-- {npc:4702} Ancient Kodo
-	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "",
+	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "en un kodo viejo, moribundo o {npc:4702} en el cementerio; no lo mates",
 	-- {npc:11596} Smeed Scrabblescrew
-	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
+	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "el kodo domado, en el campamento de {npc:11596}: habla con él, cinco veces",
 
-	-- Step 14: Kolkar Village
-	-- {area:609} Kolkar Village · {npc:5752} Corporal Melkins
-	["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "Los Kolkar recorren las llanuras alrededor de {area:609}; sus orejas son para {npc:5752}.",
+	-- Step 19: Kodo Graveyard: hides and venom
+	-- {area:596} Kodo Graveyard
+	["{area:596}: hides and venom"] = "",
+	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
+	["The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos."] = "",
 
-	-- Step 15: Nijel's Point
-	-- {npc:5638} Kreldig Ungor
-	["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}: la mochila está frente a la costa noroeste, en el circuito sur al final de 30-40 (06-badlands): consérvala",
+	-- Step 21: Kolkar Village
+	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:5752} Corporal Melkins · {quest:93224} Carved Centaur Totems · {npc:5396} Captain Pentigast
+	-- plural, as words: Centaur Ears = {item:6067} Centaur Ear
+	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "",
 
-	-- Step 16: Fly to Auberdine
+	-- Step 22: Kormek's Hut
+	-- {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:11438} Bibbly F'utzbuckle · {area:2407} Kormek's Hut · {area:35} Booty Bay
+	["North-west from {area:609} back along the road to {area:608}: {npc:11438} waits at {area:2407}. He sends you after the robber to {area:35}, where the next guide ends: keep it."] = "",
+	-- {npc:11438} Bibbly F'utzbuckle · {area:35} Booty Bay
+	["{npc:11438}: Tokal waits in {area:35}, at the end of the next guide"] = "",
+
+	-- Step 23: Nijel's Point
+	-- {npc:5638} Kreldig Ungor · {zone:1443} Desolace
+	-- was: ["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}: la mochila está frente a la costa noroeste, en el circuito sur al final de 30-40 (06-badlands): consérvala"
+	["{npc:5638}: the satchel lies off the north-west coast, on {zone:1443}'s south loop at the end of 30-40: keep it"] = "",
+
+	-- Step 24: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "Vuela a {area:442}",
 	-- {area:608} Nijel's Point
-	["{area:608} flight master"] = "",
+	["{area:608} flight master"] = "Maestro de vuelo de {area:608}",
 
-	-- Step 17: Boat to Stormwind Harbor
+	-- Step 25: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
-	["Boat to {area:17203}"] = "",
+	["Boat to {area:17203}"] = "Barco al {area:17203}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Escort the caravan"] = "Escolta la caravana",
@@ -104,10 +157,15 @@ return {
 	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "Toma el barco a {area:442} desde los muelles de Menethil. {npc:3649} está en {area:442}, al norte del maestro de vuelo.",
 	-- ["The Gizelton Caravan waits at {area:2407}."] = "La caravana Gizelton espera en {area:2407}.",
 	-- ["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}."] = "Los sátiros Odio Feroz ocupan las ruinas de {area:603}, al este de {area:608}.",
+	-- ["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "Los Kolkar recorren las llanuras alrededor de {area:609}; sus orejas son para {npc:5752}.",
 	-- ["The Scorpashi scorpids hunt the hills around {area:2407} on the road south."] = "Los escórpidos Scorpashi cazan en las colinas alrededor de {area:2407}, en el camino al sur.",
 	-- ["The {area:1276}"] = "{area:1276}",
+	-- ["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "Usa {item:13892} de {npc:11596} en un kodo anciano, moribundo o {npc:4702}: se convierte en un kodo domado que te sigue. Llévalo caminando hasta el campamento de {npc:11596}; allí, habla con el kodo: eso lo cuenta y te deja domar el siguiente. Cinco kodos, de a uno; los kodos ancianos también sueltan los pellejos, y los azotadores Scorpashi que cazan alrededor del cementerio llevan el veneno.",
 	-- ["Use {npc:11596}'s {item:13892} on an {npc:4700} and walk the tamed kodo back to his camp, five times; Aged Kodos also drop the hides."] = "Usa {item:13892} de {npc:11596} en un {npc:4700} y lleva al kodo domado hasta su campamento, cinco veces; los Kodos envejecidos también sueltan las pieles.",
 	-- ["Walk with the caravan south past {area:609}; Kolkar ambushers jump it on the way. Stay close until it stops at {area:2617}. The ambushers are 34-35 and come in waves: skip it if you are below 33."] = "Camina con la caravana hacia el sur pasando por {area:609}; los emboscadores Kolkar la atacan en el camino. Mantente cerca hasta que se detenga en {area:2617}. Los emboscadores son de nivel 34-35 y llegan en oleadas: omítelo si eres de nivel inferior a 33.",
 	-- ["{item:190309}, north of {area:413}"] = "{item:190309}, al norte de {area:413}",
 	-- ["{npc:3649}: {item:279915}, from Sylessa in Menethil"] = "{npc:3649}: {item:279915}, de Sylessa en Menethil",
+	-- ["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}: la mochila está frente a la costa noroeste, en el circuito sur al final de 30-40 (06-badlands): consérvala",
+	-- ["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644} se esconde dentro de la fortaleza del Filo Ardiente, al suroeste de {area:608}.",
+	-- ["{object:177787}, beside the chest: keep it, its keys and chest come on {zone:1443}'s south loop at the end of 30-40"] = "{object:177787}, junto al cofre: guárdalo, sus llaves y el cofre vienen en el circuito sur de {zone:1443} al final de 30-40",
 }

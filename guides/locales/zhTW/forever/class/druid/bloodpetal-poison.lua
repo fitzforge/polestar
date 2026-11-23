@@ -7,11 +7,11 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Experience in Un'Goro at 50 and two healing potions; the Classic item choice may be gone in Forever."] = "",
+	["Experience in Un'Goro at 50 and two healing potions; the Classic item choice may be gone in Forever."] = "50級時在安戈洛取得經驗值和兩瓶治療藥水；經典版的物品選擇在Forever中可能已經沒有了。",
 
 	-- Step 1: Loganaar
 	-- {spell:18960} Teleport: Moonglade · {npc:12042} Loganaar · {area:2361} Nighthaven · {npc:3033} Turak Runetotem · {npc:4217} Mathrengyl Bearwalker · {zone:1453} Stormwind
-	["Cast {spell:18960}. {npc:12042} stands in {area:2361}; your class trainer ({npc:3033}, {npc:4217} or Theridran in {zone:1453}) offers the same quest."] = "",
+	["Cast {spell:18960}. {npc:12042} stands in {area:2361}; your class trainer ({npc:3033}, {npc:4217} or Theridran in {zone:1453}) offers the same quest."] = "施放{spell:18960}。{npc:12042}站在{area:2361}；你的職業訓練師（{npc:3033}、{npc:4217}或{zone:1453}的塞瑞德蘭）也提供同一個任務。",
 
 	-- Step 2: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
@@ -23,33 +23,36 @@ return {
 	["Gorishi Stings and {item:22434}"] = "格里什毒刺與{item:22434}",
 	-- {area:540} Slithering Scar · {spell:8137} Silithid Pox · {area:541} Marshal's Refuge · {item:22434} Bloodcap
 	-- plural, as words: Gorishi Wasps = {npc:6551} Gorishi Wasp · Bloodpetal Sprouts = {object:164958} Bloodpetal Sprout
-	["Eight of each. The Gorishi Wasps and Stingers (level 51-52) in and around the {area:540}, the hive in the south-west of the crater, drop a sting about one kill in seven; the wasps share spawn points with the other bugs, so kill whatever stands near you to make room for more wasps (respawn five minutes). The bugs' {spell:8137} makes you take more physical damage for 30 minutes; Workers call for help when hurt. The Bloodpetal Sprouts grow all over the crater (around {area:541} and the western half): open them, about every other one gives a {item:22434}, back in three to five minutes."] = "",
+	["Eight of each. The Gorishi Wasps and Stingers (level 51-52) in and around the {area:540}, the hive in the south-west of the crater, drop a sting about one kill in seven; the wasps share spawn points with the other bugs, so kill whatever stands near you to make room for more wasps (respawn five minutes). The bugs' {spell:8137} makes you take more physical damage for 30 minutes; Workers call for help when hurt. The Bloodpetal Sprouts grow all over the crater (around {area:541} and the western half): open them, about every other one gives a {item:22434}, back in three to five minutes."] = "每樣八個。環形山西南部蜂巢{area:540}內及其周邊的格里什黃蜂和格里什釘刺者（51到52級）約每七隻掉一根刺；黃蜂與其他蟲類共享重生點，所以把身邊能殺的都殺掉，給黃蜂騰出重生位置（五分鐘重生）。這些蟲子的{spell:8137}會讓你在30分鐘內承受更多物理傷害；工蜂受傷時會呼救。血瓣花苗遍佈環形山（{area:541}一帶和西半邊）：開啟它們，約每隔一株給一個{item:22434}，三到五分鐘重生。",
 
 	-- Step 5: Toxic Test
-	-- {npc:6498} Devilsaur · {spell:14099} Mighty Blow · {spell:339} Entangling Roots · {item:22432} Devilsaur Barb · {spell:2637} Hibernate · {npc:6499} Ironhide Devilsaur · {npc:9619} Torwa Pathfinder
-	-- plural, as words: Tyrant Devilsaurs = {npc:6500} Tyrant Devilsaur · Devilsaurs = {npc:6498} Devilsaur
-	["Any {npc:6498} counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "",
-	-- {npc:6498} Devilsaur · {item:22432} Devilsaur Barb
-	["{npc:6498}: stab it with the {item:22432}"] = "{npc:6498}：用{item:22432}刺牠",
-	-- {npc:6498} Devilsaur · {item:22432} Devilsaur Barb
-	["Stab a {npc:6498} with the {item:22432}"] = "",
+	-- {spell:14099} Mighty Blow · {spell:339} Entangling Roots · {item:22432} Devilsaur Barb · {spell:2637} Hibernate · {npc:6499} Ironhide Devilsaur · {npc:9619} Torwa Pathfinder
+	-- plural, as words: Tyrant Devilsaurs = {npc:6500} Tyrant Devilsaur
+	-- was: ["Any {npc:6498} counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "任何{npc:6498}都算，鐵皮和暴君魔暴龍也算。它們是精英（54-55級），會放{spell:14099}，跑得比旅行形態還快。建議組隊，但德魯伊也能單幹：從遠處對它放睡眠或{spell:339}，用{item:22432}戳它（倒刺不會打斷{spell:2637}），然後走人。倒刺命中的瞬間就算進度，哪怕你隨後死了。箭頭指向西邊和北邊平原上的魔暴龍；一隻{npc:6499}在環形山南側中部遊蕩，離{npc:9619}更近。"
+	["Any Devilsaur counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "",
+	-- {item:22432} Devilsaur Barb
+	-- was: ["{npc:6498}: stab it with the {item:22432}"] = "{npc:6498}：用{item:22432}刺牠"
+	["Devilsaur: stab it with the {item:22432}"] = "",
+	-- {item:22432} Devilsaur Barb
+	["Stab a Devilsaur with the {item:22432}"] = "",
 
 	-- Step 7: The Sunken Temple
 	-- {area:1417} Sunken Temple
 	["The {area:1417}"] = "{area:1417}",
 	-- {area:75} Stonard · {area:1438} Nethergarde Keep · {zone:1419} Blasted Lands · {area:1477} The Temple of Atal'Hakkar · {area:74} Pool of Tears · {zone:1435} Swamp of Sorrows · {npc:8580} Atal'alarion · {spell:12887} Sweeping Slam · {spell:6524} Ground Tremor · {item:22444} Putrid Vine
-	["A five-player dungeon: needs a group of five, about level 50-55. Horde: fly to {area:75}; Alliance: fly to {area:1438} in the {zone:1419} and ride north. {area:1477} stands in the middle of the {area:74} in the {zone:1435}: climb the stairs on the ruin's south side, dive into the flooded hall, swim down through it and follow the stairs and passages down to the portal. {npc:8580} (level 50 elite, {spell:12887} and {spell:6524}) only appears when the six serpent statues on the balcony ring above the altar pit are clicked in order: South, North, South-west, South-east, North-west, North-east (each turns green when right; a wrong order fails). Clear the trash by each statue and the pit below first; jumping down into the water is the quick way down, but a knockback near the edge can kill. The {item:22444} always drops."] = "",
+	["A five-player dungeon: needs a group of five, about level 50-55. Horde: fly to {area:75}; Alliance: fly to {area:1438} in the {zone:1419} and ride north. {area:1477} stands in the middle of the {area:74} in the {zone:1435}: climb the stairs on the ruin's south side, dive into the flooded hall, swim down through it and follow the stairs and passages down to the portal. {npc:8580} (level 50 elite, {spell:12887} and {spell:6524}) only appears when the six serpent statues on the balcony ring above the altar pit are clicked in order: South, North, South-west, South-east, North-west, North-east (each turns green when right; a wrong order fails). Clear the trash by each statue and the pit below first; jumping down into the water is the quick way down, but a knockback near the edge can kill. The {item:22444} always drops."] = "五人地城：需要五人組隊，等級約50到55。部落：飛往{area:75}；聯盟：飛往{zone:1419}的{area:1438}，再向北騎。{area:1477}位於{zone:1435}的{area:74}中央：從遺蹟南側登上臺階，跳進被水淹沒的大廳，向下遊過大廳，沿臺階和通道一路向下到傳送門。只有當祭壇坑上方環形陽臺上的六座蛇像按順序點選後，{npc:8580}（50級精英，會{spell:12887}和{spell:6524}）才會出現：南、北、西南、東南、西北、東北（點對時每座變綠；順序錯誤則失敗）。先清掉每座蛇像旁和下方祭壇坑裡的小怪；直接跳進水裡是最快的下去方式，但在邊緣附近被擊退可能致死。{item:22444}必掉。",
 
 	-- Step 8: A Better Ingredient
 	-- {npc:9619} Torwa Pathfinder · {zone:1449} Un'Goro Crater
 	["Back to {npc:9619} in the south-east corner of {zone:1449}."] = "回到{zone:1449}東南角的{npc:9619}處。",
 	-- {npc:9619} Torwa Pathfinder
-	["{npc:9619}: the old item choice may be gone, count on the experience"] = "",
+	["{npc:9619}: the old item choice may be gone, count on the experience"] = "{npc:9619}：原版的物品選擇可能已取消，以經驗值為準",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Cast {spell:18960}. {npc:12042} stands in {area:2361}; your class trainer offers the same quest."] = "施放{spell:18960}。{npc:12042}站在{area:2361}；你的職業訓練師也提供同一個任務。",
-	-- ["Experience in Un'Goro at 50 and two healing potions; Forever removed the Classic item choice."] = "50級時在安戈洛取得經驗值和兩瓶治療藥水；Forever 移除了經典版的物品選擇。",
+	-- ["Any {npc:6498} counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "任何{npc:6498}都算，鐵皮和暴君魔暴龍也算。它們是精英（54-55級），會放{spell:14099}，跑得比旅行形態還快。建議組隊，但德魯伊也能單幹：從遠處對它放睡眠或{spell:339}，用{item:22432}戳它（倒刺不會打斷{spell:2637}），然後走人。倒刺命中的瞬間就算進度，哪怕你隨後死了。箭頭指向西邊和北邊平原上的魔暴龍；一隻{npc:6499}在環形山南側中部遊蕩，離{npc:9619}更近。",
+	-- ["Stab a {npc:6498} with the {item:22432}"] = "用{item:22432}戳一隻{npc:6498}",
 	-- ["The Gorishi wasps, workers and reavers of the hive in the south of the crater drop the stings; the Bloodpetal Sprouts that give the {item:22434} grow all over the crater's western half."] = "環形山南部蟲巢的格里什異種蠍、格里什工蠍和格里什劫掠者會掉落毒刺；能採到{item:22434}的血瓣花苗長滿環形山的西半部。",
 	-- ["Use the {item:22432} on a {npc:6498}. Devilsaurs are elite (level 54-55) and roam the crater: grouping up is advised."] = "對{npc:6498}使用{item:22432}。魔暴龍是精英（54-55級），在環形山中遊蕩：建議組隊。",
 	-- ["{area:1477} lies in the {area:74} in the {zone:1435}. {npc:8580} guards the bottom of the temple: a dungeon boss, so bring a group."] = "{area:1477}位於{zone:1435}的{area:74}中。{npc:8580}守在神廟底層：這是地城首領，所以要帶小隊。",
+	-- ["{npc:6498}: stab it with the {item:22432}"] = "{npc:6498}：用{item:22432}刺牠",
 }

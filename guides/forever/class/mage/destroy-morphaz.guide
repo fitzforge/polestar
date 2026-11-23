@@ -55,30 +55,36 @@ step Magecraft (Orgrimmar)
 step Sanath Lim-yo
   zone Azshara
   tip Fly to Talrendis Point (Alliance) or Valormok (Horde). Sanath Lim-yo camps below his master's tower, a short way east of Valormok: from the fork of Azshara's main road at the Ruins of Eldarath, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to Archmage Xylem at the top of the tower; an attendant at the top sends you back down, as often as you like.
+  level 51
   turnin 8250                                 -- Sanath Lim-yo
   accept 8251                                 -- Archmage Xylem, in the tower
 
 step Glittering Dust
   tip The blood elves hold the Thalassian Base Camp on the hills of north-eastern Azshara. Blood Elf Surveyors (51-52, Fire Nova up close) and Reclaimers (52-53, Fireball, and they heal and Renew each other) each drop the dust about one time in four; they spot you from far off, so pull at the edges. They come back after 5 1/2 minutes.
+  level 53
   collect 20028 x10 quest 8251.1              -- Glittering Dust
 
 step Archmage Xylem
   tip Back to Sanath Lim-yo, who teleports you up to the tower.
+  level 51
   turnin 8251                                 -- Archmage Xylem
   accept 8252
 
 step Enchanted Coral
   tip The Spitelash Sirens (level 50-52) walk the ruins and beaches around the Ruins of Eldarath and the bay east of Valormok, often three together, and a few stand inside the Temple of Zin-Malor; each drops a coral about one time in four. The Spitelash Screamers look almost the same but never drop it. Killing the other naga there makes more Sirens appear in their spots. Lingering Highborne ghosts wander the ruins: watch your back.
+  level 52
   collect 20029 x6 quest 8252.1               -- Enchanted Coral: Spitelash Siren
 
 step Archmage Xylem again
   tip Back to Sanath Lim-yo and up to the tower.
+  level 51
   turnin 8252                                 -- Archmage Xylem
   accept 8253
 
 step Morphaz
   zone Swamp of Sorrows
   tip The Temple of Atal'Hakkar, the Sunken Temple, lies in the Pool of Tears: climb the steps into the sunken building, swim down through it and follow the passage down to the portal. A group of five, level 50-54. Morphaz is not waiting when you arrive. First kill the six troll guardians (elites of 50-52) on the platforms around the upper ring; that opens the way down (the left-hand ramp from the entrance) to Jammal'an the Prophet and Ogom the Wretched in the Pit of Sacrifice. Once Jammal'an dies, two green drakes, Weaver and Dreamscythe, come out and patrol the pit: pull them one at a time. When both are dead, Morphaz (level 52 elite, Acid Breath and Wing Flap) and Hazzas appear together and cannot be split, so fight both. The shard always drops. Hunters, Priests and Rogues of 50 need Morphaz too: a group of them shares one clear.
+  level 51
   collect 20085 quest 8253.1 @69.9,53.6       -- Arcane Shard: Morphaz
 
 step The Arcane Shard

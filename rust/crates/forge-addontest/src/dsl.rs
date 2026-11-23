@@ -143,14 +143,23 @@ pub fn write_pack_dir(dir: &Path, files: &[(String, FileContent)]) {
 
 /// Builds compiled guides into a pack folder (the JS helpers' writeTestPack / writePackInto).
 pub fn write_test_pack(guides: &[V], data: &Data, manifest: &V) -> TestPack {
+	write_test_pack_offering(guides, data, manifest, &[])
+}
+
+/// [`write_test_pack`] with our pack's experimental index (forge_guide::project::experimental_index), written
+/// after its guides as `forge guide compile` writes Polestar_Guides.
+pub fn write_test_pack_offering(guides: &[V], data: &Data, manifest: &V, offers: &[V]) -> TestPack {
 	let tmp = TempDir::new("polestar-pack-");
 	let dir = tmp.path().join(manifest.get("folder").to_js_string());
 	let iface = forge_guide::project::core_interface(root()).expect("core interface");
-	let files = forge_guide::project::build_pack_files(guides, manifest, data, None, &V::obj(), &[], &iface, Vec::new());
+	let files = forge_guide::project::build_pack_files(guides, manifest, data, None, &V::obj(), &[], offers, &iface, Vec::new());
 	write_pack_dir(&dir, &files);
 	let mut parts: Vec<&str> = files.iter().map(|(n, _)| n.as_str()).filter(|n| n.starts_with("../") && n.ends_with("/Guides.lua")).collect();
 	parts.sort();
-	let mut scripts: Vec<PathBuf> = crate::run::toc_entries(&dir).expect("pack TOC").iter().map(|f| dir.join(f)).collect();
+	// One of Polestar's own extra packs has no TOC (Polestar's lists its files): the fixed file set.
+	let own_extra = forge_guide::project::own_extra(&manifest.get("folder").to_js_string()).is_some();
+	let entries: Vec<String> = if own_extra { forge_guide::emit::PACK_SCRIPTS.map(String::from).to_vec() } else { crate::run::toc_entries(&dir).expect("pack TOC") };
+	let mut scripts: Vec<PathBuf> = entries.iter().map(|f| dir.join(f)).collect();
 	scripts.extend(parts.iter().map(|p| dir.join(p)));
 	TestPack { dir, files, scripts, tmp }
 }

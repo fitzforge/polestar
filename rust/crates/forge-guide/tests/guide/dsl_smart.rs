@@ -318,6 +318,31 @@ fn a_live_frame_spawn_is_placed_in_the_maps_forever_frame_so_a_town_beside_it_is
 	assert_eq!(ids, [92000, 92001]);
 }
 
+/// #2018 (Mouchoir, Tailoring 75-150 in Stormwind): the vendor goods step sent a player standing beside Alexandra
+/// Bolero in the Mage Quarter to Edna Mullby in the Trade District, 235 yards away: one candidate per 250 yards kept
+/// one seller for the whole city. On a capital city's map each district keeps its own (one hub within 60 yards); a
+/// town in the open keeps one per 250 yards as before.
+#[test]
+fn in_a_capital_city_each_district_keeps_its_own_candidate_2018() {
+	let data = data_with("city-districts", |raw| {
+		let npcs = raw.get_mut("npcs.json").unwrap();
+		// Stormwind: the Mage Quarter's and the Trade District's sellers, and a second one in the same Trade
+		// District shop (5 yards on).
+		smith(npcs, 93000, "Mage Quarter Seller", 1453, 53.14, 81.76, true);
+		smith(npcs, 93001, "Trade District Seller", 1453, 64.73, 71.26, true);
+		smith(npcs, 93002, "Trade District Seller B", 1453, 65.0, 71.3, true);
+		// Elwynn Forest: two smiths 139 yards apart, one town.
+		smith(npcs, 93010, "Field Smith A", 1429, 70.0, 50.0, true);
+		smith(npcs, 93011, "Field Smith B", 1429, 74.0, 50.0, true);
+	});
+	let g = goals(&text(head(Some("Alliance"), &[]), &["step S", "  vendor nearest"]), Some(&data)).1;
+	let ids: Vec<u64> = cands(&g[0], |c| c["npc"].clone()).iter().map(|v| v.as_u64().unwrap()).collect();
+	let mut city: Vec<u64> = ids.iter().copied().filter(|i| (93000..=93002).contains(i)).collect();
+	city.sort();
+	assert_eq!(city, [93000, 93001], "each district's seller, one per shop: {ids:?}");
+	assert_eq!(ids.iter().filter(|&&i| (93010..=93011).contains(&i)).count(), 1, "one per town in the open: {ids:?}");
+}
+
 #[test]
 fn accept_goals_carry_the_quest_level_and_prerequisites_for_grey_quest_skipping() {
 	let g = goals(&text(head(Some("Alliance"), &[]), &["step S", "  accept 9500", "  accept 783 lvl 3"]), None).1;

@@ -33,6 +33,13 @@
 --       docked, leaves in 0:40", untimed "Boat: average wait 2:55" (no
 --       countdown, since nothing has timed the loop); nil for an unknown id
 --   Transit.Riding(now) -> { kind, route, dock, arriveIn } | nil   (dock: its name to show)
+--   Transit.Carried() -> true while something the game gives no taxi for
+--       carries the player (the skycutter from Zephras Isle to Dalaran): their
+--       position moves at least CARRY_YARDS a sample with no speed of their
+--       own, CARRY_SAMPLES samples running (a teleport, a charge or a
+--       knockback moves once; a fall is their own); it ends at the first
+--       sample they move on their own or stand still. Nav/Walk.lua searches
+--       no walk, measures none and reads no floor meanwhile.
 --   Transit.LiftNear(c, wx, wy [, yards]) -> liftId, name (to show)
 --   Transit.Teleports(now) -> usable class teleports, see below
 -- Fires ns.Fire("NAV_TRANSIT", changed, own) when a sighting changes a
@@ -64,6 +71,7 @@ local FIT_EVERY = 10         -- samples between fits during a ride
 local MAX_SAMPLES = 300      -- per route and ride
 local QUIET = 600            -- s: a repeat of your own sighting this recent is routine
 local SAMPLE_EVERY = 1       -- s
+local CARRY_YARDS, CARRY_SAMPLES = 2, 2 -- Transit.Carried: yd a sample, samples running
 local LIFT_NEAR = 40         -- yd: LiftNear's default reach
 local GCD = 1.5
 
@@ -180,17 +188,46 @@ end
 
 ---------------------------------------------------------------------------
 -- Sightings: PolestarDB.transit[realm][route] = { epoch = server ms at
--- phase 0, seen = server s, source = "you"|"player" }
+-- phase 0, seen = server s, source = "you"|"player" }; realm "?" while the
+-- client does not give it (Compat.RealmName), when the one realm's
+-- sightings held then move there once (with several, none moves: they age
+-- out in MAX_AGE).
 ---------------------------------------------------------------------------
 
-local realmName
+local realmName, claimed -- claimed: the PolestarDB.transit the move ran on
+
+-- With the realm unknown: the only realm's sightings move to "?", the newer
+-- per route kept.
+local function claim(all)
+	local only
+	for k, v in pairs(all) do
+		if k ~= "?" and type(v) == "table" then
+			if only then return end
+			only = k
+		end
+	end
+	if not only then return end
+	local into = type(all["?"]) == "table" and all["?"] or {}
+	all["?"] = into
+	for route, a in pairs(all[only]) do
+		local held = into[route]
+		if type(a) == "table" and type(a.seen) == "number" and (type(held) ~= "table" or type(held.seen) ~= "number" or a.seen > held.seen) then
+			into[route] = a
+		end
+	end
+	all[only] = nil
+end
+
 local function store()
 	local db = ns.DB()
 	if type(db.transit) ~= "table" then db.transit = {} end
 	if not realmName then
 		local C = ns.Compat
-		local ok, info = pcall(C and C.GetPlayerInfo or function() end)
-		realmName = ok and type(info) == "table" and type(info.realm) == "string" and info.realm ~= "" and info.realm or nil
+		realmName = C and C.RealmName and C.RealmName() or nil
+	end
+	if not realmName and claimed ~= db.transit then
+		claimed = db.transit
+		claim(db.transit)
 	end
 	local realm = realmName or "?"
 	local s = db.transit[realm]
@@ -353,12 +390,14 @@ Transit.Countdown = countdown
 local HERE = {
 	boat = L["Boat docked, leaves in %s"],
 	zeppelin = L["Zeppelin docked, leaves in %s"],
+	airship = L["Airship docked, leaves in %s"],
 	tram = L["Tram boarding, leaves in %s"],
 	lift = L["Lift here, leaves in %s"],
 }
 local NEXT = {
 	boat = L["Next boat in %s"],
 	zeppelin = L["Next zeppelin in %s"],
+	airship = L["Next airship in %s"],
 	tram = L["Next tram in %s"],
 	lift = L["Next lift in %s"],
 }
@@ -366,6 +405,7 @@ local NEXT = {
 local AVERAGE = {
 	boat = L["Boat: average wait %s"],
 	zeppelin = L["Zeppelin: average wait %s"],
+	airship = L["Airship: average wait %s"],
 	tram = L["Tram: average wait %s"],
 	lift = L["Lift: average wait %s"],
 }
@@ -538,11 +578,32 @@ local function record()
 	end
 end
 
+-- Transit.Carried's state: the last sample's position and how many samples running moved the player with no
+-- speed of their own.
+local carry = { n = 0 }
+
+-- The player's own speed (yd/s, GetUnitSpeed's first value: 0 standing on a moving ship), nil when unreadable.
+local function ownSpeed()
+	if not GetUnitSpeed then return nil end
+	local ok, s = pcall(GetUnitSpeed, "player")
+	if not ok then return nil end
+	local C = ns.Compat
+	if C and C.Readable then s = C.Readable(s) end
+	return type(s) == "number" and s or nil
+end
+
 local function sample()
 	local nowMs = Transit.Now() * 1000
 	local x, y, z, map = position()
 	local C = ns.Compat
 	local onTaxi = C and C.IsOnTaxi and C.IsOnTaxi()
+	local moved = x and not onTaxi and carry.map == map and carry.x and (x - carry.x) ^ 2 + (y - carry.y) ^ 2 >= CARRY_YARDS * CARRY_YARDS
+	if moved and ownSpeed() == 0 and not (IsFalling and IsFalling()) then
+		carry.n = carry.n + 1
+	else
+		carry.n = 0
+	end
+	carry.x, carry.y, carry.map = x, y, map
 	local speed = x and not onTaxi and speedOf(nowMs, x, y, z or 0, map) or 0
 	if speed > 0 then
 		for id, route in pairs(routes) do
@@ -606,6 +667,12 @@ local function carOf(route, phase)
 	return best
 end
 
+-- Carried by something the game gives no taxi for (see the header): the last CARRY_SAMPLES samples moved the
+-- player with no speed of their own.
+function Transit.Carried()
+	return carry.n >= CARRY_SAMPLES
+end
+
 function Transit.Riding(now)
 	local id = ride and ride.announced
 	local route = id and routes[id]
@@ -657,15 +724,17 @@ local function inPvp()
 end
 
 -- Whether a sender is someone else on this realm (the player's own echo is
--- not: Compat.SenderIsMe, Forever's "First Last" senders included).
+-- not: Compat.SenderIsMe, Forever's "First Last" senders included). A sender
+-- named with a realm is from another one unless it is this realm's name; with
+-- this realm unknown (Compat.NormalizedRealmName) it counts as another.
 local function fromThisRealm(sender)
 	if type(sender) ~= "string" or sender == "" then return false end
 	if ns.Compat.SenderIsMe(sender) then return false end
 	local name = Ambiguate and Ambiguate(sender, "none") or sender
 	local realm = name:match("%-(.+)$")
 	if not realm then return true end
-	local mine = GetNormalizedRealmName and GetNormalizedRealmName()
-	return type(mine) == "string" and realm == mine
+	local mine = ns.Compat.NormalizedRealmName()
+	return mine ~= nil and realm == mine
 end
 Transit.fromThisRealm = fromThisRealm -- tests
 
@@ -826,8 +895,10 @@ local function cooldown(spell)
 end
 
 -- -> { { spell, name (the client's, in its language), cast = s, ready = s until castable, to = point | nil,
---   bind = true (lands at the bind point) }, ... }: known, with reagents in
--- the bags. The entries keep their identity while the set is unchanged.
+--   bind = true (lands at the bind point: Astral Recall), length = s: its full
+--   cooldown as the client tells it (nil when it tells none) }, ... }: known,
+-- with reagents in the bags. The entries keep their identity while the set is
+-- unchanged.
 function Transit.Teleports(now)
 	if not ns.Get("nav.teleports") then return NONE end
 	local list, keys = {}, {}
@@ -845,7 +916,11 @@ function Transit.Teleports(now)
 			usable[i] = { spell = t.spell, name = (N and N.Spell(t.spell)) or t.name, cast = t.cast, to = t.to, bind = t.bind, ready = 0 }
 		end
 	end
-	for _, u in ipairs(usable) do u.ready = cooldown(u.spell) end
+	local C = ns.Compat
+	for _, u in ipairs(usable) do
+		u.ready = cooldown(u.spell)
+		u.length = C and C.GetSpellBaseCooldown and C.GetSpellBaseCooldown(u.spell) or nil
+	end
 	return usable
 end
 

@@ -15,6 +15,7 @@
 const { isDeepStrictEqual } = require('node:util');
 const { lexLine } = require('../dsl/lexer');
 const { parseGuide, MODS, MOD_WORDS, RANKS, QUALITIES, STANDINGS } = require('../dsl/parse');
+const { readStandingText } = require('../dsl/when');
 const { parseConditions } = require('../dsl/conditions');
 const { Diagnostics } = require('../dsl/diag');
 
@@ -22,15 +23,15 @@ const STANDING_NAMES = Object.keys(STANDINGS);
 const cap = (w) => w.charAt(0).toUpperCase() + w.slice(1);
 
 // Fields the parser derives from how a line is written; a caller may leave them out.
-const DERIVED = ['explicitCoords', 'npcExplicit', 'objectExplicit', 'itemExplicit', 'skillQuoted', 'factionQuoted'];
-const NUMERIC = ['quest', 'oi', 'npc', 'object', 'item', 'x', 'y', 'coordMap', 'r', 'count', 'minLevel', 'untilSkill', 'criteria', 'rewardXp', 'rewardMoney', 'level', 'frac', 'levelXp', 'grind', 'spell', 'factionId', 'standing', 'achievement', 'rank'];
+const DERIVED = ['explicitCoords', 'npcExplicit', 'objectExplicit', 'itemExplicit', 'skillQuoted', 'factionQuoted', 'gatherSkillQuoted'];
+const NUMERIC = ['quest', 'oi', 'npc', 'object', 'item', 'x', 'y', 'coordMap', 'r', 'count', 'minLevel', 'untilSkill', 'criteria', 'rewardXp', 'rewardMoney', 'level', 'frac', 'levelXp', 'grind', 'spell', 'factionId', 'standing', 'achievement', 'rank', 'gatherRank', 'gatherMin', 'gatherMax', 'points', 'upto'];
 const NUM_TEXT = /^-?\d+(?:\.\d+)?$/;
 
 // Verbs whose positional arguments include the key (written there unless `<key>Explicit`).
 const POSITIONAL_ID = {
 	npc: ['kill', 'talk', 'train', 'vendor'],
 	object: ['interact'],
-	item: ['collect', 'use', 'destroy', 'buy'],
+	item: ['collect', 'use', 'destroy', 'buy', 'auction', 'deposit', 'equip'],
 };
 const QUEST_POSITIONAL = ['accept', 'turnin', 'complete', 'abandon'];
 const XY_POSITIONAL = ['goto', 'explore'];
@@ -137,6 +138,7 @@ function normalizeFields(fields) {
 		if (out[`${k}Explicit`] && (out[k] === undefined || (mods && !mods.includes(k)))) delete out[`${k}Explicit`];
 	}
 	if (out.skillQuoted && out.skill === undefined) delete out.skillQuoted;
+	if (out.gatherSkillQuoted && out.gatherSkill === undefined) delete out.gatherSkillQuoted;
 	if (out.factionQuoted && (out.factionName === undefined || out.factionId !== undefined)) delete out.factionQuoted;
 	return out;
 }
@@ -185,6 +187,9 @@ function positionalTokens(verb, f) {
 		case 'use':
 		case 'destroy':
 		case 'buy':
+		case 'auction':
+		case 'deposit':
+		case 'equip':
 			id('item');
 			name('itemName');
 			break;
@@ -246,6 +251,7 @@ function positionalTokens(verb, f) {
 		case 'learn':
 		case 'craft':
 		case 'cast':
+		case 'buff':
 			id('spell');
 			name('spellName');
 			break;
@@ -254,10 +260,12 @@ function positionalTokens(verb, f) {
 				id('factionId');
 				name('factionName');
 			} else if (f.factionName !== undefined) {
-				const bare = f.factionQuoted ? null : bareWords(String(f.factionName), (toks) => toks.every((t) => !/^\d+$/.test(t.text) && !Object.hasOwn(STANDINGS, t.text.toLowerCase())));
+				const bare = f.factionQuoted ? null : bareWords(String(f.factionName), (toks) => toks.every((t) => readStandingText(t.text) === null));
 				out.push(bare === null ? quote(f.factionName) : bare);
 			}
-			if (f.standing !== undefined) out.push(cap(STANDING_NAMES[f.standing - 1] || String(f.standing)));
+			// Points inside the standing: `Revered+12000`.
+			if (f.standing !== undefined) out.push(`${cap(STANDING_NAMES[f.standing - 1] || String(f.standing))}${f.points !== undefined ? `+${f.points}` : ''}`);
+			else if (f.points !== undefined) throw new Error('points inside a standing (`points`) need the standing');
 			break;
 		case 'achieve':
 			id('achievement');
@@ -271,9 +279,9 @@ function positionalTokens(verb, f) {
 // key]): a "text" label written there would read as that name.
 const NAME_SLOT = {
 	accept: ['quest', 'title'], turnin: ['quest', 'title'], complete: ['quest', 'title'], kill: ['npc', 'target'],
-	collect: ['item', 'itemName'], use: ['item', 'itemName'], buy: ['item', 'itemName'], talk: ['npc', 'npcName'],
+	collect: ['item', 'itemName'], use: ['item', 'itemName'], buy: ['item', 'itemName'], auction: ['item', 'itemName'], deposit: ['item', 'itemName'], equip: ['item', 'itemName'], talk: ['npc', 'npcName'],
 	interact: ['object', 'objName'], train: ['npc', 'npcName'], vendor: ['npc', 'npcName'], learn: ['spell', 'spellName'],
-	craft: ['spell', 'spellName'], achieve: ['achievement', 'achievementName'],
+	craft: ['spell', 'spellName'], buff: ['spell', 'spellName'], achieve: ['achievement', 'achievementName'],
 };
 
 function rewardText(word, items) {
@@ -299,20 +307,34 @@ function formatGoal(fields) {
 	if (!QUEST_POSITIONAL.includes(verb) && f.quest !== undefined) push('quest', `quest ${f.quest}${f.oi !== undefined ? `.${f.oi}` : ''}`);
 	else if (f.oi !== undefined) throw new Error('an objective (`oi`) needs a quest link');
 	if (f.count !== undefined) push('count', `x${f.count}`);
+	if (f.upto !== undefined) push('upto', `upto ${f.upto}`);
 	if (f.minLevel !== undefined) push('lvl', `lvl ${f.minLevel}`);
 	if (f.grind !== undefined && verb === 'level') push('grind', `grind ${f.grind}`);
 	if (f.untilSkill !== undefined) push('until', `until ${f.untilSkill}`);
 	if (f.criteria !== undefined) push('criteria', `criteria ${f.criteria}`);
 	if (f.nearest && verb !== 'sethome' && verb !== 'vendor') push('nearest', 'nearest');
 	if (f.anywhere && verb === 'collect') push('anywhere', 'anywhere');
+	// A collect's gather way: `gather [<Profession> <rank>] [levels <min>-<max>]` (a profession of more than one word,
+	// or one that reads as another word of the line, quoted).
+	if (f.gather && verb === 'collect') {
+		let g = 'gather';
+		if (f.gatherSkill !== undefined) {
+			const bare = f.gatherSkillQuoted ? null : bareWords(String(f.gatherSkill), (toks) => toks.length === 1 && !/^[@"]|^x\d+$|^\d|^levels$/i.test(toks[0].text) && !MOD_WORD_SET.has(toks[0].text.toLowerCase()));
+			g += ` ${bare === null ? quote(f.gatherSkill) : bare} ${f.gatherRank}`;
+		}
+		if (f.gatherMin !== undefined) g += ` levels ${f.gatherMin}-${f.gatherMax}`;
+		push('gather', g);
+	}
 	if (f.rewardChoices) push('choose', rewardText('choose', f.rewardChoices));
 	if (f.rewardItems) push('reward', rewardText('reward', f.rewardItems));
 	if (f.rewardXp !== undefined) push('xp', `xp ${f.rewardXp}`);
 	if (f.rewardMoney !== undefined) push('money', `money ${moneyText(f.rewardMoney)}`);
 	if (f.direct && verb === 'turnin') push('direct', 'direct');
+	if (f.off) push('off', 'off');
 	if (f.group) push('group', f.group.size !== undefined ? `group ${f.group.size}` : 'group');
 	const label = f.text !== undefined && !XY_POSITIONAL.includes(verb) && !TEXT_POSITIONAL.has(verb) ? quote(f.text) : null;
 	if (f.optional) push('optional', 'optional');
+	if (f.either) push('either', 'either');
 	const onlyText = f.onlyText !== undefined ? String(f.onlyText) : f.only ? conditionText(f.only) : '';
 	if (onlyText) push('only', `only ${onlyText.trim().replace(/\s*,\s*/g, ',')}`);
 	if (label !== null) {
@@ -407,6 +429,7 @@ const POSITIONAL = {
 		idf('factionId', 'Faction', false),
 		fld('factionName', 'text', 'Faction name', { required: false }),
 		fld('standing', 'enum', 'Standing', { required: true, values: STANDING_NAMES.map((s, i) => ({ value: i + 1, label: cap(s) })) }),
+		fld('points', 'int', 'Points into the standing', { required: false }),
 	],
 	achieve: [idf('achievement', 'Achievement', true), fld('achievementName', 'text', 'Achievement name', { required: false })],
 };
@@ -416,9 +439,13 @@ POSITIONAL.use = POSITIONAL.collect;
 POSITIONAL.destroy = POSITIONAL.collect;
 POSITIONAL.abandon = POSITIONAL.accept;
 POSITIONAL.buy = POSITIONAL.collect;
+POSITIONAL.auction = POSITIONAL.collect;
+POSITIONAL.deposit = POSITIONAL.collect;
+POSITIONAL.equip = POSITIONAL.collect;
 POSITIONAL.explore = POSITIONAL.goto;
 POSITIONAL.craft = POSITIONAL.learn;
 POSITIONAL.cast = POSITIONAL.learn;
+POSITIONAL.buff = POSITIONAL.learn;
 
 const MODIFIER_FIELDS = {
 	at: [xy({ mod: 'at' })],
@@ -430,24 +457,34 @@ const MODIFIER_FIELDS = {
 	item: [idf('item', 'Item')],
 	quest: [idf('quest', 'Quest'), fld('oi', 'int', 'Objective')],
 	count: [fld('count', 'int', 'Count')],
+	upto: [fld('upto', 'int', 'Up to (part of the objective)')],
 	lvl: [fld('minLevel', 'int', 'Minimum level')],
 	grind: [idf('grind', 'NPC ground on')],
 	until: [fld('untilSkill', 'int', 'Until skill')],
 	criteria: [fld('criteria', 'int', 'Criterion')],
 	nearest: [fld('nearest', 'bool', 'Nearest')],
 	anywhere: [fld('anywhere', 'bool', 'Bag count, no place')],
+	gather: [
+		fld('gather', 'bool', 'The gather way'),
+		fld('gatherSkill', 'text', 'Gathered with (profession)'),
+		fld('gatherRank', 'int', 'At skill'),
+		fld('gatherMin', 'int', 'Mobs from level'),
+		fld('gatherMax', 'int', 'Mobs to level'),
+	],
 	choose: [fld('rewardChoices', 'items', 'Reward choices')],
 	reward: [fld('rewardItems', 'items', 'Rewards')],
 	xp: [fld('rewardXp', 'int', 'XP')],
 	money: [fld('rewardMoney', 'money', 'Money (copper)')],
 	direct: [fld('direct', 'bool', 'Handed in without an accept')],
+	off: [fld('off', 'bool', 'Gone (the aura no longer on the player, the item no longer worn)')],
 	group: [fld('group', 'group', 'Group')],
 	text: [fld('text', 'text', 'Label')],
 	optional: [fld('optional', 'bool', 'Optional')],
+	either: [fld('either', 'bool', 'One of a set (any one is enough)')],
 	only: [fld('onlyText', 'text', 'Only for')],
 };
 // Modifier order of the schema = the order formatGoal writes them.
-const MOD_ORDER = ['at', 'map', 'r', 'frame', 'npc', 'object', 'item', 'quest', 'count', 'lvl', 'grind', 'until', 'criteria', 'nearest', 'anywhere', 'choose', 'reward', 'xp', 'money', 'direct', 'group', 'text', 'optional', 'only'];
+const MOD_ORDER = ['at', 'map', 'r', 'frame', 'npc', 'object', 'item', 'quest', 'count', 'upto', 'lvl', 'grind', 'until', 'criteria', 'nearest', 'anywhere', 'gather', 'choose', 'reward', 'xp', 'money', 'direct', 'off', 'group', 'text', 'optional', 'either', 'only'];
 
 function verbSchema() {
 	const verbs = {};

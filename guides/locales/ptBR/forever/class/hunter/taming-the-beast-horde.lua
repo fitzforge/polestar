@@ -15,8 +15,8 @@ return {
 	-- Step 1: Thotar in Razor Hill
 	-- {npc:3171} Thotar · {area:362} Razor Hill
 	["{npc:3171} in {area:362}"] = "{npc:3171} em {area:362}",
-	-- {npc:3171} Thotar · {area:362} Razor Hill · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:11814} Kali Remik · {area:367} Sen'jin Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff
-	["At 10 go to {npc:3171}, the hunter trainer inside the barracks in {area:362}. If {npc:3407} in {zone:1454}, {npc:11814} in {area:367} or {npc:3038} in {zone:1456} hands you The Hunter's Path, take it and hand it to {npc:3171} for a little experience; it is only a pointer, and you can take the first rod without it."] = "No nível 10, vá até {npc:3171}, o instrutor de caçador dentro do quartel de {area:362}. Se {npc:3407} em {zone:1454}, {npc:11814} em {area:367} ou {npc:3038} em {zone:1456} der O caminho do caçador, pegue e entregue a {npc:3171} por um pouco de experiência; é só uma indicação, e dá para pegar o primeiro bastão sem ela.",
+	-- {npc:3171} Thotar · {area:362} Razor Hill · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:11814} Kali Remik · {area:367} Sen'jin Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {quest:6068} The Hunter's Path
+	["At 10 go to {npc:3171}, the hunter trainer inside the barracks in {area:362}. If {npc:3407} in {zone:1454}, {npc:11814} in {area:367} or {npc:3038} in {zone:1456} hands you {quest:6068}, take it and hand it to {npc:3171} for a little experience; it is only a pointer, and you can take the first rod without it."] = "No nível 10, vá até {npc:3171}, o instrutor de caçador dentro do quartel de {area:362}. Se {npc:3407} em {zone:1454}, {npc:11814} em {area:367} ou {npc:3038} em {zone:1456} der {quest:6068}, pegue e entregue a {npc:3171} por um pouco de experiência; é só uma indicação, e dá para pegar o primeiro bastão sem ela.",
 	-- {npc:3171} Thotar · {item:15908} Taming Rod
 	["{npc:3171}: the first {item:15908}"] = "{npc:3171}: o primeiro {item:15908}",
 
@@ -50,8 +50,8 @@ return {
 	-- Step 6: Yaw Sharpmane at Bloodhoof
 	-- {npc:3065} Yaw Sharpmane
 	["{npc:3065} at Bloodhoof"] = "{npc:3065} em Casco Sangrento",
-	-- {npc:3065} Yaw Sharpmane · {area:222} Bloodhoof Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:3171} Thotar · {area:362} Razor Hill
-	["At 10 go to {npc:3065}, who stands at the north edge of {area:222}. The Hunter's Path from {npc:3038} in {zone:1456}, {npc:3407} in {zone:1454} or {npc:3171} in {area:362} also leads here, for a little experience; it is only a pointer."] = "No nível 10, vá até {npc:3065}, que fica na borda norte de {area:222}. O caminho do caçador, de {npc:3038} em {zone:1456}, {npc:3407} em {zone:1454} ou {npc:3171} em {area:362}, também traz você aqui, por um pouco de experiência; é só uma indicação.",
+	-- {npc:3065} Yaw Sharpmane · {area:222} Bloodhoof Village · {quest:6065} The Hunter's Path · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:3171} Thotar · {area:362} Razor Hill
+	["At 10 go to {npc:3065}, who stands at the north edge of {area:222}. {quest:6065} from {npc:3038} in {zone:1456}, {npc:3407} in {zone:1454} or {npc:3171} in {area:362} also leads here, for a little experience; it is only a pointer."] = "No nível 10, vá até {npc:3065}, que fica na borda norte de {area:222}. {quest:6065}, de {npc:3038} em {zone:1456}, {npc:3407} em {zone:1454} ou {npc:3171} em {area:362}, também traz você aqui, por um pouco de experiência; é só uma indicação.",
 	-- {npc:3065} Yaw Sharpmane · {item:15908} Taming Rod
 	["{npc:3065}: the first {item:15908}"] = "{npc:3065}: o primeiro {item:15908}",
 

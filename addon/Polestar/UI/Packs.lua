@@ -72,12 +72,20 @@ end
 -- guides. The empty states and a question at login turn it back on.
 local OWN = "Polestar_Guides"
 
--- Ours to turn on with it: its race and faction parts and the walking
--- packs (Polestar_Nav*), never the 0.2.x language folders a hand install
--- may have left (Polestar_Guides_deDE), nor the Recorder or community addons.
+-- The parts every release needs beside the guides: the settings window
+-- (load on demand). An update can leave it
+-- unticked (#2594, on GeForce NOW): Options then cannot open. Polestar asks
+-- before it turns it back on, never on its own.
+local NEEDED = { Polestar_Options = true }
+
+-- Ours to turn on with it: its faction parts, the walking packs
+-- (Polestar_Nav*) and the needed parts, never the 0.2.x language folders a
+-- hand install may have left (Polestar_Guides_deDE), the race parts 0.4.3
+-- folded into the faction parts (Data.Folded), nor the Recorder or community
+-- addons.
 local function ownPart(name)
-	if name == OWN or name:find("^Polestar_Nav") then return true end
-	return name:find("^Polestar_Guides_") ~= nil and not name:find("_%l%l%u%u$")
+	if name == OWN or NEEDED[name] or name:find("^Polestar_Nav") then return true end
+	return name:find("^Polestar_Guides_") ~= nil and not name:find("_%l%l%u%u$") and not ns.Data.Folded(name)
 end
 
 -- The installed addons `want` picks that are off for this character:
@@ -108,6 +116,11 @@ function P.OwnGuidesOff()
 	return #offAddOns(function(name) return name == OWN end) > 0
 end
 
+-- The needed parts (the settings) installed and turned off: their names.
+function P.NeededOff()
+	return offAddOns(function(name) return NEEDED[name] == true end)
+end
+
 -- Turn Polestar Guides and its parts back on for every character (no
 -- character given: all of them, as the AddOns list's "All"), then reload.
 -- Returns the addons it turned on.
@@ -124,14 +137,35 @@ end
 -- answer is kept per account until the guides are on again, so a player who
 -- keeps them off on purpose is asked once. Never with the gamepad interface
 -- (its focus owns the game's dialogs): the guide window's button stays.
+-- The same question covers the needed parts, and opening Options while one
+-- is off asks again whatever the answer was.
 local POPUP = "POLESTAR_GUIDES_OFF"
 local askPending = false
 
-local function ask()
-	if not askPending then return end
-	if ns.Compat.InCombat() then return end
-	askPending = false
-	if ns.GamepadUI() or not (StaticPopupDialogs and StaticPopup_Show) or not P.OwnGuidesOff() then return end
+-- The addons' titles as the AddOns list shows them ("Polestar Settings").
+local function titles(names)
+	local A = C_AddOns
+	local out = {}
+	for i, name in ipairs(names) do
+		local title = A and A.GetAddOnInfo and select(2, A.GetAddOnInfo(name))
+		out[i] = type(title) == "string" and title ~= "" and title or name
+	end
+	return table.concat(out, ", ")
+end
+
+local function question()
+	if P.OwnGuidesOff() then
+		return L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides to show. Turn it on for all your characters and reload?"]
+	end
+	local needed = P.NeededOff()
+	if #needed == 0 then return nil end
+	return string.format(L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"], titles(needed))
+end
+
+local function showQuestion()
+	if ns.GamepadUI() or not (StaticPopupDialogs and StaticPopup_Show) then return false end
+	local text = question()
+	if not text then return false end
 	ns.DB().guidesOffAsked = true
 	StaticPopupDialogs[POPUP] = StaticPopupDialogs[POPUP] or {
 		text = "%s",
@@ -143,12 +177,26 @@ local function ask()
 		hideOnEscape = true,
 		preferredIndex = 3,
 	}
-	StaticPopup_Show(POPUP, L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides to show. Turn it on for all your characters and reload?"])
+	StaticPopup_Show(POPUP, text)
+	return true
+end
+
+local function ask()
+	if not askPending then return end
+	if ns.Compat.InCombat() then return end
+	askPending = false
+	showQuestion()
+end
+
+-- Options could not load: ask now when a needed part is off (true: asked).
+function P.AskNeeded()
+	if ns.Compat.InCombat() or #P.NeededOff() == 0 then return false end
+	return showQuestion()
 end
 
 ns.OnLogin(function()
 	local db = ns.DB()
-	if not P.OwnGuidesOff() then
+	if not (P.OwnGuidesOff() or #P.NeededOff() > 0) then
 		db.guidesOffAsked = nil
 		return
 	end
@@ -301,7 +349,8 @@ local function newRow(view)
 		end
 		relayout(view)
 	end, { ghost = true, height = 24 })
-	-- Copy report opens the report (it stays open) and selects its text.
+	-- Copy report opens the report (it stays open) and selects its text; the
+	-- line over it says how to copy it (the game gives addons no clipboard).
 	row.CopyReport = W.Button(row, L["Copy report"], function()
 		reported[keyOf(row.psRecord)] = true
 		relayout(view)
@@ -312,6 +361,10 @@ local function newRow(view)
 	row.List:SetSpacing(3)
 	row.List:SetJustifyH("LEFT")
 	row.List:SetJustifyV("TOP")
+	row.CopyHint = W.Text(row, "note", "success")
+	row.CopyHint:SetWordWrap(true)
+	row.CopyHint:SetJustifyH("LEFT")
+	row.CopyHint:Hide()
 	row.Report = W.CopyBox(row, { lines = 6 })
 	-- Measures the report wrapped at the box's text width (its insets are 10).
 	row.ReportMeasure = W.Text(row, "label", "text")
@@ -339,8 +392,9 @@ local function layoutRow(row, r, width)
 	row.Title:ClearAllPoints()
 	row.Title:SetPoint("TOPLEFT", row, "TOPLEFT", PAD, -13)
 
-	-- Right of the title and credits: the switch and the guide count, or
-	-- Enable and reload.
+	-- Right of the title and credits: the switch and the guide count (not
+	-- for a pack that loads on demand and is not in yet: its count is not
+	-- known), or Enable and reload.
 	local reserve = 0
 	row.Switch:Hide(); row.Enable:Hide(); row.Count:Hide()
 	if switchable(r) then
@@ -348,11 +402,14 @@ local function layoutRow(row, r, width)
 		row.Switch:SetPoint("TOPRIGHT", row, "TOPRIGHT", -PAD + 4, -19)
 		row.Switch:Show()
 		row.Switch:Refresh()
-		row.Count:SetText(count(r.guideCount or 0, L["1 guide"], L["%d guides"]))
-		row.Count:ClearAllPoints()
-		row.Count:SetPoint("RIGHT", row.Switch, "LEFT", -10, 0)
-		row.Count:Show()
-		reserve = row.Switch:GetWidth() + 10 + row.Count:GetStringWidth() + 12
+		reserve = row.Switch:GetWidth() + 12
+		if not r.tocOnly then
+			row.Count:SetText(count(r.guideCount or 0, L["1 guide"], L["%d guides"]))
+			row.Count:ClearAllPoints()
+			row.Count:SetPoint("RIGHT", row.Switch, "LEFT", -10, 0)
+			row.Count:Show()
+			reserve = reserve + 10 + row.Count:GetStringWidth()
+		end
 	elseif r.status == "disabled" and r.addon then
 		row.Enable:ClearAllPoints()
 		row.Enable:SetPoint("TOPRIGHT", row, "TOPRIGHT", -PAD, -16)
@@ -405,6 +462,7 @@ local function layoutRow(row, r, width)
 	row.CopyReport:SetShown(shown)
 	row.List:SetShown(shown and listed[k] or false)
 	row.Report:SetShown(shown and reported[k] or false)
+	row.CopyHint:SetShown(shown and reported[k] or false)
 	if shown then
 		W.SetChip(row.Problems, count(n, L["1 problem"], L["%d problems"]), "warning")
 		row.Problems:ClearAllPoints()
@@ -425,6 +483,11 @@ local function layoutRow(row, r, width)
 			y = y + row.List:GetStringHeight() + 10
 		end
 		if reported[k] then
+			row.CopyHint:SetText(W.CopyHintText())
+			row.CopyHint:SetWidth(avail)
+			row.CopyHint:ClearAllPoints()
+			row.CopyHint:SetPoint("TOPLEFT", row, "TOPLEFT", col, -y)
+			y = y + row.CopyHint:GetStringHeight() + 6
 			local text = P.Report(r)
 			local _, lines = text:gsub("\n", "")
 			row.ReportMeasure:SetWidth(avail - 20)

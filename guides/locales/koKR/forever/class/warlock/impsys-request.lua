@@ -12,19 +12,19 @@ return {
 
 	-- Step 1: An Imp's Request (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:14470} Impsy · {zone:1448} Felwood · {item:14256} Felcloth
-	["At 50 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "",
+	["At 50 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "50레벨에 {object:2101}에 있는 {object:2164}의 {npc:461}이(가) 당신을 {item:14256} 한 조각과 함께 {zone:1448}의 {npc:14470}에게 보냅니다.",
 
 	-- Step 2: An Imp's Request (Ironforge)
 	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {npc:14470} Impsy · {zone:1448} Felwood · {item:14256} Felcloth
-	["At 50 {npc:5172} in {zone:1455} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "",
+	["At 50 {npc:5172} in {zone:1455} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "50레벨에 {zone:1455}의 {npc:5172}이(가) 당신을 {item:14256} 한 조각과 함께 {zone:1448}의 {npc:14470}에게 보냅니다.",
 
 	-- Step 3: An Imp's Request (Orgrimmar)
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:14470} Impsy · {zone:1448} Felwood · {item:14256} Felcloth
-	["At 50 {npc:3326} in the {object:172960} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "",
+	["At 50 {npc:3326} in the {object:172960} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "50레벨에 {object:172960}의 {npc:3326}이(가) 당신을 {item:14256} 한 조각과 함께 {zone:1448}의 {npc:14470}에게 보냅니다.",
 
 	-- Step 4: An Imp's Request (Undercity)
 	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter · {npc:14470} Impsy · {zone:1448} Felwood · {item:14256} Felcloth
-	["At 50 {npc:4563} in the {object:36082} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "",
+	["At 50 {npc:4563} in the {object:36082} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "50레벨에 {object:36082}의 {npc:4563}이(가) 당신을 {item:14256} 한 조각과 함께 {zone:1448}의 {npc:14470}에게 보냅니다.",
 
 	-- Step 5: Felcloth
 	-- {item:14256} Felcloth · {zone:1448} Felwood · {quest:8419} An Imp's Request · {npc:14470} Impsy · {quest:8420} Hot and Itchy
@@ -69,10 +69,6 @@ return {
 	["Choose the {item:20536} (staff), the {item:20534} (off-hand) or the {item:20530}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 50 {npc:3326} in the {object:172960} sends you to {npc:14470} in {zone:1448}."] = "50레벨에 {object:172960}의 {npc:3326}이(가) 당신을 {zone:1448}의 {npc:14470}에게 보냅니다.",
-	-- ["At 50 {npc:4563} in the {object:36082} sends you to {npc:14470} in {zone:1448}."] = "50레벨에 {object:36082}의 {npc:4563}이(가) 당신을 {zone:1448}의 {npc:14470}에게 보냅니다.",
-	-- ["At 50 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:14470} in {zone:1448}."] = "50레벨에 {object:2101}에 있는 {object:2164}의 {npc:461}이(가) 당신을 {zone:1448}의 {npc:14470}에게 보냅니다.",
-	-- ["At 50 {npc:5172} in {zone:1455} sends you to {npc:14470} in {zone:1448}."] = "50레벨에 {zone:1455}의 {npc:5172}이(가) 당신을 {zone:1448}의 {npc:14470}에게 보냅니다.",
 	-- ["The Irontree treants in northern {zone:1448} drop the {item:20613}; the Tainted Oozes around {area:1763} the {item:20614}."] = "{zone:1448} 북부의 강철나무정령이 {item:20613}을(를), {area:1763} 주변의 부패한 수액괴물이 {item:20614}을(를) 떨어뜨립니다.",
 	-- ["The six troll guardians of the {area:1417}, a level 50 dungeon, each drop a Voodoo Feather: bring a group of five. The temple stands in the middle of the {area:74}; swim down into it to reach the entrance."] = "50레벨 던전인 {area:1417}의 트롤 수호자 여섯이 각각 부두 깃털을 떨어뜨립니다. 5인 파티를 데려가세요. 사원은 {area:74} 한가운데에 있으며, 물속으로 헤엄쳐 내려가면 입구가 나옵니다.",
 	-- ["{npc:14470} waits beside {npc:14469} in central {zone:1448}, just east of {area:1763}. This chain is {npc:14470}'s own and is not part of the Dreadsteed chain; Niby and {npc:14470} also give the {item:18762} chain here."] = "{npc:14470}은(는) {zone:1448} 중부, {area:1763} 바로 동쪽에서 {npc:14469} 옆에 있습니다. 이 연계 퀘스트는 {npc:14470}의 개인 퀘스트로 공포마 연계 퀘스트에 속하지 않습니다. 나이비와 {npc:14470}은(는) 이곳에서 {item:18762} 연계 퀘스트도 줍니다.",

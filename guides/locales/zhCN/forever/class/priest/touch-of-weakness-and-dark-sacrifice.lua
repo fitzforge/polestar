@@ -75,8 +75,8 @@ return {
 	["{npc:3044}: take his {quest:5644} letter"] = "{npc:3044}：领取他的{quest:5644}信件",
 
 	-- Step 12: Dark Sacrifice: Aelthalyste
-	-- {npc:4606} Aelthalyste · {object:36070} War Quarter · {quest:5644} Dark Sacrifice · {spell:2944} Devouring Plague
-	["At 20, {npc:4606} in the {object:36070} teaches {quest:5644} with a quest she gives and takes back at once (its text still speaks of {spell:2944}, which every priest now learns from the trainer)."] = "20级时，{object:36070} 的 {npc:4606} 会通过一个接到后立即交还的任务教你 {quest:5644}（任务文本仍提到 {spell:2944}，不过如今所有牧师都能向训练师学习这个法术）。",
+	-- {npc:4606} Aelthalyste · {object:36070} War Quarter · {quest:5679} Dark Sacrifice · {spell:2944} Devouring Plague
+	["At 20, {npc:4606} in the {object:36070} teaches {quest:5679} with a quest she gives and takes back at once (its text still speaks of {spell:2944}, which every priest now learns from the trainer)."] = "20级时，{object:36070} 的 {npc:4606} 会通过一个接到后立即交还的任务教你 {quest:5679}（任务文本仍提到 {spell:2944}，不过如今所有牧师都能向训练师学习这个法术）。",
 
 	-- Step 13: Dark Sacrifice: Ur'kyo's letter
 	-- {quest:5646} Dark Sacrifice · {npc:6018} Ur'kyo
@@ -88,6 +88,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:4606} in the {zone:1458}'s {object:36070}. Priest trainers elsewhere ({npc:6018} in {zone:1454}, {npc:3706} in {area:362}, {npc:3044} in {zone:1456}) send you to her with a quest of the same name."] = "10级时，去{zone:1458}的{object:36070}找{npc:4606}。其他地方的牧师训练师（{zone:1454}的{npc:6018}、{area:362}的{npc:3706}、{zone:1456}的{npc:3044}）会用同名任务让你去找她。",
+	-- ["At 20, {npc:4606} in the {object:36070} teaches {quest:5644} with a quest she gives and takes back at once (its text still speaks of {spell:2944}, which every priest now learns from the trainer)."] = "20级时，{object:36070} 的 {npc:4606} 会通过一个接到后立即交还的任务教你 {quest:5644}（任务文本仍提到 {spell:2944}，不过如今所有牧师都能向训练师学习这个法术）。",
 	-- ["At 20, {npc:4606} teaches {quest:5644}. {npc:6018} in {zone:1454} and {npc:3044} in {zone:1456} send you to her with a quest of the same name."] = "20级时，{npc:4606}教授{quest:5644}。{zone:1454}的{npc:6018}和{zone:1456}的{npc:3044}会用同名任务让你去找她。",
 	-- ["At 20, {npc:4606} teaches {spell:1277324}. {npc:6018} in {zone:1454} and {npc:3044} in {zone:1456} send you to her with a quest of the same name."] = "20级时，{npc:4606}教授{spell:1277324}。{zone:1454}的{npc:6018}和{zone:1456}的{npc:3044}会用同名任务让你去找她。",
 	-- ["The Undead priest spells: {spell:2652} at 10, {quest:5644} at 20."] = "亡灵牧师的法术：10级的{spell:2652}，20级的{quest:5644}。",

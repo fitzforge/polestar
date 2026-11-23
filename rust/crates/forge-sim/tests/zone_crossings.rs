@@ -1,5 +1,5 @@
 //! A walk from one zone into another passes a known zone crossing (forge-sim ZoneCrossings,
-//! World::crossings), or it is no walk: Rev14H1, Thunder Bluff's west lift over the ridge to
+//! World::crossings), or it is no walk: c14 review, Thunder Bluff's west lift over the ridge to
 //! Scrabblescrew's Camp in Desolace (the store's 3505 yd; Mulgore's one crossing is the gate to the
 //! Barrens, Desolace's are Stonetalon's and Feralas').
 

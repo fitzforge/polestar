@@ -2,7 +2,7 @@
 guide forever/horde/03-silverpine-forest
 title Silverpine Forest
 faction Horde
-levels 12-15
+levels 12-17
 zone Silverpine Forest
 next forever/horde/02-the-barrens
 
@@ -12,7 +12,8 @@ next forever/horde/02-the-barrens
 # Added here: Prove Your Worth (421), Raleigh and the Undercity (441), Prompt Potion Runner (97891),
 # Zinge's Delivery and Sample for Helbrim (1359, 1358), The Spirits of Stonetalon (1061), and for
 # the starts that come by zeppelin, The Argent Emissary, The Cult of the Damned, Remnants of War and
-# Delivery to Silverpine Forest (96895, 96897, 96898, 445).
+# Delivery to Silverpine Forest (96895, 96897, 96898, 445); for Orcs and Trolls, Ak'Zeloth (809, from
+# Neeru, to Far Watch Post on the Barrens' first stop).
 # Undead only: Supplying the Sepulcher (6321) and Ride to the Undercity (6323), Deathguard Podrig to
 # Karos Razok on the first Sepulcher stop, then Gordon Wendham and Michael Garrett (6322) side by side
 # on the Undercity stop at the end; Return to Podrig (6324) goes back with the ride through the
@@ -23,12 +24,12 @@ next forever/horde/02-the-barrens
 # Zephras Isle come by Orgrimmar and the zeppelin. The Barrens and Stonetalon follow at 15-21 in
 # forever/horde/02-the-barrens, which starts where this guide ends, in Orgrimmar.
 #
-# Flow: Orgrimmar (flight path, the starts' hand-ins, training) -> zeppelin to Tirisfal Glades ->
+# Flow: Orgrimmar (flight path, bind, the starts' hand-ins, training) -> zeppelin to Tirisfal Glades ->
 # Brill (Terrence, Johaan) and Hadric's cultists by the zeppelin towers ->
 # the Sepulcher (flight path) -> the Dalaran crate and back -> north loop: the Dead Field,
 # Malden's Orchard, Erland's escort, worg hearts -> the Sepulcher -> north again: Valgan's Field,
-# Quinn, the murloc eyes on the shore -> south along the lake shore past the Decrepit Ferry to
-# Ambermill -> the Sepulcher -> Quinn and Ivar the Foul on the road north -> Brill ->
+# Quinn, the murloc eyes on the shore -> south along the lake shore to the Decrepit Ferry ->
+# the Sepulcher -> the north-west hills (Moonrage worgen, spiders, bears) -> the Sepulcher -> Quinn and Ivar the Foul on the road north -> Brill ->
 # the Undercity (flight path; Raleigh, Zinge) -> zeppelin to Orgrimmar: the city's own
 # quests, training. The guide ends in the Valley of Wisdom.
 #
@@ -43,7 +44,7 @@ next forever/horde/02-the-barrens
 #
 # Left out: the Forever Arugal's Folly (98298): Dalar offers it only after
 # the Classic Arugal's Folly series (421-424, 99; Forever's quest chain
-# data, #51), which the route does not run past its first part. Stop the Spread (98299, Forever):
+# data, #51), which the route runs only to Arugal's Folly (423), the north-west loop. Stop the Spread (98299, Forever):
 # Dalar did not offer it to an Undead at 19 (#161) or a Tauren at 21 (#229)
 # on this route, though the data gives it to every Horde race from level 9
 # with no prerequisite; one player's report asks for the quest before
@@ -65,18 +66,29 @@ next forever/horde/02-the-barrens
 # Cairne on the Thunder Bluff stop of forever/horde/07-ashenvale, and Thrall takes it back on the
 # Orgrimmar stop of the 30-40 guides. It is optional throughout: a tour for 1150 XP.
 #
-# Dropped: A Recipe For Death (447): its Skittering Blood comes only from the
-# spiders in the north-west hills, off every walk. Rot Hide Origins (444) and Hidden Enemies
-# (5726): the route never turns them in. Wand to Bethor (491): its turn-in comes at level 56.
-# The Weaver (480): it opens only once Ambermill Investigations (479) is handed in, after the
-# Ambermill loop, so it needs a second walk back to Ambermill, and Archmage Ataeric is level 22
-# among the Dalaran casters in the middle of the town.
-# The Engraved Ring (440) stays (Rev17H): Magistrate Sevren is in Brill, on the road from
+# Dropped: Rot Hide Origins (444): the route never turns it in. Wand to Bethor (491): its turn-in comes at level 56.
+# Hidden Enemies (Orcs and Trolls, 0.4.2 route round): Durotar's guide takes 5726 from Thrall and the insignia in
+# Skull Rock; Thrall takes it on this guide's first Orgrimmar walk through Grommash Hold and gives 5727, a word with
+# Neeru Fireblade in the Cleft of Shadow on the last Orgrimmar walk, back to Thrall at its end. Its Ragefire Chasm
+# parts (5728-5730) are left out.
+# Ambermill Investigations (479) and The Weaver (480): Ambermill's Mages fight beside Dalaran Serpents, Conjurors
+# (17-18) stand among them and Archmage Ataeric is level 22 in the middle of the town, two to seven levels over the
+# player here (5 of 14 recorded players died there). Allister gives 479 again on the Sepulcher stop of the ride to
+# Hillsbrad at 22 (forever/horde/05-stonetalon-mountains), whose roads pass Ambermill (0.4.0 level tidy).
+# The Engraved Ring (440) stays (c17 review): Magistrate Sevren is in Brill, on the road from
 # Silverpine to the zeppelin towers.
 #
+# Ragefire Chasm (`when dungeon "Ragefire Chasm"`, dungeons in the route): for a character who chose it,
+# Neeru Fireblade's Slaying the Beast (5761) is taken in the Cleft of Shadow on the last Orgrimmar stop,
+# at about 15; the portal is beside him, so the run follows at once and he takes the heart when you
+# come out. Left out: Hidden Enemies' Ragefire parts (5728-5730: Jergosh and Bazzalan inside, then walks
+# between Thrall and Neeru), The Power to Destroy... (5725: Varimathras stands in the Royal Quarter, off
+# this guide's Apothecarium stop, and the route is next in the Undercity at about 25) and Rahauro's
+# quests (5722-5724: Thunder Bluff, first on the route at 27).
+#
 # Class quests: Orcs and Trolls hand the cultists' Neeru Fireblade (829) and The Admiral's Orders
-# (831) in on arrival in Orgrimmar. Troll Priests hand Hex of Weakness (5654) to Ur'kyo on the
-# Orgrimmar training trip of forever/horde/02-the-barrens. Tauren Druids leave the Strange Lockbox
+# (831) in on arrival in Orgrimmar. Troll Priests hand Hex of Weakness (5654) to Ur'kyo, their
+# trainer, on that arrival stop (02's Orgrimmar trip at 20 keeps it for anyone still carrying it). Tauren Druids leave the Strange Lockbox
 # on the coast west of the Dead Field alone here: its Half Pendant of Aquatic Endurance drops only
 # while Trial of the Sea Lion (30, from level 16) is in the log (#1386). They take the quest in
 # Moonglade in the next guide and open the lockbox on the ride through Silverpine at 21
@@ -100,8 +112,9 @@ next forever/horde/02-the-barrens
 step Orgrimmar
   only Orc,Troll,Tauren,Skyborne
   zone Orgrimmar
-  tip Walk in by the main gate. Doras, the wind rider master, stands on the tower in the Valley of Strength; Thatog by the bank below it.
+  tip Walk in by the main gate. Doras, the wind rider master, stands on the tower in the Valley of Strength; Innkeeper Gryshka keeps the inn below it, Thatog stands by the bank. Bind here: the Hearthstone brings you back from Silverpine Forest beside the zeppelin towers and the road to the Barrens.
   getfp "Orgrimmar"
+  sethome "Orgrimmar" npc 6929        -- Innkeeper Gryshka
   accept 97246                        -- Thatog
 
 step Borstan
@@ -114,10 +127,19 @@ step Borstan
 step Neeru Fireblade
   only Orc,Troll
   zone Orgrimmar
-  when onquest 829
+  when onquest 829,832
   tip The Cleft of Shadow is the canyon under the Valley of Strength; Neeru Fireblade stands at its far end.
   turnin 829
-  turnin 832 optional                 -- Neeru Fireblade
+  accept 809                          -- Neeru Fireblade: Ak'Zeloth stands at Far Watch Post, on the next guide's road to the Crossroads
+  turnin 832                          -- Neeru Fireblade: Burning Shadows, from the Eye of Burning Shadow in Durotar
+
+step Neeru Fireblade
+  only Orc,Troll
+  zone Orgrimmar
+  when turnedin 829
+  when available 809
+  tip Neeru Fireblade stands at the far end of the Cleft of Shadow, the canyon under the Valley of Strength.
+  accept 809                          -- Neeru Fireblade: Ak'Zeloth stands at Far Watch Post, on the next guide's road to the Crossroads
 
 step The Drag
   only Orc,Troll,Tauren,Skyborne
@@ -129,6 +151,7 @@ step Jandi
   only Orc,Troll
   zone Orgrimmar
   when onquest 97905
+  when complete 97905
   tip Jandi, the herbalism trainer, keeps her shop in the Drag.
   complete 97905 @55.62,39.46
   turnin 97905                        -- Jandi: Camping 101, from Brakk's campfire in Durotar
@@ -137,6 +160,7 @@ step Jhag
   only Orc,Troll
   zone Orgrimmar
   when onquest 97901
+  when complete 97901
   tip Jhag, the enchanting trainer, works in the Drag.
   complete 97901 @53.47,38.55
   turnin 97901                        -- Jhag: Camping 101, from Brakk's campfire in Durotar
@@ -152,6 +176,7 @@ step Thuwd
   only Orc,Troll
   zone Orgrimmar
   when onquest 97908
+  when complete 97908
   tip Thuwd, the skinning trainer, stands in the Valley of Honor.
   complete 97908 @63.36,45.42
   turnin 97908                        -- Thuwd: Camping 101, from Brakk's campfire in Durotar
@@ -160,6 +185,7 @@ step Karolek
   only Orc,Troll
   zone Orgrimmar
   when onquest 97906
+  when complete 97906
   tip Karolek, the leatherworking trainer, works in the Valley of Honor.
   complete 97906 @62.81,44.15
   turnin 97906                        -- Karolek: Camping 101, from Brakk's campfire in Durotar
@@ -168,15 +194,17 @@ step Snang
   only Orc,Troll
   zone Orgrimmar
   when onquest 96102
+  when complete 96102
   tip Snang, the tailoring trainer, is in the Valley of Honor.
   complete 96102 @62.93,49.24
   turnin 96102                        -- Snang: Camping 101, from Brakk's campfire in Durotar
 
 step Class trainer
-  only Orc,Troll,Tauren,Skyborne,Warrior,Hunter,Rogue,Priest,Shaman,Warlock
+  only Orc,Troll,Tauren,Skyborne,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
-  tip Train while you are in the city: Druids and Paladins have no trainer here.
-  train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
+  tip Train while you are in the city: Druids and Paladins have no trainer here. Troll Priests: train with Ur'kyo in the Valley of Spirits, who takes Hex of Weakness.
+  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  turnin 5654 only Troll,Priest       -- Ur'kyo: Hex of Weakness
 
 step Sayoc
   only Orc,Troll,Tauren,Skyborne,Warrior
@@ -221,6 +249,7 @@ step Whuut
   only Orc,Troll
   zone Orgrimmar
   when onquest 97899
+  when complete 97899
   tip Whuut, the alchemy trainer, stands next door to Kor'geld.
   complete 97899 @55.79,32.9
   turnin 97899                        -- Whuut: Camping 101, from Brakk's campfire in Durotar
@@ -229,8 +258,8 @@ step Valley of Wisdom
   only Orc,Troll,Tauren,Skyborne
   zone Orgrimmar
   tip Thra and Migi sit behind Grommash Hold in the Valley of Wisdom; the Smooth Boulders lie around them.
-  accept 97326                        -- Thra
   turnin 97249                        -- Migi
+  accept 97326                        -- Thra
   collect 277952 quest 97326.1
   turnin 97326
 
@@ -241,13 +270,28 @@ step Thrall
   turnin 95350                        -- Thrall, inside Grommash Hold
   accept 98024                        -- Thrall: keep it, Thork at the Crossroads in the Barrens guide
   accept 93739 optional               -- Thrall: Exploring the Horde, a tour of the Horde's leaders
-  kill 3230 quest 93739.1 "Talk to Nazgrel" optional -- Speak with Nazgrel, in Grommash Hold
-  kill 10540 quest 93739.2 "Talk to Vol'jin" optional -- Speak with Vol'jin, in Grommash Hold
+  talk 3230 quest 93739.1 "Talk to Nazgrel" optional -- Speak with Nazgrel, in Grommash Hold
+  talk 10540 quest 93739.2 "Talk to Vol'jin" optional -- Speak with Vol'jin, in Grommash Hold
 
 step Nazgrel
   zone Orgrimmar
   when onquest 831
   turnin 831 only Orc,Troll           -- Nazgrel, in Grommash Hold
+
+step Thrall
+  only Orc,Troll
+  zone Orgrimmar
+  when complete 5726
+  tip Thrall, on his throne in Grommash Hold, takes the Lieutenant's Insignia from Skull Rock. His next errand is only a word with Neeru Fireblade, on this guide's last Orgrimmar walk.
+  turnin 5726                         -- Thrall
+
+step Thrall
+  only Orc,Troll
+  zone Orgrimmar
+  when turnedin 5726
+  when available 5727
+  tip Thrall sits on his throne in Grommash Hold. His next errand is only a word with Neeru Fireblade, on this guide's last Orgrimmar walk.
+  accept 5727                         -- Thrall
 
 step Zeppelin to Undercity
   only Orc,Troll,Tauren,Skyborne
@@ -261,9 +305,10 @@ step Zeppelin to Undercity
 step Brill
   only Orc,Troll,Tauren,Skyborne
   zone Tirisfal Glades
-  tip Brill is a short walk north up the road from the zeppelin towers: Deathguard Terrence stands by the road into town, Apothecary Johaan in the apothecary's house on the west side of the square.
+  tip Brill is a short walk north up the road from the zeppelin towers: Deathguard Terrence stands by the road into town, Apothecary Johaan in the apothecary's house on the west side of the square; Paladins: Shari Stilwell trains you in town.
   accept 96895                        -- Deathguard Terrence
   accept 445                          -- Apothecary Johaan, inside
+  train class only Paladin            -- Shari Stilwell, in Brill
 
 step Hadric Harlson
   only Orc,Troll,Tauren,Skyborne
@@ -287,12 +332,6 @@ step Hadric Harlson
   turnin 96897
   turnin 96898
 
-step Brill
-  only Paladin
-  zone Tirisfal Glades
-  tip Shari Stilwell trains Paladins in Brill, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine.
-  train class
-
 step The Sepulcher
   zone Silverpine Forest
   goto 44.0,40.9 "The Sepulcher"
@@ -311,6 +350,7 @@ step The Sepulcher
   accept 428                          -- High Executor Hadrec, below ground
   accept 437
   turnin 445                          -- Apothecary Renferrel: Delivery to Silverpine Forest
+  accept 447                          -- Apothecary Renferrel: bear hearts from the Grizzled Bears all over the forest, the spiders' blood in the north-west hills later
 
 step The Sepulcher
   zone Silverpine Forest
@@ -320,14 +360,14 @@ step The Sepulcher
 
 step Border Crossings
   zone Silverpine Forest
-  tip Follow the road south. The Dalaran Crate sits beside it, north of Pyrewood.
+  tip Follow the road south. The Dalaran Crate sits beside it, north of Pyrewood. Careful: Dalaran Apprentices (13) stand around the crate: pull them one at a time before you open it.
   turnin 477
   accept 478
 
 # ---------------------------------------------------------------- North loop
 
 step The Dead Field
-  tip North of the Sepulcher. Nightlash haunts the Dead Field: kill it, then walk across the field.
+  tip North of the Sepulcher. Nightlash haunts the Dead Field: kill it, then walk across the field. Careful: Nightlash (14) rises once you have killed rot hide gnolls in the field: fight her with full health.
   collect 3622 quest 437.1
   complete 437 @45.1,21.7
 
@@ -368,7 +408,7 @@ step The Sepulcher
   turnin 429
   accept 430
   turnin 482                          -- Shadow Priest Allister
-  accept 479                          -- Ambermill comes later, down the lake shore
+  note Allister's Ambermill Investigations is for the ride through Silverpine at 22; leave it.
 
 # ---------------------------------------------------------------- North again, then the lake shore
 
@@ -385,27 +425,38 @@ step Vile Fin murlocs
   tip Follow the lake shore south-east from the Yoricks' house: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes.
   collect 730 quest 91920.1 @61.1,14.5
 
-# ---------------------------------------------------------------- South to Ambermill
+# ---------------------------------------------------------------- South to the ferry
 
-# The lake shore -> the Decrepit Ferry -> Ambermill -> back up the road to the Sepulcher: Wild Eyes
-# and Rot Hide Clues wait for that Sepulcher stop with Ambermill's pendants.
+# The lake shore -> the Decrepit Ferry -> back up the road to the Sepulcher: Wild Eyes
+# and Rot Hide Clues wait for that Sepulcher stop.
 step The Decrepit Ferry
-  tip Follow the lake shore south from the murlocs: the Corpse Laden Boat lies at the ferry landing, on the way to Ambermill.
+  tip Follow the lake shore south from the murlocs: the Corpse Laden Boat lies at the ferry landing.
   turnin 438
   accept 439
 
-step Ambermill
-  tip Keep south along the shore from the ferry to Ambermill. Protectors guard the outskirts and Mages the town; both drop pendants. Stay out of the middle, where Archmage Ataeric stands.
-  collect 3354 quest 479.1            -- Dalaran Pendant
-
 step The Sepulcher
-  tip Back north-west up the road to the Sepulcher.
-  turnin 479                          -- Shadow Priest Allister
+  tip From the ferry back west up the road to the Sepulcher.
   turnin 91920                        -- Apothecary Renferrel
   accept 91921                        -- Apothecary Renferrel: for Quinn, on the road north at the end
   turnin 422                          -- Dalar Dawnweaver, just north of Allister
+  accept 423                          -- Dalar Dawnweaver
   turnin 439                          -- High Executor Hadrec, below ground
   accept 440                          -- Magistrate Sevren in Brill, on the way to the zeppelin at the end
+
+# Arugal's Folly (423, the chain's outdoor step after Valgan's spellbooks) and A Recipe For Death (447)
+# share one loop into the north-west hills (mobs 12-13 at about 14): the Moonrage worgen first, then the
+# Moss Stalkers and Giant Grizzled Bears beyond them, back to Dalar before the road north. Renferrel's
+# recipe goes to Faranell on the Undercity stop at the end.
+step North-west hills
+  tip North-west of the Sepulcher the Moonrage Gluttons and Darksouls roam the hills between the road and the lake; their shackles drop from them. Past them, farther north-west, Moss Stalkers and Mist Creepers bleed the Skittering Blood, and Giant Grizzled Bears roam among them for the hearts (any Grizzled Bear in the forest drops one).
+  collect 3156 quest 423.1 @38.8,25.5 -- Glutton Shackle, from the Moonrage Gluttons
+  collect 3157 quest 423.2 @37.6,24.5 -- Darksoul Shackle, from the Moonrage Darksouls
+  collect 3254 quest 447.2 @35.0,15.5 -- Skittering Blood, from the Moss Stalkers and Mist Creepers
+  collect 3253 quest 447.1 @36.0,18.5 -- Grizzled Bear Heart
+
+step The Sepulcher
+  tip Back south-east to the Sepulcher.
+  turnin 423                          -- Dalar Dawnweaver
 
 step The Ivar Patch
   tip Take the road north toward Tirisfal Glades: the Yoricks' house at Malden's Orchard is on the way. Ivar the Foul lurks a short walk west of it.
@@ -442,6 +493,7 @@ step The Undercity
   accept 97891                        -- Alessandro Luca
   turnin 97891                        -- Doctor Martin Felben, in the Apothecarium
   turnin 1359                         -- Apothecary Zinge, in the Apothecarium
+  turnin 447                          -- Master Apothecary Faranell, beside Zinge
   accept 1358                         -- Apothecary Zinge: Helbrim at the Crossroads, in the next guide
   train class only Paladin            -- Garen Largo, the Undercity's paladin trainer
 
@@ -449,6 +501,7 @@ step Brom Killian
   only Undead
   zone Undercity
   when onquest 97959
+  when complete 97959
   tip Brom Killian, the mining trainer, works in the Undercity.
   complete 97959 @56.03,37.45
   turnin 97959                        -- Brom Killian: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
@@ -457,6 +510,7 @@ step Basil Frye
   only Undead
   zone Undercity
   when onquest 97952
+  when complete 97952
   tip Basil Frye, the blacksmithing trainer, works in the Undercity.
   complete 97952 @60.17,29.09
   turnin 97952                        -- Basil Frye: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
@@ -465,6 +519,7 @@ step Graham Van Talen
   only Undead
   zone Undercity
   when onquest 97954
+  when complete 97954
   tip Graham Van Talen, the engineering trainer, works in the Undercity.
   complete 97954 @75.34,73.13
   turnin 97954                        -- Graham Van Talen: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
@@ -473,7 +528,7 @@ step Lady Sylvanas Windrunner
   only Skyborne
   zone Undercity
   tip Lady Sylvanas Windrunner holds court in the Royal Quarter.
-  kill 10181 quest 93739.4 "Talk to Lady Sylvanas Windrunner" only Skyborne optional -- Speak with Lady Sylvanas Windrunner, in the Royal Quarter: Exploring the Horde
+  talk 10181 quest 93739.4 "Talk to Lady Sylvanas Windrunner" only Skyborne optional -- Speak with Lady Sylvanas Windrunner, in the Royal Quarter: Exploring the Horde
 
 step Zeppelin to Orgrimmar
   zone Tirisfal Glades
@@ -497,6 +552,34 @@ step Valley of Strength
   tip Borstan's Firepit is a few steps north.
   turnin 97246                        -- Borstan
   accept 97249
+
+step Neeru Fireblade
+  zone Orgrimmar
+  when onquest 5727
+  tip The Cleft of Shadow is the canyon under the Valley of Strength; Neeru Fireblade stands at its far end. Tell him what Thrall found.
+  talk 3216 quest 5727.1              -- Neeru Fireblade
+
+step Neeru Fireblade
+  when dungeon "Ragefire Chasm"
+  zone Orgrimmar
+  tip For your Ragefire Chasm run: the Cleft of Shadow is the canyon under the Valley of Strength; Neeru Fireblade stands at its far end, next to the Ragefire Chasm portal.
+  accept 5761                         -- Neeru Fireblade
+
+step Ragefire Chasm
+  when dungeon "Ragefire Chasm"
+  when onquest 5761
+  zone Orgrimmar
+  tip Ragefire Chasm is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the Cleft of Shadow, beside Neeru.
+  tip Inside: past Oggleflint and his troggs, Taragaman the Hungerer waits in the lava cave and drops his heart. Jergosh the Invoker and Bazzalan, further in, are for Hidden Enemies' Ragefire part, which this route leaves out.
+  enter "Ragefire Chasm" @52.6,49.0
+  complete 5761                       -- Slaying the Beast: Taragaman the Hungerer's Heart
+
+step Neeru Fireblade
+  when dungeon "Ragefire Chasm"
+  when complete 5761
+  zone Orgrimmar
+  tip Back out through the portal: Neeru stands beside it.
+  turnin 5761                         -- Neeru Fireblade
 
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
@@ -525,12 +608,17 @@ step Kor'geld
   turnin 97275                        -- Whuut
 
 step Valley of Wisdom
-  tip Thra and Migi sit behind Grommash Hold in the Valley of Wisdom; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide walks from here to Far Watch Post and the Crossroads.
-  accept 97326                        -- Thra
+  tip Thra and Migi sit behind Grommash Hold in the Valley of Wisdom; the Smooth Boulders lie around them. The next guide walks from here to Razor Hill, then Far Watch Post and the Crossroads.
   turnin 97249                        -- Migi
+  accept 97326                        -- Thra
   collect 277952 quest 97326.1
   turnin 97326
-  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+
+step Thrall
+  zone Orgrimmar
+  when onquest 5727
+  tip Thrall waits in Grommash Hold, beside Thra and Migi.
+  turnin 5727                         -- Thrall
 
 step Zor Lonetree
   accept 1061                         -- Zor Lonetree: Seereth Stonebreak, on the road into Stonetalon in the next guide

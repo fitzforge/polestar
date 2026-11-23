@@ -14,7 +14,7 @@ return {
 	["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use {spell:3563} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568}位于{zone:1458}的{object:36082}。兽人和巨魔可施放{spell:3563}，或从{zone:1454}乘飞艇前往{zone:1420}。",
 
 	-- Step 2: Deino
-	-- {zone:1454} Orgrimmar · {spell:3567} Teleport: Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:5885} Deino · {object:172961} Valley of Spirits · {item:7269} Deino's Flask
+	-- {zone:1454} Orgrimmar · {spell:3567} Teleport: Orgrimmar · {object:173161} Darkbriar Lodge · {npc:5885} Deino · {object:172961} Valley of Spirits · {item:7269} Deino's Flask
 	["Take the zeppelin to {zone:1454} (or use {spell:3567}, which lands you on the upper floor of {object:173161}). {npc:5885} stands with the mage trainers on the lower floor of {object:173161} in the {object:172961}. She hands you {item:7269}."] = "乘飞艇前往{zone:1454}，或施放{spell:3567}，传送落点在{object:173161}上层。{npc:5885}与其他法师训练师站在{object:172961}的{object:173161}下层，她会交给你{item:7269}。",
 
 	-- Step 3: The Xavian Waterfall

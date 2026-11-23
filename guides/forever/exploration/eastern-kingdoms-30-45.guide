@@ -100,6 +100,8 @@ step Riverglades (1/2)
   zone Riverglades
   tip 14 areas to discover here, levels 36-44. Flight paths: Farholde Keep in the south-east (Alliance), Rog'mar in the middle (Horde).
   note "From the south of the Badlands, past Agmond's End, a way leads down into the Riverglades by Twilight's Shroud. (The Riverglades also open off northern Redridge through Blackrock Pass, and a ship runs from Steamwheedle Port in Tanaris to Powderfuse Port, the neutral goblin port on its coast.) Krol'dok Stronghold is an ogre clan's outdoor dungeon."
+  note "Flight path here: Farholde Keep (Gretchen Mayberry)." only Alliance
+  note "Flight path here: Rog'mar (Grakna)." only Horde
   explore 27.5,43.9 "Twilight's Shroud" live
   explore 44.4,26.5 "Krol'dok Stronghold" live
   explore 65.7,16.4 "Bolder'ok" live

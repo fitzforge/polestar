@@ -13,7 +13,7 @@ return {
 	-- {area:1581} The Deadmines
 	["{area:1581}: Cookie"] = "{area:1581}: Cocinitas",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
-	["{area:1581} is a group of five under {area:20}: the mine mouth is in {area:20}, the instance portal deep inside the mine. Cookie, the murloc cook, waits on a small island under the pirate ship at the far end, an optional boss; his cooking heals him, so interrupt it. He drops the Siamese about 15% of the time in Classic's data: expect several runs. The carrier can be traded, so check the Auction House too."] = "",
+	["{area:1581} is a group of five under {area:20}: the mine mouth is in {area:20}, the instance portal deep inside the mine. Cookie, the murloc cook, waits on a small island under the pirate ship at the far end, an optional boss; his cooking heals him, so interrupt it. He drops the Siamese about 15% of the time in Classic's data: expect several runs. The carrier can be traded, so check the Auction House too."] = "{area:1581} es para un grupo de cinco, debajo de {area:20}: la entrada de la mina está en {area:20}, y el portal de la instancia en lo hondo de la mina. Cookie, el cocinero múrloc, espera en una islita debajo del barco pirata del fondo, un jefe opcional; su cocina lo sana, así que interrúmpela. Suelta el siamés más o menos el 15% de las veces según los datos de Classic: cuenta con varias pasadas. El transportín se puede comerciar, así que revisa también la casa de subastas.",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	["{area:1581}, in the {area:20} mine"] = "{area:1581}, en la mina de {area:20}",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook

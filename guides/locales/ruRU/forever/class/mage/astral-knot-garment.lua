@@ -15,13 +15,13 @@ return {
 
 	-- Step 2: Jennea Cannon (Stormwind)
 	-- {npc:5497} Jennea Cannon · {object:2101} Mage Quarter
-	["{npc:5497} stands at the top of the Wizard's Sanctum, the violet tower of the {object:2101}; the portal near the top of the spiral ramp takes you to her."] = "",
+	["{npc:5497} stands at the top of the Wizard's Sanctum, the violet tower of the {object:2101}; the portal near the top of the spiral ramp takes you to her."] = "{npc:5497} стоит на вершине Святилища волшебника, фиолетовой башни ({object:2101}); к ней ведет портал у верха спирального пандуса.",
 
 	-- Step 3: High Sorcerer Andromath (Skyborne)
-	-- {npc:5694} High Sorcerer Andromath
-	["{npc:5694} (Skyborne)"] = "",
-	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {npc:5694} High Sorcerer Andromath · {npc:5497} Jennea Cannon
-	["You do not need a letter: at 26 climb the Wizard's Sanctum, the violet tower of {zone:1453}'s {object:2101}. {npc:5694} waits on the spiral walkway, just past the door of the portal room near the top, and has the quest for you. ({npc:5497} may also offer you {npc:5694}, the pointer quest; it is only a pointer and you can skip it.)"] = "",
+	-- {quest:1939} High Sorcerer Andromath
+	["{quest:1939} (Skyborne)"] = "",
+	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {quest:1939} High Sorcerer Andromath · {npc:5497} Jennea Cannon
+	["You do not need a letter: at 26 climb the Wizard's Sanctum, the violet tower of {zone:1453}'s {object:2101}. {quest:1939} waits on the spiral walkway, just past the door of the portal room near the top, and has the quest for you. ({npc:5497} may also offer you {quest:1939}, the pointer quest; it is only a pointer and you can skip it.)"] = "",
 
 	-- Step 4: High Sorcerer Andromath
 	-- {quest:1939} High Sorcerer Andromath
@@ -52,6 +52,5 @@ return {
 	-- ["Carrion Recluses lurk in the woods of western {zone:1431} and each one drops the silk. The Black Widow Hatchlings further east drop it now and then."] = "Падальщики-отшельники скрываются в лесах на западе зоны {zone:1431}, шелк падает с каждого. С детенышей черной вдовы дальше к востоку он падает иногда.",
 	-- ["Ride east through {zone:1429} into Redridge. The fallen mage's tower of Ilgalar stands in the east of the zone; the treatise is in his library."] = "Езжайте на восток через зону {zone:1429} в Красногорье. Башня Илгалара, павшего мага, стоит на востоке зоны; трактат – в его библиотеке.",
 	-- ["{npc:1309} works at {object:23296} in the {object:2101}."] = "{npc:1309} работает здесь: {object:23296} ({object:2101}).",
-	-- ["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}."] = "{npc:5497} стоит в башне ({object:2101}).",
 	-- ["{quest:1939} is in the Wizard's Sanctum too."] = "{quest:1939} – в той же башне.",
 }

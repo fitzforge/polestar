@@ -8,23 +8,23 @@
 return {
 	-- Guide
 	["Warlock Dreadsteed"] = "Corcel nefasto de brujo",
-	["Your epic mount at 60, summoned anywhere: no epic horse to buy and no 1,000g Journeyman Riding needed."] = "",
+	["Your epic mount at 60, summoned anywhere: no epic horse to buy and no 1,000g Journeyman Riding needed."] = "Tu montura épica a nivel 60, invocable en cualquier lugar: sin caballo épico que comprar y sin necesitar Equitación de oficial por 1000 o.",
 
 	-- Step 1: Mor'zul Bloodbringer (Stormwind)
 	-- {npc:5520} Spackle Thornberry · {object:2164} Slaughtered Lamb · {quest:7562} Mor'zul Bloodbringer · {zone:1428} Burning Steppes
-	["At 60 {npc:5520}, the demon trainer in the {object:2164}, sends you to {quest:7562} in the {zone:1428}."] = "",
+	["At 60 {npc:5520}, the demon trainer in the {object:2164}, sends you to {quest:7562} in the {zone:1428}."] = "A nivel 60 {npc:5520}, el instructor de demonios de {object:2164}, te envía con {quest:7562} en {zone:1428}.",
 
 	-- Step 2: Mor'zul Bloodbringer (Ironforge)
 	-- {npc:6382} Jubahl Corpseseeker · {zone:1455} Ironforge · {quest:7562} Mor'zul Bloodbringer · {zone:1428} Burning Steppes
-	["At 60 {npc:6382}, the demon trainer in {zone:1455}, sends you to {quest:7562} in the {zone:1428}."] = "",
+	["At 60 {npc:6382}, the demon trainer in {zone:1455}, sends you to {quest:7562} in the {zone:1428}."] = "A nivel 60 {npc:6382}, el instructor de demonios de {zone:1455}, te envía con {quest:7562} en {zone:1428}.",
 
 	-- Step 3: Mor'zul Bloodbringer (Orgrimmar)
 	-- {npc:5815} Kurgul · {object:172960} Cleft of Shadow · {quest:7562} Mor'zul Bloodbringer · {zone:1428} Burning Steppes
-	["At 60 {npc:5815}, the demon trainer in the {object:172960}, sends you to {quest:7562} in the {zone:1428}."] = "",
+	["At 60 {npc:5815}, the demon trainer in the {object:172960}, sends you to {quest:7562} in the {zone:1428}."] = "A nivel 60 {npc:5815}, el instructor de demonios de {object:172960}, te envía con {quest:7562} en {zone:1428}.",
 
 	-- Step 4: Mor'zul Bloodbringer (Undercity)
 	-- {npc:5753} Martha Strain · {object:36082} Magic Quarter · {quest:7562} Mor'zul Bloodbringer · {zone:1428} Burning Steppes
-	["At 60 {npc:5753}, the demon trainer in the {object:36082}, sends you to {quest:7562} in the {zone:1428}."] = "",
+	["At 60 {npc:5753}, the demon trainer in the {object:36082}, sends you to {quest:7562} in the {zone:1428}."] = "A nivel 60 {npc:5753}, el instructor de demonios de {object:36082}, te envía con {quest:7562} en {zone:1428}.",
 
 	-- Step 5: Mor'zul Bloodbringer
 	-- {quest:7562} Mor'zul Bloodbringer · {npc:14437} Gorzeeki Wildeyes · {area:255} Altar of Storms · {zone:1428} Burning Steppes · {area:254} Blackrock Mountain · {npc:14522} Ur'dan · {area:2057} Scholomance · {area:2577} Dire Maul
@@ -56,7 +56,7 @@ return {
 	-- Step 9: Arcanite
 	-- {npc:14437} Gorzeeki Wildeyes · {item:18629} Black Lodestone · {item:12363} Arcane Crystal · {item:12359} Thorium Bar
 	-- plural, as words: Arcanite Bars = {item:12360} Arcanite Bar
-	["Hand the three pieces to {npc:14437}. He then wants 3 Arcanite Bars for the {item:18629}: alchemists transmute them (an {item:12363} and a {item:12359} each, on a long cooldown); everyone else buys them."] = "",
+	["Hand the three pieces to {npc:14437}. He then wants 3 Arcanite Bars for the {item:18629}: alchemists transmute them (an {item:12363} and a {item:12359} each, on a long cooldown); everyone else buys them."] = "Entrega las tres piezas a {npc:14437}. Después quiere 3 Lingotes de arcanita para el {item:18629}: los alquimistas los transmutan (un {item:12363} y un {item:12359} cada uno, con un tiempo de reutilización largo); los demás los compran.",
 	-- {item:12360} Arcanite Bar
 	["{item:12360}: the Auction House"] = "",
 
@@ -70,13 +70,13 @@ return {
 
 	-- Step 12: Xorothian Stardust
 	-- {npc:14522} Ur'dan · {quest:7623} Lord Banehollow · {item:18687} Xorothian Stardust · {item:18802} Shadowy Potion
-	["{npc:14522}, beside {quest:7623}, sells the {item:18687} for 150 gold. He deals with you only while a {item:18802} is active."] = "",
+	["{npc:14522}, beside {quest:7623}, sells the {item:18687} for 150 gold. He deals with you only while a {item:18802} is active."] = "{npc:14522}, junto a {quest:7623}, vende el {item:18687} por 150 de oro. Solo trata contigo mientras tengas activa una {item:18802}.",
 	-- {item:18687} Xorothian Stardust · {npc:14522} Ur'dan
 	["{item:18687}, from {npc:14522}"] = "{item:18687}, de {npc:14522}",
 
 	-- Step 13: Imp Delivery
 	-- {npc:14437} Gorzeeki Wildeyes · {quest:7630} Arcanite · {item:18688} Imp in a Jar · {area:2057} Scholomance
-	["Back to {npc:14437} with the stardust; with the {quest:7630} also done he gives you the {item:18688} for the {area:2057}. Put a group of five together now: a party, not a raid group."] = "",
+	["Back to {npc:14437} with the stardust; with the {quest:7630} also done he gives you the {item:18688} for the {area:2057}. Put a group of five together now: a party, not a raid group."] = "Vuelve con {npc:14437} con el polvo estelar; con {quest:7630} también hecha, te da el {item:18688} para {area:2057}. Reúne ahora un grupo de cinco: un grupo, no una banda.",
 	-- {quest:7625} Xorothian Stardust · {npc:14522} Ur'dan
 	["{quest:7625}, from {npc:14522}"] = "",
 
@@ -86,7 +86,7 @@ return {
 	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {item:13704} Skeleton Key · {npc:10508} Ras Frostwhisper · {item:18688} Imp in a Jar · {npc:14500} J'eevee
 	["The {area:2057} (level 58-60, a group of five) lies under {area:2298}, the island town in the south-east of the {zone:1422}: someone needs the {item:13704} or a rogue to open the door. Fight down to {npc:10508}'s room and use the {item:18688} at the alchemy lab tables to the right: {npc:14500} makes the parchment. You need not kill Ras, but it only counts at this lab and only in a party."] = "",
 	-- {item:18688} Imp in a Jar
-	["Use the {item:18688} at the alchemy lab inside"] = "",
+	["Use the {item:18688} at the alchemy lab inside"] = "Usa el {item:18688} en el laboratorio de alquimia, dentro",
 
 	-- Step 15: Dreadsteed of Xoroth
 	-- {npc:14437} Gorzeeki Wildeyes · {npc:14436} Mor'zul Bloodbringer · {item:18663} J'eevee's Jar · {item:18629} Black Lodestone · {item:18670} Xorothian Glyphs
@@ -117,25 +117,16 @@ return {
 	["{item:18670}, once the circle is complete"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 60 {npc:5520} in the {object:2164} sends you to {quest:7562} in the {zone:1428}."] = "A nivel 60 {npc:5520}, en {object:2164}, te envía con {quest:7562} en {zone:1428}.",
-	-- ["At 60 {npc:5753} in the {object:36082} sends you to {quest:7562} in the {zone:1428}."] = "A nivel 60 {npc:5753}, en {object:36082}, te envía con {quest:7562} en {zone:1428}.",
-	-- ["At 60 {npc:5815} in the {object:172960} sends you to {quest:7562} in the {zone:1428}."] = "A nivel 60 {npc:5815}, en {object:172960}, te envía con {quest:7562} en {zone:1428}.",
-	-- ["At 60 {npc:6382} in {zone:1455} sends you to {quest:7562} in the {zone:1428}."] = "A nivel 60 {npc:6382}, en {zone:1455}, te envía con {quest:7562} en {zone:1428}.",
 	-- ["Back to {npc:14436}, then hand his {item:18591} to {npc:14437} beside him. {npc:14436} then asks for three ritual pieces and {npc:14437} sends you to {zone:1448}: buy two Shadowy Potions from {npc:14437} for that trip."] = "Vuelve con {npc:14436} y entrega su {item:18591} a {npc:14437}, a su lado. {npc:14436} pide entonces tres piezas del ritual y {npc:14437} te envía a {zone:1448}: cómprale a {npc:14437} dos Pociones enigmáticas para ese viaje.",
-	-- ["Back to {npc:14437} with the stardust. He gives you the {item:18688} for the {area:2057}."] = "Vuelve con {npc:14437} con el polvo estelar. Te da el {item:18688} para {area:2057}.",
 	-- ["Back to {npc:14437}, then {npc:14436} hands you his instructions for the ritual. Buy {item:18663}, the {item:18629} and the {item:18670} from {npc:14437}, and carry ten or more Soul Shards."] = "Vuelve con {npc:14437}; después {npc:14436} te da sus instrucciones para el ritual. Compra {item:18663}, la {item:18629} y los {item:18670} a {npc:14437}, y lleva diez o más Fragmentos de alma.",
 	-- ["Gorzeeki wants 10 Elixirs of {spell:5896} ({skill:171}), 6 Large Brilliant Shards ({skill:333}), 25 {item:11370} ({skill:186}, in {area:1584} and the {zone:1427}) and 35 Black Dragonscales ({skill:393}, black dragonkin of the {zone:1428}). Make or gather what your professions allow; buy the rest at the Auction House."] = "Gorzeeki quiere 10 Elixires de {spell:5896} ({skill:171}), 6 Fragmentos luminosos grandes ({skill:333}), 25 {item:11370} ({skill:186}, en {area:1584} y {zone:1427}) y 35 Escamas de dragón negro ({skill:393}, dragonantes negros de {zone:1428}). Fabrica o recoge lo que te permitan tus profesiones; compra el resto en la casa de subastas.",
-	-- ["Hand the three pieces to {npc:14437}. He then wants 3 Arcanite Bars: alchemists transmute them, everyone else buys them at the Auction House."] = "Entrega las tres piezas a {npc:14437}. Después quiere 3 Lingotes de arcanita: los alquimistas los transmutan y los demás los compran en la casa de subastas.",
 	-- ["The owlbeasts of {zone:1452} drop the blood, about one in three: the Ragged and Raging Owlbeasts west of and around {area:2255}, the Crazed, Moontouched and {spell:417141} ones in the east. While you hunt, start on the materials of the next step: the Auction House has them all."] = "Las lechubestias de {zone:1452} sueltan la sangre, más o menos una de cada tres: las Lechubestias andrajosas y enfurecidas al oeste y alrededor de {area:2255}; las enloquecidas, lunadón y {spell:417141}, en el este. Mientras cazas, empieza con los materiales del paso siguiente: la casa de subastas los tiene todos.",
 	-- ["The ritual in {area:2577}"] = "El ritual en {area:2577}",
 	-- ["The {area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}: you need its key or a rogue to open the door, and Rattlegore's {item:13873} to go deeper. Use the {item:18688} at the alchemy lab in {npc:10508}'s room; {npc:14500} makes the parchment. Bring a group."] = "{area:2057} está bajo {area:2298}, el pueblo de la isla del sureste de {zone:1422}: necesitas su llave o un pícaro para abrir la puerta, y la {item:13873} de Traquesangre para avanzar más. Usa el {item:18688} en el laboratorio de alquimia de la sala de {npc:10508}; {npc:14500} hace el pergamino. Lleva un grupo.",
-	-- ["Use the {item:18688} at the alchemy lab"] = "Usa el {item:18688} en el laboratorio de alquimia",
-	-- ["Your epic mount at 60: summoned anywhere, with no gold spent on an epic horse."] = "Tu montura épica a nivel 60: invocable en cualquier lugar, sin gastar oro en un caballo épico.",
 	-- ["{area:1763} is in western {zone:1448}. Drink a {item:18802} before you go in: the Shadow Council cultists turn friendly for a while, the demons do not. {quest:7623} waits deep inside {area:1770}, the cave above {area:1763}, across a bridge in the great root chamber."] = "{area:1763} está al oeste de {zone:1448}. Bebe una {item:18802} antes de entrar: los sectarios del Consejo de las Sombras se vuelven amistosos durante un tiempo, los demonios no. {quest:7623} espera en lo más profundo de {area:1770}, la cueva sobre {area:1763}, cruzando un puente en la gran cámara de raíces.",
 	-- ["{area:2577} stands in the ruins of central {zone:1444}; the ritual circle is in its west wing, past {npc:11496}, and the door needs the {item:18249} or a rogue. Use {item:18663} to start; when the bell, the wheel or the candle fades, click it with the {item:18629} (a {item:6265} each). When the demons stop coming, use the {item:18670}, defeat the {npc:14502} and its dreadlord master, and speak to the {npc:14504}. Bring a group."] = "{area:2577} está en las ruinas del centro de {zone:1444}; el círculo del ritual está en su ala oeste, pasado {npc:11496}, y la puerta requiere la {item:18249} o un pícaro. Usa {item:18663} para empezar; cuando la campana, la rueda o la vela se apaguen, haz clic en ellas con la {item:18629} (un {item:6265} cada vez). Cuando dejen de llegar demonios, usa los {item:18670}, derrota al {npc:14502} y a su señor del terror, y habla con el {npc:14504}. Lleva un grupo.",
 	-- ["{npc:14437} wants 10 Elixirs of Shadow Power ({skill:171}), 6 Large Brilliant Shards ({skill:333}), 25 {item:11370} ({skill:186}, in {area:1584} and the {zone:1427}) and 35 Black Dragonscales ({skill:393}, black dragonkin of the {zone:1428}). Make or gather what your professions allow; buy the rest at the Auction House."] = "{npc:14437} quiere 10 Elixires de poder de las Sombras ({skill:171}), 6 Fragmentos luminosos grandes ({skill:333}), 25 {item:11370} ({skill:186}, en {area:1584} y {zone:1427}) y 35 Escamas de dragón negro ({skill:393}, dragonantes negros de {zone:1428}). Fabrica o recoge lo que te permitan tus profesiones; compra el resto en la casa de subastas.",
 	-- ["{npc:14504}: it binds itself to you"] = "{npc:14504}: se vincula a ti",
-	-- ["{npc:14522}, beside {quest:7623}, sells the {item:18687}; he only deals with you while a {item:18802} is active. Bring plenty of gold."] = "{npc:14522}, junto a {quest:7623}, vende el {item:18687}; solo trata contigo mientras tengas activa una {item:18802}. Lleva mucho oro.",
 	-- ["{npc:14523} waits in a side chamber by a bridge on the way back up. Speak to him and he and his four guards attack; none are elite. Take his heart back to {npc:9516}, drinking another potion if the first wore off."] = "{npc:14523} espera en una cámara lateral junto a un puente en el camino de vuelta hacia arriba. Habla con él y él y sus cuatro guardias atacan; ninguno es élite. Llévale su corazón a {npc:9516}, bebiendo otra poción si se te pasó el efecto de la primera.",
 	-- ["{quest:7562} and his goblin {npc:14437} camp at the {area:255}, in the north-west of the {zone:1428}, west of {area:254}. The chain is long, costs gold at {npc:14437}'s and ends in two dungeons."] = "{quest:7562} y su goblin {npc:14437} acampan en {area:255}, al noroeste de {zone:1428}, al oeste de {area:254}. La cadena es larga, cuesta oro en la tienda de {npc:14437} y termina en dos mazmorras.",
 }

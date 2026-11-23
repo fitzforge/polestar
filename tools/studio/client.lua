@@ -113,12 +113,12 @@ C_Item = C_Item or {}
 C_Item.GetItemInfo = function(id)
 	local i = I(id)
 	if not i then return nil end
-	return i.name, link(i), i.quality, i.level, i.minLevel, "", "", 1, "", i.icon, i.sell, i.classID, 0
+	return i.name, link(i), i.quality, i.level, i.minLevel, "", "", 1, "", i.icon, i.sell, i.classID, i.subclassID or 0, i.bonding or 0
 end
 GetItemInfo = C_Item.GetItemInfo
 C_Item.GetItemInfoInstant = function(id)
 	local i = I(id)
-	if i then return i.id, "", "", "", i.icon, i.classID, 0 end
+	if i then return i.id, "", "", "", i.icon, i.classID, i.subclassID or 0 end
 end
 GetItemInfoInstant = C_Item.GetItemInfoInstant
 C_Item.GetItemIconByID = function(id) local i = I(id); return i and i.icon end
@@ -269,6 +269,25 @@ if STUDIO_ATLAS then
 		if useSize then self:SetSize(a[2], a[3]) end
 		return true
 	end
+end
+
+-- Interface files by path (the art cache's file list, the files decoded
+-- into it): SetTexture and SetStatusBarTexture draw them by file ID.
+if STUDIO_FILES then
+	local F = STUDIO_FILES
+	local function fileOf(p)
+		if type(p) == "string" then
+			-- The plain white texture stays a path: the renderer draws it as
+			-- colour (gradients, SetVertexOffset hulls), not as a file.
+			if p:lower():find("white8x8", 1, true) then return p end
+			local fid = F[(p:lower():gsub("/", "\\"):gsub("%.blp$", ""))]
+			if fid then return fid end
+		end
+		return p
+	end
+	local setTexture, setBar = M.SetTexture, M.SetStatusBarTexture
+	M.SetTexture = function(self, p, ...) return setTexture(self, fileOf(p), ...) end
+	if setBar then M.SetStatusBarTexture = function(self, p, ...) return setBar(self, fileOf(p), ...) end end
 end
 
 ---------------------------------------------------------------------------

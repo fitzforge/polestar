@@ -13,7 +13,7 @@ return {
 
 	-- Step 1: Seek out SI: 7
 	-- {npc:917} Keryn Sylvius · {area:87} Goldshire · {npc:332} Master Mathias Shaw · {zone:1453} Stormwind · {spell:921} Pick Pocket
-	["At 10 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in {area:87}, gives you a package for {npc:332} in {zone:1453}. Train {spell:921} if you lack it: this chain needs it."] = "",
+	["At 10 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in {area:87}, gives you a package for {npc:332} in {zone:1453}. Train {spell:921} if you lack it: this chain needs it."] = "10級時，{area:87}旅店樓上的盜賊訓練師{npc:917}會給你一個包裹，交給{zone:1453}的{npc:332}。如果你還沒學{spell:921}，先去學：這個任務鏈需要它。",
 
 	-- Step 2: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {object:2100} Old Town
@@ -21,9 +21,9 @@ return {
 
 	-- Step 3: Defias Dockmaster
 	-- {npc:6846} Defias Dockmaster · {area:797} Jerod's Landing · {area:87} Goldshire · {spell:921} Pick Pocket · {spell:2070} Sap
-	["The {npc:6846} (level 10, a goblin) works in the dock house at {area:797}, on the river at Elwynn's southern edge, south of {area:87}. Stealth in and {spell:921} him from behind: the schedule never drops from his corpse. Do not open with {spell:2070} or a fight: he calls in three waves of bodyguards. Keep away from the fireplaces in the house; they burn you out of stealth. He is back 2 to 5 minutes after a death."] = "",
+	["The {npc:6846} (level 10, a goblin) works in the dock house at {area:797}, on the river at Elwynn's southern edge, south of {area:87}. Stealth in and {spell:921} him from behind: the schedule never drops from his corpse. Do not open with {spell:2070} or a fight: he calls in three waves of bodyguards. Keep away from the fireplaces in the house; they burn you out of stealth. He is back 2 to 5 minutes after a death."] = "{npc:6846}（10級，哥布林）在{area:797}的碼頭小屋幹活，那裡是艾爾文森林南緣的河邊，{area:87}以南。潛行進去從背後{spell:921}他：日程表永遠不會從他屍體上掉落。不要用{spell:2070}起手，也別直接開打：他會叫來三波保鏢。避開屋裡的壁爐，它們會把你燒出潛行。他死亡後2到5分鐘重新出現。",
 	-- {spell:921} Pick Pocket · {npc:6846} Defias Dockmaster · {item:7675} Defias Shipping Schedule
-	["{spell:921} the {npc:6846} for the {item:7675}"] = "",
+	["{spell:921} the {npc:6846} for the {item:7675}"] = "對{npc:6846}使用{spell:921}，拿到{item:7675}",
 
 	-- Step 4: Back to Mathias Shaw
 	["Back to Mathias Shaw"] = "回到馬迪亞斯·肖爾那裡",
@@ -36,11 +36,11 @@ return {
 
 	-- Step 6: Hulfdan Blackbeard
 	-- {npc:5165} Hulfdan Blackbeard · {object:32383} Forlorn Cavern · {zone:1455} Ironforge
-	["{npc:5165} is in the {object:32383}, the rogue quarter in the north of {zone:1455}: go into the building with a shady dealer outside and down the stairs."] = "",
+	["{npc:5165} is in the {object:32383}, the rogue quarter in the north of {zone:1455}: go into the building with a shady dealer outside and down the stairs."] = "{npc:5165}在{object:32383}，即{zone:1455}北部的盜賊區：走進門外有個鬼祟商人的那棟建築，下樓。",
 
 	-- Step 7: Onin MacHammar
 	-- {area:133} Gnomeregan · {npc:6886} Onin MacHammar · {npc:1211} Leper Gnome
-	["Head west to {area:133}. Beside the road to its entrance stands a wooden spiral tower: {npc:6886} waits stealthed on the top platform, next to a level 10 {npc:1211}, so you only see him up close."] = "",
+	["Head west to {area:133}. Beside the road to its entrance stands a wooden spiral tower: {npc:6886} waits stealthed on the top platform, next to a level 10 {npc:1211}, so you only see him up close."] = "向西前往{area:133}。通往入口的路邊立著一座木製螺旋塔：{npc:6886}潛行等在頂層平臺上，旁邊有一隻10級的{npc:1211}，所以只有靠近才能看見他。",
 
 	-- Step 8: Back to Hulfdan Blackbeard
 	-- {npc:5165} Hulfdan Blackbeard
@@ -48,25 +48,23 @@ return {
 
 	-- Step 9: The Apple Falls
 	-- {npc:3599} Jannok Breezesong · {area:186} Dolanaar · {npc:4163} Syurna · {zone:1457} Darnassus
-	["At 10 {npc:3599}, the rogue trainer in the {area:186} inn, gives you a rose for {npc:4163} in {zone:1457}. If you lose the rose, abandon the quest and take it again."] = "",
+	["At 10 {npc:3599}, the rogue trainer in the {area:186} inn, gives you a rose for {npc:4163} in {zone:1457}. If you lose the rose, abandon the quest and take it again."] = "10級時，{area:186}旅店的盜賊訓練師{npc:3599}會給你一朵玫瑰，交給{zone:1457}的{npc:4163}。如果你弄丟了玫瑰，放棄任務再重新接取。",
 
 	-- Step 10: Syurna
 	-- {zone:1457} Darnassus · {npc:4163} Syurna · {area:1658} Cenarion Enclave
-	["Head west to {zone:1457}. {npc:4163} is below ground in the {area:1658}: the way down is the opening at the foot of the split tree left of the Arch Druid's tree, near the nightsaber trainer. Her map marker shows above ground."] = "",
+	["Head west to {zone:1457}. {npc:4163} is below ground in the {area:1658}: the way down is the opening at the foot of the split tree left of the Arch Druid's tree, near the nightsaber trainer. Her map marker shows above ground."] = "向西前往{zone:1457}。{npc:4163}在{area:1658}的地下：下去的路口在大德魯伊樹左側那棵分叉樹腳下，靠近夜刃豹訓練師。她的地圖示記顯示在地面以上。",
 
 	-- Step 11: Sethir the Ancient
 	-- {npc:6909} Sethir the Ancient · {area:264} Oracle Glade · {spell:2983} Sprint
 	["{npc:6909} (level 12 satyr) lives out on a great branch north of the {area:264}: go through the V-shaped gap in the wall north of the glade and out along the branch. Pick his pocket for the journal; killing him does not give it, and a fight brings out three Minions of Sethir. He walks between the main branch and a side branch: wait stealthed at the far end of the main branch and pick him from behind when he comes back. Then {spell:2983} away. He is back 8 1/2 minutes after a death."] = "",
 	-- {item:7737} Sethir's Journal
-	["Pick Pocket Sethir the Ancient for {item:7737}"] = "",
+	["Pick Pocket Sethir the Ancient for {item:7737}"] = "對遠古者塞希爾使用搜尋，獲得{item:7737}",
 
 	-- Step 12: Back to Syurna
 	-- {npc:4163} Syurna
 	["Back to {npc:4163}"] = "返回{npc:4163}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 10 {npc:3599}, the rogue trainer in {area:186}, gives you a rose for {npc:4163} in {zone:1457}."] = "10級時，{area:186}的盜賊訓練師{npc:3599}會給你一朵玫瑰，交給{zone:1457}的{npc:4163}。",
-	-- ["At 10 {npc:917}, the rogue trainer in the Lion's Pride Inn in {area:87}, gives you a package for {npc:332} in {zone:1453}."] = "10級時，{area:87}旅店裡的盜賊訓練師{npc:917}會給你一個包裹，交給{zone:1453}的{npc:332}。",
 	-- ["Ride north to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "向北騎往{zone:1453}；馬迪亞斯·肖爾在{object:2100}的軍情七處。",
 	-- ["Ride west to {zone:1457}. {npc:4163} stands in the north-west of the city."] = "向西騎往{zone:1457}。{npc:4163}站在城市西北部。",
 	-- ["The {npc:6846} stands by the river at Elwynn's southern edge, south of {area:87}. He carries the shipping schedule."] = "{npc:6846}站在艾爾文森林南緣、{area:87}南邊的河邊。他身上帶著船運時間表。",

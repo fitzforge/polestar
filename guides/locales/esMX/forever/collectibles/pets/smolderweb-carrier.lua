@@ -10,14 +10,14 @@ return {
 	-- {npc:10260} Kibler · {area:251} Flame Crest
 	["{npc:10260} at {area:251}"] = "{npc:10260} en {area:251}",
 	-- {npc:10260} Kibler · {area:251} Flame Crest · {zone:1428} Burning Steppes · {area:254} Blackrock Mountain · {item:12264} Worg Carrier
-	["{npc:10260} stands inside the cave at {area:251}, the camp in northern {zone:1428} east of {area:254}. He also gives {npc:10260}'s Exotic Pets (the {item:12264}): take both, they are done in the same run."] = "",
+	["{npc:10260} stands inside the cave at {area:251}, the camp in northern {zone:1428} east of {area:254}. He also gives {npc:10260}'s Exotic Pets (the {item:12264}): take both, they are done in the same run."] = "{npc:10260} está dentro de la cueva de {area:251}, el campamento del norte de {zone:1428}, al este de {area:254}. También da Mascotas exóticas de {npc:10260} (el {item:12264}): toma las dos, se hacen en la misma pasada.",
 
 	-- Step 2: Lower Blackrock Spire
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "{area:1583} inferior",
 	-- {area:1583} Blackrock Spire · {area:254} Blackrock Mountain · {npc:10596} Mother Smolderweb
 	-- plural, as words: Spire Spider Eggs = {item:12530} Spire Spider Egg
-	["Lower {area:1583} is a group of five, level 55-60, inside {area:254}. The Spire Spider Eggs lie around {npc:10596}'s nest in the Skitterweb Tunnels, the spider halls: click them until you have 15 (each gives one to three). Hard-hitting spiderlings can hatch as you loot. By player reports the eggs cannot be looted in a raid group, so keep the party at five or fewer."] = "",
+	["Lower {area:1583} is a group of five, level 55-60, inside {area:254}. The Spire Spider Eggs lie around {npc:10596}'s nest in the Skitterweb Tunnels, the spider halls: click them until you have 15 (each gives one to three). Hard-hitting spiderlings can hatch as you loot. By player reports the eggs cannot be looted in a raid group, so keep the party at five or fewer."] = "{area:1583} inferior es para un grupo de cinco, de nivel 55-60, dentro de {area:254}. Los huevos de araña de la Cumbre están alrededor del nido de {npc:10596}, en los túneles de las arañas: haz clic en ellos hasta tener 15 (cada uno da de uno a tres). Al saquear pueden nacer arañitas que pegan fuerte. Según los jugadores, los huevos no se pueden saquear en un grupo de banda, así que mantén el grupo en cinco o menos.",
 
 	-- Step 3: Back to Kibler
 	-- {npc:10260} Kibler

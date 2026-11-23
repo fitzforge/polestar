@@ -59,13 +59,17 @@ step Northshire Abbey
 step Echo Ridge Mine: kill these as you meet them
   zone Elwynn Forest
   tip Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the Stolen Books.
+  tip Now and then a kobold here drops a Nibbled-On Book: right-click it and hand it to Brother Paxton on your next Abbey stop.
   collect 247839 quest 91743                  -- Stolen Books
   kill 257 quest 15                           -- Kobold Worker
+  collect 247834 x1 optional -- Nibbled-On Book
+  accept 91741 optional
 
 step Northshire Abbey
   tip Tordrin Sternblade stands behind the Abbey, by the stables. Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 15                                   -- Marshal McBride, inside
   accept 21
+  turnin 91741 optional -- Brother Paxton
   turnin 91743 optional -- Brother Paxton
   accept 91745 optional               -- Inside
   turnin 3100 only Warrior                    -- Llane Beshere, the warrior trainer; inside
@@ -101,47 +105,50 @@ step Milly Osworth
   accept 3905
 
 step Kelsey Fargo
-  tip She stands outside the mine entrance. Shinyfinder Narf, inside, is elite: grouping up is advised.
+  tip She stands outside the mine entrance. Her next errand, The Big Picture, sends you after Shinyfinder Narf inside, a level 3 elite: the guide gives it from level 5, when he is two levels under you.
   turnin 91745 optional
 
-step Kelsey Fargo
-  when group 91752
-  accept 91752
+step The Big Picture
+  when level>=5
+  tip From level 5: Kelsey's The Big Picture. Shinyfinder Narf (3, elite) is two levels under you then.
+  accept 91752                                -- Kelsey Fargo, outside the mine
 
 step Inside Echo Ridge Mine
   tip Kobold Laborers work the tunnels inside the mine. Shinyfinder Narf waits down the second turn on the right.
-  tip Careful: Shinyfinder Narf (3) is elite: leave him unless you have a friend.
+  tip Now and then a Laborer drops a Nibbled-On Book: right-click it and hand it to Brother Paxton at the Abbey after the mine.
+  tip Careful: Shinyfinder Narf (3) is elite: below level 5, leave him be.
   kill 80 quest 21                            -- Kobold Laborer walks around Echo Ridge Mine: look inside the circle on the map
+  collect 247834 x1 optional -- Nibbled-On Book
+  accept 91741 optional
 
-step Inside Echo Ridge Mine
-  when group 91752
-  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Shinyfinder Narf (level 3 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
-  collect 247886 quest 91752 group 2          -- Shinyfinder Narf
+step Shinyfinder Narf
+  when level>=5
+  tip From level 5 Shinyfinder Narf, a level 3 elite, is two levels under you: he waits down the second turn on the right inside the mine.
+  tip Careful: clear the Laborers around him first and fight him at full health.
+  collect 247886 quest 91752                  -- Shinyfinder Narf
 
 step Northshire Abbey
   tip Mages: Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 6                                    -- Deputy Willem, at the Abbey steps
   turnin 21                                   -- Marshal McBride, inside
+  turnin 91741 optional -- Brother Paxton
   accept 54
   accept 96627
   train class
   accept 5623 only Priest                     -- Priestess Anetta, the priest trainer: Priestess Josetta in Goldshire takes it
   turnin 3905                                 -- Brother Neals, upstairs
-  accept 2158                                 -- Falkhaan Isenstrider, by the stables south of the Abbey
 
 step Northshire Abbey
-  when group 91752
+  when complete 91752
   turnin 91752
   accept 91758
   turnin 91758                                -- Tordrin Sternblade
   accept 91772                                -- his kobold tracker shows the kobolds to click on the road to Goldshire
+  accept 2158                                 -- Falkhaan Isenstrider, by the stables south of the Abbey
+  interact 563442 quest 91772.1
 
-step Level 5.48
-  when !group 91752
-  when level<5.48
-  tip If you skipped The Big Picture, grind here to level 5.48 to stay on the route's plan.
-  goto 48.9,28.1 map 1429 "Kobold Laborer"
-  level 5.48 grind 80                 -- grind on Kobold Laborer
+step Northshire Abbey
+  accept 2158                                 -- Falkhaan Isenstrider, by the stables south of the Abbey
 
 # ---------------------------------------------------------------- Goldshire and Crystal Lake
 
@@ -156,20 +163,14 @@ step Goldshire
   turnin 5623 only Priest                     -- Priestess Josetta, upstairs
   accept 5624 only Priest                     -- Priestess Josetta: heal Guard Roberts at Crystal Lake
 
-step Goldshire
-  when group 91752
+step Marshal Dughan
+  when onquest 91772
   turnin 91772                                -- Marshal Dughan
 
 step Goldshire
   when group 91775
+  when turnedin 91772
   accept 91775
-
-step Level 5.77
-  when !group 91752
-  when level<5.77
-  tip If you skipped The Big Picture, grind here to level 5.77 to stay on the route's plan.
-  goto 41.7,78.0 map 1429 "Kobold Miner"
-  level 5.77 grind 40                 -- grind on Kobold Miner
 
 step Sam Sarsaparilla
   tip Sam Sarsaparilla camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, First Aid and blacksmithing in Goldshire.
@@ -181,31 +182,43 @@ step Sam Sarsaparilla
 
 step Camping 101: Skinning
   when skill Skinning 1
+  when !knows 1229517
+  tip Helene Peltskinner takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97924                                -- Sam Sarsaparilla: for Helene Peltskinner on the lake shore
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
+  when !knows 1229432
+  tip Adele Fielder takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97922                                -- Sam Sarsaparilla: for Adele Fielder on the lake shore
 
 step Camping 101: Fishing
   when skill Fishing 1
+  when !knows 1229745
+  tip Lee Brown takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97920                                -- Sam Sarsaparilla: for Lee Brown on the lake shore
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  when !knows 1230117
+  tip Michelle Belle takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97919                                -- Sam Sarsaparilla: for Michelle Belle in the Lion's Pride Inn
 
 step Camping 101: Blacksmithing
   when skill Blacksmithing 1
+  when !knows 1230171
+  tip Smith Argus takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97916                                -- Sam Sarsaparilla: for Smith Argus at the Goldshire smithy
 
 step Helene Peltskinner
   when onquest 97924
+  when complete 97924
   complete 97924 @46.24,62.24                 -- talk to the trainer
   turnin 97924                                -- Helene Peltskinner, on the lake shore east of town; inside
 
 step Adele Fielder
   when onquest 97922
+  when complete 97922
   complete 97922 @46.38,62.05                 -- talk to the trainer
   turnin 97922                                -- Adele Fielder, beside Helene
 
@@ -217,6 +230,7 @@ step The lake shore
 
 step Lee Brown
   when onquest 97920
+  when complete 97920
   complete 97920 @47.61,62.32                 -- talk to the trainer
   turnin 97920                                -- Lee Brown
 
@@ -257,11 +271,13 @@ step Goldshire
 
 step Michelle Belle
   when onquest 97919
+  when complete 97919
   complete 97919 @43.39,65.55                 -- talk to the trainer
   turnin 97919                                -- Michelle Belle, in the Lion's Pride Inn
 
 step Smith Argus
   when onquest 97916
+  when complete 97916
   complete 97916 @41.71,65.54                 -- talk to the trainer
   turnin 97916                                -- Smith Argus, at the smithy across the road
 
@@ -345,7 +361,7 @@ step Goldshire
   turnin 62                                   -- Marshal Dughan
   accept 76
   turnin 60                                   -- William Pestle, inside
-  accept 61                                   -- Morgan Pestle in Stormwind takes it (02-westfall)
+  accept 61                                   -- Morgan Pestle in Stormwind takes it (the Westfall guide)
   turnin 107
   accept 112
   train class
@@ -358,7 +374,7 @@ step Level 8.39
   when !group 91775
   when level<8.39
   tip If you skipped Book Return, grind here to level 8.39 to stay on the route's plan.
-  goto 41.7,78.0 map 1429 "Kobold Miner"
+  goto 39.3,83.2 map 1429 "Kobold Miner"
   level 8.39 grind 40                 -- grind on Kobold Miner
 
 step Class trainer
@@ -380,6 +396,7 @@ step Jason Mathers
 step Crystal Lake: kill these as you meet them
   zone Elwynn Forest
   tip The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the Tower of Azora; Prowlers further east give pelts too.
+  tip Careful: Elder Finseer, a level 11 rare murloc, walks the river by Guard Thomas' bridge, east of the Prowlers' woods: leave him be.
   collect 1256 quest 112                      -- Crystal Kelp Fronds
   collect 247877 quest 91751 optional         -- Rough Wolf Pelts
 
@@ -396,9 +413,8 @@ step The bridge
   accept 91733                                -- Ormin Pelford
 
 step Downstream and Princess
-  tip The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: Croaky is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional.
+  tip The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Young Forest Bears on the way; the Prowlers (level 9-10) wait for the walk back to Guard Thomas, after the logging camp and the mine. Careful: Croaky is a level 11 elite on the murloc shore. Only go for his head with a group; otherwise leave him: it's optional.
   collect 247813 quest 91733                  -- Waterlogged Saw
-  kill 118 quest 52                           -- Prowler
   kill 822 quest 52                           -- Young Forest Bear
   collect 1006 quest 88                       -- Brass Collar: Princess
   collect 247818 quest 91733                  -- Waterlogged Toolbox
@@ -418,14 +434,15 @@ step Level 8.85
   when !group 91740
   when level<8.85
   tip If you skipped Croaky's Head, grind here to level 8.85 to stay on the route's plan.
-  goto 78.1,62.1 map 1429 "Prowler"
-  level 8.85 grind 118                -- grind on Prowler
+  goto 65.1,64.4 map 1429 "Gray Forest Wolf"
+  level 8.85 grind 1922               -- grind on Gray Forest Wolf
 
 step Ormin Pelford
   turnin 91733
 
 step The Eastvale Logging Camp
   tip The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.
+  tip Careful: Elmpaw, a level 12 elite gnoll, walks the woods and hills from the logging camp north to Stone Cairn Lake and the gnoll camps: keep clear of him when you see him coming.
   accept 83                                   -- Sara Timberlain, inside
   accept 5545                                 -- Supervisor Raelen
   accept 91732                                -- Hagar Lowe
@@ -434,11 +451,12 @@ step The Eastvale Logging Camp
 
 step A half-eaten body
   tip It lies by the river north-west of the logging camp.
-  turnin 37
+  turnin 37 object 55                     -- A half-eaten body
   accept 45
 
 step Stone Cairn Lake
   tip Defias Rogue Wizards camp on the shores of Stone Cairn Lake; they drop the Red Linen Bandanas too. Rolf's corpse lies in the murloc village on the north-east shore.
+  tip Careful: the Rogue Wizards cast from range and a Defias Bodyguard (10) walks the shore with them: pull them one at a time.
   collect 1019 quest 83                       -- Red Linen Bandanas
   turnin 45                                   -- Rolf's corpse
   accept 71
@@ -480,6 +498,7 @@ step The Eastvale Logging Camp
 
 step Stone Cairn Lake
   tip North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake.
+  tip Careful: the Rogue Wizards cast from range and a Defias Bodyguard (10) walks the shore with them: pull them one at a time.
   kill 474 quest 91724                        -- Defias Rogue Wizard
 
 step The Tower of Azora
@@ -496,7 +515,7 @@ step Goldshire
   turnin 39                                   -- Marshal Dughan, while William brews
   turnin 76
   accept 239
-  accept 1097                                 -- Smith Argus, at the smithy beside Dughan: Grimand Elmore in Stormwind takes it (02-westfall)
+  accept 1097                                 -- Smith Argus, at the smithy beside Dughan: Grimand Elmore in Stormwind takes it (the Westfall guide)
   accept 114                                  -- William Pestle, back in the inn
   accept 94774 only Priest                    -- Priestess Josetta: High Priestess Laurena in Stormwind takes it
   accept 1860 only Mage                       -- Zaldimar Wefhellt: Jennea Cannon in Stormwind takes it
@@ -547,12 +566,14 @@ step Surena Caledon
   only Warlock
   zone Elwynn Forest
   tip Head back out through Goldshire and east along the road to the Brackwell Pumpkin Patch. Surena Caledon (level 9) stands by its farmhouse.
+  goto 71.0,80.8 "Brackwell Pumpkin Patch"
   collect 6810 quest 1688.1                   -- Surena's Choker: Surena Caledon
 
 step The Binding
   only Warlock
   zone Stormwind City
   tip Back to Gakin. Use the Bloodstone Choker at the summoning circle in the Slaughtered Lamb's cellar and defeat the voidwalker it calls.
+  enter "Stormwind City" @69.5,85.5
   turnin 1688                                 -- Gakin the Darkbinder
   accept 1689
   complete 1689                               -- Subdue the voidwalker
@@ -590,9 +611,10 @@ step The Stonefield Farm
   buy 4536 x4 npc 894                         -- Shiny Red Apples, from Homer Stonefield, for the Applejack Still
 
 step The Applejack Still
+  when has 4536 x4
+  when !turnedin 91738
   tip The Applejack Still stands north of the Westbrook Garrison. Click it with four Shiny Red Apples in your bags: it takes them and gives you a Thunder Applejack on the spot (the quest never shows in your quest log). Keep the Applejack for Sergeant De Vries: don't drink it.
-  accept 91736 optional                       -- Applejack Still
-  turnin 91736 optional
+  turnin 91736 direct optional                -- Applejack Still
   collect 247824 x1 @24.6,58.0                -- Thunder Applejack, from the still
 
 # ---------------------------------------------------------------- To Westfall
@@ -603,8 +625,11 @@ step Westbrook Garrison
   turnin 239                                  -- Deputy Rainer
   accept 109 npc 963                          -- Deputy Rainer: for Gryan Stoutmantle at Sentinel Hill
   accept 11
-  accept 91738                                -- Sergeant De Vries: he wants your Thunder Applejack; inside
-  turnin 91738
+
+step Sergeant De Vries
+  zone Elwynn Forest
+  when has 247824
+  turnin 91738 direct                         -- Sergeant De Vries: he wants your Thunder Applejack; inside
 
 step Forest's Edge
   zone Elwynn Forest

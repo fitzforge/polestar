@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Learn Enchanting
 	-- {skill:333} Enchanting
-	["Learn {skill:333}"] = "",
+	["Learn {skill:333}"] = "Изучите: {skill:333}",
 	-- {skill:333} Enchanting · {npc:3606} Alanna Raveneye · {zone:1438} Teldrassil · {npc:11068} Betty Quin · {zone:1453} Stormwind City · {npc:257004} Eaysaa Brightgust · {npc:11070} Lalina Summermoon · {zone:1457} Darnassus · {npc:257020} Nasalanna Windsinger · {npc:11065} Thonys Pillarstone · {zone:1455} Ironforge · {npc:11066} Jhag · {zone:1454} Orgrimmar · {npc:11067} Malcomb Wynn · {zone:1458} Undercity · {npc:11071} Mot Dawnstrider · {zone:1456} Thunder Bluff · {npc:266881} Pa'zula · {zone:1411} Durotar · {npc:5695} Vance Undergloom · {zone:1420} Tirisfal Glades · {item:6217} Copper Rod · {item:247786} Mote of Magic · {npc:11072} Kitta Firewind · {area:91} Tower of Azora · {zone:1429} Elwynn Forest · {area:367} Sen'jin Village · {item:10940} Strange Dust
 	["Apprentice {skill:333} lets you craft up to 75 for 10c, at any character level. Not every {skill:333} trainer teaches it: Alliance {npc:3606} ({zone:1438}), {npc:11068} ({zone:1453}), {npc:257004} (Zephras Isle), {npc:11070} ({zone:1457}), {npc:257020} (Zephras Isle) and {npc:11065} ({zone:1455}); Horde {npc:257004} (Zephras Isle), {npc:11066} ({zone:1454}), {npc:11067} ({zone:1458}), {npc:11071} ({zone:1456}), {npc:257020} (Zephras Isle), {npc:266881} ({zone:1411}) and {npc:5695} ({zone:1420}). The arrow picks the nearest of your faction. Buy a {item:6217} and {item:247786} from an enchanting supplies vendor (in the capitals and on Zephras Isle; the starting-area trainers have none beside them, and the next step's arrow picks the nearest). From now on, disenchant every green you do not wear: that is where the dust and essences come from. Two starter quests teach Disenchant on a quest item: An Enchanting Lesson from {npc:11072} ({area:91}, {zone:1429}) and A Pain in the Neck from {npc:266881} ({area:367}, {zone:1411}). 1-75 takes about 50c of recipes and 4s 44c of vendor goods, plus 51 {item:10940} to gather or buy."] = "Ранг «Ученик» ({skill:333}) позволяет создавать предметы до 75 за 10м, на любом уровне персонажа. Учат ему не все учителя ({skill:333}): Альянс – {npc:3606} ({zone:1438}), {npc:11068} ({zone:1453}), {npc:257004} (Остров Зефрис), {npc:11070} ({zone:1457}), {npc:257020} (Остров Зефрис) и {npc:11065} ({zone:1455}); Орда – {npc:257004} (Остров Зефрис), {npc:11066} ({zone:1454}), {npc:11067} ({zone:1458}), {npc:11071} ({zone:1456}), {npc:257020} (Остров Зефрис), {npc:266881} ({zone:1411}) и {npc:5695} ({zone:1420}). Стрелка выбирает ближайшего для вашей фракции. Купите {item:6217} и {item:247786} у торговца товарами для зачаровывания (в столицах и на Острове Зефрис; рядом с учителями в стартовых зонах таких нет, и стрелка следующего шага выбирает ближайшего). С этого момента разрушайте чары на каждом зеленом предмете, который не носите: оттуда берутся пыль и эссенции. Два стартовых задания обучают «Разрушению чар» на предмете задания: «Очаровательный урок» от NPC {npc:11072} ({area:91}, {zone:1429}) и «Подчиняющие подвески» от NPC {npc:266881} ({area:367}, {zone:1411}). На 1-75 уйдет около 50м на рецепты и 4с 44м на товары торговцев, плюс 51 {item:10940} – добудьте или купите.",
 
@@ -18,148 +18,230 @@ return {
 	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3346} Kithas · {npc:5817} Shimra
 	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "",
 
-	-- Step 3: Enchant Bracer - Inferior Stamina to 25
+	-- Step 3: Enchanting 1-75: Auction House
+	-- {skill:333} Enchanting
+	["{skill:333} 1-75: Auction House"] = "{skill:333} 1-75: аукцион",
+	-- {item:10940} Strange Dust
+	["What 1-75 takes that the Auction House sells: 51 {item:10940}. The counts drop by what your bags, bank and mail hold."] = "Что нужно на 1-75 и продается на аукционе: 51 {item:10940}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
+
+	-- Step 4: Strange Dust
+	-- {item:10940} Strange Dust · {spell:7420} Enchant Chest - Inferior Stamina · {skill:333} Enchanting
+	["51 {item:10940} for {spell:7420}: {skill:333}: disenchant green items of item level 5-20."] = "51 {item:10940} для {spell:7420}: {skill:333}: распыляйте зеленые предметы 5-20-го уровня.",
+
+	-- Step 5: Enchant Bracer - Inferior Stamina to 25
 	-- {spell:7418} Enchant Bracer - Inferior Stamina
 	["{spell:7418} to 25"] = "{spell:7418} до 25",
 	-- {spell:7418} Enchant Bracer - Inferior Stamina · {item:247786} Mote of Magic · {item:6218} Runed Copper Rod
 	["{spell:7418} is orange at 1 (yellow 20, green 22, grey 25): about 31 crafts to 25. Each takes 1 {item:247786}. One {item:247786} (10c) a craft; grey at 25 on Forever. Make the {item:6218} first: the recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "",
 	["a tool: keep it in your bags"] = "инструмент: держите его в сумке",
 
-	-- Step 4: Enchanting recipes at 25
+	-- Step 6: Enchanting recipes at 25
 	-- {skill:333} Enchanting
-	["{skill:333} recipes at 25"] = "",
+	["{skill:333} recipes at 25"] = "{skill:333}: рецепты на 25",
 	-- {skill:333} Enchanting · {spell:7420} Enchant Chest - Inferior Stamina · {spell:1230643} Enchanted Lute · {item:4470} Simple Wood · {item:10940} Strange Dust
 	["Back to an {skill:333} trainer: {spell:7420} (from 15, 50c). Also learn {spell:1230643} (1s): Forever's {skill:333} camp item, 1 {item:4470} and 1 {item:10940}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:333} quest from your starting area's camping guide (after The Great Outdoors) sends you to an enchanting trainer who teaches it free."] = "",
 
-	-- Step 5: Enchant Chest - Inferior Stamina to 75
+	-- Step 7: Enchant Chest - Inferior Stamina to 75
 	-- {spell:7420} Enchant Chest - Inferior Stamina
-	["{spell:7420} to 75"] = "",
-	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption · {skill:333} Enchanting
-	["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. {item:10940} (51 for 1-75): {skill:333}: disenchant green items of item level 5-20; or the Auction House. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:7420} to 75"] = "{spell:7420} до 75",
+	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
+	["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
 
-	-- Step 6: Journeyman Enchanting
+	-- Step 8: Journeyman Enchanting
 	-- {skill:333} Enchanting
 	["Journeyman {skill:333}"] = "{skill:333}: Подмастерье",
 	-- {skill:333} Enchanting · {npc:5157} Gimble Thistlefuzz · {zone:1455} Ironforge · {npc:1317} Lucan Cordell · {zone:1453} Stormwind City · {npc:4213} Taladan · {zone:1457} Darnassus · {npc:7949} Xylinnia Starshine · {zone:1444} Feralas · {npc:3345} Godan · {zone:1454} Orgrimmar · {npc:4616} Lavinia Crowe · {zone:1458} Undercity · {npc:3011} Teg Dawnstrider · {zone:1456} Thunder Bluff · {spell:7771} Enchant Cloak - Minor Protection · {item:1210} Shadowgem · {item:6338} Silver Rod · {item:10938} Lesser Magic Essence · {item:10940} Strange Dust · {item:11083} Soul Dust
 	["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:333} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:333} trainer teaches it: Alliance {npc:5157} ({zone:1455}), {npc:1317} ({zone:1453}), {npc:4213} ({zone:1457}) and {npc:7949} ({zone:1444}); Horde {npc:3345} ({zone:1454}), {npc:4616} ({zone:1458}) and {npc:3011} ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:7771} (from 70, 2s). 75-150 takes about 2s of recipes, plus 1 {item:1210}, 1 {item:6338}, 4 {item:10938}, 121 {item:10940} and 20 {item:11083} to gather or buy."] = "Ранг «Подмастерье» поднимает предел с 75 до 150 за 5с (цена Classic; цены Forever нет в данных); нужен навык {skill:333} 50 и уровень персонажа 10, так что его можно взять при любом визите начиная с 50. Учат ему не все учителя ({skill:333}): Альянс – {npc:5157} ({zone:1455}), {npc:1317} ({zone:1453}), {npc:4213} ({zone:1457}) и {npc:7949} ({zone:1444}); Орда – {npc:3345} ({zone:1454}), {npc:4616} ({zone:1458}) и {npc:3011} ({zone:1456}). Стрелка выбирает ближайшего для вашей фракции. Изучите сейчас: {spell:7771} (с 70, 2с). На 75-150 уйдет около 2с на рецепты, плюс 1 {item:1210}, 1 {item:6338}, 4 {item:10938}, 121 {item:10940} и 20 {item:11083} – добудьте или купите.",
 
-	-- Step 7: Enchant Chest - Inferior Stamina to 90
-	-- {spell:7420} Enchant Chest - Inferior Stamina
-	["{spell:7420} to 90"] = "",
-	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption · {skill:333} Enchanting
-	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. {item:10940} (121 for 75-150): {skill:333}: disenchant green items of item level 5-20; or the Auction House. Enchant any item for that slot in your bags, even a grey one."] = "",
+	-- Step 9: Enchanting 75-150: vendor goods
+	-- {skill:333} Enchanting
+	["{skill:333} 75-150: vendor goods"] = "{skill:333} 75-150: товары торговцев",
+	-- {item:10938} Lesser Magic Essence
+	["Buy the whole bracket's share in one go: 4 {item:10938} (32s). The arrow picks the nearest seller of your faction. {item:10938}: no vendor of the other faction sells it; that side gathers or buys it at the Auction House (next steps)."] = "Купите долю всего этапа за один раз: 4 {item:10938} (32 с). Стрелка ведет к ближайшему продавцу вашей фракции. {item:10938}: торговцы другой фракции его не продают; та сторона добывает его сама или покупает на аукционе (следующие шаги).",
 
-	-- Step 8: Enchant Cloak - Minor Protection to 130
+	-- Step 10: Enchanting 75-150: Auction House
+	-- {skill:333} Enchanting
+	["{skill:333} 75-150: Auction House"] = "{skill:333} 75-150: аукцион",
+	-- {item:1210} Shadowgem · {item:6338} Silver Rod · {item:10938} Lesser Magic Essence · {item:10940} Strange Dust · {item:11083} Soul Dust
+	["What 75-150 takes that the Auction House sells: 1 {item:1210}, 1 {item:6338}, 4 {item:10938}, 121 {item:10940} and 20 {item:11083}. The counts drop by what your bags, bank and mail hold."] = "Что нужно на 75-150 и продается на аукционе: 1 {item:1210}, 1 {item:6338}, 4 {item:10938}, 121 {item:10940} и 20 {item:11083}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
+
+	-- Step 11: Shadowgem
+	-- {item:1210} Shadowgem · {item:6339} Runed Silver Rod · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein
+	["1 {item:1210} for {item:6339}: {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining."] = "1 {item:1210} для {item:6339}: {item:1210} попадается примерно в одной жиле из 100 ({object:1731}, {object:1732} или {object:1733}): сохраняйте найденные при добыче.",
+
+	-- Step 12: Silver Rod
+	-- {item:6338} Silver Rod · {item:6339} Runed Silver Rod · {skill:164} Blacksmithing
+	["1 {item:6338} for {item:6339}: {skill:164}: {item:6338}."] = "1 {item:6338} для {item:6339}: {skill:164}: {item:6338}.",
+
+	-- Step 13: Strange Dust
+	-- {item:10940} Strange Dust · {spell:7420} Enchant Chest - Inferior Stamina · {spell:7771} Enchant Cloak - Minor Protection · {item:6339} Runed Silver Rod · {skill:333} Enchanting
+	["121 {item:10940} for {spell:7420}, {spell:7771} and {item:6339}: {skill:333}: disenchant green items of item level 5-20."] = "121 {item:10940} для {spell:7420}, {spell:7771} и {item:6339}: {skill:333}: распыляйте зеленые предметы 5-20-го уровня.",
+
+	-- Step 14: Soul Dust
+	-- {item:11083} Soul Dust · {spell:13501} Enchant Bracer - Lesser Stamina · {skill:333} Enchanting
+	["20 {item:11083} for {spell:13501}: {skill:333}: disenchant green items of item level 21-30."] = "20 {item:11083} для {spell:13501}: {skill:333}: распыляйте зеленые предметы 21-30-го уровня.",
+
+	-- Step 15: Enchant Chest - Inferior Stamina to 90
+	-- {spell:7420} Enchant Chest - Inferior Stamina
+	["{spell:7420} to 90"] = "{spell:7420} до 90",
+	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
+	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
+
+	-- Step 16: Enchant Cloak - Minor Protection to 130
 	-- {spell:7771} Enchant Cloak - Minor Protection
 	["{spell:7771} to 130"] = "",
 	-- {spell:7771} Enchant Cloak - Minor Protection · {item:10940} Strange Dust
 	["{spell:7771} is orange at 90 (yellow 110, green 130, grey 150): about 48 crafts to 130. Each takes 2 {item:10940}. Two {item:10940} a craft (the trainer teaches it from 70 for 2s); keep disenchanting the greens of the 10-20 zones. Enchant any item for that slot in your bags, even a grey one."] = "",
 
-	-- Step 9: Enchanting recipes at 130
+	-- Step 17: Enchanting recipes at 130
 	-- {skill:333} Enchanting
 	["{skill:333} recipes at 130"] = "{skill:333}: рецепты на 130",
 	-- {skill:333} Enchanting · {spell:7795} Runed Silver Rod · {spell:13501} Enchant Bracer - Lesser Stamina
-	["Back to an {skill:333} trainer: {spell:7795} (from 100) and {spell:13501} (from 130)."] = "",
+	["Back to an {skill:333} trainer: {spell:7795} (from 100) and {spell:13501} (from 130)."] = "Вернитесь к учителю ({skill:333}): {spell:7795} (с 100) и {spell:13501} (с 130).",
 
-	-- Step 10: Enchant Bracer - Lesser Stamina to 150
+	-- Step 18: Enchant Bracer - Lesser Stamina to 150
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
-	["{spell:13501} to 150"] = "",
-	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:6339} Runed Silver Rod · {item:1210} Shadowgem · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein · {item:6338} Silver Rod · {skill:164} Blacksmithing · {item:10938} Lesser Magic Essence · {skill:333} Enchanting
-	["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:1210} (1 for 75-150): {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: buy it at the Auction House, or keep the ones you find while mining. {item:6338} (1 for 75-150): {skill:164}: {item:6338}; or the Auction House. {item:10938} (4 for 75-150): {skill:333}: disenchant green items of item level 5-15; or the Auction House. {item:11083} (20 for 75-150): {skill:333}: disenchant green items of item level 21-30; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "",
+	["{spell:13501} to 150"] = "{spell:13501} до 150",
+	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:6339} Runed Silver Rod · {item:10938} Lesser Magic Essence · {skill:333} Enchanting
+	["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green items of item level 5-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "{spell:13501}: оранжевый на 130 (желтый 155, зеленый 175, серый 195): около 20 изготовлений до 150, очко за каждое. Каждое требует 1 {item:11083}. Один {item:11083} на изготовление (зеленые предметы 21-30-го уровня). Сначала сделайте {item:6339}: рецепт требует его в сумках, так что держите его там. {item:10938} (4 на 75-150): Альянс: {skill:333}: распыляйте зеленые предметы 5-15-го уровня; или аукцион. Зачаровывайте любой предмет для этой ячейки в сумках, даже серый. {skill:333} 150 – веха Системы наследия.",
 
-	-- Step 11: Iridescent Pearl (Alliance)
+	-- Step 19: Enchanting 150-225: Auction House
+	-- {skill:333} Enchanting
+	["{skill:333} 150-225: Auction House"] = "{skill:333} 150-225: аукцион",
+	-- {item:5500} Iridescent Pearl · {item:7971} Black Pearl · {item:11082} Greater Astral Essence · {item:11083} Soul Dust · {item:11128} Golden Rod · {item:11135} Greater Mystic Essence · {item:11137} Vision Dust · {item:11144} Truesilver Rod
+	["What 150-225 takes that the Auction House sells: 1 {item:5500}, 1 {item:7971}, 1 {item:11082}, 71 {item:11083}, 1 {item:11128}, 1 {item:11135}, 21 {item:11137} and 1 {item:11144}. The counts drop by what your bags, bank and mail hold."] = "Что нужно на 150-225 и продается на аукционе: 1 {item:5500}, 1 {item:7971}, 1 {item:11082}, 71 {item:11083}, 1 {item:11128}, 1 {item:11135}, 21 {item:11137} и 1 {item:11144}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
+
+	-- Step 20: Iridescent Pearl (Alliance)
 	-- {item:5500} Iridescent Pearl
 	["{item:5500} (Alliance)"] = "{item:5500} (Альянс)",
 	-- {item:5500} Iridescent Pearl · {item:11130} Runed Golden Rod
 	-- plural, as words: Giant Clams = {object:2744} Giant Clam
-	["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot, or buy it at the Auction House."] = "",
+	["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot."] = "",
 
-	-- Step 12: Iridescent Pearl (Horde)
+	-- Step 21: Iridescent Pearl (Horde)
 	-- {item:5500} Iridescent Pearl
 	["{item:5500} (Horde)"] = "{item:5500} (Орда)",
 
-	-- Step 13: Expert Enchanting
+	-- Step 22: Greater Astral Essence
+	-- {item:11082} Greater Astral Essence · {item:11130} Runed Golden Rod · {skill:333} Enchanting
+	["1 {item:11082} for {item:11130}: {skill:333}: disenchant green items of item level 16-25."] = "1 {item:11082} для {item:11130}: {skill:333}: распыляйте зеленые предметы 16-25-го уровня.",
+
+	-- Step 23: Soul Dust
+	-- {item:11083} Soul Dust · {item:11130} Runed Golden Rod · {spell:13501} Enchant Bracer - Lesser Stamina · {spell:13637} Enchant Boots - Lesser Agility · {skill:333} Enchanting
+	["71 {item:11083} for {item:11130}, {spell:13501} and {spell:13637}: {skill:333}: disenchant green items of item level 21-30."] = "71 {item:11083} для {item:11130}, {spell:13501} и {spell:13637}: {skill:333}: распыляйте зеленые предметы 21-30-го уровня.",
+
+	-- Step 24: Golden Rod
+	-- {item:11128} Golden Rod · {item:11130} Runed Golden Rod · {skill:164} Blacksmithing
+	["1 {item:11128} for {item:11130}: {skill:164}: {item:11128}."] = "1 {item:11128} для {item:11130}: {skill:164}: {item:11128}.",
+
+	-- Step 25: Greater Mystic Essence
+	-- {item:11135} Greater Mystic Essence · {item:11145} Runed Truesilver Rod · {skill:333} Enchanting
+	["1 {item:11135} for {item:11145}: {skill:333}: disenchant green items of item level 26-35."] = "1 {item:11135} для {item:11145}: {skill:333}: распыляйте зеленые предметы 26-35-го уровня.",
+
+	-- Step 26: Vision Dust
+	-- {item:11137} Vision Dust · {item:11145} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense · {skill:333} Enchanting
+	["21 {item:11137} for {item:11145} and {spell:13746}: {skill:333}: disenchant green items of item level 31-40."] = "21 {item:11137} для {item:11145} и {spell:13746}: {skill:333}: распыляйте зеленые предметы 31-40-го уровня.",
+
+	-- Step 27: Truesilver Rod
+	-- {item:11144} Truesilver Rod · {item:11145} Runed Truesilver Rod · {skill:164} Blacksmithing
+	["1 {item:11144} for {item:11145}: {skill:164}: {item:11144}."] = "1 {item:11144} для {item:11145}: {skill:164}: {item:11144}.",
+
+	-- Step 28: Expert Enchanting
 	-- {skill:333} Enchanting
 	["Expert {skill:333}"] = "{skill:333}: Умелец",
 	-- {skill:333} Enchanting · {npc:11072} Kitta Firewind · {zone:1429} Elwynn Forest · {npc:11074} Hgarth · {zone:1442} Stonetalon Mountains · {spell:13628} Runed Golden Rod · {item:5500} Iridescent Pearl · {item:7971} Black Pearl · {item:11082} Greater Astral Essence · {item:11083} Soul Dust · {item:11128} Golden Rod · {item:11135} Greater Mystic Essence · {item:11137} Vision Dust · {item:11144} Truesilver Rod · {spell:13637} Enchant Boots - Lesser Agility · {item:11145} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense
 	["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:333} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:11072} ({zone:1429}); Horde {npc:11074} ({zone:1442}). The arrow picks the nearest of your faction. Learn now: {spell:13628} (from 150). 150-225 takes 1 {item:5500}, 1 {item:7971}, 1 {item:11082}, 71 {item:11083}, 1 {item:11128}, 1 {item:11135}, 21 {item:11137} and 1 {item:11144} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {spell:13637} (from 160), {item:11145} (from 200) and {spell:13746} (from 205), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "",
 
-	-- Step 14: Enchant Bracer - Lesser Stamina to 160
+	-- Step 29: Enchant Bracer - Lesser Stamina to 160
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
 	["{spell:13501} to 160"] = "",
-	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:11130} Runed Golden Rod · {item:11082} Greater Astral Essence · {skill:333} Enchanting · {item:11128} Golden Rod · {skill:164} Blacksmithing
-	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. {item:11082} (1 for 150-225): {skill:333}: disenchant green items of item level 16-25; or the Auction House. {item:11083} (71 for 150-225): {skill:333}: disenchant green items of item level 21-30; or the Auction House. {item:11128} (1 for 150-225): {skill:164}: {item:11128}; or the Auction House. Enchant any item for that slot in your bags, even a grey one."] = "",
+	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:11130} Runed Golden Rod
+	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501}: оранжевый на 150 (желтый 155, зеленый 175, серый 195): около 11 изготовлений до 160. Каждое требует 1 {item:11083}. Один {item:11083} на изготовление (зеленые предметы 21-30-го уровня). Сделайте {item:11130} сейчас, пока он еще дает очко: более поздний рецепт требует его в сумках, так что держите его там. Зачаровывайте любой предмет для этой ячейки в сумках, даже серый.",
 
-	-- Step 15: Enchanting recipes at 160
+	-- Step 30: Enchanting recipes at 160
 	-- {skill:333} Enchanting
-	["{skill:333} recipes at 160"] = "",
+	["{skill:333} recipes at 160"] = "{skill:333}: рецепты на 160",
 	-- {spell:13637} Enchant Boots - Lesser Agility
-	["Still at the Expert trainer: {spell:13637} (from 160)."] = "",
+	["Still at the Expert trainer: {spell:13637} (from 160)."] = "Вы все еще у учителя ранга «Умелец»: {spell:13637} (с 160).",
 
-	-- Step 16: Enchant Boots - Lesser Agility to 205
+	-- Step 31: Enchant Boots - Lesser Agility to 205
 	-- {spell:13637} Enchant Boots - Lesser Agility
-	["{spell:13637} to 205"] = "",
+	["{spell:13637} to 205"] = "{spell:13637} до 205",
 	-- {spell:13637} Enchant Boots - Lesser Agility · {item:11083} Soul Dust
 	["{spell:13637} is orange at 160 (yellow 180, green 200, grey 220): about 59 crafts to 205. Each takes 1 {item:11083}. {item:11083} again. Enchant any item for that slot in your bags, even a grey one."] = "",
 
-	-- Step 17: Enchanting recipes at 205
+	-- Step 32: Enchanting recipes at 205
 	-- {skill:333} Enchanting
-	["{skill:333} recipes at 205"] = "",
+	["{skill:333} recipes at 205"] = "{skill:333}: рецепты на 205",
 	-- {spell:13702} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense
 	["Still at the Expert trainer: {spell:13702} (from 200) and {spell:13746} (from 205)."] = "",
 
-	-- Step 18: Enchant Cloak - Greater Defense to 225
+	-- Step 33: Enchant Cloak - Greater Defense to 225
 	-- {spell:13746} Enchant Cloak - Greater Defense
-	["{spell:13746} to 225"] = "",
-	-- {spell:13746} Enchant Cloak - Greater Defense · {item:11137} Vision Dust · {item:11145} Runed Truesilver Rod · {item:7971} Black Pearl · {item:11135} Greater Mystic Essence · {skill:333} Enchanting · {item:11144} Truesilver Rod · {skill:164} Blacksmithing
-	["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. {item:11135} (1 for 150-225): {skill:333}: disenchant green items of item level 26-35; or the Auction House. {item:11137} (21 for 150-225): {skill:333}: disenchant green items of item level 31-40; or the Auction House. {item:11144} (1 for 150-225): {skill:164}: {item:11144}; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "",
+	["{spell:13746} to 225"] = "{spell:13746} до 225",
+	-- {spell:13746} Enchant Cloak - Greater Defense · {item:11137} Vision Dust · {item:11145} Runed Truesilver Rod · {item:7971} Black Pearl · {skill:333} Enchanting
+	["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "",
 
-	-- Step 19: Artisan Enchanting
+	-- Step 34: Artisan Enchanting
 	-- {skill:333} Enchanting
 	["Artisan {skill:333}"] = "{skill:333}: Искусник",
 	-- {skill:333} Enchanting · {npc:11073} Annora · {area:1517} Uldaman · {zone:1418} Badlands · {spell:13815} Enchant Gloves - Agility · {item:8831} Purple Lotus · {item:11137} Vision Dust · {item:11176} Dream Dust
 	["Artisan raises the cap from 225 to 300 for 5g (Classic's price; Forever's is not in the data); it needs {skill:333} 200 and character level 35, so you can take it on any visit from 200. {npc:11073} teaches Artisan {skill:333} inside the {area:1517} dungeon ({zone:1418}); bring a group. Learn now: {spell:13815} (from 210). 225-300 takes about 2g 20s of recipes and 1g 70s of vendor goods, plus 34 {item:8831}, 39 {item:11137} and 208 {item:11176} to gather or buy."] = "",
 
-	-- Step 20: Enchanting 225-300: vendor goods
+	-- Step 35: Enchanting 225-300: vendor goods
 	-- {skill:333} Enchanting
 	["{skill:333} 225-300: vendor goods"] = "",
 	-- {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
 	["Buy the whole bracket's share in one go: 34 {item:8925} (1g 70s); about 1g 70s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
-	-- Step 21: Formula: Lesser Mana Oil
+	-- Step 36: Formula: Lesser Mana Oil
 	-- {item:20754} Formula: Lesser Mana Oil · {item:20747} Lesser Mana Oil · {skill:333} Enchanting · {npc:15419} Kania · {zone:1451} Silithus
 	["{item:20754} teaches {item:20747} ({skill:333} 250) for 1g. Sold by {npc:15419} ({zone:1451})."] = "",
 
-	-- Step 22: Formula: Enchant Shield - Greater Stamina
+	-- Step 37: Formula: Enchant Shield - Greater Stamina
 	-- {item:16217} Formula: Enchant Shield - Greater Stamina · {spell:20017} Enchant Shield - Greater Stamina · {skill:333} Enchanting · {npc:4229} Mythrin'dir · {zone:1457} Darnassus · {npc:4561} Daniel Bartlett · {zone:1458} Undercity
 	["{item:16217} teaches {spell:20017} ({skill:333} 265) for 1g 20s. Sold by Alliance: {npc:4229} ({zone:1457}), limited stock; Horde: {npc:4561} ({zone:1458}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "",
 
-	-- Step 23: Purple Lotus (Alliance)
+	-- Step 38: Enchanting 225-300: Auction House
+	-- {skill:333} Enchanting
+	["{skill:333} 225-300: Auction House"] = "{skill:333} 225-300: аукцион",
+	-- {item:8831} Purple Lotus · {item:11137} Vision Dust · {item:11176} Dream Dust
+	["What 225-300 takes that the Auction House sells: 34 {item:8831}, 39 {item:11137} and 208 {item:11176}. The counts drop by what your bags, bank and mail hold."] = "Что нужно на 225-300 и продается на аукционе: 34 {item:8831}, 39 {item:11137} и 208 {item:11176}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
+
+	-- Step 39: Purple Lotus (Alliance)
 	-- {item:8831} Purple Lotus
 	["{item:8831} (Alliance)"] = "{item:8831} (Альянс)",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55); or the Auction House. The densest patch of {item:8831} in {zone:1425} is marked."] = "",
+	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "",
 
-	-- Step 24: Purple Lotus (Horde)
+	-- Step 40: Purple Lotus (Horde)
 	-- {item:8831} Purple Lotus
 	["{item:8831} (Horde)"] = "{item:8831} (Орда)",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55); or the Auction House. The densest patch of {item:8831} in {zone:1444} is marked."] = "",
+	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "",
 
-	-- Step 25: Enchant Gloves - Agility to 253
+	-- Step 41: Vision Dust
+	-- {item:11137} Vision Dust · {spell:13815} Enchant Gloves - Agility · {skill:333} Enchanting
+	["39 {item:11137} for {spell:13815}: {skill:333}: disenchant green items of item level 31-40."] = "39 {item:11137} для {spell:13815}: {skill:333}: распыляйте зеленые предметы 31-40-го уровня.",
+
+	-- Step 42: Dream Dust
+	-- {item:11176} Dream Dust · {item:20747} Lesser Mana Oil · {spell:20017} Enchant Shield - Greater Stamina · {skill:333} Enchanting
+	["208 {item:11176} for {item:20747} and {spell:20017}: {skill:333}: disenchant green items of item level 41-50."] = "208 {item:11176} для {item:20747} и {spell:20017}: {skill:333}: распыляйте зеленые предметы 41-50-го уровня.",
+
+	-- Step 43: Enchant Gloves - Agility to 253
 	-- {spell:13815} Enchant Gloves - Agility
 	["{spell:13815} to 253"] = "",
-	-- {spell:13815} Enchant Gloves - Agility · {item:11137} Vision Dust · {npc:11073} Annora · {skill:333} Enchanting
-	["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. {item:11137} (39 for 225-300): {skill:333}: disenchant green items of item level 31-40; or the Auction House. Enchant any item for that slot in your bags, even a grey one."] = "",
+	-- {spell:13815} Enchant Gloves - Agility · {item:11137} Vision Dust · {npc:11073} Annora
+	["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. Enchant any item for that slot in your bags, even a grey one."] = "",
 
-	-- Step 26: Lesser Mana Oil to 275
+	-- Step 44: Lesser Mana Oil to 275
 	-- {item:20747} Lesser Mana Oil
 	["{item:20747} to 275"] = "",
-	-- {item:20747} Lesser Mana Oil · {item:11176} Dream Dust · {item:8831} Purple Lotus · {item:8925} Crystal Vial · {npc:15419} Kania · {area:3425} Cenarion Hold · {zone:1451} Silithus · {skill:333} Enchanting
-	["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up. {item:11176} (208 for 225-300): {skill:333}: disenchant green items of item level 41-50; or the Auction House."] = "",
+	-- {item:20747} Lesser Mana Oil · {item:11176} Dream Dust · {item:8831} Purple Lotus · {item:8925} Crystal Vial · {npc:15419} Kania · {area:3425} Cenarion Hold · {zone:1451} Silithus
+	["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up."] = "",
 	["from the recipe in your bags"] = "по рецепту из сумки",
 
-	-- Step 27: Enchant Shield - Greater Stamina to 300
+	-- Step 45: Enchant Shield - Greater Stamina to 300
 	-- {spell:20017} Enchant Shield - Greater Stamina
 	["{spell:20017} to 300"] = "",
 	-- {spell:20017} Enchant Shield - Greater Stamina · {item:11176} Dream Dust · {skill:333} Enchanting
@@ -169,13 +251,11 @@ return {
 	-- ["Apprentice {skill:333}"] = "{skill:333}: Ученик",
 	-- ["Artisan needs character level 35 and {skill:333} 200; it raises the cap to 300. Materials for 225-300 are worth about 30s in all."] = "Ранг «Искусник» требует уровня персонажа 35 и навыка {skill:333} 200; предел становится 300. Материалы на 225-300 стоят всего около 30с.",
 	-- ["Back to an {skill:333} trainer: {spell:13501} is taught from {skill:333} 155."] = "Вернитесь к учителю ({skill:333}): {spell:13501} – с навыка {skill:333} 155.",
-	-- ["Back to an {skill:333} trainer: {spell:13628}, {spell:13637} are taught from {skill:333} 180."] = "Вернитесь к учителю ({skill:333}): {spell:13628}, {spell:13637} – с навыка {skill:333} 180.",
 	-- ["Back to an {skill:333} trainer: {spell:13661} is taught from {skill:333} 200."] = "Вернитесь к учителю ({skill:333}): {spell:13661} – с навыка {skill:333} 200.",
 	-- ["Back to an {skill:333} trainer: {spell:13935} is taught from {skill:333} 255."] = "Вернитесь к учителю ({skill:333}): {spell:13935} – с навыка {skill:333} 255.",
 	-- ["Back to an {skill:333} trainer: {spell:13948} is taught from {skill:333} 270."] = "Вернитесь к учителю ({skill:333}): {spell:13948} – с навыка {skill:333} 270.",
 	-- ["Back to an {skill:333} trainer: {spell:7426} is taught from {skill:333} 90."] = "Вернитесь к учителю ({skill:333}): {spell:7426} – с навыка {skill:333} 90.",
 	-- ["Back to an {skill:333} trainer: {spell:7788} is taught from {skill:333} 120."] = "Вернитесь к учителю ({skill:333}): {spell:7788} – с навыка {skill:333} 120.",
-	-- ["Back to an {skill:333} trainer: {spell:7795} is taught from {skill:333} 130."] = "Вернитесь к учителю ({skill:333}): {spell:7795} – с навыка {skill:333} 130.",
 	-- ["Expert needs character level 20 and {skill:333} 125; it raises the cap to 225. Materials for 150-225 are worth about 13s in all."] = "Ранг «Умелец» требует уровня персонажа 20 и навыка {skill:333} 125; предел становится 225. Материалы на 150-225 стоят всего около 13с.",
 	-- ["Journeyman needs character level 10 and {skill:333} 50; it raises the cap to 150. Materials for 75-150 are worth about 7g 51s in all."] = "Ранг «Подмастерье» требует уровня персонажа 10 и навыка {skill:333} 50; предел становится 150. Материалы на 75-150 стоят всего около 7з 51с.",
 	-- ["Open Giant Clams here. The Auction House works too."] = "Открывайте здесь: {object:2744}. Подойдет и аукцион.",
@@ -212,20 +292,14 @@ return {
 	-- ["{skill:333} materials for 150-225"] = "{skill:333}: материалы для 150-225",
 	-- ["{skill:333} materials for 225-300"] = "{skill:333}: материалы для 225-300",
 	-- ["{skill:333} materials for 75-150"] = "{skill:333}: материалы для 75-150",
-	-- ["{skill:333} recipes at 120"] = "{skill:333}: рецепты на 120",
 	-- ["{skill:333} recipes at 155"] = "{skill:333}: рецепты на 155",
 	-- ["{skill:333} recipes at 180"] = "{skill:333}: рецепты на 180",
-	-- ["{skill:333} recipes at 200"] = "{skill:333}: рецепты на 200",
-	-- ["{skill:333} recipes at 255"] = "{skill:333}: рецепты на 255",
 	-- ["{skill:333} recipes at 292"] = "{skill:333}: рецепты на 292",
 	-- ["{skill:333} recipes at 90"] = "{skill:333}: рецепты на 90",
 	-- ["{skill:333} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 4g 3s in all."] = "{skill:333} качается параллельно с уровнем. Система наследия Forever награждает за профессии производства на навыке 150, 225 и 300 (пределы рангов «Подмастерье», «Умелец» и «Искусник»), так что важен каждый рубеж. Материалы на 1-75 стоят всего около 4з 3с.",
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}: распыляйте необычные (зеленые) вещи (или аукцион)",
 	-- ["{spell:13419} to 150"] = "{spell:13419} до 150",
-	-- ["{spell:13501} to 180"] = "{spell:13501} до 180",
-	-- ["{spell:13637} to 200"] = "{spell:13637} до 200",
 	-- ["{spell:13661} to 225"] = "{spell:13661} до 225",
-	-- ["{spell:13746} to 255"] = "{spell:13746} до 255",
 	-- ["{spell:13935} to 292"] = "{spell:13935} до 292",
 	-- ["{spell:13948} to 300"] = "{spell:13948} до 300",
 	-- ["{spell:7426} to 120"] = "{spell:7426} до 120",

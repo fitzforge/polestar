@@ -10,12 +10,30 @@ next forever/alliance/30-40/04-stranglethorn-vale
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Blessed Arm (322), The Black Shield (1319, 1320), Highperch Venom (1135), Hardened Shells (1105),
-# Load Lightening (1176), A Bump in the Road (1175), Fiora Longears (1132).
+# Load Lightening (1176), Fiora Longears (1132).
+# Level tidy (0.4.0): A Bump in the Road (1175) is left out: its Saltstone Gazers are 34-35, two and three levels over
+# players at the Raceway (about 32-33), and the route's next Raceway visit is at 45 (40-50/04-tanaris).
 # Fizzle offers Martek the Exiled (1106) once Salt Flat Venom and Hardened Shells are both handed in: taken here, for the
 # Badlands at the end of 30-40 (Indurium, 1108), and News for Fizzle (1137) back at the Raceway in 40-50/04.
 # Since 2026-11-07 the Mirage Raceway and Dustwallow Marsh's Shady Rest quests are done here, on one crossing to
 # Theramore (the Raceway was a crossing of its own at 30 in 07-thousand-needles). The Missing Diplomat's Dustwallow
 # part (36-38) and Swamplight Manor stay in 40-50/01.
+# Since 0.4.1 the guide ends at Ratchet's dock (#2419), not on the boat to Menethil Harbor: from Theramore the road
+# leads to Ratchet (its flight point on the way) and the boat to Booty Bay, where 30-40/04-stranglethorn-vale starts.
+# Since the 2026-11-20 fix round the stops this guide already makes take what stands on them: The Missing Diplomat's
+# Sentry Point errand (1265, Commander Samaul to Archmage Tervosh at the tower beside the road west), Lieutenant Paval
+# Reethe's badge at the Shady Rest Inn and its errands in Foothold Citadel (1252, 1259, 1285), Lonebrow's Journal by
+# the foot of the Great Lift (1100, for Falfindel Waywarder north of Highperch), Kravel's Wharfmaster Dizzywig (1111)
+# and Pozzik's Goblin Sponsorship (1178, then 1180 for Booty Bay), both handed in at Ratchet beside the boat: about
+# 5,100 XP here at 32-33 with only Falfindel's walk added. A Host of Evil (6626) is a group choice: the quilboar
+# outside Razorfen Downs are elites of 33-34. Tervosh's next errand to Private Hendel (1266) is taken from him at Sentry
+# Point right after the hand-in (he shows there only to players on the chain) and carried to 40-50/01, whose route goes
+# to North Point Tower. Left for 40-50/01: The Deserters (1286), whose
+# Hendel and Balos Jacken stand off this guide's path; Soothing Spices and The Orc Report (1218, 1219) at Swamplight
+# Manor, about 1,300 yards north of the road. Left out: Parts for Kravel (1112, back to the Raceway, which the route
+# next visits at 45) and The Crone of the Kraul (1101, inside Razorfen Kraul).
+# The Caravan Road (2026-11-20 round): Velinde's The Barrens Port (1039) goes to Ratchet's harbor on the last stop,
+# which gives Passage to Booty Bay (1040) for the next guide.
 
 step Fly to Menethil Harbor
   zone Stormwind City
@@ -25,17 +43,17 @@ step Fly to Menethil Harbor
 
 step Red Jack Flint
   zone Wetlands
-  tip Red Jack Flint stands on the dock just north of the flight master.
-  accept 1132                         -- For Fiora Longears on Theramore's docks, where this guide's boat lands
+  tip Red Jack Flint stands by Menethil Keep's door, just north of the flight master.
+  accept 1132                         -- For Fiora Longears in Theramore's inn, where this guide's boat goes
 
 step Glorin Steelbrow
   zone Wetlands
-  tip Glorin stands on the upper floor of Menethil's keep.
+  tip Glorin stands in the Deepwater Tavern, south of the keep, where Mikhail and Vincent Hyal wait too.
   turnin 270                          -- Inside
   accept 321
 
 step Deepwater Tavern
-  sethome "Deepwater Tavern"
+  tip Tapoke Jahn (34) slips out of the tavern once you take The Missing Diplomat: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from Mikhail.
   turnin 1248                         -- Mikhail
   accept 1249
   kill 4962 quest 1249 @10.5,60.3 map 1437 -- Tapoke "Slim" Jahn
@@ -71,14 +89,23 @@ step Theramore
   getfp "Theramore"
   turnin 1302                         -- Clerk Lendry, on the top floor
   turnin 1264                         -- Commander Samaul, on the top floor
-  turnin 1132                         -- Fiora Longears, on the docks
+  accept 1265                         -- Commander Samaul: Sentry Point is the watchtower on the road west, next
+  turnin 1132                         -- Fiora Longears, inside the inn in the north of town
   note Fiora's next errand goes to Astranaar, off this route: leave it.
   accept 1135                         -- Fiora Longears: the wyverns are in Thousand Needles, later in this guide
 
+step Sentry Point
+  tip Follow the road north-west out of Theramore to the watchtower at Sentry Point, where the road to the Shady Rest Inn turns west. Look around the tower: Archmage Tervosh appears at its foot, and you hand the quest in to him there.
+  complete 1265 @59.9,40.9
+  turnin 1265 @59.7,41.2              -- Archmage Tervosh, at the foot of the tower
+  accept 1266 @59.7,41.2              -- Archmage Tervosh: Private Hendel holds North Point Tower, for the Dustwallow Marsh visit at 39
+  note Take Tervosh's next errand now: he stands here only right after the hand-in. Private Hendel waits for the next Dustwallow Marsh visit, at about 39.
+
 step The Shady Rest Inn
-  tip Follow the road west out of Theramore to the burned inn on the road toward the Barrens: the black shield lies in the ashes and the hoofprints are in the mud beside the inn.
+  tip Follow the road west to the burned inn on the road toward the Barrens: the black shield and Reethe's guard badge lie in the ashes and the hoofprints are in the mud beside the inn.
   accept 1284 @29.7,47.6              -- Hoofprints
   accept 1253                         -- Black Shield
+  accept 1252 @29.8,48.2              -- Theramore Guard Badge: for Captain Vimes, on the way back through Theramore
 
 # ---------------------------------------------------------------- Thousand Needles
 
@@ -94,10 +121,30 @@ step Takar the Seer
   accept 1738                             -- Heartswood: in Ashenvale, on the way to Desolace
   accept 65602 optional                   -- What Is Love?: the incubus, beside the succubus; the Wooden Figurine is near the Heartswood
 
+step Myriam Moonsinger
+  when group 6626
+  zone The Barrens
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Myriam Moonsinger stands by the entrance of Razorfen Downs, a few hundred yards north-east of the top of the Great Lift; the Razorfen Battleguards, Thornweavers and Death's Head Cultists (33-34, elite) hold the thorny slopes around her. Skip it if you are alone.
+  accept 6626                             -- Myriam Moonsinger
+  kill 7873 quest 6626.1                  -- Razorfen Battleguard
+  kill 7874 quest 6626.2                  -- Razorfen Thornweaver
+  kill 7872 quest 6626.3                  -- Death's Head Cultist
+  turnin 6626
+
+step Henrig Lonebrow's Journal
+  zone Thousand Needles
+  tip Down the Great Lift into Thousand Needles. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills. Henrig Lonebrow's Journal lies a couple of hundred yards north-east of the lift's foot, in Darkcloud Pinnacle, where the Grimtotems (25-27) camp.
+  accept 1100 @31.3,28.1                  -- Henrig Lonebrow's Journal: for Falfindel Waywarder, just past Highperch
+
 step Highperch
   zone Thousand Needles
-  tip Down the Great Lift into Thousand Needles, then west to the wyverns' cliffs at Highperch. Every wyvern there can drop a venom sac.
+  tip West to the wyverns' cliffs at Highperch. Every wyvern there can drop a venom sac.
   collect 5809 quest 1135             -- Highperch Venom Sac
+
+step Falfindel Waywarder
+  zone Feralas
+  tip Falfindel camps north of Highperch, just over the border into Feralas on the path up to Thalanaar: hand him the journal. His next quest is inside Razorfen Kraul: leave it.
+  turnin 1100                         -- Falfindel Waywarder
 
 step Thousand Needles
   zone Thousand Needles
@@ -115,27 +162,25 @@ step Mirage Raceway
   turnin 1179                             -- Wizzle Brassbolts
   accept 1105                             -- Wizzle Brassbolts
   accept 1176                             -- Pozzik
-  accept 1175                             -- Trackmaster Zherin
 
 step Mirage Raceway: kill these as you meet them
   zone Thousand Needles
-  tip Rocket Car Rubble lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south.
+  tip Rocket Car Rubble lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half.
+  tip Careful: Ironeye the Invincible (37, rare) roams the south-east of the flats, around 83-88,71-84: leave it be.
   collect 5794 quest 1104                 -- Salty Scorpid Venom
   collect 5798 quest 1110                 -- Rocket Car Parts
   collect 5848 quest 1176                 -- Hollow Vulture Bone
-  collect 5795 quest 1105                 -- Hardened Tortoise Shell
-  kill 4147 quest 1175.1                  -- Saltstone Basilisk
-  kill 4151 quest 1175.2                  -- Saltstone Crystalhide
-  kill 4150 quest 1175.3                  -- Saltstone Gazer
+  collect 5795 quest 1105 @76.4,58.2 map 1441 -- Hardened Tortoise Shell, from the Sparkleshell Tortoises
   collect 5675 quest 1078.1 optional      -- Crystalized Scale, from the Saltstone Basilisks: eight for Collin Mauren in Stormwind
 
 step Mirage Raceway
   turnin 1110                             -- Kravel Koalbeard
+  accept 1111                             -- Kravel Koalbeard: for Wharfmaster Dizzywig on Ratchet's dock, where this guide ends
   turnin 1105                             -- Wizzle Brassbolts
   turnin 1104                             -- Fizzle Brassbolts
   accept 1106                             -- Fizzle Brassbolts: for Martek in the Badlands, at the end of 30-40
   turnin 1176                             -- Pozzik
-  turnin 1175                             -- Trackmaster Zherin
+  accept 1178                             -- Pozzik: for Gazlowe in Ratchet, on the way to the boat
 
 step Into Tanaris
   zone Thousand Needles
@@ -157,15 +202,33 @@ step Fly to Theramore
 
 step Theramore
   zone Dustwallow Marsh
-  tip Fiora Longears is in the north of town, Captain Vimes in Foothold Citadel; Caz Twosprocket stands in the town.
+  tip Fiora Longears is in the north of town, Captain Vimes and Adjutant Tesoran on the top floor of Foothold Citadel; Caz Twosprocket stands in the town.
   turnin 1135                         -- Fiora Longears
   turnin 1284                         -- Captain Garran Vimes
   turnin 1253
   accept 1319
+  turnin 1252                         -- Captain Garran Vimes
+  accept 1259
+  turnin 1259                         -- Adjutant Tesoran
+  accept 1285
+  turnin 1285                         -- Captain Garran Vimes
+  note Vimes's next errand, The Deserters, is for the Dustwallow Marsh visit at 39: leave it.
   turnin 1319                         -- Caz Twosprocket
   accept 1320
   turnin 1320                         -- Captain Garran Vimes
 
-step Boat to Menethil Harbor
-  zone Dustwallow Marsh
-  goto 71.6,56.4 "Boat to Menethil Harbor"
+step Ratchet
+  zone The Barrens
+  tip From Theramore follow the road north-west through the marsh into the Barrens and up the coast to Ratchet: Stranglethorn starts at Booty Bay, across the sea. Ratchet's gryphon master stands above the dock; Gazlowe is upstairs in the house above it; Wharfmaster Dizzywig waits on the dock by the boat.
+  getfp "Ratchet"
+  turnin 1178                         -- Gazlowe
+  accept 1180                         -- Gazlowe: for Wharfmaster Lozgil, on Booty Bay's dock where the boat lands
+  turnin 1111                         -- Wharfmaster Dizzywig
+  turnin 1039                         -- Wharfmaster Dizzywig: The Barrens Port, from Thyn'tel Bladeweaver in Darnassus
+  accept 1040                         -- Wharfmaster Dizzywig: for Caravaneer Ruzzgot in Booty Bay, where the boat lands
+  note Dizzywig's next errand goes back to the Mirage Raceway, which the route next visits at 45: leave it.
+
+step Boat to Booty Bay
+  when !zone "Stranglethorn Vale"
+  zone The Barrens
+  goto 63.4,38.5 "Boat to Booty Bay"

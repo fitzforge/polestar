@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["A one-use stone that makes you much stronger against undead for 10 minutes; the old item choice may be gone in Forever."] = "",
+	["A one-use stone that makes you much stronger against undead for 10 minutes; the old item choice may be gone in Forever."] = "10분 동안 언데드에게 훨씬 강해지는 1회용 돌입니다. 예전 아이템 선택 보상은 Forever에서 사라졌을 수 있습니다.",
 
 	-- Step 1: Lord Grayson Shadowbreaker
 	-- {npc:928} Lord Grayson Shadowbreaker · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {npc:5149} Brandur Ironhammer · {zone:1455} Ironforge
@@ -64,7 +64,6 @@ return {
 	["Back to Ashlam in {area:3197}: he forges the {item:20620}. Look at the reward window before you hand in: Classic also offered the {item:20505}, the {item:20504} or the {item:20512}, and Forever's notes say that choice may be gone. Use the stone before a fight against undead ({area:2279}, {area:2057}): it lasts ten minutes and is gone after one use."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["A one-use stone that makes you much stronger against undead for 10 minutes; the old choice rewards are gone."] = "10분 동안 언데드에게 훨씬 강해지는 1회용 돌입니다. 예전 선택 보상은 사라졌습니다.",
 	-- ["The Scourge throughout the {zone:1422} drop Minion's Scourgestones."] = "{zone:1422} 곳곳의 스컬지가 앞잡이의 스컬지석을 떨어뜨립니다.",
 	-- ["{area:1477} lies in the {area:74} in eastern {zone:1435}. Inside, Gasher and {npc:5716} drop the {item:20606}, Hukku and Mijan the Blue, Zolo and Loro the Green."] = "{area:1477}은(는) {zone:1435} 동쪽의 {area:74}에 있습니다. 안에서 게이셔와 {npc:5716}이(가) {item:20606}을(를), 후쿠와 마이잔이 파란색을, 졸로와 로로가 녹색을 떨어뜨립니다.",
 	-- ["{item:20606}, inside"] = "{item:20606}, 내부",

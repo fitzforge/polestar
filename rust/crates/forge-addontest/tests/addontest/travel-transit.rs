@@ -34,12 +34,14 @@ local function leg(kind)
 end
 "#;
 
+// The character has opened a flight map on both of the travel world's continents (flags.taxiSeen): a flight master
+// Polestar doesn't know there is one it lacks (#1795's flights to ones it may have are in travel.rs).
 fn run(script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_nav.lua"],
 		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])],
 		login: true,
-		script: format!("{PRELUDE}\nnav.faction = \"Alliance\"\nnav.useTravelWorld()\n{script}"),
+		script: format!("{PRELUDE}\nnav.faction = \"Alliance\"\nPolestar.CharState().flags.taxiSeen = {{ [0] = true, [1] = true }}\nnav.useTravelWorld()\n{script}"),
 		..Default::default()
 	})
 	.remove(0)
@@ -71,6 +73,107 @@ fn a_ride_waits_as_the_timetable_says_from_when_the_player_reaches_the_dock_the_
 	assert_eq!(out["seen"], json!(["boat", "boat-test", true, "b"]), "asked for the time the player gets to the pier, boarding at b");
 	assert_eq!(out["fields"], json!(["boat-test", "b"]));
 	assert_eq!(out["label"], "Take the boat to Testshire Docks\nNext boat in 1:20 (b)");
+}
+
+// A Shaman's Astral Recall (Nav/Transit.lua's teleports with `bind`: it lands where the Hearthstone does) is a second
+// Hearthstone (players asked for it on Discord, 2026-11-13). On a 12-minute haul to beside the inn: with the Hearthstone
+// on cooldown, "Cast Astral Recall" by the Hearthstone's rules (its own cooldown and cast, the 2 minutes it must save);
+// with both ready, the one whose full cooldown the client says is shorter is spent (Astral Recall's 15 minutes against
+// the stone's hour; the stone when the client says Astral Recall's is longer, or tells none); both cooling down long,
+// the boat; without the spell, the Hearthstone as before.
+#[test]
+fn astral_recall_is_a_second_hearthstone_cast_while_the_stone_waits_and_the_shorter_cooldown_is_spent_when_both_are_ready() {
+	let out = run(r#"
+		local r = {}
+		local recall = { spell = 556, name = "Astral Recall", cast = 10, ready = 0, bind = true, length = 900 }
+		local shaman = false
+		Polestar.Transit = { Now = function() return 0 end, Teleports = function() return shaman and { recall } or {} end }
+		GetItemSpell = function(id) if id == 6948 then return "Hearthstone", 8690 end end
+		GetSpellBaseCooldown = function(id) if id == 8690 then return 3600000, 0 end end
+		nav.items[6948] = 1
+		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)
+		nav.place(0, 0, 1)
+		stub.advance(10)
+		target(-520, -690, "Innkeeper quest")
+		r.none = route()
+		shaman = true
+		nav.hearthCooldown = { GetTime(), 3600 }
+		target(-520, -690, "Innkeeper quest")
+		r.stoneWaits = route()
+		r.spell = leg("teleport") and leg("teleport").spell or false
+		nav.hearthCooldown = nil
+		target(-520, -690, "Innkeeper quest")
+		r.both = route()
+		recall.length = 7200
+		target(-520, -690, "Innkeeper quest")
+		r.longer = route()
+		recall.length = nil
+		target(-520, -690, "Innkeeper quest")
+		r.untold = route()
+		recall.length, recall.ready = 900, 3000
+		nav.hearthCooldown = { GetTime(), 3600 }
+		target(-520, -690, "Innkeeper quest")
+		r.bothWait = route()
+		nav.items[6948] = nil
+		recall.ready = 0
+		target(-520, -690, "Innkeeper quest")
+		r.noStone = route()
+		emit(r)"#);
+	let hearth = json!(["hearth|Hearth to Testshire Inn: saves 10 min", "walk|Innkeeper quest"]);
+	let recall = json!(["teleport|Cast Astral Recall: saves 10 min", "walk|Innkeeper quest"]);
+	assert_eq!(out["none"], hearth, "no Astral Recall: the Hearthstone as before");
+	assert_eq!(out["stoneWaits"], recall, "the Hearthstone on cooldown: Astral Recall");
+	assert_eq!(out["spell"], 556, "the travel button casts it");
+	assert_eq!(out["both"], recall, "both ready: Astral Recall's shorter cooldown is spent");
+	assert_eq!(out["longer"], hearth, "the client says Astral Recall's is longer: the Hearthstone");
+	assert_eq!(out["untold"], hearth, "the client tells no length: the Hearthstone");
+	assert_eq!(out["bothWait"], json!(["walk|Walk to the boat", "boat|Take the boat to Testshire Docks", "walk|Innkeeper quest"]), "both cooling down long: the boat");
+	assert_eq!(out["noStone"], recall, "no Hearthstone in the bags: Astral Recall takes the player to the bind point all the same");
+}
+
+// Astral Recall is a Shaman's spell and never shows for another class: the planner takes it only from Nav/Transit.lua's
+// Teleports, which lists a spell only when the client's spell book has it (Compat.IsSpellKnown), never from the class.
+// With the real Transit and the travel data's Astral Recall, on the 12-minute haul to beside the inn with the Hearthstone
+// cooling down for an hour: a Warrior, the stub saying nothing about the spell (no spell book call at all), and a Shaman
+// who has not learned it yet (the spell book answers, not for Astral Recall), with the stone in the bags or not, take the
+// boat, never "Cast Astral Recall"; once the spell book has it, it is cast, so the spell book is what keeps it from the
+// others.
+#[test]
+fn astral_recall_is_never_planned_for_another_class_or_a_shaman_who_has_not_learned_it_only_once_the_spell_book_has_it() {
+	let out = run(r#"
+		local r = {}
+		local X = Polestar.Transit
+		local function state()
+			target(-520, -690, "Innkeeper quest")
+			local listed = {}
+			for _, t in ipairs(X.Teleports(X.Now())) do listed[#listed + 1] = t.name end
+			return { route(), table.concat(listed, ",") }
+		end
+		nav.items[6948] = 1
+		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)
+		nav.place(0, 0, 1)
+		stub.advance(10)
+		nav.hearthCooldown = { GetTime(), 3600 }
+		Polestar.Compat.IsSpellKnown = nil
+		r.warrior = state()
+		nav.items[6948] = nil
+		r.warriorNoStone = state()
+		local book = {}
+		Polestar.Compat.IsSpellKnown = function(id) return book[id] == true end
+		r.shamanNoStone = state()
+		nav.items[6948] = 1
+		r.shaman = state()
+		book[556] = true
+		r.learned = state()
+		emit(r)"#);
+	let boat = json!([["walk|Walk to the boat", "boat|Take the boat to Testshire Docks", "walk|Innkeeper quest"], ""]);
+	assert_eq!(out["warrior"], boat, "a Warrior, the stub saying nothing about the spell: the boat, nothing listed");
+	assert_eq!(out["warriorNoStone"], boat, "no Hearthstone in the bags either: still the boat");
+	assert_eq!(out["shamanNoStone"], boat, "a Shaman who has not learned it, no Hearthstone in the bags: the boat");
+	assert_eq!(out["shaman"], boat, "a Shaman who has not learned it, the Hearthstone cooling down: the boat");
+	assert_eq!(out["learned"], json!([["teleport|Cast Astral Recall: saves 10 min", "walk|Innkeeper quest"], "Astral Recall"]), "learned: cast");
 }
 
 #[test]
@@ -122,6 +225,101 @@ fn issue_1515_a_class_teleport_landing_in_the_zone_the_player_stands_in_is_never
 	assert_eq!(out["elsewhere"], json!(["teleport|Cast Teleport: Testshire", "walk|Quest"]));
 }
 
+// #1823: a class teleport (each of a Mage's city teleports spends a Rune of Teleportation) is cast only when it clearly
+// pays: it saves at least a minute over the best way without it, and a fifth of that way when that is more. Teleport:
+// Stormwind won by a few seconds over a flight to Darkshire.
+const TELEPORT_1823: &str = r#"
+		local landing = { name = "Testshire", c = 0, wx = 0, wy = -780, map = 9002, x = 50, y = 50 }
+		local wait = 0
+		local function teleports()
+			Polestar.Transit = { Now = function() return 0 end, Teleports = function()
+				return { { spell = 3561, name = "Teleport: Testshire", cast = 10, ready = wait, to = landing } } end }
+		end
+		local function plan(wx, wy, label)
+			target(wx, wy, label)
+			local legs = N.GetRoute()
+			return { legs[1].kind, legs[1].seconds + legs[1].rest }
+		end"#;
+
+#[test]
+fn issue_1823_a_class_teleport_that_saves_less_than_a_minute_over_a_flight_is_not_cast() {
+	let out = run(&r#"
+		@TELEPORT_1823@
+		local r = {}
+		known(1, 2)
+		nav.place(0, 600)                                 -- by West Hold: the flight to East Hold and a walk
+		r.flight = plan(0, -782, "Kobolds")
+		teleports()
+		landing.wx = 420                                  -- the teleport and a walk: 85 s
+		r.seconds = plan(0, -780, "Kobolds")
+		landing.wx = 100                                  -- 28 s
+		r.minute = plan(0, -781, "Kobolds")
+		emit(r)"#
+		.replace("@TELEPORT_1823@", TELEPORT_1823));
+	assert_eq!(out["flight"], json!(["walk", 96]), "walk to the flight master, fly, walk");
+	assert_eq!(out["seconds"], json!(["walk", 97]), "12 s saved: the flight");
+	assert_eq!(out["minute"], json!(["teleport", 28]), "68 s saved: the teleport");
+}
+
+#[test]
+fn issue_1823_on_a_long_trip_a_class_teleport_must_also_save_a_fifth_of_the_way_without_it() {
+	let out = run(&r#"
+		@TELEPORT_1823@
+		local r = {}
+		nav.useTravelWorld(nil, 300)
+		nav.place(0, 0, 1)                                -- in Farland: the boat over and a walk
+		r.boat = plan(-500, -478, "Quest")
+		teleports()
+		landing.wx, landing.wy = -500, -500
+		wait = 429                                        -- castable in 429 s: 443 s with its walk
+		r.short = plan(-500, -480, "Quest")
+		wait = 409                                        -- 423 s
+		r.fifth = plan(-500, -479, "Quest")
+		emit(r)"#
+		.replace("@TELEPORT_1823@", TELEPORT_1823));
+	assert_eq!(out["boat"], json!(["walk", 542]), "walk to the pier, the boat, walk");
+	assert_eq!(out["short"], json!(["walk", 543]), "100 s saved, under a fifth of 543 s: the boat");
+	assert_eq!(out["fifth"], json!(["teleport", 423]), "119 s saved, over a fifth of 542 s: the teleport");
+}
+
+// #1823 (a Gnome Mage on Pygmy Venom Web Spiders, one left to kill): the arrow on another of the goal's spawn areas
+// sent him to cast Teleport: Stormwind, though the spiders were where he stood. While the player stands in one of the
+// target's spawn areas (the Engine's waypoint `spots`) or within 100 yards of its edge, the way to another one is
+// walked: no teleport, Hearthstone or flight. Farther from them, the teleport or flight as before.
+#[test]
+fn issue_1823_in_or_near_one_of_a_goal_s_spawn_areas_the_way_to_another_is_walked_never_by_teleport_or_flight() {
+	let out = run(r#"
+		local r = {}
+		local landing = { name = "Testshire", c = 0, wx = -500, wy = -500, map = 9002, x = 75, y = 75 }
+		Polestar.Transit = { Now = function() return 0 end, Teleports = function()
+			return { { spell = 3561, name = "Teleport: Testshire", cast = 10, ready = 0, to = landing } } end }
+		-- The arrow on the spot by the landing (map 75,74); another of the goal's spots at (600, 600) (map 20,20).
+		local SPOTS = { { x = 75, y = 74, r = 50 }, { x = 20, y = 20, r = 50 } }
+		local function spiders(wx, wy, spots, x, y)
+			nav.place(wx, wy)
+			local t = N.SetTarget(9000, x or 75, y or 74, "Spiders")
+			t.spots = spots
+			T.Replan()
+			return route()
+		end
+		r.inside = spiders(600, 600, SPOTS)
+		r.arrow = N.Sample()                              -- what the arrow shows there
+		r.near = spiders(600, 740, SPOTS)                -- 90 yd past that spot's edge
+		r.away = spiders(600, -600, SPOTS)               -- farther than 100 yd from every spot
+		r.single = spiders(600, 600, nil)                -- a target with one place
+		-- No teleport; flights known: from the spot beside West Hold (0, 700) to the one beside East Hold (0, -780).
+		Polestar.Transit = nil
+		known(1, 2)
+		r.flight = spiders(0, 700, { { x = 89, y = 50, r = 40 }, { x = 15, y = 50, r = 40 } }, 89, 50)
+		emit(r)"#);
+	assert_eq!(out["inside"], json!(["walk|Spiders"]), "in another spot of the goal: walked");
+	assert_ne!(out["arrow"], "instruction", "the arrow leads the walk, never asks for the cast");
+	assert_eq!(out["near"], json!(["walk|Spiders"]), "near one: walked");
+	assert_eq!(out["away"], json!(["teleport|Cast Teleport: Testshire", "walk|Spiders"]), "away from them: the teleport");
+	assert_eq!(out["single"], json!(["teleport|Cast Teleport: Testshire", "walk|Spiders"]), "a target with no spawn areas: as before");
+	assert_eq!(out["flight"], json!(["walk|Spiders"]), "no flight from beside West Hold either");
+}
+
 #[test]
 fn a_walk_in_portal_goes_one_way_only() {
 	let out = run(r#"
@@ -140,6 +338,134 @@ fn a_walk_in_portal_goes_one_way_only() {
 	assert_eq!(out["there"], json!(["walk|Walk to the portal", "portal|Take the portal to Far Gate", "walk|Target"]));
 	assert_eq!(out["mode"], "instruction");
 	assert_eq!(out["back"][0], "walk|Walk to the boat", "never back through it");
+}
+
+// #2156: a portal that asks for an item (the Transpolyporter from Booty Bay to Gnomeregan's Train Depot opens only
+// for a player carrying the Goblin Transponder) is taken while the item is in the bags, never without it.
+#[test]
+fn a_portal_that_asks_for_an_item_is_taken_only_with_it_in_the_bags_2156() {
+	let out = run(r#"
+		local r = {}
+		N.RegisterTravelData({ portals = { { id = "pad", name = "Far Gate", seconds = 5, item = 9173,
+			a = { "West Portal", 0, 0, 900, 9000, 5, 50 }, b = { "Far Gate", 1, 0, -400, 9001, 90, 50 } } } })
+		local function has(kind)
+			for _, l in ipairs(route()) do if l:find("^" .. kind .. "|") then return true end end
+			return false
+		end
+		nav.place(0, 850)
+		N.SetTarget(9001, 80, 60, "Target")               -- Farland (-100, -300)
+		r.without = has("portal")
+		nav.items[9173] = 1
+		T.Replan()
+		r.with = route()
+		emit(r)"#);
+	assert_eq!(out["without"], false, "no Goblin Transponder: no portal");
+	assert_eq!(out["with"], json!(["walk|Walk to the portal", "portal|Take the portal to Far Gate", "walk|Target"]));
+}
+
+// #1741: a turn-in through the walk-in portal, with the game's waypoint mirrored (nav.blizzardWaypoint), walked
+// to the portal, through it and on. `waypoint_ui`: Waypoint UI's public API (WaypointUIAPI.Navigation) is
+// loaded, recording what Polestar asks of it and of the game's quest tracking.
+fn portal_turn_in_mirrored(waypoint_ui: bool) -> Value {
+	let api = if waypoint_ui {
+		r#"WaypointUIAPI = { Navigation = {
+			NewUserNavigation = function(o) current = o; calls[#calls + 1] = { "pin", o.name, o.mapID, o.x, o.y } end,
+			ClearUserNavigation = function() current = nil; calls[#calls + 1] = { "clear pin" } end,
+			IsUserNavigationFlagged = function(flag) return current ~= nil and current.flags == flag end,
+		} }"#
+	} else {
+		""
+	};
+	run(&format!(
+		r#"
+		Polestar.Set("nav.navRouting", false) -- mirror the compass on the two fictional streets
+		local calls, current, tracked = {{}}, nil, 0
+		{api}
+		C_QuestLog = C_QuestLog or {{}}
+		C_QuestLog.IsOnQuest = function(q) return q == 376 end
+		C_QuestLog.GetNextWaypoint = function() return 9001, 0.8, 0.6 end
+		C_SuperTrack.SetSuperTrackedQuestID = function(q) tracked = q; calls[#calls + 1] = {{ "quest", q }} end
+		C_SuperTrack.GetSuperTrackedQuestID = function() return tracked end
+		Polestar.Set("nav.blizzardWaypoint", true)
+		N.RegisterTravelData({{ portals = {{ {{ id = "gate", name = "Far Gate portal", seconds = 5,
+			a = {{ "West Portal", 0, 0, 900, 9000, 5, 50 }}, b = {{ "Far Gate", 1, 0, -400, 9001, 90, 50 }} }} }} }})
+		nav.place(0, 850)
+		nav.setWaypoint({{ map = 9001, x = 80, y = 60, label = "Turn in The Damned", kind = "turnin", quest = 376,
+			stepIndex = 1, goalIndex = 1, r = 8 }})
+		local r = {{ route = route(), walking = #calls }}
+		nav.place(0, 899)                                 -- at the portal: the next leg
+		N.Sample()
+		r.atPortal = #calls
+		nav.place(0, -400, 1)                             -- through it: the last walk, to the turn-in
+		N.Sample()
+		r.calls, r.native = calls, nav.userWaypoints
+		emit(r)"#
+	))
+}
+
+// With Waypoint UI, its beacon leads the way the arrow does: the current leg's stop (the portal), named after
+// the leg and moved on as the legs change, and the goal itself (its quest tracked) once the last walk begins,
+// where it pointed at the turn-in across the portal from the start (Rut'theran Village to the Darnassus bank).
+#[test]
+fn issue_1741_with_waypoint_ui_the_pin_is_the_current_leg_s_stop_then_the_goal() {
+	let out = portal_turn_in_mirrored(true);
+	assert_eq!(out["route"], json!(["walk|Walk to the portal", "portal|Take the portal to Far Gate", "walk|Turn in The Damned"]));
+	assert_eq!(out["calls"], json!([["pin", "Walk to the portal", 9000, 5, 50], ["pin", "Take the portal to Far Gate", 9000, 5, 50], ["clear pin"], ["quest", 376]]));
+	assert_eq!(out["walking"], 1, "one pin while walking to the portal: a plan and the target announced together");
+	assert_eq!(out["atPortal"], 2);
+	assert_eq!(out["native"], json!({}), "Waypoint UI sets the game's pin itself");
+}
+
+// The map destination stays put. It becomes a tracked bearing only after the portal.
+#[test]
+fn issue_1741_without_waypoint_ui_the_game_s_pin_stays_on_the_target() {
+	let out = portal_turn_in_mirrored(false);
+	assert_eq!(out["calls"], json!({}));
+	assert_eq!(out["native"], json!([["set", 9001, 0.8, 0.6], ["track", false], ["track", true]]));
+}
+
+// #1834: the same walk through the portal with TomTom's arrow guiding (nav.useTomTomArrow, the target's continent):
+// TomTom's one waypoint is the current leg's stop (the portal) and the goal once the last walk begins, as Waypoint
+// UI's pin is (#1741). `arrow` false: TomTom only mirrors, and its waypoint stays on the goal throughout.
+fn portal_turn_in_with_tomtom(arrow: bool) -> Value {
+	run(&format!(
+		r#"
+		Polestar.Set("nav.navRouting", false)
+		nav.withTomTom()
+		Polestar.Set("nav.useTomTomArrow", {arrow})
+		N.RegisterTravelData({{ portals = {{ {{ id = "gate", name = "Far Gate portal", seconds = 5,
+			a = {{ "West Portal", 0, 0, 900, 9000, 5, 50 }}, b = {{ "Far Gate", 0, 0, -400, 9000, 70, 50 }} }} }} }})
+		nav.place(0, 850)
+		nav.setWaypoint({{ map = 9000, x = 90, y = 50, label = "Turn in The Damned", kind = "turnin", quest = 376,
+			stepIndex = 1, goalIndex = 1, r = 8 }})
+		local r = {{ route = route() }}
+		nav.place(0, 899)                                 -- at the portal: the next leg
+		N.Sample()
+		nav.place(0, -400)                                -- through it: the last walk, to the turn-in
+		N.Sample()
+		-- (TomTom's waypoints in order, a re-announced unchanged one counted once)
+		local adds = {{}}
+		for _, c in ipairs(TomTom.calls) do
+			local last = adds[#adds]
+			if c.op == "add" and not (last and last[1] == c.title and last[2] == c.x and last[3] == c.y) then adds[#adds + 1] = {{ c.title, c.x, c.y }} end
+		end
+		r.adds = adds
+		emit(r)"#
+	))
+}
+
+#[test]
+fn issue_1834_with_tomtom_s_arrow_tomtom_s_waypoint_is_the_current_leg_s_stop_then_the_goal() {
+	let out = portal_turn_in_with_tomtom(true);
+	assert_eq!(out["route"], json!(["walk|Walk to the portal", "portal|Take the portal to Far Gate", "walk|Turn in The Damned"]));
+	assert_eq!(out["adds"], json!([["Walk to the portal", 0.05, 0.5], ["Take the portal to Far Gate", 0.05, 0.5], ["Turn in The Damned", 0.9, 0.5]]));
+}
+
+#[test]
+fn issue_1834_tomtom_as_a_mirror_only_keeps_its_waypoint_on_the_goal() {
+	let out = portal_turn_in_with_tomtom(false);
+	let adds = out["adds"].as_array().unwrap();
+	assert!(!adds.is_empty() && adds.iter().all(|a| a[0] == "Turn in The Damned"), "{adds:?}");
 }
 
 #[test]
@@ -179,6 +505,103 @@ fn skipping_another_leg_moves_on_to_the_next_flights_list_every_node_they_hop() 
 		emit(r)"#);
 	assert_eq!(out["stops"], json!([2, 1, 2]));
 	assert_eq!(out["after"], json!(["fly|Fly to East Hold", "walk|Kobolds"]));
+}
+
+// #1890: from Stormwind the route flew to Sentinel Hill, and on landing it planned the flight back, over and over. The
+// plan made on landing never flies back to the flight master the flight left from, for this target: here the walks
+// from East Hold into the target are priced dearer once landed (a walk the engine measured), as Sentinel Hill's were.
+// The route's flight leg names that flight master; a flight taken without the route leaves from the one beside the
+// player. A flight that comes down where it took off never got away: that flight master stays in the plans. Another
+// target may fly there again.
+#[test]
+fn issue_1890_after_landing_the_route_never_flies_back_to_the_flight_master_it_left_from_another_target_may() {
+	let out = run(r#"
+		local r, dear = {}, false
+		-- Once landed, the walks from beside East Hold into the quest cost far more than their yards.
+		T.WalkCostHook(function(walk, cost)
+			if dear and math.abs(walk.from.wy + 800) < 60 and math.abs(walk.to.wy + 700) < 2 then return cost + 10000 end
+		end)
+		local function fly(fromY)
+			nav.place(0, fromY)
+			N.Sample()                                    -- at the flight master: the flight is the current leg
+			nav.taxi = true
+			N.Refresh()                                   -- take-off
+			nav.place(0, -800)
+			dear = true
+			nav.taxi = false
+			N.Refresh()                                   -- landed at East Hold: planned again
+			local after = route()
+			dear = false
+			return after
+		end
+		known(1, 2)
+		nav.place(0, 700)
+		target(0, -700, "Kobolds")
+		r.planned = route()
+		r.landed = fly(790)
+		-- A flight the route did not ask for: from West Hold, with the route walking.
+		target(0, -701, "Kobolds")
+		local walkTo = route()
+		dear = true
+		nav.place(0, 790)
+		nav.taxi = true
+		N.Refresh()
+		nav.place(0, -800)
+		nav.taxi = false
+		N.Refresh()
+		r.own = route()
+		dear = false
+		-- Another target: the flight to West Hold again.
+		target(0, 780, "Wolves")
+		r.other = route()
+		-- A flight that comes down where it took off: it never got away, and West Hold stays in the plans.
+		target(0, -702, "Kobolds")
+		nav.place(0, 790)
+		N.Sample()
+		nav.taxi = true
+		N.Refresh()
+		nav.taxi = false
+		N.Refresh()
+		r.stayed = route()
+		r.walkTo = walkTo[1]
+		emit(r)"#);
+	assert_eq!(out["planned"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]));
+	assert_eq!(out["landed"], json!(["walk|Kobolds"]), "never the flight back to West Hold");
+	assert_eq!(out["walkTo"], "walk|Kobolds", "from beside East Hold the route walks: no flight asked for");
+	assert_eq!(out["own"], json!(["walk|Kobolds"]), "a flight taken without the route: the flight master beside the player");
+	assert_eq!(out["other"], json!(["fly|Fly to West Hold", "walk|Wolves"]), "another target may fly there again");
+	assert_eq!(out["stayed"], json!(["fly|Fly to East Hold", "walk|Kobolds"]), "a flight that never got away: West Hold stays");
+}
+
+// The same for a ride (#1890's sweep): once a boat, zeppelin, tram or portal has arrived, the plans for this target
+// never take it back, however the walks from its far end come to be priced.
+#[test]
+fn issue_1890_after_a_ride_arrives_the_route_never_rides_it_back_another_target_may() {
+	let out = run(r#"
+		local r, dear = {}, false
+		N.RegisterTravelData({ build = "test", taxi = {}, flights = {}, inns = {},
+			transports = { { id = "tram-test", kind = "tram", faction = 1, ab = 100, ba = 100, waitA = 30, waitB = 30,
+				a = { "Northgate", 0, 900, 0, 9000, 50, 5 }, b = { "Southgate", 0, -900, 0, 9000, 50, 95 } } } }, true)
+		T.WalkCostHook(function(walk, cost)
+			if dear and math.abs(walk.from.wx + 900) < 60 and math.abs(walk.to.wx + 950) < 2 then return cost + 10000 end
+		end)
+		nav.place(890, 0)
+		target(-950, 0, "South")
+		r.planned = route()
+		nav.place(-900, 0)                                -- the tram has arrived at Southgate
+		N.Sample()
+		dear = true
+		T.Replan()
+		r.arrived = route()
+		dear = false
+		target(-950, 1, "Other")                          -- another target: the tram again
+		nav.place(890, 0)
+		T.Replan()
+		r.other = route()[1]
+		emit(r)"#);
+	assert_eq!(out["planned"], json!(["tram|Take the tram to Southgate", "walk|South"]));
+	assert_eq!(out["arrived"], json!(["walk|South"]), "never the tram back to Northgate");
+	assert_eq!(out["other"], "tram|Take the tram to Southgate", "another target may ride it again");
 }
 
 #[test]
@@ -227,45 +650,11 @@ fn t_2_3_no_flight_leg_lands_at_or_passes_through_an_unknown_flight_master_the_k
 		r.stops = stopsOf()
 		emit(r)"#);
 	// Middle Post unknown: never flown to or through (North -> Middle -> South); walked to,
-	// learnt there and flown from (#1174).
-	assert_eq!(out["unknownMiddle"], json!(["walk|Walk to the flight master", "fly|Fly to South Post", "walk|South"]));
+	// learnt there and flown from (#1174), the flight leg saying so.
+	assert_eq!(out["unknownMiddle"], json!(["walk|Walk to the flight master", "fly|Learn the flight path at Middle Post, then fly to South Post", "walk|South"]));
 	assert_eq!(out["unknownStops"], json!([2, 3]), "Middle Post unknown: no flight through it");
 	assert_eq!(out["known"], json!(["walk|Walk to the flight master", "fly|Fly to South Post", "walk|South"]));
 	assert_eq!(out["stops"], json!([1, 2, 3]));
-}
-
-// A flight path learnt while Polestar was not running: the world map's flight points (C_TaxiMap.GetTaxiNodesForMap,
-// isUndiscovered) make it known on the next loading screen, with no flight map opened (#1308: from Ironforge the
-// arrow walked to the Wetlands until the flight map there showed Menethil Harbor). A client that reads no node as
-// undiscovered, or gives no such field, is not trusted.
-#[test]
-fn a_flight_path_learnt_without_polestar_counts_from_the_world_map_on_a_loading_screen() {
-	let out = run(r#"
-		local r = {}
-		local nodes
-		C_TaxiMap.GetTaxiNodesForMap = function(mapID)
-			if mapID ~= 9000 then return {} end
-			return nodes
-		end
-		local function reload(list)
-			known()
-			nodes = list
-			stub.fire("PLAYER_ENTERING_WORLD")
-			target(0, -780, "Kobolds")
-			return route()
-		end
-		nav.place(0, 600)
-		r.none = reload({})
-		r.world = reload({ { nodeID = 1, isUndiscovered = false }, { nodeID = 2, isUndiscovered = false }, { nodeID = 3, isUndiscovered = true } })
-		r.saved = { Polestar.CharState().flags.taxi[1] == true, Polestar.CharState().flags.taxi[2] == true, Polestar.CharState().flags.taxi[3] == true }
-		r.allKnown = reload({ { nodeID = 1, isUndiscovered = false }, { nodeID = 2, isUndiscovered = false } })
-		r.noField = reload({ { nodeID = 1 }, { nodeID = 2 }, { nodeID = 3 } })
-		emit(r)"#);
-	assert_eq!(out["none"], json!(["walk|Kobolds"]), "East Hold unknown: walked");
-	assert_eq!(out["world"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]));
-	assert_eq!(out["saved"], json!([true, true, false]), "only the discovered nodes, saved");
-	assert_eq!(out["allKnown"], json!(["walk|Kobolds"]), "no node read as undiscovered: not trusted");
-	assert_eq!(out["noField"], json!(["walk|Kobolds"]));
 }
 
 #[test]
@@ -470,6 +859,37 @@ fn issue_1327_no_hearthstone_while_a_quest_timer_runs_it_comes_back_when_the_tim
 		.replace("@TIMER@", TIMER));
 	assert_eq!(out["timed"], "walk|Walk to the boat");
 	assert_eq!(out["ended"], "hearth|Hearth to Testshire Inn: saves 10 min");
+}
+
+// Barrens, Free From the Hold (Fitz, 0.3.7.1): on the escort out of Northwatch Hold the arrow said to hearth, which
+// leaves the escorted NPC behind and fails the quest. While the live step's escort runs (Engine.EscortRunning,
+// tested in engine-failed-quest.rs) the route walks: no Hearthstone, no boat; once it ends, both come back.
+#[test]
+fn an_escort_walks_no_hearthstone_and_no_ride_until_it_ends() {
+	let out = run(r#"
+		local running = false
+		Polestar.Engine = { EscortRunning = function() return running end }
+		local function escort(on)
+			running = on
+			stub.fire("QUEST_LOG_UPDATE")
+		end
+		local r = {}
+		nav.items[6948] = 1
+		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)
+		nav.place(900, 0)                         -- the target's continent, a long walk from it: the Hearthstone pays
+		target(-520, -690, "Innkeeper quest")
+		r.free = route()[1]
+		escort(true)
+		N.Refresh()
+		r.escort = route()
+		escort(false)
+		N.Refresh()
+		r.ended = route()[1]
+		emit(r)"#);
+	assert_eq!(out["free"].as_str().map(|s| s.starts_with("hearth|")), Some(true), "without the escort the Hearthstone pays: {out}");
+	assert_eq!(out["escort"], json!(["walk|Innkeeper quest"]), "walks with the escort: {out}");
+	assert_eq!(out["ended"], out["free"], "the escort done: the Hearthstone comes back");
 }
 
 #[test]

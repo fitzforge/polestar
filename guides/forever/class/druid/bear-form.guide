@@ -72,17 +72,42 @@ step Heeding the Call
 # without a waypoint the arrow led onto a ledge outside his floor, behind the wall (#1338). Each step
 # to him comes after a goto at the building's door on its south side, 35.8,11.6, where players'
 # recordings walk in; from there the arrow points straight at him.
+# A carried letter or an untaken Moonglade needs this first visit. Keep the reasons
+# overlapping: dropping a letter on the way must not drop the Moonglade approach.
+# Both approaches finish at the same doorway when both reasons apply.
 step Cenarion Enclave
   only NightElf
+  when onquest 5923,5924,5925
   zone Darnassus
   tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave. He teaches you Teleport: Moonglade with the quest (it stays in your spellbook, Balance tab).
   goto 35.8,11.6 "Cenarion Enclave"
+
+step Cenarion Enclave
+  only NightElf
+  when !onquest 5921
+  when !turnedin 5921
+  zone Darnassus
+  tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave. He teaches you Teleport: Moonglade with the quest (it stays in your spellbook, Balance tab).
+  goto 35.8,11.6 "Cenarion Enclave"
+
+# Other trainers' letters have distinct quest IDs. Hand in only the one carried.
+step Mathrengyl Bearwalker
+  only NightElf
+  when onquest 5923
+  zone Darnassus
+  turnin 5923
+
+step Mathrengyl Bearwalker
+  only NightElf
+  when onquest 5924
+  zone Darnassus
+  turnin 5924
 
 step Mathrengyl Bearwalker
   only NightElf
   zone Darnassus
   tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave. He teaches you Teleport: Moonglade with the quest (it stays in your spellbook, Balance tab).
-  turnin 5925 optional                  -- or whichever of the three letters you carry
+  turnin 5925                           -- or whichever of the three letters you carry
   accept 5921
 
 step Moonglade
@@ -99,6 +124,8 @@ step Moonglade
 
 step Cenarion Enclave
   only NightElf
+  when !onquest 6001
+  when !turnedin 6001
   zone Darnassus
   goto 35.8,11.6 "Cenarion Enclave"
 
@@ -112,6 +139,7 @@ step The Moonkin Stone
   only NightElf
   zone Darkshore
   tip Fly from Rut'theran Village to Auberdine. The Moonkin Stone stands inside the nearest moonkin cave east of the village: the northern of two small rock-pile caves where the Auberdine road meets the main north-south road. Moonkin (level 11-13) stand outside, the cave is empty: slip past them. Use the Cenarion Moondust by the stone: Lunaclaw (level 12-13) walks in towards you and stays three minutes. Kill her, then speak to the Lunaclaw Spirit that appears and ask for the strength of her body and heart: the talk is the credit. Another druid's Lunaclaw gives you the spirit too.
+  level 12
   fly "Auberdine"
   use 15208 @43.5,46.0                  -- Cenarion Moondust
   complete 6001
@@ -135,9 +163,21 @@ step Heeding the Call
 
 step Turak Runetotem
   only Tauren
+  when onquest 5926
+  zone Thunder Bluff
+  turnin 5926
+
+step Turak Runetotem
+  only Tauren
+  when onquest 5927
+  zone Thunder Bluff
+  turnin 5927
+
+step Turak Runetotem
+  only Tauren
   zone Thunder Bluff
   tip Turak Runetotem stands in the druids' hut on Elder Rise, over the rope bridges east of the lifts. He teaches you Teleport: Moonglade with the quest (it stays in your spellbook, Balance tab).
-  turnin 5928 optional                  -- or whichever of the three letters you carry
+  turnin 5928                           -- or whichever of the three letters you carry
   accept 5922
 
 step Moonglade
@@ -161,6 +201,7 @@ step The Moonkin Stone
   only Tauren
   zone The Barrens
   tip The Moonkin Stone stands in the Barrens just south-west of Camp Taurajo, by the road out of Mulgore. Level 20 Thunderheads roam close by: clear the way first. Use the Cenarion Lunardust by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the Lunaclaw Spirit that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her.
+  level 12
   use 15710 @42.0,60.9                  -- Cenarion Lunardust
   complete 6002
 
@@ -174,12 +215,14 @@ step Body and Heart
 
 step Skyboat from Dalaran
   only Skyborne,Alliance
+  when !turnedin 94638
   zone Alterac Mountains
   tip Bear Form is taught on Zephras Isle. Skip this if you are still on the isle; otherwise take the skyboat from the north side of Dalaran.
   goto 12.5,51.8 "Skyboat to Zephras Isle" live
 
 step Skyboat from Thunder Bluff
   only Skyborne,Horde
+  when !turnedin 94638
   zone Mulgore
   tip Bear Form is taught on Zephras Isle. Skip this if you are still on the isle; otherwise take the skyboat from the cliffs south of Skywatcher Plateau, north of Thunder Bluff.
   goto 34.3,25.8 "Skyboat to Zephras Isle" live
@@ -239,4 +282,5 @@ step Dendrite Starblaze
   tip Cast Teleport: Moonglade: it lands you beside the building where Dendrite Starblaze stands upstairs, in Nighthaven. Learn the Moonglade flight path while you are here (Faustron for the Horde, south-west of the lake; Sindrayl for the Alliance, south of it).
   turnin 94913 only Horde               -- Dendrite Starblaze
   turnin 94914 only Alliance
-  getfp "Moonglade"
+  getfp "Moonglade" npc 10897 only Alliance   -- Sindrayl
+  getfp "Moonglade" npc 12740 only Horde      -- Faustron

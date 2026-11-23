@@ -70,9 +70,35 @@ fn pack_files(name: &str) -> String {
 /// Alliance resident 16,279, peak 35,132, read 22,497; Horde resident 15,039, peak 32,583, read 21,569, against the
 /// 0.3.6 pack's 16,278 / 35,038 / 22,503 and 15,039 / 32,468 / 21,593. No key trimmed: the new keys (fromNpcsAt,
 /// carriedTo, limit, parent) cost tens of KiB, and the pack is back at 0.3.6's size but for the Horde peak (+115).
-/// Budgets: those plus ~1%.
+/// Budgets: those plus ~1%. Read raised for #1944's exact points (measured 23,186 / 22,311; Fitz, 2026-11-12:
+/// raise memory budgets while 0.3.8's content grows, review once it is final): those plus ~5%.
+/// 0.4.0 release build (release data 2026-11-15, the packs compiled on it): Alliance resident 17,870, peak 38,199,
+/// read 25,099; Horde resident 16,024, peak 34,592, read 23,989, against dev-040's committed pack's 16,297 / 35,202
+/// / 23,415 and 15,054 / 32,649 / 22,489. The same 183 / 173 guides; the 0.4.0 data brings more spots (+14%),
+/// heights, notes and points per goal, and 4% more steps. Fitz OK'd size growth for 0.4.0 (2026-11-15): budgets
+/// are those plus ~1%.
+/// 0.4.0 integrated routes (2026-11-16: both factions' reworked 1-60, the Riverglades and Shen'dralas in both
+/// routes, release data of the same day): Alliance resident 18,483, peak 39,627, read 26,303; Horde resident 17,058,
+/// peak 36,334, read 25,088 (two more guides per faction and ~7% more tips). Under the same 0.4.0 OK: those plus ~1%.
+/// 0.4.2 Horde route round (2026-11-20, the pack compiled on next with #3291 merged): Horde resident 17,520, peak
+/// 37,096, read 25,597 against budgets 17,230 / 36,700 / 25,340: quests in place of grind steps, Mount Hyjal in the
+/// route and their tips. Budgets: those plus ~1% (a reported raise, for Fitz to confirm in the pull request).
+/// 0.4.2 Alliance route round (2026-11-20, the pack compiled on next with both route rounds): Alliance resident 18,722
+/// and read 26,578 against budgets 18,670 / 26,570 (peak 39,937, under its 40,020): about 89 more quests handed in
+/// along the route and their tips. Resident and read: those plus ~1% (a reported raise, for Fitz to confirm in the
+/// pull request); the peak stays.
+/// 0.4.2 triage guide fixes (2026-11-21, #3332 on next: 26 player reports' tips, steps and goals in both routes):
+/// Alliance peak 40,053 against its 40,020. The peak: that plus ~1% (a reported raise, for Fitz to confirm in the pull
+/// request); the rest stays.
+/// 0.4.3 step-condition sweep (2026-11-23, #3696 on next: 80 steps added, carried hand-ins split to wait for their
+/// quest's completion and follow-ups' fallback steps): Alliance read 26,862 against 26,845, Horde read 25,880 against
+/// 25,860. The reads: those plus ~1% (a reported raise, for Fitz to confirm in the pull request); the rest stays.
+/// 0.4.3 fewer folders (2026-11-23, #3507): each race's legs file is in its faction part, no longer a race part of its
+/// own, so the part's load reads and compiles the races' files too (each returning at once but for the player's):
+/// Alliance resident 19,024 and peak 40,692, Horde resident 17,701 (next without it 17,597: +104) and peak 37,502.
+/// Fitz approved Alliance resident 19,100 and peak 40,800, Horde resident 17,800 and peak 37,600; the reads stay.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 16450.0), ("peak", 35490.0), ("read", 22730.0)]), ("Horde", "Orc", [("resident", 15190.0), ("peak", 32910.0), ("read", 21790.0)])];
+	[("Alliance", "Human", [("resident", 19100.0), ("peak", 40800.0), ("read", 27130.0)]), ("Horde", "Orc", [("resident", 17800.0), ("peak", 37600.0), ("read", 26140.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {
@@ -162,10 +188,10 @@ emit({{ resident = resident, peak = peak, read = read, guides = guides, other = 
 	assert!(over.is_empty(), "over budget: {}", over.join(", "));
 }
 
-// The other faction's guides come in when the player asks for them (the guide menu's faction filter,
-// Guides.LoadFaction), and a saved tab of one brings them in at login.
+// The other faction's guides stay out: nothing asks for them (the guide menu lists the character's side only,
+// #2462); only a saved tab of one (from before) brings them in at login, to show whose guide it is.
 #[test]
-fn the_other_faction_s_part_loads_when_asked_for_or_when_a_saved_tab_needs_it() {
+fn the_other_faction_s_part_stays_out_unless_a_saved_tab_needs_it() {
 	let run = |saved: &str, script: &str| {
 		emitted(&RunAddon {
 			stubs: vec!["stub_world.lua", "stub_packs.lua"],
@@ -176,17 +202,12 @@ fn the_other_faction_s_part_loads_when_asked_for_or_when_a_saved_tab_needs_it() 
 			script: script.into(),
 		})
 	};
-	let asked = run(
+	let fresh = run(
 		"nil",
-		r#"local G = Polestar.Guides
-local before = G.Get("forever/alliance/02-westfall") ~= nil
-local fired = 0
-Polestar.On("GUIDES_REGISTERED", function() fired = fired + 1 end)
-local came = G.LoadFaction("Alliance")
-emit({ before = before, came = came, after = G.Get("forever/alliance/02-westfall") ~= nil, fired = fired,
-	again = G.LoadFaction("Alliance"), loads = stub.packLoads.Polestar_Guides_Alliance })"#,
+		r#"emit({ guide = Polestar.Guides.Get("forever/alliance/02-westfall") ~= nil, loads = stub.packLoads.Polestar_Guides_Alliance or 0,
+	loadFaction = Polestar.Guides.LoadFaction ~= nil })"#,
 	);
-	assert_eq!(asked[0], serde_json::json!({ "before": false, "came": true, "after": true, "fired": 1, "again": false, "loads": 1 }));
+	assert_eq!(fresh[0], serde_json::json!({ "guide": false, "loads": 0, "loadFaction": false }));
 	let saved = run(
 		r#"{ schema = 1, tabs = { "forever/alliance/02-westfall" }, activeTab = 1 }"#,
 		r#"emit({ loads = stub.packLoads.Polestar_Guides_Alliance or 0, guide = Polestar.Engine.GetGuide() and Polestar.Engine.GetGuide().id or false })"#,
@@ -194,11 +215,12 @@ emit({ before = before, came = came, after = G.Get("forever/alliance/02-westfall
 	assert_eq!(saved[0], serde_json::json!({ "loads": 1, "guide": "forever/alliance/02-westfall" }), "the saved tab of an Alliance guide comes back on a Horde character");
 }
 
-// Baked legs in Polestar's own pack (formats 7 and 8): an Alliance zone guide ships in the faction part and
-// its legs in each Alliance race's part, here one with Legs.lua alone. The faction part loads before the
-// race part, so Polestar.RegisterLegs finds the guide registered and keeps its legs.
+// Baked legs in Polestar's own pack (formats 7 and 8, #3507): an Alliance zone guide ships in the faction part,
+// and so do its legs, one Legs_<race>.lua per Alliance race, each returning at once for a player of another race.
+// The faction part's guides load before its races' files, so Polestar.RegisterLegs finds the guide registered and
+// keeps its legs; no race part loads, not even one left installed from before 0.4.3.
 #[test]
-fn the_faction_part_loads_before_a_race_part_holding_only_legs_whose_legs_are_kept() {
+fn the_faction_part_carries_its_races_legs_and_no_race_part_loads() {
 	let r = forge_addontest::dsl::compile(&forge_addontest::dsl::guide_text(&[
 		"guide forever/alliance/t-legs",
 		"title Legs",
@@ -213,16 +235,18 @@ fn the_faction_part_loads_before_a_race_part_holding_only_legs_whose_legs_are_ke
 	r.guides[0].set_hidden("_legs", forge_guide::js::parse_json(r#"{ "1": "CgA" }"#).unwrap());
 	r.guides[0].set_hidden("_legsGrid", "test");
 	let pack = forge_addontest::dsl::write_our_test_pack(&r.guides);
-	assert_eq!(pack.text("../Polestar_Guides_Human/Polestar_Guides_Human.toc").rsplit("\n\n").next(), Some("Legs.lua\n"));
+	let toc = pack.text("../Polestar_Guides_Alliance/Polestar_Guides_Alliance.toc");
+	assert_eq!(toc.rsplit("\n\n").next(), Some("Guides.lua\nLegs_Dwarf.lua\nLegs_Gnome.lua\nLegs_Human.lua\nLegs_NightElf.lua\nLegs_Skyborne.lua\n"));
+	assert!(pack.text("../Polestar_Guides_Alliance/Legs_Dwarf.lua").contains("\nif not Polestar.IsPlayerRace(\"Dwarf\") then return end\n"));
+	let parent = pack.dir.parent().unwrap().to_path_buf();
+	assert!(!parent.join("Polestar_Guides_Human").exists(), "no race part of our pack");
 	let lua_list = |files: Vec<PathBuf>| files.iter().map(|f| lua_string(&f.to_string_lossy())).collect::<Vec<_>>().join(", ");
 	let entries = |dir: PathBuf| lua_list(forge_addontest::run::toc_entries(&dir).unwrap_or_else(|e| panic!("{e}")).iter().map(|f| dir.join(f)).collect());
-	let parent = pack.dir.parent().unwrap().to_path_buf();
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua", "stub_packs.lua"],
 		before: format!(
-			"stub.packs.Polestar_Guides_Alliance = {{ {} }}\nstub.packs.Polestar_Guides_Human = {{ {} }}\nlocal w = stub.world\nw.faction, w.race, w.raceName = \"Alliance\", \"Human\", \"Human\"",
+			"stub.packs.Polestar_Guides_Alliance = {{ {} }}\nstub.packs.Polestar_Guides_Human = {{}}\nlocal w = stub.world\nw.faction, w.race, w.raceName = \"Alliance\", \"Human\", \"Human\"",
 			entries(parent.join("Polestar_Guides_Alliance")),
-			entries(parent.join("Polestar_Guides_Human"))
 		),
 		addons: vec![Addon::name("Polestar")],
 		script: format!(
@@ -233,12 +257,13 @@ stub.addonLoaded("Polestar_Guides")
 stub.login()
 local legs = Polestar.Guides.Legs("forever/alliance/t-legs")
 emit({{ guide = Polestar.Guides.Get("forever/alliance/t-legs") ~= nil, leg = legs and legs[1] or false,
-	alliance = stub.packLoads.Polestar_Guides_Alliance or 0, human = stub.packLoads.Polestar_Guides_Human or 0 }})"#,
+	alliance = stub.packLoads.Polestar_Guides_Alliance or 0, human = stub.packLoads.Polestar_Guides_Human or 0,
+	dwarf = Polestar.IsPlayerRace("Dwarf"), mine = Polestar.IsPlayerRace("Human") }})"#,
 			entries(pack.dir.clone())
 		),
 		..Default::default()
 	});
-	assert_eq!(out[0], serde_json::json!({ "guide": true, "leg": "CgA", "alliance": 1, "human": 1 }));
+	assert_eq!(out[0], serde_json::json!({ "guide": true, "leg": "CgA", "alliance": 1, "human": 0, "dwarf": false, "mine": true }));
 }
 
 // Side shelves (format 8): a guide of our pack that is not a leveling guide ships its steps as source and
@@ -477,6 +502,61 @@ emit({ res = res, before = before, spots = spots, same = goal.spots == spots, ke
 	assert_eq!(m["before"], true, "registering does not build the spots");
 	assert_eq!(m["spots"], serde_json::json!([{ "x": 43.5, "y": 9.2, "r": 110, "n": 19 }, { "x": 47.4, "y": 9.7, "z": -12.5, "r": 4, "alt": true }, { "x": 50, "y": 50.25, "r": 15, "n": 2 }]));
 	assert_eq!((m["same"].clone(), m["kept"].clone(), m["valid"].clone()), (serde_json::json!(true), serde_json::json!(true), serde_json::json!(true)));
+}
+
+// Exact points (#1944): a packed spot of radius 0 is built as the array { x, y, z? } that Own.POINT reads by
+// name (its `r` reads 0; `alt` and `lvl` as written), in about half a spot table's memory, so a goal holding
+// 40 points costs what one holding 20 spots did. A goal of them is exact (Engine.SpotsExact).
+#[test]
+fn packed_exact_points_read_back_by_name_in_about_half_a_spot_s_memory_1944() {
+	let out = emitted(&RunAddon {
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: r#"
+local G = Polestar.Guides
+assert(Polestar.RegisterPack({ addon = "JoeAddon", id = "joe", format = 8, title = "Joe", author = "Joe", version = "1", license = "MIT" }))
+local function guide(id, packed)
+	local goal = { t = "collect", item = 5, itemName = "Trapped Game", map = 1429, x = 43.41, y = 14.62, spotsPacked = packed }
+	assert(Polestar.RegisterGuide({ id = id, pack = "joe", title = id, steps = { { goals = { goal } } } }))
+	return G.Get(id).steps[1].goals[1]
+end
+local goal = guide("joe/points", "43.41,14.62,,0;45.1,16.1,12.5,0;42.7,21.2,,0,,1,14")
+local read = {}
+for i, p in ipairs(goal.spots) do read[i] = { p.x, p.y, p.z or false, p.r, p.n or false, p.alt or false, p.lvl or false, rawget(p, "x") == nil } end
+-- Bytes per entry of 400 built, the list's slot included. A first build of the same records in another order (its own
+-- list: lists are shared by their packed text) makes the field strings the parse creates once, so the client's string
+-- table, which may double then, has grown before the measured build: its growth is no entry's cost.
+local function cost(id, rec)
+	local t, back = {}, {}
+	for i = 1, 400 do t[i] = rec:format(i % 90 + 5, i % 70 + 5) end
+	for i = 400, 1, -1 do back[#back + 1] = t[i] end
+	local _ = #guide(id .. "-first", table.concat(back, ";")).spots
+	local g = guide(id, table.concat(t, ";"))
+	collectgarbage("collect"); collectgarbage("collect")
+	local before = collectgarbage("count")
+	local n = #g.spots
+	collectgarbage("collect"); collectgarbage("collect")
+	return (collectgarbage("count") - before) * 1024 / n
+end
+local camp = guide("joe/camp", "43.5,9.2,,110,19;47.4,9.7,,40,3")
+emit({ read = read, exact = { Polestar.Engine.SpotsExact(goal), Polestar.Engine.SpotsExact(camp) },
+	point = cost("joe/many-points", "%d.25,%d.5,,0"), spot = cost("joe/many-spots", "%d.25,%d.5,,40,3"),
+	valid = G.Validate(G.Get("joe/points")) or true })
+"#
+		.into(),
+		..Default::default()
+	});
+	let m = &out[0];
+	assert_eq!(
+		m["read"],
+		serde_json::json!([[43.41, 14.62, false, 0, false, false, false, true], [45.1, 16.1, 12.5, 0, false, false, false, true], [42.7, 21.2, false, 0, false, true, 14, true]]),
+		"x, y and z by name from the array, r 0, alt and lvl as written"
+	);
+	assert_eq!(m["exact"], serde_json::json!([true, false]));
+	assert_eq!(m["valid"], true, "the goal still validates once its points are built");
+	let (point, spot) = (m["point"].as_f64().unwrap(), m["spot"].as_f64().unwrap());
+	eprintln!("a packed point: {point:.0} bytes, a packed spot: {spot:.0} bytes (Lua 5.1, list slot included)");
+	assert!(point < spot * 0.6, "a point costs {point:.0} bytes against a spot's {spot:.0}");
+	assert!(point < 130.0 && spot < 260.0, "absent optional fields must not reserve space: {point:.0} bytes per point, {spot:.0} per camp");
 }
 
 // Issue #60, the load-time spike: registering a guide runs Guides.Validate over every step and goal. The key

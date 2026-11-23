@@ -52,29 +52,35 @@ step Loganaar
 step Torwa Pathfinder
   zone Un'Goro Crater
   tip Fly to Gadgetzan, ride west to the long ramp down into Un'Goro Crater: Torwa camps at its foot, in the south-east corner of the crater.
+  level 51
   turnin 9063                           -- Torwa Pathfinder
   accept 9052
 
 step Gorishi Stings and Bloodcap
   tip Eight of each. The Gorishi Wasps and Stingers (level 51-52) in and around the Slithering Scar, the hive in the south-west of the crater, drop a sting about one kill in seven; the wasps share spawn points with the other bugs, so kill whatever stands near you to make room for more wasps (respawn five minutes). The bugs' Silithid Pox makes you take more physical damage for 30 minutes; Workers call for help when hurt. The Bloodpetal Sprouts grow all over the crater (around Marshal's Refuge and the western half): open them, about every other one gives a Bloodcap, back in three to five minutes.
+  level 52
   collect 22435 x8 quest 9052.1         -- Gorishi Sting
   collect 22434 x8 quest 9052.2         -- Bloodcap
 
 step Torwa Pathfinder
+  level 51
   turnin 9052                           -- Torwa Pathfinder
   accept 9051
 
 step Toxic Test
   tip Any Devilsaur counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with Mighty Blow and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or Entangling Roots it from range, stab it with the Devilsaur Barb (the barb does not break Hibernate), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an Ironhide Devilsaur roams the middle of the crater's south, nearer Torwa.
+  level 54
   kill 6498 quest 9051.1 "Stab a Devilsaur with the Devilsaur Barb" -- Devilsaur: stab it with the Devilsaur Barb
 
 step Torwa Pathfinder
+  level 51
   turnin 9051                           -- Torwa Pathfinder
   accept 9053
 
 step The Sunken Temple
   zone Swamp of Sorrows
   tip A five-player dungeon: needs a group of five, about level 50-55. Horde: fly to Stonard; Alliance: fly to Nethergarde Keep in the Blasted Lands and ride north. The Temple of Atal'Hakkar stands in the middle of the Pool of Tears in the Swamp of Sorrows: climb the stairs on the ruin's south side, dive into the flooded hall, swim down through it and follow the stairs and passages down to the portal. Atal'alarion (level 50 elite, Sweeping Slam and Ground Tremor) only appears when the six serpent statues on the balcony ring above the altar pit are clicked in order: South, North, South-west, South-east, North-west, North-east (each turns green when right; a wrong order fails). Clear the trash by each statue and the pit below first; jumping down into the water is the quick way down, but a knockback near the edge can kill. The Putrid Vine always drops.
+  level 51
   goto 69.9,53.6 "The Temple of Atal'Hakkar"
   collect 22444 quest 9053.1 @69.9,53.6 group 5 -- Putrid Vine: Atal'alarion
 

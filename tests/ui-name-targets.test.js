@@ -136,7 +136,7 @@ function run(script, { before = '', enabled = true } = {}) {
 	}).emitted;
 }
 
-test('each enabled mob or item-source objective uses the shared target macro with marking off by default', () => {
+test('each enabled mob or item-source objective uses the shared target macro with the default skull mark', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)
 		settle()
@@ -145,16 +145,16 @@ test('each enabled mob or item-source objective uses the shared target macro wit
 		emit({ enabled = Polestar.GetDefault("qol.guideNameTarget"), marking = Polestar.GetDefault("qol.markTarget"),
 			kill = kill and { name = kill.psName, kind = kill.psKind, macro = kill:GetAttribute("macrotext1"), type = kill:GetAttribute("type1") },
 			collect = collect and { name = collect.psName, kind = collect.psKind, macro = collect:GetAttribute("macrotext1") },
-			expected = Polestar.QoL.Buttons.TargetMacro({ "Kobold Vermin" }, 1),
+			expected = Polestar.QoL.Buttons.TargetMacro({ "Kobold Vermin" }, 1, Polestar.QoL.Buttons.MarkLine("mob")),
 			header = targetFor(GF.parts.person) ~= nil })`);
 	assert.equal(out.enabled, false);
-	assert.equal(out.marking, false);
+	assert.equal(out.marking, true);
 	assert.equal(out.kill?.name, 'Kobold Vermin');
 	assert.equal(out.kill.kind, 'mob');
 	assert.equal(out.kill.type, 'macro');
 	assert.equal(out.kill.macro, out.expected);
 	assert.doesNotMatch(out.kill.macro, /Young Wolf/);
-	assert.doesNotMatch(out.kill.macro, /\/tm/);
+	assert.match(out.kill.macro, /\n\/tm \[@target,harm,nodead\] !8$/, 'a skull on the mob');
 	assert.equal(out.collect?.name, 'Young Wolf');
 	assert.equal(out.collect.kind, 'mob');
 	assert.match(out.collect.macro, /\/targetexact Young Wolf(?:\n|$)/);
@@ -187,6 +187,8 @@ test('the NPC header follows the focused giver and ordinary guide frames stay un
 
 test('shared mob and NPC mark settings update overlays and their hovered tooltip', () => {
 	const [out] = run(`
+		-- Starts unmarked: Mark target is on by default.
+		Polestar.Set("qol.markTarget", false)
 		uistub.setGuide(uistub.elwynn, 3)
 		settle()
 		local b = assert(targetFor(rowFor("Kobold Vermin")))
@@ -341,6 +343,8 @@ test('targeting is off by default and ordinary row actions remain available with
 
 test('icon, text, subline and whitespace target the row while checkbox, Skip and next-spot win hit testing', () => {
 	const [out] = run(`
+		-- The plain hint: Mark target (on by default) is not what this tests.
+		Polestar.Set("qol.markTarget", false)
 		local goal = uistub.guides[uistub.elwynn].steps[3].goals[3]
 		goal.optional, goal.spots, goal.note = true, 2, "Stay near the mine entrance."
 		uistub.setGuide(uistub.elwynn, 3)

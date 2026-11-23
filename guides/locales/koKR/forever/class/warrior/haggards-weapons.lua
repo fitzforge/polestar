@@ -10,7 +10,7 @@ return {
 	-- {spell:71} Defensive Stance
 	["{spell:71} and a Weapon (Alliance)"] = "",
 	-- {spell:71} Defensive Stance · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus
-	["{spell:71} at 10 and a one-hand weapon of your choice from {zone:1453}, {zone:1455} or {zone:1457}."] = "",
+	["{spell:71} at 10 and a one-hand weapon of your choice from {zone:1453}, {zone:1455} or {zone:1457}."] = "10레벨에 {spell:71}와(과) {zone:1453}, {zone:1455}, {zone:1457} 중에서 고르는 한손 무기 하나.",
 
 	-- Step 1: Seena Skybreaker in Valanaar
 	-- {npc:252377} Seena Skybreaker · {area:16638} Valanaar
@@ -110,5 +110,4 @@ return {
 	-- ["{npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "{npc:5480}은(는) {object:2100}에서 전사를 훈련시킵니다. {npc:6089}와(과) {npc:6090}은(는) 그곳 {object:2152} 옆에 함께 서 있습니다. {npc:6090}은(는) 자기 잔을 걸고 당신과 싸웁니다.",
 	-- ["{npc:6093} camps in the far south-east of {zone:1429}, south-east of {npc:294}. He carries the key to the strongbox in his camp."] = "{npc:6093}은(는) {zone:1429} 남동쪽 끝, {npc:294}의 남동쪽에 진을 치고 있습니다. 그가 야영지 금고의 열쇠를 지니고 있습니다.",
 	-- ["{npc:6093}: his key opens the strongbox"] = "{npc:6093}: 그의 열쇠로 금고를 여세요",
-	-- ["{spell:71} and a one-hand weapon of your choice at 10."] = "10레벨에 {spell:71}와(과) 원하는 한손 무기 하나.",
 }

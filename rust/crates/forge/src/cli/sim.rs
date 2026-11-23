@@ -641,6 +641,7 @@ pub fn main() {
 		Some("shared") => shared(&args[1..]),
 		Some("guards") => guards_cmd(&args[1..]),
 		Some("calibrate") => calibrate_cmd(&args[1..]),
+		Some("fights") => fights_cmd(&args[1..]),
 		Some("why") => why_cmd(&args[1..]),
 		Some("skips") => skips_cmd(&args[1..]),
 		Some(x) => usage(&format!("unknown command {x}")),
@@ -668,6 +669,29 @@ fn calibrate_cmd(args: &[String]) {
 	println!("observed Forever rewards vs the data's: {} (of {})", f(&c.forever), c.forever_total);
 	println!("recordings: {} sessions{}", c.sessions, if c.sessions == 0 { " (time parameters keep their priors)" } else { "" });
 	println!("wrote {}", out.display());
+}
+
+/// forge sim fights [--root R] [--recordings DIR] [--out FILE] [--at ISO]: the kill-time report
+/// from the recordings (default <R>/data/recordings; forge::fights): class factors, the cost of
+/// a mob's levels above and below, the elite multiplier and the kill seconds by level, each
+/// beside its prior. Written to --out, else printed. It never writes params.json.
+fn fights_cmd(args: &[String]) {
+	check(args, &["--root", "--recordings", "--out", "--at"], &[], 0);
+	let root = PathBuf::from(arg(args, "--root").unwrap_or_else(|| ".".into()));
+	let recordings = arg(args, "--recordings").map(PathBuf::from).unwrap_or_else(|| root.join("data/recordings"));
+	let at = arg(args, "--at").unwrap_or_else(forge_data::build::now_iso);
+	let (sessions, samples) = forge::fights::read_samples(&recordings);
+	let fit = forge::fights::fit(sessions, &samples);
+	let text = format!("{}\n", serde_json::to_string_pretty(&forge::fights::report(&fit, &at, forge_sim::params::CLASS_FACTOR, forge::calibrate::PRIORS)).expect("a JSON value"));
+	match arg(args, "--out").map(PathBuf::from) {
+		Some(out) => {
+			let tmp = out.with_extension("json.tmp");
+			std::fs::write(&tmp, &text).and_then(|_| std::fs::rename(&tmp, &out)).unwrap_or_else(|e| die(&format!("{}: {e}", out.display())));
+			println!("recordings: {} sessions, {} kill samples from {} players in {} cells", fit.sessions, fit.samples, fit.voters, fit.cells);
+			println!("wrote {}", out.display());
+		}
+		None => print!("{text}"),
+	}
 }
 
 /// The routes folder `why` and `skips` read: --dir D, else <O>/routes for --out O (a forge build's

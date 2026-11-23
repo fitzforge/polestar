@@ -17,7 +17,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 |---|---|---|
 | `guide <id>` | First line: the guide's id, starting with your pack id and `/` | `guide joe-routes/goldshire` |
 | `title <text>` | The name players see in the guide menu | `title Goldshire to Westfall` |
-| `levels <min>-<max>` | The character levels the guide is for | `levels 5-10` |
+| `levels <min>-<max>` | The character levels the guide is for; a guide both factions play may give each side its own, one line each: `levels 45-46 Alliance` and `levels 47-48 Horde` | `levels 5-10` |
 | `zone <Name>` | The zone the guide's coordinates are in, until a step names another | `zone Elwynn Forest` |
 | `zone map <uiMapID>` | The same, by map id | `zone map 1429` |
 | `faction <Faction>` | Only for `Alliance` or `Horde` characters | `faction Alliance` |
@@ -49,7 +49,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `background` | Inside an `along until` step: its goals are slow, zone-wide collections worked over the whole stay; each needs a finish step before its hand-in (GUIDE_FORMAT, "Background goals") | `background` |
 | `skipto <label> when <predicate>` | Inside a step: if the predicate holds when the route gets there, this step and the ones up to the labelled step are skipped, for good (GUIDE_FORMAT, "Jumps"; needs Polestar 0.3.0) | `skipto camp when turnedin 783` |
 | `label <name>` | Inside a step: names it for an `along until` or `skipto` before it, or a `when done` | `label camp` |
-| `loop` | Inside a step: its `goto` points are the places to search, in order, for the step's kill, collect and interact goals without `@x,y` | `loop` |
+| `loop` | Search the step's `goto` points in order for kill, collect, interact, skill and `use <item> quest Q.O` goals without `@x,y`. With none of those, search for the NPC of its accept, turnin and talk goals. | `loop` |
 | `note <text>` | A line of information; never holds the player up | `note The camp is busy at night.` |
 | `level <N>` | Reach level N, grinding if need be | `level 2` |
 | `level <N>.<fraction>` / `level <N>+<XP>` | Reach a point inside level N: 12.5 is halfway through 12, 12+2500 is 2500 XP into it (to whole percent; needs Polestar 0.2.6) | `level 12.5` |
@@ -100,10 +100,12 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 |---|---|---|
 | `kill <npc>` / `kill "<Name>"` | Kill a mob; `quest Q.O` ties it to a quest objective | `kill 6 x10 quest 7.1` |
 | `x<N>` | How many (kills, items, purchases, crafts) | `kill "Cloth Kobold" x5 @65,75` |
+| `upto <N>` | After a goal with `quest`: done at N of the objective's count, the rest being a later step's (needs Polestar 0.4.1) | `kill 6 quest 7.1 upto 4` |
 | `quest <quest>.<objective>` | Counts the goal by that quest objective, numbered as the quest log lists them (`quest <quest>` alone lets the data find it) | `interact 1617 quest 9400.1` |
 | `collect <item> ["Name"]` | Gather or loot items; without `quest`, counted in the bags | `collect 750 x8` |
 | `nearest` | On `collect`: the closest place mobs drop the item, by level and faction | `collect 4306 x10 nearest` |
 | `anywhere` | On `collect`: counted in the bags, with no place; the arrow never leads to it (0.3.7) | `collect 2589 x41 anywhere` |
+| `gather` | On `collect`: the item's gather way in a profession guide, which an `auction` goal for the item buys instead when the player buys materials; `gather <Profession> <rank>` and `gather levels <min>-<max>` say what it takes (needs Polestar 0.4.0) | `collect 4306 x10 nearest gather levels 25-45` |
 | `interact <object>` | Click a game object | `interact 2843` |
 | `use <item>` | Use an item | `use 1210 @47.6,35.1` |
 
@@ -117,8 +119,10 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `vendor nearest` / `vendor <npc>` | Sell and repair, at the closest vendor or that one; beside other goals it never holds the step, alone it waits for the merchant window (0.3.5) | `vendor nearest` |
 | `gossip <id>` | On `talk`, `vendor` and `train`: the gossip option (the client's `gossipOptionID`) Polestar picks at that NPC on this step | `talk 197 gossip 1` |
 | `buy <item> ["Name"]` | Buy an item; `nearest` picks the closest vendor selling it | `buy 159 x5 nearest` |
+| `auction <item> ["Name"]` | Buy `xN` at the Auction House: the arrow leads to the nearest auctioneer of the player's faction. In a profession guide it applies while the player buys that material (needs Polestar 0.4.0) | `auction 4306 x10` |
 | `money <amount>` | Hold that much money (`1g50s`, `7s`, `25c` or copper); stays done for the rest of the step (needs Polestar 0.3.0) | `money 1s` |
 | `destroy <item> ["Name"]` | Delete an item from the bags; done once the bags hold none (needs Polestar 0.3.0) | `destroy 6948 "Hearthstone"` |
+| `deposit <item> ["Name"]` | Put the item in the bank: done once the bags hold none, or with `x<N>` once the bank holds N (needs Polestar 0.4.1) | `deposit 750 x8` |
 | `wait <seconds> ["text"]` | A countdown that starts once the goals before it in the step are done: a boat, an event or a speech to sit through (needs Polestar 0.3.0) | `wait 30 "the boat docks"` |
 | `task "<text>"` | Something Polestar cannot see: the player ticks it, and it holds the step until then unless `optional` (needs Polestar 0.3.0) | `task "Tame a Venomtail Scorpid"` |
 
@@ -128,8 +132,11 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 |---|---|---|
 | `train <Profession> [Rank]` | Learn a profession or its next rank (`Apprentice`, `Journeyman`, `Expert`, `Artisan`) at the nearest trainer | `train Mining Journeyman` |
 | `skill <Profession> <N>` | Reach skill N (quote names of two words) | `skill "First Aid" 40` |
+| `skill <Profession> <N> nearest` | Reach skill N at the nearest of the step's `goto` points (two or more, each for whom its `only` names): the arrow picks one where the player is | `skill Fishing 50 nearest` |
 | `learn <spell> ["Name"]` | Learn a recipe; from a trainer, or with `nearest` from the closest vendor of its recipe | `learn 3276` |
 | `cast <spellId> ["Name"]` | Cast that spell while the goal is open (needs Polestar 0.3.0) | `cast 818 "Basic Campfire"` |
+| `buff <spellId> ["Name"]` | Have that aura (a buff or a debuff) on the character; kept once the step had it (needs Polestar 0.4.1) | `buff 1126 "Mark of the Wild"` |
+| `equip <item> ["Name"]` | Wear the item; kept once the step had it (needs Polestar 0.4.1) | `equip 750` |
 | `craft <spell> ["Name"]` | Craft a recipe, `x<N>` times | `craft 3275 x5` |
 | `until <N>` | On `craft`: until the profession reaches N | `craft 3275 until 40` |
 | `section <Profession> <from>-<to>` | In column 0: a skill range as the heading over the steps after it; the guide starts at the range the player's skill is in, and asks only for the materials still needed in it (GUIDE_FORMAT, "Sections") | `section Mining 1-65` |
@@ -138,7 +145,8 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 
 | Line | What it does | Example |
 |---|---|---|
-| `rep <Faction> <Standing>` | Reach a standing (`Neutral` to `Exalted`) with a faction, by name or id | `rep Stormwind Friendly` |
+| `rep <Faction> <Standing>` | Reach a standing (`Hated` to `Exalted`) with a faction, by name or id | `rep Stormwind Friendly` |
+| `rep <Faction> <Standing>+<points>` | Reach that many points into the standing, as the reputation bar counts them (needs Polestar 0.4.1) | `rep Stormwind Revered+12000` |
 | `achieve <id> "Name"` | Complete an achievement or Legacy Challenge | `achieve 9001 "Kobold Catcher"` |
 | `criteria <n>` | On `achieve`: one criterion of it | `achieve 9001 "Kobold Catcher" criteria 2` |
 
@@ -174,11 +182,16 @@ the outcome stays.
 | `when upgrade <item>` | Polestar's gear advice rates the item an upgrade now (an item it cannot judge counts as one; needs Polestar 0.3.0) | `when upgrade 2488` |
 | `when zone "<Name>"` / `when subzone "<Name>"` | the player is there | `when subzone "Goldshire"` |
 | `when bound "<Location>"` | the hearthstone is bound there | `when !bound "Goldshire"` |
-| `when dungeon "<Name>"` | the player chose to run that dungeon (Options, Discovery, Dungeons; all off at first); `!dungeon` is the route without it (needs Polestar 0.3.0) | `when dungeon "Ragefire Chasm"` |
+| `when dungeon "<Name>"` | the player runs that dungeon (their answer for it, else their answer for every dungeon; Skip at first); `!dungeon` is the route without it (needs Polestar 0.3.0; this version reads every dungeon as skipped) | `when dungeon "Ragefire Chasm"` |
 | `when done <label>` | the labelled step of this guide was completed, not skipped or jumped over; not on a `next` line (needs Polestar 0.3.0) | `when done camp` |
 | `when skill <Profession> <N>` | the profession's rank is N or more; not learned counts as 0 (needs Polestar 0.3.0) | `when !skill Cooking 50` |
 | `when cooldown item <item>` / `when cooldown spell <spell>` | the item or spell is on cooldown, the global cooldown aside (needs Polestar 0.3.0) | `when !cooldown item 6948` |
 | `when knows <spell>` | the character knows the spell (spellbook or recipe; needs Polestar 0.3.0) | `when !knows 100` |
+| `when taxi "<Flight point>"` | the character knows that flight path, named as for `getfp`; one Polestar has not seen learnt or on a flight map counts as unknown (needs Polestar 0.4.0) | `when !taxi "Ironforge"` |
+| `when rep <Faction> <Standing>[+<points>]` | the standing with the faction is that or higher, or that many points into it (needs Polestar 0.4.1) | `when !rep Stormwind Honored` |
+| `when buff <spell>` | the character has the aura of that spell, a buff or a debuff (needs Polestar 0.4.1) | `when !buff 1126` |
+| `when equipped <item>` | the character wears the item (needs Polestar 0.4.1) | `when !equipped 750` |
+| `when indoors` | the character is in a cave, a mine or a building (needs Polestar 0.4.1) | `when !indoors` |
 | `when group <quest>` | the player chose to do that group quest; unanswered, the route waits and asks "Skip it" or "Do it with a group"; `!group` is the solo way; not on `next` or `skipto` (needs Polestar 0.3.0) | `when group 7` |
 
 ## Route choices and optional steps
@@ -193,6 +206,8 @@ the outcome stays.
 | Line | What it does | Example |
 |---|---|---|
 | `optional` | After a goal: the step can be finished without it | `kill 299 optional` |
+| `either` | After two or more goals of a step: any one of them finishes the step (needs Polestar 0.4.1) | `task "Take the boat" either` |
+| `off` | After a `buff` or `equip` goal: done while the aura is gone or the item is not worn | `buff 15007 "Resurrection Sickness" off` |
 | `group [N]` | After a goal: it needs a group (of N players, 2-40); the guide window says so. Elites, dungeon and raid quests are found from the data without it | `kill 299 group 3` |
 
 ## Handing over with `next`

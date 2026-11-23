@@ -9,14 +9,12 @@ zone Felwood
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Left out: A Strange One (6605).
-
-step Tirisfal Glades
-  zone Tirisfal Glades
-  goto 63.0,74.4 "The zeppelin towers"
-
-step Zeppelin to Orgrimmar
-  zone Tirisfal Glades
-  goto 60.7,58.9 "Zeppelin to Orgrimmar"
+# Flow (2026-11-20): the finisher after Silithus: 50-60/06 ends in Orgrimmar -> Splintertree Post -> Eridan (Linken's
+# Memory) -> Bloodvenom Post (Trull's Wild Guardians) -> Irontree Woods (Toxic Horrors) -> Moonglade (Umber, Rabine) ->
+# Winterspring (Donova: Strange Sources, Winterfall Runners; Salfa; Mau'ari's Luck Be With You, whose shards lie among
+# the Frostmaul giants of Frostwhisper Gorge, on the way to Darkwhisper Gorge) -> Everlook -> Winterfall Village.
+# Greta Mosshoof's chain, Salve via Hunting and the Red Key moved to 50-60/05's Felwood stop at about 56.5 (they are
+# level 54-58). The older notes below describe the export.
 
 step Orgrimmar
   zone Orgrimmar
@@ -28,7 +26,7 @@ step Orgrimmar
 #
 # Toxic Horrors and Winterfall Runners (5086, 5087) end the Winterfall
 # Firewater chain from 03-winterspring (taken since 0.3.7). Optional here:
-# Runecloth (6031), which Meilosh takes only at Neutral with the Timbermaw.
+# Runecloth (6031), which Meilosh gives and takes only from Friendly with the Timbermaw (quest data: 3,000).
 #
 # Flow: the Undercity -> zeppelin to Orgrimmar (cloth donations) -> fly to
 # Splintertree Post -> ride north into Felwood: the Emerald Sanctuary (Greta,
@@ -39,14 +37,10 @@ step Orgrimmar
 # (Donova Snowden) -> Everlook (Umi) -> grind to 60 at Frostwhisper Gorge.
 #
 # Deviations from the export, for a smooth finish:
-# - Felwood is one pass from south to north. Greta Mosshoof's chain (5159,
-#   5165, 5242) and Linken's Memory (3942) are done at the Emerald Sanctuary
-#   on the way in; Jaedenar is only a couple of minutes north of it, so the
-#   two short returns to Greta stay in. Dropped: Silver Heart and Aquementas
-#   (4084, 4005: the Irontree Heart is in northern Felwood, a second ride
-#   south to hand in). Trull's Wild Guardians turn-in (4741) and the Toxic
-#   Horrors (5086) come on the way north; the export's second Felwood visit
-#   is folded in.
+# - (2026-11-20) Greta's chain moved to 50-60/05. Linken's Memory (3942) and Silver Heart (4084, its claws and
+#   heart from Irontree Woods on the ride north) bracket the guide at the Emerald Sanctuary; Aquementas (4005) leads
+#   to Tanaris and Un'Goro and stays out. Trull takes Wild Guardians (4741) on the way north and its last part
+#   (4721, Berserk Owlbeasts north of Everlook) and Guarding Secrets (4882) at the end, after Winterspring.
 # - Dropped trips that cost a long flight or ride for a few quests: the
 #   Blasted Lands, Swamp of Sorrows and Burning Steppes stops (3501, 2623,
 #   2801, 2681, 2702, 2701, 4810; the Fallen Hero's chain is worth well under
@@ -56,23 +50,23 @@ step Orgrimmar
 #   Blackrock Spire), Alterac Mountains (7241: a battleground quest, dropped
 #   with its accept), Ratchet and Duke Hydraxis after 60 (4502, 6804, 6805).
 # - The Undercity stop moved first (the route starts next to it) and holds no
-#   quests any more: Champion of the Banshee Queen (5961) and the Eastern
-#   Plaguelands stop (6030, 5142) went to 06; ... and a Batch of Ooze (4294)
+#   quests any more: Champion of the Banshee Queen (5961) is taken in 04 and
+#   handed in in 05, the Duke (6030) in 05; ... and a Batch of Ooze (4294)
 #   needs Un'Goro slime samples the route never collects.
 # - The two Orgrimmar stops are one, on the way to Felwood: the runecloth
 #   donations (7836, 7824). Calm Before the Storm (4509, 4511) went with Pawn
-#   Captures Queen in 06; Betrayed (3507) is turned in by 04.
+#   Captures Queen in 06; Betrayed (3507) is not on the route (Azshara is 02).
 # - No hearth binds: the guide ends where it grinds. The export's binds (the
 #   Undercity, Booty Bay, Orgrimmar, Everlook, Light's Hope) served the
 #   dropped trips.
-# - With the dropped trips the route ends on a grind (about 59.2 to 60):
-#   Rabid Shardtooths at Frostwhisper Gorge, the export's own final camp. A
-#   group dungeon is the optional alternative.
+# - The route ends at the Emerald Sanctuary after the last Winterspring loop; the top-up to 59.72 on the Rabid
+#   Shardtooths of Frostwhisper Gorge comes before the last hand-ins, which reach 60 (level model 2026-11-20, the version
+#   that skips steps behind their conditions: from 59.2, about 264 model minutes; it was about 80 minutes when the route
+#   reached this guide at 59.7). The hand-ins after it are worth about 0.3 level, Mau'ari's Luck Be With You included.
 #
 # Left out (besides the above): the Undercity's cloth donations (7813, 7814,
 # 7817), Camp Mojache (7492) and Vivian Lagrave (4769), never turned in;
-# Shards of the Felvine (5526: Dire Maul); Wild Guardians' last part and
-# Guarding Secrets (4721, 4882: turned in back at Bloodvenom Post).
+# Shards of the Felvine (5526: Dire Maul); Guarding Secrets' second part (4883, Nara Wildmane in Thunder Bluff).
 
 # ---------------------------------------------------------------- Orgrimmar
 
@@ -102,52 +96,45 @@ step Felwood
 step The Emerald Sanctuary
   zone Felwood
   tip Fly to Splintertree Post and ride north-west along the road out of Ashenvale into Felwood. The Emerald Sanctuary is the druids' camp just past the border.
-  turnin 5159                         -- Greta Mosshoof
-  accept 5165
   turnin 3942                         -- Eridan Bluewind, inside
-  note Eridan's Silver Heart needs an Irontree Heart from northern Felwood and a ride back here. Skip it.
-
-step Dousing the Flames of Protection
-  tip Ride north-west to Jaedenar. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.
-  tip Careful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended.
-  interact 176159 quest 5165.2        -- Below ground
-  interact 176160 quest 5165.3        -- Below ground
-  interact 176158 quest 5165.1        -- Below ground
-  interact 176161 quest 5165.4        -- Below ground
-
-step Greta Mosshoof
-  tip Back south to the Sanctuary, a short ride.
-  turnin 5165
-  accept 5242
+  accept 4084
+  note Silver Heart's Silvery Claws and Irontree Heart come from Irontree Woods on this guide's ride north; Eridan takes them at the end of the guide, back here.
 
 # ---------------------------------------------------------------- Northern Felwood
+
+step Rakaiah
+  when onquest 5204
+  zone Felwood
+  tip Only if Jessir Moonbow sent you after Rakaiah (the Blood Red Key's chain): on the ride north, turn west into Jaedenar. Rakaiah (56) stands by the remains of Trey Lightforge at the edge of the camp, well under you now; Trey's remains go back to Jessir at the end of this guide.
+  kill 9518 quest 5204.1              -- Rakaiah
+  turnin 5204                         -- Remains of Trey Lightforge
+  accept 5385
+
+step Remains of Trey Lightforge
+  when turnedin 5204
+  when available 5385
+  zone Felwood
+  tip Trey Lightforge's remains lie at the edge of the Jaedenar camp, west of the road: they go back to Jessir at the end of this guide.
+  accept 5385
+
+step Trull Failbane
+  zone Felwood
+  when complete 4741
+  tip Ride north along the road, past Jaedenar, to Bloodvenom Post.
+  turnin 4741                         -- Trull Failbane
 
 step Bloodvenom Post
   zone Felwood
   tip Ride north along the road, past Jaedenar, to Bloodvenom Post.
-  turnin 4741                         -- Trull Failbane
-  note Trull's next Wild Guardians would bring you back here from Winterspring. Skip it.
-
-step A Final Blow
-  tip Moora, Salia and Shadow Lord Fel'dan wait at the back of Shadow Hold, the cave in Jaedenar's north. Clear the tunnel as you go.
-  tip Careful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies.
-  kill 9861 quest 5242.1              -- Below ground
-  kill 9860 quest 5242.2              -- Below ground
-  collect 13207 quest 5242.3          -- Below ground
-  collect 11515 x6 -- Corrupted Soul Shards from the cultists, Salve via Hunting
-
-step Maybess Riverbreeze
-  when available 5887
-  tip On the way back south to Greta, Maybess takes the shards on the west side of the Sanctuary.
-  turnin 5887 direct -- Maybess Riverbreeze
-
-step Greta Mosshoof
-  tip South to the Sanctuary once more.
-  turnin 5242
+  accept 4721
+  note Trull's last Wild Guardians are the Berserk Owlbeasts north of Everlook, on this guide's Winterspring loop; he takes them at the end of the guide, back here.
 
 step Toxic Horrors
-  tip Ride north up the Felwood road to Irontree Woods; the Toxic Horrors ooze between the trees, and most of them drop a droplet.
-  collect 12822 quest 5086.1
+  tip Ride north up the Felwood road to Irontree Woods; the Toxic Horrors ooze between the trees, and most of them drop a droplet. The Irontree Wanderers and Stompers (52-53) there carry Eridan's Irontree Heart, the Angerclaw bears and Felpaw wolves his Silvery Claws.
+  tip Careful: Ancient Irontree Walkers, level 59 elites, walk among the Toxic Horrors, and Vartrus the Ancient (63, elite) roams the woods: work the Horrors at the north tip of Irontree Woods, one at a time.
+  collect 12822 quest 5086.1 @50.6,22.4
+  collect 11172 quest 4084.1
+  collect 11173 quest 4084.2
 
 step Moonglade
   zone Moonglade
@@ -162,6 +149,7 @@ step Umber
   accept 6845
 
 step Rabine Saturna
+  when complete 5527
   turnin 5527
 
 step Class trainer
@@ -182,7 +170,7 @@ step Winterspring
 step Donova Snowden
   zone Winterspring
   tip Back into the Timbermaw tunnel and take the Winterspring exit; Donova camps by the hot springs just outside.
-  turnin 980                          -- From Krakle in Un'Goro
+  turnin 980                          -- From Krakle in Un'Goro, if you didn't bring it to her earlier
   accept 4842
   turnin 5086
   accept 5087
@@ -195,27 +183,29 @@ step Winterfall Runners
   collect 12829 quest 5087.1
 
 step Salfa
-  turnin 8464
-
-step Beads for Salfa
-  tip Any Winterfall furbolg can carry the beads; the camps just south of Salfa are the closest.
-  goto 31.6,36.6 "Frostfire Winterfall camp"
-  collect 21383 x5
-
-step Salfa
-  turnin 8469 direct
+  accept 8464
+  note Winterfall Activity's village is north-east of Everlook, on this guide's way back from Darkwhisper Gorge.
 
 step Meilosh
   when complete 6031
+  when rep "Timbermaw Hold" Friendly
   zone Felwood
   tip With 30 Runecloth in your bags: follow the road north to Timbermaw Hold; Meilosh trades just inside the entrance.
   turnin 6031                         -- Below ground
 
 step Kernda
   when onquest 8470
+  when rep "Timbermaw Hold" Neutral
   zone Felwood
-  tip The Deadwood totem from Felpaw Village, if Kernda didn't take it then: she waits at the tunnel mouth of Timbermaw Hold and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of Felwood brought you to.
+  tip The Deadwood totem from Felpaw Village, if you are Neutral with the Timbermaw now (the Timbermaw Hold reputation guide gets you there): Kernda waits at the tunnel mouth of Timbermaw Hold.
   turnin 8470                         -- Kernda walks around here: look inside the circle on the map
+
+step Witch Doctor Mau'ari
+  zone Winterspring
+  tip Ride east along the road to Everlook: Harlo Wigglesworth sends you to Witch Doctor Mau'ari, who stands in the town, on the way to Frostwhisper Gorge.
+  accept 6606                         -- Harlo Wigglesworth: A Little Luck
+  turnin 6606                         -- Witch Doctor Mau'ari
+  accept 969
 
 step Winterspring
   zone Winterspring
@@ -224,39 +214,106 @@ step Winterspring
 # ---------------------------------------------------------------- Darkwhisper Gorge and Winterfall Village
 
 step Darkwhisper Gorge
-  tip Ride east, then south down Frostwhisper Gorge. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of Darkwhisper Gorge, at the south end.
+  tip Ride east, then south down Frostwhisper Gorge. The Frostmaul giants there are elite level 59-60: keep to the middle and keep moving. The strange source is at the mouth of Darkwhisper Gorge, at the south end.
   goto 59.8,74.2 "Darkwhisper Gorge"
   complete 4842
 
-step Level 59.9
-  zone Winterspring
-  when level<59.9
-  tip Top up here to level 59.9 before the hand-ins at Winterspring: they take you to level 60. The Rabid Shardtooths (59) of Frostwhisper Gorge, just north of the strange source, give far more experience than the furbolgs by Timbermaw Hold. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
-  goto 60.1,71.2 map 1452 "Rabid Shardtooth"
-  level 59.9 grind 7446               -- grind on Rabid Shardtooth
+step Frostmaul Shards
+  when onquest 969
+  tip The shards lie on the ground along the west side of Frostwhisper Gorge, among the Frostmaul Giants and Preservers. Careful: the giants are elites of 59-60: pick up the shards that lie clear of them, wait for a patrol to pass, and leave Kashoch the Reaver (60, east side) alone.
+  collect 12334 x4 quest 969.1 @58.7,67.4 map 1452
 
-step Donova Snowden
-  tip Ride back west to Frostfire Hot Springs.
-  turnin 4842
-  turnin 5087                         -- Donova Snowden
-  note Donova next sends you after High Chief Winterfall, an elite in his cave. Skip it.
+step Level 59.7
+  zone Winterspring
+  when level<59.72
+  tip Top up here to about level 59.7 before the last hand-ins: Umi, Vizzie, Mau'ari, Winterfall Village, Donova, Salfa, Trull and Eridan take you the rest of the way to 60. The Rabid Shardtooths (59) of Frostwhisper Gorge, just north of the strange source, give far more experience than the furbolgs by Timbermaw Hold. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
+  goto 60.1,71.2 map 1452 "Rabid Shardtooth"
+  level 59.72 grind 7446              -- grind on Rabid Shardtooth
+
+step Ice Thistle yetis
+  when onquest 93406
+  zone Winterspring
+  tip On the ride north to Everlook, the Ice Thistle Yetis (55-56) in the hills south-east of the town carry Vizzie's Missing Mail: four pieces.
+  collect 258323 x4                   -- Missing Mail
 
 step Are We There, Yeti?
+  tip Ride north to Everlook.
   kill 10978 quest 5163.1 @61.5,38.6 map 1452 "Scare Legacki with Umi's Mechanical Yeti"
 
 step Everlook
-  tip Ride east along the road to Everlook.
   turnin 5163                         -- Umi Rumplesnicker
+  turnin 93406                        -- Innkeeper Vizzie, in the inn: Unfrozen Deliveries
 
-# ---------------------------------------------------------------- Level 60
+step Witch Doctor Mau'ari
+  when onquest 969
+  turnin 969
 
-step Dungeon instead of grinding
-  tip Optional. Running Stratholme, Scholomance, Lower Blackrock Spire or Blackrock Depths with a group instead of grinding gets you there faster.
-  note Optional: with a group, a 55-60 dungeon replaces the grind below.
+step Winterfall Village
+  tip The furbolg village fills the valley north-east of Everlook. Kill Shamans first; they heal. High Chief Winterfall (59, elite) and Xandivious (62) are in the cave at the back: stay out.
+  kill 7440 quest 8464.2
+  kill 7438 quest 8464.3
+  kill 7439 quest 8464.1
 
-step Grind to 60
-  tip The quests run out here. Rabid Shardtooths prowl Frostwhisper Gorge in southern Winterspring, south of the road from Everlook.
-  goto 60.1,71.2 "Frostwhisper Gorge"
-  level 60 grind 7446 -- grind on Rabid Shardtooth at Frostwhisper Gorge, Winterspring
-  train class optional only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- In Orgrimmar: fly from Everlook
-  train class optional only Druid,Paladin -- In Thunder Bluff: fly from Everlook
+step Berserk Owlbeasts
+  tip The Berserk Owlbeasts (58-59) roam the slopes of Frostsaber Rock, north of Everlook and west of the furbolg valley. Now and then an owlbeast drops a Blue-feathered Necklace: use it to start Guarding Secrets.
+  kill 7454 quest 4721.1 @63.3,20.7
+  collect 12558 optional              -- Blue-feathered Necklace
+  accept 4882 item 12558 optional
+
+step Donova Snowden
+  tip Ride back west along the road to Frostfire Hot Springs.
+  turnin 4842
+  turnin 5087                         -- Donova Snowden
+
+step High Chief Winterfall
+  when group 5121
+  tip A group choice: Donova sends you after High Chief Winterfall (59, elite, with his guards) in the cave at the back of Winterfall Village, back east past Everlook; Xandivious (62) shares the cave: leave him. The High Chief carries a log for Donova, and her next errand goes to Kelek Skykeeper at the Emerald Sanctuary, this guide's last stop.
+  accept 5121                         -- Donova Snowden
+  kill 10738 quest 5121.1 @69.6,38.3  -- High Chief Winterfall, in the cave
+  collect 12842                       -- the log he carries
+  accept 5123 item 12842
+  turnin 5121                         -- Donova Snowden, back west at the hot springs
+  turnin 5123
+  accept 5128                         -- for Kelek Skykeeper at the Emerald Sanctuary
+
+step Salfa
+  tip North of Donova, at the tunnel's Winterspring exit.
+  turnin 8464
+
+step Beads for Salfa
+  tip Salfa takes the beads only once Winterfall Activity is handed in: any Winterfall furbolg can carry them, and the camps just south of Salfa are the closest.
+  goto 31.6,36.6 "Frostfire Winterfall camp"
+  collect 21383 x5
+
+step Salfa
+  when has 21383 x5
+  turnin 8469 direct
+
+# ---------------------------------------------------------------- Back to Felwood
+
+step Trull Failbane
+  zone Felwood
+  tip Back through the Timbermaw tunnel and south down the Felwood road to Bloodvenom Post.
+  turnin 4721
+
+step Trull Failbane
+  when onquest 4882
+  turnin 4882                         -- Guarding Secrets, from the Blue-feathered Necklace
+  note Guarding Secrets goes on to Nara Wildmane in Thunder Bluff, off this route: leave it.
+
+step Jessir Moonbow
+  when onquest 5385
+  tip South along the road to the Emerald Sanctuary: Jessir Moonbow, at its east side, takes Trey Lightforge's remains.
+  turnin 5385                         -- Jessir Moonbow
+
+step Kelek Skykeeper
+  when onquest 5128
+  tip Kelek Skykeeper, at the Emerald Sanctuary, takes the High Chief's words.
+  turnin 5128                         -- Kelek Skykeeper
+
+step Eridan Bluewind
+  tip South along the road to the Emerald Sanctuary.
+  turnin 4084
+  note Eridan's Aquementas leads on to Tanaris and Un'Goro: leave it.
+  train class optional only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- In Orgrimmar: fly from Splintertree Post
+  train class optional only Druid,Paladin -- In Thunder Bluff

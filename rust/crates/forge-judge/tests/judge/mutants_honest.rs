@@ -33,7 +33,7 @@ fn data() -> Data {
 	add(506, "Countless", None, None, json!([{ "type": "kill", "id": 10, "count": 0 }]));
 	add(507, "Every Class", None, Some(ALL_CLASSES), json!([]));
 	add(508, "Every Horde Race", Some(HORDE_RACES), None, json!([]));
-	for id in 510..535 {
+	for id in 510..555 {
 		add(id, &format!("Errand {id}"), None, None, json!([]));
 	}
 	let npcs = json!({
@@ -159,15 +159,16 @@ fn r8_quest_work_needs_a_quest() {
 
 #[test]
 fn r9_reports_the_first_peak() {
-	let accepts: String = (510..531).map(|q| format!("  accept {q}\n")).collect();
+	// (The log holds 40, honest::LOG_MAX: the 41st accept is over it.)
+	let accepts: String = (510..551).map(|q| format!("  accept {q}\n")).collect();
 	let body = format!(
-		"step Elder Testa\n{accepts}step Drop\n  abandon 510\nstep Elder Testa\n  accept 531\nstep Elder Testa\n{}  turnin 531\n",
-		(511..531).map(|q| format!("  turnin {q}\n")).collect::<String>()
+		"step Elder Testa\n{accepts}step Drop\n  abandon 510\nstep Elder Testa\n  accept 551\nstep Elder Testa\n{}  turnin 551\n",
+		(511..551).map(|q| format!("  turnin {q}\n")).collect::<String>()
 	);
 	let r9 = rule(&play(&body), "R9");
 	assert_eq!(r9.len(), 1, "{r9:#?}");
-	assert!(r9[0].reason.contains("holds 21"), "{}", r9[0].reason);
-	// The peak's line is the first 21st accept (line 7 + 20), not the later accept 531.
+	assert!(r9[0].reason.contains("holds 41"), "{}", r9[0].reason);
+	// The peak's line is the first 41st accept (line 7 + 40), not the later accept 551.
 	assert_eq!(r9[0].step, 1, "{:#?}", r9[0]);
 }
 

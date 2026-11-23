@@ -158,8 +158,8 @@ return {
 	["{npc:15624}: 25 (and 25 Cenarion Circle)"] = "{npc:15624} : 25 (et 25 Cercle cénarien)",
 
 	-- Step 26: Keeper Remulos
-	-- {quest:8735} The Nightmare's Corruption · {zone:1440} Ashenvale · {zone:1444} Feralas · {zone:1425} Hinterlands · {npc:15625} Twilight Corrupter · {zone:1431} Duskwood
-	["{quest:8735} wants a fragment from each of the four Dragons of Nightmare portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "{quest:8735} demande un fragment de chacun des quatre portails des dragons du Cauchemar : les draconiens élites des portails d'{zone:1440}, de {zone:1444} et de {zone:1425} (5 % chacun) et le {npc:15625} dans {zone:1431}. Contenu de raid.",
+	-- {quest:8735} The Nightmare's Corruption · {npc:235289} Dragons of Nightmare · {zone:1440} Ashenvale · {zone:1444} Feralas · {zone:1425} Hinterlands · {npc:15625} Twilight Corrupter · {zone:1431} Duskwood
+	["{quest:8735} wants a fragment from each of the four {npc:235289} portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "{quest:8735} demande un fragment de chacun des quatre portails des {npc:235289} : les draconiens élites des portails d'{zone:1440}, de {zone:1444} et de {zone:1425} (5 % chacun) et le {npc:15625} dans {zone:1431}. Contenu de raid.",
 	["10 (and 100 Cenarion Circle)"] = "10 (et 100 Cercle cénarien)",
 
 	-- Step 27: The Ashenvale portal

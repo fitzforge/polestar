@@ -92,10 +92,10 @@ fn encodings_base64_numbers_run_lengths_and_zones() {
 
 #[test]
 fn own_files_are_our_maps_and_the_chokepoints() {
-	for n in ["Nav0.lua", "Nav0_12.lua", "Nav1_1.lua", "Nav2991.lua", "Chokepoints.lua"] {
+	for n in ["Nav0.lua", "Nav0_12.lua", "Nav1_1.lua", "Nav2991.lua", "Region0_6_6.lua", "Region2991_15_0.lua", "Chokepoints.lua"] {
 		assert!(own_file(n), "{n}");
 	}
-	for n in ["Nav.xml", "Nav7.lua", "Nav0_.lua", "Nav0_a.lua", "Walk.lua"] {
+	for n in ["Nav.xml", "Nav7.lua", "Nav0_.lua", "Nav0_a.lua", "Walk.lua", "Region7_1_1.lua", "Region0_16_1.lua", "Region0_01_1.lua", "Region0_1.lua", "Region0_1_1_1.lua"] {
 		assert!(!own_file(n), "{n}");
 	}
 }
@@ -116,6 +116,10 @@ fn pack_into(grid: &Path, out: &Path, cells: usize) -> Result<forge_nav::pack::P
 		generator: "forge nav pack",
 		leffe: None,
 		zlib_literals: false,
+		places: None,
+		ground_cities: false,
+		ledges: false,
+		spawns: None,
 		log: &log,
 	})?;
 	ship_pack(&pack, out)?;
@@ -143,6 +147,10 @@ fn ship_writes_files_pack_json_and_nav_xml_and_check_finds_changed_missing_unlis
 		generator: "forge nav pack",
 		leffe: None,
 		zlib_literals: false,
+		places: None,
+		ground_cities: false,
+		ledges: false,
+		spawns: None,
 		log: &|_| {},
 	})
 	.unwrap();
@@ -171,6 +179,46 @@ fn ship_writes_files_pack_json_and_nav_xml_and_check_finds_changed_missing_unlis
 	assert!(check_pack(&out)[0].ends_with("PACK.json is missing: run `forge nav pack`"));
 	let again = pack_into(&grid, &tmp("ship-again"), 67).unwrap();
 	assert_eq!(again.files, pack.files, "deterministic");
+}
+
+#[test]
+fn an_imported_pack_pins_its_region_files_and_loaders_and_names_0_4_2s_region_addons_left_beside_it() {
+	use serde_json::json;
+	use sha2::{Digest, Sha256};
+	use std::fs;
+
+	let root = tmp("region-integrity");
+	let nav = root.join("Polestar_Nav");
+	fs::create_dir_all(nav.join("Nav")).unwrap();
+	let digest = |b: &[u8]| format!("{:x}", Sha256::digest(b));
+	let data = b"-- \xff\n";
+	let core = "## Version: 0.4.2\nNav\\Nav.xml\n";
+	let key = "Nav/Region2991_6_7.lua";
+	let save = |m: &serde_json::Value| fs::write(nav.join("PACK.json"), m.to_string()).unwrap();
+	let mut manifest = json!({ "import": {}, "files": { key: digest(data) } });
+	save(&manifest);
+	let xml = forge_nav::pack::nav_xml(&nav);
+	assert!(xml.contains("<Script file=\"Region2991_6_7.lua\"/>"));
+	manifest["loaders"] = json!({ "Nav/Nav.xml": digest(xml.as_bytes()), "Polestar_Nav/Polestar_Nav.toc": digest(b"Nav\\Nav.xml\n") });
+	save(&manifest);
+	fs::write(nav.join("Nav/Nav.xml"), &xml).unwrap();
+	fs::write(nav.join("Polestar_Nav.toc"), core).unwrap();
+	fs::write(nav.join(key), data).unwrap();
+	assert_eq!(check_pack(&nav), Vec::<String>::new());
+	fs::write(nav.join(key), b"-- changed\n").unwrap();
+	assert_eq!(check_pack(&nav), [format!("{key} differs from PACK.json")]);
+	fs::remove_file(nav.join(key)).unwrap();
+	assert_eq!(check_pack(&nav), [format!("{key} is missing")]);
+	fs::write(nav.join(key), data).unwrap();
+	fs::write(nav.join("Polestar_Nav.toc"), "Nav\\Other.xml\n").unwrap();
+	assert_eq!(check_pack(&nav), ["Polestar_Nav/Polestar_Nav.toc loader differs from PACK.json"]);
+	fs::write(nav.join("Polestar_Nav.toc"), core).unwrap();
+	fs::create_dir(root.join("Polestar_Nav_R2991_6_7")).unwrap();
+	assert_eq!(check_pack(&nav), ["Polestar_Nav_R2991_6_7 is left from 0.4.2's regional addons: delete it"]);
+	fs::remove_dir(root.join("Polestar_Nav_R2991_6_7")).unwrap();
+	manifest["regions"] = json!(["Polestar_Nav_R2991_6_7"]);
+	save(&manifest);
+	assert_eq!(check_pack(&nav), ["PACK.json lists regional addons: rerun tools/lib/nav/import-regions.js"]);
 }
 
 fn unbase64(s: &str) -> Vec<u8> {

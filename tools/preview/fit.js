@@ -10,6 +10,8 @@
 //            its fixed height holds (cut after the last line that fits)
 //   word     a single word wider than its wrapping box
 //   window   a string crossing its window's edge or a frame that clips it
+//   overlap  a string's text drawn over another's in the same window (only
+//            when asked for: `kinds` names it)
 //
 // The preview's fonts have no CJK or Hangul glyphs; those are measured 1em
 // wide, about what the client's CJK fonts set. `slack` measures every glyph
@@ -61,14 +63,11 @@ function localeCodepoints(files) {
 	return [...cps].filter((c) => c >= 0x180);
 }
 
-// Lua run first: the client's locale, the file that stands for its
-// interface strings (loaded when Core/Locale.lua asks for the language
-// folder, as the client loads it; the shipped Interface.lua by default), and
-// string.format's positional arguments (%1$s), which the client has and
-// Lua 5.1 does not.
-function localeLua(locale, file) {
-	const lines = [`function GetLocale() return ${JSON.stringify(locale)} end`,
-		`do
+// The client's locale and string.format's positional arguments (%1$s),
+// which the client has and Lua 5.1 does not.
+function clientLocaleLua(locale) {
+	return `function GetLocale() return ${JSON.stringify(locale)} end
+do
 	local fmt = string.format
 	string.format = function(f, ...)
 		if type(f) == "string" and f:find("%%%d+%$") then
@@ -79,7 +78,15 @@ function localeLua(locale, file) {
 		return fmt(f, ...)
 	end
 	format = string.format
-end`];
+end`;
+}
+
+// Lua run first: the client's locale (clientLocaleLua) and the file that
+// stands for its interface strings (loaded when Core/Locale.lua asks for the
+// language folder, as the client loads it; the shipped Interface.lua by
+// default).
+function localeLua(locale, file) {
+	const lines = [clientLocaleLua(locale)];
 	const strings = file || interfaceFile(locale);
 	if (fs.existsSync(strings)) {
 		lines.push(`do
@@ -117,6 +124,7 @@ function audit(dump, roots, fonts, kinds = ['cut', 'lines', 'word', 'window']) {
 		return true;
 	};
 	const out = [];
+	const drawn = [];
 	for (const o of objects) {
 		if (o.kind !== 'FontString' || !o.plain || !o.plain.trim() || !shown(o)) continue;
 		const root = rootOf(o);
@@ -140,7 +148,9 @@ function audit(dump, roots, fonts, kinds = ['cut', 'lines', 'word', 'window']) {
 					if (w - r.w > 0.5) report('cut', 'its width', w - r.w, r.w / s);
 				}
 			} else {
-				const lines = wrap(fonts, o.font, o.plain, r.w / s);
+				// A string that breaks between characters (SetNonSpaceWrap, a
+				// multi-line edit box's text) has no word wider than its line.
+				const lines = wrap(fonts, o.font, o.plain, r.w / s, o.nonSpace);
 				for (const l of lines) {
 					const w = measure(fonts, o.font, l) * s;
 					if (w - r.w > 0.5) report('word', 'its width', w - r.w, r.w / s);
@@ -161,6 +171,12 @@ function audit(dump, roots, fonts, kinds = ['cut', 'lines', 'word', 'window']) {
 			if (cur.kind === 'ScrollFrame') scrolls = true;
 			else fixed = intersect(fixed, cr);
 		}
+		// Overlap: the text as drawn, cut to the frames that clip it (a scroll
+		// area's text scrolled under a footer is not drawn there).
+		if (want.has('overlap')) {
+			const ink = intersect(textInk(o, r, s, fonts), { x: box.x0, y: box.y0, w: box.x1 - box.x0, h: box.y1 - box.y0 });
+			if (ink.x1 - ink.x0 > 0.5 && ink.y1 - ink.y0 > 0.5) drawn.push({ o, root, text, ink });
+		}
 		if (!bound) {
 			// Unbound: as wide as its text, grown from its anchor.
 			const w = Math.max(...o.plain.split('\n').map((l) => measure(fonts, o.font, l))) * s;
@@ -174,16 +190,53 @@ function audit(dump, roots, fonts, kinds = ['cut', 'lines', 'word', 'window']) {
 		if (r.x + r.w - box.x1 > 0.5) report('window', 'the right edge (its box)', r.x + r.w - box.x1);
 		// Wrapping, its height free: the lines it takes.
 		if (!o.wrap || scrolls || (hasTop && hasBottom) || o.h != null || r.w <= 0) continue;
-		const h = lineH(wrap(fonts, o.font, o.plain, r.w / s).length);
+		const h = lineH(wrap(fonts, o.font, o.plain, r.w / s, o.nonSpace).length);
 		const vy = hasTop ? 0 : hasBottom ? 1 : 0.5;
 		const y0 = r.y + r.h * vy - h * vy, y1 = y0 + h;
 		if (fixed.y0 - y0 > 0.5) report('window', 'the top edge', fixed.y0 - y0);
 		if (y1 - fixed.y1 > 0.5) report('window', 'the bottom edge', y1 - fixed.y1);
 	}
+	for (let i = 0; i < drawn.length; i++) {
+		for (let j = i + 1; j < drawn.length; j++) {
+			const a = drawn[i], b = drawn[j];
+			if (a.root !== b.root) continue;
+			const ow = Math.min(a.ink.x1, b.ink.x1) - Math.max(a.ink.x0, b.ink.x0);
+			const oh = Math.min(a.ink.y1, b.ink.y1) - Math.max(a.ink.y0, b.ink.y0);
+			if (ow > 0.5 && oh > 0.5) out.push({ text: a.text, kind: 'overlap', what: `"${b.text.length > 40 ? b.text.slice(0, 37) + '...' : b.text}"`, over: px(ow), box: null });
+		}
+	}
 	return out;
 }
 
-const describe = (f) => `"${f.text.length > 70 ? f.text.slice(0, 67) + '...' : f.text}" ${f.kind === 'window' ? 'crosses' : 'is cut at'} ${f.what} by ${f.over}${f.kind === 'lines' && f.what.includes('lines') ? ' line(s)' : 'px'}${f.box != null ? ` (box ${f.box})` : ''}`;
+// Where a string's text is drawn: its lines' width (cut to its box when bound
+// in width, else grown from its anchor) and height, placed as justified.
+function inkOf(o, r, s, bound, fonts, lineH) {
+	const lines = o.lines || o.plain.split('\n');
+	const textW = Math.max(0, ...lines.map((l) => measure(fonts, o.font, l))) * s;
+	const h = lineH(lines.length);
+	let x0;
+	let w = textW;
+	if (bound) {
+		w = Math.min(textW, r.w);
+		const j = o.justifyH || 'CENTER';
+		x0 = j === 'LEFT' ? r.x : j === 'RIGHT' ? r.x + r.w - w : r.x + (r.w - w) / 2;
+	} else {
+		const hx = o.points.length ? H[o.points[0].point] ?? 0 : 0;
+		x0 = r.x + r.w * hx - w * hx;
+	}
+	const jv = o.justifyV || 'MIDDLE';
+	const y0 = jv === 'TOP' ? r.y : jv === 'BOTTOM' ? r.y + r.h - h : r.y + (r.h - h) / 2;
+	return { x0, y0, x1: x0 + w, y1: y0 + h };
+}
+
+// Where string o (its box r, at scale s) draws its text, as the overlap check
+// takes it.
+function textInk(o, r, s, fonts) {
+	const bound = o.anchoredW || (o.w != null && o.w > 0);
+	return inkOf(o, r, s, bound, fonts, (n) => (n * o.font[1] + (n - 1) * (o.spacing || 0)) * s);
+}
+
+const describe = (f) => `"${f.text.length > 70 ? f.text.slice(0, 67) + '...' : f.text}" ${f.kind === 'window' ? 'crosses' : f.kind === 'overlap' ? 'overlaps' : 'is cut at'} ${f.what} by ${f.over}${f.kind === 'lines' && f.what.includes('lines') ? ' line(s)' : f.kind === 'overlap' ? 'px in width' : 'px'}${f.box != null ? ` (box ${f.box})` : ''}`;
 
 // The panels to lay out: every preview scene's, then Options on every page
 // and tab (with every module's pages and the Recorder) in this locale.
@@ -195,7 +248,7 @@ function panelsOf(before) {
 		stubs: ['stub_ui.lua'],
 		before: `${before}\n${recorder}`,
 		addons: [{ name: 'Polestar', files: P.MODULE_FILES }],
-		script: 'uistub.install()\nstub.login()\nemit(Polestar.UI.Options.Pages())',
+		script: 'uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\nemit(Polestar.UI.Options.Pages())',
 	}).emitted[0];
 	for (const p of pages) {
 		const tabs = Array.isArray(p.tabs) && p.tabs.length ? p.tabs : [null];
@@ -264,7 +317,7 @@ function fitLocales(targets, { slack = 1 } = {}) {
 	});
 }
 
-module.exports = { PASSES, audit, auditLocale, summarize, describe, fontsFor, fitLocales, interfaceFile, localeCodepoints, localeLua };
+module.exports = { PASSES, audit, auditLocale, summarize, describe, fontsFor, fitLocales, interfaceFile, localeCodepoints, clientLocaleLua, localeLua, textInk };
 
 // One locale's findings as JSON, for fitLocales: node fit.js <locale>[=<file>] <slack>
 if (require.main === module) {

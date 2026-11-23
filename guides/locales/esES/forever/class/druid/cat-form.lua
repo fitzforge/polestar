@@ -15,8 +15,8 @@ return {
 	["{npc:4217} stands in the {area:1658}. Skyborne far from {zone:1457}: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No {spell:1066} yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the {spell:1066} guide) is in the same {area:493}."] = "{npc:4217} está en {area:1658}. Si eres Cielonato y estás lejos de {zone:1457}: lanza {spell:18960} y toma el vuelo de {npc:11800} desde el centro de {area:2361} (lleva a los druidas a {area:702}, sin necesidad de ruta de vuelo) y luego el portal hacia arriba. ¿Aún no tienes {spell:1066}? Acepta también «Una lección que aprender» de él: también lleva a {npc:11802}, y su continuación, «La prueba del lago» (la guía de {spell:1066}), está en el mismo {area:493}.",
 
 	-- Step 3: Dendrite Starblaze
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "",
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:10897} Sindrayl
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. No {area:493} flight path yet? Learn it from {npc:10897}, south of the lake: the flight master in {area:2361} flies only Druids, from her gossip, and has none to learn."] = "Lanza {spell:18960}. {npc:11802} está en el piso de arriba de su edificio, en {area:2361}: sube por dentro, la flecha no distingue los pisos. ¿Aún no tienes la ruta de vuelo de {area:493}? Apréndela con {npc:10897}, al sur del lago: el maestro de vuelo de {area:2361} solo lleva a druidas, desde su diálogo, y no tiene ruta que aprender.",
 
 	-- Step 4: The relics of the Barrow Dens
 	["The relics of the Barrow Dens"] = "Las reliquias del Túmulo",
@@ -31,7 +31,7 @@ return {
 
 	-- Step 6: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:768} Cat Form
-	["Take the portal up to {npc:4217}, upstairs in the {area:1658}: he teaches you {spell:768}."] = "",
+	["Take the portal up to {npc:4217}, upstairs in the {area:1658}: he teaches you {spell:768}."] = "Toma el portal para subir hasta {npc:4217}, en el piso de arriba del {area:1658}: te enseña {spell:768}.",
 
 	-- Step 8: The Great Cat Spirit
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:1066} Aquatic Form · {npc:11802} Dendrite Starblaze · {area:493} Moonglade
@@ -39,7 +39,7 @@ return {
 
 	-- Step 9: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "Lanza {spell:18960}. {npc:11802} está en el piso de arriba de su edificio, en {area:2361}: sube por dentro, la flecha no distingue los pisos.",
 
 	-- Step 10: The Stormrage Barrow Dens
 	-- {area:2363} Stormrage Barrow Dens
@@ -53,17 +53,14 @@ return {
 
 	-- Step 12: To Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:768} Cat Form
-	["{npc:3033} on {area:1639} teaches you {spell:768}."] = "",
+	["{npc:3033} on {area:1639} teaches you {spell:768}."] = "{npc:3033}, en {area:1639}, te enseña {spell:768}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:11802} in {area:2361}, then fly to {area:702}."] = "Vuelve con {npc:11802} en {area:2361} y luego vuela a {area:702}.",
 	-- ["Back to {npc:11802} in {area:2361}, then take {npc:11798}'s flight to {area:1638}."] = "Vuelve con {npc:11802} en {area:2361} y luego toma el vuelo de {npc:11798} a {area:1638}.",
 	-- ["Cast Teleport: {area:493}. {npc:11802} is in {area:2361}."] = "Lanza Teletransporte: {area:493}. {npc:11802} está en {area:2361}.",
-	-- ["Cast Teleport: {area:493}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "Lanza Teletransporte: {area:493}. {npc:11802} está en {area:2361}; aprende allí la ruta de vuelo si no la tienes.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}."] = "Lanza {spell:18960}. {npc:11802} está en {area:2361}.",
-	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "Lanza {spell:18960}. {npc:11802} está en {area:2361}; aprende allí la ruta de vuelo si no la tienes.",
-	-- ["Take the portal up to {npc:4217} in the {area:1658}."] = "Toma el portal para subir hasta {npc:4217} en el {area:1658}.",
-	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033} está en {area:1639}.",
+	-- ["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Lanza {spell:18960}. {npc:11802} está en el piso de arriba de su edificio, en {area:2361}: sube por dentro, la flecha no distingue los pisos. Aprende allí la ruta de vuelo si no la tienes.",
 	-- ["{npc:4217} stands in the {area:1658}. Skyborne without the Rut'theran flight path: take the boat from {area:442}."] = "{npc:4217} está en el {area:1658}. Si eres cielonato y no tienes la ruta de vuelo de Rut'theran, toma el barco desde {area:442}.",
 	-- ["{quest:98342} (Tauren) waits on the southern hill above the bridge, the {npc:272054} (Skyborne) south of the twin bridges. The relics lie in the {area:2363} east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue. A relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98342} (tauren) espera en la colina del sur sobre el puente; el {npc:272054} (cielonatos), al sur de los puentes gemelos. Las reliquias están en el {area:2363}, al este del lago: sal de tu forma, pulsa la estatua de la entrada para obtener cinco minutos de sigilo, evita a los espíritus del interior y coge una de cada reliquia; la {item:280680} está a los pies de la estatua del gato blanco. Una reliquia no da botín mientras otro jugador la despoja: espera un momento y vuelve a intentarlo.",
 	-- ["{quest:98394} (Night Elves) waits on the southern hill above the bridge, the {npc:272054} (Skyborne) south of the twin bridges. The relics lie in the {area:2363} east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue. A relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394} (elfos de la noche) espera en la colina del sur sobre el puente; el {npc:272054} (cielonatos), al sur de los puentes gemelos. Las reliquias están en el {area:2363}, al este del lago: sal de tu forma, pulsa la estatua de la entrada para obtener cinco minutos de sigilo, evita a los espíritus del interior y coge una de cada reliquia; la {item:280680} está a los pies de la estatua del gato blanco. Una reliquia no da botín mientras otro jugador la despoja: espera un momento y vuelve a intentarlo.",

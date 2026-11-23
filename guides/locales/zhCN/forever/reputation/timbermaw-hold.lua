@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: Deadwood Village
 	-- {zone:1448} Felwood · {item:21377} Deadwood Headdress Feather · {npc:9464} Overlord Ror · {npc:14342} Ragepaw
-	["The Deadwood furbolgs (level 48-50) hold the village at the south end of {zone:1448}. Keep every {item:21377}: they are worth 10 reputation each later and never stop counting. {npc:9464} (15 reputation) and the rare {npc:14342} (25) live here and count until Exalted. Forever pays quests in full at any level; in Classic grey mobs gave about a fifth, about 1 a kill for these furbolgs at 60. Do it while leveling if you can."] = "",
+	["The Deadwood furbolgs (level 48-50) hold the village at the south end of {zone:1448}. Keep every {item:21377}: they are worth 10 reputation each later and never stop counting. {npc:9464} (15 reputation) and the rare {npc:14342} (25) live here and count until Exalted. Forever pays quests in full at any level; in Classic grey mobs gave about a fifth, about 1 a kill for these furbolgs at 60. Do it while leveling if you can."] = "死木熊怪（48-50级）占据着{zone:1448}最南端的村庄。保留所有{item:21377}，以后每个可换10点声望，且始终有效。{npc:9464}（15点声望）和稀有怪{npc:14342}（25点）也在这里，击杀声望一直持续到崇拜。Forever中，任务在任何等级都奖励全额声望；经典旧世的灰名怪只给约五分之一，这些熊怪在60级时每只约1点。尽可能在练级时完成。",
 	-- {npc:14342} Ragepaw
 	["{npc:14342}, rare"] = "{npc:14342}，稀有",
 
@@ -74,35 +74,43 @@ return {
 	-- plural, as words: Mana Potions = {item:3827} Mana Potion
 	["The northern Deadwood rarely drop a {quest:8470} (about 3%). From Neutral, {npc:11558} takes it in the tunnel, on the {zone:1448} side: 150 reputation and two Major Healing and Mana Potions."] = "北部的死木熊怪有较低概率掉落 {quest:8470}（约 3%）。从中立起，可交给隧道中 {zone:1448} 一侧的 {npc:11558}：奖励 150 点声望，以及特效治疗药水和特效法力药水各两瓶。",
 
-	-- Step 12: Winterfall Ritual Totem
+	-- Step 12: Kernda: the Deadwood totem
+	-- {npc:11558} Kernda
+	["{npc:11558}: the Deadwood totem"] = "",
+
+	-- Step 13: Winterfall Ritual Totem
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda
 	-- plural, as words: Mana Potions = {item:3827} Mana Potion
 	["The Winterfall furbolgs rarely drop a {quest:8471} (3-4%). {npc:11558} takes it in the tunnel too: 150 reputation and three Major Healing and Mana Potions."] = "冬泉熊怪有小概率掉落 {quest:8471}（3-4%）。隧道里的 {npc:11558} 也会收取它：奖励 150 点声望，以及特效治疗药水和法力药水各三瓶。",
 
-	-- Step 13: Neutral to Friendly
+	-- Step 14: Kernda: the Winterfall totem
+	-- {npc:11558} Kernda
+	["{npc:11558}: the Winterfall totem"] = "",
+
+	-- Step 15: Neutral to Friendly
 	["Neutral to Friendly"] = "中立到友善",
 	["Neutral to Friendly is 3,000: 600 kills. Keep all feathers and beads."] = "中立到友善需要3,000：击杀600只。保留所有羽毛和珠串。",
 
-	-- Step 14: Meilosh
+	-- Step 16: Meilosh
 	-- {npc:11557} Meilosh · {zone:1448} Felwood · {item:13484} Recipe: Transmute Earth to Water · {item:22392} Formula: Enchant 2H Weapon - Agility · {item:20253} Pattern: Warbear Harness · {item:15065} Warbear Woolies · {quest:6031} Runecloth · {item:14342} Mooncloth · {item:15802} Mooncloth Boots
 	["{npc:11557} stands in the tunnel, near its {zone:1448} mouth. From Friendly he sells: {item:13484} (1 gold 50 silver), {item:22392} (2 gold 50 silver), {item:20253} (1 gold 60 silver) and {item:15065} (2 gold). He also takes 30 {quest:6031} once for 100 reputation and a choice of shoulders or gauntlets, and Tailors with skill 290 can bring him 2 {item:14342} for 100 more and the {item:15802} pattern."] = "{npc:11557} 站在隧道里，靠近 {zone:1448} 一侧的出口。从友善起，他会出售：{item:13484}（1金币50银币）、{item:22392}（2金币50银币）、{item:20253}（1金币60银币）和 {item:15065}（2金币）。他还会一次性收取30份 {quest:6031}，奖励100点声望，并可选择肩甲或护手；技能290的裁缝还能带给他2块 {item:14342}，再获得100点声望及 {item:15802} 图样。",
 
-	-- Step 15: Runecloth for Meilosh
+	-- Step 17: Runecloth for Meilosh
 	-- {quest:6031} Runecloth · {npc:11557} Meilosh
 	["{quest:6031} for {npc:11557}"] = "{quest:6031}，交给 {npc:11557}",
 	-- {quest:6031} Runecloth
 	["{quest:6031} drops from the humanoids of the level 50-60 zones, the Deadwood and Winterfall furbolgs among them."] = "{quest:6031} 由 50-60 级地区的人型生物掉落，包括死木熊怪和冬泉熊怪。",
 
-	-- Step 16: Sacred Cloth
+	-- Step 18: Sacred Cloth
 	-- {npc:11557} Meilosh · {item:14342} Mooncloth · {item:15802} Mooncloth Boots
 	["Tailors with skill 290: {npc:11557} takes 2 {item:14342} once for 100 reputation and teaches the {item:15802}."] = "技能290的裁缝：{npc:11557} 会一次性收取2块 {item:14342}，奖励100声望，并教授 {item:15802}。",
 
-	-- Step 17: Friendly to Honored
+	-- Step 19: Friendly to Honored
 	["Friendly to Honored"] = "友善到尊敬",
 	-- {npc:11557} Meilosh · {item:19445} Formula: Enchant Weapon - Agility · {item:19202} Pattern: Heavy Timbermaw Belt · {item:19044} Might of the Timbermaw · {skill:165} Leatherworking · {item:19047} Wisdom of the Timbermaw · {skill:197} Tailoring
 	["Friendly to Honored is 6,000: 1,200 kills. Keep all feathers and beads. Honored opens at {npc:11557}: {item:19445} (3 gold), and for 2 gold 20 silver each {item:19202} and {item:19044} ({skill:165}) and {item:19047} ({skill:197})."] = "友善到尊敬需要6,000声望：击杀1,200只。保留所有羽毛和珠串。尊敬后可向{npc:11557}购买：{item:19445}（3金币），以及每份2金20银的{item:19202}和{item:19044}（{skill:165}）、{item:19047}（{skill:197}）。",
 
-	-- Step 18: Honored to Revered
+	-- Step 20: Honored to Revered
 	["Honored to Revered"] = "尊敬到崇敬",
 	["Honored to Revered is 12,000: 2,400 kills, the last ones that count. Kills stop at 11,999 of 12,000 Honored and never tip you into Revered: when they stop, hand in one set of 5 feathers or beads to cross over. Saving every feather and bead pays off now: about 4,800 kills from the start to the end of Honored leave you with about 2,100 feathers and beads, and that is all of Revered to Exalted. Turning them in early would cost you about 2,400 more kills."] = "从尊敬到崇敬需要12,000声望：2,400次击杀，这是最后能靠击杀获得的声望。到尊敬11,999/12,000时，击杀不再提供声望，无法靠它升到崇敬：此时交一组5根羽毛或5颗珠子跨过上限。之前保留的所有羽毛和珠子现在派上用场：从起点刷到尊敬上限，约4,800次击杀会留下约2,100个羽毛和珠子，足以覆盖崇敬到崇拜的全部需求。提前交还会让你多刷约2,400只怪。",
 	-- {item:19445} Formula: Enchant Weapon - Agility · {skill:333} Enchanting
@@ -112,7 +120,7 @@ return {
 	-- {quest:8469} Beads for Salfa
 	["{quest:8469}: or 5 beads"] = "{quest:8469}：或5串珠串",
 
-	-- Step 19: Revered to Exalted
+	-- Step 21: Revered to Exalted
 	["Revered to Exalted"] = "崇敬到崇拜",
 	-- {npc:15395} Nafien · {npc:11554} Grazle · {npc:11556} Salfa · {npc:14342} Ragepaw · {npc:10199} Grizzle Snowpaw · {npc:10738} High Chief Winterfall · {npc:11557} Meilosh · {item:19204} Pattern: Heavy Timbermaw Boots · {item:19049} Timbermaw Brawlers · {skill:165} Leatherworking · {item:19050} Mantle of the Timbermaw · {skill:197} Tailoring
 	["Kills stopped at the end of Honored. Revered to Exalted is 21,000: 420 turn-ins, 2,100 feathers and beads. Hand in the feathers to {npc:15395} at the tunnel or {npc:11554} in the south, the beads to {npc:11556}, five at a time. The named furbolgs (Ror, Bloodmaw, {npc:14342}, {npc:10199}, {npc:10738}) still count. Revered opens at {npc:11557}, for 4 gold each: {item:19204} and {item:19049} ({skill:165}) and {item:19050} ({skill:197})."] = "尊敬满后，击杀普通怪不再奖励声望。崇敬到崇拜需要21,000声望：交还420次，共2,100个羽毛和珠串。羽毛交给隧道旁的{npc:15395}或南面的{npc:11554}，珠串交给{npc:11556}，每次五个。具名熊怪（主宰洛尔、血喉酋长、{npc:14342}、{npc:10199}、{npc:10738}）仍会奖励声望。崇敬后可向{npc:11557}以每份4金币购买：{item:19204}和{item:19049}（{skill:165}）、{item:19050}（{skill:197}）。",
@@ -123,11 +131,11 @@ return {
 	-- {quest:8469} Beads for Salfa
 	["{quest:8469}: 5 beads, 50 reputation"] = "{quest:8469}：5 颗珠串，50 点声望。",
 
-	-- Step 20: The Root of All Evil
+	-- Step 22: The Root of All Evil
 	-- {npc:11555} Gorn One Eye · {npc:11557} Meilosh · {quest:8481} The Root of All Evil · {item:21144} Demon Summoning Torch · {npc:10738} High Chief Winterfall · {npc:15623} Xandivious · {item:21326} Defender of the Timbermaw
 	["At Exalted, {npc:11555}, in the tunnel by {npc:11557}, gives {quest:8481}: plant his {item:21144} in the mouth of {npc:10738}'s cave and defeat the demon {npc:15623} (level 62, elite: bring a group). The reward is {item:21326}, a trinket that calls a Timbermaw ally, and 200 reputation."] = "崇拜后，隧道内 {npc:11557} 身边的 {npc:11555} 会给予 {quest:8481}：把他的 {item:21144} 插在 {npc:10738} 的洞口，击败恶魔 {npc:15623}（62 级精英：带上小队）。奖励为可召唤木喉盟友的饰品 {item:21326}，以及 200 点声望。",
 
-	-- Step 21: Xandivious
+	-- Step 23: Xandivious
 	-- {area:2244} Winterfall Village · {npc:15623} Xandivious
 	["{area:2244}, the cave at the back. Clear the furbolgs around the mouth first, plant the torch, kill {npc:15623} and loot the Essence from his Demon Bag."] = "{area:2244}，后方的洞穴。先清掉洞口周围的熊怪，再插下火把，杀死 {npc:15623}，从他的恶魔之包里拾取精华。",
 	-- {npc:15623} Xandivious

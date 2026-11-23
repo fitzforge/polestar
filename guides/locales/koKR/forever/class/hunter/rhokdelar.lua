@@ -60,7 +60,7 @@ return {
 
 	-- Step 10: Rhok'delar and Lok'delar
 	-- {item:18707} Ancient Rune Etched Stave · {item:18724} Enchanted Black Dragon Sinew · {item:18715} Lok'delar, Stave of the Ancient Keepers
-	["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and talking to Vartrus once more then gave {item:18715}, at no extra cost."] = "",
+	["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and talking to Vartrus once more then gave {item:18715}, at no extra cost."] = "Forever에서는 확인되지 않았습니다. 클래식에서는 {item:18724}을(를) 가방에 넣고 {item:18707}을(를) 사용하면 라크델라 - 고대수호자의 장궁이 만들어졌고, 그 뒤 고대정령 바르투스와 한 번 더 대화하면 추가 비용 없이 {item:18715}을(를) 주었습니다.",
 	-- {item:18707} Ancient Rune Etched Stave
 	["{item:18707}, by Vartrus"] = "{item:18707}, 바르투스 곁에서",
 	-- {npc:14524} Vartrus the Ancient
@@ -75,7 +75,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Azuregos"] = "아주어고스",
 	-- ["Hastat's quiver needs the {item:18704}. {npc:6109}, a world boss for a raid, roams the south of {zone:1447} and drops it most of the time; the Cobalt dragonkin of {zone:1452} drop it very rarely. Skip the rest of this guide if you do not want the quiver."] = "하스타트의 화살통에는 {item:18704}이(가) 필요합니다. 공격대용 필드 우두머리인 {npc:6109}은(는) {zone:1447} 남부를 돌아다니며 대부분 이것을 떨어뜨립니다. {zone:1452}의 푸른비늘 용족은 매우 드물게 떨어뜨립니다. 화살통을 원하지 않으면 이 가이드의 나머지는 건너뛰세요.",
-	-- ["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and Vartrus then gave {item:18715} ({spell:425121})."] = "Forever에서는 확인되지 않았습니다. 클래식에서는 {item:18724}을(를) 가방에 넣고 {item:18707}을(를) 사용하면 라크델라 - 고대수호자의 장궁이 만들어졌고, 그 뒤 고대정령 바르투스가 {item:18715}({spell:425121})을(를) 주었습니다.",
 	-- ["Onyxia drops the {item:18705}; she is the 40-player raid boss of {area:2159}, a cave in the {area:511} of southern {zone:1445}."] = "오닉시아가 {item:18705}을(를) 떨어뜨립니다. 오닉시아는 {zone:1445} 남부 {area:511}의 동굴인 {area:2159}의 40인 공격대 우두머리입니다.",
 	-- ["The {object:179703} appears in {area:2717} when {npc:12018} yields; it holds the {item:18703} about half the time. {area:2717} is a 40-player raid inside {area:254}. Right-click the leaf to start the quest."] = "{npc:12018}이(가) 항복하면 {area:2717}에 {object:179703}이(가) 나타나며, 약 절반의 확률로 {item:18703}이(가) 들어 있습니다. {area:2717}은(는) {area:254} 안의 40인 공격대 던전입니다. 나뭇잎을 오른쪽 클릭해 퀘스트를 시작하세요.",
 	-- ["Vartrus, Stoma and {npc:14526} stand together in the north of {zone:1448}. Alliance: {area:1998} is the nearest flight point; Horde: {area:1997}."] = "바르투스, 스토마, {npc:14526}은(는) {zone:1448} 북쪽에 함께 서 있습니다. 얼라이언스는 {area:1998}, 호드는 {area:1997}이(가) 가장 가까운 비행 지점입니다.",

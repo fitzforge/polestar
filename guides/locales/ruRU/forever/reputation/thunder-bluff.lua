@@ -70,7 +70,7 @@ return {
 	-- {quest:99079} Longwalker Malah · {object:2908} Sealed Supply Crate
 	["{quest:99079} waits by the eastern border. The {object:2908} of the ravaged caravan lies north-east of the village: open it to start the next quest."] = "",
 	-- {object:2908} Sealed Supply Crate
-	["the {object:2908}"] = "",
+	["the {object:2908}"] = "{object:2908}",
 
 	-- Step 12: Bloodhoof Village: hand in
 	-- {area:222} Bloodhoof Village
@@ -79,10 +79,9 @@ return {
 	-- Step 13: The mine, the centaurs and the plains
 	["The mine, the centaurs and the plains"] = "",
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes · {zone:1412} Mulgore
-	-- plural, as words: Swoops = {npc:2970} Swoop
 	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "",
 	-- {item:281031} Mulgore Expansion Plans · {quest:765} Supervisor Fizsprocket
-	["{item:281031}, from {quest:765}"] = "",
+	["{item:281031}, from {quest:765}"] = "{item:281031}: {quest:765}",
 	-- {item:281035} Shredder Operation Instructions
 	["{item:281035}, inside the mine"] = "",
 
@@ -93,8 +92,8 @@ return {
 	-- Step 15: The Venture Co. Mine: the Clearcutter
 	-- {area:360} The Venture Co. Mine
 	["{area:360}: the Clearcutter"] = "",
-	-- {quest:98427} Ceasing Operations
-	["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "",
+	-- {npc:272173} Venture Co. Clearclutter · {quest:98427} Ceasing Operations
+	["The elite shredder {npc:272173} works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "",
 
 	-- Step 16: Bloodhoof Village: last hand-in
 	-- {area:222} Bloodhoof Village
@@ -161,7 +160,7 @@ return {
 
 	-- Step 28: Brumeran and Shy-Rotam
 	-- {npc:10807} Brumeran · {quest:5056} Shy-Rotam
-	["{npc:10807} and {quest:5056}"] = "",
+	["{npc:10807} and {quest:5056}"] = "{npc:10807} и {quest:5056}",
 	-- {npc:10807} Brumeran · {area:2255} Everlook · {quest:5056} Shy-Rotam · {item:12733} Sacred Frostsaber Meat · {object:103819} Stone of Shy-Rotam (no name in this language: may be words) · {npc:10306} Trull Failbane · {zone:1454} Orgrimmar · {item:12558} Blue-feathered Necklace · {quest:4882} Guarding Secrets · {faction:81} Thunder Bluff
 	["{npc:10807}, an elite chimera, spawns south of {area:2255}. For {quest:5056}, kill frostsabers north of {area:2255} until one drops {item:12733} (about one in ten), then use the meat at the {object:103819}, far to the north, and kill the great cat that comes. If you have done {npc:10306}'s Wild Guardians quests (the {zone:1454} guide), the Crazed, Moontouched and Berserk owlbeasts around {area:2255} sometimes drop a {item:12558}: it starts {quest:4882}, 50 {zone:1454} and then 100 {faction:81} reputation in full."] = "",
 	-- {npc:10807} Brumeran
@@ -175,21 +174,21 @@ return {
 	-- {quest:4882} Guarding Secrets · {npc:5770} Nara Wildmane · {faction:81} Thunder Bluff
 	["{quest:4882}, +100: to {npc:5770} in {faction:81}"] = "",
 
-	-- Step 30: Thunder Bluff: Nara Wildmane
+	-- Step 31: Thunder Bluff: Nara Wildmane
 	-- {npc:5770} Nara Wildmane · {area:1639} Elder Rise · {npc:5769} Arch Druid Hamuul Runetotem
 	["{npc:5770} stands on {area:1639}, beside {npc:5769}."] = "",
 
-	-- Step 31: Morrowgrain (optional)
+	-- Step 32: Morrowgrain (optional)
 	-- {item:11040} Morrowgrain
 	["{item:11040} (optional)"] = "",
 	-- {quest:3804} Morrowgrain to Thunder Bluff · {item:11040} Morrowgrain · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {npc:6746} Innkeeper Pala · {npc:5769} Arch Druid Hamuul Runetotem · {area:1639} Elder Rise
 	["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "",
 
-	-- Step 32: Un'Goro Crater: Un'Goro Soil
+	-- Step 33: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain
 	["Nearly every beast, plant and silithid in the crater drops {quest:3761}, about one kill in three (the Bloodpetals and the Gorishi wasps about one in two), and the dirt mounds give it too. Take far more than 20: every casing uses 2, about 18 for each {item:11040} hand-in."] = "",
 
-	-- Step 33: Thunder Bluff: Morrowgrain Research
+	-- Step 34: Thunder Bluff: Morrowgrain Research
 	-- {npc:9076} Ghede · {npc:9087} Bashana Runetotem · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {item:11024} Evergreen Herb Casing · {item:11040} Morrowgrain
 	["{npc:9076} takes the soil. {npc:9087} sells the {item:11020} (1 gold) and Packets of Tharlendris Seeds (10 silver each). With a seed packet and 2 {quest:3761} in your bags, use the pouch: it grows an {item:11024}, once every 10 minutes. Open each casing: about one in three holds 1 to 5 {item:11040}, the rest common herbs. Use the pouch whenever it is ready while you follow the rest of this guide."] = "",
 	-- {item:11020} Evergreen Pouch
@@ -197,17 +196,17 @@ return {
 	-- {item:11022} Packet of Tharlendris Seeds
 	["{item:11022}, 10 silver each"] = "",
 
-	-- Step 34: Morrowgrain as you go
+	-- Step 35: Morrowgrain as you go
 	-- {item:11040} Morrowgrain
-	["{item:11040} as you go"] = "",
+	["{item:11040} as you go"] = "{item:11040} по пути",
 	-- {item:11040} Morrowgrain · {npc:9087} Bashana Runetotem
 	["{item:11040}: use the pouch every 10 minutes and open the casings; {npc:9087} takes it"] = "",
 
-	-- Step 35: Bashana Runetotem: Morrowgrain Research
+	-- Step 36: Bashana Runetotem: Morrowgrain Research
 	-- {npc:9087} Bashana Runetotem · {area:1639} Elder Rise · {item:11040} Morrowgrain
 	["{npc:9087} stands on {area:1639}. If your 10 {item:11040} are not ready yet, skip this step and go on with the cloth: the cloth steps below list the {item:11040} hand-in too."] = "",
 
-	-- Step 36: Additional Runecloth to Honored
+	-- Step 37: Additional Runecloth to Honored
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Honored"] = "{quest:7825} до уровня «Уважение»",
 	-- {quest:7825} Additional Runecloth · {item:14047} Runecloth
@@ -215,7 +214,7 @@ return {
 	-- {item:11040} Morrowgrain · {npc:9087} Bashana Runetotem
 	["{item:11040}, if you grow it: {npc:9087} takes it"] = "",
 
-	-- Step 37: Additional Runecloth to Revered
+	-- Step 38: Additional Runecloth to Revered
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Revered"] = "{quest:7825} до уровня «Почтение»",
 	-- {item:14047} Runecloth · {item:11040} Morrowgrain · {area:1584} Blackrock Depths · {area:340} Kargath · {npc:9017} Lord Incendius
@@ -223,7 +222,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040}, if you grow it"] = "",
 
-	-- Step 38: Additional Runecloth to Exalted
+	-- Step 39: Additional Runecloth to Exalted
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Exalted"] = "{quest:7825} до уровня «Превознесение»",
 	-- {item:14047} Runecloth · {npc:3685} Harb Clawhoof · {area:222} Bloodhoof Village

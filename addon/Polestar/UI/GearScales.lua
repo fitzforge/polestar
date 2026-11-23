@@ -89,7 +89,7 @@ local STAT_LABEL = {
 	str = L["Strength"], agi = L["Agility"], sta = L["Stamina"], int = L["Intellect"], spi = L["Spirit"],
 	armor = L["Armor"], health = L["Health"], mana = L["Mana"],
 	ap = L["Attack power"], rap = L["Ranged attack power"],
-	dps = L["Weapon DPS (melee)"], rdps = L["Weapon DPS (ranged)"],
+	dps = L["Weapon DPS (melee)"], ohDps = L["Weapon DPS (off hand)"], rdps = L["Weapon DPS (ranged)"],
 	sp = L["Spell damage (all schools)"], heal = L["Healing"],
 	spArcane = L["Arcane spell damage"], spFire = L["Fire spell damage"], spFrost = L["Frost spell damage"],
 	spHoly = L["Holy spell damage"], spNature = L["Nature spell damage"], spShadow = L["Shadow spell damage"],
@@ -98,9 +98,11 @@ local STAT_LABEL = {
 	mp5 = L["Mana per 5 seconds"], hp5 = L["Health per 5 seconds"],
 	defense = L["Defense skill"], dodge = L["Dodge (%)"], parry = L["Parry (%)"], block = L["Block (%)"],
 	blockValue = L["Block value"],
+	haste = L["Haste (%)"], expertise = L["Expertise (%)"], armorPen = L["Armor penetration (%)"],
 }
 
 local function nameOf(key) return STAT_LABEL[key] or gear().Pawn.NameOf(key) end
+UI.ScalesStatName = nameOf -- the adjust window (UI/GearAdjust.lua) names stats the same way
 
 -- The weights of a scale as { { key, name, value }, ... } in the order of
 -- Gear.STAT_KEYS (the main stats first, weapon DPS last).
@@ -434,15 +436,13 @@ local function build()
 	head:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 	head:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
 	head:SetHeight(HEAD_H)
-	head:EnableMouse(true)
-	head:RegisterForDrag("LeftButton")
-	head:SetScript("OnDragStart", function() F:StartMoving() end)
-	head:SetScript("OnDragStop", function() F:StopMovingOrSizing() end)
+	ns.DragWindow(head, F)
 	F.Band = Theme.Band(head, "BACKGROUND", -5)
 	F.Band:SetAllPoints(head)
 	F.Band:SetTexCoord(Theme.BandCoords(F:GetWidth() - 2, HEAD_H))
 	F.Close = W.IconButton(head, "close", 28, L["Close"], close, 14)
 	F.Close:SetPoint("TOPRIGHT", head, "TOPRIGHT", -12, -14)
+	W.FrameClose(F, F.Close)
 	F.Title = W.Text(head, "title", "text")
 	F.Title:SetPoint("LEFT", head, "LEFT", PAD, 0)
 	F.Title:SetPoint("RIGHT", F.Close, "LEFT", -8, 0)

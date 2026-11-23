@@ -12,11 +12,10 @@ return {
 	-- plural, as words: Vile Slimes = {npc:1806} Vile Slime · Devouring Oozes = {npc:1808} Devouring Ooze
 	["Oozes drop the {item:20768} about once in 20-30 kills; the best are the Vile Slimes, Devouring Oozes and the {npc:12387} in the ooze field of eastern {zone:1422} (level 54-57). Open every bag: most hold potions or herbs, and only about one bag in 50 holds the {item:20769}, so expect over a thousand kills. Both the bags and the pet can be traded: unopened bags on the Auction House are lottery tickets, the pet itself the sure buy."] = "",
 	-- plural, as words: Oozing Bags = {item:20768} Oozing Bag
-	["Open your Oozing Bags"] = "",
+	["Open your Oozing Bags"] = "Откройте сочащиеся мешки",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Oozes drop the {item:20768}: the Vile Slimes, Large Vile Slimes and Devouring Oozes of Western Plaguelands, and the oozes of {zone:1448}, {zone:1449} and {zone:1423}, at about 0.07-0.09% per kill in our data. The waypoint is a {npc:1806} spawn in eastern {zone:1422}."] = "{item:20768} добывается со слизней: злобной слизи, большой злобной слизи и всепожирающих слизнюков Западных Чумных земель, а также со слизней в зонах {zone:1448}, {zone:1449} и {zone:1423}, по нашим данным примерно с шансом 0,07-0,09% за убийство. Путевая точка — место появления: {npc:1806}, восток зоны {zone:1422}.",
-	-- ["Open the {item:20768}"] = "Откройте: {item:20768}",
 	-- ["Open the {item:20768} from your bags."] = "Откройте из сумок: {item:20768}.",
 	-- ["Vile Slimes, {zone:1422}"] = "Злобная слизь, {zone:1422}",
 }

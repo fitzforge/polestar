@@ -79,7 +79,6 @@ return {
 	-- Step 13: The mine, the centaurs and the plains
 	["The mine, the centaurs and the plains"] = "A mina, os centauros e as planícies",
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes · {zone:1412} Mulgore
-	-- plural, as words: Swoops = {npc:2970} Swoop
 	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "De volta à mina para os operários, os supervisores e {quest:765}, nos fundos: o que ele carrega, {item:281031}, inicia {quest:98424}, e as outras páginas ficam dentro da mina. Os centauros Galath e Herak acampam a leste da vila. Rapineiros voam por todo {zone:1412}; as harpias Ventofúria pousam a sudeste da vila; os gnolls Jubalba acampam a oeste dela.",
 	-- {item:281031} Mulgore Expansion Plans · {quest:765} Supervisor Fizsprocket
 	["{item:281031}, from {quest:765}"] = "{item:281031}, de {quest:765}",
@@ -93,8 +92,8 @@ return {
 	-- Step 15: The Venture Co. Mine: the Clearcutter
 	-- {area:360} The Venture Co. Mine
 	["{area:360}: the Clearcutter"] = "{area:360}: o Fio-afiado",
-	-- {quest:98427} Ceasing Operations
-	["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "O retalhador de elite Fio-afiado da Empreendimentos S.A. trabalha bem no fundo da mina, depois de onde o Geringonça ficava: a chave dele serve para {quest:98427}.",
+	-- {npc:272173} Venture Co. Clearclutter · {quest:98427} Ceasing Operations
+	["The elite shredder {npc:272173} works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "O retalhador de elite {npc:272173} trabalha bem no fundo da mina, depois de onde o Geringonça ficava: a chave dele serve para {quest:98427}.",
 
 	-- Step 16: Bloodhoof Village: last hand-in
 	-- {area:222} Bloodhoof Village
@@ -175,21 +174,21 @@ return {
 	-- {quest:4882} Guarding Secrets · {npc:5770} Nara Wildmane · {faction:81} Thunder Bluff
 	["{quest:4882}, +100: to {npc:5770} in {faction:81}"] = "{quest:4882}, +100: para {npc:5770} em {faction:81}",
 
-	-- Step 30: Thunder Bluff: Nara Wildmane
+	-- Step 31: Thunder Bluff: Nara Wildmane
 	-- {npc:5770} Nara Wildmane · {area:1639} Elder Rise · {npc:5769} Arch Druid Hamuul Runetotem
 	["{npc:5770} stands on {area:1639}, beside {npc:5769}."] = "{npc:5770} fica em {area:1639}, ao lado de {npc:5769}.",
 
-	-- Step 31: Morrowgrain (optional)
+	-- Step 32: Morrowgrain (optional)
 	-- {item:11040} Morrowgrain
 	["{item:11040} (optional)"] = "{item:11040} (opcional)",
 	-- {quest:3804} Morrowgrain to Thunder Bluff · {item:11040} Morrowgrain · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {npc:6746} Innkeeper Pala · {npc:5769} Arch Druid Hamuul Runetotem · {area:1639} Elder Rise
 	["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "A {quest:3804} pede 10 {item:11040} por 50, quantas vezes quiser, e paga por inteiro no 60, mas é lenta: o {item:11020} cultiva um casulo a cada 10 minutos e um casulo tem em média cerca de uma {item:11040}, então cada entrega leva cerca de 90 minutos de espera, 18 {quest:3761} e 9 pacotes de sementes (90 pratas). Ela corre em paralelo com o que mais você fizer: pouco mais de 30 de reputação por hora. A cadeia antes dela é de nível 50. {npc:6746} manda você a {npc:5769} em {area:1639}; ele quer 20 {quest:3761}.",
 
-	-- Step 32: Un'Goro Crater: Un'Goro Soil
+	-- Step 33: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain
 	["Nearly every beast, plant and silithid in the crater drops {quest:3761}, about one kill in three (the Bloodpetals and the Gorishi wasps about one in two), and the dirt mounds give it too. Take far more than 20: every casing uses 2, about 18 for each {item:11040} hand-in."] = "Quase toda fera, planta e silitídeo da cratera solta {quest:3761}, cerca de uma em cada três mortes (as Pétalas Sangrentas e as vespas Gorishi cerca de uma em duas), e os montes de terra também dão. Pegue muito mais que 20: cada casulo gasta 2, cerca de 18 para cada entrega de {item:11040}.",
 
-	-- Step 33: Thunder Bluff: Morrowgrain Research
+	-- Step 34: Thunder Bluff: Morrowgrain Research
 	-- {npc:9076} Ghede · {npc:9087} Bashana Runetotem · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {item:11024} Evergreen Herb Casing · {item:11040} Morrowgrain
 	["{npc:9076} takes the soil. {npc:9087} sells the {item:11020} (1 gold) and Packets of Tharlendris Seeds (10 silver each). With a seed packet and 2 {quest:3761} in your bags, use the pouch: it grows an {item:11024}, once every 10 minutes. Open each casing: about one in three holds 1 to 5 {item:11040}, the rest common herbs. Use the pouch whenever it is ready while you follow the rest of this guide."] = "{npc:9076} aceita a terra. {npc:9087} vende o {item:11020} (1 de ouro) e Pacotes de Sementes de Tharlendris (10 pratas cada). Com um pacote de sementes e 2 {quest:3761} nas bolsas, use a bolsinha: ela cultiva uma {item:11024}, uma vez a cada 10 minutos. Abra cada casulo: cerca de um em três tem de 1 a 5 {item:11040}, o resto são ervas comuns. Use a bolsinha sempre que estiver pronta enquanto segue o resto deste guia.",
 	-- {item:11020} Evergreen Pouch
@@ -197,17 +196,17 @@ return {
 	-- {item:11022} Packet of Tharlendris Seeds
 	["{item:11022}, 10 silver each"] = "{item:11022}, 10 pratas cada",
 
-	-- Step 34: Morrowgrain as you go
+	-- Step 35: Morrowgrain as you go
 	-- {item:11040} Morrowgrain
 	["{item:11040} as you go"] = "{item:11040} pelo caminho",
 	-- {item:11040} Morrowgrain · {npc:9087} Bashana Runetotem
 	["{item:11040}: use the pouch every 10 minutes and open the casings; {npc:9087} takes it"] = "{item:11040}: use a bolsinha a cada 10 minutos e abra os casulos; {npc:9087} aceita",
 
-	-- Step 35: Bashana Runetotem: Morrowgrain Research
+	-- Step 36: Bashana Runetotem: Morrowgrain Research
 	-- {npc:9087} Bashana Runetotem · {area:1639} Elder Rise · {item:11040} Morrowgrain
 	["{npc:9087} stands on {area:1639}. If your 10 {item:11040} are not ready yet, skip this step and go on with the cloth: the cloth steps below list the {item:11040} hand-in too."] = "{npc:9087} fica em {area:1639}. Se as suas 10 {item:11040} ainda não estão prontas, pule este passo e siga com os tecidos: os passos de tecido abaixo também listam a entrega de {item:11040}.",
 
-	-- Step 36: Additional Runecloth to Honored
+	-- Step 37: Additional Runecloth to Honored
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Honored"] = "{quest:7825} até Honrado",
 	-- {quest:7825} Additional Runecloth · {item:14047} Runecloth
@@ -215,7 +214,7 @@ return {
 	-- {item:11040} Morrowgrain · {npc:9087} Bashana Runetotem
 	["{item:11040}, if you grow it: {npc:9087} takes it"] = "{item:11040}, se você cultivar: {npc:9087} aceita",
 
-	-- Step 37: Additional Runecloth to Revered
+	-- Step 38: Additional Runecloth to Revered
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Revered"] = "{quest:7825} até Reverenciado",
 	-- {item:14047} Runecloth · {item:11040} Morrowgrain · {area:1584} Blackrock Depths · {area:340} Kargath · {npc:9017} Lord Incendius
@@ -223,7 +222,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040}, if you grow it"] = "{item:11040}, se você cultivar",
 
-	-- Step 38: Additional Runecloth to Exalted
+	-- Step 39: Additional Runecloth to Exalted
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Exalted"] = "{quest:7825} até Exaltado",
 	-- {item:14047} Runecloth · {npc:3685} Harb Clawhoof · {area:222} Bloodhoof Village

@@ -75,8 +75,8 @@ return {
 	["{npc:4606}: take her {quest:5642} letter"] = "",
 
 	-- Step 12: Shadowguard: Ur'kyo
-	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {quest:5642} Shadowguard
-	["At 20, {npc:6018} in the {object:172961} teaches {quest:5642} with a quest he gives and takes back at once."] = "",
+	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {quest:5680} Shadowguard
+	["At 20, {npc:6018} in the {object:172961} teaches {quest:5680} with a quest he gives and takes back at once."] = "",
 
 	-- Step 13: Shadowguard: Miles Welsh's letter
 	-- {quest:5642} Shadowguard · {npc:3044} Miles Welsh

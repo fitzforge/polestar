@@ -26,7 +26,7 @@ why Opens Ravenholdt Manor, the hidden rogue house in the Alterac hills, and Myr
 #   Handed in straight from a guard's window and never in the log, so a
 #   `turnin direct` with a plain collect (#1699 sweep).
 # Sources: Forever's Rogue class quest list (data/local/quest-audit/) and
-# Forever's quest pages (page snapshot) for the quests, texts, reputation and
+# Forever's quest data for the quests, texts, reputation and
 # money; quests.json, npcs.json, objects.json and items.json for the givers,
 # places and the Elegant Letter's givers (every capital's rogue trainer);
 # the KB for the starts quests.json lacks (Myrokos gives 96782; Anastasia
@@ -84,13 +84,14 @@ step Myrokos Silentform
 
 step What's the Big Idea?
   tip In your mid 30s Myrokos has two more jobs; take both. Barton leads a Syndicate scouting party at Strahnbrad, in the east of the Alterac Mountains, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. Pick Pocket can miss several times in a row.
-  level 34
+  level 36
   accept 96781                                -- Myrokos Silentform
   accept 96783
   collect 275482 quest 96781.1 @62.6,46.9 "Pick Pocket Barton for Barton's Scouting Report"
 
 step Covert Extraction
   tip Back to Myrokos; the report sends you after the Perenolde heirlooms. Two towers stand among the Ruins of Alterac, in the middle of the Alterac Mountains, held by ogres: the shield lies in the northern tower, the sword in the southern one, which elite ogres ring and watch from far off. Stay stealthed; nothing guards the heirlooms inside.
+  level 36
   turnin 96781                                -- Myrokos Silentform
   accept 96782 npc 13085
   collect 275636 quest 96782.2 @41.35,40.16   -- Royal Aegis of Perenolde, in the northern tower
@@ -105,17 +106,20 @@ step A Way In
 
 step Anastasia Miller
   tip Stromgarde's Syndicate Prowlers and Conjurors are elite (level 35-36): a rogue of 36 can slip past them, but fighting one alone is hard, so stay hidden or bring a friend. Put on the Syndicate Uniform (Master of Disguise hands it to you at the footlocker) to pass as one of them; stealth or suspicious acts can break it. If the footlocker gave you no uniform, Anastasia hands you one with Ain't No Telling. Anastasia Miller is not inside the keep: she stands on a ledge on the outside of the castle wall. Jump across to it from the roof of the house beside the ledge.
+  level 35
   turnin 96784 @26.8,64.4 only Horde          -- Anastasia Miller
   accept 96785 npc 266847 @26.8,64.4          -- Ain't No Telling
 
 step Ain't No Telling
   tip She will not talk without something to bargain with. Her stash is upstairs in a house close to the keep: take the Stolen Funds. If it is already open, wait for it to come back.
+  level 36
   collect 275709 quest 96785.1 @29.5,65.1     -- Stolen Funds: Anastasia's Stash
   turnin 96785 @26.8,64.4                     -- Anastasia Miller
   accept 96786 npc 266847 @26.8,64.4          -- The Syndicate Sting
 
 step The Syndicate Sting
   tip Falconcrest's men make the handoff at the southern end of Thoradin's Wall, the old wall between Arathi and Hillsbrad. Kill the two guarding the box and take the Intercepted Shipment. Keep the Syndicate Uniform: Myrokos wants it back with the shipment.
+  level 35
   collect 275882 quest 96786.1 @15.5,43.0     -- Intercepted Shipment
 
 step Back to Myrokos

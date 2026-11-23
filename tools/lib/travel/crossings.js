@@ -12,7 +12,14 @@
 //   chains     approach chains: ordered nodes with radius and caption (a cave
 //              or a climb); nodes after the mouth are reachable only through
 //              their own chain links ("open": "mouth"), or the last node is a
-//              second mouth ("both")
+//              second mouth ("both"); a node with a `z` and `alone: true` has
+//              nothing walkable above or below it within its reach, so a
+//              player there whose height is unknown is on its floor (the
+//              Undercity's courtyard inside the Ruins' mouth)
+//   areas      parts of a zone no walk joins to the rest of it (Rut'theran
+//              Village at the foot of Teldrassil): a box in map percent; the
+//              planner keeps the part apart, reached only by portals, ships
+//              and flights
 //
 // Sources: an optional local crossings file (data/local/crossings.json,
 // gitignored; built into the local data addon Polestar_Travel, never
@@ -36,13 +43,16 @@ const LIMITS = {
 };
 
 const KEYS = {
-	top: ['schema', 'frame', 'source', 'build', 'crossings', 'open', 'chains'],
+	top: ['schema', 'frame', 'source', 'build', 'crossings', 'open', 'chains', 'areas'],
 	// (`source`: where a crossing the top-level source does not cover comes from.)
 	crossing: ['id', 'a', 'b', 'ab', 'ba', 'oneWay', 'source'],
 	end: ['map', 'x', 'y', 'z', 'radius', 'offMap'],
 	open: ['a', 'b', 'oneWay', 'source'],
 	chain: ['id', 'name', 'open', 'nodes', 'note'],
-	node: ['map', 'x', 'y', 'z', 'radius', 'caption', 'back', 'offMap'],
+	node: ['map', 'x', 'y', 'z', 'radius', 'caption', 'back', 'alone', 'offMap'],
+	// (`box`: x1, y1, x2, y2 in map percent of the area's uiMap; `z`: min and max, a height range: a place only the
+	// portals that land in it reach.)
+	area: ['id', 'name', 'map', 'box', 'z', 'subzone', 'note', 'source'],
 };
 
 const isObj = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
@@ -109,10 +119,10 @@ function checkPoint(p, where, keys, frames, errors) {
 
 const yards = (a, b) => (a.c === b.c ? Math.hypot(a.wx - b.wx, a.wy - b.wy) : Infinity);
 
-// doc: the parsed crossings file -> { errors, crossings, open, chains } (normalised, with world positions).
+// doc: the parsed crossings file -> { errors, crossings, open, chains, areas } (normalised, with world positions).
 function validateCrossings(doc, frames) {
 	const errors = [];
-	const out = { errors, crossings: [], open: [], chains: [] };
+	const out = { errors, crossings: [], open: [], chains: [], areas: [] };
 	if (!isObj(doc)) {
 		errors.push('crossings file: expected a JSON object');
 		return out;
@@ -209,7 +219,9 @@ function validateCrossings(doc, frames) {
 			const p = checkPoint(n, `${where}.nodes[${k}]`, KEYS.node, frames, errors);
 			const caption = checkCaption(n && n.caption, `${where}.nodes[${k}].caption`, errors);
 			const back = checkCaption(n && n.back, `${where}.nodes[${k}].back`, errors);
-			return p && { ...p, caption, back };
+			const alone = n && n.alone;
+			if (alone !== undefined && typeof alone !== 'boolean') errors.push(`${where}.nodes[${k}]: alone must be true or false`);
+			return p && { ...p, caption, back, ...(alone === true ? { alone: true } : {}) };
 		});
 		if (nodes.some((n) => !n)) return;
 		for (let k = 1; k < nodes.length; k++) {
@@ -218,6 +230,34 @@ function validateCrossings(doc, frames) {
 			if (d > LIMITS.hopYards) return void errors.push(`${where}: nodes ${k - 1} -> ${k} are ${Math.round(d)} yd apart (more than ${LIMITS.hopYards})`);
 		}
 		out.chains.push({ id: e.id, name: e.name || e.id, open, c: nodes[0].c, nodes });
+	});
+
+	list('areas').forEach((e, i) => {
+		const where = `areas[${i}]${isObj(e) && typeof e.id === 'string' ? ` (${e.id})` : ''}`;
+		if (!isObj(e)) return void errors.push(`${where}: expected an object`);
+		unknownKeys(e, KEYS.area, where, errors);
+		claim(e.id, where);
+		if (typeof e.name !== 'string' || !e.name.trim()) errors.push(`${where}: name must be a non-empty string`);
+		const ok = Number.isInteger(e.map) && frames.frame(e.map);
+		if (!ok) errors.push(`${where}: map ${JSON.stringify(e.map)} is not a known uiMap id with a map frame`);
+		const b = e.box;
+		const corners = ['x1', 'y1', 'x2', 'y2'].map((k) => (isObj(b) && typeof b[k] === 'number' && b[k] >= 0 && b[k] <= 100 ? b[k] : undefined));
+		if (corners.some((v) => v === undefined)) return void errors.push(`${where}: box must give x1, y1, x2, y2 in map percent (0-100)`);
+		const [x1, y1, x2, y2] = corners;
+		if (!(x1 < x2 && y1 < y2)) return void errors.push(`${where}: box x1 < x2 and y1 < y2`);
+		let zr = null;
+		if (e.z !== undefined) {
+			const range = isObj(e.z) && Number.isFinite(e.z.min) && Number.isFinite(e.z.max) && e.z.min < e.z.max;
+			if (!range) return void errors.push(`${where}: z must give min < max (yards)`);
+			zr = { zmin: e.z.min, zmax: e.z.max };
+		}
+		if (e.subzone !== undefined && !(Number.isInteger(e.subzone) && e.subzone > 0 && zr)) {
+			return void errors.push(`${where}: subzone must be a positive AreaTable id and requires z`);
+		}
+		if (!ok) return;
+		const a = frames.toWorld(e.map, x1, y1);
+		const far = frames.toWorld(e.map, x2, y2);
+		out.areas.push({ id: e.id, name: e.name, map: e.map, c: a.c, top: round(a.wx, 1), bottom: round(far.wx, 1), left: round(a.wy, 1), right: round(far.wy, 1), ...(zr || {}), ...(e.subzone === undefined ? {} : { subzone: e.subzone }) });
 	});
 	return out;
 }
@@ -443,6 +483,7 @@ function zoneTable(set, frames, { complete, live = {} }) {
 	for (const e of set.crossings) maps.add(e.a.map).add(e.b.map);
 	for (const e of set.open) maps.add(e.a).add(e.b);
 	for (const ch of set.chains) for (const n of ch.nodes) maps.add(n.map);
+	for (const a of set.areas || []) maps.add(a.map);
 	const frameOf = (map) => live[String(map)] || frames.frame(map);
 	const zones = [...maps].sort((a, b) => a - b).map((map) => {
 		const f = frameOf(map);
@@ -493,7 +534,7 @@ function crossingsLua(set, frames, { complete, live }) {
 		L.push('\t},');
 	}
 	if (set.chains.length) {
-		L.push('\t-- nodes: uiMap, continent, world yards, z (the floor height when given), radius, caption walking in, caption walking out');
+		L.push('\t-- nodes: uiMap, continent, world yards, z (the floor height when given), radius, caption walking in, caption walking out, alone (nothing walkable above or below it)');
 		L.push('\tchains = {');
 		for (const ch of set.chains) {
 			L.push(`\t\t{ id = ${luaStr(ch.id)}, name = ${luaStr(ch.name)}, open = ${luaStr(ch.open)}, nodes = {`);
@@ -503,9 +544,21 @@ function crossingsLua(set, frames, { complete, live }) {
 				parts.push(`r = ${num(n.r)}`);
 				if (n.caption) parts.push(`caption = ${luaStr(n.caption)}`);
 				if (n.back) parts.push(`back = ${luaStr(n.back)}`);
+				if (n.alone) parts.push('alone = true');
 				L.push(`\t\t\t{ ${parts.join(', ')} },`);
 			}
 			L.push('\t\t} },');
+		}
+		L.push('\t},');
+	}
+	if (set.areas && set.areas.length) {
+		L.push('\t-- parts of a zone no walk joins to the rest of it: id, name, uiMap, continent, world box (top, bottom: wx; left, right: wy),');
+		L.push('\t-- with a height range (zmin, zmax) a place only the portals that land in it reach');
+		L.push('\tareas = {');
+		for (const a of set.areas) {
+			const z = a.zmin !== undefined ? `, zmin = ${num(a.zmin)}, zmax = ${num(a.zmax)}` : '';
+			const subzone = a.subzone === undefined ? '' : `, subzone = ${a.subzone}`;
+			L.push(`\t\t{ id = ${luaStr(a.id)}, name = ${luaStr(a.name)}, map = ${a.map}, c = ${a.c}, top = ${num(a.top)}, bottom = ${num(a.bottom)}, left = ${num(a.left)}, right = ${num(a.right)}${z}${subzone} },`);
 		}
 		L.push('\t},');
 	}

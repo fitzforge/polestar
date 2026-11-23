@@ -42,6 +42,9 @@ return {
 	["{item:2411}, 20g, {npc:1460}"] = "{item:2411}, 20g, {npc:1460}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Any Alliance race can buy these horses, but riding one also takes Horse Riding, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "Jede Allianzrasse kann diese Pferde kaufen, aber um eines zu reiten, braucht man auch Pferdreiten, das nur Menschen mit {skill:762} bekommen. {npc:4732} lehrt es andere Rassen, sobald sie bei {faction:72} Ehrfürchtig sind (der Ruf-Guide für Sturmwind zeigt den Weg). Bis dahin kaufe für diesen Charakter kein Pferd.",
+	-- ["Horse {skill:762} for other races"] = "Pferde-{skill:762} für andere Rassen",
 	-- ["{item:2411} is in the client, but no vendor is confirmed to sell it in Forever."] = "{item:2411} ist im Client vorhanden, aber für Forever ist kein Händler bestätigt, der es verkauft.",
 	-- ["{npc:4732} and {npc:384}'s horse pen are at {area:88} in eastern {zone:1429}. At 40 {npc:4732} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Alliance race ride these."] = "Der Pferdepferch von {npc:4732} und {npc:384} ist in {area:88} im Osten von {zone:1429}. Mit 40 lehrt dich {npc:4732} {skill:762} (100g laut den Designern von Blizzard), und wenn du es lernst, bekommst du ein Reittier. Im Forever-Client dürfen alle Völker der Allianz diese reiten.",
+	-- ["{npc:4732}, Horse Riding"] = "{npc:4732}, Pferdreiten",
 }

@@ -3,12 +3,14 @@ name: Discord bug threads
 # An issue filed from the Discord #bugs forum (label `discord`) is closed or
 # reopened: tell the player in their thread, set its status tag and lock or
 # unlock it. Labelled needs-info: ask the player the maintainer's last
-# comment in the thread, so the question reaches them. tools/discord-bot/README.md
-# has the setup.
+# comment in the thread, so the question reaches them. An issue opened on
+# GitHub with a bug form whose Polestar version is older than the latest full
+# release: ask the reporter to update (the bot does that for Discord posts).
+# tools/discord-bot/README.md has the setup.
 
 on:
   issues:
-    types: [closed, reopened, labeled]
+    types: [opened, closed, reopened, labeled]
 
 permissions:
   contents: read
@@ -21,6 +23,7 @@ jobs:
     name: Tell the thread
     if: >
       contains(github.event.issue.labels.*.name, 'discord') &&
+      github.event.action != 'opened' &&
       (github.event.action != 'labeled' || github.event.label.name == 'needs-info')
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -44,4 +47,27 @@ jobs:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           DISCORD_FORUM_ID: ${{ vars.DISCORD_FORUM_ID }}
           BOT_GITHUB_LOGIN: ${{ vars.BOT_GITHUB_LOGIN }}
+          GITHUB_TOKEN: ${{ github.token }}
+
+  update:
+    name: Ask for the latest version
+    if: github.event.action == 'opened' && !contains(github.event.issue.labels.*.name, 'discord')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          sparse-checkout: tools/discord-bot
+          persist-credentials: false
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - name: Update reply
+        run: node tools/discord-bot/notify.js update
+        env:
           GITHUB_TOKEN: ${{ github.token }}

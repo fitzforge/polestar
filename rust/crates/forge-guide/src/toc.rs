@@ -63,30 +63,30 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 		"Polestar_Guides_Alliance",
 		["Polestar Guides (Allianz)", "Polestar: guías (Alianza)", "Polestar: guías (Alianza)", "Polestar : guides (Alliance)", "Polestar 가이드 (얼라이언스)", "Polestar: guias (Aliança)", "Polestar: гайды (Альянс)", "Polestar 指南（联盟）", "Polestar 指南（聯盟）"],
 		[
-			"Guides von Polestar für Charaktere der Allianz. Wird bei Bedarf geladen.",
-			"Guías de Polestar para personajes de la Alianza. Se carga bajo demanda.",
-			"Guías de Polestar para personajes de la Alianza. Se carga bajo demanda.",
-			"Guides de Polestar pour les personnages de l'Alliance. Chargé à la demande.",
-			"얼라이언스 캐릭터를 위한 Polestar 가이드. 필요할 때 불러옵니다.",
-			"Guias do Polestar para personagens da Aliança. Carregado sob demanda.",
-			"Гайды Polestar для персонажей Альянса. Загружается по требованию.",
-			"Polestar 的联盟角色指南。按需加载。",
-			"Polestar 的聯盟角色指南。按需載入。",
+			"Guides von Polestar für Charaktere der Allianz, mit den Laufwegen jedes Volkes. Wird bei Bedarf geladen.",
+			"Guías de Polestar para personajes de la Alianza, con los recorridos de cada raza. Se carga bajo demanda.",
+			"Guías de Polestar para personajes de la Alianza, con los recorridos de cada raza. Se carga bajo demanda.",
+			"Guides de Polestar pour les personnages de l'Alliance, avec les trajets de chaque race. Chargé à la demande.",
+			"얼라이언스 캐릭터를 위한 Polestar 가이드와 종족별 도보 경로. 필요할 때 불러옵니다.",
+			"Guias do Polestar para personagens da Aliança, com os trajetos de cada raça. Carregado sob demanda.",
+			"Гайды Polestar для персонажей Альянса с пешими маршрутами каждой расы. Загружается по требованию.",
+			"Polestar 的联盟角色指南，含各种族的步行路线。按需加载。",
+			"Polestar 的聯盟角色指南，含各種族的步行路線。按需載入。",
 		],
 	),
 	(
 		"Polestar_Guides_Horde",
 		["Polestar Guides (Horde)", "Polestar: guías (Horda)", "Polestar: guías (Horda)", "Polestar : guides (Horde)", "Polestar 가이드 (호드)", "Polestar: guias (Horda)", "Polestar: гайды (Орда)", "Polestar 指南（部落）", "Polestar 指南（部落）"],
 		[
-			"Guides von Polestar für Charaktere der Horde. Wird bei Bedarf geladen.",
-			"Guías de Polestar para personajes de la Horda. Se carga bajo demanda.",
-			"Guías de Polestar para personajes de la Horda. Se carga bajo demanda.",
-			"Guides de Polestar pour les personnages de la Horde. Chargé à la demande.",
-			"호드 캐릭터를 위한 Polestar 가이드. 필요할 때 불러옵니다.",
-			"Guias do Polestar para personagens da Horda. Carregado sob demanda.",
-			"Гайды Polestar для персонажей Орды. Загружается по требованию.",
-			"Polestar 的部落角色指南。按需加载。",
-			"Polestar 的部落角色指南。按需載入。",
+			"Guides von Polestar für Charaktere der Horde, mit den Laufwegen jedes Volkes. Wird bei Bedarf geladen.",
+			"Guías de Polestar para personajes de la Horda, con los recorridos de cada raza. Se carga bajo demanda.",
+			"Guías de Polestar para personajes de la Horda, con los recorridos de cada raza. Se carga bajo demanda.",
+			"Guides de Polestar pour les personnages de la Horde, avec les trajets de chaque race. Chargé à la demande.",
+			"호드 캐릭터를 위한 Polestar 가이드와 종족별 도보 경로. 필요할 때 불러옵니다.",
+			"Guias do Polestar para personagens da Horda, com os trajetos de cada raça. Carregado sob demanda.",
+			"Гайды Polestar для персонажей Орды с пешими маршрутами каждой расы. Загружается по требованию.",
+			"Polestar 的部落角色指南，含各种族的步行路线。按需加载。",
+			"Polestar 的部落角色指南，含各種族的步行路線。按需載入。",
 		],
 	),
 	(
@@ -150,6 +150,38 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 		],
 	),
 	(
+		"Polestar_Options",
+		["Polestar-Einstellungen", "Polestar: configuración", "Polestar: configuración", "Polestar : réglages", "Polestar 설정", "Polestar: configurações", "Polestar: настройки", "Polestar 设置", "Polestar 設定"],
+		[
+			"Teil von Polestar: das Einstellungsfenster, seine Darstellungsseiten und ihre Vorschauen. Wird geladen, wenn du die Einstellungen öffnest.",
+			"Parte de Polestar: la ventana de configuración, sus páginas de aspecto y sus vistas previas. Se carga al abrir la configuración.",
+			"Parte de Polestar: la ventana de configuración, sus páginas de aspecto y sus vistas previas. Se carga al abrir la configuración.",
+			"Fait partie de Polestar : la fenêtre des réglages, ses pages d'apparence et leurs aperçus. Chargé à l'ouverture des réglages.",
+			"Polestar의 일부: 설정 창과 모양 페이지, 그 미리 보기. 설정을 열 때 불러옵니다.",
+			"Parte do Polestar: a janela de configurações, suas páginas de aparência e as prévias delas. Carregado ao abrir as configurações.",
+			"Часть Polestar: окно настроек, его страницы оформления и их предпросмотр. Загружается при открытии настроек.",
+			"Polestar 的组成部分：设置窗口、外观页面及其预览。打开设置时加载。",
+			"Polestar 的一部分：設定視窗、外觀頁面及其預覽。開啟設定時載入。",
+		],
+	),
+	// Polestar's ten skins and the Atlas layout (one folder since 0.4.3, #3507): loaded with the first one used or
+	// listed.
+	(
+		"Polestar_Skins",
+		["Polestar-Skins", "Polestar: aspectos", "Polestar: aspectos", "Polestar : skins", "Polestar 스킨", "Polestar: aparências", "Polestar: облики", "Polestar 皮肤", "Polestar 外觀主題"],
+		[
+			"Teil von Polestar: seine zehn Skins und das Atlas-Layout. Wird geladen, wenn du einen davon verwendest oder die Einstellungen sie auflisten.",
+			"Parte de Polestar: sus diez aspectos y el diseño Atlas. Se carga al usar uno de ellos o cuando la configuración los muestra.",
+			"Parte de Polestar: sus diez aspectos y el diseño Atlas. Se carga al usar uno de ellos o cuando la configuración los muestra.",
+			"Fait partie de Polestar : ses dix skins et la disposition Atlas. Chargé quand vous en utilisez un ou quand les réglages les affichent.",
+			"Polestar의 일부: 스킨 열 가지와 Atlas 레이아웃. 그중 하나를 쓰거나 설정에서 목록을 보일 때 불러옵니다.",
+			"Parte do Polestar: suas dez aparências e o layout Atlas. Carregado ao usar uma delas ou quando as configurações as mostram.",
+			"Часть Polestar: его десять обликов и макет Atlas. Загружается, когда выбран один из них или когда настройки показывают их список.",
+			"Polestar 的组成部分：十款皮肤和 Atlas 布局。使用其中之一或在设置中列出它们时加载。",
+			"Polestar 的一部分：十款外觀主題與 Atlas 版面。使用其中之一或在設定中列出它們時載入。",
+		],
+	),
+	(
 		"Polestar_QuestDB",
 		["Polestar Quest-Datenbank", "Polestar: base de datos de misiones", "Polestar: base de datos de misiones", "Polestar : base de données des quêtes", "Polestar 퀘스트 데이터베이스", "Polestar: banco de dados de missões", "Polestar: база заданий", "Polestar 任务数据库", "Polestar 任務資料庫"],
 		[
@@ -177,6 +209,38 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 			"Записывает задания, маршруты и данные мира во время игры, для создания гайдов Polestar. /psrec",
 			"在游戏时记录任务、路线和世界数据，用于编写 Polestar 指南。/psrec",
 			"在遊戲時記錄任務、路線與世界資料，用於撰寫 Polestar 指南。/psrec",
+		],
+	),
+	// The games to play on a flight (Maps/Arcade.lua): loaded the first time Play is pressed.
+	(
+		"Polestar_Arcade",
+		["Polestar Arcade", "Polestar: arcade", "Polestar: arcade", "Polestar : arcade", "Polestar 아케이드", "Polestar: arcade", "Polestar: аркада", "Polestar 街机", "Polestar 街機"],
+		[
+			"Teil von Polestar: Spiele zum Spielen während eines Flugs. Wird geladen, wenn du auf Spielen klickst.",
+			"Parte de Polestar: juegos para jugar durante un vuelo. Se carga cuando pulsas Jugar.",
+			"Parte de Polestar: juegos para jugar durante un vuelo. Se carga cuando pulsas Jugar.",
+			"Fait partie de Polestar : des jeux à jouer pendant un vol. Chargé quand vous cliquez sur Jouer.",
+			"Polestar의 일부: 비행 중에 즐기는 게임. 플레이를 누르면 불러옵니다.",
+			"Parte do Polestar: jogos para jogar durante um voo. Carregado quando você clica em Jogar.",
+			"Часть Polestar: игры, чтобы поиграть в полёте. Загружается, когда вы нажимаете «Играть».",
+			"Polestar 的组成部分：飞行途中可玩的游戏。点击“开始游戏”时加载。",
+			"Polestar 的一部分：飛行途中可玩的遊戲。點擊「開始遊戲」時載入。",
+		],
+	),
+	// The Skin API's example (docs/SKINS-API.md): in the repository only, never in a release.
+	(
+		"Polestar_Skin_Example",
+		["Polestar: Design-Beispiel", "Polestar: tema de ejemplo", "Polestar: tema de ejemplo", "Polestar : habillage d'exemple", "Polestar 스킨 예제", "Polestar: tema de exemplo", "Polestar: пример оформления", "Polestar 皮肤示例", "Polestar 皮膚範例"],
+		[
+			"Ein Beispiel-Design für Polestar (Moonlit) für Design-Autoren. Nicht Teil von Polestars Veröffentlichung.",
+			"Un tema de ejemplo para Polestar (Moonlit), para autores de temas. No forma parte de la versión de Polestar.",
+			"Un tema de ejemplo para Polestar (Moonlit), para autores de temas. No forma parte de la versión de Polestar.",
+			"Un habillage d'exemple pour Polestar (Moonlit), pour les auteurs d'habillages. Ne fait pas partie de la version publiée de Polestar.",
+			"스킨 제작자를 위한 Polestar 예제 스킨(Moonlit). Polestar 배포판에는 포함되지 않습니다.",
+			"Um tema de exemplo para o Polestar (Moonlit), para autores de temas. Não faz parte da versão do Polestar.",
+			"Пример оформления для Polestar (Moonlit) для авторов оформлений. Не входит в выпуск Polestar.",
+			"供皮肤作者参考的 Polestar 示例皮肤（Moonlit）。不属于 Polestar 的发行版。",
+			"供皮膚作者參考的 Polestar 範例皮膚（Moonlit）。不屬於 Polestar 的發行版本。",
 		],
 	),
 ];
@@ -220,14 +284,15 @@ pub fn retired_language_addons(locale: &str) -> [String; 2] {
 }
 
 /// The language folder's interface strings (`forge i18n sync` and the translators): never written or
-/// removed by `forge guide compile` or `forge data names`.
+/// removed by `forge guide compile`, `forge data names` or `forge data subzones`.
 pub const INTERFACE_FILE: &str = "Interface.lua";
 
-/// The language folder's files, in load order: every writer of the folder lists all three.
-pub const LANGUAGE_FILES: [&str; 3] = [INTERFACE_FILE, "Names.lua", "Texts.lua"];
+/// The language folder's files, in load order: every writer of the folder lists all four.
+pub const LANGUAGE_FILES: [&str; 4] = [INTERFACE_FILE, "Names.lua", "Subzones.lua", "Texts.lua"];
 
-/// <Polestar_<locale>>.toc, written whole and alike by `forge guide compile` (Texts.lua) and
-/// `forge data names` (Names.lua), so either may run first. `version`: the release's.
+/// <Polestar_<locale>>.toc, written whole and alike by `forge guide compile` (Texts.lua), `forge data
+/// names` (Names.lua) and `forge data subzones` (Subzones.lua), so any may run first. `version`: the
+/// release's.
 pub fn language_toc(locale: &str, iface: &str, version: &str) -> String {
 	let language = crate::locales::language(locale);
 	let name = language_addon(locale);
@@ -247,7 +312,7 @@ pub fn language_toc(locale: &str, iface: &str, version: &str) -> String {
 		"## X-Polestar-Texts: guides".into(),
 		format!("## X-Polestar-Locale: {locale}"),
 		"## X-License: GPL-3.0-only".into(),
-		format!("# {} (Texts.lua) and `forge data names` (Names.lua). Do not edit: rebuild with those commands.", crate::format::GENERATED_MARKER),
+		format!("# {} (Texts.lua), `forge data names` (Names.lua) and `forge data subzones` (Subzones.lua). Do not edit: rebuild with those commands.", crate::format::GENERATED_MARKER),
 		String::new(),
 	]);
 	lines.extend(LANGUAGE_FILES.map(String::from));
@@ -267,35 +332,6 @@ static LANGUAGE_NAMES: [[&str; 9]; 9] = [
 	["德語", "西班牙語（西班牙）", "西班牙語（拉丁美洲）", "法語", "韓語", "葡萄牙語（巴西）", "俄語", "簡體中文", "繁體中文"],
 ];
 
-/// Our pack's race parts (Polestar_Guides_<race file>: a race's class chains and the baked legs of the
-/// guides it may follow): (title, notes) in LOCALE_CODES order, %2 the race in this language.
-const RACE_PART_PREFIX: &str = "Polestar_Guides_";
-static PER_RACE: [(&str, &str); 9] = [
-	("Polestar Guides (%2)", "Leveling-Guides von Polestar und ihre Laufwege für Charaktere der Rasse %2. Wird bei Bedarf geladen."),
-	("Polestar: guías (%2)", "Guías de subida de nivel de Polestar y sus rutas a pie para personajes de la raza %2. Se carga bajo demanda."),
-	("Polestar: guías (%2)", "Guías de subida de nivel de Polestar y sus rutas a pie para personajes de la raza %2. Se carga bajo demanda."),
-	("Polestar : guides (%2)", "Guides de montée en niveau de Polestar et leurs trajets à pied pour les personnages de la race %2. Chargé à la demande."),
-	("Polestar 가이드 (%2)", "%2 캐릭터를 위한 Polestar 레벨업 가이드와 도보 경로. 필요할 때 불러옵니다."),
-	("Polestar: guias (%2)", "Guias de evolução do Polestar e suas rotas a pé para personagens da raça %2. Carregado sob demanda."),
-	("Polestar: гайды (%2)", "Гайды Polestar по прокачке и их пешие маршруты для персонажей расы «%2». Загружается по требованию."),
-	("Polestar 指南（%2）", "Polestar 为%2角色提供的练级指南及其步行路线。按需加载。"),
-	("Polestar 指南（%2）", "Polestar 為%2角色提供的升級指南及其步行路線。按需載入。"),
-];
-
-/// Each race in each language as the interface files (addon/Polestar_<locale>/Interface.lua) have it: RACE_NAMES[locale][race], LOCALE_CODES and
-/// RACE_FILES order.
-static RACE_NAMES: [[&str; 9]; 9] = [
-	["Mensch", "Orc", "Zwerg", "Nachtelf", "Untoter", "Tauren", "Gnom", "Troll", "Himmelsgeborene"],
-	["Humano", "Orco", "Enano", "Elfo de la noche", "No-muerto", "Tauren", "Gnomo", "Trol", "Cielonato"],
-	["Humano", "Orco", "Enano", "Elfo de la noche", "No-muerto", "Tauren", "Gnomo", "Trol", "Cielonato"],
-	["Humain", "Orc", "Nain", "Elfe de la nuit", "Mort-vivant", "Tauren", "Gnome", "Troll", "Éolide"],
-	["인간", "오크", "드워프", "나이트 엘프", "언데드", "타우렌", "노움", "트롤", "스카이본"],
-	["Humano", "Orc", "Anão", "Elfo Noturno", "Morto-vivo", "Tauren", "Gnomo", "Troll", "Celonato"],
-	["Человек", "Орк", "Дворф", "Ночной эльф", "Нежить", "Таурен", "Гном", "Тролль", "Небеснорожденный"],
-	["人类", "兽人", "矮人", "暗夜精灵", "亡灵", "牛头人", "侏儒", "巨魔", "天裔"],
-	["人類", "獸人", "矮人", "夜精靈", "不死族", "牛頭人", "地精", "食人妖", "天裔精靈"],
-];
-
 /// TOC_ADDONS: the addons with fixed texts, in order.
 pub fn toc_addons() -> Vec<&'static str> {
 	TEXT.iter().map(|t| t.0).collect()
@@ -305,10 +341,6 @@ pub fn toc_addons() -> Vec<&'static str> {
 pub fn toc_text(addon: &str) -> Result<Vec<(&'static str, String, String)>, String> {
 	if let Some((_, titles, notes)) = TEXT.iter().find(|t| t.0 == addon) {
 		return Ok(LOCALE_CODES.iter().enumerate().map(|(i, l)| (*l, titles[i].to_string(), notes[i].to_string())).collect());
-	}
-	if let Some(ri) = addon.strip_prefix(RACE_PART_PREFIX).and_then(|r| crate::races::RACE_FILES.iter().position(|f| *f == r)) {
-		let fill = |s: &str, li: usize| s.replacen("%2", RACE_NAMES[li][ri], 1);
-		return Ok(LOCALE_CODES.iter().enumerate().map(|(i, l)| (*l, fill(PER_RACE[i].0, i), fill(PER_RACE[i].1, i))).collect());
 	}
 	for (prefix, templates) in PER_LANGUAGE {
 		let Some(pack) = addon.strip_prefix(prefix) else { continue };

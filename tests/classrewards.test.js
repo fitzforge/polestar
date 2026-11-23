@@ -47,3 +47,52 @@ test('only the data\'s class limit makes a class quest: a class guide\'s errand 
 	assert.deepEqual(out.map((e) => e.q), [397]);
 	assert.deepEqual(starts.map((s) => s.q), [397]);
 });
+
+// #2462 (TAKODACHI): a class guide holds each step to the player's level (Fitz's level rule, 0.4.0), so the heads-up
+// waits for the level the guide takes the chain's first quest at, not the quest's own minimum: a card never says
+// "ready" at a level the guide then holds you back from. A level 1 start stays at 1 (no heads-up at all).
+test('the heads-up comes at the class guide\'s hold on the first quest, when that is above the quest\'s minimum (#2462)', () => {
+	const quests = { 10: quest(10, -61, 30, ROBE), 20: quest(20, -61, 1, BLADE) };
+	const guides = [
+		{ file: 'robe.guide', mask: 256, reward: { items: [ROBE] }, quests: [10], holds: { 10: 43 } },
+		{ file: 'blade.guide', mask: 256, reward: { items: [BLADE] }, quests: [20], holds: { 20: 3 } },
+	];
+	const { starts } = buildClassRewards({ quests, tdb: null, table, guides, npcs: { 1: giver }, objects: {}, races });
+	assert.equal(starts.find((s) => s.q === 10).minLevel, 43, 'the card waits for the guide\'s hold');
+	assert.equal(starts.find((s) => s.q === 20).minLevel, 1, 'a level 1 start keeps no heads-up');
+});
+
+// The shipped card data against today's class guides: every start a class guide takes comes at its hold or later.
+test('ClassRewards.lua: no class-quest heads-up comes before its class guide\'s hold (#2462)', () => {
+	const fs = require('node:fs');
+	const path = require('node:path');
+	const { classGuides } = require('../tools/commands/classrewards');
+	const lua = fs.readFileSync(path.join(__dirname, '..', 'addon', 'Polestar', 'UI', 'ClassRewards.lua'), 'utf8');
+	const starts = {};
+	for (const m of lua.slice(lua.indexOf('starts = {')).matchAll(/\[(\d+)\] = \{ (\d+), g/g)) starts[m[1]] = Number(m[2]);
+	const held = {};
+	for (const g of classGuides(path.join(__dirname, '..', 'guides'))) {
+		for (const [q, hold] of Object.entries(g.holds)) if (!(q in held) || hold < held[q]) held[q] = hold;
+	}
+	const early = Object.entries(starts).filter(([q, lv]) => lv > 1 && held[q] > lv).map(([q, lv]) => `${q}: card at ${lv}, guide holds ${held[q]}`);
+	assert.deepEqual(early, []);
+});
+
+test('a buff the turn-in casts with another class\'s spell is no reward: the priests\' Blood of Morphaz casts Mark of the Wild (#2440)', () => {
+	const MOTW = 9884, CAT = 768;
+	const t = {
+		...tables,
+		SkillLineAbility: [{ Spell: MOTW, ClassMask: 1024 }, { Spell: CAT, ClassMask: 1024 }],
+		SpellName: [{ ID: MOTW, Name_lang: 'Mark of the Wild' }, { ID: CAT, Name_lang: 'Cat Form' }],
+	};
+	const quests = {
+		8257: { ...quest(8257, -202, 52, ROBE), classes: 16 }, // a Priest quest
+		20: { ...quest(20, -263, 20, BLADE), classes: 1024 }, // a Druid quest that teaches a druid spell
+	};
+	const tdb = { quests: { 8257: { rewardSpell: MOTW }, 20: { rewardSpell: CAT } } };
+	const { rewards, quests: out } = buildClassRewards({ quests, tdb, table: (n) => t[n] || [], guides: [], npcs: { 1: giver }, objects: {}, races });
+	const of = (q) => rewards[out.find((e) => e.q === q).reward - 1];
+	assert.equal(of(8257).spell, undefined, 'no Mark of the Wild on the priest card');
+	assert.deepEqual(of(8257).items, [ROBE]);
+	assert.equal(of(20).spell, CAT, 'a druid still learns Cat Form');
+});

@@ -63,6 +63,7 @@ step Anastasia Hartwell
 
 step The alchemist shop
   tip Algernon's alchemist shop is in the Apothecarium. Stand on the steps or the bridge outside the shop and read the Cantation of Manifestation: up to four invisible Rift Spawns (level 16-17) appear and attack at once, and the city guards do not help. Hit one with a single-target spell and back off over the bridge: the others give up and fade, the one you hit follows. Beat it down on the shop's half of the bridge (past halfway the coffer will not work on it) until it stops fighting and sits stunned under a spiral, use the Chest of Containment Coffers on it, then click the Filled Containment Coffer once it appears on the floor (clicking too early wastes a charge). Three are needed.
+  level 16
   use 7308 optional @53.2,74.5                -- Cantation of Manifestation
   kill 6492 optional                          -- Rift Spawn, down to the stun
   use 7247 optional @53.2,74.5                -- Chest of Containment Coffers, on the stunned Rift Spawn
@@ -75,6 +76,7 @@ step Back to Anastasia Hartwell
 step Ambermill
   zone Silverpine Forest
   tip Leave the Undercity and follow the road south through Silverpine Forest. Every Dalaran human drops a Dalaran Mana Gem four times in five, and Linen Cloth too: the easiest are the Dalaran Apprentices (level 13-14, Frostbolt) on the hills south-east of the Sepulcher, either side of the road south; deeper in, the walled town of Ambermill in south-east Silverpine has Watchers (18-19, Fire Shield and Flamestrike) and Wizards (19-20, Frost Nova) that come back every 4 1/2 minutes and run for help at low health, so pull at the edge. Ten Linen Cloth also come from any humanoid or the Undercity Auction House.
+  level 17
   collect 7293 x6 quest 1961.2                -- Dalaran Mana Gem
   collect 2589 x10 quest 1961.1               -- Linen Cloth
 

@@ -7,7 +7,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { OFFICIAL_DIR } = require('../dsl/project');
-const { DATA } = require('../paths');
+const { ROOT, DATA } = require('../paths');
+const { OWN_EXTRAS } = require('./format');
 const { readManifest } = require('./manifest');
 
 // The nearest folder holding pack.json, from startDir up to the filesystem root; null when none.
@@ -32,12 +33,19 @@ function samePath(a, b) {
 	return real(a) === real(b);
 }
 
+// One of Polestar's own extra packs (format.js OWN_EXTRAS: experimental/
+// beside guides/) when dir is its folder in this checkout, else null: read as
+// another pack's, it may give the id reserved for it.
+function ownExtra(dir) {
+	return OWN_EXTRAS.find((e) => samePath(dir, path.join(ROOT, e.source))) || null;
+}
+
 // -> { dir, manifest, official, diags }: manifest is null when pack.json is
 // missing or invalid (diags say why). `official` is true for our guides/.
 function resolvePack({ pack, cwd = process.cwd() } = {}) {
 	const dir = pack ? path.resolve(cwd, pack) : findPackDir(cwd) || OFFICIAL_DIR;
 	const official = samePath(dir, OFFICIAL_DIR);
-	const { manifest, diags } = readManifest(dir, { official });
+	const { manifest, diags } = readManifest(dir, { official, extra: official ? null : ownExtra(dir) });
 	return { dir, manifest, official, diags };
 }
 
@@ -91,4 +99,4 @@ function commandPack(opts, cwd = process.cwd()) {
 	};
 }
 
-module.exports = { findPackDir, resolvePack, packArgument, commandPack, contextError };
+module.exports = { findPackDir, ownExtra, resolvePack, packArgument, commandPack, contextError };

@@ -3,7 +3,7 @@ local ADDON, ns = ...
 local Maps = ns.Maps
 -- Inns and flight masters are the travel layers' (Maps/Services.lua).
 local ROLES = { "vendor", "repair", "banker", "auctioneer",
-	"battlemaster", "spirithealer", "stablemaster", "trainer", "weapon" }
+	"battlemaster", "spirithealer", "stablemaster", "transmogrifier", "trainer", "weapon" }
 
 -- The layer keeps its records for filter changes: only friendly ones, and only
 -- the fields it draws (a decoded Codex record carries loot, levels and flags

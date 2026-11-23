@@ -7,6 +7,8 @@
 --
 -- Setting ui.reduceMotion: movement (offset, size, scale, width) snaps to its
 -- end; opacity still fades, shorter, because a fade aids comprehension.
+-- Setting ui.animSpeed (0.5-2, Theme > Motion): every tween runs that much
+-- faster (2: half the time).
 
 local ADDON, ns = ...
 local Anim = {}
@@ -92,6 +94,12 @@ function Anim.Reduced()
 	return ns.Get and ns.Get("ui.reduceMotion") and true or false
 end
 
+-- How much faster than written every tween runs (ui.animSpeed, 0.5 to 2).
+function Anim.Speed()
+	local v = tonumber(ns.Get and ns.Get("ui.animSpeed")) or 1
+	return math.max(0.5, math.min(2, v))
+end
+
 -- Remember where an object belongs, for "offset" tweens.
 function Anim.Anchor(obj, point, rel, relPoint, x, y)
 	local p = obj.psAnchor
@@ -121,6 +129,7 @@ function Anim.To(obj, kind, from, to, dur, ease, done)
 	if Anim.Reduced() then
 		if MOTION[kind] then dur = 0 else dur = (dur or Anim.BASE) * 0.6 end
 	end
+	if dur and dur > 0 then dur = dur / Anim.Speed() end
 	rec.from, rec.to, rec.done = from, to, done
 	rec.ease = EASE[ease or "out"] or EASE.out
 	if not dur or dur <= 0 then

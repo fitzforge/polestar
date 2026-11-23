@@ -90,6 +90,65 @@ fn captured(s: &str) -> bool {
 	CAPTURED_XP.contains(&s)
 }
 
+/// Quest-XP sources that read the server's own numbers (its quest records, the game caches, what
+/// players were paid). Two of them giving exactly the same value outvote any single other value,
+/// whatever its tier: against players' recorded hand-ins (2,062 quests, 2026-11-12) EG Link's live
+/// records were never wrong and Factoruide's collector 3 times, while the TDB's XP was wrong 24 times
+/// and ForeverDB's captures 27 times, and both rank before the collector today.
+const XP_VOTERS: [&str; 6] = ["tdb", "eg.observed", "eg", "client.cache", "factoruide.collector", "foreverdb.xp"];
+
+/// The quest-XP candidate (index into `valid`) that two or more [`XP_VOTERS`] give exactly: Factoruide's
+/// collector and a game cache (EG Link's records, the client's) agreeing win outright; otherwise the
+/// value most such sources give, when at least two do and no other value has as many. Ours never votes.
+fn xp_agreed(valid: &[Cand]) -> Option<usize> {
+	let mut groups: Vec<(f64, Vec<usize>)> = Vec::new();
+	for (i, c) in valid.iter().enumerate() {
+		if c.project || !XP_VOTERS.contains(&c.source.as_str()) {
+			continue;
+		}
+		let v = c.value.num();
+		match groups.iter_mut().find(|(x, _)| *x == v) {
+			Some((_, ix)) => ix.push(i),
+			None => groups.push((v, vec![i])),
+		}
+	}
+	let sources = |ix: &[usize]| -> FxHashSet<&str> { ix.iter().map(|&i| valid[i].source.as_str()).collect() };
+	let pair = |ix: &[usize]| {
+		let s = sources(ix);
+		s.contains("factoruide.collector") && (s.contains("eg") || s.contains("client.cache"))
+	};
+	if let Some((_, ix)) = groups.iter().find(|(_, ix)| pair(ix)) {
+		return Some(ix[0]);
+	}
+	let mut sizes: Vec<(usize, usize)> = groups.iter().enumerate().map(|(g, (_, ix))| (sources(ix).len(), g)).collect();
+	sizes.sort_by_key(|&(n, _)| std::cmp::Reverse(n));
+	match sizes.as_slice() {
+		[(n, g), rest @ ..] if *n >= 2 && rest.first().is_none_or(|(m, _)| m < n) => Some(groups[*g].1[0]),
+		_ => None,
+	}
+}
+
+/// Whether a decision leaves our value as it is: the winner equals ours ([`Kb::eq`]), or, for an
+/// agreed quest XP ([`xp_agreed`]), is exactly ours: the game pays rounded amounts, so a value a few XP
+/// off is a wrong value, not a bonus.
+fn keeps_ours(field: &str, d: &Decision, ours: &Cand) -> bool {
+	if d.agreed {
+		d.win.value.num() == ours.value.num()
+	} else {
+		Kb::eq(field, &d.win, ours)
+	}
+}
+
+/// The reward the game pays for a quest's XP value, when it differs: the server rounds every quest
+/// reward to its steps ([`round_quest_xp`]), so a value between them is a vanilla-era number or a
+/// player's trace a few XP off (every recorded hand-in's base is rounded). A corrected or recorded
+/// value stands as written.
+fn paid_xp(q: &V, corr: &Corr) -> Option<f64> {
+	let x = q.get("xp").num();
+	let paid = round_quest_xp(x);
+	(x > 0.0 && paid != x && !matches!(project_quest_source(q, "xp", corr), "correction" | "recorder")).then_some(paid)
+}
+
 /// The fields the client's tables decide (`client`): places, items, placed objects, existence.
 /// Quest and NPC scalars come from the server, so the tables never decide those.
 fn client_field(field: &str) -> bool {
@@ -1088,6 +1147,8 @@ struct Decision {
 	win: Cand,
 	win_ix: usize,
 	valid: Vec<Cand>,
+	/// The winner is a quest XP two server-side sources agree on ([`xp_agreed`]).
+	agreed: bool,
 }
 
 pub struct KbInputs<'a> {
@@ -1100,6 +1161,14 @@ pub struct KbInputs<'a> {
 	pub zones: &'a Obj,
 	pub live: FxHashSet<i64>,
 	pub corrections: V,
+	/// Where each corrected field comes from, public corrections or the private overlay
+	/// (`crate::corrections::origins`): the `correction_origin` table the public tier reads.
+	pub correction_origins: Vec<crate::corrections::Origin>,
+	/// Per quest, the NPCs counted players handed it in to (`recordings::Stats::npc_hand_ins`).
+	pub npc_hand_ins: FxHashMap<i64, FxHashSet<i64>>,
+	/// Per quest, the prerequisites players' recorded offers disprove (the learned layer's trusted
+	/// `notPre`, `learn::not_prereqs`): the TDB's previous quest never comes back as one of them.
+	pub not_pre: FxHashMap<i64, FxHashSet<i64>>,
 	/// The fact check's local database (a local-only source); None: none.
 	pub facts_file: Option<PathBuf>,
 	pub tdb: Option<V>,
@@ -1316,7 +1385,11 @@ impl Kb<'_> {
 		}
 		ranked.sort_by(|&a, &b| tier_of(&valid[a].source, field).partial_cmp(&tier_of(&valid[b].source, field)).unwrap());
 		let mut win = ranked[0];
-		if field == "xp" && cands[0].project && cands[0].value.num() > 0.0 {
+		// Quest XP two server-side sources agree on wins, unless ours is a correction or a recording.
+		let agreed = if kind == "quest" && field == "xp" && !(cands[0].project && matches!(cands[0].source.as_str(), "correction" | "recorder")) { xp_agreed(&valid) } else { None };
+		if let Some(a) = agreed {
+			win = a;
+		} else if field == "xp" && cands[0].project && cands[0].value.num() > 0.0 {
 			let server = if kind == "quest" { self.tdb_xp(&num_str(id)) } else { None };
 			let backs = |v: &V| server.is_some_and(|s| same_xp(&V::Num(s), v, true, false));
 			let ours = cands[0].value.num();
@@ -1326,12 +1399,14 @@ impl Kb<'_> {
 					&& c.value.num() < 0.97 * ours
 					&& !valid.iter().enumerate().any(|(j, o)| {
 						j != i
-							&& !o.project && o.source != "page"
+							&& !o.project
+							&& o.source != "page"
 							&& o.source != "factoruide"
 							&& o.source != "factoruide.web"
 							&& !check_only(&o.source)
 							&& same_xp(&o.value, &c.value, captured(&o.source), false)
-					}) && !backs(&c.value)
+					})
+					&& !backs(&c.value)
 					&& (server.is_none() || backs(&cands[0].value))
 			};
 			let kept = ranked.iter().copied().find(|&i| !lone(i)).unwrap_or(win);
@@ -1372,7 +1447,7 @@ impl Kb<'_> {
 				self.alt_rows.push(vec![V::str(kind), V::Num(id), V::str(field), V::str(&c.source), V::str(&c.value.to_js_string()), V::Num(if Self::eq(field, c, &w) { 1.0 } else { 0.0 })]);
 			}
 		}
-		Some(Decision { win: w, win_ix: win, valid })
+		Some(Decision { win: w, win_ix: win, valid, agreed: agreed.is_some() })
 	}
 }
 
@@ -1466,6 +1541,8 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 	let alt = alt;
 	let tdb = inp.tdb.as_ref();
 	let mut kb = Kb { inp, changes: Vec::new(), verify_xp: FxHashMap::default(), fact_rows: Vec::new(), alt_rows: Vec::new(), verify: IndexMap::new(), pos: [0; 3] };
+	// Quests whose captured giver was not added to their enders (the rule at the `end` merge below).
+	let mut held_givers: Vec<i64> = Vec::new();
 	let alt_of = |kind: &str, id: f64| -> Vec<Fact> { alt.facts.get(&format!("{kind}:{}", num_str(id))).cloned().unwrap_or_default() };
 	let to_cand = |a: &Fact| Cand { source: a.source.clone(), value: a.value.clone(), note: a.note.clone(), project: false };
 	let npc_faction = |id: f64| -> V { npcs.get(&num_str(id)).get("faction") };
@@ -1476,6 +1553,10 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 		let a = alt_of("quest", id);
 		let races = norm_races(&q.get("races"), &q.get("classes"));
 		let none = |x: String| if x.is_empty() { "none".to_string() } else { x };
+		if let Some(paid) = paid_xp(&q, &corr) {
+			kb.change("quests", id, "xp", q.get("xp"), V::Num(paid), "rounding");
+			q.set("xp", paid);
+		}
 		let ours: Vec<(&str, V)> = vec![
 			("title", q.get("title")),
 			("level", q.get("level")),
@@ -1519,7 +1600,7 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 			}
 			let w = d.win.clone();
 			let _ = n_main;
-			if Kb::eq(field, &w, &cands[0]) {
+			if keeps_ours(field, &d, &cands[0]) {
 				continue;
 			}
 			match field {
@@ -1531,8 +1612,8 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 					q.set("title", w.value.clone());
 				}
 				"level" | "min_level" | "xp" => {
-					let v = w.value.num();
-					if !v.is_finite() {
+					let v = if field == "xp" { round_quest_xp(w.value.num()) } else { w.value.num() };
+					if !v.is_finite() || (field == "xp" && v == cands[0].value.num()) {
 						continue;
 					}
 					let key = match field {
@@ -1559,8 +1640,25 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 					let prev_o = prev.as_obj().cloned().unwrap_or_default();
 					let next = prev_o.spread();
 					let observed = OBSERVED.contains(&w.source.as_str());
+					// A quest's giver that an in-game capture also names as an ender is not added beside
+					// the enders the data already has unless players handed the quest in in that NPC's
+					// window (#2612: captures named the giver of quests handed in at an object).
+					let givers: Vec<f64> = if field == "end" && observed && (!prev.get("npc").is_empty() || !prev.get("object").is_empty()) {
+						q.get("start").get("npc").items().iter().map(V::num).collect()
+					} else {
+						Vec::new()
+					};
+					let handed = inp.npc_hand_ins.get(&(id as i64));
 					for k in ["npc", "object"] {
-						let theirs: Vec<f64> = win.iter().filter(|(kk, _)| kk == k).map(|(_, v)| *v).collect();
+						let mut theirs: Vec<f64> = win.iter().filter(|(kk, _)| kk == k).map(|(_, v)| *v).collect();
+						if k == "npc" && !givers.is_empty() {
+							let pk: Vec<f64> = prev.get(k).items().iter().map(V::num).collect();
+							let before = theirs.len();
+							theirs.retain(|v| pk.contains(v) || !givers.contains(v) || handed.is_some_and(|h| h.contains(&(*v as i64))));
+							if theirs.len() < before {
+								held_givers.push(id as i64);
+							}
+						}
 						let pk: Vec<f64> = prev.get(k).items().iter().map(V::num).collect();
 						let list: Vec<f64> = if observed {
 							pk.iter().copied().chain(theirs.iter().copied().filter(|v| !pk.contains(v))).collect()
@@ -2058,7 +2156,11 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 					bump(&tdb_report, "countsFilled", 1.0);
 				} else if mn > 0.0 && sniffed && count.num() != mn {
 					let has = |n: &str| count_in_text(&text, n);
-					if has(&num_str(mn)) && !has(&count.to_js_string()) {
+					// A count from a source that ranks above the TDB (a correction, a recording) stays, as in
+					// the fact check above: the TDB's count is only listed against it (Mercy Falls on Deaf
+					// Ears 93165: the correction's 5 ears, the TDB's and the objective text's 10).
+					let outranked = tier_of(project_quest_source(&q, "objectives", &corr), "objectives") < tier_of("tdb", "objectives");
+					if !outranked && has(&num_str(mn)) && !has(&count.to_js_string()) {
 						kb.change("quests", qidn, &label, count, V::Num(mn), "tdb");
 						o.set("count", mn);
 						tag(&q, "kb:tdb:count");
@@ -2103,12 +2205,20 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 			}
 			let no_pre = !["pre", "preAny", "preAll", "breadcrumbs"].iter().any(|k| q.get(k).is_arr() && !q.get(k).is_empty());
 			let prev = tq.get("prev");
+			// The TDB's previous quest is only the story order: it never overrules a correction's
+			// prerequisites or a prerequisite players' recorded offers disprove (the learned layer applies
+			// before this step, so an empty list may be its removal; #2781).
+			let outranked = project_quest_source(&q, "prereqs", &corr) == "correction" || inp.not_pre.get(&(q.get("id").num() as i64)).is_some_and(|n| n.contains(&(prev.num() as i64)));
 			if sniffed && prev.num() > 0.0 && no_pre && quests.get(&prev.to_js_string()).truthy() {
-				let cur = q.get("pre");
-				kb.change("quests", qidn, "pre", if cur.truthy() { cur } else { V::arr() }, arr(vec![prev.clone()]), "tdb");
-				q.set("pre", arr(vec![prev.clone()]));
-				tag(&q, "kb:tdb:pre");
-				bump(&tdb_report, "preFilled", 1.0);
+				if outranked {
+					bump(&tdb_report, "preOutranked", 1.0);
+				} else {
+					let cur = q.get("pre");
+					kb.change("quests", qidn, "pre", if cur.truthy() { cur } else { V::arr() }, arr(vec![prev.clone()]), "tdb");
+					q.set("pre", arr(vec![prev.clone()]));
+					tag(&q, "kb:tdb:pre");
+					bump(&tdb_report, "preFilled", 1.0);
+				}
 			}
 			if let Some(time) = tdb_limit(&q, &tq) {
 				let cur = q.get("limit");
@@ -2135,9 +2245,13 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 		spawnz_changed = tdb_report.get("spawnIds").num() > 0.0 && spawnz.is_some();
 		if let Some(t) = trainers.as_ref() {
 			let t2 = t.as_obj().unwrap().spread();
+			for (id, classes) in drop_tdb_non_trainers(&t2, tdb) {
+				kb.change("trainers", forge_guide::js::str_to_num(&id), "trainer", classes, V::Null, "tdb");
+				bump(&tdb_report, "trainersDropped", 1.0);
+			}
 			for (id, classes) in tdb.get("trainers").entries() {
 				let n = npcs.get(&id);
-				if t2.get(&id).truthy() || !n.truthy() || n.get("spawns").keys().is_empty() {
+				if t2.get(&id).truthy() || !n.truthy() || n.get("spawns").keys().is_empty() || !tdb_class_trainer(tdb, &id) {
 					continue;
 				}
 				let e = Obj::new();
@@ -2149,6 +2263,7 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 				kb.change("trainers", forge_guide::js::str_to_num(&id), "trainer", V::Null, classes, "tdb");
 				bump(&tdb_report, "trainersAdded", 1.0);
 			}
+			set_trainer_tops(&t2, &tdb.get("trainerTop"));
 			trainers = Some(V::Obj(t2));
 		}
 		let tt = tdb.get("training");
@@ -2406,9 +2521,18 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 	let vc = verify_counts(&verify_v);
 	vc.set("positionComparisons", pos_v);
 
+	if !held_givers.is_empty() {
+		held_givers.sort_unstable();
+		held_givers.dedup();
+		log(&format!(
+			"kb: {} quest(s) whose giver an in-game capture names as an ender, kept off their enders (no hand-in in that NPC's window): {}",
+			held_givers.len(),
+			held_givers.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")
+		));
+	}
 	// ---- write ----
 	if let Some(f) = &inp.kb_file {
-		write_kb(f, &kb, quests, npcs, objects, items, &verify_v, &mech, tdb, training.as_ref(), trainers.as_ref(), &alt.versions)?;
+		write_kb(f, &kb, quests, npcs, objects, items, &verify_v, &mech, tdb, training.as_ref(), trainers.as_ref(), &alt.versions, &inp.correction_origins)?;
 	}
 	if let Some(f) = &inp.verify_file {
 		std::fs::create_dir_all(f.parent().unwrap()).map_err(|e| e.to_string())?;
@@ -2550,7 +2674,7 @@ fn verify_counts(list: &[V]) -> Obj {
 /// not rate out whenever a rated one stands nearer (Red Leather Bandana 829: QuestieDB's server table
 /// rates the Highwaymen at 80 and none of the Trappers, Smugglers, Pillagers or Looters, which the
 /// TDB has at 40, so the world sent Red Leather Bandanas to the level 17 Highwaymen of Moonbrook,
-/// past the Defias the Militia quests kill: RevA1, c13). A sniffed row fills any table (above).
+/// past the Defias the Militia quests kill: c13 review). A sniffed row fills any table (above).
 fn tdb_rate_fills_unrated(item: &V, row: &V) -> bool {
 	let scale = item.get("dropScale");
 	(scale.is_nullish() || scale.as_str() == Some("server")) && row.num_at(0) > 0.0
@@ -2992,7 +3116,7 @@ fn build_mechanics(files: &MechFiles, quests: &Obj, corrections: &V) -> Result<M
 		}
 		let corr = corrections.get(&id);
 		if corr.truthy() {
-			apply_mech_correction(&corr, &mut kinds, &mut params, &steps)?;
+			apply_mech_correction(&corr, &mut kinds, &mut params, &steps, files.quest_steps.exists())?;
 			bump("corrected", 1.0);
 		}
 		let gotchas: Vec<Obj> = sq
@@ -3211,7 +3335,11 @@ fn apply_public_mechanics(p: &V, verdicts: &V, kinds: &mut Vec<Obj>, params: &mu
 	refuted
 }
 
-fn apply_mech_correction(c: &V, kinds: &mut Vec<Obj>, params: &mut Vec<Obj>, steps: &[Obj]) -> Result<(), String> {
+/// A mechanics correction over the merged kinds, params and steps. A step it corrects that no layer has is an error
+/// while the private steps layer (data/local/mechanics/quest-steps.json, `private_steps`) is there: a stale
+/// correction. Without that layer (a contributor's checkout, #3029) the step is one only that layer has, and the
+/// correction of it is left out: the public layers have nothing it could correct.
+fn apply_mech_correction(c: &V, kinds: &mut Vec<Obj>, params: &mut Vec<Obj>, steps: &[Obj], private_steps: bool) -> Result<(), String> {
 	for p in c.get("params").items() {
 		let pk = p.get("kind").to_js_string();
 		if let Some(k) = kinds.iter().find(|x| x.get("kind").as_str() == Some(&pk)) {
@@ -3250,7 +3378,12 @@ fn apply_mech_correction(c: &V, kinds: &mut Vec<Obj>, params: &mut Vec<Obj>, ste
 		}
 	}
 	for (n, st) in c.get("steps").entries() {
-		let Some(s0) = steps.iter().find(|x| x.get("n").to_js_string() == *n) else { return Err(format!("mechanics correction: no step {n} to correct")) };
+		let Some(s0) = steps.iter().find(|x| x.get("n").to_js_string() == *n) else {
+			if private_steps {
+				return Err(format!("mechanics correction: no step {n} to correct"));
+			}
+			continue;
+		};
 		s0.set("confidence", "high");
 		s0.set("drives", true);
 		s0.set("_source", "correction");
@@ -3286,6 +3419,7 @@ fn write_kb(
 	training: Option<&V>,
 	trainers: Option<&V>,
 	versions: &IndexMap<String, Option<String>>,
+	origins: &[crate::corrections::Origin],
 ) -> Result<(), String> {
 	std::fs::create_dir_all(file.parent().unwrap()).map_err(|e| e.to_string())?;
 	let tmp = PathBuf::from(format!("{}.tmp", file.display()));
@@ -3311,7 +3445,8 @@ create table training(class text, level integer, copper integer, source text);
 create table mechanics(quest integer, kind text, status text, source text, confidence text, drives integer, sources text);
 create table steps(quest integer, n integer, action text, target_kind text, target integer, item integer, count integer, place text, fact text, confidence text, drives integer, source text, evidence text);
 create table verify_in_game(rank integer, kind text, id integer, name text, yards integer, conflicts text);
-create table changes(tbl text, id integer, field text, before text, after text, source text);",
+create table changes(tbl text, id integer, field text, before text, after text, source text);
+create table correction_origin(kind text, id integer, field text, origin text, kinds text, primary key(kind, id, field));",
 	)
 	.map_err(e)?;
 	let tx = db.transaction().map_err(e)?;
@@ -3451,6 +3586,10 @@ create table changes(tbl text, id integer, field text, before text, after text, 
 				vec![s(c.table), V::Num(c.id), s(&c.field), s(&j(&c.from)), s(&j(&c.to)), s(&c.source)]
 			}),
 		)?;
+		run(
+			"insert into correction_origin values (?,?,?,?,?)",
+			&mut origins.iter().map(|o| vec![s(o.kind), V::Num(o.id as f64), s(&o.field), s(if o.private { "private" } else { "public" }), s(&o.kinds.join(","))]),
+		)?;
 	}
 	tx.commit().map_err(e)?;
 	db.execute_batch("create index alt_key on alternatives(kind, id, field); create index obj_q on objectives(quest); create index giv_q on givers(quest); create index sp_id on spawns(kind, id); create index dr_item on drops(item); create index st_q on steps(quest); create index me_q on mechanics(quest)").map_err(e)?;
@@ -3468,6 +3607,46 @@ pub fn mechanics_source() -> V {
 	V::Obj(o)
 }
 
+/// The fewest distinct spells a class trainer's lists teach (#2559). Every class trainer teaches at least 4
+/// (the starting areas' shaman trainers); the capitals' portal trainers (Larimaine Purdue, Thuul) teach a
+/// city's Teleport and Portal only, nothing a level 15 mage comes for. An extract without `trainerSpells`
+/// (before schema 14) leaves every trainer in.
+const MIN_CLASS_TRAINER_SPELLS: f64 = 3.0;
+
+fn tdb_class_trainer(tdb: &V, id: &str) -> bool {
+	let spells = tdb.get("trainerSpells");
+	!spells.truthy() || spells.get(id).num() >= MIN_CLASS_TRAINER_SPELLS
+}
+
+/// Drops from trainers.json's entries (`trainers`, a copy of the file read in) the ones only the TDB added that
+/// it no longer counts as class trainers: an earlier build's portal trainers (#2559). Returns their ids and classes.
+fn drop_tdb_non_trainers(trainers: &Obj, tdb: &V) -> Vec<(String, V)> {
+	let stale = |id: &str, e: &V| {
+		let s = e.get("sources").items();
+		let only_tdb = s.len() == 1 && s[0].as_str() == Some("forever-tdb");
+		only_tdb && !(tdb.get("trainers").get(id).truthy() && tdb_class_trainer(tdb, id))
+	};
+	let gone: Vec<(String, V)> = trainers.entries().into_iter().filter(|(id, e)| stale(id, e)).map(|(id, e)| (id.to_string(), e.get("classes"))).collect();
+	for (id, _) in &gone {
+		trainers.delete(id);
+	}
+	gone
+}
+
+/// trainers.json's entries (`trainers`, a copy of the file read in) take `top`, the highest level a trainer's
+/// sniffed lists teach (the TDB extract's `trainerTop`, #2477: the starting areas' trainers stop at 6), which
+/// ClassTrainers.lua passes to the engine. Each entry changed is a copy: the entries are shared with the file
+/// read in, against which the build decides whether to write it.
+fn set_trainer_tops(trainers: &Obj, tops: &V) {
+	for (id, top) in tops.entries() {
+		if let (Some(o), true) = (trainers.get(&id).as_obj(), top.num() > 0.0) {
+			let o = o.spread();
+			o.set("top", top);
+			trainers.set_str(id.clone(), o);
+		}
+	}
+}
+
 #[cfg(test)]
 mod tests {
 	#[test]
@@ -3481,6 +3660,34 @@ mod tests {
 		assert!(names[1].starts_with("Factoruide"));
 		assert!(kb_credits(&|_| false, true, true, true).is_empty());
 		assert!(kb_credits(&used, false, false, false).is_empty());
+	}
+
+	#[test]
+	fn trainers_take_the_level_their_sniffed_lists_stop_at_and_the_file_read_in_keeps_its_own_2477() {
+		let read: V = forge_guide::js::parse_json(r#"{"911":{"id":911,"classes":["WARRIOR"]},"913":{"id":913,"classes":["WARRIOR"]}}"#).unwrap();
+		let t2 = read.as_obj().unwrap().spread();
+		set_trainer_tops(&t2, &forge_guide::js::parse_json(r#"{"911":6,"913":60,"5":6}"#).unwrap());
+		assert_eq!(stringify(&V::Obj(t2), None), r#"{"911":{"id":911,"classes":["WARRIOR"],"top":6},"913":{"id":913,"classes":["WARRIOR"],"top":60}}"#);
+		assert_eq!(stringify(&read, None), r#"{"911":{"id":911,"classes":["WARRIOR"]},"913":{"id":913,"classes":["WARRIOR"]}}"#, "the file read in is left as it was");
+	}
+
+	#[test]
+	fn portal_trainers_are_no_class_trainers_and_an_earlier_builds_entry_goes_2559() {
+		// Larimaine Purdue (2485) teaches Teleport and Portal: Stormwind only; Jennea Cannon (5497) is the mage trainer.
+		let tdb = forge_guide::js::parse_json(r#"{"trainers":{"2485":["MAGE"],"5497":["MAGE"],"3062":["SHAMAN"]},"trainerSpells":{"2485":2,"5497":150,"3062":4}}"#).unwrap();
+		assert!(!tdb_class_trainer(&tdb, "2485"));
+		assert!(tdb_class_trainer(&tdb, "5497") && tdb_class_trainer(&tdb, "3062"), "a starting area's 4 spells are a class trainer's");
+		let read: V = forge_guide::js::parse_json(
+			r#"{"2485":{"id":2485,"classes":["MAGE"],"sources":["forever-tdb"]},"4165":{"id":4165,"classes":["MAGE"],"sources":["forever-tdb"]},"5497":{"id":5497,"classes":["MAGE"],"sources":["forever-tdb"]},"3062":{"id":3062,"classes":["SHAMAN"],"sources":["curated"]}}"#,
+		)
+		.unwrap();
+		let t2 = read.as_obj().unwrap().spread();
+		let gone: Vec<String> = drop_tdb_non_trainers(&t2, &tdb).into_iter().map(|(id, _)| id).collect();
+		assert_eq!(gone, vec!["2485", "4165"], "the portal trainer and the one the extract no longer lists");
+		assert_eq!(t2.keys().iter().map(|k| k.to_string()).collect::<Vec<_>>(), vec!["3062", "5497"]);
+		assert_eq!(read.keys().len(), 4, "the file read in is left as it was");
+		let old = forge_guide::js::parse_json(r#"{"trainers":{"2485":["MAGE"]}}"#).unwrap();
+		assert!(tdb_class_trainer(&old, "2485"), "an extract before trainerSpells keeps its trainers");
 	}
 
 	use super::*;
@@ -3555,7 +3762,7 @@ mod tests {
 
 	#[test]
 	fn tdb_rates_fill_droppers_the_server_table_leaves_unrated() {
-		// Red Leather Bandana 829 (RevA1, c13): the server table rates the Highwaymen, not the
+		// Red Leather Bandana 829 (c13 review): the server table rates the Highwaymen, not the
 		// Trappers; the TDB has the Trappers at 40 (a placeholder row).
 		let item = parse_json(r#"{ "id": 829, "drops": { "npc": { "122": 80, "504": null } }, "dropScale": "server", "questItem": true }"#).unwrap();
 		let row = parse_json(r#"[40, "placeholder", 5, null, null, 1]"#).unwrap();
@@ -3595,6 +3802,158 @@ mod tests {
 		assert!(!tdb_direct(&parse_json(r#"{ "id": 1714, "direct": false }"#).unwrap(), &tq), "a correction's false stands");
 		// An ordinary quest (QuestType 2: taken into the log) is not.
 		assert!(!tdb_direct(&parse_json(r#"{ "id": 1712 }"#).unwrap(), &parse_json(r#"{ "sniffed": false, "obj": [] }"#).unwrap()));
+	}
+
+	#[test]
+	fn the_tdbs_objective_count_never_replaces_a_corrected_one() {
+		// Mercy Falls on Deaf Ears 93165: the correction asks for 5 ears (players' quest logs); the TDB's
+		// sniffed row and the old objective text say 10. Quest 900001, the same with no correction: the
+		// TDB's count, which the text backs, wins over QuestieDB's.
+		let text = "Collect 10 Al'Aketh Cultist's Ears.";
+		let world = parse_json(&format!(
+			r#"{{ "93165": {{ "id": 93165, "objectiveText": "{text}", "objectives": [{{ "type": "item", "id": 258771, "count": 5 }}], "source": ["questie-forever", "polestar-correction"] }},
+			"900001": {{ "id": 900001, "objectiveText": "{text}", "objectives": [{{ "type": "item", "id": 258771, "count": 5 }}], "source": ["questie-forever"] }} }}"#
+		))
+		.unwrap();
+		let corrections = parse_json(r#"{ "quests": { "93165": { "set": { "objectives": [{ "type": "item", "id": 258771, "count": 5 }] } } } }"#).unwrap();
+		let tdb = parse_json(r#"{ "schema": 2, "quests": { "93165": { "sniffed": true, "obj": [[1, 258771, 10]] }, "900001": { "sniffed": true, "obj": [[1, 258771, 10]] } } }"#).unwrap();
+		let empty = Obj::new();
+		let none = PathBuf::from("/nonexistent");
+		let inp = KbInputs {
+			quests: world.as_obj().unwrap(),
+			npcs: &empty,
+			objects: &empty,
+			items: &empty,
+			frames: V::obj(),
+			zones: &empty,
+			live: FxHashSet::default(),
+			corrections,
+			correction_origins: Vec::new(),
+			npc_hand_ins: FxHashMap::default(),
+			not_pre: FxHashMap::default(),
+			facts_file: None,
+			tdb: Some(tdb),
+			classic: None,
+			factoruide_file: None,
+			quest_xp: None,
+			spawnz: None,
+			training: None,
+			trainers: None,
+			mechanics: MechFiles { quest_mechanics: none.clone(), quest_steps: none.clone(), tdb_layer: none.clone(), web: none.clone(), public: none.clone(), evidence: none },
+			v2_quests: FxHashSet::default(),
+			eg: None,
+			vo: None,
+			client: None,
+			kb_file: None,
+			verify_file: None,
+		};
+		build_kb(&inp, &|_| {}).unwrap();
+		let count = |id: &str| world.get(id).get("objectives").at(0).get("count").num();
+		assert_eq!(count("93165"), 5.0, "the correction's count stays");
+		assert_eq!(count("900001"), 10.0, "with no higher source, the TDB's count wins");
+	}
+
+	#[test]
+	fn the_tdbs_previous_quest_never_brings_back_a_prerequisite_recordings_or_corrections_removed() {
+		// Welcome to Azeroth 95350 (#2781): the server's previous quest is The Earthen Ring (95349), but
+		// players take it without (the learned layer's trusted notPre), and a correction says no
+		// prerequisite. 92464 the same with only the recordings; 900001 has neither, so the TDB's previous
+		// quest still fills its empty prerequisite.
+		let q = |id: u32| format!(r#""{id}": {{ "id": {id}, "title": "Q{id}", "pre": [], "source": ["questie-forever"] }}"#);
+		let world = parse_json(&format!("{{ {}, {}, {}, {}, {}, {} }}", q(95349), q(95350), q(92461), q(92464), q(900000), q(900001))).unwrap();
+		let corrections = parse_json(r#"{ "quests": { "95350": { "set": { "pre": [], "preAny": [] } } } }"#).unwrap();
+		let tdb = parse_json(
+			r#"{ "schema": 2, "quests": { "95350": { "sniffed": true, "prev": 95349, "obj": [] }, "92464": { "sniffed": true, "prev": 92461, "obj": [] }, "900001": { "sniffed": true, "prev": 900000, "obj": [] } } }"#,
+		)
+		.unwrap();
+		let mut not_pre: FxHashMap<i64, FxHashSet<i64>> = FxHashMap::default();
+		not_pre.entry(95350).or_default().insert(95349);
+		not_pre.entry(92464).or_default().insert(92461);
+		let empty = Obj::new();
+		let none = PathBuf::from("/nonexistent");
+		let inp = KbInputs {
+			quests: world.as_obj().unwrap(),
+			npcs: &empty,
+			objects: &empty,
+			items: &empty,
+			frames: V::obj(),
+			zones: &empty,
+			live: FxHashSet::default(),
+			corrections,
+			correction_origins: Vec::new(),
+			npc_hand_ins: FxHashMap::default(),
+			not_pre,
+			facts_file: None,
+			tdb: Some(tdb),
+			classic: None,
+			factoruide_file: None,
+			quest_xp: None,
+			spawnz: None,
+			training: None,
+			trainers: None,
+			mechanics: MechFiles { quest_mechanics: none.clone(), quest_steps: none.clone(), tdb_layer: none.clone(), web: none.clone(), public: none.clone(), evidence: none },
+			v2_quests: FxHashSet::default(),
+			eg: None,
+			vo: None,
+			client: None,
+			kb_file: None,
+			verify_file: None,
+		};
+		build_kb(&inp, &|_| {}).unwrap();
+		let pre = |id: &str| stringify(&world.get(id).get("pre"), None);
+		assert_eq!(pre("95350"), "[]", "a correction and the recordings say no prerequisite");
+		assert_eq!(pre("92464"), "[]", "the recordings disprove the TDB's previous quest");
+		assert_eq!(pre("900001"), "[900000]", "no higher source: the TDB's previous quest fills the gap");
+	}
+
+	#[test]
+	fn a_captured_giver_joins_the_enders_only_with_hand_ins_in_its_window() {
+		// Find the Lost Guards 37 (#2612): handed in at the half-eaten body (object 55); an in-game
+		// capture names its giver, Guard Thomas (261), as an ender too, and the step sent players to
+		// him. 38 is the same quest shape where players did hand it in to 261: there the giver joins.
+		let q =
+			|id: u32| format!(r#""{id}": {{ "id": {id}, "title": "Q{id}", "start": {{ "npc": [261], "object": [], "item": [] }}, "end": {{ "npc": [], "object": [55] }}, "source": ["pfquest"] }}"#);
+		let world = parse_json(&format!("{{ {}, {} }}", q(37), q(38))).unwrap();
+		let npcs = parse_json(r#"{ "261": { "id": 261, "name": "Guard Thomas", "spawns": { "1429": { "pts": [[73.9, 72.2]] } } } }"#).unwrap();
+		let objects = parse_json(r#"{ "55": { "id": 55, "name": "A half-eaten body", "spawns": { "1429": { "pts": [[72.6, 60.3]] } } } }"#).unwrap();
+		let empty = Obj::new();
+		let none = PathBuf::from("/nonexistent");
+		let ends: Vec<(String, f64)> = vec![("npc".into(), 261.0)];
+		let vo = Vo { commit: "0123456789abcdef".into(), quests: [(37, (ends.clone(), ends.clone())), (38, (ends.clone(), ends))].into_iter().collect() };
+		let mut handed: FxHashMap<i64, FxHashSet<i64>> = FxHashMap::default();
+		handed.entry(38).or_default().insert(261);
+		let inp = KbInputs {
+			quests: world.as_obj().unwrap(),
+			npcs: npcs.as_obj().unwrap(),
+			objects: objects.as_obj().unwrap(),
+			items: &empty,
+			frames: V::obj(),
+			zones: &empty,
+			live: FxHashSet::default(),
+			corrections: V::Null,
+			correction_origins: Vec::new(),
+			npc_hand_ins: handed,
+			not_pre: FxHashMap::default(),
+			facts_file: None,
+			tdb: None,
+			classic: None,
+			factoruide_file: None,
+			quest_xp: None,
+			spawnz: None,
+			training: None,
+			trainers: None,
+			mechanics: MechFiles { quest_mechanics: none.clone(), quest_steps: none.clone(), tdb_layer: none.clone(), web: none.clone(), public: none.clone(), evidence: none },
+			v2_quests: FxHashSet::default(),
+			eg: None,
+			vo: Some(vo),
+			client: None,
+			kb_file: None,
+			verify_file: None,
+		};
+		build_kb(&inp, &|_| {}).unwrap();
+		let end = |id: &str| stringify(&world.get(id).get("end"), None);
+		assert_eq!(end("37"), r#"{"npc":[],"object":[55]}"#, "no hand-in in the giver's window: the object only");
+		assert_eq!(end("38"), r#"{"npc":[261],"object":[55]}"#, "players handed it in to the giver: it joins");
 	}
 
 	fn fact_of(alt: &Alt, key: &str, field: &str, source: &str) -> Option<String> {
@@ -3693,5 +4052,106 @@ mod tests {
 		// A point outside every frame of its continent is dropped.
 		assert_eq!(c("object:179000", "placement").as_deref(), Some("1436:50,50 1415:10,10"));
 		assert_eq!(alt.versions.get("client").cloned().flatten().as_deref(), Some("1.60.1.70532"));
+	}
+
+	fn xp_cands(ours: (&str, f64), others: &[(&str, f64)]) -> Vec<Cand> {
+		let mut c = vec![Cand { source: ours.0.into(), value: V::Num(ours.1), note: None, project: true }];
+		c.extend(others.iter().map(|&(s, v)| Cand { source: s.into(), value: V::Num(v), note: None, project: false }));
+		c
+	}
+
+	/// A KB over no data: enough for `decide`, which reads the inputs only for the TDB's XP.
+	fn with_kb(f: impl FnOnce(&mut Kb)) {
+		let empty = Obj::new();
+		let none = || PathBuf::new();
+		let inp = KbInputs {
+			quests: &empty,
+			npcs: &empty,
+			objects: &empty,
+			items: &empty,
+			frames: V::Null,
+			zones: &empty,
+			live: FxHashSet::default(),
+			corrections: V::Null,
+			correction_origins: Vec::new(),
+			npc_hand_ins: FxHashMap::default(),
+			not_pre: FxHashMap::default(),
+			facts_file: None,
+			tdb: None,
+			classic: None,
+			factoruide_file: None,
+			quest_xp: None,
+			spawnz: None,
+			training: None,
+			trainers: None,
+			mechanics: MechFiles { quest_mechanics: none(), quest_steps: none(), tdb_layer: none(), web: none(), public: none(), evidence: none() },
+			v2_quests: FxHashSet::default(),
+			eg: None,
+			vo: None,
+			client: None,
+			kb_file: None,
+			verify_file: None,
+		};
+		let mut kb = Kb { inp: &inp, changes: Vec::new(), verify_xp: FxHashMap::default(), fact_rows: Vec::new(), alt_rows: Vec::new(), verify: IndexMap::new(), pos: [0; 3] };
+		f(&mut kb);
+	}
+
+	#[test]
+	fn quest_xp_two_server_sources_agreeing_exactly_win() {
+		with_kb(|kb| {
+			// Prove Your Worth 421 (13 recorded hand-ins, all 875): the collector and EG Link's record give
+			// 875; ForeverDB's capture and EG's older turn-ins 850, ranked first today.
+			let c = xp_cands(("questie", 840.0), &[("page", 840.0), ("eg.observed", 850.0), ("foreverdb.xp", 850.0), ("factoruide.collector", 875.0), ("eg", 875.0)]);
+			let d = kb.decide("quest", 421.0, "xp", &c).unwrap();
+			assert_eq!((d.win.value.num(), d.agreed), (875.0, true));
+			assert!(!keeps_ours("xp", &d, &c[0]), "an agreed 875 replaces our 840 although it is within 3%");
+			// The Broodmother 96261 (33 people, 3,050): three old captures of 2,500 lose to the collector and EG.
+			let c = xp_cands(("page", 2500.0), &[("tdb", 2500.0), ("foreverdb.xp", 2500.0), ("eg.observed", 2500.0), ("factoruide.collector", 3050.0), ("eg", 3050.0)]);
+			assert_eq!(kb.decide("quest", 96261.0, "xp", &c).unwrap().win.value.num(), 3050.0);
+			// Return to Jitters 240 (recorded 775): two sources outvote ForeverDB's lone 975.
+			let c = xp_cands(("questie", 780.0), &[("foreverdb.xp", 975.0), ("page", 780.0), ("factoruide.collector", 775.0), ("foreverdb.xp", 975.0), ("tdb", 775.0)]);
+			assert_eq!(kb.decide("quest", 240.0, "xp", &c).unwrap().win.value.num(), 775.0);
+			// One source against one: no agreement; the ranking decides, and a winner within 3% keeps ours.
+			let c = xp_cands(("questie", 840.0), &[("foreverdb.xp", 850.0), ("factoruide.collector", 875.0)]);
+			let d = kb.decide("quest", 1.0, "xp", &c).unwrap();
+			assert_eq!((d.win.source.as_str(), d.agreed), ("foreverdb.xp", false));
+			assert!(keeps_ours("xp", &d, &c[0]));
+			// Agreement on our own value changes nothing.
+			let c = xp_cands(("questie", 850.0), &[("factoruide.collector", 850.0), ("eg", 850.0)]);
+			let d = kb.decide("quest", 2.0, "xp", &c).unwrap();
+			assert!(d.agreed && keeps_ours("xp", &d, &c[0]));
+			// A correction stands.
+			let c = xp_cands(("correction", 4950.0), &[("factoruide.collector", 6200.0), ("eg", 6200.0)]);
+			let d = kb.decide("quest", 2929.0, "xp", &c).unwrap();
+			assert!(d.win.project && !d.agreed);
+		});
+	}
+
+	#[test]
+	fn quest_xp_is_what_the_game_pays() {
+		let corr = corrected_fields(&parse_json(r#"{ "quests": { "96103": { "set": { "xp": 705 } } } }"#).unwrap());
+		let q = |j: &str| parse_json(j).unwrap();
+		// QuestieDB 1.0.14's trace 630 for Soft Saber Pelts 87288 (27 people recorded 625), the vanilla 840.
+		assert_eq!(paid_xp(&q(r#"{ "id": 87288, "xp": 630, "source": ["questie-forever"] }"#), &corr), Some(625.0));
+		assert_eq!(paid_xp(&q(r#"{ "id": 91724, "xp": 840, "source": ["questie-forever"] }"#), &corr), Some(850.0));
+		assert_eq!(paid_xp(&q(r#"{ "id": 95330, "xp": 285, "source": ["questie-forever"] }"#), &corr), Some(290.0));
+		assert_eq!(paid_xp(&q(r#"{ "id": 1, "xp": 625, "source": ["questie-forever"] }"#), &corr), None, "already a paid value");
+		assert_eq!(paid_xp(&q(r#"{ "id": 1, "xp": null }"#), &corr), None);
+		assert_eq!(paid_xp(&q(r#"{ "id": 96103, "xp": 705 }"#), &corr), None, "a correction's value stands as written");
+	}
+
+	// #3029 (AbaddonAbatu): Poor Old Blanchy's correction (151) sets a place on step 1, which only the private steps
+	// layer has. A contributor's checkout has no such layer: `forge data build --kb` stopped there. Without the layer
+	// the correction of that step is left out; with it, a step no layer has is still a stale correction.
+	#[test]
+	fn a_correction_of_a_step_only_the_private_layer_has_is_left_out_without_that_layer_3029() {
+		let c = parse_json(r#"{ "steps": { "1": { "set": { "place": { "name": "The Jansen Stead's fields", "x": 56.8, "y": 19.1 } } } } }"#).unwrap();
+		let (mut kinds, mut params) = (Vec::new(), Vec::new());
+		assert_eq!(apply_mech_correction(&c, &mut kinds, &mut params, &[], false), Ok(()));
+		assert_eq!(apply_mech_correction(&c, &mut kinds, &mut params, &[], true), Err("mechanics correction: no step 1 to correct".to_string()));
+		let step = Obj::new();
+		step.set("n", 1.0);
+		apply_mech_correction(&c, &mut kinds, &mut params, std::slice::from_ref(&step), false).unwrap();
+		assert_eq!(step.get("place").get("x").num(), 56.8, "a step that is there is corrected either way");
 	}
 }

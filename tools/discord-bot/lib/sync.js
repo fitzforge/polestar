@@ -16,6 +16,7 @@
 
 const { parseReport } = require('./report');
 const I = require('./issue');
+const U = require('./update');
 const { statusTags, withStatus } = require('./discord');
 const { isStaff } = require('./commands');
 
@@ -73,7 +74,7 @@ const RETRIES = 6;
 const CATCH_UP_MS = 7 * 24 * HOUR;
 const CATCH_UP_PAGES = 10;
 
-function createSync({ discord, github, media, config, log = console, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), now = Date.now, setTimer = (fn, ms) => setTimeout(fn, ms).unref() }) {
+function createSync({ discord, github, media, config, log = console, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), now = Date.now, setTimer = (fn, ms) => setTimeout(fn, ms).unref(), latest = U.cachedLatest(github, { now, log }) }) {
 	const { forumId, since = null } = config;
 	const exemptIds = new Set(config.exemptIds || []);
 	const takePost = rateLimit(LIMITS.posts, HOUR, now);
@@ -300,6 +301,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			if (tags.tracked) {
 				await discord.editThread(threadId, { applied_tags: withStatus(thread.applied_tags, tags, 'tracked') });
 			}
+			await updateReply(threadId, issue.number, post.report);
 			// What was said in the thread while the post waited.
 			await tryCatchUp(thread, issue.number);
 			return issue.number;
@@ -320,6 +322,31 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			}
 		}
 		await discord.send(threadId, text);
+	}
+
+	// A report from an older Polestar than the latest full release: told at
+	// once, in the thread and on the issue. Runs only as the post is filed, so
+	// once per issue. A failure is logged; the filing stands.
+	async function updateReply(threadId, n, report) {
+		const version = report.details && report.details.version;
+		if (!version) return;
+		let text;
+		try {
+			const release = await latest();
+			text = U.updateText(version, release);
+			if (!text) return;
+			log.info(`#${n}: on ${version}, telling ${release.version.text} is out`);
+		} catch (err) {
+			log.error(`#${n}: update reply skipped:`, err.message);
+			return;
+		}
+		for (const [where, say] of [['thread', () => discord.send(threadId, U.discordUpdate(text))], ['issue', () => github.comment(n, U.githubUpdate(text))]]) {
+			try {
+				await say();
+			} catch (err) {
+				log.error(`#${n}: update reply in the ${where} failed:`, err.message);
+			}
+		}
 	}
 
 	const relayable = (m) => Boolean(m.author) && !m.author.bot && !m.webhook_id && FOLLOW_UP_TYPES.has(m.type || 0);

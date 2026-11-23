@@ -20,52 +20,52 @@ return {
 
 	-- Step 2: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:18960} Teleport: Moonglade
-	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. He teaches you {spell:18960} with the quest (it stays in your spellbook, Balance tab)."] = "",
+	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. He teaches you {spell:18960} with the quest (it stays in your spellbook, Balance tab)."] = "{npc:4217}站在{area:1658}德魯伊建築的上層。他會隨任務教你{spell:18960}（該法術會留在法術書中，平衡頁籤）。",
 
-	-- Step 3: Mathrengyl Bearwalker
+	-- Step 6: Mathrengyl Bearwalker
 	["or whichever of the three letters you carry"] = "或你帶著的三封信中的任何一封",
 
-	-- Step 4: Moonglade
+	-- Step 7: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:5929} Great Bear Spirit · {area:2361} Nighthaven · {area:493} Moonglade · {npc:10897} Sindrayl · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village · {zone:1457} Darnassus
-	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs, past the armor vendor. The {quest:5929} sits in the woods to the north-west. Speak to it and go through all of its words (what it represents, the strength of the body, the strength of the heart, then ask for its blessing): the talk is the objective, there is no fight. It blends into the ground, has no quest mark and gives off a faint blue-grey glow by a group of three trees: from {area:2361} go west along the foot of the northern mountains, through the gap between the trees and the hills. If {npc:11802} is missing when you return, step outside and cast {spell:18960} again. Learn the {area:493} flight path ({npc:10897}, south of the lake) for later, then take {npc:11800}'s flight from the middle of {area:2361}: she flies druids straight to {area:702}, no flight path needed. Take the portal up to {zone:1457}."] = "",
+	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs, past the armor vendor. The {quest:5929} sits in the woods to the north-west. Speak to it and go through all of its words (what it represents, the strength of the body, the strength of the heart, then ask for its blessing): the talk is the objective, there is no fight. It blends into the ground, has no quest mark and gives off a faint blue-grey glow by a group of three trees: from {area:2361} go west along the foot of the northern mountains, through the gap between the trees and the hills. If {npc:11802} is missing when you return, step outside and cast {spell:18960} again. Learn the {area:493} flight path ({npc:10897}, south of the lake) for later, then take {npc:11800}'s flight from the middle of {area:2361}: she flies druids straight to {area:702}, no flight path needed. Take the portal up to {zone:1457}."] = "施放{spell:18960}：你會落在{npc:11802}所在建築旁，他在樓上，走過護甲商人就是。{quest:5929}位於西北方的樹林中。與它交談，聽它把話說完（它代表什麼、肉體的力量、心靈的力量，然後請求它的祝福）：對話本身就是目標，沒有戰鬥。它融入地面，沒有任務標記，在三棵樹旁發出微弱的藍灰色光：從{area:2361}沿北面山脈的山腳向西，穿過樹木與丘陵之間的缺口。回來時若{npc:11802}不見了，走到門外再次施放{spell:18960}。先學會{area:493}的飛行航線（{npc:10897}，在湖的南邊）以備後用，然後乘坐{npc:11800}的航班，從{area:2361}中央出發：她直接載德魯伊飛往{area:702}，無需飛行航線。乘傳送門前往{zone:1457}。",
 	-- {quest:5929} Great Bear Spirit
 	["Speak with the {quest:5929}"] = "與{quest:5929}交談",
 
-	-- Step 7: The Moonkin Stone
+	-- Step 10: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "{object:177525}",
 	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
-	["Fly from {area:702} to {area:442}. The {object:177525} stands inside the nearest moonkin cave east of the village: the northern of two small rock-pile caves where the {area:442} road meets the main north-south road. Moonkin (level 11-13) stand outside, the cave is empty: slip past them. Use the {item:15208} by the stone: Lunaclaw (level 12-13) walks in towards you and stays three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Another druid's Lunaclaw gives you the spirit too."] = "",
+	["Fly from {area:702} to {area:442}. The {object:177525} stands inside the nearest moonkin cave east of the village: the northern of two small rock-pile caves where the {area:442} road meets the main north-south road. Moonkin (level 11-13) stand outside, the cave is empty: slip past them. Use the {item:15208} by the stone: Lunaclaw (level 12-13) walks in towards you and stays three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Another druid's Lunaclaw gives you the spirit too."] = "從{area:702}飛往{area:442}。{object:177525}立在村子東邊最近的梟獸洞穴裡：那是兩處小石堆洞穴的北面一個，就在{area:442}道路與南北主路的交匯處。梟獸（11-13級）守在外邊，洞穴裡沒有人：繞過它們。在石旁使用{item:15208}：月爪（12-13級）會朝你走來，停留三分鐘。殺死她，然後與出現的{npc:12144}交談，討要她身體與心靈的力量：對話即算完成。其他德魯伊的月爪也能給你那份精魂。",
 
-	-- Step 8: Body and Heart
+	-- Step 11: Body and Heart
 	-- {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker
 	["Fly back to {area:702} and take the portal up to {npc:4217}."] = "飛回{area:702}，走傳送門上去找{npc:4217}。",
 
-	-- Step 9: Heeding the Call
+	-- Step 12: Heeding the Call
 	-- {npc:3064} Gennia Runetotem · {area:222} Bloodhoof Village · {npc:6746} Innkeeper Pala · {zone:1456} Thunder Bluff · {npc:6929} Innkeeper Gryshka · {zone:1454} Orgrimmar · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["At 10 a druid's call reaches you: {npc:3064} in {area:222} or {npc:6746} in {zone:1456} ({npc:6929}'s letter in {zone:1454} works too). Any one of them sends you to {npc:3033} on {area:1639} in {zone:1456}."] = "10級時，德魯伊的召喚會找上你：{area:222}的{npc:3064}或{zone:1456}的{npc:6746}（{zone:1454}{npc:6929}的信也可以）。他們任何一位都會派你去{zone:1456}{area:1639}的{npc:3033}處。",
 	-- {npc:3064} Gennia Runetotem · {area:222} Bloodhoof Village
 	["{npc:3064}, {area:222}; Pala's and Gryshka's letters lead to the same place"] = "{npc:3064}，{area:222}；帕拉和格雷什卡的信都通往同一個地方",
 
-	-- Step 10: Turak Runetotem
+	-- Step 15: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade
-	["{npc:3033} stands in the druids' hut on {area:1639}, over the rope bridges east of the lifts. He teaches you {spell:18960} with the quest (it stays in your spellbook, Balance tab)."] = "",
+	["{npc:3033} stands in the druids' hut on {area:1639}, over the rope bridges east of the lifts. He teaches you {spell:18960} with the quest (it stays in your spellbook, Balance tab)."] = "{npc:3033}站在{area:1639}的德魯伊小屋中，走過升降梯東邊的繩索橋就到。他會隨任務教你{spell:18960}（該法術會留在法術書中，平衡頁籤）。",
 
-	-- Step 11: Moonglade
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:5930} Great Bear Spirit · {area:2361} Nighthaven · {quest:5922} Moonglade · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs. The {quest:5930} sits in the woods to the north-west. Speak to it and go through all of its words (what it represents, the strength of the body, the strength of the heart, then ask for its blessing): the talk is the objective, there is no fight. It blends into the ground, has no quest mark and gives off a faint blue-grey glow by a group of three trees: from {area:2361} go west along the foot of the northern mountains, through the gap between the trees and the hills. If {npc:11802} is missing when you return, step outside and cast {spell:18960} again. Learn the {quest:5922} flight path (Faustron, south-west of the lake); {npc:11798} in {area:2361} flies druids to {area:1638}."] = "",
+	-- Step 16: Moonglade
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:5930} Great Bear Spirit · {area:2361} Nighthaven · {quest:5922} Moonglade · {npc:12740} Faustron · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
+	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs. The {quest:5930} sits in the woods to the north-west. Speak to it and go through all of its words (what it represents, the strength of the body, the strength of the heart, then ask for its blessing): the talk is the objective, there is no fight. It blends into the ground, has no quest mark and gives off a faint blue-grey glow by a group of three trees: from {area:2361} go west along the foot of the northern mountains, through the gap between the trees and the hills. If {npc:11802} is missing when you return, step outside and cast {spell:18960} again. Learn the {quest:5922} flight path ({npc:12740}, south-west of the lake); {npc:11798} in {area:2361} flies druids to {area:1638}."] = "施放{spell:18960}：你會傳送到{npc:11802}所在建築旁，他在樓上。{quest:5930}在西北方的樹林裡。與牠對話並看完所有對話（牠代表什麼、身體的力量、心靈的力量，然後請求牠的祝福）：對話就是目標，不用戰鬥。牠與地面融為一體，沒有任務標記，在三棵樹旁散發微弱的藍灰色光芒：從{area:2361}沿著北邊山腳往西走，穿過樹木與山丘之間的缺口。如果回去時{npc:11802}不見了，走到外面再施放一次{spell:18960}。學習{quest:5922}的飛行路線（{npc:12740}，在湖的西南方）；{area:2361}的{npc:11798}會載德魯伊飛往{area:1638}。",
 	-- {quest:5930} Great Bear Spirit
 	["Speak with the {quest:5930}"] = "與{quest:5930}交談",
 
-	-- Step 13: The Moonkin Stone
+	-- Step 18: The Moonkin Stone
 	-- {object:177525} Moonkin Stone · {zone:1413} Barrens · {area:378} Camp Taurajo · {zone:1412} Mulgore · {item:15710} Cenarion Lunardust · {npc:12144} Lunaclaw Spirit
-	["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "",
+	["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "{object:177525}立在{zone:1413}，就在{area:378}西南，位於離開{zone:1412}的路上。20級的Thunderheads在附近遊蕩：先把路清乾淨。在石旁使用{item:15710}：月爪（12-13級）會現身三分鐘。殺死她，然後與出現的{npc:12144}交談，討要她身體與心靈的力量：對話即算完成。戰鬥裡死了？月爪仍守在石旁：跑回去把她了結。",
 
-	-- Step 14: Body and Heart
+	-- Step 19: Body and Heart
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["Back to {npc:3033} on {area:1639}."] = "回到{area:1639}的{npc:3033}處。",
 
-	-- Step 15: Skyboat from Dalaran
+	-- Step 20: Skyboat from Dalaran
 	-- {area:279} Dalaran
 	["Skyboat from {area:279}"] = "從{area:279}搭乘天空船",
 	-- {spell:5487} Bear Form · {zone:2521} Zephras Isle · {area:279} Dalaran
@@ -73,45 +73,45 @@ return {
 	-- {zone:2521} Zephras Isle
 	["Skyboat to {zone:2521}"] = "搭天空船前往{zone:2521}",
 
-	-- Step 16: Skyboat from Thunder Bluff
+	-- Step 21: Skyboat from Thunder Bluff
 	-- {zone:1456} Thunder Bluff
 	["Skyboat from {zone:1456}"] = "從{zone:1456}搭乘天空船",
 	-- {spell:5487} Bear Form · {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff
 	["{spell:5487} is taught on {zone:2521}. Skip this if you are still on the isle; otherwise take the skyboat from the cliffs south of {area:17045}, north of {zone:1456}."] = "{spell:5487}在{zone:2521}教授。如果你還在島上就跳過此步驟；否則從{zone:1456}北邊、{area:17045}南方的懸崖搭乘天空船。",
 
-	-- Step 17: Lotheluum Starbreeze
+	-- Step 22: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar
 	["{npc:252359} stands in {area:16638}."] = "{npc:252359}站在{area:16638}。",
 
-	-- Step 18: Urs'endris and Ur'endra
+	-- Step 23: Urs'endris and Ur'endra
 	-- {npc:255853} Urs'endris · {npc:258443} Ur'endra
 	["{npc:255853} and {npc:258443}"] = "{npc:255853}與{npc:258443}",
 	-- {npc:255853} Urs'endris · {area:16629} Shrine of Akir · {area:16638} Valanaar · {npc:258443} Ur'endra · {area:16623} Shen'dar Highlands · {area:16626} Gustberry Lowlands
-	["{npc:255853} waits by the waterfall below the {area:16629}, north-east of {area:16638}. {npc:258443} (the bear you must defeat) lairs in an unmarked cave high on the cliff face west of him, where the {area:16623} meet the {area:16626}: take the path west out of {area:16638} (not north), cross the river on the log bridge and reach the cave from the cliff's upper, northern side. The cave at the foot of the cliffs and the foggy cave are the wrong ones."] = "",
+	["{npc:255853} waits by the waterfall below the {area:16629}, north-east of {area:16638}. {npc:258443} (the bear you must defeat) lairs in an unmarked cave high on the cliff face west of him, where the {area:16623} meet the {area:16626}: take the path west out of {area:16638} (not north), cross the river on the log bridge and reach the cave from the cliff's upper, northern side. The cave at the foot of the cliffs and the foggy cave are the wrong ones."] = "{npc:255853}在{area:16629}下方的瀑布旁等候，位於{area:16638}東北。{npc:258443}（你必須擊敗的那頭熊）巢居在他西面崖壁高處的無標記洞穴裡，就在{area:16623}與{area:16626}交界處：從{area:16638}沿向西的小路走（不是向北），過河上的木橋，從崖壁上側、北面接近洞穴。崖腳的洞穴和霧中的洞穴都不是。",
 
-	-- Step 19: Strength and Mercy
+	-- Step 24: Strength and Mercy
 	-- {npc:255853} Urs'endris
 	["Back to {npc:255853} by the falls."] = "回到瀑布旁的{npc:255853}處。",
 
-	-- Step 20: Child of Nature
+	-- Step 25: Child of Nature
 	-- {npc:259118} Muln Earthfury · {zone:2521} Zephras Isle · {zone:1412} Mulgore · {zone:1456} Thunder Bluff
 	["{npc:259118} waits where the airship from {zone:2521} lands, in northern {zone:1412} beside {zone:1456}."] = "{npc:259118}在從{zone:2521}來的飛艇降落處等候，位於{zone:1412}北部、{zone:1456}旁。",
 
-	-- Step 21: Turak Runetotem
+	-- Step 26: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade
-	["{npc:3033} trains druids in the druids' hut on {area:1639}, over the rope bridges east of the lifts. He teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "",
+	["{npc:3033} trains druids in the druids' hut on {area:1639}, over the rope bridges east of the lifts. He teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "{npc:3033}在{area:1639}的德魯伊小屋中訓練德魯伊，走過升降梯東邊的繩索橋就到。他會隨下一個任務教你{spell:18960}（該法術會留在法術書中，平衡頁籤）。",
 
-	-- Step 22: Child of Nature
+	-- Step 27: Child of Nature
 	-- {npc:270459} Alfina Nightgaze · {npc:259084} Denaaris Stargale · {area:279} Dalaran · {zone:2521} Zephras Isle · {npc:2543} Archmage Ansirem Runeweaver
 	["{npc:270459} stands beside {npc:259084} and the Skyborne Portal, west of {area:279}, where the skycutter from {zone:2521} lands. {npc:2543} offers the same quest."] = "{npc:270459}站在{area:279}西邊的{npc:259084}和天裔精靈傳送門旁，也就是從{zone:2521}來的天空快艇降落處。{npc:2543}也提供同一個任務。",
 
-	-- Step 23: Sheldras Moontree
+	-- Step 28: Sheldras Moontree
 	-- {zone:1453} Stormwind · {npc:5504} Sheldras Moontree · {spell:18960} Teleport: Moonglade
-	["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer (the arrow points at him); he teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "",
+	["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer (the arrow points at him); he teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "天裔傳送門會把你送到{zone:1453}。{npc:5504}是該城的德魯伊訓練師（箭頭指向他）；他會隨下一個任務教你{spell:18960}（該法術會留在法術書中，平衡頁籤）。",
 
-	-- Step 24: Dendrite Starblaze
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:10897} Sindrayl
-	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs, in {area:2361}. Learn the {area:493} flight path while you are here (Faustron for the Horde, south-west of the lake; {npc:10897} for the Alliance, south of it)."] = "",
+	-- Step 29: Dendrite Starblaze
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:12740} Faustron · {npc:10897} Sindrayl
+	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs, in {area:2361}. Learn the {area:493} flight path while you are here ({npc:12740} for the Horde, south-west of the lake; {npc:10897} for the Alliance, south of it)."] = "施放{spell:18960}：你會傳送到{area:2361}{npc:11802}所在建築旁，他在樓上。趁在這裡學習{area:493}的飛行路線（部落找湖西南方的{npc:12740}；聯盟找湖南方的{npc:10897}）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Learn the {area:493} flight path while you are here."] = "施放{spell:18960}。{npc:11802}在{area:2361}。趁你在這裡時學會{area:493}的飛行路線。",

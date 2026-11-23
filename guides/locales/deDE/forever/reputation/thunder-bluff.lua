@@ -79,7 +79,6 @@ return {
 	-- Step 13: The mine, the centaurs and the plains
 	["The mine, the centaurs and the plains"] = "Die Mine, die Zentauren und die Ebenen",
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes · {zone:1412} Mulgore
-	-- plural, as words: Swoops = {npc:2970} Swoop
 	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "Zurück zur Mine für die Arbeiter, Aufseher und {quest:765} hinten: Seine {item:281031} starten {quest:98424}, und ihre anderen Seiten liegen in der Mine. Die Galak-Zentauren und Herak lagern östlich des Dorfes. Swoops fliegen überall über {zone:1412}; die Windfury-Harpyien nisten südöstlich des Dorfes; die Palemane-Gnolle lagern westlich davon.",
 	-- {item:281031} Mulgore Expansion Plans · {quest:765} Supervisor Fizsprocket
 	["{item:281031}, from {quest:765}"] = "{item:281031}, von {quest:765}",
@@ -93,8 +92,8 @@ return {
 	-- Step 15: The Venture Co. Mine: the Clearcutter
 	-- {area:360} The Venture Co. Mine
 	["{area:360}: the Clearcutter"] = "{area:360}: der Clearcutter",
-	-- {quest:98427} Ceasing Operations
-	["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "Der Elite-Schredder Venture Co. Clearcutter arbeitet tief in der Mine, hinter der Stelle, an der Fizsprocket stand: Sein Schlüssel ist für {quest:98427}.",
+	-- {npc:272173} Venture Co. Clearclutter · {quest:98427} Ceasing Operations
+	["The elite shredder {npc:272173} works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "Der Elite-Schredder {npc:272173} arbeitet tief in der Mine, hinter der Stelle, an der Fizsprocket stand: Sein Schlüssel ist für {quest:98427}.",
 
 	-- Step 16: Bloodhoof Village: last hand-in
 	-- {area:222} Bloodhoof Village
@@ -123,7 +122,7 @@ return {
 	-- Step 20: The Skywatcher camp: hand in
 	["The Skywatcher camp: hand in"] = "Das Skywatcher-Lager: abgeben",
 	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother · {quest:96259} Defending the Dead
-	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "",
+	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "{npc:259118} bietet {quest:96261} erst an, wenn {quest:96259} abgegeben ist.",
 
 	-- Step 21: Broodmother Valraxx
 	-- {npc:264082} Broodmother Valraxx · {area:17044} Gloomrise
@@ -175,21 +174,21 @@ return {
 	-- {quest:4882} Guarding Secrets · {npc:5770} Nara Wildmane · {faction:81} Thunder Bluff
 	["{quest:4882}, +100: to {npc:5770} in {faction:81}"] = "{quest:4882}, +100: zu {npc:5770} in {faction:81}",
 
-	-- Step 30: Thunder Bluff: Nara Wildmane
+	-- Step 31: Thunder Bluff: Nara Wildmane
 	-- {npc:5770} Nara Wildmane · {area:1639} Elder Rise · {npc:5769} Arch Druid Hamuul Runetotem
 	["{npc:5770} stands on {area:1639}, beside {npc:5769}."] = "{npc:5770} steht auf {area:1639}, neben {npc:5769}.",
 
-	-- Step 31: Morrowgrain (optional)
+	-- Step 32: Morrowgrain (optional)
 	-- {item:11040} Morrowgrain
 	["{item:11040} (optional)"] = "{item:11040} (optional)",
 	-- {quest:3804} Morrowgrain to Thunder Bluff · {item:11040} Morrowgrain · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {npc:6746} Innkeeper Pala · {npc:5769} Arch Druid Hamuul Runetotem · {area:1639} Elder Rise
 	["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "{quest:3804} nimmt 10 {item:11040} für 50, so oft du willst, und zahlt auf Stufe 60 voll, ist aber langsam: Der {item:11020} lässt alle 10 Minuten eine Hülle wachsen, und eine Hülle enthält im Schnitt etwa ein {item:11040}, also dauert jede Abgabe etwa 90 Minuten Wartezeit, 18 {quest:3761} und 9 Samentütchen (90 Silber). Es läuft neben allem anderen, was du tust: etwas über 30 Ruf pro Stunde. Die Questreihe davor ist Stufe 50. {npc:6746} schickt dich zu {npc:5769} auf {area:1639}; er will 20 {quest:3761}.",
 
-	-- Step 32: Un'Goro Crater: Un'Goro Soil
+	-- Step 33: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain
 	["Nearly every beast, plant and silithid in the crater drops {quest:3761}, about one kill in three (the Bloodpetals and the Gorishi wasps about one in two), and the dirt mounds give it too. Take far more than 20: every casing uses 2, about 18 for each {item:11040} hand-in."] = "Fast jedes Tier, jede Pflanze und jeder Silithide im Krater droppt {quest:3761}, bei etwa jedem dritten Kill (die Bloodpetals und die Gorishi-Wespen bei etwa jedem zweiten), und die Erdhügel geben es auch. Nimm weit mehr als 20: Jede Hülle verbraucht 2, etwa 18 für jede Abgabe von {item:11040}.",
 
-	-- Step 33: Thunder Bluff: Morrowgrain Research
+	-- Step 34: Thunder Bluff: Morrowgrain Research
 	-- {npc:9076} Ghede · {npc:9087} Bashana Runetotem · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {item:11024} Evergreen Herb Casing · {item:11040} Morrowgrain
 	["{npc:9076} takes the soil. {npc:9087} sells the {item:11020} (1 gold) and Packets of Tharlendris Seeds (10 silver each). With a seed packet and 2 {quest:3761} in your bags, use the pouch: it grows an {item:11024}, once every 10 minutes. Open each casing: about one in three holds 1 to 5 {item:11040}, the rest common herbs. Use the pouch whenever it is ready while you follow the rest of this guide."] = "{npc:9076} nimmt die Erde. {npc:9087} verkauft den {item:11020} (1 Gold) und Packets of Tharlendris Seeds (je 10 Silber). Mit einem Samentütchen und 2 {quest:3761} in deinen Taschen benutze den Beutel: Er lässt alle 10 Minuten eine {item:11024} wachsen. Öffne jede Hülle: Etwa jede dritte enthält 1 bis 5 {item:11040}, der Rest gewöhnliche Kräuter. Benutze den Beutel, sobald er bereit ist, während du dem Rest dieses Guides folgst.",
 	-- {item:11020} Evergreen Pouch
@@ -197,17 +196,17 @@ return {
 	-- {item:11022} Packet of Tharlendris Seeds
 	["{item:11022}, 10 silver each"] = "{item:11022}, je 10 Silber",
 
-	-- Step 34: Morrowgrain as you go
+	-- Step 35: Morrowgrain as you go
 	-- {item:11040} Morrowgrain
 	["{item:11040} as you go"] = "{item:11040} nebenbei",
 	-- {item:11040} Morrowgrain · {npc:9087} Bashana Runetotem
 	["{item:11040}: use the pouch every 10 minutes and open the casings; {npc:9087} takes it"] = "{item:11040}: Benutze den Beutel alle 10 Minuten und öffne die Hüllen; {npc:9087} nimmt es",
 
-	-- Step 35: Bashana Runetotem: Morrowgrain Research
+	-- Step 36: Bashana Runetotem: Morrowgrain Research
 	-- {npc:9087} Bashana Runetotem · {area:1639} Elder Rise · {item:11040} Morrowgrain
 	["{npc:9087} stands on {area:1639}. If your 10 {item:11040} are not ready yet, skip this step and go on with the cloth: the cloth steps below list the {item:11040} hand-in too."] = "{npc:9087} steht auf {area:1639}. Wenn deine 10 {item:11040} noch nicht fertig sind, überspringe diesen Schritt und mach mit dem Stoff weiter: Die Stoff-Schritte unten führen die Abgabe von {item:11040} ebenfalls auf.",
 
-	-- Step 36: Additional Runecloth to Honored
+	-- Step 37: Additional Runecloth to Honored
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Honored"] = "{quest:7825} bis Wohlwollend",
 	-- {quest:7825} Additional Runecloth · {item:14047} Runecloth
@@ -215,7 +214,7 @@ return {
 	-- {item:11040} Morrowgrain · {npc:9087} Bashana Runetotem
 	["{item:11040}, if you grow it: {npc:9087} takes it"] = "{item:11040}, falls du es anbaust: {npc:9087} nimmt es",
 
-	-- Step 37: Additional Runecloth to Revered
+	-- Step 38: Additional Runecloth to Revered
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Revered"] = "{quest:7825} bis Respektvoll",
 	-- {item:14047} Runecloth · {item:11040} Morrowgrain · {area:1584} Blackrock Depths · {area:340} Kargath · {npc:9017} Lord Incendius
@@ -223,7 +222,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040}, if you grow it"] = "{item:11040}, falls du es anbaust",
 
-	-- Step 38: Additional Runecloth to Exalted
+	-- Step 39: Additional Runecloth to Exalted
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Exalted"] = "{quest:7825} bis Ehrfürchtig",
 	-- {item:14047} Runecloth · {npc:3685} Harb Clawhoof · {area:222} Bloodhoof Village

@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Летите сюда: {area:150}",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Распорядитель полетов: {zone:1453}",
 
@@ -31,6 +31,8 @@ return {
 	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "Обломки «Flying Osprey» лежат на мелководье к югу от крепости.",
 
 	-- Step 6: Lightforge Ingots
+	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
+	["Lightforge Ingots"] = "Слитки светлостали",
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "Слитки у мурлоков из племени Синежабрых на пляже к юго-западу от Менетила.",
 	-- {item:2702} Lightforge Ingot
 	["{item:2702}; underwater"] = "",
@@ -47,6 +49,8 @@ return {
 	["{npc:5083}, on the top floor"] = "",
 	-- {npc:4964} Commander Samaul
 	["{npc:4964}, on the top floor"] = "",
+	-- {npc:4964} Commander Samaul · {area:503} Sentry Point
+	["{npc:4964}: {area:503} is the watchtower on the road west, next"] = "",
 	-- {quest:1132} Fiora Longears
 	["{quest:1132}, inside the inn in the north of town"] = "{quest:1132} – в таверне на севере городка",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
@@ -54,15 +58,27 @@ return {
 	-- {quest:1132} Fiora Longears · {zone:1441} Thousand Needles
 	["{quest:1132}: the wyverns are in {zone:1441}, later in this guide"] = "",
 
-	-- Step 10: The Shady Rest Inn
-	-- {zone:1413} Barrens
-	["Follow the road west out of Theramore to the burned inn on the road toward the {zone:1413}: the black shield lies in the ashes and the hoofprints are in the mud beside the inn."] = "",
+	-- Step 10: Sentry Point
+	-- {area:503} Sentry Point · {area:403} Shady Rest Inn · {npc:4967} Archmage Tervosh
+	["Follow the road north-west out of Theramore to the watchtower at {area:503}, where the road to the {area:403} turns west. Look around the tower: {npc:4967} appears at its foot, and you hand the quest in to him there."] = "",
+	-- {npc:4967} Archmage Tervosh
+	["{npc:4967}, at the foot of the tower"] = "",
+	-- {npc:4967} Archmage Tervosh · {npc:4966} Private Hendel · {area:504} North Point Tower · {zone:1445} Dustwallow Marsh
+	["{npc:4967}: {npc:4966} holds {area:504}, for the {zone:1445} visit at 39"] = "",
+	-- {npc:4966} Private Hendel · {zone:1445} Dustwallow Marsh
+	["Take Tervosh's next errand now: he stands here only right after the hand-in. {npc:4966} waits for the next {zone:1445} visit, at about 39."] = "",
 
-	-- Step 11: Into Barrens
+	-- Step 11: The Shady Rest Inn
 	-- {zone:1413} Barrens
-	["Into {zone:1413}"] = "",
+	["Follow the road west to the burned inn on the road toward the {zone:1413}: the black shield and Reethe's guard badge lie in the ashes and the hoofprints are in the mud beside the inn."] = "",
+	-- {object:21042} Theramore Guard Badge
+	["{object:21042}: for Captain Vimes, on the way back through Theramore"] = "",
 
-	-- Step 12: Takar the Seer
+	-- Step 12: Into Barrens
+	-- {zone:1413} Barrens
+	["Into {zone:1413}"] = "В зону {zone:1413}",
+
+	-- Step 13: Takar the Seer
 	-- {zone:1413} Barrens · {npc:6244} Takar the Seer · {area:378} Camp Taurajo
 	["On the road south through the {zone:1413}, {npc:6244} camps east of the road, north-east of {area:378}; come in from the east and keep clear of the Horde guards."] = "По пути на юг через зону {zone:1413}: {npc:6244} стоит лагерем к востоку от дороги, к северо-востоку от места {area:378}; подходите с востока и держитесь подальше от стражей Орды.",
 	-- {quest:1738} Heartswood · {zone:1440} Ashenvale · {zone:1443} Desolace
@@ -70,68 +86,105 @@ return {
 	-- {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {quest:1738} Heartswood
 	["{quest:65602}: the incubus, beside the succubus; the {item:190309} is near the {quest:1738}"] = "{quest:65602}: инкуб, рядом с суккубом; {item:190309} – рядом с целью задания «{quest:1738}»",
 
-	-- Step 13: Highperch
-	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {area:482} Highperch
-	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
+	-- Step 14: Myriam Moonsinger
+	-- {npc:12866} Myriam Moonsinger · {area:1316} Razorfen Downs · {area:485} Great Lift
+	-- plural, as words: Razorfen Battleguards = {npc:7873} Razorfen Battleguard · Death's Head Cultists = {npc:7872} Death's Head Cultist
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:12866} stands by the entrance of {area:1316}, a few hundred yards north-east of the top of the {area:485}; the Razorfen Battleguards, Thornweavers and Death's Head Cultists (33-34, elite) hold the thorny slopes around her. Skip it if you are alone."] = "",
 
-	-- Step 14: Thousand Needles
+	-- Step 15: Henrig Lonebrow's Journal
+	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {item:5791} Henrig Lonebrow's Journal · {area:2097} Darkcloud Pinnacle
+	["Down the {area:485} into {zone:1441}. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills. {item:5791} lies a couple of hundred yards north-east of the lift's foot, in {area:2097}, where the Grimtotems (25-27) camp."] = "",
+	-- {item:5791} Henrig Lonebrow's Journal · {npc:4048} Falfindel Waywarder · {area:482} Highperch
+	["{item:5791}: for {npc:4048}, just past {area:482}"] = "",
+
+	-- Step 16: Highperch
+	-- {area:482} Highperch
+	["West to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
+
+	-- Step 17: Falfindel Waywarder
+	-- {npc:4048} Falfindel Waywarder · {area:482} Highperch · {zone:1444} Feralas · {area:489} Thalanaar · {area:1717} Razorfen Kraul
+	["{npc:4048} camps north of {area:482}, just over the border into {zone:1444} on the path up to {area:489}: hand him the journal. His next quest is inside {area:1717}: leave it."] = "",
+
+	-- Step 18: Thousand Needles
 	-- {area:484} Freewind Post
 	["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "На восток через каньоны. Здесь на плато стоит {area:484} – лагерь Орды со стражей: держитесь дна каньона и обходите подножие его подъемников стороной.",
 	-- {area:482} Highperch
 	["The canyons east of {area:482}"] = "",
 
-	-- Step 16: Mirage Raceway
+	-- Step 20: Mirage Raceway
 	-- {area:2240} Mirage Raceway
 	["Follow the canyons east to the salt flats. The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "Идите по каньонам на восток к соляным равнинам. Гоблины и гномы ({area:2240}) нейтральны и дают задания обеим фракциям.",
 	-- {quest:5762} Hemet Nesingwary
 	["For {quest:5762} in Stranglethorn, later"] = "Для задания «{quest:5762}» в Тернистой долине, позже",
 
-	-- Step 17: Mirage Raceway: kill these as you meet them
+	-- Step 21: Mirage Raceway: kill these as you meet them
 	-- {area:2240} Mirage Raceway
-	["{area:2240}: kill these as you meet them"] = "",
-	-- {object:19868} Rocket Car Rubble
-	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "",
+	["{area:2240}: kill these as you meet them"] = "{area:2240}: убивайте их по пути",
+	-- {object:19868} Rocket Car Rubble · {npc:5935} Ironeye the Invincible
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
+	-- was: ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868} разбросаны по всей равнине. Скорпиды-разорители и солончаковые падальщики бродят в северной половине, блестопанцирные черепахи (30-31) – в середине равнины: бейте их ради панцирей. Осторожно: блестопанцирные крепкохваты (34-35) бродят по всей равнине, а просоленные взорени (34-35) и скорпиды-убийцы (33-34) держат дальний юг: не трогайте их и держитесь северной половины."
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half.\nCareful: {npc:5935} (37, rare) roams the south-east of the flats, around 83-88,71-84: leave it be."] = "",
+	-- {item:5795} Hardened Tortoise Shell
+	-- plural, as words: Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise
+	["{item:5795}, from the Sparkleshell Tortoises"] = "{item:5795} – с блестопанцирных черепах",
 	-- {npc:4078} Collin Mauren · {zone:1453} Stormwind
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "",
 
-	-- Step 18: Mirage Raceway
+	-- Step 22: Mirage Raceway
+	-- {npc:4452} Kravel Koalbeard · {quest:1111} Wharfmaster Dizzywig · {area:392} Ratchet
+	["{npc:4452}: for {quest:1111} on {area:392}'s dock, where this guide ends"] = "",
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
 	["{npc:4454}: for Martek in the {zone:1418}, at the end of 30-40"] = "",
+	-- {npc:4630} Pozzik · {npc:3391} Gazlowe · {area:392} Ratchet
+	["{npc:4630}: for {npc:3391} in {area:392}, on the way to the boat"] = "",
 
-	-- Step 19: Into Tanaris
+	-- Step 23: Into Tanaris
 	-- {zone:1446} Tanaris
-	["Into {zone:1446}"] = "",
+	["Into {zone:1446}"] = "В зону {zone:1446}",
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris
 	["From the raceway follow the road south out of the {area:439} into {zone:1446}."] = "",
 
-	-- Step 20: Gadgetzan
+	-- Step 24: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:7823} Bera Stonehammer
 	["{area:976} is a short walk down the road; keep to it. {npc:7823}, the Alliance flight master, stands inside the walls."] = "",
 
-	-- Step 21: Fly to Theramore
+	-- Step 25: Fly to Theramore
 	["Fly to Theramore"] = "Лететь на остров Терамор",
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "Распорядитель полетов: {area:976}",
 
-	-- Step 22: Theramore
-	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
-	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "",
+	-- Step 26: Theramore
+	-- {npc:4456} Fiora Longears · {npc:4948} Adjutant Tesoran · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
+	["{npc:4456} is in the north of town, Captain Vimes and {npc:4948} on the top floor of {area:514}; {npc:4941} stands in the town."] = "",
+	-- {zone:1445} Dustwallow Marsh
+	["Vimes's next errand, The Deserters, is for the {zone:1445} visit at 39: leave it."] = "",
 
-	-- Step 23: Boat to Menethil Harbor
-	-- {area:150} Menethil Harbor
-	["Boat to {area:150}"] = "Корабль: {area:150}",
+	-- Step 27: Ratchet
+	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay · {npc:3391} Gazlowe · {quest:1111} Wharfmaster Dizzywig
+	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock; {npc:3391} is upstairs in the house above it; {quest:1111} waits on the dock by the boat."] = "",
+	-- {npc:3391} Gazlowe · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
+	["{npc:3391}: for {npc:4631}, on {area:35}'s dock where the boat lands"] = "",
+	-- {quest:1111} Wharfmaster Dizzywig · {quest:1039} The Barrens Port · {npc:8026} Thyn'tel Bladeweaver · {zone:1457} Darnassus
+	["{quest:1111}: {quest:1039}, from {npc:8026} in {zone:1457}"] = "",
+	-- {quest:1111} Wharfmaster Dizzywig · {npc:3945} Caravaneer Ruzzgot · {area:35} Booty Bay
+	["{quest:1111}: for {npc:3945} in {area:35}, where the boat lands"] = "",
+	-- {area:2240} Mirage Raceway
+	["Dizzywig's next errand goes back to the {area:2240}, which the route next visits at 45: leave it."] = "",
+
+	-- Step 28: Boat to Booty Bay
+	-- {area:35} Booty Bay
+	["Boat to {area:35}"] = "Корабль: {area:35}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back west along the road to the satyr camps of {area:429}."] = "Обратно на запад по дороге к лагерям сатиров ({area:429}).",
+	-- ["Boat to {area:150}"] = "Корабль: {area:150}",
 	-- ["Dartol's Rod"] = "Жезл Дартола",
 	-- ["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "Идите по дороге на восток к лагерям сатиров ({area:429}); {npc:3920} прячется на их окраине.",
 	-- ["Follow the road west out of {area:415}; {area:413} lies north of it."] = "Идите по дороге на запад из места {area:415}; {area:413} — к северу от нее.",
 	-- ["From {area:608}"] = "Откуда: {area:608}",
 	-- ["Geltharis"] = "Гелтарис",
 	-- ["Insane druids"] = "Обезумевшие друиды",
-	-- ["Lightforge Ingots"] = "Слитки светлостали",
 	-- ["Melyria and {npc:3901}"] = "Мелирия и {npc:3901}",
 	-- ["Rusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel."] = "Ржавые сундуки стоят вокруг лагерей фурболгов из Чащобы к западу от Отрекшихся; открывайте их, пока в одном не найдется навершие.",
 	-- ["Take the boat to {area:150} from {area:442}'s docks."] = "Плывите на корабле в {area:150} с причалов места {area:442}.",
@@ -155,5 +208,6 @@ return {
 	-- ["{npc:3970}: for {npc:1480} in Menethil, at the end of this guide"] = "{npc:3970}: для NPC {npc:1480} в Менетиле, в конце этого гайда",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} ведет сатиров ({area:429}); ветвь у него.",
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}, {npc:4963} и {npc:4962} — все в таверне Менетила; Тапоке нападает, когда вы говорите с NPC {npc:4963}, но сдается после поражения. {npc:1480} стоит недалеко к северо-востоку от таверны.",
+	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868} разбросаны по всей равнине. Скорпиды-разорители и солончаковые падальщики бродят в северной половине, блестопанцирные черепахи (30-31) – в середине равнины: бейте их ради панцирей. Осторожно: блестопанцирные крепкохваты (34-35) бродят по всей равнине, а просоленные взорени (34-35) и скорпиды-убийцы (33-34) держат дальний юг: не трогайте их и держитесь северной половины.",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: для NPC {npc:3961} ({area:415})",
 }

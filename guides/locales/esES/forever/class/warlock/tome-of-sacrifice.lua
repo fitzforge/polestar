@@ -28,7 +28,7 @@ return {
 	-- {npc:14463} Daio the Decrepit · {item:18601} Glowing Crystal Prison · {npc:12396} Doomguard Commander · {area:73} Tainted Scar · {spell:45} War Stomp · {item:18605} Imprisoned Doomguard
 	["Hand both in to {npc:14463} and take the {item:18601}. Find a {npc:12396} (level 61, elite) standing alone in the {area:73}, open from about 30 yards with your voidwalker on him, and channel the prison on him for about 20 seconds: he attacks you to break free, and his {spell:45} can interrupt the channel, so sacrifice the voidwalker for its shield if you must. Grouping up is encouraged: a second player to tank makes it easy. When the channel finishes he becomes the {item:18605}: click it. If the channel breaks, kill him or run, and try another."] = "",
 	-- {item:18601} Glowing Crystal Prison · {npc:12396} Doomguard Commander
-	["{item:18601}, on a {npc:12396}"] = "",
+	["{item:18601}, on a {npc:12396}"] = "{item:18601}, en un {npc:12396}",
 	-- {item:18605} Imprisoned Doomguard
 	["{item:18605}, click it"] = "",
 
@@ -41,6 +41,5 @@ return {
 	-- ["Hand both in to {npc:14463}, then find the {npc:12396} in the {area:73} and use the {item:18601} on him. He is elite and fights to escape: grouping up is advised."] = "Entrégale ambas cosas a {npc:14463}, luego busca al {npc:12396} en {area:73} y usa la {item:18601} en él. Es élite y lucha por escapar: se recomienda ir en grupo.",
 	-- ["The Hederine demons hold {area:2256}, in southern {zone:1452}. They are elite: grouping up is advised."] = "Los demonios Hederine ocupan {area:2256}, al sur de {zone:1452}. Son élite: se recomienda ir en grupo.",
 	-- ["The Wildspawn satyrs of the Warpwood Quarter, {area:2577}'s eastern wing, carry the blood. The back door at {area:2518}, north of {area:1099}, needs the {item:18249}; otherwise go in by {area:2577}'s main entrance. Bring a group."] = "Los sátiros Mala Hierba del ala este de {area:2577} llevan la sangre. La puerta trasera en {area:2518}, al norte de {area:1099}, requiere la {item:18249}; si no, entra por la entrada principal de {area:2577}. Lleva un grupo.",
-	-- ["{item:18601}, on the {npc:12396}"] = "{item:18601}, en el {npc:12396}",
 	-- ["{item:18603}, inside the Warpwood Quarter"] = "{item:18603}, dentro del ala este",
 }

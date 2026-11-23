@@ -188,9 +188,8 @@ Polestar.RegisterGuide({
 })
 "#;
 
-#[test]
-fn a_letter_from_another_giver_in_the_log_keeps_the_next_call_of_water_open() {
-	let out = emitted(&RunAddon {
+fn letters(codex: &str) -> Value {
+	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: format!("{WORLD}\nw.race, w.raceName = \"Tauren\", \"Tauren\"\nw.complete({{}}); w.log[1530] = nil\nw.onQuest(1529, {{}}, \"Call of Water\")\nw.completed[1528] = nil"),
 		addons: vec![Addon::name("Polestar")],
@@ -199,6 +198,7 @@ fn a_letter_from_another_giver_in_the_log_keeps_the_next_call_of_water_open() {
 			TEST_SOURCE,
 			LETTERS,
 			HELPERS,
+			codex,
 			"stub.login()",
 			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
 			r#"E.SetGuide("test/barrens"); stub.advance(3)"#,
@@ -207,9 +207,20 @@ fn a_letter_from_another_giver_in_the_log_keeps_the_next_call_of_water_open() {
 		]
 		.join("\n"),
 		..Default::default()
-	});
-	assert_eq!(out[0]["live"], 2, "{}", out[0]);
-	assert_eq!(out[0]["accept"], "active", "{}", out[0]);
+	})
+	.remove(0)
+}
+
+#[test]
+fn a_letter_from_another_giver_in_the_log_keeps_the_next_call_of_water_open() {
+	let out = letters("");
+	assert_eq!(out["live"], 2, "{out}");
+	assert_eq!(out["accept"], "active", "{out}");
+	// With the Codex saying Islen Waterseer takes Thunder Bluff's letter in: the guide stands at her (a held
+	// prerequisite counts as coming only where the route hands it in).
+	let islen = letters(r#"Polestar.Codex.Quest = function(id) return { id = id, title = "Call of Water", faction = "H", ["end"] = id == 1529 and { npc = { 5901 } } or nil } end"#);
+	assert_eq!(islen["live"], 2, "{islen}");
+	assert_eq!(islen["accept"], "active", "{islen}");
 }
 
 #[test]
@@ -223,4 +234,32 @@ fn a_leveling_guide_skipped_to_its_end_still_finishes_as_before() {
 		emit(snap())"#);
 	assert_eq!(out[0]["live"], false, "{}", out[0]);
 	assert_ne!(out[0]["empty"], "The rest of this guide follows from a skipped step", "{}", out[0]);
+}
+
+// A skin may keep the class quest card to the chain's first step in the guide (Skin API 2, guideShows
+// "classCardLater" false): step 1 carries the chain, so step 2 shows no card and folds nothing into it. Back on
+// Polestar's own look, the card is on step 2 again.
+#[test]
+fn a_skin_keeps_the_class_card_to_the_chain_s_first_step() {
+	let out = run(r#"
+		local T = Polestar.Theme
+		local asked = false
+		T.RegisterSkin("once", { api = 2, name = "Once", addon = "Test_Once", base = "polestar",
+			hooks = { guideShows = function(name, default)
+				if name == "classCardLater" then asked = true; return false end
+				return default
+			end } })
+		Polestar.Set("ui.skin", "once")
+		GF.Render(); flush()
+		local once = snap()
+		once.asked = asked
+		emit(once)
+		Polestar.Set("ui.skin", "polestar")
+		GF.Render(); flush()
+		emit(snap())"#);
+	assert_eq!(out[0]["step"], 2, "{}", out[0]);
+	assert_eq!(out[0]["asked"], true, "{}", out[0]);
+	assert_eq!(out[0]["card"], false, "step 1 carries the chain: no card again on step 2: {}", out[0]);
+	assert_eq!(out[0]["fold"], false, "no card, nothing folded into it: {}", out[0]);
+	assert_eq!(out[1]["card"], 1530, "Polestar's own look: the card on every step of the chain: {}", out[1]);
 }

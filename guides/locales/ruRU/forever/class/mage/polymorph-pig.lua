@@ -13,11 +13,11 @@ return {
 	-- Step 1: Xylem's tower
 	["Xylem's tower"] = "",
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem · {zone:1447} Azshara · {area:1221} Ruins of Eldarath
-	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below {npc:8379}'s tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Dismount, and he teleports you up; a trail climbs to the Archmage at the top of the tower."] = "",
+	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below {npc:8379}'s tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Dismount, and he teleports you up; a trail climbs to the Archmage at the top of the tower."] = "Летите в {area:3137} (Альянс) или {area:1237} (Орда). {npc:8395} разбил лагерь под башней, где живет {npc:8379}, недалеко к востоку от места {area:1237}: от развилки главной дороги зоны {zone:1447} у места {area:1221} идите прямо на север к скалам. Слезьте с транспорта, и он телепортирует вас наверх; тропа ведет к верховному магу на вершине башни.",
 
 	-- Step 2: Warlord Krellian
 	-- {npc:8408} Warlord Krellian · {spell:99} Demoralizing Roar · {area:1223} Temple of Zin-Malor · {area:1221} Ruins of Eldarath · {item:23250} Prismatic Shell
-	["{npc:8408} (level 55, not elite, Strike and {spell:99}) hides behind his Spitelash guards in the {area:1223}, the biggest building in the middle of the {area:1221}. He always drops the {item:23250} and is back 5 1/2 minutes after a kill. Leave any raid group first: a raid gets no credit, a party is fine."] = "",
+	["{npc:8408} (level 55, not elite, Strike and {spell:99}) hides behind his Spitelash guards in the {area:1223}, the biggest building in the middle of the {area:1221}. He always drops the {item:23250} and is back 5 1/2 minutes after a kill. Leave any raid group first: a raid gets no credit, a party is fine."] = "{npc:8408} (55-й уровень, не элитный, «Удар» и {spell:99}) прячется за стражей из клана Бича Злобы здесь: {area:1223}, самое большое здание в центре места {area:1221}. С него всегда падает {item:23250}, и он возрождается через 5 1/2 минуты после убийства. Сначала покиньте рейдовую группу: рейду убийство не засчитывается, обычной группе – засчитывается.",
 
 	-- Step 3: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
@@ -38,6 +38,4 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Carry the {item:23250} back to the {area:1221}. Polymorph a Spitelash naga and wait a few seconds: it splits into small Polymorph Clones. Kill the clones quickly; the shell collects their essence."] = "Отнесите {item:23250} обратно сюда: {area:1221}. Примените «Превращение» на нагу из клана Бича Злобы и подождите несколько секунд: она распадется на маленьких клонированных овец. Быстро убейте клонов; раковина соберет их сущность.",
-	-- ["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below {npc:8379}'s tower: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. He teleports you up to the Archmage."] = "Летите в {area:3137} (Альянс) или {area:1237} (Орда). {npc:8395} разбил лагерь под башней, где живет {npc:8379}: от развилки главной дороги зоны {zone:1447} у места {area:1221} идите прямо на север к скалам. Он телепортирует вас наверх к верховному магу.",
-	-- ["Krellian hides behind his Spitelash guards in the {area:1223}, the biggest building in the middle of the {area:1221}. He drops the {item:23250}."] = "Креллиан прячется за стражей из клана Бича Злобы здесь: {area:1223}, самое большое здание в центре места {area:1221}. С него падает {item:23250}.",
 }

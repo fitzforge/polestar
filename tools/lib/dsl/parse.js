@@ -26,7 +26,7 @@
 
 const { lexLine } = require('./lexer');
 const { parseConditions, FACTIONS } = require('./conditions');
-const { parseWhen } = require('./when');
+const { parseWhen, readStandingText, STANDINGS } = require('./when');
 const { readMoney } = require('./money');
 const { parseImagePath, parseImageSize } = require('./images');
 const { levelPoint } = require('../game/xp');
@@ -48,7 +48,8 @@ const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'cla
 const STEP_KEYS = ['zone', 'only', 'tip', 'image', 'when', 'label', 'along', 'background', 'skipto', 'loop'];
 
 // `group [N]`: the goal needs a group (of N players), shown in the guide window.
-const COMMON = ['text', 'optional', 'only', 'group'];
+// `either`: one of a set in its step; the step is done when any one of the set is.
+const COMMON = ['text', 'optional', 'only', 'group', 'either'];
 // `frame` = the `era` / `live` modifiers: which map frame explicit coordinates are in.
 const COORDS = ['at', 'map', 'r', 'frame'];
 const MODS = {
@@ -57,14 +58,21 @@ const MODS = {
 	// `direct`: handed in straight from the NPC's window, with no accept.
 	turnin: [...COMMON, ...COORDS, 'npc', 'object', 'reward', 'choose', 'xp', 'money', 'direct'],
 	complete: [...COMMON, ...COORDS],
-	abandon: ['text', 'optional', 'only'],
-	destroy: ['text', 'optional', 'only'],
-	kill: [...COMMON, ...COORDS, 'npc', 'quest', 'count'],
-	collect: [...COMMON, ...COORDS, 'npc', 'quest', 'count', 'nearest', 'anywhere'],
+	abandon: ['text', 'optional', 'only', 'either'],
+	destroy: ['text', 'optional', 'only', 'either'],
+	// `deposit <item> [xN]`: put the item in the bank (until the bags hold none, or the bank holds N).
+	deposit: ['text', 'optional', 'only', 'either', ...COORDS, 'count'],
+	// `equip <item>`: wear the item; with `off`, take it off.
+	equip: ['text', 'optional', 'only', 'either', ...COORDS, 'off'],
+	// `upto <N>`: on a quest objective goal, done at N of the objective's count (the rest is a later step's).
+	kill: [...COMMON, ...COORDS, 'npc', 'quest', 'count', 'upto'],
+	// `gather [<Profession> <rank>] [levels <min>-<max>]`: this bag count is its item's gather way (a profession
+	// guide's material, which the section's `auction` goal buys instead when the player chooses to buy it).
+	collect: [...COMMON, ...COORDS, 'npc', 'quest', 'count', 'nearest', 'anywhere', 'gather', 'upto'],
 	goto: [...COMMON, 'map', 'r', 'frame'],
-	talk: [...COMMON, ...COORDS, 'gossip', 'quest'],
-	interact: [...COMMON, ...COORDS, 'quest'],
-	use: [...COMMON, ...COORDS, 'quest'],
+	talk: [...COMMON, ...COORDS, 'gossip', 'quest', 'upto'],
+	interact: [...COMMON, ...COORDS, 'quest', 'upto'],
+	use: [...COMMON, ...COORDS, 'quest', 'upto'],
 	sethome: [...COMMON, ...COORDS, 'npc'],
 	hearth: [...COMMON],
 	// `die "<Graveyard>" @x,y`: die and take the Spirit Healer's resurrection there (a deathskip).
@@ -75,18 +83,24 @@ const MODS = {
 	enter: [...COMMON, ...COORDS],
 	train: [...COMMON, ...COORDS, 'npc', 'gossip'],
 	buy: [...COMMON, ...COORDS, 'npc', 'count', 'nearest'],
+	// `auction <item> xN`: buy it at the Auction House (the arrow: the nearest auctioneer of the player's faction);
+	// applies while the player gets the item by buying it (Core/Materials.lua).
+	auction: ['text', 'optional', 'only', 'count'],
 	vendor: [...COMMON, ...COORDS, 'npc', 'gossip'],
 	// `grind <npcId>`: the mob a level is reached on; the arrow leads to its nearest spawn area.
 	level: [...COMMON, 'grind'],
 	// `money <amount>`: hold that much; `task "<text>"`: done when the player ticks it.
-	money: ['text', 'optional', 'only'],
-	task: ['optional', 'only', ...COORDS],
+	money: ['text', 'optional', 'only', 'either'],
+	task: ['optional', 'only', 'either', ...COORDS],
 	note: ['optional', 'only', ...COORDS],
-	skill: [...COMMON, ...COORDS],
+	// `skill <Profession> <N> nearest`: the step's `goto` points are its places; the arrow takes the nearest (#2529).
+	skill: [...COMMON, ...COORDS, 'nearest'],
 	learn: [...COMMON, ...COORDS, 'npc', 'item', 'nearest'],
 	// `cast <spellId> ["Name"]`: the player casts that spell while the goal is open.
 	cast: [...COMMON, ...COORDS],
 	craft: [...COMMON, ...COORDS, 'count', 'until'],
+	// `buff <spellId> ["Name"]`: have that aura; with `off`, be rid of it.
+	buff: [...COMMON, ...COORDS, 'off'],
 	rep: [...COMMON, ...COORDS],
 	explore: [...COMMON, 'map', 'r', 'frame'],
 	achieve: [...COMMON, ...COORDS, 'criteria'],
@@ -94,8 +108,8 @@ const MODS = {
 	wait: ['text', 'optional', 'only'],
 };
 const VERBS = Object.keys(MODS);
-const MOD_LABEL = { at: '@x,y', count: 'xN', text: '"text"', until: 'until <N>', criteria: 'criteria <n>', frame: 'era`/`live', xp: 'xp <N>', money: 'money <amount>', group: 'group [N]', grind: 'grind <npcId>' };
-const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'anywhere', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind'];
+const MOD_LABEL = { at: '@x,y', count: 'xN', text: '"text"', until: 'until <N>', upto: 'upto <N>', criteria: 'criteria <n>', frame: 'era`/`live', xp: 'xp <N>', money: 'money <amount>', group: 'group [N]', grind: 'grind <npcId>' };
+const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'anywhere', 'gather', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind', 'either', 'off', 'upto'];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN = 2;
 const GROUP_MAX = 40;
@@ -138,17 +152,12 @@ function isModifierToken(tok) {
 	return MOD_WORDS.includes(w) || w.startsWith('@') || /^x\d+$/.test(w);
 }
 
-// Reputation standings as the client numbers them (1 Hated .. 8 Exalted).
-const STANDINGS = { hated: 1, hostile: 2, unfriendly: 3, neutral: 4, friendly: 5, honored: 6, revered: 7, exalted: 8 };
-
-// A standing token -> { value } | { error } | null (not a standing at all).
+// A standing token (`Revered`, `7`, `Revered+12000`: that many points into the standing), read as
+// the `rep` predicate reads it (when.js: 1 Hated .. 8 Exalted)
+// -> { value, points? } | { error } | null (not a standing at all).
 function readStanding(tok) {
 	if (!tok || tok.quoted) return null;
-	const word = tok.text.toLowerCase();
-	if (Object.hasOwn(STANDINGS, word)) return { value: STANDINGS[word] };
-	if (!INT_RE.test(tok.text)) return null;
-	const n = Number(tok.text);
-	return n >= 1 && n <= 8 ? { value: n } : { error: `standing ${tok.text} is out of range (1-8, or Hated..Exalted)` };
+	return readStandingText(tok.text);
 }
 
 // Unquoted words up to (not including) the first token `stop` accepts.
@@ -299,7 +308,8 @@ function parseGuide(text, file, diag) {
 				err(ln, `unknown header key "${toks[0].text}"`, `header keys: ${HEADER_KEYS.join(', ')}`);
 				continue;
 			}
-			const repeatable = kw === 'pro' || kw === 'con' || kw === 'reward' || kw === 'next';
+			// `levels` repeats only as one plain line plus one per faction (parseHeader checks).
+			const repeatable = kw === 'pro' || kw === 'con' || kw === 'reward' || kw === 'next' || kw === 'levels';
 			if (guide.lines[kw] && !repeatable) {
 				err(ln, `duplicate header key \`${kw}\` (first on line ${guide.lines[kw]})`);
 				continue;
@@ -426,6 +436,18 @@ function parseGuide(text, file, diag) {
 	for (const key of ['title', 'levels', 'zone']) {
 		if (!guide.lines[key]) err(guide.line, `missing required header \`${key}\``);
 	}
+	// `levels <min>-<max> <Faction>`: for a guide both factions play, each faction's range, or the plain one for the other.
+	const h = guide.header;
+	if (h.factionLevels) {
+		const at = guide.lines.levelsAt;
+		const first = Math.min(...Object.keys(h.factionLevels).map((f) => at[f]));
+		const both = !!(h.factionLevels.Alliance && h.factionLevels.Horde);
+		if (h.faction) err(first, `a guide for one faction (\`faction ${h.faction}\`) has one level range: write \`levels <min>-<max>\``);
+		else if (!h.levels && !both) {
+			const other = h.factionLevels.Alliance ? 'Horde' : 'Alliance';
+			err(first, `\`levels\` for one faction only: add \`levels <min>-<max> ${other}\`, or a plain \`levels <min>-<max>\` for ${other}`);
+		} else if (h.levels && both) err(at.plain, 'plain `levels` is unused: both factions have their own `levels <min>-<max> Alliance|Horde`');
+	}
 	if (!guide.steps.length) err(guide.line, 'guide has no steps');
 	for (const s of guide.steps) {
 		if (!s.goals.length) err(s.line, 'step has no goals');
@@ -549,12 +571,25 @@ function parseHeader(guide, kw, line, lex, ln, err, warn) {
 			return;
 		}
 		case 'levels': {
-			const m = /^(\d+)\s*-\s*(\d+)$/.exec(rest);
+			// `levels <min>-<max>`, or `levels <min>-<max> Alliance|Horde`: the levels the route brings that
+			// faction's characters here at, for a guide both factions play (checked after the header).
+			const m = /^(\d+)\s*-\s*(\d+)(?:\s+([A-Za-z]+))?$/.exec(rest);
 			if (!m || Number(m[1]) < 1 || Number(m[1]) > Number(m[2])) {
-				err(ln, `malformed levels "${rest}" (expected <min>-<max>, min ≤ max)`);
+				err(ln, `malformed levels "${rest}" (expected <min>-<max> [Alliance|Horde], min ≤ max)`);
 				return;
 			}
-			h.levels = { min: Number(m[1]), max: Number(m[2]) };
+			// Where each was given (`plain`, `Alliance`, `Horde`), for the checks after the header.
+			const at = (guide.lines.levelsAt = guide.lines.levelsAt || {});
+			let side = 'plain';
+			if (m[3]) {
+				side = FACTIONS[m[3].toLowerCase()];
+				if (!side) return err(ln, `\`levels\` names a faction: Alliance or Horde, not "${m[3]}"`);
+			}
+			if (at[side]) return err(ln, side === 'plain' ? `duplicate header key \`levels\` (first on line ${at[side]})` : `duplicate \`levels ... ${side}\` (first on line ${at[side]})`);
+			at[side] = ln;
+			const range = { min: Number(m[1]), max: Number(m[2]) };
+			if (side === 'plain') h.levels = range;
+			else (h.factionLevels = h.factionLevels || {})[side] = range;
 			return;
 		}
 		case 'zone': {
@@ -677,7 +712,10 @@ function parsePositional(verb, goal, toks, line, lex, ln, err, spans) {
 		case 'collect':
 		case 'use':
 		case 'destroy':
-		case 'buy': {
+		case 'deposit':
+		case 'equip':
+		case 'buy':
+		case 'auction': {
 			if (!t) return err(ln, `\`${verb}\` needs an item id`), -1;
 			goal.item = parseId(t, 'item', ln, err);
 			if (goal.item === null) return -1;
@@ -821,6 +859,7 @@ function parsePositional(verb, goal, toks, line, lex, ln, err, spans) {
 		}
 		case 'learn':
 		case 'craft':
+		case 'buff':
 		case 'cast': {
 			if (!t) return err(ln, `\`${verb}\` needs a spell id`), -1;
 			goal.spell = parseId(t, 'spell', ln, err);
@@ -851,6 +890,7 @@ function parsePositional(verb, goal, toks, line, lex, ln, err, spans) {
 			if (!s) return err(ln, toks[i] ? `unknown standing "${toks[i].text}" (Hated, Hostile, Unfriendly, Neutral, Friendly, Honored, Revered, Exalted, or 1-8)` : usage), -1;
 			if (s.error) return err(ln, s.error), -1;
 			goal.standing = s.value;
+			if (s.points) goal.points = s.points;
 			return i + 1;
 		}
 		case 'explore': {
@@ -1073,9 +1113,47 @@ function parseGoal(verb, line, lex, ln, err, warn) {
 				goal.anywhere = true;
 				i++;
 				continue;
+			case 'gather': {
+				if (!use('gather')) return null;
+				goal.gather = true;
+				i++;
+				// What the gather way takes: `gather <Profession> <rank>` (Herbalism for a herb, Mining to smelt a
+				// bar, Skinning for leather, Enchanting for dust) and `gather levels <min>-<max>` (the mobs it drops
+				// from as the player levels: cloth, meat). Either, both (the profession first) or neither.
+				const p = toks[i];
+				const rk = toks[i + 1];
+				if (p && rk && !rk.quoted && INT_RE.test(rk.text) && (p.quoted || !isModifierToken(p))) {
+					if (Number(rk.text) <= 0) return err(ln, `malformed skill rank "${rk.text}" after \`gather ${p.text}\``), null;
+					goal.gatherSkill = p.text;
+					if (p.quoted) goal.gatherSkillQuoted = true;
+					goal.gatherRank = Number(rk.text);
+					i += 2;
+				}
+				if (toks[i] && !toks[i].quoted && toks[i].text.toLowerCase() === 'levels') {
+					const tk = toks[i + 1];
+					const m = tk && !tk.quoted ? /^(\d+)-(\d+)$/.exec(tk.text) : null;
+					if (!m || Number(m[1]) < 1 || Number(m[2]) <= Number(m[1])) {
+						return err(ln, `malformed level range "${tk ? tk.text : ''}" (write \`gather levels <min>-<max>\`, e.g. \`gather levels 15-30\`)`), null;
+					}
+					goal.gatherMin = Number(m[1]);
+					goal.gatherMax = Number(m[2]);
+					i += 2;
+				}
+				continue;
+			}
 			case 'optional':
 				if (!use('optional')) return null;
 				goal.optional = true;
+				i++;
+				continue;
+			case 'either':
+				if (!use('either')) return null;
+				goal.either = true;
+				i += 1;
+				continue;
+			case 'off':
+				if (!use('off')) return null;
+				goal.off = true;
 				i++;
 				continue;
 			case 'direct':
@@ -1083,6 +1161,14 @@ function parseGoal(verb, line, lex, ln, err, warn) {
 				goal.direct = true;
 				i++;
 				continue;
+			case 'upto': {
+				if (!use('upto')) return null;
+				const v = intArg(i + 1, 'count');
+				if (v === null) return null;
+				goal.upto = v;
+				i += 2;
+				continue;
+			}
 			case 'gossip': {
 				if (!use('gossip')) return null;
 				const v = intArg(i + 1, 'gossip option id');

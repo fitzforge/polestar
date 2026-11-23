@@ -60,7 +60,7 @@ return {
 
 	-- Step 10: Rhok'delar and Lok'delar
 	-- {item:18707} Ancient Rune Etched Stave · {item:18724} Enchanted Black Dragon Sinew · {item:18715} Lok'delar, Stave of the Ancient Keepers
-	["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and talking to Vartrus once more then gave {item:18715}, at no extra cost."] = "",
+	["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and talking to Vartrus once more then gave {item:18715}, at no extra cost."] = "Sin confirmar en Forever. En Classic, usar {item:18707} con {item:18724} en las bolsas creaba Rhok'delar, y hablar otra vez con Vartrus te daba entonces {item:18715}, sin coste adicional.",
 	-- {item:18707} Ancient Rune Etched Stave
 	["{item:18707}, by Vartrus"] = "{item:18707}, de Vartrus",
 	-- {npc:14524} Vartrus the Ancient
@@ -75,7 +75,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Azuregos"] = "Azuregos",
 	-- ["Hastat's quiver needs the {item:18704}. {npc:6109}, a world boss for a raid, roams the south of {zone:1447} and drops it most of the time; the Cobalt dragonkin of {zone:1452} drop it very rarely. Skip the rest of this guide if you do not want the quiver."] = "El carcaj de Hastat necesita {item:18704}. {npc:6109}, un jefe del mundo para una banda, recorre el sur de {zone:1447} y lo suelta casi siempre; los vermis de cobalto de {zone:1452} lo sueltan muy rara vez. Sáltate el resto de esta guía si no quieres el carcaj.",
-	-- ["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and Vartrus then gave {item:18715} ({spell:425121})."] = "Sin confirmar en Forever. En Classic, usar {item:18707} con {item:18724} en las bolsas creaba Rhok'delar, y Vartrus te daba entonces {item:18715} ({spell:425121}).",
 	-- ["Onyxia drops the {item:18705}; she is the 40-player raid boss of {area:2159}, a cave in the {area:511} of southern {zone:1445}."] = "Onyxia suelta {item:18705}; es la jefa de banda de 40 jugadores de {area:2159}, una cueva en {area:511}, al sur de {zone:1445}.",
 	-- ["The {object:179703} appears in {area:2717} when {npc:12018} yields; it holds the {item:18703} about half the time. {area:2717} is a 40-player raid inside {area:254}. Right-click the leaf to start the quest."] = "El {object:179703} aparece en {area:2717} cuando {npc:12018} se rinde; contiene la {item:18703} aproximadamente la mitad de las veces. {area:2717} es una banda de 40 jugadores dentro de {area:254}. Haz clic derecho en la hoja para empezar la misión.",
 	-- ["Vartrus, Stoma and {npc:14526} stand together in the north of {zone:1448}. Alliance: {area:1998} is the nearest flight point; Horde: {area:1997}."] = "Vartrus, Estoma y {npc:14526} están juntos en el norte de {zone:1448}. Alianza: el punto de vuelo más cercano es {area:1998}; Horda: {area:1997}.",

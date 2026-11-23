@@ -14,9 +14,15 @@ next forever/alliance/40-50/07-un-goro-crater
 # (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: the four Sentry Braziers on the southern rim, handed
 # in on the way back to Thorium Point) and Trinkets... (3481), 13,710 XP.
 
-step To Stoutlager Inn
+step To Ironforge
+  zone Ironforge
+  goto 18.15,51.45 "Stonefire Tavern"
+
+step Fly to Thelsamar
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
+  fly "Thelsamar"
   zone Loch Modan
-  goto 35.5,48.4 "Stoutlager Inn"
 
 step Into Searing Gorge
   zone Searing Gorge
@@ -40,7 +46,7 @@ step The Grimesilt outhouse
 
 step Level 48.27
   when level<48.27
-  tip If you skipped The Monogrammed Sash or Facing Negolash, grind here to level 48.27 to stay on the route's plan. Or, with a group, run the Maraudon dungeon or the Zul'Farrak dungeon instead.
+  tip If you skipped The Monogrammed Sash or Facing Negolash, grind here to level 48.27 to stay on the route's plan.
   goto 63.3,60.6 map 1427 "Dark Iron Geologist"
   level 48.27 grind 5839               -- grind on Dark Iron Geologist
 
@@ -61,26 +67,40 @@ step Thorium Point
   accept 7727
   accept 7724
   accept 7723                         -- Hansel Heavyhands
-  accept 7729 object 179827
   accept 7728 object 179827           -- The Wanted/Missing/Lost & Found board
+
+step Culling the Competition
+  when group 7729
+  tip Take the bounty from the board only if you want to hunt the linked dwarf packs with a group.
+  accept 7729 object 179827
 
 step Thorium Point
   when group 7701
   accept 7701
 
 step Zamael Lunthistle
-  tip The night elf stands alone west of Thorium Point. Hear his story.
+  when group 3377
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Zamael Lunthistle stands inside the Twilight camp at Firewatch Ridge, west of Thorium Point, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with Highlord Mastrogonde (level 51, rare elite) beside him: Prayer to Elune needs a group of 4. Skip it if you are alone.
   accept 3377
 
 step Prayer to Elune
-  talk 8436 quest 3377.1 @29.6,26.3 map 1427
+  when group 3377
+  talk 8436 quest 3377.1 @29.6,26.3 map 1427 group 4
 
 step Zamael Lunthistle
+  when group 3377
   turnin 3377
+  accept 3378
 
-step Greater Lava Spiders
+step Prayer to Elune: the page
+  when group 3377
+  when onquest 3378
+  tip The Twilight elites of Zamael's camp drop the Prayer to Elune page, about one in five: keep the group together here until one drops.
+  collect 10458 quest 3378.1 @29.6,26.3 map 1427 group 4
+
+step Searing Lava Spiders
   tip The spiders roam the plateaus and lava pools south of Zamael, on the way to Velarok.
-  kill 5858 quest 7724                -- Greater Lava Spider
+  kill 5858 quest 7724                -- Searing Lava Spider
 
 step Velarok Windblade
   tip Velarok stands on the rim of the Cauldron, south of Thorium Point. Listen to his story.
@@ -105,23 +125,50 @@ step Velarok Windblade
   turnin 3442
   accept 3443
 
-step Dark Iron dwarves: kill these as you meet them
+step Dark Iron Taskmasters
+  when group 7729
   zone Searing Gorge
-  tip Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a Thorium Plated Dagger. The Steamsmiths work at the furnaces in the middle (the Smithing Tuyere), the Lookouts stand on the southern ridges (the Spyglass). Any Dark Iron may drop the Grimesilt Outhouse Key: keep it.
-  tip Careful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee.
+  tip With your group, look for Taskmasters on the open ledges. Stay on the surface; don't follow the arrow into the Slag Pit.
+  loop
+  goto 43.12,40.38 map 1427 r 12
+  goto 45.68,39.66 map 1427 r 12
+  goto 49.15,39.93 map 1427 r 12
+  goto 44.79,51.93 map 1427 r 12
   kill 5846 quest 7729                -- Dark Iron Taskmaster
+
+step Dark Iron Slavers
+  when group 7729
+  tip Careful: Slavers can net you and call allies within 15 yards. A Taskmaster or Steamsmith may be standing beside one. Wait for a clear pull or leave the pack; don't descend into the Cauldron for this bounty.
+  loop
+  goto 42.81,40.54 map 1427 r 10
+  goto 43.20,51.97 map 1427 r 10
+  goto 35.32,58.47 map 1427 r 10
   kill 5844 quest 7729                -- Dark Iron Slaver
-  collect 10551 quest 3443            -- Thorium Plated Dagger
+
+step The furnaces and southern ridges
+  tip The Steamsmiths at the furnaces carry the Smithing Tuyere; the Lookouts on the southern ridges carry the Spyglass. Keep the Grimesilt Outhouse Key if a dwarf drops it.
   collect 18960 quest 7728            -- Lookout's Spyglass
   collect 11818 x1 optional           -- Grimesilt Outhouse Key
   accept 4451 optional
   collect 18959 quest 7728            -- Smithing Tuyere
 
+step Thorium Plated Daggers
+  tip Dark Iron Steamsmiths at the surface furnaces carry Thorium Plated Daggers as well as the Smithing Tuyere. Pull from the outside of the camp.
+  loop
+  goto 38.15,51.36 map 1427 r 10
+  goto 37.69,49.65 map 1427 r 10
+  goto 40.58,49.48 map 1427 r 10
+  goto 40.01,48.33 map 1427 r 10
+  collect 10551 quest 3443 npc 5840   -- Thorium Plated Dagger
+
 step Velarok Windblade
   turnin 3443
 
-step Thorium Point
+step Taskmaster Scrange
+  when complete 7729
   turnin 7729
+
+step Thorium Point
   turnin 7728                         -- Taskmaster Scrange
   turnin 7723                         -- Hansel Heavyhands
   turnin 7724
@@ -144,7 +191,8 @@ step Lookout Captain Lolo Longstriker
 step Level 48.66
   when !group 7701
   when level<48.66
-  tip If you skipped WANTED: Overseer Maltorius, grind here to level 48.66 to stay on the route's plan. Or, with a group, run the Maraudon dungeon or the Zul'Farrak dungeon instead.
+  tip Still under level 48.66 after the Slag Pit (a solo player usually is; a group's Culling the Competition or WANTED: Overseer Maltorius covers it)? Top up on the Incendosaurs (47) in the Slag Pit's lava pools, pulled to the edge.
+  tip Careful: Overseer Maltorius (50, elite) and his elite guards hold the Slag Pit's depths: keep to the pools near the entrance and don't follow the tunnels in.
   goto 46.0,22.0 map 1427 "Incendosaur"
   level 48.66 grind 9318               -- grind on Incendosaur
 
@@ -188,9 +236,10 @@ step Sentry Braziers
 step Level 48.98
   when !group 3452
   when level<48.98
-  tip If you skipped The Flame's Casing, grind here to level 48.98 to stay on the route's plan. Or, with a group, run the Maraudon dungeon or the Zul'Farrak dungeon instead.
-  goto 39.2,38.9 map 1427 "Dark Iron Slaver"
-  level 48.98 grind 5844               -- grind on Dark Iron Slaver
+  tip Still under level 48.98 (a solo player usually is; a group's The Flame's Casing covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the Dark Iron camps.
+  tip Careful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at Firewatch Ridge, whose cultists are elites.
+  goto 28.5,51.0 map 1427 "Searing Lava Spider"
+  level 48.98 grind 5858               -- grind on Searing Lava Spider
 
 step Margol's Horn
   when group 3181

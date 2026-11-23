@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Durotar Supply and Logistics
 	-- {zone:1413} Barrens · {npc:256400} Okamache · {npc:10636} Pack Kodo · {faction:2587} Durotar Supply and Logistics · {item:280179} Shipping Label
-	["The camp stands just outside the west gate of the Crossroads in the {zone:1413}. {npc:256400} sells the {npc:10636} only once you are Exalted with {faction:2587}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "",
+	["The camp stands just outside the west gate of the Crossroads in the {zone:1413}. {npc:256400} sells the {npc:10636} only once you are Exalted with {faction:2587}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "El campamento está justo afuera de la puerta oeste del Cruce, en {zone:1413}. {npc:256400} vende el {npc:10636} solo cuando estás en Exaltado con {faction:2587}, y cuesta 6.000 de Favor del mercader. Los cajones pagan solo Favor (unos 15 por cajón entregado); la reputación sale de los encargos de Artesano y del {item:280179} único, así que sigue la guía de reputación de las facciones de suministros y guarda 6.000 de Favor.",
 	-- {faction:2587} Durotar Supply and Logistics
 	["{faction:2587} camp"] = "Campamento de {faction:2587}",
 

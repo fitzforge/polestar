@@ -43,7 +43,11 @@ function keyLine(text, key) {
 	return m ? text.slice(0, m.index).split('\n').length : 1;
 }
 
-function validateManifest(obj, file, { official = false, text = null } = {}) {
+// official: our guides/pack.json, which may give the id `guides` and the
+// folder `Polestar_Guides`; extra: one of Polestar's own extra packs
+// (format.js OWN_EXTRAS), read as another pack's but free to give its id.
+function validateManifest(obj, file, { official = false, extra = null, text = null } = {}) {
+	const own = official ? 'guides' : extra ? extra.id : null;
 	const diags = [];
 	const add = (severity, key, message, hint) => diags.push({ file, line: key ? keyLine(text, key) : 1, severity, message, hint });
 	const error = (key, message, hint) => add('error', key, message, hint);
@@ -78,7 +82,7 @@ function validateManifest(obj, file, { official = false, text = null } = {}) {
 		if (key === 'id') {
 			if (!PACK_ID_RE.test(v)) {
 				error(key, `pack id "${v}" is malformed: 2 to 32 lowercase letters, digits and dashes, starting with a letter or digit`, ID_HINT);
-			} else if (RESERVED_IDS.has(v) && !(official && v === 'guides')) {
+			} else if (RESERVED_IDS.has(v) && v !== own) {
 				error(key, `pack id "${v}" is reserved for Polestar (${[...RESERVED_IDS].map((r) => `"${r}"`).join(', ')} are)`, ID_HINT);
 			}
 		} else if (key === 'version') {
@@ -141,8 +145,9 @@ function jsonErrorAt(e, text) {
 	return ` (line ${lines.length}, column ${lines[lines.length - 1].length + 1})`;
 }
 
-// -> { manifest, diags }; manifest is null when there are errors.
-function readManifest(dir, { official = false } = {}) {
+// -> { manifest, diags }; manifest is null when there are errors. official,
+// extra: as validateManifest.
+function readManifest(dir, { official = false, extra = null } = {}) {
 	const abs = path.join(dir, 'pack.json');
 	const file = shown(abs);
 	const read = readPackFile(dir, 'pack.json');
@@ -159,7 +164,7 @@ function readManifest(dir, { official = false } = {}) {
 	} catch (e) {
 		return { manifest: null, diags: [{ file, line: 1, severity: 'error', message: `pack.json is not valid JSON${jsonErrorAt(e, text)}`, hint: 'check for a missing value, quote or comma; JSON allows no trailing commas or comments' }] };
 	}
-	const diags = validateManifest(obj, file, { official, text });
+	const diags = validateManifest(obj, file, { official, extra, text });
 	if (diags.some((d) => d.severity === 'error')) return { manifest: null, diags };
 	const manifest = {};
 	for (const key of KEYS) if (typeof obj[key] === 'string' && obj[key] !== '') manifest[key] = obj[key];

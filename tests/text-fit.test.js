@@ -25,7 +25,7 @@ const { resolve, wrap } = require('../tools/preview/render');
 const { LOCALES } = require('../tools/lib/i18n/locales');
 
 const SLACK = 1.15;
-const WINDOWS = new Set(['PolestarGuideFrame', 'PolestarOptions', 'PolestarPicker', 'PolestarWelcome', 'PolestarWhatsNew', 'PolestarRouteChoice', 'PolestarMenu', 'PolestarRareToast', 'PolestarAlert', 'PolestarReport', 'PolestarCopy']);
+const WINDOWS = new Set(['PolestarGuideFrame', 'PolestarOptions', 'PolestarPicker', 'PolestarWelcome', 'PolestarWhatsNew', 'PolestarRouteChoice', 'PolestarMenu', 'PolestarRareToast', 'PolestarAlert', 'PolestarReport', 'PolestarCopy', 'PolestarTetrisFrame']);
 
 // The preview's fonts, every advance SLACK times wider.
 const fonts = fontsFor(SLACK);
@@ -48,13 +48,24 @@ function auditPanels(label, panels) {
 
 const windowed = P.SCENES.filter((s) => s.panels.every((p) => p.roots.every((r) => WINDOWS.has(r))));
 
-test('the audit covers the hub, Options, the guide window and the welcome', () => {
+test('the audit covers the hub, Options, the guide window, the welcome and Tetris', () => {
 	const roots = new Set(windowed.flatMap((s) => s.panels.flatMap((p) => p.roots)));
-	for (const r of ['PolestarGuideFrame', 'PolestarOptions', 'PolestarPicker', 'PolestarWelcome']) assert.ok(roots.has(r), r);
+	for (const r of ['PolestarGuideFrame', 'PolestarOptions', 'PolestarPicker', 'PolestarWelcome', 'PolestarTetrisFrame']) assert.ok(roots.has(r), r);
+	assert.equal(P.SCENES.find((s) => s.file === 'tetris.svg').panels.length, 3, 'active, paused and game over');
 	const scripts = windowed.flatMap((s) => s.panels.map((p) => p.script)).join('\n');
 	for (const section of ['Polestar.Lookup.Show', 'Polestar.Dungeons.Open', 'Polestar.Rares.Show', 'Polestar.UI.ShowPicker', '"guidepacks"']) {
 		assert.ok(scripts.includes(section), section);
 	}
+});
+
+test('the Tetris preview shows active, paused and game-over states', () => {
+	const scene = P.SCENES.find((s) => s.file === 'tetris.svg');
+	const labels = scene.panels.map((panel) => P.dumpPanel(panel, prelude).objects
+		.filter((o) => o.kind === 'FontString' && o.shown)
+		.map((o) => o.text));
+	assert.ok(!labels[0].some((s) => s.includes('Paused') || s.includes('Game over')));
+	assert.ok(labels[1].includes('Paused — press P or Start'));
+	assert.ok(labels[2].includes('Game over — New game'));
 });
 
 for (const scene of windowed) {
@@ -103,7 +114,7 @@ test('text fits: every Options page and tab', () => {
 		stubs: ['stub_ui.lua'],
 		before: recorder,
 		addons: [{ name: 'Polestar', files: P.MODULE_FILES }],
-		script: 'uistub.install()\nstub.login()\nemit(Polestar.UI.Options.Pages())',
+		script: 'uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\nemit(Polestar.UI.Options.Pages())',
 	}).emitted[0];
 	assert.ok(pages.length >= 8, `${pages.length} pages`);
 	const panels = [];
@@ -117,4 +128,25 @@ test('text fits: every Options page and tab', () => {
 	const found = [];
 	for (const panel of panels) found.push(...auditPanels(`Options ${panel.name}`, [panel]).map((l) => l.replace(/ #1 /, ' ')));
 	assert.deepEqual(found, [], `text outside its window:\n${found.join('\n')}`);
+});
+
+// A word wider than its line is cut in the client, unless the string breaks
+// between characters (SetNonSpaceWrap; a multi-line edit box's text, as the
+// preview stub dumps it): the client breaks it there, as render.js draws it,
+// so no word stands out of its line (the Share tab's profile string, one
+// word of base64, scrolling in its well).
+test('fit: a word wider than its line is found, unless the string breaks between characters', () => {
+	const word = 'eAEBfgGBnsiZm9ybWF0IjoxLCJuYW1lIjoiRGVmYXVsdCIs'.repeat(8);
+	const dump = (nonSpace) => ({
+		objects: [
+			{ id: 1, kind: 'Frame', name: 'PolestarCopy', shown: true, points: [{ point: 'TOPLEFT', relPoint: 'TOPLEFT', x: 100, y: -100 }], w: 400, h: 300 },
+			{
+				id: 2, kind: 'FontString', parent: 1, shown: true, text: word, font: ['label', 12, ''], wrap: true, nonSpace, justifyH: 'LEFT', justifyV: 'TOP',
+				points: [{ point: 'TOPLEFT', rel: 1, relPoint: 'TOPLEFT', x: 10, y: -8 }, { point: 'BOTTOMRIGHT', rel: 1, relPoint: 'BOTTOMRIGHT', x: -10, y: 8 }],
+			},
+		],
+	});
+	const words = (d) => audit(d, ['PolestarCopy'], fonts, ['word']).map(describe);
+	assert.deepEqual(words(dump(true)), [], 'broken between characters: no word wider than its line');
+	assert.equal(words(dump(false)).length, 1, 'broken at spaces only: the word is wider than its line');
 });

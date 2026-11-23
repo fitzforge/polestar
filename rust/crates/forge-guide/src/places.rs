@@ -14,6 +14,12 @@ fn town(name: &V) -> String {
 	s.split(',').next().unwrap_or("").to_string()
 }
 
+/// A flight master with a flight path to learn: never a class's own (travel.json `class`: Nighthaven's Silva
+/// Fil'naveth and Bunthen Plainswind fly Druids from their gossip only, and teach no flight path).
+fn learnable(node: &V) -> bool {
+	!node.get("class").truthy()
+}
+
 fn zone_of(data: &Data, map: &V) -> Option<String> {
 	if map.is_nullish() {
 		return None;
@@ -69,8 +75,9 @@ fn places_of(data: &Data) -> V {
 		f.extend(some(&inn_names));
 		f.extend(nodes.iter().map(|n| zone_of(data, &n.get("map"))));
 		out.set("fly", set(f));
-		let full = set(nodes.iter().map(|n| Some(n.get("name").to_js_string())).collect());
-		let towns = set(nodes.iter().map(|n| Some(town(&n.get("name")))).collect());
+		let learn: Vec<&V> = nodes.iter().filter(|n| learnable(n)).collect();
+		let full = set(learn.iter().map(|n| Some(n.get("name").to_js_string())).collect());
+		let towns = set(learn.iter().map(|n| Some(town(&n.get("name")))).collect());
 		let lower = V::obj();
 		for k in full.get("lower").keys().into_iter().chain(towns.get("lower").keys()) {
 			lower.set(&k, true);
@@ -200,7 +207,8 @@ pub fn goal_area(data: &Data, goal: &V) -> V {
 	}
 }
 
-/// A getfp's or fly's taxi node ID, or Undef. `sides`: array of "Alliance" / "Horde".
+/// A getfp's or fly's taxi node ID, or Undef: never a class's own flight master (`learnable`), which teaches no
+/// flight path and is no flight's landing. `sides`: array of "Alliance" / "Horde".
 pub fn goal_node(data: &Data, goal: &V, sides: &V) -> V {
 	let t = goal.get("t");
 	let location = goal.get("location");
@@ -211,7 +219,7 @@ pub fn goal_node(data: &Data, goal: &V, sides: &V) -> V {
 	if !goal.get("npc").is_undef() {
 		let own: Vec<&V> = nodes.iter().filter(|n| n.get("npc").strict_eq(&goal.get("npc"))).collect();
 		if own.len() == 1 {
-			return own[0].get("id");
+			return if learnable(own[0]) { own[0].get("id") } else { V::Undef };
 		}
 	}
 	let named = named_node(&nodes, location.as_str().unwrap(), sides);
@@ -222,7 +230,7 @@ pub fn goal_node(data: &Data, goal: &V, sides: &V) -> V {
 	}
 }
 
-/// The one taxi node whose name or town is `location` and that serves every faction in `sides`, or Null.
+/// The one learnable taxi node whose name or town is `location` and that serves every faction in `sides`, or Null.
 fn named_node(nodes: &[V], location: &str, sides: &V) -> V {
 	let want = location.trim().to_lowercase();
 	let mask = sides.items().iter().fold(0, |m, s| m | side_mask(s));
@@ -230,7 +238,7 @@ fn named_node(nodes: &[V], location: &str, sides: &V) -> V {
 		.iter()
 		.filter(|n| {
 			let full = n.get("name").to_js_string().to_lowercase();
-			(full == want || town(&V::str(&full)) == want) && (to_int32(&n.get("faction")) & mask) == mask
+			learnable(n) && (full == want || town(&V::str(&full)) == want) && (to_int32(&n.get("faction")) & mask) == mask
 		})
 		.collect();
 	if named.len() == 1 {

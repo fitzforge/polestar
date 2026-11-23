@@ -30,12 +30,10 @@ return {
 	["{npc:266216} is inside {area:275}, the Syndicate fortress east of {area:271}. Stealth past the guards in the courtyard."] = "{npc:266216} ist in {area:275}, der Festung der Syndicate östlich von {area:271}. Schleich an den Wachen im Hof vorbei.",
 
 	-- Step 4: Strahnbrad: Barton
-	-- {area:280} Strahnbrad
-	["{area:280}: Barton"] = "{area:280}: Barton",
-	-- {area:280} Strahnbrad
-	["Barton hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "Barton versteckt sich in einem Haus in {area:280}, zwischen getarnten Syndicate. Beklaue ihn für den Bericht; Ablenken dreht ihn um, wenn du unter seiner Stufe bist.",
-	-- {item:275482} Barton's Scouting Report
-	["{item:275482}: pickpocket Barton"] = "{item:275482}: Barton bestehlen",
+	-- {npc:266357} Barton · {area:280} Strahnbrad
+	["{npc:266357} hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "{npc:266357} versteckt sich in einem Haus in {area:280}, zwischen getarnten Syndicate. Beklaue ihn für den Bericht; Ablenken dreht ihn um, wenn du unter seiner Stufe bist.",
+	-- {item:275482} Barton's Scouting Report · {npc:266357} Barton
+	["{item:275482}: pickpocket {npc:266357}"] = "{item:275482}: {npc:266357} bestehlen",
 
 	-- Step 5: Northfold Manor: a uniform
 	-- {area:313} Northfold Manor
@@ -122,5 +120,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["a {npc:6766}: 100 per emblem"] = "ein {npc:6766}: 100 pro Emblem",
+	-- ["{area:280}: Barton"] = "{area:280}: Barton",
 	-- ["{npc:6707}: 50 per five boxes"] = "{npc:6707}: 50 pro fünf Kisten",
 }

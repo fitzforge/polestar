@@ -29,8 +29,10 @@ pub const LEAVE_YD: f64 = 200.0;
 /// reports, c12w Tirisfal: Deathguard Simmer 42 yd off Calvin Montague -> Gordo, #737; Deathguard
 /// Dillinger 49 yd off Holland -> Zygand, #740).
 pub const PAST_YD: f64 = 50.0;
-/// Levels under a quest's level the character may be for its accept to be ready (the model's
-/// dangerGap: further under, it grinds first).
+/// Levels under a quest's level the character may be for its accept to count as ready at a visit
+/// (the judge's on-level gap). The model itself takes a red quest at its minimum level and holds
+/// only its work to dangerGap (Evaluator::red), so this decides which pick-ups a visit misses, not
+/// what an accept costs.
 pub const READY_UNDER: f64 = 5.0;
 /// Most distinct places of a visit loop_order orders exactly (Held-Karp, 2^n·n²).
 pub const LOOP_NODES: usize = 16;
@@ -381,6 +383,12 @@ pub(crate) fn count(h: &HubData, w: &Walk, walked: &[Moved], mut fixes: Option<&
 			}
 			if run.q_parent[qi] >= 0 {
 				r = r.max(w.accept_at[run.q_parent[qi] as usize] as usize);
+			}
+			// (After the hand-in of a breadcrumb taken before it: held back while it is in the log.)
+			for &c in run.crumbs(qi) {
+				if (w.accept_at[c as usize] as usize) < j {
+					r = r.max(w.turnin_at[c as usize] as usize);
+				}
 			}
 			r
 		};

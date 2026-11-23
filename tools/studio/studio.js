@@ -41,6 +41,7 @@ const late = () => ({
 	...require('../preview/render'),
 	Font: require('../preview/font').Font,
 	ADDONS: require('../../tests/helpers/lua').ADDONS,
+	tocFiles: require('../../tests/helpers/lua').tocFiles,
 });
 
 function listScenarios() {
@@ -63,16 +64,35 @@ function withClientFonts(L) {
 	const d = L.sharedData();
 	if (d.studioFonts) return d;
 	d.studioFonts = true;
+	const faces = [];
 	const file = art.font('FRIZQT__.TTF');
-	if (!file) return d;
-	const f = new L.Font(file);
-	d.fonts['FRIZQT__.TTF'] = f;
+	if (file) faces.push(['FRIZQT__.TTF', file]);
+	// Polestar's own faces beyond the playground's three Inter weights (Open
+	// Sans, Fira Sans: the skins' and the ui.font choices) and a skin addon's
+	// own fonts (addon/Polestar_Skin_*/Fonts, the Skin API's `font = { regular
+	// = path, ... }`), by file name, as the preview does: else they are
+	// measured and drawn in the fallback face.
+	const addons = L.ADDONS;
+	const fontDirs = [path.join(addons, 'Polestar', 'Media', 'Fonts')];
+	for (const folder of fs.existsSync(addons) ? fs.readdirSync(addons) : []) {
+		if (folder.startsWith('Polestar_Skin_')) fontDirs.push(path.join(addons, folder, 'Fonts'));
+	}
+	for (const dir of fontDirs) {
+		if (!fs.existsSync(dir)) continue;
+		for (const f of fs.readdirSync(dir)) if (/\.ttf$/i.test(f)) faces.push([f, path.join(dir, f)]);
+	}
 	const cps = [];
 	for (let c = 32; c < 127; c++) cps.push(c);
 	for (let c = 0xa0; c < 0x180; c++) cps.push(c);
 	cps.push(0x2013, 0x2014, 0x2018, 0x2019, 0x201c, 0x201d, 0x2026, 0x2022, 0x00b7, 0x00d7, 0x2192);
-	const adv = cps.map((c) => `[${c}]=${f.advanceEm(c).toFixed(5)}`).join(',');
-	d.metrics += `\npreview.metrics["FRIZQT__.TTF"] = { upm = ${f.upm}, fallback = ${f.advanceEm(0x6e).toFixed(5)}, adv = { ${adv} } }`;
+	for (const [name, ttf] of faces) {
+		// `in`, not a read: the fonts proxy answers any name with the fallback face.
+		if (name in d.fonts) continue;
+		const f = new L.Font(ttf);
+		d.fonts[name] = f;
+		const adv = cps.map((c) => `[${c}]=${f.advanceEm(c).toFixed(5)}`).join(',');
+		d.metrics += `\npreview.metrics[${JSON.stringify(name)}] = { upm = ${f.upm}, fallback = ${f.advanceEm(0x6e).toFixed(5)}, adv = { ${adv} } }`;
+	}
 	return d;
 }
 
@@ -125,13 +145,30 @@ async function prepare(sc, offline) {
 	}
 	const items = [...((sc.data && sc.data.items) || []), ...(sc.bags || []).map((b) => b[0])];
 	const data = await clientData.luaData({ spells, items });
-	const pulled = await art.pull([...new Set([...data.icons, ...(sc.art || [])])], { offline });
+	// Every zone painting the client has (UI.ZoneArt: the guide menu, the guide
+	// end, the route choice cards), from its map tables, so a shot never paints
+	// the night band where the game paints the zone.
+	const missing = [];
+	let zones = { files: [] };
+	try {
+		zones = await clientData.zoneArt();
+		art.addMaps(zones.maps);
+	} catch (err) {
+		missing.push(`zone art (${err.message})`);
+	}
+	const pulled = await art.pull([...new Set([...data.icons, ...(sc.art || []), ...zones.files])], { offline });
+	missing.push(...pulled.missing);
 	// The atlases whose sheets the cache holds (SetAtlas, C_Texture.GetAtlasInfo).
 	const atlases = art.readJson(path.join(art.dir(), 'atlases.json'), {});
 	const rows = Object.entries(atlases).filter(([, a]) => art.has(art.dir(), a.file))
 		.map(([k, a]) => `[${q(k)}] = { ${a.file}, ${a.w}, ${a.h}, ${a.l}, ${a.r}, ${a.t}, ${a.b} }`);
 	const atlasLua = rows.length ? `STUDIO_ATLAS = { ${rows.join(', ')} }\n` : '';
-	return { book, lua: data.lua + atlasLua, missingArt: pulled.missing };
+	// The interface files the cache holds (SetTexture / SetStatusBarTexture by
+	// path, as the game's looks name the vanilla art).
+	const files = Object.entries(art.readJson(path.join(art.dir(), 'files.json'), {})).filter(([, fid]) => art.has(art.dir(), fid))
+		.map(([k, fid]) => `[${q(k)}] = ${fid}`);
+	const filesLua = files.length ? `STUDIO_FILES = { ${files.join(', ')} }\n` : '';
+	return { book, lua: data.lua + atlasLua + filesLua, missingArt: missing };
 }
 
 function setupLua(sc, book) {
@@ -174,7 +211,8 @@ return Polestar.Engine.GetStepIndex()`;
 }
 
 // The screen box of the frames named and everything drawn inside them
-// (labels hanging out of a button count), shown ones only.
+// (labels hanging out of a button count), shown ones only, each cut to the
+// frames that clip it (a scroll frame, a zoomed map canvas) as it is drawn.
 function bbox(layout, names) {
 	const box = [Infinity, Infinity, -Infinity, -Infinity];
 	const roots = new Set();
@@ -190,8 +228,16 @@ function bbox(layout, names) {
 		if (!inside(o)) continue;
 		const r = layout.rects.get(o.id);
 		if (!r || !r.w || !r.h) continue;
-		box[0] = Math.min(box[0], r.x - layout.ox); box[1] = Math.min(box[1], r.y - layout.oy);
-		box[2] = Math.max(box[2], r.x + r.w - layout.ox); box[3] = Math.max(box[3], r.y + r.h - layout.oy);
+		let x0 = r.x, y0 = r.y, x1 = r.x + r.w, y1 = r.y + r.h;
+		for (let c = layout.clipOf(o); c; c = layout.clipOf(c)) {
+			const cr = layout.rects.get(c.id);
+			if (!cr) continue;
+			x0 = Math.max(x0, cr.x); y0 = Math.max(y0, cr.y);
+			x1 = Math.min(x1, cr.x + cr.w); y1 = Math.min(y1, cr.y + cr.h);
+		}
+		if (x1 <= x0 || y1 <= y0) continue;
+		box[0] = Math.min(box[0], x0 - layout.ox); box[1] = Math.min(box[1], y0 - layout.oy);
+		box[2] = Math.max(box[2], x1 - layout.ox); box[3] = Math.max(box[3], y1 - layout.oy);
 	}
 	return Number.isFinite(box[0]) ? box : null;
 }
@@ -205,9 +251,68 @@ function hasRsvg() {
 	}
 }
 
-// Renders shot `shotName` of scenario `sc` into outDir/<scenario>-<shot>.{svg,png}.
+// A client language (--locale): GetLocale answers it and its language folder
+// (addon/Polestar_<locale>: the interface strings, the game's names and the
+// guide texts) loads when Polestar asks for it, as the client loads it;
+// string.format takes positional arguments (%1$s) as the client's does. The
+// preview's faces have no CJK or Hangul: those measure 1em (tools/preview/fit.js),
+// in the Lua (what the addon sizes by) from the moment the preview stub loads.
+const WIDE_LUA = `local function wide(cp)
+	return (cp >= 0x1100 and cp <= 0x11ff) or (cp >= 0x2e80 and cp <= 0xa4cf) or (cp >= 0xa960 and cp <= 0xa97f) or (cp >= 0xac00 and cp <= 0xd7ff)
+		or (cp >= 0xf900 and cp <= 0xfaff) or (cp >= 0xfe30 and cp <= 0xfe4f) or (cp >= 0xff00 and cp <= 0xff60) or (cp >= 0xffe0 and cp <= 0xffe6)
+end`;
+function localeStub(locale, dir) {
+	const L = late();
+	const folder = `Polestar_${locale}`;
+	const lua = `${require('../preview/fit').clientLocaleLua(locale)}
+stub.packs[${q(folder)}] = { ${L.tocFiles(folder).map(q).join(', ')} }
+${WIDE_LUA}
+local load = dofile
+function dofile(file, ...)
+	local out = { load(file, ...) }
+	if type(file) == "string" and file:match("tools[/\\\\]preview[/\\\\]stub%.lua$") then
+		local base = preview.width
+		function preview.width(font, size, s)
+			local w, m = base(font, size, s), preview.metrics[font]
+			for ch in tostring(s):gmatch("[\\224-\\239][\\128-\\191][\\128-\\191]") do
+				local a, b, c = ch:byte(1, 3)
+				local cp = (a % 16) * 4096 + (b % 64) * 64 + (c % 64)
+				if wide(cp) and not m.adv[cp] then w = w + (1 - m.fallback) * size end
+			end
+			return w
+		end
+	end
+	return unpack(out)
+end
+`;
+	const file = path.join(dir, `studio-locale-${locale}.lua`);
+	fs.writeFileSync(file, lua);
+	return file;
+}
+
+// The studio's faces as the client sets a language's text: CJK and Hangul
+// 1em where a face lacks them (tools/preview/fit.js fontsFor).
+function wideFonts(fonts) {
+	const wide = (cp) => (cp >= 0x1100 && cp <= 0x11ff) || (cp >= 0x2e80 && cp <= 0xa4cf) || (cp >= 0xa960 && cp <= 0xa97f) || (cp >= 0xac00 && cp <= 0xd7ff) || (cp >= 0xf900 && cp <= 0xfaff) || (cp >= 0xfe30 && cp <= 0xfe4f) || (cp >= 0xff00 && cp <= 0xff60) || (cp >= 0xffe0 && cp <= 0xffe6);
+	const cache = new Map();
+	return new Proxy({}, {
+		get(_, k) {
+			if (!cache.has(k)) {
+				const f = fonts[k];
+				cache.set(k, Object.create(f, { advanceEm: { value: (c) => (wide(c) && !f.glyphId(c) ? 1 : f.advanceEm(c)) } }));
+			}
+			return cache.get(k);
+		},
+		has(_, k) { return k in fonts; },
+	});
+}
+
+// Renders shot `shotName` of scenario `sc` into outDir/<scenario>-<shot>.{svg,png}
+// (<scenario>-<shot>-<locale> in another language).
 // stubsDir: another checkout's tests/lua, where the scenario's stubs are looked for first.
-async function runShot(sc, shotName, { outDir, world = null, offline = false, stubsDir = null, log = () => {} } = {}) {
+// locale: the client's language (localeStub); fit: list the text the shot's
+// capture frames cut or let cross their edges (tools/preview/fit.js audit) as `fit`.
+async function runShot(sc, shotName, { outDir, world = null, offline = false, stubsDir = null, locale = null, fit = false, log = () => {} } = {}) {
 	const shot = sc.shots[shotName];
 	if (!shot) throw new Error(`studio: scenario "${sc.name}" has no shot "${shotName}" (${Object.keys(sc.shots).join(', ')})`);
 	const L = late();
@@ -222,7 +327,7 @@ async function runShot(sc, shotName, { outDir, world = null, offline = false, st
 	const ch = sc.character;
 	const s = new L.Session({
 		dataDir, artDir: art.dir(), config: { race: ch.race, cls: ch.cls, faction: ch.faction },
-		stubs: [dataFile, EARLY_LUA, CLIENT_LUA, ...(sc.stubs || []).map((f) => (stubsDir && fs.existsSync(path.join(stubsDir, f)) ? path.join(stubsDir, f) : f))], timeoutMs: 180000, log,
+		stubs: [dataFile, EARLY_LUA, CLIENT_LUA, ...(locale && locale !== 'enUS' ? [localeStub(locale, dataDir)] : []), ...(sc.stubs || []).map((f) => (stubsDir && fs.existsSync(path.join(stubsDir, f)) ? path.join(stubsDir, f) : f))], timeoutMs: 180000, log,
 	});
 	await s.start();
 	try {
@@ -250,13 +355,18 @@ async function runShot(sc, shotName, { outDir, world = null, offline = false, st
 		const body = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${bg}<defs>${pic.defs}\n${glyphs.defs.join('\n')}</defs>${pic.body}</svg>`;
 
 		fs.mkdirSync(outDir, { recursive: true });
-		const base = path.join(outDir, `${sc.name}-${shotName}`);
-		const out = { svg: `${base}.svg`, png: null, closeup: null, errors, step, result };
+		const base = path.join(outDir, `${sc.name}-${shotName}${locale && locale !== 'enUS' ? `-${locale}` : ''}`);
+		const out = { svg: `${base}.svg`, png: null, closeup: null, errors, step, result, fit: null };
+		const capture = shot.capture || sc.capture || ['PolestarGuideFrame'];
+		if (fit) {
+			const F = require('../preview/fit');
+			out.fit = F.audit(snap.dump, capture, wideFonts(d.fonts)).map(F.describe);
+		}
 		fs.writeFileSync(out.svg, body);
 		if (hasRsvg()) {
 			out.png = `${base}.png`;
 			execFileSync('rsvg-convert', ['-o', out.png, out.svg]);
-			const box = bbox(pic.layout, shot.capture || sc.capture || ['PolestarGuideFrame']);
+			const box = bbox(pic.layout, capture);
 			if (box) {
 				const pad = shot.pad || sc.pad || 24;
 				const x0 = Math.max(0, Math.floor(box[0] - pad)), y0 = Math.max(0, Math.floor(box[1] - pad));

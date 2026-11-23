@@ -13,7 +13,7 @@ use std::time::Instant;
 
 use forge_judge::honest::{self, HonestOpts, PackRun};
 use forge_judge::levels::SimLevels;
-use forge_judge::walk::{judge_walk, DumpLevels, JudgeOpts, LevelModel};
+use forge_judge::walk::{judge_walk, Ctx, DumpLevels, JudgeOpts, LevelModel};
 use serde_json::{json, Value};
 
 pub(super) const USAGE: &str = "usage: forge judge <pack dir> --faction F --race R [--class C] [--to <level>] [--sim <dir>] [--levels <file>]
@@ -39,6 +39,9 @@ fn run() -> Result<(), Fail> {
 	}
 	if super::args().nth(1).as_deref() == Some("check") {
 		return check(super::args().skip(2).collect());
+	}
+	if super::args().nth(1).as_deref() == Some("doors") {
+		return doors(super::args().skip(2).collect());
 	}
 	if super::args().nth(1).as_deref() == Some("seed-tests") {
 		return seed_tests(super::args().skip(2).collect());
@@ -80,6 +83,11 @@ fn run() -> Result<(), Fail> {
 	let pack = pack.ok_or_else(|| usage("a pack folder is required"))?;
 	let faction = faction.ok_or_else(|| usage("--faction horde|alliance is required"))?;
 	let race = race.ok_or_else(|| usage("--race <race> is required"))?;
+	let fac = forge_core::Faction::parse(&faction).ok_or_else(|| usage(format!("--faction {faction}: horde or alliance")))?;
+	let faction = fac.name();
+	let ctx = Ctx::new(faction, &race, None).map_err(|_| usage(format!("--race {race}: unknown race")))?;
+	// The simulator uses start labels (Undead), while Ctx uses race files (Scourge).
+	let race = forge_core::race_label(&ctx.race);
 	let root = match root {
 		Some(r) => r,
 		None => find_root(&pack).or_else(|| find_root(&std::env::current_dir().ok()?)).ok_or("no data/forever above the pack or here; pass --root")?,
@@ -91,7 +99,7 @@ fn run() -> Result<(), Fail> {
 	let kb = honest::load_kb(&root.join("data/local/kb/forever-kb.sqlite"))?;
 	let opts = if legacy { HonestOpts::legacy() } else { HonestOpts::default() };
 	// Classes as the data files name them (WARRIOR, DEATHKNIGHT).
-	let run = PackRun { filter: None, faction: Some(faction.clone()), race: Some(race.clone()), classes: cls.clone().map(|c| vec![c.to_uppercase().replace([' ', '-'], "")]) };
+	let run = PackRun { filter: None, faction: Some(faction.to_string()), race: Some(race.to_string()), classes: cls.clone().map(|c| vec![c.to_uppercase().replace([' ', '-'], "")]) };
 	let played = honest::play_pack(&pack, &gdata, kb.as_ref(), &run, &opts)?;
 	let honest_ms = t0.elapsed().as_secs_f64() * 1e3;
 
@@ -105,13 +113,12 @@ fn run() -> Result<(), Fail> {
 		}
 		None => {
 			let dir = sim.clone().unwrap_or_else(|| root.join("data/sim"));
-			let fac = forge_core::Faction::parse(&faction).ok_or_else(|| usage(format!("--faction {faction}: horde or alliance")))?;
 			match forge_sim::load_world(&dir, fac) {
 				Err(e) if sim.is_some() => return Err(e.into()),
 				Err(_) => None,
 				Ok(world) => {
 					let params: Option<Value> = std::fs::read(dir.join("params.json")).ok().and_then(|b| serde_json::from_slice(&b).ok());
-					Some(Box::new(SimLevels::new(&world, &race, params.as_ref())?))
+					Some(Box::new(SimLevels::new(&world, race, params.as_ref())?))
 				}
 			}
 		}
@@ -119,7 +126,7 @@ fn run() -> Result<(), Fail> {
 	let walk = match &lv {
 		None => None,
 		Some(lv) => {
-			let mut o = JudgeOpts::new(&pack, &faction, &race, cls.as_deref(), &root);
+			let mut o = JudgeOpts::new(&pack, faction, race, cls.as_deref(), &root);
 			o.data_dir = data_dir.clone();
 			o.to = to;
 			Some(judge_walk(&o, lv.as_ref())?)
@@ -475,6 +482,101 @@ fn route_status(argv: Vec<String>) -> Result<(), Fail> {
 			std::fs::rename(&tmp, &f).map_err(|e| format!("{}: {e}", f.display()))?;
 		}
 		None => println!("{js}"),
+	}
+	Ok(())
+}
+
+pub(super) const DOORS_USAGE: &str = "usage: forge judge doors [--root <dir>] [--data <dir>] [--sim <dir>] [--guides <dir>] [--levels <Alliance.json>,<Horde.json>]
+                   [--json]
+
+The dungeon runs in the leveling guides (each `when dungeon` step with an `enter`) against their floors in the
+Codex (data/forever/codex/journal.json): a blocker when the walk from the stop before a run to its door crosses
+or ends in a zone 4 or more levels over the run's `when level>=` gate (the world's zone danger levels in --sim,
+default <root>/data/sim; a flight crosses nothing but its landing counts). With --levels (the calibrated level
+model's output per faction, the files the danger gate reads): a warning for each run the model reaches under its
+floor and each pick-up whose gate isn't the floor less the levels the model plans before the run. One line per
+finding, `<file>:<line> <rule> blocker|warn: <message>`. Exit 1 when there is a blocker.";
+
+fn doors(argv: Vec<String>) -> Result<(), Fail> {
+	use forge_judge::doors;
+	let (mut root, mut data, mut sim, mut guides, mut levels): (Option<PathBuf>, Option<PathBuf>, Option<PathBuf>, Option<PathBuf>, Option<String>) = Default::default();
+	let mut as_json = false;
+	let mut it = argv.into_iter();
+	while let Some(a) = it.next() {
+		let mut val = || it.next().ok_or_else(|| usage(format!("{a} needs a value")));
+		match a.as_str() {
+			"--root" => root = Some(PathBuf::from(val()?)),
+			"--data" => data = Some(PathBuf::from(val()?)),
+			"--sim" => sim = Some(PathBuf::from(val()?)),
+			"--guides" => guides = Some(PathBuf::from(val()?)),
+			"--levels" => levels = Some(val()?),
+			"--json" => as_json = true,
+			"-h" | "--help" => {
+				println!("{DOORS_USAGE}");
+				return Ok(());
+			}
+			k => return Err(usage(format!("unexpected {k}"))),
+		}
+	}
+	let root = match root {
+		Some(r) => r,
+		None => find_root(&std::env::current_dir().map_err(|e| e.to_string())?).ok_or("no data/forever above here; pass --root")?,
+	};
+	let data_dir = data.unwrap_or_else(|| root.join("data/forever"));
+	let sim = sim.unwrap_or_else(|| root.join("data/sim"));
+	let guides = guides.unwrap_or_else(|| root.join("guides"));
+	let d = forge_guide::data::load_data(&data_dir)?;
+	if !d.dungeon_floors.truthy() {
+		eprintln!("note: no dungeon floors in {} (a Codex built before floors, or none): the level model's warnings are skipped", data_dir.join("codex/journal.json").display());
+	}
+	let frames = forge_core::MapFrames::from_json(&std::fs::read(data_dir.join("map-frames.json")).map_err(|e| format!("map-frames.json: {e}"))?).map_err(|e| e.to_string())?;
+	let proj = forge_core::Projector::new(&frames);
+	let compiled = forge_guide::project::compile_project(&guides, &forge_guide::js::V::Undef, &d, forge_guide::diag::Diagnostics::new(), false, None).guides;
+	let lm = match &levels {
+		Some(list) => {
+			let docs = list
+				.split(',')
+				.map(|f| std::fs::read(f).map_err(|e| format!("{f}: {e}")).and_then(|b| serde_json::from_slice::<Value>(&b).map_err(|e| format!("{f}: {e}"))))
+				.collect::<Result<Vec<Value>, String>>()?;
+			Some(doors::ModelLevels::from_files(&docs))
+		}
+		None => None,
+	};
+	let mut found = Vec::new();
+	let mut counted = Vec::new();
+	for faction in ["Alliance", "Horde"] {
+		let fac = forge_core::Faction::parse(faction).ok_or_else(|| format!("unknown faction {faction}"))?;
+		let prefix = format!("forever/{}/", faction.to_lowercase());
+		let mine: Vec<forge_guide::js::V> = compiled.iter().filter(|g| g.get("id").to_js_string().starts_with(&prefix)).cloned().collect();
+		let world = forge_sim::load_world(&sim, fac)?;
+		let runs = doors::runs(&mine, &d, &proj, faction);
+		let zone_name = |z: u32| world.zones.get(&z).cloned().unwrap_or_else(|| format!("zone {z}"));
+		found.extend(doors::door_danger(&runs, &world.danger, &world.zone_min, &zone_name));
+		if let (Some(lm), true) = (&lm, d.dungeon_floors.truthy()) {
+			found.extend(doors::model_warnings(&mine, &d.dungeon_floors, lm));
+		}
+		counted.push((faction, runs.len()));
+	}
+	let blockers = found.iter().filter(|v| v.level == forge_judge::check::Level::Blocker).count();
+	if as_json {
+		println!(
+			"{}",
+			serde_json::to_string_pretty(&json!({ "runs": counted.iter().map(|(f, n)| json!({ "faction": f, "runs": n })).collect::<Vec<_>>(), "findings": found })).map_err(|e| e.to_string())?
+		);
+	} else {
+		for v in &found {
+			println!("{}:{} {} {}: {}", v.file, v.line, v.rule, v.level.as_str(), v.message);
+		}
+		println!(
+			"doors: {} ({}), {} blocker(s), {} warning(s)",
+			counted.iter().map(|(f, n)| format!("{f} {n} runs")).collect::<Vec<_>>().join(", "),
+			if lm.is_some() { "with the level model" } else { "no --levels: walks only" },
+			blockers,
+			found.len() - blockers
+		);
+	}
+	if blockers > 0 {
+		std::process::exit(1);
 	}
 	Ok(())
 }

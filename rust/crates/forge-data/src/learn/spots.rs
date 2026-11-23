@@ -174,9 +174,26 @@ pub fn locate(points: &[Pt]) -> Spots {
 		single.extend(spots.iter().filter(|s| s.voters.len() == 1).map(|s| s.voters[0]));
 		spots.retain(|s| s.voters.len() > 1);
 	}
-	spots.sort_by(|a, b| b.voters.len().cmp(&a.voters.len()).then(a.map.cmp(&b.map)).then(a.x.total_cmp(&b.x)).then(a.y.total_cmp(&b.y)));
+	spots.sort_by(order);
 	let kept: FxHashSet<usize> = spots.iter().flat_map(|s| s.voters.iter().copied()).collect();
 	// A voter whose own spot went in step 4 ticked somewhere else: not a disagreement.
 	let outliers = aside.into_iter().filter(|v| !kept.contains(v) && !single.contains(v)).collect();
 	Spots { spots, outliers }
+}
+
+/// Spots best-backed first: most voters, then by map and centre.
+fn order(a: &Spot, b: &Spot) -> std::cmp::Ordering {
+	b.voters.len().cmp(&a.voters.len()).then(a.map.cmp(&b.map)).then(a.x.total_cmp(&b.x)).then(a.y.total_cmp(&b.y))
+}
+
+/// Adds `voter` to every spot `backs` says it backs (evidence that only corroborates spots, never makes or moves
+/// one: EG Link's positions) and orders the spots best-backed first again.
+pub fn add_voter(found: &mut Spots, voter: usize, backs: impl Fn(&Spot) -> bool) {
+	for s in found.spots.iter_mut() {
+		if backs(s) && !s.voters.contains(&voter) {
+			s.voters.push(voter);
+			s.voters.sort_unstable();
+		}
+	}
+	found.spots.sort_by(order);
 }

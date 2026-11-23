@@ -15,6 +15,10 @@
 //   exclude: { spell: reason }      recipes the planner must not use
 //   noLevel: { spell: reason }      recipes made only as parts or tools
 //   tips:    { spell: text }        why this recipe (replaces the generic line)
+//   sellerNotes: { npc: { text, optional } }
+//                                   what a recipe seller needs before he can be found, added to
+//                                   the recipe's buy step; `optional` on every seller of a recipe
+//                                   makes the buy never hold its step
 //   taughtBy: { spell: rank }       recipes only that rank's trainers teach: the
 //                                   learn is pinned to them, and the rank is
 //                                   offered there when the skill allows it
@@ -85,6 +89,12 @@ const SPECS = {
 		// Derotain Mudsipper (Gadgetzan) trades the Imperial Plate plans for Thorium Bars after A Blue
 		// Light Bargain (7652): the Forever quest pages name these rewards; the data has no rewards.
 		questRecipes: { 16647: 7653, 16657: 7654, 16649: 7655 },
+		// Classic's trainer lists (world DB, VB 0) teach these, which asked 230-235 there (above Expert's 225), at
+		// Brikk Keencraft (1002836) only, never at Bengus Deepforge or Saru Steelfury (1004258/1003355). Forever
+		// moved the plans 25 points down but not off the Artisan list: at 205 Saru teaches no Heavy Mithril
+		// Breastplate (#1956, the reporter's trainer window).
+		// Brikk also teaches the three Dense Stone recipes at 225; Bengus does not (#3136).
+		taughtBy: { 9959: 'Artisan', 9961: 'Artisan', 9968: 'Artisan', 10001: 'Artisan', 16639: 'Artisan', 16640: 'Artisan', 16641: 'Artisan' },
 		// Expert 50s (a Forever beta guide tested to 225; Classic's list asks 45s), Artisan 5g (Classic's list).
 		rankCost: { Expert: 5000, Artisan: 50000 },
 		assumed: [
@@ -107,8 +117,11 @@ const SPECS = {
 			9968: 'Mithril Bars from Mithril Deposits; Thick Leather from skinners or the Auction House.',
 			10001: 'Only about 11 crafts to bridge 247-250, but each wants four Shadowgems (about one Tin Vein in a hundred) and a Black Pearl: buy those at the Auction House unless your bags already hold them.',
 			16969: 'Large Opal turns up in about one Thorium vein in 130: buy the ten at the Auction House. Five crafts only, until the battleaxe plans can be used at 255.',
-			16971: 'Plans from Magnus Frostwake (Caer Darrow, Western Plaguelands), unlimited stock, but they bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the Imperial Plate Boots take over. Other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant\'s Favor sets.',
+			16971: 'Plans from Magnus Frostwake in Caer Darrow (Western Plaguelands): he is a ghost you see only with the Spectral Essence trinket on (put it on inside Caer Darrow), the reward of Eva Sarkhoff\'s Scholomance chain that ends with Kirtonos the Herald (level 55, a dungeon group). Unlimited stock, but the plans bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the Imperial Plate Boots take over. Without the trinket, the other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant\'s Favor sets.',
 			16657: 'About 34 Thorium Bars a craft against the battleaxe\'s 40 and its grinding stones, orange to 290. Below character level 50 Derotain has no quest for you: keep making Huge Thorium Battleaxes to 300 instead (yellow to 292, grey at 305: about twice the Thorium Bars).',
+		},
+		sellerNotes: {
+			11278: { text: 'Magnus is a ghost: you see him only with the Spectral Essence on (from Eva Sarkhoff\'s Scholomance chain, level 55, a group), so skip this without it.', optional: true },
 		},
 		notes: [
 			{
@@ -211,7 +224,10 @@ const SPECS = {
 		},
 		// Classic's trainer lists (world DB 1011097/1011098, VB 0) put these on the
 		// Artisan trainers only; Telonis and Una (1004212/1003007) never teach them.
-		taughtBy: { 22331: 'Artisan', 19058: 'Artisan' },
+		// The Nightscape and Turtle Scale pieces asked 230-235 in Classic, above
+		// Expert's 225: Forever moved them 25 points down, not off the Artisan list
+		// (Blacksmithing's Heavy Mithril Breastplate, #1956).
+		taughtBy: { 22331: 'Artisan', 19058: 'Artisan', 10548: 'Artisan', 10552: 'Artisan', 10556: 'Artisan', 10558: 'Artisan' },
 		assumed: [
 			"ASSUMED: Rugged Leather and Rugged Armor Kit are taught only by the Artisan trainers, Drakk Stonehand and Hahrana Ironhide (Classic's trainer lists; Forever's sniffed lists stop at 150). In-game check: whether Telonis or Una teach them.",
 		],
@@ -239,6 +255,10 @@ const SPECS = {
 			tip: `Also learn Faction Banner (1s): Forever's Tailoring camp item, a Bolt of Linen Cloth and a Coarse Thread; each faction has its own. ${CAMPING_101('Tailoring')}`,
 		},
 		noLevel: { 3865: 'Mageweave drops from humanoids of level 35-50, later than skill 140 comes' },
+		// Classic's trainer lists (world DB, VB 0) teach these, which asked 230-250 there (above Expert's 225), at
+		// the Artisan trainers only, never at Georgio Bolero or Josef Gregorian: Forever moved them down, not off
+		// the Artisan list (Blacksmithing's Heavy Mithril Breastplate, #1956).
+		taughtBy: { 12072: 'Artisan', 12073: 'Artisan', 12074: 'Artisan', 12077: 'Artisan', 12079: 'Artisan', 12088: 'Artisan', 12092: 'Artisan', 18401: 'Artisan', 18402: 'Artisan' },
 		exclude: {
 			1257487: 'sold only by Pexmit, "Someone\'s Minion", in Mount Hyjal (an endgame zone, no faction in the data): unverified',
 			3852: 'an Elixir of Wisdom from an alchemist in every craft',

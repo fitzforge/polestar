@@ -24,3 +24,7 @@ forge changelog check                     # validate them
 forge changelog show                      # the next release's entries
 forge changelog build 0.2.5               # at release only
 ```
+
+A feature held back from a release keeps its fragments in a hidden folder,
+`changes/.<version>/` (the tool skips names starting with a dot), with a
+README saying how to turn it on; that release moves them back up.

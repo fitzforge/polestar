@@ -14,31 +14,31 @@ return {
 
 	-- Step 1: Eldrun Stormbreaker
 	-- {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {npc:258043} Norric Lochthane · {zone:1432} Loch Modan
-	["At 20 {npc:258098}, the shaman trainer in {zone:1455}'s {object:32362}, sends you to {npc:258043} in {zone:1432}."] = "",
+	["At 20 {npc:258098}, the shaman trainer in {zone:1455}'s {object:32362}, sends you to {npc:258043} in {zone:1432}."] = "A nivel 20, {npc:258098}, el instructor de chamanes en {object:32362} de {zone:1455}, te manda con {npc:258043} en {zone:1432}.",
 
 	-- Step 2: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {area:146} Stonewrought Dam · {area:144} Thelsamar
-	["{npc:258043}'s burrow hut stands on the north-western shore of the loch, below {area:146}, north of {area:144}."] = "",
+	["{npc:258043}'s burrow hut stands on the north-western shore of the loch, below {area:146}, north of {area:144}."] = "La choza madriguera de {npc:258043} está en la orilla noroeste del lago, debajo de {area:146}, al norte de {area:144}.",
 
 	-- Step 3: Hervdana Saegrund
 	-- {npc:258203} Hervdana Saegrund · {zone:1437} Wetlands · {area:836} Dun Algaz · {zone:1432} Loch Modan
-	["{npc:258203}'s family lives in a cave beneath the southern falls of the {zone:1437}, east of {area:836}: not in a town. Through the Algaz tunnel north of {zone:1432}, then east off the road."] = "",
+	["{npc:258203}'s family lives in a cave beneath the southern falls of the {zone:1437}, east of {area:836}: not in a town. Through the Algaz tunnel north of {zone:1432}, then east off the road."] = "La familia de {npc:258203} vive en una cueva debajo de las cascadas del sur de {zone:1437}, al este de {area:836}: no en un pueblo. Por el túnel de Algaz al norte de {zone:1432}, y luego al este fuera del camino.",
 
 	-- Step 4: The brown waterskin
 	["The brown waterskin"] = "El odre marrón",
 	-- {item:265732} Unfilled Brown Waterskin · {npc:258203} Hervdana Saegrund · {object:147516} Dark Iron (no name in this language: may be words)
-	["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "",
+	["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "Llena {item:265732} al pie de las cascadas debajo de la cueva de {npc:258203}, donde el agua dulce se junta con la salobre. Enanos {object:147516} rondan cerca de las cascadas.",
 
 	-- Step 6: The red waterskin
 	["The red waterskin"] = "El odre rojo",
 	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {zone:1455} Ironforge · {area:69} Lakeshire · {item:265747} Unfilled Red Waterskin · {npc:258203} Hervdana Saegrund
 	-- plural, as words: Murloc Nightcrawlers = {npc:544} Murloc Nightcrawler
-	["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "",
+	["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "{area:71} caen desde {area:68}, en el extremo este de Montañas Crestagrana (vuela de {zone:1455} a {area:69}). Llena {item:265747} al pie, donde se juntan los reptadores nocturnos múrloc; aleja antes a los múrlocs del lugar. Si el odre desaparece sin contar, abandona la misión y vuelve a tomarla con {npc:258203} para uno nuevo.",
 
 	-- Step 8: The blue waterskin
 	["The blue waterskin"] = "El odre azul",
 	-- {area:150} Menethil Harbor · {area:442} Auberdine · {area:271} Southshore · {zone:1439} Darkshore · {area:415} Astranaar · {zone:1440} Ashenvale · {item:265772} Unfilled Blue Waterskin
-	["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "",
+	["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "Toma el barco de {area:150} a {area:442} (para en {area:271} en el camino), luego vuela o camina al sur por {zone:1439} hasta {area:415}, en {zone:1440}. Llena {item:265772} en el lago alrededor del pueblo, y luego el barco de vuelta a Menethil.",
 
 	-- Step 9: Hervdana Saegrund
 	-- {item:7810} Vial of Purest Water · {npc:258043} Norric Lochthane
@@ -46,27 +46,27 @@ return {
 
 	-- Step 10: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {area:146} Stonewrought Dam · {item:7810} Vial of Purest Water · {item:6637} Water Sapta · {item:7811} Remaining Drops of Purest Water · {zone:1436} Westfall
-	["Back to {npc:258043} by {area:146} with the {item:7810}. He hands you the {item:6637} and the {item:7811}: keep both for {zone:1436}."] = "",
+	["Back to {npc:258043} by {area:146} with the {item:7810}. He hands you the {item:6637} and the {item:7811}: keep both for {zone:1436}."] = "De vuelta con {npc:258043}, junto a {area:146}, con {item:7810}. Te da {item:6637} y {item:7811}: guarda ambos para {zone:1436}.",
 	-- {npc:258043} Norric Lochthane · {item:6637} Water Sapta
 	["{npc:258043}: your {item:6637}"] = "{npc:258043}: tu {item:6637}",
 
 	-- Step 11: Lost the Water Sapta?
 	-- {quest:94616} Water Sapta
-	["Lost the {quest:94616}?"] = "",
+	["Lost the {quest:94616}?"] = "¿Perdiste {quest:94616}?",
 	-- {quest:94616} Water Sapta · {npc:258043} Norric Lochthane · {zone:1436} Westfall
-	["Only if the {quest:94616} is gone from your bags: {npc:258043} gives you another before you leave for {zone:1436}."] = "",
+	["Only if the {quest:94616} is gone from your bags: {npc:258043} gives you another before you leave for {zone:1436}."] = "Solo si {quest:94616} ya no está en tus bolsas: {npc:258043} te da otro antes de que salgas hacia {zone:1436}.",
 	-- {npc:258043} Norric Lochthane · {quest:94616} Water Sapta
-	["{npc:258043}: a new {quest:94616}"] = "",
+	["{npc:258043}: a new {quest:94616}"] = "{npc:258043}: un {quest:94616} nuevo",
 
 	-- Step 12: Stendel's Pond
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {area:919} Stendel's Pond · {object:619896} Forgotten Shrine (no name in this language: may be words) · {item:6637} Water Sapta · {npc:5894} Corrupt Minor Manifestation of Water · {spell:8056} Frost Shock · {spell:122} Frost Nova · {item:7811} Remaining Drops of Purest Water · {npc:258043} Norric Lochthane · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water
-	["Fly to {area:108} and head south to {area:20}: {area:919} and the {object:619896} lie just north of it. Drink the {item:6637} by the shrine to see the {npc:5894} (level 22, {spell:8056} and {spell:122}; one spawn, back three minutes after a kill), defeat it for its bracers (always dropped), then place them and the {item:7811} on the {object:619896} (this, not {npc:258043}, ends the quest). Click the shrine again: the {npc:5895} rises beside it; speak to it before you walk off (if it is gone, abandon and take the quest again at the shrine). It gives you the {item:7813}."] = "",
+	["Fly to {area:108} and head south to {area:20}: {area:919} and the {object:619896} lie just north of it. Drink the {item:6637} by the shrine to see the {npc:5894} (level 22, {spell:8056} and {spell:122}; one spawn, back three minutes after a kill), defeat it for its bracers (always dropped), then place them and the {item:7811} on the {object:619896} (this, not {npc:258043}, ends the quest). Click the shrine again: the {npc:5895} rises beside it; speak to it before you walk off (if it is gone, abandon and take the quest again at the shrine). It gives you the {item:7813}."] = "Vuela a {area:108} y ve al sur hasta {area:20}: {area:919} y {object:619896} están justo al norte. Bebe {item:6637} junto al santuario para ver a la {npc:5894} (nivel 22, {spell:8056} y {spell:122}; aparece en un solo lugar y vuelve tres minutos después de morir), derrótala para sus brazales (siempre caen), y luego colócalos junto con {item:7811} en {object:619896} (esto, no {npc:258043}, termina la misión). Vuelve a hacer clic en el santuario: la {npc:5895} se levanta a su lado; háblale antes de irte (si ya no está, abandona y vuelve a tomar la misión en el santuario). Te da {item:7813}.",
 	-- {npc:5895} Minor Manifestation of Water
-	["{npc:5895}, beside the shrine"] = "",
+	["{npc:5895}, beside the shrine"] = "{npc:5895}, junto al santuario",
 
 	-- Step 13: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {item:7813} Shard of Water · {item:5177} Water Totem
-	["Back to {npc:258043} with the {item:7813}. Keep the {item:5177} in your bags for good: every water totem needs it."] = "",
+	["Back to {npc:258043} with the {item:7813}. Keep the {item:5177} in your bags for good: every water totem needs it."] = "De vuelta con {npc:258043} con {item:7813}. Guarda {item:5177} en tus bolsas para siempre: todo tótem de agua lo necesita.",
 	-- {npc:258043} Norric Lochthane · {spell:5394} Healing Stream Totem · {item:5177} Water Totem
 	["{npc:258043}: {spell:5394} and your {item:5177}"] = "{npc:258043}: {spell:5394} y tu {item:5177}",
 

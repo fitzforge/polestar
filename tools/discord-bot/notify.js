@@ -7,10 +7,11 @@
 //   node tools/discord-bot/notify.js issue     an issue closed, reopened or labelled needs-info
 //   node tools/discord-bot/notify.js comment   a maintainer commented on an issue (or edited the comment)
 //   node tools/discord-bot/notify.js release   a release published
+//   node tools/discord-bot/notify.js update    an issue opened on GitHub: the update reply when its form's version is old
 //
 // Reads the event from GITHUB_EVENT_PATH (NOTIFY_EVENT_PATH first when set:
-// a manual run's stand-in); needs DISCORD_TOKEN, GITHUB_TOKEN and
-// GITHUB_REPOSITORY, and checks threads against DISCORD_FORUM_ID when set.
+// a manual run's stand-in); needs DISCORD_TOKEN (not for update), GITHUB_TOKEN
+// and GITHUB_REPOSITORY, and checks threads against DISCORD_FORUM_ID when set.
 // A prerelease pings DISCORD_TESTER_ROLE_ID in DISCORD_TESTERS_CHANNEL_ID,
 // and tells no one when either is unset. NOTIFY_ISSUES (a manual release
 // run's "1390 1402"): exactly the issues the release ships, for those closed
@@ -21,13 +22,18 @@ const { required } = require('./lib/config');
 const { createDiscord } = require('./lib/discord');
 const { createGitHub } = require('./lib/github');
 const { onIssue, onComment, onRelease } = require('./lib/notify');
+const { onOpened } = require('./lib/update');
 
 async function main(mode) {
-	if (mode !== 'issue' && mode !== 'comment' && mode !== 'release') throw new Error('usage: notify.js issue|comment|release');
+	if (!['issue', 'comment', 'release', 'update'].includes(mode)) throw new Error('usage: notify.js issue|comment|release|update');
 	const env = process.env;
 	const event = JSON.parse(fs.readFileSync(env.NOTIFY_EVENT_PATH || required(env, 'GITHUB_EVENT_PATH'), 'utf8'));
-	const discord = createDiscord({ token: required(env, 'DISCORD_TOKEN') });
 	const github = createGitHub({ token: required(env, 'GITHUB_TOKEN'), repo: required(env, 'GITHUB_REPOSITORY') });
+	if (mode === 'update') {
+		await onOpened({ github, event });
+		return 0;
+	}
+	const discord = createDiscord({ token: required(env, 'DISCORD_TOKEN') });
 	const forumId = (env.DISCORD_FORUM_ID || '').trim() || null;
 	if (mode === 'issue' || mode === 'comment') {
 		await (mode === 'issue' ? onIssue : onComment)({ discord, github, event, forumId });

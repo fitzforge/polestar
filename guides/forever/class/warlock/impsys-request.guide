@@ -44,7 +44,7 @@ step An Imp's Request (Stormwind)
   zone Stormwind City
   tip At 50 Demisette Cloyce in the Slaughtered Lamb, in the Mage Quarter, sends you to Impsy in Felwood with a piece of Felcloth.
   when !zone "Felwood"
-  level 50
+  level 51
   accept 8419 npc 461                 -- Demisette Cloyce
 
 step An Imp's Request (Ironforge)
@@ -52,7 +52,7 @@ step An Imp's Request (Ironforge)
   zone Ironforge
   tip At 50 Briarthorn in Ironforge sends you to Impsy in Felwood with a piece of Felcloth.
   when !zone "Felwood"
-  level 50
+  level 51
   accept 8419 npc 5172                -- Briarthorn
 
 step An Imp's Request (Orgrimmar)
@@ -60,7 +60,7 @@ step An Imp's Request (Orgrimmar)
   zone Orgrimmar
   tip At 50 Zevrost in the Cleft of Shadow sends you to Impsy in Felwood with a piece of Felcloth.
   when !zone "Felwood"
-  level 50
+  level 51
   accept 8419 npc 3326                -- Zevrost
 
 step An Imp's Request (Undercity)
@@ -68,7 +68,7 @@ step An Imp's Request (Undercity)
   zone Undercity
   tip At 50 Kaal Soulreaper in the Magic Quarter sends you to Impsy in Felwood with a piece of Felcloth.
   when !zone "Felwood"
-  level 50
+  level 51
   accept 8419 npc 4563                -- Kaal Soulreaper
 
 step Felcloth
@@ -84,23 +84,27 @@ step Impsy
 step Impsy: Hot and Itchy
   tip Impsy waits beside Niby the Almighty on a rise just north-east of Bloodvenom Post: coming north over the Bloodvenom Falls bridge, they stand off the road to the east, past a few oozes. Take his own Hot and Itchy and hand him the cloth at once. Next he wants ten Rotting Wood and four Bloodvenom Essence.
   when !turnedin 8419
+  level 51
   accept 8420                         -- Impsy: Hot and Itchy
   turnin 8420                         -- Impsy
 
 step Rotting Wood and Bloodvenom
   tip The Irontree treants (level 52) of Irontree Woods, in northern Felwood west of Talonbranch Glade, drop Rotting Wood one time in four; the big Withered Protector (55) often drops three at once but hits hard and dazes. The Tainted Oozes (51) around Impsy and along the Bloodvenom drop the essence one time in five.
+  level 53
   accept 8421                         -- Impsy: The Wrong Stuff
   collect 20613 x10 quest 8421.1      -- Rotting Wood
   collect 20614 x4 quest 8421.2       -- Bloodvenom Essence
 
 step Impsy again
   tip Impsy now wants six Voodoo Feathers from the Sunken Temple: a dungeon run.
+  level 51
   turnin 8421                         -- Impsy
   accept 8422
 
 step The Sunken Temple
   zone Swamp of Sorrows
   tip The Sunken Temple (Temple of Atal'Hakkar, level 50-56, a group of five) stands in the middle of the Pool of Tears: swim down into the temple and take the stairs to the entrance. The six troll guardians (level 51-52, elite) stand on the balconies around the central pit, each with adds; each drops his feather every time: Gasher and Zul'Lor the Amber, Hukku and Mijan the Blue, Zolo and Loro the Green. Not soloable at 52.
+  level 51
   collect 20606 x2 quest 8422.1 @69.0,54.0 group 5 -- Amber Voodoo Feathers: Gasher, Zul'Lor
   collect 20607 x2 quest 8422.2 @69.0,54.0 group 5 -- Blue Voodoo Feathers: Hukku, Mijan
   collect 20608 x2 quest 8422.3 @69.0,54.0 group 5 -- Green Voodoo Feathers: Zolo, Loro

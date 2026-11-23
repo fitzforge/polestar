@@ -3,7 +3,7 @@ guide forever/horde/tauren/01-mulgore
 title Mulgore
 faction Horde
 race Tauren
-levels 1-12
+levels 1-13
 zone Mulgore
 next forever/horde/03-silverpine-forest
 
@@ -90,7 +90,7 @@ step Camp Narache
   tip Back west to the camp.
   turnin 780                          -- Grull Hawkwind
   turnin 3376                         -- Brave Windfeather walks around Camp Narache: look inside the circle on the map
-  turnin 781 optional -- Chief Hawkwind
+  turnin 781 -- Chief Hawkwind
   turnin 757                          -- Inside
   accept 763
   accept 96659
@@ -126,42 +126,62 @@ step Kaga Wildhoof
 
 step Camping 101: Skinning
   when skill Skinning 1
+  when !knows 1229517
+  tip Yonn Deepcut takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97936                        -- Kaga Wildhoof: for Yonn Deepcut
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
+  when !knows 1229432
+  tip Chaw Stronghide takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97934                        -- Kaga Wildhoof: for Chaw Stronghide
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  when !knows 1230117
+  tip Vira Younghoof takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97931                        -- Kaga Wildhoof: for Vira Younghoof
 
 step Camping 101: Fishing
   when skill Fishing 1
+  when !knows 1229745
+  tip Uthan Stillwater takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97932                        -- Kaga Wildhoof: for Uthan Stillwater
 
 step Camping 101: Herbalism
   when skill Herbalism 1
+  when !knows 1229705
+  tip Komin Winterhoof takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97933                        -- Kaga Wildhoof: for Komin Winterhoof
 
 step Camping 101: Mining
   when skill Mining 1
+  when !knows 1230161
+  tip Brek Stonehoof takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97935                        -- Kaga Wildhoof: for Brek Stonehoof
 
 step Camping 101: Alchemy
   when skill Alchemy 1
+  when !knows 1230564
+  tip Kray takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97927                        -- Kaga Wildhoof: for Kray
 
 step Camping 101: Blacksmithing
   when skill Blacksmithing 1
+  when !knows 1230171
+  tip Thrag Stonehoof takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97928                        -- Kaga Wildhoof: for Thrag Stonehoof
 
 step Camping 101: Enchanting
   when skill Enchanting 1
+  when !knows 1230643
+  tip Mot Dawnstrider takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97929                        -- Kaga Wildhoof: for Mot Dawnstrider
 
 step Camping 101: Tailoring
   when skill Tailoring 1
+  when !knows 1229504
+  tip Vhan takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97937                        -- Kaga Wildhoof: for Vhan
 
 step Bloodhoof Village
@@ -172,6 +192,7 @@ step Bloodhoof Village
   accept 748                          -- Mull Thunderhorn
   tip Krang Stonehoof's quest: beat three Novice Warriors (or players in duels) next to him.
   accept 99108
+  kill 10721 x3 quest 99108.1
   turnin 99108
   accept 761                          -- Harken Windtotem
   accept 745                          -- Baine Bloodhoof
@@ -184,39 +205,43 @@ step Bloodhoof Village
 
 step Bloodhoof Village
   train Cooking npc 3067              -- Pyall Silentstride: Camping 101 asks you to learn it
-  complete 96661 @44.92,61.67 map 1412 live
+  complete 96661 @44.89,61.65 map 1412 live
   turnin 96661                        -- Pyall Silentstride
   accept 746
 
 step Yonn Deepcut
   when onquest 97936
+  when complete 97936
   complete 97936 @44.97,61.4 map 1412 live
   turnin 97936                        -- Yonn Deepcut, beside Pyall: Camping 101: Skinning
 
 step Chaw Stronghide
   when onquest 97934
+  when complete 97934
   complete 97934 @44.94,61.46 map 1412 live
   turnin 97934                        -- Chaw Stronghide, beside Pyall: Camping 101: Leatherworking
 
 step Vira Younghoof
   when onquest 97931
+  when complete 97931
   complete 97931 @46.08,63.96 map 1412 live
   turnin 97931                        -- Vira Younghoof: Camping 101: First Aid
 
 step Uthan Stillwater
   when onquest 97932
+  when complete 97932
   complete 97932 @44.16,63.8 map 1412 live
   turnin 97932                        -- Uthan Stillwater: Camping 101: Fishing
 
 step Poison Water
-  tip Prairie Wolves and Adult Plainstriders roam the plains around the village.
+  tip Prairie Wolves, Wiry Swoops and Adult Plainstriders roam the plains around the village; the plains just south of it, toward the well, hold them without the Elder Plainstriders (8-9) and Prairie Wolf Alphas (9-10) that roam farther out.
   collect 4758 quest 748.1            -- Prairie Wolf Paw
   collect 4769 quest 761.1
   collect 4807 quest 766.4
-  collect 4759 quest 748.2            -- Plainstrider Talon
-  collect 4806 quest 766.3            -- Plainstrider Scale
-  collect 4804 quest 766.1
-  collect 4809 quest 771.2
+  collect 4759 quest 748.2 @50.2,67.0 -- Plainstrider Talon
+  collect 4806 quest 766.3 @50.2,67.0 -- Plainstrider Scale
+  collect 4804 quest 766.1 @49.8,65.3
+  collect 4809 quest 771.2 @48.7,64.5
   collect 4808 quest 771.1                    -- Well Stone, 170 yd east
 
 step Bloodhoof Village
@@ -247,6 +272,7 @@ step Bloodhoof Village
 step Mulgore: kill these as you meet them
   zone Mulgore
   tip Chakuyak, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it.
+  tip Careful: Ghost Howl (12, a rare white wolf) roams the plains too: leave it be.
   collect 4801 quest 756.1            -- Stalker Claws
   collect 4802 quest 756.2            -- Cougar Claws
   collect 4805 quest 766.2            -- Flatland Cougar Femur
@@ -271,43 +297,46 @@ step Bloodhoof Village
   turnin 758                          -- Mull Thunderhorn
   accept 759
 
-step Galak Camp: kill these as you meet them
-  zone Mulgore
-  tip Prairie Wolf Alphas roam among the wolves on the plains around Malah and the Galak camp to the east.
-  collect 4803 quest 759.1            -- Prairie Alpha Tooth
-
+# One loop east from Bloodhoof does the whole east side: the caravan, Morin's Venture Co. workers outside
+# the mine, the Galak centaurs and the alpha teeth, back by Morin (model level about 10; Galak 8-9, Herak
+# the Pillager 11, Workers 8, Supervisors 9). Supervisor Fizsprocket (12) and his notes, deep in the mine,
+# are left out: they were the only reason for a third trip east at 11 (0.4.2 route round).
 step The Ravaged Caravan
-  tip The wrecked caravan lies north-west of the centaurs, east of the road to Thunder Bluff.
+  tip The wrecked caravan lies north-east of the village, east of the road to Thunder Bluff.
   turnin 749
   accept 751
 
-step Mull Thunderhorn
-  turnin 759
-  accept 760
-
 step Morin Cloudstalker
-  tip Back south-east to the Winterhoof Water Well.
+  zone Mulgore
+  tip South to the Winterhoof Water Well, south-east of the village.
   turnin 751                          -- Morin Cloudstalker walks around here: look inside the circle on the map
   accept 764
-  accept 765
+
+step Venture Co. Workers
+  zone Mulgore
+  tip The goblins work the hills north-east of the well, around the mine's mouth: the Workers and Supervisors outside are all The Venture Co. needs. Prairie Wolf Alphas roam among the wolves on the plains on the way.
+  tip Careful: stay out of the mine itself, where the goblins stand close together and Supervisor Fizsprocket is level 12.
+  kill 2978 quest 764.1               -- Venture Co. Worker
+  kill 2979 quest 764.2               -- Venture Co. Supervisor
+  collect 4803 quest 759.1            -- Prairie Alpha Tooth
 
 step Galak centaurs
-  tip The Galak centaurs camp on the plains east of the well; Herak leads them.
+  tip South-east to the Galak camp on the plains east of the well; Herak leads them.
+  tip Careful: Herak the Pillager is level 11: clear the centaurs around him first and fight him alone.
   kill 2967 quest 99080.1             -- Galak Centaur
   kill 2968 quest 99080.2             -- Galak Outrunner
   collect 286075 quest 99080.3        -- Herak's Head
 
-# ---------------------------------------------------------------- The Venture Co. Mine
+step Morin Cloudstalker
+  zone Mulgore
+  tip Back west to the Winterhoof Water Well.
+  turnin 764                          -- Morin Cloudstalker walks around here: look inside the circle on the map
 
-step The Venture Co. Mine
-  tip The goblins work the mine in the hills north-east of the well. Supervisor Fizsprocket stands in the back of the mine; his Mulgore Expansion Plans start Fizsprocket's Notes, and the other pages lie inside the mine.
-  goto 64.9,43.3 "The Venture Co. Mine"
-  kill 2978 quest 764.1
-  kill 2979 quest 764.2
-  collect 4819 quest 765.1
-  collect 281031 optional             -- Below ground
-  accept 98424 optional
-  complete 98424
+step Bloodhoof Village
+  turnin 759                          -- Mull Thunderhorn
+  accept 760
+  turnin 99080                        -- Baine Bloodhoof
+  accept 99082                        -- Baine Bloodhoof, for Cairne in Thunder Bluff
 
 # ---------------------------------------------------------------- Northern Mulgore
 
@@ -342,8 +371,6 @@ step Bloodhoof Village
   turnin 743                          -- Ruul Eagletalon
   turnin 746
   turnin 745                          -- Baine Bloodhoof
-  turnin 99080
-  accept 99082                        -- Baine Bloodhoof, for Cairne in Thunder Bluff
   turnin 760                          -- Mull Thunderhorn
   accept 98435                        -- Mull Thunderhorn, for Hamuul in Thunder Bluff
 
@@ -361,12 +388,6 @@ step Yaw Sharpmane
   kill 2970 quest 6088.1 "Tame Swoop" -- Tame it with the Taming Rod
   turnin 6088                         -- Tame Beast
   accept 6089
-
-step Morin Cloudstalker
-  zone Mulgore
-  turnin 764                          -- Morin Cloudstalker walks around here: look inside the circle on the map
-  turnin 765
-  turnin 98424 optional
 
 step Red Rocks
   tip Head north to Red Rocks, east of Thunder Bluff. Lorekeeper Raintotem stands at the foot of the rocks; the Bristleback Interlopers dig at the burial ground and the Ancestral Spirit waits on top.
@@ -405,31 +426,37 @@ step Traditions of the Bluff
 
 step Komin Winterhoof
   when onquest 97933
+  when complete 97933
   complete 97933 @40,25.1 map 1412
   turnin 97933                        -- Komin Winterhoof: Camping 101: Herbalism
 
 step Brek Stonehoof
   when onquest 97935
+  when complete 97935
   complete 97935 @36.8,28.6 map 1412
   turnin 97935                        -- Brek Stonehoof: Camping 101: Mining
 
 step Kray
   when onquest 97927
+  when complete 97927
   complete 97927 @39.3,23.8 map 1412
   turnin 97927                        -- Kray: Camping 101: Alchemy
 
 step Thrag Stonehoof
   when onquest 97928
+  when complete 97928
   complete 97928 @37.8,28.4 map 1412
   turnin 97928                        -- Thrag Stonehoof: Camping 101: Blacksmithing
 
 step Mot Dawnstrider
   when onquest 97929
+  when complete 97929
   complete 97929 @38.9,24.7 map 1412
   turnin 97929                        -- Mot Dawnstrider: Camping 101: Enchanting
 
 step Vhan
   when onquest 97937
+  when complete 97937
   complete 97937 @38.8,25.9 map 1412
   turnin 97937                        -- Vhan: Camping 101: Tailoring
 
@@ -532,7 +559,8 @@ step The Moonkin Stone
 step Into Mulgore
   only !Druid
   zone Mulgore
-  goto 42.1,20.2 "Into Mulgore"
+  tip From Elder Rise, take Thunder Bluff's north lift down: at its foot the way runs east along the ledge, then south-east across Mulgore to the Barrens.
+  goto 42.3,21.7 "Into Mulgore"
 
 step Into The Barrens
   zone The Barrens
@@ -582,7 +610,87 @@ step Jahan Hawkwing
   zone The Barrens
   turnin 6364                         -- Jahan Hawkwing
 
+# Tauren Warriors and Shamans do their level-10 class quests on this walk from the Crossroads to
+# Orgrimmar: Kranal Fiss on the ridge and Uzzek at Far Watch Post are on the road, Telf Joolam's shrine
+# is south along the river, the thunder lizards and the Dustwind Gulch cultists beside the road north
+# (AuditH01, 0.4.0 route audit). The Fire Tar and the Path of Defense hand-in wait for the next stops
+# at the Razormane camp and Far Watch Post.
+# Turn in a carried alternative here before starting the shared ritual;
+# do not add a trip to a different trainer for an uncarried breadcrumb.
+step
+  only Shaman
+  when onquest 1522
+  zone The Barrens
+  turnin 1522
+
+step
+  only Shaman
+  when onquest 2983
+  zone The Barrens
+  turnin 2983
+
+step
+  only Shaman
+  when onquest 2984
+  zone The Barrens
+  turnin 2984
+
+step Kranal Fiss
+  only Shaman
+  zone The Barrens
+  tip Kranal Fiss stands alone on the ridge above the Razormane camp, north-east of the Crossroads on the road to Far Watch Post.
+  turnin 1523
+  accept 1524
+
+step Uzzek
+  only Warrior
+  zone The Barrens
+  tip Far Watch Post sits above the Southfury River bridge on the road to Orgrimmar: Uzzek stands beside Kargal Battlescar.
+  turnin 1505                         -- Uzzek
+  accept 1498
+
+step Telf Joolam
+  only Shaman
+  zone Durotar
+  tip Over the bridge below Far Watch Post and south along the Durotar bank of the river to where a narrow trail climbs the mountain: Telf keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail.
+  turnin 1524
+  accept 1525
+
+step Thunder lizards on the way north
+  only Warrior
+  zone Durotar
+  tip Thunder Lizards and Lightning Hides graze on Thunder Ridge, beside the road north to Orgrimmar; any of them can drop a Singed Scale. Uzzek takes them when the next guide passes Far Watch Post.
+  tip Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.
+  collect 6486 quest 1498.1
+
+# Rezlak camps beside the road north to Orgrimmar that this walk follows anyway: his three quests
+# (Winds in the Desert 834, Securing the Lines 835, A Simmering Storm 97281; mobs 9-10 at about 12.5)
+# are one stop and a short loop into Drygulch Ravine, where the Shamans' Burning Blade cultists are too.
+step Rezlak
+  zone Durotar
+  tip Rezlak camps beside the road north to Orgrimmar, below Drygulch Ravine. The stolen sacks lie along the road just east of him.
+  accept 834                          -- Rezlak
+  collect 4918 quest 834.1 @49.1,22.6 map 1411
+  turnin 834                          -- Rezlak
+  accept 835
+
+step Drygulch Ravine
+  zone Durotar
+  tip Savages and Storm Witches nest in Drygulch Ravine, east of Rezlak. A Storm Witch drops the Dull Storm Orb, which starts A Simmering Storm.
+  tip Shamans: the Burning Blade Cultists by Dustwind Cave, at the ravine's south end, drop the Reagent Pouch. The Fire Tar comes from the Razormane on the next guide's first visit to their camp.
+  kill 3117 quest 835.1
+  kill 3118 quest 835.2
+  collect 277661 "Dull Storm Orb" optional
+  accept 97281 optional
+  collect 6652 quest 1525.2 only Shaman
+
+step Rezlak
+  zone Durotar
+  tip Back to Rezlak by the road.
+  turnin 835                          -- Rezlak
+  turnin 97281 optional               -- Rezlak
+
 step To Orgrimmar
   zone Orgrimmar
-  tip From the Crossroads follow the road north-east to Far Watch Post, cross the Southfury River into Durotar and keep north to Orgrimmar's main gate. The next guide starts in Orgrimmar and takes the zeppelin to Tirisfal Glades and Silverpine Forest.
+  tip From Rezlak's camp, go on to Orgrimmar's main gate, a few hundred yards away. The next guide starts in Orgrimmar and takes the zeppelin to Tirisfal Glades and Silverpine Forest.
   goto 55.6,72.3 "Orgrimmar's Valley of Strength"

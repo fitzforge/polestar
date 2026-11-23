@@ -10,7 +10,7 @@ return {
 	-- {quest:94773} Divine Grace · {spell:13896} Feedback
 	["{quest:94773} and {spell:13896}"] = "{quest:94773} 및 {spell:13896}",
 	-- {quest:94773} Divine Grace · {spell:13896} Feedback
-	["The Human priest spells: {quest:94773} at 10 (new in Forever), {spell:13896} at 20. Free, no objectives."] = "",
+	["The Human priest spells: {quest:94773} at 10 (new in Forever), {spell:13896} at 20. Free, no objectives."] = "인간 사제 주문: 10레벨에 {quest:94773}(Forever 신규), 20레벨에 {spell:13896}. 무료이며 목표가 없습니다.",
 
 	-- Step 1: Divine Grace: Priestess Josetta
 	-- {npc:377} Priestess Josetta · {area:87} Goldshire · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
@@ -78,7 +78,7 @@ return {
 
 	-- Step 12: Feedback: High Priestess Laurena
 	-- {npc:376} High Priestess Laurena · {spell:13896} Feedback
-	["At 20, {npc:376} at the altar of the Cathedral of Light teaches {spell:13896} with a quest she gives and takes back at once."] = "",
+	["At 20, {npc:376} at the altar of the Cathedral of Light teaches {spell:13896} with a quest she gives and takes back at once."] = "20레벨에 빛의 대성당 제단의 {npc:376}이(가) 퀘스트를 주고 곧바로 받으며 {spell:13896}을(를) 가르칩니다.",
 
 	-- Step 13: Feedback: Rohan's letter
 	-- {spell:13896} Feedback
@@ -93,7 +93,5 @@ return {
 	["Hand Alathea's letter to {npc:376} at the altar of {zone:1453}'s Cathedral of Light (from {zone:1457}: the portal down to {area:702}, the boat to {area:442}, then the boat to {area:17203}): she teaches {spell:13896}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 10, go to {npc:376} in the Cathedral of Light. {npc:377} in {area:87} sends you to her with a quest of the same name."] = "10레벨에 빛의 대성당의 {npc:376}에게 가십시오. {area:87}의 {npc:377}이(가) 같은 이름의 퀘스트로 그녀에게 보냅니다.",
 	-- ["At 20, {npc:376} teaches {spell:13896}. {npc:11406} in {zone:1455} and {npc:11401} in {zone:1457} send you to her with a quest of the same name."] = "20레벨에 {npc:376}이(가) {spell:13896}을(를) 가르칩니다. {zone:1455}의 {npc:11406}와(과) {zone:1457}의 {npc:11401}이(가) 같은 이름의 퀘스트로 그녀에게 보냅니다.",
-	-- ["The Human priest spells: {quest:94773} at 10, {spell:13896} at 20."] = "인간 사제 주문: 10레벨에 {quest:94773}, 20레벨에 {spell:13896}.",
 }

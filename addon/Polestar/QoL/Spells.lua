@@ -1,7 +1,7 @@
 -- Class spells: what the class trainer has for the character at a new level
 -- (qol.levelUpSpells) and the spells on the action bars that are an old rank
 -- (qol.oldRanks). Both on by default, under Options > Quality of Life >
--- Vendors > Trainers; UI/SpellCards.lua shows them on the heads-up card.
+-- Leveling > Trainers; UI/SpellCards.lua shows them on the heads-up card.
 --
 -- New at a level (Spells.NewAt): the spells QoL/ClassSpells.lua (generated
 -- by `forge data classspells` from the class trainers' sniffed lists) lists
@@ -10,8 +10,10 @@
 -- known or trainable by then (a talent's higher ranks need the talent).
 -- PLAYER_LEVEL_UP fires LEVELUP_SPELLS(notice) when there is any: { level,
 -- spells = { { id, rank, cost } }, cost (total), money } (where to train is
--- the card's: Engine.TrainingAdvice). Nothing in an instance; in combat it
--- waits for the fight to end.
+-- the card's: Engine.TrainingAdvice). In an instance it waits until you come
+-- out (PLAYER_ENTERING_WORLD outside one), then tells the spells of every
+-- level reached since, in one notice (#2930); in combat it waits for the
+-- fight to end.
 --
 -- Old ranks (Spells.OldRanks): in this client a bar keeps the exact rank put
 -- on it, so a slot holding a spell whose higher rank is in the spellbook
@@ -19,6 +21,8 @@
 -- (1-180: the main pages, the stance and form bars, the side bars, and the
 -- bar addons that use the game's action slots); macros, items and anything
 -- not a spell are never touched, nor a spell without a rank. Left alone:
+--   * a lower rank when a higher rank of the same spell is already on any
+--     action bar, including after learning a new rank
 --   * a spell the player keeps at its rank (Spells.Keep, the card's
 --     right-click): QoL.State().keptRanks[spell id]
 --   * a slot the player filled with a lower rank while knowing a higher one
@@ -207,18 +211,31 @@ function Spells.NewAt(level, class)
 	return out
 end
 
-local waiting -- a level-up told once combat ends
+local waiting -- { from, level }: a level-up told once combat ends
+local held -- the first level reached inside an instance, told on the way out (#2930)
 
-function Spells.CheckLevel(level)
+-- The new spells of every level from `from` to `level` (a ding inside an
+-- instance and another after it are told together on the way out).
+function Spells.CheckLevel(level, from)
 	if not QoL.On("levelUpSpells") or not level then return false end
+	from = math.min(from or level, level)
 	local C = ns.Compat
-	if C.IsInInstance() then return false end
+	if C.IsInInstance() then
+		held = math.min(held or from, from)
+		return false
+	end
+	if held then
+		from, held = math.min(from, held), nil
+	end
 	if C.InCombat() then
-		waiting = level
+		waiting = { from = from, level = level }
 		return false
 	end
 	waiting = nil
-	local list = Spells.NewAt(level)
+	local list = {}
+	for l = from, level do
+		for _, s in ipairs(Spells.NewAt(l)) do list[#list + 1] = s end
+	end
 	if #list == 0 then return false end
 	local total = 0
 	for _, s in ipairs(list) do total = total + (s.cost or 0) end
@@ -275,12 +292,19 @@ end
 -- the number of slots.
 function Spells.OldRanks()
 	local book = Spells.BookBest()
-	local keptSlots, byId, list, n = state("keptSlots"), {}, {}, 0
+	local slots, top = {}, {}
 	for slot = 1, Spells.SLOTS do
 		local id = slotSpell(slot)
+		slots[slot] = id
+		local name, rank = id and spellName(id), id and Spells.RankOf(id)
+		if name and rank and rank > (top[name] or 0) then top[name] = rank end
+	end
+	local keptSlots, byId, list, n = state("keptSlots"), {}, {}, 0
+	for slot = 1, Spells.SLOTS do
+		local id = slots[slot]
 		if id and keptSlots[slot] ~= id and not Spells.Kept(id) then
 			local b, have, name = better(id, book)
-			if b then
+			if b and have >= (top[name] or 0) then
 				local e = byId[id]
 				if not e then
 					e = { id = id, bestId = b.id, name = name, have = have, best = b.rank, slots = {} }
@@ -385,7 +409,7 @@ local function upgradeNow()
 	end
 	upgrading = false
 	if done > 0 then
-		ns.Print(string.format(done == 1 and L["Upgraded %d action button to the highest rank."] or L["Upgraded %d action buttons to the highest rank."], done))
+		ns.Notice(string.format(done == 1 and L["Upgraded %d action button to the highest rank."] or L["Upgraded %d action buttons to the highest rank."], done))
 	end
 	told = nil
 	Spells.CheckRanks()
@@ -397,7 +421,7 @@ function Spells.Upgrade()
 	local result
 	local now = QoL.Secure("oldRanks", function() result = upgradeNow() end)
 	if not now then
-		ns.Print(L["Upgrading your action buttons after combat."])
+		ns.Notice(L["Upgrading your action buttons after combat."])
 		return nil
 	end
 	return result
@@ -415,8 +439,18 @@ end)
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
 	if waiting then
 		local n = waiting
-		ns.After(1, function() if waiting == n then ns.SafeCall(Spells.CheckLevel, n) end end)
+		ns.After(1, function() if waiting == n then ns.SafeCall(Spells.CheckLevel, n.level, n.from) end end)
 	end
+end)
+
+-- Out of the instance a ding happened in: its spells are told now (#2930: a
+-- Warrior who reached 32 in the Excavation Site heard nothing).
+ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
+	if not held then return end
+	ns.After(2, function()
+		local level = tonumber(player().level)
+		if held and level and not ns.Compat.IsInInstance() then ns.SafeCall(Spells.CheckLevel, level, held) end
+	end)
 end)
 
 -- Spellbook changes come in bursts at a trainer: one check a second after the last.

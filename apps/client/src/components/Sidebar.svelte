@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
 	import { app, go, type Screen } from '../lib/app.svelte';
+	import { updateAllCount } from '../lib/addons';
 	import { STATUS } from '../lib/status';
 	import type { Snapshot } from '../lib/types';
 	import Beacon from './Beacon.svelte';
@@ -22,8 +23,7 @@
 		{ id: 'sending', label: 'What we send', glyph: 'eye' },
 	];
 	const status = $derived(STATUS[snapshot.status.kind]);
-	// Polestar's own addons and the community packs with an update the game can take.
-	const updates = $derived(snapshot.addons.products.filter((p) => p.status === 'update').length + snapshot.community.packs.filter((p) => p.status === 'update' && !p.blocked).length);
+	const updates = $derived(updateAllCount(snapshot));
 	const attention = $derived(snapshot.status.kind === 'attention' || snapshot.status.kind === 'rejected');
 
 	// The selection glides: one wash with its 2px accent bar, moved to the row

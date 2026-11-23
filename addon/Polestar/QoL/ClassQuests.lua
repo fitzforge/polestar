@@ -43,6 +43,9 @@ ClassQuests.QUEST_MARGIN = 1
 local LONG_QUESTS, LONG_ZONES = 5, 3
 -- Non-elite mobs this many levels above the chain's start are named.
 local MOBS_ABOVE = 5
+-- A level above this is no real level (9999: a mob the game shows as "??"),
+-- never a level to name (#2947: "mobs up to level 9999").
+local MAX_LEVEL = 63
 
 local function offered()
 	local flags = ns.CharState().flags
@@ -64,17 +67,20 @@ end
 
 -- The highest level of a goal's spawn areas: its `lvl` and each area's own
 -- (packed "x,y,z,r,n,alt,lvl" or tables), read raw so no spot table is built.
+-- Levels above MAX_LEVEL are left out.
+local function real(lvl) return lvl and lvl <= MAX_LEVEL and lvl or nil end
 local function spotLevel(goal)
-	local top = tonumber(rawget(goal, "lvl")) or 0
+	local top = real(tonumber(rawget(goal, "lvl"))) or 0
 	local packed = rawget(goal, "spotsPacked")
 	if type(packed) == "string" then
 		for spot in gmatch(packed, "[^;]+") do
-			local lvl = tonumber(match(spot, "^[^,]*,[^,]*,[^,]*,[^,]*,[^,]*,[^,]*,([^,]*)"))
+			local lvl = real(tonumber(match(spot, "^[^,]*,[^,]*,[^,]*,[^,]*,[^,]*,[^,]*,([^,]*)")))
 			if lvl and lvl > top then top = lvl end
 		end
 	elseif type(rawget(goal, "spots")) == "table" then
 		for _, spot in ipairs(goal.spots) do
-			if tonumber(spot.lvl) and spot.lvl > top then top = spot.lvl end
+			local lvl = real(tonumber(spot.lvl))
+			if lvl and lvl > top then top = lvl end
 		end
 	end
 	return top

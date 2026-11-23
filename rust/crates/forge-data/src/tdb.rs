@@ -12,7 +12,7 @@ use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::jsv::{arr, math_round, nums};
 
-pub const SCHEMA: f64 = 12.0;
+pub const SCHEMA: f64 = 14.0;
 pub const SNIFFED: i64 = 70000;
 const REPO_URL: &str = "https://github.com/advocaite/TrinityCore/tree/forever";
 const SPAWN_MAPS: &str = "0,1,2991,2997";
@@ -539,7 +539,13 @@ pub fn extract(file: &Path) -> Result<V, String> {
 		lists.insert(t.i("Id"), List { cls, vb: t.n0("VerifiedBuild"), rows });
 	}
 	let trainers = Obj::new();
+	// The highest level a class trainer's sniffed lists teach at (#2477): the starting areas' trainers stop at 6
+	// (Llane Beshere, Tordrin Sternblade), so a character past it has nothing to learn there.
+	let mut tops: IndexMap<i64, f64> = IndexMap::new();
 	let mut used: IndexMap<String, IndexSet<i64>> = IndexMap::new();
+	// The distinct spells a class trainer's lists teach (#2559): the capitals' portal trainers (Larimaine Purdue)
+	// teach a city's Teleport and Portal only; the knowledge base leaves such a trainer out of the class trainers.
+	let mut taught: IndexMap<i64, IndexSet<i64>> = IndexMap::new();
 	for l in &links {
 		let Some(list) = lists.get(&l.i("TrainerID")) else { continue };
 		if !spawned[0].contains(&l.i("CreatureID")) {
@@ -554,6 +560,12 @@ pub fn extract(file: &Path) -> Result<V, String> {
 			cl.push(list.cls.as_str());
 		}
 		used.entry(list.cls.clone()).or_default().insert(l.i("TrainerID"));
+		taught.entry(l.i("CreatureID")).or_default().extend(list.rows.iter().map(|r| r.i("SpellId")));
+		if list.vb >= SNIFFED as f64 {
+			let top = list.rows.iter().map(|r| r.n0("ReqLevel")).fold(0.0, f64::max);
+			let t = tops.entry(l.i("CreatureID")).or_insert(0.0);
+			*t = t.max(top);
+		}
 	}
 	let training = Obj::new();
 	let training_spells = Obj::new();
@@ -716,6 +728,16 @@ pub fn extract(file: &Path) -> Result<V, String> {
 	out.set("currencyVendors", sort_num_keys(&currency));
 	out.set("vendorLimits", sort_num_keys(&limits));
 	out.set("trainers", sort_num_keys(&trainers));
+	let top = Obj::new();
+	for (id, t) in &tops {
+		top.set(&id.to_string(), *t);
+	}
+	out.set("trainerTop", sort_num_keys(&top));
+	let spells = Obj::new();
+	for (id, s) in &taught {
+		spells.set(&id.to_string(), s.len() as f64);
+	}
+	out.set("trainerSpells", sort_num_keys(&spells));
 	out.set("training", training);
 	out.set("trainingSpells", training_spells);
 	out.set("trainingDropped", dropped);

@@ -3,7 +3,8 @@
 //! folder in the AddOns list, loaded or not, is compared with Polestar's own version and one chat line names
 //! the odd ones; the report (UI/Report.lua) carries the same fact. Polestar_Recorder ships in a zip of its own
 //! and community addons are never named Polestar_*, so neither counts; a folder without a version is unknown,
-//! not a mismatch. The stub's default TOC version is "0.1.0-test" for every addon, Polestar included.
+//! not a mismatch; the folders 0.4.3 folded into others have a line of their own (codex.rs). The stub's default
+//! TOC version is "0.1.0-test" for every addon, Polestar included.
 
 use forge_addontest::{emitted, is_match, Addon, RunAddon};
 use serde_json::Value;
@@ -30,14 +31,15 @@ const RELEASE: &[&str] = &[
 	"Polestar_Guides",
 	"Polestar_Guides_Alliance",
 	"Polestar_Guides_Horde",
-	"Polestar_Guides_Human",
-	"Polestar_Guides_Orc",
 	"Polestar_Codex",
 	"Polestar_QuestDB",
 	"Polestar_ItemDB",
 	"Polestar_Nav",
 	"Polestar_Nav_EK",
 	"Polestar_Nav_Kalimdor",
+	"Polestar_Options",
+	"Polestar_Skins",
+	"Polestar_Arcade",
 	"Polestar_deDE",
 	"Polestar_zhCN",
 ];
@@ -77,17 +79,18 @@ fn said(out: &Value) -> Vec<String> {
 
 #[test]
 fn a_mixed_install_names_every_folder_from_another_version_once_loaded_or_not_with_how_to_reinstall() {
-	// Folders Polestar loads only for another race, another language or on demand, left from an older zip.
-	let out = login(&with(&["Polestar_Guides_Orc=0.3.4", "Polestar_Nav_EK=0.3.4", "Polestar_zhCN=0.3.3"]));
+	// Folders Polestar loads only for another faction, another language or on demand, left from an older zip.
+	let out = login(&with(&["Polestar_Guides_Horde=0.3.4", "Polestar_Nav_EK=0.3.4", "Polestar_zhCN=0.3.3", "Polestar_Arcade=0.3.4"]));
 	let stale: Vec<&str> = out["stale"].as_str().unwrap().split(',').collect();
-	for s in ["Polestar_Guides_Orc 0.3.4", "Polestar_Nav_EK 0.3.4", "Polestar_zhCN 0.3.3"] {
+	for s in ["Polestar_Guides_Horde 0.3.4", "Polestar_Nav_EK 0.3.4", "Polestar_zhCN 0.3.3", "Polestar_Arcade 0.3.4"] {
 		assert!(stale.contains(&s), "{s} in {stale:?}");
 	}
-	assert_eq!(stale.len(), 3, "{stale:?}");
+	assert_eq!(stale.len(), 4, "{stale:?}");
 	let said = said(&out);
 	assert_eq!(said.len(), 1, "one line: {said:?}");
 	assert!(is_match(&said[0], r"Polestar\|r: Your install is mixed or incomplete \(Polestar 0\.1\.0-test, "), "{}", said[0]);
-	assert!(is_match(&said[0], r"Polestar_Guides_Orc 0\.3\.4") && is_match(&said[0], r"Polestar_Nav_EK 0\.3\.4") && is_match(&said[0], r"Polestar_zhCN 0\.3\.3"), "{}", said[0]);
+	assert!(is_match(&said[0], r"Polestar_Guides_Horde 0\.3\.4") && is_match(&said[0], r"Polestar_Nav_EK 0\.3\.4") && is_match(&said[0], r"Polestar_zhCN 0\.3\.3"), "{}", said[0]);
+	assert!(is_match(&said[0], r"Polestar_Arcade 0\.3\.4"), "{}", said[0]);
 	assert!(is_match(&said[0], r#"delete every Polestar folder in Interface/AddOns.*Polestar Client.*CurseForge app.*not "Source code""#), "{}", said[0]);
 }
 
@@ -110,6 +113,49 @@ fn a_folder_without_a_version_is_unknown_not_a_mismatch_and_so_is_polestar_witho
 	assert!(said(&out).is_empty(), "{:?}", said(&out));
 }
 
+// 0.4.2 shipped the walking maps' regions as 127 folders of their own (Polestar_Nav_R<map>_<row>_<col>); since
+// 0.4.2.1 they are inside Polestar_Nav_EK and Polestar_Nav_Kalimdor (#3396). An update that leaves them behind gets
+// one line saying to delete them, never 127 names in the mixed-install line.
+#[test]
+fn the_region_folders_left_from_0_4_2_get_one_line_saying_to_delete_them_and_are_not_a_mixed_install() {
+	let addons = with(&["Polestar_Nav_R0_6_6=0.4.2", "Polestar_Nav_R1_5_9=0.4.2", "Polestar_Nav_R2991_7_7=0.4.2"]);
+	let refs: Vec<&str> = addons.iter().map(String::as_str).collect();
+	let out = emitted(&RunAddon {
+		before: addons_lua(&refs),
+		addons: vec![Addon::files("Polestar", CORE)],
+		login: true,
+		script: r#"
+local missing, stale, _, regions = Polestar.Data.CheckInstall()
+local said = {}
+for _, m in ipairs(stub.messages) do if m:find("Polestar_Nav_R", 1, true) or m:find("mixed", 1, true) then said[#said + 1] = m end end
+emit({ missing = table.concat(missing, ","), stale = table.concat(stale, ","), regions = regions, said = said })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!((out["missing"].as_str(), out["stale"].as_str(), out["regions"].as_f64()), (Some(""), Some(""), Some(3.0)));
+	let said = said(&out);
+	assert_eq!(said.len(), 1, "one line: {said:?}");
+	assert!(
+		is_match(&said[0], r"no longer uses its 3 walking map folders named Polestar_Nav_R .*Polestar_Nav_EK and Polestar_Nav_Kalimdor.*delete the Polestar_Nav_R folders from Interface/AddOns"),
+		"{}",
+		said[0]
+	);
+}
+
+// The settings window (Polestar_Options) loads on demand but ships in every release: a copy without the folder is
+// named at login (the settings could not open).
+#[test]
+fn a_copy_without_the_settings_folder_is_named_at_login() {
+	let without: Vec<String> = RELEASE.iter().filter(|n| **n != "Polestar_Options").map(|s| s.to_string()).collect();
+	let out = login(&without);
+	assert_eq!(out["missing"], "Polestar_Options");
+	assert_eq!(out["stale"], "");
+	let said = said(&out);
+	assert_eq!(said.len(), 1, "one line: {said:?}");
+	assert!(is_match(&said[0], r"Polestar_Options not installed"), "{}", said[0]);
+}
+
 #[test]
 fn the_report_and_the_bug_report_text_carry_the_mixed_install() {
 	let run = |addons: Vec<String>| {
@@ -130,9 +176,9 @@ emit({ line = line or "", text = R.Text("The quest log did not sync.", d), issue
 		})
 		.remove(0)
 	};
-	let out = run(with(&["Polestar_Guides_Orc=0.3.4", "Polestar_Nav_EK=0.3.4"]));
+	let out = run(with(&["Polestar_Guides_Horde=0.3.4", "Polestar_Nav_EK=0.3.4"]));
 	let line = out["line"].as_str().unwrap();
-	assert!(is_match(line, r"^Install: mixed: Polestar 0\.1\.0-test, Polestar_Guides_Orc 0\.3\.4, Polestar_Nav_EK 0\.3\.4$"), "{line}");
+	assert!(is_match(line, r"^Install: mixed: Polestar 0\.1\.0-test, Polestar_Guides_Horde 0\.3\.4, Polestar_Nav_EK 0\.3\.4$"), "{line}");
 	assert!(out["text"].as_str().unwrap().contains(line), "the report to paste has it");
 	assert!(out["issue"].as_str().unwrap().contains("Install%3A%20mixed"), "the GitHub issue has it");
 	let out = run(with(&[]));

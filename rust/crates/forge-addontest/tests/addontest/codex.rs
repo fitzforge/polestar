@@ -63,10 +63,22 @@ fn emit_codex(codex: &Value) -> Vec<(String, String)> {
 			V::obj()
 		}
 	};
-	let (items, npcs, objects, quests, instances, zones, factions, spells, meta, frames) =
-		(part("items"), part("npcs"), part("objects"), part("quests"), part("instances"), part("zones"), part("factions"), part("spells"), part("meta"), part("frames"));
+	let (items, npcs, objects, quests, instances, zones, factions, spells, meta, frames, professions) =
+		(part("items"), part("npcs"), part("objects"), part("quests"), part("instances"), part("zones"), part("factions"), part("spells"), part("meta"), part("frames"), part("professions"));
 	emit_pack(
-		&PackCodex { items: &items, npcs: &npcs, objects: &objects, quests: &quests, instances: &instances, zones: &zones, factions: &factions, spells: &spells, meta: &meta, frames: &frames },
+		&PackCodex {
+			items: &items,
+			npcs: &npcs,
+			objects: &objects,
+			quests: &quests,
+			instances: &instances,
+			zones: &zones,
+			factions: &factions,
+			spells: &spells,
+			meta: &meta,
+			frames: &frames,
+			professions: &professions,
+		},
 		"1",
 		&V::Null,
 		&[],
@@ -76,7 +88,11 @@ fn emit_codex(codex: &Value) -> Vec<(String, String)> {
 
 #[test]
 fn emitpack_round_trips_every_record_through_codex_lua() {
-	let codex = sample_codex();
+	let mut codex = sample_codex();
+	// A child quest's parent, needed in the log (the Valik rule): the `u` field.
+	codex["quests"]["176"]["parent"] = json!(33);
+	// A kill done by using an item on that NPC (#2468): the `a` field after the objective.
+	codex["quests"]["176"]["objectives"][1]["useItem"] = json!(2933);
 	let pack = write_codex_pack(&codex, &CodexOpts::default());
 	let keys = |k: &str| -> Vec<String> { codex[k].as_object().map(|o| o.keys().cloned().collect()).unwrap_or_default() };
 	let ids = serde_json::to_string(&json!({
@@ -422,7 +438,7 @@ emit({ missing = table.concat(missing, ","), stale = table.concat(stale, ","), s
 
 #[test]
 fn a_complete_install_of_one_version_says_nothing_at_login_the_optional_data_packs_may_be_absent() {
-	let out = login_with(&[("Polestar", None), ("Polestar_Guides", None), ("Polestar_Codex", None)]);
+	let out = login_with(&[("Polestar", None), ("Polestar_Guides", None), ("Polestar_Codex", None), ("Polestar_Options", None)]);
 	assert_eq!(out["missing"], "");
 	assert_eq!(out["stale"], "");
 	assert_eq!(len(&out["said"]), 0);
@@ -430,7 +446,7 @@ fn a_complete_install_of_one_version_says_nothing_at_login_the_optional_data_pac
 
 #[test]
 fn a_missing_codex_and_a_guides_folder_from_an_old_zip_are_named_once_in_chat_with_how_to_reinstall() {
-	let out = login_with(&[("Polestar", None), ("Polestar_Guides", Some("0.2.1")), ("Polestar_QuestDB", None)]);
+	let out = login_with(&[("Polestar", None), ("Polestar_Guides", Some("0.2.1")), ("Polestar_QuestDB", None), ("Polestar_Options", None)]);
 	assert_eq!(out["missing"], "Polestar_Codex");
 	assert_eq!(out["stale"], "Polestar_Guides 0.2.1");
 	assert_eq!(out["said"].as_array().unwrap().len(), 1);
@@ -439,13 +455,43 @@ fn a_missing_codex_and_a_guides_folder_from_an_old_zip_are_named_once_in_chat_wi
 	assert!(is_match(said, r#"delete every Polestar folder.*not "Source code""#));
 }
 
+// #3507: a 0.4.3 zip copied over 0.4.2.2 leaves the folders 0.4.3 folded into others (the looks, a skin, a race
+// part, the experimental guides): an older version each, but no mixed install. One line names them to delete. The
+// Skin API's example and another author's skin addon (an older version of their own) are neither folded nor stale.
+#[test]
+fn the_folders_0_4_3_folded_left_from_an_older_install_get_one_line_to_delete_them_and_no_mixed_install() {
+	let out = emitted(&RunAddon {
+		before: r#"stub.addons = { { name = "Polestar" }, { name = "Polestar_Guides" }, { name = "Polestar_Codex" }, { name = "Polestar_Options" },
+	{ name = "Polestar_Looks" }, { name = "Polestar_Skin_Vellum" }, { name = "Polestar_Guides_Orc" }, { name = "Polestar_Experimental" }, { name = "Polestar_Skin_Example" },
+	{ name = "Polestar_Skin_Joes" } }
+for _, n in ipairs({ "Polestar_Looks", "Polestar_Skin_Vellum", "Polestar_Guides_Orc", "Polestar_Experimental", "Polestar_Skin_Example", "Polestar_Skin_Joes" }) do stub.addonMeta[n] = { Version = "0.4.2.2" } end"#
+			.into(),
+		addons: vec![files()],
+		login: true,
+		script: r#"
+local missing, stale, _, _, folded = Polestar.Data.CheckInstall()
+local said = {}
+for _, m in ipairs(stub.messages) do if m:find("Polestar no longer uses these folders", 1, true) or m:find("mixed", 1, true) then said[#said + 1] = m end end
+emit({ missing = table.concat(missing, ","), stale = table.concat(stale, ","), folded = folded, said = said, vellum = Polestar.Data.Folded("Polestar_Skin_Vellum"), example = Polestar.Data.Folded("Polestar_Skin_Example"), joes = Polestar.Data.Folded("Polestar_Skin_Joes") })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["missing"], "");
+	assert_eq!(out["stale"], "");
+	assert_eq!(out["folded"], json!(["Polestar_Experimental", "Polestar_Guides_Orc", "Polestar_Looks", "Polestar_Skin_Vellum"]));
+	assert_eq!(out["said"].as_array().unwrap().len(), 1);
+	assert!(out["said"][0].as_str().unwrap().contains("(Polestar_Experimental, Polestar_Guides_Orc, Polestar_Looks, Polestar_Skin_Vellum): since 0.4.3 they are inside Polestar"));
+	assert_eq!((out["vellum"].as_bool(), out["example"].as_bool(), out["joes"].as_bool()), (Some(true), Some(false), Some(false)), "the example and another author's skin are not ours to delete");
+}
+
 // Our guides' part for the player's faction (format 8) ships in every release: without it the player has no
 // leveling guides, so a copy that left it out is named like a missing Codex. The other faction's is never.
 #[test]
 fn a_missing_faction_part_of_our_guides_is_named_at_login_the_other_faction_s_is_not() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
-		before: "stub.addons = { { name = \"Polestar\" }, { name = \"Polestar_Guides\" }, { name = \"Polestar_Codex\" }, { name = \"Polestar_Guides_Alliance\" } }\nstub.world.faction = \"Horde\""
+		before: "stub.addons = { { name = \"Polestar\" }, { name = \"Polestar_Guides\" }, { name = \"Polestar_Codex\" }, { name = \"Polestar_Options\" }, { name = \"Polestar_Guides_Alliance\" } }\nstub.world.faction = \"Horde\""
 			.into(),
 		addons: vec![files()],
 		login: true,
@@ -595,8 +641,8 @@ fn synthetic() -> Synth {
 	// Players' recorded windows (data/codex/recorded.json): the Hogger reward choices three players saw
 	// and a loot window.
 	let recorded = json!({
-		"meta": { "sessions": 3, "counted": 3, "voters": 3, "minVoters": 3, "minWindows": 10, "through": null },
-		"drops": { "61": { "windows": 30, "items": { "2933": { "voters": 3, "chance": 12.5 } } } },
+		"meta": { "sessions": 3, "counted": 3, "voters": 3, "excluded": 0, "verdicts": null, "minVoters": 3, "minWindows": 10, "through": null },
+		"drops": { "61": { "windows": 30, "items": { "2933": { "voters": 3, "chance": 12.5, "trusted": true } } } },
 		"objects": {},
 		"vendors": {},
 		"rewards": { "176": { "items": [], "choices": [1933, 2933], "voters": 3, "trusted": true } },
@@ -704,10 +750,13 @@ fn inputs(s: Synth) -> Inputs {
 		curated_vendors: V::obj(),
 		entrances: Vec::new(),
 		entrance_table: V::obj(),
+		levels_table: V::obj(),
 		rep_table: V::obj(),
 		attunement_table: V::obj(),
 		store_xp: Default::default(),
 		journal_quests: Vec::new(),
+		mechanics: V::Null,
+		mechanics_public: V::Null,
 		warnings: Vec::new(),
 	}
 }
@@ -759,19 +808,31 @@ fn maps(spawns: &Value) -> Vec<Value> {
 	spawns.as_array().unwrap().iter().map(|s| s["map"].clone()).collect()
 }
 
-// Players' recorded windows (data/codex/recorded.json): a quest's reward list recorded on trusted evidence
-// stands in for the web lists' (Forever may have changed the quest), one a single player recorded only
-// fills a quest nothing else gives rewards for; a recorded merchant window is a vendor source.
+// Players' recorded windows (data/codex/recorded.json), by the trusted-recordings rule: a recorded fact changes
+// what the Codex says only on trusted evidence (`minVoters` people, or a vouched recorder); with less it only
+// confirms another input's. A trusted reward list stands in for the web lists' (Forever may have changed the
+// quest), an untrusted one adds nothing, even where no other input gives the quest rewards; an untrusted loot
+// source stays only beside another input's of the same NPC; an untrusted merchant item only where the quest
+// data names that vendor, and only then makes the NPC a vendor.
 #[test]
-fn mergecodex_recorded_reward_windows_rank_over_the_web_lists_only_on_trusted_evidence() {
+fn mergecodex_recorded_facts_change_the_codex_only_on_trusted_evidence() {
 	let mut s = synthetic();
 	s.forever["quests"]["176"]["web"] = json!({ "choices": [[1179, 1]], "items": [] });
 	s.forever["quests"]["9002"]["web"] = json!({ "choices": [], "items": [[20001, 1]] });
+	let seen = |voters: usize, trusted: bool| json!({ "voters": voters, "chance": null, "trusted": trusted });
+	let sold = |voters: usize, trusted: bool| json!({ "voters": voters, "trusted": trusted });
 	s.recorded = json!({
-		"meta": { "sessions": 4, "counted": 4, "voters": 4, "minVoters": 3, "minWindows": 10, "through": null },
-		"drops": {},
+		"meta": { "sessions": 4, "counted": 4, "voters": 4, "excluded": 0, "verdicts": null, "minVoters": 3, "minWindows": 10, "through": null },
+		"drops": {
+			"4730": { "windows": 12, "items": { "1179": seen(3, true), "17": seen(2, false) } },
+			"10440": { "windows": 4, "items": { "13335": seen(1, false) } },
+		},
 		"objects": {},
-		"vendors": { "4730": [20001] },
+		"vendors": {
+			"4730": { "20001": sold(3, true), "8631": sold(1, false), "2933": sold(2, false) },
+			"4784": { "2933": sold(2, false) },
+			"4785": { "17": sold(3, true) },
+		},
 		"rewards": {
 			"176": { "items": [], "choices": [2933], "voters": 3, "trusted": true },
 			"9002": { "items": [17], "choices": [], "voters": 1, "trusted": false },
@@ -781,14 +842,29 @@ fn mergecodex_recorded_reward_windows_rank_over_the_web_lists_only_on_trusted_ev
 	});
 	let codex = merged(s);
 	let it = &codex["items"];
-	let quests_of = |id: &str| -> Vec<Value> { it[id]["sources"].as_array().unwrap().iter().filter(|x| x["type"] == "quest").cloned().collect() };
-	assert_eq!(quests_of("2933"), vec![json!({ "type": "quest", "quest": 176, "choice": true, "from": ["recordings"] })]);
-	assert_eq!(quests_of("1179"), Vec::<Value>::new(), "the web list's choice of 176 gives way to the trusted recorded list, and 9001's QuestieDB rewards keep out a single player's");
+	let of_type = |id: &str, ty: &str| -> Vec<Value> { it[id]["sources"].as_array().unwrap().iter().filter(|x| x["type"] == ty).cloned().collect() };
+	let has_role = |npc: &str, role: &str| codex["npcs"][npc]["roles"].as_array().is_some_and(|r| r.contains(&json!(role)));
+	// Quest rewards.
+	assert_eq!(of_type("2933", "quest"), vec![json!({ "type": "quest", "quest": 176, "choice": true, "from": ["recordings"] })]);
+	assert_eq!(of_type("1179", "quest"), Vec::<Value>::new(), "the web list's choice of 176 gives way to the trusted recorded list, and 9001's single player adds nothing");
 	assert_eq!(codex["quests"]["176"]["choices"], json!([2933]));
-	assert_eq!(quests_of("20001"), vec![json!({ "type": "quest", "quest": 9002, "from": ["web"] })], "a single player's list does not stand in for the web list");
-	assert_eq!(quests_of("17"), vec![json!({ "type": "quest", "quest": 6063, "choice": true, "from": ["recordings"] })], "it fills a quest no other input gives rewards for");
-	assert_eq!(find_type(&it["20001"]["sources"], "vendor"), json!({ "type": "vendor", "npc": 4730, "from": ["recordings"] }));
-	assert!(codex["npcs"]["4730"]["roles"].as_array().unwrap().contains(&json!("vendor")));
+	assert_eq!(of_type("20001", "quest"), vec![json!({ "type": "quest", "quest": 9002, "from": ["web"] })], "a single player's list does not stand in for the web list");
+	assert_eq!(of_type("17", "quest"), Vec::<Value>::new(), "nor does it fill a quest no other input gives rewards for");
+	// Loot windows.
+	assert_eq!(of_type("1179", "drop"), vec![json!({ "type": "drop", "npc": 4730, "from": ["recordings"] })], "three people's loot windows are a source of their own");
+	assert_eq!(of_type("17", "drop"), Vec::<Value>::new(), "two people's are not");
+	assert_eq!(of_type("13335", "drop")[0]["from"], json!(["recordings", "atlasloot", "pfquest"]), "one person's confirms another input's source");
+	// Merchant windows.
+	assert_eq!(of_type("20001", "vendor"), vec![json!({ "type": "vendor", "npc": 4730, "from": ["recordings"] })]);
+	assert_eq!(
+		of_type("8631", "vendor"),
+		vec![json!({ "type": "vendor", "npc": 4730, "cost": 800000, "from": ["recordings", "questie", "pfquest"] })],
+		"one person's confirms the quest data's vendor"
+	);
+	assert_eq!(of_type("2933", "vendor"), Vec::<Value>::new(), "two people's are no vendor source the quest data lacks");
+	assert!(!has_role("4784", "vendor"), "nor do they make the NPC a vendor");
+	assert_eq!(of_type("17", "vendor"), vec![json!({ "type": "vendor", "npc": 4785, "from": ["recordings"] })]);
+	assert!(has_role("4785", "vendor"));
 }
 
 // A Forever-only racial mount no quest data sells (the Reins of the Striped Dawnsaber) takes its vendor from
@@ -937,6 +1013,34 @@ fn mergecodex_tags_vendors_by_what_they_sell_food_arrows_bullets_bows_and_guns()
 	assert_eq!(codex["npcs"]["4730"]["roles"], json!(["sells:arrows", "sells:bullets", "sells:food", "sells:general", "sells:ranged", "vendor"]));
 }
 
+// #1820: pfQuest lists Innkeeper Thulbek (5814) at Grom'gol as a Hunter's Boomstick (2511) seller and
+// a repairer; he sells food and drink only. With forever-db/corrections applied, Nearby services finds
+// him for food, never for bows and guns or repairs.
+#[test]
+fn innkeeper_thulbek_at_gromgol_sells_food_and_no_guns_and_does_not_repair() {
+	let mut s = synthetic();
+	let base = like(s.client.items.values().next().unwrap(), "");
+	s.forever["npcs"]["5814"] = json!({ "id": 5814, "name": "Innkeeper Thulbek", "level": 28, "faction": "H", "roles": ["innkeeper", "repair", "vendor"], "subName": "Innkeeper", "spawns": { "1434": { "f": "e", "pts": [[31.49, 29.75]] } }, "source": ["pfquest", "questie-forever"] });
+	for (id, class_id, subclass_id, name) in [(2511, 2.0, 3.0, "Hunter's Boomstick"), (159, 0.0, 5.0, "Refreshing Spring Water")] {
+		s.forever["items"][id.to_string()] = json!({ "id": id, "name": name, "drops": { "npc": {}, "object": {} }, "vendors": [5814], "source": ["pfquest"] });
+		let mut it = like(&base, name);
+		it.class_id = Some(class_id);
+		it.subclass_id = Some(subclass_id);
+		it.inventory_type = Some(0.0);
+		it.quality = Some(1.0);
+		it.buy_price = Some(10.0);
+		(it.learn, it.use_, it.req_skill, it.min_faction) = (None, None, None, None);
+		s.client.items.insert(id, it);
+	}
+	let i = inputs(s);
+	let corrections = forge_data::corrections::load(&forge_data::corrections::locate(root())).unwrap();
+	let none = V::obj();
+	let f = &i.forever;
+	forge_data::corrections::apply(&corrections, f.quests.as_obj().unwrap(), f.npcs.as_obj().unwrap(), none.as_obj().unwrap(), f.items.as_obj().unwrap(), true);
+	let codex = codex_json(&merge_codex(&i));
+	assert_eq!(codex["npcs"]["5814"]["roles"], json!(["innkeeper", "sells:food", "vendor"]));
+}
+
 // General goods go by the vendor's title: their items tell nothing, cooks sell
 // the same flint and wood. "General Trade Goods" sellers are trade suppliers.
 #[test]
@@ -1028,7 +1132,10 @@ fn buildcodex_writes_deterministic_json_and_a_pack_whose_memory_it_measures() {
 	let b = build_n(2);
 	let mut files: Vec<&str> = a.json.iter().map(|(f, _)| f.as_str()).collect();
 	files.sort();
-	assert_eq!(files, vec!["factions.json", "frames.json", "instances.json", "items.json", "journal.json", "meta.json", "npcs.json", "objects.json", "quests.json", "spells.json", "zones.json"]);
+	assert_eq!(
+		files,
+		vec!["factions.json", "frames.json", "instances.json", "items.json", "journal.json", "meta.json", "npcs.json", "objects.json", "professions.json", "quests.json", "spells.json", "zones.json"]
+	);
 	for (f, text) in a.json.iter().filter(|(f, _)| f != "meta.json") {
 		let other = &b.json.iter().find(|(g, _)| g == f).unwrap_or_else(|| panic!("no {f}")).1;
 		assert_eq!(text, other, "{f}");

@@ -54,6 +54,10 @@ return {
 	["14 areas to discover here, levels 36-44. Flight paths: {area:16724} in the south-east (Alliance), {area:16743} in the middle (Horde)."] = "Hier gibt es 14 Gebiete zu entdecken, Stufe 36-44. Flugrouten: {area:16724} im Südosten (Allianz), {area:16743} in der Mitte (Horde).",
 	-- {zone:1418} Badlands · {area:345} Agmond's End · {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:2417} Blackrock Pass · {area:977} Steamwheedle Port · {zone:1446} Tanaris · {area:16727} Powderfuse Port · {area:17780} Krol'dok Stronghold
 	["From the south of the {zone:1418}, past {area:345}, a way leads down into the {zone:2548} by {area:16685}. (The {zone:2548} also open off northern Redridge through {area:2417}, and a ship runs from {area:977} in {zone:1446} to {area:16727}, the neutral goblin port on its coast.) {area:17780} is an ogre clan's outdoor dungeon."] = "Vom Süden der {zone:1418} aus führt hinter {area:345} ein Weg bei {area:16685} hinab in die {zone:2548}. (Die {zone:2548} öffnen sich auch vom nördlichen Rotkammgebirge aus über {area:2417}, und von {area:977} in {zone:1446} fährt ein Schiff nach {area:16727}, dem neutralen Goblinhafen an ihrer Küste.) {area:17780} ist der Außen-Dungeon eines Ogerclans.",
+	-- {area:16724} Farholde Keep · {npc:257087} Gretchen Mayberry
+	["Flight path here: {area:16724} ({npc:257087})."] = "Flugroute hier: {area:16724} ({npc:257087}).",
+	-- {area:16743} Rog'mar
+	["Flight path here: {area:16743} (Grakna)."] = "Flugroute hier: {area:16743} (Grakna).",
 
 	-- Step 9: Swamp of Sorrows (1/2)
 	["11 areas to discover here, levels 36-43."] = "Hier gibt es 11 Gebiete zu entdecken, Stufe 36-43.",

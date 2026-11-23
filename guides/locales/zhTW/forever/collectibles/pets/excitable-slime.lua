@@ -8,15 +8,14 @@
 return {
 	-- Step 1: Nutritious Slime Sludge
 	-- {item:278265} Nutritious Slime Sludge · {npc:4612} Boyle · {zone:1458} Undercity
-	["Buy {item:278265} from {npc:4612} in the {zone:1458} canals first (25 copper for a stack of 5): you hand it in as soon as the slime offers its quest."] = "",
+	["Buy {item:278265} from {npc:4612} in the {zone:1458} canals first (25 copper for a stack of 5): you hand it in as soon as the slime offers its quest."] = "先在{zone:1458}運河邊的{npc:4612}處買{item:278265}（25銅一組5個）：軟泥一給任務就立刻交。",
 	-- {item:278265} Nutritious Slime Sludge · {npc:4612} Boyle
-	["{item:278265}: {npc:4612}, in the canals"] = "",
+	["{item:278265}: {npc:4612}, in the canals"] = "{item:278265}：{npc:4612}，在運河中",
 
 	-- Step 2: WRIGGLE.
 	-- {npc:269452} Excitable Slime · {npc:4612} Boyle · {quest:97583} WRIGGLE.
-	["Find an {npc:269452}, a little critter in the canal water beside {npc:4612}, target it and /dance at it, again and again, until it dances back and offers {quest:97583}; this takes many tries. Hand in the sludge right away. If the slime seems tired, /dance with it again before you hand in."] = "",
+	["Find an {npc:269452}, a little critter in the canal water beside {npc:4612}, target it and /dance at it, again and again, until it dances back and offers {quest:97583}; this takes many tries. Hand in the sludge right away. If the slime seems tired, /dance with it again before you hand in."] = "找到{npc:4612}旁運河水中的小生物{npc:269452}，選中它並反覆對它/跳舞，直到它回舞並提供{quest:97583}；這要試很多次。立刻交泥漿。若軟泥看起來累了，交之前再和它/跳舞一次。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Find the {npc:269452}, a critter in the {zone:1458} canals, and /dance with it until it offers WRIGGLE. Buy {item:278265} from a vendor in the canals and bring it back; if the slime seems tired, dance with it again."] = "在{zone:1458}的運河中找到小動物{npc:269452}，對牠 /dance，直到牠提供任務。向運河裡的商人購買{item:278265}並帶回來；如果史萊姆看起來累了，就再對牠跳舞。",
-	-- ["{item:278265}: {npc:4612}, in the canals beside the slime"] = "{item:278265}：{npc:4612}，在運河中史萊姆旁邊",
 }

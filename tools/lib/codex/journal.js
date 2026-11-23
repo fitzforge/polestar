@@ -2,8 +2,7 @@
 // The Dungeons section's data (docs/ARCHITECTURE.md, "Dungeons"): a journal
 // page per Codex dungeon and raid: every quest with where it starts and ends,
 // its objective, its chain and its rewards, the bosses in kill order with the
-// quests tied to them, and the entrance. No loot tables (the Codex's
-// instances carry each boss's loot for Lookup). A release build reads only
+// quests and loot tied to them, and the entrance. A release build reads only
 // release-safe inputs; dungeons.json (DungeonJournal) is present only in a
 // --local-extras build. Built by `codex build` and shipped inside the
 // load-on-demand Codex pack as Dungeons1.lua, which registers into
@@ -12,7 +11,7 @@
 //   instanceMapsOf(mapRows, areaRows)  Map (+ AreaTable) CSV rows -> [ { id, name, raid, players, area,
 //                                      areas: [areaIds], inner: [areaIds on the map itself], zones: [areaIds], corpse: { c, x, y } | null } ]
 //   zonePoint(frames, c, wx, wy, prefer) world point -> { map, x, y, f } on a zone frame
-//   buildJournal(inputs, codex)        -> { meta, dungeons: { key: Page } }
+//   buildJournal(inputs, codex)        -> { meta, marks: { A, H } (marksOf), dungeons: { key: Page } }
 //   emitJournal(journal)               -> [ { name: 'Dungeons1.lua', text } ]
 //
 // Inputs: `inputs` as tools/lib/codex/build.js loadInputs returns it
@@ -20,10 +19,11 @@
 // `codex` the merged Codex (instances, items, npcs, objects, quests). Every
 // input may be missing; the result then holds less.
 //
-// Page: { key, name, map (the instance's Map id), kind, forever, minLevel, maxLevel, players, zone, zoneName,
+// Page: { key, name, map (the instance's Map id), kind, forever, minLevel, maxLevel, players,
+//   zone (uiMapID: the entrance's map, else zoneOfAreas: the zone the client's areas place it in) | null, zoneName,
 //   entrance: { map, x, y, f, A? } | null (A: the Alliance's own way in, { map, x, y }),
 //   quests: [ Quest ] (level order), chain: { id: Quest } (prerequisites not on the page),
-//   bosses: [ { order, name, npc, level, object?, role?, encounter?, quests: [ { id, how, item?, itemName? } ] } ],
+//   bosses: [ { order, name, npc, level, object?, role?, encounter?, loot?: [itemId], quests: [ { id, how, item?, itemName? } ] } ],
 //   attunement: [ Attunement ] (tools/lib/codex/attunements.js; none: absent) }
 //   (object: a chest boss's object id; role: rare | event | optional, the bosses after the encounters;
 //   encounter: its DungeonEncounter id)
@@ -41,7 +41,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { header } = require('../generated');
 const { closedByOf } = require('../data/prereqs');
-const { isWebCitation } = require('./web');
+const { isWebCitation, isSourceCitation } = require('./web');
 
 const SCHEMA = 3; // 3: objective facts (objectives) instead of an English line, instance map, boss encounter
 
@@ -64,6 +64,10 @@ const round1 = (v) => Math.round(v * 10) / 10;
 // west) on map CorpseMapID where a ghost comes back: the entrance. zones: the
 // outdoor zone areas holding an area of the instance's name on that
 // continent (Uldaman in the Badlands), to place the entrance on the right map.
+// A map without a corpse point takes them on any open-world map (InstanceType
+// 0): Forever's Blackmaw Hold in Azshara, The Shaper's Terrace in Un'Goro
+// Crater. (A name's first word alone is no evidence: the client's Drowned
+// Reef is in Arathi, The Drowned City's door in Stranglethorn.)
 function instanceMapsOf(mapRows, areaRows) {
 	const areasByMap = {};
 	const areaNames = {};
@@ -76,6 +80,7 @@ function instanceMapsOf(mapRows, areaRows) {
 		const n = norm(a.AreaName_lang);
 		if (n) (areaNames[n] = areaNames[n] || []).push(id);
 	}
+	const world = new Set((mapRows || []).filter((r) => num(r.InstanceType) === 0).map((r) => num(r.ID)));
 	const out = [];
 	for (const r of mapRows || []) {
 		const type = num(r.InstanceType);
@@ -85,17 +90,18 @@ function instanceMapsOf(mapRows, areaRows) {
 		const c = num(r.CorpseMapID);
 		const x = num(r.Corpse_0);
 		const y = num(r.Corpse_1);
+		const corpse = c >= 0 && (x || y) ? { c, x, y } : null;
 		const areas = new Set(areasByMap[id] || []);
 		if (num(r.AreaTableID)) areas.add(num(r.AreaTableID));
 		// The areas on the instance's own map (what Forever's `location` names).
 		const inner = [...areas].sort((a, b) => a - b);
 		// Areas of the same name outside the instance (Questie files some
 		// dungeon quests under the outdoor sub-zone, e.g. Gnomeregan in Dun Morogh).
+		const outdoor = (row) => !!row && num(row.ParentAreaID) !== 0 && (corpse ? num(row.ContinentID) === c : world.has(num(row.ContinentID)));
 		const zones = new Set();
 		for (const a of areaNames[norm(name)] || []) {
 			areas.add(a);
-			const row = areaRow[a];
-			if (row && num(row.ContinentID) === c && num(row.ParentAreaID)) zones.add(num(row.ParentAreaID));
+			if (outdoor(areaRow[a])) zones.add(num(areaRow[a].ParentAreaID));
 		}
 		out.push({
 			id,
@@ -106,7 +112,7 @@ function instanceMapsOf(mapRows, areaRows) {
 			areas: [...areas].sort((a, b) => a - b),
 			inner,
 			zones: [...zones].sort((a, b) => a - b),
-			corpse: c >= 0 && (x || y) ? { c, x, y } : null,
+			corpse,
 		});
 	}
 	return out.sort((a, b) => a.id - b.id);
@@ -460,6 +466,11 @@ function buildPages(inputs, codex, warnings = []) {
 	//     lacks is skipped; one whose quest it lacks is a warning.
 	for (const r of inputs.journalQuests || loadJournalQuests()) {
 		if (!onPage[r.instance]) continue;
+		// `exclude`: a quest a rule put on the page wrongly (City of Dalaran's city quests).
+		if (r.exclude) {
+			onPage[r.instance].delete(r.quest);
+			continue;
+		}
 		const rec = codexQuest(r.quest);
 		if (!rec) warnings.push(`journal-quests.json: quest ${r.quest} is not in the Codex`);
 		else if (!onPage[r.instance].has(r.quest)) onPage[r.instance].set(r.quest, rec);
@@ -504,7 +515,7 @@ function buildPages(inputs, codex, warnings = []) {
 		const inst = instances[key];
 		const m = mapOf[key];
 		const d = djOf[key];
-		let entrance = inst.entrance ? { map: inst.entrance.map, x: inst.entrance.x, y: inst.entrance.y, f: inst.entrance.f || null, ...(inst.entrance.A ? { A: inst.entrance.A } : {}) } : null;
+		let entrance = inst.entrance ? { map: inst.entrance.map, x: inst.entrance.x, y: inst.entrance.y, f: inst.entrance.f || null, ...(inst.entrance.A ? { A: inst.entrance.A } : {}), ...(typeof inst.entrance.z === 'number' ? { z: inst.entrance.z } : {}) } : null;
 		if (!entrance && m && m.corpse) {
 			const prefer = Object.values(fv.zones || {}).filter((z) => z.areaId && m.zones.includes(z.areaId)).map((z) => z.id);
 			entrance = zonePoint(frames, m.corpse.c, m.corpse.x, m.corpse.y, prefer);
@@ -531,10 +542,15 @@ function buildPages(inputs, codex, warnings = []) {
 		const encounterOf = {};
 		for (const b of inst.bosses || []) if (b.encounter && b.name) encounterOf[norm(b.name)] = b.encounter;
 		const bossList = d
-			? (d.bosses || []).map((b) => ({ name: b.name, npc: b.npc ?? null, level: b.level ?? null, encounter: encounterOf[norm(b.name)] || null }))
+			? (d.bosses || []).map((b) => {
+				const source = (inst.bosses || []).find((x) => b.npc && x.npc === b.npc)
+					|| (inst.bosses || []).find((x) => norm(x.name) === norm(b.name));
+				return { name: b.name, npc: b.npc ?? null, level: b.level ?? null,
+					encounter: encounterOf[norm(b.name)] || null, loot: source?.loot };
+			})
 			: (inst.bosses || [])
 					.filter((b) => b.name && b.name !== 'Trash')
-					.map((b) => ({ name: b.name, npc: b.npc ?? null, object: b.object ?? null, role: b.role ?? null, encounter: b.encounter ?? null, items: b.items || [], level: (npcs[b.npc] && npcs[b.npc].level) || null }));
+					.map((b) => ({ name: b.name, npc: b.npc ?? null, object: b.object ?? null, role: b.role ?? null, encounter: b.encounter ?? null, items: b.items || [], loot: b.loot, level: (npcs[b.npc] && npcs[b.npc].level) || null }));
 		const bosses = bossList.map((b, i) => {
 			const tied = [];
 			const add = (id, how, item) => {
@@ -558,13 +574,14 @@ function buildPages(inputs, codex, warnings = []) {
 				if (q.bosses.includes(b.name) && !tied.some((t) => t.id === q.id)) add(q.id, 'involved');
 			}
 			const page = { order: i + 1, name: b.name, npc: b.npc, level: b.level, quests: tied };
+			if (b.loot?.length) page.loot = b.loot;
 			if (b.object) page.object = b.object;
 			if (b.role) page.role = b.role;
 			if (b.encounter) page.encounter = b.encounter;
 			return page;
 		});
 		const lv = inst.levels;
-		const zone = entrance ? entrance.map : null;
+		const zone = entrance ? entrance.map : zoneOfAreas(m, fv.zones, quests);
 		pages[key] = {
 			key,
 			name: inst.name || key,
@@ -587,13 +604,15 @@ function buildPages(inputs, codex, warnings = []) {
 
 // The cited table of journal quests no rule places
 // (data/codex/journal-quests.json) -> [{ quest, instance, source, note }];
-// source: a URL or a web quest database citation (tools/lib/codex/web.js).
-// A malformed row throws.
+// source: a URL, a web quest database citation or a source cited the
+// corrections' way, such as players' recordings (tools/lib/codex/web.js). A
+// malformed row throws.
 function loadJournalQuests(file = path.join(__dirname, '..', '..', '..', 'data', 'codex', 'journal-quests.json')) {
 	if (!fs.existsSync(file)) return [];
 	const rows = JSON.parse(fs.readFileSync(file, 'utf8')).quests || [];
 	for (const r of rows) {
-		if (!Number.isInteger(r.quest) || typeof r.instance !== 'string' || !(typeof r.source === 'string' ? /^https?:\/\//.test(r.source) : isWebCitation(r.source))) throw new Error(`journal-quests.json: bad row ${JSON.stringify(r)}`);
+		const cited = typeof r.source === 'string' ? /^https?:\/\//.test(r.source) : isWebCitation(r.source) || isSourceCitation(r.source);
+		if (!Number.isInteger(r.quest) || typeof r.instance !== 'string' || !cited) throw new Error(`journal-quests.json: bad row ${JSON.stringify(r)}`);
 	}
 	return rows;
 }
@@ -606,6 +625,20 @@ function matchMap(inst, maps) {
 	// Wings: "Scarlet Monastery Armory" in "Scarlet Monastery".
 	if (!m) m = maps.find((x) => norm(x.name).length > 6 && n.startsWith(norm(x.name)));
 	return m || null;
+}
+
+// The zone of an instance whose entrance is not known: the zone map (UiMap
+// type 3, or 6 an orphan zone) of the outdoor areas the client names after it
+// (instanceMapsOf's zones), where the most of its quests start or end when
+// there are several, else the lowest id; null without one. zonesIn: Forever's
+// zones.json { uiMapID: { id, areaId, type } }.
+function zoneOfAreas(m, zonesIn, quests = []) {
+	if (!m || !(m.zones || []).length) return null;
+	const found = Object.values(zonesIn || {}).filter((z) => z.areaId && m.zones.includes(z.areaId) && (z.type == null || z.type === 3 || z.type === 6));
+	if (!found.length) return null;
+	const givers = (id) => quests.filter((q) => (q.start && q.start.map === id) || (q.finish && q.finish.map === id)).length;
+	found.sort((a, b) => givers(b.id) - givers(a.id) || a.id - b.id);
+	return found[0].id;
 }
 
 function buildJournal(inputs = {}, codex = {}) {
@@ -626,8 +659,9 @@ function buildJournal(inputs = {}, codex = {}) {
 		if (p.entrance) entrances++;
 	}
 	const meta = { schema: SCHEMA, counts: { dungeons: Object.keys(dungeons).length, quests, entrances, attunements } };
+	const marks = marksOf(dungeons, codex.quests || {}, (inputs.forever || {}).quests || {});
 	// warnings: the attunement table's goals and the journal-quests table's rows the Codex lacks (codex build reports them).
-	return { meta, dungeons, warnings: [...pageWarnings, ...att.warnings] };
+	return { meta, marks, dungeons, warnings: [...pageWarnings, ...att.warnings] };
 }
 
 // ---------------------------------------------------------------------------
@@ -684,10 +718,86 @@ const HEADER = [
 	'',
 ];
 
+// The dungeon marks (Polestar/Dungeons/Mark.lua), per side: every page quest of
+// the side, and the MARK_NEAREST nearest quests before it that the side may
+// take, as "id:key" (a dungeon's own quest), "id:key:quest" (needed for that
+// page quest) or "id:key:quest:b" (a breadcrumb that leads to it, or to a
+// quest before it), ";"-separated. Nearest: breadth-first from the page quest
+// through its prerequisites as chainOf reads them (the Codex's pre, preAny;
+// Forever's pre, preAll, preAny, breadcrumbs), in list order, each quest once;
+// a breadcrumb counts but its own prerequisites don't. Not the page's capped
+// chain: chainOf keeps the farthest quests first and drops the nearest past
+// CHAIN_MAX. A dungeon's own quest keeps its mark over a prerequisite's; a
+// prerequisite of several keeps the first dungeon's, lowest minLevel first
+// (then name, key); page quests in page order. The Rust build's marks_of
+// (forge-data codex/journal.rs) is the same.
+const MARK_NEAREST = 3;
+function marksOf(dungeons, cq = {}, fq = {}) {
+	const lv = (p) => (typeof p.minLevel === 'number' ? p.minLevel : 99);
+	const keys = Object.keys(dungeons || {}).sort((a, b) => {
+		const pa = dungeons[a], pb = dungeons[b];
+		return lv(pa) - lv(pb) || (String(pa.name) < String(pb.name) ? -1 : String(pa.name) > String(pb.name) ? 1 : 0) || (a < b ? -1 : a > b ? 1 : 0);
+	});
+	const sideOf = (f) => ({ A: 'A', Alliance: 'A', H: 'H', Horde: 'H' })[f] || null;
+	const before = (id) => {
+		const c = cq[id] || {}, f = fq[id] || {};
+		const list = [c.pre, f.pre, f.preAll, c.preAny, f.preAny].flatMap((l) => (l || []).map((x) => [x, false]));
+		return list.concat((f.breadcrumbs || []).map((x) => [x, true]));
+	};
+	const side = (sd) => {
+		const takes = (f) => !sideOf(f) || sideOf(f) === sd;
+		const out = [];
+		const seen = new Set();
+		for (const k of keys) {
+			for (const q of dungeons[k].quests || []) {
+				const id = String(q.id);
+				if (takes(q.faction) && !seen.has(id)) {
+					seen.add(id);
+					out.push(`${id}:${k}`);
+				}
+			}
+		}
+		for (const k of keys) {
+			for (const q of dungeons[k].quests || []) {
+				if (!takes(q.faction)) continue;
+				const qid = String(q.id);
+				const walked = new Set([qid]);
+				const taken = [];
+				let frontier = [qid];
+				while (taken.length < MARK_NEAREST && frontier.length) {
+					const next = [];
+					level: for (const at of frontier) {
+						for (const [pre, crumb] of before(at)) {
+							const id = String(pre);
+							if (walked.has(id)) continue;
+							walked.add(id);
+							const r = cq[id] || fq[id];
+							if (!r || !takes(r.faction)) continue;
+							taken.push([id, crumb]);
+							if (taken.length >= MARK_NEAREST) break level;
+							if (!crumb) next.push(id);
+						}
+					}
+					frontier = next;
+				}
+				for (const [id, crumb] of taken) {
+					if (seen.has(id)) continue;
+					seen.add(id);
+					out.push(crumb ? `${id}:${k}:${qid}:b` : `${id}:${k}:${qid}`);
+				}
+			}
+		}
+		return out.join(';');
+	};
+	return { A: side('A'), H: side('H') };
+}
+
 function emitJournal(journal) {
 	const lines = [...HEADER];
 	const meta = journal.meta || { schema: SCHEMA, counts: {} };
 	lines.push(`D.Register("meta", ${lua(meta)})`, '');
+	const marks = journal.marks || {};
+	lines.push(`D.Register("marks", { A = ${luaStr(marks.A || '')}, H = ${luaStr(marks.H || '')} })`, '');
 	const keys = Object.keys(journal.dungeons || {}).sort();
 	lines.push('D.Register("dungeon", {');
 	for (const k of keys) lines.push(`${luaKey(k)}=${lua(summaryOf(journal.dungeons[k]))},`);
@@ -701,4 +811,4 @@ function emitJournal(journal) {
 	return [{ name: 'Dungeons1.lua', text: lines.join('\n') }];
 }
 
-module.exports = { instanceMapsOf, zonePoint, chainOf, objectivesOf, buildJournal, emitJournal, loadJournalQuests, SCHEMA };
+module.exports = { instanceMapsOf, zonePoint, ZONE_MAX, chainOf, objectivesOf, buildJournal, emitJournal, marksOf, loadJournalQuests, SCHEMA };

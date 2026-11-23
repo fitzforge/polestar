@@ -11,7 +11,7 @@ return {
 	["Your city teleports at 20 and 30 and the group portals at 40 and 50, from each city's portal trainer."] = "Deine Stadtteleports mit 20 und 30 und die Gruppenportale mit 40 und 50, jeweils vom Portallehrer der Stadt.",
 
 	-- Step 1: Teleport: Orgrimmar
-	-- {object:173161} Darkbriar Lodge (no name in this language: may be words) · {zone:1454} Orgrimmar · {object:172961} Valley of Spirits · {npc:5958} Thuul · {spell:3567} Teleport: Orgrimmar · {item:17031} Rune of Teleportation
+	-- {object:173161} Darkbriar Lodge · {zone:1454} Orgrimmar · {object:172961} Valley of Spirits · {npc:5958} Thuul · {spell:3567} Teleport: Orgrimmar · {item:17031} Rune of Teleportation
 	["At 20 go to {object:173161} in {zone:1454}'s {object:172961}, where the mage trainers live. {npc:5958}, the portal trainer, stands on the upper floor and teaches {spell:3567} for 20 silver. Every teleport burns one {item:17031} (10 silver at any reagent vendor), so carry a few."] = "Geh mit Stufe 20 zu {object:173161} im {object:172961} von {zone:1454}, wo die Magierlehrer leben. {npc:5958}, der Portallehrer, steht im oberen Stockwerk und bringt dir {spell:3567} für 20 Silber bei. Jeder Teleport verbraucht eine {item:17031} (10 Silber bei jedem Reagenzienhändler), nimm also ein paar mit.",
 	-- {item:17031} Rune of Teleportation
 	["{item:17031}, 10s each"] = "{item:17031}, je 10s",
@@ -27,7 +27,7 @@ return {
 	-- Step 4: Portals to Orgrimmar and the Undercity
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity
 	["Portals to {zone:1454} and the {zone:1458}"] = "Portale nach {zone:1454} und {zone:1458}",
-	-- {item:17032} Rune of Portals · {npc:5958} Thuul · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {spell:11417} Portal: Orgrimmar · {zone:1458} Undercity · {npc:2492} Lexington Mortaim · {spell:11418} Portal: Undercity
+	-- {item:17032} Rune of Portals · {npc:5958} Thuul · {object:173161} Darkbriar Lodge · {spell:11417} Portal: Orgrimmar · {zone:1458} Undercity · {npc:2492} Lexington Mortaim · {spell:11418} Portal: Undercity
 	["At 40 the portal trainers teach the portals: a gateway your whole group can step through, for 1 gold 50 silver each. Each portal burns one {item:17032} (20 silver at any reagent vendor). {npc:5958} in {object:173161} has {spell:11417}; teleport to the {zone:1458} for {npc:2492}'s {spell:11418}."] = "Mit Stufe 40 bringen dir die Portallehrer die Portale bei: ein Tor, durch das deine ganze Gruppe treten kann, für je 1 Gold 50 Silber. Jedes Portal verbraucht eine {item:17032} (20 Silber bei jedem Reagenzienhändler). {npc:5958} in {object:173161} hat {spell:11417}; teleportiere dich nach {zone:1458} für {spell:11418} von {npc:2492}.",
 	-- {item:17032} Rune of Portals
 	["{item:17032}, 20s each"] = "{item:17032}, je 20s",

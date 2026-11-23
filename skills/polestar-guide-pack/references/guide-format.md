@@ -57,12 +57,12 @@ every goal in it that is not `optional` is; its goals are open together.
 | `background` | On an `along until` step: its goals are slow, zone-wide collections (a low drop rate, the mobs all along the route) worked over the whole stay; each quest objective needs a finish step, a plain step working it, before the step that hands its quest in |
 | `label <name>` | Names the step for an `along until` or `skipto` before it, or a `when done` (letters, digits, `-`, `_`; once per guide) |
 | `skipto <label> when <predicate>` | If the predicate (as for `when`) holds when the route reaches the step, this step and the ones up to the labelled later step are skipped for good; several lines, the first that holds decides |
-| `loop` | The step's `goto` points, in order, are the places to search for its kill, collect and interact goals without `@x,y` (at least two, one map) |
+| `loop` | Search the step's `goto` points in order for kill, collect, interact, skill and `use <item> quest Q.O` goals without `@x,y`. With none of those, search for the NPC of its accept, turnin and talk goals. Use at least two points on one map. |
 
 ## Goals
 
 `<verb> <arguments> <modifiers> [-- note]`. Every goal also takes
-`optional`, `only`, `"text"`, `group` and, except where the last column says
+`optional`, `only`, `"text"`, `group`, `either` and, except where the last column says
 otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 
 | Line | What it does | Also takes |
@@ -72,12 +72,13 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `complete <quest> ["Title"]` | Finish every objective of a quest with nothing more specific to track | |
 | `abandon <quest> ["Title"]` | Drop a quest from the log; done once it is out, the quest's `accept` stays done (Polestar 0.3.0) | no place modifiers, no `group` |
 | `destroy <item> ["Name"]` | Delete an item from the bags; done once the bags hold none (Polestar 0.3.0) | no place modifiers, no `group` |
-| `kill <npc>` / `kill "<Name>"` | Kill a mob; with `quest Q.O` the quest log counts it, without it the player ticks it | `npc`, `quest`, `xN` |
-| `collect <item> ["Name"]` | Loot or gather items; without `quest`, counted in the bags | `npc`, `quest`, `xN`, `nearest`, `anywhere` |
+| `deposit <item> ["Name"]` | Put an item in the bank; done once the bags hold none, or with `x<N>` once the bank holds N (Polestar 0.4.1) | `xN`, no `group` |
+| `kill <npc>` / `kill "<Name>"` | Kill a mob; with `quest Q.O` the quest log counts it, without it the player ticks it | `npc`, `quest`, `xN`, `upto` |
+| `collect <item> ["Name"]` | Loot or gather items; without `quest`, counted in the bags | `npc`, `quest`, `xN`, `nearest`, `anywhere`, `gather`, `upto` |
 | `goto <x>,<y> ["Label"]` | Walk there; for travel and places the data has no target for | `map`, `r`, `era` / `live` only |
-| `talk <npc>` | Speak to an NPC; with `quest Q.O` it is that quest objective ("Speak with …"), counted by the quest log | `gossip`, `quest` |
-| `interact <object>` | Click a game object | `quest` |
-| `use <item> ["Name"]` | Use an item | `quest` |
+| `talk <npc>` | Speak to an NPC; with `quest Q.O` it is that quest objective ("Speak with …"), counted by the quest log | `gossip`, `quest`, `upto` |
+| `interact <object>` | Click a game object | `quest`, `upto` |
+| `use <item> ["Name"]` | Use an item | `quest`, `upto` |
 | `sethome "<Location>"` / `sethome nearest` | Bind the hearthstone at an inn (`polestar find --kind inn`) | `npc` |
 | `hearth "<Location>"` | Use the hearthstone; done on landing there | no place modifiers |
 | `die "<Graveyard>" @x,y` | A deathskip: die and take the resurrection at that graveyard's Spirit Healer (the coordinates); done back alive there. The pack then needs Polestar 0.3.0 | `@x,y` required |
@@ -86,19 +87,22 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `fly "<Town>"` | Take a flight; done on landing | no place modifiers |
 | `train class` / `train <npc>` / `train <Profession> [Rank]` | Visit a trainer: the nearest of the player's class, that one, or the nearest of a profession | `npc`, `gossip` |
 | `buy <item> ["Name"]` | Buy an item; `nearest` picks the closest vendor selling it | `npc`, `xN`, `nearest` |
+| `auction <item> ["Name"]` | Buy `xN` (required) at the Auction House; the arrow leads to the nearest auctioneer of the player's faction. In a profession guide it applies while the player buys that material (Polestar 0.4.0) | `xN`, no place modifiers, no `group`, no `either` |
 | `vendor nearest` / `vendor <npc>` | Sell and repair; done when the merchant's window opens in the step. Beside other goals it never holds the step (Polestar 0.3.5); alone in a step it waits for the window | `npc`, `gossip` |
 | `level <N>` | Reach level N, grinding if need be; `level 12.5` is halfway through 12, `level 12+2500` 2500 XP into it (whole percent; the pack then needs Polestar 0.2.6) | `grind`, no place modifiers |
 | `money <amount>` | Hold that much money (`1g50s`, `7s`, `25c` or copper); stays done for the rest of the step (Polestar 0.3.0) | no place modifiers, no `group` |
 | `task "<text>"` | Something Polestar cannot see; the player ticks it, and it holds the step until then unless `optional` (Polestar 0.3.0). With modifiers, quote the text | no `"text"`, no `group` |
-| `note <text>` | A line of information; never holds the step. With `only`, quote the text | no `"text"`, no `group` |
-| `skill <Profession> <N>` | Reach skill N (`"First Aid"` quoted) | |
+| `note <text>` | A line of information; never holds the step. With `only`, quote the text | no `"text"`, no `group`, no `either` |
+| `skill <Profession> <N>` | Reach skill N (`"First Aid"` quoted). With `nearest`, the step's `goto` points (two or more) are the places to do it and the arrow takes the nearest | `nearest` |
 | `learn <spell> ["Name"]` | Learn a recipe or spell | `npc`, `item`, `nearest` |
 | `cast <spellId> ["Name"]` | Cast that spell while the goal is open (Polestar 0.3.0); name it unless it is a recipe in the data | coordinates |
+| `buff <spellId> ["Name"]` | Have that aura (a buff or a debuff) on the character; kept once the step had it. With `off`: done while it is gone. Name it unless the client's spell tables know it (Polestar 0.4.1) | `off` |
+| `equip <item> ["Name"]` | Wear an item; kept once the step had it. With `off`: done while it is not worn (Polestar 0.4.1) | `off`, no `group` |
 | `craft <spell> ["Name"]` | Craft a recipe | `xN`, `until` |
-| `rep <Faction> <Standing>` | Reach a standing, `Hated` to `Exalted`, with a faction by name or id | |
+| `rep <Faction> <Standing>[+<points>]` | Reach a standing, `Hated` to `Exalted`, with a faction by name or id; `+<points>` that many points into it, as the reputation bar counts them (Polestar 0.4.1) | |
 | `explore <x>,<y> ["Area"]` | Discover the map area there | `map`, `r`, `era` / `live` only |
 | `achieve <id> "Name"` | Complete an achievement or Legacy Challenge; the name is required | `criteria` |
-| `wait <seconds> ["text"]` | A countdown (1 to 3600 seconds) that starts once the goals before it in the step are done: a boat, an event or a speech to sit through (Polestar 0.3.0) | no place modifiers, no `group` |
+| `wait <seconds> ["text"]` | A countdown (1 to 3600 seconds) that starts once the goals before it in the step are done: a boat, an event or a speech to sit through (Polestar 0.3.0) | no place modifiers, no `group`, no `either` |
 
 `nearest`, `train class` and `train <Profession>` pick the NPC or place when
 the step comes up, by the player's faction and position; they take no
@@ -120,13 +124,17 @@ After the arguments, in any order.
 | `npc <id>` / `object <id>` / `item <id>` | Which NPC, object or item, when the data knows several; on `collect`, the NPC who hands the item over, for an item nothing drops (a quest report given in a gossip window) |
 | `quest <id>.<n>` | The quest objective this goal counts, numbered as `polestar find <id> --kind quest` lists them (`quest <id>` alone lets the data pick) |
 | `x<N>` | How many: kills, items, purchases, crafts |
+| `upto <N>` | On a goal with `quest <id>.<n>`: done at N of the objective's count; the rest is a later step's (Polestar 0.4.1) |
 | `"text"` | Right after an id: the name or title, for content missing from the data; later: the text players see |
 | `lvl <N>` | On `accept`: the level the quest needs |
 | `optional` | Never holds the step |
+| `either` | One of a set: the step is done when any one of its `either` goals is (two or more, none `optional`). A quest taken as one of them holds its later steps only for those who took it (Polestar 0.4.1) |
+| `off` | On `buff`: done while the aura is gone; on `equip`: while the item is not worn |
 | `group [N]` | Needs a group (of N players, 2-40); the guide window says so. Elites, dungeon and raid quests are found from the data without it |
 | `only <condition>, ...` | The goal is only for matching characters |
 | `nearest` | The closest vendor, trainer or drop place, picked in game |
 | `anywhere` | On `collect`: a bag count with no place; the arrow never leads to it (cloth a profession guide counts as you loot it while levelling) (Polestar 0.3.7) |
+| `gather [<Profession> <rank>] [levels <min>-<max>]` | On `collect`: the item's gather way in a profession guide, beside an `auction` goal for the same item; Polestar applies one of the two per item, by what the player chose (gather, buy or mix). `gather Mining 1` names the profession it takes, `gather levels 15-30` the levels of the mobs it drops from (Polestar 0.4.0) |
 | `until <N>` | On `craft`: until the profession reaches N |
 | `grind <npc>` | On `level`: the mob the level is reached on; the arrow leads to its nearest spawn area, the step's goto only when the data has none (Polestar 0.3.7) |
 | `criteria <n>` | On `achieve`: one criterion |
@@ -160,12 +168,21 @@ step was completed, not skipped or jumped over; not on a `next` line),
 cooldown aside), `group <quest>` (the player chose to do that group quest;
 unanswered, the route waits and asks; on the accept step, `!group` for a solo
 way; not on `next` or `skipto`), `knows <spell>` (the character knows the
-spell; `!knows` for the step that trains it); `!` in front of any but
+spell; `!knows` for the step that trains it), `taxi "<Flight point>"` (the
+character knows that flight path, named as for `getfp`; one Polestar has not
+seen yet counts as unknown, so make the `!taxi` way work for everyone),
+`rep <Faction> <Standing>[+<points>]` (the standing with the faction is that
+or higher, or that many points into it), `buff <spell>` (the character has
+that aura), `equipped <item>` (the character wears the item), `indoors` (in a
+cave, a mine or a building); `!` in front of any but
 `level` and `money` turns it around. Once the route has passed the step, the
 outcome stays. A pack with `when` (on a step or a `next` line), `along` or
 `label` needs Polestar 0.2.6; with `money`, `task`, `enter`, `cast`, `abandon`, `destroy` or `die` goals, a `when money`,
 `when dungeon`, `when upgrade`, `when done`, `when skill`, `when cooldown`,
-`when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0.
+`when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0; with
+a `when taxi` predicate, Polestar 0.4.0; with `either`, `upto`, a `buff`,
+`deposit` or `equip` goal, points on a `rep` goal, or a `when rep`, `when
+buff`, `when equipped` or `when indoors` predicate, Polestar 0.4.1.
 
 ## Lint errors that come up most
 

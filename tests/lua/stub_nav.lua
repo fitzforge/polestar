@@ -11,8 +11,10 @@
 --   stub.nav.mapPoint(wx, wy)             -> 9000, x, y on the live frame
 --   stub.nav.setWaypoint(wp)              Engine announces a waypoint
 --   stub.nav.changeStep(i, wp)            Engine moves to step i
---   stub.nav.withTomTom()                 install a recording TomTom
+--   stub.nav.withTomTom()                 install a recording TomTom (the addon itself, loaded)
 --   stub.nav.showWorldMap(mapID)          open the world map on mapID (see the map section)
+
+stub.clientBuild = "70532" -- navigation fixtures use this build's walking data
 
 local nav = {
 	player = { c = 0, wx = 0, wy = 0 },
@@ -47,6 +49,10 @@ end
 local Compat = {}
 nav.Compat = Compat
 
+-- Another addon installed and enabled: the AddOns list as wow_stub.lua keeps it
+-- (stub.addonsLoaded; nav.withTomTom loads TomTom).
+function Compat.AddOnPresent(name) return C_AddOns.IsAddOnLoaded(name) and true or false end
+
 function Compat.MapToWorld(map, x, y, frame)
 	local b
 	if frame == "e" then b = nav.era[map] else b = nav.maps[map] end
@@ -77,10 +83,22 @@ function Compat.GetPlayerFacing() return nav.facing end
 function Compat.IsOnTaxi() return nav.taxi end
 function Compat.IsInInstance() return nav.instance end
 function Compat.IsIndoors() return nav.indoors end
+function Compat.IsSwimming() return nav.swimming end
 function Compat.GetMapName(map) return nav.maps[map] and nav.maps[map].name end
-function Compat.GetPlayerInfo() return { name = "Testchar", level = 10, faction = nav.faction } end
+function Compat.GetPlayerInfo() return { name = "Testchar", level = nav.level, faction = nav.faction, class = nav.class } end
+function Compat.GetPlayerLevel() return nav.level end
 function Compat.GetPlayerFaction() if nav.faction == "Alliance" or nav.faction == "Horde" then return nav.faction end end
 function Compat.GetItemCount(id) return nav.items[id] or 0 end
+-- A spell's and an item's full cooldown in seconds, from the client's GetSpellBaseCooldown and GetItemSpell (a test
+-- sets them), as Core/Compat.lua reads them.
+function Compat.GetSpellBaseCooldown(spell)
+	local ms = GetSpellBaseCooldown and GetSpellBaseCooldown(spell)
+	return type(ms) == "number" and ms > 0 and ms / 1000 or nil
+end
+function Compat.GetItemBaseCooldown(id)
+	local _, spell = (GetItemSpell or function() end)(id)
+	return spell and Compat.GetSpellBaseCooldown(spell) or nil
+end
 function Compat.GetBindLocation() return nav.bind end
 function Compat.GetNpcID(unit) if unit == "npc" then return nav.npcUnit end end
 function Compat.IsShiftKeyDown() return stub.keys.shift end
@@ -89,7 +107,8 @@ function Compat.IsShiftKeyDown() return stub.keys.shift end
 -- Travel: run speed, Hearthstone cooldown, the flight map
 ---------------------------------------------------------------------------
 
-nav.faction = "Neutral"
+nav.faction = "Alliance"
+nav.level = 10
 nav.items = {}
 nav.bind = nil
 nav.npcUnit = nil
@@ -171,6 +190,9 @@ function stub.addonLoaded(name)
 	if name == "Polestar" and Polestar then
 		Polestar.Compat = Polestar.Compat or Compat
 		Polestar.Engine = Polestar.Engine or Engine
+		if Polestar.Compat == Compat and Polestar.Nav and Polestar.Nav.danger then
+			require("stub_ground")(nav, Polestar.Nav.danger, nav.maps)
+		end
 		if not Polestar.RegisterMapFrames then
 			function Polestar.RegisterMapFrames(t)
 				for id, b in pairs(t.era or {}) do nav.era[id] = b end
@@ -204,6 +226,7 @@ function C_SuperTrack.SetSuperTrackedUserWaypoint(on) table.insert(nav.userWaypo
 
 function nav.withTomTom()
 	local calls, n = {}, 0
+	stub.addonsLoaded.TomTom = true
 	TomTom = { calls = calls }
 	function TomTom:AddWaypoint(m, x, y, opts)
 		n = n + 1

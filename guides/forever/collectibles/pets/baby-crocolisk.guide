@@ -10,7 +10,7 @@ zone Stormwind City
 # Baby Crocolisk from the Sewer Beast in Stormwind's canals (new in Forever).
 # Sources: Forever's drop data, item 282047 (Sewer Beast, 1.5% in 132 kills);
 # npcs.json (two of its spawns, live frame); the TDB's six spawn points
-# (creature 3581, converted to the era map) and its health (8x a normal level
+# (creature 3581, moved to the era map's frame) and its health (8x a normal level
 # 50); Forever client 1.60.1.70532 (item 282047).
 # ASSUMED: The Sewer Beast comes back about two hours after a kill, at one of
 # its six spots (Classic flow; the TDB's 7286-second respawn is Classic data).

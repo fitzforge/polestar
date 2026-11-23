@@ -1,10 +1,13 @@
--- Read-only hand-in planning over the selected guide chain. Inspecting another
--- step must never change this answer or the player's progress.
+-- Read-only hand-in planning over the guide chains open in tabs: the active
+-- tab's first, then the others' and the dungeons open in a tab. Inspecting
+-- another step must never change this answer or the player's progress.
 local ADDON, ns = ...
 local L = ns.L
 local Plan = {}
 ns.RoutePlan = Plan
-local cached
+local plans = {} -- guide -> its route (build), until Plan.Invalidate
+local others -- the other tabs' routes and the open dungeons' quests (elsewhere), until Plan.Invalidate
+local uses = {} -- guide id -> its chain's quests (chainQuests; false: it can't say), until Plan.Invalidate
 
 local function nextGuide(g, player)
 	local G = ns.Guides
@@ -20,7 +23,12 @@ local function nextGuide(g, player)
 		-- An option with `when` (nextWhen) is decided at the hand-off, on the
 		-- character as they are then: not yet known here.
 		local cond = g.nextWhen ~= nil and g.nextWhen[id] ~= nil
-		if not target then
+		-- An experimental offer (Guides.ExperimentalOffer) is the route only
+		-- once taken: chosen, and its guide in (Engine, Own.offerTaken).
+		if G.ExperimentalOffer(g, id) then
+			if id == remembered and target and not cond then return id, false end
+		elseif not target and G.OtherSidePart(g, id) then -- the other faction's guide (Guides.OtherSidePart): not this route
+		elseif not target then
 			unloaded = true
 			if id == remembered and not cond then return id, false end
 		elseif G.GuideMatches(target, player) then
@@ -39,26 +47,31 @@ local function nextGuide(g, player)
 	return nil, #options > 1
 end
 
-local function build(active)
-	local G, player = ns.Guides, ns.Compat.GetPlayerInfo() or {}
-	local route, seen, before = {}, {}, {}
-	local first = active
-	-- Include unambiguous predecessors to identify an already-passed hand-in.
-	-- Unrelated open tabs and unchosen branches do not count as this route.
+-- The first guide of g's chain: its unambiguous predecessors walked back.
+-- Unrelated open tabs and unchosen branches do not count as this route.
+local function firstOf(g, player)
+	local G, first, before = ns.Guides, g, {}
 	while first and not before[first.id] do
 		before[first.id] = true
 		local predecessor, ambiguous
 		for _, h in ipairs(G.List()) do
-			local g = G.Get(h.id)
-			if g and g.id ~= first.id and G.GuideMatches(g, player) and nextGuide(g, player) == first.id then
+			local p = G.Get(h.id)
+			if p and p.id ~= first.id and G.GuideMatches(p, player) and nextGuide(p, player) == first.id then
 				if predecessor then ambiguous = true; break end
-				predecessor = g
+				predecessor = p
 			end
 		end
 		if ambiguous or not predecessor or before[predecessor.id] then break end
 		first = predecessor
 	end
-	local current, pending, missing = first, false, false
+	return first
+end
+
+local function build(active)
+	local G, player = ns.Guides, ns.Compat.GetPlayerInfo() or {}
+	local route, seen = {}, {}
+	-- Include unambiguous predecessors to identify an already-passed hand-in.
+	local current, pending, missing = firstOf(active, player), false, false
 	while current and not seen[current.id] do
 		seen[current.id] = #route + 1
 		route[#route + 1] = current
@@ -70,7 +83,9 @@ local function build(active)
 	-- carried: quest -> the later guide that hands it in, from the compiled
 	-- `carriedTo` on the route's quest work: known even where the plan
 	-- cannot reach that guide (not loaded, a choice to make, another race's).
-	local index, carried = {}, {}
+	-- opens: quest -> the accepts of the route that need it first (their
+	-- `pre` or `preAny`), as { chapter, step }.
+	local index, carried, opens = {}, {}, {}
 	for chapter, g in ipairs(route) do
 		for si, step in ipairs(g.steps or {}) do
 			if G.Matches(step.only, player) then
@@ -83,53 +98,154 @@ local function build(active)
 					elseif goal.carriedTo and goal.quest and not carried[goal.quest] and G.Matches(goal.only, player) then
 						carried[goal.quest] = goal.carriedTo
 					end
+					if goal.t == "accept" and G.Matches(goal.only, player) then
+						for _, list in ipairs({ goal.pre or {}, goal.preAny or {} }) do
+							for _, q in ipairs(list) do
+								local entries = opens[q] or {}
+								opens[q] = entries
+								entries[#entries + 1] = { chapter = chapter, step = si }
+							end
+						end
+					end
 				end
 			end
 		end
 	end
-	return { active = active, chapter = seen[active.id], index = index, carried = carried, pending = pending, missing = missing }
+	return { active = active, chapter = seen[active.id], seen = seen, index = index, carried = carried, opens = opens, pending = pending, missing = missing }
 end
 
-function Plan.Invalidate() cached = nil end
+local function planOf(g)
+	local p = plans[g]
+	if not p then
+		p = build(g)
+		plans[g] = p
+	end
+	return p
+end
 
-function Plan.GetTurnIn(questId)
-	local E = ns.Engine
-	local active = E and E.GetGuide and E.GetGuide()
-	if not active then return { status = "noGuide" } end
-	if not cached or cached.active ~= active then cached = build(active) end
-	local step
-	if E.GetLiveStep then step = E.GetLiveStep() else step = E.GetStepIndex() end
-	step = step or math.huge -- nil live step means the chapter is complete
+function Plan.Invalidate() plans, others, uses = {}, nil, {} end
+
+local function copy(entry, status)
+	local out = {}
+	for k, v in pairs(entry) do out[k] = v end
+	out.status = status
+	return out
+end
+
+-- One route's answer for questId, its guide's live step `step` (nil: that
+-- chapter is complete).
+local function turnIn(plan, questId, step)
+	step = step or math.huge
 	local past, skipped
 	local flags = ns.CharState().skipped or {}
-	for _, entry in ipairs(cached.index[questId] or {}) do
+	for _, entry in ipairs(plan.index[questId] or {}) do
 		local s = flags[entry.guide] or {}
 		local isSkipped = s[entry.step] or s[entry.step .. ":" .. entry.goal]
-		local behind = entry.chapter < cached.chapter or (entry.chapter == cached.chapter and entry.step < step)
+		local behind = entry.chapter < plan.chapter or (entry.chapter == plan.chapter and entry.step < step)
 		if isSkipped then skipped = entry
 		elseif behind then past = entry
 		else
-			local out = {}
-			for k, v in pairs(entry) do out[k] = v end
-			out.status = entry.chapter > cached.chapter and "later" or (entry.step == step and "now" or "future")
-			return out
+			return copy(entry, entry.chapter > plan.chapter and "later" or (entry.step == step and "now" or "future"))
 		end
 	end
 	local entry = past or skipped
-	if entry then
-		local out = {}
-		for k, v in pairs(entry) do out[k] = v end
-		out.status = past and "missed" or "skipped"
-		return out
-	end
+	if entry then return copy(entry, past and "missed" or "skipped") end
 	-- Handed in by a later guide the plan does not reach: said as such, never
 	-- as "no turn-in" (prefer keeping a quest to calling it unneeded).
-	local to = cached.carried[questId]
+	local to = plan.carried[questId]
 	if to then
 		local later = ns.Guides.Get(to)
 		return { status = "later", guide = to, title = later and later.title or nil, carried = true }
 	end
-	return { status = cached.pending and "choice" or cached.missing and "unloaded" or "unplanned" }
+	return { status = plan.pending and "choice" or plan.missing and "unloaded" or "unplanned" }
+end
+
+local function leveling(g) return (g.category or "Leveling") == "Leveling" end
+
+-- The open tabs but the active one, the leveling ones first: routes = { {
+-- plan, live, leveling } }; and dungeons = quest -> { key, title }: the page
+-- quests of each dungeon whose pick-up or hand-in guide is open in a tab
+-- (the active one too), the quests its hand-in plan (Dungeons.HandinPlan)
+-- takes from the log and turns in after the run. Read only while the
+-- dungeon data is loaded already (a dungeon's guide in a tab loaded it):
+-- this never loads the Codex.
+local function elsewhere(active)
+	if others then return others end
+	local E, D = ns.Engine, ns.Dungeons
+	local tabs = E.TabLiveSteps and E.TabLiveSteps() or {}
+	local routes, keys, quests = {}, {}, {}
+	for pass = 1, 2 do
+		for _, t in ipairs(tabs) do
+			local g = t.guide
+			if g and leveling(g) == (pass == 1) then
+				if g.id ~= active.id then routes[#routes + 1] = { plan = planOf(g), live = t.live, leveling = pass == 1 } end
+				local lk = g.lookup
+				if lk and (lk.kind == "pickup" or lk.kind == "handin") and lk.id ~= nil then keys[#keys + 1] = { key = lk.id, handin = lk.kind == "handin" } end
+			end
+		end
+	end
+	if #keys > 0 and D and D.Meta and D.Meta() then
+		for _, k in ipairs(keys) do
+			local d = D.Get(k.key)
+			if d then
+				local title = L["%s: hand in the quests"]:format(d.name)
+				for _, pq in ipairs(D.Quests(k.key)) do
+					local q = quests[pq.id]
+					if not q then quests[pq.id] = { key = k.key, title = title, handin = k.handin }
+					elseif k.handin then q.handin = true end
+				end
+			end
+		end
+	end
+	others = { routes = routes, dungeons = quests }
+	return others
+end
+
+local AHEAD = { now = true, future = true, later = true }
+local OPEN = { choice = true, unloaded = true }
+
+-- The active tab's route answers first. A quest it doesn't hand in ahead is
+-- "other" (via: that route's status) when another open tab's route or a
+-- dungeon open in a tab still hands it in: a dungeon's pick-up guide never
+-- hands in what the leveling guide or the dungeon's hand-in guide does
+-- (#1830). Else a route still to settle can't say ("choice", "unloaded");
+-- else a passed or skipped hand-in, the leveling routes' word first.
+function Plan.GetTurnIn(questId)
+	local E = ns.Engine
+	local active = E and E.GetGuide and E.GetGuide()
+	if not active then return { status = "noGuide" } end
+	local step
+	if E.GetLiveStep then step = E.GetLiveStep() else step = E.GetStepIndex() end
+	local r = turnIn(planOf(active), questId, step)
+	if AHEAD[r.status] then return r end
+	local o, seen = elsewhere(active), {}
+	for i, route in ipairs(o.routes) do
+		local x = turnIn(route.plan, questId, route.live)
+		if AHEAD[x.status] then
+			local out = copy(x, "other")
+			out.via = x.status
+			return out
+		end
+		seen[i] = x
+	end
+	local dg = o.dungeons[questId]
+	if dg then return { status = "other", title = dg.title, dungeon = dg.key, pickupOnly = not dg.handin or nil } end
+	local order = {}
+	if leveling(active) then order[1] = r end
+	for i, route in ipairs(o.routes) do
+		if route.leveling then order[#order + 1] = seen[i] end
+	end
+	if not leveling(active) then order[#order + 1] = r end
+	for i, route in ipairs(o.routes) do
+		if not route.leveling then order[#order + 1] = seen[i] end
+	end
+	for _, x in ipairs(order) do
+		if OPEN[x.status] then return x end
+	end
+	for _, x in ipairs(order) do
+		if x.status ~= "unplanned" then return x end
+	end
+	return r
 end
 
 function Plan.Describe(result)
@@ -140,8 +256,9 @@ function Plan.Describe(result)
 	local g = r.guide and ns.Guides and ns.Guides.Get and ns.Guides.Get(r.guide) or active
 	local n = r.step and E and E.StepNumberOf and g and (E.StepNumberOf(g, r.step)) or r.step
 	local where = n and L["step %d"]:format(n) or nil
-	-- A hand-in a later guide makes beyond the plan (`carried`) has no step: the guide alone.
-	if r.guide and (not active or active.id ~= r.guide) then
+	-- A hand-in a later guide makes beyond the plan (`carried`) has no step: the guide alone;
+	-- one a dungeon open in a tab makes after the run (`dungeon`): its hand-in guide's title.
+	if (r.guide and (not active or active.id ~= r.guide)) or (r.dungeon and r.title) then
 		where = where and L["%s · %s"]:format(r.title or r.guide, where) or (r.title or r.guide)
 	end
 	where = where or ""
@@ -149,7 +266,10 @@ function Plan.Describe(result)
 	-- A numbered step can visit several NPCs. Being on that step does not
 	-- mean this hand-in is the current interaction or that we should navigate.
 	if r.status == "now" then text = L["Turn in at this step · %s"]:format(where)
-	elseif r.status == "future" or r.status == "later" then text = L["Turn in at %s"]:format(where)
+	-- A dungeon quest only its pick-up guide covers: no open guide hands it
+	-- in; the dungeon's hand-in guide (r.title) is the one that would.
+	elseif r.pickupOnly then text = L["%s · %s"]:format(L["No turn-in in this route"], where)
+	elseif r.status == "future" or r.status == "later" or r.status == "other" then text = L["Turn in at %s"]:format(where)
 	elseif r.status == "missed" then text = L["Earlier turn-in · %s — check"]:format(where)
 	elseif r.status == "skipped" then text = L["Skipped turn-in · %s — check"]:format(where)
 	elseif r.status == "choice" then text = L["Turn-in plan depends on your next route choice"]
@@ -174,7 +294,7 @@ local function grey(C, q, level)
 	return qlvl and C.IsQuestTrivial(qlvl, level) or false
 end
 
--- The quests in the log the route doesn't need: { { quest, title, status
+-- The quests in the log no open route needs: { { quest, title, status
 -- = "missed" | "skipped" | "unplanned" | "grey" }, ... } in log order; nil
 -- while the plan cannot say (no guide, a route choice to make, a guide not
 -- loaded). Those it never hands in, and the grey ones it doesn't hand in
@@ -183,6 +303,12 @@ end
 -- is listed only when that guide leaves it out too (Skip grey quests on and
 -- nothing on its chain needs it: Engine.GreyLeftOut); a quest a later guide
 -- hands in beyond the plan's reach (`carriedTo`) is "later", not unplanned.
+-- A quest another open tab's route or a dungeon open in a tab hands in
+-- ("other", GetTurnIn) is never listed, but for a grey one that route hands
+-- in in a later chapter which leaves it out too, as above. Nor is one an
+-- accept still ahead on the active route needs first (its `pre` or
+-- `preAny`, Plan.OpensAhead): abandoning it would close that accept and send
+-- the player back for it (#3132: the Azshara guide's Feralas lead-ins).
 function Plan.Unneeded()
 	local C, E, out = ns.Compat, ns.Engine, {}
 	local level = (C.GetPlayerInfo() or {}).level
@@ -192,33 +318,67 @@ function Plan.Unneeded()
 		local status = r.status
 		if NEVER[status] and grey(C, q, level) then
 			status = "grey"
-		elseif status == "later" and grey(C, q, level) and E and E.GreyLeftOut and E.GreyLeftOut(r.guide, q, level) then
+		elseif (status == "later" or (status == "other" and r.via == "later")) and grey(C, q, level) and E and E.GreyLeftOut and E.GreyLeftOut(r.guide, q, level) then
 			status = "grey"
 		end
-		if NEVER[status] or status == "grey" then out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = status } end
+		if (NEVER[status] or status == "grey") and not Plan.OpensAhead(q) then out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = status } end
 	end
 	return out
 end
 
--- The live step's open accepts would not fit in the log: { take = accepts
--- open, free = room left, drop = { { quest, title }, ... } }, else nil. drop
--- names enough quests to make room: the ones the route doesn't need
--- (Unneeded), then the ones it hands in last, never one the live step needs.
+-- Whether an accept on the active tab's route, at its live step or after it,
+-- needs quest q first (the accept's `pre` or `preAny`).
+function Plan.OpensAhead(q)
+	local E = ns.Engine
+	local active = E and E.GetGuide and E.GetGuide()
+	if not active then return false end
+	local plan = planOf(active)
+	local step
+	if E.GetLiveStep then step = E.GetLiveStep() else step = E.GetStepIndex() end
+	step = step or math.huge
+	for _, at in ipairs(plan.opens[q] or {}) do
+		if at.chapter > plan.chapter or (at.chapter == plan.chapter and at.step >= step) then return true end
+	end
+	return false
+end
+
+-- The live step's open accepts would not fit in the log: { take, free,
+-- drop = { { quest, title }, ... } }, else nil. take and free compare the
+-- accepts and slots available through the worst shortfall. drop names
+-- enough quests to make room: the ones no open route needs
+-- (Unneeded), then the ones this route hands in last, never one the live
+-- step needs nor one only another tab's route or a dungeon hands in.
 function Plan.LogOverflow()
 	local E, C = ns.Engine, ns.Compat
 	local live = E and E.GetLiveStep and E.GetLiveStep()
-	local view = live and E.GetStepView(live)
+	local view = live and E.GetStepView(live, true)
 	if not view then return nil end
-	local take, here = 0, {}
-	for _, g in ipairs(view.goals or {}) do
-		if g.quest then here[g.quest] = true end
-		if g.t == "accept" and g.quest and (g.status == "active" or g.status == "pending") and not C.IsOnQuest(g.quest) then take = take + 1 end
-	end
-	if take == 0 then return nil end
 	local log = C.GetLogQuests() or {}
 	local free = (C.GetLogCap() or 40) - #log
-	if take <= free then return nil end
-	local drop, want = {}, take - math.max(free, 0)
+	local here, inLog = {}, {}
+	for _, q in ipairs(log) do inLog[q] = true end
+	local take, want = 0, 0
+	local blockingTake, blockingFree
+	-- A ready hand-in frees its slot once, for pickups after it in goal order.
+	-- Keep the largest shortfall: a later hand-in cannot unblock an earlier pickup.
+	for _, g in ipairs(view.goals or {}) do
+		local q = g.quest
+		if q then here[q] = true end
+		if q and (g.status == "active" or g.status == "pending") then
+			if g.t == "turnin" and inLog[q] and C.IsQuestReadyForTurnIn(q) then
+				inLog[q] = nil
+				free = free + 1
+			elseif g.t == "accept" and not C.IsOnQuest(q) then
+				take = take + 1
+				local shortfall = take - free
+				if shortfall > want then
+					want, blockingTake, blockingFree = shortfall, take, math.max(free, 0)
+				end
+			end
+		end
+	end
+	if want == 0 then return nil end
+	local drop = {}
 	-- here: the live step's quests, then each one named, so a grey quest
 	-- handed in later (Unneeded lists it) is not named twice.
 	for _, u in ipairs(Plan.Unneeded() or {}) do
@@ -245,9 +405,265 @@ function Plan.LogOverflow()
 			drop[#drop + 1] = { quest = later[i].quest, title = later[i].title }
 		end
 	end
-	return { take = take, free = math.max(free, 0), drop = drop }
+	return { take = blockingTake, free = blockingFree, drop = drop }
 end
 
-for _, event in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "GUIDE_CHANGED", "ROUTE_CHOSEN", "TABS_CHANGED" }) do
+---------------------------------------------------------------------------
+-- Finished quests the routes leave behind: the ones no open route hands in
+-- (Plan.Carried: the Quest room's "carried" list and its hand-in guide), and
+-- the ones a jump to another guide would leave (Plan.LeftBehind: the guide
+-- menu's Load and the engine's outlevelled suggestion). Nothing here hands
+-- in or abandons anything.
+---------------------------------------------------------------------------
+
+-- What handing quest q in gives the character now: the Codex's full reward
+-- times Levels.Share for the level gap; nil when the Codex has no XP for it.
+local function xpNow(C, q, level)
+	local X, Lv = ns.Codex, ns.Levels
+	local rec = X and X.Quest and X.Quest(q)
+	if not (rec and rec.xp and Lv and Lv.Share) then return nil end
+	local qlvl = C.GetQuestLevel and C.GetQuestLevel(q) or rec.level
+	return math.floor(rec.xp * Lv.Share(level or 1, qlvl) + 0.5)
+end
+
+-- The finished quests in the log (ready to hand in) no open route hands in
+-- (GetTurnIn "missed", "skipped" or "unplanned"; a later guide's `carriedTo`
+-- quest is "later" and another tab's or an open dungeon's is "other", so
+-- neither is here, but for a dungeon's page quest only its pick-up guide has
+-- open: that guide hands nothing in, so a finished one is here): { { quest, title, status, grey, xp }, ... } in log order
+-- (xp nil when unknown); nil while the plan cannot say (no guide, a route
+-- choice to make, a guide not loaded).
+function Plan.Carried()
+	local C, out = ns.Compat, {}
+	local level = (C.GetPlayerInfo() or {}).level
+	for _, q in ipairs(C.GetLogQuests() or {}) do
+		if C.IsQuestReadyForTurnIn(q) then
+			local r = Plan.GetTurnIn(q)
+			if r.status == "noGuide" or r.status == "choice" or r.status == "unloaded" then return nil end
+			if NEVER[r.status] or r.pickupOnly then
+				out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = r.status, grey = grey(C, q, level), xp = xpNow(C, q, level) }
+			end
+		end
+	end
+	return out
+end
+
+-- Why a quest the route leaves is worth dropping or keeping, in plain words,
+-- from what the route's sums read (Levels.ForGuide): grey for the character;
+-- a loot it still needs that drops rarely (Levels.LootKills: RARE kills or
+-- more a drop); what it gives now (xpNow) against the level's XP, under LOW
+-- low and from GOOD good. -> key ("grey" | "rare" | "low" | "good"), text,
+-- xp (what it gives now | nil) | nil (nothing known). Never loads the Codex.
+local RARE, LOW, GOOD = 8, 0.04, 0.12
+local WORTH = { grey = L["Grey for your level"], rare = L["Rare drop, slow"],
+	low = L["Low XP for the walk"], good = L["Good XP: worth keeping"] }
+function Plan.Worth(q)
+	local C, X, Lv = ns.Compat, ns.Codex, ns.Levels
+	local level = (C.GetPlayerInfo() or {}).level
+	if grey(C, q, level) then return "grey", WORTH.grey end
+	local rec = X and X.Quest and X.Quest(q)
+	if not (rec and level) then return nil end
+	local xp = xpNow(C, q, level)
+	if Lv and Lv.LootKills and not C.IsQuestReadyForTurnIn(q) then
+		local have = C.GetQuestObjectives and C.GetQuestObjectives(q) or {}
+		for i, o in ipairs(rec.objectives or {}) do
+			if o.type == "item" and not (have[i] and have[i].finished) then
+				local n = Lv.LootKills(o.id, o.count)
+				if n and n >= (o.count or 1) * RARE then return "rare", WORTH.rare, xp end
+			end
+		end
+	end
+	local need = Lv and Lv.LEVEL_XP and Lv.LEVEL_XP[level]
+	if xp and need and need > 0 then
+		if xp < need * LOW then return "low", WORTH.low, xp end
+		if xp >= need * GOOD then return "good", WORTH.good, xp end
+	end
+	return nil
+end
+
+-- The finished quests in the log that the active tab's route hands in from
+-- the live step on and before guide `toId` (anywhere ahead when `toId` is not
+-- on the route): what a jump to `toId` leaves behind. { n, xp (the known ones
+-- summed), quests = { { quest, title, xp, guide }, ... } }; nil without a
+-- guide. Only hand-ins placed on this route count: one a later guide makes
+-- beyond the plan's reach (`carriedTo`) or another tab's route makes ("other")
+-- has no chapter here.
+function Plan.LeftBehind(toId)
+	local E, C = ns.Engine, ns.Compat
+	local active = E and E.GetGuide and E.GetGuide()
+	if not active then return nil end
+	local before = toId and planOf(active).seen[toId] or math.huge
+	local level = (C.GetPlayerInfo() or {}).level
+	local out = { n = 0, xp = 0, quests = {} }
+	for _, q in ipairs(C.GetLogQuests() or {}) do
+		if C.IsQuestReadyForTurnIn(q) then
+			local r = Plan.GetTurnIn(q)
+			if AHEAD[r.status] and r.chapter and r.chapter < before then
+				local xp = xpNow(C, q, level)
+				out.n, out.xp = out.n + 1, out.xp + (xp or 0)
+				out.quests[out.n] = { quest = q, title = C.GetQuestTitle(q), xp = xp, guide = r.guide }
+			end
+		end
+	end
+	return out
+end
+
+-- An NPC ender who stands only inside a dungeon (Daewyn Songblade, in the
+-- Excavation Site: Wetlands, for Songblade Search, #2582): the dungeon's
+-- entrance, named by the dungeon, `inside` set; nil when none is known.
+local function insideEnder(ends)
+	local X, D = ns.Codex, ns.Dungeons
+	if type(ends) ~= "table" or not (X and X.Npc and D and D.Get) then return nil end
+	for _, id in ipairs(ends.npc or {}) do
+		local npc = X.Npc(id)
+		local inst = npc and npc.instance and D.Get(npc.instance)
+		local e = inst and inst.entrance
+		if e and e.map and e.x and e.y then
+			return { npc = id, name = npc.name, map = e.map, x = e.x, y = e.y, f = e.f, zone = inst.name, inside = true }
+		end
+	end
+	return nil
+end
+
+-- Where quest q is handed in for this character: the Codex's ender of the
+-- character's side nearest the player (Lookup.QuestEnd), as { npc | object,
+-- name, map, x, y, f, zone }, else one inside a dungeon (insideEnder); nil
+-- when unknown or the other side's.
+function Plan.Ender(q)
+	local X, Lk = ns.Codex, ns.Lookup
+	local rec = X and X.Quest and Lk and Lk.QuestEnd and X.Quest(q)
+	local e = rec and Lk.QuestEnd(rec["end"], ns.PlayerPoint(), nil, true)
+	if e and e.hostile then return nil end
+	local s = e and e.spawn
+	if not s then return rec and insideEnder(rec["end"]) or nil end
+	return { npc = e.npc, object = e.object, name = e.name, map = s.map, x = s.x, y = s.y, f = s.f, zone = ns.Compat.MapName(s.map) }
+end
+
+---------------------------------------------------------------------------
+-- Quests outside the route: in the log, and no guide of the route takes,
+-- works or hands them in (Plan.OffRoute: the guide window's end card and
+-- the guide-end window, which list them for the player to keep or abandon).
+-- Nothing here abandons anything.
+---------------------------------------------------------------------------
+
+-- A step of a dungeon the character skips (`when dungeon`, Engine.DungeonAnswer
+-- false): its quests are not the route's. One still to ask about is.
+local function dungeonSkipped(step, E)
+	for _, p in ipairs(step.when or {}) do
+		if p.k == "dungeon" and not p.neg and E and E.DungeonAnswer and E.DungeonAnswer(p.map) == false then return true end
+	end
+	return false
+end
+
+local function addQuests(set, list)
+	if type(list) == "number" then set[list] = true
+	elseif type(list) == "table" then
+		for _, q in ipairs(list) do set[q] = true end
+	end
+end
+
+-- Every quest guide g's chain uses for this character (quest -> true): its
+-- unambiguous predecessors (firstOf), g, and each guide after it, every
+-- option of a route choice not made yet. A quest counts when one of their
+-- steps for the character, but those of a dungeon they skip, takes it, works
+-- it or hands it in, names it in a `when`, or needs it before an accept
+-- (`pre`, `preAll`, `crumbs`). nil when it can't say: a guide of the chain
+-- not loaded.
+local function chainQuests(g)
+	local set = uses[g.id]
+	if set ~= nil then return set or nil end
+	local G, E, player = ns.Guides, ns.Engine, ns.Compat.GetPlayerInfo() or {}
+	set = {}
+	local queue, seen, i = { firstOf(g, player) }, {}, 1
+	while queue[i] do
+		local cur = queue[i]
+		i = i + 1
+		if not seen[cur.id] then
+			seen[cur.id] = true
+			for _, step in ipairs(cur.steps or {}) do
+				if G.Matches(step.only, player) and not dungeonSkipped(step, E) then
+					for _, p in ipairs(step.when or {}) do addQuests(set, p.q) end
+					for _, goal in ipairs(step.goals or {}) do
+						if goal.quest and G.Matches(goal.only, player) then
+							set[goal.quest] = true
+							addQuests(set, goal.pre)
+							addQuests(set, goal.preAll)
+							addQuests(set, goal.crumbs)
+						end
+					end
+				end
+			end
+			local id, pending, unloaded = nextGuide(cur, player)
+			if unloaded or (id and not G.Get(id)) then
+				uses[g.id] = false
+				return nil
+			end
+			if id then
+				queue[#queue + 1] = G.Get(id)
+			elseif pending then
+				for _, option in ipairs(cur.nextChoices or {}) do
+					local t = G.Get(option)
+					if t and G.GuideMatches(t, player) then queue[#queue + 1] = t end
+				end
+			end
+		end
+	end
+	uses[g.id] = set
+	return set
+end
+
+-- The quests in the log that no guide of the route uses (chainQuests of
+-- guide `id`, else the active tab's guide), nor any other open tab's chain
+-- or a dungeon open in a tab: { { quest, title, ready }, ... } in log order
+-- (ready: finished, to hand in). Picked up off the route; the player keeps
+-- or abandons them. nil when it can't say (no guide, a guide of a chain not
+-- loaded). Only when the end card or the guide-end window shows.
+function Plan.OffRoute(id)
+	local E, C, G = ns.Engine, ns.Compat, ns.Guides
+	local active = (id and G.Get(id)) or (E and E.GetGuide and E.GetGuide())
+	if not active then return nil end
+	local sets = { chainQuests(active) }
+	if not sets[1] then return nil end
+	for _, t in ipairs(E.TabLiveSteps and E.TabLiveSteps() or {}) do
+		if t.guide and t.guide.id ~= active.id then
+			local set = chainQuests(t.guide)
+			if not set then return nil end
+			sets[#sets + 1] = set
+		end
+	end
+	local dungeons, out = elsewhere(active).dungeons, {}
+	for _, q in ipairs(C.GetLogQuests() or {}) do
+		local used = dungeons[q] ~= nil
+		for _, set in ipairs(sets) do
+			if used then break end
+			used = set[q] == true
+		end
+		if not used then out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), ready = C.IsQuestReadyForTurnIn(q) or false } end
+	end
+	return out
+end
+
+for _, event in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "GUIDE_CHANGED", "ROUTE_CHOSEN", "CODEX_LOADED", "DUNGEON_ANSWERED" }) do
 	ns.On(event, Plan.Invalidate)
 end
+-- TABS_CHANGED comes after every step update of a tab (each goal ticked: a
+-- kill that counts), not only when a tab opens, closes or takes another
+-- guide. The tabs' live steps (elsewhere) follow each one; the routes
+-- (build) and chain quests only the guides in the tabs, so they are kept
+-- while the same guides are open: rebuilding them walks every registered
+-- guide (firstOf), which made each kill stutter (#2555).
+local tabGuides = {}
+ns.On("TABS_CHANGED", function(list)
+	local G, now = ns.Guides, {}
+	for i, t in ipairs(type(list) == "table" and list or {}) do now[i] = G.Get(t.guideId) or false end
+	local same = #now == #tabGuides
+	for i = 1, #now do
+		if now[i] ~= tabGuides[i] then same = false; break end
+	end
+	tabGuides = now
+	if same then others = nil else Plan.Invalidate() end
+end)
+-- "Dungeons in my route" (behavior.dungeons; a profile switch changes every setting).
+ns.On("SETTING_CHANGED", function(path)
+	if path == "behavior.dungeons" or path == "behavior" or path == nil or path == "" then Plan.Invalidate() end
+end)
