@@ -200,6 +200,14 @@ const GLYPHS = {
 		const back = union(dot(16, 7.2, 3.3), sdf.intersect(dot(16, 19.8, 6.8), box(16, 16.4, 7.4, 3.4)));
 		return union(front, subtract(back, sdf.offset(front, g(1.5))));
 	})(),
+	// Attunements and keys (#3877): a key, its bow a ring on the left, two
+	// teeth under the end of its shaft.
+	key: union(
+		ring(7.2, 12, 4.4, 2.6),
+		line(11.4, 12, 21.6, 12, 2.6),
+		line(17.2, 12, 17.2, 16.6, 2.4),
+		line(20.6, 12, 20.6, 15.6, 2.4),
+	),
 	// Options in the hub rail: three tracks with their knobs (not the gear,
 	// which is the Gear section's).
 	sliders: union(

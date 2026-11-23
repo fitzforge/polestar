@@ -2156,6 +2156,14 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 		],
 	},
 	{
+		file: 'attunements.svg',
+		title: 'The Attunements section (#3877): cards like the Dungeons page, two to a row, each instance\'s picture with the key and the name over it, its progress, the next step and Guide me; the first quest done; in Hearth',
+		panels: [
+			{ dungeons: true, roots: PICKER, script: dungeonsScene('done[90001] = true; log[90002] = true; Polestar.UI.Attunements.Show()') },
+			{ dungeons: true, roots: PICKER, script: dungeonsScene('Polestar.Set("ui.skin", "hearth"); done[90001] = true; log[90002] = true; Polestar.UI.Attunements.Show()') },
+		],
+	},
+	{
 		file: 'dungeons-small.svg',
 		title: 'The hub at its smallest (menu scale 0.7): Wailing Caverns, Quests; without the Codex pack',
 		panels: [
