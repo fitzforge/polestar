@@ -8,6 +8,9 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { runAddon } = require('./helpers/lua');
 
+// The Atlas skin and layout alone, from their folders in Polestar_Skins (since 0.4.3, #3507).
+const ATLAS = { name: 'Polestar_Skins', files: ['Skins/Atlas/Atlas.lua', 'Layouts/Atlas/Atlas.lua'] };
+
 const GUIDE = `
 w = stub.world
 w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
@@ -68,7 +71,7 @@ local function aimed(r) return { lit = lit(r), line = underlined(r) } end`;
 
 const run = (script) => runAddon({
 	stubs: ['stub_world.lua'],
-	addons: ['Polestar', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+	addons: ['Polestar', ATLAS],
 	script: `${GUIDE}\n${script}`,
 }).emitted[0];
 
@@ -168,7 +171,7 @@ emit({ rows = list, height = here:GetHeight(), lines = { aimed(here.Rows[1]), ai
 test('in Classic the cards above stand closer by both rims, and the progress line stays inside the frame', () => {
 	const out = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: ['Polestar', 'Polestar_Looks', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		addons: ['Polestar', ATLAS],
 		script: `${GUIDE}
 local function read()
 	draw()

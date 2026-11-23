@@ -738,7 +738,7 @@ function W.SetIconState(b, active, enabled)
 end
 
 -- A big window's own close button. The game's looks draw a close of their
--- own on the window frame's corner (Polestar_Looks/GameSkins.lua), which
+-- own on the window frame's corner (Theme/Looks/GameSkins.lua), which
 -- stands for it, so it shows in the other looks only. The window is painted
 -- again now that its close exists: the corner close is then there from the
 -- first paint, where only a repaint drew it, beside or over this one.
@@ -3344,7 +3344,7 @@ local function scrollUpdate(sf)
 	end
 	bar:Show()
 	-- A game look's scroll bar keeps its arrow buttons at the ends
-	-- (bar.psInset, Polestar_Looks/GameSkins.lua): the thumb runs between them.
+	-- (bar.psInset, Theme/Looks/GameSkins.lua): the thumb runs between them.
 	local inset = bar.psInset or 0
 	local track = max(1, view - 2 * inset)
 	local h = max(24, track * view / content)
@@ -3440,7 +3440,7 @@ end
 
 -- The strip a scroll area's bar takes at the area's right edge: its margin,
 -- its width and what a game look's arrow buttons reach past it on the left
--- (bar.psReach, Polestar_Looks/GameSkins.lua). Rows that take the mouse end
+-- (bar.psReach, Theme/Looks/GameSkins.lua). Rows that take the mouse end
 -- short of it while the bar shows (W.ShellNav).
 function W.ScrollBarRoom(sf)
 	local bar = sf.Bar

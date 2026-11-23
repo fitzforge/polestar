@@ -47,8 +47,10 @@ function run(script) {
 			local function cardOf(page)
 				for _, card in ipairs(cards()) do if card.psPage and card.psPage.key == page then return card end end
 			end
-			-- The test login stores a line style; every setting starts at its default here.
+			-- The test login (an account from before them) stores a line style and turns the spawn markers off; every
+			-- setting starts at its default here.
 			Polestar.Set("nav.lineStyle", nil)
+			Polestar.Set("mobMarkers.enabled", nil)
 			Polestar.UI.ShowOptions("qualityoflife")
 			${script}`,
 	}).emitted;

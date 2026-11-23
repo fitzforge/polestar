@@ -3,11 +3,11 @@
 -- Polestar needs at login lives here: the version and the capabilities, the
 -- built-in schemes and skins, the hooks' dispatch and the facts a picker
 -- shows. The checks a scheme or skin from another addon goes through (its
--- fields, colours, legibility, variants, preset) load on demand with the
--- first one registered (Polestar_SkinAPI/SkinCheck.lua), and the settings
--- window's side of the API (the picker's cards, a preset applied and undone)
--- loads with the settings (Polestar_Options/Theme/SkinPicker.lua): a player
--- who uses no other addon's skin loads neither.
+-- fields, colours, legibility, variants, preset) are Theme/SkinCheck.lua,
+-- loaded right after this file (their own folder before 0.4.3, #3507), and
+-- the settings window's side of the API (the picker's cards, a preset
+-- applied and undone) loads with the settings
+-- (Polestar_Options/Theme/SkinPicker.lua).
 
 local _, ns = ...
 local Theme = ns.Theme
@@ -66,7 +66,7 @@ local LAYOUT_HOOKS = { guideLayout = true, guideRender = true, guidePlace = true
 -- The registered layouts (Theme.RegisterLayout): id -> { id, name, addon,
 -- author, version, desc, api, hooks, onApply, onLeave, defaults, preset }.
 local LAYOUTS, LAYOUT_FAILED = {}, {}
--- The checks read them too (Polestar_SkinAPI/SkinCheck.lua).
+-- The checks read them too (Theme/SkinCheck.lua).
 I.PAINT_KINDS, I.HOOKS, I.LAYOUT_HOOKS, I.LAYOUTS = PAINT_KINDS, HOOKS, LAYOUT_HOOKS, LAYOUTS
 
 local CAPABILITIES = {}
@@ -110,24 +110,12 @@ local function report(kind, id, spec, msg)
 end
 I.report = report
 
--- The checks a scheme or skin from another addon goes through, loaded with
--- the first one registered (it registers them as I.register). -> the checks,
--- or nil when the addon holding them is missing or disabled.
-local CHECKS = "Polestar_SkinAPI"
-local MISSING = "the Skin API's checks did not load (is the " .. CHECKS .. " folder installed and enabled?)"
-local function checks()
-	if I.register then return I.register end
-	local A = C_AddOns
-	local load = A and A.LoadAddOn or LoadAddOn
-	if load then pcall(load, CHECKS) end
-	return I.register
-end
+-- The checks a scheme, skin or layout goes through: Theme/SkinCheck.lua
+-- registers them as I.register as it loads, right after this file.
 
 -- Register colour scheme `id` (spec: docs/skins/reference.md, "RegisterScheme").
 function Theme.RegisterScheme(id, spec)
-	local c = checks()
-	local ok, msg
-	if c then ok, msg = c.scheme(id, spec) else ok, msg = false, MISSING end
+	local ok, msg = I.register.scheme(id, spec)
 	if not ok then report("scheme", id, spec, "refused: " .. tostring(msg)) end
 	return ok, msg
 end
@@ -135,9 +123,7 @@ end
 -- Register skin `id` (spec: docs/skins/reference.md, "RegisterSkin").
 local refusedSaid = {} -- skin id -> the player was told it could not come
 function Theme.RegisterSkin(id, spec)
-	local c = checks()
-	local ok, msg
-	if c then ok, msg = c.skin(id, spec) else ok, msg = false, MISSING end
+	local ok, msg = I.register.skin(id, spec)
 	if not ok then
 		report("skin", id, spec, "refused: " .. tostring(msg))
 		-- The player chose this skin (it is saved), none came, and this one
@@ -153,9 +139,7 @@ end
 
 -- Register layout `id` (spec: docs/skins/reference.md, "RegisterLayout").
 function Theme.RegisterLayout(id, spec)
-	local c = checks()
-	local ok, msg
-	if c then ok, msg = c.layout(id, spec) else ok, msg = false, MISSING end
+	local ok, msg = I.register.layout(id, spec)
 	if not ok then report("layout", id, spec, "refused: " .. tostring(msg)) end
 	return ok, msg
 end
@@ -424,7 +408,8 @@ local function installed(key)
 	if not (A and A.GetNumAddOns and A.GetAddOnInfo and A.GetAddOnMetadata) then return out end
 	for i = 1, A.GetNumAddOns() do
 		local name, title, notes, loadable, reason = A.GetAddOnInfo(i)
-		local declared = type(name) == "string" and A.GetAddOnMetadata(name, key) or nil
+		-- A skin folder 0.4.3 folded into Polestar_Skins, left installed, never comes.
+		local declared = type(name) == "string" and not ns.Data.Folded(name) and A.GetAddOnMetadata(name, key) or nil
 		if type(declared) == "string" then
 			local ids = {}
 			for id in declared:gmatch("[^,%s]+") do ids[#ids + 1] = id end
@@ -687,7 +672,7 @@ function Theme.LayoutPresets()
 end
 
 -- The built-in schemes and skins (their tokens are Theme.lua's tables;
--- Polestar_Looks/GameSkins.lua adds the game looks' painters), taken as they are:
+-- Theme/Looks/GameSkins.lua adds the game looks' painters), taken as they are:
 -- tests/theme holds each to the legibility rule, so login checks nothing.
 local BUILTIN_SCHEME_LABEL = {
 	dusk = function() return ns.L["Dusk"] end,

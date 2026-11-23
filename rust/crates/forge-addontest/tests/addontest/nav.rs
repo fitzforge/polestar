@@ -1088,7 +1088,7 @@ fn a_skin_s_own_dart_and_edge_stand_in_for_polestar_s_tinted_never_the_baked_gol
 }
 
 // The game's looks draw their own waypoint arrow and map pins, through the parts a skin addon gives (Skin API 2's
-// media, read by Theme.SkinMedia; Polestar_Looks/Parts.lua): Classic the world map's arrow (the vanilla silver arrow,
+// media, read by Theme.SkinMedia; Theme/Looks/Parts.lua): Classic the world map's arrow (the vanilla silver arrow,
 // the client's sharpest) and the minimap's dark disc, WoW Forever its quest arrow and the campaign quest's shield,
 // Blizzard Polestar's own dart in the damage meter's light grey (its accent), edged in its black, and the quest
 // marker. The client's darts show in their own colours with no edge while far; every dart is tinted up close and in
