@@ -53,8 +53,9 @@ return {
 
 	-- Step 8: A hundred paces north
 	["A hundred paces north"] = "Cent pas vers le nord",
-	-- {object:424012} Mound of Dirt
-	["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "Traversez le camp vers le nord et descendez prudemment la pente raide jusqu'au {object:424012} sur la corniche en contrebas. Un saut raté vous fait seulement glisser : longez la falaise et remontez à pied.",
+	-- {object:424005} Pocket Litter · {object:424012} Mound of Dirt
+	["From the {object:424005} walk to the camp's western edge, where the arrow points first, and drop carefully down the steep slope north to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "",
+	["The drop to the ledge"] = "",
 
 	-- Step 9: Tarren Mill on the way
 	-- {area:272} Tarren Mill
@@ -87,4 +88,5 @@ return {
 	-- ["North of Honor's Stand"] = "Au nord d'Honor's Stand",
 	-- ["Round {area:1702}"] = "Contourner {area:1702}",
 	-- ["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "La route vers l'ouest traverse {area:1702}, un poste de la Horde ; ce chemin le contourne.",
+	-- ["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "Traversez le camp vers le nord et descendez prudemment la pente raide jusqu'au {object:424012} sur la corniche en contrebas. Un saut raté vous fait seulement glisser : longez la falaise et remontez à pied.",
 }

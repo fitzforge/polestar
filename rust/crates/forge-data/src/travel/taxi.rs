@@ -163,6 +163,9 @@ pub struct Node {
 	pub c: f64,
 	pub wx: f64,
 	pub wy: f64,
+	/// The height a flight lands at (TaxiNodes' third coordinate), None when the row has none: the floor right
+	/// after a landing (Nav/Walk.lua).
+	pub z: Option<f64>,
 	pub map: i64,
 	pub x: f64,
 	pub y: f64,
@@ -285,6 +288,7 @@ impl Placer<'_> {
 			c,
 			wx: round(wx, 1),
 			wy: round(wy, 1),
+			z: num(r, "Pos_2").filter(|z| z.is_finite()).map(|z| round(z, 1)),
 			map: place.map,
 			x: place.x,
 			y: place.y,

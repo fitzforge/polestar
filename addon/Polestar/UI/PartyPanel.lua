@@ -259,7 +259,7 @@ end
 local function whyNot()
 	local P = ns.Party
 	if not (ns.Get("party.share") or ns.Get("party.show")) then
-		return L["Party sync is off: turn it on in Options > Questing > Quests > Group."]
+		return L["Party sync is off: turn it on in Settings > Questing > Quests > Group."]
 	end
 	if not (P and P.IsLive and P.IsLive()) then return L["The party panel shows in a party (not a raid)."] end
 	if not ns.GuideShown() then return L["The party panel shows with the guide window."] end
@@ -269,7 +269,7 @@ local function whyNot()
 	if rulesHide() then
 		local TR, C = trackers(), ns.Compat
 		if TR and TR.Get("party", "instance") == "hide" and C.IsInInstance and C.IsInInstance() then
-			return L["The party panel is hidden inside instances: Options > Trackers > Party panel."]
+			return L["The party panel is hidden inside instances: Settings > Trackers > Party panel."]
 		end
 		return L["The party panel comes back after combat."]
 	end

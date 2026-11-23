@@ -9,11 +9,10 @@ local L = ns.L
 
 if not (ns.Alts and ns.RegisterOptions) then return end
 
+-- The module's switch in its own card's header, after the Dungeon Journal's.
 local ok, err = ns.RegisterOptions({
-	page = L["Discovery"], tab = L["Lookup"], section = L["Dungeons and characters"],
-	controls = {
-		{ kind = "toggle", key = "alts.enabled", label = L["Characters"], search = "alts, alt characters, other characters, toons, roster",
-			help = L["Keep a note of each character you play, for the Characters page (/pole alts)."] },
-	},
+	page = L["Discovery"], tab = L["Lookup"], section = L["Characters"],
+	toggle = { kind = "toggle", key = "alts.enabled", label = L["Your other characters"], search = "alts, alt characters, other characters, toons, roster",
+		help = L["Keep a note of each character you play, for the Characters page (/pole alts)."] },
 })
 if not ok and geterrorhandler then geterrorhandler()(err) end

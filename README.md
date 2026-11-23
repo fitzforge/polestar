@@ -160,14 +160,16 @@ and [CHANGELOG.md](CHANGELOG.md) list every change.
      under *Assets* (not "Source code").
 2. **Unzip it into the game's AddOns folder**, so the Polestar folders
    (`Polestar`, `Polestar_Guides`, `Polestar_Codex`, `Polestar_Nav`,
-   `Polestar_Options`, `Polestar_Looks`, the nine `Polestar_Skin_*` skins and
-   the others, with one `Polestar_<language>` folder per client language such
-   as `Polestar_deDE`) sit directly inside it:
+   `Polestar_Options` and the others, with one `Polestar_<language>` folder
+   per client language such as `Polestar_deDE`) sit directly inside it:
    `World of Warcraft/_classic_beta_/Interface/AddOns/` on the beta client,
    `_forever_/Interface/AddOns/` on the `_forever_` client. The same zip
    works for both; if you have both clients installed, unzip into each one.
    In the game's AddOns list they all sit under one "Polestar" heading,
-   which its arrow folds away.
+   which its arrow folds away. Updating by hand from 0.4.2 or older: Polestar
+   names the old folders it no longer uses at login (`Polestar_Looks`, the
+   `Polestar_Skin_*` skins, the race parts such as `Polestar_Guides_Orc`...);
+   delete them while the game is closed.
 3. **Restart the game completely** (a `/reload` does not load new addons) and
    log in. The guide window opens with a guide for your race, level and zone:
    follow the arrow, and the goals tick themselves off as you play.
@@ -221,14 +223,13 @@ Good to know:
 
 ## What it is
 
-Polestar is one addon for the whole of WoW: Forever. It carries 263 guides:
-68 leveling guides that take both factions from 1 to 60 from every race's
+Polestar is one addon for the whole of WoW: Forever. It carries 264 guides:
+69 leveling guides that take both factions from 1 to 60 from every race's
 starting zone (Zephras Isle for the Skyborne included), 81 class guides for
 every class's quest chains and class mounts, the twelve professions from 1 to
 300, 27 reputations, 7 exploration guides, the Legacy challenges, 64
-collectible guides (mounts and pets) and 3 miscellaneous guides, with Mount
-Hyjal as an optional Experimental guide beside them. Every one of them can be
-read step by step on [polestar.guide](https://polestar.guide/guides).
+collectible guides (mounts and pets) and 3 miscellaneous guides. Every one of
+them can be read step by step on [polestar.guide](https://polestar.guide/guides).
 
 Around the guides it adds a 3D waypoint arrow that walks real paths (on
 Polestar's walking maps, with a router that started from Shortest Path
@@ -292,19 +293,19 @@ one guide for both factions.
 | 17 | Desolace | 38 to 39 |
 | 18 | Stranglethorn Vale, Dustwallow Marsh & Swamp of Sorrows | 39 to 41 |
 | 19 | **Riverglades** | 41 to 45 |
-| 20 | Badlands & The Hinterlands | 45 to 46 |
+| 20 | Badlands & The Hinterlands | 44 to 45 |
 | 21 | **Shen'dralas** | 45 to 46 |
-| 22 | Feralas | 45 to 47 |
+| 22 | Feralas | 45 to 46 |
 | 23 | Tanaris | 46 to 48 |
-| 24 | The Hinterlands & Blasted Lands | 47 to 48 |
+| 24 | The Hinterlands & Stranglethorn Vale | 47 to 48 |
 | 25 | Searing Gorge | 48 to 49 |
 | 26 | Un'Goro Crater | 49 to 50 |
 | 27 | Azshara, Western Plaguelands & Burning Steppes | 50 to 53 |
 | 28 | Felwood | 52 to 54 |
 | 29 | Winterspring & Eastern Plaguelands | 53 to 56 |
 | 30 | Western Plaguelands, Eastern Plaguelands, Feralas, Un'Goro Crater & Silithus | 55 to 58 |
-| | *Optional: Mount Hyjal (Experimental)* | *57 to 60* |
-| 31 | Silithus, Felwood, Winterspring & the Plaguelands | 58 to 60 |
+| 31 | **Mount Hyjal** | 57 to 59 |
+| 32 | Silithus, Felwood, Winterspring & the Plaguelands | 59 to 60 |
 
 **Horde, from Silverpine Forest**
 
@@ -335,12 +336,12 @@ one guide for both factions.
 | 23 | Winterspring | 55 to 56 |
 | 24 | Azshara & The Barrens | 55 to 56 |
 | 25 | Eastern Plaguelands, Winterspring & Tanaris | 56 to 57 |
-| 26 | Silithus, Western Plaguelands & Eastern Plaguelands | 57 to 60 |
-| 27 | Felwood, Moonglade & Winterspring | 59 to 60 |
+| 26 | **Mount Hyjal** | 57 to 58 |
+| 27 | Silithus, Western Plaguelands & Eastern Plaguelands | 58 to 60 |
+| 28 | Felwood, Moonglade & Winterspring | 59 to 60 |
 
-Mount Hyjal is offered under "Choose your path" at the end of the Western
-Plaguelands guide, with a purple Experimental chip; it is never suggested or
-picked for you, and it hands you back to the Silithus guide.
+Mount Hyjal, Forever's new endgame zone, comes in both routes before the
+Silithus guide, at about 57.
 
 </details>
 
@@ -369,12 +370,9 @@ it again; the settings search finds it too.
 > for every race and class it serves, and the route checker plays every
 > leveling guide to 60 the way a player follows them. Tell us what you find
 > on Forever: every report becomes a fix the next build keeps. The
-> Riverglades and Shen'dralas guides are written from Forever's quest data
-> and players' first recordings of the zones, and Mount Hyjal is still an
-> Experimental guide (Polestar Experimental, listed with Polestar's own
-> guides; Options > Guide > Show experimental guides takes it out of the
-> menu): the Recorder's explorer mode keeps mapping the new zones as players
-> go there.
+> Riverglades, Shen'dralas and Mount Hyjal guides are written from Forever's
+> quest data and players' first recordings of the zones: the Recorder's
+> explorer mode keeps mapping the new zones as players go there.
 
 ## A look inside
 
@@ -533,7 +531,7 @@ site walks through every step.
 ## Polestar Client
 
 The [Polestar Client](https://polestar.guide/client) is a small desktop app for
-Windows, macOS and Linux (beta, 0.1.7). It finds WoW: Forever on your
+Windows, macOS and Linux (beta, 0.1.8). It finds WoW: Forever on your
 computer and:
 
 - **installs and updates Polestar's addons**: Polestar, the Recorder and
@@ -554,7 +552,7 @@ computer and:
   info").
 
 Download it from [polestar.guide/client](https://polestar.guide/client) or the
-[Client's GitHub release](https://github.com/fitzforge/polestar/releases/tag/client-v0.1.7);
+[Client's GitHub release](https://github.com/fitzforge/polestar/releases/tag/client-v0.1.8);
 its source is in [apps/client](apps/client).
 
 <p align="center">
@@ -1105,6 +1103,9 @@ runs solo or in a raid.
   nearby and targets it by name (Options, Questing, Buttons, Rare button).
 - **Characters** (`/polestar alts`): every character on the account with its
   level, zone, guide, gold and an estimate of its rested XP.
+  Forever's client no longer tells addons the realm name: each character
+  keeps its entry, materials, boat timings and rares met, and if two saved
+  characters share your name the page says so and keeps both.
 
 Lookup, Dungeons and Rares read the Codex, a data pack that ships in the
 release as `Polestar_Codex`. Without it Lookup still searches the guides, and
@@ -1382,6 +1383,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `install` | Set Polestar up again, a page at a time (Install) |
 | `welcome` | Opens Install, as `install` does |
 | `profile [name]` | List your settings profiles, or switch to one |
+| `language [name]` | Choose the language Polestar shows, from the next `/reload`: `game` (follow the game's language, the default), `enUS` (English) or a language code such as `deDE`; no name shows the current choice |
 | `whatsnew` | Show what's new in this version |
 | `where` | Print your map and position as guide lines (`zone map <id>`, `goto x,y live`), in a box to copy |
 | `report` | Report a problem with the step on screen (the guide window's bug button) |
@@ -1732,14 +1734,15 @@ these recordings.
 | Path | What lives there |
 |---|---|
 | [`addon/Polestar`](addon/Polestar) | The addon: engine, navigation, UI, modules, textures drawn in code ([addon/README.md](addon/README.md); every addon: [docs/ARCHITECTURE.md, "Overview"](docs/ARCHITECTURE.md#overview)) |
-| [`addon/Polestar_Guides`](addon/Polestar_Guides) | The compiled guides (generated by `compile`); the per-faction and per-race parts (`Polestar_Guides_Alliance`, `Polestar_Guides_Human`, ...) load on demand for your character |
-| [`addon/Polestar_Options`](addon/Polestar_Options), [`addon/Polestar_Looks`](addon/Polestar_Looks), [`addon/Polestar_SkinAPI`](addon/Polestar_SkinAPI) | Loaded on demand: the settings window with its looks pages and previews, the WoW Forever, Blizzard, Classic and Hearth looks, the checks for skins from other addons |
-| `addon/Polestar_Skin_*` | The nine skins that ship (Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen), each its own addon loaded when picked; `Polestar_Skin_Example` is the Skin API's example and never ships ([docs/SKINS-API.md](docs/SKINS-API.md)) |
+| [`addon/Polestar_Guides`](addon/Polestar_Guides) | The compiled guides (generated by `compile`); the per-faction parts (`Polestar_Guides_Alliance`, `Polestar_Guides_Horde`, each with its races' guides and walks) load on demand for your character |
+| [`addon/Polestar_Options`](addon/Polestar_Options) | Loaded on demand: the settings window with its looks pages and previews; the WoW Forever, Blizzard, Classic and Hearth looks and the checks for skins from other addons are in `Polestar` (`Theme/Looks`, `Theme/SkinCheck.lua`) |
+| [`addon/Polestar_Skins`](addon/Polestar_Skins) | Loaded on demand: the ten skins that ship (`Skins/`: Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen and Atlas) and the Atlas layout (`Layouts/Atlas`), when one is in use or the settings list them |
+| `addon/Polestar_Skin_Example` | The Skin API's example skin addon; it never ships ([docs/SKINS-API.md](docs/SKINS-API.md)) |
 | [`addon/Polestar_ItemDB`](addon/Polestar_ItemDB) | Item stats for gear advice: `Items.lua` from `forge data itemdb`, `Forever.lua` from `forge data gear` |
 | [`addon/Polestar_Nav`](addon/Polestar_Nav) | The arrow's walking routes: Polestar's walking router, started from Shortest Path Forever's by Cillian Berragan (GPL-3.0-or-later), on Polestar's walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle, grown from his format (`nav pack`; [CREDITS.md](addon/Polestar_Nav/CREDITS.md)) |
 | [`addon/Polestar_Recorder`](addon/Polestar_Recorder) | The optional session recorder |
-| [`guides/forever`](guides/forever) | The guide sources: leveling (with the Riverglades and Shen'dralas), class, professions, reputation, exploration, Legacy, collectibles |
-| [`experimental`](experimental) | Polestar Experimental's guide sources (Mount Hyjal), compiled into `addon/Polestar_Experimental` |
+| [`guides/forever`](guides/forever) | The guide sources: leveling (with the Riverglades, Shen'dralas and Mount Hyjal), class, professions, reputation, exploration, Legacy, collectibles |
+| [`experimental`](experimental) | Polestar Experimental's guide sources (none at the moment: Mount Hyjal joined both routes in 0.4.3), compiled into `addon/Polestar/Experimental` |
 | [`tools`](tools) | The command line (`polestar.js`), the guide compiler, the simulator, data importers, texture and preview renderers, the playground ([tools/README.md](tools/README.md)) |
 | [`rust`](rust) | Polestar Forge, the Rust pipeline behind the data, the walks and walking legs, the level model, the route checks, the guide compiler and the releases: one `forge` program ([docs/FORGE.md](docs/FORGE.md)) |
 | [`apps/client`](apps/client) | The Polestar Client, the desktop app that installs and updates the addons and community guides and sends recordings ([apps/client/README.md](apps/client/README.md)) |

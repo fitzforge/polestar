@@ -2,17 +2,18 @@
 guide forever/alliance/30-40/01-hillsbrad-foothills
 title Wetlands & Hillsbrad Foothills
 faction Alliance
-levels 30-32
+levels 31-32
 zone Wetlands
 next forever/alliance/30-40/03-ashenvale
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Defeat Nek'rosh (474), Sully Balloo's Letter (637), Ironband Wants You! (707), Sara Balloo's Plea (683),
-# The Thandol Span (632, 633), Plea to the Alliance (634, handed in at Refuge Pointe in 05-arathi-highlands) and, on the
-# Defeat Nek'rosh group branch, This Land Was Their Land (98230), which Captain Stoutfist offers only after 474 is handed in (#1299).
-# Solo players never see it (when group 474). Death to the Dragonmaw (98291) is a group quest (#2822): 16 elite Dragonmaw
+# Added here: Defeat Nek'rosh (474), Ironband Wants You! (707) and, on the Defeat Nek'rosh group branch, This Land Was
+# Their Land (98230), which Captain Stoutfist offers only after 474 is handed in (#1299); solo players never see it
+# (when group 474). Since the 2026-11-20 round 06-wetlands finishes Dun Modr and the Thandol Span (631-634), Sully
+# Balloo's Letter and Sara Balloo's Plea (637, 683): their lines here are catch-ups for a character who arrives without
+# them. Death to the Dragonmaw (98291) is a group quest (#2822): 16 elite Dragonmaw
 # (29-30) in Dragonmaw Retreat, just east of Howin. Howin's Word to Ironforge (98300) is left out: he offers it only after
 # Stopping the Cycle (98297), a level 34 elite Subdued Dragonspawn at the Dragonmaw Gates, about 1,000 yards east, which the
 # route does not take.
@@ -23,9 +24,9 @@ next forever/alliance/30-40/03-ashenvale
 # Excavation Site: Wetlands (run in 06-wetlands): Rethiel takes Horrors in the Highland (95646) on this guide's Wetlands
 # loop, and Prospector Whelgar the Titan Relic's Lost Relic Carry (95810) and High Explorer Magellas Prehistoric Prism
 # (98824) for whoever still carries them (`when complete`/`when onquest`).
-# Level tidy (0.4.0): Lifting the Curse (290), The Eye of Paleth (292) and Cleansing the Eye (293) are taken on the
-# Menethil stop at about 31 (Captain Halyndor is 30) instead of at 28 in 06-wetlands; 293 goes to Archbishop Benedictus on
-# this guide's Stormwind stop. The Syndicate camp (Syndicate Assassins 505, 510, 511) is worked in 05-arathi-highlands at
+# Level tidy (0.4.0): Lifting the Curse (290), The Eye of Paleth (292) and Cleansing the Eye (293) moved off the first
+# Wetlands visit; since the 2026-11-20 round 06-wetlands takes 290 on its first Menethil stop and works it from 29, and
+# this guide's Menethil and Stormwind lines for them (293 to Archbishop Benedictus) are catch-ups. The Syndicate camp (Syndicate Assassins 505, 510, 511) is worked in 05-arathi-highlands at
 # about 37: its Thieves are 33-34 and its Wizards 34-35, two and three levels over players here. Magistrate Maleb's quest is
 # taken on this Southshore stop, where the route already passes him, and carried to that trip.
 
@@ -160,9 +161,10 @@ step Rhag Garmason again
   zone Wetlands
   tip Back over the span and down the road through Dun Modr on the way south.
   turnin 633                          -- Rhag Garmason
-  accept 634                          -- for Captain Nials at Refuge Pointe, in 05-arathi-highlands
+  accept 634                          -- for Captain Nials at Refuge Pointe, in the Arathi Highlands guide
 
 step The Green Belt
+  turnin 98240                        -- Howin Kindfeather: James Halloran's crate, from Menethil Harbor
   turnin 98245                        -- Howin Kindfeather
 
 step Rethiel the Greenwarden
@@ -201,6 +203,13 @@ step Prospector Whelgar
   when onquest 95810
   tip The Titan Relic from your Excavation Site: Wetlands run: Prospector Whelgar is below ground in his dig, south of the road west.
   turnin 95810                        -- Prospector Whelgar, below ground
+  accept 98824                        -- Prospector Whelgar: for High Explorer Magellas in Ironforge, at the end of this guide
+
+step Prospector Whelgar
+  when dungeon "Excavation Site: Wetlands"
+  when turnedin 95810
+  when available 98824
+  tip The Titan Relic is already with Prospector Whelgar: take Prehistoric Prism from him, below ground in his dig, south of the road west.
   accept 98824                        -- Prospector Whelgar: for High Explorer Magellas in Ironforge, at the end of this guide
 
 step Menethil Harbor
@@ -264,12 +273,12 @@ step Southshore
   turnin 98219 npc 2228               -- Lieutenant Farren Orinelle, inside
   accept 536                          -- Lieutenant Farren Orinelle
   sethome "Southshore" npc 2352       -- Innkeeper Anderson
-  accept 98463 optional               -- Barkeep Kelly, in the inn: for Booty Bay (04-stranglethorn-vale)
+  accept 98463 optional               -- Barkeep Kelly, in the inn: for Booty Bay (the Stranglethorn Vale guide)
   accept 555                          -- Chef Jessen, upstairs
   accept 564                          -- Darren Malvew: the lions come later
   getfp "Southshore" npc 2432         -- Darla Harris
   buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
-  accept 505                          -- Magistrate Henry Maleb, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)
+  accept 505                          -- Magistrate Henry Maleb, inside: keep it, the Syndicate camp waits for the road north to Arathi (the Arathi Highlands guide)
   accept 92432 "An Alarming Request" npc 247264 lvl 30 -- Emissary Jacques
 
 step Bartolo Ginsetti
@@ -407,7 +416,7 @@ step Dashel Stonefist
 
 step The Islander
   only Warrior
-  tip Wu Shen trains warriors in Old Town, beside the Pig and Whistle. Klannoc Macleod waits on Fray Island in the Barrens, on the way to Ratchet much later (40-50/01).
+  tip Wu Shen trains warriors in Old Town, beside the Pig and Whistle. Klannoc Macleod waits on Fray Island in the Barrens, on the way to Ratchet much later (the 40-50 Stranglethorn Vale guide).
   accept 1718 npc 5479                -- Wu Shen
 
 step Stormwind Keep

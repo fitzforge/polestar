@@ -281,7 +281,7 @@ end
 
 function DT.TurnOff()
 	ns.Set("dungeons.headsUp", false)
-	ns.Print(L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Lookup."])
+	ns.Print(L["Dungeon heads-ups are off. Turn them back on under Settings > Discovery > Lookup."])
 end
 
 -- The checks that have to wait (combat, another heads-up on the card), in

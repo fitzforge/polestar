@@ -270,10 +270,11 @@ local function unitTooltip(tooltip, data)
 end
 Hooks.OnUnitTooltip = unitTooltip
 
--- "GameObject-0-4372-0-17-2843-0000123456" -> 2843
+-- "GameObject-0-4372-0-17-2843-0000123456" -> 2843: the id by its place only
+-- (Forever obfuscates the realm, server and spawn parts).
 local function objectIdOfGUID(guid)
 	if type(guid) ~= "string" or secret(guid) then return nil end
-	local kind, id = guid:match("^(%a+)%-%d+%-%d+%-%d+%-%d+%-(%d+)%-")
+	local kind, id = guid:match("^(%a+)%-[^-]*%-[^-]*%-[^-]*%-[^-]*%-(%d+)%-")
 	if kind ~= "GameObject" then return nil end
 	return tonumber(id)
 end

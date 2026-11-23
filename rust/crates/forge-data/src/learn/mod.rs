@@ -1670,6 +1670,12 @@ pub fn apply_prereqs(q: &V, rec: &V, corrected: &V, provisional: bool) -> bool {
 	true
 }
 
+/// The prerequisites a quest's recorded offers disprove (its trusted `notPre`), which no later
+/// source may add back: the knowledge base's TDB previous-quest fill runs after [`apply_prereqs`].
+pub fn not_prereqs(rec: &V) -> Vec<i64> {
+	rec.get("notPre").items().iter().filter(|f| usable(f, false)).filter_map(|f| pos_int(&f.get("value"))).collect()
+}
+
 /// The recorded minimum level a consumer takes (trusted and pinned only), unless a correction sets
 /// it.
 pub fn min_level(rec: &V, corrected: &V) -> Option<i64> {
