@@ -10,13 +10,13 @@ return {
 	-- {npc:10260} Kibler · {area:251} Flame Crest
 	["{npc:10260} at {area:251}"] = "{npc:10260} en {area:251}",
 	-- {npc:10260} Kibler · {area:251} Flame Crest · {zone:1428} Burning Steppes · {area:254} Blackrock Mountain · {item:12262} Empty Worg Pup Cage · {item:12529} Smolderweb Carrier
-	["{npc:10260} stands inside the cave at {area:251}, the camp in northern {zone:1428} east of {area:254}. He gives you an {item:12262}. He also gives En-Ay-Es-Tee-Why (the {item:12529}): take both, they are done in the same run."] = "",
+	["{npc:10260} stands inside the cave at {area:251}, the camp in northern {zone:1428} east of {area:254}. He gives you an {item:12262}. He also gives En-Ay-Es-Tee-Why (the {item:12529}): take both, they are done in the same run."] = "{npc:10260} está dentro de la cueva de {area:251}, el campamento del norte de {zone:1428} al este de {area:254}. Te da un {item:12262}. También da En-Ay-Es-Tee-Why (el {item:12529}): coge ambos, se hacen en la misma incursión.",
 
 	-- Step 2: Lower Blackrock Spire: Halycon's pups
 	-- {area:1583} Blackrock Spire
-	["Lower {area:1583}: Halycon's pups"] = "",
+	["Lower {area:1583}: Halycon's pups"] = "Parte baja de {area:1583}: las crías de Halycon",
 	-- {npc:10584} Urok Doomhowl · {npc:10221} Bloodaxe Worg Pup
-	["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "",
+	["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "Las crías están en la parte baja de Roca Negra (grupo de cinco, nivel 55-60), no en la alta: corren con Halycon, el gran worg, en lo profundo de la mazmorra tras los ogros de {npc:10584}. Usa la jaula sobre un {npc:10221} vivo antes de que muera la manada. Recibir daño interrumpe el lanzamiento, así que deja que el tanque retenga a las crías y enjaula una desde un lado. Un pícaro o un druida puede colarse, enjaular una cría desde una esquina y luego desvanecerse.",
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "{area:1583} inferior",
 

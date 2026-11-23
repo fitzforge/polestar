@@ -86,6 +86,8 @@ fn settings_saved_before_profiles_become_the_profile_default_with_nothing_lost()
 			"nav": { "arrowStyle": "3d", "arrowPos": { "point": "TOP", "relPoint": "TOP", "x": -35.211196899414, "y": -20.12544631958 } },
 			"rares": { "toastPoint": ["CENTER", -520, 130] },
 			"qol": { "markTarget": true },
+			// Skip grey quests was off for this account (the default before 0.4.3): kept off (Engine's skipGreyOn).
+			"behavior": { "skipGrey": false },
 		}),
 		"every saved setting stays where it was"
 	);
@@ -227,8 +229,9 @@ fn a_migration_runs_once_over_every_profile_before_init_and_over_a_string_from_b
 	assert_eq!(first["calls"], 2 + 1, "Default and Raid at load, then the old string");
 	assert_eq!(first["atInit"], 2, "moved before any OnInit handler reads it");
 	assert_eq!(first["now"], 2);
-	assert_eq!(first["raid"], json!({ "new": { "size": 3 }, "old": {} }));
-	assert_eq!(first["marks"], json!({ "move-size": true, "late": true }));
+	// Skip grey quests stays off in a profile saved before 0.4.3 (Engine's skipGreyOn, once, over the saved profiles).
+	assert_eq!(first["raid"], json!({ "new": { "size": 3 }, "old": {}, "behavior": { "skipGrey": false } }));
+	assert_eq!(first["marks"], json!({ "move-size": true, "late": true, "skipGreyOn": true }));
 	assert_eq!(first["before"], json!({ "new.size": 4 }), "a string from before the migration is migrated");
 	assert_eq!(first["after"], json!({}));
 	assert_eq!(first["afterDropped"], json!(["old.size"]));

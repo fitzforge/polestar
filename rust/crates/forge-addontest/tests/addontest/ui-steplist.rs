@@ -738,6 +738,8 @@ fn the_open_list_follows_a_later_step_whose_when_starts_holding() {
 		compile_guide(SKIPS),
 		&(skips_prelude(true)
 			+ r#"
+				-- A `when` starting to hold, not Skip grey quests passing the quests level 50 greys.
+				Polestar.Set("behavior.skipGrey", false)
 				SL.Toggle(true)
 				stub.advance(0.3)
 				snap("before")
@@ -812,6 +814,8 @@ fn the_open_list_follows_one_step_starting_to_apply_as_another_stops() {
 		compile_guide(SWAP),
 		&(prelude("forever/alliance/human/03-swap", "stub.world.level = 5")
 			+ r#"
+				-- A `when` starting and stopping, not Skip grey quests passing the quests level 10 greys.
+				Polestar.Set("behavior.skipGrey", false)
 				SL.Toggle(true)
 				stub.advance(0.3)
 				snap("before")
