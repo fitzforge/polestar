@@ -202,3 +202,74 @@ fn dungeon_levels_follow_the_group_finder_and_players_recorded_entries() {
 	assert!(checked >= 15, "{checked} dungeons with 5 or more people recorded: data/codex/recorded.json has its dungeons block");
 	assert!(problems.is_empty(), "{problems:?}");
 }
+
+// #3784: the pack's profession group: each rank's trainers per side and the profession's trainerSkill,
+// so Nearby and Lookup only send a player to a trainer who teaches their next rank. The golden has no
+// trainerSkill, so the test gives Tailoring's and Blacksmithing's Journeyman trainers a 125 gate.
+#[test]
+fn the_codex_carries_each_professions_rank_trainers_and_trainer_skill_3784() {
+	let (root, data) = setup("codex-profession-trainers");
+	let file = data.join("professions.json");
+	let mut src: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap();
+	let tailoring_alliance = src["197"]["ranks"][1]["trainers"]["Alliance"][0].clone();
+	let smithing_horde = src["164"]["ranks"][1]["trainers"]["Horde"][0].clone();
+	for (id, npc) in [("197", tailoring_alliance.clone()), ("164", smithing_horde.clone())] {
+		let mut gates = serde_json::Map::new();
+		gates.insert(npc.to_string(), serde_json::json!(125));
+		src[id]["trainerSkill"] = serde_json::Value::Object(gates);
+	}
+	std::fs::write(&file, src.to_string()).unwrap();
+
+	let out = codex::build_logged(&options(&root, &data), &|_| {}).unwrap();
+	let text = &out.pack.iter().find(|(n, _)| n == "Professions1.lua").expect("the pack has Professions1.lua").1;
+	// Records are lines of the Lua string literal: `id\trecord` (names have a second tab).
+	let unescaped = text.replace("\\n", "\n").replace("\\t", "\t");
+	let mut records: std::collections::BTreeMap<String, String> = std::collections::BTreeMap::new();
+	for line in unescaped.lines() {
+		if let Some((id, rec)) = line.split_once('\t') {
+			// The last record shares its line with the Register call's closing `", 164, 393)`.
+			let rec = rec.split('"').next().unwrap_or_default();
+			if !rec.contains('\t') && !id.is_empty() && id.bytes().all(|b| b.is_ascii_digit()) {
+				records.insert(id.to_string(), rec.to_string());
+			}
+		}
+	}
+
+	let sided = |p: &serde_json::Value| p["ranks"].as_array().is_some_and(|r| r.len() == 4 && r.iter().all(|r| r["trainers"].get("Alliance").is_some() || r["trainers"].get("Horde").is_some()));
+	for (id, p) in src.as_object().unwrap() {
+		let Some(rec) = records.get(id) else {
+			assert!(!sided(p), "{id} {}: rank trainers but no pack record", p["name"]);
+			continue;
+		};
+		assert!(sided(p), "{id} {}: a pack record without four sided ranks", p["name"]);
+		let fields: Vec<&str> = rec.split(';').collect();
+		assert_eq!(fields.len(), 5, "{id}: {rec}");
+		for (i, r) in p["ranks"].as_array().unwrap().iter().enumerate() {
+			let f: Vec<&str> = fields[i].split(',').collect();
+			assert_eq!(f.len(), 4, "{id} rank {i}: {rec}");
+			assert_eq!(f[0].parse::<i64>().unwrap(), r["minSkill"].as_i64().unwrap(), "{id} rank {i} minSkill");
+			assert_eq!(f[1].parse::<i64>().unwrap(), r["max"].as_i64().unwrap(), "{id} rank {i} max");
+			for (side, col) in [("Alliance", 2), ("Horde", 3)] {
+				let mut want: Vec<i64> = r["trainers"][side].as_array().map(|a| a.iter().filter_map(|v| v.as_i64()).collect()).unwrap_or_default();
+				want.sort_unstable();
+				want.dedup();
+				let mut got: Vec<i64> = f[col].split_whitespace().map(|v| v.parse().unwrap()).collect();
+				got.sort_unstable();
+				assert_eq!(got, want, "{id} rank {i} {side}");
+			}
+		}
+		let mut want: Vec<(String, i64)> = p["trainerSkill"].as_object().map(|o| o.iter().map(|(k, v)| (k.clone(), v.as_i64().unwrap())).collect()).unwrap_or_default();
+		want.sort_by_key(|(k, _)| k.parse::<i64>().unwrap());
+		let mut got: Vec<(String, i64)> =
+			if fields[4].is_empty() { Vec::new() } else { fields[4].split(',').collect::<Vec<_>>().chunks(2).map(|c| (c[0].to_string(), c[1].parse().unwrap())).collect() };
+		got.sort_by_key(|(k, _)| k.parse::<i64>().unwrap());
+		assert_eq!(got, want, "{id} trainerSkill");
+	}
+	for id in ["164", "165", "171", "182", "186", "197", "202", "333", "393"] {
+		assert!(records.contains_key(id), "profession {id} has a record");
+	}
+	for id in ["129", "185", "356"] {
+		assert!(!records.contains_key(id), "profession {id} has no rank trainers, so no record");
+	}
+	assert_eq!(records["197"].split(';').nth(4).unwrap(), format!("{tailoring_alliance},125"), "Tailoring's trainerSkill");
+}

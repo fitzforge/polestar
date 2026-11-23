@@ -1,8 +1,8 @@
 -- The games to play on a flight while the flight timer counts down:
--- Freedoom Arcade (petllama's Doom port) and Sky Jewels (RikyZ90's
--- match-three). One setting picks the game the flight card offers
--- (Integrations > Flight arcade, arcade.game: "freedoom" | "skyjewels" |
--- "none", which offers nothing).
+-- Freedoom Arcade (petllama's Doom port), Sky Jewels (RikyZ90's
+-- match-three) and Tetris (beemerwt's falling blocks). One setting picks the
+-- game the flight card offers (Integrations > Flight arcade, arcade.game:
+-- "freedoom" | "skyjewels" | "tetris" | "none", which offers nothing).
 --
 -- Where they live: Polestar_Arcade, one folder in Polestar's download, loaded
 -- on demand the first time Play is pressed (nothing of it is in memory
@@ -31,7 +31,8 @@
 -- closed so the keys are the character's again. The landing itself (a
 -- loading screen ends a flight too) and a fight on the way do the same with
 -- the game still open; a chat line says how to go on. /polestar arcade,
--- /polestar jewels and the guide window's menu open a game any time.
+-- /polestar jewels, /polestar tetris and the guide window's menu open a game
+-- any time.
 --
 -- Cost: with "none" nothing is made and nothing runs on a flight. With a
 -- game, a flight makes one hidden driver frame (the first flight only),
@@ -87,6 +88,14 @@ local GAMES = {
 		fight = L["Sky Jewels is saved and paused for the fight: type %s to continue."],
 		paused = L["Sky Jewels is saved and paused."],
 		landed = L["Landed. Sky Jewels is saved and paused: type %s to continue."],
+	},
+	{
+		id = "tetris", command = "tetris", name = L["Tetris"], credit = L["Tetris by beemerwt"], play = L["Play Tetris"],
+		missing = L["Tetris can't open: its folder Polestar_Arcade is missing or turned off."],
+		afterFight = L["Tetris opens after the fight."],
+		fight = L["Tetris is saved and paused for the fight: type %s to continue."],
+		paused = L["Tetris is saved and paused."],
+		landed = L["Landed. Tetris is saved and paused: type %s to continue."],
 	},
 }
 local BY_ID = {}

@@ -463,6 +463,7 @@ mod skins_sweep;
 mod stranded;
 mod syntax;
 mod talents;
+mod tetris;
 mod theme;
 #[path = "theme-skin-api.rs"]
 mod theme_skin_api;

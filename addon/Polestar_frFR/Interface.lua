@@ -2653,6 +2653,7 @@ L["Every setting on %s goes back to its default. Other pages keep theirs."] = "T
 L["Nothing to reset"] = "Rien à réinitialiser"
 L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "Faites glisser la fenêtre du guide, la flèche, les cartes et les alertes où vous voulez. Cette fenêtre s'efface jusqu'à ce que vous appuyiez sur Enregistrer et quitter. Aussi /polestar unlock."
 -- L["play Sky Jewels by RikyZ90"] = ""
+-- L["play Tetris by beemerwt"] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
@@ -4201,6 +4202,10 @@ L["%d changes"] = "%d modifications"
 L["Same as yours"] = "Identique au vôtre"
 L["Nothing here differs from yours."] = "Rien ici ne diffère du vôtre."
 L["The positions were made on another screen or UI scale, so Window positions starts unticked: tick it to take them anyway."] = "Les positions viennent d'un autre écran ou d'une autre échelle d'interface, donc Positions des fenêtres commence décoché : cochez-le pour les reprendre quand même."
+-- L["Start from"] = ""
+-- L["Your current settings"] = ""
+-- L["Defaults"] = ""
+-- L["Your current settings: the new profile is a copy of the one in use, window positions, skin and all. Defaults: every setting at its default."] = ""
 
 -- UI/Looks/Theme.lua
 L["Turn in %s"] = "Rendre %s"
@@ -4630,8 +4635,8 @@ L["Rares, travel & zones"] = "Rares, voyages et zones"
 L["Zones and coordinates"] = "Zones et coordonnées"
 -- L["Flight arcade"] = ""
 -- L["Game on flights"] = ""
--- L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed) or Sky Jewels by RikyZ90, a match-three game. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade and /polestar jewels open them any time."] = ""
 -- L["None: don't offer a game"] = ""
+-- L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time."] = ""
 
 -- Dungeons/Options.lua
 L["As for all dungeons"] = "Comme pour tous les donjons"
@@ -4874,6 +4879,14 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Atterr
 -- L["Landed. Sky Jewels is saved and paused: type %s to continue."] = ""
 -- L["Play a game while you fly?"] = ""
 -- L["Close the game that is open before you start another."] = ""
+-- L["Tetris"] = ""
+-- L["Tetris by beemerwt"] = ""
+-- L["Play Tetris"] = ""
+-- L["Tetris can't open: its folder Polestar_Arcade is missing or turned off."] = ""
+-- L["Tetris opens after the fight."] = ""
+-- L["Tetris is saved and paused for the fight: type %s to continue."] = ""
+-- L["Tetris is saved and paused."] = ""
+-- L["Landed. Tetris is saved and paused: type %s to continue."] = ""
 
 -- QoL/QuestXP.lua
 -- L["+1 level"] = ""
@@ -4985,6 +4998,17 @@ L["Most used"] = "Les plus utilisés"
 -- L["Sound on"] = ""
 -- L["Score"] = ""
 -- L["4 in a line: sweep\n5, T or L: burst\nSwap a bonus to fire it."] = ""
+
+-- games/tetris/Window.lua
+-- L["Score %d\nLines %d\nLevel %d\nBest %d"] = ""
+-- L["Game over — New game"] = ""
+-- L["Paused — press P or Start"] = ""
+-- L["New game"] = ""
+-- L["Resume"] = ""
+-- L["Polestar Tetris"] = ""
+-- L["Hold"] = ""
+-- L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = ""
+-- L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Reconfigurer Polestar, une page à la fois. Chaque choix s'applique tout de suite."

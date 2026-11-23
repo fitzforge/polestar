@@ -4,6 +4,9 @@
 		"3788": { "tests": [
 			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/recorded_areas.rs", "test": "an_item_ticked_far_from_every_place_it_drops_is_no_alternative_place_3788" }
 		] },
+		"3706": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "Horde Triage (6622) is completed at Doctor Gregory Victor in Hammerfall (#3706)" }
+		] },
 		"3514": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Veyric Thunderhame stands only in Arathi Highlands, not at Eldrun Stormbreaker's spot (#2851)" }
 		] },

@@ -877,3 +877,13 @@ test('Blademaster\'s Bonfires: the south and southeast bonfires are its objectiv
 	assert.deepEqual(corrections.objects[656668].addSpawns[2482].pts, [[49.1, 36.02]]);
 	assert.deepEqual(corrections.objects[656669].addSpawns[2482].pts, [[54.84, 40.0]]);
 });
+
+// #3706: Horde Triage (6622) takes place at Doctor Gregory Victor in Hammerfall, Arathi Highlands (1417),
+// not at the Alliance clinic in Theramore Isle (1445).
+test('Horde Triage (6622) is completed at Doctor Gregory Victor in Hammerfall (#3706)', () => {
+	const objs = corrections.quests[6622].set.objectives;
+	assert.ok(objs && objs.length === 1, 'one objective');
+	assert.equal(objs[0].type, 'event');
+	assert.equal(objs[0].map, 1417);
+	assert.deepEqual([objs[0].x, objs[0].y], [73.4, 36.8]);
+});

@@ -571,13 +571,17 @@ end
 -- Group content (the goal's `party`, the compiled `group`): "Elite: group
 -- advised", "Rare elite: group advised", "Boss: group advised", "Dungeon:
 -- Dire Maul", "Raid: Molten Core", "Group of 3 advised" or "Group advised",
--- in the dungeon colour. Nil once the goal is done or skipped.
+-- in the dungeon colour; an object's work among elites (`near`: the crate
+-- needs no group, the camp round it has elites, #3653) "Elites nearby".
+-- Nil once the goal is done or skipped.
 local ELITE_LINE = { [1] = L["Elite: group advised"], [2] = L["Rare elite: group advised"], [3] = L["Boss: group advised"] }
 function UI.GroupLine(goal)
 	local p = goal.party
 	if type(p) ~= "table" or goal.status == "done" or goal.status == "skipped" then return nil end
 	local text
-	if p.kind == "elite" then
+	if p.kind == "elite" and p.near then
+		text = L["Elites nearby"]
+	elseif p.kind == "elite" then
 		text = ELITE_LINE[p.rank] or ELITE_LINE[1]
 	elseif (p.kind == "dungeon" or p.kind == "raid") and type(p.name) == "string" then
 		text = format(p.kind == "raid" and L["Raid: %s"] or L["Dungeon: %s"], (type(p.map) == "number" and ns.Names.Instance(p.map)) or p.name)
