@@ -387,7 +387,7 @@ local HOUSE_PAINT = {
 		hoverWash(f):SetVertexColor(Theme.Wash("hover"))
 	end,
 	scrollbar = function(f)
-		-- Back from a game look's scroll bar (Polestar_Looks/GameSkins.lua): the slim
+		-- Back from a game look's scroll bar (Theme/Looks/GameSkins.lua): the slim
 		-- white thumb over the whole bar.
 		local thumb = f.thumb or f.psThumb
 		if f.psInset then

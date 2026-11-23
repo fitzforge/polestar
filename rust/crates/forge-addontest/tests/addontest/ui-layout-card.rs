@@ -31,7 +31,7 @@ local function card() return PolestarLayoutCard ~= nil and PolestarLayoutCard:Is
 fn run_with(script: &str, saved: Option<&str>) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
-		addons: vec![Addon::files("Polestar", &FILES), Addon::name("Polestar_Layout_Atlas")],
+		addons: vec![Addon::files("Polestar", &FILES), Addon::files("Polestar_Skins", &["Layouts/Atlas/Atlas.lua"])],
 		saved: saved.map(|s| ("Polestar".to_string(), s.to_string())).into_iter().collect(),
 		script: format!("local savedCard = PolestarDB and PolestarDB.layoutCardSeen\nuistub.install()\nPolestar.DB().layoutCardSeen = savedCard\nstub.login()\n{TEN}\n{script}"),
 		..Default::default()
@@ -141,10 +141,10 @@ fn presets_list_the_saved_setup_and_picking_a_card_over_the_player_s_own_look_sa
 	let out = run_with(
 		r#"
 		Polestar.DB().layoutCardSeen = "0.4.3"
-		-- Atlas installed as the release ships it: in the AddOns list, its TOC naming its layout and preset card
-		-- (settings-essentials.rs).
-		stub.addons[#stub.addons + 1] = { name = "Polestar_Layout_Atlas", title = "Polestar Layout: Atlas" }
-		stub.addonMeta["Polestar_Layout_Atlas"] = { ["X-Polestar-Layout"] = "atlas", ["X-Polestar-Layout-Preset"] = "atlas = Atlas" }
+		-- Atlas installed as the release ships it: in the AddOns list, our skins' folder's TOC naming its layout
+		-- and preset card (settings-essentials.rs).
+		stub.addons[#stub.addons + 1] = { name = "Polestar_Skins", title = "Polestar Skins" }
+		stub.addonMeta["Polestar_Skins"] = { ["X-Polestar-Layout"] = "atlas", ["X-Polestar-Layout-Preset"] = "atlas = Atlas" }
 		Polestar.UI.LoadOptions()
 		local O = Polestar.UI.Options
 		local row

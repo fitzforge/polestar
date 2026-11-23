@@ -294,8 +294,10 @@ local function presetsOf(opts)
 	for i, p in ipairs(opts.presets) do list[i] = p end
 	for _, lp in ipairs(T.LayoutPresets()) do
 		local stage = STAGES[lp.stage]
-		-- Who to tell: the layout addon's author (its TOC's Author).
-		local author = stage and C_AddOns and C_AddOns.GetAddOnMetadata and C_AddOns.GetAddOnMetadata(lp.addon, "Author")
+		-- Who to tell: the layout's author as it registered (Polestar's own
+		-- layouts share one folder, #3507), else its addon's TOC Author.
+		local info = stage and T.LayoutInfo and T.LayoutInfo(lp.id)
+		local author = stage and (info and info.author or (C_AddOns and C_AddOns.GetAddOnMetadata and C_AddOns.GetAddOnMetadata(lp.addon, "Author")))
 		local tip = stage and stage.tip
 		if tip and type(author) == "string" and author ~= "" then
 			tip = tip .. " " .. string.format(L["Any issues: @%s in a bug report or on Discord."], author:lower())

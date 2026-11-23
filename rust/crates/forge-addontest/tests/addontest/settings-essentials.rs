@@ -253,23 +253,26 @@ fn a_page_opens_again_on_the_tab_last_opened_there() {
 	assert_eq!(out, json!({ "first": "Essentials", "again": "Text", "saved": "Text", "setting": true }));
 }
 
-// The Atlas layout and skin installed as the release ships them: load on demand, named in their TOCs, loaded from
-// their files the first time Polestar asks (stub_packs.lua).
+// The Atlas layout and skin installed as the release ships them: in our skins' folder (Polestar_Skins, since 0.4.3),
+// load on demand, named in its TOC, loaded from its files the first time Polestar asks (stub_packs.lua).
 fn run_with_atlas(script: &str) -> Value {
-	let files = |name: &str| -> String { forge_addontest::run::toc_files(name).unwrap().iter().map(|f| lua_string(&f.display().to_string())).collect::<Vec<_>>().join(", ") };
+	let files = forge_addontest::run::toc_files("Polestar_Skins").unwrap().iter().map(|f| lua_string(&f.display().to_string())).collect::<Vec<_>>().join(", ");
+	let toc = std::fs::read_to_string(forge_addontest::run::addons_dir().join("Polestar_Skins/Polestar_Skins.toc")).unwrap();
+	let meta: Vec<String> = toc
+		.lines()
+		.filter_map(|l| l.strip_prefix("## ")?.split_once(':'))
+		.filter(|(k, _)| k.starts_with("X-Polestar-"))
+		.map(|(k, v)| format!("[{}] = {}", lua_string(k.trim()), lua_string(v.trim())))
+		.collect();
 	let before = format!(
 		r#"
 stub.addons = {{
 	{{ name = "Polestar" }},
-	{{ name = "Polestar_Layout_Atlas", title = "Polestar Layout: Atlas", notes = "A timeline layout.", demand = true }},
-	{{ name = "Polestar_Skin_Atlas", title = "Polestar Skin: Atlas", demand = true }},
+	{{ name = "Polestar_Skins", title = "Polestar Skins", notes = "Polestar's skins and the Atlas layout.", demand = true }},
 }}
-stub.addonMeta["Polestar_Layout_Atlas"] = {{ ["X-Polestar-Layout"] = "atlas", ["X-Polestar-Layout-Preset"] = "atlas = Atlas" }}
-stub.addonMeta["Polestar_Skin_Atlas"] = {{ ["X-Polestar-Skin"] = "atlas" }}
-stub.packs.Polestar_Layout_Atlas = {{ {} }}
-stub.packs.Polestar_Skin_Atlas = {{ {} }}"#,
-		files("Polestar_Layout_Atlas"),
-		files("Polestar_Skin_Atlas")
+stub.addonMeta["Polestar_Skins"] = {{ {} }}
+stub.packs.Polestar_Skins = {{ {files} }}"#,
+		meta.join(", ")
 	);
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua", "stub_packs.lua"],
@@ -317,9 +320,9 @@ fn the_atlas_card_picks_the_layout_only_and_standard_goes_back() {
 	local r = {{ values = values(), lit = {{ lit() }} }}
 	local atlas = row.psCardBy["layout:atlas"]
 	r.before = {{ atlas.Name:GetText(), atlas.Note:GetText(), atlas.Art.psLabel and atlas.Art.psLabel:GetText() or false,
-		stub.packLoads.Polestar_Layout_Atlas or 0, T.LayoutInfo("atlas") ~= nil }}
+		stub.packLoads.Polestar_Skins or 0, T.LayoutInfo("atlas") ~= nil }}
 	atlas:Click()
-	r.picked = {{ T.LayoutId() or false, Polestar.Get("ui.skin"), T.SkinId(), stub.packLoads.Polestar_Layout_Atlas or 0 }}
+	r.picked = {{ T.LayoutId() or false, Polestar.Get("ui.skin"), T.SkinId(), stub.packLoads.Polestar_Skins or 0 }}
 	r.lit[2] = lit()
 	-- Every Atlas hook counted, with the window it was handed.
 	local hooks = Polestar.ThemeInternal.LAYOUTS.atlas.hooks

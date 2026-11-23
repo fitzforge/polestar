@@ -25,9 +25,9 @@ one into the other. The addons:
 
 | Addon | What it holds | Built by (`node tools/polestar.js …`) | In git | Ships |
 |---|---|---|---|---|
-| `Polestar` (`addon/Polestar/`) | The addon: engine, navigation, quests, gear, maps, quality of life, Lookup, Dungeons, Rares and every window | hand-written, plus a few generated data files | yes | yes |
-| `Polestar_Guides` (`addon/Polestar_Guides/`, with `Polestar_Guides_Alliance` and `Polestar_Guides_Horde`) | Polestar's own pack (pack id `guides`): the factionless guides, and each faction's in a part loaded on demand, the player's faction's with the pack (PACK_FORMAT, "Format 8") | `compile`, from `guides/` | yes (generated) | yes |
-| `Polestar_Experimental` (`addon/Polestar_Experimental/`) | Polestar's experimental pack (pack id `polestar-experimental`): guides for Forever's new zones in testing (alpha), none at the moment (Mount Hyjal joined both routes in 0.4.3); loaded at login unless the player switches it off (`behavior.experimentalGuides`, Options > Guide > Show experimental guides, on by default; before 0.4.0 it was off until switched on under Community guides), listed with our guides with an Experimental chip, never suggested, picked or put in a route; the experimental index of the guides our route choices offer is in Polestar_Guides (PACK_FORMAT, "Polestar's own extra packs") | `forge guide compile experimental` and `forge release pack`, from `experimental/` | yes (generated) | yes |
+| `Polestar` (`addon/Polestar/`) | The addon: engine, navigation, quests, gear, maps, quality of life, Lookup, Dungeons, Rares and every window; also, each its own addon before 0.4.3 (#3507): the Skin API's checks for a skin or colour scheme from another addon (`Theme/SkinCheck.lua`: its fields, colours, legibility, variants, preset, `docs/skins/reference.md`), the game looks (WoW Forever, Blizzard, Classic: their kits, art tables and painters, `Theme/Looks/GameSkins.lua`, `GameArt.lua`; their own waypoint arrow and map pin medallion in the client's art, `Parts.lua`) and Hearth's painters (`Hearth.lua`), the guide window's tab styles past the strip above the step bar (`UI/TabStyles/`: the title switcher, the top edge's and the left side's icon tabs, the switcher's menu rows, `W.MenuRows`) and Polestar's experimental pack (`Experimental/`, below) | hand-written, plus a few generated data files | yes | yes |
+| `Polestar_Guides` (`addon/Polestar_Guides/`, with `Polestar_Guides_Alliance` and `Polestar_Guides_Horde`) | Polestar's own pack (pack id `guides`): the factionless guides, and each faction's in a part loaded on demand, the player's faction's with the pack (PACK_FORMAT, "Format 8"); each faction part also carries its races' guides and baked legs (`Guides_<Race>.lua`, `Legs_<Race>.lua`, each returning at once unless `Polestar.IsPlayerRace` names the player's race; their own `Polestar_Guides_<Race>` parts before 0.4.3) | `compile`, from `guides/` | yes (generated) | yes |
+| Polestar Experimental (`addon/Polestar/Experimental/`, inside `Polestar` since 0.4.3) | Polestar's experimental pack (pack id `polestar-experimental`): guides for Forever's new zones in testing (alpha), none at the moment (Mount Hyjal joined both routes in 0.4.3); `Polestar.toc` lists its `Pack.lua`, `MapFrames.lua` and `Guides.lua`, whose guides `Polestar.DeferGuides` holds until the pack is shown (out of combat) unless the player switches it off (`behavior.experimentalGuides`, Options > Guide > Show experimental guides, on by default; before 0.4.0 it was off until switched on under Community guides), listed with our guides with an Experimental chip, never suggested, picked or put in a route; the experimental index of the guides our route choices offer is in Polestar_Guides (PACK_FORMAT, "Polestar's own extra packs") | `forge guide compile experimental` and `forge release pack`, from `experimental/` | yes (generated) | yes |
 | community addons | Addons by other authors (`X-Polestar-Pack` in their TOC; `docs/PACKS.md`, `docs/PACK_FORMAT.md`) | the same compiler, from their own repositories | in their own repositories | by their authors |
 | `Polestar_ItemDB` (`addon/Polestar_ItemDB/`) | Item stats and Forever reward choices for the gear advice; loaded on demand | `forge data itemdb` (`Items.lua`), then `forge data gear` (`Forever.lua`) | yes (generated) | yes |
 | `Polestar_<locale>` (`addon/Polestar_deDE/` … `zhTW/`) | The language folder of one client language: Polestar's interface strings (`Interface.lua`, for `Polestar.L`; translators and `forge i18n sync`), our guides' texts (`Texts.lua`, for `Polestar.GuideTexts`), the quest, NPC, object and item names (`Names.lua`, for `Polestar.Names`) and the walking maps' subzone names (`Subzones.lua`, `Polestar.Names`' kind `subzone`, for the arrow's floor by subzone); loaded on demand by `Core/Locale.lua`, only the client's own, never in English. It replaced `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` in 0.3.0 | `forge guide compile` (`Texts.lua`), `forge data names` (`Names.lua`, from the client's tables, the names the client showed players (`data/i18n/names-observed`), DingDB (pinned) and pfQuest) and `forge data subzones` (`Subzones.lua`, from the client's WMOAreaTable and AreaTable at the client build the data is built from); each writes the one TOC alike (`forge_guide::toc::language_toc`) and leaves the others' files alone | yes (generated) | yes |
@@ -36,12 +36,8 @@ one into the other. The addons:
 | `Polestar_Nav` (`addon/Polestar_Nav/`) | Polestar's walking router (started from Shortest Path Forever v1.16.0 by Cillian Berragan, GPL-3.0-or-later; Polestar's since 2026-10-16) with the walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle (maps format 5: Leffe's navigation maps, his surfaces, graph, jumps and drops, with our area names and chokepoints; format 3 from our grid when packed without `--leffe`) and the walk's chokepoints, for the arrow's walking routes; loaded on demand at login, never while an installed Shortest Path Forever guides (the target handed to it, or a journey of its own running; Nav, "In-game walking routes (Polestar_Nav)", "Hand-off to Shortest Path Forever") | the router hand-written (`Routing/`); `forge nav pack --leffe` (the maps, `PACK.json`, from Leffe's navigation maps, the navigation grid and the ground layers) | yes | yes, always |
 | `Polestar_Nav_EK`, `Polestar_Nav_Kalimdor` (`addon/Polestar_Nav_EK/`, `addon/Polestar_Nav_Kalimdor/`) | The map parts of each continent's walking maps when they are Leffe's (maps format 5; their metadata stays in Polestar_Nav); loaded on demand by Polestar_Nav's router the first time it searches that continent (Polestar searches only the player's continent and those already loaded), never in combat ("Leffe's navigation maps in game") | `forge nav pack --leffe` | yes | yes, when written |
 | `Polestar_Travel` (`addon/Polestar_Travel/`) | Zone crossings for the travel planner, from an optional local crossings file; loaded with Polestar | `travel build` | no (local, gitignored) | no, never packaged (Nav, "Travel planner and zone crossings") |
-| `Polestar_SkinAPI` (`addon/Polestar_SkinAPI/`) | The Skin API's checks for a skin or colour scheme from another addon (its fields, colours, legibility, variants, preset: `docs/skins/reference.md`); loaded on demand by `Theme.RegisterSkin` / `Theme.RegisterScheme` the first time another addon registers one, so a player who uses no other addon's skin never loads it (Polestar's own skins and schemes need none of it) | hand-written | yes | yes |
-| `Polestar_Looks` (`addon/Polestar_Looks/`) | The game looks (WoW Forever, Blizzard, Classic: their kits, art tables and painters, `GameSkins.lua`, `GameArt.lua`; their sizes and type ladder, and their own waypoint arrow and map pin medallion in the client's art, given as a skin's `media` is, `Parts.lua`) and Hearth's painters (`Hearth.lua`); loaded on demand (`Theme.LoadLooks`) the first time one of them, or a skin built on one, is painted, so a player on the house look never loads them. Until then the core's `Theme.Kit` is nil and its `Theme.Kit*` stand-ins draw nothing; the part replaces them as it loads. Their palettes and fonts, and Hearth's sizes, stay in the core | hand-written; `GameArt.lua` by `media game-art` | yes | yes |
-| `Polestar_TabStyles` (`addon/Polestar_TabStyles/`) | The guide window's tab styles past the strip above the step bar (`guideWindow.tabStyle`): the title switcher, the top edge's and the left side's icon tabs (`TabStyles.lua`) and the switcher's menu rows (`Menu.lua`: headings, notes, the mark of the one in use, a close glyph; `W.MenuRows`); loaded on demand (`UI/GuideFrameTabStyles.lua`) the first time one of them is drawn, so a player on the strip never loads them. Without it the tabs stay above the step bar and the chat says so once | hand-written | yes | yes |
 | `Polestar_Options` (`addon/Polestar_Options/`) | The settings window, its Look pages and previews, the Profiles page and profile strings, Move frames; loaded on demand the first time the settings open (`UI/OptionsLoader.lua` is its door in the core) | hand-written | yes | yes |
-| `Polestar_Skin_<Name>` (`addon/Polestar_Skin_Vellum/` … `Polestar_Skin_Atlas/`) | The ten skins that ship (Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen, Atlas), each an addon on the Skin API (`## X-Polestar-Skin`), loaded only when picked; `Polestar_Skin_Example` never ships (docs/SKINS-API.md) | hand-written | yes | yes |
-| `Polestar_Layout_<Name>` (`addon/Polestar_Layout_Atlas/`) | The guide window's layouts on Skin API 2 (`## X-Polestar-Layout`): Atlas, the step on a timeline with cards above the window (a beta); loaded only when picked; the folders in the release are `forge_release::addons::LAYOUT_ADDONS` | hand-written | yes | yes |
+| `Polestar_Skins` (`addon/Polestar_Skins/`) | The ten skins that ship (`Skins/<Name>/`: Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen, Atlas, on the Skin API, named in its TOC's `## X-Polestar-Skin`) and the guide window's layout Atlas on Skin API 2 (`Layouts/Atlas/`, `## X-Polestar-Layout`: the step on a timeline with cards above the window, a beta), each its own addon before 0.4.3; loaded on demand when one of them is wanted (`Theme.LoadSkinAddon`: the saved skin or layout at login, a pick, the settings listing the skins); `Polestar_Skin_Example` never ships (docs/SKINS-API.md) | hand-written | yes | yes |
 | `Polestar_Arcade` (`addon/Polestar_Arcade/`) | The games offered on flights by `Maps/Arcade.lua` (one picker, `arcade.game`), loaded on demand the first time Play is pressed. Freedoom Arcade by petllama, a program of its own (GPL-2.0-or-later, its `LICENSE` and `CREDITS.md`): his DOOM engine port and three Freedoom levels; Polestar talks to it only through `LoadAddOn` and `FreedoomArcadeAPI`. Sky Jewels by RikyZ90 (`games/skyjewels/`, GPL-3.0-only, its `CREDITS.md`), a match-three game with 60 levels, progress in `PolestarCharDB.skyJewels`; Tetris by beemerwt (`games/tetris/`, GPL-3.0-only, its `LICENSE`), its run and best score in `Polestar_TetrisDB`. Each hands `Arcade.Register` its `Open`, `Close` and `IsOpen`. The folder is never loaded when the standalone `FreedoomArcade` addon is installed and enabled (one engine, the same globals): then Freedoom Arcade is the only game offered | `git subtree` of github.com/petllama/FreedoomArcade with our commits on top; assets by its `tools/build_assets.py` and `tools/subset.py`; Sky Jewels' levels by `tools/sky-jewels.lua`, its textures by `tools/media/sky-jewels.js` | yes | yes |
 | `Polestar_Recorder` (`addon/Polestar_Recorder/`) | The optional standalone recorder of play sessions, for authoring | hand-written | yes | yes, as its own zip |
 
@@ -1702,7 +1698,7 @@ implements them:
 
 - Ids: `Guides.RESERVED` (reserved pack ids, as forge's `RESERVED_IDS`; only
   `guides` from `Polestar_Guides` and `polestar-experimental` from
-  `Polestar_Experimental` may register theirs) and `Guides.OwnsId` (which
+  `Polestar` (`Experimental/`, its own folder before 0.4.3) may register theirs) and `Guides.OwnsId` (which
   prefix a pack owns: `forever/` and `draft/` for `guides`, `lookup/` for the
   internal `lookup` pack, registered with `internal = true` and never listed
   or switchable, every `<author>/` that is a valid, unreserved pack id for
@@ -3869,10 +3865,10 @@ dart up close. The skins' textures are drawn by `tools/media/skins.js`.
 [SKINS-API.md](SKINS-API.md), [docs/skins](skins/README.md)). Three files:
 `Theme/SkinApi.lua` (resident: the version and capabilities, the built-in
 schemes and skins taken as they are, the hooks' dispatch, the facts a picker
-shows, installed skin addons), `Polestar_SkinAPI/SkinCheck.lua` (load on
-demand: the checks a spec goes through, loaded by the first
-`Theme.RegisterScheme` / `Theme.RegisterSkin` call and handed back as
-`ThemeInternal.register`) and `Polestar_Options/Theme/SkinPicker.lua` (with
+shows, installed skin addons), `Theme/SkinCheck.lua` (with the core since
+0.4.3, `Polestar_SkinAPI` before: the checks a spec goes through, taken by
+`Theme.RegisterScheme` / `Theme.RegisterSkin` as `ThemeInternal.register`)
+and `Polestar_Options/Theme/SkinPicker.lua` (with
 the settings window: the picker's cards and the presets applied and undone).
 A card is a small guide window and the arrow built from frames and painted
 with Theme.lua's own paint and font calls (`ThemeInternal.paint`,
@@ -3930,7 +3926,7 @@ dial, so the page's preview builds sandbox dials and paints them through
 the skin picker's cards paint theirs in another skin after `Nav.ReadPalette`
 and `Arrow.ReadSkin` (the colours, the skin's dart and glow, read again).
 
-**The game's looks** (Polestar_Looks/GameSkins.lua, loaded on demand) draw Polestar in the client's art,
+**The game's looks** (Theme/Looks/GameSkins.lua, with the core since 0.4.3) draw Polestar in the client's art,
 the three looks EllesmereUI offers on the Forever client (its visual spec
 only; nothing of that addon is used), composed as the client's own FrameXML
 composes its windows: SharedUIPanelTemplates (ButtonFrameTemplateNoPortrait,
@@ -3968,7 +3964,7 @@ change hides them:
 - atlases the client draws sliced (UiTextureAtlasElementSliceData) are cut at
   the same margins (`ns.GameArtSlice`);
 - the waypoint arrow and the map marks: each look's own dart and medallion
-  (`Polestar_Looks/Parts.lua`), given as a skin addon's `media` is and read
+  (`Theme/Looks/Parts.lua`), given as a skin addon's `media` is and read
   through the same lookup (`Theme.SkinMedia`; an `atlas:` part drawn by
   `Theme.SetArt`): Forever's quest arrow and the campaign quest's shield,
   Classic's world map arrow (`UI-WorldMapArrow`, the vanilla silver arrow
@@ -3986,7 +3982,7 @@ change hides them:
 Sources: `forever` names atlas elements (the Forever client draws its own
 -c60 art for them); `blizzard` draws the same elements in their retail art,
 which still ships with the client but which SetAtlas does not draw there, by
-file ID and coordinates from `Polestar_Looks/GameArt.lua` (generated with the slice
+file ID and coordinates from `Theme/Looks/GameArt.lua` (generated with the slice
 margins by `node tools/polestar.js media game-art`, tools/media/game-art.js);
 `classic` names the vanilla files, composed as InterfaceOptionsFrame and the
 chat frame compose them: the dialog box's tile and 32-unit border with the
@@ -9247,9 +9243,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   its goal rows and goals area, the render and the build. Its other parts
   are files of their own, loaded right after it (`UI/UI.xml`):
   `GuideFrameTabs.lua` (the tab strip), `GuideFrameTabStyles.lua` (the
-  style in use of `guideWindow.tabStyle` and the loader
-  of the other styles: the title switcher, the top edge's and the left
-  side's icon tabs live in `Polestar_TabStyles`, a part of the window,
+  style in use of `guideWindow.tabStyle`; the other styles, the title
+  switcher, the top edge's and the left side's icon tabs, live in
+  `UI/TabStyles/`, loaded after it, a part of the window,
   `GF.Part`, that joins the live window and every copy as it loads),
   `GuideFrameBanner.lua` (the
   banner's notices, the wheel and the overview over the step number),

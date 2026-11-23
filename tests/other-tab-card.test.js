@@ -102,7 +102,7 @@ for _, id in ipairs(looks) do
 	local a, z = lum(r, g, b), lum(br, bg, bb)
 	res[id] = { blue = b > r and b > g, contrast = (math.max(a, z) + 0.05) / (math.min(a, z) + 0.05), skin = Polestar.Theme.SkinKey() }
 end
-emit(res)`, ['Polestar', 'Polestar_Looks']);
+emit(res)`, ['Polestar']);
 	for (const [id, r] of Object.entries(out)) {
 		assert.equal(r.blue, true, `${id}: the title is blue ${JSON.stringify(r)}`);
 		assert.ok(r.contrast >= 3, `${id}: the title reads on the window ${JSON.stringify(r)}`);

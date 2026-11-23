@@ -7,7 +7,7 @@
 //! Install not shown again, nothing in chat, no sound, alert or automatic action, and a bounded login.
 
 use crate::common::{install, play, previous, release_or_skip, skip, Play};
-use crate::questlog::{empty, KNOWN};
+use crate::questlog::{empty, goldshire, KNOWN};
 use forge_addontest::lua_string;
 use serde_json::Value;
 use std::path::Path;
@@ -215,6 +215,51 @@ ScenesQ.walked(at)"#;
 		let (Some((t0, g0)), Some((t1, g1))) = (stop(&old[key]), stop(&out[key])) else { panic!("no {key}: {old} -> {out}") };
 		assert!(t0 == t1 && g0.iter().all(|g| g1.contains(g)), "the update moved the guide's {key}: {old} -> {out}");
 	}
+}
+
+/// #3507: 0.4.3 folded 24 addon folders into others. A player who unpacks the release over the live one keeps
+/// the live one's copies of them (each loads on demand, its TOC as it shipped): the first login names them in one
+/// line saying to delete them, nothing else is said, and none of them loads.
+#[test]
+fn an_update_unpacked_over_the_live_release_names_the_folders_it_folded_once_and_loads_none_3507() {
+	let Some(dir) = release_or_skip() else { return };
+	let Some(prev) = previous() else {
+		skip("POLESTAR_PREVIOUS_ADDON_DIR is unset (the live release's unpacked AddOns folder): the update scene needs it");
+		return;
+	};
+	let folded = forge_release::addons::folded_addons(&prev);
+	if folded.is_empty() {
+		skip("the live release has none of the folders 0.4.3 folded");
+		return;
+	}
+	// Each old folder in the AddOns list after the release's own, its TOC's fields as the client reads them.
+	let mut lua = Vec::new();
+	for n in &folded {
+		let toc = std::fs::read_to_string(prev.join(n).join(format!("{n}.toc"))).unwrap_or_else(|e| panic!("{n}: {e}"));
+		let meta: Vec<String> = toc.lines().filter_map(|l| l.strip_prefix("##")?.split_once(':')).map(|(k, v)| format!("[{}] = {}", lua_string(k.trim()), lua_string(v.trim()))).collect();
+		let q = lua_string(n);
+		lua.push(format!("stub.addons[#stub.addons + 1] = {{ name = {q}, title = {q}, enabled = true, loaded = false, demand = true, reason = \"DEMAND_LOADED\" }}"));
+		lua.push(format!("stub.addonMeta[{q}] = {{ {} }}", meta.join(", ")));
+	}
+	let names: Vec<String> = folded.iter().map(|n| lua_string(n)).collect();
+	let mut p = goldshire(&format!(
+		r#"stub.advance(10)
+local loaded = {{}}
+for _, n in ipairs({{ {} }}) do if C_AddOns.IsAddOnLoaded(n) then loaded[#loaded + 1] = n end end
+emit({{ lines = Scene.since(Scene.atLogin).lines, loaded = loaded }})"#,
+		names.join(", ")
+	));
+	p.dir = Some(dir);
+	p.before = format!("{}\n{}", lua.join("\n"), p.before);
+	let out = play(&p).remove(0);
+	assert!(empty(&out["loaded"]), "an old folder loaded: {}", out["loaded"]);
+	let lines = out["lines"].as_array().cloned().unwrap_or_default();
+	assert_eq!(lines.len(), 1, "one line at login, naming the old folders: {lines:?}");
+	let line = lines[0].as_str().unwrap_or("");
+	assert!(line.contains("Polestar no longer uses these folders ("), "{line}");
+	let mut sorted = folded.clone();
+	sorted.sort();
+	assert!(line.contains(&format!("({}): since 0.4.3", sorted.join(", "))), "every old folder named, none else: {line}");
 }
 
 /// Budgets (CPU ms, quiet machine), about 5x 0.4.1.1's: PLAYER_LOGIN through the login's timers (the guide placed
