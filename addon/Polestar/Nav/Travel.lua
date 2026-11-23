@@ -2692,7 +2692,7 @@ end
 -- two ends in world coordinates and what the plan reads besides; nil when
 -- either end can't be placed, a false key while a flight master's map is open
 -- (a live offer is never cached).
-local function estimateKey(from, to, noHearth)
+function Travel.EstimateKey(from, to, noHearth)
 	local tc, twx, twy = pointWorld(to)
 	if not tc then return nil end
 	local fc, fwx, fwy
@@ -2725,7 +2725,7 @@ end
 -- while a flight master's map is open is never cached, so it plans. A caller
 -- that spreads its estimates over frames (UI/DungeonToast.lua) asks first.
 function Nav.EstimateKnown(from, to, noHearth)
-	local key, fc = estimateKey(from, to, noHearth)
+	local key, fc = Travel.EstimateKey(from, to, noHearth)
 	if not fc then return true end
 	if not key then return false end
 	local hit = estimates[key]
@@ -2737,7 +2737,7 @@ end
 -- While a quest timer runs, the player's own estimates leave out the Hearthstone and teleports, as the route does.
 --   -> seconds | nil (unknown position or unreachable) | nil, "busy" (budgeted, this frame's budget is spent)
 function Nav.EstimateTravel(from, to, budgeted, noHearth)
-	local key, fc, fwx, fwy, tc, twx, twy, timed, ghost, fz, offer = estimateKey(from, to, noHearth)
+	local key, fc, fwx, fwy, tc, twx, twy, timed, ghost, fz, offer = Travel.EstimateKey(from, to, noHearth)
 	if not fc then return nil end
 	local now = GetTime()
 	local hit = estimates[key]

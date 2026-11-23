@@ -1385,7 +1385,9 @@ fn a_level_up_tells_once_that_wailing_caverns_is_open_and_its_button_picks_up_th
 // each answer Nav's cache lacks, and a level-up empties it): Ragefire Chasm's at 15 on the Barrens was 12 plans,
 // 12-21 ms in the one frame 1.5 s after the level-up (Stutter041's kill harness). They come at most two a frame
 // now, and the card is the same. A Nav that counts its plans by frame and keeps its answers, as Nav/Travel.lua's
-// cache does. Before: every plan in the check's frame.
+// cache does. The fixture's quests each have one giver, placed on the page (Dungeons.Giver prices none), so each
+// plan here prices six places from the player, as a quest several NPCs give and a breadcrumb's detour do on the
+// real data. Before: every plan in the check's frame.
 #[test]
 fn a_level_up_check_makes_at_most_two_route_plans_a_frame_and_shows_the_same_card() {
 	let out = run(&format!(
@@ -1407,6 +1409,16 @@ fn a_level_up_check_makes_at_most_two_route_plans_a_frame_and_shows_the_same_car
 				return cache[k] or nil
 			end,
 		}}
+		-- The player at the Crossroads, on a flat world.
+		local C = Polestar.Compat
+		C.GetPlayerMapPosition = function() return 1413, 51.5, 30.3 end
+		C.MapToWorld = function(map, x, y) return 1, x * 10, y * 10 end
+		local pickup = Polestar.Dungeons.PickupPlan
+		Polestar.Dungeons.PickupPlan = function(key, offer)
+			local from = Polestar.PlayerPoint()
+			for i = 1, 6 do Polestar.TravelCost(from, {{ map = 1413, x = 40 + i, y = 30 }}) end
+			return pickup(key, offer)
+		end
 		stub.fire("PLAYER_LEVEL_UP", 20)
 		stub.advance(3)
 		local most, frames = 0, 0
