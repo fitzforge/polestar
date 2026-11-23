@@ -110,7 +110,7 @@ test('the report says how the arrow routes: the route style, then only the routi
 	assert.equal(out.unknown, 'Routes: balanced · real paths off · travel planner off', 'a style the router reads as Balanced is reported as Balanced');
 });
 
-test('the report lists the travel plan from the current leg: each caption and time, "(maybe)" on a flight to a flight master the character may not have, no line without a plan (#1795)', () => {
+test('the report lists the travel plan from the current leg: each caption and time, "(assumed)" on a flight to a flight master the character may not have, no line without a plan (#1795)', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)
 		local function travel()
@@ -131,7 +131,32 @@ test('the report lists the travel plan from the current leg: each caption and ti
 		r.plan = travel()
 		emit(r)`);
 	assert.equal(out.none, undefined, 'no plan: no line');
-	assert.equal(out.plan, 'Travel: Walk to the flight master 1:23 · Fly to Astranaar 3:05 (maybe) · Delgren the Purifier 0:40');
+	assert.equal(out.plan, 'Travel: Walk to the flight master 1:23 · Fly to Astranaar 3:05 (assumed) · Delgren the Purifier 0:40');
+});
+
+test('the report names the flight paths Polestar takes the character to know on this continent, and whether a flight map opened here (#3290)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local function flights()
+			UI.ShowReport()
+			for line in PolestarReport.Box:GetText():gmatch("[^\\n]+") do
+				if line:find("^Flight paths: ") then return line end
+			end
+		end
+		local r = { none = flights() }
+		local nodes = { [1] = { name = "Ratchet", c = 1 }, [2] = { name = "Auberdine", c = 1 }, [3] = { name = "Stormwind", c = 0 } }
+		local known, seen = { [1] = true, [2] = true, [3] = true }, {}
+		Polestar.Nav.GetKnownTaxiNodes = function() return known end
+		Polestar.Nav.GetTaxiNode = function(id) return nodes[id] end
+		Polestar.Nav.GetTaxiSeen = function() return seen end
+		Polestar.Compat.GetPlayerWorldPosition = function() return 1, 100, 200 end
+		r.unseen = flights()
+		seen[1] = true
+		r.seen = flights()
+		emit(r)`);
+	assert.equal(out.none, undefined, 'no travel data: no line');
+	assert.equal(out.unseen, 'Flight paths: 2 known here · no flight map opened here yet · Auberdine, Ratchet', 'this continent\'s, by name; not Stormwind');
+	assert.equal(out.seen, 'Flight paths: 2 known here · flight map opened here · Auberdine, Ratchet');
 });
 
 test('the Where line gives the height of the floor Polestar takes the player to stand on, when it knows one (#2215)', () => {
@@ -449,9 +474,11 @@ test('what the player typed stays while it is the same step; a report on another
 	assert.deepEqual(out.other, { text: '', placeholder: true, report: '**What went wrong:** (not described)' });
 });
 
-test('the guide window\'s menu and /polestar report open it too; Escape closes it', () => {
+test('the guide window\'s menu (with the header\'s bug off) and /polestar report open it too; Escape closes it', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)
+		-- The menu lists Report a problem while the header has no bug to click.
+		GF.parts.nav.Report:Hide()
 		GF.menuButton:Click()
 		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Report a problem" then r:Click() end end
 		local fromMenu = PolestarReport:IsShown()

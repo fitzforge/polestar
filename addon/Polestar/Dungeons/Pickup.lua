@@ -88,9 +88,11 @@
 --       A Recipe For Death's steps said they were there for the Ruins of
 --       Lordaeron's The New Plague).
 --   The pick-up guide's first goal also says how many of its steps are such
---   prerequisites and about how long they take: "Prerequisite quests: 5 of 10
---   steps, about 1 h 15 min." (Dungeons.PrereqTime of Dungeons.PrereqSeconds
---   summed; rounded to 5 minutes).
+--   prerequisites and about how long they take: "5 of this guide's 10 steps
+--   are prerequisite quests (about 1 h 15 min)." (Dungeons.PrereqTime of
+--   Dungeons.PrereqSeconds summed; rounded to 5 minutes). It once read
+--   "Prerequisite quests: 7 of 10 steps", which players took for their
+--   progress through the guide (#2709).
 --   Dungeons.PrereqSeconds(step, rec, pos) -> seconds   -- a prerequisite step's rough time:
 --       the travel from `pos` through the step's goal points in order (its
 --       giver, the places of its objectives, its turn-in: LK().Travel) times
@@ -574,15 +576,16 @@ end
 -- from where the player stands, the entrance, or any other stop of the plan
 -- (another giver, a chain quest's giver or turn-in), breadcrumbs left out
 -- (one with a prerequisite of its own in the plan: from that one's turn-in
--- or the entrance only):
+-- or the entrance only; a delivery across the sea without one: from where
+-- the player stands only, when located):
 -- min over A of T(A, giver) + T(giver, target) - T(A, target). It is left out
--- when its giver is on a continent no other stop is on, when the detour is
--- over DETOUR seconds, or when it is a delivery across the sea (its giver on
--- another continent than every one of its targets) and the detour is over
--- NEAR seconds. Kept: one on the way (Tinkmaster Overspark in Stormwind for
--- a player there, The Greenwarden in Menethil Harbor, #1226), one across the
--- sea from a giver beside the player (Tabetha's Task at a city's mage
--- trainer), and any the plan cannot place.
+-- when its giver is on a continent none of those anchors is on, when the
+-- detour is over DETOUR seconds, or when it is a delivery across the sea
+-- (its giver on another continent than every one of its targets) and the
+-- detour is over NEAR seconds. Kept: one on the way (Tinkmaster Overspark
+-- in Stormwind for a player there, The Greenwarden in Menethil Harbor,
+-- #1226), one across the sea from a giver beside the player (Tabetha's Task
+-- at a city's mage trainer), and any the plan cannot place.
 -- DETOUR: over every dungeon page, both sides, the breadcrumbs players take
 -- on the way cost at most 185 s (Speak with Ruga from Orgrimmar, A Troubled
 -- Spirit), the real detours at least 479 s (Tran'rek in Stranglethorn for
@@ -592,7 +595,10 @@ end
 -- NEAR: a breadcrumb that crosses the sea is worth its few hundred XP only
 -- when its giver is in the town the player is in (#1402, Geekmandem: from
 -- Stonetalon Peak, Castpipe's Task at Windshear Crag cost 200 s of the
--- route, a walk of 394 s, for 230 XP and a quest Ironforge gives anyway).
+-- route, a walk of 394 s, for 230 XP and a quest Ironforge gives anyway;
+-- #2795: at Nijel's Point for Scarlet Monastery, Brother Anton from Brother
+-- Crowley in Stormwind is judged from where the player stands rather than
+-- from other Eastern Kingdoms stops on the route).
 -- Kept: Tabetha's Task at the Undercity's mage trainer for a player in the
 -- Undercity (100 s), at Stormwind's (4 s). Left out
 -- besides Castpipe's Task: A Troubled Spirit (Orgrimmar to Stonard, 185 s),
@@ -693,9 +699,11 @@ local function dropDetours(plan, from, p)
 				local tc = continentOf(at[tid])
 				if tc == nil or tc == c then sea = false end
 			end
-			for _, a in ipairs(stops) do near = near or continentOf(a) == c end
+			local own = afterOwn(recs[id])
+			local anchors = own or (sea and located(from) and { from }) or stops
+			for _, a in ipairs(anchors) do near = near or continentOf(a) == c end
 			local best
-			for _, a in ipairs(afterOwn(recs[id]) or stops) do
+			for _, a in ipairs(anchors) do
 				for _, tid in ipairs(targets) do
 					local x, y, z = T(a, g), T(g, at[tid]), T(a, at[tid])
 					if x and y and z and (not best or x + y - z < best) then best = x + y - z end
@@ -1019,9 +1027,19 @@ local function acceptGoal(pq, rec, g)
 		goal.object, goal.objName = g.id, g.name
 	else
 		goal.npc, goal.npcName = g.id, g.name
+		-- A quest several NPCs give: each of the character's side, the nearest picked live (#3368).
+		goal.candidates = rec and LK().GiverCandidates(rec.start, g) or nil
 	end
 	goal.z = LK().SpawnZ(g.kind == "object" and "object" or "npc", g.id, g)
-	return goal
+	-- One of a set its giver offers one at a time (the Codex's rotation, #3601: Pix Xizzix's weekly In Demand
+	-- quests): optional, so the guide never waits on one not offered this week, and its goal says so.
+	if rec and rec.rotation then
+		goal.optional = true
+		local text = format(L["%s offers one of these a week: take it if it is this week's."], g.name or L["Quest giver"])
+		goal.note = goal.note and (text .. " " .. goal.note) or text
+	end
+	-- A giver only the dead see: optional, and its goal says so (Lookup.GhostOnly, #558).
+	return LK().GhostOnly(goal)
 end
 
 -- Collect the item that starts a quest at drop point d (Dungeons.DropPoint):
@@ -1775,8 +1793,12 @@ local function route(key, plan)
 			local u = { npcKey = s.giverKey, lone = true, title = s.giver.name or L["Quest giver"], goals = {} }
 			if s.giver.kind == "drop" then u.goals[#u.goals + 1] = collectGoal(s.giver) end
 			for _, t in ipairs(s.accepts) do
-				u.goals[#u.goals + 1] = acceptGoal(t.quest, t.rec, s.giver)
+				local a = acceptGoal(t.quest, t.rec, s.giver)
+				u.goals[#u.goals + 1] = a
 				for _, g in ipairs(atGiver(t.rec, s.giver)) do u.goals[#u.goals + 1] = g end
+				-- One quest several NPCs give: the step is named after it, not after
+				-- the giver the Engine may pick another over (#3368).
+				if a.candidates and #s.accepts == 1 then u.title = t.quest.title or (t.rec and t.rec.title) or u.title end
 			end
 			units[#units + 1] = u
 			last = nil
@@ -1828,7 +1850,8 @@ local function route(key, plan)
 		local name
 		if u.lone and u.quest then
 			local g = u.goals[#u.goals]
-			name = g and (g.npcName or g.objName)
+			-- An accept the Engine may take from another of its givers (#3368) keeps the quest's title.
+			name = g and not g.candidates and (g.npcName or g.objName) or nil
 		end
 		if u.lone and prev and prev.lone and prev.npcKey and prev.npcKey == u.npcKey then
 			for _, g in ipairs(u.goals) do prev.step.goals[#prev.step.goals + 1] = g end
@@ -1916,7 +1939,7 @@ function Dungeons.PickupGuide(key)
 	-- the first goal, the first thing the window says.
 	local first = steps[1] and steps[1].goals and steps[1].goals[1]
 	if pre.n > 0 and first then
-		local head = format(L["Prerequisite quests: %d of %d steps, about %s."], pre.n, #steps, Dungeons.PrereqTime(pre.seconds))
+		local head = format(L["%d of this guide's %d steps are prerequisite quests (about %s)."], pre.n, #steps, Dungeons.PrereqTime(pre.seconds))
 		first.note = first.note and (head .. " " .. first.note) or head
 	end
 	return { title = format(L["%s: pick up the quests"], d.name), steps = steps, dungeon = key }
@@ -1966,7 +1989,7 @@ function Dungeons.LevelReached(level)
 	for _, w in ipairs(list) do
 		if not w.told and w.level <= level and not done(w.id) and not inLog(w.id) then
 			w.told = true
-			ns.Print(format(L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."], level, ns.Quoted(w.title) or ""))
+			ns.Notice(format(L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."], level, ns.Quoted(w.title) or ""))
 			local pt = Dungeons.GiverTarget(key, w.id)
 			if pt and located(pt) then
 				local r, g, b = 1, 0.82, 0

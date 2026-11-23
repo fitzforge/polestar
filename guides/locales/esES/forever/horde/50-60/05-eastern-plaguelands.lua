@@ -390,23 +390,25 @@ return {
 	-- Step 90: Donova Snowden
 	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
 	["From the tunnel's {zone:1452} exit, ride south to {area:2246}."] = "Desde la salida del túnel en {zone:1452}, cabalga al sur hasta {area:2246}.",
+
+	-- Step 91: Donova Snowden
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "{quest:5086} están en {zone:1448}, en un viaje posterior: guárdala.",
 
-	-- Step 91: Moontouched Owlbeasts
+	-- Step 92: Moontouched Owlbeasts
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Moontouched Owlbeasts"] = "Lechubestias lunadón",
 	-- {area:2255} Everlook · {area:2241} Frostsaber Rock
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Careful: they are 57-58: pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "Ve al este hasta {area:2255} y sal de allí hacia el norte; las lechubestias lunadón recorren las colinas de las laderas sur de {area:2241}. Cuidado: son de nivel 57-58: atráelas de una en una.\nCuidado: los Hailspite, élites de nivel 60, se reúnen en los campos nevados al sureste de {area:2255}, donde también rondan algunas lechubestias lunadón: no te salgas de las laderas al norte del pueblo.",
 
-	-- Step 92: Pristine Yeti Horns
+	-- Step 93: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Cuernos de yeti prístinos",
 	-- {area:2255} Everlook
 	["Umi's horns, carried from your last {area:2255} stop: the yeti hills start just south-east of {area:2255}. Only Matriarchs and Patriarchs drop horns, and the Patriarchs reach 58: pull them one at a time."] = "Los cuernos de Umi, pendientes desde tu última parada en {area:2255}: las colinas de los yetis empiezan justo al sureste de {area:2255}. Solo las matriarcas y los patriarcas sueltan cuernos, y los patriarcas llegan al nivel 58: atráelos de uno en uno.",
 
-	-- Step 93: Umi Rumplesnicker
+	-- Step 94: Umi Rumplesnicker
 	-- {area:976} Gadgetzan · {area:2255} Everlook · {zone:2482} Mount Hyjal · {zone:1451} Silithus
 	["Umi's third prank targets goblins in {area:976}, Un'Goro and {area:2255}: keep it. {zone:2482} is next: its way in starts here in {area:2255}; {area:976}, Linken's sword and {zone:1451} follow it."] = "",
 

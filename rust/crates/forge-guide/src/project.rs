@@ -182,36 +182,6 @@ fn is_guide_id(s: &str) -> bool {
 	!s.is_empty() && s.split('/').all(|p| !p.is_empty() && p.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit() || b == b'_' || b == b'-'))
 }
 
-/// Regional walking addons in the pack, never stale directories left by a previous build.
-/// Old, continent-only packs have no `regions` member.
-#[cfg(feature = "native")]
-pub fn nav_region_addons(addons: &std::path::Path) -> Result<Vec<String>, String> {
-	let path = addons.join("Polestar_Nav/PACK.json");
-	let text = match std::fs::read_to_string(&path) {
-		Ok(text) => text,
-		Err(e) if e.kind() == std::io::ErrorKind::NotFound => return Ok(Vec::new()),
-		Err(e) => return Err(format!("{}: {e}", path.display())),
-	};
-	let doc = crate::js::parse_json(&text).map_err(|e| format!("{}: {e}", path.display()))?;
-	let regions = doc.get("regions");
-	if doc.is_obj() && regions.is_undef() {
-		return Ok(Vec::new());
-	}
-	if !regions.is_arr() {
-		return Err(format!("{}: expected a regions array", path.display()));
-	}
-	let mut parts = Vec::with_capacity(regions.len());
-	for item in regions.items() {
-		let name = item.as_str().filter(|s| crate::toc::nav_region(s).is_some()).ok_or_else(|| format!("{}: invalid walking-region folder", path.display()))?;
-		parts.push(name.to_owned());
-	}
-	parts.sort_unstable();
-	if parts.windows(2).any(|p| p[0] == p[1]) {
-		return Err(format!("{}: duplicate walking-region folder", path.display()));
-	}
-	Ok(parts)
-}
-
 /// readRetired on retired.json's text (None: no file). `file` names it in diagnostics.
 pub fn read_retired_text(text: Option<&str>, file: &str, guides: &[V], diag: &mut Diagnostics) -> Vec<String> {
 	let Some(text) = text else { return Vec::new() };
@@ -359,22 +329,24 @@ pub const OWN_FOLDER: &str = "Polestar_Guides";
 
 /// One of Polestar's own extra guide packs (docs/PACK_FORMAT.md, "Polestar's own extra packs"): built from its
 /// folder in the checkout (pack.json and .guide files, checked as a community pack's, with our guides as
-/// context) into an addon folder of Polestar's that ships in the release zip, with Polestar's TOC
-/// ([`crate::emit::emit_toc`]): its title as written, the AddOns list in every client language, and
-/// `## LoadOnDemand: 1`, so Polestar keeps it off until the player switches it on (Community guides) and loads
-/// it then. Its id is reserved (format.rs RESERVED_IDS): only its own pack.json may give it (manifest.rs
-/// read_extra_manifest), and in game only its own addon may register it.
+/// context) into a folder inside Polestar's own addon (`dir`, under addon/), with no TOC of its own: Polestar's
+/// TOC lists its Pack.lua, MapFrames.lua and Guides.lua, so it registers as Polestar loads and its setting
+/// shows or hides its guides (#3507: no addon folder of its own). Its id is reserved (format.rs RESERVED_IDS):
+/// only its own pack.json may give it (manifest.rs read_extra_manifest), and in game only Polestar may
+/// register it.
 pub struct OwnExtra {
 	/// Its folder in the checkout.
 	pub source: &'static str,
 	/// Its pack id.
 	pub id: &'static str,
-	/// Its addon folder.
+	/// Its pack's folder name (pack.json's `folder`, which a community pack.json cannot name).
 	pub folder: &'static str,
+	/// Where its files go, under addon/: inside Polestar's own folder.
+	pub dir: &'static str,
 }
 
 /// The extra packs: the experimental guides (Forever's new zones, alpha), never suggested in game.
-pub static OWN_EXTRAS: [OwnExtra; 1] = [OwnExtra { source: "experimental", id: "polestar-experimental", folder: "Polestar_Experimental" }];
+pub static OWN_EXTRAS: [OwnExtra; 1] = [OwnExtra { source: "experimental", id: "polestar-experimental", folder: "Polestar_Experimental", dir: "Polestar/Experimental" }];
 
 /// The extra pack whose addon folder is `folder`.
 pub fn own_extra(folder: &str) -> Option<&'static OwnExtra> {
@@ -814,7 +786,10 @@ pub fn build_pack_files(
 	let id = manifest.get("id").to_js_string();
 	let mut files: Vec<(String, FileContent)> = Vec::new();
 	let t = FileContent::Text;
-	files.push((format!("{folder}.toc"), t(crate::emit::emit_toc(manifest, iface, format))));
+	// One of Polestar's own extra packs has no TOC: Polestar's lists its files (OwnExtra).
+	if own_extra(&folder).is_none() {
+		files.push((format!("{folder}.toc"), t(crate::emit::emit_toc(manifest, iface, format))));
+	}
 	files.push(("Pack.lua".into(), t(crate::emit::emit_pack(manifest, format))));
 	let frames = referenced_frames(guides, data);
 	// The experimental index's points too: their routes' travel time and art focus are read before their
@@ -833,27 +808,70 @@ pub fn build_pack_files(
 		gl.push_str(&crate::emit::emit_retired(&id, retired));
 	}
 	gl.push_str(&crate::emit::emit_experimental(offers));
+	// One of Polestar's own extra packs: its guides come in when it is first shown (Core/Guides.lua DeferGuides).
+	if own_extra(&folder).is_some() {
+		gl = crate::emit::defer_guides(&id, &gl);
+	}
 	files.push(("Guides.lua".into(), t(gl)));
 	let license_data = crate::emit::emit_license(&meta, !leg_parts.is_empty());
 	files.push(("LICENSE-DATA.txt".into(), t(license_data.clone())));
 	if let Some(l) = license {
 		files.push(("LICENSE.txt".into(), t(l.to_string())));
 	}
+	// Polestar's own pack: a race's own guides and baked legs go into the faction part of each side they are for,
+	// as Guides_<race>.lua and Legs_<race>.lua, each returning at once for a player of another race (emit.rs
+	// race_guard; #3507: two faction folders instead of nine race folders). Any other pack keeps an addon per race.
+	let mut races: Vec<String> = parts.iter().chain(leg_parts.iter()).map(|(r, _)| r.clone()).collect();
+	races.sort_by(|a, b| crate::js::cmp_utf16(a, b));
+	races.dedup();
+	let mut faction_files: Vec<(&'static str, String, String)> = Vec::new();
+	if ours {
+		// The sides a race's guide is for: the guide's faction, else every side the race is played on.
+		let sides = |race: &str, g: &V| -> Vec<&'static str> {
+			match FACTION_PARTS.into_iter().find(|f| g.get("faction").as_str() == Some(*f)) {
+				Some(f) => vec![f],
+				None => FACTION_PARTS.into_iter().filter(|f| crate::races::race_by_file_ref(race).is_some_and(|x| x.sides.iter().any(|s| s.0 == *f))).collect(),
+			}
+		};
+		for race in &races {
+			for faction in FACTION_PARTS {
+				let pick = |m: &Vec<(String, Vec<V>)>| -> Vec<V> {
+					m.iter().find(|(r, _)| r == race).map(|(_, l)| l.iter().filter(|g| sides(race, g).contains(&faction)).cloned().collect()).unwrap_or_default()
+				};
+				let own = pick(&parts);
+				if !own.is_empty() {
+					let es: Vec<V> = own.iter().map(entry).collect();
+					faction_files.push((faction, format!("Guides_{race}.lua"), crate::emit::race_guard(crate::emit::emit_guides_with(&es, true, ours), race)));
+				}
+				let legs = pick(&leg_parts);
+				if !legs.is_empty() {
+					faction_files.push((faction, format!("Legs_{race}.lua"), crate::emit::race_guard(crate::emit::emit_legs(&id, &legs), race)));
+				}
+			}
+		}
+		for (faction, _, _) in &faction_files {
+			if !factions.iter().any(|(f, _)| f == faction) {
+				factions.push((*faction, Vec::new()));
+			}
+		}
+	}
 	factions.sort_by_key(|(f, _)| *f);
 	for (faction, list) in &factions {
 		let name = part_addon(&folder, faction);
-		files.push((format!("../{name}/{name}.toc"), t(crate::emit::emit_faction_toc(manifest, faction, iface))));
+		let mine: Vec<&(&str, String, String)> = faction_files.iter().filter(|(f, _, _)| f == faction).collect();
+		let names: Vec<&str> = mine.iter().map(|(_, n, _)| n.as_str()).collect();
+		files.push((format!("../{name}/{name}.toc"), t(crate::emit::emit_faction_toc(manifest, faction, iface, &names))));
 		let es: Vec<V> = list.iter().map(entry).collect();
 		files.push((format!("../{name}/Guides.lua"), t(crate::emit::emit_guides_with(&es, false, true))));
+		for (_, file, text) in mine {
+			files.push((format!("../{name}/{file}"), t(text.clone())));
+		}
 		files.push((format!("../{name}/LICENSE-DATA.txt"), t(license_data.clone())));
 		if let Some(l) = license {
 			files.push((format!("../{name}/LICENSE.txt"), t(l.to_string())));
 		}
 	}
-	let mut races: Vec<String> = parts.iter().chain(leg_parts.iter()).map(|(r, _)| r.clone()).collect();
-	races.sort_by(|a, b| crate::js::cmp_utf16(a, b));
-	races.dedup();
-	for race in &races {
+	for race in races.iter().filter(|_| !ours) {
 		let name = part_addon(&folder, race);
 		let own = parts.iter().find(|(r, _)| r == race).map(|(_, l)| l);
 		let legs = leg_parts.iter().find(|(r, _)| r == race).map(|(_, l)| l);
@@ -1105,7 +1123,8 @@ mod native {
 	}
 
 	/// packDirRefusal (project.js): an absent or empty folder, or one we generated (a TOC or the old
-	/// Pack.xml with the marker, new or legacy), may be replaced; with `pack_id`, a generated folder of
+	/// Pack.xml with the marker, new or legacy; with no TOC at all, one of Polestar's own extra packs inside
+	/// Polestar, its Pack.lua with the marker), may be replaced; with `pack_id`, a generated folder of
 	/// another pack may not. -> None, or why not: `--out` at the repository on a case-insensitive file
 	/// system, or at someone's own addon, must never be touched.
 	pub fn pack_dir_refusal(dir: &Path, pack_id: Option<&str>) -> Option<String> {
@@ -1114,12 +1133,13 @@ mod native {
 			return None;
 		}
 		let text = |e: &std::fs::DirEntry| std::fs::read_to_string(e.path()).unwrap_or_default();
+		let no_toc = !list.iter().any(|e| is_toc(&e.file_name().to_string_lossy()));
 		let marked: Vec<String> = list
 			.iter()
 			.filter(|e| e.file_type().is_ok_and(|t| t.is_file()))
 			.filter(|e| {
 				let n = e.file_name().to_string_lossy().into_owned();
-				is_toc(&n) || n == "Pack.xml"
+				is_toc(&n) || n == "Pack.xml" || (no_toc && n == "Pack.lua")
 			})
 			.map(text)
 			.filter(|t| crate::format::is_generated(t))
@@ -1336,6 +1356,11 @@ mod native {
 			for w in got.get("warnings").items() {
 				project.diag.warn(&w.get("file").to_js_string(), 0.0, w.get("message").to_js_string(), None);
 			}
+			// An extra pack inside Polestar has no texts addon of its own to put them in (OwnExtra).
+			if own_extra(&manifest.get("folder").to_js_string()).is_some() && !translations.keys().is_empty() {
+				let at = shown(&pack_dir.join("locales"));
+				project.diag.error(&at, 0.0, format!("{at}: Polestar's own extra packs are compiled into Polestar itself and have no language folder for their translations"), None);
+			}
 		}
 		let ok = !project.diag.has_errors();
 		let files = if ok || force {
@@ -1345,6 +1370,14 @@ mod native {
 		} else {
 			None
 		};
+		// An extra pack inside Polestar has no folders beside it either: a guide that would need a race part of
+		// its own (a class chain for named races, baked legs) is refused.
+		if let (Some(e), Some(f)) = (own_extra(&manifest.get("folder").to_js_string()), files.as_ref()) {
+			if let Some((name, _)) = f.iter().find(|(n, _)| n.starts_with("../")) {
+				let at = shown(&pack_dir.join("pack.json"));
+				project.diag.error(&at, 0.0, format!("{}: Polestar's own extra packs are compiled into Polestar itself (addon/{}) and have no folder beside it for {name}", e.source, e.dir), None);
+			}
+		}
 		Ok(Built { project, files })
 	}
 }

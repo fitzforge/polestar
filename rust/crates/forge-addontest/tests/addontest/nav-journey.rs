@@ -72,7 +72,7 @@ local function keys(shift, alt, ctrl) stub.keys.shift, stub.keys.alt, stub.keys.
 fn run_with(script: &str, before: &str, saved: Option<&str>, login: bool) -> Vec<Value> {
 	emitted(&RunAddon {
 		stubs: vec!["stub_nav.lua"],
-		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])],
+		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Core/ProfessionTrainers.lua", "Nav/Nav.xml"])],
 		before: format!("{WORLD}{before}"),
 		saved: saved.map(|s| ("Polestar".to_string(), s.to_string())).into_iter().collect(),
 		login,
@@ -722,6 +722,77 @@ fn nearby_the_nearest_spawn_of_each_friendly_npc_outside_instances_ranked_by_tra
 	assert_eq!(out[2], "Miner Mo");
 	assert_eq!(out[3], "Miner Mo", "a profession alone means its trainer");
 	assert_eq!(out[4], "Trainer Tess");
+}
+
+// #3784: the trainer chosen for a profession must teach the character's next rank and accept the
+// skill they have. Simon Tanner (11) teaches Apprentice and Journeyman, Telonis (12) Expert; Yelmak
+// (15) trains Alchemy up to 50 before Doctor Halsey (14) does, from 125. A rank with no trainer on
+// the player's side says so and leaves the arrow alone.
+#[test]
+fn nearby_a_profession_trainer_teaches_the_next_rank_and_accepts_the_skill_3784() {
+	let out = run(&[
+		CODEX,
+		r#"
+		nav.Compat.SKILL_LINES.leatherworking = 165
+		npcs[11] = { id = 11, name = "Simon Tanner", faction = "A", spawns = { { map = 9000, x = 51, y = 50 } } }
+		npcs[12] = { id = 12, name = "Telonis", faction = "A", spawns = { { map = 9000, x = 85, y = 50 } } }
+		npcs[13] = { id = 13, name = "Horde Tanner", faction = "H", spawns = { { map = 9000, x = 50, y = 52 } } }
+		npcs[14] = { id = 14, name = "Doctor Halsey", faction = "H", spawns = { { map = 9000, x = 50, y = 51 } } }
+		npcs[15] = { id = 15, name = "Yelmak", faction = "H", spawns = { { map = 9000, x = 80, y = 50 } } }
+		roles["trainer:165"] = { 11, 12, 13 }
+		roles["trainer:171"] = { 14, 15 }
+		local profs = {
+			[165] = {
+				ranks = {
+					{ minSkill = 0, max = 75, A = { 11 }, H = { 13 } },
+					{ minSkill = 50, max = 150, A = { 11 }, H = { 13 } },
+					{ minSkill = 125, max = 225, A = { 12 }, H = {} },
+					{ minSkill = 200, max = 300, A = {}, H = {} },
+				},
+				trainerSkill = {},
+			},
+			[171] = {
+				ranks = {
+					{ minSkill = 0, max = 75, A = {}, H = { 14, 15 } },
+					{ minSkill = 50, max = 150, A = {}, H = { 14, 15 } },
+					{ minSkill = 125, max = 225, A = {}, H = { 14, 15 } },
+					{ minSkill = 200, max = 300, A = {}, H = { 14, 15 } },
+				},
+				trainerSkill = { [14] = 125, [15] = 50 },
+			},
+		}
+		Polestar.Codex.Profession = function(l) return profs[l] end
+		local skill, max
+		nav.Compat.GetSkillRank = function() return skill, max end
+
+		skill, max = 130, 150
+		N.ClearTarget()
+		emit({ ok = Near.Go("trainer", 165), label = label(), said = said("Nearest expert leatherworking trainer: Telonis") })
+
+		skill, max = 100, 150
+		N.ClearTarget()
+		emit({ ok = Near.Go("trainer", 165), label = label(), said = said("Nearest leatherworking trainer: Simon Tanner") })
+
+		skill, max = 300, 300
+		N.ClearTarget()
+		emit({ ok = Near.Go("trainer", 165), label = label() })
+
+		skill, max = 210, 225
+		N.ClearTarget()
+		emit({ ok = Near.Go("trainer", 165), label = label(), said = said("No artisan leatherworking trainer for your side.") })
+
+		nav.faction = "Horde"
+		skill, max = 60, 150
+		N.ClearTarget()
+		emit({ ok = Near.Go("trainer", 171), label = label() })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "ok": true, "label": "Telonis", "said": true }), "Expert is Telonis' to teach");
+	assert_eq!(out[1], json!({ "ok": true, "label": "Simon Tanner", "said": true }), "Journeyman: the nearest trainer, no rank named");
+	assert_eq!(out[2], json!({ "ok": true, "label": "Simon Tanner" }), "Artisan reached: no rank list applies");
+	assert_eq!(out[3], json!({ "ok": false, "label": false, "said": true }), "no Artisan trainer for the Alliance");
+	assert_eq!(out[4], json!({ "ok": true, "label": "Yelmak" }), "Halsey turns a 60 skill away until 125");
 }
 
 // Nearby's "Flight master" in Nighthaven: Silva Fil'naveth (11800, Alliance) and Bunthen Plainswind (11798, Horde)

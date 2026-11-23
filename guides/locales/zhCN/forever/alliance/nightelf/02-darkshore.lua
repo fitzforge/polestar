@@ -207,7 +207,7 @@ return {
 	-- {npc:483} Elaine Trias
 	["{npc:483}, in her cheese shop"] = "{npc:483}，在她的奶酪店里",
 	-- {object:460004} Gatehouse Door (no name in this language: may be words)
-	["Up the stairs in her shop: leave the shipment at the {object:460004}"] = "沿她店里的楼梯上楼，把货物留在{object:460004}处",
+	["Up the stairs in her shop: leave the shipment at the {object:460004}"] = "沿她店里的楼梯上楼，把货物留在门楼入口旁",
 
 	-- Step 36: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:2096} Trade District · {zone:1436} Westfall · {npc:3649} Thundris Windweaver · {area:442} Auberdine

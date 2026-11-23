@@ -64,6 +64,7 @@ if Nav and Nav.HandoffOption and UI and UI.JourneyPanel then
 		page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"],
 		controls = {
 			Nav.HandoffOption({ kind = "toggle", key = "nav.journeySteps", label = L["Show the journey"],
+				search = "journey, route steps, travel, legs, flights, boats",
 				help = L["The route's steps in the guide window with a time for each, counting down: walks, lifts, boats and flights. Click the current step to skip it."] }),
 		},
 	})

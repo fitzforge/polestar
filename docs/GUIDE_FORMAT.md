@@ -516,7 +516,9 @@ elite, an escort): the player decides whether to do it. When the route
 reaches a step with `when group <quest>` or `when !group <quest>` and the
 player has not answered for that quest yet, the route waits there and the
 guide window asks: "Skip it" (the default, the solo route) or "Do it with a
-group". Quest automation leaves the quest alone until then. The answer is
+group". Quest automation leaves the quest alone until then. A quest already
+in the log and ready to hand in is not asked about: its group work is done,
+and the route goes on to the hand-in (#3402). The answer is
 kept per character, once per quest, for every guide; Options, Discovery,
 Group quests lists them and changes an answer until the route has passed
 the step. Options, Guide, Automation, "Group quests" answers every quest the
