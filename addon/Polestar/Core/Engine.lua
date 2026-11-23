@@ -585,6 +585,31 @@ function Own.usedBy(goal)
 	return hit or nil
 end
 
+-- A `buy` (no quest) of an item a quest this guide accepts asks for (an
+-- objective, the quest database: the Holy Candles for Keeping the Light On)
+-- -> those accepts, so the purchase goes with its quests (#3458): left out
+-- (Skip grey quests, the catch-up) or not this character's, it is no longer
+-- bought, counted or kept. Nil without the quest database (read live,
+-- remembered per goal once it has answered), for a buy no quest here asks
+-- for, or outside the loaded guide.
+Own.buyFor = setmetatable({}, { __mode = "k" })
+function Own.boughtFor(goal)
+	if goal.t ~= "buy" or goal.quest or not goal.item or not guide then return nil end
+	local hit = Own.buyFor[goal]
+	if hit ~= nil then return hit or nil end
+	local Q, l = ns.QuestDB, layoutOf(guide)
+	if not (l.stepOf[goal] and Q and Q.IsLoaded() and Q.Asks) then return nil end
+	hit = false
+	for q, list in pairs(l.accepts) do
+		if Q.Asks(q, goal.item) then
+			hit = hit or {}
+			for _, a in ipairs(list) do hit[#hit + 1] = a.goal end
+		end
+	end
+	Own.buyFor[goal] = hit
+	return hit or nil
+end
+
 -- A turn-in, complete or objective goal for a quest the character neither
 -- has nor has done, and that this guide does not (for this character) accept
 -- at or before that step, in a step the player has not skipped, with an
@@ -681,6 +706,18 @@ local function goalApplies(goal)
 	-- and so is one it works with (Own.usedBy, #2670).
 	local starts = goal.t == "collect" and not goal.quest and guide and layoutOf(guide).starters[goal] or Own.usedBy(goal)
 	if starts and not goalApplies(starts) then return false end
+	-- A purchase goes with the quests that ask for it (Own.boughtFor, #3458): one of them still the character's.
+	local fors = goal.t == "buy" and Own.boughtFor(goal)
+	if fors then
+		local any = false
+		for i = 1, #fors do
+			if goalApplies(fors[i]) then
+				any = true
+				break
+			end
+		end
+		if not any then return false end
+	end
 	if goal.t == "die" and not Own.deathskips() then return false end
 	-- A material's gather or Auction House goal applies while its item's way is theirs (Own.materialApplies).
 	if (goal.t == "auction" or goal.gather) and not Own.materialApplies(goal) then return false end
