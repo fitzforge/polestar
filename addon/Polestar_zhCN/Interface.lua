@@ -556,7 +556,6 @@ L["Arrows"] = "箭"
 L["Bullets"] = "子弹"
 L["Bows & guns"] = "弓和枪"
 L["Mailbox"] = "邮箱"
--- L["Transmogrifier"] = ""
 L["Transmogrifier"] = "幻化师"
 -- L["No %s for your side."] = ""
 
