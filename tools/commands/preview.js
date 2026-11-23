@@ -153,14 +153,19 @@ const FONT_FILES = ['OpenSans-Regular.ttf', 'OpenSans-Bold.ttf', 'Inter-Regular.
 // nearest Inter weight; widths are measured in the same face that is drawn.
 const FALLBACK = 'Inter-Medium.ttf';
 
-// A skin addon's own fonts (docs/SKINS-API.md: `font = { regular = path, ... }`
-// under addon/Polestar_Skin_*/Fonts) are measured and drawn too, by file name.
+// A skin's own fonts (docs/SKINS-API.md: `font = { regular = path, ... }`
+// under a skin addon's Fonts/: Polestar's own in addon/Polestar_Skins/Skins/<skin>/Fonts,
+// another's in addon/Polestar_Skin_*/Fonts) are measured and drawn too, by file name.
 function skinFonts() {
 	const out = [];
 	const dir = path.join(ROOT, 'addon');
-	for (const folder of fs.readdirSync(dir)) {
-		if (!folder.startsWith('Polestar_Skin_')) continue;
-		const fontsDir = path.join(dir, folder, 'Fonts');
+	const own = path.join(dir, 'Polestar_Skins', 'Skins');
+	const homes = [
+		...(fs.existsSync(own) ? fs.readdirSync(own).map((s) => path.join(own, s)) : []),
+		...fs.readdirSync(dir).filter((f) => f.startsWith('Polestar_Skin_')).map((f) => path.join(dir, f)),
+	];
+	for (const home of homes) {
+		const fontsDir = path.join(home, 'Fonts');
 		if (!fs.existsSync(fontsDir)) continue;
 		for (const f of fs.readdirSync(fontsDir)) if (/\.ttf$/i.test(f)) out.push([f, path.join(fontsDir, f)]);
 	}
@@ -706,7 +711,7 @@ C_Map.GetMapArtID = function(id) local m = ART[id]; return m and m.artID end
 // { file, w, h, l, r, t, b } }, the Forever client's members) and files.json
 // ({ [lower-case "interface\\...\\name"]: fileID }), the game's own UI art is
 // drawn too: SetAtlas, C_Texture.GetAtlasInfo and SetTexture by path resolve
-// to file IDs, so the game's looks (Polestar_Looks/GameSkins.lua) can be checked
+// to file IDs, so the game's looks (Theme/Looks/GameSkins.lua) can be checked
 // before a client run. Only textures decoded into the folder are listed.
 let uiArtLua;
 function clientUiArtLua() {
@@ -1256,7 +1261,33 @@ ${open ? `for _, l in ipairs(Polestar.UI.GuideFrame.lines) do
 	if l:IsShown() and (l.Text:GetText() or ""):find("left out here", 1, true) then stub.RunScript(l, "OnClick", "LeftButton") break end
 end` : ''}`;
 const LOOKS = ['polestar', 'hearth', 'halo', 'forever', 'blizzard', 'classic'];
+// Tetris (Polestar_Arcade/games/tetris) needs only Polestar's locale table and
+// stand-ins for the Arcade and events it registers with; keep its window
+// preview independent of the guide engine and its sample guide data.
+const TETRIS_BEFORE = 'Polestar = { L = setmetatable({}, { __index = function(_, key) return key end }), Set = function() end, RegisterEvent = function() end, Print = function() end, Arcade = { Register = function() end } }';
+function tetrisPanel(state) {
+	const setup = `local T = PolestarTetris
+local g = T.New()
+g.piece = { kind = "T", x = 4, y = 0, rot = 0 }
+g.queue[1], g.hold = "O", "L"
+g.score, g.lines, g.level, T.db.high = 39756, 64, 7, 39756
+for y = 15, 20 do
+	for x = 1, 10 do
+		if (x + y) % 4 ~= 0 then g.board[y][x] = ({ "I", "J", "L", "O", "S", "T", "Z" })[(x + y) % 7 + 1] end
+	end
+end
+PolestarTetrisAPI.Open()
+if g.paused then T.Pause(); PolestarTetrisAPI.Open() end`;
+	const transition = state === 'paused' ? 'T.Pause(); PolestarTetrisAPI.Open()'
+		: state === 'over' ? 'g.over, g.paused = true, true; PolestarTetrisAPI.Open()' : '';
+	return { files: [], stubs: [], before: TETRIS_BEFORE, addons: [{ name: 'Polestar_Arcade', files: ['games/tetris/Engine.lua', 'games/tetris/Window.lua'] }], roots: ['PolestarTetrisFrame'], script: `${setup}\n${transition}` };
+}
 const SCENES = [
+	{
+		file: 'tetris.svg',
+		title: 'Tetris flight game: active play, paused, and game over, with Next and Hold previews and both sets of controls',
+		panels: [tetrisPanel('active'), tetrisPanel('paused'), tetrisPanel('over')],
+	},
 	{
 		file: 'guide-left-out.svg',
 		title: 'Guide window: "2 left out here" under the step, opened (why each quest is left out, Guide me, Turn off Skip grey quests); a grind step: why, what is near, the cleanup nudge; the step browser marks the step',

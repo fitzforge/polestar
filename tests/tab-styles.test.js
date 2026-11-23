@@ -1,5 +1,5 @@
 'use strict';
-// Tab styles (addon/Polestar_TabStyles): with edge tabs the window's lines
+// Tab styles (addon/Polestar/UI/TabStyles): with edge tabs the window's lines
 // along the tabs' edge are cut under the active tab (drawn again as two
 // pieces), and come back whole, at their own alpha, with another style.
 const { test } = require('node:test');

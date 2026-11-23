@@ -22,6 +22,8 @@
 --       spawn there, nil when not known or the pack predates it)
 --   Codex.FollowUps(questId) -> { quest, ... }   -- the quests whose pre or preAny names it
 --   Codex.Spell(spellId) -> { id, kind, item, name, class } | nil
+--   Codex.Profession(skillLine) -> { id, name, ranks = { { minSkill, max, A = { npc, ... }, H = { ... } } x4 },
+--       trainerSkill = { [npc] = skill } } | nil   -- nil for a profession without rank lists, or a pack from before #3784
 --   Codex.RecipeItems(spellId) -> { itemId, ... } | nil   -- the recipe items that teach a craft
 --       (each recipe item's record names its spell), in pack order; built on the first ask (#2505)
 --   Codex.Name(kind, id) -> name | nil   -- no decoding; "item" spans every item kind,
@@ -527,11 +529,30 @@ local function decodeSpell(group, id, s)
 	return { id = id, name = (N and N.Spell(id)) or nameOf(group, id), kind = unesc(t[1]), item = tonumber(t[2]), class = unesc(t[3]) }
 end
 
+local function ids(s)
+	local out = {}
+	for v in gmatch(s or "", "%d+") do out[#out + 1] = tonumber(v) end
+	return out
+end
+
+local function decodeProfession(group, id, s)
+	local t, n = split(s, ";")
+	local ranks = {}
+	for i = 1, n - 1 do
+		local f = split(t[i], ",")
+		ranks[i] = { minSkill = tonumber(f[1]) or 0, max = tonumber(f[2]) or 0, A = ids(f[3]), H = ids(f[4]) }
+	end
+	local gates, g = {}, numbers(t[n])
+	for i = 1, #g - 1, 2 do gates[g[i]] = g[i + 1] end
+	return { id = id, name = nameOf(group, id), ranks = ranks, trainerSkill = gates }
+end
+
 local DECODE = {
 	item = decodeItem, mount = decodeItem, pet = decodeItem, recipe = decodeItem, tabard = decodeItem,
 	npc = decodeNpc, rare = decodeNpc,
 	object = decodeObject, treasure = decodeObject,
 	quest = decodeQuest, instance = decodeInstance, faction = decodeFaction, spell = decodeSpell,
+	profession = decodeProfession,
 }
 
 ---------------------------------------------------------------------------
@@ -741,6 +762,12 @@ function Codex.Spell(id)
 	id = tonumber(id)
 	if not (id and ready()) then return nil end
 	return get("spell", id)
+end
+
+function Codex.Profession(line)
+	line = tonumber(line)
+	if not (line and ready()) then return nil end
+	return get("profession", line)
 end
 
 -- spellId -> the recipe items whose record names it (field 3 of an item record:

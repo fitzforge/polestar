@@ -2150,6 +2150,17 @@ local function renderAttune(key, f, plevel)
 	local mineCode = SIDE[UI.PlayerFaction() or ""]
 	local list_ = Dg.Attunements(key, side)
 	local y, nr = 0, 0
+	-- Every attunement and key with this character's progress: the Attunements section (UI/Attunements.lua).
+	if #list_ > 0 and UI.Attunements then
+		if not rawget(pg, "AttLink") then
+			pg.AttLink = W.Link(pg.Body, L["All attunements and keys"], function() UI.Attunements.Show() end)
+			pg.AttLink.psTip = L["Every attunement and key, with how far you are"]
+		end
+		pg.AttLink:ClearAllPoints()
+		pg.AttLink:SetPoint("TOPRIGHT", pg.Body, "TOPRIGHT", -PAD, -12)
+		pg.AttLink:Show()
+		y = 20
+	end
 	shown.attune = {}
 	for i, a in ipairs(list_) do
 		local st = Dg.AttunementState(a)
@@ -2190,6 +2201,7 @@ local function renderAttune(key, f, plevel)
 		facts[#facts + 1] = a.need == "one" and L["One in the group is enough"] or L["Everyone entering needs it"]
 		if a.level then facts[#facts + 1] = format(L["From level %d"], a.level) end
 		if a.faction == "A" then facts[#facts + 1] = L["Alliance only"] elseif a.faction == "H" then facts[#facts + 1] = L["Horde only"] end
+		if a.open == false then facts[#facts + 1] = L["Not open on Forever yet"] end
 		h.Meta:SetText(concat(facts, DOT))
 		local hy = 66
 		if a.note then
@@ -2325,7 +2337,11 @@ local function renderPage(key, plevel)
 		hidePool(ties)
 		if lootBlock then lootBlock:Hide() end
 	end
-	if tab ~= "attune" then hidePool(atts); hidePool(attSteps) end
+	if tab ~= "attune" then
+		hidePool(atts)
+		hidePool(attSteps)
+		if rawget(pg, "AttLink") then pg.AttLink:Hide() end
+	end
 	if tab ~= "map" then
 		pg.MapArt:Hide()
 		pg.MapNote:Hide()
@@ -2540,16 +2556,17 @@ function DS.HandIn(key)
 	return openPlanned(Dg.HandIn, key, function() return Dg.HandinText(Dg.HandinPlan(key)) end)
 end
 
--- An attunement's guide (Dungeons.Attune), from the page's Attunement tab;
--- nothing left says so instead.
-function DS.Attune(id)
+-- An attunement's guide (Dungeons.Attune), from the page's Attunement tab
+-- (or `key`'s, from the Attunements section); nothing left says so instead.
+function DS.Attune(id, key)
 	local Dg = D()
-	if not (page and id and Dg and Dg.Attune) then return nil end
-	return openPlanned(function(key)
-		local gid, reason = Dg.Attune(key, id)
+	key = key or page
+	if not (key and id and Dg and Dg.Attune) then return nil end
+	return openPlanned(function(k)
+		local gid, reason = Dg.Attune(k, id)
 		if reason == "done" then reason = "nothing" end
 		return gid, reason
-	end, page, function() return L["Nothing is left to do for it."] end)
+	end, key, function() return L["Nothing is left to do for it."] end)
 end
 
 -- In combat the map stays shut (Compat.OpenWorldMap: opening it then is
@@ -2578,10 +2595,11 @@ function DS.Enter()
 	if c and c:IsShown() and c.psKey then DS.Open(c.psKey) end
 end
 
--- SHOW_DUNGEON(key): the hub at the page (nil: Home).
-function DS.Show(key)
+-- SHOW_DUNGEON(key): the hub at the page (nil: Home), on tab `tabKey`
+-- ("quests" when nil; "attune", "bosses", "map").
+function DS.Show(key, tabKey)
 	page = key
-	tab = "quests"
+	tab = tabKey or "quests"
 	setFilter("")
 	local P = UI.Picker
 	local win = PolestarPicker

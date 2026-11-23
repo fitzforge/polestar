@@ -92,6 +92,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "trackers_instances", src: include_str!("effects/trackers-instances.lua") },
 	Group { name: "trackers_party", src: include_str!("effects/trackers-party.lua") },
 	Group { name: "pins_world", src: include_str!("effects/pins-world.lua") },
+	Group { name: "pins_spawns", src: include_str!("effects/pins-spawns.lua") },
 	Group { name: "pause", src: include_str!("effects/pause.lua") },
 ];
 
@@ -379,10 +380,11 @@ fn env(name: &str) -> Env {
 			login: false,
 			prelude: "uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\n".into(),
 		},
-		// The "ui" environment with the Atlas layout's addon loaded, for a setting only that layout draws.
+		// The "ui" environment with our skins' folder loaded (the Atlas layout is in it since 0.4.3), for a setting
+		// only that layout draws.
 		"atlas" => {
 			let mut e = env("ui");
-			e.addons.push(Addon::name("Polestar_Layout_Atlas"));
+			e.addons.push(Addon::name("Polestar_Skins"));
 			e
 		}
 		// The whole addon with EllesmereUI installed before it loads (theme.rs).
@@ -793,6 +795,11 @@ fn trackers_party() {
 #[test]
 fn pins_world() {
 	check("pins_world");
+}
+
+#[test]
+fn pins_spawns() {
+	check("pins_spawns");
 }
 
 #[test]

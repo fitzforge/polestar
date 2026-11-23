@@ -2,8 +2,8 @@
 // A button made plain and marked primary afterwards (W.Modal's action,
 // addon/Polestar/Theme/Widgets.lua: psPrimary, then W.RepaintButton) wears
 // the same paint as one made primary: the skin's primary ground (Hearth's
-// flat accent plank, addon/Polestar_Looks/Hearth.lua; Lanterns' accent pill,
-// addon/Polestar_Skin_Lanterns) and its label colour, in every look.
+// flat accent plank, addon/Polestar/Theme/Looks/Hearth.lua; Lanterns' accent
+// pill, addon/Polestar_Skins/Skins/Lanterns) and its label colour, in every look.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -42,7 +42,7 @@ emit({ made = look(made), later = look(later) })`,
 	}).emitted[0];
 }
 
-for (const [skin, addons] of [['hearth', ['Polestar_Looks']], ['lanterns', ['Polestar_Skin_Lanterns']], ['polestar', []]]) {
+for (const [skin, addons] of [['hearth', []], ['lanterns', [{ name: 'Polestar_Skins', files: ['Skins/Lanterns/Lanterns.lua'] }]], ['polestar', []]]) {
 	test(`${skin}: a button marked primary after it was made wears the primary paint`, () => {
 		const out = run(skin, addons);
 		assert.equal(out.later, out.made);

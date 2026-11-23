@@ -1,6 +1,6 @@
 //! `forge release version`: the release version, kept in package.json, in our guides' pack manifest
 //! (guides/pack.json: compile writes its version into Polestar_Guides.toc) and Polestar's own extra packs'
-//! (experimental/pack.json, into Polestar_Experimental.toc), and in the `## Version` line of every addon
+//! (experimental/pack.json, into Polestar/Experimental/Pack.lua), and in the `## Version` line of every addon
 //! TOC. Without an argument it prints the version and any file that disagrees; with one it sets them all.
 
 use super::release::{checkout, opt, positional};
@@ -10,7 +10,7 @@ pub const USAGE: &str = "usage: forge release version [<x.y.z>] [options]
 
 Without a version, prints package.json's version and names guides/pack.json, experimental/pack.json or
 any addon TOC whose version differs (exit 1 if one does). With one, writes it to package.json, to
-guides/pack.json and experimental/pack.json (compile takes Polestar_Guides' and Polestar_Experimental's
+guides/pack.json and experimental/pack.json (compile takes our guides' and the experimental guides'
 version from them) and to the ## Version line of every addon/<Name>/<Name>.toc present, changing nothing
 else in them; nothing is written when one of them has no version to set. Data addons built later take
 the version from package.json. Versions are x.y.z, or x.y.z-<pre> for a release candidate.

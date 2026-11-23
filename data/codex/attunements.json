@@ -1,6 +1,31 @@
 {
-	"_about": "Attunements and keys per Codex instance (tools/lib/codex/attunements.js, docs/ARCHITECTURE.md, 'Codex'). Each entry names only its goal (the quests that end the chain, or the key item) and our own one-line note; the steps are built from the Codex's quests (pre, preAny), items (sources) and npcs. `via` names the item a goal item is made from (its drops become the steps; the note says how it is made); `useAt` ({ kind, id }) names the NPC or object standing where `via` is used, which adds a use step there. `onAccept` says the goal quests hand over the item as they are taken (a provided item), so the chain ends at their accept. `links` adds a prerequisite our quest data lacks, each with its public source. `inside` places an NPC or object of a chain that has no open-world spawn and that the Codex places in no instance (a quest giver, turn-in or objective inside a dungeon), with its public source. `removed` lists what Forever took out, with the evidence. Sources checked on 2026-11-22 against client build 1.60.1.70532 and the Codex of 1.60.1.70888.",
+	"_about": "Attunements and keys per Codex instance (tools/lib/codex/attunements.js, docs/ARCHITECTURE.md, 'Codex'). Each entry names only its goal (the quests that end the chain, or the key item) and our own one-line note; the steps are built from the Codex's quests (pre, preAny), items (sources) and npcs. `via` names the item a goal item is made from (its drops become the steps; the note says how it is made); `useAt` ({ kind, id }) names the NPC or object standing where `via` is used, which adds a use step there. `onAccept` says the goal quests hand over the item as they are taken (a provided item), so the chain ends at their accept. `open: false` marks a raid Forever has not opened yet, with `openSource` saying how that is known (the Attunements page shows 'Not open on Forever yet' instead of its progress, and the guide's last step says it); remove both once the raid opens. `links` adds a prerequisite our quest data lacks, each with its public source. `inside` places an NPC or object of a chain that has no open-world spawn and that the Codex places in no instance (a quest giver, turn-in or objective inside a dungeon), with its public source. `removed` lists what Forever took out, with the evidence. Sources checked on 2026-11-22 against client build 1.60.1.70532 and the Codex of 1.60.1.70888.",
 	"attunements": [
+		{
+			"key": "molten-core",
+			"id": "core",
+			"name": "Attunement to the Core",
+			"kind": "attunement",
+			"open": false,
+			"openSource": "Forever's raids at its 9 Dec launch are Onyxia's Lair, The Barrow Deeps and Hyjal Summit; Molten Core is not open (maintainer, #3695)",
+			"need": "each",
+			"goal": [7848],
+			"note": "Lets Lothos Riftwaker in Blackrock Mountain send you to the Molten Core; without it, walk in through Blackrock Depths.",
+			"sources": [{ "edition": "forever", "kind": "quest", "id": 7848 }, "https://warcraft.wiki.gg/wiki/Attunement_to_the_Core"]
+		},
+		{
+			"key": "molten-core",
+			"id": "aqual",
+			"name": "Aqual Quintessence",
+			"kind": "item",
+			"open": false,
+			"openSource": "Forever's raids at its 9 Dec launch are Onyxia's Lair, The Barrow Deeps and Hyjal Summit; Molten Core is not open (maintainer, #3695)",
+			"need": "one",
+			"item": 17333,
+			"goal": [6824],
+			"note": "Douses the Molten Core's runes; Majordomo Executus comes out only when every rune is doused. Duke Hydraxis hands it out once Hands of the Enemy is done.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 17333 }, { "edition": "forever", "kind": "quest", "id": 6824 }, "https://warcraft.wiki.gg/wiki/Aqual_Quintessence (Source: once you complete Hands of the Enemy, Duke Hydraxis gives it)"]
+		},
 		{
 			"key": "onyxias-lair",
 			"id": "drakefire-h",
@@ -30,6 +55,8 @@
 			"id": "blackhand",
 			"name": "Blackhand's Command",
 			"kind": "attunement",
+			"open": false,
+			"openSource": "Forever's raids at its 9 Dec launch are Onyxia's Lair, The Barrow Deeps and Hyjal Summit; Blackwing Lair is not open (maintainer, #3695)",
 			"need": "each",
 			"goal": [7761],
 			"note": "Lets you touch the Orb of Command in Upper Blackrock Spire to reach Blackwing Lair; without it, walk in through the spire.",
@@ -40,6 +67,8 @@
 			"id": "dread-citadel",
 			"name": "The Dread Citadel",
 			"kind": "attunement",
+			"open": false,
+			"openSource": "Forever's raids at its 9 Dec launch are Onyxia's Lair, The Barrow Deeps and Hyjal Summit; Naxxramas is not open (maintainer, #3695)",
 			"need": "each",
 			"goal": [9121, 9122, 9123],
 			"any": true,

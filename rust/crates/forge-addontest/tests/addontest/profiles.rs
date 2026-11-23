@@ -766,6 +766,42 @@ fn the_profiles_tab_shows_a_card_per_profile_a_click_selects_and_use_switches_ne
 	assert_eq!(out["afterDelete"]["selected"], "Default", "the profile in use once the selected one is gone");
 }
 
+// #3627: an hour of tweaking, "created a profile", and the setup didn't carry. New profile starts from the settings
+// in use (Start from: Your current settings), or from the defaults when that is picked; Copy and Rename don't ask.
+#[test]
+fn a_new_profile_starts_from_the_current_settings_unless_defaults_is_picked() {
+	let out = run_page(
+		r#"Polestar.Set("ui.scale", 1.2)
+		Polestar.Set("ui.skin", "hearth")
+		card("\0new"):Click()
+		local asked = PV.Shown().startFrom
+		v.NameBox:SetText("Mine")
+		v.NameOK:Click()
+		local mine = { P.Active(), Polestar.Get("ui.scale"), Polestar.Get("ui.skin"), PV.Shown().startFrom or false }
+		card("\0new"):Click()
+		v.StartFrom.psSet("defaults")
+		local picked = PV.Shown().startFrom
+		v.NameBox:SetText("Fresh")
+		v.NameOK:Click()
+		local fresh = { P.Active(), Polestar.Get("ui.scale"), Polestar.Get("ui.skin") }
+		card("\0new"):Click()
+		local again = PV.Shown().startFrom
+		PV.CancelEdit()
+		card("Mine"):Click()
+		v.Copy:Click()
+		local copying = PV.Shown().startFrom
+		emit({ asked = asked, mine = mine, picked = picked, fresh = fresh, again = again, copying = copying or false,
+			default = { P.Switch("Default") and Polestar.Get("ui.scale") } })"#,
+	);
+	assert_eq!(out["asked"], "Your current settings", "the current settings unless the player picks otherwise");
+	assert_eq!(out["mine"], json!(["Mine", 1.2, "hearth", false]), "the new profile in use, the setup carried, the question gone");
+	assert_eq!(out["picked"], "Defaults");
+	assert_eq!(out["fresh"], json!(["Fresh", 1, "polestar"]), "Defaults: every setting at its default");
+	assert_eq!(out["again"], "Your current settings", "each new profile asks afresh");
+	assert_eq!(out["copying"], false, "Copy copies the profile it is of: no question");
+	assert_eq!(out["default"], json!([1.2]), "the profile it started from keeps its own");
+}
+
 #[test]
 fn a_card_s_picture_is_drawn_from_its_profile_s_own_values_and_says_who_else_uses_it() {
 	let out = run_page(

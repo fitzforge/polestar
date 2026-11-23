@@ -671,7 +671,7 @@ fn about_reset_all_settings_asks_in_the_confirm_dialog_reset_positions_clears_sa
 
 // The Settings scale sits in the settings window's header: the value follows the drag, the window rescales when it
 // ends (it sits in what it scales), and the window's size stays within the screen at the new scale. The window draws
-// at the setting times W.SETTINGS_SCALE_BASE (0.8): 100 % is 0.8, 120 % is 0.96.
+// at the setting times W.SETTINGS_SCALE_BASE (0.92, #3789): 100 % is 0.92, 120 % is 1.104.
 #[test]
 fn the_header_s_menu_scale_applies_when_the_drag_ends_and_the_window_stays_on_the_screen() {
 	let out = run(r#"
@@ -683,8 +683,9 @@ fn the_header_s_menu_scale_applies_when_the_drag_ends_and_the_window_stays_on_th
 		local after = PolestarOptions:GetScale()
 		emit({ during = during, after = after, stored = Polestar.Get("ui.menuScale"),
 			size = { PolestarOptions:GetWidth() * after, PolestarOptions:GetHeight() * after }, screen = { UIParent:GetWidth(), UIParent:GetHeight() } })"#);
-	assert_eq!(out["during"], json!([0.8, "120%"]));
-	assert_eq!(out["after"], 0.96);
+	assert_eq!(out["during"][1], "120%");
+	assert!((n(&out["during"][0]) - 0.92).abs() < 1e-9, "the window rescales when the drag ends: {}", out["during"]);
+	assert!((n(&out["after"]) - 1.2 * 0.92).abs() < 1e-9, "{}", out["after"]);
 	assert_eq!(out["stored"], 1.2);
 	assert!(n(&out["size"][0]) <= n(&out["screen"][0]) && n(&out["size"][1]) <= n(&out["screen"][1]), "on screen: {} in {}", out["size"], out["screen"]);
 }
@@ -2254,7 +2255,7 @@ Polestar.RegisterOptions({ page = "Fake pins", tab = "Medallions", section = "Gl
 // The window opens at 1680 x 946 (16:9) at the default Settings scale (the stub's screen is 1080 pixels in 1080
 // units), the grip's drag is kept in ui.optionsSize and the body takes the new width; a saved size never goes past
 // the screen nor under 860 x 560; right-click on the grip goes back. Sizes are the window's own units: it draws at
-// 0.8 (W.SETTINGS_SCALE_BASE), so the screen holds 1920 / 0.8 x 1080 / 0.8 of them.
+// 0.92 (W.SETTINGS_SCALE_BASE), so the screen holds 1920 / 0.92 x 1080 / 0.92 of them.
 #[test]
 fn the_window_opens_at_1680_by_946_its_grip_s_size_is_kept_and_clamped_to_the_screen_right_click_restores_it() {
 	let out = run(r#"
@@ -2288,9 +2289,9 @@ fn the_window_opens_at_1680_by_946_its_grip_s_size_is_kept_and_clamped_to_the_sc
 	assert_eq!(out["saved"], json!([1000, 700]));
 	assert_eq!(out["body"][0], out["body"][1], "the body takes the new width");
 	assert!(n(&out["rowW"]) < 1000.0 - 300.0, "the rows laid out anew at the new width: {}", out["rowW"]);
-	assert_eq!(out["huge"], json!([2400 - 32, 1350 - 32]), "never past the screen");
+	assert_eq!(out["huge"], json!([2054, 1141]), "never past the screen: 1920 / 0.92 - 32, 1080 / 0.92 - 32");
 	assert_eq!(out["tiny"], json!([860, 560]), "never under its least");
-	assert_eq!(out["bounds"], json!([860, 560, 2400 - 32, 1350 - 32]));
+	assert_eq!(out["bounds"], json!([860, 560, 2054, 1141]));
 	assert_eq!(out["reset"], json!([1680, 946, false]), "right-click on the grip: the default, nothing stored");
 }
 
@@ -2859,7 +2860,9 @@ fn every_page_keeps_the_layout_rules_at_defaults() {
 		-- the player's journey give these settings a section of their own where the player looks for them.
 		local ONE_ROW = { ["Level pace"] = true, ["Step errands"] = true, ["Along the route"] = true, ["Other waypoints"] = true,
 			["Step spacing"] = true, ["Up next"] = true, ["All alerts"] = true, ["Experience"] = true, ["XP tracker"] = true,
-			["Dungeon Journal"] = true, ["Characters"] = true }
+			["Dungeon Journal"] = true, ["Characters"] = true,
+			-- Setup > General > Language (#3643): the one setting players look for under that name.
+			["Language"] = true }
 		local bad, seen = {}, 0
 		for _, p in ipairs(O.Pages()) do
 			do
@@ -3029,4 +3032,61 @@ fn color_picker_opened_from_cog_raises_strata_and_restores_on_hide() {
 	assert_eq!(out["restoredStrata"], out["defaultStrata"], "strata restored on close");
 	assert_eq!(out["restoredLevel"], out["defaultLevel"], "frame level restored on close");
 	assert_eq!(out["externalLeft"], true, "closing popup does not close another addon's picker");
+}
+
+// #3643: Setup > General > Language: Follow the game (the default), English, then every language Polestar ships, each
+// named in the language shown now. A pick is kept account-wide (PolestarLanguage, Core/Locale.lua) and asks for a
+// /reload: Reload UI reloads, Later keeps the choice for the next one. Picking the language in use asks nothing;
+// right-click (Reset) follows the game again.
+#[test]
+fn general_s_language_row_lists_every_shipped_language_keeps_the_pick_and_asks_for_a_reload() {
+	let out = run(r#"
+		local reloads = 0
+		ReloadUI = function() reloads = reloads + 1 end
+		UI.ShowOptions("language")
+		local c
+		for _, x in ipairs(O.AllControls()) do if x.label == "Language" then c = x end end
+		local w = O.view.cache[c]
+		local labels, values = {}, {}
+		for _, ch in ipairs(c.choices()) do labels[#labels + 1], values[#values + 1] = ch.label, ch.value end
+		local before = { w.Button.Label:GetText(), PolestarLanguage == nil }
+		w.psSet("enUS")
+		local asked = { Polestar.Widgets.ModalShown(), PolestarLanguage, Polestar.Language.Get() }
+		Polestar.Widgets.HideModal()
+		w.psSet("enUS")
+		local again = Polestar.Widgets.ModalShown()
+		w.psSet("deDE")
+		local dialog = Polestar.Widgets.ModalShown()
+		Polestar.Widgets.HideModal()
+		w:Refresh()
+		local shown = w.Button.Label:GetText()
+		w.psSet(nil)
+		emit({ page = { c.page.name, c.page.key }, help = c.help, labels = labels, values = values, before = before, asked = asked, again = again,
+			dialog = dialog, shown = shown, reset = { PolestarLanguage == nil, Polestar.Language.Get() }, reloads = reloads })"#);
+	assert_eq!(out["page"], json!(["General", "language"]));
+	assert_eq!(out["values"], json!(["game", "enUS", "deDE", "esES", "esMX", "frFR", "koKR", "ptBR", "ruRU", "zhCN", "zhTW"]));
+	assert_eq!(
+		out["labels"],
+		json!([
+			"Follow the game",
+			"English",
+			"German",
+			"Spanish (Spain)",
+			"Spanish (Latin America)",
+			"French",
+			"Korean",
+			"Portuguese (Brazil)",
+			"Russian",
+			"Simplified Chinese",
+			"Traditional Chinese"
+		])
+	);
+	assert!(out["help"].as_str().unwrap().contains("/reload"), "the row says it takes a /reload: {}", out["help"]);
+	assert_eq!(out["before"], json!(["Follow the game", true]), "the default follows the game, nothing saved");
+	assert_eq!(out["asked"], json!([true, "enUS", "enUS"]), "a pick is kept and asks for a /reload");
+	assert_eq!(out["again"], false, "the language already picked asks nothing");
+	assert_eq!(out["dialog"], true);
+	assert_eq!(out["shown"], "German", "the row shows the pick");
+	assert_eq!(out["reset"], json!([true, "game"]), "Reset follows the game again");
+	assert_eq!(out["reloads"], 0, "nothing reloads until the player says so");
 }

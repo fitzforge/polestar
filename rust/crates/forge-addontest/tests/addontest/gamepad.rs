@@ -46,6 +46,32 @@ fn run(script: &str) -> Vec<Value> {
 const NO_PAD: &str = "stub.pad.enabled = false";
 
 #[test]
+fn tetris_window_receives_gamepad_navigation_buttons() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua", "stub_gamepad.lua"],
+		// Maps for the Arcade the window registers with.
+		addons: vec![
+			Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Maps/Maps.xml", "UI/UI.xml"]),
+			Addon::files("Polestar_Arcade", &["games/tetris/Engine.lua", "games/tetris/Window.lua"]),
+		],
+		script: r#"
+			uistub.install()
+			stub.login()
+			Polestar.Set("gamepad.withMouse", true)
+			PolestarTetrisAPI.Open()
+			local g = PolestarTetris.Run()
+			local x = g.piece.x
+			local handled = stub.press("PADDLEFT")
+			emit({handled=handled, moved=g.piece.x == x - 1,
+				owner=Polestar.Gamepad.owner == PolestarTetrisFrame})
+		"#
+		.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!({"handled":"frame","moved":true,"owner":true}));
+}
+
+#[test]
 fn the_guide_window_never_takes_a_button_from_the_game_while_it_is_merely_shown() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)

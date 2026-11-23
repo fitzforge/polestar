@@ -371,9 +371,9 @@ fn every_community_addon_switched_off_ours_not_installed_the_empty_states_point_
 }
 
 // Polestar Guides installed but unticked in the AddOns list (Fitz's 0.3.6 screenshot): the client nests it
-// under Polestar there, and ticking Polestar does not tick it. Its race and faction parts and the walking packs
-// are off too here (after "Disable All"); an old 0.2.x language folder, the Recorder and a community addon are
-// off and stay off.
+// under Polestar there, and ticking Polestar does not tick it. Its faction part and the walking packs are off
+// too here (after "Disable All"); an old 0.2.x language folder, race parts left from before 0.4.3 (inside the
+// faction parts since, #3507), the Recorder and a community addon are off and stay off.
 const GUIDES_OFF: &str = r#"stub.addons = {
 	{ name = "Polestar", loaded = true },
 	{ name = "Polestar_Guides", reason = "DISABLED" },
@@ -387,7 +387,7 @@ const GUIDES_OFF: &str = r#"stub.addons = {
 	{ name = "PolestarPack_Joe", reason = "DISABLED" },
 }"#;
 
-const TURNED_ON: &[&str] = &["Polestar_Guides", "Polestar_Guides_Orc", "Polestar_Guides_Horde", "Polestar_Nav", "Polestar_Nav_Kalimdor"];
+const TURNED_ON: &[&str] = &["Polestar_Guides", "Polestar_Guides_Horde", "Polestar_Nav", "Polestar_Nav_Kalimdor"];
 
 fn guides_off(script: &str, saved: Option<&str>) -> Value {
 	emitted(&RunAddon {
@@ -504,8 +504,9 @@ fn guides_not_installed_no_question_and_the_empty_states_keep_the_addons_list_hi
 	);
 }
 
-// #2594: an update left Polestar Settings and Polestar Looks unticked (GeForce NOW), so Options could not open and
-// only a chat line said why. The login question covers them, and opening Options asks again even after a "Not now".
+// #2594: an update left Polestar Settings unticked (GeForce NOW), so Options could not open and only a chat line
+// said why. The login question covers it, and opening Options asks again even after a "Not now". Polestar Looks
+// left from before 0.4.3 (inside Polestar since, #3507) is not needed and stays off.
 const NEEDED_OFF: &str = r#"stub.addons = {
 	{ name = "Polestar", loaded = true },
 	{ name = "Polestar_Guides", loaded = true },
@@ -527,7 +528,7 @@ fn needed_off(script: &str, saved: Option<&str>) -> Value {
 }
 
 #[test]
-fn settings_and_looks_off_asked_at_login_and_yes_turns_both_on_and_reloads() {
+fn settings_off_asked_at_login_and_yes_turns_it_on_and_reloads() {
 	let out = needed_off(
 		r#"
 		stub.login()
@@ -539,8 +540,8 @@ fn settings_and_looks_off_asked_at_login_and_yes_turns_both_on_and_reloads() {
 		None,
 	);
 	assert_eq!(out["popups"], 1);
-	assert_eq!(out["text"], "Part of Polestar is turned off in the AddOns list (Polestar Settings, Polestar Looks), so its settings cannot open. Turn it on for all your characters and reload?");
-	assert_eq!(out["enabled"], json!(["Polestar_Options", "Polestar_Looks"]), "never the Recorder");
+	assert_eq!(out["text"], "Part of Polestar is turned off in the AddOns list (Polestar Settings), so its settings cannot open. Turn it on for all your characters and reload?");
+	assert_eq!(out["enabled"], json!(["Polestar_Options"]), "never the Recorder nor the old Polestar_Looks");
 	assert_eq!(out["reloaded"], true);
 }
 

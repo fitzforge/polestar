@@ -304,6 +304,8 @@ mod maps_reveal;
 mod maps_services;
 #[path = "memory-session.rs"]
 mod memory_session;
+#[path = "mob-markers.rs"]
+mod mob_markers;
 mod names;
 #[path = "names-memory.rs"]
 mod names_memory;
@@ -463,6 +465,7 @@ mod skins_sweep;
 mod stranded;
 mod syntax;
 mod talents;
+mod tetris;
 mod theme;
 #[path = "theme-skin-api.rs"]
 mod theme_skin_api;
@@ -488,6 +491,8 @@ mod ui_headsup_card;
 mod ui_import;
 #[path = "ui-journey.rs"]
 mod ui_journey;
+#[path = "ui-layout-card.rs"]
+mod ui_layout_card;
 #[path = "ui-left-out.rs"]
 mod ui_left_out;
 #[path = "ui-long-translations.rs"]

@@ -1,6 +1,25 @@
 {
   "_about": "Every attunement and key our pipeline builds from the Codex (tools/lib/codex/attunements.js, forge_data::codex::attune), one line per step, reviewed in the 0.4.3 audit. The dungeons-attune addontest compares the build with it; POLESTAR_WRITE_GOLDEN=1 rewrites it after a reviewed change.",
   "attunements": {
+    "molten-core:core": {
+      "head": "attunement each faction=null level=55 item=null",
+      "steps": [
+        "quest 7848 Attunement to the Core *goal after=[] any=[] start=npc:14387 finish=npc:14387 minLevel=55"
+      ]
+    },
+    "molten-core:aqual": {
+      "head": "item one faction=null level=60 item=17333",
+      "steps": [
+        "quest 6804 Poisoned Water after=[] any=[] start=npc:13278 finish=npc:13278 minLevel=55",
+        "quest 6805 Stormers and Rumblers after=[] any=[] start=npc:13278 finish=npc:13278 minLevel=55",
+        "quest 6821 Eye of the Emberseer after=[6804,6805] any=[] start=npc:13278 finish=npc:13278 minLevel=56",
+        "quest 6822 The Molten Core after=[] any=[6821] start=npc:13278 finish=npc:13278 minLevel=57",
+        "quest 6823 Agent of Hydraxis after=[] any=[6822] start=npc:13278 finish=npc:13278 minLevel=60 rep=749:6",
+        "quest 6824 Hands of the Enemy *goal after=[] any=[6823] start=npc:13278 finish=npc:13278 minLevel=60",
+        "rep 749:6",
+        "gift 17333 Aqual Quintessence npc:13278"
+      ]
+    },
     "onyxias-lair:drakefire-h": {
       "head": "key each faction=\"H\" level=55 item=16309",
       "steps": [

@@ -380,7 +380,7 @@ local BUILTIN = {
 			choices = { { value = "ask", label = L["Ask me"] }, { value = "continue", label = L["Continue automatically"] } } },
 		{ kind = "dropdown", key = "behavior.routeChoice", label = L["Where to level next"], help = L["Where a guide offers more than one zone to continue in (/polestar path)."],
 			choices = { { value = "ask", label = L["Let me choose"] }, { value = "recommended", label = L["Take the recommended zone"] } } },
-		-- Polestar's experimental guides (Polestar_Experimental; Core/Guides.lua, Guides.OWN_EXTRA): on until switched off.
+		-- Polestar's experimental guides (Polestar/Experimental/; Core/Guides.lua, Guides.OWN_EXTRA): on until switched off.
 		-- Mount Hyjal is the one left there: the Riverglades and Shen'dralas are in the leveling route since 0.4.0.
 		{ kind = "toggle", key = "behavior.experimentalGuides", label = L["Show experimental guides"], new = "0.4.0",
 			help = L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."],
@@ -734,6 +734,33 @@ local UPDATE = { kind = "toggle", key = "update.card", label = L["Tell me when a
 	help = L["At login, a card on the guide window says a newer Polestar is out and how to update; Got it keeps it away for a day. A line in the guide window stays until you update. Two or more updates behind, both show even with this off (the card at most once a day)."],
 	search = "update, new version, outdated, old version, release, curseforge, polestar client, upgrade" }
 
+-- The Language setting (#3643; Core/Locale.lua keeps it, account-wide, in
+-- PolestarLanguage): Follow the game, English, or a language Polestar ships,
+-- each named in the language shown now. The strings are read as the files
+-- load, so a change asks for a /reload (Later keeps the choice for the next one).
+local LANGUAGE = { kind = "dropdown", label = L["Language"], new = "0.4.3",
+	help = L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."],
+	search = "language, languages, english, german, deutsch, french, spanish, russian, korean, chinese, portuguese, translation, translated, locale",
+	get = function() return ns.Language and ns.Language.Get() or "game" end,
+	set = function(v)
+		local Lang = ns.Language
+		if not Lang then return end
+		v = v or "game"
+		if v == Lang.Get() or not Lang.Set(v) then return end
+		W.Modal({ title = L["Reload now?"], icon = "reload", action = L["Reload UI"], cancel = L["Later"],
+			text = L["Polestar shows the new language after a /reload."], onAccept = function() if ReloadUI then ReloadUI() end end })
+	end,
+	choices = function()
+		local names = {
+			game = L["Follow the game"], enUS = L["English"], deDE = L["German"], esES = L["Spanish (Spain)"], esMX = L["Spanish (Latin America)"],
+			frFR = L["French"], koKR = L["Korean"], ptBR = L["Portuguese (Brazil)"], ruRU = L["Russian"], zhCN = L["Simplified Chinese"],
+			zhTW = L["Traditional Chinese"],
+		}
+		local list = {}
+		for _, code in ipairs(ns.Language and ns.Language.CHOICES or {}) do list[#list + 1] = { value = code, label = names[code] or code } end
+		return list
+	end }
+
 -- The About hero: the sidebar's lockup at full size. The emblem (64, its ink
 -- on the 32 edge, in its glow), then the wordmark (Media/UI/wordmark.tga,
 -- 1:1, its ink 3px into the box and on rows 4-27), the tagline under it, and
@@ -815,6 +842,8 @@ local function buildAbout(view)
 		.. hex .. "/polestar install|r   " .. L["set Polestar up again, a page at a time"] .. "\n"
 		.. hex .. "/polestar report|r   " .. L["report a problem with a step on the Polestar Discord"] .. "\n"
 		.. hex .. "/polestar arcade|r   " .. L["play Freedoom Arcade by petllama"] .. "\n"
+		.. hex .. "/polestar jewels|r   " .. L["play Sky Jewels by RikyZ90"] .. "\n"
+		.. hex .. "/polestar tetris|r   " .. L["play Tetris by beemerwt"] .. "\n"
 		.. hex .. "/polestar help|r   " .. L["every command"])
 	-- Install (UI/Welcome.lua) and what's new, first under the hero: the
 	-- setup a new character gets, again whenever the player wants it.
@@ -936,6 +965,9 @@ add({ page = L["Guiding Stars"], key = "thanks", icon = "star", order = 80, subt
 	custom = UI.Thanks.Build }, true)
 add({ page = REC, key = "recorder", icon = "record", order = 90, subtitle = L["The data recorder for guide authors."], custom = buildRecorder }, true)
 add({ page = ABOUT, key = "about", icon = "info", order = 100, subtitle = L["Why Polestar exists, its commands and its credits."], custom = buildAbout }, true)
+-- Setup > General (key "language": the old key "general" still reaches Look > Guide window, ALIASES).
+add({ page = L["General"], key = "language", icon = "icon-talk", order = 63, group = "setup", subtitle = L["The language Polestar shows."],
+	section = L["Language"], controls = { LANGUAGE } }, true)
 -- Install and the update notices: Setup > Profiles' Install & updates card, where a first install and
 -- troubleshooting look (UI/Profiles.lua draws the card; the page's own registration there).
 add({ page = L["Profiles"], key = "profiles", icon = "layers", order = 64, group = "setup", tab = L["Profiles"],

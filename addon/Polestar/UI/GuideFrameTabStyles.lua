@@ -2,28 +2,11 @@
 -- "underline" is the strip above the navigator
 -- (UI/GuideFrameTabs.lua); "switcher" (the navigator's title as a menu of
 -- the open guides), "edge" (small icon tabs on the window's top edge) and
--- "strip" (an icon column down its left edge) live in Polestar_TabStyles
--- (load on demand), loaded the first time one of them is drawn. Without it
--- the window keeps the underline style and says so once in the chat.
+-- "strip" (an icon column down its left edge) are drawn by UI/TabStyles/
+-- (their own load-on-demand folder before 0.4.3, #3507).
 
-local ADDON, ns = ...
-local L = ns.L
+local _, ns = ...
 local STYLES = { underline = true, switcher = true, edge = true, strip = true }
-local TAB_STYLES = "Polestar_TabStyles"
-
--- Polestar_TabStyles, loaded once when a window first needs it. -> loaded
-local tried, loaded = false, false
-local function loadStyles()
-	if loaded or tried then return loaded end
-	tried = true
-	local A = C_AddOns
-	local load = A and A.LoadAddOn or LoadAddOn
-	local ok, done = false, false
-	if load then ok, done = pcall(load, TAB_STYLES) end
-	loaded = ok and done and true or false
-	if not loaded then ns.Print(L["The other tab styles are missing or turned off (Polestar_TabStyles): the tabs show above the step bar."]) end
-	return loaded
-end
 
 ns.UI.GuideFrame.Part(function(GF)
 	local Theme = ns.Theme
@@ -47,7 +30,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			end
 		end
 	end
-	-- The frames of this window's styles (Polestar_TabStyles reads and adds to them). -> own, or nil
+	-- The frames of this window's styles (UI/TabStyles/TabStyles.lua reads and adds to them). -> own, or nil
 	function GF.TabStyleFrames() return own end
 	function GF.AdoptTabFrame(k, f)
 		own[k] = f
@@ -71,16 +54,14 @@ ns.UI.GuideFrame.Part(function(GF)
 	end)
 
 	-- The style the window draws its tabs in: guideWindow.tabStyle while the
-	-- tabs show (guideWindow.tabs, the Engine has tabs); nil otherwise. A
-	-- style of Polestar_TabStyles loads it; without it, underline. Compact
-	-- mode keeps the player's style, with the strip down the left as the edge
-	-- tabs above the window; underline gives way there to the slim strip
-	-- (GF.StripShown), so it is nil.
+	-- tabs show (guideWindow.tabs, the Engine has tabs); nil otherwise.
+	-- Compact mode keeps the player's style, with the strip down the left as
+	-- the edge tabs above the window; underline gives way there to the slim
+	-- strip (GF.StripShown), so it is nil.
 	function GF.TabStyle()
 		if not (strip and strip.psHasTabs) or not GF.On("tabs") then return nil end
 		local s = ns.Get("guideWindow.tabStyle")
 		if s == "strip" and GF.Compact() then s = "edge" end
-		if s ~= "underline" and STYLES[s] and not GF.TabStyleBuild and not loadStyles() then s = nil end
 		if not STYLES[s] or s == "underline" then return not GF.Compact() and "underline" or nil end
 		return s
 	end

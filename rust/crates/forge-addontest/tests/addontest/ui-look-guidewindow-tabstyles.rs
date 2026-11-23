@@ -1,5 +1,5 @@
-//! The guide window's tab styles (addon/Polestar/UI/GuideFrameTabStyles.lua and the load-on-demand
-//! addon/Polestar_TabStyles, guideWindow.tabStyle): each of
+//! The guide window's tab styles (addon/Polestar/UI/GuideFrameTabStyles.lua and addon/Polestar/UI/TabStyles,
+//! guideWindow.tabStyle): each of
 //! underline, switcher, edge and strip draws its own tabs and hides the others, a change of style reaches the
 //! live window at once and back, six tabs is the limit in every style, and none has a × to hide the window (nor has
 //! "…" since #3073: `/polestar show` was the only way back from a window hidden from its own menu).
@@ -254,11 +254,11 @@ fn no_style_has_a_window_close_and_the_menu_sits_at_the_bar_s_right() {
 	}
 }
 
-// Switcher, edge and strip live in their own addon (Polestar_TabStyles, load on demand): on underline at login
-// nothing of it is loaded, the first of its styles picked loads it once and draws, and back on underline it
-// stays loaded with its frames hidden.
+// Switcher, edge and strip are part of Polestar (their own load-on-demand addon before 0.4.3, #3507): nothing
+// to load, their builder is there at login, the first of them picked draws, and back on underline their frames
+// hide.
 #[test]
-fn the_other_styles_load_with_the_first_of_them_picked() {
+fn the_other_styles_are_there_at_login_and_draw_when_picked() {
 	let out = run(r#"
 		local loads = 0
 		local load = C_AddOns.LoadAddOn
@@ -269,7 +269,7 @@ fn the_other_styles_load_with_the_first_of_them_picked() {
 		uistub.openTabs(THREE, 1)
 		stub.advance(1)
 		local function state()
-			return { loaded = stub.addonsLoaded.Polestar_TabStyles == true, build = GF.TabStyleBuild ~= nil, menu = W.MenuRows ~= nil, loads = loads }
+			return { build = GF.TabStyleBuild ~= nil, menu = W.MenuRows ~= nil, loads = loads }
 		end
 		local out = { login = state() }
 		style("edge")
@@ -281,18 +281,17 @@ fn the_other_styles_load_with_the_first_of_them_picked() {
 		out.back = state()
 		out.underline = drawn()
 		emit(out)"#);
-	assert_eq!(out["login"], json!({ "loaded": false, "build": false, "menu": false, "loads": 0 }), "underline at login loads nothing of the other styles");
-	assert_eq!(out["edge"], json!({ "loaded": true, "build": true, "menu": true, "loads": 1 }), "picking edge loads them");
+	assert_eq!(out["login"], json!({ "build": true, "menu": true, "loads": 0 }), "the other styles are there at login");
+	assert_eq!(out["edge"], json!({ "build": true, "menu": true, "loads": 0 }), "picking edge loads nothing");
 	assert_eq!(out["drawn"]["edge"], true);
 	assert_eq!(out["drawn"]["edgeTabs"], 3, "and draws its tabs");
-	assert_eq!(out["strip"]["sideTabs"], 3, "a second style needs no second load");
-	assert_eq!(out["back"]["loads"], 1);
+	assert_eq!(out["strip"]["sideTabs"], 3);
 	assert_eq!(json!([out["underline"]["strip"], out["underline"]["edge"], out["underline"]["side"]]), json!([true, false, false]));
 }
 
-// The settings preview's copy, made before the styles' addon loads, draws them once it does.
+// The settings preview's copy draws the other styles in frames of its own.
 #[test]
-fn a_copy_made_before_the_load_draws_the_other_styles() {
+fn a_copy_draws_the_other_styles() {
 	let out = run(r#"
 		uistub.openTabs(THREE, 1)
 		stub.advance(1)
@@ -304,41 +303,11 @@ fn a_copy_made_before_the_load_draws_the_other_styles() {
 		local before = copy.TabStyleBuild ~= nil
 		style("strip")
 		copy.Draw()
-		emit({ before = before, after = copy.TabStyleBuild ~= nil, live = shown(P.tabSide),
+		emit({ before = before, live = shown(P.tabSide),
 			copy = copy.parts.tabSide ~= nil and copy.parts.tabSide ~= P.tabSide and copy.parts.tabSide:IsShown() })"#);
-	assert_eq!(out["before"], false);
-	assert_eq!(out["after"], true, "the late part joins the copy");
+	assert_eq!(out["before"], true, "the styles' part is the copy's from the start");
 	assert_eq!(out["live"], true);
 	assert_eq!(out["copy"], true, "and the copy draws the style in frames of its own");
-}
-
-// Without the addon (missing or turned off in the AddOns list), the window keeps the underline strip and the
-// chat says so once.
-#[test]
-fn without_the_styles_addon_the_tabs_stay_above_the_step_bar_and_the_chat_says_so_once() {
-	let out = run(r#"
-		local load = C_AddOns.LoadAddOn
-		function C_AddOns.LoadAddOn(name, ...)
-			if name == "Polestar_TabStyles" then return false, "DISABLED" end
-			return load(name, ...)
-		end
-		uistub.openTabs(THREE, 1)
-		stub.advance(1)
-		local before = #stub.messages
-		style("edge")
-		local d = drawn()
-		style("switcher")
-		style("strip")
-		local said = {}
-		for i = before + 1, #stub.messages do said[#said + 1] = stub.messages[i] end
-		emit({ picked = Polestar.Get("guideWindow.tabStyle"), style = GF.TabStyle(), strip = d.strip, said = said, outside = { GF.TabsOutside() } })"#);
-	assert_eq!(out["picked"], "strip", "the choice is kept for when the addon is back");
-	assert_eq!(out["style"], "underline");
-	assert_eq!(out["strip"], true, "the tabs stay above the step bar");
-	assert_eq!(out["outside"], json!([0, 0]));
-	let said = out["said"].as_array().unwrap();
-	assert_eq!(said.len(), 1, "one line: {said:?}");
-	assert!(said[0].as_str().unwrap().contains("Polestar_TabStyles"), "{}", said[0]);
 }
 
 // Under the Atlas layout its cards stand above the window. The edge tabs stand on the window's top edge, so the
@@ -347,7 +316,7 @@ fn without_the_styles_addon_the_tabs_stay_above_the_step_bar_and_the_chat_says_s
 fn atlas_cards_stand_above_the_edge_tabs() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
-		addons: vec![Addon::files("Polestar", &FILES), Addon::name("Polestar_Layout_Atlas")],
+		addons: vec![Addon::files("Polestar", &FILES), Addon::files("Polestar_Skins", &["Layouts/Atlas/Atlas.lua"])],
 		script: format!(
 			"uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\nlocal GF = Polestar.UI.GuideFrame\nlocal F = PolestarGuideFrame\n{HELPERS}\n{}",
 			r#"

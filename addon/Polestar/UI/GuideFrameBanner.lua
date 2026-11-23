@@ -366,6 +366,11 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- text's first line by the × instead (GF.LayoutBanner narrows the text
 	-- for it); a second action (Later) puts both back under.
 	local secondRow = false -- a second action on its own line
+	-- The second action (banner.Later) placed by this layout. It is hidden
+	-- only when a layout leaves it out: hidden and shown again on every
+	-- redraw, a click in progress on it was lost ("Not this one", "Do it with
+	-- a group" took several clicks, #3726, #3563).
+	local laterPlaced = false
 	-- A notice's tint and glyph by its kind (the wash and the icon); any
 	-- other kind is neutral. The accent stays the main action's.
 	GF.BANNER_ROLE = { bags = "warning", away = "npc", train = "npc", riding = "npc", skipped = "textMuted", questSkip = "textMuted" }
@@ -373,6 +378,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	local closeRoom = 24 -- the ×'s room at the right; 0 for a notice shown without it
 	local function placeLink(link, text, x, y)
 		link.Label:SetWordWrap(false)
+		if link == banner.Later then laterPlaced = true end
 		link.Label:SetWidth(0)
 		link.Label:SetText(text)
 		local right = link == banner.Jump and ns.Get("guideWindow.bannerLinks") == "right"
@@ -410,7 +416,7 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	-- known, kind, n: the notice GF.Layout just read (bannerNotice), with
 	-- nothing run in between; else it is read here.
-	function GF.LayoutBanner(width, known, kind, n)
+	local function layoutBanner(width, known, kind, n)
 		if not known then kind, n = bannerNotice() end
 		banner.psKind = kind
 		banner.psRole = GF.BANNER_ROLE[kind] or "textDim"
@@ -422,7 +428,6 @@ ns.UI.GuideFrame.Part(function(GF)
 		closeRoom = noClose and 0 or 24
 		banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 		banner.Text:SetWidth(width - PAD * 2 - 21 - closeRoom)
-		banner.Later:Hide()
 		secondRow = false
 		onRight = 0
 		local oneLine = false -- no link row under the text
@@ -745,8 +750,15 @@ ns.UI.GuideFrame.Part(function(GF)
 			oneLine = true
 		end
 		if noClose then banner.Close:Hide() end
-		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + (secondRow and banner.Later:IsShown() and 4 + 18 or 0) + 9 + 0.5)
+		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + (secondRow and laterPlaced and 4 + 18 or 0) + 9 + 0.5)
 		banner:SetHeight(h)
+		return h
+	end
+
+	function GF.LayoutBanner(width, known, kind, n)
+		laterPlaced = false
+		local h = layoutBanner(width, known, kind, n)
+		if not laterPlaced then banner.Later:Hide() end
 		return h
 	end
 
