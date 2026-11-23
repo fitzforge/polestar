@@ -31,7 +31,7 @@
 					"edges": 14534,
 					"components": 25
 				},
-				"places": 626,
+				"places": 630,
 				"unplaced": 10,
 				"unreachedFloors": 48446,
 				"unreachedBases": 22710,
@@ -61,7 +61,7 @@
 			},
 			"areas": 1894,
 			"occupiedFloor": {
-				"sourceManifestSha256": "55687b6173622f1156e732ffb8e46e265b4212a283baed47dffddaefbe87c04e",
+				"sourceManifestSha256": "a1beba9cca42d8775daa6727652e7dfa14ae9cd8073a70ec0afd0a228ce2d9e3",
 				"cluster": 471,
 				"cell": 15594,
 				"layer": 1,
@@ -220,7 +220,7 @@
 					"dearer": 0,
 					"gone": 0
 				},
-				"places": 558,
+				"places": 559,
 				"unplaced": 0,
 				"unreachedFloors": 82193,
 				"unreachedBases": 61574,
@@ -525,11 +525,42 @@
 	},
 	"import": {
 		"command": "node tools/lib/nav/import-regions.js",
-		"manifestSha256": "1a9455e1026ed328ebea5a8bdd9b097384716d4ca879bf775f38c0634fb75ef6",
+		"manifestSha256": "fec8a03b3910489241a5bf342cb108ea951119b7a97383672f80c395b8981967",
 		"terminalSha256": {
 			"0": "38288a037e6fb2397f1cd26f36cd9f8bfa74a743508c3408e12db62ff40cff7a",
 			"1": "823b7365bf07629fc79c187decf2921f18e6dd518255b9ad1266d5814e842a75",
 			"2991": "57bd4204fda6f28c808931e65e9d1a19f267bb2e556e250628b58f899cda342a"
 		}
+	},
+	"repack": {
+		"command": "tools/nav/repack.sh",
+		"inputs": {
+			"leffe/PACK.json": "6e34b2df1f7c3310ca0fed84dcc7b2e75136579639887e197b3bcb752da2f999",
+			"grid/index.json": "30145192d8aa8939e5bf943d2b1bf7e8b41d9b1cbc85dff29828b17b45fcc86c",
+			"grid/aids.json": "5a9622d56df6ec7d55ff5d861233e1dbe54bb9bd91bb9e46e7502b0ba0d7c7a2",
+			"grid/areas.json": "0ca4375dc9b8c4c756214cf84b5ad7d45061ff8f33fb9c145f18a5e450caef51",
+			"grid/lifts.json": "1c60811ed31ccb9ae36ed86c0b1db37cda2e41e8e74605eb68737b2dac6482ae",
+			"layers/hubs.json": "44ff820d885a8b0044cb2f751aba9db39905a05cd20b34335bc173c716f15fd4",
+			"layers/roads/index.json": "d4fc608aaa978ede94fd5bca621442f83aedd60687e2455c7b5c7c82580d4cf0",
+			"data/forever/zones.json": "673cff30379593a4a3cf9b6ca218c7884c4a9c5a6c9f44c85aea250dbefc28b7",
+			"data/forever/map-frames.json": "f8878dcac7c4553e9213afe481a781be0b8d1c993d38bc45f193b546207fe0d4",
+			"data/forever/travel.json": "e5a99baf699f2ab62f2be02a56b6dcee93e09e402822524257e891f63f0b31fc",
+			"data/forever/spawnz.json": "266d149082242e4fd987107099ebfcf8ebbece8b4078349ca9af9f82dc214036",
+			"data/sources/wago/1.60.1.70888/AreaTable.csv": "6e34c93426bf9ba46dfc8f7dd1b140bb556c1bf2a6ace8a1a3556f434c8c6989",
+			"data/crossings.json": "f6f5ba01fd539c351bb7f26de4c16021d6d44f12358eb0e084c5ffe131f7e85e",
+			"joins.json": "2f58c26945da9c02ae9c5c783a8451ebc83a1f0cd7207285f73e7885c51bf1c6"
+		},
+		"packManifestSha256": "0b7d8a4c5ce228b2d6d7fd46a8e28ad11f97287a638517036630577c0ffc65df",
+		"graft": {
+			"baseManifestSha256": "bcbe88bbe5a93e8d483150433273ca606721c35d84570d8c8525825f2bec3088",
+			"plainManifestSha256": "03b28056dafa3619f6241105d73b2a42a18ff454cd3fa54720b04242572db1db",
+			"sidecars": [
+				"Polestar_Nav/Nav/TerminalGround.lua",
+				"Polestar_Nav_EK/TerminalGround.lua",
+				"Polestar_Nav_Kalimdor/TerminalGround.lua"
+			]
+		},
+		"derivedManifestSha256": "a1beba9cca42d8775daa6727652e7dfa14ae9cd8073a70ec0afd0a228ce2d9e3",
+		"rebuiltManifestSha256": "fec8a03b3910489241a5bf342cb108ea951119b7a97383672f80c395b8981967"
 	}
 }

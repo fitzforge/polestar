@@ -5215,6 +5215,15 @@ t.guides["forever/collectibles/mounts/horde/pack-kodo"] = (function() return {
 		["The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier."] = "缰绳需要60级和中级骑术才能骑乘（无限 客户端）；可以提前购买。",
 		["{faction:2587} camp"] = "{faction:2587} 营地",
 } end)()
+t.guides["forever/collectibles/mounts/horde/paladin-warhorse"] = (function() return {
+		["At 40 {npc:260093}, the paladin trainer in the {zone:1458}, sends you to {npc:246378} at {area:16602}. Train your new spells with him while you are there. Already at {area:16602}? Skip this step: {npc:246378} gives you the mount quest without it."] = "40级时，{zone:1458}的圣骑士训练师{npc:260093}会派你去{area:16602}找{npc:246378}。顺便在他那里学习新技能。已经在{area:16602}了？跳过此步：没有这个任务，{npc:246378}也会给你坐骑任务。",
+		["Paladin Warhorse (Forsaken)"] = "圣骑士战马（被遗忘者）",
+		["Your first mount at 40, summoned at will: a Forsaken paladin buys no horse and pays no riding trainer."] = "40级获得的第一匹坐骑，可随时召唤：被遗忘者圣骑士无需买马，也无需向骑术训练师付费。",
+		["{area:16602} stands on the bluffs in western Tirisfal, north-west of the {area:156}: leave the {zone:1458} and follow the road west past {area:159}. {npc:246378} is inside the keep, upstairs."] = "{area:16602}位于提瑞斯法西部的悬崖上，{area:156}西北方：离开{zone:1458}，沿道路向西经过{area:159}。{npc:246378}在城堡内的楼上。",
+		["{area:16602}'s south gate"] = "{area:16602}南门",
+		["{npc:246378}, upstairs in {area:16602}, offers {quest:94971} at 40: accept it and hand it straight back. It teaches you {spell:1279399} and Apprentice Riding together, so you need no horse and no riding trainer."] = "{area:16602}楼上的{npc:246378}在40级时提供{quest:94971}：接受后立即交还。它会同时教你{spell:1279399}和骑术，所以你不需要买马，也不需要骑术训练师。",
+		["{npc:260093}: your level 40 spells"] = "{npc:260093}：40级技能",
+} end)()
 t.guides["forever/collectibles/mounts/horde/raptor"] = (function() return {
 		["Any Horde race can buy these raptors, but riding one also takes {spell:10861}, which only Trolls get with {skill:762}. {npc:7953} teaches it to other races once they are Exalted with {faction:530} (the Darkspear Trolls Reputation guide shows the way). Until then, don't buy a raptor for this character."] = "所有部落种族都能购买这些迅猛龙，但骑乘还需要{spell:10861}，只有巨魔学习{skill:762}时会同时获得。其他种族需先将{faction:530}声望提升至崇拜，再找{npc:7953}学习（详见暗矛巨魔声望指南）。在那之前，不要为这个角色买迅猛龙。",
 		["Learn to ride"] = "学习骑术",
@@ -6709,6 +6718,7 @@ t.guides["forever/horde/30-40/03-stranglethorn-vale"] = (function() return {
 		["Mosh'Ogg camp"] = "莫什奥格营地",
 		["Nesingwary's camp"] = "奈辛瓦里的营地",
 		["North-west of Grom'gol the {area:104} lies under the water off the coast. The {item:4094} rests on the sea floor by the sunken ruins; watch your breath and the murlocs."] = "{area:104}位于格罗姆高营地西北的近海水下。{item:4094}躺在沉没废墟旁的海底；注意呼吸和鱼人。",
+		["On the walk west from Nesingwary's camp, a pile of {object:661516} lies by the path: it starts {quest:97328}, whose Stolen Shipments lie in the {area:102} on the coast ahead."] = "从奈辛瓦里营地向西走时，路边有一堆{object:661516}：它会开始{quest:97328}，任务所需的被盗的货物就在前方海岸的{area:102}。",
 		["On your way back south to {object:3202}, the Lashtail Raptors (35-36) hunt the jungle between the camp and {object:3202}: they count for Hemet and for {npc:2464}. Careful: the 36s can be two over you: pull them one at a time. Carnivorous Weeds (36-38) are rooted in the jungle south of the raptors: walk around them."] = "向南返回{object:3202}途中，鞭尾迅猛龙（35-36级）在营地与{object:3202}之间的丛林里出没：它们同时计入赫米特和{npc:2464}的任务进度。小心：36级的可能比你高两级：一次引一只。食肉杂草（36-38级）扎根在迅猛龙南边的丛林里：绕开它们。",
 		["River Crocolisks lie along the river below the camp. Young Stranglethorn Tigers prowl west of the camp, Young Panthers east of it. Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it. Careful: The troll camps have many patrolling mobs, so other trolls often join a fight."] = "淡水鳄趴在营地下方的河边。荆棘谷猛虎幼崽在营地西侧徘徊，猎豹幼崽则在营地东侧。向西经过营地。荆棘谷迅猛龙（33-34级）在空地上狩猎，血顶巨魔占据着海岸废墟：任何血顶巨魔都可能掉落獠牙。它们有极低概率掉落{item:4614}：掉落后记得阅读。小心：巨魔营地有很多巡逻怪，因此其他巨魔经常会加入战斗。",
 		["Snapjaw Crocolisks"] = "钳嘴鳄鱼",

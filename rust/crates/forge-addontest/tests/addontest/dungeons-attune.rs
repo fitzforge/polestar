@@ -347,7 +347,11 @@ fn with_the_local_codex_every_attunement_builds_the_reviewed_steps_and_each_cite
 	assert!(diff.is_empty(), "attunements differ from the reviewed list (review, then POLESTAR_WRITE_GOLDEN=1):\n{}", diff.join("\n"));
 	// Every cited `inside` place is one a chain meets, of an NPC or object that has no spawn and that the Codex
 	// places in no instance (the guide reads the Codex's instance itself; Drakkisath's Brand, Franclorn's monument,
-	// Doan's Strongbox and the Inconspicuous Documents are the Codex's).
+	// Doan's Strongbox and the Inconspicuous Documents are the Codex's). A place cited for a quest of a raid Forever
+	// has not opened, whose quests are out of the data (the Core Fragment for Attunement to the Core, #3392), is in
+	// no chain until the raid opens.
+	let closed_out: HashSet<String> =
+		list(&table["attunements"]).iter().filter(|a| a["open"] == false).flat_map(|a| list(&a["goal"])).map(|q| q.to_string()).filter(|q| !truthy(&real["quests"][q.as_str()])).collect();
 	let mut used: HashSet<String> = HashSet::new();
 	for l in by.as_object().unwrap().values() {
 		for a in list(l) {
@@ -357,6 +361,10 @@ fn with_the_local_codex_every_attunement_builds_the_reviewed_steps_and_each_cite
 		}
 	}
 	for e in list(&table["inside"]) {
+		let for_closed = list(&e["sources"]).iter().any(|s| s["kind"] == "quest" && closed_out.contains(&s["id"].to_string()));
+		if for_closed {
+			continue;
+		}
 		assert!(used.contains(&format!("{}:{}:{}", text(&e["kind"]), e["id"], text(&e["instance"]))), "{} is in no chain", text(&e["name"]));
 		let records = if e["kind"] == "npc" { &real["npcs"] } else { &real["objects"] };
 		let rec = &records[e["id"].to_string()];
@@ -398,12 +406,12 @@ local w = stub.world
 	))
 }
 
-// Two attunements as a level 60 Horde character in Orgrimmar gets them from the shipped Codex: the Molten Core's
-// (accept at Lothos Riftwaker outside, the Core Fragment at Blackrock Depths' entrance with what to do inside, back
-// to Lothos, then the note about his teleport) and the Horde's Dalaran Sewer Key (the Tarren Mill chain, then
-// Heart of Disruption's accept alone with the keep-it note). Skips without a built pack.
+// Two attunements as a level 60 Horde character in Orgrimmar gets them from the shipped Codex: none for the Molten
+// Core while Forever has it closed (Attunement to the Core and Duke Hydraxis's chain are out of the data, #3392), and
+// the Horde's Dalaran Sewer Key (the Tarren Mill chain, then Heart of Disruption's accept alone with the keep-it note).
+// Skips without a built pack.
 #[test]
-fn with_the_built_codex_the_molten_core_and_sewer_key_guides_read_like_a_route() {
+fn with_the_built_codex_the_sewer_key_guide_reads_like_a_route_and_the_closed_molten_core_has_none() {
 	let Some(packs) = real_pack_lua() else {
 		eprintln!("skipped: no Codex pack (forge data codex, or POLESTAR_CODEX_DIR) or no data/forever/map-frames.json");
 		return;
@@ -438,16 +446,7 @@ emit(full(D.AttuneGuide("city-of-dalaran", "sewer-key")))"#
 	});
 	let (mc, sewer) = (&out[0], &out[1]);
 	eprintln!("{}\n{}", serde_json::to_string_pretty(mc).unwrap(), serde_json::to_string_pretty(sewer).unwrap());
-	let brd = "@1427 34.8,85.3";
-	assert_eq!(text(&mc[0]["title"]), "Attunement to the Core");
-	let goals: Vec<String> = list(&mc[0]["goals"]).iter().map(|g| text(g).to_string()).collect();
-	assert!(goals[0].starts_with("accept:7848 @"), "Lothos's accept, placed: {goals:?}");
-	assert_eq!(goals[1], format!("collect:7848 {brd}"), "the Core Fragment at Blackrock Depths' entrance");
-	assert!(goals[2].starts_with("turnin:7848 @"), "back to Lothos: {goals:?}");
-	let note = text(&mc[0]["note"]);
-	assert!(note.contains("Molten Core portal") && note.contains("Core Fragment: inside Blackrock Depths."), "what to do inside, then where: {note}");
-	assert_eq!(text(&mc[1]["title"]), "Molten Core");
-	assert!(text(&mc[1]["note"]).contains("Lothos Riftwaker"), "the last step says what the attunement does");
+	assert!(list(mc).is_empty(), "no Molten Core attunement while the raid is closed: {mc:?}");
 	let titles: Vec<String> = list(sewer).iter().map(|s| text(&s["title"]).to_string()).collect();
 	let mut chain = titles[..4].to_vec();
 	chain.sort();
