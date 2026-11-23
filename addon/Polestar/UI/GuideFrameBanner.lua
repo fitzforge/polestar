@@ -615,11 +615,10 @@ ns.UI.GuideFrame.Part(function(GF)
 			placeLink(banner.Jump, n.choose and L["Choose where to go next"] or string.format(L["Start %s"], n.label), 0, -4)
 			banner.Close:Show()
 		elseif kind == "fresh" then
-			-- What the quests it leaves out cost in grinding, and the guide they follow on from.
+			-- The guide some of its quests follow on from, as an offer, not a warning (Fitz, #3879: no percent,
+			-- no minutes: "it freaks people out that they're behind").
 			banner.Icon:SetTexture(Theme.Media("icon-level"))
-			local text = string.format(L["Fresh start: about %d%% of this guide's quest XP follows on from %s."], n.share, n.fromTitle)
-			if n.minutes then text = text .. "\n" .. string.format(L["Expect about %d minutes of extra grinding, or start there."], n.minutes) end
-			banner.Text:SetText(text)
+			banner.Text:SetText(string.format(L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."], n.fromTitle))
 			placeLink(banner.Jump, string.format(L["Open %s"], n.fromTitle), 0, -4)
 			banner.Close:Show()
 		elseif kind == "outlevel" then

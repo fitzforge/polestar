@@ -1427,6 +1427,12 @@ L["%s to buy"] = "%s개 구매 필요"
 L["(only %s listed)"] = "(%s개만 등록됨)"
 L["(old price)"] = "(오래된 가격)"
 -- L["Elites nearby"] = ""
+-- L["Group, or careful: a group quest, yours to do or skip"] = ""
+-- L["Group, or careful: an escort that can go wrong"] = ""
+-- L["Group, or careful: elites at your level or above"] = ""
+-- L["Group, or careful: a group is advised"] = ""
+-- L["Careful: elites nearby"] = ""
+-- L["Careful: elites, below your level"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "위치"
@@ -4746,6 +4752,8 @@ L["This guide is for %s characters. Polestar won't guide you through it."] = "�
 -- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 -- L["Looking ahead."] = ""
 -- L["Looking back."] = ""
+-- L["On the way to your map point (%s)."] = ""
+-- L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "%s 키를 눌러 다시 시작하거나 가이드 창을 여십시오."
@@ -4856,8 +4864,6 @@ L["You have %s"] = "보유 금액: %s"
 L["Send to Auctionator"] = "Auctionator로 보내기"
 L["Copy list"] = "목록 복사"
 L["Show how the profession guide gets its materials"] = "전문 기술 가이드가 재료를 얻는 방법 보기"
-L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "새로 시작: 이 가이드의 퀘스트 경험치 중 약 %d%%가 %s에서 이어집니다."
-L["Expect about %d minutes of extra grinding, or start there."] = "약 %d분 더 사냥해야 합니다. 아니면 거기서 시작하십시오."
 L["Open %s"] = "%s 열기"
 
 -- Core/ProfileStrings.lua
@@ -5340,3 +5346,5 @@ L["%d of %d"] = "%d / %d"
 -- L["a game: Play"] = "플레이"
 -- L["Do you want to play Doom while waiting?"] = "기다리는 동안 Doom을 플레이할까요?"
 -- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "더 빠르면 아는 순간이동 주문으로 경로를 시작합니다: 마법사의 도시 순간이동, 드루이드의 달의 숲, 주술사의 영혼의 귀환(두 번째 귀환석처럼). 도시 순간이동에는 가방에 순간이동의 룬이 필요합니다."
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "새로 시작: 이 가이드의 퀘스트 경험치 중 약 %d%%가 %s에서 이어집니다."
+-- L["Expect about %d minutes of extra grinding, or start there."] = "약 %d분 더 사냥해야 합니다. 아니면 거기서 시작하십시오."

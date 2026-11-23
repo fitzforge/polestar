@@ -1982,15 +1982,16 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   "Fresh starts") says how much of its quest XP hinges on earlier guides'
   quests. `Engine.FreshFor(g)` scales that share by the part of `needs` the
   character has neither done, nor in the log, nor taken on the way (a feeder
-  step of the guide's plan), and from `FRESH_NOTE` (30) percent in whole
-  percent (the share the note states), below the
-  guide's top level and with `from` a guide for this character, returns
-  `{ guideId, from, fromTitle, share, minutes }` (minutes: that XP as
-  same-level kills, `FRESH_KPM` (1.5) a minute, in fives). `Engine.FreshStart()`
+  step of the guide's plan), nor grey for them (#3879: the quest's level from
+  `from`'s accept), and from `FRESH_NOTE` (30) percent in whole percent,
+  below the guide's top level and with `from` a guide for this character,
+  returns `{ guideId, from, fromTitle, share }`. `Engine.FreshStart()`
   is the active guide's once the quest log is in, while its live step is in
-  the guide's first third: the guide window's "fresh" banner ("Fresh start:
-  about N% of this guide's quest XP follows on from X", "Open X" opens it in
-  a new tab; taken or dismissed, gone for that guide for the session).
+  the guide's first third: the guide window's "fresh" banner, an offer with
+  no percent and no minutes ("Some of this guide's quests follow on from X.
+  Start there for the full set, or carry on here; the guide fills in with
+  nearby quests.", "Open X" opens it in a new tab; taken or dismissed, gone
+  for that guide for the session).
 - **Out-levelled guides.** When the player's level exceeds the active guide's
   top (`maxLevel`, or their side's `factionLevels` one: `Guides.Levels`) by
   `Engine.OUTGROWN` (3) or more, the Engine fires `GUIDE_OUTLEVELED(guideId,
