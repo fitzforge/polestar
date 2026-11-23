@@ -92,6 +92,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "trackers_instances", src: include_str!("effects/trackers-instances.lua") },
 	Group { name: "trackers_party", src: include_str!("effects/trackers-party.lua") },
 	Group { name: "pins_world", src: include_str!("effects/pins-world.lua") },
+	Group { name: "pins_spawns", src: include_str!("effects/pins-spawns.lua") },
 	Group { name: "pause", src: include_str!("effects/pause.lua") },
 ];
 
@@ -793,6 +794,11 @@ fn trackers_party() {
 #[test]
 fn pins_world() {
 	check("pins_world");
+}
+
+#[test]
+fn pins_spawns() {
+	check("pins_spawns");
 }
 
 #[test]
