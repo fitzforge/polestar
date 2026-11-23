@@ -9,7 +9,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { runAddon } = require('./helpers/lua');
 
-const run = (extra = '') => runAddon({
+const run = (extra = '', quests = [50, 60, 70], open = [80]) => runAddon({
 	stubs: ['stub_world.lua'],
 	addons: ['Polestar'],
 	script: `
@@ -28,11 +28,15 @@ Polestar.RegisterGuide({ id = "test/b", pack = "test", title = "B", category = "
 Polestar.RegisterGuide({ id = "test/c1", pack = "test", title = "C1", category = "Leveling", minLevel = 1, maxLevel = 40,
 	steps = { { goals = { { t = "turnin", quest = 50, title = "Branch quest" } } } } })
 Polestar.RegisterGuide({ id = "test/c2", pack = "test", title = "C2", category = "Leveling", minLevel = 1, maxLevel = 40,
-	steps = { { goals = { { t = "note", text = "Other way" } } } } })
--- 50: only option C1 hands it in. 60: no guide of the chain does. 70: A, ahead.
-for _, q in ipairs({ 50, 60, 70 }) do
+	steps = { { goals = { { t = "accept", quest = 80, title = "Worked on the other way" } } } } })
+-- 50: only option C1 hands it in. 60: no guide of the chain uses it. 70: A,
+-- ahead. 80 (not finished): option C2 takes it, no guide hands it in.
+for _, q in ipairs({ ${quests.join(', ')} }) do
 	w.accept(q, { { type = "monster", text = "Kill", need = 1 } }, "Quest " .. q)
 	w.finish(q)
+end
+for _, q in ipairs({ ${open.join(', ')} }) do
+	w.accept(q, { { type = "monster", text = "Kill", need = 1 } }, "Quest " .. q)
 end
 stub.login()
 stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
@@ -42,10 +46,14 @@ stub.advance(0.6)
 ${extra}
 P.Invalidate()
 local list, waiting = P.Carried()
+local unneeded = P.Unneeded()
+local un = {}
+for _, u in ipairs(unneeded or {}) do un[#un + 1] = u.quest .. ":" .. u.status end
 local ids = {}
 for _, c in ipairs(list or {}) do ids[#ids + 1] = c.quest end
 emit({ active = E.GetGuide().id, carried = list and ids or "nil", waiting = waiting,
-	s50 = P.GetTurnIn(50).status, s60 = P.GetTurnIn(60).status, s70 = P.GetTurnIn(70).status })`,
+	unneeded = unneeded and un or "nil",
+	s50 = P.GetTurnIn(50).status, s60 = P.GetTurnIn(60).status, s70 = P.GetTurnIn(70).status, s80 = P.GetTurnIn(80).status })`,
 }).emitted[0];
 
 test('with a route choice ahead, a quest no option hands in is carried and the one an option hands in waits', () => {
@@ -56,6 +64,14 @@ test('with a route choice ahead, a quest no option hands in is carried and the o
 	assert.equal(out.s60, 'unplanned', 'no option hands it in: not on the route, whichever is taken');
 	assert.deepEqual(out.carried, [60], 'the list is not held back by 50: ' + JSON.stringify(out));
 	assert.equal(out.waiting, 1, 'one quest waits on the choice');
+	assert.equal(out.s80, 'choice', 'option C2 takes it: the choice decides, though no guide hands it in');
+	assert.equal(out.unneeded, 'nil', 'quests in the log wait on the choice: the clean-up cannot say');
+});
+
+test('with a route choice ahead and no log quest an option uses, the clean-up lists the quests no option uses', () => {
+	const out = run('', [60, 70], []);
+	assert.equal(out.s60, 'unplanned');
+	assert.deepEqual(out.unneeded, ['60:unplanned'], JSON.stringify(out));
 });
 
 test('once the choice is made, the quest its option hands in is on the route and the other stays carried', () => {
