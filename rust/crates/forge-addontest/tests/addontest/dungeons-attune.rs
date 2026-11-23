@@ -386,12 +386,12 @@ local w = stub.world
 	))
 }
 
-// Two attunements as a level 60 Horde character in Orgrimmar gets them from the shipped Codex: the Molten Core's
-// (accept at Lothos Riftwaker outside, the Core Fragment at Blackrock Depths' entrance with what to do inside, back
-// to Lothos, then the note about his teleport) and the Horde's Dalaran Sewer Key (the Tarren Mill chain, then
-// Heart of Disruption's accept alone with the keep-it note). Skips without a built pack.
+// Two attunements as a level 60 Horde character in Orgrimmar gets them from the shipped Codex: none for the Molten
+// Core while Forever has it closed (Attunement to the Core and Duke Hydraxis's chain are out of the data, #3392), and
+// the Horde's Dalaran Sewer Key (the Tarren Mill chain, then Heart of Disruption's accept alone with the keep-it note).
+// Skips without a built pack.
 #[test]
-fn with_the_built_codex_the_molten_core_and_sewer_key_guides_read_like_a_route() {
+fn with_the_built_codex_the_sewer_key_guide_reads_like_a_route_and_the_closed_molten_core_has_none() {
 	let Some(packs) = real_pack_lua() else {
 		eprintln!("skipped: no Codex pack (forge data codex, or POLESTAR_CODEX_DIR) or no data/forever/map-frames.json");
 		return;
@@ -426,16 +426,7 @@ emit(full(D.AttuneGuide("city-of-dalaran", "sewer-key")))"#
 	});
 	let (mc, sewer) = (&out[0], &out[1]);
 	eprintln!("{}\n{}", serde_json::to_string_pretty(mc).unwrap(), serde_json::to_string_pretty(sewer).unwrap());
-	let brd = "@1427 34.8,85.3";
-	assert_eq!(text(&mc[0]["title"]), "Attunement to the Core");
-	let goals: Vec<String> = list(&mc[0]["goals"]).iter().map(|g| text(g).to_string()).collect();
-	assert!(goals[0].starts_with("accept:7848 @"), "Lothos's accept, placed: {goals:?}");
-	assert_eq!(goals[1], format!("collect:7848 {brd}"), "the Core Fragment at Blackrock Depths' entrance");
-	assert!(goals[2].starts_with("turnin:7848 @"), "back to Lothos: {goals:?}");
-	let note = text(&mc[0]["note"]);
-	assert!(note.contains("Molten Core portal") && note.contains("Core Fragment: inside Blackrock Depths."), "what to do inside, then where: {note}");
-	assert_eq!(text(&mc[1]["title"]), "Molten Core");
-	assert!(text(&mc[1]["note"]).contains("Lothos Riftwaker"), "the last step says what the attunement does");
+	assert!(list(mc).is_empty(), "no Molten Core attunement while the raid is closed: {mc:?}");
 	let titles: Vec<String> = list(sewer).iter().map(|s| text(&s["title"]).to_string()).collect();
 	let mut chain = titles[..4].to_vec();
 	chain.sort();
