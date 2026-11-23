@@ -1658,7 +1658,7 @@ fn a_banner_s_action_on_the_right_takes_its_own_line_when_the_text_would_wrap_be
 		Polestar.Set("guideWindow.bannerLinks", "right")
 		local B = GF.parts.banner
 		local E = Polestar.Engine
-		E.FreshStart = function() return { share = 42, fromTitle = "The Barrens", minutes = 25 } end
+		E.FreshStart = function() return { guideId = uistub.elwynn, share = 42, fromTitle = "The Barrens", minutes = 25 } end
 		uistub.setGuide(uistub.elwynn, 3)
 		local full = B:GetWidth()
 		local point, rel, relPoint = B.Jump:GetPoint(1)
