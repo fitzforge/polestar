@@ -278,6 +278,7 @@ return {
 	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (the {zone:1431} guide)."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Already carrying six? Hand them in now"] = "¿Ya tienes seis? Entrégalas ahora",
 	-- ["Bellygrub"] = "Panzallena",
 	-- ["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "Cruza el largo puente hacia el norte hasta el pueblo. {npc:341} y {npc:382} están en el extremo norte del puente; {npc:900}, en el ayuntamiento; {npc:381} y {npc:266}, en los muelles; {npc:343}, en la posada; {npc:342}, en su huerto del extremo oeste.",
 	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "Al este, pasado el molino, cruza el río. Los gnols Pielsombra llenan el valle; {npc:703} (26, muy por encima de ti) los dirige en el extremo norte: acaba primero con su escolta y lucha contra él con la salud al máximo. No entres en {area:2099}, al sur: sus orcos son élite.",
@@ -286,6 +287,7 @@ return {
 	-- ["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "Sal de {area:69} hacia el norte, sube por {area:95} hasta {area:997}. Los Campeones Roca Negra acampan en el valle.",
 	-- ["Lake murlocs"] = "Múrlocs del lago",
 	-- ["Level 18 and 20 spells"] = "Hechizos de nivel 18 y 20",
+	-- ["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "Lo siguiente: el grifo a {area:42} para el segundo circuito de {zone:1431} (05-duskwood).",
 	-- ["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Dire Condors and Great Goretusks roam the same hills."] = "Los Bastardos de Crestagrana y otros gnols ocupan las colinas al este de {area:1002}, al norte del camino; los Vándalos de Crestagrana merodean entre ellos y los furtivos acampan al sur del camino. Dire Condors y Grandes dentosangre recorren las mismas colinas.",
 	-- ["Shaman training"] = "Entrenamiento de chamán",
 	-- ["Swim east from the bridge into {area:68}; the chest lies on the lake bed."] = "Nada al este desde el puente hasta {area:68}; el cofre está en el fondo del lago.",
@@ -310,6 +312,4 @@ return {
 	-- ["{zone:1431} is next: follow the road west to {area:1002}, then south to {area:42}."] = "Ahora toca {zone:1431}: sigue el camino al oeste hasta {area:1002} y luego al sur hasta {area:42}.",
 	-- ["{zone:1453} class quests"] = "Misiones de clase de {zone:1453}",
 	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453} no tiene instructor de chamanes: toma el {area:2257} desde {object:28027} hasta {zone:1455}, entrena con {npc:258098} y vuelve en el tranvía.",
-	-- ["Already carrying six? Hand them in now"] = "¿Ya tienes seis? Entrégalas ahora",
-	-- ["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "Lo siguiente: el grifo a {area:42} para el segundo circuito de {zone:1431} (05-duskwood).",
 }

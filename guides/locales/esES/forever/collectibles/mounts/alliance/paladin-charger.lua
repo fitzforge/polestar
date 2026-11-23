@@ -65,7 +65,6 @@ return {
 	-- plural, as words: Stratholme Supply Crates = {object:181085} Stratholme Supply Crate
 	["{area:2279} is a dungeon for a group of five at 58-60, at the north end of the {zone:1423}. Stratholme Supply Crates along the streets of both halves hold the Holy Water, one to three each; they come back after three minutes. Some crates let out a swarm of plagued rats or maggots: be ready. The main gate (the Scarlet half) needs no key."] = "{area:2279} es una mazmorra para un grupo de cinco de nivel 58-60, en el extremo norte de {zone:1423}. Las cajas de provisiones de Stratholme a lo largo de las calles de las dos mitades tienen el agua bendita, de una a tres cada una; vuelven a los tres minutos. Algunas cajas sueltan un enjambre de ratas o larvas apestadas: prepárate. La puerta principal (la mitad Escarlata) no necesita llave.",
 	-- plural, as words: Stratholme Supply Crates = {object:181085} Stratholme Supply Crate
-	-- was: ["Supply Crates, inside"] = "Cajones de suministro, dentro"
 	["Stratholme Supply Crates, inside"] = "Cajas de provisiones de Stratholme, adentro",
 
 	-- Step 10: Grimand Elmore

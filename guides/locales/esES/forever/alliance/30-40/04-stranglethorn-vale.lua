@@ -14,6 +14,7 @@ return {
 
 	-- Step 2: Booty Bay
 	-- {npc:4631} Wharfmaster Lozgil
+	-- was: ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "Vincula tu piedra de hogar en la posada: es tu forma de volver aquí desde el norte de la selva al final del circuito."
 	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the dock"] = "",
@@ -144,7 +145,6 @@ return {
 	-- Step 20: The Savage Coast
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk · Lesser Water Elementals = {npc:691} Lesser Water Elemental
-	-- was: ["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "Desde {area:108} el camino lleva al sur, fuera de {zone:1436}, hasta el noroeste de la Vega de Tuercespina, a la {area:310}, cerca de la costa; los Basiliscos Espina de Cristal de alrededor sueltan los fragmentos.\nLa isla encantada está junto a la costa, al suroeste de la mina: basta con llegar a su orilla. Cuidado: sus Elementales de agua inferiores son de nivel 36-37: no te quedes. Las ruinas Cabellesangre de Zul'Kunda, al norte, esperan a la segunda vuelta por la Vega de Tuercespina."
 	["From Nesingwary's camp head west to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "Desde el campamento de Nesingwary ve al oeste hasta {area:310}, cerca de la costa; los basiliscos Columna de Cristal de alrededor sueltan los fragmentos.\nLa isla encantada está justo frente a la costa, al suroeste de la mina: basta con llegar a su borde. Cuidado: sus elementales de agua inferiores son de nivel 36-37: no te quedes. Las ruinas Bloodscalp de Zul'Kunda, al norte, esperan el segundo circuito por Tuercespina.",
 	["The haunted island"] = "La isla fantasma",
 
@@ -207,6 +207,7 @@ return {
 	["The road to {area:608}"] = "El camino a {area:608}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "Vincula tu piedra de hogar en la posada: es tu forma de volver aquí desde el norte de la selva al final del circuito.",
 	-- ["Bloodscalp trolls"] = "Trols Cabellesangre",
 	-- ["Down to {area:35}"] = "Bajada a {area:35}",
 	-- ["East of Zul'Kunda"] = "Al este de Zul'Kunda",
@@ -218,6 +219,7 @@ return {
 	-- ["Follow the west coast north; the haunted island lies off the shore west of Nesingwary's camp. Just reach it."] = "Sigue la costa oeste al norte; la isla fantasma está frente a la orilla, al oeste del campamento de Nesingwary. Basta con llegar a ella.",
 	-- ["For Archmage Ansirem in {zone:1416}"] = "Para el Archimago Ansirem, en {zone:1416}",
 	-- ["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "Desde {area:108} el camino lleva al sur, fuera de {zone:1436}, hasta el noroeste de la Vega de Tuercespina, a la {area:310}, cerca de la costa; los Basiliscos Espina de Cristal de alrededor sueltan los fragmentos.\nLa isla encantada está junto a la costa, al suroeste de la mina: basta con llegar a su orilla. Cuidado: sus Elementales de agua inferiores son de nivel 36-37: no te quedes. Las ruinas Cabellesangre de Zul'Kunda, al norte, esperan a la segunda vuelta por la Vega de Tuercespina.",
+	-- ["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "Desde {area:415} ve al noroeste hacia las colinas: {quest:1738} es un árbol brillante al norte del camino a {area:413}. Si tomaste {quest:65602}, {item:190309} está en una casa entre los árboles al norte de {area:413} (26.6,22.0). Luego toma el camino al oeste hacia Sierra Espolón.",
 	-- ["From {zone:1431} take the road south into Stranglethorn; the hunters' tents stand just west of the road past the {area:99} turn-off."] = "Desde {zone:1431} toma el camino al sur hasta la Vega de Tuercespina; las tiendas de los cazadores están justo al oeste del camino, pasado el desvío al {area:99}.",
 	-- ["Gluggle, a rare murloc on the coast west of camp, drops the {item:4614}: take it if you meet him"] = "Gluggle, un múrloc raro de la costa al oeste del campamento, suelta el {item:4614}: cógelo si te lo encuentras",
 	-- ["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave. Pick up Green Hills pages as they drop."] = "Los Reductores de cabezas están en el interior de la base; los Comandos acechan en sigilo a su alrededor y en la cueva. Recoge las páginas de Las verdes colinas según caigan.",
@@ -243,6 +245,4 @@ return {
 	-- ["{npc:729}, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to {area:35}."] = "{npc:729}, el gran tigre, tiene su guarida en la cima de la colina al suroeste del campamento; los Raptores colazote corren al sur de ella, de camino a {area:35}.",
 	-- ["{npc:773}, in the tavern; upstairs"] = "{npc:773}, en la taberna; en el piso de arriba",
 	-- ["{quest:207}: four troll legends"] = "{quest:207}: cuatro leyendas trols",
-	-- ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "Vincula tu piedra de hogar en la posada: es tu forma de volver aquí desde el norte de la selva al final del circuito.",
-	-- ["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "Desde {area:415} ve al noroeste hacia las colinas: {quest:1738} es un árbol brillante al norte del camino a {area:413}. Si tomaste {quest:65602}, {item:190309} está en una casa entre los árboles al norte de {area:413} (26.6,22.0). Luego toma el camino al oeste hacia Sierra Espolón.",
 }

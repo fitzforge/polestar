@@ -448,6 +448,7 @@ return {
 	-- ["Flatland Prowlers roam the plains around {area:225}"] = "Los merodeadores de las estepas recorren las llanuras alrededor de {area:225}",
 	-- ["Follow the path south out of camp to the Seer's tent at the foot of the hills."] = "Sigue el sendero hacia el sur fuera del campamento hasta la tienda del profeta, al pie de las colinas.",
 	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "Sigue el camino hacia el norte fuera de {area:220}. {npc:265810} espera en el camino justo al sur de {area:222}; /sentarse junto a su hoguera hasta obtener {spell:1229451}.",
+	-- ["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "Desde el Cruce sigue el camino al noreste hasta {area:379}, cruza {area:814} hacia {zone:1411} y sigue al norte hasta la puerta principal de {zone:1454}. La siguiente guía empieza en {zone:1454} y toma el zepelín a {zone:1420} y {zone:1421}.",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "Centauros Galak y Lobos alfa de pradera",
 	-- ["Galak centaurs and {npc:2958} Alphas"] = "Centauros Galak y alfas de {npc:2958}",
 	-- ["Hearth to {area:222} and ride north to {area:1639}."] = "Usa la Piedra de hogar para ir a {area:222} y ve al norte hasta {area:1639}.",
@@ -485,6 +486,7 @@ return {
 	-- ["With {skill:393} learned, Kaga also offers its Camping 101: {npc:6290} in Bloodhoof takes it."] = "Con {skill:393} aprendido, Kaga también ofrece su misión Acampada 101: entrégasela a {npc:6290} en el Poblado Pezuña de Sangre.",
 	-- ["grind on {npc:2978}"] = "farmea a {npc:2978}",
 	-- ["{area:1898} cultists"] = "Cultores de {area:1898}",
+	-- ["{area:474}: kill these as you meet them"] = "{area:474}: mátalos según te los encuentres",
 	-- ["{npc:275789} stands on the {area:821} a little east of the well."] = "{npc:275789} está en {area:821}, un poco al este del pozo.",
 	-- ["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182} está en el borde norte del poblado. Kyle quiere {item:287505} de zancudos de llanura.",
 	-- ["{npc:2988} camps by the {area:396} south-east of Bloodhoof."] = "{npc:2988} acampa junto a {area:396}, al sureste del Poblado Pezuña de Sangre.",
@@ -494,6 +496,4 @@ return {
 	-- ["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to {npc:2980}."] = "{npc:6775} está en el extremo oeste del campamento, en la esquina noroeste de las colinas donde rondan los pumas monteses: acepta su misión, caza los pumas desde allí hacia el sur y el este y vuelve con {npc:2980}.",
 	-- ["{quest:96130} and {quest:756}"] = "{quest:96130} y {quest:756}",
 	-- ["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it."] = "{quest:96130}, un lobo solitario, ronda las llanuras al oeste del poblado. Los acechadores de pradera y los pumas de las estepas recorren las llanuras al norte y al oeste.",
-	-- ["{area:474}: kill these as you meet them"] = "{area:474}: mátalos según te los encuentres",
-	-- ["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "Desde el Cruce sigue el camino al noreste hasta {area:379}, cruza {area:814} hacia {zone:1411} y sigue al norte hasta la puerta principal de {zone:1454}. La siguiente guía empieza en {zone:1454} y toma el zepelín a {zone:1420} y {zone:1421}.",
 }

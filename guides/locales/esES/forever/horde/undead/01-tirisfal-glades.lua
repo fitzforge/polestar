@@ -514,6 +514,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:159}."] = "Vuelve a {area:159}.",
+	-- ["Back up the road to {area:159}, on the way north-west to {area:157}."] = "Vuelve por el camino hasta {area:159}, de camino al noroeste hacia {area:157}.",
 	-- ["Balnir graves"] = "Tumbas de Balnir",
 	-- ["Duskbats and Darkhounds roam all along the road back west; finish the wings and hides on the way."] = "Los murciumbríos y canes oscuros rondan por todo el camino de vuelta al oeste; completa las alas y los pellejos por el camino.",
 	-- ["Eleanor camps just south-west of town."] = "Eleanor Tembleque acampa justo al suroeste del pueblo.",
@@ -584,5 +585,4 @@ return {
 	-- ["{npc:244808} and {npc:5667}"] = "{npc:244808} y {npc:5667}",
 	-- ["{npc:244808} and {npc:5667} stand beside the church."] = "{npc:244808} y {npc:5667} están junto a la iglesia.",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, el maestro de jinetes del viento",
-	-- ["Back up the road to {area:159}, on the way north-west to {area:157}."] = "Vuelve por el camino hasta {area:159}, de camino al noroeste hacia {area:157}.",
 }

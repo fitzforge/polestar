@@ -445,6 +445,7 @@ return {
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "A {zone:1454}",
 	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {area:379} Far Watch Post · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	-- was: ["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "Sigue el camino al norte desde {area:379} hasta la puerta principal de {zone:1454}. La siguiente guía empieza en {zone:1454}: {quest:829} recibe la misión de los sectarios, los instructores te enseñan tus nuevos rangos y el zepelín sale de las torres afuera de la puerta hacia {zone:1420} y {zone:1421}. {zone:1413} viene después de Argénteos."
 	["Head to {zone:1454}'s main gate, just west of {area:817} (Warriors: north along the road from {area:379}). The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{object:172982} de {zone:1454}",
@@ -458,6 +459,7 @@ return {
 	-- ["Back to {area:362}."] = "Vuelve a {area:362}.",
 	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "Vuelve con {npc:5875} en {object:172960}. Usa {item:7464} en el círculo de invocación de allí y derrota al abisario para vincularlo.",
 	-- ["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Sigue el camino hacia el norte desde {area:379} hasta la puerta principal de {zone:1454}, justo al oeste de {area:817}. {npc:3352} está con los instructores de cazadores en {object:172958}.",
+	-- ["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "Sigue el camino al norte desde {area:379} hasta la puerta principal de {zone:1454}. La siguiente guía empieza en {zone:1454}: {quest:829} recibe la misión de los sectarios, los instructores te enseñan tus nuevos rangos y el zepelín sale de las torres afuera de la puerta hacia {zone:1420} y {zone:1421}. {zone:1413} viene después de Argénteos.",
 	-- ["Prickly pears"] = "Peras espinosas",
 	-- ["Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west."] = "Los jabaespines y exploradores ocupan las chozas al oeste del pueblo; los correpolvos y guardias de batalla ocupan los campamentos más al oeste.",
 	-- ["The keep stands on the coast south-east of {area:362}. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the {item:4870}. {npc:3192} waits at the top of the keep; his key opens the chest beside him, which holds the {item:4881}."] = "El fuerte está en la costa, al sureste de {area:362}. El hacha, el arco y el escudo de asaltante están en sus alrededores. Los marineros y los soldados de marina sueltan {item:4870}. {npc:3192} espera en lo alto del fuerte; su llave abre el cofre que tiene al lado, que contiene {item:4881}.",
@@ -481,9 +483,8 @@ return {
 	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809}: para {npc:3365}",
 	-- ["{npc:265809}: for {npc:3404}"] = "{npc:265809}: para {npc:3404}",
 	-- ["{npc:265809}: for {npc:7088}"] = "{npc:265809}: para {npc:7088}",
+	-- ["{npc:3169}, inside"] = "{npc:3169}, dentro",
 	-- ["{npc:3294}, by the inn"] = "{npc:3294}, junto a la posada",
 	-- ["{npc:3706}, beside {npc:3139}: the {item:16606}"] = "{npc:3706}, junto a {npc:3139}: {item:16606}",
 	-- ["{npc:3706}, in the barracks with {npc:3139}"] = "{npc:3706}, en el cuartel con {npc:3139}",
-	-- ["{npc:3169}, inside"] = "{npc:3169}, dentro",
-	-- ["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "Sigue el camino al norte desde {area:379} hasta la puerta principal de {zone:1454}. La siguiente guía empieza en {zone:1454}: {quest:829} recibe la misión de los sectarios, los instructores te enseñan tus nuevos rangos y el zepelín sale de las torres afuera de la puerta hacia {zone:1420} y {zone:1421}. {zone:1413} viene después de Argénteos.",
 }

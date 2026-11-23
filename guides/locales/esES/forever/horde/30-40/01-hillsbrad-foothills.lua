@@ -157,7 +157,6 @@ return {
 	-- Step 29: The smithy
 	["The smithy"] = "La herrería",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes · {npc:2451} Farmer Kalaba
-	-- was: ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "Al oeste por las laderas hasta el pueblo de {area:287}: la herrería está en el centro. {npc:2404} y sus aprendices trabajan en la forja; el {object:1736} está apilado a su lado. {npc:2449} pasea junto a la herrería; {npc:2451} trabaja el campo al sureste del pueblo."
 	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the west side of the town; {npc:2451} works the field south-east of the town."] = "Al oeste, por las estribaciones, hasta el pueblo de {area:287}: la herrería está en el centro. {npc:2404} y sus aprendices trabajan en la fragua; el {object:1736} está apilado junto a ella. {npc:2449} recorre el lado oeste del pueblo; {npc:2451} trabaja el campo al sureste del pueblo.",
 	["Inside"] = "Dentro",
 	-- {npc:2449} Citizen Wilkes
@@ -180,6 +179,7 @@ return {
 	-- Step 32: Town hall
 	["Town hall"] = "Ayuntamiento",
 	-- {area:287} Hillsbrad · {npc:2335} Magistrate Burnside · {npc:2448} Clerk Horrace Whitesteed
+	-- was: ["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "Sigue hasta el pueblo de {area:287}, al suroeste de las cuevas de los yetis. El ayuntamiento está en el lado oeste del pueblo: {npc:2335} (30) y {npc:2448} están adentro con el Registro del pueblo; la Proclama está clavada a su lado. Los concejales recorren el pueblo."
 	["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town. Every {area:287} human you kill from here on can drop a skull for Samsa: keep them."] = "",
 	-- {object:1761} Hillsbrad Proclamation
 	["{object:1761}, inside"] = "{object:1761}, dentro",
@@ -307,12 +307,15 @@ return {
 	-- ["Boulderfist camp"] = "Campamento Puño de Roca",
 	-- ["Daggerspine naga"] = "Nagas Espinadaga",
 	-- ["Daggerspine shore"] = "Orilla Espinadaga",
+	-- ["Fly from {area:484} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to the Crossroads from there."] = "Vuela de {area:484} a {area:1638} y entrena con {npc:3033} en {area:1639}; desde ahí sigue en vuelo hasta el Cruce.",
+	-- ["Fly from {area:484} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "Vuela de {area:484} a {area:392}. {npc:5901} acampa en la costa, a poca distancia al sur del pueblo; sigue en vuelo hasta el Cruce desde {area:392}.",
 	-- ["Follow the road north out of {area:272} into the Alterac foothills. {quest:535} waits by the Syndicate camp; hand him the stout."] = "Sigue el camino al norte desde {area:272} hacia las laderas de las Montañas de Alterac. {quest:535} espera junto al campamento del Sindicato; dale la cerveza.",
 	-- ["For characters of 29 to 33, but most quests here are level 32-34, a few up to 36: on purpose, for their experience. The Syndicate, {area:279}'s guards and the Boulderfist ogres are 31-35, so pull them one at a time."] = "Para personajes de nivel 29 a 33, pero la mayoría de las misiones de aquí son de nivel 32-34, y algunas de hasta 36: a propósito, por su experiencia. El Sindicato, los guardias de {area:279} y los ogros Puño de Roca son de nivel 31-35, así que atráelos de uno en uno.",
 	-- ["From {area:271} head north past {area:272} and follow the road on into the Alterac foothills. {quest:535} waits by the Syndicate camp. He offers his errand only while you carry {npc:2229}'s Infiltration: hand him the stout at once, and his reward is the Syndicate Missive Krusk wants. A missive from the Syndicate here does the same: with one in your bags the guide passes {quest:535}."] = "Desde {area:271}, ve al norte pasando {area:272} y sigue el camino hasta las estribaciones de Alterac. {quest:535} espera junto al campamento del Sindicato. Solo ofrece su encargo mientras lleves «Infiltración» de {npc:2229}: dale la cerveza enseguida, y su recompensa es la Misiva de la Hermandad que quiere Krusk. Una misiva del Sindicato de aquí sirve igual: con una en tus bolsas, la guía se salta a {quest:535}.",
 	-- ["Head back south down the road to {area:272}."] = "Vuelve al sur por el camino hasta {area:272}.",
 	-- ["Head south-west past {area:287} town to the {area:288}. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "Ve al suroeste, pasado el pueblo de {area:287}, hasta {area:288}. Hay mineros trabajando en los túneles; {npc:2305} (30) y {npc:2450} (29) están al fondo.",
 	-- ["North of Southshore's graveyard"] = "Al norte del cementerio de Costasur",
+	-- ["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "Sigue hasta el pueblo de {area:287}, al suroeste de las cuevas de los yetis. El ayuntamiento está en el lado oeste del pueblo: {npc:2335} (30) y {npc:2448} están adentro con el Registro del pueblo; la Proclama está clavada a su lado. Los concejales recorren el pueblo.",
 	-- ["Only if {quest:535}'s missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge."] = "Solo si no conseguiste la misiva de {quest:535}: los Asaltantes de caminos y Ladrones del Sindicato (32-34) de los campamentos al oeste del camino también llevan misivas; más o menos uno de cada tres suelta una. Cuidado: a nivel 31-32 siguen por encima de ti y están muy juntos, con Zahoríes (34-35) entre ellos: atráelos de uno en uno desde el borde del campamento.",
 	-- ["Shindigger keg"] = "Barril Machacacanillas",
 	-- ["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "Al sur de {area:272}, siguiendo el río: las Bocadientes (29) toman el sol en sus orillas hasta las colinas sobre {area:271}. Algunas llevan {item:3712}.",
@@ -332,6 +335,7 @@ return {
 	-- ["With a {item:3388} in your bags, {npc:2055} offers {quest:513} in the Apothecarium; {npc:2216} takes the elixir in {area:272}."] = "Con un {item:3388} en tus bolsas, {npc:2055} ofrece {quest:513} en el Apothecarium; {npc:2216} recoge el elixir en {area:272}.",
 	-- ["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "Te perdiste los primeros encargos de Darthalia, de la guía de {area:287} 22-25: ahora van primero. Están unos niveles por debajo de ti y son rápidos, y abren el resto de {quest:527} en esta guía.",
 	-- ["grind on {npc:2375}"] = "farmea a los {npc:2375}",
+	-- ["{area:484} flight master"] = "Maestro de vuelo de {area:484}",
 	-- ["{item:3388}: auction house or an alchemist, for {quest:513}."] = "{item:3388}: casa de subastas o un alquimista, para {quest:513}.",
 	-- ["{item:3703}, for {npc:2333}"] = "{item:3703}, para {npc:2333}",
 	-- ["{npc:2229} wants his two scouts freed from {area:275} before he trusts you with Infiltration."] = "{npc:2229} quiere que liberes a sus dos exploradores de {area:275} antes de confiarte «Infiltración».",
@@ -339,9 +343,5 @@ return {
 	-- ["{npc:2792}, by the gate"] = "{npc:2792}, junto a la puerta",
 	-- ["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it."] = "{npc:3428} está junto al maestro de vuelo de El Cruce. {quest:1145} está disponible desde el nivel 29; si no llegas, la parada en {zone:1454} de la siguiente guía la recoge.",
 	-- ["{quest:96986}: {npc:247126}, inside"] = "{quest:96986}: {npc:247126}, dentro",
-	-- ["{area:484} flight master"] = "Maestro de vuelo de {area:484}",
-	-- ["Fly from {area:484} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to the Crossroads from there."] = "Vuela de {area:484} a {area:1638} y entrena con {npc:3033} en {area:1639}; desde ahí sigue en vuelo hasta el Cruce.",
-	-- ["Fly from {area:484} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "Vuela de {area:484} a {area:392}. {npc:5901} acampa en la costa, a poca distancia al sur del pueblo; sigue en vuelo hasta el Cruce desde {area:392}.",
 	-- ["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
-	-- ["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "Sigue hasta el pueblo de {area:287}, al suroeste de las cuevas de los yetis. El ayuntamiento está en el lado oeste del pueblo: {npc:2335} (30) y {npc:2448} están adentro con el Registro del pueblo; la Proclama está clavada a su lado. Los concejales recorren el pueblo.",
 }

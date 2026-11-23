@@ -151,6 +151,8 @@ return {
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "La torre del zepelín está justo al noreste de la puerta principal de {zone:1454}; toma el zepelín a {zone:1458}.",
 	-- ["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "La torre de Xylem está en el acantilado justo al norte de {area:1237}: {npc:8395}, en {area:1237}, te teletransporta arriba gratis (habla con él); si no, el camino sube serpenteando por su lado norte.",
 	-- ["Zeppelin tower"] = "Torre del zepelín",
+	-- ["{area:1221}: kill these as you meet them"] = "{area:1221}: mátalos según te los encuentres",
+	-- ["{area:1237} flight master"] = "Maestro de vuelo de {area:1237}",
 	-- ["{item:246680}, from the Blood Elf Arcanists"] = "{item:246680}, de los Arcanistas elfos de sangre",
 	-- ["{item:246721}, from {npc:246991}"] = "{item:246721}, de {npc:246991}",
 	-- ["{item:246722}, from {npc:247013}"] = "{item:246722}, de {npc:247013}",
@@ -167,6 +169,4 @@ return {
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} se entrega a {npc:10778} en {area:28}: guárdala.",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: para {npc:8587} en {area:1237}",
 	-- ["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
-	-- ["{area:1221}: kill these as you meet them"] = "{area:1221}: mátalos según te los encuentres",
-	-- ["{area:1237} flight master"] = "Maestro de vuelo de {area:1237}",
 }

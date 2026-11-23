@@ -69,7 +69,6 @@ return {
 
 	-- Step 13: Charred Wolf Meat: ingredients
 	-- {npc:250873} Juvenile Vuldren
-	-- was: ["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "Vuldren, {npc:250874} en la Isla Zephras, o donde indique la flecha"
 	["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "{npc:250873} en la isla Zephras, o donde indique la flecha",
 
 	-- Step 14: Charred Wolf Meat (1-50)

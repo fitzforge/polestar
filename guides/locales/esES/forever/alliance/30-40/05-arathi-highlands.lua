@@ -394,6 +394,7 @@ return {
 	-- ["From {area:42} follow the road east through {zone:1430} into the {zone:1435}; Biggs guards the road junction just inside it. {npc:217412} stands a short way north of him."] = "Desde {area:42}, sigue el camino al este por {zone:1430} hasta {zone:1435}; Biggs vigila el cruce de caminos nada más entrar. {npc:217412} está un poco al norte de él.",
 	-- ["From {zone:1455} take the tunnel east through {zone:1426} into {area:38} and follow the road to {area:144}."] = "Desde {zone:1455}, toma el túnel al este por {zone:1426} hasta {area:38} y sigue el camino hasta {area:144}.",
 	-- ["Gyll, {area:35}"] = "Gyll, {area:35}",
+	-- ["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "Los gorgojos del heno andan por el extremo norte de la granja de {quest:681}: atrapa uno con la herramienta de {item:213565} de {npc:217412}.",
 	-- ["Head back south from the eastern circle; {npc:2712} and {npc:2713} camp in the hills just north of {area:314}."] = "Vuelve al sur desde el círculo del este; {npc:2712} y {npc:2713} acampan en las colinas justo al norte de {area:314}.",
 	-- ["Head north past {area:314}; the shards glitter on the hill by the {area:333}."] = "Ve al norte pasando {area:314}; los fragmentos brillan en la colina junto a {area:333}.",
 	-- ["Ride back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "Cabalga de vuelta al noreste pasando {area:320}; {npc:2712} y {npc:2713} acampan en las colinas al norte de {area:314}.",
@@ -419,7 +420,6 @@ return {
 	-- ["{npc:217589}: catch it, for {quest:93176}"] = "{npc:217589}: atrápalo, para {quest:93176}",
 	-- ["{npc:2276}, inside, if 30-40/01 didn't take it: the Syndicate camp is on the way to Arathi"] = "{npc:2276}, dentro, si no la cogiste en 30-40/01: el campamento del Sindicato está de camino a Arathi",
 	-- ["{npc:252085}, in the City of Dalaran"] = "{npc:252085}, en Ciudad de Dalaran",
-	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455} and train with {npc:258098}. {npc:1573} in the {object:32372} flies to {area:271} too."] = "{zone:1453} no tiene instructor de chamanes: toma el {area:2257} desde {object:28027} hasta {zone:1455} y entrena con {npc:258098}. {npc:1573}, en {object:32372}, también vuela a {area:271}.",
 	-- ["{npc:2700}: {npc:1075}'s plea, from 01-hillsbrad-foothills"] = "{npc:2700}: la súplica de {npc:1075}, de 01-hillsbrad-foothills",
-	-- ["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "Los gorgojos del heno andan por el extremo norte de la granja de {quest:681}: atrapa uno con la herramienta de {item:213565} de {npc:217412}.",
+	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455} and train with {npc:258098}. {npc:1573} in the {object:32372} flies to {area:271} too."] = "{zone:1453} no tiene instructor de chamanes: toma el {area:2257} desde {object:28027} hasta {zone:1455} y entrena con {npc:258098}. {npc:1573}, en {object:32372}, también vuela a {area:271}.",
 }

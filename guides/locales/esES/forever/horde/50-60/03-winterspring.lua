@@ -175,6 +175,7 @@ return {
 	-- ["Back at {area:1099}."] = "De vuelta en {area:1099}.",
 	-- ["Back to {area:2255}"] = "De vuelta a {area:2255}",
 	-- ["Below ground"] = "Bajo tierra",
+	-- ["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "Ambas donaciones de {item:14047} se entregan más tarde en la ruta: guarda sesenta {item:14047} para cada una si las quieres.",
 	-- ["Chillwind chimaeras"] = "Quimeras venfresco",
 	-- ["Fly to {area:1637}"] = "Vuela a {area:1637}",
 	-- ["From Krakle in Un'Goro"] = "De Krakle en Un'Goro",
@@ -185,6 +186,7 @@ return {
 	-- ["He stands on {area:1641}. Each donation wants cloth from your bags; hand them in when you have it, later in the route."] = "Está en {area:1641}. Cada donación pide tela de tus bolsas; entrégalas cuando la tengas, más adelante en la ruta.",
 	-- ["In the {object:172958}."] = "En {object:172958}.",
 	-- ["In the {object:172961}."] = "En {object:172961}.",
+	-- ["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "En el {object:172961}. Cada donación toma sesenta lana, seda o paño de mago de tus bolsas: entrega lo que lleves, sáltate el resto.",
 	-- ["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "Las matriarcas y patriarcas pegan fuerte: atráelos de uno en uno.",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "Abrecaminos, vigilantes del cubil y totémicos comparten los campamentos fúrbolg alrededor de las fuentes termales; las Lechubestias andrajosas deambulan por las laderas entre ellos. Mata primero a los totémicos. Guarda todo el {item:14047} que consigas para Meilosh.",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Abrecaminos, vigías del cubil y totémicos comparten los campamentos fúrbolg alrededor de las fuentes termales; las Lechubestias pulgosas deambulan por las laderas entre ellos. Mata primero a los totémicos. Guarda todo el {item:14047} que consigas para Meilosh.\nCuidado: los vigías del cubil llegan al nivel 56: atráelos de uno en uno y aléjate de los tótems de los campamentos.",
@@ -209,6 +211,4 @@ return {
 	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}."] = "{npc:9087} compra {item:11040} cultivado con tu {quest:3761}.",
 	-- ["{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide."] = "{quest:3909} la da {npc:7775} en {zone:1444}, más adelante en esta guía.",
 	-- ["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
-	-- ["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "En el {object:172961}. Cada donación toma sesenta lana, seda o paño de mago de tus bolsas: entrega lo que lleves, sáltate el resto.",
-	-- ["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "Ambas donaciones de {item:14047} se entregan más tarde en la ruta: guarda sesenta {item:14047} para cada una si las quieres.",
 }

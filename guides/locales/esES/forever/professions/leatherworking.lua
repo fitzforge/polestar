@@ -26,6 +26,7 @@ return {
 
 	-- Step 4: Light Leather (Elwynn Forest)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
+	-- was: ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} para {spell:2152}, {spell:3756} y {spell:3763} (210 de ellos para 75-150: recógelos todos ahora): {skill:393}: bestias de nivel 5-20. Despelleja aquí a {npc:1922}, {npc:525}, Merodeador, {npc:524}, {npc:113} y {npc:822} (nivel 5-20); la guía de {skill:393} traza esta ruta."
 	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "",
 
 	-- Step 5: Light Leather (Dun Morogh)
@@ -295,6 +296,7 @@ return {
 	["{item:15094} is orange at 269 (yellow 285, green 295, grey 305): about 43 crafts to 300. Each takes 14 {item:8170}, 10 {item:14047} and 1 {item:14341}. 14 {item:8170} and 10 {item:14047} a craft: the dearest stretch. {skill:165} 300 is a Legacy System milestone."] = "{item:15094} es naranja a 269 (amarillo 285, verde 295, gris 305): unas 43 fabricaciones hasta 300. Cada una lleva 14 {item:8170}, 10 {item:14047} y 1 {item:14341}. 14 {item:8170} y 10 {item:14047} por fabricación: el tramo más caro. {skill:165} 300 es un hito del Sistema de Legado.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} para {spell:2152}, {spell:3756} y {spell:3763} (210 de ellos para 75-150: recógelos todos ahora): {skill:393}: bestias de nivel 5-20. Despelleja aquí a {npc:1922}, {npc:525}, Merodeador, {npc:524}, {npc:113} y {npc:822} (nivel 5-20); la guía de {skill:393} traza esta ruta.",
 	-- ["Artisan needs character level 35 and {skill:165} 200; it raises the cap to 300. Materials for 225-300 are worth about 312g in all."] = "Artesano requiere nivel de personaje 35 y {skill:165} 200; sube el límite a 300. Los materiales de 225 a 300 cuestan en total unos 312 o.",
 	-- ["Back to a {skill:165} trainer: {spell:10482}, {spell:14932} are taught from {skill:165} 220."] = "Vuelve con un instructor de {skill:165}: {spell:10482} y {spell:14932} se enseñan desde {skill:165} 220.",
 	-- ["Back to a {skill:165} trainer: {spell:10487} is taught from {skill:165} 195."] = "Vuelve con un instructor de {skill:165}: {spell:10487} se enseña desde {skill:165} 195.",
@@ -383,5 +385,4 @@ return {
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}: desencanta equipo poco común (verde) (o la casa de subastas)",
 	-- ["{spell:3768} to 150"] = "{spell:3768} hasta 150",
 	-- ["{spell:3776} to 185"] = "{spell:3776} hasta 185",
-	-- ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} para {spell:2152}, {spell:3756} y {spell:3763} (210 de ellos para 75-150: recógelos todos ahora): {skill:393}: bestias de nivel 5-20. Despelleja aquí a {npc:1922}, {npc:525}, Merodeador, {npc:524}, {npc:113} y {npc:822} (nivel 5-20); la guía de {skill:393} traza esta ruta.",
 }

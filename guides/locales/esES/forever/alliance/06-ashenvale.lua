@@ -22,6 +22,7 @@ return {
 
 	-- Step 6: Astranaar
 	-- {area:413} Maestra's Post · {npc:3845} Shindrell Swiftfire · {npc:4079} Sentinel Thenysil · {npc:3996} Faldreas Goeth'Shael · {npc:3691} Raene Wolfrunner · {npc:3894} Pelturas Whitemoon
+	-- was: ["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "El camino desde {area:413} llega junto al maestro de vuelo: {npc:3845} y {npc:4079} están ahí, {npc:3691} en la posada, {npc:3894} dentro del edificio de más allá."
 	["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3996} just east of them, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "",
 	-- {npc:3996} Faldreas Goeth'Shael · {npc:3994} Keeper Albagorm · {area:467} Stonetalon Peak
 	["{npc:3996}: for {npc:3994} at {area:467}, at the end of the Stonetalon trip"] = "",
@@ -45,10 +46,12 @@ return {
 	-- Step 9: The Ruins of Stardust
 	-- {area:415} Astranaar · {area:421} Mystral Lake
 	-- plural, as words: Shadethicket Raincallers = {npc:3783} Shadethicket Raincaller
+	-- was: ["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins.\nCareful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp."] = "De nuevo al norte por {area:1276}: al oeste de {area:421}, los arbustos de polvo estelar crecen entre las ruinas.\nCuidado: los clamalluvias Sombramatorral y los madereros de Shadethicket (22-24) están entre los arbustos. Limpia un arbusto cada vez; no atravieses el campamento."
 	["South-west from {area:415}: west of {area:421}, the stardust bushes grow among the ruins.\nCareful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp."] = "",
 
 	-- Step 10: Ilkrud Magthrull
 	-- {area:418} The Ruins of Stardust · {area:417} Fire Scar Shrine · {npc:3664} Ilkrud Magthrull
+	-- was: ["From {area:415} head south-west to the {area:417} and go in from the east side: {npc:3664} and his guards hold a hill inside it. Pull his guards first."] = "Desde {area:415} ve al suroeste hasta {area:417} y entra por el lado este: {npc:3664} y sus guardias ocupan una colina dentro. Saca primero a sus guardias."
 	["From the {area:418} head north-west to the {area:417} and go in from the east side: {npc:3664} and his guards hold a hill inside it. Pull his guards first."] = "",
 
 	-- Step 11: Shrine of Aessina
@@ -64,6 +67,7 @@ return {
 	-- {area:413} Maestra's Post
 	["North-east from the lake to {area:413}."] = "",
 	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
+	-- was: ["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}: sus círculos son para tu próxima visita a {zone:1440}, cerca del nivel 28"
 	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 30"] = "",
 
 	-- Step 14: The Zoram Strand
@@ -257,6 +261,7 @@ return {
 
 	-- Step 47: Ormer Ironbraid
 	-- {npc:1078} Ormer Ironbraid · {zone:1437} Wetlands
+	-- was: ["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}: los raptores más grandes del valle al oeste de la excavación son para tu próxima visita a {zone:1437}, cerca del nivel 27"
 	["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 29"] = "",
 
 	-- Step 48: The Green Belt
@@ -336,6 +341,7 @@ return {
 
 	-- Step 61: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {zone:1432} Loch Modan
+	-- was: ["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "El tranvía llega a {object:28027}; camina al oeste hasta {object:2098}: {npc:1646} está en su lado este. (La ruta entrega su carta al final de 03-loch-modan; esto es para un personaje que todavía la lleve.)"
 	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of the {zone:1432} guide; this is for a character still carrying it.)"] = "",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}: la carta de Thundris desde {area:442}",
@@ -374,6 +380,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins."] = "Vuelve al norte por {area:1276}: al oeste de {area:421}, los arbustos de polvo estelar crecen entre las ruinas.",
+	-- ["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins.\nCareful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp."] = "De nuevo al norte por {area:1276}: al oeste de {area:421}, los arbustos de polvo estelar crecen entre las ruinas.\nCuidado: los clamalluvias Sombramatorral y los madereros de Shadethicket (22-24) están entre los arbustos. Limpia un arbusto cada vez; no atravieses el campamento.",
 	-- ["Back to the Cathedral of Light: {npc:928} stands inside."] = "Vuelve a la catedral: {npc:928} está dentro.",
 	-- ["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "De vuelta al oeste por el camino desde {npc:3916}, {area:415} te pilla de camino a {npc:3664}: {npc:3894} está dentro del edificio que hay pasada la posada.",
 	-- ["Black Oozes"] = "Mocos negros",
@@ -386,11 +393,14 @@ return {
 	-- ["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "Sigue la costa al norte hasta {area:414}. {npc:3846} acampa en la playa; los nagas Colafuria llenan la orilla.",
 	-- ["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "Sigue el camino al este hasta {area:419}; {npc:3916} está junto al pozo de la luna.",
 	-- ["Follow the road north to {area:205}, at the foot of the {area:881}. {npc:1071} stands in the dwarves' camp."] = "Sigue el camino al norte hasta {area:205}, al pie de {area:881}. {npc:1071} está en el campamento de los enanos.",
+	-- ["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "Sigue el camino al sureste desde {area:413} de vuelta a {area:415}: {npc:3845} está junto al maestro de vuelo.",
 	-- ["Follow the road south-east to {area:415}, on the island in the lake."] = "Sigue el camino al sureste hasta {area:415}, en la isla del lago.",
 	-- ["For Bolvar Fordragon in {object:2117}: keep it"] = "Para el Alto Señor Bolvar Fordragon en {object:2117}: guárdalo",
 	-- ["For the giant crocolisks of the north coast, on your next visit"] = "Para los crocoliscos gigantes de la costa norte, en tu próxima visita",
 	-- ["For {npc:2228} in {area:271}: keep it"] = "Para {npc:2228} en {area:271}: guárdalo",
+	-- ["For {npc:3649}, back in {area:442} (06-wetlands)"] = "Para {npc:3649}, de vuelta en {area:442} (06-wetlands)",
 	-- ["From {area:17203} take the boat to {area:442}; {npc:3649} stands at the north end of the village. Then ride south along the road through {zone:1439}."] = "Desde {area:17203}, toma el barco a {area:442}; {npc:3649} está en el extremo norte del pueblo. Después cabalga al sur por el camino a través de {zone:1439}.",
+	-- ["From {area:415} head south-west to the {area:417} and go in from the east side: {npc:3664} and his guards hold a hill inside it. Pull his guards first."] = "Desde {area:415} ve al suroeste hasta {area:417} y entra por el lado este: {npc:3664} y sus guardias ocupan una colina dentro. Saca primero a sus guardias.",
 	-- ["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "Ve al oeste hasta la orilla de {area:441}. Teronis yace entre los múrlocs Gapo Salino; cualquier múrloc puede soltar la {item:5463}.",
 	-- ["Hearth to Menethil"] = "Usa la piedra de hogar para ir a Puerto de Menethil",
 	-- ["Hearthstone on cooldown? Ride back north through the {area:1276}."] = "¿Piedra de hogar en reutilización? Cabalga de vuelta al norte por {area:1276}.",
@@ -415,11 +425,14 @@ return {
 	-- ["The bigger raptors hunt in the valley just west of the dig."] = "Los raptores más grandes cazan en el valle justo al oeste de la excavación.",
 	-- ["The excavation site sits on the hill south of the road."] = "La excavación está en la colina al sur del camino.",
 	-- ["The raptor hills"] = "Las colinas de los raptores",
+	-- ["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "El camino desde {area:413} llega junto al maestro de vuelo: {npc:3845} y {npc:4079} están ahí, {npc:3691} en la posada, {npc:3894} dentro del edificio de más allá.",
+	-- ["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "El tranvía llega a {object:28027}; camina al oeste hasta {object:2098}: {npc:1646} está en su lado este. (La ruta entrega su carta al final de 03-loch-modan; esto es para un personaje que todavía la lleve.)",
 	-- ["The {area:1025}"] = "{area:1025}",
 	-- ["Three containers in the murloc hovels, south to north: the {object:261}, then the {object:142151}, then the {object:259} at the north end."] = "Tres contenedores en las chozas de los múrlocs, de sur a norte: {object:261}, luego {object:142151} y luego {object:259}, en el extremo norte.",
 	-- ["Venture Co. loggers"] = "Leñeros de Ventura y Cía.",
 	-- ["grind on Dragonmaw Raiders and Swamprunners at the Dragonmaw camp, {zone:1437}"] = "mata Asaltantes Faucedraco y correpantanos en el campamento Faucedraco, {zone:1437}",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: une las dos mitades",
+	-- ["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}: los raptores más grandes del valle al oeste de la excavación son para tu próxima visita a {zone:1437}, cerca del nivel 27",
 	-- ["{npc:11406} and {npc:258785} are in the {object:32386}, in the {object:32362}."] = "{npc:11406} y {npc:258785} están en {object:32386}, en {object:32362}.",
 	-- ["{npc:1242}: for {npc:2104} in the keep"] = "{npc:1242}: para {npc:2104}, en el castillo",
 	-- ["{npc:1440}, in the Royal Library"] = "{npc:1440}, en la biblioteca real",
@@ -430,6 +443,7 @@ return {
 	-- ["{npc:2097}, by the north gate"] = "{npc:2097}, junto a la puerta norte",
 	-- ["{npc:2104} stands in {area:2103}, a short walk from {npc:1242}."] = "{npc:2104} está en {area:2103}, a poca distancia de {npc:1242}.",
 	-- ["{npc:3649}: Alexston's reply"] = "{npc:3649}: la respuesta de Alexston",
+	-- ["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}: sus círculos son para tu próxima visita a {zone:1440}, cerca del nivel 28",
 	-- ["{npc:3664} and his voidwalkers hold the {area:412} south of the shrine. Pull his guards first."] = "{npc:3664} y sus abisarios ocupan {area:412}, al sur del santuario. Atrae primero a sus guardias.",
 	-- ["{npc:3693} stands by the flight master, at the east end of the main street; then back west to the dock."] = "{npc:3693} está junto al maestro de vuelo, en el extremo este de la calle principal; luego vuelve al oeste hasta el muelle.",
 	-- ["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals wade in the lake. Careful: {npc:12759}, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level."] = "{npc:3885} está en {area:420}, en la orilla este de {area:421}. Los Elementales de agua podrida vadean el lago. Cuidado: {npc:12759}, una elemental de agua de nivel 27, recorre el lago entre ellos; también suelta los brazales, pero los elementales pequeños son más seguros a este nivel.",
@@ -441,12 +455,4 @@ return {
 	-- ["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}, en la catedral",
 	-- ["{object:176364} Harbor"] = "{object:176364} (Puerto de Menethil)",
 	-- ["{zone:1455} priests"] = "Sacerdotes de {zone:1455}",
-	-- ["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "El camino desde {area:413} llega junto al maestro de vuelo: {npc:3845} y {npc:4079} están ahí, {npc:3691} en la posada, {npc:3894} dentro del edificio de más allá.",
-	-- ["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins.\nCareful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp."] = "De nuevo al norte por {area:1276}: al oeste de {area:421}, los arbustos de polvo estelar crecen entre las ruinas.\nCuidado: los clamalluvias Sombramatorral y los madereros de Shadethicket (22-24) están entre los arbustos. Limpia un arbusto cada vez; no atravieses el campamento.",
-	-- ["From {area:415} head south-west to the {area:417} and go in from the east side: {npc:3664} and his guards hold a hill inside it. Pull his guards first."] = "Desde {area:415} ve al suroeste hasta {area:417} y entra por el lado este: {npc:3664} y sus guardias ocupan una colina dentro. Saca primero a sus guardias.",
-	-- ["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}: sus círculos son para tu próxima visita a {zone:1440}, cerca del nivel 28",
-	-- ["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "Sigue el camino al sureste desde {area:413} de vuelta a {area:415}: {npc:3845} está junto al maestro de vuelo.",
-	-- ["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}: los raptores más grandes del valle al oeste de la excavación son para tu próxima visita a {zone:1437}, cerca del nivel 27",
-	-- ["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "El tranvía llega a {object:28027}; camina al oeste hasta {object:2098}: {npc:1646} está en su lado este. (La ruta entrega su carta al final de 03-loch-modan; esto es para un personaje que todavía la lleve.)",
-	-- ["For {npc:3649}, back in {area:442} (06-wetlands)"] = "Para {npc:3649}, de vuelta en {area:442} (06-wetlands)",
 }

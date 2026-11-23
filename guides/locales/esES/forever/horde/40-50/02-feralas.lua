@@ -153,6 +153,7 @@ return {
 	-- {npc:5591} Dar
 	["{npc:5591}, inside"] = "",
 	-- {npc:1443} Fel'zerul
+	-- was: ["{npc:2488}, on the top floor"] = "{npc:2488}, en el piso superior"
 	["{npc:1443}, on the top floor"] = "",
 
 	-- Step 37: A Soggy Scroll
@@ -499,11 +500,11 @@ return {
 	-- ["water pouches in your bags"] = "bolsas de agua en tus bolsas",
 	-- ["{area:1099} flight master"] = "Maestro de vuelo de {area:1099}",
 	-- ["{area:976} is the walled goblin town just past the {area:440} border."] = "{area:976} es el pueblo goblin amurallado justo pasada la frontera de {area:440}.",
+	-- ["{npc:2488}, on the top floor"] = "{npc:2488}, en el piso superior",
 	-- ["{npc:4630}: the {item:5852} from {npc:2496}, if you carry them"] = "{npc:4630}: {item:5852} de {npc:2496}, si los llevas",
 	-- ["{npc:6986}, the Drag"] = "{npc:6986}, La Calle Mayor",
 	-- ["{npc:7010}, the Drag"] = "{npc:7010}, La Calada",
 	-- ["{npc:7953}, riding trainer"] = "{npc:7953}, instructor de equitación",
 	-- ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: para {zone:1454}, hacia el nivel 45",
 	-- ["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579}: los Pícaros estridadores del valle viven en {zone:1444}, en la próxima visita a {zone:1444}",
-	-- ["{npc:2488}, on the top floor"] = "{npc:2488}, en el piso superior",
 }

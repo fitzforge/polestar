@@ -33,6 +33,7 @@ return {
 	["{npc:217590} in {zone:1443}"] = "{npc:217590} en {zone:1443}",
 	-- {area:596} Kodo Graveyard · {zone:1443} Desolace · {item:213562} Bug Catching Net
 	-- plural, as words: Flesh Pickers = {npc:217590} Flesh Picker
+	-- was: ["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the kit's tool on one."] = "Los Carne Lacerada se alimentan en {area:596}, en el centro del sur de {zone:1443}. Usa la herramienta del kit sobre uno."
 	["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the {item:213562} on one."] = "",
 	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker
 	["{item:213562}, on a {npc:217590}"] = "",
@@ -44,8 +45,8 @@ return {
 	["Hand {npc:217412} the three specimens: she gives you {item:280456} and 35s."] = "Entrega los tres ejemplares a {npc:217412}: ella te da el {item:280456} y 35 monedas de plata.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{npc:217412} gives you an Entomology Starter Kit: use its items to catch an {npc:217588}, a Hay Weevil Specimen and a {npc:217590}. This quest is named as the weevil's source but gives only money as its reward; the pet may come from the {npc:217589} you catch. If you lose the kit, she sells another."] = "{npc:217412} te da un kit de iniciación a la entomología: usa sus objetos para atrapar una {npc:217588}, un espécimen de gorgojo y un {npc:217590}. Esta misión figura como origen del gorgojo, pero solo da dinero como recompensa; puede que la mascota salga del {npc:217589} que atrapes. Si pierdes el kit, ella vende otro.",
 	-- ["The Arbor Tarantulas sit in northern Stranglethorn. Use the kit's tool on one to catch it."] = "Las tarántulas del Árbol están en el norte de Tuercespina. Usa la herramienta del kit sobre una para atraparla.",
-	-- ["The Hay Weevils crawl in the north-west of {zone:1417}. Use the kit's tool on one."] = "Los gorgojos del Heno se arrastran por el noroeste de {zone:1417}. Usa la herramienta del kit sobre uno.",
 	-- ["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the kit's tool on one."] = "Los Carne Lacerada se alimentan en {area:596}, en el centro del sur de {zone:1443}. Usa la herramienta del kit sobre uno.",
+	-- ["The Hay Weevils crawl in the north-west of {zone:1417}. Use the kit's tool on one."] = "Los gorgojos del Heno se arrastran por el noroeste de {zone:1417}. Usa la herramienta del kit sobre uno.",
+	-- ["{npc:217412} gives you an Entomology Starter Kit: use its items to catch an {npc:217588}, a Hay Weevil Specimen and a {npc:217590}. This quest is named as the weevil's source but gives only money as its reward; the pet may come from the {npc:217589} you catch. If you lose the kit, she sells another."] = "{npc:217412} te da un kit de iniciación a la entomología: usa sus objetos para atrapar una {npc:217588}, un espécimen de gorgojo y un {npc:217590}. Esta misión figura como origen del gorgojo, pero solo da dinero como recompensa; puede que la mascota salga del {npc:217589} que atrapes. Si pierdes el kit, ella vende otro.",
 }

@@ -354,6 +354,7 @@ return {
 	-- ["grind on Deadwood Avengers at {area:1762}, {zone:1448}"] = "sube de nivel con Vengadores Muertobosque en {area:1762}, {zone:1448}",
 	-- ["grind on Scarlet Knights at {area:192}, {zone:1422}"] = "sube de nivel con Caballeros Escarlata en {area:192}, {zone:1422}",
 	-- ["grind on {npc:7157}"] = "farmea a {npc:7157}",
+	-- ["grind on {npc:8957}"] = "mata {npc:8957}",
 	-- ["{area:190}'s Scarlets are level 58-60. Ride in to the high point marked on your map, look over the town, and get out."] = "Los Escarlata de {area:190} son de nivel 58-60. Entra hasta el punto alto marcado en tu mapa, observa el pueblo y sal.",
 	-- ["{area:2627}: kill these as you meet them"] = "{area:2627}: mata a estos según te los encuentres",
 	-- ["{item:12565}, at the Jadefire moonwell"] = "{item:12565}, en la poza de la luna Fuego de Jade",
@@ -373,5 +374,4 @@ return {
 	-- ["{quest:5408}: the {area:2627} undead drop them while you wear the {item:12846}"] = "{quest:5408}: los no-muertos de {area:2627} las sueltan mientras llevas puesta la {item:12846}",
 	-- ["{quest:8470}, a rare drop"] = "{quest:8470}, un botín raro",
 	-- ["{zone:1452}'s quests are 55-58. Below 55 after {npc:9996}'s hand-ins? {area:1762}'s Deadwood furbolgs (53-55) are at your level and on your way north to {area:1769}'s tunnel: kill them until level 55. Every kill also raises your Timbermaw reputation. Careful: the Den Watchers and Avengers call nearby allies once below half health and run off for help when nearly dead: pull one at a time from the village's edge. This is a long top-up for a player who follows only this route. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Las misiones de {zone:1452} son de nivel 55-58. ¿Sigues por debajo del 55 tras las entregas de {npc:9996}? Los fúrbolgs Muertobosque de {area:1762} (53-55) son de tu nivel y están de camino al norte, hacia el túnel de {area:1769}: mátalos hasta el nivel 55. Cada muerte también sube tu reputación con los Fauces de Madera. Cuidado: los vigías del cubil y los vengadores llaman a aliados cercanos al bajar de media vida y huyen a pedir ayuda cuando están casi muertos: atráelos de uno en uno desde el borde del poblado. Es una subida larga si solo sigues esta ruta. O, en grupo, haz la mazmorra de {area:1584} o la de {area:1417}.",
-	-- ["grind on {npc:8957}"] = "mata {npc:8957}",
 }

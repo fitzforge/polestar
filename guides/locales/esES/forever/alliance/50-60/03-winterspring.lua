@@ -217,6 +217,7 @@ return {
 
 	-- Step 41: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
+	-- was: ["{area:2247}: kill these as you meet them"] = "{area:2247}: mátalos según te los encuentres"
 	["{area:1942}: kill these as you meet them"] = "",
 
 	-- Step 42: The Gorishi hive
@@ -396,6 +397,7 @@ return {
 
 	-- Step 78: Winterspring: kill these as you meet them
 	-- {zone:1452} Winterspring
+	-- was: ["{area:2247}: kill these as you meet them"] = "{area:2247}: mátalos según te los encuentres"
 	["{zone:1452}: kill these as you meet them"] = "",
 	-- {quest:5087} Winterfall Runners · {area:2246} Frostfire Hot Springs · {zone:1448} Felwood · {spell:5384} Feign Death
 	["The {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "",
@@ -464,6 +466,8 @@ return {
 	-- ["Free Darrowshire Spirits: talk to them"] = "Libera espíritus de Villa Darrow ({npc:11064}): habla con ellos",
 	-- ["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}."] = "Los yetis Cardo Nevado viven en las colinas al sur de {area:2244}, y las Quimeras venfresco en el valle hacia {area:2255}.",
 	-- ["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}.\nCareful: the Ice Thistle Yetis are 55-56 and the Chimaeras 55-57: take the Rogue Ice Thistles (53-55) and the Fledgling Chillwinds (53-55) at the edge of the hills, and leave the Chillwind Ravagers (57-59) alone."] = "Los yetis Cardo Nevado viven en las colinas al sur de {area:2244}, y las Quimeras Viento Gélido en el valle hacia {area:2255}.\nCuidado: los Yetis Cardo Nevado son de nivel 55-56 y las Quimeras de 55-57: ve a por los Cardos Nevados huidos (53-55) y los Volantones Viento Gélido (53-55) del borde de las colinas, y deja en paz a los Devastadores Viento Gélido (57-59).",
+	-- ["Inside"] = "Dentro",
+	-- ["Into {zone:1423}"] = "Hacia {zone:1423}",
 	-- ["Its jars are filled on the {zone:1451} guide's Un'Goro visit: keep it"] = "Sus tarros se llenan en la visita a Un'Goro de la guía de {zone:1451}: guárdalo",
 	-- ["Keep it: Gregan in {zone:1444} brews the elixir later"] = "Guárdalo: Gregan, en {zone:1444}, prepara el elixir más adelante",
 	-- ["Level 55 at {area:2246}"] = "Nivel 55 en {area:2246}",
@@ -499,8 +503,12 @@ return {
 	-- ["Your Hearthstone is not set at {zone:1455} (the {zone:1425} guide binds there, and this guide leaves {zone:1452} through it): bind at {area:2255} instead, for the trips back to town."] = "Tu piedra de hogar no está vinculada en {zone:1455} (la guía de {zone:1425} te vincula allí, y esta guía sale de {zone:1452} pasando por allí): vincúlala en {area:2255}, para los viajes de vuelta al pueblo.",
 	-- ["Your Hearthstone is still set at {zone:1455}: from there the gryphon to {area:3197} is about ten minutes quicker than {area:2255}'s flight to Theramore and the boat."] = "Tu piedra de hogar sigue vinculada en {zone:1455}: desde allí, el grifo a {area:3197} es unos diez minutos más rápido que el vuelo de {area:2255} a Theramore y el barco.",
 	-- ["Zaeldarr is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "Zaeldarr es élite: se recomienda ir en grupo. Espera al fondo de {area:2261}, la cripta del suroeste de la zona.",
+	-- ["grind on {npc:7442}"] = "mata {npc:7442}",
 	-- ["grind on {npc:7460} at the {area:2247}, {zone:1452}"] = "mata {npc:7460} en {area:2247}, {zone:1452}",
+	-- ["{area:150} flight master"] = "Maestro de vuelo de {area:150}",
 	-- ["{area:199} cauldron"] = "Caldera de {area:199}",
+	-- ["{area:2247}: kill these as you meet them"] = "{area:2247}: mátalos según te los encuentres",
+	-- ["{area:2255} flight master"] = "Maestro de vuelo de {area:2255}",
 	-- ["{area:2255}'s inn"] = "La posada de {area:2255}",
 	-- ["{item:12771}, a rare drop"] = "{item:12771}, botín poco frecuente",
 	-- ["{npc:10301}'s supplies"] = "Los suministros de {npc:10301}",
@@ -524,10 +532,4 @@ return {
 	-- ["{quest:8471}, a rare drop"] = "{quest:8471}, botín poco frecuente",
 	-- ["{zone:1455} flight master"] = "Maestro de vuelo de {zone:1455}",
 	-- ["{zone:1455} inn"] = "Posada de {zone:1455}",
-	-- ["grind on {npc:7442}"] = "mata {npc:7442}",
-	-- ["{area:2247}: kill these as you meet them"] = "{area:2247}: mátalos según te los encuentres",
-	-- ["{area:2255} flight master"] = "Maestro de vuelo de {area:2255}",
-	-- ["{area:150} flight master"] = "Maestro de vuelo de {area:150}",
-	-- ["Inside"] = "Dentro",
-	-- ["Into {zone:1423}"] = "Hacia {zone:1423}",
 }

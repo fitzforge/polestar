@@ -526,6 +526,7 @@ return {
 	-- ["Bandit Highwaymen"] = "Bandidos salteadores",
 	-- ["Climb the watchtower in the village, jump off the top and use {spell:1259416} to float down."] = "Sube a la atalaya del pueblo, salta desde arriba y usa {spell:1259416} para bajar flotando.",
 	-- ["Follow the road south to {area:16624}, in the middle of the isle."] = "Sigue el camino al sur hasta {area:16624}, en el centro de la isla.",
+	-- ["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "Desde el Cruce sigue el camino al noreste hasta {area:379}, cruza {area:815} hacia {zone:1411} y sigue al norte hasta la puerta principal de {zone:1454}. La siguiente guía empieza en {zone:1454}: Thrall recibe {quest:95350}, y el zepelín sale hacia {zone:1420} y {zone:1421}.",
 	-- ["High Order Apprentices"] = "Aprendices de la Orden Eminente",
 	-- ["Hippogryph nests"] = "Nidos de hipogrifo",
 	-- ["Horde airship"] = "Aeronave de la Horda",
@@ -587,5 +588,4 @@ return {
 	-- ["{npc:3033} trains druids on {area:1639}. He teaches you Teleport: {quest:94913}; {npc:11802}'s welcome waits for your Cat Form trip at about 23 (forever/horde/04-the-barrens)."] = "{npc:3033} entrena a los druidas en {area:1639}. Te enseña Teletransporte: {quest:94913}; la bienvenida de {npc:11802} espera a tu viaje de Forma felina, hacia el nivel 23 (forever/horde/04-the-barrens).",
 	-- ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} entrena a los druidas en {area:1639}. Te enseña {spell:18960}; la bienvenida de {npc:11802} espera a tu viaje de {spell:499}, hacia el nivel 21 (forever/horde/02-the-barrens).",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, el maestro de jinetes del viento",
-	-- ["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "Desde el Cruce sigue el camino al noreste hasta {area:379}, cruza {area:815} hacia {zone:1411} y sigue al norte hasta la puerta principal de {zone:1454}. La siguiente guía empieza en {zone:1454}: Thrall recibe {quest:95350}, y el zepelín sale hacia {zone:1420} y {zone:1421}.",
 }

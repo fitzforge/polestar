@@ -354,6 +354,7 @@ return {
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "Los yetis viven en la cueva de las colinas al norte de {area:271}, de camino de vuelta al sur.",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "Al oeste, hasta las granjas de {area:287}: pon la {item:279386} en la mesa de contabilidad del ayuntamiento, donde están {npc:2335} y los Consejeros de Trabalomas.",
 	-- ["Whelps, raptors and {npc:271458}"] = "Crías, raptores y {npc:271458}",
+	-- ["for {npc:2700} at {area:320}, in 05-arathi-highlands"] = "para {npc:2700} en {area:320}, en 05-arathi-highlands",
 	-- ["{area:287} town hall"] = "Ayuntamiento de {area:287}",
 	-- ["{area:287}'s town hall"] = "Ayuntamiento de {area:287}",
 	-- ["{npc:1244}: {quest:98283}, an elite raptor"] = "{npc:1244}: {quest:98283}, un raptor élite",
@@ -366,5 +367,4 @@ return {
 	-- ["{npc:2784}, the {object:171709}"] = "{npc:2784}, {object:171709}",
 	-- ["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479} entrena a los guerreros en {object:2100}, junto al Cerdo y el Silbato. {npc:6236} espera en {area:720}, en {zone:1413}, de camino a {area:392} mucho más tarde (40-50/01).",
 	-- ["{npc:5683} waits north of {area:205} by the {area:881}; {npc:271322} a short walk further north-east."] = "{npc:5683} espera al norte de {area:205}, junto a {area:881}; {npc:271322}, un poco más al noreste.",
-	-- ["for {npc:2700} at {area:320}, in 05-arathi-highlands"] = "para {npc:2700} en {area:320}, en 05-arathi-highlands",
 }

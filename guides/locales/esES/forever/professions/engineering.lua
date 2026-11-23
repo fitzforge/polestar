@@ -17,7 +17,6 @@ return {
 	["{skill:202} 1-75: vendor goods"] = "{skill:202} 1-75: artículos de mercader",
 	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
 	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "Compra de una vez todo lo de este tramo: 18 {item:2880} (18s) y {item:5956} (una herramienta: uno, guárdalo en tus bolsas, 18c); unos 18s 18c en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:5519}, {npc:5514} y {npc:1286}).",
-	-- was: ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}: es una herramienta, guárdala en tus bolsas"
 	["a tool, keep it in your bags"] = "una herramienta, guárdala en tus bolsas",
 
 	-- Step 3: Engineering 1-75: Auction House
@@ -249,6 +248,7 @@ return {
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Horde)"] = "{item:2836} (Horda)",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
+	-- was: ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "31 {item:2836} para {item:6533}: {skill:186}: {object:1732} (habilidad 65) en {zone:1413} (10-25), {zone:1440} (18-30) y {zone:1424} (20-30). Está marcado el grupo más denso de {object:1732} en {zone:1440}."
 	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked."] = "",
 
 	-- Step 48: Heavy Stone (Alliance)
@@ -417,6 +417,7 @@ return {
 	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000} es naranja a 287 (amarillo 295, verde 305, gris 315): unas 14 fabricaciones hasta 300. Cada una lleva 6 {item:12359}. El esquema se liga al recogerlo; seis lingotes de torio por fabricación. Requiere un yunque cerca. {skill:202} 300 es un hito del Sistema de Legado.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "31 {item:2836} para {item:6533}: {skill:186}: {object:1732} (habilidad 65) en {zone:1413} (10-25), {zone:1440} (18-30) y {zone:1424} (20-30). Está marcado el grupo más denso de {object:1732} en {zone:1440}.",
 	-- ["Apprentice {skill:202}"] = "{skill:202} de aprendiz",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "Artesano requiere nivel de personaje 35 y {skill:202} 200; sube el tope a 300. Los materiales para 225-300 valen unos 67g en total.",
 	-- ["Back to an {skill:202} trainer: {spell:12590} is taught from {skill:202} 175."] = "Vuelve a un instructor de {skill:202}: {spell:12590} se aprende a partir de {skill:202} 175.",
@@ -484,5 +485,4 @@ return {
 	-- ["{spell:3929} to 95"] = "{spell:3929} hasta 95",
 	-- ["{spell:3937} to 125"] = "{spell:3937} hasta 125",
 	-- ["{spell:3942} to 150"] = "{spell:3942} hasta 150",
-	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "31 {item:2836} para {item:6533}: {skill:186}: {object:1732} (habilidad 65) en {zone:1413} (10-25), {zone:1440} (18-30) y {zone:1424} (20-30). Está marcado el grupo más denso de {object:1732} en {zone:1440}.",
 }

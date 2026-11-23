@@ -197,6 +197,7 @@ return {
 	-- plural, as words: Razormaw Incisors = {item:280103} Razormaw Incisor · Fen Creepers = {npc:1040} Fen Creeper
 	["Razormaw Incisors: from the raptors by the {area:1038}, after the Fen Creepers"] = "",
 	-- {quest:98246} Trying Times
+	-- was: ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}: los huevos Tajobuche, en el mismo circuito"
 	["{quest:98246}: the Razormaw eggs, on the same walk"] = "",
 
 	-- Step 37: Einar Stonegrip
@@ -341,6 +342,7 @@ return {
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["{npc:3649} stands at the north end of {area:442}."] = "{npc:3649} está en el extremo norte de {area:442}.",
 	-- {zone:1439} Darkshore · {area:442} Auberdine
+	-- was: ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "La respuesta de Alexston, si todavía la llevas (la ruta la entrega en la primera parada en {area:442} de 03-darkshore-return)"
 	["Alexston's reply, if you still carry it (the route hands it in on the {zone:1439} return's first {area:442} stop)"] = "",
 
 	-- Step 61: Auberdine
@@ -697,22 +699,22 @@ return {
 	["Next: fly to {area:42}."] = "Siguiente: vuela a {area:42}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "La respuesta de Alexston, si todavía la llevas (la ruta la entrega en la primera parada en {area:442} de 03-darkshore-return)",
+	-- ["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Para la catapulta Faucedraco, en el circuito de {zone:1437} de 30-40/01-hillsbrad-foothills",
 	-- ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "Usa la piedra de hogar para volver a {area:150} si la vinculaste en {area:2104}, o ve al oeste por el camino: {npc:2104} está en el piso superior de {area:2103}, y {npc:2094} junto a los muelles, de camino al barco.",
+	-- ["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Incisivos Tajobuche: de los raptores junto a {area:1038}, en el circuito de {zone:1437} de 30-40/01-hillsbrad-foothills",
 	-- ["South from {npc:3987}'s camp to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "Al sur desde el campamento de {npc:3987} hasta {area:415}: {npc:3691} en la posada, el maestro de vuelo en el extremo oeste.",
+	-- ["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "El campamento de los Renegados está en el bosque al sur de {area:2358}.\nHay cofres oxidados alrededor de los campamentos de fúrbolgs Sombramatorral al oeste de los Renegados; ábrelos hasta que uno tenga el pomo.\nCuidado: Renegados no élite de nivel 28-30 más o menos vigilan el campamento. Algunos están en sigilo, y los que rodean la mesa suelen atacar juntos.",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "El capitán recorre la cubierta del barco naufragado; su caja fuerte está en la bodega.",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it.\nGoaz Warders (elite, 32) stand among the relics and the {object:331}: pull them away one at a time, or work around them."] = "Las reliquias están en la propia excavación. {npc:1353}, un Tajobuche grande, merodea por el valle de los raptores, justo al oeste.\nLos Guardianes Goaz (élite, 32) están entre las reliquias y {object:331}: aléjalos de uno en uno o rodéalos.",
 	-- ["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there."] = "{area:2358}, el puesto de los elfos de la noche en el extremo este del camino: allí está {npc:3848}.",
+	-- ["{npc:2094}, by the docks, on the way to the boat"] = "{npc:2094}, junto a los muelles, de camino al barco",
+	-- ["{npc:2097}, by the north gate: {npc:1071} takes it on 30-40/01-hillsbrad-foothills' {area:205} stop"] = "{npc:2097}, junto a la puerta norte: la recibe {npc:1071} en la parada de {area:205} de 30-40/01-hillsbrad-foothills",
 	-- ["{npc:3691}, in the inn"] = "{npc:3691}, en la posada",
 	-- ["{npc:3691}: {quest:1025}, the Foulweald on the way to {npc:3897}"] = "{npc:3691}: {quest:1025}, el Bosque Infecto de camino a {npc:3897}",
 	-- ["{npc:3691}: {quest:1054}, {npc:3987} on the way back from {area:413}"] = "{npc:3691}: {quest:1054}, {npc:3987} a la vuelta de {area:413}",
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}, un furbolg al que no ha tocado la corrupción, está sentado al sur del camino, bajo {area:421}.",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} lidera a los sátiros de {area:429}; él lleva la rama.",
-	-- ["{npc:2097}, by the north gate: {npc:1071} takes it on 30-40/01-hillsbrad-foothills' {area:205} stop"] = "{npc:2097}, junto a la puerta norte: la recibe {npc:1071} en la parada de {area:205} de 30-40/01-hillsbrad-foothills",
-	-- ["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Incisivos Tajobuche: de los raptores junto a {area:1038}, en el circuito de {zone:1437} de 30-40/01-hillsbrad-foothills",
 	-- ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}: los huevos Tajobuche, en el mismo circuito",
 	-- ["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "{quest:98283}, un raptor élite, en el circuito de {zone:1437} de 30-40/01-hillsbrad-foothills",
-	-- ["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Para la catapulta Faucedraco, en el circuito de {zone:1437} de 30-40/01-hillsbrad-foothills",
-	-- ["{npc:2094}, by the docks, on the way to the boat"] = "{npc:2094}, junto a los muelles, de camino al barco",
-	-- ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "La respuesta de Alexston, si todavía la llevas (la ruta la entrega en la primera parada en {area:442} de 03-darkshore-return)",
-	-- ["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "El campamento de los Renegados está en el bosque al sur de {area:2358}.\nHay cofres oxidados alrededor de los campamentos de fúrbolgs Sombramatorral al oeste de los Renegados; ábrelos hasta que uno tenga el pomo.\nCuidado: Renegados no élite de nivel 28-30 más o menos vigilan el campamento. Algunos están en sigilo, y los que rodean la mesa suelen atacar juntos.",
 }

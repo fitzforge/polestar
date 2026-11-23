@@ -392,7 +392,6 @@ return {
 
 	-- Step 75: Protecting the Herd
 	-- {npc:1388} Vagash · {area:38} Loch Modan
-	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "Son enemigos élite: se recomienda ir en grupo, busca gente para hacerlas. {npc:1388} es un élite de nivel 12: enfréntate a él en grupo. Si vas solo, sáltala: las misiones de {zone:1432} compensan la experiencia."
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {area:38} quests ahead make up the experience."] = "Estos son mobs de élite: se recomienda ir en grupo, busca gente con quien hacerlo. {npc:1388} es un élite de nivel 12: tómalo con un grupo. En solitario, sáltatelo: las misiones de {area:38} que vienen compensan la experiencia.",
 	["Below ground"] = "Bajo tierra",
 

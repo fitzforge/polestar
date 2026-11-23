@@ -439,6 +439,7 @@ return {
 	-- ["for a later stop in the {area:8}"] = "para una parada posterior en {area:8}",
 	-- ["the {object:2076}"] = "{object:2076}",
 	-- ["the {object:2076}, beside {npc:2497}"] = "{object:2076}, junto a {npc:2497}",
+	-- ["{area:127}: kill these as you meet them"] = "{area:127}: mátalos según te los encuentres",
 	-- ["{area:1497} trainers"] = "Instructores de {area:1497}",
 	-- ["{area:392} pier"] = "Muelle de {area:392}",
 	-- ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}: {quest:348} (disponible desde 40), la parte de Unbagwa en la parada de {object:3202} de la guía de {zone:1444}",
@@ -446,5 +447,4 @@ return {
 	-- ["{npc:2497}: for the {zone:1425}, around level 48"] = "{npc:2497}: para {zone:1425}, alrededor del nivel 48",
 	-- ["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}, en el piso de arriba: para {quest:2864} en {area:976}",
 	-- ["{zone:1434} and the {zone:1435} at 40-43: {object:3202}, {area:35}'s pirates, Nesingwary's hunts and {area:75}."] = "{zone:1434} y {zone:1435} a nivel 40-43: {object:3202}, los piratas de {area:35}, las cacerías de Nesingwary y {area:75}.",
-	-- ["{area:127}: kill these as you meet them"] = "{area:127}: mátalos según te los encuentres",
 }
