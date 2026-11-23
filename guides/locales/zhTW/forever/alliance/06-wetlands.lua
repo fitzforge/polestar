@@ -314,7 +314,7 @@ return {
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
 	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "往南回到米奈希爾：{npc:1217}站在{area:2104}裡。",
 	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind City
-	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "",
+	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "給{zone:1453}的{npc:1284}，在本指南結尾",
 
 	-- Step 56: Level 28
 	["Level 28"] = "28級",

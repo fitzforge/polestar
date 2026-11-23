@@ -163,6 +163,7 @@ return {
 	-- ["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "又是同一段魚人海岸：噴墨者在哨站以東，食肉者在西邊的棚屋周圍，神諭者混在兩者中間。",
 	-- ["The same murlocs again, plus the Oracles, who stay near the huts on the western shore."] = "同樣的魚人，再加上待在西岸小屋附近的沼澤魚人智者。",
 	-- ["The small Horde post on the southern shore."] = "南岸的小型部落哨站。",
+	-- ["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "鉗嘴龜分佈在崗哨南邊的海灘。\n巨型淤泥蟹沿東海岸的沙灘遊蕩，數量少且分散；看到就殺，從水池騎行南下途中遇到的也別漏掉。\n小心：一隻{npc:272377}（60級）在東南部的海灘上走動：遠遠繞開它。",
 	-- ["The sprite darters flit over the grove just west of the camp and carry the {item:9589}; the Wandering Forest Walkers, a little further west, carry the Splintered Logs.\nCareful: a {npc:272401} (level 60) flies over the forest west of the camp: keep clear of it."] = "小精龍在營地西邊不遠的樹林上空飛舞，身上帶著{item:9589}；再往西一點的森林漫遊者身上帶著斷裂的原木。\n小心：一隻{npc:272401}（60級）在營地西邊的森林上空飛行：遠離牠。",
 	-- ["The zeppelin lands at {object:3202}: Stranglethorn's errands are done (40-50/02), so fly straight on to {area:75}."] = "飛艇降落在{object:3202}：荊棘谷的差事已經做完（40-50/02），所以直接飛往{area:75}。",
 	-- ["The zeppelin to {zone:1454} leaves from the tower beside {object:3202}; it lands just north-east of {zone:1454}'s main gate."] = "前往{zone:1454}的飛艇從{object:3202}旁的塔出發；降落在{zone:1454}正門東北方不遠處。",
@@ -202,5 +203,4 @@ return {
 	-- ["{object:3202} flight master"] = "{object:3202}飛行管理員",
 	-- ["{quest:7738}, a rare drop"] = "{quest:7738}，稀有掉落",
 	-- ["{zone:1435} and Dustwallow first, then {zone:1444}."] = "先去{zone:1435}和塵泥沼澤，然後是{zone:1444}。",
-	-- ["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "鉗嘴龜分佈在崗哨南邊的海灘。\n巨型淤泥蟹沿東海岸的沙灘遊蕩，數量少且分散；看到就殺，從水池騎行南下途中遇到的也別漏掉。\n小心：一隻{npc:272377}（60級）在東南部的海灘上走動：遠遠繞開它。",
 }

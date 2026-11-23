@@ -179,6 +179,7 @@ return {
 	-- ["Grind to 51"] = "練到51級",
 	-- ["Gryfe"] = "葛萊夫",
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "帶{npc:9999}向北前往{area:541}。他昏倒時，對他使用{item:11804}把他叫醒。",
+	-- ["Level 49.79"] = "等級 49.79",
 	-- ["Northern Pylon"] = "北部水晶塔",
 	-- ["Pterrordax"] = "翼手龍",
 	-- ["Ride down the ramp into the crater: {npc:9619} camps at its foot."] = "沿坡道騎下環形山：{npc:9619}在坡道底部紮營。",
@@ -234,5 +235,4 @@ return {
 	-- ["{npc:9998}, at the refuge entrance"] = "{npc:9998}，在避難營入口",
 	-- ["{npc:9998}, at the refuge's entrance"] = "{npc:9998}，在避難營入口",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}坐在環形山中央{area:537}的東南坡上。",
-	-- ["Level 49.79"] = "等級 49.79",
 }

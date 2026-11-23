@@ -384,6 +384,7 @@ return {
 	-- ["For {zone:1453}: keep it"] = "給{zone:1453}：保留此任務",
 	-- ["From the {area:442} dock, fly to {area:415}."] = "從{area:442}碼頭飛往{area:415}。",
 	-- ["Help her escape the camp"] = "幫助她逃出營地",
+	-- ["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon instead."] = "如果跳過了{quest:4022}，就在這裡刷到52.08級，以跟上路線進度。也可以組隊去{area:1417}地下城。",
 	-- ["Level 51.3 on the way north"] = "往北途中升到51.3級",
 	-- ["Level 52 at {area:249}"] = "在{area:249}升到52級",
 	-- ["Level 52.08"] = "52.08級",
@@ -448,5 +449,4 @@ return {
 	-- ["{object:175894}, inside"] = "{object:175894}，室內",
 	-- ["{zone:1455} has no druid trainer"] = "{zone:1455}沒有德魯伊訓練師",
 	-- ["{zone:1455} has no druid trainer: take the portal up to {zone:1457} and train in the {area:1658}, then come back down to {area:702}."] = "{zone:1455}沒有德魯伊訓練師：走傳送門上到{zone:1457}，在{area:1658}學習，然後回到下方的{area:702}。",
-	-- ["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon instead."] = "如果跳過了{quest:4022}，就在這裡刷到52.08級，以跟上路線進度。也可以組隊去{area:1417}地下城。",
 }

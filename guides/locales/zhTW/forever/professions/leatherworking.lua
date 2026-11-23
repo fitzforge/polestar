@@ -26,6 +26,7 @@ return {
 
 	-- Step 4: Light Leather (Elwynn Forest)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
+	-- was: ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "準備349個{item:2318}製作{spell:2152}、{spell:3756}和{spell:3763}（其中210個用於75-150階段：現在一次收齊）：{skill:393}：剝取5-20級野獸。在這裡剝取{npc:1922}、{npc:525}、覓食的灰狼、{npc:524}、{npc:113}和{npc:822}（5-20級）；{skill:393}指南有對應路線。"
 	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "",
 
 	-- Step 5: Light Leather (Dun Morogh)
@@ -295,6 +296,7 @@ return {
 	["{item:15094} is orange at 269 (yellow 285, green 295, grey 305): about 43 crafts to 300. Each takes 14 {item:8170}, 10 {item:14047} and 1 {item:14341}. 14 {item:8170} and 10 {item:14047} a craft: the dearest stretch. {skill:165} 300 is a Legacy System milestone."] = "{item:15094} 在技能 269 時為橙色（285 變黃、295 變綠、305 變灰）：約製作 43 次可升到 300。每次需要 14 個 {item:8170}、10 個 {item:14047} 和 1 個 {item:14341}。每次製作消耗 14 個 {item:8170} 和 10 個 {item:14047}：這是最貴的一段。{skill:165} 達到 300 是傳承系統的一個里程碑。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "準備349個{item:2318}製作{spell:2152}、{spell:3756}和{spell:3763}（其中210個用於75-150階段：現在一次收齊）：{skill:393}：剝取5-20級野獸。在這裡剝取{npc:1922}、{npc:525}、覓食的灰狼、{npc:524}、{npc:113}和{npc:822}（5-20級）；{skill:393}指南有對應路線。",
 	-- ["Artisan needs character level 35 and {skill:165} 200; it raises the cap to 300. Materials for 225-300 are worth about 312g in all."] = "專家級需要角色等級35且{skill:165}200點；上限提高到300。225-300所需材料總價約312金。",
 	-- ["Back to a {skill:165} trainer: {spell:10482}, {spell:14932} are taught from {skill:165} 220."] = "回到{skill:165}訓練師那裡：{spell:10482}、{spell:14932}在{skill:165}220點時可學。",
 	-- ["Back to a {skill:165} trainer: {spell:10487} is taught from {skill:165} 195."] = "回到{skill:165}訓練師那裡：{spell:10487}在{skill:165}195點時可學。",
@@ -383,5 +385,4 @@ return {
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}：分解優秀（綠色）裝備（或拍賣場）",
 	-- ["{spell:3768} to 150"] = "{spell:3768}練到150",
 	-- ["{spell:3776} to 185"] = "{spell:3776}練到185",
-	-- ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "準備349個{item:2318}製作{spell:2152}、{spell:3756}和{spell:3763}（其中210個用於75-150階段：現在一次收齊）：{skill:393}：剝取5-20級野獸。在這裡剝取{npc:1922}、{npc:525}、覓食的灰狼、{npc:524}、{npc:113}和{npc:822}（5-20級）；{skill:393}指南有對應路線。",
 }

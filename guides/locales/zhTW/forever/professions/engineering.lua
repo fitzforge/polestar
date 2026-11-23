@@ -248,6 +248,7 @@ return {
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Horde)"] = "{item:2836}（部落）",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
+	-- was: ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "為 {item:6533} 準備 31 個 {item:2836}：透過 {skill:186} 開採 {zone:1413}（10-25 級）、{zone:1440}（18-30 級）和 {zone:1424}（20-30 級）的 {object:1732}（需要技能 65）。已標記 {zone:1440} 中 {object:1732} 最密集的位置。"
 	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked."] = "",
 
 	-- Step 48: Heavy Stone (Alliance)
@@ -416,6 +417,7 @@ return {
 	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000}在287時為橙色（295黃、305綠、315灰）：大約14次製作可到300。每次需要6個{item:12359}。圖紙拾取即繫結；每次六個瑟銀錠。附近需要鐵砧。{skill:202} 300是傳承系統里程碑。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "為 {item:6533} 準備 31 個 {item:2836}：透過 {skill:186} 開採 {zone:1413}（10-25 級）、{zone:1440}（18-30 級）和 {zone:1424}（20-30 級）的 {object:1732}（需要技能 65）。已標記 {zone:1440} 中 {object:1732} 最密集的位置。",
 	-- ["Apprentice {skill:202}"] = "初級{skill:202}",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "專家級需要角色等級 35 且{skill:202} 200；上限提高到 300。225-300 的材料總值約 67g。",
 	-- ["Back to an {skill:202} trainer: {spell:12590} is taught from {skill:202} 175."] = "回到{skill:202}訓練師處：{skill:202} 175 起可學{spell:12590}。",
@@ -483,5 +485,4 @@ return {
 	-- ["{spell:3929} to 95"] = "{spell:3929}練到 95",
 	-- ["{spell:3937} to 125"] = "{spell:3937}練到 125",
 	-- ["{spell:3942} to 150"] = "{spell:3942}練到 150",
-	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "為 {item:6533} 準備 31 個 {item:2836}：透過 {skill:186} 開採 {zone:1413}（10-25 級）、{zone:1440}（18-30 級）和 {zone:1424}（20-30 級）的 {object:1732}（需要技能 65）。已標記 {zone:1440} 中 {object:1732} 最密集的位置。",
 }

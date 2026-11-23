@@ -50,6 +50,7 @@ return {
 
 	-- Step 9: Ruul Snowhoof
 	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
+	-- was: ["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "據點內部的隧道沿線有食人妖的箱子。{npc:12818}被囚禁在深處：釋放他並一路保護他離開，之後他會跑回{area:428}的家。\n小心：會觸發兩次固定伏擊，每次由3名薊皮熊怪組成（一名薩滿祭司、一名探路者，以及一名復仇者、巨熊戰士或巢穴守衛）：第一處在洞內返回隧道岔口時，第二處在越過{npc:3987}遊蕩的大門後不遠處。"
 	["{npc:12818} is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "",
 	-- {npc:12818} Ruul Snowhoof
 	["{npc:12818}, below ground"] = "{npc:12818}，地下",
@@ -393,7 +394,7 @@ return {
 	-- {area:487} Roguefeather Den · {npc:4877} Jandia · {npc:4490} Grenka Bloodscreech · {npc:2986} Dorn Plainstalker · {quest:1150} Test of Endurance
 	["South of Darkcloud Pinnacle the Screeching harpies hold {area:487}; {npc:4877}'s stolen supplies lie on the ground around it.\nCareful: the harpies (28-29) stand in packs and the Windcallers cast from range: pull at the edge. {npc:4490} (31) waits deeper in the den: leave her for {npc:2986}'s {quest:1150} at about 30, in the next guide."] = "",
 	-- {quest:98069} Stolen Freewind Supplies
-	["{quest:98069}, on the ground around the den"] = "",
+	["{quest:98069}, on the ground around the den"] = "{quest:98069}，在巢穴周圍的地面上",
 
 	-- Step 88: Freewind Post
 	-- {area:484} Freewind Post
@@ -437,6 +438,7 @@ return {
 	-- ["His crate is for Stranglethorn, later on the route"] = "他的箱子要送到荊棘谷，在路線稍後",
 	-- ["If you skipped {quest:5151} and are still short of 29.49, kill harpies here first: {area:487} is your next stop anyway. The Screeching Harpies (28-29) at its edge are at your level; the Roguefeathers and Windcallers (29-30) inside hit harder. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon instead."] = "如果跳過了{quest:5151}，而且還沒到29.49級，先在這裡擊殺鷹身人：反正下一站就是{area:487}。外圍的尖嘯的鷹身人（28-29級）與你等級相當；裡面的尖嘯的遊蕩者和尖嘯的喚風者（29-30級）打得更痛。超過這個進度，本步驟會自動跳過。或者，組隊去打{area:2797}地城。",
 	-- ["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}."] = "巢穴裡的隧道沿途散落著食人妖的箱子。{npc:12818}被關在深處：救出他並一路保護他出去，之後他會跑回{area:428}。",
+	-- ["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "據點內部的隧道沿線有食人妖的箱子。{npc:12818}被囚禁在深處：釋放他並一路保護他離開，之後他會跑回{area:428}的家。\n小心：會觸發兩次固定伏擊，每次由3名薊皮熊怪組成（一名薩滿祭司、一名探路者，以及一名復仇者、巨熊戰士或巢穴守衛）：第一處在洞內返回隧道岔口時，第二處在越過{npc:3987}遊蕩的大門後不遠處。",
 	-- ["Keep {npc:4877}'s two harpy quests and {npc:2986}'s {quest:1150}: {area:487} comes with the next Freewind visit, at about 30, with the {area:2240}'s quests."] = "保留{npc:4877}的兩個鷹身人任務和{npc:2986}的{quest:1150}：{area:487}留到下次來亂風崗時再做，約30級，連同{area:2240}的任務一起。",
 	-- ["Level 29"] = "29級",
 	-- ["Naga brazier"] = "納迦火盆",
@@ -474,5 +476,4 @@ return {
 	-- ["{npc:4877}'s two harpy quests are taken when you leave Freewind; their den comes with the next Freewind visit, at about 30."] = "{npc:4877}的兩個鷹身人任務在離開亂風崗時接受；牠們的巢穴留到下次來亂風崗時（約30級）再處理。",
 	-- ["{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}; inside the inn"] = "{npc:4877}，商業用品商人：{area:487}的尖嘯的鷹身人；在旅店裡",
 	-- ["{object:19868} lies all over the flats north of the raceway. Scorpid Reavers and Sparkleshell Tortoises roam the north half, Salt Flats Scavengers circle overhead, and Saltstone Basilisks graze west of the track. The Crystalhides roam the middle of the flats and the Gazers (34-35, five levels above you: one at a time) the far south."] = "{object:19868}散落在賽道北邊的鹽灘各處。恐蠍劫掠者和鹽殼龜在北半部遊蕩，鹽湖食腐鷲在上空盤旋，鹽石蜥蜴在賽道西邊覓食。鹽石水晶蜥蜴在鹽灘中央遊蕩，鹽石凝視者（34-35級，比你高五級：一次拉一隻）在最南邊。",
-	-- ["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "據點內部的隧道沿線有食人妖的箱子。{npc:12818}被囚禁在深處：釋放他並一路保護他離開，之後他會跑回{area:428}的家。\n小心：會觸發兩次固定伏擊，每次由3名薊皮熊怪組成（一名薩滿祭司、一名探路者，以及一名復仇者、巨熊戰士或巢穴守衛）：第一處在洞內返回隧道岔口時，第二處在越過{npc:3987}遊蕩的大門後不遠處。",
 }
