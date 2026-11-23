@@ -342,10 +342,15 @@ local function fillRow(r, v, i, live, at)
 	-- tooltip is; "Step N" only when it has none.
 	local plain = r.psSummary ~= "" and UI.PlainGoalText({ text = r.psSummary }) or nil
 	local title = (v.title and v.title ~= "") and v.title or plain or string.format(L["Step %d"], no)
-	r.Tab:SetText(no .. " \194\183 " .. title)
+	-- The group mark (UI.StepMark, #3580) after the number, so a long title's
+	-- cut never takes it; its reason leads the card's tooltip.
+	local guide = E.GetGuide and E.GetGuide()
+	local mark, reason = UI.StepMark(v, guide and guide.steps and guide.steps[i])
+	r.Tab:SetText(no .. " \194\183 " .. (mark and (UI.StepMarkGlyph(mark) .. " ") or "") .. title)
 	W.Color(r.Tab, gone and "textMuted" or (i == live and "accent" or "textMuted"))
 	r.Live:SetShown(i == live and not one)
 	local why = {}
+	if mark then why[1] = { UI.StepMarkGlyph(mark) .. " " .. reason, Theme.TipColor(mark == "group" and "warning" or "textDim") } end
 	r.psWhy = why
 	r.Unskip:SetShown(false)
 	r.Unskip.psTip = L["Bring it back"]

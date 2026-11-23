@@ -1613,7 +1613,12 @@ GF.Part(function(GF)
 		local verb = GROUP_VERB[kind] or "goto"
 		person.Icon:SetTexture(Theme.VerbIcon(verb))
 		W.Color(person.Icon, "textDim")
-		person.Name:SetText(UI.GroupName(view, group))
+		-- The group mark after the name (UI.StepMark, #3580); its reason in the tooltip.
+		local E = Engine()
+		local guide = E and E.GetGuide and E.GetGuide()
+		local mark, reason = UI.StepMark(view, guide and guide.steps and view and guide.steps[view.index])
+		person.Name:SetText(UI.GroupName(view, group) .. (mark and (" " .. UI.StepMarkGlyph(mark)) or ""))
+		person.psMark, person.psMarkWhy = mark, reason
 		W.Color(person.Name, kind == "here" and "text" or (kind == "object" and "object" or "npc"))
 		local place = groupPlace(group)
 		local where = place and UI.MapName(place.map) or nil
@@ -1637,6 +1642,9 @@ GF.Part(function(GF)
 			lines[#lines + 1] = { L["Click to point the arrow here"], r, g, b }
 		end
 		if view and view.title and view.title ~= self.psLabel then lines[#lines + 1] = view.title end
+		if self.psMark then
+			lines[#lines + 1] = { UI.StepMarkGlyph(self.psMark) .. " " .. self.psMarkWhy, Theme.TipColor(self.psMark == "group" and "warning" or "textDim") }
+		end
 		W.Tooltip(self, tooltipAnchor(), self.psLabel or "", lines)
 		GF.HoverIn()
 	end
