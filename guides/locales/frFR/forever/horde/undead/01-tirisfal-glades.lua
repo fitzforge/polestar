@@ -340,9 +340,10 @@ return {
 	-- Step 60: Tirisfal Glades: kill these as you meet them
 	-- {zone:1420} Tirisfal Glades
 	["{zone:1420}: kill these as you meet them"] = "{zone:1420} : tuez-les au passage",
-	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {area:164} Garren's Haunt · {npc:1753} Maggot Eye
+	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {area:164} Garren's Haunt · {npc:1753} Maggot Eye · {area:157} Agamand Mills
 	-- plural, as words: Greater Duskbats = {npc:1553} Greater Duskbat · Vampiric Duskbats = {npc:1554} Vampiric Duskbat · Rot Hide Graverobbers = {npc:1941} Rot Hide Graverobber · Rot Hide Mongrels = {npc:1675} Rot Hide Mongrel
-	["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "Des Grandes chauves-souris du crépuscule (6-7) survolent les champs autour de {area:159} et le long de la route du nord : Gretchen veut leurs fourrures, {npc:3549} leurs ailes. Les Chauves-souris du crépuscule vampiriques (8-9), plus loin, les lâchent aussi, mais frappent plus fort.\nLa {quest:5482} pousse dans les champs du cimetière, juste au nord de {area:159}, où creusent les Profanateurs Poil-Putride ; tous les Poil-Putride lâchent l'ichor.\nLes Bâtards Poil-Putride tiennent les collines plus au nord, autour de {area:164}. Laissez {npc:1753} (niveau 11) dans sa hutte pour l'instant : le guide revient pour lui à la fin.\nLes murlocs Aileron-vil bordent le rivage nord : ils lâchent tous les écailles, et les Oracles mineurs et les Habitants de la fange les peaux pour {npc:3549}. Droit au nord de {area:159}, le rivage abrite des Sauteurs de flaques et des Oracles mineurs (7-9), sans Habitants de la fange (9-10) à proximité.",
+	-- was: ["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "Des Grandes chauves-souris du crépuscule (6-7) survolent les champs autour de {area:159} et le long de la route du nord : Gretchen veut leurs fourrures, {npc:3549} leurs ailes. Les Chauves-souris du crépuscule vampiriques (8-9), plus loin, les lâchent aussi, mais frappent plus fort.\nLa {quest:5482} pousse dans les champs du cimetière, juste au nord de {area:159}, où creusent les Profanateurs Poil-Putride ; tous les Poil-Putride lâchent l'ichor.\nLes Bâtards Poil-Putride tiennent les collines plus au nord, autour de {area:164}. Laissez {npc:1753} (niveau 11) dans sa hutte pour l'instant : le guide revient pour lui à la fin.\nLes murlocs Aileron-vil bordent le rivage nord : ils lâchent tous les écailles, et les Oracles mineurs et les Habitants de la fange les peaux pour {npc:3549}. Droit au nord de {area:159}, le rivage abrite des Sauteurs de flaques et des Oracles mineurs (7-9), sans Habitants de la fange (9-10) à proximité."
+	["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him after {area:157}.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "",
 	-- {npc:1675} Rot Hide Mongrel · {area:164} Garren's Haunt
 	["{npc:1675} walks around {area:164}: look inside the circle on the map"] = "{npc:1675} se promène autour de {area:164} : cherchez dans le cercle sur la carte",
 
@@ -369,8 +370,9 @@ return {
 	["{npc:267009} stands at the camp beside Linnea."] = "{npc:267009} se tient au camp, à côté de Linnea.",
 
 	-- Step 65: Magistrate Sevren
-	-- {area:159} Brill · {area:157} Agamand Mills
-	["Back up the road to {area:159}, on the way north-west to {area:157}."] = "Remontez la route jusqu'à {area:159}, sur le chemin du nord-ouest vers {area:157}.",
+	-- {area:159} Brill · {area:157} Agamand Mills · {npc:1753} Maggot Eye · {npc:1515} Executor Zygand
+	["Back up the road to {area:159}, on the way north-west to {area:157}. The Wanted poster for {npc:1753} stands beside {npc:1515}, in front of the inn."] = "",
+	["The Wanted poster beside Zygand"] = "L'avis de recherche à côté de Zygand",
 
 	-- Step 66: Agamand Mills
 	-- {area:157} Agamand Mills · {npc:1657} Devlin Agamand · {npc:1656} Thurman Agamand · {item:2839} A Letter to Yvette
@@ -382,7 +384,13 @@ return {
 	["{item:2839}, a rare drop"] = "{item:2839}, butin rare",
 	["Only if the letter dropped"] = "Seulement si vous avez obtenu la lettre",
 
-	-- Step 67: Brill
+	-- Step 67: Maggot Eye
+	-- {area:159} Brill · {area:164} Garren's Haunt · {npc:1753} Maggot Eye
+	["On the way back to {area:159}, {area:164} is the Rot Hide camp on the hill east of the mills, south of the shore. {npc:1753} stands in the hut.\nCareful: {npc:1753} is level 11 and gnoll guards stand outside the hut and can join the fight: clear them one at a time first. If you slip past them and fight him inside, he fights alone."] = "",
+	-- {item:3635} Maggot Eye's Paw
+	["{item:3635}; inside"] = "{item:3635} ; à l'intérieur",
+
+	-- Step 68: Brill
 	-- {npc:1560} Yvette Farthing
 	["{npc:1560}, in the inn"] = "{npc:1560}, dans l'auberge",
 	-- {npc:2128} Cain Firesong · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity
@@ -392,11 +400,11 @@ return {
 	-- {npc:1738} Deathguard Terrence · {area:159} Brill
 	["{npc:1738}, if you were below 10 on the last {area:159} visit"] = "{npc:1738}, si vous étiez en dessous du niveau 10 lors de la dernière visite de {area:159}",
 
-	-- Step 68: Ulag the Cleaver
+	-- Step 69: Ulag the Cleaver
 	-- {npc:6390} Ulag the Cleaver
 	["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390} attend dans le mausolée sur la colline juste au nord du village : ouvrez la grille et combattez-le.",
 
-	-- Step 69: Carendin Halgar
+	-- Step 70: Carendin Halgar
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Marchez vers le sud depuis {area:159} jusqu'aux {area:153} et descendez à {area:1497}. {npc:5675} se tient dans le {object:36082}. Le camp écarlate est juste à l'ouest des ruines.",
 	-- {npc:4551} Michael Garrett
@@ -404,30 +412,30 @@ return {
 	-- {npc:5675} Carendin Halgar · {quest:1473} Creature of the Void
 	["{npc:5675}: he offers {quest:1473} only once this is handed in"] = "{npc:5675} : il ne propose {quest:1473} qu'une fois celle-ci rendue",
 
-	-- Step 70: Anastasia Hartwell
+	-- Step 71: Anastasia Hartwell
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Marchez vers le sud depuis {area:159} jusqu'aux {area:153} et descendez à {area:1497}. {npc:4568} se tient dans le {object:36082}. Le camp écarlate est juste à l'ouest des ruines.",
 
-	-- Step 71: Back to Tirisfal Glades
+	-- Step 72: Back to Tirisfal Glades
 	-- {zone:1420} Tirisfal Glades
 	["Back to {zone:1420}"] = "Retour à {zone:1420}",
 	["The Scarlet camp"] = "Le camp écarlate",
 
-	-- Step 72: Tirisfal Glades: kill these as you meet them
+	-- Step 73: Tirisfal Glades: kill these as you meet them
 	-- {area:159} Brill · {npc:1662} Captain Perrine
 	["Follow the road south-west from {area:159} to the Scarlet Crusade camp. {npc:1662} stands at its south end; every Scarlet there can drop a ring."] = "Suivez la route au sud-ouest de {area:159} jusqu'au camp de la Croisade écarlate. {npc:1662} se tient à son extrémité sud ; chaque membre de la Croisade écarlate peut y lâcher un anneau.",
 	-- {npc:1537} Scarlet Zealot
 	["{npc:1537} walks around here: look inside the circle on the map"] = "{npc:1537} se promène par ici : cherchez dans le cercle sur la carte",
 
-	-- Step 73: Perrine's Chest
+	-- Step 74: Perrine's Chest
 	-- {object:37098} Perrine's Chest · {npc:1662} Captain Perrine
 	["{object:37098} stands beside {npc:1662} at the camp's south end."] = "{object:37098} se trouve à côté de {npc:1662}, à l'extrémité sud du camp.",
 
-	-- Step 75: Hadric Harlson
+	-- Step 76: Hadric Harlson
 	-- {npc:267009} Hadric Harlson · {npc:1495} Deathguard Linnea
 	["{npc:267009} stands at {npc:1495}'s camp, on the road to the cult's farm."] = "{npc:267009} se tient au camp de {npc:1495}, sur la route de la ferme du culte.",
 
-	-- Step 76: Balnir Farmstead: kill these as you meet them
+	-- Step 77: Balnir Farmstead: kill these as you meet them
 	-- {area:165} Balnir Farmstead
 	["{area:165}: kill these as you meet them"] = "{area:165} : tuez-les au passage",
 	-- {quest:99142} Tomb Weed · {npc:1664} Captain Vachon
@@ -436,29 +444,23 @@ return {
 	-- {item:7227} Balnir Snapdragons
 	["{item:7227}, in the farmstead's garden"] = "{item:7227}, dans le jardin de la ferme",
 
-	-- Step 77: Tirisfal Glades: kill these as you meet them
+	-- Step 78: Tirisfal Glades: kill these as you meet them
 	-- {npc:1495} Deathguard Linnea
 	-- plural, as words: Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
 	["On the way back west, the Cult of the Damned holds the farm just south-east of {npc:1495}'s camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.\nCareful: the cultists (10-12) stand close together and the Neophytes cast: pull one at a time from the edge of the farm."] = "En revenant vers l'ouest, le Culte des damnés tient la ferme juste au sud-est du camp de {npc:1495}. Les Fragments de cristal nécrotique sont au sol parmi les cultistes, et les cultistes en portent aussi.\nAttention : les cultistes (10-12) sont proches les uns des autres et les Néophytes lancent des sorts : attirez-les un par un depuis le bord de la ferme.",
 
-	-- Step 79: Brill
+	-- Step 80: Brill
 	-- {area:159} Brill · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["Back up the road to {area:159}. {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Remontez la route jusqu'à {area:159}. {npc:2128} (mages), {npc:2129} (prêtres), {npc:2127} (démonistes) et {npc:2130} (voleurs) se tiennent à l'étage de l'auberge : prenez l'escalier intérieur, la flèche ne distingue pas les étages.",
 	-- {npc:1518} Apothecary Johaan · {area:228} Sepulcher
 	["{npc:1518}: for Renferrel at the {area:228}"] = "{npc:1518} : pour Renferrel au {area:228}",
-	["The Wanted poster beside Zygand"] = "L'avis de recherche à côté de Zygand",
 	-- {npc:2211} Captured Mountaineer
 	["The {npc:2211}, in the inn's cellar"] = "Le {npc:2211}, dans la cave de l'auberge",
 
-	-- Step 80: Maggot Eye
-	-- {area:164} Garren's Haunt · {npc:1753} Maggot Eye
-	["North to {area:164}, the Rot Hide camp on the hill south of the shore. {npc:1753} (level 11) stands in the hut: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone."] = "Au nord jusqu'à {area:164}, le camp Poil-Putride sur la colline au sud du rivage. {npc:1753} (niveau 11) se tient dans la hutte : éliminez d'abord les gnolls autour de lui.\nAttention : des gardes gnolls se tiennent devant la hutte et peuvent se joindre au combat. Si vous passez sans les alerter et le combattez à l'intérieur, il se bat seul.",
-	-- {item:3635} Maggot Eye's Paw
-	["{item:3635}; inside"] = "{item:3635} ; à l'intérieur",
-
 	-- Step 81: Leonid Barthalomew the Revered
-	-- {area:164} Garren's Haunt · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
-	["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "Vers l'ouest depuis {area:164}, au-delà de {area:157}, jusqu'à {area:16616}. Leonid se tient juste au nord du camp de {npc:246389}.\n{npc:246389} et {npc:259190} campent à la lisière de la forêt juste au sud de Leonid. Toutes les classes peuvent prendre les deux quêtes une fois {quest:96896} rendue (niveau 10). Elles vous envoient dans la cave sous {area:16881}, l'étape suivante.",
+	-- {area:159} Brill · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
+	-- was: ["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "Vers l'ouest depuis {area:164}, au-delà de {area:157}, jusqu'à {area:16616}. Leonid se tient juste au nord du camp de {npc:246389}.\n{npc:246389} et {npc:259190} campent à la lisière de la forêt juste au sud de Leonid. Toutes les classes peuvent prendre les deux quêtes une fois {quest:96896} rendue (niveau 10). Elles vous envoient dans la cave sous {area:16881}, l'étape suivante."
+	["North-west from {area:159} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "",
 	-- {npc:246378} Danitha Morr
 	["Listen to Leonid and {npc:246378}, then talk to him again"] = "Écoutez Leonid et {npc:246378}, puis reparlez-lui",
 
@@ -512,6 +514,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:159}."] = "Retour à {area:159}.",
+	-- ["Back up the road to {area:159}, on the way north-west to {area:157}."] = "Remontez la route jusqu'à {area:159}, sur le chemin du nord-ouest vers {area:157}.",
 	-- ["Balnir graves"] = "Tombes des Balnir",
 	-- ["Duskbats and Darkhounds roam all along the road back west; finish the wings and hides on the way."] = "Les chauves-souris du crépuscule et les sombredogues rôdent tout le long de la route vers l'ouest ; finissez les ailes et les peaux en chemin.",
 	-- ["Duskbats and Darkhounds roam all along the road back west; finish the wings and hides on the way.\n{quest:96897} holds the farm just south-east of the camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too."] = "Chauves-souris du crépuscule et Sombredogues rôdent tout le long de la route vers l'ouest ; terminez les ailes et les peaux en chemin.\n{quest:96897} tient la ferme juste au sud-est du camp. Les Fragments de cristal nécrotique sont au sol parmi les sectateurs, qui en portent aussi.",
@@ -528,6 +531,7 @@ return {
 	-- ["Follow the road west past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "Suivez la route vers l'ouest au-delà de {area:157} jusqu'à {area:16616}. Leonid se tient juste au nord du camp de {npc:246389}.\n{npc:246389} et {npc:259190} campent à la lisière de la forêt juste au sud de Leonid. Toutes les classes peuvent prendre les deux quêtes une fois {quest:96896} rendue (niveau 10). Elles vous envoient dans la cave sous {area:16881}, l'étape suivante.",
 	-- ["Free six Webbed Victims inside the cave for {npc:244808}"] = "Libérez six Webbed Victims dans la grotte pour {npc:244808}",
 	-- ["Greater Duskbats"] = "Grandes chauves-souris du crépuscule",
+	-- ["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "Des Grandes chauves-souris du crépuscule (6-7) survolent les champs autour de {area:159} et le long de la route du nord : Gretchen veut leurs fourrures, {npc:3549} leurs ailes. Les Chauves-souris du crépuscule vampiriques (8-9), plus loin, les lâchent aussi, mais frappent plus fort.\nLa {quest:5482} pousse dans les champs du cimetière, juste au nord de {area:159}, où creusent les Profanateurs Poil-Putride ; tous les Poil-Putride lâchent l'ichor.\nLes Bâtards Poil-Putride tiennent les collines plus au nord, autour de {area:164}. Laissez {npc:1753} (niveau 11) dans sa hutte pour l'instant : le guide revient pour lui à la fin.\nLes murlocs Aileron-vil bordent le rivage nord : ils lâchent tous les écailles, et les Oracles mineurs et les Habitants de la fange les peaux pour {npc:3549}. Droit au nord de {area:159}, le rivage abrite des Sauteurs de flaques et des Oracles mineurs (7-9), sans Habitants de la fange (9-10) à proximité.",
 	-- ["Greater Duskbats fly over the fields around {area:159} and along the road north."] = "Les Grandes chauves-souris du crépuscule volent au-dessus des champs autour de {area:159} et le long de la route du nord.",
 	-- ["Greater Duskbats fly over the fields around {area:159} and along the road north.\nThe Rot Hide Graverobbers dig through the graveyards north of {area:159}; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first.\nThe Vile Fin murlocs line the north shore.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone."] = "Les Grandes chauves-souris du crépuscule survolent les champs autour de {area:159} et le long de la route vers le nord.\nLes Profanateurs Poil-Putride fouillent les cimetières au nord de {area:159} ; tous les Poil-Putride lâchent l'ichor.\nLes Bâtards Poil-Putride tiennent les collines plus au nord. {npc:1753} (niveau 11) se tient dans leur camp sur la colline au sud du rivage : éliminez d'abord les gnolls autour de lui.\nLes murlocs Aileron noir bordent le rivage nord.\n{quest:5482} pousse dans les champs du cimetière juste au nord de {area:159}.\nAttention : des gardes gnolls se tiennent devant la hutte et peuvent rejoindre le combat. Si vous passez sans les alerter et le combattez à l'intérieur, il se bat seul.",
 	-- ["Greater Duskbats fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north. {npc:1753} (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}."] = "Des Grandes chauves-souris du crépuscule survolent les champs autour de {area:159} et le long de la route du nord : Gretchen veut leurs fourrures, {npc:3549} leurs ailes.\nLa {quest:5482} pousse dans les champs du cimetière, juste au nord de {area:159}, où creusent les Pilleurs de tombes Poil-Putride ; tous les Poil-Putride laissent tomber l'ichor.\nLes Bâtards Poil-Putride tiennent les collines plus au nord. {npc:1753} (niveau 11) se tient dans leur camp, sur la colline au sud du rivage : éliminez d'abord les gnolls autour de lui.\nAttention : des gardes gnolls se tiennent devant la hutte et peuvent se joindre au combat. Si vous passez sans les alerter et le combattez à l'intérieur, il se bat seul.\nLes murlocs Aileron noir bordent le rivage nord : ils laissent tous tomber les écailles, et les Oracles mineurs et les Habitants de la fange les peaux pour {npc:3549}.",
@@ -536,6 +540,7 @@ return {
 	-- ["Hearth to {area:159}"] = "Pierre de foyer vers {area:159}",
 	-- ["Hearth to {area:2119}"] = "Pierre de foyer vers {area:2119}",
 	-- ["More Vile Fin murlocs walk the shore just north of the outpost."] = "D'autres murlocs Aileron noir arpentent le rivage juste au nord de l'avant-poste.",
+	-- ["North to {area:164}, the Rot Hide camp on the hill south of the shore. {npc:1753} (level 11) stands in the hut: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone."] = "Au nord jusqu'à {area:164}, le camp Poil-Putride sur la colline au sud du rivage. {npc:1753} (niveau 11) se tient dans la hutte : éliminez d'abord les gnolls autour de lui.\nAttention : des gardes gnolls se tiennent devant la hutte et peuvent se joindre au combat. Si vous passez sans les alerter et le combattez à l'intérieur, il se bat seul.",
 	-- ["On the way"] = "En chemin",
 	-- ["Paladin: {area:16616}"] = "Paladin : {area:16616}",
 	-- ["Paladins: {quest:90902} is done once you have healed five {npc:259377} around the church with {spell:635}."] = "Paladins : {quest:90902} est terminée une fois que vous avez soigné cinq {npc:259377} autour de l'église avec {spell:635}.",
@@ -569,6 +574,7 @@ return {
 	-- ["Walk south-west from the mills: the pumpkins grow in the Scarlet-held fields north-west of Solliden.\nCareful: Farmers stand close to the pumpkins, so you can pull more than one at once. Scarlet mobs are found around the edges of the farm and a bit to the northwest."] = "Marchez vers le sud-ouest depuis les moulins : les Potirons de Tirisfal poussent dans les champs tenus par la Croisade écarlate, au nord-ouest de Solliden.\nAttention : des fermiers se tiennent près des potirons, vous pouvez donc en attirer plusieurs à la fois. Des monstres écarlates se trouvent en bordure de la ferme et un peu au nord-ouest.",
 	-- ["Walk south-west to the {area:156}; Simmer stands at the farm."] = "Marchez vers le sud-ouest jusqu'à {area:156} ; Simmer se tient à la ferme.",
 	-- ["Webbed Victims"] = "Webbed Victims",
+	-- ["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "Vers l'ouest depuis {area:164}, au-delà de {area:157}, jusqu'à {area:16616}. Leonid se tient juste au nord du camp de {npc:246389}.\n{npc:246389} et {npc:259190} campent à la lisière de la forêt juste au sud de Leonid. Toutes les classes peuvent prendre les deux quêtes une fois {quest:96896} rendue (niveau 10). Elles vous envoient dans la cave sous {area:16881}, l'étape suivante.",
 	-- ["With {skill:129} learned, Eleanor also offers its Camping 101: {npc:5759} in the {area:159} inn takes it."] = "Si vous avez appris {skill:129}, Eleanor propose aussi sa quête Camping 101 correspondante : {npc:5759}, dans l'auberge de {area:159}, la prend en charge.",
 	-- ["With {skill:164} learned, Eleanor also offers its Camping 101: {npc:4605} in the {zone:1458} (next guide) takes it."] = "Si vous avez appris {skill:164}, Eleanor propose aussi sa quête Camping 101 correspondante : {npc:4605}, à {zone:1458} (guide suivant), la prend en charge.",
 	-- ["With {skill:165} learned, Eleanor also offers its Camping 101: {npc:3549} at {npc:1495}'s camp takes it."] = "Si vous avez appris {skill:165}, Eleanor propose aussi sa quête Camping 101 correspondante : {npc:3549}, au camp de {npc:1495}, la prend en charge.",

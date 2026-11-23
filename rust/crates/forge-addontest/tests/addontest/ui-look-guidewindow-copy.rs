@@ -6,23 +6,14 @@
 //! sample (GF.UseContent) and both are drawn anew; every shown frame and region of each, by kind, draw layer, texture
 //! or atlas, text and colour, under frames of the same kinds, must match. A copy hears nothing (no event, message,
 //! setting, login, init or theme hook of its own, no global function hooked) and takes no click, wheel or tooltip: only
-//! its frame sees the pointer's hover. The whole addon and every bundled skin over stub_world.lua.
+//! its frame sees the pointer's hover. The whole addon and every bundled skin (Polestar_Skins) over
+//! stub_world.lua.
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::Value;
 
-// The skins in the download (forge_release::addons::SKIN_ADDONS), each a look of its own.
-const SKINS: &[(&str, &str)] = &[
-	("vellum", "Polestar_Skin_Vellum"),
-	("lumen", "Polestar_Skin_Lumen"),
-	("beacon", "Polestar_Skin_Beacon"),
-	("aurora", "Polestar_Skin_Aurora"),
-	("hairline", "Polestar_Skin_Hairline"),
-	("umbra", "Polestar_Skin_Umbra"),
-	("waymark", "Polestar_Skin_Waymark"),
-	("lanterns", "Polestar_Skin_Lanterns"),
-	("sheen", "Polestar_Skin_Sheen"),
-];
+// The skins in the download (Polestar_Skins/Skins since 0.4.3, #3507), each a look of its own.
+const SKINS: &[&str] = &["vellum", "lumen", "beacon", "aurora", "hairline", "umbra", "waymark", "lanterns", "sheen"];
 // The six built in: Polestar's own, Halo, Hearth, and the game's looks.
 const BUILT_IN: [&str; 6] = ["polestar", "halo", "hearth", "forever", "blizzard", "classic"];
 
@@ -97,15 +88,15 @@ local function minus(a, b)
 end
 "#;
 
+// Polestar and our skins' folder (UI.LoadOptions in HELPERS loads Polestar_Options, as the client does).
 fn run(script: &str) -> Value {
-	let mut addons = vec![Addon::name("Polestar")];
-	addons.extend(SKINS.iter().map(|(_, a)| Addon::name(a)));
+	let addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Skins")];
 	emitted(&RunAddon { stubs: vec!["stub_world.lua"], before: BEFORE.into(), addons, login: true, script: format!("{HELPERS}\n{script}"), ..Default::default() }).remove(0)
 }
 
 #[test]
 fn the_preview_s_window_shows_the_live_window_s_parts_in_every_look_and_setting() {
-	let looks = BUILT_IN.iter().copied().chain(SKINS.iter().map(|(id, _)| *id)).map(|l| format!("{l:?}")).collect::<Vec<_>>().join(", ");
+	let looks = BUILT_IN.iter().chain(SKINS.iter()).map(|l| format!("{l:?}")).collect::<Vec<_>>().join(", ");
 	let out = run(&format!(
 		r#"
 local LOOKS = {{ {looks} }}
@@ -119,12 +110,15 @@ local STATES = {{
 	{{ name = "compact", set = {{ ["ui.compact"] = true }} }},
 	{{ name = "parts", set = {{ ["guideWindow.tabs"] = false, ["guideWindow.progress"] = false, ["guideWindow.skipButton"] = false,
 		["guideWindow.reportButton"] = false, ["guideWindow.rules"] = false, ["ui.upcoming"] = 3, ["ui.upcomingOpen"] = true,
-		["ui.showNotes"] = false, ["nav.nearbyButton"] = false, ["ui.locked"] = true }} }},
+		["ui.showNotes"] = false, ["nav.nearbyButton"] = false, ["ui.locked"] = true, ["guideWindow.lastSteps"] = 3 }} }},
 	{{ name = "bottom", set = {{ ["ui.growUp"] = true, ["ui.barsBottom"] = true, ["ui.wholeStep"] = true, ["guideWindow.stepCount"] = false,
 		["guideWindow.border"] = false, ["guideWindow.bgColor"] = {{ 0.2, 0.1, 0.3 }} }} }},
 }}
 -- The live window draws the preview's sample: the same content, so whatever differs is the copy's.
 GF.UseContent(copy.content)
+-- The copy draws a sample Journey (UI/JourneyPanel.lua JP.Sample) while nav.journeySteps is on, so the Journey
+-- style can be previewed; the live window draws one only for a route, which this world has none of.
+Polestar.Set("nav.journeySteps", false)
 -- Both drawn anew, twice, a second apart: a paint a look makes a frame after a window shows, and the done line's
 -- glow, have landed.
 local function draw()
@@ -168,7 +162,7 @@ emit(out)"#
 // The parts Fitz found missing from the hand-drawn preview the copy has by being the window: the "+" that opens a tab,
 // the search (Lookup), the "Then:" line naming the step's other person, the XP pace line. The sample answers the whole
 // content interface; the live window reads the Engine itself (no provider between them on its step change) and its
-// five lines from their modules.
+// four lines from their modules. No step says what level its quest is (#3438): StepHint is gone from the interface.
 #[test]
 fn the_preview_s_window_has_the_tab_plus_the_search_the_then_line_and_the_xp_line() {
 	let out = run(r#"
@@ -177,7 +171,7 @@ fn the_preview_s_window_has_the_tab_plus_the_search_the_then_line_and_the_xp_lin
 		for _, l in ipairs(copy.lines) do
 			if l:IsShown() and (l.Text:GetText() or ""):find("^Then:") then thenLine = true end
 		end
-		local DERIVED = { StepHint = true, Pace = true, XPStats = true, RestParts = true, Target = true }
+		local DERIVED = { Pace = true, XPStats = true, RestParts = true, Target = true }
 		local missing = {}
 		for _, name in ipairs(GF.CONTENT) do
 			local live = DERIVED[name] and GF.Derived() or GF.Engine()

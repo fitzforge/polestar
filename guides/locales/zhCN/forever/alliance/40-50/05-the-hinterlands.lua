@@ -24,81 +24,81 @@ return {
 	-- plural, as words: Green Sludges = {npc:2655} Green Sludge · Jade Oozes = {npc:2656} Jade Ooze
 	["Ride north to {area:351} in the middle of the {zone:1425}. Green Sludges and Jade Oozes crawl all around it.\nCareful: Panthers move around the area in stealth."] = "向北骑行前往{zone:1425}中部的{area:351}，绿色淤泥怪和玉石软泥怪遍布周围。\n注意：附近有潜行的豹子活动。",
 
-	-- Step 4: Wildkin feathers
+	-- Step 4: OOX-09/HL Distress Beacon
+	-- {zone:1425} The Hinterlands
+	["Only with the distress beacon, a rare drop in the {zone:1425}: it starts a quest to find the robot it calls for."] = "",
+
+	-- Step 5: OOX-09/HL
+	["OOX-09/HL"] = "OOX-09/HL",
+	-- {area:351} Skulk Rock · {area:307} Overlook Cliffs · {area:348} Aerie Peak · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
+	["The robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}, then ride back west for {area:348}; its reward waits with {npc:7406} in {area:35}, later in this guide.\nCareful: Two ambushes spawn during the escort: first three wildkin owlbeasts, then three trolls. Before each, the robot halts and announces it senses danger. Oozes, stealthed wolves and a large turtle along the path can join fights, and they respawn even if cleared beforehand."] = "",
+
+	-- Step 6: Wildkin feathers
 	["Wildkin feathers"] = "枭兽羽毛",
 	-- {npc:7916} Erelas Ambersky · {zone:1425} The Hinterlands · {area:348} Aerie Peak · {area:351} Skulk Rock
 	-- plural, as words: Wildkin Feathers = {item:10819} Wildkin Feather
 	["{npc:7916}'s Wildkin Feathers lie on the ground across the {zone:1425}, south and east of {area:348}, where the owlbeasts roam: pick them up as you ride between the altar and {area:351}."] = "{npc:7916}要的枭兽羽毛散落在{zone:1425}各处的地上，位于{area:348}的南边和东边，枭兽出没的地方：在祭坛和{area:351}之间骑行时顺手捡起。",
 
-	-- Step 5: Lost Gryphon Eggs
+	-- Step 7: Lost Gryphon Eggs
 	-- plural, as words: Lost Gryphon Eggs = {item:279229} Lost Gryphon Egg
 	["Lost Gryphon Eggs"] = "丢失的狮鹫蛋",
 	-- {area:348} Aerie Peak
 	["On the way back to {area:348}: the lost gryphon eggs lie in the hills just east of the aviary."] = "返回{area:348}途中：丢失的狮鹫蛋就在狮鹫栖木东边不远处的山丘里。",
 
-	-- Step 6: Aerie Peak
+	-- Step 8: Aerie Peak
 	["Inside"] = "在里面",
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, inside"] = "{npc:5636}：在屋内",
-	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep
-	["for {quest:2990} at {area:1438}, later"] = "之后交给{area:1438}的{quest:2990}",
+	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep · {zone:1428} Burning Steppes
+	["for {quest:2990} at {area:1438}: the {zone:1428} guide hands it in"] = "",
 	-- {npc:270263} Farseer Maret Firetend
 	["{npc:270263}, just east of the aviary"] = "{npc:270263}，在狮鹫栖木东边不远处",
 
-	-- Step 7: Fly to Ironforge
+	-- Step 9: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "飞往{area:1537}",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "{area:348}的飞行管理员",
 
-	-- Step 8: Class trainer
+	-- Step 10: Class trainer
 	["Class trainer"] = "职业训练师",
 
-	-- Step 9: Ironforge inn
+	-- Step 11: Ironforge inn
 	-- {area:1537} Ironforge
 	["{area:1537} inn"] = "{area:1537}旅店",
 	-- {object:26486} Stonefire Tavern · {zone:1427} Searing Gorge · {area:144} Thelsamar
 	["Set your hearth at the {object:26486}: the {zone:1427} guide starts with the hearth back here and the gryphon to {area:144}."] = "在{object:26486}绑定炉石：{zone:1427}指南一开始就用炉石回到这里，再坐狮鹫去{area:144}。",
 
-	-- Step 10: Tram to Stormwind
+	-- Step 12: Tram to Stormwind
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "乘地铁前往{zone:1453}",
 
-	-- Step 12: Fly to Darkshire
-	-- {area:42} Darkshire
-	["Fly to {area:42}"] = "飞往{area:42}",
+	-- Step 14: Fly to Booty Bay
+	-- {area:35} Booty Bay
+	["Fly to {area:35}"] = "飞往{area:35}",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "{zone:1453}飞行管理员",
 
-	-- Step 15: The bloodmages
-	["The bloodmages"] = "血法师",
-	-- {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
-	["The bloodmages' camp is the first stop beside the road into the {zone:1419}, north-west of {area:1438}."] = "进入{zone:1419}后，第一个停靠点就是路旁的血法师营地，位于{area:1438}西北侧。",
-	-- {npc:7505} Bloodmage Drazial · {zone:1419} Blasted Lands
-	["{npc:7505}: keep the five, their beasts (48-53) wait for the level-52 {zone:1419} stop"] = "{npc:7505}：保留这五个任务，其中的野兽（48-53）留到52级去{zone:1419}时再做",
-
-	-- Step 16: Nethergarde Keep
-	-- {item:6091} Crate of Power Stones · {area:42} Darkshire
-	["Ride on east along the road to the keep first: the {item:6091} expires an hour after {area:42}."] = "先沿道路继续向东到城堡：{item:6091}在离开{area:42}一小时后失效。",
-	-- {quest:2990} Thadius Grimshade
-	["{quest:2990}, at the top of the keep"] = "{quest:2990}，在城堡顶层",
-	-- {npc:8022} Thadius Grimshade · {item:9471} Nekrum's Medallion · {area:978} Zul'Farrak
-	["{npc:8022}' next task, {item:9471}, is a {area:978} quest: skip it."] = "{npc:8022}的下一个任务{item:9471}是{area:978}任务：跳过。",
-	-- {npc:5385} Watcher Mahar Ba
-	["{npc:5385}, upstairs"] = "{npc:5385}：在楼上",
-
-	-- Step 17: Fly to Booty Bay
-	-- {area:35} Booty Bay
-	["Fly to {area:35}"] = "飞往{area:35}",
-	-- {area:1438} Nethergarde Keep
-	["{area:1438} flight master"] = "{area:1438}的飞行管理员",
-
-	-- Step 18: Booty Bay
+	-- Step 15: Booty Bay
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",
 	-- {npc:2487} Fleet Master Seahorn
 	["{npc:2487}, top floor"] = "{npc:2487}，顶楼",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}：在屋内",
+
+	-- Step 16: Fin Fizracket
+	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	-- {npc:2486} Fin Fizracket
+	["{npc:2486}, beside the inn"] = "",
+
+	-- Step 17: Oglethorpe Obnoticus
+	-- {zone:1444} Feralas · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
+	["Only if you escorted the {zone:1444} robot: its reward waits with {npc:7406} here in {area:35}."] = "",
+
+	-- Step 18: Oglethorpe Obnoticus
+	-- {zone:1425} The Hinterlands · {npc:7406} Oglethorpe Obnoticus
+	["Only if you escorted the {zone:1425} robot: {npc:7406} has its reward too."] = "",
 
 	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
@@ -151,11 +151,15 @@ return {
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "{npc:2498}的下一个赞吉尔差事从{zone:1441}开始：跳过。",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "马克基雷的下一个任务要你对付精英食人魔：跳过。",
 
-	-- Step 30: Monogrammed Sash
+	-- Step 30: Fin Fizracket
+	-- {npc:2486} Fin Fizracket
+	["{npc:2486}, by the inn"] = "",
+
+	-- Step 31: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{quest:8552}需要 2 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
 
-	-- Step 34: Negolash's bait
+	-- Step 35: Negolash's bait
 	-- {npc:1494} Negolash
 	["{npc:1494}'s bait"] = "",
 	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
@@ -166,7 +170,7 @@ return {
 	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash
 	["{object:2289}: the food goes in, {npc:1494} comes"] = "",
 
-	-- Step 35: Facing Negolash
+	-- Step 36: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:1494}（52 级精英）需要 2 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
 
@@ -181,6 +185,7 @@ return {
 	-- ["Fly from {area:348} to {area:42}."] = "从{area:348}飞往{area:42}。",
 	-- ["Fly to {area:144}"] = "飞往{area:144}",
 	-- ["Fly to {area:150}"] = "飞往{area:150}",
+	-- ["Fly to {area:42}"] = "飞往{area:42}",
 	-- ["Fly to {area:442}"] = "飞往{area:442}",
 	-- ["Fly to {area:69}"] = "飞往{area:69}",
 	-- ["Hearth to {area:144}. The {zone:1427} guide starts at {area:1446}: from here, ride south into the {zone:1418}, west past the Horde town of {area:340} and up the trail into the gorge."] = "用炉石返回{area:144}。{zone:1427}指南从{area:1446}开始：从这里向南骑进{zone:1418}，向西经过部落城镇{area:340}，沿小路上到峡谷。",
@@ -196,6 +201,7 @@ return {
 	-- ["Ride east through {zone:1430} into the {zone:1435} and south down the road into the {zone:1419}. The bloodmages' camp is the first stop beside the road."] = "向东骑过{zone:1430}进入{zone:1435}，再沿道路向南进入{zone:1419}。血法师营地是路旁的第一站。",
 	-- ["Ride north to {area:351} in the middle of the {zone:1425}. Green Sludges and Jade Oozes crawl all around it."] = "向北骑到{zone:1425}中部的{area:351}。{npc:2655}和{npc:2656}在周围爬行。",
 	-- ["Ride on east along the road to the keep first: the {item:6091} expires an hour after {area:42}, and the bloodmages' beasts take longer than that."] = "先沿道路继续向东到城堡：{item:6091}在离开{area:42}一小时后失效，而血法师要的野兽需要更长时间。",
+	-- ["Ride on east along the road to the keep first: the {item:6091} expires an hour after {area:42}."] = "先沿道路继续向东到城堡：{item:6091}在离开{area:42}一小时后失效。",
 	-- ["Ride south through the pass into the {area:3}' northern edge: the Stonevault troggs dig outside {area:1517} there. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "向南穿过山口到{area:3}北缘：石窟穴居人在那里的{area:1517}外面挖掘。雕纹石罐和紫色蘑菇在它们的洞穴和隧道里，在地下城外面。",
 	-- ["Ride south-east to the {area:355}, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down."] = "向东南骑到{area:355}，即{zone:1425}南部的邪枝阶梯神庙，爬到顶上。奇尔加和{npc:8636}（精英，50级）站在上面：摸到顶层就直接下来。",
 	-- ["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time."] = "向西骑：{npc:5984}在血法师营地南边的干燥山丘上游荡；{npc:5988}（50级）在北部中间爬行。{npc:5982}秃鹫在整片区域上空盘旋。一次拉一只。",
@@ -204,11 +210,15 @@ return {
 	-- ["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "穿过传送门进入{zone:1457}。月神殿在城市南部。",
 	-- ["Temple of the Moon"] = "月神殿",
 	-- ["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "邪枝占卜者（46-47）在{area:355}山脚周围游荡：他们的图腾交给先知玛雷特·火心。小心：{npc:7996}和{npc:8636}（50级，精英）站在祭坛东南侧：去祭坛西侧打占卜者，远离她们，别上祭坛。",
+	-- ["The bloodmages"] = "血法师",
+	-- ["The bloodmages' camp is the first stop beside the road into the {zone:1419}, north-west of {area:1438}."] = "进入{zone:1419}后，第一个停靠点就是路旁的血法师营地，位于{area:1438}西北侧。",
 	-- ["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "血法师的第二阶段用增益物品而不是经验来交换同样的材料：跳过。",
 	-- ["The druid trainers stand in the Enclave; {zone:1455} has none"] = "德鲁伊训练师站在塞纳里奥区；{zone:1455}没有",
 	-- ["The {area:1517} dig"] = "{area:1517}挖掘场",
+	-- ["for {quest:2990} at {area:1438}, later"] = "之后交给{area:1438}的{quest:2990}",
 	-- ["the book on her table"] = "她桌上的书",
 	-- ["the soil comes from {zone:1449}, later"] = "土壤之后从{zone:1449}获得",
+	-- ["{area:1438} flight master"] = "{area:1438}的飞行管理员",
 	-- ["{area:144} flight master"] = "{area:144}的飞行管理员",
 	-- ["{area:2418} flight master"] = "{area:2418}的飞行管理员",
 	-- ["{area:702} flight master"] = "{area:702}的飞行管理员",
@@ -219,11 +229,15 @@ return {
 	-- ["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}，在屋内，如果荆棘谷指南没给过这个任务",
 	-- ["{npc:2535} and {npc:2536}"] = "{npc:2535}和{npc:2536}",
 	-- ["{npc:3516}, at the top of the tree"] = "{npc:3516}，在树顶",
+	-- ["{npc:5385}, upstairs"] = "{npc:5385}：在楼上",
+	-- ["{npc:7505}: keep the five, their beasts (48-53) wait for the level-52 {zone:1419} stop"] = "{npc:7505}：保留这五个任务，其中的野兽（48-53）留到52级去{zone:1419}时再做",
 	-- ["{npc:7740}, beside her"] = "{npc:7740}，在她旁边",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once"] = "{npc:7744}：上一份指南在这里绑定炉石，所以这一步通常会立即完成",
 	-- ["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907}在楼上，{npc:7916}的上方：从室内上楼，箭头无法区分楼层。",
 	-- ["{npc:7907}'s next errand goes to {zone:1446}: skip it."] = "{npc:7907}的下一个差事要去{zone:1446}：跳过。",
 	-- ["{npc:7916}: keep it, the feathers come at the end of the {zone:1428} guide"] = "{npc:7916}：先留着，羽毛在{zone:1428}指南结尾获得",
+	-- ["{npc:8022}' next task, {item:9471}, is a {area:978} quest: skip it."] = "{npc:8022}的下一个任务{item:9471}是{area:978}任务：跳过。",
 	-- ["{object:2743}; below ground"] = "{object:2743}：在地下",
+	-- ["{quest:2990}, at the top of the keep"] = "{quest:2990}，在城堡顶层",
 	-- ["{zone:1419}: kill these as you meet them"] = "{zone:1419}：沿途击杀以下目标",
 }

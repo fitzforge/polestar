@@ -107,13 +107,33 @@ return {
 		["guideWindow.animSpeed"] = function() return slide().dur end,
 		["guideWindow.tabHeight"] = one("strip"),
 		["guideWindow.tabs"] = one("strip"),
+		["guideWindow.tabStyle"] = { with = { ["guideWindow.tabs"] = true }, probe = function()
+			local function shown(f) return f and f:IsShown() or false end
+			return { P.strip:IsShown(), shown(P.tabSwitch), shown(P.tabEdge), shown(P.tabSide) }
+		end },
 		["guideWindow.navHeight"] = one("nav"),
+		-- Another tab's step 10 yd off: its card shows, or not (the tab's place and the player's are given for the
+		-- look, then put back).
+		["guideWindow.otherTabNear"] = function()
+			local E, C, OT = Polestar.Engine, Polestar.Compat, Polestar.UI.OtherTabCard
+			local places, here, world = E.OtherTabPlaces, C.GetPlayerWorldPosition, C.MapToWorld
+			E.OtherTabPlaces = function() return { { index = 2, guideId = "Effects/other", title = "Other", step = 1, stepNumber = 1, map = 1, x = 10, y = 0 } } end
+			C.GetPlayerWorldPosition = function() return 1, 0, 0 end
+			C.MapToWorld = function(_, x, y) return 1, x, y end
+			OT.Check()
+			local shown = OT.Shown() ~= nil
+			E.OtherTabPlaces, C.GetPlayerWorldPosition, C.MapToWorld = places, here, world
+			OT.Check()
+			return shown
+		end,
 		["guideWindow.barTextSize"] = one("count"),
 		["guideWindow.stepCount"] = one("steps"),
 		["guideWindow.guideTitle"] = { with = { ["guideWindow.stepCount"] = false }, probe = one("title") },
 		["guideWindow.skipButton"] = one("skip"),
 		["guideWindow.reportButton"] = one("report"),
+		["guideWindow.allStepsButton"] = function() return P.nav.AllSteps:IsShown() end,
 		["guideWindow.titleSize"] = one("name"),
+		["guideWindow.lastSteps"] = function() return { P.last.psCount, snapshot().height } end,
 		["guideWindow.goalSize"] = one("rowText"),
 		["guideWindow.detailSize"] = function() return size(P.person.Where) end,
 		["guideWindow.glyphSize"] = one("icon"),

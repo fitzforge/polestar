@@ -248,7 +248,8 @@ return {
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Horde)"] = "{item:2836}（部落）",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "为 {item:6533} 准备 31 个 {item:2836}：通过 {skill:186} 开采 {zone:1413}（10-25 级）、{zone:1440}（18-30 级）和 {zone:1424}（20-30 级）的 {object:1732}（需要技能 65）。已标记 {zone:1440} 中 {object:1732} 最密集的位置。",
+	-- was: ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "为 {item:6533} 准备 31 个 {item:2836}：通过 {skill:186} 开采 {zone:1413}（10-25 级）、{zone:1440}（18-30 级）和 {zone:1424}（20-30 级）的 {object:1732}（需要技能 65）。已标记 {zone:1440} 中 {object:1732} 最密集的位置。"
+	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked."] = "",
 
 	-- Step 48: Heavy Stone (Alliance)
 	-- {item:2838} Heavy Stone
@@ -419,6 +420,7 @@ return {
 	-- ["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it; or the Auction House. The arrow picks a farm spot for your level and faction."] = "为 {spell:3953} 准备19块 {item:2592}：15—30级人形生物会掉落；也可在拍卖行购买。箭头会根据你的等级和阵营选择一处刷取地点。",
 	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:11880} (level 57-59) here."] = "准备 24 个 {item:14047}，用于 {item:15994}：45-60 级人型生物会掉落，或在拍卖行购买。这里的 {npc:11880}（57-59 级）会掉落。",
 	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:7027} (level 56-57) here."] = "为 {item:15994} 准备24块 {item:14047}：45—60级人形生物会掉落；也可在拍卖行购买。这里的 {npc:7027}（56—57级）会掉落。",
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "为 {item:6533} 准备 31 个 {item:2836}：通过 {skill:186} 开采 {zone:1413}（10-25 级）、{zone:1440}（18-30 级）和 {zone:1424}（20-30 级）的 {object:1732}（需要技能 65）。已标记 {zone:1440} 中 {object:1732} 最密集的位置。",
 	-- ["Apprentice {skill:202}"] = "初级{skill:202}",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "专家级需要角色等级 35 且{skill:202}达到 200；会将上限提高到 300。225-300 的材料总价约 67 金币。",
 	-- ["Back to an {skill:202} trainer: {spell:12585}, {spell:12596} are taught from {skill:202} 210."] = "回到{skill:202}训练师处：{spell:12585}、{spell:12596}在{skill:202} 210 时可学。",

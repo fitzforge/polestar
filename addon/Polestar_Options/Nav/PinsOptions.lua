@@ -50,6 +50,9 @@ local function H(c) return Nav.HandoffOption and Nav.HandoffOption(c) or c end
 local function numbersOff() return not ns.Get("nav.stepNumbers") end
 local function glowOff() return ns.Get("nav.targetGlow") == false end
 local function trailShown() return ns.Get("nav.trailDots") and not ns.Get("nav.routeLines") end
+-- The guide pins' switches (on each map, the numbered pins, the trail) have
+-- their home on the Map page; this page shows references to them.
+local Ref = W.Ref
 
 ---------------------------------------------------------------------------
 -- The previews
@@ -261,7 +264,7 @@ local function buildPinsPreview(view)
 	for key, parts in pairs({
 		["nav.targetPinSize"] = { target, mmTarget }, ["nav.targetGlow"] = { target }, ["nav.targetPulse"] = { target },
 		["nav.pulseSeconds"] = { target }, ["nav.worldPins"] = { h.Map }, ["nav.minimapPins"] = { mmTarget },
-		["nav.areaAlpha"] = { area }, ["nav.areaColor"] = { area }, ["nav.trailDotSize"] = { h.Me, target },
+		["nav.areaAlpha"] = { area }, ["nav.areaColor"] = { area }, ["nav.spawnSpots"] = { area }, ["nav.trailDotSize"] = { h.Me, target },
 		["nav.trailDots"] = { h.Me, target }, ["nav.trailDotAlpha"] = { h.Me, target },
 		["nav.upcomingPins"] = steps, ["nav.stepPinSize"] = steps, ["nav.stepRingColor"] = steps,
 		["nav.stepColorMode"] = steps, ["nav.stepColor"] = steps, ["nav.stepNumberSize"] = steps,
@@ -271,6 +274,15 @@ local function buildPinsPreview(view)
 		["nav.mapIcons"] = all, ["nav.worldIconSize"] = { h.Map }, ["nav.minimapIconSize"] = { mmTarget, unpack(mmSteps) },
 	}) do
 		f:Light(key, unpack(parts))
+	end
+	-- The spawn markers (Maps/MobMarkers.lua) draw on the world map, its legend over it, and on the minimap.
+	if ns.MobMarkers then
+		for key, parts in pairs({
+			["mobMarkers.enabled"] = { h.Map, mm }, ["mobMarkers.showMinimap"] = { mm }, ["mobMarkers.showLegend"] = { h.Map },
+			["mobMarkers.stepOnly"] = { h.Map, mm }, ["mobMarkers.questPalette"] = { h.Map, mm }, ["mobMarkers.mobPalette"] = { h.Map, mm },
+		}) do
+			f:Light(key, unpack(parts))
+		end
 	end
 	return f
 end
@@ -391,10 +403,8 @@ local SPECS = {
 					search = "pulse speed, faster, slower, animation, breathe, tempo",
 					help = L["One breath of the pulse: shorter is faster."] },
 			} },
-		{ kind = "toggle", key = "nav.worldPins", label = L["On the world map"], search = "map pins, icons, markers, waypoint, world map, show, hide, guide pins, target",
-			help = L["The arrow's target, the stops of its travel route, the step's other goals, the areas their mobs and objects spawn in, and the route lines."] },
-		{ kind = "toggle", key = "nav.minimapPins", label = L["On the minimap"], search = "map pins, icons, markers, waypoint, minimap, show, hide, guide pins, target",
-			help = L["The arrow's target, the areas it spawns in, and the route line."] },
+		Ref("toggle", "nav.worldPins", { label = L["On the world map"] }),
+		Ref("toggle", "nav.minimapPins", { label = L["On the minimap"] }),
 		{ kind = "slider", key = "nav.areaAlpha", label = L["Spawn areas"], min = 0, max = 1, step = 0.02, format = percent, new = NEW,
 			search = "area, region, spawn, tint, opacity, transparency, alpha, blob, circle, zone, quest area, colour, spawn areas",
 			help = L["The opacity of the soft tint over the places mobs and objects spawn, on the world map and the minimap, their outlines with it. The swatch gives every area one colour."],
@@ -404,6 +414,9 @@ local SPECS = {
 					help = L["Every area in one colour. Right-click to go back to each in its own pin's colour."],
 					shown = function() return Theme.Color("arrow") end, source = function() return L["The pin's colour"] end },
 			} },
+		{ kind = "toggle", key = "nav.spawnSpots", label = L["Spawn spots"], new = NEW,
+			search = "spawn spots, spots, numbered, marks, places, search here, other spawns, world map, clutter, show, hide",
+			help = L["Small marks on the world map where the target also spawns, each numbered in its tooltip. Click one to search there next."] },
 		-- The trail stands in for route lines: shown while route lines are off.
 		{ kind = "slider", key = "nav.trailDotSize", label = L["Trail dots"], min = 0.5, max = 2.5, step = 0.05, format = percent, new = NEW,
 			needs = function() return not ns.Get("nav.routeLines") end,
@@ -411,9 +424,7 @@ local SPECS = {
 			search = "trail, dots, path, route, breadcrumbs, size, bigger, smaller",
 			help = L["Moving dots from you to the target on both maps while route lines are off; the slider is their size. They wear the arrow's colour; their opacity is in the cog."],
 			extras = {
-				H({ kind = "toggle", key = "nav.trailDots", label = L["Trail dots"],
-					search = "trail, dots, path, route, breadcrumbs, show, hide",
-					help = L["Moving dots from you to the target on the world map and the minimap, along the travel route, while route lines are off."] }),
+				Ref("toggle", "nav.trailDots", { label = L["Trail dots"] }),
 			},
 			more = {
 				{ kind = "slider", key = "nav.trailDotAlpha", label = L["Opacity"], min = 0.1, max = 1, step = 0.05, format = percent, new = NEW,
@@ -423,9 +434,7 @@ local SPECS = {
 			} },
 	} },
 	{ page = PAGE, tab = L["Pins"], section = L["Numbered pins"],
-		toggle = { kind = "toggle", key = "nav.upcomingPins", label = L["Numbered pins"],
-			search = "upcoming, next steps, numbers, numbered, step pins, ahead, preview, plan, show, hide",
-			help = L["A small pin with its step number where each of the next steps takes you, fainter the further ahead."] },
+		toggle = Ref("toggle", "nav.upcomingPins", { label = L["Numbered pins"] }),
 		controls = {
 		{ kind = "slider", key = "nav.stepPinSize", label = L["Pin size"], min = 0.6, max = 3, step = 0.05, format = percent, new = NEW,
 			search = "bigger, larger, size, scale, huge, tiny, smaller, numbered pins, step pins, pin size, readable, see",
@@ -526,6 +535,35 @@ local SPECS = {
 	} },
 }
 
+-- Spawn markers for your quests (Maps/MobMarkers.lua, rohkin's Mob Markers): every spawn of the mobs and
+-- objects the quests shown need, a skull colour per quest, a ring per mob, a legend on the world map. Their
+-- size and opacity are the Icons tab's. On the Pins tab after the numbered pins, while the module is there.
+if ns.MobMarkers then
+	local function off() return not ns.Get("mobMarkers.enabled") end
+	local palettes = ns.MobMarkers.Palettes()
+	table.insert(SPECS, 3, { page = PAGE, tab = L["Pins"], section = L["Spawn markers"],
+		toggle = { kind = "toggle", key = "mobMarkers.enabled", label = L["Spawn markers for your quests"], new = "0.4.3",
+			search = "mob markers, spawn markers, spawn points, every spawn, kill, skull, mobs, quest mobs, objects, legend",
+			help = L["A skull on the world map and the minimap at every spawn of the mobs your quests need, one colour per quest and a ring per mob; the things you pick up or use get the pickup bag. Their size and opacity are on the Icons tab."] },
+		controls = {
+		{ kind = "toggle", key = "mobMarkers.showMinimap", label = L["On the minimap"], new = "0.4.3", disabled = off,
+			search = "mob markers, spawn markers, minimap, radar",
+			help = L["Off: the spawn markers show on the world map only."] },
+		{ kind = "toggle", key = "mobMarkers.showLegend", label = L["Legend on the world map"], new = "0.4.3", disabled = off,
+			search = "mob markers, spawn markers, legend, key, list",
+			help = L["Lists the quests and mobs on the shown map. Hover a row to highlight its markers, click it to turn them off or on."] },
+		{ kind = "toggle", key = "mobMarkers.stepOnly", label = L["Only the current step's quests"], new = "0.4.3", disabled = off,
+			search = "mob markers, spawn markers, step, quest log, all quests",
+			help = L["Marks only the quests the guide step you're on works on, not your whole quest log. With no guide running, the whole log shows."] },
+		{ kind = "dropdown", key = "mobMarkers.questPalette", label = L["Quest colours"], new = "0.4.3", disabled = off,
+			choices = palettes, search = "mob markers, spawn markers, colour blind, palette, skull",
+			help = L["The colours quests are given, in quest-log order: the skull's colour. The first quest keeps the skull's own colours."] },
+		{ kind = "dropdown", key = "mobMarkers.mobPalette", label = L["Mob colours"], new = "0.4.3", disabled = off,
+			choices = palettes, search = "mob markers, spawn markers, colour blind, palette, rings",
+			help = L["The colours of the rings that tell a quest's mobs apart. A quest with one mob has no ring."] },
+	} })
+end
+
 ---------------------------------------------------------------------------
 -- Essentials (the page's lead tab): its presets as picture cards, then the
 -- ten settings players change most, each a reference to its row on Pins or
@@ -610,7 +648,7 @@ if O and O.PresetCards and O.Ref then
 			controls = { R("dropdown", "nav.mapIcons", { label = L["Icon pack"], wide = false }), R("slider", "nav.targetPinSize"), R("slider", "nav.worldIconSize"),
 				R("slider", "nav.minimapIconSize"), R("slider", "nav.areaAlpha"), R("toggle", "nav.targetGlow") } },
 		{ page = PAGE, tab = ESSENTIALS, section = L["Numbered pins"], jump = { tab = L["Pins"], section = L["Numbered pins"] },
-			toggle = R("toggle", "nav.upcomingPins"),
+			toggle = R("toggle", "nav.upcomingPins", { label = L["Numbered pins"] }),
 			controls = { R("slider", "nav.stepPinSize"), R("slider", "nav.stepNumberSize"), R("dropdown", "nav.stepColorMode"), R("slider", "nav.upcomingCount") } },
 	}
 	for _, spec in ipairs(list) do SPECS[#SPECS + 1] = spec end

@@ -22,6 +22,8 @@
 --       spawn there, nil when not known or the pack predates it)
 --   Codex.FollowUps(questId) -> { quest, ... }   -- the quests whose pre or preAny names it
 --   Codex.Spell(spellId) -> { id, kind, item, name, class } | nil
+--   Codex.Profession(skillLine) -> { id, name, ranks = { { minSkill, max, A = { npc, ... }, H = { ... } } x4 },
+--       trainerSkill = { [npc] = skill } } | nil   -- nil for a profession without rank lists, or a pack from before #3784
 --   Codex.RecipeItems(spellId) -> { itemId, ... } | nil   -- the recipe items that teach a craft
 --       (each recipe item's record names its spell), in pack order; built on the first ask (#2505)
 --   Codex.Name(kind, id) -> name | nil   -- no decoding; "item" spans every item kind,
@@ -33,7 +35,9 @@
 --       "\2" .. folded .. "\1" .. id .. "," .. quality .. "," .. status .. "," .. #name .. "\n"
 --       (folded = Search.Fold(name) without its leading space; status r|n|'')
 --   Codex.WithRole(role) -> { npcId, ... } sorted (role as in npc.roles: "vendor",
---       "trainer:164" profession trainers by skillLine, "class:MAGE" class trainers)
+--       "trainer:164" profession trainers by skillLine, "class:MAGE" class trainers); "vendor" and
+--       "repair" leave out an NPC whose selling waits on a quest not handed in yet (npc.vendorAfter, #3138:
+--       Zorbin Fandazzle after Zapped Giants), read again after each hand-in
 --   Codex.Loot(kind, id) -> { itemId, ... }   -- kind "rare" | "npc" (npc + rare) | "treasure" |
 --       "object" (object + treasure); what rares and treasures drop, best-known first
 --       (capped); empty table when unknown
@@ -323,8 +327,13 @@ local function decodeItem(group, id, s)
 	return rec
 end
 
+-- An NPC record: level;levelMax;faction;flags;instance;roles;loot;spawn groups...[;z<heights>][;t<subName>]
+-- [;v<quest>]. flags: r rare, e elite, b boss, g seen only by a dead character (#558: Franclorn Forgewright);
+-- v: the quest after which it sells (#3138: Zorbin Fandazzle after Zapped Giants).
 local function decodeNpc(group, id, s)
 	local t, n = split(s, ";")
+	local vendorAfter
+	if n >= 8 and sub(t[n], 1, 1) == "v" then vendorAfter, n = tonumber(sub(t[n], 2)), n - 1 end
 	local title
 	if n >= 8 and sub(t[n], 1, 1) == "t" then title, n = unesc(sub(t[n], 2)), n - 1 end
 	local heights
@@ -342,6 +351,8 @@ local function decodeNpc(group, id, s)
 		rare = find(flags, "r", 1, true) ~= nil,
 		elite = find(flags, "e", 1, true) ~= nil,
 		boss = find(flags, "b", 1, true) ~= nil,
+		ghostOnly = find(flags, "g", 1, true) ~= nil or nil,
+		vendorAfter = vendorAfter,
 		instance = unesc(t[5]),
 		roles = roles,
 		subName = title,
@@ -414,6 +425,9 @@ local function decodeQuest(group, id, s)
 		elseif f == "d" then
 			-- Handed in at one talk, never in the log (#2686: Bloodpetal Sprouts).
 			rec.direct = true
+		elseif lead == "v" then
+			-- One of a set its giver offers one at a time (#3601: Pix's weekly In Demand quests): v<set name>.
+			rec.rotation = unesc(sub(f, 2))
 		elseif f == "t" then
 			-- The kill objective before it is a beast to tame (Taming the Beast).
 			local o = rec.objectives[#rec.objectives]
@@ -476,7 +490,9 @@ local function decodeInstance(group, id, s)
 	if t[5] and t[5] ~= "" then
 		local e = split(t[5], ",")
 		-- approx: the client's corpse point (where a ghost returns), not the way in.
-		rec.entrance = { map = tonumber(e[1]), x = tonumber(e[2]) / 10, y = tonumber(e[3]) / 10, f = e[4] ~= "" and e[4] or nil, approx = e[5] == "a" or nil }
+		-- The main door's optional height follows the Alliance triplet when present.
+		local z = tonumber(e[e[8] and 9 or 6])
+		rec.entrance = { map = tonumber(e[1]), x = tonumber(e[2]) / 10, y = tonumber(e[3]) / 10, f = e[4] ~= "" and e[4] or nil, approx = e[5] == "a" or nil, z = z }
 		-- The Alliance's own way in (the City of Dalaran): an Alliance character's entrance.
 		if e[8] and ns.Compat.GetPlayerFaction() == "Alliance" then
 			rec.entrance = { map = tonumber(e[6]), x = tonumber(e[7]) / 10, y = tonumber(e[8]) / 10 }
@@ -513,11 +529,30 @@ local function decodeSpell(group, id, s)
 	return { id = id, name = (N and N.Spell(id)) or nameOf(group, id), kind = unesc(t[1]), item = tonumber(t[2]), class = unesc(t[3]) }
 end
 
+local function ids(s)
+	local out = {}
+	for v in gmatch(s or "", "%d+") do out[#out + 1] = tonumber(v) end
+	return out
+end
+
+local function decodeProfession(group, id, s)
+	local t, n = split(s, ";")
+	local ranks = {}
+	for i = 1, n - 1 do
+		local f = split(t[i], ",")
+		ranks[i] = { minSkill = tonumber(f[1]) or 0, max = tonumber(f[2]) or 0, A = ids(f[3]), H = ids(f[4]) }
+	end
+	local gates, g = {}, numbers(t[n])
+	for i = 1, #g - 1, 2 do gates[g[i]] = g[i + 1] end
+	return { id = id, name = nameOf(group, id), ranks = ranks, trainerSkill = gates }
+end
+
 local DECODE = {
 	item = decodeItem, mount = decodeItem, pet = decodeItem, recipe = decodeItem, tabard = decodeItem,
 	npc = decodeNpc, rare = decodeNpc,
 	object = decodeObject, treasure = decodeObject,
 	quest = decodeQuest, instance = decodeInstance, faction = decodeFaction, spell = decodeSpell,
+	profession = decodeProfession,
 }
 
 ---------------------------------------------------------------------------
@@ -729,6 +764,12 @@ function Codex.Spell(id)
 	return get("spell", id)
 end
 
+function Codex.Profession(line)
+	line = tonumber(line)
+	if not (line and ready()) then return nil end
+	return get("profession", line)
+end
+
 -- spellId -> the recipe items whose record names it (field 3 of an item record:
 -- quality and flags; required level; spell), read off the raw records without
 -- decoding them; kept on Codex.recipeIndex until another recipe chunk registers.
@@ -807,13 +848,43 @@ function Codex.Loot(kind, id)
 	return rec and rec.loot or EMPTY
 end
 
+-- The NPCs of the "vendorAfter" index whose quest (npc.vendorAfter) is not
+-- handed in yet: they don't sell yet, so "vendor" and "repair" leave them out.
+local SELLS = { vendor = true, repair = true }
+local function notSelling()
+	local out
+	for _, id in ipairs(numbers(nameOf("role", "vendorAfter"))) do
+		local npc = Codex.Npc(id)
+		local q = npc and npc.vendorAfter
+		if q and not ns.Compat.IsQuestCompleted(q) then
+			out = out or {}
+			out[id] = true
+		end
+	end
+	return out
+end
+
 function Codex.WithRole(role)
 	if role == nil or not ready() then return {} end
 	local hit = roleCache[role]
 	if hit then return hit end
 	hit = numbers(nameOf("role", role))
+	local skip = SELLS[role] and notSelling()
+	if skip then
+		local kept = {}
+		for _, id in ipairs(hit) do
+			if not skip[id] then kept[#kept + 1] = id end
+		end
+		hit = kept
+	end
 	roleCache[role] = hit
 	return hit
+end
+-- A hand-in may open a shop (vendorAfter): the vendor lists are read again.
+if ns.RegisterEvent then
+	ns.RegisterEvent("QUEST_TURNED_IN", function()
+		roleCache.vendor, roleCache.repair = nil, nil
+	end)
 end
 
 -- flags ("" or quality digit, then status letter) -> quality, status

@@ -485,7 +485,9 @@ emit({ plan = ender or false, guide = turnin or false, ender = e and e.name or f
 // hand-in guide found it unfinished and left it out ("Not finished yet"). A quest whose open lines are all talks to
 // an NPC outside is now handed in: a stop at that NPC (the talk goal on its line) before the turn-in, the
 // follow-up taken there after. Here 90600 is that quest on the fixture's page, 90601 one whose open line is a kill
-// outside (still unfinished: a kill is real work, not a hand-in errand).
+// outside (still unfinished: a kill is real work, not a hand-in errand). #3426: the Dungeons page's objective line
+// reads the quest log's sentence once, "Speak with someone in Ratchet about the Glowing Shard", not "Speak with Speak
+// with …" (the data keeps that sentence as the talk objective's text), on a client that has not seen Sputtervalve.
 #[test]
 fn a_dungeon_quest_whose_open_line_is_to_speak_to_an_npc_outside_is_handed_in_after_that_talk_1326_the_glowing_shard_and_sputtervalve() {
 	let (codex, inputs) = fixture_parts();
@@ -524,7 +526,7 @@ for _, s in ipairs((D.HandinGuide("{KEY}") or { steps = {} }).steps) do
 	end
 	if #verbs > 0 then steps[#steps + 1] = s.title .. " " .. table.concat(verbs, " ") end
 end
-emit({ hand = hand, unfinished = unfinished, steps = steps, talk = talk })"#);
+emit({ hand = hand, unfinished = unfinished, steps = steps, talk = talk, line = D.ObjectiveText(D.Quest("{KEY}", 90600)) or false })"#);
 
 	let open = run(&own, &script, Opts { at: Some(BARRENS), log: vec![1013, 90600, 90601], ..Default::default() }).remove(0);
 	assert_eq!(open["hand"], json!([90600]), "the shard is handed in though its talk line is open");
@@ -535,11 +537,60 @@ emit({ hand = hand, unfinished = unfinished, steps = steps, talk = talk })"#);
 		"Sputtervalve first, then Falla Sagewind for the hand-in and the follow-up, a delivery to her handed in on the spot (#1748)"
 	);
 	assert_eq!(open["talk"], json!({ "npc": 9030, "name": "Sputtervalve", "oi": 1, "map": 1413, "x": 62, "y": 37 }), "the talk goal is counted by the quest's first line, the arrow on Sputtervalve");
+	assert_eq!(open["line"], "Speak with someone in Ratchet about the Glowing Shard", "the Dungeons page's objective line reads once (#3426)");
 
 	// Spoken to already: the line is done and the quest ready, so the guide goes straight to Falla Sagewind.
 	let ready = run(&own, &script, Opts { at: Some(BARRENS), ready: vec![90600], ..Default::default() }).remove(0);
 	assert_eq!(ready["hand"], json!([90600]));
 	assert_eq!(ready["steps"], json!(["Falla Sagewind turnin:90600 accept:90602 turnin:90602"]), "no talk left");
+}
+
+// #3084 (Olivia, Maraudon's hand-in guide): after the run, Rot and Regret's vial line is done and its other line,
+// "Woodwyrd extinguished", is an event the Codex places out in Shen'dralas, by the Woodwyrd who takes the quest. The
+// hand-in guide knew only talks before a hand-in, so it listed the quest as "Not finished yet". An open event line
+// the Codex places on the continent of the quest's turn-in is now a goal at its place, read by that line, before
+// the turn-in. Here 90603 is that quest; 90604's event lies on another continent (still unfinished).
+#[test]
+fn a_dungeon_quest_whose_open_line_is_a_placed_event_outside_is_led_there_before_the_hand_in_3084_rot_and_regret() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9031"] = sideless_npc(9031, "Woodwyrd", 1413, 48, 32);
+	let quest = |id: i32, title: &str, event: Value| {
+		json!({
+			"id": id, "title": title, "level": 49, "minLevel": 40, "faction": null, "races": null, "classes": null,
+			"start": { "npc": [9031], "object": [], "item": [] }, "end": { "npc": [9031], "object": [] },
+			"objectives": [{ "type": "item", "id": 90630, "count": 1, "text": "Vial of Earth Song Water" }, event],
+			"pre": [], "zone": 1413, "rewards": [], "choices": [], "preAny": [],
+		})
+	};
+	c["quests"]["90603"] = quest(90603, "Rot and Regret", json!({ "type": "event", "id": null, "count": 1, "text": "Woodwyrd extinguished", "map": 1413, "x": 55, "y": 40 }));
+	c["quests"]["90604"] = quest(90604, "Far Away", json!({ "type": "event", "id": null, "count": 1, "text": "Something far away", "map": 1458, "x": 50, "y": 50 }));
+	i["forever"]["quests"]["90603"] = json!({ "area": 209 });
+	i["forever"]["quests"]["90604"] = json!({ "area": 209 });
+	let own = pack_of(&c, &i);
+	let script = k(r#"
+for _, q in ipairs({ 90603, 90604 }) do stub.world.onQuest(q, { { required = 1, fulfilled = 1 }, 1 }) end
+local plan = D.HandinPlan("{KEY}")
+local hand, unfinished, event = {}, {}, false
+for _, h in ipairs(plan.hand) do if h.quest.id >= 90603 then hand[#hand + 1] = h.quest.id end end
+for _, q in ipairs(plan.unfinished) do if q.id >= 90603 then unfinished[#unfinished + 1] = q.id end end
+local steps = {}
+for _, s in ipairs((D.HandinGuide("{KEY}") or { steps = {} }).steps) do
+	local verbs = {}
+	for _, g in ipairs(s.goals) do
+		if g.quest and g.quest >= 90603 then verbs[#verbs + 1] = g.t .. ":" .. g.quest end
+		if g.t == "kill" and g.quest == 90603 then event = { logLine = g.logLine, target = g.target, oi = g.oi, map = g.map, x = g.x, y = g.y } end
+	end
+	if #verbs > 0 then steps[#steps + 1] = s.title .. " " .. table.concat(verbs, " ") end
+end
+emit({ hand = hand, unfinished = unfinished, steps = steps, event = event })"#);
+
+	let out = run(&own, &script, Opts { at: Some(BARRENS), log: vec![1013], ..Default::default() }).remove(0);
+	assert_eq!(out["hand"], json!([90603]), "Rot and Regret is handed in though its event line is open");
+	assert_eq!(out["unfinished"], json!([90604]), "an event on another continent than the turn-in stays unfinished");
+	assert_eq!(out["steps"], json!(["Woodwyrd extinguished kill:90603", "Woodwyrd turnin:90603"]), "the event's place first, then the Woodwyrd");
+	assert_eq!(out["event"], json!({ "logLine": true, "target": "Woodwyrd extinguished", "oi": 2, "map": 1413, "x": 55, "y": 40 }), "read by the quest's second line, the arrow on the event's place");
 }
 
 // #2118 (Fyurie, Uldaman's hand-in guide, a level 45 Warrior): after Uldaman Reagent Run the guide sent the player to
@@ -811,6 +862,44 @@ emit(r)"#),
 		json!([true, "skipped:Requires “Orders from the Undercity” first", "skipped:Requires “The Dalaran Inquiry” first"]),
 		"Bethor's step skipped: the accepts after it say why, and the guide goes on to Doan Karhan"
 	);
+}
+
+// #3370: an accept the pick-up guide takes before the character reaches its level (the page's button takes what the
+// dungeon's lowest level opens: The Orb of Soran'ruk, from level 20, for a level 19 at Shadowfang Keep, 22-30) is no
+// task on its step until that level (the goal carries the quest's level, so the guide never sends the player to a
+// giver who does not offer it yet); the level-up brings it back.
+#[test]
+fn an_accept_above_the_character_s_level_waits_on_its_step_until_the_level_up_3370() {
+	let pack = default_pack();
+	let out = run(
+		&pack,
+		&k(r#"
+D.PickUp("{KEY}")
+local E = Polestar.Engine
+Polestar.Set("behavior.autoAccept", false)
+stub.advance(0.25)
+local g = E.GetGuide()
+local at
+for i, s in ipairs(g.steps) do
+	for gi, goal in ipairs(s.goals) do
+		if goal.t == "accept" and goal.quest == 1740 then at = { i, gi } end
+	end
+end
+local function mark()
+	local v = E.GetStepView(at[1]).goals[at[2]]
+	return v.status .. ":" .. tostring(v.unavailableText)
+end
+local r = { minLevel = g.steps[at[1]].goals[at[2]].minLevel, below = mark() }
+stub.world.setLevel(20)
+stub.advance(0.25)
+r.at = mark()
+emit(r)"#),
+		Opts { level: 19, ..Default::default() },
+	)
+	.remove(0);
+	assert_eq!(out["minLevel"], 20, "the accept carries the level its quest is offered from");
+	assert_eq!(out["below"], "na:nil", "below its level it is no task");
+	assert_eq!(out["at"], "pending:nil", "level 20: the accept is open");
 }
 
 #[test]
@@ -1916,6 +2005,65 @@ fn accepts_of(v: &Value, id: i64) -> bool {
 	v["accepts"].as_array().into_iter().flatten().any(|x| x.as_i64() == Some(id))
 }
 
+// #2795 (Ashwarden, 38labadmin): a cross-sea breadcrumb without a prerequisite of its own is
+// judged from where the player stands, never from another stop on the route. Here 1010/1014 put
+// Eastern Kingdoms stops (including Bethor Iceshard in the Undercity) on the plan, while Doan
+// Karhan's 1740 is in the Barrens. A player already in the Barrens skips Bethor's cross-sea
+// breadcrumb to Doan (90820), whereas a player in the Undercity beside Bethor keeps it.
+#[test]
+fn a_cross_sea_breadcrumb_is_judged_from_where_the_player_stands_not_other_stops_2795() {
+	let (mut c, mut i) = fixture_parts();
+	c["quests"]["90820"] = json!({
+		"id": 90820,
+		"title": "Word from the Undercity",
+		"level": 22,
+		"minLevel": 18,
+		"faction": "H",
+		"races": null,
+		"classes": null,
+		"start": { "npc": [1498], "object": [], "item": [] },
+		"end": { "npc": [6247], "object": [] },
+		"objectives": [],
+		"pre": [],
+		"zone": 1413,
+		"rewards": [],
+		"choices": [],
+		"preAny": [],
+	});
+	i["forever"]["quests"]["90820"] = json!({ "area": 209 });
+	let pack = pack_of(&c, &i);
+	let script = k(&format!(
+		r#"{CRUMB_TRAVEL}
+local plan = D.PickupPlan("{{KEY}}")
+local take, crumbs, accepts = {{}}, {{}}, {{}}
+for _, t in ipairs(plan.take) do take[#take + 1] = t.quest.id end
+table.sort(take)
+for _, b in ipairs(plan.breadcrumbs or {{}}) do
+	crumbs[tostring(b.id)] = {{ far = b.far, sea = b.sea, taken = b.taken }}
+end
+for _, s in ipairs(D.PickupGuide("{{KEY}}").steps) do
+	for _, g in ipairs(s.goals) do
+		if g.t == "accept" then accepts[#accepts + 1] = g.quest end
+	end
+end
+table.sort(accepts)
+emit({{ take = take, crumbs = crumbs, accepts = accepts }})"#
+	));
+	let barrens = run(&pack, &script, Opts { at: Some(BARRENS), ..Default::default() }).remove(0);
+	let show = serde_json::to_string(&barrens).unwrap();
+	assert!(takes(&barrens, 1740), "target quest taken directly in the Barrens: {show}");
+	assert_eq!(barrens["crumbs"]["90820"]["sea"], true, "cross-sea breadcrumb: {show}");
+	assert_eq!(barrens["crumbs"]["90820"]["far"], true, "judged from the Barrens: {show}");
+	assert_eq!(barrens["crumbs"]["90820"]["taken"], false, "dropped from the Barrens: {show}");
+	assert!(!accepts_of(&barrens, 90820), "no accept for dropped cross-sea breadcrumb: {show}");
+
+	let uc = run(&pack, &script, Opts::default()).remove(0);
+	let show = serde_json::to_string(&uc).unwrap();
+	assert_eq!(uc["crumbs"]["90820"]["far"], false, "player is on its continent: {show}");
+	assert_eq!(uc["crumbs"]["90820"]["taken"], true, "kept from the Undercity: {show}");
+	assert!(accepts_of(&uc, 90820), "accepted when standing in the Undercity: {show}");
+}
+
 // Travel between the fixture's zones by the way a player goes (seconds): Undercity and Silverpine are next
 // door, the Barrens a zeppelin away.
 const ZONE_TRAVEL: &str = r#"
@@ -2545,10 +2693,12 @@ emit({ steps = describe(def), notes = notes, accepts = accepts, groups = groups,
 		json!([false, false, false, false, false, "In your log already: “The Book of Ur”"]),
 		"the steps' own notes (their folded tips) keep only what they had; the entrance its own (#1591)"
 	);
+	// The count reads as the guide's makeup, never as progress: "Prerequisite quests: 7 of 10 steps" was read as
+	// "you are at step 7" (#2709).
 	let head = |v: &Value| {
 		let s = v.as_str().unwrap_or_default().to_string();
-		let rest = s.strip_prefix("Prerequisite quests: 3 of 6 steps, about ").unwrap_or_else(|| panic!("the count first: {s}"));
-		let (time, tail) = rest.split_once(". ").unwrap_or_else(|| panic!("then the time: {s}"));
+		let rest = s.strip_prefix("3 of this guide's 6 steps are prerequisite quests (about ").unwrap_or_else(|| panic!("the count first: {s}"));
+		let (time, tail) = rest.split_once("). ").unwrap_or_else(|| panic!("then the time: {s}"));
 		assert!(time.ends_with(" min") && time.split(' ').next().unwrap().parse::<u32>().is_ok_and(|m| m >= 5 && m % 5 == 0), "about whole 5 minutes: {s}");
 		tail.to_string()
 	};
@@ -3373,4 +3523,113 @@ emit(lines())"#);
 	assert_eq!(out[0]["via"], "drop:8201@9080", "the page's step: the via item's drop");
 	assert_eq!(out[0]["lines"], json!(["Summoning Mallet: Use the Plain Mallet at the altar.", "After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."]));
 	assert_eq!(out[1], json!(["After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."]), "carried: no line");
+}
+
+// #558 (Blackrock Depths' pick-up guide): Franclorn Forgewright gives Dark Iron Legacy and takes it back, and only a
+// dead character sees him; compact mode folds the step's tip away, so a living player found nobody there. A giver
+// or ender the Codex marks ghostOnly is optional in the pick-up and hand-in guides, its goal saying so itself.
+#[test]
+fn a_ghost_only_giver_is_optional_with_a_note_on_the_goal_itself_558() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9080"] = sideless_npc(9080, "Franclorn Forgewright", 1421, 60, 40);
+	c["npcs"]["9080"]["ghostOnly"] = json!(true);
+	c["quests"]["90800"] = page_quest(90800, "Dark Iron Legacy", Value::Null, 9080, 9080);
+	c["quests"]["90800"]["xp"] = json!(2000);
+	i["forever"]["quests"]["90800"] = json!({ "area": 209, "xp": 2000 });
+	let own = pack_of(&c, &i);
+	let out = run(
+		&own,
+		&k(r#"
+local accept
+for _, s in ipairs((D.PickupGuide("{KEY}") or { steps = {} }).steps) do
+	for _, g in ipairs(s.goals) do
+		if g.t == "accept" and g.quest == 90800 then accept = g end
+	end
+end
+local other
+for _, s in ipairs((D.PickupGuide("{KEY}") or { steps = {} }).steps) do
+	for _, g in ipairs(s.goals) do
+		if g.t == "accept" and g.quest == 1010 then other = g end
+	end
+end
+-- Another accept keeps whatever note it had (a prerequisite line, #2709): only the ghost's note and optional are checked.
+local function ghostly(g) return g.optional or (type(g.note) == "string" and g.note:find("while dead", 1, true) and g.note) or false end
+emit({ found = accept ~= nil, optional = accept and accept.optional or false, note = accept and accept.note or false,
+	ghost = Polestar.Codex.Npc(9080).ghostOnly or false, other = other == nil and "none" or ghostly(other) })"#),
+		Opts::default(),
+	)
+	.remove(0);
+	assert_eq!(out["found"], true, "{out}");
+	assert_eq!(out["ghost"], true, "the Codex carries the flag");
+	assert_eq!(out["optional"], true, "the player can leave it");
+	assert_eq!(out["note"], "Only visible while dead: die nearby and talk to them as a ghost, or skip this quest.", "on the goal, which compact mode shows");
+	assert_eq!(out["other"], false, "a living giver's accept stays as it was");
+}
+
+// #3601 (Sugawolf, Dire Maul's pick-up guide): Pix Xizzix offers one In Demand quest a week, of four, and the guide
+// always sent the player for one he wasn't offering. A quest of a rotation (the Codex's `rotation`) is optional in
+// the pick-up guide, its goal saying so; the others stay as they were.
+#[test]
+fn a_quest_of_a_weekly_rotation_is_optional_with_a_note_3601() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9090"] = sideless_npc(9090, "Pix Xizzix", 1421, 60, 40);
+	for (id, title) in [(90900, "In Demand: Records"), (90901, "In Demand: Curiosities")] {
+		c["quests"][id.to_string()] = page_quest(id, title, Value::Null, 9090, 9090);
+		c["quests"][id.to_string()]["xp"] = json!(2000);
+		c["quests"][id.to_string()]["rotation"] = json!("pix-weekly");
+		i["forever"]["quests"][id.to_string()] = json!({ "area": 209, "xp": 2000 });
+	}
+	let own = pack_of(&c, &i);
+	let out = run(
+		&own,
+		&k(r#"
+local got, other = {}, false
+for _, s in ipairs((D.PickupGuide("{KEY}") or { steps = {} }).steps) do
+	for _, g in ipairs(s.goals) do
+		if g.t == "accept" and (g.quest == 90900 or g.quest == 90901) then got[#got + 1] = { g.quest, g.optional or false, g.note or false } end
+		if g.t == "accept" and g.quest == 1010 then other = g.optional or false end
+	end
+end
+table.sort(got, function(a, b) return a[1] < b[1] end)
+emit({ got = got, other = other, rotation = Polestar.Codex.Quest(90900).rotation or false })"#),
+		Opts::default(),
+	)
+	.remove(0);
+	let note = "Pix Xizzix offers one of these a week: take it if it is this week's.";
+	assert_eq!(out["rotation"], "pix-weekly");
+	assert_eq!(out["got"], json!([[90900, true, note], [90901, true, note]]), "{out}");
+	assert_eq!(out["other"], false, "a quest of no rotation stays required");
+}
+
+// #3138 (Meta): Zorbin Fandazzle sells only once Zapped Giants is handed in, and the bags-full stop sent a player to
+// him before that. Codex.WithRole("vendor") and ("repair") leave out an NPC whose `vendorAfter` quest isn't done, and
+// take him back after the hand-in.
+#[test]
+fn a_vendor_whose_shop_waits_on_a_quest_is_no_vendor_until_it_is_handed_in_3138() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	c["npcs"]["9091"] = sideless_npc(9091, "Zorbin Fandazzle", 1421, 61, 41);
+	c["npcs"]["9091"]["roles"] = json!(["vendor"]);
+	c["npcs"]["9091"]["vendorAfter"] = json!(7003);
+	c["npcs"]["9092"] = sideless_npc(9092, "A plain vendor", 1421, 62, 42);
+	c["npcs"]["9092"]["roles"] = json!(["vendor"]);
+	let own = pack_of(&c, &inputs);
+	let out = run(
+		&own,
+		r#"
+local X = Polestar.Codex
+local function has(id) for _, v in ipairs(X.WithRole("vendor")) do if v == id then return true end end return false end
+local r = { before = has(9091), plain = has(9092), after = X.Npc(9091).vendorAfter or false }
+stub.world.complete({ 7003 })
+stub.fire("QUEST_TURNED_IN", 7003, 0, 0)
+r.done = has(9091)
+emit(r)"#,
+		Opts::default(),
+	)
+	.remove(0);
+	assert_eq!(out, json!({ "before": false, "plain": true, "after": 7003, "done": true }));
 }
