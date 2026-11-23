@@ -9,8 +9,6 @@ return {
 	-- Step 2: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Летите: {area:35}",
-	-- {area:75} Stonard
-	["{area:75} flight master"] = "Распорядитель полетов: {area:75}",
 
 	-- Step 3: Booty Bay
 	-- {area:75} Stonard · {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
@@ -306,6 +304,7 @@ return {
 	-- ["Xylem's tower stands on the cliff just north of {area:1237}; the path winds up its north side."] = "Башня Ксилема стоит на скале чуть севернее места {area:1237}; тропа вьется по ее северной стороне.",
 	-- ["Zapped giants"] = "Уменьшенные великаны",
 	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}: убивайте их по пути",
+	-- ["{area:75} flight master"] = "Распорядитель полетов: {area:75}",
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} – здесь: {zone:1456}; в городе {zone:1454} нет учителя паладинов",
 	-- ["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}, Волок: если оно еще у вас",
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}: медведи — в зоне {zone:1448}",

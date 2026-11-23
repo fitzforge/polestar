@@ -195,7 +195,8 @@ return {
 
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
-	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Wieder nach Westen nach {area:16723}: {npc:260931}, ein Schattenhammer-Bergarbeiter, der aussteigen will, wartet am Ostrand des Dorfs. Überrede ihn, dann gib {npc:256710}s Quest ab; einer der vermissten Oger steht ein paar Schritte westlich.",
+	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Wieder nach Westen nach {area:16723}: {npc:260931}, ein Schattenhammer-Bergarbeiter, der aussteigen will, wartet am Ostrand des Dorfs. Überrede ihn, dann gib {npc:256710}s Quest ab; einer der vermissten Oger steht ein paar Schritte westlich."
+	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "{npc:260931} überreden",
 	-- {npc:261208} Twilight Brute
@@ -493,6 +494,7 @@ return {
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Schnüffelschnauze und {npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548} liegt südlich von {area:3}. Reite von {area:657} nach Osten nach {area:75} und flieg nach {area:340}: Dort beginnt der Weg hinab ins Gebiet.",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "Westlich von Rog'mar hält der Schattenhammerkult das Bauerndorf {area:16723}. {npc:259158}, ein Kobold, der aussteigen will, versteckt sich mitten im Dorf.",
+	-- ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Wieder nach Westen nach {area:16723}: {npc:260931}, ein Schattenhammer-Bergarbeiter, der aussteigen will, wartet am Ostrand des Dorfs. Überrede ihn, dann gib {npc:256710}s Quest ab; einer der vermissten Oger steht ein paar Schritte westlich.",
 	-- ["the {object:707249} poster"] = "der Steckbrief {object:707249}",
 	-- ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "{npc:257062} bietet die letzten beiden an, sobald Gobams Aufträge erledigt sind (laut Spieleraufzeichnungen); dieser Guide lässt sie aus. Sie sind Stufe 44 und 45: Heb sie dir für später auf, wenn {npc:258626} knapp war.",
 	-- ["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048} wartet beim Lager der Schattenhammeroger nordöstlich von {npc:256728}: Bring ihn nach Hause nach {area:16726} und halte die Kultisten von ihm fern. Stirbt er, nimm die Quest erneut bei ihm an.",

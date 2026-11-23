@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Vuela a {area:150}",
-	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 2: Red Jack Flint
 	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
@@ -214,4 +212,5 @@ return {
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "{object:19868} está por todas las salinas. Los atracadores escórpidos y los carroñeros de las Salinas recorren la mitad norte, y las tortugas mordedoras brillavalva todas las salinas. Los basiliscos Piedra de sal y los vitropieles ocupan el centro; los observadores (34-35), solo el extremo sur.",
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "Hay {object:19868} por todo el desierto. Los atracadores escórpidos y los carroñeros del Desierto de Sal rondan la mitad norte, y las tortugas brillavalva (30-31) el centro del desierto: cázalas para los caparazones. Cuidado: los mordedores brillavalva (34-35) deambulan por todo el desierto, y los observadores Piedra de sal (34-35) y los terrores escórpidos (33-34) ocupan el extremo sur: déjalos y quédate en la mitad norte.",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: para {npc:3961} en {area:415}",
+	-- ["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 }

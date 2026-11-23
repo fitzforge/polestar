@@ -195,7 +195,8 @@ return {
 
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
-	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "再次向西前往{area:16723}：想要脱身的暮光矿工{npc:260931}在镇子东缘等着。说服他，然后交还{npc:256710}的任务；一名失踪的食人魔就在西边几步远处。",
+	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "再次向西前往{area:16723}：想要脱身的暮光矿工{npc:260931}在镇子东缘等着。说服他，然后交还{npc:256710}的任务；一名失踪的食人魔就在西边几步远处。"
+	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "说服{npc:260931}",
 	-- {npc:261208} Twilight Brute
@@ -493,6 +494,7 @@ return {
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}：嗅嗅鼻和{npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548}位于{area:3}以南。从{area:657}向东骑到{area:75}，再飞往{area:340}：进入该地区的下山路就从那里开始。",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "罗格玛西边，暮光教派占据着农镇{area:16723}。想要脱身的狗头人{npc:259158}躲在镇子中央。",
+	-- ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "再次向西前往{area:16723}：想要脱身的暮光矿工{npc:260931}在镇子东缘等着。说服他，然后交还{npc:256710}的任务；一名失踪的食人魔就在西边几步远处。",
 	-- ["the {object:707249} poster"] = "{object:707249}通缉令",
 	-- ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "完成戈巴姆的差事后，{npc:257062}会提供最后两场（据玩家记录），本指南未包含这两场。它们是44级和45级：如果打{npc:258626}很吃力，就留到以后再打。",
 	-- ["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048}在{npc:256728}东北的暮光食人魔营地旁等着：护送他回到{area:16726}，别让邪教徒伤到他。如果他倒下了，再从他那里接受任务。",

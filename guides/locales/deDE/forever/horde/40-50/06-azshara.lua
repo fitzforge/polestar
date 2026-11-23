@@ -9,8 +9,6 @@ return {
 	-- Step 2: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Flieg nach {area:35}",
-	-- {area:75} Stonard
-	["{area:75} flight master"] = "Flugmeister in {area:75}",
 
 	-- Step 3: Booty Bay
 	-- {area:75} Stonard · {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
@@ -313,6 +311,7 @@ return {
 	-- ["grind on {npc:6125}"] = "grinde {npc:6125}",
 	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}: Töte diese, sobald sie dir begegnen",
 	-- ["{area:1221}: kill these as you meet them"] = "{area:1221}: töte diese, wenn du sie triffst",
+	-- ["{area:75} flight master"] = "Flugmeister in {area:75}",
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} in {zone:1456}; in {zone:1454} gibt es keinen Paladin-Lehrer",
 	-- ["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}, die Gasse: falls du ihn noch dabeihast",
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}: Die Bären sind im {zone:1448}",

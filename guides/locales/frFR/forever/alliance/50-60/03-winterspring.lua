@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "Prendre un vol pour {area:2255}",
-	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "Maître de vol de {area:489}",
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
@@ -521,6 +519,7 @@ return {
 	-- ["{area:2255} flight master"] = "Maître de vol de {area:2255}",
 	-- ["{area:2255}'s inn"] = "Auberge de {area:2255}",
 	-- ["{area:2269}: kill these as you meet them"] = "{area:2269} : tuez-les au passage",
+	-- ["{area:489} flight master"] = "Maître de vol de {area:489}",
 	-- ["{item:12367} along the way to {area:2255}"] = "{item:12367} sur le chemin de {area:2255}",
 	-- ["{item:12367} on the way"] = "{item:12367} en chemin",
 	-- ["{item:12383} on the way"] = "{item:12383} en chemin",

@@ -21,7 +21,7 @@ section: players
 - Eastern Plaguelands (Horde): the step to Egan in Terrordale warns of the
   Terrordale Spirits (59-60) and Crypt Horrors around his hut (thanks devanpy,
   #3746).
-- Thirteen leveling guides that open with a flight (Searing Gorge, Un'Goro
+- Fourteen leveling guides that open with a flight (Searing Gorge, Un'Goro
   Crater and Duskwood among them) no longer send you to one fixed flight
   master first; the arrow takes the way from wherever you are (thanks cjtylr,
   #3771).
