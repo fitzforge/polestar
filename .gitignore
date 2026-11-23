@@ -13,13 +13,17 @@ data/local/
 data/recordings/*
 !data/recordings/.gitkeep
 
+# CI's reference-data baseline (tools/ci-failures.js, docs/CI.md "Reference data").
+.ci/
+
 # Build output and drafts.
 dist/
 guides/drafts/
 *.log
 
 # Tooling.
-node_modules/
+# No trailing slash: a node_modules symlink (a worktree borrowing the clone's) is ignored too.
+node_modules
 .ref/
 
 # The bug bot's secrets on the server.

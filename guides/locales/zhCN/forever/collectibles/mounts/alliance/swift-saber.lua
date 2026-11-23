@@ -13,20 +13,20 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "中级{skill:762}",
 	-- {npc:4753} Jartsam · {npc:4730} Lelanai · {area:1658} Cenarion Enclave · {faction:69} Darnassus · {skill:762} Riding
-	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {faction:69}. At 60 {npc:4753} teaches Journeyman {skill:762} to Night Elves for 1,000g (10% less at Honored with {faction:69}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift saber costs 200g here."] = "",
+	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {faction:69}. At 60 {npc:4753} teaches Journeyman {skill:762} to Night Elves for 1,000g (10% less at Honored with {faction:69}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift saber costs 200g here."] = "{npc:4753} 和 {npc:4730} 的夜刃豹位于 {faction:69} 境内 {area:1658} 的骑术训练场。60级时，{npc:4753} 以1,000金币向暗夜精灵教授中级 {skill:762}（{faction:69} 达到尊敬可优惠10%）；暴雪称会附赠一只坐骑。其他种族在本族的骑术训练师处学习。这里每只迅捷夜刃豹售价200金币。",
 	-- {npc:4753} Jartsam
 	["{npc:4753}, riding trainer"] = "{npc:4753}，骑术训练师",
 
 	-- Step 2: Tiger Riding for other races
 	-- {spell:828} Tiger Riding
-	["{spell:828} for other races"] = "",
+	["{spell:828} for other races"] = "其他种族学习{spell:828}",
 	-- {spell:828} Tiger Riding · {skill:762} Riding · {npc:4753} Jartsam · {faction:69} Darnassus
-	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "",
+	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "联盟任何种族都能购买这些夜刃豹，但骑乘还需要 {spell:828}，只有暗夜精灵学习 {skill:762} 时会一并获得。其他种族在 {faction:69} 声望达到崇拜后，可向 {npc:4753} 学习（“达纳苏斯声望”指南中有具体方法）。达到之前，不要给这个角色购买夜刃豹。",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "挑选颜色",
 	-- {npc:4730} Lelanai
-	["{npc:4730} sells the other colours (200g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like."] = "{npc:4730}出售其他颜色（Forever 客户端中每只200金）。想要哪只就买哪只；如果喜欢送你的那只，也可以不买。",
+	["{npc:4730} sells the other colours (200g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like."] = "{npc:4730}出售其他颜色（无限 客户端中每只200金）。想要哪只就买哪只；如果喜欢送你的那只，也可以不买。",
 	-- {item:18766} Reins of the Swift Frostsaber
 	["{item:18766}, 200g"] = "{item:18766}，200金",
 	-- {item:18767} Reins of the Swift Mistsaber

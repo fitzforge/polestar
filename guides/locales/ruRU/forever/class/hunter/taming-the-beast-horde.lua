@@ -8,15 +8,15 @@
 return {
 	-- Guide
 	-- {quest:6061} Taming the Beast
-	["{quest:6061} (Horde)"] = "",
+	["{quest:6061} (Horde)"] = "{quest:6061} (Орда)",
 	-- {item:15908} Taming Rod · {spell:1515} Tame Beast · {spell:5149} Beast Training
-	["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "",
+	["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "Свой питомец на 10-м уровне: три пробных приручения с помощью {item:15908} обучат {spell:1515}, затем {spell:5149}.",
 
 	-- Step 1: Thotar in Razor Hill
 	-- {npc:3171} Thotar · {area:362} Razor Hill
-	["{npc:3171} in {area:362}"] = "",
-	-- {npc:3171} Thotar · {area:362} Razor Hill · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:11814} Kali Remik · {area:367} Sen'jin Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff
-	["At 10 go to {npc:3171}, the hunter trainer inside the barracks in {area:362}. If {npc:3407} in {zone:1454}, {npc:11814} in {area:367} or {npc:3038} in {zone:1456} hands you The Hunter's Path, take it and hand it to {npc:3171} for a little experience; it is only a pointer, and you can take the first rod without it."] = "",
+	["{npc:3171} in {area:362}"] = "{npc:3171} ({area:362})",
+	-- {npc:3171} Thotar · {area:362} Razor Hill · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:11814} Kali Remik · {area:367} Sen'jin Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {quest:6068} The Hunter's Path
+	["At 10 go to {npc:3171}, the hunter trainer inside the barracks in {area:362}. If {npc:3407} in {zone:1454}, {npc:11814} in {area:367} or {npc:3038} in {zone:1456} hands you {quest:6068}, take it and hand it to {npc:3171} for a little experience; it is only a pointer, and you can take the first rod without it."] = "",
 	-- {npc:3171} Thotar · {item:15908} Taming Rod
 	["{npc:3171}: the first {item:15908}"] = "",
 
@@ -50,8 +50,8 @@ return {
 	-- Step 6: Yaw Sharpmane at Bloodhoof
 	-- {npc:3065} Yaw Sharpmane
 	["{npc:3065} at Bloodhoof"] = "",
-	-- {npc:3065} Yaw Sharpmane · {area:222} Bloodhoof Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:3171} Thotar · {area:362} Razor Hill
-	["At 10 go to {npc:3065}, who stands at the north edge of {area:222}. The Hunter's Path from {npc:3038} in {zone:1456}, {npc:3407} in {zone:1454} or {npc:3171} in {area:362} also leads here, for a little experience; it is only a pointer."] = "",
+	-- {npc:3065} Yaw Sharpmane · {area:222} Bloodhoof Village · {quest:6065} The Hunter's Path · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:3171} Thotar · {area:362} Razor Hill
+	["At 10 go to {npc:3065}, who stands at the north edge of {area:222}. {quest:6065} from {npc:3038} in {zone:1456}, {npc:3407} in {zone:1454} or {npc:3171} in {area:362} also leads here, for a little experience; it is only a pointer."] = "",
 	-- {npc:3065} Yaw Sharpmane · {item:15908} Taming Rod
 	["{npc:3065}: the first {item:15908}"] = "",
 
@@ -88,7 +88,7 @@ return {
 
 	-- Step 12: Quel'ana Quickgale in Valanaar
 	-- {npc:252389} Quel'ana Quickgale · {area:16638} Valanaar
-	["{npc:252389} in {area:16638}"] = "",
+	["{npc:252389} in {area:16638}"] = "{npc:252389} ({area:16638})",
 	-- {npc:252389} Quel'ana Quickgale · {area:16638} Valanaar · {npc:254411} Quel'dora Quickgale
 	["{npc:252389} stands with the trainers by {area:16638}'s west gate, {npc:254411} beside her."] = "",
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod
@@ -101,7 +101,7 @@ return {
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living crawler"] = "",
 	-- {npc:254588} Windsong Crawler
-	["Tame {npc:254588}"] = "",
+	["Tame {npc:254588}"] = "Приручите: {npc:254588}",
 
 	-- Step 14: Ornery Galestrider
 	-- {spell:2641} Dismiss Pet · {area:16626} Gustberry Lowlands · {area:16638} Valanaar
@@ -110,7 +110,7 @@ return {
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living galestrider"] = "",
 	-- {npc:251707} Ornery Galestrider
-	["Tame {npc:251707}"] = "",
+	["Tame {npc:251707}"] = "Приручить: {npc:251707}",
 
 	-- Step 15: Vuldren Alpha
 	-- {area:16626} Gustberry Lowlands
@@ -119,21 +119,21 @@ return {
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living alpha"] = "",
 	-- {npc:250874} Vuldren Alpha
-	["Tame {npc:250874}"] = "",
+	["Tame {npc:250874}"] = "Приручить: {npc:250874}",
 	-- {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
-	["{npc:254411}, beside her: {spell:5149}"] = "",
+	["{npc:254411}, beside her: {spell:5149}"] = "{npc:254411}, рядом с ней: {spell:5149}",
 
 	-- Step 16: Your first pet
 	["Your first pet"] = "",
 	-- {spell:1515} Tame Beast · {spell:17253} Bite
 	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "",
 	["Tame a beast of your level to keep"] = "",
-	-- {area:362} Razor Hill · {zone:1411} Durotar · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {area:380} Crossroads · {zone:1413} Barrens
+	-- {area:362} Razor Hill · {zone:1411} Durotar · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {zone:1413} Barrens
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger · Venomtail Scorpids = {npc:3127} Venomtail Scorpid
-	["Near {area:362}: Durotar Tigers (cats, level 7-8) roam the south of {zone:1411}, from {area:367} down the coast; Venomtail Scorpids (9-10) the north-west toward {zone:1454}; at 11-12, Savannah Huntresses (cats) prowl the plains around the {area:380} in the {zone:1413}."] = "",
-	-- {zone:1412} Mulgore · {area:380} Crossroads · {zone:1413} Barrens
+	["Near {area:362}: Durotar Tigers (cats, level 7-8) roam the south of {zone:1411}, from {area:367} down the coast; Venomtail Scorpids (9-10) the north-west toward {zone:1454}; at 11-12, Savannah Huntresses (cats) prowl the plains around the Crossroads in the {zone:1413}."] = "",
+	-- {zone:1412} Mulgore · {zone:1413} Barrens
 	-- plural, as words: Flatland Prowlers = {npc:3566} Flatland Prowler · Prairie Wolf Alphas = {npc:2960} Prairie Wolf Alpha
-	["Near Bloodhoof: Flatland Prowlers (cats, level 9) and Prairie Wolf Alphas (wolves, 9-10) roam the plains of northern {zone:1412}; at 11-12, Savannah Huntresses (cats) prowl around the {area:380} in the {zone:1413}."] = "",
+	["Near Bloodhoof: Flatland Prowlers (cats, level 9) and Prairie Wolf Alphas (wolves, 9-10) roam the plains of northern {zone:1412}; at 11-12, Savannah Huntresses (cats) prowl around the Crossroads in the {zone:1413}."] = "",
 	-- {area:16638} Valanaar · {area:16626} Gustberry Lowlands · {zone:2521} Zephras Isle
 	-- plural, as words: Vuldren Alphas = {npc:250874} Vuldren Alpha · Shriekling Matriarchs = {npc:253283} Shriekling Matriarch · Shadowgale Urseras = {npc:250927} Shadowgale Ursera
 	["Near {area:16638}: Vuldren Alphas (level 10), the beast of your last practice tame, hunt the {area:16626}; Shriekling Matriarchs (raptors, level 9) nest just west of {area:16638}; Shadowgale Urseras (bears, 10-11) roam the north of {zone:2521}."] = "",

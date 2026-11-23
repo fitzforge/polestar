@@ -11,7 +11,7 @@ return {
 	["{zone:1437} whelps"] = "{zone:1437}的雏龙",
 	-- {zone:1437} Wetlands · {area:1037} Grim Batol
 	-- plural, as words: Red Whelps = {npc:1042} Red Whelp · Crimson Whelps = {npc:1069} Crimson Whelp · Flamesnorting Whelps = {npc:1044} Flamesnorting Whelp
-	["The red whelps live in the hills of the eastern {zone:1437}, towards {area:1037}: about 50 of them, back about five minutes after a kill in Classic's data. Red Whelps (levels 23-24) and Crimson Whelps (25-26) drop the whelpling about once in 650 kills, the Flamesnorting Whelps (26-27) mixed in with them only once in 1,600, so expect a long farm. It can be traded, so the Auction House may be quicker."] = "",
+	["The red whelps live in the hills of the eastern {zone:1437}, towards {area:1037}: about 50 of them, back about five minutes after a kill in Classic's data. Red Whelps (levels 23-24) and Crimson Whelps (25-26) drop the whelpling about once in 650 kills, the Flamesnorting Whelps (26-27) mixed in with them only once in 1,600, so expect a long farm. It can be traded, so the Auction House may be quicker."] = "红色雏龙生活在 {zone:1437} 东部、靠近 {area:1037} 方向的丘陵中：大约 50 只，按经典旧世数据，击杀后约五分钟刷新。红色雏龙（23-24 级）和深红雏龙（25-26 级）掉落雏龙宠物的概率约为 650 分之一，混在其中的喷火雏龙（26-27 级）则只有约 1,600 分之一，因此要做好长时间刷取的准备。宠物可以交易，在拍卖行购买可能更快。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The Red, Crimson and Flamesnorting Whelps (levels 23-26) in the eastern {zone:1437} drop it about once in 600-1,600 kills in our data."] = "{zone:1437}东部的红色雏龙、深红雏龙和{npc:1044}（23-26级）会掉落它，我们的数据显示大约600-1,600次击杀掉一次。",

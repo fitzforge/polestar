@@ -43,6 +43,9 @@ const MINING_NODES = {
 	'Copper Vein': 1,
 	// Forever's starting-area vein (Copper Ore and Rough Stone, the Copper Vein's lock).
 	'Poor Copper Vein': 1,
+	// Forever's Teldrassil nodes (Rough Stone, Copper Ore, Pyrite): mined from skill 1 in players' recordings.
+	'Chunk of Amber': 1,
+	'Large Chunk of Amber': 1,
 	'Tin Vein': 65,
 	'Incendicite Mineral Vein': 65,
 	'Silver Vein': 75,
@@ -91,8 +94,9 @@ const HERB_NODES = {
 	'Black Lotus': 300,
 };
 
-// Forever's starting-area nodes (sniffed on Forever's beta; no role in objects.json).
-const FOREVER_NODES = new Set(['Poor Copper Vein', 'Wilted Peacebloom', 'Stunted Silverleaf']);
+// Forever's starting-area nodes (sniffed on Forever's beta or listed in Forever's
+// quest data; no role in objects.json).
+const FOREVER_NODES = new Set(['Poor Copper Vein', 'Chunk of Amber', 'Large Chunk of Amber', 'Wilted Peacebloom', 'Stunted Silverleaf']);
 
 function skinningReq(level) {
 	if (level <= 10) return 1;

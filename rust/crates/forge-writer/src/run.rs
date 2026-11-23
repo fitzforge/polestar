@@ -38,6 +38,8 @@ pub struct RunInputs<'a> {
 	pub notes: Option<&'a serde_json::Value>,
 	/// The checkout's places and guide fixes, applied to the written guides last (fixes.rs).
 	pub records: crate::fixes::Records<'a>,
+	/// data/dungeon-runs.json: where each dungeon of the route is run (apply.rs `dungeons_near`).
+	pub dungeon_runs: Option<&'a serde_json::Value>,
 }
 
 #[derive(Clone, Debug)]
@@ -50,11 +52,18 @@ pub struct RunOpts {
 	/// route's own legs, which write the travel themselves.
 	pub repair: bool,
 	pub rules: engine::Opts,
+	/// A guide's opening accepts that need a quest only an earlier guide hands in (post::fresh_openers):
+	/// listed in the log (default), moved to a later visit to their giver, or not checked.
+	pub fresh_openers: crate::post::FreshOpeners,
+	/// Pass-by pickups (pass_by.rs): a quest whose giver an earlier walk passes is taken there.
+	pub pass_by: bool,
+	/// Nearby flight paths (nearby_fp.rs, with the route's own legs).
+	pub nearby_fp: bool,
 }
 
 impl Default for RunOpts {
 	fn default() -> Self {
-		RunOpts { engine: true, level: true, route_legs: true, repair: true, rules: engine::Opts::default() }
+		RunOpts { engine: true, level: true, route_legs: true, repair: true, rules: engine::Opts::default(), fresh_openers: crate::post::FreshOpeners::default(), pass_by: true, nearby_fp: true }
 	}
 }
 
@@ -91,6 +100,10 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 		solo_fallback: opts.engine && opts.rules.groups,
 		walks: if opts.engine { inp.walks } else { None },
 		borders: if opts.engine { inp.walk_yards.and_then(|w| w.borders()) } else { None },
+		fresh_openers: opts.fresh_openers,
+		pass_by: opts.engine && opts.pass_by,
+		nearby_fp: opts.engine && opts.nearby_fp,
+		dungeon_runs: inp.dungeon_runs,
 	};
 	let r = apply_route(&ai)?;
 	log.extend(r.log.iter().cloned());

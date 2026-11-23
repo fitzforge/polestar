@@ -4,7 +4,7 @@
 
 use crate::common;
 
-use forge_data::professions::{build, Options};
+use forge_data::professions::{build, require_trainer_costs, Options};
 
 #[test]
 fn professions_match_golden() {
@@ -22,6 +22,10 @@ fn professions_match_golden() {
 	o.sources = input.join("sources");
 	o.tdb = input.join("no-tdb.sqlite");
 	let out = build(&o).unwrap();
+	// Built without the TDB on purpose (no-tdb.sqlite, no extract): no trainer price, so the release gate
+	// the data builds run after `build` refuses it.
+	assert_eq!(out.trainer_costs, 0);
+	assert!(require_trainer_costs(&out).unwrap_err().contains("sniffed trainer lists were not read"));
 	let want = g.join("expected");
 	let mut check = common::Check::new();
 	let mut names = Vec::new();
@@ -58,6 +62,9 @@ fn draft_fixture_is_this_build() {
 	o.sources = fx.clone();
 	o.tdb = fx.join("no-tdb.sqlite");
 	let out = build(&o).unwrap();
+	// The fixture's extract has a sniffed trainer list: the release gate passes.
+	assert!(out.trainer_costs > 0);
+	require_trainer_costs(&out).unwrap();
 	let mut check = common::Check::new();
 	for (name, text) in &out.files {
 		check.file(name, text, &fx.join("data").join(name));
@@ -93,4 +100,12 @@ fn draft_fixture_is_this_build() {
 		text.contains(r#""name":"Red Dye","buy":50,"buyCount":1,"sell":12,"quality":1,"vendors":{"Alliance":[5000],"Horde":[]},"limitedVendors":{"Alliance":[],"Horde":[3364]}"#),
 		"Red Dye's sniffed stock limit"
 	);
+	// The extract's professionTrainerSkill: Magar's "Train me." asks for Tailoring 50 (#1708: a trainer
+	// who doesn't train below that skill). Not 1346's Alchemy gate, nor a creature no Tailoring list names.
+	assert!(text.contains(r#""trainers":{"Alliance":[1346],"Horde":[3363]},"trainerSkill":{"3363":50},"mainTrainer""#), "Tailoring's trainer skill gates");
+	assert!(!text.contains(r#""9999""#) && text.matches("trainerSkill").count() == 1, "only the listed trainers of the gate's own profession");
+	// The extract's professionTrainersAny: Magar's lists teach Journeyman (3909), not Apprentice (3908),
+	// so he leaves the Apprentice rank and stays on Journeyman (Narv Hidecrafter's case).
+	assert!(text.contains(r#"{"name":"Apprentice","max":75,"minLevel":1,"minSkill":0,"trainers":{"Alliance":[1346],"Horde":[]},"spell":3908}"#), "Apprentice without Magar");
+	assert!(text.contains(r#"{"name":"Journeyman","max":150,"minLevel":10,"minSkill":50,"trainers":{"Alliance":[1346],"Horde":[3363]},"spell":3909}"#), "Journeyman keeps Magar");
 }

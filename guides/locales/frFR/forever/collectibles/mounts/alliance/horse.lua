@@ -17,12 +17,10 @@ return {
 	["{npc:4732}, riding trainer"] = "{npc:4732}, maître de monte",
 
 	-- Step 2: Horse Riding for other races
-	-- {skill:762} Riding
-	["Horse {skill:762} for other races"] = "",
-	-- {skill:762} Riding · {npc:4732} Randal Hunter · {faction:72} Stormwind
-	["Any Alliance race can buy these horses, but riding one also takes Horse Riding, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "",
-	-- {npc:4732} Randal Hunter
-	["{npc:4732}, Horse Riding"] = "",
+	-- {spell:824} Horse Riding
+	["{spell:824} for other races"] = "{spell:824} pour les autres races",
+	-- {spell:824} Horse Riding · {skill:762} Riding · {npc:4732} Randal Hunter · {faction:72} Stormwind
+	["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "Toute race de l'Alliance peut acheter ces chevaux, mais en monter un demande aussi {spell:824}, que seuls les Humains reçoivent avec la {skill:762}. {npc:4732} l'enseigne aux autres races une fois Exaltées auprès de {faction:72} (le guide de réputation de Hurlevent montre le chemin). D'ici là, n'achetez pas de cheval pour ce personnage.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Choisir une couleur",
@@ -44,8 +42,6 @@ return {
 	["{item:2411}, 20g, {npc:1460}"] = "{item:2411}, 20 po, {npc:1460}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "Toute race de l'Alliance peut acheter ces chevaux, mais en monter un demande aussi {spell:824}, que seuls les Humains reçoivent avec la {skill:762}. {npc:4732} l'enseigne aux autres races une fois Exaltées auprès de {faction:72} (le guide de réputation de Hurlevent montre le chemin). D'ici là, n'achetez pas de cheval pour ce personnage.",
 	-- ["{item:2411} is in the client, but no vendor is confirmed to sell it in Forever."] = "{item:2411} existe dans le client, mais aucun marchand ne la vend de façon confirmée dans Forever.",
 	-- ["{npc:4732} and {npc:384}'s horse pen are at {area:88} in eastern {zone:1429}. At 40 {npc:4732} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Alliance race ride these."] = "L'enclos à chevaux de {npc:4732} et {npc:384} se trouve au {area:88}, dans l'est de la {zone:1429}. Au niveau 40, {npc:4732} enseigne {skill:762} (100 po selon les concepteurs de Blizzard), et l'apprendre vous donne une monture. Le client Forever permet à toutes les races de l'Alliance de les monter.",
-	-- ["{spell:824} for other races"] = "{spell:824} pour les autres races",
 }

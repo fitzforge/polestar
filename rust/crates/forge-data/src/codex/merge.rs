@@ -31,7 +31,7 @@ const RANK_UNKNOWN: f64 = 7.0;
 const TYPE_ORDER: [&str; 10] = ["vendor", "quest", "gift", "craft", "rep", "pvp", "drop", "object", "container", "world"];
 const WORLD_DROP_NPCS: usize = 12;
 const LOOT_CAP: usize = 150;
-const SERVICE_ROLES: [&str; 16] = [
+const SERVICE_ROLES: [&str; 17] = [
 	"vendor",
 	"repair",
 	"innkeeper",
@@ -41,6 +41,7 @@ const SERVICE_ROLES: [&str; 16] = [
 	"battlemaster",
 	"spirithealer",
 	"stablemaster",
+	"transmogrifier",
 	"trainer",
 	"weapon",
 	"sells:food",
@@ -71,7 +72,7 @@ fn source_fields(ty: &str) -> &'static [&'static str] {
 	match ty {
 		"vendor" => &["npc", "cost", "limited"],
 		"drop" => &["npc", "chance", "instance"],
-		"object" => &["object", "chance"],
+		"object" => &["object", "chance", "instance"],
 		"quest" => &["quest", "choice"],
 		"gift" => &["npc", "spell"],
 		"craft" => &["spell", "skillLine", "profession", "skill"],
@@ -83,11 +84,13 @@ fn source_fields(ty: &str) -> &'static [&'static str] {
 	}
 }
 
+/// The most sources of a type an item keeps. Vendors have none: Lookup ranks an item's sellers by the
+/// player's travel to each, so cutting them by id left whole cities out (Red Dye kept ten sellers, none in
+/// Ironforge, and an Ironforge player was sent to Loch Modan, #2719).
 fn cap(ty: &str) -> Option<usize> {
 	match ty {
 		"drop" => Some(10),
 		"object" => Some(6),
-		"vendor" => Some(10),
 		"container" => Some(6),
 		_ => None,
 	}
@@ -427,7 +430,7 @@ fn finalize_sources(cands: &[&Cand], npc_level: &dyn Fn(&V) -> Option<(f64, f64)
 	kept
 }
 
-fn objective_of(o: &V, escort: bool, tame: bool) -> V {
+fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>, summon_item: Option<(f64, Vec<f64>)>) -> V {
 	let out = Obj::new();
 	out.set("type", o.get("type"));
 	let nn = |v: V| if v.is_nullish() { V::Null } else { v };
@@ -436,6 +439,20 @@ fn objective_of(o: &V, escort: bool, tame: bool) -> V {
 	out.set("text", nn(o.get("text")));
 	if tame && o.get("type").as_str() == Some("kill") {
 		out.set("tame", true);
+	} else if o.get("type").as_str() == Some("kill") {
+		if let Some(item) = use_item {
+			out.set("useItem", item);
+		}
+	}
+	// The item that calls its target up (summon_item_for, #2326): the Screecher Spirit rises from a dead Vale
+	// Screecher only with Yeh'kinya's Bramble; `summonOn`, the creatures the item is used on (#2578).
+	if o.get("type").as_str() == Some("kill") && !tame {
+		if let Some((item, on)) = summon_item {
+			out.set("summonItem", item);
+			if !on.is_empty() {
+				out.set("summonOn", nums(&on));
+			}
+		}
 	}
 	let fin = |v: V| matches!(v, V::Num(n) if n.is_finite());
 	if o.get("type").as_str() == Some("event") && !escort && int(&o.get("map")).is_some_and(|m| m != 0.0) && fin(o.get("x")) && fin(o.get("y")) {
@@ -455,6 +472,82 @@ fn tames_with_rod(q: &V) -> bool {
 	let lower = t.to_ascii_lowercase();
 	// /\bTaming Rod to tame\b/i
 	has_word(&lower, "taming rod to tame")
+}
+
+/// A positive whole number, as build.js `positiveInt`.
+fn whole_id(v: &V) -> Option<f64> {
+	int(v).filter(|n| *n > 0.0 && n.fract() == 0.0)
+}
+
+/// `mechanics.json` ({ quests }) or the quests map already. A missing file is null.
+fn mechanics_entry(mechanics: &V, quest_id: f64) -> V {
+	let quests = mechanics.get("quests");
+	if quests.as_obj().is_some() {
+		quests.get(&key(quest_id))
+	} else {
+		mechanics.get(&key(quest_id))
+	}
+}
+
+/// How a quest is done beyond its objectives, in our own public words (#2714: Powering the Pylons' mana, gathered
+/// with the Mana Sieve before the pylons take it): data/mechanics-public.json's steps' facts, in step order, one
+/// text. None without a public entry or facts.
+fn public_how(public: &V, quest_id: f64) -> Option<String> {
+	let mut steps: Vec<(f64, String)> =
+		mechanics_entry(public, quest_id).get("steps").items().iter().filter_map(|s| s.get("fact").as_str().map(|f| (s.get("n").num(), f.trim().to_string()))).filter(|(_, f)| !f.is_empty()).collect();
+	steps.sort_by(|a, b| ord(a.0 - b.0));
+	(!steps.is_empty()).then(|| steps.into_iter().map(|(_, f)| f).collect::<Vec<_>>().join(" "))
+}
+
+fn drives_use_on_mob(e: &V) -> bool {
+	e.get("kinds").items().iter().any(|k| k.get("kind").as_str() == Some("use-item-on-mob") && matches!(k.get("confidence").as_str(), Some("high" | "medium")))
+}
+
+/// The item a kill is really a use of (forge-writer objectives.rs `use_item`): a high or medium
+/// `use-item-on-mob`, then its params item for this NPC (no `npcs` list means every NPC), else a
+/// `readSteps` use-item on that NPC. No item: the kill stays a kill. A tame is not this (#2468).
+fn use_item_on(mechanics: &V, quest_id: f64, npc: Option<f64>) -> Option<f64> {
+	let npc = npc.filter(|n| *n > 0.0 && n.fract() == 0.0)?;
+	let e = mechanics_entry(mechanics, quest_id);
+	if !e.truthy() || !drives_use_on_mob(&e) {
+		return None;
+	}
+	for p in e.get("params").items() {
+		if p.get("kind").as_str() != Some("use-item-on-mob") {
+			continue;
+		}
+		let Some(item) = whole_id(&p.get("item")) else { continue };
+		let npcs = p.get("npcs");
+		let on = npcs.as_arr().is_none() || npcs.items().iter().any(|n| int(n) == Some(npc));
+		if on {
+			return Some(item);
+		}
+	}
+	for s in e.get("readSteps").items() {
+		let target = s.get("target");
+		if s.get("action").as_str() == Some("use-item") && target.get("type").as_str() == Some("npc") && int(&target.get("id")) == Some(npc) {
+			if let Some(item) = whole_id(&s.get("item").get("id")) {
+				return Some(item);
+			}
+		}
+	}
+	None
+}
+
+/// The item that calls a kill objective's target up (#2326): a `summon-by-item` kind the mechanics drive,
+/// with a params entry for this NPC and its item (Screecher Spirits: Yeh'kinya's Bramble calls the Screecher
+/// Spirit up from a dead Vale Screecher), and the creatures the item is used on, its params' `on` (#2578: the
+/// Vale Screechers). None for any other kill.
+fn summon_item_for(mechanics: &V, quest_id: f64, npc: Option<f64>) -> Option<(f64, Vec<f64>)> {
+	let npc = npc.filter(|n| *n > 0.0 && n.fract() == 0.0)?;
+	let e = mechanics_entry(mechanics, quest_id);
+	let drives = e.get("kinds").items().iter().any(|k| k.get("kind").as_str() == Some("summon-by-item") && k.get("drives").truthy());
+	if !drives {
+		return None;
+	}
+	let p = e.get("params").items().into_iter().find(|p| p.get("kind").as_str() == Some("summon-by-item") && int(&p.get("npc")) == Some(npc))?;
+	let item = whole_id(&p.get("item"))?;
+	Some((item, p.get("on").items().iter().filter_map(whole_id).collect()))
 }
 
 pub struct Merged {
@@ -491,6 +584,14 @@ impl OSet {
 	fn delete(&mut self, s: &str) {
 		self.0.retain(|x| x != s);
 	}
+}
+
+/// An object a gathering skill opens: a herb, an ore vein or a fishing pool (data/forever's `herb`, `mine`,
+/// `fishing` roles: the sources' node lists, and players' loot windows after a gathering cast). The Codex's
+/// treasures are the objects with the `chest` role that are none of these: a node is never a treasure, whatever
+/// gave it the chest role and whatever the player's professions (docs/forge/data.md, "Treasures").
+fn gathering_node(o: &V) -> bool {
+	o.get("roles").items().iter().any(|r| matches!(r.as_str(), Some("herb" | "mine" | "fishing")))
 }
 
 pub fn merge_codex(inputs: &Inputs) -> Merged {
@@ -569,6 +670,14 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		o.set("instance", V::Null);
 		o.set("roles", V::arr());
 		o.set("spawns", spawns_v(&spawns_of(&n.get("spawns"), zones_in, frames_in, false)));
+		// Seen only by a dead character (npcs.json `ghostOnly`, a correction's: Franclorn Forgewright, #558).
+		if n.get("ghostOnly").truthy() {
+			o.set("ghostOnly", true);
+		}
+		// Sells only once this quest is handed in (npcs.json `vendorAfter`: Zorbin Fandazzle after Zapped Giants, #3138).
+		if let Some(q) = int(&n.get("vendorAfter")).filter(|q| *q > 0.0) {
+			o.set("vendorAfter", q);
+		}
 		npcs.set(&id, V::Obj(o));
 		let mut set = OSet::default();
 		for r in roles.items() {
@@ -998,7 +1107,6 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	if al.is_none() && !fv.dungeons.truthy() {
 		if let Some(facts) = cl.and_then(|c| c.instances.as_ref()) {
 			let cl = cl.unwrap();
-			let quality = |id: f64| cl.items.get(&(id as i64)).and_then(|c| c.quality);
 			let built = build_instances(
 				facts,
 				&Ctx {
@@ -1010,7 +1118,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 					recorded: &fv.instances,
 					entrance_table: &inputs.entrance_table,
 					curated: &inputs.entrances,
-					quality: &quality,
+					client: cl,
 					web: wh,
 				},
 			);
@@ -1072,14 +1180,31 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			}
 		}
 	}
+	// An NPC on a player faction's side is never a rare (the data-diff gate's `friendly-rare`): a rank,
+	// a source's rare list or a sighting can name one (faction leaders in 0.4.1, #2929 #2942), and the
+	// rare alert, pins and list read this flag.
+	for (id, n) in npcs.entries() {
+		if n.get("rare").truthy() && matches!(n.get("faction").as_str(), Some("A" | "H" | "AH")) {
+			n.set("rare", false);
+			if let Some(&i) = role_ix.get(&*id) {
+				npc_roles[i].1.delete("rare");
+			}
+		}
+	}
 	// Vendors by what they sell (sells_role): every NPC an item lists as its
 	// vendor, from the client's item class; an NPC whose merchant window players
-	// recorded is a vendor of what it listed.
+	// recorded is a vendor of what it listed. A recorded fact changes what the
+	// Codex says only on trusted evidence (`minVoters` people, one vote each, or a
+	// vouched recorder: recorded.rs); with less it only confirms another input's:
+	// a merchant window's item counts when it is trusted, or when the quest data
+	// or a curated guide names that NPC as its vendor.
+	let rec_vendor_ok = |npc: &str, item: &str, e: &V| -> bool {
+		e.get("trusted").truthy() || fv.items.get(item).get("vendors").items().iter().any(|n| kstr(n) == npc) || inputs.curated_vendors.get(item).items().iter().any(|n| kstr(n) == npc)
+	};
 	for (npc, list) in oentries(&recorded.get("vendors")) {
-		if list.is_empty() {
-			continue;
+		if oentries(&list).iter().any(|(item, e)| rec_vendor_ok(&npc, item, e)) {
+			add_role(&mut npc_roles, &mut role_ix, &npc, "vendor");
 		}
-		add_role(&mut npc_roles, &mut role_ix, &npc, "vendor");
 	}
 	if let Some(cl) = cl {
 		let role_of = |id: f64| cl.items.get(&(id as i64)).and_then(|c| sells_role(c.class_id, c.subclass_id));
@@ -1090,8 +1215,11 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			}
 		}
 		for (npc, list) in oentries(&recorded.get("vendors")) {
-			for it in list.items() {
-				if let Some(role) = role_of(it.num()) {
+			for (item, e) in oentries(&list) {
+				if !rec_vendor_ok(&npc, &item, &e) {
+					continue;
+				}
+				if let Some(role) = role_of(str_to_num(&item)) {
 					add_role(&mut npc_roles, &mut role_ix, &npc, role);
 				}
 			}
@@ -1206,19 +1334,30 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			add(idn, src("container", &[("item", V::Num(c.num()))], &from));
 		}
 	}
-	// Players' recordings (data/codex/recorded.json): loot windows and merchant windows.
+	// Players' recordings (data/codex/recorded.json): loot windows and merchant windows. An untrusted
+	// loot source (`rec_confirm_from`) only confirms another input's: the ones no other input has for
+	// the same NPC or object go once every input is in (below).
 	let rec_from = from_v(&["recordings".to_string()]);
+	let rec_confirm_from = from_v(&["recordings".to_string()]);
 	for (npc, r) in oentries(&recorded.get("drops")) {
 		if !npcs.has(&npc) {
 			continue;
 		}
 		for (item, e) in oentries(&r.get("items")) {
-			add(str_to_num(&item), src("drop", &[("npc", V::Num(str_to_num(&npc))), ("chance", e.get("chance").clone_nullish()), ("instance", nn_or_null(npc_instance.get(&npc)))], &rec_from));
+			let from = if e.get("trusted").truthy() { &rec_from } else { &rec_confirm_from };
+			add(str_to_num(&item), src("drop", &[("npc", V::Num(str_to_num(&npc))), ("chance", e.get("chance").clone_nullish()), ("instance", nn_or_null(npc_instance.get(&npc)))], from));
 		}
 	}
+	// An object players loot only inside one instance (the snapshot's `instance`, its map): the
+	// source names that instance, as an NPC's drop does (#2883: Maraudon's vial, an object no other
+	// source has, so Lookup's pick-up guides know the item comes from inside a dungeon).
+	let map_id = |v: &V| v.as_num().filter(|n| *n > 0.0 && n.fract() == 0.0).map(|n| n as i64);
+	let instance_of_map: FxHashMap<i64, V> = instances.entries().into_iter().filter_map(|(k, rec)| map_id(&rec.get("map")).map(|m| (m, V::str(&k)))).collect();
 	for (obj, r) in oentries(&recorded.get("objects")) {
+		let inst = map_id(&r.get("instance")).and_then(|m| instance_of_map.get(&m).cloned()).unwrap_or(V::Null);
 		for (item, e) in oentries(&r.get("items")) {
-			add(str_to_num(&item), src("object", &[("object", V::Num(str_to_num(&obj))), ("chance", e.get("chance").clone_nullish())], &rec_from));
+			let from = if e.get("trusted").truthy() { &rec_from } else { &rec_confirm_from };
+			add(str_to_num(&item), src("object", &[("object", V::Num(str_to_num(&obj))), ("chance", e.get("chance").clone_nullish()), ("instance", inst.clone())], from));
 		}
 	}
 	for (npc, list) in oentries(&recorded.get("vendors")) {
@@ -1226,9 +1365,12 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		if !n.truthy() || n.get("spawns").items().is_empty() {
 			continue;
 		}
-		for it in list.items() {
-			let cost = cl_item(&kstr(&it)).and_then(|c| c.buy_price);
-			add(it.num(), src("vendor", &[("npc", V::Num(str_to_num(&npc))), ("cost", opt(cost))], &rec_from));
+		for (item, e) in oentries(&list) {
+			if !rec_vendor_ok(&npc, &item, &e) {
+				continue;
+			}
+			let cost = cl_item(&item).and_then(|c| c.buy_price);
+			add(str_to_num(&item), src("vendor", &[("npc", V::Num(str_to_num(&npc))), ("cost", opt(cost))], &rec_from));
 		}
 	}
 	// Our curated guides' `buy <item> npc <id>` steps.
@@ -1442,44 +1584,56 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		}
 	}
 	// A quest's reward list recorded on trusted evidence stands in for the web lists' (Forever may
-	// have changed it); an untrusted one only fills a quest nothing else gives rewards for, after them.
+	// have changed it); an untrusted one adds nothing.
 	let mut rec_trusted: FxHashSet<String> = FxHashSet::default();
-	for pass in [true, false] {
-		if !pass {
-			for (qid, q) in oentries(quests_in) {
-				let w = q.get("web");
-				if !w.truthy() || rec_trusted.contains(&*qid) {
-					continue;
-				}
-				let had = quest_rewards.contains_key(&*qid);
-				for (list, choice) in [(w.get("choices"), true), (w.get("items"), false)] {
-					for pair in list.items() {
-						let it = pair.at(0).num();
-						if had {
-							let h = &quest_rewards[&*qid];
-							if h.0.contains(&it) || h.1.contains(&it) {
-								continue;
-							}
-						}
-						reward(&mut quest_rewards, &qid, it, choice);
-						add(it, src("quest", &[("quest", V::Num(str_to_num(&qid))), ("choice", if choice { V::Bool(true) } else { V::Null })], &web_from));
-					}
-				}
+	for (qid, r) in oentries(&recorded.get("rewards")) {
+		if !r.get("trusted").truthy() || !quests_in.get(&qid).truthy() {
+			continue;
+		}
+		rec_trusted.insert(qid.to_string());
+		for (list, choice) in [(r.get("choices"), true), (r.get("items"), false)] {
+			for it in list.items() {
+				reward(&mut quest_rewards, &qid, it.num(), choice);
+				add(it.num(), src("quest", &[("quest", V::Num(str_to_num(&qid))), ("choice", if choice { V::Bool(true) } else { V::Null })], &rec_from));
 			}
 		}
-		for (qid, r) in oentries(&recorded.get("rewards")) {
-			if r.get("trusted").truthy() != pass || !quests_in.get(&qid).truthy() || (!pass && quest_rewards.contains_key(&*qid)) {
+	}
+	for (qid, q) in oentries(quests_in) {
+		let w = q.get("web");
+		if !w.truthy() || rec_trusted.contains(&*qid) {
+			continue;
+		}
+		let had = quest_rewards.contains_key(&*qid);
+		for (list, choice) in [(w.get("choices"), true), (w.get("items"), false)] {
+			for pair in list.items() {
+				let it = pair.at(0).num();
+				if had {
+					let h = &quest_rewards[&*qid];
+					if h.0.contains(&it) || h.1.contains(&it) {
+						continue;
+					}
+				}
+				reward(&mut quest_rewards, &qid, it, choice);
+				add(it, src("quest", &[("quest", V::Num(str_to_num(&qid))), ("choice", if choice { V::Bool(true) } else { V::Null })], &web_from));
+			}
+		}
+	}
+	// An untrusted recorded loot source stays only beside another input's of the same NPC or object.
+	if let V::Arr(confirm) = &rec_confirm_from {
+		let only_confirms = |c: &Cand| matches!(&c.from, V::Arr(a) if a.ptr_eq(confirm));
+		for (_, list) in cands.iter_mut() {
+			if !list.iter().any(only_confirms) {
 				continue;
 			}
-			if pass {
-				rec_trusted.insert(qid.to_string());
-			}
-			for (list, choice) in [(r.get("choices"), true), (r.get("items"), false)] {
-				for it in list.items() {
-					reward(&mut quest_rewards, &qid, it.num(), choice);
-					add(it.num(), src("quest", &[("quest", V::Num(str_to_num(&qid))), ("choice", if choice { V::Bool(true) } else { V::Null })], &rec_from));
-				}
-			}
+			let keep: Vec<bool> = list
+				.iter()
+				.map(|c| {
+					let kf = if c.ty == "drop" { "npc" } else { "object" };
+					!only_confirms(c) || list.iter().any(|o| !only_confirms(o) && o.ty == c.ty && o.get(kf).num() == c.get(kf).num())
+				})
+				.collect();
+			let mut k = keep.iter();
+			list.retain(|_| *k.next().unwrap());
 		}
 	}
 
@@ -1600,7 +1754,10 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	for k in names.keys() {
 		all_ids.insert(str_to_num(&k) as i64);
 	}
-	for (id, _) in &cands {
+	for (id, list) in &cands {
+		if list.is_empty() {
+			continue;
+		}
 		all_ids.insert(*id as i64);
 	}
 	let client_from = from_v(&["client".to_string()]);
@@ -1722,6 +1879,19 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		});
 		if sources.is_empty() && junk(&name_s) {
 			continue;
+		}
+		// Loot conditions describe this exact source, regardless of which input
+		// supplied its chance. Source finalization must not discard the condition.
+		let requires = fv.items.get(&ids).get("dropRequires");
+		for source in &sources {
+			let quests = match source.get("type").as_str() {
+				Some("drop") => requires.get("npc").get(&kstr(&source.get("npc"))),
+				Some("object") => requires.get("object").get(&kstr(&source.get("object"))),
+				_ => V::Undef,
+			};
+			if quests.is_arr() && !quests.is_empty() {
+				source.set("requiresQuests", V::from(quests.items()));
+			}
 		}
 		let kind = if mount_items.contains(&id) {
 			"mount"
@@ -1860,9 +2030,18 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		}
 	}
 	let objects = Obj::new();
+	// An object only inside an instance (data/forever's `instances`: map ids) is that instance's: the pick-up
+	// guides leave out a prerequisite that uses one (Upper Blackrock Spire's Rookery Eggs, Egg Freezing).
+	let mut key_of_map: FxHashMap<u64, String> = FxHashMap::default();
+	for (k, inst) in instances.entries() {
+		let m = inst.get("map");
+		if !m.is_nullish() {
+			key_of_map.insert(m.num().to_bits(), k.to_string());
+		}
+	}
 	for (id, o) in oentries(&fv.objects) {
 		let roles = o.get("roles").items();
-		let treasure = roles.iter().any(|r| r.as_str() == Some("chest"));
+		let treasure = roles.iter().any(|r| r.as_str() == Some("chest")) && !gathering_node(&o);
 		let mailbox = roles.iter().any(|r| r.as_str() == Some("mailbox"));
 		if !treasure && !mailbox && !want_objects.contains(&str_to_num(&id).to_bits()) {
 			continue;
@@ -1876,6 +2055,9 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		r.set("name", name);
 		r.set("treasure", treasure);
 		r.set("spawns", spawns_v(&spawns_of(&o.get("spawns"), zones_in, frames_in, mailbox)));
+		if let Some(k) = o.get("instances").items().iter().find_map(|m| key_of_map.get(&m.num().to_bits())) {
+			r.set("instance", k.as_str());
+		}
 		if mailbox {
 			r.set("mailbox", true);
 			let f = o.get("faction");
@@ -1887,7 +2069,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	let mut treasure_loot: Vec<(String, Vec<f64>)> = Vec::new();
 	for t in rs.map(|r| r.get("treasures").items()).unwrap_or_default() {
 		let obj = t.get("object");
-		if !obj.truthy() || !zones_in.get(&t.get("map").to_js_string()).truthy() {
+		if !obj.truthy() || !zones_in.get(&t.get("map").to_js_string()).truthy() || gathering_node(&fv.objects.get(&kstr(&obj))) {
 			continue;
 		}
 		let id = kstr(&obj);
@@ -1963,6 +2145,17 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		let rewards = r.map(|r| sorted(&r.0)).unwrap_or_else(V::arr);
 		let choices = r.map(|r| sorted(&r.1)).unwrap_or_else(V::arr);
 		if q.truthy() {
+			// Players' recordings (data/recorded/quests.json): prerequisites and objective spots,
+			// provisional (single-player) facts too, never over a field a correction sets.
+			let learned = inputs.learned.quests.get(&ids);
+			let corrected = inputs.learned.corrections.get("quests").get(&ids).get("set");
+			let q = if learned.truthy() {
+				let c = q.json_clone();
+				crate::learn::apply_prereqs(&c, &learned, &corrected, true);
+				c
+			} else {
+				q
+			};
 			let o = Obj::new();
 			o.set("id", idf);
 			o.set("title", q.get("title"));
@@ -1984,17 +2177,81 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			o.set("end", V::Obj(end));
 			let escort = forge_guide::escort::is_escort(&q);
 			let tame = tames_with_rod(&q);
-			let objectives: Vec<V> =
-				q.get("objectives").items().iter().filter(|o| matches!(o.get("type").as_str(), Some("kill" | "item" | "object" | "event"))).map(|o| objective_of(o, escort, tame)).collect();
+			let objectives: Vec<V> = q
+				.get("objectives")
+				.items()
+				.iter()
+				.filter(|o| matches!(o.get("type").as_str(), Some("kill" | "item" | "object" | "event" | "talk")))
+				.map(|o| {
+					let kill = !tame && o.get("type").as_str() == Some("kill");
+					let use_item = if kill { use_item_on(&inputs.mechanics, idf, int(&o.get("id"))) } else { None };
+					let summon_item = if kill { summon_item_for(&inputs.mechanics, idf, int(&o.get("id"))) } else { None };
+					objective_of(o, escort, tame, use_item, summon_item)
+				})
+				.collect();
+			if learned.truthy() {
+				// A recorded spot places an objective our data doesn't; a trusted one replaces our data's point.
+				// A correction that sets the objectives decides their kinds and ids; only one that places a
+				// line itself keeps that line from the recorded spot (Riverglades' kill credits, set by a
+				// correction with no place, were left with none: Krol'dok Stronghold's prerequisites).
+				let fixed = corrected.get("objectives");
+				let kept: Vec<usize> =
+					q.get("objectives").items().iter().enumerate().filter(|(_, o)| matches!(o.get("type").as_str(), Some("kill" | "item" | "object" | "event" | "talk"))).map(|(i, _)| i).collect();
+				for (i, (map, x, y, provisional)) in crate::learn::objective_spots(&q, &learned, true) {
+					let Some(o) = kept.iter().position(|k| *k == i).map(|p| &objectives[p]) else { continue };
+					if !fixed.at(i).get("map").is_nullish() {
+						continue;
+					}
+					if provisional && !o.get("map").is_nullish() {
+						continue;
+					}
+					o.set("map", map as f64);
+					o.set("x", round1(x));
+					o.set("y", round1(y));
+					if provisional {
+						o.set("provisional", true);
+					}
+				}
+			}
 			o.set("objectives", V::from(objectives));
 			let pre = forge_guide::prereqs::blocking_prereqs(&q, &quest_of);
 			o.set("pre", pre.get("all"));
 			o.set("preAny", pre.get("any"));
+			// The quests whose taking closes it for good (a breadcrumb's target, an exclusive quest), so Lookup's
+			// accept passes it once one is taken (#1996: The Greenwarden after Tramping Paws).
+			let closed: Vec<V> = forge_guide::prereqs::closed_by_of(&V::str(&ids), quests_in).into_iter().map(V::Num).collect();
+			if !closed.is_empty() {
+				o.set("closedBy", V::from(closed));
+			}
 			o.set("zone", opt(int(&q.get("zone"))));
 			o.set("rewards", rewards);
 			o.set("choices", choices);
+			// A child quest's parent, which must be in the log for its giver to offer it (Valik 535, Infiltration 533).
+			if !pre.get("parent").is_undef() {
+				o.set("parent", pre.get("parent"));
+			}
+			// How it is done beyond its objectives, our public words (#2714), for Lookup's quest steps.
+			if let Some(how) = public_how(&inputs.mechanics_public, idf) {
+				o.set("how", how);
+			}
+			// One Forever hands in at one talk, never in the log (quests.json `direct`: Bloodpetal Sprouts, #2686), so
+			// the hand-in guides never take it as an accept.
+			if q.get("direct").truthy() {
+				o.set("direct", true);
+			}
+			// One of a set the game offers one at a time (quests.json `rotation`: Pix's weekly In Demand quests, #3601).
+			let rot = q.get("rotation");
+			if rot.as_str().is_some_and(|s| !s.trim().is_empty()) {
+				o.set("rotation", rot);
+			}
 			if int(&q.get("xp")).is_some_and(|x| x > 0.0) {
 				o.set("xp", int(&q.get("xp")).unwrap());
+			}
+			// The profession it needs (Badlands Reagent Run II 2501: Alchemy 210, #1913): the skill line and rank from
+			// data/forever/quests.json, so a guide or Lookup can leave it out for a character without them.
+			if let Some(skill) = int(&q.get("skill")).filter(|s| *s > 0.0) {
+				o.set("skill", skill);
+				o.set("skillLevel", opt(int(&q.get("skillLevel")).filter(|r| *r > 0.0)));
 			}
 			if let Some((faction, standing)) = quest_rep(&q) {
 				o.set("repFaction", faction);
@@ -2170,7 +2427,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			ref_npcs.insert(n.num().to_bits());
 		}
 		for o in q.get("objectives").items() {
-			if o.get("type").as_str() == Some("kill") && o.get("id").truthy() {
+			if matches!(o.get("type").as_str(), Some("kill" | "talk")) && o.get("id").truthy() {
 				ref_npcs.insert(o.get("id").num().to_bits());
 			}
 		}
@@ -2252,6 +2509,200 @@ impl OrObj for V {
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use crate::codex::Forever;
+	use forge_guide::js::parse_json;
+
+	fn inputs(quests: &str, mechanics: &str) -> Inputs {
+		Inputs {
+			forever: Forever {
+				items: V::obj(),
+				npcs: V::obj(),
+				objects: V::obj(),
+				quests: parse_json(quests).unwrap(),
+				zones: V::obj(),
+				factions: V::obj(),
+				professions: V::obj(),
+				trainers: V::obj(),
+				map_frames: V::obj(),
+				meta: V::obj(),
+				instances: V::Null,
+				spawnz: V::Null,
+				dungeons: V::Null,
+			},
+			atlasloot: None,
+			rarescanner: None,
+			local_extras: false,
+			recorded: V::obj(),
+			learned: Default::default(),
+			client: None,
+			web: None,
+			curated: Vec::new(),
+			curated_gates: V::Null,
+			curated_vendors: V::Null,
+			entrances: Vec::new(),
+			entrance_table: V::Null,
+			levels_table: V::obj(),
+			rep_table: V::obj(),
+			attunement_table: V::Null,
+			journal_quests: Vec::new(),
+			store_xp: Default::default(),
+			mechanics: parse_json(mechanics).unwrap(),
+			mechanics_public: V::Null,
+			warnings: Vec::new(),
+		}
+	}
+
+	#[test]
+	fn a_kill_done_with_an_item_keeps_use_item_and_a_tame_or_a_plain_kill_does_not() {
+		let quests = r#"{
+			"88001": { "id": 88001, "title": "Stab", "objectives": [{ "type": "kill", "id": 6498, "count": 1, "text": "Devilsaur" }] },
+			"88002": { "id": 88002, "title": "Plain", "objectives": [{ "type": "kill", "id": 1, "count": 1 }] },
+			"88003": { "id": 88003, "title": "Tame", "objectiveText": "Use the Taming Rod to tame a bear", "objectives": [{ "type": "kill", "id": 1, "count": 1 }] },
+			"88004": { "id": 88004, "title": "Named only", "objectives": [{ "type": "kill", "id": 2, "count": 1 }] }
+		}"#;
+		let mechanics = r#"{ "quests": {
+			"88001": { "kinds": [{ "kind": "use-item-on-mob", "confidence": "high" }], "params": [{ "kind": "use-item-on-mob", "item": 22432, "npcs": [6498] }] },
+			"88002": { "kinds": [{ "kind": "use-item-on-mob", "confidence": "high" }], "params": [{ "kind": "use-item-on-mob", "item": 9, "npcs": [99] }] },
+			"88003": { "kinds": [{ "kind": "use-item-on-mob", "confidence": "high" }], "params": [{ "kind": "use-item-on-mob", "item": 9, "npcs": [1] }] },
+			"88004": { "kinds": [{ "kind": "use-item-on-mob", "confidence": "high" }], "params": [] }
+		} }"#;
+		let codex = merge_codex(&inputs(quests, mechanics));
+		let obj = |id: &str| codex.quests.get(id).get("objectives").at(0);
+		assert_eq!(obj("88001").get("useItem").num(), 22432.0);
+		assert!(obj("88001").get("tame").is_nullish());
+		assert!(obj("88002").get("useItem").is_nullish(), "the item is for a different npc");
+		assert!(obj("88003").get("tame").truthy());
+		assert!(obj("88003").get("useItem").is_nullish(), "a tame stays a tame");
+		assert!(obj("88004").get("useItem").is_nullish(), "the kind names no item");
+	}
+
+	// #2929 #2942: an NPC on a player faction's side is never a rare in the Codex, whatever made it one (a
+	// rare rank, the source's rare role); a hostile rare stays one.
+	#[test]
+	fn an_npc_on_a_player_faction_s_side_is_no_rare_2929_2942() {
+		let mut inp = inputs("{}", "{}");
+		inp.forever.npcs = parse_json(
+			r#"{
+			"4949": { "id": 4949, "name": "Thrall", "faction": "H", "rank": 3, "roles": ["rare"], "spawns": {} },
+			"5797": { "id": 5797, "name": "Aean Swiftriver", "faction": "A", "rank": 4, "spawns": {} },
+			"266901": { "id": 266901, "name": "Pexmit", "faction": "AH", "rank": 2, "roles": ["rare", "vendor"], "spawns": {} },
+			"61": { "id": 61, "name": "Thuros Lightfingers", "rank": 4, "roles": ["rare"], "spawns": {} }
+		}"#,
+		)
+		.unwrap();
+		let codex = merge_codex(&inp);
+		let rare = |id: &str| (codex.npcs.get(id).get("rare").truthy(), codex.npcs.get(id).get("roles").items().iter().any(|r| r.as_str() == Some("rare")));
+		assert_eq!(rare("4949"), (false, false), "a faction leader");
+		assert_eq!(rare("5797"), (false, false), "a rare-ranked NPC of the Alliance");
+		assert_eq!(rare("266901"), (false, false), "an NPC both sides deal with");
+		assert!(codex.npcs.get("266901").get("roles").items().iter().any(|r| r.as_str() == Some("vendor")), "its other roles stay");
+		assert_eq!(rare("61"), (true, true), "a hostile rare stays a rare");
+	}
+
+	// #2326: Screecher Spirits' target rises only from Yeh'kinya's Bramble (a summon-by-item the mechanics drive,
+	// with its params' item and NPC): the kill objective keeps summonItem, and summonOn the creatures the params
+	// say the item is used on (#2578: the Vale Screechers); a kind that does not drive, or params for another NPC,
+	// leave it as it was.
+	#[test]
+	fn a_kill_of_a_target_an_item_calls_up_keeps_summon_item_and_what_it_is_used_on_2326_2578() {
+		let quests = r#"{
+			"3520": { "id": 3520, "title": "Screecher Spirits", "objectives": [{ "type": "kill", "id": 8612, "count": 3, "text": "Screecher Spirit" }] },
+			"88005": { "id": 88005, "title": "Not driven", "objectives": [{ "type": "kill", "id": 8612, "count": 1 }] },
+			"88006": { "id": 88006, "title": "Other NPC", "objectives": [{ "type": "kill", "id": 1, "count": 1 }] }
+		}"#;
+		let mechanics = r#"{ "quests": {
+			"3520": { "kinds": [{ "kind": "summon-by-item", "confidence": "high", "drives": true }], "params": [{ "kind": "summon-by-item", "item": 10699, "npc": 8612, "on": [5307, 5308] }] },
+			"88005": { "kinds": [{ "kind": "summon-by-item", "confidence": "medium", "drives": false }], "params": [{ "kind": "summon-by-item", "item": 10699, "npc": 8612 }] },
+			"88006": { "kinds": [{ "kind": "summon-by-item", "confidence": "high", "drives": true }], "params": [{ "kind": "summon-by-item", "item": 10699, "npc": 8612 }] }
+		} }"#;
+		let codex = merge_codex(&inputs(quests, mechanics));
+		let obj = |id: &str| codex.quests.get(id).get("objectives").at(0);
+		assert_eq!(obj("3520").get("summonItem").num(), 10699.0);
+		assert_eq!(obj("3520").get("summonOn").items().iter().map(V::num).collect::<Vec<_>>(), vec![5307.0, 5308.0], "#2578: the screechers it is used on");
+		assert!(obj("88005").get("summonOn").is_nullish() && obj("88006").get("summonOn").is_nullish());
+		assert!(obj("88005").get("summonItem").is_nullish(), "a kind that does not drive");
+		assert!(obj("88006").get("summonItem").is_nullish(), "the item calls up another NPC");
+	}
+
+	// #2719: Red Dye has 101 sellers in the data; the Codex kept the ten lowest ids (none in Ironforge) and Lookup
+	// sent an Ironforge player to Loch Modan. Every seller is kept now.
+	#[test]
+	fn an_item_keeps_every_vendor_that_sells_it_2719() {
+		let mut i = inputs("{}", "{}");
+		let ids: Vec<u32> = (1..=14).collect();
+		let npcs: Vec<String> =
+			ids.iter().map(|n| format!(r#""{n}": {{ "id": {n}, "name": "Seller {n}", "roles": ["vendor"], "spawns": {{ "1455": {{ "f": "e", "pts": [[{n}, 50]] }} }} }}"#)).collect();
+		i.forever.npcs = parse_json(&format!("{{ {} }}", npcs.join(", "))).unwrap();
+		i.forever.zones = parse_json(r#"{ "1455": { "id": 1455, "name": "Ironforge" } }"#).unwrap();
+		i.forever.items = parse_json(&format!(
+			r#"{{ "2604": {{ "id": 2604, "name": "Red Dye", "vendors": [{}], "drops": {{ "npc": {{}}, "object": {{}} }} }} }}"#,
+			ids.iter().map(u32::to_string).collect::<Vec<_>>().join(", ")
+		))
+		.unwrap();
+		let codex = merge_codex(&i);
+		let sold_by: Vec<f64> = codex.items.get("2604").get("sources").items().iter().filter(|s| s.get("type").as_str() == Some("vendor")).map(|s| s.get("npc").num()).collect();
+		assert_eq!(sold_by.len(), 14, "every seller, not the first ten by id: {sold_by:?}");
+	}
+
+	// #2714: Powering the Pylons' pylons take mana gathered with the Mana Sieve first, which no objective says. The
+	// quest's `how` is our public mechanics' facts in step order; the merged mechanics.json's (private layers'
+	// text) never is.
+	#[test]
+	fn a_quest_keeps_how_it_is_done_from_the_public_mechanics_only_2714() {
+		let quests = r#"{
+			"96018": { "id": 96018, "title": "Powering the Pylons", "objectives": [{ "type": "event", "count": 1, "text": "Western pylon repaired" }] },
+			"88010": { "id": 88010, "title": "Private only", "objectives": [{ "type": "event", "count": 1, "text": "Done" }] }
+		}"#;
+		let private = r#"{ "quests": { "88010": { "steps": [{ "n": 1, "fact": "From a page's comments." }] } } }"#;
+		let mut i = inputs(quests, private);
+		i.mechanics_public = parse_json(
+			r#"{ "quests": { "96018": { "steps": [
+			{ "n": 2, "fact": "Then use Repair and Recharge Pylon at each pylon." },
+			{ "n": 1, "fact": "Gather mana with the Mana Sieve first." }
+		] } } }"#,
+		)
+		.unwrap();
+		let codex = merge_codex(&i);
+		assert_eq!(codex.quests.get("96018").get("how").as_str(), Some("Gather mana with the Mana Sieve first. Then use Repair and Recharge Pylon at each pylon."));
+		assert!(codex.quests.get("88010").get("how").is_nullish(), "private text never ships");
+	}
+
+	// #2831 (Dorebellious): Doctor's Orderly is done by using the Makeshift Bandages on the Wounded Soldiers, which
+	// the game stores as a kill credit, so Lookup's step said "Kill Wounded Soldier". The shipped public mechanics
+	// (data/mechanics-public.json, merged into mechanics.json by the data build) make the kill a use of the
+	// bandages and give the step its how.
+	#[test]
+	fn doctor_s_orderly_bandages_the_wounded_soldiers_from_the_shipped_public_mechanics_2831() {
+		let public = include_str!("../../../../../data/mechanics-public.json");
+		let quests = r#"{ "96082": { "id": 96082, "title": "Doctor's Orderly", "objectives": [{ "type": "kill", "id": 263614, "count": 3, "text": "Wounded Soldier" }] } }"#;
+		let mut i = inputs(quests, public);
+		i.mechanics_public = parse_json(public).unwrap();
+		let codex = merge_codex(&i);
+		let q = codex.quests.get("96082");
+		assert_eq!(q.get("objectives").at(0).get("useItem").num(), 272126.0, "the Makeshift Bandages, on the soldiers");
+		assert!(q.get("how").as_str().is_some_and(|h| h.contains("Makeshift Bandages")), "{:?}", q.get("how"));
+	}
+
+	// A herb, an ore vein or a fishing pool is never a treasure, whatever else gave it the chest role: Copper Vein
+	// (1731) and Forever's Briarthorn (657385) got it from players' loot windows the Recorder did not see as a
+	// gather, and the Rares window and the world map listed them as treasures.
+	#[test]
+	fn a_gathering_node_is_never_a_treasure() {
+		let mut inp = inputs("{}", "{}");
+		inp.forever.objects = parse_json(
+			r#"{
+			"1731": { "id": 1731, "name": "Copper Vein", "roles": ["chest", "mine"], "spawns": {} },
+			"657385": { "id": 657385, "name": "Briarthorn", "roles": ["chest", "herb"], "spawns": {} },
+			"180582": { "id": 180582, "name": "Oily Blackmouth School", "roles": ["chest", "fishing"], "spawns": {} },
+			"2843": { "id": 2843, "name": "Battered Chest", "roles": ["chest"], "spawns": {} }
+		}"#,
+		)
+		.unwrap();
+		let codex = merge_codex(&inp);
+		let treasure = |id: &str| codex.objects.get(id).get("treasure").truthy();
+		assert_eq!((treasure("1731"), treasure("657385"), treasure("180582")), (false, false, false));
+		assert!(treasure("2843"), "a chest stays a treasure");
+	}
 
 	#[test]
 	fn words_and_standings() {

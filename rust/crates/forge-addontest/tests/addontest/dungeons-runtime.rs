@@ -49,6 +49,12 @@ fn instance_map(m: &Value) -> InstanceMap {
 		inner: list("inner"),
 		zones: list("zones"),
 		corpse: m["corpse"].as_object().map(|_| Corpse { c: m["corpse"]["c"].as_f64().unwrap(), x: m["corpse"]["x"].as_f64().unwrap(), y: m["corpse"]["y"].as_f64().unwrap() }),
+		finder: m["finder"].as_object().map(|f| forge_data::codex::client::Finder {
+			min: f["min"].as_f64().unwrap_or(0.0),
+			max: f["max"].as_f64().unwrap_or(0.0),
+			players: f["players"].as_f64().unwrap_or(5.0),
+			players_max: f.get("playersMax").and_then(Value::as_f64).or(f["players"].as_f64()).unwrap_or(5.0),
+		}),
 	}
 }
 
@@ -71,7 +77,19 @@ fn journal(inputs: &Value, codex: &Value) -> V {
 		zones: obj(&codex["zones"]),
 	};
 	build_journal(
-		&JournalInputs { maps: &maps, frames: &frames, fv_quests: &fq, fv_objects: &fo, fv_zones: &fz, fv_dungeons: &fd, journal_quests: &jq, attunement_table: &att, store_xp: &Default::default() },
+		&JournalInputs {
+			maps: &maps,
+			frames: &frames,
+			fv_quests: &fq,
+			fv_objects: &fo,
+			fv_zones: &fz,
+			fv_dungeons: &fd,
+			journal_quests: &jq,
+			attunement_table: &att,
+			store_xp: &Default::default(),
+			recorded_dungeons: &forge_guide::js::V::obj(),
+			levels_table: &forge_guide::js::V::obj(),
+		},
 		&c,
 	)
 	.0
@@ -79,6 +97,51 @@ fn journal(inputs: &Value, codex: &Value) -> V {
 
 fn journal_json(inputs: &Value, codex: &Value) -> Value {
 	plain(&journal(inputs, codex))
+}
+
+#[test]
+fn maraudon_lists_rot_and_regret_with_its_existing_quest_facts() {
+	// #2430: the water comes from Maraudon, but the outdoor giver/ender and an item without
+	// an instance source do not place the quest there automatically. Facts from QuestieDB
+	// 4dbb82440a27856f8dccf57094a5d792cdc7cc9b, src/corrections/Forever/traces/
+	// foreverQuestTraces.lua and foreverQuestRelationTraces.lua (93404, 93594).
+	// The relation is upstream's observed prerequisite, not a new hard-coded unlock rule.
+	let mut c = codex();
+	c["instances"]["maraudon"] = json!({ "name": "Maraudon", "map": 349 });
+	c["quests"]["93404"] = json!({
+		"title": "Rot and Regret", "level": 49, "pre": [93594],
+		"start": { "npc": [254674] }, "end": { "npc": [254674] },
+		"objectives": [{ "type": "kill", "id": 254674 }, { "type": "item", "id": 258296 }]
+	});
+	c["quests"]["93594"] = json!({
+		"title": "Word of the Woods", "level": 43,
+		"start": { "npc": [254578] }, "end": { "npc": [254674] }
+	});
+	c["npcs"]["254674"] = json!({ "name": "Woodwyrd" });
+	c["items"]["258296"] = json!({ "name": "Vial of Earth Song Water" });
+	let mut i = inputs();
+	let before = journal_json(&i, &c);
+	assert_eq!(ids(&before["dungeons"]["maraudon"]["quests"]), json!([]));
+	let table: Value = serde_json::from_str(&std::fs::read_to_string(forge_addontest::run::root().join("data/codex/journal-quests.json")).unwrap()).unwrap();
+	i["journalQuests"] = table["quests"].clone();
+	let after = journal_json(&i, &c);
+	let page = &after["dungeons"]["maraudon"];
+	assert_eq!(ids(&page["quests"]), json!([93404]));
+	let q = page_quest(page, 93404);
+	assert_eq!(q["start"]["id"], 254674);
+	assert_eq!(q["finish"]["id"], 254674);
+	assert_eq!(
+		q["objectives"],
+		json!([
+			{ "k": "kill", "id": 254674, "name": "Woodwyrd" },
+			{ "k": "item", "id": 258296, "name": "Vial of Earth Song Water" }
+		])
+	);
+	assert_eq!(q["chain"], json!([93594]));
+	assert_eq!(page["chain"]["93594"]["title"], "Word of the Woods");
+	for key in before["dungeons"].as_object().unwrap().keys().filter(|k| *k != "maraudon") {
+		assert_eq!(after["dungeons"][key], before["dungeons"][key], "unrelated page {key}");
+	}
 }
 
 fn num(x: f64) -> Value {
@@ -140,6 +203,51 @@ fn instancemapsof_instances_only_their_areas_inner_on_the_map_itself_the_zone_ho
 	);
 	// JS passed undefined for both; the Rust port takes slices, so no rows.
 	assert!(instance_maps_of(&[], &[]).is_empty());
+}
+
+// Fitz, 2026-11-14 (the Dungeons hub's 50-60 band: "Missing game art for these zones"): Forever's Blackmaw Hold
+// has no corpse point and nobody has recorded its door, so its page had no zone and its card no painting. The
+// client's AreaTable names an open-world area after it (1216 "Blackmaw Hold" under Azshara, 16; build
+// 1.60.1.70888), so the page takes Azshara as its zone. Alcaz Prison's name is on no outdoor area (Alcaz Island
+// shares only a word, no evidence: the Drowned Reef is in Arathi, The Drowned City's door in Stranglethorn), so it
+// stays without one.
+#[test]
+fn a_dungeon_without_an_entrance_takes_the_zone_the_clients_areas_name_it_in_blackmaw_hold_azshara() {
+	let maps: [&[(&str, &str)]; 3] = [
+		&[("ID", "1"), ("MapName_lang", "Kalimdor"), ("InstanceType", "0"), ("CorpseMapID", "-1")],
+		&[("ID", "2974"), ("MapName_lang", "Blackmaw Hold"), ("InstanceType", "1"), ("AreaTableID", "16554"), ("CorpseMapID", "-1"), ("Corpse_0", "0"), ("Corpse_1", "0")],
+		&[("ID", "2994"), ("MapName_lang", "Alcaz Prison"), ("InstanceType", "1"), ("AreaTableID", "0"), ("CorpseMapID", "-1"), ("Corpse_0", "0"), ("Corpse_1", "0")],
+	];
+	let areas: [&[(&str, &str)]; 7] = [
+		&[("ID", "15"), ("AreaName_lang", "Dustwallow Marsh"), ("ContinentID", "1"), ("ParentAreaID", "0")],
+		&[("ID", "16"), ("AreaName_lang", "Azshara"), ("ContinentID", "1"), ("ParentAreaID", "0")],
+		&[("ID", "1216"), ("AreaName_lang", "Blackmaw Hold"), ("ContinentID", "1"), ("ParentAreaID", "16")],
+		&[("ID", "2079"), ("AreaName_lang", "Alcaz Island"), ("ContinentID", "1"), ("ParentAreaID", "15")],
+		&[("ID", "16554"), ("AreaName_lang", "Blackmaw Hold"), ("ContinentID", "2974"), ("ParentAreaID", "0")],
+		&[("ID", "16620"), ("AreaName_lang", "Alcaz Prison"), ("ContinentID", "2994"), ("ParentAreaID", "0")],
+		&[("ID", "17311"), ("AreaName_lang", "Blackmaw Grove"), ("ContinentID", "2974"), ("ParentAreaID", "16554")],
+	];
+	let found = instance_maps_of(rows(&maps).as_slice(), rows(&areas).as_slice());
+	let out: Vec<Value> = found.iter().map(map_json).collect();
+	assert_eq!(
+		Value::Array(out.clone()),
+		json!([
+			{ "id": 2974, "name": "Blackmaw Hold", "raid": false, "players": null, "area": 16554, "areas": [1216, 16554, 17311], "inner": [16554, 17311], "zones": [16], "corpse": null },
+			{ "id": 2994, "name": "Alcaz Prison", "raid": false, "players": null, "area": null, "areas": [16620], "inner": [16620], "zones": [], "corpse": null },
+		])
+	);
+	let inst =
+		|key: &str, name: &str, map: i64| json!({ "key": key, "name": name, "kind": "dungeon", "forever": true, "areaId": null, "map": map, "entrance": null, "levels": [50, 55, 59], "bosses": [] });
+	let codex = json!({ "instances": { "blackmaw-hold": inst("blackmaw-hold", "Blackmaw Hold", 2974), "alcaz-prison": inst("alcaz-prison", "Alcaz Prison", 2994) } });
+	let inputs = json!({
+		"client": { "instanceMaps": out },
+		"forever": { "zones": { "1445": { "id": 1445, "name": "Dustwallow Marsh", "areaId": 15, "type": 3 }, "1447": { "id": 1447, "name": "Azshara", "areaId": 16, "type": 3 } } },
+	});
+	let pages = journal_json(&inputs, &codex);
+	let page = |k: &str| pages["dungeons"][k].clone();
+	assert_eq!((page("blackmaw-hold")["zone"].clone(), page("blackmaw-hold")["zoneName"].clone()), (json!(1447), json!("Azshara")));
+	assert_eq!(page("blackmaw-hold")["entrance"], Value::Null, "the zone, not a made-up door");
+	assert_eq!((page("alcaz-prison")["zone"].clone(), page("alcaz-prison")["zoneName"].clone()), (Value::Null, Value::Null));
 }
 
 #[test]
@@ -286,6 +394,20 @@ fn buildjournal_pages_with_quests_from_dungeonjournal_area_and_objectives_chains
 	assert_eq!(json!([bh["quests"], bh["bosses"], bh["entrance"]]), json!([[], [], null]));
 }
 
+// Fitz (2026-11-07): Ruins of Lordaeron never showed under "For your level" past 15. Forever's own instances have
+// bosses with no level, so the range came out as one level (15-15). With no boss level above the minimum, the top
+// of the range is its quests' highest level; a range the bosses give stays.
+#[test]
+fn buildjournal_an_instance_whose_bosses_give_no_level_above_its_minimum_takes_its_quests_highest_level() {
+	let mut c = codex();
+	c["instances"]["wailing-caverns"]["levels"] = json!([10, 17, 17]);
+	let one = journal_json(&inputs(), &c);
+	assert_eq!(json!([one["dungeons"]["wailing-caverns"]["minLevel"], one["dungeons"]["wailing-caverns"]["maxLevel"]]), json!([17, 22]), "its quests reach 22");
+	let j = journal_json(&inputs(), &codex());
+	assert_eq!(json!([j["dungeons"]["wailing-caverns"]["minLevel"], j["dungeons"]["wailing-caverns"]["maxLevel"]]), json!([17, 24]), "the bosses' range stays");
+	assert_eq!(json!([j["dungeons"]["blackmaw-hold"]["minLevel"], j["dungeons"]["blackmaw-hold"]["maxLevel"]]), json!([55, 60]), "no quests: as it was");
+}
+
 fn copper_quest(id: i64, title: &str) -> Value {
 	json!({
 		"id": id, "title": title, "level": 60, "minLevel": 1, "faction": null, "races": null, "classes": null,
@@ -338,6 +460,75 @@ fn buildjournal_a_stray_drop_only_the_forever_item_lists_record_it_under_5_a_que
 	assert!(!dm.contains(&json!(8921)), "the essence a boss drops 1.2% of the time on Forever's list ties nothing");
 	assert!(dm.contains(&json!(90012)), "a drop QuestieDB or pfQuest records does");
 	assert!(dm.contains(&json!(90013)), "and a common one only Forever's lists record");
+}
+
+// The #1380 sweep: a quest an object inside the instance starts (Gnomeregan's Sparklematic 5200, Uldaman's
+// Discs of Norgannon) came out with `inside` false, so its card never said "Picked up inside the dungeon".
+// Forever's objects list the instance maps they stand in: an unplaced one of this instance's map starts it
+// inside; one with a place outside stays as it was.
+#[test]
+fn buildjournal_a_quest_an_unplaced_object_of_the_instance_starts_is_picked_up_inside() {
+	let (mut c, mut i) = (codex(), inputs());
+	c["objects"]["90020"] = json!({ "id": 90020, "name": "Sparklematic", "spawns": [] });
+	c["objects"]["90021"] = json!({ "id": 90021, "name": "Wanted Poster", "spawns": [{ "map": 1413, "x": 46, "y": 36, "f": "e" }] });
+	let quest = |id: i64, title: &str, object: i64| {
+		json!({
+			"id": id, "title": title, "level": 20, "minLevel": 15, "faction": null, "races": null, "classes": null,
+			"start": { "npc": [], "object": [object], "item": [] }, "end": { "npc": [], "object": [object] },
+			"objectives": [], "pre": [], "preAny": [], "rewards": [], "choices": [],
+		})
+	};
+	c["quests"]["90022"] = quest(90022, "Sparkle", 90020);
+	c["quests"]["90023"] = quest(90023, "Wanted", 90021);
+	i["forever"]["quests"]["90022"] = json!({ "area": 718 });
+	i["forever"]["quests"]["90023"] = json!({ "area": 718 });
+	i["forever"]["objects"] = json!({ "90020": { "instances": [43] }, "90021": { "instances": [43] } });
+	let j = journal_json(&i, &c);
+	let wc = &j["dungeons"]["wailing-caverns"];
+	let sparkle = page_quest(wc, 90022);
+	assert_eq!(json!([sparkle["inside"], sparkle["start"]["inside"]]), json!([true, true]), "{sparkle}");
+	let wanted = page_quest(wc, 90023);
+	assert_eq!(json!([wanted["inside"], wanted["start"]["inside"]]), json!([false, false]), "placed outside: {wanted}");
+}
+
+// The dungeon sweep's 'handin-missed' / 'quest-dropped' findings: turn-ins at NPCs and objects that stand only inside
+// an instance (Commander Gor'shak in Blackrock Depths, the Altar of Hakkar in the Sunken Temple) and a giver
+// inside (the Hall of Thanes' Ghostly Attendant) carried no `inside`, so the hand-in guide filed them as turned
+// in nowhere known. An unplaced NPC the Codex puts in this instance, or an unplaced object listing its map,
+// marks the start or the finish inside; an NPC of another instance does not.
+#[test]
+fn buildjournal_a_giver_or_turn_in_npc_or_object_that_stands_inside_the_instance_is_marked_inside() {
+	let (mut c, mut i) = (codex(), inputs());
+	c["npcs"]["90030"] = json!({ "id": 90030, "name": "Ghostly Attendant", "level": 20, "faction": null, "instance": "wailing-caverns", "roles": [], "spawns": [] });
+	c["npcs"]["90031"] = json!({ "id": 90031, "name": "Gor'shak", "level": 20, "faction": null, "instance": "wailing-caverns", "roles": [], "spawns": [] });
+	c["npcs"]["90032"] = json!({ "id": 90032, "name": "Elsewhere", "level": 20, "faction": null, "instance": "deadmines", "roles": [], "spawns": [] });
+	c["npcs"]["90033"] = json!({ "id": 90033, "name": "Outside Giver", "level": 20, "faction": null, "instance": null, "roles": [], "spawns": [{ "map": 1413, "x": 46, "y": 36, "f": "e" }] });
+	c["objects"]["90034"] = json!({ "id": 90034, "name": "Altar", "spawns": [] });
+	let quest = |id: i64, title: &str, start: Value, end: Value| {
+		json!({
+			"id": id, "title": title, "level": 20, "minLevel": 15, "faction": null, "races": null, "classes": null,
+			"start": start, "end": end, "objectives": [], "pre": [], "preAny": [], "rewards": [], "choices": [],
+		})
+	};
+	let npc = |n: i64| json!({ "npc": [n], "object": [], "item": [] });
+	c["quests"]["90035"] = quest(90035, "An Ancient Grudge", npc(90030), json!({ "npc": [90030], "object": [] }));
+	c["quests"]["90036"] = quest(90036, "Gor'shak", npc(90033), json!({ "npc": [90031], "object": [] }));
+	c["quests"]["90037"] = quest(90037, "Into the Depths", npc(90033), json!({ "npc": [], "object": [90034] }));
+	c["quests"]["90038"] = quest(90038, "Elsewhere", npc(90033), json!({ "npc": [90032], "object": [] }));
+	for id in [90035, 90036, 90037, 90038] {
+		i["forever"]["quests"][id.to_string()] = json!({ "area": 718 });
+	}
+	i["forever"]["objects"] = json!({ "90034": { "instances": [43] } });
+	let j = journal_json(&i, &c);
+	let wc = &j["dungeons"]["wailing-caverns"];
+	let at = |id: i64| {
+		let q = page_quest(wc, id);
+		json!([q["inside"], q["start"]["inside"], q["finish"]["inside"]])
+	};
+	assert_eq!(at(90035), json!([true, true, true]), "given and turned in inside");
+	assert_eq!(at(90036), json!([false, false, true]), "turned in inside");
+	assert_eq!(at(90037), json!([false, false, true]), "an object of the instance's map");
+	assert_eq!(at(90038), json!([false, false, false]), "an NPC of another instance");
 }
 
 #[test]
@@ -464,10 +655,13 @@ emit({ D.ObjectiveText(fang), ids, D.ObjectiveText({ id = 777, objectives = { { 
 }
 
 #[test]
-fn runtime_open_fires_show_dungeon_guideto_and_guidetopoint_set_the_arrow_the_setting_stops_it_without_the_pack_it_says_why() {
+fn runtime_open_fires_show_dungeon_guideto_and_guidetopoint_set_the_arrow_an_entrance_is_a_trip_the_setting_stops_it_without_the_pack_it_says_why() {
 	let out = run(r#"
-local nav = {}
-Polestar.Nav = { SetTarget = function(map, x, y, label) nav[#nav + 1] = { map, x, y, label } return true end }
+local nav, trips = {}, {}
+Polestar.Nav = {
+	SetTarget = function(map, x, y, label) nav[#nav + 1] = { map, x, y, label } return true end,
+	StartTrip = function(t, name, label, ends) trips[#trips + 1] = { name, label, ends } end,
+}
 local fired = {}
 Polestar.On("SHOW_DUNGEON", function(key) fired[#fired + 1] = key or "home" end)
 D.Open("deadmines")
@@ -478,9 +672,10 @@ local g3 = D.GuideTo("blackmaw-hold")
 Polestar.Set("dungeons.enabled", false)
 local opened = D.Open("deadmines")
 local ok, reason = D.Load()
-emit({ fired = fired, nav = nav, g = { g1, g2, g3 }, opened = opened, reason = reason, list = #D.List() })"#);
+emit({ fired = fired, nav = nav, trips = trips, g = { g1, g2, g3 }, opened = opened, reason = reason, list = #D.List() })"#);
 	assert_eq!(out["fired"], json!(["deadmines", "home"]));
 	assert_eq!(out["nav"], json!([[1413, 46, 36.4, "Wailing Caverns"], [1413, 46, 35.7, "Nalpak"]]));
+	assert_eq!(out["trips"], json!([["Wailing Caverns", "Dungeon", "instance"]]), "the entrance is a trip that ends through the portal (#1686); the giver a plain point");
 	assert_eq!(out["g"], json!([true, true, false]));
 	assert_eq!(out["opened"], false);
 	assert_eq!(out["reason"], "off");
@@ -489,6 +684,29 @@ emit({ fired = fired, nav = nav, g = { g1, g2, g3 }, opened = opened, reason = r
 	assert_eq!(none["ok"], false);
 	assert!(none["reason"].is_string());
 	assert_eq!(none["list"], 0);
+}
+
+// WorldFloor (the world gate's Wetlands door walks): the Excavation Site's door lies in the hillside 100 yd over Thelgen
+// Rock, and the arrow's walk to it without a height ended in the cave. An entrance's z (the curated table's door
+// floor, forge-data instances.rs) rides into the journal's page and goes to the arrow with the point (Nav.SetTarget's
+// z); an entrance without one sets none.
+#[test]
+fn an_entrance_s_door_floor_rides_into_the_journal_and_the_arrow_to_it() {
+	let mut c = codex();
+	c["instances"]["wailing-caverns"]["entrance"]["z"] = json!(-90.5);
+	let j = journal_json(&inputs(), &c);
+	assert_eq!(j["dungeons"]["wailing-caverns"]["entrance"]["z"], json!(-90.5));
+	assert!(j["dungeons"]["deadmines"]["entrance"].get("z").is_none(), "none without one");
+	let out = run(r#"
+local nav = {}
+Polestar.Nav = {
+	SetTarget = function(map, x, y, label, f, stop, z) nav[#nav + 1] = { label, z or false } return true end,
+	StartTrip = function() end,
+}
+D.GuideToPoint({ map = 1437, x = 50.7, y = 61.1, z = 140 }, "Excavation Site: Wetlands", "dungeon")
+D.GuideToPoint({ map = 1413, x = 46, y = 36.4 }, "Wailing Caverns", "dungeon")
+emit(nav)"#);
+	assert_eq!(out, json!([["Excavation Site: Wetlands", 140], ["Wailing Caverns", false]]));
 }
 
 #[test]
@@ -506,7 +724,7 @@ emit({ list = #list, quests = #q, bosses = #b, listMs = (t1 - t0) * 1000, pageMs
 	assert_eq!(out["list"], 3);
 	assert_eq!(out["quests"], 4);
 	let (list_ms, page_ms) = (out["listMs"].as_f64().unwrap(), out["pageMs"].as_f64().unwrap());
-	assert!(list_ms < 50.0 && page_ms < 50.0, "list {list_ms} ms, page {page_ms} ms");
+	forge_addontest::assert_timing!(list_ms < 50.0 && page_ms < 50.0, "list {list_ms} ms, page {page_ms} ms");
 }
 
 #[test]
@@ -516,4 +734,85 @@ local old = D.ObjectiveText({ id = 1, objective = "Kill 5 Kobolds" })
 local none = D.ObjectiveText({ id = 2 }) == nil
 emit({ old, none })"#);
 	assert_eq!(out, json!(["Kill 5 Kobolds", true]));
+}
+
+// Fitz (2026-11-07): Alliance can do Ruins of Lordaeron, but its entrance is outside the Undercity, through Horde
+// land; Horde reach The Hall of Thanes only through Ironforge. Both show for both factions, and the other faction is
+// told: Dungeons.EnemyEntrance gives the line for a side whose land it is not, nil for the owners. The arrow gets it
+// too (Nav.SetTarget's warning).
+#[test]
+fn runtime_an_entrance_in_the_other_faction_s_land_warns_that_faction_only_and_the_arrow_carries_it() {
+	let out = run(r#"
+local nav = {}
+Polestar.Nav = {
+	SetTarget = function(map, x, y, label, f, stop, z, warning) nav[#nav + 1] = { label, stop, warning or false } return true end,
+	StartTrip = function() end,
+}
+local e = {
+	rolA = D.EnemyEntrance("ruins-of-lordaeron", "A") or false, rolH = D.EnemyEntrance("ruins-of-lordaeron", "H") or false,
+	hotH = D.EnemyEntrance("the-hall-of-thanes", "H") or false, hotA = D.EnemyEntrance("the-hall-of-thanes", "A") or false,
+	wc = D.EnemyEntrance("wailing-caverns", "A") or false,
+}
+D.GuideToPoint({ map = 1420, x = 63.2, y = 67.5 }, "Ruins of Lordaeron", "dungeon", e.rolA)
+D.GuideTo("wailing-caverns")
+emit({ e = e, nav = nav })"#);
+	assert_eq!(out["e"]["rolA"], "Entrance in Horde territory (outside the Undercity)");
+	assert_eq!(out["e"]["rolH"], false, "the Horde's own");
+	assert_eq!(out["e"]["hotH"], "Entrance in Alliance territory (in Ironforge)");
+	assert_eq!(out["e"]["hotA"], false);
+	assert_eq!(out["e"]["wc"], false, "an entrance in no faction's land");
+	assert_eq!(out["nav"], json!([["Ruins of Lordaeron", "dungeon", "Entrance in Horde territory (outside the Undercity)"], ["Wailing Caverns", "dungeon", false]]));
+}
+
+// A player asked why Uldaman (35-47) showed "for your level" at 35, where most of it suits ~42: Dungeons.BestAt
+// gives the level a dungeon suits best, inside its range: one under the median of its encounter bosses, else of
+// all its bosses, else the median of its quests, else the range's midpoint; a source outside the range is passed
+// over (the City of Dalaran, 28-60, has one level 63 boss).
+#[test]
+fn runtime_best_at_one_under_the_bosses_median_else_the_quests_else_the_midpoint_always_inside_the_range() {
+	let out = run(r#"
+D.Load()
+local function bosses(list)
+	local t = {}
+	for i, b in ipairs(list) do
+		t[i] = string.format("{order=%d,name=%q,level=%d%s}", i, "Boss " .. i, b[1], b[2] and string.format(",role=%q", b[2]) or "")
+	end
+	return "bosses={" .. table.concat(t, ",") .. "}"
+end
+local function quests(levels)
+	local t = {}
+	for i, l in ipairs(levels) do t[i] = string.format("{id=%d,title=\"Q\",level=%d}", 900 + i, l) end
+	return "quests={" .. table.concat(t, ",") .. "}"
+end
+D.Register("dungeon", {
+	uldaman = { name = "Uldaman", kind = "dungeon", minLevel = 35, maxLevel = 47 },
+	dalaran = { name = "City of Dalaran", kind = "dungeon", minLevel = 28, maxLevel = 60 },
+	quested = { name = "Quests only", kind = "dungeon", minLevel = 30, maxLevel = 40 },
+	rares = { name = "Rares only", kind = "dungeon", minLevel = 30, maxLevel = 40 },
+	bare = { name = "Nothing known", kind = "dungeon", minLevel = 22, maxLevel = 29 },
+	raid = { name = "A raid", kind = "raid", minLevel = 60, maxLevel = 60 },
+	nolevel = { name = "No level", kind = "dungeon" },
+}, {
+	uldaman = "return {" .. bosses({ { 40 }, { 42 }, { 44 }, { 44 }, { 45 }, { 46 }, { 47 }, { 38, "rare" }, { 36, "optional" } }) .. "," .. quests({ 35, 36, 40 }) .. "}",
+	dalaran = "return {" .. bosses({ { 63 } }) .. "," .. quests({ 30, 33, 35 }) .. "}",
+	quested = "return {" .. quests({ 33, 35, 38 }) .. "}",
+	rares = "return {" .. bosses({ { 36, "rare" }, { 38, "event" } }) .. "}",
+	bare = "return {}",
+	raid = "return {" .. bosses({ { 63 } }) .. "}",
+	nolevel = "return {}",
+})
+emit({ uldaman = D.BestAt("uldaman"), dalaran = D.BestAt("dalaran"), quested = D.BestAt("quested"), rares = D.BestAt("rares"),
+	bare = D.BestAt("bare"), raid = D.BestAt("raid"), nolevel = D.BestAt("nolevel") or false, nowhere = D.BestAt("nowhere") or false,
+	wc = D.BestAt("wailing-caverns"), deadmines = D.BestAt("deadmines"), blackmaw = D.BestAt("blackmaw-hold") })"#);
+	assert_eq!(out["uldaman"], 43, "encounters 40-47 (median 44), one under; the rare and optional bosses left out");
+	assert_eq!(out["dalaran"], 33, "its level 63 boss is outside 28-60: its quests' median");
+	assert_eq!(out["quested"], 35, "no bosses: its quests' median");
+	assert_eq!(out["rares"], 36, "no encounters: all its bosses (median 37), one under");
+	assert_eq!(out["bare"], 25, "nothing known: the midpoint of 22-29");
+	assert_eq!(out["raid"], 60, "a one-level range is that level");
+	assert_eq!(out["nolevel"], false);
+	assert_eq!(out["nowhere"], false);
+	assert_eq!(out["wc"], 19, "the fixture's Wailing Caverns: bosses 20, 20, 20, 22");
+	assert_eq!(out["deadmines"], 20, "Edwin VanCleef 21; the trash has no level");
+	assert_eq!(out["blackmaw"], 57, "Blackmaw Hold, 55-60, nothing known");
 }

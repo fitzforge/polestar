@@ -22,6 +22,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { readLocaleFiles } = require('./files');
+const { unescapeLua } = require('./keys');
 const { LOCALES } = require('./locales');
 const { forEachText, onlyTokens, tokensOf, fillTokens, TOKEN_RE, KINDS } = require('../dsl/tokens');
 
@@ -164,7 +165,8 @@ function retiredEntries(text) {
 	const out = {};
 	const re = /^\s*-- \[("(?:[^"\\]|\\.)*")\] = ("(?:[^"\\]|\\.)*"),\s*$/gm;
 	re.lastIndex = at;
-	const unq = (s) => JSON.parse(s.replace(/\\(\d{1,3})/g, (_, d) => `\\u${Number(d).toString(16).padStart(4, '0')}`).replace(/\\'/g, "'"));
+	// Decode Lua escapes once: a literal backslash must not start a second escape.
+	const unq = (s) => unescapeLua(s.slice(1, -1), 'retired entry', 1);
 	let m;
 	while ((m = re.exec(text))) {
 		try {

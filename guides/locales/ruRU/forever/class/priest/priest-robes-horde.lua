@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Priest Robes at 5 (Horde)"] = "",
-	["A free uncommon robe at 5: heal and fortify a wounded guard near your first town."] = "",
+	["Priest Robes at 5 (Horde)"] = "Мантия жреца на 5-м уровне (Орда)",
+	["A free uncommon robe at 5: heal and fortify a wounded guard near your first town."] = "Бесплатная необычная мантия на 5-м уровне: исцелите раненого стражника у вашего первого города и наложите на него защиту.",
 
 	-- Step 1: In Favor of Spirituality
 	-- {npc:3707} Ken'jai · {area:363} Valley of Trials · {npc:3706} Tai'jin · {area:362} Razor Hill · {spell:613} Lesser Heal
@@ -24,7 +24,7 @@ return {
 	-- {npc:12430} Grunt Kor'ja · {area:362} Razor Hill · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
 	["{npc:12430} kneels behind a group of rocks just off the road, a short walk south of {area:362}. Cast {spell:613} (Rank 2) on her first, then {spell:1243}. Rank 1 of {spell:613} does not count; drag Rank 2 onto your bar from the spellbook. She leaves once both land and is back in about 5 minutes."] = "",
 	-- {npc:12430} Grunt Kor'ja
-	["Heal and fortify {npc:12430}"] = "",
+	["Heal and fortify {npc:12430}"] = "Исцелите персонажа {npc:12430} и наложите на нее стойкость",
 
 	-- Step 4: Tai'jin
 	-- {area:362} Razor Hill · {npc:3706} Tai'jin · {item:16606} Juju Hex Robes
@@ -44,7 +44,7 @@ return {
 	-- {npc:12428} Deathguard Kel · {area:159} Brill · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
 	["{npc:12428} kneels, half-dead, beside the north gate of {area:159}'s graveyard, a short walk north of the inn. Cast {spell:613} (Rank 2) on him first, then {spell:1243}: Fortitude first does not count, nor does Rank 1 of {spell:613}. If an addon gets in the way, cast both from the spellbook."] = "",
 	-- {npc:12428} Deathguard Kel
-	["Heal and fortify {npc:12428}"] = "",
+	["Heal and fortify {npc:12428}"] = "Исцелите и укрепите: {npc:12428}",
 
 	-- Step 8: Dark Cleric Beryl
 	-- {area:159} Brill · {item:16607} Acolyte's Sacrificial Robes

@@ -47,6 +47,21 @@ pub struct BakeOut {
 	pub stats: Value,
 }
 
+/// One tree's bake, in memory: legs.json's `legs` (per guide id `{hash, steps}`, in the tree's guide
+/// order) and legs-qa.txt's lines.
+pub struct TreeLegs {
+	pub dir: PathBuf,
+	pub legs: Map<String, Value>,
+	pub qa: String,
+}
+
+/// A bake in memory: the maps' identity (legs.json `grid`), per tree its legs, and the totals.
+pub struct Routed {
+	pub maps: String,
+	pub trees: Vec<TreeLegs>,
+	pub stats: Value,
+}
+
 /// The faction a guide is walked as (its `faction` header), or None (no faction: no guide legs).
 fn faction_of(g: &V) -> Option<&'static str> {
 	match g.get("faction").as_str() {
@@ -84,6 +99,22 @@ pub fn maps_id(grid: &forge_nav::grid::Grid, leffe: Option<&Path>, lifts: Option
 }
 
 pub fn bake_trees(i: &BakeIn) -> Result<BakeOut, String> {
+	let r = route_trees(i, None)?;
+	let mut files = Vec::new();
+	for t in r.trees {
+		let legs_file = t.dir.join(LEGS_FILE);
+		let text = serde_json::to_string_pretty(&json!({ "schema": 1, "grid": r.maps, "legs": t.legs })).map_err(|e| e.to_string())?;
+		std::fs::write(&legs_file, format!("{text}\n")).map_err(|e| format!("{}: {e}", legs_file.display()))?;
+		let qa_file = t.dir.join(QA_FILE);
+		std::fs::write(&qa_file, t.qa).map_err(|e| format!("{}: {e}", qa_file.display()))?;
+		files.push(legs_file);
+		files.push(qa_file);
+	}
+	Ok(BakeOut { files, stats: r.stats })
+}
+
+/// The legs of every tree's leveling guides (`only`: of those guides alone), routed, in memory.
+pub fn route_trees(i: &BakeIn, only: Option<&[String]>) -> Result<Routed, String> {
 	let t0 = std::time::Instant::now();
 	let mut ddiag = forge_guide::diag::Diagnostics::new();
 	let data = forge_guide::project::load_project_data(i.data, &mut ddiag)?;
@@ -99,7 +130,7 @@ pub fn bake_trees(i: &BakeIn) -> Result<BakeOut, String> {
 		let manifest = manifest.ok_or_else(|| format!("{}: no pack.json", dir.display()))?;
 		let project = forge_guide::project::compile_project(dir, &manifest, &data, forge_guide::diag::Diagnostics::new(), false, None);
 		let mut guides = Vec::new();
-		for g in project.guides.iter().filter(|g| leveling(g)) {
+		for g in project.guides.iter().filter(|g| leveling(g) && only.is_none_or(|o| o.contains(&g.get("id").to_js_string()))) {
 			let Some(faction) = faction_of(g) else { continue };
 			let mut steps = Vec::new();
 			for (s, from, to) in forge_guide::bake::step_targets(g, &data.map_frames) {
@@ -148,8 +179,8 @@ pub fn bake_trees(i: &BakeIn) -> Result<BakeOut, String> {
 			})
 			.collect::<Result<_, String>>()
 	})?;
-	// Per tree: legs.json and the QA list.
-	let mut files = Vec::new();
+	// Per tree: its legs and the QA list.
+	let mut out = Vec::new();
 	let (mut by_leffe, mut by_grid, mut qa_n, mut bytes, mut corners) = (0usize, 0usize, 0usize, 0usize, 0usize);
 	for b in baked.values() {
 		match b {
@@ -179,17 +210,11 @@ pub fn bake_trees(i: &BakeIn) -> Result<BakeOut, String> {
 			}
 			doc.insert(id.clone(), json!({ "hash": hash, "steps": st }));
 		}
-		let legs_file = t.dir.join(LEGS_FILE);
-		let text = serde_json::to_string_pretty(&json!({ "schema": 1, "grid": maps, "legs": doc })).map_err(|e| e.to_string())?;
-		std::fs::write(&legs_file, format!("{text}\n")).map_err(|e| format!("{}: {e}", legs_file.display()))?;
-		let qa_file = t.dir.join(QA_FILE);
-		std::fs::write(&qa_file, qa).map_err(|e| format!("{}: {e}", qa_file.display()))?;
-		files.push(legs_file);
-		files.push(qa_file);
+		out.push(TreeLegs { dir: t.dir.clone(), legs: doc, qa });
 	}
 	let stats = json!({
 		"maps": maps, "distinct": n, "leffe": by_leffe, "grid": by_grid, "qa": qa_n,
 		"bytes": bytes, "corners": corners, "seconds": t0.elapsed().as_secs_f64(),
 	});
-	Ok(BakeOut { files, stats })
+	Ok(Routed { maps, trees: out, stats })
 }

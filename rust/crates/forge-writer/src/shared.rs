@@ -4,7 +4,7 @@
 //!
 //! - **One shared order.** The canonical start's tail (`shared.canonical`), its lines in its own race
 //!   guide moved to the same line of the shared guide (Orc and Troll's own Barrens guide stops at the
-//!   Crossroads at 12, RevH1), with every other start's extra events (its own quests, its riding
+//!   Crossroads at 12), with every other start's extra events (its own quests, its riding
 //!   trainer) after the shared event they follow there, without their travel.
 //! - **One writing.** The shared guides are written once, from the canonical start's run on that
 //!   order; every start's run takes them. A quest only some starts do in the shared order is theirs:
@@ -578,8 +578,11 @@ pub fn is_shared(text: &str) -> bool {
 
 /// A start's written tree with the faction's shared guides: `own` the start's run, `canon` the
 /// canonical start's, `v1` the guides read. `join` is the shared join guide's id
-/// (`forever/horde/02-the-barrens`). `finish` runs on the shared guides last (every race's and class's
-/// own ways: [`audience_travel`]); it must not depend on the start.
+/// (`forever/horde/02-the-barrens`). `fix_races` (the checkout's `races` guide fixes,
+/// fixes::apply_races) runs on each shared guide right after its re-gating ([`tag_audiences`]), which
+/// writes a quest's lines with its accept's or its starts' races, an old per-race filter among them.
+/// `finish` runs on the shared guides last (every race's and class's own ways: [`audience_travel`]);
+/// it must not depend on the start.
 #[allow(clippy::too_many_arguments)]
 pub fn adopt(
 	own: &mut BTreeMap<String, String>,
@@ -589,6 +592,7 @@ pub fn adopt(
 	all_starts: usize,
 	join: &str,
 	races_for: &dyn Fn(u32) -> Option<Vec<String>>,
+	fix_races: &dyn Fn(&str) -> String,
 	route_files: &FxHashSet<String>,
 	own_shared: &[String],
 	finish: &mut dyn FnMut(&mut BTreeMap<String, String>),
@@ -608,7 +612,7 @@ pub fn adopt(
 		let Some(text) = canon.get(rel).or(v1.get(rel)) else { continue };
 		// (The race masks are read on the guides written, not on v1's guides the route leaves alone.)
 		let none = |_: u32| None;
-		let mut t = gate_ways(&tag_audiences(text, by_quest, all_starts, if canon.get(rel) != v1.get(rel) { races_for } else { &none }), &faction_races);
+		let mut t = gate_ways(&fix_races(&tag_audiences(text, by_quest, all_starts, if canon.get(rel) != v1.get(rel) { races_for } else { &none })), &faction_races);
 		if *rel == join_rel {
 			t = split_arrival(&t).0;
 		}
@@ -1499,7 +1503,7 @@ mod tests {
 
 	#[test]
 	fn a_start_guide_the_route_leaves_untouched_goes_and_the_one_before_hands_over() {
-		// RevOrcTroll3 T1: Orc and Troll's own Barrens guide, whose quests the shared order takes in the
+		// Review T1: Orc and Troll's own Barrens guide, whose quests the shared order takes in the
 		// shared guides, was written as v1 had it, and Durotar's `next` pointed at it.
 		let durotar = "guide g/orc/01\nrace Orc,Troll\nnext g/orc/02\n\nstep Razor Hill\n  accept 1\n";
 		let orc2 = "guide g/orc/02\nrace Orc,Troll\nnext g/02\n\nstep Crossroads\n  accept 2\n";
@@ -1510,7 +1514,7 @@ mod tests {
 		own.insert("g/orc/02.guide".into(), orc2.replace("accept 2", "accept 2\n  along"));
 		let canon = own.clone();
 		let route_files: FxHashSet<String> = ["g/orc/01.guide".to_string()].into_iter().collect();
-		adopt(&mut own, &canon, &v1, &FxHashMap::default(), 1, "g/02", &|_| None, &route_files, &[], &mut |_| {});
+		adopt(&mut own, &canon, &v1, &FxHashMap::default(), 1, "g/02", &|_| None, &|t| t.to_string(), &route_files, &[], &mut |_| {});
 		assert!(!own.contains_key("g/orc/02.guide"), "{own:#?}");
 		assert!(own["g/orc/01.guide"].contains("\nnext g/02\n"), "{own:#?}");
 	}
@@ -1526,7 +1530,7 @@ mod tests {
 		let mut own = v1.clone();
 		let canon = own.clone();
 		let route_files: FxHashSet<String> = ["g/orc/01.guide".to_string()].into_iter().collect();
-		adopt(&mut own, &canon, &v1, &FxHashMap::default(), 1, "g/02", &|_| None, &route_files, &[], &mut |_| {});
+		adopt(&mut own, &canon, &v1, &FxHashMap::default(), 1, "g/02", &|_| None, &|t| t.to_string(), &route_files, &[], &mut |_| {});
 		let t = &own["g/orc/02.guide"];
 		assert!(!t.contains("accept 2") && t.contains("  turnin 1502") && t.contains("step Crossroads\n  collect 6534 quest 1503.1 only Warrior"), "{t}");
 		assert!(own["g/orc/01.guide"].contains("\nnext g/orc/02\n"));
@@ -1553,7 +1557,7 @@ mod tests {
 		let mut canon = v1.clone();
 		canon.insert("g/03-darkshore.guide".into(), darkshore_v1.replace("accept 2", "accept 2\n  accept 6"));
 		let route_files: FxHashSet<String> = ["g/ne/01-teldrassil.guide".to_string(), "g/03-darkshore.guide".to_string()].into_iter().collect();
-		adopt(&mut own, &canon, &v1, &FxHashMap::default(), 1, "g/02-westfall", &|_| None, &route_files, &["g/03-darkshore.guide".to_string()], &mut |_| {});
+		adopt(&mut own, &canon, &v1, &FxHashMap::default(), 1, "g/02-westfall", &|_| None, &|t| t.to_string(), &route_files, &["g/03-darkshore.guide".to_string()], &mut |_| {});
 		let mine = own.get("g/ne/02-darkshore.guide").expect("own Darkshore guide");
 		assert!(mine.contains("guide g/ne/02-darkshore\n") && mine.contains("\nrace NightElf\n") && mine.contains("\nnext g/02-westfall\n") && mine.contains("accept 5"), "{mine}");
 		assert!(own["g/ne/01-teldrassil.guide"].contains("\nnext g/ne/02-darkshore\n"), "{own:#?}");
@@ -1562,8 +1566,34 @@ mod tests {
 	}
 
 	#[test]
+	fn a_races_fix_holds_on_the_shared_guides_after_their_re_gating() {
+		// Sully Balloo's Letter (637) carried `only Dwarf,Gnome,NightElf,Skyborne` from an old per-race
+		// export, though every Alliance race takes it (race mask, players' recordings). The run's fix
+		// pass takes the list off, but the shared adopt re-gates each quest by the starts that do it in
+		// the shared order (the four the old filter let in): the record holds after that re-gating.
+		let v1_text = "guide g/02\n\nstep The Cache of Explosives\n  accept 637 optional only Dwarf,Gnome,NightElf,Skyborne\n\nstep Historian Karnik\n  turnin 637 only Dwarf,Gnome,NightElf,Skyborne\n  accept 2\n";
+		let canon_text = "guide g/02\n\nstep The Cache of Explosives\n  accept 637 optional\n\nstep Historian Karnik\n  turnin 637\n  accept 2\n";
+		let v1: BTreeMap<String, String> = [("g/02.guide".to_string(), v1_text.to_string())].into_iter().collect();
+		let canon: BTreeMap<String, String> = [("g/02.guide".to_string(), canon_text.to_string())].into_iter().collect();
+		let starts = |rs: &[&str]| rs.iter().map(|r| r.to_string()).collect::<BTreeSet<String>>();
+		let by_quest: FxHashMap<u32, BTreeSet<String>> =
+			[(637, starts(&["Dwarf", "Gnome", "NightElf", "Skyborne"])), (2, starts(&["Human", "Dwarf", "Gnome", "NightElf", "Skyborne"]))].into_iter().collect();
+		let fixes = serde_json::json!({ "fixes": [{ "id": "t-637", "faction": "Alliance", "at": { "quest": 637, "goal": "quest" }, "races": "all" }] });
+		let records = crate::fixes::Records { guide_fixes: Some(&fixes), ..Default::default() };
+		let adopted = |fix: &dyn Fn(&str) -> String| {
+			let mut own = canon.clone();
+			adopt(&mut own, &canon, &v1, &by_quest, 5, "g/02", &|_| None, fix, &FxHashSet::default(), &[], &mut |_| {});
+			own["g/02.guide"].clone()
+		};
+		// (Without the record the old filter is back.)
+		assert!(adopted(&|t| t.to_string()).contains("  accept 637 optional only Dwarf,Gnome,NightElf,Skyborne\n"));
+		let t = adopted(&|t| crate::fixes::apply_races(t, &records, Some("Alliance")));
+		assert!(t.contains("  accept 637 optional\n") && t.contains("  turnin 637\n"), "{t}");
+	}
+
+	#[test]
 	fn a_class_step_before_everyones_way_in_goes_with_the_arrival() {
-		// RevNightElf3 N6: the Warriors' Defensive Stance in Stormwind came before the boat's arrival
+		// Review N6: the Warriors' Defensive Stance in Stormwind came before the boat's arrival
 		// lines in the join guide, so the arrival stopped at it and everyone's boat was lost.
 		let t = "guide g\n\nstep Fly\n  only Warrior\n  fly \"Auberdine\"\n\nstep Defensive Stance\n  only Warrior\n  accept 1638\n\nstep Boat\n  goto 30.8,40.9 \"Boat to Stormwind Harbor\"\n\nstep Sentinel Hill\n  accept 36\n\nstep Paladin\n  only Paladin\n  accept 9\n";
 		let (rest, moved) = split_arrival(t);
@@ -1576,7 +1606,7 @@ mod tests {
 
 	#[test]
 	fn a_split_shared_guides_later_quests_are_still_the_starts_own_tail() {
-		// Rev14NightElf A1: Darkshore on both sides of the Night Elves' join. Their own part's quest (21,
+		// c14 review A1: Darkshore on both sides of the Night Elves' join. Their own part's quest (21,
 		// at most 14) is the other starts' in the shared guide; their tail's quest (22) is theirs too.
 		let r = |canon: &str, js: usize, order: serde_json::Value| -> Route {
 			serde_json::from_value(json!({ "shared": { "canonical": canon, "joinAt": "02-westfall", "joinStep": js }, "order": order })).unwrap()
@@ -1648,7 +1678,7 @@ mod tests {
 
 	#[test]
 	fn a_quest_the_shared_order_never_accepts_is_for_the_starts_that_carry_it() {
-		// RevSkyH3 S5: Telf's 1525 hand-in in the shared Barrens guide, accepted in Mulgore by Tauren
+		// Review S5: Telf's 1525 hand-in in the shared Barrens guide, accepted in Mulgore by Tauren
 		// only, was written for every start's Shamans.
 		let r = |order: serde_json::Value| -> Route { serde_json::from_value(json!({ "shared": { "canonical": "Tauren", "joinStep": 1 }, "order": order })).unwrap() };
 		let tauren = r(json!([{ "t": "accept", "q": 1525, "from": "guides/g/tauren/01.guide:9" }, { "t": "turnin", "q": 1525, "from": "guides/g/02.guide:20" }]));
@@ -1687,7 +1717,7 @@ mod tests {
 
 	#[test]
 	fn a_start_guides_level_event_keeps_its_own_target() {
-		// RevH1-3 F1: Orc's grind to 16 in its own Barrens guide became Silverpine's grind to 19, the
+		// Review F1: Orc's grind to 16 in its own Barrens guide became Silverpine's grind to 19, the
 		// shared order's line of the same (level, no quest) event.
 		let r = |order: serde_json::Value| -> Route { serde_json::from_value(json!({ "shared": { "canonical": "Orc", "joinStep": 0 }, "order": order })).unwrap() };
 		let orc = r(json!([{ "t": "level", "from": "guides/g/orc/02.guide:9", "lvl": 16 }, { "t": "level", "from": "guides/g/03.guide:290", "lvl": 19 }]));
@@ -1700,7 +1730,7 @@ mod tests {
 
 	#[test]
 	fn a_start_keeps_its_own_way_to_the_shared_route() {
-		// RevUndead3 U4: Undead hearth to Brill and take the zeppelin to the Crossroads; the shared
+		// Review U4: Undead hearth to Brill and take the zeppelin to the Crossroads; the shared
 		// order's first event carried Orc's way there, and the Undead hand-off lost its hearth.
 		let undead: Route = serde_json::from_value(json!({ "shared": { "canonical": "Orc", "joinStep": 1 }, "order": [
 			{ "t": "turnin", "q": 1, "from": "guides/g/undead/01.guide:9" },

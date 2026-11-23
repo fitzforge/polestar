@@ -1,0 +1,49 @@
+name: Discord bug thread replies
+
+# A maintainer (owner, member or collaborator) comments on an issue filed from
+# the Discord #bugs forum (label `discord`): the reply is posted in the
+# player's thread, pinging them; an edit of the comment edits that message.
+# Never a comment by anyone else, by a bot, or the bot's own copies of
+# Discord follow-ups (lib/notify.js onComment checks again).
+# tools/discord-bot/README.md has the setup.
+
+on:
+  issue_comment:
+    types: [created, edited]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: discord-reply-${{ github.event.comment.id }}
+
+jobs:
+  relay:
+    name: Post the reply in the thread
+    if: >
+      !github.event.issue.pull_request &&
+      contains(github.event.issue.labels.*.name, 'discord') &&
+      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association) &&
+      github.event.comment.user.type != 'Bot' &&
+      !contains(github.event.comment.body, '<!-- polestar-bot')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          sparse-checkout: tools/discord-bot
+          persist-credentials: false
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - name: Notify
+        run: node tools/discord-bot/notify.js comment
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          DISCORD_FORUM_ID: ${{ vars.DISCORD_FORUM_ID }}
+          BOT_GITHUB_LOGIN: ${{ vars.BOT_GITHUB_LOGIN }}
+          GITHUB_TOKEN: ${{ github.token }}

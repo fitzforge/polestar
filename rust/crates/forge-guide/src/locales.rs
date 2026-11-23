@@ -2,8 +2,8 @@
 //!
 //! The languages of Polestar's interface (docs/TRANSLATING.md): the client
 //! locales WoW: Forever ships besides English. Each has one file,
-//! addon/Polestar/Locales/<locale>.lua, loaded by Core/Core.xml once it
-//! exists. `status`: "reviewed" when a native speaker wrote or checked it
+//! Interface.lua in its language folder addon/Polestar_<locale>, which
+//! Core/Locale.lua loads on a client in that language. `status`: "reviewed" when a native speaker wrote or checked it
 //! (tooling never fills or rewrites its translations; `i18n sync` only adds
 //! the new keys commented out), "ai" when a machine made it (Options' About
 //! says so on that client: ns.AI_LOCALES in Core/Init.lua, kept equal to this
@@ -20,14 +20,14 @@ pub struct Locale {
 
 /// LOCALES, in its key order.
 pub static LOCALES: [Locale; 9] = [
-	Locale { code: "deDE", language: "German", status: "reviewed", translators: &["thecodingcortex"] },
+	Locale { code: "deDE", language: "German", status: "reviewed", translators: &["Cortexyn"] },
 	Locale { code: "esES", language: "Spanish (Spain)", status: "reviewed", translators: &["julen92"] },
 	Locale { code: "esMX", language: "Spanish (Latin America)", status: "reviewed", translators: &["CDVolvik"] },
 	Locale { code: "frFR", language: "French", status: "reviewed", translators: &["Yendi"] },
 	Locale { code: "koKR", language: "Korean", status: "ai", translators: &[] },
 	Locale { code: "ptBR", language: "Portuguese (Brazil)", status: "ai", translators: &[] },
 	Locale { code: "ruRU", language: "Russian", status: "ai", translators: &[] },
-	Locale { code: "zhCN", language: "Chinese (simplified)", status: "ai", translators: &[] },
+	Locale { code: "zhCN", language: "Chinese (simplified)", status: "ai", translators: &["山猫"] },
 	Locale { code: "zhTW", language: "Chinese (traditional)", status: "ai", translators: &[] },
 ];
 

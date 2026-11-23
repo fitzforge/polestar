@@ -26,8 +26,9 @@ local function trackerQuest()
 	end
 end
 
+-- No Polestar entry while Polestar is hidden.
 local function add(root, id)
-	if not id then return end
+	if not id or ns.Hidden() then return end
 	root:QueueDivider()
 	root:CreateButton(L["Polestar"] .. ": " .. L["Show in Guides"], function()
 		UI.Picker.ShowQuest(id)

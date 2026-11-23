@@ -26,25 +26,25 @@ return {
 
 	-- Step 3: Before the demons
 	["Before the demons"] = "",
-	-- {item:9224} Elixir of Demonslaying · {skill:171} Alchemy · {spell:19878} Track Demons
+	-- {item:9224} Potion of Demon Slaying · {skill:171} Alchemy · {spell:19878} Track Demons
 	-- plural, as words: Major Mana Potions = {item:13444} Major Mana Potion
-	["The four demons are level 60 elites disguised as friendly travellers; talk to one and say you know what it is, and it turns into its demon form. Fight every one alone: no pet (dismiss it), no other player's heal, buff or attack once the fight starts, or the demon calls you a coward and vanishes, with a 3 hour wait for it to return (also after it dies). Buffs and potions you take before the pull are fine, and a friend may stand by to kill wandering monsters or enemy players, as long as they never touch the demon or you. Bring an {item:9224} ({skill:171} or the auction house), Major Mana Potions for the long kites, and a melee weapon with the Demonslaying enchant if you can. {spell:19878}, from your trainer, shows the disguised demons on the minimap. In a group, set loot to free for all so you can loot the head."] = "",
+	["The four demons are level 60 elites disguised as friendly travellers; talk to one and say you know what it is, and it turns into its demon form. Fight every one alone: no pet (dismiss it), no other player's heal, buff or attack once the fight starts, or the demon calls you a coward and vanishes, with a 3 hour wait for it to return (also after it dies). Buffs and potions you take before the pull are fine, and a friend may stand by to kill wandering monsters or enemy players, as long as they never touch the demon or you. Bring a {item:9224} ({skill:171} or the auction house), Major Mana Potions for the long kites, and a melee weapon with the Demonslaying enchant if you can. {spell:19878}, from your trainer, shows the disguised demons on the minimap. In a group, set loot to free for all so you can loot the head."] = "",
 	-- {spell:19878} Track Demons
 	["Learn {spell:19878} and get demon-slaying potions"] = "",
 
-	-- Step 4: Simone the Seductress
+	-- Step 4: Simone the Inconspicuous
 	-- {npc:14527} Simone the Inconspicuous · {spell:19878} Track Demons · {npc:14533} Simone the Seductress · {spell:421} Chain Lightning · {spell:3034} Viper Sting · {spell:23205} Temptress' Kiss
 	["{npc:14527}, a troll with a wolf, walks a long path that starts at the lake in western Un'Goro and can reach the south of the crater; use {spell:19878}. Talk to her and she becomes {npc:14533}, and her wolf Precious a Felstalker. The hardest of the four: Freezing Trap Precious and pull Simone well away from it, or kite Precious away and kill it first, let Simone reset and come back for her alone. Her {spell:421} hits hard, so drain her mana with {spell:3034} (a 15-second cooldown on Forever) and keep her busy; her {spell:23205} cuts your ranged attack power, so finish her in melee. Loot her head before Precious breaks free."] = "",
 
-	-- Step 5: Klinfran the Crazed
+	-- Step 5: Franklin the Friendly
 	-- {npc:14529} Franklin the Friendly · {zone:1428} Burning Steppes · {area:254} Blackrock Mountain · {npc:14534} Klinfran the Crazed · {spell:3043} Scorpid Sting · {spell:23257} Demonic Frenzy · {spell:19801} Tranquilizing Shot · {spell:2974} Wing Clip · {spell:2973} Raptor Strike
 	["{npc:14529}, a human, wanders the western {zone:1428} south of {area:254}. Talk to him and he becomes {npc:14534}, the easiest of the four. Keep {spell:3043} on him the whole fight: while it lasts he barely hurts you. When he goes into {spell:23257}, remove it with {spell:19801} and never stand in melee while it is up; between frenzies you can fight him in melee with {spell:2974} and {spell:2973}. He cannot leave the {zone:1428}, so kite him around the trees if needed."] = "",
 
-	-- Step 6: Solenor the Slayer
-	-- {npc:14536} Nelson the Nice · {area:3428} Ahn'Qiraj · {zone:1451} Silithus · {npc:14530} Solenor the Slayer · {spell:23272} Soul Flame · {object:164639} Frost Trap (no name in this language: may be words) · {spell:5384} Feign Death · {spell:2974} Wing Clip · {npc:14761} Creeping Doom · {spell:2643} Multi-Shot
-	["{npc:14536}, a gnome, walks around the gates of {area:3428} in the far south-west of {zone:1451}. Talk to him and he becomes {npc:14530}. He enrages with {spell:23272} as he turns: drop a {object:164639}, {spell:5384}, and he resets without the enrage. {spell:2974} roots him for a long time; while rooted he fears you and sends beetles ({npc:14761}): kill them fast with traps and {spell:2643} before they wear you down."] = "",
+	-- Step 6: Nelson the Nice
+	-- {npc:14536} Nelson the Nice · {area:3428} Ahn'Qiraj · {zone:1451} Silithus · {npc:14530} Solenor the Slayer · {spell:23272} Soul Flame · {spell:13809} Frost Trap · {spell:5384} Feign Death · {spell:2974} Wing Clip · {npc:14761} Creeping Doom · {spell:2643} Multi-Shot
+	["{npc:14536}, a gnome, walks around the gates of {area:3428} in the far south-west of {zone:1451}. Talk to him and he becomes {npc:14530}. He enrages with {spell:23272} as he turns: drop a {spell:13809}, {spell:5384}, and he resets without the enrage. {spell:2974} roots him for a long time; while rooted he fears you and sends beetles ({npc:14761}): kill them fast with traps and {spell:2643} before they wear you down."] = "{npc:14536}, гном, бродит у врат ({area:3428}) на крайнем юго-западе зоны {zone:1451}. Поговорите с ним, и он превратится: {npc:14530}. Превращаясь, он впадает в исступление ({spell:23272}): поставьте {spell:13809}, примените {spell:5384}, и он сбросится без исступления. {spell:2974} надолго обездвиживает его; пока он обездвижен, он пугает вас и насылает жуков ({npc:14761}): быстро убивайте их ловушками и {spell:2643}, пока они вас не измотали.",
 
-	-- Step 7: Artorius the Doombringer
+	-- Step 7: Artorius the Amiable
 	-- {npc:14531} Artorius the Amiable · {zone:1452} Winterspring · {area:2255} Everlook · {npc:14535} Artorius the Doombringer · {spell:23298} Demonic Doom · {spell:5118} Aspect of the Cheetah · {spell:1978} Serpent Sting · {spell:23299} Stinging Trauma · {spell:23257} Demonic Frenzy · {spell:19801} Tranquilizing Shot
 	["{npc:14531}, a tauren, walks a loop in the rocks of northern {zone:1452}, north of {area:2255}. Talk to him and he becomes {npc:14535}. Within 30 yards of him {spell:23298} hits hard: keep your distance and kite him the whole fight, {spell:5118} on, south down the road. {spell:1978} on him adds {spell:23299}, extra Nature damage, so keep it ticking while you run; his {spell:23257} can be removed with {spell:19801}, but distance matters more. It is a long fight: bring mana potions and plan your kiting path."] = "",
 
@@ -60,7 +60,7 @@ return {
 
 	-- Step 10: Rhok'delar and Lok'delar
 	-- {item:18707} Ancient Rune Etched Stave · {item:18724} Enchanted Black Dragon Sinew · {item:18715} Lok'delar, Stave of the Ancient Keepers
-	["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and talking to Vartrus once more then gave {item:18715}, at no extra cost."] = "",
+	["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and talking to Vartrus once more then gave {item:18715}, at no extra cost."] = "В Forever не подтверждено. В Classic {item:18707}, использованный с предметом {item:18724} в сумках, превращался в Рок-Делар, а если еще раз поговорить с Вартусом, он давал {item:18715} без дополнительной платы.",
 	-- {item:18707} Ancient Rune Etched Stave
 	["{item:18707}, by Vartrus"] = "{item:18707}, от Вартуса",
 	-- {npc:14524} Vartrus the Ancient
@@ -75,7 +75,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Azuregos"] = "Азурегос",
 	-- ["Hastat's quiver needs the {item:18704}. {npc:6109}, a world boss for a raid, roams the south of {zone:1447} and drops it most of the time; the Cobalt dragonkin of {zone:1452} drop it very rarely. Skip the rest of this guide if you do not want the quiver."] = "Для колчана Хастата нужен предмет {item:18704}. {npc:6109}, мировой босс для рейда, бродит на юге зоны {zone:1447} и чаще всего оставляет его; синие дракониды зоны {zone:1452} оставляют его очень редко. Пропустите остаток этого гайда, если колчан вам не нужен.",
-	-- ["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and Vartrus then gave {item:18715} ({spell:425121})."] = "В Forever не подтверждено. В Classic {item:18707}, использованный с предметом {item:18724} в сумках, превращался в Рок-Делар, а Вартус затем давал {item:18715} ({spell:425121}).",
 	-- ["Onyxia drops the {item:18705}; she is the 40-player raid boss of {area:2159}, a cave in the {area:511} of southern {zone:1445}."] = "{item:18705} добывается с Ониксии — босса рейда на 40 игроков (локация: {area:2159}), пещеры в месте {area:511} на юге зоны {zone:1445}.",
 	-- ["The {object:179703} appears in {area:2717} when {npc:12018} yields; it holds the {item:18703} about half the time. {area:2717} is a 40-player raid inside {area:254}. Right-click the leaf to start the quest."] = "{object:179703} появляется здесь: {area:2717}, когда сдается {npc:12018}; примерно в половине случаев в нем лежит {item:18703}. {area:2717} — рейд на 40 игроков внутри места {area:254}. Щелкните по листу правой кнопкой мыши, чтобы начать задание.",
 	-- ["Vartrus, Stoma and {npc:14526} stand together in the north of {zone:1448}. Alliance: {area:1998} is the nearest flight point; Horde: {area:1997}."] = "Вартус, Стома и {npc:14526} стоят вместе на севере зоны {zone:1448}. Альянс: ближайшая точка полета — {area:1998}; Орда: {area:1997}.",

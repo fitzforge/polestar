@@ -37,6 +37,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { parseCsv } = require('../data/csv');
+const { pinnedBuild, buildDir } = require('../data/pinned');
+const { CLASS_BY_FILE } = require('../game/races');
 
 const KINDS = ['npc', 'object', 'item', 'quest', 'zone', 'area', 'spell', 'faction', 'skill'];
 const TOKEN_RE = /\{(npc|object|item|quest|zone|area|spell|faction|skill):(\d+)\}/g;
@@ -95,11 +97,12 @@ function dataName(data, kind, id) {
 }
 
 // Every { kind, id, name } a goal names, its own (the NPC, object, target or
-// item it shows) flagged `own`.
+// item it shows) flagged `own`, its exclusives' titles (in preTitles and
+// closedBy: quests that close the goal's) `closes`.
 function goalNames(goal, data) {
 	const out = [];
-	const add = (kind, id, name, own = false) => {
-		if (Number.isInteger(id) && str(name)) out.push({ kind, id, name, own });
+	const add = (kind, id, name, own = false, closes = false) => {
+		if (Number.isInteger(id) && str(name)) out.push({ kind, id, name, own, closes });
 	};
 	add('quest', goal.quest, goal.title);
 	add('npc', goal.npc, goal.npcName, true);
@@ -120,7 +123,7 @@ function goalNames(goal, data) {
 	for (const list of [goal.rewards && goal.rewards.items, goal.rewards && goal.rewards.choices]) {
 		for (const r of list || []) add('item', r.item, r.itemName);
 	}
-	for (const [id, title] of Object.entries(goal.preTitles || {})) add('quest', Number(id), title);
+	for (const [id, title] of Object.entries(goal.preTitles || {})) add('quest', Number(id), title, false, (goal.closedBy || []).includes(Number(id)));
 	if (Number.isInteger(goal.area)) add('area', goal.area, dataName(data, 'area', goal.area));
 	if (Number.isInteger(goal.quest)) {
 		for (const o of data.questObjectives(goal.quest)) {
@@ -346,45 +349,70 @@ function worldIndex(data, common) {
 	return { idx, abilities };
 }
 
+// The spells of the classes of `mask` that another thing of the game is
+// called (clientSpells), filed as worldIndex files spells: a guide of those
+// classes looks here before the world's names.
+function classIndex(data, common, mask) {
+	const idx = new NameIndex(common);
+	const abilities = new NameIndex(common);
+	for (const [name, id, classMask] of clientSpells(data)) if (classMask & mask) (name.includes(' ') || /['’:]/.test(name) ? idx : abilities).add('spell', id, name, WORLD_SPELL);
+	return { idx, abilities };
+}
+
 // Spell names the client gives by id (GetSpellInfo), from the Forever
-// SpellName table of the data's own client build (pinnedBuildDir): [[name, id]], each name once
-// (its lowest id: a spell's ranks share their name in every language), none
-// that another thing of the game is called. Names of
+// SpellName table of the data's own client build (pinnedBuildDir): [[name, id, classMask]], each name once
+// (its lowest id: a spell's ranks share their name in every language). Names of
 // two words or more, or with an apostrophe or colon ("Teleport: Moonglade"),
 // of any spell; one-word names only of a class or profession ability
-// (SkillLineAbility: "Polymorph", "Whirlwind").
+// (SkillLineAbility: "Polymorph", "Whirlwind"). classMask is 0 for a name
+// every guide's texts may use; a name another thing of the game is called is
+// only a class's spell (SkillLineAbility ClassMask; its lowest id of those
+// rows), for the guides of that class (classIndex), and never a place's.
 const SPELLS = new WeakMap();
-function spellNames(data) {
+function clientSpells(data) {
 	if (!SPELLS.has(data)) SPELLS.set(data, readSpellNames(data));
 	return SPELLS.get(data);
+}
+
+// The names every guide's texts may use: [[name, id]].
+function spellNames(data) {
+	return clientSpells(data).filter((s) => !s[2]);
 }
 
 function readSpellNames(data) {
 	const dir = data.dir && pinnedBuildDir(data, ['SpellName.csv', 'SkillLineAbility.csv']);
 	if (!dir) return [];
-	const abilities = new Set(parseCsv(fs.readFileSync(path.join(dir, 'SkillLineAbility.csv'), 'utf8')).map((r) => Number(r.Spell)));
+	// Each ability with the classes it is a spell of.
+	const abilities = new Map();
+	for (const r of parseCsv(fs.readFileSync(path.join(dir, 'SkillLineAbility.csv'), 'utf8'))) abilities.set(Number(r.Spell), (abilities.get(Number(r.Spell)) || 0) | Number(r.ClassMask));
 	// A name something else of the game has too ("Burning Blade", "Zephras
-	// Isle", "The Molten Core") is that thing in a text, not the spell.
+	// Isle", "The Molten Core") is that thing in a text, not the spell; but in
+	// the guides of a class its own spell ("Cold Snap", not the staff), unless
+	// a place has the name.
 	const taken = new Set();
-	for (const t of [data.npcs, data.objects, data.items, data.zones]) for (const x of Object.values(t || {})) if (x && str(x.name)) taken.add(x.name.trim().toLowerCase());
+	for (const t of [data.npcs, data.objects, data.items]) for (const x of Object.values(t || {})) if (x && str(x.name)) taken.add(x.name.trim().toLowerCase());
 	for (const q of Object.values(data.quests || {})) if (q && str(q.title)) taken.add(q.title.trim().toLowerCase());
 	for (const f of data.factions.values()) if (f && str(f.name)) taken.add(f.name.trim().toLowerCase());
 	// Every faction of the client's table, those without a reputation too.
 	const factions = path.join(dir, 'Faction.csv');
 	if (fs.existsSync(factions)) for (const r of parseCsv(fs.readFileSync(factions, 'utf8'))) if (str(r.Name_lang)) taken.add(r.Name_lang.trim().toLowerCase());
-	if (data.areas) for (const key of data.areas.byName.keys()) taken.add(key);
+	const places = new Set();
+	for (const z of Object.values(data.zones || {})) if (z && str(z.name)) places.add(z.name.trim().toLowerCase());
+	if (data.areas) for (const key of data.areas.byName.keys()) places.add(key);
 	const best = new Map();
 	for (const r of parseCsv(fs.readFileSync(path.join(dir, 'SpellName.csv'), 'utf8'))) {
 		const id = Number(r.ID);
 		const name = String(r.Name_lang || '').trim();
 		if (!Number.isInteger(id) || !name || /[()[\]<>_]|\b(OLD|DND|TEST|Test|QA|zz)\b|^\d/.test(name)) continue;
 		// A profession's rank spell reads as rank and profession: words and {skill:id}.
-		if (/^(Apprentice|Journeyman|Expert|Artisan|Master) /.test(name) || / Reputation$/.test(name) || taken.has(name.toLowerCase())) continue;
+		if (/^(Apprentice|Journeyman|Expert|Artisan|Master) /.test(name) || / Reputation$/.test(name) || places.has(name.toLowerCase())) continue;
+		const classMask = taken.has(name.toLowerCase()) ? abilities.get(id) || 0 : 0;
+		if (taken.has(name.toLowerCase()) && !classMask) continue;
 		if (!/[ '’:]/.test(name) && !abilities.has(id)) continue;
 		const had = best.get(name);
-		if (had === undefined || id < had) best.set(name, id);
+		if (had === undefined || id < had[1]) best.set(name, [name, id, classMask]);
 	}
-	return [...best];
+	return [...best.values()];
 }
 
 const SPELL_IDS = new WeakMap();
@@ -399,6 +427,35 @@ const SPELL_BY_NAME = new WeakMap();
 function spellIdOf(data, name) {
 	if (!SPELL_BY_NAME.has(data)) SPELL_BY_NAME.set(data, new Map(spellNames(data)));
 	return SPELL_BY_NAME.get(data).get(String(name).trim()) || null;
+}
+
+// The client's name of a spell a skill line teaches (SkillLineAbility: class
+// spells, talents, recipes, Forever's new ones), each rank by its own id, from
+// the SpellName table of the data's own client build (pinnedBuildDir); null
+// without that build and for any other spell.
+const TAUGHT = new WeakMap();
+function taughtSpellName(data, id) {
+	if (!TAUGHT.has(data)) TAUGHT.set(data, readTaughtSpells(data));
+	return TAUGHT.get(data).get(Number(id)) || null;
+}
+
+function readTaughtSpells(data) {
+	const out = new Map();
+	const dir = data.dir && pinnedBuildDir(data, ['SpellName.csv', 'SkillLineAbility.csv']);
+	if (!dir) return out;
+	// A profession's recipes stay professions.json's, as for `craft`: their
+	// skill lines are left out (Riding teaches no recipe). Not SkillLine's
+	// CategoryID: its secondary skills (9) also hold Comprehension, Poisons and
+	// Riding.
+	const { BUILTIN_PROFESSIONS } = require('./data');
+	const recipeLines = new Set(BUILTIN_PROFESSIONS.filter((p) => p.name !== 'Riding').map((p) => p.id));
+	const rows = parseCsv(fs.readFileSync(path.join(dir, 'SkillLineAbility.csv'), 'utf8'));
+	const taught = new Set(rows.filter((r) => !recipeLines.has(Number(r.SkillLine))).map((r) => Number(r.Spell)));
+	for (const r of parseCsv(fs.readFileSync(path.join(dir, 'SpellName.csv'), 'utf8'))) {
+		const name = String(r.Name_lang || '').trim();
+		if (name && taught.has(Number(r.ID))) out.set(Number(r.ID), name);
+	}
+	return out;
 }
 
 // First word of every NPC name -> how many different names start with it
@@ -443,14 +500,13 @@ function npcsOf(goals, data) {
 }
 
 // The Forever client build the data was built from (meta.json's "World of
-// Warcraft: Forever client tables" source), as its cache folder beside the
-// data, when it holds every file of `files`; else null: the same data
-// compiles the same guides whatever else is cached.
+// Warcraft: Forever client tables" source, data/pinned.js), as its cache
+// folder beside the data, when it holds every file of `files`; else null: the
+// same data compiles the same guides whatever else is cached.
 function pinnedBuildDir(data, files) {
-	const src = ((data.meta && data.meta.sources) || []).find((x) => x && /^World of Warcraft: Forever client tables/.test(String(x.name)));
-	const m = src && /(\d+\.\d+\.\d+\.\d+)/.exec(String(src.revision || ''));
-	if (!m) return null;
-	const dir = path.join(data.dir, '..', 'sources', 'wago', m[1]);
+	const pin = pinnedBuild(data.meta);
+	if (!pin) return null;
+	const dir = buildDir(data.dir, pin.build);
 	return files.every((f) => fs.existsSync(path.join(dir, f))) ? dir : null;
 }
 
@@ -493,17 +549,25 @@ function guideIndex(guide, data, common) {
 	return idx;
 }
 
+// The names a step's text reads first: its goals' own. An exclusive's title
+// that is also one of the step's own quests' titles is left out, so the step's
+// quest is the token: Forever's same-named variants ("Call of Air" 96136 for
+// Skyborne, 1531 for the others; the Great Cat Spirit's per race) close each
+// other, and the lower id would win otherwise. (A same-named prerequisite, the
+// next quest of a chain, keeps its place.)
 function stepIndex(step, data, common) {
 	const idx = new NameIndex(common);
-	for (const goal of step.goals || []) for (const n of goalNames(goal, data)) idx.add(n.kind, n.id, n.name, STEP);
+	const ownQuests = new Set((step.goals || []).filter((g) => Number.isInteger(g.quest) && str(g.title)).map((g) => g.title));
+	for (const goal of step.goals || []) for (const n of goalNames(goal, data)) if (!(n.closes && ownQuests.has(n.name))) idx.add(n.kind, n.id, n.name, STEP);
 	idx.addFirsts(npcsOf(step.goals || [], data), STEP, data);
 	return idx;
 }
 
 // text -> { text, used: [{ kind, id, name, author }], plurals: [{ kind, id,
 // name }] }: the names `indexes` know replaced by tokens, where
-// `accept(entry)` allows; tokens already in the text are kept (and listed,
-// `author`); `plurals`: names that stand there in their English plural.
+// `accept(entry, rest)` allows (`rest`: the text after the name, its first 40
+// characters); tokens already in the text are kept (and listed, `author`);
+// `plurals`: names that stand there in their English plural.
 function tokeniseText(text, indexes, accept = () => true) {
 	const parts = []; // strings and { token, name, used }
 	const plurals = [];
@@ -527,7 +591,7 @@ function tokeniseText(text, indexes, accept = () => true) {
 		}
 		if (!isWordChar(text[i - 1])) {
 			const e = longestAt(indexes, text, i);
-			if (e && accept(e)) {
+			if (e && accept(e, text.slice(i + e.name.length, i + e.name.length + 40))) {
 				flush();
 				parts.push({ token: `{${e.kind}:${e.id}}`, name: e.name, used: { kind: e.kind, id: e.id, name: e.name, prio: Math.floor(e.prio), alias: e.alias ? e.english : undefined } });
 				i += e.name.length;
@@ -585,20 +649,32 @@ function selfNote(goal, data) {
 // worldZone, worldArea, worldData }, dropped }; problems: [{ guide, line,
 // message }] for author-written tokens the data does not know; aliases: [{
 // guide, line, words, token, english, text }], each name matched without its
-// "The" or "City", or by its first name.
+// "The" or "City", or by its first name; titleObjects: [{ guide, line,
+// message, hint }], the step titles where an object the step's goals name
+// stands before a lower-case word other than "and" or "or" (its token stays:
+// the lint warns).
+const JOINS_NAMES = new Set(['and', 'or']);
 function tokeniseGuides(guides, data) {
 	const common = commonWords(guides);
 	const { idx: world, abilities } = worldIndex(data, common);
 	const stats = { replaced: Object.fromEntries(KINDS.map((k) => [k, 0])), bySource: Object.fromEntries(SOURCES.map((k) => [k, 0])), dropped: 0 };
 	const problems = [];
 	const aliases = []; // names matched without their "The" or "City"
+	const titleObjects = []; // an object of the step's own goals before a lower-case word in its title
+	const classes = new Map(); // class mask -> classIndex
 	const out = guides.map((guide) => {
 		const base = guideIndex(guide, data, common);
 		// One-word class and profession abilities ("Polymorph", "Whirlwind") where
 		// the guide teaches them; elsewhere only right after "cast" or "your"
 		// ("cast your Skysight racial ability").
-		const cast = { at: (text, i, plural) => (/\b(cast|your)[ \t]+$/iu.test(text.slice(Math.max(0, i - 6), i)) ? abilities.at(text, i, plural) : null) };
-		const worlds = [world, guide.category === 'Class' || guide.category === 'Professions' ? abilities : cast];
+		const ab = (x) => (guide.category === 'Class' || guide.category === 'Professions' ? x : { at: (text, i, plural) => (/\b(cast|your)[ \t]+$/iu.test(text.slice(Math.max(0, i - 6), i)) ? x.at(text, i, plural) : null) });
+		const worlds = [world, ab(abilities)];
+		// The guide's classes' own spells, ahead of the NPCs, objects and items of their name.
+		const mask = (guide.classes || []).reduce((m, c) => m | CLASS_BY_FILE[c].bit, 0);
+		if (mask) {
+			if (!classes.has(mask)) classes.set(mask, classIndex(data, common, mask));
+			worlds.unshift(classes.get(mask).idx, ab(classes.get(mask).abilities));
+		}
 		const copy = { ...guide, steps: guide.steps.map((s) => ({ ...s, goals: s.goals.map((g) => ({ ...g })) })) };
 		for (const k of GUIDE_LISTS) if (Array.isArray(copy[k])) copy[k] = copy[k].slice();
 		if (Array.isArray(copy.reward)) copy.reward = copy.reward.map((r) => ({ ...r }));
@@ -625,11 +701,17 @@ function tokeniseGuides(guides, data) {
 			if (!(k in names)) names[k] = e.name;
 			return names[k] === e.name;
 		};
-		const replace = (text, holder, key, indexes, ln) => {
-			let r = tokeniseText(text, indexes, any);
+		// A step's title takes the token of an object no goal of the step names
+		// only where the object's name stands alone: before a lower-case word it
+		// describes a kind of thing ("Dark Iron dwarves", whose object "Dark
+		// Iron" would put its name in the title on a translated client), while
+		// "Trade District" or "Boat to Auberdine" alone is that object's name.
+		const ownObjects = (e, rest) => e.kind !== 'object' || Math.floor(e.prio) === STEP || !/^[ \t]+\p{Ll}/u.test(rest);
+		const replace = (text, holder, key, indexes, ln, keep = () => true) => {
+			let r = tokeniseText(text, indexes, (e, rest) => keep(e, rest) && any(e));
 			// The English of the tokens the author wrote, for the author's words.
 			for (const u of r.used) if (u.author && !(`${u.kind}:${u.id}` in names) && dataName(data, u.kind, u.id)) names[`${u.kind}:${u.id}`] = dataName(data, u.kind, u.id);
-			if (seen.has(r.text) && seen.get(r.text) !== fillTokens(text, names)) r = tokeniseText(text, indexes, same);
+			if (seen.has(r.text) && seen.get(r.text) !== fillTokens(text, names)) r = tokeniseText(text, indexes, (e, rest) => keep(e, rest) && same(e));
 			for (const u of r.used) {
 				const k = `${u.kind}:${u.id}`;
 				const name = u.name || dataName(data, u.kind, u.id);
@@ -657,7 +739,33 @@ function tokeniseGuides(guides, data) {
 		copy.steps.forEach((step, si) => {
 			const orig = guide.steps[si];
 			const indexes = [stepIndex(orig, data, common), base, ...worlds];
-			for (const f of STEP_FIELDS) if (str(step[f])) replace(step[f], step, f, indexes, orig._line || guideLine);
+			for (const f of STEP_FIELDS) {
+				if (!str(step[f])) continue;
+				// A title's object of the step's own goals before a lower-case word
+				// keeps its token, and the author hears of it.
+				const before = new Map(); // object id -> [its words, the lower-case word after them]
+				const keep =
+					f === 'title'
+						? (e, rest) => {
+								if (!ownObjects(e, rest)) return false;
+								const w = e.kind === 'object' && /^[ \t]+(\p{Ll}[\p{L}'’-]*)/u.exec(rest);
+								// "and" or "or" after it ends the object's name ("Supply Crate and Defias Bandit"): no kind of thing.
+								if (w && !JOINS_NAMES.has(w[1]) && !before.has(e.id)) before.set(e.id, [e.name, w[1]]);
+								return true;
+							}
+						: undefined;
+				const ln = orig._line || guideLine;
+				replace(step[f], step, f, indexes, ln, keep);
+				for (const [id, [name, word]] of before) {
+					if (!step[f].includes(`{object:${id}}`)) continue;
+					titleObjects.push({
+						guide,
+						line: ln,
+						message: `the title's "${name}" is the token of object ${id}, which the step's goals name, though "${word}" follows it in lower case: a translated client shows the object's name there`,
+						hint: `reword the title if "${name} ${word}" means a kind of thing rather than that object`,
+					});
+				}
+			}
 			step.goals.forEach((goal, gi) => {
 				const og = orig.goals[gi];
 				if (selfNote(og, data)) {
@@ -673,7 +781,7 @@ function tokeniseGuides(guides, data) {
 		Object.defineProperty(copy, '_plurals', { value: plurals, enumerable: false });
 		return copy;
 	});
-	return { guides: out, stats, problems, aliases };
+	return { guides: out, stats, problems, aliases, titleObjects };
 }
 
 // A text with its tokens filled by `names` (a guide's), as an English client
@@ -701,4 +809,4 @@ function onlyTokens(text) {
 	return !/\p{L}/u.test(String(text).replace(TOKEN_RE, ''));
 }
 
-module.exports = { KINDS, TOKEN_RE, GUIDE_FIELDS, GUIDE_LISTS, STEP_FIELDS, GOAL_FIELDS, tokeniseGuides, tokeniseText, fillTokens, tokensOf, onlyTokens, forEachText, dataName, spellIdOf };
+module.exports = { KINDS, TOKEN_RE, GUIDE_FIELDS, GUIDE_LISTS, STEP_FIELDS, GOAL_FIELDS, tokeniseGuides, tokeniseText, fillTokens, tokensOf, onlyTokens, forEachText, dataName, spellIdOf, taughtSpellName };

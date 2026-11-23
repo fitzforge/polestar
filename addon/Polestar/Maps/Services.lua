@@ -22,6 +22,7 @@ local CATEGORIES = {
 	{ key = "battlemaster", label = L["Battlemasters"], glyph = "battlemaster" },
 	{ key = "spirithealer", label = L["Spirit healers"], glyph = "ankh" },
 	{ key = "stablemaster", label = L["Stable masters"], glyph = "stable" },
+	{ key = "transmogrifier", label = L["Transmogrifiers"], glyph = "transmog" },
 	{ key = "trainer", label = L["Profession trainers"], glyph = "trainer-profession" },
 	{ key = "vendor", label = L["Vendors"], glyph = "vendor" },
 }
@@ -135,7 +136,7 @@ function Maps.BuildServicePins(records)
 							end
 							p.onClick = function(button)
 								if button == "LeftButton" and ns.Nav and ns.Nav.SetTarget then
-									ns.Nav.SetTarget(map, x, y, name, spawn.f, p.kind)
+									ns.Nav.SetTarget(map, x, y, name, spawn.f, p.kind, spawn.z)
 								end
 							end
 							pins[#pins + 1] = p
@@ -230,7 +231,9 @@ function Maps.ServiceMapShown()
 	refresh()
 end
 
+-- Not while Polestar is hidden: no entry of Polestar's in the game's menus.
 local function addMenu(_, root)
+	if ns.Hidden() then return end
 	local menu = root:CreateButton(L["Polestar: NPC services"])
 	local function checkbox(parent, label, key)
 		return parent:CreateCheckbox(label, function() return ns.Get(key) == true end, function()
@@ -246,20 +249,6 @@ local function addMenu(_, root)
 	end
 end
 Maps.AddServiceMenu = addMenu
-
-local controls = {
-	{ kind = "toggle", key = "maps.servicePins", label = L["Show NPC services"],
-		help = L["Marks friendly service NPCs and mailboxes on zone and city maps using Polestar's bundled Codex. Click an individual icon to set a waypoint, or a city group to choose an NPC and destination; choose categories here or in the map's tracking menu. Flight masters and inns have their own toggles under Dungeons and travel."] },
-	{ kind = "toggle", key = "maps.serviceMinimap", label = L["Service icons on the minimap"],
-		help = L["Shows the enabled NPC service categories on the minimap as well."],
-		child = true, disabled = function() return not ns.Get("maps.servicePins") end },
-}
-for _, category in ipairs(CATEGORIES) do
-	controls[#controls + 1] = { kind = "toggle", key = "maps.serviceFilters." .. category.key, label = category.label,
-		help = category.key == "class" and L["Shows trainers for your character's class."] or L["Shows this service category on the map."],
-		child = true, disabled = function() return not ns.Get("maps.servicePins") end }
-end
-ns.RegisterOptions({ page = L["Map"], tab = L["Rares & travel"], section = L["NPC services"], controls = controls })
 
 ns.On("SETTING_CHANGED", function(path)
 	if path == "" or path == "maps" or path == "maps.servicePins" or path == "maps.serviceMinimap"

@@ -1,6 +1,6 @@
 -- Quality of Life: the questing helpers players expect from a leveling addon,
 -- each behind a "qol.*" setting on the Questing or Quality of Life options
--- page (QoL/Options.lua).
+-- page (their rows: Polestar_Options/QoL/Options.lua).
 -- This file holds what the features share: settings, the out-of-combat queue
 -- for secure frames, the current step's goals, and the client calls Compat
 -- does not cover (bags, items, XP, money). Every client function used here
@@ -37,12 +37,21 @@ end
 
 local defaults = {
 	itemButton = true,       -- quest item button
+	questLoot = true,        -- ... also shows a looted item that starts a quest you can take, glowing (QoL/QuestLoot.lua)
 	bagGlow = true,          -- the step's item glows in the bags
 	targetButton = true,     -- target macro button
+	targetPlate = true,      -- ... its icon shows the action, its name in the target's colour, the next names as small icons
+	targetAnnounce = false,  -- ... a chat line when its names change
+	targetRows = 5,          -- how many names the target list shows (1-8)
+	targetSimple = false,    -- the target button alone, cycling, without its list of names
+	targetListStyle = "full", -- the list's look: full, slim, names only, or portraits alone in a column or a strip
+	targetCloseName = true,  -- portraits: the close one's name beside its face
+	targetPortraits = "model", -- the list's faces: "model" (3D) or "flat" (2D once seen, else an icon)
 	guideNameTarget = false, -- opt in: extend navigation clicks to targeting, with shared marking settings
 	rareButton = true,       -- target button for a rare the addon spotted
 	hearthButton = true,     -- Hearthstone button while a hearth goal is active
-	markTarget = false,      -- raid icon on what the target button, step key and objective clicks target
+	markTarget = true,       -- raid icon on what the target button, step key and objective clicks target
+	pingTarget = false,      -- /ping the mob the target button and step key target (QoL/Buttons.lua)
 	markMob = "8",           -- its icon on mobs (1-8, "cycle"): skull
 	markNpc = "1",           -- and on NPCs: star
 	stepInteract = false,    -- the step key talks to, loots and accepts with its target (QoL/Buttons.lua)
@@ -50,21 +59,25 @@ local defaults = {
 	buttonTextSide = "right", -- which side of the button its name sits on
 	xpTracker = true,
 	xpTargetMark = true,     -- the guide's level target on the game's XP bar
+	questXPOverlay = true,
+	boostedRest = true,      -- Boosted Rest and the sleeping bag on the XP line, the party's in the party panel
 	sellJunk = true,
 	autoRepair = true,
 	repairGuild = false,     -- guild bank first when the rank allows
 	buyGoals = false,        -- buy what the step's buy goals still need
 	restock = true,          -- the merchant's Restock button, for the amounts set per character
-	itemMarks = true,        -- Ctrl+Alt-click marks an item as junk or to keep
+	itemMarks = true,        -- junk and keep marks: Ctrl+Alt-click and the two mark keys (QoL/Marks.lua)
+	itemMarksClick = true,   -- ... Ctrl+Alt-click cycles the marks (off: only the keys mark)
 	bagSpace = true,         -- free bag slots: the junk button and the bags-full banner
 	bagsLow = 2,             -- ... at this many free slots or fewer
-	trainAll = false,        -- learn every spell a class trainer offers now
+	spareBag = false,        -- ... offer to put a bag from the bags in an empty bag slot first, on a press (QoL/Space.lua, #2369)
 	rewardHighlight = true,
 	rewardAutoPick = false,
 	rewardEquip = false,     -- wear what a turn-in gives when it is an upgrade
 	wearOffer = true,        -- offer gear from loot or a merchant that is an upgrade
 	flightAutoOpen = true,
 	flightHighlight = true,
+	flightAutoTake = false,  -- take the guide's flight as soon as the flight map opens (QoL/Flight.lua, #1621)
 	stepGossip = true,       -- pick the gossip option the live step asks for, open goods or training for its buy and train goals (QoL/Gossip.lua)
 	autoBind = false,        -- bind the Hearthstone at the step's innkeeper
 	deathHelper = true,
@@ -75,6 +88,7 @@ local defaults = {
 	hideErrors = false,      -- combat error spam ("Not enough rage", "Out of range")
 	autoReleasePvP = false,  -- release at once in battlegrounds
 	hideQuestTracker = false, -- the game's objective tracker, as Questie can
+	instanceTrack = true,    -- in a dungeon, the quest tracker watches only its quests (QoL/InstanceTrack.lua)
 	declineDuels = false,    -- friends and guild excepted
 	declineGuildInvites = false,
 	declinePartyStrangers = false,
@@ -116,7 +130,7 @@ end
 -- A game event handled only while one of `keys` ("qol.<key>" settings) is on:
 -- registered when the first turns on, unregistered when the last turns off,
 -- so a feature that is off costs nothing. Follows saved settings from
--- ADDON_LOADED on.
+-- ADDON_LOADED on. unit: that unit's events only (ns.RegisterEvent).
 local watches = {}
 
 local function sync(w)
@@ -129,12 +143,12 @@ local function sync(w)
 	end
 	if on == w.live then return end
 	w.live = on
-	if on then ns.RegisterEvent(w.event, w.fn) else ns.UnregisterEvent(w.event, w.fn) end
+	if on then ns.RegisterEvent(w.event, w.fn, w.unit) else ns.UnregisterEvent(w.event, w.fn, w.unit) end
 end
 
 local initialized = false
-function QoL.WhileOn(keys, event, fn)
-	local w = { keys = type(keys) == "table" and keys or { keys }, event = event, fn = fn, live = false }
+function QoL.WhileOn(keys, event, fn, unit)
+	local w = { keys = type(keys) == "table" and keys or { keys }, event = event, fn = fn, unit = unit, live = false }
 	watches[#watches + 1] = w
 	if initialized then sync(w) end
 	return w
@@ -212,7 +226,7 @@ function QoL.CurrentStep()
 	if not (E and E.GetStepIndex and E.GetStepView) then return nil end
 	local i = E.GetStepIndex()
 	if not i then return nil end
-	local view = E.GetStepView(i)
+	local view = E.GetStepView(i, true)
 	if not view then return nil end
 	local guide = E.GetGuide and E.GetGuide()
 	local step = guide and guide.steps and guide.steps[i]
@@ -225,17 +239,110 @@ function QoL.Open(goalView)
 	return s == "active" or s == "pending"
 end
 
--- Recompute fn once on the next frame after any number of calls.
+-- One quest as a refresh reads it, appended to `into` from n: in the log or
+-- not, ready or failed, and each objective's counts and state. -> the new n
+local function readQuest(C, into, n, q)
+	into[n + 1] = q
+	into[n + 2] = (C.IsOnQuest(q) and 1 or 0) + (C.IsQuestReadyForTurnIn(q) and 2 or 0) + (C.IsQuestFailed(q) and 4 or 0)
+	n = n + 2
+	local objs = C.GetQuestObjectives(q)
+	if objs then
+		for k = 1, #objs do
+			local o = objs[k]
+			into[n + 1], into[n + 2], into[n + 3] = o.numFulfilled, o.numRequired, o.finished and 1 or 0
+			n = n + 3
+		end
+	end
+	into[n + 1] = -1 -- the quest's end
+	return n + 1
+end
+
+-- What the step's refreshes read of the quest log, in `into` (wiped first):
+-- how many quests it holds, and each quest of the current step's goals and of
+-- the While-here line (QoL/Buttons.lua ChooseQuestItem's and TargetNames'
+-- quests, QoL/BagGlow.lua's). -> its length; nil when the Engine or the log
+-- can't say.
+local function readStepLog(into)
+	local E, C, QL = ns.Engine, ns.Compat, C_QuestLog
+	if not (E and E.GetGuide and E.GetStepIndex and QL and QL.GetNumQuestLogEntries) then return nil end
+	local n = 1
+	into[1] = QL.GetNumQuestLogEntries() or 0
+	local guide, i = E.GetGuide(), E.GetStepIndex()
+	local step = guide and i and guide.steps and guide.steps[i]
+	local goals = step and step.goals
+	for g = 1, goals and #goals or 0 do
+		local q = goals[g].quest
+		if type(q) == "number" then n = readQuest(C, into, n, q) end
+	end
+	local here = E.GetWhileHere and E.GetWhileHere()
+	if here and type(here.quest) == "number" then n = readQuest(C, into, n, here.quest) end
+	for k = #into, n + 1, -1 do into[k] = nil end
+	return n
+end
+
+-- That read and its version: one more each time a read differs from the one
+-- before. Read once per moment (ns.Moment), whatever the number of readers.
+local logNow, logWas, logVersion, logMoment = {}, {}, 0, nil
+local function logVersionNow()
+	local moment = ns.Moment()
+	if moment == logMoment then return logVersion end
+	logMoment = moment
+	logNow, logWas = logWas, logNow
+	local n = readStepLog(logNow)
+	local same = n ~= nil and n == #logWas
+	for k = 1, same and n or 0 do
+		if logNow[k] ~= logWas[k] then
+			same = false
+			break
+		end
+	end
+	if not same then logVersion = logVersion + 1 end
+	return logVersion
+end
+
+-- Recompute fn once on the next frame after any number of calls. The
+-- refresh runs from a timer of its own, with its errors caught and noted as
+-- ns.Safe does, but in the moment it finds (ns.Moment): the refreshes of one
+-- frame then share the step view the first of them builds (QoL.CurrentStep,
+-- Engine.GetStepView shared). Anything between them that changes what the
+-- view shows (a game event, a message, an Engine request, another timer of
+-- Polestar's) starts a new moment, and the next refresh builds a fresh one.
+-- A kill's burst asked for two views, one per refresh (#2555).
+-- -> soon(), and onLog() for QUEST_LOG_UPDATE: the client sends it for much
+-- that leaves the log as it was (several per kill, some per loot, fifty in a
+-- burst), and a refresh that reads the step's view costs about half a
+-- millisecond. A refresh that onLog asks for reads the step's part of the log
+-- as it runs (readStepLog: one read per moment, whatever the number of
+-- refreshes, and the step's view reads the same lines then), and a run asked
+-- for only by onLog skips fn when that part is as at its last run. The step
+-- itself changing comes through QoL.OnStep and soon() as before, the bags
+-- through BAG_UPDATE_DELAYED.
 function QoL.Coalesce(fn)
-	local scheduled = false
+	local scheduled, other, logged, seen = false, false, false, nil
 	local function run()
 		scheduled = false
+		if logged then
+			local v = logVersionNow()
+			if not other and v == seen then return end
+			seen = v
+		end
+		other = false
 		fn()
 	end
-	return function()
+	-- The perf probe's report names each by the line that made it.
+	ns.NoteMadeAt(run, ADDON .. "/QoL/QoL.lua")
+	local function due() ns.SafeCall(run) end
+	local function schedule()
 		if scheduled then return end
 		scheduled = true
-		if C_Timer and C_Timer.After then ns.After(0, run) else run() end
+		if C_Timer and C_Timer.After then C_Timer.After(0, due) else run() end
+	end
+	return function()
+		other = true
+		schedule()
+	end, function()
+		logged = true
+		schedule()
 	end
 end
 
@@ -251,12 +358,26 @@ end
 -- Gossip and Blizzard's dialogs, for the helpers that answer them
 ---------------------------------------------------------------------------
 
--- The open gossip offers a quest to pick up or one to hand in: the quest
--- automation goes first, so a helper leaves such a gossip alone.
+-- The open gossip offers a quest the guide takes (to pick up, or to hand in
+-- at one talk: Engine.WantsQuest) or one ready to hand in: the quest
+-- automation goes first, so a helper leaves such a gossip alone. A quest on
+-- offer that the guide doesn't take holds nothing back: nobody picks it, so
+-- the helper would wait for good (#3088: Gadgetzan's innkeeper offers
+-- Overseas Delivery, off the route, at every level, and the bind never
+-- came). One whose id the client doesn't give still counts.
 function QoL.HasQuestBusiness()
 	local G = C_GossipInfo
 	if not G then return false end
-	if (G.GetNumAvailableQuests and G.GetNumAvailableQuests() or 0) > 0 then return true end
+	local n = G.GetNumAvailableQuests and G.GetNumAvailableQuests() or 0
+	if n > 0 then
+		local list = G.GetAvailableQuests and G.GetAvailableQuests() or {}
+		if #list < n then return true end
+		local E = ns.Engine
+		for i = 1, #list do
+			local id = list[i].questID
+			if not (id and id ~= 0 and E and E.WantsQuest) or E.WantsQuest("accept", id) or E.WantsQuest("direct", id) then return true end
+		end
+	end
 	if G.GetActiveQuests then
 		local active = G.GetActiveQuests() or {}
 		for i = 1, #active do
@@ -339,6 +460,26 @@ function Client.SlotInfo(bag, slot)
 	return nil
 end
 
+-- Whether the slot holds a quest's item or one that begins a quest (#1557: a grey quest starter,
+-- Noboru's Cudgel, was deleted as junk): such an item is never sold or deleted. False on a client
+-- without C_Container.GetContainerItemQuestInfo.
+function Client.SlotQuest(bag, slot)
+	local C = C_Container
+	local info = C and C.GetContainerItemQuestInfo and C.GetContainerItemQuestInfo(bag, slot)
+	return info ~= nil and (info.isQuestItem == true or (info.questID or 0) > 0)
+end
+
+-- The quest the slot's item begins, while that quest is not in the log
+-- (QuestInfoFields.questID and isActive); nil otherwise or on a client without
+-- C_Container.GetContainerItemQuestInfo.
+function Client.SlotStartsQuest(bag, slot)
+	local C = C_Container
+	local info = C and C.GetContainerItemQuestInfo and C.GetContainerItemQuestInfo(bag, slot)
+	local q = info and readable(info.questID)
+	if type(q) ~= "number" or q <= 0 or info.isActive == true then return nil end
+	return q
+end
+
 function Client.UseSlot(bag, slot)
 	local C = C_Container
 	if C and C.UseContainerItem then C.UseContainerItem(bag, slot) end
@@ -367,6 +508,34 @@ function Client.DeleteSlot(bag, slot)
 	return true
 end
 
+-- Whether a regular bag slot (1 to NUM_BAG_SLOTS) has no bag in it: the
+-- client gives an empty slot no container slots and no worn item.
+function Client.BagSlotEmpty(bag)
+	if bag < 1 or bag > (NUM_BAG_SLOTS or 4) then return false end
+	if Client.NumSlots(bag) > 0 then return false end
+	local C = C_Container
+	local inv = C and C.ContainerIDToInventoryID and C.ContainerIDToInventoryID(bag)
+	return not (inv and Client.WornID(inv))
+end
+
+-- Puts the bag a bag slot holds into the empty bag slot `into` (PickupContainerItem,
+-- then PutItemInBag on that slot's inventory ID). Never with something already on the
+-- cursor; when the bag does not go in, the cursor is cleared, which puts it back. true
+-- when it went.
+function Client.EquipBag(bag, slot, into)
+	local C = C_Container
+	if not (C and C.PickupContainerItem and C.ContainerIDToInventoryID and PutItemInBag and CursorHasItem) then return false end
+	if CursorHasItem() then return false end
+	C.PickupContainerItem(bag, slot)
+	if not CursorHasItem() then return false end
+	PutItemInBag(C.ContainerIDToInventoryID(into))
+	if CursorHasItem() then
+		if ClearCursor then ClearCursor() end
+		return false
+	end
+	return true
+end
+
 function Client.ItemCount(itemID)
 	local C = ns.Compat
 	if C and C.GetItemCount then return C.GetItemCount(itemID) or 0 end
@@ -386,11 +555,11 @@ function Client.ItemIcon(itemID)
 	return nil
 end
 
--- true / false, or nil when range does not apply (no target, no range).
+-- true / false, or nil when range does not apply (no target, no range, in combat).
 function Client.ItemInRange(itemID)
 	if not (C_Item and C_Item.IsItemInRange and UnitExists and UnitExists("target")) then return nil end
-	-- The client blocks range checks on non-friendly units in combat.
-	if inLockdown() and not (UnitIsFriend and UnitIsFriend("player", "target")) then return nil end
+	-- The client blocks addons' range checks in combat, on friendly targets too (#871, #1198).
+	if inLockdown() then return nil end
 	return readable(C_Item.IsItemInRange(itemID, "target"))
 end
 
@@ -448,13 +617,15 @@ function Client.Money()
 	return GetMoney and GetMoney() or 0
 end
 
--- "1g 23s 45c", zero parts left out.
+-- "1g 23s 45c", "5s 0c", "25c": from the largest coin on, in the coins'
+-- symbols (ns.CoinSymbols), the gold in thousands.
 function QoL.Money(copper)
 	copper = floor(copper or 0)
 	local g, s, c = floor(copper / 10000), floor(copper / 100) % 100, copper % 100
-	if g > 0 then return format("%dg %ds %dc", g, s, c) end
-	if s > 0 then return format("%ds %dc", s, c) end
-	return format("%dc", c)
+	local G, S, C = ns.CoinSymbols()
+	if g > 0 then return format("%s%s %d%s %d%s", ns.Thousands(g), G, s, S, c, C) end
+	if s > 0 then return format("%d%s %d%s", s, S, c, C) end
+	return format("%d%s", c, C)
 end
 
 -- "1h 05m", "12m", "40s"

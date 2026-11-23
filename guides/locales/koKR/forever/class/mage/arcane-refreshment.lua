@@ -18,7 +18,7 @@ return {
 	-- Step 2: Hydrospawn
 	["Hydrospawn"] = "히드로스폰",
 	-- {area:1758} Riptide
-	["Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. {area:1758} hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets."] = "",
+	["Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. {area:1758} hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets."] = "57레벨 정예 물의 정령 히드로스폰은 굽이나무 지구(혈투의 전장 동쪽)에 있습니다. 임프 푸실린이 돌아서서 싸울 때까지 쫓아가고, 사티로스 방을 정리한 뒤 나선형 경사로를 따라 웅덩이로 내려가십시오. 5인 파티용입니다. 냉기는 통하지 않으니 냉기 마법사는 화염이나 비전으로 바꾸십시오. {area:1758}은(는) 10미터 안의 모두를 공격하므로 원거리 공격자는 물러서 있으십시오. 생명력이 4분의 1이 되면 작은 물의 정령을 부릅니다. 정수는 항상 떨어지며, 인스턴스가 초기화될 때까지 다시 나타나지 않습니다.",
 	-- {item:18299} Hydrospawn Essence
 	["{item:18299}: Hydrospawn"] = "{item:18299}: 히드로스폰",
 

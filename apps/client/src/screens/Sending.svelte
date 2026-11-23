@@ -2,7 +2,7 @@
 	import { onMount, tick } from 'svelte';
 	import { api, message } from '../lib/backend';
 	import { bytes, plural } from '../lib/format';
-	import { NEVER, NEVER_NOTE } from '../lib/copy';
+	import { EXPLORER_NOTE, NEVER, NEVER_NOTE } from '../lib/copy';
 	import { fade, rise, swap } from '../lib/motion';
 	import type { Preview, Snapshot } from '../lib/types';
 	import PageHeader from '../components/PageHeader.svelte';
@@ -94,6 +94,7 @@
 						{/each}
 					</ul>
 					<p class="note">{NEVER_NOTE}</p>
+					<p class="note">{EXPLORER_NOTE}</p>
 				{:else if tab === 'sent'}
 					<SentUploads {snapshot} />
 				{:else if error}

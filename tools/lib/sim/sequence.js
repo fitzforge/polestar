@@ -41,9 +41,12 @@ function compileSequence(run, events) {
 		ran.add(d);
 		push(K_DUNGEON, d, -1, run.dungeons[d].pt);
 	};
+	// Quests the sequence accepts: a dungeon quest's objectives run the dungeon only once the route took it
+	// (a hand-in step behind `when complete` for a dungeon the character did not choose runs nothing).
+	const took = new Set();
 	const tasksOf = (qi) => {
 		const d = run.qDungeon ? run.qDungeon[qi] : -1;
-		if (d >= 0) return runDungeon(d);
+		if (d >= 0) return took.has(qi) ? runDungeon(d) : undefined;
 		for (let t = run.qTask0[qi]; t < run.qTask1[qi]; t++) push(K_TASK, qi, t, run.taskPt[t]);
 	};
 	for (const e of events) {
@@ -60,8 +63,10 @@ function compileSequence(run, events) {
 			unknown.add(Number(e.q));
 			continue;
 		}
-		if (e.t === 'accept') push(K_ACCEPT, qi, run.qAccept[qi], named(run.qGiverAlt, qi, e) ?? run.qGiver[qi]);
-		else if (e.t === 'complete') tasksOf(qi);
+		if (e.t === 'accept') {
+			took.add(qi);
+			push(K_ACCEPT, qi, run.qAccept[qi], named(run.qGiverAlt, qi, e) ?? run.qGiver[qi]);
+		} else if (e.t === 'complete') tasksOf(qi);
 		else if (e.t === 'turnin') {
 			tasksOf(qi);
 			push(K_TURNIN, qi, -1, named(run.qEnderAlt, qi, e) ?? run.qEnder[qi]);

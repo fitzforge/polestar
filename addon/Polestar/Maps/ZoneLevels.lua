@@ -8,11 +8,12 @@ local M = ns.Maps
 if not (M and M.RegisterZoneLevels) then return end
 
 M.RegisterZoneLevels({
-	-- [uiMapID] = { minLevel, maxLevel, labelX, labelY } (label point in zone map percent)
+	-- [uiMapID] = { minLevel, maxLevel, labelX, labelY[, dangerFloor] } (label point in zone map percent; the
+	-- danger floor, where a low pocket pulls minLevel under the ground walks cross: forge-world DANGER_FLOORS)
 	[1411] = { 1, 10, 51, 47.1 }, -- Durotar
 	[1412] = { 3, 27, 46.5, 50 }, -- Mulgore
 	[1413] = { 8, 28, 49.5, 41.9 }, -- The Barrens
-	[1416] = { 24, 39, 44.9, 63.3 }, -- Alterac Mountains
+	[1416] = { 24, 39, 44.9, 63.3, 30 }, -- Alterac Mountains
 	[1417] = { 31, 39, 47.9, 52.1 }, -- Arathi Highlands
 	[1418] = { 36, 43, 42.5, 56.6 }, -- Badlands
 	[1419] = { 45, 54, 52.8, 34.8 }, -- Blasted Lands

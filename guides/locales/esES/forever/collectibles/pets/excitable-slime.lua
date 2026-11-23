@@ -10,7 +10,7 @@ return {
 	-- {item:278265} Nutritious Slime Sludge · {npc:4612} Boyle · {zone:1458} Undercity
 	["Buy {item:278265} from {npc:4612} in the {zone:1458} canals first (25 copper for a stack of 5): you hand it in as soon as the slime offers its quest."] = "",
 	-- {item:278265} Nutritious Slime Sludge · {npc:4612} Boyle
-	["{item:278265}: {npc:4612}, in the canals"] = "",
+	["{item:278265}: {npc:4612}, in the canals"] = "{item:278265}: {npc:4612}, en los canales",
 
 	-- Step 2: WRIGGLE.
 	-- {npc:269452} Excitable Slime · {npc:4612} Boyle · {quest:97583} WRIGGLE.
@@ -18,5 +18,4 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Find the {npc:269452}, a critter in the {zone:1458} canals, and /dance with it until it offers WRIGGLE. Buy {item:278265} from a vendor in the canals and bring it back; if the slime seems tired, dance with it again."] = "Busca el {npc:269452}, una alimaña de los canales de {zone:1458}, y usa /bailar con él hasta que te ofrezca CONTONEOS. Compra {item:278265} a un vendedor de los canales y tráeselo; si el cieno parece cansado, vuelve a bailar con él.",
-	-- ["{item:278265}: {npc:4612}, in the canals beside the slime"] = "{item:278265}: {npc:4612}, en los canales junto al cieno",
 }

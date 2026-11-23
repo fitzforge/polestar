@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Zaldimar Wefhellt (Goldshire)
 	-- {npc:328} Zaldimar Wefhellt · {area:87} Goldshire
-	["{npc:328} is the {area:87} mage trainer, upstairs in the Lion's Pride Inn."] = "",
+	["{npc:328} is the {area:87} mage trainer, upstairs in the Lion's Pride Inn."] = "{npc:328}은(는) {area:87}의 마법사 상급자로, 사자무리 여관 위층에 있습니다.",
 
 	-- Step 2: Dink (Ironforge)
 	-- {npc:7312} Dink · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind
@@ -38,6 +38,8 @@ return {
 	-- Step 6: Linen Cloth
 	-- {item:2589} Linen Cloth · {area:149} Silver Stream Mine · {object:2096} Trade District
 	["Any humanoid drops {item:2589}, and the Tunnel Rats in the {area:149} drop it while you gather the gems; the Auction House in the {object:2096} sells it. You hand in ten."] = "",
+	-- {item:2589} Linen Cloth
+	["{item:2589}: humanoids, or the Auction House"] = "{item:2589}: 인간형 몹 또는 경매장",
 
 	-- Step 7: The Silver Stream Mine
 	-- {area:149} Silver Stream Mine
@@ -52,7 +54,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Humanoids drop {item:2589}; the Auction House in the {object:2096} sells it."] = "인간형 몹이 {item:2589}을(를) 떨어뜨립니다. {object:2096}의 경매장에서도 판매합니다.",
 	-- ["Take the {area:2257} to {zone:1455}, then the road east through the South Gate tunnel into {zone:1432}. The dwarven miners' league left the crates in the {area:149} at the north end of the loch; Tunnel Rat troggs hold the mine."] = "{area:2257}을(를) 타고 {zone:1455}(으)로 간 뒤, 동쪽 길을 따라 남부 관문 터널을 지나 {zone:1432}(으)로 가십시오. 드워프 광부 연맹이 호수 북쪽 끝 {area:149}에 상자를 두고 갔으며, 광산은 동굴쥐일족 트로그가 차지하고 있습니다.",
-	-- ["{npc:328} is the {area:87} mage trainer."] = "{npc:328}은(는) {area:87}의 마법사 상급자입니다.",
 	-- ["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}. The {item:7247} and the {item:7308} lie behind her."] = "{npc:5497}은(는) {object:2101}의 탑인 마법사의 성소에 있습니다. {item:7247}와(과) {item:7308}은(는) 그녀 뒤에 있습니다.",
 	-- ["{object:2169} is the tavern in the {object:2101}. Use the {item:7308} inside to make the {npc:6492} visible, subdue one with your spells, then use the {item:7247} to throw down a coffer and capture it."] = "{object:2169}은(는) {object:2101}의 선술집입니다. 안에서 {item:7308}을(를) 사용해 {npc:6492}을(를) 보이게 하고, 주문으로 하나를 제압한 뒤 {item:7247}을(를) 사용해 상자를 던져 포획하십시오.",
 }

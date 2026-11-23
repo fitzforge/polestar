@@ -7,10 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Riggle Bassbait
-	-- {item:276275} Bitter Baitling · {item:274026} Extravagant Extravaganza Coin · {area:35} Booty Bay · {quest:8193} Master Angler · {npc:15077} Riggle Bassbait · {skill:356} Fishing
-	["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks when it starts and take {quest:8193} from {npc:15077}. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "",
-	-- {npc:15077} Riggle Bassbait
-	["{npc:15077}, during the contest"] = "",
+	-- {item:276275} Bitter Baitling · {item:274026} Extravagant Extravaganza Coin · {area:35} Booty Bay · {npc:15077} Riggle Bassbait · {quest:8193} Master Angler · {skill:356} Fishing
+	["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks by {npc:15077} when it starts. {quest:8193} is not a quest you take: {npc:15077} takes the fish straight from his window when you bring them. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "El {item:276275} cuesta una {item:274026}, el premio por ganar el concurso de pesca de Tuercespina. El concurso se celebra los domingos de 14:00 a 16:00, hora del servidor: ve a los muelles de {area:35}, junto a {npc:15077}, antes de que empiece. {quest:8193} no es una misión que se acepte: {npc:15077} recoge los peces directamente desde su ventana cuando se los llevas. Lleva tu mejor habilidad de {skill:356} y cebos para que no se escape ningún pez, una montura y bolsas vacías, y vincula tu piedra de hogar en {area:35}.",
 
 	-- Step 2: Schools of Tastyfish
 	["Schools of Tastyfish"] = "",

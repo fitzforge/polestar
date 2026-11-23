@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  A free, open-source guide addon for <b>World of Warcraft: Forever</b>: step-by-step leveling routes for every race from 1 to 60, a waypoint arrow that walks real paths, and guides for class quests, professions, reputations, mounts and pets.
+  A free, open-source guide addon for <b>World of Warcraft: Forever</b>: step-by-step leveling routes for every race from 1 to 60, through Forever's new Riverglades and Shen'dralas, a waypoint arrow that walks real paths, and guides for class quests, professions, reputations, mounts and pets.
 </p>
 
 <p align="center">
@@ -32,6 +32,34 @@
 </p>
 
 <p align="center">
+  <img src="docs/curseforge/media/arrow-walk.gif" width="836" alt="The arrow leading a Tauren across Thunder Bluff's rises and bridges to Arch Druid Hamuul Runetotem: the yards count down, the arrow turns at each corner, says Arrived, the quest is handed in and the next step opens">
+</p>
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/curseforge/media/guide-hub.gif" width="418" alt="Northshire Abbey on a new Human: Deputy Willem, Marshal McBride and Eagan Peltskinner one after another, each folding into a done line as their quests are taken and handed in">
+      <br><sub><b>One person at a time.</b> Goals tick off as the game confirms them; done people fold away.</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/curseforge/media/while-here.gif" width="418" alt="Hillsbrad Fields: kills count up on the step while Mountain Lion Blood, from another step, counts up under While you're here">
+      <br><sub><b>While you're here.</b> Goals from other steps, offered when you are close to them.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/curseforge/media/level-up.gif" width="418" alt="The level-up card above the guide window: new spells to train with their cost, a spell's tooltip, then the old ranks on the action bars with Upgrade">
+      <br><sub><b>New spells when you level up.</b> What to train, what it costs, where; Upgrade updates your bars.</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/curseforge/media/guide-menu.gif" width="418" alt="The guide menu: Home, Leveling, Westfall's page, Lookup searching swift, and the Deadmines in the dungeon journal">
+      <br><sub><b>Every guide in one place.</b> Leveling, class quests, professions, Lookup and Dungeons.</sub>
+    </td>
+  </tr>
+</table>
+
+<p align="center">
+  <a href="#new-in-040">New in 0.4.0</a> ·
   <a href="#quick-start">Quick start</a> ·
   <a href="#what-it-is">What it is</a> ·
   <a href="#a-look-inside">A look inside</a> ·
@@ -55,6 +83,69 @@
   </tr>
 </table>
 
+## New in 0.4.0
+
+Polestar 0.4.0 puts the Riverglades and Shen'dralas into the route to 60 for
+both factions, and both routes were walked through again zone by zone. The
+[release notes](https://github.com/fitzforge/polestar/releases/tag/v0.4.0)
+and [CHANGELOG.md](CHANGELOG.md) list every change.
+
+- **The Riverglades and Shen'dralas are in the main route.** One Riverglades
+  guide per side (Alliance 41 to 45, Horde 41 to 44) and one Shen'dralas
+  guide for both (Alliance 45 to 46, Horde 46 to 47), placed where they fit
+  your level, with warnings for the zones' elites. There is no extra choice
+  to make. Mount Hyjal (Alliance, 57 to 60) is an optional Experimental
+  guide. The whole road is in [The route, guide by guide](#the-route-guide-by-guide).
+- **Both routes reworked.** Every leveling guide's level range was worked
+  out again, and the Alliance's 50 to 60 Silithus guide is folded into the
+  last guide. In our route tests (simulated 1 to 60 runs counting rested
+  experience), hours to 60 went from 134.7 to 127.5 for the Alliance and
+  from 127.4 to 120.9 for the Horde, and spots with mobs 2 or more levels
+  above you from 106 to 58 and from 102 to 47.
+- **Dungeons.** The Dungeons window uses the game's Group Finder ranges and
+  group sizes, and every grind step suggests a dungeon that fits you right
+  now.
+- **Finished quests stay found.** The guide hands them in where it passes
+  their NPC, "Still to do" lists the ones no step ahead takes, and a
+  finished guide says which quests carry on and which aren't part of your
+  route. Nothing is abandoned unless you choose.
+- **A new settings window, Install and Profiles.** Grouped pages, a live
+  preview on every Look page, a search that understands questions, a short
+  Install on each new character, and profiles as picture cards with a Share
+  tab.
+- **Nine new skins** (Vellum, Lumen, Beacon, Aurora, Hairline, Umbra,
+  Waymark, Lanterns, Sheen), each loaded only when you pick it, and WoW
+  Forever, Blizzard, Classic and Hearth rebuilt with their own arrow and map
+  pins.
+- **And more:** the target list with portraits, open guides as tabs in
+  compact mode, sell and repair reminders, a materials list with an Auction
+  House shopping list, gear advice that reads Forever's ratings, German
+  leveling guides and Latin American Spanish for every leveling, class,
+  profession and reputation guide.
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/assets/screenshots/040-routes.webp" width="418" alt="Safer roads to 60, in our route tests: Alliance hours to 60 from 134.7 to 127.5, minutes of grinding from 2703 to 1997, spots with mobs 2 or more levels above you from 106 to 58; Horde from 127.4 to 120.9 hours, 2471 to 1810 minutes and 102 to 47 spots">
+      <br><sub><b>Both routes reworked.</b> In our route tests, 0.3.7.2 against 0.4.0 with the same model.</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/assets/screenshots/040-skins.webp" width="418" alt="Nine new skins on the same Riverglades step: Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns and Sheen">
+      <br><sub><b>Nine new skins.</b> Each one a small addon that loads only when you pick it.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/assets/screenshots/040-settings.webp" width="418" alt="The new settings window on its Theme page: grouped pages in the sidebar, the search box asking how do I hide the arrow, a live preview of the guide window, heads-up card and rare alert, and the looks as picture cards">
+      <br><sub><b>A new settings window.</b> Live previews, search that understands questions.</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/assets/screenshots/040-dungeon-hint.webp" width="418" alt="A Reach level 28 step in Thousand Needles suggesting Blackfathom Deeps (24 to 32) with a group, beside the Dungeons window listing levels 20 to 30">
+      <br><sub><b>A dungeon instead of the grind.</b> Grind steps suggest a dungeon that fits you.</sub>
+    </td>
+  </tr>
+</table>
+
 ## Quick start
 
 1. **Install it** one of three ways:
@@ -68,9 +159,10 @@
      [newest release](https://github.com/fitzforge/polestar/releases/latest),
      under *Assets* (not "Source code").
 2. **Unzip it into the game's AddOns folder**, so the Polestar folders
-   (`Polestar`, `Polestar_Guides`, `Polestar_Codex`, `Polestar_Nav` and the
-   others, with one `Polestar_<language>` folder per client language such as
-   `Polestar_deDE`) sit directly inside it:
+   (`Polestar`, `Polestar_Guides`, `Polestar_Codex`, `Polestar_Nav`,
+   `Polestar_Options`, `Polestar_Looks`, the nine `Polestar_Skin_*` skins and
+   the others, with one `Polestar_<language>` folder per client language such
+   as `Polestar_deDE`) sit directly inside it:
    `World of Warcraft/_classic_beta_/Interface/AddOns/` on the beta client,
    `_forever_/Interface/AddOns/` on the `_forever_` client. The same zip
    works for both; if you have both clients installed, unzip into each one.
@@ -82,10 +174,13 @@
 
 Good to know:
 
-- `/polestar guides` opens the hub: every guide, Lookup, Dungeons, Talents
-  and Rares. `/polestar options` holds every setting; quest markers on the map
-  are off until you turn them on under **Map**. Right-click the minimap
-  button for a short menu.
+- `/polestar guides` opens the hub: every guide, Lookup, Dungeons and
+  Rares. `/polestar options` holds every setting; quest markers on the map
+  are off until you turn them on under **Map**. A click on the Polestar button
+  on the minimap's edge hides everything Polestar shows, and a second click
+  brings it all back; right-click it for a short menu (the guide window, the
+  arrow, whether hiding keeps the arrow), drag it to move it (Options, Map,
+  Guide & quests, Minimap button turns it off).
 - `/polestar skip` moves on for good; `/polestar next` and `prev` only look
   ahead or back.
 - **Updating:** the CurseForge app and the Polestar Client update Polestar for
@@ -94,6 +189,14 @@ Good to know:
   `Polestar_Names_deDE` kind (one of each per language): `Polestar_deDE` and
   its siblings replace them, and Polestar reminds you at login while they are
   still there.
+- **"No guides installed" or "Polestar Guides is turned off":** Polestar
+  Guides is unticked in the game's AddOns list. The list shows it indented
+  under Polestar, and ticking Polestar (after **Disable All**, say) does not
+  tick it. Polestar asks once at login, and the guide window and the guide
+  menu have a **Turn on Polestar Guides and reload** button that turns it and
+  its parts back on for all your characters. By hand: tick Polestar Guides
+  and the rows under it, or right-click Polestar in the list and pick the
+  option that enables its whole group.
 - **Memory:** the arrow's walking routes (`Polestar_Nav`) load after login,
   never in combat, and each continent's walking maps load when you get there.
   **Walk real paths** (Options, Arrow & routes) off never loads them.
@@ -118,127 +221,191 @@ Good to know:
 
 ## What it is
 
-Polestar is one addon for the whole of WoW: Forever. It carries 256 guides:
-61 leveling guides that take both factions from 1 to 60 from every race's
-starting zone (Zephras Isle for the Skyborne included), 82 class guides for
+Polestar is one addon for the whole of WoW: Forever. It carries 264 guides:
+69 leveling guides that take both factions from 1 to 60 from every race's
+starting zone (Zephras Isle for the Skyborne included), 81 class guides for
 every class's quest chains and class mounts, the twelve professions from 1 to
 300, 27 reputations, 7 exploration guides, the Legacy challenges, 64
-collectible guides (mounts and pets) and 2 miscellaneous guides. Every one of
+collectible guides (mounts and pets) and 3 miscellaneous guides. Every one of
 them can be read step by step on [polestar.guide](https://polestar.guide/guides).
 
 Around the guides it adds a 3D waypoint arrow that walks real paths (on
 Polestar's walking maps, with a router that started from Shortest Path
 Forever's by Cillian Berragan) and a travel planner, quest markers on the map,
-talent plans for every class and spec, gear advice on tooltips, quest rewards
-and bags, a search for where any item, mount or pet comes from, a dungeon
+gear advice on tooltips, quest rewards and bags, a search for where any item, mount or pet comes from, a dungeon
 quest journal, rare alerts and the quality-of-life helpers a long leveling
 session needs. Its interface and its guides read in English, German, French,
 Spanish (Spain and Latin America), Brazilian Portuguese, Russian, Korean and
 Chinese (simplified and traditional).
 
-The leveling routes are not hand-picked. Every race plays its own starting
-zone (to about level 12, the Skyborne to about 15), then all the Horde races
-share one route from the Barrens to 60 and all the Alliance races one from
-Westfall. Polestar Forge builds them from the game's data and Forever's quest
-data, elite and group quests included, writes the guides, and plays them the
-way a player follows them, refusing any step that can't be done as written.
-Every round of routes is read step by step, and a fix from a player's report
-becomes a permanent record the next build keeps
+Every race plays its own starting zone (to about level 11 to 14, the Night
+Elves with Darkshore to 15, the Skyborne to about 15), then all the Horde
+races share one route from Silverpine Forest and the Barrens to 60, and all
+the Alliance races one from Westfall. Both routes run through Forever's new
+zones: the Riverglades in the low 40s and Shen'dralas in the mid 40s. Each
+guide's level range is the level the route brings you there at. The routes
+began as Polestar Forge's builds from the game's data and Forever's quest
+data, elite and group quests included; since then they are tuned zone by
+zone by hand, each change measured and kept as a record so no later build
+loses it, and checked by playing them the way a player follows them
 ([How the routes are made](#how-the-routes-are-made)).
+
+<a id="the-route-guide-by-guide"></a>
+
+<details>
+<summary><b>The route, guide by guide</b></summary>
+
+The levels are each guide's range on that faction's route. Shen'dralas is
+one guide for both factions.
+
+| Starting zones | Alliance | Horde |
+|---|---|---|
+| Elwynn Forest (Human) | 1 to 11 | |
+| Dun Morogh (Dwarf, Gnome) | 1 to 14 | |
+| Teldrassil, then Darkshore (Night Elf) | 1 to 13, 12 to 15 | |
+| Zephras Isle (Skyborne) | 1 to 15 | 1 to 15 |
+| Durotar (Orc, Troll) | | 1 to 12 |
+| Mulgore (Tauren) | | 1 to 13 |
+| Tirisfal Glades (Undead) | | 1 to 13 |
+
+**Alliance, from Westfall**
+
+| # | Guide | Levels |
+|---|---|---|
+| 1 | Westfall | 11 to 18 |
+| 2 | Darkshore | 15 to 20 |
+| 3 | Loch Modan, Redridge Mountains & Westfall | 18 to 22 |
+| 4 | Darkshore | 21 to 23 |
+| 5 | Ashenvale, Wetlands & Stonetalon Mountains | 22 to 25 |
+| 6 | Duskwood & Redridge Mountains | 24 to 27 |
+| 7 | Duskwood | 27 to 28 |
+| 8 | Wetlands, Ashenvale, Ironforge & Stormwind City | 27 to 30 |
+| 9 | Duskwood | 29 to 31 |
+| 10 | Wetlands & Hillsbrad Foothills | 30 to 32 |
+| 11 | Wetlands, Dustwallow Marsh & Thousand Needles | 31 to 33 |
+| 12 | Stranglethorn Vale | 32 to 34 |
+| 13 | Desolace | 33 to 35 |
+| 14 | Stranglethorn Vale | 35 to 36 |
+| 15 | Arathi Highlands, Alterac Mountains & Swamp of Sorrows | 35 to 37 |
+| 16 | Badlands | 37 to 38 |
+| 17 | Desolace | 38 to 39 |
+| 18 | Stranglethorn Vale, Dustwallow Marsh & Swamp of Sorrows | 39 to 41 |
+| 19 | **Riverglades** | 41 to 45 |
+| 20 | Badlands & The Hinterlands | 44 to 45 |
+| 21 | **Shen'dralas** | 45 to 46 |
+| 22 | Feralas | 45 to 46 |
+| 23 | Tanaris | 46 to 48 |
+| 24 | The Hinterlands & Stranglethorn Vale | 47 to 48 |
+| 25 | Searing Gorge | 48 to 49 |
+| 26 | Un'Goro Crater | 49 to 50 |
+| 27 | Azshara, Western Plaguelands & Burning Steppes | 50 to 53 |
+| 28 | Felwood | 52 to 54 |
+| 29 | Winterspring & Eastern Plaguelands | 53 to 56 |
+| 30 | Western Plaguelands, Eastern Plaguelands, Feralas, Un'Goro Crater & Silithus | 55 to 58 |
+| 31 | **Mount Hyjal** | 57 to 59 |
+| 32 | Silithus, Felwood, Winterspring & the Plaguelands | 59 to 60 |
+
+**Horde, from Silverpine Forest**
+
+| # | Guide | Levels |
+|---|---|---|
+| 1 | Silverpine Forest | 12 to 16 |
+| 2 | The Barrens | 14 to 23 |
+| 3 | Ashenvale & Silverpine Forest | 22 to 23 |
+| 4 | Hillsbrad Foothills | 22 to 25 |
+| 5 | The Barrens & Stonetalon Mountains | 24 to 27 |
+| 6 | Ashenvale & Thousand Needles | 27 to 29 |
+| 7 | Hillsbrad Foothills | 29 to 31 |
+| 8 | Thousand Needles & Desolace | 30 to 33 |
+| 9 | Stranglethorn Vale | 33 to 36 |
+| 10 | Dustwallow Marsh & Desolace | 36 to 38 |
+| 11 | Alterac Mountains & Arathi Highlands | 37 to 39 |
+| 12 | Badlands | 38 to 40 |
+| 13 | Stranglethorn Vale & Swamp of Sorrows | 39 to 42 |
+| 14 | **Riverglades** | 41 to 44 |
+| 15 | Feralas & Tanaris | 44 to 47 |
+| 16 | **Shen'dralas** | 46 to 47 |
+| 17 | Feralas, Dustwallow Marsh & Swamp of Sorrows | 46 to 48 |
+| 18 | Tanaris & Searing Gorge | 48 to 49 |
+| 19 | The Hinterlands & Blasted Lands | 49 to 51 |
+| 20 | Azshara, Feralas & Stranglethorn Vale | 50 to 51 |
+| 21 | Un'Goro Crater, Burning Steppes & Western Plaguelands | 51 to 53 |
+| 22 | Felwood & Western Plaguelands | 52 to 55 |
+| 23 | Winterspring | 55 to 56 |
+| 24 | Azshara & The Barrens | 55 to 56 |
+| 25 | Eastern Plaguelands, Winterspring & Tanaris | 56 to 57 |
+| 26 | **Mount Hyjal** | 57 to 58 |
+| 27 | Silithus, Western Plaguelands & Eastern Plaguelands | 58 to 60 |
+| 28 | Felwood, Moonglade & Winterspring | 59 to 60 |
+
+Mount Hyjal, Forever's new endgame zone, comes in both routes before the
+Silithus guide, at about 57.
+
+</details>
 
 Players publish their own routes for Polestar as community guides on
 [polestar.guide](https://polestar.guide/community), and the
 [Polestar Client](https://polestar.guide/client) installs them and keeps them
 up to date ([Community guides](#community-guides)). Each new character's
-first login opens a short welcome: a hello and what Polestar does; on the
-account's first character, quest automation, the guide at login and the color
-scheme, then the route style (Fastest, Balanced or Roads, with a line on what
-each does); then the guide Polestar suggests for that character, the Discord
-and community guides (`/polestar welcome` shows it again).
-
-### New in 0.3.0
-
-0.3.0 is the current release and our biggest yet, built around a complete
-overhaul of the leveling routes ([CHANGELOG.md](CHANGELOG.md) lists every
-change):
-
-- **Routes rebuilt from the ground up.** Every race plays its own starting
-  zone, then one shared route per faction carries it to 60, so a fix or an
-  improvement reaches every race. Towns are done in one visit, work is picked
-  up on the way, class training comes where you already are, the hearthstone
-  is never asked for while it cools down, rare drops are optional, elite and
-  group quests come with the group they want and a solo way past, and every
-  order a player reported as wrong is followed
-  ([what changed](#what-changed-in-030)).
-- **A guide that follows the game.** A step moves on only when the game
-  confirms it: a quest taken or handed in, an item looted, a spell learnt.
-- **The arrow walks the guide's own paths.** The walk into each step is
-  worked out when the guides are built (on Leffe's navigation maps and
-  Polestar's own), so the arrow follows it at once instead of searching
-  first; far waypoints draw their whole walk along the ground.
-- **Lifts and cities.** "Ride the elevator up" or "down", with the
-  departure time; walks get on and off where the car stops; one fixed way in
-  and out of the Undercity; Stormwind and the other capitals are left by
-  their streets and gates.
-- **Every guide shelf rebuilt or reviewed** against Forever's data: class
-  quests for every class, professions, reputation (ten new factions among
-  them), mounts, pets and exploration.
-- **Your own way through a route.** Pin any quest along the way, answer group
-  quests once for the whole route, and have your class's quests offered in a
-  tab beside your leveling guide when they open.
-- **A new look and new tools:** new map and minimap icons, a Characters page,
-  restock, bag tools and a redesigned welcome and options.
-- **The recording program.** The Recorder is rebuilt to record what the
-  guides need most in compact, anonymous chunks, and the Polestar Client
-  sends them only with your consent, showing what each upload holds.
-- **Less memory.** Your race's guides, the quest database and the names in
-  other languages each take a fraction of what they did.
+first login opens **Install**, a short setup a page at a time: a hello and
+what Polestar does; on the account's first character, Questing (quest
+automation, grey quests, the guide at login, the stat weights gear advice
+uses), Targeting (the target button, which lists your step's mobs and NPCs
+so a click targets one, the list following the button with no switch of its
+own; Simple target button for the single square button and who it targets;
+its mark and ping),
+Groups (group quests), Your route (Fastest, Balanced or Roads, and the route
+line) and Your look (Polestar's looks, the game's and the skins, with a
+preview, and the colour scheme); a later character gets only its own choice,
+its class's stat weights. Every choice works the moment you make it, Skip
+install keeps everything as it is, and the last page names the guide
+Polestar suggests and where everything is in Settings. `/polestar install`,
+About's Install and the Install button in the settings window's header open
+it again; the settings search finds it too.
 
 > [!NOTE]
 > **Beta.** Every guide compiles, lints and plays to the end in a simulator
 > for every race and class it serves, and the route checker plays every
-> leveling guide to 60 the way a player follows it. Tell us what you find on
-> Forever: every report becomes a fix the next build keeps.
-> Forever's new 30-60 content (Riverglades, Shen'dralas, Mount Hyjal) is not
-> in any data yet; the routes take it in at launch.
+> leveling guide to 60 the way a player follows them. Tell us what you find
+> on Forever: every report becomes a fix the next build keeps. The
+> Riverglades, Shen'dralas and Mount Hyjal guides are written from Forever's
+> quest data and players' first recordings of the zones: the Recorder's
+> explorer mode keeps mapping the new zones as players go there.
 
 ## A look inside
 
-Polestar's own windows, drawn from the addon's layout: the same pictures
-[polestar.guide](https://polestar.guide) shows. The world map, minimap and zone
-art in them is © Blizzard Entertainment.
-
-<p align="center">
-  <img src="docs/assets/screenshots/hub.webp" width="880" alt="The Polestar hub on its Guides section. The rail holds Guides, Lookup, Dungeons, Talents and Rares, with Import and Options at its foot. The sidebar lists the guides by category (Leveling, Class, Professions, Reputation, Exploration, Legacy, Collectibles, Miscellaneous) and an installed community guide; the Alliance leveling guides are listed by level band with Westfall (12-17) selected, its steps, quests, zones and the next guide shown under the zone's map painting, with Load guide and Open in new tab buttons">
-  <br><sub><b>The hub.</b> Guides, Lookup, Dungeons, Talents and Rares on one rail, Import and Options at its foot; here the Alliance leveling guides by level band.</sub>
-</p>
+Polestar's own windows, rendered from the addon on a game scene (game art
+© Blizzard Entertainment). The GIFs above show it moving; these are the rest.
 
 <table>
   <tr>
-    <td width="36%" align="center">
-      <img src="docs/assets/screenshots/guide.webp" width="300" alt="The guide window on step 3 of 8, Kobold Camp in Elwynn Forest, with tabs for a profession and a reputation guide: Go to the Kobold Camp done, Kill Kobold Vermin 7/10, Kill Young Wolf for Tough Wolf Meat 3/8, a tip on pulling the kobolds, then Marshal McBride, and the guide 29% done">
-      <br><sub><b>The guide window.</b> The step's goals with their counters, a tip, who comes next, and up to six guides in tabs.</sub>
+    <td width="50%" align="center">
+      <img src="docs/curseforge/media/leveling.jpg" width="418" alt="The guide menu on Leveling: the Alliance route from Elwynn Forest to Duskwood, the other starting zones, and Westfall's page">
+      <br><sub><b>Routes for every race.</b> Each race's own start, then one route per faction to 60.</sub>
     </td>
-    <td width="28%" align="center">
-      <img src="docs/assets/screenshots/waypoint-arrow.webp" width="200" alt="The waypoint arrow: 1412 yd, Go to Westfall, 8:00 total">
-      <br><sub><b>The arrow.</b> Distance, the goal it leads to and the time to get there.</sub>
-    </td>
-    <td width="36%" align="center">
-      <img src="docs/assets/screenshots/quest-markers.webp" width="300" alt="Quest markers on the Elwynn Forest world map around Northshire and Goldshire: the step's kobolds ringed in gold inside the step's outlined area, other quests' mobs, a turn-in mark at the Abbey and available quests in Goldshire">
-      <br><sub><b>Quest markers.</b> The step's mobs ringed inside its area, turn-ins and the quests you can pick up.</sub>
+    <td width="50%" align="center">
+      <img src="docs/curseforge/media/journey.jpg" width="418" alt="Starting the Darkshore guide from Westfall: the journey to the boat to Auberdine, each leg with its time">
+      <br><sub><b>Flights, boats and your Hearthstone.</b> Every leg timed, waits included.</sub>
     </td>
   </tr>
-</table>
-
-<table>
   <tr>
     <td width="50%" align="center">
-      <img src="docs/assets/screenshots/lookup-search.webp" width="430" alt="Lookup in the hub searching swift: results across mounts, items, recipes, quests, NPCs and rares, with the Swift Brown Steed selected: level 60, sold by four vendors, the nearest 6 minutes away, and a Guide me button">
-      <br><sub><b>Lookup.</b> One search over guides, mounts, items, recipes, quests, NPCs and rares, each with where it comes from.</sub>
+      <img src="docs/curseforge/media/lookup.jpg" width="418" alt="Lookup searching swift: guides, mounts and items, with the Swift Ram selected">
+      <br><sub><b>Lookup.</b> Where any item, mount, pet, recipe, quest or NPC comes from.</sub>
     </td>
     <td width="50%" align="center">
-      <img src="docs/assets/screenshots/dungeon-journal.webp" width="430" alt="Wailing Caverns in the dungeon journal over the Barrens map: levels 17 to 24, its quests with objectives, who starts and ends them and their rewards, and a Hand in the quests button">
-      <br><sub><b>Dungeons.</b> Every dungeon's quests with their chains and rewards; one button gathers them, another hands them in.</sub>
+      <img src="docs/curseforge/media/dungeons.jpg" width="418" alt="The Deadmines in the dungeon journal: Red Silk Bandanas with its giver, its chain and its rewards">
+      <br><sub><b>Dungeons.</b> Every dungeon's quests, their chains and rewards.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/curseforge/media/nearby.gif" width="418" alt="Nearby services opened from the guide window in Goldshire, then the arrow turning to the nearest vendor">
+      <br><sub><b>Nearby services.</b> The nearest vendor, repair, inn, flight master or trainer.</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/curseforge/media/questlog.jpg" width="418" alt="Make room in your quest log: three quests not handed in on this route, each with Abandon">
+      <br><sub><b>A tidy quest log.</b> Quests the route no longer needs, in one list.</sub>
     </td>
   </tr>
 </table>
@@ -259,7 +426,7 @@ the community guides, the Polestar Client and the docs in one place.
   [Alliance](https://polestar.guide/guides/alliance) or
   [Horde](https://polestar.guide/guides/horde), zone by zone.
 - **[Class leveling pages](https://polestar.guide/guides/class).** Each class's
-  races, class quests, talent plans and gear advice while leveling.
+  races, class quests and gear advice while leveling.
 - **[Community guides](https://polestar.guide/community).** Routes players
   write and publish, free to download ([Community guides](#community-guides)).
 - **[The docs](https://polestar.guide/docs)** for players, guide authors and
@@ -362,7 +529,7 @@ site walks through every step.
 ## Polestar Client
 
 The [Polestar Client](https://polestar.guide/client) is a small desktop app for
-Windows, macOS and Linux (beta, 0.1.0). It finds WoW: Forever on your
+Windows, macOS and Linux (beta, 0.1.8). It finds WoW: Forever on your
 computer and:
 
 - **installs and updates Polestar's addons**: Polestar, the Recorder and
@@ -377,9 +544,13 @@ computer and:
   shows exactly what each upload holds. A notice says so the first time,
   with Stop sharing; stop, pause, or delete everything it sent, any time
   ([docs/RECORDING.md](docs/RECORDING.md) lists every field).
+- **tells Polestar about new releases**: after each check for updates it
+  writes the newest Polestar release into the addon's folder, so the update
+  card in the game knows it ([docs/RECORDING.md](docs/RECORDING.md), "Client
+  info").
 
 Download it from [polestar.guide/client](https://polestar.guide/client) or the
-[Client's GitHub release](https://github.com/fitzforge/polestar/releases/tag/client-v0.1.0);
+[Client's GitHub release](https://github.com/fitzforge/polestar/releases/tag/client-v0.1.8);
 its source is in [apps/client](apps/client).
 
 <p align="center">
@@ -389,6 +560,10 @@ its source is in [apps/client](apps/client).
 ## Features
 
 ### Guides and the engine
+
+<details>
+<summary>One person at a time, goals that tick themselves off, skip with undo, tabs, While you're here, finished quests handed in on the way, group and elite quests your call, a dungeon instead of the grind, new spells at level-up, hiding Polestar in one click.</summary>
+
 
 - **One person at a time.** In a quest hub the window shows only who to talk
   to now and their quests, then "Then: *next person*" and "Person 2 of 8";
@@ -402,17 +577,55 @@ its source is in [apps/client](apps/client).
 - **Skip a quest.** Right-click a quest's line, Skip this quest: the guide
   drops it and the quests that follow from it, in every guide, and the
   banner's Undo brings them back. Skip, at the top, passes the whole step.
+- **Show in quest log.** Right-click a quest's line, or a While you're here
+  line, and pick Show in quest log: the game's quest log opens at that
+  quest (after the fight, in combat).
+- **Abandoned a quest by mistake?** The guide stays on its step, greys out
+  that quest's goals and points the arrow back at its giver, and asks: go
+  back for it, or skip it and what follows. "When you abandon a guide
+  quest" (Options, Guide, Automation) can always do one or the other.
+- **Failed quests say so.** A failed escort or timed quest greys its goals
+  with "failed: abandon it and take it again", and the arrow leads to its
+  giver.
+- **Timed quests count down.** Their goals and the arrow show the time left
+  ("M:SS left"); a chat line and a sound come at 5 minutes, at 1 minute and
+  if the quest fails (Options, Questing, Quests, "Timed quest alerts"), and
+  the step says when the way to the hand-in takes longer than the time you
+  have left.
 - **It catches up.** With "Skip grey quests" on, a guide you open on a
   character who already did part of the route goes over what is done to
-  where you are: gray quests are left out, and so are green ones behind your
-  progress, unless a later quest needs them. A guide you are past, given to
+  where you are: gray quests are left out, and so are quests behind your
+  progress that pay you less than full XP when going back for them costs
+  more time than they give, unless a later quest needs them. A quest still
+  paying full XP always stays. A guide you are past, given to
   you when no guide is open or by Start guide, hands over to the next.
   Item, mount, reputation, profession and class guides do every step.
+- **It says what it leaves out.** Where the guide passes over quests, the
+  guide window shows a dim "N left out here" line: open it to see each
+  quest and why (it needs another quest first, it waits for your level,
+  it pays too little for the walk, you took a quest that closes it), with
+  "Guide me" to a quest's missing start and "Turn off Skip grey quests".
+  Grind steps say which level the next quests are and what is still worth
+  doing nearby; the bug report carries the same reasons.
 - **A guide for where you are.** The window opens with a guide suggested for
   your race, class, level and location, and each guide hands over to the
   next one in its chain when you finish it.
+- **Any leveling guide on its own.** Start a guide without the ones before
+  it and, when much of its quest XP follows on from an earlier guide you
+  haven't done, the window says so near the start, with a rough count of the
+  extra grinding minutes and a button that opens that earlier guide.
 - **Tabs.** Up to six guides open at once (a leveling route and a profession,
-  say); quests are auto-accepted for all of them.
+  say); quests are auto-accepted for all of them. In the compact window, two
+  or more open guides show as a slim tab strip above the step bar, each with
+  a close button and a + for another; the window's menu lists them under
+  "Open tabs" in every mode.
+- **Finished quests stay found.** Quests the route takes are handed in where
+  it passes their NPC. Finished quests no step ahead hands in get one row in
+  "Still to do" ("2 finished quests to hand in elsewhere (900 XP)"), and a
+  click lists who takes each in. When you finish a guide, its end window
+  says which quests in your log carry on to later guides and which aren't
+  part of your route at all, each with Abandon a click away. Nothing is
+  abandoned unless you choose.
 - **Class quests come to you.** When one of your class's quest guides opens
   (you reach its level, or its first quest becomes available), the guide
   window offers it in a tab next to your leveling guide (Options, Guide,
@@ -421,29 +634,79 @@ its source is in [apps/client](apps/client).
   use the guide window's menu, and its open objectives join the Along the way
   list beside whatever step you are on, with their map marks, the target
   button and the arrow, until they are done or you unpin it.
+- **Dynamic Questing.** When you pass through the area of a later step's
+  objective whose quest is already in your log (12 vermin as much as one
+  chest), a "While you're here" panel under the step lists it, up to three
+  at once; done now, that step is done or shorter when you get there. Click
+  one for the arrow, right-click it to see its quest in the quest log or to
+  leave it around there (twice: for the rest of the zone). A quest ready to
+  hand in shows the same way when its NPC is in the town you're in or a few
+  seconds out of your way (20 by default; Options, Guide, Window, Dynamic
+  Questing, "Hand-ins: how far out of your way"), and at that NPC it also
+  takes the quests the next steps need ("Hand in … then take …: saves a trip
+  back"). Pick-ups count too: walk near someone who gives a quest your guide
+  takes later, anywhere in the guide you have loaded, and a row says "Take
+  “<quest>” from <NPC>: saves a trip back"; talking to an NPC whose quest
+  comes in the next few steps takes it without moving the guide. When the
+  guide is about to leave town with your bags nearly full or your gear
+  worn, a line points to a merchant or repairer on the way ("Repair before
+  heading out: gear at 22%"), once per town visit (Options, Guide, Window,
+  Dynamic Questing, Sell and repair reminders).
 - **Group quests are your call.** At a quest a guide marks as a group quest,
   the guide window asks: Skip it keeps to the solo route, Do it with a group
   takes it on. "Group quests" (Options, Guide, Automation) can answer them
   all at once, so the route never stops to ask.
-- **Talent plans** for every class and spec, from level 10 to 60, in the
-  hub's Talents section: an ordered list of picks with short notes, marked on
-  the game's talent frame. Nothing is spent for you.
+- **Talent plans** are paused for now: the hub's Talents section says
+  "Coming soon".
 - **Reputation guides** say, for each standing band, what every turn-in, kill
   or run pays, how many you need to the next standing, where the items come
   from, when kills stop counting and what the quartermaster sells.
 - **Professions** send you to the nearest trainer, vendor or inn of your own
   faction from where you stand, never into a city of the other faction; a
-  goal's cycle button picks another.
-- **Class training reminder** every two levels (configurable): the nearest
-  trainer of your class, unless your guide is about to take you there. At
+  goal's cycle button picks another. In the starting zones, a character who
+  already has a profession gets its Camping 101 quest at the campfire too,
+  handed in at the trainer on the way.
+- **Materials and the Auction House.** A crafting, Cooking or First Aid
+  guide asks once how to get its materials: Mix, Gather, Buy or Later. Every
+  skill range has an Auction House step for what it can buy there, gather
+  steps name the skill they need, and counts include your bank, mail and
+  what you bought. The Materials window (`/polestar materials`) lists every
+  material ahead with what is still to get, and a shopping list stands
+  beside the game's Auction House window (`/polestar ah`), sent to
+  Auctionator when it is installed. Quest items better bought than farmed
+  get a reminder in cities with an Auction House. The default for new
+  guides is under Options > Guide > Professions.
+- **Class training reminder** every two levels (configurable): when your
+  guide trains you within a few steps it says so, else it names the class
+  trainer that fits your route. At
   levels 40 and 60 a **riding reminder** shows the cost of riding and your
   balance, and points the arrow at your riding trainer once you can afford
   it.
+- **New spells at level-up.** When you ding, a quiet card on the guide window
+  shows the class spells you can now train (the game's own tooltip on each
+  icon), what they cost together and whether you can pay it, and where to
+  train: your guide's own training stop when it is a few steps away, else the
+  class trainer that fits your route, with a button for the arrow. It goes by itself, stays away in
+  combat and dungeons, and says nothing on levels with nothing new.
+- **Old ranks on your bars.** Action bars keep the exact rank you put on
+  them, so after training (and at login) a card lists the spells on your bars
+  that are a lower rank than your spellbook's ("Renew: rank 2 to 3"), and
+  **Upgrade** puts the highest rank in those same buttons, out of combat.
+  Macros and items are never touched; right-click a spell on the card to keep
+  it at its rank, and a lower rank you put on a bar yourself is kept too.
+  Both under Options > Quality of Life > Vendors > Trainers.
 - **Elite quests with a solo way past.** The leveling routes take elite and
   group quests where they pay, sized from the game's creature data, with the
   group each one wants; skip one and the guide has you grind to the route's
   level there instead, so you are never stranded. Quests that start from a
-  rare drop are optional extras.
+  rare drop are optional extras. Where much stronger mobs stand, the step
+  warns you or makes them a group choice.
+- **A dungeon instead of the grind.** When the guide asks you to grind to a
+  level, a line under the step suggests a dungeon that fits you right now,
+  with its quests when it has some for you ("Or run Wailing Caverns (17–24)
+  with a group: 4 quests to pick up first."). Click it for that dungeon's
+  quests. A "reach level N" step also counts the finished quests in your log
+  that the guide hands in first.
 - **Escort notes.** On an escort quest the guide window says so under the
   quest's accept and under the goal to complete it: "Escort: if the NPC is
   not there, wait for it to respawn", so an empty spot means someone else is
@@ -455,9 +718,50 @@ its source is in [apps/client](apps/client).
   dungeons and battlegrounds; on by default): the guide window, its action
   buttons and alerts stay out of the way inside dungeons, raids,
   battlegrounds and arenas and come back when you leave. `/polestar`, the key
-  binding or the minimap button still opens it while you are inside.
+  binding or **Guide window** in the minimap button's menu still opens it
+  while you are inside. The first time it hides, a note at the top of the
+  screen says how to bring it back.
+- **Floating button** (Options, Guide, Window, Show and hide; off by default):
+  a small Polestar button you put anywhere on the screen. It works as the
+  minimap button does: click it to hide or show Polestar, right-click it for
+  the same menu, drag it to move it. It hides with the window in combat and in
+  dungeons when those are set to hide.
+- **Minimap button**, on for everyone: click it to hide or show everything
+  Polestar shows, right-click it for a menu (the guide window, the arrow,
+  whether hiding keeps the arrow), drag it to move it (Options, Guide,
+  Window, Show and hide turns it off).
+- **Esc menu button**: a Polestar button in the game menu opens the guide
+  menu (Settings > Look > Theme > Frames, "Game menu button").
+- **Hiding Polestar** (a click on the minimap or floating button, Polestar in
+  the addon list on the minimap, the **Hide/show Polestar** key binding or
+  `/polestar hide`): everything Polestar shows goes at once, the guide window,
+  the arrow, the buttons, alerts and toasts, the lines and pins on the map and
+  minimap, the marks on your bags, quest windows, nameplates and tooltips,
+  and its sounds. Your guide keeps up with what you do meanwhile, and the next
+  click brings it all back as it was, also after a `/reload`. The minimap
+  button stays, dimmed. **Keep the arrow when hidden** (in the minimap
+  button's menu and under Show and hide; this character only) leaves the
+  arrow, its travel button and its arrival sound. Opening a Polestar window
+  (the guides, the options, their key bindings) brings Polestar back. In a
+  fight the action buttons go or come back when it ends.
+- **Pause** (the guide window's menu, the minimap button's menu, Options,
+  Guide, Window, the **Pause the guide** key binding or `/polestar pause`):
+  on your way to a dungeon and inside, the arrow, the guide window and its
+  nudges step aside, and Polestar resumes by itself when you leave the
+  dungeon alive (a wipe and the run back keep it paused). The Spirit Healer's
+  resurrection counts as leaving alive, so pause again for the run back.
+  Your guide keeps up with your quest log meanwhile; a point you pick and the
+  way back to your corpse still show. `/polestar resume` or opening the guide
+  window ends it early. Under it in Options, the step's map pins and the quest
+  automation can pause too. This character only.
+
+</details>
 
 ### Navigation
+
+<details>
+<summary>The 3D arrow with distance and time, the travel planner, route lines, zone crossings, Go anywhere, Nearby services, other addons' waypoints.</summary>
+
 
 - **A 3D waypoint arrow** points at the current goal, shifting from the
   accent to jade as you arrive, with distance and ETA. Distances read in
@@ -466,8 +770,10 @@ its source is in [apps/client](apps/client).
   Hearthstone when they are faster. Each leg has its own caption on the arrow
   ("Fly to Crossroads", "Take the boat to Menethil Harbor", "Hearth to Razor
   Hill").
-- **Trail dots** on the world map and the minimap crawl along the route
-  between its waypoints (Map options can turn them off).
+- **Route lines** on the world map and the minimap show the way to the goal
+  as a line, dots or sparkles, with their own colour, opacity and size;
+  flights show dashed (Options, Guide, Arrow & routes, Line style; a switch
+  takes them off the minimap).
 - **Zone crossings.** Walks between zones go through the real tunnels,
   passes, bridges and gates (Carbonite's zone connections), one waypoint at a
   time ("Go to Ashenvale"): from Sun Rock Retreat to Astranaar through the
@@ -498,11 +804,20 @@ its source is in [apps/client](apps/client).
 - **Flight map destination.** On the flight map, the destination the guide
   flies you to is marked with a bobbing arrow and its name above it, and a
   slow ripple on the node itself. With Reduce motion on, the mark stands still.
+  With Take the marked flight on (Quality of Life, Travel; off by default),
+  the map flies you there as soon as it opens; hold Shift at the flight
+  master to choose yourself.
 - **Lock arrow and buttons** (Options, Guide, Window; off by default): a stray
   drag no longer moves the arrow, the quest item, target and Hearthstone
   buttons or the flight and instance timers. Shift-drag still moves them.
 
+</details>
+
 ### Pathing by Shortest Path Forever
+
+<details>
+<summary>Real walking paths, route styles, and handing guiding to Shortest Path Forever if you prefer it.</summary>
+
 
 The arrow walks real paths: round cliffs, water and walls, through the town
 gate and down into the mine, not over the edge. That is the work of
@@ -551,7 +866,13 @@ while it runs, and guides again when it ends. If Shortest Path Forever
 finds no way to a goal, or turns its journeys off, Polestar's own arrow
 guides you there instead.
 
+</details>
+
 ### Quests and the map
+
+<details>
+<summary>Quest markers and nameplate counts, services and rares on the map, the Target button, Quick Keybind Mode and key bindings.</summary>
+
 
 - **Quest markers**: givers, objectives and turn-ins on the world map and the
   minimap, with tooltip lines on the mobs and items a quest needs and quest
@@ -564,21 +885,69 @@ guides you there instead.
   under **Map** in the options; the arrow's target, its route and the
   regions the guide step's mobs and objects spawn in (shaded on the world map
   and the minimap) always show.
-- **NPC services and mailboxes** on zone and city maps (Map, Rares & travel,
-  NPC services; off by default): class trainers and mailboxes, with repair,
+- **NPC services and mailboxes** on zone and city maps (Map > Rares, travel &
+  zones > NPC services; off by default): class trainers and mailboxes, with repair,
   vendors, bankers, profession trainers, weapon masters and the rest one
   click away. A click sets the arrow there.
 - **A world map without fog of war**, with coordinates and zone level ranges.
-- **The step's item glows in your bags** (and in Baganator): the carcass, the
+- **The step's item glows in your bags** (and in Baganator and BagSmith): the carcass, the
   seeds or the horn the step uses or has you collect.
 - **Hide the game's quest tracker** (Options, Questing; off by default).
-- **Mark what they target** (Options, Questing, Buttons; off by default): the
-  target button and the step key put a raid icon on the mob or NPC they
-  target — a skull and a star by default, configurable — leaving icons
-  already placed alone. Either can be set to "A new one each press", so the
-  last few targets keep theirs. Your party sees the icons.
+- **The target list** shows the step's mobs (or, with no mob, the NPCs it
+  sends you to) with their portraits, what they drop for the step and your
+  progress on its goal (3/8); click a name to target that one, or press the
+  target button's key binding for the first one close by. A row's click marks
+  and pings as the target button does. A row turns green while its mob is
+  close. The list goes with the target button: it shows while the target
+  button is on (Settings, Questing, Buttons, Targeting, or the Install's
+  Targeting page) and has no switch of its own. It stands beside the target
+  button, or under it when the buttons line up in a row, and takes the
+  Buttons page's look. The small Polestar mark in the button's place moves the
+  buttons; left-click it to fold the list to one row showing the mob that is
+  close, right-click it for its settings; in Quick Keybind Mode, hover it to
+  bind the target button's key. **Target list style** (Settings, Questing,
+  Buttons, Targeting) makes it smaller: slim rows with a small portrait, the
+  name and the count; names only, without faces; or portraits alone in a
+  column or a row, each with how many are left, and the name of the one that
+  is close beside its portrait (under or over it in a row). **Portraits** (3D or 2D)
+  chooses the faces: 2D shows the game's flat portrait once you have seen that
+  mob, and an icon for what you do with it until then. **Simple target
+  button** (Settings, Questing, Buttons, Targeting) keeps only the button,
+  which moves to the next name on each click. Its icon shows what you do with
+  the one it targets next (a
+  speech bubble, ! or ? for an NPC, a sword or a bag for a mob, a skull for an
+  elite, rare or boss, or their face once you have seen them), with the name
+  beside it in green, red or gold and small icons for the names after it.
+- **Mark what they target** (Options, Questing, Buttons; on by default): the
+  target button, a target list row's click and the step key put a raid icon
+  on the mob or NPC they target — a skull on an enemy and a star on a friendly
+  NPC by default, configurable — and pressing again never takes an icon off.
+  Pinging it for your group is a separate switch, off by default. Either can be set to "A new one each press", so the
+  last few targets keep theirs. Your party sees the icons. In a party you
+  don't lead, only a mob or NPC with no icon yet gets one, so a mark someone
+  else placed stays; in a raid it marks only when you lead or assist.
+- **New in Forever.** Quests Forever added carry a small ∞ mark on their
+  step, in While you're here, in the Codex and in quest tooltips (Options,
+  Guide, Window, "Mark quests new in Forever").
+- **Bind the buttons from Quick Keybind Mode** (Options > Keybindings > Quick
+  Keybind Mode, or an action bar addon's `/kb`): hover the Target, quest
+  item, Hearthstone, rare, bag or travel button and press a key (with
+  Shift, Ctrl or Alt if you like), a mouse button or the wheel; Escape
+  unbinds. While the window is open, the buttons the guide doesn't need right
+  now show dimmed in their places, named, so you can bind them too, and go
+  again when it closes. The window's Okay keeps the keys (for this character
+  only if you tick its box), Cancel drops them. Nothing changes in a fight.
+- **Key bindings** (Options > Keybindings): all of Polestar's, the
+  Recorder's included, have a **Polestar** section of their own, and the
+  Options search finds each one by its name.
+
+</details>
 
 ### Playing in a party
+
+<details>
+<summary>Party sync, waiting for the group, sharing a missing quest, the party panel, Sync to my guide.</summary>
+
 
 Group play works only with party members who also run Polestar. On joining
 a party Polestar sends one small hidden hello; a member who answers is synced,
@@ -589,13 +958,19 @@ runs solo or in a raid.
 
 - **Party sync**: each member's count shows under the quest goals you share
   ("Ana 5/8", "Ben done"), and on a quest you took, which of them lacks it.
-  It is on by default; the first time a party member answers as a Polestar
-  user, Polestar says so once in chat. What goes out: quest IDs and counts,
-  level, XP %, class and race, your step, your guide (and pack) and your
-  Polestar version, as hidden addon messages to your party, never to chat.
+  It is on by default; the first time a party member's progress shows,
+  Polestar says so once in chat. What goes out: quest IDs and counts,
+  level, XP %, class and race, your step, your guide (and pack), your
+  Polestar version, and which quests of the steps around yours you've
+  handed in, as hidden addon messages to your party, never to chat.
   Up to v0.3.2 it was off by default and that choice wasn't stored, so if
-  you had it off, this update turns it on once (the chat notice tells you);
-  from this version on, turned off, it stays off.
+  you had it off, 0.3.3 turned it on once (with a chat notice); turned off
+  since then, it stays off.
+- **Another Polestar version**: a party member on another Polestar version
+  gets one line in chat per session ("Ana is on Polestar 0.3.6: your guides
+  can differ."), since the steps and quests of a guide can change between
+  versions. Two players on the same version still see different steps when
+  their class or race differs: each sees only the steps for their own.
 - **Wait for the group**: when you finish an objective a party member on the
   same quest still needs ("Waiting on Ana: 3/8 Boar Ribs"), the step and its
   turn-in wait for them (nothing is handed in automatically meanwhile), and
@@ -605,8 +980,10 @@ runs solo or in a raid.
   "Go on without them".
 - **Share a missing quest**: a Share button on the goal of a quest you have
   that a member lacks, using the game's own sharing. When Polestar knows why
-  they can't take it, it says so ("Ben (level 8, needs 10)", "another class",
-  "already done").
+  they can't take it, it says so ("Ben (level 8, needs 10)", "already done":
+  the game said so, or they handed it in near their step). A member whose
+  class or race can't take the quest isn't named at all: their guide never
+  has it.
 - **Party panel**: a small movable panel that opens by itself the first time
   another Polestar member in the party is heard, with each one's level and
   XP, the step they are on, what they still need of yours, and whether they
@@ -615,37 +992,86 @@ runs solo or in a raid.
   closed; a click on the guide window's party line or `/polestar party`
   brings it back (and says why when nothing can show yet). Without a
   Polestar member in the party it stays hidden.
+- **Sync to my guide**: the party panel's "Sync to my guide" (or
+  `/polestar party sync`) asks your party to move to your step. Each member
+  who runs Polestar gets a prompt, never an automatic move, that names the
+  quests the move passes they haven't done and the ones they did already.
+  Accepting opens your guide (in a new tab when needed) and moves them to
+  your step by the step itself, not its number; their ticks and skips stay,
+  and Undo takes it back. Declining changes nothing. Once every 30 seconds.
 - **Loot a friend needs**: "Ana still needs 2 Scalding Mornbrew" under a
   collect goal, and on a loot window or roll with a quest item a member still
   needs and you don't, "For Ana: she still needs 2". Nothing is passed,
   rolled or said for you.
-- **Tell my party in chat** (on by default): the one part everyone in the
-  party sees, Polestar or not. When you finish one of a quest's objectives,
-  one party chat line with the quest's link ("[Polestar] Finished: Plagued
-  Hide 5/5 - [Plagued Lands]"), and when the quest is ready to turn in,
-  "[Polestar] Ready to turn in: [Plagued Lands]". Nothing for what was
-  already done when you log in, reload or join, and never the same line
-  twice. During a boss fight, while the game holds chat back, a line waits
-  up to two minutes. The first line says once where to turn it off.
+- **Tell my party** (on by default): the one part everyone in the party
+  sees, Polestar or not. Party chat lines that start with the Star raid
+  icon and the quest's link: "Polestar: [Plagued Lands] Plagued Hide 5/5,
+  Rabid Wolves 8/8" for objectives you finish (those within a few seconds
+  in one line), "Polestar: [Plagued Lands] is ready to turn in", and, when
+  you loot an item that starts a quest, "Polestar: looted [Mysterious
+  Letter], which starts [The Dark Iron War]". Nothing for what was already
+  done when you log in, reload or join, and never the same line twice.
+  During a boss fight, while the game holds chat back, a line waits up to
+  two minutes. The first line says once where to change it. Party members
+  with Polestar see Polestar's star on these lines; your own stay out of
+  your chat unless you turn "Show my own lines in my chat too" on. Also
+  under Options > Questing > Quests > Group: the loot line, hiding other
+  players' Polestar lines, and "Only when someone in the party doesn't have
+  Polestar".
+
+</details>
 
 ### Gear advice
 
+<details>
+<summary>Upgrade arrows on tooltips, quest rewards and bags, with your own stat weights.</summary>
+
+
 - **Upgrade indicator** on item tooltips: by how much an item is an upgrade
   for your spec at your level, from stat weights per spec (detected from your
-  talent points) and level band.
+  talent points) and level band, with health, mana, haste, expertise and
+  armor penetration worked out from the game's formulas at your level
+  ([how each weight is made](docs/gear-weights.md)). Forever's ratings (crit,
+  hit, haste, expertise, armor penetration, dodge, parry, block) count at the
+  game's rating per 1%. The line under it says which weights it scored with
+  and where they came from ("Scored for Arcane, from your talents"). Click a
+  turn-in step's reward pick, or the line beside the game's reward panel
+  heading, to choose other weights (Settings > Questing > Rewards & gear >
+  Stat weights); `/polestar gear spec` shows how Automatic read your talents.
+- **With Forever Leveling BiS installed**, gear advice takes its answers
+  through its public API while Stat weights is on Automatic: from its version
+  1.2.9 its gains (in its own score points, "+6.1 (+8%) upgrade"), scores and
+  the spec it scores for ("Scored by Forever Leveling BiS (Arms)"); before
+  that, its upgrade arrows in your bags. Turn it off under Gear advice ("Use
+  Forever Leveling BiS when installed").
 - **On the game's reward panel** every choice that is an upgrade gets a green
   arrow, the one to take is framed, and a coin marks the one that sells for
-  most. Turn-in goals name the best reward.
+  most. Turn-in goals name the best reward, and a quest you are about to accept
+  shows its reward when it is an upgrade.
 - **In your bags** every item that is an upgrade gets the same green arrow,
-  in the game's bags, in Baganator and in EllesmereUI Bags. With Pawn
+  in the game's bags, in Baganator, BagSmith and EllesmereUI Bags. With Pawn
   installed, "Leave bag arrows to Pawn" hides Polestar's.
 - **Your own stat weights**: paste a Pawn scale string (Options, Questing,
   Rewards & gear, or `/polestar gear import`) and choose it under Stat weights
   as "Custom: <name>". It replaces the built-in weights at every level. One
   window lists your scales for every class: use, rename, export or delete
   them, change their weights, and start one from a built-in spec.
+- **Adjust the built-in weights**: Options, Questing, Rewards & gear, **Adjust
+  weights** (or `/polestar gear adjust`) lists your spec's weights. Change any
+  stat, or add one; a changed stat is marked with a dot and can go back on its
+  own (its reset button names the default), and **Revert to default** puts
+  every weight of the spec back. A change
+  is kept as a share of the default, so it carries over when Polestar's
+  defaults change, and the spec reads "(adjusted)" in the menu and on
+  tooltips.
+
+</details>
 
 ### Lookup, Dungeons and Rares
+
+<details>
+<summary>Where anything comes from, every dungeon's quests, rare alerts, and the Characters page.</summary>
+
 
 - **Lookup** searches guides, items, mounts, pets, NPCs, quests, zones,
   dungeons and rares, and answers "how do I get that?" with the sources
@@ -654,25 +1080,54 @@ runs solo or in a raid.
   it; Alt-click an item link for a guide.
 - **Dungeons**: a journal page per dungeon with every quest (where it starts
   and ends, its objective, chain and rewards), the bosses and the entrance.
-  A chip beside each dungeon's name shows how far its quests take you (or
-  its recommended level); hovering it shows the XP and the levels it spans.
+  Each dungeon shows its level range and group size as the game's Group
+  Finder lists them, and the level it's best at ("35–47 · best at 43"); For
+  your level puts the ones that suit you first and marks
+  the rest "Tough at your level", and the hub says what fits your level and
+  when the rest unlock ("N now · M at level X"), with a chat line and a map
+  pin when you reach one. Hovering a dungeon's level chip shows the XP its
+  quests give and the levels they span. City dungeons belong to their own
+  faction only. Quests that belong to a dungeon carry a dungeon glyph in
+  every guide.
   "Pick up the quests" builds a guide that collects every quest of the
-  dungeon you can take, earlier quests first, on the shortest path from where
-  you stand to the entrance; after the run, "Hand in the quests" guides you
-  to where they are turned in and takes the follow-ups there.
+  dungeon you can take, prerequisites in the order that suits the road, on
+  the shortest path from where you stand to the entrance; after the run,
+  "Hand in the quests" guides you to where they are turned in, starting
+  from the givers nearest the way out, and takes the follow-ups there.
+  Profession quests are left out when you lack the profession.
 - **Rares**: rares and treasures by zone with their spawns and signature
   drop, and an alert when one shows up on your minimap, nameplates or target.
   A **Rare button** appears under the Target button when Polestar spots a rare
   nearby and targets it by name (Options, Questing, Buttons, Rare button).
 - **Characters** (`/polestar alts`): every character on the account with its
   level, zone, guide, gold and an estimate of its rested XP.
+  Forever's client no longer tells addons the realm name: each character
+  keeps its entry, materials, boat timings and rares met, and if two saved
+  characters share your name the page says so and keeps both.
 
 Lookup, Dungeons and Rares read the Codex, a data pack that ships in the
 release as `Polestar_Codex`. Without it Lookup still searches the guides, and
 each section says what is missing.
 
-### Appearance and UI suites
+</details>
 
+### Looks, skins and settings
+
+<details>
+<summary>Polestar's looks, the game's looks and nine skins, colour schemes, the settings window, Install, Profiles and EllesmereUI.</summary>
+
+
+- **Looks and skins** (Settings > Look > Theme): Polestar's own looks
+  (Polestar, Halo and Hearth), the game's looks (WoW Forever, Blizzard and
+  Classic, each with its own arrow and map pins) and nine skins that ship in
+  the download, each a small addon that loads only when you pick it:
+  Vellum (a page of the quest log, dark ink on parchment), Lumen (dark glass
+  with a cyan line), Beacon (high contrast, bigger type, arrow and pins),
+  Aurora (northern lights over a deep night), Hairline (single hairlines and
+  light type), Umbra (dark mode), Waymark (chart paper with a compass rose),
+  Lanterns (ten two-colour moods) and Sheen (glass and gloss). Every look
+  was checked at 0.64, 1.0 and 1.5 scale. Other addons can add skins and
+  colour schemes through the Skin API ([docs/SKINS-API.md](docs/SKINS-API.md)).
 - **Color schemes**: Dusk (the default), Night and Graphite, and
   EllesmereUI's own panel color and accent while it is installed. On top of
   any scheme: your own accent or your class color, background color,
@@ -683,16 +1138,50 @@ each section says what is missing.
   or transparent), scale, width and opacity; the menu scale; the arrow's style,
   scale, opacity and colors; reduced motion. Everything applies live,
   without a reload; right-click any setting to reset it.
+- **The settings window**, resizable, in four groups: Guiding (Guide, Map,
+  Questing, Discovery, Quality of Life), Look (Theme, Guide window, Arrow,
+  Map pins, Route lines, Buttons, Alerts & toasts, Trackers), Setup
+  (Profiles, Integrations, Community guides, Gamepad) and About. Every Look
+  page opens on Essentials, presets drawn as picture cards, with a live
+  preview: click a part of it to find its settings. The search understands
+  questions in every language Polestar speaks ("how do I hide the arrow?",
+  or `/polestar ask` with your question). Reset page, per-setting reset
+  arrows, Undo after any reset, typed values and favourite colours; Move
+  frames puts every frame where you want it, with Revert and Save. The
+  window loads the first time you open it.
+- **Install**: a new character's welcome, a page at a time (Questing,
+  Targeting, Groups, Your route, Your look), each choice working at once;
+  `/polestar install` opens it again.
+- **Profiles** are picture cards, each drawn in its own look; click one to
+  see who uses it and how many settings it changes before you switch, and
+  give a profile its own key (`/polestar profile <name>` switches too). The
+  Share tab picks exactly which parts of a profile to give or take, and
+  previews what a pasted string would change.
 - **Fonts**: the game's own by default, or Inter, or EllesmereUI's.
 - **EllesmereUI** (Options, Integrations): Polestar follows its accent and font by default through
   its public skinning API, and where its Quality of Life or Friends module
   does the same job as a Polestar toggle, the toggle starts off.
+- **ErgoBars** offers the same skinning API: without EllesmereUI, Polestar
+  follows its accent, and its panel color and font when you pick them, the
+  same way.
+
+</details>
 
 ### Quality of life
 
-Quest item, target and Hearthstone buttons; a hearth step while your
+<details>
+<summary>Quest item, target and Hearthstone buttons, XP per hour, selling greys and repairing, training, the best quest reward, instant quest text, answers to summons and invitations; Shift skips any of them once.</summary>
+
+
+Quest item, target and Hearthstone buttons; an item you loot that starts a
+quest you can take shows on the quest item button, glowing, until you read
+it (the step's own item comes first); inside a dungeon or raid the quest
+tracker shows only that instance's quests and gives you your list back when
+you leave; a hearth step while your
 Hearthstone is on cooldown says how long until it is ready and points the
 arrow at the inn; XP per hour and time to level;
+how long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's
+cooldown, and your party's Boosted Rest in the party panel;
 the level the guide wants you to reach, marked on the game's XP bar;
 selling grays and repairing (optionally from the guild bank first); buying
 what a step of Polestar's own guides asks you to buy (a community guide's
@@ -708,23 +1197,67 @@ invitations, guild invitations and duels (friends and guild excepted). Hold
 **Shift** to skip auto-accept, auto-turn-in, auto-sell, training, binding or
 the flight helper once, or to answer a request yourself.
 
+</details>
+
+### Updates
+
+<details>
+<summary>A card at login when a newer Polestar is out, and where Polestar learns of one.</summary>
+
+
+Many problems players report are already fixed in a newer Polestar, so
+Polestar says when one is out. At every login, ten seconds in, a card on the
+guide window says "Polestar 0.4.1 is out", which version you're on and how to
+update: with Polestar Client installed, that it can do it for you; else the
+CurseForge app, Polestar Client or the zip. **What's new** gives you the
+release notes' link to copy; **Got it** keeps the card away for a day. A line
+in the guide window ("Polestar 0.4.1 is out: you're on 0.4.0.") stays until
+you update; its **Update** brings the card back. Two or more updates behind,
+both say so, the line can't be closed, and the card still shows once a day
+with its option off. The card never shows in combat, in dungeons or in the
+first two minutes of a fresh install. Turn it off under Options > Guide >
+Window (**Tell me when a newer Polestar is out**).
+
+Where Polestar learns of a newer release: Polestar Client, after each of its
+checks for updates; party members running Polestar (the version party sync
+already sends); guild members running Polestar; and other players of your
+faction you meet. For the guild, Polestar sends one hidden hello with only
+its version number when you log in (at most every half hour), and a guild
+member on a newer release answers with theirs. For players you target or
+mouse over (not in your group or guild), Polestar sends one hidden addon
+whisper with its version number: at most once a week per player, once every
+30 seconds and 10 times a session, never in combat, dungeons, cities or inns,
+and none once it has heard of a newer release. Their Polestar answers once
+with its own (at most 20 answers a session). A newer version heard only this
+way counts once two different players have answered with it. Nothing goes
+to chat. Turning party sync's sharing off stops all of these; **Ask other
+players' Polestar which version it is** (under it, on by default) stops the
+whispers alone. With no source at all, a Polestar first run three weeks ago
+or more says, in the guide window only, that updates come often.
+
+</details>
+
 ### With a gamepad
+
+<details>
+<summary>Every Polestar action on a gamepad, with its own options and bindings.</summary>
+
 
 Polestar plays with a gamepad on Forever (ported from Ding! by Yendi,
 @moust4ki). Open its options from the minimap button (or `/polestar
 gamepad` without the game's gamepad interface): their **Gamepad** page names
 the buttons (Xbox letters or PlayStation shapes, read off the gamepad by
 default), and its **Key bindings** tab binds every Polestar action: next and
-previous step, browse the guide, show or hide the guide window, the guide
-menu, the options, report a problem, and the quest item, target and
-Hearthstone buttons. Nothing is bound until you bind it. Press A on a row,
-then a button, or hold one button and press another for a combination:
-Polestar watches its combinations itself, keeps the second button from the
-game only while you hold the first, and never acts on one in a fight. With
-the game's gamepad interface on, LB and RB are its targeting buttons and
-every combination with them is the game's own: the row says so before it
-binds one. Tap B to cancel, hold B to bind B itself; Y unbinds. The rows take
-keys of the keyboard too.
+previous step, browse the guide, show or hide the guide window, hide or show
+all of Polestar, the guide menu, the options, report a problem, and the quest
+item, target and Hearthstone buttons. Nothing is bound until you bind it.
+Press A on a row, then a button, or hold one button and press another for a
+combination: Polestar watches its combinations itself, keeps the second
+button from the game only while you hold the first, and never acts on one in
+a fight. With the game's gamepad interface on, LB and RB are its targeting
+buttons and every combination with them is the game's own: the row says so
+before it binds one. Tap B to cancel, hold B to bind B itself; Y unbinds. The
+rows take keys of the keyboard too.
 
 The guide window never takes a button away from the game. To browse it with
 the gamepad, bind **Browse the guide with the gamepad**: the D-pad picks a
@@ -735,11 +1268,11 @@ details, LB / RB look at the previous and next step, Y minimizes the window,
 and B gives the gamepad back to the game.
 
 Every Polestar window you open (the guide menu with Lookup and Dungeons, the
-options, the welcome, the route choice, the report and copy windows, the
+options, Install, the route choice, the report and copy windows, the
 drop-down menus) answers the gamepad while it is open: the D-pad moves the
 focus (an accent ring), A selects, B closes or goes back, LB / RB change tabs
 or pages, left / right adjust a slider or a drop-down, Y puts a setting back
-to its default. A window that opens by itself (the welcome on a new
+to its default. A window that opens by itself (Install on a new
 character, the choice of where to level next) takes no button until you press
 the Browse the guide button, which its bar shows. A bar under the window lists
 the buttons no button on screen shows; B sits on the window's close button.
@@ -748,7 +1281,13 @@ and returns after it. Turn the bar off, or the windows' navigation
 altogether, on the Gamepad page. Without a gamepad plugged in, none of it
 shows: everything works with the mouse and keyboard as before.
 
+</details>
+
 ### Recorder
+
+<details>
+<summary>The optional recording program: what it records, and how to turn it off.</summary>
+
 
 `Polestar_Recorder` is an optional companion addon that records your play
 for the recording program, to improve the routes. It records while sharing
@@ -760,24 +1299,33 @@ compact chunks with no character, realm or account names, and records what
 the guides need most: kill pace and kill XP, drops counted against what your
 quests still needed, which quests each NPC offered you, trainer and vendor
 lists, flight times, item uses and gossip choices
-([docs/RECORDING.md](docs/RECORDING.md), field by field). Recordings replace
+([docs/RECORDING.md](docs/RECORDING.md), field by field). In Forever's new
+zones and dungeons its explorer mode maps more on its own (creature spawns,
+the quest log's map points, dungeon floors, boss pulls, objects opened),
+nothing more about you; `/psrec explore off` turns it off, and Polestar
+Client 0.1.6 or later sends it. Recordings replace
 estimates with Forever facts, feed the Codex what only play shows, and
 `record report` turns them into per-step timings: passes, median and p75
 time, XP per hour, time in combat, deaths and travel, then the slowest
 steps and detours, the steps to fix first.
 
+</details>
+
 ### Slash commands
 
-`/polestar` (or `/pole`) shows or hides the guide window; settings live in
-`/polestar options`, grouped by what you came to do: Guide, Appearance, Map,
-Questing, Discovery, Quality of Life, Integrations (settings for other addons
-Polestar works with, such as Questie, shown while they are installed), Guide
-packs, Gamepad, Recorder and About, with a search that finds any setting.
+`/polestar` (or `/pole`, `/ps`) shows or hides the guide window; settings live in
+`/polestar options` (or `/ps options`, or right-click the game menu's Polestar button), in four groups:
+Guiding (Guide, Map, Questing, Discovery, Quality of Life), Look (Theme,
+Guide window, Arrow, Map pins, Route lines, Buttons, Alerts & toasts,
+Trackers), Setup (Profiles, Integrations, with settings for other addons
+Polestar works with such as Questie while they are installed, Community
+guides, Gamepad) and About (Guiding Stars, Recorder, About), with a search
+that finds any setting.
 
 With the game's gamepad interface on (Options, Gamepad, Enable Gamepad UI)
 there are no slash commands: the game blocks gamepad actions after any
 addon command typed in chat, until the game freezes. Polestar's minimap
-button (on by default then) and its key bindings open the guide and the
+button (on by default) and its key bindings open the guide and the
 settings instead, and Polestar keeps out of the game's own windows.
 
 <details>
@@ -786,40 +1334,60 @@ settings instead, and Polestar keeps out of the game's own windows.
 | Command | What it does |
 |---|---|
 | `help` | List every command |
-| `show`, `hide` | Show or hide the guide window, with the action buttons and the rare and transport alerts; the arrow too only with **Hide the arrow with the guide** (Options, Guide, Arrow & routes), and never the arrow back to your corpse or a Spirit Healer |
+| `show` | Show the guide window, and Polestar with it when it is hidden. `/polestar` alone shows or hides the window, with the action buttons and the rare and transport alerts; the arrow too only with **Hide the arrow with the guide** (Options, Guide, Arrow & routes), and never the arrow back to your corpse or a Spirit Healer |
+| `hide` | Hide everything Polestar shows, or bring it back, as a click on the minimap button does; `hide arrow` turns **Keep the arrow when hidden** on or off |
 | `guides` | Open the hub on Guides |
 | `options [page]` | Open the settings, optionally on a page |
+| `ask <question>` | Open the settings on the answer to a question in your own words (`/ps ask how do I hide the arrow?`): the question in the search box and the settings it finds under it |
 | `next`, `prev` | Look at the next or previous step (nothing is skipped) |
 | `skip` | Skip the step shown, for good (the window offers Undo) |
 | `status` | Current guide and step |
 | `guide <id>` | Switch to a guide by id |
 | `tabs`, `tab <n>`, `close` | List, switch and close guide tabs |
+| `reopen` | Reopen the last guide tab you closed |
 | `path` | Choose where to level next, where a guide offers a choice of route |
 | `route` | Show the travel route to the current target |
 | `skipleg` | Skip the travel route's current leg (a Hearthstone, flight or portal: plan the rest without it; a walk or lift: mark it done) |
 | `near <service>` | Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master |
 | `way <x> <y> [label]` | Point the arrow at x y on your current map (no argument clears it) |
-| `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it); while the guide hides it (**Hide the arrow with the guide**), these commands, `way` and `near` say so |
+| `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it); while the guide hides it (**Hide the arrow with the guide**) or Polestar is hidden, these commands, `way` and `near` say so |
+| `unlock`, `lock` | Move Polestar's frames: a box over the guide window, the arrow, the buttons, the alerts and the trackers to drag where you want them, with a grid and snapping; arrow keys nudge the one you clicked, right-click puts one back. `unlock` again, `lock`, Escape or a fight locks them |
 | `reset` | Clear ticks and skips for the current guide |
+| `pause [on\|off]`, `resume` | Pause the guide: the arrow, the guide window and its nudges step aside, and it resumes by itself when you leave the dungeon alive; `resume` ends it early |
 | `xp` | XP per hour, time to level and level splits |
+| `bags` | Free bag slots and the cheapest junk |
+| `restock` | Amounts to restock at merchants: drink, food, ammo or an item |
+| `questlog` | List the quests in your log the route never hands in, each with Abandon |
+| `materials` | Show how the profession guide gets its materials (the Materials window) |
+| `ah` | Show the quest items and materials to buy at the Auction House |
 | `party [debug]` | Show or hide the party panel: each party member who also runs Polestar (level, step, what they still need); `debug` prints what party sync sends and hears, for a report |
 | `gear [item link]` | Gear advice: the weights in use, or compare an item |
 | `gear import [string]` | Import a Pawn scale: opens the paste box, or imports the string given |
 | `gear scales` | Open the window that manages your custom stat-weight scales |
+| `gear adjust` | Open the window that changes your spec's built-in stat weights |
 | `instances [clear]` | Instance limits, runs and lockouts |
 | `dungeons [name]` | Open Dungeons, or a dungeon's page |
+| `dungeontoast [dungeon]` | Show the dungeon heads-up again (the next one due, or a dungeon) |
+| `classtoast [quest id]` | Show the class quest heads-up again (the next one due, or a quest id) |
 | `lookup [search]` | Open Lookup, optionally searching |
 | `mount` | Look up the mount of your target (or mouseover) and how to get it |
+| `alts` | Open Characters: every character on the account |
 | `rares [test]` | Open Rares, or show a sample rare alert |
-| `talents` | Open your talent plan |
+| `talents` | Open the Talents section (talent plans: coming soon) |
 | `questdb` | Quest database status |
 | `packs` | Open Options > Community guides |
 | `import` | Open the Import page: paste a shared guide string to save it without installing an addon; `import clear` or `import delete` to remove it |
 | `gamepad` | Open Options > Gamepad: button names and key bindings |
-| `welcome` | Show the welcome again |
+| `install` | Set Polestar up again, a page at a time (Install) |
+| `welcome` | Opens Install, as `install` does |
+| `profile [name]` | List your settings profiles, or switch to one |
+| `language [name]` | Choose the language Polestar shows, from the next `/reload`: `game` (follow the game's language, the default), `enUS` (English) or a language code such as `deDE`; no name shows the current choice |
+| `whatsnew` | Show what's new in this version |
 | `where` | Print your map and position as guide lines (`zone map <id>`, `goto x,y live`), in a box to copy |
 | `report` | Report a problem with the step on screen (the guide window's bug button) |
+| `update` | Show the update card when a newer Polestar is out (else whether this one is the newest, when Polestar Client says so) |
 | `discord` | The invite to the Polestar Discord, to copy |
+| `memory` | Each Polestar addon's memory as the game counts it, before and after a full garbage collection: the game's figure includes garbage not yet collected, the figure after is what Polestar keeps (for a report) |
 | `debug` | Toggle debug output |
 
 The Recorder has its own: `/psrec on | off | ui | mark <text> | trail on
@@ -868,11 +1436,13 @@ flowchart LR
   legs --> addon["Polestar_Guides"]
 ```
 
-The routes are made by **Polestar Forge**, one program (`forge build`) that runs every step from
-the installed game to checked guides ([docs/FORGE.md](docs/FORGE.md)). Each race has its own
-starting zone (levels 1 to about 12, the Skyborne to about 15); from there one Horde route runs
-from the Barrens and one Alliance route from Westfall to 60, written once per faction and played by
-every race of it.
+Each race has its own starting zone (to about level 11 to 14, the Skyborne to about 15); from
+there one Horde route runs from Silverpine Forest and the Barrens and one Alliance route from
+Westfall to 60, written once per faction and played by every race of it, both through the
+Riverglades and Shen'dralas ([The route, guide by guide](#the-route-guide-by-guide)).
+
+The routes began as the work of **Polestar Forge**, one program (`forge build`) that runs every
+step from the installed game to checked guides ([docs/FORGE.md](docs/FORGE.md)):
 
 1. **Reference data.** Forge reads the game's own tables from the installed client, Forever's quest
    data and our corrections into the facts every tool uses: quests, givers and enders, objectives,
@@ -902,34 +1472,41 @@ every race of it.
 7. **Walking legs.** The walk into every step is worked out once and shipped with the guides, so
    the arrow follows it at once.
 
-Each round of routes is then read step by step. What a reader or a player finds becomes a
-permanent fix record (`data/route-fixes.json`, `data/guide-fixes.json` and our corrections), never
-a hand edit of a guide, so the next build keeps it; the leveling guides themselves are generated
-(`guides/GENERATED.json` lists them). Every quest a route leaves out is listed with the reason,
-so a missing quest is a question with an answer.
+**Since 0.4.0 the routes are tuned by hand.** Both factions' routes were walked through again zone
+by zone, and every change is a hand edit of the guide with its record beside it
+(`data/route-fixes.json`, `data/guide-fixes.json` and our corrections), so a later Forge build
+keeps it; the leveling guides carry Forge's header and `guides/GENERATED.json` lists them
+([docs/FORGE.md, "Fixing a generated guide"](docs/FORGE.md#fixing-a-generated-guide)). Forge still
+builds the data, the walks and the walking legs, the level model and the checks. A change is
+weighed in this order:
 
-### What changed in 0.3.0
+1. **Mobs at your level.** The aim is that a solo player is not sent at mobs 2 or more levels above them; one level
+   above is fine, with a "Careful" tip where they pull together. A quest's own level doesn't count,
+   and an elite that isn't a group quest becomes a group choice or the route goes round it. Your
+   level at each step comes from the level model, which counts rested experience, checked against
+   players' recordings where enough players passed there.
+2. **Flow.** No walking back over ground you just left, quests handed in where the route passes
+   their giver, a quest picked up now when the route passes its giver and done on a later visit,
+   class training on stops you already make.
+3. **Questing over grinding.** A gap in experience is filled with quests from every zone the
+   faction can reach; what is left is a short top-up on a camp at your level, and every grind step
+   suggests a dungeon that fits you.
+4. **Time,** last.
 
-What you will notice, that 0.2.6's guides didn't do:
-
-- **Your race's own start, then one route for your faction.** Every race levels in its own
-  starting zone, then joins the one Horde route from the Barrens or the one Alliance route from
-  Westfall, so every fix reaches every race.
-- **Towns in one visit.** At a town you pick up and hand in everything that is ready while you
-  are there, and a hand-in waits for you where a flight or your hearth lands you.
-- **Training on the way.** Class training sits where the route already passes a trainer, and
-  weapon trainers come up while you're there.
-- **Elite and group quests, your call.** They are offered with the group they want; skip one
-  and the guide has you grind back to the route's level, so you are never stranded.
-- **Rare drops never hold you up.** Quests that start from a rare drop are optional extras.
-- **The hearthstone is never asked for while it cools down.**
-- **Every order players reported as wrong is now followed**, and kept for every later build.
-- **The arrow walks a path made for each step**, and a step moves on only when the game confirms
-  it (a quest taken or handed in, a spell learnt), never when a window just opens.
+The evidence is our own: walking distance and direction, levels, quest data, players'
+recordings, the flow audit ([docs/ROUTE-FEEL.md](docs/ROUTE-FEEL.md)) and the level model. Every
+quest a route leaves out is listed with the reason, so a missing quest is a question with an
+answer.
 
 Every leveling guide is checked the way a player follows it before it ships, for every race and
-class, and each round of routes is read step by step. Polestar is not a speed-leveling guide:
-the aim is a route that makes sense to play, with nothing pointless in it.
+class: the route check, the danger gate (`node tools/danger-gate.js`: mobs above your level
+around a goal or a grind), the reported-problems gate (`npm run test:reported`: every fixed player
+report stays fixed) and the flow audit. In our route tests for 0.4.0 (simulated 1 to 60 runs
+counting rested experience, against 0.3.7.2 with the same model), hours to 60 went from 134.7 to
+127.5 for the Alliance and from 127.4 to 120.9 for the Horde, and spots with mobs 2 or more levels
+above you from 106 to 58 and from 102 to 47. These are estimates, not a stopwatch on a real
+character, and players differ a lot. Polestar is not a speed-leveling guide: the aim is a route
+that makes sense to play, with nothing pointless in it.
 
 Forge's model is in [docs/forge/model.md](docs/forge/model.md) and the route check in
 [docs/forge/judge.md](docs/forge/judge.md). The routes of releases up to 0.2.x came from an
@@ -940,8 +1517,7 @@ earlier JavaScript simulator, described in
 
 Guides are plain text, compiled to Lua. The compiler fills in names, titles
 and coordinates from the reference data, so a line can be as short as
-`accept 788`. From the Orc starting guide (written by Forge, like every
-leveling guide),
+`accept 788`. From the Orc starting guide,
 [`guides/forever/horde/orc/01-durotar.guide`](guides/forever/horde/orc/01-durotar.guide):
 
 ```
@@ -951,7 +1527,7 @@ faction Horde
 race Orc
 levels 1-12
 zone Durotar
-next forever/horde/02-the-barrens
+next forever/horde/03-silverpine-forest
 
 step Kaltunk
   accept 4641                         -- Kaltunk, where you start
@@ -1057,9 +1633,12 @@ rust/target/release/forge build --guides guides --out forge-out
 
 Forge reads the installed game, builds the data and the walks, searches every start's route, writes
 the leveling guides (one shared route per faction) and plays them through the route check:
-`forge-out/report.md` and `check.md` say what changed and what a player would trip on. Without a
-maintainer's `data/sources`, `forge data fetch` downloads the public data
-pack first. [docs/FORGE.md](docs/FORGE.md) is the guide.
+`forge-out/report.md` and `check.md` say what changed and what a player would trip on. Since 0.4.0
+a Forge build only advises on the routes: the shipped leveling guides are tuned by hand
+([How the routes are made](#how-the-routes-are-made)), and Forge builds the data, the walks, the
+walking legs, the level model and the checks. Without a maintainer's `data/sources`,
+`forge data fetch` downloads the public data pack first. [docs/FORGE.md](docs/FORGE.md) is the
+guide.
 
 </details>
 
@@ -1141,8 +1720,10 @@ the slowest steps, steps far over the guide's median and detours. Reloads,
 AFK breaks (idle time counts at most 5 minutes), going back a step and other
 tabs are accounted for.
 
-At Forever's launch, the data is rebuilt and Forge builds the routes again to
-take in the new zones ([docs/FORGE.md](docs/FORGE.md)).
+Forever's new zones (the Riverglades, Shen'dralas, Mount Hyjal) were mapped
+this way: the Recorder's explorer mode records spawns, quest map points and
+objects there, and their guides are written from Forever's quest data and
+these recordings.
 
 </details>
 
@@ -1151,13 +1732,16 @@ take in the new zones ([docs/FORGE.md](docs/FORGE.md)).
 | Path | What lives there |
 |---|---|
 | [`addon/Polestar`](addon/Polestar) | The addon: engine, navigation, UI, modules, textures drawn in code ([addon/README.md](addon/README.md); every addon: [docs/ARCHITECTURE.md, "Overview"](docs/ARCHITECTURE.md#overview)) |
-| [`addon/Polestar_Guides`](addon/Polestar_Guides) | The compiled guides (generated by `compile`) |
+| [`addon/Polestar_Guides`](addon/Polestar_Guides) | The compiled guides (generated by `compile`); the per-faction and per-race parts (`Polestar_Guides_Alliance`, `Polestar_Guides_Human`, ...) load on demand for your character |
+| [`addon/Polestar_Options`](addon/Polestar_Options), [`addon/Polestar_Looks`](addon/Polestar_Looks), [`addon/Polestar_SkinAPI`](addon/Polestar_SkinAPI) | Loaded on demand: the settings window with its looks pages and previews, the WoW Forever, Blizzard, Classic and Hearth looks, the checks for skins from other addons |
+| `addon/Polestar_Skin_*` | The nine skins that ship (Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen), each its own addon loaded when picked; `Polestar_Skin_Example` is the Skin API's example and never ships ([docs/SKINS-API.md](docs/SKINS-API.md)) |
 | [`addon/Polestar_ItemDB`](addon/Polestar_ItemDB) | Item stats for gear advice: `Items.lua` from `forge data itemdb`, `Forever.lua` from `forge data gear` |
 | [`addon/Polestar_Nav`](addon/Polestar_Nav) | The arrow's walking routes: Polestar's walking router, started from Shortest Path Forever's by Cillian Berragan (GPL-3.0-or-later), on Polestar's walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle, grown from his format (`nav pack`; [CREDITS.md](addon/Polestar_Nav/CREDITS.md)) |
 | [`addon/Polestar_Recorder`](addon/Polestar_Recorder) | The optional session recorder |
-| [`guides/forever`](guides/forever) | The guide sources: leveling, professions, reputation, exploration, Legacy, collectibles |
+| [`guides/forever`](guides/forever) | The guide sources: leveling (with the Riverglades, Shen'dralas and Mount Hyjal), class, professions, reputation, exploration, Legacy, collectibles |
+| [`experimental`](experimental) | Polestar Experimental's guide sources (none at the moment: Mount Hyjal joined both routes in 0.4.3), compiled into `addon/Polestar_Experimental` |
 | [`tools`](tools) | The command line (`polestar.js`), the guide compiler, the simulator, data importers, texture and preview renderers, the playground ([tools/README.md](tools/README.md)) |
-| [`rust`](rust) | Polestar Forge, the Rust pipeline that makes the routes and writes them into the guides: one `forge` program ([docs/FORGE.md](docs/FORGE.md)) |
+| [`rust`](rust) | Polestar Forge, the Rust pipeline behind the data, the walks and walking legs, the level model, the route checks, the guide compiler and the releases: one `forge` program ([docs/FORGE.md](docs/FORGE.md)) |
 | [`apps/client`](apps/client) | The Polestar Client, the desktop app that installs and updates the addons and community guides and sends recordings ([apps/client/README.md](apps/client/README.md)) |
 | [`services/ingest`](services/ingest) | The recording program's server: it checks and stores the chunks the Polestar Client sends ([services/ingest/README.md](services/ingest/README.md)) |
 | [`tests`](tests) | `node --test` suites; `tests/lua` is the simulated game client they run the addon in ([tests/README.md](tests/README.md)) |
@@ -1166,7 +1750,7 @@ take in the new zones ([docs/FORGE.md](docs/FORGE.md)).
 
 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) describes the modules and their
 contracts, [docs/SUITE.md](docs/SUITE.md) the suite and what is out of
-scope (best-in-slot lists, loot browsing, talent builds), and
+scope (best-in-slot lists, general loot browsing, talent builds), and
 [docs/DESIGN.md](docs/DESIGN.md) the visual system.
 
 ## Contributing
@@ -1236,7 +1820,10 @@ permission; his map files are not part of the addon.
 7: guide packs produced by Polestar's compiler and import strings produced by
 its tools, including the reference data they place in them, may be
 distributed under terms of the author's choice (not guide text copied from
-Polestar's own guides, nor Polestar's code).
+Polestar's own guides, nor Polestar's code), and a second one for skin
+addons: an addon that changes Polestar's look only through the documented
+Skin API ([docs/skins/](docs/skins/README.md)) may be licensed as its author
+chooses.
 
 <p align="center"><img src="docs/assets/emblem.svg" width="28" alt=""></p>
 

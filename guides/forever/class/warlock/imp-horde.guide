@@ -35,11 +35,13 @@ step Ruzan (Orcs and Trolls)
   only Orc,Troll
   zone Durotar
   tip Your first letter (Tainted Parchment for Orcs, Tainted Tablet for Trolls, from Gornek after Cutting Teeth) points you to Nartok, the warlock trainer in the Den. Ruzan stands just outside the Den in the Valley of Trials and asks for six Vile Familiar Heads.
+  level 3
   accept 1485                         -- Ruzan
 
 step Vile Familiars
   only Orc,Troll
   tip The Vile Familiars (level 3-4) swarm the Burning Blade Coven, the cave north of the Den, inside and around its mouth. Almost every kill drops a head (80%), so about eight kills does it; they throw small fireballs, so pull them one at a time. They respawn in just over three minutes. Other classes hunt the same imps for their own Vile Familiars quest.
+  level 4
   collect 6487 x6 quest 1485.1        -- Vile Familiar Heads
 
 step Summon Imp
@@ -53,11 +55,13 @@ step Venya Marthand (Undead)
   only Undead
   zone Tirisfal Glades
   tip Your first letter (Tainted Scroll, from Shadow Priest Sarvis after The Mindless Ones) points you to Maximillion, the warlock trainer in Deathknell. Venya Marthand waits inside the building beside him and asks for three Rattlecage Skulls.
+  level 2
   accept 1470                         -- Venya Marthand
 
 step Rattlecage Skulls
   only Undead
   tip The Rattlecage Skeletons (level 2-3) stand around the old smithy buildings just north of Deathknell, often right against the walls. Four kills in five drop a skull, so plan on about five; twenty of them spawn there and each comes back after five minutes.
+  level 3
   collect 6281 x3 quest 1470.1        -- Rattlecage Skulls
 
 step Summon Imp

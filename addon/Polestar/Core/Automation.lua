@@ -3,7 +3,11 @@
 --
 -- Rules: settings behavior.autoAccept / behavior.autoTurnin; holding Shift
 -- suppresses both; only `accept`/`turnin` goals of the live step qualify
--- (never a step ahead, nor one the player only looks at); a reward with
+-- (never one the player only looks at), a hand-in the While-you're-here
+-- panel shows (Engine.WantsQuest, #1408) and an accept of the route's next
+-- steps, or of the guides after the loaded one, at the NPC the player talks
+-- to (Engine.WantsQuest: Own.aheadWants, with its guards: gates, level,
+-- timers, the log's room); a reward with
 -- several choices is always
 -- left to the player, as are quests that cost money or flag for PvP, and
 -- (behavior.warnClosing) quests that close another one for good.
@@ -16,6 +20,13 @@
 -- FOLLOW seconds of Polestar's own accept or turn-in, never one the player
 -- opened, never with Shift held or in combat, and never a gossip window that
 -- also offers the NPC's other services.
+--
+-- With Spoken Quests installed and behavior.spokenDelay on (its default), each
+-- window waits SPOKEN_DELAY before automation acts on it. Spoken Quests (it loads after Polestar) records a quest
+-- page in its own handler of the event that opened it, and an accept made in
+-- Polestar's handler, which runs first, leaves it nothing to record, so it never
+-- reads the page. Everything is decided when the wait ends, so Shift held then
+-- skips the action, and it is dropped if the window closed or changed meanwhile.
 --
 -- Quest frame functions are the Forever (Mainline-family) ones used by
 -- Blizzard_UIPanels_Game/Mainline/QuestFrame.lua: GetQuestID, AcceptQuest,
@@ -37,12 +48,29 @@ local function suppressed()
 	return ns.Compat.IsShiftKeyDown()
 end
 
+-- behavior.spokenDelay's wait, in seconds.
+local SPOKEN_DELAY = 0.2
+
+-- The seconds to wait before an automatic quest action, nil for none. Never
+-- without Spoken: the setting is on by default, and shows only with Spoken
+-- installed. Rewards.lua's reward pick waits for it too.
+function Automation.Delay()
+	if not ns.Get("behavior.spokenDelay") or not ns.Compat.AddOnPresent("Spoken_Quests") then return nil end
+	return SPOKEN_DELAY
+end
+
+-- Paused with "No quest automation while paused" on (pause.automation,
+-- Core/Init.lua): no accept, turn-in or close until Polestar resumes.
+local function automationPaused()
+	return ns.PauseHides("automation")
+end
+
 local function canAccept()
-	return ns.Get("behavior.autoAccept") and not suppressed()
+	return ns.Get("behavior.autoAccept") and not suppressed() and not automationPaused()
 end
 
 local function canTurnIn()
-	return ns.Get("behavior.autoTurnin") and not suppressed()
+	return ns.Get("behavior.autoTurnin") and not suppressed() and not automationPaused()
 end
 
 local function wantsAccept(q)
@@ -63,6 +91,29 @@ local function wantsTurnIn(q)
 	if not (q and q ~= 0) then return false end
 	if ns.Compat.IsOnQuest(q) then return ns.Engine.WantsQuest("turnin", q) end
 	return wantsDirect(q)
+end
+
+-- The debug log's lines for the quests a window offers that auto-accept
+-- leaves (ns.Debug: chat only with /polestar debug on; a report carries the
+-- last lines, so one short line per quest), each with why
+-- (Engine.AcceptRefusal): the setting off, Shift held, or the guide's
+-- reason. `list`: quest ids; nothing logged for none.
+local function noteLeft(kind, list)
+	if #list == 0 then return end
+	local npc = tostring(ns.Compat.GetNpcID("npc"))
+	for _, q in ipairs(list) do
+		local why
+		if not ns.Get("behavior.autoAccept") then
+			why = "auto-accept off"
+		elseif suppressed() then
+			why = "Shift held"
+		elseif automationPaused() then
+			why = "paused"
+		else
+			why = ns.Engine.AcceptRefusal(q) or "wanted"
+		end
+		ns.Debug(("auto-accept left %s (%s %s): %s"):format(tostring(q), kind, npc, why))
+	end
 end
 
 local function questID()
@@ -114,7 +165,7 @@ local function anyTaken(list, key)
 end
 
 local function mayClose()
-	return ns.Get("behavior.closeSkipped") and not suppressed() and not ns.Compat.InCombat()
+	return ns.Get("behavior.closeSkipped") and not suppressed() and not automationPaused() and not ns.Compat.InCombat()
 end
 
 -- The quest window ("detail" or "greeting") or gossip window the game opened
@@ -150,17 +201,51 @@ end
 -- Quest frame
 ---------------------------------------------------------------------------
 
+-- An escort taken in a group (#2708): the escorted NPC sets off the moment
+-- one player takes it, before the others have taken it or handed in the
+-- quest that opens it. In a group its accept is left to the player, with a
+-- word in chat once per quest a session.
+local escortTold = {}
+local function groupEscort(q)
+	if not (IsInGroup and IsInGroup() and ns.Engine.EscortQuest and ns.Engine.EscortQuest(q)) then return false end
+	ns.Debug(("auto-accept left %s (detail): an escort, in a group"):format(tostring(q)))
+	if not escortTold[q] then
+		escortTold[q] = true
+		local title = GetTitleText and GetTitleText()
+		ns.Print(L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."]:format(ns.Quoted(title ~= "" and title or tostring(q))))
+	end
+	return true
+end
+
 local function onDetail()
-	if not canAccept() then return false end
 	local q = questID()
-	if not wantsAccept(q) then return false end
-	if ns.Closes.HoldsOffer() then return false end -- closes another quest for good: the player chooses
-	if QuestFlagsPVP and QuestFlagsPVP() then return false end -- needs the PvP confirmation
+	if not (canAccept() and wantsAccept(q)) then
+		noteLeft("detail", { q or 0 })
+		return false
+	end
+	if ns.Closes.HoldsOffer() then -- closes another quest for good: the player chooses
+		ns.Debug(("auto-accept left %s (detail): closes another quest for good"):format(tostring(q)))
+		return false
+	end
+	if QuestFlagsPVP and QuestFlagsPVP() then -- needs the PvP confirmation
+		ns.Debug(("auto-accept left %s (detail): needs the PvP confirmation"):format(tostring(q)))
+		return false
+	end
+	if groupEscort(q) then return false end
 	noteActed()
+	-- Taken for a guide later on the route: say why as it is taken (the
+	-- loaded guide's own accepts stay silent).
+	local later, named
+	if ns.Engine.LaterAcceptGuide then later, named = ns.Engine.LaterAcceptGuide(q) end
 	if QuestGetAutoAccept and QuestGetAutoAccept() then
 		if AcknowledgeAutoAcceptQuest then AcknowledgeAutoAcceptQuest() end
 	elseif AcceptQuest then
 		AcceptQuest()
+	end
+	if later then
+		local title = GetTitleText and GetTitleText()
+		if not title or title == "" then title = named or tostring(q) end
+		ns.Print(L["Took %s now for %s, later on your route: this saves a trip back."]:format(ns.Quoted(title), later.title or later.id))
 	end
 	return true
 end
@@ -178,7 +263,7 @@ local function onComplete()
 	if not wantsTurnIn(q) then return end
 	local choices = GetNumQuestChoices and GetNumQuestChoices() or 0
 	if choices > 1 then
-		ns.Print(L["Choose a reward to finish the turn-in."])
+		ns.Notice(L["Choose a reward to finish the turn-in."])
 		return
 	end
 	local money = GetQuestMoneyToGet and GetQuestMoneyToGet() or 0
@@ -187,11 +272,41 @@ local function onComplete()
 	if GetQuestReward then GetQuestReward(choices == 1 and 1 or 0) end
 end
 
+-- The quest ids a greeting panel offers.
+local function greetingOffers()
+	local list = {}
+	if not GetAvailableQuestInfo then return list end
+	for i = 1, GetNumAvailableQuests and GetNumAvailableQuests() or 0 do list[i] = select(5, GetAvailableQuestInfo(i)) or 0 end
+	return list
+end
+
+-- Of the n quests a window offers (idAt(i) -> quest id): the first the guide
+-- accepts, else the first it hands in `direct`, else nil. Accepts come first:
+-- a direct hand-in whose items are not in the bags opens a progress window
+-- that cannot finish, and picked first it hid the accept behind it at every
+-- visit (#2914: Feathers for Grazle before Speak to Nafien at Grazle).
+local function availablePick(n, idAt, accept, turnin)
+	if accept then
+		for i = 1, n do
+			if wantsAccept(idAt(i)) then return i end
+		end
+	end
+	if turnin then
+		for i = 1, n do
+			if wantsDirect(idAt(i)) then return i end
+		end
+	end
+	return nil
+end
+
 -- Greeting panel (several quests from one NPC/object): turn-ins first, since
 -- they often unlock the follow-up to accept.
 local function onGreeting()
 	local turnin, accept = canTurnIn(), canAccept()
-	if not (turnin or accept) then return false end
+	if not (turnin or accept) then
+		noteLeft("greeting", greetingOffers())
+		return false
+	end
 	local numActive = GetNumActiveQuests and GetNumActiveQuests() or 0
 	if turnin and GetActiveTitle and GetActiveQuestID and SelectActiveQuest then
 		for i = 1, numActive do
@@ -204,14 +319,13 @@ local function onGreeting()
 	end
 	local numAvailable = GetNumAvailableQuests and GetNumAvailableQuests() or 0
 	if (accept or turnin) and GetAvailableQuestInfo and SelectAvailableQuest then
-		for i = 1, numAvailable do
-			local q = select(5, GetAvailableQuestInfo(i))
-			if (accept and wantsAccept(q)) or (turnin and wantsDirect(q)) then
-				SelectAvailableQuest(i)
-				return true
-			end
+		local i = availablePick(numAvailable, function(k) return (select(5, GetAvailableQuestInfo(k))) end, accept, turnin)
+		if i then
+			SelectAvailableQuest(i)
+			return true
 		end
 	end
+	noteLeft("greeting", greetingOffers())
 	return false
 end
 
@@ -233,16 +347,17 @@ local function onGossip()
 			end
 		end
 	end
-	if (accept or turnin) and G.GetAvailableQuests and G.SelectAvailableQuest then
-		local available = G.GetAvailableQuests() or {}
-		for i = 1, #available do
-			local info = available[i]
-			if (accept and wantsAccept(info.questID)) or (turnin and wantsDirect(info.questID)) then
-				G.SelectAvailableQuest(info.questID)
-				return true
-			end
+	local available = G.GetAvailableQuests and G.GetAvailableQuests() or {}
+	if (accept or turnin) and G.SelectAvailableQuest then
+		local i = availablePick(#available, function(k) return available[k].questID end, accept, turnin)
+		if i then
+			G.SelectAvailableQuest(available[i].questID)
+			return true
 		end
 	end
+	local ids = {}
+	for i, info in ipairs(available) do ids[i] = info.questID or 0 end
+	noteLeft("gossip", ids)
 	return false
 end
 
@@ -263,25 +378,48 @@ Automation.OnGossipShow = onGossip
 -- the quests an NPC offers), and is dropped if the window has changed since.
 local windows = 0 -- quest and gossip windows opened or closed so far
 
+-- The wait of Automation.Delay: only the newest window's action runs. Only its
+-- own kind of window closing drops it, unlike `windows`: picking a quest in a
+-- gossip window ends that window, and its GOSSIP_CLOSED must not drop the wait
+-- of the quest window it opened, whichever of the two events comes first.
+local waits = 0
+local waitIsGossip = false
+
 -- kind: "detail", "greeting" or "gossip"; nil for the progress and reward
 -- windows, never closed (they are a turn-in under way).
 local function follow(handler, kind)
 	return function()
 		windows = windows + 1
+		waits = waits + 1
 		local after = gameFollowUp()
-		if handler() or not (after and kind) then return end
-		local mine = windows
-		local function close() if windows == mine then closeSkipped(kind) end end
-		if C_Timer and C_Timer.After then ns.After(0, close) else close() end
+		local function act()
+			if handler() or not (after and kind) then return end
+			local mine = windows
+			local function close() if windows == mine then closeSkipped(kind) end end
+			if C_Timer and C_Timer.After then ns.After(0, close) else close() end
+		end
+		local delay = Automation.Delay()
+		if not delay then return act() end
+		local mine = waits
+		waitIsGossip = kind == "gossip"
+		ns.After(delay, function() if waits == mine then act() end end)
 	end
 end
 
-local function changed() windows = windows + 1 end
+local function questClosed()
+	windows = windows + 1
+	if not waitIsGossip then waits = waits + 1 end
+end
+
+local function gossipClosed()
+	windows = windows + 1
+	if waitIsGossip then waits = waits + 1 end
+end
 
 ns.RegisterEvent("QUEST_DETAIL", follow(onDetail, "detail"))
 ns.RegisterEvent("QUEST_PROGRESS", follow(onProgress))
 ns.RegisterEvent("QUEST_COMPLETE", follow(onComplete))
 ns.RegisterEvent("QUEST_GREETING", follow(onGreeting, "greeting"))
 ns.RegisterEvent("GOSSIP_SHOW", follow(onGossip, "gossip"))
-ns.RegisterEvent("QUEST_FINISHED", changed)
-ns.RegisterEvent("GOSSIP_CLOSED", changed)
+ns.RegisterEvent("QUEST_FINISHED", questClosed)
+ns.RegisterEvent("GOSSIP_CLOSED", gossipClosed)

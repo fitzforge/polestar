@@ -393,9 +393,9 @@ in PACK_FORMAT.md, "Rules Polestar enforces". Each row has a status:
 | Status | The row says | Fix |
 |---|---|---|
 | `on` | the switch on, the guide count | — |
-| `off` | the switch off: the player hid the pack's guides | switch it on; its tabs come back |
+| `off` | the switch off: the player hid the pack's guides, or a pack that loads on demand (`## LoadOnDemand: 1`, such as Polestar Experimental) is not switched on yet; such a pack shows no guide count until it has loaded | switch it on; its tabs come back. A pack that loads on demand loads then, and at every login while it stays on |
 | `disabled` | "turned off in the AddOns list", with **Enable and reload** | press it, or enable the addon in the AddOns list |
-| `not-loaded` | "not loaded: <the client's reason>" (out of date, a dependency missing), or "not loaded" when the client gives none | out of date: rebuild with an updated clone, or tick "Load out of date AddOns"; dependency missing: install or enable the addons on the pack's `## Dependencies` line (the AddOns list names them) |
+| `not-loaded` | "not loaded: <the client's reason>" (out of date, a dependency missing, or a pack that loads on demand whose addon could not load when it was switched on), or "not loaded" when the client gives none | out of date: rebuild with an updated clone, or tick "Load out of date AddOns"; dependency missing: install or enable the addons on the pack's `## Dependencies` line (the AddOns list names them) |
 | `too-new` | "needs Polestar <version> or newer", or "needs a newer Polestar" when its TOC gives no `X-Polestar-Needs` | update Polestar |
 | `refused` | "refused: <reason>" | one of the pack problems below |
 | `broken` | "broken: registered no guides" | see `no-guides` below |
@@ -474,7 +474,7 @@ checks authors meet most; the rest are listed in GUIDE_FORMAT.md
 | `<key>` contains control characters (line breaks, tabs or other invisible characters) | keep the value on one line |
 | `<key>` is N characters long; at most M fit | shorten it |
 | pack id "<id>" is malformed: 2 to 32 lowercase letters, digits and dashes, starting with a letter or digit | pick an id like `<author>-<name>`, e.g. `joe-routes` |
-| pack id "<id>" is reserved for Polestar ("guides", "forever", "lookup", "draft", "polestar" are) | pick another id |
+| pack id "<id>" is reserved for Polestar ("guides", "forever", "lookup", "draft", "polestar", "imported", "polestar-experimental" are) | pick another id |
 | version "<v>" is malformed: one word of letters, digits, ".", "+" and "-", at most 32 characters | write a version like `1.2.0` |
 | website "<url>" must start with https:// or http:// | write the full address |
 | folder "<name>" is malformed: 1 to 64 letters, digits, "_" and "-" / folder "<name>" looks like one of Polestar's own addons | pick a folder like `PolestarPack_JoesRoutes`, or leave `folder` out |
@@ -487,7 +487,7 @@ checks authors meet most; the rest are listed in GUIDE_FORMAT.md
 | LICENSE still holds the placeholder line `polestar new` writes, not the licence text (warning) | replace the line with the full text of your licence |
 | map <id>: this pack's Era frame differs from the one Polestar's guides register; in game Polestar's wins, so coordinates on this map may be off (warning) | mark the coordinates on that map `live` or retake them with `/polestar where` |
 | `kill` npc <id> (<name>) is elite; … / <item> drops only from elites (<names>); … / quest <id> (<title>) is elite … (warning in packs) | Polestar's own house rule (errors in our guides): in a Leveling guide put the goal in a step with `when group <quest>` (the player chooses it; the quest's goals elsewhere go with its accept) or make it `optional`, with the tip "<name> is elite: grouping up is advised." |
-| quest <id> (<title>) needs <Profession> <rank>, and the guide does not train it before here: characters without it never see this goal (warning, Leveling guides) | the quest giver offers it only to characters with that profession, and Polestar hides its goals from the others: make the goal `optional`, or `train <Profession>` (and `skill <Profession> <rank>` above rank 1) earlier in the guide |
+| quest <id> (<title>) needs <Profession> <rank>, and the guide does not train it before here: characters without it never see this goal (warning, Leveling guides) | the quest giver offers it only to characters with that profession, and Polestar hides its goals from the others: make the goal `optional`, or `train <Profession>` (and `skill <Profession> <rank>` above rank 1) earlier in the guide, or put it in a step of its own gated `when skill <Profession> <rank>` (or, for its later goals, `when onquest <id>`). Automation never takes an `optional` accept, so a quest you want auto-accepted for the profession's holders goes in such a step (#1559) |
 | enter "<place>": no zone or area has that name; the game never reports it, so the goal never checks off by itself (warning) | write the place as the minimap shows it there, as the game spells it |
 | sethome/hearth/getfp/fly "<location>": no inn has that bind location / no inn stands there (an inn's area or the zone it is in) / no flight point has that name / no flight point lands there (its town, an inn's area or the zone it is in); the game never reports that name, so the goal never checks off by itself (warning) | write the place as the game names it: the hint offers the closest known names (`did you mean "Grom'gol Base Camp"?`); `polestar find --kind inn` and `polestar find --kind flight` list them all. Checked against the inns and flight points of `data/forever/travel.json` (GUIDE_FORMAT.md, "Validation") |
 

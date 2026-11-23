@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["A cloth hat in your late 20s: Zardeth's errand for any Alliance player pays warlocks this extra."] = "",
+	["A cloth hat in your late 20s: Zardeth's errand for any Alliance player pays warlocks this extra."] = "Тканевая шляпа ближе к 30-му уровню: за поручение Зардета, доступное любому игроку Альянса, чернокнижники получают её в дополнение.",
 
 	-- Step 1: Zardeth of the Black Claw
 	-- {npc:1435} Zardeth of the Black Claw · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {zone:1431} Duskwood · {zone:1437} Wetlands

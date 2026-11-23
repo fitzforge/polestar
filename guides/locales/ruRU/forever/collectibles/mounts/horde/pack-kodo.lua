@@ -7,10 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Durotar Supply and Logistics
-	-- {area:380} Crossroads · {zone:1413} Barrens · {npc:256400} Okamache · {npc:10636} Pack Kodo · {faction:2587} Durotar Supply and Logistics · {item:280179} Shipping Label
-	["The camp stands just outside the west gate of the {area:380} in the {zone:1413}. {npc:256400} sells the {npc:10636} only once you are Exalted with {faction:2587}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "",
+	-- {zone:1413} Barrens · {npc:256400} Okamache · {npc:10636} Pack Kodo · {faction:2587} Durotar Supply and Logistics · {item:280179} Shipping Label
+	["The camp stands just outside the west gate of the Crossroads in the {zone:1413}. {npc:256400} sells the {npc:10636} only once you are Exalted with {faction:2587}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "",
 	-- {faction:2587} Durotar Supply and Logistics
-	["{faction:2587} camp"] = "",
+	["{faction:2587} camp"] = "Лагерь «{faction:2587}»",
 
 	-- Step 2: Pack Kodo
 	["The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier."] = "Для езды нужны 60-й уровень и верховая езда уровня подмастерья (клиент Forever); купить поводья можно раньше.",
@@ -18,6 +18,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Durotar Supply and Logistics"] = "Дуротарские снабжение и логистика",
-	-- ["Durotar Supply and Logistics camp"] = "Лагерь «Дуротарские снабжение и логистика»",
 	-- ["The camp is just outside the {area:380} in the {zone:1413}. Loot supply crates in the world, fill them, and hand them in at the camp for Merchant's Favor (5-20 a crate); the {npc:10636} costs 6,000. Craftsman's Writs may help from level 10."] = "Лагерь – сразу за пределами места {area:380} ({zone:1413}). Добывайте в мире ящики с припасами, заполняйте их и сдавайте в лагере за Merchant's Favor (5-20 за ящик); {npc:10636} стоит 6000. С 10-го уровня могут помочь задания мастера.",
 }

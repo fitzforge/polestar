@@ -69,10 +69,29 @@ end
 local OBJ_TYPES = { monster = true, item = true, object = true, event = true, reputation = true, log = true }
 
 -- "Kobold Vermin slain: 0/3" -> "Kobold Vermin slain" (also "0/3 Kobold ...").
+-- The frFR client's kill objectives are "%1$s : %2$d/%3$d |4personnage
+-- tué:personnages tués;": the grammar escape (and any other escape) is not
+-- part of the name, and the space before its colon is a no-break one. A
+-- name is at most MAX_NAME characters (docs/RECORDING.md).
+local MAX_NAME = 255
 local function objectiveText(text)
 	if not (usable(text) and type(text) == "string") then return "" end
-	text = text:gsub("%s*:?%s*%d+%s*/%s*%d+%s*$", ""):gsub("^%s*%d+%s*/%s*%d+%s*", "")
-	return ns.ListText(ns.Scrub(text))
+	text = text:gsub("|4[^|;]*;", ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|", ""):gsub("\194\160", " ")
+	text = text:gsub("%s*:?%s*%d+%s*/%s*%d+%s*$", ""):gsub("^%s*%d+%s*/%s*%d+%s*", ""):gsub("^%s+", ""):gsub("%s+$", "")
+	text = ns.ListText(ns.Scrub(text))
+	if #text > MAX_NAME then
+		-- at most MAX_NAME characters, cut at a UTF-8 character boundary
+		local n, i = 0, 1
+		while i <= #text do
+			local b = text:byte(i)
+			if b < 0x80 or b >= 0xC0 then
+				n = n + 1
+				if n > MAX_NAME then return text:sub(1, i - 1) end
+			end
+			i = i + 1
+		end
+	end
+	return text
 end
 
 local function recordObjectives(q, objs)
@@ -326,6 +345,7 @@ local function recordOffer(kind, id, available, active)
 	end
 	lastOffer.kind, lastOffer.id, lastOffer.at = kind, id, GetTime()
 	ns.Rec("offer", kind, id, ns.P(), ns.Ids(available), ns.Ids(active), ns.Ids(log), ns.Ids(done), ns.Ids(notOffered))
+	ns.Where(kind, id)
 end
 
 local function idsOf(list)
@@ -453,6 +473,7 @@ ns.On("QUEST_ACCEPTED", function(_, q)
 	ctx = ctx or context(nil)
 	turnedIn[q] = nil
 	ns.Rec("accept", q, ctx.kind, ctx.id, ns.PAt(ctx.map, ctx.x, ctx.y), UnitLevel("player"), rewardXP(q), ctx.rewardMoney, ctx.items, ctx.choices)
+	ns.Where(ctx.kind, ctx.id)
 	track(q, true)
 end)
 
@@ -489,6 +510,7 @@ ns.On("QUEST_TURNED_IN", function(_, q, xpReward, moneyReward)
 	local st = tracked[q]
 	if st and st.escort then escort(q, st, false) end
 	ns.Rec("turnin", q, ctx.kind, ctx.id, ns.PAt(ctx.map, ctx.x, ctx.y), UnitLevel("player"), Num(xpReward), Num(moneyReward), item)
+	ns.Where(ctx.kind, ctx.id)
 	tracked[q] = nil
 	wantedDirty = true
 end)

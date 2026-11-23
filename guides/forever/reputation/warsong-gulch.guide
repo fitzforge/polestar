@@ -28,9 +28,9 @@ why Flag captures and Marks of Honor raise it; Exalted gives a Legacy Point and 
 # Gulch 8402 then 8407, Battle of Warsong Gulch 8429 then 8434). Forever's quest
 # data marks the bracket pairs exclusive with each other; the world database
 # does not. Below level 50 the tips name the bracket versions.
-# INGAME: in Classic a quest pays less reputation once you are 6 or more
-# levels above it (a fifth at most); a Forever beta report says low quests
-# paid in full. Which holds for the bracket mark quests at level 60?
+# Low-level quests pay their full reputation in Forever at any level: in players' recordings every
+# quest turn-in 10 to 29 levels above the quest paid all of it (72 turn-ins, over 40 people, 2026-11-09),
+# as one beta report said (quest 456 at level 30). Classic cut it to a fifth.
 # The 10-19 version of the one-mark quest (8290, 8295) has no giver in
 # Forever's data. Ribbons of Sacrifice (8266, 8268) is left out: the data has
 # no source for the ribbon.

@@ -2,10 +2,10 @@
 //! over the written guides (accepts before their work, item turn-ins after their items,
 //! hearths the route is not bound for, travel lines per audience, riding words).
 
-use crate::apply::{line_only, qkey, quest_of, ALL_RACES, CLASSES};
+use crate::apply::{faction_races, line_only, qkey, quest_of, ALL_RACES, CLASSES};
 use crate::guide::{is_goal, Key, Step};
 use crate::input::{Data, ItemT, Order, OrderT, World};
-use crate::jsre::{head_ws, is_step, split_comment, starts_nonspace, trim, trim_end};
+use crate::jsre::{head, head_ws, is_step, split_comment, starts_nonspace, trim, trim_end};
 use crate::re;
 use forge_core::jsnum::js_hypot;
 use rustc_hash::{FxHashMap, FxHashSet};
@@ -597,12 +597,37 @@ pub fn premature_class_turnins(files: &mut [String], in_route: &FxHashSet<u32>) 
 	set_then_rewrite(files, texts, del, set);
 }
 
+/// The chain's files in the order the route plays them: by the median route position of each file's
+/// lines (`median`; None keeps the file right after the one before it), ties in chain order. v1's
+/// `next` links put a guide they do not reach after every guide they do, and every pass that compares
+/// positions across guides (a step's file and line) reads the files in this order: Silverpine (12-15)
+/// after the Barrens (15-21) it leads into made the Barrens' accept of Trial of the Sea Lion (30) come
+/// "before" Silverpine's Strange Lockbox step, which stayed at 12-15 with nothing to open it for,
+/// #1386. Returns the chain's indices in play order.
+pub fn play_order(chain: &[String], median: &dyn Fn(&str) -> Option<usize>) -> Vec<usize> {
+	let mut last = 0usize;
+	let keys: Vec<usize> = chain
+		.iter()
+		.map(|f| {
+			if let Some(m) = median(f) {
+				last = m;
+			}
+			last
+		})
+		.collect();
+	let mut order: Vec<usize> = (0..chain.len()).collect();
+	order.sort_by_key(|&i| keys[i]);
+	order
+}
+
 /// A step for a quest the route does not take, written before that quest's accept: a step `when
 /// onquest Q`, or one whose every goal collects a quest item that drops only for Q (`item_quest`):
 /// the Druids' Strange Lockbox (the Half Pendant, Trial of the Sea Lion's) at 15.5, before the Moonglade
-/// accept, so the box held nothing and the Druids reached Moonglade at 23 without it, c15 Rev15H1. It
+/// accept, so the box held nothing and the Druids reached Moonglade at 23 without it, c15 review. It
 /// goes, whole, to the end of the first step after the accept that stands near it (`place`, within
-/// `near_yd`), else right after the accept's step. Only into a guide whose players include its own's.
+/// `near_yd`), else right after the accept's step. Only into a guide whose players include its own's;
+/// where its players' guides have no such step, it stays, `when onquest Q`. `files` are in play order
+/// ([`play_order`]): "before" is the route's before, not the files' path order (#1386).
 pub fn steps_after_their_quest(
 	files: &mut [String],
 	in_route: &FxHashSet<u32>,
@@ -662,6 +687,12 @@ pub fn steps_after_their_quest(
 		let here = pts(fi, b, e);
 		let to = *steps[ai..].iter().find(|&&(tf, tb, te)| may(tf, fi) && !here.is_empty() && near(&pts(tf, tb, te), &here)).unwrap_or(&steps[ai]);
 		if !may(to.0, fi) {
+			// (Into no guide of its players: it stays, gated on the quest, so a player without it is not
+			// sent there for nothing.)
+			let gated = texts[fi][b + 1..=e].iter().any(|l| re!(r"^\s+when\s+onquest\s+(\d+)\s*$").captures(split_comment(l).0).is_some_and(|m| m[1].parse::<u32>().ok() == Some(q)));
+			if !gated {
+				ins[fi].entry(b).or_default().push(format!("  when onquest {q}"));
+			}
 			continue;
 		}
 		for k in b..=e {
@@ -677,11 +708,128 @@ pub fn steps_after_their_quest(
 	rewrite(files, &texts, &del, &ins);
 }
 
+/// How near its flight master a step's goal stands for the step to learn the flight path on that
+/// visit ([`first_visit_flight_paths`], #1611): Bragok stands 16 yd from Sputtervalve on the Barrens'
+/// first Ratchet stop, Omusa Thunderhorn 54 yd from Kirge Sternhorn where Tauren leave Mulgore.
+pub const FIRST_VISIT_FP_YD: f64 = 60.0;
+
+/// A flight path is learnt on the first visit to its flight master (#1611, checked in game at
+/// Ratchet): a `getfp` goes into the first step before it, in play order, with a goal within `near_yd`
+/// of the flight master (`fm`: its point, by the place the line names; `place`: a line's points),
+/// right after the goal nearest it. The Barrens' first Ratchet stop accepts Sputtervalve's quest 16 yd
+/// from Bragok, and the guide learnt Ratchet's path only on the fly step after the beach loop; Tauren
+/// meet Kirge Sternhorn 54 yd from Omusa Thunderhorn at the end of Mulgore, and learnt Camp Taurajo's
+/// path only on the Barrens' Camp Taurajo stop. The line moves when that step is for all its players
+/// (`may`: a guide whose players include its own's, and the step's `only` lets them all in); else it
+/// is copied there for that step's players and stays for the others. It carries an `only` with its
+/// players where the step has others. A step before it that learns the same path ends the search.
+/// `files` in play order ([`play_order`]). -> (file, place, moved) for each line written.
+pub fn first_visit_flight_paths(
+	files: &mut [String],
+	may: &dyn Fn(usize, usize) -> bool,
+	fm: &dyn Fn(&str) -> Option<crate::input::Pt>,
+	place: &dyn Fn(&str) -> Vec<crate::input::Pt>,
+	near_yd: f64,
+) -> Vec<(usize, String, bool)> {
+	use forge_guide::conditions::{same_race, Audience};
+	let texts = split_lines(files);
+	let getfp_of = |l: &str| re!(r#"^\s+getfp\s+"([^"]+)""#).captures(split_comment(l).0).map(|m| m[1].to_string());
+	// Who plays each guide (its `race` header).
+	let file_aud: Vec<Audience> = texts.iter().map(|ls| Audience::parse(&crate::guide::races_of(&ls.iter().take_while(|l| !is_step(l)).cloned().collect::<Vec<_>>()).join(","))).collect();
+	// Steps: (file, header line, last body line).
+	let mut steps: Vec<(usize, usize, usize)> = Vec::new();
+	for (fi, lines) in texts.iter().enumerate() {
+		let mut i = 0;
+		while i < lines.len() {
+			if !is_step(&lines[i]) {
+				i += 1;
+				continue;
+			}
+			let mut e = i;
+			while e + 1 < lines.len() && !is_step(&lines[e + 1]) && !starts_nonspace(&lines[e + 1]) && !trim(&lines[e + 1]).is_empty() {
+				e += 1;
+			}
+			steps.push((fi, i, e));
+			i = e + 1;
+		}
+	}
+	// Who plays a step: its guide's players its own `only` lets in.
+	let step_aud = |&(fi, b, e): &(usize, usize, usize)| -> Audience {
+		let own = texts[fi][b + 1..=e].iter().find_map(|l| re!(r"^\s+only\s+(\S+)\s*$").captures(split_comment(l).0).map(|m| m[1].to_string()));
+		file_aud[fi].and(&Audience::parse(own.as_deref().unwrap_or("")))
+	};
+	// (Whether `a` lets in everyone `b` does; and whether an audience lets anyone in.)
+	let covers = |a: &Audience, b: &Audience| -> bool {
+		let races = match (&a.races, &b.races) {
+			(None, _) => true,
+			(Some(_), None) => false,
+			(Some(xs), Some(ys)) => ys.iter().all(|r| xs.iter().any(|s| same_race(s, r))),
+		};
+		let classes = match (&a.classes, &b.classes) {
+			(None, _) => true,
+			(Some(_), None) => false,
+			(Some(xs), Some(ys)) => ys.iter().all(|c| xs.contains(c)),
+		};
+		races && classes
+	};
+	let nobody = |a: &Audience| a.races.as_ref().is_some_and(|r| r.is_empty()) || a.classes.as_ref().is_some_and(|c| c.is_empty());
+	let yd = |ps: &[crate::input::Pt], p: &crate::input::Pt| ps.iter().filter(|q| q.c == p.c).map(|q| js_hypot(q.wx - p.wx, q.wy - p.wy)).reduce(f64::min);
+	let mut del: Del = vec![FxHashSet::default(); texts.len()];
+	let mut ins: Ins = vec![FxHashMap::default(); texts.len()];
+	let mut written: FxHashSet<(usize, usize, String)> = FxHashSet::default();
+	let mut out = Vec::new();
+	for (si, st) in steps.iter().enumerate() {
+		let (fi, b, e) = *st;
+		for li in b + 1..=e {
+			let l = &texts[fi][li];
+			let Some(name) = getfp_of(l) else { continue };
+			let Some(p) = fm(&name) else { continue };
+			let aud = step_aud(st).and(&Audience::parse(line_only(l).unwrap_or("")));
+			// The first step before it, for some of its players, with a goal by the flight master.
+			let mut found: Option<(usize, usize)> = None;
+			for (sj, sk) in steps[..si].iter().enumerate() {
+				if nobody(&step_aud(sk).and(&aud)) {
+					continue;
+				}
+				let (fj, bj, ej) = *sk;
+				if texts[fj][bj + 1..=ej].iter().any(|x| getfp_of(x).as_deref() == Some(name.as_str())) {
+					break;
+				}
+				let best = (bj + 1..=ej)
+					.filter(|&k| is_goal(&texts[fj][k]) && getfp_of(&texts[fj][k]).is_none())
+					.filter_map(|k| yd(&place(&texts[fj][k]), &p).map(|d| (d, k)))
+					.filter(|&(d, _)| d <= near_yd)
+					.min_by(|x, y| x.0.total_cmp(&y.0));
+				if let Some((_, k)) = best {
+					found = Some((sj, k));
+					break;
+				}
+			}
+			let Some((sj, k)) = found else { continue };
+			let fj = steps[sj].0;
+			let there = step_aud(&steps[sj]);
+			let moved = may(fj, fi) && covers(&there, &aud);
+			if written.insert((fj, k, name.clone())) {
+				let (code, rest) = split_comment(l);
+				let bare = trim_end(&re!(r"\s+only\s+\S+").replace(code, "")).to_string();
+				let only = if covers(&aud, &there) { String::new() } else { there.and(&aud).render().map_or(String::new(), |o| format!(" only {o}")) };
+				ins[fj].entry(k).or_default().push(format!("{bare}{only}{rest}"));
+				out.push((fj, name.clone(), moved));
+			}
+			if moved {
+				del[fi].insert(li);
+			}
+		}
+	}
+	rewrite(files, &texts, &del, &ins);
+	out
+}
+
 /// Quests the route does not take: a line working or handing one in that ended up before its
 /// accept moves to right after the accept; a step left with no goal goes. A hand-in whose ender
 /// stands elsewhere goes instead to the end of the first step after the accept that stands by the
 /// ender (`place`: a line's NPC points), when one comes: c15's Orgrimmar training wrote Ruga's 1823
-/// and Islen's 1528 right after Sorek's and Searn's accepts, a flight to Camp Taurajo and back, Rev15H1.
+/// and Islen's 1528 right after Sorek's and Searn's accepts, a flight to Camp Taurajo and back, c15 review.
 /// A moved line takes its step's `only` when it has none of its own.
 pub fn fix_order(files: &mut [String], in_route: &FxHashSet<u32>, may: &dyn Fn(usize, usize) -> bool, place: &dyn Fn(&str) -> Vec<crate::input::Pt>) {
 	let texts = split_lines(files);
@@ -738,7 +886,7 @@ pub fn fix_order(files: &mut [String], in_route: &FxHashSet<u32>, may: &dyn Fn(u
 			};
 			// (Its audience: the accept's, the line's own `only` with its step's, that it follows; with
 			// none, its own step's. The Tauren Shamans' Telf 1525 taken in the shared Barrens, its Orc
-			// guide hand-in moved there `only Shaman`, sent Orc and Skyborne Shamans to Telf, c15 Rev15SkyH.)
+			// guide hand-in moved there `only Shaman`, sent Orc and Skyborne Shamans to Telf, c15 review.)
 			let (ab, a_end) = step_of(afi, ali);
 			// (By kind: the accept line's races, else its step's; its classes, else its step's. Sorek's
 			// `accept 1823 only Warrior` in a step for seven classes is the Warriors'.)
@@ -1334,6 +1482,211 @@ pub fn class_only_lines(files: &mut [String], data: &Data) {
 	}
 }
 
+/// A goal line the passes gave two `only` words (one carried from its step, one cutting it to the
+/// guide's races) gets one list: `only !Rogue only Human` -> `only !Rogue,Human` (classes OR, races OR,
+/// the two AND, as two words meant); the compiler refuses a second `only`. Each value once.
+pub fn one_only(files: &mut [String]) {
+	for f in files.iter_mut() {
+		let mut changed = false;
+		let mut lines: Vec<String> = f.split('\n').map(str::to_string).collect();
+		for l in lines.iter_mut() {
+			let (code, _) = split_comment(l);
+			if !is_goal(l) || re!(r"\sonly\s+\S").find_iter(code).count() < 2 {
+				continue;
+			}
+			let mut vals: Vec<String> = Vec::new();
+			for m in re!(r"\sonly\s+(\S+)").captures_iter(code) {
+				for v in m[1].split(',').filter(|v| !v.is_empty()) {
+					if !vals.iter().any(|x| x == v) {
+						vals.push(v.to_string());
+					}
+				}
+			}
+			let rest = re!(r"\sonly\s+\S+").replace_all(code, "");
+			let tail = re!(r"\s--\s.*$").find(l).map_or(String::new(), |m| m.as_str().to_string());
+			*l = format!("{} only {}{tail}", trim_end(&rest), vals.join(","));
+			changed = true;
+		}
+		if changed {
+			*f = lines.join("\n");
+		}
+	}
+}
+
+/// #1153: a repeatable quest whose giver is also its ender, taken and handed in at one stop, is
+/// `turnin <id> direct` with no accept: the giver takes it straight back from the quest window and the
+/// client never marks it completed, so an accept-then-turnin step reopens after a reload (Westfall's
+/// The Tome of Divinity, 1641). The accept's `only` goes onto the turn-in. A quest another line of the
+/// guide tracks (`quest <id>`, `onquest <id>`, `complete <id>`: Morrowgrain to Thunder Bluff, A Sealed
+/// Crate) is left as it is.
+pub fn repeatable_direct(files: &mut [String], data: &Data) {
+	for f in files.iter_mut() {
+		let mut lines: Vec<String> = f.split('\n').map(str::to_string).collect();
+		let tracked = |q: u32, lines: &[String]| {
+			let r = regex::Regex::new(&format!(r"\b(quest|onquest)\s+{q}\b|^\s+complete\s+{q}\b")).unwrap();
+			lines.iter().any(|l| r.is_match(split_comment(l).0))
+		};
+		let mut drop: Vec<usize> = Vec::new();
+		let mut start = 0;
+		while start < lines.len() {
+			let end = (start + 1..lines.len()).find(|&i| is_step(&lines[i]) || starts_nonspace(&lines[i])).unwrap_or(lines.len());
+			let mut accepts: Vec<(u32, usize)> = Vec::new();
+			for i in start..end {
+				let code = split_comment(&lines[i]).0;
+				if let Some(m) = re!(r"^\s+accept\s+(\d+)\b").captures(code) {
+					accepts.push((m[1].parse().unwrap_or(0), i));
+					continue;
+				}
+				let Some(m) = re!(r"^\s+turnin\s+(\d+)\b").captures(code) else { continue };
+				let q: u32 = m[1].parse().unwrap_or(0);
+				if re!(r"\bdirect\b").is_match(code) {
+					continue;
+				}
+				let Some(&(_, ai)) = accepts.iter().find(|a| a.0 == q) else { continue };
+				let Some(rec) = data.quests.get(&q) else { continue };
+				let (Some(st), Some(en)) = (&rec.start, &rec.end) else { continue };
+				if !rec.repeatable() || !st.npc.iter().any(|n| en.npc.contains(n)) || tracked(q, &lines) {
+					continue;
+				}
+				let acode = split_comment(&lines[ai]).0.to_string();
+				let only = re!(r"\sonly\s+\S+").find(&acode).map(|m| m.as_str().to_string()).filter(|_| !re!(r"\sonly\s+\S").is_match(code));
+				let tail = re!(r"\s--\s.*$").find(&lines[i]).map_or(String::new(), |m| m.as_str().to_string());
+				let head = &code[..m.get(0).unwrap().end()];
+				let rest = trim_end(&code[m.get(0).unwrap().end()..]);
+				lines[i] = format!("{head} direct{rest}{}{tail}", only.unwrap_or_default());
+				drop.push(ai);
+			}
+			start = end;
+		}
+		if !drop.is_empty() {
+			let mut k = 0;
+			lines.retain(|_| {
+				k += 1;
+				!drop.contains(&(k - 1))
+			});
+			*f = lines.join("\n");
+		}
+	}
+}
+
+/// #1699: a quest the game hands in on the spot (quests.json `direct`, the server's QuestType 0) never
+/// enters the log: its giver opens straight on the hand-in window (Essence of the Exile at Bath'rah's
+/// Cauldron, the cloth donations, the Scourgestones). An accept of it never ticks and holds its step
+/// until the hand-in, and lines bound to it (`quest <id>.<n>`, `complete <id>`, `when onquest <id>`,
+/// `when complete <id>`) never count or hold. So every `accept` of it goes; its turn-ins are `direct`
+/// (an accept's `only` goes onto a turn-in of the same step that has none); its objective lines lose
+/// their `quest <id>.<n>` (plain collects of what it asks for, with the count the quest asks for when
+/// the line has none); a `complete <id>` becomes the collects of its items; `when onquest <id>` reads
+/// `when available <id>` (the quest is open to the character) and `when complete <id>` reads
+/// `when has <item> xN` (the bags hold what it asks for). A step left with no goal goes. Run last,
+/// after every pass that adds or moves accepts.
+pub fn direct_hand_ins(files: &mut [String], data: &Data) {
+	let direct = |q: u32| data.quests.get(&q).is_some_and(|r| r.direct());
+	let tail_of = |l: &str| re!(r"\s--\s.*$").find(l).map_or(String::new(), |m| m.as_str().to_string());
+	// " x<n>" for more than one.
+	let times = |n: f64| if n > 1.0 { format!(" x{n}") } else { String::new() };
+	let items = |q: u32| -> Vec<(f64, f64)> { data.quests[&q].objectives().filter(|o| o.is("item")).filter_map(|o| Some((o.id?, o.count.unwrap_or(1.0)))).collect() };
+	for f in files.iter_mut() {
+		let lines: Vec<String> = f.split('\n').map(str::to_string).collect();
+		let mut out: Vec<String> = Vec::with_capacity(lines.len());
+		let (mut changed, mut dropped) = (false, false);
+		let mut start = 0;
+		while start < lines.len() {
+			let end = (start + 1..lines.len()).find(|&i| is_step(&lines[i]) || starts_nonspace(&lines[i])).unwrap_or(lines.len());
+			let mut only_of: FxHashMap<u32, String> = FxHashMap::default();
+			for l in &lines[start..end] {
+				let code = split_comment(l).0;
+				if let Some(q) = re!(r"^\s+accept\s+(\d+)\b").captures(code).and_then(|m| m[1].parse::<u32>().ok()).filter(|&q| direct(q)) {
+					if let Some(m) = re!(r"\sonly\s+\S+").find(code) {
+						only_of.entry(q).or_insert_with(|| m.as_str().to_string());
+					}
+				}
+			}
+			let span0 = out.len();
+			for l in &lines[start..end] {
+				let code = split_comment(l).0;
+				let indent = &l[..l.len() - l.trim_start().len()];
+				if re!(r"^\s+accept\s+(\d+)\b").captures(code).and_then(|m| m[1].parse::<u32>().ok()).is_some_and(direct) {
+					changed = true;
+					dropped = true;
+					continue;
+				}
+				if let Some(m) = re!(r"^\s+turnin\s+(\d+)\b").captures(code) {
+					let q: u32 = m[1].parse().unwrap_or(0);
+					if direct(q) && !re!(r"\bdirect\b").is_match(code) {
+						let at = m.get(0).unwrap().end();
+						let only = only_of.get(&q).filter(|_| !re!(r"\sonly\s+\S").is_match(code)).map_or("", String::as_str);
+						out.push(format!("{} direct{}{only}{}", &code[..at], trim_end(&code[at..]), tail_of(l)));
+						changed = true;
+						continue;
+					}
+					out.push(l.clone());
+					continue;
+				}
+				if let Some(q) = re!(r"^\s+complete\s+(\d+)\b").captures(code).and_then(|m| m[1].parse::<u32>().ok()).filter(|&q| direct(q)) {
+					let opt = if re!(r"\boptional\b").is_match(code) { " optional" } else { "" };
+					let mut tail = tail_of(l);
+					for (id, n) in items(q) {
+						out.push(format!("{indent}collect {id}{}{opt}{tail}", times(n)));
+						tail.clear();
+					}
+					changed = true;
+					dropped = true;
+					continue;
+				}
+				if let Some(m) = re!(r"^\s+when\s+(!?)(onquest|complete)\s+(\d+)\s*$").captures(code) {
+					let q: u32 = m[3].parse().unwrap_or(0);
+					let neg = &m[1];
+					if direct(q) {
+						let have = items(q);
+						if &m[2] == "onquest" {
+							out.push(format!("{indent}when {neg}available {q}{}", tail_of(l)));
+							changed = true;
+							continue;
+						}
+						if !have.is_empty() && (neg.is_empty() || have.len() == 1) {
+							for (id, n) in have {
+								// (One line per item: `!complete A` and `!complete B` on the same 60 Runecloth.)
+								let w = format!("{indent}when {neg}has {id}{}", times(n));
+								if !out[span0..].contains(&w) {
+									out.push(w);
+								}
+							}
+							changed = true;
+							continue;
+						}
+					}
+				}
+				let bound =
+					re!(r"\s+quest\s+(\d+)(?:\.\d+)?\b").captures(code).filter(|m| m[1].parse::<u32>().is_ok_and(direct)).map(|m| (m[1].parse::<u32>().unwrap_or(0), m.get(0).unwrap().range()));
+				if let Some((q, r)) = bound.filter(|_| is_goal(l)) {
+					let mut line = format!("{}{}", &code[..r.start], trim_end(&code[r.end..]));
+					// A collect bound to the quest took its count from the quest's objective.
+					if let Some(c) = re!(r"^(\s+collect\s+(\d+))\b").captures(&line.clone()) {
+						let item: f64 = c[2].parse().unwrap_or(0.0);
+						if !re!(r"\sx\d+\b").is_match(&line) {
+							if let Some(&(_, n)) = items(q).iter().find(|(id, _)| *id == item) {
+								line.insert_str(c.get(1).unwrap().end(), &times(n));
+							}
+						}
+					}
+					out.push(format!("{line}{}", tail_of(l)));
+					changed = true;
+					continue;
+				}
+				out.push(l.clone());
+			}
+			start = end;
+		}
+		if dropped {
+			out = no_empty_steps(out);
+		}
+		if changed {
+			*f = out.join("\n");
+		}
+	}
+}
+
 /// A tip or note carried from a guide played at riding level (40) into one played below it
 /// does not tell you to ride (#404). v1's own lines of the guide are left as they are.
 pub fn no_riding(files: &mut [String], sources: &[&str]) {
@@ -1387,18 +1740,28 @@ pub fn no_riding(files: &mut [String], sources: &[&str]) {
 /// Rock) but its hand-in is written `optional`: taken only by a player who has the drop, never a
 /// step that waits on it (c19p: v1's `accept 338` and `accept 712` required them, 35 `rare`
 /// blockers). The hand-in stays as written: it applies only to a player who has the quest done (a
-/// Precessive Autocognition Assembly's Harvesting the Harvesters, handed in at Saldean's, #298).
+/// Precessive Autocognition Assembly's Harvesting the Harvesters, handed in at Saldean's, #298). So
+/// do the goals of a step only the player who chose the group way follows (`when group`, as
+/// engine::ask_group writes them): a step of optional goals only is done at once, so that player got
+/// no arrow, and the pack check refuses it (Zephras Isle's Vulgara, 93318, and Hillsbrad's Elixir of
+/// Agony, 517, in every start's tree of the 0.4.0 round).
 pub fn optional_by_fixes(files: &mut [String], optional: &FxHashSet<u32>) {
 	if optional.is_empty() {
 		return;
 	}
 	for f in files.iter_mut() {
 		let mut changed = false;
+		let mut grouped = false;
 		let out: Vec<String> = f
 			.split('\n')
 			.map(|l| {
 				let (code, rest) = split_comment(l);
-				if !is_goal(code) || head_ws(code) == Some("turnin") || re!(r"\boptional\b").is_match(code) || !quest_of(code).is_some_and(|q| optional.contains(&q)) {
+				if is_step(code) {
+					grouped = false;
+				} else if re!(r"^\s+when\s+group\b").is_match(code) {
+					grouped = true;
+				}
+				if grouped || !is_goal(code) || head_ws(code) == Some("turnin") || re!(r"\boptional\b").is_match(code) || !quest_of(code).is_some_and(|q| optional.contains(&q)) {
 					return l.to_string();
 				}
 				changed = true;
@@ -1410,6 +1773,495 @@ pub fn optional_by_fixes(files: &mut [String], optional: &FxHashSet<u32>) {
 			*f = out.join("\n");
 		}
 	}
+}
+
+/// `along until <label>` names a later step (the pack check). The route can put the labelled step first:
+/// Darkshore's Mathystra relics (`label q98013`) came before the walk that kills the naga on the way
+/// there (`along until q98013`) in the 0.4.0 round. The label then goes to the first later step that
+/// works or hands in one of the along step's quests (for a `background` step the first that hands one
+/// in, else one that works one): that step's own label, else the old name, moved when nothing else names
+/// it, else a new one. With no such step in the guide the along lists its goals until done (`along`,
+/// and no `background`, which needs an `until`).
+pub fn along_before_label(text: &str) -> String {
+	let mut lines: Vec<String> = text.split('\n').map(str::to_string).collect();
+	let label = |l: &str| re!(r"^\s+label\s+(\S+)\s*$").captures(split_comment(l).0).map(|m| m[1].to_string());
+	// (One along line a round: each round moves a label or drops an `until`, so a guide's along lines bound it.)
+	for _ in 0..lines.len() {
+		let spans = step_ranges(&lines);
+		let label_step = |name: &str| spans.iter().position(|&(s, e)| (s + 1..e).any(|k| label(&lines[k]).as_deref() == Some(name)));
+		let fix = spans.iter().enumerate().find_map(|(hi, &(s, e))| {
+			let (ak, ind, l) = (s + 1..e).find_map(|k| re!(r"^(\s+)along\s+until\s+(\S+)\s*$").captures(split_comment(&lines[k]).0).map(|m| (k, m[1].to_string(), m[2].to_string())))?;
+			let li = label_step(&l).filter(|&li| li <= hi)?;
+			Some((hi, s, e, ak, ind, l, li))
+		});
+		let Some((hi, s, e, ak, ind, l, li)) = fix else { break };
+		let qs: Vec<u32> = (s + 1..e).filter_map(|k| quest_of(split_comment(&lines[k]).0)).collect();
+		let background = (s + 1..e).find(|&k| re!(r"^\s+background\s*$").is_match(split_comment(&lines[k]).0));
+		let along = |h: usize| (spans[h].0 + 1..spans[h].1).any(|k| re!(r"^\s+along\b").is_match(&lines[k]));
+		let works = |h: usize, hand_in: bool| {
+			(spans[h].0 + 1..spans[h].1).any(|k| {
+				let c = split_comment(&lines[k]).0;
+				is_goal(c) && quest_of(c).is_some_and(|q| qs.contains(&q)) && (!hand_in || head_ws(c) == Some("turnin"))
+			})
+		};
+		let later = |hand_in: bool| (hi + 1..spans.len()).find(|&h| !along(h) && works(h, hand_in));
+		let target = if background.is_some() { later(true).or_else(|| later(false)) } else { later(false) };
+		let Some(t) = target else {
+			lines[ak] = format!("{ind}along");
+			if let Some(k) = background {
+				lines.remove(k);
+			}
+			continue;
+		};
+		let (ts, te) = spans[t];
+		if let Some(own) = (ts + 1..te).find_map(|k| label(&lines[k])) {
+			lines[ak] = format!("{ind}along until {own}");
+			continue;
+		}
+		let named_elsewhere = lines.iter().enumerate().any(|(k, x)| k != ak && re!(r"\b(?:until|skipto|done)\s+([A-Za-z0-9_-]+)").captures_iter(split_comment(x).0).any(|m| m[1] == *l));
+		let name = if named_elsewhere { (2..).map(|n| format!("{l}-{n}")).find(|n| !lines.iter().any(|x| label(x).as_deref() == Some(n.as_str()))).unwrap_or_default() } else { l.clone() };
+		lines[ak] = format!("{ind}along until {name}");
+		// (The target comes after the along step and the old label's: the insert leaves the old line where it is.)
+		lines.insert(ts + 1, format!("{ind}label {name}"));
+		if !named_elsewhere {
+			let (ls, le) = spans[li];
+			if let Some(k) = (ls + 1..le).find(|&k| label(&lines[k]).as_deref() == Some(l.as_str())) {
+				lines.remove(k);
+			}
+		}
+	}
+	lines.join("\n")
+}
+
+/// Each step's lines as a range: (its `step` line, the line after its body).
+fn step_ranges(lines: &[String]) -> Vec<(usize, usize)> {
+	step_spans(lines).into_iter().map(|(s, e)| (s, e + 1)).collect()
+}
+
+/// A hand-in, `complete` or objective of a quest the chain never accepts (no `accept` of it in its guide
+/// or a guide whose `next` leads into it, as the pack check reads it) is for a player who carries the
+/// quest in from elsewhere: an item that starts it, a quest the route left out (Lonebrow's Journal at
+/// Thalanaar, 1100; Mountaineer Pebblebitty's 3181, its accept dropped, 0.4.0 round). Its step is
+/// `when onquest` it, or, beside other work, its lines become a step of their own right after it, `when
+/// onquest`, as the engine's R3 gates the hand-ins of quests accepted in an earlier step. A step already
+/// `when onquest` or `when complete` for it stays as it is, and so does a quest the guide accepts later
+/// on (an order the pack check names). -> a line per step gated, `<file>:<line> <quests>`.
+pub fn carried_hand_ins(tree: &mut BTreeMap<String, String>, written: &[String]) -> Vec<String> {
+	let id_of = |t: &str| t.lines().find_map(|l| l.strip_prefix("guide ").map(|x| trim(x).to_string()));
+	let accepts = |t: &str| -> FxHashSet<u32> {
+		t.lines()
+			.filter_map(|l| {
+				let c = split_comment(l).0;
+				re!(r"^\s+accept\s+(\d+)\b").captures(c).or_else(|| re!(r"^\s+turnin\s+(\d+)\b.*\bdirect\b").captures(c)).and_then(|m| m[1].parse().ok())
+			})
+			.collect()
+	};
+	let mut file_of: FxHashMap<String, String> = FxHashMap::default();
+	let mut preds: FxHashMap<String, Vec<String>> = FxHashMap::default();
+	for (rel, t) in tree.iter() {
+		let Some(id) = id_of(t) else { continue };
+		for n in t.lines().filter_map(|l| l.strip_prefix("next ")).filter_map(|x| x.split_whitespace().next()) {
+			preds.entry(n.to_string()).or_default().push(id.clone());
+		}
+		file_of.insert(id, rel.clone());
+	}
+	let mut log = Vec::new();
+	for rel in written {
+		let Some(text) = tree.get(rel) else { continue };
+		let Some(id) = id_of(text) else { continue };
+		// (Accepted on the chain into it, through every `next`, and anywhere in it.)
+		let mut taken = accepts(text);
+		let (mut seen, mut stack) = (FxHashSet::default(), preds.get(&id).cloned().unwrap_or_default());
+		while let Some(p) = stack.pop() {
+			if !seen.insert(p.clone()) {
+				continue;
+			}
+			if let Some(t) = file_of.get(&p).and_then(|f| tree.get(f)) {
+				taken.extend(accepts(t));
+			}
+			stack.extend(preds.get(&p).cloned().unwrap_or_default());
+		}
+		let mut lines: Vec<String> = text.split('\n').map(str::to_string).collect();
+		let mut changed = false;
+		for &(s, e) in step_ranges(&lines).iter().rev() {
+			let gated = |q: u32| {
+				(s + 1..e).any(|k| re!(r"^\s+when\s+(?:onquest|complete)\s+([\d,]+)").captures(split_comment(&lines[k]).0).is_some_and(|m| m[1].split(',').any(|x| x.parse::<u32>().ok() == Some(q))))
+			};
+			let carried: Vec<(usize, u32)> = (s + 1..e)
+				.filter_map(|k| {
+					let c = split_comment(&lines[k]).0;
+					let hand = matches!(head_ws(c), Some("turnin" | "complete")) && !re!(r"\bdirect\b").is_match(c);
+					let objective = matches!(head_ws(c), Some("kill" | "collect" | "interact" | "use" | "talk")) && re!(r"\bquest\s+\d").is_match(c);
+					let q = quest_of(c).filter(|_| hand || objective)?;
+					(!taken.contains(&q) && !gated(q)).then_some((k, q))
+				})
+				.collect();
+			if carried.is_empty() {
+				continue;
+			}
+			let mut qs: Vec<u32> = Vec::new();
+			for &(_, q) in &carried {
+				if !qs.contains(&q) {
+					qs.push(q);
+				}
+			}
+			let qs_text = qs.iter().map(u32::to_string).collect::<Vec<_>>().join(",");
+			log.push(format!("{rel}:{} {qs_text}", s + 1));
+			changed = true;
+			let theirs: FxHashSet<usize> = carried.iter().map(|x| x.0).collect();
+			let other_work = (s + 1..e).any(|k| {
+				let c = split_comment(&lines[k]).0;
+				!theirs.contains(&k) && is_goal(c) && !matches!(head(c), Some("goto" | "note"))
+			});
+			if !other_work {
+				lines.insert(s + 1, format!("  when onquest {qs_text}"));
+				continue;
+			}
+			// Their own step right after, with the step's `only` (and its zone, where the step moves on
+			// to another after their lines).
+			let first = carried[0].0;
+			let only = (s + 1..e).take_while(|&k| !is_goal(split_comment(&lines[k]).0)).find(|&k| head_ws(&lines[k]) == Some("only")).map(|k| lines[k].clone());
+			let zone_after = (first + 1..e).any(|k| head_ws(&lines[k]) == Some("zone"));
+			let zone_at = (0..first).rev().find_map(|k| re!(r"^\s*zone\s+(.+?)\s*$").captures(split_comment(&lines[k]).0).map(|m| m[1].to_string()));
+			let mut block = vec![String::new(), lines[s].clone()];
+			block.extend(only);
+			block.push(format!("  when onquest {qs_text}"));
+			if let (true, Some(z)) = (zone_after, zone_at) {
+				block.push(format!("  zone {z}"));
+			}
+			block.extend(carried.iter().map(|&(k, _)| lines[k].clone()));
+			lines.splice(e..e, block);
+			for &(k, _) in carried.iter().rev() {
+				lines.remove(k);
+			}
+		}
+		if changed {
+			tree.insert(rel.clone(), lines.join("\n"));
+		}
+	}
+	log
+}
+
+/// The continents [`flight_hops`] reads, as the pack check does: a goto's (by its `map`, else the zone it
+/// is written in) and a flight master's (by its name in a `fly` line).
+pub struct Lands<'a> {
+	pub zone: &'a dyn Fn(&str) -> Option<i64>,
+	pub map: &'a dyn Fn(u32) -> Option<i64>,
+	pub node: &'a dyn Fn(&str) -> Option<i64>,
+}
+
+/// One goal line of a step, for [`flight_hops`].
+struct HopGoal {
+	k: usize,
+	verb: String,
+	/// The characters it is for (the step's and its own `only`).
+	who: u128,
+	/// A goto with coordinates: a place the player walks to.
+	located: bool,
+	/// The continent of a goto's place.
+	land: Option<i64>,
+	/// A `fly` line's flight master.
+	fly: Option<String>,
+	/// A goto's label (`"Thelsamar flight master"`).
+	label: Option<String>,
+}
+
+struct HopStep {
+	s: usize,
+	e: usize,
+	who: u128,
+	when: bool,
+	goals: Vec<HopGoal>,
+}
+
+/// Flights straight on, the pack check's house rule (#1191; forge_guide's validate, check_flight_hops)
+/// on a written guide: a flight to a stop where a character has nothing to do, followed by another flight
+/// from there, is one flight to the second one's end (the game routes it through the first stop without
+/// landing), and a flight there and straight back is no trip. Read per character as the check reads it:
+/// the guide's races (its `race` header, else its faction's) by every class; `only` on steps and lines;
+/// a `when` step, work, or a walk onto another continent between keeps the stop. The characters with
+/// nothing to do there fly on from the first flight master (or stay, for a trip there and back), the
+/// steps between lose them, and what others still need is written for those others (`only`). The 0.4.0
+/// round's writer output had 17: Thelsamar to Ironforge and on to Stormwind for Dwarves and Gnomes,
+/// Theramore to Thalanaar and straight back, the Night Elves' Ironforge round trips from Silithus.
+/// -> (the text, a line per hop).
+pub fn flight_hops(text: &str, faction: Option<&str>, lands: &Lands) -> (String, Vec<String>) {
+	let mut lines: Vec<String> = text.split('\n').map(str::to_string).collect();
+	let head_end = lines.iter().position(|l| is_step(l)).unwrap_or(lines.len());
+	let header = |word: &str| lines[..head_end].iter().find_map(|l| l.strip_prefix(word).map(|x| trim(x).to_string()));
+	let races: Vec<String> = match header("race ") {
+		Some(r) => r.split(',').map(|x| trim(x).to_string()).filter(|x| !x.is_empty()).collect(),
+		None => faction_races(header("faction ").as_deref().or(faction)),
+	};
+	if races.is_empty() || races.len() * CLASSES.len() > 128 {
+		return (text.to_string(), Vec::new());
+	}
+	let n = CLASSES.len();
+	let bit = |r: usize, c: usize| 1u128 << (r * n + c);
+	let all: u128 = (0..races.len()).flat_map(|r| (0..n).map(move |c| (r, c))).fold(0, |m, (r, c)| m | bit(r, c));
+	let who_of = |list: &str| -> u128 {
+		let a = forge_guide::conditions::Audience::parse(list);
+		(0..races.len()).flat_map(|r| (0..n).map(move |c| (r, c))).filter(|&(r, c)| a.race_in(&races[r]) && a.class_in(CLASSES[c])).fold(0, |m, (r, c)| m | bit(r, c))
+	};
+	let mut log = Vec::new();
+	let mut skipped: FxHashSet<(String, String)> = FxHashSet::default();
+	for _ in 0..200 {
+		let steps = hop_steps(&lines, &who_of, all, lands);
+		let Some((i, j, w)) = first_hop(&steps, all, lands, &lines, &skipped) else { break };
+		let (si, sj) = (&steps[i], &steps[j]);
+		// The flights everyone of `w` takes: the last of the first step, the first of the second.
+		let (Some(f1), Some(f2)) = (si.goals.iter().rposition(|g| g.verb == "fly" && g.who & w == w), sj.goals.iter().position(|g| g.verb == "fly" && g.who & w == w)) else {
+			skipped.insert((lines[si.s].clone(), lines[sj.s].clone()));
+			continue;
+		};
+		let (k1, k2) = (si.goals[f1].k, sj.goals[f2].k);
+		let (to1, to2) = (si.goals[f1].fly.clone().unwrap_or_default(), sj.goals[f2].fly.clone().unwrap_or_default());
+		let from = si.goals[..f1].iter().rev().find(|g| g.located).and_then(|g| g.label.as_deref()).and_then(|l| l.strip_suffix(" flight master")).map(str::to_string);
+		let back = from.as_deref().is_some_and(|f| f.eq_ignore_ascii_case(&to2));
+		let onlys = |m: u128| only_lists(m, all, &races, n);
+		// The first step: as it was for those who stop, flying on (or staying) for `w`.
+		let mut first: Vec<Vec<String>> = Vec::new();
+		for o in onlys(si.who & !w) {
+			first.push(with_only(&lines[si.s..si.e], o.as_deref()));
+		}
+		let mut mine: Vec<String> = Vec::new();
+		let zone_line = |k: usize| head_ws(&lines[k]) == Some("zone");
+		if back {
+			// (No trip: the walk to the flight master, the flight and the zone after it go.)
+			let mut walk_from = k1;
+			while walk_from > si.s + 1 && matches!(head_ws(&lines[walk_from - 1]), Some("goto" | "note")) {
+				walk_from -= 1;
+			}
+			let mut after = k1 + 1;
+			while after < si.e && zone_line(after) {
+				after += 1;
+			}
+			mine.extend(lines[si.s..walk_from].iter().cloned());
+			mine.extend(lines[after..si.e].iter().cloned());
+		} else {
+			let old_title = format!("step Fly to {to1}");
+			for k in si.s..si.e {
+				if k == si.s && lines[k] == old_title {
+					mine.push(format!("step Fly to {to2}"));
+				} else if k == k1 {
+					let (code, rest) = split_comment(&lines[k]);
+					mine.push(format!("{}{rest}", code.replacen(&format!("\"{to1}\""), &format!("\"{to2}\""), 1)));
+					// (Where the second flight lands: its zone lines.)
+					let mut z = k2 + 1;
+					while z < sj.e && zone_line(z) {
+						mine.push(lines[z].clone());
+						z += 1;
+					}
+				} else if k > k1 && zone_line(k) && (k1 + 1..k).all(zone_line) {
+					// (The first flight's landing zone: the second's now.)
+				} else {
+					mine.push(lines[k].clone());
+				}
+			}
+		}
+		if mine[1..].iter().any(|l| is_goal(split_comment(l).0)) {
+			for o in onlys(w & si.who) {
+				first.push(with_only(&mine, o.as_deref()));
+			}
+		}
+		// The second step: as it was for the others, its work after the flight for `w`.
+		let mut second: Vec<Vec<String>> = Vec::new();
+		for o in onlys(sj.who & !w) {
+			second.push(with_only(&lines[sj.s..sj.e], o.as_deref()));
+		}
+		// (Named for where it is now, not for the flight it lost.)
+		let title = if lines[sj.s].starts_with("step Fly to ") { format!("step {to2}") } else { lines[sj.s].clone() };
+		let rest: Vec<String> = std::iter::once(title).chain(lines[k2 + 1..sj.e].iter().cloned()).collect();
+		if rest[1..].iter().any(|l| is_goal(split_comment(l).0)) {
+			for o in onlys(w & sj.who) {
+				second.push(with_only(&rest, o.as_deref()));
+			}
+		}
+		let mut out: Vec<String> = lines[..si.s].to_vec();
+		// (A step written for two sets of characters keeps its `label` on the first copy: labels name one step.)
+		let put = |out: &mut Vec<String>, blocks: Vec<Vec<String>>| {
+			for (b, block) in blocks.into_iter().enumerate() {
+				if b > 0 {
+					out.push(String::new());
+				}
+				out.extend(block.into_iter().filter(|l| b == 0 || head_ws(l) != Some("label")));
+			}
+		};
+		put(&mut out, first);
+		let mut cur = si.e;
+		for (x, st) in steps.iter().enumerate().take(j + 1).skip(i + 1) {
+			out.extend(lines[cur..st.s].iter().cloned());
+			if x == j {
+				put(&mut out, std::mem::take(&mut second));
+			} else if st.who & w == 0 {
+				out.extend(lines[st.s..st.e].iter().cloned());
+			} else {
+				// (A step between holds nothing for `w` but travel: theirs no longer.)
+				put(&mut out, onlys(st.who & !w).into_iter().map(|o| with_only(&lines[st.s..st.e], o.as_deref())).collect());
+			}
+			cur = st.e;
+		}
+		out.extend(lines[cur..].iter().cloned());
+		log.push(format!(
+			"flight hop: {} {}: {}",
+			lines[si.s].trim_start_matches("step "),
+			if back { format!("to {to1} and straight back, no trip") } else { format!("on to {to2} from the first flight master") },
+			onlys(w).into_iter().map(|o| o.unwrap_or_else(|| "every character".into())).collect::<Vec<_>>().join(" + ")
+		));
+		lines = re!(r"\n{3,}").replace_all(&out.join("\n"), "\n\n").split('\n').map(str::to_string).collect();
+	}
+	(lines.join("\n"), log)
+}
+
+/// A guide's steps as [`flight_hops`] reads them (`who_of`: an `only` list's characters, `all` the guide's).
+fn hop_steps(lines: &[String], who_of: &dyn Fn(&str) -> u128, all: u128, lands: &Lands) -> Vec<HopStep> {
+	let mut zone: Option<String> = None;
+	let mut out = Vec::new();
+	let head_end = lines.iter().position(|l| is_step(l)).unwrap_or(lines.len());
+	for l in &lines[..head_end] {
+		if let Some(z) = l.strip_prefix("zone ") {
+			zone = Some(trim(z).to_string());
+		}
+	}
+	for (s, e) in step_ranges(lines) {
+		let only = (s + 1..e).take_while(|&k| !is_goal(split_comment(&lines[k]).0)).find_map(|k| re!(r"^\s+only\s+(\S.*?)\s*$").captures(split_comment(&lines[k]).0).map(|m| m[1].to_string()));
+		let who = only.as_deref().map_or(all, who_of);
+		let when = (s + 1..e).any(|k| head_ws(&lines[k]) == Some("when"));
+		let mut goals = Vec::new();
+		for k in s + 1..e {
+			let code = split_comment(&lines[k]).0;
+			if let Some(m) = re!(r"^\s+zone\s+(.+?)\s*$").captures(code) {
+				zone = Some(m[1].to_string());
+				continue;
+			}
+			if !is_goal(code) {
+				continue;
+			}
+			let verb = head(code).unwrap_or("").to_string();
+			let located = verb == "goto" && re!(r"^\s+goto\s+-?[\d.]+\s*,\s*-?[\d.]+").is_match(code);
+			let land = if located {
+				match re!(r"\bmap\s+(\d+)").captures(code).and_then(|m| m[1].parse::<u32>().ok()) {
+					Some(m) => (lands.map)(m),
+					None => zone.as_deref().and_then(|z| (lands.zone)(z)),
+				}
+			} else {
+				None
+			};
+			let quoted = re!(r#""([^"]+)""#).captures(code).map(|m| m[1].to_string());
+			goals.push(HopGoal {
+				k,
+				who: who & line_only(code).map_or(all, who_of),
+				located,
+				land,
+				fly: if verb == "fly" { quoted.clone() } else { None },
+				label: if verb == "goto" { quoted } else { None },
+				verb,
+			});
+		}
+		out.push(HopStep { s, e, who, when, goals });
+	}
+	out
+}
+
+/// The first hop of [`flight_hops`]: (the first flight's step, the second's, the characters it is for).
+fn first_hop(steps: &[HopStep], all: u128, lands: &Lands, lines: &[String], skipped: &FxHashSet<(String, String)>) -> Option<(usize, usize, u128)> {
+	let work = |g: &HopGoal| !matches!(g.verb.as_str(), "goto" | "fly" | "note");
+	let mut hops: BTreeMap<(usize, usize), u128> = BTreeMap::new();
+	for b in (0..128).map(|i| 1u128 << i).filter(|b| all & b != 0) {
+		for (i, st) in steps.iter().enumerate() {
+			if st.who & b == 0 || st.when {
+				continue;
+			}
+			let g: Vec<&HopGoal> = st.goals.iter().filter(|x| x.who & b != 0).collect();
+			let Some(lf) = g.iter().rposition(|x| x.verb == "fly") else { continue };
+			if !g[..lf].iter().any(|x| x.located) || g[lf + 1..].iter().any(|x| work(x)) {
+				continue;
+			}
+			let mut on = g[lf].fly.as_deref().and_then(|f| (lands.node)(f));
+			for (j, nx) in steps.iter().enumerate().skip(i + 1) {
+				if nx.who & b == 0 {
+					continue;
+				}
+				if nx.when {
+					break;
+				}
+				let g2: Vec<&HopGoal> = nx.goals.iter().filter(|x| x.who & b != 0).collect();
+				let ff = g2.iter().position(|x| x.verb == "fly");
+				let before = &g2[..ff.unwrap_or(g2.len())];
+				if before.iter().any(|x| work(x)) {
+					break;
+				}
+				let mut elsewhere = false;
+				for x in before.iter().filter(|x| x.verb == "goto") {
+					if let Some(c) = x.land {
+						elsewhere |= on.is_some_and(|o| o != c);
+						on = Some(c);
+					}
+				}
+				if elsewhere {
+					break;
+				}
+				if ff.is_some() {
+					*hops.entry((i, j)).or_default() |= b;
+					break;
+				}
+			}
+		}
+	}
+	hops.into_iter().find(|((i, j), _)| !skipped.contains(&(lines[steps[*i].s].clone(), lines[steps[*j].s].clone()))).map(|((i, j), w)| (i, j, w))
+}
+
+/// `only` lists for the characters in `m` (`all`: the guide's, `races` by `n` classes): one per set of
+/// races with the same classes in it, races left out when they are every race, classes when they are
+/// every class (`!Mage` for every class but one). [None]: every character.
+fn only_lists(m: u128, all: u128, races: &[String], n: usize) -> Vec<Option<String>> {
+	if m == 0 {
+		return Vec::new();
+	}
+	if m == all {
+		return vec![None];
+	}
+	let mut groups: Vec<(Vec<usize>, Vec<usize>)> = Vec::new();
+	for r in 0..races.len() {
+		let cs: Vec<usize> = (0..n).filter(|&c| m & (1u128 << (r * n + c)) != 0).collect();
+		if cs.is_empty() {
+			continue;
+		}
+		match groups.iter_mut().find(|g| g.1 == cs) {
+			Some(g) => g.0.push(r),
+			None => groups.push((vec![r], cs)),
+		}
+	}
+	groups
+		.into_iter()
+		.map(|(rs, cs)| {
+			let mut parts: Vec<String> = Vec::new();
+			if rs.len() < races.len() {
+				parts.extend(rs.iter().map(|&r| races[r].clone()));
+			}
+			if cs.len() + 1 == n {
+				parts.extend((0..n).filter(|c| !cs.contains(c)).map(|c| format!("!{}", CLASSES[c])));
+			} else if cs.len() < n {
+				parts.extend(cs.iter().map(|&c| CLASSES[c].to_string()));
+			}
+			(!parts.is_empty()).then(|| parts.join(","))
+		})
+		.collect()
+}
+
+/// A step's lines with its own `only` set to `only` (None: none), the `step` line first.
+fn with_only(step: &[String], only: Option<&str>) -> Vec<String> {
+	let mut out = step.to_vec();
+	let at = (1..out.len()).take_while(|&k| !is_goal(split_comment(&out[k]).0)).find(|&k| head_ws(&out[k]) == Some("only"));
+	match (at, only) {
+		(Some(k), Some(o)) => out[k] = format!("  only {o}"),
+		(Some(k), None) => {
+			out.remove(k);
+		}
+		(None, Some(o)) => out.insert(1, format!("  only {o}")),
+		(None, None) => {}
+	}
+	out
 }
 
 /// Riding is learnt at level 40. The planner plays a riding step at 40 or later only (c19p: 42.5 to
@@ -1968,6 +2820,169 @@ pub fn class_only_steps(files: &mut [String]) {
 	}
 }
 
+/// A quest's prerequisites in the data: those that must all be handed in (`pre`), and those one of
+/// which must be (a negative `pre`, `preAny`). Not its parent: that one must be in the log, not handed
+/// in (Chapter I-IV inside The Green Hills of Stranglethorn).
+pub fn prereqs_of(data: &Data, q: u32) -> (Vec<u32>, Vec<u32>) {
+	let Some(r) = data.quests.get(&q) else { return (Vec::new(), Vec::new()) };
+	let ids = |v: &Option<Vec<serde_json::Value>>| -> Vec<i64> { v.iter().flatten().filter_map(|x| x.as_i64()).collect() };
+	let parent = r.parent.map(|p| p as i64);
+	let pre: Vec<i64> = ids(&r.pre).into_iter().filter(|&p| Some(p.abs()) != parent).collect();
+	let all: Vec<u32> = pre.iter().filter(|&&p| p > 0).map(|&p| p as u32).collect();
+	let mut any: Vec<u32> = pre.iter().filter(|&&p| p < 0).map(|p| (-p) as u32).collect();
+	any.extend(ids(&r.pre_any).into_iter().filter(|&p| p > 0 && Some(p) != parent).map(|p| p as u32));
+	(all, any)
+}
+
+/// How the writer treats a guide's opening accepts that need a quest only an earlier guide hands in
+/// ("Every guide stands on its own": a player may load any guide fresh at its level).
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum FreshOpeners {
+	/// Not checked.
+	Off,
+	/// Listed in the writer's log (`fresh opener: …`); the guides as written.
+	#[default]
+	Flag,
+	/// Each moves to the guide's first later visit to its giver after the opening, where there is one
+	/// ([`fresh_openers_later`]); the rest are listed.
+	Move,
+}
+
+/// The steps that open a guide, for the fresh-start check (the release gate's "first 10 steps").
+pub const FRESH_STEPS: usize = 10;
+
+/// An accept in a guide's opening that needs a quest only an earlier guide hands in.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct FreshOpener {
+	/// The file (in play order), its step (0-based) and the accept's line.
+	pub file: usize,
+	pub step: usize,
+	pub line: usize,
+	pub quest: u32,
+	/// The prerequisites a fresh player lacks, each with the earlier files that hand it in.
+	pub needs: Vec<(u32, Vec<usize>)>,
+}
+
+/// (A file's steps: (title line, last body line).)
+fn step_spans(lines: &[String]) -> Vec<(usize, usize)> {
+	let mut out = Vec::new();
+	let mut i = 0;
+	while i < lines.len() {
+		if !is_step(&lines[i]) {
+			i += 1;
+			continue;
+		}
+		let mut e = i;
+		while e + 1 < lines.len() && !is_step(&lines[e + 1]) && !starts_nonspace(&lines[e + 1]) && !trim(&lines[e + 1]).is_empty() {
+			e += 1;
+		}
+		out.push((i, e));
+		i = e + 1;
+	}
+	out
+}
+
+/// "Every guide stands on its own" (Fitz, 2026-11-08): a player who loads a guide fresh at its level
+/// has done their race's starting zone (`starter`, the chain's level-1 guide) and none of our other
+/// guides. An accept in a guide's first `first_n` steps whose quest needs one (the data's
+/// prerequisites, [`prereqs_of`]) that the guide has not handed in before it and that only an earlier
+/// guide of the chain hands in is one that player cannot take: the giver does not offer it, and the
+/// Engine hides it. `files` in play order ([`play_order`]). A prerequisite no guide of the chain hands
+/// in is a route gap, not this check's.
+pub fn fresh_openers(files: &[String], data: &Data, first_n: usize, starter: Option<usize>) -> Vec<FreshOpener> {
+	let texts = split_lines(files);
+	let tin_re = re!(r"^\s+turnin\s+(\d+)\b");
+	let tin = |l: &str| tin_re.captures(split_comment(l).0).and_then(|m| m[1].parse::<u32>().ok());
+	let turned: Vec<FxHashSet<u32>> = texts.iter().map(|ls| ls.iter().filter_map(|l| tin(l)).collect()).collect();
+	let mut out = Vec::new();
+	for (fi, lines) in texts.iter().enumerate() {
+		if Some(fi) == starter {
+			continue;
+		}
+		let fresh_has = |p: u32| starter.is_some_and(|s| s < fi && turned[s].contains(&p));
+		let fed = |p: u32| -> Vec<usize> { (0..fi).filter(|&f| Some(f) != starter && turned[f].contains(&p)).collect() };
+		let mut own: FxHashSet<u32> = FxHashSet::default();
+		for (si, &(b, e)) in step_spans(lines).iter().enumerate().take(first_n) {
+			for (li, l) in lines.iter().enumerate().take(e + 1).skip(b + 1) {
+				if let Some(q) = tin(l) {
+					own.insert(q);
+					continue;
+				}
+				if head_ws(l) != Some("accept") {
+					continue;
+				}
+				let Some(q) = quest_of(l) else { continue };
+				let (all, any) = prereqs_of(data, q);
+				let done = |p: &u32| own.contains(p) || fresh_has(*p);
+				let mut needs: Vec<(u32, Vec<usize>)> = all.iter().filter(|p| !done(p)).map(|&p| (p, fed(p))).filter(|(_, f)| !f.is_empty()).collect();
+				if !any.is_empty() && !any.iter().any(done) {
+					needs.extend(any.iter().map(|&p| (p, fed(p))).filter(|(_, f)| !f.is_empty()));
+				}
+				if !needs.is_empty() {
+					out.push(FreshOpener { file: fi, step: si, line: li, quest: q, needs });
+				}
+			}
+		}
+	}
+	out
+}
+
+/// [`FreshOpeners::Move`]: an opener's accept goes to the end of its guide's first step after the
+/// opening (`first_n` steps) that stands by its giver (`place`: a line's NPC points, within `near_yd`),
+/// a later visit to the same NPC, when the step is for everyone (no `only`, no `when`) and no line of
+/// the quest comes before it: the route's player takes it there, and the opening asks nothing of a
+/// fresh player they cannot do. A line moved out of a step with `only` takes it. Returns the openers
+/// left where they are (the Engine hides them for a player without the earlier quest).
+pub fn fresh_openers_later(files: &mut [String], openers: &[FreshOpener], first_n: usize, place: &dyn Fn(&str) -> Vec<crate::input::Pt>, near_yd: f64) -> Vec<FreshOpener> {
+	let texts = split_lines(files);
+	let near = |a: &[crate::input::Pt], b: &[crate::input::Pt]| a.iter().any(|p| b.iter().any(|q| p.c == q.c && js_hypot(p.wx - q.wx, p.wy - q.wy) <= near_yd));
+	let mut del: Del = vec![FxHashSet::default(); texts.len()];
+	let mut ins: Ins = vec![FxHashMap::default(); texts.len()];
+	let mut left = Vec::new();
+	for o in openers {
+		let lines = &texts[o.file];
+		let spans = step_spans(lines);
+		let qs = o.quest.to_string();
+		// (A line of the quest: its goals, `complete`, a `when` naming it.)
+		let refs = |l: &str| quest_of(l) == Some(o.quest) || (matches!(head_ws(l), Some("when" | "complete")) && split_comment(l).0.split(|c: char| !c.is_ascii_digit()).any(|t| t == qs));
+		let giver = place(&lines[o.line]);
+		let Some(&(ob, oe)) = spans.get(o.step) else {
+			left.push(o.clone());
+			continue;
+		};
+		let mut target = None;
+		if !giver.is_empty() && !lines[o.line + 1..=oe].iter().any(|l| refs(l)) {
+			for (j, &(b, e)) in spans.iter().enumerate().skip(o.step + 1) {
+				let body = &lines[b + 1..=e];
+				if body.iter().any(|l| refs(l)) {
+					break;
+				}
+				if j >= first_n && !body.iter().any(|l| matches!(head_ws(l), Some("only" | "when"))) && body.iter().any(|l| near(&place(l), &giver)) {
+					target = Some(e);
+					break;
+				}
+			}
+		}
+		let Some(at) = target else {
+			left.push(o.clone());
+			continue;
+		};
+		let l = &lines[o.line];
+		let step_only = lines[ob + 1..=oe].iter().find(|x| head_ws(x) == Some("only")).map(|x| trim(&re!(r"^\s+only\s+").replace(split_comment(x).0, "")).to_string());
+		let line = match step_only.filter(|_| line_only(l).is_none()) {
+			Some(a) => {
+				let (code, rest) = split_comment(l);
+				format!("{} only {a}{rest}", trim_end(code))
+			}
+			None => l.clone(),
+		};
+		del[o.file].insert(o.line);
+		ins[o.file].entry(at).or_default().push(line);
+	}
+	rewrite(files, &texts, &del, &ins);
+	left
+}
+
 /// A quest's lines written before the hand-in of a prerequisite (the data's `pre`, all of them, and
 /// `preAny`, one of them) go after that hand-in, in steps of their own after its step: each keeps its
 /// v1 step's title, `only` and zone, so it reads on its own map, and the step after them names the zone
@@ -1980,18 +2995,7 @@ pub fn prereq_order(files: &mut [String], data: &Data, route_q: &FxHashSet<u32>,
 	let acc_re = re!(r"^\s+accept\s+(\d+)\b");
 	let tin_re = re!(r"^\s+turnin\s+(\d+)\b");
 	let zone_re = re!(r"^\s*zone\s+(.+?)\s*$");
-	let pres = |q: u32| -> (Vec<u32>, Vec<u32>) {
-		let Some(r) = data.quests.get(&q) else { return (Vec::new(), Vec::new()) };
-		let ids = |v: &Option<Vec<serde_json::Value>>| -> Vec<i64> { v.iter().flatten().filter_map(|x| x.as_i64()).collect() };
-		// (Not its parent: that one must be in the log, not handed in, Chapter I-IV inside The Green
-		// Hills of Stranglethorn.)
-		let parent = r.parent.map(|p| p as i64);
-		let pre: Vec<i64> = ids(&r.pre).into_iter().filter(|&p| Some(p.abs()) != parent).collect();
-		let all: Vec<u32> = pre.iter().filter(|&&p| p > 0).map(|&p| p as u32).collect();
-		let mut any: Vec<u32> = pre.iter().filter(|&&p| p < 0).map(|p| (-p) as u32).collect();
-		any.extend(ids(&r.pre_any).into_iter().filter(|&p| p > 0 && Some(p) != parent).map(|p| p as u32));
-		(all, any)
-	};
+	let pres = |q: u32| prereqs_of(data, q);
 	let refs = |l: &str, q: u32| -> bool {
 		let code = split_comment(l).0;
 		quest_of(l) == Some(q) || re!(r"^\s+complete\s+(\d+)\b").captures(code).is_some_and(|m| m[1].parse::<u32>().ok() == Some(q))
@@ -2502,7 +3506,7 @@ pub fn detour_hand_ins(files: &mut [(String, Vec<String>)], world: &World) -> us
 	let mut adds: Vec<(usize, String)> = Vec::new();
 	let mut sets: FxHashMap<usize, String> = FxHashMap::default();
 	// (The quests a class's detour already hands in: not again at its next step beside the same NPC,
-	// the Warlocks' 876 at Gazrog's two Crossroads steps, c14 Rev14H1 A2.)
+	// the Warlocks' 876 at Gazrog's two Crossroads steps, c14 review A2.)
 	let mut added: FxHashSet<(u32, String)> = FxHashSet::default();
 	for (s0, s1, sa) in &steps {
 		// (A class's own step: classes, no races.)
@@ -2692,10 +3696,11 @@ pub fn follow_ups_at_their_giver(mut lines: Vec<String>, data: &Data, world: &Wo
 				let held = (r + 1..k).any(|j| {
 					let l = &lines[j];
 					head_ws(l) == Some("level")
-						|| paired(l) || re!(r"\b(?:accept|turnin|complete|quest)\s+(\d+)")
-						.captures_iter(split_comment(l).0)
-						.filter_map(|m| m[1].parse::<u32>().ok())
-						.any(|q| (q != x && need.contains(&q)) || excludes(q, y))
+						|| paired(l)
+						|| re!(r"\b(?:accept|turnin|complete|quest)\s+(\d+)")
+							.captures_iter(split_comment(l).0)
+							.filter_map(|m| m[1].parse::<u32>().ok())
+							.any(|q| (q != x && need.contains(&q)) || excludes(q, y))
 				});
 				let min = data.quests.get(&y).and_then(|r| r.min_level).unwrap_or(0.0);
 				if held || lvl_after(last_turnin).is_some_and(|l| l.floor() < min) {
@@ -2867,7 +3872,7 @@ mod tests {
 
 	#[test]
 	fn a_class_accept_waits_for_its_prerequisite_handed_in_in_a_later_guide() {
-		// RevH1-3 F3: News of Dogran (1510) taken in the Barrens before Gan'rul's hand-in of its
+		// Review F3: News of Dogran (1510) taken in the Barrens before Gan'rul's hand-in of its
 		// prerequisite (1509) in the next guide.
 		let q: crate::input::Quest = serde_json::from_value(serde_json::json!({ "pre": [1509] })).unwrap();
 		let mut data = Data::default();
@@ -2988,7 +3993,7 @@ mod tests {
 
 	#[test]
 	fn an_only_list_names_only_the_classes_the_guides_races_play() {
-		// RevSkyA3 W3: `only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Warlock` in the Skyborne isle guide.
+		// Review W3: `only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Warlock` in the Skyborne isle guide.
 		let playable = |r: &str| if r == "Skyborne" { ["Warrior", "Hunter", "Rogue", "Mage", "Druid"].map(String::from).to_vec() } else { Vec::new() };
 		let t = "guide g\nrace Skyborne\n\nstep A\n  only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Warlock\n  train class\n  accept 1 only Mage,Priest\n  accept 2 only Priest";
 		let out = playable_only(t, &playable).unwrap();
@@ -3272,7 +4277,7 @@ mod tests {
 
 	#[test]
 	fn hand_ins_go_before_a_level_gate_for_class_accepts() {
-		// c14 Razor Hill (Rev14OrcTroll A1): `level 10 only Warrior`, the class accepts, then Gar'Thok's and
+		// c14 Razor Hill (c14 review A1): `level 10 only Warrior`, the class accepts, then Gar'Thok's and
 		// Cook Torka's hand-ins, whose experience is what reaches 10. The hand-ins first.
 		let mut f = vec!["guide t/a\n\nstep Razor Hill\n  accept 837\n  level 10 only Warrior\n  accept 1505 only Warrior\n  level 10 only Shaman\n  accept 2983 only Shaman\n  turnin 825\n  accept 9\n  turnin 9\n  turnin 815\n\nstep Next\n  level 12\n  turnin 7\n".to_string()];
 		hand_ins_before_level_gate(&mut f);
@@ -3284,7 +4289,7 @@ mod tests {
 
 	#[test]
 	fn a_class_detour_hands_in_a_quest_once() {
-		// c14 Orc 04-the-barrens (Rev14H1 A2): the Warlocks' two steps at Gazrog, beside Darsok, each
+		// c14 Orc 04-the-barrens (c14 review A2): the Warlocks' two steps at Gazrog, beside Darsok, each
 		// handed in 876.
 		let world: World = serde_json::from_value(serde_json::json!({
 			"points": [[1, 1, 0, 0, 1413], [1, 1, 5000, 0, 1413], [1, 1, 5040, 0, 1413]],
@@ -3349,7 +4354,7 @@ mod tests {
 
 	#[test]
 	fn a_hand_in_before_its_accept_goes_to_the_next_step_by_its_ender() {
-		// c15 Horde 04-the-barrens (Rev15H1): Sorek's 1823 taken at the Orgrimmar training, Ruga's
+		// c15 Horde 04-the-barrens (c15 review): Sorek's 1823 taken at the Orgrimmar training, Ruga's
 		// hand-in (Camp Taurajo) written right after it, a flight there and back; and Islen's 1528 for
 		// the Shamans. They go to the route's next step by their ender, with their step's `only`.
 		let pt = |x: f64| crate::input::Pt { c: 1, wx: x, wy: 0.0, map: 1413 };
@@ -3369,7 +4374,7 @@ mod tests {
 		];
 		fix_order(&mut files, &[5, 882].into_iter().collect(), &|_, _| true, &place);
 		let first = files[0].clone();
-		// The Tauren Shamans' Telf 1525 (Rev15SkyH): an Orc guide's hand-in `only Shaman` moved after the
+		// The Tauren Shamans' Telf 1525 (c15 review): an Orc guide's hand-in `only Shaman` moved after the
 		// shared accept for Tauren Shamans takes that audience, and none is added where one follows.
 		let mut tel =
 			vec!["guide o\n\nstep Telf\n  only Shaman\n  turnin 1525\n".to_string(), "guide s\n\nstep Telf\n  only Tauren,Shaman\n  accept 1525 only Tauren\n\nstep Away\n  accept 5\n".to_string()];
@@ -3415,7 +4420,7 @@ mod tests {
 
 	#[test]
 	fn a_step_for_a_quest_not_yet_taken_goes_after_its_accept_near_its_place() {
-		// c15 Horde (Rev15H1): the Druids' Strange Lockbox (`collect 15883`, the Half Pendant, a quest
+		// c15 Horde (c15 review): the Druids' Strange Lockbox (`collect 15883`, the Half Pendant, a quest
 		// item of Trial of the Sea Lion, 30) at 15.5, before the Moonglade accept; and a seed step `when
 		// onquest 30` placed there too. Both go after the accept, to the Sludge Fen pass.
 		let pt = |x: f64| crate::input::Pt { c: 1, wx: x, wy: 0.0, map: 1413 };
@@ -3439,9 +4444,165 @@ mod tests {
 	}
 
 	#[test]
+	fn the_chain_is_read_in_the_routes_order_not_the_files() {
+		// #1386: Silverpine (12-15) is played before the Barrens (15-21), but the chain had the
+		// Barrens first, so the Barrens' accept of Trial of the Sea Lion (30) read as coming before
+		// Silverpine's Strange Lockbox step (15882, a quest item that drops only with 30 in the log),
+		// which stayed at 12-15 with nothing to open it for.
+		let chain: Vec<String> = ["forever/horde/02-the-barrens.guide", "forever/horde/03-silverpine-forest.guide", "forever/horde/05-stonetalon-mountains.guide"].map(String::from).to_vec();
+		let median = |f: &str| -> Option<usize> {
+			if f.contains("02-the-barrens") {
+				Some(40)
+			} else if f.contains("03-silverpine") {
+				Some(10)
+			} else {
+				Some(70)
+			}
+		};
+		let ord = play_order(&chain, &median);
+		assert_eq!(ord, vec![1, 0, 2]);
+		// (A file with no route line keeps its place right after the file before it.)
+		let abc: Vec<String> = ["a", "b", "c"].map(String::from).to_vec();
+		assert_eq!(
+			play_order(&abc, &|f| match f {
+				"a" => Some(10),
+				"c" => Some(5),
+				_ => None,
+			}),
+			vec![2, 0, 1]
+		);
+		let barrens = "guide b\n\nstep Moonglade\n  only Druid\n  accept 30\n\nstep Camp\n  accept 5\n".to_string();
+		let silverpine = "guide s\n\nstep Strange Lockbox\n  only Tauren,Druid\n  collect 15882\n\nstep Sepulcher\n  accept 6\n".to_string();
+		let item_quest: FxHashMap<u32, u32> = [(15882, 30)].into_iter().collect();
+		let in_route: FxHashSet<u32> = [5, 6].into_iter().collect();
+		let nowhere = |_: &str| -> Vec<crate::input::Pt> { Vec::new() };
+		// (In the files' path order the lockbox reads as after the accept: it stays, the bug.)
+		let mut path_order = vec![barrens.clone(), silverpine.clone()];
+		steps_after_their_quest(&mut path_order, &in_route, &item_quest, &|_, _| true, &nowhere, 600.0);
+		assert!(path_order[1].contains("collect 15882"), "{path_order:#?}");
+		// (In the route's order it goes after the accept.)
+		let mut files: Vec<String> = ord[..2].iter().map(|&k| [barrens.clone(), silverpine.clone(), String::new()][k].clone()).collect();
+		steps_after_their_quest(&mut files, &in_route, &item_quest, &|_, _| true, &nowhere, 600.0);
+		assert_eq!(files[0], "guide s\n\nstep Sepulcher\n  accept 6\n");
+		assert_eq!(files[1], "guide b\n\nstep Moonglade\n  only Druid\n  accept 30\n\nstep Strange Lockbox\n  only Tauren,Druid\n  collect 15882\n\nstep Camp\n  accept 5\n");
+	}
+
+	#[test]
+	fn a_step_for_a_quest_only_other_players_take_later_is_gated_on_it() {
+		// (The accept is in a guide the step's players do not play: the step stays, `when onquest`, so
+		// a player without the quest is not sent to the box for nothing.)
+		let item_quest: FxHashMap<u32, u32> = [(15882, 30)].into_iter().collect();
+		let mut files =
+			vec!["guide s\n\nstep Strange Lockbox\n  only Tauren,Druid\n  collect 15882\n\nstep Sepulcher\n  accept 6\n".to_string(), "guide o\n\nstep Moonglade\n  accept 30\n".to_string()];
+		steps_after_their_quest(&mut files, &[6].into_iter().collect(), &item_quest, &|dst, src| dst == src, &|_| Vec::new(), 600.0);
+		assert_eq!(files[0], "guide s\n\nstep Strange Lockbox\n  when onquest 30\n  only Tauren,Druid\n  collect 15882\n\nstep Sepulcher\n  accept 6\n");
+		assert_eq!(files[1], "guide o\n\nstep Moonglade\n  accept 30\n");
+	}
+
+	#[test]
+	fn a_flight_path_is_learnt_on_the_first_visit_to_its_flight_master() {
+		// #1611 (in game at Ratchet): the Barrens' first Ratchet stop accepts Sputtervalve's quest (894)
+		// 16 yd from Bragok, but Ratchet's path waited for the fly step after the beach; Tauren meet
+		// Kirge Sternhorn (854) 54 yd from Omusa Thunderhorn at the end of Mulgore, and Camp Taurajo's
+		// path waited for the Barrens' Camp Taurajo stop.
+		let pt = |x: f64| crate::input::Pt { c: 1, wx: x, wy: 0.0, map: 1413 };
+		let fm = |name: &str| match name {
+			"Ratchet" => Some(pt(1000.0)),
+			"Camp Taurajo" => Some(pt(0.0)),
+			_ => None,
+		};
+		let place = |l: &str| -> Vec<crate::input::Pt> {
+			match l.trim() {
+				"accept 854" => vec![pt(54.0)],
+				"accept 894" => vec![pt(1016.0)],
+				"accept 895" => vec![pt(1030.0)],
+				"kill 3381" => vec![pt(3000.0)],
+				"turnin 853" => vec![pt(5.0)],
+				_ => Vec::new(),
+			}
+		};
+		let seed = vec![
+			"guide m\nrace Tauren\n\nstep Kirge Sternhorn\n  zone The Barrens\n  accept 854\n".to_string(),
+			"guide b\n\nstep Ratchet\n  accept 894\n  accept 895\n\nstep The Beach\n  kill 3381\n\nstep Fly to Crossroads\n  zone The Barrens\n  goto 63.1,37.1 \"Ratchet flight master\"\n  getfp \"Ratchet\" only Orc,Skyborne,Tauren,Troll,Undead\n  fly \"Crossroads\"\n\nstep Camp Taurajo\n  getfp \"Camp Taurajo\"\n  turnin 853\n".to_string(),
+		];
+		// (The shared guide's players include the Tauren guide's, not the other way round.)
+		let may = |dst: usize, src: usize| dst == src || dst == 1;
+		let mut files = seed.clone();
+		let done = first_visit_flight_paths(&mut files, &may, &fm, &place, FIRST_VISIT_FP_YD);
+		// Ratchet's moved onto the first Ratchet stop, beside Sputtervalve, with its players; Camp
+		// Taurajo's copied for the Tauren at Kirge (the others keep the Barrens' stop).
+		assert_eq!(done, vec![(1, "Ratchet".to_string(), true), (0, "Camp Taurajo".to_string(), false)]);
+		assert_eq!(files[0], "guide m\nrace Tauren\n\nstep Kirge Sternhorn\n  zone The Barrens\n  accept 854\n  getfp \"Camp Taurajo\"\n");
+		assert_eq!(
+			files[1],
+			"guide b\n\nstep Ratchet\n  accept 894\n  getfp \"Ratchet\" only Orc,Skyborne,Tauren,Troll,Undead\n  accept 895\n\nstep The Beach\n  kill 3381\n\nstep Fly to Crossroads\n  zone The Barrens\n  goto 63.1,37.1 \"Ratchet flight master\"\n  fly \"Crossroads\"\n\nstep Camp Taurajo\n  getfp \"Camp Taurajo\"\n  turnin 853\n"
+		);
+		// Written once: a second pass finds each path learnt on its first visit.
+		let again = files.clone();
+		assert!(first_visit_flight_paths(&mut files, &may, &fm, &place, FIRST_VISIT_FP_YD).is_empty());
+		assert_eq!(files, again);
+		// (Kirge stands 54 yd from Omusa: within 40 yd only Ratchet's moves.)
+		let mut near = seed.clone();
+		first_visit_flight_paths(&mut near, &may, &fm, &place, 40.0);
+		assert_eq!(near[0], seed[0]);
+		assert!(near[1].contains("  accept 894\n  getfp \"Ratchet\""), "{}", near[1]);
+	}
+
+	#[test]
+	fn a_guides_opening_accepts_that_need_an_earlier_guides_quest_are_found() {
+		// "Every guide stands on its own" (Fitz, 2026-11-08): a player loading guide two fresh has done
+		// the starting zone (quest 1) and nothing of guide one (101).
+		let mut data = Data::default();
+		let pre = |p: serde_json::Value| -> crate::input::Quest { serde_json::from_value(serde_json::json!({ "pre": p })).unwrap() };
+		data.quests.insert(102, pre(serde_json::json!([101])));
+		data.quests.insert(103, pre(serde_json::json!([1])));
+		data.quests.insert(104, pre(serde_json::json!([-101, -201])));
+		data.quests.insert(105, pre(serde_json::json!([106])));
+		data.quests.insert(107, pre(serde_json::json!([101])));
+		data.quests.insert(108, pre(serde_json::json!([999])));
+		let files = vec![
+			"guide start\nlevels 1-12\n\nstep A\n  accept 1\n  turnin 1\n".to_string(),
+			"guide one\nlevels 12-15\n\nstep B\n  accept 101\n  turnin 101\n".to_string(),
+			"guide two\nlevels 15-20\n\nstep C\n  accept 106\n  turnin 106\n  accept 102\n  accept 103\n\nstep D\n  accept 104\n  accept 105\n  accept 108\n\nstep E\n  accept 107\n".to_string(),
+		];
+		let got =
+			|starter: Option<usize>| -> Vec<(usize, usize, u32, Vec<(u32, Vec<usize>)>)> { fresh_openers(&files, &data, 2, starter).into_iter().map(|o| (o.file, o.step, o.quest, o.needs)).collect() };
+		// (102 needs guide one's 101; 104 one of 101 and 201, and only guide one hands in either; 103's
+		// 1 is the starting zone's; 105's 106 is the guide's own, before it; 108's 999 no guide hands
+		// in, a route gap; 107 is past the opening.)
+		assert_eq!(got(Some(0)), vec![(2, 0, 102, vec![(101, vec![1])]), (2, 1, 104, vec![(101, vec![1])])]);
+		// (With no starting zone, the starting zone's quests count as an earlier guide's too.)
+		assert_eq!(got(None), vec![(2, 0, 102, vec![(101, vec![1])]), (2, 0, 103, vec![(1, vec![0])]), (2, 1, 104, vec![(101, vec![1])])]);
+	}
+
+	#[test]
+	fn an_opening_accept_moves_to_the_guides_later_visit_to_its_giver() {
+		let pt = |x: f64| crate::input::Pt { c: 1, wx: x, wy: 0.0, map: 1413 };
+		let place = |l: &str| -> Vec<crate::input::Pt> {
+			if l.contains("accept 102") || l.contains("turnin 5") {
+				vec![pt(0.0)]
+			} else if l.contains("accept 5") {
+				vec![pt(10.0)]
+			} else {
+				Vec::new()
+			}
+		};
+		let opener = |line: usize| FreshOpener { file: 0, step: 0, line, quest: 102, needs: vec![(101, vec![])] };
+		let mut files = vec!["guide two\n\nstep Town\n  only Human\n  accept 102\n  accept 5\n\nstep Field\n  kill 1\n\nstep Town again\n  turnin 5\n".to_string()];
+		let left = fresh_openers_later(&mut files, &[opener(4)], 1, &place, 40.0);
+		assert!(left.is_empty());
+		assert_eq!(files[0], "guide two\n\nstep Town\n  only Human\n  accept 5\n\nstep Field\n  kill 1\n\nstep Town again\n  turnin 5\n  accept 102 only Human\n");
+		// (A line of the quest before that visit: it stays.)
+		let kept = "guide two\n\nstep Town\n  accept 102\n  accept 5\n\nstep Field\n  collect 9 quest 102.1\n\nstep Town again\n  turnin 5\n".to_string();
+		let mut files = vec![kept.clone()];
+		let left = fresh_openers_later(&mut files, &[opener(3)], 1, &place, 40.0);
+		assert_eq!((left.len(), &files[0]), (1, &kept));
+	}
+
+	#[test]
 	fn a_riding_lesson_holds_from_level_40() {
 		// c19 Orc 40-50/02-feralas:99: the Orgrimmar riding step at about 38 told the player to learn
-		// riding from Kildar, who cannot teach them yet (Rev19-H A1).
+		// riding from Kildar, who cannot teach them yet (c19 review A1).
 		let mut data = Data::default();
 		data.npcs.insert(4752, serde_json::from_value(serde_json::json!({ "name": "Kildar", "subName": "Wolf Riding Instructor" })).unwrap());
 		data.npcs.insert(3353, serde_json::from_value(serde_json::json!({ "name": "Grezz Ragefist", "subName": "Warrior Trainer" })).unwrap());
@@ -3532,5 +4693,127 @@ mod tests {
 		optional_by_fixes(&mut files, &optional);
 		// (The hand-in as written: it applies only with the quest done.)
 		assert_eq!(files[0], "guide a\n\nstep Nesingwary\n  accept 185\n  accept 338 optional                 -- Barnil Stonepot\n\nstep Pages\n  complete 339 optional               -- Chapter I\n  collect 4628 quest 712 optional\n  turnin 712 only Orc");
+	}
+
+	#[test]
+	fn a_group_step_of_an_optional_quest_keeps_its_goals_required() {
+		// 0.4.0 round: Zephras Isle's Vulgara (93318, optional in the route fixes) under `when group
+		// 93318` was written `accept 93318 optional` and `collect 257942 quest 93318.1 optional`: the
+		// pack check refuses a `when group` step of optional goals only (its player gets no arrow).
+		let mut files = vec!["guide a\n\nstep Village quests\n  when group 93318\n  accept 93318                                -- The bounty board\n\nstep Vulgara\n  when group 93318\n  tip Vulgara is elite.\n  collect 257942 quest 93318.1                -- Vulgara's Head\n\nstep Solo\n  collect 1 quest 93318.1".to_string()];
+		let optional: FxHashSet<u32> = [93318].into_iter().collect();
+		optional_by_fixes(&mut files, &optional);
+		assert!(files[0].contains("when group 93318\n  accept 93318                                -- The bounty board\n"), "{}", files[0]);
+		assert!(files[0].contains("  collect 257942 quest 93318.1                -- Vulgara's Head\n"), "{}", files[0]);
+		assert!(files[0].ends_with("step Solo\n  collect 1 quest 93318.1 optional"), "a step for everyone still takes it optional: {}", files[0]);
+	}
+
+	#[test]
+	fn an_along_after_its_label_names_the_next_step_that_works_its_quest() {
+		// 0.4.0 round, Darkshore: the Mathystra relics' step (`label q98013`) came before the naga on the
+		// way there (`along until q98013`), and the pack check refuses an `along until` naming an earlier
+		// step. The label moves to the next step that works the naga quest.
+		let t = "guide a\n\nstep The naga\n  label q5\n  collect 9 quest 6\n\nstep On the way\n  along until q5\n  kill 1 quest 5\n\nstep Mist's Edge\n  kill 3 quest 7\n\nstep Ruins\n  kill 2 quest 5\n\nstep Arbal\n  turnin 5";
+		assert_eq!(
+			along_before_label(t),
+			"guide a\n\nstep The naga\n  collect 9 quest 6\n\nstep On the way\n  along until q5\n  kill 1 quest 5\n\nstep Mist's Edge\n  kill 3 quest 7\n\nstep Ruins\n  label q5\n  kill 2 quest 5\n\nstep Arbal\n  turnin 5"
+		);
+		// (Named elsewhere too, `when done q5`: the old label stays and the later step gets a new one; a
+		// `background` step's label goes on the hand-in.)
+		let t = "guide a\n\nstep The naga\n  label q5\n  collect 9 quest 6\n\nstep Back\n  when done q5\n  turnin 6\n\nstep On the way\n  along until q5\n  background\n  kill 1 quest 5\n\nstep Ruins\n  kill 2 quest 5\n\nstep Arbal\n  turnin 5";
+		assert_eq!(
+			along_before_label(t),
+			"guide a\n\nstep The naga\n  label q5\n  collect 9 quest 6\n\nstep Back\n  when done q5\n  turnin 6\n\nstep On the way\n  along until q5-2\n  background\n  kill 1 quest 5\n\nstep Ruins\n  kill 2 quest 5\n\nstep Arbal\n  label q5-2\n  turnin 5"
+		);
+		// (No later step for its quest: the goals listed until done, and no `background`.)
+		let t = "guide a\n\nstep Ruins\n  label q5\n  kill 2 quest 5\n\nstep On the way\n  along until q5\n  background\n  kill 1 quest 5";
+		assert_eq!(along_before_label(t), "guide a\n\nstep Ruins\n  label q5\n  kill 2 quest 5\n\nstep On the way\n  along\n  kill 1 quest 5");
+		// (In order already: as it is.)
+		let ok = "guide a\n\nstep On the way\n  along until q5\n  kill 1 quest 5\n\nstep Ruins\n  label q5\n  kill 2 quest 5";
+		assert_eq!(along_before_label(ok), ok);
+	}
+
+	#[test]
+	fn a_hand_in_of_a_quest_nothing_on_the_chain_accepts_is_for_its_carriers() {
+		// 0.4.0 round: Thalanaar's `turnin 1100` (Lonebrow's Journal, an item's quest the route never
+		// accepts) and Pebblebitty's `turnin 3181` (its accept dropped) were refused by the pack check.
+		let mut tree: BTreeMap<String, String> = BTreeMap::new();
+		tree.insert("forever/a.guide".into(), "guide forever/a\nnext forever/b\n\nstep Camp\n  accept 4281\n".into());
+		tree.insert(
+			"forever/b.guide".into(),
+			"guide forever/b\nzone Feralas\n\nstep Thalanaar\n  only Druid,Hunter\n  tip Ride north-east.\n  turnin 4281                         -- Falfindel\n  turnin 1100                         -- if you carry Lonebrow's Journal\n\nstep Pebblebitty\n  when group 3181\n  turnin 3181\n\nstep Later\n  collect 5 quest 77\n\nstep Taken\n  accept 77\n\nstep Carried\n  when onquest 88\n  turnin 88\n".into(),
+		);
+		let log = carried_hand_ins(&mut tree, &["forever/b.guide".to_string()]);
+		let b = &tree["forever/b.guide"];
+		assert!(
+			b.contains("step Thalanaar\n  only Druid,Hunter\n  tip Ride north-east.\n  turnin 4281                         -- Falfindel\n\nstep Thalanaar\n  only Druid,Hunter\n  when onquest 1100\n  turnin 1100                         -- if you carry Lonebrow's Journal\n\nstep Pebblebitty"),
+			"{b}"
+		);
+		assert!(b.contains("step Pebblebitty\n  when onquest 3181\n  when group 3181\n  turnin 3181\n"), "{b}");
+		assert!(b.contains("step Later\n  collect 5 quest 77\n"), "a quest the guide takes later is the pack check's to name: {b}");
+		assert!(b.contains("step Carried\n  when onquest 88\n  turnin 88\n"), "{b}");
+		assert_eq!(log.len(), 2, "{log:?}");
+	}
+
+	fn test_lands<T>(f: impl FnOnce(&Lands) -> T) -> T {
+		let zone = |z: &str| match z {
+			"Elwynn Forest" | "Stormwind City" | "Westfall" | "Loch Modan" | "Ironforge" | "Wetlands" => Some(0),
+			"Dustwallow Marsh" | "Feralas" | "Darkshore" => Some(1),
+			_ => None,
+		};
+		let node = |n: &str| match n {
+			"Stormwind" | "Sentinel Hill" | "Ironforge" | "Menethil Harbor" => Some(0),
+			"Theramore" | "Thalanaar" | "Auberdine" => Some(1),
+			_ => None,
+		};
+		f(&Lands { zone: &zone, map: &|_| None, node: &node })
+	}
+
+	#[test]
+	fn a_flight_on_from_a_stop_with_nothing_to_do_is_one_flight() {
+		// The pack check's house rule (#1191): 17 hops in every Alliance start's tree of the 0.4.0 round.
+		let t = "guide a\nfaction Alliance\nzone Elwynn Forest\n\nstep Fly to Stormwind\n  goto 42.0,65.0 \"Goldshire flight master\"\n  fly \"Stormwind\"\n  zone Stormwind City\n\nstep Trade District\n  zone Stormwind City\n  goto 60.0,70.0 \"Trade District\"\n\nstep Fly to Sentinel Hill\n  zone Stormwind City\n  goto 66.3,62.7 \"Stormwind flight master\"\n  fly \"Sentinel Hill\"\n  zone Westfall\n\nstep Sentinel Hill\n  turnin 1";
+		let (out, log) = test_lands(|l| flight_hops(t, Some("Alliance"), l));
+		assert_eq!(out, "guide a\nfaction Alliance\nzone Elwynn Forest\n\nstep Fly to Sentinel Hill\n  goto 42.0,65.0 \"Goldshire flight master\"\n  fly \"Sentinel Hill\"\n  zone Westfall\n\nstep Sentinel Hill\n  turnin 1");
+		assert_eq!(log.len(), 1, "{log:?}");
+	}
+
+	#[test]
+	fn a_flight_there_and_straight_back_is_no_trip() {
+		// 0.4.0 round, Tanaris: Theramore to Thalanaar and straight back, nothing done there.
+		let t = "guide a\nfaction Alliance\nzone Dustwallow Marsh\n\nstep Theramore docks\n  turnin 3\n\nstep Fly to Thalanaar\n  zone Dustwallow Marsh\n  goto 67.5,51.2 \"Theramore flight master\"\n  fly \"Thalanaar\"\n\nstep To Thalanaar\n  zone Feralas\n  goto 89.5,45.9 \"To Thalanaar\"\n\nstep Fly to Theramore\n  zone Feralas\n  goto 89.5,45.9 \"Thalanaar flight master\"\n  fly \"Theramore\"\n  zone Dustwallow Marsh\n\nstep Theramore\n  turnin 2";
+		let (out, _) = test_lands(|l| flight_hops(t, Some("Alliance"), l));
+		assert_eq!(out, "guide a\nfaction Alliance\nzone Dustwallow Marsh\n\nstep Theramore docks\n  turnin 3\n\nstep Theramore\n  turnin 2");
+	}
+
+	#[test]
+	fn a_flight_on_for_those_with_nothing_at_the_stop_keeps_it_for_the_others() {
+		// The check's own case: Mage training at the stop keeps it for Mages; everyone else flies on.
+		let t = "guide a\nfaction Alliance\nzone Elwynn Forest\n\nstep Fly to Stormwind\n  goto 42.0,65.0 \"Goldshire flight master\"\n  fly \"Stormwind\"\n\nstep Mage training\n  only Mage\n  zone Stormwind City\n  train class\n\nstep Fly to Sentinel Hill\n  zone Stormwind City\n  goto 66.3,62.7 \"Stormwind flight master\"\n  fly \"Sentinel Hill\"";
+		let (out, _) = test_lands(|l| flight_hops(t, Some("Alliance"), l));
+		assert_eq!(
+			out,
+			"guide a\nfaction Alliance\nzone Elwynn Forest\n\nstep Fly to Stormwind\n  only Mage\n  goto 42.0,65.0 \"Goldshire flight master\"\n  fly \"Stormwind\"\n\nstep Fly to Sentinel Hill\n  only !Mage\n  goto 42.0,65.0 \"Goldshire flight master\"\n  fly \"Sentinel Hill\"\n\nstep Mage training\n  only Mage\n  zone Stormwind City\n  train class\n\nstep Fly to Sentinel Hill\n  only Mage\n  zone Stormwind City\n  goto 66.3,62.7 \"Stormwind flight master\"\n  fly \"Sentinel Hill\""
+		);
+		// (Some races' steps, both: theirs alone, Loch Modan's Dwarves and Gnomes.)
+		let t = "guide a\nfaction Alliance\nzone Loch Modan\n\nstep Fly to Ironforge\n  only Dwarf,Gnome\n  zone Loch Modan\n  goto 33.9,50.8 \"Thelsamar flight master\"\n  fly \"Ironforge\"\n\nstep Fly to Stormwind\n  only Dwarf,Gnome\n  zone Ironforge\n  fly \"Stormwind\"\n\nstep Boat to Auberdine\n  only Dwarf,Gnome\n  zone Stormwind City\n  goto 21.8,56.9 \"Boat to Auberdine\"";
+		let (out, _) = test_lands(|l| flight_hops(t, Some("Alliance"), l));
+		assert_eq!(out, "guide a\nfaction Alliance\nzone Loch Modan\n\nstep Fly to Stormwind\n  only Dwarf,Gnome\n  zone Loch Modan\n  goto 33.9,50.8 \"Thelsamar flight master\"\n  fly \"Stormwind\"\n\nstep Boat to Auberdine\n  only Dwarf,Gnome\n  zone Stormwind City\n  goto 21.8,56.9 \"Boat to Auberdine\"");
+	}
+
+	#[test]
+	fn a_flight_step_written_for_two_sets_of_characters_keeps_its_label_once() {
+		let t = "guide a\nfaction Alliance\nzone Elwynn Forest\n\nstep Fly to Stormwind\n  label fly\n  goto 42.0,65.0 \"Goldshire flight master\"\n  fly \"Stormwind\"\n\nstep Mage training\n  only Mage\n  zone Stormwind City\n  train class\n\nstep Fly to Sentinel Hill\n  zone Stormwind City\n  goto 66.3,62.7 \"Stormwind flight master\"\n  fly \"Sentinel Hill\"";
+		let (out, _) = test_lands(|l| flight_hops(t, Some("Alliance"), l));
+		assert_eq!(out.matches("  label fly").count(), 1, "{out}");
+		assert!(out.starts_with("guide a\nfaction Alliance\nzone Elwynn Forest\n\nstep Fly to Stormwind\n  only Mage\n  label fly\n"), "{out}");
+	}
+
+	#[test]
+	fn a_boat_or_work_between_two_flights_keeps_both() {
+		let boat = "guide a\nfaction Alliance\nzone Elwynn Forest\n\nstep Fly to Stormwind\n  goto 42.0,65.0 \"Goldshire flight master\"\n  fly \"Stormwind\"\n\nstep Boat\n  zone Darkshore\n  goto 50.0,50.0 \"Dock\"\n\nstep Fly to Sentinel Hill\n  zone Stormwind City\n  goto 66.3,62.7 \"Stormwind flight master\"\n  fly \"Sentinel Hill\"";
+		assert_eq!(test_lands(|l| flight_hops(boat, Some("Alliance"), l)).0, boat);
+		let work = boat.replace("step Boat\n  zone Darkshore\n  goto 50.0,50.0 \"Dock\"", "step Stormwind\n  zone Stormwind City\n  turnin 7");
+		assert_eq!(test_lands(|l| flight_hops(&work, Some("Alliance"), l)).0, work);
 	}
 }

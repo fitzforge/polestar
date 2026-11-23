@@ -54,3 +54,19 @@ fn the_bytecode_reader_lists_global_writes_in_every_function_and_reports_compile
 	let e = forge_addontest::luac::globals_written(&bad).unwrap_err();
 	assert!(e.contains("bad.lua:2:"), "{e}");
 }
+
+#[test]
+fn format_takes_the_clients_positional_arguments_in_every_spelling_and_a_missing_one_is_an_error() {
+	let out = run_addon(&RunAddon {
+		script: r#"
+local fs = CreateFrame("Frame"):CreateFontString()
+fs:SetFormattedText("%2$s, %1$s", "a", "b")
+emit({ string.format("%2$s %1$s", "a", "b"), ("%2$5.1f|%1$-3s|%%|%3$d"):format("x", 2.5, 7), format("%1$s %1$s", "c"), fs:GetText(), format("%s%%", 5) })"#
+			.into(),
+		..Default::default()
+	})
+	.unwrap();
+	assert_eq!(out, vec![json!(["b a", "  2.5|x  |%|7", "c c", "b, a", "5%"])]);
+	let e = run_addon(&RunAddon { script: r#"emit(string.format("%3$s", "a", "b"))"#.into(), ..Default::default() }).unwrap_err();
+	assert!(e.contains("bad argument #4 to 'format' (no value)"), "{e}");
+}

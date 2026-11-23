@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	-- {area:2577} Dire Maul · {npc:10184} Onyxia
-	["A tank sword at 60: a {area:2577} book, then {npc:10184}'s breath tempers the blade (the sword is not in Forever's items yet)."] = "",
-	["Shen'dralar reputation"] = "",
+	["A tank sword at 60: a {area:2577} book, then {npc:10184}'s breath tempers the blade (the sword is not in Forever's items yet)."] = "Танковый меч на 60-м уровне: книга из {area:2577}, затем дыхание {npc:10184} закаляет клинок (меча пока нет среди предметов Forever).",
+	["Shen'dralar reputation"] = "Репутация у Шен'дралар",
 
 	-- Step 1: Nostro's Compendium of Dragon Slaying
 	-- {area:2577} Dire Maul · {npc:11496} Immol'thar · {npc:11501} King Gordok · {zone:1444} Feralas

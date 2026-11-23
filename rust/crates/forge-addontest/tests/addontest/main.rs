@@ -2,11 +2,27 @@
 //! test binary each, which cost a link per file).
 #![recursion_limit = "512"]
 mod alts;
+mod api;
+#[path = "auction-buys.rs"]
+mod auction_buys;
 mod automation;
+#[path = "automation-accept-off.rs"]
+mod automation_accept_off;
 #[path = "automation-close-skipped.rs"]
 mod automation_close_skipped;
+#[path = "automation-profession-quests.rs"]
+mod automation_profession_quests;
+#[path = "automation-spoken.rs"]
+mod automation_spoken;
+#[path = "bag-slots.rs"]
+mod bag_slots;
+mod bagsmith;
+#[path = "class-guide-level-back.rs"]
+mod class_guide_level_back;
 #[path = "class-quests.rs"]
 mod class_quests;
+#[path = "class-skip.rs"]
+mod class_skip;
 mod closes;
 mod codex;
 #[path = "codex-bosses.rs"]
@@ -20,6 +36,8 @@ mod compile_pack;
 mod core;
 #[path = "data-addons.rs"]
 mod data_addons;
+#[path = "death-arrow.rs"]
+mod death_arrow;
 #[path = "docs-packs.rs"]
 mod docs_packs;
 #[path = "dsl-farm.rs"]
@@ -38,8 +56,12 @@ mod dsl_shared_candidates;
 mod dsl_smart;
 #[path = "dsl-verbs.rs"]
 mod dsl_verbs;
+#[path = "dungeon-route-held.rs"]
+mod dungeon_route_held;
 #[path = "dungeons-attune.rs"]
 mod dungeons_attune;
+#[path = "dungeons-forever-quests.rs"]
+mod dungeons_forever_quests;
 #[path = "dungeons-pickup.rs"]
 mod dungeons_pickup;
 #[path = "dungeons-runtime.rs"]
@@ -50,20 +72,60 @@ mod e2e;
 mod engine;
 #[path = "engine-abandon-destroy.rs"]
 mod engine_abandon_destroy;
+#[path = "engine-ahead-later.rs"]
+mod engine_ahead_later;
+#[path = "engine-aim-accept-first.rs"]
+mod engine_aim_accept_first;
 #[path = "engine-along.rs"]
 mod engine_along;
+#[path = "engine-already-across.rs"]
+mod engine_already_across;
 #[path = "engine-alt-start.rs"]
 mod engine_alt_start;
+#[path = "engine-arrival-height.rs"]
+mod engine_arrival_height;
+#[path = "engine-carried.rs"]
+mod engine_carried;
+#[path = "engine-carried-work.rs"]
+mod engine_carried_work;
 #[path = "engine-cast.rs"]
 mod engine_cast;
 #[path = "engine-catchup.rs"]
 mod engine_catchup;
 #[path = "engine-die.rs"]
 mod engine_die;
+#[path = "engine-direct.rs"]
+mod engine_direct;
+#[path = "engine-direct-gated.rs"]
+mod engine_direct_gated;
+#[path = "engine-dungeon-route.rs"]
+mod engine_dungeon_route;
+#[path = "engine-dwell.rs"]
+mod engine_dwell;
+#[path = "engine-empty-stop.rs"]
+mod engine_empty_stop;
 #[path = "engine-enter.rs"]
 mod engine_enter;
+#[path = "engine-exact-points.rs"]
+mod engine_exact_points;
+#[path = "engine-faction-levels.rs"]
+mod engine_faction_levels;
+#[path = "engine-failed-quest.rs"]
+mod engine_failed_quest;
+#[path = "engine-feeders.rs"]
+mod engine_feeders;
+#[path = "engine-field-route.rs"]
+mod engine_field_route;
+#[path = "engine-flights.rs"]
+mod engine_flights;
 #[path = "engine-focus.rs"]
 mod engine_focus;
+#[path = "engine-fresh.rs"]
+mod engine_fresh;
+#[path = "engine-gather-spots.rs"]
+mod engine_gather_spots;
+#[path = "engine-grind.rs"]
+mod engine_grind;
 #[path = "engine-group-default.rs"]
 mod engine_group_default;
 #[path = "engine-guide-end.rs"]
@@ -74,36 +136,66 @@ mod engine_heights;
 mod engine_keep;
 #[path = "engine-l10n.rs"]
 mod engine_l10n;
+#[path = "engine-left-out.rs"]
+mod engine_left_out;
 #[path = "engine-level.rs"]
 mod engine_level;
+#[path = "engine-level-carry.rs"]
+mod engine_level_carry;
+#[path = "engine-level-gate.rs"]
+mod engine_level_gate;
+#[path = "engine-level-hold.rs"]
+mod engine_level_hold;
 #[path = "engine-level-pick.rs"]
 mod engine_level_pick;
+#[path = "engine-level-wait.rs"]
+mod engine_level_wait;
 #[path = "engine-lost-quest.rs"]
 mod engine_lost_quest;
 #[path = "engine-manual.rs"]
 mod engine_manual;
+#[path = "engine-materials.rs"]
+mod engine_materials;
+#[path = "engine-meet-kills.rs"]
+mod engine_meet_kills;
 #[path = "engine-money-task.rs"]
 mod engine_money_task;
 #[path = "engine-next-when.rs"]
 mod engine_next_when;
 #[path = "engine-notyet.rs"]
 mod engine_notyet;
+#[path = "engine-npc-arrival.rs"]
+mod engine_npc_arrival;
 #[path = "engine-packs.rs"]
 mod engine_packs;
 #[path = "engine-pin.rs"]
 mod engine_pin;
 #[path = "engine-professions.rs"]
 mod engine_professions;
+#[path = "engine-reset.rs"]
+mod engine_reset;
 #[path = "engine-review.rs"]
 mod engine_review;
 #[path = "engine-routes.rs"]
 mod engine_routes;
+#[path = "engine-sections.rs"]
+mod engine_sections;
+#[path = "engine-sell-repair.rs"]
+mod engine_sell_repair;
+#[path = "engine-skip-ahead.rs"]
+mod engine_skip_ahead;
+#[path = "engine-skip-undo.rs"]
+mod engine_skip_undo;
 #[path = "engine-skipquest.rs"]
 mod engine_skipquest;
 #[path = "engine-skipto.rs"]
 mod engine_skipto;
 #[path = "engine-smart.rs"]
 mod engine_smart;
+#[path = "engine-stutter.rs"]
+mod engine_stutter;
+#[path = "engine-tab-restore.rs"]
+mod engine_tab_restore;
 #[path = "engine-tabs.rs"]
 mod engine_tabs;
 #[path = "engine-talk.rs"]
@@ -112,6 +204,12 @@ mod engine_talk;
 mod engine_training;
 #[path = "engine-unavailable.rs"]
 mod engine_unavailable;
+#[path = "engine-upgrade.rs"]
+mod engine_upgrade;
+#[path = "engine-upgrade-twice.rs"]
+mod engine_upgrade_twice;
+#[path = "engine-vendor.rs"]
+mod engine_vendor;
 #[path = "engine-wait.rs"]
 mod engine_wait;
 #[path = "engine-waypoint-keys.rs"]
@@ -124,31 +222,55 @@ mod engine_when_cooldown;
 mod engine_when_dungeon;
 #[path = "engine-when-group.rs"]
 mod engine_when_group;
+#[path = "engine-when-handin.rs"]
+mod engine_when_handin;
 #[path = "engine-when-knows.rs"]
 mod engine_when_knows;
 #[path = "engine-when-skill.rs"]
 mod engine_when_skill;
 #[path = "engine-when-upgrade.rs"]
 mod engine_when_upgrade;
+#[path = "engine-while-here.rs"]
+mod engine_while_here;
+#[path = "engine-zone-walk.rs"]
+mod engine_zone_walk;
+#[path = "faction-guides.rs"]
+mod faction_guides;
+#[path = "flight-map-notice.rs"]
+mod flight_map_notice;
 mod gamepad;
 #[path = "gamepad-ui.rs"]
 mod gamepad_ui;
 mod gear;
+#[path = "gear-adjust.rs"]
+mod gear_adjust;
 #[path = "gear-bags.rs"]
 mod gear_bags;
+#[path = "gear-flbis.rs"]
+mod gear_flbis;
+#[path = "gear-forever.rs"]
+mod gear_forever;
 #[path = "gear-pawn.rs"]
 mod gear_pawn;
 #[path = "gear-upgrades.rs"]
 mod gear_upgrades;
+#[path = "gear-weights.rs"]
+mod gear_weights;
+#[path = "guide-end-quests.rs"]
+mod guide_end_quests;
 #[path = "guides-compiled.rs"]
 mod guides_compiled;
 #[path = "guides-end.rs"]
 mod guides_end;
 #[path = "guides-end-early.rs"]
 mod guides_end_early;
+#[path = "guides-end-places.rs"]
+mod guides_end_places;
 #[path = "guides-memory.rs"]
 mod guides_memory;
 mod harness;
+#[path = "hide-all.rs"]
+mod hide_all;
 #[path = "hide-with-guide.rs"]
 mod hide_with_guide;
 mod import;
@@ -156,9 +278,15 @@ mod import;
 mod import_safety;
 mod install;
 mod levels;
+#[path = "locale-format.rs"]
+mod locale_format;
+#[path = "locale-load.rs"]
+mod locale_load;
 mod lookup;
 #[path = "lookup-codex.rs"]
 mod lookup_codex;
+#[path = "lookup-elites.rs"]
+mod lookup_elites;
 #[path = "lookup-guides.rs"]
 mod lookup_guides;
 #[path = "lookup-tooltip-performance.rs"]
@@ -166,18 +294,24 @@ mod lookup_tooltip_performance;
 #[path = "lua-helper-paths.rs"]
 mod lua_helper_paths;
 mod maps;
+#[path = "maps-arcade.rs"]
+mod maps_arcade;
 #[path = "maps-overlays.rs"]
 mod maps_overlays;
 #[path = "maps-reveal.rs"]
 mod maps_reveal;
 #[path = "maps-services.rs"]
 mod maps_services;
-#[path = "mob-markers.rs"]
-mod mob_markers;
+#[path = "memory-session.rs"]
+mod memory_session;
 mod names;
 #[path = "names-memory.rs"]
 mod names_memory;
+#[path = "names-shown.rs"]
+mod names_shown;
 mod nav;
+#[path = "nav-arrow-look.rs"]
+mod nav_arrow_look;
 #[path = "nav-crossings.rs"]
 mod nav_crossings;
 #[path = "nav-e2e.rs"]
@@ -198,12 +332,16 @@ mod nav_memory;
 mod nav_pack;
 #[path = "nav-pins.rs"]
 mod nav_pins;
+#[path = "nav-pins-look.rs"]
+mod nav_pins_look;
 #[path = "nav-prompts.rs"]
 mod nav_prompts;
 #[path = "nav-reported.rs"]
 mod nav_reported;
 #[path = "nav-route-lines.rs"]
 mod nav_route_lines;
+#[path = "nav-route-look.rs"]
+mod nav_route_look;
 #[path = "nav-route-sparkle.rs"]
 mod nav_route_sparkle;
 #[path = "nav-router.rs"]
@@ -214,8 +352,18 @@ mod nav_spf;
 mod nav_trail;
 #[path = "nav-transit.rs"]
 mod nav_transit;
+#[path = "new-in-forever.rs"]
+mod new_in_forever;
+#[path = "options-memory.rs"]
+mod options_memory;
+#[path = "options-search.rs"]
+mod options_search;
+#[path = "out-of-sight.rs"]
+mod out_of_sight;
 #[path = "pack-race-parts.rs"]
 mod pack_race_parts;
+#[path = "packs-ondemand.rs"]
+mod packs_ondemand;
 #[path = "packs-parity.rs"]
 mod packs_parity;
 #[path = "packs-registry.rs"]
@@ -229,11 +377,26 @@ mod party_chat;
 mod party_group;
 #[path = "party-pair.rs"]
 mod party_pair;
+#[path = "party-sync.rs"]
+mod party_sync;
+mod pause;
+#[path = "perf-probe.rs"]
+mod perf_probe;
+mod placeholders;
+mod profiles;
 mod qol;
 #[path = "qol-bagglow.rs"]
 mod qol_bagglow;
 #[path = "qol-items.rs"]
 mod qol_items;
+#[path = "qol-loot-track.rs"]
+mod qol_loot_track;
+#[path = "qol-quickbind.rs"]
+mod qol_quickbind;
+#[path = "qol-spells.rs"]
+mod qol_spells;
+#[path = "qol-target-list.rs"]
+mod qol_target_list;
 #[path = "quest-links.rs"]
 mod quest_links;
 #[path = "questdb-memory.rs"]
@@ -241,8 +404,16 @@ mod questdb_memory;
 mod quests;
 #[path = "quests-levels.rs"]
 mod quests_levels;
+#[path = "quests-log-link.rs"]
+mod quests_log_link;
+#[path = "quests-timed.rs"]
+mod quests_timed;
+#[path = "quoted-quest-names.rs"]
+mod quoted_quest_names;
 mod rares;
 mod recorder;
+#[path = "recorder-explore.rs"]
+mod recorder_explore;
 #[path = "recorder-finds.rs"]
 mod recorder_finds;
 #[path = "recorder-perf.rs"]
@@ -253,11 +424,48 @@ mod recorder_progress;
 mod recorder_route;
 mod release;
 mod riding;
+#[path = "route-experimental.rs"]
+mod route_experimental;
 #[path = "route-plan.rs"]
 mod route_plan;
+#[path = "route-plan-sides.rs"]
+mod route_plan_sides;
+#[path = "settings-coverage.rs"]
+mod settings_coverage;
+#[path = "settings-effects.rs"]
+mod settings_effects;
+#[path = "settings-essentials.rs"]
+mod settings_essentials;
+#[path = "settings-game.rs"]
+mod settings_game;
+#[path = "settings-hover-perf.rs"]
+mod settings_hover_perf;
+#[path = "settings-migration.rs"]
+mod settings_migration;
+#[path = "settings-perf.rs"]
+mod settings_perf;
+#[path = "settings-roundtrip.rs"]
+mod settings_roundtrip;
+#[path = "settings-session.rs"]
+mod settings_session;
+#[path = "settings-smoke.rs"]
+mod settings_smoke;
+#[path = "skins-bundled.rs"]
+mod skins_bundled;
+#[path = "skins-concepts.rs"]
+mod skins_concepts;
+#[path = "skins-hearth.rs"]
+mod skins_hearth;
+#[path = "skins-login.rs"]
+mod skins_login;
+#[path = "skins-sweep.rs"]
+mod skins_sweep;
+mod stranded;
 mod syntax;
 mod talents;
 mod theme;
+#[path = "theme-skin-api.rs"]
+mod theme_skin_api;
 mod travel;
 #[path = "travel-build.rs"]
 mod travel_build;
@@ -270,28 +478,88 @@ mod ui_along;
 mod ui_card;
 #[path = "ui-dungeons.rs"]
 mod ui_dungeons;
+#[path = "ui-game-menu.rs"]
+mod ui_game_menu;
 #[path = "ui-guide-end.rs"]
 mod ui_guide_end;
+#[path = "ui-headsup-card.rs"]
+mod ui_headsup_card;
 #[path = "ui-import.rs"]
 mod ui_import;
 #[path = "ui-journey.rs"]
 mod ui_journey;
+#[path = "ui-left-out.rs"]
+mod ui_left_out;
+#[path = "ui-long-translations.rs"]
+mod ui_long_translations;
+#[path = "ui-look-buttons.rs"]
+mod ui_look_buttons;
+#[path = "ui-look-glow.rs"]
+mod ui_look_glow;
+#[path = "ui-look-guidewindow.rs"]
+mod ui_look_guidewindow;
+#[path = "ui-look-guidewindow-copy.rs"]
+mod ui_look_guidewindow_copy;
+#[path = "ui-look-guidewindow-tabstyles.rs"]
+mod ui_look_guidewindow_tabstyles;
+#[path = "ui-look-theme.rs"]
+mod ui_look_theme;
+#[path = "ui-look-toasts.rs"]
+mod ui_look_toasts;
 #[path = "ui-lookup.rs"]
 mod ui_lookup;
+#[path = "ui-materials.rs"]
+mod ui_materials;
+#[path = "ui-movers.rs"]
+mod ui_movers;
 #[path = "ui-options.rs"]
 mod ui_options;
 #[path = "ui-packs.rs"]
 mod ui_packs;
 #[path = "ui-picker.rs"]
 mod ui_picker;
+#[path = "ui-picker-folders.rs"]
+mod ui_picker_folders;
 #[path = "ui-picker-levels.rs"]
 mod ui_picker_levels;
 #[path = "ui-picker-packs.rs"]
 mod ui_picker_packs;
+#[path = "ui-picker-scroll.rs"]
+mod ui_picker_scroll;
+#[path = "ui-preview.rs"]
+mod ui_preview;
+#[path = "ui-quest-room.rs"]
+mod ui_quest_room;
+#[path = "ui-quest-unlocks.rs"]
+mod ui_quest_unlocks;
+#[path = "ui-quick-settings.rs"]
+mod ui_quick_settings;
+#[path = "ui-report-settings.rs"]
+mod ui_report_settings;
 #[path = "ui-route.rs"]
 mod ui_route;
+#[path = "ui-scrub.rs"]
+mod ui_scrub;
+#[path = "ui-settings-ux.rs"]
+mod ui_settings_ux;
+#[path = "ui-steplist.rs"]
+mod ui_steplist;
+#[path = "ui-switch.rs"]
+mod ui_switch;
+#[path = "ui-thanks.rs"]
+mod ui_thanks;
+#[path = "ui-transparent.rs"]
+mod ui_transparent;
+#[path = "ui-update.rs"]
+mod ui_update;
 #[path = "ui-welcome.rs"]
 mod ui_welcome;
+#[path = "ui-whatsnew.rs"]
+mod ui_whatsnew;
+#[path = "ui-while-here.rs"]
+mod ui_while_here;
+#[path = "ui-window-drag.rs"]
+mod ui_window_drag;
 #[path = "ui-zoneart.rs"]
 mod ui_zoneart;
 #[path = "where.rs"]

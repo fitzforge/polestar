@@ -10,7 +10,7 @@ return {
 	-- {area:279} Dalaran
 	["Skyboat from {area:279}"] = "Barco celeste desde {area:279}",
 	-- {zone:2521} Zephras Isle · {area:279} Dalaran · {zone:1456} Thunder Bluff
-	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either)."] = "",
+	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either)."] = "{zone:2521} es la isla de inicio de los cielonatos; según informes de la beta, cualquiera puede visitarla. Un barco celeste sale del lado norte de {area:279} cada cinco minutos aprox. (otro vuela desde el norte de {zone:1456}; cualquier facción puede tomar cualquiera).",
 	-- {zone:2521} Zephras Isle
 	["Skyboat to {zone:2521}"] = "Barco celeste a {zone:2521}",
 
@@ -18,7 +18,7 @@ return {
 	-- {zone:1456} Thunder Bluff
 	["Skyboat from {zone:1456}"] = "Barco celeste desde {zone:1456}",
 	-- {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:279} Dalaran
-	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either)."] = "",
+	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either)."] = "{zone:2521} es la isla de inicio de los cielonatos; según informes de la beta, cualquiera puede visitarla. Un barco celeste sale de los acantilados al sur de {area:17045}, al norte de {zone:1456}, cada cinco minutos aprox. (otro vuela desde {area:279}; cualquier facción puede tomar cualquiera).",
 
 	-- Step 3: Sing to the frogs
 	["Sing to the frogs"] = "Canta a las ranas",
@@ -27,6 +27,4 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Target one of the frogs here and type /sing; a {item:268109} appears. Interact with it to get the pet."] = "Selecciona una de las ranas de aquí y escribe /cantar; aparece un {item:268109}. Interactúa con él para obtener la mascota.",
-	-- ["{zone:2521} is the Skyborne starting island; anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either). Skip this if you are already on the island."] = "{zone:2521} es la isla de inicio de los cielonatos; cualquiera puede visitarla. Un barco celeste sale de los acantilados al sur de {area:17045}, al norte de {zone:1456}, cada cinco minutos aprox. (otro vuela desde {area:279}; cualquier facción puede tomar cualquiera). Sáltate esto si ya estás en la isla.",
-	-- ["{zone:2521} is the Skyborne starting island; anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either). Skip this if you are already on the island."] = "{zone:2521} es la isla de inicio de los cielonatos; cualquiera puede visitarla. Un barco celeste sale del lado norte de {area:279} cada cinco minutos aprox. (otro vuela desde el norte de {zone:1456}; cualquier facción puede tomar cualquiera). Sáltate esto si ya estás en la isla.",
 }

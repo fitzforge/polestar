@@ -43,8 +43,54 @@ fn pack_files(name: &str) -> String {
 /// Budgets are those plus ~3%. The release build (Release: 0.3.0, the final routes and the release-check
 /// fixes) measures Alliance peak 32,742 and Horde peak 30,963, so the peaks are those plus ~3% too.
 /// Loading the side shelves on demand (0.3.x) should bring them back down.
+/// 0.3.5 shipped at 15661 KiB (kb data); raised for the 0.3.6 hotfix; bring back down in 0.3.7.
+/// 0.3.6 round 2 measured 15838/33949/23334 KiB (Westfall Alba chain for Humans, new entrance/route steps,
+/// corrections); raised for the hotfix; trim in 0.3.7.
+/// 0.3.6 round 4, the pack compiled from it (`forge guide compile`): Alliance resident 15,927, peak 34,104, read
+/// 21,778; Horde resident 14,588, peak 31,470, read 21,309 (round 2 compiled the same way: 15,911 / 34,086 / 23,548
+/// and 14,575 / 31,440 / 22,933; goals with the same spots now share one list). Every budget is that plus ~1%:
+/// resident and the Alliance peak raised (round 2 compiled was already over them), the Horde peak and reads lowered.
+/// 0.3.6 round 5 (the 0.3.7 work folded in), the pack compiled from it at 6f9421be0: Alliance resident 16,043, peak
+/// 34,451, read 21,908; Horde resident 14,682, peak 31,659, read 21,363 (fab904a87 compiled the same way: 15,914 /
+/// 34,089 / 21,655 and 14,578 / 31,455 / 20,655). Budgets: those plus ~1%.
+/// 0.3.6 final (b67f42b45, release data 17:37:10Z, Library Books / Valik / upgrade steps folded): Alliance resident
+/// 16,040, peak 34,458, read 22,224; Horde resident 14,673, peak 31,676, read 21,151. Only the Alliance read was over:
+/// raised to that plus ~1% (22,450); trim in 0.3.7 with the rest.
+/// 0.3.6 night review (fb6c4dce8, 8 bracket reviews: Camping 101 at every start, Thunder Bluff stop, Velarok chain,
+/// Goblin Sponsorship, failed-quest notices, data 01:43Z): Alliance resident 16,231, peak 34,791, read 22,448; Horde
+/// resident 14,955, peak 32,214, read 21,496. Budgets: those plus ~1% (Horde read unchanged); trim in 0.3.7.
+/// 0.3.6 late folds (d5ca0ee23: Camping 101 auto-taken #1559, timed-quest countdown, #1557, best-at dungeons): Alliance
+/// resident 16,280, peak 35,041, read 22,497; Horde resident 15,040, peak 32,468, read 21,581. Only the Horde read was
+/// over (by 1 KiB): raised to that plus ~1% (21,800); the rest unchanged. Trim in 0.3.7.
+/// 0.3.7 final (release data 2026-11-11T03:28Z, every 0.3.7 guide change and the regenerated profession guides):
+/// Alliance resident 16,279, peak 35,132, read 22,497; Horde resident 15,039, peak 32,583, read 21,569, against the
+/// 0.3.6 pack's 16,278 / 35,038 / 22,503 and 15,039 / 32,468 / 21,593. No key trimmed: the new keys (fromNpcsAt,
+/// carriedTo, limit, parent) cost tens of KiB, and the pack is back at 0.3.6's size but for the Horde peak (+115).
+/// Budgets: those plus ~1%. Read raised for #1944's exact points (measured 23,186 / 22,311; Fitz, 2026-11-12:
+/// raise memory budgets while 0.3.8's content grows, review once it is final): those plus ~5%.
+/// 0.4.0 release build (release data 2026-11-15, the packs compiled on it): Alliance resident 17,870, peak 38,199,
+/// read 25,099; Horde resident 16,024, peak 34,592, read 23,989, against dev-040's committed pack's 16,297 / 35,202
+/// / 23,415 and 15,054 / 32,649 / 22,489. The same 183 / 173 guides; the 0.4.0 data brings more spots (+14%),
+/// heights, notes and points per goal, and 4% more steps. Fitz OK'd size growth for 0.4.0 (2026-11-15): budgets
+/// are those plus ~1%.
+/// 0.4.0 integrated routes (2026-11-16: both factions' reworked 1-60, the Riverglades and Shen'dralas in both
+/// routes, release data of the same day): Alliance resident 18,483, peak 39,627, read 26,303; Horde resident 17,058,
+/// peak 36,334, read 25,088 (two more guides per faction and ~7% more tips). Under the same 0.4.0 OK: those plus ~1%.
+/// 0.4.2 Horde route round (2026-11-20, the pack compiled on next with #3291 merged): Horde resident 17,520, peak
+/// 37,096, read 25,597 against budgets 17,230 / 36,700 / 25,340: quests in place of grind steps, Mount Hyjal in the
+/// route and their tips. Budgets: those plus ~1% (a reported raise, for Fitz to confirm in the pull request).
+/// 0.4.2 Alliance route round (2026-11-20, the pack compiled on next with both route rounds): Alliance resident 18,722
+/// and read 26,578 against budgets 18,670 / 26,570 (peak 39,937, under its 40,020): about 89 more quests handed in
+/// along the route and their tips. Resident and read: those plus ~1% (a reported raise, for Fitz to confirm in the
+/// pull request); the peak stays.
+/// 0.4.2 triage guide fixes (2026-11-21, #3332 on next: 26 player reports' tips, steps and goals in both routes):
+/// Alliance peak 40,053 against its 40,020. The peak: that plus ~1% (a reported raise, for Fitz to confirm in the pull
+/// request); the rest stays.
+/// 0.4.3 step-condition sweep (2026-11-23, #3696 on next: 80 steps added, carried hand-ins split to wait for their
+/// quest's completion and follow-ups' fallback steps): Alliance read 26,862 against 26,845, Horde read 25,880 against
+/// 25,860. The reads: those plus ~1% (a reported raise, for Fitz to confirm in the pull request); the rest stays.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 15650.0), ("peak", 33700.0), ("read", 23300.0)]), ("Horde", "Orc", [("resident", 14600.0), ("peak", 31900.0), ("read", 22500.0)])];
+	[("Alliance", "Human", [("resident", 18910.0), ("peak", 40455.0), ("read", 27130.0)]), ("Horde", "Orc", [("resident", 17700.0), ("peak", 37470.0), ("read", 26140.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {
@@ -115,10 +161,10 @@ emit({{ resident = resident, peak = peak, read = read, guides = guides, other = 
 	assert!(over.is_empty(), "over budget: {}", over.join(", "));
 }
 
-// The other faction's guides come in when the player asks for them (the guide menu's faction filter,
-// Guides.LoadFaction), and a saved tab of one brings them in at login.
+// The other faction's guides stay out: nothing asks for them (the guide menu lists the character's side only,
+// #2462); only a saved tab of one (from before) brings them in at login, to show whose guide it is.
 #[test]
-fn the_other_faction_s_part_loads_when_asked_for_or_when_a_saved_tab_needs_it() {
+fn the_other_faction_s_part_stays_out_unless_a_saved_tab_needs_it() {
 	let run = |saved: &str, script: &str| {
 		emitted(&RunAddon {
 			stubs: vec!["stub_world.lua", "stub_packs.lua"],
@@ -129,17 +175,12 @@ fn the_other_faction_s_part_loads_when_asked_for_or_when_a_saved_tab_needs_it() 
 			script: script.into(),
 		})
 	};
-	let asked = run(
+	let fresh = run(
 		"nil",
-		r#"local G = Polestar.Guides
-local before = G.Get("forever/alliance/02-westfall") ~= nil
-local fired = 0
-Polestar.On("GUIDES_REGISTERED", function() fired = fired + 1 end)
-local came = G.LoadFaction("Alliance")
-emit({ before = before, came = came, after = G.Get("forever/alliance/02-westfall") ~= nil, fired = fired,
-	again = G.LoadFaction("Alliance"), loads = stub.packLoads.Polestar_Guides_Alliance })"#,
+		r#"emit({ guide = Polestar.Guides.Get("forever/alliance/02-westfall") ~= nil, loads = stub.packLoads.Polestar_Guides_Alliance or 0,
+	loadFaction = Polestar.Guides.LoadFaction ~= nil })"#,
 	);
-	assert_eq!(asked[0], serde_json::json!({ "before": false, "came": true, "after": true, "fired": 1, "again": false, "loads": 1 }));
+	assert_eq!(fresh[0], serde_json::json!({ "guide": false, "loads": 0, "loadFaction": false }));
 	let saved = run(
 		r#"{ schema = 1, tabs = { "forever/alliance/02-westfall" }, activeTab = 1 }"#,
 		r#"emit({ loads = stub.packLoads.Polestar_Guides_Alliance or 0, guide = Polestar.Engine.GetGuide() and Polestar.Engine.GetGuide().id or false })"#,
@@ -235,6 +276,61 @@ emit({ res = res, before = before, spots = spots, same = goal.spots == spots, ke
 	assert_eq!(m["before"], true, "registering does not build the spots");
 	assert_eq!(m["spots"], serde_json::json!([{ "x": 43.5, "y": 9.2, "r": 110, "n": 19 }, { "x": 47.4, "y": 9.7, "z": -12.5, "r": 4, "alt": true }, { "x": 50, "y": 50.25, "r": 15, "n": 2 }]));
 	assert_eq!((m["same"].clone(), m["kept"].clone(), m["valid"].clone()), (serde_json::json!(true), serde_json::json!(true), serde_json::json!(true)));
+}
+
+// Exact points (#1944): a packed spot of radius 0 is built as the array { x, y, z? } that Own.POINT reads by
+// name (its `r` reads 0; `alt` and `lvl` as written), in about half a spot table's memory, so a goal holding
+// 40 points costs what one holding 20 spots did. A goal of them is exact (Engine.SpotsExact).
+#[test]
+fn packed_exact_points_read_back_by_name_in_about_half_a_spot_s_memory_1944() {
+	let out = emitted(&RunAddon {
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: r#"
+local G = Polestar.Guides
+assert(Polestar.RegisterPack({ addon = "JoeAddon", id = "joe", format = 8, title = "Joe", author = "Joe", version = "1", license = "MIT" }))
+local function guide(id, packed)
+	local goal = { t = "collect", item = 5, itemName = "Trapped Game", map = 1429, x = 43.41, y = 14.62, spotsPacked = packed }
+	assert(Polestar.RegisterGuide({ id = id, pack = "joe", title = id, steps = { { goals = { goal } } } }))
+	return G.Get(id).steps[1].goals[1]
+end
+local goal = guide("joe/points", "43.41,14.62,,0;45.1,16.1,12.5,0;42.7,21.2,,0,,1,14")
+local read = {}
+for i, p in ipairs(goal.spots) do read[i] = { p.x, p.y, p.z or false, p.r, p.n or false, p.alt or false, p.lvl or false, rawget(p, "x") == nil } end
+-- Bytes per entry of 400 built, the list's slot included. A first build of the same records in another order (its own
+-- list: lists are shared by their packed text) makes the field strings the parse creates once, so the client's string
+-- table, which may double then, has grown before the measured build: its growth is no entry's cost.
+local function cost(id, rec)
+	local t, back = {}, {}
+	for i = 1, 400 do t[i] = rec:format(i % 90 + 5, i % 70 + 5) end
+	for i = 400, 1, -1 do back[#back + 1] = t[i] end
+	local _ = #guide(id .. "-first", table.concat(back, ";")).spots
+	local g = guide(id, table.concat(t, ";"))
+	collectgarbage("collect"); collectgarbage("collect")
+	local before = collectgarbage("count")
+	local n = #g.spots
+	collectgarbage("collect"); collectgarbage("collect")
+	return (collectgarbage("count") - before) * 1024 / n
+end
+local camp = guide("joe/camp", "43.5,9.2,,110,19;47.4,9.7,,40,3")
+emit({ read = read, exact = { Polestar.Engine.SpotsExact(goal), Polestar.Engine.SpotsExact(camp) },
+	point = cost("joe/many-points", "%d.25,%d.5,,0"), spot = cost("joe/many-spots", "%d.25,%d.5,,40,3"),
+	valid = G.Validate(G.Get("joe/points")) or true })
+"#
+		.into(),
+		..Default::default()
+	});
+	let m = &out[0];
+	assert_eq!(
+		m["read"],
+		serde_json::json!([[43.41, 14.62, false, 0, false, false, false, true], [45.1, 16.1, 12.5, 0, false, false, false, true], [42.7, 21.2, false, 0, false, true, 14, true]]),
+		"x, y and z by name from the array, r 0, alt and lvl as written"
+	);
+	assert_eq!(m["exact"], serde_json::json!([true, false]));
+	assert_eq!(m["valid"], true, "the goal still validates once its points are built");
+	let (point, spot) = (m["point"].as_f64().unwrap(), m["spot"].as_f64().unwrap());
+	eprintln!("a packed point: {point:.0} bytes, a packed spot: {spot:.0} bytes (Lua 5.1, list slot included)");
+	assert!(point < spot * 0.6, "a point costs {point:.0} bytes against a spot's {spot:.0}");
+	assert!(point < 130.0 && spot < 260.0, "absent optional fields must not reserve space: {point:.0} bytes per point, {spot:.0} per camp");
 }
 
 // Issue #60, the load-time spike: registering a guide runs Guides.Validate over every step and goal. The key

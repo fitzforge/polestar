@@ -510,6 +510,79 @@ fn world_map_redraws_hand_every_pin_frame_back_the_pin_it_showed_and_no_hull_fra
 	assert_eq!(out["spare"], 0, "every hull frame holds exactly the pieces of its own hull");
 }
 
+// Issue #1622: with Options > Map > Quest markers > World map objectives on (worst with its spots drawn as areas),
+// scrolling OpenMap's map dropped to 10 fps. The world map laid out and held the hulls of the whole viewed map (on
+// OpenMap's map often a whole continent) however little of it the view showed, and laid every one out again at
+// each step of a zoom. Now only the hulls around the view are drawn, and they follow a zoom or a pan.
+#[test]
+fn world_map_hulls_are_drawn_only_around_what_the_view_shows_and_follow_a_zoom_or_a_pan() {
+	let out = run(r#"
+		WorldMapFrame.Child:SetSize(1000, 1000)
+		local sc = WorldMapFrame.ScrollContainer
+		local function view(x0, y0, x1, y1)                             -- the scroll frame over canvas percent x0..x1, y0..y1
+			sc.x, sc.width = x0 * 10, (x1 - x0) * 10
+			sc.height = (y1 - y0) * 10
+			sc.y = 1000 - y1 * 10
+		end
+		local offsets = 0
+		local orig = stub.Methods.SetVertexOffset
+		stub.Methods.SetVertexOffset = function(...) offsets = offsets + 1; return orig(...) end
+		local pins = {}
+		for k = 0, 399 do                                               -- 20 x 20 hexagons 30 yd across, one every 5% of the map
+			local cx, cy, hull = (math.floor(k / 20) - 9.5) * 100, ((k % 20) - 9.5) * 100, {}
+			for i = 1, 6 do
+				local a = 2 * math.pi * i / 6
+				hull[2 * i - 1], hull[2 * i] = cx + 30 * math.cos(a), cy + 30 * math.sin(a)
+			end
+			pins[#pins + 1] = { c = 0, wx = cx, wy = cy, hull = hull, areaOnly = true }
+		end
+		Pins.SetLayer("objectives", pins)
+		-- hulls reaching into the view (map percent: x from wy, y from wx; 30 yd = 1.5%) that are not drawn
+		local function missing(x0, y0, x1, y1)
+			local drawn, n = {}, 0
+			for _, f in ipairs(nav.pins("hulls")) do drawn[f.data.pin] = true end
+			for _, p in ipairs(pins) do
+				local x, y = (1000 - p.wy) / 20, (1000 - p.wx) / 20
+				if x + 1.5 >= x0 and x - 1.5 <= x1 and y + 1.5 >= y0 and y - 1.5 <= y1 and not drawn[p] then n = n + 1 end
+			end
+			return n
+		end
+		view(0, 0, 100, 100)
+		nav.showWorldMap(9000)
+		local r = { whole = #nav.pins("hulls") }
+		for f = 1, 40 do                                                -- zoom in on the middle: the whole map -> a tenth of it
+			local half = 50 - 45 * f / 40
+			view(50 - half, 50 - half, 50 + half, 50 + half)
+			sc.currentScale = 50 / half
+			stub.runMapFrame(WorldMapFrame, 0)
+		end
+		r.zoomed = { #nav.pins("hulls"), missing(45, 45, 55, 55) }
+		local miss = 0
+		for f = 1, 40 do                                                -- pan east at that zoom
+			local x0 = 45 + 45 * f / 40
+			view(x0, 45, x0 + 10, 55)
+			stub.runMapFrame(WorldMapFrame, 0)
+			miss = miss + missing(x0, 45, x0 + 10, 55)
+		end
+		r.panned = { #nav.pins("hulls"), miss }
+		offsets = 0
+		stub.runMapFrame(WorldMapFrame, 0)
+		r.still = offsets
+		view(0, 0, 100, 100)                                            -- zoomed out again
+		sc.currentScale = 1
+		stub.runMapFrame(WorldMapFrame, 0)
+		r.out = { #nav.pins("hulls"), missing(0, 0, 100, 100) }
+		emit(r)"#);
+	assert_eq!(out["whole"], 400, "the whole map in view: every hull");
+	let held = |v: &Value| num(&v[0]);
+	assert!(held(&out["zoomed"]) <= 36.0, "zoomed in to a tenth: only the hulls around the view ({})", out["zoomed"][0]);
+	assert_eq!(out["zoomed"][1], 0, "none the view shows is missing");
+	assert!(held(&out["panned"]) <= 36.0, "after the pan: still only those around the view ({})", out["panned"][0]);
+	assert_eq!(out["panned"][1], 0, "the hulls follow the pan: none missing on any frame");
+	assert_eq!(out["still"], 0, "a still view lays nothing out");
+	assert_eq!(out["out"], json!([400, 0]), "zoomed out: every hull again");
+}
+
 fn parts(v: &Value) -> Value {
 	Value::Array(v.as_array().unwrap().iter().map(|f| json!([f["w"], f["back"], f["mark"]])).collect())
 }
@@ -912,4 +985,221 @@ fn no_frame_polestar_puts_on_the_world_map_looks_like_a_button_to_the_gamepad_s_
 	assert_eq!(out["looks"], "", "no Button, no OnMouseDown or OnMouseUp script of the addon");
 	assert!(num(&out["scanned"]) >= 6.0, "the pins, area, region, trail and the view's frame were scanned ({})", out["scanned"]);
 	assert_eq!(out["clicks"], json!(["LeftButton", "MiddleButton"]));
+}
+
+#[test]
+fn minimap_pins_move_on_every_rendered_frame_while_the_view_changes_at_a_high_frame_rate() {
+	// The game redraws the minimap every frame; a pin laid out less often lags
+	// the terrain under it and jumps to catch up (jitter at 60+ fps).
+	let out = run(r#"
+		Pins.SetLayer("quests", { at(100, 0) }, { world = false, minimap = true })
+		stub.advance(1)                                  -- settle
+		nav.place(1, 0); stub.advance(0.1)               -- walking wakes the driver
+		local r = { awake = Pins.driver:IsShown() }
+		local draws = Pins.stats.draws
+		for i = 1, 24 do                                 -- 24 frames at 144 fps, a step each
+			nav.place(1 + i * 0.05, 0)
+			stub.RunScript(Pins.driver, "OnUpdate", 1 / 144)
+		end
+		r.draws = Pins.stats.draws - draws
+		draws = Pins.stats.draws
+		for _ = 1, 24 do stub.RunScript(Pins.driver, "OnUpdate", 1 / 144) end -- standing still
+		r.stillDraws = Pins.stats.draws - draws
+		emit(r)"#);
+	assert_eq!(out["awake"], true);
+	assert_eq!(out["draws"], 24, "one layout per rendered frame while moving");
+	assert_eq!(out["stillDraws"], 0, "nothing redrawn while the view holds still");
+}
+
+#[test]
+fn a_minimap_view_watcher_hears_every_moving_frame_with_no_pin_on_the_minimap_and_the_driver_still_sleeps() {
+	let out = run(r#"
+		local calls, last = 0, nil
+		Pins.WatchMinimapView("probe", function(pc, px, py, radius, facing, square)
+			calls = calls + 1
+			last = { pc = pc, px = px, py = py, radius = radius, square = square }
+		end)
+		stub.advance(1)                                  -- settle
+		local r = {}
+		r.asleep = not Pins.driver:IsShown()
+		calls = 0
+		stub.fire("PLAYER_STARTED_MOVING")
+		for i = 1, 24 do nav.place(i * 0.05, 0); stub.advance(1 / 144) end
+		r.moving, r.px = calls, last.px
+		stub.advance(1)
+		calls = 0
+		stub.advance(1)
+		r.still, r.sleeps = calls, not Pins.driver:IsShown()
+		Pins.WatchMinimapView("probe", nil)
+		nav.place(5, 5); stub.advance(0.3)
+		r.after = calls
+		emit(r)"#);
+	assert_eq!(out["asleep"], true, "standing still with only a watcher: the driver sleeps");
+	assert_eq!(out["moving"], 24, "one call per moving frame");
+	assert_eq!(num(&out["px"]), 1.2, "with the position sampled that frame");
+	assert_eq!(out["still"], 0);
+	assert_eq!(out["sleeps"], true);
+	assert_eq!(out["after"], 0, "unwatched: no more calls");
+}
+
+// Count position reads made by Pins, not reads from other navigation handlers in the same frame.
+const READS: &str = r#"
+local reads = 0
+local getPosition = nav.Compat.GetPlayerWorldPosition
+nav.Compat.GetPlayerWorldPosition = function(...)
+	local caller = debug.getinfo(2, "S")
+	if caller and caller.source:find("Nav[/\\]Pins%.lua$") then reads = reads + 1 end
+	return getPosition(...)
+end
+local function round(v) return math.floor(v * 1000 + 0.5) / 1000 + 0 end
+"#;
+
+#[test]
+fn while_the_driver_moves_minimap_pins_every_frame_the_10_hz_watcher_reads_no_position_of_its_own() {
+	let out = run(&(READS.to_string()
+		+ r#"
+		Pins.SetLayer("quests", { at(100, 0) }, { world = false, minimap = true })
+		stub.advance(1)                                  -- settle
+		local r = {}
+		stub.fire("PLAYER_STARTED_MOVING")
+		reads = 0
+		local draws = Pins.stats.draws
+		for i = 1, 60 do nav.place(i * 0.1, 0); stub.advance(1 / 60) end -- 1 s of walking at 60 fps
+		r.reads, r.draws = reads, Pins.stats.draws - draws
+		stub.advance(1)                                  -- stand still: the driver sleeps
+		r.asleep = not Pins.driver:IsShown()
+		reads = 0
+		stub.advance(1)
+		r.stillReads = reads
+		nav.place(20, 0)                                 -- moved with no movement event (a knockback)
+		stub.advance(0.1)
+		r.caught = Pins.driver:IsShown()
+		emit(r)"#));
+	assert_eq!(out["draws"], 60, "a layout every rendered frame while walking");
+	assert_eq!(out["reads"], 60, "one position read per frame: the driver's, none from the watcher");
+	assert_eq!(out["asleep"], true);
+	let still = num(&out["stillReads"]);
+	assert!((9.0..=11.0).contains(&still), "standing still the watcher polls at 10 Hz ({still})");
+	assert_eq!(out["caught"], true, "the watcher still wakes the driver for a move no event announced");
+}
+
+#[test]
+fn a_hidden_minimap_reads_no_position_while_the_player_walks_and_shown_again_its_pins_are_where_the_player_is_at_once() {
+	let out = run(&(READS.to_string()
+		+ r#"
+		stub.cascadeVisibility = true                    -- as in the client: children hear their parent show
+		nav.viewRadius = 200                             -- 140 px minimap: 0.35 px a yard
+		local pins = { at(100, 0) }
+		Pins.SetLayer("quests", pins, { world = false, minimap = true })
+		local watched, lastPx = 0, nil
+		Pins.WatchMinimapView("probe", function(_, px) watched = watched + 1; lastPx = px end)
+		stub.advance(1)                                  -- settle
+		local function place(p)
+			for _, f in ipairs(Pins.GetMinimapFrames("quests")) do
+				if f.pin == p then
+					local _, _, _, x, y = f:GetPoint(1)
+					return { x, y, f:GetNumPoints() }
+				end
+			end
+		end
+		local r = {}
+		Minimap:Hide()
+		stub.fire("PLAYER_STARTED_MOVING")
+		reads, watched = 0, 0
+		local draws = Pins.stats.draws
+		for i = 1, 120 do nav.place(i, 0); stub.advance(1 / 60) end -- 2 s, 120 yd north, minimap hidden
+		r.hidden = { reads, Pins.stats.draws - draws, watched }
+		-- A layer change while hidden draws as before (a ping announced now plays now, unseen).
+		reads, draws = 0, Pins.stats.draws
+		pins[2] = at(150, 0)
+		Pins.SetLayer("quests", pins, { world = false, minimap = true })
+		stub.advance(1 / 60)
+		r.layer = { reads, Pins.stats.draws - draws, frames("quests") }
+		for i = 1, 60 do nav.place(120 + i, 0); stub.advance(1 / 60) end -- on to 180 yd, still hidden
+		reads, draws, watched = 0, Pins.stats.draws, 0
+		Minimap:Show()                                   -- no frame passes
+		r.shown = { reads, Pins.stats.draws - draws, watched, lastPx }
+		local p = place(pins[1])
+		r.at = { round(p[1]), round(p[2]), p[3] }
+		local radius, facing, square = Pins.MinimapView()
+		local x, y = Pins.Project(100 - 180, 0, facing, radius, Minimap:GetWidth() / 2, facing ~= nil, square, nil)
+		r.expected = { round(x), round(y), 1 }
+		emit(r)"#));
+	assert_eq!(out["hidden"], json!([0, 0, 0]), "hidden: no position read, no draw, no view watcher call");
+	assert_eq!(out["layer"], json!([1, 1, 2]), "a layer change while hidden still reads once and draws");
+	assert_eq!(out["shown"], json!([1, 1, 1, 180]), "shown again: one read, one draw and the watchers, in the same frame");
+	assert_eq!(out["at"], out["expected"], "the pin sits where the player now is, on its one anchor");
+}
+
+#[test]
+fn moving_minimap_pins_dots_areas_and_hulls_moves_each_one_s_single_anchor_with_no_clearallpoints_or_show_per_frame() {
+	let out = run(r#"
+		nav.viewRadius = 200                             -- 140 px minimap: 0.35 px a yard
+		local function under(o)
+			local p = o.parent
+			while p do
+				if p == Minimap then return true end
+				p = p.parent
+			end
+			return false
+		end
+		local clears, shows = 0, 0
+		local clear, show = stub.Methods.ClearAllPoints, stub.Methods.Show
+		stub.Methods.ClearAllPoints = function(self, ...) if under(self) then clears = clears + 1 end return clear(self, ...) end
+		stub.Methods.Show = function(self, ...) if under(self) then shows = shows + 1 end return show(self, ...) end
+		local quest = at(100, 0)
+		Pins.SetLayer("quests", { quest, at(-60, 40, { icon = "map:quest" }) }, { world = false, minimap = true })
+		Pins.SetLayer("far", { at(0, 900, { icon = "map:quest" }) }, { world = false, minimap = true, edge = true })
+		Pins.SetLayer("spawns", {
+			at(80, 0, { area = 60, areaOnly = true }),
+			{ c = 0, wx = -40, wy = -40, hull = { -10, -40, -40, -10, -70, -40, -40, -70 }, areaOnly = true },
+		}, { world = false, minimapAreas = true })
+		-- From the player ahead, all in view: walking only shortens it (no dot comes into view).
+		Pins.SetTrail({ { live = true, { c = 0, wx = 50, wy = 0 }, { c = 0, wx = 100, wy = 0 }, { c = 0, wx = 100, wy = 60 } } }, { world = false })
+		stub.advance(1)                                  -- settle
+		stub.fire("PLAYER_STARTED_MOVING")
+		clears, shows, setPoints = 0, 0, 0
+		local draws = Pins.stats.draws
+		for i = 1, 30 do
+			nav.place(i * 0.5, 0)
+			stub.RunScript(Pins.driver, "OnUpdate", 1 / 60)
+		end
+		local r = { draws = Pins.stats.draws - draws, clears = clears, shows = shows, moved = setPoints > 0 }
+		local regions, oneAnchor, hidden = 0, 0, 0
+		local function check(t)
+			regions = regions + 1
+			if t:GetNumPoints() == 1 then oneAnchor = oneAnchor + 1 end
+			if not t:IsShown() then hidden = hidden + 1 end
+		end
+		local clamped = 0
+		for _, name in ipairs({ "quests", "far" }) do
+			for _, f in ipairs(Pins.GetMinimapFrames(name)) do
+				check(f)
+				if f.clamped then
+					clamped = clamped + 1
+					check(f.edge)
+				end
+			end
+		end
+		for _, t in ipairs(Pins.GetTrailFrames("minimap")) do check(t) end
+		for _, t in ipairs(Pins.GetMinimapAreas("spawns")) do check(t) end
+		for _, rec in ipairs(Pins.GetMinimapHulls("spawns")) do check(rec.texs[1]) end
+		r.regions, r.oneAnchor, r.hidden, r.clamped = regions, oneAnchor, hidden, clamped
+		r.dots = #Pins.GetTrailFrames("minimap")
+		for _, f in ipairs(Pins.GetMinimapFrames("quests")) do
+			if f.pin == quest then
+				local _, _, _, x, y = f:GetPoint(1)
+				r.quest = { math.floor(x * 100 + 0.5) / 100 + 0, math.floor(y * 100 + 0.5) / 100 }
+			end
+		end
+		emit(r)"#);
+	assert_eq!(out["draws"], 30, "a layout every frame");
+	assert_eq!(out["moved"], true, "the regions move");
+	assert_eq!(out["clears"], 0, "no ClearAllPoints on the minimap while moving");
+	assert_eq!(out["shows"], 0, "no Show for a pin, dot, area or hull already shown");
+	assert_eq!(out["clamped"], 1, "the far mark sits on the rim with its pointer");
+	assert!(num(&out["dots"]) > 0.0, "trail dots show");
+	assert_eq!(out["oneAnchor"], out["regions"], "each region keeps exactly one anchor");
+	assert_eq!(out["hidden"], 0, "every drawn region is shown");
+	assert_eq!(out["quest"], json!([0, 29.75]), "85 yd north at 0.35 px a yard");
 }

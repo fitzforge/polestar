@@ -17,12 +17,10 @@ return {
 	["{npc:4752}, riding trainer"] = "{npc:4752}, maître de monte",
 
 	-- Step 2: Wolf Riding for other races
-	-- {skill:762} Riding
-	["Wolf {skill:762} for other races"] = "",
-	-- {skill:762} Riding · {npc:4752} Kildar · {faction:76} Orgrimmar
-	["Any Horde race can buy these wolves, but riding one also takes Wolf Riding, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "",
-	-- {npc:4752} Kildar
-	["{npc:4752}, Wolf Riding"] = "",
+	-- {spell:825} Wolf Riding
+	["{spell:825} for other races"] = "{spell:825} pour les autres races",
+	-- {spell:825} Wolf Riding · {skill:762} Riding · {npc:4752} Kildar · {faction:76} Orgrimmar
+	["Any Horde race can buy these wolves, but riding one also takes {spell:825}, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "Toute race de la Horde peut acheter ces loups, mais en monter un demande aussi {spell:825}, que seuls les Orcs reçoivent avec la {skill:762}. {npc:4752} l'enseigne aux autres races une fois Exaltées auprès d'{faction:76} (le guide de réputation d'Orgrimmar montre le chemin). D'ici là, n'achetez pas de loup pour ce personnage.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Choisir une couleur",
@@ -38,7 +36,5 @@ return {
 	["{item:1041} is in the client (20g) but our data has no vendor selling it."] = "{item:1041} existe dans le client (20 po), mais nos données n'indiquent aucun marchand qui la vend.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Any Horde race can buy these wolves, but riding one also takes {spell:825}, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "Toute race de la Horde peut acheter ces loups, mais en monter un demande aussi {spell:825}, que seuls les Orcs reçoivent avec la {skill:762}. {npc:4752} l'enseigne aux autres races une fois Exaltées auprès d'{faction:76} (le guide de réputation d'Orgrimmar montre le chemin). D'ici là, n'achetez pas de loup pour ce personnage.",
 	-- ["{npc:4752} and {npc:3362}'s kennel are in {zone:1454}'s {object:172958}. At 40 {npc:4752} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Horde race ride these."] = "Le chenil de {npc:4752} et {npc:3362} se trouve dans la {object:172958} d'{zone:1454}. Au niveau 40, {npc:4752} enseigne {skill:762} (100 po selon les concepteurs de Blizzard), et l'apprendre vous donne une monture. Le client Forever permet à toutes les races de la Horde de les monter.",
-	-- ["{spell:825} for other races"] = "{spell:825} pour les autres races",
 }

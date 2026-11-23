@@ -54,9 +54,9 @@ return {
 	["{npc:5888} stands in {area:221}. She may show no quest mark over her head: speak to her anyway. The quest opens at level 4."] = "{npc:5888} se tient au {area:221}. Elle n'affiche parfois aucun point d'exclamation au-dessus de la tête : parlez-lui quand même. La quête s'ouvre au niveau 4.",
 
 	-- Step 8: Ritual Salve
-	-- {area:358} Brambleblade Ravine
+	-- {area:358} Brambleblade Ravine · {spell:403} Lightning Bolt
 	-- plural, as words: Bristleback Shamans = {npc:2953} Bristleback Shaman
-	["The Bristleback Shamans (level 3-4) stand among the quilboar huts of {area:358}, east of the camp, and throw the odd Lightning Bolt. Four kills in five drop a salve; they respawn in about four minutes."] = "",
+	["The Bristleback Shamans (level 3-4) stand among the quilboar huts of {area:358}, east of the camp, and throw the odd {spell:403}. Four kills in five drop a salve; they respawn in about four minutes."] = "Les Chamans Dos-hirsute (niveau 3-4) se tiennent parmi les huttes des hurans du {area:358}, à l'est du camp, et lancent de temps en temps un {spell:403}. Quatre fois sur cinq, ils lâchent un onguent ; ils réapparaissent en quatre minutes environ.",
 
 	-- Step 9: Seer Ravenfeather
 	-- {area:221} Camp Narache · {quest:1462} Earth Sapta
@@ -107,7 +107,4 @@ return {
 	["Bring the {item:6656} back to Boro. Keep the {item:5175} in your bags for good: every earth totem needs it."] = "Rapportez le {item:6656} à Boro. Gardez le {item:5175} dans vos sacs pour de bon : chaque totem de terre en a besoin.",
 	-- {npc:251374} Windshaper Boro · {spell:8071} Stoneskin Totem · {item:5175} Earth Totem
 	["{npc:251374}: {spell:8071} and your {item:5175}"] = "{npc:251374} : {spell:8071} et votre {item:5175}",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["The Bristleback Shamans (level 3-4) stand among the quilboar huts of {area:358}, east of the camp, and throw the odd {spell:403}. Four kills in five drop a salve; they respawn in about four minutes."] = "Les Chamans Dos-hirsute (niveau 3-4) se tiennent parmi les huttes des hurans du {area:358}, à l'est du camp, et lancent de temps en temps un {spell:403}. Quatre fois sur cinq, ils lâchent un onguent ; ils réapparaissent en quatre minutes environ.",
 }

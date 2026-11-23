@@ -36,7 +36,8 @@ options:
                          forge-gamedata), wago (the cached wago.tools CSVs) or saved (the client
                          tables forge build saved under <sources>/client-tables)
   --wow DIR              World of Warcraft folder (default: $POLESTAR_WOW_DIR or detected)
-  --product P            client product (default wow_classic_beta)
+  --product P            client product (default: the Forever client, wowf, else the old
+                         beta wow_classic_beta)
   --defs DIR             WoWDBDefs checkout (default: <sources>/wowdbdefs)
   --no-forever           skip the Forever client tables
   --no-web-xp            skip the web quest XP (looked up for the quests still without XP)
@@ -75,6 +76,23 @@ fn abs(p: String) -> PathBuf {
 }
 
 /// `key value` pairs of a subcommand's options (all take a value).
+/// The client to read and its product: `--product`, else the Forever product installed in `wow`
+/// (`wowf`, else `wow_classic_beta`). A folder without one is left out (said on stderr), so no
+/// client is read.
+fn forever_client(product: Option<String>, wow: Option<PathBuf>) -> (Option<PathBuf>, String) {
+	match (product, wow) {
+		(Some(p), w) => (w, p),
+		(None, Some(w)) => match forge_gamedata::casc::forever_product(&w) {
+			Ok(p) => (Some(w), p),
+			Err(e) => {
+				eprintln!("Forever client: {e}; reading no client");
+				(None, String::new())
+			}
+		},
+		(None, None) => (None, String::new()),
+	}
+}
+
 fn pairs(args: Vec<String>, known: &[&str]) -> Result<Vec<(String, String)>, Fail> {
 	let mut out = Vec::new();
 	let mut it = args.into_iter();
@@ -101,14 +119,13 @@ fn other(cmd: &str, args: Vec<String>) -> Result<(), Fail> {
 			let sources = get("--sources").map(abs).unwrap_or_else(|| root.join("data/sources"));
 			let out = get("--out").map(abs).ok_or_else(|| usage("--out <dir> is required"))?;
 			let defs = get("--defs").map(abs).unwrap_or_else(|| sources.join("wowdbdefs"));
-			let product = get("--product").unwrap_or_else(|| "wow_classic_beta".into());
-			let wow = get("--wow").map(abs).or_else(forge_gamedata::find_install);
+			let (wow, product) = forever_client(get("--product"), get("--wow").map(abs).or_else(forge_gamedata::find_install));
 			let src = match get("--forever-tables").as_deref() {
 				Some("wago") => Source::Wago,
 				Some("client") | None => match wow {
 					Some(w) if defs.join("definitions").is_dir() => Source::Client { wow: w, product, defs },
 					_ if get("--forever-tables").is_none() => Source::Wago,
-					_ => return Err("--forever-tables client: no World of Warcraft folder or WoWDBDefs found".into()),
+					_ => return Err("--forever-tables client: no World of Warcraft folder with a Forever client, or no WoWDBDefs, found".into()),
 				},
 				Some(x) => return Err(usage(format!("--forever-tables {x}: client or wago"))),
 			};
@@ -168,15 +185,21 @@ fn other(cmd: &str, args: Vec<String>) -> Result<(), Fail> {
 		"codex" => {
 			// codex build: --data, --sources, --addons, --build, --out (json), --pack; --local-extras also
 			// merges the installed AtlasLoot, RareScanner and dungeons.json (this machine only);
-			// --recordings <dir> first rewrites data/codex/recorded.json from that recordings folder.
+			// --recordings <dir> first rewrites data/codex/recorded.json from that recordings folder, with
+			// The recordings audit's --verdicts (default: the maintainer's, where `forge record learn` finds them).
 			let local_extras = args.iter().any(|a| a == "--local-extras");
-			let kv = pairs(args.into_iter().filter(|a| a != "--local-extras").collect(), &["--root", "--data", "--sources", "--addons", "--build", "--out", "--pack", "--recordings"])?;
+			let kv = pairs(args.into_iter().filter(|a| a != "--local-extras").collect(), &["--root", "--data", "--sources", "--addons", "--build", "--out", "--pack", "--recordings", "--verdicts"])?;
 			let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| v.clone());
 			let root = get("--root").map(abs).or(root).ok_or_else(|| usage("--root <dir> is required (no checkout above here)"))?;
 			if let Some(dir) = get("--recordings").map(abs) {
+				let verdicts = get("--verdicts").map(abs).or_else(|| super::record::maintainer("ingest-audit/verdict.json").filter(|v| v.is_file()));
+				if verdicts.is_none() {
+					eprintln!("warning: no recordings audit verdicts (--verdicts): only the recordings' config.json exclude applies, and no one is merged into one person");
+				}
 				let file = root.join("data").join("codex").join(forge_data::codex::recorded::FILE);
-				std::fs::write(&file, forge_data::codex::recorded::export(&dir)?).map_err(|e| format!("{}: {e}", file.display()))?;
-				eprintln!("wrote {} from the recordings in {}", file.display(), dir.display());
+				let (text, summary) = forge_data::codex::recorded::export(&dir, verdicts.as_deref())?;
+				std::fs::write(&file, text).map_err(|e| format!("{}: {e}", file.display()))?;
+				eprintln!("wrote {} from the recordings in {}: {summary}", file.display(), dir.display());
 			}
 			let mut o = forge_data::codex::Options::new(&root);
 			if let Some(d) = get("--data") {
@@ -214,6 +237,7 @@ fn other(cmd: &str, args: Vec<String>) -> Result<(), Fail> {
 			}
 			o.build = get("--build");
 			let out = forge_data::professions::build(&o)?;
+			forge_data::professions::require_trainer_costs(&out)?;
 			let dir = get("--out").map(abs);
 			let file = match &dir {
 				Some(f) => {
@@ -344,6 +368,27 @@ fn run() -> Result<(), Fail> {
 		eprintln!("trainers: {:.2} s", t.elapsed().as_secs_f64());
 		return Ok(());
 	}
+	if cmd == "classspells" {
+		// classspells: --sources DIR (data/sources), --forever-build V (a cached wago build), --lua FILE
+		// (default <root>/addon/Polestar/QoL/ClassSpells.lua).
+		let root = find_root(&std::env::current_dir().map_err(|e| e.to_string())?);
+		let (mut sources, mut build, mut lua) = (None, None, None);
+		while let Some(a) = args.next() {
+			let v = args.next();
+			match a.as_str() {
+				"--sources" => sources = v.map(abs),
+				"--forever-build" => build = v,
+				"--lua" => lua = v.map(abs),
+				_ => return Err(usage(format!("unknown option {a}"))),
+			}
+		}
+		let sources = sources.or_else(|| root.as_ref().map(|r| r.join("data/sources"))).ok_or_else(|| usage("--sources <dir> is required (no checkout above here)"))?;
+		let lua = lua.or_else(|| root.as_ref().map(|r| r.join("addon/Polestar/QoL/ClassSpells.lua"))).ok_or_else(|| usage("--lua <file> is required (no checkout above here)"))?;
+		let (text, n, b) = forge_data::class_spells::run(&sources, build.as_deref())?;
+		std::fs::write(&lua, text).map_err(|e| e.to_string())?;
+		eprintln!("wrote {}: {n} class spells (client tables {b})", lua.display());
+		return Ok(());
+	}
 	if cmd == "publish" {
 		return publish(args.collect());
 	}
@@ -356,8 +401,11 @@ fn run() -> Result<(), Fail> {
 		"itemdb" => return itemdb(args.collect()),
 		"questdb" => return questdb(args.collect()),
 		"names" => return names(args.collect()),
+		"subzones" => return subzones(args.collect()),
 		"talents" => return talents(args.collect()),
 		"maps" => return maps(args.collect()),
+		"newquests" => return newquests(args.collect()),
+		"diff" => return diff(args.collect()),
 		_ => {}
 	}
 	if cmd != "build" {
@@ -445,8 +493,7 @@ fn run() -> Result<(), Fail> {
 		}
 	}
 	let defs = get("--defs").map(abs).unwrap_or_else(|| o.sources.join("wowdbdefs"));
-	let product = get("--product").unwrap_or_else(|| "wow_classic_beta".into());
-	let wow = get("--wow").map(abs).or_else(forge_gamedata::find_install);
+	let (wow, product) = forever_client(get("--product"), get("--wow").map(abs).or_else(forge_gamedata::find_install));
 	o.offline = has("--offline");
 	if !o.offline {
 		// The sources the build reads, as the JS build fetched them (web XP: inside the build, for
@@ -476,7 +523,7 @@ fn run() -> Result<(), Fail> {
 	o.forever_source = match get("--forever-tables").as_deref() {
 		Some("wago") => Source::Wago,
 		Some("saved") => Source::Saved,
-		Some("client") => Source::Client { wow: wow.ok_or("--forever-tables client: no World of Warcraft folder found; pass --wow")?, product, defs },
+		Some("client") => Source::Client { wow: wow.ok_or("--forever-tables client: no World of Warcraft folder with a Forever client found; pass --wow")?, product, defs },
 		None => match wow {
 			Some(w) if defs.join("definitions").is_dir() => Source::Client { wow: w, product, defs },
 			_ => {
@@ -637,7 +684,7 @@ fn sources(args: Vec<String>) -> Result<(), Fail> {
 	plan.without_client = match get("--forever-tables").as_deref() {
 		Some("wago") => true,
 		Some("client") => false,
-		None => wow.is_none(),
+		None => !wow.is_some_and(|w| forge_gamedata::casc::forever_build(&w).is_ok_and(|b| b.is_some())),
 		Some(x) => return Err(usage(format!("--forever-tables {x}: client or wago"))),
 	};
 	if let Some(d) = get("--defs") {
@@ -820,8 +867,9 @@ Builds the names in the language folders addon/Polestar_<locale> (every language
 beside our guides' Texts.lua, the TOC shared with `forge guide compile`): the names of
 quests, NPCs, objects, items, instances, encounters, factions and flight points (and the objectives of
 dungeon event quests) in each language. Per id, the first source with a name that is no English name
-wins: the Forever client's tables (wago.tools, &locale=), the web quest database's Forever pages in that
-language (only what is cached in data/sources/web/names), DingDB (pinned commit and sha256s, cloned into
+wins: the Forever client's tables (wago.tools, &locale=), the names the client showed players
+(data/i18n/names-observed/<locale>.json), the web quest database's Forever pages in that language (only
+what is cached in data/sources/web/names), DingDB (pinned commit and sha256s, cloned into
 data/sources/ding), then pfQuest's db/<locale>. Only the ids the compiled guides, the quest database, the
 Codex's data, the travel data and the chokepoints' lifts name. A language left without names loses its
 Names.lua (and its folder when no texts are left there); the old Polestar_Names_<locale> folders are
@@ -833,6 +881,8 @@ removed. A build into the checkout's addon folder also writes data/local/names-s
   --no-tables          leave the client tables out (otherwise missing tables stop the build)
   --build VERSION      this Forever client build (default the newest wago.tools lists)
   --sources DIR        the client-table and web cache (default data/sources)
+  --observed DIR       the names the client showed players, <locale>.json each
+                       (default data/i18n/names-observed)
   --ding DIR           this DingDB checkout, used as it is (default data/sources/ding)
   --pfquest DIR        this pfQuest checkout (default data/sources/pfQuest)
   --guides FILE        the compiled guides (default addon/Polestar_Guides/Guides.lua)
@@ -845,7 +895,7 @@ removed. A build into the checkout's addon folder also writes data/local/names-s
   --json               one JSON document on stdout";
 
 fn names(args: Vec<String>) -> Result<(), Fail> {
-	let values = ["--root", "--build", "--sources", "--ding", "--pfquest", "--guides", "--questdb", "--codex", "--travel", "--chokepoints", "--out"];
+	let values = ["--root", "--build", "--sources", "--observed", "--ding", "--pfquest", "--guides", "--questdb", "--codex", "--travel", "--chokepoints", "--out"];
 	let (kv, fl, pos) = opts(args, &values, &["--json", "--offline", "--no-questie", "--no-tables"])?;
 	let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| abs(v.clone()));
 	let root = root_of(&kv)?;
@@ -862,9 +912,15 @@ fn names(args: Vec<String>) -> Result<(), Fail> {
 	}
 	o.ding = get("--ding");
 	o.pfquest = get("--pfquest");
-	for (flag, slot) in
-		[("--guides", &mut o.guides), ("--questdb", &mut o.questdb), ("--codex", &mut o.codex), ("--travel", &mut o.travel), ("--chokepoints", &mut o.chokepoints), ("--out", &mut o.out)]
-	{
+	for (flag, slot) in [
+		("--observed", &mut o.observed),
+		("--guides", &mut o.guides),
+		("--questdb", &mut o.questdb),
+		("--codex", &mut o.codex),
+		("--travel", &mut o.travel),
+		("--chokepoints", &mut o.chokepoints),
+		("--out", &mut o.out),
+	] {
 		if let Some(p) = get(flag) {
 			*slot = p;
 		}
@@ -886,6 +942,45 @@ fn names(args: Vec<String>) -> Result<(), Fail> {
 	}
 	let cwd = std::env::current_dir().map_err(|e| e.to_string())?;
 	for l in r.lines(&cwd) {
+		println!("{l}");
+	}
+	Ok(())
+}
+
+pub(super) const SUBZONES_USAGE: &str = "usage: forge data subzones [<locale>...] [options]
+
+Writes Subzones.lua in the language folders addon/Polestar_<locale> (every language, or those named;
+beside Names.lua, the TOC shared with `forge guide compile` and `forge data names`): the subzone name
+the client shows on each area of the walking maps (Polestar_Nav's areaNames: WMOAreaTable rows, the
+row's own name, else its AreaTable row's), in that language, for the rows not named as in English. The
+arrow tells a city's floors apart by the client's subzone. From the Forever client's WMOAreaTable and
+AreaTable in English and each language (wago.tools, &locale=, cached under data/sources/wago) at the
+client build the data is built from (forge_data::subzones::BUILD): data that names another build stops
+it. Run it after `forge nav pack`.
+
+  --root DIR           the Polestar checkout (default: the one above the current folder)
+  --offline            no downloads: the cached tables only
+  --sources DIR        the client-table cache (default data/sources)
+  --data DIR           the data whose client build the tables must be (default data/forever)
+  --nav DIR            the walking maps' metadata (default addon/Polestar_Nav/Nav)
+  --out DIR            where the addon folders go (default addon/)";
+
+fn subzones(args: Vec<String>) -> Result<(), Fail> {
+	let (kv, fl, pos) = opts(args, &["--root", "--sources", "--data", "--nav", "--out"], &["--offline"])?;
+	let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| abs(v.clone()));
+	let root = root_of(&kv)?;
+	let mut o = forge_data::subzones::Options::new(&root);
+	if !pos.is_empty() {
+		o.locales = pos;
+	}
+	o.offline = fl.iter().any(|f| f == "--offline");
+	for (flag, slot) in [("--sources", &mut o.sources), ("--data", &mut o.data), ("--nav", &mut o.nav), ("--out", &mut o.out)] {
+		if let Some(p) = get(flag) {
+			*slot = p;
+		}
+	}
+	let r = forge_data::subzones::run(&o, &|m: &str| println!("{m}"))?;
+	for l in r.lines() {
 		println!("{l}");
 	}
 	Ok(())
@@ -1016,6 +1111,41 @@ fn maps(args: Vec<String>) -> Result<(), Fail> {
 	Ok(())
 }
 
+pub(super) const NEWQUESTS_USAGE: &str = "usage: forge data newquests [options]
+
+The quests Forever added (in neither pfQuest's Classic database nor the Classic Era client's quest
+table), for the addon's \"New in Forever\" mark -> addon/Polestar/Quests/NewQuestIds.lua.
+  --data DIR      data/forever (quests.json)
+  --sources DIR   source cache folder (default: <root>/data/sources): the pinned client quest tables
+  --offline       use cached tables only
+  --check         fail when the file is out of date instead of writing it
+  --lua FILE      output (default: <root>/addon/Polestar/Quests/NewQuestIds.lua)
+  --root DIR      the checkout (default: the one above the current folder)";
+
+fn newquests(args: Vec<String>) -> Result<(), Fail> {
+	let (kv, fl, pos) = opts(args, &["--root", "--data", "--sources", "--lua"], &["--offline", "--check"])?;
+	if let Some(p) = pos.first() {
+		return Err(usage(format!("unexpected argument {p}")));
+	}
+	let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| v.clone());
+	let root = root_of(&kv)?;
+	let data = get("--data").map(abs).unwrap_or_else(|| root.join("data").join("forever"));
+	let src = get("--sources").map(abs).unwrap_or_else(|| root.join("data").join("sources"));
+	let out = get("--lua").map(abs).unwrap_or_else(|| root.join("addon/Polestar/Quests/NewQuestIds.lua"));
+	let (ids, lua) = forge_data::newquests::build(&data, &src, fl.iter().any(|f| f == "--offline"), &|m| println!("{m}"))?;
+	println!("newquests: {} quests new in Forever ({} bytes of ids)", ids.len(), ids.len() * forge_data::newquests::WIDTH);
+	if fl.iter().any(|f| f == "--check") {
+		if std::fs::read_to_string(&out).ok().as_deref() != Some(lua.as_str()) {
+			return Err(format!("{} is out of date ({})", rel(&out), forge_data::newquests::COMMAND).into());
+		}
+		println!("1 files up to date");
+		return Ok(());
+	}
+	std::fs::write(&out, &lua).map_err(|e| format!("{}: {e}", out.display()))?;
+	println!("wrote {}", rel(&out));
+	Ok(())
+}
+
 /// The help of `forge data <sub>`, for the subcommands with one of their own.
 pub(super) fn sub_usage(sub: &str) -> Option<&'static str> {
 	Some(match sub {
@@ -1025,11 +1155,74 @@ pub(super) fn sub_usage(sub: &str) -> Option<&'static str> {
 		"itemdb" => ITEMDB_USAGE,
 		"questdb" => QUESTDB_USAGE,
 		"names" => NAMES_USAGE,
+		"subzones" => SUBZONES_USAGE,
 		"talents" => TALENTS_USAGE,
 		"maps" => MAPS_USAGE,
+		"newquests" => NEWQUESTS_USAGE,
+		"diff" => DIFF_USAGE,
 		"build" => USAGE,
 		_ => return None,
 	})
+}
+
+pub(super) const DIFF_USAGE: &str = "usage: forge data diff --old <dir> --new <dir> [--root <checkout>] [--corrections <dir>] [--out <dir>]
+
+The data-diff gate: a data build (--new, a data/forever folder) against the live release's (--old),
+per NPC, object and quest: spawn points (big jumps), roles (rare, elite, boss, vendor, trainer...),
+the Codex's rare/elite/boss flags, faction, givers and enders, an ender's place, level and minimum
+level, prerequisites; spawn heights and travel in counts. Then the invariants a release holds:
+  friendly-rare    no NPC on a player faction's side is a rare in the Codex (or, without one, in npcs.json)
+  leader-spawns    a faction leader in a capital keeps at most 5 places (or its old count; points within
+                   30 yd are one place), each point within 60 yd of one it had, unless a correction
+                   record names it
+  capital-spawns   an NPC of a player faction in 1-5 places, all in a capital, keeps at most 5, no point
+                   more than 200 yd from where it stood, unless a correction record names it
+  spawn-jump       no NPC goes from 3 points or fewer to more than 20 unless it is a known roamer
+  ender-moved      no quest's hand-in moves more than 200 yd unless a correction record names the
+                   quest or the ender
+Writes <out>/data-diff.md and data-diff.json; the last line printed is `data diff: PASS ...` or
+`data diff: FAIL <n> violation(s) ...`. Exits 1 on a violation, 2 on a usage error.
+  --old DIR          the live release's data/forever (a copy kept from its build)
+  --new DIR          the build to check (default: <root>/data/forever)
+  --corrections DIR  the correction records (default: <root>/forever-db/corrections)
+  --out DIR          where the report goes (default: the --new folder)
+  --root DIR         the checkout (default: the one above the current folder)";
+
+fn diff(args: Vec<String>) -> Result<(), Fail> {
+	let (kv, _, pos) = opts(args, &["--root", "--old", "--new", "--corrections", "--out"], &[])?;
+	if let Some(p) = pos.first() {
+		return Err(usage(format!("unexpected argument {p}")));
+	}
+	let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| abs(v.clone()));
+	let old = get("--old").ok_or_else(|| usage("--old <the live release's data/forever> is needed"))?;
+	let root = || root_of(&kv);
+	let new = match get("--new") {
+		Some(n) => n,
+		None => root()?.join("data").join("forever"),
+	};
+	let corrections = match get("--corrections") {
+		Some(c) => c,
+		None => root()?.join("forever-db").join("corrections"),
+	};
+	let out = get("--out").unwrap_or_else(|| new.clone());
+	let (o, n) = (forge_data::diff::Side::load(&old)?, forge_data::diff::Side::load(&new)?);
+	let rep = forge_data::diff::diff(&o, &n, &forge_data::diff::Corrections::load(&corrections)?);
+	std::fs::create_dir_all(&out).map_err(|e| format!("{}: {e}", out.display()))?;
+	let md = out.join("data-diff.md");
+	std::fs::write(&md, forge_data::diff::markdown(&rep, &old.display().to_string(), &new.display().to_string())).map_err(|e| format!("{}: {e}", md.display()))?;
+	let json = out.join("data-diff.json");
+	std::fs::write(&json, serde_json::to_string_pretty(&rep).map_err(|e| e.to_string())? + "\n").map_err(|e| format!("{}: {e}", json.display()))?;
+	for v in &rep.violations {
+		println!("  {} {} {} {}: {}", v.rule, v.kind, v.id, v.name, v.detail);
+	}
+	println!("report: {} (and data-diff.json)", rel(&md));
+	let verdict = forge_data::diff::verdict(&rep);
+	println!("{verdict}");
+	if rep.violations.is_empty() {
+		Ok(())
+	} else {
+		Err(Fail::Run(verdict))
+	}
 }
 
 pub(super) const CHECK_USAGE: &str = "usage: forge data check-corrections [--root <checkout>] [--data <dir>] [--corrections <path>]
@@ -1179,6 +1372,9 @@ options:
                          (default: <root>/data/sources)
   --producer-commit SHA  index.json producerCommit (default: $PRODUCER_COMMIT, else this forge's git HEAD)
   --date YYYY-MM-DD      release date (default: today, or SOURCE_DATE_EPOCH)
+  --release-note FILE    a Markdown paragraph placed under this version's CHANGELOG.md heading, before
+                         the generated lists: what the counts can't say (pass it on every run of that
+                         version; a run without it writes the section without it)
   --zip                  also write forever-db-<version>.zip beside DIR
   --sqlite FILE          also write the tables as one sqlite file
   --lua DIR              also write the in-game library DIR/LibForeverData
@@ -1199,7 +1395,7 @@ fn publish(args: Vec<String>) -> Result<(), Fail> {
 			}
 			"--zip" => kv.push((a, None)),
 			"--out" | "--check" | "--root" | "--kb" | "--public-data" | "--public-drops" | "--provenance" | "--previous" | "--version" | "--factoruide" | "--cmangos" | "--tdb" | "--corrections"
-			| "--producer-commit" | "--date" | "--evidence" | "--sources" | "--sqlite" | "--notes" | "--note-fixes" | "--lua" | "--from" => {
+			| "--producer-commit" | "--date" | "--evidence" | "--sources" | "--sqlite" | "--notes" | "--note-fixes" | "--release-note" | "--lua" | "--from" => {
 				let v = it.next().ok_or_else(|| usage(format!("publish: {a} needs a value")))?;
 				kv.push((a, Some(v)));
 			}
@@ -1284,7 +1480,7 @@ fn publish(args: Vec<String>) -> Result<(), Fail> {
 		o.evidence = Some(abs(v));
 	}
 	o.sqlite = sqlite;
-	for (k, slot) in [("--notes", &mut o.notes), ("--note-fixes", &mut o.note_fixes)] {
+	for (k, slot) in [("--notes", &mut o.notes), ("--note-fixes", &mut o.note_fixes), ("--release-note", &mut o.release_note)] {
 		if let Some(v) = get(k) {
 			let p = abs(v);
 			if !p.is_file() {

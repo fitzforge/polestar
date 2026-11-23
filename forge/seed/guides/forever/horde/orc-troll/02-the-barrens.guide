@@ -95,27 +95,6 @@ step Thun'grim Firegaze
   turnin 1502
   accept 1503
 
-# Turn in a carried alternative here before starting the shared ritual;
-# do not add a trip to a different trainer for an uncarried breadcrumb.
-
-step
-  only Orc,Troll,Shaman
-  when onquest 1522
-  zone The Barrens
-  turnin 1522
-
-step
-  only Orc,Troll,Shaman
-  when onquest 1523
-  zone The Barrens
-  turnin 1523
-
-step
-  only Orc,Troll,Shaman
-  when onquest 2984
-  zone The Barrens
-  turnin 2984
-
 step Razormane camp
   zone The Barrens
   tip Water Seekers, Thornweavers and Hunters hold the camp east of the Crossroads. The supply crates sit at its eastern end. Warriors: the Stolen Iron Chest stands in the camp. Shamans: the quilboar drop the Fire Tar. Kill Savannah Prowlers you pass for their claws.
@@ -289,7 +268,7 @@ step Wenikee Boltbucket
 step Witchwing Slayers
   tip The Slayers hold the western end of the Dry Hills, past the harpies you fought before; they drop the rings.
   collect 5065 quest 875.1
-  level 16                            -- grind on Witchwing Slayers at the Dry Hills, The Barrens
+  level 16 grind 3278                 -- grind on Witchwing Slayers at the Dry Hills, The Barrens
 
 step The Crossroads
   tip Back to the Crossroads; the next guide starts here.

@@ -13,15 +13,15 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "中級{skill:762}",
 	-- {npc:4752} Kildar · {npc:3362} Ogunaro Wolfrunner · {faction:76} Orgrimmar · {object:172958} Valley of Honor · {skill:762} Riding
-	["{npc:4752} and {npc:3362}'s kennel are in {faction:76}'s {object:172958}. At 60 {npc:4752} teaches Journeyman {skill:762} to Orcs for 1,000g (10% less at Honored with {faction:76}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift wolf costs 200g here."] = "",
+	["{npc:4752} and {npc:3362}'s kennel are in {faction:76}'s {object:172958}. At 60 {npc:4752} teaches Journeyman {skill:762} to Orcs for 1,000g (10% less at Honored with {faction:76}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift wolf costs 200g here."] = "{npc:4752}和{npc:3362}的獸欄在{faction:76}的{object:172958}。60級時{npc:4752}以1,000金教獸人中級{skill:762}（{faction:76}尊敬時便宜10%）；暴雪稱會附贈坐騎。其他種族在本族騎術訓練師處學習。此處每匹迅捷狼200金。",
 	-- {npc:4752} Kildar
 	["{npc:4752}, riding trainer"] = "騎術訓練師{npc:4752}",
 
 	-- Step 2: Wolf Riding for other races
 	-- {spell:825} Wolf Riding
-	["{spell:825} for other races"] = "",
+	["{spell:825} for other races"] = "其他種族的{spell:825}",
 	-- {spell:825} Wolf Riding · {skill:762} Riding · {npc:4752} Kildar · {faction:76} Orgrimmar
-	["Any Horde race can buy these wolves, but riding one also takes {spell:825}, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "",
+	["Any Horde race can buy these wolves, but riding one also takes {spell:825}, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "任何部落種族都能買這些狼，但騎乘還需{spell:825}，只有獸人隨{skill:762}獲得。其他種族在{faction:76}達到崇拜後，{npc:4752}會教它（奧格瑪聲望指南有路線）。在此之前，別為這個角色買狼。",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "挑選顏色",

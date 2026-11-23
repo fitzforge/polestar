@@ -645,8 +645,8 @@ fn r3_hand_in_of_a_quest_picked_up_optionally_is_when_onquest_split_from_other_w
 	let after = run(&[("a", g)], "Orc", "Horde", &Opts { when: true, ..off() }, &FxHashMap::default());
 	let a = &after["a"];
 	assert_eq!(a[idx(a, "step Back") + 1], "  when onquest 788", "{}", a.join("\n"));
-	// (Beside other work at the same NPC, Gornek's follow-up, the hand-in stays in its step, RevOrcTroll3
-	// T7, and as written: the addon holds the hand-in of a quest taken with an `optional` accept only for
+	// (Beside other work at the same NPC, Gornek's follow-up, the hand-in stays in its step,
+	// and as written: the addon holds the hand-in of a quest taken with an `optional` accept only for
 	// a player who took it, and one who did is not let past its NPC, #298.)
 	let den = idx(a, "step Den");
 	assert_eq!(a[den..den + 5], ["step Den", "  tip The trainer stands in the den.", "  train class", "  turnin 788", "  accept 789"], "{}", a.join("\n"));
@@ -667,6 +667,21 @@ impl Floors for Den {
 			vec![s(40.0, false)]
 		}
 	}
+}
+
+#[test]
+#[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
+fn r3_hand_in_of_an_item_started_quest_at_an_npc_with_other_work_stays_required() {
+	// Stranded quests: Sharptalon's Claw (2), Shadumbra's Head (24), Assassination Plot (4881),
+	// The Admiral's Orders (830), Attack on Camp Narache (781) were item-started, and their hand-in beside
+	// other work at the same NPC was made `optional`: the addon never holds an optional goal, so a player
+	// who had the quest walked past its NPC and carried it grey. The addon already hides a hand-in for a
+	// quest the character never took (`orphaned`), so the hand-in stays as written.
+	let g = guide("a", "Orc", "Horde", "Durotar", None, &["step Boars", "  accept 788 item 4905", "  kill 3098 quest 788.1", "", "step Gornek", "  train class", "  turnin 788", "  accept 789", ""]);
+	let after = run(&[("a", g)], "Orc", "Horde", &Opts { when: true, ..off() }, &FxHashMap::default());
+	let a = &after["a"];
+	let s = idx(a, "step Gornek");
+	assert_eq!(a[s..s + 4], ["step Gornek", "  train class", "  turnin 788", "  accept 789"], "{}", a.join("\n"));
 }
 
 #[test]
@@ -864,6 +879,48 @@ fn groups_a_family_is_asked_on_every_step_with_its_size_and_tip() {
 }
 
 #[test]
+fn groups_a_familys_goals_are_not_optional_in_its_asked_steps() {
+	// The Monogrammed Sash (8552) and Margol's Horn (3181): a step of only optional goals is done at once,
+	// so the player who chose the group way got no arrow to the item, the accept or the hand-in. Asked
+	// steps (in place, and the family's goals moved out of a shared step) hold them; the other quest's
+	// optional accept stays optional.
+	let g = guide(
+		"a",
+		"Orc",
+		"Horde",
+		"Durotar",
+		None,
+		&[
+			"step Hana'zua",
+			"  accept 790 optional",
+			"",
+			"step Sarkoth's cave",
+			"  collect 4905 quest 790.1 optional",
+			"",
+			"step Back at Hana'zua",
+			"  accept 788 optional",
+			"  turnin 790 optional",
+			"  accept 804",
+			"",
+			"step Gornek",
+			"  turnin 804 optional                -- Gornek, in the den",
+		],
+	);
+	let of: FxHashMap<u32, u32> = [(790, 790), (804, 790)].into_iter().collect();
+	let fam: Group =
+		serde_json::from_value(serde_json::json!({ "q": 790, "title": "Sarkoth", "size": 3, "level": 10, "mobs": [{ "npc": 3281, "name": "Sarkoth", "level": 10, "rank": 1 }], "quests": [790, 804] }))
+			.unwrap();
+	let after = run_groups(&reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
+	let a = &after["a"];
+	for l in ["  accept 790", "  collect 4905 quest 790.1 group 3", "  turnin 790", "  turnin 804                         -- Gornek, in the den", "  accept 788 optional"] {
+		assert!(a.iter().any(|x| x == l), "no {l:?} in\n{}", a.join("\n"));
+	}
+	let asked = a.iter().enumerate().filter(|(_, l)| l.starts_with("  when group 790")).count();
+	assert_eq!(asked, 4, "{}", a.join("\n"));
+	assert_eq!(a.iter().filter(|l| l.contains("optional")).count(), 1, "{}", a.join("\n"));
+}
+
+#[test]
 fn groups_two_families_on_one_step_keep_the_steps_order() {
 	// c17 Azshara (not-ready): Sprogger's hand-in of 8553 (8552's family) and his accept of 8554 (its
 	// own family) were split into two asked steps, the accept's first.
@@ -938,8 +995,20 @@ fn groups_the_drop_that_starts_a_family_quest_is_asked_for() {
 	assert!(before["a"][..idx(&before["a"], "  when group 91740")].iter().any(|l| l == "  collect 247826 x1 optional"), "{}", before["a"].join("\n"));
 	let after = run_groups(&reference(), &[("a", g)], "Human", "Alliance", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
 	let a = &after["a"];
-	let head = idx(a, "  collect 247826 x1 optional");
+	let head = idx(a, "  collect 247826 x1");
 	let asked = a[..head].iter().rposition(|l| l.starts_with("step ")).unwrap();
 	assert_eq!(a[asked + 1], "  when group 91740", "{}", a.join("\n"));
 	assert!(idx(a, "  collect 247817 quest 91733") < head, "{}", a.join("\n"));
+}
+
+#[test]
+fn r11_a_v1_goto_far_from_the_work_after_it_goes() {
+	// #1149: the Barrens' "Zhevra" goto (52.5,27.5) points 400+ yd from the nearest Zhevra Runner;
+	// the step's kill leads to the runners itself. A goto beside the work stays.
+	let far = guide("a", "Tauren", "Horde", "The Barrens", None, &["step The Zhevra", "  goto 52.5,27.5 \"Zhevra\"", "  kill 3242"]);
+	let near = guide("b", "Tauren", "Horde", "The Barrens", None, &["step The Zhevra", "  goto 43.3,27.4 \"Zhevra\"", "  kill 3242"]);
+	let after = run(&[("a", far), ("b", near)], "Tauren", "Horde", &off(), &FxHashMap::default());
+	assert!(!after["a"].iter().any(|l| l.trim_start().starts_with("goto 52.5,27.5")), "{:#?}", after["a"]);
+	assert!(after["a"].iter().any(|l| l.trim_start().starts_with("kill 3242")), "{:#?}", after["a"]);
+	assert!(after["b"].iter().any(|l| l.trim_start().starts_with("goto 43.3,27.4")), "{:#?}", after["b"]);
 }

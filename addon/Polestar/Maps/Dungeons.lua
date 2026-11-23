@@ -51,9 +51,12 @@ local function rangeOf(rec)
 	return lo, hi
 end
 
+-- A trip to the entrance (Nav.StartTrip): it ends through the instance's
+-- portal (#1686), as the Dungeons page's "Guide me to the entrance" does.
 local function waypoint(rec)
 	local N, e = ns.Nav, rec.entrance
-	if N and N.SetTarget then N.SetTarget(e.map, e.x, e.y, rec.name, e.f, "dungeon") end
+	if not (N and N.SetTarget) then return end
+	N.StartTrip(N.SetTarget(e.map, e.x, e.y, rec.name, e.f, "dungeon"), rec.name, rec.kind == "raid" and L["Raid"] or L["Dungeon"], "instance")
 end
 
 local function tooltip(rec, page)
@@ -136,6 +139,33 @@ function Maps.RefreshDungeonPins()
 	end
 end
 
+-- "Show on map" on a dungeon's page (#2780: it opened the entrance's zone with nothing on it): the entrance's
+-- own pin, in focus with a glow, on the world map that opened, whether or not every entrance is shown; it
+-- goes when the map closes. Its tooltip and click are the entrances layer's (a click sets a waypoint). The
+-- point is the page's (Dungeons.Entrance: this character's own way in).
+local SHOWN = "maps.dungeonShown"
+local shown = false
+function Maps.ShowDungeonEntrance(key, map, x, y, f)
+	local X, Pins = ns.Codex, ns.Pins
+	local rec = X and X.Instance and X.Instance(key)
+	if not (Pins and Pins.SetLayer and type(rec) == "table" and map and x and y) then return false end
+	local at = {}
+	for k, v in pairs(rec) do at[k] = v end
+	at.entrance = { map = map, x = x, y = y, f = f }
+	local pin = Maps.BuildDungeonPins({ instances = { at }, page = false })[1]
+	pin.state, pin.glow, pin.pulse, pin.priority = "focus", true, true, 3
+	Pins.SetLayer(SHOWN, { pin }, { world = true, minimap = false, edge = false })
+	shown = true
+	return true
+end
+
+local function clearShown()
+	if not shown then return end
+	shown = false
+	local Pins = ns.Pins
+	if Pins and Pins.ClearLayer then Pins.ClearLayer(SHOWN) end
+end
+
 -- The world map opened: load the Codex the first time pins are wanted.
 local function onMapShown()
 	if not ns.Get("maps.dungeonPins") then return end
@@ -146,12 +176,13 @@ end
 -- The world map's view (Core/MapCanvas.lua) says when it opens; the map is
 -- only read.
 local hooked = false
+local function onView(_, what)
+	if what == "show" then onMapShown() elseif what == "hide" then clearShown() end
+end
 local function hookMap()
 	if hooked then return true end
 	local M = ns.MapCanvas
-	if not (M and WorldMapFrame and M.Watch(WorldMapFrame, function(_, what)
-		if what == "show" then onMapShown() end
-	end)) then
+	if not (M and WorldMapFrame and M.Watch(WorldMapFrame, onView)) then
 		return false
 	end
 	hooked = true
@@ -174,6 +205,7 @@ end)
 
 ns.OnLogin(function()
 	hookMap()
+	if ns.MapCanvas then ns.MapCanvas.OnAdd(function(map) ns.MapCanvas.Watch(map, onView) end) end
 	local T = ns.Theme
 	if T and T.OnChanged then
 		T.OnChanged(function()

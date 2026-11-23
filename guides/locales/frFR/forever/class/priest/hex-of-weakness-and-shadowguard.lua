@@ -75,8 +75,8 @@ return {
 	["{npc:4606}: take her {quest:5642} letter"] = "{npc:4606} : prenez sa lettre {quest:5642}",
 
 	-- Step 12: Shadowguard: Ur'kyo
-	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {quest:5642} Shadowguard
-	["At 20, {npc:6018} in the {object:172961} teaches {quest:5642} with a quest he gives and takes back at once."] = "Au niveau 20, {npc:6018}, dans {object:172961}, vous apprend {quest:5642} avec une quête qu'il donne et reprend aussitôt.",
+	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {quest:5680} Shadowguard
+	["At 20, {npc:6018} in the {object:172961} teaches {quest:5680} with a quest he gives and takes back at once."] = "Au niveau 20, {npc:6018}, dans {object:172961}, vous apprend {quest:5680} avec une quête qu'il donne et reprend aussitôt.",
 
 	-- Step 13: Shadowguard: Miles Welsh's letter
 	-- {quest:5642} Shadowguard · {npc:3044} Miles Welsh
@@ -88,6 +88,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:6018} in the {object:172961}, on {zone:1454}'s west side. Priest trainers elsewhere ({npc:3706} in {area:362}, {npc:3044} in {zone:1456}) send you to him with a quest of the same name."] = "Au niveau 10, allez voir {npc:6018} dans la {object:172961}, à l'ouest d'{zone:1454}. Les maîtres des prêtres d'ailleurs ({npc:3706} à {area:362}, {npc:3044} à {zone:1456}) vous envoient à lui avec une quête du même nom.",
+	-- ["At 20, {npc:6018} in the {object:172961} teaches {quest:5642} with a quest he gives and takes back at once."] = "Au niveau 20, {npc:6018}, dans {object:172961}, vous apprend {quest:5642} avec une quête qu'il donne et reprend aussitôt.",
 	-- ["At 20, {npc:6018} teaches {quest:5642}. {npc:3044} in {zone:1456} and Aelthalyste in the {zone:1458} send you to him with a quest of the same name."] = "Au niveau 20, {npc:6018} enseigne {quest:5642}. {npc:3044} à {zone:1456} et Aelthalyste à {zone:1458} vous envoient à lui avec une quête du même nom.",
 	-- ["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20."] = "Les sorts de prêtre troll : {quest:5652} au niveau 10, {quest:5642} au niveau 20.",
 }

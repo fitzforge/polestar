@@ -7,13 +7,18 @@
 -- Portions Copyright (C) 2026 Cillian Berragan (Shortest Path Forever, GPL-3.0-or-later); adapted for Polestar, 2026-10-15.
 --
 --   /polestar near <kind> [profession]   kinds: trainer, class, repair, reagents, vendor,
---                                        innkeeper, bank, mailbox, auction, flight, stable;
+--                                        innkeeper, bank, mailbox, auction, flight, stable, transmog;
 --                                        `/polestar near mining` = trainer mining
 --   Nearby.Find(kind, line) -> place, seconds | nil, reason
 --       reason "kind" | "combat" | "none" | a Codex failure: "missing" (not installed, or no
 --       Codex module), "disabled" (off in the AddOns list), "empty" (loaded, but its NPC roles
 --       read as nothing: a broken install), else Data.Pack's reason ("interface_version", "error"...)
 --   Nearby.Go(kind, line) -> true | false   points the arrow there, says so in one line
+--   Nearby.Near(kind, yards) -> place, yards | nil, reason   the nearest one in the player's zone
+--       within `yards` in a straight line, without the planner's estimate (the auction house
+--       reminder, UI/AuctionBuys.lua); reason as Find's, or "none"
+--   Nearby.PlacesOn(kind, c) -> places | nil, reason   every spawn of a kind on continent c, with
+--       world c, wx, wy (the Engine's sell and repair reminders measure them); reason as Find's
 --   Nearby.Rank(places, here, estimate) -> place, seconds   pure, for the tests
 --   place = { id, name, map, x, y, f, z? }   z: the class trainer's height (Core/ClassTrainers.lua);
 --           the Codex's places carry none
@@ -27,7 +32,8 @@
 -- once per session.
 --
 -- Ranking: the nearest spawn of each NPC by straight line, the player's
--- continent first; the RANKED nearest of those get the route planner's
+-- continent first (of one spawn listed on a city's and its zone's map, the
+-- city's); the RANKED nearest of those get the route planner's
 -- estimate (Journey.Estimate: flights, boats, the Hearthstone) and the
 -- quickest wins.
 --
@@ -48,6 +54,7 @@ ns.RegisterDefaults("nav", { nearbyMenu = true, nearbyButton = true })
 
 local RANKED = 6
 local RUN_SPEED = 7
+local SAME_PLACE = 50 -- yards: one spawn on two maps (the Codex's SAME_PLACE)
 local RIDING = 762 -- Compat.SKILL_LINES' riding: no trainer role
 local FACTION = { Alliance = "A", Horde = "H" }
 
@@ -79,6 +86,7 @@ local KINDS = {
 	{ key = "auction", role = "auctioneer", label = L["Auction house"] },
 	{ key = "flight", role = "flightmaster", label = L["Flight master"], stop = "flightmaster" },
 	{ key = "stable", role = "stablemaster", label = L["Stable master"] },
+	{ key = "transmogrifier", role = "transmogrifier", label = L["Transmogrifier"] },
 }
 local BY_KEY = {}
 for _, k in ipairs(KINDS) do BY_KEY[k.key] = k end
@@ -88,6 +96,7 @@ local ALIAS = {
 	drink = "food", water = "food", arrow = "arrows", bullet = "bullets", ammo = "arrows",
 	bow = "ranged", bows = "ranged", gun = "ranged", guns = "ranged", crossbow = "ranged",
 	mail = "mailbox", post = "mailbox", goods = "general", supplies = "general",
+	transmog = "transmogrifier",
 }
 Nearby.KINDS = KINDS
 
@@ -262,20 +271,25 @@ local function friendly(faction, code)
 	return faction == nil or faction == "AH" or (code ~= nil and faction:find(code, 1, true) ~= nil)
 end
 
+-- The spawns of the Codex NPCs with `role` on the player's side, outside
+-- instances. A class's own flight master (Nav.TaxiNpcClass: Nighthaven's fly
+-- Druids only, from their gossip) is a flight master for that class alone.
 local function rolePlaces(role)
 	local list = index[role]
 	if list then return list end
 	local X, C = ns.Codex, ns.Compat
 	local info = C.GetPlayerInfo and C.GetPlayerInfo()
 	local code = info and FACTION[info.faction]
+	local only = role == "flightmaster" and Nav.TaxiNpcClass
 	list = {}
 	for _, id in ipairs(X.WithRole(role)) do
 		local npc = X.Npc(id)
-		if npc and not npc.instance and friendly(npc.faction, code) then
+		local class = only and only(id)
+		if npc and not npc.instance and friendly(npc.faction, code) and not (class and class ~= (info and info.class)) then
 			for _, s in ipairs(npc.spawns or {}) do
 				local c, wx, wy = C.MapToWorld(s.map, s.x, s.y, s.f)
 				if c then
-					list[#list + 1] = { id = id, name = npc.name, sub = npc.subName, map = s.map, x = s.x, y = s.y, f = s.f, c = c, wx = wx, wy = wy }
+					list[#list + 1] = { id = id, name = npc.name, sub = npc.subName, map = s.map, x = s.x, y = s.y, f = s.f, z = s.z, c = c, wx = wx, wy = wy }
 				end
 			end
 		end
@@ -301,7 +315,7 @@ local function objectPlaces(flag)
 				for _, s in ipairs(o.spawns or {}) do
 					local c, wx, wy = C.MapToWorld(s.map, s.x, s.y, s.f)
 					if c then
-						list[#list + 1] = { id = id, name = L["Mailbox"], map = s.map, x = s.x, y = s.y, f = s.f, c = c, wx = wx, wy = wy }
+						list[#list + 1] = { id = id, name = L["Mailbox"], map = s.map, x = s.x, y = s.y, f = s.f, z = s.z, c = c, wx = wx, wy = wy }
 					end
 				end
 			end
@@ -341,7 +355,7 @@ local function candidates(kind, line)
 				for _, s in ipairs(npc.spawns or {}) do
 					local c, wx, wy = C.MapToWorld(s.map, s.x, s.y, s.f)
 					if c then
-						list[#list + 1] = { id = id, name = npc.name, map = s.map, x = s.x, y = s.y, f = s.f, c = c, wx = wx, wy = wy }
+						list[#list + 1] = { id = id, name = npc.name, map = s.map, x = s.x, y = s.y, f = s.f, z = s.z, c = c, wx = wx, wy = wy }
 					end
 				end
 			end
@@ -384,6 +398,11 @@ end
 -- player's continent first), the RANKED nearest of those estimated, the
 -- quickest returned with its seconds (a straight-line run when the planner
 -- has no answer on this continent; nil when nothing could be measured).
+-- One place on two maps (the Codex lists a city's NPC on the city's map and
+-- again on its zone's, the inner map first: forge-data codex/spawns.rs) is
+-- the first one listed, never the copy a yard or two nearer: a target on
+-- Durotar's map sends the route planner out of Orgrimmar's gate and back in
+-- to reach Arnok in the Valley of Spirits.
 function Nearby.Rank(places, here, estimate)
 	local nearest, tier, dist = {}, {}, {}
 	for _, p in ipairs(places) do
@@ -393,7 +412,9 @@ function Nearby.Rank(places, here, estimate)
 			if p.c == here.c then t = 0 end
 		end
 		local held = nearest[p.id]
-		if not held or t < tier[held] or (t == tier[held] and d < dist[held]) then
+		local copy = held and held.map ~= p.map and held.c == p.c
+			and (p.wx - held.wx) ^ 2 + (p.wy - held.wy) ^ 2 <= SAME_PLACE * SAME_PLACE
+		if not copy and (not held or t < tier[held] or (t == tier[held] and d < dist[held])) then
 			if held then tier[held], dist[held] = nil, nil end
 			nearest[p.id] = p
 			tier[p], dist[p] = t, d
@@ -444,48 +465,57 @@ function Nearby.Find(key, line)
 	return place, seconds
 end
 
+-- The nearest place of a kind in the player's zone (its spawn on the
+-- player's map or on the zone that map belongs to) within `yards` in a
+-- straight line: place, yards | nil, reason. No planner estimate: a cheap
+-- "is one here" for a check that runs on every zone change.
+function Nearby.Near(key, yards)
+	key = ALIAS[key] or key
+	local kind = BY_KEY[key]
+	if not kind then return nil, "kind" end
+	local places, why = candidates(kind)
+	if not places then return nil, why end
+	local C = ns.Compat
+	local map = C.GetPlayerMapPosition()
+	local pc, px, py = C.GetPlayerWorldPosition()
+	if not (map and pc) then return nil, "none" end
+	local zone = C.GetUnitZone and C.GetUnitZone("player") or map
+	local best, bestD
+	for _, p in ipairs(places) do
+		if p.c == pc and (p.map == map or p.map == zone) then
+			local d = sqrt((p.wx - px) ^ 2 + (p.wy - py) ^ 2)
+			if d <= yards and (not bestD or d < bestD) then best, bestD = p, d end
+		end
+	end
+	if not best then return nil, "none" end
+	return best, bestD
+end
+
+-- Every spawn of a kind on continent c (world c, wx, wy each): the list, made
+-- once per kind and continent until the index is dropped | nil, reason (as
+-- Find's). For a check that measures them itself (Engine's sell and repair
+-- reminders, While you're here): the Codex's friendly NPCs outside instances.
+function Nearby.PlacesOn(key, c)
+	key = ALIAS[key] or key
+	local kind = BY_KEY[key]
+	if not kind then return nil, "kind" end
+	local at = "on:" .. key .. ":" .. tostring(c)
+	if index[at] then return index[at] end
+	local places, why = candidates(kind)
+	if not places then return nil, why end
+	local list = {}
+	for _, p in ipairs(places) do
+		if p.c == c then list[#list + 1] = p end
+	end
+	index[at] = list
+	return list
+end
+
 local function kindLabel(key, line)
 	if key == "trainer" and line then return format(L["%s trainer"], Nearby.ProfessionName(line)) end
 	if key == "weapon" and WEAPON_BY_LINE[line] then return format(L["Weapon master (%s)"], WEAPON_BY_LINE[line].label) end
 	return BY_KEY[key].label
 end
-
--- A trip to a service: the arrow's target until the player gets there, or
--- picks "Back to the guide" (the guide window's banner, the Nearby menu).
--- Then the arrow is back on the guide's step. Any other target (a step change,
--- a goal clicked, a map click) ends it too.
-local trip
-
--- The trip under way: { target, name, label }, or nil.
-function Nearby.Trip()
-	if trip and not (Nav.IsOverride() and Nav.GetTarget() == trip.target) then trip = nil end
-	return trip
-end
-
--- Back to the guide: the trip's target lets go. `arrived`: said as "At <name>".
--- False when there is no trip.
-function Nearby.EndTrip(arrived)
-	local t = Nearby.Trip()
-	if not t then return false end
-	trip = nil
-	Nav.ReleaseTarget()
-	ns.Print(arrived and format(L["At %s: the arrow is back on the guide."], t.name) or L["The arrow is back on the guide."])
-	ns.Fire("NEARBY_TRIP", nil)
-	return true
-end
-
--- There: the arrow goes back to the guide, after the arrival is drawn.
-ns.On("NAV_ARRIVED", function(target)
-	if not (trip and trip.target == target) then return end
-	ns.After(0, function()
-		if trip and trip.target == target then Nearby.EndTrip(true) end
-	end)
-end)
-
--- Another target took over: the trip is over, without a word.
-ns.On("WAYPOINT_CHANGED", function()
-	if trip and not Nearby.Trip() then ns.Fire("NEARBY_TRIP", nil) end
-end)
 
 function Nearby.Go(key, line)
 	key = ALIAS[key] or key
@@ -493,7 +523,7 @@ function Nearby.Go(key, line)
 	if not place then
 		local why = seconds
 		if why == "kind" then
-			ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"])
+			ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] .. " | transmog")
 		elseif why == "combat" then
 			ns.Print(L["Nearby services can be looked up after combat."])
 		elseif why == "missing" then
@@ -511,9 +541,10 @@ function Nearby.Go(key, line)
 	end
 	local name = place.name
 	if BY_KEY[key].titled and place.sub and place.sub ~= "" then name = format("%s (%s)", name, place.sub) end
-	if not Nav.SetTarget(place.map, place.x, place.y, name, place.f, BY_KEY[key].stop, place.z) then return false end
-	trip = { target = Nav.GetTarget(), name = name, label = kindLabel(key, line) }
-	ns.Fire("NEARBY_TRIP", trip)
+	-- A trip (Nav.StartTrip): it ends at the service, or on "Back to the guide".
+	local target = Nav.SetTarget(place.map, place.x, place.y, name, place.f, BY_KEY[key].stop, place.z)
+	if not target then return false end
+	Nav.StartTrip(target, name, kindLabel(key, line))
 	local zone = ns.Compat.GetMapName(place.map) or "?"
 	local Q = ns.QoL
 	local time = seconds and Q and Q.Duration and Q.Duration(seconds)
@@ -531,7 +562,7 @@ function Nearby.Command(rest)
 	local text = lower((rest or ""):match("^%s*(.-)%s*$"))
 	local word, more = text:match("^(%S+)%s*(.-)$")
 	if not word then
-		ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"])
+		ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] .. " | transmog")
 		return
 	end
 	local key = ALIAS[word] or word
@@ -559,8 +590,9 @@ end
 -- Menus
 ---------------------------------------------------------------------------
 
+-- Not while Polestar is hidden: no entry of Polestar's in the game's menus.
 local function addMenu(_, root)
-	if not ns.Get("nav.nearbyMenu") then return end
+	if ns.Hidden() or not ns.Get("nav.nearbyMenu") then return end
 	local sub = root:CreateButton(L["Nearby services"])
 	for _, k in ipairs(KINDS) do
 		if k.key == "trainer" then
@@ -597,7 +629,7 @@ Nearby.AddMenu = addMenu
 -- profession trainer when it has none), then the rest. Each entry is
 -- { key, line, label, icon }, for Nearby.Go(key, line); the vendor and the
 -- weapon master are pages of their own (`page`, `weapons`).
-local BUTTON_ORDER = { "vendor", "repair", "innkeeper", "flight", "class", "trainer", "weapon", "-", "reagents", "bank", "mailbox", "auction", "stable" }
+local BUTTON_ORDER = { "vendor", "repair", "innkeeper", "flight", "class", "trainer", "weapon", "-", "reagents", "bank", "mailbox", "auction", "stable", "transmogrifier" }
 local ICONS = { vendor = "icon-vendor", repair = "icon-buy", innkeeper = "icon-sethome", flight = "icon-fly",
 	class = "icon-train", trainer = "icon-skill", weapon = "icon-train" }
 
@@ -642,26 +674,4 @@ ns.OnLogin(function()
 end)
 
 ns.RegisterCommand("near", Nearby.Command,
-	L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master"])
-
-if ns.RegisterOptions then
-	-- Also on Quality of Life > Travel > Nearby services: one setting, a fresh
-	-- control per page (the registry keeps per-control state).
-	local function controls()
-		return {
-			{ kind = "toggle", key = "nav.nearbyMenu", label = L["Nearby services in map menus"],
-				search = "nearest vendor, repair, trainer, mailbox, bank, inn, find npc, tracking",
-				help = L["The world map's and minimap's tracking menus find the nearest trainer, vendor, inn, bank and more (/polestar near)."] },
-			{ kind = "toggle", key = "nav.nearbyButton", label = L["Nearby services button"],
-				search = "nearest vendor, repair, trainer, inn, flight master, find npc",
-				help = L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] },
-		}
-	end
-	for _, spec in ipairs({
-		{ page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"], controls = controls() },
-		{ page = L["Quality of Life"], tab = L["Travel"], section = L["Nearby services"], controls = controls() },
-	}) do
-		local ok, err = ns.RegisterOptions(spec)
-		if not ok and geterrorhandler then geterrorhandler()(err) end
-	end
-end
+	L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master"], true)

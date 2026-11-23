@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {npc:6966} Lucius · {quest:2282} Alther's Mill · {quest:2300} SI:7 · {item:7676} Thistle Tea · {npc:7009} Arantir
-	["Your first lockpicking job at 16: {npc:6966}'s lockbox at {quest:2282}, for {quest:2300}, then {item:7676} from {npc:7009}."] = "Votre premier travail de crochetage au niveau 16 : le coffret de {npc:6966} à {quest:2282}, pour le {quest:2300}, puis du {item:7676} auprès d'{npc:7009}.",
+	-- {npc:6966} Lucius · {quest:2282} Alther's Mill · {quest:2300} SI:7
+	["Your first lockpicking job at 16: {npc:6966}'s lockbox at {quest:2282}, for {quest:2300}."] = "Votre premier crochetage au niveau 16 : le coffret de {npc:6966} à {quest:2282}, pour le {quest:2300}.",
 
 	-- Step 1: SI:7 (Goldshire)
 	-- {npc:917} Keryn Sylvius · {area:87} Goldshire · {npc:6946} Renzik "The Shiv" · {zone:1453} Stormwind
@@ -31,12 +31,12 @@ return {
 	["{npc:4214} stands in the {area:1658}. Then the boat from {area:702} to {area:442}, and the boat from {area:442} to {area:17203}."] = "{npc:4214} se tient dans l'{area:1658}. Prenez ensuite le bateau du {area:702} à {area:442}, puis le bateau d'{area:442} au {area:17203}.",
 
 	-- Step 6: Renzik "The Shiv"
-	-- {npc:6946} Renzik "The Shiv" · {quest:2300} SI:7 · {object:2100} Old Town · {npc:13283} Lord Tony Romano
-	["{npc:6946} stands upstairs in the {quest:2300} building in {object:2100}, behind the rogue trainers. Before you leave: if you lack Pick Lock, {npc:13283} in the {quest:2300} building teaches it; Lockpicking is the test of the next quest."] = "",
+	-- {npc:6946} Renzik "The Shiv" · {quest:2300} SI:7 · {object:2100} Old Town · {spell:1804} Pick Lock · {npc:13283} Lord Tony Romano
+	["{npc:6946} stands upstairs in the {quest:2300} building in {object:2100}, behind the rogue trainers. Before you leave: if you lack {spell:1804}, {npc:13283} in the {quest:2300} building teaches it; Lockpicking is the test of the next quest."] = "{npc:6946} se tient à l'étage du bâtiment du {quest:2300}, dans la {object:2100}, derrière les maîtres des voleurs. Avant de partir : si vous n'avez pas {spell:1804}, {npc:13283}, dans le bâtiment du {quest:2300}, vous l'apprend ; le crochetage est l'épreuve de la quête suivante.",
 
 	-- Step 7: Lucius
-	-- {zone:1429} Elwynn Forest · {area:69} Lakeshire · {npc:6966} Lucius · {item:5060} Thieves' Tools · {npc:3090} Gerald Crawley
-	["Head east through {zone:1429} into Redridge, or fly to {area:69}. {npc:6966} stands on a crate on one of the {area:69} docks, south of town; he gives you {item:5060} with the job ({npc:3090} in {area:69} sells more). Pick Lock does not work without the tools in your bags."] = "",
+	-- {zone:1429} Elwynn Forest · {area:69} Lakeshire · {npc:6966} Lucius · {item:5060} Thieves' Tools · {npc:3090} Gerald Crawley · {spell:1804} Pick Lock
+	["Head east through {zone:1429} into Redridge, or fly to {area:69}. {npc:6966} stands on a crate on one of the {area:69} docks, south of town; he gives you {item:5060} with the job ({npc:3090} in {area:69} sells more). {spell:1804} does not work without the tools in your bags."] = "Traversez la {zone:1429} vers l'est jusqu'aux Carmines, ou volez jusqu'à {area:69}. {npc:6966} se tient sur une caisse sur l'un des quais de {area:69}, au sud de la ville ; il vous remet des {item:5060} avec le travail ({npc:3090} à {area:69} en vend d'autres). {spell:1804} ne fonctionne pas sans les outils dans vos sacs.",
 
 	-- Step 8: Alther's Mill
 	-- {quest:2282} Alther's Mill · {area:69} Lakeshire · {object:121264} Lucius's Lockbox
@@ -46,24 +46,17 @@ return {
 	-- {npc:6966} Lucius
 	["Back to {npc:6966}"] = "Retournez voir {npc:6966}",
 
-	-- Step 10: Horns of Nez'ra
-	-- {npc:7009} Arantir · {npc:6966} Lucius · {quest:2358} Horns of Nez'ra · {area:69} Lakeshire · {npc:334} Gath'Ilzogg
-	-- plural, as words: Blackrock Grunts = {npc:440} Blackrock Grunt
-	["{npc:7009}, beside {npc:6966}, wants the {quest:2358}, which the Blackrock orcs of Redridge carry: the first one you kill drops them. The easiest are the Blackrock Grunts (level 19) and Outrunners (20) east of {area:69}; the Shadowcasters (22) and {npc:334} (26) are elite."] = "{npc:7009}, à côté de {npc:6966}, veut les {quest:2358}, que portent les orcs Blackrock des Carmines : le premier que vous tuez les laisse tomber. Les plus faciles sont les Grunts Blackrock (niveau 19) et les Estafettes (20) à l'est de {area:69} ; les Exhalombres (22) et {npc:334} (26) sont élites.",
-	-- {quest:2358} Horns of Nez'ra
-	["{quest:2358}: any Blackrock orc"] = "{quest:2358} : n'importe quel orc Blackrock",
-	-- {npc:7009} Arantir · {item:7676} Thistle Tea
-	["{npc:7009}: ten {item:7676}"] = "{npc:7009} : dix {item:7676}",
-
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 16 {npc:1234} in the {area:2102} in {area:131} sends you to {npc:5165}, in the north of {zone:1455}."] = "Au niveau 16, {npc:1234}, dans la {area:2102} à {area:131}, vous envoie voir {npc:5165}, au nord de {zone:1455}.",
 	-- ["At 16 {npc:3599} in {area:186} sends you to {quest:2259} in {zone:1457}."] = "Au niveau 16, {npc:3599} à {area:186} vous envoie voir {quest:2259} à {zone:1457}.",
 	-- ["At 16 {npc:917}, the rogue trainer in the Lion's Pride Inn in {area:87}, sends you to {npc:6946} in {zone:1453}."] = "Au niveau 16, {npc:917}, le maître des voleurs de l'auberge de la Fierté du lion à {area:87}, vous envoie voir {npc:6946} à {zone:1453}.",
-	-- ["Head east through {zone:1429} into Redridge, or fly to {area:69}. {npc:6966} stands on a crate on one of the {area:69} docks, south of town; he gives you {item:5060} with the job ({npc:3090} in {area:69} sells more). {spell:1804} does not work without the tools in your bags."] = "Traversez la {zone:1429} vers l'est jusqu'aux Carmines, ou volez jusqu'à {area:69}. {npc:6966} se tient sur une caisse sur l'un des quais de {area:69}, au sud de la ville ; il vous remet des {item:5060} avec le travail ({npc:3090} à {area:69} en vend d'autres). {spell:1804} ne fonctionne pas sans les outils dans vos sacs.",
 	-- ["Ride east through {zone:1429} into Redridge, or fly to {area:69}. {npc:6966} waits on the west side of {area:69} and gives you {item:5060}."] = "Allez vers l'est à travers la {zone:1429} jusqu'aux Carmines, ou volez jusqu'à {area:69}. {npc:6966} attend à l'ouest de {area:69} et vous donne des {item:5060}.",
+	-- ["Your first lockpicking job at 16: {npc:6966}'s lockbox at {quest:2282}, for {quest:2300}, then {item:7676} from {npc:7009}."] = "Votre premier travail de crochetage au niveau 16 : le coffret de {npc:6966} à {quest:2282}, pour le {quest:2300}, puis du {item:7676} auprès d'{npc:7009}.",
 	-- ["Your first lockpicking job at 16: {npc:6966}'s lockbox at {quest:2282}, for {quest:2300}."] = "Votre premier crochetage au niveau 16 : le coffret de {npc:6966} à {quest:2282}, pour le {quest:2300}.",
 	-- ["{npc:6946} stands beside {npc:332} at {quest:2300} in {object:2100}. Dwarves and Gnomes take the {area:2257} from {zone:1455}; Night Elves take the boat from {area:442} to {area:17203}."] = "{npc:6946} se tient à côté de {npc:332} au {quest:2300}, dans la {object:2100}. Nains et gnomes prennent le {area:2257} depuis {zone:1455} ; les elfes de la nuit prennent le bateau d'{area:442} au {area:17203}.",
-	-- ["{npc:6946} stands upstairs in the {quest:2300} building in {object:2100}, behind the rogue trainers. Before you leave: if you lack {spell:1804}, {npc:13283} in the {quest:2300} building teaches it; Lockpicking is the test of the next quest."] = "{npc:6946} se tient à l'étage du bâtiment du {quest:2300}, dans la {object:2100}, derrière les maîtres des voleurs. Avant de partir : si vous n'avez pas {spell:1804}, {npc:13283}, dans le bâtiment du {quest:2300}, vous l'apprend ; le crochetage est l'épreuve de la quête suivante.",
+	-- ["{npc:7009}, beside {npc:6966}, wants the {quest:2358}, which the Blackrock orcs of Redridge carry: the first one you kill drops them. The easiest are the Blackrock Grunts (level 19) and Outrunners (20) east of {area:69}; the Shadowcasters (22) and {npc:334} (26) are elite."] = "{npc:7009}, à côté de {npc:6966}, veut les {quest:2358}, que portent les orcs Blackrock des Carmines : le premier que vous tuez les laisse tomber. Les plus faciles sont les Grunts Blackrock (niveau 19) et les Estafettes (20) à l'est de {area:69} ; les Exhalombres (22) et {npc:334} (26) sont élites.",
+	-- ["{npc:7009}: ten {item:7676}"] = "{npc:7009} : dix {item:7676}",
 	-- ["{quest:2282} stands east of {area:69}, up off the road. Open {item:7869} there."] = "{quest:2282} se trouve à l'est de {area:69}, en hauteur à l'écart de la route. Ouvrez-y le {item:7869}.",
 	-- ["{quest:2282} stands east of {area:69}, up off the road. Open {object:121264} there."] = "{quest:2282} se trouve à l'est de {area:69}, en hauteur à l'écart de la route. Ouvrez-y {object:121264}.",
+	-- ["{quest:2358}: any Blackrock orc"] = "{quest:2358} : n'importe quel orc Blackrock",
 }

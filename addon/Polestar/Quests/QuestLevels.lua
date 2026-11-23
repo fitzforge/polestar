@@ -322,8 +322,14 @@ end
 -- Setting
 ---------------------------------------------------------------------------
 
+-- On with the setting, off while Polestar is hidden: off puts back the text
+-- Polestar changed.
+local function wanted()
+	return ns.Get("qol.questLevels") and not ns.Hidden() and true or false
+end
+
 local function sync()
-	local on = ns.Get("qol.questLevels") and true or false
+	local on = wanted()
 	if on == enabled then return end
 	enabled = on
 	if on then
@@ -337,6 +343,7 @@ end
 ns.On("SETTING_CHANGED", function(path)
 	if path == "qol.questLevels" or path == "qol" or path == "" then sync() end
 end)
+ns.On("POLESTAR_HIDDEN", sync)
 
 -- Not with the gamepad interface (ns.GamepadUI): every surface is a window
 -- its navigation manages, and these hooks resize the game's buttons there
@@ -344,7 +351,7 @@ end)
 -- gamepad's buttons in that code (ScrollBoxListView.lua RefreshSmartNav),
 -- and the window's next close is blocked.
 ns.OnInit(function()
-	enabled = ns.Get("qol.questLevels") and true or false
+	enabled = wanted()
 	if ns.GamepadUI() then return end
 	if not installReady() then ns.RegisterEvent("ADDON_LOADED", onAddonLoaded) end
 end)

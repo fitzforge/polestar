@@ -8,8 +8,10 @@
 //
 // For each band and each group of characters (starting area, continent, or
 // faction) the zones a group can use are ranked by expected skill-ups per
-// yard (route.js); the winner's nodes become a loop of goto waypoints. Groups
-// that pick the same zone share one step. Trainers and the tool vendor are
+// yard (route.js); the winner's nodes become a loop of goto waypoints. A zone
+// must hold nodes the band's starting skill can gather; when the best one
+// does not, the band splits where it starts to (pickZones). Groups that pick
+// the same zone share one step. Trainers and the tool vendor are
 // smart targets (`train <Profession> <Rank>`, `buy … nearest`): the engine
 // picks the nearest one of the player's faction at runtime.
 
@@ -17,6 +19,7 @@ const { ZONES, RANKS, color, bandWeight } = require('./tables');
 const { RACE_GROUPS, REGIONS, SIDE, TWO_SIDED, raceCondition, maxZoneLevel } = require('./groups');
 const R = require('./route');
 const { OUT_DIR, GUIDE_HEADER, FACTIONS, context, fmt, liveMark, money, zoneName, flightMaster, rankInfo } = require('./common');
+const { byBanners } = require('../sections');
 
 // ------------------------------------------------------------------ planning
 
@@ -43,23 +46,71 @@ function groupsFor(scope, faction) {
 	return [{ key: faction.toLowerCase(), faction }];
 }
 
-function rankIn(ctx, prof, band, zones) {
+// Whether some point still gives skill-ups at the band's top skill. A zone
+// whose nodes all turn grey inside the band cannot take a player to its end,
+// however dense they are: Teldrassil's Amber (requirement 1, grey from 101)
+// for Mining 65-125.
+function coversTop(points, band) {
+	return points.some((p) => {
+		const c = color(band.to - 1, p.req);
+		return c !== null && c !== 'grey';
+	});
+}
+
+// Whether a zone can be worked from the band's first point: at least `min`
+// points the starting skill can already gather (and not grey for it). A zone
+// whose nodes all need more than the band's start leaves a player there with
+// nothing to gather: Hillsbrad Foothills for Skinning 100-125, whose lowest
+// beast (Gray Bear, level 21) needs 105 (#3355).
+function coversStart(points, band, min) {
+	let n = 0;
+	for (const p of points) {
+		const c = color(band.from, p.req);
+		if (c !== null && c !== 'grey') n++;
+	}
+	return n >= min;
+}
+
+// The zones that can take a player through the band, best first; with
+// `start`, only those workable from its first point (coversStart).
+function rankIn(ctx, prof, band, zones, start = true) {
 	const ranked = [];
+	const min = prof.minPoints || 6;
 	for (const id of zones) {
 		const points = prof.points(ctx, id, band.from, band.to);
-		if (points.length < (prof.minPoints || 6)) continue;
+		if (points.length < min || !coversTop(points, band) || (start && !coversStart(points, band, min))) continue;
 		ranked.push({ zone: id, points, ...R.scorePoints(points, { perPoint: prof.stopYards || 0 }) });
 	}
 	return ranked.sort((a, b) => b.score - a.score || a.zone - b.zone);
 }
 
-// Best zone for one group; a starting zone without nodes (Teldrassil has no
-// ore) falls back to the group's next zone.
-function pickZone(ctx, prof, band, faction, group) {
-	let ranked = rankIn(ctx, prof, band, candidatesFor(ctx, band, faction, group));
-	if (!ranked.length && band.scope === 'start') ranked = rankIn(ctx, prof, band, group.next);
-	if (!ranked.length) throw new Error(`${prof.skill} ${band.from}-${band.to}: no zone with nodes for ${faction} ${group.key}`);
-	return { ...ranked[0], ranked };
+// One group's zones for one band, in skill order: [{ zone, points, from, to }].
+// The best zone usually covers the whole band. When too few of its nodes can be
+// gathered at the band's start, the band splits at the first skill where they
+// can, and the best zone workable from the start fills the part before it:
+// Skinning 100-125 for Undead is Silverpine Forest to 105, then Hillsbrad
+// Foothills, whose lowest beast (Gray Bear, level 21) needs 105 (#3355). A
+// starting zone without nodes (Teldrassil has no ore) falls back to the
+// group's next zone.
+function pickZones(ctx, prof, band, faction, group) {
+	let zones = candidatesFor(ctx, band, faction, group);
+	if (!rankIn(ctx, prof, band, zones).length && band.scope === 'start') zones = group.next;
+	const piece = (from, to) => {
+		const best = rankIn(ctx, prof, { ...band, from, to }, zones)[0];
+		return best ? { zone: best.zone, points: best.points, from, to } : null;
+	};
+	const min = prof.minPoints || 6;
+	const best = rankIn(ctx, prof, band, zones, false)[0];
+	if (best && !coversStart(best.points, band, min)) {
+		let at = band.from + 1;
+		while (at < band.to && !coversStart(best.points, { from: at, to: band.to }, min)) at++;
+		const head = at < band.to ? piece(band.from, at) : null;
+		const tail = head ? piece(at, band.to) : null;
+		if (head && tail) return [head, tail];
+	}
+	const whole = piece(band.from, band.to);
+	if (!whole) throw new Error(`${prof.skill} ${band.from}-${band.to}: no zone workable from ${band.from} for ${faction} ${group.key}`);
+	return [whole];
 }
 
 // Trainer recipes worth learning (`prof.trainerRecipes`: the smelts of
@@ -101,6 +152,20 @@ function worthTrip(ctx, prof, recipe, merged) {
 	});
 }
 
+// The kinds under a twentieth of the nodes listed (nodeSummary's `rare`:
+// Mulgore's Stunted Silverleaf, a Forever node a few spots carry). They still
+// count where a loop's common nodes are, but never lead a waypoint or name it
+// (route.js `loop`, `label` below); the band's tip still names them. None for
+// a profession whose rare kinds may lead (skinning's beasts: `rareLeads`).
+function rareKinds(prof, points) {
+	if (prof.rareLeads) return new Set();
+	const up = (p) => (p.up === undefined ? 1 : p.up);
+	const byKind = new Map();
+	for (const p of points) byKind.set(p.name, (byKind.get(p.name) || 0) + up(p));
+	const total = [...byKind.values()].reduce((a, b) => a + b, 0);
+	return new Set([...byKind].filter(([, n]) => n < total / 20).map(([k]) => k));
+}
+
 // Plan: a list of { kind: 'learn'|'train'|'recipes'|'band', ... } entries in guide order.
 // A trainer recipe is learned on a rank visit, or on a visit of its own at a
 // band start when its reagent is common there; else it is named in the
@@ -114,25 +179,29 @@ function plan(ctx, prof) {
 		const atStart = recipesAt(ctx, prof, band.from, prevFrom);
 		const within = recipesWithin(ctx, prof, band.from, band.to);
 		prevFrom = band.from;
-		// Pick a zone for every group of both factions.
+		// Pick zones for every group of both factions (two for a group whose band splits).
 		const picks = [];
 		for (const faction of FACTIONS) {
 			for (const group of groupsFor(band.scope, faction)) {
-				picks.push({ faction, group, ...pickZone(ctx, prof, band, faction, group) });
+				for (const p of pickZones(ctx, prof, band, faction, group)) picks.push({ faction, group, ...p });
 			}
 		}
-		const merged = mergePicks(picks);
+		// In skill order; groups keep their order within a part of the band.
+		const merged = mergePicks(picks).sort((a, b) => a.from - b.from);
 		const recipes = rankAtStart ? atStart : atStart.filter((r) => worthTrip(ctx, prof, r, merged));
 		const skipped = atStart.filter((r) => !recipes.includes(r));
-		if (rankAtStart) out.push({ kind: 'train', rank: rankAtStart, recipes });
-		else if (recipes.length) out.push({ kind: 'recipes', recipes, at: band.from });
+		// A rank or recipes trained at the band's start open the band: under its banner (and section),
+		// so a player whose skill is in the band but lacks the rank is held at its trainer there.
+		if (rankAtStart) out.push({ kind: 'train', rank: rankAtStart, recipes, band });
+		else if (recipes.length) out.push({ kind: 'recipes', recipes, at: band.from, band });
 		let from = band.from;
 		for (const stop of [...splits.map((r) => r.learnAt), band.to]) {
 			const soon = [...(from === band.from ? skipped : []), ...within.filter((r) => r.learnedAt > from && r.learnedAt < stop)];
-			for (const m of merged) {
+			for (const m of merged.filter((x) => x.from < stop && x.to > from)) {
 				const entry = m.factions.length === 1 ? flightMaster(ctx, m.zone, m.factions[0]) : null;
-				const loop = R.loop(m.points, ctx.project, { entry: entry ? entry.pt : null, radius: prof.radius || 110 });
-				out.push({ kind: 'band', cond: m.cond, zone: m.zone, from, to: stop, band, loop, points: m.points, cont: from !== band.from, soon });
+				const loop = R.loop(m.points, ctx.project, { entry: entry ? entry.pt : null, radius: prof.radius || 110, rare: rareKinds(prof, m.points) });
+				const at = Math.max(from, m.from);
+				out.push({ kind: 'band', cond: m.cond, zone: m.zone, from: at, to: Math.min(stop, m.to), band, loop, points: m.points, cont: at !== m.from, soon });
 			}
 			const rank = splits.find((r) => r.learnAt === stop);
 			if (rank) out.push({ kind: 'train', rank, recipes: within.filter((r) => r.learnedAt === stop) });
@@ -148,22 +217,23 @@ function recipeLine(r) {
 	return `${r.name} (${money(r.cost)}; ${col}grey at ${r.grey})`;
 }
 
-// One entry per zone: the groups that picked it, and the `only` condition
-// covering them (none when both factions are in). A race of both sides
-// (Skyborne) whose other side picked another zone gets an entry of its own
-// side, so the `only` can name that side.
+// One entry per zone and part of the band: the groups that picked it, and the
+// `only` condition covering them (none when both factions are in). A race of
+// both sides (Skyborne) whose other side picked another zone gets an entry of
+// its own side, so the `only` can name that side.
 function mergePicks(picks) {
 	const out = [];
+	const place = (p) => `${p.zone}|${p.from}-${p.to}`;
 	const twoSided = (p) => (p.group.races || []).some((r) => TWO_SIDED.has(r));
-	const alone = (p) => twoSided(p) && !picks.some((q) => q !== p && q.faction !== p.faction && q.zone === p.zone && twoSided(q));
+	const alone = (p) => twoSided(p) && !picks.some((q) => q !== p && q.faction !== p.faction && place(q) === place(p) && twoSided(q));
 	// Sides whose Skyborne picked a zone alone: that side's other groups there join them.
-	const sided = new Set(picks.filter(alone).map((p) => `${p.zone}|${p.faction}`));
-	const keyOf = (p) => (sided.has(`${p.zone}|${p.faction}`) ? `${p.zone}|${p.faction}` : String(p.zone));
+	const sided = new Set(picks.filter(alone).map((p) => `${place(p)}|${p.faction}`));
+	const keyOf = (p) => (sided.has(`${place(p)}|${p.faction}`) ? `${place(p)}|${p.faction}` : place(p));
 	for (const p of picks) {
 		const key = keyOf(p);
 		let m = out.find((x) => x.key === key);
 		if (!m) {
-			m = { key, zone: p.zone, points: p.points, picks: [], factions: [] };
+			m = { key, zone: p.zone, from: p.from, to: p.to, points: p.points, picks: [], factions: [] };
 			out.push(m);
 		}
 		m.picks.push(p);
@@ -213,8 +283,12 @@ function shortName(prof, name) {
 	return prof.shortName ? prof.shortName(name) : name;
 }
 
-function label(prof, cluster) {
-	const names = Object.entries(cluster.counts)
+// A waypoint's name: its two most plentiful kinds, the zone's rare ones only
+// where it holds nothing else.
+function label(prof, cluster, rare) {
+	const all = Object.entries(cluster.counts);
+	const common = all.filter(([n]) => !rare.has(n));
+	const names = (common.length ? common : all)
 		.sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
 		.slice(0, 2)
 		.map(([n]) => shortName(prof, n));
@@ -233,6 +307,13 @@ function render(ctx, prof) {
 	L.push('');
 	for (const c of prof.header) L.push(c ? `# ${c}` : '#');
 	let lastBand = null;
+	const banner = (band) => {
+		const key = `${band.from}-${band.to}`;
+		if (lastBand === key) return;
+		L.push('');
+		L.push(`# ---------------------------------------------------------------- ${prof.skill} ${key}`);
+		lastBand = key;
+	};
 	for (const e of entries) {
 		if (e.kind === 'learn') {
 			const ap = rankInfo(ctx, prof.skill, 'Apprentice');
@@ -242,6 +323,7 @@ function render(ctx, prof) {
 			L.push(`  train ${prof.skill} Apprentice`);
 			if (prof.tool) L.push(`  buy ${prof.tool.item} x1 nearest`);
 		} else if (e.kind === 'train') {
+			if (e.band) banner(e.band);
 			const info = rankInfo(ctx, prof.skill, e.rank.name) || {};
 			const camp = e.rank.name === 'Journeyman' && prof.camp ? ctx.data.recipe(prof.camp) : null;
 			const learnt = [...e.recipes, ...(camp ? [camp.recipe] : [])];
@@ -254,18 +336,14 @@ function render(ctx, prof) {
 			L.push(`  train ${prof.skill} ${e.rank.name}`);
 			for (const r of learnt) L.push(`  learn ${r.spell}`);
 		} else if (e.kind === 'recipes') {
+			if (e.band) banner(e.band);
 			L.push('');
 			L.push(`step ${e.recipes.map((r) => r.name).join(' & ')}`);
 			L.push(`  tip At ${e.at} a ${prof.skill} trainer teaches ${e.recipes.map(recipeLine).join(' and ')}: ${prof.recipesWhy}`);
 			for (const r of e.recipes) L.push(`  learn ${r.spell}`);
 		} else {
 			const zn = zoneName(ctx, e.zone);
-			const key = `${e.band.from}-${e.band.to}`;
-			if (lastBand !== key) {
-				L.push('');
-				L.push(`# ---------------------------------------------------------------- ${prof.skill} ${key}`);
-				lastBand = key;
-			}
+			banner(e.band);
 			const nodes = nodeSummary(prof, e.points, e.from, e.to);
 			const z = ZONES[e.zone];
 			L.push('');
@@ -277,13 +355,15 @@ function render(ctx, prof) {
 			if (need) tip += ` Expect about ${need} ${prof.countNodes} for these ${e.to - e.from} points.`;
 			for (const r of e.soon || []) tip += ` ${recipeLine(r)} is taught from ${r.learnedAt}: learn it if you pass a ${prof.skill} trainer, it is not worth a trip of its own.`;
 			L.push(`  tip ${tip}`);
-			for (const c of e.loop) L.push(`  goto ${fmt(c.pt.x)},${fmt(c.pt.y)}${liveMark(c.pt)} "${label(prof, c)}" r 30`);
+			const rare = rareKinds(prof, e.points);
+			for (const c of e.loop) L.push(`  goto ${fmt(c.pt.x)},${fmt(c.pt.y)}${liveMark(c.pt)} "${label(prof, c, rare)}" r 30`);
 			L.push(`  skill ${prof.skill} ${e.to}`);
 		}
 	}
 	L.push('');
 	for (const line of prof.footer || []) L.push(line);
-	return `${L.join('\n').replace(/\n+$/, '')}\n`;
+	// Each band's range is a section (the guide window's heading; the guide starts at the player's skill).
+	return `${byBanners(L.join('\n').replace(/\n+$/, ''), prof.skill)}\n`;
 }
 
 // Every generated profession guide: { 'mining.guide': text, ... }.
@@ -294,4 +374,4 @@ function buildAll(ctx) {
 	return out;
 }
 
-module.exports = { plan, render, buildAll, mergePicks, OUT_DIR };
+module.exports = { plan, render, buildAll, mergePicks, pickZones, rareKinds, label, coversTop, coversStart, OUT_DIR };

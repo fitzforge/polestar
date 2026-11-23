@@ -13,7 +13,7 @@ return {
 	-- Step 1: Teldrassil (1/2)
 	-- {zone:1438} Teldrassil · {area:442} Auberdine · {zone:1439} Darkshore
 	["Discovering an area gives experience scaled to its level, so this runs alongside leveling. Alliance starts on {zone:1438}; humans, dwarves and gnomes arrive by boat at {area:442} and can begin at the {zone:1439} step. 11 areas to discover here, levels 5-11."] = "发现一个区域会获得与其等级相应的经验，所以可以与升级同步进行。联盟从{zone:1438}开始；人类、矮人和侏儒乘船到达{area:442}，可以从{zone:1439}这一步开始。这里有11个区域待发现，5-11级。",
-	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "在一个角色上探索整张世界地图是一项 Forever 传承挑战（1点账号通用传承点数）。",
+	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "在一个角色上探索整张世界地图是一项 无限 传承挑战（1点账号通用传承点数）。",
 	-- {area:188} Shadowglen · {zone:1438} Teldrassil · {area:186} Dolanaar · {area:702} Rut'theran Village · {zone:1457} Darnassus
 	["{area:188} opens onto {zone:1438}; {area:186} is south along the road. {area:702}, at the foot of the tree, is reached through the portal in {zone:1457}."] = "{area:188}通往{zone:1438}；沿路向南就是{area:186}。位于树脚下的{area:702}要通过{zone:1457}的传送门到达。",
 	-- {area:702} Rut'theran Village
@@ -52,7 +52,7 @@ return {
 	-- Step 10: The Barrens (1/4)
 	["25 areas to discover here, levels 10-33."] = "这里有25个区域待发现，10-33级。",
 	-- {zone:1413} The Barrens · {area:1702} Honor's Stand · {area:380} The Crossroads · {area:378} Camp Taurajo · {area:392} Ratchet
-	["The road east out of south-eastern Stonetalon comes down into the {zone:1413} at {area:1702}. {area:380} and {area:378} are Horde towns; {area:392} is a neutral port."] = "",
+	["The road east out of south-eastern Stonetalon comes down into the {zone:1413} at {area:1702}. {area:380} and {area:378} are Horde towns; {area:392} is a neutral port."] = "从石爪山脉东南部向东走，道路会下行，在 {area:1702} 进入 {zone:1413}。{area:380} 和 {area:378} 是部落城镇；{area:392} 是中立港口。",
 	-- {area:392} Ratchet
 	["Flight path here: {area:392} (Bragok)."] = "飞行路线：{area:392}（布拉高克）。",
 	-- {area:378} Camp Taurajo
@@ -80,7 +80,7 @@ return {
 	-- Step 16: Mulgore (1/2)
 	["16 areas to discover here, levels 5-10."] = "这里有16个区域待发现，5-10级。",
 	-- {zone:1413} The Barrens · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:222} Bloodhoof Village · {zone:1456} Thunder Bluff
-	["Go back west across the {zone:1413}; the road west from {area:378} climbs through the only pass into {zone:1412}, tauren country with guards at {area:222} and {zone:1456}."] = "",
+	["Go back west across the {zone:1413}; the road west from {area:378} climbs through the only pass into {zone:1412}, tauren country with guards at {area:222} and {zone:1456}."] = "向西返回，横穿 {zone:1413}；从 {area:378} 向西的道路会爬升，穿过通往 {zone:1412} 的唯一山口。那里是牛头人的领地，{area:222} 和 {zone:1456} 均有卫兵。",
 
 	-- Step 17: Mulgore (2/2)
 	-- {zone:1456} Thunder Bluff
@@ -91,7 +91,7 @@ return {
 	-- Step 18: Thousand Needles (1/2)
 	["9 areas to discover here, levels 24-35."] = "这里有9个区域待发现，24-35级。",
 	-- {zone:1412} Mulgore · {zone:1413} The Barrens · {area:485} Great Lift · {zone:1441} Thousand Needles · {area:484} Freewind Post
-	["Leave {zone:1412} by the same pass and ride south through the {zone:1413} to the {area:485} down into {zone:1441}. {area:484} is a Horde town."] = "",
+	["Leave {zone:1412} by the same pass and ride south through the {zone:1413} to the {area:485} down into {zone:1441}. {area:484} is a Horde town."] = "从同一个山口离开 {zone:1412}，骑行向南穿过 {zone:1413}，到 {area:485}，再下到 {zone:1441}。{area:484} 是部落城镇。",
 
 	-- Step 19: Thousand Needles (2/2)
 	-- {area:484} Freewind Post
@@ -107,16 +107,16 @@ return {
 	-- Step 22: The Barrens (1/4)
 	-- {area:814} Southfury River · {zone:1411} Durotar · {zone:1413} The Barrens · {area:385} Northwatch Hold
 	["Cross the {area:814} bridges west out of {zone:1411} into the {zone:1413}. {area:385} in the east is an Alliance fort."] = "从{zone:1411}向西过{area:814}上的桥进入{zone:1413}。东部的{area:385}是联盟堡垒。",
-	-- {area:392} Ratchet · {area:380} The Crossroads · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn
-	["Flight paths here: {area:392} (Bragok), {area:380} (Devrak), {area:378} ({npc:10378})."] = "飞行路线：{area:392}（布拉高克），{area:380}（迪弗拉克），{area:378}（{npc:10378}）。",
+	-- {area:392} Ratchet · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn
+	["Flight paths here: {area:392} (Bragok), Crossroads (Devrak), {area:378} ({npc:10378})."] = "这里的飞行点：{area:392}（布拉高克）、十字路口（迪弗拉克）、{area:378}（{npc:10378}）。",
 
 	-- Step 26: Mulgore (1/2)
 	-- {area:378} Camp Taurajo · {zone:1412} Mulgore
-	["The road west from {area:378} climbs through the only pass into {zone:1412}."] = "",
+	["The road west from {area:378} climbs through the only pass into {zone:1412}."] = "从 {area:378} 向西的道路爬升，穿过唯一通往 {zone:1412} 的山口。",
 
 	-- Step 28: Stonetalon Mountains (1/2)
 	-- {zone:1412} Mulgore · {zone:1413} The Barrens · {area:1702} Honor's Stand · {zone:1442} Stonetalon Mountains · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak
-	["Leave {zone:1412} by the same pass, ride north through the {zone:1413} and west at {area:1702} into the {zone:1442}. {area:460} is the Horde town; {area:467} in the north is Alliance."] = "",
+	["Leave {zone:1412} by the same pass, ride north through the {zone:1413} and west at {area:1702} into the {zone:1442}. {area:460} is the Horde town; {area:467} in the north is Alliance."] = "从同一个山口离开{zone:1412}，骑马向北穿过{zone:1413}，在{area:1702}向西进入{zone:1442}。{area:460}是部落城镇；北面的{area:467}属于联盟。",
 	-- {area:460} Sun Rock Retreat
 	["Flight path here: {area:460} (Tharm)."] = "飞行路线：{area:460}（萨尔姆）。",
 
@@ -162,11 +162,8 @@ return {
 	["Flight path here: {area:484} (Nyse)."] = "飞行路线：{area:484}（奈瑟）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Cross the {area:814} bridges west out of {zone:1411} into the {zone:1413}. {area:385} in the east is an Alliance fort."] = "从{zone:1411}向西过{area:814}上的桥进入{zone:1413}。东部的{area:385}是联盟堡垒。",
-	-- ["Cross the {area:814} east from the northern {zone:1413} into {zone:1411}: Horde country, with guards at {area:362}, {area:367} and {zone:1454}."] = "从{zone:1413}北部向东渡过{area:814}进入{zone:1411}：这是部落的地盘，{area:362}、{area:367}和{zone:1454}有卫兵。",
 	-- ["Flight path here: {zone:1456} (Tal)."] = "飞行路线：{zone:1456}（塔尔）。",
 	-- ["Flight paths here: {area:392} (Bragok), {area:380} (Devrak), {area:378} ({npc:10378})."] = "飞行路线：{area:392}（布拉高克），{area:380}（迪弗拉克），{area:378}（{npc:10378}）。",
-	-- ["Fly to {area:378} and walk south through the {zone:1413} to the {area:485} down into {zone:1441}."] = "飞往{area:378}，向南穿过{zone:1413}到{area:485}，下到{zone:1441}。",
 	-- ["From the southern {zone:1413} take the {area:485} down into {zone:1441}. {area:484} is a Horde town."] = "从{zone:1413}南部乘{area:485}下到{zone:1441}。{area:484}是部落城镇。",
 	-- ["Go back into the {zone:1413} and west through {area:1702} into the {zone:1442}. {area:460} is the Horde town; {area:467} in the north is Alliance."] = "回到{zone:1413}，向西穿过{area:1702}进入{zone:1442}。{area:460}是部落城镇；北部的{area:467}属于联盟。",
 	-- ["Go back west across the {zone:1413}; the road west from {area:378} climbs into {zone:1412}, tauren country with guards at {area:222} and {zone:1456}."] = "向西穿回{zone:1413}；从{area:378}向西的道路爬升进入{zone:1412}，这是牛头人的地盘，{area:222}和{zone:1456}有卫兵。",

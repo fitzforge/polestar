@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar 導航（卡林多）
 ## Notes-zhTW: Polestar 箭頭使用的卡林多步行地圖，來自 Leffe 的導航地圖。在該大陸上按需載入。
 ## Author: Polestar; walking maps: Leffe's navigation maps
-## Version: 0.3.4
+## Version: 0.4.2.2
 ## Category: Polestar
 ## Group: Polestar
 ## LoadOnDemand: 1
@@ -78,4 +78,67 @@ Nav1_47.lua
 Nav1_48.lua
 Nav1_49.lua
 Nav1_50.lua
-Nav1_51.lua
+Region1_0_0.lua
+Region1_10_10.lua
+Region1_10_6.lua
+Region1_10_7.lua
+Region1_10_8.lua
+Region1_10_9.lua
+Region1_11_10.lua
+Region1_11_6.lua
+Region1_11_7.lua
+Region1_11_8.lua
+Region1_11_9.lua
+Region1_12_10.lua
+Region1_12_6.lua
+Region1_12_7.lua
+Region1_12_8.lua
+Region1_12_9.lua
+Region1_13_10.lua
+Region1_13_6.lua
+Region1_13_7.lua
+Region1_13_8.lua
+Region1_13_9.lua
+Region1_1_0.lua
+Region1_2_10.lua
+Region1_2_6.lua
+Region1_2_7.lua
+Region1_2_8.lua
+Region1_2_9.lua
+Region1_3_10.lua
+Region1_3_6.lua
+Region1_3_7.lua
+Region1_3_8.lua
+Region1_3_9.lua
+Region1_4_10.lua
+Region1_4_11.lua
+Region1_4_7.lua
+Region1_4_8.lua
+Region1_4_9.lua
+Region1_5_10.lua
+Region1_5_11.lua
+Region1_5_7.lua
+Region1_5_8.lua
+Region1_5_9.lua
+Region1_6_10.lua
+Region1_6_11.lua
+Region1_6_6.lua
+Region1_6_7.lua
+Region1_6_8.lua
+Region1_6_9.lua
+Region1_7_10.lua
+Region1_7_11.lua
+Region1_7_6.lua
+Region1_7_7.lua
+Region1_7_8.lua
+Region1_7_9.lua
+Region1_8_10.lua
+Region1_8_6.lua
+Region1_8_7.lua
+Region1_8_8.lua
+Region1_8_9.lua
+Region1_9_10.lua
+Region1_9_6.lua
+Region1_9_7.lua
+Region1_9_8.lua
+Region1_9_9.lua

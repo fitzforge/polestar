@@ -18,8 +18,20 @@ ns.stage = "Beta"
 -- The leveling routes are planned and played in the simulator but not yet
 -- followed through the live game: the welcome (UI/Welcome.lua) says so on
 -- its own page while this is true. The owner turns it off once they have
--- been.
-ns.routesBeta = true
+-- been: off since 0.4.2.1, players have played them.
+ns.routesBeta = false
+-- Dungeons in the leveling routes (`when dungeon` steps, the
+-- behavior.dungeons setting "Dungeons in my route", the per-character answers
+-- in CharState().dungeons): built, held back for a later release. While
+-- false, the engine reads every dungeon as Skip whatever the saved answers
+-- say (Engine's Own.dungeonAnswer: the solo route, step for step), the saved
+-- answers stay as they are, and nothing offers the choice: no Options or
+-- Discovery row, no Install question, no guide window banner (each asks
+-- Engine.DungeonRouteOn, or Engine.GuideDungeons, which then lists none).
+-- The Dungeons hub (its pages, Pick up and Hand in guides, For your level)
+-- is not part of it. Read at call time: a test turns it on with
+-- `Polestar.dungeonRoute = true` before login.
+ns.dungeonRoute = false
 
 -- The pack docs online: the TOC's X-Website (the public repository, added at
 -- publication) plus the path of docs/PACKS.md. nil without that field.
@@ -38,9 +50,9 @@ ns.IssueURL = "https://github.com/fitzforge/polestar/issues/new"
 local pcall, type, pairs, select, tostring = pcall, type, pairs, select, tostring
 
 -- Translations: a key is the English text, and a missing key renders as
--- itself. A locale file loaded right after this one fills L for its client,
--- so nothing in this file reads L at load: the commands with their help
--- lines register in Commands.lua.
+-- itself. The client's language folder fills L when Core/Locale.lua loads
+-- it, so nothing in this file (nor any before Locale.lua) reads L at load:
+-- the commands with their help lines register in Commands.lua.
 local L = setmetatable({}, { __index = function(_, key) return key end })
 ns.L = L
 
@@ -52,26 +64,113 @@ function ns.LC(context, text)
 	return rawget(L, context .. ": " .. text) or text
 end
 
--- An amount of copper as the guide window writes it: "1g 50s", "7s", "25c"
--- (parts that are zero left out; "0c" for none).
+-- A quest's name in running text, in the client's own quote marks ("Turn in
+-- “Your Place in the World”", Havi's suggestion): the translation of
+-- "quote marks: “%s”" (deDE „…“, frFR « … », ruRU «…», zhTW 「…」, ...).
+-- A name that already holds double quotes, guillemets or corner brackets
+-- keeps its own; nil and "" come back as they are.
+local OWN_QUOTES = { '"', "\226\128\156", "\226\128\157", "\226\128\158", "\194\171", "\194\187", "\227\128\140", "\227\128\141", "\227\128\142", "\227\128\143" }
+function ns.Quoted(name)
+	if type(name) ~= "string" or name == "" then return name end
+	for _, q in ipairs(OWN_QUOTES) do
+		if name:find(q, 1, true) then return name end
+	end
+	return ns.LC("quote marks", "\226\128\156%s\226\128\157"):format(name)
+end
+
+-- Numbers as the client writes them in its language: thousands with its own
+-- separator ("34,000", "34.000", "34 000"), decimals with its decimal mark
+-- ("48.8", "48,8"). The client says them: BreakUpLargeNumbers (Forever's
+-- client has it) and LARGE_NUMBER_SEPERATOR / DECIMAL_SEPERATOR (Blizzard's
+-- spelling); a client without them gets its language's own (NUMBER_FORMS:
+-- thousands, decimal mark), English's elsewhere.
+local NUMBER_FORMS = {
+	deDE = { ".", "," }, esES = { ".", "," }, ptBR = { ".", "," }, itIT = { ".", "," },
+	frFR = { "\194\160", "," }, ruRU = { "\194\160", "," },
+}
+local function numberForm()
+	local f = NUMBER_FORMS[GetLocale and GetLocale() or "enUS"]
+	local large = type(LARGE_NUMBER_SEPERATOR) == "string" and LARGE_NUMBER_SEPERATOR or (f and f[1]) or ","
+	local mark = type(DECIMAL_SEPERATOR) == "string" and DECIMAL_SEPERATOR or (f and f[2]) or "."
+	return large, mark
+end
+
+-- n rounded to a whole number, its thousands separated: "34,000".
+function ns.Thousands(n)
+	n = math.floor((tonumber(n) or 0) + 0.5)
+	if type(BreakUpLargeNumbers) == "function" then
+		local ok, s = pcall(BreakUpLargeNumbers, n)
+		if ok and s ~= nil then return tostring(s) end
+	end
+	local sep = numberForm():reverse()
+	local digits = tostring(math.abs(n)):reverse():gsub("(%d%d%d)", function(d) return d .. sep end):reverse()
+	if digits:sub(1, #sep) == sep:reverse() then digits = digits:sub(#sep + 1) end
+	return (n < 0 and "-" or "") .. digits
+end
+
+-- x with `places` decimals (1 by default) and the client's decimal mark: "48.8".
+function ns.Decimal(x, places)
+	local s = string.format("%." .. (places or 1) .. "f", tonumber(x) or 0)
+	local _, mark = numberForm()
+	if mark == "." then return s end
+	return (s:gsub("%.", function() return mark end))
+end
+
+-- The coins' symbols, gold, silver, copper: the client's own
+-- (GOLD_AMOUNT_SYMBOL...; German "G", "S", "K"), else Polestar's translated "g s c".
+local function coin(client, own) return type(client) == "string" and client ~= "" and client or own end
+function ns.CoinSymbols()
+	return coin(GOLD_AMOUNT_SYMBOL, L["g"]), coin(SILVER_AMOUNT_SYMBOL, L["s"]), coin(COPPER_AMOUNT_SYMBOL, L["c"])
+end
+
+-- An amount of copper as the guide window writes it: "1g 50s", "7s", "25c",
+-- "214,748g 36s 47c" (parts that are zero left out; "0c" for none), in the
+-- coins' symbols (ns.CoinSymbols), the gold in thousands.
 function ns.MoneyText(copper)
 	copper = math.floor(copper or 0)
 	local g, s, c = math.floor(copper / 10000), math.floor(copper / 100) % 100, copper % 100
+	local G, S, C = ns.CoinSymbols()
 	local parts = {}
-	if g > 0 then parts[#parts + 1] = g .. "g" end
-	if s > 0 then parts[#parts + 1] = s .. "s" end
-	if c > 0 then parts[#parts + 1] = c .. "c" end
-	return #parts > 0 and table.concat(parts, " ") or "0c"
+	if g > 0 then parts[#parts + 1] = ns.Thousands(g) .. G end
+	if s > 0 then parts[#parts + 1] = s .. S end
+	if c > 0 or #parts == 0 then parts[#parts + 1] = c .. C end
+	return table.concat(parts, " ")
+end
+
+-- s in capitals as the client's languages write them. Lua's upper() knows
+-- ASCII alone ("Jäger" -> "JäGER", "Охотник" stays as it is): the small
+-- letters of Latin-1, Latin Extended-A and Cyrillic, two bytes in UTF-8, are
+-- raised here too (ß and the rest keep their form).
+local function upperChar(a, b)
+	local cp = (a:byte() % 32) * 64 + (b:byte() % 64)
+	local up = cp
+	if (cp >= 0xE0 and cp <= 0xFE and cp ~= 0xF7) or (cp >= 0x430 and cp <= 0x44F) then
+		up = cp - 0x20
+	elseif cp == 0xFF then
+		up = 0x178
+	elseif cp >= 0x450 and cp <= 0x45F then
+		up = cp - 0x50
+	elseif (cp >= 0x100 and cp <= 0x137) or (cp >= 0x14A and cp <= 0x177) then
+		if cp % 2 == 1 then up = cp - 1 end
+	elseif (cp >= 0x139 and cp <= 0x148) or (cp >= 0x179 and cp <= 0x17E) then
+		if cp % 2 == 0 then up = cp - 1 end
+	end
+	if up == cp then return a .. b end
+	return string.char(0xC0 + math.floor(up / 64), 0x80 + up % 64)
+end
+function ns.Upper(s)
+	return (tostring(s or ""):upper():gsub("([\192-\223])([\128-\191])", upperChar))
 end
 
 -- The interface's translations made with AI (tools/lib/i18n/locales.js,
 -- status "ai"; tests/i18n.test.js keeps the two lists equal).
 ns.AI_LOCALES = { koKR = true, ptBR = true, ruRU = true, zhCN = true, zhTW = true }
 
--- True when this client reads an AI-made translation: its locale is one of
--- AI_LOCALES and its file filled L. Options' About then says so.
+-- True when Polestar shows an AI-made translation: the language it shows
+-- (Polestar.Names.Language) is one of AI_LOCALES and its file filled L.
+-- Options' About then says so.
 function ns.AITranslation()
-	return (GetLocale and ns.AI_LOCALES[GetLocale()] == true and next(L) ~= nil) or false
+	return (ns.AI_LOCALES[ns.Names.Language()] == true and next(L) ~= nil) or false
 end
 
 -- Game terms in the client's own words, so they read as the game writes them
@@ -120,11 +219,23 @@ function ns.FormatDistance(yards, opts)
 	if ns.Get("nav.distanceUnit") == "metres" then
 		local m = yards * YARD_METRES
 		local n = math.floor(m / round + 0.5) * round
-		if n >= 1000 then return L["%.1f km"]:format(m / 1000) end
+		if n >= 1000 then return L["%s km"]:format(ns.Decimal(m / 1000, 1)) end
 		return L["%d m"]:format(n)
 	end
-	if opts and opts.compact and yards >= 1000 then return L["%.1fk yd"]:format(yards / 1000) end
+	if opts and opts.compact and yards >= 1000 then return L["%sk yd"]:format(ns.Decimal(yards / 1000, 1)) end
 	return L["%d yd"]:format(math.floor(yards / round + 0.5) * round)
+end
+
+-- True when the character has the riding skill, so an overland leg reads
+-- "Ride to ..." instead of "Walk to ..." (Nav/Travel.lua, the Engine's arrow,
+-- the journey panel). Checked when a route's captions are made, not whether
+-- the player is mounted now; false while the skills are not known yet.
+-- 762: Compat.SKILL_LINES' riding, the line QoL/Riding.lua reads too.
+local RIDING = 762
+function ns.CanRide()
+	local C = ns.Compat
+	local rank = C and C.GetSkillRank and C.GetSkillRank(RIDING)
+	return type(rank) == "number" and rank > 0
 end
 
 -- The rolling debug log: the last DEBUG_LINES lines Polestar noted (ns.Debug,
@@ -175,18 +286,74 @@ function ns.Errors() return errors end
 -- function), for the report: taint is no Lua error, so without these a
 -- report on a broken gamepad or button reads "Errors: none". The last few,
 -- oldest first, each with the Polestar addon blamed, how often and when it
--- last came.
+-- last came. Only our own addons count: another author's "Polestar_..."
+-- folder (Polestar_Mob_Markers, #1123) is not ours. `where` is the first line
+-- of our code under the blocked call (the event fires inside it), since the
+-- game names a namespaced or anonymous frame's function only "UNKNOWN()".
+-- With none of ours under it, the game's own code made the call, tainted by
+-- ours earlier: `where` is then "via <function> <the game's file:line>", the
+-- blocked function and the line of the game's code that called it.
 local MAX_BLOCKED = 5
 local blocked = {}
+local function ownAddon(addon)
+	if addon == ADDON then return true end
+	if not addon:find("^Polestar_") then return false end
+	local get = C_AddOns and C_AddOns.GetAddOnMetadata
+	local author = get and get(addon, "Author")
+	return type(author) == "string" and (author == "Polestar" or author:find("^Polestar;") ~= nil)
+end
+ns.OwnAddon = ownAddon
+-- The first line of Polestar's own code in a debugstack() text, as its path
+-- from the AddOns folder and its line ("Polestar/Core/Engine.lua:812"),
+-- past the files in `skip` (path -> true); nil with none of ours.
+function ns.OurSite(stack, skip)
+	for path, line in stack:gmatch("AddOns[/\\](Polestar[%w_]*[/\\][^:\"%]\n]-%.lua)\"?%]?:(%d+)") do
+		local rel = path:gsub("\\", "/")
+		if not skip[rel] then return rel .. ":" .. line end
+	end
+	return nil
+end
+-- Where a callback that runs through a shared function was made
+-- ("Polestar/QoL/Buttons.lua:3580"), for the perf probe's report, which
+-- could not tell such callbacks apart (QoL.Coalesce's): noted once each, as
+-- it is made, past Init.lua and the file `from` that makes it for others.
+local madeAt = setmetatable({}, { __mode = "k" })
+function ns.NoteMadeAt(fn, from)
+	if type(debugstack) == "function" then
+		madeAt[fn] = ns.OurSite(debugstack(2, 8, 0) or "", { [ADDON .. "/Core/Init.lua"] = true, [from] = true })
+	end
+	return fn
+end
+function ns.MadeAt(fn) return madeAt[fn] end
+-- This handler and the event dispatch in this file.
+local SKIP_INIT = { [ADDON .. "/Core/Init.lua"] = true }
+local function blockedSite()
+	if type(debugstack) ~= "function" then return nil end
+	local stack = debugstack(2, 40, 0) or ""
+	local site = ns.OurSite(stack, SKIP_INIT)
+	if site then return site end
+	-- The C function nearest above the game's first line is the blocked one.
+	local fn
+	for l in stack:gmatch("[^\n]+") do
+		fn = l:match("^%[C%]: in function [`']([^`']+)'") or fn
+		local path, line = l:match("Interface[/\\]([^:\"%]\n]-%.lua)\"?%]?:(%d+)")
+		if path then
+			path = path:gsub("\\", "/"):gsub("^AddOns/", "")
+			if not path:find("^Polestar") then return "via " .. (fn and (fn .. " ") or "") .. path .. ":" .. line end
+		end
+	end
+	return nil
+end
 function ns.NoteBlocked(addon, fn)
-	if type(addon) ~= "string" or not (addon == ADDON or addon:find("^Polestar_")) then return end
+	if type(addon) ~= "string" or not ownAddon(addon) then return end
 	fn = tostring(fn or "?")
+	local where = blockedSite()
 	local at = date("%H:%M:%S")
-	ns.Log("blocked: " .. addon .. " " .. fn)
+	ns.Log("blocked: " .. addon .. " " .. fn .. (where and (" at " .. where) or ""))
 	seq = seq + 1
 	for i = 1, #blocked do
 		local e = blocked[i]
-		if e.addon == addon and e.fn == fn then
+		if e.addon == addon and e.fn == fn and e.where == where then
 			table.remove(blocked, i)
 			e.count, e.at, e.seq = e.count + 1, at, seq
 			blocked[#blocked + 1] = e
@@ -194,7 +361,7 @@ function ns.NoteBlocked(addon, fn)
 		end
 	end
 	if #blocked >= MAX_BLOCKED then table.remove(blocked, 1) end
-	blocked[#blocked + 1] = { addon = addon, fn = fn, count = 1, at = at, seq = seq }
+	blocked[#blocked + 1] = { addon = addon, fn = fn, where = where, count = 1, at = at, seq = seq }
 end
 function ns.Blocked() return blocked end
 
@@ -212,6 +379,16 @@ local function raise(err)
 	geterrorhandler()(err)
 end
 
+-- Moments: one more for each timer, script or game event Polestar handles
+-- (ns.Safe, the event frame), each message it sends (ns.Fire) and each
+-- change the Engine is asked to weigh (Engine.RequestUpdate). Between two
+-- reads of ns.Moment() that give the same number in the same frame, nothing
+-- Polestar knows of has changed: Engine.GetStepView(i, true) shares one view
+-- among the readers of such a moment.
+local serial = 0
+function ns.Moment() return serial end
+function ns.NewMoment() serial = serial + 1 end
+
 -- Run a callback; report its error without stopping the caller's loop.
 local function call(fn, ...)
 	local ok, err = pcall(fn, ...)
@@ -221,19 +398,43 @@ local function call(fn, ...)
 	end
 end
 ns.SafeCall = call
+-- What ns.Safe's callbacks run their function through: `call`, or the perf
+-- probe's timing while /polestar perf is on (ns.SetProbe).
+local run = call
 
 -- fn wrapped so its errors are caught, noted and passed on like an event
 -- handler's (nil stays nil): for OnUpdate scripts and timer callbacks, which
 -- the client would otherwise run bare.
+-- Until login is done, and for every ticker and timer, where fn was made is
+-- noted for the perf probe (ns.NoteMadeAt): the OnUpdate scripts and tickers
+-- made as the addon loads run for the whole session, and the probe, turned on
+-- later, could not name them ("timer ?" in a report, #3640). Once logged in a
+-- plain ns.Safe/ns.After (made often, gone soon) notes nothing; the probe
+-- notes those itself while it is on.
+local noteMaking = true
+local INIT = ADDON .. "/Core/Init.lua"
+local function noteMade(fn)
+	if madeAt[fn] == nil then ns.NoteMadeAt(fn, INIT) end
+end
 function ns.Safe(fn)
 	if fn == nil then return nil end
-	return function(...) call(fn, ...) end
+	if noteMaking then noteMade(fn) end
+	return function(...)
+		serial = serial + 1
+		run(fn, ...)
+	end
 end
 
 -- C_Timer's After, NewTicker and NewTimer with the callback through ns.Safe.
 function ns.After(seconds, fn) return C_Timer.After(seconds, ns.Safe(fn)) end
-function ns.NewTicker(seconds, fn, n) return C_Timer.NewTicker(seconds, ns.Safe(fn), n) end
-function ns.NewTimer(seconds, fn) return C_Timer.NewTimer(seconds, ns.Safe(fn)) end
+function ns.NewTicker(seconds, fn, n)
+	if fn ~= nil then noteMade(fn) end
+	return C_Timer.NewTicker(seconds, ns.Safe(fn), n)
+end
+function ns.NewTimer(seconds, fn)
+	if fn ~= nil then noteMade(fn) end
+	return C_Timer.NewTimer(seconds, ns.Safe(fn))
+end
 
 -- A frame of Polestar's that goes under the game's own UI (the world map's
 -- canvas, the minimap, a quest reward or talent button): made with no parent,
@@ -276,12 +477,234 @@ end
 local gamepadUI = readGamepadUI()
 function ns.GamepadUI() return gamepadUI end
 
+---------------------------------------------------------------------------
+-- Hiding Polestar (docs/ARCHITECTURE.md, "Hiding Polestar"): one switch per
+-- character (the minimap button's click, the addon compartment, the
+-- POLESTAR_HIDE binding, /polestar hide), kept through a /reload in
+-- PolestarCharDB.hidden. While it holds nothing of Polestar shows and its
+-- sounds are silent; the engine, party sync and the Recorder run on. With
+-- "Keep the arrow when hidden" (PolestarCharDB.hideKeepsArrow) the arrow,
+-- its travel button and its arrival chime stay (Polestar.ArrowHidden).
+--
+-- Polestar's frames on UIParent hang off one layer of its own,
+-- Polestar.UIParent (PolestarUIParent: the screen's size, at UIParent's
+-- frame level), made with it as their parent and anchored to UIParent as
+-- before. Hiding is the layer's Hide(): each window, card and toast keeps
+-- its own shown state and comes back as it was, and their OnUpdate scripts
+-- stop. Not under it: the secure buttons (a protected child would make the
+-- layer protected in a fight; each goes with ns.GuideShown, changed out of
+-- combat), the arrow (hiding may keep it), and the ways back (the minimap
+-- and floating buttons, the menu they open). The maps' frames hide with
+-- their view (Nav/MapCanvas.lua); the minimap's drawings, the marks on the
+-- game's frames and the tooltip lines ask Polestar.Hidden() and redraw on
+-- POLESTAR_HIDDEN.
+---------------------------------------------------------------------------
+
+local layer = CreateFrame("Frame", "PolestarUIParent", UIParent)
+layer:SetAllPoints(UIParent)
+layer:SetFrameLevel(UIParent:GetFrameLevel())
+ns.UIParent = layer
+
+local hidden, keepArrow = false, false
+
+function ns.Hidden() return hidden end
+function ns.HideKeepsArrow() return keepArrow end
+-- Whether hiding takes the arrow now (its travel button and arrival chime with it).
+function ns.ArrowHidden() return hidden and not keepArrow end
+
+local function underLayer(f)
+	while f do
+		if f == layer then return true end
+		f = f.GetParent and f:GetParent()
+	end
+	return false
+end
+
 -- A Polestar window that Escape closes: listed in UISpecialFrames, which
 -- the gamepad interface's menus also read and close, so not with it on
--- (the window's own close button, and B where it takes the gamepad).
+-- (the window's own close button, and B where it takes the gamepad). While
+-- Polestar is hidden, the windows under its layer leave the list: the
+-- client's CloseSpecialWindows hides a listed window that IsShown, seen or
+-- not, so Escape would close one out of sight instead of opening the menu.
+local escapes, escapeOut = {}, {}
 function ns.CloseOnEscape(name)
 	if gamepadUI or not (UISpecialFrames and name) then return end
+	escapes[name] = true
+	if hidden and underLayer(_G[name]) then
+		escapeOut[name] = true
+		return
+	end
 	tinsert(UISpecialFrames, name)
+end
+
+local function applyLayer()
+	layer:SetShown(not hidden)
+	local list = not gamepadUI and UISpecialFrames
+	if not list then return end
+	if hidden then
+		for i = #list, 1, -1 do
+			local name = list[i]
+			if escapes[name] and underLayer(_G[name]) then
+				table.remove(list, i)
+				escapeOut[name] = true
+			end
+		end
+	else
+		for name in pairs(escapeOut) do
+			tinsert(list, name)
+			escapeOut[name] = nil
+		end
+	end
+end
+
+-- Hide (true) or show everything Polestar shows. POLESTAR_HIDDEN(hidden)
+-- says it changed, GUIDE_SHOWN what goes with the guide (ns.GuideShown).
+function ns.SetHidden(on)
+	on = on and true or false
+	if on == hidden then return end
+	local guide = ns.GuideShown()
+	hidden = on
+	ns.CharState().hidden = on or nil
+	applyLayer()
+	ns.Fire("POLESTAR_HIDDEN", on)
+	if ns.GuideShown() ~= guide then ns.Fire("GUIDE_SHOWN", not guide) end
+end
+
+function ns.ToggleHidden() ns.SetHidden(not hidden) end
+
+-- "Keep the arrow when hidden": while hidden, takes effect at once.
+function ns.SetHideKeepsArrow(on)
+	on = on and true or false
+	if on == keepArrow then return end
+	keepArrow = on
+	ns.CharState().hideKeepsArrow = on or nil
+	if hidden then ns.Fire("POLESTAR_HIDDEN", true) end
+end
+
+-- The character's saved state, as the addon loads (ADDON_LOADED).
+local function loadHidden()
+	local s = ns.CharState()
+	hidden, keepArrow = s.hidden == true, s.hideKeepsArrow == true
+	if hidden then applyLayer() end
+end
+
+-- Polestar's sounds, each tied to something it shows, go through these:
+-- silent while Polestar is hidden, an `arrow` sound (the arrival chime)
+-- while hiding takes the arrow. -> the client's answer, false when silent
+function ns.PlaySound(kit, channel, arrow)
+	if not PlaySound or (arrow and ns.ArrowHidden()) or (not arrow and hidden) then return false end
+	return PlaySound(kit, channel)
+end
+
+function ns.PlaySoundFile(file, channel, arrow)
+	if not PlaySoundFile or (arrow and ns.ArrowHidden()) or (not arrow and hidden) then return false end
+	return PlaySoundFile(file, channel)
+end
+
+---------------------------------------------------------------------------
+-- Pause (docs/ARCHITECTURE.md, "Pause"): one switch per character, apart
+-- from hiding, that makes the guide step aside on the way to a dungeon and
+-- inside it, and resumes by itself once the player is back out alive. It
+-- pauses what Polestar shows and steers with, not the Engine, which keeps
+-- following the quest log. While paused, the arrow drops the Engine's own
+-- waypoint (Nav.lua's apply; a hold and points the player picks still
+-- show), the guide window and what goes with it (ns.GuideShown) go, and so
+-- do the window's nudges (the while-here toast and chime). With pause.map
+-- the step's map pins go too, with pause.automation the quest automation
+-- and the flight master's map and flight wait. It never writes ui.shown,
+-- nav.arrow, hidden or a behavior.* setting, so resuming restores
+-- everything by itself, and it leaves hiding as it is (and hiding leaves it).
+--
+-- PolestarCharDB.pause = { state = "armed" | "inside", at, map }: "armed"
+-- paused outside (at: ns.Now() then), "inside" in a dungeon, raid,
+-- battleground or arena (map: its instance map id, when the client gives
+-- it); nil not paused. Core/Pause.lua watches the way in and out and
+-- resumes, and ends an armed pause two hours after `at` wherever the player
+-- is (a timer); POLESTAR_PAUSED(state | nil, why) says it changed.
+---------------------------------------------------------------------------
+
+-- Instances that count, as the guide window's instance rule has them.
+local DUNGEON_KINDS = { party = true, raid = true, pvp = true, arena = true }
+local pauseState -- the saved table while paused, else nil
+
+function ns.Paused() return pauseState and pauseState.state or nil end
+
+-- Whether the pause takes `part` now: "arrow" (the Engine's waypoint and
+-- everything keyed off it), "window" (the guide window and ns.GuideShown),
+-- "nagging" (the while-here toast and chime) while paused; "map" (the
+-- step's pins) and "automation" (quest accept and turn-in, the reward pick,
+-- the flight master's map and flight) only with their setting on as well.
+function ns.PauseHides(part)
+	if not pauseState then return false end
+	if part == "arrow" or part == "window" or part == "nagging" then return true end
+	if part == "map" or part == "automation" then return ns.Get("pause." .. part) and true or false end
+	return false
+end
+
+-- -> true, instance map id (or nil) inside an instance that counts; false outside.
+function ns.PauseInside()
+	local C = ns.Compat
+	if not (C and C.IsInInstance) then return false end
+	local ok, inside, kind = pcall(C.IsInInstance)
+	if not (ok and inside and DUNGEON_KINDS[kind]) then return false end
+	local map
+	if C.GetInstanceMapID then
+		local okMap, id = pcall(C.GetInstanceMapID)
+		if okMap and type(id) == "number" then map = id end
+	end
+	return true, map
+end
+
+-- The pause's clock, for Core/Pause.lua too: Compat.Now() (server seconds),
+-- time() when the Compat in place has no Now (the test harnesses' stand-ins).
+function ns.Now()
+	local C = ns.Compat
+	local n = C and C.Now and C.Now()
+	if type(n) ~= "number" then n = time and time() or 0 end
+	return n
+end
+
+-- Pause (true) or resume. Paused inside an instance that counts it is
+-- "inside" there, elsewhere "armed" (an armed pause keeps the time it was
+-- armed). Paused again as it is, nothing changes; "armed" to "inside", or into another
+-- instance, fires POLESTAR_PAUSED again. `why`: what paused or resumed it
+-- ("hand", "entered", "left", "expired", "window"), passed on with
+-- POLESTAR_PAUSED for Core/Pause.lua's chat lines.
+function ns.SetPaused(on, why)
+	local new
+	if on then
+		local inside, map = ns.PauseInside()
+		if inside then
+			new = { state = "inside", map = map, at = pauseState and pauseState.at or ns.Now() }
+		elseif pauseState then
+			new = pauseState -- outside while paused: as it is ("inside" ends only through the watcher, by `on` false)
+		else
+			new = { state = "armed", at = ns.Now() }
+		end
+		if pauseState and new.state == pauseState.state and new.map == pauseState.map then return end
+	else
+		if not pauseState then return end
+	end
+	local guide = ns.GuideShown()
+	pauseState = new
+	ns.CharState().pause = new
+	ns.Fire("POLESTAR_PAUSED", new and new.state or nil, why)
+	if ns.GuideShown() ~= guide then ns.Fire("GUIDE_SHOWN", not guide) end
+end
+
+function ns.TogglePaused(why) ns.SetPaused(not pauseState, why or "hand") end
+
+-- The character's saved state, as the addon loads (ADDON_LOADED). It fires
+-- no POLESTAR_PAUSED: Core/Pause.lua times a loaded armed pause from ns.OnInit.
+local function loadPause()
+	local s = ns.CharState().pause
+	if type(s) == "table" and (s.state == "armed" or s.state == "inside") then
+		if type(s.at) ~= "number" then s.at = ns.Now() end
+		pauseState = s
+	else
+		pauseState = nil
+		ns.CharState().pause = nil
+	end
 end
 
 local function compact(list)
@@ -325,14 +748,7 @@ function ns.Off(h)
 	end
 end
 
-function ns.Fire(msg, ...)
-	local list = listeners[msg]
-	if not list then return end
-	busDepth = busDepth + 1
-	for i = 1, #list do
-		local h = list[i]
-		if h.live then call(h.fn, ...) end
-	end
+local function busDone()
 	busDepth = busDepth - 1
 	if busDepth == 0 and busDirty then
 		busDirty = false
@@ -340,35 +756,100 @@ function ns.Fire(msg, ...)
 	end
 end
 
+function ns.Fire(msg, ...)
+	serial = serial + 1
+	local list = listeners[msg]
+	if not list then return end
+	busDepth = busDepth + 1
+	for i = 1, #list do
+		local h = list[i]
+		if h.live then call(h.fn, ...) end
+	end
+	busDone()
+end
+
+-- Whether a message is being handed out now (one of its handlers runs):
+-- Polestar.API refuses calls made from there (docs/API.md).
+function ns.Dispatching() return busDepth > 0 end
+
 ---------------------------------------------------------------------------
--- Game events, all through one hidden frame.
+-- Game events, all through one hidden frame, and one more per unit that a
+-- unit event is asked for alone (RegisterUnitEvent): the client sends
+-- UNIT_AURA and UNIT_SPELLCAST_SUCCEEDED for every nameplate in a fight,
+-- dozens a second, and each one Polestar hears is a new moment (the
+-- per-moment memos start over) for handlers that only want the player's.
 ---------------------------------------------------------------------------
 
-local eventFrame = CreateFrame("Frame")
-local gameHandlers = {} -- event -> { { fn, live }, ... }
+local buses = {} -- unit or "" -> { frame, handlers = { event -> { { fn, live }, ... } } }
 local eventDepth, eventsDirty = 0, false
 
-local function settle(event)
-	local list = gameHandlers[event]
+local function settle(bus, event)
+	local list = bus.handlers[event]
 	if not list then return end
 	compact(list)
 	if #list == 0 then
-		gameHandlers[event] = nil
-		eventFrame:UnregisterEvent(event)
+		bus.handlers[event] = nil
+		bus.frame:UnregisterEvent(event)
 	end
 end
 
+-- Each game event's handler runs through eventRun: `call`, or the perf
+-- probe's timing while /polestar perf is on (ns.SetProbe).
+local eventRun = call
+
+local function dispatch(bus, event, ...)
+	serial = serial + 1
+	local list = bus.handlers[event]
+	if not list then return end
+	eventDepth = eventDepth + 1
+	for i = 1, #list do
+		local h = list[i]
+		if h.live then eventRun(h.fn, event, ...) end
+	end
+	eventDepth = eventDepth - 1
+	if eventDepth == 0 and eventsDirty then
+		eventsDirty = false
+		for _, b in pairs(buses) do
+			local events = {}
+			for ev in pairs(b.handlers) do events[#events + 1] = ev end
+			for i = 1, #events do settle(b, events[i]) end
+		end
+	end
+end
+
+local function busOf(unit)
+	local key = unit or ""
+	local bus = buses[key]
+	if not bus then
+		bus = { frame = CreateFrame("Frame"), handlers = {}, unit = unit }
+		bus.frame:SetScript("OnEvent", function(_, event, ...) dispatch(bus, event, ...) end)
+		buses[key] = bus
+	end
+	return bus
+end
+busOf(nil)
+
 -- Returns false for an event this client does not know (modern clients throw
 -- on RegisterEvent for unknown names; Forever is not Era or Retail).
-function ns.RegisterEvent(event, fn)
-	local list = gameHandlers[event]
+-- unit: only that unit's (a unit event, e.g. "player"); fn still checks its
+-- unit where a client without RegisterUnitEvent sends every unit's.
+function ns.RegisterEvent(event, fn, unit)
+	local bus = busOf(unit)
+	local list = bus.handlers[event]
 	if not list then
-		if not pcall(eventFrame.RegisterEvent, eventFrame, event) then
+		local f = bus.frame
+		local ok
+		if unit and f.RegisterUnitEvent then
+			ok = pcall(f.RegisterUnitEvent, f, event, unit)
+		else
+			ok = pcall(f.RegisterEvent, f, event)
+		end
+		if not ok then
 			if ns.Debug then ns.Debug("unknown event", event) end
 			return false
 		end
 		list = {}
-		gameHandlers[event] = list
+		bus.handlers[event] = list
 	end
 	for i = 1, #list do
 		if list[i].fn == fn and list[i].live then return true end
@@ -377,8 +858,9 @@ function ns.RegisterEvent(event, fn)
 	return true
 end
 
-function ns.UnregisterEvent(event, fn)
-	local list = gameHandlers[event]
+function ns.UnregisterEvent(event, fn, unit)
+	local bus = buses[unit or ""]
+	local list = bus and bus.handlers[event]
 	if not list then return end
 	for i = 1, #list do
 		if list[i].fn == fn then list[i].live = false end
@@ -386,26 +868,75 @@ function ns.UnregisterEvent(event, fn)
 	if eventDepth > 0 then
 		eventsDirty = true
 	else
-		settle(event)
+		settle(bus, event)
 	end
 end
 
-eventFrame:SetScript("OnEvent", function(_, event, ...)
-	local list = gameHandlers[event]
+---------------------------------------------------------------------------
+-- The perf probe's way in (Core/Perf.lua, /polestar perf). Off, none of it
+-- runs: game events' handlers, ns.Safe's callbacks and ns.SafeCall run
+-- `call`, and ns.Fire is the plain one. ns.SetProbe(timed) hands every
+-- handler Polestar runs to timed(fn, kind, where, ...), which runs
+-- call(fn, ...) and times it: a game event's on any bus (kind PROBE.EVENT,
+-- where the event), a message's (PROBE.MESSAGE, the message), an OnUpdate
+-- script's or timer's made with ns.Safe (PROBE.SAFE) and ns.SafeCall's
+-- (PROBE.CALL), the last two with where nil. ns.SetProbe(nil) puts the plain
+-- ones back.
+---------------------------------------------------------------------------
+
+ns.PROBE = { EVENT = 1, MESSAGE = 2, SAFE = 3, CALL = 4 }
+local probe
+local plainFire = ns.Fire
+
+local function probedEvent(fn, event, ...) probe(fn, 1, event, event, ...) end
+
+local function probedFire(msg, ...)
+	serial = serial + 1
+	local list = listeners[msg]
 	if not list then return end
-	eventDepth = eventDepth + 1
+	busDepth = busDepth + 1
 	for i = 1, #list do
 		local h = list[i]
-		if h.live then call(h.fn, event, ...) end
+		if h.live then probe(h.fn, 2, msg, ...) end
 	end
-	eventDepth = eventDepth - 1
-	if eventDepth == 0 and eventsDirty then
-		eventsDirty = false
-		local events = {}
-		for ev in pairs(gameHandlers) do events[#events + 1] = ev end
-		for i = 1, #events do settle(events[i]) end
+	busDone()
+end
+
+local function probedSafe(fn, ...) probe(fn, 3, nil, ...) end
+local function probedCall(fn, ...) probe(fn, 4, nil, ...) end
+
+function ns.SetProbe(timed)
+	probe = timed
+	eventRun = timed and probedEvent or call
+	ns.Fire = timed and probedFire or plainFire
+	ns.SafeCall = timed and probedCall or call
+	run = timed and probedSafe or call
+end
+
+-- For the probe's labels: where fn stands among the live handlers of an
+-- event (kind PROBE.EVENT, over every bus) or a message (PROBE.MESSAGE), and
+-- how many there are: 3, 14 for the third of 14; nil when it is not one of
+-- them.
+local function place(list, fn, n, at)
+	for i = 1, #(list or {}) do
+		local h = list[i]
+		if h.live then
+			n = n + 1
+			if h.fn == fn and not at then at = n end
+		end
 	end
-end)
+	return n, at
+end
+function ns.HandlerPlace(kind, where, fn)
+	local n, at = 0, nil
+	if kind == 1 then
+		for _, b in pairs(buses) do n, at = place(b.handlers[where], fn, n, at) end
+	else
+		n, at = place(listeners[where], fn, n, at)
+	end
+	if at then return at, n end
+	return nil
+end
 
 ---------------------------------------------------------------------------
 -- Settings. Values equal to their default are not stored, so a changed
@@ -425,7 +956,15 @@ local function keysOf(path)
 	return keys
 end
 
+-- (A path of one or two keys, nearly every setting read, skips the loop.)
 local function lookup(root, keys)
+	local k1, k2 = keys[1], keys[2]
+	if k1 ~= nil and keys[3] == nil and type(root) == "table" then
+		local node = root[k1]
+		if k2 == nil then return node end
+		if type(node) ~= "table" then return nil end
+		return node[k2]
+	end
 	local node = root
 	for i = 1, #keys do
 		if type(node) ~= "table" then return nil end
@@ -434,13 +973,25 @@ local function lookup(root, keys)
 	return node
 end
 
+-- The table DB() made when there was none: before the saved variables load
+-- (a file reading a setting as it loads), the client replaces it with the
+-- saved one if there is one, so still holding it at ADDON_LOADED means a
+-- fresh install.
+local madeDB
+-- The table DB()'s checks last passed: only the saved variables replace PolestarDB, and its settings are only ever
+-- set to a table (a profile switched to or copied in).
+local checkedDB
+
 local function DB()
 	local db = PolestarDB
+	if db ~= nil and db == checkedDB then return db end
 	if type(db) ~= "table" then
 		db = { schema = 1 }
 		PolestarDB = db
+		madeDB = db
 	end
 	if type(db.settings) ~= "table" then db.settings = {} end
+	checkedDB = db
 	return db
 end
 ns.DB = DB
@@ -454,18 +1005,65 @@ function ns.RegisterDefaults(section, tbl)
 	for k, v in pairs(tbl) do d[k] = v end
 end
 
+-- The layout in use's defaults (Theme.RegisterLayout's spec.defaults, set
+-- by Theme/SkinApi.lua): "guideWindow.tabs" -> value. A setting reads the
+-- player's saved value, else the layout's default, else Polestar's.
+local layered = {}
+local function defaultOf(path, keys)
+	local v = layered[path]
+	if v == nil then v = lookup(defaults, keys) end
+	return v
+end
+
 -- Values are shared, not copied: treat returned tables as read-only and Set a
 -- new table to change one.
 function ns.Get(path)
 	local keys = keysOf(path)
 	local v = lookup(DB().settings, keys)
-	if v == nil then v = lookup(defaults, keys) end
+	if v == nil then v = defaultOf(path, keys) end
 	return v
 end
 
+-- The default a setting goes back to on reset: the layout's, else Polestar's.
 function ns.GetDefault(path)
+	return defaultOf(path, keysOf(path))
+end
+
+-- Polestar's own default, whatever the layout.
+function ns.GetBaseDefault(path)
 	return lookup(defaults, keysOf(path))
 end
+
+-- The value a setting holds itself, nil while it is at its default (what
+-- Set(path, value) puts back exactly: undo, a frame's place before a move).
+function ns.GetStored(path)
+	return lookup(DB().settings, keysOf(path))
+end
+
+-- Put the layout's defaults in place (t: path -> value, or nil for none).
+function ns.SetLayoutDefaults(t)
+	layered = {}
+	for p, v in pairs(t or {}) do layered[p] = v end
+end
+
+---------------------------------------------------------------------------
+-- Live changes. A control the player drags (a slider's thumb, the colour
+-- picker's wheel) writes each value it passes through ns.Live(write): the
+-- setting is stored and SETTING_CHANGED fires as for any change, but while
+-- ns.SettingLive() reads true a listener may do only what shows the value
+-- (a repaint) and leave the rest (layouts, marks, redraws) for the settle.
+-- ns.SettleLive(), which the control calls when the drag ends, fires
+-- SETTING_CHANGED once more, as a plain change, for each setting written
+-- live since, so every listener ends where one plain change leaves it. A
+-- drag that never says it ended (the colour picker's wheel) settles by
+-- itself SETTLE seconds after its last value.
+---------------------------------------------------------------------------
+
+local SETTLE = 0.25
+local liveDepth, liveAt, settleQueued = 0, 0, false
+local livePaths, liveOrder = {}, {}
+-- Settings written together (ns.Batch): the paths written, in order.
+local batched = { depth = 0, paths = {}, seen = {} }
 
 function ns.Set(path, value)
 	local keys = keysOf(path)
@@ -475,9 +1073,86 @@ function ns.Set(path, value)
 		if type(node[k]) ~= "table" then node[k] = {} end
 		node = node[k]
 	end
-	if value == lookup(defaults, keys) then value = nil end
+	if value == defaultOf(path, keys) then value = nil end
 	node[keys[#keys]] = value
+	if liveDepth > 0 then
+		if not livePaths[path] then
+			livePaths[path] = true
+			liveOrder[#liveOrder + 1] = path
+		end
+	elseif livePaths[path] then
+		-- Written plainly after live writes (the colour picker's Cancel): this
+		-- change's own message announces the value, so its settle has nothing
+		-- left to tell (no second full refresh for the same value).
+		livePaths[path] = nil
+		for i = #liveOrder, 1, -1 do
+			if liveOrder[i] == path then table.remove(liveOrder, i) end
+		end
+	end
+	if batched.depth > 0 then
+		if not batched.seen[path] then
+			batched.seen[path] = true
+			batched.paths[#batched.paths + 1] = path
+		end
+		return
+	end
 	ns.Fire("SETTING_CHANGED", path, ns.Get(path))
+end
+
+-- fn(...) writing many settings at once (a page or a section put back to its
+-- defaults, their undo, a preset): each is written as fn sets it, and the
+-- listeners are told once at the end: the one setting's path when only one
+-- was written, else "" (every setting may have changed, as when a profile
+-- is switched), so the look, the window's rows and its preview are worked
+-- out again once, not once per setting.
+function ns.Batch(fn, ...)
+	batched.depth = batched.depth + 1
+	local ok, err = pcall(fn, ...)
+	batched.depth = batched.depth - 1
+	if batched.depth == 0 and #batched.paths > 0 then
+		local list = batched.paths
+		batched.paths, batched.seen = {}, {}
+		if #list == 1 then
+			ns.Fire("SETTING_CHANGED", list[1], ns.Get(list[1]))
+		else
+			ns.Fire("SETTING_CHANGED", "", nil)
+		end
+	end
+	if not ok then error(err, 0) end
+end
+
+function ns.SettingLive() return liveDepth > 0 end
+
+function ns.SettleLive()
+	if #liveOrder == 0 then return end
+	local list = liveOrder
+	livePaths, liveOrder = {}, {}
+	for i = 1, #list do ns.Fire("SETTING_CHANGED", list[i], ns.Get(list[i])) end
+end
+
+local function settleIdle()
+	settleQueued = false
+	if #liveOrder == 0 then return end
+	local wait = liveAt + SETTLE - GetTime()
+	if wait > 0.01 then
+		settleQueued = true
+		ns.After(wait, settleIdle)
+	else
+		ns.SettleLive()
+	end
+end
+
+-- fn(...) with what it sets written live.
+function ns.Live(fn, ...)
+	liveDepth = liveDepth + 1
+	local ok, err = pcall(fn, ...)
+	liveDepth = liveDepth - 1
+	liveAt = GetTime()
+	if #liveOrder > 0 and not settleQueued then
+		settleQueued = true
+		ns.After(SETTLE, settleIdle)
+	end
+	if not ok then error(err, 0) end
 end
 
 -- The arrow, the action buttons and the timers: with ui.lockHud on, a drag
@@ -486,12 +1161,148 @@ function ns.DragLocked()
 	return ns.Get("ui.lockHud") and not ns.Compat.IsShiftKeyDown() and true or false
 end
 
+-- ns.DragWindow(handle, frame, opts): the left button held on `handle` moves
+-- `frame` with the pointer from the first pixel it travels, as the hand
+-- moves it: no drag threshold to cross first (the client's drag start, then
+-- StartMoving, left the window still for a few pixels and then made it leap
+-- to catch up; on a scaled frame StartMoving also dropped it off the
+-- pointer), and a press that does not move it leaves it exactly where it
+-- was (no anchor rewritten, nothing re-snapped). While it moves, the window
+-- hangs by its top-left corner off UIParent's bottom-left, moved by exactly
+-- the pointer's travel, kept on screen while it is clamped there; the
+-- frame's scale and the UI scale are both counted, so the window keeps its
+-- place under the pointer at any scale. The move runs on a driver frame of
+-- its own, so the window's and the handle's OnUpdate scripts stay theirs.
+-- Every Polestar window and the HUD's frames (the arrow, the floating
+-- button, the timers, the rare alert; the action buttons through
+-- ns.StartDrag) move this way. opts: locked() (true: the press does
+-- nothing; the guide window's lock, ns.DragLocked), onStart(frame) (at the
+-- first pixel it moves), onStop(frame) (after a move that changed it: save
+-- the spot, re-record an Anim anchor). A handle with a click of its own
+-- skips it after a move (ns.DragMoved).
+local dragging -- the move under way: { frame, handle, opts, x0, y0 (the pointer, physical px), left, top, moved }
+local dragDriver = CreateFrame("Frame")
+dragDriver:Hide()
+
+local function dragTo(d)
+	local f = d.frame
+	local s = f:GetEffectiveScale()
+	if not s or s <= 0 then return end
+	local cx, cy = GetCursorPosition()
+	local dx, dy = (cx - d.x0) / s, (cy - d.y0) / s
+	if not d.moved and dx == 0 and dy == 0 then return end
+	if not d.moved then
+		d.moved = true
+		d.handle.psDragMoved = true
+		if d.opts.onStart then d.opts.onStart(f) end
+	end
+	local left, top = d.left + dx, d.top + dy
+	if f.IsClampedToScreen and f:IsClampedToScreen() then
+		local us = UIParent:GetEffectiveScale()
+		local sw, sh = UIParent:GetWidth() * us / s, UIParent:GetHeight() * us / s
+		local w, h = f:GetWidth(), f:GetHeight()
+		left = math.min(math.max(left, 0), math.max(0, sw - w))
+		top = math.max(math.min(top, sh), math.min(sh, h))
+	end
+	f:ClearAllPoints()
+	f:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left, top)
+end
+
+local function dragEnd()
+	local d = dragging
+	if not d then return end
+	dragging = nil
+	dragDriver:Hide()
+	if d.moved and d.opts.onStop then d.opts.onStop(d.frame) end
+end
+
+dragDriver:SetScript("OnUpdate", function()
+	local d = dragging
+	if not d then return end
+	dragTo(d)
+	-- A release the handle did not hear (the pointer let go over another window).
+	if IsMouseButtonDown and not IsMouseButtonDown("LeftButton") then dragEnd() end
+end)
+
+-- ns.StartDrag(handle, frame, opts, x0, y0): `frame` follows the pointer from
+-- (x0, y0) (physical px, default where it is now) until the release, as
+-- ns.DragWindow moves it. For a handle whose press the client must see
+-- first (a secure button starts it on its drag start, the press's own spot
+-- given, so the frame catches up at once and then follows exactly).
+-- -> true once the move is under way
+function ns.StartDrag(handle, frame, opts, x0, y0)
+	if dragging then return false end
+	if frame.IsMovable and not frame:IsMovable() then return false end
+	local left, top = frame:GetLeft(), frame:GetTop()
+	if not (left and top) then return false end
+	if not (x0 and y0) then x0, y0 = GetCursorPosition() end
+	handle.psDragMoved = nil
+	dragging = { frame = frame, handle = handle, opts = opts or {}, x0 = x0, y0 = y0, left = left, top = top, moved = false }
+	dragDriver:Show()
+	return true
+end
+
+-- ns.StopDrag(keepPosition): end the move at the pointer, or keep the last
+-- position if the frame can no longer move (onStop after a move).
+function ns.StopDrag(keepPosition)
+	if not dragging then return end
+	if not keepPosition then dragTo(dragging) end
+	dragEnd()
+end
+
+-- ns.DragMoved(handle): whether the last press on `handle` moved its window,
+-- so its click (on the release) is not taken as one.
+function ns.DragMoved(handle)
+	return handle.psDragMoved == true
+end
+
+-- ns.PointOffsets(frame, point) -> x, y: the offsets that pin `frame`'s
+-- `point` to the same point of UIParent where it stands now, in the frame's
+-- own units (its scale counted), for a spot saved as { point, x, y }.
+function ns.PointOffsets(frame, point)
+	local k = UIParent:GetEffectiveScale() / frame:GetEffectiveScale()
+	local uw, uh = UIParent:GetWidth() * k, UIParent:GetHeight() * k
+	local function along(size, low, high)
+		if point:find(low) then return 0 elseif point:find(high) then return size end
+		return size / 2
+	end
+	local x = frame:GetLeft() + along(frame:GetWidth(), "LEFT", "RIGHT") - along(uw, "LEFT", "RIGHT")
+	local y = frame:GetBottom() + along(frame:GetHeight(), "BOTTOM", "TOP") - along(uh, "BOTTOM", "TOP")
+	return x, y
+end
+
+function ns.DragWindow(handle, frame, opts)
+	opts = opts or {}
+	handle:EnableMouse(true)
+	handle:SetScript("OnMouseDown", function(self, button)
+		if button ~= "LeftButton" or dragging then return end
+		self.psDragMoved = nil
+		if opts.locked and opts.locked() then return end
+		ns.StartDrag(self, frame, opts)
+	end)
+	handle:SetScript("OnMouseUp", function(_, button)
+		if button ~= "LeftButton" or not dragging or dragging.handle ~= handle then return end
+		ns.StopDrag()
+	end)
+	handle:HookScript("OnHide", function()
+		if dragging and dragging.handle == handle then dragEnd() end
+	end)
+end
+
 -- The guide window's on/off (ui.shown): the action buttons, the party panel
 -- and the rare and transport alerts go with it, the arrow only with
 -- nav.hideArrowWithGuide on (Nav.HiddenWithGuide). An instance hide
--- (ui.instance "hide") takes them too; a combat hide leaves them.
+-- (ui.instance "hide") takes them too; a combat hide leaves them. Hiding
+-- Polestar takes them all, and so does the pause (ns.PauseHides).
 local awayInside = false
 function ns.GuideShown()
+	return not hidden and not ns.PauseHides("window") and ns.GuideWindowOn()
+end
+
+-- The window's own on/off and instance wait, Polestar hidden or not: what
+-- "Hide the arrow with the guide" and the travel button follow (hiding
+-- Polestar takes those only with the arrow, ns.ArrowHidden).
+function ns.GuideWindowOn()
 	return ns.Get("ui.shown") ~= false and not awayInside
 end
 
@@ -502,6 +1313,72 @@ function ns.SetGuideAwayInside(away)
 	if away == awayInside then return end
 	awayInside = away
 	ns.Fire("GUIDE_SHOWN", ns.GuideShown())
+end
+
+---------------------------------------------------------------------------
+-- Out of sight. Some UI addons follow the guide's steps in their own quest
+-- tracker and route, and keep one arrow on screen by turning Polestar's
+-- guide window and arrow down to nothing (a scale far below a pixel, alpha
+-- 0) instead of hiding them. Both still read as shown here, so the window's
+-- toggle would turn off a window nobody sees, and the action buttons with
+-- it. Told by the scale alone: Polestar never sets its own that low (the
+-- window's scale is 0.6 at least, the arrow's 0.5), while the player's own
+-- fades take the window and the arrow to alpha 0 in combat or 0.03 at rest.
+---------------------------------------------------------------------------
+
+local SIGHT_SCALE = 0.2
+local sight = { pending = false } -- .window, .arrow: the frames ns.WatchSight watches
+
+-- Shown, but kept out of sight by another addon.
+function ns.OutOfSight(frame)
+	return frame ~= nil and frame:IsShown() and frame:GetScale() < SIGHT_SCALE or false
+end
+
+-- Says which of the window and the arrow another addon keeps out of sight
+-- and how to get them back. -> true when it said so.
+function ns.SayOutOfSight()
+	local window, arrow = ns.OutOfSight(sight.window), ns.OutOfSight(sight.arrow)
+	if not (window or arrow) then return false end
+	DB().sightTold = true
+	if window and arrow then
+		ns.Print(L["Another addon is keeping the guide window and the arrow out of sight. Some UI addons show the guide's steps in their own quest tracker and route instead: turn that off in that addon to get Polestar's back."])
+	elseif window then
+		ns.Print(L["Another addon is keeping the guide window out of sight. Some UI addons show the guide's steps in their own quest tracker instead: turn that off in that addon to get it back."])
+	else
+		ns.Print(L["Another addon is keeping the arrow out of sight. Some UI addons lead the way with their own arrow or route instead: turn that off in that addon to get it back."])
+	end
+	return true
+end
+
+-- The first time on this account: a notice at the top of the screen for 12
+-- seconds and the chat line. The window's toggle and the arrow's commands
+-- say it again whenever they are used on what is out of sight.
+function sight.check()
+	sight.pending = false
+	if DB().sightTold or hidden then return end
+	if not (ns.OutOfSight(sight.window) or ns.OutOfSight(sight.arrow)) then return end
+	local alerts = ns.Nav and ns.Nav.alerts
+	if alerts and alerts.ShowNotice then
+		alerts.ShowNotice(L["Polestar is out of sight"], L["Another addon is hiding the guide window or the arrow. The chat says how to get it back."], 12)
+	end
+	ns.SayOutOfSight()
+end
+function sight.soon()
+	if sight.pending then return end
+	sight.pending = true
+	ns.After(0, sight.check)
+end
+function sight.scale(_, s) if type(s) == "number" and s < SIGHT_SCALE then sight.soon() end end
+function sight.show(self) if ns.OutOfSight(self) then sight.soon() end end
+
+-- One of Polestar's frames another addon may take out of sight (role
+-- "window" or "arrow"): a post-hook on its SetScale and its OnShow notice the
+-- moment it happens, looked at a frame later. Called once the frame's own
+-- OnShow is set: the client's SetScript drops a hooked script.
+function ns.WatchSight(frame, role)
+	sight[role] = frame
+	hooksecurefunc(frame, "SetScale", sight.scale)
+	frame:HookScript("OnShow", sight.show)
 end
 
 -- Forget stored values for one section (or all), back to defaults.
@@ -515,8 +1392,13 @@ function ns.ResetSettings(section)
 	ns.Fire("SETTING_CHANGED", section or "", nil)
 end
 
+-- The table the checks below last passed: only the saved variables replace PolestarCharDB (a reload, a new
+-- character) and nothing else sets the fields they make, so one table needs them once (it is asked for on every goal
+-- a step change reads).
+local checkedChar
 function ns.CharState()
 	local s = PolestarCharDB
+	if s ~= nil and s == checkedChar then return s end
 	if type(s) ~= "table" then
 		s = {}
 		PolestarCharDB = s
@@ -526,24 +1408,39 @@ function ns.CharState()
 	if type(s.skipped) ~= "table" then s.skipped = {} end
 	-- Per guide, per step: true when its `when` held as the route passed it, or it was unskipped (Engine.lua, Own.latchWhen, Own.keep; a failed one is stored in `skipped`); an unskipped step's `skipto` takes no jump.
 	if type(s.when) ~= "table" then s.when = {} end
-	-- Map id -> true: the dungeons the player chose to run in leveling guides (`when dungeon`; Engine.ChooseDungeon).
+	-- Map id -> true (run it) | false (skip it): the player's answer for a dungeon in leveling guides (`when dungeon`; Engine.ChooseDungeon); none: behavior.dungeons answers ("Dungeons in my route").
 	if type(s.dungeons) ~= "table" then s.dungeons = {} end
 	-- Quest id -> "do" | "skip": the player's answer at a group quest in leveling guides (`when group`; Engine.AnswerGroup).
 	if type(s.groupQuests) ~= "table" then s.groupQuests = {} end
 	if type(s.flags) ~= "table" then s.flags = {} end
 	-- Quest id -> true: the quests the player pinned as along the way (#644; Engine.PinQuest).
 	if type(s.pinnedQuests) ~= "table" then s.pinnedQuests = {} end
-	-- Guide id -> true: the leveling guides whose end the player reached (Engine.lua, Own.noteEnd), told once.
-	if type(s.guideEnds) ~= "table" then s.guideEnds = {} end
+	-- Guide id -> true: the leveling guides whose end the player reached (Engine.lua, Own.noteEnd), told once; it stands only while that end holds, and is forgotten by a reset or when a pack update changes the guide's steps (checkShape).
+	-- Those saved before 0.3.6 (guideEndsV unset) are dropped once: 0.3.5 reused guide ids for other parts of the route, and ended guides by where the player stood (the Undercity at the start of Hillsbrad), so any of them can be false; one without a live step shows nothing either way.
+	if type(s.guideEnds) ~= "table" or s.guideEndsV ~= 2 then
+		s.guideEnds, s.guideEndsV = {}, 2
+	end
+	-- Guide id -> true: the guides the player finished, every step done (Engine.lua, the completion in
+	-- evaluateLoaded), kept over a reload or relog for the guide list's check (Engine.GetGuideState); a
+	-- reset forgets it, and so does a pack update that changes the guide's steps (checkShape).
+	if type(s.guideDone) ~= "table" then s.guideDone = {} end
+	checkedChar = s
 	return s
 end
 
 -- A character Polestar had never seen: no saved PolestarCharDB when the addon
 -- loaded. A /reload loads the saved table again, so it reads false after one.
 local newCharacter = false
+-- An account the same way: no saved PolestarDB (a fresh install), or only
+-- the table DB() made while the files loaded.
+local newAccount = false
 
 function ns.IsNewCharacter()
 	return newCharacter
+end
+
+function ns.IsNewAccount()
+	return newAccount
 end
 
 ---------------------------------------------------------------------------
@@ -566,9 +1463,15 @@ function ns.IsLoggedIn() return loggedIn end
 local function onAddonLoaded(_, name)
 	if name ~= ADDON then return end
 	ns.UnregisterEvent("ADDON_LOADED", onAddonLoaded)
+	newAccount = type(PolestarDB) ~= "table" or PolestarDB == madeDB
 	DB()
 	newCharacter = type(PolestarCharDB) ~= "table"
 	ns.CharState()
+	-- The character's settings profile into PolestarDB.settings and the
+	-- settings migrations, before anything reads a setting (Core/Profiles.lua).
+	if ns.Profiles and ns.Profiles.Load then call(ns.Profiles.Load) end
+	loadHidden()
+	loadPause()
 	initialized = true
 	local queue = initQueue
 	initQueue = nil
@@ -581,6 +1484,7 @@ local function onLogin()
 	local queue = loginQueue
 	loginQueue = nil
 	for i = 1, #queue do call(queue[i]) end
+	noteMaking = false
 end
 
 ns.RegisterEvent("ADDON_LOADED", onAddonLoaded)
@@ -600,6 +1504,16 @@ function ns.Print(...)
 	local parts = {}
 	for i = 1, n do parts[i] = tostring((select(i, ...))) end
 	DEFAULT_CHAT_FRAME:AddMessage(PREFIX .. table.concat(parts, " "))
+end
+
+-- A line telling what Polestar did or wants by itself (a turn-in waiting on a
+-- reward, buttons upgraded, junk sold): silent with Settings > Guide >
+-- Window > Show and hide > Chat messages off (#2527). Errors and command replies use
+-- ns.Print.
+ns.RegisterDefaults("ui", { chatMessages = true })
+function ns.Notice(...)
+	if ns.Get("ui.chatMessages") == false then return end
+	ns.Print(...)
 end
 
 ns.debug = false
@@ -622,10 +1536,13 @@ end
 
 local commands, commandOrder = {}, {}
 
-function ns.RegisterCommand(name, fn, help)
+-- quiet: a command that only prints or sets (status, the arrow's commands);
+-- any other, typed while Polestar is hidden, brings Polestar back first, as
+-- it is asking to see something.
+function ns.RegisterCommand(name, fn, help, quiet)
 	name = name:lower()
 	if not commands[name] then commandOrder[#commandOrder + 1] = name end
-	commands[name] = { fn = fn, help = help }
+	commands[name] = { fn = fn, help = help, quiet = quiet and true or nil }
 end
 
 local function showHelp()
@@ -653,10 +1570,22 @@ function ns.RunCommand(msg)
 		showHelp()
 		return
 	end
+	if hidden and not c.quiet then ns.SetHidden(false) end
 	call(c.fn, rest)
 end
 if not gamepadUI then
 	SLASH_POLESTAR1 = "/polestar"
 	SLASH_POLESTAR2 = "/pole"
+	SLASH_POLESTAR3 = "/ps"
 	SlashCmdList.POLESTAR = ns.RunCommand
+end
+if not gamepadUI and not SLASH_POLESTAR_RL1 then
+	SLASH_POLESTAR_RL1 = "/rl"
+	SlashCmdList.POLESTAR_RL = function()
+		if C_UI and C_UI.Reload then
+			C_UI.Reload()
+		elseif ReloadUI then
+			ReloadUI()
+		end
+	end
 end

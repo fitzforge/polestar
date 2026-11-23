@@ -6,9 +6,6 @@
 -- A token marked "no name in this language" would show in English: write that name in French words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Guide
-	["Winterspring Frostsaber"] = "",
-
 	-- Step 1: Wintersaber Trainers
 	-- {npc:10618} Rivern Frostwind · {area:2241} Frostsaber Rock · {zone:1452} Winterspring · {faction:589} Wintersaber Trainers
 	["{npc:10618} stands on top of {area:2241} in the far north of {zone:1452}. Only the Alliance can earn the {faction:589}' favour, from level 58: three repeatable quests worth 50 each, about 840 turn-ins from Neutral to Exalted. Frostsaber Provisions is open from the start, Winterfall Intrusion from halfway through Neutral and Rampaging Giants from Honored. The Wintersaber Trainers Reputation guide takes you through it."] = "{npc:10618} se tient au sommet du {area:2241}, à l'extrême nord du {zone:1452}. Seule l'Alliance peut gagner la faveur des {faction:589}, dès le niveau 58 : trois quêtes répétables à 50 points chacune, environ 840 quêtes rendues de Neutre à Exalté. Provisions pour sabres-de-givre est ouverte dès le début, Intrusion des Grumegueules à partir de la moitié de Neutre et Géants déchaînés à partir d'Honoré. Le guide de réputation des Éleveurs de sabres-d'hiver vous accompagne.",

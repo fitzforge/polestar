@@ -1,11 +1,15 @@
 -- Guiding Stars: the people behind Polestar. An options page (Options.lua
--- adds it, key "thanks") with the top supporter and the top contributor on
--- podiums, then both lists in full; and the "Special thanks to: <name>" line
--- in the hub's and the options' headers, a name drawn anew each time the
--- window opens, that leads to the page.
+-- adds it, key "thanks") with the top supporter, the top contributor and the
+-- top bug reporter on podiums, then the three lists, then the translators and
+-- the ideas side by side; and the "Special thanks to: <name>" line in the
+-- hub's and the options' headers, a name drawn anew each time the window
+-- opens, that leads to the page.
 --
 -- The names come from Core/Credits.lua (`forge release credits`): supporters in
--- rank order, and GitHub contributors by merged pull requests.
+-- rank order, GitHub contributors by merged pull requests, the top bug
+-- reporters by confirmed or fixed reports, the translators by language (the
+-- locales' own list), and the people whose idea shipped though someone else
+-- built it, each with the pull request or issue it came from.
 
 local ADDON, ns = ...
 local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
@@ -13,11 +17,13 @@ local L = ns.L
 local floor, max, ipairs = math.floor, math.max, ipairs
 
 local SH = W.SHELL
-local GAP = 24 -- between the two columns, as the options grid
+local COLS = 3
+local GAP = 24 -- between the columns, as the options grid
 local ROW = 22 -- a list row
-local PANEL_HEAD = 44 -- a list panel's heading band
-local PODIUM_H = 132
-local DOT = "  \194\183  "
+local PANEL_HEAD = 58 -- a list panel's heading band: its title over its note
+local PANEL_PAD = 16 -- a list panel's inner edge
+local PODIUM_H = 140
+local LINE = 36 -- a podium title's hairlines, when the title leaves room
 
 local T = {}
 UI.Thanks = T
@@ -25,15 +31,19 @@ UI.Thanks = T
 -- Only the repository: Blizzard's add-on policy keeps donation links out of the game.
 ns.RepoURL = "https://github.com/fitzforge/polestar"
 
-local function credits() return ns.Credits or { supporters = {}, contributors = {} } end
+local function credits() return ns.Credits or { supporters = {}, contributors = {}, bugReporters = {}, translators = {}, ideas = {} } end
 
--- -> the supporters' names, the contributors' names (both in rank order)
+-- -> the supporters', the contributors', the bug reporters', the translators'
+-- and the ideas' names (each in its list's order)
 function T.Names()
 	local c = credits()
-	local sup, con = {}, {}
+	local sup, con, rep, tra, idea = {}, {}, {}, {}, {}
 	for i, n in ipairs(c.supporters or {}) do sup[i] = n end
 	for i, e in ipairs(c.contributors or {}) do con[i] = e.name end
-	return sup, con
+	for i, e in ipairs(c.bugReporters or {}) do rep[i] = e.name end
+	for i, e in ipairs(c.translators or {}) do tra[i] = e.name end
+	for i, e in ipairs(c.ideas or {}) do idea[i] = e.name end
+	return sup, con, rep, tra, idea
 end
 
 local function esc(s) return ns.EscapeText and ns.EscapeText(s) or s end
@@ -47,13 +57,13 @@ end
 -- The header line
 ---------------------------------------------------------------------------
 
--- A name from either list, a new one each time it can be.
+-- A name from any list, a new one each time it can be.
 local last
 function T.PickName(rand)
-	local sup, con = T.Names()
-	-- Each name once: someone on both lists, or one name alone, never loops.
+	local sup, con, rep, tra, idea = T.Names()
+	-- Each name once: someone on two lists, or one name alone, never loops.
 	local all, seen = {}, {}
-	for _, list in ipairs({ sup, con }) do
+	for _, list in ipairs({ sup, con, rep, tra, idea }) do
 		for _, n in ipairs(list) do
 			if not seen[n] then seen[n] = true; all[#all + 1] = n end
 		end
@@ -104,11 +114,13 @@ function T.HeaderLink(f)
 	local function place()
 		b:SetWidth(b.Lead:GetStringWidth() + 4 + b.Name:GetStringWidth())
 		b:ClearAllPoints()
+		-- A shell with its own place for it (psPlaceThanks(b)).
+		if rawget(f, "psPlaceThanks") then return f.psPlaceThanks(b) end
 		local close, tools = f.Close, rawget(f, "HeaderTools")
 		-- The close button may have moved (the hub's details pane): the
-		-- scale control follows it first.
+		-- scale control follows it first, out of the header with it in the hub.
 		if tools then tools.Place() end
-		if tools and tools:IsShown() then
+		if tools and tools:IsShown() and tools:GetParent() == f.Header then
 			b:SetPoint("RIGHT", tools, "LEFT", -16, 0)
 		elseif close and close:IsShown() and close:GetParent() == f.Header then
 			b:SetPoint("RIGHT", close, "LEFT", -10, 0)
@@ -142,17 +154,37 @@ local function flanked(parent, text)
 	f:SetHeight(16)
 	f.Text = W.Text(f, "caption", "accent")
 	f.Text:SetPoint("CENTER", f, "CENTER", 0, 0)
-	f.Text:SetText(text:upper())
+	f.Text:SetText(ns.Upper(text))
 	f.Left = W.Tex(f, "ARTWORK", nil, "accentLine")
-	f.Left:SetSize(36, 1)
+	f.Left:SetSize(LINE, 1)
 	f.Left:SetPoint("RIGHT", f.Text, "LEFT", -10, 0)
 	f.Right = W.Tex(f, "ARTWORK", nil, "accentLine")
-	f.Right:SetSize(36, 1)
+	f.Right:SetSize(LINE, 1)
 	f.Right:SetPoint("LEFT", f.Text, "RIGHT", 10, 0)
 	return f
 end
 
--- The emblem in its glow, the title, the first name large, then #2 and #3.
+-- Fit a flanked label to `width`: the hairlines shorten to the room the text
+-- leaves and go when it leaves too little; a text wider than the column ends
+-- in an ellipsis.
+local function fitFlanked(f, width)
+	f.Text:SetWidth(0)
+	local tw = W.TextWidth(f.Text)
+	if tw > width then
+		f.Text:SetWidth(width)
+		tw = width
+	end
+	local line = math.min(LINE, floor((width - tw) / 2) - 10)
+	f.Left:SetShown(line >= 8)
+	f.Right:SetShown(line >= 8)
+	if line >= 8 then
+		f.Left:SetWidth(line)
+		f.Right:SetWidth(line)
+	end
+end
+
+-- The emblem in its glow, the title, the first name large, then #2 and #3,
+-- one to a line.
 local function podium(parent, title)
 	local p = CreateFrame("Frame", nil, parent)
 	p:SetHeight(PODIUM_H)
@@ -166,39 +198,60 @@ local function podium(parent, title)
 	p.Title = flanked(p, title)
 	p.Title:SetPoint("TOPLEFT", p, "TOPLEFT", 0, -44)
 	p.Title:SetPoint("TOPRIGHT", p, "TOPRIGHT", 0, -44)
-	-- Both lines span the column, so a long name ends in an ellipsis.
+	-- Every line spans the column, so a long name ends in an ellipsis; then
+	-- hovering the podium shows its names in full.
 	p.Name = W.Text(p, "hero", "text")
 	p.Name:SetPoint("TOPLEFT", p, "TOPLEFT", 0, -68)
 	p.Name:SetPoint("TOPRIGHT", p, "TOPRIGHT", 0, -68)
 	p.Name:SetJustifyH("CENTER")
 	p.Name:SetWordWrap(false)
-	p.Rest = W.Text(p, "label", "textDim")
-	p.Rest:SetPoint("TOPLEFT", p, "TOPLEFT", 0, -108)
-	p.Rest:SetPoint("TOPRIGHT", p, "TOPRIGHT", 0, -108)
-	p.Rest:SetJustifyH("CENTER")
-	p.Rest:SetWordWrap(false)
+	p.Rest = {}
+	for i = 1, 2 do
+		local fs = W.Text(p, "label", "textDim")
+		fs:SetPoint("TOPLEFT", p, "TOPLEFT", 0, -86 - i * 18)
+		fs:SetPoint("TOPRIGHT", p, "TOPRIGHT", 0, -86 - i * 18)
+		fs:SetJustifyH("CENTER")
+		fs:SetWordWrap(false)
+		p.Rest[i] = fs
+	end
+	p:EnableMouse(true)
+	p:SetScript("OnEnter", function(self)
+		local cut = self.Name:IsTruncated()
+		for _, fs in ipairs(self.Rest) do cut = cut or fs:IsTruncated() end
+		if cut and self.psNames then W.Tooltip(self, "ANCHOR_TOP", self.psNames[1], { self.psNames[2], self.psNames[3] }) end
+	end)
+	p:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
 	return p
 end
 
+-- An empty list leaves the large line blank and says so under it, on up to
+-- two lines.
 local function fillPodium(p, names, empty)
-	if #names == 0 then
-		p.Name:SetText(empty)
-		W.Color(p.Name, "textMuted")
-		p.Rest:SetText("")
+	local none = #names == 0
+	-- The full names, for the tooltip while a line is cut short.
+	p.psNames = not none and { esc(names[1]), names[2] and esc(names[2]), names[3] and esc(names[3]) } or nil
+	local first = p.Rest[1]
+	first:SetWordWrap(none)
+	first:SetMaxLines(none and 2 or 0)
+	W.Color(first, none and "textMuted" or "textDim")
+	if none then
+		p.Name:SetText("")
+		first:SetText(empty)
+		p.Rest[2]:SetText("")
 		return
 	end
-	W.Color(p.Name, "text")
 	p.Name:SetText(esc(names[1]))
 	local accent = "|c" .. Theme.Hex("accent")
-	local rest = {}
-	for i = 2, 3 do
-		if names[i] then rest[#rest + 1] = accent .. "#" .. i .. "|r  " .. esc(names[i]) end
+	for i, fs in ipairs(p.Rest) do
+		local n = names[i + 1]
+		fs:SetText(n and (accent .. "#" .. (i + 1) .. "|r  " .. esc(n)) or "")
 	end
-	p.Rest:SetText(table.concat(rest, DOT))
 end
 
--- A list panel: an accent line on top, its heading, then numbered rows.
-local function panel(parent, title, note)
+-- A list panel: an accent line on top, its heading over a note saying what
+-- the counts are, then numbered rows. `unranked`: rows without a rank, the
+-- right-hand text in `side`'s role (a language, a #number) instead of a count.
+local function panel(parent, title, note, unranked, side)
 	local p = CreateFrame("Frame", nil, parent)
 	Theme.Skin(p, "panel")
 	p.Top = W.Tex(p, "OVERLAY", nil, "accent")
@@ -206,20 +259,20 @@ local function panel(parent, title, note)
 	p.Top:SetPoint("TOPLEFT", p, "TOPLEFT", 1, -1)
 	p.Top:SetPoint("TOPRIGHT", p, "TOPRIGHT", -1, -1)
 	p.Title = W.Text(p, "heading", "accent")
-	p.Title:SetText(title:upper())
-	p.Title:SetPoint("TOPLEFT", p, "TOPLEFT", 16, -18)
+	p.Title:SetText(ns.Upper(title))
+	p.Title:SetPoint("TOPLEFT", p, "TOPLEFT", PANEL_PAD, -16)
 	p.Note = W.Text(p, "small", "textMuted")
 	p.Note:SetText(note)
-	p.Note:SetPoint("LEFT", p.Title, "RIGHT", 8, 0)
+	p.Note:SetPoint("TOPLEFT", p, "TOPLEFT", PANEL_PAD, -34)
 	p.Rule = W.Divider(p)
-	p.Rule:SetPoint("TOPLEFT", p, "TOPLEFT", 16, -(PANEL_HEAD - 4))
-	p.Rule:SetPoint("TOPRIGHT", p, "TOPRIGHT", -16, -(PANEL_HEAD - 4))
+	p.Rule:SetPoint("TOPLEFT", p, "TOPLEFT", PANEL_PAD, -(PANEL_HEAD - 4))
+	p.Rule:SetPoint("TOPRIGHT", p, "TOPRIGHT", -PANEL_PAD, -(PANEL_HEAD - 4))
 	p.Empty = W.Text(p, "note", "textMuted")
 	p.Empty:SetWordWrap(true)
 	p.Empty:SetJustifyH("LEFT")
-	p.Empty:SetPoint("TOPLEFT", p, "TOPLEFT", 16, -(PANEL_HEAD + 6))
-	p.Empty:SetPoint("RIGHT", p, "RIGHT", -16, 0)
+	p.Empty:SetPoint("TOPLEFT", p, "TOPLEFT", PANEL_PAD, -(PANEL_HEAD + 6))
 	p.rows = {}
+	p.unranked, p.side = unranked, side or "number"
 	return p
 end
 
@@ -228,43 +281,54 @@ local function panelRow(p, i)
 	if r then return r end
 	r = CreateFrame("Frame", nil, p)
 	r:SetHeight(ROW)
-	r:SetPoint("TOPLEFT", p, "TOPLEFT", 16, -(PANEL_HEAD + 4 + (i - 1) * ROW))
-	r:SetPoint("TOPRIGHT", p, "TOPRIGHT", -16, -(PANEL_HEAD + 4 + (i - 1) * ROW))
+	r:SetPoint("TOPLEFT", p, "TOPLEFT", PANEL_PAD, -(PANEL_HEAD + 4 + (i - 1) * ROW))
+	r:SetPoint("TOPRIGHT", p, "TOPRIGHT", -PANEL_PAD, -(PANEL_HEAD + 4 + (i - 1) * ROW))
 	r.Rank = W.Text(r, "number", "textMuted")
 	r.Rank:SetJustifyH("RIGHT")
 	r.Rank:SetWidth(22)
 	r.Rank:SetPoint("LEFT", r, "LEFT", 0, 0)
-	r.Count = W.Text(r, "small", "textMuted")
+	r.Rank:SetShown(not p.unranked)
+	r.Count = W.Text(r, p.side, "textMuted")
+	r.Count:SetJustifyH("RIGHT")
 	r.Count:SetPoint("RIGHT", r, "RIGHT", 0, 0)
 	r.Name = W.Text(r, "body", "text")
 	r.Name:SetWordWrap(false)
 	r.Name:SetJustifyH("LEFT")
-	r.Name:SetPoint("LEFT", r.Rank, "RIGHT", 10, 0)
-	r.Name:SetPoint("RIGHT", r.Count, "LEFT", -8, 0)
+	if p.unranked then
+		r.Name:SetPoint("LEFT", r, "LEFT", 0, 0)
+	else
+		r.Name:SetPoint("LEFT", r.Rank, "RIGHT", 10, 0)
+	end
 	p.rows[i] = r
 	return r
 end
 
--- rows: { { name, count text or nil }, ... } -> the panel's height
-local function fillPanel(p, rows, empty)
+-- rows: { { name, count or nil }, ... }; `width` the panel's -> its height.
+-- The heading, the note and each name take the panel's inner width, a name
+-- what its count leaves, so a long one ends in an ellipsis.
+local function fillPanel(p, rows, empty, width)
+	local inner = width - PANEL_PAD * 2
+	local lead = p.unranked and 0 or 22 + 10
+	p.Title:SetWidth(inner)
+	p.Note:SetWidth(inner)
 	for i, e in ipairs(rows) do
 		local r = panelRow(p, i)
-		r.Rank:SetText(i .. ".")
+		r.Rank:SetText(p.unranked and "" or i .. ".")
 		W.Color(r.Rank, i <= 3 and "accent" or "textMuted")
+		r.Count:SetText(e[2] and tostring(e[2]) or "")
+		r.Count:SetWidth(e[2] and W.TextWidth(r.Count) or 0)
 		r.Name:SetText(esc(e[1]))
-		W.Color(r.Name, i == 1 and "accent" or "text")
-		r.Count:SetText(e[2] or "")
+		r.Name:SetWidth(inner - lead - (e[2] and r.Count:GetWidth() + 8 or 0))
+		W.Color(r.Name, (i == 1 and not p.unranked) and "accent" or "text")
+		r:SetWidth(inner)
 		r:Show()
 	end
 	for i = #rows + 1, #p.rows do p.rows[i]:Hide() end
 	p.Empty:SetShown(#rows == 0)
+	p.Empty:SetWidth(inner)
 	p.Empty:SetText(empty or "")
 	if #rows == 0 then return PANEL_HEAD + 6 + p.Empty:GetStringHeight() + 18 end
 	return PANEL_HEAD + 4 + #rows * ROW + 14
-end
-
-local function prCount(n)
-	return n == 1 and L["1 pull request"] or L["%d pull requests"]:format(n)
 end
 
 -- Options.lua's custom page builder.
@@ -280,19 +344,27 @@ function T.Build(view)
 
 	local topSup = podium(view, L["Top supporter"])
 	local topCon = podium(view, L["Top contributor"])
-	local divider = W.Divider(view, true)
+	local topRep = podium(view, L["Top bug reporter"])
+	local dividers = { W.Divider(view, true), W.Divider(view, true) }
 
 	local supPanel = panel(view, L["Supporters"], "")
-	local conPanel = panel(view, L["Contributors"], L["on GitHub"])
+	local conPanel = panel(view, L["Contributors"], L["Pull requests on GitHub"])
+	local repPanel = panel(view, L["Bug reporters"], L["Confirmed reports"])
+	-- Under the three columns, two halves: who translated Polestar (their
+	-- language beside each) and whose idea shipped (its pull request or issue).
+	local traPanel = panel(view, L["Translators"], L["Language"], true, "small")
+	local ideaPanel = panel(view, L["Ideas"], L["Pull request or issue"], true)
 
 	local closing = W.Text(view, "small", "textMuted")
 	closing:SetJustifyH("CENTER")
 	closing:SetText(L["Thank you for making Polestar possible."])
 
-	view.Supporters, view.Contributors = supPanel, conPanel
+	view.Podiums = { topSup, topCon, topRep }
+	view.Supporters, view.Contributors, view.BugReporters = supPanel, conPanel, repPanel
+	view.Translators, view.Ideas = traPanel, ideaPanel
 	view.Refresh = function()
 		local width = bodyWidth()
-		local cw = (width - GAP) / 2
+		local cw = floor((width - GAP * (COLS - 1)) / COLS)
 		local x0 = SH.pad
 		local y = 22
 		lead:ClearAllPoints()
@@ -314,30 +386,51 @@ function T.Build(view)
 		end
 		y = y + 20 + 30
 
-		local sup, con = T.Names()
+		local sup, con, rep = T.Names()
 		fillPodium(topSup, sup, L["No names here yet."])
 		fillPodium(topCon, con, L["No names here yet."])
-		for i, p in ipairs({ topSup, topCon }) do
+		fillPodium(topRep, rep, L["No names here yet."])
+		for i, p in ipairs(view.Podiums) do
 			p:ClearAllPoints()
 			p:SetPoint("TOPLEFT", view, "TOPLEFT", x0 + (i - 1) * (cw + GAP), -y)
 			p:SetWidth(cw)
+			p.Name:SetWidth(cw)
+			for _, fs in ipairs(p.Rest) do fs:SetWidth(cw) end
+			fitFlanked(p.Title, cw)
 		end
-		divider:ClearAllPoints()
-		divider:SetPoint("TOP", view, "TOPLEFT", x0 + width / 2, -(y + 12))
-		divider:SetHeight(PODIUM_H - 24)
+		for i, d in ipairs(dividers) do
+			d:ClearAllPoints()
+			d:SetPoint("TOP", view, "TOPLEFT", x0 + i * (cw + GAP) - GAP / 2, -(y + 12))
+			d:SetHeight(PODIUM_H - 24)
+		end
 		y = y + PODIUM_H + 16
 
-		local supRows, conRows = {}, {}
+		local supRows, conRows, repRows = {}, {}, {}
 		for i, n in ipairs(sup) do supRows[i] = { n } end
-		for i, e in ipairs(credits().contributors or {}) do conRows[i] = { e.name, prCount(e.prs or 0) } end
-		local h = max(fillPanel(supPanel, supRows, L["No names here yet."]),
-			fillPanel(conPanel, conRows, L["No names here yet."]))
-		for i, p in ipairs({ supPanel, conPanel }) do
+		for i, e in ipairs(credits().contributors or {}) do conRows[i] = { e.name, e.prs or 0 } end
+		for i, e in ipairs(credits().bugReporters or {}) do repRows[i] = { e.name, e.reports or 0 } end
+		local h = max(fillPanel(supPanel, supRows, L["No names here yet."], cw),
+			fillPanel(conPanel, conRows, L["No names here yet."], cw),
+			fillPanel(repPanel, repRows, L["No names here yet."], cw))
+		for i, p in ipairs({ supPanel, conPanel, repPanel }) do
 			p:ClearAllPoints()
 			p:SetPoint("TOPLEFT", view, "TOPLEFT", x0 + (i - 1) * (cw + GAP), -y)
 			p:SetSize(cw, h)
 		end
 		y = y + h + 18
+
+		local hw = floor((width - GAP) / 2)
+		local traRows, ideaRows = {}, {}
+		for i, e in ipairs(credits().translators or {}) do traRows[i] = { e.name, e.language and L[e.language] or nil } end
+		for i, e in ipairs(credits().ideas or {}) do ideaRows[i] = { e.name, e.ref and ("#" .. e.ref) or nil } end
+		local h2 = max(fillPanel(traPanel, traRows, L["No names here yet."], hw),
+			fillPanel(ideaPanel, ideaRows, L["No names here yet."], hw))
+		for i, p in ipairs({ traPanel, ideaPanel }) do
+			p:ClearAllPoints()
+			p:SetPoint("TOPLEFT", view, "TOPLEFT", x0 + (i - 1) * (hw + GAP), -y)
+			p:SetSize(hw, h2)
+		end
+		y = y + h2 + 18
 
 		closing:ClearAllPoints()
 		closing:SetPoint("TOPLEFT", view, "TOPLEFT", x0, -y)

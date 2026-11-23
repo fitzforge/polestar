@@ -5,6 +5,7 @@
 //! `polestar://install?pack=<id>` links.
 
 mod addons;
+mod clientinfo;
 mod commands;
 mod community;
 #[cfg(target_os = "linux")]
@@ -12,6 +13,7 @@ mod desktop;
 mod engine;
 mod launch;
 mod manager;
+mod net;
 mod packs;
 mod register;
 #[cfg(target_os = "linux")]
@@ -161,7 +163,7 @@ pub fn run() {
 					tokio::time::sleep(Duration::from_secs(20)).await;
 					loop {
 						let engine = handle.state::<Arc<Engine>>();
-						if let Ok(available) = update::check(&handle, &engine.http).await {
+						if let Ok(available) = update::check(&handle, &engine.http()).await {
 							engine.lock().update = available;
 							engine.publish();
 						}
@@ -200,6 +202,7 @@ pub fn run() {
 			commands::set_sharing,
 			commands::dismiss_share_notice,
 			commands::set_paused,
+			commands::set_explore,
 			commands::get_autostart,
 			commands::set_autostart,
 			commands::set_server_url,

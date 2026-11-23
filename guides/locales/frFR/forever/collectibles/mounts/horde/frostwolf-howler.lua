@@ -6,9 +6,6 @@
 -- A token marked "no name in this language" would show in English: write that name in French words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Guide
-	["Frostwolf Howler"] = "",
-
 	-- Step 1: Frostwolf Clan
 	-- {area:2839} Alterac Valley · {faction:729} Frostwolf Clan · {npc:13219} Jekyll Flandring · {zone:1416} Alterac Mountains · {npc:13218} Grunnda Wolfheart
 	["{area:2839} (level 51+) raises {faction:729}: win, capture towers and graveyards, and hand in the battleground's turn-ins; the Alterac Valley Reputation guide shows the fastest way. {npc:13219} waits at the Horde end of {zone:1416} outside the battleground; {npc:13218} inside {area:2839} sells the same mount."] = "La {area:2839} (niveau 51+) fait monter le {faction:729} : gagnez, prenez des tours et des cimetières, et rendez les objets du champ de bataille ; le guide de réputation de la vallée d'Alterac montre le chemin le plus rapide. {npc:13219} attend du côté Horde des {zone:1416}, hors du champ de bataille ; {npc:13218}, dans la {area:2839}, vend la même monture.",

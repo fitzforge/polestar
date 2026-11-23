@@ -1028,7 +1028,7 @@ end
 -- The session's state, for the control panel
 ---------------------------------------------------------------------------
 
-local LOOK = { "ui.style", "ui.compact", "ui.scale", "ui.width", "ui.bgOpacity", "ui.opacity", "ui.scheme", "ui.accent",
+local LOOK = { "ui.style", "ui.compact", "ui.scale", "ui.width", "ui.bgOpacity", "ui.opacity", "ui.scheme", "ui.skin", "ui.accent",
 	"ui.bgColor", "ui.brightness", "ui.upcoming", "ui.upcomingOpen", "ui.showNotes", "ui.menuScale", "ui.font", "ui.locked", "ui.shown" }
 
 -- Stored overrides as { "path.to.key", value } pairs. An empty table holds no

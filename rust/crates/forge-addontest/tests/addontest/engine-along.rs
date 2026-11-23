@@ -208,10 +208,10 @@ fn guides_validate_refuses_a_bad_label_or_along() {
 }
 
 // #862, the guide as shipped (guides/forever/horde/tauren/01-mulgore.guide, compiled with data/forever; skipped
-// with a note without it): step 9 `along until q780` collects The Battleboars' snouts and flanks on the way,
-// step 12 (label q780) turns 780 in to Grull Hawkwind (2980). The reporter: a level 5 Tauren Druid at Red
-// Cloud Mesa, step 12 live, 757, 781, 3376 and 1656 ready, 780 at one of two objectives (here the 8 snouts
-// done, 3 of 8 flanks). The arrow leads to the flanks (step 9 goal 2), not to Grull (before: 12:1).
+// with a note without it). Since #1091 The Battleboars' snouts and flanks are goals 1 and 2 of step 9 (Red Cloud
+// Mesa, a step of its own, no longer an along list), and step 11 turns 780 in to Grull Hawkwind (2980). The
+// reporter: a level 5 Tauren Druid, 757, 781, 3376 and 1656 ready, 780 at one of two objectives (here the 8
+// snouts done, 3 of 8 flanks). Step 9 stays live and the arrow leads to the flanks (9:2), not to Grull (11:1).
 #[test]
 fn mulgore_the_battleboars_half_done_at_camp_narache_the_arrow_leads_to_the_boars_not_to_grull() {
 	use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
@@ -258,7 +258,7 @@ emit({{ E.GetLiveStep(), wp() }})
 		loads.join("\n")
 	);
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() });
-	assert_eq!(out, vec![json!([12, "9:2"])], "the flanks still to get (step 9 goal 2), not Grull Hawkwind's turn-in (12:1)");
+	assert_eq!(out, vec![json!([9, "9:2"])], "the flanks still to get (step 9 goal 2), not Grull Hawkwind's turn-in (11:1)");
 }
 
 // The window's "Along the way, until step N" (#942): each listed along step names the step its list ends at.

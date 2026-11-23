@@ -221,7 +221,7 @@ fn tracking_menus_offer_persistent_categories_and_minimap_opt_in() {
       hooks=#stub.menus.MENU_WORLD_MAP_TRACKING,frames=#P.GetMinimapFrames("maps.services")})
   "#);
 	assert_eq!(out["title"], "Polestar: NPC services");
-	assert_eq!(out["count"], 13);
+	assert_eq!(out["count"], 14);
 	assert_eq!(out["before"], true);
 	assert_eq!(out["after"], false);
 	assert_eq!(out["minimap"], true);
@@ -340,6 +340,20 @@ fn the_reported_gishah_observations_produce_one_original_undercity_waypoint() {
     emit({count=#pins,x=pins[1].x,y=pins[1].y,observations=#spawns})
   "#);
 	assert_eq!(out, json!({"count":1,"x":64.4,"y":38.4,"observations":6}));
+}
+
+// #1639: a service pin's waypoint keeps the Codex spawn's height, so an Undercity NPC under the lifts
+// (Thomas Mordan, z -43) is sought in the Trade Quarter, not on the entrance floor above his spot.
+#[test]
+fn a_service_pin_s_waypoint_keeps_the_spawn_s_height_1639() {
+	let out = run(r#"
+    stub.world.addMap(1458,{c=0,left=873.193,right=-86.182,top=1877.945,bottom=1237.841})
+    local pins=M.BuildServicePins({{id=4562,name="Thomas Mordan",roles={"vendor"},spawns={{map=1458,x=69.7,y=39.1,f="e",z=-43}}}})
+    pins[1].onClick("LeftButton")
+    local target=Polestar.Nav.GetTarget()
+    emit({map=target.map,x=target.x,y=target.y,z=target.z})
+  "#);
+	assert_eq!(out, json!({"map":1458,"x":69.7,"y":39.1,"z":-43}));
 }
 
 #[test]
@@ -691,6 +705,7 @@ fn a_fresh_install_leaves_the_codex_unloaded_until_the_layer_is_on_and_the_world
 		rarescanner: None,
 		local_extras: false,
 		recorded: V::obj(),
+		learned: Default::default(),
 		client: None,
 		web: None,
 		curated: Vec::new(),
@@ -698,10 +713,13 @@ fn a_fresh_install_leaves_the_codex_unloaded_until_the_layer_is_on_and_the_world
 		curated_vendors: V::Null,
 		entrances: Vec::new(),
 		entrance_table: V::Null,
+		levels_table: V::obj(),
 		rep_table: V::Null,
 		attunement_table: V::Null,
 		store_xp: Default::default(),
 		journal_quests: Vec::new(),
+		mechanics: V::Null,
+		mechanics_public: V::Null,
 		warnings: Vec::new(),
 	};
 	let m = merge_codex(&inputs);

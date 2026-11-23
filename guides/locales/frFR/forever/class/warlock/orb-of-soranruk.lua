@@ -10,8 +10,8 @@ return {
 	["A rare off-hand orb or staff for your 20s, for fragments from two dungeons."] = "Une orbe de main gauche ou un bâton rare pour votre vingtaine, contre des fragments de deux donjons.",
 
 	-- Step 1: Doan Karhan
-	-- {npc:6247} Doan Karhan · {npc:6244} Takar the Seer · {area:378} Camp Taurajo · {zone:1413} Barrens · {area:392} Ratchet · {area:380} Crossroads · {area:2797} Blackfathom Deeps · {area:236} Shadowfang Keep
-	["{npc:6247} camps beside {npc:6244}, at a tent just north-east of {area:378} in the southern {zone:1413}. Alliance warlocks reach him from {area:392} or Theramore; Horde ones head south from the {area:380}. He wants fragments from two dungeons: take the quest before your {area:2797} and {area:236} runs."] = "{npc:6247} campe à côté de {npc:6244}, sous une tente juste au nord-est du {area:378}, dans le sud des {zone:1413}. Les démonistes de l'Alliance le rejoignent depuis {area:392} ou Theramore ; ceux de la Horde descendent au sud depuis la {area:380}. Il veut des fragments de deux donjons : prenez la quête avant vos expéditions à {area:2797} et au {area:236}.",
+	-- {npc:6247} Doan Karhan · {npc:6244} Takar the Seer · {area:378} Camp Taurajo · {zone:1413} Barrens · {area:392} Ratchet · {area:2797} Blackfathom Deeps · {area:236} Shadowfang Keep
+	["{npc:6247} camps beside {npc:6244}, at a tent just north-east of {area:378} in the southern {zone:1413}. Alliance warlocks reach him from {area:392} or Theramore; Horde ones head south from the Crossroads. He wants fragments from two dungeons: take the quest before your {area:2797} and {area:236} runs."] = "{npc:6247} campe à côté de {npc:6244}, sous une tente juste au nord-est du {area:378}, dans le sud des {zone:1413}. Les démonistes de l'Alliance le rejoignent depuis {area:392} ou Theramore ; ceux de la Horde descendent au sud depuis la Croisée. Il veut des fragments de deux donjons : prenez la quête avant vos expéditions à {area:2797} et au {area:236}.",
 
 	-- Step 2: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {zone:1440} Ashenvale · {area:414} Zoram Strand · {npc:4832} Twilight Lord Kelris · {npc:4829} Aku'mai

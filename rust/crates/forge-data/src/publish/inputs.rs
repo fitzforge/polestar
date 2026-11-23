@@ -141,6 +141,33 @@ pub struct Kb {
 	pub mechanics: Vec<MechanicRow>,
 	/// None until the KB's steps carry `source` and `evidence`.
 	pub steps: Option<Vec<StepRow>>,
+	/// The KB's `correction_origin`: per corrected (kind, id, field) the public entry's source
+	/// kinds, or None when the maintainer's private overlay sets it. A fact labelled `correction`
+	/// that is not here (or a KB without the table) is treated as private. Mechanics fixes are
+	/// (`mechanic`, quest, `*`).
+	pub corrections: FxHashMap<(String, i64, String), Option<Vec<String>>>,
+}
+
+impl Kb {
+	/// The tier labels a correction of (kind, id, field) stands on in the public tier: the public
+	/// entry's source kinds that name an independent check (a check in game counts as a recording).
+	/// Empty for one the private overlay sets, or one whose sources name no independent check.
+	pub fn correction_labels(&self, kind: &str, id: i64, field: &str) -> Vec<String> {
+		let Some(Some(kinds)) = self.corrections.get(&(kind.to_string(), id, field.to_string())) else { return Vec::new() };
+		let mut out: Vec<String> = Vec::new();
+		for k in kinds {
+			let l = super::tables::correction_label(k);
+			if super::tier::independent_label(l) && !out.iter().any(|x| x == l) {
+				out.push(l.to_string());
+			}
+		}
+		out
+	}
+
+	/// Whether the private overlay fixes the quest's mechanics (or the KB cannot tell).
+	pub fn private_mechanics_fix(&self, quest: i64) -> bool {
+		!matches!(self.corrections.get(&("mechanic".to_string(), quest, "*".to_string())), Some(Some(_)))
+	}
 }
 
 pub fn load_kb(p: &Path) -> Result<Kb, String> {
@@ -218,7 +245,14 @@ pub fn load_kb(p: &Path) -> Result<Kb, String> {
 	} else {
 		None
 	};
-	Ok(Kb { facts, alts, tiers, factoruide_split, quests, npcs, objects, items, drop_items, npcs_with_spawns, objects_with_spawns, mechanics, steps })
+	let mut corrections = FxHashMap::default();
+	if columns(&db, "correction_origin").contains("origin") {
+		for r in rows(&db, p, "select kind, id, field, origin, kinds from correction_origin")? {
+			let kinds = (r.s("origin") == "public").then(|| r.s("kinds").split(',').filter(|k| !k.is_empty()).map(str::to_string).collect());
+			corrections.insert((r.s("kind"), r.i("id"), r.s("field")), kinds);
+		}
+	}
+	Ok(Kb { facts, alts, tiers, factoruide_split, quests, npcs, objects, items, drop_items, npcs_with_spawns, objects_with_spawns, mechanics, steps, corrections })
 }
 
 // ---------------------------------------------------------------- Factoruide row sources

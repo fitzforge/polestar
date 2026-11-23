@@ -1,5 +1,6 @@
 //! The release version: kept in package.json, in our guides' pack manifest (guides/pack.json: compile
-//! writes its version into Polestar_Guides.toc) and in the `## Version` line of every addon TOC.
+//! writes its version into Polestar_Guides.toc) and Polestar's own extra packs' (experimental/pack.json,
+//! into Polestar_Experimental.toc), and in the `## Version` line of every addon TOC.
 
 use std::path::{Path, PathBuf};
 use std::sync::LazyLock;
@@ -10,14 +11,15 @@ static TOC_VERSION: LazyLock<regex::Regex> = LazyLock::new(|| regex::Regex::new(
 /// The files that carry the version under a checkout.
 pub struct Files {
 	pub package: PathBuf,
-	/// guides/pack.json, when the checkout has one.
-	pub manifest: Option<PathBuf>,
+	/// guides/pack.json and the extra packs' (experimental/pack.json), those the checkout has.
+	pub manifests: Vec<PathBuf>,
 	/// `<addons>/<Name>/<Name>.toc` of every folder that has one (hidden folders skipped), sorted.
 	pub tocs: Vec<PathBuf>,
 }
 
 pub fn files(root: &Path, addons: &Path) -> Files {
-	let manifest = Some(root.join("guides/pack.json")).filter(|f| f.exists());
+	let manifests: Vec<PathBuf> =
+		std::iter::once("guides".to_string()).chain(forge_guide::project::OWN_EXTRAS.iter().map(|e| e.source.to_string())).map(|d| root.join(d).join("pack.json")).filter(|f| f.exists()).collect();
 	let mut tocs: Vec<PathBuf> = std::fs::read_dir(addons)
 		.into_iter()
 		.flatten()
@@ -29,7 +31,7 @@ pub fn files(root: &Path, addons: &Path) -> Files {
 		.filter(|f| f.exists())
 		.collect();
 	tocs.sort_by(|a, b| forge_guide::js::cmp_utf16(&a.to_string_lossy(), &b.to_string_lossy()));
-	Files { package: root.join("package.json"), manifest, tocs }
+	Files { package: root.join("package.json"), manifests, tocs }
 }
 
 fn read(file: &Path) -> Result<String, String> {
@@ -61,7 +63,7 @@ pub fn toc_version(text: &str) -> Option<String> {
 pub fn check(f: &Files) -> Result<(String, Vec<(PathBuf, String)>), String> {
 	let version = package_version(f.package.parent().unwrap_or(Path::new(".")))?;
 	let mut wrong = Vec::new();
-	if let Some(m) = &f.manifest {
+	for m in &f.manifests {
 		match json_version(m)? {
 			Some(serde_json::Value::String(v)) if v == version => {}
 			None => wrong.push((m.clone(), "no \"version\" field".into())),
@@ -86,16 +88,14 @@ pub fn set(f: &Files, version: &str) -> Result<(), Vec<(PathBuf, String)>> {
 	if !JSON_VERSION.is_match(&pkg) {
 		return Err(one(&f.package, "no \"version\" field".into()));
 	}
-	let man = match &f.manifest {
-		Some(m) => {
-			let text = read(m).map_err(|e| one(m, e))?;
-			if !JSON_VERSION.is_match(&text) {
-				return Err(one(m, "no \"version\" field".into()));
-			}
-			Some((m, text))
+	let mut man = Vec::new();
+	for m in &f.manifests {
+		let text = read(m).map_err(|e| one(m, e))?;
+		if !JSON_VERSION.is_match(&text) {
+			return Err(one(m, "no \"version\" field".into()));
 		}
-		None => None,
-	};
+		man.push((m, text));
+	}
 	let mut tocs = Vec::new();
 	let mut missing = Vec::new();
 	for t in &f.tocs {
@@ -111,7 +111,7 @@ pub fn set(f: &Files, version: &str) -> Result<(), Vec<(PathBuf, String)>> {
 	let json = |text: &str| JSON_VERSION.replacen(text, 1, |c: &regex::Captures| format!("{}\"{version}\"", &c[1])).into_owned();
 	let write = |p: &Path, text: String| std::fs::write(p, text).map_err(|e| one(p, e.to_string()));
 	write(&f.package, json(&pkg))?;
-	if let Some((m, text)) = man {
+	for (m, text) in man {
 		write(m, json(&text))?;
 	}
 	for (t, text) in tocs {

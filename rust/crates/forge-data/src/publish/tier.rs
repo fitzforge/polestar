@@ -1,7 +1,9 @@
 //! The public tier's value selection over the KB's facts: a value is published only when an
 //! independent source holds it. The KB winner is kept when it is independently held; otherwise
 //! the independent alternative of the best tier is published; otherwise the field is cut.
-//! A correction counts only when another independent source holds the same value.
+//! A correction counts on its own when it is a public one (forever-db/corrections, not the
+//! maintainer's private overlay: the KB's `correction_origin`) whose `source` names an independent
+//! check; any other correction counts only when another independent source holds the same value.
 //!
 //! The KB's check-only sources (cmangos, tdb.inherited, eg.objectives) never win; a fact whose
 //! usable values are all check-only has no facts row, only alternatives, which are candidates.
@@ -73,7 +75,15 @@ impl Ctx<'_> {
 		}
 		let mut best: Option<(usize, f64, Vec<String>)> = None;
 		for (i, (_, labels)) in groups.iter().enumerate() {
-			let ind: Vec<String> = labels.iter().filter(|l| self.independent(l, kind, id, field)).cloned().collect();
+			let mut ind: Vec<String> = labels.iter().filter(|l| self.independent(l, kind, id, field)).cloned().collect();
+			// A public correction stands on the checks its source names.
+			if labels.iter().any(|l| l == "correction") {
+				for l in self.kb.correction_labels(kind, id, field) {
+					if !ind.contains(&l) {
+						ind.push(l);
+					}
+				}
+			}
 			if ind.is_empty() {
 				continue;
 			}

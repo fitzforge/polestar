@@ -1,6 +1,8 @@
 //! Port of tools/lib/dsl/candidates.js.
 //! Candidate sets for smart targets (`train <Profession>`, `train class`, `buy … nearest`, `vendor nearest`,
-//! `sethome nearest`): every matching NPC with a spawn point and a faction tag, one per town (hub).
+//! `sethome nearest`): every matching NPC with a spawn point and a faction tag, one per town (hub); on a capital
+//! city's map one per district (#2018: Stormwind's Alexandra Bolero in the Mage Quarter and Edna Mullby in the Trade
+//! District, 235 yards apart).
 
 use crate::data::Data;
 use crate::heights::candidate_height;
@@ -10,9 +12,22 @@ use std::cmp::Ordering;
 
 pub const CAP: f64 = 6.0;
 const HUB_YARDS: f64 = 250.0;
+const CITY_HUB_YARDS: f64 = 60.0;
+/// Stormwind, Orgrimmar, Ironforge, Thunder Bluff, Darnassus and the Undercity (uiMap ids).
+const CITY_MAPS: [f64; 6] = [1453.0, 1454.0, 1455.0, 1456.0, 1457.0, 1458.0];
 const MAX_PER_GROUP: f64 = 120.0;
 const SERVICE_ROLES: [&str; 3] = ["vendor", "innkeeper", "repair"];
 const SAME_SPOT_YARDS: f64 = 100.0;
+
+/// How near two candidates stand to be one hub: CITY_HUB_YARDS on the same city map, else HUB_YARDS.
+fn hub_yards(a: &V, b: &V) -> f64 {
+	let (am, bm) = (a.get("map"), b.get("map"));
+	if am.strict_eq(&bm) && am.as_num().is_some_and(|m| CITY_MAPS.contains(&m)) {
+		CITY_HUB_YARDS
+	} else {
+		HUB_YARDS
+	}
+}
 
 fn round2(n: f64) -> f64 {
 	let r = math_round(n * 100.0) / 100.0;
@@ -51,9 +66,11 @@ pub struct WorldPos {
 	pub wy: f64,
 }
 
-/// World yards of a map point through data.frame, or None without a frame.
-pub fn world_pos(data: &Data, map: &V, x: f64, y: f64) -> Option<WorldPos> {
-	let fr = data.frame(map);
+/// World yards of a map point in the frame it is in: an Era point (`f` "e") through data.frame, any other
+/// point (live frame) through the map's Forever frame, else its Era one. None without a frame.
+pub fn world_pos(data: &Data, map: &V, x: f64, y: f64, f: &V) -> Option<WorldPos> {
+	let fr = if f.as_str() == Some("e") { data.frame(map) } else { data.map_frames.get("forever").get(&map.to_js_string()) };
+	let fr = if fr.truthy() { fr } else { data.frame(map) };
 	if !fr.truthy() {
 		return None;
 	}
@@ -135,7 +152,7 @@ fn distinct_points(data: &Data, id: &V) -> Vec<Point> {
 		.into_iter()
 		.map(|p| {
 			let map = p.get("map");
-			let w = world_pos(data, &map, p.get("x").num(), p.get("y").num());
+			let w = world_pos(data, &map, p.get("x").num(), p.get("y").num(), &p.get("f"));
 			let a = area(&map);
 			(Point { p, w }, a)
 		})
@@ -166,7 +183,7 @@ pub fn build_candidates(data: &Data, entries: &[V], opts: &V) -> V {
 	let sides = opts.get("sides").items();
 	let cap = if opts.get("cap").truthy() { opts.get("cap").num() } else { MAX_PER_GROUP };
 	let r = opts.get("ref");
-	let reference = if r.truthy() { world_pos(data, &r.get("map"), r.get("x").num(), r.get("y").num()) } else { None };
+	let reference = if r.truthy() { world_pos(data, &r.get("map"), r.get("x").num(), r.get("y").num(), &r.get("f")) } else { None };
 	// npc id -> (side, classes), in insertion order
 	let mut merged: Vec<(f64, V, Option<Vec<V>>)> = Vec::new();
 	for e in entries {
@@ -274,7 +291,8 @@ pub fn build_candidates(data: &Data, entries: &[V], opts: &V) -> V {
 			if hubs.len() as f64 >= cap {
 				break;
 			}
-			let same_hub = a.w.as_ref().is_some_and(|aw| hubs.iter().any(|h| h.w.as_ref().is_some_and(|hw| hw.c.strict_eq(&aw.c) && hypot(hw.wx - aw.wx, hw.wy - aw.wy) < HUB_YARDS)));
+			let same_hub =
+				a.w.as_ref().is_some_and(|aw| hubs.iter().any(|h| h.w.as_ref().is_some_and(|hw| hw.c.strict_eq(&aw.c) && hypot(hw.wx - aw.wx, hw.wy - aw.wy) < hub_yards(&h.cand, &a.cand))));
 			if same_hub {
 				continue;
 			}

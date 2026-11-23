@@ -11,16 +11,16 @@ return {
 	["A robe at 15 for Horde mages, from the {zone:1458} and {zone:1421}."] = "Una toga a nivel 15 para magos de la Horda, de {zone:1458} y {zone:1421}.",
 
 	-- Step 1: Uthel'nay (Orgrimmar)
-	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {object:172961} Valley of Spirits · {zone:1420} Tirisfal Glades
-	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "",
+	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge · {object:172961} Valley of Spirits · {zone:1420} Tirisfal Glades
+	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311} es uno de los instructores de magos de {zone:1454}, en {object:173161}, en {object:172961}. Después toma el zepelín a {zone:1420} desde la torre de fuera de la puerta principal de {zone:1454}.",
 
 	-- Step 2: Cain Firesong (Brill)
 	-- {npc:2128} Cain Firesong · {area:159} Brill · {area:2119} Gallows' End Tavern
-	["{npc:2128} is the {area:159} mage trainer, in the {area:2119}."] = "",
+	["{npc:2128} is the {area:159} mage trainer, upstairs in the {area:2119}: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 
 	-- Step 3: Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter · {item:7247} Chest of Containment Coffers · {item:7308} Cantation of Manifestation
-	["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie on the ledge behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them."] = "",
+	["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie on the ledge behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them."] = "{npc:4568} está en {object:36082}. {item:7247} y {item:7308} están en la cornisa detrás de ella (ambos vuelven a aparecer 5 minutos después de que alguien los coja). Entregas los dos al final, así que guárdalos.",
 
 	-- Step 4: The alchemist shop
 	["The alchemist shop"] = "La tienda del alquimista",
@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: Josef Gregorian
 	-- {zone:1458} Undercity · {npc:4576} Josef Gregorian · {npc:11048} Victor Ward · {npc:11049} Rhiannon Davis · {object:36082} Magic Quarter · {quest:1962} Spellfire Robes
-	["Back to the {zone:1458}. {npc:4576}, {npc:11048} and {npc:11049} keep the tailor's shop in the {object:36082}. Hand the gems and cloth to {npc:4576} and let the three of them talk for a moment; then take {quest:1962} (Forever's quest data has {npc:11049} offering it; if the \"!\" shows over {npc:4576} instead, take it from him) and hand it to {npc:4576} for the robe."] = "",
+	["Back to the {zone:1458}. {npc:4576}, {npc:11048} and {npc:11049} keep the tailor's shop in the {object:36082}. Hand the gems and cloth to {npc:4576} and let the three of them talk for a moment; then {npc:4576} offers {quest:1962}: take it and hand it straight back to him for the robe."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Algernon's alchemist shop is in the Apothecarium. Use the {item:7308} there to make the {npc:6492} visible, subdue one with your spells, then use the {item:7247} to throw down a coffer and capture it."] = "La tienda de alquimia de Algernon está en el Apothecarium. Usa {item:7308} allí para hacer visible a la {npc:6492}, somete a una con tus hechizos y luego usa {item:7247} para lanzar un cofre y capturarla.",
@@ -52,6 +52,4 @@ return {
 	-- ["Humanoids drop {item:2589}; the Undercity Auction House sells it."] = "Los humanoides sueltan {item:2589}; la casa de subastas de Entrañas lo vende.",
 	-- ["Leave the {zone:1458} and follow the road south through {zone:1421}. The {area:279} mages hold {area:233}, south-east of the {area:228}; every {npc:1867}, Mage, Protector, Warder, Conjuror, Watcher and Wizard can drop a {item:7293}."] = "Sal de {zone:1458} y sigue el camino hacia el sur por {zone:1421}. Los magos de {area:279} controlan {area:233}, al sureste de {area:228}; cualquier {npc:1867}, mago, protector, guardián, conjurador, vigía o hechicero puede soltar una {item:7293}.",
 	-- ["{npc:2128} is the {area:159} mage trainer."] = "{npc:2128} es el instructor de magos de {area:159}.",
-	-- ["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie behind her."] = "{npc:4568} está en {object:36082}. {item:7247} y {item:7308} están detrás de ella.",
-	-- ["{npc:7311} is one of {zone:1454}'s mage trainers. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311} es uno de los instructores de magos de {zone:1454}. Después toma el zepelín a {zone:1420} desde la torre de fuera de la puerta principal de {zone:1454}.",
 }

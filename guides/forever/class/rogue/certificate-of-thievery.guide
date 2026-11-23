@@ -91,11 +91,13 @@ step Renzik "The Shiv"
 step Lucius
   zone Redridge Mountains
   tip Head east through Elwynn Forest into Redridge, or fly to Lakeshire. Lucius stands on a crate on one of the Lakeshire docks, south of town; he gives you Thieves' Tools with the job (Gerald Crawley in Lakeshire sells more). Pick Lock does not work without the tools in your bags.
+  level 19
   turnin 2281                                 -- Lucius
   accept 2282
 
 step Alther's Mill
   tip Alther's Mill stands east of Lakeshire, up off the road; Blackrock orcs roam near it. Inside, the Practice Lockboxes come back almost at once: pick them until Lucius's Lockbox opens for you (about 25 Lockpicking). Your Lockpicking cap rises 5 per level, so a low character may stall. Some boxes are trapped (a frost trap, for one); the skill still goes up. On Forever level 20 spiders wander near the boxes: clear them first or bring a friend. The lockbox always holds the token and is back two seconds after use. Practise on while it still gives skill: the next class quest needs about 75.
+  level 20
   collect 7871 quest 2282.1                   -- Token of Thievery: Lucius's Lockbox
 
 step Back to Lucius

@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Imp (Horde)"] = "",
-	["Your first demon at level 1-4: the imp, with a starter blade or staff for Orcs and Trolls."] = "",
+	["Imp (Horde)"] = "Бес (Орда)",
+	["Your first demon at level 1-4: the imp, with a starter blade or staff for Orcs and Trolls."] = "Ваш первый демон на 1-4 уровне: бес, а также стартовый клинок или посох для орков и троллей.",
 
 	-- Step 1: Ruzan (Orcs and Trolls)
 	-- {npc:5765} Ruzan

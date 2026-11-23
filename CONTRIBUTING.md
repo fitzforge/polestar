@@ -41,7 +41,8 @@ package them. You can help without touching any code.
 
 The in-game report (the bug in the guide window) fills in most of this for
 you: the guide, the step and its goals, your position, your race, class and
-level, the versions and any errors Polestar caught. Add what is wrong.
+level, the versions, the settings you changed from their defaults and any
+errors Polestar caught. Add what is wrong.
 
 - The guide and the step as the guide window shows them (the guide's title
   and the step's number and text).
@@ -61,15 +62,24 @@ report goes through the same steps before anything changes:
 
 1. **Check the version and install.** The report's first line names the
    Polestar version. Is the step still the same on the coming release?
-2. **Reproduce it.** In the data (`data/forever/*.json`, the compiled guide),
+2. **Rule out a setting they changed.** The report's Settings section, at
+   the end of its details, lists every setting that differs from its
+   default in the profile the player uses (and whether that profile is the
+   character's own, its class's or the account's), the ones that change
+   what Polestar does first, the looks summed up in one line. "Settings:
+   all defaults" rules settings out. A long list ends with "+N more" and a
+   packed line; on an issue filed from Discord the bot unfolds every
+   setting, with its default, under "Settings". Try the step with the
+   settings that could explain it before calling it a bug.
+3. **Reproduce it.** In the data (`data/forever/*.json`, the compiled guide),
    in the test client (`tests/`, see tests/README.md) or in the game. A
    report that can't be reproduced gets an answer saying so, and why.
-3. **Check it against the sources.** The game's own data, Forever's quest
+4. **Check it against the sources.** The game's own data, Forever's quest
    data, recordings. A player's memory of Classic is not a source: Forever
    changed many quests.
-4. **Fix it only if it is real,** with a test that fails before the fix and
+5. **Fix it only if it is real,** with a test that fails before the fix and
    passes after it (or, for a guide, lint and `playtest`).
-5. **Credit the reporter** in the fix's changelog entry, "(thanks <name>)",
+6. **Credit the reporter** in the fix's changelog entry, "(thanks <name>)",
    and tell them which release carries the fix.
 
 ## Before you start
@@ -102,6 +112,14 @@ steps keep two of you from fixing the same thing without knowing:
    pull request that fixes the pattern and lists every issue it closes.
 6. **A claim that went quiet** (no commit or reply for a week) is free:
    say on the issue that you are taking it over, and go ahead.
+7. **A new guide is a community guide.** Polestar's own guide list holds the
+   guides the maintainer plans and keeps. A guide you wrote yourself (a new
+   route, a dungeon walkthrough, a collection) is published as your own
+   community guide on [polestar.guide](https://polestar.guide/community),
+   where it stays yours to update and is credited to you
+   (README, "Writing a community addon"). A pull request that adds a new
+   guide to `guides/` is merged only when the maintainer asked for that guide
+   in an issue first. Fixes to existing guides are always welcome here.
 
 An issue filed from the Discord #bugs forum tells its reporter in their
 thread when the first pull request for it opens, so link only what you are
@@ -163,11 +181,23 @@ below.
   see it. Give the entry a `source` (an in-game check or issue, a recording,
   the client, CMaNGOS, the Forever TrinityCore DB, QuestieDB or pfQuest;
   `forever-db/README.md` lists the kinds) and a `note` in your own words.
-- **Do not commit `addon/Polestar_Guides/Guides.lua`.** It is compiled from
-  `guides/` and `data/forever`; the maintainer runs `forge guide compile`
-  (via `polestar regen`) after merge. Never hand-edit it or splice
-  in a hunk from a partial compile: a spliced hunk can still be valid Lua
-  while the game never sees the goals it contains.
+- **Commit the recompiled guides and their translation files in the same
+  pull request.** CI has no reference data, so it cannot compile guides:
+  a guide change without them leaves `next` stale for every pull request
+  after it. After your last guide edit (and after merging `next` into your
+  branch), run
+
+  ```sh
+  forge i18n guides sync    # guides/locales/<locale>/: the texts your change added, changed or removed
+  forge guide compile       # addon/Polestar_Guides*/ and each language's Texts.lua
+  ```
+
+  (`forge guide compile experimental` too for a guide in `experimental/`)
+  and commit everything they write. Never hand-edit the compiled files or
+  splice in a hunk from a partial compile: a spliced hunk can still be
+  valid Lua while the game never sees the goals it contains. Both need the
+  reference data; without it, say so in the pull request and a maintainer
+  pushes the compile to your branch before merging it.
 - Check your change:
 
   ```sh
@@ -179,6 +209,17 @@ below.
   `--filter` plays only the guides whose file or id contains its text;
   `--class Warrior` narrows it to one class. You don't need the full test
   suite; CI runs it on your pull request.
+- A pull request that moves a quest (to a later step, into another guide,
+  into a new step) shows its flow diff:
+  `node tools/polestar.js flow-diff --base origin/next --guides <guide> --md flow.md`
+  plays the route before and after your change and lists, per guide that
+  plays differently, the zones in order, any new trip back into a zone the
+  route had left, steps that send the player far for one quest (or to a
+  place with nothing to do), quests carried for more guides, the walking
+  and flying time, and where each moved quest went. Paste the table into the
+  pull request. It fails on a new revisit or trip unless
+  `data/flow-diff-allow.json` names it with a reason
+  ([docs/ROUTE-FEEL.md](docs/ROUTE-FEEL.md#flow-diff-what-one-change-does-to-the-route)).
 
 Both need the reference data (below). If you cannot build it, send the fix
 anyway: describe what you changed and why, say that you could not run the
@@ -225,12 +266,13 @@ shipped guides with his maps after merging
 ## Checks
 
 Run only the checks for what you changed. CI runs the full suite on every
-pull request and tells you if anything else broke.
+pull request that changes more than documentation and tells you if anything
+else broke ([docs/CI.md](docs/CI.md#lanes), "Lanes").
 
 | What you changed | What you run |
 |---|---|
-| A guide step (`.guide` file, existing guide) | `forge guide lint` and `playtest --filter <guide>` (need reference data; say so in the PR if unavailable); for a fix to a reported bug, also `node --test tests/guides-reported.test.js` (or `tests/guides-caves.test.js` for a cave mouth) |
-| A new or renamed guide file | The same lint and playtest; note in the PR that `Guides.lua` needs recompiling — the maintainer does it after merge |
+| A guide step (`.guide` file, existing guide) | `forge guide lint` and `playtest --filter <guide>` (need reference data; say so in the PR if unavailable); for a fix to a reported bug, also `node --test tests/guides-reported.test.js` (or `tests/guides-caves.test.js` for a cave mouth); then `forge i18n guides sync` and `forge guide compile`, committed with the change ([Fixing a guide](#fixing-a-guide)) |
+| A new or renamed guide file | The same lint, playtest, sync and compile, committed with the change |
 | The addon's Lua (`addon/Polestar/`) | The test file(s) for the area you changed: `node --test tests/<area>.test.js`. Find it with `grep -rl <module-name> tests/*.test.js`; for example, a change to `Theme/` → `node --test tests/theme.test.js`. For a UI change, optionally run `node tools/polestar.js preview` to review the renders |
 | A tool or its library (`tools/`) | That tool's tests: `node --test "tests/<tool>*.test.js"` (e.g. `node --test tests/compile.test.js`) |
 | `tools/media/` (texture generators) | `node tools/polestar.js media` to see the textures locally; CI verifies the generators work |
@@ -243,11 +285,15 @@ A few tests skip automatically when the reference data (`data/forever`) or
 Lua 5.1 is missing. [tests/README.md](tests/README.md) describes the suite;
 [docs/SUITE.md](docs/SUITE.md) what is in and out of scope.
 
-**You do not commit** `addon/Polestar_Guides/Guides.lua`, `docs/preview/*.svg`,
-the locale files in `addon/Polestar*/`, or `addon/Polestar/Media/*.tga` unless
-your change is to the generator itself (a texture generator in `tools/media/`,
-the preview renderer in `tools/preview/`, or the compiler in `tools/lib/dsl/`).
-The maintainer regenerates those after merging your PR.
+**A guide change commits its compiled guides and translation files**
+(`addon/Polestar_Guides*/`, `addon/Polestar_Experimental/`, the languages'
+`Texts.lua`, `guides/locales/`; see [Fixing a guide](#fixing-a-guide)).
+**You do not commit** `docs/preview/*.svg`, the interface translation files
+(`Interface.lua` in `addon/Polestar_<locale>/`) or
+`addon/Polestar/Media/*.tga` unless your change is to the generator itself
+(a texture generator in `tools/media/`, the preview renderer in
+`tools/preview/`, or the English string set). The maintainer regenerates
+those after merging your PR.
 
 ## Code changes
 
@@ -255,7 +301,8 @@ The maintainer regenerates those after merging your PR.
   tools fit together; [docs/README.md](docs/README.md) maps every document.
 - Behaviour changes come with tests that show the behaviour. Run the tests
   for what you changed (see [Checks](#checks) above); CI runs the full suite
-  on every PR and tells you if anything else broke.
+  on every PR that changes code, data or guides and tells you if anything
+  else broke.
 - For UI changes, `node tools/polestar.js preview` renders the guide window,
   menu and options to `docs/preview/*.svg`. Run it to review your change
   visually; CI runs it on every PR to verify the renderer still works.
@@ -279,14 +326,45 @@ The maintainer regenerates those after merging your PR.
 | Branch | Holds |
 |---|---|
 | `main` | The latest release, what players have. It moves only when a release is made. |
-| `next` | The next release (the repository's default branch). Every pull request goes here. |
+| `next` | Everything for coming releases (the repository's default branch). **Every pull request goes here.** |
+| `release/<version>` | A feature release being tested, cut from `next` when it freezes (for example `release/0.4.1`). Only fixes for that release go in. |
+| `hotfix/<version>` | An urgent fix to what players have, cut from the latest release's tag (for example `hotfix/0.4.0.2` from `v0.4.0.1`). |
+| `feature/<name>` | A large feature not ready for `next` yet, built up by the maintainers over several pull requests (now `feature/dungeons-in-route`). It goes to `next` as a whole when it's ready. |
 
-Every pull request goes to **`next`**: guide fixes, the addon, the tools,
-the data builds, translations, new guides and route refreshes. Never to
-`main`; the `Base branch` check fails those. `main` moves only when a
-release is made: it is fast-forwarded to `next` and tagged. A patch release
-is just a version bump (`x.y.Z`) from `next`, sooner than a feature release.
+Pull requests go to **`next`**: guide fixes, the addon, the tools, the data
+builds, translations, new guides, new features and route refreshes. Never to
+`main`; the `Base branch` check fails those. `next` keeps taking pull requests
+while a release is tested: the freeze happens on its `release/` branch, not on
+`next`.
+
+The `release/` and `hotfix/` branches are the maintainers'. A fix found while
+a release is tested goes to its `release/` branch, and an urgent fix for
+players goes to a `hotfix/` branch; a maintainer asks you on your pull request
+when that applies. When a release or a hotfix ships, `main` moves to it, it is
+tagged, and the branch is merged back into `next`, so nothing is lost.
 docs/RELEASING.md has the release side.
+
+**Once your pull request is merged, don't push to it again,** not even a
+rebase: GitHub shows it as merged because your exact commits are in the base
+branch. A fix or a follow-up is a new pull request.
+
+## Merge conflicts
+
+Many pull requests land on `next` at once, so a few shared files often
+conflict when you bring your branch up to date (`git merge origin/next`).
+None of them needs a hand merge:
+
+| Files | How |
+|---|---|
+| The interface translations, `addon/Polestar_<locale>/Interface.lua` | Merged for you: `.gitattributes` gives them `merge=union`, which keeps both sides' lines. Each translation is one `L["..."] = "..."` line in no meaningful order, so that is safe: a key both sides changed (set twice) or one side retired fails `forge i18n check` (CI); keep the right line and run `forge i18n sync`. GitHub's merge button ignores the attribute, so a conflict shown there goes away when you merge `next` into your branch locally and push. |
+| `guides/GENERATED.json`, `forge/seed/SEED.json` (the maintainers' hand edits to generated guides) | Resolve the guides themselves first, then take either side of the manifests and recompute them from the files: `git checkout --theirs guides/GENERATED.json forge/seed/SEED.json && forge guide rehash && git add guides/GENERATED.json forge/seed/SEED.json` |
+| Compiled guides (`addon/Polestar_Guides*/`, the locales' `Texts.lua`) | Compile again from the merged guides, which rewrites them whole: `forge guide compile`, then `git add` what it wrote. It needs the reference data; without it, take either side (`git checkout --theirs <file>`) and say so in the pull request. |
+| Changelog fragments (`changes/`) | They never conflict: each change has its own file. Give yours a name no one else will pick (`forge changelog add ... --name <issue>-<slug>`). |
+
+`merge=union` is only for files where every entry is one self-contained
+line and the order does not matter; never for JSON, the compiled
+`Texts.lua` (nested tables) or the fragments (an entry spans lines).
+`tests/merge-union.test.js` holds every file that has it to that.
 
 ## Using an AI agent
 
@@ -335,6 +413,29 @@ your request matches it; to be sure, name it: "use polestar-triage on #123".
 - Plain messages that describe the change for the players or authors it
   affects (for example "Westfall: turn in at Sentinel Hill before the farms"), not
   how it was made.
+- Commit messages, branch names, pull request titles and descriptions are
+  public for good: a pushed commit stays readable by its SHA even after a
+  force-push. Like every file in the repository (`tests/wording.test.js`),
+  they name no other guide product and never say a route was compared with,
+  follows or matches another guide; a route's reasons are our own (walking,
+  levels, quest data, players' recordings). Drop such a clause rather than
+  swap in another word for it. The words are in `tools/lib/public-text.json`;
+  guides and the fix records' own words (a route fix's `why`, a correction's
+  `note`) are held to the full list, like messages.
+  The *Public text* check reads every pull request's title, description,
+  branch name and commits. To check each message before the commit is made,
+  turn on the repository's hooks once per clone:
+
+  ```sh
+  git config core.hooksPath tools/hooks
+  ```
+
+  `tools/hooks/commit-msg` then refuses a message that breaks the rule and
+  names the line and rule; `tools/hooks/pre-push` checks the branch name and
+  every commit a push would publish that isn't on `origin` yet (commits a
+  rebase or merge brings in from `origin` are public already and aren't
+  checked again). `node tools/public-text.js <file>` checks any text the same
+  way.
 - Behaviour changes come with tests that show the behaviour.
 - Each change brings its changelog entry as a file of its own in
   `changes/` (a fragment), not an edit to CHANGELOG.md: with many pull
@@ -382,6 +483,11 @@ unexplained.
 Then the change is reviewed for correctness (tests, the game's limits,
 Options toggles off by default for anything that spends, equips or acts for
 the player) and merged into its base branch.
+
+**Changes asked in review happen on your pull request,** where you can see
+them: as review comments, or, for small fit-ups (a conflict, a format
+number, a test), as commits a maintainer pushes to your branch. Keep "Allow
+edits by maintainers" ticked. Your commits keep your name either way.
 
 **AI-assisted pull requests:** the model named in the "Model and tool" line
 sets how carefully the work is re-verified. Pull requests from smaller or

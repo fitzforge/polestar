@@ -95,12 +95,21 @@ fn load_world() -> Option<World> {
 		return None;
 	}
 	let data = load_data(&data_dir).expect("data loads");
-	// `next` lines name guides outside the one-file pack: dropped, so a seed compiles clean on its own.
+	// `next` lines name guides outside the one-file pack: dropped, so a seed compiles clean on its own. Where the
+	// cut falls inside a guide it ends before the last step it reaches, which it may split from its goals (a step
+	// whose `when` lines fill the last lines would have none).
 	let seeds: Vec<Vec<String>> = SEEDS
 		.iter()
 		.map(|rel| {
 			let text = std::fs::read_to_string(guides.join(rel)).expect("seed guide");
-			text.lines().filter(|l| !l.starts_with("next ")).take(SEED_LINES).map(str::to_string).collect()
+			let mut lines: Vec<String> = text.lines().filter(|l| !l.starts_with("next ")).map(str::to_string).collect();
+			if lines.len() > SEED_LINES {
+				lines.truncate(SEED_LINES);
+				if let Some(last) = lines.iter().rposition(|l| l.starts_with("step ")) {
+					lines.truncate(last);
+				}
+			}
+			lines
 		})
 		.collect();
 	let mut tokens: Vec<String> = seeds.iter().flatten().flat_map(|l| l.split_whitespace().map(str::to_string)).collect();

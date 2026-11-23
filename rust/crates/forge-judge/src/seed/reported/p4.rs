@@ -12,7 +12,7 @@ use regex::Regex;
 
 use crate::seed::{at, everyone, for_class, is, located, Check, Ctx, Row, SeedTest};
 
-const DUROTAR: &str = "forever/horde/orc-troll/01-durotar.guide";
+const DUROTAR: &str = "forever/horde/orc/01-durotar.guide";
 const TELDRASSIL: &str = "forever/alliance/nightelf/01-teldrassil.guide";
 const ELWYNN: &str = "forever/alliance/human/01-elwynn-forest.guide";
 const ASHENVALE: &str = "forever/alliance/06-ashenvale.guide";
@@ -24,8 +24,7 @@ const DARKSHORE: &str = "forever/alliance/03-darkshore.guide";
 const TANARIS_ALLIANCE: &str = "forever/alliance/40-50/04-tanaris.guide";
 const ZEPHRAS_HORDE: &str = "forever/horde/skyborne/01-zephras-isle.guide";
 const ZEPHRAS_ALLIANCE: &str = "forever/alliance/skyborne/01-zephras-isle.guide";
-/// Ironforge's uiMapID.
-const IRONFORGE: f64 = 1455.0;
+const WETLANDS: &str = "forever/alliance/06-wetlands.guide";
 
 pub fn tests() -> Vec<SeedTest> {
 	let t = |name: &str, f: fn(&Ctx, &mut Check)| (name.to_string(), f);
@@ -44,15 +43,15 @@ pub fn tests() -> Vec<SeedTest> {
 		t(&format!("{REDRIDGE}: Tazul's report (#340): the Battleworn Axes lead to the Blackrock camps east of Stonewatch Keep, not to Alther's Mill"), battleworn_axes),
 		t(&format!("{DUROTAR}: tor's report (#351): Encroachment is taken after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins"), encroachment),
 		t("forever/class/warlock/incubus-horde.guide: Phyz's report (#412): Avelina's and Isaac's hearts each read their own line of Hearts of the Lovers", hearts_of_the_lovers),
-		t("Nittepitte's report (#453): Making Do is optional in Redridge and Ashenvale, and taken only after Expanding Horizons is handed in", making_do),
+		t("Nittepitte's report (#453): Making Do is optional in Redridge and on the way back through Auberdine, and taken only after Expanding Horizons is handed in", making_do),
 		t(
 			&format!("{ASHENVALE}: Ioney's report (#524): Unrequited Love is handed to Tarrel Rockweaver before In Search of the Excavation Team, and taken in Auberdine before the boat"),
 			unrequited_love,
 		),
 		t(&format!("{ASHENVALE}: Ioney's report (#614): Sida's Bag is searched for at Ironbeard's Tomb, not at the oozes across the Wetlands"), sidas_bag),
 		t(
-			&format!("{ASHENVALE}: Ioney's report (#617): the grind to 28 comes after the Menethil hand-ins, before Pilot Longbeard, with no walk to Ironforge between the hearth and the grind"),
-			grind_to_28,
+			&format!("{WETLANDS}: Ioney's report (#617): Pilot Longbeard (level 28) is taken after the Wetlands hand-ins, a top-up to 28 only between them, and the 20-24 guide has no grind for it"),
+			longbeard_after_the_wetlands,
 		),
 		t(&format!("{TELDRASSIL}: Pynte's report (#327): the Timberling Seed arrow stays round Denalan with the Timberlings, not with the Elder Timberlings in the north"), timberling_seed),
 		t(&format!("{TELDRASSIL}: #555: Soft Saber Pelts accept comes before Zenn's Bidding turn-in, so both Nightsaber quests share the first east loop"), soft_saber_pelts),
@@ -60,7 +59,7 @@ pub fn tests() -> Vec<SeedTest> {
 		t(&format!("{TELDRASSIL}: #619: the necklace and the jewel are collected where Ferocitas is killed, before any turn-in"), ferocitas_loot),
 		t("#327: Pirate Hats Ahoy! names every pirate that drops the hat, not the Southsea Kidnapper alone, in both guides", pirate_hats),
 		t("forever/alliance/03-darkshore.guide: Deadshot's report (#560): How Big a Threat? points at the furbolg camp by the bears, not the one north-east of Auberdine", how_big_a_threat),
-		t("forever/horde/30-40/04-dustwallow-marsh.guide: Syrael's report (#575): the ghost-o-plasm points at the Valley of Bones, after the Kodo Graveyard", ghost_o_plasm),
+		t("forever/horde/30-40/04-dustwallow-marsh.guide: Syrael's report (#575): the ghost-o-plasm points at the Valley of Bones, after Melizza", ghost_o_plasm),
 		t("forever/professions: Schpune's report (#620): Skinning, Mining and Herbalism are learned at level 1, from the Junior trainers in the starting zones too", junior_trainers),
 		t(&format!("{ELWYNN}: Nittepitte's report (#613): Marshal Dughan's turn-ins come between Collecting Kelp and The Escape, while William Pestle brews"), collecting_kelp),
 		t(&format!("{ELWYNN}: Nittepitte's report (#612): the Mining Tools are picked up on the walk into the Jasperlode Mine, before its far end"), mining_tools),
@@ -275,6 +274,10 @@ fn object_items_at_spawns(ctx: &Ctx, c: &mut Check) {
 
 fn warsong_reports(ctx: &Ctx, c: &mut Check) {
 	let Some(list) = goals(ctx, c, "forever/horde/05-stonetalon-mountains.guide") else { return };
+	// Left out since the final route review (route-fixes skip 6543); holds whenever a build takes it again.
+	if !list.iter().any(|r| is("accept", 6543)(&r.goal)) {
+		return;
+	}
 	let Some(reports) = at(c, &list, "the Warsong Reports", collect(16746.0, Some(None))) else { return };
 	let count = list[reports].goal.get("count");
 	c.ok(if count.truthy() { count.as_num() == Some(1.0) } else { true }, "any report in the bags shows the bundle was opened");
@@ -288,7 +291,7 @@ fn warsong_reports(ctx: &Ctx, c: &mut Check) {
 
 fn no_riding(ctx: &Ctx, c: &mut Check) {
 	let transport = Regex::new(
-		r"(?i)(?-u:\b)ride (?:it(?-u:\b)|(?:the |a |on the |up a |down the )?(?:boat|ferry|zeppelin|tram|Deeprun Tram|lift|elevator|airship|flight|hippogryph|gryphon|wind rider|bat|taxi))",
+		r"(?i)(?-u:\b)ride (?:it(?-u:\b)|(?:the |a |on the |up a |down the )?(?:boat|ferry|zeppelin|tram|Deeprun Tram|lift|elevator|airship|flight|hippogryph|gryphon|wind rider|wind current|bat|taxi))",
 	)
 	.unwrap();
 	let ride = Regex::new(r"(?i)(?-u:\b)(?:ride|rides|riding|rode)(?-u:\b)").unwrap();
@@ -301,12 +304,25 @@ fn no_riding(ctx: &Ctx, c: &mut Check) {
 		if !(g.get("minLevel").num() < 40.0) {
 			continue;
 		}
+		// (A step gated to level 40 or more, or any step after a `level` goal of 40 or more, is played with
+		// riding learned, so it may say ride.)
+		let mut mounted = false;
 		for step in g.get("steps").items() {
-			for text in std::iter::once(step.get("note")).chain(step.get("goals").items().iter().map(|goal| goal.get("note"))) {
-				let Some(text) = text.as_str() else { continue };
-				if ride.is_match(&transport.replace_all(text, "")) {
-					offenders.push(format!("{guide} (from level {}), step {}: {text}", g.get("minLevel").to_js_string(), step.get("title").to_js_string()));
+			let gated = step
+				.get("when")
+				.items()
+				.iter()
+				.any(|p| p.get("k").as_str() == Some("level") && p.get("op").as_str() == Some(">=") && !p.get("neg").truthy() && p.get("n").as_num().is_some_and(|n| n >= 40.0));
+			if !mounted && !gated {
+				for text in std::iter::once(step.get("note")).chain(step.get("goals").items().iter().map(|goal| goal.get("note"))) {
+					let Some(text) = text.as_str() else { continue };
+					if ride.is_match(&transport.replace_all(text, "")) {
+						offenders.push(format!("{guide} (from level {}), step {}: {text}", g.get("minLevel").to_js_string(), step.get("title").to_js_string()));
+					}
 				}
+			}
+			if step.get("goals").items().iter().any(|goal| goal.get("t").as_str() == Some("level") && goal.get("level").as_num().is_some_and(|l| l >= 40.0)) {
+				mounted = true;
 			}
 		}
 	}
@@ -331,14 +347,13 @@ fn flight_to_auberdine(ctx: &Ctx, c: &mut Check) {
 	}
 }
 
-const BY_LEVEL: [(&str, f64, f64); 11] = [
+// (#1415: Westfall's murloc gills and eyes moved to a loop along the whole north coast, data/places.json's
+// 385-westfall-murloc-gills path; their own case checks the loop stays on the north coast.)
+const BY_LEVEL: [(&str, f64, f64); 8] = [
 	(WESTFALL, 725.0, 102.0),
-	(WESTFALL, 254548.0, 92744.0),
-	(WESTFALL, 730.0, 38.0),
 	(DARKSHORE, 5385.0, 983.0),
 	(DARKSHORE, 5412.0, 1001.0),
 	("forever/horde/02-the-barrens.guide", 5087.0, 844.0),
-	("forever/horde/orc-troll/02-the-barrens.guide", 5087.0, 844.0),
 	(SILVERPINE, 3164.0, 429.0),
 	(SILVERPINE, 730.0, 91920.0),
 	(HILLSBRAD_HORDE, 3476.0, 496.0),
@@ -348,6 +363,9 @@ const BY_LEVEL: [(&str, f64, f64); 11] = [
 fn drops_by_level(ctx: &Ctx, c: &mut Check) {
 	for (guide, item, quest) in BY_LEVEL {
 		let Some(list) = goals(ctx, c, guide) else { return };
+		// The step that does the work: an along list (the Barrens' beaks, worked on the way, #1135)
+		// has its place on the finish step.
+		let list: Vec<Row> = list.into_iter().filter(|r| !r.step.get("along").truthy()).collect();
 		let Some(i) = at(c, &list, &format!("{guide} collect {item}"), collect(item, Some(Some(quest)))) else { return };
 		let goal = &list[i].goal;
 		let q = ctx.data.quest(&V::Num(quest));
@@ -380,10 +398,13 @@ fn westfall_road_in(ctx: &Ctx, c: &mut Check) {
 	let Some(list) = goals(ctx, c, WESTFALL) else { return };
 	let Some(report) = at(c, &list, "turnin 109", is("turnin", 109)) else { return };
 	let hill = &list[report];
-	let Some(home) = at(c, &list, "sethome", |g| str_is(g, "t", "sethome")) else { return };
-	c.ok(hill.step.strict_eq(&list[home].step), "Report to Gryan Stoutmantle is handed in on the first Sentinel Hill stop");
+	c.ok(num_is(&hill.goal, "npc", 234.0), "Report to Gryan Stoutmantle is handed to Gryan");
+	let Some(gryan) = at(c, &list, "Gryan's first goal", |g| num_is(g, "npc", 234.0)) else { return };
+	c.ok(hill.step.strict_eq(&list[gryan].step), "Report to Gryan Stoutmantle is handed in on the first Sentinel Hill stop");
 	for q in [109, 36, 151, 64, 9, 22, 92909] {
-		let Some(i) = at(c, &list, &format!("accept {q}"), is("accept", q)) else { return };
+		// On Westfall's map: Dwarves and Gnomes take Report to Gryan Stoutmantle from Deputy Rainer at the end of east Elwynn.
+		let (take, map) = (is("accept", q), hill.goal.get("map").num());
+		let Some(i) = at(c, &list, &format!("accept {q}"), |g| take(g) && g.get("map").num() == map) else { return };
 		c.ok(i < report, &format!("{q} is taken before Sentinel Hill"));
 		c.ok(list[i].goal.get("y").num() < hill.goal.get("y").num() - 10.0, &format!("{q} is taken north of the hill, on the road in"));
 	}
@@ -402,12 +423,23 @@ fn westfall_road_in(ctx: &Ctx, c: &mut Check) {
 	}
 	let Some(elwynn) = goals(ctx, c, ELWYNN) else { return };
 	let elwynn: Vec<Row> = elwynn.into_iter().filter(everyone).collect();
-	let Some(last) = elwynn.last() else {
-		c.ok(false, "Elwynn has goals for everyone");
+	let Some(rainer) = at(c, &elwynn, "accept 109 from Deputy Rainer", |g| str_is(g, "t", "accept") && num_is(g, "quest", 109.0) && num_is(g, "npc", 963.0)) else { return };
+	let rainer = &elwynn[rainer].goal;
+	// Elwynn's last stop is the Westbrook Garrison on the road west (Deputy Rainer, or Sergeant De Vries beside him).
+	let Some(last) = elwynn.iter().rev().find(|r| located(r)) else {
+		c.ok(false, "Elwynn has placed goals for everyone");
 		return;
 	};
 	let last = &last.goal;
-	c.ok(str_is(last, "t", "accept") && num_is(last, "quest", 109.0) && num_is(last, "npc", 963.0), "Elwynn ends at Deputy Rainer on the road west");
+	c.ok(
+		ctx.yards(last, rainer).is_some_and(|y| y < 50.0),
+		&format!(
+			"Elwynn ends by Deputy Rainer on the road west, not at the hill: {} {} at {}",
+			last.get("t").to_js_string(),
+			last.get("quest").to_js_string(),
+			if last.get("npcName").truthy() { last.get("npcName").to_js_string() } else { last.get("npc").to_js_string() }
+		),
+	);
 	let hill_fp = hill.step.get("goals").items().into_iter().find(|g| str_is(g, "t", "getfp"));
 	let mut leaves = true;
 	for r in &elwynn {
@@ -452,8 +484,11 @@ fn zephras_tower(ctx: &Ctx, c: &mut Check) {
 		c.eq(falling.abs_diff(harmony), 1, &format!("{guide}: Harmony in Balance and Falling With Style are handed in one after the other"));
 		c.eq(list[falling].s, list[harmony].s, &format!("{guide}: on the same step"));
 		c.ok(list[falling].goal.get("npc").strict_eq(&list[harmony].goal.get("npc")), &format!("{guide}: to the same NPC, Rorian"));
-		let completes: Vec<usize> = list.iter().filter(|r| num_is(&r.goal, "quest", 92474.0) && str_is(&r.goal, "t", "complete")).map(|r| r.s).collect();
-		c.eq(completes, vec![], &format!("{guide}: no complete goal for a quest with no objectives"));
+		let Some(cast) = at(c, &list, &format!("{guide}: complete 92474"), is("complete", 92474)) else { return };
+		c.ok(cast < harmony, &format!("{guide}: Walk on Air before Rorian's hand-ins"));
+		let goal = &list[cast].goal;
+		let (x, y) = (goal.get("x").as_num().unwrap_or(f64::NAN), goal.get("y").as_num().unwrap_or(f64::NAN));
+		c.ok((x - 43.7).hypot(y - 24.1) < 1.0, &format!("{guide}: on the tower's top ({},{})", goal.get("x").to_js_string(), goal.get("y").to_js_string()));
 	}
 }
 
@@ -519,8 +554,14 @@ fn battleworn_axes(ctx: &Ctx, c: &mut Check) {
 	let Some(list) = goals(ctx, c, REDRIDGE) else { return };
 	let Some(axes) = at(c, &list, "Battleworn Axe", collect(3014.0, None)) else { return };
 	let goal = &list[axes].goal;
-	let Some(pendant) = at(c, &list, "Shadowhide Pendant", collect(1075.0, None)) else { return };
-	c.ok(pendant < axes, "after the Galardell gnolls");
+	let Some(mill) = at(c, &list, "Alther's Mill tarantulas", is("kill", 98386)) else { return };
+	c.ok(mill < axes, "after Alther's Mill, on the way south-east");
+	// Galardell Valley comes after the camps, on the way back west (Redridge is entered at about 24.5 since
+	// Duskwood's first loop comes first, 2026-11-07); Fangore at the valley's north end on the same loop.
+	c.ok(!list[axes].step.get("goals").items().iter().any(|g| str_is(g, "t", "level")), "no top-up at the camps");
+	let after = |q: f64| list.iter().enumerate().all(|(i, r)| !num_is(&r.goal, "quest", q) || str_is(&r.goal, "t", "accept") || i > axes);
+	c.ok(after(91.0), "Solomon's Law's pendants after the camps");
+	c.ok(after(180.0), "Fangore's paw after the camps");
 	let f = if goal.get("f").truthy() { goal.get("f") } else { V::str("l") };
 	let here = point(&p, &goal.get("map"), &goal.get("x"), &goal.get("y"), &f);
 	let npcs = ctx.data.item(&V::Num(3014.0)).get("drops").get("npc");
@@ -604,23 +645,33 @@ fn hearts_of_the_lovers(ctx: &Ctx, c: &mut Check) {
 }
 
 fn making_do(ctx: &Ctx, c: &mut Check) {
-	let Some(list) = goals(ctx, c, REDRIDGE) else { return };
+	let Some(list) = goals(ctx, c, ASHENVALE) else { return };
 	let Some(take) = at(c, &list, "accept 97926", is("accept", 97926)) else { return };
 	c.ok(list[take].goal.get("optional").truthy(), "accept 97926 is optional");
 	let Some(horizons) = at(c, &list, "turnin 97914", is("turnin", 97914)) else { return };
 	c.ok(horizons < take, "Expanding Horizons is handed in first");
-	let Some(ashenvale) = goals(ctx, c, ASHENVALE) else { return };
-	let Some(give) = at(c, &ashenvale, "turnin 97926", is("turnin", 97926)) else { return };
-	c.ok(ashenvale[give].goal.get("optional").truthy(), "turnin 97926 is optional");
+	let Some(auberdine) = goals(ctx, c, WETLANDS) else { return };
+	let Some(give) = at(c, &auberdine, "turnin 97926", is("turnin", 97926)) else { return };
+	let back = &auberdine[give];
+	let held = back.step.get("when").items().iter().any(|p| p.get("k").as_str() == Some("onquest"));
+	c.ok(back.goal.get("optional").truthy() || held, "turnin 97926 holds nobody without it (optional, or only with it in the log: #1415)");
 }
 
 fn unrequited_love(ctx: &Ctx, c: &mut Check) {
-	let Some(list) = goals(ctx, c, ASHENVALE) else { return };
+	// Hollee's note is taken in Auberdine on the Darkshore guide and carried through Ashenvale to Menethil:
+	// the list is the chain from Darkshore.
+	let mut list: Vec<Row> = Vec::new();
+	for g in ["03-darkshore", "03-loch-modan", "03-darkshore-return", "06-ashenvale"] {
+		let Some(l) = goals(ctx, c, &format!("forever/alliance/{g}.guide")) else { return };
+		list.extend(l);
+	}
 	let Some(take) = at(c, &list, "accept 98461", is("accept", 98461)) else { return };
+	let Some(hollee) = at(c, &list, "turnin 731 (Hollee in Auberdine)", is("turnin", 731)) else { return };
+	c.ok(list[take].step.strict_eq(&list[hollee].step), "taken from Hollee on the Auberdine stop");
 	let Some(give) = at(c, &list, "turnin 98461", is("turnin", 98461)) else { return };
 	let Some(excavation) = at(c, &list, "accept 305", is("accept", 305)) else { return };
 	c.ok(take < give && give < excavation, "the note is taken, then handed in, then 305 is taken");
-	c.eq(list[give].s, list[excavation].s, "the hand-in is in the same Menethil step as 305");
+	c.ok(list[give].step.strict_eq(&list[excavation].step), "the hand-in is in the same Menethil step as 305");
 	c.ok(list[take].goal.get("optional").truthy() && list[give].goal.get("optional").truthy(), "both goals are optional");
 }
 
@@ -637,20 +688,17 @@ fn sidas_bag(ctx: &Ctx, c: &mut Check) {
 	c.ok(!arrow.is_empty() && arrow.iter().all(tomb), "the arrow picks only the tomb");
 }
 
-fn grind_to_28(ctx: &Ctx, c: &mut Check) {
-	let Some(list) = goals(ctx, c, ASHENVALE) else { return };
-	let Some(grind) = at(c, &list, "level 28", |g| str_is(g, "t", "level") && num_is(g, "level", 28.0)) else { return };
-	for quest in [306, 484, 470, 98282] {
-		let Some(i) = at(c, &list, &format!("turnin {quest}"), is("turnin", quest)) else { return };
-		c.ok(i < grind, &format!("the Menethil hand-in {quest} counts towards 28"));
+fn longbeard_after_the_wetlands(ctx: &Ctx, c: &mut Check) {
+	let Some(low) = goals(ctx, c, ASHENVALE) else { return };
+	c.ok(!low.iter().any(|r| is("accept", 1179)(&r.goal)), "Pilot Longbeard is not in the 20-24 guide");
+	c.ok(!low.iter().any(|r| str_is(&r.goal, "t", "level") && r.goal.get("level").num() >= 25.0), "the 20-24 guide has no grind to 25 or more");
+	let Some(list) = goals(ctx, c, WETLANDS) else { return };
+	let Some(take) = at(c, &list, "accept 1179", is("accept", 1179)) else { return };
+	let Some(home) = at(c, &list, "turnin 98221", is("turnin", 98221)) else { return };
+	c.ok(home < take, "the Wetlands hand-ins count before Pilot Longbeard");
+	if let Some(g) = list.iter().position(|r| str_is(&r.goal, "t", "level") && num_is(&r.goal, "level", 28.0)) {
+		c.ok(home < g && g < take, "a top-up to 28 comes after the Wetlands hand-ins, before Pilot Longbeard");
 	}
-	let Some(hearth) = at(c, &list, "hearth to Menethil", |g| str_is(g, "t", "hearth") && str_is(g, "location", "Deepwater Tavern")) else { return };
-	c.ok(hearth < grind, "the grind is after the hearth");
-	if let Some(r) = list[hearth..grind.max(hearth)].iter().find(|r| r.step.get("goals").items().iter().any(|g| num_is(g, "map", IRONFORGE))) {
-		c.ok(false, &format!("step {} between the hearth and the grind is in Ironforge", r.s + 1));
-	}
-	let Some(b) = before_at(c, &list, grind, "accept 1179", is("accept", 1179)) else { return };
-	c.ok(b, "level 28 before Pilot Longbeard");
 }
 
 /// `(goal.fromNpcs || []).map((n) => n.npc)`.
@@ -745,8 +793,8 @@ fn ghost_o_plasm(ctx: &Ctx, c: &mut Check) {
 	c.ok(num_is(goal, "map", 1443.0), "the goal is on Desolace");
 	let Some(y) = yards(ctx, c, goal, &pt(1443.0, 63.77, 91.6)) else { return };
 	c.ok(y <= 200.0, &format!("the arrow at {},{} is in the Valley of Bones, not {} yd off", goal.get("x").to_js_string(), goal.get("y").to_js_string(), round(y)));
-	let Some(bones) = at(c, &list, "collect 13703 (Kodo Bone)", |g| str_is(g, "t", "collect") && num_is(g, "quest", 5501.0)) else { return };
-	c.ok(bones < plasm, "the kodo bones come first");
+	let Some(melizza) = at(c, &list, "turnin 6132 (Melizza)", is("turnin", 6132)) else { return };
+	c.ok(melizza < plasm, "Melizza's escort comes first");
 	let Some(b) = before_at(c, &list, plasm, "turnin 6134", is("turnin", 6134)) else { return };
 	c.ok(b, "the plasm is collected before Hornizz is handed it");
 }

@@ -1,6 +1,6 @@
-//! A pinned goal whose item's droppers have no known drop chance (the data's `null`) gets the other
-//! places the droppers at its point spawn (Stolen Books from Northshire's kobolds), not the places of
-//! droppers far from it (the Savannah Lion Hide's Matriarchs by Ratchet, #273).
+//! A pinned goal gets the other places the droppers at its point spawn (Stolen Books from Northshire's
+//! kobolds), not the places of droppers far from it (the Savannah Lion Hide's Matriarchs by Ratchet,
+//! #273), whether the data knows their drop chance (the release data) or not (the data's `null`).
 
 use forge_guide::data::Data;
 use forge_guide::diag::Diagnostics;
@@ -48,5 +48,16 @@ fn a_pinned_goal_shows_the_other_places_its_unknown_chance_sources_spawn() {
 	assert!(s.len() >= 2, "{s:?}");
 	assert!(!s[0].get("alt").truthy() && s[1..].iter().all(|x| x.get("alt").truthy()), "{s:?}");
 	// The dropper far from the pin is not marked.
+	assert!(s.iter().all(|x| x.get("x").num() > 40.0), "{s:?}");
+}
+
+#[test]
+fn a_pinned_goal_marks_only_the_places_of_the_droppers_at_its_point_when_their_odds_are_known() {
+	// The release data knows the odds (the Savannah Lion Hide: Patriarchs and Matriarchs both 40%): the
+	// author's point still says which droppers the step is for, so the far one's places are not marked.
+	let d = data("40");
+	let s = spots(&d, " @46.9,35.7");
+	assert!(!s.is_empty(), "{s:?}");
+	assert!(!s[0].get("alt").truthy(), "{s:?}");
 	assert!(s.iter().all(|x| x.get("x").num() > 40.0), "{s:?}");
 }

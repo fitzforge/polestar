@@ -1,10 +1,15 @@
 -- Death helper: as a ghost, compare running back to the corpse with
 -- resurrecting at the nearest Spirit Healer (spawns from Data.lua), point
--- the arrow at the faster choice and say why in one line. A point picked
--- before dying (a map click, /way, another addon's) comes back once alive,
--- if the guide is still on the same step. The arrow's route to either is
--- planned like any target (Nav/Travel.lua walks a ghost there on foot), and
--- it shows even while the guide window is hidden with the arrow (Death.Guides).
+-- the arrow at the faster choice and say why in one line. The arrow is held
+-- there (Nav.Hold) until you are alive: a step change, the guide's next
+-- waypoint, a point picked by hand or another addon's never takes it away
+-- (#1382); a nearer Spirit Healer the advice names takes it over (#3610).
+-- A point picked before dying (a map click, /way, another addon's)
+-- comes back once alive, if the guide is still on the same step. The arrow's
+-- route to either is planned like any target (Nav/Travel.lua walks a ghost
+-- there on foot), the corpse on the floor the character died on (a basement
+-- or a cave below the ground at its point, #2106), and it shows even while
+-- the guide window is hidden with the arrow (Nav.HiddenWithGuide).
 --
 -- Cost of each choice in seconds: the run (ghost run speed) and, for the
 -- Spirit Healer, resurrection sickness. That is the length the game last gave
@@ -14,15 +19,26 @@
 -- A choice only flips when the other one is clearly better, so the arrow
 -- does not flicker.
 --
---   Polestar.QoL.GetDeathAdvice() -> { choice = "corpse"|"healer", corpseYards, healerYards,
---                                      corpseSeconds, healerSeconds, sickness, note } | nil
+--   Polestar.QoL.GetDeathAdvice() -> { choice = "corpse"|"healer"|"inside", corpseYards, healerYards,
+--                                      corpseSeconds, healerSeconds, sickness, note, via } | nil
 --
 -- Died in a dungeon or raid and released outside it, the corpse is on no map
--- the client answers for: the instance's entrance (the Codex) stands for it.
+-- the client answers for: the instance's entrance (the Codex) stands for it,
+-- and the run back in is the advice however long it is: a corpse inside an
+-- instance is never weighed against the Spirit Healer. Where that entrance is
+-- not known (one of Forever's own dungeons the Codex has no entrance for, or
+-- Lookup off with the Codex not loaded), the advice says the corpse is inside
+-- that instance and to run back in through its entrance, and the arrow shows
+-- nothing (Nav.HoldNothing) until the character is alive again.
+--
+-- A corpse where the character died is held with the height of the floor they
+-- died on (Walk's tracked floor, Nav/Walk.lua Walk.Floor; none while it was not
+-- known), so the walk back ends on it: a corpse in a cave (the Fargodeep Mine,
+-- the Coldridge troll cave), not the ground above it.
 --
 -- Client: UnitIsGhost, C_DeathInfo.GetCorpseMapPosition, GetUnitSpeed,
 -- C_UnitAuras.GetPlayerAuraBySpellID (AuraData.duration), IsInInstance,
--- GetInstanceInfo (through Compat) (Forever API docs).
+-- GetInstanceInfo (through Compat, and its name) (Forever API docs).
 
 local ADDON, ns = ...
 local L = ns.L
@@ -164,13 +180,34 @@ function Death.EntranceOf(map)
 end
 
 -- Where the character died, when in a dungeon or raid (QoL.State().diedIn =
--- { map }), kept until alive: once released outside, the corpse is on no map
--- the client answers for, so the run back is to the instance's entrance.
+-- { map, name }), kept until alive: once released outside, the corpse is on
+-- no map the client answers for, so the run back is to the instance's
+-- entrance. The name is the client's, for when the entrance is not known.
+-- And the floor it died on (QoL.State().diedAt = { c, wx, wy, z }: Walk.Floor,
+-- the client's height, else the floor the arrow followed): a corpse in a
+-- basement or cave lies below the ground at its point, and without its
+-- floor the way back ended on the hill above it (#2106).
 local function noteDeathPlace()
 	local C = ns.Compat
 	local inside, kind = C.IsInInstance()
 	local map = inside and (kind == "party" or kind == "raid") and C.GetInstanceMapID and C.GetInstanceMapID() or nil
-	QoL.State().diedIn = map and { map = map } or nil
+	local state = QoL.State()
+	local name = map and GetInstanceInfo and readable((GetInstanceInfo())) or nil
+	state.diedIn = map and { map = map, name = type(name) == "string" and name ~= "" and name or nil } or nil
+	local pc, px, py = C.GetPlayerWorldPosition()
+	local W = ns.Nav and ns.Nav.walk
+	local z = pc and W and W.Floor and W.Floor(pc, px, py)
+	state.diedAt = type(z) == "number" and { c = pc, wx = px, wy = py, z = z } or nil
+end
+
+-- The floor under a corpse at (c, wx, wy): the one the character died on,
+-- when the corpse lies where it died (within CORPSE_YARDS); else nil.
+local CORPSE_YARDS = 10
+local function corpseFloor(c, wx, wy)
+	local at = QoL.State().diedAt
+	if type(at) ~= "table" or at.c ~= c or type(at.z) ~= "number" or not (wx and wy and at.wx and at.wy) then return nil end
+	if (wx - at.wx) ^ 2 + (wy - at.wy) ^ 2 > CORPSE_YARDS * CORPSE_YARDS then return nil end
+	return at.z
 end
 
 ---------------------------------------------------------------------------
@@ -179,16 +216,10 @@ end
 
 local advice = {}
 local current          -- "corpse" | "healer" | nil
-local mine             -- the Nav target we set
+local mine             -- the Nav target we hold
+local heldX, heldY     -- the Spirit Healer it holds (world yards): a nearer one the advice names moves it (#3610)
 local ticker
 local noted = false
-local previous -- the picked target (Nav override) the death helper replaced
-
--- Whether `t` (a Nav target) is the way back the death helper set: that
--- arrow shows even while the guide window hides it (Nav.HiddenWithGuide).
-function Death.Guides(t)
-	return t ~= nil and t == mine
-end
 
 -- Pure decision, for tests and the tick: choice, corpseSeconds, healerSeconds, sickness.
 -- `seen` as for Death.Sickness.
@@ -208,15 +239,18 @@ end
 local function noteFor(a)
 	local D = ns.FormatDistance
 	if a.choice == "corpse" then
+		-- The run's time, "about": the sign the chat's font draws (Theme.Approx).
+		local chat = DEFAULT_CHAT_FRAME and DEFAULT_CHAT_FRAME.GetFont and DEFAULT_CHAT_FRAME:GetFont()
+		local run = ns.Theme.Approx(chat or STANDARD_TEXT_FONT) .. QoL.Duration(a.corpseSeconds)
 		-- Died in a dungeon: the run is to its entrance, the corpse inside.
 		if a.via then
-			return format(L["Run back to %s, your corpse is inside: %s (~%s)."], a.via, D(a.corpseYards), QoL.Duration(a.corpseSeconds))
+			return format(L["Run back to %s, your corpse is inside: %s (%s)."], a.via, D(a.corpseYards), run)
 		end
 		if a.healerYards and a.sickness > 0 then
-			return format(L["Run back to your corpse: %s (~%s). The Spirit Healer costs %s of resurrection sickness."],
-				D(a.corpseYards), QoL.Duration(a.corpseSeconds), QoL.Duration(a.sickness))
+			return format(L["Run back to your corpse: %s (%s). The Spirit Healer costs %s of resurrection sickness."],
+				D(a.corpseYards), run, QoL.Duration(a.sickness))
 		end
-		return format(L["Run back to your corpse: %s (~%s)."], D(a.corpseYards), QoL.Duration(a.corpseSeconds))
+		return format(L["Run back to your corpse: %s (%s)."], D(a.corpseYards), run)
 	end
 	if a.sickness == 0 then
 		return format(L["Resurrect at the Spirit Healer (%s): no resurrection sickness at your level."], D(a.healerYards))
@@ -230,29 +264,22 @@ end
 
 local function point(a)
 	local Nav = ns.Nav
-	if not (Nav and Nav.SetTarget) then return end
-	if Nav.GetTarget and mine and Nav.GetTarget() == mine and a.choice == current then return end
-	-- A point picked before dying (a map click, /way, another addon's) is
-	-- handed back after resurrecting.
-	if not mine and Nav.IsOverride and Nav.IsOverride() then previous = Nav.GetTarget() end
+	if not (Nav and Nav.Hold) then return end
+	if mine and a.choice == current and (a.choice ~= "healer" or (heldX == a.healerWX and heldY == a.healerWY)) then return end
 	local C = ns.Compat
-	local ok
 	if a.choice == "corpse" then
-		ok = Nav.SetTarget(a.corpseMap, a.corpseX, a.corpseY, a.via and format(L["%s (your corpse is inside)"], a.via) or L["Your corpse"])
+		mine = Nav.Hold(a.corpseMap, a.corpseX, a.corpseY, a.via and format(L["%s (your corpse is inside)"], a.via) or L["Your corpse"], nil, a.corpseZ)
 	else
 		-- Live percent on the healer's own map; Era frame if the client cannot convert.
 		local x, y = C.WorldToMap(a.healerC, a.healerWX, a.healerWY, a.healerMap)
 		if x then
-			ok = Nav.SetTarget(a.healerMap, x, y, L["Spirit Healer"])
+			mine = Nav.Hold(a.healerMap, x, y, L["Spirit Healer"])
 		else
-			ok = Nav.SetTarget(a.healerMap, a.healerEX, a.healerEY, L["Spirit Healer"], "e")
+			mine = Nav.Hold(a.healerMap, a.healerEX, a.healerEY, L["Spirit Healer"], "e")
 		end
 	end
+	heldX, heldY = a.choice == "healer" and a.healerWX or nil, a.choice == "healer" and a.healerWY or nil
 	current = a.choice
-	mine = ok and Nav.GetTarget and Nav.GetTarget() or nil
-	-- The arrow looked at the target before it was known as ours: once more,
-	-- so a guide hidden with the arrow still shows the way back.
-	if mine and Nav.Refresh then Nav.Refresh() end
 end
 
 local function tint(name)
@@ -281,6 +308,28 @@ local function pins(a)
 	P.SetLayer(LAYER, list, { world = true, minimap = true, edge = true })
 end
 
+-- The corpse in a dungeon or raid whose entrance is not known (`name`, the
+-- client's), or on another continent: the run back into it, said once; no
+-- arrow (Nav.HoldNothing: nothing points at a place nobody knows, and the
+-- guide's own target, which would lead the ghost away, waits under the hold)
+-- and no Spirit Healer.
+local function insideAdvice(name)
+	for k in pairs(advice) do advice[k] = nil end
+	advice.choice, advice.via = "inside", name
+	advice.note = format(L["Your corpse is inside %s: run back in through its entrance."], name)
+	local changed = current ~= "inside"
+	local Nav = ns.Nav
+	if (changed or not mine) and Nav and Nav.HoldNothing then mine = Nav.HoldNothing() end
+	if ns.Pins and ns.Pins.ClearLayer then ns.Pins.ClearLayer(LAYER) end
+	pinned.choice, pinned.hx, pinned.cx = nil, nil, nil
+	current = "inside"
+	if not noted or changed then
+		noted = true
+		ns.Print(advice.note)
+	end
+	return advice
+end
+
 function Death.Update()
 	if not (QoL.On("deathHelper") and isGhost()) then return nil end
 	local C = ns.Compat
@@ -288,17 +337,21 @@ function Death.Update()
 	if not pc then return nil end
 	local cc, cwx, cwy, cmap, cx, cy = corpse()
 	-- Released outside the dungeon or raid the character died in: its
-	-- entrance stands for the corpse.
+	-- entrance stands for the corpse; with none known, the run back into it.
 	local died, via = QoL.State().diedIn, nil
 	if not cc and type(died) == "table" and not C.IsInInstance() then
 		local em, ex, ey, name = Death.EntranceOf(died.map)
 		local ec, ewx, ewy
 		if em then ec, ewx, ewy = C.MapToWorld(em, ex, ey) end
-		if ec then cc, cwx, cwy, cmap, cx, cy, via = ec, ewx, ewy, em, ex, ey, name or L["the dungeon"] end
+		if not ec then return insideAdvice(died.name or name or L["the dungeon"]) end
+		cc, cwx, cwy, cmap, cx, cy, via = ec, ewx, ewy, em, ex, ey, name or L["the dungeon"]
 	end
 	local corpseYards
 	if cc == pc then corpseYards = sqrt((cwx - px) ^ 2 + (cwy - py) ^ 2) end
-	local hc, hwx, hwy, hmap, hx, hy, healerYards = Death.NearestHealer(pc, px, py)
+	-- A corpse inside a dungeon or raid: the way back in, whatever it costs; never the Spirit Healer.
+	if via and not corpseYards then return insideAdvice(via) end
+	local hc, hwx, hwy, hmap, hx, hy, healerYards
+	if not via then hc, hwx, hwy, hmap, hx, hy, healerYards = Death.NearestHealer(pc, px, py) end
 	local info = C.GetPlayerInfo and C.GetPlayerInfo()
 	local choice, cs, hs, sickness = Death.Decide(corpseYards, healerYards, runSpeed(), info and info.level, current,
 		QoL.State().resSickness)
@@ -308,6 +361,7 @@ function Death.Update()
 	advice.healerYards, advice.healerSeconds = healerYards, hs
 	advice.corpseC, advice.corpseWX, advice.corpseWY = corpseYards and cc, cwx, cwy
 	advice.corpseMap, advice.corpseX, advice.corpseY, advice.via = cmap, cx, cy, via
+	advice.corpseZ = not via and cc and corpseFloor(cc, cwx, cwy) or nil
 	advice.healerC, advice.healerWX, advice.healerWY = hc, hwx, hwy
 	advice.healerMap, advice.healerEX, advice.healerEY = hmap, hx, hy
 	advice.note = noteFor(advice)
@@ -332,20 +386,10 @@ local function release()
 		ticker = nil
 	end
 	local Nav = ns.Nav
-	if mine and Nav and Nav.GetTarget and Nav.GetTarget() == mine then
-		local E = ns.Engine
-		local step = E and E.GetStepIndex and E.GetStepIndex() or nil
-		if previous and previous.stepIndex == step then
-			-- Picked before dying, on the same guide step: hand it back.
-			Nav.SetTarget(previous.map, previous.x, previous.y, previous.label, previous.f, previous.stop, previous.z)
-		elseif Nav.ReleaseTarget then
-			Nav.ReleaseTarget()
-		else
-			local wp = E and E.GetWaypoint and E.GetWaypoint()
-			if wp then Nav.SetTarget(wp.map, wp.x, wp.y, wp.label, wp.f, nil, wp.z) elseif Nav.ClearTarget then Nav.ClearTarget() end
-		end
-	end
-	mine, current, noted, previous = nil, nil, false, nil
+	-- What the arrow guided to underneath (the guide's step, or a point picked
+	-- before dying on the same step) shows again.
+	if mine and Nav and Nav.Unhold then Nav.Unhold() end
+	mine, current, noted, heldX, heldY = nil, nil, false, nil, nil
 	if ns.Pins and ns.Pins.ClearLayer then ns.Pins.ClearLayer(LAYER) end
 	pinned.choice, pinned.hx, pinned.cx = nil, nil, nil
 end
@@ -364,7 +408,10 @@ Death.Check = check
 -- length, again a second later in case it lands after the event.
 local function alive()
 	check()
-	if not isGhost() and not readable(UnitIsDeadOrGhost and UnitIsDeadOrGhost("player")) then QoL.State().diedIn = nil end
+	if not isGhost() and not readable(UnitIsDeadOrGhost and UnitIsDeadOrGhost("player")) then
+		local state = QoL.State()
+		state.diedIn, state.diedAt = nil, nil
+	end
 	if not QoL.On("deathHelper") or isGhost() then return end
 	readSickness()
 	if C_Timer and C_Timer.After then ns.After(1, readSickness) end

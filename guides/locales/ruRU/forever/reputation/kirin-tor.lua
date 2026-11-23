@@ -7,11 +7,11 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Kirin Tor Reputation"] = "",
+	["Kirin Tor Reputation"] = "Репутация: Кирин-Тор",
 	-- {area:279} Dalaran
-	["New in Forever: {area:279}'s mages sell Azure armour recipes at Friendly and their tabard at Exalted."] = "",
+	["New in Forever: {area:279}'s mages sell Azure armour recipes at Friendly and their tabard at Exalted."] = "Новое в Forever: маги {area:279} продают рецепты лазурных доспехов при отношении «Дружелюбие» и свою гербовую накидку при отношении «Превознесение».",
 	-- {skill:164} Blacksmithing · {skill:165} Leatherworking · {skill:197} Tailoring
-	["Eight Azure helm and shoulder recipes at Friendly ({skill:164}, {skill:165}, {skill:197})"] = "",
+	["Eight Azure helm and shoulder recipes at Friendly ({skill:164}, {skill:165}, {skill:197})"] = "Восемь рецептов лазурных шлемов и наплечников при отношении «Дружелюбие» ({skill:164}, {skill:165}, {skill:197})",
 
 	-- Step 1: Skyborne: the recipes now
 	["Skyborne: the recipes now"] = "",
@@ -20,7 +20,7 @@ return {
 
 	-- Step 2: An Alarming Request
 	-- {npc:247264} Emissary Jacques · {faction:2740} Kirin Tor · {area:271} Southshore · {npc:246748} Archmage Modera · {area:1338} Lordamere Lake · {area:279} Dalaran
-	["{npc:247264} of the {faction:2740} waits in {area:271}. He sends you to {npc:246748}'s image by the shore of {area:1338}, outside {area:279}'s walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation while they are at most 5 levels below you; in Classic a quest 6+ levels below you pays less (a fifth at 60)."] = "",
+	["{npc:247264} of the {faction:2740} waits in {area:271}. He sends you to {npc:246748}'s image by the shore of {area:1338}, outside {area:279}'s walls. The {faction:2740} quests start at level 24 to 30 and pay full reputation at any level in Forever."] = "",
 
 	-- Step 3: Archmage Modera's image
 	-- {npc:246748} Archmage Modera
@@ -33,7 +33,7 @@ return {
 	-- {quest:92457} Starving Arcane · {npc:246020} Shade of the Archmage · {npc:246748} Archmage Modera · {item:251961} Arcane Mote · {faction:2740} Kirin Tor
 	["The City of Dalaran is a dungeon for levels 28 to 33: go in through the sewers with the key Modera gave you. The arcane elementals throughout the city count for {quest:92457}. The {npc:246020}, the last boss, waits in the Purple Parlor above the Violet Citadel (a portal by {npc:246748} in the Citadel takes you up) and drops the {item:251961}. Beta players saw every kill in the dungeon pay {faction:2740} reputation, the bosses the most. Group of five advised below level 35."] = "",
 	-- {item:251961} Arcane Mote · {npc:246020} Shade of the Archmage
-	["{item:251961}, from the {npc:246020}"] = "",
+	["{item:251961}, from the {npc:246020}"] = "{item:251961}: {npc:246020}",
 
 	-- Step 5: Back to Modera's image
 	["Back to Modera's image"] = "",
@@ -50,11 +50,11 @@ return {
 	-- {area:796} Scarlet Monastery · {zone:1420} Tirisfal Glades
 	["The {area:796} stands in the north-east of {zone:1420}; Doan waits at the end of the Library wing. Group of five advised below level 40."] = "",
 	-- {item:273169} The Lost Magic of the Runemasters · {npc:6487} Arcanist Doan
-	["{item:273169}, from {npc:6487}"] = "",
+	["{item:273169}, from {npc:6487}"] = "{item:273169}, у персонажа {npc:6487}",
 
 	-- Step 9: Back to Magus Olvek
 	-- {npc:264265} Magus Olvek
-	["Back to {npc:264265}"] = "",
+	["Back to {npc:264265}"] = "Вернитесь: {npc:264265}",
 
 	-- Step 10: City of Dalaran runs to Friendly
 	["City of Dalaran runs to Friendly"] = "",
@@ -72,7 +72,7 @@ return {
 
 	-- Step 13: The Kirin Tor Tabard
 	-- {item:285327} Kirin Tor Tabard
-	["The {item:285327}"] = "",
+	["The {item:285327}"] = "{item:285327}",
 	-- {npc:32287} Archmage Alvareaux · {npc:28776} Elizabeth Ross · {area:279} Dalaran · {item:285327} Kirin Tor Tabard
 	["{npc:32287} and {npc:28776}, the tabard vendor in {area:279}, sell the {item:285327} at Exalted for 25g."] = "",
 }

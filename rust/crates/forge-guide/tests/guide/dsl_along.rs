@@ -108,6 +108,47 @@ fn a_talk_with_quest_counts_in_an_along_step_a_bare_talk_still_warns() {
 	assert_match(warned[0], &format!(r"^test\.guide:{}: `talk` in an `along` step", line_of(&text, "talk 197")));
 }
 
+// #1135: `background` marks an `along until` step of slow, zone-wide goals; each quest objective in it needs
+// a finish step (a plain step working it) before the step that hands its quest in.
+#[test]
+fn a_background_goal_needs_its_finish_step_before_the_hand_in() {
+	let with = |finish: &[&str]| {
+		let mut l = vec!["step Wolves", "  accept 33", "step Meat on the way", "  along until back", "  background", "  collect 750 quest 33.1", "step Travel", "  goto 47.6,35.1"];
+		l.extend_from_slice(finish);
+		l.extend_from_slice(&["step Back", "  label back", "  turnin 33"]);
+		guide_text(&l)
+	};
+	let ok = compile(&with(&["step Finish the meat", "  when !has 750 x8", "  collect 750 quest 33.1 @47.6,35.1"]));
+	assert!(ok.errors.is_empty(), "{}", ok.text);
+	let text = with(&[]);
+	let r = compile(&text);
+	assert_eq!(r.errors.len(), 1, "{}", r.text);
+	assert_match(&r.errors[0], &format!(r"^test\.guide:{}: background goal for quest 33\.1 has no finish step before its hand-in", line_of(&text, "  collect 750 quest 33.1")));
+	// Another along list does not finish it.
+	assert_match(
+		&errors_of(&[
+			"step Wolves",
+			"  accept 33",
+			"step Meat on the way",
+			"  along until back",
+			"  background",
+			"  collect 750 quest 33.1",
+			"step Also on the way",
+			"  along",
+			"  collect 750 quest 33.1",
+			"step Back",
+			"  label back",
+			"  turnin 33",
+		]),
+		r"no finish step before its hand-in",
+	);
+	// `background` goes with `along until`, once, with nothing after it.
+	assert_match(&errors_of(&["step A", "  background", "  kill 6", "step B", "  accept 783"]), r"`background` goes on an `along until <label>` step");
+	assert_match(&errors_of(&["step A", "  along", "  background", "  kill 6"]), r"`background` goes on an `along until <label>` step");
+	assert_match(&errors_of(&["step A", "  along until b", "  background", "  background", "  kill 6", "step B", "  label b", "  accept 783"]), r"duplicate `background` in step");
+	assert_match(&errors_of(&["step A", "  along until b", "  background now", "  kill 6", "step B", "  label b", "  accept 783"]), r"`background` takes nothing");
+}
+
 const HDR: [&str; 6] = ["guide mini/a", "title A", "faction Alliance", "levels 1-10", "zone Elwynn Forest", ""];
 
 fn pack(l: &[&str]) -> (Vec<V>, std::collections::BTreeMap<String, String>) {

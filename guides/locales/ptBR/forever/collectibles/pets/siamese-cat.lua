@@ -13,9 +13,9 @@ return {
 	-- {area:1581} The Deadmines
 	["{area:1581}: Cookie"] = "{area:1581}: Cuca",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
-	["{area:1581} is a group of five under {area:20}: the mine mouth is in {area:20}, the instance portal deep inside the mine. Cookie, the murloc cook, waits on a small island under the pirate ship at the far end, an optional boss; his cooking heals him, so interrupt it. He drops the Siamese about 15% of the time in Classic's data: expect several runs. The carrier can be traded, so check the Auction House too."] = "",
+	["{area:1581} is a group of five under {area:20}: the mine mouth is in {area:20}, the instance portal deep inside the mine. Cookie, the murloc cook, waits on a small island under the pirate ship at the far end, an optional boss; his cooking heals him, so interrupt it. He drops the Siamese about 15% of the time in Classic's data: expect several runs. The carrier can be traded, so check the Auction House too."] = "{area:1581} é um grupo de cinco embaixo de {area:20}: a boca da mina fica em {area:20}, o portal da instância fica no fundo da mina. Cuca, o cozinheiro murloc, espera numa pequena ilha embaixo do navio pirata, no fundo, um chefe opcional; a culinária dele o cura, então interrompa. Ele solta o Siamês em cerca de 15% das vezes nos dados do Classic: conte com várias corridas. A caixa de transporte pode ser negociada, então olhe também a Casa de Leilões.",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
-	["{area:1581}, in the {area:20} mine"] = "",
+	["{area:1581}, in the {area:20} mine"] = "{area:1581}, na mina de {area:20}",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	["{area:1581} portal, inside the {area:20} mine"] = "Portal de {area:1581}, dentro da mina de {area:20}",
 	["Cookie"] = "Cuca",

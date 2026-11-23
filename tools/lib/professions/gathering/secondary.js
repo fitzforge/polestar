@@ -10,14 +10,19 @@
 // Trainers, rank books and vendors are smart targets (`train <Profession>
 // <Rank>`, `buy … nearest`, `learn <spell>` without an npc): the engine picks
 // the nearest one of the player's faction at runtime. Each segment is split
-// into a shopping step, a gathering step and a crafting step, so bought or
-// gathered items used up by the crafting never reopen a finished goal.
+// into a shopping step, an Auction House step (what it gathers that the
+// Auction House sells: `auction`, with `gather` on the gathering collect, one
+// way at a time; docs/GUIDE_FORMAT.md, "Materials"), a gathering step and a
+// crafting step, so bought or gathered items used up by the crafting never
+// reopen a finished goal.
 
 const { dist } = require('../../route/geo');
 const R = require('./route');
 const { RACE_GROUPS, TWO_SIDED, raceCondition } = require('./groups');
 const { FACTIONS, GUIDE_HEADER, fmt, money, zoneName, rankInfo, vendorSpawns } = require('./common');
 const { ERA_NOTE } = require('./notes');
+const SECTIONS = require('../sections');
+const { CLOTH_LEVELS } = require('../describe');
 
 const SIDE_OF_RACE = {};
 for (const f of FACTIONS) for (const g of RACE_GROUPS[f]) for (const r of g.races) if (!TWO_SIDED.has(r)) SIDE_OF_RACE[r] = f;
@@ -59,17 +64,19 @@ function recipeOf(ctx, spell) {
 }
 
 // The normal creatures in `zone` that drop `item`, weighted by drop chance:
-// { pts, names, rated, weight }. The data rates an item's droppers from one
+// { pts, names, rated, weight, levels }. The data rates an item's droppers from one
 // table (items.json `dropScale`), so a dropper that table does not rate has a
 // null chance: when no rated dropper of 5% or more stands in the zone, the
 // unrated ones count, weighted alike and named without a chance. `minChance`:
-// the least rated chance that counts (percent).
+// the least rated chance that counts (percent). `levels`: [lowest, highest] of
+// the droppers counted (their `level` to `levelMax`), or null.
 function zoneDroppers(ctx, item, zone, minChance = 5) {
 	const it = ctx.data.item(item);
 	const droppers = Object.entries((it && it.drops && it.drops.npc) || {});
 	const gather = (rated) => {
 		const pts = [];
 		const names = new Map();
+		let levels = null;
 		for (const [id, chance] of droppers) {
 			if (rated ? chance === null || chance < minChance : chance !== null) continue;
 			const n = ctx.data.npc(id);
@@ -79,8 +86,9 @@ function zoneDroppers(ctx, item, zone, minChance = 5) {
 			if (!s || R.allPoints(s).length < 3) continue; // no lone named spawns
 			for (const [x, y] of R.allPoints(s)) pts.push({ name: n.name, w: rated ? chance / 100 : 0.05, pt: ctx.project.point(zone, x, y, s.f) });
 			names.set(n.name, rated ? Math.max(names.get(n.name) || 0, chance) : (names.get(n.name) || 0) + R.allPoints(s).length);
+			if (n.level > 0) levels = levels ? [Math.min(levels[0], n.level), Math.max(levels[1], n.levelMax || n.level)] : [n.level, n.levelMax || n.level];
 		}
-		return { pts, names, rated, weight: pts.reduce((a, p) => a + p.w, 0) };
+		return { pts, names, rated, weight: pts.reduce((a, p) => a + p.w, 0), levels };
 	};
 	const r = gather(true);
 	return r.pts.length ? r : gather(false);
@@ -108,7 +116,7 @@ function dropSpot(ctx, item, zone, minChance = 5) {
 		.sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0))
 		.slice(0, 3)
 		.map(([nm, c]) => (rated ? `${nm} (${Math.round(c)}%)` : nm));
-	return { pt: spawn.pt, mobs: top, via: best.via };
+	return { pt: spawn.pt, mobs: top, via: best.via, levels: best.levels };
 }
 
 // The centre of the densest cluster of an NPC's spawns in a zone (map percent).
@@ -166,12 +174,17 @@ function priceOf(P, item, count) {
 	return money(Math.ceil(count / (m.buyCount || 1)) * m.buy);
 }
 
+// A segment's steps: shopping (vendor goods), the Auction House (what the
+// segment gathers that the Auction House sells: a meat, not a clam to open; the
+// gather collect then carries `gather` with its mobs' levels, docs/GUIDE_FORMAT.md
+// "Materials"), the ingredients and the crafting.
 function renderSegment(ctx, P, seg, L) {
 	const recipe = recipeOf(ctx, seg.spell);
 	const crafts = expectedCrafts(recipe, seg.from, seg.to);
 	const shop = [];
 	const bought = [];
 	const gather = [];
+	const market = [];
 	if (seg.learn === 'vendor') {
 		if (!factionsOf(seg.who).every((f) => vendorSpawns(ctx, recipe.recipeItem, f).length)) throw new Error(`${recipe.name}: recipe ${recipe.recipeItem} not sold to ${factionsOf(seg.who)}`);
 		shop.push(`buy ${recipe.recipeItem} x1 nearest`);
@@ -190,13 +203,20 @@ function renderSegment(ctx, P, seg, L) {
 			// Smart farm spot; the planned zone's best droppers go in the note.
 			const d = dropSpot(ctx, rg.item, seg.zone);
 			const open = d.via ? `; open each ${itemName(ctx, d.via)} for its ${name}` : '';
-			gather.push(`collect ${d.via || rg.item} x${need} nearest     -- ${d.mobs.join(', ')} in ${zoneName(ctx, seg.zone)}, or wherever the arrow points${open}`);
+			const sells = !d.via && !((P.materials[rg.item] || {}).bop);
+			if (sells) market.push({ item: rg.item, need, name });
+			const facts = sells ? ` gather${d.levels ? ` levels ${d.levels[0]}-${d.levels[1]}` : ''}` : '';
+			gather.push(`collect ${d.via || rg.item} x${need} nearest${facts}     -- ${d.mobs.join(', ')} in ${zoneName(ctx, seg.zone)}, or wherever the arrow points${open}`);
 		}
 	}
 	const only = onlyLines(seg.who);
 	if (shop.length) {
 		const list = bought.length ? ` You need ${bought.join(', ')}.` : '';
 		step(L, `${recipe.name}: shopping`, [...only, `tip The arrow picks the nearest vendor of your faction for each item.${list}`, ...shop]);
+	}
+	if (market.length) {
+		const what = market.map((m) => `${m.need} ${m.name}`).join(' and ');
+		step(L, `${recipe.name}: Auction House`, [...only, `tip What ${recipe.name} takes that the Auction House sells: ${what}. The counts drop by what your bags, bank and mail hold.`, ...market.map((m) => `auction ${m.item} x${m.need}`)]);
 	}
 	if (gather.length) {
 		step(L, `${recipe.name}: ingredients`, [...only, `zone ${zoneName(ctx, seg.zone)}`, ...gather]);
@@ -221,7 +241,9 @@ function renderRank(ctx, P, e, L) {
 		? `it is a book, ${itemName(ctx, info.book.item)}${bookPrice ? ` (${money(bookPrice)})` : ''}; the arrow picks its nearest seller for your faction. Buy it and read it`
 		: `the arrow picks the nearest ${P.skill} trainer of your faction${info.cost ? `; training costs ${money(info.cost)}` : ''}`;
 	const train = info.book ? `train ${P.skill} ${e.rank} "Buy and read ${itemName(ctx, info.book.item)} (${e.rank} ${P.skill})"` : `train ${P.skill} ${e.rank}`;
-	const lines = [`tip ${e.rank} ${P.skill} raises the cap to ${info.max}; it needs skill ${info.minSkill} and character level ${info.minLevel}: ${how}.${e.tip ? ` ${e.tip}` : ''}`, `level ${info.minLevel}`, train];
+	// Forever's Cooking and First Aid Journeyman ask no character level (professions.json minLevel 0).
+	const level = info.minLevel > 0 ? ` and character level ${info.minLevel}` : ' and no character level';
+	const lines = [`tip ${e.rank} ${P.skill} raises the cap to ${info.max}; it needs skill ${info.minSkill}${level}: ${how}.${e.tip ? ` ${e.tip}` : ''}`, ...(info.minLevel > 0 ? [`level ${info.minLevel}`] : []), train];
 	for (const extra of e.alsoBuy || []) lines.push(`buy ${extra} x1 nearest`);
 	for (const sp of e.learn || []) lines.push(`learn ${sp}`);
 	step(L, `${e.rank} ${P.skill}`, lines);
@@ -236,40 +258,54 @@ function renderGuide(ctx, P) {
 		else if (e.apprentice) {
 			const ap = rankInfo(ctx, P.skill, 'Apprentice');
 			const apTip = typeof P.apprenticeTip === 'function' ? P.apprenticeTip(ctx) : P.apprenticeTip;
-			step(L, `Learn ${P.skill}`, [`tip Any ${P.skill} trainer of your faction teaches Apprentice ${P.skill} (character level 5${ap && ap.cost ? `, ${money(ap.cost)}` : ''}); the arrow picks the nearest.${apTip ? ` ${apTip}` : ''}`, 'level 5', `train ${P.skill} Apprentice`]);
+			// Forever's Cooking and First Aid Apprentice ask no level (Classic's 5): professions.json says 1.
+			const apLevel = ap && ap.minLevel > 1 ? ap.minLevel : 0;
+			step(L, `Learn ${P.skill}`, [`tip Any ${P.skill} trainer of your faction teaches Apprentice ${P.skill} (${apLevel ? `character level ${apLevel}` : 'any character level'}${ap && ap.cost ? `, ${money(ap.cost)}` : ''}); the arrow picks the nearest.${apTip ? ` ${apTip}` : ''}`, ...(apLevel ? [`level ${apLevel}`] : []), `train ${P.skill} Apprentice`]);
 		} else if (e.rank) renderRank(ctx, P, e, L);
 		else if (e.bandage) renderBandage(ctx, P, e, L);
 		else if (e.raw) step(L, e.title, e.raw);
 		else renderSegment(ctx, P, e, L);
 	}
-	return `${L.join('\n')}\n`;
+	// The skill ranges as sections (the guide window's headings; the guide starts at the player's skill):
+	// per bandage band for First Aid, whose every band gathers its own cloth; per banner for Cooking.
+	return `${SECTIONS[P.sections || 'byBanners'](L.join('\n'), P.skill)}\n`;
 }
 
 // ------------------------------------------------------------------ First Aid
 
 // Cloth level bands are general game knowledge (humanoids drop the cloth of
-// their level).
+// their level). What the bags (and bank) hold counts; the rest drops as the
+// character levels, or comes from the Auction House. No farm trip by default:
+// a named farm spot can be a long journey for a few pieces the player picks
+// up anyway.
 const CLOTH = {
-	2589: 'humanoids of level 5-20 drop Linen Cloth (or buy it at the Auction House).',
-	2592: 'humanoids of level 15-30 drop Wool Cloth (or buy it at the Auction House).',
-	4306: 'humanoids of level 25-45 drop Silk Cloth (or buy it at the Auction House).',
-	4338: 'humanoids of level 35-50 drop Mageweave Cloth (or buy it at the Auction House).',
-	14047: 'humanoids of level 45-60 drop Runecloth (or buy it at the Auction House).',
+	2589: 'Linen Cloth drops from humanoids of level 5-20',
+	2592: 'Wool Cloth drops from humanoids of level 15-30',
+	4306: 'Silk Cloth drops from humanoids of level 25-45',
+	4338: 'Mageweave Cloth drops from humanoids of level 35-50',
+	14047: 'Runecloth drops from humanoids of level 45-60',
 };
-const clothSources = Object.fromEntries(Object.entries(CLOTH).map(([id, note]) => [id, { note }]));
 
-// Bandages: crafted anywhere, so one gathering step (cloth from the nearest
-// farm spot the engine picks) and one crafting step for everyone.
+// Bandages: crafted anywhere, so one gathering step (the cloth, counted in the
+// bags with no place: `anywhere`, with `gather` and the levels of the humanoids
+// that drop it) after the Auction House step that buys it instead, and one
+// crafting step for everyone.
 function renderBandage(ctx, P, e, L) {
 	const recipe = recipeOf(ctx, e.spell);
 	const crafts = expectedCrafts(recipe, e.from, e.to);
-	step(
-		L,
-		`${recipe.name}: cloth`,
-		recipe.reagents.map((rg) => `collect ${rg.item} x${crafts * rg.count} nearest     -- ${clothSources[rg.item].note}`),
-	);
-	// A recipe learned in this step: where and what it costs (sniffed trainer lists).
-	const learnTip = e.learn && e.learn.some((l) => l.startsWith(`learn ${e.spell}`) && !l.includes(' npc ')) && recipe.source === 'trainer' ? `Any ${P.skill} trainer of your faction teaches it from skill ${recipe.learnedAt} for ${money(recipe.cost)}; the arrow picks the nearest.` : '';
+	const tip = recipe.reagents.map((rg) => `${CLOTH[rg.item]}: keep what you loot as you level, or take it from your bank.`).join(' ');
+	const what = recipe.reagents.map((rg) => `${crafts * rg.count} ${itemName(ctx, rg.item)}`).join(' and ');
+	step(L, `${recipe.name}: Auction House`, [`tip What ${recipe.name} takes that the Auction House sells: ${what}. The counts drop by what your bags, bank and mail hold.`, ...recipe.reagents.map((rg) => `auction ${rg.item} x${crafts * rg.count}`)]);
+	const levels = (rg) => (CLOTH_LEVELS[itemName(ctx, rg.item)] ? ` levels ${CLOTH_LEVELS[itemName(ctx, rg.item)].join('-')}` : '');
+	step(L, `${recipe.name}: cloth`, [`tip ${tip}`, ...recipe.reagents.map((rg) => `collect ${rg.item} x${crafts * rg.count} anywhere gather${levels(rg)}`)]);
+	// A recipe learned in this step: where and what it costs (sniffed trainer lists), or, for a manual the Expert
+	// step had the player buy (Heavy Silk and Mageweave Bandage), that it is read from the bags (#3405: the learn
+	// line has no place to point to, and nothing said where the recipe comes from).
+	const learnsHere = e.learn && e.learn.some((l) => l.startsWith(`learn ${e.spell}`) && !l.includes(' npc '));
+	const learnTip = !learnsHere ? ''
+		: recipe.source === 'trainer' ? `Any ${P.skill} trainer of your faction teaches it from skill ${recipe.learnedAt} for ${money(recipe.cost)}; the arrow picks the nearest.`
+		: recipe.source === 'vendor' && recipe.recipeItem ? `Read the ${itemName(ctx, recipe.recipeItem)} you bought with Expert ${P.skill} to learn it; without one, the vendor who sold you the book sells it too.`
+		: '';
 	const lines = [craftTip(P, recipe, e.from, e.to, crafts, [learnTip, e.tip].filter(Boolean).join(' '))];
 	if (e.learn) lines.push(...e.learn);
 	lines.push(`craft ${e.spell} until ${e.to}`);
@@ -280,6 +316,7 @@ const firstAid = {
 	file: 'first-aid',
 	skill: 'First Aid',
 	title: 'First Aid 1-300',
+	sections: 'byBands',
 	levels: '5-60',
 	craftTip: 'Bandages need no fire: craft them anywhere.',
 	header: [
@@ -448,8 +485,9 @@ const cooking = {
 			{ who: G['orc-troll'], zone: 1411, spell: roastBoar, from: 1, to: 50 },
 			{ who: G.tauren, zone: 1412, spell: charredWolf, from: 1, to: 50 },
 			{ who: G.undead, zone: 1420, spell: charredWolf, from: 1, to: 50 },
-			{ rank: 'Journeyman' },
+			// Journeyman opens 50-130 (a player past 50 who lacks it is held at its trainer there).
 			{ section: 'Cooking 50-130' },
+			{ rank: 'Journeyman' },
 			{ who: westfall, zone: 1436, spell: 2541, from: 50, to: 90, learn: 'trainer', tip: 'Coyotes roam the middle of Westfall; Salma Saldean on the farm north of Sentinel Hill also gives Westfall Stew and Goretusk Liver Pie quests that use what you loot here.' },
 			{ who: westfall, zone: 1436, spell: crabCake, from: 90, to: 130, learn: 'trainer', tip: 'Crawlers line the whole Westfall coast. Cook it to 130, where Curiously Tasty Omelet takes over.' },
 			{ who: G['dwarf-gnome'], zone: 1432, spell: 8607, from: 50, to: 80, learn: 'vendor', tip: 'Black bears roam the hills of Loch Modan.' },

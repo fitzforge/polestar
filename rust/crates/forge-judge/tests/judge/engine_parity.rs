@@ -414,6 +414,19 @@ fn played(guides: &[engine::Guide], class: &str) -> Vec<String> {
 		.collect()
 }
 
+#[test]
+fn skipped_collect_does_not_block_the_active_collect_beside_it() {
+	let guide = compiled(
+		r#"{ "id": "t/work", "steps": [
+		{ "goals": [{ "t": "accept", "quest": 1 }] },
+		{ "goals": [{ "t": "accept", "quest": 2, "closedBy": [1] }] },
+		{ "goals": [{ "t": "collect", "quest": 2, "oi": 1, "item": 102, "count": 1 }, { "t": "collect", "quest": 1, "oi": 1, "item": 101, "count": 1 }] },
+		{ "goals": [{ "t": "turnin", "quest": 1 }] }
+	] }"#,
+	);
+	assert_eq!(played(&[guide], "WARRIOR"), ["t/work 1:1 accept", "t/work 3:2 collect", "t/work 4:1 turnin"]);
+}
+
 fn rules_guides() -> Vec<engine::Guide> {
 	let a = r#"{ "id": "t/a", "faction": "Alliance", "nextChoices": ["t/b", "t/c"], "nextWhen": { "t/b": [{ "k": "level", "op": "<", "n": 3 }] }, "steps": [
 		{ "goals": [{ "t": "accept", "quest": 1, "map": 1429, "x": 50, "y": 50 }] },
@@ -471,4 +484,20 @@ fn stuck_and_ticks() {
 	let goals: Vec<(String, usize, bool)> = events.iter().filter_map(|e| if let Event::Goal { verb, step, ticked, .. } = e { Some((verb.clone(), *step, *ticked)) } else { None }).collect();
 	let want = [("accept", 1, false), ("kill", 1, false), ("goto", 2, false), ("getfp", 2, true), ("turnin", 2, false)];
 	assert_eq!(goals, want.map(|(v, s, t)| (v.to_string(), s, t)));
+}
+
+/// A vendor beside other work of its step (Own.sideVendor) is left alone and never holds the step: the play
+/// moves on with the hand-ins, the last step's too, so the guide ends. A step of only a vendor still opens the
+/// merchant (it holds the step).
+#[test]
+fn a_vendor_beside_other_work_never_holds_the_step() {
+	let guides = vec![compiled(
+		r#"{ "id": "t/v", "steps": [
+		{ "goals": [{ "t": "accept", "quest": 1 }, { "t": "accept", "quest": 2 }] },
+		{ "goals": [{ "t": "turnin", "quest": 1 }, { "t": "vendor", "npc": 54 }] },
+		{ "goals": [{ "t": "vendor", "npc": 54 }] },
+		{ "goals": [{ "t": "vendor" }, { "t": "turnin", "quest": 2 }] }
+	] }"#,
+	)];
+	assert_eq!(played(&guides, "WARRIOR"), ["t/v 1:1 accept", "t/v 1:2 accept", "t/v 2:1 turnin", "t/v 3:1 vendor", "t/v 4:2 turnin"]);
 }

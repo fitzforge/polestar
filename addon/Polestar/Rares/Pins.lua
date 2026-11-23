@@ -263,13 +263,14 @@ end
 -- The world map's view (Core/MapCanvas.lua) says when it opens; the map is
 -- only read.
 local hooked = false
+local function onView(_, what)
+	if what == "show" then onMapShown() end
+end
 local function hookMap()
 	if hooked then return end
 	local M = ns.MapCanvas
 	if not (M and WorldMapFrame) then return end
-	hooked = M.Watch(WorldMapFrame, function(_, what)
-		if what == "show" then onMapShown() end
-	end) ~= nil
+	hooked = M.Watch(WorldMapFrame, onView) ~= nil
 end
 
 local function minimapLoad()
@@ -320,6 +321,7 @@ end)
 
 ns.OnLogin(function()
 	hookMap()
+	if ns.MapCanvas then ns.MapCanvas.OnAdd(function(map) ns.MapCanvas.Watch(map, onView) end) end
 	local T = ns.Theme
 	if T and T.OnChanged then
 		T.OnChanged(function()

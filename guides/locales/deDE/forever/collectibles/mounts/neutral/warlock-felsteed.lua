@@ -8,29 +8,29 @@
 return {
 	-- Guide
 	["Warlock Felsteed"] = "Hexenmeister-Teufelsross",
-	["Your own mount at 40, summoned anywhere: no 100g riding training needed."] = "",
+	["Your own mount at 40, summoned anywhere: no 100g riding training needed."] = "Dein eigenes Reittier auf Stufe 40, überall herbeigerufen: keine Reitausbildung für 100g nötig.",
 
 	-- Step 1: Summon Felsteed (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["At 40 {npc:461}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:461}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "Auf Stufe 40 schickt dich {npc:461}, im Keller des {object:2164} im {object:2101}, zu {npc:6251} in {area:392}. Keine Quest im Angebot? Beende zuerst die Kette des Teufelsjägers: Spieler berichten, dass das Reittier danach kommt.",
 
 	-- Step 2: Summon Felsteed (Ironforge)
 	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["At 40 {npc:5172}, by the warlock trainers in {zone:1455}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:5172}, by the warlock trainers in {zone:1455}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "Auf Stufe 40 schickt dich {npc:5172}, bei den Hexenmeisterlehrern in {zone:1455}, zu {npc:6251} in {area:392}. Keine Quest im Angebot? Beende zuerst die Kette des Teufelsjägers: Spieler berichten, dass das Reittier danach kommt.",
 
 	-- Step 3: Summon Felsteed (Orgrimmar)
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["At 40 {npc:3326}, in the {object:172960}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:3326}, in the {object:172960}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "Auf Stufe 40 schickt dich {npc:3326}, in der {object:172960}, zu {npc:6251} in {area:392}. Keine Quest im Angebot? Beende zuerst die Kette des Teufelsjägers: Spieler berichten, dass das Reittier danach kommt.",
 
 	-- Step 4: Summon Felsteed (Undercity)
 	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {zone:1454} Orgrimmar
-	["At 40 {npc:4563}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}; {area:392} is a short flight from {zone:1454}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:4563}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}; {area:392} is a short flight from {zone:1454}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "Auf Stufe 40 schickt dich {npc:4563}, im {object:36082}, zu {npc:6251} in {area:392}. Der Zeppelin aus {zone:1420} fliegt nach {zone:1411}; {area:392} ist ein kurzer Flug von {zone:1454}. Keine Quest im Angebot? Beende zuerst die Kette des Teufelsjägers: Spieler berichten, dass das Reittier danach kommt.",
 
 	-- Step 5: Strahad Farsan in Ratchet
 	-- {npc:6251} Strahad Farsan · {area:392} Ratchet
 	["{npc:6251} in {area:392}"] = "{npc:6251} in {area:392}",
-	-- {area:392} Ratchet · {zone:1413} Barrens · {area:380} Crossroads · {area:35} Booty Bay · {npc:6251} Strahad Farsan · {quest:3631} Summon Felsteed
-	["{area:392} is the goblin port on the {zone:1413} coast, east of the {area:380}; from the Alliance side take the boat from {area:35}. {npc:6251} stands by his small tower on the hill above the town, not down at the docks. Hand in, then take his own {quest:3631} and hand it straight back: that teaches you the mount. No fight, and the quests ask for nothing."] = "",
+	-- {area:392} Ratchet · {zone:1413} Barrens · {area:35} Booty Bay · {npc:6251} Strahad Farsan · {quest:3631} Summon Felsteed
+	["{area:392} is the goblin port on the {zone:1413} coast, east of the Crossroads; from the Alliance side take the boat from {area:35}. {npc:6251} stands by his small tower on the hill above the town, not down at the docks. Hand in, then take his own {quest:3631} and hand it straight back: that teaches you the mount. No fight, and the quests ask for nothing."] = "{area:392} ist der Goblinhafen an der Küste der {zone:1413}, östlich von Crossroads; von der Seite der Allianz nimmst du das Boot ab {area:35}. {npc:6251} steht an seinem kleinen Turm auf dem Hügel über der Stadt, nicht unten an den Docks. Gib ab und nimm dann seine eigene {quest:3631} an und gib sie sofort zurück: Das bringt dir das Reittier bei. Kein Kampf, und die Quests verlangen nichts.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 40 {npc:3326} in the {object:172960} sends you to {npc:6251} in {area:392}."] = "Mit 40 schickt dich {npc:3326} in {object:172960} zu {npc:6251} in {area:392}.",

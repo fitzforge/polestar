@@ -28,6 +28,10 @@
 --   Import.List() -> { { id, title, author, version, license, steps, problem }, ... }  -- by title
 --   Import.Load()                                 -- at login: register the store
 --   Import.LIMITS, Import.KEYS                    -- the caps and the key lists, for the tests
+--   Import.Adler32(s) -> 8 hex digits
+--   Import.Envelope(prefix, payload) -> prefix .. Adler-32 .. "!" .. base64 of zlib of payload:
+--     the envelope under another prefix, written: profile strings (Core/Profiles.lua) and the
+--     report's settings (UI/Report.lua)
 
 local ADDON, ns = ...
 local L = ns.L
@@ -43,7 +47,8 @@ ns.Import = Import
 local PACK = "imported"
 -- The caps tools/lib/pack/importstring.js applies (a test holds them equal):
 -- characters in a string, steps in its guide, bytes of the payload, bytes in
--- any one text or key of it, bytes in any names/written value (a token's
+-- any one text or key of it (a `written` value too: the author's own words
+-- for a note, as long as the note), bytes in any names value (a token's
 -- English game name, capped at a game-name length), goals per step and
 -- candidates per goal (limits from the largest our own compiler emits; large
 -- enough that our own guides are never refused, tight enough to prevent
@@ -52,7 +57,8 @@ local PACK = "imported"
 -- guides has, in brackets): spawn spots per goal (438), `when` predicates per
 -- step or next option (1), `skipto` jumps per step, reagents (6) and source
 -- NPCs (5) per goal, quest ids in a `pre`/`preAll`/`closedBy`/`preTitles`
--- or a predicate's quest list (13), names/written tokens (213), and
+-- or a predicate's quest list (13), an accept's hand-in NPCs (`endNpcs`),
+-- names/written tokens (213), and
 -- `nextWhen` options.
 local LIMITS = {
 	length = 50000, steps = 60, payload = 262144, text = 4096, names = 128, goals = 100, candidates = 128,
@@ -221,34 +227,39 @@ local LS, LN = list(S), list(N)
 local ONLY = rec({ classes = LS, races = LS, factions = LS })
 local REWARD_ITEM = rec({ item = N, itemName = S, quality = N })
 local GOAL = rec({
-	t = S, class = B, spell = N, spellName = S, faction = N, factionName = S, standing = N, achievement = N, achievementName = S, criteria = N,
-	quest = N, title = S, target = S, npc = N, npcName = S, object = N, objName = S, item = N, itemName = S, count = N, oi = N, skill = S, skillLine = N,
-	rank = NS, rankMax = N, level = N, frac = N, money = N, untilSkill = N,
+	t = S, class = B, zone = N, spell = N, spellName = S, faction = N, factionName = S, standing = N, achievement = N, achievementName = S, criteria = N,
+	quest = N, title = S, target = S, logLine = B, npc = N, npcName = S, object = N, objName = S, item = N, itemName = S, count = N, oi = N, skill = S, skillLine = N,
+	-- A collect's `gather` (format 10): true, or what its gather way takes.
+	gather = { bool = true, rec = { skill = S, skillLine = N, rank = N, min = N, max = N } },
+	rank = NS, rankMax = N, level = N, frac = N, grind = N, money = N, untilSkill = N, yellow = N, grey = N,
 	reagents = list(rec({ item = N, itemName = S, count = N })),
-	location = S, minLevel = N, qlvl = NS, pre = LN, preAll = LN, closedBy = LN, preTitles = { idmap = S }, text = S, node = N, area = N,
+	location = S, minLevel = N, qlvl = NS, limit = N, pre = LN, preAll = LN, closedBy = LN, crumbs = LN, endNpcs = LN, xp = N, parent = N, preTitles = { idmap = S }, text = S, node = N, area = N,
 	map = N, x = N, y = N, z = N, f = S, r = N,
 	spots = list(rec({ x = N, y = N, z = N, r = N, n = N, alt = B, lvl = N })),
 	spread = B, lvl = N, optional = B, only = ONLY, profLine = N, profName = S, profRank = N, note = S,
 	from = S, fromKind = S, fromRank = N, fromFaction = S, fromAlso = S, fromId = N, fromAlsoId = N,
-	fromNpcs = list(rec({ npc = N, npcName = S })),
+	fromNpcs = list(rec({ npc = N, npcName = S })), fromNpcsAt = S,
 	candidates = list(rec({ npc = N, npcName = S, map = N, x = N, y = N, z = N, f = S, faction = S, races = LS, classes = LS,
 		lvl = rec({ min = N, max = N }), rate = N, spawns = N })),
 	rewards = rec({ choices = list(REWARD_ITEM), items = list(REWARD_ITEM), xp = N, money = N }),
-	group = rec({ kind = S, rank = N, name = S, size = N, map = N }),
-	direct = B, escort = B, gossip = N, seconds = N,
-	objs = list(rec({ text = S, count = N })), startItem = N, startItemName = S,
+	group = rec({ kind = S, rank = N, name = S, size = N, map = N, lvl = N }),
+	direct = B, escort = B, gossip = N, seconds = N, either = B, off = B, points = N, upto = N,
+	objs = list(rec({ text = S, count = N })), startItem = N, startItemName = S, carriedTo = S,
 })
 -- A step's `when` predicates and a `next` option's (format 4; Guides.Validate checks each kind's keys).
-local WHEN = rec({ k = S, neg = B, op = S, n = N, frac = N, q = NL, item = N, spell = N, name = S, label = S, area = N, map = N, skillLine = N, minLevel = N, pre = LN, preAll = LN, closedBy = LN })
+local WHEN = rec({ k = S, neg = B, op = S, n = N, frac = N, q = NL, item = N, spell = N, name = S, label = S, area = N, node = N, map = N, skillLine = N, minLevel = N, pre = LN, preAll = LN, closedBy = LN, parent = N,
+	faction = N, standing = N, points = N })
 -- A step's picture: read so a string carries the guide as its addon does, but
 -- an imported guide has no addon folder holding the file, so it shows none.
 local IMAGE = rec({ file = S, w = N, h = N })
-local STEP = rec({ title = S, note = S, image = IMAGE, label = S, only = ONLY, when = list(WHEN), along = BS, skipto = list(rec({ to = S, when = WHEN })), goals = list(GOAL) })
+local STEP = rec({ title = S, note = S, image = IMAGE, label = S, only = ONLY, when = list(WHEN), along = BS, skipto = list(rec({ to = S, when = WHEN })), section = N, goals = list(GOAL) })
+local LEVELS = rec({ min = N, max = N })
 local GUIDE = rec({
-	id = S, title = S, faction = S, races = LS, classes = LS, minLevel = N, maxLevel = N, category = S, folder = S, keywords = LS,
+	id = S, title = S, faction = S, races = LS, classes = LS, minLevel = N, maxLevel = N, factionLevels = rec({ Alliance = LEVELS, Horde = LEVELS }), category = S, folder = S, keywords = LS,
 	collects = LN, reward = list(rec({ item = N, itemName = S, quality = N, choice = B, spell = N, spellName = S, text = S })),
 	why = S, zone = N, zoneName = S, next = S, nextChoices = LS, nextWhen = { map = list(WHEN) }, pitch = S, pros = LS, cons = LS, author = S, version = N, group = B,
-	names = { map = SM }, written = { map = SM }, steps = list(STEP),
+	names = { map = SM }, written = { map = S }, sections = list(rec({ skill = S, skillLine = N, from = N, to = N })),
+	fresh = rec({ from = S, share = N, xp = N, needs = LN }), steps = list(STEP),
 })
 local PAYLOAD = rec({ format = N, license = S, guide = GUIDE, frames = { idmap = rec({ c = N, left = N, right = N, top = N, bottom = N }) } })
 
@@ -263,7 +274,8 @@ Import.KEYS = {
 	guide = keysOf(GUIDE), step = keysOf(STEP), goal = keysOf(GOAL), only = keysOf(ONLY),
 	reagents = keysOf(GOAL.rec.reagents.list), candidates = keysOf(GOAL.rec.candidates.list), spots = keysOf(GOAL.rec.spots.list),
 	fromNpcs = keysOf(GOAL.rec.fromNpcs.list),
-	items = keysOf(REWARD_ITEM), reward = keysOf(GUIDE.rec.reward.list), when = keysOf(WHEN), image = keysOf(IMAGE),
+	items = keysOf(REWARD_ITEM), reward = keysOf(GUIDE.rec.reward.list), sections = keysOf(GUIDE.rec.sections.list), fresh = keysOf(GUIDE.rec.fresh),
+	when = keysOf(WHEN), image = keysOf(IMAGE),
 }
 
 local function finite(v) return type(v) == "number" and v == v and v ~= huge and v ~= -huge end
@@ -271,8 +283,10 @@ local function finite(v) return type(v) == "number" and v == v and v ~= huge and
 -- v shaped by spec -> a fresh copy; raises { field = where } at the first
 -- key or value that does not fit.
 local function build(v, spec, where)
-	if type(v) == "string" and #v > LIMITS.text and (spec == S or spec == NS or spec == BS) then error({ field = where, long = true }, 0) end
-	if type(v) == "string" and #v > LIMITS.names and spec == SM then error({ field = where, long = true }, 0) end
+	-- `{ bool = true, rec = ... }`: true/false or that record (a collect's `gather`).
+	if type(v) == "boolean" and type(spec) == "table" and spec.bool then return v end
+	if type(v) == "string" and #v > LIMITS.text and (spec == S or spec == NS or spec == BS) then error({ field = where, long = LIMITS.text }, 0) end
+	if type(v) == "string" and #v > LIMITS.names and spec == SM then error({ field = where, long = LIMITS.names }, 0) end
 	if spec == S or spec == SM then
 		if type(v) == "string" then return v end
 	elseif spec == N then
@@ -306,7 +320,7 @@ local function build(v, spec, where)
 		elseif spec.map then
 			for k, x in pairs(v) do
 				if type(k) ~= "string" or k == "" then error({ field = where }, 0) end
-				if #k > LIMITS.text then error({ field = where, long = true }, 0) end
+				if #k > LIMITS.text then error({ field = where, long = LIMITS.text }, 0) end
 				out[k] = build(x, spec.map, where .. "." .. k)
 			end
 			return out
@@ -374,10 +388,78 @@ local function adler32(s)
 end
 Import.Adler32 = adler32
 
+---------------------------------------------------------------------------
+-- Writing a string in the envelope: zlib and base64 by the client's encoder
+-- when it reads back to the same payload, else a stored (uncompressed) zlib
+-- stream and base64 in plain Lua: any zlib reader takes stored blocks.
+---------------------------------------------------------------------------
+
+local function zlibStored(s)
+	local out = { "\120\1" }
+	local n, at = #s, 1
+	repeat
+		local len = n - at + 1
+		if len > 65535 then len = 65535 end
+		local last = at + len > n
+		local nlen = 65535 - len
+		out[#out + 1] = char(last and 1 or 0, len % 256, floor(len / 256), nlen % 256, floor(nlen / 256))
+		out[#out + 1] = sub(s, at, at + len - 1)
+		at = at + len
+	until at > n
+	local sum = adler32(s)
+	for i = 1, 8, 2 do out[#out + 1] = char(tonumber(sub(sum, i, i + 1), 16)) end
+	return concat(out)
+end
+
+local B64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+
+local function base64(s)
+	local out = {}
+	for i = 1, #s, 3 do
+		local a, b, c = byte(s, i, i + 2)
+		local v = a * 65536 + (b or 0) * 256 + (c or 0)
+		local q = {}
+		for j = 4, 1, -1 do
+			q[j] = v % 64 + 1
+			v = floor(v / 64)
+		end
+		out[#out + 1] = sub(B64, q[1], q[1]) .. sub(B64, q[2], q[2])
+			.. (b and sub(B64, q[3], q[3]) or "=") .. (c and sub(B64, q[4], q[4]) or "=")
+	end
+	return concat(out)
+end
+
+local function zlibMethod()
+	return Enum and Enum.CompressionMethod and Enum.CompressionMethod.Zlib
+end
+
+-- The client's own encoding, used only when it reads back to the same payload.
+local function clientBody(s)
+	local enc = C_EncodingUtil
+	if not (type(enc) == "table" and type(enc.CompressString) == "function" and type(enc.EncodeBase64) == "function"
+		and type(enc.DecodeBase64) == "function" and type(enc.DecompressString) == "function") then
+		return nil
+	end
+	local ok, z = pcall(enc.CompressString, s, zlibMethod())
+	if not ok or type(z) ~= "string" then return nil end
+	local body
+	ok, body = pcall(enc.EncodeBase64, z)
+	if not ok or type(body) ~= "string" or not find(body, "^[A-Za-z0-9+/]+=?=?$") or #body % 4 ~= 0 then return nil end
+	local ok2, back = pcall(enc.DecodeBase64, body)
+	if not ok2 or type(back) ~= "string" then return nil end
+	ok2, back = pcall(enc.DecompressString, back, zlibMethod())
+	if not ok2 or back ~= s then return nil end
+	return body
+end
+
+function Import.Envelope(prefix, payload)
+	return prefix .. adler32(payload) .. "!" .. (clientBody(payload) or base64(zlibStored(payload)))
+end
+
 -- The first list or map of guide g holding more entries than its LIMITS cap
 -- -> its place (as `guide.steps[2].goals[1].spots`), its count, its cap; or
 -- nil. tools/lib/pack/importstring.js crowded() walks the same places.
-local QUEST_LISTS = { "pre", "preAll", "closedBy", "preTitles" }
+local QUEST_LISTS = { "pre", "preAll", "closedBy", "crumbs", "endNpcs", "preTitles" }
 local function crowded(g)
 	local function over(t, cap, where)
 		if type(t) ~= "table" then return nil end
@@ -530,7 +612,7 @@ local function fromTree(tree)
 	local ok, entry = pcall(build, tree, PAYLOAD, "")
 	if not ok then
 		if type(entry) == "table" and entry.long then
-			return nil, (L["This import string holds a text longer than Polestar reads (%s): %d characters at most."]):format(escape(entry.field), LIMITS.text)
+			return nil, (L["This import string holds a text longer than Polestar reads (%s): %d characters at most."]):format(escape(entry.field), entry.long)
 		end
 		if type(entry) == "table" and entry.field then
 			return nil, (L["This import string holds a field Polestar does not read (%s). It may need a newer Polestar."]):format(escape(entry.field))
@@ -597,9 +679,10 @@ function Import.Preview(text)
 		end
 	end
 	local c = shown(g)
+	local lo, hi = ns.Guides.Levels(g)
 	return {
 		entry = entry, id = g.id, title = escape(c.title or g.id), author = g.author and escape(g.author) or nil,
-		version = g.version, steps = #g.steps, minLevel = g.minLevel, maxLevel = g.maxLevel, faction = g.faction,
+		version = g.version, steps = #g.steps, minLevel = lo, maxLevel = hi, faction = g.faction,
 		license = escape(entry.license), state = state, have = have and versionOf(have.guide) or nil,
 		authorChanged = authorChanged or nil, licenseChanged = licenseChanged or nil,
 	}

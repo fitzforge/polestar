@@ -24,23 +24,23 @@ return {
 
 	-- Step 3: Duthorian Rall
 	-- {npc:6171} Duthorian Rall
-	["{npc:6171}, Cathedral of Light"] = "",
+	["{npc:6171}, Cathedral of Light"] = "{npc:6171}, 빛의 대성당",
 
 	-- Step 5: The Tome of Divinity
-	-- {npc:6171} Duthorian Rall · {item:6775} Tome of Divinity · {item:2589} Linen Cloth
-	["{npc:6171} stands inside the Cathedral of Light. He hands you the {item:6775}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6171} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "",
-	-- {item:6775} Tome of Divinity
-	["Right-click the {item:6775}"] = "",
+	-- {npc:6171} Duthorian Rall · {quest:2998} Tome of Divinity · {item:2589} Linen Cloth
+	["{npc:6171} stands inside the Cathedral of Light. He hands you the {quest:2998}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6171} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "",
+	-- {quest:2998} Tome of Divinity
+	["Right-click the {quest:2998}"] = "",
 
 	-- Step 6: Stephanie Turner
 	-- {npc:6174} Stephanie Turner · {object:2096} Trade District · {item:2589} Linen Cloth · {zone:1436} Westfall
 	["{npc:6174} stands at a corner in the middle of the {object:2096}, outside a general goods store. She wants 10 {item:2589}: humanoids drop it (Riverpaw gnolls in {zone:1436} about every other kill, Defias and kobolds a little less), or buy it at the Auction House a few steps away in the {object:2096}."] = "",
 	-- {item:2589} Linen Cloth
-	["{item:2589} x10"] = "",
+	["{item:2589} x10: humanoids, or the Auction House"] = "{item:2589} x10: 인간형 몹 또는 경매장",
 
 	-- Step 7: The Symbol of Life
 	-- {item:6866} Symbol of Life
-	["The {item:6866}"] = "",
+	["The {item:6866}"] = "{item:6866}",
 	-- {npc:6171} Duthorian Rall · {item:6866} Symbol of Life · {npc:6173} Gazin Tenorm · {npc:6172} Henze Faulk
 	["Back to the Cathedral. {npc:6171} gives you the {item:6866}; {npc:6173} lies wounded by the altar of the same hall. Keep the symbol: you need it on {npc:6172}. If you lose it, {npc:6171} gives you another (The {item:6866})."] = "",
 
@@ -59,7 +59,7 @@ return {
 	["The Defias Rogue Wizards around the big stone tablet east of {npc:6172} carry the {item:6846}: about one kill in two drops it, but some players need many kills. They respawn in three minutes."] = "",
 	-- {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["{item:6846}: Defias Rogue Wizards"] = "",
+	["{item:6846}: Defias Rogue Wizards"] = "{item:6846}: 데피아즈단 견습마술사",
 
 	-- Step 10: Redemption
 	-- {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall · {spell:7328} Redemption
@@ -70,15 +70,15 @@ return {
 	["{npc:6179}, upstairs in the {object:32386}"] = "",
 
 	-- Step 14: The Tome of Divinity
-	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {item:6916} Tome of Divinity · {item:2589} Linen Cloth
-	["{npc:6179} stands upstairs in the {object:32386}, in the {object:32362}: take the ramp at the back of the hall. She hands you the {item:6916}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6179} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "",
-	-- {item:6916} Tome of Divinity
-	["Right-click the {item:6916}"] = "",
+	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {quest:2997} Tome of Divinity · {item:2589} Linen Cloth
+	["{npc:6179} stands upstairs in the {object:32386}, in the {object:32362}: take the ramp at the back of the hall. She hands you the {quest:2997}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6179} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "",
+	-- {quest:2997} Tome of Divinity
+	["Right-click the {quest:2997}"] = "",
 
 	-- Step 15: John Turner
-	-- {npc:6175} John Turner · {item:2589} Linen Cloth · {npc:1245} Kogan Forgestone · {area:131} Kharanos
+	-- {npc:6175} John Turner · {item:2589} Linen Cloth · {zone:1432} Loch Modan
 	-- plural, as words: Dark Iron Ambushers = {npc:1981} Dark Iron Ambusher
-	["{npc:6175} walks the outer ring of the Commons, past the front gate, the bank and the Auction House. He wants 10 {item:2589}: humanoids drop it ({npc:1245} in {area:131} every time, Dark Iron Ambushers about two kills in five), or buy it at the Auction House on his ring."] = "",
+	["{npc:6175} walks the outer ring of the Commons, past the front gate, the bank and the Auction House. He wants 10 {item:2589}: humanoids drop it (in {zone:1432} the Dark Iron Ambushers, Tunnel Rat kobolds and Stonesplinter troggs about two kills in five), or buy it at the Auction House on his ring."] = "",
 
 	-- Step 16: The Symbol of Life
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6179} Tiza Battleforge · {item:6866} Symbol of Life · {npc:6178} Muiredon Battleforge · {npc:6177} Narm Faulk
@@ -96,7 +96,7 @@ return {
 	-- {item:6847} Dark Iron Script
 	["The Dark Iron Spies (level 9-11, twelve of them) sneak around the little house below the lake, just south of Narm; you see them from his hill. About one kill in two drops the {item:6847}. They run for help at low health: finish them or step back. They respawn in three minutes."] = "",
 	-- {item:6847} Dark Iron Script
-	["{item:6847}: Dark Iron Spies"] = "",
+	["{item:6847}: Dark Iron Spies"] = "{item:6847}: 검은무쇠단 비밀요원",
 
 	-- Step 19: Redemption
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6178} Muiredon Battleforge · {npc:6179} Tiza Battleforge · {spell:7328} Redemption

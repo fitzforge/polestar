@@ -152,6 +152,12 @@ async fn main() -> ExitCode {
 	};
 	let (min_build, pow_bits, allow_direct, retain_days, max_db_mb) = (config.min_build, config.pow_bits, config.allow_direct, config.retain_days, config.max_db_bytes >> 20);
 	let state = AppState::new(db, config);
+	let now = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_secs() as i64);
+	match state.recheck_suspect(now) {
+		Ok((_, 0)) => {}
+		Ok((passed, held)) => tracing::info!("recheck: {passed} of {held} held suspect chunk(s) pass the current plausibility checks and are exported"),
+		Err(e) => tracing::error!("recheck: {e}"),
+	}
 	tokio::spawn(maintenance(state.clone()));
 	let app = router(state);
 	let listener = match tokio::net::TcpListener::bind(addr).await {

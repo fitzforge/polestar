@@ -15,66 +15,62 @@ return {
 	-- Step 2: Tailoring 1-75: vendor goods
 	-- {skill:197} Tailoring
 	["{skill:197} 1-75: vendor goods"] = "{skill:197} 1-75 : fournitures de marchand",
-	-- {item:2320} Coarse Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 72 {item:2320} (7s 20c); about 7s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 72 {item:2320} (7 pa 20 pc) ; environ 7 pa 20 pc au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, {npc:3367} et {npc:5817}).",
+	-- {item:2320} Coarse Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
+	["Buy the whole bracket's share in one go: 72 {item:2320} (7s 20c); about 7s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 72 {item:2320} (7 pa 20 pc) ; environ 7 pa 20 pc au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, Felika et {npc:5817}).",
 
-	-- Step 3: Linen Cloth
+	-- Step 3: Tailoring 1-75: Auction House
+	-- {skill:197} Tailoring
+	["{skill:197} 1-75: Auction House"] = "{skill:197} 1-75 : hôtel des ventes",
+	-- {item:2589} Linen Cloth
+	["What 1-75 takes that the Auction House sells: 144 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "Ce que la tranche 1-75 demande et que vend l'hôtel des ventes : 144 {item:2589}. Les quantités baissent selon ce que contiennent vos sacs, votre banque et votre courrier.",
+
+	-- Step 4: Linen Cloth
 	-- {item:2589} Linen Cloth · {spell:2387} Linen Cloak · {item:7026} Linen Belt
-	["144 {item:2589} for {spell:2387} and {item:7026}: humanoids of level 5-20 drop it; or the Auction House. The arrow picks a farm spot for your level and faction."] = "144 {item:2589} pour {spell:2387} et {item:7026} : les humanoïdes de niveau 5-20 en laissent tomber ; ou l'hôtel des ventes. La flèche indique un lieu de récolte adapté à votre niveau et à votre faction.",
+	["144 {item:2589} for {spell:2387} and {item:7026}: humanoids of level 5-20 drop it. Keep what you loot as you level, or take it from your bank."] = "144 {item:2589} pour {spell:2387} et {item:7026} : les humanoïdes de niveau 5-20 en laissent tomber. Gardez ce que vous ramassez en montant de niveau, ou prenez-en dans votre banque.",
 
-	-- Step 4: Linen Cloak to 15
+	-- Step 5: Linen Cloak to 15
 	-- {spell:2387} Linen Cloak
 	["{spell:2387} to 15"] = "{spell:2387} jusqu'à 15",
 	-- {spell:2387} Linen Cloak · {spell:2963} Bolt of Linen Cloth · {item:2320} Coarse Thread
 	["{spell:2387} is orange at 1 (yellow 35, green 47, grey 60): about 7 crafts to 15, a point every craft. Each takes 1 {spell:2963} and 1 {item:2320}. Make the 7 {spell:2963} first: it gives points too while not grey. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{spell:2387} est orange à 1 (jaune 35, vert 47, gris 60) : environ 7 fabrications jusqu'à 15, un point à chaque fabrication. Chaque fabrication demande 1 {spell:2963} et 1 {item:2320}. Fabriquez d'abord les 7 {spell:2963} : cela donne aussi des points tant que ce n'est pas gris. Le maître l'enseigne, et c'est le moyen le moins cher de passer ces points d'après les données.",
 
-	-- Step 5: Tailoring recipes at 15
+	-- Step 6: Tailoring recipes at 15
 	-- {skill:197} Tailoring
 	["{skill:197} recipes at 15"] = "{skill:197} : recettes à 15",
 	-- {skill:197} Tailoring · {spell:8776} Linen Belt
 	["Back to a {skill:197} trainer: {spell:8776} (from 15, 50c)."] = "Retournez voir un maître de métier ({skill:197}) : {spell:8776} (dès 15, 50 pc).",
 
-	-- Step 6: Linen Belt to 75
+	-- Step 7: Linen Belt to 75
 	-- {item:7026} Linen Belt
 	["{item:7026} to 75"] = "{item:7026} jusqu'à 75",
 	-- {item:7026} Linen Belt · {spell:2963} Bolt of Linen Cloth · {item:2320} Coarse Thread
 	["{item:7026} is orange at 15 (yellow 50, green 67, grey 85): about 65 crafts to 75. Each takes 1 {spell:2963} and 1 {item:2320}. Make the 65 {spell:2963} first: it gives points too while not grey. Each belt takes one bolt; the belts sell to vendors."] = "{item:7026} est orange à 15 (jaune 50, vert 67, gris 85) : environ 65 fabrications jusqu'à 75. Chaque fabrication demande 1 {spell:2963} et 1 {item:2320}. Fabriquez d'abord les 65 {spell:2963} : cela donne aussi des points tant que ce n'est pas gris. Chaque ceinture demande un rouleau ; les ceintures se vendent aux marchands.",
 
-	-- Step 7: Journeyman Tailoring
+	-- Step 8: Journeyman Tailoring
 	-- {skill:197} Tailoring
 	["Journeyman {skill:197}"] = "{skill:197} (compagnon)",
-	-- {skill:197} Tailoring · {npc:1346} Georgio Bolero · {zone:1453} Stormwind City · {npc:2627} Grarnik Goodstitch · {zone:1434} Stranglethorn Vale · {npc:5153} Jormund Stonebrow · {zone:1455} Ironforge · {npc:4159} Me'lynn · {zone:1457} Darnassus · {npc:252380} Othesia Evengale · {npc:251991} Taleen Shimmerthread · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills · {npc:4576} Josef Gregorian · {zone:1458} Undercity · {npc:3363} Magar · {zone:1454} Orgrimmar · {npc:3704} Mahani · {zone:1413} The Barrens · {npc:11049} Rhiannon Davis · {zone:1456} Thunder Bluff · {spell:2964} Bolt of Woolen Cloth · {spell:2402} Woolen Cape · {spell:1229504} Faction Banner · {spell:2963} Bolt of Linen Cloth · {item:2320} Coarse Thread · {item:2592} Wool Cloth · {item:4306} Silk Cloth
-	["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:197} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:197} trainer teaches it: Alliance {npc:1346} ({zone:1453}), {npc:2627} ({zone:1434}), {npc:5153} ({zone:1455}), {npc:4159} ({zone:1457}), {npc:252380} (Zephras Isle), Sellandus ({zone:1453}), {npc:251991} (Zephras Isle) and {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}), {npc:2627} ({zone:1434}), {npc:4576} ({zone:1458}), {npc:3363} ({zone:1454}), {npc:3704} ({zone:1413}), {npc:252380} (Zephras Isle), {npc:11049} ({zone:1458}), {npc:251991} (Zephras Isle) and Tepa ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:2964} (from 55, 1s) and {spell:2402} (from 55, 2s 50c). Also learn {spell:1229504} (1s): Forever's {skill:197} camp item, a {spell:2963} and a {item:2320}; each faction has its own. The Camping 101: {skill:197} quest from your starting area's camping guide (after The Great Outdoors) sends you to a tailoring trainer who teaches it free. 75-150 takes about 11s of recipes and 1g 65s 50c of vendor goods, plus 567 {item:2592} and 204 {item:4306} to gather or buy."] = "Compagnon porte le plafond de 75 à 150 pour 5 pa ; il demande {skill:197} 50 et le niveau 10, vous pouvez donc l'apprendre à n'importe quelle visite dès 50. Tous les maîtres de {skill:197} ne l'enseignent pas : Alliance {npc:1346} ({zone:1453}), {npc:2627} ({zone:1434}), {npc:5153} ({zone:1455}), {npc:4159} ({zone:1457}), {npc:252380} (île de Zéphras), Sellandus ({zone:1453}), {npc:251991} (île de Zéphras) et {npc:11052} ({zone:1445}) ; Horde {npc:2399} ({zone:1424}), {npc:2627} ({zone:1434}), {npc:4576} ({zone:1458}), {npc:3363} ({zone:1454}), {npc:3704} ({zone:1413}), {npc:252380} (île de Zéphras), {npc:11049} ({zone:1458}), {npc:251991} (île de Zéphras) et Tepa ({zone:1456}). La flèche indique le plus proche de votre faction. Apprenez maintenant : {spell:2964} (dès 55, 1 pa) et {spell:2402} (dès 55, 2 pa 50 pc). Apprenez aussi {spell:1229504} (1 pa) : l'objet de camp de Forever pour {skill:197}, un {spell:2963} et une {item:2320} ; chaque faction a le sien. La quête Introduction au camping : {skill:197} du guide de camping de votre zone de départ (après Les grands espaces sauvages) vous envoie à un maître tailleur qui l'enseigne gratuitement. 75-150 demande environ 11 pa de recettes et 1 po 65 pa 50 pc de fournitures de marchand, plus 567 {item:2592} et 204 {item:4306} à récolter ou acheter.",
+	-- {skill:197} Tailoring · {npc:2627} Grarnik Goodstitch · {zone:1434} Stranglethorn Vale · {npc:5153} Jormund Stonebrow · {zone:1455} Ironforge · {npc:4159} Me'lynn · {zone:1457} Darnassus · {npc:252380} Othesia Evengale · {npc:5567} Sellandus · {zone:1453} Stormwind City · {npc:251991} Taleen Shimmerthread · {npc:3363} Magar · {zone:1454} Orgrimmar · {npc:3704} Mahani · {zone:1413} The Barrens · {npc:11049} Rhiannon Davis · {zone:1458} Undercity · {npc:3004} Tepa · {zone:1456} Thunder Bluff · {spell:2964} Bolt of Woolen Cloth · {spell:2402} Woolen Cape · {spell:1229504} Faction Banner · {spell:2963} Bolt of Linen Cloth · {item:2320} Coarse Thread · {item:2592} Wool Cloth · {item:4306} Silk Cloth
+	["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:197} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:197} trainer teaches it: Alliance {npc:2627} ({zone:1434}), {npc:5153} ({zone:1455}), {npc:4159} ({zone:1457}), {npc:252380} (Zephras Isle), {npc:5567} ({zone:1453}) and {npc:251991} (Zephras Isle); Horde {npc:2627} ({zone:1434}), {npc:3363} ({zone:1454}), {npc:3704} ({zone:1413}), {npc:252380} (Zephras Isle), {npc:11049} ({zone:1458}), {npc:251991} (Zephras Isle) and {npc:3004} ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:2964} (from 55, 1s) and {spell:2402} (from 55, 2s 50c). Also learn {spell:1229504} (1s): Forever's {skill:197} camp item, a {spell:2963} and a {item:2320}; each faction has its own. The Camping 101: {skill:197} quest from your starting area's camping guide (after The Great Outdoors) sends you to a tailoring trainer who teaches it free. 75-150 takes about 11s of recipes and 1g 65s 50c of vendor goods, plus 567 {item:2592} and 204 {item:4306} to gather or buy."] = "Compagnon porte le plafond de 75 à 150 pour 5 pa ; il demande {skill:197} 50 et le niveau 10, vous pouvez donc l'apprendre à n'importe quelle visite dès 50. Tous les maîtres de {skill:197} ne l'enseignent pas : Alliance {npc:2627} ({zone:1434}), {npc:5153} ({zone:1455}), {npc:4159} ({zone:1457}), {npc:252380} (île de Zéphras), {npc:5567} ({zone:1453}) et {npc:251991} (île de Zéphras) ; Horde {npc:2627} ({zone:1434}), {npc:3363} ({zone:1454}), {npc:3704} ({zone:1413}), {npc:252380} (île de Zéphras), {npc:11049} ({zone:1458}), {npc:251991} (île de Zéphras) et {npc:3004} ({zone:1456}). La flèche indique le plus proche de votre faction. Apprenez maintenant : {spell:2964} (dès 55, 1 pa) et {spell:2402} (dès 55, 2 pa 50 pc). Apprenez aussi {spell:1229504} (1 pa) : l'objet de camp de Forever pour {skill:197}, un {spell:2963} et une {item:2320} ; chaque faction a le sien. La quête Introduction au camping : {skill:197} du guide de camping de votre zone de départ (après Les grands espaces sauvages) vous envoie à un maître tailleur qui l'enseigne gratuitement. 75-150 demande environ 11 pa de recettes et 1 po 65 pa 50 pc de fournitures de marchand, plus 567 {item:2592} et 204 {item:4306} à récolter ou acheter.",
 
-	-- Step 8: Tailoring 75-150: vendor goods
+	-- Step 9: Tailoring 75-150: vendor goods
 	-- {skill:197} Tailoring
 	["{skill:197} 75-150: vendor goods"] = "{skill:197} 75-150 : fournitures de marchand",
-	-- {item:2321} Fine Thread · {item:2324} Bleach · {item:2604} Red Dye · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 108 {item:2321} (1 po 8 pa), 34 {item:2324} (8 pa 50 pc) et 98 {item:2604} (49 pa) ; environ 1 po 65 pa 50 pc au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, {npc:3367} et {npc:5817}).",
+	-- {item:2321} Fine Thread · {item:2324} Bleach · {item:2604} Red Dye · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
+	["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 108 {item:2321} (1 po 8 pa), 34 {item:2324} (8 pa 50 pc) et 98 {item:2604} (49 pa) ; environ 1 po 65 pa 50 pc au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, Felika et {npc:5817}).",
 
-	-- Step 9: Wool Cloth (Alliance)
-	-- {item:2592} Wool Cloth
-	["{item:2592} (Alliance)"] = "{item:2592} (Alliance)",
-	-- {item:2592} Wool Cloth · {spell:2402} Woolen Cape · {spell:3866} Stylish Red Shirt · {npc:98} Riverpaw Taskmaster
-	["567 {item:2592} for {spell:2402} and {spell:3866}: humanoids of level 15-30 drop it; or the Auction House. It drops from {npc:98} (level 17-18) here."] = "567 {item:2592} pour {spell:2402} et {spell:3866} : les humanoïdes de niveau 15-30 en laissent tomber ; ou l'hôtel des ventes. {npc:98} (niveau 17-18) en laisse tomber ici.",
+	-- Step 10: Tailoring 75-150: Auction House
+	-- {skill:197} Tailoring
+	["{skill:197} 75-150: Auction House"] = "{skill:197} 75-150 : hôtel des ventes",
+	-- {item:2592} Wool Cloth · {item:4306} Silk Cloth
+	["What 75-150 takes that the Auction House sells: 567 {item:2592} and 204 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "Ce que la tranche 75-150 demande et que vend l'hôtel des ventes : 567 {item:2592} et 204 {item:4306}. Les quantités baissent selon ce que contiennent vos sacs, votre banque et votre courrier.",
 
-	-- Step 10: Wool Cloth (Horde)
-	-- {item:2592} Wool Cloth
-	["{item:2592} (Horde)"] = "{item:2592} (Horde)",
-	-- {item:2592} Wool Cloth · {spell:2402} Woolen Cape · {spell:3866} Stylish Red Shirt · {npc:3263} Bristleback Geomancer
-	["567 {item:2592} for {spell:2402} and {spell:3866}: humanoids of level 15-30 drop it; or the Auction House. It drops from {npc:3263} (level 19-20) here."] = "567 {item:2592} pour {spell:2402} et {spell:3866} : les humanoïdes de niveau 15-30 en laissent tomber ; ou l'hôtel des ventes. {npc:3263} (niveau 19-20) en laisse tomber ici.",
+	-- Step 11: Wool Cloth
+	-- {item:2592} Wool Cloth · {spell:2402} Woolen Cape · {spell:3866} Stylish Red Shirt
+	["567 {item:2592} for {spell:2402} and {spell:3866}: humanoids of level 15-30 drop it. Keep what you loot as you level, or take it from your bank."] = "567 {item:2592} pour {spell:2402} et {spell:3866} : les humanoïdes de niveau 15-30 en laissent tomber. Gardez ce que vous ramassez en montant de niveau, ou prenez-en dans votre banque.",
 
-	-- Step 11: Silk Cloth (Alliance)
-	-- {item:4306} Silk Cloth
-	["{item:4306} (Alliance)"] = "{item:4306} (Alliance)",
-	-- {item:4306} Silk Cloth · {spell:3871} Formal White Shirt · {npc:2240} Syndicate Footpad
-	["204 {item:4306} for {spell:3871}: humanoids of level 25-45 drop it; or the Auction House. It drops from {npc:2240} (level 32-33) here."] = "204 {item:4306} pour {spell:3871} : les humanoïdes de niveau 25-45 en laissent tomber ; ou l'hôtel des ventes. {npc:2240} (niveau 32-33) en laisse tomber ici.",
-
-	-- Step 12: Silk Cloth (Horde)
-	-- {item:4306} Silk Cloth
-	["{item:4306} (Horde)"] = "{item:4306} (Horde)",
-	-- {item:4306} Silk Cloth · {spell:3871} Formal White Shirt · {npc:11697} Mannoroc Lasher
-	["204 {item:4306} for {spell:3871}: humanoids of level 25-45 drop it; or the Auction House. It drops from {npc:11697} (level 29-30) here."] = "204 {item:4306} pour {spell:3871} : les humanoïdes de niveau 25-45 en laissent tomber ; ou l'hôtel des ventes. {npc:11697} (niveau 29-30) en laisse tomber ici.",
+	-- Step 12: Silk Cloth
+	-- {item:4306} Silk Cloth · {spell:3871} Formal White Shirt
+	["204 {item:4306} for {spell:3871}: humanoids of level 25-45 drop it. Keep what you loot as you level, or take it from your bank."] = "204 {item:4306} pour {spell:3871} : les humanoïdes de niveau 25-45 en laissent tomber. Gardez ce que vous ramassez en montant de niveau, ou prenez-en dans votre banque.",
 
 	-- Step 13: Woolen Cape to 104
 	-- {spell:2402} Woolen Cape
@@ -109,34 +105,32 @@ return {
 	-- Step 18: Tailoring 150-225: vendor goods
 	-- {skill:197} Tailoring
 	["{skill:197} 150-225: vendor goods"] = "{skill:197} 150-225 : fournitures de marchand",
-	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {item:6260} Blue Dye · {item:8343} Heavy Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 90 {item:4291} (4g 50s), 44 {item:6260} (22s) and 80 {item:8343} (16g); about 21g 16s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 44 {item:2321} (44 pa), 90 {item:4291} (4 po 50 pa), 44 {item:6260} (22 pa) et 80 {item:8343} (16 po) ; environ 21 po 16 pa au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, {npc:3367} et {npc:5817}).",
+	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {item:6260} Blue Dye · {item:8343} Heavy Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
+	["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 90 {item:4291} (4g 50s), 44 {item:6260} (22s) and 80 {item:8343} (16g); about 21g 16s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 44 {item:2321} (44 pa), 90 {item:4291} (4 po 50 pa), 44 {item:6260} (22 pa) et 80 {item:8343} (16 po) ; environ 21 po 16 pa au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, Felika et {npc:5817}).",
 
 	-- Step 19: Pattern: Azure Silk Cloak
 	-- {item:7089} Pattern: Azure Silk Cloak · {item:7053} Azure Silk Cloak · {skill:197} Tailoring · {npc:6576} Brienna Starglow · {zone:1444} Feralas · {npc:251997} Norvin Alderman · {zone:1416} Alterac Mountains · {npc:6574} Jun'ha · {zone:1417} Arathi Highlands
 	["{item:7089} teaches {item:7053} ({skill:197} 140) for 15s. Sold by Alliance: {npc:6576} ({zone:1444}), limited stock and {npc:251997} ({zone:1416}); Horde: {npc:6574} ({zone:1417}), limited stock and {npc:251997} ({zone:1416})."] = "{item:7089} enseigne {item:7053} ({skill:197} 140) pour 15 pa. En vente — Alliance : {npc:6576} ({zone:1444}), stock limité et {npc:251997} ({zone:1416}) ; Horde : {npc:6574} ({zone:1417}), stock limité et {npc:251997} ({zone:1416}).",
 
-	-- Step 20: Silk Cloth
+	-- Step 20: Tailoring 150-225: Auction House
+	-- {skill:197} Tailoring
+	["{skill:197} 150-225: Auction House"] = "{skill:197} 150-225 : hôtel des ventes",
+	-- {item:4306} Silk Cloth · {item:4338} Mageweave Cloth
+	["What 150-225 takes that the Auction House sells: 264 {item:4306} and 900 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "Ce que la tranche 150-225 demande et que vend l'hôtel des ventes : 264 {item:4306} et 900 {item:4338}. Les quantités baissent selon ce que contiennent vos sacs, votre banque et votre courrier.",
+
+	-- Step 21: Silk Cloth
 	-- {item:4306} Silk Cloth · {item:7053} Azure Silk Cloak
-	["264 {item:4306} for {item:7053}: humanoids of level 25-45 drop it; or the Auction House. The arrow picks a farm spot for your level and faction."] = "264 {item:4306} pour {item:7053} : les humanoïdes de niveau 25-45 en laissent tomber ; ou l'hôtel des ventes. La flèche indique un lieu de récolte adapté à votre niveau et à votre faction.",
+	["264 {item:4306} for {item:7053}: humanoids of level 25-45 drop it. Keep what you loot as you level, or take it from your bank."] = "264 {item:4306} pour {item:7053} : les humanoïdes de niveau 25-45 en laissent tomber. Gardez ce que vous ramassez en montant de niveau, ou prenez-en dans votre banque.",
 
-	-- Step 21: Mageweave Cloth (Alliance)
-	-- {item:4338} Mageweave Cloth
-	["{item:4338} (Alliance)"] = "{item:4338} (Alliance)",
-	-- {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband · {npc:4467} Vilebranch Soothsayer
-	["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it; or the Auction House. It drops from {npc:4467} (level 46-47) here."] = "900 {item:4338} pour {item:9998} et {item:10024} : les humanoïdes de niveau 35-50 en laissent tomber ; ou l'hôtel des ventes. {npc:4467} (niveau 46-47) en laisse tomber ici.",
-
-	-- Step 22: Mageweave Cloth (Horde)
-	-- {item:4338} Mageweave Cloth
-	["{item:4338} (Horde)"] = "{item:4338} (Horde)",
-	-- {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband · {npc:5472} Dunemaul Enforcer
-	["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it; or the Auction House. It drops from {npc:5472} (level 46-47) here."] = "900 {item:4338} pour {item:9998} et {item:10024} : les humanoïdes de niveau 35-50 en laissent tomber ; ou l'hôtel des ventes. {npc:5472} (niveau 46-47) en laisse tomber ici.",
+	-- Step 22: Mageweave Cloth
+	-- {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
+	["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it. Keep what you loot as you level, or take it from your bank."] = "900 {item:4338} pour {item:9998} et {item:10024} : les humanoïdes de niveau 35-50 en laissent tomber. Gardez ce que vous ramassez en montant de niveau, ou prenez-en dans votre banque.",
 
 	-- Step 23: Expert Tailoring
 	-- {skill:197} Tailoring
 	["Expert {skill:197}"] = "{skill:197} (expert)",
-	-- {skill:197} Tailoring · {npc:1346} Georgio Bolero · {zone:1453} Stormwind City · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills · {npc:4576} Josef Gregorian · {zone:1458} Undercity · {spell:3865} Bolt of Mageweave · {item:4306} Silk Cloth · {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
-	["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}) and {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}) and {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170) and {item:10024} (from 190), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "Expert porte le plafond de 150 à 225 ; il demande {skill:197} 125 et le niveau 20, vous pouvez donc l'apprendre à n'importe quelle visite dès 125. Seuls quelques maîtres l'enseignent : Alliance {npc:1346} ({zone:1453}) et {npc:11052} ({zone:1445}) ; Horde {npc:2399} ({zone:1424}) et {npc:4576} ({zone:1458}). La flèche indique le plus proche de votre faction. Apprenez maintenant : {spell:3865} (dès 140). 150-225 demande environ 15 pa de recettes et 21 po 16 pa de fournitures de marchand, plus 264 {item:4306} et 900 {item:4338} à récolter ou acheter. Venez avec tout cela dans vos sacs (les étapes ci-dessus, le reste à l'hôtel des ventes) : ces maîtres enseignent aussi {item:9998} (dès 170) et {item:10024} (dès 190), et les fabrications ne demandent aucun atelier, alors fabriquez sur place et apprenez chaque recette dès que vous atteignez sa compétence. Un seul trajet au lieu de 3.",
+	-- {skill:197} Tailoring · {npc:1346} Georgio Bolero · {zone:1453} Stormwind City · {npc:4576} Josef Gregorian · {zone:1458} Undercity · {spell:3865} Bolt of Mageweave · {item:4306} Silk Cloth · {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
+	["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 190) takes a second trip, to other trainers (below)."] = "Expert porte le plafond de 150 à 225 ; il demande {skill:197} 125 et le niveau 20, vous pouvez donc l'apprendre à n'importe quelle visite dès 125. Seuls quelques maîtres l'enseignent : Alliance {npc:1346} ({zone:1453}) ; Horde {npc:4576} ({zone:1458}). La flèche indique le plus proche de votre faction. Apprenez maintenant : {spell:3865} (dès 140). 150-225 demande environ 15 pa de recettes et 21 po 16 pa de fournitures de marchand, plus 264 {item:4306} et 900 {item:4338} à récolter ou acheter. Venez avec tout cela dans vos sacs (les étapes ci-dessus, le reste à l'hôtel des ventes) : ces maîtres enseignent aussi {item:9998} (dès 170), et les fabrications ne demandent aucun atelier, alors fabriquez sur place et apprenez chaque recette dès que vous atteignez sa compétence. Un seul trajet au lieu de 2. {item:10024} (dès 190) demande un second trajet, vers d'autres maîtres (ci-dessous).",
 
 	-- Step 24: Azure Silk Cloak to 170
 	-- {item:7053} Azure Silk Cloak
@@ -160,8 +154,8 @@ return {
 	-- Step 27: Tailoring recipes at 197
 	-- {skill:197} Tailoring
 	["{skill:197} recipes at 197"] = "{skill:197} : recettes à 197",
-	-- {spell:12072} Black Mageweave Headband
-	["Still at the Expert trainer: {spell:12072} (from 190)."] = "Toujours chez le maître Expert : {spell:12072} (dès 190).",
+	-- {spell:12072} Black Mageweave Headband · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills
+	["{spell:12072} (from 190) is taught only by the Artisan trainers: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424})."] = "{spell:12072} (à partir de 190) n'est enseigné que par les maîtres artisans : Alliance {npc:11052} ({zone:1445}) ; Horde {npc:2399} ({zone:1424}).",
 
 	-- Step 28: Black Mageweave Headband to 225
 	-- {item:10024} Black Mageweave Headband
@@ -178,48 +172,46 @@ return {
 	-- Step 30: Tailoring 225-300: vendor goods
 	-- {skill:197} Tailoring
 	["{skill:197} 225-300: vendor goods"] = "{skill:197} 225-300 : fournitures de marchand",
-	-- {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 116 {item:14341} (58 po) ; environ 58 po au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, {npc:3367} et {npc:5817}).",
+	-- {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
+	["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 116 {item:14341} (58 po) ; environ 58 po au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, Felika et {npc:5817}).",
 
 	-- Step 31: Pattern: Runecloth Gloves
 	-- {item:14481} Pattern: Runecloth Gloves · {item:13863} Runecloth Gloves · {skill:197} Tailoring · {npc:11189} Qia · {zone:1452} Winterspring
 	["{item:14481} teaches {item:13863} ({skill:197} 230) for 1g 60s. Sold by {npc:11189} ({zone:1452}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:14481} enseigne {item:13863} ({skill:197} 230) pour 1 po 60 pa. En vente — {npc:11189} ({zone:1452}), stock limité. Ses vendeurs en gardent un ou deux en stock, qui reviennent quelque temps après une vente ; il est lié quand on le ramasse, donc l'hôtel des ventes ne l'a jamais.",
 
-	-- Step 32: Rugged Leather (Alliance)
+	-- Step 32: Tailoring 225-300: Auction House
+	-- {skill:197} Tailoring
+	["{skill:197} 225-300: Auction House"] = "{skill:197} 225-300 : hôtel des ventes",
+	-- {item:8170} Rugged Leather · {item:14047} Runecloth · {item:14227} Ironweb Spider Silk · {item:14504} Pattern: Runecloth Shoulders
+	["What 225-300 takes that the Auction House sells: 420 {item:8170}, 3195 {item:14047}, 124 {item:14227} and a {item:14504}. The counts drop by what your bags, bank and mail hold."] = "Ce que la tranche 225-300 demande et que vend l'hôtel des ventes : 420 {item:8170}, 3195 {item:14047}, 124 {item:14227} et un {item:14504}. Les quantités baissent selon ce que contiennent vos sacs, votre banque et votre courrier.",
+
+	-- Step 33: Rugged Leather (Alliance)
 	-- {item:8170} Rugged Leather
 	["{item:8170} (Alliance)"] = "{item:8170} (Alliance)",
-	-- {item:8170} Rugged Leather · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {skill:393} Skinning · {npc:1815} Diseased Black Bear · {npc:1816} Diseased Grizzly · {npc:1817} Diseased Wolf
-	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60; or the Auction House. Skin {npc:1815}, {npc:1816} and {npc:1817} here (level 48-60); the {skill:393} guide routes this."] = "420 {item:8170} pour {item:13863} et {item:13867} : {skill:393} : bêtes de niveau 48-60 ; ou l'hôtel des ventes. Dépecez {npc:1815}, {npc:1816} et {npc:1817} ici (niveau 48-60) ; le guide de {skill:393} en donne le parcours.",
+	-- {item:8170} Rugged Leather · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {skill:393} Skinning · {npc:8598} Frenzied Plaguehound · {npc:8596} Plaguehound Runt
+	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "420 {item:8170} pour {item:13863} et {item:13867} : {skill:393} : bêtes de niveau 48-60. Dépecez {npc:8598}, Chiens pestiférés et {npc:8596} ici (niveau 48-60) ; le guide de {skill:393} en donne le parcours.",
 
-	-- Step 33: Rugged Leather (Horde)
+	-- Step 34: Rugged Leather (Horde)
 	-- {item:8170} Rugged Leather
 	["{item:8170} (Horde)"] = "{item:8170} (Horde)",
 	-- {item:8170} Rugged Leather · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {skill:393} Skinning · {npc:6369} Coralshell Tortoise · {npc:8760} Mosshoof Stag · {npc:6380} Thunderhead Consort · {npc:6379} Thunderhead Patriarch · {npc:6378} Thunderhead Skystormer · {npc:6377} Thunderhead Stagwing
-	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60; or the Auction House. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "420 {item:8170} pour {item:13863} et {item:13867} : {skill:393} : bêtes de niveau 48-60 ; ou l'hôtel des ventes. Dépecez {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} et {npc:6377} ici (niveau 48-60) ; le guide de {skill:393} en donne le parcours.",
+	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "420 {item:8170} pour {item:13863} et {item:13867} : {skill:393} : bêtes de niveau 48-60. Dépecez {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} et {npc:6377} ici (niveau 48-60) ; le guide de {skill:393} en donne le parcours.",
 
-	-- Step 34: Runecloth (Alliance)
-	-- {item:14047} Runecloth
-	["{item:14047} (Alliance)"] = "{item:14047} (Alliance)",
-	-- {item:14047} Runecloth · {item:13856} Runecloth Belt · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {npc:7027} Blackrock Slayer
-	["3195 {item:14047} for {item:13856}, {item:13863} and {item:13867}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:7027} (level 56-57) here."] = "3195 {item:14047} pour {item:13856}, {item:13863} et {item:13867} : les humanoïdes de niveau 45-60 en laissent tomber ; ou l'hôtel des ventes. {npc:7027} (niveau 56-57) en laisse tomber ici.",
-
-	-- Step 35: Runecloth (Horde)
-	-- {item:14047} Runecloth
-	["{item:14047} (Horde)"] = "{item:14047} (Horde)",
-	-- {item:14047} Runecloth · {item:13856} Runecloth Belt · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {npc:11880} Twilight Avenger
-	["3195 {item:14047} for {item:13856}, {item:13863} and {item:13867}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:11880} (level 57-59) here."] = "3195 {item:14047} pour {item:13856}, {item:13863} et {item:13867} : les humanoïdes de niveau 45-60 en laissent tomber ; ou l'hôtel des ventes. {npc:11880} (niveau 57-59) en laisse tomber ici.",
+	-- Step 35: Runecloth
+	-- {item:14047} Runecloth · {item:13856} Runecloth Belt · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders
+	["3195 {item:14047} for {item:13856}, {item:13863} and {item:13867}: humanoids of level 45-60 drop it. Keep what you loot as you level, or take it from your bank."] = "3195 {item:14047} pour {item:13856}, {item:13863} et {item:13867} : les humanoïdes de niveau 45-60 en laissent tomber. Gardez ce que vous ramassez en montant de niveau, ou prenez-en dans votre banque.",
 
 	-- Step 36: Ironweb Spider Silk (Alliance)
 	-- {item:14227} Ironweb Spider Silk
 	["{item:14227} (Alliance)"] = "{item:14227} (Alliance)",
 	-- {item:14227} Ironweb Spider Silk · {item:13867} Runecloth Shoulders · {npc:1824} Plague Lurker
-	["124 {item:14227} for {item:13867}: it drops from {npc:1824} (level 54-55) at the marked spot, or buy it at the Auction House."] = "124 {item:14227} pour {item:13867} : il tombe sur {npc:1824} (niveau 54-55) à l'endroit indiqué, ou achetez-le à l'hôtel des ventes.",
+	["124 {item:14227} for {item:13867}: it drops from {npc:1824} (level 54-55) at the marked spot."] = "124 {item:14227} pour {item:13867} : il tombe sur {npc:1824} (niveau 54-55) à l'endroit indiqué.",
 
 	-- Step 37: Ironweb Spider Silk (Horde)
 	-- {item:14227} Ironweb Spider Silk
 	["{item:14227} (Horde)"] = "{item:14227} (Horde)",
 	-- {item:14227} Ironweb Spider Silk · {item:13867} Runecloth Shoulders · {npc:11739} Rock Stalker
-	["124 {item:14227} for {item:13867}: it drops from {npc:11739} (level 57-59) at the marked spot, or buy it at the Auction House."] = "124 {item:14227} pour {item:13867} : il tombe sur {npc:11739} (niveau 57-59) à l'endroit indiqué, ou achetez-le à l'hôtel des ventes.",
+	["124 {item:14227} for {item:13867}: it drops from {npc:11739} (level 57-59) at the marked spot."] = "124 {item:14227} pour {item:13867} : il tombe sur {npc:11739} (niveau 57-59) à l'endroit indiqué.",
 
 	-- Step 38: Runecloth Belt to 234
 	-- {item:13856} Runecloth Belt
@@ -241,6 +233,18 @@ return {
 	["from the pattern bought at the Auction House"] = "avec le patron acheté à l'hôtel des ventes",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["124 {item:14227} for {item:13867}: it drops from {npc:11739} (level 57-59) at the marked spot, or buy it at the Auction House."] = "124 {item:14227} pour {item:13867} : il tombe sur {npc:11739} (niveau 57-59) à l'endroit indiqué, ou achetez-le à l'hôtel des ventes.",
+	-- ["144 {item:2589} for {spell:2387} and {item:7026}: humanoids of level 5-20 drop it; or the Auction House. The arrow picks a farm spot for your level and faction."] = "144 {item:2589} pour {spell:2387} et {item:7026} : les humanoïdes de niveau 5-20 en laissent tomber ; ou l'hôtel des ventes. La flèche indique un lieu de récolte adapté à votre niveau et à votre faction.",
+	-- ["204 {item:4306} for {spell:3871}: humanoids of level 25-45 drop it; or the Auction House. It drops from {npc:11697} (level 29-30) here."] = "204 {item:4306} pour {spell:3871} : les humanoïdes de niveau 25-45 en laissent tomber ; ou l'hôtel des ventes. {npc:11697} (niveau 29-30) en laisse tomber ici.",
+	-- ["204 {item:4306} for {spell:3871}: humanoids of level 25-45 drop it; or the Auction House. It drops from {npc:2240} (level 32-33) here."] = "204 {item:4306} pour {spell:3871} : les humanoïdes de niveau 25-45 en laissent tomber ; ou l'hôtel des ventes. {npc:2240} (niveau 32-33) en laisse tomber ici.",
+	-- ["264 {item:4306} for {item:7053}: humanoids of level 25-45 drop it; or the Auction House. The arrow picks a farm spot for your level and faction."] = "264 {item:4306} pour {item:7053} : les humanoïdes de niveau 25-45 en laissent tomber ; ou l'hôtel des ventes. La flèche indique un lieu de récolte adapté à votre niveau et à votre faction.",
+	-- ["3195 {item:14047} for {item:13856}, {item:13863} and {item:13867}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:11880} (level 57-59) here."] = "3195 {item:14047} pour {item:13856}, {item:13863} et {item:13867} : les humanoïdes de niveau 45-60 en laissent tomber ; ou l'hôtel des ventes. {npc:11880} (niveau 57-59) en laisse tomber ici.",
+	-- ["3195 {item:14047} for {item:13856}, {item:13863} and {item:13867}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:7027} (level 56-57) here."] = "3195 {item:14047} pour {item:13856}, {item:13863} et {item:13867} : les humanoïdes de niveau 45-60 en laissent tomber ; ou l'hôtel des ventes. {npc:7027} (niveau 56-57) en laisse tomber ici.",
+	-- ["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60; or the Auction House. Skin {npc:1815}, {npc:1816} and {npc:1817} here (level 48-60); the {skill:393} guide routes this."] = "420 {item:8170} pour {item:13863} et {item:13867} : {skill:393} : bêtes de niveau 48-60 ; ou l'hôtel des ventes. Dépecez {npc:1815}, {npc:1816} et {npc:1817} ici (niveau 48-60) ; le guide de {skill:393} en donne le parcours.",
+	-- ["567 {item:2592} for {spell:2402} and {spell:3866}: humanoids of level 15-30 drop it; or the Auction House. It drops from {npc:3263} (level 19-20) here."] = "567 {item:2592} pour {spell:2402} et {spell:3866} : les humanoïdes de niveau 15-30 en laissent tomber ; ou l'hôtel des ventes. {npc:3263} (niveau 19-20) en laisse tomber ici.",
+	-- ["567 {item:2592} for {spell:2402} and {spell:3866}: humanoids of level 15-30 drop it; or the Auction House. It drops from {npc:98} (level 17-18) here."] = "567 {item:2592} pour {spell:2402} et {spell:3866} : les humanoïdes de niveau 15-30 en laissent tomber ; ou l'hôtel des ventes. {npc:98} (niveau 17-18) en laisse tomber ici.",
+	-- ["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it; or the Auction House. It drops from {npc:4467} (level 46-47) here."] = "900 {item:4338} pour {item:9998} et {item:10024} : les humanoïdes de niveau 35-50 en laissent tomber ; ou l'hôtel des ventes. {npc:4467} (niveau 46-47) en laisse tomber ici.",
+	-- ["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it; or the Auction House. It drops from {npc:5472} (level 46-47) here."] = "900 {item:4338} pour {item:9998} et {item:10024} : les humanoïdes de niveau 35-50 en laissent tomber ; ou l'hôtel des ventes. {npc:5472} (niveau 46-47) en laisse tomber ici.",
 	-- ["Apprentice {skill:197}"] = "{skill:197} (apprenti)",
 	-- ["Artisan needs character level 35 and {skill:197} 200; it raises the cap to 300. Materials for 225-300 are worth about 845g in all."] = "Artisan nécessite le niveau 35 et {skill:197} 200 ; le plafond passe à 300. Les composants pour 225-300 valent environ 845g au total.",
 	-- ["Back to a {skill:197} trainer: {spell:12048} is taught from {skill:197} 185."] = "Retournez voir un maître en {skill:197} : {spell:12048} s'apprend à partir de {skill:197} 185.",
@@ -250,8 +254,14 @@ return {
 	-- ["Back to a {skill:197} trainer: {spell:3852} is taught from {skill:197} 125."] = "Retournez voir un maître en {skill:197} : {spell:3852} s'apprend à partir de {skill:197} 125.",
 	-- ["Back to a {skill:197} trainer: {spell:8776} is taught from {skill:197} 50."] = "Retournez voir un maître en {skill:197} : {spell:8776} s'apprend à partir de {skill:197} 50.",
 	-- ["Back to a {skill:197} trainer: {spell:8799} is taught from {skill:197} 180."] = "Retournez voir un maître en {skill:197} : {spell:8799} s'apprend à partir de {skill:197} 180.",
+	-- ["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 108 {item:2321} (1 po 8 pa), 34 {item:2324} (8 pa 50 pc) et 98 {item:2604} (49 pa) ; environ 1 po 65 pa 50 pc au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, {npc:3367} et {npc:5817}).",
+	-- ["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 116 {item:14341} (58 po) ; environ 58 po au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, {npc:3367} et {npc:5817}).",
+	-- ["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 90 {item:4291} (4g 50s), 44 {item:6260} (22s) and 80 {item:8343} (16g); about 21g 16s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 44 {item:2321} (44 pa), 90 {item:4291} (4 po 50 pa), 44 {item:6260} (22 pa) et 80 {item:8343} (16 po) ; environ 21 po 16 pa au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, {npc:3367} et {npc:5817}).",
+	-- ["Buy the whole bracket's share in one go: 72 {item:2320} (7s 20c); about 7s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 72 {item:2320} (7 pa 20 pc) ; environ 7 pa 20 pc au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, {npc:3367} et {npc:5817}).",
 	-- ["Expert needs character level 20 and {skill:197} 125; it raises the cap to 225. Materials for 150-225 are worth about 135g in all."] = "Expert nécessite le niveau 20 et {skill:197} 125 ; le plafond passe à 225. Les composants pour 150-225 valent environ 135g au total.",
+	-- ["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}) and {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}) and {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170) and {item:10024} (from 190), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "Expert porte le plafond de 150 à 225 ; il demande {skill:197} 125 et le niveau 20, vous pouvez donc l'apprendre à n'importe quelle visite dès 125. Seuls quelques maîtres l'enseignent : Alliance {npc:1346} ({zone:1453}) et {npc:11052} ({zone:1445}) ; Horde {npc:2399} ({zone:1424}) et {npc:4576} ({zone:1458}). La flèche indique le plus proche de votre faction. Apprenez maintenant : {spell:3865} (dès 140). 150-225 demande environ 15 pa de recettes et 21 po 16 pa de fournitures de marchand, plus 264 {item:4306} et 900 {item:4338} à récolter ou acheter. Venez avec tout cela dans vos sacs (les étapes ci-dessus, le reste à l'hôtel des ventes) : ces maîtres enseignent aussi {item:9998} (dès 170) et {item:10024} (dès 190), et les fabrications ne demandent aucun atelier, alors fabriquez sur place et apprenez chaque recette dès que vous atteignez sa compétence. Un seul trajet au lieu de 3.",
 	-- ["Journeyman needs character level 10 and {skill:197} 50; it raises the cap to 150. Materials for 75-150 are worth about 17g in all."] = "Compagnon nécessite le niveau 10 et {skill:197} 50 ; le plafond passe à 150. Les composants pour 75-150 valent environ 17g au total.",
+	-- ["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:197} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:197} trainer teaches it: Alliance {npc:1346} ({zone:1453}), {npc:2627} ({zone:1434}), {npc:5153} ({zone:1455}), {npc:4159} ({zone:1457}), {npc:252380} (Zephras Isle), Sellandus ({zone:1453}), {npc:251991} (Zephras Isle) and {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}), {npc:2627} ({zone:1434}), {npc:4576} ({zone:1458}), {npc:3363} ({zone:1454}), {npc:3704} ({zone:1413}), {npc:252380} (Zephras Isle), {npc:11049} ({zone:1458}), {npc:251991} (Zephras Isle) and Tepa ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:2964} (from 55, 1s) and {spell:2402} (from 55, 2s 50c). Also learn {spell:1229504} (1s): Forever's {skill:197} camp item, a {spell:2963} and a {item:2320}; each faction has its own. The Camping 101: {skill:197} quest from your starting area's camping guide (after The Great Outdoors) sends you to a tailoring trainer who teaches it free. 75-150 takes about 11s of recipes and 1g 65s 50c of vendor goods, plus 567 {item:2592} and 204 {item:4306} to gather or buy."] = "Compagnon porte le plafond de 75 à 150 pour 5 pa ; il demande {skill:197} 50 et le niveau 10, vous pouvez donc l'apprendre à n'importe quelle visite dès 50. Tous les maîtres de {skill:197} ne l'enseignent pas : Alliance {npc:1346} ({zone:1453}), {npc:2627} ({zone:1434}), {npc:5153} ({zone:1455}), {npc:4159} ({zone:1457}), {npc:252380} (île de Zéphras), Sellandus ({zone:1453}), {npc:251991} (île de Zéphras) et {npc:11052} ({zone:1445}) ; Horde {npc:2399} ({zone:1424}), {npc:2627} ({zone:1434}), {npc:4576} ({zone:1458}), {npc:3363} ({zone:1454}), {npc:3704} ({zone:1413}), {npc:252380} (île de Zéphras), {npc:11049} ({zone:1458}), {npc:251991} (île de Zéphras) et Tepa ({zone:1456}). La flèche indique le plus proche de votre faction. Apprenez maintenant : {spell:2964} (dès 55, 1 pa) et {spell:2402} (dès 55, 2 pa 50 pc). Apprenez aussi {spell:1229504} (1 pa) : l'objet de camp de Forever pour {skill:197}, un {spell:2963} et une {item:2320} ; chaque faction a le sien. La quête Introduction au camping : {skill:197} du guide de camping de votre zone de départ (après Les grands espaces sauvages) vous envoie à un maître tailleur qui l'enseigne gratuitement. 75-150 demande environ 11 pa de recettes et 1 po 65 pa 50 pc de fournitures de marchand, plus 567 {item:2592} et 204 {item:4306} à récolter ou acheter.",
 	-- ["Kill the mobs that drop it at the farm spot Polestar picks for your level and faction. The Auction House works too."] = "Tuez les monstres qui le laissent tomber au lieu de farm que Polestar choisit selon votre niveau et votre faction. L'hôtel des ventes convient aussi.",
 	-- ["On Forever no recipe a trainer teaches or both factions' vendors sell gives {skill:197} points past 295, so Polestar has no route for the last points. Recipes that still do: {item:14342} (needs a Moonwell), {item:14137} (needs a {item:279943}), {item:14155} (recipe is a drop), {item:14128} (recipe is a drop), {item:19047} (needs a {item:279943})."] = "Sur Forever, aucune recette enseignée par un maître ou vendue par les marchands des deux factions ne donne de points de {skill:197} après 295 : Polestar n'a donc pas de trajet pour les derniers points. Recettes qui en donnent encore : {item:14342} (nécessite un Puits de lune), {item:14137} (nécessite un {item:279943}), {item:14155} (recette obtenue sur un monstre), {item:14128} (recette obtenue sur un monstre), {item:19047} (nécessite un {item:279943}).",
 	-- ["Orange (a point every craft) until 160, yellow until 175, green until 190."] = "Orange (un point à chaque fabrication) jusqu'à 160, jaune jusqu'à 175, vert jusqu'à 190.",
@@ -261,6 +271,7 @@ return {
 	-- ["Skin {npc:1815}, {npc:1816}, {npc:1817} here (beasts of level 48-60 yield it); the {skill:393} guide routes this. The Auction House works too."] = "Dépecez ici : {npc:1815}, {npc:1816}, {npc:1817} (les bêtes de niveau 48-60 en donnent) ; le guide de {skill:393} couvre ce trajet. L'hôtel des ventes convient aussi.",
 	-- ["Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378}, {npc:6377} here (beasts of level 48-60 yield it); the {skill:393} guide routes this. The Auction House works too."] = "Dépecez ici : {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378}, {npc:6377} (les bêtes de niveau 48-60 en donnent) ; le guide de {skill:393} couvre ce trajet. L'hôtel des ventes convient aussi.",
 	-- ["Skinned, disenchanted or crafted by another profession: gather them yourself or buy them on the Auction House."] = "Dépecés, désenchantés ou fabriqués par un autre métier : récoltez-les vous-même ou achetez-les à l'hôtel des ventes.",
+	-- ["Still at the Expert trainer: {spell:12072} (from 190)."] = "Toujours chez le maître Expert : {spell:12072} (dès 190).",
 	-- ["Teaches {item:13863} (needs {skill:197} 230). Vendors sell it in limited stock that restocks."] = "Apprend {item:13863} (nécessite {skill:197} 230). Les marchands la vendent en stock limité qui se renouvelle.",
 	-- ["Teaches {item:254123} (needs {skill:197} 250)."] = "Apprend {item:254123} (nécessite {skill:197} 250).",
 	-- ["Teaches {item:7053} (needs {skill:197} 140). Vendors sell it in limited stock that restocks."] = "Apprend {item:7053} (nécessite {skill:197} 140). Les marchands la vendent en stock limité qui se renouvelle.",
@@ -276,7 +287,15 @@ return {
 	-- ["{item:10045} to 50"] = "{item:10045} jusqu'à 50",
 	-- ["{item:13856} to 236"] = "{item:13856} jusqu'à 236",
 	-- ["{item:13863} to 251"] = "{item:13863} jusqu'à 251",
+	-- ["{item:14047} (Alliance)"] = "{item:14047} (Alliance)",
+	-- ["{item:14047} (Horde)"] = "{item:14047} (Horde)",
 	-- ["{item:254123} to 295"] = "{item:254123} jusqu'à 295",
+	-- ["{item:2592} (Alliance)"] = "{item:2592} (Alliance)",
+	-- ["{item:2592} (Horde)"] = "{item:2592} (Horde)",
+	-- ["{item:4306} (Alliance)"] = "{item:4306} (Alliance)",
+	-- ["{item:4306} (Horde)"] = "{item:4306} (Horde)",
+	-- ["{item:4338} (Alliance)"] = "{item:4338} (Alliance)",
+	-- ["{item:4338} (Horde)"] = "{item:4338} (Horde)",
 	-- ["{item:7026} to 80"] = "{item:7026} jusqu'à 80",
 	-- ["{item:7053} to 180"] = "{item:7053} jusqu'à 180",
 	-- ["{item:7062} to 185"] = "{item:7062} jusqu'à 185",

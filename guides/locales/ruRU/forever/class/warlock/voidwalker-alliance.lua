@@ -7,9 +7,9 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Voidwalker (Alliance)"] = "",
+	["Voidwalker (Alliance)"] = "Демон Бездны (Альянс)",
 	-- {npc:6122} Gakin the Darkbinder
-	["Your tank demon at 10: the voidwalker, after a dark sorceress's choker and a fight in {npc:6122}'s crypt."] = "",
+	["Your tank demon at 10: the voidwalker, after a dark sorceress's choker and a fight in {npc:6122}'s crypt."] = "Ваш демон-танк на 10-м уровне: демон Бездны. Нужно добыть чокер темной колдуньи и победить в склепе NPC {npc:6122}.",
 
 	-- Step 1: Gakin's Summons (Humans)
 	-- {quest:1685} Gakin's Summons

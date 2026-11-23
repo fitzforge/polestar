@@ -7,10 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Riggle Bassbait
-	-- {item:276275} Bitter Baitling · {item:274026} Extravagant Extravaganza Coin · {area:35} Booty Bay · {quest:8193} Master Angler · {npc:15077} Riggle Bassbait · {skill:356} Fishing
-	["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks when it starts and take {quest:8193} from {npc:15077}. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "",
-	-- {npc:15077} Riggle Bassbait
-	["{npc:15077}, during the contest"] = "",
+	-- {item:276275} Bitter Baitling · {item:274026} Extravagant Extravaganza Coin · {area:35} Booty Bay · {npc:15077} Riggle Bassbait · {quest:8193} Master Angler · {skill:356} Fishing
+	["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks by {npc:15077} when it starts. {quest:8193} is not a quest you take: {npc:15077} takes the fish straight from his window when you bring them. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "{item:276275}은(는) 가시덤불 골짜기 낚시 대회 우승 상품인 {item:274026} 1개로 살 수 있습니다. 대회는 서버 시간으로 매주 일요일 오후 2시부터 4시까지 열립니다. 시작할 때 {area:35} 부두의 {npc:15077} 옆에 있으세요. {quest:8193}은(는) 받는 퀘스트가 아닙니다. 물고기를 가져가면 {npc:15077}이(가) 대화창에서 바로 받습니다. 물고기를 놓치지 않도록 {skill:356} 숙련도를 최대한 올리고 미끼를 챙기고, 탈것과 빈 가방을 준비하고, {area:35}에 귀환석을 귀속하세요.",
 
 	-- Step 2: Schools of Tastyfish
 	["Schools of Tastyfish"] = "",

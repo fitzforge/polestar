@@ -11,6 +11,9 @@ pub struct Diag {
 	pub line: f64,
 	pub message: String,
 	pub hint: Option<String>,
+	/// A play check's rule (play_rules.rs) on a step of our pack: a warning in a compile, an error in a lint
+	/// ([`Diagnostics::promote_play_checks`]).
+	pub rule: Option<&'static str>,
 }
 
 #[derive(Default, Clone, Debug)]
@@ -19,7 +22,7 @@ pub struct Diagnostics {
 }
 
 fn make(severity: &'static str, file: &str, line: f64, message: String, hint: Option<String>) -> Diag {
-	Diag { severity, file: Some(file.to_string()), line: if line.is_nan() { 0.0 } else { line }, message, hint: hint.filter(|h| !h.is_empty()) }
+	Diag { severity, file: Some(file.to_string()), line: if line.is_nan() { 0.0 } else { line }, message, hint: hint.filter(|h| !h.is_empty()), rule: None }
 }
 
 impl Diagnostics {
@@ -31,6 +34,24 @@ impl Diagnostics {
 	}
 	pub fn warn(&mut self, file: &str, line: f64, message: impl Into<String>, hint: Option<String>) {
 		self.list.push(make("warning", file, line, message.into(), hint));
+	}
+	/// A play check's finding on a step of our pack: a warning here, an error once a lint promotes it.
+	pub fn play_check(&mut self, rule: &'static str, file: &str, line: f64, message: impl Into<String>, hint: Option<String>) {
+		let mut d = make("warning", file, line, message.into(), hint);
+		d.rule = Some(rule);
+		self.list.push(d);
+	}
+	/// `forge guide lint`: every play check's finding on our pack is an error, its hint naming the allow-list.
+	pub fn promote_play_checks(&mut self) {
+		for d in self.list.iter_mut() {
+			let Some(rule) = d.rule else { continue };
+			d.severity = "error";
+			let allow = format!("a step that is right as written goes in data/lint-allow.json (rule `{rule}`, the guide, the quest or item, and the reason)");
+			d.hint = Some(match d.hint.take() {
+				Some(h) => format!("{h}; {allow}"),
+				None => allow,
+			});
+		}
 	}
 	pub fn errors(&self) -> Vec<&Diag> {
 		self.list.iter().filter(|d| d.severity == "error").collect()

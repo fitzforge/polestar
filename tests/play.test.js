@@ -74,6 +74,15 @@ test('a scripted session: hub, a guide, a goal, a scheme change, the world map, 
 		assert.deepEqual(f.state.changed.find((c) => c[0] === 'ui.scheme'), ['ui.scheme', 'graphite']);
 		assert.notEqual(f.svg, svgBefore);
 
+		// A skin from the download (Polestar_Skin_*): installed in the playground as in the client, it loads when
+		// picked and the window re-renders in it.
+		const svgScheme = f.svg;
+		f = await act(play.url, { type: 'set', path: 'ui.skin', value: 'aurora' });
+		assert.equal(f.state.look['ui.skin'], 'aurora');
+		assert.equal(f.errors.length, 0, JSON.stringify(f.errors));
+		assert.notEqual(f.svg, svgScheme, 'the guide window draws in the Aurora skin');
+		f = await act(play.url, { type: 'set', path: 'ui.skin', value: null });
+
 		// Hovering a frame from the hit map runs its scripts without errors.
 		const frame = f.hits.find((h) => h.n === 'PolestarGuideFrame');
 		const hover = await act(play.url, { type: 'hover', id: frame.id, x: frame.r[0] + 5, y: frame.r[1] + 5 });

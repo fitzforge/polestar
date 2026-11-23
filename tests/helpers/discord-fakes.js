@@ -7,10 +7,10 @@ const GUILD = '800';
 const BOT = '700';
 const TAGS = [
 	{ id: 't-questing', name: 'Questing' },
-	{ id: 't-tracked', name: 'Tracked' },
-	{ id: 't-fixed', name: 'Fixed' },
-	{ id: 't-wontfix', name: 'Won\u2019t fix' },
-	{ id: 't-dup', name: 'Duplicate' },
+	{ id: 't-tracked', name: 'Tracked', moderated: true },
+	{ id: 't-fixed', name: 'Fixed', moderated: true },
+	{ id: 't-wontfix', name: 'Won\u2019t fix', moderated: true },
+	{ id: 't-dup', name: 'Duplicate', moderated: true },
 ];
 
 function httpError(status) {
@@ -26,12 +26,22 @@ function fakeDiscord() {
 	const edits = [];
 	const requests = []; // raw REST calls: slash command registration and interaction replies
 	let nextId = 5000;
+	// The server: @everyone (the guild's id) with no staff bits, a Moderator
+	// role (Manage Messages) and an Admin role (Administrator). `members`: user id -> role ids.
+	const guild = { id: GUILD, owner_id: 'owner', roles: [{ id: GUILD, permissions: '1024' }, { id: 'r-mod', permissions: String(1 << 13) }, { id: 'r-admin', permissions: '8' }] };
+	const members = new Map();
 	return {
 		channels,
 		messages,
 		sent,
 		edits,
 		requests,
+		guild,
+		members,
+		async getGuild(id) {
+			if (id !== GUILD) throw httpError(404);
+			return structuredClone(guild);
+		},
 		async request(method, path, body) {
 			requests.push({ method, path, body });
 			return null;
@@ -43,8 +53,11 @@ function fakeDiscord() {
 			messages.set(id, [msg]);
 			return msg;
 		},
-		say(thread, { author = 'u1', content = '', attachments = [], bot = false } = {}) {
-			const msg = { id: String(nextId++), channel_id: thread, content, attachments, mentions: [], author: { id: author, username: 'someone', bot } };
+		// A message as the gateway gives it: with the author's member roles
+		// when they are in `members`. `type`: 0 a message, 19 a reply, 4 a rename.
+		say(thread, { author = 'u1', content = '', attachments = [], bot = false, type = 0 } = {}) {
+			const msg = { id: String(nextId++), type, channel_id: thread, content, attachments, mentions: [], author: { id: author, username: 'someone', bot } };
+			if (members.has(author)) msg.member = { roles: [...members.get(author)] };
 			messages.get(thread).push(msg);
 			return msg;
 		},
@@ -57,11 +70,14 @@ function fakeDiscord() {
 			if (!m) throw httpError(404);
 			return structuredClone(m);
 		},
-		async getMessages(channel) {
-			return structuredClone([...(messages.get(channel) || [])].reverse());
+		// Newest first, `limit` at a time, older than `before` when given.
+		async getMessages(channel, limit = 50, before = null) {
+			const all = [...(messages.get(channel) || [])].reverse().filter((m) => !before || BigInt(m.id) < BigInt(before));
+			return structuredClone(all.slice(0, limit));
 		},
-		async getMember() {
-			throw httpError(404);
+		async getMember(guildId, user) {
+			if (guildId !== GUILD || !members.has(user)) throw httpError(404);
+			return { roles: [...members.get(user)] };
 		},
 		async activeThreads() {
 			return { threads: [...channels.values()].filter((c) => c.parent_id) };
@@ -71,6 +87,24 @@ function fakeDiscord() {
 			const msg = { id: String(nextId++), channel_id: channel, content, attachments: [], mentions: [], author: { id: BOT, username: 'Polestar Bot', bot: true } };
 			if (messages.has(channel)) messages.get(channel).push(msg);
 			return msg;
+		},
+		// The bot's own message rewritten; recorded in `edits` as { channel, message, content }.
+		async editMessage(channel, id, content) {
+			const m = (messages.get(channel) || []).find((x) => x.id === id);
+			if (!m) throw httpError(404);
+			m.content = content;
+			edits.push({ channel, message: id, content });
+			return structuredClone(m);
+		},
+		async me() {
+			return { id: BOT, username: 'Polestar Bot', bot: true };
+		},
+		async deleteMessage(channel, id) {
+			const list = messages.get(channel) || [];
+			const i = list.findIndex((x) => x.id === id);
+			if (i < 0) throw httpError(404);
+			list.splice(i, 1);
+			edits.push({ channel, message: id, deleted: true });
 		},
 		async editThread(id, fields) {
 			edits.push({ id, ...fields });
@@ -91,6 +125,7 @@ function fakeGitHub(repo = 'fitzforge/polestar') {
 	const timelines = new Map(); // issue number -> timeline events
 	const pulls = new Map(); // pull request number -> { merge_commit_sha }
 	const tagCommits = new Map(); // tag -> Set of the commits it holds
+	let commentIds = 0;
 	return {
 		repo,
 		commentsByIssue: comments,
@@ -122,10 +157,16 @@ function fakeGitHub(repo = 'fitzforge/polestar') {
 		},
 		async comment(n, body) {
 			if (!comments.has(n)) comments.set(n, []);
-			comments.get(n).push({ body, author_association: 'OWNER', user: { type: 'User' } });
+			comments.get(n).push({ id: ++commentIds, body, author_association: 'OWNER', user: { type: 'User' } });
 		},
 		async comments(n) {
-			return comments.get(n) || [];
+			return structuredClone(comments.get(n) || []);
+		},
+		async editComment(id, body) {
+			const c = [...comments.values()].flat().find((x) => x.id === id);
+			if (!c) throw httpError(404);
+			c.body = body;
+			return c;
 		},
 		async addLabels(n, ls) {
 			issues[n - 1].labels.push(...ls.map((name) => ({ name })));
@@ -155,6 +196,14 @@ function fakeGitHub(repo = 'fitzforge/polestar') {
 		},
 		async releases() {
 			return releases;
+		},
+		// GitHub's releases/latest: `latest` when a test sets it (null: none),
+		// else the last published release that is no draft or prerelease.
+		latest: undefined,
+		async latestRelease() {
+			if (this.latest !== undefined) return this.latest;
+			const full = releases.filter((r) => !r.draft && !r.prerelease);
+			return full.sort((a, b) => String(a.published_at || '').localeCompare(String(b.published_at || ''))).pop() || null;
 		},
 		async timeline(n) {
 			return structuredClone(timelines.get(n) || []);

@@ -14,8 +14,8 @@ return {
 	["{npc:5497} at the top of the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "{npc:5497}, au sommet du Sanctuaire des sorciers, dans le {object:2101} de {zone:1453}, vous envoie voir {npc:6546} ; Bink, à {zone:1455}, donne la même quête.",
 
 	-- Step 2: Journey to the Marsh (Orgrimmar)
-	-- {npc:5885} Deino · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:6546} Tabetha · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {npc:3048} Ursyn Ghull · {zone:1456} Thunder Bluff
-	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{npc:5885}, l'un des maîtres des mages d'{zone:1454}, dans le pavillon Darkbriar, vous envoie voir {npc:6546} ; {npc:4568} à {zone:1458} et {npc:3048} aux {zone:1456} donnent la même quête.",
+	-- {npc:5885} Deino · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge · {npc:6546} Tabetha · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {npc:3048} Ursyn Ghull · {zone:1456} Thunder Bluff
+	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{npc:5885}, l'un des maîtres des mages d'{zone:1454}, dans le {object:173161}, vous envoie voir {npc:6546} ; {npc:4568} à {zone:1458} et {npc:3048} aux {zone:1456} donnent la même quête.",
 
 	-- Step 3: Tabetha
 	-- {npc:6546} Tabetha · {area:508} Stonemaul Ruins · {zone:1413} Barrens

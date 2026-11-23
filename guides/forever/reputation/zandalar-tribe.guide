@@ -127,7 +127,7 @@ step Zul'Gurub to Revered
   accept 8201 optional                -- Exzhal: A Collection of Heads
   turnin 8201 optional                -- 200
   accept 8183 optional item 19802 @54.0,17.6 -- Heart of Hakkar
-  turnin 8183 optional                -- 200
+  turnin 8183                         -- 200
   rep 270 Revered
 
 step Revered: necklace, coins and bijous

@@ -13,11 +13,8 @@ return {
 
 	-- Step 1: Halpa
 	-- {npc:8401} Halpa · {zone:1456} Thunder Bluff
-	["{npc:8401} sells three whistles in {zone:1456} (50s each, 1g 50s for all three); the two ground squirrels are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:8401} sells three whistles in {zone:1456} (50s each, 1g 50s for all three); the two ground squirrels are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:8401} продает три свистка ({zone:1456}, по 50с, все три – 1з 50с); два суслика – новинка Forever. Каждый предмет с питомцем при использовании обучает вас этому спутнику; цели после этого остаются отмеченными.",
 	-- {item:10394} Prairie Dog Whistle
 	["{item:10394}, 50s"] = "{item:10394}, 50с",
 	["50s"] = "50с",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{npc:8401} sells three whistles in {zone:1456} (50s each); the two ground squirrels are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:8401} продает три свистка ({zone:1456}, по 50с); два суслика – новинка Forever. Каждый предмет с питомцем при использовании обучает вас этому спутнику; цели после этого остаются отмеченными.",
 }

@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Donni Anthania
 	-- {npc:6367} Donni Anthania · {area:87} Goldshire
-	["{npc:6367} has a farmhouse north of {area:87}. Each cat carrier costs 40s, 1g 60s for all four. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:6367} has a farmhouse north of {area:87}. Each cat carrier costs 40s, 1g 60s for all four. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:6367}은(는) {area:87} 북쪽에 농가가 있습니다. 고양이 상자는 각 40실버, 네 개 모두 1골드 60실버입니다. 애완동물 아이템을 사용하면 그 애완동물을 배우며, 목표는 그 뒤에도 체크된 채로 남습니다.",
 	-- {item:8485} Cat Carrier (Bombay)
 	["{item:8485}, 40s"] = "{item:8485}, 40실버",
 	-- {item:8486} Cat Carrier (Cornish Rex)
@@ -21,7 +21,4 @@ return {
 	["{item:8487}, 40s"] = "{item:8487}, 40실버",
 	-- {item:8488} Cat Carrier (Silver Tabby)
 	["{item:8488}, 40s"] = "{item:8488}, 40실버",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{npc:6367} has a farmhouse north of {area:87}. Each cat carrier costs 40s. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:6367}은(는) {area:87} 북쪽에 농가가 있습니다. 고양이 상자는 각 40실버입니다. 애완동물 아이템을 사용하면 그 애완동물을 배우며, 목표는 그 뒤에도 체크된 채로 남습니다.",
 }

@@ -32,28 +32,39 @@
 -- code.
 --
 -- One view per map frame, shared by every module: a frame of Polestar's on
--- the canvas whose OnUpdate runs only while the map is shown (the client
--- does not update a hidden frame's children). Each frame it compares the
--- map ID, the canvas size, scale and zoom, the pin scale and the alpha, a
--- handful of reads, and tells its listeners only what changed. None of the
--- frames on the canvas is a button to the gamepad's navigation (a Button, or
--- a frame with an OnMouseDown or OnMouseUp script): it reads such a script
--- back as it scans the map (Nav/Pins.lua says how pins take clicks).
+-- the canvas (view.frame) whose OnUpdate runs only while the map is shown
+-- (the client does not update a hidden frame's children). Each frame it
+-- compares the map ID, the canvas size, scale and zoom, the pin scale and
+-- the alpha, a handful of reads, and tells its listeners only what changed.
+-- Every module's frames on that map are made under view.frame, not the
+-- canvas: while Polestar is hidden (ns.Hidden) the view frame hides, which
+-- takes them all off the map and stops the ticks ("hide"), and showing it
+-- again draws everything afresh ("show" on the open map's next frame). None
+-- of the frames on the canvas is a button to the gamepad's navigation (a
+-- Button, or a frame with an OnMouseDown or OnMouseUp script): it reads such
+-- a script back as it scans the map (Nav/Pins.lua says how pins take clicks).
 --
 --   MapCanvas.Watch(map, fn) -> view | nil    fn(view, what, elapsed), what:
---       "show"   the map opened (the view's values are fresh): draw everything
+--       "show"   the map opened, or Polestar came back on the open map (the
+--                view's values are fresh): draw everything
 --       "map"    another map is shown: draw everything
 --       "size"   the canvas was resized (positions in canvas units changed)
 --       "scale"  the canvas scale, the zoom or the pin scale changed
 --       "alpha"  the map's global alpha changed (the battlefield map's opacity)
---       "hide"   the map closed
+--       "hide"   the map closed, or Polestar was hidden
 --       "tick"   every frame while the map is shown, after the above
---   view.map, view.canvas, view.shown, view.mapID, view.width, view.height,
---   view.scale, view.zoom (0..1), view.pinScale, view.alpha
+--   view.map, view.canvas, view.frame, view.shown, view.mapID, view.width,
+--   view.height, view.scale, view.zoom (0..1), view.pinScale, view.alpha
 --   view:Level(levelType) -> the frame level the map gives pins of that level type
 --   view:PinScale(startScale, endScale) -> the scale MapCanvasPinMixin gives a
 --       pin with SetScalingLimits(1, startScale, endScale): constant on screen
 --       at startScale zoomed out, endScale zoomed in
+--
+--   MapCanvas.Add(map)   another addon's map canvas (a MapCanvasMixin frame,
+--       e.g. Polestar: UI's PolestarUIWorldMapCanvas): every module that draws
+--       on the world map draws on it too, with frames of its own. Call it once,
+--       after the frame is made; it is only read, as the world map is.
+--   MapCanvas.OnAdd(fn)  fn(map) for every map added, now and later (modules)
 
 local ADDON, ns = ...
 
@@ -147,10 +158,31 @@ function MapCanvas.Watch(map, fn)
 			view.shown = false
 			fire(view, "hide")
 		end)
+		f:SetShown(not ns.Hidden())
+		view.frame = f
 		views[map] = view
 	end
 	if fn then view.listeners[#view.listeners + 1] = fn end
 	return view
+end
+
+-- Hiding Polestar takes its drawings off every map at once.
+ns.On("POLESTAR_HIDDEN", function(hidden)
+	for _, view in pairs(views) do view.frame:SetShown(not hidden) end
+end)
+
+local added, onAdd = {}, {}
+
+function MapCanvas.Add(map)
+	if not (type(map) == "table" and map.GetMapID and map.GetCanvas) or map == WorldMapFrame then return end
+	for i = 1, #added do if added[i] == map then return end end
+	added[#added + 1] = map
+	for i = 1, #onAdd do ns.SafeCall(onAdd[i], map) end
+end
+
+function MapCanvas.OnAdd(fn)
+	onAdd[#onAdd + 1] = fn
+	for i = 1, #added do ns.SafeCall(fn, added[i]) end
 end
 
 -- The view of a map frame, when a module watches it.

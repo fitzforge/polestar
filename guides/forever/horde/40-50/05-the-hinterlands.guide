@@ -2,31 +2,26 @@
 guide forever/horde/40-50/05-the-hinterlands
 title The Hinterlands & Blasted Lands
 faction Horde
-levels 48-50
+levels 49-50
 zone The Hinterlands
 next forever/horde/40-50/06-azshara
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Gammerita, Mon! (7816), Return to Fel'Zerul (1444), Venom Bottles (2933).
+# Added here: Gammerita, Mon! (7816), Return to Fel'Zerul (1444), Fall From Grace (2784),
+# The Disgraced One (2621), The Missing Orders (2622).
 # Left out: Assisting Arch Druid Runetotem (3784).
 
-step Fly to Hammerfall
+step Fly to Tarren Mill
   zone Searing Gorge
   goto 34.8,30.6 "Thorium Point flight master"
-  fly "Hammerfall"
-  zone Arathi Highlands
-
-step Fly to Tarren Mill
-  zone Arathi Highlands
-  goto 73.1,32.6 "Hammerfall flight master"
   fly "Tarren Mill"
   zone Hillsbrad Foothills
 
 step The Hinterlands
   zone The Hinterlands
-  goto 26.7,48.6 "The Hinterlands"
+  goto 26.7,48.6 "Gilveradin's camp"
 
 # ---------------------------------------------------------------- Into the Hinterlands
 
@@ -52,15 +47,12 @@ step Violet Tragan
 # ---------------------------------------------------------------- Revantusk Village
 
 step Revantusk Village
-  tip Follow the roads east across the Hinterlands to the troll village on the eastern coast. Primal Torntusk stands up on top of the inn, above Lard: go up, the arrow cannot tell the levels apart.
+  tip Follow the roads east across the Hinterlands to the troll village on the eastern coast.
   accept 7839                           -- Smith Slagtree
-  accept 7845
   sethome "Revantusk Village" npc 14731 -- Lard
   accept 7840
-  accept 7850                           -- Primal Torntusk
   getfp "Revantusk Village"
   accept 7815                           -- Katoom the Angler
-  accept 7849
   accept 7830
   accept 7829
   accept 7828                           -- Huntsman Markhor
@@ -71,21 +63,28 @@ step Revantusk Village
   when group 7816
   accept 7816
 
-# ---------------------------------------------------------------- The north coast
+step Revantusk Village
+  when group 7849
+  tip Separation Anxiety, Kidnapped Elder Torntusk! and Dark Vessels are group quests: they send you into Jintha'Alor, whose trolls are elite (46-50). Take them with a group of three or more; skip them if you are alone, the route has you grind the experience back.
+  tip Primal Torntusk stands up on top of the inn, above Lard: go up, the arrow cannot tell the levels apart.
+  accept 7849                           -- Huntsman Markhor
+  accept 7845                           -- Primal Torntusk
+  accept 7850
 
-step Silvermane Stalker on the way
-  along until q7828
-  kill 2926 quest 7828.1
+# ---------------------------------------------------------------- The north coast
 
 step The Overlook Cliffs: kill these as you meet them
   zone The Hinterlands
-  tip The big turtles crawl along the beaches north of the village. Whiskey Slim's port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it.
+  tip The big turtles crawl along the beaches north of the village, and Whiskey Slim's bottles of port lie on the same beaches, from the village up to the Overlook Cliffs: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it.
+  tip Careful: the biggest Saltwater Snapjaws are 50: pull them one at a time.
   kill 2505 quest 7815.1
+  collect 3900 x12 quest 580.1          -- Pupellyverbos Port, on the beaches
   collect 8704 optional                 -- OOX-09/HL Distress Beacon, a rare drop
 
 step The Overlook Cliffs: kill these as you meet them
   when group 7816
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Gammerita is a level 48 elite: most classes solo it at level 50, but you may need help. Skip it if you are alone: the route has you grind the XP back.
+  tip Gammerita walks the shore below the Overlook Cliffs, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore.
   collect 19023 quest 7816.1 @80.4,58.2 map 1425
 
 step Rin'ji's Secret
@@ -103,13 +102,7 @@ step Cortello's Riddle
 
 # ---------------------------------------------------------------- The temples and the central hills
 
-step On the way
-  along until q7828
-  kill 4466 quest 7844.1
-  kill 4467 quest 7844.2
-
 step Shaol'watha: kill these as you meet them
-  label q7828
   zone The Hinterlands
   tip West of the island, the Vilebranch scalpers hold the temples of Agol'watha and Shaol'watha. Slagtree's tools lie at one of the temples.
   tip The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and Skulk Rock. Use the Wildkin Muisek Vessel on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for Otho's second message.
@@ -134,7 +127,7 @@ step Wildkin Muisek
 # ---------------------------------------------------------------- The west
 step The Altar of Zul: kill these as you meet them
   zone The Hinterlands
-  tip On the way back east, the Vilebranch soothsayers hold the Altar of Zul, the troll temple south of the central hills. Qiaga and Morta'gya the Keeper (elite, 50) stand at its top: take the soothsayers on the lower steps.
+  tip South-west of the lake, the Vilebranch soothsayers hold the Altar of Zul, the troll temple south of the central hills. Qiaga and Morta'gya the Keeper (elite, 50) stand at its top: take the soothsayers on the lower steps.
   tip South-west, the Silvermane Howlers roam the hills east of the Witherbark villages.
   kill 4466 quest 7844.1
   kill 4467 quest 7844.2
@@ -160,7 +153,8 @@ step Highvale
   kill 2693 quest 7841.4
 
 step Jintha'Alor
-  tip Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of Jintha'Alor. The Vessels of Tainted Blood sit on the lower terraces, and Elder Torntusk is held at the top. Keep to the paths: the trolls inside are elite.
+  when group 7849
+  tip Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of Jintha'Alor. The Vessels of Tainted Blood sit on the lower terraces, and Elder Torntusk is held at the top. The trolls inside are elite: stay with your group and keep to the paths.
   collect 19069 quest 7849.1 @58.6,64.8
   turnin 7845                           -- Elder Torntusk, at the top of Jintha'Alor
   note His next request, going on to the Altar of Zul, is for a group.
@@ -168,12 +162,9 @@ step Jintha'Alor
   collect 19071 quest 7850.1
 
 step Revantusk Village
-  tip Primal Torntusk stands up on top of the inn, above Lard: go up, the arrow cannot tell the levels apart.
   turnin 7839                           -- Smith Slagtree
   turnin 7840                           -- Lard, inside
-  turnin 7850                           -- Primal Torntusk
   turnin 7815                           -- Katoom the Angler
-  turnin 7849
   turnin 7830
   turnin 7829
   turnin 7828                           -- Huntsman Markhor
@@ -184,31 +175,33 @@ step Revantusk Village
   accept 7843
 
 step Revantusk Village
+  when group 7849
+  tip Primal Torntusk stands up on top of the inn, above Lard: go up, the arrow cannot tell the levels apart.
+  turnin 7850                           -- Primal Torntusk
+  turnin 7849                           -- Huntsman Markhor
+
+step Revantusk Village
   when group 7816
   turnin 7816
 
 step Level 49.02
-  when !group 7816
   when level<49.02
-  tip If you skipped Gammerita, Mon!, grind here to level 49.02 to stay on the route's plan.
+  tip If you skipped Gammerita, Mon! or the Jintha'Alor group quests, grind here to level 49.02 to stay on the route's plan.
   goto 77.8,68.9 map 1425 "Saltwater Snapjaw"
-  level 49.02                          -- grind on Saltwater Snapjaw
+  level 49.02 grind 2505               -- grind on Saltwater Snapjaw
 
 step The Atal'ai Exile
   tip South-west again, the exile hides by the ruins of Shadra'Alor.
   turnin 1429                           -- Atal'ai Exile
   accept 1444
 
-step Venom Bottles
-  accept 2933
-
 step Grim Message
   when onquest 2932
   tip South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use Nimboya's Pike to make the Laden Pike, then plant it inside the village.
   goto 23.4,58.1
   collect 9320 x20 "Witherbark Skull"
-  use 15002 "Nimboya's Pike" @29.5,58.5
-  use 9319 "Nimboya's Laden Pike" @29.5,58.5
+  use 15002 "Nimboya's Pike" @31.9,58.0
+  use 9319 "Nimboya's Laden Pike" @31.9,58.0  -- inside Hiri'watha: it can't be planted outside a village
   complete 2932
 
 # ---------------------------------------------------------------- Aerie Peak
@@ -219,17 +212,34 @@ step Aerie Peak
   complete 7843
 
 step Revantusk Village
-  tip The next guide starts here, at Revantusk Village.
   turnin 7843                           -- Otho Moji'ko
 
 step Fly to Stonard
+  when taxi "Stonard"
   zone The Hinterlands
   goto 81.7,81.9 "Revantusk Village flight master"
   fly "Stonard"
   zone Swamp of Sorrows
 
+step To Stonard
+  when !taxi "Stonard"
+  zone Swamp of Sorrows
+  tip No flight path to Stonard yet: the arrow takes the quickest way there (by the Grom'gol flight and the road through Duskwood and Deadwind Pass). Learn Stonard's flight path when you arrive.
+  getfp "Stonard"
+
 step Fel'zerul
   turnin 1444                         -- On the top floor
+
+step Fallen Hero of the Horde
+  tip The ghostly orc stands by the road where the swamp meets the canyon into the Blasted Lands. Listen to his story.
+  accept 2784
+
+step Fall From Grace
+  talk 7572 quest 2784.1 @34.3,66.1 map 1435
+
+step Fallen Hero of the Horde
+  turnin 2784
+  accept 2621                           -- for Dispatch Commander Ruag in Stonard, after the Blasted Lands
 
 step The bloodmages
   zone Blasted Lands
@@ -243,22 +253,23 @@ step The bloodmages
 # visits 49-53, levels 47.6-49.5. Checked by lint, not play-tested on
 # Forever yet. Era + known Forever quests only.
 #
-# Flow: Thorium Point (where the previous guide ends) -> fly Stonard -> the
-# bloodmages in the Blasted Lands -> the northern beasts and the eastern
-# slopes -> the bloodmages -> Stonard, fly Undercity (training) -> fly
-# Tarren Mill -> Gilveradin's camp -> Highvale and Rin'ji -> the Witherbark
-# village (Grim Message) -> the Violet Tragan -> the Atal'ai Exile ->
-# Revantusk Village (flight path, bind) -> the north coast -> the Vilebranch
-# temples -> the central hills -> Skulk Rock -> the Silvermane Howlers ->
-# Highvale -> Gilveradin -> Jintha'Alor -> Revantusk -> Aerie Peak -> hearth
-# Revantusk Village, where the next guide starts.
+# Flow (as shipped): Thorium Point (where the previous guide ends) -> fly
+# Tarren Mill -> Gilveradin's camp -> Highvale and Rin'ji -> the Violet
+# Tragan -> Revantusk Village (flight path, bind) -> the north coast -> the
+# Vilebranch temples and the central hills -> Skulk Rock -> the Altar of Zul
+# -> Gilveradin -> Highvale -> Jintha'Alor (group) -> Revantusk -> the
+# Atal'ai Exile -> the Witherbark village (Grim Message) -> Aerie Peak ->
+# Revantusk -> fly Stonard -> the Fallen Hero -> the bloodmages in the
+# Blasted Lands -> Stonard, where the next guide starts.
 #
 # Deviations from the export:
 # - The Booty Bay stop (visit 49) is dropped: a flight and a zeppelin for
 #   one accept, Whiskey Slim's Lost Grog (580), and the optional OOX-17/TN
-#   turn-in (648, carried on to the next Booty Bay visit).
+#   turn-in (648, carried on to the next Booty Bay visit). Since 0.3.7 580
+#   is taken on 40-50/01's Booty Bay inn stop instead, its bottles picked up
+#   on the north coast here and handed in on 40-50/06's Booty Bay stop.
 # - The Swamp of Sorrows return (visit 51) is gone: Threat From the Sea and
-#   Continued Threat (1426-1428) are finished in forever/horde/40-50/03-feralas.
+#   Continued Threat (1426-1428) are finished in forever/horde/40-50/02-feralas.
 # - The Blasted Lands come first, straight from Thorium Point by way of
 #   Stonard, then the Undercity on the way to Tarren Mill: no Undercity
 #   bind, no hearth back to it, no zeppelin.
@@ -274,10 +285,8 @@ step The bloodmages
 #   Rin'ji. Revantusk Village: round the village from the west side, where
 #   you ride in; Gorkas, the flight master at the far east end, last.
 #
-# Class training: the Undercity for Warriors, Paladins, Rogues, Priests,
-# Mages and Warlocks; Hunters, Shamans and Druids trained at the end of the
-# previous guide and train next in Orgrimmar and Thunder Bluff in the next
-# guide.
+# Class training: none in this guide; every class trains next in Orgrimmar at
+# about 50 (40-50/06; Druids and Paladins in Thunder Bluff).
 #
 # Optional: Find and Rescue OOX-09/HL! (485, 836): the beacon is a rare drop.
 #
@@ -287,10 +296,11 @@ step The bloodmages
 # Sprinkle's Secret Ingredient (2641) and Testing the Vessel (3123) leave
 # here with their objectives done.
 #
-# Left out: Tabetha's Task (2861) and Venom Bottles (2933): the export never
-# hands them in. Whiskey Slim's Lost Grog (580), see above. Return to
-# Fel'Zerul (1444): its turn-in stop in Stonard is dropped from the next
-# guide (a zeppelin and a flight for one quest), so it is not taken.
+# Left out: Tabetha's Task (2861): the export never hands it in. Venom Bottles
+# (2933): its bottles lie in the troll villages here, but its hand-in is
+# Apothecary Lydon in Tarren Mill, which the route passes only on the way in,
+# before the bottles; the next visit would be a landing at about 52 for a
+# fifth of its experience (0.4.0 route audit).
 
 # ---------------------------------------------------------------- The Blasted Lands
 
@@ -298,7 +308,7 @@ step Serpent's Coil: kill these as you meet them
   zone Blasted Lands
   tip The five quests share the same parts: gather them all in one sweep. West of the road the Black Slayer vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.
   tip East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.
-  tip Careful: Scorpok Stingers use Venom Sting; Clack the Reaver adds Knockdown.
+  tip Careful: Scorpok Stingers (50-51) use Venom Sting; Clack the Reaver adds Knockdown. Pull the Stingers one at a time.
   collect 8393 x1 quest 2581.3
   collect 8393 x2 quest 2583.2
   collect 8393 x3 quest 2585.1
@@ -321,3 +331,11 @@ step The bloodmages
   turnin 2583
   turnin 2585
   turnin 2581                           -- Bloodmage Drazial
+
+step Stonard
+  zone Swamp of Sorrows
+  tip Ride back north through the canyon to Stonard.
+  turnin 2621                           -- Dispatch Commander Ruag
+  accept 2622
+  turnin 2622                           -- Bengor
+  note Bengor's The Swamp Talker is a level 55 quest: leave it.

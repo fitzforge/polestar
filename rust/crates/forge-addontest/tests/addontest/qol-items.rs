@@ -8,7 +8,8 @@
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
 
-const FILES: [&str; 5] = ["Core/Init.lua", "Core/Compat.lua", "Core/Hooks.lua", "Theme/Theme.xml", "QoL/QoL.xml"];
+// The Quality of Life rows are the settings' addon's (Polestar_Options/QoL/Options.lua).
+const FILES: [&str; 6] = ["Core/Init.lua", "Core/Compat.lua", "Core/Hooks.lua", "Theme/Theme.xml", "QoL/QoL.xml", "../Polestar_Options/QoL/Options.lua"];
 
 const PRELUDE: &str = r#"
 local q = stub.qol
@@ -117,6 +118,118 @@ fn bag_button_deletes_only_on_a_second_press_within_five_seconds_and_only_the_it
 	assert_eq!(out[4], 1, "never with something on the cursor");
 }
 
+// #2369: with a bag in the bags and a bag slot empty, the bag button offered to delete junk instead of equipping the
+// bag. A bag that takes any item now comes first, on one press; a soul bag or a quiver is never offered, and with
+// every bag slot taken the button goes back to the junk.
+#[test]
+fn bag_button_equips_a_spare_bag_on_one_press_before_offering_any_delete() {
+	let out = run(&[
+		BAGS,
+		r#"
+		local S, b = QoL.Space, QoL.Buttons.bag
+		set("spareBag", true)
+		q.items[20] = { name = "Small Bag", quality = 1, price = 25, classID = 1, subclassID = 0, bagSize = 10 }
+		q.items[21] = { name = "Felcloth Bag", quality = 2, price = 900, classID = 1, subclassID = 1, bagSize = 20 }
+		q.items[22] = { name = "Light Quiver", quality = 1, price = 1, classID = 11, subclassID = 2, bagSize = 8 }
+		fill(1)
+		q.addItem(0, 16, 21, 1)
+		bagsChanged()
+		emit({ spare = S.Spare() ~= nil, junk = S.Junk().id, label = b.Label:GetText() })
+
+		q.addItem(0, 16, 22, 1)
+		bagsChanged()
+		emit({ spare = S.Spare() ~= nil, junk = S.Junk().id })
+
+		q.addItem(0, 16, 20, 1)
+		bagsChanged()
+		local s = S.Spare()
+		emit({ bag = s.bag, slot = s.slot, id = s.id, into = s.into, label = b.Label:GetText(), shown = b:IsShown() and true or false })
+
+		q.cursor = { 0, 3 }             -- something already on the cursor
+		emit(S.Press())
+		q.cursor = nil
+
+		q.click(b)
+		stub.advance(0.1)
+		emit({ worn = q.worn[21], deleted = #(q.deleted or {}), said = printed("Equipped |Hitem:20|h%[Small Bag%]|h%."),
+			free = (S.Free()), shown = b:IsShown() and true or false })
+
+		for bag = 2, 4 do q.bags[bag].size = 4 end
+		q.addItem(0, 16, 20, 1)
+		fill(1)
+		q.addItem(0, 16, 20, 1)
+		for bag = 2, 4 do for slot = 1, 4 do q.addItem(bag, slot, 3, 1) end end
+		bagsChanged()
+		emit({ spare = S.Spare() ~= nil, junk = S.Junk().id, shown = b:IsShown() and true or false })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "spare": false, "junk": 2, "label": "" }), "a soul bag is not a spare bag");
+	assert_eq!(out[1], json!({ "spare": false, "junk": 2 }), "nor is a quiver");
+	assert_eq!(out[2], json!({ "bag": 0, "slot": 16, "id": 20, "into": 2, "label": "Press to equip", "shown": true }), "the first empty bag slot past the quiver");
+	assert_eq!(out[3], "busy", "never with something on the cursor");
+	assert_eq!(out[4], json!({ "worn": 20, "deleted": 0, "said": true, "free": 11, "shown": false }), "one press, nothing deleted");
+	assert_eq!(out[5], json!({ "spare": false, "junk": 2, "shown": true }), "every bag slot taken: back to the junk");
+}
+
+// #2369: with qol.spareBag off (the default) a spare bag changes nothing: the button offers the junk, a press arms
+// it, and nothing goes into a bag slot.
+#[test]
+fn bag_button_leaves_a_spare_bag_alone_while_equip_a_spare_bag_is_off() {
+	let out = run(&[
+		BAGS,
+		r#"
+		local S, b = QoL.Space, QoL.Buttons.bag
+		q.items[20] = { name = "Small Bag", quality = 1, price = 25, classID = 1, subclassID = 0, bagSize = 10 }
+		fill(1)
+		q.addItem(0, 16, 20, 1)
+		bagsChanged()
+		emit({ spare = S.Spare() ~= nil, junk = S.Junk().id, label = b.Label:GetText() })
+		q.click(b)
+		stub.advance(0.1)
+		emit({ put = #calls("PutItemInBag"), armed = S.Armed() and true or false, label = b.Label:GetText(), bag = q.bags[0].slots[16].itemID })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "spare": false, "junk": 2, "label": "" }), "off: the junk, as before");
+	assert_eq!(out[1], json!({ "put": 0, "armed": true, "label": "Press again to delete", "bag": 20 }), "a press arms the junk; the bag stays");
+}
+
+// #1557: the bag button deleted Noboru's Cudgel, a grey item that begins a quest, and the quest went with it. A
+// quest's item or a quest starter is never the junk to delete (Space) nor sold at a merchant (Vendor), even when it
+// is the cheapest grey; the other greys are offered and sold instead.
+const QUEST_GREYS: &str = r#"
+	q.items[6] = { name = "Noboru's Cudgel", quality = 0, price = 1, questID = 1393 }
+	q.items[7] = { name = "Grey Quest Bone", quality = 0, price = 2, questItem = true }
+	fill(0)
+	q.addItem(0, 4, 6, 1)
+	q.addItem(0, 5, 7, 1)
+	bagsChanged()
+"#;
+
+#[test]
+fn a_grey_quest_starter_or_quest_item_is_never_the_junk_to_delete() {
+	let out = run(&[BAGS, QUEST_GREYS, "emit(QoL.Space.Junk().id)"].concat());
+	assert_eq!(out[0], 2, "the cheapest grey that is no quest's item: the shell (3c), not the cudgel (1c) or the bone (2c)");
+}
+
+#[test]
+fn a_grey_quest_starter_or_quest_item_is_never_sold() {
+	let out = run(&[
+		BAGS,
+		QUEST_GREYS,
+		r#"
+		q.openMerchant()
+		stub.advance(3)
+		local sold = {}
+		for _, id in ipairs(q.sold or {}) do sold[id] = (sold[id] or 0) + 1 end
+		emit({ cudgel = sold[6] or 0, bone = sold[7] or 0, fangs = sold[1] or 0, shell = sold[2] or 0 })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "cudgel": 0, "bone": 0, "fangs": 1, "shell": 1 }), "the quest items stay, the other greys sell");
+}
+
 #[test]
 fn marks_ctrl_alt_click_cycles_junk_keep_and_clear_junk_is_sold_kept_greys_are_not_and_never_deleted() {
 	let out = run(&[
@@ -153,6 +266,184 @@ fn marks_ctrl_alt_click_cycles_junk_keep_and_clear_junk_is_sold_kept_greys_are_n
 	assert_eq!(out[0], json!({ "first": "junk", "second": "keep", "third": false, "altOnly": false, "said": true }));
 	assert_eq!(out[1], 3, "a kept grey is never the one to delete; a junk-marked common one may be");
 	assert_eq!(out[2], json!({ "fangs": 1, "shell": 0, "cloth": 13, "ring": 0 }), "junk-marked cloth sells; the kept shell and the ring stay");
+}
+
+// Typed tooltips the way Blizzard_SharedXMLGame/Tooltip/TooltipDataHandler.lua runs them, for the mark keys:
+// hover(kind, link) shows GameTooltip as an Item (0), Spell (1) or Unit (2) tooltip and runs the post-calls;
+// GetItem answers with the link even for a spell or a unit (a stale item, as the client can); RefreshData
+// rebuilds the lines and runs the post-calls again. Loaded before the addon so Hooks takes the post-call path.
+const TYPED_TOOLTIP: &str = r#"
+	Enum.TooltipDataType = { Item = 0, Spell = 1, Unit = 2 }
+	local posts = {}
+	TooltipDataProcessor = { AllTypes = "ALL" }
+	function TooltipDataProcessor.AddTooltipPostCall(kind, fn) posts[#posts + 1] = { kind = kind, fn = fn } end
+	TooltipUtil = {}
+	function TooltipUtil.GetDisplayedItem(tooltip)
+		if tooltip:IsTooltipType(Enum.TooltipDataType.Item) and tooltip.link then return "Item", tooltip.link, tooltip.id end
+	end
+	function GameTooltip:IsTooltipType(kind) return self.kind == kind end
+	function GameTooltip:GetItem() return "Item", self.link end
+	local function build(self)
+		self.lines = {}
+		for _, p in ipairs(posts) do
+			if p.kind == self.kind or p.kind == "ALL" then p.fn(self, { type = self.kind, id = self.kind == 0 and self.id or nil }) end
+		end
+	end
+	function GameTooltip:RefreshData() self.refreshes = (self.refreshes or 0) + 1; build(self) end
+	function hover(kind, link)
+		GameTooltip:SetOwner(UIParent, "ANCHOR_NONE")
+		GameTooltip.kind, GameTooltip.link = kind, link
+		GameTooltip.id = link and tonumber(link:match("item:(%d+)"))
+		build(GameTooltip)
+		GameTooltip:Show()
+	end
+"#;
+
+const FILES_KEYS: [&str; 6] = ["Core/Init.lua", "Core/Compat.lua", "Core/Hooks.lua", "Theme/Theme.xml", "QoL/QoL.xml", "Core/Commands.lua"];
+
+fn run_keys(script: &str) -> Vec<Value> {
+	emitted(&RunAddon {
+		stubs: vec!["stub_qol.lua"],
+		addons: vec![Addon::files("Polestar", &FILES_KEYS)],
+		before: TYPED_TOOLTIP.into(),
+		saved: vec![],
+		login: true,
+		script: format!("{PRELUDE}{script}"),
+	})
+}
+
+// Ramirez's two keys (Key Bindings > Polestar: Mark as junk, Mark to keep), pressed through their bindings
+// (Polestar.Bindings.MarkJunk / MarkKeep) over an item: each gives it that mark, or takes it off when the item has
+// it already, and the tooltip under the cursor shows the new mark at once. Over no item, a spell or a unit (whose
+// GetItem still names the cloth) they say to point at an item; nothing while marks are off or Polestar is hidden.
+// The Ctrl+Alt-click cycle is unchanged (the test above).
+#[test]
+fn mark_keys_set_or_clear_their_own_mark_on_the_hovered_item_and_its_tooltip_shows_it_at_once() {
+	let out = run_keys(
+		r#"
+		local B, M = Polestar.Bindings, QoL.Marks
+		local cloth = "|Hitem:3|h[Linen Cloth]|h"
+		local function mark() return M.Get(3) or "none" end
+		local function line()
+			for _, l in ipairs(GameTooltip.lines) do if l:find("^Polestar | Marked") then return l end end
+			return "none"
+		end
+
+		GameTooltip:Hide()
+		stub.messages = {}
+		B.MarkJunk()
+		local asked = { hidden = printed("Point at an item to mark it") }
+		for name, kind in pairs({ spell = 1, unit = 2 }) do
+			hover(kind, cloth)
+			stub.messages = {}
+			B.MarkJunk()
+			asked[name] = printed("Point at an item to mark it")
+		end
+		emit({ mark = mark(), asked = asked })
+
+		hover(0, cloth)
+		local seq = {}
+		for _, press in ipairs({ "MarkJunk", "MarkJunk", "MarkKeep", "MarkJunk", "MarkKeep", "MarkKeep" }) do
+			B[press]()
+			seq[#seq + 1] = mark() .. " / " .. line()
+		end
+		emit({ seq = seq, said = printed("Linen Cloth%]|h is junk now"), kept = printed("Linen Cloth%]|h is kept now"),
+			cleared = printed("Linen Cloth%]|h: mark cleared") })
+
+		q.bindings.POLESTAR_MARK_JUNK = { "CTRL-J" }
+		q.bindings.POLESTAR_MARK_KEEP = { "CTRL-K" }
+		B.MarkJunk()
+		local junk = line()
+		B.MarkKeep()
+		emit({ junk = junk, keep = line() })
+		B.MarkKeep()
+
+		set("itemMarks", false)
+		stub.messages = {}
+		B.MarkJunk()
+		emit({ off = mark(), quiet = #stub.messages })
+		set("itemMarks", true)
+
+		Polestar.SetHidden(true)
+		stub.messages = {}
+		local refreshes = GameTooltip.refreshes or 0
+		B.MarkJunk()
+		emit({ hidden = mark(), quiet = #stub.messages, refreshed = (GameTooltip.refreshes or 0) - refreshes })
+		Polestar.SetHidden(false)
+		"#,
+	);
+	assert_eq!(out[0], json!({ "mark": "none", "asked": { "hidden": true, "spell": true, "unit": true } }), "over no item, a spell or a unit: nothing marked, and it says to point at an item");
+	assert_eq!(
+		out[1],
+		json!({
+			"seq": [
+				"junk / Polestar | Marked as junk",
+				"none / none",
+				"keep / Polestar | Marked to keep",
+				"junk / Polestar | Marked as junk",
+				"keep / Polestar | Marked to keep",
+				"none / none",
+			],
+			"said": true, "kept": true, "cleared": true,
+		}),
+		"each key sets or clears its own mark, and the tooltip under the cursor follows without a re-hover"
+	);
+	assert_eq!(
+		out[2],
+		json!({ "junk": "Polestar | Marked as junk (CTRL-J clears it)", "keep": "Polestar | Marked to keep (CTRL-K clears it)" }),
+		"the tooltip names the bound key that clears the mark"
+	);
+	assert_eq!(out[3], json!({ "off": "none", "quiet": 0 }), "nothing, and nothing said, while marks are off");
+	assert_eq!(out[4], json!({ "hidden": "none", "quiet": 0, "refreshed": 0 }), "nothing while Polestar is hidden");
+}
+
+// The Ctrl+Alt click refreshes the hovered item's tooltip too, and a mark set on another item (a chat link) leaves
+// the shown tooltip alone.
+#[test]
+fn mark_click_refreshes_the_tooltip_only_when_it_shows_that_item() {
+	let out = run_keys(
+		r#"
+		local M = QoL.Marks
+		local cloth, ring = "|Hitem:3|h[Linen Cloth]|h", "|Hitem:5|h[Jade Ring]|h"
+		IsControlKeyDown = function() return true end
+		IsAltKeyDown = function() return true end
+		IsShiftKeyDown = function() return false end
+		hover(0, cloth)
+		local before = GameTooltip.refreshes or 0
+		M.OnItemClick(ring, 5)
+		local other = (GameTooltip.refreshes or 0) - before
+		M.OnItemClick(cloth, 3)
+		emit({ other = other, same = (GameTooltip.refreshes or 0) - before - other, ring = M.Get(5) or "none", line = GameTooltip.lines[#GameTooltip.lines] })
+		"#,
+	);
+	assert_eq!(out[0], json!({ "other": 0, "same": 1, "ring": "junk", "line": "Polestar | Marked as junk" }));
+}
+
+// The Ctrl+Alt-click cycles switch under the marks (qol.itemMarksClick, on by default): off, the click marks and
+// says nothing while the two keys still mark the item under the cursor; on again, the click cycles as before.
+#[test]
+fn mark_click_switch_off_leaves_marking_to_the_keys_and_on_again_the_click_cycles() {
+	let out = run_keys(
+		r#"
+		local B, M = Polestar.Bindings, QoL.Marks
+		local cloth = "|Hitem:3|h[Linen Cloth]|h"
+		local default = Polestar.GetDefault("qol.itemMarksClick")
+		stub.keys.ctrl, stub.keys.alt = true, true
+		set("itemMarksClick", false)
+		stub.messages = {}
+		Polestar.Hooks.OnItemClick(cloth)
+		local clicked, quiet = M.Get(3) or "none", #stub.messages
+		hover(0, cloth)
+		B.MarkKeep()
+		local key = M.Get(3) or "none"
+		M.Set(3, nil)
+		set("itemMarksClick", true)
+		Polestar.Hooks.OnItemClick(cloth)
+		stub.keys.ctrl, stub.keys.alt = false, false
+		emit({ default = default, clicked = clicked, quiet = quiet, key = key, on = M.Get(3) or "none" })
+		"#,
+	);
+	assert_eq!(out[0], json!({ "default": true, "clicked": "none", "quiet": 0, "key": "keep", "on": "junk" }));
 }
 
 // #946: junk marked in the reagent bag (bag 5, past NUM_BAG_SLOTS) is the bag button's cheapest junk and sells at a
@@ -379,15 +670,16 @@ fn restock_money_short_is_said_and_the_amounts_are_per_character_set_by_command(
 #[test]
 fn options_restock_sliders_hold_per_character_amounts_through_get_and_set() {
 	let out = run(r#"
-		local controls
-		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
-			if spec.section == "Restock" then controls = spec.controls end
+		local spec
+		for _, s in ipairs(Polestar.Widgets.OptionsRegistry) do
+			if s.section == "Restock" then spec = s end
 		end
-		local kinds = {}
-		for i, c in ipairs(controls) do kinds[i] = c.kind .. ":" .. tostring(c.key or "-") end
+		-- The restock button's switch in the section's header, its amounts below.
+		local kinds = { "header:" .. tostring(spec.toggle and spec.toggle.key) }
+		for _, c in ipairs(spec.controls) do kinds[#kinds + 1] = c.kind .. ":" .. tostring(c.key or "-") end
 		emit(kinds)
 		local W = Polestar.Widgets
-		local drink = controls[2]
+		local drink = spec.controls[1]
 		local row = W.Slider(UIParent, drink.label, nil, drink.min, drink.max, drink.step, drink.format, drink.help, nil, { get = drink.get, set = drink.set })
 		stub.RunScript(row.Slider, "OnMouseWheel", 1)
 		stub.RunScript(row.Slider, "OnMouseWheel", 1)
@@ -395,7 +687,7 @@ fn options_restock_sliders_hold_per_character_amounts_through_get_and_set() {
 		stub.RunScript(row, "OnClick", "RightButton")
 		emit({ state = QoL.State().restock.drink or false, shown = row.Value:GetText() })
 	"#);
-	assert_eq!(out[0], json!(["toggle:qol.restock", "slider:-", "slider:-", "slider:-"]));
+	assert_eq!(out[0], json!(["header:qol.restock", "slider:-", "slider:-", "slider:-"]));
 	assert_eq!(out[1], json!({ "state": 10, "shown": "10" }), "the wheel steps the character's amount, not a setting");
 	assert_eq!(out[2], json!({ "state": false, "shown": "Off" }), "right-click clears it");
 }
@@ -448,9 +740,37 @@ fn banner_bags_full_offers_the_two_click_delete_and_close_dismisses_it() {
 		emit({ shown = B:IsShown(), log = log })
 	"#,
 	);
-	assert_eq!(out[0], json!({ "shown": true, "text": "Your bags are full.\nCheapest junk: [Broken Fang] x2 (14c)", "jump": "Delete it", "close": true }));
+	assert_eq!(out[0], json!({ "shown": true, "text": "Your bags are full.  ·  Cheapest junk: [Broken Fang] x2 (14c)", "jump": "Delete it", "close": true }));
 	assert_eq!(out[1], "Click again to delete it");
 	assert_eq!(out[2], json!({ "shown": false, "log": ["press", "dismiss"] }));
+}
+
+// Without junk or a spare bag the notice is the news alone: one line, no link row under it.
+#[test]
+fn banner_bags_full_without_junk_says_only_that_the_bags_are_full() {
+	let out = run_ui(
+		r#"
+		bags = { free = 0, armed = false }
+		Polestar.Fire("BAG_SPACE")
+		emit({ shown = B:IsShown(), text = B.Text:GetText(), jump = B.Jump:IsShown() })
+	"#,
+	);
+	assert_eq!(out[0], json!({ "shown": true, "text": "Your bags are full.", "jump": false }));
+}
+
+#[test]
+fn banner_bags_full_offers_a_spare_bag_before_the_junk() {
+	let out = run_ui(
+		r#"
+		bags = { free = 0, spare = { id = 20, link = "[Small Bag]", into = 2 }, junk = { id = 2, count = 2, value = 14, link = "[Broken Fang]" }, armed = false }
+		Polestar.Fire("BAG_SPACE")
+		emit({ text = B.Text:GetText(), jump = B.Jump.Label:GetText() })
+		B.Jump:Click()
+		emit(log)
+	"#,
+	);
+	assert_eq!(out[0], json!({ "text": "Your bags are full.  ·  Spare bag: [Small Bag]", "jump": "Equip it" }));
+	assert_eq!(out[1], json!(["press"]));
 }
 
 #[test]
@@ -469,4 +789,38 @@ fn banner_gear_offer_wear_it_or_not_this_one() {
 	);
 	assert_eq!(out[0], json!({ "text": "Upgrade: [Ridge Helm]  \u{b7}  +10%  \u{b7}  Head", "jump": "Wear it", "later": "Not this one" }));
 	assert_eq!(out[1], json!({ "shown": false, "log": ["take", "decline"] }));
+}
+
+// #2826: the item a banner names shows the game's tooltip for that copy, and a modified click links it.
+#[test]
+fn banner_item_shows_its_tooltip_on_hover_and_links_on_a_modified_click() {
+	let out = run_ui(
+		r#"
+		local links, handled, modified = {}, {}, false
+		GameTooltip.SetHyperlink = function(self, link) links[#links + 1] = link end
+		IsModifiedClick = function() return modified end
+		HandleModifiedItemClick = function(link) handled[#handled + 1] = link end
+		local function hover()
+			GameTooltip.owner, links = nil, {}
+			stub.RunScript(B.Item, "OnEnter")
+			local r = { shown = B.Item:IsShown(), owner = GameTooltip:GetOwner() == B.Item, link = links[#links] or false }
+			stub.RunScript(B.Item, "OnLeave")
+			return r
+		end
+		offer = { id = 14, link = "|Hitem:14::::::1184|h[Ridge Helm of the Bear]|h", slot = 1, pct = 10 }
+		Polestar.Fire("WEAR_OFFER")
+		local wear = hover()
+		B.Item:Click()
+		modified = true
+		B.Item:Click()
+		offer = nil
+		bags = { free = 0, junk = { id = 2, count = 2, value = 14, link = "[Broken Fang]" }, armed = false }
+		Polestar.Fire("BAG_SPACE")
+		local junk = hover()
+		emit({ wear = wear, junk = junk, handled = handled })
+	"#,
+	);
+	assert_eq!(out[0]["wear"], json!({ "shown": true, "owner": true, "link": "|Hitem:14::::::1184|h[Ridge Helm of the Bear]|h" }), "the offered copy's own link, suffix and all");
+	assert_eq!(out[0]["junk"], json!({ "shown": true, "owner": true, "link": "[Broken Fang]" }));
+	assert_eq!(out[0]["handled"], json!(["|Hitem:14::::::1184|h[Ridge Helm of the Bear]|h"]), "only the modified click goes to the client");
 }

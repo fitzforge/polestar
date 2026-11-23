@@ -12,7 +12,7 @@
 //!
 //!   quests[id]  = { title, level, minLevel, races, classes, faction, start, finish,
 //!                   startItem, pre, excl, objectives, zone, events, skill, holiday,
-//!                   preAll, raceHigh, items }
+//!                   preAll, raceHigh, items, limit, doneBy }
 //!     races     the race mask's low 32 bits (the Era races), for bit.band
 //!     raceHigh  the mask's Skyborne bits as a number: +1 High Order (Alliance,
 //!               mask bit 2^32), +2 Windshaper (Horde, 2^33). 3 for a pfQuest-only
@@ -23,10 +23,18 @@
 //!     items     the items the quest hands over (QuestieDB's sourceItemId and
 //!               requiredSourceItems: Bethor's Scroll for Thule Ravenclaw), one
 //!               id or a list; never its rewards
+//!     limit     a timed quest's time allowed once taken, in seconds (quests.json
+//!               `limit`, the server's TimeAllowed); nil when it has none. Polestar
+//!               counts it down from the accept when the client reports no timer
+//!               (Quests/Timed.lua)
+//!     doneBy    quests whose being in the log or handed in proves this one done,
+//!               one id or a list (quests.json `doneBy`, a correction's: the game
+//!               never flags Seeking the Kor Gem completed, #2465); the engine's
+//!               questDone reads it
 //!     pre / preAll  blocking prerequisites (forge-guide prereqs, breadcrumbs
 //!               dropped): one of `pre` must be done, and every one of `preAll`
 //!     objectives  flat triples kind, id, count: kind 1 kill (npc), 2 item, 3 object,
-//!                 4 event (id = 1-based group in `events`, count nil)
+//!                 4 event (id = 1-based group in `events`, count nil), 5 talk (npc)
 //!     events    flat quads map, frame, x, y (frame 0 Era, 1 live)
 //!     skill     required profession skill line; holiday: event id (never "available")
 //!   npcs[id]    = { name, map, frame, n, x1, y1, r1, ..., map, frame, n, ... }
@@ -218,10 +226,25 @@ pub fn quest_faction(q: &V, npcs: &V) -> Val {
 	Val::Num(side as f64)
 }
 
-/// Sorted top-N sources from { "<id>": chance } (ties by id).
-fn top_sources(drops: &V, cap: usize) -> Vec<(f64, f64)> {
-	let mut out: Vec<(f64, f64)> =
-		if drops.is_object() { drops.entries().into_iter().map(|(k, c)| (forge_guide::js::str_to_num(&k), round_chance(c.num()))).filter(|(id, _)| id.is_finite()).collect() } else { Vec::new() };
+/// A creature the game keeps for its own tests or as a placeholder ("TEST WOLF (ALPHA FIRST)", "[PH]", "[DNT]",
+/// #2614): no drop source to show, though the data lists it (Tough Wolf Meat's two test wolves, which no spawn puts
+/// in the world, read in the target list's rows for Elwynn Forest's wolves; two "[DNT]" creatures listed as
+/// droppers of the Fractured Elemental Shard).
+fn test_creature(npcs: &V, id: f64) -> bool {
+	thread_local! {
+		static RE: regex::Regex = regex::Regex::new(r"(?i)^(QA)?test\b|\[PH\]|\bunused\b|\bdeprecated\b|\bDEBUG\b").unwrap();
+	}
+	let name = npcs.get(&num_str(id)).get("name");
+	name.as_str().is_some_and(|n| RE.with(|r| r.is_match(n)) || forge_guide::placeholder::banned(n))
+}
+
+/// Sorted top-N sources from { "<id>": chance } (ties by id), the ones `keep` takes.
+fn top_sources(drops: &V, cap: usize, keep: impl Fn(f64) -> bool) -> Vec<(f64, f64)> {
+	let mut out: Vec<(f64, f64)> = if drops.is_object() {
+		drops.entries().into_iter().map(|(k, c)| (forge_guide::js::str_to_num(&k), round_chance(c.num()))).filter(|(id, _)| id.is_finite() && keep(*id)).collect()
+	} else {
+		Vec::new()
+	};
 	out.sort_by(|a, b| {
 		let d = b.1 - a.1;
 		if d != 0.0 && !d.is_nan() {
@@ -305,6 +328,8 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 				Some("item") => 2,
 				Some("object") => 3,
 				Some("event") => 4,
+				// A talk to an NPC keeps its line's place, so later lines keep the quest log's numbers.
+				Some("talk") => 5,
 				_ => continue,
 			};
 			if kind == 4 {
@@ -324,7 +349,7 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 			let Some(oid) = finite(&ob.get("id")) else { continue };
 			objectives.extend([Val::Num(kind as f64), Val::Num(oid), num_or_nil(&ob.get("count"))]);
 			match kind {
-				1 => want_npc.insert(oid as i64),
+				1 | 5 => want_npc.insert(oid as i64),
 				2 => want_item.insert(oid as i64),
 				_ => want_object.insert(oid as i64),
 			};
@@ -372,6 +397,11 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 				one_or_list(&pre_all),
 				if races.truthy() { Val::Num(if is_forever { race_parts(races.num()).1 } else { 3.0 }) } else { Val::Nil },
 				one_or_list(&handed),
+				match finite(&q.get("limit")) {
+					Some(l) if l > 0.0 => Val::Num(l),
+					_ => Val::Nil,
+				},
+				one_or_list(&list(&q.get("doneBy")).into_iter().filter(|p| has_quest(*p)).collect::<Vec<f64>>()),
 			],
 		);
 	}
@@ -384,8 +414,8 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 			warnings.push(format!("item {id} referenced by a quest is missing from items.json"));
 			continue;
 		}
-		let droppers = top_sources(&field(&it, "drops", "npc"), o.max_droppers);
-		let obj_sources = top_sources(&field(&it, "drops", "object"), o.max_object_sources);
+		let droppers = top_sources(&field(&it, "drops", "npc"), o.max_droppers, |n| !test_creature(&npcs, n));
+		let obj_sources = top_sources(&field(&it, "drops", "object"), o.max_object_sources, |_| true);
 		let mut vendors = list(&it.get("vendors"));
 		vendors.sort_by(|a, b| a.partial_cmp(b).unwrap());
 		vendors.truncate(o.max_vendors);
@@ -622,7 +652,7 @@ fn emit_files(db: &Db, meta: &V, root: &Path) -> Vec<(String, String)> {
 	frame.push("\t} })".into());
 	frame.push("end".into());
 	files.push(("MapFrames.lua".into(), frame.join("\n") + "\n"));
-	files.push(("Quests.lua".into(), data_file("quests", &db.quests, "title, level, minLevel, races, classes, faction, start, finish, startItem, pre (one of), excl, objectives, zone, events, skill, holiday, preAll (every one), raceHigh, items (handed over)")));
+	files.push(("Quests.lua".into(), data_file("quests", &db.quests, "title, level, minLevel, races, classes, faction, start, finish, startItem, pre (one of), excl, objectives, zone, events, skill, holiday, preAll (every one), raceHigh, items (handed over), limit (seconds), doneBy")));
 	files.push(("Npcs.lua".into(), data_file("npcs", &db.npcs, "name, then per map: uiMapID, frame (0 Era, 1 live), cluster count, x, y, radius (yd) per cluster")));
 	files.push(("Objects.lua".into(), data_file("objects", &db.objects, "name, then per map: uiMapID, frame (0 Era, 1 live), cluster count, x, y, radius (yd) per cluster")));
 	files.push(("Items.lua".into(), data_file("items", &db.items, "name, NPC source count, (npc, chance)..., object source count, (object, chance)..., vendors...")));

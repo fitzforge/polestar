@@ -857,7 +857,8 @@ impl<'a> Run<'a> {
 				if v >= 0 {
 					let vu = v as usize;
 					if (want < 0 || v == want)
-						&& t.owner[vu] < 0 && t.over_kind[vu] != 0
+						&& t.owner[vu] < 0
+						&& t.over_kind[vu] != 0
 						&& (water || (here != 2 && t.val[vu] != 2))
 						&& self.rendered_step_safe(gx, gy, dx, dy, Some(h), Some(t.z[vu] as f64))?
 					{

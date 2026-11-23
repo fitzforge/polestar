@@ -89,7 +89,7 @@ local tailoring = {
 	zone = 947, zoneName = "Azeroth", author = "Polestar", version = 1,
 	steps = {
 		{ title = "Apprentice Tailoring", goals = {
-			G("train", { verb = "Train at", subject = "Georgio Bolero", subjectKind = "npc", npc = 1346, map = STORMWIND, x = 53.2, y = 81.6, status = "done",
+			G("train", { verb = "Learn new spells from", subject = "Georgio Bolero", subjectKind = "npc", npc = 1346, map = STORMWIND, x = 53.2, y = 81.6, status = "done",
 				alternatives = 2, candidates = {
 					{ npc = 1346, npcName = "Georgio Bolero", map = STORMWIND, x = 53.2, y = 81.6 },
 					{ npc = 1103, npcName = "Eldrin", map = ELWYNN, x = 79.2, y = 68.4 },
@@ -282,6 +282,14 @@ end
 
 uistub.skipped = {} -- step index -> true: the step view says `skipped`
 
+-- A goal's line as the Engine writes it: a quest in the client's quote marks
+-- ("Accept “A Threat Within”", Polestar.Quoted).
+local function goalLine(goal)
+	local subject = goal.subject or ""
+	if goal.subjectKind == "quest" then subject = Polestar.Quoted(subject) end
+	return (goal.verb or "") .. " " .. subject
+end
+
 local function view(i)
 	local step = guide.steps[i]
 	local goals = {}
@@ -289,7 +297,7 @@ local function view(i)
 		local v = {}
 		for k, val in pairs(goal) do v[k] = val end
 		v.index = g
-		v.text = goal.text or ((goal.verb or "") .. " " .. (goal.subject or ""))
+		v.text = goal.text or goalLine(goal)
 		v.manual = goal.manual and true or false
 		v.optional = goal.optional and true or false
 		-- Every goal but a note ticks (Engine.ToggleGoal).
@@ -479,6 +487,8 @@ function Engine.GetAlong()
 	end
 	return out
 end
+-- "While you're here" (Engine.GetWhileHereList): nothing close by in the UI stub.
+function Engine.GetWhileHereList() return {} end
 local function move(i)
 	current = i
 	uistub.aim = nil
@@ -512,6 +522,22 @@ function Engine.GuideTrainStop()
 	local t = uistub.trainStop
 	if not t then return nil end
 	return t[1], t[2]
+end
+-- The real rule (Core/Engine.lua Engine.TrainingAdvice) over the stub's stop;
+-- uistub.plannerTrainer: the planner's pick (unset: none, the notice's is used).
+Engine.TRAIN_GUIDE_NEAR = 10
+function Engine.TrainingAdvice()
+	local steps, title = Engine.GuideTrainStop()
+	if type(steps) == "number" and steps <= Engine.TRAIN_GUIDE_NEAR then
+		return { steps = steps, title = title, guide = true }
+	end
+	return { steps = steps, title = title, trainer = uistub.plannerTrainer }
+end
+-- The real rule (Core/Engine.lua Engine.EnemyCityDungeon: a city dungeon is its
+-- faction's only), which the Dungeons window and the dungeon heads-up read.
+function Engine.EnemyCityDungeon(id, side)
+	local E = uistub.realEngine
+	return E and E.EnemyCityDungeon and E.EnemyCityDungeon(id, side) or false
 end
 function Engine.Prev() record("Prev"); if guide and current and current > 1 then move(current - 1) end end
 function Engine.Goto(i) record("Goto", i); if guide and guide.steps[i] then move(i) end end
@@ -553,6 +579,11 @@ function Engine.SkipQuest(q, on)
 	return true
 end
 function Engine.IsQuestSkipped(q) return uistub.skippedQuests[q] == true end
+-- An accept's level and missing prerequisites: the goal's `gate` as the test sets it.
+function Engine.AcceptGate(s, g)
+	local goal = guide and guide.steps[s] and guide.steps[s].goals[g]
+	return goal and goal.gate or nil
+end
 -- Optional goals skip and come back.
 function Engine.SkipGoal(s, g)
 	record("SkipGoal", s, g)
@@ -574,7 +605,7 @@ function Engine.AimGoal(s, g)
 	return true
 end
 local function waypointOf(g, goal)
-	return { map = goal.map, x = goal.x, y = goal.y, f = goal.f, label = goal.verb .. " " .. goal.subject, stepIndex = current, goalIndex = g, kind = goal.t, r = 8 }
+	return { map = goal.map, x = goal.x, y = goal.y, f = goal.f, label = goalLine(goal), stepIndex = current, goalIndex = g, kind = goal.t, r = 8 }
 end
 function Engine.GetWaypoint()
 	if not (guide and current) then return nil end
@@ -600,12 +631,45 @@ function Engine.GetProgress()
 	return done, total
 end
 function Engine.ResetProgress() record("ResetProgress") end
--- The dungeons run in leveling guides, per character (CharState().dungeons).
-function Engine.DungeonChosen(map) return Polestar.CharState().dungeons[map] == true end
-function Engine.ChooseDungeon(map, on)
-	record("ChooseDungeon", map, on)
-	Polestar.CharState().dungeons[map] = on and true or nil
+-- Dungeons in the route: the character's answer for one dungeon
+-- (CharState().dungeons[map]: true run, false skip), else the answer for
+-- every dungeon (the behavior.dungeons setting: "ask" | "run"; else skip).
+-- uistub.dungeonQuestion / dungeonRun / dungeonSoon: what the live step asks
+-- or is ({ map, name, quests, runIn, steps }; Engine.DungeonQuestion,
+-- DungeonRun, DungeonSoon); uistub.dungeonKept: SkipDungeon's titles.
+function Engine.DungeonAnswer(map)
+	local s = Polestar.CharState()
+	if s.dungeons[map] ~= nil then return s.dungeons[map] end
+	local all = Polestar.Get("behavior.dungeons")
+	if all == "run" then return true elseif all == "ask" then return nil end
+	return false
 end
+function Engine.DungeonChosen(map) return Engine.DungeonAnswer(map) == true end
+function Engine.ChooseDungeon(map, answer)
+	record("ChooseDungeon", map, answer)
+	Polestar.CharState().dungeons[map] = answer
+end
+uistub.dungeonQuestion, uistub.dungeonRun, uistub.dungeonSoon, uistub.dungeonKept = nil, nil, nil, {}
+function Engine.DungeonQuestion()
+	local d = uistub.dungeonQuestion
+	if not d or Polestar.CharState().dungeons[d.map] ~= nil then return nil end
+	return d
+end
+function Engine.DungeonRun()
+	local d = uistub.dungeonRun
+	if not d or Polestar.CharState().dungeons[d.map] == false then return nil end
+	return d
+end
+function Engine.DungeonSoon() return uistub.dungeonSoon end
+function Engine.SkipDungeon(map)
+	record("SkipDungeon", map)
+	Polestar.CharState().dungeons[map] = false
+	return uistub.dungeonKept
+end
+-- uistub.guideDungeons: the maps the character's guides have `when dungeon`
+-- steps for ({ [map] = true }, Engine.GuideDungeons).
+uistub.guideDungeons = {}
+function Engine.GuideDungeons() return uistub.guideDungeons end
 -- Group quests (`when group`): uistub.groupQuestion = { quest, title } is the
 -- one the live step waits on until answered; answers per character
 -- (CharState().groupQuests). uistub.groupQuests: the character's guides'
@@ -661,7 +725,14 @@ function Guides.SuggestSource() return "guides" end
 -- Whether a character can follow a guide, and another race's starting zone
 -- they may still follow: the real registry's rules.
 function Guides.GuideMatches(g, player) return uistub.realGuides.GuideMatches(g, player) end
+function Guides.Matches(only, player) return uistub.realGuides.Matches(only, player) end
 function Guides.OtherStart(g, player) return uistub.realGuides.OtherStart(g, player) end
+function Guides.OtherFaction(g, player) return uistub.realGuides.OtherFaction(g, player) end
+-- A guide's levels for the player's side (uistub.player.faction): the real registry's rule.
+function Guides.Levels(g, faction) return uistub.realGuides.Levels(g, faction or uistub.player.faction) end
+-- Experimental guides and guides in Forever's new zones (the Forever mark): the real registry's rules.
+function Guides.IsExperimental(g) return uistub.realGuides.IsExperimental(g) end
+function Guides.InForeverZone(g) return uistub.realGuides.InForeverZone(g) end
 
 local Nav = {}
 function Nav.SetTarget(map, x, y, label, f, stop, z)
@@ -669,6 +740,7 @@ function Nav.SetTarget(map, x, y, label, f, stop, z)
 	-- `stop` and `z` sit after a nil `f` for most callers, so they are kept here, not in the call record.
 	uistub.target = { map = map, x = x, y = y, label = label, f = f, stop = stop, z = z }
 	Polestar.Fire("WAYPOINT_CHANGED", uistub.target)
+	return uistub.target
 end
 function Nav.ClearTarget() record("ClearTarget"); uistub.target = nil end
 -- Drops a point picked by hand: the Engine's waypoint is the target again.
@@ -679,7 +751,33 @@ function Nav.ReleaseTarget()
 end
 function Nav.GetTarget() return uistub.target or Engine.GetWaypoint() end
 function Nav.GetDistance() return 42 end
+-- A point of the player's own: uistub.target, set by SetTarget or the scenes.
+function Nav.IsOverride() return uistub.target ~= nil end
+function Nav.BackToGuide()
+	record("BackToGuide")
+	if not uistub.target then return false end
+	uistub.trip = nil
+	Nav.ReleaseTarget()
+	return true
+end
 function Nav.ResetArrowPosition() record("ResetArrowPosition") end
+-- Trips (Nav.StartTrip): uistub.trip, the trip under way ({ name, label }), set by
+-- StartTrip or by the scenes.
+function Nav.StartTrip(t, name, label, ends)
+	if not t then return nil end
+	record("StartTrip", name or t.label, label, ends)
+	uistub.trip = { target = t, name = name or t.label, label = label, ends = ends or "arrive" }
+	Polestar.Fire("NAV_TRIP", uistub.trip)
+	return uistub.trip
+end
+function Nav.Trip() return uistub.trip end
+function Nav.EndTrip()
+	record("EndTrip")
+	local was = uistub.trip ~= nil
+	uistub.trip = nil
+	Polestar.Fire("NAV_TRIP", nil)
+	return was
+end
 -- Nearby services (Nav/Nearby.lua): the guide window's list, and Go.
 Nav.nearby = {
 	MenuItems = function()
@@ -695,15 +793,6 @@ Nav.nearby = {
 			{ separator = true }, { key = "bank", label = "Bank" } }
 	end,
 	Go = function(key, line) record("NearbyGo", key, line); return true end,
-	-- uistub.trip: the trip under way ({ name, label }), set by the scenes.
-	Trip = function() return uistub.trip end,
-	EndTrip = function()
-		record("NearbyEndTrip")
-		local was = uistub.trip ~= nil
-		uistub.trip = nil
-		Polestar.Fire("NEARBY_TRIP", nil)
-		return was
-	end,
 }
 
 local MAPS = {
@@ -724,6 +813,7 @@ function Compat.IsOnTaxi() return false end
 function Compat.IsShiftKeyDown() return stub.keys.shift and true or false end
 function Compat.IsInInstance() return uistub.instance ~= nil, uistub.instance end
 function Compat.GetPlayerInfo() return uistub.player end
+function Compat.RealmName() return uistub.player.realm end
 function Compat.GetMapName(id) return MAPS[id] end
 function Compat.GetQuestTitle() return nil end
 function Compat.InCombat() return stub.inCombat end
@@ -741,12 +831,18 @@ function uistub.install(opts)
 	if opts.noTabs then
 		for _, k in ipairs({ "GetTabs", "OpenTab", "CloseTab", "SelectTab", "MoveTab", "GetGuideState" }) do Engine[k] = nil end
 	end
+	if Polestar.Engine ~= Engine then uistub.realEngine = Polestar.Engine end
 	Polestar.Engine = Engine
 	-- The real registry stays reachable for pages that show its records
 	-- (the Community guides page): Polestar.Guides = uistub.realGuides.
 	if Polestar.Guides ~= Guides then uistub.realGuides = Polestar.Guides end
 	Polestar.Guides = Guides
-	if not opts.noNav then Polestar.Nav = Nav end
+	-- So does the real Nav, for tests that load it (its transport banner):
+	-- uistub.realNav.alerts.
+	if not opts.noNav then
+		if Polestar.Nav ~= Nav then uistub.realNav = Polestar.Nav end
+		Polestar.Nav = Nav
+	end
 	-- Whether another addon is there: the real check, over the C_AddOns stub.
 	if Polestar.Compat ~= Compat then Compat.AddOnPresent = Polestar.Compat.AddOnPresent end
 	Polestar.Compat = Compat
@@ -757,13 +853,14 @@ function uistub.install(opts)
 			arrowColor = false, arrowNearColor = false })
 	end
 	if Polestar.GetDefault("behavior.autoAccept") == nil then
-		Polestar.RegisterDefaults("behavior", { autoAccept = true, autoTurnin = true, guideEnd = "ask", autoSelectGuide = true, skipGrey = false, offerClassQuests = true, groupQuests = "ask" })
+		Polestar.RegisterDefaults("behavior", { autoAccept = true, autoTurnin = true, guideEnd = "ask", autoSelectGuide = true, skipGrey = false, offerClassQuests = true, groupQuests = "ask", dungeons = "skip" })
 	end
-	-- An account and a character that have seen the welcome, so it never
-	-- opens over windows under test; tests/ui-welcome.test.js restores the
-	-- saved values.
+	-- An account and a character that have seen the welcome and the newest
+	-- notes, so neither opens over windows under test; ui-welcome.rs and
+	-- ui-whatsnew.rs restore the saved values.
 	Polestar.DB().welcomeSeen = 1
 	Polestar.CharState().welcomeSeen = 1
+	Polestar.DB().whatsNewSeen = Polestar.UI.WhatsNew and Polestar.UI.WhatsNew.LATEST or nil
 end
 
 -- Show guide `id` at step `step` in the active tab (opening a first tab).

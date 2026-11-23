@@ -78,7 +78,7 @@ fn a_skipped_quest_goes_with_the_quests_that_follow_from_it_the_rest_of_its_step
 			"statuses": ["skipped,active", "skipped,skipped", "skipped,skipped", "skipped", "pending"],
 			"saved": true,
 			"text": "You skipped this quest",
-			"follow": "Requires A first",
+			"follow": "Requires “A” first",
 		}),
 		"A, B and C go; Other in the same step stays"
 	);

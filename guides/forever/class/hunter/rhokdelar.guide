@@ -70,28 +70,28 @@ step Vartrus the Ancient
   accept 7634                         -- Hastat the Ancient: the quiver, last in this guide
 
 step Before the demons
-  tip The four demons are level 60 elites disguised as friendly travellers; talk to one and say you know what it is, and it turns into its demon form. Fight every one alone: no pet (dismiss it), no other player's heal, buff or attack once the fight starts, or the demon calls you a coward and vanishes, with a 3 hour wait for it to return (also after it dies). Buffs and potions you take before the pull are fine, and a friend may stand by to kill wandering monsters or enemy players, as long as they never touch the demon or you. Bring an Elixir of Demonslaying (Alchemy or the auction house), Major Mana Potions for the long kites, and a melee weapon with the Demonslaying enchant if you can. Track Demons, from your trainer, shows the disguised demons on the minimap. In a group, set loot to free for all so you can loot the head.
+  tip The four demons are level 60 elites disguised as friendly travellers; talk to one and say you know what it is, and it turns into its demon form. Fight every one alone: no pet (dismiss it), no other player's heal, buff or attack once the fight starts, or the demon calls you a coward and vanishes, with a 3 hour wait for it to return (also after it dies). Buffs and potions you take before the pull are fine, and a friend may stand by to kill wandering monsters or enemy players, as long as they never touch the demon or you. Bring a Potion of Demon Slaying (Alchemy or the auction house), Major Mana Potions for the long kites, and a melee weapon with the Demonslaying enchant if you can. Track Demons, from your trainer, shows the disguised demons on the minimap. In a group, set loot to free for all so you can loot the head.
   task "Learn Track Demons and get demon-slaying potions" optional
 
-step Simone the Seductress
+step Simone the Inconspicuous
   zone Un'Goro Crater
   tip Simone the Inconspicuous, a troll with a wolf, walks a long path that starts at the lake in western Un'Goro and can reach the south of the crater; use Track Demons. Talk to her and she becomes Simone the Seductress, and her wolf Precious a Felstalker. The hardest of the four: Freezing Trap Precious and pull Simone well away from it, or kite Precious away and kill it first, let Simone reset and come back for her alone. Her Chain Lightning hits hard, so drain her mana with Viper Sting (a 15-second cooldown on Forever) and keep her busy; her Temptress' Kiss cuts your ranged attack power, so finish her in melee. Loot her head before Precious breaks free.
   talk 14527                          -- Simone the Inconspicuous
   collect 18952 quest 7636.1          -- Simone's Head
 
-step Klinfran the Crazed
+step Franklin the Friendly
   zone Burning Steppes
   tip Franklin the Friendly, a human, wanders the western Burning Steppes south of Blackrock Mountain. Talk to him and he becomes Klinfran the Crazed, the easiest of the four. Keep Scorpid Sting on him the whole fight: while it lasts he barely hurts you. When he goes into Demonic Frenzy, remove it with Tranquilizing Shot and never stand in melee while it is up; between frenzies you can fight him in melee with Wing Clip and Raptor Strike. He cannot leave the Burning Steppes, so kite him around the trees if needed.
   talk 14529                          -- Franklin the Friendly
   collect 18953 quest 7636.2          -- Klinfran's Head
 
-step Solenor the Slayer
+step Nelson the Nice
   zone Silithus
   tip Nelson the Nice, a gnome, walks around the gates of Ahn'Qiraj in the far south-west of Silithus. Talk to him and he becomes Solenor the Slayer. He enrages with Soul Flame as he turns: drop a Frost Trap, Feign Death, and he resets without the enrage. Wing Clip roots him for a long time; while rooted he fears you and sends beetles (Creeping Doom): kill them fast with traps and Multi-Shot before they wear you down.
   talk 14536                          -- Nelson the Nice
   collect 18954 quest 7636.3          -- Solenor's Head
 
-step Artorius the Doombringer
+step Artorius the Amiable
   zone Winterspring
   tip Artorius the Amiable, a tauren, walks a loop in the rocks of northern Winterspring, north of Everlook. Talk to him and he becomes Artorius the Doombringer. Within 30 yards of him Demonic Doom hits hard: keep your distance and kite him the whole fight, Aspect of the Cheetah on, south down the road. Serpent Sting on him adds Stinging Trauma, extra Nature damage, so keep it ticking while you run; his Demonic Frenzy can be removed with Tranquilizing Shot, but distance matters more. It is a long fight: bring mana potions and plan your kiting path.
   talk 14531                          -- Artorius the Amiable

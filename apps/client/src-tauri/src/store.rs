@@ -48,6 +48,9 @@ pub struct Settings {
 	/// tells the Recorder whether to record (Ack.lua's `PolestarRecorderShare`), and sharing off
 	/// is the player's own choice, never turned back on by default.
 	pub ever_shared: bool,
+	/// The explorer toggle (Ack.lua's `PolestarRecorderExplore`): `None` until the player used it,
+	/// so the Recorder decides (explorer mode on in Forever's new zones unless `/psrec explore off`).
+	pub explore: Option<bool>,
 	/// The notice saying what sharing sends (with its Stop sharing) was read, or the player chose
 	/// for themselves (Start sharing, the Settings switch); shown once while sharing is on.
 	pub share_notice_seen: bool,
@@ -121,6 +124,7 @@ impl Default for Settings {
 			consent_at: None,
 			paused: false,
 			ever_shared: false,
+			explore: None,
 			share_notice_seen: false,
 			wow_folder: None,
 			server_url: DEFAULT_SERVER.to_owned(),

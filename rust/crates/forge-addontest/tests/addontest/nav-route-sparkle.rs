@@ -1,7 +1,7 @@
 //! Route lines as sparkles (Maps/RouteSparkle.lua, ported from Forever Sparkle Trail, and its painters in
 //! Maps/RouteLines.lua, nav.lineStyle "sparkle"): the draw paths measured by continent, sparkles spaced evenly
-//! and drifting toward the goal, the settings in range, both surfaces painted from their own pools, OpenMap's
-//! stitched world map, and the style window behind the "Route lines" gear.
+//! and drifting toward the goal, the settings in range, both surfaces painted from their own pools and OpenMap's
+//! stitched world map (the Route lines page that sets them: nav-route-look.rs).
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
@@ -169,6 +169,7 @@ local function stars(owner)
 end
 local function walkTo(wy)
 	Polestar.Set("nav.travel", false)
+	Polestar.Set("nav.navRouting", false)
 	nav.viewRadius = 200
 	nav.place(0, 0)
 	target(0, wy)
@@ -360,46 +361,4 @@ fn the_whole_route_sparkles_the_later_legs_too_fainter() {
 	assert_eq!(out["now"], 1);
 	assert_eq!(out["all"], 2);
 	assert_eq!(out["later"], true);
-}
-
-#[test]
-fn the_route_lines_option_has_a_gear_that_opens_the_line_style_window_the_sparkle_settings_wait_for_the_sparkle_style() {
-	let out = emitted(&RunAddon {
-		stubs: vec!["stub_ui.lua"],
-		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Maps/RouteSparkle.lua", "UI/UI.xml"])],
-		script: r#"
-Polestar.RegisterDefaults("nav", { routeLines = true, lineStyle = "dots" })
-Polestar.RegisterDefaults("nav", Polestar.RouteSparkle.DEFAULTS)
-uistub.install()
-stub.login()
-local UI, O = Polestar.UI, Polestar.UI.Options
-UI.ShowOptions("guide")
-O.Select("guide", "Arrow & routes")
-local row = O.Controls("guide", "Arrow & routes")["nav.routeLines"]
-local r = { gear = row and row.Gear ~= nil or false }
-if row and row.Gear then row.Gear:Click() end
-local win = _G.PolestarLineStyle
-r.shown = win ~= nil and win:IsShown()
-local controls = UI.LineStyleControls() or {}
-local keys = {}
-for key in pairs(controls) do keys[#keys + 1] = key end
-table.sort(keys)
-r.keys = keys
-local intensity = controls["nav.sparkleIntensity"]
-r.offWhileDots = intensity and not Polestar.Widgets.Enabled(intensity)
-Polestar.Set("nav.lineStyle", "sparkle")
-r.onWhileSparkle = intensity and Polestar.Widgets.Enabled(intensity)
-emit(r)"#
-			.into(),
-		..Default::default()
-	});
-	let out = &out[0];
-	assert_eq!(out["gear"], true, "a gear beside the switch");
-	assert_eq!(out["shown"], true, "the gear opens the window");
-	assert_eq!(
-		out["keys"],
-		json!(["nav.lineStyle", "nav.sparkleColor", "nav.sparkleDensity", "nav.sparkleFlow", "nav.sparkleIntensity", "nav.sparkleLater", "nav.sparkleMax", "nav.sparkleSize", "nav.sparkleSubtlety"])
-	);
-	assert_eq!(out["offWhileDots"], true);
-	assert_eq!(out["onWhileSparkle"], true);
 }

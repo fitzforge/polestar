@@ -1,8 +1,11 @@
 <script lang="ts">
-	// The recording status as one small light: a calm breathing ring while
-	// sharing is on and all is well, a turning arc while sending, still and
-	// amber when something needs the player, hollow when sharing is off.
+	// The recording status as one small light: a breathing ring when sharing
+	// turns on and all is well (three breaths, again whenever the window comes
+	// back into sight, lib/still.ts; then the light rests, #1801), a turning arc
+	// while sending, still and amber when something needs the player, hollow
+	// when sharing is off.
 	import type { StatusKind } from '../lib/types';
+	import { sight } from '../lib/sight.svelte';
 
 	let { kind, size = 8 }: { kind: StatusKind; size?: number } = $props();
 
@@ -12,7 +15,7 @@
 </script>
 
 <span class="beacon {tone}" style:--size="{size}px" aria-hidden="true">
-	{#if tone === 'ok'}<span class="ring"></span>{/if}
+	{#if tone === 'ok'}{#key sight.wakes}<span class="ring"></span>{/key}{/if}
 	{#if tone === 'busy'}<span class="arc"></span>{/if}
 	{#key tone}<span class="core"></span>{/key}
 </span>
@@ -61,7 +64,8 @@
 		width: var(--size);
 		height: var(--size);
 		border: 1px solid var(--c);
-		animation: breathe 2800ms var(--ease) infinite;
+		/* Three breaths, ending faded out. */
+		animation: breathe 2800ms var(--ease) 3 forwards;
 	}
 	.arc {
 		width: calc(var(--size) * 2);

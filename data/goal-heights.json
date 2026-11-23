@@ -1,0 +1,343 @@
+{
+	"about": "Floors for goal points no NPC or object places (docs/GUIDE_FORMAT.md, \"Heights\"): a goal of any verb with no height whose point lies within 5 yards of a record's gets its z, so the arrow's walk ends on that floor, not on the ground above a mine or cave (#1782). Each record comes from players' recordings: at least two sessions doing that goal near its point, three times as many standing indoors as outdoors, and the walking grid with one indoor floor there (z, world yards). map, x, y: the goal's point; frame: era or live. source: { kind, ref }; note: the goals it serves.",
+	"points": [
+		{
+			"id": "rec-1413-45.6-59",
+			"map": 1413,
+			"x": 45.6,
+			"y": 59.0,
+			"frame": "era",
+			"z": 103,
+			"source": {
+				"kind": "recording",
+				"ref": "70 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "04-the-barrens, step \"To {area:378}\""
+		},
+		{
+			"id": "rec-1413-59.9-3.2",
+			"map": 1413,
+			"x": 59.9,
+			"y": 3.2,
+			"frame": "era",
+			"z": 105,
+			"source": {
+				"kind": "recording",
+				"ref": "7 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "mining, step \"Copper & Tin: {zone:1413} (65-125)\""
+		},
+		{
+			"id": "rec-1416-16.8-89.4",
+			"map": 1416,
+			"x": 16.8,
+			"y": 89.4,
+			"frame": "live",
+			"z": 107,
+			"source": {
+				"kind": "recording",
+				"ref": "9 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "01-hillsbrad-foothills, step \"The {area:279} crater\""
+		},
+		{
+			"id": "rec-1421-43.4-40.99",
+			"map": 1421,
+			"x": 43.4,
+			"y": 40.99,
+			"frame": "era",
+			"z": 105,
+			"source": {
+				"kind": "recording",
+				"ref": "4 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "lumina-windsinger, step \"Back to the {area:228}\"; lumina-windsinger, step \"{item:267369}\"; lumina-windsinger, step \"{quest:95036}\"; lumina-windsinger, step \"{quest:95140}\""
+		},
+		{
+			"id": "rec-1421-58.07-69.89",
+			"map": 1421,
+			"x": 58.07,
+			"y": 69.89,
+			"frame": "era",
+			"z": 114,
+			"source": {
+				"kind": "recording",
+				"ref": "11 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "05-stonetalon-mountains, step \"{quest:95885}\""
+		},
+		{
+			"id": "rec-1426-21.3-54.2",
+			"map": 1426,
+			"x": 21.3,
+			"y": 54.2,
+			"frame": "era",
+			"z": 400,
+			"source": {
+				"kind": "recording",
+				"ref": "22 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "01-dun-morogh, step \"{area:135}\""
+		},
+		{
+			"id": "rec-1426-34.9-68.1",
+			"map": 1426,
+			"x": 34.9,
+			"y": 68.1,
+			"frame": "era",
+			"z": 426,
+			"source": {
+				"kind": "recording",
+				"ref": "6 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "eastern-kingdoms-1-30, step \"{zone:1426} (2/3)\"; eastern-kingdoms-1-30, step \"{zone:1426} (3/3)\""
+		},
+		{
+			"id": "rec-1429-40.6-82.3",
+			"map": 1429,
+			"x": 40.6,
+			"y": 82.3,
+			"frame": "era",
+			"z": 13,
+			"source": {
+				"kind": "recording",
+				"ref": "4 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "01-elwynn-forest, step \"{area:64}: kill these as you meet them\""
+		},
+		{
+			"id": "rec-1429-49-29.1",
+			"map": 1429,
+			"x": 49.0,
+			"y": 29.1,
+			"frame": "era",
+			"z": 92,
+			"source": {
+				"kind": "recording",
+				"ref": "24 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "mining, step \"Copper: {zone:1429} (1-50)\"; mining, step \"Copper: {zone:1429} (50-65) cont.\""
+		},
+		{
+			"id": "rec-1429-60.9-50",
+			"map": 1429,
+			"x": 60.9,
+			"y": 50.0,
+			"frame": "era",
+			"z": 68,
+			"source": {
+				"kind": "recording",
+				"ref": "12 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "mining, step \"Copper: {zone:1429} (1-50)\"; mining, step \"Copper: {zone:1429} (50-65) cont.\""
+		},
+		{
+			"id": "rec-1429-61.38-48.93",
+			"map": 1429,
+			"x": 61.38,
+			"y": 48.93,
+			"frame": "era",
+			"z": 70,
+			"source": {
+				"kind": "recording",
+				"ref": "14 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "stormwind, step \"Northshire: the books end in {area:87}\""
+		},
+		{
+			"id": "rec-1429-61.5-51.4",
+			"map": 1429,
+			"x": 61.5,
+			"y": 51.4,
+			"frame": "era",
+			"z": 64,
+			"source": {
+				"kind": "recording",
+				"ref": "16 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "stormwind, step \"Eastvale: the work\""
+		},
+		{
+			"id": "rec-1432-31.82-86.53",
+			"map": 1432,
+			"x": 31.82,
+			"y": 86.53,
+			"frame": "era",
+			"z": 426,
+			"source": {
+				"kind": "recording",
+				"ref": "6 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "03-loch-modan, step \"{npc:269153}\""
+		},
+		{
+			"id": "rec-1437-69.2-32.7",
+			"map": 1437,
+			"x": 69.2,
+			"y": 32.7,
+			"frame": "era",
+			"z": 76,
+			"source": {
+				"kind": "recording",
+				"ref": "3 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "01-hillsbrad-foothills, step \"Razormaw nests\""
+		},
+		{
+			"id": "rec-1437-69.6-29",
+			"map": 1437,
+			"x": 69.6,
+			"y": 29.0,
+			"frame": "era",
+			"z": 70,
+			"source": {
+				"kind": "recording",
+				"ref": "12 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "mining, step \"Incendicite & Tin: {zone:1437} (65-125)\""
+		},
+		{
+			"id": "rec-1438-44.68-58.92",
+			"map": 1438,
+			"x": 44.68,
+			"y": 58.92,
+			"frame": "era",
+			"z": 1267,
+			"source": {
+				"kind": "recording",
+				"ref": "4 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "01-teldrassil, step \"{quest:99053}\""
+		},
+		{
+			"id": "rec-1440-13.7-11.9",
+			"map": 1440,
+			"x": 13.7,
+			"y": 11.9,
+			"frame": "era",
+			"z": -4,
+			"source": {
+				"kind": "recording",
+				"ref": "81 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "mining, step \"Tin: {zone:1440} (65-125)\""
+		},
+		{
+			"id": "rec-1441-27-51.9",
+			"map": 1441,
+			"x": 27.0,
+			"y": 51.9,
+			"frame": "era",
+			"z": 37,
+			"source": {
+				"kind": "recording",
+				"ref": "5 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "07-ashenvale, step \"{area:483}: kill these as you meet them\""
+		},
+		{
+			"id": "rec-1450-72.4-66",
+			"map": 1450,
+			"x": 72.4,
+			"y": 66.0,
+			"frame": "era",
+			"z": 429,
+			"source": {
+				"kind": "recording",
+				"ref": "18 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "cat-form, step \"The Stormrage Barrow Dens\"; cat-form, step \"The relics of the Barrow Dens\"; 02-the-barrens, step \"The Stormrage Barrow Dens\"; 03-darkshore-return, step \"The relics of the Barrow Dens\""
+		},
+		{
+			"id": "rec-1450-74.4-65.4",
+			"map": 1450,
+			"x": 74.4,
+			"y": 65.4,
+			"frame": "era",
+			"z": 431,
+			"source": {
+				"kind": "recording",
+				"ref": "18 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "cat-form, step \"The Stormrage Barrow Dens\"; cat-form, step \"The relics of the Barrow Dens\"; 02-the-barrens, step \"The Stormrage Barrow Dens\"; 03-darkshore-return, step \"The relics of the Barrow Dens\""
+		},
+		{
+			"id": "rec-1450-75.2-67.2",
+			"map": 1450,
+			"x": 75.2,
+			"y": 67.2,
+			"frame": "era",
+			"z": 439,
+			"source": {
+				"kind": "recording",
+				"ref": "18 sessions indoors at the goal, 0 outdoors"
+			},
+			"note": "cat-form, step \"The Stormrage Barrow Dens\"; cat-form, step \"The relics of the Barrow Dens\"; 02-the-barrens, step \"The Stormrage Barrow Dens\"; 03-darkshore-return, step \"The relics of the Barrow Dens\""
+		},
+		{
+			"id": "2694-stv-kurzen-supply-crate",
+			"map": 1434,
+			"x": 49.6,
+			"y": 7.7,
+			"frame": "era",
+			"z": 29,
+			"source": {
+				"kind": "recording",
+				"ref": "38 people looted the Kurzen Fighter's Uniform here (#2694), the position samples around each loot indoors; the walking maps' cave floor beside it is at 29-30, and the strongbox (object 288) a few yards away stands at 29.4 in the server data"
+			},
+			"note": "40-50/01-stranglethorn-vale (Alliance), step \"Kurzen's Compound\": The Cook in the Cage's supply crate, deep in the cave"
+		},
+		{
+			"id": "rec-1420-61.66-51.5",
+			"map": 1420,
+			"x": 61.66,
+			"y": 51.5,
+			"frame": "era",
+			"z": 34.3,
+			"source": {
+				"kind": "recording",
+				"ref": "#2509: before 72 hand-ins of The Captured Scarlet Zealot (407) by 66 people, players' trails run from the inn's ground floor along the west side of its north end to the cellar stairs; the walking grid's ground floor here is z 34"
+			},
+			"note": "01-tirisfal-glades, step \"The cellar stairs\": the top of the Gallows' End Tavern's cellar stairs, on the ground floor. The walk ends inside the inn, not on the ground outside above the cellar."
+		},
+		{
+			"id": "rec-2548-30-73.3",
+			"map": 2548,
+			"x": 30.0,
+			"y": 73.3,
+			"frame": "live",
+			"z": 190,
+			"source": {
+				"kind": "recording",
+				"ref": "#3394: 80 people looted the Cubic Draconia (object 648590) here, the position samples at each loot indoors (119 of the 121 kills of the hollow's dragonkin at this spot too); the walking grid has two indoor floors under the point, about 190 and 204, and only the 190 floor is walkable from Gelinda Coppergleam's camp (96% of that walk indoors), while the hill above is at 275-310"
+			},
+			"note": "40-50/01b-riverglades (both factions), step \"The Cinderscale hollow\": the Cubic Draconia for Proof of Profit, at the back of the dragonkin's hollow. The walk goes into the hollow, not over the hill above it."
+		},
+		{
+			"id": "rec-2548-30-72.2",
+			"map": 2548,
+			"x": 30.0,
+			"y": 72.2,
+			"frame": "live",
+			"z": 185,
+			"source": {
+				"kind": "recording",
+				"ref": "#3394: 204 of 205 kills of Cinderscale Whelps and Warriors at this spot by 72 people were indoors; the walking grid's indoor floors here are about 185 and 203, and only the 185 floor is walkable from Gelinda Coppergleam's camp"
+			},
+			"note": "40-50/01b-riverglades (both factions), step \"The Cinderscale hollow\": the whelps' kill point at the hollow's front, the step's first goal."
+		},
+		{
+			"id": "rec-2548-29.6-73.1",
+			"map": 2548,
+			"x": 29.6,
+			"y": 73.1,
+			"frame": "live",
+			"z": 189,
+			"source": {
+				"kind": "recording",
+				"ref": "#3394: 187 of 190 kills of Cinderscale dragonkin at this spot by 74 people were indoors; of the walking grid's indoor floors here (about 168, 172 and 189), 189 is the hollow's, the floor of the Cubic Draconia 20 yards away and of the whelps' point"
+			},
+			"note": "40-50/01b-riverglades (both factions), step \"The Cinderscale hollow\": the warriors' kill point by the Cubic Draconia."
+		}
+	]
+}

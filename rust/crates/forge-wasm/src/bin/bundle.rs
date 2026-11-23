@@ -90,7 +90,7 @@ fn run() -> Result<(), String> {
 	let iface = forge_guide::project::core_interface(&root)?;
 
 	let data = forge_guide::project::load_project_data(&data_dir, &mut forge_guide::diag::Diagnostics::new())?;
-	let spells: Vec<serde_json::Value> = forge_guide::tokens::read_spell_names(&data).into_iter().map(|(n, id)| serde_json::json!([n, id])).collect();
+	let spells: Vec<serde_json::Value> = forge_guide::tokens::read_spell_names(&data).into_iter().map(|(n, id, mask)| serde_json::json!([n, id, mask])).collect();
 	written.push(gz(&out, "spell-names.json", serde_json::Value::Array(spells).to_string().as_bytes())?);
 	let mut set_names = Vec::new();
 	for (name, dir) in &sets {

@@ -7,10 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Riggle Bassbait
-	-- {item:276275} Bitter Baitling · {item:274026} Extravagant Extravaganza Coin · {area:35} Booty Bay · {quest:8193} Master Angler · {npc:15077} Riggle Bassbait · {skill:356} Fishing
-	["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks when it starts and take {quest:8193} from {npc:15077}. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "",
-	-- {npc:15077} Riggle Bassbait
-	["{npc:15077}, during the contest"] = "",
+	-- {item:276275} Bitter Baitling · {item:274026} Extravagant Extravaganza Coin · {area:35} Booty Bay · {npc:15077} Riggle Bassbait · {quest:8193} Master Angler · {skill:356} Fishing
+	["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks by {npc:15077} when it starts. {quest:8193} is not a quest you take: {npc:15077} takes the fish straight from his window when you bring them. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "{item:276275} стоит 1 шт. {item:274026} – приз за победу в Рыбомании Тернистой долины. Турнир проходит по воскресеньям с 14:00 до 16:00 по времени сервера: будьте на причале ({area:35}) рядом с NPC {npc:15077} к его началу. {quest:8193} – не задание, которое берут: {npc:15077} забирает рыбу прямо из своего окна, когда вы ее приносите. Возьмите лучший навык {skill:356} и наживки, чтобы ни одна рыба не сорвалась, транспорт и пустые сумки, и привяжите камень возвращения здесь: {area:35}.",
 
 	-- Step 2: Schools of Tastyfish
 	["Schools of Tastyfish"] = "",
@@ -19,7 +17,7 @@ return {
 
 	-- Step 3: Back to Riggle Bassbait
 	-- {npc:15077} Riggle Bassbait
-	["Back to {npc:15077}"] = "",
+	["Back to {npc:15077}"] = "Вернитесь: {npc:15077}",
 	-- {npc:15077} Riggle Bassbait · {npc:15078} Jang
 	["Hurry back and hand the 40 Tastyfish to {npc:15077}: the first players to do so win, and the winners get the coin with their prize. If you are too late to win, {npc:15078} still pays a little gold for every 5 Tastyfish."] = "",
 	-- {npc:15077} Riggle Bassbait

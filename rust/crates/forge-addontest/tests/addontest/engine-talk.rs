@@ -163,8 +163,8 @@ fn a_giver_who_does_not_offer_the_quest_never_skips_it_the_line_asks_for_a_repor
 	let out = run(r#"
 		local w = stub.world
 		local r = {}
-		-- Bartholomew's chat without his quest (#741: the server's giver offers nothing).
-		w.gossip(1742, { options = { { name = "Hello." } } }); flush(); w.close(); flush()
+		-- Bartholomew's window without his quest (#741: the server's giver offers nothing).
+		w.gossip(1742, {}); flush(); w.close(); flush()
 		r.after = brief()
 		r.notice = E.GetStepView(1).goals[1].noticeText
 		r.step = E.GetStepIndex()
@@ -176,7 +176,7 @@ fn a_giver_who_does_not_offer_the_quest_never_skips_it_the_line_asks_for_a_repor
 		emit(r)
 	"#);
 	assert_eq!(out["after"], json!(["active", "active", "active", "active"]), "not skipped: still to do");
-	assert_eq!(out["notice"], "Not offered by Deathguard Bartholomew? Report it with /polestar");
+	assert_eq!(out["notice"], "Not offered by Deathguard Bartholomew? Report it with /polestar", "no chat option to try");
 	assert_eq!(out["step"], 1);
 	assert_eq!(out["arrow"], 1, "the arrow stays on Bartholomew");
 	assert_eq!(out["listed"], false);
@@ -230,7 +230,7 @@ fn a_hand_ticked_accept_whose_quest_is_not_in_the_log_stays_open_says_so_and_kee
 	"#);
 	assert_eq!(out["tick"], true);
 	assert_eq!(out["accept"], "active", "a tick never stands for the quest log");
-	assert_eq!(out["notice"], "Gordo's Task isn't in your quest log");
+	assert_eq!(out["notice"], "“Gordo's Task” isn't in your quest log");
 	assert_eq!(out["step"], 1, "the guide stays at the giver");
 	assert_eq!(out["arrow"], 1, "the accept is the arrow's target again");
 	assert_eq!(out["turnin"], "pending", "its hand-in is not hidden as not applying");
@@ -328,5 +328,10 @@ fn a_quest_passed_over_while_the_player_looks_at_another_step_is_announced_once_
 	assert_eq!(out["live"], 3);
 	assert_eq!(out["whileLooking"], 0, "the notice waits while the player looks elsewhere");
 	assert_eq!(out["back"], 3);
-	assert_eq!(out["events"], json!([{ "from": 2, "to": 3, "quests": ["86784:Requires level 10"], "shown": 1 }]), "said once, with the live step coming up (STEP_SKIPPED before STEP_CHANGED)");
+	// The level wait says what happens to it (Own.waitText): the guide's steps after it bring the route back.
+	assert_eq!(
+		out["events"],
+		json!([{ "from": 2, "to": 3, "quests": ["86784:Requires level 10: the guide comes back for it then"], "shown": 1 }]),
+		"said once, with the live step coming up (STEP_SKIPPED before STEP_CHANGED)"
+	);
 }

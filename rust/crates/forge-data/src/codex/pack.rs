@@ -266,6 +266,19 @@ fn encode_source(src: &V) -> Result<String, String> {
 		});
 	}
 	parts.push(from_letters(&src.get("from"))?);
+	let requires = src.get("requiresQuests");
+	let has_requires = matches!(ty.as_str(), "drop" | "object") && requires.is_arr() && !requires.is_empty();
+	if has_requires {
+		parts.push(esc(&V::str(&list(&requires)?)));
+	}
+	// An object's instance (#2883) after the requires tail (empty when there is none), so readers that
+	// know only the requires tail ignore it.
+	if ty == "object" && src.get("instance").truthy() {
+		if !has_requires {
+			parts.push(String::new());
+		}
+		parts.push(esc(&src.get("instance")));
+	}
 	Ok(format!("{letter}{}", parts.join(",")))
 }
 
@@ -321,7 +334,14 @@ fn encode_spawns(spawns: &V) -> Result<Vec<String>, String> {
 }
 
 fn encode_npc(rec: &V) -> Result<String, String> {
-	let flags = format!("{}{}{}", if rec.get("rare").truthy() { "r" } else { "" }, if rec.get("elite").truthy() { "e" } else { "" }, if rec.get("boss").truthy() { "b" } else { "" });
+	// r rare, e elite, b boss, g seen only by a dead character (#558: Franclorn Forgewright).
+	let flags = format!(
+		"{}{}{}{}",
+		if rec.get("rare").truthy() { "r" } else { "" },
+		if rec.get("elite").truthy() { "e" } else { "" },
+		if rec.get("boss").truthy() { "b" } else { "" },
+		if rec.get("ghostOnly").truthy() { "g" } else { "" }
+	);
 	let fac = rec.get("faction");
 	let mut parts = vec![
 		num(&rec.get("level"))?,
@@ -336,6 +356,10 @@ fn encode_npc(rec: &V) -> Result<String, String> {
 	if rec.get("subName").truthy() {
 		parts.push(format!("t{}", esc(&rec.get("subName"))));
 	}
+	// The quest after which it sells (#3138: Zorbin Fandazzle after Zapped Giants): v<quest>, last.
+	if rec.get("vendorAfter").num() > 0.0 {
+		parts.push(format!("v{}", num(&rec.get("vendorAfter"))?));
+	}
 	Ok(parts.join(";"))
 }
 
@@ -345,6 +369,11 @@ fn encode_object(rec: &V) -> Result<String, String> {
 	if rec.get("mailbox").truthy() {
 		let f = rec.get("faction");
 		parts.push(format!("m{}", if f.truthy() { f.to_js_string() } else { String::new() }));
+	}
+	// The instance it lies in (Upper Blackrock Spire's Rookery Eggs): i<key>, last. A spawn group starts with a map
+	// number, so a reader before it reads no point from it.
+	if rec.get("instance").truthy() {
+		parts.push(format!("i{}", esc(&rec.get("instance"))));
 	}
 	Ok(parts.join(";"))
 }
@@ -377,6 +406,8 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 			Some("item") => 'i',
 			Some("object") => 'o',
 			Some("event") => 'e',
+			// A talk-to objective (Hidden Enemies: Neeru Fireblade). `t` alone is the tame flag below.
+			Some("talk") => 's',
 			_ => return Err(format!("codex pack: quest {}: unknown objective type \"{}\"", kstr(&rec.get("id")), ty.to_js_string())),
 		};
 		parts.push(format!("{t}{},{},{}", num(&o.get("id"))?, num(&o.get("count"))?, esc(&o.get("text"))));
@@ -387,12 +418,70 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 		if o.get("tame").truthy() {
 			parts.push("t".into());
 		}
+		// The item the kill objective before it is really a use of (merge.rs `use_item_on`, #2468):
+		// a<item>. An older reader skips it (no objective kind is a).
+		let use_item = o.get("useItem");
+		if use_item.truthy() {
+			parts.push(format!("a{}", num(&use_item)?));
+		}
+		// The item that calls the kill objective's target up (merge.rs `summon_item_for`, #2326): m<item>.
+		// An older reader skips it (no objective kind is m).
+		let summon = o.get("summonItem");
+		if summon.truthy() {
+			parts.push(format!("m{}", num(&summon)?));
+		}
+		// The creatures that item is used on (#2578: Yeh'kinya's Bramble on a dead Vale Screecher): g<npc>,<npc>...
+		// An older reader skips it (no objective kind is g).
+		let on = o.get("summonOn");
+		if summon.truthy() && !on.items().is_empty() {
+			parts.push(format!("g{}", list(&on)?));
+		}
+		// The hostile elites at an object's work, per side (elites.rs): w<side><rank>,<lvl>.
+		let el = o.get("elites");
+		for side in ["A", "H"] {
+			let e = el.get(side);
+			if e.truthy() {
+				let lvl = e.get("lvl");
+				parts.push(format!("w{side}{},{}", num(&e.get("rank"))?, if lvl.is_nullish() { String::new() } else { num(&lvl)? }));
+			}
+		}
 	}
 	if rec.get("repFaction").truthy() && rec.get("repStanding").truthy() {
 		parts.push(format!("r{},{}", num(&rec.get("repFaction"))?, num(&rec.get("repStanding"))?));
 	}
 	if rec.get("xp").num() > 0.0 {
 		parts.push(format!("x{}", num(&rec.get("xp"))?));
+	}
+	// The quests whose taking closes it for good (#1996: a breadcrumb's target, an exclusive quest): c<id>,<id>...
+	// An older reader skips `c` (no objective kind is c).
+	if !rec.get("closedBy").items().is_empty() {
+		parts.push(format!("c{}", list(&rec.get("closedBy"))?));
+	}
+	// The profession it needs (#1913): l<skill line>,<rank>, the rank empty when the data names none. Not `s`, the
+	// talk objective: an older reader skips `l` (no objective kind is l).
+	if rec.get("skill").num() > 0.0 {
+		parts.push(format!("l{},{}", num(&rec.get("skill"))?, num(&rec.get("skillLevel"))?));
+	}
+	// A child quest's parent, which must be in the log for its giver to offer it (Valik 535 under Infiltration 533):
+	// u<quest>. An older reader skips it (no objective kind is u).
+	if rec.get("parent").num() > 0.0 {
+		parts.push(format!("u{}", num(&rec.get("parent"))?));
+	}
+	// How it is done beyond its objectives, our public words (merge.rs `public_how`, #2714): h<text>. An older
+	// reader skips it (no objective kind is h).
+	if rec.get("how").truthy() {
+		parts.push(format!("h{}", esc(&rec.get("how"))));
+	}
+	// Handed in at one talk, never in the log (#2686: Bloodpetal Sprouts): `d`. An older reader skips it (no objective
+	// kind is d).
+	if rec.get("direct").truthy() {
+		parts.push("d".into());
+	}
+	// One of a set the game offers one at a time (#3601: Pix's weekly In Demand quests): v<set name>. An older
+	// reader skips it (no objective kind is v).
+	let rot = rec.get("rotation");
+	if rot.truthy() {
+		parts.push(format!("v{}", esc(&rot)));
 	}
 	Ok(parts.join(";"))
 }
@@ -422,11 +511,16 @@ fn encode_instance(rec: &V) -> Result<String, String> {
 		let f = e.get("f");
 		let mut p = vec![num(&e.get("map"))?, coord(&e.get("x")), coord(&e.get("y")), if f.truthy() { f.to_js_string() } else { String::new() }];
 		let a = e.get("A");
-		if e.get("approx").truthy() || a.truthy() {
-			p.push(if e.get("approx").truthy() { "a".into() } else { String::new() });
+		let approx = e.get("approx").truthy();
+		let z = num(&e.get("z"))?;
+		if approx || a.truthy() || !z.is_empty() {
+			p.push(if approx { "a".into() } else { String::new() });
 		}
 		if a.truthy() {
 			p.extend([num(&a.get("map"))?, coord(&a.get("x")), coord(&a.get("y"))]);
+		}
+		if !z.is_empty() {
+			p.push(z);
 		}
 		p.join(",")
 	} else {
@@ -630,9 +724,11 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 				(if k.truthy() { k.to_js_string() } else { "item".into() }) == kind
 			})
 			.collect();
+		// Lookup never offers an item with one of the game's placeholder names ("Ahn'Qiraj Wand [PH]", #2614).
 		index.push((
 			kind,
 			ids.iter()
+				.filter(|id| !items.get(id).get("name").as_str().is_some_and(forge_guide::placeholder::banned))
 				.map(|id| {
 					let it = items.get(id);
 					((*id).clone(), it.get("name"), it.get("quality"), status_letter(&it).to_string())
@@ -650,7 +746,9 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 	let npc_ids = sorted_ids(npcs);
 	for (group, prefix, rare) in [("npc", "Npcs", false), ("rare", "Rares", true)] {
 		let ids: Vec<&String> = npc_ids.iter().filter(|id| npcs.get(id).get("rare").truthy() == rare).collect();
-		index.push((group, ids.iter().map(|id| ((*id).clone(), npcs.get(id).get("name"), V::Undef, String::new())).collect()));
+		// Lookup never offers an NPC with one of the game's placeholder names ("PvP Tower Credit Marker", #2614).
+		let searchable = ids.iter().filter(|id| !npcs.get(id).get("name").as_str().is_some_and(forge_guide::placeholder::banned));
+		index.push((group, searchable.map(|id| ((*id).clone(), npcs.get(id).get("name"), V::Undef, String::new())).collect()));
 		let mut entries: Vec<Entry> = Vec::new();
 		for id in &ids {
 			let n = npcs.get(id);
@@ -660,7 +758,10 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 	}
 	let mut roles: Vec<(String, Vec<String>)> = Vec::new();
 	for id in &npc_ids {
-		for r in npcs.get(id).get("roles").items() {
+		// `vendorAfter`: the NPCs whose selling waits on a quest (v<quest> on their record), so the addon reads only
+		// those records to filter its vendor lists (#3138).
+		let after = (npcs.get(id).get("vendorAfter").num() > 0.0).then(|| V::str("vendorAfter"));
+		for r in npcs.get(id).get("roles").items().into_iter().chain(after) {
 			let r = r.to_js_string();
 			match roles.iter_mut().find(|(x, _)| *x == r) {
 				Some(e) => e.1.push(id.clone()),
@@ -708,7 +809,10 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 			entries.push((id, r.get(name_field), rec, String::new()));
 		}
 		if SEARCH_KINDS.contains(&group) {
-			index.push((group, entries.iter().map(|(id, name, ..)| (id.clone(), name.clone(), V::Undef, String::new())).collect()));
+			// Lookup never offers a quest the game keeps unused or for tests ("<UNUSED>", "<TEST> HEY MISTER WILSON!",
+			// "REUSE", #2614), nor anything else with a placeholder name.
+			let hidden = |name: &V| name.as_str().is_some_and(|n| forge_guide::placeholder::banned(n) || (group == "quest" && forge_guide::placeholder::unused_quest(n)));
+			index.push((group, entries.iter().filter(|(_, name, ..)| !hidden(name)).map(|(id, name, ..)| (id.clone(), name.clone(), V::Undef, String::new())).collect()));
 		}
 		emit_group(group, &entries, prefix, &mut out, &mut order);
 	}
@@ -818,14 +922,90 @@ mod tests {
 	}
 
 	#[test]
-	fn an_entrance_carries_its_approximate_flag_and_the_alliance_way_in_after_it() {
+	fn drop_requirements_follow_provenance_without_changing_old_fields() {
+		let source = forge_guide::js::parse_json(r#"{"type":"drop","npc":4802,"chance":33,"from":["pfquest"]}"#).unwrap();
+		assert_eq!(encode_source(&source).unwrap(), "d4802,33,,p");
+		source.set("requiresQuests", forge_guide::js::parse_json("[6563,6564]").unwrap());
+		assert_eq!(encode_source(&source).unwrap(), "d4802,33,,p,6563%2C6564");
+		source.set("requiresQuests", V::arr());
+		assert_eq!(encode_source(&source).unwrap(), "d4802,33,,p");
+	}
+
+	#[test]
+	fn an_entrance_carries_its_approximate_flag_alliance_way_in_and_height() {
 		let line = |entrance: &str| {
 			let rec = forge_guide::js::parse_json(&format!(r#"{{ "kind": "dungeon", "forever": true, "areaId": 279, "map": 2959, "entrance": {entrance}, "levels": null, "bosses": [] }}"#)).unwrap();
 			encode_instance(&rec).unwrap().split(';').nth(4).unwrap().to_string()
 		};
 		assert_eq!(line(r#"{ "map": 1436, "x": 30, "y": 50, "f": null, "approx": true }"#), "1436,300,500,,a");
 		assert_eq!(line(r#"{ "map": 1436, "x": 30, "y": 50, "f": null }"#), "1436,300,500,");
+		assert_eq!(line(r#"{ "map": 1455, "x": 28.3, "y": 47.6, "z": 399 }"#), "1455,283,476,,,399");
 		// The City of Dalaran (#706): the Horde's tunnel, then the Alliance's pipe in Cantrips & Crows.
 		assert_eq!(line(r#"{ "map": 1416, "x": 8.5, "y": 59.2, "f": null, "A": { "map": 1416, "x": 14.7, "y": 63 } }"#), "1416,85,592,,,1416,147,630");
+		assert_eq!(line(r#"{ "map": 1416, "x": 8.5, "y": 59.2, "z": 0, "A": { "map": 1416, "x": 14.7, "y": 63 } }"#), "1416,85,592,,,1416,147,630,0");
+	}
+
+	#[test]
+	fn a_quest_record_ends_with_the_profession_it_needs_1913() {
+		let line = |extra: &str| {
+			let rec = forge_guide::js::parse_json(&format!(
+				r#"{{ "id": 2501, "level": 41, "minLevel": 36, "faction": null, "races": null, "classes": null, "zone": 3, "start": {{ "npc": [2786], "object": [], "item": [] }}, "end": {{ "npc": [2786], "object": [] }}, "pre": [17], "rewards": [], "choices": [], "preAny": [], "objectives": [], "xp": 4950{extra} }}"#
+			))
+			.unwrap();
+			encode_quest(&rec).unwrap()
+		};
+		assert!(line(r#", "skill": 171, "skillLevel": 210"#).ends_with(";x4950;l171,210"), "Badlands Reagent Run II: Alchemy 210");
+		assert!(line(r#", "skill": 171, "skillLevel": null"#).ends_with(";x4950;l171,"), "no rank in the data");
+		assert!(line("").ends_with(";x4950"), "no profession: no field");
+	}
+
+	#[test]
+	fn a_quest_record_carries_the_quests_that_close_it_1996() {
+		let line = |extra: &str| {
+			let rec = forge_guide::js::parse_json(&format!(
+				r#"{{ "id": 463, "level": 21, "minLevel": 20, "faction": "A", "races": null, "classes": null, "zone": 11, "start": {{ "npc": [1239], "object": [], "item": [] }}, "end": {{ "npc": [1244], "object": [] }}, "pre": [], "rewards": [], "choices": [], "preAny": [], "objectives": [], "xp": 830{extra} }}"#
+			))
+			.unwrap();
+			encode_quest(&rec).unwrap()
+		};
+		assert!(line(r#", "closedBy": [276]"#).ends_with(";x830;c276"), "The Greenwarden: closed by Tramping Paws");
+		assert!(line(r#", "closedBy": [282, 287]"#).ends_with(";x830;c282,287"));
+		assert!(line("").ends_with(";x830"), "nothing closes it: no field");
+	}
+
+	#[test]
+	fn a_quest_record_says_it_is_handed_in_at_one_talk_2686() {
+		let line = |extra: &str| {
+			let rec = forge_guide::js::parse_json(&format!(
+				r#"{{ "id": 4144, "level": 53, "minLevel": 47, "faction": "A", "races": null, "classes": null, "zone": 1449, "start": {{ "npc": [9119], "object": [], "item": [] }}, "end": {{ "npc": [9119], "object": [] }}, "pre": [4143], "rewards": [], "choices": [], "preAny": [4143], "objectives": [{{ "type": "item", "id": 11315, "count": 3, "text": "Bloodpetal Sprout" }}], "xp": 5300{extra} }}"#
+			))
+			.unwrap();
+			encode_quest(&rec).unwrap()
+		};
+		assert!(line(r#", "direct": true"#).ends_with(";x5300;d"), "Bloodpetal Sprouts: handed in at one talk");
+		assert!(line("").ends_with(";x5300"), "taken into the log: no field");
+	}
+
+	#[test]
+	fn a_ghost_only_npc_carries_g_and_a_conditional_vendor_its_quest_558_3138() {
+		let npc = |extra: &str| {
+			let rec = forge_guide::js::parse_json(&format!(
+				r#"{{ "id": 8888, "level": 60, "levelMax": null, "faction": "AH", "rare": false, "elite": false, "boss": false, "instance": null, "roles": [], "spawns": []{extra} }}"#
+			))
+			.unwrap();
+			encode_npc(&rec).unwrap()
+		};
+		assert_eq!(npc(""), "60;;AH;;;;");
+		assert_eq!(npc(r#", "ghostOnly": true"#), "60;;AH;g;;;", "Franclorn Forgewright: seen only by the dead");
+		assert_eq!(npc(r#", "vendorAfter": 7003"#), "60;;AH;;;;;v7003", "Zorbin Fandazzle sells after Zapped Giants");
+	}
+
+	#[test]
+	fn a_quest_of_a_rotation_carries_its_set_name_3601() {
+		let rec = forge_guide::js::parse_json(
+			r#"{ "id": 96075, "level": 45, "minLevel": 40, "faction": null, "races": null, "classes": null, "zone": 1444, "start": { "npc": [1], "object": [], "item": [] }, "end": { "npc": [1], "object": [] }, "pre": [], "rewards": [], "choices": [], "preAny": [], "objectives": [], "rotation": "pix-weekly" }"#,
+		)
+		.unwrap();
+		assert!(encode_quest(&rec).unwrap().ends_with(";vpix-weekly"), "{}", encode_quest(&rec).unwrap());
 	}
 }

@@ -15,10 +15,13 @@
 	// addon's band mask, its stars over it, both at 1:1 and cropped, never
 	// stretched. `drift` turns the sky a little (px, transform only): the shell
 	// passes the page's place in the sidebar, so moving between pages moves the
-	// stars a touch, slower than the page itself (parallax).
+	// stars a touch, slower than the page itself (parallax). The brighter stars
+	// twinkle twice when the window opens or comes back into sight (lib/still.ts),
+	// then rest: nothing loops on a page left open (#1801).
 	import type { Snippet } from 'svelte';
 	import band from '../assets/ui/band.png';
 	import stars from '../assets/ui/band-stars.png';
+	import { sight } from '../lib/sight.svelte';
 
 	let { height = 112, drift = 0, twinkle = true, children }: { height?: number; drift?: number; twinkle?: boolean; children?: Snippet } = $props();
 </script>
@@ -28,9 +31,11 @@
 	<div class="layer" aria-hidden="true" style:transform="translate3d({-drift}px, 0, 0)">
 		<div class="stars"></div>
 		{#if twinkle}
-			{#each TWINKLES as s, i (i)}
-				<span class="twinkle" style:left="{s.x}%" style:top="{s.y}px" style:--size="{s.size}px" style:--peak={s.peak} style:animation-delay="{s.delay}s" style:animation-duration="{s.period}s"></span>
-			{/each}
+			{#key sight.wakes}
+				{#each TWINKLES as s, i (i)}
+					<span class="twinkle" style:left="{s.x}%" style:top="{s.y}px" style:--size="{s.size}px" style:--peak={s.peak} style:animation-delay="{s.delay}s" style:animation-duration="{s.period}s"></span>
+				{/each}
+			{/key}
 		{/if}
 	</div>
 	{@render children?.()}
@@ -80,7 +85,8 @@
 		inset: 0;
 		background: radial-gradient(circle, var(--star) 0 18%, rgba(219, 230, 255, 0.4) 26%, rgba(219, 230, 255, 0) 62%);
 		opacity: 0.35;
-		animation: twinkle ease-in-out infinite alternate;
+		/* Up and down twice, ending where it started. */
+		animation: twinkle ease-in-out 4 alternate;
 		animation-delay: inherit;
 		animation-duration: inherit;
 	}

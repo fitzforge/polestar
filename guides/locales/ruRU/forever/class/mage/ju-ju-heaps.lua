@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {item:9514} Arcane Staff
-	["Ley or {item:9514} or Orb (Horde)"] = "",
+	["Ley or {item:9514} or Orb (Horde)"] = "Лей, {item:9514} или сфера (Орда)",
 	-- {area:368} Echo Isles
-	["A staff or an off-hand orb at 10: Orcs and Trolls on the {area:368}, the Undead at a Tirisfal farm."] = "",
+	["A staff or an off-hand orb at 10: Orcs and Trolls on the {area:368}, the Undead at a Tirisfal farm."] = "Посох или сфера для левой руки на 10-м уровне: орки и тролли — здесь: {area:368}, нежить — на ферме в Тирисфале.",
 
 	-- Step 1: Un'thuwa
 	["Un'thuwa"] = "Ун'Тува",
@@ -19,7 +19,7 @@ return {
 
 	-- Step 2: Cain Firesong (Brill)
 	-- {npc:2128} Cain Firesong · {area:159} Brill · {area:2119} Gallows' End Tavern · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {quest:1884} Ju-Ju Heaps · {quest:1883} Speak with Un'thuwa · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:368} Echo Isles
-	["At 10 {npc:2128}, the {area:159} mage trainer in the {area:2119}, sends you to {npc:4568} in the {zone:1458}. Taking it shuts out {quest:1884}; if {quest:1883} (from {zone:1454} or {zone:1456}) is in your log, abandon it first or {npc:2128} cannot give you this one. (A Troll who took this one in {area:159} follows the Balnir steps; an Undead who took {quest:1884} in Sen'jin, the {area:368} steps.)"] = "",
+	["At 10 {npc:2128}, the {area:159} mage trainer upstairs in the {area:2119}, sends you to {npc:4568} in the {zone:1458}. Taking it shuts out {quest:1884}; if {quest:1883} (from {zone:1454} or {zone:1456}) is in your log, abandon it first or {npc:2128} cannot give you this one. (A Troll who took this one in {area:159} follows the Balnir steps; an Undead who took {quest:1884} in Sen'jin, the {area:368} steps.)"] = "На 10-м уровне {npc:2128}, учитель магов (локация: {area:159}) на втором этаже таверны {area:2119}, отправит вас к NPC {npc:4568} (зона: {zone:1458}). Взяв это задание, вы закроете себе задание {quest:1884}; если в журнале заданий есть {quest:1883} (из зоны {zone:1454} или {zone:1456}), сначала откажитесь от него, иначе {npc:2128} не даст вам это задание. (Тролль, взявший это задание здесь: {area:159}, следует шагам про Балнир; нежить, взявшая {quest:1884} в Сен'джине, — шагам про {area:368}.)",
 
 	-- Step 3: The Ju-Ju Heaps
 	-- {quest:1884} Ju-Ju Heaps

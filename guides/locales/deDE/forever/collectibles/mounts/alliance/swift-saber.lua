@@ -13,15 +13,15 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "{skill:762} (Geselle)",
 	-- {npc:4753} Jartsam · {npc:4730} Lelanai · {area:1658} Cenarion Enclave · {faction:69} Darnassus · {skill:762} Riding
-	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {faction:69}. At 60 {npc:4753} teaches Journeyman {skill:762} to Night Elves for 1,000g (10% less at Honored with {faction:69}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift saber costs 200g here."] = "",
+	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {faction:69}. At 60 {npc:4753} teaches Journeyman {skill:762} to Night Elves for 1,000g (10% less at Honored with {faction:69}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift saber costs 200g here."] = "{npc:4753} und die Nachtsäbler von {npc:4730} stehen auf dem Reitgelände der {area:1658} bei {faction:69}. Auf Stufe 60 lehrt {npc:4753} Nachtelfen {skill:762} (Geselle) für 1.000g (10% weniger bei Wohlwollend mit {faction:69}); laut Blizzard gehört ein Reittier dazu. Andere Rassen lernen es beim Reitlehrer ihrer eigenen Rasse. Jeder schnelle Nachtsäbler kostet hier 200g.",
 	-- {npc:4753} Jartsam
 	["{npc:4753}, riding trainer"] = "{npc:4753}, Reitlehrer",
 
 	-- Step 2: Tiger Riding for other races
 	-- {spell:828} Tiger Riding
-	["{spell:828} for other races"] = "",
+	["{spell:828} for other races"] = "{spell:828} für andere Rassen",
 	-- {spell:828} Tiger Riding · {skill:762} Riding · {npc:4753} Jartsam · {faction:69} Darnassus
-	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "",
+	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "Jede Allianzrasse kann diese Nachtsäbler kaufen, aber um einen zu reiten, braucht man auch {spell:828}, das nur Nachtelfen mit {skill:762} bekommen. {npc:4753} lehrt es andere Rassen, sobald sie bei {faction:69} Ehrfürchtig sind (der Ruf-Guide für Darnassus zeigt den Weg). Bis dahin kaufe für diesen Charakter keinen Nachtsäbler.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Wähle eine Farbe",
@@ -35,5 +35,8 @@ return {
 	["{item:18902}, 200g"] = "{item:18902}, 200g",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Any Alliance race can buy these sabers, but riding one also takes Tiger Riding, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "Jede Allianzrasse kann diese Säbler kaufen, aber um einen zu reiten, braucht man auch Tigerreiten, das nur Nachtelfen mit {skill:762} bekommen. {npc:4753} lehrt es andere Rassen, sobald sie bei {faction:69} Ehrfürchtig sind (der Ruf-Guide für Darnassus zeigt den Weg). Bis dahin kaufe für diesen Charakter keinen Säbler.",
+	-- ["Tiger {skill:762} for other races"] = "Tiger-{skill:762} für andere Rassen",
 	-- ["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {zone:1457}. At 60 {npc:4753} teaches Journeyman {skill:762} (1,000g per Blizzard's designers); Blizzard says learning riding grants a mount. The Forever client sells each swift saber for 200g at level 60."] = "Die Säbler von {npc:4753} und {npc:4730} sind auf dem Reitplatz von {area:1658} in {zone:1457}. Mit 60 lehrt dich {npc:4753} {skill:762} (Geselle) (1,000g laut den Designern von Blizzard); laut Blizzard bekommst du beim Erlernen des Reitens ein Reittier. Der Forever-Client verkauft jeden schnellen Säbler für 200g ab Stufe 60.",
+	-- ["{npc:4753}, Tiger Riding"] = "{npc:4753}, Tigerreiten",
 }

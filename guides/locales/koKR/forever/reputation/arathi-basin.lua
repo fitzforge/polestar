@@ -97,7 +97,7 @@ return {
 
 	-- Step 13: Back to Hammerfall
 	-- {area:321} Hammerfall
-	["Back to {area:321}"] = "",
+	["Back to {area:321}"] = "{area:321}(으)로 돌아가기",
 
 	-- Step 14: The Defilers to Friendly
 	-- {faction:510} The Defilers

@@ -24,7 +24,7 @@ return {
 	-- {faction:2758} Nightclaw Druids
 	["Revered with the {faction:2758}"] = "Révéré auprès des {faction:2758}",
 	-- {npc:254151} Vayn Moongaze · {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw · {faction:2758} Nightclaw Druids
-	-- plural, as words: Nightclaw Druids = {npc:254152} Nightclaw Druid
+	-- plural, as words: Al'Aketh Cultist's Ears = {item:258771} Al'Aketh Cultist's Ear · Nightclaw Druids = {npc:254152} Nightclaw Druid
 	["{npc:254151}, the druids' quartermaster, waits inside their den in the {area:16631}, the cave just north-east of {npc:257944}'s camp. He sells the squirrel (50s) once you are Revered with the {faction:2758}. Get there young: the Shadowgale storyline and {npc:254151}'s first ear quest take you to Friendly, and his repeatable pays 1000 for five Al'Aketh Cultist's Ears up to level 18 but, by Classic's rules, only 200 from level 22. From Friendly to Revered that is about 80 ears at level 18 and about 400 at 22 or above. The Nightclaw Druids Reputation guide walks you through it."] = "{npc:254151}, l'intendant des druides, attend dans leur antre de la {area:16631}, la grotte juste au nord-est du camp de {npc:257944}. Il vend l'écureuil (50 pa) une fois que vous êtes Révéré auprès des {faction:2758}. Allez-y jeune : l'histoire de Shadowgale et la première quête d'oreilles de {npc:254151} vous amènent à Amical, et sa quête répétable rapporte 1000 points pour cinq oreilles de sectateur d'Al'Aketh jusqu'au niveau 18 mais, selon les règles de Classic, seulement 200 à partir du niveau 22. D'Amical à Révéré, cela fait environ 80 oreilles au niveau 18 et environ 400 au niveau 22 ou plus. Le guide de réputation des Druides Nightclaw vous accompagne.",
 	["50s"] = "50 pa",
 

@@ -9,7 +9,7 @@ return {
 	-- Guide
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Library Books"] = "Книги для библиотеки",
-	["Lost books and scrolls all over the world: each pays experience at the library, and 10, 20 and 25 of them earn a necklace, a ring and an off-hand."] = "",
+	["Lost books and scrolls all over the world: each pays experience at the library, and 10, 20 and 25 of them earn a necklace, a ring and an off-hand."] = "По всему миру разбросаны книги и свитки. За каждую библиотека даёт опыт, а за 10, 20 и 25 штук — ожерелье, кольцо и предмет для левой руки.",
 
 	-- Step 1: Elwynn Forest
 	-- {area:91} Tower of Azora · {area:87} Goldshire
@@ -49,8 +49,8 @@ return {
 	["On a barrel in a tent at {area:2537}, in the far south-east of the zone."] = "",
 
 	-- Step 11: The Barrens
-	-- {area:382} Sludge Fen · {area:392} Ratchet
-	["Two books: the manual in the control room at the top of the oil rig at the {area:382}, and the Goblin Tome beside Gazlowe in {area:392}."] = "",
+	-- {area:382} Sludge Fen · {object:407566} Goblin Tome (no name in this language: may be words) · {area:392} Ratchet
+	["Two books: the manual in the control room at the top of the oil rig at the {area:382}, and the {object:407566} beside Gazlowe in {area:392}."] = "Две книги: руководство в диспетчерской на вершине нефтяной вышки в зоне {area:382} и {object:407566} рядом с Газлоу в {area:392}.",
 
 	-- Step 12: The Wailing Caverns' cave
 	-- {area:718} Wailing Caverns
@@ -61,8 +61,8 @@ return {
 	["Cave mouth at {area:387}"] = "",
 
 	-- Step 13: Orgrimmar
-	-- {object:172961} Valley of Spirits
-	["The Mural of Ta'zo is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "",
+	-- {object:405149} Mural of Ta'zo (no name in this language: may be words) · {object:172961} Valley of Spirits
+	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "{object:405149} — каменная плита, прислонённая к стене в {object:172961}, по пути к учителям магов. Используйте её, чтобы взять книгу.",
 
 	-- Step 14: The library: first books
 	["The library: first books"] = "",
@@ -142,10 +142,10 @@ return {
 	["The library: third books (Horde)"] = "",
 
 	-- Step 36: The second Greater Friend of the Library
-	-- {quest:82208} Greater Friend of the Library
-	["The second {quest:82208}"] = "",
-	-- {npc:211033} Garion Wendell · {quest:82208} Greater Friend of the Library · {item:277254} Truthseeker's Bow · {item:277258} Crest of Elucidation · {item:277260} Researcher's Night Light
-	["From level 35, with 25 different books handed in, {npc:211033} offers the second {quest:82208}: {item:277254}, {item:277258} or {item:277260} (level 40 to equip)."] = "",
+	-- {quest:79536} Greater Friend of the Library
+	["The second {quest:79536}"] = "Второе задание {quest:79536}",
+	-- {npc:211033} Garion Wendell · {quest:79536} Greater Friend of the Library · {item:277254} Truthseeker's Bow · {item:277258} Crest of Elucidation · {item:277260} Researcher's Night Light
+	["From level 35, with 25 different books handed in, {npc:211033} offers the second {quest:79536}: {item:277254}, {item:277258} or {item:277260} (level 40 to equip)."] = "С 35-го уровня, если сдано 25 разных книг, {npc:211033} предлагает второе задание {quest:79536}: {item:277254}, {item:277258} или {item:277260} (можно надеть с 40-го уровня).",
 
 	-- Step 37: Level 60 books: Western Plaguelands
 	-- {zone:1422} Western Plaguelands
@@ -175,7 +175,7 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Level 60 books: {area:254}"] = "",
 	-- {item:228133} Magma or Lava? · {area:254} Blackrock Mountain · {area:1584} Blackrock Depths · {area:2717} Molten Core
-	["{item:228133} lies inside {area:254}, in the mine passage towards {area:1584} beyond the {area:2717} quest giver; its quest is for mages only. The waypoint marks the mountain."] = "",
+	["{item:228133} lies inside {area:254}, in the mine passage towards {area:1584} beyond the {area:2717} quest giver. The waypoint marks the mountain."] = "{item:228133} лежит внутри {area:254}, в шахтном проходе к {area:1584}, за Дающим задание для {area:2717}. Путевая точка отмечает гору.",
 
 	-- Step 42: The level 60 books: Jennea Cannon
 	-- {npc:5497} Jennea Cannon

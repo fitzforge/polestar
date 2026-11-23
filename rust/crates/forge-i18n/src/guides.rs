@@ -5,7 +5,7 @@
 //! whose English the guide no longer has goes, commented out, to a block at the end.
 
 use forge_guide::i18n_files::lua_string;
-use forge_guide::i18n_guides::{guide_texts, pack_texts, unnamed_tokens, FileState, LocaleState, RETIRED};
+use forge_guide::i18n_guides::{file_drafts, guide_texts, pack_texts, unnamed_tokens, FileState, LocaleState, RETIRED};
 use forge_guide::js::{cmp_utf16, Obj, V};
 use forge_guide::tokens::replace_tokens;
 use regex::Regex;
@@ -19,8 +19,10 @@ fn token_line(tokens: &[(String, String)], unnamed: &HashSet<String>) -> String 
 }
 
 /// A texts file whole: header, every text in reading order (translated or ""), then the retired
-/// block (`retired`: { english: translation }).
-pub fn write_texts_file(s: &FileState, retired: &V) -> String {
+/// block (`retired`: { english: translation }). A text left "" with an old translation to start from
+/// (`drafts`: { english: [old English, old translation] }, file_drafts) gets it as a comment above
+/// its line: `-- was: ["old English"] = "old translation"` (#1315).
+pub fn write_texts_file(s: &FileState, retired: &V, drafts: &V) -> String {
 	let lang = forge_guide::locales::locale(&s.locale).map_or(s.locale.as_str(), |l| l.language);
 	let locale = &s.locale;
 	let what = if s.kind == "pack" {
@@ -58,6 +60,10 @@ pub fn write_texts_file(s: &FileState, retired: &V) -> String {
 		}
 		let tr = s.translated.get(&t.text);
 		let tr = if tr.truthy() { tr.to_js_string() } else { String::new() };
+		let draft = drafts.get(&t.text);
+		if tr.is_empty() && draft.truthy() {
+			lines.push(format!("\t-- was: [{}] = {}", lua_string(&draft.at(0).to_js_string()), lua_string(&draft.at(1).to_js_string())));
+		}
 		lines.push(format!("\t[{}] = {},", lua_string(&t.text), lua_string(&tr)));
 	}
 	let mut old: Vec<_> = retired.keys().iter().map(|k| k.to_string()).collect();
@@ -86,7 +92,7 @@ pub fn sync_files(state: &[(String, LocaleState)]) -> Vec<(String, String)> {
 		for (k, v) in s.retired.entries().into_iter().chain(s.stale.entries()) {
 			retired.set_str(k, v);
 		}
-		let text = write_texts_file(s, &V::Obj(retired));
+		let text = write_texts_file(s, &V::Obj(retired), &file_drafts(s));
 		match out.iter_mut().find(|(f, _)| *f == s.file) {
 			Some(e) => e.1 = text,
 			None => out.push((s.file.clone(), text)),

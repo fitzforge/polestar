@@ -1,0 +1,26 @@
+# Fixture: the `buff` goal, a `rep` goal's points and the `rep` and `buff`
+# predicates (tests/playtest.test.js): the simulated player gains and loses
+# the aura and earns the points, so every step plays through.
+guide blessed/northshire
+title Blessed Fixture
+faction Alliance
+race Human
+levels 1-6
+zone Elwynn Forest
+
+step Northshire Abbey
+  goto 48.2,42.0 "Northshire Abbey"
+
+step A blessing
+  when !buff 1126
+  buff 1126 "Mark of the Wild"
+
+step Until it wears off
+  buff 1126 "Mark of the Wild" off
+
+step Halfway through Friendly with Stormwind
+  when !rep Stormwind Honored
+  rep Stormwind Friendly+3000
+
+step Then
+  task "Go on"

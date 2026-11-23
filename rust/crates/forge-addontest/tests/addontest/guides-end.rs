@@ -2,13 +2,21 @@
 //! (behavior.guideEnd "ask"; Engine, Own.noteEnd / Own.endDoneAhead): the guides compiled from guides/ with
 //! the reference data (data/forever; skipped with a note without it), loaded by the full addon on the stub
 //! world. Per guide one character it serves (its first race and class, at its first level and first located
-//! goal), and one more of a class its last step is only for. The last step is the last one for everyone: a
-//! class's or a race's own steps after it (Own.forSome: Cat Form at the end of The Barrens for Druids) are no
-//! end; done ahead first, they must not end the guide (`own`). With the live step left early, only the last
+//! goal; at a higher level when its last step takes a quest that needs it, see below), and one more of a class
+//! its last step is only for. The last step is the last one for everyone: a class's or a race's own steps after
+//! it (Own.forSome: Cat Form at the end of The Barrens for Druids) are no end; done ahead first, they must not
+//! end the guide (`own`). With the live step left early, only the last
 //! applicable step's goals are done the way the game does them (quest state, the level, bags, flight paths
 //! from the flight map, position for goto and explore, the zone text for a flight's landing, the named NPC's
-//! window for train, vendor and talk); then GUIDE_END must fire with steps left undone and the guide stay.
-//! `train class` (any trainer of the class) cannot end a guide out of turn: those guides are listed, not failed.
+//! window for train, vendor and talk; a vendor beside other work is left alone, Own.sideVendor); then
+//! GUIDE_END must fire with steps left undone and the guide stay. Where the player stands, which NPC's
+//! window they opened or a flight path known (goto, explore, fly, hearth, enter, getfp; train, vendor, a talk with no quest: Own.byPresence)
+//! is no end ahead (0.3.5: the Undercity at the start of Hillsbrad ended it): a last step with such a goal not
+//! followed by other work must not end the guide; those are listed (`place`), not failed. The character plays
+//! solo: it answers every group quest (`when group`) "skip", as the level model's and the playtest's solo player
+//! do (behavior.groupQuests), so a group step after the last solo one is not its end (Shen'dralas' Mana Mania,
+//! which Historian Biraxas's hand-in opens). The answer given at the group step's own banner is pinned by
+//! guides-end-places.rs.
 
 use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
 use forge_addontest::run::root;
@@ -23,6 +31,7 @@ stub.login()
 stub.fire("QUEST_LOG_UPDATE")
 Polestar.Set("behavior.autoAccept", false)
 Polestar.Set("behavior.autoTurnin", false)
+Polestar.Set("behavior.groupQuests", "skip")
 local E, G, w = Polestar.Engine, Polestar.Guides, stub.world
 local ENDS = {}
 Polestar.On("GUIDE_END", function(id, i) ENDS[#ENDS + 1] = { id = id, undone = i.undone } end)
@@ -70,16 +79,18 @@ do
 	local req, v = {}, E.GetStepView(r.last)
 	for gi, goal in ipairs(g.steps[r.last].goals) do
 		local st = v.goals[gi] and v.goals[gi].status
-		if goal.t ~= "note" and not goal.optional and st ~= "na" then req[#req + 1] = st end
+		if goal.t ~= "note" and not goal.optional and not (v.goals[gi] and v.goals[gi].side) and st ~= "na" then req[#req + 1] = st end
 	end
 	r.required = table.concat(req, ",")
 end
+-- A vendor check-off beside other work (the view's `side`) is left alone, as
+-- by a player with nothing to sell: it must never hold the step (Own.sideVendor).
 local function satisfy(s, again)
 	local view = E.GetStepView(s)
 	for gi, goal in ipairs(g.steps[s].goals) do
 		local gv = view.goals[gi]
 		local t = goal.t
-		if gv and gv.status ~= "na" and t ~= "note" and not goal.optional then
+		if gv and gv.status ~= "na" and t ~= "note" and not goal.optional and not gv.side then
 			if not again then r.kinds[#r.kinds + 1] = t .. (t == "train" and goal.class and " class" or "") end
 			if t == "accept" then if not w.log[goal.quest] and not w.completed[goal.quest] then w.accept(goal.quest, {}) end
 			elseif t == "turnin" then w.turnIn(goal.quest)
@@ -120,31 +131,36 @@ if r.own then
 	r.ownEnded = ENDS[1] ~= nil
 end
 -- A last step whose `when` stops holding once done (`level<N`) leaves the
--- step before it as the last: that one next, a few times.
+-- step before it as the last: that one next, a few times. One whose work
+-- opens a later step (`when has`, `when turnedin`: Salfa's hand-in once the
+-- beads are in the bags, at the end of Horde 50-60/07) hands the end to that
+-- step: the player does it too.
 local s = lastWork(nil, true)
 for _ = 1, 3 do
 	if not s or s <= live or ENDS[1] then break end
 	satisfy(s)
 	stub.advance(2)
 	local now = lastWork(nil, true)
-	if not (now and now < s) then break end
+	if not now or now == s then break end
 	s = now
 end
--- The place guard (open work earlier in the last step's place): with the
--- steps between skipped, the same again ends it.
-if not ENDS[1] then
-	for i = live + 1, r.last - 1 do
-		E.Goto(i)
-		if E.GetStepIndex() == i then E.Skip() end
+-- Where the player stands, an NPC's window or a flight path known (Engine,
+-- Own.byPresence; getfp since #2715) is no end ahead: a last step with such a
+-- goal and no work after it in the step that counts as it is must not end the
+-- guide here. Judged on the last step now (a `when` one done above may have
+-- handed it to the step before).
+do
+	local PRESENCE = { goto = true, explore = true, fly = true, hearth = true, enter = true, die = true, vendor = true, sethome = true, train = true, talk = true, getfp = true }
+	local function byPresence(goal) return PRESENCE[goal.t] and not (goal.t == "talk" and goal.quest) and not (goal.t == "train" and goal.skillLine) end
+	local ls = lastWork(nil, true) or r.last
+	local v, covered = E.GetStepView(ls), true
+	for gi, goal in ipairs(g.steps[ls].goals) do
+		local gv = v.goals[gi]
+		if goal.t ~= "note" and not goal.optional and gv and gv.status ~= "na" and not gv.side then
+			if byPresence(goal) then covered = false else covered = true end
+		end
 	end
-	E.Goto(live)
-	stub.advance(1)
-	local s = lastWork(nil, true)
-	if s and s > live then
-		satisfy(s, true)
-		stub.advance(2)
-		r.guarded = ENDS[1] ~= nil
-	end
+	r.place = not covered
 end
 r.ended = ENDS[1] and ENDS[1].id == @ID@ or false
 r.undone = ENDS[1] and ENDS[1].undone or false
@@ -223,6 +239,18 @@ fn every_leveling_guide_ends_when_its_last_step_is_done_ahead_of_the_live_step()
 				}
 			}
 		}
+		// A last step for everyone that takes a quest from a higher level than the guide's first (Silverpine Forest,
+		// 12-15, ends on Zor Lonetree's The Spirits of Stonetalon, from 13) is the engine's last step all the same,
+		// while at the guide's first level its accept reads unavailable and the check would take the step before it
+		// as the last: the character starts at the level those accepts need.
+		let need = steps.last().filter(|last| last.get("only").is_nullish()).map_or(0.0, |last| {
+			last.get("goals")
+				.items()
+				.iter()
+				.filter(|x| s(x, "t") == "accept" && s(x, "optional") != "true" && x.get("only").is_nullish())
+				.filter_map(|x| data.quests.get(&s(x, "quest")).get("minLevel").as_num())
+				.fold(0.0, f64::max)
+		});
 		let first = steps.iter().flat_map(|st| st.get("goals").items()).find(|x| !x.get("map").is_nullish() && !x.get("x").is_nullish());
 		let faction = if faction == "undefined" {
 			if race == "Orc" || race == "Troll" || race == "Tauren" || race == "Scourge" {
@@ -235,7 +263,8 @@ fn every_leveling_guide_ends_when_its_last_step_is_done_ahead_of_the_live_step()
 		};
 		for class in classes {
 			let raw = s(g, "minLevel");
-			let level = if raw == "undefined" { "1".to_string() } else { raw };
+			let first_level = if raw == "undefined" { 1.0 } else { raw.parse::<f64>().unwrap_or(1.0) };
+			let level = first_level.max(need).to_string();
 			let start = first.as_ref().map(|x| format!("w.moveTo({}, {}, {})", s(x, "map"), s(x, "x"), s(x, "y"))).unwrap_or_default();
 			let race_name = if race == "Scourge" { "Undead".to_string() } else { race.clone() };
 			let before = format!(
@@ -257,12 +286,16 @@ fn every_leveling_guide_ends_when_its_last_step_is_done_ahead_of_the_live_step()
 				v
 			} else if r["before"].is_null() {
 				format!("skip  {who}: live {} last {}", r["live"], r["last"])
-			} else if r["ended"] == true && r["stays"] == true && r["undone"].as_f64().unwrap_or(0.0) > 0.0 {
-				if r["guarded"] == true {
-					format!("guard {who}: [{}] (ends once the open steps in that place are behind: {})", kinds.join(", "), r["before"])
+			} else if r["place"] == true {
+				if r["ended"] == true {
+					let v = format!("FAIL  {who}: [{}] where the player stands or an NPC's window ended the guide ahead of the live step {r}", kinds.join(", "));
+					fails.push(v.clone());
+					v
 				} else {
-					format!("pass  {who}: [{}]{own}", kinds.join(", "))
+					format!("place {who}: [{}] (where the player stands is no end ahead: it ends on screen)", kinds.join(", "))
 				}
+			} else if r["ended"] == true && r["stays"] == true && r["undone"].as_f64().unwrap_or(0.0) > 0.0 {
+				format!("pass  {who}: [{}]{own}", kinds.join(", "))
 			} else if r["required"].as_str().is_some_and(|b| b.split(',').all(|x| x == "done" || x == "skipped")) {
 				format!("ready {who}: [{}] (reads done from the start, {}: ends when the rest is done)", kinds.join(", "), r["before"])
 			} else if kinds.iter().any(|k| k == "train class") {

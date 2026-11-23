@@ -12,13 +12,13 @@ return {
 	["{area:1581}: Defias Pirates"] = "{area:1581}: Piratas Défias",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	-- plural, as words: Defias Pirates = {npc:657} Defias Pirate
-	["{area:1581} is a group of five at level 17-26, under {area:20}: go in at the {area:20} mine and follow the tunnel down to the instance portal. The Defias Pirates (elite, level 19-20) on and around the ship at the far end drop the macaw about once in 30 kills, so plan on several runs; a character well past the dungeon's level clears it alone. The cage can be traded: look at the Auction House too."] = "",
+	["{area:1581} is a group of five at level 17-26, under {area:20}: go in at the {area:20} mine and follow the tunnel down to the instance portal. The Defias Pirates (elite, level 19-20) on and around the ship at the far end drop the macaw about once in 30 kills, so plan on several runs; a character well past the dungeon's level clears it alone. The cage can be traded: look at the Auction House too."] = "{area:1581} é um grupo de cinco no nível 17-26, embaixo de {area:20}: entre pela mina de {area:20} e siga o túnel para baixo até o portal da instância. Os Piratas Défias (elite, nível 19-20) no navio e em volta dele, no fundo, soltam a arara em cerca de uma morte em 30, então conte com várias corridas; um personagem bem acima do nível da masmorra limpa sozinho. A gaiola pode ser negociada: olhe também a Casa de Leilões.",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
-	["{area:1581}, in the {area:20} mine"] = "",
+	["{area:1581}, in the {area:20} mine"] = "{area:1581}, na mina de {area:20}",
 	-- {area:1581} The Deadmines
-	["{area:1581} portal, at the bottom of the mine"] = "",
+	["{area:1581} portal, at the bottom of the mine"] = "Portal de {area:1581}, no fundo da mina",
 	-- plural, as words: Defias Pirates = {npc:657} Defias Pirate
-	["Defias Pirates, on the ship"] = "",
+	["Defias Pirates, on the ship"] = "Piratas Défias, no navio",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Defias Pirates"] = "Piratas Défias",

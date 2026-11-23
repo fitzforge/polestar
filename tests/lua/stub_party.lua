@@ -12,7 +12,7 @@
 --   p.leave("Ana"); p.disband()       -- GROUP_ROSTER_UPDATE (and GROUP_LEFT when empty)
 --   p.raid(true)                      -- the group is a raid
 --   p.receive("Ana-TestRealm", "1|33:5/8"[, channel[, prefix]])  -- CHAT_MSG_ADDON
---   p.sent                            -- { { prefix, text, chatType }, ... } every send attempt
+--   p.sent                            -- { { prefix, text, chatType, target }, ... } every send attempt
 --   p.result = 3                      -- what SendAddonMessage returns (0 = Success)
 --   p.onQuest.Ana = { [33] = true }   -- C_QuestLog.IsUnitOnQuest answers
 --   p.noUnitQuestAPI()                -- a client without C_QuestLog.IsUnitOnQuest
@@ -29,6 +29,9 @@
 --   p.lockdown = true                 -- C_ChatInfo.InChatMessagingLockdown answers
 --   p.instance = true                 -- the group is an instance group (IsInGroup(LE_PARTY_CATEGORY_INSTANCE))
 --   p.noLinks = true                  -- GetQuestLink gives nothing (else "|cffffff00|Hquest:<id>:0|h[<title>]|h|r")
+--   p.show("CHAT_MSG_PARTY", text, "Ana-TestRealm")  -- a chat line through the registered message
+--                                     -- filters: the text the chat frame shows, or nil when dropped
+--   p.loot(itemID, name[, count])     -- CHAT_MSG_LOOT for your loot (LOOT_ITEM_SELF[_MULTIPLE] with p.itemLink(id, name))
 
 local party = { members = {}, sent = {}, result = 0, onQuest = {}, inRaid = false, prefixes = {}, shared = {}, pushable = {}, chat = {}, lockdown = false, instance = false }
 stub.party = party
@@ -155,7 +158,7 @@ function C_ChatInfo.RegisterAddonMessagePrefix(prefix)
 end
 function C_ChatInfo.IsAddonMessagePrefixRegistered(prefix) return party.prefixes[prefix] == true end
 function C_ChatInfo.SendAddonMessage(prefix, text, chatType, target)
-	table.insert(party.sent, { prefix = prefix, text = text, chatType = chatType })
+	table.insert(party.sent, { prefix = prefix, text = text, chatType = chatType, target = target })
 	return party.result
 end
 -- ChatInfoDocumentation.lua SendChatMessage (no returns), InChatMessagingLockdown.
@@ -163,6 +166,34 @@ function C_ChatInfo.SendChatMessage(text, chatType, languageID, target)
 	table.insert(party.chat, { text = text, chatType = chatType, at = GetTime() })
 end
 function C_ChatInfo.InChatMessagingLockdown() return party.lockdown end
+
+-- ChatFrameFilters.lua (Blizzard_ChatFrameBase): a callback returns true to
+-- drop the line, or false and the arguments to show it with them.
+party.filters = {}
+ChatFrameUtil = ChatFrameUtil or {}
+function ChatFrameUtil.AddMessageEventFilter(event, callback)
+	party.filters[event] = party.filters[event] or {}
+	table.insert(party.filters[event], callback)
+end
+function party.show(event, text, author)
+	local args = { text, author }
+	for _, f in ipairs(party.filters[event] or {}) do
+		local r = { f(nil, event, args[1], args[2]) }
+		if r[1] then return nil end
+		if r[2] then args = { r[2], r[3] } end
+	end
+	return args[1]
+end
+
+-- GlobalStrings (the Forever client's enUS), and your loot as the client says it.
+LOOT_ITEM_SELF = "You receive loot: %s"
+LOOT_ITEM_SELF_MULTIPLE = "You receive loot: %sx%d"
+function party.itemLink(id, name) return "|cffffffff|Hitem:" .. id .. "::::::::1:::::::|h[" .. name .. "]|h|r" end
+function party.loot(id, name, count)
+	local link = party.itemLink(id, name)
+	local text = count and LOOT_ITEM_SELF_MULTIPLE:format(link, count) or LOOT_ITEM_SELF:format(link)
+	stub.fire("CHAT_MSG_LOOT", text, "Testchar", "", "", "Testchar", "", 0, 0, "", 0, 1, "Player-1-0001")
+end
 
 -- The client's quest link (Blizzard_UIPanels_Game Mainline QuestMapFrame's
 -- shift-click: GetQuestLink(questID)), for a quest in the log.
@@ -244,4 +275,41 @@ ERR_QUEST_PUSH_TOO_FAR_S = "%s is too far away to receive your quest."
 ERR_QUEST_PUSH_ONQUEST_S = "%s is already on that quest."
 function party.pushResult(name, global)
 	stub.fire("CHAT_MSG_SYSTEM", _G[global]:format(name))
+end
+
+-- Players met in the world, not in the group (Core/Update.lua's version probe), by unit id:
+--   p.stranger("target", { name = "Ana", surname = "Smith", faction = "Alliance", guid = "Player-1-0002",
+--     guild = true, grouped = true, secret = true })  -- p.stranger("target", nil) clears it
+--   p.whisperStatus[guid] = 3          -- RequestCanLocalWhisperTarget's answer, 0.1 s later (default 0,
+--                                      -- CanWhisper); set C_ChatInfo.RequestCanLocalWhisperTarget = nil for a client without it
+--   p.checks                           -- the GUIDs asked about, in order
+party.strangers, party.whisperStatus, party.checks = {}, {}, {}
+function party.stranger(unit, facts) party.strangers[unit] = facts end
+local function strangerOf(unit) return type(unit) == "string" and party.strangers[unit] or nil end
+local baseUnitName, baseFaction, baseGUID, baseExists = UnitName, UnitFactionGroup, UnitGUID, UnitExists
+function UnitName(unit)
+	local s = strangerOf(unit)
+	if s and s.secret then return party.SECRET, party.SECRET end
+	if s then return s.name, s.surname end
+	return baseUnitName(unit)
+end
+function UnitFactionGroup(unit)
+	local s = strangerOf(unit)
+	if s then return s.faction, s.faction end
+	return baseFaction(unit)
+end
+function UnitGUID(unit)
+	local s = strangerOf(unit)
+	if s then return s.secret and party.SECRET or s.guid end
+	return baseGUID and baseGUID(unit)
+end
+function UnitExists(unit) return strangerOf(unit) ~= nil or baseExists(unit) end
+function UnitIsPlayer(unit) return unit == "player" or strangerOf(unit) ~= nil or memberOf(unit) ~= nil end
+function UnitInParty(unit) local s = strangerOf(unit); return (s and s.grouped) or memberOf(unit) ~= nil or false end
+function UnitInRaid(unit) local s = strangerOf(unit); if s and s.grouped and party.inRaid then return 1 end return nil end
+function UnitIsInMyGuild(unit) local s = strangerOf(unit); return s and s.guild or false end
+Enum.ChatWhisperTargetStatus = { CanWhisper = 0, CanWhisperGuild = 1, Offline = 2, WrongFaction = 3 }
+function C_ChatInfo.RequestCanLocalWhisperTarget(guid)
+	table.insert(party.checks, guid)
+	C_Timer.After(0.1, function() stub.fire("CAN_LOCAL_WHISPER_TARGET_RESPONSE", guid, party.whisperStatus[guid] or 0) end)
 end

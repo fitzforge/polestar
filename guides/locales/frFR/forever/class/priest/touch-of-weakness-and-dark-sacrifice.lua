@@ -75,8 +75,8 @@ return {
 	["{npc:3044}: take his {quest:5644} letter"] = "{npc:3044} : prenez sa lettre {quest:5644}",
 
 	-- Step 12: Dark Sacrifice: Aelthalyste
-	-- {npc:4606} Aelthalyste · {object:36070} War Quarter · {quest:5644} Dark Sacrifice
-	["At 20, {npc:4606} in the {object:36070} teaches {quest:5644} with a quest she gives and takes back at once (its text still speaks of Devouring Plague, which every priest now learns from the trainer)."] = "",
+	-- {npc:4606} Aelthalyste · {object:36070} War Quarter · {quest:5679} Dark Sacrifice · {spell:2944} Devouring Plague
+	["At 20, {npc:4606} in the {object:36070} teaches {quest:5679} with a quest she gives and takes back at once (its text still speaks of {spell:2944}, which every priest now learns from the trainer)."] = "Au niveau 20, {npc:4606}, dans le {object:36070}, vous apprend {quest:5679} avec une quête qu'elle donne et reprend aussitôt (son texte parle encore de {spell:2944}, que tous les prêtres apprennent désormais auprès de leur maître).",
 
 	-- Step 13: Dark Sacrifice: Ur'kyo's letter
 	-- {quest:5646} Dark Sacrifice · {npc:6018} Ur'kyo

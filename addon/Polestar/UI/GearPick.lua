@@ -2,17 +2,24 @@
 -- quest's reward choices to take, from Polestar.Gear.
 --
 --   ^ Thornroot Club  +12%        an upgrade: the chevron and gain in success
---   Take Thornroot Club           no choice is an upgrade: the best of them, muted
+--   Take Doomcaller's Pants · best vendor value
+--                                 no choice is an upgrade: the one that sells for the most, muted
+--   Take Thornroot Club           no upgrade and nothing sells: the best of them, muted
+--   Reward: Thornroot Club +12% · at turn-in
+--                                 on an accept goal, when the pick is an upgrade: muted
 --
 -- The item name is in its quality colour. Hover shows the item's tooltip
--- (with Gear's comparison lines); a modified click links it (the client's
+-- (with Gear's upgrade lines and the weights they were scored with) and
+-- what a click does; a click opens Stat weights (Settings > Questing >
+-- Rewards & gear, #2035), a modified click links the item (the client's
 -- HandleModifiedItemClick: chat link, dressing room).
 --
 -- GuideFrame calls the two hooks for every goal row (agreed with the UI owner):
 --   UI.GearPick.Paint(row, goal)                -- after the row's subline is set
 --   UI.GearPick.Measure(row, width, h, above)   -- -> h, above (unchanged when hidden)
 -- Shown for open turn-in goals whose quest has gear choices this character
--- can use (Gear.QuestPick); hidden otherwise or with gear advice off.
+-- can use or sell (Gear.QuestPick), and for open accept goals whose pick is an
+-- upgrade; hidden otherwise or with gear advice off (then nothing is looked up).
 
 local ADDON, ns = ...
 local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
@@ -29,9 +36,11 @@ local CHEVRON = 10
 local function pickFor(goal)
 	local Gear = ns.Gear
 	if not (Gear and Gear.QuestPick and Gear.IsEnabled() and ns.Get("gear.rewards")) then return nil end
-	if goal.t ~= "turnin" or not goal.quest then return nil end
+	if (goal.t ~= "turnin" and goal.t ~= "accept") or not goal.quest then return nil end
 	if goal.status == "done" or goal.status == "skipped" then return nil end
-	return Gear.QuestPick(goal.quest)
+	local pick = Gear.QuestPick(goal.quest)
+	if goal.t == "accept" and not (pick and pick.upgrade) then return nil end
+	return pick
 end
 GP.PickFor = pickFor
 
@@ -61,10 +70,25 @@ local function itemQuality(id)
 	return rec and rec.quality or nil
 end
 
+-- The pick's gain: Forever Leveling BiS's in its score points ("+6.1 (+8%)")
+-- while its scores decide, else the percent; "new" for an empty slot.
+local function gainText(e)
+	local G = ns.Gear
+	if e.flbis and e.delta and not e.empty then return (G.PointsText(e.delta, e.pct)) end
+	return e.pct and (G.GainText(e.pct)) or L["new"]
+end
+
+-- Under the item's lines: what a click does, in the look's muted ink as it
+-- reads on the game's dark tooltip (Theme.TipColor).
+local function clickHint(tip)
+	local r, g, b = Theme.TipColor("textMuted")
+	tip:AddLine(L["Click: choose the stat weights"], r, g, b)
+end
+
 local function onEnter(self)
 	local e = self.psEntry
 	if not e then return end
-	W.ItemTip(self, e.id)
+	W.ItemTip(self, e.id, clickHint)
 	if UI.GuideFrame and UI.GuideFrame.HoverIn then UI.GuideFrame.HoverIn() end
 end
 
@@ -74,7 +98,9 @@ end
 
 local function onClick(self)
 	local e = self.psEntry
-	if e then W.ItemClick(e.id) end
+	if not e or W.ItemClick(e.id) then return end
+	local Gear = ns.Gear
+	if Gear and Gear.ShowWeightsSetting then Gear.ShowWeightsSetting() end
 end
 
 local function frameOf(row)
@@ -111,16 +137,21 @@ function GP.Paint(row, goal)
 	f.psEntry = e
 	local name = "|c" .. qualityHex(itemQuality(e.id)) .. itemName(e.id) .. "|r"
 	f.Text:ClearAllPoints()
-	if pick.upgrade then
+	if goal.t == "accept" then
+		f.Chevron:Hide()
+		f.Gain:Hide()
+		f.Text:SetPoint("LEFT", f, "LEFT", 0, 0)
+		f.Text:SetText(L["Reward"] .. ": " .. name .. " " .. gainText(e) .. " · " .. L["at turn-in"])
+	elseif pick.upgrade then
 		f.Chevron:Show()
 		f.Text:SetPoint("LEFT", f.Chevron, "RIGHT", 4, 0)
 		f.Text:SetText(name)
-		f.Gain:SetText(e.pct and (ns.Gear.GainText(e.pct)) or L["new"])
+		f.Gain:SetText(gainText(e))
 		f.Gain:Show()
 	else
 		f.Chevron:Hide()
 		f.Text:SetPoint("LEFT", f, "LEFT", 0, 0)
-		f.Text:SetText(L["Take"] .. " " .. name)
+		f.Text:SetText(L["Take"] .. " " .. name .. (pick.value and (" · " .. L["best vendor value"]) or ""))
 		f.Gain:Hide()
 	end
 	f:Show()

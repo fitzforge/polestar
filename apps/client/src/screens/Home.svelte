@@ -129,7 +129,7 @@
 						{:else if account.recording === true}
 							<span class="chip success">Recording</span>
 						{:else if account.recording === false}
-							<span class="chip warning" title="Type /psrec on in the game">Off in the game</span>
+							<span class="chip warning" title="As of your last logout or /reload. Type /psrec on in the game, then /reload.">Off in the game</span>
 						{:else}
 							<span class="chip">Nothing recorded yet</span>
 						{/if}

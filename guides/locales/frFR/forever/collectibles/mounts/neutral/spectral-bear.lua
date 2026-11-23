@@ -6,9 +6,6 @@
 -- A token marked "no name in this language" would show in English: write that name in French words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Guide
-	["Spectral Bear"] = "",
-
 	-- Step 1: 55 Legacy Points
 	["55 Legacy Points"] = "55 points d'héritage",
 	-- {item:281060} Replica Ironforge Air Rifle · {npc:268840} Spectral Bear Cub · {item:277717} Spectral Bear Tabard · {npc:6791} Innkeeper Wiley · {area:392} Ratchet · {zone:1413} Barrens

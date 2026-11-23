@@ -39,7 +39,7 @@ pub fn header(lang: &str, command: &str, sources: &str) -> String {
 
 // ------------------------------------------------------------ emit.js
 
-pub const GUIDE_KEYS: [&str; 28] = [
+pub const GUIDE_KEYS: [&str; 31] = [
 	"id",
 	"pack",
 	"title",
@@ -48,6 +48,7 @@ pub const GUIDE_KEYS: [&str; 28] = [
 	"classes",
 	"minLevel",
 	"maxLevel",
+	"factionLevels",
 	"category",
 	"folder",
 	"keywords",
@@ -67,32 +68,44 @@ pub const GUIDE_KEYS: [&str; 28] = [
 	"group",
 	"names",
 	"written",
+	"sections",
+	"fresh",
 	"steps",
 ];
-/// `image` follows note, so a step without one is emitted as before.
-pub const STEP_KEYS: [&str; 9] = ["title", "note", "image", "label", "only", "when", "along", "skipto", "goals"];
+/// `image` follows note, so a step without one is emitted as before; so does `section`.
+pub const STEP_KEYS: [&str; 10] = ["title", "note", "image", "label", "only", "when", "along", "skipto", "section", "goals"];
 /// A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
 pub const IMAGE_KEYS: [&str; 3] = ["file", "w", "h"];
-/// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order.
-pub const WHEN_KEYS: [&str; 17] = ["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy"];
+/// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order (`node`, a
+/// `taxi` predicate's flight master, sits where no other predicate has a value).
+pub const WHEN_KEYS: [&str; 22] =
+	["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "node", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent", "faction", "standing", "points"];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 73] = [
+pub const GOAL_KEYS: [&str; 90] = [
 	"t",
 	"class",
+	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
+	"zone",
 	"spell",
 	"spellName",
+	// A `buff` or `equip` goal the other way round: done while the aura is gone or the item is not worn (format 11).
+	"off",
 	"faction",
 	"factionName",
 	"standing",
+	// Points inside a `rep` goal's standing (format 11).
+	"points",
 	"achievement",
 	"achievementName",
 	"criteria",
 	"quest",
 	"title",
 	"target",
+	// A kill or talk on one of the game's placeholder targets (#2614): the engine reads it by its quest-log line.
+	"logLine",
 	"npc",
 	"npcName",
 	"object",
@@ -100,22 +113,42 @@ pub const GOAL_KEYS: [&str; 73] = [
 	"item",
 	"itemName",
 	"count",
+	// A `collect … gather`: the item's gather way, true or { max, min, rank, skill, skillLine } (Core/Materials.lua).
+	"gather",
 	"oi",
+	// Part of the objective's count this goal is done at (format 11).
+	"upto",
 	"skill",
 	"skillLine",
 	"rank",
 	"rankMax",
 	"level",
 	"frac",
+	// A `level` goal's mob (`grind <npc>`): its spawn areas are the goal's `spots`.
+	"grind",
 	"money",
 	"untilSkill",
+	// A `craft … until` goal's skill-up colours (the engine's crafts still to make).
+	"yellow",
+	"grey",
 	"reagents",
 	"location",
 	"minLevel",
 	"qlvl",
+	// An `accept`'s time limit in seconds (the data's quest `limit`): Dynamic Questing takes a timed quest early
+	// only when the route's walk to it still fits.
+	"limit",
 	"pre",
 	"preAll",
 	"closedBy",
+	// On an accept something closes for good: the NPCs the quest is handed in to and its XP (the data's), for the
+	// missable-quest line (Core/Closes.lua).
+	"endNpcs",
+	"xp",
+	// A child quest's parent (the data's `parent`): its giver offers it only while the parent is in the log (#1661).
+	"parent",
+	// An accept's breadcrumbs: the game holds the quest back while one is in the log, until it is handed in.
+	"crumbs",
 	"preTitles",
 	"text",
 	"node",
@@ -131,6 +164,8 @@ pub const GOAL_KEYS: [&str; 73] = [
 	// A kill or collect's spawn areas' level, the one most share (an area of another level carries its own `lvl`).
 	"lvl",
 	"optional",
+	// One of its step's `either` set (format 11).
+	"either",
 	"only",
 	"profLine",
 	"profName",
@@ -144,6 +179,8 @@ pub const GOAL_KEYS: [&str; 73] = [
 	"fromId",
 	"fromAlsoId",
 	"fromNpcs",
+	// Per spot, the places in `fromNpcs` of the sources spawning there, where the spots hold more than it named (#1616).
+	"fromNpcsAt",
 	"candidates",
 	"rewards",
 	"group",
@@ -156,6 +193,8 @@ pub const GOAL_KEYS: [&str; 73] = [
 	"objs",
 	"startItem",
 	"startItemName",
+	// Quest work handed in only by a later guide of the chain: that guide's id (validate.rs, Ctx::mark_carried).
+	"carriedTo",
 ];
 const REAGENT_KEYS: [&str; 3] = ["item", "itemName", "count"];
 /// A `complete` goal's `objs`: each objective's text and count.
@@ -173,6 +212,8 @@ const SPOT_KEYS: [&str; 7] = ["x", "y", "z", "r", "n", "alt", "lvl"];
 const REWARD_KEYS: [&str; 3] = ["item", "itemName", "quality"];
 /// A guide's `reward = { ... }`: an item (`choice` when one of several), a spell or words.
 const GUIDE_REWARD_KEYS: [&str; 7] = ["item", "itemName", "quality", "choice", "spell", "spellName", "text"];
+/// A profession guide's `sections` (`section <Profession> <from>-<to>`): its skill-range headings.
+const SECTION_KEYS: [&str; 4] = ["skill", "skillLine", "from", "to"];
 
 /// LIST_DECIMALS[k]: farm-spot rates (items per kill) need three decimals; coordinates are already rounded to two.
 fn list_decimals(k: &str) -> usize {
@@ -194,6 +235,7 @@ pub fn list_keys(k: &str) -> Option<&'static [&'static str]> {
 		"items" => &REWARD_KEYS,
 		"choices" => &REWARD_KEYS,
 		"reward" => &GUIDE_REWARD_KEYS,
+		"sections" => &SECTION_KEYS,
 		_ => return None,
 	})
 }
@@ -203,6 +245,8 @@ pub const ONLY_KEYS: [&str; 3] = ["classes", "races", "factions"];
 const PACK_KEYS: [&str; 8] = ["id", "title", "author", "version", "license", "website", "source", "notes"];
 pub const FRAME_KEYS: [&str; 5] = ["c", "left", "right", "top", "bottom"];
 const LVL_KEYS: [&str; 2] = ["min", "max"];
+/// A leveling guide's `fresh` header (fresh.rs) in this key order.
+pub const FRESH_KEYS: [&str; 4] = ["from", "share", "xp", "needs"];
 
 fn header_main() -> String {
 	header("lua", crate::format::COMPILE_COMMAND, "the .guide files")
@@ -451,7 +495,8 @@ struct Shared {
 /// as `1`, an absent value empty and trailing empty values dropped; spots
 /// separated by `;`. Core/Guides.lua (Own.unpackSpots) builds the same tables
 /// from it when the goal's `spots` is first read: a table per spot costs
-/// about 250 bytes in the client, its text about 16.
+/// about 250 bytes in the client, its text about 16; an exact point (`r` 0,
+/// "43.41,14.62,,0") is built as a smaller table, about 110 bytes.
 pub fn pack_spots(spots: &V) -> String {
 	let dec = list_decimals("spots");
 	let records: Vec<String> = spots
@@ -573,6 +618,13 @@ fn step_lines(steps: &V, ind: &str, shared: &Shared) -> Vec<String> {
 	out
 }
 
+/// A guide's `factionLevels` (`levels <min>-<max> <Faction>`): each faction's range, Alliance first.
+fn faction_levels(v: &V) -> String {
+	let parts: Vec<String> =
+		["Alliance", "Horde"].iter().filter(|f| v.get(f).truthy()).map(|f| format!("{f} = {{ min = {}, max = {} }}", scalar(&v.get(f).get("min"), 2), scalar(&v.get(f).get("max"), 2))).collect();
+	format!("{{ {} }}", parts.join(", "))
+}
+
 /// `deferred` (a race part's guide, docs/PACK_FORMAT.md "Race parts"): the
 /// steps as one source string (`stepsSrc`, `return { ... }`, run on first
 /// read) with `stepCount`, and the guide registers only for a character of
@@ -633,6 +685,10 @@ fn emit_guide(guide: &V, source_rel: &V, deferred: bool, packed: bool) -> String
 			out.push("\t\t\tsteps = {".into());
 			out.extend_from_slice(&lines[1..lines.len() - 1]);
 			out.push("\t\t\t},".into());
+		} else if k == "factionLevels" {
+			out.push(format!("\t\t\tfactionLevels = {},", faction_levels(&v)));
+		} else if k == "fresh" {
+			out.push(format!("\t\t\tfresh = {},", inline(&v, &Keys::Fixed(&FRESH_KEYS), 2)));
 		} else if k == "nextWhen" {
 			// guide id -> its predicates, in the order of nextChoices.
 			let parts: Vec<String> = v.keys().iter().map(|id| format!("[{}] = {}", lua_string(id), list(&v.get(id), Some(&WHEN_KEYS), 2))).collect();
@@ -737,6 +793,10 @@ pub fn guide_data(guide: &V) -> V {
 				})
 				.collect();
 			out.set("steps", V::from(steps));
+		} else if k == "factionLevels" {
+			out.set(k, data_inline(&v, &Keys::Sorted, 2));
+		} else if k == "fresh" {
+			out.set(k, data_inline(&v, &Keys::Fixed(&FRESH_KEYS), 2));
 		} else if k == "nextWhen" {
 			let m = Obj::new();
 			for id in v.keys() {
@@ -810,24 +870,40 @@ fn needs_str(format: u32) -> String {
 /// Every pack sits in Polestar's group there, under Polestar's own entry;
 /// Polestar's menus show the plain title (Pack.lua). A title
 /// already carrying that prefix or the legacy "Polestar Pack: " is kept.
+/// One of Polestar's own extra packs (project.rs OWN_EXTRAS, by its folder,
+/// which a community pack.json cannot name) reads as ours, and loads on
+/// demand: Polestar loads it once the player switches it on.
 /// (JS default format: FORMAT.)
 pub fn emit_toc(manifest: &V, iface: &str, format: u32) -> String {
 	let ours = manifest.get("id").as_str() == Some("guides");
+	let folder = manifest.get("folder").to_js_string();
+	let extra = crate::project::own_extra(&folder).is_some();
 	let m_title = manifest.get("title").to_js_string();
 	let prefixed = [TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX].iter().any(|p| m_title.starts_with(p));
-	let title = if ours || prefixed { m_title.clone() } else { format!("{TOC_TITLE_PREFIX}{m_title}") };
+	let title = if ours || extra || prefixed { m_title.clone() } else { format!("{TOC_TITLE_PREFIX}{m_title}") };
 	let author = manifest.get("author").to_js_string();
 	let notes = manifest.get("notes");
-	let notes = if notes.truthy() { notes.to_js_string() } else { format!("Community addon for Polestar by {author}") };
+	let notes = if notes.truthy() {
+		notes.to_js_string()
+	} else if extra {
+		"Part of Polestar.".to_string()
+	} else {
+		format!("Community addon for Polestar by {author}")
+	};
 	let mut lines = vec![format!("## Interface: {iface}"), format!("## Title: {title}"), format!("## Notes: {notes}")];
-	// Polestar's own pack: the AddOns list in the client's language too.
+	// Polestar's own packs: the AddOns list in the client's language too.
 	if ours {
 		lines.extend(crate::toc::toc_lines("Polestar_Guides"));
+	} else if extra {
+		lines.extend(crate::toc::toc_lines(&folder));
 	}
 	lines.push(format!("## Author: {author}"));
 	lines.push(format!("## Version: {}", manifest.get("version").to_js_string()));
 	lines.push("## Category: Polestar".into());
 	lines.push("## Group: Polestar".into());
+	if extra {
+		lines.push("## LoadOnDemand: 1".into());
+	}
 	lines.push("## Dependencies: Polestar".into());
 	lines.push(format!("## X-Polestar-Pack: {}", manifest.get("id").to_js_string()));
 	lines.push(format!("## X-Polestar-Format: {format}"));
@@ -946,6 +1022,42 @@ pub fn emit_retired(pack_id: &str, ids: &[String]) -> String {
 	format!("\nPolestar.RetireGuides({}, {{\n{}\n}})\n", lua_string(pack_id), lines.join("\n"))
 }
 
+/// A point of an experimental index entry (`start`, `focus`).
+const POINT_KEYS: [&str; 4] = ["map", "x", "y", "f"];
+
+/// Polestar_Guides' experimental index (project.rs experimental_index), after the guides in Guides.lua: one
+/// Polestar.RegisterExperimental call (Core/Guides.lua) with an entry per experimental guide our route
+/// choices offer, its keys in project.rs INDEX_KEYS order. Nothing without entries.
+pub fn emit_experimental(entries: &[V]) -> String {
+	if entries.is_empty() {
+		return String::new();
+	}
+	let mut out = vec![String::new(), "Polestar.RegisterExperimental({".to_string()];
+	for e in entries {
+		out.push("\t{".into());
+		for k in crate::project::INDEX_KEYS {
+			let v = e.get(k);
+			if v.is_nullish() {
+				continue;
+			}
+			let value = match k {
+				"names" | "written" => {
+					let parts: Vec<String> = sorted_keys(&v).iter().map(|t| format!("[{}] = {}", lua_string(t), lua_str_v(&v.get(t)))).collect();
+					format!("{{ {} }}", parts.join(", "))
+				}
+				"start" | "focus" => inline(&v, &Keys::Fixed(&POINT_KEYS), 2),
+				"factionLevels" => faction_levels(&v),
+				_ if v.is_arr() => list(&v, None, 2),
+				_ => scalar(&v, 2),
+			};
+			out.push(format!("\t\t{k} = {value},"));
+		}
+		out.push("\t},".into());
+	}
+	out.push("})".into());
+	format!("{}\n", out.join("\n"))
+}
+
 /// A pack's texts addon for one language (docs/TRANSLATING.md, "Guide
 /// texts"): <folder>_<locale>, which Polestar loads on demand on that client
 /// only, once the pack's own files are in (Core/GuideTexts.lua). Its TOC
@@ -1011,8 +1123,10 @@ pub fn emit_map_frames(frames: &V, pack_id: &str) -> String {
 /// the Era bounds of every map they stand on. `z`: the trainer's spawn height
 /// (heights.js); the header then names CMaNGOS classic-db.
 /// trainers: the reminder's candidates (one per town and class); by_class:
-/// { classFile: [npcId, ...] }, every class trainer, for Engine.IsClassTrainer.
-pub fn emit_class_trainers(trainers: &[V], frames: &V, by_class: &V) -> String {
+/// { classFile: [npcId, ...] }, every class trainer, for Engine.IsClassTrainer;
+/// tops: { npcId: level }, the highest level a trainer that stops short of the
+/// cap teaches (#2477), left out when empty.
+pub fn emit_class_trainers(trainers: &[V], frames: &V, by_class: &V, tops: &V) -> String {
 	let heights = trainers.iter().any(|t| !t.get("z").is_undef());
 	let mut out = vec![
 		header(
@@ -1042,6 +1156,14 @@ pub fn emit_class_trainers(trainers: &[V], frames: &V, by_class: &V) -> String {
 		out.push(format!("\t{cls} = {{ {} }},", ids.join(", ")));
 	}
 	out.push("})".into());
+	let ids = numeric_keys(tops);
+	if !ids.is_empty() {
+		out.extend(["".into(), "ns.RegisterClassTrainerTops({".into()]);
+		for id in ids {
+			out.push(format!("\t[{}] = {},", num_str(id), num_str(tops.get(&num_str(id)).num())));
+		}
+		out.push("})".into());
+	}
 	format!("{}\n", out.join("\n"))
 }
 

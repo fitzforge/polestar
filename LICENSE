@@ -26,7 +26,11 @@ tools/lib/travel/timetable.js, tools/lib/travel/cmangos.js and
 tools/lib/nav/pack.js (a port of his tools/baker/gen_nav.py and
 tools/pack_nav.py); and in its Rust tools
 rust/crates/forge-nav/src/pack/mod.rs with its modules (forge nav pack, the
-port of tools/lib/nav/pack.js) and
+port of tools/lib/nav/pack.js; adapted on 2026-11-13 from his v1.33.0,
+rust/crates/forge-nav/src/pack/reach.rs, the ground a walk from a fixed place
+reaches, rust/crates/forge-nav/src/pack/drops.rs, the ledge drops, and
+rust/crates/forge-nav/src/pack/spawns.rs, the spawn heights where floors
+overlap) and
 rust/crates/forge-data/src/travel/timetable.rs (the port of
 tools/lib/travel/timetable.js). The Polestar_Nav folder
 holds, with its own LICENSE and CREDITS.md, Polestar's walking router started

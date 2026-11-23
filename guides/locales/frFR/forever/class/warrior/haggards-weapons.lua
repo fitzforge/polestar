@@ -39,8 +39,8 @@ return {
 	["{quest:1679} stands in the {object:32390} in the {object:32359}."] = "{quest:1679} se tient dans la salle d'armes de la {object:32359}.",
 
 	-- Step 6: Vejrek
-	-- {quest:1678} Vejrek · {area:135} Frostmane Hold · {spell:71} Defensive Stance
-	["{quest:1678} (level 11, a lone troll) waits at his hut on a hill south of {area:135}, near the mountains at the top of a short ramp, with no other trolls around; the hut at the front of {area:135} is the wrong one. He fights in {spell:71} and sunders your armor; Thunder Clap slows him. His head always drops; he returns about 8 minutes after dying."] = "",
+	-- {quest:1678} Vejrek · {area:135} Frostmane Hold · {spell:71} Defensive Stance · {spell:6343} Thunder Clap
+	["{quest:1678} (level 11, a lone troll) waits at his hut on a hill south of {area:135}, near the mountains at the top of a short ramp, with no other trolls around; the hut at the front of {area:135} is the wrong one. He fights in {spell:71} and sunders your armor; {spell:6343} slows him. His head always drops; he returns about 8 minutes after dying."] = "{quest:1678} (niveau 11, un troll solitaire) attend dans sa hutte sur une colline au sud du {area:135}, près des montagnes en haut d'une courte rampe, sans autres trolls autour ; la hutte à l'avant du {area:135} n'est pas la bonne. Il combat en {spell:71} et fracasse votre armure ; {spell:6343} le ralentit. Sa tête tombe toujours ; il revient environ 8 minutes après sa mort.",
 
 	-- Step 7: Tormus Deepforge
 	-- {npc:6114} Muren Stormpike · {spell:71} Defensive Stance · {quest:1680} Tormus Deepforge · {object:32372} Great Forge · {zone:1455} Ironforge
@@ -110,6 +110,5 @@ return {
 	-- ["{npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "{npc:5480} entraîne les guerriers dans la {object:2100} ; {npc:6089} et {npc:6090} s'y tiennent ensemble près de la {object:2152}. {npc:6090} vous affronte pour sa chope.",
 	-- ["{npc:6093} camps in the far south-east of {zone:1429}, south-east of {npc:294}. He carries the key to the strongbox in his camp."] = "{npc:6093} campe à l'extrême sud-est de {zone:1429}, au sud-est de {npc:294}. Il porte la clé du coffre de son camp.",
 	-- ["{npc:6093}: his key opens the strongbox"] = "{npc:6093} : sa clé ouvre le coffre",
-	-- ["{quest:1678} (level 11, a lone troll) waits at his hut on a hill south of {area:135}, near the mountains at the top of a short ramp, with no other trolls around; the hut at the front of {area:135} is the wrong one. He fights in {spell:71} and sunders your armor; {spell:6343} slows him. His head always drops; he returns about 8 minutes after dying."] = "{quest:1678} (niveau 11, un troll solitaire) attend dans sa hutte sur une colline au sud du {area:135}, près des montagnes en haut d'une courte rampe, sans autres trolls autour ; la hutte à l'avant du {area:135} n'est pas la bonne. Il combat en {spell:71} et fracasse votre armure ; {spell:6343} le ralentit. Sa tête tombe toujours ; il revient environ 8 minutes après sa mort.",
 	-- ["{spell:71} and a one-hand weapon of your choice at 10."] = "{spell:71} et une arme à une main au choix au niveau 10.",
 }

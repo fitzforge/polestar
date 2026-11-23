@@ -13,7 +13,7 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "{skill:762} de oficial",
 	-- {skill:762} Riding
-	["Swift Galestriders need level 60 and Journeyman {skill:762}. Train it at your own race's riding trainer; see the Level 60 mount guides for where."] = "",
+	["Swift Galestriders need level 60 and Journeyman {skill:762}. Train it at your own race's riding trainer; see the Level 60 mount guides for where."] = "Los zancavendavales prestos requieren nivel 60 y {skill:762} de oficial. Apréndela con el instructor de equitación de tu raza; consulta dónde en las guías de monturas de nivel 60.",
 
 	-- Step 2: Skyboat from Dalaran
 	-- {area:279} Dalaran
@@ -45,10 +45,6 @@ return {
 
 	-- Step 6: Genn Fairweather
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
-	["{npc:265756} is at the {area:17684} in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one."] = "",
+	["{npc:265756} is at the {area:17684} in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one."] = "{npc:265756} está en {area:17684}, en {area:16638}, el pueblo portuario de la isla, cerca de los muelles de los barcos celestes. El cliente de Forever indica cada zancavendavales presto a 200 o; elige uno.",
 	["200g"] = "200 o",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Swift Galestriders need level 60 and Journeyman {skill:762} from a riding trainer of your faction; see the Level 60 mount guides for where."] = "Los zancavendavales prestos requieren nivel 60 y {skill:762} de oficial de un instructor de equitación de tu facción; consulta dónde en las guías de monturas de nivel 60.",
-	-- ["{npc:265756} is in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one."] = "{npc:265756} está en {area:16638}, el pueblo portuario de la isla, cerca de los muelles de los barcos celestes. El cliente de Forever indica cada zancavendavales presto a 200 o; elige uno.",
 }

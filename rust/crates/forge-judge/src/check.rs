@@ -565,7 +565,7 @@ pub fn fixes_rows(ledger: &Value, start: &str) -> Vec<Violation> {
 /// Rule `class-lost` (blocker): a class quest the seed guides take (a required `accept` of a quest
 /// whose data names classes) that no written guide of the start accepts, for each class of the start's
 /// race that can do it and that the quest's races allow: the Dwarf Paladins' Tome of Divinity chain
-/// (2999-1785) left c13's Dwarf guides without a word (RevDwarfGnome3). `seed`: (file under the seed's
+/// (2999-1785) left c13's Dwarf guides without a word (start-zone review). `seed`: (file under the seed's
 /// `forever/`, text) of the faction's seed guides; `written`: the start's written guide texts; `race_bit`
 /// the race's bit in the data's masks; `classes` the race's playable classes (files). The line is the seed's.
 pub fn lost_class_quests(seed: &[(String, String)], written: &[String], facts: &Facts, race_bit: u64, classes: &[String]) -> Vec<Violation> {

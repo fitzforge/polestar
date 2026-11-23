@@ -35,9 +35,8 @@ return {
 	-- {item:13322} Unpainted Mechanostrider
 	["{item:13322}, 20g"] = "{item:13322}, 20 з.",
 	-- {spell:10907} Mechanostrider Piloting
-	["In Classic only Dwarves and Gnomes could ride mechanostriders; in Forever every Alliance race can learn {spell:10907}."] = "",
+	["In Classic only Dwarves and Gnomes could ride mechanostriders; in Forever every Alliance race can learn {spell:10907}."] = "В Classic на механодолгоногах могли ездить только дворфы и гномы; в Forever любая раса Альянса может изучить {spell:10907}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Era let only Dwarves and Gnomes ride mechanostriders; the Forever client allows every Alliance race."] = "В Era на механодолгоногах могли ездить только дворфы и гномы; клиент Forever разрешает это всем расам Альянса.",
 	-- ["{area:189} is just east of {area:131}; {npc:7954} stands beside {npc:7955}'s mechanostriders. At 40 {npc:7954} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Alliance race ride these."] = "{area:189} находится чуть восточнее места {area:131}; {npc:7954} стоит рядом с механодолгоногами NPC {npc:7955}. На 40-м уровне {npc:7954} обучает навыку {skill:762} (100 з. по замыслу разработчиков Blizzard), и вместе с навыком вы получаете средство передвижения. Клиент Forever позволяет ездить на них всем расам Альянса.",
 }

@@ -10,7 +10,7 @@ return {
 	-- {quest:94773} Divine Grace · {spell:13896} Feedback
 	["{quest:94773} and {spell:13896}"] = "{quest:94773} y {spell:13896}",
 	-- {quest:94773} Divine Grace · {spell:13896} Feedback
-	["The Human priest spells: {quest:94773} at 10 (new in Forever), {spell:13896} at 20. Free, no objectives."] = "",
+	["The Human priest spells: {quest:94773} at 10 (new in Forever), {spell:13896} at 20. Free, no objectives."] = "Los hechizos de sacerdote humano: {quest:94773} a nivel 10 (nuevo en Forever) y {spell:13896} a nivel 20. Gratis, sin objetivos.",
 
 	-- Step 1: Divine Grace: Priestess Josetta
 	-- {npc:377} Priestess Josetta · {area:87} Goldshire · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
@@ -25,8 +25,8 @@ return {
 	["{npc:3600}: take her {quest:94773} letter"] = "",
 
 	-- Step 3: Divine Grace: High Priestess Laurena
-	-- {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {object:2098} Cathedral Square · {quest:94773} Divine Grace · {spell:6788} Weakened Soul
-	["At 10, go to {npc:376} at the altar of the Cathedral of Light, in {zone:1453}'s {object:2098}, and take her quest: she teaches {quest:94773} on the spot. No letter needed; one from another trainer works too (next steps). {quest:94773} instantly heals a friend below half health and clears {spell:6788}, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get Desperate Prayer in Forever: this is their spell instead."] = "",
+	-- {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {object:2098} Cathedral Square · {quest:94773} Divine Grace · {spell:6788} Weakened Soul · {spell:13908} Desperate Prayer
+	["At 10, go to {npc:376} at the altar of the Cathedral of Light, in {zone:1453}'s {object:2098}, and take her quest: she teaches {quest:94773} on the spot. No letter needed; one from another trainer works too (next steps). {quest:94773} instantly heals a friend below half health and clears {spell:6788}, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get {spell:13908} in Forever: this is their spell instead."] = "A nivel 10, ve con {npc:376} al altar de la Catedral de la Luz, en {object:2098} de {zone:1453}, y acepta su misión: te enseña {quest:94773} en el acto. No hace falta carta; una de otro instructor también vale (pasos siguientes). {quest:94773} cura al instante a un aliado por debajo de la mitad de salud y elimina {spell:6788}, para que puedas volver a escudarlo (5 minutos de reutilización); no funciona contigo. Los sacerdotes humanos no obtienen {spell:13908} en Forever: este es su hechizo en su lugar.",
 
 	-- Step 4: Divine Grace: Josetta's letter
 	-- {quest:94774} Divine Grace
@@ -78,7 +78,7 @@ return {
 
 	-- Step 12: Feedback: High Priestess Laurena
 	-- {npc:376} High Priestess Laurena · {spell:13896} Feedback
-	["At 20, {npc:376} at the altar of the Cathedral of Light teaches {spell:13896} with a quest she gives and takes back at once."] = "",
+	["At 20, {npc:376} at the altar of the Cathedral of Light teaches {spell:13896} with a quest she gives and takes back at once."] = "A nivel 20, {npc:376}, en el altar de la Catedral de la Luz, te enseña {spell:13896} con una misión que te da y te recoge al momento.",
 
 	-- Step 13: Feedback: Rohan's letter
 	-- {spell:13896} Feedback
@@ -93,7 +93,5 @@ return {
 	["Hand Alathea's letter to {npc:376} at the altar of {zone:1453}'s Cathedral of Light (from {zone:1457}: the portal down to {area:702}, the boat to {area:442}, then the boat to {area:17203}): she teaches {spell:13896}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 10, go to {npc:376} in the Cathedral of Light. {npc:377} in {area:87} sends you to her with a quest of the same name."] = "A nivel 10, ve con {npc:376}, en la catedral. {npc:377}, en {area:87}, te envía con ella con una misión del mismo nombre.",
 	-- ["At 20, {npc:376} teaches {spell:13896}. {npc:11406} in {zone:1455} and {npc:11401} in {zone:1457} send you to her with a quest of the same name."] = "A nivel 20, {npc:376} enseña {spell:13896}. {npc:11406}, en {zone:1455}, y {npc:11401}, en {zone:1457}, te envían con ella con una misión del mismo nombre.",
-	-- ["The Human priest spells: {quest:94773} at 10, {spell:13896} at 20."] = "Los hechizos de sacerdote humano: {quest:94773} a nivel 10 y {spell:13896} a nivel 20.",
 }

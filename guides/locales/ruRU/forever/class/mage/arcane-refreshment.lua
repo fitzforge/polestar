@@ -18,7 +18,7 @@ return {
 	-- Step 2: Hydrospawn
 	["Hydrospawn"] = "Гидротварь",
 	-- {area:1758} Riptide
-	["Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. {area:1758} hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets."] = "",
+	["Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. {area:1758} hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets."] = "Гидротварь, элитный водяной элементаль 57-го уровня, живет в восточном крыле Забытого Города (Квартал Криводрева): гонитесь за бесом Пузиллином, пока он не повернется для боя, очистите зал сатиров, затем спуститесь по спиральному пандусу к бассейну. Нужна группа из пяти человек. Магия льда на него не действует, так что маги льда переключаются на огонь или тайную магию. {area:1758} бьет всех в радиусе 10 ярдов, поэтому бойцы дальнего боя держатся подальше; на четверти здоровья он призывает гидрышей. Сущность падает всегда; он не возрождается до сброса подземелья.",
 	-- {item:18299} Hydrospawn Essence
 	["{item:18299}: Hydrospawn"] = "{item:18299}: Гидротварь",
 

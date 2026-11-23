@@ -10,9 +10,11 @@
 --
 --   Rares.Decide(s, ctx) -> action, reason          pure
 --     s   = { source = "vignette"|"nameplate"|"target"|"mouseover", kind = "rare"|"treasure",
---             id, name, classification, dead, player, level }
+--             id, name, classification, dead, player, level, attackable }
+--         attackable: a unit's UnitCanAttack("player", unit); false = on the player's side
 --     ctx = { get = fn(key) -> setting (key without "rares."), now = epoch seconds,
---             history = { [key] = entry }, inCombat, inInstance, known = fn(kind, id) -> bool }
+--             history = { [key] = entry }, inCombat, inInstance, known = fn(kind, id) -> bool,
+--             friendly = fn(id) -> bool (the Codex puts the NPC on the player's side) }
 --     action: "alert" | "hold" (alert once combat ends) | "record" (remember, no alert) | "skip"
 --   Rares.Key(kind, id, name) -> "rare:61" | "treasure:2843" | "name:<name>"
 --   Rares.Sighting(s, where) -> action, reason        the live path: decide, record, alert
@@ -23,8 +25,16 @@
 --   Rares.Nearest(spawns, point) -> spawn, yards      nearest spawn on the player's continent
 --   Rares.Show(kind, id)                              open the hub section at it (SHOW_RARES)
 --   Rares.Nearby() -> { name, ... }                   rares in range now, newest sighting first (reused list)
--- Messages: RARE_SPOTTED(alert) when an alert fires; RARES_HISTORY(key) when
--- the history changes; RARE_NEARBY when the rares in range change.
+--   Rares.FOUNDER                                     the founder's character name ("Fitz Polestar")
+--   Rares.IsFounder(name) -> bool                     that name, exactly (a "-Realm" suffix allowed)
+--   Rares.DecideFounder(ctx) -> action, reason        pure; "alert" | "skip"
+--     ctx = { get, now (GetTime), inCombat, inInstance, self, alerted (GetTime of this session's alert), present }
+--   Rares.FounderSighting(unit, source, guid) -> action, reason   the live path for a player unit
+-- Messages: RARE_SPOTTED(alert) when an alert fires (alert.kind "founder" for
+-- the founder); RARE_NAMED(key, name) when a sighting that alerts nothing
+-- (cooldown, combat hold) carries the name, for a card that went up unnamed;
+-- RARES_HISTORY(key) when the history changes; RARE_NEARBY when the rares
+-- (and the founder) in range change.
 
 local ADDON, ns = ...
 local L = ns.L
@@ -46,6 +56,7 @@ ns.RegisterDefaults("rares", {
 	mouseover = true,
 	-- Alerts.
 	alerts = true,
+	founder = true, -- say when the founder is nearby (Rares.FOUNDER)
 	treasureAlerts = true,
 	sound = true,
 	soundKit = "raid",
@@ -62,15 +73,47 @@ ns.RegisterDefaults("rares", {
 	hideGrey = false,
 })
 
+-- Polestar's founder, Fitz, plays this character on Forever's EU PvP realms
+-- (his client's GetRealmName read "CAMWOW EU5 Realm 8 PvP" until 1.60.1; the
+-- match never used the realm). Forever's
+-- names carry a surname, so this is the full name as Compat.UnitFullName
+-- gives it. When he comes into sight, one alert says so and the rare button
+-- offers to target him and wave (QoL/Buttons.lua, Buttons.FounderMacro).
+Rares.FOUNDER = "Fitz Polestar"
+
 local HISTORY_MAX = 400
 local CLASS_RARE = { rare = true, rareelite = true }
 
+-- Faction leaders the 0.4.1 Codex lists as rares (#2929, #2942): players'
+-- sightings of them were taken for rare sightings. They are never rares here,
+-- whatever the Codex says, so they never alert, pin or list.
+local NOT_RARE = {
+	[1284] = true, -- Archbishop Benedictus
+	[1749] = true, -- Lady Katrana Prestor
+	[2425] = true, -- Varimathras
+	[2784] = true, -- King Magni Bronzebeard
+	[3057] = true, -- Cairne Bloodhoof
+	[3516] = true, -- Arch Druid Fandral Staghelm
+	[4949] = true, -- Thrall
+	[4968] = true, -- Lady Jaina Proudmoore
+	[7937] = true, -- High Tinker Mekkatorque
+	[7999] = true, -- Tyrande Whisperwind
+	[10181] = true, -- Lady Sylvanas Windrunner
+	[10540] = true, -- Vol'jin
+}
+Rares.NOT_RARE = NOT_RARE
+
 -- Sounds the alert may play: SOUNDKIT names in Blizzard_SharedXML/Mainline/
 -- SoundKitConstants.lua (Forever 1.60.1), with their ids as the fallback.
+-- The third was the boss whisper (UI_RAID_BOSS_WHISPER_WARNING, 37666), which
+-- Forever's SoundKit table plays at 1% volume, so it was never heard (#3158);
+-- the boss emote warning (12197) is the client's own raid-warning sound for
+-- boss emotes, at 40%. Its value stays "whisper" so a saved choice keeps
+-- working.
 Rares.SOUNDS = {
 	{ value = "raid", label = L["Raid warning"], kit = "RAID_WARNING", id = 8959 },
 	{ value = "ready", label = L["Ready check"], kit = "READY_CHECK", id = 8960 },
-	{ value = "whisper", label = L["Boss whisper"], kit = "UI_RAID_BOSS_WHISPER_WARNING", id = 37666 },
+	{ value = "whisper", label = L["Boss emote"], kit = "RAID_BOSS_EMOTE_WARNING", id = 12197 },
 }
 
 local function get(key) return ns.Get("rares." .. key) end
@@ -97,10 +140,16 @@ function Rares.Decide(s, ctx)
 	if s.player then return "skip", "player" end
 	local kind = s.kind == "treasure" and "treasure" or "rare"
 	if kind == "rare" then
+		if s.id and NOT_RARE[s.id] then return "skip", "notRare" end
 		-- A vignette on a creature is a rare by the client's own word; a unit
 		-- must say so itself or be one the Codex knows.
 		local known = s.id and ctx.known and ctx.known("rare", s.id)
 		if source ~= "vignette" and not CLASS_RARE[s.classification or ""] and not known then return "skip", "notRare" end
+		-- Only a rare the player can fight alerts: a unit says so itself (a
+		-- death is still recorded, as before); a vignette has no unit to ask,
+		-- so the Codex's side decides.
+		if s.attackable == false and not s.dead then return "skip", "friendly" end
+		if source == "vignette" and s.id and ctx.friendly and ctx.friendly(s.id) then return "skip", "friendly" end
 	end
 	local key = Rares.Key(kind, s.id, s.name)
 	if not key then return "skip", "unknown" end
@@ -117,13 +166,59 @@ function Rares.Decide(s, ctx)
 end
 
 ---------------------------------------------------------------------------
--- History (account-wide, per realm: PolestarDB.rares.history[realm])
+-- History (account-wide, per realm: PolestarDB.rares.history[realm]; "?"
+-- while the client does not give the realm, Compat.RealmName)
 ---------------------------------------------------------------------------
 
 local function realm()
-	local r = GetRealmName and GetRealmName()
-	if type(r) ~= "string" or r == "" or (issecretvalue and issecretvalue(r)) then return "?" end
-	return r
+	return ns.Compat.RealmName() or "?"
+end
+
+-- The realms other than "?" with a history.
+local function otherRealms(all)
+	local out = {}
+	for k, h in pairs(all) do
+		if k ~= "?" and type(h) == "table" then out[#out + 1] = k end
+	end
+	return out
+end
+
+-- With the realm unknown, the history of the only realm that has one moves to
+-- "?" once (with several, none moves; Rares.UnclaimedRealms says how many).
+-- A rare in both keeps the newer entry, with both counts and the earliest
+-- `first`; the oldest go past HISTORY_MAX.
+local claimed -- the PolestarDB.rares.history the move ran on
+local function claim(all)
+	if claimed == all then return end
+	claimed = all
+	local others = otherRealms(all)
+	if #others ~= 1 then return end
+	local from = all[others[1]]
+	local into = type(all["?"]) == "table" and all["?"] or {}
+	all["?"] = into
+	for key, e in pairs(from) do
+		local held = into[key]
+		if type(e) == "table" then
+			if type(held) ~= "table" then
+				into[key] = e
+			else
+				local new, old = e, held
+				if (held.t or 0) > (e.t or 0) then new, old = held, e end
+				new.n = (new.n or 0) + (old.n or 0)
+				local first, alerted = math.min(new.first or math.huge, old.first or math.huge), math.max(new.alerted or 0, old.alerted or 0)
+				new.first = first < math.huge and first or nil
+				new.alerted = alerted > 0 and alerted or nil
+				into[key] = new
+			end
+		end
+	end
+	all[others[1]] = nil
+	local list = {}
+	for k, e in pairs(into) do list[#list + 1] = { k = k, t = type(e) == "table" and e.t or 0 } end
+	if #list > HISTORY_MAX then
+		table.sort(list, function(a, b) return a.t > b.t end)
+		for i = HISTORY_MAX + 1, #list do into[list[i].k] = nil end
+	end
 end
 
 function Rares.History()
@@ -135,12 +230,23 @@ function Rares.History()
 	end
 	if type(root.history) ~= "table" then root.history = {} end
 	local r = realm()
+	if r == "?" then claim(root.history) end
 	local h = root.history[r]
 	if type(h) ~= "table" then
 		h = {}
 		root.history[r] = h
 	end
 	return h
+end
+
+-- With the realm unknown, how many realms' histories were left apart (0 when
+-- the realm is known or one at most had a history).
+function Rares.UnclaimedRealms()
+	if ns.Compat.RealmName() then return 0 end
+	Rares.History()
+	local db = ns.DB()
+	local n = #otherRealms(type(db.rares) == "table" and type(db.rares.history) == "table" and db.rares.history or {})
+	return n > 1 and n or 0
 end
 
 local function prune(h)
@@ -204,15 +310,28 @@ end
 local function known(kind, id)
 	local C = ns.Codex
 	if not (C and C.IsLoaded() and id) then return false end
+	if kind == "rare" and NOT_RARE[id] then return false end
 	return C.Name(kind, id) ~= nil
 end
 Rares.Known = known
+
+-- True when the Codex puts NPC id on the player's side (its faction code
+-- names the player's faction): for a sighting without a unit to ask.
+local function friendly(id)
+	local C = ns.Codex
+	if not (C and C.IsLoaded() and id) then return false end
+	local side = ns.Compat.GetPlayerFaction()
+	local n = side and C.Npc(id)
+	local code = n and n.faction
+	return type(code) == "string" and code:find(side == "Alliance" and "A" or "H", 1, true) ~= nil
+end
+Rares.Friendly = friendly
 
 -- A Codex rare or treasure in one shape (Codex loaded only).
 function Rares.Info(kind, id)
 	local C = Rares.Codex(false)
 	id = tonumber(id)
-	if not (C and id) then return nil end
+	if not (C and id) or (kind ~= "treasure" and NOT_RARE[id]) then return nil end
 	if kind == "treasure" then
 		local o = C.Object(id)
 		if not o then return nil end
@@ -261,8 +380,10 @@ end
 -- Text
 ---------------------------------------------------------------------------
 
--- The palette name for a kind: Theme's rare token, treasures the object colour.
+-- The palette name for a kind: Theme's rare token, treasures the object
+-- colour, the founder the quest gold.
 function Rares.ColorName(kind)
+	if kind == "founder" then return "quest" end
 	return kind == "treasure" and "object" or "rare"
 end
 
@@ -305,21 +426,28 @@ local HOLD_FOR = 60
 local function context()
 	return {
 		get = get, now = serverTime(), history = Rares.History(),
-		inCombat = ns.Compat.InCombat(), inInstance = ns.Compat.IsInInstance(), known = known,
+		inCombat = ns.Compat.InCombat(), inInstance = ns.Compat.IsInInstance(), known = known, friendly = friendly,
 	}
 end
 Rares.Context = context
 
-function Rares.PlaySound()
-	if not get("sound") or not PlaySound then return end
-	local choice = get("soundKit")
+-- One of Rares.SOUNDS by its value, through the Master channel (the
+-- settings' sound list plays its choices with it). Silent while Polestar is
+-- hidden (ns.PlaySound).
+function Rares.PlaySoundOf(value)
 	for _, s in ipairs(Rares.SOUNDS) do
-		if s.value == choice then
+		if s.value == value then
 			local id = (SOUNDKIT and SOUNDKIT[s.kit]) or s.id
-			pcall(PlaySound, id, "Master")
+			pcall(ns.PlaySound, id, "Master")
 			return
 		end
 	end
+end
+
+-- The alert's sound, while it is on.
+function Rares.PlaySound()
+	if not get("sound") then return end
+	Rares.PlaySoundOf(get("soundKit"))
 end
 
 -- The alert for a sighting: what the toast shows, and where its waypoint goes.
@@ -335,9 +463,15 @@ local function alertOf(s, where, exact)
 	local kind = s.kind == "treasure" and "treasure" or "rare"
 	local info = s.id and Rares.Info(kind, s.id)
 	local unitLevel = s.level and s.level ~= 0 and s.level or nil
+	local key = Rares.Key(kind, s.id, s.name)
+	-- A vignette's name can be unreadable, and a Forever-only rare is not in
+	-- the Codex: an earlier sighting's name, else "Unknown rare" (unnamed:
+	-- no Target macro, and a later sighting with its name renames the card).
+	local seen = key and Rares.History()[key]
+	local name = s.name or (info and info.name) or (seen and seen.name)
 	local a = {
-		kind = kind, id = s.id, key = Rares.Key(kind, s.id, s.name), source = s.source,
-		name = s.name or (info and info.name) or L["Unknown rare"],
+		kind = kind, id = s.id, key = key, source = s.source,
+		name = name or L["Unknown rare"], unnamed = name == nil or nil,
 		level = unitLevel or (info and info.level), levelMax = not unitLevel and info and info.levelMax or nil,
 		elite = s.classification == "rareelite" or (info and info.elite) or false,
 		loot = info and #info.loot or nil,
@@ -462,11 +596,131 @@ function Rares.Sighting(s, where)
 	Rares.Record(s, where, now, action == "alert")
 	if action == "alert" then
 		fire(alertOf(s, where, exact))
-	elseif action == "hold" then
-		held = { s = s, where = where, exact = exact, at = now }
+	else
+		if action == "hold" then held = { s = s, where = where, exact = exact, at = now } end
+		-- Seen again inside the cooldown, now with its name: the card that
+		-- went up without one takes it (Toast.lua).
+		if type(s.name) == "string" and s.name ~= "" and not s.dead then
+			ns.Fire("RARE_NAMED", Rares.Key(s.kind == "treasure" and "treasure" or "rare", s.id, s.name), s.name)
+		end
 	end
 	return action, reason
 end
+
+---------------------------------------------------------------------------
+-- The founder (rares.founder)
+---------------------------------------------------------------------------
+
+-- At most one alert a day per account (FOUNDER_EVERY, in time() seconds,
+-- kept in PolestarDB.rares.founderAt so a /reload or relog doesn't reset
+-- it), and none again while he stays in range; never in an instance
+-- (battlegrounds and arenas too), never in combat, never on his own client.
+local FOUNDER_EVERY = 24 * 60 * 60
+local founderAlerted, founderTimer = nil, false
+
+-- The account's last founder alert (time()), or nil.
+local function founderLast()
+	local root = ns.DB().rares
+	local t = type(root) == "table" and root.founderAt
+	return type(t) == "number" and t or nil
+end
+
+local function founderSave(t)
+	local db = ns.DB()
+	if type(db.rares) ~= "table" then db.rares = {} end
+	db.rares.founderAt = t
+end
+
+function Rares.IsFounder(name)
+	if type(name) ~= "string" then return false end
+	return name == Rares.FOUNDER or name:match("^(.-)%-") == Rares.FOUNDER
+end
+
+function Rares.DecideFounder(ctx)
+	local cfg = ctx.get
+	if not cfg("enabled") or not cfg("founder") then return "skip", "off" end
+	if ctx.self then return "skip", "self" end
+	if ctx.inInstance then return "skip", "instance" end
+	if ctx.inCombat then return "skip", "combat" end
+	if ctx.alerted and ctx.present then return "skip", "stillHere" end
+	if ctx.alerted and ctx.now - ctx.alerted < FOUNDER_EVERY then return "skip", "cooldown" end
+	-- A saved time in the future (clock changed) doesn't hold him back forever.
+	local since = ctx.last and ctx.time and ctx.time - ctx.last
+	if since and since >= 0 and since < FOUNDER_EVERY then return "skip", "cooldown" end
+	return "alert", nil
+end
+
+-- While he is listed for the rare button, look again every NEAR_FOR
+-- seconds: still shown (target, mouseover, a nameplate) keeps him, else he
+-- has left and the next sighting may alert once the day is up.
+local function checkFounder()
+	founderTimer = false
+	local e = nearby.founder
+	if not e then return end
+	if stillShown(e) then
+		e.at = clock()
+		founderTimer = true
+		ns.After(NEAR_FOR, checkFounder)
+	else
+		nearby.founder = nil
+		ns.Fire("RARE_NEARBY")
+	end
+end
+
+local function trackFounder(name, guid)
+	local e = nearby.founder
+	if not e then
+		e = {}
+		nearby.founder = e
+	end
+	e.name, e.guid, e.at = name, guid, clock()
+	if not founderTimer and C_Timer and C_Timer.After then
+		founderTimer = true
+		ns.After(NEAR_FOR, checkFounder)
+	end
+	ns.Fire("RARE_NEARBY")
+end
+
+-- A player unit seen by a detection path (Detect.lua): the founder, or nothing.
+function Rares.FounderSighting(unit, source, guid)
+	local C = ns.Compat
+	local readable = C.Readable
+	local name = C.UnitFullName(unit)
+	if not Rares.IsFounder(name) or not readable(UnitIsPlayer(unit)) then return "skip", "notFounder" end
+	local present = nearby.founder ~= nil
+	local now = clock()
+	local action, reason = Rares.DecideFounder({
+		get = get, now = now, inCombat = C.InCombat(), inInstance = C.IsInInstance(), alerted = founderAlerted,
+		last = founderLast(), time = time and time() or nil,
+		present = present,
+		self = Rares.IsFounder(C.UnitFullName("player")) or (UnitIsUnit and readable(UnitIsUnit(unit, "player"))) and true or false,
+	})
+	if action == "alert" and not ns.GuideShown() then action, reason = "skip", "hidden" end
+	if action == "alert" or reason == "stillHere" then trackFounder(name, guid) end
+	if action ~= "alert" then return action, reason end
+	founderAlerted = now
+	if time then founderSave(time()) end
+	local mine = readable(UnitFactionGroup("player"))
+	local his = readable(UnitFactionGroup(unit))
+	local Q = ns.QoL
+	local me = ns.PlayerPoint()
+	fire({
+		kind = "founder", name = name, source = source, inSight = true,
+		enemy = type(mine) == "string" and type(his) == "string" and mine ~= his or false,
+		button = Q and Q.On and Q.On("rareButton") and true or false,
+		zone = mapName(me and me.map),
+	})
+	return action, reason
+end
+
+ns.On("SETTING_CHANGED", function(path)
+	if path ~= "rares.founder" and path ~= "rares.enabled" then return end
+	if get("enabled") and get("founder") then return end
+	if nearby.founder then
+		nearby.founder = nil
+		ns.Fire("RARE_NEARBY")
+	end
+end)
 
 -- Combat ended: the held alert, if it is still fresh and still due.
 function Rares.Release()

@@ -30,12 +30,10 @@ return {
 	["{npc:266216} is inside {area:275}, the Syndicate fortress east of {area:271}. Stealth past the guards in the courtyard."] = "{npc:266216} est à l'intérieur du {area:275}, la forteresse du Syndicat à l'est d'{area:271}. Passez les gardes de la cour en camouflage.",
 
 	-- Step 4: Strahnbrad: Barton
-	-- {area:280} Strahnbrad
-	["{area:280}: Barton"] = "{area:280} : Barton",
-	-- {area:280} Strahnbrad
-	["Barton hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "Barton se cache dans une maison de {area:280}, parmi des membres du Syndicat camouflés. Faites-lui les poches pour le rapport ; Distraction le fait se retourner si vous êtes d'un niveau inférieur au sien.",
-	-- {item:275482} Barton's Scouting Report
-	["{item:275482}: pickpocket Barton"] = "{item:275482} : faites les poches de Barton",
+	-- {npc:266357} Barton · {area:280} Strahnbrad
+	["{npc:266357} hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "{npc:266357} se cache dans une maison de {area:280}, parmi des membres du Syndicat camouflés. Faites-lui les poches pour le rapport ; Distraction le fait se retourner si vous êtes d'un niveau inférieur au sien.",
+	-- {item:275482} Barton's Scouting Report · {npc:266357} Barton
+	["{item:275482}: pickpocket {npc:266357}"] = "{item:275482} : faites les poches de {npc:266357}",
 
 	-- Step 5: Northfold Manor: a uniform
 	-- {area:313} Northfold Manor
@@ -82,7 +80,7 @@ return {
 	-- {item:17124} Syndicate Emblem
 	["{item:17124}: pickpocket Syndicate"] = "{item:17124} : faites les poches du Syndicat",
 	-- {npc:6766} Ravenholdt Guard
-	["a {npc:6766}: 100 per emblem"] = "un {npc:6766} : 100 par emblème",
+	["a {npc:6766}: 100 per emblem, handed in from his window"] = "un {npc:6766} : 100 par emblème, rendus depuis sa fenêtre",
 
 	-- Step 11: Syndicate kills to the end of Honored
 	["Syndicate kills to the end of Honored"] = "Tuer le Syndicat jusqu'à la fin d'Honoré",
@@ -118,5 +116,10 @@ return {
 	-- {item:16885} Heavy Junkbox · {area:1445} Blackrock Mountain
 	["{item:16885}: pickpocket level 50+ humanoids, {area:1445}"] = "{item:16885} : faites les poches des humanoïdes de niveau 50+, {area:1445}",
 	-- {npc:6707} Fahrad
-	["{npc:6707}: 50 per five boxes"] = "{npc:6707} : 50 pour cinq coffrets",
+	["{npc:6707}: 50 per five boxes, handed in from his window"] = "{npc:6707} : 50 pour cinq coffrets, rendus depuis sa fenêtre",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["a {npc:6766}: 100 per emblem"] = "un {npc:6766} : 100 par emblème",
+	-- ["{area:280}: Barton"] = "{area:280} : Barton",
+	-- ["{npc:6707}: 50 per five boxes"] = "{npc:6707} : 50 pour cinq coffrets",
 }

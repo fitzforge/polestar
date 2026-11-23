@@ -334,7 +334,7 @@ async function buildTravel({
 		transports: tr.transports,
 		inns: inns.inns,
 		paths: { nodes: paths.nodes, edges: paths.edges, sessions: paths.sessions },
-		crossings: { recorded, shipped: shipped ? { crossings: shipped.crossings, open: shipped.open, chains: shipped.chains } : null, shippedSource },
+		crossings: { recorded, shipped: shipped ? { crossings: shipped.crossings, open: shipped.open, chains: shipped.chains, ...(shipped.areas.length ? { areas: shipped.areas } : {}) } : null, shippedSource },
 		transit: { routes: transit.routes, services: transit.services, portals: transit.portals, teleports: transit.teleports },
 		warnings,
 	};

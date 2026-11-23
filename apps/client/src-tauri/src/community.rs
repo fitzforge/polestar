@@ -356,7 +356,7 @@ impl Engine {
 			(base, etag, last)
 		};
 		self.publish();
-		let result = match packs::fetch_index(&self.packs_http, &base, etag.as_deref()).await {
+		let result = match packs::fetch_index(&self.packs_http(), &base, etag.as_deref()).await {
 			Ok(Fetched::NotModified) => Ok(None),
 			Ok(Fetched::New { body, sig, etag }) => packs::verify_index(&body, &sig, &packs::keys(), &base, now_ms(), last).and_then(|index| {
 				let saved = SavedIndex { generated: index.generated, etag: etag.clone(), body: String::from_utf8(body).map_err(|_| "The community index is not text.".to_owned())?, sig: String::from_utf8_lossy(&sig).into_owned() };
@@ -558,7 +558,7 @@ impl Engine {
 			}
 		};
 		let result = match &entry {
-			Some(entry) => packs::install(&self.packs_http, entry, &dir, &report).await,
+			Some(entry) => packs::install(&self.packs_http(), entry, &dir, &report).await,
 			None => {
 				report(Progress::step("remove"));
 				let (dir, id) = (dir.clone(), id.to_owned());
@@ -609,7 +609,7 @@ impl Engine {
 				(state.settings.pack_telemetry, state.settings.packs_url.clone())
 			};
 			if telemetry {
-				let (http, id, version) = (self.packs_http.clone(), id.to_owned(), entry.version.clone());
+				let (http, id, version) = (self.packs_http(), id.to_owned(), entry.version.clone());
 				tauri::async_runtime::spawn(async move { packs::report_install(&http, &base, &id, &version).await });
 			}
 		}

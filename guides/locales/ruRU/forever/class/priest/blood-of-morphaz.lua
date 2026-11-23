@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	-- {zone:1447} Azshara · {area:1417} Sunken Temple
-	["17,060 XP and 1g55s at 50: {zone:1447}, then Morphaz in the {area:1417} (group of 5). The item choice may be gone."] = "",
-	["17,060 experience and 1 gold 55 silver"] = "",
+	["17,060 XP and 1g55s at 50: {zone:1447}, then Morphaz in the {area:1417} (group of 5). The item choice may be gone."] = "17,060 XP и 1з 55с на 50-м уровне: зона {zone:1447}, затем Морфаз — {area:1417} (группа из 5). Выбора предмета может не быть.",
+	["17,060 experience and 1 gold 55 silver"] = "17 060 опыта и 1 золотой 55 серебряных",
 
 	-- Step 1: Cenarion Aid: High Priest Rohan
 	-- {zone:1455} Ironforge · {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries · {object:32362} Mystic Ward · {quest:8254} Cenarion Aid · {item:7972} Ichor of Undeath

@@ -20,8 +20,9 @@ function draw(objects) {
 }
 
 test('a coloured line is a stroke between its two ends, offsets and thickness in its frame\'s scale', () => {
+	// A line's alpha is its vertex colour's (one value in the client; the stub's SetAlpha writes both).
 	const { body, frames } = draw([UI, PANEL, line(3, {
-		color: [1, 0, 0, 1], vertexColor: [1, 0.5, 1, 1], alpha: 0.5,
+		color: [1, 0, 0, 1], vertexColor: [1, 0.5, 1, 0.5], alpha: 0.5,
 		line: { from: { point: 'TOPLEFT', rel: 2, x: 10, y: -20 }, to: { point: 'TOPLEFT', rel: 2, x: 60, y: -20 }, thickness: 3 },
 	})]);
 	// The panel (scale 2, so its own offset doubles too) sits at (200, 100): (10, -20) is (220, 140), (60, -20) is (320, 140).

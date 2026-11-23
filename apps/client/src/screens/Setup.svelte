@@ -188,7 +188,8 @@
 		inset: -22px;
 		background: radial-gradient(circle, rgba(230, 186, 102, 0.34), rgba(230, 186, 102, 0) 62%);
 		opacity: 0.35;
-		animation: shine 4.8s var(--easeMove) infinite alternate;
+		/* Brightens and settles twice, then rests at its first glow (#1801). */
+		animation: shine 4.8s var(--easeMove) 4 alternate;
 	}
 	:global(.intro) .polaris::before {
 		animation-play-state: paused;

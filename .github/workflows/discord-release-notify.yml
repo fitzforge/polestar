@@ -16,6 +16,10 @@ on:
       tag:
         description: Release tag to announce again (threads and testers already told are skipped)
         required: true
+      issues:
+        description: "Only these issues (e.g. 1390 1402), closed after the release's run: told the tag ships them, whatever their close time"
+        required: false
+        default: ""
 
 permissions:
   contents: read
@@ -63,3 +67,5 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           DISCORD_TESTERS_CHANNEL_ID: ${{ vars.DISCORD_TESTERS_CHANNEL_ID }}
           DISCORD_TESTER_ROLE_ID: ${{ vars.DISCORD_TESTER_ROLE_ID }}
+          # Empty on a release event; a manual run's list of issue numbers.
+          NOTIFY_ISSUES: ${{ inputs.issues }}

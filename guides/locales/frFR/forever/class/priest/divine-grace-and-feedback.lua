@@ -25,8 +25,8 @@ return {
 	["{npc:3600}: take her {quest:94773} letter"] = "{npc:3600} : prenez sa lettre {quest:94773}",
 
 	-- Step 3: Divine Grace: High Priestess Laurena
-	-- {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {object:2098} Cathedral Square · {quest:94773} Divine Grace
-	["At 10, go to {npc:376} at the altar of the Cathedral of Light, in {zone:1453}'s {object:2098}, and take her quest: she teaches {quest:94773} on the spot. No letter needed; one from another trainer works too (next steps). {quest:94773} instantly heals a friend below half health and clears Weakened Soul, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get Desperate Prayer in Forever: this is their spell instead."] = "",
+	-- {npc:376} High Priestess Laurena · {zone:1453} Stormwind · {object:2098} Cathedral Square · {quest:94773} Divine Grace · {spell:6788} Weakened Soul · {spell:13908} Desperate Prayer
+	["At 10, go to {npc:376} at the altar of the Cathedral of Light, in {zone:1453}'s {object:2098}, and take her quest: she teaches {quest:94773} on the spot. No letter needed; one from another trainer works too (next steps). {quest:94773} instantly heals a friend below half health and clears {spell:6788}, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get {spell:13908} in Forever: this is their spell instead."] = "Au niveau 10, allez voir {npc:376} à l'autel de la cathédrale de la Lumière, sur la {object:2098} de {zone:1453}, et acceptez sa quête : elle vous apprend {quest:94773} sur-le-champ. Pas besoin de lettre ; celle d'un autre maître fonctionne aussi (étapes suivantes). {quest:94773} soigne instantanément un allié sous la moitié de sa vie et dissipe {spell:6788}, ce qui vous permet de lui remettre un bouclier (temps de recharge de 5 minutes) ; ne fonctionne pas sur vous-même. Les prêtres humains n'ont pas {spell:13908} dans Forever : c'est leur sort à la place.",
 
 	-- Step 4: Divine Grace: Josetta's letter
 	-- {quest:94774} Divine Grace

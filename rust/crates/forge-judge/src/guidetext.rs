@@ -213,7 +213,9 @@ pub fn chain_goals(guides_dir: &std::path::Path, data_dir: &std::path::Path, cha
 	use forge_guide::js::V;
 	let data = forge_guide::data::load_data(data_dir)?;
 	let guides = forge_guide::project::compile_project(guides_dir, &V::Undef, &data, forge_guide::diag::Diagnostics::new(), false, None).guides;
-	let ctx = crate::walk::Ctx::new(faction.name(), race, None)?;
+	// (Every goal: both steps of a group quest's or a dungeon's pair, as guidetext.js lists them.)
+	let mut ctx = crate::walk::Ctx::new(faction.name(), race, None)?;
+	ctx.branches = None;
 	let root = guides_dir.parent().unwrap_or(guides_dir).to_path_buf();
 	let cwd = std::env::current_dir().unwrap_or_default();
 	let file_of = |g: &V| {

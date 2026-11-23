@@ -10,12 +10,12 @@ return {
 	-- {quest:8412} Spirit Totem · {quest:8413} Da Voodoo
 	["{quest:8412} and {quest:8413}"] = "{quest:8412} y {quest:8413}",
 	-- {area:1417} Sunken Temple
-	["Experience and gold at 50, ending in the {area:1417}; the Classic item choice may be gone in Forever."] = "",
+	["Experience and gold at 50, ending in the {area:1417}; the Classic item choice may be gone in Forever."] = "Experiencia y oro a nivel 50, con final en el {area:1417}; puede que Forever haya quitado el objeto a elegir de Classic.",
 	["Experience and gold"] = "Experiencia y oro",
 
 	-- Step 1: Sagorne Creststrider
 	-- {npc:13417} Sagorne Creststrider · {object:172957} Valley of Wisdom · {npc:6176} Bath'rah the Windwatcher
-	["At 50 {npc:13417}, the shaman trainer in the {object:172957}, asks for the four elements for {npc:6176}."] = "",
+	["At 50 {npc:13417}, the shaman trainer in the {object:172957}, asks for the four elements for {npc:6176}."] = "A nivel 50, {npc:13417}, el instructor de chamanes del {object:172957}, te pide los cuatro elementos para {npc:6176}.",
 
 	-- Step 2: Beram Skychaser
 	-- {npc:3032} Beram Skychaser · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {npc:6176} Bath'rah the Windwatcher · {quest:8410} Elemental Mastery · {quest:8412} Spirit Totem · {quest:8411} Mastering the Elements
@@ -40,7 +40,7 @@ return {
 
 	-- Step 4: Bath'rah the Windwatcher
 	-- {npc:6176} Bath'rah the Windwatcher · {zone:1416} Alterac Mountains · {area:272} Tarren Mill
-	["{npc:6176} camps in the ruins of the east of {zone:1416}: from {area:272} follow the river east of town north into the hills."] = "",
+	["{npc:6176} camps in the ruins of the east of {zone:1416}: from {area:272} follow the river east of town north into the hills."] = "{npc:6176} acampa en las ruinas del este de las {zone:1416}: desde {area:272}, sigue el río al este del pueblo hacia el norte, hasta las colinas.",
 
 	-- Step 5: Spider eye and bear claw
 	["Spider eye and bear claw"] = "Ojo de araña y garra de oso",
@@ -66,13 +66,10 @@ return {
 	["{npc:6176}: the old item choice may be gone, count on the experience"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 50 {npc:13417}, the shaman trainer in the {object:172957}, sends you to {npc:6176}."] = "A nivel 50, {npc:13417}, el instructor de chamanes del {object:172957}, te envía con {npc:6176}.",
 	-- ["At 50 {npc:3032}, a shaman trainer in {zone:1456}, sends you to {npc:6176}."] = "A nivel 50, {npc:3032}, instructor de chamanes en {zone:1456}, te envía con {npc:6176}.",
-	-- ["Experience and gold at 50, ending in the {area:1417}; Forever removed the Classic item choice."] = "Experiencia y oro a nivel 50, con final en el {area:1417}; Forever quitó el objeto a elegir de Classic.",
 	-- ["In the {zone:1422}, the Venom Mist Lurkers drop the {item:20610} and the Diseased Black Bears the {item:20611} (about one kill in five each)."] = "En las {zone:1422}, los Rondadores nebovenenosos sueltan {item:20610} y los Osos negros malsanos, {item:20611} (una de cada cinco muertes aprox. cada uno).",
 	-- ["One each of {item:7069}, Fire, Earth and Water. The Exiles of Arathi Highlands drop them, one element each, about one kill in ten: Thundering (air), Burning (fire), Rumbling (earth) and Cresting (water). Or buy them at the auction house."] = "Uno de cada: {item:7069}, de fuego, de tierra y de agua. Los exiliados de Tierras Altas de Arathi los sueltan, un elemento cada tipo, en una de cada diez muertes aprox.: tronadores (aire), ardientes (fuego), estruendosos (tierra) y coronadores (agua). O cómpralos en la casa de subastas.",
 	-- ["One each of {item:7069}, Fire, Earth and Water. The Exiles of {zone:1417} drop them, one element each, about one kill in ten: Thundering (air), Burning (fire), Rumbling (earth) and Cresting (water). Or buy them at the auction house."] = "Uno de cada: {item:7069}, de fuego, de tierra y de agua. Los exiliados de las {zone:1417} los sueltan, un elemento cada tipo, en una de cada diez muertes aprox.: tronadores (aire), ardientes (fuego), estruendosos (tierra) y coronadores (agua). O cómpralos en la casa de subastas.",
 	-- ["The {area:1417} ({area:1477}) lies under the {area:74}; the arrow points at its entrance. Gasher or {npc:5716} drop the {item:20606}, Hukku or Mijan the Blue, Zolo or Loro the Green: all six are elite trolls inside. Bring a group."] = "{area:1417} ({area:1477}) está bajo la {area:74}; la flecha señala su entrada. Gasher o {npc:5716} sueltan {item:20606}; Hukku o Mijan, la azul; Zolo o Loh'ro, la verde: los seis son trols de élite del interior. Ve en grupo.",
 	-- ["{item:7070}: Cresting Exiles"] = "{item:7070}: Éxilus coronadores",
-	-- ["{npc:6176} camps in the east of {zone:1416}, north-east of {area:272}."] = "{npc:6176} acampa en el este de las {zone:1416}, al noreste de {area:272}.",
 }

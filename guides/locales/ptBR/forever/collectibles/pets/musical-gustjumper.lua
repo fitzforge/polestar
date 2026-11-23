@@ -10,7 +10,7 @@ return {
 	-- {area:279} Dalaran
 	["Skyboat from {area:279}"] = "Barco celeste de {area:279}",
 	-- {zone:2521} Zephras Isle · {area:279} Dalaran · {zone:1456} Thunder Bluff
-	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either)."] = "",
+	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either)."] = "{zone:2521} é a ilha inicial dos Celonatos; segundo relatos do beta, qualquer um pode visitar. Um barco celeste sai do lado norte de {area:279} cerca de a cada cinco minutos (outra voa do norte de {zone:1456}; qualquer facção pode pegar qualquer uma).",
 	-- {zone:2521} Zephras Isle
 	["Skyboat to {zone:2521}"] = "Barco celeste para {zone:2521}",
 
@@ -18,12 +18,12 @@ return {
 	-- {zone:1456} Thunder Bluff
 	["Skyboat from {zone:1456}"] = "Barco celeste de {zone:1456}",
 	-- {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:279} Dalaran
-	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either)."] = "",
+	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either)."] = "{zone:2521} é a ilha inicial dos Celonatos; segundo relatos do beta, qualquer um pode visitar. Um barco celeste sai dos penhascos ao sul de {area:17045}, ao norte de {zone:1456}, cerca de a cada cinco minutos (outra voa de {area:279}; qualquer facção pode pegar qualquer uma).",
 
 	-- Step 3: Sing to the frogs
 	["Sing to the frogs"] = "Cante para os sapos",
 	-- {area:16635} Thendal Village · {item:268109} Musical Gustjumper
-	["From {area:16635} follow the road south, then cut across the field to the top of the waterfall: five frogs sit together on a rock there, by a log. Mobs patrol nearby, so a level 1 character should watch its back. Stand by the rock, target a frog and type /sing. The frogs sing back, the group disappears and one frog hops onto the log beside you: click it to take the {item:268109}, then use it to learn the pet. The item is not bound until you use it, so a friend on the island can sing again and trade you one."] = "",
+	["From {area:16635} follow the road south, then cut across the field to the top of the waterfall: five frogs sit together on a rock there, by a log. Mobs patrol nearby, so a level 1 character should watch its back. Stand by the rock, target a frog and type /sing. The frogs sing back, the group disappears and one frog hops onto the log beside you: click it to take the {item:268109}, then use it to learn the pet. The item is not bound until you use it, so a friend on the island can sing again and trade you one."] = "A partir de {area:16635}, siga a estrada para o sul e depois corte pelo campo até o topo da cachoeira: cinco sapos ficam juntos numa pedra ali, ao lado de um tronco. Monstros patrulham por perto, então um personagem de nível 1 deve cuidar das costas. Fique ao lado da pedra, selecione um sapo e digite /sing. Os sapos cantam de volta, o grupo desaparece e um sapo pula no tronco ao seu lado: clique nele para pegar {item:268109} e depois use para aprender o mascote. O item não fica vinculado até você usar, então um amigo na ilha pode cantar de novo e trocar um com você.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Target one of the frogs here and type /sing; a {item:268109} appears. Interact with it to get the pet."] = "Selecione um dos sapos aqui e digite /sing; aparece um {item:268109}. Interaja com ele para obter o mascote.",

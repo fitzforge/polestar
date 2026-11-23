@@ -8,7 +8,8 @@
 -- Frames are plain tables. A capitalized method that is not implemented below
 -- resolves to a no-op returning nil, so the long tail of Set* calls is accepted.
 --
---   stub.fire(event, ...)    deliver a game event to every frame registered for it
+--   stub.fire(event, ...)    deliver a game event to every frame registered for it (a frame registered with
+--                            RegisterUnitEvent only when the event's first argument is one of its units)
 --   stub.advance(seconds)    move the clock frame by frame (0.05 s): OnUpdate scripts, then the timers due as
 --                            the frame starts; one a timer makes for now (C_Timer.After(0)) runs next frame,
 --                            as in the client
@@ -19,6 +20,8 @@
 --   stub.frame(name)         look up a named frame
 --   stub.withEllesmere()     install a fake EllesmereUI matching SKINNING_API.md
 --   stub.json(value)         encode a value for emit()
+--   stub.mouseClick(f, ran[, mouse]) the client's mouse click: OnEnter, then the press and the release
+--   stub.keyClick(f, ran)    a CLICK binding's key press and release (no hover)
 --
 -- Animation groups finish synchronously: Play() runs OnPlay then OnFinished.
 -- WoW's global trig helpers (sin, cos, atan2, ...) take and return degrees, as
@@ -32,7 +35,9 @@ stub = {
 	now = 0,
 	epoch = 1791000000,
 	messages = {},
-	cvars = {},
+	-- The client's CVars a test reads; ResampleAlwaysSharpen as the client has it (off), for Quality of Life >
+	-- Game's row (Polestar_Options/QoL/Options.lua). A test clears it for a client without it.
+	cvars = { ResampleAlwaysSharpen = "0" },
 	keys = { shift = false, ctrl = false, alt = false },
 	sounds = {},
 	popups = {},
@@ -122,22 +127,57 @@ function Methods.HookScript(self, name, fn)
 end
 
 -- Events
-function Methods.RegisterEvent(self, ev) self.events[ev] = true end
-function Methods.RegisterUnitEvent(self, ev) self.events[ev] = true end
-function Methods.UnregisterEvent(self, ev) self.events[ev] = nil end
-function Methods.UnregisterAllEvents(self) self.events = {} end
+function Methods.RegisterEvent(self, ev)
+	self.events[ev] = true
+	if self.eventUnits then self.eventUnits[ev] = nil end
+end
+function Methods.RegisterUnitEvent(self, ev, ...)
+	self.events[ev] = true
+	self.eventUnits = self.eventUnits or {}
+	local units = {}
+	for i = 1, select("#", ...) do units[select(i, ...)] = true end
+	self.eventUnits[ev] = units
+end
+function Methods.UnregisterEvent(self, ev)
+	self.events[ev] = nil
+	if self.eventUnits then self.eventUnits[ev] = nil end
+end
+function Methods.UnregisterAllEvents(self)
+	self.events = {}
+	self.eventUnits = nil
+end
 function Methods.IsEventRegistered(self, ev) return self.events[ev] == true end
 
--- Visibility
+-- Visibility. With stub.cascadeVisibility on, as in the client: showing or
+-- hiding a frame also runs OnShow / OnHide on every shown descendant whose
+-- visibility changed with it (a hidden parent's children are not visible).
+-- Off by default: tests written before it fire only the frame's own.
+local function cascade(self, script, seen)
+	seen = seen or {}
+	for _, c in ipairs(self.children) do
+		if c.parent == self and c.shown and not seen[c] then
+			seen[c] = true
+			RunScript(c, script)
+			cascade(c, script, seen)
+		end
+	end
+end
 function Methods.Show(self)
 	local was = self.shown
 	self.shown = true
-	if not was then RunScript(self, "OnShow") end
+	if not was then
+		RunScript(self, "OnShow")
+		if stub.cascadeVisibility and Methods.IsVisible(self) then cascade(self, "OnShow") end
+	end
 end
 function Methods.Hide(self)
 	local was = self.shown
+	local visible = was and stub.cascadeVisibility and Methods.IsVisible(self)
 	self.shown = false
-	if was then RunScript(self, "OnHide") end
+	if was then
+		RunScript(self, "OnHide")
+		if visible then cascade(self, "OnHide") end
+	end
 end
 function Methods.SetShown(self, v) if v then self:Show() else self:Hide() end end
 function Methods.IsShown(self) return self.shown end
@@ -149,7 +189,21 @@ function Methods.IsVisible(self)
 	end
 	return true
 end
-function Methods.SetAlpha(self, a) self.alpha = a end
+-- As in the client, a texture's (or a line's) alpha and its vertex colour's
+-- alpha are one value: SetAlpha sets the alpha SetVertexColor gave it
+-- (#1684, the transparent window's 20 % shades drawn solid after
+-- SetAlpha(1)). tools/preview/render.js reads it that way. A string's alpha
+-- and its text colour's are one value both ways: SetTextColor puts its alpha
+-- back on the string (a string hidden by SetAlpha(0) shows again on its next
+-- paint, #1753; the font list's doubled names).
+function Methods.SetAlpha(self, a)
+	if (self.kind == "Texture" or self.kind == "Line") and self.vertexColor then
+		self.vertexColor[4] = a
+	elseif self.kind == "FontString" and self.textColor then
+		self.textColor[4] = a
+	end
+	self.alpha = a
+end
 function Methods.GetAlpha(self) return self.alpha end
 function Methods.GetEffectiveAlpha(self) return self.alpha end
 
@@ -221,11 +275,23 @@ function Methods.IsMouseOver() return false end
 function Methods.Click(self, button) RunScript(self, "OnClick", button or "LeftButton", false) end
 
 -- Text
-function Methods.SetText(self, t) self.text = t == nil and nil or tostring(t) end
+-- As in the client, a string refuses text before it has a font (SetFont,
+-- SetFontObject or a template it inherits): "Font not set". Only while
+-- stub.strictFonts is on (the stub's GetFont otherwise answers the game's
+-- font for a string without one, and code reading it may skip SetFont);
+-- then GetFont answers nil there, as the client does.
+function Methods.SetText(self, t)
+	if stub.strictFonts and self.kind == "FontString" and t ~= nil and t ~= "" and not (self.font or self.fontObject or self.psTemplate) then
+		error("FontString:SetText(): Font not set", 2)
+	end
+	self.text = t == nil and nil or tostring(t)
+	self.highlight = nil
+end
 function Methods.GetText(self) return self.text end
 function Methods.SetFormattedText(self, fmt, ...) self.text = string.format(fmt, ...) end
 function Methods.SetFont(self, path, size, flags) self.font = { path, size, flags }; return true end
 function Methods.GetFont(self)
+	if stub.strictFonts and self.kind == "FontString" and not (self.font or self.fontObject or self.psTemplate) then return nil end
 	local f = self.font or { "Fonts\\FRIZQT__.TTF", 12, "" }
 	return f[1], f[2], f[3]
 end
@@ -234,7 +300,26 @@ function Methods.SetFontObject(self, obj)
 	if type(obj) == "table" and obj.font then self.font = { obj.font[1], obj.font[2], obj.font[3] } end
 end
 function Methods.GetFontObject(self) return self.fontObject end
-function Methods.SetTextColor(self, r, g, b, a) self.textColor = { r, g, b, a or 1 } end
+-- A font string's line spacing (between its wrapped lines).
+function Methods.SetSpacing(self, s) self.spacing = s end
+function Methods.GetSpacing(self) return self.spacing or 0 end
+-- A font object's face, colours, shadow and justification, copied from
+-- another (by object or name), not linked to it.
+function Methods.CopyFontObject(self, other)
+	if type(other) == "string" then other = _G[other] end
+	if type(other) ~= "table" then return end
+	local function copy(t)
+		if type(t) ~= "table" then return t end
+		local c = {}
+		for k, v in pairs(t) do c[k] = v end
+		return c
+	end
+	for _, key in ipairs({ "font", "textColor", "shadowColor", "shadowOffset", "justifyH", "justifyV", "spacing" }) do self[key] = copy(other[key]) end
+end
+function Methods.SetTextColor(self, r, g, b, a)
+	self.textColor = { r, g, b, a or 1 }
+	if self.kind == "FontString" then self.alpha = a or 1 end
+end
 function Methods.GetTextColor(self)
 	local c = self.textColor or { 1, 1, 1, 1 }
 	return c[1], c[2], c[3], c[4]
@@ -246,12 +331,18 @@ function Methods.GetShadowColor(self)
 end
 -- As in the client: GetStringWidth ignores word wrap but includes
 -- truncation (a single-line string, SetWordWrap(false), is cut at its set
--- width); GetUnboundedStringWidth is the whole text's width.
+-- width); GetUnboundedStringWidth is the whole text's width. Every character
+-- is half the font size wide, a UTF-8 one (“, ·, «) counting once.
+local function chars(s) return #s - select(2, s:gsub("[\128-\191]", "")) end
 function Methods.SetWordWrap(self, on) self.wordWrap = not not on end
+function Methods.SetJustifyH(self, j) self.justifyH = j end
+function Methods.GetJustifyH(self) return self.justifyH or "CENTER" end
+function Methods.SetJustifyV(self, j) self.justifyV = j end
+function Methods.GetJustifyV(self) return self.justifyV or "MIDDLE" end
 function Methods.GetWordWrap(self) return self.wordWrap ~= false end
 function Methods.GetUnboundedStringWidth(self)
 	local size = (self.font and self.font[2]) or 12
-	return #tostring(self.text or "") * size * 0.5
+	return chars(tostring(self.text or "")) * size * 0.5
 end
 function Methods.GetStringWidth(self)
 	local full = self:GetUnboundedStringWidth()
@@ -269,7 +360,7 @@ function Methods.GetStringHeight(self)
 	if w <= 0 then return size end
 	local lines = 0
 	for line in (tostring(self.text or "") .. "\n"):gmatch("([^\n]*)\n") do
-		lines = lines + math.max(1, math.ceil(#line * size * 0.5 / w))
+		lines = lines + math.max(1, math.ceil(chars(line) * size * 0.5 / w))
 	end
 	if (self.maxLines or 0) > 0 then lines = math.min(lines, self.maxLines) end
 	return lines * size
@@ -286,7 +377,7 @@ function Methods.IsTruncated(self)
 	local size = (self.font and self.font[2]) or 12
 	local lines = 0
 	for line in (tostring(self.text or "") .. "\n"):gmatch("([^\n]*)\n") do
-		lines = lines + math.max(1, math.ceil(#line * size * 0.5 / w))
+		lines = lines + math.max(1, math.ceil(chars(line) * size * 0.5 / w))
 	end
 	return lines > self.maxLines
 end
@@ -317,7 +408,7 @@ end
 function Methods.CreateFontString(self, name, layer, inherits)
 	local fs = NewObject("FontString", name, self)
 	fs.layer = layer or "ARTWORK"
-	if type(inherits) == "table" then fs:SetFontObject(inherits) end
+	if type(inherits) == "table" then fs:SetFontObject(inherits) elseif inherits ~= nil then fs.psTemplate = inherits end
 	table.insert(stub.strings, fs)
 	return fs
 end
@@ -332,9 +423,18 @@ function Methods.GetVertexColor(self)
 	return c[1], c[2], c[3], c[4]
 end
 function Methods.SetTexCoord(self, ...) self.texCoord = { ... } end
+-- A texture drawn tiled at its own size across its region (SetTexture with
+-- "REPEAT" wraps, then these), as the game's backdrop tiles are.
+function Methods.SetHorizTile(self, v) self.horizTile = v and true or false end
+function Methods.SetVertTile(self, v) self.vertTile = v and true or false end
+function Methods.GetHorizTile(self) return self.horizTile == true end
+function Methods.GetVertTile(self) return self.vertTile == true end
 function Methods.SetRotation(self, r) self.rotation = r end
 function Methods.GetRotation(self) return self.rotation or 0 end
 function Methods.SetDesaturated(self, v) self.desaturated = v and true or false end
+-- The client's grade of grey (0-1), where it has SetDesaturation.
+function Methods.SetDesaturation(self, v) self.desaturation = v end
+function Methods.GetDesaturation(self) return self.desaturation or 0 end
 function Methods.SetBlendMode(self, m) self.blend = m end
 function Methods.AddMaskTexture(self, m) self.mask = m end
 -- SetVertexOffset(i, x, y): corner i (1 upper left, 2 lower left, 3 upper
@@ -386,6 +486,15 @@ end
 function Methods.SetFocus(self) stub.focus = self end
 function Methods.ClearFocus(self) if stub.focus == self then stub.focus = nil end end
 function Methods.HasFocus(self) return stub.focus == self end
+-- An edit box's selection, as in the client: HighlightText() selects all of
+-- it, (0, 0) none, (s, e) from s to e (-1: the end); new text drops it.
+-- self.highlight = { s, e } or nil.
+function Methods.HighlightText(self, s, e)
+	local n = #(self.text or "")
+	s, e = s or 0, e or n
+	if e < 0 or e > n then e = n end
+	self.highlight = e > s and { s, e } or nil
+end
 function Methods.Insert(self, t) self.text = (self.text or "") .. tostring(t) end
 function Methods.SetVerticalScroll(self, v) self.scroll = v end
 function Methods.GetVerticalScroll(self) return self.scroll or 0 end
@@ -482,7 +591,8 @@ end
 function stub.fire(ev, ...)
 	local list = {}
 	for _, f in ipairs(stub.frames) do
-		if f.events[ev] then list[#list + 1] = f end
+		local units = f.events[ev] and f.eventUnits and f.eventUnits[ev]
+		if f.events[ev] and (not units or units[(...)]) then list[#list + 1] = f end
 	end
 	for _, f in ipairs(list) do RunScript(f, "OnEvent", ev, ...) end
 end
@@ -939,6 +1049,44 @@ function CopyTable(t)
 	for k, v in pairs(t) do c[k] = type(v) == "table" and CopyTable(v) or v end
 	return c
 end
+-- The client's string.format takes positional arguments ("%2$s de %1$s"), as translations use to put
+-- a sentence's parts in their own order; PUC Lua 5.1's has none. A format without one goes straight
+-- through; one with them is rewritten to plain specs with the arguments picked in that order (plain
+-- specs mixed in take the arguments in turn). The string library's own table is changed, so
+-- ("..."):format(...), format(...) and SetFormattedText all read it, as in the game.
+do
+	local plainFormat, find, match, sub, concat, unpack, select = string.format, string.find, string.match, string.sub, table.concat, unpack, select
+	function string.format(fmt, ...)
+		if type(fmt) ~= "string" or not find(fmt, "%%%d+%$") then return plainFormat(fmt, ...) end
+		local n, args, parts, picked, turn, at = select("#", ...), { ... }, {}, {}, 0, 1
+		while true do
+			local s = find(fmt, "%", at, true)
+			if not s then
+				parts[#parts + 1] = sub(fmt, at)
+				break
+			end
+			parts[#parts + 1] = sub(fmt, at, s - 1)
+			if sub(fmt, s + 1, s + 1) == "%" then
+				parts[#parts + 1] = "%%"
+				at = s + 2
+			else
+				local pos, spec, after = match(fmt, "^(%d+)%$([-+ #0]*%d*%.?%d*%a)()", s + 1)
+				if not pos then
+					spec, after = match(fmt, "^([-+ #0]*%d*%.?%d*%a)()", s + 1)
+					if not spec then return plainFormat(fmt, ...) end -- Lua's own error for a bad spec
+					turn = turn + 1
+					pos = turn
+				end
+				pos = tonumber(pos)
+				if pos < 1 or pos > n then error(("bad argument #%d to 'format' (no value)"):format(pos + 1), 2) end
+				picked[#picked + 1] = args[pos]
+				parts[#parts + 1] = "%" .. spec
+				at = after
+			end
+		end
+		return plainFormat(concat(parts), unpack(picked, 1, #picked))
+	end
+end
 format = string.format
 strfind, strmatch, strsub, gsub = string.find, string.match, string.sub, string.gsub
 strlower, strupper, strlen, strrep, strbyte, strchar = string.lower, string.upper, string.len, string.rep, string.byte, string.char
@@ -1066,7 +1214,7 @@ function date(fmt, t)
 end
 function debugprofilestop() return stub.now * 1000 end
 function GetFramerate() return 60 end
-function GetBuildInfo() return "1.60.1", "70338", "Oct  1 2026", 16001 end
+function GetBuildInfo() return "1.60.1", stub.clientBuild or "70338", "Oct  1 2026", 16001 end
 function GetLocale() return "enUS" end
 function GetRealmName() return "Test Realm" end
 function GetNormalizedRealmName() return "TestRealm" end
@@ -1107,11 +1255,24 @@ function C_AddOns.GetAddOnMetadata(name, field)
 	if field == "Title" and a then return a.title end
 end
 function C_AddOns.GetNumAddOns() return #stub.addons end
--- -> name, title, notes, loadable, reason, security, updateAvailable
+-- -> name, title, notes, loadable, reason, security, updateAvailable. An
+-- addon that loads on demand, not loaded yet, reads as not loadable with
+-- reason "DEMAND_LOADED" ("DEP_DEMAND_LOADED": one it depends on loads on
+-- demand), as the client gives it: Blizzard_AddOnList draws such an addon as
+-- loadable for that reason alone and shows ADDON_DEMAND_LOADED as its status.
+-- None and loadable once loaded.
 function C_AddOns.GetAddOnInfo(key)
 	local a = addonEntry(key)
 	if not a then return nil, nil, nil, false, "MISSING", nil, false end
-	return a.name, a.title or a.name, a.notes, a.reason == nil, a.reason, "INSECURE", false
+	local reason = a.reason
+	if reason == nil and a.demand == true then reason = "DEMAND_LOADED" end
+	if (reason == "DEMAND_LOADED" or reason == "DEP_DEMAND_LOADED") and stub.addonsLoaded[a.name] then reason = nil end
+	return a.name, a.title or a.name, a.notes, reason == nil, reason, "INSECURE", false
+end
+-- ## LoadOnDemand: 1 (an entry with demand = true, or reason "DEMAND_LOADED").
+function C_AddOns.IsAddOnLoadOnDemand(name)
+	local a = addonEntry(name)
+	return a ~= nil and (a.demand == true or a.reason == "DEMAND_LOADED")
 end
 function C_AddOns.GetAddOnEnableState(name)
 	local a = addonEntry(name)
@@ -1128,6 +1289,20 @@ function C_AddOns.EnableAddOn(name)
 end
 IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 GetAddOnMetadata = C_AddOns.GetAddOnMetadata
+-- The client's count of an addon's memory (KiB), read when UpdateAddOnMemoryUsage
+-- runs: stub.addonMemory[name] when set (a number, or a function giving one),
+-- else for Polestar the whole Lua heap (the tests load it alone, as the memory
+-- tests count it) and 0 for any other.
+stub.addonMemory = {}
+local memoryRead = {}
+function UpdateAddOnMemoryUsage()
+	for name in pairs(stub.addonsLoaded) do
+		local v = stub.addonMemory[name]
+		if type(v) == "function" then v = v() end
+		memoryRead[name] = v or (name == "Polestar" and collectgarbage("count")) or 0
+	end
+end
+function GetAddOnMemoryUsage(name) return memoryRead[name] or 0 end
 
 ---------------------------------------------------------------------------
 -- A fake EllesmereUI, matching its SKINNING_API.md (apiVersion 3)
@@ -1240,5 +1415,63 @@ function stub.json(v)
 end
 
 function emit(v) io.write("@@JSON ", stub.json(v), "\n") end
+
+---------------------------------------------------------------------------
+-- Clicks as the client delivers them
+---------------------------------------------------------------------------
+-- The press, then the release, each reaching the button only when
+-- RegisterForClicks asked for it ("AnyDown"/"AnyUp", "<Button>Down"/"Up"; a
+-- button that never called it gets "LeftButtonUp"). A secure action button
+-- (f.secure) runs SecureActionButton_OnClick, which the client calls without
+-- its mouse arguments for an addon's button (SecureTemplates.xml), so mouse
+-- and key alike act on the press when useOnKeyDown -- the attribute, else the
+-- ActionButtonUseKeyDown CVar (stub.cvars) -- is true, else on the release;
+-- "type1".."typeN" answers only that button, "type" any. Each action goes in
+-- ran as { type, macrotext or item or spell }; PreClick and PostClick run on
+-- every event delivered. A plain button gets OnClick per event while enabled.
+-- A mouse click enters the button first (OnEnter; the cursor stays on it).
+local registerForClicks = Methods.RegisterForClicks
+function Methods.RegisterForClicks(self, ...)
+	self.clicks = {}
+	for _, c in ipairs({ ... }) do self.clicks[c] = true end
+	if registerForClicks then return registerForClicks(self, ...) end
+end
+
+local function deliver(f, ran, mouse)
+	mouse = mouse or "LeftButton"
+	local digit = ({ LeftButton = "1", RightButton = "2", MiddleButton = "3" })[mouse]
+	for _, down in ipairs({ true, false }) do
+		local c = f.clicks or { LeftButtonUp = true }
+		if c[down and "AnyDown" or "AnyUp"] or c[mouse .. (down and "Down" or "Up")] then
+			if f.secure then
+				RunScript(f, "PreClick", mouse, down)
+				local attr = f:GetAttribute("useOnKeyDown")
+				local onDown
+				if attr == nil then onDown = GetCVarBool("ActionButtonUseKeyDown") else onDown = attr and true or false end
+				if onDown == down then
+					local kind = f:GetAttribute("type" .. (digit or "")) or f:GetAttribute("type")
+					if kind then
+						local function attr(k) return digit and f:GetAttribute(k .. digit) or f:GetAttribute(k) end
+						ran[#ran + 1] = { kind, attr("macrotext") or attr("item") or attr("spell") or false }
+					end
+				end
+				RunScript(f, "PostClick", mouse, down)
+			elseif f:IsEnabled() then
+				RunScript(f, "PreClick", mouse, down)
+				RunScript(f, "OnClick", mouse, down)
+				RunScript(f, "PostClick", mouse, down)
+			end
+		end
+	end
+end
+
+function stub.mouseClick(f, ran, mouse)
+	RunScript(f, "OnEnter")
+	deliver(f, ran, mouse)
+end
+
+function stub.keyClick(f, ran)
+	deliver(f, ran, "LeftButton")
+end
 
 return stub

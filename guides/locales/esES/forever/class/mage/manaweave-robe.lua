@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Zaldimar Wefhellt (Goldshire)
 	-- {npc:328} Zaldimar Wefhellt · {area:87} Goldshire
-	["{npc:328} is the {area:87} mage trainer, upstairs in the Lion's Pride Inn."] = "",
+	["{npc:328} is the {area:87} mage trainer, upstairs in the Lion's Pride Inn."] = "{npc:328} es el instructor de magos de {area:87}, en el piso de arriba de la Posada Orgullo de León.",
 
 	-- Step 2: Dink (Ironforge)
 	-- {npc:7312} Dink · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind
@@ -38,6 +38,8 @@ return {
 	-- Step 6: Linen Cloth
 	-- {item:2589} Linen Cloth · {area:149} Silver Stream Mine · {object:2096} Trade District
 	["Any humanoid drops {item:2589}, and the Tunnel Rats in the {area:149} drop it while you gather the gems; the Auction House in the {object:2096} sells it. You hand in ten."] = "",
+	-- {item:2589} Linen Cloth
+	["{item:2589}: humanoids, or the Auction House"] = "{item:2589}: humanoides o la casa de subastas",
 
 	-- Step 7: The Silver Stream Mine
 	-- {area:149} Silver Stream Mine
@@ -52,7 +54,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Humanoids drop {item:2589}; the Auction House in the {object:2096} sells it."] = "Los humanoides sueltan {item:2589}; también se vende en la casa de subastas del {object:2096}.",
 	-- ["Take the {area:2257} to {zone:1455}, then the road east through the South Gate tunnel into {zone:1432}. The dwarven miners' league left the crates in the {area:149} at the north end of the loch; Tunnel Rat troggs hold the mine."] = "Toma el {area:2257} hasta {zone:1455} y luego el camino al este por el túnel de la Puerta Sur hasta {zone:1432}. La liga de mineros enanos dejó las cajas en la {area:149}, en el extremo norte del lago; los troggs Ratatúnel ocupan la mina.",
-	-- ["{npc:328} is the {area:87} mage trainer."] = "{npc:328} es el instructor de magos de {area:87}.",
 	-- ["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}. The {item:7247} and the {item:7308} lie behind her."] = "{npc:5497} está en la torre del {object:2101}. {item:7247} y {item:7308} están detrás de ella.",
 	-- ["{object:2169} is the tavern in the {object:2101}. Use the {item:7308} inside to make the {npc:6492} visible, subdue one with your spells, then use the {item:7247} to throw down a coffer and capture it."] = "{object:2169} es la taberna del {object:2101}. Dentro, usa {item:7308} para hacer visible al {npc:6492}, somete a uno con tus hechizos y luego usa {item:7247} para lanzar un arca y capturarlo.",
 }

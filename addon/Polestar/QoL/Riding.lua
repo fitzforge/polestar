@@ -10,7 +10,10 @@
 --     4487/4488 → 4490).  Skip once quest 4490 is done.
 --   PALADIN + Alliance: Lord Grayson Shadowbreaker, Stormwind (Tome of
 --     Nobility chain 1661/4485/4486).  Skip once quest 4486 is done.
---   PALADIN + Horde/Undead: no chain data; falls back to the riding trainer.
+--   PALADIN + Scourge (Forever): Garen Largo, the Undercity (Report to
+--     Danitha 97022), then Danitha Morr, Bandarion Keep (A Paladin's Steed
+--     94971).  Skip once quest 94971 is done.
+--   PALADIN of another Horde race: no chain data; falls back to the riding trainer.
 --   Class routes are tier 1 only.  At tier 2 every character goes to the
 --   riding trainer.
 --
@@ -85,21 +88,23 @@ end
 ---------------------------------------------------------------------------
 
 local TRAINERS = {
-	Orc      = { map = 1454, x = 69.4,  y = 13.1,  npcName = "Kildar",               faction = 76  },
-	Troll    = { map = 1411, x = 55.3,  y = 75.5,  npcName = "Xar'Ti",               faction = 530 },
-	Tauren   = { map = 1412, x = 46.8,  y = 62.0,  npcName = "Kar Stormsinger",       faction = 81  },
-	Scourge  = { map = 1420, x = 60.1,  y = 52.6,  npcName = "Velma Warnam",          faction = 68  },
-	Human    = { map = 1429, x = 84.3,  y = 64.9,  npcName = "Randal Hunter",         faction = 72  },
-	NightElf = { map = 1438, x = 25.3,  y = 50.2,  npcName = "Jartsam",              faction = 69  },
-	Dwarf    = { map = 1426, x = 63.7,  y = 50.1,  npcName = "Ultham Ironhorn",       faction = 47  },
-	Gnome    = { map = 1426, x = 49.2,  y = 48.1,  npcName = "Binjy Featherwhistle", faction = 54  },
+	Orc      = { map = 1454, x = 69.4,  y = 13.1,  npc = 4752, npcName = "Kildar",               faction = 76  },
+	Troll    = { map = 1411, x = 55.3,  y = 75.5,  npc = 7953, npcName = "Xar'Ti",               faction = 530 },
+	Tauren   = { map = 1412, x = 46.8,  y = 62.0,  npc = 3690, npcName = "Kar Stormsinger",       faction = 81  },
+	Scourge  = { map = 1420, x = 60.1,  y = 52.6,  npc = 4773, npcName = "Velma Warnam",          faction = 68  },
+	Human    = { map = 1429, x = 84.3,  y = 64.9,  npc = 4732, npcName = "Randal Hunter",         faction = 72  },
+	NightElf = { map = 1438, x = 25.3,  y = 50.2,  npc = 4753, npcName = "Jartsam",              faction = 69  },
+	Dwarf    = { map = 1426, x = 63.7,  y = 50.1,  npc = 4772, npcName = "Ultham Ironhorn",       faction = 47  },
+	Gnome    = { map = 1426, x = 49.2,  y = 48.1,  npc = 7954, npcName = "Binjy Featherwhistle", faction = 54  },
 }
 local TRAINERS_SKYBORNE = {
-	Alliance = { map = 2521, x = 53.5, y = 80.5, npcName = "Genn Fairweather", faction = 2779 },
-	Horde    = { map = 2521, x = 53.5, y = 80.5, npcName = "Genn Fairweather", faction = 2778 },
+	Alliance = { map = 2521, x = 53.5, y = 80.5, npc = 265756, npcName = "Genn Fairweather", faction = 2779 },
+	Horde    = { map = 2521, x = 53.5, y = 80.5, npc = 265756, npcName = "Genn Fairweather", faction = 2778 },
 }
-local STRAHAD = { map = 1413, x = 62.6,  y = 35.5,  npcName = "Strahad Farsan"             }
-local GRAYSON = { map = 1453, x = 48.43, y = 50.22, npcName = "Lord Grayson Shadowbreaker"  }
+local STRAHAD = { map = 1413, x = 62.6,  y = 35.5,  npc = 6251, npcName = "Strahad Farsan"             }
+local GRAYSON = { map = 1453, x = 48.43, y = 50.22, npc = 928, npcName = "Lord Grayson Shadowbreaker"  }
+local GAREN   = { map = 1458, x = 47.12, y = 15.49, npc = 260093, npcName = "Garen Largo" }
+local DANITHA = { map = 1420, x = 22.0,  y = 44.66, npc = 246378, npcName = "Danitha Morr" }
 
 local function trainerFor(race, faction)
 	if race == "Skyborne" then return TRAINERS_SKYBORNE[faction] end
@@ -142,11 +147,16 @@ end
 
 local WARLOCK_FINAL = 4490
 local PALADIN_FINAL = 4486
+-- Forsaken paladins (Forever): Report to Danitha (97022, from the Undercity's
+-- paladin trainer) -> A Paladin's Steed (94971, Danitha Morr at Bandarion
+-- Keep: "Speak with Danitha Morr to learn to summon your Warhorse").
+local DANITHA_REPORT, FORSAKEN_PALADIN_FINAL = 97022, 94971
 
 -- Returns (npc, factionID, classKind) for class-mount routing at tier 1.
--- classKind ("WARLOCK" | "PALADIN") signals free-mount wording + no-gold gate.
+-- classKind ("WARLOCK" | "PALADIN" | "PALADIN_FORSAKEN") signals free-mount
+-- wording + no-gold gate.
 -- Returns nil, nil, nil when no class route applies or the chain is done.
-local function classRoute(class, faction, tier)
+local function classRoute(class, faction, tier, race)
 	if tier ~= 1 then return nil, nil, nil end
 	local C = ns.Compat
 	if class == "WARLOCK" then
@@ -156,6 +166,11 @@ local function classRoute(class, faction, tier)
 	elseif class == "PALADIN" and faction == "Alliance" then
 		if not C.IsQuestCompleted(PALADIN_FINAL) then
 			return GRAYSON, nil, "PALADIN"
+		end
+	elseif class == "PALADIN" and race == "Scourge" then
+		if not C.IsQuestCompleted(FORSAKEN_PALADIN_FINAL) then
+			local reported = C.IsQuestCompleted(DANITHA_REPORT) or C.IsOnQuest(DANITHA_REPORT)
+			return reported and DANITHA or GAREN, nil, "PALADIN_FORSAKEN"
 		end
 	end
 	return nil, nil, nil
@@ -202,6 +217,10 @@ local function startMoneyWatch(tier)
 	end
 end
 
+-- The banner shows the balance in whole gold and the prices are whole gold,
+-- so it reads differently only when the gold figure moves: copper looted or
+-- spent below a gold redraws nothing (each redraw lays the guide window out).
+local shownGold
 onMoney = function()
 	if not next(ridingMoneyWatch) then unregisterMoney(); return end
 	-- Prune stale entries (tier resolved or riding learned since last check).
@@ -211,6 +230,9 @@ onMoney = function()
 		end
 	end
 	if not next(ridingMoneyWatch) then unregisterMoney(); return end
+	local gold = floor((GetMoney and GetMoney() or 0) / 10000)
+	if gold == shownGold then return end
+	shownGold = gold
 	-- Let GuideFrame re-render the banner's affordability button.
 	ns.Fire("RIDING_MONEY")
 end
@@ -258,7 +280,7 @@ function Riding.Check(level)
 	local class   = info and info.class   or ""
 	local faction = info and info.faction or ""
 
-	local classNpc, classFaction, classKind = classRoute(class, faction, tier)
+	local classNpc, classFaction, classKind = classRoute(class, faction, tier, race)
 	local trainer   = classNpc or trainerFor(race, faction)
 	local factionID = classNpc and classFaction or (trainer and trainer.faction)
 
@@ -268,11 +290,13 @@ function Riding.Check(level)
 		-- Build a trainer sub-table; copy fields so the notice is immutable.
 		local trainerNotice
 		if trainer then
+			local N = ns.Names
 			trainerNotice = {
+				npc     = trainer.npc,
 				map     = trainer.map,
 				x       = trainer.x,
 				y       = trainer.y,
-				npcName = trainer.npcName,
+				npcName = (trainer.npc and N and N.Npc and N.Npc(trainer.npc)) or trainer.npcName,
 				faction = trainer.faction,
 			}
 		end

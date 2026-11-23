@@ -62,7 +62,7 @@ fn at_join(guide: &str, stem: &str) -> bool {
 /// with Teldrassil (its first loop from Auberdine, quests of level 14 and under), then join the
 /// Alliance route at Westfall and play the rest of Darkshore in the shared tail with the other
 /// starts. (c14 took the whole guide: the start ran Darkshore to 19.3 and every Westfall quest was
-/// grey, Rev14NightElf.)
+/// grey, c14 review.)
 pub fn own_guides(race: &str) -> &'static [(&'static str, f64)] {
 	match race {
 		"NightElf" => &[("03-darkshore", 14.0)],

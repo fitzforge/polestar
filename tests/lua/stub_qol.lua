@@ -23,12 +23,16 @@
 --   q.addItem(bag, slot, itemID, count)        -- q.items[id] = { quality, price, classID, spell, noValue }
 --   q.combat(true|false)                        -- PLAYER_REGEN_DISABLED / ENABLED
 --   q.click(frame, down)                        -- OnClick + PostClick (button "LeftButton")
+--   q.mouseClick(frame[, mouse]), q.keyClick(frame) -- stub.mouseClick / stub.keyClick into q.ran
 --   q.gainXP(n)                                 -- UnitXP moves, PLAYER_XP_UPDATE (levels up past xpMax)
 --   q.xpBar(shown)                              -- the game's XP bar frames (StatusTrackingBarManager); returns the experience bar
 --   q.engine.levelTarget = N                    -- what Engine.LevelTarget answers above the player's level
 --   q.engine.levelFrac = f                      -- with it, a point inside the level (also at the player's level)
 --   q.engine.kept = { [itemID] = step }         -- what Engine.KeptItems answers
+--   q.engine.itemGuides = { [itemID] = { { guide = g, step = s|nil }, ... } } -- what Engine.ItemGuides answers
 --   q.calls                                     -- { { "UseContainerItem", bag, slot }, { "GetQuestReward", i }, ... }
+--   q.log[questID], q.done[questID], q.watches  -- the quest log, handed-in quests and the game's watch list
+--   q.enterInstance(map[, kind]), q.leaveInstance() -- IsInInstance / GetInstanceInfo, PLAYER_ENTERING_WORLD
 
 local q = {
 	level = 10, xp = 0, xpMax = 1000, rested = nil, maxLevel = 60,
@@ -51,7 +55,7 @@ local q = {
 	loot = 0,
 	specialItems = {}, -- questID -> itemID (quest log special item)
 	engine = { step = nil, view = nil, guide = nil, waypoint = nil },
-	nav = { target = nil, sets = {}, releases = 0, clears = 0, route = nil, ci = 1, boundInn = nil },
+	nav = { target = nil, sets = {}, releases = 0, clears = 0, unholds = 0, route = nil, ci = 1, boundInn = nil },
 	pins = {},
 	cooldowns = {},
 	inRange = nil,
@@ -99,6 +103,12 @@ function q.click(f, down)
 	stub.RunScript(f, "PostClick", "LeftButton", down)
 end
 
+-- The client's mouse click (stub.mouseClick, wow_stub.lua); q.ran lists what
+-- secure buttons ran.
+q.ran = {}
+function q.mouseClick(f, mouse) return stub.mouseClick(f, q.ran, mouse) end
+function q.keyClick(f) return stub.keyClick(f, q.ran) end
+
 ---------------------------------------------------------------------------
 -- Player, XP, death
 ---------------------------------------------------------------------------
@@ -109,19 +119,78 @@ function UnitXPMax(unit) if unit == "player" then return q.xpMax end end
 function GetXPExhaustion() return q.rested end
 function GetMaxPlayerLevel() return q.maxLevel end
 function UnitIsGhost(unit) return unit == "player" and q.ghost end
-function UnitExists(unit) if unit == "target" then return q.target end return unit == "player" end
--- q.target as a table { name, npc, dead, hostile, player }: the target the
--- step key's interact stage reads.
-local function targetOf(unit) return unit == "target" and type(q.target) == "table" and q.target or nil end
+function UnitExists(unit)
+	if unit == "target" then return q.target end
+	if q.units[unit] then return true end
+	return unit == "player"
+end
+-- q.target as a table { name, npc, dead, hostile, player, class }: the target the
+-- step key's interact stage reads. q.units[token]: other units the same way
+-- (mouseover, nameplateN).
+q.units = {}
+local function targetOf(unit)
+	if unit == "target" then return type(q.target) == "table" and q.target or nil end
+	return q.units[unit]
+end
 function UnitIsDead(unit) local t = targetOf(unit) return t and t.dead or false end
 function UnitIsPlayer(unit) local t = targetOf(unit) return t and t.player or false end
 function UnitCanAttack(_, unit) local t = targetOf(unit) return t and t.hostile or false end
 function UnitIsFriend(_, unit) local t = targetOf(unit) return t and t.friend or false end
+function UnitClassification(unit) local t = targetOf(unit) return t and t.class or "normal" end
 local unitName = UnitName
 function UnitName(unit)
 	local t = targetOf(unit)
 	if t then return t.name end
 	return unitName(unit)
+end
+-- Portraits: the texture keeps the name of the unit it was drawn from, and
+-- shows it as "portrait:<name>"; q.portraits lists every draw.
+q.portraits = {}
+function SetPortraitTexture(tex, unit)
+	local t = targetOf(unit)
+	tex.portraitOf = t and t.name
+	tex:SetTexture(t and ("portrait:" .. tostring(t.name)) or nil)
+	q.portraits[#q.portraits + 1] = { unit = unit, name = t and t.name }
+end
+-- Models, as the client: a PlayerModel's SetCreature draws a creature only
+-- from the client's creature cache (q.creatures[id] = name; model.creature
+-- is what it drew, nil for an empty model), and a model hidden (its own Hide,
+-- or a parent's with stub.cascadeVisibility) drops what it drew unless
+-- SetKeepModelOnHide(true). The tooltip of a creature's unit link
+-- (C_TooltipInfo.GetHyperlink) names a cached one; an uncached one gets an
+-- empty tooltip and the client asks the server (q.creatureAsks counts the
+-- asks), whose answer lands in the cache q.creatureDelay seconds later with
+-- no event (q.serverCreatures = false: the server never answers).
+q.creatures, q.creatureAsks, q.creatureDelay, q.serverCreatures = {}, 0, 0.5, true
+M.SetCreature = function(self, id) self.creature = q.creatures[id] and id or nil end
+M.SetKeepModelOnHide = function(self, keep) self.keepModel = keep and true or false end
+local function dropModel(self) if not self.keepModel then self.creature = nil end end
+local createModel = CreateFrame
+function CreateFrame(kind, ...)
+	local f = createModel(kind, ...)
+	if kind == "PlayerModel" then f:HookScript("OnHide", dropModel) end
+	return f
+end
+C_TooltipInfo = C_TooltipInfo or {}
+local hyperlink = C_TooltipInfo.GetHyperlink
+function C_TooltipInfo.GetHyperlink(link, ...)
+	local id = tonumber(tostring(link):match("^unit:Creature%-0%-0%-0%-0%-(%d+)%-"))
+	if not id then return hyperlink and hyperlink(link, ...) or { lines = {} } end
+	local name = q.creatures[id]
+	if name then return { lines = { { leftText = name } } } end
+	q.creatureAsks = q.creatureAsks + 1
+	if q.serverCreatures then
+		C_Timer.After(q.creatureDelay, function() q.creatures[id] = q.creatures[id] or ("Creature " .. id) end)
+	end
+	return { lines = {} }
+end
+C_NamePlate = C_NamePlate or {}
+function C_NamePlate.GetNamePlates()
+	local out = {}
+	for token in pairs(q.units) do
+		if token:find("^nameplate") then out[#out + 1] = { namePlateUnitToken = token } end
+	end
+	return out
 end
 -- Key bindings: q.bindings[command] = { key, ... }; override bindings land in
 -- q.overrides[key] = command ("CLICK <button>:LeftButton" for a click).
@@ -196,7 +265,8 @@ function C_UnitAuras.GetPlayerAuraBySpellID(id) return q.auras[id] end
 -- Bags and items
 ---------------------------------------------------------------------------
 
--- q.items[id] = { name, quality = 0..5, price (sell, copper), classID, spell, noValue, icon }
+-- q.items[id] = { name, quality = 0..5, price (sell, copper), classID, spell, noValue, icon, questID (begins that
+-- quest), questItem (an item for a quest) }
 function q.addItem(bag, slot, id, count)
 	q.bags[bag].slots[slot] = { itemID = id, stackCount = count or 1 }
 end
@@ -216,6 +286,13 @@ end
 C_Container = {}
 function C_Container.GetContainerNumSlots(bag) return q.bags[bag] and q.bags[bag].size or 0 end
 C_Container.GetContainerItemInfo = slotInfo
+-- QuestInfoFields { isQuestItem, questID, isActive } (ContainerDocumentation), from q.items[id].questItem / questID.
+function C_Container.GetContainerItemQuestInfo(bag, slot)
+	local b = q.bags[bag]
+	local s = b and b.slots[slot]
+	local it = s and q.items[s.itemID] or {}
+	return { isQuestItem = it.questItem or false, questID = it.questID, isActive = false }
+end
 function C_Container.UseContainerItem(bag, slot)
 	call("UseContainerItem", bag, slot)
 	local s = q.bags[bag].slots[slot]
@@ -255,6 +332,23 @@ function DeleteCursorItem()
 	q.bags[c[1]].slots[c[2]] = nil
 	C_Timer.After(0.05, function() stub.fire("BAG_UPDATE_DELAYED") end)
 end
+-- Bag slots 1..4 are inventory slots 20..23. PutItemInBag puts the bag on the
+-- cursor into that bag slot when the slot is empty (q.items[id].bagSize
+-- slots): the bag leaves its bag slot and the bags update a moment later.
+-- With the slot taken, the bag stays on the cursor.
+function C_Container.ContainerIDToInventoryID(bag) return 19 + bag end
+function PutItemInBag(invSlot)
+	local c = q.cursor
+	call("PutItemInBag", invSlot)
+	local into = invSlot - 19
+	if not c or not q.bags[into] or q.bags[into].size > 0 then return end
+	local s = q.bags[c[1]].slots[c[2]]
+	q.cursor = nil
+	q.bags[c[1]].slots[c[2]] = nil
+	q.bags[into].size = (q.items[s.itemID] or {}).bagSize or 6
+	q.worn[invSlot] = s.itemID
+	C_Timer.After(0.05, function() stub.fire("BAG_UPDATE_DELAYED") end)
+end
 function GetInventoryItemID(unit, slot) if unit == "player" then return q.worn[slot] end end
 function C_Container.GetItemCooldown(id)
 	local c = q.cooldowns[id]
@@ -273,9 +367,9 @@ function C_Item.GetItemCount(id)
 	return n
 end
 function C_Item.GetItemIconByID(id) return (q.items[id] and q.items[id].icon) or 134400 end
-function C_Item.IsItemInRange(_, unit)
-	local t = targetOf(unit)
-	if stub.inCombat and not (t and t.friend) then error("ADDON_ACTION_BLOCKED: IsItemInRange", 2) end
+-- The game blocks it in combat whatever the target (#871 on an enemy, #1198 on a friend).
+function C_Item.IsItemInRange()
+	if stub.inCombat then error("ADDON_ACTION_BLOCKED: IsItemInRange", 2) end
 	return q.inRange
 end
 function C_Item.IsUsableItem(id) return true end
@@ -325,6 +419,55 @@ function C_QuestLog.GetLogIndexForQuestID(questID) if q.specialItems[questID] th
 function GetQuestLogSpecialItemInfo(index)
 	local id = q.specialItems[index]
 	if id then return "|cffffffff|Hitem:" .. id .. "::::::::|h[Quest Item]|h|r", 134400, 1, false end
+end
+
+-- The quest log and the game's watch list (QuestLogDocumentation): q.log[questID] = true while it is in the
+-- log, q.done[questID] = true once handed in, q.watches = { questID, ... } in watch order.
+q.log, q.done, q.watches = {}, {}, {}
+function C_QuestLog.IsOnQuest(id) return q.log[id] == true end
+function C_QuestLog.IsQuestFlaggedCompleted(id) return q.done[id] == true end
+function C_QuestLog.GetNumQuestLogEntries()
+	local n = 0
+	for _ in pairs(q.log) do n = n + 1 end
+	return n
+end
+function C_QuestLog.GetNumQuestWatches() return #q.watches end
+function C_QuestLog.GetQuestIDForQuestWatchIndex(i) return q.watches[i] end
+function C_QuestLog.AddQuestWatch(id)
+	for _, w in ipairs(q.watches) do if w == id then return false end end
+	table.insert(q.watches, id)
+	return true
+end
+function C_QuestLog.RemoveQuestWatch(id)
+	for i, w in ipairs(q.watches) do
+		if w == id then
+			table.remove(q.watches, i)
+			return true
+		end
+	end
+	return false
+end
+
+-- Instances: q.instance = { map, kind ("party", "raid", ...) } inside one, nil outside.
+-- q.enterInstance(map[, kind]) and q.leaveInstance() go through a loading screen (PLAYER_ENTERING_WORLD).
+function IsInInstance()
+	if q.instance then return true, q.instance.kind end
+	return false, "none"
+end
+function GetInstanceInfo()
+	local i = q.instance
+	if not i then return "Eastern Kingdoms", "none", 0, "", 0, 0, false, 0 end
+	return "Instance", i.kind, 1, "Normal", 5, 0, false, i.map
+end
+function q.enterInstance(map, kind)
+	q.instance = { map = map, kind = kind or "party" }
+	stub.fire("PLAYER_ENTERING_WORLD", false, false)
+	stub.runTimers()
+end
+function q.leaveInstance()
+	q.instance = nil
+	stub.fire("PLAYER_ENTERING_WORLD", false, false)
+	stub.runTimers()
 end
 
 ---------------------------------------------------------------------------
@@ -443,6 +586,34 @@ function BuyTrainerService(i)
 	end)
 end
 
+-- The trainer window as the game lays it out (Blizzard_TrainerUI Mainline,
+-- ButtonFrameTemplate 338 x 424): the portrait at the top left, the filter
+-- menu at the top right, the list inset, the Train button at the bottom
+-- right (MagicButton_OnLoad's -6, 4) and the player's money at the bottom
+-- left (its right edge on the money border's, up to 152 wide).
+ClassTrainerFrame = CreateFrame("Frame", "ClassTrainerFrame", UIParent)
+ClassTrainerFrame:SetSize(338, 424)
+ClassTrainerFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 16, -116)
+ClassTrainerFrame.portrait = ClassTrainerFrame:CreateTexture()
+ClassTrainerFrame.portrait:SetSize(62, 62)
+ClassTrainerFrame.portrait:SetPoint("TOPLEFT", ClassTrainerFrame, "TOPLEFT", -5, 7)
+ClassTrainerFrame.FilterDropdown = CreateFrame("Button", nil, ClassTrainerFrame)
+ClassTrainerFrame.FilterDropdown:SetSize(100, 18)
+ClassTrainerFrame.FilterDropdown:SetPoint("TOPRIGHT", ClassTrainerFrame, "TOPRIGHT", -13, -35)
+ClassTrainerFrame.FilterInputHint = CreateFrame("Frame", nil, ClassTrainerFrame)
+ClassTrainerFrame.FilterInputHint:SetSize(18, 18)
+ClassTrainerFrame.FilterInputHint:SetPoint("RIGHT", ClassTrainerFrame.FilterDropdown, "LEFT", -8, 0)
+ClassTrainerFrame.Inset = CreateFrame("Frame", nil, ClassTrainerFrame)
+ClassTrainerFrame.Inset:SetPoint("TOPLEFT", ClassTrainerFrame, "TOPLEFT", 4, -60)
+ClassTrainerFrame.Inset:SetPoint("BOTTOMRIGHT", ClassTrainerFrame, "BOTTOMRIGHT", -6, 26)
+ClassTrainerFrame.money = CreateFrame("Frame", nil, ClassTrainerFrame)
+ClassTrainerFrame.money:SetSize(152, 13)
+ClassTrainerFrame.money:SetPoint("RIGHT", ClassTrainerFrame, "BOTTOMLEFT", 161, 14)
+ClassTrainerTrainButton = CreateFrame("Button", "ClassTrainerTrainButton", ClassTrainerFrame)
+ClassTrainerTrainButton:SetSize(80, 22)
+ClassTrainerTrainButton:SetPoint("BOTTOMRIGHT", ClassTrainerFrame, "BOTTOMRIGHT", -6, 4)
+function ClassTrainerFrame_Update() end
+
 q.classTrainers = { [198] = true }
 function q.openTrainer(npc)
 	q.npc = npc or 198
@@ -459,8 +630,20 @@ end
 -- Quest rewards: q.choices = { { id, count }, ... }; reward buttons like QuestInfo's
 ---------------------------------------------------------------------------
 
+-- QuestInfoRewardsFrame (Mainline QuestInfo.xml): 285 wide, its Rewards heading (QuestTitleFont) and the choose
+-- line (QuestFont, in the quest material's text colour) above the choices.
 QuestInfoRewardsFrame = CreateFrame("Frame", "QuestInfoRewardsFrame", UIParent)
+QuestInfoRewardsFrame:SetSize(285, 10)
 QuestInfoRewardsFrame.RewardButtons = {}
+QuestInfoRewardsFrame.Header = QuestInfoRewardsFrame:CreateFontString(nil, "ARTWORK")
+QuestInfoRewardsFrame.Header:SetFont(STANDARD_TEXT_FONT, 18, "")
+QuestInfoRewardsFrame.Header:SetText("Rewards")
+QuestInfoRewardsFrame.Header:SetPoint("TOPLEFT", QuestInfoRewardsFrame, "TOPLEFT", 0, 0)
+QuestInfoRewardsFrame.Header:SetSize(285, 0)
+QuestInfoRewardsFrame.ItemChooseText = QuestInfoRewardsFrame:CreateFontString(nil, "ARTWORK")
+QuestInfoRewardsFrame.ItemChooseText:SetFont(STANDARD_TEXT_FONT, 13, "")
+QuestInfoRewardsFrame.ItemChooseText:SetText("You will be able to choose one of these rewards:")
+QuestInfoRewardsFrame.ItemChooseText:SetTextColor(0.18, 0.1, 0.03)
 QuestInfoFrame = CreateFrame("Frame", "QuestInfoFrame", UIParent)
 QuestInfoFrame.rewardsFrame = QuestInfoRewardsFrame
 
@@ -540,7 +723,9 @@ function C_GossipInfo.GetOptions() return q.gossip.options end
 function C_GossipInfo.GetNumAvailableQuests() return q.gossip.available end
 function C_GossipInfo.GetNumActiveQuests() return #q.gossip.active end
 function C_GossipInfo.GetActiveQuests() return q.gossip.active end
-function C_GossipInfo.GetAvailableQuests() return {} end
+-- opts.availableQuests ({ { questID }, ... }) gives the quests on offer their ids; without it the count alone
+-- (opts.available), as a client that names none.
+function C_GossipInfo.GetAvailableQuests() return q.gossip.availableQuests or {} end
 function C_GossipInfo.ForceGossip() return q.gossip.force end
 function C_GossipInfo.SelectOption(id) call("SelectOption", id) end
 function C_GossipInfo.SelectOptionByIndex(i) call("SelectOptionByIndex", i) end
@@ -548,7 +733,8 @@ function C_GossipInfo.SelectOptionByIndex(i) call("SelectOptionByIndex", i) end
 function q.openGossip(npc, opts)
 	q.npc = npc
 	q.gossip.options = opts.options or {}
-	q.gossip.available = opts.available or 0
+	q.gossip.availableQuests = opts.availableQuests
+	q.gossip.available = opts.available or (opts.availableQuests and #opts.availableQuests) or 0
 	q.gossip.active = opts.active or {}
 	q.gossip.force = opts.force or false
 	stub.fire("GOSSIP_SHOW")
@@ -559,6 +745,8 @@ Enum.PlayerInteractionType = { Binder = 20 }
 C_PlayerInteractionManager = {}
 function C_PlayerInteractionManager.ConfirmationInteraction(t) call("ConfirmationInteraction", t) end
 function C_PlayerInteractionManager.ClearInteraction(t) call("ClearInteraction", t) end
+-- q.binderGone: the bind interaction ended (the popup cancelled, the innkeeper left behind).
+function C_PlayerInteractionManager.IsValidNPCInteraction() return not q.binderGone end
 
 TaxiFrame = CreateFrame("Frame", "TaxiFrame", UIParent)
 TaxiFrame.shown = false
@@ -568,6 +756,9 @@ function TakeTaxiNode(i) call("TakeTaxiNode", i) end
 -- q.taxiCosts[i]: the copper node i costs (0 when unset).
 q.taxiCosts = {}
 function TaxiNodeCost(i) return q.taxiCosts[i] or 0 end
+-- q.taxiTypes[i]: what TaxiNodeGetType says of node i (nil when unset).
+q.taxiTypes = {}
+function TaxiNodeGetType(i) return q.taxiTypes[i] end
 
 function q.openTaxi(names)
 	q.taxiNodes = names
@@ -679,6 +870,8 @@ function Engine.GetLiveStep() return q.engine.live or q.engine.step end
 function Engine.GetStepView(i) if i == q.engine.step then return q.engine.view end end
 function Engine.GetGuide() return q.engine.guide end
 function Engine.GetWaypoint() return q.engine.waypoint end
+-- q.engine.spot: the index of the spot the arrow takes for any goal (Engine.SpotIndexOf), nil: none.
+function Engine.SpotIndexOf() return q.engine.spot end
 function Engine.IsClassTrainer(npc) return npc ~= nil and q.classTrainers[npc] == true end
 -- The Engine's rule: a located goal at its npc, `sethome nearest` at a candidate.
 function Engine.IsSethomeInnkeeper(goal, npc)
@@ -701,6 +894,11 @@ end
 
 -- q.engine.kept: { [itemID] = step } the guide keeps for later steps.
 function Engine.KeptItems() return q.engine.kept or {} end
+-- q.engine.itemGuides: { [itemID] = { { guide = g, step = s|nil }, ... } } the guides whose steps use the item.
+function Engine.ItemGuides(itemID) return q.engine.itemGuides and q.engine.itemGuides[itemID] or nil end
+
+-- q.engine.wants: { ["accept:<id>"] = true, ["direct:<id>"] = true, ... } the quests the guide takes (Engine.WantsQuest).
+function Engine.WantsQuest(verb, questID) return (q.engine.wants or {})[verb .. ":" .. tostring(questID)] == true end
 
 -- A step from raw goals: views get status "active" unless goal.status says otherwise.
 function q.step(goals, index)
@@ -713,7 +911,7 @@ function q.step(goals, index)
 		views[g] = {
 			index = g, t = goal.t, status = goal.status or "active",
 			subject = goal.subject or goal.target or goal.itemName or goal.location,
-			quest = goal.quest, npc = goal.npc, item = goal.item,
+			quest = goal.quest, npc = goal.npc, item = goal.item, progress = goal.progress,
 		}
 	end
 	local steps = {}
@@ -737,7 +935,29 @@ function Nav.SetTarget(map, x, y, label, f)
 	local t = { map = map, x = x, y = y, label = label, f = f, kind = "manual" }
 	q.nav.target = t
 	table.insert(q.nav.sets, t)
-	return true
+	return t
+end
+-- Nav.Hold (the death helper): the target until Nav.Unhold, which brings back
+-- the one from before (q.nav.under).
+function Nav.Hold(map, x, y, label, f)
+	local t = { map = map, x = x, y = y, label = label, f = f, kind = "manual" }
+	if not q.nav.held then q.nav.under = q.nav.target end
+	q.nav.held, q.nav.target = t, t
+	table.insert(q.nav.sets, t)
+	return t
+end
+-- Nav.HoldNothing (a corpse inside a dungeon whose entrance is not known):
+-- no target until Nav.Unhold, which brings back the one from before.
+local NOTHING = { nothing = true }
+function Nav.HoldNothing()
+	if not q.nav.held then q.nav.under = q.nav.target end
+	q.nav.held, q.nav.target = NOTHING, nil
+	return NOTHING
+end
+function Nav.Unhold()
+	if not q.nav.held then return end
+	q.nav.unholds = q.nav.unholds + 1
+	q.nav.target, q.nav.held, q.nav.under = q.nav.under, nil, nil
 end
 function Nav.GetTarget() return q.nav.target end
 function Nav.ReleaseTarget()

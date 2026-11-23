@@ -12,11 +12,8 @@ return {
 
 	-- Step 1: Yarlyn Amberstill
 	-- {npc:1263} Yarlyn Amberstill · {area:803} Amberstill Ranch · {area:131} Kharanos · {zone:1432} Loch Modan · {npc:1261} Veron Amberstill
-	["{npc:1263} stands at {area:803}, east of {area:131} on the road to {zone:1432}, beside {npc:1261}, the ram breeder. Each rabbit crate costs 20s; the Arctic and Brown crates are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:1263} stands at {area:803}, east of {area:131} on the road to {zone:1432}, beside {npc:1261}, the ram breeder. Each rabbit crate costs 20s; the Arctic and Brown crates are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:1263}站在{area:131}東邊、往{zone:1432}路上的{area:803}，在山羊飼養員{npc:1261}旁邊。每個兔籠20銀；極地和棕色兔籠是Forever新增的。每個寵物物品使用後會教你召喚該寵物；之後目標會保持勾選。",
 	-- {item:8497} Rabbit Crate (Snowshoe)
 	["{item:8497}, 20s"] = "{item:8497}，20銀",
 	["20s"] = "20銀",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{npc:1263} stands at {area:803}, east of {area:131}. Each rabbit crate costs 20s; the Arctic and Brown crates are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:1263}站在{area:131}東邊的{area:803}。每個兔籠20銀；極地和棕色兔籠是Forever新增的。每個寵物物品使用後會教你召喚該寵物；之後目標會保持勾選。",
 }

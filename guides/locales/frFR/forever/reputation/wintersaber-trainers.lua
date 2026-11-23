@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Wintersaber Trainers Reputation"] = "Réputation : Éleveurs de sabres-d'hiver",
-	-- {zone:1452} Winterspring
-	["The Winterspring Frostsaber: 840 quest turn-ins in {zone:1452}, with Timbermaw reputation on the side."] = "",
+	-- {spell:17229} Winterspring Frostsaber · {zone:1452} Winterspring
+	["The {spell:17229}: 840 quest turn-ins in {zone:1452}, with Timbermaw reputation on the side."] = "Le {spell:17229} : 840 remises de quêtes au {zone:1452}, avec de la réputation Grumegueule en prime.",
 	-- {area:1769} Timbermaw Hold · {item:21383} Winterfall Spirit Beads · {quest:5201} Winterfall Intrusion
 	["{area:1769} reputation on the side: 50 and about 4 {item:21383} per {quest:5201}"] = "Réputation {area:1769} en prime : 50 et environ 4 {item:21383} par {quest:5201}",
 
@@ -53,7 +53,4 @@ return {
 	["{npc:7428}, elite"] = "{npc:7428}, élite",
 	-- {npc:7429} Frostmaul Preserver
 	["{npc:7429}, elite"] = "{npc:7429}, élite",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["The {spell:17229}: 840 quest turn-ins in {zone:1452}, with Timbermaw reputation on the side."] = "Le {spell:17229} : 840 remises de quêtes au {zone:1452}, avec de la réputation Grumegueule en prime.",
 }

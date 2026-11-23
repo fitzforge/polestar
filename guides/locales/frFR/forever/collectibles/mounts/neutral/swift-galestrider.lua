@@ -38,10 +38,10 @@ return {
 	["{npc:265756}, riding trainer"] = "{npc:265756}, maître de monte",
 
 	-- Step 5: Galestrider Riding for other races
-	-- {skill:762} Riding
-	["Galestrider {skill:762} for other races"] = "",
-	-- {skill:762} Riding · {npc:265756} Genn Fairweather
-	["Any race can buy Galestriders, but riding one also takes Galestrider Riding, which only the Skyborne get with {skill:762}. Other races can learn it too, but how is not known yet: in Classic another race's riding needed Exalted with its home faction, here the High Order (Alliance) or the Windshapers (Horde). Ask {npc:265756} before you buy."] = "",
+	-- {spell:1285849} Galestrider Riding
+	["{spell:1285849} for other races"] = "{spell:1285849} pour les autres races",
+	-- {spell:1285849} Galestrider Riding · {skill:762} Riding · {npc:265756} Genn Fairweather
+	["Any race can buy Galestriders, but riding one also takes {spell:1285849}, which only the Skyborne get with {skill:762}. Other races can learn it too, but how is not known yet: in Classic another race's riding needed Exalted with its home faction, here the High Order (Alliance) or the Windshapers (Horde). Ask {npc:265756} before you buy."] = "Toute race peut acheter des trotteurs des trombes, mais en monter un demande aussi {spell:1285849}, que seuls les Éolides reçoivent avec la {skill:762}. Les autres races peuvent aussi l'apprendre, mais on ne sait pas encore comment : dans Classic, la monte d'une autre race demandait d'être Exalté auprès de sa faction d'origine, ici le Haut ordre (Alliance) ou les Façonneurs-de-vent (Horde). Demandez à {npc:265756} avant d'acheter.",
 
 	-- Step 6: Genn Fairweather
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
@@ -49,8 +49,6 @@ return {
 	["200g"] = "200 po",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Any race can buy Galestriders, but riding one also takes {spell:1285849}, which only the Skyborne get with {skill:762}. Other races can learn it too, but how is not known yet: in Classic another race's riding needed Exalted with its home faction, here the High Order (Alliance) or the Windshapers (Horde). Ask {npc:265756} before you buy."] = "Toute race peut acheter des trotteurs des trombes, mais en monter un demande aussi {spell:1285849}, que seuls les Éolides reçoivent avec la {skill:762}. Les autres races peuvent aussi l'apprendre, mais on ne sait pas encore comment : dans Classic, la monte d'une autre race demandait d'être Exalté auprès de sa faction d'origine, ici le Haut ordre (Alliance) ou les Façonneurs-de-vent (Horde). Demandez à {npc:265756} avant d'acheter.",
 	-- ["Swift Galestriders need level 60 and Journeyman {skill:762} from a riding trainer of your faction; see the Level 60 mount guides for where."] = "Les Swift Galestriders exigent le niveau 60 et {skill:762} (compagnon) auprès d'un maître d'équitation de votre faction ; voir les guides des montures de niveau 60 pour savoir où.",
 	-- ["{npc:265756} is in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one."] = "{npc:265756} est à {area:16638}, la ville portuaire de l'île, près des quais des aéronefs. Le client Forever affiche chaque Swift Galestrider à 200 po ; choisissez-en un.",
-	-- ["{spell:1285849} for other races"] = "{spell:1285849} pour les autres races",
 }

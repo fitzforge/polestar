@@ -310,20 +310,81 @@ fn kp_s_report_the_deadmines_pick_up_guide_of_a_level_21_gnome_rogue_in_lakeshir
 	assert_eq!(found, Vec::<&String>::new(), "The Ectoplasmic Distiller (Mux, Tanaris) and The Dread Citadel (Dosantos, Light's Hope) are on no raid page through a boss's stray essence or crystal");
 }
 
+const IN0K_SCRIPT: &str = r#"
+local w = stub.world
+w.complete({ 65, 132, 135, 141, 142, 92742, 92744, 92745, 92747, 92748, 92749, 92750, 92751, 92752, 92753 })
+for _, q in ipairs({ 168, 167, 2040 }) do w.onQuest(q, { 1 }) end
+stub.login()
+Polestar.Set("behavior.autoAccept", false)
+local D, E = Polestar.Dungeons, Polestar.Engine
+D.Load()
+D.PickUp("deadmines")
+stub.advance(0.25)
+local function view()
+	local out = {}
+	for i, s in ipairs(E.GetGuide().steps) do
+		local gs = {}
+		for g, v in ipairs(E.GetStepView(i).goals) do
+			local goal = s.goals[g]
+			gs[g] = goal.t .. ":" .. tostring(goal.quest) .. ":" .. v.status .. ":" .. tostring(v.unavailableText)
+		end
+		out[i] = table.concat(gs, " ")
+	end
+	return out
+end
+local r = { at = E.GetStepIndex(), steps = view() }
+E.Skip()
+stub.advance(0.25)
+r.skipped = { at = E.GetStepIndex(), steps = view() }
+emit(r)"#;
+
+// #1406 (In0k, Human Mage 18 at Sentinel Hill): the Deadmines pick-up guide's step 3 sent him to Gryan
+// Stoutmantle for The Defias Brotherhood (166), which Gryan gives only after the escort before it (155, The
+// Defias Traitor), so it was not there. The escort comes first; skipped (the Traitor is often away on another
+// player's escort), Gryan's and Scout Riell's accepts, which both need it, say so and the guide goes on.
+#[test]
+fn in0k_s_report_a_skipped_defias_traitor_escort_leaves_gryan_s_and_riell_s_accepts_requiring_it_not_a_giver_who_refuses() {
+	if skip() {
+		return;
+	}
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: before("\"Human\"", "\"MAGE\"", "\"Alliance\"", 18, &[1436.0, 55.78, 48.03]),
+		addons: vec!["Polestar".into()],
+		script: IN0K_SCRIPT.into(),
+		..Default::default()
+	})
+	.remove(0);
+	let steps = strs(&out["steps"]);
+	assert_eq!(out["at"], 1);
+	assert!(steps[0].starts_with("accept:155:active"), "the escort first: {steps:?}");
+	let skipped = strs(&out["skipped"]["steps"]);
+	let gryan = skipped.iter().find(|s| s.starts_with("accept:166:")).expect("Gryan's The Defias Brotherhood");
+	let riell = skipped.iter().find(|s| s.starts_with("accept:214:")).expect("Scout Riell's Red Silk Bandanas");
+	assert_eq!(gryan, "accept:166:skipped:Requires \u{201c}The Defias Brotherhood\u{201d} first");
+	assert_eq!(riell, "accept:214:skipped:Requires \u{201c}The Defias Brotherhood\u{201d} first");
+	assert_eq!(out["skipped"]["at"].as_u64(), Some(skipped.len() as u64), "on at the entrance: {skipped:?}");
+}
+
 const TABETHA: &str = r#"
 stub.login()
 local D = Polestar.Dungeons
 D.Load()
-local giver
+local own, onWay = false, false
 for _, t in ipairs(D.PickupPlan("zulfarrak").take) do
-	if t.quest.id == 2861 then giver = t.giver end
+	if t.quest.id == 2861 then own = true end
+	for _, r in ipairs(t.pre) do
+		if r.id == 2861 then onWay = t.quest.id end
+	end
 end
 local target = D.GiverTarget("zulfarrak", 2861)
-local npc = giver and Polestar.Codex.Npc(giver.id)
-emit({ giver = giver and giver.name or false, map = giver and giver.map or false, side = npc and npc.faction or false, target = target and target.name or false })"#;
+local npc = target and target.kind == "npc" and Polestar.Codex.Npc(target.id)
+emit({ own = own, onWay = onWay, map = target and target.map or false, side = npc and npc.faction or false, target = target and target.name or false })"#;
 
 // Tabetha's Task (2861) for Zul'Farrak: the mage trainers of both sides give it; the page names the first,
-// Anastasia Hartwell in the Undercity.
+// Anastasia Hartwell in the Undercity. It is Tiara of the Deep's (2846) breadcrumb, and the game holds Tiara back
+// while it is in the log, so the pick-up guide takes it on Tiara's way (the last of Tiara's `pre`, handed in right
+// before Tiara's accept), not as a pick-up of its own.
 fn tabetha(race: &str, faction: &str, at: &[f64]) -> Value {
 	emitted(&RunAddon { stubs: vec!["stub_world.lua"], before: before(&lv(race), "\"MAGE\"", &lv(faction), 44, at), addons: vec!["Polestar".into()], script: TABETHA.into(), ..Default::default() })
 		.remove(0)
@@ -364,13 +425,14 @@ fn tabetha_s_task_a_level_44_alliance_mage_in_stormwind_is_sent_to_an_alliance_m
 		return;
 	}
 	let human = tabetha("Human", "Alliance", &[1453.0, 50.0, 60.0]);
-	assert_eq!(human["side"], "A", "an Alliance giver: {}", serde_json::to_string(&human).unwrap());
-	assert_eq!(human["map"], 1453, "in Stormwind");
-	assert_eq!(human["target"], human["giver"], "the quest card's link goes there too");
+	let shown = serde_json::to_string(&human).unwrap();
+	assert_eq!(human["side"], "A", "an Alliance giver: {shown}");
+	assert_eq!(human["map"], 1453, "in Stormwind: {shown}");
+	assert_eq!(json!([human["own"], human["onWay"]]), json!([false, 2846]), "taken on Tiara of the Deep's way: {shown}");
 	let undead = tabetha("Scourge", "Horde", &[1458.0, 66.0, 44.0]);
 	let mut u = undead.clone();
 	u["map"] = json!(undead["map"] == 1420 || undead["map"] == 1458);
-	assert_eq!(u, json!({ "giver": "Anastasia Hartwell", "map": true, "side": "H", "target": "Anastasia Hartwell" }), "in the Undercity (the Codex also places her on its Tirisfal Glades map)");
+	assert_eq!(u, json!({ "own": false, "onWay": 2846, "map": true, "side": "H", "target": "Anastasia Hartwell" }), "in the Undercity (the Codex also places her on its Tirisfal Glades map)");
 }
 
 const ATTUNE: &str = r#"
@@ -578,5 +640,54 @@ fn the_excavation_site_pick_up_guide_takes_neither_titan_relic_follow_up_before_
 		let after = dungeon_quests("excavation-site-wetlands", &Dq { ready: vec![item], ..who.clone() });
 		assert_eq!(after["hand"], json!([item]));
 		assert_eq!(after["follow"], json!([next]));
+	}
+}
+
+// The dungeon sweep (2026-11-08): for an Alliance character in Stormwind, Gnomeregan's pick-up guide went to
+// Stonetalon for Castpipe's Task (2931) and to Darnassus for Klockmort's Essentials (2925), breadcrumbs to Data
+// Rescue (2930) and Essential Artificials (2924), which Ironforge gives anyway; the Excavation Site's went to
+// Ashenvale for Seeking Caitlin (95737) before Lost in the Thicket Things (95647) in the Wetlands. Those are left
+// out; Tinkmaster Overspark (2923, Stormwind, on the way to Save Techbot's Brain! 2922) and The Greenwarden (463,
+// Menethil Harbor, #1226) stay.
+#[test]
+fn a_stormwind_character_s_gnomeregan_and_excavation_site_pick_up_guides_skip_the_breadcrumbs_on_kalimdor_and_keep_the_ones_on_the_way() {
+	if skip() {
+		return;
+	}
+	let human = |level: u32| Dq { race: "Human", faction: "Alliance", cls: "PALADIN", level, at: [1453.0, 60.0, 70.0], ready: vec![] };
+	let gnomer = dungeon_quests("gnomeregan", &human(25));
+	let accepts = nums(&gnomer["accepts"]);
+	for far in [2931, 2925] {
+		assert!(!accepts.contains(&far), "no trip to Kalimdor for breadcrumb {far}: {}", js_string(&gnomer["accepts"]));
+	}
+	for kept in [2930, 2924, 2922, 2923] {
+		assert!(accepts.contains(&kept), "{kept} is still picked up: {}", js_string(&gnomer["accepts"]));
+	}
+	let wetlands = dungeon_quests("excavation-site-wetlands", &human(26));
+	let accepts = nums(&wetlands["accepts"]);
+	assert!(!accepts.contains(&95737), "no trip to Ashenvale for Seeking Caitlin: {}", js_string(&wetlands["accepts"]));
+	for kept in [95647, 463] {
+		assert!(accepts.contains(&kept), "{kept} is still picked up: {}", js_string(&wetlands["accepts"]));
+	}
+}
+
+// #1402 (Geekmandem, Human Warlock 32 at Stonetalon Peak, 0.3.5): Gnomeregan's pick-up guide opened with Gaxim
+// Rustfizzle in Stonetalon for Castpipe's Task (2931) and Mathiel in Darnassus for Klockmort's Essentials (2925),
+// breadcrumbs to Ironforge quests that are given without them. From Stonetalon, Castpipe's Task is 200 s out of
+// the way (a 394 s walk to Windshear Crag) for 230 XP: a breadcrumb across the sea is taken only from beside its
+// giver, so neither is; Tinkmaster Overspark and The Day After, on the way, stay.
+#[test]
+fn geekmandem_s_report_from_stonetalon_peak_gnomeregan_s_pick_up_guide_takes_neither_kalimdor_breadcrumb() {
+	if skip() {
+		return;
+	}
+	let who = Dq { race: "Human", faction: "Alliance", cls: "WARLOCK", level: 32, at: [1442.0, 37.27, 8.25], ready: vec![] };
+	let gnomer = dungeon_quests("gnomeregan", &who);
+	let accepts = nums(&gnomer["accepts"]);
+	for far in [2931, 2925] {
+		assert!(!accepts.contains(&far), "no Kalimdor breadcrumb {far}: {}", js_string(&gnomer["accepts"]));
+	}
+	for kept in [2930, 2924, 2922, 2923, 2926, 2927] {
+		assert!(accepts.contains(&kept), "{kept} is still picked up: {}", js_string(&gnomer["accepts"]));
 	}
 }

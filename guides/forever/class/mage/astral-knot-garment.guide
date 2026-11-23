@@ -57,19 +57,21 @@ step High Sorcerer Andromath (Skyborne)
   only Skyborne
   zone Stormwind City
   tip You do not need a letter: at 26 climb the Wizard's Sanctum, the violet tower of Stormwind's Mage Quarter. High Sorcerer Andromath waits on the spiral walkway, just past the door of the portal room near the top, and has the quest for you. (Jennea Cannon may also offer you High Sorcerer Andromath, the pointer quest; it is only a pointer and you can skip it.)
-  level 26
+  level 27
   accept 1938 npc 5694                        -- High Sorcerer Andromath
 
 step High Sorcerer Andromath
   only Human,Gnome
   zone Stormwind City
   tip High Sorcerer Andromath waits on the spiral walkway of the Wizard's Sanctum, just past the door of the portal room as you walk down from the trainers.
+  level 27
   turnin 1939                                 -- High Sorcerer Andromath
   accept 1938
 
 step The Tower of Ilgalar
   zone Redridge Mountains
   tip Head east through Elwynn Forest into Redridge, or fly to Lakeshire. The Tower of Ilgalar stands alone in the east of the zone. Climb to the very top floor (not the one below): the treatise is the book sticking out of the shelf where the stairs come up. Two gnoll dogs and a gnoll caster guard the shelf; the dogs' Mana Burn interrupts the click, so fight them on the stairs out of their sight. Morganth (level 26 elite) stands across the top floor: you do not need him, keep to the left edge of the ramp so he stays put. The book is back two seconds after anyone takes it. If you die, your ghost can run up and come back to life beside it.
+  level 28
   collect 7266 quest 1938.1                   -- Ur's Treatise on Shadow Magic
 
 step Back to Andromath

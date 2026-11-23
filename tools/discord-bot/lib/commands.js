@@ -15,6 +15,8 @@
 const I = require('./issue');
 
 const ADMINISTRATOR = 1n << 3n;
+// Server staff: administrators, and moderators (manage server, messages or threads).
+const STAFF = ADMINISTRATOR | (1n << 5n) | (1n << 13n) | (1n << 34n);
 const EPHEMERAL = 64;
 const MAX_NOTE = 1000;
 
@@ -71,6 +73,26 @@ function isAdmin(interaction) {
 	} catch {
 		return false;
 	}
+}
+
+// Whether a guild member is server staff, from their role ids (the gateway's
+// message member and the REST member both carry them; computed permissions
+// come only with interactions). `guild` is { id, owner_id, roles: [{ id, permissions }] };
+// the @everyone role has the guild's id.
+function isStaff(guild, userId, memberRoles) {
+	if (!guild) return false;
+	if (guild.owner_id && guild.owner_id === userId) return true;
+	const held = new Set([guild.id, ...(memberRoles || [])]);
+	let perms = 0n;
+	for (const role of guild.roles || []) {
+		if (!held.has(role.id)) continue;
+		try {
+			perms |= BigInt(role.permissions);
+		} catch {
+			// unreadable bits count for nothing
+		}
+	}
+	return (perms & STAFF) !== 0n;
 }
 
 function options(interaction) {
@@ -172,4 +194,4 @@ function createCommands({ discord, github, issueFor, log = console }) {
 	return { register, handle };
 }
 
-module.exports = { createCommands, COMMANDS, REASONS, RESOLUTION_LABELS, isAdmin };
+module.exports = { createCommands, COMMANDS, REASONS, RESOLUTION_LABELS, isAdmin, isStaff };

@@ -104,7 +104,8 @@ function O.Draw()
 	end
 	pending = false
 	local c = T.Current()
-	if not (c and c.staged and T.Get("overlay") and f:IsShown() and ownActive(f, c)) then return hideAll() end
+	-- Nothing while Polestar is hidden (POLESTAR_HIDDEN draws again).
+	if ns.Hidden() or not (c and c.staged and T.Get("overlay") and f:IsShown() and ownActive(f, c)) then return hideAll() end
 	if not f.EnumerateAllTalentButtons then return hideAll() end
 	local seen = {}
 	for button in f:EnumerateAllTalentButtons() do
@@ -162,7 +163,7 @@ function O.TooltipLine(liveID)
 end
 
 onEnter = function(button)
-	if not T.Get("tooltip") or not GameTooltip or GameTooltip:GetOwner() ~= button then return end
+	if ns.Hidden() or not T.Get("tooltip") or not GameTooltip or GameTooltip:GetOwner() ~= button then return end
 	local f = frame()
 	local c = T.Current()
 	if not (f and c and c.staged and ownActive(f, c)) then return end
@@ -188,6 +189,7 @@ function O.Attach()
 end
 
 ns.On("TALENTS_UPDATED", function() if attached then O.Queue() end end)
+ns.On("POLESTAR_HIDDEN", function() if attached then O.Queue() end end)
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", function() if pending then O.Queue() end end)
 ns.RegisterEvent("ADDON_LOADED", function(_, name) if name == "Blizzard_PlayerSpells" then O.Attach() end end)
 ns.OnLogin(O.Attach)

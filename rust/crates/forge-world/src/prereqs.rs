@@ -85,3 +85,85 @@ impl ClosedBy {
 		out
 	}
 }
+
+/// The breadcrumbs leading to each quest, by either link: the quest's own `breadcrumbs` and every
+/// quest whose `breadcrumbFor` is it. A breadcrumb never blocks its target as a prerequisite, but
+/// while it is in the log the game holds the target back until it is handed in (or abandoned):
+/// in players' recordings, The Forgotten Pools (870) was offered to 30 people who never had The
+/// Barrens Oases (886) and refused to 12 while 886 was in their log; over the data's 55 pure
+/// breadcrumbs, 68 such refusals against 1 offer.
+#[derive(Clone, Debug, Default)]
+pub struct CrumbIndex {
+	of: BTreeMap<i64, Vec<i64>>,
+}
+
+impl CrumbIndex {
+	pub fn new(quests: &BTreeMap<u32, Quest>) -> CrumbIndex {
+		let mut of: BTreeMap<i64, Vec<i64>> = BTreeMap::new();
+		let mut add = |t: i64, c: i64| {
+			if t > 0 && c > 0 && t != c {
+				let v = of.entry(t).or_default();
+				if !v.contains(&c) {
+					v.push(c);
+				}
+			}
+		};
+		for (&id, q) in quests {
+			for c in ids(&q.breadcrumbs) {
+				add(id as i64, c);
+			}
+			if let Some(t) = q.breadcrumb_for.filter(|t| t.fract() == 0.0 && *t > 0.0) {
+				add(t as i64, id as i64);
+			}
+		}
+		for v in of.values_mut() {
+			v.sort_unstable();
+		}
+		CrumbIndex { of }
+	}
+
+	/// The breadcrumbs leading to quest `id` (sorted; empty for none).
+	pub fn of(&self, id: i64) -> &[i64] {
+		self.of.get(&id).map_or(&[], Vec::as_slice)
+	}
+
+	/// Every (breadcrumb, target) pair, by target then breadcrumb.
+	pub fn pairs(&self) -> Vec<(i64, i64)> {
+		self.of.iter().flat_map(|(&t, cs)| cs.iter().map(move |&c| (c, t))).collect()
+	}
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+	use crate::data::Ends;
+
+	fn quest(id: u32, breadcrumbs: &[i64], breadcrumb_for: Option<f64>) -> Quest {
+		Quest { id, start: Ends { npc: vec![1], ..Default::default() }, breadcrumbs: breadcrumbs.to_vec(), breadcrumb_for, ..Default::default() }
+	}
+
+	// A breadcrumb counts by either link: the target's `breadcrumbs` (1198 for 1200) or the
+	// breadcrumb's `breadcrumbFor` (469 for 484, a correction); a quest listing itself is no breadcrumb.
+	#[test]
+	fn crumb_index_reads_both_links() {
+		let quests: BTreeMap<u32, Quest> = [
+			quest(1200, &[1198], None),
+			quest(1198, &[], None),
+			quest(484, &[], None),
+			quest(469, &[], Some(484.0)),
+			quest(8414, &[8414], None),
+			quest(886, &[], Some(870.0)),
+			quest(870, &[886], None),
+		]
+		.into_iter()
+		.map(|q| (q.id, q))
+		.collect();
+		let ix = CrumbIndex::new(&quests);
+		assert_eq!(ix.of(1200), &[1198]);
+		assert_eq!(ix.of(484), &[469]);
+		assert_eq!(ix.of(870), &[886], "listed once when both links name it");
+		assert!(ix.of(8414).is_empty());
+		assert!(ix.of(886).is_empty());
+		assert_eq!(ix.pairs(), vec![(469, 484), (886, 870), (1198, 1200)]);
+	}
+}

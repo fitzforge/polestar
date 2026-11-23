@@ -66,14 +66,15 @@ const TIMED_LEAD_S: f64 = 900.0;
 /// this many yards more ([`back_first`]).
 const BACK_FIRST_SLACK_YD: f64 = 300.0;
 
-fn yd(a: Pt, b: Pt) -> f64 {
+pub(crate) fn yd(a: Pt, b: Pt) -> f64 {
 	if a.c != b.c {
 		return f64::INFINITY;
 	}
 	(a.wx - b.wx).hypot(a.wy - b.wy)
 }
 
-fn seg_yd(p: Pt, a: Pt, b: Pt) -> (f64, f64) {
+/// The distance from `p` to the straight leg `a`-`b`, and where along it the nearest point is (0-1).
+pub(crate) fn seg_yd(p: Pt, a: Pt, b: Pt) -> (f64, f64) {
 	if p.c != a.c || a.c != b.c {
 		return (f64::INFINITY, 0.0);
 	}
@@ -176,50 +177,12 @@ impl Tour<'_> {
 		o.t == OrderT::Turnin && o.q.and_then(|q| self.wq.get(&q)).is_some_and(|&i| self.world.quests[i].source_dur.is_some_and(|d| d > 0.0 && d <= TIMED_LEAD_S))
 	}
 
-	/// The quest's prerequisites as groups, any one of each group needed: the data's `pre` (a negative
-	/// id: any of them) and `preAny`, the world's `pre`. A prerequisite the route does not hand in
-	/// holds the quest where the route has it: on a shared guide the canonical start's run writes, it
-	/// may be another start's (The State of the Mines before Moonbrook Espionage, Dwarves and Gnomes).
 	fn pre_groups(&self, q: u32) -> Vec<Vec<u32>> {
-		let mut all: Vec<u32> = Vec::new();
-		let mut any: Vec<u32> = Vec::new();
-		let mut push = |v: i64| {
-			if v > 0 {
-				all.push(v as u32);
-			} else if v < 0 {
-				any.push((-v) as u32);
-			}
-		};
-		if let Some(d) = self.data.quests.get(&q) {
-			for v in d.pre.iter().flatten().filter_map(serde_json::Value::as_i64) {
-				push(v);
-			}
-		}
-		if let Some(w) = self.wq.get(&q).map(|&i| &self.world.quests[i]) {
-			for &v in w.pre.iter().flatten() {
-				push(v);
-			}
-		}
-		let mut groups: Vec<Vec<u32>> = all.into_iter().map(|p| vec![p]).collect();
-		if !any.is_empty() {
-			groups.push(any);
-		}
-		if let Some(pa) = self.data.quests.get(&q).and_then(|d| d.pre_any.as_ref()) {
-			let g: Vec<u32> = pa.iter().filter_map(serde_json::Value::as_i64).map(|v| v.unsigned_abs() as u32).collect();
-			if !g.is_empty() {
-				groups.push(g);
-			}
-		}
-		groups
+		pre_groups(self.world, &self.wq, self.data, q)
 	}
 
-	/// On level at `lvl`: its minimum, its level less ON_LEVEL_GAP. In a start zone (a race's own v1
-	/// guide) START_ZONE_MARGIN_LVL more: the model runs about a level ahead of real play there
-	/// (Gordo's Task, minimum 5, moved onto the walk in at 4.5, #739).
 	fn level_ok(&self, o: &Order, q: u32, lvl: f64) -> bool {
-		let Some(d) = self.data.quests.get(&q) else { return false };
-		let lvl = if start_zone(o) { lvl - START_ZONE_MARGIN_LVL } else { lvl };
-		d.min_level.is_none_or(|m| m <= lvl + 1e-9) && d.level.is_none_or(|l| l - ON_LEVEL_GAP <= lvl)
+		level_ok(self.data, o, q, lvl)
 	}
 
 	/// Route fixes (`deliberate` and `overrides` `pairs`) put `a` before `b`.
@@ -304,16 +267,63 @@ fn opt(q: Option<u32>) -> String {
 /// The v1 guide an event's line is in. The tour moves events within one guide: the guides' cut and
 /// the class steps placed by the route's lines stay as they were (Booty Bay's Bloodsail Buccaneers at
 /// the end of the Arathi guide moved Stranglethorn's first steps into it).
-fn file(o: &Order) -> Option<&str> {
+pub(crate) fn file(o: &Order) -> Option<&str> {
 	o.from.as_deref().and_then(|f| f.rsplit_once(':')).map(|f| f.0)
 }
 
 /// An event of a start zone: its v1 guide is a race's own (`forever/horde/undead/...`), not one of the
 /// faction's shared guides (`forever/horde/04-the-barrens`, `forever/horde/30-40/...`).
-fn start_zone(o: &Order) -> bool {
+pub(crate) fn start_zone(o: &Order) -> bool {
 	let Some(f) = file(o) else { return false };
 	let parts: Vec<&str> = f.trim_start_matches("guides/").split('/').collect();
 	matches!(parts.as_slice(), ["forever", "horde" | "alliance", dir, _] if !dir.starts_with(|c: char| c.is_ascii_digit()))
+}
+
+/// The quest's prerequisites as groups, any one of each group needed: the data's `pre` (a negative
+/// id: any of them) and `preAny`, the world's `pre` (`wq`: the world's quests by id). A prerequisite
+/// the route does not hand in holds the quest where the route has it: on a shared guide the canonical
+/// start's run writes, it may be another start's (The State of the Mines before Moonbrook Espionage,
+/// Dwarves and Gnomes).
+pub(crate) fn pre_groups(world: &World, wq: &FxHashMap<u32, usize>, data: &Data, q: u32) -> Vec<Vec<u32>> {
+	let mut all: Vec<u32> = Vec::new();
+	let mut any: Vec<u32> = Vec::new();
+	let mut push = |v: i64| {
+		if v > 0 {
+			all.push(v as u32);
+		} else if v < 0 {
+			any.push((-v) as u32);
+		}
+	};
+	if let Some(d) = data.quests.get(&q) {
+		for v in d.pre.iter().flatten().filter_map(serde_json::Value::as_i64) {
+			push(v);
+		}
+	}
+	if let Some(w) = wq.get(&q).map(|&i| &world.quests[i]) {
+		for &v in w.pre.iter().flatten() {
+			push(v);
+		}
+	}
+	let mut groups: Vec<Vec<u32>> = all.into_iter().map(|p| vec![p]).collect();
+	if !any.is_empty() {
+		groups.push(any);
+	}
+	if let Some(pa) = data.quests.get(&q).and_then(|d| d.pre_any.as_ref()) {
+		let g: Vec<u32> = pa.iter().filter_map(serde_json::Value::as_i64).map(|v| v.unsigned_abs() as u32).collect();
+		if !g.is_empty() {
+			groups.push(g);
+		}
+	}
+	groups
+}
+
+/// Quest `q` on level at `lvl` for event `o`: its minimum, its level less ON_LEVEL_GAP. In a start zone
+/// (a race's own v1 guide) START_ZONE_MARGIN_LVL more: the model runs about a level ahead of real play
+/// there (Gordo's Task, minimum 5, moved onto the walk in at 4.5, #739).
+pub(crate) fn level_ok(data: &Data, o: &Order, q: u32, lvl: f64) -> bool {
+	let Some(d) = data.quests.get(&q) else { return false };
+	let lvl = if start_zone(o) { lvl - START_ZONE_MARGIN_LVL } else { lvl };
+	d.min_level.is_none_or(|m| m <= lvl + 1e-9) && d.level.is_none_or(|l| l - ON_LEVEL_GAP <= lvl)
 }
 
 /// An event a route-fixes pair names: (kind, quest).
@@ -361,17 +371,19 @@ pub fn fix_kept(faction: Option<&str>) -> rustc_hash::FxHashSet<u32> {
 		.collect()
 }
 
-/// [`fix_pairs`] of a route fixes document.
-fn pairs_of(doc: &serde_json::Value, faction: Option<&str>) -> Vec<(PairEv, PairEv)> {
-	let ev = |v: &serde_json::Value| -> Option<PairEv> {
-		let t = match v.get(0)?.as_str()? {
-			"accept" => OrderT::Accept,
-			"turnin" => OrderT::Turnin,
-			"task" => OrderT::Task,
-			_ => return None,
-		};
-		Some((t, u32::try_from(v.get(1)?.as_u64()?).ok()?))
+/// A route-fixes record's step, `[kind, quest, objective?]`, as an event (the objective left out).
+pub(crate) fn pair_ev(v: &serde_json::Value) -> Option<PairEv> {
+	let t = match v.get(0)?.as_str()? {
+		"accept" => OrderT::Accept,
+		"turnin" => OrderT::Turnin,
+		"task" => OrderT::Task,
+		_ => return None,
 	};
+	Some((t, u32::try_from(v.get(1)?.as_u64()?).ok()?))
+}
+
+/// [`fix_pairs`] of a route fixes document.
+pub(crate) fn pairs_of(doc: &serde_json::Value, faction: Option<&str>) -> Vec<(PairEv, PairEv)> {
 	let ours = |p: &serde_json::Value| p["faction"].as_str().is_none_or(|f| faction.is_none_or(|g| f.eq_ignore_ascii_case(g)));
 	// (`after` rules too: `a` before `b`, as a pair, W1.)
 	[&doc["deliberate"]["pairs"], &doc["overrides"]["pairs"], &doc["deliberate"]["after"]]
@@ -379,7 +391,7 @@ fn pairs_of(doc: &serde_json::Value, faction: Option<&str>) -> Vec<(PairEv, Pair
 		.filter_map(|v| v.as_array())
 		.flatten()
 		.filter(|p| ours(p))
-		.filter_map(|p| Some((ev(&p["a"])?, ev(&p["b"])?)))
+		.filter_map(|p| Some((pair_ev(&p["a"])?, pair_ev(&p["b"])?)))
 		.collect()
 }
 
@@ -687,9 +699,9 @@ const TRIP_MIN_YD: f64 = 600.0;
 /// spot, which the route comes back for only after it has left, is done there: before the flight, or
 /// on landing, the travel going with the first of them (the walk on to the event after them is the
 /// event's own). Sen'jin Village's hand-ins on the deathskip's landing before Kolkar Crag, not after
-/// it (c19 Orc durotar:384, Rev19-H A2); Mebok's at Ratchet on landing (Rev19-H B2);
+/// it (c19 Orc durotar:384, c19 review A2); Mebok's at Ratchet on landing (c19 review B2);
 /// Nathaniel Dumah's beside Chillwind Camp's flight master before the flight to Southshore, not two
-/// zones later (c19 Alliance 06-silithus:657, Rev19-A).
+/// zones later (c19 Alliance 06-silithus:657, c19 review).
 fn ready_where_you_stand(t: &Tour, mut order: Vec<Order>, log: &mut Vec<String>) -> Vec<Order> {
 	let mut x = 1;
 	while x < order.len() {
@@ -798,7 +810,7 @@ fn ready_where_you_stand(t: &Tour, mut order: Vec<Order>, log: &mut Vec<String>)
 }
 
 /// Removes event `k`; its travel items go to the event after it, which is now reached that way.
-fn take_out(order: &mut Vec<Order>, k: usize) -> Order {
+pub(crate) fn take_out(order: &mut Vec<Order>, k: usize) -> Order {
 	let mut o = order.remove(k);
 	if let Some(its) = o.items.take().filter(|v| !v.is_empty()) {
 		if let Some(next) = order.get_mut(k) {
@@ -902,12 +914,13 @@ fn hub_visits(t: &Tour, hub_of: &FxHashMap<u32, usize>, mut order: Vec<Order>, l
 		// (A hand-in the route comes back for after leaving, at an NPC outside the hub but within
 		// LEAVE_YD of where the visit stands, joins it too: Ozwin's isosprings, 160 yd from Saldean,
 		// handed in at the Saldean's Farm stop, not after the walk to Furlbrow's and back, c19 Alliance
-		// 02-westfall:227, Rev19-A.) Not one whose NPC the route comes back to later anyway: J.D. Collie's
+		// 02-westfall:227, c19 review.) Not one whose NPC the route comes back to later anyway: J.D. Collie's
 		// Linken's Memory, which he gives after it, was left for that later stop, a trip of its own.
 		let here: Vec<Pt> = order[i..j].iter().filter(|o| t.at_npc(o)).filter_map(|o| t.pos(o)).collect();
 		let near = |o: &Order, after: &[Order]| {
 			o.t == OrderT::Turnin
-				&& !o.extra && !travels(o)
+				&& !o.extra
+				&& !travels(o)
 				&& t.pos(o).is_some_and(|p| here.iter().any(|&s| yd(s, p) <= LEAVE_YD) && !after.iter().any(|e| t.at_npc(e) && t.pos(e).is_some_and(|q| yd(p, q) <= SAME_NPC_YD)))
 		};
 		// (`errand` never changes inside: the loop runs while pulls happen, or not at all.)
@@ -924,7 +937,8 @@ fn hub_visits(t: &Tour, hub_of: &FxHashMap<u32, usize>, mut order: Vec<Order>, l
 					if (k >= left || o.t != OrderT::Task)
 						&& (hub(o) == Some(h) || (k >= left && near(o, &order[k + 1..])))
 						&& (!travels(o) || leg_moves)
-						&& t.at_npc(o) && !(t.pinned)(o)
+						&& t.at_npc(o)
+						&& !(t.pinned)(o)
 						&& soon(o, lvl, ACCEPT_AHEAD_LVL)
 						&& file(o) == file(&order[i])
 						&& t.ready(o, &st, lvl, &order[j..k])
@@ -1072,7 +1086,7 @@ fn sweep(t: &Tour, order: &mut [Order], i: usize, j: usize, lvl0: f64) {
 	let solve = |stops: &[Vec<usize>]| -> Option<(f64, f64, Vec<usize>)> {
 		let mut pred = preds(stops)?;
 		// (A delivery whose item runs out leads the visit, after its way in: Durnan's Scalding Mornbrew
-		// before Anvilmar's other NPCs, RevDwarfGnome3.)
+		// before Anvilmar's other NPCs.)
 		if let Some(s0) = stops.iter().position(|s| s.iter().any(|&k| t.timed(&order[ev[k]]))) {
 			let way_in = travels(first).then(|| stops.iter().position(|s| s.contains(&0))).flatten();
 			for b in 0..stops.len() {
@@ -1281,7 +1295,7 @@ mod tour_tests {
 
 	#[test]
 	fn hand_ins_ready_where_a_deathskip_lands_are_done_on_landing() {
-		// c19 Orc durotar:384 (Rev19-H A2): the deathskip lands in Sen'jin Village with Vel'rin's hand-in
+		// c19 Orc durotar:384 (c19 review A2): the deathskip lands in Sen'jin Village with Vel'rin's hand-in
 		// ready beside the Spirit Healer; the route went on to Kolkar Crag (600 yd) and handed it in on
 		// the way back.
 		let w = world(
@@ -1309,7 +1323,7 @@ mod tour_tests {
 
 	#[test]
 	fn hand_ins_ready_by_the_flight_master_are_done_before_the_flight() {
-		// c19 Alliance 06-silithus:657 (Rev19-A): Nathaniel Dumah stands beside Chillwind Camp's flight
+		// c19 Alliance 06-silithus:657 (c19 review): Nathaniel Dumah stands beside Chillwind Camp's flight
 		// master; the route flew to Southshore with his hand-in ready and came back for it much later.
 		let mut w = world(
 			&[(0.0, 0.0), (5.0, 0.0), (800.0, 0.0), (5000.0, 0.0), (4900.0, 0.0)],
@@ -1342,7 +1356,7 @@ mod tour_tests {
 
 	#[test]
 	fn a_hand_in_ready_beside_a_visit_joins_it() {
-		// c19 Alliance 02-westfall:227 (Rev19-A): Ozwin, 160 yd from Saldean, with his isosprings ready at
+		// c19 Alliance 02-westfall:227 (c19 review): Ozwin, 160 yd from Saldean, with his isosprings ready at
 		// the Saldean's Farm stop; the route walked to Furlbrow's and came back for him.
 		let w = world(
 			&[(0.0, 0.0), (0.0, 160.0), (50.0, -400.0), (900.0, 0.0)],

@@ -1,4 +1,20 @@
 {
+	"1411": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature_template Faction 120 (Booty Bay, neutral to both sides)"
+			},
+			{
+				"kind": "recording",
+				"ref": "npc 1411 seen neutral, never attacked (rec.py npc 1411, 2 people)"
+			}
+		],
+		"note": "Ian Strom, the rogue trainer in Booty Bay, serves both sides. The merged data had no faction for him, so he was left out of every `train class` candidate set and Core/ClassTrainers.lua (#1357 sweep)."
+	},
 	"1738": {
 		"addSpawns": {
 			"1420": {
@@ -27,6 +43,443 @@
 		},
 		"note": "Stormwind Royal Guard is Elite on Forever; the merged Era data has rank 0 (Normal)."
 	},
+	"2411": {
+		"set": {
+			"spawns": {
+				"1416": {
+					"f": "l",
+					"pts": [
+						[
+							19.5,
+							90.0
+						]
+					]
+				},
+				"1424": {
+					"f": "l",
+					"pts": [
+						[
+							25.9,
+							27.2
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-09: 36 kills of Ricter by 18 people (10 established), all in Alterac Mountains 16-22,88-93 (median 19.5,90.0); none at the old point"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1633"
+			}
+		],
+		"note": "Ricter (npc 2411), one of the four Dalaran traitors who carry Prison Break In's (544) pieces (the Bloodstone Marble), stands with the others in the Dalaran camp at Alterac Mountains 19.5,90.0 (map 1416; Hillsbrad Foothills 25.9,27.2). Our data had the Classic spot 20.16,84.28, about 100 yd north, where the guides and the City of Dalaran pick-up guide sent players (#1633)."
+	},
+	"2412": {
+		"set": {
+			"spawns": {
+				"1416": {
+					"f": "l",
+					"pts": [
+						[
+							19.6,
+							90.9
+						]
+					]
+				},
+				"1424": {
+					"f": "l",
+					"pts": [
+						[
+							26.0,
+							28.0
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-09: 27 kills of Alina by 18 people (10 established), all in Alterac Mountains 16-22,88-93 (median 19.6,90.9); none at the old point"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1633"
+			}
+		],
+		"note": "Alina (npc 2412), one of the four Dalaran traitors who carry Prison Break In's (544) pieces (the Bloodstone Shard), stands with the others in the Dalaran camp at Alterac Mountains 19.6,90.9 (map 1416; Hillsbrad Foothills 26.0,28.0). Our data had the Classic spot 20.34,86.4, about 100 yd north, where the guides and the City of Dalaran pick-up guide sent players (#1633)."
+	},
+	"2413": {
+		"set": {
+			"spawns": {
+				"1416": {
+					"f": "l",
+					"pts": [
+						[
+							19.3,
+							91.5
+						]
+					]
+				},
+				"1424": {
+					"f": "l",
+					"pts": [
+						[
+							25.7,
+							28.5
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-09: 25 kills of Dermot by 18 people (10 established), all in Alterac Mountains 16-22,88-93 (median 19.3,91.5); none at the old point"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1633"
+			}
+		],
+		"note": "Dermot (npc 2413), one of the four Dalaran traitors who carry Prison Break In's (544) pieces (the Bloodstone Wedge), stands with the others in the Dalaran camp at Alterac Mountains 19.3,91.5 (map 1416; Hillsbrad Foothills 25.7,28.5). Our data had the Classic spot 19.91,85.97, about 100 yd north, where the guides and the City of Dalaran pick-up guide sent players (#1633)."
+	},
+	"2414": {
+		"set": {
+			"spawns": {
+				"1416": {
+					"f": "l",
+					"pts": [
+						[
+							16.8,
+							89.4
+						]
+					]
+				},
+				"1424": {
+					"f": "l",
+					"pts": [
+						[
+							23.6,
+							26.7
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-09: 20 kills of Kegan Darkmar by 18 people (10 established), all in Alterac Mountains 16-22,88-93 (median 16.8,89.4); none at the old point"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1633"
+			}
+		],
+		"note": "Kegan Darkmar (npc 2414), one of the four Dalaran traitors who carry Prison Break In's (544) pieces (the Bloodstone Oval), stands with the others in the Dalaran camp at Alterac Mountains 16.8,89.4 (map 1416; Hillsbrad Foothills 23.6,26.7). Our data had the Classic spot 17.8,83.2, about 100 yd north, where the guides and the City of Dalaran pick-up guide sent players (#1633). The reporter's right spot was 16.90,89.20."
+	},
+	"2449": {
+		"set": {
+			"spawns": {
+				"1424": {
+					"f": "e",
+					"pts": [
+						[
+							30.6,
+							40.5
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 72 people killed Citizen Wilkes, 395 kills, all in Hillsbrad Fields between 29-31,38-43, the west side of the town"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2650 (Sable, 0.4.0): Wilkes was not at the guide's spot; /polestar where 1424 @30.65,40.49 where he was found"
+			}
+		],
+		"note": "Citizen Wilkes (Dangerous!, 567) walks the west side of Hillsbrad Fields' town. The data had his Classic spawn at 32.62,39.79, the start of a path through the east of the town (the Forever TDB's waypoints run 32.5-36.4, 35.8-40.0), where players never met him: the arrow led to an empty spot (#2650)."
+	},
+	"2543": {
+		"set": {
+			"spawns": {
+				"1416": {
+					"f": "l",
+					"pts": [
+						[
+							14.16,
+							59.73
+						]
+					]
+				},
+				"1424": {
+					"f": "l",
+					"pts": [
+						[
+							21.25,
+							0.7
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature guid 22600002 (sniffed, build 70425), map 0 (385.1, 386.8)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 5 people (2 established) met him within 60 yd of that spot, Alterac Mountains 14-15,59-61; nobody met him at the old point"
+			}
+		],
+		"note": "Archmage Ansirem Runeweaver (npc 2543), who takes Magical Analysis (602) and gives Ansirem's Key (603), stands at the Kirin Tor camp by Dalaran, Alterac Mountains 14.16,59.73 (map 1416). Our merged data had the old Dalaran point 18.84,78.49, about 370 yd south-east, where nobody met him; the Arathi Highlands guide's hand-in of 602 used it."
+	},
+	"2910": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: 50 people opened Prospector Ryedol's window at the Badlands dig (126 quest windows for 719, 720 and 721), none a merchant window"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3383 (SumnDaiy, Night Elf Druid 38): the guide said to sell at Prospector Ryedol, who is no vendor"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: creature_template 2910 npcflag 2 (quest giver only), no npc_vendor rows"
+			}
+		],
+		"note": "Prospector Ryedol gives the Badlands dig's quests and sells nothing. The merged data listed him as a vendor, so the guide's sell-before-you-go reminder sent players to him (#3383). No roles; a merchant window players record brings the vendor role back."
+	},
+	"2956": {
+		"addSpawns": {
+			"1412": {
+				"f": "l",
+				"pts": [
+					[
+						35.12,
+						38.75
+					],
+					[
+						36.13,
+						79.85
+					],
+					[
+						36.28,
+						45.88
+					],
+					[
+						36.28,
+						68.62
+					],
+					[
+						36.48,
+						53.48
+					],
+					[
+						36.96,
+						60.49
+					],
+					[
+						37.32,
+						64.58
+					],
+					[
+						37.81,
+						74.27
+					],
+					[
+						41.33,
+						70.74
+					],
+					[
+						41.72,
+						66.11
+					],
+					[
+						42.87,
+						59.08
+					],
+					[
+						44.45,
+						47.23
+					],
+					[
+						45.43,
+						72.59
+					],
+					[
+						45.82,
+						39.47
+					],
+					[
+						47.78,
+						51.42
+					],
+					[
+						48.91,
+						69.06
+					],
+					[
+						50.84,
+						63.78
+					],
+					[
+						53.49,
+						51.64
+					],
+					[
+						54.22,
+						61.31
+					],
+					[
+						54.92,
+						43.99
+					],
+					[
+						55.49,
+						68.79
+					],
+					[
+						55.78,
+						73.5
+					],
+					[
+						58.48,
+						62.96
+					],
+					[
+						59.25,
+						58.88
+					],
+					[
+						39.73,
+						57.37
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature guid 20025173, map 1 (-2086.6, 34.4)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 4 people (1 established) met them within 60 yd of that spot, Mulgore 39-41,57-59"
+			}
+		],
+		"note": "Adult Plainstrider (npc 2956) also roams Mulgore 39.7,57.4, between two of our points; adds it."
+	},
+	"2988": {
+		"addSpawns": {
+			"1412": {
+				"f": "l",
+				"pts": [
+					[
+						54.76,
+						64.27
+					],
+					[
+						50.32,
+						62.88
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature guid 20026577, map 1 (-2312.9, -617.4)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 6 people (3 established) opened his quest window within 60 yd of that spot and 4 (2 established) handed in there; the others met him by the well at 54.8,64.3"
+			}
+		],
+		"note": "Morin Cloudstalker (npc 2988) walks between the well south-east of Bloodhoof Village and the road west of it (Mulgore 50.3,62.9); our data had only the well. Keeps the well point and adds the western end of his walk."
+	},
+	"4025": {
+		"addSpawns": {
+			"1442": {
+				"f": "e",
+				"pts": [
+					[
+						29.64,
+						62.62
+					],
+					[
+						29.98,
+						61.88
+					],
+					[
+						30.79,
+						65.29
+					],
+					[
+						30.8,
+						61.32
+					],
+					[
+						31.11,
+						58.55
+					],
+					[
+						32.07,
+						60.43
+					],
+					[
+						35.42,
+						64.27
+					],
+					[
+						35.28,
+						63.23
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature guids 25128072, 25128432 and their neighbours, map 1 (around 824-858, 1516-1523)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-08: 8 people (4 established) met them within 60 yd of those spots and 7 (5 established) killed them there, Stonetalon 34-36,63-65"
+			}
+		],
+		"note": "Bloodfury Ambusher (npc 4025) also camps at Stonetalon Mountains 35.3-35.4,63.2-64.3, east of the points our data had (29.6-32.1,58.6-65.3). Keeps those points and adds the eastern camp."
+	},
+	"6707": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature_template Faction 471 (Ravenholdt, neutral to both sides)"
+			},
+			{
+				"kind": "recording",
+				"ref": "npc 6707 seen neutral, his trainer window opened for an Alliance rogue (rec.py npc 6707)"
+			}
+		],
+		"note": "Fahrad, the grand master rogue trainer at Ravenholdt Manor, serves both sides. The merged data had no faction for him, so he was left out of every `train class` candidate set and Core/ClassTrainers.lua (#1357 sweep)."
+	},
 	"10181": {
 		"set": {
 			"spawns": {
@@ -45,7 +498,7 @@
 			"kind": "cmangos",
 			"ref": "creature guid 32039: map 0 1290.4,316.2,-57.2, the Undercity's Royal Quarter (her only spawn)"
 		},
-		"note": "Lady Sylvanas Windrunner stands only in the Undercity's Royal Quarter. The Silverpine Forest point 74.6,13.4 (map 1421) is the same spot read in Silverpine's map frame (the city lies under that corner of the map), so the written guide titled her step Lordamere Lake and called it underwater (Skyborne's Exploring the Horde, c15 writer-only, Rev15SkyH)."
+		"note": "Lady Sylvanas Windrunner stands only in the Undercity's Royal Quarter. The Silverpine Forest point 74.6,13.4 (map 1421) is the same spot read in Silverpine's map frame (the city lies under that corner of the map), so the written guide titled her step Lordamere Lake and called it underwater (Skyborne's Exploring the Horde, c15 writer-only, c15 review)."
 	},
 	"11957": {
 		"addSpawns": {
@@ -71,6 +524,72 @@
 		],
 		"note": "The Great Cat Spirit (npc 11957), giver and ender of the druids' Cat Form quests (98394, 98396, 98731 for Night Elves; 98405, 98342, 98739 for Tauren), stands on the hill by the bridge in southern Moonglade at 54.5,75.0 (map 1450). The merged data had 58.39,73.52, about 90 yards east, where players found nobody. Replaces the map's points."
 	},
+	"12042": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature_template Faction 994 (Cenarion Circle, neutral to both sides)"
+			},
+			{
+				"kind": "recording",
+				"ref": "trainer window opened for Alliance druids (Night Elf, Skyborne: 7 sessions) and Horde druids (Tauren, Skyborne: 6 sessions); seen neutral by 14 people"
+			}
+		],
+		"note": "Loganaar, the druid trainer in Nighthaven (Moonglade), trains both sides. The merged data had no faction for him, so he was left out of every `train class` candidate set and Core/ClassTrainers.lua, and the Horde 50-60 guides' Moonglade training step (Felwood, Eastern Plaguelands) sent Druids to Hana Lighthoof in Mulgore (#1357 sweep)."
+	},
+	"13155": {
+		"set": {
+			"spawns": {
+				"1437": {
+					"f": "e",
+					"pts": [
+						[
+							51.41,
+							59.23
+						]
+					]
+				}
+			}
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings to 2026-11-08: 7 people (5 established) opened his window 35 times at Wetlands 51.38-51.48,59.19-59.43 (map 1437), outside the Excavation Site instance (subzones Thandol Span and Excavation Site: Wetlands, no instance entered in the session for the Dragonmaw Rumors hand-ins): hand-ins of Dragonmaw Rumors (95663) and Open the Maw (95682), accepts of Open the Maw"
+		},
+		"note": "Deathstalker Agent (npc 13155), ender of Dragonmaw Rumors and giver and ender of Open the Maw (the Horde's Excavation Site: Wetlands quests), stands outside the instance at Wetlands 51.41,59.23 (map 1437). The merged data placed him nowhere, so the dungeon's pick-up and hand-in guides could not send anyone to him (#1326 sweep)."
+	},
+	"15991": {
+		"set": {
+			"spawns": {
+				"1453": {
+					"f": "l",
+					"pts": [
+						[
+							68.15,
+							29
+						],
+						[
+							70.18,
+							29.86
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11: 15 hand-ins of the Alliance's Crest of Lordaeron (95189) to her and 19 sightings by 19 characters, all on Stormwind City's map as the game shows it (map 1453), at 68.1-71.57,27.64-34.06 (median 69.2,29.84), by the Deeprun Tram's building"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1870: the reporter marked her at 70.32,29.81 (the game's map); his report's arrow distance, 99 yd from 74.21,38.79, is the distance to the spot read in the older Stormwind map's frame (98.7 yd), not to her (139 yd)"
+			}
+		],
+		"note": "Lady Dena Kennedy (npc 15991), ender of the Alliance's Crest of Lordaeron (95189, started by the crest that drops in the Ruins of Lordaeron), stands in Stormwind City between 68.15,29.0 and 70.18,29.86 on the city's map as the game shows it (live frame, with the harbour), by the Deeprun Tram's building, where players hand it in. The merged data placed her nowhere (#1326 sweep); that record gave her spots in the older map's frame, which puts them about 100 yd south, toward the Trade District, so the arrow led away from her (#1870)."
+	},
 	"209797": {
 		"set": {
 			"rank": 1
@@ -90,6 +609,16 @@
 			"ref": "creature_template Classification"
 		},
 		"note": "Shinyfinder Narf is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"250034": {
+		"set": {
+			"rank": 2
+		},
+		"source": {
+			"kind": "client",
+			"ref": "creaturecache.wdb (1.60.1.70888): rank 2 (rare), as the knowledge base of the data build of 2026-11-13 recorded it (kb:client.cache:rank)"
+		},
+		"note": "Tunnelweb Matriarch is a rare on Forever: the server's creature answer the 70888 client cached said so. The 70938 client's cache no longer holds the creature and no other source gives a rank, so the 0.4.0 data had dropped her from Lookup's rares."
 	},
 	"250483": {
 		"set": {
@@ -261,6 +790,50 @@
 		},
 		"note": "Fallen Necromancer is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
 	},
+	"256734": {
+		"addSpawns": {
+			"1433": {
+				"f": "l",
+				"pts": [
+					[
+						9.96,
+						72.71
+					]
+				]
+			}
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "#1966"
+		},
+		"note": "Daniel Stitchsong (npc 256734) stands at Three Corners in Redridge Mountains, 9.96,72.71 in the live map frame (map 1433), as marked in the player's report. The lookup led to 11.90,69.10 live instead. Replaces the map's existing points."
+	},
+	"256899": {
+		"set": {
+			"spawns": {
+				"2548": {
+					"f": "l",
+					"pts": [
+						[
+							44.9,
+							51.2
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 65 kills of Chogg'Zac by 51 people (47 established), the median of each person's kill spots 44.91,51.19 live, four in five people within 0.75 of it, 49 of the 51 west of 46"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2882: the reporter stood on him at 44.74,50.95 live; he does not move"
+			}
+		],
+		"note": "Chogg'Zac (npc 256899), the elite Twilight No More! (95427) sends you after in the Sunnyglade cave, stands in one spot at 44.9,51.2 in the live map frame (Riverglades, map 2548). The data listed 14 points spread from 44.95 to 48.19, so Krol'dok Stronghold's pick-up guide aimed at x 46.70, about 80-90 yards east of him (#2882)."
+	},
 	"257196": {
 		"addSpawns": {
 			"2521": {
@@ -277,7 +850,7 @@
 			"kind": "tdb",
 			"ref": "creature guid 21101604, map 2991 (3088.4, 1084.6)"
 		},
-		"note": "Zaal Stormshield (npc 257196), who drops the Skybreaker Bulwark for the Skyborne Warrior quest (94003), stands on the west side of the Shrine of Akir at Zephras Isle 56.66,50.4 (map 2521): the world database spawn converted with Seena Skybreaker and Sessaria Skystride as reference points. Our merged data had 36.05,33.53, far to the north-west. Replaces the map's points."
+		"note": "Zaal Stormshield (npc 257196), who drops the Skybreaker Bulwark for the Skyborne Warrior quest (94003), stands on the west side of the Shrine of Akir at Zephras Isle 56.66,50.4 (map 2521): the world database spawn placed on the map with Seena Skybreaker and Sessaria Skystride as reference points. Our merged data had 36.05,33.53, far to the north-west. Replaces the map's points."
 	},
 	"259385": {
 		"set": {
@@ -319,6 +892,16 @@
 		},
 		"note": "Durgen Dirgehammer is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
 	},
+	"263348": {
+		"set": {
+			"faction": null
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-16): 91 people saw it neutral, 71 people killed it 628 times"
+		},
+		"note": "Roving Tallstrider (Riverglades) is a neutral beast both sides kill, not Alliance-friendly as QuestieDB's Forever store has it. As a friendly NPC the route took its 25% Intact Tallstrider Beak (Song of the Strider, 95984) for no source and dropped the quest and its follow-up."
+	},
 	"263389": {
 		"set": {
 			"rank": 1
@@ -349,6 +932,32 @@
 		},
 		"note": "Outraged Pillager is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
 	},
+	"269127": {
+		"set": {
+			"spawns": {
+				"1421": {
+					"f": "e",
+					"pts": [
+						[
+							68.62,
+							45.18
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "5 people opened her window at Silverpine 68.57-68.66,45.09-45.25 (map 1421): hand-ins of An Alarming Request 92432 and accepts of 92457/92458/96984 (sessions 20261106T155909Z, 20261107T153654Z, 20261107T192842Z, 20261107T220846Z, 20261107T233025Z); none met her in Alterac Mountains"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1305: the reporter marked her at Silverpine 68.62,45.13"
+			}
+		],
+		"note": "Image of Archmage Modera (npc 269127), giver of Heart of Disruption and Starving Arcane and ender of An Alarming Request, stands only at the Kirin Tor camp on the lake shore in Silverpine Forest, 68.62,45.18 (map 1421). The merged data also had Alterac Mountains 14.3,59.57 (map 1416), about 186 yards east by Dalaran's sewer entrance, where nobody has met her; the Arathi Highlands guide's hand-in of 92432 and the City of Dalaran pick-up guide pointed there. Replaces every spawn."
+	},
 	"275666": {
 		"set": {
 			"rank": 1
@@ -378,5 +987,3792 @@
 			"ref": "creature_template Classification"
 		},
 		"note": "Decrepit Harvester is Rare on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"738": {
+		"addSpawns": {
+			"1434": {
+				"f": "e",
+				"pts": [
+					[
+						38.0,
+						3.4
+					],
+					[
+						40.34,
+						8.44
+					]
+				]
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature 20002243 (entry 738) waypoint_path 800022430: about 28 minutes at node 1 (38.0,3.4), 3 minutes at node 24 (40.3,8.4)"
+		},
+		"note": "Private Thorsen (Jungle Secrets, Supplies to Private Thorsen) stands most of the time at the top of the Rebel Camp's path and walks down to the road end now and then; the data had only the road end (#1425). Both ends of his walk."
+	},
+	"5895": {
+		"addSpawns": {
+			"1436": {
+				"f": "l",
+				"pts": [
+					[
+						46.4,
+						59.2
+					]
+				]
+			}
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-08): 3 people handed Call of Water (94503) in to the Minor Manifestation of Water at Westfall 46.4,59.2 and took 94505 from it there; 4 people saw it there"
+		},
+		"note": "Alliance shaman Call of Water: the Minor Manifestation of Water (npc 5895) rises beside the Forgotten Shrine by Stendel's Pond in Westfall, as well as at its Silverpine spot (kept). The merged data had only Silverpine, so the arrow had no Westfall point for it."
+	},
+	"5894": {
+		"addSpawns": {
+			"1436": {
+				"f": "l",
+				"pts": [
+					[
+						45.7,
+						60.1
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-08): the Corrupt Minor Manifestation of Water dropped its loot at Westfall 45.7,60.1; 3 people handed Call of Water (94502) in at the Forgotten Shrine beside it (45.6,60.0)"
+			}
+		],
+		"note": "Alliance shaman Call of Water: drinking the Water Sapta at the Forgotten Shrine by Stendel's Pond in Westfall calls the Corrupt Minor Manifestation of Water (npc 5894) there, as well as at its Silverpine spot (kept). The merged data had only Silverpine."
+	},
+	"9020": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Commander Gor'shak stands inside Blackrock Depths (instance map 230): the dungeon hand-in guide lists his turn-in as inside, not nowhere."
+	},
+	"9021": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Kharan Mighthammer stands inside Blackrock Depths (instance map 230)."
+	},
+	"9023": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Marshal Windsor stands inside Blackrock Depths (instance map 230)."
+	},
+	"10257": {
+		"set": {
+			"instances": [
+				229
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 229 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 229"
+			}
+		],
+		"note": "Bijou stands inside Blackrock Spire (instance map 229)."
+	},
+	"10299": {
+		"set": {
+			"instances": [
+				229
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature/gameobject spawn on map 229 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 229"
+			}
+		],
+		"note": "The Scarshield Infiltrator stands inside Blackrock Spire (instance map 229)."
+	},
+	"265002": {
+		"set": {
+			"instances": [
+				3065
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature spawn on map 3065 only"
+			}
+		],
+		"note": "The Ghostly Attendant, An Ancient Grudge's giver and ender, stands inside the Hall of Thanes (instance map 3065, Forever's)."
+	},
+	"259256": {
+		"set": {
+			"instances": [
+				3039
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 27 people (23 established) killed Tunk inside Krol'dok Stronghold (instance map 3039), none anywhere else; 15 people looted the Horde's Krol'dok Moulding (item 267137) and 12 the Alliance's (267138) from him"
+			}
+		],
+		"note": "Tunk, the Blacksmith whose Krol'dok Moulding starts Krol'dok Moulding (94973 Horde, 94980 Alliance), stands inside Krol'dok Stronghold, so the Dungeons page lists both quests as picked up inside (#2560 sweep)."
+	},
+	"9500": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Mistress Nagmara (The Love Potion) stands inside Blackrock Depths, in the Grim Guzzler."
+	},
+	"9503": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Private Rocknot (Rocknot's Ale) stands inside Blackrock Depths, in the Grim Guzzler."
+	},
+	"12676": {
+		"set": {
+			"spawns": {
+				"1440": {
+					"f": "e",
+					"pts": [
+						[
+							74.98,
+							70.06
+						],
+						[
+							76.8,
+							67.3
+						],
+						[
+							72.5,
+							70.6
+						],
+						[
+							71.7,
+							69.8
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20032787 (Sharptalon) walks waypoint path 800327870: Ashenvale 71.7,69.8 to 76.8,67.3 through his spawn at 74.98,70.06"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-16: 70 people killed Sharptalon from 71,67 to 78,65 (the most at 74,70, 73,70 and 72,70)"
+			}
+		],
+		"note": "Sharptalon walks a path through the hills south of Splintertree Post from 71.7,69.8 up to 76.8,67.3; the data had his spawn alone (sweep for #2507)."
+	},
+	"12677": {
+		"set": {
+			"spawns": {
+				"1440": {
+					"f": "e",
+					"pts": [
+						[
+							54.4,
+							54.9
+						],
+						[
+							57.5,
+							56.05
+						],
+						[
+							59.3,
+							54
+						],
+						[
+							60.4,
+							52.2
+						],
+						[
+							61.4,
+							49.8
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20032807 (Shadumbra) walks waypoint path 800328070: Ashenvale 54.4,54.9 to 59.4,54.0 through her spawn at 57.5,56.05"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-16: 55 people killed Shadumbra from 53,54 to 62,50 (the most at 58,55, 59,54, 60,52 and 61,49)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2507"
+			}
+		],
+		"note": "Shadumbra walks a long path through Raynewood Retreat, from the road at 54,55 past her spawn up to 61,50; the data had her spawn alone, so the kill step for Shadumbra's Head pointed only at the western end of her path (#2507)."
+	},
+	"12678": {
+		"set": {
+			"spawns": {
+				"1440": {
+					"f": "e",
+					"pts": [
+						[
+							39.76,
+							65.21
+						],
+						[
+							43,
+							63.1
+						],
+						[
+							40.7,
+							66.4
+						],
+						[
+							42,
+							68.7
+						],
+						[
+							43.7,
+							68.8
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20032808 (Ursangous) walks waypoint path 800328080: Ashenvale 39.7,63.1 to 43.7,68.8 through his spawn at 39.76,65.21"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-16: 69 people killed Ursangous from 38,62 to 43,69 (the most at 40,66, 41,66 and 39,65)"
+			}
+		],
+		"note": "Ursangous walks a loop south-east of Astranaar from 39.7,63.1 down to 43.7,68.8; the data had his spawn alone (sweep for #2507)."
+	},
+	"12777": {
+		"set": { "roles": ["repair", "vendor"] },
+		"source": [
+			{ "kind": "in-game-check", "ref": "#2984, #3168" },
+			{ "kind": "tdb", "ref": "creature_template 12777: npcflag 4224; npc_vendor: 96 items" }
+		],
+		"note": "Captain Dirgehammer sells armor in Champion's Hall. His service flags do not include auctions or an inn."
+	},
+	"12782": {
+		"set": { "roles": ["repair", "vendor"] },
+		"source": { "kind": "tdb", "ref": "creature_template 12782: npcflag 4224; npc_vendor: 21 items" },
+		"note": "Captain O'Neal sells weapons in Champion's Hall. He has the same vendor flags as Captain Dirgehammer, not those of an auctioneer or innkeeper (#2984)."
+	},
+	"12944": {
+		"set": {
+			"instances": [
+				230
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 230 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 230"
+			}
+		],
+		"note": "Lokhtos Darkbargainer, the Thorium Brotherhood's quartermaster, stands inside Blackrock Depths, in the Grim Guzzler."
+	},
+	"10740": {
+		"set": {
+			"instances": [
+				229
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 229 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 229"
+			}
+		],
+		"note": "Awbee stands inside Blackrock Spire."
+	},
+	"10799": {
+		"set": {
+			"instances": [
+				229
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "spawn on map 229 only"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db spawn on map 229"
+			}
+		],
+		"note": "Warosh (Urok Doomhowl) stands inside Blackrock Spire."
+	},
+	"1340": {
+		"addSpawns": {
+			"1432": {
+				"f": "e",
+				"pts": [
+					[
+						34.17,
+						47.84
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature spawn of entry 1340 at world -5367.6,-2936.2 (Loch Modan 34.17,47.84), with a waypoint walk of 97 yd around 35.03,45.85 (data/forever/moves.json)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings, all addon versions: 35 people met him in Thelsamar, most at 34-36,46-48 (17 at about 35,47, 11 at 34,48); his quest windows (414, 416, 1339) opened along the road from 32.7,49.6 to 36.8,42.1, median about 34.3,47.8"
+			}
+		],
+		"note": "Mountaineer Kadrell walks the road through Thelsamar. The merged data put him at 32.63,49.74, the south end of his walk, 55 yd from his spawn; the compiler draws a walker's circle only for a point within 15 yd of the spawn, so his goals showed one point at the end of the road where few players met him (position sweep). His spawn is the game's own."
+	},
+	"2155": {
+		"addSpawns": {
+			"1438": {
+				"f": "e",
+				"pts": [
+					[
+						42.22,
+						51.27
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature spawn of entry 2155 at world 10091.4,1664.9 (Teldrassil 42.22,51.27), with a waypoint walk of 161 yd around 39.38,52.62 (data/forever/moves.json)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings, all addon versions: 22 people met her on the road west of Dolanaar, 38-43,50-55; her bounty (490) taken by 10 and handed in by 13 people along the road from 41.3,50.8 to 38.2,54.4"
+			}
+		],
+		"note": "Sentinel Shayla Nightbreeze walks the road west of Dolanaar. The merged data had her at 40.46,50.73, on her walk but 91 yd from her spawn, so the compiler drew no walk circle (it needs the point within 15 yd of the spawn) and half the players met her 70-130 yd from the arrow (position sweep). Her spawn is the game's own."
+	},
+	"10880": {
+		"addSpawns": {
+			"1454": {
+				"f": "e",
+				"pts": [
+					[
+						48.18,
+						66.11
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "creature spawn of entry 10880 at world 1655.5,-4356.4 (Orgrimmar 48.18,66.11), with a waypoint walk of 262 yd around 48.82,57.64 (data/forever/moves.json)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings, all addon versions: 71 people met him in Orgrimmar, most in the Valley of Strength (11 at about 46,64, others at 45-47,64-65, 50-52,62-71, 52-55,57-58); none at the data's 37.68,75.16"
+			}
+		],
+		"note": "Warcaller Gorlach, giver of Camp Mojache (7492), walks the Valley of Strength and the streets off it. The merged data had him at 37.68,75.16, 170 yd from his spawn and outside his walk, so the arrow led where no player met him and his goal got no walk circle (position sweep). His spawn is the game's own."
+	},
+	"4967": {
+		"set": {
+			"spawns": {
+				"1445": {
+					"f": "e",
+					"pts": [
+						[
+							66.42,
+							49.26
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: Shadowshard Fragments (7070) taken from him in Theramore's tower (66.35-66.4,49.26-49.32) by 3 people with no part of The Missing Diplomat in their log; the 2 who took it at Sentry Point (59.7,41.2) and North Point Tower (45.19,24.37) were on that chain. The Missing Diplomat 1265 handed in to him at Sentry Point by 4 of 4 people, 1324 beside North Point Tower by 3 of 3, all on the chain"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1992 and #2007: two players at North Point Tower, neither on The Missing Diplomat, found nobody there and marked him in Theramore's tower (66.39-66.40,49.24-49.25)"
+			},
+			{
+				"kind": "questie",
+				"ref": "npcs.json 4967: one spawn, 66.42,49.26 (Theramore's tower)"
+			}
+		],
+		"note": "Archmage Tervosh stands in Theramore's tower. He shows at the foot of Sentry Point's tower and beside North Point Tower only to players on The Missing Diplomat, who hand him 1265 and 1324 there; those two spots were his spawns too, so the Maraudon pick-up guide sent everyone to North Point Tower for Shadowshard Fragments (#1992, #2007). The chain's own steps keep their spots (data/places.json, the Stranglethorn Vale guide's explicit coordinates); his spawn is the tower in Theramore only."
+	},
+	"4968": {
+		"set": {
+			"spawns": {
+				"1445": {
+					"f": "e",
+					"pts": [
+						[
+							66.27,
+							49.04
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: The Missing Diplomat 1267 handed in to her beside North Point Tower (45.21-45.24,24.30-24.31) by 3 of 3 people, all on that chain"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1992 and #2007: Archmage Tervosh, who stands beside her there, shows at North Point Tower only to players on The Missing Diplomat"
+			},
+			{
+				"kind": "questie",
+				"ref": "npcs.json 4968: one spawn, 66.27,49.04 (Theramore's tower)"
+			}
+		],
+		"note": "Lady Jaina Proudmoore stands in Theramore's tower. Beside North Point Tower she shows, with Archmage Tervosh, only to players on The Missing Diplomat, who hand her 1267 there; that spot stays on the chain's own step (data/places.json, the Stranglethorn Vale guide's explicit coordinates), not among her spawns, so nothing else sends players to North Point Tower for her."
+	},
+	"5814": {
+		"set": {
+			"roles": [
+				"innkeeper",
+				"vendor"
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature_template npcflag 65667 for entry 5814: gossip, quest giver, vendor and innkeeper, no repair"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 npcFlags 135 for npc 5814: vendor and innkeeper, no repair"
+			}
+		],
+		"note": "Innkeeper Thulbek at Grom'gol is an innkeeper who sells food and drink; he does not repair. Only pfQuest lists him among the repairers, so the merged data gave him a repair role (#1820)."
+	},
+	"255770": {
+		"set": {
+			"name": "Redridge Mystic"
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: kills of npc 255770 tick the log line \"Redridge Mystic slain\" of quest 94678"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live 9fcae73cc74f quest 94678: the objective for npc 255770 in its text's order"
+			}
+		],
+		"note": "NPC 255770 is the Redridge Mystic, not \"Redridge Trapper\": the game credits its kills to the quest log line \"Redridge Mystic slain\"."
+	},
+	"220984": {
+		"set": {
+			"name": "Fizbuz Mithril",
+			"level": 35
+		},
+		"addSpawns": {
+			"1446": {
+				"f": "e",
+				"pts": [
+					[
+						51.6,
+						27.4
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) NPC record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: quest 95312's giver or ender"
+			}
+		],
+		"note": "Fizbuz Mithril, an NPC of Forever's quest 95312 missing from the merged data."
+	},
+	"257001": {
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						75.6,
+						72.8
+					],
+					[
+						76.2,
+						73.8
+					],
+					[
+						76.4,
+						71.2
+					],
+					[
+						76.8,
+						73.8
+					],
+					[
+						77,
+						75.2
+					],
+					[
+						77.2,
+						78
+					],
+					[
+						77.4,
+						70.8
+					],
+					[
+						77.4,
+						72.2
+					],
+					[
+						77.4,
+						72.6
+					],
+					[
+						77.6,
+						70.2
+					],
+					[
+						77.8,
+						71.2
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) spawns"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: met at 77.6,72.0 (quest 95120)"
+			}
+		],
+		"note": "Old Rot-Chum stands in the Riverglades (map 2548), where the merged data had no spawn: QuestieDB's spawns, where players met it."
+	},
+	"263315": {
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						59.6,
+						53.2
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) spawns"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: met at 59.6,53.9 (quest 95986)"
+			}
+		],
+		"note": "Ombassa stands in the Riverglades (map 2548), where the merged data had no spawn: QuestieDB's spawns, where players met it."
+	},
+	"258048": {
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						64.4,
+						15.4
+					],
+					[
+						64.8,
+						16.6
+					],
+					[
+						65.8,
+						17.8
+					],
+					[
+						66,
+						23
+					],
+					[
+						66,
+						24.2
+					],
+					[
+						66.2,
+						18.6
+					],
+					[
+						66.2,
+						22.2
+					],
+					[
+						66.4,
+						21
+					],
+					[
+						67.4,
+						27
+					],
+					[
+						67.8,
+						28.6
+					],
+					[
+						68,
+						30.6
+					],
+					[
+						69,
+						31.4
+					],
+					[
+						69.8,
+						31.8
+					],
+					[
+						70.8,
+						32
+					],
+					[
+						71.8,
+						32.4
+					],
+					[
+						72.6,
+						32.6
+					],
+					[
+						73.4,
+						24.6
+					],
+					[
+						73.6,
+						32.4
+					],
+					[
+						74.6,
+						26.1
+					],
+					[
+						74.8,
+						27.5
+					],
+					[
+						75.4,
+						30.8
+					],
+					[
+						76.4,
+						26.4
+					],
+					[
+						76.9,
+						27.9
+					],
+					[
+						77.2,
+						29.8
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) spawns"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: met at 73.4,24.7 (quest 94556)"
+			}
+		],
+		"note": "Jom-jom stands in the Riverglades (map 2548), where the merged data had no spawn: QuestieDB's spawns, where players met it."
+	},
+	"257861": {
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						90.2,
+						28.8
+					],
+					[
+						90.4,
+						29.6
+					],
+					[
+						90.6,
+						29.2
+					],
+					[
+						90.6,
+						30
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) spawns"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: met at 90.5,29.2 (quest 95124)"
+			}
+		],
+		"note": "Admiral Lamora stands in the Riverglades (map 2548), where the merged data had no spawn: QuestieDB's spawns, where players met it."
+	},
+	"259158": {
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						45.6,
+						47.8
+					],
+					[
+						47,
+						50
+					],
+					[
+						47.2,
+						51.2
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) spawns"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: met at 47.3,51.3 (quest 94963)"
+			}
+		],
+		"note": "Fuzzle stands in the Riverglades (map 2548), where the merged data had no spawn: QuestieDB's spawns, where players met it."
+	},
+	"258522": {
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						54.2,
+						85.6
+					],
+					[
+						54.6,
+						85
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) spawns"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: met at 54.3,85.7 (quest 94617)"
+			}
+		],
+		"note": "Sootfur stands in the Riverglades (map 2548), where the merged data had no spawn: QuestieDB's spawns, where players met it."
+	},
+	"256831": {
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						47.6,
+						47.2
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) spawns"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: met at 47.7,47.4 (quest 94884)"
+			}
+		],
+		"note": "Apprentice Claire stands in the Riverglades (map 2548), where the merged data had no spawn: QuestieDB's spawns, where players met it."
+	},
+	"278088": {
+		"set": {
+			"name": "Abigail Lawson",
+			"level": 10
+		},
+		"addSpawns": {
+			"1453": {
+				"f": "l",
+				"pts": [
+					[
+						50.17,
+						53.19
+					],
+					[
+						51.61,
+						55.43
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) NPC record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: quest 94893's giver or ender"
+			}
+		],
+		"note": "Abigail Lawson, an NPC of Forever's quest 94893 missing from the merged data."
+	},
+	"257926": {
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						44,
+						63.2
+					],
+					[
+						52,
+						69.6
+					],
+					[
+						65.8,
+						79.2
+					],
+					[
+						45.1,
+						64.1
+					],
+					[
+						45.3,
+						65.5
+					],
+					[
+						45.6,
+						66.5
+					],
+					[
+						47.5,
+						66.5
+					],
+					[
+						49.2,
+						64.9
+					],
+					[
+						50.8,
+						69.1
+					],
+					[
+						51.4,
+						71.0
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 Forever quest record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 5 people looted item 4338 from it at spots its known spawns miss"
+			}
+		],
+		"note": "Farholde Scout Trainee: its known Riverglades spawns plus where players looted Mageweave Cloth from it."
+	},
+	"258570": {
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						33.4,
+						38.0
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide spawns"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: met at 33.4,38.0 (quest 95278)"
+			}
+		],
+		"note": "Da'grosh placed where players met it in the Riverglades."
+	},
+	"258697": {
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						52.8,
+						42.4
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide spawns"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: met at 52.8,42.4 (quest 94858)"
+			}
+		],
+		"note": "Farmer Elbrim placed where players met it in the Riverglades."
+	},
+	"258878": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: Auctioneer Quickcoin met at the Crossroads (1413 49.9,29.4) and on Redridge's west side (1433 9.9,75.2), and Uninspected Shipment (258880) met at the same two places in other sessions (1413 49.9,29.4; 1433 7.4-11.6,71.3-72.1)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB Forever: Auctioneer Quickcoin (258878), Steamwheedle Courier (258879) and Uninspected Shipment (258880) share the same two spawn points, 1413 49.95,29.45 and 1433 9.54,71.96"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3112 (king_iix): the Barrens stall changes from day to day between bank, auctioneer and mailbox"
+			}
+		],
+		"note": "Auctioneer Quickcoin is one of the three faces of a travelling goblin stall (auctioneer, banker or mailbox, one a day) at the Crossroads and on Redridge's west side. On the other days he isn't there, so an Auction House goal that led to him stalled (#3112). No roles: auction goals and Nearby services go to an Auction House that is always open."
+	},
+	"258880": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: Uninspected Shipment met at the Crossroads (1413 49.9,29.4) and on Redridge's west side (1433 7.4-11.6,71.3-72.1), the places Auctioneer Quickcoin (258878) stands on other days"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB Forever: 258878, 258879 and 258880 share the same two spawn points, 1413 49.95,29.45 and 1433 9.54,71.96"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3112 (king_iix): the Barrens stall changes from day to day between bank, auctioneer and mailbox"
+			}
+		],
+		"note": "Uninspected Shipment is the banker face of the same travelling goblin stall as Auctioneer Quickcoin: there one day in three. No roles, so bank goals and Nearby services go to a bank that is always open (#3112)."
+	},
+	"259254": {
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						53.7,
+						66.3
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide spawns"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: met at 53.7,66.3 (quest 94992)"
+			}
+		],
+		"note": "Lost Horse placed where players met it in the Riverglades."
+	},
+	"262681": {
+		"set": {
+			"instances": [
+				2998
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): Lost in the Thicket Things (95647) handed in and Heartwoven (95809) accepted by 23 people, every time inside Excavation Site: Wetlands (instance 2998), never in the open world"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest rows name this npc as the giver or ender of those quests"
+			}
+		],
+		"note": "Ardin Grassman stands inside Excavation Site: Wetlands (instance map 2998, Forever's), so the dungeon's page places the quests there."
+	},
+	"262465": {
+		"set": {
+			"instances": [
+				2998
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): Songblade Search (95772) handed in and Fallen in the Fen (95795) accepted by 22 people, every time inside Excavation Site: Wetlands (instance 2998), never in the open world"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest rows name this npc as the giver or ender of those quests"
+			}
+		],
+		"note": "Daewyn Songblade stands inside Excavation Site: Wetlands (instance map 2998, Forever's), so the dungeon's page places the quests there."
+	},
+	"265701": {
+		"set": {
+			"instances": [
+				2999
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): Abominable Creatures (95250) accepted by 16 people and handed in by 18, every time inside the Ruins of Lordaeron (instance 2999), never in the open world"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest rows name this npc as the giver or ender of those quests"
+			}
+		],
+		"note": "Captain Truman stands inside the Ruins of Lordaeron (instance map 2999, Forever's), so the dungeon's page places the quests there."
+	},
+	"268743": {
+		"set": {
+			"instances": [
+				2959
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-11 (excluded and suspect contributors left out): Opportunistic Education (96987) accepted by 15 people and handed in by 17, in its Sewer, every time inside the City of Dalaran (instance 2959), never in the open world"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide quest rows name this npc as the giver or ender of those quests"
+			}
+		],
+		"note": "Rexxie Copperclutch stands inside the City of Dalaran (instance map 2959, Forever's), so the dungeon's page places the quests there."
+	},
+	"255993": {
+		"set": {
+			"roles": [
+				"flightmaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 23 flight-map windows at this NPC on node 3203, 12 people (builds 70862, 70888)"
+			},
+			{
+				"kind": "client",
+				"ref": "TaxiNodes 3203 \"Rog'mar, Riverglades\" (1.60.1.70532, 1.60.1.70888), 3 yd from this NPC's spawn"
+			}
+		],
+		"note": "The Horde flight master at Rog'mar, Riverglades: the flight path builder needs the role to match node 3203 to its flight master."
+	},
+	"257087": {
+		"set": {
+			"roles": [
+				"flightmaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: 15 flight-map windows at this NPC on node 3276, 10 people (builds 70862, 70888)"
+			},
+			{
+				"kind": "client",
+				"ref": "TaxiNodes 3276 \"Farholde Keep, Riverglades\" (1.60.1.70532, 1.60.1.70888), 3 yd from this NPC's spawn"
+			}
+		],
+		"note": "The Alliance flight master at Farholde Keep, Riverglades: the flight path builder needs the role to match node 3276 to its flight master."
+	},
+	"41861": {
+		"set": {
+			"roles": [
+				"flightmaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "client",
+				"ref": "TaxiNodes 559 \"Summit of Eternity, Mount Hyjal\" (1.60.1.70532, 1.60.1.70888), 8 yd from this NPC's spawn"
+			},
+			{
+				"kind": "questie",
+				"ref": "npcs.json 41861: subname Flight Master, one spawn at Mount Hyjal 68.84,43.99"
+			}
+		],
+		"note": "The flight master at the Summit of Eternity, Mount Hyjal: the flight path builder needs the role to match node 559 to its flight master. No recorded flights there yet."
+	},
+	"260626": {
+		"set": {
+			"roles": [
+				"flightmaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "client",
+				"ref": "TaxiNodes 3242 \"Tainted Foothills, Mount Hyjal\" (1.60.1.70532, 1.60.1.70888), 6 yd from this NPC's spawn"
+			},
+			{
+				"kind": "questie",
+				"ref": "npcs.json 260626: subname Flight Mistress, spawns at Mount Hyjal 54.57,83.19 and 55.05,82.81"
+			}
+		],
+		"note": "The flight mistress at the Tainted Foothills, Mount Hyjal: the flight path builder needs the role to match node 3242 to its flight master. No recorded flights there yet."
+	},
+	"256675": {
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						58.01,
+						45.12
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-12: 36 windows at her (offers, gossip, vendor) within a few yards of 58.01,45.12 on map 2548, 8 people, none elsewhere; 4 binds there"
+			},
+			{
+				"kind": "questie",
+				"ref": "npcs 256675: 58.01,45.12 (QuestieDB 1.0.10's only spawn; 1.0.14 lists 57.58,45.47 before it)"
+			}
+		],
+		"note": "Innkeeper Toka stands in Rog'mar's inn at 58.01,45.12, where players bind and buy from her. QuestieDB 1.0.14 adds a second point, 57.58,45.47, where no recording met her; the travel data's inn takes a map's first point, which put the inn about 24 yards off. Replaces the map's points."
+	},
+	"13418": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13418, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13418 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13418 (rec.py npc 13418)"
+			}
+		],
+		"note": "Kaymard Copperpinch is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"13420": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13420, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13420 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13420 (rec.py npc 13420)"
+			}
+		],
+		"note": "Penney Copperpinch is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"13429": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13429, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13429 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13429 (rec.py npc 13429)"
+			}
+		],
+		"note": "Nardstrum Copperpinch is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"13430": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13430, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13430 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13430 (rec.py npc 13430)"
+			}
+		],
+		"note": "Jaycrue Copperpinch is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"13432": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13432, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13432 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13432 (rec.py npc 13432)"
+			}
+		],
+		"note": "Seersa Copperpinch is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"13433": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13433, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13433 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13433 (rec.py npc 13433)"
+			}
+		],
+		"note": "Wulmort Jinglepocket is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"13434": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13434, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13434 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13434 (rec.py npc 13434)"
+			}
+		],
+		"note": "Macey Jinglepocket is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"13435": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13435, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13435 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13435 (rec.py npc 13435)"
+			}
+		],
+		"note": "Khole Jinglepocket is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"13436": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13436, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 13436 belongs to the world event 'Feast of Winter Veil' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 13436 (rec.py npc 13436)"
+			}
+		],
+		"note": "Guchie Jinglepocket is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"14450": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: 36 people opened Orphan Matron Nightingale's window in Cathedral Square (quest windows for 92415 and 95161, 46 in all), none a merchant or gossip window"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3032 (Shuurajou, Gnome Priest 30): the nearest-vendor search sent them to her and she sold nothing"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: creature_template 14450 npcflag 131 and two npc_vendor items, Friendship Bread (23160) and Freshly-Squeezed Lemonade (23161), the Children's Week foods"
+			}
+		],
+		"note": "Orphan Matron Nightingale gives Stormwind's orphan quests. Her vendor flag only carries the Children's Week foods, and no player has had a merchant window from her, so Nearby services sent players looking for a vendor to a quest giver who sells nothing (#3032). No roles; a merchant window players record brings the vendor role back."
+	},
+	"14480": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 14480, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 14480 belongs to the world event 'Children's Week' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 14480 (rec.py npc 14480)"
+			}
+		],
+		"note": "Alowicious Czervik is a Children's Week vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"14481": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 14481, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 14481 belongs to the world event 'Children's Week' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 14481 (rec.py npc 14481)"
+			}
+		],
+		"note": "Emmithue Smails is a Children's Week vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15011": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15011, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15011 belongs to the world event 'Harvest Festival' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15011 (rec.py npc 15011)"
+			}
+		],
+		"note": "Wagner Hammerstrike is a Harvest Festival vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15012": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15012, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15012 belongs to the world event 'Harvest Festival' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15012 (rec.py npc 15012)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1735: nobody at Durotar 46.1,13.8, the data's spot"
+			}
+		],
+		"note": "Javnir Nashak is a Harvest Festival vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15197": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15197, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15197 belongs to the world event 'Hallow's End' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15197 (rec.py npc 15197)"
+			}
+		],
+		"note": "Darkcaller Yanka is a Hallow's End vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15199": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15199, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15199 belongs to the world event 'Hallow's End' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15199 (rec.py npc 15199)"
+			}
+		],
+		"note": "Sergeant Hartman is a Hallow's End vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15353": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15353, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15353 belongs to the world event 'Hallow's End' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15353 (rec.py npc 15353)"
+			}
+		],
+		"note": "Katrina Shimmerstar is a Hallow's End vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15354": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15354, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15354 belongs to the world event 'Hallow's End' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15354 (rec.py npc 15354)"
+			}
+		],
+		"note": "Rachelle Gothena is a Hallow's End vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15734": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15734, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15734 belongs to the world event 'AQ War Effort Phase 1 Item collection' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15734 (rec.py npc 15734)"
+			}
+		],
+		"note": "Ironforge Commendation Officer is a AQ War Effort Phase 1 Item collection vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15736": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15736, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15736 belongs to the world event 'AQ War Effort Phase 1 Item collection' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15736 (rec.py npc 15736)"
+			}
+		],
+		"note": "Orgrimmar Commendation Officer is a AQ War Effort Phase 1 Item collection vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15864": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15864, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15864 belongs to the world event 'Lunar Festival' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15864 (rec.py npc 15864)"
+			}
+		],
+		"note": "Valadar Starsong is a Lunar Festival vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15898": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15898, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15898 belongs to the world event 'Lunar Festival' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15898 (rec.py npc 15898)"
+			}
+		],
+		"note": "Lunar Festival Vendor is a Lunar Festival vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15909": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15909, no creature spawn"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb: every spawn of 15909 belongs to the world event 'Lunar Festival' (game_event_creature)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: nobody met npc 15909 (rec.py npc 15909)"
+			}
+		],
+		"note": "Fariel Starsong is a Lunar Festival vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"15351": {
+		"addSpawns": {
+			"1413": {
+				"f": "e",
+				"pts": [
+					[
+						63.64,
+						58.64
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings, all addon versions: 4 people met him at Northwatch Hold in the Barrens (map 1413), each at 63.5-64.0,58.4-58.8 (median 63.59,58.72); 2 of them opened his window there"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide collector spawn rows: 1413 63.64,58.64"
+			}
+		],
+		"note": "The Alliance Brigadier General also stands at Northwatch Hold, beside the Darkspear Islands portal, where players hand him their marks. The merged data had no spot for him in the Barrens, so the Darkspear Islands guide sent players to Refuge Pointe. Adds the Barrens map; his other spots stay."
+	},
+	"43408": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 43408: subName \"Stable Master\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 43408: subName \"Stable Master\""
+			},
+			{
+				"kind": "tdb",
+				"ref": "creature_template npcflag 4194433 for entry 43408: the stable master flag (0x400000)"
+			}
+		],
+		"note": "Aili Greenwillow is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"256410": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 256410: subName \"Stablemaster\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 256410: subName \"Stablemaster\""
+			}
+		],
+		"note": "Reginald Holmsby is a stable master (the title under the name reads \"Stablemaster\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"256673": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 256673: subName \"Stable Master\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 256673: subName \"Stable Master\""
+			}
+		],
+		"note": "Grik is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"259190": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 259190: subName \"Stable Master\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 259190: subName \"Stable Master\""
+			}
+		],
+		"note": "Ephram Barbaro is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"259859": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 259859: subName \"Stable Master\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 259859: subName \"Stable Master\""
+			}
+		],
+		"note": "Wheatley is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"260525": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 260525: subName \"Stable Master\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 260525: subName \"Stable Master\""
+			}
+		],
+		"note": "Tallow Sparksocket is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"260565": {
+		"set": {
+			"spawns": {
+				"2548": {
+					"f": "l",
+					"pts": [
+						[
+							77.6,
+							50.95
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 35 people opened Kor'gar's goods, every window at 77.6-77.7,50.9-51.0; none at the other seven points"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2691"
+			}
+		],
+		"note": "Kor'gar (npc 260565), the engineering supplies vendor at Powderfuse Port in the Riverglades, stands at 77.6,50.95. The merged data gave him eight points around the port, 76.98-78.64,50.93-54.75, and the Engineering guide's Schematic: Thorium Tube led to one of them, 77.96,52.59, where he is not (#2691)."
+	},
+	"265756": {
+		"set": {
+			"roles": [
+				"repair",
+				"stablemaster",
+				"trainer",
+				"vendor"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 265756: subName \"Stablemaster and Riding Trainer\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 265756: subName \"Stablemaster and Riding Trainer\""
+			}
+		],
+		"note": "Genn Fairweather is a stable master (the title under the name reads \"Stablemaster and Riding Trainer\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010). It keeps its repair, trainer and vendor roles."
+	},
+	"270513": {
+		"set": {
+			"roles": [
+				"transmogrifier"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "Pinned QuestieDB Forever data, npc 270513: subName \"Transmogrifier\""
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.2 Forever, npc 270513: npcFlags includes 0x20000000"
+			}
+		],
+		"note": "Spellweaver Thaldris serves as a transmogrifier, as his NPC title and the newer quest data's flag show. The pinned data lacks that flag, so he would be missing from service markers and Nearby Services."
+	},
+	"278863": {
+		"set": {
+			"spawns": {}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-12: no sighting of npc 278863 and no death to it, while 337 people on foot logged other creatures within 40 yd of its points (danger gate census)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever world DB of 2026-10-14: no creature_template 278863"
+			}
+		],
+		"note": "Infernal (npc 278863, a level 30 elite) is nowhere players go: the quest data puts it at 133 points in Durotar, Elwynn Forest, Teldrassil, Thunder Bluff, Mulgore, Stormwind City and Zephras Isle, and no player has met it or died to it there. Those points made the danger gate flag the starting zones' quests, and would mark For Honor and An Enticing Offer \"Elite: group advised\" (#1575)."
+	},
+	"5858": {
+		"set": {
+			"name": "Searing Lava Spider"
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: Fiery Menace! (7724) reads \"Searing Lava Spider slain\" in the quest log, and each of its 40 recorded ticks came with a kill of npc 5858 credited to it (3 people)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2199: the reporter, at 10 of 20 on Fiery Menace!, found the spiders it counts named Searing Lava Spider"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 5858: name \"Searing Lava Spider\", from the game client's creature cache"
+			}
+		],
+		"note": "NPC 5858, the level 47-49 spiders of western Searing Gorge that Fiery Menace! counts, is the Searing Lava Spider in Forever; the merged data still had its Classic name, Greater Lava Spider, so the guides and the quest's step named a spider the game does not show (#2199)."
+	},
+	"8479": {
+		"set": {
+			"name": "Velarok Windblade"
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: Divine Retribution (3441), taken from and handed in to npc 8479, reads \"Velarok Story\" in the quest log (3 people)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 8479: name \"Velarok Windblade\", from the game client's creature cache"
+			}
+		],
+		"note": "NPC 8479 at the Cauldron's rim in Searing Gorge, who gives Divine Retribution, The Flawless Flame, Forging the Shaft and The Torch of Retribution, is Velarok Windblade in Forever; the merged data still had his Classic name, Kalaran Windblade, which the guides showed on his goals under steps and tips that already say Velarok (#2199 sweep: names of quest NPCs the game shows otherwise)."
+	},
+	"9026": {
+		"set": {
+			"spawns": {
+				"1427": {
+					"f": "e",
+					"pts": [
+						[
+							25.4,
+							80.1
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-15: 2 people killed Overmaster Pyron in Searing Gorge's Grinding Quarry, at 25,77 and 27,83 (build 70938); none elsewhere"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db creature 4593: Overmaster Pyron on map 0 at -7291.9,-890.6, Searing Gorge 25.4,80.1"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2464"
+			}
+		],
+		"note": "Overmaster Pyron (Incendius!'s first step, Blackrock Depths' pick-up guide) stands in the Grinding Quarry in Searing Gorge, by the way into Blackrock Mountain. The merged data had him only on the Eastern Kingdoms continent map, at a point outside Searing Gorge, so the kill step pointed nowhere near him (#2464). His one spawn replaces it."
+	},
+	"4217": {
+		"set": {
+			"spawns": {
+				"1457": {
+					"f": "l",
+					"pts": [
+						[
+							35.37,
+							8.4
+						]
+					]
+				}
+			}
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' recordings to 2026-11-17: 838 events at Mathrengyl Bearwalker (offers, hand-ins, his vendor window) in 122 sessions, median 35.22,8.07 in Darnassus, a few yards from his earlier point 35.37,8.4"
+		},
+		"note": "Mathrengyl Bearwalker (Morrowgrain Research, his pouch and seeds) paces his floor of the druids' building in the Cenarion Enclave. The data's five points of his path put each of his goals at a different spot, so a goal after another of his no longer followed the guide's goto at the door and its arrow walked to the ledge outside his floor (#1338). One point, the earlier data's, where the Darnassus guide grows the Morrowgrain."
+	},
+	"1742": {
+		"set": {
+			"spawns": {
+				"1420": {
+					"f": "e",
+					"pts": [
+						[
+							58.47,
+							51.39
+						],
+						[
+							58.4,
+							49.85
+						],
+						[
+							59.26,
+							49.31
+						],
+						[
+							60.14,
+							49.01
+						],
+						[
+							60.2,
+							47.39
+						],
+						[
+							59.38,
+							46.81
+						],
+						[
+							58.28,
+							47.84
+						],
+						[
+							57.48,
+							48.8
+						],
+						[
+							57.87,
+							49.64
+						],
+						[
+							58.29,
+							50.88
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20034111 (Deathguard Bartholomew) walks waypoint path 810017420, about 432 yd, through the spawn at 58.47,51.39"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 70 people opened Deathguard Bartholomew's window, 31 of them more than 25 yd from 58.47,51.39, and 70 within 20 yd of the path (most often at 58,50 (25), 60,49 (5), 59,48 (3), 58,49 (2), 60,47 (2))"
+			}
+		],
+		"note": "Deathguard Bartholomew walks round Brill's graveyard and the data had one spot on his walk, so the map marker and the arrow pointed at that spot while players met him anywhere along it (sweep for #2519)."
+	},
+	"1721": {
+		"set": {
+			"spawns": {
+				"1453": {
+					"f": "l",
+					"pts": [
+						[
+							76.47,
+							63.65
+						],
+						[
+							73.93,
+							62.52
+						],
+						[
+							71.23,
+							59.18
+						],
+						[
+							71.18,
+							56.68
+						],
+						[
+							72.88,
+							54.95
+						],
+						[
+							74.56,
+							56.2
+						],
+						[
+							76.08,
+							59.15
+						],
+						[
+							75.74,
+							62.28
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20079770 (Nikova Raskol) walks waypoint path 810017210, about 326 yd, through the spawn at 76.42,63.67"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 91 people opened Nikova Raskol's window, 75 of them more than 25 yd from 76.42,63.67, and 89 within 20 yd of the path (most often at 76,61 (6), 73,55 (6), 73,62 (5), 76,60 (5), 71,59 (4))"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2672"
+			}
+		],
+		"note": "Nikova Raskol walks a loop through Old Town and the data had one spot on it, at its south-east corner: the Stockade's pick-up guide pointed there while players met her anywhere on the loop (#1237, #2672, #2519)."
+	},
+	"3140": {
+		"set": {
+			"spawns": {
+				"1411": {
+					"f": "e",
+					"pts": [
+						[
+							54.18,
+							73.3
+						],
+						[
+							54.44,
+							74.29
+						],
+						[
+							54.58,
+							74.88
+						],
+						[
+							54.36,
+							76.15
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20004699 (Lar Prowltusk) walks waypoint path 800046990, about 285 yd, through the spawn at 54.44,74.35"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 52 people opened Lar Prowltusk's window, 37 of them more than 25 yd from 54.44,74.35, and 52 within 20 yd of the path (most often at 54,73 (15), 55,75 (12), 54,76 (11), 54,75 (2))"
+			}
+		],
+		"note": "Lar Prowltusk walks up and down a path of about 285 yd in southern Durotar and the data had one spot on it, so the map marker and the arrow pointed at that spot while players met him anywhere along the path (sweep for #2519)."
+	},
+	"2616": {
+		"set": {
+			"spawns": {
+				"1445": {
+					"f": "e",
+					"pts": [
+						[
+							68.84,
+							53.22
+						],
+						[
+							68.46,
+							52.24
+						],
+						[
+							67.72,
+							51.72
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20007896 (Privateer Groy) walks waypoint path 810026160, about 146 yd, through the spawn at 68.84,53.22"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 13 people opened Privateer Groy's window, 5 of them more than 25 yd from 68.84,53.22, and 13 within 20 yd of the path (most often at 68,52 (5))"
+			}
+		],
+		"note": "Privateer Groy walks a short path and the data had one spot on it, so the map marker and the arrow pointed at that spot while players met him anywhere along the path (sweep for #2519)."
+	},
+	"5639": {
+		"set": {
+			"spawns": {
+				"1454": {
+					"f": "e",
+					"pts": [
+						[
+							51.43,
+							46.47
+						],
+						[
+							48.54,
+							49.07
+						],
+						[
+							45.83,
+							51.1
+						],
+						[
+							44.09,
+							53.77
+						],
+						[
+							42.54,
+							49.76
+						],
+						[
+							44.68,
+							51.95
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20001903 (Craven Drok) walks waypoint path 800019030, about 375 yd, through the spawn at 51.3,45.9"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 22 people opened Craven Drok's window, 15 of them more than 25 yd from 51.3,45.9, and 18 within 20 yd of the path (most often at 49,48 (4), 51,51 (4), 44,52 (2), 48,50 (2), 47,50 (2))"
+			}
+		],
+		"note": "Craven Drok walks a path through Orgrimmar and the data had one spot on it, so the map marker and the arrow pointed at that spot while players met him anywhere along the path (sweep for #2519)."
+	},
+	"1481": {
+		"set": {
+			"spawns": {
+				"1437": {
+					"f": "e",
+					"pts": [
+						[
+							9.41,
+							58.76
+						],
+						[
+							8.64,
+							58.24
+						],
+						[
+							8.02,
+							57.75
+						],
+						[
+							8.4,
+							58.75
+						],
+						[
+							8.85,
+							59.84
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 20009475 (Bart Tidewater) walks waypoint path 800094750, about 233 yd, through the spawn at 8.66,58.12"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 10 people opened Bart Tidewater's window, 9 of them more than 25 yd from 8.66,58.12, and 10 within 20 yd of the path (most often at 9,60 (4), 9,59 (3), 8,57 (1), 8,58 (1))"
+			}
+		],
+		"note": "Bart Tidewater walks a path of about 233 yd around Menethil Harbor and the data had one spot on it, so the map marker and the arrow pointed at that spot while players met him anywhere along the path (sweep for #2519)."
+	},
+	"248198": {
+		"set": {
+			"spawns": {
+				"1413": {
+					"f": "e",
+					"pts": [
+						[
+							49.74,
+							29.35
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature 21200553 (Aza'bek): one spawn at -370.6,-2417.9 on map 1 (The Barrens 49.74,29.35), MovementType 0, no waypoint path"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-16: 56 people opened Aza'bek's vendor window, all 56 within 20 yd of 49.74,29.35 (most often at 49.7,29.3 and 49.8,29.4), none within 20 yd of 49.26,28.66"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2774 (Kaxe, 0.4.0.1): stood at Aza'bek at 49.72,29.31; the arrow pointed 64 yd away at 49.26,28.66"
+			}
+		],
+		"note": "Aza'bek, the Crossroads cook who sells Soothing Spices, stands still at 49.74,29.35. The merged data had five points for Aza'bek, from 48.26,28.32 to 50.43,29.2, and `buy 3713 nearest` (Horde Dustwallow Marsh) sent players to 49.26,28.66, 64 yd away (#2774)."
+	},
+	"259023": {
+		"set": {
+			"spawns": {
+				"1417": {
+					"f": "l",
+					"pts": [
+						[
+							59.72,
+							27.59
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "npcs.json 259023: Arathi Highlands 59.84,27.57 and Ironforge 47.1,13.79; the Ironforge point is Eldrun Stormbreaker's (258098) spawn to the hundredth"
+			},
+			{
+				"kind": "recording",
+				"ref": "rec.py, players' recordings to 2026-11-17: 12 people opened Veyric Thunderhame's window at Arathi Highlands 59.8,27.6 (37 windows, 28 hand-ins); none met him in Ironforge, where 6 people trained with Eldrun Stormbreaker at 47.5,13.6"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2851 (Logan, 0.4.0.1, Dwarf Shaman 30): stood at Ironforge 47.07,13.02, 4 yd from 47.1,13.79, with Call of Air (94789) in the log; nobody there took it, while While you're here offered its hand-in to Veyric Thunderhame 5 yd away"
+			}
+		],
+		"note": "Veyric Thunderhame, who takes Call of Air (94789) and gives the rest of the Alliance Shaman chain, stands in the hills of Arathi Highlands. The merged data also put him at Eldrun Stormbreaker's spot in Ironforge, so the nearest ender for 94789 was in Ironforge and While you're here offered the hand-in there (#2851)."
+	},
+	"255906": {
+		"set": {
+			"spawns": {
+				"2548": {
+					"f": "l",
+					"pts": [
+						[
+							16.2,
+							73.1
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 64 kills of Snargl by 57 people, the median of each person's kill spots 16.23,73.10, four in five people within 0.52 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 255906, as merged in our data: 17 points on map 2548, the nearest 0.2 from that spot, the farthest 7.4"
+			}
+		],
+		"note": "Snargl (npc 255906), an elite, is where players kill it: 16.2,73.1 (Riverglades, map 2548). The merged data listed 17 points around it, up to 7.4 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"256891": {
+		"set": {
+			"spawns": {
+				"2548": {
+					"f": "l",
+					"pts": [
+						[
+							29.8,
+							41.2
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 27 kills of Executioner Morg by 18 people, the median of each person's kill spots 29.77,41.19, four in five people within 0.38 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 256891, as merged in our data: 38 points on map 2548, the nearest 0.2 from that spot, the farthest 12.5"
+			}
+		],
+		"note": "Executioner Morg (npc 256891), an elite, is where players kill it: 29.8,41.2 (Riverglades, map 2548). The merged data listed 38 points around it, up to 12.5 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"263615": {
+		"set": {
+			"spawns": {
+				"2548": {
+					"f": "l",
+					"pts": [
+						[
+							59.5,
+							29.0
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 34 kills of Krek the Noxious by 30 people, the median of each person's kill spots 59.49,29.03, four in five people within 0.78 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 263615, as merged in our data: 26 points on map 2548, the nearest 0.1 from that spot, the farthest 5.9"
+			}
+		],
+		"note": "Krek the Noxious (npc 263615), an elite, is where players kill it: 59.5,29.0 (Riverglades, map 2548). The merged data listed 26 points around it, up to 5.9 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"272116": {
+		"set": {
+			"spawns": {
+				"1438": {
+					"f": "l",
+					"pts": [
+						[
+							51.4,
+							44.8
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 29 kills of Xethorr the Wicked by 22 people, the median of each person's kill spots 51.41,44.77, four in five people within 0.82 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 272116, as merged in our data: 8 points on map 1438, the nearest 0.3 from that spot, the farthest 2.9"
+			}
+		],
+		"note": "Xethorr the Wicked (npc 272116), an elite, is where players kill it: 51.4,44.8 (Teldrassil, map 1438). The merged data listed 8 points around it, up to 2.9 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"271458": {
+		"set": {
+			"spawns": {
+				"1437": {
+					"f": "l",
+					"pts": [
+						[
+							60.9,
+							22.0
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 58 kills of Neru by 43 people, the median of each person's kill spots 60.85,22.00, four in five people within 0.81 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 271458, as merged in our data: 31 points on map 1437, the nearest 0.1 from that spot, the farthest 7.5"
+			}
+		],
+		"note": "Neru (npc 271458), an elite, is where players kill it: 60.9,22.0 (Wetlands, map 1437). The merged data listed 31 points around it, up to 7.5 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"271462": {
+		"set": {
+			"spawns": {
+				"1437": {
+					"f": "l",
+					"pts": [
+						[
+							67.6,
+							71.2
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 46 kills of Golm by 35 people, the median of each person's kill spots 67.62,71.21, four in five people within 0.84 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 271462, as merged in our data: 52 points on map 1437, the nearest 0.3 from that spot, the farthest 41.8"
+			}
+		],
+		"note": "Golm (npc 271462), an elite, is where players kill it: 67.6,71.2 (Wetlands, map 1437). The merged data listed 52 points around it, up to 41.8 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"271338": {
+		"set": {
+			"spawns": {
+				"1437": {
+					"f": "l",
+					"pts": [
+						[
+							77.4,
+							47.1
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 49 kills of Ados by 34 people, the median of each person's kill spots 77.41,47.06, four in five people within 0.43 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 271338, as merged in our data: 37 points on map 1437, the nearest 0.2 from that spot, the farthest 4.9"
+			}
+		],
+		"note": "Ados (npc 271338), an elite, is where players kill it: 77.4,47.1 (Wetlands, map 1437). The merged data listed 37 points around it, up to 4.9 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"259897": {
+		"set": {
+			"spawns": {
+				"1421": {
+					"f": "l",
+					"pts": [
+						[
+							49.7,
+							87.9
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 12 kills of Old Fire-Eye by 11 people, the median of each person's kill spots 49.69,87.86, four in five people within 0.63 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 259897, as merged in our data: 38 points on map 1421, the nearest 0.2 from that spot, the farthest 15.5"
+			}
+		],
+		"note": "Old Fire-Eye (npc 259897), an elite, is where players kill it: 49.7,87.9 (Silverpine Forest, map 1421). The merged data listed 38 points around it, up to 15.5 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"222233": {
+		"set": {
+			"spawns": {
+				"1444": {
+					"f": "l",
+					"pts": [
+						[
+							74.9,
+							25.4
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 10 kills of Ohk'zi by 9 people, the median of each person's kill spots 74.90,25.45, four in five people within 0.46 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 222233, as merged in our data: 4 points on map 1444, the nearest 0.1 from that spot, the farthest 2.9"
+			}
+		],
+		"note": "Ohk'zi (npc 222233), an elite, is where players kill it: 74.9,25.4 (Feralas, map 1444). The merged data listed 4 points around it, up to 2.9 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"222286": {
+		"set": {
+			"spawns": {
+				"1444": {
+					"f": "l",
+					"pts": [
+						[
+							66.7,
+							38.7
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 14 kills of Namida Grimtotem by 9 people, the median of each person's kill spots 66.73,38.66, four in five people within 0.34 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 222286, as merged in our data: 4 points on map 1444, the nearest 0.0 from that spot, the farthest 1.7"
+			}
+		],
+		"note": "Namida Grimtotem (npc 222286), an elite, is where players kill it: 66.7,38.7 (Feralas, map 1444). The merged data listed 4 points around it, up to 1.7 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"218032": {
+		"set": {
+			"spawns": {
+				"1417": {
+					"f": "l",
+					"pts": [
+						[
+							69.3,
+							81.7
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-18: 19 kills of Witherbark Goliath by 8 people, the median of each person's kill spots 69.29,81.66, four in five people within 0.29 of it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB's Forever spawns of 218032, as merged in our data: 17 points on map 1417, the nearest 0.1 from that spot, the farthest 10.2"
+			}
+		],
+		"note": "Witherbark Goliath (npc 218032), an elite, is where players kill it: 69.3,81.7 (Arathi Highlands, map 1417). The merged data listed 17 points around it, up to 10.2 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"216463": {
+		"set": {
+			"spawns": {
+				"1441": {
+					"f": "e",
+					"pts": [
+						[
+							34.46,
+							42.15
+						],
+						[
+							34.64,
+							43.34
+						],
+						[
+							35.82,
+							43.47
+						],
+						[
+							35.87,
+							42.34
+						],
+						[
+							35.94,
+							41.57
+						],
+						[
+							36.02,
+							37.31
+						],
+						[
+							36.44,
+							38.28
+						],
+						[
+							36.49,
+							44.35
+						],
+						[
+							36.71,
+							39.17
+						],
+						[
+							36.72,
+							39.96
+						],
+						[
+							36.93,
+							37.66
+						],
+						[
+							37,
+							36.64
+						],
+						[
+							37.1,
+							42.18
+						],
+						[
+							37.33,
+							44.78
+						],
+						[
+							37.41,
+							41.16
+						],
+						[
+							37.66,
+							38.79
+						],
+						[
+							37.67,
+							40.15
+						],
+						[
+							37.77,
+							37.57
+						],
+						[
+							38.61,
+							38.38
+						],
+						[
+							38.65,
+							45.06
+						],
+						[
+							40.76,
+							37.32
+						]
+					],
+					"more": [
+						[
+							34.85,
+							42.63
+						],
+						[
+							35.41,
+							42.83
+						],
+						[
+							36.2,
+							43.88
+						],
+						[
+							36.5,
+							36.22
+						],
+						[
+							36.5,
+							41.56
+						],
+						[
+							36.54,
+							42.62
+						],
+						[
+							36.66,
+							40.6
+						],
+						[
+							37.33,
+							39.72
+						],
+						[
+							37.9,
+							38.21
+						],
+						[
+							38.45,
+							37.76
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "rec.py npc 216463 (2026-11-20): 22 people saw Ailgrha Splittusk hostile, only at Thousand Needles 36-37,37-43"
+			}
+		],
+		"note": "Ailgrha Splittusk (npc 216463, level 38, elite) walks the Grimtotem ground south and east of 36,36 in Thousand Needles, where players recorded it; the merged data also listed three points (34.8,34.4 to 36.5,34.4) north-west of it, among the Incendia Agave plants Sacred Fire (5062) sends Horde players to at about 29, so the danger gate read an elite there. Those points are dropped; the rest of the path stays (Horde route fix pass, PR #3284)."
+	},
+	"216474": {
+		"set": {
+			"spawns": {
+				"1441": {
+					"f": "e",
+					"pts": [
+						[
+							32.68,
+							43.19
+						],
+						[
+							33.66,
+							42.33
+						],
+						[
+							34.83,
+							42.56
+						],
+						[
+							34.83,
+							43.83
+						],
+						[
+							35.59,
+							43.26
+						],
+						[
+							35.81,
+							41.87
+						],
+						[
+							36.25,
+							37.39
+						],
+						[
+							36.67,
+							43.95
+						],
+						[
+							36.76,
+							39.75
+						],
+						[
+							36.97,
+							42.2
+						],
+						[
+							36.99,
+							40.68
+						],
+						[
+							37.11,
+							36.62
+						],
+						[
+							37.22,
+							38.85
+						],
+						[
+							37.73,
+							44.01
+						],
+						[
+							37.92,
+							37.6
+						],
+						[
+							38.53,
+							44.53
+						],
+						[
+							39.34,
+							38.36
+						],
+						[
+							39.64,
+							37.03
+						],
+						[
+							40.17,
+							45.46
+						],
+						[
+							40.6,
+							40.72
+						],
+						[
+							40.74,
+							37.18
+						],
+						[
+							41.85,
+							37.57
+						]
+					],
+					"more": [
+						[
+							33.66,
+							43.11
+						],
+						[
+							34.63,
+							42.88
+						],
+						[
+							35.38,
+							42.63
+						],
+						[
+							36.04,
+							43.8
+						],
+						[
+							36.27,
+							42.32
+						],
+						[
+							36.34,
+							41.13
+						],
+						[
+							36.34,
+							42.86
+						],
+						[
+							36.54,
+							40.49
+						],
+						[
+							36.55,
+							41.58
+						],
+						[
+							36.56,
+							36.56
+						],
+						[
+							36.58,
+							38.22
+						],
+						[
+							36.7,
+							39.12
+						],
+						[
+							36.92,
+							37.5
+						],
+						[
+							37.06,
+							42.77
+						],
+						[
+							37.1,
+							43.72
+						],
+						[
+							37.15,
+							38.26
+						],
+						[
+							37.19,
+							37.08
+						],
+						[
+							37.23,
+							44.24
+						],
+						[
+							37.39,
+							41.26
+						],
+						[
+							37.41,
+							39.55
+						],
+						[
+							37.56,
+							40.38
+						],
+						[
+							37.86,
+							38.22
+						],
+						[
+							37.91,
+							39.03
+						],
+						[
+							38.61,
+							37.21
+						],
+						[
+							38.63,
+							37.99
+						],
+						[
+							38.84,
+							38.53
+						],
+						[
+							39.03,
+							44.92
+						],
+						[
+							40.5,
+							39.84
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "rec.py npc 216474 (2026-11-20): 26 people saw Ravaging Tempest hostile, only at Thousand Needles 36-41,37-43"
+			}
+		],
+		"note": "Ravaging Tempest (npc 216474, level 38-40, elite) walks the Grimtotem ground south and east of 36,36 in Thousand Needles, where players recorded it; the merged data also listed five points (34.5,33.3 to 36.3,36.1) north-west of it, among the Incendia Agave plants Sacred Fire (5062) sends Horde players to at about 29, so the danger gate read an elite there. Those points are dropped; the rest of the path stays (Horde route fix pass, PR #3284)."
+	},
+	"252695": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 64 people (61 established), killed 0 times (rec.py npc 252695)"
+		},
+		"note": "Pylon Protector (level 61 elite), the temple guards around the Mana Sieve's altar in Shen'dralas, never attacks: with no side in the merged data, the addon counted them as hostile elites at the altar, and Lookup's step for Powering the Pylons (96018) said \"Elite: group advised\" (#3241)."
+	},
+	"11102": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 8 people (7 established), friendly by 3, killed 0 times (rec.py npc 11102)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "creature_template 11102 faction 1625"
+			}
+		],
+		"note": "Argent Rider (level 60 elite) rides around Light's Hope Chapel and never attacks: with no side in the merged data, the addon counted it as a hostile elite at nearby quest objects (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"266878": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 8 people (7 established), killed 0 times (rec.py npc 266878)"
+		},
+		"note": "Valiant Watcher (level 63 elite, Winterspring) never attacks: with no side in the merged data, the addon counted it as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"266880": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 4 people (3 established), killed 0 times (rec.py npc 266880)"
+		},
+		"note": "Warden (level 63 elite, Winterspring) stands with the Valiant Watchers and never attacks: with no side in the merged data, the addon counted it as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"271742": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 15 people (13 established), killed 0 times (rec.py npc 271742)"
+		},
+		"note": "Abbot Schuncke (level 53 elite, Riverglades) never attacks: with no side in the merged data, the addon counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"270571": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 6 people (5 established), friendly by 1, killed 0 times (rec.py npc 270571)"
+		},
+		"note": "Donald Armstrong (level 53 elite, Riverglades) stands with Abbot Schuncke and never attacks: with no side in the merged data, the addon counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"269699": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 28 people (23 established), friendly by 21, killed 0 times (rec.py npc 269699)"
+		},
+		"note": "Thaddeus Brillyard (level 53 elite) never attacks: with no side in the merged data, the addon counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"4554": {
+		"set": {
+			"spawns": {
+				"1458": {
+					"f": "l",
+					"pts": [
+						[
+							62.2,
+							44.26
+						],
+						[
+							62.25,
+							42.8
+						],
+						[
+							62.33,
+							46.23
+						],
+						[
+							62.52,
+							40.96
+						],
+						[
+							62.71,
+							46.89
+						],
+						[
+							63.04,
+							48.14
+						],
+						[
+							63.33,
+							40.18
+						],
+						[
+							63.89,
+							49.1
+						],
+						[
+							64.9,
+							38.57
+						],
+						[
+							64.91,
+							50.01
+						],
+						[
+							65.57,
+							49.79
+						],
+						[
+							66.04,
+							38.37
+						],
+						[
+							66.08,
+							49.31
+						],
+						[
+							67.1,
+							38.5
+						],
+						[
+							67.42,
+							49.38
+						],
+						[
+							68.12,
+							39.43
+						],
+						[
+							68.21,
+							48.69
+						],
+						[
+							68.5,
+							40.1
+						],
+						[
+							68.76,
+							47.91
+						],
+						[
+							69.23,
+							40.72
+						],
+						[
+							69.36,
+							46.74
+						],
+						[
+							69.62,
+							45.23
+						],
+						[
+							69.69,
+							42.52
+						],
+						[
+							69.74,
+							44.16
+						]
+					],
+					"more": [
+						[
+							62.19,
+							45.9
+						],
+						[
+							63.08,
+							40.62
+						],
+						[
+							63.41,
+							48.37
+						],
+						[
+							63.77,
+							48.79
+						],
+						[
+							64.43,
+							49.41
+						],
+						[
+							64.82,
+							49.7
+						],
+						[
+							65.17,
+							49.69
+						],
+						[
+							65.34,
+							38.4
+						],
+						[
+							65.51,
+							49.46
+						],
+						[
+							65.62,
+							38.55
+						],
+						[
+							65.87,
+							49.55
+						],
+						[
+							66.14,
+							49.78
+						],
+						[
+							66.25,
+							38.67
+						],
+						[
+							66.52,
+							49.79
+						],
+						[
+							66.75,
+							49.47
+						],
+						[
+							67.19,
+							49.58
+						],
+						[
+							67.39,
+							38.67
+						],
+						[
+							67.65,
+							38.89
+						],
+						[
+							67.84,
+							49.1
+						],
+						[
+							68.24,
+							39.81
+						],
+						[
+							68.32,
+							48.31
+						],
+						[
+							68.78,
+							40.36
+						],
+						[
+							69.23,
+							41.15
+						],
+						[
+							69.74,
+							44.62
+						],
+						[
+							69.94,
+							45.41
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): seen friendly by 173 people and neutral by 57, all along the Undercity's ring at 62-69,38-54 (rec.py npc 4554)"
+			}
+		],
+		"note": "Tawny Grisette walks the Undercity's ring (map 1458, about 62-70,38-50), where players' recordings meet her all along it. The 0.4.2 data build keeps her 24 points; one moved about 0.2 map units, which the data-diff gate counts as a sixth place (capital-spawns, at most 5). Reviewed for 0.4.2: the points are where she walks, no move."
+	},
+	"253096": {
+		"set": {
+			"spawns": {
+				"1443": {
+					"f": "l",
+					"pts": [
+						[
+							35.46,
+							92.21
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Halea met by 6 people, all at Desolace 35-36,91-92 (friendly by 5, neutral by 1), and Mysterious Mysticism (92755) taken from her there; nobody met her at 69.8,78.0 (rec.py npc 253096, rec.py quest 92755)"
+			},
+			{
+				"kind": "questie",
+				"ref": "npcs.json 253096: Desolace 69.83,77.96, where no recording meets her"
+			}
+		],
+		"note": "Halea, who gives and takes Mysterious Mysticism (92755), stands at Desolace 35.5,92.2, where players' recordings meet her. The 0.4.2 data build moved her there from 69.8,78.0, so the quest's hand-in moved about 1,600 yards. Reviewed for 0.4.2 (data-diff gate, ender-moved): the new spot is right."
+	},
+	"267121": {
+		"set": {
+			"spawns": {
+				"2482": {
+					"f": "l",
+					"pts": [
+						[
+							49.19,
+							32.67
+						],
+						[
+							61.34,
+							31.41
+						],
+						[
+							62.1,
+							30.69
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Yashiro seen friendly by 14 people; Blademaster's Bonfires (96959): every recorded accept and hand-in (14) at 49,32-33; Yashiro's Windwalk (96983): accepts at 49-50,32-33, hand-ins at 61-62,31-32 (6) and back at 49,33 (4) (rec.py npc 267121, rec.py quest 96959 and 96983)"
+			}
+		],
+		"note": "Yashiro (Mount Hyjal) stands at 49.2,32.7, where he gives both his quests and takes Blademaster's Bonfires (96959). He goes east with the player for Yashiro's Windwalk (96983) and takes it at Dae'gun (61.3,31.4 and 62.1,30.7) as well as back at his camp; the 0.4.2 data build added those two points (the hand-in moved about 450 yards). Bonfires is never handed in at Dae'gun: its hand-in belongs at the camp spot only. Reviewed for 0.4.2 (data-diff gate, ender-moved)."
+	},
+	"5955": {
+		"set": {
+			"spawns": {
+				"1446": {
+					"f": "l",
+					"pts": [
+						[
+							28.59,
+							67.38
+						],
+						[
+							29.47,
+							60.44
+						],
+						[
+							29.7,
+							74.06
+						],
+						[
+							29.87,
+							73.72
+						],
+						[
+							30.23,
+							70.7
+						],
+						[
+							30.31,
+							64.56
+						],
+						[
+							66.38,
+							25.79
+						],
+						[
+							66.73,
+							25.55
+						],
+						[
+							67.26,
+							25.24
+						],
+						[
+							67.65,
+							24.85
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Tooga seen friendly by 47 people; Tooga's Quest (1560) taken in the Thistleshrub Valley at 28-32,61-74 (about 30 accepts) and handed in to Torta at 66-67,26 (27); Oasis (97540) taken and handed in beside Torta at 66-68,25-26 (19 hand-ins, none elsewhere); his sightings between them (41-49,52-62) are the escort under way (rec.py npc 5955, rec.py quest 1560 and 97540)"
+			}
+		],
+		"note": "Tooga waits at the Thistleshrub Valley's west edge for his escort (Tooga's Quest, 1560) and, after it, stands beside Torta east of Steamwheedle Port, where he gives and takes Oasis (97540). The 0.4.2 data build added a point on the escort's way (41.03,54.55), which put an Oasis hand-in out in the desert, about 840 yards from every earlier one. His points are the valley's and Torta's, without it (data-diff gate, ender-moved, 0.4.2)."
+	},
+	"4453": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20 (excluded contributors left out): 165 contributors opened Wizzle Brassbolts's window at the Mirage Raceway (quest windows for Hardened Shells and the raceway's other quests), none a merchant window"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3470 (Shuurajou, Gnome Priest 32): the nearest-vendor arrow led to Wizzle Brassbolts, who is no vendor"
+			}
+		],
+		"note": "Wizzle Brassbolts gives and takes the Mirage Raceway's quests and sells nothing. The merged data listed him as a vendor, so the nearest-vendor arrow and the sell reminder could send players to him (#3470). No roles; a merchant window players record brings the vendor role back."
+	},
+	"2358": {
+		"addSpawns": {
+			"1416": {
+				"f": "e",
+				"pts": [
+					[
+						20.1,
+						51.9
+					],
+					[
+						20.1,
+						53.0
+					],
+					[
+						20.4,
+						54.8
+					],
+					[
+						20.8,
+						50.6
+					],
+					[
+						21.7,
+						54.4
+					],
+					[
+						21.8,
+						53.3
+					],
+					[
+						21.8,
+						56.1
+					],
+					[
+						21.9,
+						50.6
+					],
+					[
+						22.0,
+						51.4
+					],
+					[
+						22.9,
+						51.9
+					],
+					[
+						23.3,
+						54.6
+					],
+					[
+						23.4,
+						57.5
+					],
+					[
+						23.6,
+						56.5
+					],
+					[
+						23.7,
+						53.7
+					],
+					[
+						23.7,
+						59.1
+					],
+					[
+						24.5,
+						56.2
+					],
+					[
+						24.6,
+						54.8
+					],
+					[
+						24.7,
+						61.0
+					],
+					[
+						24.8,
+						57.7
+					],
+					[
+						25.1,
+						59.2
+					],
+					[
+						25.1,
+						62.2
+					],
+					[
+						25.7,
+						54.9
+					],
+					[
+						26.0,
+						59.3
+					],
+					[
+						26.4,
+						60.7
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 67 people killed Dalaran Summoners in Alterac Mountains, every kill at 16.2-27.7,49.4-66.4, around the ruins outside the Dalaran dome, none south of 68 (the data's other points, 10-20,73-81); the points are the kill spots where 12 or more people killed them"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2861 (Merkanex, Horde): the City of Dalaran pick-up guide led up the stairs, where elite guards attacked; the summoners and slaves were outside the walls at 23.2,56.3 and 24.0,58.7"
+			}
+		],
+		"note": "Dalaran Summoners, for Dalaran Patrols (545), are met around the ruins outside the Dalaran dome in Alterac Mountains. The merged data also had them at 10-20,73-81, where no player meets them, and the pick-up guide's spots led there or up the stairs to the guards (#2861). Replaces the map's points; Silverpine and Hillsbrad keep theirs."
+	},
+	"2359": {
+		"addSpawns": {
+			"1416": {
+				"f": "e",
+				"pts": [
+					[
+						20.2,
+						52.9
+					],
+					[
+						20.5,
+						52.0
+					],
+					[
+						20.5,
+						54.7
+					],
+					[
+						21.6,
+						54.6
+					],
+					[
+						21.7,
+						53.1
+					],
+					[
+						21.7,
+						56.2
+					],
+					[
+						22.0,
+						51.6
+					],
+					[
+						22.2,
+						57.8
+					],
+					[
+						23.0,
+						53.1
+					],
+					[
+						23.0,
+						54.8
+					],
+					[
+						23.3,
+						51.8
+					],
+					[
+						23.3,
+						57.4
+					],
+					[
+						23.4,
+						56.3
+					],
+					[
+						23.4,
+						59.0
+					],
+					[
+						23.5,
+						50.6
+					],
+					[
+						24.6,
+						51.9
+					],
+					[
+						24.6,
+						56.2
+					],
+					[
+						24.7,
+						57.8
+					],
+					[
+						25.0,
+						59.2
+					],
+					[
+						25.0,
+						60.8
+					],
+					[
+						25.1,
+						53.1
+					],
+					[
+						25.2,
+						62.4
+					],
+					[
+						25.8,
+						54.8
+					],
+					[
+						25.9,
+						62.3
+					],
+					[
+						26.0,
+						59.2
+					],
+					[
+						26.1,
+						57.9
+					],
+					[
+						26.1,
+						60.8
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 66 people killed Elemental Slaves in Alterac Mountains, every kill at 17.8-28.0,49.4-66.6, around the ruins outside the Dalaran dome, none south of 68 (the data's other points, 10-20,73-81); the points are the kill spots where 12 or more people killed them"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2861 (Merkanex, Horde): the City of Dalaran pick-up guide led up the stairs, where elite guards attacked; the summoners and slaves were outside the walls at 23.2,56.3 and 24.0,58.7"
+			}
+		],
+		"note": "Elemental Slaves, for Dalaran Patrols (545), are met around the ruins outside the Dalaran dome in Alterac Mountains. The merged data also had them at 10-20,73-81, where no player meets them, and the pick-up guide's spots led there or up the stairs to the guards (#2861). Replaces the map's points; Silverpine and Hillsbrad keep theirs."
+	},
+	"8888": {
+		"set": {
+			"ghostOnly": true
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3009 (Nostaroi: \"you have to be dead to get this quest\"); #558"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 14 people met Franclorn Forgewright at Forgewright's Tomb in Blackrock Mountain"
+			}
+		],
+		"note": "Franclorn Forgewright (Blackrock Mountain), giver and ender of Dark Iron Legacy, is a ghost only a dead character can see (#558, #3009)."
+	},
+	"14637": {
+		"set": {
+			"vendorAfter": 7003
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 14 merchant windows of Zorbin Fandazzle, every one opened by a character who had handed in Zapped Giants (7003); 41 people opened his windows"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3138 (Meta, Forsaken Paladin 47): Zorbin sold nothing before Zapped Giants; \"the vendor unlocks after doing the Zapped giants quest\""
+			}
+		],
+		"note": "Zorbin Fandazzle (Feralas) opens his shop only once Zapped Giants is handed in. The merged data listed him as a plain vendor, so the bags-full stop could send a player to him before that (#3138)."
+	},
+	"12277": {
+		"set": {
+			"spawns": {
+				"1443": {
+					"f": "l",
+					"pts": [
+						[
+							33.79,
+							54.04
+						],
+						[
+							33.83,
+							53.53
+						],
+						[
+							33.93,
+							54.73
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 54 of Melizza Brimbuzzle's quest windows, from 22 people, opened at the Maraudine camp (median 33.90,53.58); 16 windows and accepts, from 10 people, along her escort path down to Hornizz's camp, while an escort was under way"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3301 (Everlast): the map pointed along the escort path while she offered the quest in the camp"
+			}
+		],
+		"note": "Melizza Brimbuzzle stands in the Maraudine camp in Desolace, where she offers Get Me Out of Here!. The merged data also had points along her escort path, down to Hornizz's camp where an escort ends, so the arrow and the map could point there (#3301). Her points are the camp's only."
 	}
 }

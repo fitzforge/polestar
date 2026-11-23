@@ -30,12 +30,10 @@ return {
 	["{npc:266216} is inside {area:275}, the Syndicate fortress east of {area:271}. Stealth past the guards in the courtyard."] = "",
 
 	-- Step 4: Strahnbrad: Barton
-	-- {area:280} Strahnbrad
-	["{area:280}: Barton"] = "",
-	-- {area:280} Strahnbrad
-	["Barton hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "",
-	-- {item:275482} Barton's Scouting Report
-	["{item:275482}: pickpocket Barton"] = "",
+	-- {npc:266357} Barton · {area:280} Strahnbrad
+	["{npc:266357} hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "",
+	-- {item:275482} Barton's Scouting Report · {npc:266357} Barton
+	["{item:275482}: pickpocket {npc:266357}"] = "{item:275482}: róbaselo a {npc:266357}",
 
 	-- Step 5: Northfold Manor: a uniform
 	-- {area:313} Northfold Manor
@@ -59,7 +57,7 @@ return {
 
 	-- Step 8: Back to Myrokos Silentform
 	-- {npc:13085} Myrokos Silentform
-	["Back to {npc:13085}"] = "",
+	["Back to {npc:13085}"] = "De vuelta con {npc:13085}",
 	-- {quest:96782} Covert Extraction · {quest:96781} What's the Big Idea?
 	["{quest:96782}, after {quest:96781}"] = "",
 
@@ -82,7 +80,7 @@ return {
 	-- {item:17124} Syndicate Emblem
 	["{item:17124}: pickpocket Syndicate"] = "",
 	-- {npc:6766} Ravenholdt Guard
-	["a {npc:6766}: 100 per emblem"] = "",
+	["a {npc:6766}: 100 per emblem, handed in from his window"] = "un {npc:6766}: 100 por emblema, se entrega desde su ventana",
 
 	-- Step 11: Syndicate kills to the end of Honored
 	["Syndicate kills to the end of Honored"] = "",
@@ -118,5 +116,5 @@ return {
 	-- {item:16885} Heavy Junkbox · {area:1445} Blackrock Mountain
 	["{item:16885}: pickpocket level 50+ humanoids, {area:1445}"] = "",
 	-- {npc:6707} Fahrad
-	["{npc:6707}: 50 per five boxes"] = "",
+	["{npc:6707}: 50 per five boxes, handed in from his window"] = "{npc:6707}: 50 por cada cinco cajas, se entrega desde su ventana",
 }

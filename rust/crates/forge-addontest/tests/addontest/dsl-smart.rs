@@ -198,7 +198,7 @@ fn smart_goals_emit_lua_the_real_engine_registry_accepts_and_round_trip() {
 	let lua = fs::read_to_string(&file).unwrap();
 	assert!(is_match(
 		&lua,
-		r#"\{ t = "train", class = true, candidates = \{ \{ npc = 911, npcName = "Llane Beshere", map = 1429, x = 50\.2, y = 42\.3, f = "e", faction = "A", classes = \{ "WARRIOR" \} \}"#
+		r#"\{ t = "train", class = true, zone = 1429, candidates = \{ \{ npc = 911, npcName = "Llane Beshere", map = 1429, x = 50\.2, y = 42\.3, f = "e", faction = "A", classes = \{ "WARRIOR" \} \}"#
 	));
 	assert!(is_match(&lua, r#"\{ t = "accept", quest = 9500, title = "Either Way", npc = 823, npcName = "Deputy Willem", minLevel = 1, qlvl = 3, pre = \{ 9201, 783 \},"#));
 	let out = emitted(&RunAddon {

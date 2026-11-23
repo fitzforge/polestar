@@ -31,11 +31,10 @@ why Safe passage through the tunnels, agility enchants and furbolg recipes; the 
 # totems 3-4%.
 # The Runecloth and Sacred Cloth quests and The Root of All Evil are taken
 # optionally or by choice: their later steps hold only a player who took them.
-# Grey content: in Classic a quest pays less once it is 6 or more levels below
-# you (a fifth less per level, down to a fifth: Timbermaw Ally, level 48, paid
-# 30 at 60), and grey mobs give about a fifth. A Forever beta report had
-# quests paying in full at any level.
-# INGAME: grey quest and grey-mob reputation in Forever (Classic: reduced).
+# Low-level quests pay their full reputation in Forever at any level: in players' recordings every
+# quest turn-in 10 to 29 levels above the quest paid all of it (72 turn-ins, over 40 people, 2026-11-09),
+# as one beta report said (quest 456 at level 30). Classic cut it to a fifth.
+# INGAME: grey-mob reputation in Forever (Classic: about a fifth).
 # Numbers are base values; the Legacy perk Diplomat adds up to 10%.
 # INGAME: Forever's new Blackmaw Hold furbolgs (Azshara): does killing them
 # count for or against the Timbermaw? Forever's data has no reputation for them.
@@ -48,7 +47,8 @@ step Grazle
   accept 8460
 
 step Deadwood Village
-  tip The Deadwood furbolgs (level 48-50) hold the village at the south end of Felwood. Keep every Deadwood Headdress Feather: they are worth 10 reputation each later and never stop counting. Overlord Ror (15 reputation) and the rare Ragepaw (25) live here and count until Exalted. In Classic, quests 6 or more levels below you pay less and grey mobs give about a fifth: at level 60 Timbermaw Ally paid 30 instead of 150 and these furbolgs about 1 a kill. Do it while leveling if you can.
+  tip The Deadwood furbolgs (level 48-50) hold the village at the south end of Felwood. Keep every Deadwood Headdress Feather: they are worth 10 reputation each later and never stop counting. Overlord Ror (15 reputation) and the rare Ragepaw (25) live here and count until Exalted. Forever pays quests in full at any level; in Classic grey mobs gave about a fifth, about 1 a kill for these furbolgs at 60. Do it while leveling if you can.
+  level 50
   kill 7153 quest 8460.1
   kill 7155 quest 8460.2
   kill 7154 quest 8460.3
@@ -66,6 +66,7 @@ step Nafien
 
 step Felpaw Village
   tip The northern Deadwood (level 53-55) camp just south of the tunnel. They drop feathers about half the time: the best feather spot. Chieftain Bloodmaw gives 15 until Exalted.
+  level 55
   kill 7156 quest 8461.1
   kill 7157 quest 8461.2
   kill 7158 quest 8461.3
@@ -85,6 +86,7 @@ step Salfa
 
 step Winterfall Village
   tip Winterfall Village lies in the east of Winterspring, just past Everlook. Keep every Winterfall Spirit Beads you loot (10 reputation each later). The Shamans, Den Watchers and Ursas share their spawn points, so kill every furbolg in the village to make the ones you need appear; more Ursas walk the ridge just south-west of the village. Grizzle Snowpaw (rare) and High Chief Winterfall, in the cave at the back, give 25 until Exalted. Alliance: the Wintersaber Trainers' Winterfall Intrusion asks for the same Shamans and Ursas.
+  level 58
   kill 7439 quest 8464.1
   kill 7440 quest 8464.2
   kill 7438 quest 8464.3
@@ -97,7 +99,7 @@ step Back to Salfa
 
 step Unfriendly to Neutral
   tip Unfriendly to Neutral is 3,000: about 540 more kills after these quests. Three camps: the northern Deadwood by the Felwood mouth of the tunnel; the Winterfall camps around Frostfire Hot Springs and Timbermaw Post, just south and south-east of Salfa (Pathfinders give 6 a kill, Den Watchers and Totemics 5, the shortest walk to a turn-in); and Winterfall Village in the east. Pick the least crowded. Keep all feathers and beads.
-  level 52
+  level 53
   collect 21377 x5 nearest optional   -- Deadwood Headdress Feathers: keep them
   collect 21383 x5 nearest optional   -- Winterfall Spirit Beads: keep them
   kill 7442 optional @31.5,36.0       -- Winterfall Pathfinders, Frostfire Hot Springs
@@ -108,6 +110,10 @@ step Deadwood Ritual Totem
   zone Felwood
   tip The northern Deadwood rarely drop a Deadwood Ritual Totem (about 3%). From Neutral, Kernda takes it in the tunnel, on the Felwood side: 150 reputation and two Major Healing and Mana Potions.
   accept 8470
+
+step Kernda: the Deadwood totem
+  when onquest 8470
+  zone Felwood
   turnin 8470
 
 step Winterfall Ritual Totem
@@ -115,6 +121,10 @@ step Winterfall Ritual Totem
   zone Felwood
   tip The Winterfall furbolgs rarely drop a Winterfall Ritual Totem (3-4%). Kernda takes it in the tunnel too: 150 reputation and three Major Healing and Mana Potions.
   accept 8471
+
+step Kernda: the Winterfall totem
+  when onquest 8471
+  zone Felwood
   turnin 8471
 
 step Neutral to Friendly

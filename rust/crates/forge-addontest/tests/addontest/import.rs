@@ -7,7 +7,7 @@
 use forge_addontest::dsl::{fixture_data, plain};
 use forge_addontest::{emitted, is_match, lua_value, text, Addon, RunAddon};
 use forge_guide::diag::Diagnostics;
-use forge_guide::emit::{emit_guides, guide_data, list_keys, GOAL_KEYS, GUIDE_KEYS, IMAGE_KEYS, ONLY_KEYS, STEP_KEYS, WHEN_KEYS};
+use forge_guide::emit::{emit_guides, guide_data, list_keys, FRESH_KEYS, GOAL_KEYS, GUIDE_KEYS, IMAGE_KEYS, ONLY_KEYS, STEP_KEYS, WHEN_KEYS};
 use forge_guide::importstring::{adler32, encode_import, import_string, LIMITS};
 use forge_guide::js::{parse_json, V};
 use forge_guide::project::{compile_sources, CompileOpts, Source};
@@ -240,9 +240,35 @@ fn the_caps_the_checksum_and_the_key_lists_are_the_writer_s() {
 	assert_eq!(out["keys"]["goal"], sorted(&GOAL_KEYS));
 	assert_eq!(out["keys"]["only"], sorted(&ONLY_KEYS));
 	assert_eq!(out["keys"]["image"], sorted(&IMAGE_KEYS));
-	for k in ["reagents", "candidates", "fromNpcs", "spots", "items", "reward"] {
+	assert_eq!(out["keys"]["fresh"], sorted(&FRESH_KEYS));
+	for k in ["reagents", "candidates", "fromNpcs", "spots", "items", "reward", "sections"] {
 		assert_eq!(out["keys"][k], sorted(list_keys(k).unwrap()), "{k}");
 	}
+}
+
+// The keys 0.3.7's compiler adds: a grind step's mob (`level N grind <npc>`: `grind`, its `npcName` and the mob's
+// spawn `spots` with their levels) and an elite's level on a goal's `group` (the class-quest heads-up). A string
+// carrying them previews and imports; without them in Import.lua's shape the whole string was refused.
+#[test]
+fn a_grind_step_s_mob_and_an_elite_s_level_ride_along_in_a_string() {
+	let mut p = payload();
+	p["guide"]["steps"][2]["goals"].as_array_mut().unwrap().push(json!({
+		"t": "level", "level": 3, "grind": 6, "npcName": "Kobold Vermin", "map": 1429, "x": 47.6, "y": 35.1,
+		"spots": [{ "x": 47.6, "y": 35.1, "r": 30, "n": 4, "lvl": 2 }],
+	}));
+	p["guide"]["steps"][2]["goals"][1]["group"] = json!({ "kind": "elite", "rank": 1, "lvl": 30 });
+	let out = run(&r#"
+		local info, why = I.Preview(@S@)
+		emit({ ok = info ~= nil, why = why and tostring(why) or nil })
+		if info then
+			assert(I.Save(info.entry))
+			local goals = G.Get("yendi/northshire").steps[3].goals
+			emit({ grind = goals[3].grind, name = goals[3].npcName, lvl = goals[2].group.lvl })
+		end
+	"#
+	.replace("@S@", &js(&encode(&p))));
+	assert_eq!(out[0], json!({ "ok": true }), "previewed");
+	assert_eq!(out[1], json!({ "grind": 6, "name": "Kobold Vermin", "lvl": 30 }));
 }
 
 #[test]
@@ -315,6 +341,29 @@ fn a_guide_with_when_steps_goes_into_a_format_4_string_and_imports_with_its_cond
 	.remove(0);
 	assert_eq!(out["format"], 4);
 	assert_eq!(out["when"], json!([{ "k": "onquest", "q": [7] }, { "k": "level", "op": "<", "n": 6 }]));
+}
+
+// #1364 gave a compiled `train class` goal its step's zone (a uiMapID the Engine ranks trainers by). A shared string
+// carries it like any other goal key: the import takes the guide, and the goal keeps its zone.
+#[test]
+fn a_guide_with_a_train_class_step_imports_and_its_goal_keeps_the_step_s_zone_1364() {
+	let src = GUIDE.replacen("step Back to the abbey\n", "step Training\n  train class\n\nstep Back to the abbey\n", 1);
+	let g = compile_guide(&src);
+	let r = import_of(&g);
+	let out = run(&r#"
+		local info, why = I.Preview(@S@)
+		assert(info, why)
+		assert(I.Save(info.entry))
+		local train
+		for _, s in ipairs(G.Get("yendi/northshire").steps) do
+			for _, goal in ipairs(s.goals or {}) do if goal.t == "train" then train = goal end end
+		end
+		emit({ class = train and train.class, zone = train and train.zone })
+	"#
+	.replace("@S@", &js(&r)))
+	.remove(0);
+	assert_eq!(out["class"], true);
+	assert!(out["zone"].as_f64().is_some_and(|z| z > 0.0), "the train goal keeps its step's zone: {}", out["zone"]);
 }
 
 #[test]
@@ -566,7 +615,7 @@ fn a_text_over_the_cap_is_refused_at_once_naming_it_before_any_of_it_is_filled_i
 	.remove(0);
 	assert!(is_match(text(&out["long"]["reason"]), r"holds a text longer than Polestar reads \(guide\.title\): 4096 characters at most"));
 	let seconds = out["long"]["seconds"].as_f64().unwrap();
-	assert!(seconds < 0.2, "refused in {seconds} s");
+	forge_addontest::assert_timing!(seconds < 0.2, "refused in {seconds} s");
 	assert!(is_match(text(&out["key"]["reason"]), r"text longer than Polestar reads \(guide\.written\)"));
 	assert!(is_match(text(&out["ns"]["reason"]), r"text longer than Polestar reads \(guide\.steps\[1\]\.goals\[1\]\.qlvl\)"));
 	assert_eq!(out["imports"], true);

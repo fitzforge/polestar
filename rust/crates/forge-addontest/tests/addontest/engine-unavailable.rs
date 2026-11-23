@@ -78,13 +78,13 @@ fn accepts_their_giver_does_not_offer_for_a_reason_the_data_gives_are_skipped_wi
 		"#,
 	);
 	// 870 is simply not offered: never a skip (Fitz, #741); the line asks for a report and the guide stays.
-	assert_eq!(out["step1"], json!(["skipped:pre:Requires Disrupt the Attacks first", "skipped:level:Requires level 14", "active:nil:nil", "done:nil:nil",]));
+	assert_eq!(out["step1"], json!(["skipped:pre:Requires “Disrupt the Attacks” first", "na:nil:nil", "active:nil:nil", "done:nil:nil",]));
 	assert_eq!(out["notice"], "Not offered by Thork? Report it with /polestar");
 	assert_eq!(out["at"], 1); // Gazrog's accept still open
 	assert_eq!(out["atAfter"], 1, "the guide stays at Thork");
 	assert_eq!(out["wp"], 3, "the arrow on Thork's accept");
-	assert_eq!(out["step2"], json!(["skipped:pre:Requires Disrupt the Attacks first", "pending:nil:nil"]));
-	assert_eq!(out["step3"], json!(["skipped:pre:Requires Disrupt the Attacks first", "pending:nil:nil"]));
+	assert_eq!(out["step2"], json!(["skipped:pre:Requires “Disrupt the Attacks” first", "pending:nil:nil"]));
+	assert_eq!(out["step3"], json!(["skipped:pre:Requires “Disrupt the Attacks” first", "pending:nil:nil"]));
 }
 
 #[test]
@@ -100,9 +100,9 @@ fn another_npc_s_window_never_marks_an_accept_and_the_giver_offering_a_quest_cle
 			emit({ other = other, offered = brief(1), at = E.GetStepIndex() })
 		"#,
 	);
-	// 872's prerequisite (871) is missing and the guide never turns it in: known before any visit. Thork's window
-	// offering it has the last word.
-	assert_eq!(out["other"], json!(["skipped:pre:Requires Disrupt the Attacks first", "active:nil:nil", "active:nil:nil", "active:nil:nil"]));
+	// 872's prerequisite (871) is missing and the guide never turns it in, and 880 needs level 14 (#1320): both
+	// known before any visit. Thork's window offering them has the last word.
+	assert_eq!(out["other"], json!(["skipped:pre:Requires “Disrupt the Attacks” first", "na:nil:nil", "active:nil:nil", "active:nil:nil"]));
 	assert_eq!(out["offered"], json!(["active:nil:nil", "active:nil:nil", "active:nil:nil", "active:nil:nil"]));
 	assert_eq!(out["at"], 1);
 }
@@ -127,7 +127,7 @@ fn a_detail_window_opened_from_the_giver_s_list_says_nothing_about_the_others_a_
 		"#,
 	);
 	assert_eq!(out["fromList"], json!(["active:nil:nil", "active:nil:nil", "active:nil:nil", "active:nil:nil"]));
-	assert_eq!(out["direct"], json!(["skipped:pre:Requires Disrupt the Attacks first", "skipped:level:Requires level 14", "active:nil:nil", "active:nil:nil",]));
+	assert_eq!(out["direct"], json!(["skipped:pre:Requires “Disrupt the Attacks” first", "na:nil:nil", "active:nil:nil", "active:nil:nil",]));
 }
 
 #[test]
@@ -174,12 +174,8 @@ fn t_161_in_a_step_the_guide_has_moved_past_a_level_up_or_a_turn_in_brings_back_
 		"#,
 	);
 	assert_eq!(out["before"], 2);
-	assert_eq!(
-		out["level13"],
-		json!([2, ["skipped:pre:Requires Disrupt the Attacks first", "skipped:level:Requires level 14", "done:nil:nil", "done:nil:nil",]]),
-		"still at the raptors: 880 still needs level 14"
-	);
-	assert_eq!(out["level14"], json!([1, ["skipped:pre:Requires Disrupt the Attacks first", "active:nil:nil", "done:nil:nil", "done:nil:nil",]]), "level 14: back to Thork for 880");
+	assert_eq!(out["level13"], json!([2, ["skipped:pre:Requires “Disrupt the Attacks” first", "na:nil:nil", "done:nil:nil", "done:nil:nil",]]), "still at the raptors: 880 still needs level 14");
+	assert_eq!(out["level14"], json!([1, ["skipped:pre:Requires “Disrupt the Attacks” first", "active:nil:nil", "done:nil:nil", "done:nil:nil",]]), "level 14: back to Thork for 880");
 	assert_eq!(out["taken"], 2);
 	assert_eq!(out["turnIn"], json!([1, ["active:nil:nil", "done:nil:nil", "done:nil:nil", "done:nil:nil",]]), "871 done: back to Thork for 872");
 }
@@ -202,9 +198,9 @@ fn t_161_a_level_up_or_a_turn_in_clears_the_marks_of_the_step_at_hand_so_its_giv
 		"#,
 	);
 	// Gazrog's 869 is still to take: Thork's step is the one at hand. 870, not listed, is never a skip.
-	assert_eq!(out["before"], json!([1, ["skipped:pre:Requires Disrupt the Attacks first", "skipped:level:Requires level 14", "active:nil:nil", "active:nil:nil",]]));
+	assert_eq!(out["before"], json!([1, ["skipped:pre:Requires “Disrupt the Attacks” first", "na:nil:nil", "active:nil:nil", "active:nil:nil",]]));
 	// 872 keeps its missing prerequisite (known from the data) until 871 is done.
-	assert_eq!(out["levelUp"], json!([1, ["skipped:pre:Requires Disrupt the Attacks first", "active:nil:nil", "active:nil:nil", "active:nil:nil"]]));
+	assert_eq!(out["levelUp"], json!([1, ["skipped:pre:Requires “Disrupt the Attacks” first", "active:nil:nil", "active:nil:nil", "active:nil:nil"]]));
 	assert_eq!(out["turnIn"], json!([1, ["active:nil:nil", "active:nil:nil", "active:nil:nil", "active:nil:nil"]]));
 }
 
@@ -271,6 +267,107 @@ fn t_127_a_quest_the_giver_s_window_lists_as_active_is_taken_not_refused_before_
 }
 
 #[test]
+fn t_1762_a_giver_whose_window_lists_no_quest_but_has_a_chat_option_says_to_try_it_its_detail_window_clears_the_line() {
+	// #1762 (0.3.6): Sovik's window lists no quest. Chief Engineer Scooty (2842) sits behind his chat option
+	// (gossip option 95758; 11 people in the recordings took it that way, none from the list). The line said
+	// "Not offered by Sovik? Report it with /polestar".
+	let guide = r#"
+	Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Gnomeregan", faction = "Horde", minLevel = 10, maxLevel = 40, steps = {
+		{ title = "Sovik", goals = { { t = "accept", quest = 2842, title = "Chief Engineer Scooty", npc = 3413, npcName = "Sovik" } } },
+		{ goals = { { t = "level", level = 40 } } },
+	} })"#;
+	let out = run(
+		"",
+		guide,
+		r#"
+			local w = stub.world
+			local r = {}
+			local function notice() return E.GetStepView(1).goals[1].noticeText or false end
+			local goods = { name = "I want to browse your goods.", gossipOptionID = 93031361, icon = 132060 }
+			local chat = { name = "Chat", gossipOptionID = 95758, icon = 132053 }
+			w.gossip(3413, { options = { goods, chat } }); flush()
+			r.list = { brief(1)[1], notice() }
+			-- The chat option opens the quest.
+			C_GossipInfo.SelectOption(95758); w.questDetail(3413, 2842); flush()
+			r.detail = { brief(1)[1], notice() }
+			w.close(); flush()
+			-- A window with only his goods leaves nothing to try.
+			w.gossip(3413, { options = { goods } }); w.close(); flush()
+			r.goods = { brief(1)[1], notice() }
+			-- A chat option known only by its override icon counts the same.
+			w.gossip(3413, { options = { goods, { name = "Chat", gossipOptionID = 95758, icon = 132060, overrideIconID = 132053 } } }); w.close(); flush()
+			r.override = { brief(1)[1], notice() }
+			emit(r)
+		"#,
+	);
+	let chat = "Not in Sovik's quest list: try a chat option, or report it with /polestar if none offers it";
+	assert_eq!(out["list"], json!(["active:nil:nil", chat]), "never a skip; the chat option comes first");
+	assert_eq!(out["detail"], json!(["active:nil:nil", false]), "the quest's window from his chat option ends the line");
+	assert_eq!(out["goods"], json!(["active:nil:nil", "Not offered by Sovik? Report it with /polestar"]));
+	assert_eq!(out["override"], json!(["active:nil:nil", chat]));
+}
+
+// #2475: the Zul'Farrak pick-up guide sends a level 45 Tauren Druid to Anastasia Hartwell (4568) for Tabetha's Task
+// (2861), a lead-in to Tabetha's (6546) Tiara of the Deep (2846); her window listed nothing. Players' recordings:
+// Tabetha offered Tiara of the Deep to 14 people who never had Tabetha's Task. ${tiara} is Tabetha's step's accept.
+const ANASTASIA: &str = r#"
+	Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Zul'Farrak: pick up the quests", faction = "Horde", minLevel = 40, maxLevel = 50, steps = {
+		{ title = "Anastasia Hartwell", goals = { { t = "accept", quest = 2861, title = "Tabetha's Task", npc = 4568, npcName = "Anastasia Hartwell", closedBy = { 2846 }, map = 1413, x = 51, y = 30 } } },
+		{ title = "Tabetha", goals = {
+			{ t = "turnin", quest = 2861, title = "Tabetha's Task", npc = 6546, npcName = "Tabetha", map = 1413, x = 45, y = 20 },
+			${tiara}
+		} },
+		{ goals = { { t = "level", level = 50 } } },
+	} })"#;
+
+#[test]
+fn t_2475_a_lead_in_its_giver_does_not_offer_is_passed_with_its_hand_in_for_the_quest_it_leads_to_which_keeps_741() {
+	let tiara = r#"{ t = "accept", quest = 2846, title = "Tiara of the Deep", npc = 6546, npcName = "Tabetha", map = 1413, x = 45, y = 20 }"#;
+	let refused = r#"
+			local w = stub.world
+			w.setLevel(45)
+			w.gossip(4568, { available = {} }); w.close(); flush()
+			local r = { refused = { E.GetStepIndex(), brief(1), brief(2), E.GetStepView(1).goals[1].noticeText or false } }
+			w.setLevel(46); flush()
+			r.levelUp = E.GetStepIndex()
+			w.gossip(6546, { available = {} }); w.close(); flush()
+			r.tabetha = { E.GetStepIndex(), brief(2)[2], E.GetStepView(2).goals[2].noticeText or false }
+			w.gossip(6546, { available = { { questID = 2846 } } }); w.accept(2846, {}); w.close(); flush()
+			r.taken = { E.GetStepIndex(), brief(1) }
+			emit(r)"#;
+	let out = run("", &ANASTASIA.replace("${tiara}", tiara), refused);
+	let leadin = "skipped:leadin:Not offered by Anastasia Hartwell: you can take “Tiara of the Deep” without it";
+	assert_eq!(out["refused"], json!([2, [leadin], [leadin, "active:nil:nil"], false]), "the guide goes on to Tabetha");
+	assert_eq!(out["levelUp"], 2, "a level-up does not bring the lead-in back");
+	// The quest it leads to keeps #741: Tabetha's refusal holds the guide at her.
+	assert_eq!(out["tabetha"], json!([2, "active:nil:nil", "Not offered by Tabetha? Report it with /polestar"]));
+	assert_eq!(out["taken"], json!([3, ["skipped:closed:No longer offered: you took “Tiara of the Deep”"]]));
+	// Anastasia listing it after all clears the mark: the guide goes back for it.
+	let listed = run(
+		"",
+		&ANASTASIA.replace("${tiara}", tiara),
+		r#"
+			local w = stub.world
+			w.setLevel(45)
+			w.gossip(4568, { available = {} }); w.close(); flush()
+			w.gossip(4568, { available = { { questID = 2861 } } }); w.close(); flush()
+			emit({ at = E.GetStepIndex(), step1 = brief(1) })"#,
+	);
+	assert_eq!(listed, json!({ "at": 1, "step1": ["active:nil:nil"] }));
+	// Not a lead-in of this guide: the quest it leads to is not taken here, or its accept needs it. #741 holds.
+	let report = json!([1, ["active:nil:nil"], "Not offered by Anastasia Hartwell? Report it with /polestar"]);
+	let stays = r#"
+			local w = stub.world
+			w.setLevel(45)
+			w.gossip(4568, { available = {} }); w.close(); flush()
+			emit({ E.GetStepIndex(), brief(1), E.GetStepView(1).goals[1].noticeText or false })"#;
+	let elsewhere = r#"{ t = "accept", quest = 2847, title = "Another Quest", npc = 6546, npcName = "Tabetha" }"#;
+	assert_eq!(run("", &ANASTASIA.replace("${tiara}", elsewhere), stays), report);
+	let needs = r#"{ t = "accept", quest = 2846, title = "Tiara of the Deep", npc = 6546, npcName = "Tabetha", pre = { 2861 } }"#;
+	assert_eq!(run("", &ANASTASIA.replace("${tiara}", needs), stays), report);
+}
+
+#[test]
 fn prerequisites_every_preall_must_be_done_one_pre_suffices_the_text_names_the_missing_one() {
 	// 890 needs 871 and 873 (preAll); 891 needs 871 or 873 (pre). Only 871 is done.
 	let guide = r#"
@@ -291,7 +388,7 @@ fn prerequisites_every_preall_must_be_done_one_pre_suffices_the_text_names_the_m
 		"#,
 	);
 	// 891's one prerequisite is done: its refusal the data does not explain, so it stays open.
-	assert_eq!(out, json!(["skipped:pre:Requires The Other Errand first", "active:nil:nil"]));
+	assert_eq!(out, json!(["skipped:pre:Requires “The Other Errand” first", "active:nil:nil"]));
 }
 
 // Issue #70 (The Barrens 19-24, step 9): Sergra Darkthorn's Jorn Skyseer (3261) needs The Angry Scytheclaws
@@ -341,9 +438,9 @@ fn t_70_an_accept_whose_prerequisite_is_missing_does_not_hold_the_focus_or_the_a
 	);
 	// Mankrik, Sergra, Gazrog: the focus and the arrow go from Mankrik to Gazrog.
 	assert_eq!(missing["mankrikDone"], json!([1, 3, 3]));
-	assert_eq!(missing["step1"], json!(["done:nil:nil", "skipped:pre:Requires The Angry Scytheclaws first", "active:nil:nil"]));
+	assert_eq!(missing["step1"], json!(["done:nil:nil", "skipped:pre:Requires “The Angry Scytheclaws” first", "active:nil:nil"]));
 	// Jorn Skyseer's turn-in goes with it, and so does the quest after it.
-	assert_eq!(missing["step2"], json!(["skipped:pre:Requires The Angry Scytheclaws first", "skipped:pre:Requires Jorn Skyseer first"]));
+	assert_eq!(missing["step2"], json!(["skipped:pre:Requires “The Angry Scytheclaws” first", "skipped:pre:Requires “Jorn Skyseer” first"]));
 	assert_eq!(missing["gazrogDone"], json!([3, 1, false]));
 	assert_eq!(missing["unrelated"], json!([3, 1, false]));
 	assert_eq!(missing["preDone"], json!([[1, 2, 2], "active:nil:nil"]));
@@ -388,8 +485,9 @@ fn a_missing_prerequisite_the_guide_still_turns_in_before_the_accept_or_after_it
 	assert_eq!(out["step1"], json!(["done:nil:nil", "active:nil:nil"]));
 	assert_eq!(out["step2"], json!(["pending:nil:nil", "pending:nil:nil"]));
 	assert_eq!(out["wp"], 2);
-	// Nothing left to do at Thork: the guide goes past the skipped step.
-	assert_eq!(out["skipped"], json!([3, ["done:nil:nil", "skipped:pre:Requires Disrupt the Attacks first"]]));
+	// Nothing left to do at Thork: the guide goes past the skipped step. 871 is still in the log, so the accept
+	// says to hand it in.
+	assert_eq!(out["skipped"], json!([3, ["done:nil:nil", "skipped:pre:Hand in “Disrupt the Attacks” first"]]));
 }
 
 #[test]
@@ -429,14 +527,82 @@ fn an_accept_closed_for_good_its_breadcrumb_target_or_an_exclusive_quest_taken_o
 		closed,
 		json!({
 			"at": 3,
-			"step1": ["skipped:closed:No longer offered: you took Super Reaper 6000", "skipped:closed:No longer offered: you took Devourer of Souls"],
-			"step2": ["skipped:closed:No longer offered: you took Super Reaper 6000"],
+			"step1": ["skipped:closed:No longer offered: you took “Super Reaper 6000”", "skipped:closed:No longer offered: you took “Devourer of Souls”"],
+			"step2": ["skipped:closed:No longer offered: you took “Super Reaper 6000”"],
 			"wp": false,
 		})
 	);
 	let open = run("", guide, script);
 	assert_eq!(open["step1"], json!(["active:nil:nil", "active:nil:nil"]));
 	assert_eq!(open["at"], 1);
+}
+
+// #1661: Valik (535) is a child of Infiltration (533): Henchman Valik offers it only while 533 is in the log. Step 2
+// is the Hillsbrad guide's Valik step (`when onquest 533`). ${valik} is step 2's `when`.
+const VALIK: &str = r#"
+Polestar.RegisterGuide({ id = "test/valik", pack = "test", title = "Hillsbrad", faction = "Horde", minLevel = 10, maxLevel = 40, steps = {
+	{ title = "Krusk", goals = { { t = "accept", quest = 533, title = "Infiltration", npc = 2229, npcName = "Krusk", pre = { 498 }, preTitles = { [498] = "The Rescue" }, map = 1413, x = 50, y = 30 } } },
+	{ title = "Henchman Valik", when = ${valik}, goals = {
+		{ t = "accept", quest = 535, title = "Valik", npc = 2333, npcName = "Henchman Valik", parent = 533, preTitles = { [533] = "Infiltration" }, map = 1413, x = 57, y = 69 },
+		{ t = "turnin", quest = 535, title = "Valik", npc = 2333, npcName = "Henchman Valik" },
+	} },
+	{ title = "Krusk", goals = { { t = "turnin", quest = 533, title = "Infiltration", npc = 2229, npcName = "Krusk" } } },
+	{ goals = { { t = "level", level = 40 } } },
+} })"#;
+
+// The guide loaded from the saved variables (`saved`: CharState fields), the quest log read.
+fn valik(when: &str, before: &str, saved: &str, script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}{before}"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".into(), format!(r#"PolestarCharDB = {{ schema = 1, guide = "test/valik"{saved} }}"#))],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			&VALIK.replace("${valik}", when),
+			r#"E = Polestar.Engine
+			function brief(i)
+				local out = {}
+				for g, v in ipairs(E.GetStepView(i).goals) do out[g] = v.status .. ":" .. tostring(v.unavailable) .. ":" .. tostring(v.unavailableText) end
+				return out
+			end
+			stub.login(); stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
+			script,
+		]
+		.join("\n"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+const ONQUEST: &str = r#"{ { k = "onquest", q = { 533 } } }"#;
+const SCRIPT: &str = "emit({ at = E.GetLiveStep(), valik = brief(2) })";
+
+#[test]
+fn t_1661_a_child_quest_whose_parent_is_handed_in_is_closed_for_good_even_in_a_step_whose_when_was_stored_as_held() {
+	// The reporter's route passed the Valik step while carrying Infiltration (stored as held), then handed
+	// Infiltration in with the camp's missive: back on the guide, it sent them to "Accept Valik" for good.
+	let held = r#", when = { ["test/valik"] = { [2] = true } }"#;
+	let closed = valik(ONQUEST, "stub.world.complete({ 533 })", held, SCRIPT);
+	let text = "skipped:closed:Only before “Infiltration” is handed in";
+	assert_eq!(closed, json!({ "at": 4, "valik": [text, text] }));
+	// Carrying Infiltration, Valik is the live step as before.
+	let open = valik(ONQUEST, "stub.world.onQuest(533, { 0 })", "", SCRIPT);
+	assert_eq!(open["at"], 2);
+	assert_eq!(open["valik"][0], "active:nil:nil");
+}
+
+#[test]
+fn t_1661_a_child_quest_whose_parent_is_not_in_the_log_and_that_the_route_no_longer_brings_is_passed() {
+	// No `when` on the step (Chapter I to IV in Stranglethorn are written so); Infiltration left out, its
+	// prerequisite The Rescue missing (#1636's player).
+	let out = valik("nil", "", "", SCRIPT);
+	let text = "skipped:pre:Only with “Infiltration” in your quest log";
+	assert_eq!(out, json!({ "at": 4, "valik": [text, text] }));
+	// The Rescue done: Infiltration is the route's own business, and Valik keeps his place behind it.
+	let rescued = valik("nil", "stub.world.complete({ 498 })", "", SCRIPT);
+	assert_eq!(json!([rescued["at"], &rescued["valik"][0]]), json!([1, "pending:nil:nil"]));
 }
 
 #[test]
@@ -477,10 +643,63 @@ fn when_a_mark_moves_the_guide_on_the_guide_window_says_which_quest_was_skipped_
 		out[0],
 		json!({
 			"before": false,
-			"skipped": [2, "Skipped The Forgotten Pools  \u{b7}  No longer offered: you took Disrupt the Attacks"],
+			"skipped": [2, "Skipped “The Forgotten Pools”  \u{b7}  No longer offered: you took “Disrupt the Attacks”"],
 			"completed": [3, false],
 		})
 	);
+}
+
+// #1950: the guide takes The Adventurer (96630) from the Lost Journal, then hands it in to Lyreena for The Great
+// Outdoors (96606), whose data names The Adventurer as its prerequisite. Lyreena gives The Great Outdoors to a player
+// who never took The Adventurer (players' recordings), and the Lost Journal offers nothing after that: the guide held
+// the reporter on "Accept The Adventurer" for good.
+#[test]
+fn t_1950_a_prerequisite_never_taken_is_closed_once_the_quest_that_needs_it_is_taken() {
+	let guide = r#"
+	Polestar.RegisterGuide({ id = "test/tel", pack = "test", title = "Teldrassil", faction = "Horde", minLevel = 5, maxLevel = 30, steps = {
+		{ title = "Tenaron Stormgrip", goals = { { t = "accept", quest = 96630, title = "The Adventurer", object = 654846, objectName = "Lost Journal", map = 1413, x = 51, y = 30 } } },
+		{ title = "Lyreena", goals = {
+			{ t = "turnin", quest = 96630, title = "The Adventurer", npc = 265811, npcName = "Lyreena Duskblade", map = 1413, x = 52, y = 31 },
+			{ t = "accept", quest = 96606, title = "The Great Outdoors", npc = 265811, npcName = "Lyreena Duskblade", pre = { 96630 }, preTitles = { [96630] = "The Adventurer" }, map = 1413, x = 52, y = 31 },
+		} },
+		{ goals = { { t = "level", level = 30 } } },
+	} })"#;
+	let run = |before: &str| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_world.lua"],
+			before: format!("{WORLD}stub.world.titles[96606] = \"The Great Outdoors\"\n{before}"),
+			addons: vec![Addon::name("Polestar")],
+			script: [
+				TEST_PACK,
+				TEST_SOURCE,
+				guide,
+				r#"			local E = Polestar.Engine
+			stub.login()
+			E.SetGuide("test/tel")
+			stub.fire("QUEST_LOG_UPDATE")
+			Polestar.Set("behavior.autoAccept", false)
+			stub.advance(0.5)
+			local function brief(i)
+				local out = {}
+				for g, v in ipairs(E.GetStepView(i).goals) do out[g] = v.status .. ":" .. tostring(v.unavailable) .. ":" .. tostring(v.unavailableText) end
+				return out
+			end
+			emit({ at = E.GetStepIndex(), tenaron = brief(1), lyreena = brief(2) })"#,
+			]
+			.join("\n"),
+			..Default::default()
+		})
+		.remove(0)
+	};
+	let took = run("stub.world.onQuest(96606, { 0 })");
+	let closed = "skipped:closed:No longer offered: you took “The Great Outdoors”";
+	assert_eq!(took["at"], 3);
+	assert_eq!(took["tenaron"], json!([closed]));
+	assert_eq!(took["lyreena"][0], closed);
+	// Neither taken: The Adventurer is the live step, as before.
+	let fresh = run("");
+	assert_eq!(fresh["at"], 1);
+	assert_eq!(fresh["tenaron"][0], "active:nil:nil");
 }
 
 // Farm spots for `collect 2589 x20 nearest` (Linen Cloth).
@@ -538,4 +757,625 @@ fn farm_spots_drop_rate_spawn_density_and_grey_mobs_weigh_against_distance() {
 	let alliance = r#"{ npcName = "Alliance only", map = 1413, x = 51, y = 31, faction = "A", lvl = { 12, 12 }, rate = 0.9, spawns = 8 }"#;
 	let only_red = farm_pick(&format!("{higher}, {alliance}, {high}"), "");
 	assert_eq!(only_red, json!({ "name": "High", "lvl": [18, 20], "alts": 1, "detail": "from High" }));
+}
+
+// #1320 (Fall of Dun Modr): at level 24 the arrow led to an accept that needs level 25 until the player clicked
+// the giver. An accept above the character's level is known in advance ("Requires level 25"): the route reaching it
+// passes it, its objectives and turn-in wait with it, and the level-up brings the guide back to it. With nothing else
+// left a leveling guide finishes (its end is its last step); a guide that is no leveling guide waits at the accept.
+const DUN_MODR: &str = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Wetlands", faction = "Horde", minLevel = 20, maxLevel = 30, steps = {
+	{ title = "Gazrog", goals = { { t = "accept", quest = 869, title = "Raptor Thieves", npc = 3464, npcName = "Gazrog", map = 1413, x = 52, y = 31 } } },
+	{ title = "Dun Modr", goals = {
+		{ t = "accept", quest = 90600, title = "Fall of Dun Modr", npc = 3429, npcName = "Thork", minLevel = 25, map = 1413, x = 51, y = 30 },
+	} },
+	{ title = "Raptors", goals = { { t = "collect", item = 5062, itemName = "Raptor Head", count = 12, quest = 869, oi = 1, map = 1413, x = 45, y = 20 } } },
+	{ title = "Dun Modr's work", goals = { { t = "kill", target = "Dark Iron Raider", count = 8, quest = 90600, oi = 1, map = 1413, x = 40, y = 20 } } },
+	{ title = "Back", goals = { { t = "turnin", quest = 90600, title = "Fall of Dun Modr", npc = 3429, npcName = "Thork", map = 1413, x = 51, y = 30 } } },
+} })"#;
+
+#[test]
+fn an_accept_above_the_character_s_level_is_passed_with_requires_level_its_work_waits_and_the_level_up_brings_it_back_1320() {
+	let script = r#"
+			local w = stub.world
+			local done = 0
+			Polestar.On("GUIDE_COMPLETED", function() done = done + 1 end)
+			local function wp() local p = E.GetWaypoint(); return p and (p.stepIndex .. ":" .. p.goalIndex) or false end
+			local function at() return { E.GetStepIndex(), wp(), brief(2), brief(4), brief(5) } end
+			-- The quest log read: placed (placement passes gated accepts before the start on its own), then played on.
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			w.accept(869, { 12 }); flush()
+			local r = { low = at() }
+			w.setLevel(25); flush()
+			r.ding = at()
+			w.accept(90600, { 8 }); flush()
+			r.taken = at()
+			r.completed = done
+			emit(r)
+		"#;
+	let out = run("w.level = 24", DUN_MODR, script);
+	let held = json!(["skipped:level:Requires level 25"]);
+	// Fitz, 0.3.6: the accept itself is no task while it waits (no level text on pick-ups).
+	assert_eq!(out["low"], json!([3, "3:1", ["na:nil:nil"], held, held]), "level 24: Thork's accept passed, not shown, on to the raptors; its kill and turn-in wait with it");
+	assert_eq!(out["ding"], json!([2, "2:1", ["active:nil:nil"], ["pending:nil:nil"], ["pending:nil:nil"]]), "level 25: back to Thork, the arrow on the accept");
+	assert_eq!(out["taken"][0], json!(3), "taken: on to the raptors");
+	assert_eq!(json!([out["taken"][3], out["taken"][4]]), json!([["pending:nil:nil"], ["pending:nil:nil"]]), "its kill and turn-in still to do");
+	assert_eq!(out["completed"], json!(0));
+
+	// Everything else done at level 24: the leveling guide finishes, and the level-up brings Thork back.
+	let finished = run(
+		"w.level = 24; w.complete({ 869 })",
+		DUN_MODR,
+		r#"flush()
+			local r = { E.GetStepIndex() or false, brief(2) }
+			stub.world.setLevel(25); flush()
+			r[3] = E.GetStepIndex() or false
+			emit(r)"#,
+	);
+	assert_eq!(finished, json!([false, ["na:nil:nil"], 2]));
+	// The same guide as no leveling guide (a dungeon's or an attunement's): it waits at Thork, not finished.
+	let wait = run(
+		"w.level = 24; w.complete({ 869 })",
+		&DUN_MODR.replace(r#"title = "Wetlands","#, r#"title = "Wetlands", category = "Lookup","#),
+		r#"local done = 0
+			Polestar.On("GUIDE_COMPLETED", function() done = done + 1 end)
+			flush()
+			emit({ E.GetStepIndex(), brief(2), done })"#,
+	);
+	// Waiting there, the accept's level is the one thing the step says.
+	assert_eq!(wait, json!([2, ["skipped:level:Requires level 25"], 0]));
+
+	// The level reached: the accept leads as before.
+	let level25 = run("w.level = 25", DUN_MODR, r#"stub.world.accept(869, { 12 }); flush(); local p = E.GetWaypoint(); emit({ E.GetStepIndex(), p and p.goalIndex or false, brief(2) })"#);
+	assert_eq!(level25, json!([2, 1, ["active:nil:nil"]]));
+}
+
+// A leveling guide's dungeon run (`when dungeon`) is no step to move on to past an accept waiting for a level: the
+// guide waits at the accept. Without the dungeon chosen the route passes it as above.
+const RUN: &str = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Orgrimmar", faction = "Horde", minLevel = 10, maxLevel = 30, steps = {
+	{ title = "Gazrog", goals = { { t = "accept", quest = 869, title = "Raptor Thieves", npc = 3464, npcName = "Gazrog", map = 1413, x = 52, y = 31 } } },
+	{ title = "Thork", goals = {
+		{ t = "accept", quest = 90601, title = "Searching for the Lost Satchel", npc = 3429, npcName = "Thork", minLevel = 25, map = 1413, x = 51, y = 30 },
+	} },
+	{ title = "Ragefire Chasm", when = { { k = "dungeon", map = 389, name = "Ragefire Chasm" } }, goals = {
+		{ t = "goto", map = 1413, x = 20, y = 20, text = "Ragefire Chasm" },
+	} },
+	{ title = "Raptors", goals = { { t = "collect", item = 5062, itemName = "Raptor Head", count = 12, quest = 869, oi = 1, map = 1413, x = 45, y = 20 } } },
+} })"#;
+
+#[test]
+fn a_dungeon_run_is_not_moved_on_to_past_an_accept_waiting_for_a_level_the_guide_waits_at_the_accept_1320() {
+	let script = |chosen: &str| {
+		format!(
+			r#"
+			{chosen}
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			stub.world.accept(869, {{ 12 }}); flush()
+			emit({{ E.GetStepIndex(), brief(2) }})
+		"#
+		)
+	};
+	// Dungeons in the route are held back while Core/Init.lua's switch is off: turned on for the run chosen.
+	let run_chosen = run("w.level = 24", RUN, &script("Polestar.dungeonRoute = true; E.ChooseDungeon(389, true)"));
+	assert_eq!(run_chosen, json!([2, ["skipped:level:Requires level 25"]]), "the run chosen: the guide waits at Thork, saying why");
+	let solo = run("w.level = 24", RUN, &script(""));
+	assert_eq!(solo, json!([4, ["na:nil:nil"]]), "no run: on to the raptors");
+}
+
+// #1247: Engine.AcceptGate, what an accept's tooltip says the game asks first: the quest's minimum level (and
+// whether the character is below it) and the prerequisites not handed in yet, every missing `preAll` by name and
+// a `pre` list none of which is done as "A or B". Nothing once the quest is taken; nil for a goal that is no
+// accept or an accept with nothing known.
+const GATE_GUIDE: &str = r#"
+Polestar.RegisterGuide({ id = "test/gate", pack = "test", title = "Gate", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {
+	{ title = "Thork", goals = {
+		{ t = "accept", quest = 872, title = "Supplies for the Crossroads", npc = 3429, npcName = "Thork", pre = { 871 } },
+		{ t = "accept", quest = 880, title = "Altered Beings", npc = 3429, npcName = "Thork", minLevel = 14 },
+		{ t = "accept", quest = 881, title = "Echeyakee", npc = 3429, npcName = "Thork", minLevel = 10, preAll = { 871, 875 }, pre = { 876, 877 } },
+		{ t = "accept", quest = 870, title = "The Forgotten Pools", npc = 3429, npcName = "Thork" },
+		{ t = "accept", quest = 869, title = "Raptor Thieves", npc = 3464, npcName = "Gazrog", minLevel = 1 },
+	} },
+	{ title = "Raptors", goals = {
+		{ t = "kill", target = "Sunscale Lashtail", count = 7, quest = 872, oi = 1, map = 1413, x = 45, y = 20 },
+	} },
+} })
+"#;
+
+const GATE_HELPERS: &str = r#"
+	E = Polestar.Engine
+	function flush() stub.advance(0.25) end
+	function gate(s, g)
+		local x = E.AcceptGate(s, g)
+		if not x then return "nil" end
+		return tostring(x.level) .. ":" .. tostring(x.short) .. ":" .. table.concat(x.needs, " | ")
+	end
+	stub.login()
+	Polestar.Set("behavior.autoAccept", false)
+	E.SetGuide("test/gate")
+	flush()
+"#;
+
+#[test]
+fn an_accept_s_gate_is_its_minimum_level_and_the_prerequisites_not_handed_in_yet() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}w.titles[875] = \"Bloodshot\"; w.titles[876] = \"Wharfmaster Dizzywig\"; w.titles[877] = \"Ziz Fizziks\""),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: format!(
+			"{TEST_PACK}\n{TEST_SOURCE}\n{GATE_GUIDE}\n{GATE_HELPERS}{}",
+			r#"
+			local w = stub.world
+			local r = {}
+			r.before = { gate(1, 1), gate(1, 2), gate(1, 3), gate(1, 4), gate(1, 5), gate(2, 1), gate(9, 1) }
+			w.setLevel(14); flush()
+			w.complete({ 871, 877 }); w.accept(880); flush()
+			r.after = { gate(1, 1), gate(1, 2), gate(1, 3) }
+			emit(r)
+		"#
+		),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(
+		out["before"],
+		json!(["nil:false:Disrupt the Attacks", "14:true:", "10:false:Disrupt the Attacks | Bloodshot | Wharfmaster Dizzywig or Ziz Fizziks", "nil", "nil", "nil", "nil",]),
+		"level 12: 880 needs 14, 881 its prerequisites; no data, a level of 1, a kill and no step: nil"
+	);
+	assert_eq!(out["after"], json!(["nil", "14:false:", "10:false:Bloodshot"]), "871 and one of 876/877 handed in, level 14 reached, 880 taken: only Bloodshot is left");
+}
+
+// Xaden's case on #1247: Crimson Crate Delivery's guide goal knows neither its level nor that Crocs of the Sky comes
+// first; the quest database does, once it is loaded (the gate never loads it).
+#[test]
+fn an_accept_the_guide_knows_nothing_about_takes_its_level_and_prerequisites_from_the_loaded_quest_database() {
+	let guide = r#"
+Polestar.RegisterGuide({ id = "test/gate", pack = "test", title = "Wetlands", faction = "Horde", minLevel = 26, maxLevel = 30, steps = {
+	{ title = "Halloran", goals = {
+		{ t = "accept", quest = 98240, title = "Crimson Crate Delivery", npc = 1, npcName = "James Halloran" },
+	} },
+} })
+"#;
+	let script = r#"
+			local w = stub.world
+			local r = { unloaded = gate(1, 1) }
+			-- Layout: title, level, minLevel, races, classes, faction, start, finish, startItem, pre.
+			AddRecords("quests", {
+				[98240] = { "Crimson Crate Delivery", 30, 29, nil, nil, nil, nil, nil, nil, { 98072 } },
+				[98072] = { "Crocs of the Sky", 30, 26 },
+			})
+			Polestar.QuestDB.SetMeta({})
+			r.loaded = gate(1, 1)
+			w.complete({ 98072 })
+			r.done = gate(1, 1)
+			emit(r)
+		"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}w.level = 28"),
+		addons: vec![Addon::name("Polestar")],
+		script: format!("{}\n{TEST_PACK}\n{TEST_SOURCE}\n{guide}\n{GATE_HELPERS}{script}", forge_addontest::questdb::ADD_RECORDS_LUA),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["unloaded"], "nil", "not loaded: nothing known, and nothing loaded for it");
+	assert_eq!(out["loaded"], "29:true:Crocs of the Sky");
+	assert_eq!(out["done"], "29:true:", "Crocs of the Sky handed in: the level is left");
+}
+
+// #1531 (Horde Ashenvale): "collect Ursangous's Paw" sat beside "accept The Hunt Continues item 16303", a quest that
+// needs The Hunt Begins (6383) first: the accept read "Requires The Hunt Begins first", but the arrow still sent the
+// player to kill Ursangous for a paw only that quest wants. The item a quest starts from waits with the quest: it
+// is unavailable for the same reason, and applies only while the accept does.
+#[test]
+fn a_quest_s_starting_item_waits_with_a_quest_that_cannot_be_taken_1531() {
+	let guide = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Ashenvale", faction = "Horde", minLevel = 10, maxLevel = 30, steps = {
+	{ title = "Ursangous", goals = {
+		{ t = "collect", item = 16303, itemName = "Ursangous's Paw", map = 1413, x = 40, y = 40 },
+		{ t = "accept", quest = 23, title = "Ursangous's Paw", item = 16303, pre = { 6383 }, preAll = { 6383 } },
+	} },
+	{ title = "Trainer", goals = { { t = "train", npc = 3353, npcName = "Trainer", map = 1413, x = 52, y = 31 } } },
+} })
+"#;
+	let out = run(
+		"",
+		guide,
+		r#"
+		stub.fire("QUEST_LOG_UPDATE"); flush()
+		emit({ live = E.GetLiveStep(), ursangous = brief(1) })
+	"#,
+	);
+	assert_eq!(out["live"], 2, "the paw is no work while its quest can't be taken: {out}");
+	assert!(out["ursangous"][0].as_str().unwrap().starts_with("skipped:pre"), "{out}");
+}
+
+// #1724 (Fyurie, 0.3.6, Night Elf Warrior 38): "Engine.lua:6765: table index is nil". When the route moved past a
+// step whose quest-starting item (a `collect` with no quest, beside its `accept … item`) waited with a quest that
+// can't be taken, the passed-over notice keyed the collect's nil quest and stopped the evaluation. The item speaks
+// for the quest it starts: the notice names that quest once.
+#[test]
+fn moving_past_a_quest_s_starting_item_names_the_quest_it_starts_no_nil_index_1724() {
+	let guide = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Arathi", faction = "Alliance", minLevel = 30, maxLevel = 40, steps = {
+	{ title = "Syndicate", goals = {
+		{ t = "collect", item = 3668, itemName = "Assassin's Contract", map = 1413, x = 40, y = 40 },
+		{ t = "accept", quest = 522, title = "Assassin's Plot", item = 3668, closedBy = { 95 }, preTitles = { [95] = "Sven's Revenge" } },
+	} },
+	{ title = "Trainer", goals = { { t = "train", npc = 3353, npcName = "Trainer", map = 1413, x = 52, y = 31 } } },
+} })
+"#;
+	let out = run(
+		"",
+		guide,
+		r#"
+		local w = stub.world
+		local events = {}
+		Polestar.On("STEP_SKIPPED", function(from, to, skips)
+			local quests = {}
+			for i, k in ipairs(skips) do quests[i] = tostring(k.quest) .. ":" .. tostring(k.title) .. ":" .. tostring(k.reason) end
+			events[#events + 1] = { from = from, to = to, quests = quests }
+		end)
+		stub.fire("QUEST_LOG_UPDATE"); flush()
+		local start = E.GetLiveStep()
+		-- Taking the quest that closes it for good: the contract no longer leads anywhere and the route moves on.
+		local ok, err = pcall(function() w.accept(95, { 1 }); flush(); flush() end)
+		emit({ start = start, ok = ok, err = tostring(err), live = E.GetLiveStep(), events = events })
+	"#,
+	);
+	assert_eq!(out["start"], 1, "{out}");
+	assert_eq!(out["ok"], true, "no Lua error: {out}");
+	assert_eq!(out["live"], 2, "{out}");
+	assert_eq!(out["events"], json!([{ "from": 1, "to": 2, "quests": ["522:Assassin's Plot:closed"] }]), "{out}");
+}
+
+// #2670 (Night Elf Druid 15, 0.4.0.1): Darkshore's Moonglade step lists "accept Trial of the Lake" (29, level 16),
+// then "collect Shrine Bauble" and "use Shrine Bauble" with no quest of their own. The accept waited for level 16,
+// but the arrow sent the druid into the lake for a bauble only that quest can loot. A plain collect or use of an
+// item that an accept before it in its step works with (the quest database's handed-over items) waits with that
+// quest, as a quest's starting item does (#1531), and comes back with the level-up.
+#[test]
+fn an_item_a_quest_works_with_waits_with_a_quest_the_character_cannot_take_yet_2670() {
+	let guide = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Darkshore", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {
+	{ title = "Trial of the Lake", goals = {
+		{ t = "accept", quest = 29, title = "Trial of the Lake", npc = 11802, npcName = "Dendrite Starblaze", minLevel = 16, map = 1413, x = 56, y = 30 },
+		{ t = "collect", item = 15877, itemName = "Shrine Bauble", count = 1, map = 1413, x = 54, y = 55 },
+		{ t = "use", item = 15877, itemName = "Shrine Bauble", map = 1413, x = 36, y = 41 },
+		{ t = "turnin", quest = 29, title = "Trial of the Lake", npc = 11799, npcName = "Tajarri", map = 1413, x = 36, y = 40 },
+	} },
+	{ title = "Trainer", goals = { { t = "train", npc = 3353, npcName = "Trainer", map = 1413, x = 52, y = 31 } } },
+} })
+"#;
+	let script = r#"
+			local w = stub.world
+			-- Layout: title, level, minLevel, races, classes, faction, start, finish, ... field 19: the items it hands over or works with.
+			AddRecords("quests", {
+				[29] = { "Trial of the Lake", 16, 16, nil, nil, nil, { 11802 }, { 11799 }, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 15877 },
+			})
+			Polestar.QuestDB.SetMeta({})
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			local r = { live = E.GetLiveStep(), lake = brief(1) }
+			w.setLevel(16); flush()
+			r.liveAt16, r.lakeAt16 = E.GetLiveStep(), brief(1)
+			emit(r)
+		"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::name("Polestar")],
+		script: format!("{}\n{TEST_PACK}\n{TEST_SOURCE}\n{guide}\n{HELPERS}{script}", forge_addontest::questdb::ADD_RECORDS_LUA),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["live"], 2, "nothing in the lake for a level 12 character: {out}");
+	let lake = out["lake"].as_array().unwrap();
+	assert_eq!(lake[0], "na:nil:nil", "{out}");
+	assert_eq!(lake[1], "na:nil:nil", "the bauble waits with Trial of the Lake: {out}");
+	assert_eq!(lake[2], "na:nil:nil", "{out}");
+	assert_eq!(out["liveAt16"], 1, "level 16: back to Dendrite: {out}");
+	assert_eq!(out["lakeAt16"], json!(["active:nil:nil", "active:nil:nil", "active:nil:nil", "active:nil:nil"]), "{out}");
+}
+
+// Players' recordings: the game holds a breadcrumb's target back while the breadcrumb is in the log (The Forgotten
+// Pools 870 was refused to 12 people while The Barrens Oases 886 was in their log, and offered to 30 who never had
+// it). An accept whose breadcrumb (`crumbs`) is in the log, when the guide no longer hands that breadcrumb in (its
+// turn-in step skipped), says to hand it in first, as a missing prerequisite in the log does; while the guide still
+// hands it in, the accept keeps its place; handed in, it is open.
+#[test]
+fn an_accept_whose_breadcrumb_is_in_the_log_says_to_hand_the_breadcrumb_in_first() {
+	let guide = r#"
+	Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Crossroads", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {
+		{ title = "Tonga", goals = {
+			{ t = "accept", quest = 886, title = "The Barrens Oases", npc = 3448, npcName = "Tonga Runetotem", map = 1413, x = 51, y = 30 },
+			{ t = "accept", quest = 870, title = "The Forgotten Pools", npc = 3448, npcName = "Tonga Runetotem", crumbs = { 886 }, preTitles = { [886] = "The Barrens Oases" }, map = 1413, x = 51, y = 30 },
+		} },
+		{ title = "Back", goals = {
+			{ t = "turnin", quest = 886, title = "The Barrens Oases", npc = 3448, npcName = "Tonga Runetotem", map = 1413, x = 51, y = 30 },
+		} },
+		{ goals = { { t = "level", level = 30 } } },
+	} })"#;
+	let out = run(
+		"",
+		guide,
+		r#"
+			local w = stub.world
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			w.accept(886, {}); flush()
+			local r = { kept = brief(1) }
+			-- The player skips the step that hands 886 in.
+			E.Next(); E.Skip(); flush()
+			r.skipped = brief(1)
+			w.turnIn(886); flush()
+			r.handedIn = brief(1)
+			emit(r)"#,
+	);
+	assert_eq!(out["kept"], json!(["done:nil:nil", "active:nil:nil"]), "the guide still hands it in: the accept keeps its place");
+	assert_eq!(out["skipped"], json!(["done:nil:nil", "skipped:pre:Hand in “The Barrens Oases” first"]), "held back while the breadcrumb is in the log");
+	let after = out["handedIn"][1].as_str().unwrap_or_default();
+	assert!(after.ends_with(":nil:nil"), "no mark once it is handed in: {after}");
+}
+
+// The Valik rule: Henchman Valik offers Valik (535) only while Krusk's Infiltration (533), its parent, is in the log
+// (the compiled accept's `parent`). Infiltration in the log: the accept is open. Handed in: never offered again. Not
+// in the log and the guide no longer brings it (the step that takes it was skipped): "Only with … in your quest
+// log", with the accept's later goals, and the accept's tooltip names it. A giver's refusal while the guide still
+// brings it marks it the same way, a mark that goes once Infiltration is taken.
+const KRUSK_VALIK: &str = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Hillsbrad", faction = "Horde", minLevel = 10, maxLevel = 30, steps = {
+	{ title = "Krusk", goals = { { t = "accept", quest = 533, title = "Infiltration", npc = 2229, npcName = "Krusk", map = 1413, x = 51, y = 30 } } },
+	{ title = "Valik", goals = {
+		{ t = "accept", quest = 535, title = "Valik", npc = 2333, npcName = "Henchman Valik", parent = 533, preTitles = { [533] = "Infiltration" }, map = 1413, x = 45, y = 20 },
+		{ t = "turnin", quest = 535, title = "Valik", npc = 2333, npcName = "Henchman Valik" },
+	} },
+	{ title = "Back", goals = { { t = "turnin", quest = 533, title = "Infiltration", npc = 2229, npcName = "Krusk" } } },
+	{ goals = { { t = "level", level = 30 } } },
+} })
+"#;
+
+#[test]
+fn a_child_quest_is_open_only_while_its_parent_is_in_the_log_closed_once_the_parent_is_handed_in() {
+	let titles = "stub.world.titles[533] = \"Infiltration\"; stub.world.titles[535] = \"Valik\"\n";
+	let script = "emit({ at = E.GetStepIndex(), valik = brief(2), gate = (function() local g = E.AcceptGate(2, 1); return g and table.concat(g.needs, \" | \") or false end)() })";
+	let fresh = run(titles, KRUSK_VALIK, script);
+	assert_eq!(fresh["valik"], json!(["pending:nil:nil", "pending:nil:nil"]), "the guide takes Infiltration first: Valik keeps its place");
+	assert_eq!(fresh["gate"], "Infiltration in your quest log");
+	let carried = run(&format!("{titles}stub.world.onQuest(533, {{}})"), KRUSK_VALIK, script);
+	assert_eq!(json!([carried["at"], carried["valik"], carried["gate"]]), json!([2, ["active:nil:nil", "active:nil:nil"], false]));
+	let handed = run(&format!("{titles}stub.world.complete({{ 533 }})"), KRUSK_VALIK, script);
+	assert_eq!(handed["valik"], json!(["skipped:closed:Only before “Infiltration” is handed in", "skipped:closed:Only before “Infiltration” is handed in"]));
+	assert_eq!(handed["gate"], false, "Infiltration handed in: the tooltip asks for nothing it can no longer have");
+	let skipped = run(titles, KRUSK_VALIK, "E.Skip(); flush(); emit({ at = E.GetStepIndex(), valik = brief(2) })");
+	assert_eq!(skipped["valik"], json!(["skipped:pre:Only with “Infiltration” in your quest log", "skipped:pre:Only with “Infiltration” in your quest log"]));
+	assert!(skipped["at"].as_i64().is_some_and(|s| s > 2), "Krusk's step skipped: the guide passes Valik too: {}", skipped["at"]);
+}
+
+#[test]
+fn a_giver_refusing_a_child_quest_while_its_parent_is_not_in_the_log_marks_it_until_the_parent_is_taken() {
+	// The parent's accept comes after Valik here (the route's own business): Valik keeps its place until his window
+	// leaves Valik out.
+	let guide = KRUSK_VALIK
+		.replace("{ title = \"Krusk\", goals = { { t = \"accept\", quest = 533, title = \"Infiltration\", npc = 2229, npcName = \"Krusk\", map = 1413, x = 51, y = 30 } } },\n", "")
+		.replace("{ title = \"Back\", goals = {", "{ title = \"Back\", goals = { { t = \"accept\", quest = 533, title = \"Infiltration\", npc = 2229, npcName = \"Krusk\" },");
+	let out = run(
+		"stub.world.titles[533] = \"Infiltration\"\n",
+		&guide,
+		r#"
+			local w = stub.world
+			local r = { before = brief(1) }
+			w.gossip(2333, { available = {} }); w.close(); flush()
+			r.refused = brief(1)
+			w.accept(533, {}); flush()
+			r.taken = brief(1)
+			emit(r)
+		"#,
+	);
+	assert_eq!(out["before"], json!(["active:nil:nil", "active:nil:nil"]));
+	assert_eq!(out["refused"], json!(["skipped:pre:Only with “Infiltration” in your quest log", "skipped:pre:Only with “Infiltration” in your quest log"]));
+	assert_eq!(out["taken"], json!(["active:nil:nil", "active:nil:nil"]));
+}
+
+// #2318: direct hand-ins have no accept elsewhere to lend them a minimum level. Use the existing cloth
+// donation's identity and minimum (7791, level 12), with a controlled map and a manually selected small guide.
+const DIRECT_LEVEL_WORLD: &str = r#"
+w.race, w.faction, w.class, w.className, w.level = "Human", "Alliance", "PALADIN", "Paladin", 11
+w.addMap(1453, { name = "Stormwind City", c = 0, left = 1000, right = -1000, top = 1000, bottom = -3000 })
+w.moveTo(1453, 50, 80)
+"#;
+
+const DIRECT_LEVEL_GUIDE: &str = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Donation", category = "Lookup", faction = "Alliance", minLevel = 1, maxLevel = 60, steps = {
+	{ goals = {
+		{ t = "turnin", quest = 7791, title = "A Donation of Wool", direct = true, minLevel = 12, qlvl = 60, npc = 14722, npcName = "Clavicus Knavingham", map = 1453, x = 53.93, y = 81.69 },
+	} },
+} })
+"#;
+
+const DIRECT_LEVEL_SNAPSHOT: &str = r#"
+local w = stub.world
+local function state()
+	local p = E.GetWaypoint()
+	return { at = E.GetStepIndex() or false, waypoint = p and (p.stepIndex .. ":" .. p.goalIndex) or false,
+		goals = brief(1), wanted = E.WantsQuest("direct", 7791) }
+end
+stub.fire("QUEST_LOG_UPDATE"); flush()
+"#;
+
+#[test]
+fn direct_hand_in_waits_for_its_minimum_in_non_leveling_guides_and_reopens_on_level_up_2318() {
+	for category in ["Lookup", "Class"] {
+		let guide = DIRECT_LEVEL_GUIDE.replace("Lookup", category);
+		let out = run(
+			DIRECT_LEVEL_WORLD,
+			&guide,
+			&format!(
+				"{DIRECT_LEVEL_SNAPSHOT}{}",
+				r#"
+				local completed = 0
+				Polestar.On("GUIDE_COMPLETED", function() completed = completed + 1 end)
+				flush()
+				local r = { low = state() }
+				w.setLevel(12); flush()
+				r.ding, r.completed = state(), completed
+				emit(r)
+			"#
+			),
+		);
+		assert_eq!(out["low"], json!({ "at": 1, "waypoint": false, "goals": ["skipped:level:Requires level 12"], "wanted": false }), "{category}: wait without an arrow or automation");
+		assert_eq!(out["ding"], json!({ "at": 1, "waypoint": "1:1", "goals": ["active:nil:nil"], "wanted": true }), "{category}: the minimum opens the hand-in");
+		assert_eq!(out["completed"], 0, "{category}: the waiting guide must not finish");
+	}
+}
+
+#[test]
+fn direct_hand_in_is_passed_in_a_leveling_guide_and_level_up_restores_it_even_after_the_guide_finishes_2318() {
+	for later_work in [false, true] {
+		let mut guide = DIRECT_LEVEL_GUIDE.replace("Lookup", "Leveling");
+		if later_work {
+			guide = guide.replace("} })", "\t{ goals = { { t = \"task\", text = \"Other work\" } } },\n} })");
+		}
+		let out = run(DIRECT_LEVEL_WORLD, &guide, &format!("{DIRECT_LEVEL_SNAPSHOT}local r = {{ low = state() }}; w.setLevel(12); flush(); r.ding = state(); emit(r)"));
+		assert_eq!(out["low"], json!({ "at": if later_work { json!(2) } else { json!(false) }, "waypoint": false, "goals": ["na:nil:nil"], "wanted": false }), "later work: {later_work}");
+		assert_eq!(out["ding"], json!({ "at": 1, "waypoint": "1:1", "goals": ["active:nil:nil"], "wanted": true }), "later work: {later_work}");
+	}
+}
+
+fn direct_level_shared_step() -> String {
+	DIRECT_LEVEL_GUIDE.replace("direct = true,", "direct = true, optional = true,").replace("\n\t} },", "\n\t\t{ t = \"task\", text = \"Other work\" },\n\t} },")
+}
+
+#[test]
+fn an_optional_direct_hand_in_in_a_live_shared_step_is_not_wanted_below_its_minimum_2318() {
+	let out = run(DIRECT_LEVEL_WORLD, &direct_level_shared_step(), &format!("{DIRECT_LEVEL_SNAPSHOT}local r = {{ low = state() }}; w.setLevel(12); flush(); r.ding = state(); emit(r)"));
+	assert_eq!(
+		out["low"],
+		json!({ "at": 1, "waypoint": false, "goals": ["na:nil:nil", "active:nil:nil"], "wanted": false }),
+		"unrelated work keeps the step live, but must not enable the optional hand-in"
+	);
+	assert_eq!(out["ding"]["at"], 1);
+	assert_eq!(out["ding"]["goals"], json!(["active:nil:nil", "active:nil:nil"]));
+	assert_eq!(out["ding"]["wanted"], true);
+}
+
+#[test]
+fn a_real_offer_still_overrides_a_direct_hand_in_minimum_and_the_reward_is_only_taken_once_2318() {
+	let out = run(
+		&format!("{DIRECT_LEVEL_WORLD}w.repeatable[7791] = true"),
+		&direct_level_shared_step(),
+		&format!(
+			"{DIRECT_LEVEL_SNAPSHOT}{}",
+			r#"
+			local r = { low = state() }
+			-- The client offering it is authoritative even if the recorded minimum is stale.
+			w.gossip(14722, { available = { { questID = 7791 } } }); flush()
+			r.offered = state()
+			w.questProgress(14722, 7791, { completable = true }); flush(); w.close()
+			r.rewarded = state()
+			stub.advance(5)
+			w.gossip(14722, { available = { { questID = 7791 } } }); flush(); w.close()
+			w.questProgress(14722, 7791, { completable = true }); flush(); w.close()
+			w.setLevel(12); flush()
+			r.ding = state()
+			r.calls = {}
+			for _, c in ipairs(w.calls) do r.calls[#r.calls + 1] = c[1] end
+			emit(r)
+		"#
+		),
+	);
+	assert_eq!(out["low"]["wanted"], false);
+	assert_eq!(out["offered"]["wanted"], true);
+	assert_eq!(out["offered"]["goals"][0], "active:nil:nil");
+	assert_eq!(out["rewarded"]["goals"][0], "done:nil:nil");
+	assert_eq!(out["rewarded"]["wanted"], false);
+	assert_eq!(out["ding"]["goals"][0], "done:nil:nil");
+	assert_eq!(out["ding"]["wanted"], false);
+	assert_eq!(out["calls"], json!(["C_GossipInfo.SelectAvailableQuest", "CompleteQuest", "GetQuestReward"]));
+}
+
+#[test]
+fn direct_minimum_does_not_reject_a_logged_quest_reopen_done_work_or_gate_an_ordinary_turn_in_2318() {
+	let guide = direct_level_shared_step();
+	for (name, before, guide, action, status, wanted) in [
+		("on log", "w.onQuest(7791, { 1 })", guide.clone(), "", "active:nil:nil", true),
+		("completed", "w.complete({ 7791 })", guide.clone(), "", "done:nil:nil", false),
+		("checked", "w.level = 12", guide.clone(), "E.ToggleGoal(1, 1); w.setLevel(11); flush()", "done:nil:nil", false),
+		("unknown minimum", "", guide.replace("minLevel = 12, ", ""), "", "active:nil:nil", true),
+		("ordinary logged turn-in", "w.onQuest(7791, { 1 })", guide.replace("direct = true, ", ""), "", "active:nil:nil", false),
+	] {
+		let out = run(
+			&format!("{DIRECT_LEVEL_WORLD}{before}"),
+			&guide,
+			&format!("{DIRECT_LEVEL_SNAPSHOT}{action}\nlocal r = {{ low = state(), turnin = E.WantsQuest(\"turnin\", 7791) }}; w.setLevel(12); flush(); r.ding = state(); emit(r)"),
+		);
+		assert_eq!(out["low"]["goals"][0], status, "{name}");
+		assert_eq!(out["ding"]["goals"][0], status, "{name}: level-up preserves state");
+		assert_eq!(out["low"]["wanted"], wanted, "{name}");
+		assert_eq!(out["ding"]["wanted"], wanted, "{name}: level-up preserves automation");
+		if name == "ordinary logged turn-in" {
+			assert_eq!(out["turnin"], true, "ordinary accepted quests still hand in");
+		}
+	}
+}
+
+fn direct_window_guide(minimum: u32) -> String {
+	direct_level_shared_step().replace("minLevel = 12,", &format!("minLevel = {minimum},")).replace(
+		r#"{ t = "task", text = "Other work" }"#,
+		r#"{ t = "turnin", quest = 7793, title = "A Donation of Silk", direct = true, optional = true, minLevel = 26, npc = 14722, npcName = "Clavicus Knavingham" },
+		{ t = "task", text = "Other work" }"#,
+	)
+}
+
+// A player at the real Wool minimum (12) can be shown its progress/reward window directly, without a list or
+// detail event first. A stale minimum of 13 in the guide must not overrule that server window. Silk is a separate
+// quest at the same giver (minimum 26); the Wool window says nothing about its availability.
+#[test]
+fn direct_progress_and_reward_windows_override_a_stale_minimum_without_an_earlier_list_2318() {
+	for minimum in [12, 13] {
+		for (window, calls) in [("w.questProgress(14722, 7791, { completable = true })", json!(["CompleteQuest", "GetQuestReward"])), ("w.questComplete(14722, 7791)", json!(["GetQuestReward"]))] {
+			let out = run(
+				&format!("{DIRECT_LEVEL_WORLD}w.level = 12; w.repeatable[7791] = true"),
+				&direct_window_guide(minimum),
+				&format!(
+					r#"{DIRECT_LEVEL_SNAPSHOT}
+						local r = {{ before = E.WantsQuest("direct", 7791) }}
+						{window}; flush(); w.close()
+						r.status = E.GetStepView(1).goals[1].status
+						r.wanted = E.WantsQuest("direct", 7791)
+						r.other = {{ E.GetStepView(1).goals[2].status, E.WantsQuest("direct", 7793) }}
+						stub.advance(5)
+						{window}; flush(); w.close()
+						r.calls = {{}}
+						for _, c in ipairs(w.calls) do r.calls[#r.calls + 1] = c[1] end
+						emit(r)
+					"#
+				),
+			);
+			assert_eq!(out["before"], minimum == 12, "minimum {minimum}: no prior offer");
+			assert_eq!(out["status"], "done", "minimum {minimum}, {window}");
+			assert_eq!(out["wanted"], false, "a completed direct goal must not repeat");
+			assert_eq!(out["other"], json!(["na", false]), "only the displayed quest is offered");
+			assert_eq!(out["calls"], calls, "minimum {minimum}, {window}: reward only once");
+		}
+	}
+}
+
+#[test]
+fn a_direct_progress_window_does_not_complete_missing_items_or_unlock_quests_without_an_id_2318() {
+	for (window, offered) in [("w.questProgress(14722, 7791, { completable = false })", true), ("w.questProgress(14722, 0, { completable = true })", false), ("w.questComplete(14722, 0)", false)] {
+		let out = run(
+			&format!("{DIRECT_LEVEL_WORLD}w.level = 12"),
+			&direct_window_guide(13),
+			&format!(
+				r#"{DIRECT_LEVEL_SNAPSHOT}
+					{window}; flush()
+					emit({{ wanted = E.WantsQuest("direct", 7791), status = E.GetStepView(1).goals[1].status,
+						other = {{ E.GetStepView(1).goals[2].status, E.WantsQuest("direct", 7793) }}, calls = #w.calls }})
+				"#
+			),
+		);
+		assert_eq!(out["wanted"], offered, "{window}");
+		assert_eq!(out["status"], if offered { "active" } else { "na" }, "{window}");
+		assert_eq!(out["other"], json!(["na", false]), "{window}: another quest stays unavailable");
+		assert_eq!(out["calls"], 0, "an incomplete or unidentified window cannot be handed in");
+	}
 }

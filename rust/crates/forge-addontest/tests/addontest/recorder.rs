@@ -47,7 +47,7 @@ local WIDTH = {
 	objectives = 2, progress = 7, complete = 1, turnin = 10, abandon = 1, gossip = 7, cast = 7, escort = 5, kill = 10,
 	loot = 8, gather = 7, unit = 8, rare = 7, treasure = 4, enter = 6, encounter = 4, trainer = 5, vendor = 5, flightmaster = 6,
 	bind = 4, rep = 4, skill = 3, explore = 5, learn = 1, craft = 3, achieve = 1, step = 6, group = 2, spawn = 5, fail = 4,
-	refuse = 6,
+	refuse = 6, unitx = 5, imap = 4, engage = 3, poi = 5, where = 4, open = 6,
 }
 -- Records whose kind is unknown or whose field count is wrong, as "kind:count".
 local function malformed()
@@ -161,6 +161,24 @@ fn a_quest_with_kills_xp_loot_and_a_turn_in_is_exactly_this_chunk_text() {
 	.replace('|', "\t");
 	assert_eq!(out["text"], json!(want));
 	assert_eq!(out["seq"], 5);
+	assert_eq!(out["bad"], json!({}));
+}
+
+#[test]
+fn a_frfr_kill_objective_loses_its_grammar_escape_and_a_paid_turn_in_keeps_its_negative_money() {
+	// Forever's frFR client writes kill objectives as "%1$s : %2$d/%3$d |4personnage tué:personnages
+	// tués;" (a no-break space before the colon). Recorder 0.3.5 put the escape into the name, and the
+	// server turned away every chunk holding one. Grime-Encrusted Ring costs 3 silver to hand in.
+	let out = run(r#"
+		stub.acceptQuest(52, { title = "Protéger la frontière", objectives = {
+			{ text = "Rôdeur\194\160: %d/%d |4personnage tué:personnages tués;", type = "monster", numRequired = 8 },
+			{ text = "Patte de rôdeur\194\160: %d/%d", type = "item", numRequired = 1 },
+		} })
+		stub.acceptQuest(2945, { title = "Grime-Encrusted Ring", objectives = {} })
+		stub.turnIn(2945, nil, nil, 2700, -300)
+		logout()
+		emit({ recs = recs("objectives turnin"), bad = malformed() })"#);
+	assert_eq!(out["recs"], json!(["objectives|52|monster:8:Rôdeur;item:1:Patte de rôdeur", "turnin|2945|||1429|5000|5000|1|2700|-300|"]));
 	assert_eq!(out["bad"], json!({}));
 }
 
@@ -341,6 +359,8 @@ PolestarRecorderCharDB = { id = "k3j9x0q2m7" }"#,
 	assert!(status[1].ends_with("4 chunks waiting for the uploader (about 3072 KiB of 4096 KiB)"), "{status:?}");
 	assert!(status[2].ends_with("the uploader has not confirmed a chunk yet (newest: 6)"), "{status:?}");
 	assert!(status[3].ends_with("install id: k3j9x0q2m7ab"), "{status:?}");
+	// Chunks still in memory reach the uploader only once the game writes them (#1453).
+	assert!(status.last().unwrap().ends_with("/reload or log out to send what's recorded"), "{status:?}");
 }
 
 #[test]
@@ -385,7 +405,9 @@ emit(stub.messages)"#,
 		None,
 	);
 	assert!(truthy(&lines[0]) && text(&lines[0]).contains("запись: |cff4fd18fвкл|r"), "{}", lines[0]);
-	assert!(truthy(&lines[1]) && text(&lines[1]).contains("usage: /psrec mark <text>"), "{}", lines[1]);
+	// /psrec on says the game shows it to Polestar Client only after a /reload or logout (#1453).
+	assert!(truthy(&lines[1]) && text(&lines[1]).contains("/reload or log out to send what's recorded"), "{}", lines[1]);
+	assert!(truthy(&lines[2]) && text(&lines[2]).contains("usage: /psrec mark <text>"), "{}", lines[2]);
 }
 
 // Polestar's quest database: NPC 197 starts 18, 33, 54, 60 and 70; object 1593 starts 61.
@@ -564,4 +586,55 @@ fn on_forever_the_player_s_full_name_with_its_surname_is_put_back_as_the_name_to
 		logout()
 		emit({ text = recs("text") })"#);
 	assert_eq!(out["text"], json!(["text|7|Kobold Camp Cleanup|Well met, $N.|$N, they say."]));
+}
+
+/// Walking helpers for the height mark (the Recorder turned on): `walk(n, z, speed)` takes n one-second steps of
+/// 10.4 yd along Elwynn at the client height z (nil: the client's 0) and own speed (7 unless given), `marks()` the
+/// text of every `mark` once the chunks are stored.
+const HEIGHT: &str = r#"
+cmd("on")
+local W = stub.world
+local x = 10
+local function walk(n, z, speed)
+	W.moving, W.speed = true, speed or 7
+	for _ = 1, n do x = x + 0.2; stub.moveTo(x, 50); W.z = z; stub.advance(1) end
+	W.moving, W.speed = false, 0
+end
+local function marks()
+	logout()
+	local out = {}
+	for _, r in ipairs(all()) do if r[1] == "mark" then out[#out + 1] = r[#r] end end
+	return out
+end
+"#;
+
+#[test]
+fn once_a_session_a_mark_says_what_the_client_gives_for_the_player_s_height_after_ten_steps_on_foot() {
+	let zero = run(&format!("{HEIGHT}{}", r#"walk(12); emit(marks())"#));
+	assert_eq!(zero, json!(["height: zero"]));
+	let fixed = run(&format!("{HEIGHT}{}", r#"walk(12, 33.25); emit(marks())"#));
+	assert_eq!(fixed, json!(["height: fixed"]));
+	// Carried steps don't count (else ten 0s would say "zero"), nine steps say nothing yet, the tenth says
+	// "mixed", and a height that changes says "real" once more.
+	let mixed = run(&format!(
+		"{HEIGHT}{}",
+		r#"
+		walk(12, nil, 0)            -- carried on a deck: no steps of the player's own
+		stub.advance(6)             -- docked: still for 5 ticks ends the ride
+		walk(9)                     -- 0 every time
+		walk(1, 12.5)
+		walk(1, 14)
+		walk(5, 15)
+		emit(marks())"#
+	));
+	assert_eq!(mixed, json!(["height: mixed", "height: real"]));
+	let none = run(&format!(
+		"{HEIGHT}{}",
+		r#"
+		local position = UnitPosition
+		function UnitPosition(unit) local a, b, _, c = position(unit); return a, b, nil, c end
+		walk(12)
+		emit(marks())"#
+	));
+	assert_eq!(none, json!(["height: none"]));
 }

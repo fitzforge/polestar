@@ -20,7 +20,7 @@ const CASES: [Case; 5] = [
 	// Mightie: the Sapphires of Aku'Mai are in the tunnels to the Blackfathom Deeps portal, not on the strand.
 	Case { guide: "forever/horde/07-ashenvale.guide", item: 16784.0, mouth: (1440.0, 14.5, 14.2), mouth_text: "14.5,14.2", tip: "tunnels leading to the Blackfathom Deeps portal" },
 	// Turesh: in Coldridge Valley the arrow pointed above ground, at Grik'nir inside the troll cave.
-	Case { guide: "forever/alliance/dwarf-gnome/01-dun-morogh.guide", item: 2004.0, mouth: (1426.0, 26.93, 80.03), mouth_text: "26.93,80.03", tip: "inside the troll cave" },
+	Case { guide: "forever/alliance/dwarf/01-dun-morogh.guide", item: 2004.0, mouth: (1426.0, 26.93, 80.03), mouth_text: "26.93,80.03", tip: "inside the troll cave" },
 	// Onrevax (#392): the Whispering Elixir bottles are in the basement under Shadowvale's ruined house.
 	Case { guide: "forever/horde/undead/01-tirisfal-glades.guide", item: 268801.0, mouth: (1420.0, 12.9, 65.7), mouth_text: "12.9,65.7", tip: "basement under the ruined house" },
 	// The same basement: a Paladin's Faintly Glowing Bones drop from its Lurchers and Mystics.

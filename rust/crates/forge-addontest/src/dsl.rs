@@ -143,10 +143,16 @@ pub fn write_pack_dir(dir: &Path, files: &[(String, FileContent)]) {
 
 /// Builds compiled guides into a pack folder (the JS helpers' writeTestPack / writePackInto).
 pub fn write_test_pack(guides: &[V], data: &Data, manifest: &V) -> TestPack {
+	write_test_pack_offering(guides, data, manifest, &[])
+}
+
+/// [`write_test_pack`] with our pack's experimental index (forge_guide::project::experimental_index), written
+/// after its guides as `forge guide compile` writes Polestar_Guides.
+pub fn write_test_pack_offering(guides: &[V], data: &Data, manifest: &V, offers: &[V]) -> TestPack {
 	let tmp = TempDir::new("polestar-pack-");
 	let dir = tmp.path().join(manifest.get("folder").to_js_string());
 	let iface = forge_guide::project::core_interface(root()).expect("core interface");
-	let files = forge_guide::project::build_pack_files(guides, manifest, data, None, &V::obj(), &[], &iface, Vec::new());
+	let files = forge_guide::project::build_pack_files(guides, manifest, data, None, &V::obj(), &[], offers, &iface, Vec::new());
 	write_pack_dir(&dir, &files);
 	let mut parts: Vec<&str> = files.iter().map(|(n, _)| n.as_str()).filter(|n| n.starts_with("../") && n.ends_with("/Guides.lua")).collect();
 	parts.sort();

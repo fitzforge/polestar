@@ -106,6 +106,17 @@ function sparkle(size) {
 	return c;
 }
 
+// The line style's soft shadow (Maps/RouteLines.lua, nav.lineStyle "line"):
+// a client Line stretches its texture along its length and across its
+// thickness, so this is even along x and feathered across y, full at the
+// middle and nothing at either edge. Tinted with the theme's scrim.
+function lineSoft(size) {
+	const c = new Canvas(size, size);
+	const m = size / 2;
+	c.fill((x, y) => Math.abs(y - m) - m / 2, [...WHITE, 1], { feather: m });
+	return c;
+}
+
 // Pin frame: dark rim, white ring, white star. Drawn over pin-fill.
 function pin(size) {
 	const c = new Canvas(size, size);
@@ -176,6 +187,7 @@ const TEXTURES = [
 	['area', () => area(128)],
 	['ring', () => ring(64)],
 	['sparkle', () => sparkle(64)],
+	['line-soft', () => lineSoft(32)],
 ];
 
 function generate(addonRoot) {

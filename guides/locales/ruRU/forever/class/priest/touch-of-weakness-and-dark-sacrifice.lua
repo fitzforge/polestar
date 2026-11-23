@@ -10,7 +10,7 @@ return {
 	-- {spell:2652} Touch of Weakness · {quest:5644} Dark Sacrifice
 	["{spell:2652} and {quest:5644}"] = "{spell:2652} и {quest:5644}",
 	-- {spell:2652} Touch of Weakness · {quest:5644} Dark Sacrifice
-	["The Undead priest spells: {spell:2652} at 10, {quest:5644} (new in Forever) at 20. Free, no objectives."] = "",
+	["The Undead priest spells: {spell:2652} at 10, {quest:5644} (new in Forever) at 20. Free, no objectives."] = "Заклинания жрецов-нежити: {spell:2652} на 10-м уровне, {quest:5644} (новое в Forever) на 20-м. Бесплатно, без задач.",
 
 	-- Step 1: Touch of Weakness: Tai'jin
 	-- {zone:1411} Durotar · {npc:3706} Tai'jin · {area:362} Razor Hill · {spell:2652} Touch of Weakness · {npc:4606} Aelthalyste · {zone:1458} Undercity
@@ -75,8 +75,8 @@ return {
 	["{npc:3044}: take his {quest:5644} letter"] = "",
 
 	-- Step 12: Dark Sacrifice: Aelthalyste
-	-- {npc:4606} Aelthalyste · {object:36070} War Quarter · {quest:5644} Dark Sacrifice · {spell:2944} Devouring Plague
-	["At 20, {npc:4606} in the {object:36070} teaches {quest:5644} with a quest she gives and takes back at once (its text still speaks of {spell:2944}, which every priest now learns from the trainer)."] = "",
+	-- {npc:4606} Aelthalyste · {object:36070} War Quarter · {quest:5679} Dark Sacrifice · {spell:2944} Devouring Plague
+	["At 20, {npc:4606} in the {object:36070} teaches {quest:5679} with a quest she gives and takes back at once (its text still speaks of {spell:2944}, which every priest now learns from the trainer)."] = "",
 
 	-- Step 13: Dark Sacrifice: Ur'kyo's letter
 	-- {quest:5646} Dark Sacrifice · {npc:6018} Ur'kyo

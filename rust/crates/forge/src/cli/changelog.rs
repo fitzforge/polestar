@@ -192,7 +192,7 @@ fn is_date(date: &str) -> bool {
 fn build(root: &Path, args: &[String], rest: &[String]) -> Result<(), super::Fail> {
 	let [version] = rest else { return Err(super::usage("build takes one version")) };
 	if !forge_release::is_version(version) {
-		return Err(super::usage(format!("\"{version}\" is not a version (x.y.z or x.y.z-pre)")));
+		return Err(super::usage(format!("\"{version}\" is not a version (x.y.z, x.y.z.hotfix or x.y.z-pre)")));
 	}
 	let date = opt(args, "--date").unwrap_or_else(today);
 	if !is_date(&date) {

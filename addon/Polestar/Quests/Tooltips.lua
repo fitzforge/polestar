@@ -31,6 +31,19 @@ local function addLine(tt, left, right, lc, rc)
 	ns.Hooks.AddLine(tt, left, right, lc.r, lc.g, lc.b, rc.r, rc.g, rc.b)
 end
 
+-- The "New in Forever" mark after a quest's name (NewQuests.Mark), else "".
+local function mark(q)
+	local NQ = ns.NewQuests
+	return NQ and NQ.Mark(q) or ""
+end
+
+-- A drop chance in percent as text, written as the Lookup window writes its
+-- sources' chances (UI/Lookup.lua, Percent): "66%", "4.5%", "0.25%".
+local function chanceText(chance)
+	if chance >= 10 then return ("%d%%"):format(math.floor(chance + 0.5)) end
+	return (("%.2f"):format(chance):gsub("0+$", ""):gsub("%.$", "")) .. "%"
+end
+
 local function addObjectiveLines(tt, list, selfKind, selfID, selfName)
 	if not list then return 0 end
 	local qc, dim, ok = Q.Color("quest"), Q.Color("textDim"), Q.Color("success")
@@ -42,45 +55,32 @@ local function addObjectiveLines(tt, list, selfKind, selfID, selfName)
 		local isSelf = o.kind == selfKind and (o.id == selfID or (selfName ~= nil and o.name == selfName))
 		if isSelf and o.kind == 1 and o.name then
 			what = L["Kill"] .. " " .. o.name .. " " .. what
+		elseif isSelf and o.kind == 5 and o.name then
+			what = L["Talk to"] .. " " .. o.name .. " " .. what
 		elseif not isSelf and o.name then
 			what = o.name .. " " .. what
 		end
-		addLine(tt, (e.title or ("Quest " .. o.q)) .. ":", what, qc, (o.done or e.ready) and ok or dim)
+		-- On a mob that drops an item still needed, or an object it comes
+		-- out of: how often (qol.questDropChance).
+		if o.kind == 2 and not o.done and selfID and (selfKind == 1 or selfKind == 3) and ns.Get("qol.questDropChance") then
+			local chance = selfKind == 1 and Q.GetDropChance(o.id, selfID) or selfKind == 3 and Q.GetObjectDropChance(o.id, selfID)
+			if chance and chance > 0 then what = what .. "  " .. chanceText(chance) end
+		end
+		addLine(tt, (e.title or ("Quest " .. o.q)) .. mark(o.q) .. ":", what, qc, (o.done or e.ready) and ok or dim)
 		added = added + 1
 	end
 	return added
 end
 
--- Items that start a quest: built from the database on first use.
-local startItems
-local function questsStartedBy(itemID)
-	if not startItems then
-		startItems = {}
-		local F = Q.F
-		for _, q in ipairs(Q.QuestIds()) do
-			for _, it in Q.Each(Q.QuestRecord(q)[F.START_ITEM]) do
-				local list = startItems[it]
-				if not list then
-					list = {}
-					startItems[it] = list
-				end
-				list[#list + 1] = q
-			end
-		end
-		for _, list in pairs(startItems) do table.sort(list) end
-	end
-	return startItems[itemID]
-end
-
 local function addStartLines(tt, itemID)
-	local list = questsStartedBy(itemID)
+	local list = Q.StartedBy(itemID)
 	if not list then return 0 end
 	local qc, tc = Q.Color("quest"), Q.Color("text")
 	local added = 0
 	for i = 1, #list do
 		local q = list[i]
 		if not ns.Compat.IsQuestCompleted(q) and not ns.Compat.IsOnQuest(q) then
-			addLine(tt, L["Starts a quest"] .. ":", Q.GetQuestTitle(q) or tostring(q), qc, tc)
+			addLine(tt, L["Starts a quest"] .. ":", (Q.GetQuestTitle(q) or tostring(q)) .. mark(q), qc, tc)
 			added = added + 1
 		end
 	end
@@ -143,7 +143,7 @@ local function addAheadLines(tt, itemID)
 	for i = 1, #list do
 		local e = list[i]
 		local have = ns.Compat.GetItemCount and ns.Compat.GetItemCount(itemID) or 0
-		addLine(tt, (Q.GetQuestTitle(e.q) or tostring(e.q)) .. ":", L["%d/%d (not accepted)"]:format(math.min(have, e.n), e.n), qc, dim)
+		addLine(tt, (Q.GetQuestTitle(e.q) or tostring(e.q)) .. mark(e.q) .. ":", L["%d/%d (not accepted)"]:format(math.min(have, e.n), e.n), qc, dim)
 	end
 	return #list
 end
@@ -152,10 +152,35 @@ ns.On("STEP_CHANGED", function() ahead = nil end)
 ns.On("GUIDE_CHANGED", function() ahead = nil end)
 ns.On("QUESTDB_UPDATED", function() ahead = nil end)
 
+-- An NPC's own quests (qol.questTooltipsNpc): the ready quests it takes,
+-- "<Quest>: Turn in", then the quests it has for this character now, "Starts
+-- a quest: <Quest>" as on an item that starts one.
+local function addNpcQuestLines(tt, npcID)
+	if not ns.Get("qol.questTooltipsNpc") then return 0 end
+	local qc, tc, ok = Q.Color("quest"), Q.Color("text"), Q.Color("success")
+	local added = 0
+	local taken = Q.TurnInsAt(npcID)
+	for i = 1, taken and #taken or 0 do
+		local e = taken[i]
+		if e.ready then
+			addLine(tt, (e.title or ("Quest " .. e.q)) .. mark(e.q) .. ":", L["Turn in"], qc, ok)
+			added = added + 1
+		end
+	end
+	local given = Q.AvailableFrom(npcID)
+	for i = 1, given and #given or 0 do
+		local q = given[i]
+		addLine(tt, L["Starts a quest"] .. ":", (Q.GetQuestTitle(q) or tostring(q)) .. mark(q), qc, tc)
+		added = added + 1
+	end
+	return added
+end
+
 -- Public so other tooltip paths (and tests) can ask for the same lines.
 function Q.AddUnitLines(tt, npcID)
 	if not (npcID and tooltipsOn()) then return 0 end
-	return addObjectiveLines(tt, Q.ObjectivesForNpc(npcID), 1, npcID)
+	return addObjectiveLines(tt, Q.ObjectivesForNpc(npcID), 1, npcID) + addObjectiveLines(tt, Q.ObjectivesForTalk(npcID), 5, npcID)
+		+ addNpcQuestLines(tt, npcID)
 end
 
 function Q.AddItemLines(tt, itemID)
@@ -168,6 +193,48 @@ function Q.AddObjectLines(tt, objectID, name)
 	local list = objectID and Q.ObjectivesForObject(objectID)
 	if not list and name then list = Q.ObjectivesForObjectName(name) end
 	return addObjectiveLines(tt, list, 3, objectID, name)
+end
+
+-- The client's own quest rows. On a mob or object of a quest in the log the
+-- client names the quest itself: a title row, then its objectives. With
+-- Polestar's lines under them every objective reads twice. With
+-- qol.questTooltipsReplace the client's rows for a quest Polestar's lines name
+-- there are left out (Hooks.QuestRows), by the title row's quest id (Forever's
+-- title rows carry it). The rows of a quest Polestar does not name stay, and
+-- in a group all of them: they carry the party's progress.
+--
+-- Polestar's own line follows in the post-call for the same unit or object,
+-- found the same way (Hooks gives both the unit UnitLines gets), from the
+-- same index, so a row is never left out without its line.
+local hidingRows = false -- the rows under the title last seen are left out too
+local rowsOf -- the tooltip data that title belongs to
+
+local function hideQuestRow(_, kind, id, name, row, rowType, data)
+	-- Another tooltip: its rows start afresh, whatever the last one's title did.
+	if data ~= rowsOf then rowsOf, hidingRows = data, false end
+	if not (tooltipsOn() and ns.Get("qol.questTooltipsReplace")) or (IsInGroup and IsInGroup()) then
+		hidingRows = false
+		return false
+	end
+	if rowType ~= "QuestTitle" then return hidingRows end
+	hidingRows = false
+	local list
+	if kind == "unit" then
+		list = Q.ObjectivesForNpc(id)
+	else
+		list = id and Q.ObjectivesForObject(id)
+		if not list and name then list = Q.ObjectivesForObjectName(name) end
+	end
+	if not list then return false end
+	local quest = row.id
+	if ns.Compat.IsSecret(quest) or type(quest) ~= "number" then return false end
+	for i = 1, #list do
+		if list[i].q == quest then
+			hidingRows = true
+			break
+		end
+	end
+	return hidingRows
 end
 
 local OWNER = "quests"
@@ -195,6 +262,7 @@ local function refreshHooks()
 	H.UnitLines(OWNER, want and onUnit or nil)
 	H.ItemLines(OWNER, want and onItem or nil)
 	if H.ObjectLines then H.ObjectLines(OWNER, want and onObject or nil) end
+	if H.QuestRows then H.QuestRows(OWNER, want and hideQuestRow or nil) end
 end
 
 ---------------------------------------------------------------------------
@@ -490,10 +558,12 @@ local function release(unit)
 	pool[#pool + 1] = f
 end
 
+-- While Polestar is hidden the plates are still tracked but carry no icon:
+-- POLESTAR_HIDDEN puts the icons back on the plates shown then.
 local function updatePlate(unit)
 	local npc = plateUnits[unit]
 	local need, o = false, nil
-	if npc and platesOn() then need, o = needsKill(npc) end
+	if npc and platesOn() and not ns.Hidden() then need, o = needsKill(npc) end
 	if not need then
 		release(unit)
 		return
@@ -617,3 +687,4 @@ ns.On("SETTING_CHANGED", function(path)
 	if path == "qol.nameplateIconSide" or path == "qol" or path == "" then replaceIcons() end
 	if path == "qol.nameplateIcons" or path == "qol.questTooltips" or path == "qol.questDB" or path == "qol" or path == "" then refreshAll() end
 end)
+ns.On("POLESTAR_HIDDEN", refreshPlates)

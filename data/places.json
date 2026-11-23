@@ -2,17 +2,644 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "3036-riverglades-threshadon-summon",
+			"quest": 95267,
+			"objective": 1,
+			"at": {
+				"map": 2548,
+				"x": 74.4,
+				"y": 72.4,
+				"frame": "live"
+			},
+			"note": "The Monster Surfaces: the Monstrous Threshadon is called up by right-clicking the thing floating in the water there, and his head drops there; the step followed his other possible spots, by some junk on a nearby beach.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3036 (Joogz): summoned him at 74.39,72.38 live by right-clicking what floats in the water"
+				}
+			],
+			"issue": 3036
+		},
+		{
+			"id": "searing-surface-taskmasters",
+			"faction": "Alliance",
+			"quest": 7729,
+			"objective": 1,
+			"path": {
+				"map": 1427,
+				"frame": "era",
+				"points": [
+					[
+						43.12,
+						40.38
+					],
+					[
+						45.68,
+						39.66
+					],
+					[
+						49.15,
+						39.93
+					],
+					[
+						44.79,
+						51.93
+					]
+				]
+			},
+			"note": "Only the group bounty uses these exterior Taskmaster ledges; omit the mine floors underneath Thorium Point.",
+			"source": {
+				"kind": "client",
+				"ref": "Dark Iron Taskmaster 5846: surface spawn heights 241.0, 248.0, 242.4 and 243.1."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "searing-surface-slavers",
+			"faction": "Alliance",
+			"quest": 7729,
+			"objective": 2,
+			"path": {
+				"map": 1427,
+				"frame": "era",
+				"points": [
+					[
+						42.81,
+						40.54
+					],
+					[
+						43.2,
+						51.97
+					],
+					[
+						35.32,
+						58.47
+					]
+				]
+			},
+			"note": "The three outdoor camps are group targets. Nearby dwarves can assist; these marks do not identify solitary pulls.",
+			"source": {
+				"kind": "client",
+				"ref": "Dark Iron Slaver 5844: surface spawn heights 241.1, 243.0 and 238.0."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "searing-furnace-daggers",
+			"faction": "Alliance",
+			"quest": 3443,
+			"objective": 1,
+			"path": {
+				"map": 1427,
+				"frame": "era",
+				"points": [
+					[
+						38.15,
+						51.36
+					],
+					[
+						37.69,
+						49.65
+					],
+					[
+						40.58,
+						49.48
+					],
+					[
+						40.01,
+						48.33
+					]
+				]
+			},
+			"note": "Steamsmiths at the surface furnaces can supply all eight daggers even if the player passed on the group bounty.",
+			"source": {
+				"kind": "client",
+				"ref": "Thorium Plated Dagger 10551 drops from Dark Iron Steamsmith 5840; surface spawn heights 240.3, 241.2, 240.3 and 240.0."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "pristine-horns-western-matriarchs",
+			"faction": "Alliance",
+			"quest": 977,
+			"objective": 1,
+			"path": {
+				"map": 1452,
+				"frame": "era",
+				"points": [
+					[
+						65.88,
+						43.57
+					],
+					[
+						66.67,
+						41.84
+					]
+				]
+			},
+			"note": "Use the two outdoor Matriarchs away from the Patriarch spawn at the cave approach. Do not direct players to the cave floor under the hill.",
+			"source": {
+				"kind": "client",
+				"ref": "Ice Thistle Matriarch 7459: exterior spawn heights 732.8 and 722.4 in Winterspring."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "jon-jon-spyglass-on-the-hill",
+			"faction": "Alliance",
+			"quest": 609,
+			"objective": 2,
+			"at": {
+				"map": 1434,
+				"x": 34.9,
+				"y": 51.8,
+				"frame": "era"
+			},
+			"note": "Jon-Jon stands with Maury on the hill, not beside Chucky at the coastal camp.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "Jon-Jon the Crow's Stranglethorn spawn; quest 609 objective 2, item 3925."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "stranglethorn-young-panthers-across-the-river",
+			"quest": 190,
+			"objective": 1,
+			"at": {
+				"map": 1434,
+				"x": 39.81,
+				"y": 11,
+				"frame": "era"
+			},
+			"note": "Cam (cameronmoten) reports seeing only 1-2 Young Panthers near the original arrow and 12+ across the river. These are his firsthand field observations, not spawn-database counts. Start across the river from Nesingwary's camp, where the Young Panthers gather; keep the existing quest order.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2706 (cameronmoten, Stranglethorn Vale): 1-2 Young Panthers near the old arrow, 12+ across the river"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: Young Panther (683) kills on map 1434 gather at 39-45, 9-15 (about 920 kills; 81 contributors at 39-42, 9-12); the old arrows' lone spawns (36.1,7.2 and 35.0,14.2) lie where about a tenth of that is killed"
+				}
+			]
+		},
+		{
+			"id": "stranglethorn-tigers-with-young-panthers",
+			"faction": "Horde",
+			"quest": 186,
+			"objective": 1,
+			"at": {
+				"map": 1434,
+				"x": 45,
+				"y": 15,
+				"frame": "era"
+			},
+			"note": "On the Horde route, point the second Tiger Mastery hunt at the tiger group east of camp. Keep the existing combined hunt with Panther Mastery 191 and the geologists, and the earlier Panther Mastery 190 hand-in.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2706 (cameronmoten, Stranglethorn Vale): regular Stranglethorn Tigers beside the Young Panthers, east of the camp"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: Stranglethorn Tiger (682) kills on map 1434 form two groups of about the same size, west of the camp (27-33, 6-18, about 620 kills) and east of it (42-48, 9-21, about 600 kills; 47 contributors at 45-48, 15-18); the east group lies on the way to the geologists by Lake Nazferiti"
+				}
+			]
+		},
+		{
+			"id": "621-westfall-oats-on-the-sack",
+			"quest": 151,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1436,
+				"x": 56.9,
+				"y": 20.7,
+				"frame": "era"
+			},
+			"note": "Handful of Oats (Poor Old Blanchy, #621, Xaden Ryan): the goal's point (56.8,19.1) stood about 50 yards from the nearest Sack of Oats; it now sits on the Jansen Stead's nearest sack, at 56.92,20.65, beside the farm and Verna's turn-in. The goal's zone-wide search in the build comes from players' recorded spots of the objective, spread over Westfall, not from this point.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 1528 Handful of Oats: from object 2724 Sack of Oats; objects.json 2724 spawns on map 1436, nearest to the Jansen Stead at 56.92,20.65"
+				}
+			],
+			"issue": 621
+		},
+		{
+			"id": "tidy040-barrens-harpy-raiders-east-slopes",
+			"quest": 867,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1413,
+				"x": 40.6,
+				"y": 16.8,
+				"frame": "era"
+			},
+			"note": "Harpy Raiders (867): every Witchwing drops the talons, and the goal toured the whole Dry Hills, whose western hills hold the Slayers (16), Windcallers (17) and the two stealthed Ambushers (17) around players at 15 (recorded 25th percentile 15.8, 61 people). The Witchwing Harpies (14) and Roguefeathers (15) nest on the eastern slopes: the arrow points at their densest spot, seven spawns within 40 yd and none of the 16-17s (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 5064 Witchwing Talon: dropped by 3276-3280; npcs.json spawns on map 1413: 3276 (14) and 3277 (15) at 39.9-41.9,14.3-19.7, 3278 (16) at 37.2-40.2,10.6-17.6, 3279 (17) at 37.6-38.2,15.6-16.5, 3280 (17) at 37.8-40.8,10.5-17.8"
+				}
+			],
+			"issue": 1980
+		},
+		{
+			"id": "tidy040-zephras-strider-meat-west-of-shendar",
+			"quest": 92553,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 2521,
+				"x": 38.6,
+				"y": 43.6,
+				"frame": "live"
+			},
+			"note": "Restocking the Larders (92553): the Galestriders (5-6) are the only Strider Meat droppers, spread over 310 spawns on the isle; without a point the goal led south of Shen'dar Village among the Al'Aketh Warriors and Stormcallers and Living Lightning (7-8) and the Highlands Ursera (7-8) around players at 6 (recorded 25th percentile 6.28, 18 people). The arrow points at the Galestriders west of the village (37.5-39.2,41.5-45.4), with none of the 7-8s near (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc Galestrider spawns on map 2521 at 37.5-39.2,41.5-45.4 (10+); Al'Aketh Warrior 40.5-42.4,62-64.1, Al'Aketh Stormcaller and Living Lightning 45.4-48.9,50.7-58.7, Highlands Ursera 42.5-45.9,59-69"
+				}
+			]
+		},
+		{
+			"id": "tidy040-mulgore-plainstrider-talons-south-of-bloodhoof",
+			"quest": 748,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1412,
+				"x": 50.2,
+				"y": 67.0,
+				"frame": "era"
+			},
+			"note": "Poison Water and Mazzranache, Bloodhoof's first loop at about 6 (recorded 25th percentile 6.3, 25 people): without a point the goal led among the Elder Plainstriders (8-9), Prairie Wolf Alphas (9-10) and Taloned Swoops (8-10) around the village, 2-4 levels over. The arrow points at the plains just south of Bloodhoof, toward the well, where the same drops come from the 5-8s only (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1412 (live frame): Adult Plainstrider 2956 (6-8), Prairie Wolf 2958 (5-6), Wiry Swoop 2969 (5-7) south of Bloodhoof Village toward the Winterhoof Water Well; Elder Plainstrider 2957 (8-9), Prairie Wolf Alpha 2960 (9-10) and Taloned Swoop 2971 (8-10) none within 40 yd"
+				}
+			]
+		},
+		{
+			"id": "tidy040-mulgore-plainstrider-scales-south-of-bloodhoof",
+			"quest": 766,
+			"objective": 3,
+			"faction": "Horde",
+			"at": {
+				"map": 1412,
+				"x": 50.2,
+				"y": 67.0,
+				"frame": "era"
+			},
+			"note": "Poison Water and Mazzranache, Bloodhoof's first loop at about 6 (recorded 25th percentile 6.3, 25 people): without a point the goal led among the Elder Plainstriders (8-9), Prairie Wolf Alphas (9-10) and Taloned Swoops (8-10) around the village, 2-4 levels over. The arrow points at the plains just south of Bloodhoof, toward the well, where the same drops come from the 5-8s only (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1412 (live frame): Adult Plainstrider 2956 (6-8), Prairie Wolf 2958 (5-6), Wiry Swoop 2969 (5-7) south of Bloodhoof Village toward the Winterhoof Water Well; Elder Plainstrider 2957 (8-9), Prairie Wolf Alpha 2960 (9-10) and Taloned Swoop 2971 (8-10) none within 40 yd"
+				}
+			]
+		},
+		{
+			"id": "tidy040-mulgore-wolf-hearts-south-of-bloodhoof",
+			"quest": 766,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1412,
+				"x": 49.8,
+				"y": 65.3,
+				"frame": "era"
+			},
+			"note": "Poison Water and Mazzranache, Bloodhoof's first loop at about 6 (recorded 25th percentile 6.3, 25 people): without a point the goal led among the Elder Plainstriders (8-9), Prairie Wolf Alphas (9-10) and Taloned Swoops (8-10) around the village, 2-4 levels over. The arrow points at the plains just south of Bloodhoof, toward the well, where the same drops come from the 5-8s only (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1412 (live frame): Adult Plainstrider 2956 (6-8), Prairie Wolf 2958 (5-6), Wiry Swoop 2969 (5-7) south of Bloodhoof Village toward the Winterhoof Water Well; Elder Plainstrider 2957 (8-9), Prairie Wolf Alpha 2960 (9-10) and Taloned Swoop 2971 (8-10) none within 40 yd"
+				}
+			]
+		},
+		{
+			"id": "tidy040-mulgore-ambercorn-south-of-bloodhoof",
+			"quest": 771,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1412,
+				"x": 48.7,
+				"y": 64.5,
+				"frame": "era"
+			},
+			"note": "Rite of Vision's Ambercorn on Bloodhoof's first loop at about 6: the goal led to an Ambercorn among Flatland Cougars, Venture Co. Taskmasters (7-8) and a Prairie Wolf Alpha (9-10). The arrow points at the Ambercorn just south of the village, on the way to the well, with no mob of 8 or more within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "objects.json 2912 Ambercorn spawns on map 1412; npcs.json spawns of every hostile npc of level 8+ none within 40 yd of 47.7,67.0 (live frame)"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-darkhound-blood-west-of-brill",
+			"quest": 367,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 51.1,
+				"y": 50.5,
+				"frame": "era"
+			},
+			"note": "Cold Hearth Manor's step west of Brill at about 6.5 (recorded 25th percentile 6.6, 61 people): without a point the goal led among the Ravenous Darkhounds (9-10), Cursed Darkhounds (7-8) and Foothills Duskbats (12-13). The Decrepit Darkhounds (5-6) drop the blood and the hides too: the arrow points at them just west of Brill, with none of the 8+ within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Decrepit Darkhound 1547 (5-6) at 49-51,47-59; Cursed Darkhound 1548 (7-8), Ravenous Darkhound 1549 (9-10), Foothills Duskbat (12-13) none within 40 yd of 51.1,50.5"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-darkhound-hides-west-of-brill",
+			"quest": 97558,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 51.1,
+				"y": 50.5,
+				"frame": "era"
+			},
+			"note": "Cold Hearth Manor's step west of Brill at about 6.5 (recorded 25th percentile 6.6, 61 people): without a point the goal led among the Ravenous Darkhounds (9-10), Cursed Darkhounds (7-8) and Foothills Duskbats (12-13). The Decrepit Darkhounds (5-6) drop the blood and the hides too: the arrow points at them just west of Brill, with none of the 8+ within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Decrepit Darkhound 1547 (5-6) at 49-51,47-59; Cursed Darkhound 1548 (7-8), Ravenous Darkhound 1549 (9-10), Foothills Duskbat (12-13) none within 40 yd of 51.1,50.5"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-duskbat-pelts-north-of-brill",
+			"quest": 375,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 60.5,
+				"y": 43.1,
+				"frame": "era"
+			},
+			"note": "Brill's north loop at about 7 (recorded 25th percentile 7.2, 54 people): the Greater Duskbats (6-7) and Vampiric Duskbats (8-9) both drop the pelts and the wings; the arrow points at the Greater Duskbats north of Brill, with no Vampiric Duskbat within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Greater Duskbat 1553 (6-7) at 36.5-71.0,36.6-65.9; Vampiric Duskbat 1554 (8-9) none within 40 yd of 60.5,43.1"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-duskbat-wings-north-of-brill",
+			"quest": 97558,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 60.5,
+				"y": 43.1,
+				"frame": "era"
+			},
+			"note": "Brill's north loop at about 7 (recorded 25th percentile 7.2, 54 people): the Greater Duskbats (6-7) and Vampiric Duskbats (8-9) both drop the pelts and the wings; the arrow points at the Greater Duskbats north of Brill, with no Vampiric Duskbat within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Greater Duskbat 1553 (6-7) at 36.5-71.0,36.6-65.9; Vampiric Duskbat 1554 (8-9) none within 40 yd of 60.5,43.1"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-murloc-scales-north-shore",
+			"quest": 368,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 60.8,
+				"y": 28.4,
+				"frame": "era"
+			},
+			"note": "Brill's north loop at about 8 at the shore (recorded 25th percentile 8.2-8.8, 50 people): every Vile Fin drops the scales and the Minor Oracles (8-9) and Muckdwellers (9-10) the skins; the arrow points at the shore straight north of Brill, where Puddlejumpers (7-8) and Minor Oracles stand with no Muckdweller or Attacker within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Vile Fin Puddlejumper 1543 (7-8), Minor Oracle 1544 (8-9) around 58-62,27-29; Muckdweller 1545 (9-10) and Attacker 250283 (9-11) none within 40 yd of 60.8,28.4"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-murloc-skins-north-shore",
+			"quest": 97558,
+			"objective": 3,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 60.8,
+				"y": 28.4,
+				"frame": "era"
+			},
+			"note": "Brill's north loop at about 8 at the shore (recorded 25th percentile 8.2-8.8, 50 people): every Vile Fin drops the scales and the Minor Oracles (8-9) and Muckdwellers (9-10) the skins; the arrow points at the shore straight north of Brill, where Puddlejumpers (7-8) and Minor Oracles stand with no Muckdweller or Attacker within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Vile Fin Puddlejumper 1543 (7-8), Minor Oracle 1544 (8-9) around 58-62,27-29; Muckdweller 1545 (9-10) and Attacker 250283 (9-11) none within 40 yd of 60.8,28.4"
+				}
+			]
+		},
+		{
+			"id": "1575-hillsbrad-alliance-yeti-fur-caverns",
+			"quest": 565,
+			"objective": 4,
+			"faction": "Alliance",
+			"at": {
+				"map": 1424,
+				"x": 44.5,
+				"y": 29.4,
+				"frame": "era"
+			},
+			"note": "Bartolo's Yeti Fur Cloak: Yeti Fur drops from every Hillsbrad yeti, so the goal toured eleven spots, eight of them in the northern cave of Mountain and Giant Yetis (32-34) where The Abominable Greench (36, elite) roams, at a route level of 31. The Cave and Ferocious Yetis (30-32) of the Foothill Caverns carry it as often: the arrow points at their densest spot (16 of their 33 spawns within 2.5 map units), as for the Horde's Helcular's Rod (#1695).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 3720 Yeti Fur: dropped by 2248-2251; npcs.json spawns of 2248 and 2249 on map 1424 at 42-47,25-34, of 2250 and 2251 at 36-47,3-13"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 565.4 ticks by 5 people at 32-33"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-desolace-infused-burning-gem-thunder-axe",
+			"quest": 1435,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1443,
+				"x": 55.0,
+				"y": 26.5,
+				"frame": "era"
+			},
+			"note": "The Burning of Spirits (1435): the Infused Burning Gem is filled on any Burning Blade cultist, so the goal toured sixteen spots, half of them the Mannoroc Coven's Summoners and Invokers (38-40) in southern Desolace, at a route level of 33. The step is at Thunder Axe Fortress, whose cultists (30-33) are the ones meant: the arrow points at the fortress's densest spot.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "the goal's droppers: Burning Blade Augur, Reaver, Adept, Felsworn, Shadowmage, Seer (30-33) at Thunder Axe Fortress (Desolace 52-57,22-33); Burning Blade Summoner and Invoker (38-40) at 49-55,71-79 and 79-82,77-81"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-11: 1435.1 ticks by 4 people at 32-34"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-desolace-alliance-undead-ravagers-west",
+			"quest": 261,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1443,
+				"x": 61.1,
+				"y": 90.9,
+				"frame": "era"
+			},
+			"note": "Down the Scarlet Path's Undead Ravagers (261) on Desolace's south loop: the goal's arrow toured the bone fields of the Valley of Bones, where Magram Necrokhans and Corpsefeeders (45, elite; Shen'dralas spawns on the same ground) and Magram Necromancers (42) walk among the Ravagers, at a route level of 38.8. The arrow points at the fields' western edge, on a Ravager's spawn (3 Ravager spawns within 60 yd, 7 within 100, 13 within 150), with no elite or mob 3 levels over within 40 yd; 15 of the 18 people who killed Ravagers in the recordings did so within 60 yd of it.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json spawns: Undead Ravager (11561) on map 1443 at 58.3-65.2,81.5-92.1; Magram Necrokhan (253274), Corpsefeeder (253394) and Magram Necromancer (253272) on Shen'dralas (map 2652), over the bone fields at Desolace 59.6-65.9,85.1-94.2"
+				},
+				{
+					"kind": "recording",
+					"ref": "danger gate (players' recordings to 2026-11-12): the Ravagers done by 18 people at a median level of 38.0, nobody died within 60 yd"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-desolace-alliance-ghost-magnets-east",
+			"quest": 6134,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1443,
+				"x": 64.4,
+				"y": 91.7,
+				"frame": "era"
+			},
+			"note": "Ghost-o-plasm Round Up (6134) on Desolace's south loop: the Crate of Ghost Magnets' point (63.5,91.6) put it among Magram Necrokhans and Corpsefeeders (45, elite; Shen'dralas spawns over the Valley of Bones) at a route level of 38.8; players' recordings show 5 deaths within 60 yd of it. The crate works anywhere on the bone fields: the arrow points at the spot players used it on the fields' eastern side (Shen'dralas 33.5,29.0), 10 yd from the Magrami Spectre's spawn that drops the Ghost-o-plasm, with no elite within 40 yd; 59 of the 64 Ghost-o-plasm ticks in the recordings (all 8 people) came within 60 yd of it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: Ghost-o-plasm objective ticks of 8 people on the bone fields, one at Shen'dralas 33.6,28.9; danger gate: 5 and 3 deaths within 60 yd of the old Ghost Magnets and Ghost-o-plasm points"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json spawns: Magrami Spectre (11560) at Desolace 64.18,91.63; Magram Necrokhan (253274) and Corpsefeeder (253394) on Shen'dralas (map 2652), the nearest 41-47 yd from 64.4,91.7"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "desolace-alliance-kolkar-village-loop",
+			"quest": 1387,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1443,
+				"frame": "era",
+				"points": [
+					[71.5, 45.5],
+					[71.7, 41.6]
+				]
+			},
+			"note": "Centaur Bounty and Carved Centaur Totems share this step. Work the two Kolkar camps on the way to Nijel's Point: both have Centaurs, Scouts, Maulers, Windchasers and Battle Lords (30-35). A point by itself also offers other clans' camps nearby or on the map, including the Magram village with its level 39-43 guards. The loop keeps both goals and their target buttons in Kolkar Village. Anchor it on the ears so it does not change the later visit's separate totem step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings of 1387 (0.4.x followers of the guide): 2 people died 7 times at the Magram village (map 72-76,72-76) at levels 36.4-37.1, none at Kolkar Village; route review 0.4.3, Alliance 30-40"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json spawns on map 1443: Kolkar (4632-4637, 12976, 12977) only at 68-75,39-52; Magram Necromancer (253272) 59-66,75-86, Magram Guardian (255560) 65-72,73-83"
+				}
+			],
+			"pr": 3144
+		},
+		{
+			"id": "danger-desolace-centaur-totems-valley-of-spears",
+			"quest": 93225,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1443,
+				"x": 33.0,
+				"y": 54.0,
+				"frame": "era"
+			},
+			"note": "Carved Centaur Totems (93225): every Desolace centaur clan drops the totem, so the goal pointed at the Magram's village in the south-east, among Magram Necromancers (42-43) and Guardians (39-41), at a route level of 37. The step is the Valley of Spears west of Ghost Walker Post, whose Maraudine (36-39) drop it as well: the arrow points at the valley's eastern camps (where players' recordings show the totems collected), clear of the elite Rock Borers and Worms and the rare Cursed Centaur (40-43) at its south-western end.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "items 254432 droppers include the Maraudine Scout, Mauler, Windchaser and Wrangler; npcs.json Maraudine spawns at Desolace 30-34, 50-62"
+			}
+		},
+		{
+			"id": "danger-desolace-ghost-magnets-east-of-the-elites",
+			"quest": 6134,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1443,
+				"x": 64.4,
+				"y": 91.7,
+				"frame": "era"
+			},
+			"note": "Ghost-o-plasm Round Up (6134): the Valley of Bones is now part of Shen'dralas, and the old point (Desolace 63.5,91.6) put the Crate of Ghost Magnets among Magram Necrokhans and Corpsefeeders (45, elite) at a route level of 37; players' recordings show 8 deaths there. The crate works anywhere on the bone fields: players used it at this spot (Shen'dralas 33.6,28.9 on the zone's own map), on the valley's eastern side, kept on Desolace's map where the quest data places the spectres, with no elite or mob 3 levels over within 40 yd.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings: Ghost-o-plasm objective ticks of 8 people on Shen'dralas, one of them at 33.6,28.9; danger gate recordings: 5 and 3 deaths at the old point"
+			}
+		},
+		{
 			"id": "610-wetlands-fen-creepers",
 			"quest": 275,
 			"objective": 1,
 			"faction": "Alliance",
-			"at": {
+			"path": {
 				"map": 1437,
-				"x": 24.46,
-				"y": 33.18,
-				"frame": "era"
+				"frame": "era",
+				"points": [
+					[
+						47.6,
+						32.8
+					],
+					[
+						40.6,
+						32.9
+					],
+					[
+						35.6,
+						33.4
+					],
+					[
+						25.9,
+						31.9
+					]
+				]
 			},
-			"note": "Blisters on the Land: the Fen Creepers are hunted in the Sundown Marsh waterways, not the few by Rethiel the Greenwarden. In game the reporter ran out of creepers at the spot by the giver and found enough at 24.46,33.18; 8 of the 19 Fen Creeper spawns lie within 300 yd of it (18.5-27.4, 27.7-39.2), against 6 scattered over the east of the zone.",
+			"note": "Blisters on the Land: the Fen Creepers are hunted along the Wetlands' river and the Sundown Marsh waterways, not the few by Rethiel the Greenwarden. In game the reporter ran out of creepers at the spot by the giver and found enough at 24.46,33.18 (#610). Players' recordings (2026-11-09: 9 people, 101 kills) show the creepers killed all along the river from 48 to 35 (y 25-35) as well as at 24-26: the arrow now walks the river east to west from Einar Stonegrip's road, ending at the reporter's cluster, instead of crossing the zone to 24.46,33.18 and back to Rethiel (1,067 + 1,335 yd).",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -21,43 +648,119 @@
 				{
 					"kind": "questie",
 					"ref": "npcs.json 1040 spawns on map 1437"
+				},
+				{
+					"kind": "recording",
+					"ref": "objective 275.1 ticks, 9 people, 101 kills: 48,33 42,33 41,33 40,29 38,33 37,27 36,33 35,33 ... 24,31 (rec index 2026-11-09)"
 				}
 			],
 			"issue": 610
 		},
 		{
-			"id": "646-azshara-rimtori-camp",
-			"quest": 3505,
-			"objective": 3,
+			"id": "1695-helcular-rod-foothill-caverns",
+			"quest": 552,
+			"objective": 1,
+			"faction": "Horde",
 			"at": {
-				"map": 1447,
-				"x": 59.53,
-				"y": 31.47,
+				"map": 1424,
+				"x": 44.5,
+				"y": 29.4,
 				"frame": "era"
 			},
-			"note": "Betrayed: the arrow leads to Magus Rimtori's camp, the quest's discovery objective, once both kill objectives are credited.",
-			"source": {
-				"kind": "questie",
-				"ref": "quests.json 3505 objective 3 (the camp's event point)"
-			},
-			"pr": 646
+			"note": "Helcular's Rod drops from every yeti of the Hillsbrad hills (about one in sixteen), so the goal toured eleven spots, eight of them in the northern cave of Mountain and Giant Yetis (32-34) around the Flame of Uzel. The quest is taken at 29 on the 29-33 Hillsbrad guide, so players were sent to farm mobs 3-5 levels above them (#1695). The Cave and Ferocious Yetis (30-32) of the Foothill Caverns west of Tarren Mill carry it as often: the arrow now points at their densest spot (16 of their 33 spawns within 2.5 map units). Players' recordings: 18 people got the rod, 15 of them in the caverns, at levels 29-34 (median 31); the three who got it in the northern cave did so at 29 and 32.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 3708: dropped by 2248 Cave Yeti (30-31), 2249 Ferocious Yeti (31-32), 2250 Mountain Yeti (32-33), 2251 Giant Yeti (33-34), 6% each; npcs.json spawns of 2248 and 2249 on map 1424 at 42-47,25-34, of 2250 and 2251 at 36-47,3-13"
+				},
+				{
+					"kind": "recording",
+					"ref": "objective 552.1 ticks, 18 people (rec index 2026-11-11): 15 in the Foothill Caverns (Hillsbrad 42-47,27-33), 3 in the northern cave (Alterac 42-43,62-65)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1695: Kolbi, sent to farm 32-34 mobs at 29 for Helcular's Revenge"
+				}
+			],
+			"issue": 1695
 		},
 		{
-			"id": "646-silithus-silithyst-delivery",
-			"quest": 9422,
+			"id": "a043-wetlands-fire-taboo-flint-west-of-the-rotclaws",
+			"quest": 277,
 			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1437,
+				"frame": "era",
+				"points": [
+					[
+						45.34,
+						32.49
+					],
+					[
+						43.56,
+						34.58
+					]
+				]
+			},
+			"note": "Fire Taboo's Crude Flint (06-ashenvale's Ironbeard's Tomb step at about 24, and 06-wetlands' catch-up step for a character still short of it): the point stood at 51.2,30.9, among the Maddened Rotclaws (25-26) that roam the Green Belt east of x 50, where players following the guide kept dying at 24.0-24.8. It now sits on the Mosshide Fenrunners' and Trappers' camp along the river at 43-46,32-35 (22 of their spawns there, both drop the flint), on the walk from Rethiel to Ironbeard's Tomb, with no Rotclaw spawn between x 40 and 50. Both search markers are on the river. The Green Belt is not an alternative flint camp.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-19: 9 people following the guide died 26 times around 50-54,28-32 on Fire Taboo at levels 24.0-24.8 (5 of those deaths on 0.4.x)"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json: Mosshide Fenrunner 1010 (22-23) 14 and Mosshide Trapper 1011 (23-24) 8 spawns in 42-47,31-36; Maddened Rotclaw 271334 (25-26): 561 spawns, none west of x 50 (4 at 50-55, y 25-35, the rest further east)"
+				}
+			],
+			"pr": 3144
+		},
+		{
+			"id": "gh036-wetlands-nordel",
+			"quest": 98208,
+			"objective": 1,
+			"faction": "Alliance",
 			"at": {
-				"map": 1451,
-				"x": 50.93,
-				"y": 69.33,
+				"map": 1437,
+				"x": 12.2,
+				"y": 63.8,
 				"frame": "era"
 			},
-			"note": "Scouring the Desert: the arrow leads to the Horde Silithyst delivery point.",
-			"source": {
-				"kind": "questie",
-				"ref": "npcs.json 18199's spawn, the delivery credit"
+			"note": "Bloom of the Heavens: Nord'el lies on the shore just south of Menethil Harbor. The item comes from a ground object (questie-forever: object 670962) that our data has no spawn for, so the point is the players' recorded pick-up spot.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "objective 98208.1 ticks, 10 people, all at 12.1-12.3,63.6-63.9 on map 1437 (2026-11-09 archive)"
+				},
+				{
+					"kind": "questie",
+					"ref": "items.json 279915: dropped by object 670962"
+				}
+			]
+		},
+		{
+			"id": "gh036-ashenvale-kurothels-knapsack",
+			"quest": 98417,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1440,
+				"x": 81.7,
+				"y": 49.2,
+				"frame": "era"
 			},
-			"pr": 646
+			"note": "Vengeful Trail: the Vine-Wrapped Scroll comes from Kurothel's Knapsack by Satyrnaar's Circle of Imprisonment (the quest: 'amongst the Satyrnaar demons'). Its ground object has no spawn in our data, so the point is the recorded pick-up; check in game that it stays there.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "objective 98417.1 tick, 1 person, at 81.69,49.2 on map 1440 (2026-11-09 archive)"
+				},
+				{
+					"kind": "questie",
+					"ref": "items.json 281014: dropped by object 673431; quests.json 98417 objective text (Satyrnaar)"
+				}
+			]
 		},
 		{
 			"id": "646-mulgore-pyall",
@@ -65,8 +768,8 @@
 			"objective": 1,
 			"at": {
 				"map": 1412,
-				"x": 44.92,
-				"y": 61.67,
+				"x": 44.89,
+				"y": 61.65,
 				"frame": "live"
 			},
 			"note": "Camping 101: Cooking: the arrow leads to Pyall Silentstride.",
@@ -118,7 +821,7 @@
 					],
 					[
 						49.7,
-						58.0
+						58
 					],
 					[
 						47.3,
@@ -147,6 +850,53 @@
 			],
 			"issue": 674,
 			"pr": 678
+		},
+		{
+			"id": "1046-tirisfal-gordo-road-east",
+			"quest": 5481,
+			"objective": "giver",
+			"path": {
+				"map": 1420,
+				"frame": "era",
+				"points": [
+					[
+						43.1,
+						54.7
+					],
+					[
+						45.5,
+						56.6
+					],
+					[
+						47.3,
+						57.4
+					],
+					[
+						49.7,
+						58
+					],
+					[
+						51.8,
+						55.4
+					],
+					[
+						53.8,
+						53.1
+					]
+				]
+			},
+			"note": "Gordo's Task: Gordo walks the road between his spawn west of Cold Hearth Manor and Brill. The route takes his quest on the walk from the Solliden Farmstead into Brill (#1046), so the arrow searches along his road from the Solliden end east towards Brill, the way the player walks; the same road as 674-tirisfal-gordo-road, in the other direction.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#674"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature_movement_template, creature guid 28413 (entry 10666): waypoints 1, 13, 103, 25, 37 and 49"
+				}
+			],
+			"issue": 1046
 		},
 		{
 			"id": "692-darkshore-plagued-bears",
@@ -183,6 +933,26 @@
 			},
 			"issue": 303,
 			"pr": 692
+		},
+		{
+			"id": "a043-dwarven-paladin-linen-at-golbolar",
+			"quest": 1648,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1426,
+				"x": 67.18,
+				"y": 58.58,
+				"frame": "era"
+			},
+			"note": "Save ten Linen Cloth at the north Stonesplinter camps before the flight to Ironforge. A paladin who reaches John Turner short can farm Rockjaw Skullthumpers on the western edge of the quarry.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "Item 2589 drops from Stonesplinter Troggs and Scouts (1161, 1162) and Rockjaw Skullthumpers (1115). The Skullthumpers spawn at 67.18,58.58 and 67.09,59.71 in Dun Morogh."
+				}
+			],
+			"pr": 3144
 		},
 		{
 			"id": "692-dunmorogh-narm-faulk",
@@ -458,7 +1228,7 @@
 			"objective": 1,
 			"at": {
 				"map": 1433,
-				"x": 71.0,
+				"x": 71,
 				"y": 70.5,
 				"frame": "live"
 			},
@@ -479,13 +1249,33 @@
 			"id": "385-westfall-murloc-gills",
 			"quest": 92744,
 			"objective": 1,
-			"at": {
+			"path": {
 				"map": 1436,
-				"x": 43.5,
-				"y": 9.2,
-				"frame": "live"
+				"frame": "live",
+				"points": [
+					[
+						42.5,
+						10.5
+					],
+					[
+						45.5,
+						9.2
+					],
+					[
+						49.5,
+						9.5
+					],
+					[
+						53,
+						10.5
+					],
+					[
+						56,
+						9.2
+					]
+				]
 			},
-			"note": "Murloc Gills: the murlocs of the north coast are the quest's level; the warriors and hunters further south are three or four levels above it.",
+			"note": "Murloc Gills: the murlocs of the north coast are the quest's level; the warriors and hunters further south are three or four levels above it. Players loot the gills all along the north coast, not only at its west end (43.5,9.2, the single point before): recordings 2026-11-09, 31 people, 204 ticks at 42-56,9-11 (56,9 x13, 42,11 x12, 53,11 x10, 45,9 x8), more than half of them over 120 yd from 43.5,9.2. The arrow walks the beach west to east, toward the wardrobe and the Jansen Stead that come next.",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -494,6 +1284,10 @@
 				{
 					"kind": "questie",
 					"ref": "npcs.json Murloc Coastrunner/Raider spawns on the north coast"
+				},
+				{
+					"kind": "recording",
+					"ref": "objective 92744.1 ticks: 31 people, 204 ticks along 42-56,9-11 on map 1436 (rec index 2026-11-09)"
 				}
 			],
 			"issue": 385
@@ -824,6 +1618,1514 @@
 				}
 			],
 			"issue": 1003
+		},
+		{
+			"id": "1157-arathi-witherbark-tusks",
+			"quest": 691,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1417,
+				"x": 68.3,
+				"y": 75.2,
+				"frame": "era"
+			},
+			"note": "Worth Its Weight in Gold: the Witherbark Tusks are gathered in Witherbark Village, where the Shadow Hunter Knife drops too, not from the handful of Witherbark west of Refuge Pointe (9 trolls there against 96 in the village).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json spawns of the Witherbark trolls in Arathi Highlands (npc 2552-2557, 2605): 12 west of 50,x, 96 in and around Witherbark Village"
+				}
+			],
+			"pr": 1157
+		},
+		{
+			"id": "1157-arathi-witherbark-pouches",
+			"quest": 691,
+			"objective": 2,
+			"faction": "Alliance",
+			"at": {
+				"map": 1417,
+				"x": 68.3,
+				"y": 75.2,
+				"frame": "era"
+			},
+			"note": "Worth Its Weight in Gold: the Witherbark Medicine Pouches drop only from Witherbark Witch Doctors; 21 stand in Witherbark Village, 3 west of Refuge Pointe.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json spawns of the Witherbark trolls in Arathi Highlands (npc 2552-2557, 2605): 12 west of 50,x, 96 in and around Witherbark Village"
+				}
+			],
+			"pr": 1157
+		},
+		{
+			"id": "flow-feralas-oox22-beacon",
+			"quest": 2766,
+			"objective": "giver",
+			"faction": "Horde",
+			"at": {
+				"map": 1444,
+				"x": 53.4,
+				"y": 55.7,
+				"frame": "era"
+			},
+			"note": "Find OOX-22/FE!: the distress beacon drops from nearly every beast, gnoll and ogre in Feralas (about one kill in a hundred), so it is used at the robot's cave in Feral Scar Vale on the sweep, not on a ride to the Forgotten Coast's crawlers for it.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "items.json 8705 OOX-22/FE Distress Beacon: drops from about fifty Feralas creatures (Gordunni 5229-5240, Woodpaw 5258, Feral Scar yetis 5292-5295, ...), 1-2.5% each"
+				}
+			],
+			"pr": 1166
+		},
+		{
+			"id": "flow-feralas-materials-minerals",
+			"quest": 3128,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1444,
+				"x": 68.0,
+				"y": 47.5,
+				"frame": "era"
+			},
+			"note": "Natural Materials: the Encrusted Minerals come from the sprite darters in the grove just west of Camp Mojache (21 spawns around 68,47.5).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "items.json 9589 Encrusted Minerals: Sprite Darter 5278 80%; npcs.json 5278: 21 spawns on map 1444, mean 68.0,47.5"
+				}
+			],
+			"pr": 1166
+		},
+		{
+			"id": "flow-feralas-materials-logs",
+			"quest": 3128,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1444,
+				"x": 54.0,
+				"y": 47.2,
+				"frame": "era"
+			},
+			"note": "Natural Materials: the Splintered Logs drop from the Wandering Forest Walkers; the one at 54.0,47.2 stands on the ride west from the darters to the hippogryphs.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "items.json 9590 Splintered Log: Wandering Forest Walker 7584 80%; npcs.json 7584 spawns on map 1444: 44.0,23.0 54.0,47.2 57.4,73.3 73.5,54.6 73.9,38.8"
+				}
+			],
+			"pr": 1166
+		},
+		{
+			"id": "final-tanaris-tooga-torta",
+			"quest": 1560,
+			"objective": 1,
+			"at": {
+				"map": 1446,
+				"x": 66.58,
+				"y": 25.67,
+				"frame": "era"
+			},
+			"note": "Tooga's Quest: the escort ends when Tooga reaches his wife Torta in Steamwheedle Port, so the arrow (and the route search) puts its end there, not at Tooga's spawn in Thistleshrub Valley. Both factions: the Alliance route's bare complete sent the arrow back to the valley while Tooga walked to the port (#3557).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 6015 Torta: map 1446 66.58,25.67; quests.json 1560 objective: Torta (6015)"
+				}
+			],
+			"issue": 3557
+		},
+		{
+			"id": "1257-duskwood-pygmy-venom-web-spiders",
+			"quest": 245,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1431,
+				"x": 10.6,
+				"y": 55.4,
+				"frame": "era"
+			},
+			"note": "Eight-Legged Menaces: the Pygmy Venom Web Spiders are few and mixed with Venom Web Spiders and wolves. Of their 18 spawns along Duskwood's western edge, 9 lie within 7 map percent of 10.6,55.4 (the Hushed Bank west of Raven Hill), against 4-5 by Sven's camp in the north, where the arrow sent the reporter (8.5,43.7; 4/15 after a long search).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 539 spawns on map 1431"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1257: the reporter's /polestar where 8.09,41.43, 4 of 15 killed at the northern spot"
+				}
+			],
+			"issue": 1257
+		},
+		{
+			"id": "1312-98221-1",
+			"quest": 98221,
+			"objective": 1,
+			"write": true,
+			"faction": "Alliance",
+			"at": {
+				"map": 1437,
+				"x": 45.6,
+				"y": 42.7,
+				"frame": "era"
+			},
+			"note": "From the Ashes: Attack Plan: Menethil Harbor lies at 45.6,42.7 in the Dragonmaw camp, not by Chieftain Nek'rosh, where the step pointed (#1312).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings of 98221: objective 1 ticks at this spot for 3 of the 4 people who did it"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1312"
+				}
+			],
+			"issue": 1312
+		},
+		{
+			"id": "1312-98221-2",
+			"quest": 98221,
+			"objective": 2,
+			"write": true,
+			"faction": "Alliance",
+			"at": {
+				"map": 1437,
+				"x": 49.4,
+				"y": 46.8,
+				"frame": "era"
+			},
+			"note": "From the Ashes: Attack Plan: Thelsamar lies at 49.4,46.8 in the Dragonmaw camp, not by Chieftain Nek'rosh, where the step pointed (#1312).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings of 98221: objective 2 ticks at this spot for 3 of the 4 people who did it"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1312"
+				}
+			],
+			"issue": 1312
+		},
+		{
+			"id": "1312-98221-3",
+			"quest": 98221,
+			"objective": 3,
+			"write": true,
+			"faction": "Alliance",
+			"at": {
+				"map": 1437,
+				"x": 45.4,
+				"y": 45.7,
+				"frame": "era"
+			},
+			"note": "From the Ashes: Attack Plan: Southshore lies at 45.4,45.7 in the Dragonmaw camp, not by Chieftain Nek'rosh, where the step pointed (#1312).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings of 98221: objective 3 ticks at this spot for 3 of the 4 people who did it"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1312"
+				}
+			],
+			"issue": 1312
+		},
+		{
+			"id": "1312-98221-4",
+			"quest": 98221,
+			"objective": 4,
+			"write": true,
+			"faction": "Alliance",
+			"at": {
+				"map": 1437,
+				"x": 38.5,
+				"y": 46.1,
+				"frame": "era"
+			},
+			"note": "From the Ashes: Attack Plan: Ironforge lies at 38.5,46.1 in the Dragonmaw camp, not by Chieftain Nek'rosh, where the step pointed (#1312).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings of 98221: objective 4 ticks at this spot for 3 of the 4 people who did it"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1312"
+				}
+			],
+			"issue": 1312
+		},
+		{
+			"id": "1317-464-1",
+			"quest": 464,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1437,
+				"x": 45.5,
+				"y": 44.7,
+				"frame": "era"
+			},
+			"note": "War Banners: the Dragonmaw War Banners come from the Raiders (1034) and Swamprunners (1035) of the Dragonmaw camp north of Whelgar's dig, around 45.5,44.7. The banner also lists the elite Forever Dragonmaw (Infiltrators, Soulbinders and Reclaimers, 29-30, from 53,41 east to 78,47) as drop sources, so a goal without a place could lead a level 27 player among elites.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings of 464 to 2026-11-08: banner ticks by 5 people (2 established), their middle at 45.5,44.7; each tick that names a kill follows a Dragonmaw Raider (1034) or Swamprunner (1035), once a Bonewarder (1057), never an elite Dragonmaw"
+				}
+			],
+			"pr": 1317
+		},
+		{
+			"id": "1317-1016-1",
+			"quest": 1016,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1440,
+				"x": 49.6,
+				"y": 71.3,
+				"frame": "era"
+			},
+			"note": "Elemental Bracers: the Divined Scroll is made on the spot from five Intact Elemental Bracers (the Divining Scroll's spell), so the goal points where the Befouled Water Elementals wade in Mystral Lake; the old point, 46.6,69.6, was on the lake's west edge, about 70 yd from where players make it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings of 1016 to 2026-11-08: 9 people (3 established) did it; every Divined Scroll tick comes with a cast of the Divining Scroll's spell (6310), and the 7 ticks with a position lie at 47.5-51.9,69.8-72.2, their middle at 49.6,71.3"
+				}
+			],
+			"pr": 1317
+		},
+		{
+			"id": "1355-alterac-grimy-key",
+			"quest": 93680,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1416,
+				"x": 16.4,
+				"y": 89.3,
+				"frame": "live"
+			},
+			"note": "Key to the City: the Grimy Key (279469) is looted from an object, 670427, which the data knows only as the key's source, with no spawn. Every recorded player got it at Alterac Mountains 16.35-16.48,89.09-89.41, beside Prison Break In's traitors.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings: 6 people (4 established) ticked 93680.1 at 16.35-16.48,89.09-89.41 on map 1416; one recording logs the loot from object 670427 at 16.36,89.19"
+				},
+				{
+					"kind": "eg",
+					"ref": "players' caches (EG Link): item 279469 drops from object 670427"
+				}
+			],
+			"pr": 1355
+		},
+		{
+			"id": "zephras-aamelia-92679-ender",
+			"quest": 92679,
+			"objective": "ender",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players hand this quest in at the farmhouse; the arrow led to the other spawn, about 115 yd away.",
+			"source": { "kind": "recording", "ref": "turn-in windows of 92679 on map 2521: 12 of 12 at 46.4-47.0,81.6-82.2 (11 people)" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92682-ender",
+			"quest": 92682,
+			"objective": "ender",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players hand this quest in at the farmhouse; the arrow led to the other spawn, about 115 yd away.",
+			"source": { "kind": "recording", "ref": "turn-in windows of 92682 on map 2521: 10 of 13 at 46.4-47.0,81.6-82.2 (12 people), the rest at 47.5,78.6" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92683-ender",
+			"quest": 92683,
+			"objective": "ender",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players hand this quest in at the farmhouse; the arrow led to the other spawn, about 115 yd away.",
+			"source": { "kind": "recording", "ref": "turn-in windows of 92683 on map 2521: 11 of 14 at 46.4-47.0,81.6-82.2 (13 people), the rest at 47.5,78.6" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92684-ender",
+			"quest": 92684,
+			"objective": "ender",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players hand this quest in at the farmhouse; the arrow led to the other spawn, about 115 yd away.",
+			"source": { "kind": "recording", "ref": "turn-in windows of 92684 on map 2521: 10 of 14 at 46.4-47.0,81.6-82.2 (13 people), the rest at 47.5,78.6" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92685-ender",
+			"quest": 92685,
+			"objective": "ender",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players hand this quest in at the farmhouse; the arrow led to the other spawn, about 115 yd away.",
+			"source": { "kind": "recording", "ref": "turn-in windows of 92685 on map 2521: 11 of 14 at 46.4-47.0,81.6-82.2 (13 people), the rest at 47.5,78.6" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92698-ender",
+			"quest": 92698,
+			"objective": "ender",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players hand this quest in at the farmhouse; the arrow led to the other spawn, about 115 yd away.",
+			"source": { "kind": "recording", "ref": "turn-in windows of 92698 on map 2521: 9 of 13 at 46.4-47.0,81.6-82.2 (12 people), the rest at 47.5,78.6" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92682-giver",
+			"quest": 92682,
+			"objective": "giver",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players take this quest at the farmhouse.",
+			"source": { "kind": "recording", "ref": "accept windows of 92682 on map 2521: 12 of 12 at 46.4-47.0,81.6-82.2 (11 people)" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92683-giver",
+			"quest": 92683,
+			"objective": "giver",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players take this quest at the farmhouse.",
+			"source": { "kind": "recording", "ref": "accept windows of 92683 on map 2521: 12 of 12 at 46.4-47.0,81.6-82.2 (11 people)" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92684-giver",
+			"quest": 92684,
+			"objective": "giver",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players take this quest at the farmhouse.",
+			"source": { "kind": "recording", "ref": "accept windows of 92684 on map 2521: 12 of 12 at 46.4-47.0,81.6-82.2 (11 people)" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92685-giver",
+			"quest": 92685,
+			"objective": "giver",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players take this quest at the farmhouse.",
+			"source": { "kind": "recording", "ref": "accept windows of 92685 on map 2521: 9 of 14 at 46.4-47.0,81.6-82.2 (13 people), the rest at 47.5,78.6" },
+			"pr": 1415
+		},
+		{
+			"id": "zephras-aamelia-92693-giver",
+			"quest": 92693,
+			"objective": "giver",
+			"at": { "map": 2521, "x": 46.7, "y": 81.95, "frame": "live" },
+			"note": "Aamelia Windfield (npc 252800) has two spawns: by her farmhouse (46.7,81.95) and up the field (47.41,78.94, where Standing Our Ground ends). Players take Standing Our Ground at the farmhouse; its hand-in, after the fight, stays up the field with the data.",
+			"source": { "kind": "recording", "ref": "accept windows of 92693 on map 2521: 11 of 14 at 46.4-47.0,81.6-82.2 (13 people), the rest at 47.5,78.6" },
+			"pr": 1415
+		},
+		{
+			"id": "westfall-old-murk-eye",
+			"quest": 104,
+			"objective": 1,
+			"at": {
+				"map": 1436,
+				"x": 33.7,
+				"y": 83.9,
+				"frame": "live"
+			},
+			"note": "The Coastal Menace: Old Murk-Eye is killed on the beach just north-east of the lighthouse (32-35,83-86), not at his one spawn point in the data (29.27,75.95, about 240 yd north), where the arrow led.",
+			"source": {
+				"kind": "recording",
+				"ref": "kills of npc 391 on map 1436: 5 people, 19 kills at 32-35,83-86; the scale's objective ticked at 32-34,83-84 (5 people)"
+			},
+			"pr": 1415
+		},
+		{
+			"id": "zephras-small-eggs-meadow",
+			"quest": 92553,
+			"objective": 1,
+			"at": {
+				"map": 2521,
+				"x": 42.1,
+				"y": 39.4,
+				"frame": "live"
+			},
+			"note": "Restocking the Larders: players loot most Small Eggs from the Galestriders in the grass just west of Shen'dar Village (19 of 35 ticks, 9 of 12 people, median 42.1,39.4), where the meat comes from too; the arrow led to the hippogryph nests west of Falaath (the higher drop rate, but a walk of its own). Both steps' tips already name the Galestriders.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "objective 92553.1 ticks on map 2521: 35 by 12 people; 19 (9 people) at 39-47,36-46, median 42.1,39.4; 6 at 35-37,51-53 (hippogryphs)"
+				},
+				{
+					"kind": "questie",
+					"ref": "items.json 6889 drops: Galestrider 251661 (16.9%), spawns at 40.9,36.7 and 42.8,41.35 beside the median"
+				}
+			],
+			"pr": 1415
+		},
+		{
+			"id": "1414-durotar-spitelash-beach",
+			"quest": 99051,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1411,
+				"x": 58.9,
+				"y": 27.0,
+				"frame": "era"
+			},
+			"note": "Threat from Below: the Naga Spinefins drop from the Spitelash Scouts and Attendants on the beach below Drygulch Ravine. The goal's nearest spawn from Razor Hill was a lone Attendant point at 53.8,34.6, inland by the road, where no recorded player ever saw, killed or looted a naga, so the arrow led there first.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-09: 161 ticks of 99051.1 by 17 people at 57.0-60.2,22.2-29.7 (map 1411), their middle at 58.9,27.0; 393 Attendant and 400 Scout kills, none within 200 yd of 53.8,34.6"
+				}
+			],
+			"pr": 1414
+		},
+		{
+			"id": "1414-zephras-alaketh-ears",
+			"quest": 93165,
+			"objective": 1,
+			"at": {
+				"map": 2521,
+				"x": 63.7,
+				"y": 37.1,
+				"frame": "live"
+			},
+			"note": "Mercy Falls on Deaf Ears: the Al'Aketh Cultist's Ears come from the Al'Aketh Stormchasers and Footsoldiers of the camp beside Vayn Moongaze. The item's drop list rates the cult's other members higher (Guardians, Skypriests, Brawlers, Pillagers, Spiritcallers), and those stand only in the cult's southern camps, so every spot the goal offered was 200 yd or more from where players loot the ears.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-09: 70 ticks of 93165.1 by 13 people at 62.1-65.7,35.7-39.1 (map 2521), their middle at 63.7,37.1; loot windows on the quest: Stormchaser 252664 35 of 128 held an ear, Footsoldier 252665 7 of 37; no other Al'Aketh was looted on the quest"
+				}
+			],
+			"pr": 1414
+		},
+		{
+			"id": "1414-hillsbrad-vial-west",
+			"quest": 98095,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1416,
+				"x": 38.6,
+				"y": 94.8,
+				"frame": "live"
+			},
+			"note": "Valuable Vantages, the western peak: the vial is placed at the top of the mountain north of Hillsbrad town, on the Alterac border, about 160 yd further up than the old point 38.4,87.2 (issue #1432: 'further up the mountain is correct', at 38.60,94.82).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-09: 9 ticks of 98095.1 by 9 people on map 1416, their middle at 38.60,94.78; 8 of 9 within 0.3 of it"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "issue #1432 (Pilk): the right spot 38.60,94.82 live"
+				}
+			],
+			"issue": 1432
+		},
+		{
+			"id": "1414-hillsbrad-vial-north",
+			"quest": 98095,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1424,
+				"x": 71.6,
+				"y": 30.2,
+				"frame": "live"
+			},
+			"note": "Valuable Vantages, the northern peak: the vial is placed at 71.6,30.2, about 30 yd from the old point 72.3,31.2 (issue #1433: 'the mark is 28 m away').",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-09: 10 ticks of 98095.2 by 10 people, their middle at 71.64,30.18"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "issue #1433 (Pilk): the right spot 71.62,30.18 live"
+				}
+			],
+			"issue": 1433
+		},
+		{
+			"id": "1414-hillsbrad-vial-south",
+			"quest": 98095,
+			"objective": 3,
+			"faction": "Horde",
+			"at": {
+				"map": 1424,
+				"x": 74.1,
+				"y": 73.4,
+				"frame": "live"
+			},
+			"note": "Valuable Vantages, the southern peak: swept with #1432/#1433; the recorded placements sit at 74.1,73.4, about 18 yd from the old point 73.8,72.7.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-09: 10 ticks of 98095.3 by 10 people, their middle at 74.11,73.38"
+				}
+			],
+			"issue": 1433
+		},
+		{
+			"id": "a3040-wetlands-razormaw-eggs",
+			"quest": 98246,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1437,
+				"x": 69.2,
+				"y": 32.7,
+				"frame": "era"
+			},
+			"note": "Trying Times: the Perfect Razormaw Eggs are looted from nest objects (671892, 671931) with no spawns in our data; players' objective ticks cluster at 67.8-70.0, 27.3-36.6 (2 people, 19 ticks, around Carnage's hill) and 34.4-39.0, 12.1-25.1 (1 person). The point is the eastern cluster, on 30-40/01's raptor and whelp sweep.",
+			"source": {
+				"kind": "recording",
+				"ref": "prog:98246.1 objective ticks in players' recordings (3 people)"
+			},
+			"pr": 1421
+		},
+		{
+			"id": "1752-stv-thorsen-road-giver",
+			"quest": 215,
+			"objective": "giver",
+			"faction": "Alliance",
+			"at": {
+				"map": 1434,
+				"x": 40.3,
+				"y": 8.4,
+				"frame": "era"
+			},
+			"note": "Jungle Secrets: Private Thorsen offers it only while he is outside the Rebel Camp (area 99): at the foot of the path by the road (40.3,8.4), where two Kurzen's Agents ambush him on his half-hourly walk down, for the ~3.5 minutes he waits there. #1425 had moved the arrow to his camp spot (38.0,3.4), where he never offers it (#1752). His hand-in of Supplies to Private Thorsen (198) stays at the camp spot.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "conditions: source type 19 (quest available) 215, type 23 (area) 99, negated: only while Private Thorsen is not in area 99; creature 738's waypoint 23 summons two Kurzen's Agent (775)"
+				},
+				{
+					"kind": "recording",
+					"ref": "Private Thorsen's (738) windows in players' recordings (to 2026-11-11): all 9 that offered Jungle Secrets at 40.3,8.4; at the camp spot (37.9-38.9,3.3-5.0) only refusals"
+				}
+			],
+			"issue": 1752
+		},
+		{
+			"id": "1425-stv-thorsen-camp-ender",
+			"quest": 198,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1434,
+				"x": 38.0,
+				"y": 3.4,
+				"frame": "era"
+			},
+			"note": "Supplies to Private Thorsen: Private Thorsen stands at the top of the Rebel Camp's path (38.0,3.4) for about 28 minutes of each ~36-minute round, then walks down to the road (40.3,8.4) and back; the arrow leads to his camp spot. (Jungle Secrets is the other way round: see 1752-stv-thorsen-road-giver.)",
+			"source": {
+				"kind": "tdb",
+				"ref": "creature 20002243 (entry 738) waypoint_path 800022430"
+			},
+			"issue": 1425
+		},
+		{
+			"id": "a3040-stv-stone-of-the-tides",
+			"quest": 578,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1434,
+				"x": 21.9,
+				"y": 22.4,
+				"frame": "era"
+			},
+			"note": "The Stone of the Tides: the objective ticks when the player reaches the haunted island; players' ticks land at 21.9,22.4 (2 people), 78 yd from the old point 20.8,23.2 (out at sea); the arrow now leads to where it ticked.",
+			"source": {
+				"kind": "recording",
+				"ref": "quest 578 objective ticks in players' recordings: 2 people, nearest at 21.9,22.4"
+			},
+			"pr": 1421
+		},
+		{
+			"id": "horde-3040-questioning-reethe",
+			"quest": 1273,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1445,
+				"x": 42.6,
+				"y": 38.1,
+				"frame": "era"
+			},
+			"note": "Questioning Reethe: Ogron walks to Paval Reethe's tent (Reethe 4980 at 42.65,38.07) and the fight is there; the guide's bare complete had nowhere to point (lint).",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 4980 Paval Reethe at Dustwallow 42.65,38.07; quests.json 1273 event point 42.47,38.07"
+			}
+		},
+		{
+			"id": "horde-3040-the-affray-grate",
+			"quest": 1719,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1413,
+				"x": 68.6,
+				"y": 48.7,
+				"frame": "era"
+			},
+			"note": "The Affray: the fight starts on the grate at Fray Island, where Big Will (6238) comes; the guide's bare complete had nowhere to point (lint).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 6238 Big Will at The Barrens 68.61,48.72; quests.json 1719 event 522 at 68.6,48.72"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings: The Affray completed at The Barrens 68.6,48.7 (1 person)"
+				}
+			]
+		},
+		{
+			"id": "horde-3040-rock-elementals-agmonds-end",
+			"quest": 711,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1418,
+				"x": 40.4,
+				"y": 77.1,
+				"frame": "era"
+			},
+			"note": "Study of the Elements: Rock (711): the Rock Elementals (92) that drop the Large Stone Slabs stand in two groups, 12-17,32-36 by Kargath and 35-46,74-88 beside Agmond's End; the Horde route works them beside Agmond's End, where it goes for Theldurin, and hands them to Lotwil on the way back to Kargath.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 92 spawns on map 1418; items.json 4627 drops from 92 (100%)"
+			}
+		},
+		{
+			"id": "horde-3040-stv-shadowmaw-panthers",
+			"quest": 192,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1434,
+				"x": 41.3,
+				"y": 34.8,
+				"frame": "era"
+			},
+			"note": "Panther Mastery (192): the Shadowmaw Panthers (684) spawn at Stranglethorn 35-51,20-45, median 41.2,34.8, east of the Mosh'Ogg hills by Grom'gol; the Horde guide kills them with the claws and fangs of Mok'thardin's Enchantment, one sweep (Horde 30-40 audit, 2026-11-09).",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 684 spawns on map 1434 (spawn at 41.3,34.76)"
+			}
+		},
+		{
+			"id": "1149-stv-skullsplitter-tusks",
+			"quest": 209,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1434,
+				"x": 45.4,
+				"y": 36.2,
+				"frame": "era"
+			},
+			"note": "Skullsplitter Tusks (209): every Skullsplitter troll drops the tusks (about one kill in five), and the Horde step works their warriors' camp north of the Zul'Mamwe ruins (the warriors, axe throwers and mystics spawn at 42-49,30-42, 24 places each). The data also has the lone Skullsplitter Panther at 45.6,41.6 dropping it at 100%, which put the arrow on that one panther, 230 yd south of the camp the step leads to; the point stays on the trolls' camp.",
+			"source": {
+				"kind": "questie",
+				"ref": "npcs.json 667, 696, 780 spawns on map 1434; items.json 1524 drops (trolls 21%, 756 Skullsplitter Panther 100%, one spawn)"
+			},
+			"issue": 1149
+		},
+		{
+			"id": "missing-diplomat-1265-tervosh-sentry-point",
+			"quest": 1265,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1445,
+				"x": 59.7,
+				"y": 41.2,
+				"frame": "era"
+			},
+			"note": "The Missing Diplomat (1265): Archmage Tervosh takes it at the foot of Sentry Point's tower, where the quest's exploration ticks (59.9,40.9), not in Theramore's tower (66.4,49.3), the only spot the data has. Players' recordings: 4 of 4 people handed it in to him there, 3-10 s after the exploration ticked; nobody handed it in in Theramore. Forever's NPC page lists him at 59.6,41.2, at North Point Tower (45.2,24.4) and in Theramore. The guide hands it in on the spot.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 1265 at npc 4967, 1445 59.69-59.71,41.17-41.22: 20261107T230704Z-0508863063f76280, 20261108T160150Z-de3dc8531bec2328, 20261109T021334Z-c8c643866e0796f3, 20261109T192734Z-4f169629ddd9bab0"
+				}
+			]
+		},
+		{
+			"id": "missing-diplomat-1266-tervosh-sentry-point",
+			"quest": 1266,
+			"objective": "giver",
+			"faction": "Alliance",
+			"at": {
+				"map": 1445,
+				"x": 59.7,
+				"y": 41.2,
+				"frame": "era"
+			},
+			"note": "The Missing Diplomat (1266): taken from Archmage Tervosh at Sentry Point right after 1265 is handed in to him there (4 of 4 people in players' recordings), not in Theramore.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "accept 1266 at npc 4967, 1445 59.69-59.71,41.17-41.22, the same 4 sessions as 1265's hand-in"
+				}
+			]
+		},
+		{
+			"id": "missing-diplomat-1324-tervosh-north-point",
+			"quest": 1324,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1445,
+				"x": 45.2,
+				"y": 24.4,
+				"frame": "era"
+			},
+			"note": "The Missing Diplomat (1324): Archmage Tervosh and Lady Jaina Proudmoore stand beside North Point Tower, where Private Hendel yields; 3 of 3 people in players' recordings handed 1324 in to Tervosh there (45.19-45.22,24.37-24.38) seconds after Hendel yielded, and nobody in Theramore's tower, the only spot the data has. Forever's NPC pages list both at North Point Tower as well as in Theramore. The guide hands it in on the spot.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 1324 at npc 4967: 20261108T160150Z-de3dc8531bec2328, 20261109T021334Z-c8c643866e0796f3, 20261109T192734Z-4f169629ddd9bab0; Tervosh and Jaina also moused over at 45.2,24.4 before Hendel's fight in 3 sessions"
+				}
+			]
+		},
+		{
+			"id": "missing-diplomat-1267-jaina-north-point-giver",
+			"quest": 1267,
+			"objective": "giver",
+			"faction": "Alliance",
+			"at": {
+				"map": 1445,
+				"x": 45.2,
+				"y": 24.3,
+				"frame": "era"
+			},
+			"note": "The Missing Diplomat (1267): Lady Jaina Proudmoore gives and takes it beside North Point Tower right after 1324 (3 of 3 people in players' recordings, 2-6 s after 1324), not in Theramore's tower.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 1267 at npc 4968, 1445 45.21-45.24,24.30-24.31: 20261108T160150Z-de3dc8531bec2328, 20261109T021334Z-c8c643866e0796f3, 20261109T192734Z-4f169629ddd9bab0"
+				}
+			]
+		},
+		{
+			"id": "missing-diplomat-1267-jaina-north-point-ender",
+			"quest": 1267,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1445,
+				"x": 45.2,
+				"y": 24.3,
+				"frame": "era"
+			},
+			"note": "The Missing Diplomat (1267): handed in to Lady Jaina Proudmoore beside North Point Tower (3 of 3 people in players' recordings), see the giver record.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 1267 at npc 4968, the same 3 sessions"
+				}
+			]
+		},
+		{
+			"id": "loch-modan-kadrell-414-ender",
+			"quest": 414,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1432,
+				"x": 33.8,
+				"y": 48.3,
+				"frame": "era"
+			},
+			"note": "Stout to Kadrell (414): Mountaineer Kadrell walks the road through Thelsamar (his spawn 34.17,47.84, a 97 yd walk). The point stands within 15 yd of his spawn so the compiler draws his walk, and within 50 yd of the data's point (32.63,49.74, the south end of the road, where few players met him); players handed it in along the road, median about 34.3,47.8 (14 people).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 414 at npc 1340: 14 people, 32.6-36.8,42.1-49.9"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature spawn and waypoint walk of entry 1340 (data/forever/moves.json)"
+				}
+			]
+		},
+		{
+			"id": "loch-modan-kadrell-416-giver",
+			"quest": 416,
+			"objective": "giver",
+			"faction": "Alliance",
+			"at": {
+				"map": 1432,
+				"x": 33.8,
+				"y": 48.3,
+				"frame": "era"
+			},
+			"note": "Rat Catching (416): Mountaineer Kadrell walks the road through Thelsamar; see loch-modan-kadrell-414-ender (17 people took it along the road).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "accept 416 at npc 1340: 17 people along the road"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "entry 1340's walk (moves.json)"
+				}
+			]
+		},
+		{
+			"id": "loch-modan-kadrell-416-ender",
+			"quest": 416,
+			"objective": "ender",
+			"faction": "Alliance",
+			"at": {
+				"map": 1432,
+				"x": 33.8,
+				"y": 48.3,
+				"frame": "era"
+			},
+			"note": "Rat Catching (416): handed in to Mountaineer Kadrell on his walk through Thelsamar (14 people); see loch-modan-kadrell-414-ender.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "turnin 416 at npc 1340: 14 people along the road"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "entry 1340's walk (moves.json)"
+				}
+			]
+		},
+		{
+			"id": "loch-modan-kadrell-1339-giver",
+			"quest": 1339,
+			"objective": "giver",
+			"faction": "Alliance",
+			"at": {
+				"map": 1432,
+				"x": 33.8,
+				"y": 48.3,
+				"frame": "era"
+			},
+			"note": "Mountaineer Stormpike's Task (1339): taken from Mountaineer Kadrell on his walk through Thelsamar (16 people); see loch-modan-kadrell-414-ender.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "accept 1339 at npc 1340: 16 people along the road"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "entry 1340's walk (moves.json)"
+				}
+			]
+		},
+		{
+			"id": "arathi-forsaken-courier-road",
+			"quest": 658,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1417,
+				"frame": "era",
+				"points": [
+					[
+						61.3,
+						59.4
+					],
+					[
+						57.8,
+						62.5
+					],
+					[
+						52.5,
+						61.5
+					],
+					[
+						45.4,
+						58.6
+					],
+					[
+						40.3,
+						54.8
+					],
+					[
+						35.6,
+						52.5
+					],
+					[
+						32.0,
+						51.9
+					],
+					[
+						27.8,
+						49.3
+					],
+					[
+						24.4,
+						44.7
+					]
+				]
+			},
+			"note": "Hints of a New Plague? (658): the Forsaken Courier (2714) who carries the Sealed Folder walks the road from Go'Shek Farm west across the Highlands and back with two guards. The data has one spawn (52.47,61.53) and the step pointed there; players met him anywhere along the road. The arrow searches the road from the farm, where the route comes from (Quae), west to the far end of his walk. Points from where players met him.",
+			"source": [
+				{
+					"kind": "cmangos",
+					"ref": "creature 2714's waypoint walk, 1,426 yd around world -831.7,-1889.4 (data/forever/moves.json); Forever TDB guid 20014772 MovementType 2"
+				},
+				{
+					"kind": "recording",
+					"ref": "npc 2714 met by 10 people at 61.3,59.4, 57.8,62.5, 56.5,63.0, 45.4,58.6, 43.5,51.8, 40.3,54.8, 39.7,54.6, 35.6,52.5, 32.0,51.9, 27.8,49.3, 25.2,46.4 and 23.6,43.0; the folder looted at 61.4,61.0 and 60.5,59.0"
+				}
+			]
+		},
+		{
+			"id": "badlands-boss-thogrun-loop",
+			"quest": 732,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1418,
+				"frame": "era",
+				"points": [
+					[
+						38.8,
+						56.1
+					],
+					[
+						31.5,
+						58.7
+					],
+					[
+						24.7,
+						56.7
+					],
+					[
+						18.2,
+						60.8
+					],
+					[
+						12.5,
+						67.5
+					],
+					[
+						12.7,
+						75.5
+					],
+					[
+						20.1,
+						78.5
+					],
+					[
+						30.2,
+						73.5
+					],
+					[
+						41.6,
+						72.2
+					],
+					[
+						51.2,
+						73.4
+					],
+					[
+						61.4,
+						69.3
+					],
+					[
+						54.0,
+						58.6
+					],
+					[
+						48.8,
+						48.7
+					]
+				]
+			},
+			"note": "Tremors of the Earth (732): Boss Tho'grun (2944), who drops the Sign of the Earth, walks a long loop around the Badlands with his guards: from Camp Boff (his spawn, 12.6,75.5, the only point the data has) east along the south of the zone to about 61,69, north to about 49,49 and back west. The step said he stands in the camp. The arrow searches his loop from the Valley of Fangs (where the route comes from Rigglefuzz) west to the camp and round, in his own walking direction. Points are nodes of his waypoint path.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature guid 20007209 (entry 2944) MovementType 2, waypoint_path 800072090: 102 nodes from 12.7,75.5 to 61.4,69.3 and 48.8,48.7 (Badlands, Era frame)"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature 2944's waypoint walk, 642 yd around world -6944,-2988 (data/forever/moves.json)"
+				},
+				{
+					"kind": "factoruide",
+					"ref": "npc 2944: 574 sighting rows spread over the Badlands"
+				}
+			]
+		},
+		{
+			"id": "1575-burning-steppes-broodling-essence",
+			"quest": 4726,
+			"objective": 1,
+			"at": {
+				"map": 1428,
+				"x": 81.0,
+				"y": 28.0,
+				"frame": "era"
+			},
+			"note": "Broodling Essence: the Draco-Incarcinatrix is used on a Black Broodling, whose spawns are on the slopes east of Flame Crest (81-92,26-39); the Alliance guide's point at 72.4,28.2 stood among Fel Interlopers (55) and Flamekin (54) with no broodling near. 81.0,28.0 is beside a broodling spawn (81.0,28.2), where the Horde guide's point already is (#1575 sweep, 0.4.0 audit).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 7047 Black Broodling 51: 14 spawns at 81.0-91.9,26.5-62.1 in the Burning Steppes; Fel Interlopers (55) and Flamekin (54) at 69-72,26-32"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "azshara-3505-surveyors-east",
+			"quest": 3505,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1447,
+				"x": 56.2,
+				"y": 29.9,
+				"frame": "era"
+			},
+			"note": "Betrayed (3505): the arrow for the Blood Elf Surveyors points at the camp's east side (four surveyors within 40 yd, no elite), away from the one Blackmaw Thrall (level 55-57 elite) that stands at the camp's west edge. Danger-at-the-spot gate (#1575): the surveyor spawn beside him flagged an elite 3.6 levels over the route there.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 6198 Blood Elf Surveyor spawns in Azshara 55.4-58.8,26.5-31.2; 250023 Blackmaw Thrall (55-57, elite) at 54.81,26.03"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "winterspring-4741-moontouched-north",
+			"quest": 4741,
+			"objective": 1,
+			"at": {
+				"map": 1452,
+				"x": 64.9,
+				"y": 17.8,
+				"frame": "era"
+			},
+			"faction": "Horde",
+			"note": "Wild Guardians (4741): the arrow for the Moontouched Owlbeasts points at the slopes north of Everlook, where the step's tip sends players, not at their southern spawns beside the Hailspite (level 60 elites) south-east of town. Danger-at-the-spot gate (#1575).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 7453 Moontouched Owlbeast: 12 spawns at 62-68,15-25 and more at 59-68,57-63; 269213 Hailspite (60, elite) at 65.6-67.9,54.6-59.4"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "felwood-5086-toxic-horrors-north-tip",
+			"quest": 5086,
+			"objective": 1,
+			"at": {
+				"map": 1448,
+				"x": 50.6,
+				"y": 22.4,
+				"frame": "era"
+			},
+			"note": "Toxic Horrors (5086), both factions: the arrow points at the Toxic Horror farthest from the Ancient Irontree Walkers (level 59 elites), at the north tip of Irontree Woods (about 63 yd from the nearest walker). Their spawns overlap the Horrors' almost exactly, and one recorded player died there on each faction's route. Danger-at-the-spot gate (#1575).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 7132 Toxic Horror spawns at 48.1-51.1,22.5-27.4; 235912 Ancient Irontree Walker (59, elite) at 47.0-50.3,23.9-28.8; 14524 Vartrus the Ancient (63, elite) at 47.78,24.08"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index (danger recordings): 1 death within 60 yd of the Toxic Horrors goal on each faction's route"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "2615-needles-test-of-faith-planks",
+			"quest": 1149,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1441,
+				"x": 26.43,
+				"y": 32.93,
+				"frame": "era"
+			},
+			"note": "Test of Faith (1149): taking it from Dorn Plainstalker puts the player on a high cliff in western Thousand Needles, and the leap counts only from the end of the wooden planks there (the game's area trigger 246, the objective's point). The complete goal had no point, so the arrow led back to Dorn, 1,250 yd east, and a player jumped from the wrong spot and died.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2615 (xstevan, 0.4.0): /polestar where 1441 @26.43,31.23 right after taking the quest, 50 yd from the planks' trigger; the arrow pointed 1,248 yd away and the jump from there killed him"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "quests.json 1149 objective: event 246 at map 1441 26.43,32.93 (era)"
+				}
+			],
+			"issue": 2615
+		},
+		{
+			"id": "2650-hillsbrad-citizen-wilkes",
+			"quest": 567,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1424,
+				"x": 30.6,
+				"y": 40.5,
+				"frame": "era"
+			},
+			"note": "Dangerous! (567): Citizen Wilkes walks the west side of Hillsbrad Fields' town, where players kill him (forever-db/corrections/npcs.json 2449); the goal's point was his Classic spawn at 32.62,39.79, where nobody met him.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-16): 72 people killed Citizen Wilkes, all between 29-31,38-43"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2650 (Sable, 0.4.0): found him at 30.65,40.49"
+				}
+			],
+			"issue": 2650
+		},
+		{
+			"id": "2604-stv-skullsplitter-tusks-alliance",
+			"quest": 209,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1434,
+				"x": 45.4,
+				"y": 36.2,
+				"frame": "era"
+			},
+			"note": "Skullsplitter Tusks (209), Alliance: every Skullsplitter troll drops the tusks (about one kill in five), and their warriors, axe throwers and mystics camp in the ruins of Zul'Mamwe (42-49,30-42, 24 places each), as the Horde step already points (1149-stv-skullsplitter-tusks). The Alliance goal had the lone Skullsplitter Panther (100%, one spawn) as its point and two named trolls far north at Zul'Kunda (Gan'zulah and Nezzliok, 80%) as a place to search, so a player north of the ruins was sent to Zul'Kunda, where hardly any Skullsplitters are. With the point on the trolls' camp, Zul'Kunda is only an alternative, as for the Horde.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 667, 696, 780 spawns on map 1434; items.json 1524 drops (trolls 21%, 756 Skullsplitter Panther 100%, 1061 Gan'zulah and 1062 Nezzliok the Dire 80%, at Zul'Kunda 23.4-23.5,8.1-9.5)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2604 (Amerigo, 0.4.0): the arrow's third spot was at Zul'Kunda (23.5,8.8), which has no reliable number of Skullsplitter trolls; it should aim at Zul'Mamwe"
+				}
+			],
+			"issue": 2604
+		},
+		{
+			"id": "2712-riverglades-stick-em-river",
+			"quest": 95955,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 2548,
+				"x": 51.75,
+				"y": 51.97,
+				"frame": "live"
+			},
+			"note": "Stick 'Em (95955): Tan'jani's spears are used on the Freshwater Crocolisks in the river south-west of Rog'mar. The goal pointed at 51.9,57.1, on the farmland south of the river, where no recorded player impaled one; the point is now the busiest place on the river on the way from Rog'mar to the Farholde camp.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17 (data/recorded/quests.json 95955): the objective ticks at 45.88,58.59 (12 people), 51.75,51.97 (10, within 16 yd), 54.38,49.57 (9) and further along the river; none at 51.9,57.1"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2712 (stabaho, 0.4.0.1): crocs in the river at 52.83,53.08, the arrow pointed at a farm"
+				}
+			],
+			"issue": 2712
+		},
+		{
+			"id": "2694-stv-kurzen-supply-crate",
+			"quest": 97047,
+			"objective": 2,
+			"faction": "Alliance",
+			"at": {
+				"map": 1434,
+				"x": 49.6,
+				"y": 7.7,
+				"frame": "era"
+			},
+			"note": "The Cook in the Cage (97047): the Kurzen Fighter's Uniform comes from the Kurzen Supply Crate (object 424002) deep in the cave at the east end of Kurzen's Compound. The goal pointed at 50.0,8.0, about 25 yd off the crate; with no height either, the walk ended on the hill above the cave. The point is the crate's spawn; its floor is in data/goal-heights.json (2694-stv-kurzen-supply-crate).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: 38 people looted the uniform at 49.52-49.72,7.65-7.87, and the position samples around each loot read indoors"
+				},
+				{
+					"kind": "questie",
+					"ref": "objects.json 424002 Kurzen Supply Crate at 1434 49.6,7.7"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2694 (Xaden Ryan, 0.4.0.1): the arrow led onto the hill, the way in is the cave"
+				}
+			],
+			"issue": 2694
+		},
+		{
+			"id": "2825-riverglades-jomjom-giver",
+			"quest": 94556,
+			"objective": "giver",
+			"at": {
+				"map": 2548,
+				"x": 73.4,
+				"y": 24.7,
+				"frame": "live"
+			},
+			"note": "Jom-jom's Escape: Jom-jom waits in the cave north-east of Na'zok at 73.4,24.7 until the escort starts. His spawn data holds the escort's walk to Bolder'ok too, and the accept went to the walk's point nearest the player (68.9,31.3 in #2825), where he never stands before the escort. The other points stay as the goal's other places.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: 22 accepts of 94556 by 19 people, every one at 73.32-74.03,24.57-24.88, the position samples around each indoors"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2825 (Thyndare, 0.4.0.1): he waits at 73.3,24.7 in a cave"
+				}
+			],
+			"issue": 2825
+		},
+		{
+			"id": "2825-desolace-melizza-giver",
+			"quest": 6132,
+			"objective": "giver",
+			"at": {
+				"map": 1443,
+				"x": 33.9,
+				"y": 53.5,
+				"frame": "era"
+			},
+			"note": "Get Me Out of Here!: Melizza Brimbuzzle waits in the Maraudine camp at 33.9,53.5. Her spawn data holds the escort's walk out too (35.4,58.2 and 47.7,61.8, by the graveyard where it ends), and the accept went to the walk's point nearest the player, so a player coming from the graveyard was sent to where the escort ends. Found with #2825's sweep of escort givers.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 44 of 48 accepts of 6132 (28 of 30 people) at 33.84-33.93,53.40-53.65"
+			},
+			"issue": 2825
+		},
+		{
+			"id": "2825-tanaris-tooga-giver",
+			"quest": 1560,
+			"objective": "giver",
+			"at": {
+				"map": 1446,
+				"x": 30.2,
+				"y": 70.7,
+				"frame": "era"
+			},
+			"note": "Tooga's Quest: Tooga wanders the west edge of the Thistleshrub Valley (29.5,60.6 to 29.8,74.0) until the escort starts; his spawn data also has him beside Torta at Steamwheedle Port (66.9,25.4), where the escort ends and Oasis (97540) is given, and the accept went to whichever was nearest the player: from Gadgetzan or the port, the port. The point is where most players found him; the valley's other points stay as the goal's other places. Found with #2825's sweep of escort givers.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 18 accepts of 1560 (18 people), all in the valley at 28.4-32.1,60.6-74.1, 8 of them at 30.0-30.6,70.4-70.9; none at the port"
+			},
+			"issue": 2825
+		},
+		{
+			"id": "a043-stonesplinter-north-camps",
+			"quest": 267,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1432,
+				"frame": "era",
+				"points": [
+					[
+						29.57,
+						72.89
+					],
+					[
+						32.37,
+						72.36
+					]
+				]
+			},
+			"note": "The north edge of Stonesplinter Valley holds both the Scouts and the Troggs. The southern valley and the eastern camps have much higher-level mobs; their markers do not belong on this starter loop.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "NPCs 1161 and 1162 both spawn in the two camps; Headsplitter patrols farther south."
+				},
+				{
+					"kind": "recording",
+					"ref": "Dun Morogh starters on 0.4.x: of 13 follower deaths on 224 or 267 at this step, 7 named Scouts and 1 a Stonesplinter Trogg. The other 5 did not record the killer."
+				}
+			],
+			"pr": 3144
+		},
+		{
+			"id": "043-darkwhisper-gorge-by-the-road",
+			"quest": 4842,
+			"objective": 1,
+			"faction": "Alliance",
+			"path": {
+				"map": 1452,
+				"frame": "era",
+				"points": [
+					[62.3, 67.0],
+					[62.1, 69.5],
+					[61.2, 71.4],
+					[59.8, 74.2]
+				]
+			},
+			"note": "Strange Sources (0.4.3 route round, Alliance 50-60/06): the gorge's explore point (59.8,74.2) lies just south of the Frostmaul Giants' and Preservers' camp (59-60, elite; spawns on both sides of the road at 58.1-65.7,65.1-73.0), and the straight line from Ranshalla's altar cut through it. The arrow keeps to the road on the camp's east side, the line every recorded crosser rode, to the mouth, which is about 50 yards short of the first Hederine Slayers: the step's tip says to turn back there.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-19: all 13 recorded crossings toward Darkwhisper Gorge rode the road at x 61.6-62.5 from y 64 to 71 (61.9,64.4, 62.4,67.0, 62.1,69.5, 61.2,71.4, 60.3,73.0) with no deaths on that stretch; Frostmaul Giants seen hostile by 11 people, killed by none. data/forever npcs.json: Frostmaul Giant 7428 and Preserver 7429 at 58.06-65.66,65.09-72.98, Hederine Slayer 7463 nearest at 59.4,75.1"
+			},
+			"issue": 3144
+		},
+		{
+			"id": "shendralas-crystal-heart-west-face",
+			"quest": 99257,
+			"objective": 1,
+			"path": {
+				"map": 2652,
+				"frame": "live",
+				"points": [
+					[
+						43.97,
+						35.59
+					],
+					[
+						43.89,
+						35.64
+					]
+				]
+			},
+			"note": "Use the same two west-side pulls as the pylon repair. The Necrokhans and a Corpsefeeder patrol the opposite side.",
+			"source": {
+				"kind": "recording",
+				"ref": "Western pylon repairs from the west face and deaths on the east side."
+			},
+			"issue": 3145
+		},
+		{
+			"id": "horde-needles-agave-northwest-nodes",
+			"faction": "Horde",
+			"quest": 5062,
+			"objective": 1,
+			"at": {
+				"map": 1441,
+				"x": 33.3,
+				"y": 33.4,
+				"frame": "era"
+			},
+			"note": "Sacred Fire's Incendia Agave: the arrow leads to the three plants close together at the Grimtotem camps' north-western edge (33.29,32.94; 33.31,33.45; 33.36,33.93), 45-55 yd farther from the elementals' ground than the earlier point (34.2,33.8). Players' recordings place the Ravaging Tempests and Ailgrha Splittusk (elites, 38-40) only at 36-41,37-43; the spawn data's north-western points for both are dropped in forever-db/corrections/npcs.json.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "objects.json 175928 spawns on map 1441"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec.py npc 216474 (26 people), 216463 (22 people), 2026-11-20"
+				}
+			],
+			"pr": 3284
+		},
+		{
+			"id": "3078-fuzzle-in-his-cage",
+			"quest": 94961,
+			"objective": "giver",
+			"at": {
+				"map": 2548,
+				"x": 47.2,
+				"y": 51.2,
+				"frame": "live"
+			},
+			"note": "#3078: Fuzzle (259158) offers Biting the Hand from his cage in Sunnyglade, not from the middle of the town where the arrow and the tip sent players. The giver's point is his spawn at the cage (the third of his three points).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3078 (0.4.1.1): Fuzzle at the cage, 47.31,51.36"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs.json 259158 Fuzzle on map 2548: 45.6,47.8; 47.0,50.0; 47.2,51.2"
+				}
+			],
+			"issue": 3078
+		},
+		{
+			"id": "3231-twilight-tablet-fragments-on-the-ground",
+			"quest": 8284,
+			"objective": 1,
+			"at": {
+				"map": 1451,
+				"x": 22.0,
+				"y": 14.5,
+				"frame": "era"
+			},
+			"note": "#3231: The Twilight Mystery's tablet fragments are mostly picked up from the ground (object 180501) around the Twilight camp in Silithus' far north-west; the arrow led to the Dust Stormers and Desert Rumblers further east (35.6,13.0 on the Horde guide, 28.5,27.2 on the Alliance one). The point is a fragment spawn in the middle of the recorded loot points.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 8284: 16 fragment loots by 2 people around 19-27,12-22, 13 with no kill in the 10 s before"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "objects.json 180501 Twilight Tablet Fragment: 13 spawns on map 1451, one at 22.02,14.5"
+				}
+			],
+			"issue": 3231
+		},
+		{
+			"id": "3277-hinterlands-nimboya-laden-pike",
+			"faction": "Horde",
+			"quest": 2932,
+			"objective": 1,
+			"at": {
+				"map": 1425,
+				"x": 31.9,
+				"y": 58.0,
+				"frame": "era"
+			},
+			"note": "Grim Message: Nimboya's Laden Pike can only be planted inside one of the Witherbark villages within reach of the village's area marker. The step previously pointed to 29.5,58.5 between Zun'watha and Hiri'watha where the spell fails; move the point into Hiri'watha at 31.9,58.0.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3277 (devanpy, 0.4.1.1): planting spell requires the village marker; fails at 29.5,58.5 outside Hiri'watha, succeeds at 31.9,58.0 inside"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-20: the planting (spell 11547) credited Grim Message at 31.85,57.91 in Hiri'watha and 23.65,58.36 in Zun'watha; a third player completed it at 31.6,59.0; no credit outside a village"
+				}
+			],
+			"issue": 3277,
+			"pr": 3323
+		},
+		{
+			"id": "3400-hyjal-ruined-ballista-seed",
+			"quest": 93747,
+			"objective": 1,
+			"at": {
+				"map": 2482,
+				"x": 66.3,
+				"y": 79.2,
+				"frame": "live"
+			},
+			"note": "Violence Into Verdure: the Ruined Ballista stands at the east end of the Tainted Foothills' fields, a little north of the Ruined Flying Machine, where players planted its seed. The step pointed to 70.4,70.7 at the shrub field's north-eastern edge, where nothing can be planted; the ballista's seed now goes with the other two wrecks.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "data/recorded quests.json 93747 line 1 (Ruined Ballista reclaimed): trusted, 16 of 17 voters at 66.27,79.2 (builds 70938, 70959); lines 2 and 3 at 62.88,82.8 and 66.11,83.18, the guide's catapult and flying machine points"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3400 (Stö, 0.4.2): standing at 70.25,70.90 with the seed bag, nothing to plant on"
+				}
+			],
+			"issue": 3400
 		}
 	]
 }

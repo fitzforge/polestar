@@ -74,11 +74,21 @@ pub const LIMITS: Limits = Limits {
 	next_when: 16,
 };
 
-/// The first text or key in v longer than LIMITS.text, as the addon names it
+/// The cap of the text at `where_`: a names value (a token's game name) holds
+/// LIMITS.names bytes, every other text or key (a `written` value, the
+/// author's words for a whole note, included) LIMITS.text.
+fn cap_at(where_: &str) -> usize {
+	if where_.starts_with("guide.names.") {
+		LIMITS.names
+	} else {
+		LIMITS.text
+	}
+}
+
+/// The first text or key in v longer than its cap, as the addon names it
 /// (`guide.steps[2].note`), or None.
 fn long_text(v: &V, where_: &str) -> Option<String> {
-	// names/written map values are capped at LIMITS.names, not LIMITS.text.
-	let cap = if where_.starts_with("guide.names.") || where_.starts_with("guide.written.") { LIMITS.names } else { LIMITS.text };
+	let cap = cap_at(where_);
 	match v {
 		V::Str(s) => (s.len() > cap).then(|| where_.to_string()),
 		V::Arr(_) => {
@@ -114,7 +124,7 @@ fn crowded(g: &V) -> Option<(String, usize, usize)> {
 		(n > cap).then_some((at, n, cap))
 	}
 	fn quests(v: &V, at: &str) -> Option<(String, usize, usize)> {
-		["pre", "preAll", "closedBy", "preTitles", "q"].iter().find_map(|k| over(&v.get(k), LIMITS.pre, format!("{at}.{k}")))
+		["pre", "preAll", "closedBy", "crumbs", "endNpcs", "preTitles", "q"].iter().find_map(|k| over(&v.get(k), LIMITS.pre, format!("{at}.{k}")))
 	}
 	fn whens(list: &V, at: &str) -> Option<(String, usize, usize)> {
 		over(list, LIMITS.when, at.to_string()).or_else(|| list.items().iter().enumerate().find_map(|(i, w)| quests(w, &format!("{at}[{}]", i + 1))))
@@ -299,7 +309,7 @@ pub fn import_string(guide: &V, manifest: &V, data: Option<&Data>) -> Result<(St
 	}
 	let payload = V::Obj(payload);
 	if let Some(long) = long_text(&payload, "") {
-		return Err(format!("{id}: {long} is longer than {} bytes, the most Polestar reads in one text of an import string", LIMITS.text));
+		return Err(format!("{id}: {long} is longer than {} bytes, the most Polestar reads in one text of an import string", cap_at(&long)));
 	}
 	if let Some((at, n, cap)) = crowded(&payload.get("guide")) {
 		return Err(format!("{id}: {at} has {n} entries; an import string holds {cap} there at most (a guide this big goes in a community addon: forge release pack)"));

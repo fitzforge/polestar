@@ -33,7 +33,7 @@ function view()
 	return {
 		shown = F:IsShown(), title = F.Title:GetText(), undone = F.Undone:IsShown() and F.Undone:GetText() or false,
 		next = F.Art:IsShown() and F.Next:GetText() or false, text = F.Text:IsShown() and F.Text:GetText() or false,
-		go = F.Go.Label:GetText(), later = F.Later.Label:GetText(), primary = F.Go.psPrimary == true,
+		go = rawget(F, "Go") ~= nil, later = F.Later.Label:GetText(),
 		strata = F:GetFrameStrata(), point = point, alpha = F:GetAlpha(),
 	}
 end
@@ -81,8 +81,7 @@ fn the_end_with_steps_left_open_names_the_guide_the_steps_and_the_next_guide_bac
 	assert!(out["title"].as_str().unwrap().contains("|c"), "the guide's name in the accent");
 	assert_eq!(out["undone"], "3 steps were left undone.");
 	assert_eq!(out["next"], "Next: Westfall (12–17)");
-	assert_eq!(out["go"], "Start Westfall");
-	assert_eq!(out["primary"], true);
+	assert_eq!(out["go"], false, "no Start button: the guide window owns the next guide's button");
 	assert_eq!(out["later"], "Back to step 3");
 	assert_eq!(out["strata"], "DIALOG");
 	assert_eq!(out["point"], "CENTER");
@@ -93,12 +92,12 @@ fn the_end_with_steps_left_open_names_the_guide_the_steps_and_the_next_guide_bac
 }
 
 #[test]
-fn a_guide_done_whole_says_completed_start_loads_the_next_guide_not_now_only_closes() {
+fn a_guide_done_whole_says_completed_and_its_one_button_closes_it_without_starting_the_next_guide() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 1); uistub.complete()
 		Polestar.Fire("GUIDE_END", uistub.elwynn, info({ undone = 0, next = NEXT }))
 		local r = view()
-		PolestarGuideEnd.Go:Click()
+		PolestarGuideEnd.Later:Click()
 		r.start, r.after = lastCall("StartNext"), PolestarGuideEnd:IsShown()
 		Polestar.Fire("GUIDE_END", uistub.elwynn, info({ undone = 0, next = NEXT }))
 		PolestarGuideEnd.Later:Click()
@@ -106,38 +105,33 @@ fn a_guide_done_whole_says_completed_start_loads_the_next_guide_not_now_only_clo
 		emit(r)"#);
 	assert_eq!(plain(&out["title"]), "You've completed\nElwynn Forest (1–13)");
 	assert_eq!(out["undone"], false);
-	assert_eq!(out["later"], "Not now");
-	assert_eq!(out["start"], json!(["StartNext", "forever/alliance/human/01-elwynn-forest"]));
+	assert_eq!(out["later"], "Close");
+	assert_eq!(out["start"], false, "the button closes, the guide window offers the next guide");
 	assert_eq!(out["after"], false);
 	assert_eq!(out["again"], json!({ "shown": false, "goto": false }));
 }
 
 #[test]
-fn a_route_choice_opens_the_route_choice_window_and_no_next_guide_offers_the_guide_menu() {
+fn a_route_choice_or_no_next_guide_says_so_in_the_text_and_closes_with_its_one_button() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 1); uistub.complete()
 		CHOICE = true
 		Polestar.Fire("GUIDE_END", uistub.elwynn, info({ undone = 0, choose = true }))
 		local r = { choice = view() }
-		PolestarGuideEnd.Go:Click()
+		PolestarGuideEnd.Later:Click()
 		r.routeChoice = PolestarRouteChoice and PolestarRouteChoice:IsShown() or false
-		Polestar.UI.RouteChoice.Hide()
 		CHOICE = false
-		local picked = false
-		Polestar.UI.ShowPicker = function() picked = true end
 		Polestar.Fire("GUIDE_END", uistub.elwynn, info({ undone = 0 }))
 		r.none = view()
-		PolestarGuideEnd.Go:Click()
-		r.picked = picked
 		emit(r)"#);
-	assert_eq!(out["choice"]["go"], "Choose where to go next");
+	assert_eq!(out["choice"]["go"], false);
+	assert_eq!(out["choice"]["later"], "Close");
 	assert_eq!(out["choice"]["text"], "Pick where you want to level next.");
 	assert_eq!(out["choice"]["next"], false);
-	assert_eq!(out["routeChoice"], true);
-	assert_eq!(out["none"]["go"], "Pick a guide");
+	assert_eq!(out["routeChoice"], false, "the guide window offers the choice, not this window");
+	assert_eq!(out["none"]["go"], false);
 	assert_eq!(out["none"]["later"], "Close");
 	assert_eq!(out["none"]["text"], "Nice work. Pick your next guide to keep going.");
-	assert_eq!(out["picked"], true);
 }
 
 #[test]
@@ -165,4 +159,33 @@ fn back_on_the_guide_its_banner_offers_the_next_guide_until_dismissed_and_contin
 	assert_eq!(out["dismissed"], false);
 	assert_eq!(out["continued"], "Elwynn Forest complete — continuing with Westfall");
 	assert_eq!(out["gone"], false);
+}
+
+// The quests still in the log that a later guide hands in (Engine.CarriedQuests): listed under "Carried to later
+// guides" with the guide that hands each in and its levels, six at most and "+N more"; none, and the list is gone.
+#[test]
+fn the_end_lists_the_quests_a_later_guide_hands_in_with_that_guide() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 1); uistub.complete()
+		local list = { { quest = 1, title = "Sceptre of Light", guideId = NEXT }, { quest = 2, title = "Lost Letter", guideId = "gone/guide" } }
+		for i = 3, 8 do list[i] = { quest = i, title = "Quest " .. i, guideId = NEXT } end
+		E.CarriedQuests = function(id) return id == uistub.elwynn and list or {} end
+		Polestar.Fire("GUIDE_END", uistub.elwynn, info({ undone = 0, next = NEXT }))
+		stub.advance(1)
+		local F = PolestarGuideEnd
+		local r = { head = F.CarriedHead:IsShown() and F.CarriedHead:GetText() or false, list = F.Carried:IsShown() and F.Carried:GetText() or false, tall = F:GetHeight() }
+		Polestar.UI.GuideEnd.Hide()
+		list = {}
+		Polestar.Fire("GUIDE_END", uistub.elwynn, info({ undone = 0, next = NEXT }))
+		stub.advance(1)
+		r.none = { head = F.CarriedHead:IsShown(), list = F.Carried:IsShown(), tall = F:GetHeight() }
+		emit(r)"#);
+	assert_eq!(out["head"], "Carried to later guides");
+	assert_eq!(
+		out["list"],
+		"Sceptre of Light · Westfall (12–17)\nLost Letter\nQuest 3 · Westfall (12–17)\nQuest 4 · Westfall (12–17)\nQuest 5 · Westfall (12–17)\nQuest 6 · Westfall (12–17)\n+2 more"
+	);
+	assert_eq!(out["none"]["head"], false);
+	assert_eq!(out["none"]["list"], false);
+	assert!(out["tall"].as_f64().unwrap() > out["none"]["tall"].as_f64().unwrap(), "the list makes the window taller");
 }

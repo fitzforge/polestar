@@ -161,14 +161,10 @@ pub fn text_problems(english: &str, translation: &str, plurals: &[String], unnam
 /// The commented translations a file's retired block holds: { english: translation }.
 pub fn retired_entries(text: &str) -> V {
 	static RE: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"(?m)^\s*-- \[("(?:[^"\\]|\\.)*")\] = ("(?:[^"\\]|\\.)*"),\s*$"#).unwrap());
-	static DEC: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\\([0-9]{1,3})").unwrap());
 	let out = Obj::new();
 	let Some(at) = text.find(RETIRED) else { return V::Obj(out) };
-	let unq = |s: &str| -> Result<V, String> {
-		let s = DEC.replace_all(s, |c: &regex::Captures| format!("\\u{:04x}", c[1].parse::<u32>().unwrap()));
-		let s = s.replace("\\'", "'");
-		crate::js::parse_json(&s)
-	};
+	// Decode Lua escapes once: a literal backslash must not start a second escape.
+	let unq = |s: &str| crate::i18n_files::unescape_lua_text(&s[1..s.len() - 1], "retired entry", 1).map(V::from);
 	let mut pos = at;
 	while let Some(m) = RE.captures_at(text, pos) {
 		let whole = m.get(0).unwrap();
@@ -218,6 +214,93 @@ fn successor(stale: &str, texts: &[Text], taken: &HashSet<String>) -> Option<Str
 		}
 	}
 	best
+}
+
+/// The English names of a file's tokens, `kind:id` -> name: those of its texts now, and those the
+/// file's own name comments gave when it was last written (`-- {npc:6} Kobold Vermin · …`), so a
+/// token a text lost still has its name.
+#[cfg(feature = "native")]
+fn token_names(file_text: &str, texts: &[Text]) -> std::collections::HashMap<String, String> {
+	static PART: LazyLock<Regex> =
+		LazyLock::new(|| Regex::new(r"^\{((?:npc|object|item|quest|zone|area|spell|faction|skill):[0-9]+)\} (.+?)(?: \(no name in this language: may be words\))?$").unwrap());
+	let mut names = std::collections::HashMap::new();
+	for line in file_text.lines() {
+		let Some(rest) = line.trim_start().strip_prefix("-- {") else { continue };
+		for part in format!("{{{rest}").split(" · ") {
+			if let Some(m) = PART.captures(part) {
+				if &m[2] != "?" {
+					names.insert(m[1].to_string(), m[2].to_string());
+				}
+			}
+		}
+	}
+	for t in texts {
+		for (tok, en) in &t.tokens {
+			if en != "?" {
+				names.insert(tok.clone(), en.clone());
+			}
+		}
+	}
+	names
+}
+
+/// Below this word-pair likeness (Dice) an old translation is no draft for a new text.
+#[cfg(feature = "native")]
+const DRAFT_LIKENESS: f64 = 0.8;
+
+/// The old translation to start from for each text a file leaves empty (#1315, an idea of Saulo
+/// (soulrocha)): { new English: [old English, old translation] }, for `forge i18n guides sync` to
+/// write above the empty line. The old ones are the file's stale and retired entries. The texts are
+/// compared with each token replaced by its English name, so a name that became words ("{area:379}"
+/// -> "Far Watch Post") or another NPC in the sentence still finds the translation it had: the
+/// closest old one whose word pairs match DRAFT_LIKENESS or more. Nothing for a file not read.
+#[cfg(feature = "native")]
+pub fn file_drafts(s: &FileState) -> V {
+	if !s.exists || s.error.is_some() || s.missing.is_empty() {
+		return V::obj();
+	}
+	let old: Vec<(String, String)> = s.stale.entries().into_iter().chain(s.retired.entries()).map(|(k, v)| (k.to_string(), v.to_js_string())).collect();
+	if old.is_empty() {
+		return V::obj();
+	}
+	let file_text = std::fs::read_to_string(&s.file).unwrap_or_default();
+	drafts(&s.missing, &old, &token_names(&file_text, &s.texts))
+}
+
+#[cfg(feature = "native")]
+fn drafts(missing: &[String], old: &[(String, String)], names: &std::collections::HashMap<String, String>) -> V {
+	static SPLIT: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"[^\p{L}\p{N}']+").unwrap());
+	let pairs = |s: &str| -> HashSet<String> {
+		let named = TOKEN_RE.replace_all(s, |m: &regex::Captures| names.get(&format!("{}:{}", &m[1], &m[2])).cloned().unwrap_or_default());
+		let lower = named.to_lowercase();
+		let words: Vec<&str> = SPLIT.split(&lower).filter(|w| !w.is_empty()).collect();
+		if words.len() < 2 {
+			return words.into_iter().map(String::from).collect();
+		}
+		words.windows(2).map(|w| format!("{} {}", w[0], w[1])).collect()
+	};
+	let old: Vec<(&String, &String, HashSet<String>)> = old.iter().map(|(en, tr)| (en, tr, pairs(en))).collect();
+	let out = Obj::new();
+	for text in missing {
+		let a = pairs(text);
+		if a.is_empty() {
+			continue;
+		}
+		let mut best: Option<(&String, &String)> = None;
+		let mut score = DRAFT_LIKENESS;
+		for (en, tr, b) in &old {
+			let both = a.iter().filter(|p| b.contains(*p)).count();
+			let s = 2.0 * both as f64 / (a.len() + b.len()) as f64;
+			if s >= score && best.is_none_or(|_| s > score) {
+				score = s;
+				best = Some((en, tr));
+			}
+		}
+		if let Some((en, tr)) = best {
+			out.set(text, V::from(vec![V::from(en.as_str()), V::from(tr.as_str())]));
+		}
+	}
+	V::Obj(out)
 }
 
 // ------------------------------------------------------------ files (native)

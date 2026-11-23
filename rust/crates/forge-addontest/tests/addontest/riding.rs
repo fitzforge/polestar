@@ -6,7 +6,7 @@
 //! Section 2: Riding.lua unit logic (stub_qol, like the old riding test).
 
 use forge_addontest::{emitted, text, truthy, Addon, RunAddon};
-use serde_json::Value;
+use serde_json::{json, Value};
 
 // ---------------------------------------------------------------------------
 // Section 1: Banner (GuideFrame.lua "riding" notice kind)
@@ -175,8 +175,11 @@ fn clicking_dismiss_hides_the_banner() {
 	assert_eq!(out[0], false);
 }
 
+// Take me there is a trip to the trainer (#1686): the riding offer goes, the guide window's trip banner takes its
+// place ("On the way to … (Riding trainer)", with "Back to the guide"), and the trip ends at the trainer. Back to
+// the guide leaves no banner.
 #[test]
-fn clicking_take_me_there_sets_nav_arrow_to_trainer_and_hides_banner() {
+fn clicking_take_me_there_sets_nav_arrow_to_trainer_and_the_trip_banner_replaces_the_offer() {
 	let out = run_ui(
 		r#"
 		uistub.openTabs(TABS, 1)
@@ -185,11 +188,14 @@ fn clicking_take_me_there_sets_nav_arrow_to_trainer_and_hides_banner() {
 			trainer = { map = 1429, x = 84.3, y = 64.9, npcName = "Randal Hunter" } })
 		B.Jump:Click()
 		local t = uistub.target
-		emit({ hidden = not B:IsShown(), map = t and t.map, x = t and t.x, label = t and t.label })
+		local trip = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText() }
+		B.Jump:Click()
+		emit({ trip = trip, back = not B:IsShown(), map = t and t.map, x = t and t.x, label = t and t.label })
 	"#,
 	);
 	let out = &out[0];
-	assert_eq!(out["hidden"], true, "banner hides after Take me there");
+	assert_eq!(out["trip"], json!([true, "On the way to Randal Hunter (Riding trainer).", "Back to the guide"]), "the offer gives way to the trip");
+	assert_eq!(out["back"], true, "back to the guide: no banner left");
 	assert_eq!(out["map"], 1429);
 	assert_eq!(out["x"], 84.3);
 	assert_eq!(out["label"], "Randal Hunter");
@@ -441,6 +447,34 @@ fn riding_money_stops_firing_after_onresolve_is_called() {
 	assert_eq!(out[1], 0, "silent after resolve");
 }
 
+// The banner reads the balance in whole gold against whole-gold prices: copper that leaves the gold figure as it was
+// (a looted mob's coins) repaints nothing, a gold figure that moves repaints once (perf sweep: each RIDING_MONEY lays
+// the guide window out).
+#[test]
+fn riding_money_fires_only_when_the_gold_figure_changes() {
+	let out = run_qol(
+		r#"
+		local count = 0
+		Polestar.On("RIDING_MONEY", function() count = count + 1 end)
+		q.money = 512345
+		levelUp(40)
+		stub.fire("PLAYER_MONEY"); stub.runTimers()
+		emit(count)
+		for _, c in ipairs({ 512432, 512519, 519999 }) do q.money = c; stub.fire("PLAYER_MONEY") end
+		stub.runTimers()
+		emit(count)
+		q.money = 520010; stub.fire("PLAYER_MONEY"); stub.runTimers()
+		emit(count)
+		q.money = 999999; stub.fire("PLAYER_MONEY"); q.money = 1000000; stub.fire("PLAYER_MONEY"); stub.runTimers()
+		emit(count)
+	"#,
+	);
+	assert_eq!(out[0], 1, "the first change paints the balance");
+	assert_eq!(out[1], 1, "copper inside the same gold repaints nothing");
+	assert_eq!(out[2], 2, "a new gold figure repaints");
+	assert_eq!(out[3], 4, "each gold step repaints, the one that makes 100 g affordable included");
+}
+
 // ---- Class routing (RIDING_DUE carries correct trainer) ----------------------
 
 #[test]
@@ -470,6 +504,31 @@ fn alliance_paladin_fires_with_classkind_paladin_and_lord_grayson() {
 	assert_eq!(n["trainer"]["npcName"], "Lord Grayson Shadowbreaker");
 }
 
+// Blitz's report (#2898): an Undead paladin at 40 was sent to the riding trainer in Brill, but Forsaken paladins
+// get their warhorse from a quest: Report to Danitha (97022, the Undercity's paladin trainer Garen Largo), then A
+// Paladin's Steed (94971, Danitha Morr at Bandarion Keep). Other Horde paladins keep the riding trainer.
+#[test]
+fn a_forsaken_paladin_is_sent_to_the_warhorse_chain_2898() {
+	let case = |setup: &str, race: &str| {
+		run_qol(&format!(
+			r#"
+		C.GetPlayerInfo = function() return {{ name="T", level=q.level, race="{race}", class="PALADIN", faction="Horde" }} end
+		local log = {{}}
+		C.IsOnQuest = function(id) return log[id] == true end
+		{setup}
+		levelUp(40); local n = ridings[1]
+		emit({{ kind = n.classKind or false, npc = n.trainer and n.trainer.npcName, cost = n.cost }})
+	"#
+		))
+		.remove(0)
+	};
+	assert_eq!(case("", "Scourge"), json!({ "kind": "PALADIN_FORSAKEN", "npc": "Garen Largo", "cost": 0 }));
+	assert_eq!(case("log[97022] = true", "Scourge"), json!({ "kind": "PALADIN_FORSAKEN", "npc": "Danitha Morr", "cost": 0 }));
+	assert_eq!(case("_quests[97022] = true", "Scourge"), json!({ "kind": "PALADIN_FORSAKEN", "npc": "Danitha Morr", "cost": 0 }));
+	assert_eq!(case("_quests[94971] = true", "Scourge"), json!({ "kind": false, "npc": "Velma Warnam", "cost": 1000000 }), "the chain done: riding");
+	assert_eq!(case("", "Tauren"), json!({ "kind": false, "npc": "Kar Stormsinger", "cost": 1000000 }), "no chain for another race");
+}
+
 #[test]
 fn warlock_at_tier_2_fires_with_no_classkind_riding_trainer() {
 	let out = run_qol(
@@ -495,19 +554,6 @@ fn warlock_with_quest_4490_done_falls_back_to_race_trainer() {
 	let n = &out[0];
 	assert!(!truthy(&n["classKind"]), "no classKind after chain done");
 	assert_eq!(n["trainer"]["npcName"], "Randal Hunter");
-}
-
-#[test]
-fn undead_paladin_fires_with_riding_trainer_no_class_chain() {
-	let out = run_qol(
-		r#"
-		C.GetPlayerInfo = function() return { name="T", level=q.level, race="Scourge", class="PALADIN", faction="Horde" } end
-		levelUp(40); emit(ridings[1])
-	"#,
-	);
-	let n = &out[0];
-	assert!(!truthy(&n["classKind"]));
-	assert_eq!(n["trainer"]["npcName"], "Velma Warnam");
 }
 
 // ---- EffectiveCost includes Honored discount ---------------------------------

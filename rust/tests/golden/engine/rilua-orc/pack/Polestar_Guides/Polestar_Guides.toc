@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar 指南
 ## Notes-zhTW: Polestar 的升級、專業、聲望與收藏指南。
 ## Author: Polestar
-## Version: 0.2.6
+## Version: 0.3.5
 ## Category: Polestar
 ## Group: Polestar
 ## Dependencies: Polestar

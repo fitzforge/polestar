@@ -12,20 +12,20 @@ return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "学习骑术",
 	-- {npc:4752} Kildar · {npc:3362} Ogunaro Wolfrunner · {faction:76} Orgrimmar · {object:172958} Valley of Honor · {skill:762} Riding
-	["{npc:4752} and {npc:3362}'s kennel are in {faction:76}'s {object:172958}. At 40 {npc:4752} teaches {skill:762} to Orcs for 100g (10% less at Honored with {faction:76}), and it comes with a wolf. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	["{npc:4752} and {npc:3362}'s kennel are in {faction:76}'s {object:172958}. At 40 {npc:4752} teaches {skill:762} to Orcs for 100g (10% less at Honored with {faction:76}), and it comes with a wolf. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "{npc:4752} 和 {npc:3362} 的兽栏位于 {faction:76} 的 {object:172958}。40级时，兽人可以花100金币向 {npc:4752} 学习 {skill:762}（{faction:76} 声望达到尊敬可优惠10%），并获得一只狼。其他种族则要到各自种族的骑术训练师处学习 {skill:762}，同时获得自己的第一只坐骑。",
 	-- {npc:4752} Kildar
 	["{npc:4752}, riding trainer"] = "{npc:4752}，骑术训练师",
 
 	-- Step 2: Wolf Riding for other races
 	-- {spell:825} Wolf Riding
-	["{spell:825} for other races"] = "",
+	["{spell:825} for other races"] = "其他种族学习{spell:825}",
 	-- {spell:825} Wolf Riding · {skill:762} Riding · {npc:4752} Kildar · {faction:76} Orgrimmar
-	["Any Horde race can buy these wolves, but riding one also takes {spell:825}, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "",
+	["Any Horde race can buy these wolves, but riding one also takes {spell:825}, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "任何部落种族都能购买这些狼，但骑乘还需要 {spell:825}，只有兽人会在学习 {skill:762} 时获得它。其他种族与 {faction:76} 达到崇拜后，{npc:4752} 才会教授（奥格瑞玛声望指南有详细路线）。在那之前，不要为这个角色买狼。",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "挑选颜色",
 	-- {npc:3362} Ogunaro Wolfrunner
-	["{npc:3362} sells the other colours (20g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like."] = "{npc:3362}出售其他颜色（Forever 客户端中每只20金）。想要哪只就买哪只；如果喜欢送你的那只，也可以不买。",
+	["{npc:3362} sells the other colours (20g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like."] = "{npc:3362}出售其他颜色（无限 客户端中每只20金）。想要哪只就买哪只；如果喜欢送你的那只，也可以不买。",
 	-- {item:1132} Horn of the Timber Wolf
 	["{item:1132}, 20g"] = "{item:1132}，20金",
 	-- {item:5665} Horn of the Dire Wolf

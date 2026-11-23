@@ -15,7 +15,7 @@
 
 use forge_addontest::codex::{fixture, write_codex_pack, CodexOpts, CodexPack};
 use forge_addontest::dsl::plain;
-use forge_addontest::run::root;
+use forge_addontest::run::{addons_dir, join, root};
 use forge_addontest::{emitted, fake_locale, is_match, lua_value, text, truthy, Addon, RunAddon};
 use forge_data::codex::attune::attunements_of;
 use forge_data::codex::client::{Corpse, InstanceMap};
@@ -82,6 +82,12 @@ fn maps_of(v: &Value) -> Vec<InstanceMap> {
 			inner: nums(&m["inner"]),
 			zones: nums(&m["zones"]),
 			corpse: m["corpse"].as_object().map(|_| Corpse { c: m["corpse"]["c"].as_f64().unwrap_or(0.0), x: m["corpse"]["x"].as_f64().unwrap_or(0.0), y: m["corpse"]["y"].as_f64().unwrap_or(0.0) }),
+			finder: m["finder"].as_object().map(|f| forge_data::codex::client::Finder {
+				min: f["min"].as_f64().unwrap_or(0.0),
+				max: f["max"].as_f64().unwrap_or(0.0),
+				players: f["players"].as_f64().unwrap_or(5.0),
+				players_max: f.get("playersMax").and_then(Value::as_f64).or(f["players"].as_f64()).unwrap_or(5.0),
+			}),
 		})
 		.collect()
 }
@@ -116,6 +122,8 @@ fn journal(codex: &Value, inputs: &Value) -> (V, Vec<String>) {
 			journal_quests: &journal_quests,
 			attunement_table: &table,
 			store_xp: &Default::default(),
+			recorded_dungeons: &forge_guide::js::V::obj(),
+			levels_table: &forge_guide::js::V::obj(),
 		},
 		&c,
 	)
@@ -242,8 +250,50 @@ fn the_goal_table_every_entry_cites_public_sources_names_a_goal_or_an_item_and_n
 	}
 }
 
+/// One step as a line of the golden list: what it is, its ids, its order (`after`, `afterAny`), where it starts
+/// and ends, and the gates (level, standing) it carries.
+fn golden_line(s: &Value) -> String {
+	let ids = |v: &Value| list(v).iter().map(|x| x.to_string()).collect::<Vec<_>>().join(",");
+	let place = |p: &Value| if p.is_null() { "-".to_string() } else { format!("{}:{}", text(&p["kind"]), p["id"]) };
+	let inside = |s: &Value| if s["instance"].is_string() { format!(" inside={}", text(&s["instance"])) } else { String::new() };
+	match text(&s["kind"]) {
+		"quest" => {
+			let mut l = format!("quest {} {}", s["id"], text(&s["title"]));
+			if truthy(&s["goal"]) {
+				l.push_str(" *goal");
+			}
+			if truthy(&s["accept"]) {
+				l.push_str(" (at its accept)");
+			}
+			l.push_str(&format!(" after=[{}] any=[{}] start={} finish={} minLevel={}", ids(&s["after"]), ids(&s["afterAny"]), place(&s["start"]), place(&s["finish"]), s["minLevel"]));
+			if !s["startItem"].is_null() {
+				l.push_str(&format!(" startItem={}", s["startItem"]["id"]));
+			}
+			if !s["rep"].is_null() {
+				l.push_str(&format!(" rep={}:{}", s["rep"]["faction"], s["rep"]["standing"]));
+			}
+			l
+		}
+		"drop" => format!("drop {} {} npc:{}{}", s["item"]["id"], text(&s["item"]["name"]), s["npc"]["id"], inside(s)),
+		"object" => format!("object {} {} object:{}{}", s["item"]["id"], text(&s["item"]["name"]), s["object"]["id"], inside(s)),
+		"rep" => format!("rep {}:{}", s["faction"], s["standing"]),
+		"gift" => format!("gift {} {} npc:{}", s["item"]["id"], text(&s["item"]["name"]), s["npc"]["id"]),
+		"use" => format!("use {} {} > {} {} at {}", s["from"]["id"], text(&s["from"]["name"]), s["item"]["id"], text(&s["item"]["name"]), place(&s["at"])),
+		k => format!("{k}?"),
+	}
+}
+
+/// tests/fixtures/codex/attunements-golden.json: our pipeline's steps per attunement, pinned after review.
+fn golden_path() -> std::path::PathBuf {
+	root().join("tests/fixtures/codex/attunements-golden.json")
+}
+
+// Every attunement and key as our pipeline builds it from the local Codex (data/forever/codex) and the cited
+// table, step by step, against the reviewed list in tests/fixtures/codex/attunements-golden.json (the 0.4.3 audit:
+// each chain checked against Forever's quest data and the game's quest text): a Codex change that alters an
+// attunement fails here until its new steps are reviewed. POLESTAR_WRITE_GOLDEN=1 writes the list anew.
 #[test]
-fn with_the_local_codex_the_onyxia_blackwing_lair_naxxramas_and_dalaran_chains_from_our_quest_data_and_the_cited_links() {
+fn with_the_local_codex_every_attunement_builds_the_reviewed_steps_and_each_cited_inside_place_is_one_the_codex_lacks() {
 	forge_addontest::needs!("codex/quests.json", "codex/items.json", "codex/npcs.json", "codex/objects.json", "codex/factions.json", "codex/instances.json");
 	let dir = root().join("data/forever/codex");
 	let read = |n: &str| -> Value { serde_json::from_str(&std::fs::read_to_string(dir.join(format!("{n}.json"))).unwrap()).unwrap() };
@@ -258,15 +308,34 @@ fn with_the_local_codex_the_onyxia_blackwing_lair_naxxramas_and_dalaran_chains_f
 	let table = attunement_table();
 	let (by, warnings) = attunes(&real, &table);
 	assert_eq!(warnings, Vec::<String>::new());
-	let get = |key: &str, id: &str| -> Value { by[key].as_array().unwrap().iter().find(|a| a["id"] == id).unwrap().clone() };
-	assert_eq!(shape(&get("onyxias-lair", "drakefire-h")), "4903 > 4941 > 4974 > 6566 > 6567 > 6568 > 6569 > 6570 > 6582 > 6583 > 6584 > 6585 > 6601 > 6602*");
-	assert_eq!(get("onyxias-lair", "drakefire-h")["steps"][11]["after"], json!([6582, 6583, 6584]), "the three Tests of Skulls before Axtroz");
-	assert_eq!(shape(&get("city-of-dalaran", "sewer-key")), "544 > 545 > 93680 > 92434 > 96984*");
-	assert_eq!(shape(&get("blackwing-lair", "blackhand")), "drop:18987 > 7761*", "the Quartermaster drops the letter that starts it");
-	assert_eq!(shape(&get("naxxramas", "dread-citadel")), "9121* > 9122* > 9123*");
-	assert!(by["blackrock-spire"].is_null(), "Forever removed the Seal of Ascension");
-	// Every cited `inside` place is one a chain meets, of an NPC or object that still has no spawn and no Codex
-	// instance.
+	let mut built = serde_json::Map::new();
+	for (key, l) in by.as_object().unwrap() {
+		for a in list(l) {
+			let head = format!("{} {} faction={} level={} item={}", text(&a["kind"]), text(&a["need"]), a["faction"], a["level"], a["item"]["id"]);
+			let steps: Vec<Value> = list(&a["steps"]).iter().map(|s| Value::String(golden_line(s))).collect();
+			built.insert(format!("{key}:{}", text(&a["id"])), json!({ "head": head, "steps": steps }));
+		}
+	}
+	let built = Value::Object(built);
+	if std::env::var_os("POLESTAR_WRITE_GOLDEN").is_some() {
+		let file = json!({ "_about": "Every attunement and key our pipeline builds from the Codex (tools/lib/codex/attunements.js, forge_data::codex::attune), one line per step, reviewed in the 0.4.3 audit. The dungeons-attune addontest compares the build with it; POLESTAR_WRITE_GOLDEN=1 rewrites it after a reviewed change.", "attunements": built });
+		std::fs::write(golden_path(), format!("{}\n", serde_json::to_string_pretty(&file).unwrap())).unwrap();
+	}
+	let golden: Value = serde_json::from_str(&std::fs::read_to_string(golden_path()).unwrap()).unwrap();
+	let want = &golden["attunements"];
+	let mut diff: Vec<String> = Vec::new();
+	let keys: HashSet<&String> = want.as_object().unwrap().keys().chain(built.as_object().unwrap().keys()).collect();
+	let mut keys: Vec<&String> = keys.into_iter().collect();
+	keys.sort();
+	for k in keys {
+		if want[k] != built[k] {
+			diff.push(format!("{k}:\n  reviewed {}\n  built    {}", want[k], built[k]));
+		}
+	}
+	assert!(diff.is_empty(), "attunements differ from the reviewed list (review, then POLESTAR_WRITE_GOLDEN=1):\n{}", diff.join("\n"));
+	// Every cited `inside` place is one a chain meets, of an NPC or object that has no spawn and that the Codex
+	// places in no instance (the guide reads the Codex's instance itself; Drakkisath's Brand, Franclorn's monument,
+	// Doan's Strongbox and the Inconspicuous Documents are the Codex's).
 	let mut used: HashSet<String> = HashSet::new();
 	for l in by.as_object().unwrap().values() {
 		for a in list(l) {
@@ -279,9 +348,105 @@ fn with_the_local_codex_the_onyxia_blackwing_lair_naxxramas_and_dalaran_chains_f
 		assert!(used.contains(&format!("{}:{}:{}", text(&e["kind"]), e["id"], text(&e["instance"]))), "{} is in no chain", text(&e["name"]));
 		let records = if e["kind"] == "npc" { &real["npcs"] } else { &real["objects"] };
 		let rec = &records[e["id"].to_string()];
-		assert!(truthy(rec) && list(&rec["spawns"]).is_empty() && !truthy(&rec["instance"]), "{}: the Codex places it now", text(&e["name"]));
+		assert!(truthy(rec) && list(&rec["spawns"]).is_empty(), "{}: the Codex has it, with no spawn", text(&e["name"]));
+		assert!(!truthy(&rec["instance"]), "{}: the Codex places it in {}, so the table need not", text(&e["name"]), rec["instance"]);
 	}
-	assert_eq!(get("molten-core", "core")["inside"], json!([{ "kind": "object", "id": 179553, "instance": "blackrock-depths" }]), "the Core Fragment, by the Molten Core portal in Blackrock Depths");
+	assert!(by["blackrock-spire"].is_null(), "Forever removed the Seal of Ascension");
+}
+
+/// The Codex pack a real guide reads: $POLESTAR_CODEX_DIR (a Polestar_Codex folder), else addon/Polestar_Codex
+/// (`forge data codex`), loaded when asked as in game.
+fn real_pack_lua() -> Option<String> {
+	let dir = std::env::var_os("POLESTAR_CODEX_DIR").map_or_else(|| addons_dir().join("Polestar_Codex"), std::path::PathBuf::from);
+	let toc = std::fs::read_to_string(dir.join("Polestar_Codex.toc")).ok()?;
+	let frames: Value = serde_json::from_str(&std::fs::read_to_string(root().join("data/forever/map-frames.json")).ok()?).ok()?;
+	let files: Vec<String> = toc.lines().map(str::trim).filter(|l| !l.is_empty() && !l.starts_with('#')).map(|f| serde_json::to_string(&join(&dir, f).to_string_lossy()).unwrap()).collect();
+	let mut maps = Vec::new();
+	for part in ["era", "forever"] {
+		for (id, f) in frames[part].as_object().into_iter().flatten() {
+			maps.push(format!("w.addMap({id}, {{ name = \"\", c = {}, left = {}, right = {}, top = {}, bottom = {} }})", f["c"], f["left"], f["right"], f["top"], f["bottom"]));
+		}
+	}
+	Some(format!(
+		"do
+  local __files, __load = {{ {} }}, C_AddOns.LoadAddOn
+  function C_AddOns.LoadAddOn(name)
+    if name ~= \"Polestar_Codex\" then return __load(name) end
+    if not stub.addonsLoaded[name] then
+      for _, f in ipairs(__files) do dofile(f) end
+      stub.addonsLoaded[name] = true
+    end
+    return true, nil
+  end
+end
+local w = stub.world
+{}",
+		files.join(", "),
+		maps.join("\n")
+	))
+}
+
+// Two attunements as a level 60 Horde character in Orgrimmar gets them from the shipped Codex: the Molten Core's
+// (accept at Lothos Riftwaker outside, the Core Fragment at Blackrock Depths' entrance with what to do inside, back
+// to Lothos, then the note about his teleport) and the Horde's Dalaran Sewer Key (the Tarren Mill chain, then
+// Heart of Disruption's accept alone with the keep-it note). Skips without a built pack.
+#[test]
+fn with_the_built_codex_the_molten_core_and_sewer_key_guides_read_like_a_route() {
+	let Some(packs) = real_pack_lua() else {
+		eprintln!("skipped: no Codex pack (forge data codex, or POLESTAR_CODEX_DIR) or no data/forever/map-frames.json");
+		return;
+	};
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{packs}\nw.level, w.race, w.raceName, w.faction = 60, \"Orc\", \"Orc\", \"Horde\"\nw.class, w.className = \"WARRIOR\", \"WARRIOR\"\nw.moveTo(1454, 50, 70)"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Lookup/Lookup.xml", "Dungeons/Dungeons.xml"])],
+		login: true,
+		script: format!(
+			"{LUA}\n{}",
+			r#"
+local D = Polestar.Dungeons
+D.Load()
+local function full(def)
+	local out = {}
+	for i, s in ipairs(def and def.steps or {}) do
+		local goals = {}
+		for j, g in ipairs(s.goals) do
+			goals[j] = g.t .. (g.quest and (":" .. g.quest) or g.item and (":" .. g.item) or "") .. (g.map and (" @" .. g.map .. " " .. g.x .. "," .. g.y) or "")
+		end
+		local notes = {}
+		for _, g in ipairs(s.goals) do if g.t == "note" then notes[#notes + 1] = g.text end end
+		out[i] = { title = s.title, goals = goals, note = s.note or table.concat(notes, " ") }
+	end
+	return out
+end
+emit(full(D.AttuneGuide("molten-core", "core")))
+emit(full(D.AttuneGuide("city-of-dalaran", "sewer-key")))"#
+		),
+		..Default::default()
+	});
+	let (mc, sewer) = (&out[0], &out[1]);
+	eprintln!("{}\n{}", serde_json::to_string_pretty(mc).unwrap(), serde_json::to_string_pretty(sewer).unwrap());
+	let brd = "@1427 34.8,85.3";
+	assert_eq!(text(&mc[0]["title"]), "Attunement to the Core");
+	let goals: Vec<String> = list(&mc[0]["goals"]).iter().map(|g| text(g).to_string()).collect();
+	assert!(goals[0].starts_with("accept:7848 @"), "Lothos's accept, placed: {goals:?}");
+	assert_eq!(goals[1], format!("collect:7848 {brd}"), "the Core Fragment at Blackrock Depths' entrance");
+	assert!(goals[2].starts_with("turnin:7848 @"), "back to Lothos: {goals:?}");
+	let note = text(&mc[0]["note"]);
+	assert!(note.contains("Molten Core portal") && note.contains("Core Fragment: inside Blackrock Depths."), "what to do inside, then where: {note}");
+	assert_eq!(text(&mc[1]["title"]), "Molten Core");
+	assert!(text(&mc[1]["note"]).contains("Lothos Riftwaker"), "the last step says what the attunement does");
+	let titles: Vec<String> = list(sewer).iter().map(|s| text(&s["title"]).to_string()).collect();
+	let mut chain = titles[..4].to_vec();
+	chain.sort();
+	assert_eq!(chain, vec!["Blood in the Streets", "Dalaran Patrols", "Key to the City", "Prison Break In"], "{titles:?}");
+	assert_eq!(titles[3], "Blood in the Streets", "after the three Tarren Mill quests: {titles:?}");
+	assert_eq!(titles[4], "Heart of Disruption");
+	let heart: Vec<String> = list(&sewer[4]["goals"]).iter().map(|g| text(g).to_string()).collect();
+	assert_eq!(heart.len(), 1, "its accept alone: {heart:?}");
+	assert!(heart[0].starts_with("accept:96984 @1421 "), "at the Image of Archmage Modera: {heart:?}");
+	assert!(text(&sewer[4]["note"]).starts_with("Keep "), "{}", sewer[4]["note"]);
+	assert_eq!(text(&sewer[5]["title"]), "City of Dalaran");
 }
 
 fn quests_of(a: &Value) -> Vec<i64> {
@@ -503,7 +668,9 @@ emit({ title = def.title, steps = describe(def), goto = { last.goals[2].map, las
 local gid = D.Attune("wailing-caverns", "fang")
 local tabs = {}
 for i, t in ipairs(Polestar.Engine.GetTabs()) do tabs[i] = t.guideId end
-emit({ gid = gid, tabs = tabs })
+local E = Polestar.Engine
+local enter = E.GetStepView(E.GetStepCount()).goals[2]
+emit({ gid = gid, tabs = tabs, enter = enter.text, header = enter.header or false })
 stub.world.complete({ 90002, 90003 })
 local none, why = D.AttuneGuide("wailing-caverns", "fang")
 emit({ none = none == nil, why = why })"#,
@@ -514,17 +681,21 @@ emit({ none = none == nil, why = why })"#,
 		json!([
 			{ "title": "Rite of the Serpent", "goals": "accept:90001 turnin:90001" },
 			{ "title": "The Serpent's Trial", "goals": "accept:90002 collect:90002 turnin:90002" },
-			{ "title": "Fang of the Serpent", "goals": "accept:90003 turnin:90003" },
+			{ "title": "Fang of the Serpent", "goals": "rep accept:90003 turnin:90003" },
 			{ "title": "Wailing Caverns", "goals": "note goto" },
 		]),
-		"the Alliance goal is not in a Horde guide"
+		"the Alliance goal is not in a Horde guide; the standing the last quest needs comes first, in words"
 	);
 	assert_eq!(later["title"], "Wailing Caverns: Fang of the Serpent");
 	let titles: Vec<Value> = list(&later["steps"]).iter().map(|s| s["title"].clone()).collect();
 	assert_eq!(json!(titles), json!(["The Serpent's Trial", "Fang of the Serpent", "Wailing Caverns"]));
-	assert_eq!(later["goto"], json!([1413, 46, 36.4, "Enter Wailing Caverns"]));
+	assert_eq!(later["goto"], json!([1413, 46, 36.4, "Wailing Caverns"]));
 	assert_eq!(later["note"], "Lets you take the serpent's path.");
-	assert_eq!(*opened, json!({ "gid": "lookup/attune/wailing-caverns:fang", "tabs": ["lookup/attune/wailing-caverns:fang"] }));
+	assert_eq!(
+		*opened,
+		json!({ "gid": "lookup/attune/wailing-caverns:fang", "tabs": ["lookup/attune/wailing-caverns:fang"], "enter": "Enter Wailing Caverns", "header": false }),
+		"the entrance reads Enter, not Go to Enter, as its own row"
+	);
 	assert_eq!(*finished, json!({ "none": true, "why": "done" }));
 }
 
@@ -629,7 +800,8 @@ stub.advance(0.6)
 local walk = {}
 local function look()
 	local v = E.GetStepView(1)
-	walk[#walk + 1] = { step = E.GetStepIndex() or false, accept = v.goals[1].detail }
+	local wp = E.GetWaypoint()
+	walk[#walk + 1] = { step = E.GetStepIndex() or false, accept = v.goals[1].detail, entrance = wp ~= nil and wp.map == 1413 and wp.x == 46 and wp.y == 36.4 }
 end
 look()
 stub.world.setLevel(25)
@@ -663,8 +835,9 @@ emit(walk)"#,
 	assert_eq!(built["at"][0], json!(["1413 52.2 31.9", entrance, entrance, entrance]), "Tonga in the Barrens; Kresh, the scale pile and the Keeper at the entrance");
 	assert_eq!(built["at"][1], json!([entrance, "1413 52.2 31.9"]));
 	assert_eq!(built["notes"], json!(["Deviate Keeper, Kresh, Shimmering Scale: inside Wailing Caverns.", "Deviate Keeper: inside Wailing Caverns.", false]));
+	let steps: Vec<Value> = walk.as_array().unwrap().iter().map(|w| json!({ "step": w["step"], "accept": w["accept"] })).collect();
 	assert_eq!(
-		*walk,
+		json!(steps),
 		json!([
 			{ "step": 1, "accept": "from Tonga Runetotem, from level 25" },
 			{ "step": 1, "accept": "from Tonga Runetotem" },
@@ -673,6 +846,38 @@ emit(walk)"#,
 		]),
 		"the guide stays on the gated quest, then walks each quest in turn to the entrance"
 	);
+	// #1320's generic pass of an accept above the level never sends a character too low for the attunement into
+	// the dungeon's entrance: the guide holds at Tonga's accept.
+	assert_eq!(walk[0]["entrance"], json!(false), "level 18: the arrow is not on the entrance");
+}
+
+// What Comes Around...: Lookup's guide for the quest said "Collect Head of Targorr" with the arrow left beside
+// Guard Berton, who takes it; Targorr is a boss inside the Stockade and the data has no place for him outside
+// (#3613). A quest guide sends an inside source's item to its instance's entrance, as the attunement guides do,
+// and says what is inside.
+#[test]
+fn issue_3613_a_lookup_quest_guide_sends_a_drop_from_inside_an_instance_to_its_entrance() {
+	let f = Fx::new();
+	let mut c = f.codex.clone();
+	c["items"]["90061"] = json!({ "id": 90061, "name": "Head of Kresh", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "drop", "npc": 3653, "chance": 100 }] });
+	c["quests"]["90062"] = json!({ "id": 90062, "title": "What Comes Around", "level": 18, "minLevel": 10, "faction": null, "races": null, "classes": null,
+		"start": { "npc": [3448], "object": [], "item": [] }, "end": { "npc": [3448], "object": [] },
+		"objectives": [{ "type": "item", "id": 90061, "count": 1, "text": "Head of Kresh" }], "pre": [], "preAny": [], "rewards": [], "choices": [] });
+	let pk = pack_of(&c, &f.inputs);
+	let out = f.run(
+		&pk,
+		r#"
+Polestar.Set("lookup.enabled", true)
+local def, why = Polestar.Lookup.BuildGuide("quest", 90062)
+local goals = {}
+for i, goal in ipairs(def and def.steps[1].goals or {}) do goals[i] = goal.t .. " " .. (goal.map and table.concat({ goal.map, goal.x, goal.y }, " ") or "nowhere") end
+emit({ why = why or false, goals = goals, note = def and def.steps[1].note or false })"#,
+		"Horde",
+		"Tauren",
+	);
+	assert_eq!(out[0]["why"], json!(false));
+	assert_eq!(out[0]["goals"], json!(["accept 1413 52.2 31.9", "collect 1413 46 36.4", "turnin 1413 52.2 31.9"]), "the head at the caverns' entrance");
+	assert_eq!(out[0]["note"], json!("Head of Kresh: inside Wailing Caverns."), "the step says what is inside where");
 }
 
 #[test]
@@ -695,6 +900,93 @@ emit({ some = D.AttuneGuide("wailing-caverns", "heart") ~= nil })"#,
 	);
 	assert_eq!(out[0], json!({ "none": true, "why": "nothing" }));
 	assert_eq!(out[1], json!({ "some": true }));
+}
+
+// Keys and items the 0.4.3 audit added ways for: a key handed over with a quest's accept (Heart of Disruption's
+// Dalaran Sewer Key), an item made by using another where an NPC stands (the Black Tome at the Ambermill Leyline
+// Focus), and a turn-in at an object the Codex places inside an instance with no spawn (Drakkisath's Brand).
+fn keys_fixture(codex: &Value, inputs: &Value) -> (Value, Value) {
+	let mut c = codex.clone();
+	let quest = |id: i64, title: &str, start: i64, end: Value, objectives: Value, pre_any: Value| {
+		json!({ "id": id, "title": title, "level": 26, "minLevel": 15, "faction": null, "races": null, "classes": null,
+			"start": { "npc": [start], "object": [], "item": [] }, "end": end, "objectives": objectives, "pre": [], "preAny": pre_any, "rewards": [], "choices": [] })
+	};
+	let item = |id: i64, name: &str, sources: Value| json!({ "id": id, "name": name, "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": sources });
+	c["quests"]["90060"] = quest(90060, "Blood in the Streets", 3448, json!({ "npc": [3448], "object": [] }), json!([]), json!([]));
+	c["quests"]["90061"] =
+		quest(90061, "Heart of Disruption", 3448, json!({ "npc": [3448], "object": [] }), json!([{ "type": "item", "id": 90062, "count": 1, "text": "Arcane Mote" }]), json!([90060]));
+	c["items"]["90062"] = item(90062, "Arcane Mote", json!([]));
+	c["items"]["90063"] = item(90063, "Sewer Key", json!([]));
+	c["items"]["90064"] = item(90064, "Black Tome", json!([{ "type": "object", "object": 90065, "chance": 100, "instance": "deadmines" }]));
+	c["items"]["90066"] = item(90066, "Tome of Secrets", json!([]));
+	c["objects"]["90070"] = json!({ "id": 90070, "name": "Serpent's Brand", "treasure": false, "instance": "wailing-caverns", "spawns": [] });
+	c["quests"]["90069"] = quest(90069, "The Serpent's Brand", 3448, json!({ "npc": [], "object": [90070] }), json!([]), json!([]));
+	let mut table = inputs["attunementTable"].clone();
+	let list = table["attunements"].as_array_mut().unwrap();
+	list.push(json!({ "key": "wailing-caverns", "id": "sewer", "name": "Sewer Key", "kind": "key", "need": "one", "item": 90063, "goal": [90061], "onAccept": true, "note": "Opens the sewer." }));
+	list.push(json!({ "key": "wailing-caverns", "id": "tome", "name": "Tome of Secrets", "kind": "item", "need": "one", "item": 90066, "via": 90064, "useAt": { "kind": "npc", "id": 3448 }, "note": "Calls up a secret." }));
+	list.push(json!({ "key": "wailing-caverns", "id": "brand", "name": "The Serpent's Brand", "kind": "attunement", "need": "each", "goal": [90069], "note": "Lets you in." }));
+	let mut inp = inputs.clone();
+	inp["attunementTable"] = table;
+	(c, inp)
+}
+
+#[test]
+fn a_key_given_at_an_accept_ends_the_guide_there_an_item_made_by_a_use_is_used_where_its_npc_stands_and_a_codex_placed_object_is_at_its_entrance() {
+	let f = Fx::new();
+	let (kc, ki) = keys_fixture(&f.codex, &f.inputs);
+	let pk = pack_of(&kc, &ki);
+	let out = f.run(
+		&pk,
+		r#"
+local function at(g) return g.map and table.concat({ g.map, g.x, g.y }, " ") or false end
+local sewer = D.AttuneGuide("wailing-caverns", "sewer")
+emit({ steps = describe(sewer), note = sewer.steps[2].note })
+emit(states("wailing-caverns", "sewer"))
+stub.world.accept(90060, {})
+stub.world.turnIn(90060)
+stub.world.accept(90061, { { required = 1 } })
+emit(states("wailing-caverns", "sewer"))
+stub.world.addItem(90063)
+emit(states("wailing-caverns", "sewer"))
+local tome = D.AttuneGuide("wailing-caverns", "tome")
+emit({ steps = describe(tome), chest = at(tome.steps[1].goals[1]), chestNote = tome.steps[1].goals[2].text,
+	use = at(tome.steps[2].goals[1]), made = at(tome.steps[2].goals[2]), useNote = tome.steps[2].note })
+stub.world.addItem(90066)
+emit(states("wailing-caverns", "tome"))
+local brand = D.AttuneGuide("wailing-caverns", "brand")
+emit({ steps = describe(brand), turnin = at(brand.steps[1].goals[2]), note = brand.steps[1].note or false })"#,
+		"Horde",
+		"Tauren",
+	);
+	let (sewer, fresh, taken, owned, tome, made, brand) = (&out[0], &out[1], &out[2], &out[3], &out[4], &out[5], &out[6]);
+	assert_eq!(
+		sewer["steps"],
+		json!([
+			{ "title": "Blood in the Streets", "goals": "accept:90060 turnin:90060" },
+			{ "title": "Heart of Disruption", "goals": "accept:90061" },
+			{ "title": "Wailing Caverns", "goals": "note goto" },
+		]),
+		"the chain ends at the accept that hands over the key: no Arcane Mote, no turn-in that would take it back"
+	);
+	assert_eq!(sewer["note"], "Keep \u{201c}Heart of Disruption\u{201d} in your quest log until you are inside: taking it gives you Sewer Key, and dropping the quest takes it back.");
+	assert_eq!(fresh["states"], json!(["open", "locked"]));
+	assert_eq!(json!([taken["states"], taken["done"], taken["goalDone"]]), json!([["done", "done"], false, true]), "in the log: the step is done, the key not yet in the bags");
+	assert_eq!(owned["done"], json!(true));
+	assert_eq!(
+		tome["steps"],
+		json!([
+			{ "title": "Black Tome", "goals": "collect:90064 note" },
+			{ "title": "Black Tome", "goals": "use:90064 collect:90066" },
+			{ "title": "Wailing Caverns", "goals": "note goto" },
+		])
+	);
+	assert_eq!(json!([tome["chest"], tome["chestNote"]]), json!(["1436 42.5 71.7", "Black Tome: inside The Deadmines."]), "a chest with no object name, at its instance's entrance");
+	assert_eq!(json!([tome["use"], tome["made"]]), json!(["1413 52.2 31.9", "1413 52.2 31.9"]), "used where Tonga stands");
+	assert_eq!(tome["useNote"], "Use Black Tome beside Tonga Runetotem: it becomes Tome of Secrets.");
+	assert_eq!(json!([made["done"], made["states"]]), json!([true, ["skip", "done"]]), "the made item owned: done");
+	assert_eq!(brand["steps"], json!([{ "title": "The Serpent's Brand", "goals": "accept:90069 turnin:90069" }, { "title": "Wailing Caverns", "goals": "note goto" }]));
+	assert_eq!(json!([brand["turnin"], brand["note"]]), json!(["1413 46 36.4", "Serpent's Brand: inside Wailing Caverns."]), "the Codex's object instance places the turn-in");
 }
 
 // ---------------------------------------------------------------------------

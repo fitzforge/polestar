@@ -77,6 +77,25 @@ fn creatures_seen_are_counted_once_per_level_and_100_yards_rares_once_per_50_yar
 	assert_eq!(out["bad"], json!({}));
 }
 
+// #2894: a world boss (Thrall in Orgrimmar) on a nameplate is a creature seen, no rare sighting: the
+// `rare` record is for rares and rare elites only, so the data build never takes the spots players
+// stood on as his. The census `unit` record keeps his class (`b`).
+#[test]
+fn a_world_boss_seen_is_a_unit_record_and_no_rare_sighting_2894() {
+	let out = run(&format!(
+		"{UNIT}{}",
+		r#"
+		stub.moveTo(40, 40)
+		unit("nameplate1", (stub.creature(4949, "Thrall")), "Thrall", "worldboss", 63)
+		stub.world.units["nameplate1"].react = 5
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
+		logout()
+		emit({ recs = recs("unit rare"), bad = malformed() })"#
+	));
+	assert_eq!(out["recs"], json!(["unit|4949|63|b|f|1429|4000|4000|p"]));
+	assert_eq!(out["bad"], json!({}));
+}
+
 #[test]
 fn kills_carry_level_class_and_tap_loot_windows_go_per_source_with_the_open_item_objectives() {
 	let out = run(&format!(
@@ -137,6 +156,35 @@ fn kills_carry_level_class_and_tap_loot_windows_go_per_source_with_the_open_item
 			"loot|||1429|2510|3020|f|6291:1|33:1",
 		])
 	);
+	assert_eq!(out["bad"], json!({}));
+}
+
+#[test]
+fn a_window_fast_loot_empties_is_read_at_loot_ready_with_every_item() {
+	// Fast loot calls LootSlot on every slot at LOOT_READY, and the server clears them before
+	// LOOT_OPENED: a window read then lost the boar's liver, kept its snout, and the liver's quest
+	// tick (Goretusk Liver Pie, 22) was tied to the snout.
+	let out = run(r#"
+		stub.acceptQuest(22, { title = "Goretusk Liver Pie", objectives = { { text = "Goretusk Liver: %d/%d", type = "item", numRequired = 8 } } })
+		local boar = stub.creature(454, "Young Goretusk")
+		stub.partyKill(boar)
+		stub.advance(1)
+		stub.world.loot = { { name = "Goretusk Liver", item = 723, quest = true, src = { boar, 1 } }, { name = "Goretusk Snout", item = 731, src = { boar, 1 } } }
+		stub.fire("LOOT_READY", true)
+		stub.fire("LOOT_READY", true) -- it can repeat for one corpse
+		stub.world.loot[1] = { name = "", count = 0 } -- the liver's slot, cleared by the server
+		stub.fire("LOOT_OPENED", true, false)
+		stub.fire("LOOT_CLOSED")
+		-- a client without LOOT_READY still reads the window at LOOT_OPENED
+		local boar2 = stub.creature(454, "Young Goretusk")
+		stub.partyKill(boar2)
+		stub.world.loot = { { name = "Goretusk Snout", item = 731, src = { boar2, 1 } } }
+		stub.fire("LOOT_OPENED", false, false)
+		stub.fire("LOOT_CLOSED")
+		stub.advance(4)
+		logout()
+		emit({ loot = recs("loot"), bad = malformed() })"#);
+	assert_eq!(out["loot"], json!(["loot|c|454|1429|5000|5000||723:1;731:1|22:1", "loot|c|454|1429|5000|5000||731:1|22:1"]));
 	assert_eq!(out["bad"], json!({}));
 }
 

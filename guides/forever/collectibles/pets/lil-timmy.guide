@@ -19,9 +19,9 @@ zone Stormwind City
 # Cathedral Square, as in Classic (Classic flow; beta players report the same
 # path and the single kitten; the restock time is Classic data). In-game
 # check: how long until he has a kitten again.
-# ASSUMED: Xaphod Bizznox sells the kitten without a stock limit (Forever's
-# data lists it in his stock but not how many). In-game check: his window at
-# Malaka'jin.
+# Xaphod Bizznox keeps one kitten at a time too: the EG Link vendor scans
+# (builds 1.60.1.70009 to 70790) list it as limited, at most 1 in stock, and a
+# player's merchant window at Malaka'jin showed 1 left (recordings, #1348 sweep).
 
 step Lil Timmy
   only Alliance
@@ -32,6 +32,6 @@ step Lil Timmy
 step Xaphod Bizznox
   only Horde
   zone Stonetalon Mountains
-  tip Horde players buy the White Kitten (60s) from Xaphod Bizznox, a trader new in Forever, at Malaka'jin, the Darkspear camp at the southern tip of Stonetalon Mountains, on the way up from the Barrens. Each pet item teaches its companion when you use it; the goal stays ticked afterwards.
+  tip Horde players buy the White Kitten (60s) from Xaphod Bizznox, a trader new in Forever, at Malaka'jin, the Darkspear camp at the southern tip of Stonetalon Mountains, on the way up from the Barrens. He keeps one kitten at a time: if he has none, someone just bought it. Each pet item teaches its companion when you use it; the goal stays ticked afterwards.
   vendor 262471                       -- Xaphod Bizznox
   buy 8489 npc 262471 optional        -- Cat Carrier (White Kitten), 60s

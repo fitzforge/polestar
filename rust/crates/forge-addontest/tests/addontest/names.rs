@@ -58,14 +58,15 @@ fn guide() -> String {
 	format!("\n{TEST_PACK}\n{TEST_SOURCE}{GUIDE_LUA}")
 }
 
-// The French interface file stays out (its "%1$s" formats need the client's
-// string.format, which Lua 5.1's lacks): these tests are about the names.
-const NO_INTERFACE_FILE: &str = r#"
+// The language folder refused when Core/Locale.lua asks for it while Polestar loads, and loaded when asked
+// after login: Names then asks for it itself, through Data.Pack, which waits out combat. The fallback the
+// combat tests are about (the folder normally comes in with the addon).
+const REFUSED_AT_LOAD: &str = r#"
 do
-	local load = loadfile
-	function loadfile(file)
-		if file:match("[/\\]Locales[/\\]%a%a%u%u%.lua$") then return function() end end
-		return load(file)
+	local load = C_AddOns.LoadAddOn
+	function C_AddOns.LoadAddOn(name)
+		if not stub.loggedIn and type(name) == "string" and name:find("^Polestar_%l%l%u%u$") then return false, "DEP_DEMAND_LOADED" end
+		return load(name)
 	end
 end"#;
 
@@ -101,7 +102,7 @@ fn run(o: Opts) -> Vec<Value> {
 	emitted(&RunAddon {
 		stubs: o.stubs,
 		saved: o.saved.map(|s| vec![("Polestar".into(), s.into())]).unwrap_or_default(),
-		before: format!("{}\n{NO_INTERFACE_FILE}\n{}\n{CLIENT}\n{}", locale_lua(o.locale), pack.stub_lua, o.before),
+		before: format!("{}\n{}\n{CLIENT}\n{}", locale_lua(o.locale), pack.stub_lua, o.before),
 		addons: vec![Addon::name("Polestar")],
 		script: format!("{}\nstub.login()\nstub.fire(\"QUEST_LOG_UPDATE\"); stub.advance(0.6)\nN = Polestar.Names\n{}", o.guide, o.script),
 		..Default::default()
@@ -162,8 +163,27 @@ emit({ unasked, burst, fired })"#
 }
 
 #[test]
+fn a_burst_of_asked_names_arriving_moves_the_names_revision_once() {
+	// Names.revision: the step browser's skipped cards, whose reasons name quests, draw again when it moves.
+	let out = run(Opts {
+		guide: guide(),
+		script: r#"
+local r0 = N.revision
+N.Quest(176); N.Item(1528)
+stub.fire("QUEST_DATA_LOAD_RESULT", 176, true)
+stub.fire("ITEM_DATA_LOAD_RESULT", 1528, true)
+stub.advance(1)
+emit({ N.revision - r0 })"#
+			.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!([1]));
+}
+
+#[test]
 fn in_combat_the_pack_waits_english_meanwhile_and_loads_once_out_of_it_a_pack_for_another_language_changes_nothing() {
 	let out = run(Opts {
+		before: REFUSED_AT_LOAD.into(),
 		script: r#"
 stub.inCombat = true
 emit({ N.Npc(448) or false, __namesLoads })
@@ -284,7 +304,9 @@ fn the_language_folder_is_optional_never_reported_missing_named_when_it_is_from_
 	// A complete install for the stub's Alliance character: our guides' Alliance part too (format 8).
 	let check = |addons: &str| {
 		run(Opts {
-			before: format!(r#"stub.addons = {{ {{ name = "Polestar" }}, {{ name = "Polestar_Guides" }}, {{ name = "Polestar_Guides_Alliance" }}, {{ name = "Polestar_Codex" }}{addons} }}"#),
+			before: format!(
+				r#"stub.addons = {{ {{ name = "Polestar" }}, {{ name = "Polestar_Guides" }}, {{ name = "Polestar_Guides_Alliance" }}, {{ name = "Polestar_Codex" }}, {{ name = "Polestar_Options" }}, {{ name = "Polestar_Looks" }}{addons} }}"#
+			),
 			script: script.into(),
 			..Default::default()
 		})
@@ -293,7 +315,7 @@ fn the_language_folder_is_optional_never_reported_missing_named_when_it_is_from_
 	assert_eq!(check(""), json!(["", ""]));
 	assert_eq!(check(r#", { name = "Polestar_frFR" }"#), json!(["", ""]));
 	let stale = run(Opts {
-		before: "stub.addons = { { name = \"Polestar\" }, { name = \"Polestar_Guides\" }, { name = \"Polestar_Guides_Alliance\" }, { name = \"Polestar_Codex\" }, { name = \"Polestar_frFR\" } }\nstub.addonMeta[\"Polestar_frFR\"] = { Version = \"0.0.1\" }".into(),
+		before: "stub.addons = { { name = \"Polestar\" }, { name = \"Polestar_Guides\" }, { name = \"Polestar_Guides_Alliance\" }, { name = \"Polestar_Codex\" }, { name = \"Polestar_Options\" }, { name = \"Polestar_Looks\" }, { name = \"Polestar_frFR\" } }\nstub.addonMeta[\"Polestar_frFR\"] = { Version = \"0.0.1\" }".into(),
 		script: script.into(),
 		..Default::default()
 	});
@@ -439,15 +461,15 @@ fn quest_pack() -> NamesPack {
 	)
 }
 
-fn quest_run_in(script: &str, locale: Option<&str>) -> Vec<Value> {
+fn quest_run_in(script: &str, locale: Option<&str>, before: &str) -> Vec<Value> {
 	let db = quest_db();
 	let pack = quest_pack();
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua", "stub_quests.lua"],
 		before: format!(
 			r#"{}
-{NO_INTERFACE_FILE}
 {}
+{before}
 function C_QuestLog.RequestLoadQuestByID() end
 stub.quests.dbFiles = {}
 local w = stub.world
@@ -480,7 +502,7 @@ end
 }
 
 fn quest_run(script: &str) -> Vec<Value> {
-	quest_run_in(script, Some("frFR"))
+	quest_run_in(script, Some("frFR"), "")
 }
 
 #[test]
@@ -513,7 +535,7 @@ emit({ fr and #fr or 0, en and #en or 0 })"#,
 fn objective_lines_match_their_objectives_by_the_french_names_before_their_order() {
 	let lines = "w.accept(9500, { { text = \"Vermine kobold avorton tuée : 1/5\", required = 5, fulfilled = 1 }, { text = \"Vermine kobold tuée : 2/8\", required = 8, fulfilled = 2 } })\nstub.advance(0.3)\nemit({ prog(9500, 6), prog(9500, 9500) })";
 	assert_eq!(quest_run(lines)[0], json!(["2/8", "1/5"]), "each line read for its own objective");
-	assert_eq!(quest_run_in(lines, None)[0], json!(["1/5", "2/8"]), "English names find nothing in French lines: by order");
+	assert_eq!(quest_run_in(lines, None, "")[0], json!(["1/5", "2/8"]), "English names find nothing in French lines: by order");
 }
 
 // ---------------------------------------------------------------------------
@@ -611,7 +633,7 @@ emit(table.concat(out, "|"))"#
 fn a_names_pack_refused_in_combat_loads_when_combat_ends_without_another_ask_and_redraws_the_guide_window_once() {
 	let out = run(Opts {
 		guide: guide(),
-		before: "stub.inCombat = true".into(),
+		before: format!("{REFUSED_AT_LOAD}\nstub.inCombat = true"),
 		script: r#"
 local fired, names = 0, 0
 Polestar.On("STEP_UPDATED", function() fired = fired + 1 end)
@@ -632,7 +654,7 @@ emit({ during, loads, N.Ready(), fired, names, __namesLoads })"#
 
 #[test]
 fn the_quest_tracker_reads_the_objective_lines_by_the_french_names_once_a_pack_refused_in_combat_arrives() {
-	let out = quest_run(
+	let out = quest_run_in(
 		r#"
 local before = __namesLoads
 stub.inCombat = true
@@ -644,6 +666,8 @@ stub.advance(0.6)
 w.progress(9500, 2, 3)
 stub.advance(0.3)
 emit({ before, prog(9500, 6), prog(9500, 9500) })"#,
+		Some("frFR"),
+		REFUSED_AT_LOAD,
 	);
 	assert_eq!(out[0], json!([0, "3/8", "1/5"]));
 }

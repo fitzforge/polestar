@@ -7,14 +7,18 @@
 -- instance (a corpse run, a reload, a hearth back in) continues the run and
 -- does not count. "Same" means: same instance map, entered again within
 -- RESUME seconds of leaving, and no "<name> has been reset." in between. When
--- a creature GUID inside reveals a different instance copy than the run
--- remembered (another group's instance), the run is split and counted.
+-- creature GUIDs inside reveal a different instance copy than the run
+-- remembered (another group's instance), the run is split and counted. The
+-- copy is the GUID's fifth part, which Forever obfuscates: it is read only
+-- once two creatures of one visit agree on it, compared only with a value
+-- read in this session (a reload or relogin may change it), and left alone
+-- for the session once two creatures of one visit disagree.
 --
 -- Account-wide entries: PolestarDB.instances.entries = { { t, name, char }, ... }
--- (pruned to 24 hours). Per character: CharState().instanceRuns = { run, ... }
--- (last RUNS_KEPT), run = { id, name, kind, entered, since, left, time, xp,
--- level, zone, reset }. Times are server epoch seconds, so runs survive
--- reloads and logouts.
+-- (pruned to 24 hours; char as Alts.Key() forms it). Per character:
+-- CharState().instanceRuns = { run, ... } (last RUNS_KEPT), run = { id, name,
+-- kind, entered, since, left, time, xp, level, zone, reset }. Times are server
+-- epoch seconds, so runs survive reloads and logouts.
 
 local ADDON, ns = ...
 local Maps = ns.Maps
@@ -78,7 +82,10 @@ end
 ---------------------------------------------------------------------------
 
 local active          -- the run we are inside, or nil
-local visitChecked    -- this visit's instance copy has been read from a GUID
+local visitChecked    -- this visit's instance copy has been read from GUIDs
+local visitGuid, visitZone -- this visit's first creature GUID and the copy it names
+local copyIdle        -- two creatures of one visit named different copies: not read this session
+local zoneRead = setmetatable({}, { __mode = "k" }) -- runs whose zone was read in this session
 local lastLevel, lastXP, lastMax
 local lockouts, lockoutsAt = {}, 0
 
@@ -93,13 +100,35 @@ local function runs()
 end
 
 -- "Name-Realm" as Alts.Key() forms it (Compat.UnitFullName: "Ana Smith" on
--- Forever).
+-- Forever), the name alone while the client does not give the realm.
 local function charName()
 	local C = ns.Compat
 	local info = C and C.GetPlayerInfo and C.GetPlayerInfo()
 	local name = C and C.UnitFullName and C.UnitFullName("player")
 	if not (info and name) then return nil end
 	return info.realm and (name .. "-" .. info.realm) or name
+end
+
+-- With the realm unknown, this character's entries filed as "Name-Realm" take
+-- the name alone once, when they name exactly one realm; "Name-" (written
+-- while the client read "" for the realm) always does. Several realms: kept.
+local function claimEntries()
+	local C = ns.Compat
+	if not C or C.RealmName() then return end
+	local key = charName()
+	if not key then return end
+	local prefix = key .. "-"
+	local list, realms, n = entries(), {}, 0
+	for _, e in ipairs(list) do
+		local c = e.char
+		if type(c) == "string" and c ~= prefix and c:sub(1, #prefix) == prefix and not realms[c] then
+			realms[c] = true
+			n = n + 1
+		end
+	end
+	for _, e in ipairs(list) do
+		if e.char == prefix or (n == 1 and realms[e.char]) then e.char = key end
+	end
 end
 
 local function prune(now)
@@ -141,7 +170,7 @@ local function enter(name, kind, id)
 	local now = serverTime()
 	local r = runs()
 	local last = r[#r]
-	visitChecked = false
+	visitChecked, visitGuid, visitZone = false, nil, nil
 	if last and not last.left and last.id ~= id then close(last, now) end
 	if last and last.id == id and not last.reset and (not last.left or now - last.left <= RESUME) then
 		if last.left then
@@ -176,17 +205,28 @@ local function situation()
 	end
 end
 
--- A creature GUID inside names the instance copy:
--- "Creature-0-<server>-<instanceMap>-<zoneUID>-<npcID>-<spawnUID>".
+-- A creature GUID inside names the instance copy in its fifth part:
+-- "Creature-0-<realm>-<instanceMap>-<server>-<npcID>-<spawnUID>". Forever
+-- obfuscates the realm, server and spawn parts, so the copy counts only once
+-- two creatures of this visit agree on it (see the header).
 local function observe(unit)
-	if not active or visitChecked then return end
+	if not active or visitChecked or copyIdle then return end
 	local guid = readable(UnitGUID and UnitGUID(unit))
 	if type(guid) ~= "string" then return end
-	local kind, zone = guid:match("^(%a+)%-0%-%d+%-%d+%-(%d+)%-")
+	local kind, zone = guid:match("^(%a+)%-[^-]*%-[^-]*%-[^-]*%-([^-]+)%-%d+%-")
 	if kind ~= "Creature" and kind ~= "Vehicle" then return end
+	if not visitGuid or guid == visitGuid then
+		visitGuid, visitZone = guid, zone
+		return
+	end
+	if zone ~= visitZone then
+		copyIdle = true
+		return
+	end
 	visitChecked = true
-	if not active.zone then
+	if not active.zone or not zoneRead[active] then
 		active.zone = zone
+		zoneRead[active] = true
 	elseif active.zone ~= zone then
 		-- Another copy of this instance: the run we resumed ended when we
 		-- left it; this visit is a new instance and counts.
@@ -199,6 +239,7 @@ local function observe(unit)
 		end
 		active = newRun(active.name, active.kind, active.id, now)
 		active.entered, active.since, active.zone = visit, visit, zone
+		zoneRead[active] = true
 		refreshDisplay()
 	end
 end
@@ -313,8 +354,12 @@ local function span(s)
 end
 Maps.FormatSpan = span
 
-local function paint()
-	local st = Maps.GetInstanceStatus()
+local function trackers() return ns.UI and ns.UI.Trackers end
+
+-- The tracker's lines on f (the live one or a sandbox one) for status st
+-- (Maps.GetInstanceStatus's); its height follows the player's type sizes.
+local function fill(f, st)
+	local frame = f
 	frame.Count:SetText(format(L["%d/%d this hour"], st.inHour, st.perHour))
 	local W = ns.Widgets
 	if st.wait > 0 then
@@ -331,17 +376,34 @@ local function paint()
 		frame.RunInfo:SetText(format("%s · %s %s", Maps.FormatTime(Maps.RunSeconds(st.run, st.now)), digits(st.run.xp), L["XP"]))
 		frame.Run:Show()
 		frame.RunInfo:Show()
-		frame:SetHeight(52)
 	else
 		frame.Run:Hide()
 		frame.RunInfo:Hide()
-		frame:SetHeight(30)
 	end
+	-- The player's larger type (frame.psTextK, Options > Trackers) makes room for itself.
+	local k = math.max(1, frame.psTextK or 1)
+	local top = math.floor(14 * k + 0.5)
+	frame.Run:ClearAllPoints()
+	frame.Run:SetPoint("TOPLEFT", frame, "TOPLEFT", 10, -(16 + top))
+	frame.RunInfo:ClearAllPoints()
+	frame.RunInfo:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -10, -(16 + top))
+	frame.Run:SetPoint("RIGHT", frame.RunInfo, "LEFT", -8, 0)
+	local h = 16 + top
+	if st.run then h = h + 22 * k end
+	frame:SetHeight(math.floor(h + 0.5))
 	return st
 end
 
+local function paint()
+	return fill(frame, Maps.GetInstanceStatus())
+end
+
+-- Not while Polestar is hidden: the frame goes with it and its ticker stops.
 local function wanted()
-	if not (ns.Get("maps.instances") and ns.Get("maps.instanceDisplay")) then return false end
+	if not (ns.Get("maps.instances") and ns.Get("maps.instanceDisplay")) or ns.Hidden() then return false end
+	-- In a fight or inside an instance, as the player asked (Options > Trackers).
+	local TR = trackers()
+	if TR and not TR.Allowed("instances") then return false end
 	if active then return true end
 	local h = Maps.InstanceWindow(entries(), serverTime(), 1, 0)
 	return h > 0
@@ -370,25 +432,51 @@ function refreshDisplay()
 	end
 end
 
+-- The tracker's parts on f: the live frame (a Maps.CompactFrame) or a sandbox
+-- one for the options' preview (Maps.NewInstanceTracker). Its size, type and
+-- ground are the player's (Options > Trackers, UI/Looks/Trackers.lua).
+local function dress(f, sandbox)
+	local W = ns.Widgets
+	f:SetSize(230, 30)
+	local icon = W.Tex(f, "ARTWORK", "lock", "accent")
+	icon:SetSize(14, 14)
+	icon:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -8)
+	f.Count = W.Text(f, "number", "text")
+	f.Count:SetPoint("LEFT", icon, "RIGHT", 7, 0)
+	f.Wait = W.Text(f, "small", "textMuted")
+	f.Wait:SetPoint("TOPRIGHT", f, "TOPRIGHT", -10, -9)
+	f.Wait:SetJustifyH("RIGHT")
+	f.Run = W.Text(f, "small", "textDim")
+	f.Run:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -30)
+	f.RunInfo = W.Text(f, "small", "text")
+	f.RunInfo:SetPoint("TOPRIGHT", f, "TOPRIGHT", -10, -30)
+	f.RunInfo:SetJustifyH("RIGHT")
+	f.Run:SetPoint("RIGHT", f.RunInfo, "LEFT", -8, 0)
+	local TR = trackers()
+	if TR then
+		TR.Attach("instances", f, { titles = { f.Count }, bodies = { f.Wait, f.Run, f.RunInfo }, sandbox = sandbox,
+			refresh = not sandbox and function() refreshDisplay() end or nil,
+			relayout = function(self) if self.psStatus then fill(self, self.psStatus) elseif self == frame and self:IsShown() then paint() end end })
+	end
+	return f
+end
+
+-- A sandbox tracker for the options' preview, filled from a made-up status.
+function Maps.NewInstanceTracker(parent)
+	local f = CreateFrame("Frame", nil, parent)
+	f.psLight = true
+	ns.Theme.Skin(f, "window")
+	return dress(f, true)
+end
+function Maps.FillInstanceTracker(f, st)
+	f.psStatus = st
+	fill(f, st)
+end
+
 local function buildFrame()
 	if frame or not ns.Widgets then return end
 	local W = ns.Widgets
-	frame = Maps.CompactFrame("PolestarInstanceTracker", "maps.trackerPos", "TOPRIGHT", -220, -220)
-	frame:SetSize(230, 30)
-	local icon = W.Tex(frame, "ARTWORK", "lock", "accent")
-	icon:SetSize(14, 14)
-	icon:SetPoint("TOPLEFT", frame, "TOPLEFT", 10, -8)
-	frame.Count = W.Text(frame, "number", "text")
-	frame.Count:SetPoint("LEFT", icon, "RIGHT", 7, 0)
-	frame.Wait = W.Text(frame, "small", "textMuted")
-	frame.Wait:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -10, -9)
-	frame.Wait:SetJustifyH("RIGHT")
-	frame.Run = W.Text(frame, "small", "textDim")
-	frame.Run:SetPoint("TOPLEFT", frame, "TOPLEFT", 10, -30)
-	frame.RunInfo = W.Text(frame, "small", "text")
-	frame.RunInfo:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -10, -30)
-	frame.RunInfo:SetJustifyH("RIGHT")
-	frame.Run:SetPoint("RIGHT", frame.RunInfo, "LEFT", -8, 0)
+	frame = dress(Maps.CompactFrame("PolestarInstanceTracker", "maps.trackerPos", "TOPRIGHT", -220, -220))
 	frame:SetScript("OnEnter", function(self)
 		W.Tooltip(self, "ANCHOR_BOTTOMLEFT", L["Instances"], {
 			L["New instances you entered on this account in the last hour. Re-entering an instance you have not reset does not count."],
@@ -398,6 +486,8 @@ local function buildFrame()
 	frame:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
 	frame:SetScript("OnHide", stopTicker)
 end
+
+ns.On("POLESTAR_HIDDEN", function() refreshDisplay() end)
 
 ---------------------------------------------------------------------------
 -- Slash command: /pole instances [clear]
@@ -442,7 +532,7 @@ ns.RegisterCommand("instances", function(rest)
 		Client.RequestRaidInfo()
 		report()
 	end
-end, L["Instance limits, runs and lockouts (instances clear: forget them)"])
+end, L["Instance limits, runs and lockouts (instances clear: forget them)"], true)
 
 ---------------------------------------------------------------------------
 -- Events
@@ -473,6 +563,7 @@ end)
 ns.OnLogin(function()
 	buildFrame()
 	prune(serverTime())
+	claimEntries()
 	Client.RequestRaidInfo()
 	trackXP()
 	situation()

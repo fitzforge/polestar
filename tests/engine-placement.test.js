@@ -150,7 +150,7 @@ test('the breadcrumb Ziz Fizziks is skipped before the trip to Ratchet once Supe
 		ratchet: 'done',
 		status: 'skipped',
 		why: 'closed',
-		text: 'No longer offered: you took Super Reaper 6000',
+		text: 'No longer offered: you took “Super Reaper 6000”',
 	});
 
 	// Without Super Reaper 6000 the breadcrumb still sends the player to Ratchet.

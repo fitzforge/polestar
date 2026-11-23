@@ -122,7 +122,8 @@ pub fn sync_files(state: &State, create: &[String], fill: &[(String, V)], retire
 			let text = std::fs::read_to_string(&s.file).map_err(|e| format!("{}: {e}", s.file.display()))?;
 			out.push((s.file.clone(), update_locale_text(&text, &rel(&s.file), &keys, &fill, &retire)?));
 		} else if create.contains(locale) {
-			out.push((s.file.clone(), new_locale_text(locale, &keys, &fill, &retire, title)?));
+			let language_folder = s.file.file_name().is_some_and(|f| f == forge_guide::toc::INTERFACE_FILE);
+			out.push((s.file.clone(), new_locale_text(locale, &keys, &fill, &retire, title, language_folder)?));
 		}
 	}
 	Ok(out)

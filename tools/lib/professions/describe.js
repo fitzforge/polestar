@@ -160,10 +160,13 @@ function nodeSkill(name) {
 // One sentence on where `item` comes from for `side`: `src` is the planner's
 // sourceOf result, `m` the professions.json material. `zones: false` leaves out
 // a node's zones (a step that marks the patch in the player's starting area);
-// `marked` is the map that step marks (named among the zones).
-function sourceText(data, item, m, src, side, { zones: withZones = true, marked = null } = {}) {
+// `marked` is the map that step marks (named among the zones). `market: false`
+// leaves out "or the Auction House": a gather step whose Auction House goal is
+// a step of its own (docs/GUIDE_FORMAT.md, "Materials").
+function sourceText(data, item, m, src, side, { zones: withZones = true, marked = null, market = true } = {}) {
 	const name = (m && m.name) || `item ${item}`;
 	const each = m && m.buy > 0 ? money(m.buy / (m.buyCount || 1)) : null;
+	const ah = market ? '; or the Auction House' : '';
 	switch (src.kind) {
 		case 'vendor':
 			return `sold by vendors${each ? ` for ${each} each` : ''}`;
@@ -173,32 +176,31 @@ function sourceText(data, item, m, src, side, { zones: withZones = true, marked 
 			const node = nodeNames(data, m.gather.herb)[0] || name;
 			const sk = nodeSkill(node);
 			const zones = withZones ? nodeZones(data, m.gather.herb, side, 3, marked) : [];
-			return `Herbalism: ${node}${sk != null ? ` (skill ${sk})` : ''}${zones.length ? ` in ${list(zones)}` : ''}; or the Auction House`;
+			return `Herbalism: ${node}${sk != null ? ` (skill ${sk})` : ''}${zones.length ? ` in ${list(zones)}` : ''}${ah}`;
 		}
 		case 'mine': {
 			const node = nodeNames(data, m.gather.mine)[0] || name;
 			const sk = nodeSkill(node);
 			const zones = withZones ? nodeZones(data, m.gather.mine, side, 3, marked) : [];
-			return `Mining: ${node}${sk != null ? ` (skill ${sk})` : ''}${zones.length ? ` in ${list(zones)}` : ''}; or the Auction House`;
+			return `Mining: ${node}${sk != null ? ` (skill ${sk})` : ''}${zones.length ? ` in ${list(zones)}` : ''}${ah}`;
 		}
 		case 'skinning': {
 			const t = HIDE_LEVELS.find((h) => h.re.test(name));
-			return t ? `Skinning: beasts of level ${t.min}-${t.max}; or the Auction House` : 'Skinning; or the Auction House';
+			return t ? `Skinning: beasts of level ${t.min}-${t.max}${ah}` : `Skinning${ah}`;
 		}
 		case 'cloth': {
 			const lv = CLOTH_LEVELS[name];
-			return lv ? `humanoids of level ${lv[0]}-${lv[1]} drop it; or the Auction House` : 'humanoids drop it; or the Auction House';
+			return lv ? `humanoids of level ${lv[0]}-${lv[1]} drop it${ah}` : `humanoids drop it${ah}`;
 		}
 		case 'disenchant': {
 			const t = DISENCHANT_LEVELS.find((h) => h.re.test(name));
-			return `Enchanting: disenchant green items${t ? ` of item level ${t.min}-${t.max}` : ''}; or the Auction House`;
+			return `Enchanting: disenchant green items${t ? ` of item level ${t.min}-${t.max}` : ''}${ah}`;
 		}
 		case 'fishing':
-			return 'Fishing; or the Auction House';
+			return `Fishing${ah}`;
 		case 'crafted':
-			return src.note.replace(/ \(or the Auction House\)$/, '; or the Auction House');
 		case 'drop':
-			return src.note.replace(/ \(or the Auction House\)$/, '; or the Auction House');
+			return src.note.replace(/ \(or the Auction House\)$/, ah);
 		default:
 			return src.note;
 	}
@@ -219,9 +221,11 @@ function mainTown(data, prof, side) {
 	return map != null ? zoneName(data, map) : null;
 }
 
-// "Name (Zone)" of each trainer of a rank on `side`, sorted by name.
-function rankTrainers(data, rank, side) {
-	const ids = (rank && rank.trainers && rank.trainers[side]) || [];
+// "Name (Zone)" of each trainer of a rank on `side`, sorted by name; with `prof`, only those who
+// train at the rank's skill (its `trainerSkill`: Doctor Herbert Halsey trains Alchemy from 125, #1708).
+function rankTrainers(data, rank, side, prof) {
+	const gates = (prof && prof.trainerSkill) || {};
+	const ids = ((rank && rank.trainers && rank.trainers[side]) || []).filter((id) => gates[id] === undefined || Number(gates[id]) <= Number(rank.minSkill || 0));
 	return [...new Set(ids.map((id) => npcPlace(data, id)).filter(Boolean))].sort();
 }
 

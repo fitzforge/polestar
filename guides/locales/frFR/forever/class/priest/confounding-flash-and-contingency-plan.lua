@@ -75,8 +75,8 @@ return {
 	["{npc:376}: take her {quest:94818} letter"] = "{npc:376} : prenez sa lettre {quest:94818}",
 
 	-- Step 12: Contingency Plan: High Priestess Mims
-	-- {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries (no name in this language: may be words) · {quest:94818} Contingency Plan
-	["At 20, {npc:258785} in the {object:32386} teaches {quest:94818} with a quest she gives and takes back at once. {quest:94818} wards a friend for 30 seconds: if they drop below 35% health, they get a shield and a heal over time at once (it stacks with Renew and Power Word: Shield). 5-minute cooldown."] = "",
+	-- {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries (no name in this language: may be words) · {quest:94818} Contingency Plan · {spell:139} Renew · {spell:17} Power Word: Shield
+	["At 20, {npc:258785} in the {object:32386} teaches {quest:94818} with a quest she gives and takes back at once. {quest:94818} wards a friend for 30 seconds: if they drop below 35% health, they get a shield and a heal over time at once (it stacks with {spell:139} and {spell:17}). 5-minute cooldown."] = "Au niveau 20, {npc:258785}, dans la salle des Mystères, vous apprend {quest:94818} avec une quête qu'elle donne et reprend aussitôt. {quest:94818} protège un allié pendant 30 secondes : si sa vie passe sous 35 %, il reçoit aussitôt un bouclier et un soin sur la durée (cumulable avec {spell:139} et {spell:17}). Temps de recharge de 5 minutes.",
 
 	-- Step 13: Contingency Plan: Laurena's letter
 	-- {quest:94819} Contingency Plan
@@ -92,7 +92,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:258785} in the {object:32386}, in {zone:1455}'s {object:32362}. {npc:1226} in {area:131}, {npc:377} in {area:87} and {npc:376} in {zone:1453} send you to her with a quest of the same name (its text may say {zone:1453}: Mims is in {zone:1455})."] = "Au niveau 10, allez voir {npc:258785} à {object:32386}, dans {object:32362} de {zone:1455}. {npc:1226} à {area:131}, {npc:377} à {area:87} et {npc:376} à {zone:1453} vous envoient la voir avec une quête du même nom (son texte peut indiquer {zone:1453} : Mims est à {zone:1455}).",
-	-- ["At 20, {npc:258785} in the {object:32386} teaches {quest:94818} with a quest she gives and takes back at once. {quest:94818} wards a friend for 30 seconds: if they drop below 35% health, they get a shield and a heal over time at once (it stacks with {spell:139} and {spell:17}). 5-minute cooldown."] = "Au niveau 20, {npc:258785}, dans la salle des Mystères, vous apprend {quest:94818} avec une quête qu'elle donne et reprend aussitôt. {quest:94818} protège un allié pendant 30 secondes : si sa vie passe sous 35 %, il reçoit aussitôt un bouclier et un soin sur la durée (cumulable avec {spell:139} et {spell:17}). Temps de recharge de 5 minutes.",
 	-- ["At 20, {npc:258785} teaches {quest:94818}. {npc:376} in {zone:1453} sends you to her with a quest of the same name."] = "Au niveau 20, {npc:258785} enseigne {quest:94818}. {npc:376} à {zone:1453} vous envoie la voir avec une quête du même nom.",
 	-- ["The Gnome priest spells, new in Forever: one at 10, one at 20."] = "Les sorts de prêtre gnome, nouveaux dans Forever : l'un au niveau 10, l'autre au niveau 20.",
 }

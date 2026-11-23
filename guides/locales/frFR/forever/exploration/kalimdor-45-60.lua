@@ -63,8 +63,8 @@ return {
 
 	-- Step 11: Moonglade
 	["1 area to discover here, level 15."] = "1 zone à découvrir ici, niveau 15.",
-	-- {area:1769} Timbermaw Hold · {zone:1448} Felwood · {zone:1450} Moonglade · {area:2361} Nighthaven
-	["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: Teleport: {zone:1450}). {area:2361} is neutral."] = "",
+	-- {area:1769} Timbermaw Hold · {zone:1448} Felwood · {zone:1450} Moonglade · {spell:18960} Teleport: Moonglade · {area:2361} Nighthaven
+	["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "Prenez le tunnel de {area:1769}, au nord de {zone:1448}, pour rejoindre {zone:1450} (druides : {spell:18960}). {area:2361} est neutre.",
 	-- {zone:1450} Moonglade
 	["Flight path here: {zone:1450} (Sindrayl)."] = "Trajet aérien ici : {zone:1450} (Sindrayl).",
 	-- {zone:1450} Moonglade
@@ -84,9 +84,10 @@ return {
 	["9 areas to discover here. Its creatures are level 54-60."] = "9 zones à découvrir ici. Ses créatures sont de niveau 54-60.",
 	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:2256} Darkwhisper Gorge
 	["{zone:2482} is reached from {zone:1452} through {area:2256} in the south. It is Forever's endgame leveling zone."] = "On rejoint {zone:2482} depuis {zone:1452} par {area:2256}, au sud. C'est la zone de progression de fin de jeu de Forever.",
+	-- {area:16849} Summit of Eternity · {npc:41861} Fayran Elthas · {area:16853} Tainted Foothills
+	["Flight paths here: {area:16849} ({npc:41861}), {area:16853} (Bluebell)."] = "Trajets aériens ici : {area:16849} ({npc:41861}), {area:16853} (Bluebell).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["9 areas to discover here."] = "9 zones à découvrir ici.",
-	-- ["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "Prenez le tunnel de {area:1769}, au nord de {zone:1448}, pour rejoindre {zone:1450} (druides : {spell:18960}). {area:2361} est neutre.",
 	-- ["{zone:1451} is west of {zone:1449}. {area:3425} is neutral."] = "{zone:1451} se trouve à l'ouest de {zone:1449}. {area:3425} est neutre.",
 }
