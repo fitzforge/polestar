@@ -60,6 +60,18 @@ The public data is close to the release data but not equal to it: some
 tests fail on it on `next` too. `next`'s run on it records those failures,
 and a pull request fails only on failures `next` does not have.
 
+`next`'s newest run on the public data can be older than the commit a pull
+request merges into: a run takes over half an hour, and a newer push
+replaces a waiting one. So a failing test that run never ran is checked once
+more in the pull request's base, on the same data. If it fails there too,
+it is `next`'s and the pull request passes; if it passes there, the pull
+request broke it. Only a failing test the base does not have either, one the
+pull request adds or renames, is judged by who opened it: a warning on this
+repository's branches, whose release data job runs it, and a failure for a
+fork. Before this (#3851), a test merged to `next` minutes earlier that
+fails on the public data failed every fork's pull request until the next
+run finished.
+
 The self-hosted runner holds a read-only copy of the release data. It takes
 only code from this repository: pull requests whose head branch is here,
 and pushes to `next`, `main`, `release/*` and `hotfix/*`. It checks every job
