@@ -35,7 +35,8 @@
 --   Dungeons.Quests(key, faction) -> { quest, ... }   -- faction "A" | "H" | nil (all); level order
 --   Dungeons.Quest(key, id) -> quest | nil           -- page and chain quests
 --       quest = { id, title, level, minLevel, faction, classes, inside, shareable,
---         objectives = { { k = "kill"|"item"|"object"|"event", id, n (count over one), name (English) } },
+--         objectives = { { k = "kill"|"item"|"object"|"talk"|"event", id, n (count over one), name (English) } }
+--           (a talk named by its NPC; one whose text is the quest log's sentence comes as an event, #3426),
 --         start, finish (= { kind, id, name, map, x, y, f, inside }), startItem = { id, name },
 --         chain = { ids }, closedBy = { ids } | nil (taken or done, these close it for good:
 --         the quest a breadcrumb leads to, its exclusive group),
@@ -517,7 +518,7 @@ end
 
 function Dungeons.Open(key)
 	if not enabled() then
-		ns.Print(L["Dungeons are turned off (Options > Discovery > Lookup)."])
+		ns.Print(L["Dungeons are turned off (Settings > Discovery > Lookup)."])
 		return false
 	end
 	ns.Fire("SHOW_DUNGEON", key)

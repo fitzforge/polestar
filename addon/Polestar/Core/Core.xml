@@ -23,6 +23,7 @@
 	<Script file="GatherData.lua"/>
 	<Script file="RoutePlan.lua"/>
 	<Script file="ClassTrainers.lua"/>
+	<Script file="ProfessionTrainers.lua"/>
 	<Script file="Closes.lua"/>
 	<Script file="Unlocks.lua"/>
 	<Script file="Automation.lua"/>

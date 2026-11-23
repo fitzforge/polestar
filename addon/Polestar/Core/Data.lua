@@ -11,9 +11,9 @@
 --   Data.Info(name) -> { loaded, reason, memoryKB }
 --     memoryKB from UpdateAddOnMemoryUsage/GetAddOnMemoryUsage (nil when the
 --     client hides it).
---   Data.CheckInstall() -> missing, stale, retired, regions
+--   Data.CheckInstall() -> missing, stale, retired, regions, folded
 --     The release zip's folders beside Polestar: names of the required ones
---     (Polestar_Guides, Polestar_Codex, the player's faction part) that are
+--     (Polestar_Guides, Polestar_Codex, Polestar_Options, the player's faction part) that are
 --     not installed, and "name version" for every Polestar_* folder in the
 --     AddOns list, loaded or not, whose TOC version differs from Polestar's
 --     (Polestar_Recorder, released on its own, left out; a folder or a
@@ -26,10 +26,20 @@
 --     (Polestar_Nav_R<map>_<row>_<col>) are still installed; their maps are
 --     inside Polestar_Nav_EK and Polestar_Nav_Kalimdor since 0.4.2.1, and
 --     nothing loads them.
+--     folded: the names of the folders 0.4.3 folded into others (#3507:
+--     Polestar_Looks, Polestar_SkinAPI, Polestar_TabStyles,
+--     Polestar_Experimental, our Polestar_Skin_* and Polestar_Layout_Atlas,
+--     the Polestar_Guides_<race> parts) still installed; nothing loads them.
 --     At login a non-empty result prints one line saying to reinstall: a
 --     player who copied only some folders, or an old zip over a new one,
 --     finds out; the old folders get a line of their own saying to delete
 --     them.
+--   Data.Folded(name) -> bool
+--     `name` is one of those folded folders (Theme's skin list and the
+--     guide packs' scan leave them out).
+--   Data.Installed(name) -> bool
+--     The folder is in the AddOns folder, loaded or not, turned off or not
+--     (true without the client's API to ask).
 --   Data.InstallLine() -> string|nil
 --     A mixed install (stale non-empty) in one English line for the report
 --     (UI/Report.lua).
@@ -106,19 +116,33 @@ function Data.Info(name)
 	return info
 end
 
--- Folders the release zip puts beside Polestar. The first four must be
--- there (the settings window, Polestar_Options, and the game's looks with
--- Hearth, Polestar_Looks, load on demand but are part of every release); the
--- walking routes (Polestar_Nav), the Skin API's checks (Polestar_SkinAPI:
--- only another addon's skin needs them, and says so when they are missing),
--- Freedoom Arcade (Polestar_Arcade: without it there is no game to offer),
--- quest and item packs and the language folder of the client's language
--- (Names.PackName(), none in English) are optional (the arrow falls back to
--- straight lines, the interface, names and guide texts to English; a source
--- install may not build the packs), but when present they must be the same
--- version.
-local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Options", "Polestar_Looks", "Polestar_Nav", "Polestar_SkinAPI", "Polestar_Arcade", "Polestar_QuestDB", "Polestar_ItemDB" }
-local REQUIRED = { Polestar_Guides = true, Polestar_Codex = true, Polestar_Options = true, Polestar_Looks = true }
+-- Folders the release zip puts beside Polestar. The first three must be
+-- there (the settings window, Polestar_Options, loads on demand but is part
+-- of every release); our skins and layouts (Polestar_Skins: a player on none
+-- of them never loads it), the walking routes (Polestar_Nav), Freedoom Arcade
+-- (Polestar_Arcade: without it there is no game to offer), quest and item
+-- packs and the language folder of the client's language (Names.PackName(),
+-- none in English) are optional (the arrow falls back to straight lines, the
+-- interface, names and guide texts to English; a
+-- source install may not build the packs), but when present they must be the
+-- same version.
+local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Options", "Polestar_Skins", "Polestar_Nav", "Polestar_Arcade", "Polestar_QuestDB", "Polestar_ItemDB" }
+local REQUIRED = { Polestar_Guides = true, Polestar_Codex = true, Polestar_Options = true }
+
+-- The folders 0.4.3 folded into others (#3507): the game's looks, the Skin
+-- API's checks, the tab styles and the experimental guides into Polestar;
+-- the race parts into their faction's Polestar_Guides_Alliance and _Horde;
+-- our skins and the Atlas layout into Polestar_Skins. Polestar never
+-- loads them; one still installed gets a line saying to delete it.
+local FOLDED = {}
+for _, name in ipairs({ "Polestar_Looks", "Polestar_SkinAPI", "Polestar_TabStyles", "Polestar_Experimental", "Polestar_Layout_Atlas" }) do FOLDED[name] = true end
+for _, skin in ipairs({ "Vellum", "Lumen", "Beacon", "Aurora", "Hairline", "Umbra", "Waymark", "Lanterns", "Sheen", "Atlas" }) do FOLDED["Polestar_Skin_" .. skin] = true end
+for _, race in ipairs({ "Human", "Orc", "Dwarf", "NightElf", "Scourge", "Tauren", "Gnome", "Troll", "Skyborne" }) do FOLDED["Polestar_Guides_" .. race] = true end
+
+-- Is `name` one of the folders 0.4.3 folded into others?
+function Data.Folded(name)
+	return FOLDED[name] == true
+end
 
 local function installed(name)
 	local A = C_AddOns
@@ -132,6 +156,7 @@ local function installed(name)
 	local ok, _, _, _, _, reason = pcall(A.GetAddOnInfo, name)
 	return ok and readable(reason) ~= "MISSING"
 end
+Data.Installed = installed
 
 local function versionOf(name)
 	local get = C_AddOns and C_AddOns.GetAddOnMetadata
@@ -174,26 +199,26 @@ local function retiredLocales()
 end
 
 -- Not ours to compare: the Recorder ships in a zip of its own and is updated
--- on its own, and so does a skin addon (Polestar_Skin_*, docs/SKINS-API.md:
--- the repository's example and any skin named after it).
+-- on its own, and so does a skin or layout addon (Polestar_Skin_*,
+-- Polestar_Layout_*, docs/SKINS-API.md: the repository's example and any
+-- skin or layout named after it).
 local SEPARATE = { Polestar_Recorder = true }
 
--- Every other Polestar_* folder in the AddOns list, loaded or not: the parts
--- for the other races and faction, the other languages, the walking maps'
--- continents, the experimental guides (Polestar_Experimental, loaded at
--- login unless switched off). Community addons are never named Polestar_* (pack.json
--- refuses the prefix) but a skin may be; the old language folders and 0.4.2's
+-- Every other Polestar_* folder in the AddOns list, loaded or not: the other
+-- faction's part, the other languages, the walking maps' continents.
+-- Community addons are never named Polestar_* (pack.json refuses the prefix)
+-- but a skin or a layout may be; the old language folders, 0.4.2's
 -- walking-map regions (Polestar_Nav_R<map>_<row>_<col>, inside the continent
--- folders since 0.4.2.1) have a line of their own. -> the names, the number of
--- region folders.
+-- folders since 0.4.2.1) and the folders 0.4.3 folded (FOLDED) have a line of
+-- their own. -> the names, the number of region folders, the folded ones.
 local function listed()
-	local out, regions = {}, 0
+	local out, regions, folded = {}, 0, {}
 	local A = C_AddOns or {}
 	local count, info = A.GetNumAddOns or GetNumAddOns, A.GetAddOnInfo or GetAddOnInfo
-	if not (count and info) then return out, regions end
+	if not (count and info) then return out, regions, folded end
 	local ok, n = pcall(count)
 	n = ok and readable(n) or nil
-	if type(n) ~= "number" then return out, regions end
+	if type(n) ~= "number" then return out, regions, folded end
 	local retired = {}
 	for _, l in ipairs(LOCALES) do
 		retired["Polestar_Guides_" .. l], retired["Polestar_Names_" .. l] = true, true
@@ -204,11 +229,14 @@ local function listed()
 		if type(name) ~= "string" then
 		elseif name:find("^Polestar_Nav_R%d+_%d+_%d+$") then
 			regions = regions + 1
-		elseif name:find("^Polestar_") and not name:find("^Polestar_Skin_") and not SEPARATE[name] and not retired[name] then
+		elseif FOLDED[name] then
+			folded[#folded + 1] = name
+		elseif name:find("^Polestar_") and not name:find("^Polestar_Skin_") and not name:find("^Polestar_Layout_") and not SEPARATE[name] and not retired[name] then
 			out[#out + 1] = name
 		end
 	end
-	return out, regions
+	table.sort(folded)
+	return out, regions, folded
 end
 
 function Data.CheckInstall()
@@ -219,10 +247,6 @@ function Data.CheckInstall()
 	-- missing either.
 	local language = ns.Names and ns.Names.PackName()
 	if language then check(language, s) end
-	-- Our guide pack's race part for the player's race, when the release has
-	-- one (Core/Guides.lua loads it): never missing either.
-	local race = UnitRace and readable((select(2, UnitRace("player")))) or nil
-	if type(race) == "string" and race ~= "" then check("Polestar_Guides_" .. race, s) end
 	-- Our guide pack's part for the player's faction (format 8; Core/Guides.lua
 	-- loads it): every release has it, and without it the player has no
 	-- leveling guides.
@@ -236,9 +260,9 @@ function Data.CheckInstall()
 			s.missing[#s.missing + 1] = part
 		end
 	end
-	local others, regions = listed()
+	local others, regions, folded = listed()
 	for _, name in ipairs(others) do check(name, s) end
-	return s.missing, s.stale, retiredLocales(), regions
+	return s.missing, s.stale, retiredLocales(), regions, folded
 end
 
 -- A mixed install in one English line for the report (UI/Report.lua), or nil
@@ -251,13 +275,17 @@ function Data.InstallLine()
 end
 
 ns.OnLogin(function()
-	local missing, stale, retired, regions = Data.CheckInstall()
+	local missing, stale, retired, regions, folded = Data.CheckInstall()
 	if #retired > 0 then
 		ns.Print(string.format(ns.L["Polestar no longer uses the old folders Polestar_Guides_<language> and Polestar_Names_<language> (%s): Polestar_<language> holds both now. Close the game and delete them from Interface/AddOns."],
 			table.concat(retired, ", ")))
 	end
 	if regions > 0 then
 		ns.Print(string.format(ns.L["Polestar no longer uses its %d walking map folders named Polestar_Nav_R (Polestar_Nav_R0_6_6 and the like): Polestar_Nav_EK and Polestar_Nav_Kalimdor hold those maps now. Close the game and delete the Polestar_Nav_R folders from Interface/AddOns."], regions))
+	end
+	if #folded > 0 then
+		ns.Print(string.format(ns.L["Polestar no longer uses these folders (%s): since 0.4.3 they are inside Polestar, Polestar_Guides_Alliance, Polestar_Guides_Horde and Polestar_Skins. Close the game and delete them from Interface/AddOns."],
+			table.concat(folded, ", ")))
 	end
 	if #missing == 0 and #stale == 0 then return end
 	local list = { "Polestar " .. tostring(ns.version) }

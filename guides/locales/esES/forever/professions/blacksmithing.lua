@@ -271,12 +271,12 @@ return {
 	["Artisan raises the cap from 225 to 300 for 5g (Classic's price; Forever's is not in the data); it needs {skill:164} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:2836} ({zone:1434}); Horde {npc:2836} ({zone:1434}). The arrow picks the nearest of your faction. Learn now: {spell:16640} (from 225), {spell:9968} (from 210), {spell:9920} (from 175), {spell:10001} (from 205) and {spell:16639} (from 225). 225-300 takes about 3g 60s of recipes, plus 44 {item:1210}, 596 {item:3860}, 142 {item:4304}, 19 {item:7909}, 19 {item:7910}, 44 {item:7912}, 11 {item:7971}, 206 {item:8170}, 2026 {item:12359}, 801 {item:12365} and 10 {item:12799} to gather or buy."] = "",
 
 	-- Step 51: Plans: Ornate Thorium Handaxe
-	-- {item:12819} Plans: Ornate Thorium Handaxe · {item:12773} Ornate Thorium Handaxe · {skill:164} Blacksmithing · {npc:11278} Magnus Frostwake · {zone:1422} Western Plaguelands
-	["{item:12819} teaches {item:12773} ({skill:164} 250) for 1g 60s. Sold by {npc:11278} ({zone:1422})."] = "",
+	-- {item:12819} Plans: Ornate Thorium Handaxe · {item:12773} Ornate Thorium Handaxe · {skill:164} Blacksmithing · {npc:11278} Magnus Frostwake · {zone:1422} Western Plaguelands · {item:13544} Spectral Essence · {npc:11216} Eva Sarkhoff · {area:2057} Scholomance
+	["{item:12819} teaches {item:12773} ({skill:164} 250) for 1g 60s. Sold by {npc:11278} ({zone:1422}). {npc:11278} is a ghost: you see him only with the {item:13544} on (from {npc:11216}'s {area:2057} chain, level 55, a group), so skip this without it."] = "",
 
 	-- Step 52: Plans: Huge Thorium Battleaxe
-	-- {item:12823} Plans: Huge Thorium Battleaxe · {item:12775} Huge Thorium Battleaxe · {skill:164} Blacksmithing · {npc:11278} Magnus Frostwake · {zone:1422} Western Plaguelands
-	["{item:12823} teaches {item:12775} ({skill:164} 255) for 2g. Sold by {npc:11278} ({zone:1422})."] = "",
+	-- {item:12823} Plans: Huge Thorium Battleaxe · {item:12775} Huge Thorium Battleaxe · {skill:164} Blacksmithing · {npc:11278} Magnus Frostwake · {zone:1422} Western Plaguelands · {item:13544} Spectral Essence · {npc:11216} Eva Sarkhoff · {area:2057} Scholomance
+	["{item:12823} teaches {item:12775} ({skill:164} 255) for 2g. Sold by {npc:11278} ({zone:1422}). {npc:11278} is a ghost: you see him only with the {item:13544} on (from {npc:11216}'s {area:2057} chain, level 55, a group), so skip this without it."] = "",
 
 	-- Step 53: Blacksmithing 225-300: Auction House
 	-- {skill:164} Blacksmithing
@@ -382,9 +382,9 @@ return {
 	-- Step 72: Huge Thorium Battleaxe to 285
 	-- {item:12775} Huge Thorium Battleaxe
 	["{item:12775} to 285"] = "{item:12775} hasta 285",
-	-- {item:12775} Huge Thorium Battleaxe · {item:12359} Thorium Bar · {item:12644} Dense Grinding Stone · {item:8170} Rugged Leather · {npc:11278} Magnus Frostwake · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {quest:7654} Imperial Plate Boots
+	-- {item:12775} Huge Thorium Battleaxe · {item:12359} Thorium Bar · {item:12644} Dense Grinding Stone · {item:8170} Rugged Leather · {npc:11278} Magnus Frostwake · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {item:13544} Spectral Essence · {npc:11216} Eva Sarkhoff · {area:2057} Scholomance · {npc:10506} Kirtonos the Herald · {quest:7654} Imperial Plate Boots
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar · Dense Grinding Stones = {item:12644} Dense Grinding Stone
-	["{item:12775} is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285. Each takes 40 {item:12359}, 6 {item:12644} and 6 {item:8170}. Make the 186 {item:12644} first. Plans from {npc:11278} ({area:2298}, {zone:1422}), unlimited stock, but they bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the {quest:7654} take over. Other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant's Favor sets. Needs an anvil nearby."] = "",
+	["{item:12775} is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285. Each takes 40 {item:12359}, 6 {item:12644} and 6 {item:8170}. Make the 186 {item:12644} first. Plans from {npc:11278} in {area:2298} ({zone:1422}): he is a ghost you see only with the {item:13544} trinket on (put it on inside {area:2298}), the reward of {npc:11216}'s {area:2057} chain that ends with {npc:10506} (level 55, a dungeon group). Unlimited stock, but the plans bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the {quest:7654} take over. Without the trinket, the other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant's Favor sets. Needs an anvil nearby."] = "",
 
 	-- Step 73: Plans: Imperial Plate Boots
 	-- {npc:14567} Derotain Mudsipper · {zone:1446} Tanaris · {item:12700} Plans: Imperial Plate Boots · {skill:164} Blacksmithing · {item:12359} Thorium Bar · {quest:7654} Imperial Plate Boots · {quest:7652} A Blue Light Bargain

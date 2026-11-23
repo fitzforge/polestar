@@ -38,25 +38,35 @@ local function register(spec)
 end
 
 -- rares.enabled, the whole module's switch, in the first section's header.
+-- The alert's rows are their home; Alerts > Rare alert shows references, so
+-- the words players looked for there are these rows' search terms too.
 register({
 	section = L["When a rare shows up"],
 	toggle = { kind = "toggle", key = "rares.enabled", label = L["Rares"], search = "rare, elite, silver dragon, rare spawn, treasure, chest",
 		help = L["Watch for rare NPCs and treasures and keep when you last met them (/pole rares). Their map pins are under Map, off by default."] },
 	controls = {
 		{ kind = "toggle", key = "rares.alerts", label = L["Alert for rares"], disabled = off, move = "rareAlert", search = "rare alert, rare spawn, notification, warning, popup",
-			help = L["A card with its name, level and distance, and a waypoint to it."] },
-		{ kind = "toggle", key = "rares.treasureAlerts", label = L["Alert for treasures"], disabled = alertsOff, child = true,
-			help = L["Treasures the client marks on the minimap."] },
-		{ kind = "slider", key = "rares.cooldown", label = L["Once per rare every"], min = 1, max = 60, step = 1, format = minutes,
-			disabled = alertsOff, child = true, help = L["The same rare stays quiet this long after an alert."] },
-		{ kind = "slider", key = "rares.toastSeconds", label = L["Alert stays for"], min = 5, max = 60, step = 1, format = seconds,
-			disabled = alertsOff, child = true, help = L["Hovering the alert holds it."] },
-		{ kind = "toggle", key = "rares.combatAlerts", label = L["Alert during combat"], disabled = alertsOff, child = true,
-			help = L["Off: an alert waits for the fight to end, if the rare was seen in the last minute."] },
-		{ kind = "toggle", key = "rares.sound", label = L["Play a sound"], disabled = alertsOff, child = true,
-			help = L["One sound with each alert."] },
-		{ kind = "dropdown", key = "rares.soundKit", label = L["Sound"], choices = sounds, disabled = soundOff, child = true,
-			help = L["Played through the Master channel."] },
+			help = L["A card with its name, level and distance, and a waypoint to it."],
+			-- The sound's own list stays dimmed while Play a sound is off.
+			children = {
+				{ kind = "toggle", key = "rares.treasureAlerts", label = L["Alert for treasures"], disabled = alertsOff,
+					search = "treasure, chest, alert, treasures",
+					help = L["Treasures the client marks on the minimap."] },
+				{ kind = "slider", key = "rares.cooldown", label = L["Once per rare every"], min = 1, max = 60, step = 1, format = minutes,
+					disabled = alertsOff, help = L["The same rare stays quiet this long after an alert."] },
+				{ kind = "slider", key = "rares.toastSeconds", label = L["Alert stays for"], min = 5, max = 60, step = 1, format = seconds,
+					disabled = alertsOff, search = "duration, how long, seconds, time on screen, stays, timeout", help = L["Hovering the alert holds it."] },
+				{ kind = "toggle", key = "rares.combatAlerts", label = L["Alert during combat"], disabled = alertsOff,
+					search = "combat, fight, in combat, visibility, alert in combat",
+					help = L["Off: an alert waits for the fight to end, if the rare was seen in the last minute."] },
+				{ kind = "toggle", key = "rares.sound", label = L["Play a sound"], disabled = alertsOff,
+					search = "sound, audio, chime, ding, alert sound",
+					help = L["One sound with each alert."] },
+				-- Under Play a sound too (nested).
+				{ kind = "dropdown", key = "rares.soundKit", label = L["Sound"], choices = sounds, disabled = soundOff, child = true,
+					search = "sound, audio, chime, ding, alert sound, which sound",
+					help = L["Played through the Master channel."] },
+			} },
 		{ kind = "toggle", key = "rares.founder", label = L["Say when Polestar's founder is nearby"], disabled = off,
 			search = "founder, fitz, wave, hello, say hi",
 			help = string.format(L["When %s comes into sight, a card says so and the rare button targets him and waves. At most once a day, never in combat or instances."], Rares.FOUNDER) },

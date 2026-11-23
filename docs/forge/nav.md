@@ -635,10 +635,14 @@ city and the Alliance and Horde hubs; every graph edge priced per faction; forma
 surface's WMO group area). `forge nav pack` writes them from the grid and the ground layers:
 
 ```sh
-forge nav pack --dir <grid> --date 2026-10-25 --leffe <Leffe's maps>    # what ships
+forge nav pack --dir <grid> --date 2026-10-25 --leffe <Leffe's maps>    # Leffe's maps (step 1 of what ships)
 forge nav pack --dir <grid> --date 2026-10-23                           # our grid's maps
 forge nav check
 ```
+
+What ships is that pack with 0.4.2's extra layers grafted on, the Ironforge cluster rebuild and the regional
+import: one command, `tools/nav/repack.sh`, with `--check` to repack and check the shipped maps byte for byte
+([docs/nav/REPACK.md](../nav/REPACK.md)).
 
 - `--leffe <dir>` (his format-4 Nav folder, or the folder holding it: the same client build and
   cells as the grid) takes the maps from his: his surfaces, floors, classes, zones and entrance graph,

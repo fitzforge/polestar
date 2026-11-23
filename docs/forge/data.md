@@ -330,10 +330,13 @@ becomes an `event` in the quest log's own words ("Graveyard Assaulted"), placed 
 name gives way to it ("[DNT] Kill Credit: Twilight Thrall"); one that carries none needs a correction with the
 quest log's words, from players' recordings or the game's quest objectives. The battlegrounds' quests, Lunar
 Fireworks and The Challenge have such records too: the public build has no source for the quest log's words and
-would otherwise read only the markers' names. Then the build fails while any placeholder name a player could read
-is left: a title, an objective's words, or the name of an NPC, object or item an objective, giver, ender or
+would otherwise read only the markers' names. Then any placeholder name a player could read that is left is named,
+one line each: a title, an objective's words, or the name of an NPC, object or item an objective, giver, ender or
 starting item points at, in every quest but the game's unused and test ones ("<UNUSED>", "<TEST> HEY MISTER
-WILSON!", "REUSE"), which Lookup's search leaves out, as it does NPCs and items with a placeholder name.
+WILSON!", "REUSE"), which Lookup's search leaves out, as it does NPCs and items with a placeholder name. `forge
+build` and `forge data build --strict-placeholders` (our release builds and CI) stop on them; a plain `forge data
+build`, a guide author's, names them as a warning and goes on, so a QuestieDB newer than the corrections still
+builds (#3797); `forge data publish`'s public builds only count them.
 
 ### What it writes
 
@@ -1002,6 +1005,10 @@ forge data publish --check forever-db                           # the guard
 - `index.json` and `CHANGELOG.md` give coverage. A field most entities lack is counted over the
   entities the full data knows one for: prerequisites over the known chain links, spawns over the
   NPCs and objects with a known spawn, drop sources over the items with a known dropper.
+- `CHANGELOG.md` is never edited by hand. What its counts can't say (why a table lost rows, a
+  release that replaces one never tagged) goes in a Markdown file passed as `--release-note FILE`:
+  publish puts it under this version's heading, before the lists. Pass it on every run of that
+  version, since a run without it writes the section without it.
 - `--zip` writes `forever-db-<version>.zip` beside the folder (the folder under `forever-db/`),
   `--sqlite FILE` the tables as one sqlite file, `--lua DIR` the library; `--from DIR` writes these
   from an existing release without rebuilding it.

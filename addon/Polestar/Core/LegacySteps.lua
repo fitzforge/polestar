@@ -3,7 +3,9 @@
 -- save stores for a step (CharState().stepKeys) -> its goals as the Engine names them
 -- (Own.stepParts). Own.remap carries a changed step's check-offs, skips and saved view
 -- to the step that now has the same goal. `required`: quest goals an earlier release had
--- as optional only that block now (Own.noteAdded passes them behind the player). A function: its table is built only when an
+-- as optional only that block now (Own.noteAdded passes them behind the player). `titles`:
+-- the guide's title in each release whose title differs from today's, by the guides' version
+-- (the chat line of a tab an update moved, Own.followReworked). A function: its table is built only when an
 -- update changed a saved guide (Own.legacy), and the Engine drops it once the saved tabs
 -- are mapped, so a session without an update keeps none of it.
 local _, ns = ...
@@ -100,6 +102,7 @@ ns.LegacyStepsLoad = function() return {
 	},
 	["forever/alliance/04-redridge-mountains"] = {
 		required = "accept:240,collect:169,collect:95999,turnin:169,turnin:93,turnin:95999",
+		titles = { ["0.3.4"] = "Redridge Mountains" },
 		[71690535] = "turnin:35",
 		[468467472] = "accept:126,turnin:150,accept:91,accept:180,accept:34",
 		[515593469] = "train:",
@@ -254,6 +257,7 @@ ns.LegacyStepsLoad = function() return {
 		[4181171988] = "turnin:471,accept:98072,turnin:98208,accept:98209,turnin:286,accept:98189,turnin:98189,accept:98190,turnin:289,vendor:",
 	},
 	["forever/alliance/07-thousand-needles"] = {
+		titles = { ["0.3.4"] = "Thousand Needles, Duskwood & Wetlands" },
 		[85111636] = "collect:177,kill:222,kill:222",
 		[118792158] = "turnin:160,accept:251,turnin:251,turnin:225,accept:227,turnin:227,turnin:96138,accept:401,turnin:401,accept:252,turnin:252,turnin:58,turnin:1244,accept:1245",
 		[691979361] = "goto:1413",
@@ -351,6 +355,7 @@ ns.LegacyStepsLoad = function() return {
 		[3711663402] = "getfp:6706,sethome:11103,turnin:1453,accept:1458,accept:1454,accept:1387,accept:1437,accept:97284",
 	},
 	["forever/alliance/30-40/03-ashenvale"] = {
+		titles = { ["0.3.4"] = "Ashenvale & Wetlands" },
 		[7438762] = "collect:1031",
 		[68408510] = "fly:Menethil Harbor",
 		[134019528] = "turnin:1026,accept:1027",
@@ -486,6 +491,7 @@ ns.LegacyStepsLoad = function() return {
 		[3484149185] = "collect:6196,accept:1392,collect:1389",
 	},
 	["forever/alliance/30-40/06-badlands"] = {
+		titles = { ["0.3.4"] = "Badlands & Desolace", ["0.3.5"] = "Badlands & Desolace", ["0.3.6"] = "Badlands & Desolace", ["0.3.7"] = "Badlands & Desolace", ["0.3.7.1"] = "Badlands & Desolace", ["0.3.7.2"] = "Badlands & Desolace" },
 		[7439759] = "collect:1108",
 		[7443222] = "collect:1466",
 		[26133811] = "fly:Nijel's Point,sethome:11103,turnin:6141,accept:261,accept:1466,accept:93224",
@@ -653,6 +659,7 @@ ns.LegacyStepsLoad = function() return {
 	},
 	["forever/alliance/40-50/05-the-hinterlands"] = {
 		required = "accept:8552,turnin:8553",
+		titles = { ["0.3.4"] = "The Hinterlands, Blasted Lands & Loch Modan", ["0.3.5"] = "The Hinterlands, Blasted Lands & Loch Modan", ["0.3.6"] = "The Hinterlands, Blasted Lands & Loch Modan", ["0.3.7"] = "The Hinterlands, Blasted Lands & Loch Modan", ["0.3.7.1"] = "The Hinterlands, Blasted Lands & Loch Modan", ["0.3.7.2"] = "The Hinterlands, Blasted Lands & Loch Modan", ["0.4.0"] = "The Hinterlands & Blasted Lands", ["0.4.0.1"] = "The Hinterlands & Blasted Lands", ["0.4.1"] = "The Hinterlands & Blasted Lands", ["0.4.1.1"] = "The Hinterlands & Blasted Lands" },
 		[71690471] = "turnin:17",
 		[100634401] = "accept:1395",
 		[100710530] = "accept:3763",
@@ -673,6 +680,7 @@ ns.LegacyStepsLoad = function() return {
 		[761505706] = "turnin:1037",
 		[761585298] = "turnin:3763",
 		[950273825] = "goto:1419,fly:Booty Bay",
+		[1059369041] = "turnin:2874,accept:609,accept:604,accept:617,accept:621,accept:348",
 		[1103704776] = "sethome:6734",
 		[1204618009] = "goto:1428,fly:Thelsamar",
 		[1562037156] = "collect:609",
@@ -688,6 +696,7 @@ ns.LegacyStepsLoad = function() return {
 		[3020087307] = "turnin:2972,turnin:4267,turnin:162",
 		[3066707944] = "goto:1438,fly:Auberdine",
 		[3100528221] = "turnin:2601,turnin:2603,turnin:2581,turnin:2583,turnin:2585,note:",
+		[3125014959] = "turnin:617,accept:623,turnin:348,note:,turnin:621,note:,turnin:609",
 		[3185150364] = "turnin:2881,turnin:2877,turnin:2989,accept:2990",
 		[3557767370] = "turnin:349,collect:348",
 		[3737735240] = "turnin:2874,accept:608",
@@ -761,6 +770,7 @@ ns.LegacyStepsLoad = function() return {
 		[4270995975] = "turnin:3448,accept:3449,accept:3450,accept:8254",
 	},
 	["forever/alliance/50-60/01-burning-steppes"] = {
+		titles = { ["0.3.4"] = "Burning Steppes & Azshara", ["0.3.5"] = "Azshara, Western Plaguelands & Burning Steppes", ["0.3.6"] = "Azshara, Western Plaguelands & Burning Steppes", ["0.3.7"] = "Azshara, Western Plaguelands & Burning Steppes", ["0.3.7.1"] = "Azshara, Western Plaguelands & Burning Steppes", ["0.3.7.2"] = "Azshara, Western Plaguelands & Burning Steppes", ["0.4.0"] = "Azshara, Western Plaguelands & Burning Steppes", ["0.4.0.1"] = "Azshara, Western Plaguelands & Burning Steppes", ["0.4.1"] = "Azshara, Western Plaguelands & Burning Steppes", ["0.4.1.1"] = "Azshara, Western Plaguelands & Burning Steppes" },
 		[7517269] = "collect:3661",
 		[7548918] = "collect:4283",
 		[100674659] = "accept:2783",
@@ -811,6 +821,7 @@ ns.LegacyStepsLoad = function() return {
 	},
 	["forever/alliance/50-60/02-felwood"] = {
 		required = "accept:8470,turnin:8467,turnin:8470,turnin:939",
+		titles = { ["0.3.4"] = "Felwood", ["0.3.5"] = "Felwood", ["0.3.6"] = "Felwood", ["0.3.7"] = "Felwood", ["0.3.7.1"] = "Felwood", ["0.3.7.2"] = "Felwood", ["0.4.0"] = "Felwood", ["0.4.0.1"] = "Felwood", ["0.4.1"] = "Felwood", ["0.4.1.1"] = "Felwood" },
 		[6398521] = "kill:5155,kill:5155,kill:5155,kill:5155,collect:13140,accept:5202,turnin:5202,accept:5203,level:52",
 		[7551953] = "collect:4512",
 		[213306507] = "collect:11668,accept:939,collect:939,kill:4906,kill:4906,kill:4906,kill:4906",
@@ -836,6 +847,7 @@ ns.LegacyStepsLoad = function() return {
 	},
 	["forever/alliance/50-60/03-winterspring"] = {
 		required = "accept:5083,accept:5084,accept:8471,turnin:5083",
+		titles = { ["0.3.4"] = "Winterspring & Eastern Plaguelands", ["0.3.5"] = "Winterspring & Eastern Plaguelands", ["0.3.6"] = "Winterspring & Eastern Plaguelands", ["0.3.7"] = "Winterspring & Eastern Plaguelands", ["0.3.7.1"] = "Winterspring & Eastern Plaguelands", ["0.3.7.2"] = "Winterspring & Eastern Plaguelands", ["0.4.0"] = "Winterspring & Eastern Plaguelands", ["0.4.0.1"] = "Winterspring & Eastern Plaguelands", ["0.4.1"] = "Winterspring & Eastern Plaguelands", ["0.4.1.1"] = "Winterspring & Eastern Plaguelands" },
 		[7618414] = "collect:6021",
 		[47600692] = "kill:5211",
 		[100748712] = "accept:4984",
@@ -902,6 +914,7 @@ ns.LegacyStepsLoad = function() return {
 	},
 	["forever/alliance/50-60/04-western-plaguelands"] = {
 		required = "accept:5781,collect:5781",
+		titles = { ["0.3.4"] = "Western Plaguelands, Eastern Plaguelands & Feralas", ["0.3.5"] = "Western Plaguelands, Eastern Plaguelands, Feralas, Un'Goro Crater & Silithus", ["0.3.6"] = "Western Plaguelands, Eastern Plaguelands, Feralas, Un'Goro Crater & Silithus", ["0.3.7"] = "Western Plaguelands, Eastern Plaguelands, Feralas, Un'Goro Crater & Silithus", ["0.3.7.1"] = "Western Plaguelands, Eastern Plaguelands, Feralas, Un'Goro Crater & Silithus", ["0.3.7.2"] = "Western Plaguelands, Eastern Plaguelands, Feralas, Un'Goro Crater & Silithus", ["0.4.0"] = "Western Plaguelands, Eastern Plaguelands, Feralas, Un'Goro Crater & Silithus", ["0.4.0.1"] = "Western Plaguelands, Eastern Plaguelands, Feralas, Un'Goro Crater & Silithus", ["0.4.1"] = "Western Plaguelands, Eastern Plaguelands, Feralas, Un'Goro Crater & Silithus", ["0.4.1.1"] = "Western Plaguelands, Eastern Plaguelands, Feralas, Un'Goro Crater & Silithus" },
 		[7439823] = "collect:1126",
 		[7546606] = "collect:4041",
 		[7548950] = "collect:4292",
@@ -1053,6 +1066,7 @@ ns.LegacyStepsLoad = function() return {
 		[4294252748] = "collect:5216,turnin:5216,accept:5217",
 	},
 	["forever/alliance/50-60/06-silithus"] = {
+		titles = { ["0.3.4"] = "Silithus, Felwood, Winterspring & the Plaguelands", ["0.3.5"] = "Silithus, Felwood, Winterspring & the Plaguelands", ["0.3.6"] = "Silithus, Felwood, Winterspring & the Plaguelands", ["0.3.7"] = "Silithus, Felwood, Winterspring & the Plaguelands", ["0.3.7.1"] = "Silithus, Felwood, Winterspring & the Plaguelands", ["0.3.7.2"] = "Silithus, Felwood, Winterspring & the Plaguelands", ["0.4.0"] = "Silithus, Felwood, Winterspring & the Plaguelands", ["0.4.0.1"] = "Silithus, Felwood, Winterspring & the Plaguelands", ["0.4.1"] = "Silithus, Felwood, Winterspring & the Plaguelands", ["0.4.1.1"] = "Silithus, Felwood, Winterspring & the Plaguelands" },
 		[7546478] = "collect:4005",
 		[7582680] = "collect:5086",
 		[7587928] = "collect:5527",
@@ -1568,6 +1582,7 @@ ns.LegacyStepsLoad = function() return {
 		[4058438067] = "turnin:91920,turnin:443,accept:91921,accept:516",
 	},
 	["forever/horde/04-the-barrens"] = {
+		titles = { ["0.3.4"] = "The Barrens" },
 		[7447444] = "collect:1824",
 		[29402442] = "turnin:98405,accept:98342,turnin:98341,accept:98404,collect:98342,collect:98342,collect:98342,collect:98404,collect:98404,collect:98404,turnin:98342,accept:98739,turnin:98404,accept:98738",
 		[100635455] = "accept:1483",
@@ -1668,6 +1683,7 @@ ns.LegacyStepsLoad = function() return {
 	},
 	["forever/horde/05-stonetalon-mountains"] = {
 		required = "accept:2479,accept:494,accept:95884,turnin:2478",
+		titles = { ["0.3.4"] = "Stonetalon Mountains & Ashenvale" },
 		[7621615] = "collect:6301",
 		[7623927] = "collect:6543",
 		[43525167] = "kill:216,kill:216",
@@ -1710,6 +1726,7 @@ ns.LegacyStepsLoad = function() return {
 	},
 	["forever/horde/06-hillsbrad-foothills"] = {
 		required = "turnin:2479,turnin:494",
+		titles = { ["0.3.4"] = "Hillsbrad Foothills & The Barrens" },
 		[161779555] = "getfp:4551,turnin:441",
 		[177610954] = "turnin:496,accept:499,turnin:499",
 		[411774181] = "turnin:498,turnin:549,turnin:529,turnin:509,accept:513",
@@ -1809,6 +1826,7 @@ ns.LegacyStepsLoad = function() return {
 		[4222208538] = "kill:98070,kill:98070,kill:98070,collect:1150",
 	},
 	["forever/horde/30-40/01-hillsbrad-foothills"] = {
+		titles = { ["0.3.5"] = "Hillsbrad Foothills & Arathi Highlands", ["0.3.6"] = "Hillsbrad Foothills & Arathi Highlands", ["0.3.7"] = "Hillsbrad Foothills & Arathi Highlands", ["0.3.7.1"] = "Hillsbrad Foothills & Arathi Highlands", ["0.3.7.2"] = "Hillsbrad Foothills & Arathi Highlands" },
 		[45386892] = "turnin:539,turnin:567,turnin:556,turnin:544,accept:557,accept:545,note:,turnin:515,accept:517",
 		[254714740] = "turnin:529,accept:532,turnin:509,accept:513,accept:552",
 		[268722261] = "note:",
@@ -2012,6 +2030,7 @@ ns.LegacyStepsLoad = function() return {
 		[3633062735] = "turnin:606,accept:607,sethome:6807,turnin:617,turnin:600,turnin:607,accept:609,turnin:348,vendor:",
 		[3642576825] = "goto:1434,collect:209,collect:585",
 		[3709995520] = "turnin:606,accept:607,accept:580,accept:348,turnin:600,accept:209,turnin:607,accept:2872,accept:609,turnin:628,accept:576,accept:604,accept:587,vendor:",
+		[3780142154] = "accept:580,accept:348,accept:2872",
 		[3895790574] = "collect:349,collect:571",
 		[4058980472] = "collect:604,collect:604,collect:587,collect:576,kill:604,collect:571",
 		[4170858191] = "turnin:598,turnin:95770,turnin:586,turnin:585,accept:588,turnin:588,accept:589,turnin:573",
@@ -2042,11 +2061,13 @@ ns.LegacyStepsLoad = function() return {
 		[1659201547] = "turnin:604,turnin:576,turnin:587",
 		[1709957840] = "getfp:8020,sethome:7737,accept:2987,turnin:2981,accept:2975,accept:3121,accept:2822,sethome:7737,accept:2862,accept:2973",
 		[1854062694] = "goto:1444,fly:Orgrimmar",
+		[1958543362] = "turnin:348,turnin:621,turnin:609",
 		[2023424792] = "collect:1707,kill:1690,kill:1690",
 		[2205730904] = "accept:992,turnin:2864,accept:1690,accept:1707",
 		[2446697639] = "getfp:8020,accept:2987,turnin:2981,accept:2975,turnin:95033,accept:3121,accept:2822,sethome:7737,accept:2862,accept:2973",
 		[2526833339] = "collect:1707,collect:8483,kill:1690,kill:1690",
 		[2719447738] = "turnin:1878,turnin:2781,turnin:1691,vendor:",
+		[2745354821] = "kill:2537,collect:609,kill:2535,collect:609,kill:2536,collect:609,collect:621",
 		[2793693586] = "turnin:3121,accept:3122,turnin:7732,accept:649,turnin:649,accept:650,turnin:2976,train:",
 		[2808431652] = "collect:8705,accept:2766",
 		[2813720177] = "turnin:617,turnin:348,turnin:621,turnin:609,turnin:209,accept:2864",
@@ -2060,6 +2081,7 @@ ns.LegacyStepsLoad = function() return {
 		[3421980777] = "accept:8365,accept:2781,accept:2875,accept:8366,turnin:2872,accept:2873,accept:3520",
 		[3477800789] = "turnin:2766,accept:2767,complete:2767",
 		[3716666709] = "goto:1446,goto:1446",
+		[3780142154] = "accept:580,accept:348,accept:2872",
 		[3940595670] = "use:2987,collect:2987,kill:2975,kill:2975,kill:2975,collect:9370,accept:2978",
 		[3969760225] = "kill:8366,collect:8365,kill:8366,kill:8366,collect:2873,kill:8366,collect:2875",
 		[4031385257] = "accept:8365,accept:2781,accept:2875,accept:8366,turnin:2872,accept:2873",
@@ -2068,6 +2090,7 @@ ns.LegacyStepsLoad = function() return {
 	},
 	["forever/horde/40-50/03-feralas"] = {
 		required = "accept:1173,complete:1173,turnin:1173",
+		titles = { ["0.3.4"] = "Feralas, Dustwallow Marsh & Swamp of Sorrows", ["0.3.5"] = "Feralas, Dustwallow Marsh & Swamp of Sorrows", ["0.3.6"] = "Feralas, Dustwallow Marsh & Swamp of Sorrows", ["0.3.7"] = "Feralas, Dustwallow Marsh & Swamp of Sorrows", ["0.3.7.1"] = "Feralas, Dustwallow Marsh & Swamp of Sorrows", ["0.3.7.2"] = "Feralas, Dustwallow Marsh & Swamp of Sorrows", ["0.4.0"] = "Feralas, Dustwallow Marsh & Swamp of Sorrows", ["0.4.0.1"] = "Feralas, Dustwallow Marsh & Swamp of Sorrows", ["0.4.1"] = "Feralas, Dustwallow Marsh & Swamp of Sorrows", ["0.4.1.1"] = "Feralas, Dustwallow Marsh & Swamp of Sorrows" },
 		[7443088] = "collect:1424",
 		[7443117] = "collect:1430",
 		[7511699] = "collect:3128",
@@ -2202,6 +2225,7 @@ ns.LegacyStepsLoad = function() return {
 		[4092786320] = "collect:3126,use:3126",
 	},
 	["forever/horde/50-60/01-un-goro-crater"] = {
+		titles = { ["0.3.4"] = "Un'Goro Crater, Eastern Plaguelands & Burning Steppes", ["0.3.5"] = "Un'Goro Crater, Eastern Plaguelands & Burning Steppes" },
 		[7548948] = "collect:4290",
 		[7587888] = "collect:5510",
 		[7618414] = "collect:6021",
@@ -2256,6 +2280,7 @@ ns.LegacyStepsLoad = function() return {
 		[4275445581] = "accept:5094,accept:3568,train:,turnin:3542,accept:3564",
 	},
 	["forever/horde/50-60/02-felwood"] = {
+		titles = { ["0.3.4"] = "Felwood & Western Plaguelands", ["0.3.5"] = "Felwood & Western Plaguelands", ["0.3.6"] = "Felwood & Western Plaguelands", ["0.3.7"] = "Felwood & Western Plaguelands", ["0.3.7.1"] = "Felwood & Western Plaguelands", ["0.3.7.2"] = "Felwood & Western Plaguelands", ["0.4.0"] = "Felwood & Western Plaguelands", ["0.4.0.1"] = "Felwood & Western Plaguelands", ["0.4.1"] = "Felwood & Western Plaguelands", ["0.4.1.1"] = "Felwood & Western Plaguelands" },
 		[1939301] = "turnin:5155,accept:5157,turnin:8460,accept:8462,accept:8466,turnin:8466",
 		[7583668] = "collect:5154",
 		[7619636] = "collect:6162",
@@ -2326,6 +2351,7 @@ ns.LegacyStepsLoad = function() return {
 	},
 	["forever/horde/50-60/03-winterspring"] = {
 		required = "accept:5083,accept:5084,turnin:5083",
+		titles = { ["0.3.4"] = "Winterspring", ["0.3.5"] = "Winterspring", ["0.3.6"] = "Winterspring", ["0.3.7"] = "Winterspring", ["0.3.7.1"] = "Winterspring", ["0.3.7.2"] = "Winterspring", ["0.4.0"] = "Winterspring", ["0.4.0.1"] = "Winterspring", ["0.4.1"] = "Winterspring", ["0.4.1.1"] = "Winterspring" },
 		[7546606] = "collect:4041",
 		[47710849] = "kill:8464",
 		[76287433] = "turnin:7826,turnin:7827,turnin:7831,note:",
@@ -2356,6 +2382,7 @@ ns.LegacyStepsLoad = function() return {
 		[4200238304] = "turnin:3761,accept:3782,turnin:1000,accept:1123,turnin:4987,train:,note:",
 	},
 	["forever/horde/50-60/04-azshara"] = {
+		titles = { ["0.3.4"] = "Azshara & The Barrens", ["0.3.5"] = "Azshara & The Barrens", ["0.3.6"] = "Azshara & The Barrens", ["0.3.7"] = "Azshara & The Barrens", ["0.3.7.1"] = "Azshara & The Barrens", ["0.3.7.2"] = "Azshara & The Barrens", ["0.4.0"] = "Azshara & The Barrens", ["0.4.0.1"] = "Azshara & The Barrens", ["0.4.1"] = "Azshara & The Barrens", ["0.4.1.1"] = "Azshara & The Barrens" },
 		[7587958] = "collect:5534",
 		[75427580] = "complete:3505,turnin:3505,accept:91497",
 		[100709241] = "accept:3601",
@@ -2397,6 +2424,7 @@ ns.LegacyStepsLoad = function() return {
 	},
 	["forever/horde/50-60/05-eastern-plaguelands"] = {
 		required = "accept:5085,accept:5086,turnin:5084,turnin:5085",
+		titles = { ["0.3.4"] = "Eastern Plaguelands, Winterspring & Tanaris", ["0.3.5"] = "Eastern Plaguelands, Winterspring & Tanaris", ["0.3.6"] = "Eastern Plaguelands, Winterspring & Tanaris", ["0.3.7"] = "Eastern Plaguelands, Winterspring & Tanaris", ["0.3.7.1"] = "Eastern Plaguelands, Winterspring & Tanaris", ["0.3.7.2"] = "Eastern Plaguelands, Winterspring & Tanaris", ["0.4.0"] = "Eastern Plaguelands, Winterspring & Tanaris", ["0.4.0.1"] = "Eastern Plaguelands, Winterspring & Tanaris", ["0.4.1"] = "Eastern Plaguelands, Winterspring & Tanaris", ["0.4.1.1"] = "Eastern Plaguelands, Winterspring & Tanaris" },
 		[4140425] = "goto:1423,kill:6042,level:56",
 		[7482355] = "collect:2741",
 		[7587888] = "collect:5510",
@@ -2447,6 +2475,7 @@ ns.LegacyStepsLoad = function() return {
 		[4182099356] = "accept:4492,turnin:3914,accept:3941,note:",
 	},
 	["forever/horde/50-60/06-silithus"] = {
+		titles = { ["0.3.4"] = "Silithus, Western Plaguelands & Eastern Plaguelands", ["0.3.5"] = "Silithus, Western Plaguelands & Eastern Plaguelands", ["0.3.6"] = "Silithus, Western Plaguelands & Eastern Plaguelands", ["0.3.7"] = "Silithus, Western Plaguelands & Eastern Plaguelands", ["0.3.7.1"] = "Silithus, Western Plaguelands & Eastern Plaguelands", ["0.3.7.2"] = "Silithus, Western Plaguelands & Eastern Plaguelands", ["0.4.0"] = "Silithus, Western Plaguelands & Eastern Plaguelands", ["0.4.0.1"] = "Silithus, Western Plaguelands & Eastern Plaguelands", ["0.4.1"] = "Silithus, Western Plaguelands & Eastern Plaguelands", ["0.4.1.1"] = "Silithus, Western Plaguelands & Eastern Plaguelands" },
 		[6065338] = "turnin:5543,turnin:5544,turnin:5542,accept:5742,complete:5742,turnin:5742,accept:5781",
 		[7439823] = "collect:1126",
 		[7556507] = "collect:4972",
@@ -2715,6 +2744,7 @@ ns.LegacyStepsLoad = function() return {
 		[476390356] = "turnin:5482,accept:99142,turnin:368,accept:369,accept:91282,turnin:398,turnin:358,accept:359,buy:2118,turnin:375,turnin:5650,train:",
 		[691979361] = "goto:1413",
 		[761587277] = "turnin:3902",
+		[881122147] = "turnin:91285,accept:91294,talk:246389,talk:246393,talk:246394,turnin:91294",
 		[907996638] = "turnin:5482,accept:99142,turnin:368,accept:369,accept:91282,turnin:398,turnin:358,accept:359,buy:2118,turnin:375,train:",
 		[1224629081] = "kill:356,kill:356",
 		[1289938780] = "turnin:369,accept:492,accept:445,turnin:371,accept:398,train:,turnin:492,turnin:99142",
@@ -2737,6 +2767,7 @@ ns.LegacyStepsLoad = function() return {
 		[2848122632] = "turnin:99134,accept:367,accept:86784,collect:99141,accept:404",
 		[2882025007] = "turnin:1473,accept:1471,use:6284,kill:1471,turnin:1471,accept:5658,turnin:5658,turnin:1882",
 		[2883097553] = "collect:376,collect:376",
+		[2928651903] = "talk:246143",
 		[3015455399] = "accept:8",
 		[3384264648] = "getfp:3615,accept:844,accept:869,accept:1492,accept:848,accept:5041,accept:871,accept:867",
 		[3576449068] = "collect:375,collect:97558,collect:5482,kill:358,collect:358,kill:358,collect:398,collect:368,collect:97558",
