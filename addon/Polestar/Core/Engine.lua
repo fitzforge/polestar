@@ -9872,7 +9872,7 @@ local function resetLoaded(id, auto)
 	Own.skipQueue[id] = nil
 	autoChain, sawIncomplete, placing = auto and true or false, false, GetTime() + PLACE_SECONDS
 	Own.opened[id] = true
-	Own.endOpen[id], Own.lastOpen[id], Own.leftTold[id], Own.endsChecked[id] = nil, nil, nil, nil -- seen afresh once placed (Own.noteEnd)
+	Own.endOpen[id], Own.lastOpen[id], Own.leftTold[id] = nil, nil, nil -- seen afresh once placed (Own.noteEnd)
 	tabsDirty = true
 end
 
@@ -10076,7 +10076,6 @@ end
 Own.endOpen = {} -- guideId -> true: seen unfinished once placed, this session
 Own.lastOpen = {} -- guideId -> the last step (Own.lastWork) seen open, or done ahead with steps left, once placed, this session
 Own.leftTold = {} -- guideId -> the last step whose steps left were seen (told once: GUIDE_STEPS_LEFT), this session
-Own.endsChecked = {} -- guideId -> true: looked at once placed (a saved end checked for steps left then), this session
 Own.pendingEnds, Own.pendingContinued = {}, {} -- fired at the end of the evaluation
 
 function Own.leveling(g)
@@ -10186,9 +10185,6 @@ function Own.noteEnd()
 	local held = computed and stepDone(computed) and (Own.levelHold() == computed or Own.partyHold(computed))
 	local id, steps = guide.id, guide.steps
 	local ends = ns.CharState().guideEnds
-	-- The first look once placed this session (a saved end is checked then).
-	local firstLook = not Own.endsChecked[id]
-	Own.endsChecked[id] = true
 	-- The end done ahead is judged on the last step for everyone (Own.forSome).
 	-- With the live step past it, a class's or race's own steps after it
 	-- still to come (Own.lastWork from the live step) are no end yet: the end
@@ -10202,12 +10198,15 @@ function Own.noteEnd()
 		-- An end told before stands only while it holds: a quest of the last
 		-- step abandoned, or a record from before 0.3.6 that slipped through
 		-- (Init.lua drops those), and it is forgotten; reached again, it is
-		-- told again. One an older version told with steps left (Own.stepsLeft,
-		-- #3517) is forgotten too, untold, when the guide is first placed this
-		-- session: the end comes once they are done or skipped. A step brought
-		-- back later (Unskip) keeps an end told in turn, as before.
+		-- told again. One an older version told (CharState().guideEndsOld, kept
+		-- by Init.lua) with steps left (Own.stepsLeft, #3517) is forgotten too,
+		-- untold: the end comes once they are done or skipped. It is looked at
+		-- once; an end this version told stands when a step is brought back
+		-- later (Unskip), as before.
 		if ends[id] then
-			local left = holds and firstLook and Own.stepsLeft(last, held) or 0
+			local old = ns.CharState().guideEndsOld
+			local left = holds and old and old[id] and Own.stepsLeft(last, held) or 0
+			if old then old[id] = nil end
 			if not holds or left > 0 then
 				ends[id] = nil
 				Own.lastOpen[id] = last
@@ -10253,6 +10252,7 @@ function Own.noteEnd()
 		return
 	end
 	ends[id] = true
+	if ns.CharState().guideEndsOld then ns.CharState().guideEndsOld[id] = nil end
 	Own.endPending()
 	local undone = 0
 	for s = computed or #steps + 1, #steps do
@@ -10520,6 +10520,7 @@ local function evaluateLoaded(active)
 				-- "Continue automatically" says so (GUIDE_CONTINUED, after the evaluation).
 				if not through and Own.leveling(guide) then
 					ns.CharState().guideEnds[id] = true
+					if ns.CharState().guideEndsOld then ns.CharState().guideEndsOld[id] = nil end
 					Own.pendingContinued[#Own.pendingContinued + 1] = { id, nextId, Engine.CarriedQuests(id) }
 				end
 				resetLoaded(nextId, true)
@@ -10726,7 +10727,7 @@ function Engine.OpenTab(id, activate, auto)
 	-- Finished or passed earlier this session, it may finish and chain again.
 	completedFired[id] = nil
 	Own.opened[id] = true
-	Own.endOpen[id], Own.lastOpen[id], Own.leftTold[id], Own.endsChecked[id] = nil, nil, nil, nil -- seen afresh once placed (Own.noteEnd)
+	Own.endOpen[id], Own.lastOpen[id], Own.leftTold[id] = nil, nil, nil -- seen afresh once placed (Own.noteEnd)
 	tabs[#tabs + 1] = tab
 	local index = #tabs
 	tabsDirty = true

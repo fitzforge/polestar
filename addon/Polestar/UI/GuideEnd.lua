@@ -86,15 +86,15 @@ function GE.Model(info)
 	if not g then return nil end
 	local m = { id = g.id, label = UI.GuideLabel(g), undone = info.undone or 0, live = info.live }
 	if info.left then
-		-- The guide's tab, and its live step now (a fight may have held the
-		-- window back while the player went on); closed, nothing to say.
+		-- Its tab closed, or its live step moved on while a fight held the
+		-- window back (the count is stale, as in liveMoved): nothing to say.
 		local tab
 		for i, t in ipairs(E and E.GetTabs and E.GetTabs() or {}) do
 			if t.guideId == g.id then tab = i end
 		end
 		if not tab then return nil end
 		local cur = E.GetGuide and E.GetGuide()
-		if cur and cur.id == g.id and E.GetLiveStep then m.live = E.GetLiveStep() or m.live end
+		if cur and cur.id == g.id and E.GetLiveStep and E.GetLiveStep() ~= info.live then return nil end
 		m.left = info.left
 		-- What follows once they are done, as the end says it.
 		local choice = info.choose and E.GetRouteChoice and E.GetRouteChoice(g.id)

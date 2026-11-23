@@ -3310,11 +3310,13 @@ and both of its values start on `"ask"`.
   step abandoned) is forgotten, and reached again it asks again. So is an
   end an older version saved with steps left (#3517), with either
   `behavior.guideEnd`, so the banner below does not offer the next guide
-  early: looked at when the guide is first placed this session
-  (`Own.endsChecked`), so an end told in turn stands when a skipped step is
-  brought back later (Unskip). Reset guide progress (`Engine.ResetProgress`) forgets it, so does
-  a pack update that changes the guide's steps (checkShape), and every record saved before
-  0.3.6 is dropped once on load (`guideEndsV`): 0.3.5 reused guide ids and
+  early: Init.lua lists the records it finds from 0.3.6 up to 0.4.2.2
+  (`guideEndsV` 2) in `guideEndsOld`, and the Engine looks at each once,
+  so an end this version told stands when a skipped step is brought back
+  later (Unskip), over a reload too. Reset guide progress
+  (`Engine.ResetProgress`) forgets it, so does a pack update that changes
+  the guide's steps (checkShape), and every record saved before 0.3.6 is
+  dropped once on load (`guideEndsV` unset): 0.3.5 reused guide ids and
   ended guides by where the player stood.
 - **Ahead of the live step** (`Own.endDoneAhead`), by what the game keeps:
   quest state, level, bags, flight paths, spells. Never by where the player

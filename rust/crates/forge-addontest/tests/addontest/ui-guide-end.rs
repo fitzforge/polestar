@@ -104,9 +104,13 @@ fn the_last_step_done_early_says_how_many_steps_are_left_with_back_to_the_live_s
 		r.laterShown = PolestarGuideEnd.Later:IsShown()
 		PolestarGuideEnd.Go:Click()
 		r.goto, r.after, r.start = lastCall("Goto"), PolestarGuideEnd:IsShown(), lastCall("StartNext")
-		-- The live step moved on while the window waited (a fight): it says the step it is at now.
+		-- The live step moved on while a fight held the window back: its count is stale, nothing shows.
 		uistub.live = 4
-		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 1, live = 3 }))
+		stub.inCombat = true
+		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 2, live = 3 }))
+		stub.inCombat = false; stub.fire("PLAYER_REGEN_ENABLED"); stub.advance(1)
+		r.staleAfterFight = PolestarGuideEnd:IsShown()
+		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 1, live = 4 }))
 		r.one = view()
 		-- A route choice after the guide.
 		CHOICE = true
@@ -140,7 +144,8 @@ fn the_last_step_done_early_says_how_many_steps_are_left_with_back_to_the_live_s
 	assert_eq!(plain(&out["one"]["title"]), "1 step left in\nElwynn Forest (1–13)");
 	assert_eq!(out["one"]["text"], "Do or skip what's left, and the guide ends.", "no next guide");
 	assert_eq!(out["choice"]["text"], "Do or skip what's left, and you choose where to go next.");
-	assert_eq!(out["one"]["go"], "Back to step 4", "the live step now");
+	assert_eq!(out["staleAfterFight"], false);
+	assert_eq!(out["one"]["go"], "Back to step 4");
 	assert_eq!(plain(&out["numbered"]["title"]), "Elwynn Forest (1–13): noch 3 Schritte");
 	assert_eq!(out["closed"], false);
 	assert_eq!(plain(&out["theEnd"]["title"]), "You've completed\nElwynn Forest (1–13)");

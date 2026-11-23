@@ -221,7 +221,7 @@ stub.world.onQuest(13)"#,
 		durotar_shape()
 	);
 	let out = run(Run { next: NEXT, saved: Some(&legacy), script: &with_state("flush(); local r = state(); r.v = PolestarCharDB.guideEndsV; emit(r)") });
-	assert_eq!(json!([out["ended"], out["saved"], out["live"], out["log"], out["v"]]), json!([false, false, 1, {}, 2]));
+	assert_eq!(json!([out["ended"], out["saved"], out["live"], out["log"], out["v"]]), json!([false, false, 1, {}, 3]));
 }
 
 // An end recorded is not the end itself: with the same steps, once it no longer holds (Far Watch Post gone from
@@ -902,4 +902,25 @@ fn an_end_told_in_turn_stands_when_a_skipped_step_is_brought_back() {
 	assert_eq!(out["ended"], true);
 	assert_eq!(out["back"], json!({ "log": {}, "ended": true, "live": 1 }));
 	assert_eq!(out["again"], json!({}), "no second end");
+}
+
+// The same after a reload before the step brought back is done: an end this version told is no older one, so the
+// save keeps it and nothing is told again (CharState().guideEndsOld lists only those Init.lua found from 0.4.2.2
+// and before).
+#[test]
+fn an_end_told_in_turn_stands_over_a_reload_after_a_step_is_brought_back() {
+	let saved = r#"PolestarCharDB = { schema = 1, guideEndsV = 3, guideEnds = { ["test/durotar"] = true } }
+stub.world.onQuest(11); stub.world.onQuest(12); stub.world.onQuest(13)"#;
+	let out = run(Run {
+		next: NEXT,
+		saved: Some(saved),
+		script: r#"flush(); local r = { log = takeLog(), ended = E.GuideEnded("test/durotar"), live = E.GetLiveStep() or false }
+			w.accept(10, {}); flush()
+			r.done = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(out["log"], json!({}));
+	assert_eq!(out["ended"], true);
+	assert_eq!(out["live"], 1);
+	assert!(!out["done"].as_array().is_some_and(|l| l.iter().any(|x| x.as_str().is_some_and(|s| s.starts_with("GUIDE_END")))), "no second end: {}", out["done"]);
 }
