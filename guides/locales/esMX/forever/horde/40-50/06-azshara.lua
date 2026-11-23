@@ -242,7 +242,7 @@ return {
 
 	-- Step 62: The Egg-O-Matic
 	-- {object:142071} Egg-O-Matic
-	["The {object:142071}"] = "",
+	["The {object:142071}"] = "El {object:142071}",
 	-- {object:142071} Egg-O-Matic
 	["The {object:142071}, in the middle of town"] = "{object:142071}, en el centro del pueblo",
 
