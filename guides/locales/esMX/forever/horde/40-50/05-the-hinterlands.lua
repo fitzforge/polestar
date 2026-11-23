@@ -130,7 +130,7 @@ return {
 	-- {item:15002} Nimboya's Pike
 	["South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use {item:15002} to make the Laden Pike, then plant it inside the village."] = "Al sur del refugio, los trols Secacorteza ocupan sus poblados. Todos llevan un cráneo: con veinte, usa {item:15002} para hacer la Pica cargada de Nimboya y luego clávala dentro del poblado.",
 	-- {area:1885} Hiri'watha
-	["inside {area:1885}: it can't be planted outside a village"] = "",
+	["inside {area:1885}: it can't be planted outside a village"] = "dentro de {area:1885}: no se puede plantar fuera de un poblado",
 
 	-- Step 28: Aerie Peak
 	-- {area:348} Aerie Peak
