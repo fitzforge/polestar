@@ -96,9 +96,10 @@ fn every_look_page_opens_on_essentials_cards_first_then_at_most_ten_references_t
 		let own = if key == "alerts" { json!(["toasts.stack"]) } else { json!({}) };
 		assert_eq!(e["notRef"], own, "{key}: every row a reference to its home");
 		assert_eq!(e["homeless"], json!({}), "{key}: every reference has a home");
-		// Theme's cards show the first six skins, and their More link opens the full list on the Colour tab.
-		let cards_more = if key == "theme" { 0.0 } else { 1.0 };
-		assert_eq!(e["more"].as_f64().unwrap(), e["sections"].as_f64().unwrap() - cards_more, "{key}: a More link on every section but the cards' (Theme's too)");
+		// Theme's cards show the first six skins, and their More link opens the full list on the Colour tab. Alerts &
+		// toasts' All alerts is the line's home, not references, so it has no More link either.
+		let no_more = match key { "theme" => 0.0, "alerts" => 2.0, _ => 1.0 };
+		assert_eq!(e["more"].as_f64().unwrap(), e["sections"].as_f64().unwrap() - no_more, "{key}: a More link on every section but the cards' (Theme's too) and a home's");
 	}
 }
 
