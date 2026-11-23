@@ -14,6 +14,7 @@ return {
 
 	-- Step 2: Booty Bay
 	-- {npc:4631} Wharfmaster Lozgil
+	-- was: ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "Vincula tu piedra de hogar en la posada: es tu camino de regreso aquí desde el norte de la selva al final del circuito."
 	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the dock"] = "",
@@ -144,7 +145,6 @@ return {
 	-- Step 20: The Savage Coast
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk · Lesser Water Elementals = {npc:691} Lesser Water Elemental
-	-- was: ["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "Desde {area:108} el camino sale al sur de {zone:1436} hasta el noroeste de Tuercespina, hacia {area:310}, cerca de la costa; los basiliscos Espina de Cristal de alrededor sueltan los fragmentos.\nLa isla encantada está justo frente a la costa, al suroeste de la mina: basta con llegar a su orilla. Cuidado: sus elementales de agua inferiores son de nivel 36-37: no te quedes. Las ruinas Cabellera Sangrienta de Zul'Kunda, al norte, quedan para el segundo circuito de Tuercespina."
 	["From Nesingwary's camp head west to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "Desde el campamento de Nesingwary dirígete al oeste hasta {area:310}, cerca de la costa; los Basiliscos Espina de Cristal alrededor sueltan los fragmentos.\nLa isla embrujada está frente a la costa, al suroeste de la mina: basta con llegar a su borde. Cuidado: sus Elementales de agua inferiores son 36-37: no te quedes. Las ruinas de los Bloodscalp de Zul'Kunda, al norte, esperan el segundo recorrido de Stranglethorn.",
 	["The haunted island"] = "La isla embrujada",
 
@@ -207,6 +207,7 @@ return {
 	["The road to {area:608}"] = "El camino a {area:608}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "Vincula tu piedra de hogar en la posada: es tu camino de regreso aquí desde el norte de la selva al final del circuito.",
 	-- ["Bloodscalp trolls"] = "Trols Sangrapellejo",
 	-- ["Down to {area:35}"] = "Baja a {area:35}",
 	-- ["East of Zul'Kunda"] = "Al este de Zul'Kunda",
@@ -263,5 +264,4 @@ return {
 	-- ["{npc:773}, in the tavern"] = "{npc:773}, en la taberna",
 	-- ["{npc:773}, in the tavern; upstairs"] = "{npc:773}, en la taberna; arriba",
 	-- ["{quest:207}: four troll legends"] = "{quest:207}: cuatro leyendas trol",
-	-- ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "Vincula tu piedra de hogar en la posada: es tu camino de regreso aquí desde el norte de la selva al final del circuito.",
 }

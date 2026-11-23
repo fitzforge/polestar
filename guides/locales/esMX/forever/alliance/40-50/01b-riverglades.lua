@@ -219,6 +219,7 @@ return {
 	["Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave."] = "",
 	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
+	-- was: ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, al oeste de la granja de Elbrim: cada tumba necesita uno de los {item:266148} que sueltan los Saqueadores del Crepúsculo, así que saquea cinco primero"
 	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop"] = "",
 
 	-- Step 43: Apprentice Claire
@@ -582,6 +583,6 @@ return {
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, de {npc:272437}",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} espera junto al camino al este del paso.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} cuida la vieja catedral en la esquina suroeste de {area:16724}. Los murciélagos anidan en el piso superior; {npc:272437} reparte las velas sagradas junto a ella; las tumbas están en el cementerio de la capilla.\n{npc:271742}, un élite de nivel 53, está en la catedral: no te ataca, así que nunca lo ataques y aleja a los murciélagos de él.",
-	-- ["{object:621813}: bury the mementos"] = "{object:621813}: entierra los recuerdos",
 	-- ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, al oeste de la granja de Elbrim: cada tumba necesita uno de los {item:266148} que sueltan los Saqueadores del Crepúsculo, así que saquea cinco primero",
+	-- ["{object:621813}: bury the mementos"] = "{object:621813}: entierra los recuerdos",
 }
