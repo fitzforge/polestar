@@ -2607,9 +2607,6 @@ local function dropdownRefresh(self)
 	self:SetHeight(keptHeight(self))
 	local b = self.Button
 	b:SetSize(self.psBoxW or Theme.Metric("dropdownW", DROPDOWN_W), Theme.Metric("dropdownH", 28))
-	if self.psDisplay then
-		b.psTip = (self.psDesc or b.Label:IsTruncated()) and b.Label:GetText() or nil
-	end
 	local bliz = Theme.GameSkin()
 	local size = bliz and 22 or Theme.Metric("chevron", 12)
 	b.Arrow:SetTexture(bliz and DROPDOWN_ARROW or Theme.Media("chevron-down"))
@@ -2728,11 +2725,6 @@ function W.Dropdown(parent, label, path, choices, desc, depends, opts)
 	Theme.Skin(b, "dropdown")
 	b.psRow = row
 	b:SetScript("OnClick", openChoices)
-	if row.psDisplay then
-		b.psTipLines = row.psTipLines
-		b:SetScript("OnEnter", simpleTip)
-		b:SetScript("OnLeave", hideTip)
-	end
 	row.Button = b
 	fitLabel(row, b, dropdownSpan)
 	-- Right-click on the row puts the setting back to its default (state

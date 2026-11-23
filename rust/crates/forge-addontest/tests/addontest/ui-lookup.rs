@@ -563,7 +563,16 @@ fn lookup_drawer_class_rarity_and_raw_slots_apply_through_real_search() {
 			return cr == r and cg == g and cb == b
 		end
 		assert(colorIs(item.Class.Label, "text") and colorIs(item.Rarity.Label, "text"))
-		item.Class:GetParent():Click()
+		local classRow = item.Class:GetParent()
+		GameTooltip:Hide()
+		stub.RunScript(item.Class, "OnEnter")
+		assert(not GameTooltip:IsShown(), "the dropdown button has no tooltip")
+		assert(not item.Rarity:GetScript("OnEnter"), "custom dropdown buttons have no tooltip either")
+		stub.RunScript(classRow, "OnEnter")
+		assert(GameTooltip:IsShown() and GameTooltip:GetOwner() == classRow)
+		assert(GameTooltip.lines[1] == "Usable by" and GameTooltip.lines[2] == "Uses item class restrictions and equipment proficiencies.")
+		stub.RunScript(classRow, "OnLeave")
+		classRow:Click()
 		assert(colorIs(menuChoice("Any class").Text, "text"))
 		for _, token in ipairs({ "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK", "DRUID" }) do
 			assert(hasRGB(menuChoice(UI.ClassName(token)).Text, Polestar.Theme.ClassColor(token)), token)
@@ -571,7 +580,6 @@ fn lookup_drawer_class_rarity_and_raw_slots_apply_through_real_search() {
 		menuChoice("Mage"):Click()
 		assert(hasRGB(item.Class.Label, Polestar.Theme.ClassColor("MAGE")))
 		assert(LK.ItemFilters().class == "MAGE" and LK.shown.rows == 2 and LK.root.Visibility.Label:GetText() == "Filters (1)")
-		assert(item.Class.psTipLines[1] == "Uses item class restrictions and equipment proficiencies.")
 		assert(choose(item.Class, "Any class"))
 		item.Rarity:Click()
 		local any, legendary, artifact = menuChoice("Any rarity"), menuChoice("Legendary"), menuChoice("Artifact")
