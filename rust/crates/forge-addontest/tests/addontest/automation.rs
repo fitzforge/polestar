@@ -371,6 +371,45 @@ fn t_108_a_direct_turn_in_follows_autoturnin_not_autoaccept_there_is_no_accept_t
 	assert_eq!(turnin_only, json!(["C_GossipInfo.SelectAvailableQuest 308 nil"]));
 }
 
+// Stompsville's report (#2914): Grazle's step takes Speak to Nafien and hands in Feathers for Grazle (`direct`,
+// optional). Auto-accept picked the feathers first at every visit, whose progress window cannot finish without the
+// feathers, and never took Speak to Nafien. Accepts come before direct hand-ins, in gossip and greeting windows.
+#[test]
+fn the_step_s_accept_is_taken_before_its_direct_hand_in_2914() {
+	const BODY: &str = r#"Polestar.RegisterGuide({
+	id = "test/auto", pack = "test", title = "Grazle", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ goals = {
+			{ t = "accept", quest = 8462, title = "Speak to Nafien", npc = 11554, npcName = "Grazle" },
+			{ t = "turnin", quest = 8466, title = "Feathers for Grazle", direct = true, optional = true, npc = 11554, npcName = "Grazle" },
+		} },
+		{ goals = { { t = "level", level = 3 } } },
+	},
+})
+"#;
+	let guide = ["", TEST_PACK, TEST_SOURCE, BODY].join("\n");
+	let gossip = run(
+		"",
+		&guide,
+		r#"
+			w.gossip(11554, { available = { { questID = 8466 }, { questID = 8462 } } }); flush()
+			${calls}
+			emit(c)
+		"#,
+	);
+	assert_eq!(gossip, json!(["C_GossipInfo.SelectAvailableQuest 8462 nil", "AcceptQuest 8462 nil"]));
+	let greeting = run(
+		"",
+		&guide,
+		r#"
+			w.greeting(11554, { available = { { questID = 8466 }, { questID = 8462 } } }); flush()
+			${calls}
+			emit(c)
+		"#,
+	);
+	assert_eq!(greeting, json!(["SelectAvailableQuest 8462 2", "AcceptQuest 8462 nil"]), "the second offer, Speak to Nafien");
+}
+
 // Jarven and the cloth quartermasters keep offering their repeatable quest: a `direct` goal already done must
 // not hand in another ale or more cloth.
 #[test]

@@ -63,12 +63,17 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 	let out = run(r#"
 		local out = {}
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
-			if spec.page == "Quality of Life" or spec.page == "Questing" then
+			-- The guiding-only conveniences (buying and binding for a step, the flight master's) sit on the Guide page.
+			local guide = spec.page == "Guide"
+			if spec.page == "Quality of Life" or spec.page == "Questing" or guide then
 				-- A feature's switch in its section's header counts with the rows.
 				local list = { spec.toggle }
 				for _, c in ipairs(spec.controls) do list[#list + 1] = c end
+				-- A reference (W.Ref) stands for its home row elsewhere, which has the label and help.
 				for _, c in ipairs(list) do
-					out[#out + 1] = { key = c.key, kind = c.kind, label = c.label, help = c.help, page = spec.page, tab = spec.tab, section = spec.section }
+					if not c.ref and not (guide and not (c.key or ""):find("^qol%.")) then
+						out[#out + 1] = { key = c.key, kind = c.kind, label = c.label, help = c.help, page = spec.page, tab = spec.tab, section = spec.section }
+					end
 				end
 			end
 		end
@@ -100,7 +105,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 	for c in specs.as_array().unwrap() {
 		let name = if truthy(&c["key"]) { text(&c["key"]) } else { text(&c["label"]) };
 		assert!(truthy(&c["label"]) && truthy(&c["help"]), "{name} has label and help");
-		assert!(c["page"] == "Questing" || c["page"] == "Quality of Life");
+		assert!(c["page"] == "Questing" || c["page"] == "Quality of Life" || c["page"] == "Guide");
 		assert!(truthy(&c["tab"]) && truthy(&c["section"]));
 	}
 	assert_eq!(defaults["rewardAutoPick"], false, "auto-pick is off by default");
@@ -2860,7 +2865,8 @@ fn xp_mark_on_by_default_on_quality_of_life_trackers_and_map_experience() {
 		end
 		emit({ default = Polestar.GetDefault("qol.xpTargetMark"), where = found or "none" })
 	"#);
-	assert_eq!(out[0], json!({ "default": true, "where": { "page": "Quality of Life", "tab": "Trackers & map", "section": "Experience" } }));
+	// A guiding-only convenience: the mark sits with the level pace on the Guide page.
+	assert_eq!(out[0], json!({ "default": true, "where": { "page": "Guide", "tab": "While you play", "section": "Level pace" } }));
 }
 
 #[test]
@@ -2876,7 +2882,8 @@ fn options_open_the_quest_log_cleanup_from_quest_log_and_tooltips() {
 		if found then found.c.onClick(); found.c = nil end
 		emit({ where = found or "none", asked = asked or false })
 	"#);
-	assert_eq!(out[0], json!({ "where": { "page": "Questing", "tab": "Quests", "section": "Quest log and tooltips" }, "asked": true }));
+	// Quests' sections follow the player's journey: the cleanup sits in Quest log.
+	assert_eq!(out[0], json!({ "where": { "page": "Questing", "tab": "Quests", "section": "Quest log" }, "asked": true }));
 }
 
 // ---------------------------------------------------------------------------
@@ -2982,17 +2989,20 @@ fn merchant_never_sells_an_item_a_later_step_keeps_names_the_sellable_ones_first
 		r#"
 		-- The guide keeps Ruined Pelt (grey) for step 14, Linen Cloth for step 9 and a valueless quest item for step 3.
 		q.engine.kept = { [5] = 14, [2] = 9, [4] = 3 }
-		local before = { QoL.KeptLine(2) }
+		-- Its tooltip block (QoL.KeptLines): the guide that uses Linen Cloth, under a header that warns at a merchant.
+		q.engine.itemGuides = { [2] = { { guide = { id = "g", title = "Guide", steps = {} }, step = 9 } } }
+		local function header(id) local b = QoL.KeptLines(id); return b and b.header[1] or false end
+		local before = header(2)
 		q.openMerchant()
 		stub.advance(2)
 		local sold = {}
 		for _, id in ipairs(q.sold) do sold[id] = (sold[id] or 0) + 1 end
-		local open = { QoL.KeptLine(2) }
+		local open = header(2)
 		q.closeMerchant()
 		emit({
 			pelt = sold[5] or 0, fangs = sold[1] or 0,
 			warned = printed("Linen Cloth.*Ruined Pelt.*: later steps of the guide need them"),
-			before = before[1], open = open[1], after = QoL.KeptLine(2), none = QoL.KeptLine(3) or false,
+			before = before, open = open, after = header(2), none = header(3),
 		})
 	"#,
 	]
@@ -3001,9 +3011,9 @@ fn merchant_never_sells_an_item_a_later_step_keeps_names_the_sellable_ones_first
 		out[0],
 		json!({
 			"pelt": 0, "fangs": 5, "warned": true,
-			"before": "Kept for the guide: step 9 needs it",
-			"open": "Don't sell: the guide needs it at step 9",
-			"after": "Kept for the guide: step 9 needs it",
+			"before": "Used in guides:",
+			"open": "Don't sell, used in guides:",
+			"after": "Used in guides:",
 			"none": false,
 		})
 	);
@@ -4778,6 +4788,32 @@ fn bind_nothing_at_another_innkeeper_with_shift_with_quests_waiting_without_an_o
 	);
 }
 
+// #3088: Gadgetzan's innkeeper offers Overseas Delivery (95144), a quest no guide of the route takes, to every
+// level. Counted as quest business, it kept the bind from ever happening there. Only a quest the guide takes (to
+// accept, or to hand in at one talk) goes first; one the client names no id for still does.
+#[test]
+fn issue_3088_an_off_route_quest_on_offer_does_not_hold_the_bind_back() {
+	let out = run(&[
+		INN,
+		r#"
+		set("autoBind", true)
+		q.step({ { t = "sethome", location = "Gadgetzan", npc = 7733 } })
+		local function both(opts) local picked = visit(7733, opts); return { picked = picked, binder = confirm().binder } end
+		local r = {}
+		r.offRoute = both({ options = { SHOP, BIND }, availableQuests = { { questID = 95144 } } })
+		q.engine.wants = { ["accept:95144"] = true }
+		r.taken = visit(7733, { options = { SHOP, BIND }, availableQuests = { { questID = 95144 } } })
+		q.engine.wants = { ["direct:95144"] = true }
+		r.direct = visit(7733, { options = { SHOP, BIND }, availableQuests = { { questID = 95144 } } })
+		q.engine.wants = nil
+		r.noId = visit(7733, { options = { SHOP, BIND }, availableQuests = { { questID = 0 } } })
+		emit(r)
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "offRoute": { "picked": 90, "binder": 20 }, "taken": 0, "direct": 0, "noId": 0 }));
+}
+
 // ---------------------------------------------------------------------------
 // Death helper
 // ---------------------------------------------------------------------------
@@ -4875,6 +4911,48 @@ fn death_as_a_ghost_the_arrow_is_held_on_the_faster_choice_resurrection_lets_go(
 	assert_eq!(out[2], true, "held: no target set again while the choice stands");
 	assert_eq!(out[3], json!({ "unholds": 1, "target": "The guide's step", "pins": true, "advice": true }), "alive: the guide's target again");
 	assert_eq!(out[4], true, "no more targets after resurrection");
+}
+
+// #3610 (Yendi, Dun Morogh at level 9): released by the Spirit Healer near Kharanos, the arrow led 1.2 km to the one in
+// Coldridge Valley while the map's Spirit Healer mark stood beside the ghost. The advice had already moved on to the
+// nearer Spirit Healer (its mark did), but the arrow held the first one it was given for as long as the Spirit Healer
+// stayed the choice. The arrow is on the Spirit Healer the advice names, whichever that is now.
+#[test]
+fn death_the_arrow_follows_the_advice_to_a_nearer_spirit_healer_3610() {
+	let out = run(r#"
+		-- Two Spirit Healers on one line: A 250 yd west, B 300 yd east of the place the character died.
+		local am, ax, ay = q.mapPoint(0, -250)
+		local bm, bx, by = q.mapPoint(0, 300)
+		QoL.SetData({ spiritHealers = { { 0, 0, -250, am, ax, ay }, { 0, 0, 300, bm, bx, by } }, flightMasters = {} })
+		q.level = 9
+		q.nav.target = { map = 9000, x = 10, y = 10, label = "The guide's step" }
+		-- The first look: where the character died, its corpse not answered yet: the nearest Spirit Healer is A.
+		q.player = { c = 0, wx = 0, wy = 0 }
+		q.ghost = true
+		stub.fire("PLAYER_ALIVE")
+		local t = q.nav.target
+		emit({ label = t.label, x = t.x, choice = QoL.GetDeathAdvice().choice, healer = QoL.GetDeathAdvice().healerWY })
+		-- The ghost beside B, the corpse where it died (290 yd away): B, no sickness at 9.
+		q.player = { c = 0, wx = 0, wy = 290 }
+		local _, cx, cy = q.mapPoint(0, 0)
+		q.corpse = { cx, cy }
+		stub.advance(1.1)
+		t = q.nav.target
+		emit({ label = t.label, x = t.x, y = t.y, held = q.nav.held == t, choice = QoL.GetDeathAdvice().choice, healer = QoL.GetDeathAdvice().healerWY })
+		-- Still B a second later: the arrow is not set again.
+		local sets = #q.nav.sets
+		stub.advance(1.1)
+		emit(#q.nav.sets == sets)
+		emit({ bx = bx, ax = ax })
+	"#);
+	assert_eq!(out[0]["label"], "Spirit Healer");
+	assert_eq!(out[0]["healer"], -250.0, "first look: A, the nearest one then");
+	assert_eq!(out[1]["choice"], "healer");
+	assert_eq!(out[1]["healer"], 300.0, "the advice names B");
+	assert_eq!(out[1]["label"], "Spirit Healer");
+	assert!((out[1]["x"].as_f64().unwrap() - out[3]["bx"].as_f64().unwrap()).abs() < 1e-9, "the arrow on B, not A: {} (A at {})", out[1], out[3]["ax"]);
+	assert_eq!(out[1]["held"], true);
+	assert_eq!(out[2], true, "held on B: no target set again while B stands");
 }
 
 #[test]
@@ -5709,4 +5787,108 @@ sample()
 	assert_eq!(out[3], json!({ "step": 2, "use": "done", "shown": true, "item": "item:12347" }));
 	assert_eq!(out[4], json!({ "step": 2, "use": "done", "shown": true, "item": "item:12347" }));
 	assert_eq!(out[5], out[4], "the filled bowl stays available while its guide step is open");
+}
+
+// A gossip window at an NPC the step has no goal at (a vendor, a flight master, an innkeeper on the way) builds no
+// step view: GOSSIP_SHOW is a moment of its own, so the view the step's gossip and bind helpers built was built for
+// them alone (the replay of players' sessions put 16-28 ms on such windows: REPLAY.md, QoL/Toggles.lua
+// GOSSIP_SHOW). At the step's NPC they still read it and pick as before.
+// Before: a view for every gossip window without a quest (one for the step's gossip, one more with automatic
+// binding on).
+#[test]
+fn gossip_at_an_npc_the_step_has_no_goal_at_builds_no_step_view() {
+	let out = run(&[
+		INN,
+		r#"
+		local E = Polestar.Engine
+		local views, real = 0, E.GetStepView
+		E.GetStepView = function(...) views = views + 1 return real(...) end
+		local function at(npc)
+			views = 0
+			local picked = visit(npc)
+			return { views = views, picked = picked }
+		end
+		local out = {}
+		q.step({ { t = "buy", item = 159, npc = 344, count = 5 }, { t = "sethome", location = "Goldshire", npc = 295 } })
+		out.elsewhere = at(6790)
+		out.vendor = at(344)
+		set("autoBind", true)
+		out.elsewhereBind = at(6790)
+		out.inn = at(295)
+		emit(out)
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0]["elsewhere"], json!({ "views": 0, "picked": 0 }), "another NPC: no view");
+	assert_eq!(out[0]["elsewhereBind"], json!({ "views": 0, "picked": 0 }), "another NPC, binding on: no view");
+	assert_eq!(out[0]["vendor"]["picked"], 91, "the step's vendor: its goods open as before");
+	assert_eq!(out[0]["inn"]["picked"], 90, "the step's innkeeper, binding on: the bind as before");
+}
+
+// The completed quest XP on the XP bar (QoL/QuestXP.lua) on a kill: the XP and a QUEST_LOG_UPDATE or two that
+// leave every quest as it was. It reads no quest log entries and asks no reward XP again, and sets no strata or
+// level on its frames: only the fill moves with the XP (#2663; 0.4.1's hitch on kills). A quest turning ready or
+// handed in still moves the total. Before (v0.4.1): 5 kills of 2 log updates each read 20 log entries, asked 10
+// rewards, set strata and level 40 times and drew the fill 10 times; a log update with no XP drew it again.
+#[test]
+fn quest_xp_a_kill_reads_no_quest_log_entries_asks_no_reward_and_sets_no_frame_level() {
+	let out = run(r#"
+		local bar = q.xpBar()
+		local ready, info, asks = {}, 0, 0
+		local function ids()
+			local out = {}
+			for id in pairs(q.log) do out[#out + 1] = id end
+			table.sort(out)
+			return out
+		end
+		function C_QuestLog.GetInfo(i)
+			info = info + 1
+			local id = ids()[i]
+			return id and { questID = id, isHeader = false, isHidden = false } or nil
+		end
+		function C_QuestLog.ReadyForTurnIn(id) return ready[id] == true end
+		GetQuestLogRewardXP = function(id) asks = asks + 1 return id * 10 end
+		local function logUpdate() stub.fire("QUEST_LOG_UPDATE"); stub.runTimers() end
+		q.log[11], q.log[12], ready[11] = true, true, true
+		stub.fire("QUEST_ACCEPTED", 11)
+		stub.fire("QUEST_ACCEPTED", 12)
+		logUpdate()
+		local X = QoL.QuestXP
+		local f = X.frame
+		f:SetSize(565, 11) -- The stub does not size the overlay from its anchors.
+		stub.RunScript(f, "OnSizeChanged")
+		local first = { total = X.total, count = X.count, shown = f:IsShown() }
+		local sets, draws = 0, 0
+		for _, o in ipairs({ f, f.Rested }) do
+			for _, m in ipairs({ "SetFrameStrata", "SetFrameLevel" }) do
+				local real = o[m]
+				o[m] = function(...) sets = sets + 1 return real(...) end
+			end
+		end
+		local setPoint = f.Tint.SetPoint
+		f.Tint.SetPoint = function(...) draws = draws + 1 return setPoint(...) end
+		info, asks = 0, 0
+		for _ = 1, 5 do
+			q.gainXP(10)
+			logUpdate()
+			logUpdate()
+		end
+		local kills = { info = info, asks = asks, sets = sets, draws = draws, total = X.total, shown = f:IsShown() }
+		draws = 0
+		logUpdate()
+		local quiet = draws
+		ready[12] = true
+		logUpdate()
+		local twelve = { total = X.total, count = X.count }
+		stub.fire("QUEST_TURNED_IN", 11)
+		q.log[11], ready[11] = nil, nil
+		logUpdate()
+		emit({ first = first, kills = kills, quiet = quiet, twelve = twelve, handed = { total = X.total, count = X.count } })
+		GetQuestLogRewardXP, C_QuestLog.GetInfo, C_QuestLog.ReadyForTurnIn = nil, nil, nil
+	"#);
+	assert_eq!(out[0]["first"], json!({ "total": 110, "count": 1, "shown": true }));
+	assert_eq!(out[0]["kills"], json!({ "info": 0, "asks": 0, "sets": 0, "draws": 5, "total": 110, "shown": true }));
+	assert_eq!(out[0]["quiet"], 0, "a log update that moves nothing draws nothing");
+	assert_eq!(out[0]["twelve"], json!({ "total": 230, "count": 2 }), "a quest turning ready adds its reward");
+	assert_eq!(out[0]["handed"], json!({ "total": 120, "count": 1 }), "a handed-in quest leaves the total");
 }

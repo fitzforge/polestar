@@ -41,8 +41,9 @@
 -- an item it does not hold reads what the client reports.
 --
 -- Prices: what the searches made through Polestar's shopping list showed (Materials.NoteSearch), the cheapest
--- listings, so a count is priced for that many, kept per auction house (realm and faction) for PRICE_DAYS; else
--- Auctionator's when it is installed (its public API). Shown with their age; they decide nothing.
+-- listings, so a count is priced for that many, kept per auction house (realm and faction; the faction alone while
+-- the client does not give the realm) for PRICE_DAYS; else Auctionator's when it is installed (its public API).
+-- Shown with their age; they decide nothing.
 
 local _, ns = ...
 local Compat = ns.Compat
@@ -99,9 +100,18 @@ end
 -- The ways
 ---------------------------------------------------------------------------
 
+-- A goal's material way: "gather" (`collect … gather`), "auction" or nil.
+local function wayOf(goal)
+	local way = (goal.t == "auction" and "auction") or (goal.t == "collect" and goal.gather and "gather") or nil
+	if way and goal.item then return way end
+	return nil
+end
+
 -- Per guide's steps (weak: steps a guide releases take theirs along): item -> { gather = { { goal, step } },
--- auction = { ... } }, the steps walked once.
+-- auction = { ... } }, the steps walked once. Built for the guides whose ways are asked (the running ones and the
+-- windows'); Materials.Tracked takes only the items (itemSets) of the others.
 local indexes = setmetatable({}, { __mode = "k" })
+local itemSets = setmetatable({}, { __mode = "k" }) -- steps -> { [item] = true }, until their index is built
 function Materials.Index(guide)
 	local steps = guide and guide.steps
 	if not steps then return {} end
@@ -110,8 +120,8 @@ function Materials.Index(guide)
 	ix = {}
 	for _, step in ipairs(steps) do
 		for _, goal in ipairs(step.goals) do
-			local way = (goal.t == "auction" and "auction") or (goal.t == "collect" and goal.gather and "gather") or nil
-			if way and goal.item then
+			local way = wayOf(goal)
+			if way then
 				local e = ix[goal.item]
 				if not e then
 					e = { gather = {}, auction = {} }
@@ -122,8 +132,22 @@ function Materials.Index(guide)
 			end
 		end
 	end
-	indexes[steps] = ix
+	indexes[steps], itemSets[steps] = ix, nil
 	return ix
+end
+
+-- The materials of a guide's steps, keys only: their index once built, else the items alone, walked once.
+local function itemsOf(steps)
+	local set = indexes[steps] or itemSets[steps]
+	if set then return set end
+	set = {}
+	for _, step in ipairs(steps) do
+		for _, goal in ipairs(step.goals) do
+			if wayOf(goal) then set[goal.item] = true end
+		end
+	end
+	itemSets[steps] = set
+	return set
 end
 
 -- The first goal of `list` that is this character's (its step's and its own `only`).
@@ -274,8 +298,9 @@ function Materials.Tracked()
 	local tabs = E and E.TabIds and E.TabIds() or {}
 	for _, h in ipairs(G and G.List and G.List() or {}) do
 		local def = (h.category == "Professions" or tabs[h.id]) and G.Get(h.id)
-		if def and rawget(def, "steps") then
-			for item in pairs(Materials.Index(def)) do tracked[item] = true end
+		local steps = def and rawget(def, "steps")
+		if steps then
+			for item in pairs(itemsOf(steps)) do tracked[item] = true end
 		end
 	end
 	return tracked
@@ -289,18 +314,17 @@ local function bagCount(item)
 	return Compat.GetItemCount(item) or 0
 end
 
-local function liveBank(item)
-	return max(0, (Compat.GetItemCount(item, true) or 0) - bagCount(item))
+local function liveBank(item, bags)
+	return max(0, (Compat.GetItemCount(item, true) or 0) - (bags or bagCount(item)))
 end
 
 -- The bank: live while it is open or before the first visit; else the snapshot, and for an item it does not hold
 -- (tracked only since), what the client reports.
-local function bankCount(item)
-	local s = state()
-	if bankOpen or not s.bankSeen then return liveBank(item) end
-	local n = s.bank[item]
-	if n == nil then return liveBank(item) end
-	return n
+local function stored(s, item, bags)
+	local bank
+	if not bankOpen and s.bankSeen then bank = s.bank[item] end
+	if bank == nil then bank = liveBank(item, bags) end
+	return bank, s.mail[item] or 0, s.coming[item] or 0
 end
 
 -- The bank as it is now, for every tracked item (0 kept: the snapshot holds the item).
@@ -367,8 +391,7 @@ ns.RegisterEvent("COMMODITY_PURCHASED", function(_, item, quantity) bought(item,
 ns.RegisterEvent("ITEM_PURCHASED", function(_, item) bought(item, 1) end)
 
 function Materials.Stored(item)
-	local s = state()
-	return bankCount(item), s.mail[item] or 0, s.coming[item] or 0
+	return stored(state(), item)
 end
 
 -- The nearest "mailbox" or "bank" (a banker) for the arrow to fetch a material from (Nav/Nearby.lua): { id, name,
@@ -380,15 +403,30 @@ function Materials.Nearest(kind)
 	return (nearby.Find(kind))
 end
 
+-- A realm name or nil: "" (an entry written while the client read "" for it) is unknown.
+local function known(realm)
+	return type(realm) == "string" and realm ~= "" and realm or nil
+end
+
 -- The account's other characters of this realm and faction holding `item`: { { name, count } }, most first.
+-- This realm: the client's, else the one saved on this character's entry (Alts keeps it when the client stops
+-- giving it). An entry or a player whose realm is unknown matches any realm.
 local function altsWith(item)
 	local A = ns.Alts
 	local out = {}
 	if not (A and A.List and A.Enabled and A.Enabled()) then return out end
 	local info = Compat.GetPlayerInfo()
-	for _, e in ipairs(A.List()) do
+	local list = A.List()
+	local mine = known(info.realm)
+	if not mine then
+		for _, e in ipairs(list) do
+			if A.IsCurrent(e) then mine = known(e.realm) end
+		end
+	end
+	for _, e in ipairs(list) do
 		local n = type(e.mats) == "table" and e.mats[item]
-		if type(n) == "number" and n > 0 and not A.IsCurrent(e) and e.faction == info.faction and (e.realm == nil or e.realm == info.realm) then
+		local realm = known(e.realm)
+		if type(n) == "number" and n > 0 and not A.IsCurrent(e) and e.faction == info.faction and (not realm or not mine or realm == mine) then
 			out[#out + 1] = { name = e.name or e.key, count = n }
 		end
 	end
@@ -397,8 +435,9 @@ local function altsWith(item)
 end
 
 function Materials.Have(item)
-	local bank, mail, coming = Materials.Stored(item)
-	local parts = { bags = bagCount(item), bank = bank, mail = mail, coming = coming, alts = altsWith(item) }
+	local bags = bagCount(item)
+	local bank, mail, coming = stored(state(), item, bags)
+	local parts = { bags = bags, bank = bank, mail = mail, coming = coming, alts = altsWith(item) }
 	local total = parts.bags + bank + mail + coming
 	parts.altsCounted = ns.Get("professions.altMaterials") and true or false
 	if parts.altsCounted then
@@ -408,10 +447,13 @@ function Materials.Have(item)
 end
 
 function Materials.OwnCounts()
-	local out
-	for item in pairs(Materials.Tracked()) do
-		local bank, mail, coming = Materials.Stored(item)
-		local n = bagCount(item) + bank + mail + coming
+	local tracked = Materials.Tracked()
+	if not next(tracked) then return nil end
+	local s, out = state(), nil
+	for item in pairs(tracked) do
+		local bags = bagCount(item)
+		local bank, mail, coming = stored(s, item, bags)
+		local n = bags + bank + mail + coming
 		if n > 0 then
 			out = out or {}
 			out[item] = n
@@ -424,9 +466,39 @@ end
 -- Prices
 ---------------------------------------------------------------------------
 
+-- An auction house's key: "Realm-Faction", or the faction alone while the client does not give the realm
+-- (Compat.RealmName).
 local function house()
 	local info = Compat.GetPlayerInfo()
-	return (info.realm or "?") .. "-" .. (info.faction or "?")
+	local faction = info.faction or "?"
+	return info.realm and (info.realm .. "-" .. faction) or faction
+end
+
+-- With the realm unknown, the prices kept as "Realm-Faction" move to the faction's key once, when exactly one realm
+-- has them for this faction; with several, none moves (they age out). "-Faction", kept while the client read "" for
+-- the realm, always moves. An item's newer price wins.
+local function claimPrices()
+	if Compat.RealmName() then return end
+	local all, to = prices(), house()
+	local suffix = "-" .. to
+	local blank, realmed = nil, {}
+	for k, items in pairs(all) do
+		if type(k) == "string" and type(items) == "table" and k:sub(-#suffix) == suffix then
+			if k == suffix then blank = k else realmed[#realmed + 1] = k end
+		end
+	end
+	local from = {}
+	if #realmed == 1 then from[1] = realmed[1] end
+	if blank then from[#from + 1] = blank end
+	for _, k in ipairs(from) do
+		local dest = type(all[to]) == "table" and all[to] or {}
+		all[to] = dest
+		for item, rec in pairs(all[k]) do
+			local held = dest[item]
+			if type(rec) == "table" and (type(held) ~= "table" or (rec.t or 0) > (held.t or 0)) then dest[item] = rec end
+		end
+		all[k] = nil
+	end
 end
 
 function Materials.NoteSearch(item, rows)
@@ -478,8 +550,9 @@ function Materials.Price(item, count)
 	return nil
 end
 
--- Prices older than PRICE_DAYS are forgotten at login.
+-- Prices older than PRICE_DAYS are forgotten at login, after the move to the realm-less key.
 ns.OnLogin(function()
+	claimPrices()
 	local cutoff = Compat.Now() - PRICE_DAYS * 86400
 	for _, items in pairs(prices()) do
 		if type(items) == "table" then

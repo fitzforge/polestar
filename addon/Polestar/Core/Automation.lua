@@ -5,8 +5,9 @@
 -- suppresses both; only `accept`/`turnin` goals of the live step qualify
 -- (never one the player only looks at), a hand-in the While-you're-here
 -- panel shows (Engine.WantsQuest, #1408) and an accept of the route's next
--- steps at the NPC the player talks to (Engine.WantsQuest: Own.aheadWants,
--- with its guards: gates, level, timers, the log's room); a reward with
+-- steps, or of the guides after the loaded one, at the NPC the player talks
+-- to (Engine.WantsQuest: Own.aheadWants, with its guards: gates, level,
+-- timers, the log's room); a reward with
 -- several choices is always
 -- left to the player, as are quests that cost money or flag for PvP, and
 -- (behavior.warnClosing) quests that close another one for good.
@@ -232,10 +233,19 @@ local function onDetail()
 	end
 	if groupEscort(q) then return false end
 	noteActed()
+	-- Taken for a guide later on the route: say why as it is taken (the
+	-- loaded guide's own accepts stay silent).
+	local later, named
+	if ns.Engine.LaterAcceptGuide then later, named = ns.Engine.LaterAcceptGuide(q) end
 	if QuestGetAutoAccept and QuestGetAutoAccept() then
 		if AcknowledgeAutoAcceptQuest then AcknowledgeAutoAcceptQuest() end
 	elseif AcceptQuest then
 		AcceptQuest()
+	end
+	if later then
+		local title = GetTitleText and GetTitleText()
+		if not title or title == "" then title = named or tostring(q) end
+		ns.Print(L["Took %s now for %s, later on your route: this saves a trip back."]:format(ns.Quoted(title), later.title or later.id))
 	end
 	return true
 end
@@ -253,7 +263,7 @@ local function onComplete()
 	if not wantsTurnIn(q) then return end
 	local choices = GetNumQuestChoices and GetNumQuestChoices() or 0
 	if choices > 1 then
-		ns.Print(L["Choose a reward to finish the turn-in."])
+		ns.Notice(L["Choose a reward to finish the turn-in."])
 		return
 	end
 	local money = GetQuestMoneyToGet and GetQuestMoneyToGet() or 0
@@ -268,6 +278,25 @@ local function greetingOffers()
 	if not GetAvailableQuestInfo then return list end
 	for i = 1, GetNumAvailableQuests and GetNumAvailableQuests() or 0 do list[i] = select(5, GetAvailableQuestInfo(i)) or 0 end
 	return list
+end
+
+-- Of the n quests a window offers (idAt(i) -> quest id): the first the guide
+-- accepts, else the first it hands in `direct`, else nil. Accepts come first:
+-- a direct hand-in whose items are not in the bags opens a progress window
+-- that cannot finish, and picked first it hid the accept behind it at every
+-- visit (#2914: Feathers for Grazle before Speak to Nafien at Grazle).
+local function availablePick(n, idAt, accept, turnin)
+	if accept then
+		for i = 1, n do
+			if wantsAccept(idAt(i)) then return i end
+		end
+	end
+	if turnin then
+		for i = 1, n do
+			if wantsDirect(idAt(i)) then return i end
+		end
+	end
+	return nil
 end
 
 -- Greeting panel (several quests from one NPC/object): turn-ins first, since
@@ -290,12 +319,10 @@ local function onGreeting()
 	end
 	local numAvailable = GetNumAvailableQuests and GetNumAvailableQuests() or 0
 	if (accept or turnin) and GetAvailableQuestInfo and SelectAvailableQuest then
-		for i = 1, numAvailable do
-			local q = select(5, GetAvailableQuestInfo(i))
-			if (accept and wantsAccept(q)) or (turnin and wantsDirect(q)) then
-				SelectAvailableQuest(i)
-				return true
-			end
+		local i = availablePick(numAvailable, function(k) return (select(5, GetAvailableQuestInfo(k))) end, accept, turnin)
+		if i then
+			SelectAvailableQuest(i)
+			return true
 		end
 	end
 	noteLeft("greeting", greetingOffers())
@@ -322,12 +349,10 @@ local function onGossip()
 	end
 	local available = G.GetAvailableQuests and G.GetAvailableQuests() or {}
 	if (accept or turnin) and G.SelectAvailableQuest then
-		for i = 1, #available do
-			local info = available[i]
-			if (accept and wantsAccept(info.questID)) or (turnin and wantsDirect(info.questID)) then
-				G.SelectAvailableQuest(info.questID)
-				return true
-			end
+		local i = availablePick(#available, function(k) return available[k].questID end, accept, turnin)
+		if i then
+			G.SelectAvailableQuest(available[i].questID)
+			return true
 		end
 	end
 	local ids = {}

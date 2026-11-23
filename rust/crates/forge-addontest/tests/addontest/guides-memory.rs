@@ -76,8 +76,25 @@ fn pack_files(name: &str) -> String {
 /// 0.4.0 integrated routes (2026-11-16: both factions' reworked 1-60, the Riverglades and Shen'dralas in both
 /// routes, release data of the same day): Alliance resident 18,483, peak 39,627, read 26,303; Horde resident 17,058,
 /// peak 36,334, read 25,088 (two more guides per faction and ~7% more tips). Under the same 0.4.0 OK: those plus ~1%.
+/// 0.4.2 Horde route round (2026-11-20, the pack compiled on next with #3291 merged): Horde resident 17,520, peak
+/// 37,096, read 25,597 against budgets 17,230 / 36,700 / 25,340: quests in place of grind steps, Mount Hyjal in the
+/// route and their tips. Budgets: those plus ~1% (a reported raise, for Fitz to confirm in the pull request).
+/// 0.4.2 Alliance route round (2026-11-20, the pack compiled on next with both route rounds): Alliance resident 18,722
+/// and read 26,578 against budgets 18,670 / 26,570 (peak 39,937, under its 40,020): about 89 more quests handed in
+/// along the route and their tips. Resident and read: those plus ~1% (a reported raise, for Fitz to confirm in the
+/// pull request); the peak stays.
+/// 0.4.2 triage guide fixes (2026-11-21, #3332 on next: 26 player reports' tips, steps and goals in both routes):
+/// Alliance peak 40,053 against its 40,020. The peak: that plus ~1% (a reported raise, for Fitz to confirm in the pull
+/// request); the rest stays.
+/// 0.4.3 step-condition sweep (2026-11-23, #3696 on next: 80 steps added, carried hand-ins split to wait for their
+/// quest's completion and follow-ups' fallback steps): Alliance read 26,862 against 26,845, Horde read 25,880 against
+/// 25,860. The reads: those plus ~1% (a reported raise, for Fitz to confirm in the pull request); the rest stays.
+/// 0.4.3 fewer folders (2026-11-23, #3507): each race's legs file is in its faction part, no longer a race part of its
+/// own, so the part's load reads and compiles the races' files too (each returning at once but for the player's):
+/// Alliance resident 19,024 and peak 40,692, Horde resident 17,701 (next without it 17,597: +104) and peak 37,502.
+/// Fitz approved Alliance resident 19,100 and peak 40,800, Horde resident 17,800 and peak 37,600; the reads stay.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 18670.0), ("peak", 40020.0), ("read", 26570.0)]), ("Horde", "Orc", [("resident", 17230.0), ("peak", 36700.0), ("read", 25340.0)])];
+	[("Alliance", "Human", [("resident", 19100.0), ("peak", 40800.0), ("read", 27130.0)]), ("Horde", "Orc", [("resident", 17800.0), ("peak", 37600.0), ("read", 26140.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {
@@ -175,11 +192,12 @@ fn the_other_faction_s_part_stays_out_unless_a_saved_tab_needs_it() {
 	assert_eq!(saved[0], serde_json::json!({ "loads": 1, "guide": "forever/alliance/02-westfall" }), "the saved tab of an Alliance guide comes back on a Horde character");
 }
 
-// Baked legs in Polestar's own pack (formats 7 and 8): an Alliance zone guide ships in the faction part and
-// its legs in each Alliance race's part, here one with Legs.lua alone. The faction part loads before the
-// race part, so Polestar.RegisterLegs finds the guide registered and keeps its legs.
+// Baked legs in Polestar's own pack (formats 7 and 8, #3507): an Alliance zone guide ships in the faction part,
+// and so do its legs, one Legs_<race>.lua per Alliance race, each returning at once for a player of another race.
+// The faction part's guides load before its races' files, so Polestar.RegisterLegs finds the guide registered and
+// keeps its legs; no race part loads, not even one left installed from before 0.4.3.
 #[test]
-fn the_faction_part_loads_before_a_race_part_holding_only_legs_whose_legs_are_kept() {
+fn the_faction_part_carries_its_races_legs_and_no_race_part_loads() {
 	let r = forge_addontest::dsl::compile(&forge_addontest::dsl::guide_text(&[
 		"guide forever/alliance/t-legs",
 		"title Legs",
@@ -194,16 +212,18 @@ fn the_faction_part_loads_before_a_race_part_holding_only_legs_whose_legs_are_ke
 	r.guides[0].set_hidden("_legs", forge_guide::js::parse_json(r#"{ "1": "CgA" }"#).unwrap());
 	r.guides[0].set_hidden("_legsGrid", "test");
 	let pack = forge_addontest::dsl::write_our_test_pack(&r.guides);
-	assert_eq!(pack.text("../Polestar_Guides_Human/Polestar_Guides_Human.toc").rsplit("\n\n").next(), Some("Legs.lua\n"));
+	let toc = pack.text("../Polestar_Guides_Alliance/Polestar_Guides_Alliance.toc");
+	assert_eq!(toc.rsplit("\n\n").next(), Some("Guides.lua\nLegs_Dwarf.lua\nLegs_Gnome.lua\nLegs_Human.lua\nLegs_NightElf.lua\nLegs_Skyborne.lua\n"));
+	assert!(pack.text("../Polestar_Guides_Alliance/Legs_Dwarf.lua").contains("\nif not Polestar.IsPlayerRace(\"Dwarf\") then return end\n"));
+	let parent = pack.dir.parent().unwrap().to_path_buf();
+	assert!(!parent.join("Polestar_Guides_Human").exists(), "no race part of our pack");
 	let lua_list = |files: Vec<PathBuf>| files.iter().map(|f| lua_string(&f.to_string_lossy())).collect::<Vec<_>>().join(", ");
 	let entries = |dir: PathBuf| lua_list(forge_addontest::run::toc_entries(&dir).unwrap_or_else(|e| panic!("{e}")).iter().map(|f| dir.join(f)).collect());
-	let parent = pack.dir.parent().unwrap().to_path_buf();
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua", "stub_packs.lua"],
 		before: format!(
-			"stub.packs.Polestar_Guides_Alliance = {{ {} }}\nstub.packs.Polestar_Guides_Human = {{ {} }}\nlocal w = stub.world\nw.faction, w.race, w.raceName = \"Alliance\", \"Human\", \"Human\"",
+			"stub.packs.Polestar_Guides_Alliance = {{ {} }}\nstub.packs.Polestar_Guides_Human = {{}}\nlocal w = stub.world\nw.faction, w.race, w.raceName = \"Alliance\", \"Human\", \"Human\"",
 			entries(parent.join("Polestar_Guides_Alliance")),
-			entries(parent.join("Polestar_Guides_Human"))
 		),
 		addons: vec![Addon::name("Polestar")],
 		script: format!(
@@ -214,12 +234,13 @@ stub.addonLoaded("Polestar_Guides")
 stub.login()
 local legs = Polestar.Guides.Legs("forever/alliance/t-legs")
 emit({{ guide = Polestar.Guides.Get("forever/alliance/t-legs") ~= nil, leg = legs and legs[1] or false,
-	alliance = stub.packLoads.Polestar_Guides_Alliance or 0, human = stub.packLoads.Polestar_Guides_Human or 0 }})"#,
+	alliance = stub.packLoads.Polestar_Guides_Alliance or 0, human = stub.packLoads.Polestar_Guides_Human or 0,
+	dwarf = Polestar.IsPlayerRace("Dwarf"), mine = Polestar.IsPlayerRace("Human") }})"#,
 			entries(pack.dir.clone())
 		),
 		..Default::default()
 	});
-	assert_eq!(out[0], serde_json::json!({ "guide": true, "leg": "CgA", "alliance": 1, "human": 1 }));
+	assert_eq!(out[0], serde_json::json!({ "guide": true, "leg": "CgA", "alliance": 1, "human": 0, "dwarf": false, "mine": true }));
 }
 
 // A goal's packed spots (format 8) are checked at registration without being built, read back on the goal's
@@ -317,6 +338,7 @@ emit({ read = read, exact = { Polestar.Engine.SpotsExact(goal), Polestar.Engine.
 	let (point, spot) = (m["point"].as_f64().unwrap(), m["spot"].as_f64().unwrap());
 	eprintln!("a packed point: {point:.0} bytes, a packed spot: {spot:.0} bytes (Lua 5.1, list slot included)");
 	assert!(point < spot * 0.6, "a point costs {point:.0} bytes against a spot's {spot:.0}");
+	assert!(point < 130.0 && spot < 260.0, "absent optional fields must not reserve space: {point:.0} bytes per point, {spot:.0} per camp");
 }
 
 // Issue #60, the load-time spike: registering a guide runs Guides.Validate over every step and goal. The key

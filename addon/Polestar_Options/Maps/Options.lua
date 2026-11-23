@@ -1,10 +1,9 @@
 -- The Maps modules' rows (docs/ARCHITECTURE.md, "Options registry"): the map
 -- features on the Map page (its sections are declared by the options window,
 -- UI/Options.lua), NPC services (Maps/Services.lua), and the flight timer and
--- the instance tracker on the Quality of Life page (Travel and Trackers).
+-- the instance tracker on the Quality of Life page (Travel, Leveling).
 -- Part of the settings' addon: none of it is in memory before the settings
--- open. One setting may show on two pages: a fresh control per page (the
--- registry keeps per-control state).
+-- open. One setting has one home row.
 
 local ns = Polestar
 local Maps = ns.Maps
@@ -23,29 +22,16 @@ local function register(spec)
 	if not ok and err then ns.Debug(err) end
 end
 
--- Integrations > Freedoom Arcade (Maps/Arcade.lua): there while a copy of the game is (Polestar's own
--- ships with it; the standalone addon takes its place when installed).
+-- Integrations > Flight arcade (Maps/Arcade.lua): the game the flight card offers, there while a game is
+-- (Polestar_Arcade ships them; the standalone Freedoom Arcade addon takes its place when installed).
 if ns.Arcade then
-	register({ page = L["Integrations"], section = "Freedoom Arcade", controls = {
-		{ kind = "toggle", key = "maps.flightArcade", label = L["Offer Freedoom Arcade on flights"],
-			help = L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."],
-			search = "doom, freedoom, arcade, game, flight, taxi, petllama",
+	register({ page = L["Integrations"], section = L["Flight arcade"], controls = {
+		{ kind = "dropdown", key = "arcade.game", label = L["Game on flights"],
+			help = L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time."],
+			search = "doom, freedoom, arcade, game, flight, taxi, petllama, sky jewels, match three, jewels, rikyz90, tetris, blocks, beemerwt",
+			choices = { { value = "freedoom", label = L["Freedoom Arcade"] }, { value = "skyjewels", label = L["Sky Jewels"] }, { value = "tetris", label = L["Tetris"] }, { value = "none", label = L["None: don't offer a game"] } },
 			needs = function() return ns.Arcade.Available() end },
 	} })
-end
-
--- Coordinates and the minimap button, also on Quality of Life > Trackers & map.
-local function coords()
-	return { kind = "toggle", key = "maps.coords", label = L["Coordinates"], search = "coords, position, location, xy, cursor",
-		help = L["Shows your position and the cursor's position under the world map."] }
-end
-local function minimapCoords()
-	return { kind = "toggle", key = "maps.minimapCoords", label = L["Coordinates on the minimap"], search = "coords, position, location, xy",
-		help = L["A small readout of your position at the bottom of the minimap."] }
-end
-local function minimapButton()
-	return { kind = "toggle", key = "maps.minimapButton", label = L["Minimap button"], search = "minimap icon, minimap button, hide button, launcher",
-		help = L["A Polestar button on the edge of the minimap. Click to hide or show Polestar, right-click for a menu, drag to move it."] }
 end
 
 -- The map's second tab: rares (Rares/Options.lua), travel, NPC services and zones.
@@ -75,16 +61,16 @@ register({
 			choices = { { value = "off", label = L["Hidden"] }, { value = "on", label = L["Revealed"] }, { value = "tint", label = L["Revealed and tinted"] } } },
 		{ kind = "toggle", key = "maps.zoneLevels", label = L["Zone level ranges"], search = "zone levels, level range, where to level",
 			help = L["Shows each zone's level range on the continent and zone maps, coloured by difficulty for your level."] },
-		coords(),
-		minimapCoords(),
+		{ kind = "toggle", key = "maps.coords", label = L["Coordinates"], search = "coords, position, location, xy, cursor",
+			help = L["Shows your position and the cursor's position under the world map."] },
+		{ kind = "toggle", key = "maps.minimapCoords", label = L["Coordinates on the minimap"], search = "coords, position, location, xy",
+			help = L["A small readout of your position at the bottom of the minimap."] },
 	},
 })
 
-register({ page = MAP, tab = L["Guide & quests"], section = L["Guide"], controls = { minimapButton() } })
-register({ page = L["Quality of Life"], tab = L["Trackers & map"], section = L["Minimap and coordinates"], controls = { minimapButton(), coords(), minimapCoords() } })
-
 -- The flight timer and the instance tracker join Quality of Life's Travel
--- and Trackers & map tabs; their sections are declared there, in order.
+-- and Leveling tabs; their sections are declared there, in order. The
+-- minimap button's home is Look > Guide window > Window > Show and hide.
 local QOL = L["Quality of Life"]
 register({
 	page = QOL, tab = L["Travel"], section = L["Flights"],
@@ -101,11 +87,11 @@ register({
 })
 -- The instance tracker: its switch in the section's header, then its display and its limits.
 register({
-	page = QOL, tab = L["Trackers & map"], section = L["Instances"], move = "instances",
+	page = QOL, tab = L["Leveling"], section = L["Instances"], move = "instances",
 	toggle = { kind = "toggle", key = "maps.instances", label = L["Track instances"], search = "dungeon, instance lockout, instance cap, reset, runs",
 		help = L["Records dungeon and raid entries, time and experience per run. /pole instances lists them."] },
 	controls = {
-		{ kind = "toggle", key = "maps.instanceDisplay", label = L["Compact display"],
+		{ kind = "toggle", key = "maps.instanceDisplay", label = L["Compact instance tracker"], search = "compact display, tracker, panel, show",
 			help = L["Shows the hourly instance count and the current run while it matters; drag to move."],
 			disabled = off("maps.instances") },
 		{ kind = "slider", key = "maps.perHour", label = L["Instances per hour"], min = 1, max = 10, step = 1, format = "%d",

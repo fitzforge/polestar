@@ -340,9 +340,10 @@ return {
 	-- Step 60: Tirisfal Glades: kill these as you meet them
 	-- {zone:1420} Tirisfal Glades
 	["{zone:1420}: kill these as you meet them"] = "",
-	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {area:164} Garren's Haunt · {npc:1753} Maggot Eye
+	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {area:164} Garren's Haunt · {npc:1753} Maggot Eye · {area:157} Agamand Mills
 	-- plural, as words: Greater Duskbats = {npc:1553} Greater Duskbat · Vampiric Duskbats = {npc:1554} Vampiric Duskbat · Rot Hide Graverobbers = {npc:1941} Rot Hide Graverobber · Rot Hide Mongrels = {npc:1675} Rot Hide Mongrel
-	["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "Los Murciumbríos superiores (6-7) vuelan sobre los campos alrededor de {area:159} y a lo largo del camino al norte: Gretchen quiere sus pellejos y {npc:3549}, sus alas. Los Murciumbríos vampíricos (8-9), más alejados, también los sueltan, pero pegan más fuerte.\nLas {quest:5482} crecen en los campos del cementerio justo al norte de {area:159}, donde cavan los Asaltatumbas Putrepellejo; todos los Putrepellejo sueltan el icor.\nLos Bastardos Putrepellejo ocupan las colinas más al norte, alrededor de {area:164}. Deja de momento a {npc:1753} (nivel 11) en su choza: la guía vuelve a por él al final.\nLos múrlocs Aleta Vil pueblan la costa norte: todos sueltan las escamas, y los Oráculos menores y los Moramugres, las pieles para {npc:3549}. Justo al norte de {area:159}, en la costa hay Saltacharcos y Oráculos menores (7-9) sin Moramugres (9-10) cerca.",
+	-- was: ["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "Los Murciumbríos superiores (6-7) vuelan sobre los campos alrededor de {area:159} y a lo largo del camino al norte: Gretchen quiere sus pellejos y {npc:3549}, sus alas. Los Murciumbríos vampíricos (8-9), más alejados, también los sueltan, pero pegan más fuerte.\nLas {quest:5482} crecen en los campos del cementerio justo al norte de {area:159}, donde cavan los Asaltatumbas Putrepellejo; todos los Putrepellejo sueltan el icor.\nLos Bastardos Putrepellejo ocupan las colinas más al norte, alrededor de {area:164}. Deja de momento a {npc:1753} (nivel 11) en su choza: la guía vuelve a por él al final.\nLos múrlocs Aleta Vil pueblan la costa norte: todos sueltan las escamas, y los Oráculos menores y los Moramugres, las pieles para {npc:3549}. Justo al norte de {area:159}, en la costa hay Saltacharcos y Oráculos menores (7-9) sin Moramugres (9-10) cerca."
+	["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him after {area:157}.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "",
 	-- {npc:1675} Rot Hide Mongrel · {area:164} Garren's Haunt
 	["{npc:1675} walks around {area:164}: look inside the circle on the map"] = "",
 
@@ -369,8 +370,9 @@ return {
 	["{npc:267009} stands at the camp beside Linnea."] = "",
 
 	-- Step 65: Magistrate Sevren
-	-- {area:159} Brill · {area:157} Agamand Mills
-	["Back up the road to {area:159}, on the way north-west to {area:157}."] = "",
+	-- {area:159} Brill · {area:157} Agamand Mills · {npc:1753} Maggot Eye · {npc:1515} Executor Zygand
+	["Back up the road to {area:159}, on the way north-west to {area:157}. The Wanted poster for {npc:1753} stands beside {npc:1515}, in front of the inn."] = "",
+	["The Wanted poster beside Zygand"] = "El cartel de Se busca junto a Zygand",
 
 	-- Step 66: Agamand Mills
 	-- {area:157} Agamand Mills · {npc:1657} Devlin Agamand · {npc:1656} Thurman Agamand · {item:2839} A Letter to Yvette
@@ -382,7 +384,13 @@ return {
 	["{item:2839}, a rare drop"] = "{item:2839}, botín poco común",
 	["Only if the letter dropped"] = "Solo si te salió la carta",
 
-	-- Step 67: Brill
+	-- Step 67: Maggot Eye
+	-- {area:159} Brill · {area:164} Garren's Haunt · {npc:1753} Maggot Eye
+	["On the way back to {area:159}, {area:164} is the Rot Hide camp on the hill east of the mills, south of the shore. {npc:1753} stands in the hut.\nCareful: {npc:1753} is level 11 and gnoll guards stand outside the hut and can join the fight: clear them one at a time first. If you slip past them and fight him inside, he fights alone."] = "",
+	-- {item:3635} Maggot Eye's Paw
+	["{item:3635}; inside"] = "",
+
+	-- Step 68: Brill
 	-- {npc:1560} Yvette Farthing
 	["{npc:1560}, in the inn"] = "{npc:1560}, en la posada",
 	-- {npc:2128} Cain Firesong · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity
@@ -392,11 +400,11 @@ return {
 	-- {npc:1738} Deathguard Terrence · {area:159} Brill
 	["{npc:1738}, if you were below 10 on the last {area:159} visit"] = "",
 
-	-- Step 68: Ulag the Cleaver
+	-- Step 69: Ulag the Cleaver
 	-- {npc:6390} Ulag the Cleaver
 	["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390} espera en el mausoleo de la colina justo al norte del pueblo: abre la verja y lucha contra él.",
 
-	-- Step 69: Carendin Halgar
+	-- Step 70: Carendin Halgar
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Camina al sur desde {area:159} hasta {area:153} y baja a {area:1497}. {npc:5675} está en el {object:36082}. El campamento Escarlata está justo al oeste de las ruinas.",
 	-- {npc:4551} Michael Garrett
@@ -404,30 +412,30 @@ return {
 	-- {npc:5675} Carendin Halgar · {quest:1473} Creature of the Void
 	["{npc:5675}: he offers {quest:1473} only once this is handed in"] = "{npc:5675}: solo ofrece {quest:1473} una vez entregada esta",
 
-	-- Step 70: Anastasia Hartwell
+	-- Step 71: Anastasia Hartwell
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Camina al sur desde {area:159} hasta {area:153} y baja a {area:1497}. {npc:4568} está en el {object:36082}. El campamento Escarlata está justo al oeste de las ruinas.",
 
-	-- Step 71: Back to Tirisfal Glades
+	-- Step 72: Back to Tirisfal Glades
 	-- {zone:1420} Tirisfal Glades
 	["Back to {zone:1420}"] = "",
 	["The Scarlet camp"] = "El campamento Escarlata",
 
-	-- Step 72: Tirisfal Glades: kill these as you meet them
+	-- Step 73: Tirisfal Glades: kill these as you meet them
 	-- {area:159} Brill · {npc:1662} Captain Perrine
 	["Follow the road south-west from {area:159} to the Scarlet Crusade camp. {npc:1662} stands at its south end; every Scarlet there can drop a ring."] = "Sigue el camino al suroeste desde {area:159} hasta el campamento de la Cruzada Escarlata. {npc:1662} está en su extremo sur; cualquier Escarlata de allí puede soltar un anillo.",
 	-- {npc:1537} Scarlet Zealot
 	["{npc:1537} walks around here: look inside the circle on the map"] = "",
 
-	-- Step 73: Perrine's Chest
+	-- Step 74: Perrine's Chest
 	-- {object:37098} Perrine's Chest · {npc:1662} Captain Perrine
 	["{object:37098} stands beside {npc:1662} at the camp's south end."] = "El {object:37098} está junto a {npc:1662}, en el extremo sur del campamento.",
 
-	-- Step 75: Hadric Harlson
+	-- Step 76: Hadric Harlson
 	-- {npc:267009} Hadric Harlson · {npc:1495} Deathguard Linnea
 	["{npc:267009} stands at {npc:1495}'s camp, on the road to the cult's farm."] = "{npc:267009} está en el campamento de {npc:1495}, en el camino a la granja del culto.",
 
-	-- Step 76: Balnir Farmstead: kill these as you meet them
+	-- Step 77: Balnir Farmstead: kill these as you meet them
 	-- {area:165} Balnir Farmstead
 	["{area:165}: kill these as you meet them"] = "",
 	-- {quest:99142} Tomb Weed · {npc:1664} Captain Vachon
@@ -436,29 +444,23 @@ return {
 	-- {item:7227} Balnir Snapdragons
 	["{item:7227}, in the farmstead's garden"] = "{item:7227}, en el jardín de la granja",
 
-	-- Step 77: Tirisfal Glades: kill these as you meet them
+	-- Step 78: Tirisfal Glades: kill these as you meet them
 	-- {npc:1495} Deathguard Linnea
 	-- plural, as words: Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
 	["On the way back west, the Cult of the Damned holds the farm just south-east of {npc:1495}'s camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.\nCareful: the cultists (10-12) stand close together and the Neophytes cast: pull one at a time from the edge of the farm."] = "De vuelta al oeste, la Secta de los Malditos ocupa la granja justo al sureste del campamento de {npc:1495}. Los Fragmentos de cristal necrótico están en el suelo entre los sectarios, y los sectarios también llevan algunos.\nCuidado: los sectarios (10-12) están muy juntos y los neófitos lanzan hechizos: atráelos de uno en uno desde el borde de la granja.",
 
-	-- Step 79: Brill
+	-- Step 80: Brill
 	-- {area:159} Brill · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["Back up the road to {area:159}. {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:1518} Apothecary Johaan · {area:228} Sepulcher
 	["{npc:1518}: for Renferrel at the {area:228}"] = "",
-	["The Wanted poster beside Zygand"] = "El cartel de Se busca junto a Zygand",
 	-- {npc:2211} Captured Mountaineer
 	["The {npc:2211}, in the inn's cellar"] = "",
 
-	-- Step 80: Maggot Eye
-	-- {area:164} Garren's Haunt · {npc:1753} Maggot Eye
-	["North to {area:164}, the Rot Hide camp on the hill south of the shore. {npc:1753} (level 11) stands in the hut: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone."] = "Al norte hasta {area:164}, el campamento Putrepellejo en la colina al sur de la costa. {npc:1753} (nivel 11) está en la choza: limpia primero los gnolls que lo rodean.\nCuidado: hay gnolls de guardia fuera de la choza que pueden unirse al combate. Si los esquivas y luchas con él dentro, pelea solo.",
-	-- {item:3635} Maggot Eye's Paw
-	["{item:3635}; inside"] = "",
-
 	-- Step 81: Leonid Barthalomew the Revered
-	-- {area:164} Garren's Haunt · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
-	["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "Al oeste desde {area:164}, pasando {area:157}, hasta {area:16616}. Leonid está justo al norte del campamento de {npc:246389}.\n{npc:246389} y {npc:259190} acampan en el linde del bosque justo al sur de Leonid. Todas las clases pueden aceptar ambas misiones tras entregar {quest:96896} (nivel 10). Te envían al sótano bajo {area:16881}, la siguiente parada.",
+	-- {area:159} Brill · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
+	-- was: ["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "Al oeste desde {area:164}, pasando {area:157}, hasta {area:16616}. Leonid está justo al norte del campamento de {npc:246389}.\n{npc:246389} y {npc:259190} acampan en el linde del bosque justo al sur de Leonid. Todas las clases pueden aceptar ambas misiones tras entregar {quest:96896} (nivel 10). Te envían al sótano bajo {area:16881}, la siguiente parada."
+	["North-west from {area:159} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "",
 	-- {npc:246378} Danitha Morr
 	["Listen to Leonid and {npc:246378}, then talk to him again"] = "Escucha a Leonid y a {npc:246378}, y luego vuelve a hablar con él",
 
@@ -524,11 +526,13 @@ return {
 	-- ["Follow the road west past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp."] = "Sigue el camino al oeste, pasando {area:157}, hasta {area:16616}. Leonid está justo al norte del campamento de {npc:246389}.",
 	-- ["Free six Webbed Victims inside the cave for {npc:244808}"] = "Libera a seis víctimas atrapadas en telarañas dentro de la cueva para {npc:244808}",
 	-- ["Greater Duskbats"] = "Murciumbríos mayores",
+	-- ["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "Los Murciumbríos superiores (6-7) vuelan sobre los campos alrededor de {area:159} y a lo largo del camino al norte: Gretchen quiere sus pellejos y {npc:3549}, sus alas. Los Murciumbríos vampíricos (8-9), más alejados, también los sueltan, pero pegan más fuerte.\nLas {quest:5482} crecen en los campos del cementerio justo al norte de {area:159}, donde cavan los Asaltatumbas Putrepellejo; todos los Putrepellejo sueltan el icor.\nLos Bastardos Putrepellejo ocupan las colinas más al norte, alrededor de {area:164}. Deja de momento a {npc:1753} (nivel 11) en su choza: la guía vuelve a por él al final.\nLos múrlocs Aleta Vil pueblan la costa norte: todos sueltan las escamas, y los Oráculos menores y los Moramugres, las pieles para {npc:3549}. Justo al norte de {area:159}, en la costa hay Saltacharcos y Oráculos menores (7-9) sin Moramugres (9-10) cerca.",
 	-- ["Greater Duskbats fly over the fields around {area:159} and along the road north."] = "Los Murciumbríos mayores vuelan sobre los campos alrededor de {area:159} y a lo largo del camino del norte.",
 	-- ["Head west into the {area:16616}; {npc:246389} and {npc:259190} camp at its edge."] = "Ve al oeste hasta {area:16616}; {npc:246389} y {npc:259190} acampan en su linde.",
 	-- ["Head west to the cave. The Young Night Web Spiders sit outside; the Night Web Spiders and the Webbed Victims are inside."] = "Ve al oeste hasta la cueva. Las Nocturácnidas jóvenes están fuera; las Arañas nocturácnidas y las víctimas atrapadas en telarañas están dentro.",
 	-- ["Hearth to {area:159}"] = "Usa la piedra de hogar para ir a {area:159}",
 	-- ["More Vile Fin murlocs walk the shore just north of the outpost."] = "Más múrlocs Anca Vil recorren la orilla justo al norte de la avanzada.",
+	-- ["North to {area:164}, the Rot Hide camp on the hill south of the shore. {npc:1753} (level 11) stands in the hut: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone."] = "Al norte hasta {area:164}, el campamento Putrepellejo en la colina al sur de la costa. {npc:1753} (nivel 11) está en la choza: limpia primero los gnolls que lo rodean.\nCuidado: hay gnolls de guardia fuera de la choza que pueden unirse al combate. Si los esquivas y luchas con él dentro, pelea solo.",
 	-- ["Paladin: {area:16616}"] = "Paladín: {area:16616}",
 	-- ["Rattlecage skulls"] = "Calaveras de armadóseo",
 	-- ["Rattlecages, scavengers and duskbats"] = "Armadóseos, carroñeros y murciumbríos",
@@ -557,6 +561,7 @@ return {
 	-- ["Walk south-west from the mills: the pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "Camina al suroeste desde los molinos: las calabazas crecen en los campos ocupados por los Escarlata al noroeste de Solliden.",
 	-- ["Walk south-west to the {area:156}; Simmer stands at the farm."] = "Camina al suroeste hasta {area:156}; el Guardia de la Muerte Simmer está en la granja.",
 	-- ["Webbed Victims"] = "Víctimas atrapadas en telarañas",
+	-- ["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "Al oeste desde {area:164}, pasando {area:157}, hasta {area:16616}. Leonid está justo al norte del campamento de {npc:246389}.\n{npc:246389} y {npc:259190} acampan en el linde del bosque justo al sur de Leonid. Todas las clases pueden aceptar ambas misiones tras entregar {quest:96896} (nivel 10). Te envían al sótano bajo {area:16881}, la siguiente parada.",
 	-- ["With {skill:129} learned, Eleanor also offers its Camping 101: {npc:5759} in the {area:159} inn takes it."] = "Con {skill:129} aprendido, Eleanor también ofrece su Acampada 101: la recoge {npc:5759}, en la posada de {area:159}.",
 	-- ["With {skill:164} learned, Eleanor also offers its Camping 101: {npc:4605} in the {zone:1458} (next guide) takes it."] = "Con {skill:164} aprendida, Eleanor también ofrece su Acampada 101: la recoge {npc:4605}, en {zone:1458} (siguiente guía).",
 	-- ["With {skill:165} learned, Eleanor also offers its Camping 101: {npc:3549} at {npc:1495}'s camp takes it."] = "Con {skill:165} aprendida, Eleanor también ofrece su Acampada 101: la recoge {npc:3549}, en el campamento de {npc:1495}.",

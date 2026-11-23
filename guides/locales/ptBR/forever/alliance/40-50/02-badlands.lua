@@ -138,12 +138,10 @@ return {
 	["Theramore"] = "Ilha Theramore",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "{npc:4944}, no último andar",
+
+	-- Step 31: Morgan Stern
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}, lá dentro",
-
-	-- Step 31: Cortello's Riddle
-	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "Dentro de {area:498}",
 
 	-- Step 32: Mudsprocket
 	["Mudsprocket"] = "Lamaroda",
@@ -173,6 +171,7 @@ return {
 	-- ["Blue Pearls from Stranglethorn"] = "Pérolas Azuis da Selva do Espinhaço",
 	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "Voe para {area:392}; {npc:6251} ensina na casa junto ao banco. Depois volte voando para a Ilha Theramore.",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "Voe para {area:608}, cavalgue para o sul por {zone:1443} até {zone:1444} e siga a estrada até o cais em {area:1108}; o barco atravessa até {area:1116}, onde começa o próximo guia.",
+	-- ["Inside {area:498}"] = "Dentro de {area:498}",
 	-- ["Into {area:38}"] = "Rumo a {area:38}",
 	-- ["On to Feathermoon"] = "Rumo a Plumaluna",
 	-- ["Ride north to {area:144} and fly to {area:271}. {npc:3980} preaches by the inn."] = "Cavalgue para o norte até {area:144} e voe para {area:271}. {npc:3980} prega junto à estalagem.",

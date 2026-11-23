@@ -414,6 +414,19 @@ fn played(guides: &[engine::Guide], class: &str) -> Vec<String> {
 		.collect()
 }
 
+#[test]
+fn skipped_collect_does_not_block_the_active_collect_beside_it() {
+	let guide = compiled(
+		r#"{ "id": "t/work", "steps": [
+		{ "goals": [{ "t": "accept", "quest": 1 }] },
+		{ "goals": [{ "t": "accept", "quest": 2, "closedBy": [1] }] },
+		{ "goals": [{ "t": "collect", "quest": 2, "oi": 1, "item": 102, "count": 1 }, { "t": "collect", "quest": 1, "oi": 1, "item": 101, "count": 1 }] },
+		{ "goals": [{ "t": "turnin", "quest": 1 }] }
+	] }"#,
+	);
+	assert_eq!(played(&[guide], "WARRIOR"), ["t/work 1:1 accept", "t/work 3:2 collect", "t/work 4:1 turnin"]);
+}
+
 fn rules_guides() -> Vec<engine::Guide> {
 	let a = r#"{ "id": "t/a", "faction": "Alliance", "nextChoices": ["t/b", "t/c"], "nextWhen": { "t/b": [{ "k": "level", "op": "<", "n": 3 }] }, "steps": [
 		{ "goals": [{ "t": "accept", "quest": 1, "map": 1429, "x": 50, "y": 50 }] },

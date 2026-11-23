@@ -66,11 +66,23 @@ pub fn write_codex_pack(codex: &Value, opts: &CodexOpts) -> CodexPack {
 			V::obj()
 		}
 	};
-	let (items, npcs, objects, quests, instances, zones, factions, spells, meta, frames) =
-		(part("items"), part("npcs"), part("objects"), part("quests"), part("instances"), part("zones"), part("factions"), part("spells"), part("meta"), part("frames"));
+	let (items, npcs, objects, quests, instances, zones, factions, spells, meta, frames, professions) =
+		(part("items"), part("npcs"), part("objects"), part("quests"), part("instances"), part("zones"), part("factions"), part("spells"), part("meta"), part("frames"), part("professions"));
 	let build = opts.build.as_deref().map_or(V::Null, V::str);
 	let out = emit_pack(
-		&PackCodex { items: &items, npcs: &npcs, objects: &objects, quests: &quests, instances: &instances, zones: &zones, factions: &factions, spells: &spells, meta: &meta, frames: &frames },
+		&PackCodex {
+			items: &items,
+			npcs: &npcs,
+			objects: &objects,
+			quests: &quests,
+			instances: &instances,
+			zones: &zones,
+			factions: &factions,
+			spells: &spells,
+			meta: &meta,
+			frames: &frames,
+			professions: &professions,
+		},
 		&opts.version,
 		&build,
 		&opts.extra_files,

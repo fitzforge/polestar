@@ -114,7 +114,15 @@ pub fn entrance_v(map: f64, x: f64, y: f64, era: bool, approx: bool) -> V {
 	V::Obj(o)
 }
 
-/// instances.js `chooseEntrance`: a table entry's `A` (the Alliance's own way in) rides along as entrance.A.
+/// How far the chosen way in may lie from a table entry's point and still take its `z`.
+const DOOR_YARDS: f64 = 30.0;
+/// Inside a capital, how far a recorded way in may lie from a table entry's door and still be that door's (instances.js
+/// TABLE_YARDS).
+const TABLE_YARDS: f64 = 60.0;
+
+/// instances.js `chooseEntrance`: a table entry's `A` (the Alliance's own way in) rides along as entrance.A; its `z`
+/// (the door's floor where floors stack: the Excavation Site's door over Thelgen Rock) as entrance.z when the chosen
+/// point lies within DOOR_YARDS of the entry's on the same map (a recording's point near it too).
 fn choose_entrance(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], corpse: Option<&super::client::Corpse>, zones: &V, frames: &V, prefer: &[f64]) -> V {
 	let e = choose_entrance_point(name, recorded, table, guides, corpse, zones, frames, prefer);
 	let a = table.get("A");
@@ -125,39 +133,71 @@ fn choose_entrance(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], co
 		ao.set("y", round1(a.get("y").num()));
 		o.set("A", V::Obj(ao));
 	}
+	let z = table.get("z");
+	if let (Some(o), true) = (e.as_obj(), table.truthy() && z.is_num() && z.num().is_finite() && e.get("map").num() == table.get("map").num()) {
+		let f = frames.get(&e.get("map").num().to_string());
+		let (w, h) = (f.get("left").num() - f.get("right").num(), f.get("top").num() - f.get("bottom").num());
+		let d = ((e.get("x").num() - table.get("x").num()) / 100.0 * w).hypot((e.get("y").num() - table.get("y").num()) / 100.0 * h);
+		if d <= DOOR_YARDS {
+			o.set("z", z.num());
+		}
+	}
 	e
 }
 
 /// The capitals' world maps (Stormwind, Ironforge, Darnassus, Orgrimmar, Thunder Bluff, the Undercity).
 const CAPITAL_MAPS: [f64; 6] = [1453.0, 1455.0, 1457.0, 1454.0, 1456.0, 1458.0];
 
-/// A point on a continent's map (a frame wider or taller than any zone's) as a point on the zone map it lies in.
-fn continent_to_zone(frames: &V, map: f64, x: f64, y: f64, prefer: &[f64]) -> Option<(f64, f64, f64)> {
+/// Keep a zone recording's original pin, but require its world position to lie within the entrance zone if known.
+fn recorded_point(frames: &V, map: f64, x: f64, y: f64, expected: &[f64]) -> Option<(f64, f64, f64)> {
 	let f = frames.get(&map.to_string());
 	let (left, right, top, bottom) = (f.get("left").num(), f.get("right").num(), f.get("top").num(), f.get("bottom").num());
 	let (w, h) = (left - right, top - bottom);
-	if !(w > 0.0 && h > 0.0) || (w <= ZONE_MAX && h <= ZONE_MAX) {
+	let continent = w > ZONE_MAX || h > ZONE_MAX;
+	let point = || (map, round1(x), round1(y));
+	if !continent && (expected.is_empty() || expected.contains(&map)) && (0.0..=100.0).contains(&x) && (0.0..=100.0).contains(&y) {
+		return Some(point());
+	}
+	if !(w > 0.0 && h > 0.0) {
 		return None;
 	}
-	zone_point(frames, f.get("c").num(), top - y / 100.0 * h, left - x / 100.0 * w, prefer)
+	match zone_point(frames, f.get("c").num(), top - y / 100.0 * h, left - x / 100.0 * w, expected) {
+		Some(p) if expected.is_empty() || expected.contains(&p.0) => Some(if continent { p } else { point() }),
+		None if expected.is_empty() => Some(point()),
+		_ => None,
+	}
 }
 
 /// instances.js `chooseEntrancePoint`. A recorded way in that one person alone was seen to take from a capital is no
 /// way in: the Dungeon Finder or a summon moves a player into the dungeon from wherever they stand (Blackmaw Hold,
 /// on Mount Hyjal, came out "in Darnassus" from one such entry). The capitals' own dungeons have many people each.
-/// A way in recorded on a continent's map (the game has no zone map in the caves before the Deadmines, Gnomeregan and
-/// Maraudon) is placed on the zone map it lies in, the dungeon's own zones first.
+/// A recording must fall inside the documented entrance zone (or a known client zone without a table entry).
+/// For caves with no zone map, place the continent recording on that zone's map.
+/// Inside the capitals the most-seen recorded point can lie far from the door: Orgrimmar's south gate for Ragefire
+/// Chasm (86 entries against 57 + 14 in the Cleft of Shadow), Ironforge 15.1,86.0 for the Hall of Thanes (166 against
+/// 80 below the city), where players stood when the game moved them in (#3562, #2447). There a recorded point within
+/// TABLE_YARDS of the table entry's door wins, the most-seen of them; elsewhere the most-seen point anywhere does.
 fn choose_entrance_point(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], corpse: Option<&super::client::Corpse>, zones: &V, frames: &V, prefer: &[f64]) -> V {
-	let mut rec: Vec<V> = recorded.items().into_iter().filter(|r| num0(&r.get("n")) >= 2.0 || !CAPITAL_MAPS.contains(&r.get("map").num())).collect();
-	rec.sort_by(|a, b| ord(num0(&b.get("n")) - num0(&a.get("n"))));
-	if let Some(r) = rec.first() {
+	let items: Vec<V> = recorded.items().into_iter().filter(|r| num0(&r.get("n")) >= 2.0 || !CAPITAL_MAPS.contains(&r.get("map").num())).collect();
+	let most_seen = |a: &&V, b: &&V| ord(num0(&b.get("n")) - num0(&a.get("n")));
+	let door_map = table.get("map").num();
+	let tf = frames.get(&door_map.to_string());
+	let near_door = |r: &&V| {
+		CAPITAL_MAPS.contains(&door_map) && tf.truthy() && r.get("map").num() == door_map && {
+			let (w, h) = (tf.get("left").num() - tf.get("right").num(), tf.get("top").num() - tf.get("bottom").num());
+			((r.get("x").num() - table.get("x").num()) / 100.0 * w).hypot((r.get("y").num() - table.get("y").num()) / 100.0 * h) <= TABLE_YARDS
+		}
+	};
+	let rec = items.iter().filter(near_door).min_by(most_seen).or_else(|| items.iter().min_by(most_seen));
+	if let Some(r) = rec {
 		if r.get("map").truthy() {
 			let era = r.get("f").as_str() == Some("e");
 			let (map, x, y) = (r.get("map").num(), r.get("x").num(), r.get("y").num());
-			if let Some((zm, zx, zy)) = continent_to_zone(frames, map, x, y, prefer) {
+			let entrance_map = table.get("map").num();
+			let expected = if entrance_map > 0.0 { std::slice::from_ref(&entrance_map) } else { prefer };
+			if let Some((zm, zx, zy)) = recorded_point(frames, map, x, y, expected) {
 				return entrance_v(zm, zx, zy, era, false);
 			}
-			return entrance_v(map, round1(x), round1(y), era, false);
 		}
 	}
 	if table.truthy() && table.get("map").truthy() {
@@ -824,6 +864,24 @@ mod tests {
 		assert!(!choose_entrance("Deadmines", &none, &one, &[], None, &none, &none, &[]).get("A").truthy(), "one way in: no A");
 	}
 
+	// WorldFloor (the world gate's Wetlands door walks): the Excavation Site's door lies in the hillside 100 yd over
+	// Thelgen Rock, and a walk to it without a height ends in the cave. The table's z rides along when the chosen point
+	// lies within 30 yd of the entry's (a recording's too), never farther or on another map.
+	#[test]
+	fn a_table_entry_s_door_floor_rides_along_as_entrance_z_within_30_yd_of_its_point() {
+		let frames = parse_json(r#"{ "1437": { "c": 0, "left": -389.583, "right": -4525, "top": -2147.917, "bottom": -4904.167 } }"#).unwrap();
+		let door = parse_json(r#"{ "key": "excavation-site-wetlands", "map": 1437, "x": 50.7, "y": 61.1, "z": 140 }"#).unwrap();
+		let none = V::Null;
+		let e = choose_entrance("Excavation Site: Wetlands", &none, &door, &[], None, &none, &frames, &[]);
+		assert_eq!((e.get("x").num(), e.get("y").num(), e.get("z").num()), (50.7, 61.1, 140.0));
+		let near = parse_json(r#"[{ "map": 1437, "x": 50.72, "y": 61.12, "n": 119 }]"#).unwrap();
+		assert_eq!(choose_entrance("Excavation Site: Wetlands", &near, &door, &[], None, &none, &frames, &[]).get("z").num(), 140.0, "a recording beside it");
+		let far = parse_json(r#"[{ "map": 1437, "x": 47.8, "y": 56.2, "n": 3 }]"#).unwrap();
+		assert!(!choose_entrance("Excavation Site: Wetlands", &far, &door, &[], None, &none, &frames, &[]).get("z").is_num(), "185 yd off: no height");
+		let flat = parse_json(r#"{ "key": "deadmines", "map": 1436, "x": 42.5, "y": 71.7 }"#).unwrap();
+		assert!(!choose_entrance("Deadmines", &none, &flat, &[], None, &none, &frames, &[]).get("z").is_num(), "no z in the table: none");
+	}
+
 	#[test]
 	fn one_person_seen_entering_from_a_capital_is_no_way_in_a_capital_s_own_dungeon_keeps_its_door() {
 		let none = V::Null;
@@ -836,6 +894,31 @@ mod tests {
 		// A single entry outside the capitals still places a dungeon no other source does.
 		let field = parse_json(r#"[{ "map": 1440, "x": 14.1, "y": 13.9, "n": 1 }]"#).unwrap();
 		assert_eq!(choose_entrance("Blackfathom Deeps", &field, &none, &[], None, &none, &none, &[]).get("map").num(), 1440.0);
+	}
+
+	// #3562, #2447: inside a capital the most-seen recorded point can be far from the door; the most-seen point within
+	// 60 yd of the table's door wins there, and the most-seen point anywhere elsewhere.
+	#[test]
+	fn inside_a_capital_the_recorded_point_at_the_table_s_door_beats_a_bigger_one_elsewhere_in_the_city() {
+		let none = V::Null;
+		let frames = parse_json(
+			r#"{ "1454": { "c": 1, "left": -3680.601, "right": -5083.206, "top": 2273.877, "bottom": 1338.461 },
+			     "1455": { "c": 0, "left": -713.591, "right": -1504.216, "top": -4569.241, "bottom": -5096.846 },
+			     "1437": { "c": 0, "left": -389.583, "right": -4525, "top": -2147.917, "bottom": -4904.167 } }"#,
+		)
+		.unwrap();
+		let xy = |e: &V| (e.get("map").num(), e.get("x").num(), e.get("y").num());
+		let rfc = parse_json(r#"{ "key": "ragefire-chasm", "map": 1454, "x": 52.6, "y": 49 }"#).unwrap();
+		let rec = parse_json(r#"[{ "map": 1454, "x": 49.35, "y": 95.11, "n": 86 }, { "map": 1454, "x": 52.01, "y": 49.46, "n": 57 }, { "map": 1454, "x": 52.13, "y": 49.42, "n": 14 }]"#).unwrap();
+		assert_eq!(xy(&choose_entrance("Ragefire Chasm", &rec, &rfc, &[], None, &none, &frames, &[])), (1454.0, 52.0, 49.5));
+		assert_eq!(xy(&choose_entrance("Ragefire Chasm", &rec, &none, &[], None, &none, &frames, &[])), (1454.0, 49.4, 95.1), "no table entry: the most-seen point");
+		let thanes = parse_json(r#"{ "key": "the-hall-of-thanes", "map": 1455, "x": 28.3, "y": 47.6, "z": 399 }"#).unwrap();
+		let rec = parse_json(r#"[{ "map": 1455, "x": 15.1, "y": 86.01, "n": 166 }, { "map": 1455, "x": 28.37, "y": 47.7, "n": 80 }, { "map": 1455, "x": 32.69, "y": 44.94, "n": 9 }]"#).unwrap();
+		let e = choose_entrance("The Hall of Thanes", &rec, &thanes, &[], None, &none, &frames, &[]);
+		assert_eq!((xy(&e), e.get("z").num()), ((1455.0, 28.4, 47.7), 399.0), "the door below the city, with the table's floor");
+		let field = parse_json(r#"{ "key": "excavation-site-wetlands", "map": 1437, "x": 50.7, "y": 61.1 }"#).unwrap();
+		let rec = parse_json(r#"[{ "map": 1437, "x": 40, "y": 40, "n": 9 }, { "map": 1437, "x": 50.72, "y": 61.12, "n": 3 }]"#).unwrap();
+		assert_eq!(xy(&choose_entrance("x", &rec, &field, &[], None, &none, &frames, &[])), (1437.0, 40.0, 40.0), "outside the capitals: the most-seen point");
 	}
 
 	#[test]
@@ -855,6 +938,48 @@ mod tests {
 		// A zone map's own point stays as it was.
 		let zone = parse_json(r#"[{ "map": 1436, "x": 42.47, "y": 71.71, "n": 3 }]"#).unwrap();
 		assert_eq!(choose_entrance("Deadmines", &zone, &none, &[], None, &none, &frames, &[1436.0]).get("x").num(), 42.5);
+	}
+
+	#[test]
+	fn a_continent_recording_must_land_at_the_dungeons_known_zone() {
+		let frames = parse_json(
+			r#"{ "1415": { "c": 0, "left": 16000, "right": -19199.9, "top": 7466.6, "bottom": -16000 },
+			     "1424": { "c": 0, "left": 1066.667, "right": -2133.333, "top": 400, "bottom": -1733.333 },
+			     "1435": { "c": 0, "left": -2222.917, "right": -4516.667, "top": -9620.833, "bottom": -11150 } }"#,
+		)
+		.unwrap();
+		let table = parse_json(r#"{ "map": 1435, "x": 69.9, "y": 53.5 }"#).unwrap();
+		let choose = |rec: &str| {
+			let e = choose_entrance("Sunken Temple", &parse_json(rec).unwrap(), &table, &[], None, &V::Null, &frames, &[]);
+			(e.get("map").num(), e.get("x").num(), e.get("y").num())
+		};
+		// The busiest entry projects to Hillsbrad. Even a runner-up in the swamp is not evidence of the door.
+		assert_eq!(choose(r#"[{"map":1415,"x":45.17,"y":33.14,"n":5},{"map":1435,"x":61.51,"y":49.32,"n":3}]"#), (1435.0, 69.9, 53.5));
+		// A recording in the swamp still beats the table.
+		assert_eq!(choose(r#"[{"map":1435,"x":61.51,"y":49.32,"n":3}]"#), (1435.0, 61.5, 49.3));
+		assert_eq!(choose(r#"[{"map":1415,"x":55.778,"y":76.02984,"n":3}]"#), (1435.0, 61.5, 49.3));
+		let ocean = r#"[{"map":1415,"x":1,"y":1,"n":8}]"#;
+		assert_eq!(choose(ocean), (1435.0, 69.9, 53.5), "no zone contains this point");
+		assert!(!choose_entrance("Sunken Temple", &parse_json(ocean).unwrap(), &V::Null, &[], None, &V::Null, &frames, &[1435.0]).truthy());
+	}
+
+	#[test]
+	fn zone_recordings_must_fall_inside_the_entrance_frame_even_when_map_ids_differ() {
+		let frames = parse_json(
+			r#"{ "1426": { "c": 0, "left": 1802.083, "right": -3122.917, "top": -3877.083, "bottom": -7160.417 },
+			     "1427": { "c": 0, "left": -322.917, "right": -2554.167, "top": -6100, "bottom": -7587.5 } }"#,
+		)
+		.unwrap();
+		let table = parse_json(r#"{ "map": 1427, "x": 34.8, "y": 85.3 }"#).unwrap();
+		let choose = |y: f64| {
+			let rec = parse_json(&format!(r#"[{{"map":1426,"x":46.78,"y":{y},"n":1}}]"#)).unwrap();
+			let e = choose_entrance("Blackrock Depths", &rec, &table, &[], None, &V::Null, &frames, &[]);
+			(e.get("map").num(), e.get("x").num(), e.get("y").num())
+		};
+		assert_eq!(choose(50.13), (1427.0, 34.8, 85.3), "the reported point is north of Searing Gorge");
+		assert_eq!(choose(85.0), (1426.0, 46.8, 85.0), "the two maps overlap here; keep the recording");
+		frames.get("1426").as_obj().unwrap().set("c", 1.0);
+		assert_eq!(choose(85.0), (1427.0, 34.8, 85.3), "overlapping coordinates on a different continent do not count");
 	}
 
 	#[test]
