@@ -977,10 +977,7 @@ fn a_fight_on_the_way_puts_tetris_away_with_one_line() {
 		local run = PolestarTetris.Run()
 		emit({{ open = A.IsOpen(), paused = run.paused, respawn = run.needsRespawn, said = said("Tetris") }})"#
 	));
-	assert_eq!(
-		out,
-		json!({ "open": false, "paused": true, "respawn": true, "said": ["Polestar: Tetris is saved and paused for the fight: type /polestar tetris to continue."] })
-	);
+	assert_eq!(out, json!({ "open": false, "paused": true, "respawn": true, "said": ["Polestar: Tetris is saved and paused for the fight: type /polestar tetris to continue."] }));
 }
 
 // One game at a time with Tetris too: Freedoom Arcade opened over it puts it away (its run paused), and the other way
@@ -995,8 +992,5 @@ fn opening_another_game_puts_tetris_away_and_the_other_way_round() {
 		local second = { active = A.Active(), tetris = A.IsOpen("tetris"), paused = PolestarTetris.Run().paused }
 		A.Open("tetris")
 		emit({ first = first, second = second, third = A.Active(), doom = A.IsOpen("freedoom") })"#);
-	assert_eq!(
-		out,
-		json!({ "first": "tetris", "second": { "active": "freedoom", "tetris": false, "paused": true }, "third": "tetris", "doom": false })
-	);
+	assert_eq!(out, json!({ "first": "tetris", "second": { "active": "freedoom", "tetris": false, "paused": true }, "third": "tetris", "doom": false }));
 }

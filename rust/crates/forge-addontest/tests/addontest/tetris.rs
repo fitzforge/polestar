@@ -12,16 +12,11 @@ fn run(script: &str) -> serde_json::Value {
 
 // The window on its own: Polestar's locale table, and the Arcade it registers with (Maps/Arcade.lua) and the events
 // it listens to as stand-ins.
-const POLESTAR: &str = "Polestar = { L = setmetatable({}, { __index = function(_, key) return key end }), RegisterEvent = function() end, Print = function() end, Arcade = { Register = function() end } }";
+const POLESTAR: &str =
+	"Polestar = { L = setmetatable({}, { __index = function(_, key) return key end }), RegisterEvent = function() end, Print = function() end, Arcade = { Register = function() end } }";
 
 fn window(script: &str) -> serde_json::Value {
-	emitted(&RunAddon {
-		before: POLESTAR.into(),
-		addons: vec![Addon::files("Polestar_Arcade", &[ENGINE, WINDOW])],
-		script: script.into(),
-		..Default::default()
-	})
-	.remove(0)
+	emitted(&RunAddon { before: POLESTAR.into(), addons: vec![Addon::files("Polestar_Arcade", &[ENGINE, WINDOW])], script: script.into(), ..Default::default() }).remove(0)
 }
 
 #[test]
