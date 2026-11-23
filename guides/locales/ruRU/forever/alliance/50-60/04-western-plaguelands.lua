@@ -70,13 +70,13 @@ return {
 	-- {npc:13843} Lieutenant Rotimer · {npc:13841} Lieutenant Haggerdin · {area:3197} Chillwind Camp
 	["{npc:13843}: for {npc:13841}, on the way to {area:3197}"] = "",
 	-- {item:2592} Wool Cloth
-	["{item:2592}, from your bags"] = "",
+	["{item:2592}, from your bags"] = "{item:2592}, из ваших сумок",
 	-- {item:4306} Silk Cloth
-	["{item:4306}, from your bags"] = "",
+	["{item:4306}, from your bags"] = "{item:4306}, из ваших сумок",
 	-- {item:4338} Mageweave Cloth
-	["{item:4338}, from your bags"] = "",
+	["{item:4338}, from your bags"] = "{item:4338}, из ваших сумок",
 	-- {item:14047} Runecloth
-	["{item:14047}, from your bags"] = "",
+	["{item:14047}, from your bags"] = "{item:14047}, из ваших сумок",
 
 	-- Step 15: Courier Hammerfall
 	-- {zone:1428} Burning Steppes · {area:3197} Chillwind Camp · {npc:10877} Courier Hammerfall · {zone:1455} Ironforge · {npc:10838} Commander Ashlam Valorfist
@@ -292,7 +292,7 @@ return {
 
 	-- Step 52: Stormwind
 	-- {npc:14722} Clavicus Knavingham · {item:14047} Runecloth
-	["{npc:14722} takes sixty Silk, sixty Mageweave and sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "",
+	["{npc:14722} takes sixty Silk, sixty Mageweave and sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "{npc:14722} берёт шестьдесят шёлка, шестьдесят магической ткани и шестьдесят {item:14047}: сдавайте то, что несёте (или купите на аукционе), остальное пропустите.",
 	-- {npc:3520} Ol' Emma
 	["{npc:3520}, who walks the canals"] = "{npc:3520} – ходит вдоль каналов",
 	-- {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
@@ -334,7 +334,7 @@ return {
 	-- {area:190} Hearthglen
 	["{area:190} overlook"] = "Обзорная точка: {area:190}",
 	-- {area:190} Hearthglen
-	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "",
+	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "Поднимитесь на холм западнее {area:190}, чтобы посмотреть на город сверху.\nОсторожно: часовые у ворот могут обнаруживать игроков в скрытности. Внутри города есть дополнительные часовые, а рядом по маршруту патрулирует элитный.",
 
 	-- Step 62: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:2277} Plaguewood · {area:2627} Terrordale
@@ -422,9 +422,9 @@ return {
 	-- Step 80: Davil's Libram
 	-- {item:12954} Davil's Libram · {area:190} Hearthglen · {npc:1839} Scarlet High Clerist
 	-- plural, as words: Scarlet Paladins = {npc:1834} Scarlet Paladin
-	["Careful: Scarlet Paladins (55-56) and priests guard {item:12954} inside {area:190}'s town hall. They are elite, and a {npc:1839} (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach."] = "",
+	["Careful: Scarlet Paladins (55-56) and priests guard {item:12954} inside {area:190}'s town hall. They are elite, and a {npc:1839} (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach."] = "Осторожно: паладины (55-56) и жрецы Алого ордена охраняют {item:12954} внутри ратуши {area:190}. Они элитные, а рядом с книгой стоит {npc:1839} (63, элитный). Идите с группой; держитесь вне досягаемости Клерикиста.",
 	-- {item:12954} Davil's Libram
-	["{item:12954}; inside"] = "",
+	["{item:12954}; inside"] = "{item:12954}; внутри",
 
 	-- Step 81: Redpath's Shield
 	-- {area:201} Gahrron's Withering
@@ -438,7 +438,7 @@ return {
 	-- {area:2277} Plaguewood · {area:2268} Light's Hope Chapel
 	["Ride to the lake south of the {area:2277}, north-west of {area:2268}."] = "",
 	-- {quest:5845} Of Lost Honor
-	["The lake for {quest:5845}"] = "",
+	["The lake for {quest:5845}"] = "Озеро для {quest:5845}",
 
 	-- Step 84: Of Lost Honor
 	["Underwater"] = "Под водой",
