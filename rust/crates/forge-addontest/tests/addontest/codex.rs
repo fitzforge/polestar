@@ -63,10 +63,22 @@ fn emit_codex(codex: &Value) -> Vec<(String, String)> {
 			V::obj()
 		}
 	};
-	let (items, npcs, objects, quests, instances, zones, factions, spells, meta, frames) =
-		(part("items"), part("npcs"), part("objects"), part("quests"), part("instances"), part("zones"), part("factions"), part("spells"), part("meta"), part("frames"));
+	let (items, npcs, objects, quests, instances, zones, factions, spells, meta, frames, professions) =
+		(part("items"), part("npcs"), part("objects"), part("quests"), part("instances"), part("zones"), part("factions"), part("spells"), part("meta"), part("frames"), part("professions"));
 	emit_pack(
-		&PackCodex { items: &items, npcs: &npcs, objects: &objects, quests: &quests, instances: &instances, zones: &zones, factions: &factions, spells: &spells, meta: &meta, frames: &frames },
+		&PackCodex {
+			items: &items,
+			npcs: &npcs,
+			objects: &objects,
+			quests: &quests,
+			instances: &instances,
+			zones: &zones,
+			factions: &factions,
+			spells: &spells,
+			meta: &meta,
+			frames: &frames,
+			professions: &professions,
+		},
 		"1",
 		&V::Null,
 		&[],
@@ -1090,7 +1102,7 @@ fn buildcodex_writes_deterministic_json_and_a_pack_whose_memory_it_measures() {
 	let b = build_n(2);
 	let mut files: Vec<&str> = a.json.iter().map(|(f, _)| f.as_str()).collect();
 	files.sort();
-	assert_eq!(files, vec!["factions.json", "frames.json", "instances.json", "items.json", "journal.json", "meta.json", "npcs.json", "objects.json", "quests.json", "spells.json", "zones.json"]);
+	assert_eq!(files, vec!["factions.json", "frames.json", "instances.json", "items.json", "journal.json", "meta.json", "npcs.json", "objects.json", "professions.json", "quests.json", "spells.json", "zones.json"]);
 	for (f, text) in a.json.iter().filter(|(f, _)| f != "meta.json") {
 		let other = &b.json.iter().find(|(g, _)| g == f).unwrap_or_else(|| panic!("no {f}")).1;
 		assert_eq!(text, other, "{f}");
