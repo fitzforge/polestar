@@ -4211,6 +4211,10 @@ L["%d changes"] = "%d 處變更"
 L["Same as yours"] = "與你的相同"
 L["Nothing here differs from yours."] = "此處與你的設定沒有差異。"
 L["The positions were made on another screen or UI scale, so Window positions starts unticked: tick it to take them anyway."] = "這些位置來自其他螢幕或介面縮放，因此「視窗位置」預設不勾選：如仍要採用，請勾選。"
+-- L["Start from"] = ""
+-- L["Your current settings"] = ""
+-- L["Defaults"] = ""
+-- L["Your current settings: the new profile is a copy of the one in use, window positions, skin and all. Defaults: every setting at its default."] = ""
 
 -- UI/Looks/Theme.lua
 L["Turn in %s"] = "繳交%s"

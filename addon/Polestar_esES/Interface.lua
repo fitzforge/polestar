@@ -4211,6 +4211,10 @@ L["%d changes"] = "%d cambios"
 L["Same as yours"] = "Igual que los tuyos"
 L["Nothing here differs from yours."] = "Aquí nada es distinto de lo tuyo."
 L["The positions were made on another screen or UI scale, so Window positions starts unticked: tick it to take them anyway."] = "Las posiciones se hicieron en otra pantalla o con otra escala de interfaz, así que Posiciones de ventanas empieza sin marcar: márcalo para tomarlas igualmente."
+-- L["Start from"] = ""
+-- L["Your current settings"] = ""
+-- L["Defaults"] = ""
+-- L["Your current settings: the new profile is a copy of the one in use, window positions, skin and all. Defaults: every setting at its default."] = ""
 
 -- UI/Looks/Theme.lua
 L["Turn in %s"] = "Entregar %s"

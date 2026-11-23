@@ -4211,6 +4211,10 @@ L["%d changes"] = "변경 %d개"
 L["Same as yours"] = "내 설정과 같음"
 L["Nothing here differs from yours."] = "여기서는 내 설정과 다른 것이 없습니다."
 L["The positions were made on another screen or UI scale, so Window positions starts unticked: tick it to take them anyway."] = "위치가 다른 화면이나 UI 크기에서 만들어져 창 위치는 선택되지 않은 상태로 시작합니다: 그래도 가져오려면 선택하십시오."
+-- L["Start from"] = ""
+-- L["Your current settings"] = ""
+-- L["Defaults"] = ""
+-- L["Your current settings: the new profile is a copy of the one in use, window positions, skin and all. Defaults: every setting at its default."] = ""
 
 -- UI/Looks/Theme.lua
 L["Turn in %s"] = "%s 제출"
