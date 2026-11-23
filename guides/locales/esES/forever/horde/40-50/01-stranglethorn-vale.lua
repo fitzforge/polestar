@@ -62,7 +62,7 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Vuela a {area:35}",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["{object:3202} flight master"] = "",
+	["{object:3202} flight master"] = "Maestro de vuelo de {object:3202}",
 
 	-- Step 11: Drizzlik
 	-- {npc:2495} Drizzlik
@@ -87,19 +87,19 @@ return {
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop."] = "{npc:737}, en el piso de arriba, ya tiene su siguiente encargo: los colmillos Machacacráneos los sueltan los trols de Zul'Mamwe, más adelante en este recorrido.",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, en el piso de arriba",
 
 	-- Step 15: Booty Bay
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the docks: Gazlowe's letter, if you carry it"] = "{npc:4631}, en los muelles: la carta de Gazlowe, si la llevas",
 	-- {npc:4631} Wharfmaster Lozgil · {quest:97332} Twice Misplaced Trust · {npc:259961} Wharfmaster Whizzbuzz · {area:16727} Powderfuse Port · {zone:2548} Riverglades
 	["{npc:4631}: {quest:97332}, after Zimmix's rescue; the package goes to {npc:259961} at {area:16727}, in the {zone:2548} guide"] = "{npc:4631}: {quest:97332}, tras el rescate de Zimmix; el paquete va para {npc:259961} en {area:16727}, en la guía de {zone:2548}",
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley «Lobo de Mar», en el piso superior",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, on the balcony beside MacKinley"] = "{npc:2496}, en el balcón junto a MacKinley",
 	-- {npc:2496} Baron Revilgaz · {area:37} Lake Nazferiti
 	["{npc:2496}: Cozzle's footlocker is in his house by {area:37}, on your way north to Nesingwary"] = "",
-	["Inside"] = "",
+	["Inside"] = "Dentro",
 
 	-- Step 16: Bloodsail Correspondence
 	-- {area:35} Booty Bay
@@ -135,7 +135,7 @@ return {
 
 	-- Step 24: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["Lashtail Raptors"] = "",
+	["Lashtail Raptors"] = "Raptores colazote",
 	-- {quest:195} Raptor Mastery · {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "",
@@ -294,7 +294,7 @@ return {
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly back to {object:3202}: Zul'Mamwe's Skullsplitters are just east of it."] = "Vuela de vuelta a {object:3202}: los Partecráneos de Zul'Mamwe están justo al este.",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
 	-- Step 52: Zul'Mamwe
 	["Zul'Mamwe"] = "Zul'Mamwe",
@@ -340,9 +340,9 @@ return {
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road."] = "Ve al este hasta {area:75}, entre los juncos al sur del camino.",
 	-- {npc:5591} Dar
-	["{npc:5591}, inside"] = "",
+	["{npc:5591}, inside"] = "{npc:5591}, dentro",
 	-- {npc:1442} Helgrum the Swift
-	["{npc:1442}, upstairs"] = "",
+	["{npc:1442}, upstairs"] = "{npc:1442}, en el piso de arriba",
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "",
 
@@ -439,6 +439,7 @@ return {
 	-- ["for a later stop in the {area:8}"] = "para una parada posterior en {area:8}",
 	-- ["the {object:2076}"] = "{object:2076}",
 	-- ["the {object:2076}, beside {npc:2497}"] = "{object:2076}, junto a {npc:2497}",
+	-- ["{area:127}: kill these as you meet them"] = "{area:127}: mátalos según te los encuentres",
 	-- ["{area:1497} trainers"] = "Instructores de {area:1497}",
 	-- ["{area:392} pier"] = "Muelle de {area:392}",
 	-- ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}: {quest:348} (disponible desde 40), la parte de Unbagwa en la parada de {object:3202} de la guía de {zone:1444}",

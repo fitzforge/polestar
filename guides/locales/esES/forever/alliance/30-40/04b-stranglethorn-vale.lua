@@ -11,13 +11,13 @@ return {
 
 	-- Step 1: Collin Mauren
 	-- {object:2164} Slaughtered Lamb
-	["In the {object:2164}, if you still carry it"] = "",
+	["In the {object:2164}, if you still carry it"] = "En el {object:2164}, si todavía lo llevas",
 
 	-- Step 2: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Vuela a {area:42}",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 3: Clerk Daltry
 	-- {npc:267} Clerk Daltry · {area:42} Darkshire · {npc:661} Jonathan Carevin
@@ -31,11 +31,11 @@ return {
 
 	-- Step 5: Stranglethorn Vale
 	-- {zone:1434} Stranglethorn Vale
-	["Into {zone:1434}"] = "",
+	["Into {zone:1434}"] = "Hacia {zone:1434}",
 
 	-- Step 6: Rebel Camp
 	-- {zone:1431} Duskwood
-	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "",
+	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "Desde el {zone:1431} toma el camino al sur; el campamento está en las colinas al oeste del camino.",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
 	["{npc:770}, if the first Stranglethorn loop didn't give it: for {npc:773} in {area:35}"] = "",
 
@@ -43,7 +43,7 @@ return {
 	-- {npc:717} Ajeck Rouack
 	["South along the road: the hunters' tents stand just west of it. {npc:717} and Hemet gave you these on the first loop: take them now only if you didn't."] = "Al sur por el camino: las tiendas de los cazadores están justo al oeste. {npc:717} y Hemet te dieron estas en la primera vuelta: acéptalas ahora solo si no lo hiciste.",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "",
+	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "{npc:717}. Guárdalo para la visita posterior si te saltas a {npc:729} en la colina de los raptoras.",
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{npc:715}, if the first Stranglethorn loop didn't give it: the Lashtail Raptors, after the jungle ruins"] = "",
@@ -52,7 +52,7 @@ return {
 	-- {area:101} Kurzen's Compound
 	["East to {area:101}: Herod's records lie in a hut on its west side."] = "Al este, al {area:101}: los registros de Herod están en una cabaña de su lado oeste.",
 	-- {object:287} Bookie Herod's Records
-	["{object:287}, upstairs"] = "",
+	["{object:287}, upstairs"] = "{object:287}, arriba",
 
 	-- Step 9: Bookie Herod
 	-- {area:101} Kurzen's Compound · {quest:328} The Hidden Key
@@ -65,15 +65,15 @@ return {
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, in his cage"] = "{npc:218230}, en su jaula",
 	-- {npc:941} Kurzen Headshrinker
-	["{npc:941}, below ground"] = "",
+	["{npc:941}, below ground"] = "{npc:941}, bajo tierra",
 	-- {object:288} Bookie Herod's Strongbox
-	["{object:288}, below ground"] = "",
+	["{object:288}, below ground"] = "{object:288}, bajo tierra",
 
 	-- Step 11: The jungle ruins
 	["The jungle ruins"] = "Las ruinas de la selva",
 	["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.\nCareful: the Saltscale murlocs on the shore near the second tablet are elite (35-37): swim to the tablet from the water and keep clear of them."] = "Al oeste, a través de la selva, hasta las ruinas trols: cada una guarda una tablilla de piedra con las leyendas trols. Las dos primeras están en las ruinas al suroeste del campamento de Nesingwary, y las dos últimas en la colina del noroeste.\nCuidado: los múrlocs Escamas de Sal de la orilla cerca de la segunda tablilla son élites (35-37): nada hasta la tablilla desde el agua y mantente lejos de ellos.",
 	-- {item:2006} The Second Troll Legend · {object:58} Gri'lek the Wanderer
-	["{item:2006}: {object:58}; underwater"] = "",
+	["{item:2006}: {object:58}; underwater"] = "{item:2006}: {object:58}; bajo el agua",
 
 	-- Step 12: Water Elementals
 	-- plural, as words: Lesser Water Elementals = {npc:691} Lesser Water Elemental
@@ -101,23 +101,23 @@ return {
 
 	-- Step 15: Sin'Dall on the raptor hill
 	-- {npc:729} Sin'Dall
-	["{npc:729} on the raptor hill"] = "",
+	["{npc:729} on the raptor hill"] = "{npc:729} en la colina de los raptoras",
 	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
-	["Check the hilltop on your way to the raptors. If {npc:729} isn't here or you can't pull her alone, keep moving; {npc:717} can take the paw on the later visit."] = "",
+	["Check the hilltop on your way to the raptors. If {npc:729} isn't here or you can't pull her alone, keep moving; {npc:717} can take the paw on the later visit."] = "Mira la cima de la colina camino de los raptoras. Si {npc:729} no está aquí o no puedes sacarla sola, sigue; {npc:717} puede aceptar la garra en la visita posterior.",
 	-- {npc:729} Sin'Dall
-	["{npc:729}'s hill"] = "",
+	["{npc:729}'s hill"] = "la colina de {npc:729}",
 	-- {npc:729} Sin'Dall
-	["{npc:729} (37) prowls the hilltop."] = "",
+	["{npc:729} (37) prowls the hilltop."] = "{npc:729} (37) ronda la cima.",
 
 	-- Step 16: The Lashtail raptors
 	["The Lashtail raptors"] = "Los raptores colazote",
 	-- {quest:187} Tiger Mastery · {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "",
+	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "Al este de las ruinas, caza raptores colazote alrededor de la colina al suroeste del campamento de Nesingwary. Si llevas {quest:187}, tienes al menos 36 y ves a {npc:729} (37) sola, puedes llevarte su garra aquí o dejar la caza para tu próxima visita.",
 
 	-- Step 17: Ajeck Rouack
 	-- {npc:717} Ajeck Rouack
-	["Hand the paw to {npc:717} beside Hemet."] = "",
+	["Hand the paw to {npc:717} beside Hemet."] = "Entrega la garra a {npc:717} junto a Hemet.",
 
 	-- Step 18: Nesingwary's Expedition
 	-- {npc:715} Hemet Nesingwary
@@ -128,7 +128,7 @@ return {
 	-- {area:99} Rebel Camp
 	["North-east up the road to the {area:99}, then back south through the jungle."] = "Al noreste por el camino hasta el {area:99}, y luego de vuelta al sur por la selva.",
 	-- {npc:733} Sergeant Yohwa
-	["{npc:733}: the Commandos and Headshrinkers fell in the compound"] = "",
+	["{npc:733}: the Commandos and Headshrinkers fell in the compound"] = "{npc:733}: los comandos y reducabezas cayeron en el recinto",
 	-- plural, as words: Skullsplitter Witch Doctors = {npc:670} Skullsplitter Witch Doctor
 	["keep it: the Skullsplitter Witch Doctors (41-42) wait for the 40-50 Stranglethorn guide"] = "guárdala: los Médicos Brujos Machacacráneos (41-42) esperan a la guía de Tuercespina 40-50",
 
@@ -147,21 +147,21 @@ return {
 
 	-- Step 22: Booty Bay
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, inside"] = "",
+	["{npc:2495}, inside"] = "{npc:2495}, dentro",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, en el piso de arriba de la taberna",
 	-- {zone:1416} Alterac Mountains
 	["For Archmage Ansirem in {zone:1416}"] = "Para el Archimago Ansirem, en {zone:1416}",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, en el piso de arriba",
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, en el piso de arriba",
 	-- {npc:773} Krazek · {item:4278} Lesser Bloodstone Ore · {zone:1417} Arathi Highlands · {skill:186} Mining
 	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
 	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "{npc:773}, en el piso de arriba: esta misión opcional pide cuatro {item:4278}. Extrae de Depósitos de Petrosangre inferior en {zone:1417} con {skill:186} 75, o compra el mineral en la casa de subastas o pídeselo a un amigo minero. Los kóbolds no lo sueltan; salta esta misión si no puedes conseguir el mineral.",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, dentro",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley «Lobo de Mar», en el piso superior",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the docks"] = "El {npc:4631}, en los muelles",
 

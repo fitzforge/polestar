@@ -5125,6 +5125,15 @@ t.guides["forever/collectibles/mounts/horde/pack-kodo"] = (function() return {
 		["The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier."] = "韁繩需要60級和中級騎術才能騎乘（Forever用戶端）；你可以提早購買。",
 		["{faction:2587} camp"] = "{faction:2587}營地",
 } end)()
+t.guides["forever/collectibles/mounts/horde/paladin-warhorse"] = (function() return {
+		["At 40 {npc:260093}, the paladin trainer in the {zone:1458}, sends you to {npc:246378} at {area:16602}. Train your new spells with him while you are there. Already at {area:16602}? Skip this step: {npc:246378} gives you the mount quest without it."] = "40級時，{zone:1458}的聖騎士訓練師{npc:260093}會讓你去{area:16602}找{npc:246378}。順便在他那裡學習新技能。已經在{area:16602}了？跳過這一步：沒有這個任務，{npc:246378}也會給你坐騎任務。",
+		["Paladin Warhorse (Forsaken)"] = "聖騎士戰馬（被遺忘者）",
+		["Your first mount at 40, summoned at will: a Forsaken paladin buys no horse and pays no riding trainer."] = "40級的第一隻坐騎，可隨時召喚：被遺忘者聖騎士不需要買馬，也不用付錢給騎術訓練師。",
+		["{area:16602} stands on the bluffs in western Tirisfal, north-west of the {area:156}: leave the {zone:1458} and follow the road west past {area:159}. {npc:246378} is inside the keep, upstairs."] = "{area:16602}位於提里斯法西部的懸崖上，{area:156}西北方：離開{zone:1458}，沿著道路向西經過{area:159}。{npc:246378}在城堡內的樓上。",
+		["{area:16602}'s south gate"] = "{area:16602}南門",
+		["{npc:246378}, upstairs in {area:16602}, offers {quest:94971} at 40: accept it and hand it straight back. It teaches you {spell:1279399} and Apprentice Riding together, so you need no horse and no riding trainer."] = "{area:16602}樓上的{npc:246378}在40級時提供{quest:94971}：接受後立刻交回。它會同時教你{spell:1279399}和騎術，所以你不需要馬，也不需要騎術訓練師。",
+		["{npc:260093}: your level 40 spells"] = "{npc:260093}：40級技能",
+} end)()
 t.guides["forever/collectibles/mounts/horde/raptor"] = (function() return {
 		["Any Horde race can buy these raptors, but riding one also takes {spell:10861}, which only Trolls get with {skill:762}. {npc:7953} teaches it to other races once they are Exalted with {faction:530} (the Darkspear Trolls Reputation guide shows the way). Until then, don't buy a raptor for this character."] = "任何部落種族都能購買這些迅猛龍，但騎乘還需要{spell:10861}，它只有食人妖能隨{skill:762}一併獲得。其他種族需在{faction:530}達到崇拜後由{npc:7953}傳授（暗矛食人妖聲望指南有詳細方法）。在此之前，別給這個角色買迅猛龍。",
 		["Learn to ride"] = "學習騎術",
