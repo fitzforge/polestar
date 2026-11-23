@@ -1689,6 +1689,25 @@
 		"3438": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/levels.rs", "test": "no_step_says_a_quest_s_level_and_the_pace_line_names_no_hard_quest_3438" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui.rs", "test": "a_step_with_a_quest_well_over_your_level_shows_no_quest_level_3438" }
+		] },
+		"3424": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/rares.rs", "test": "the_rares_sidebar_counts_what_the_lists_show_never_a_treasure_with_no_spot_3424" }
+		] },
+		"3428": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol.rs", "test": "issue_3428_a_flight_master_s_own_quest_on_offer_keeps_the_flight_map_closed" }
+		] },
+		"3458": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-unavailable.rs", "test": "a_purchase_for_a_quest_left_out_goes_with_it_3458" }
+		] },
+		"3568": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/stranded.rs", "test": "the_carried_row_follows_a_quest_handed_in_off_the_step_and_agrees_with_its_list_3568" }
+		] },
+		"3608": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-training.rs", "test": "train_class_is_done_when_the_trainer_lists_only_new_ranks_of_known_spells_3608" }
+		] },
+		"3845": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/class-quests.rs", "test": "a_class_quest_stops_being_offered_five_levels_past_its_guide_s_top_unless_its_spell_is_still_missing_3845" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-smart.rs", "test": "a_class_guide_is_outleveled_five_levels_past_its_top_once_its_reward_spell_is_known_3845" }
 		] }
 	},
 	"seedDrift": {
