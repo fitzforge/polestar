@@ -390,3 +390,26 @@ test('the Fishing guide\'s coast spots lie by sea pools, never a lake\'s Sagefis
 		assert.doesNotMatch(nearest.name, /Sagefish School/, `${c.label} (${c.x},${c.y}) lies by ${nearest.name}`);
 	}
 });
+
+test('a band keeps the zone its group worked before when another scores within 3% (no trip for a near tie)', () => {
+	const { pickZones } = require('../tools/lib/professions/gathering/build');
+	const project = makeProjector({ era: { 1: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } } });
+	// The same 20 nodes in both zones; zone 1's are worth `w1` each, so its score is w1 times zone 2's.
+	const line = (w) => Array.from({ length: 20 }, (_, i) => ({ name: 'Node', req: 1, w, pt: project.point(1, 10 + i, 10, 'e') }));
+	let w1 = 1.02;
+	const prof = { skill: 'Test', minPoints: 4, points: (ctx, zone) => line(zone === 1 ? w1 : 1) };
+	const band = { from: 1, to: 25, zones: { Alliance: [1, 2] } };
+	const ctx = { project, data: {} };
+	assert.equal(pickZones(ctx, prof, band, 'Alliance', { key: 'a' })[0].zone, 1, 'the better zone with no zone before');
+	assert.equal(pickZones(ctx, prof, band, 'Alliance', { key: 'a' }, new Set([2]))[0].zone, 2, 'the zone worked before, 2% behind');
+	w1 = 1.05;
+	assert.equal(pickZones(ctx, prof, band, 'Alliance', { key: 'a' }, new Set([2]))[0].zone, 1, 'a zone 5% better still wins');
+});
+
+test('Skinning 125-150 stays in Ashenvale for Night Elves and the Horde (a near tie with Thousand Needles)', { skip: hasData ? false : 'data/forever not built' }, () => {
+	const text = fs.readFileSync(path.join(__dirname, '..', 'guides', 'forever', 'professions', 'skinning.guide'), 'utf8');
+	const steps = text.split('\nstep ').slice(1).filter((s) => /\(125-150\)/.test(s.split('\n')[0]));
+	const night = steps.filter((s) => /\n {2}only NightElf\n/.test(s) || /\n {2}only Orc,Troll,Tauren/.test(s));
+	assert.equal(night.length, 2);
+	for (const s of night) assert.match(s, /\n {2}zone Ashenvale\n/, s.split('\n')[0]);
+});

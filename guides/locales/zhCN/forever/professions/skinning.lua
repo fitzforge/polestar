@@ -176,11 +176,13 @@ return {
 	-- {npc:2351} Gray Bear
 	["{npc:2351}, Snapjaw"] = "{npc:2351}、钳嘴龟",
 
-	-- Step 22: Beasts 25-28: Thousand Needles (125-150)
-	-- {zone:1441} Thousand Needles
-	["Beasts 25-28: {zone:1441} (125-150)"] = "",
-	-- {npc:4126} Crag Stalker · {npc:4248} Pesterhide Hyena · {npc:4124} Needles Cougar · {npc:4107} Highperch Wyvern · {skill:393} Skinning
-	["Kill and skin {npc:4126} (25), {npc:4248} (26, needs 130), {npc:4124} (27, needs 135), {npc:4107} (28, needs 140) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 25-35. Expect about 40 beasts for these 25 points."] = "",
+	-- Step 22: Beasts 19-29: Ashenvale (125-150)
+	-- {zone:1440} Ashenvale
+	-- was: ["Beasts 19-29: {zone:1440} (125-150)"] = "19-29级野兽：{zone:1440}（125-150）"
+	["Beasts 19-29: {zone:1440} (125-150)"] = "",
+	-- {npc:3823} Ghostpaw Runner · {npc:3809} Ashenvale Bear · {npc:3817} Shadowhorn Stag · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3811} Giant Ashenvale Bear · {skill:393} Skinning
+	-- was: ["Kill and skin {npc:3823} (19), {npc:3809} (21), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "沿环线击杀并剥取{npc:3823}（19级）、{npc:3809}（21级）、{npc:3817}（21级）、{npc:3810}（25级）、{npc:3818}（26级，需要技能130）和{npc:3811}（29级，需要技能145），直到{skill:393}150；先拾取每具尸体，再剥皮，并优先剥取技能允许的最高等级野兽。等级为 L 的野兽，在20级及以下需要技能 (L-10)x10，更高等级则需要巨翼双足飞龙。地区等级18-30。这25点预计需剥取约40只野兽。"
+	["Kill and skin {npc:3823} (19), {npc:3809} (20), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "",
 
 	-- Step 25: Beasts 21-33: Alterac Mountains (150-175)
 	-- {zone:1416} Alterac Mountains

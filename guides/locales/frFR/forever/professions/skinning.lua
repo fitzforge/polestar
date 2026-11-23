@@ -176,11 +176,13 @@ return {
 	-- {npc:2351} Gray Bear
 	["{npc:2351}, Snapjaw"] = "{npc:2351}, Gueule d'acier",
 
-	-- Step 22: Beasts 25-28: Thousand Needles (125-150)
-	-- {zone:1441} Thousand Needles
-	["Beasts 25-28: {zone:1441} (125-150)"] = "",
-	-- {npc:4126} Crag Stalker · {npc:4248} Pesterhide Hyena · {npc:4124} Needles Cougar · {npc:4107} Highperch Wyvern · {skill:393} Skinning
-	["Kill and skin {npc:4126} (25), {npc:4248} (26, needs 130), {npc:4124} (27, needs 135), {npc:4107} (28, needs 140) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 25-35. Expect about 40 beasts for these 25 points."] = "",
+	-- Step 22: Beasts 19-29: Ashenvale (125-150)
+	-- {zone:1440} Ashenvale
+	-- was: ["Beasts 19-29: {zone:1440} (125-150)"] = "Bêtes 19-29 : {zone:1440} (125-150)"
+	["Beasts 19-29: {zone:1440} (125-150)"] = "",
+	-- {npc:3823} Ghostpaw Runner · {npc:3809} Ashenvale Bear · {npc:3817} Shadowhorn Stag · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3811} Giant Ashenvale Bear · {skill:393} Skinning
+	-- was: ["Kill and skin {npc:3823} (19), {npc:3809} (21), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "Tuez et dépecez {npc:3823} (19), {npc:3809} (21), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, demande 130), {npc:3811} (29, demande 145) le long de la boucle jusqu'à {skill:393} 150 ; fouillez chaque cadavre, puis dépecez-le, et dépecez les bêtes du plus haut niveau que votre compétence permet. Une bête de niveau L demande la compétence (L-10)x10 jusqu'au niveau 20, et Lx5 au-delà. Zone de niveau 18-30. Comptez environ 40 bêtes pour ces 25 points."
+	["Kill and skin {npc:3823} (19), {npc:3809} (20), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "",
 
 	-- Step 25: Beasts 21-33: Alterac Mountains (150-175)
 	-- {zone:1416} Alterac Mountains
