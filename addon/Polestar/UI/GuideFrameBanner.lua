@@ -71,6 +71,17 @@ ns.UI.GuideFrame.Part(function(GF)
 		return nav and nav.Trip and nav.Trip() or nil
 	end
 
+	-- The arrow on a point the player picked (a Shift- or Alt-click on the
+	-- world map or the minimap, /way: Journey.PlanTo marks it `mine`) that is
+	-- no trip: { label } (its place, "Stranglethorn Vale 41, 11"), said as a
+	-- trip is, with Back to the guide (#3843); else nil.
+	local function ownPoint()
+		local nav = ns.Nav
+		if not (nav and nav.IsOverride and nav.IsOverride()) or navTrip() then return nil end
+		local t = nav.GetTarget()
+		return t and t.mine and { label = t.label } or nil
+	end
+
 	-- The flight map notice (#1795, #2189): on a continent where no flight map has opened yet for this character,
 	-- Polestar can't tell the flight paths it has from those it lacks (Nav.GetTaxiSeen), so the route flies from and to
 	-- the ones it may have at a cost (Nav.TaxiMaybe), and players read the flight masters they had as ones to learn.
@@ -141,9 +152,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		local view = GF.View()
 		local E = Engine()
 		local g = E and E.GetGuide and E.GetGuide()
-		-- On the way to a nearby service, a dungeon or a trainer (Nav.StartTrip): the way back first.
+		-- On the way to a nearby service, a dungeon or a trainer (Nav.StartTrip),
+		-- or to a point of the player's own: the way back first.
 		local t = navTrip()
 		if t then return "trip", t end
+		local own = ownPoint()
+		if own then return "own", own end
 		-- A guide of the other faction (an import, an old saved tab): whose it
 		-- is, for as long as it is open; never dismissed (#2462).
 		local side = g ~= nil and E.OtherFaction and E.OtherFaction(g.id)
@@ -585,9 +599,10 @@ ns.UI.GuideFrame.Part(function(GF)
 				placeLink(banner.Jump, string.format(L["Back to step %d"], live), 0, -4)
 			end
 			banner.Close:Show()
-		elseif kind == "trip" then
+		elseif kind == "trip" or kind == "own" then
 			banner.Icon:SetTexture(Theme.Media("icon-goto"))
-			banner.Text:SetText(string.format(L["On the way to %s (%s)."], n.name or "", n.label or ""))
+			banner.Text:SetText(kind == "own" and string.format(L["On the way to your map point (%s)."], n.label or "")
+				or string.format(L["On the way to %s (%s)."], n.name or "", n.label or ""))
 			placeLink(banner.Jump, L["Back to the guide"], 0, -4)
 			banner.Close:Hide()
 		elseif kind == "ended" then
@@ -779,6 +794,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		local E = Engine()
 		if kind == "trip" then
 			ns.Nav.EndTrip()
+		elseif kind == "own" then
+			ns.Nav.BackToGuide()
 		elseif kind == "closedTab" then
 			notices.closedTab = nil
 			if E and E.ReopenClosedTab then E.ReopenClosedTab(n.guideId) end
@@ -908,6 +925,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		local kind, n = bannerNotice()
 		if kind == "trip" then
 			ns.Nav.EndTrip()
+		elseif kind == "own" then
+			ns.Nav.BackToGuide()
 		elseif kind == "away" then
 			-- Looking ahead or back: closed for this step (awayNotice), another step has its own
 			notices.away = n.guideId .. ":" .. n.index
@@ -1073,6 +1092,17 @@ ns.UI.GuideFrame.Part(function(GF)
 		ns.On("NAV_TRIP", function()
 			if F and ns.IsLoggedIn() then GF.Layout() end
 		end)
+		-- The arrow came onto a point of the player's own, or left one: its banner
+		-- shows or goes. Laid out only when that changes, not on every target;
+		-- looked at a frame later, once Journey.PlanTo has marked the point its own.
+		local ownShown = false
+		local function ownChanged()
+			local own = ownPoint() ~= nil
+			if own == ownShown then return end
+			ownShown = own
+			if F and ns.IsLoggedIn() then GF.Layout() end
+		end
+		ns.On("WAYPOINT_CHANGED", function() ns.After(0, ownChanged) end)
 		-- The bags' free slots or their cheapest junk changed (QoL/Space.lua), or
 		-- the gear offer did (QoL/Wear.lua): their banners come, change or go.
 		ns.On("BAG_SPACE", function()

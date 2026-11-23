@@ -1624,6 +1624,31 @@ fn on_the_way_to_a_nearby_service_a_banner_and_the_nearby_menu_offer_the_way_bac
 	assert_eq!(out["after"], false, "the banner goes with the trip");
 }
 
+// #3843: the arrow on a point the player picked on the map (Journey.PlanTo marks it `mine`) is said in the guide
+// window as a trip is, with Back to the guide, which lets it go; a goal's own point clicked (no `mine`) says nothing.
+#[test]
+fn on_the_way_to_your_own_map_point_a_banner_offers_the_way_back_to_the_guide() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local B = GF.parts.banner
+		Polestar.Nav.SetTarget(1429, 43.3, 14.8, "Kill Stranglethorn Tiger")
+		stub.advance(0.1)
+		local goal = B:IsShown()
+		local t = Polestar.Nav.SetTarget(1429, 41.5, 10.7, "Stranglethorn Vale 41, 11")
+		t.mine = true
+		stub.advance(0.1)
+		local shown = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText(), B.Close:IsShown() }
+		B.Jump:Click()
+		stub.advance(0.1)
+		emit({ goal = goal, shown = shown, back = lastCall("BackToGuide") ~= nil, target = uistub.target == nil, after = B:IsShown() })"#)
+	.remove(0);
+	assert_eq!(out["goal"], false, "a goal's own point is no point of yours");
+	assert_eq!(out["shown"], json!([true, "On the way to your map point (Stranglethorn Vale 41, 11).", "Back to the guide", false]));
+	assert_eq!(out["back"], true);
+	assert_eq!(out["target"], true);
+	assert_eq!(out["after"], false, "the banner goes with the point");
+}
+
 #[test]
 fn guide_outleveled_a_dismissible_banner_offers_the_better_guide_in_the_same_tab() {
 	let out = run(r#"
