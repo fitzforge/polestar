@@ -1993,7 +1993,10 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   a new tab; taken or dismissed, gone for that guide for the session).
 - **Out-levelled guides.** When the player's level exceeds the active guide's
   top (`maxLevel`, or their side's `factionLevels` one: `Guides.Levels`) by
-  `Engine.OUTGROWN` (3) or more, the Engine fires `GUIDE_OUTLEVELED(guideId,
+  `Engine.OUTGROWN` (3) or more (`Engine.Outgrown`; a Class guide by
+  `Engine.CLASS_OUTGROWN` (5), and only once the character knows every spell
+  its `reward` lines name, the level where QoL/ClassQuests.lua stops
+  offering it, #3845), the Engine fires `GUIDE_OUTLEVELED(guideId,
   suggestedId)` once per guide per session, once the guide is placed (a
   catch-up may pass it whole first); the UI offers the jump. While the
   guides between the active one and the level-best suggestion still hand in
