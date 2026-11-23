@@ -367,7 +367,7 @@ fn two_characters_keep_their_own_profile_apart_and_share_the_account_s() {
 }
 
 // ---------------------------------------------------------------------------------------------------------------
-// "Skip grey quests" (behavior.skipGrey) is on by default since 0.4.2: a fresh install and a profile made later
+// "Skip grey quests" (behavior.skipGrey) is on by default since 0.4.3: a fresh install and a profile made later
 // start on it. An account Polestar saw before keeps what it had in every profile: off where nothing was stored (a
 // setting at its default never is), whatever the player stored where they did. Once per account, so turning it on
 // afterwards (back at the default, stored as nothing) stays on. A profile string from before leaves it at today's
@@ -427,8 +427,8 @@ fn skip_grey_quests_is_on_for_a_fresh_install_and_its_new_profiles() {
 }
 
 #[test]
-fn an_account_saved_before_0_4_2_keeps_skip_grey_quests_as_it_had_it_in_every_profile() {
-	// 0.4.1's SavedVariables: the profile in use and Raid never touched it (off then, nothing stored), Mine turned it
+fn an_account_saved_before_0_4_3_keeps_skip_grey_quests_as_it_had_it_in_every_profile() {
+	// 0.4.2's SavedVariables: the profile in use and Raid never touched it (off then, nothing stored), Mine turned it
 	// on, Odd holds an explicit off. A character logging in for the first time on that account follows its profile.
 	let saved = r#"PolestarDB = { schema = 1, welcomeSeen = 1, profileActive = "Default", profile = "Default",
 		migrations = { guideTextSize = true },
@@ -475,10 +475,10 @@ fn skip_grey_quests_turned_on_after_the_update_stays_on() {
 }
 
 #[test]
-fn a_profile_string_from_before_0_4_2_leaves_skip_grey_quests_at_today_s_default() {
-	// On an account from before 0.4.2 (its own profile kept off), a string from 0.4.1 holding only a text size: the
+fn a_profile_string_from_before_0_4_3_leaves_skip_grey_quests_at_today_s_default() {
+	// On an account from before 0.4.3 (its own profile kept off), a string from 0.4.2 holding only a text size: the
 	// import carries no Skip grey quests and so no "Quests & automation" category that would put the rest of yours
-	// back to the defaults; one from 0.4.2 carries an off it holds.
+	// back to the defaults; one from 0.4.3 carries an off it holds.
 	let saved = r#"PolestarDB = { schema = 1, welcomeSeen = 1, settings = {} }"#;
 	let out = grey_session(
 		Some(saved),

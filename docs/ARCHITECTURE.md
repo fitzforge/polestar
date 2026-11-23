@@ -349,7 +349,7 @@ registered migrations run (`PolestarDB.migrations[id] = true`, over the settings
 in use and every stored profile; one registered later runs at once). An
 import runs the ones a string is from before over its settings, except those
 registered with `strings = false`: a changed default kept for the players who
-had it (`behavior.skipGrey`, on since 0.4.2, stays off in every profile saved
+had it (`behavior.skipGrey`, on since 0.4.3, stays off in every profile saved
 before; a fresh install is marked without it) leaves a string's unset value
 at today's default.
 Settings saved before profiles are the profile `Default` where they are. A
@@ -2005,7 +2005,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   the guide lists who takes each in.", the link reading "Jump anyway"); the
   guide menu's Load asks once (a popup) before replacing the active leveling
   guide while the route still hands some in before the guide loaded. Setting
-  `behavior.skipGrey` (on by default since 0.4.2, off in profiles saved before; leveling guides only, see "Every step")
+  `behavior.skipGrey` (on by default since 0.4.3, off in profiles saved before; leveling guides only, see "Every step")
   auto-skips `accept` goals for quests already grey for the character (and
   `turnin ... direct` goals, which the compiler gives their quest's level
   too), and with them the quests' turn-ins and objectives,
