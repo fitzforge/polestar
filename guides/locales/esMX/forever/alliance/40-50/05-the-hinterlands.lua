@@ -122,7 +122,6 @@ return {
 
 	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon
 	-- {npc:2535} Maury "Club Foot" Wilkins
-	-- was: ["{npc:2535} and {npc:2536}"] = "{npc:2535} y {npc:2536}"
 	["{npc:2535} and Jon-Jon"] = "{npc:2535} y Jon-Jon",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535} y {npc:2536} están juntos en las colinas justo al norte de la aldea de Zanzil.",

@@ -7,7 +7,6 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- was: ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "Para personajes de nivel 49 a 50, pero la mayoría de las misiones de aquí son de nivel 51-53: a propósito, por su experiencia. Esta primera visita se limita a la mitad este del cráter, donde las bestias son de nivel 48-52, así que atráelas de una en una; los pilones, los huesos y la colmena esperan a la siguiente visita a Un'Goro, hacia el nivel 56."
 	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "Para personajes de nivel 49 a 50, pero la mayoría de las misiones de aquí son de nivel 51-53: a propósito, por su experiencia. Esta primera visita se limita a la mitad este del cráter, donde las bestias son de nivel 48-52, así que atráelas de una en una; los pilones, los huesos y la colmena esperan a la siguiente visita a Un'Goro, hacia el nivel 54.",
 
 	-- Step 1: Fly to Menethil Harbor
@@ -98,7 +97,6 @@ return {
 	-- {quest:87494} Microcrystal Contamination
 	["{quest:87494}, if a ravasaur dropped the scale"] = "{quest:87494}, si un ravasaurio soltó la escama",
 	-- {area:1943} Ironstone Plateau
-	-- was: ["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "Los gorilas de {area:1943} llevan las pieles: guárdala para la segunda visita a Un'Goro, alrededor del nivel 56"
 	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 54"] = "Los gorilas de {area:1943} llevan las pieles: guárdala para la segunda visita a Un'Goro, alrededor del nivel 54",
 
 	-- Step 22: Lar'korwi Mates and the raft
@@ -126,7 +124,6 @@ return {
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, al fondo de la cueva; bajo tierra",
 	-- {npc:9272} Spark Nilminer · {npc:9271} Hol'anyee Marshal · {npc:9270} Williden Marshal · {npc:9618} Karna Remtravel
-	-- was: ["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "{npc:9272}, {npc:9271}, {npc:9270} y {npc:9618} tienen misiones entre enemigos de nivel 51-55: déjalas para la segunda visita a Un'Goro, alrededor del nivel 56."
 	["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 54."] = "{npc:9272}, {npc:9271}, {npc:9270} y {npc:9618} tienen misiones entre enemigos de nivel 51-55: déjalas para la visita posterior a Un'Goro, hacia el nivel 54.",
 
 	-- Step 25: Fire Plume Ridge and the eastern jungle

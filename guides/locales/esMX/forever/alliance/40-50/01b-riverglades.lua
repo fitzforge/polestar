@@ -219,7 +219,7 @@ return {
 	["Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave."] = "",
 	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	-- was: ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, al oeste de la granja de Elbrim: cada tumba necesita uno de los {item:266148} que sueltan los Saqueadores del Crepúsculo, así que saquea cinco primero"
+	-- was: ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "Tierra suelta, al oeste de la granja de Elbrim: cada tumba lleva uno de los {item:266148} que sueltan los Twilight Raiders, así que consigue cinco primero"
 	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop"] = "",
 
 	-- Step 43: Apprentice Claire
@@ -366,7 +366,6 @@ return {
 	-- Step 69: Level 44 on the Eastsea pirates
 	["Level 44 on the Eastsea pirates"] = "Nivel 44 con los piratas de Mareste",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash · {area:1517} Uldaman
-	-- was: ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Antes de la segunda oleada: sus asaltantes y bombarderos (43-45) y, después, los barcos piratas te superan en un nivel si estás por debajo de 44.4. Completa la experiencia con los bucaneros y mosqueteros (41-43) del primer campamento, en su extremo suroeste, lejos del puerto. {npc:259758}, un élite raro de nivel 49, recorre estos acantilados: si lo ves, mantente bien lejos. O, con un grupo, haz el calabozo {area:1517}."
 	["Before the second wave: its raiders (44-45), bombardiers (43-44) and {quest:95124}'s ships after them (45) are more than a level over you below 44. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Antes de la segunda oleada: sus asaltantes (44-45), bombarderos (43-44) y, después, los barcos de {quest:95124} (45) te superan en más de un nivel por debajo de 44. Completa la experiencia con los bucaneros y mosqueteros (41-43) del primer campamento, en su extremo suroeste, lejos del puerto. {npc:259758}, un élite raro de nivel 49, recorre estos acantilados: si lo ves, mantente bien lejos. O, con un grupo, haz el calabozo {area:1517}.",
 	-- {npc:257901} Eastsea Buccaneer
 	["grind on {npc:257901}"] = "mata a {npc:257901}",
@@ -583,7 +582,6 @@ return {
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, de {npc:272437}",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} espera junto al camino al este del paso.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} cuida la vieja catedral en la esquina suroeste de {area:16724}. Los murciélagos anidan en el piso superior; {npc:272437} reparte las velas sagradas junto a ella; las tumbas están en el cementerio de la capilla.\n{npc:271742}, un élite de nivel 53, está en la catedral: no te ataca, así que nunca lo ataques y aleja a los murciélagos de él.",
-	-- ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, al oeste de la granja de Elbrim: cada tumba necesita uno de los {item:266148} que sueltan los Saqueadores del Crepúsculo, así que saquea cinco primero",
-	-- ["{object:621813}: bury the mementos"] = "{object:621813}: entierra los recuerdos",
 	-- ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "Tierra suelta, al oeste de la granja de Elbrim: cada tumba lleva uno de los {item:266148} que sueltan los Twilight Raiders, así que consigue cinco primero",
+	-- ["{object:621813}: bury the mementos"] = "{object:621813}: entierra los recuerdos",
 }

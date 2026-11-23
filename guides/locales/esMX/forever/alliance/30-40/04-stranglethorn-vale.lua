@@ -14,7 +14,6 @@ return {
 
 	-- Step 2: Booty Bay
 	-- {npc:4631} Wharfmaster Lozgil
-	-- was: ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "Vincula tu piedra de hogar en la posada: es tu camino de regreso aquí desde el norte de la selva al final del circuito."
 	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "{npc:4631} está en el muelle donde llega el barco. Vincula tu piedra de hogar en la posada: es tu forma de volver aquí desde el norte de la jungla al final del circuito.",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the dock"] = "{npc:4631}, en el muelle",
