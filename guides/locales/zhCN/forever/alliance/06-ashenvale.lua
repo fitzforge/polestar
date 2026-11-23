@@ -339,7 +339,6 @@ return {
 
 	-- Step 61: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {zone:1432} Loch Modan
-	-- was: ["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "地铁在{object:28027}停靠；向西走到{object:2098}，{npc:1646}站在广场东侧。（本路线在03-loch-modan末尾已交还他的信；此处供仍带着信的角色交还。）"
 	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of the {zone:1432} guide; this is for a character still carrying it.)"] = "地铁在{object:28027}停靠。向西走到{object:2098}，{npc:1646}就在广场东侧。这封信原定在{zone:1432}路线末尾交还。如果还带着，可以在这里交给他。",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}：来自{area:442}的桑迪斯的信",

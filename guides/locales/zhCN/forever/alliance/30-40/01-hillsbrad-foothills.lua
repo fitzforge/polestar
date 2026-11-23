@@ -223,7 +223,6 @@ return {
 	-- {item:3713} Soothing Spices · {npc:2381} Micha Yance
 	["{item:3713}, from {npc:2381}"] = "{item:3713}，来自{npc:2381}",
 	-- {npc:2276} Magistrate Henry Maleb · {zone:1417} Arathi Highlands
-	-- was: ["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}：在屋内。先保留，辛迪加营地留到向北去阿拉希的路上再做（05-arathi-highlands）"
 	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (the {zone:1417} guide)"] = "在屋里找{npc:2276}接任务，先留着。走{zone:1417}路线向北时，再去辛迪加营地。",
 
 	-- Step 45: Bartolo Ginsetti

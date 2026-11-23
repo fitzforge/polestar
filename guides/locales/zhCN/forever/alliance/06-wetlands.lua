@@ -342,7 +342,6 @@ return {
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["{npc:3649} stands at the north end of {area:442}."] = "{npc:3649}在{area:442}北端。",
 	-- {zone:1439} Darkshore · {area:442} Auberdine
-	-- was: ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "巴隆斯·阿历克斯顿的回信，如果还带在身上（路线已安排在03-darkshore-return首次到{area:442}时交还）"
 	["Alexston's reply, if you still carry it (the route hands it in on the {zone:1439} return's first {area:442} stop)"] = "如果还带着巴隆斯·阿历克斯顿的回信，就在这里交还。路线原本安排在回访{zone:1439}、第一次到{area:442}时交还。",
 
 	-- Step 61: Auberdine
