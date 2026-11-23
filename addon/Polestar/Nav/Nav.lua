@@ -565,9 +565,9 @@ end
 --   state: "none" | "instance" | "taxi" | "unknown" | "far" | "travel" | "arrived"
 --          | "instruction" (a route leg to act on here: fly, ride, hearth)
 --          | "submerged" (no verified walk or swim bearing) | "arrived-underwater" (observed, not inferred)
---          | "routing" (waiting for walking data or a route)
+--          | "routing" (waiting for walking data or a route; distance and angle straight to what the walk will lead
+--            to, the arrow pointing that way until the walk is in, as 0.4.1.1 pointed at once)
 --          | "unmapped" (the known walk ended short; no verified walking bearing beyond it)
---          | "unsafe" (no recommended ground bearing for this faction and level)
 --          | "search" (reached a spot of an area objective: look around here)
 --          | "nopos" (the client gives no player position here: the Deeprun
 --            Tram, a map of its own without a world map)
@@ -730,14 +730,15 @@ end
 
 -- Check the actual displayed segment, including smoothing, baked guidance and a direct fallback.
 -- The sampler's taxi and ride-instruction states never enter this function.
+-- Nav.noWalk (#3409, Fitz's ruling): the walking engine found no walk there ("unmapped"), so the bearing is the
+-- straight one, as before 0.4.2, and the arrow says why under its label (Arrow.lua). Set by each sample
+-- (Travel.Aim for a route's walk), nil when a walk guides. Enemy ground refuses no bearing (0.4.2.1, as before 0.4.2).
 local function groundAim(C,pc,px,py,d,angle,dn,dw,measured)
-	local D,side=Nav.danger,C.GetPlayerFaction()
-	if D.Blocked(pc,px,py,px+dn,py+dw,side) then return "unsafe" end
-	return "travel",d,angle,dn,dw,measured,D.NearEnemyGround(pc,px,py,side)
+	return "travel",d,angle,dn,dw,measured,Nav.danger.NearEnemyGround(pc,px,py,C.GetPlayerFaction())
 end
 
 local function sample()
-	floorHint = nil
+	floorHint, Nav.noWalk = nil, nil
 	if not target then return "none" end
 	local C = ns.Compat
 	if not C then return "unknown" end
@@ -760,7 +761,12 @@ local function sample()
 	local T = Nav.travel
 	if T and T.Active and T.Active() then
 		local mode, ac, ax, ay, left = T.Aim(pc, px, py)
-		if mode == "routing" or mode == "unmapped" or mode == "unsafe" then return mode end
+		-- The leg's walk still to come: straight to the leg's end meanwhile.
+		if mode == "routing" then
+			if ac == pc then return "routing", toward(C, px, py, ax, ay) end
+			return "routing"
+		end
+		if mode == "unmapped" then return mode end
 		if mode == "instruction" then
 			if ac == pc then return "instruction", toward(C, px, py, ax, ay) end
 			return "instruction"
@@ -770,6 +776,14 @@ local function sample()
 			return groundAim(C,pc,px,py,left or dist,angle,dn,dw,left ~= nil)
 		end
 		-- nil: the last leg, straight to the target
+	end
+	-- The planner holds a route while its landing's walk into the target is checked (Travel.Waiting): no walk
+	-- straight to the target meanwhile, which would take that check's frames (#3369); the bearing straight to it.
+	if T and T.Waiting and T.Waiting() then
+		local W = Nav.walk
+		if W and W.Clear then W.Clear() end
+		if pc == tC then return "routing", toward(C, px, py, tX, tY) end
+		return "routing"
 	end
 
 	if pc ~= tC then return "far" end
@@ -842,7 +856,13 @@ local function sample()
 	local checkedOnly = leg and (leg.corpseGround or (leg.parent and leg.parent.leg.corpseGround))
 	if W then
 		local wc, wx, wy, left, unmapped = W.Aim(pc, px, py, tC, tX, tY, (leg and leg.handmade) or W.FollowsGoto(target), nil, nil, checkedOnly)
-		if unmapped then return unmapped == true and "unmapped" or unmapped end
+		-- The walk still to come: the straight bearing meanwhile, but for a checked detour (Walk.checkedOnly).
+		if unmapped == "routing" then
+			if checkedOnly then return "routing" end
+			return "routing", dist, angle, dn, dw
+		end
+		-- No walk found (Walk.GroundStatus' reason, or true: a partial or a checked detour without its walk): straight.
+		if unmapped then Nav.noWalk = "unmapped" end
 		if wc then
 			if exact and liveZ and dist <= 20 and bodyBlocked(pc,px,py,liveZ,wx,wy,2.75) then
 				if W.RefineTerminal then W.RefineTerminal(pc,px,py,tX,tY,tZ) end
@@ -881,7 +901,7 @@ local function sample()
 		return groundAim(C,pc,px,py,dist,angle,dn,dw,true)
 	end
 	if exact and liveZ and not floorHint and dist <= r and W and W.RefineTerminal then W.RefineTerminal(pc,px,py,tX,tY,tZ) end
-	if checkedOnly then return "unmapped" end
+	if checkedOnly then Nav.noWalk = Nav.noWalk or "unmapped" end
 	if wet or (exact and dist <= r) or (stacked and W and W.Searches and W.Searches(pc) and not (tDock or W.FollowsGoto(target))) then return "unmapped" end
 	if exact and liveZ and dist <= 20 and bodyBlocked(pc,px,py,liveZ,tX,tY,2.75,tZ) then return "unmapped" end
 	return groundAim(C,pc,px,py,dist,angle,dn,dw)
@@ -889,17 +909,32 @@ end
 
 -- Map painters must not run the sampler: it advances route legs and can
 -- announce a visit. Remember a refusal only for the target and leg it was
--- about. A fallback line also needs its own policy check: the HUD may be
--- pointing along a detour, not at the straight line the map would draw.
-local noGround = { unsafe = true, unmapped = true, submerged = true, ["water-depth"] = true, ["arrived-underwater"] = true }
+-- about.
+local noGround = { unmapped = true, submerged = true, ["water-depth"] = true, ["arrived-underwater"] = true }
 local refusedTarget, refusedLeg
 local function groundLeg()
 	local T = Nav.travel
 	return T and T.Active() and T.CurrentLeg() or nil
 end
 
+-- An area objective (a kill's or a collect's spawn area: target.search) within Nav.NEAR_LINE yards on open ground,
+-- its walk no longer than Nav.NEAR_BEND times the straight way: the arrow alone, no route line (#3641 E: in Hillsbrad
+-- Fields a line looped round the farm for a 79 yd target the player was already walking to through the field).
+Nav.NEAR_LINE, Nav.NEAR_BEND = 60, 1.25
+function Nav.NearOpenArea()
+	if not (target and target.search and tC) or (IsIndoors and IsIndoors()) then return false end
+	local C = ns.Compat
+	local pc, px, py = C.GetPlayerWorldPosition()
+	if pc ~= tC then return false end
+	local d = math.sqrt((tX - px) ^ 2 + (tY - py) ^ 2)
+	if d > Nav.NEAR_LINE then return false end
+	local W = Nav.walk
+	local left = W and W.LiveLeft and W.LiveLeft(tC, tX, tY)
+	return left ~= nil and left <= d * Nav.NEAR_BEND + 5
+end
 function Nav.CanDrawGroundApproach(c, x, y, gx, gy)
 	if not target then return false end
+	if Nav.NearOpenArea() then return false end
 	if refusedTarget == target and refusedLeg == groundLeg() then return false end
 	local W = Nav.walk
 	local T = Nav.travel
@@ -911,28 +946,18 @@ function Nav.CanDrawGroundApproach(c, x, y, gx, gy)
 			local status
 			if to then status = W.GroundStatus(to.c, to.wx, to.wy, to.z)
 			else status = W.GroundStatus(tC, tX, tY, tZ) end
-			if status then return false end
+			-- Its answer still to come: no line yet. No walk found: the straight line, as before 0.4.2 (#3409).
+			if status == "routing" then return false end
 		end
 	end
 	local whole = current and (current.parent and current.parent.leg or current)
-	if whole and whole.kind == "walk" and (whole.corpseGround or whole.crossingPolicy) then
-		-- Only the live path supplies geometry for this detour. A straight
-		-- trail from the player to its end is not the path that was checked.
+	if c ~= nil and whole and whole.kind == "walk" and whole.corpseGround then
+		-- Once its checked path is in, only that path supplies geometry for this
+		-- detour: a straight trail from the player to its end is not the path that was checked.
 		local to = whole.to
-		if c ~= nil or not (W and W.CheckedAt(to.c, to.wx, to.wy, to.z)) then return false end
+		if W and W.CheckedAt(to.c, to.wx, to.wy, to.z) then return false end
 	end
-	if W and W.blockedReason then
-		local leg = groundLeg()
-		if not leg then
-			if W.RefusedAt(tC, tX, tY, tZ) then return false end
-		elseif leg.kind == "walk" then
-			local to = leg.parent and leg.parent.leg.to or leg.to
-			if W.RefusedAt(to.c, to.wx, to.wy, to.z) then return false end
-		end
-	end
-	if c == nil then return true end
-	local C, D = ns.Compat, Nav.danger
-	return not D.Blocked(c, x, y, gx, gy, C.GetPlayerFaction())
+	return true
 end
 
 local function recordSample(sampled, state, ...)
@@ -1125,7 +1150,7 @@ function Nav.SayHandedOff()
 	if H and H.Yielding and H.Yielding() then
 		ns.Print(L["Shortest Path Forever is guiding a journey of its own. Polestar's arrow comes back when it ends."])
 	else
-		ns.Print(L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Options, Integrations) to use Polestar's arrow."])
+		ns.Print(L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Settings, Integrations) to use Polestar's arrow."])
 	end
 	return true
 end

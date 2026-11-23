@@ -23,30 +23,64 @@ test('zone advice distinguishes a level-one character from an unreadable level',
 	assert.deepEqual(emitted[0], [1, false, 1, false, false]);
 });
 
-test('opposing settlements block the whole walking segment; mobs and high-level zones do not', () => {
+// Main, 2026-11-21, Fitz: "go back to our original danger pathing". Enemy ground vetoes no walk, as before 0.4.2;
+// its data still keeps the arrow's bearing from easing across a town's edge (Nav.danger.NearEnemyGround).
+test('enemy ground refuses no walk; the towns and guard posts are still known beside the arrow; mobs and high-level zones are not', () => {
 	const { emitted: [rows] } = runAddon({
 		stubs: ['stub_world.lua'], before: "stub.clientBuild = '70532'", addons: ['Polestar'],
 		script: `
 			local d, out = Polestar.Nav.danger, {}
 			for _, p in ipairs({'Alliance', 'Horde'}) do
-				local function walk(map, x, y, X, Y) return d.Blocked(map,x,y,X,Y,p) or 'clear' end
-				local a, b, y = -9644.062, -9244.062, 77.667 -- road across Goldshire, endpoints outside town
+				local function near(map, x, y) return d.NearEnemyGround(map, x, y, p) and 'near' or 'clear' end
 				out[p] = {
-					walk(0,a,y,a,y), walk(0,b,y,b,y), walk(0,a,y,b,y), walk(0,b,y,a,y),
-					walk(0,-8833.38,628.62,-8831.38,628.62), -- Stormwind
-					walk(1,1681,-4099.99,1683,-4099.99),     -- Orgrimmar
-					walk(0,-5677.17,-3165.29,-5675.17,-3165.29), -- Ol' Sooty
-					walk(1,2680.74,-6159.52,2682.74,-6159.52),  -- Azuregos
-					walk(1,7390.74,-4861.3,7392.74,-4861.3),    -- Ursius, Winterspring
+					near(0,-9444.062,77.667),       -- Goldshire
+					near(0,-8833.38,628.62),        -- Stormwind
+					near(1,1681,-4099.99),          -- Orgrimmar
+					near(0,-5677.17,-3165.29),      -- Ol' Sooty
+					near(1,2680.74,-6159.52),       -- Azuregos
+					near(1,7390.74,-4861.3),        -- Ursius, Winterspring
+					near(530,0,0),                  -- a map without the data
+					d.Blocked(0,-9644.062,77.667,-9244.062,77.667,p) or 'clear', -- the road across Goldshire
+					d.Blocked(0,-8833.38,628.62,-8831.38,628.62,p) or 'clear',   -- Stormwind
 				}
 			end
 			out.preference = { d.Mult(20,1452), d.Mult(60,1452) }
 			emit(out)`,
 	});
-	const blocked = 'opposing-settlement', ok = 'clear';
-	assert.deepEqual(rows.Alliance, [ok, ok, ok, ok, ok, blocked, ok, ok, ok]);
-	assert.deepEqual(rows.Horde, [ok, ok, blocked, blocked, blocked, ok, ok, ok, ok]);
+	const near = 'near', ok = 'clear';
+	assert.deepEqual(rows.Alliance, [ok, ok, near, ok, ok, ok, ok, ok, ok]);
+	assert.deepEqual(rows.Horde, [near, near, ok, ok, ok, ok, ok, ok, ok]);
 	assert.ok(rows.preference[0] > rows.preference[1] && rows.preference[1] === 1);
+});
+
+test('every client build reads the enemy towns; a newer one than the data says so once in the log', () => {
+	// The data files name the builds they were paired on; the log line names the same pair.
+	for (const file of ['DangerAreas.lua', 'DangerHubs.lua']) {
+		const banner = require('node:fs').readFileSync(path.join(ADDONS, 'Polestar', 'Nav', file), 'utf8').split('\n')[0];
+		assert.match(banner, /paired ground policy for builds 70532 and 70959\.$/, file);
+	}
+	const rows = {};
+	for (const build of ['70338', '70532', '70959', '70960', '71000']) {
+		const { emitted: [row] } = runAddon({
+			stubs: ['stub_world.lua'], before: `stub.clientBuild = '${build}'`, addons: ['Polestar'],
+			script: `
+				local d = Polestar.Nav.danger
+				local function near(map, x, y) return d.NearEnemyGround(map, x, y, 'Horde') and 'near' or 'clear' end
+				local log = {}
+				for _, line in ipairs(Polestar.DebugLog()) do
+					if line:find('ground: ', 1, true) then log[#log + 1] = line:gsub('^%S+ ', '') end
+				end
+				emit({ goldshire = near(0,-9444.062,77.667), stormwind = near(0,-8833.38,628.62),
+					orgrimmar = near(1,1681,-4099.99), log = table.concat(log, '\\n') })`,
+		});
+		rows[build] = row;
+	}
+	const known = { goldshire: 'near', stormwind: 'near', orgrimmar: 'clear' };
+	const newer = b => `ground: client build ${b} is newer than the enemy-town data (70532, 70959); the arrow still eases by it`;
+	assert.deepEqual(rows, {
+		70338: { ...known, log: '' }, 70532: { ...known, log: '' }, 70959: { ...known, log: '' },
+		70960: { ...known, log: newer('70960') }, 71000: { ...known, log: newer('71000') },
+	});
 });
 
 test('a displaced start cannot sell the unwalkable chord out of the Stonefire Tavern as a transfer', () => {

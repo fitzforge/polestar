@@ -204,7 +204,8 @@ return {
 	-- Step 37: Bloodsail pirates: kill these as you meet them
 	["Bloodsail pirates: kill these as you meet them"] = "Piratas Velame Sangrento: vá matando estes pelo caminho",
 	-- {npc:2493} Dizzy One-Eye · {area:43} Wild Shore
-	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "Todo Velame Sangrento deixa cair rapé, e um deles carrega o olho de {npc:2493}: pegue com os Saqueadores e Magos (39-41) no acampamento Velame Sangrento na praia logo ao norte da cidade, onde você achou a carta. Deixe o acampamento de {area:43} ao sul da cidade (Bruxos e Espadachins 41-43) para a visita de nível 48.",
+	-- was: ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "Todo Velame Sangrento deixa cair rapé, e um deles carrega o olho de {npc:2493}: pegue com os Saqueadores e Magos (39-41) no acampamento Velame Sangrento na praia logo ao norte da cidade, onde você achou a carta. Deixe o acampamento de {area:43} ao sul da cidade (Bruxos e Espadachins 41-43) para a visita de nível 48."
+	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.\nCareful: Rippa (44, a rare crocolisk) swims the shore beside the camp: stay out of the water."] = "",
 
 	-- Step 38: Gorilla hills
 	["Gorilla hills"] = "Colinas dos gorilas",
@@ -262,8 +263,10 @@ return {
 	["{npc:717}, beside the other hunters"] = "",
 
 	-- Step 49: Arbor Tarantula
-	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "{npc:217588} rasteja na selva a sudeste do acampamento de Rosarães, a caminho de {area:99}: pegue um exemplar com a ferramenta do {item:213565} de {npc:217412}.",
+	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	-- {item:213562} Bug Catching Net · {npc:217588} Arbor Tarantula · {item:213566} Arbor Tarantula Specimen
+	["{item:213562}, on an {npc:217588}: the {item:213566}"] = "",
 
 	-- Step 50: Rebel Camp
 	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "Siga para nordeste, passando pelo acampamento de Rosarães, e pegue a estrada para o norte até o acampamento no alto do vale.",
@@ -281,8 +284,7 @@ return {
 	-- {item:216616} Compound Cage Key
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}, dos Subchefes (ou dos Elites)",
 	-- {item:216617} Kurzen Fighter's Uniform
-	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}, no caixote de suprimentos"
-	["{item:216617}, in the supply crate deep in the cave"] = "",
+	["{item:216617}, in the supply crate deep in the cave"] = "{item:216617}, no caixote de suprimentos no fundo da caverna",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}, de volta à jaula dele, na saída",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
@@ -304,7 +306,7 @@ return {
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "Os trolls Rachacrânio ocupam as ruínas logo a leste da mina; qualquer um pode deixar cair presas, e as panteras deles sempre deixam.\nSiga a estrada para nordeste até o acampamento da Empreendimentos S.A. em {area:310}; os mineradores, topógrafos e encarregados deixam cair os cristais.\nCuidado: Panteras Umbragorja furtivas e Tigresas-do-espinhaço andam em volta do acampamento.",
 	-- {item:1524} Skullsplitter Tusk
-	["{item:1524}, from the trolls of the ruins"] = "",
+	["{item:1524}, from the trolls of the ruins"] = "{item:1524}, dos trolls das ruínas",
 
 	-- Step 56: Raptor Mastery
 	-- {npc:730} Tethis
@@ -471,6 +473,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["\"Sea Wolf\" MacKinley: keep it, for the level-48 {area:35} stop, with Zanzil's village"] = "\"Lobo do Mar\" MacKinley: guarde-a para a parada de nível 48 em {area:35}, junto com a aldeia de Zanzil",
 	-- ["Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for {npc:737}'s tusks. Or, with a group, run the {area:1517} dungeon instead."] = "Sozinho, você pula as três caçadas de elite de Rosarães: tire a experiência dos trolls Rachacrânio de Zul'Mamwe, logo a leste da mina, de modo que cada morte também conte para as presas de {npc:737}. Ou, com um grupo, faça a masmorra {area:1517}.",
+	-- ["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "{npc:217588} rasteja na selva a sudeste do acampamento de Rosarães, a caminho de {area:99}: pegue um exemplar com a ferramenta do {item:213565} de {npc:217412}.",
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. No Skyborne riding trainer is known; the Forever client files {spell:1285849} under the one Riding skill, so {npc:4732} at {area:88} in eastern {zone:1429}, the nearest trainer to {zone:1453}, should teach it (unconfirmed). The Galestriders are sold by {npc:265756} in {area:16638} on Zephras Isle; Collectibles, Mounts · Level 40 lists them."] = "No nível 40, com 100 de ouro, você pode aprender a montar, e aprender lhe dá uma montaria. Não se conhece instrutor de montaria celonato; o cliente Forever coloca {spell:1285849} sob a mesma perícia de Montaria, então {npc:4732}, em {area:88} no leste de {zone:1429}, o instrutor mais perto de {zone:1453}, deve ensiná-la (não confirmado). Os Vagaventos são vendidos por {npc:265756} em {area:16638}, na Ilha de Zefras; Colecionáveis, Montarias · Nível 40 lista todos.",
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4732} teaches Humans at {area:88} in eastern {area:12}, beside {npc:384}'s horses. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "No nível 40, com 100 de ouro, você pode aprender a montar, e aprender lhe dá uma montaria. {npc:4732} ensina Humanos em {area:88}, no leste de {area:12}, ao lado dos cavalos de {npc:384}. O Forever talvez deixe qualquer raça aprender com qualquer instrutor de montaria (não confirmado). Colecionáveis, Montarias · Nível 40 lista todas as cores.",
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4753} teaches Night Elves in {zone:1457}, beside {npc:4730}'s sabers: the boat from {area:17203} to {area:442}, then the flight to {area:702}. Forever may let any race learn from any riding trainer (unconfirmed), such as {npc:4732} at {area:88} in {area:12}. Collectibles, Mounts · Level 40 lists every colour."] = "No nível 40, com 100 de ouro, você pode aprender a montar, e aprender lhe dá uma montaria. {npc:4753} ensina Elfos Noturnos em {zone:1457}, ao lado dos sabres de {npc:4730}: o barco de {area:17203} para {area:442}, depois o voo até {area:702}. O Forever talvez deixe qualquer raça aprender com qualquer instrutor de montaria (não confirmado), como {npc:4732}, em {area:88}, {area:12}. Colecionáveis, Montarias · Nível 40 lista todas as cores.",
@@ -478,6 +481,7 @@ return {
 	-- ["Bloodsail pirates"] = "Piratas da Vela Sangrenta",
 	-- ["Cold Eye Basilisks"] = "Basiliscos Olho Frio",
 	-- ["Cortello's scroll"] = "Pergaminho de Cortello",
+	-- ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "Todo Velame Sangrento deixa cair rapé, e um deles carrega o olho de {npc:2493}: pegue com os Saqueadores e Magos (39-41) no acampamento Velame Sangrento na praia logo ao norte da cidade, onde você achou a carta. Deixe o acampamento de {area:43} ao sul da cidade (Bruxos e Espadachins 41-43) para a visita de nível 48.",
 	-- ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye; the Swashbucklers walk the shore just north of town. The charts and orders lie in the pirate camp on the {area:43}, south of {area:35}.\nCareful: the {area:43} camp's Warlocks and Swashbucklers are level 41-43, a level or more above you, and stand close together: pull them singly from the edge."] = "Todo pirata da Vela Sangrenta deixa cair Rapé, e um deles leva o olho de {npc:2493}; os Espadachins andam pela praia logo ao norte da cidade. As cartas náuticas e as ordens estão no acampamento pirata em {area:43}, ao sul de {area:35}.\nCuidado: os Bruxos e Espadachins do acampamento de {area:43} são de nível 41-43, um nível ou mais acima de você, e ficam bem juntos: puxe um de cada vez pela borda.",
 	-- ["Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "Qualquer seguidor de Zanzil pode deixar cair o preparado; {npc:2537} anda pelo sul do acampamento.",
 	-- ["Fly to {area:144}"] = "Voe para {area:144}",

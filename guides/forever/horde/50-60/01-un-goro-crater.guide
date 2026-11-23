@@ -333,11 +333,20 @@ step To Gadgetzan
 
 # ---------------------------------------------------------------- Gadgetzan
 
+step Andi Lynn
+  zone Tanaris
+  when complete 5863
+  tip The hearth lands in Gadgetzan: Andi Lynn takes the Dunemaul Compound.
+  turnin 5863                         -- Andi Lynn
+
+step Tran'rek
+  zone Tanaris
+  when complete 3362
+  tip Tran'rek stands beside the wind rider master.
+  turnin 3362                         -- Tran'rek
+
 step Gadgetzan
   zone Tanaris
-  tip The hearth lands in Gadgetzan: Andi Lynn takes the Dunemaul Compound and Tran'rek Thistleshrub Valley, both done on the way into the crater.
-  turnin 5863                         -- Andi Lynn
-  turnin 3362                         -- Tran'rek
   turnin 4504                         -- Tran'rek
 
 step Gadgetzan
@@ -484,6 +493,7 @@ step Krom'Grul
 step Cyrus Therepentous
   when turnedin 3481
   tip Ride north-east from Dreadmaul Rock to the small cave in the far east of the Burning Steppes. Open the Hoard of the Black Dragonflight from the Searing Gorge for its Black Dragonflight Molt, then tell Cyrus you bring proof of your deeds: no drake to fight.
+  tip Careful: Volchan (60, a rare fire elemental) roams the hills around Cyrus's cave: if he is about, wait for him to pass.
   accept 4022                         -- Below ground
   collect 10575 quest 4022.1          -- Black Dragonflight Molt, from the hoard
   talk 9459 quest 4022.2 @95.1,31.6 map 1428
@@ -494,7 +504,7 @@ step Ruins of Thaurissan: kill these as you meet them
   zone Burning Steppes
   tip Ride west to the dig site. The Tablet of the Seven stands in its middle among the Thaurissan dwarves. Copy it.
   tip Black Broodlings nest in the hills just east of Flame Crest. Use Tinkee's Draco-Incarcinatrix 900 on a broodling when it is almost dead to capture its essence.
-  tip Careful: a Black Dragonspawn and a Black Drake, elites of 50-53, wander the same hills: pull the broodlings away from them, or bring a group.
+  tip Careful: a Black Dragonspawn and a Black Drake, elites of 50-53, wander the same hills, and Volchan (60, a rare fire elemental) roams them too: pull the broodlings away from them, or bring a group.
   collect 12283 quest 4726 @81.0,28.0
   use 12284 quest 4726.1 @81.0,28.0 map 1428
   collect 11470 quest 4296 @54.1,40.8
@@ -541,8 +551,12 @@ step Harbinger Balthazad
 step Oran Snakewrithe
   tip Oran stands in the Magic Quarter.
   turnin 2782
-  turnin 2995
   turnin 8273 direct
+
+step Oran Snakewrithe
+  when complete 2995
+  tip Oran stands in the Magic Quarter.
+  turnin 2995                         -- Lines of Communication's work is not in this guide: burn the Highvale Report, Notes and Records in the elves' camps around Quel'Danil Lodge, in The Hinterlands & Blasted Lands (its Highvale step). Load that guide for the arrows.
 
 # ---------------------------------------------------------------- The Undercity and the Bulwark
 
@@ -559,15 +573,16 @@ step Tirisfal Glades
 step The Bulwark
   zone Tirisfal Glades
   tip Leave the Undercity and ride east along the road through Tirisfal Glades to the Bulwark, the Forsaken fort on the border.
-  note Take a Box of Incendiaries from the crate next to Derrington for Scarlet Diversions, done on the way back. Equip the Argent Dawn Commission: Scourgestones only drop while you wear it.
+  note Equip the Argent Dawn Commission: Scourgestones only drop while you wear it.
   turnin 5094                         -- High Executor Derrington
   accept 5096
+  collect 12814 @83.08,69.09 map 1420 era -- Flame in a Bottle, from the Box of Incendiaries next to Derrington: Scarlet Diversions, done on the way back
   turnin 5405 direct
 # ---------------------------------------------------------------- Western Plaguelands
 
 step Scarlet forward camp
   zone Western Plaguelands
-  tip From the Bulwark, follow the road east into the Western Plaguelands. The Scarlet Crusade's tents stand just past Felstone Farm, between Felstone Field and Dalson's Tears. Torch the command tent with the Box of Incendiaries and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be.
+  tip From the Bulwark, follow the road east into the Western Plaguelands. The Scarlet Crusade's tents stand just past Felstone Farm, between Felstone Field and Dalson's Tears. Torch the command tent with the Flame in a Bottle and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be.
   interact 176088
   complete 5096
 

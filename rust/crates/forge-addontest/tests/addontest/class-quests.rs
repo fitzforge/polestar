@@ -710,6 +710,36 @@ fn a_druid_reaching_20_gets_the_cat_form_heads_up_once_a_warrior_does_not() {
 	assert!(!warrior["title"].as_str().unwrap_or("").contains("Cat Form"), "{warrior}");
 }
 
+// #3727 (Liquidor): a level 50 hunter's card read "#20083, #19991 or #19992 ready": reward items the client had not
+// cached had no name. The card asks for them and names them the moment they arrive.
+#[test]
+fn a_reward_item_the_client_has_not_cached_is_asked_for_and_the_card_names_it_when_it_arrives() {
+	let out = run_toast(
+		r#"
+		local names, asked = {}, {}
+		C_Item = C_Item or {}
+		C_Item.GetItemNameByID = function(id) return names[id] end
+		-- What the client is asked for (Compat.RequestItem: C_Item.RequestLoadItemDataByID in the game).
+		Polestar.Compat.RequestItem = function(id) asked[#asked + 1] = id return names[id] ~= nil end
+		GetItemInfo = function(id) return names[id] end
+		who("WARLOCK", "Orc", "Horde", 10)
+		uistub.openTabs({ { "test/durotar", 1 } }, 1)
+		local m = CT.Model(1506)
+		m.reward = { kind = "weapon", show = "item", items = { 20083, 19991 }, choice = true }
+		m.title = string.format("%s ready", Polestar.UI.ClassCard.RewardName(m.reward))
+		CT.ShowCard(m)
+		local before = CT.frame.Title:GetText()
+		names[20083], names[19991] = "Hunting Spear", "Devilsaur Eye"
+		stub.fire("GET_ITEM_INFO_RECEIVED", 20083)
+		emit({ before = before, asked = asked, after = CT.frame.Title:GetText() })"#,
+	);
+	let o = &out[0];
+	assert!(o["before"].as_str().unwrap().contains("#20083"), "{o}");
+	assert!(o["asked"].as_array().unwrap().iter().any(|x| x == 20083) && o["asked"].as_array().unwrap().iter().any(|x| x == 19991), "asked for: {o}");
+	let after = o["after"].as_str().unwrap();
+	assert!(after.contains("Hunting Spear") && after.contains("Devilsaur Eye") && !after.contains('#'), "named once they arrive: {o}");
+}
+
 #[test]
 fn open_in_a_new_tab_lands_each_chain_on_its_own_section_of_the_class_guide() {
 	let out = run_toast(
@@ -841,6 +871,25 @@ fn no_heads_up_for_a_reward_already_known_or_owned_or_a_chain_already_taken() {
 	assert_eq!(out[2], json!({ "inlog": false }));
 	assert_eq!(out[3], json!({ "whirlwind": false, "known": true }));
 	assert_eq!(out[4]["quest"], 98393, "{}", out[4]);
+}
+
+// #3020 (FleshExpress): a Highborne hunter who had Tame Beast for days got the "Taming the Beast" card at 35: the
+// card checked the one spell id the data names, and another race's chain teaches it under another id. #1935: the
+// same for a Skyborne druid's Bear Form. The reward counts as known by its name in the spellbook too.
+#[test]
+fn issue_3020_a_reward_spell_known_under_another_id_counts_by_its_name() {
+	let out = run_toast(
+		r#"
+		local book = {}
+		Polestar.Compat.KnowsSpellNamed = function(name) return book[name] == true end
+		local tame = { kind = "pet", spell = 1515, spellName = "Tame Beast" }
+		local r = { CT.RewardKnown(tame) }
+		book["Tame Beast"] = true
+		r[2] = CT.RewardKnown(tame)
+		r[3] = CT.RewardKnown({ kind = "ability", spell = 5487, spellName = "Bear Form" })
+		emit(r)"#,
+	);
+	assert_eq!(out[0], json!([false, true, false]), "not known; known by name; another name stays unknown");
 }
 
 #[test]

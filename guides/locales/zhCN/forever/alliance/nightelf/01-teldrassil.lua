@@ -30,6 +30,8 @@ return {
 	-- Step 4: Back at Aldrassil
 	-- {area:256} Aldrassil
 	["Back at {area:256}"] = "回到{area:256}",
+	-- {npc:3595} Shanda · {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light
+	["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "",
 	-- {npc:2079} Conservator Ilthalaine · {npc:3596} Ayanna Everstride
 	["{npc:2079}: a sigil for {npc:3596}"] = "{npc:2079}：给{npc:3596}的印记",
 	-- {npc:2082} Gilshalan Windwalker
@@ -188,9 +190,9 @@ return {
 	-- Step 29: Teldrassil: kill these as you meet them
 	-- {quest:940} Teldrassil
 	["{quest:940}: kill these as you meet them"] = "{quest:940}：沿途击杀以下目标",
-	-- {area:186} Dolanaar · {area:260} Starbreeze Village
-	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker
-	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "夜刃豹、巨翼枭和树林潜伏者在{area:186}周围及东侧道路旁活动；潜伏者还掉落配方所需的蜘蛛腿。月亮井位于{area:260}西缘。",
+	-- {area:186} Dolanaar · {area:260} Starbreeze Village · {npc:3567} Tallonkai Swiftroot
+	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker · Befouled Webwoods = {npc:272096} Befouled Webwood
+	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}.\nCareful: the Befouled Webwoods (10-11) in the woods north-west of {area:186}, around 47-52,34-56, are over you now: take the silk from the Webwood Lurkers and leave the webwoods for {npc:3567}'s quest later. Duskstalker (9, a rare nightsaber) and Oakenscowl (9, elite) roam the woods south of {area:186}, around 54-62,73-77: leave them be."] = "",
 	["Nightsabers"] = "夜刃豹",
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
 	["Webwood Lurkers"] = "树林潜伏者",
@@ -374,9 +376,9 @@ return {
 
 	-- Step 61: Sentinel Arynia again
 	["Sentinel Arynia again"] = "再次找哨兵阿瑞尼亚",
-	-- {object:673378} Oracle Tree Bark (no name in this language: may be words)
+	-- {object:673378} Oracle Tree Bark
 	["{object:673378}, just west of the moonwell"] = "{object:673378}，在月亮井西边不远处",
-	-- {object:673378} Oracle Tree Bark (no name in this language: may be words) · {zone:1457} Darnassus
+	-- {object:673378} Oracle Tree Bark · {zone:1457} Darnassus
 	["the same {object:673378}: Fandral in {zone:1457} takes it"] = "同一个{object:673378}：交给{zone:1457}的范达尔·鹿盔",
 
 	-- Step 62: Sentinel Shayla Nightbreeze
@@ -611,6 +613,7 @@ return {
 	-- ["Mangy Nightsabers and Thistle Boars roam north of {area:256}, on the way to the cave. {npc:8584} waits in the trees west of the cave mouth; {npc:1994} sits deep inside."] = "癞皮夜刃豹和草刺野猪在{area:256}北边、通往洞穴的路上游荡。{npc:8584}在洞口西边的树林里等候；{npc:1994}在洞穴深处。",
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "夜刃豹、巨翼枭和树林潜伏者生活在向东的道路沿途。月亮井在{area:260}的西缘。",
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east. The moonwell is at the west edge of {area:260}."] = "夜刃豹、巨翼枭和树林潜伏者在{area:186}四周和向东的道路沿途游荡。月亮井在{area:260}的西缘。",
+	-- ["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "夜刃豹、巨翼枭和树林潜伏者在{area:186}周围及东侧道路旁活动；潜伏者还掉落配方所需的蜘蛛腿。月亮井位于{area:260}西缘。",
 	-- ["North from the road the path to the glade crosses the {area:265}: the timberlings along it drop the Mossy Tumors."] = "从大路往北，通往林地的小径会跨过{area:265}；河边的林精会掉落青苔之瘤。",
 	-- ["North-east from Ursal's den, back to {area:186}."] = "从乌萨尔的巢穴向东北返回{area:186}。",
 	-- ["South from the glade toward Ursal: Shayla walks the road west of {area:186}, from where the path down from the glade meets it south-west to the bend at about 38,54 and back."] = "从林地向南前往大槌乌萨尔处：哨兵莎依拉·夜风在{area:186}西边的道路上巡逻，从林地下来的小路与道路交汇处向西南走到约38,54的弯道再折返。",

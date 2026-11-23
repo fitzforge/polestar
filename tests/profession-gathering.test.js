@@ -124,6 +124,47 @@ test('a zone whose nodes all turn grey inside a band is never picked for it: Tel
 	assert.equal(coversTop([{ name: 'Iron Deposit', req: 125 }], { from: 65, to: 125 }), false, 'nor a zone of nodes the band cannot reach yet');
 });
 
+test('a band\'s zone is workable from its first point: Hillsbrad Foothills\' beasts (105 and up) split Skinning 100-125 at 105 (#3355)', () => {
+	const { coversStart, pickZones } = require('../tools/lib/professions/gathering/build');
+	// Gray Bear (21) needs 105, Vicious Gray Bear (22) 110, Starving Mountain Lion (23) 115.
+	const reqs = { 1: [105, 105, 105, 105, 110, 110, 115, 115], 2: [60, 60, 60, 60, 60, 60, 20, 20] };
+	const zonePoints = (id) => reqs[id].map((req, i) => ({ name: `beast ${req}`, req, pt: { c: 0, wx: id * 5000 + i * 30, wy: 0 } }));
+	assert.equal(coversStart(zonePoints(1), { from: 100, to: 125 }, 4), false, 'nothing in Hillsbrad at 100-104');
+	assert.equal(coversStart(zonePoints(1), { from: 105, to: 125 }, 4), true, 'four Gray Bears at 105');
+	assert.equal(coversStart(zonePoints(2), { from: 100, to: 125 }, 4), true);
+	assert.equal(coversStart([{ req: 1 }, { req: 1 }, { req: 1 }, { req: 1 }], { from: 101, to: 125 }, 4), false, 'grey nodes do not count');
+	const prof = {
+		skill: 'Skinning',
+		minPoints: 4,
+		points: (ctx, id, from, to) => zonePoints(id).map((p) => ({ ...p, w: T.bandWeight(p.req, from, to) })).filter((p) => p.w > 0),
+	};
+	const band = { from: 100, to: 125, zones: { Horde: [1, 2] } };
+	// Hillsbrad (1) scores best over the band; Silverpine (2) is the zone workable at 100.
+	const parts = pickZones({}, prof, band, 'Horde', { key: 'undead' }).map((p) => [p.zone, p.from, p.to]);
+	assert.deepEqual(parts, [
+		[2, 100, 105],
+		[1, 105, 125],
+	]);
+	assert.deepEqual(pickZones({}, prof, { ...band, from: 105 }, 'Horde', { key: 'undead' }).map((p) => [p.zone, p.from, p.to]), [[1, 105, 125]]);
+	assert.throws(() => pickZones({}, prof, { ...band, zones: { Horde: [1] } }, 'Horde', { key: 'undead' }), /no zone workable from 100/);
+});
+
+test('every generated gathering band lists something the band\'s starting skill can gather (#3355)', () => {
+	const dir = path.join(ROOT, 'guides', 'forever', 'professions');
+	// Skinning names a beast the start can skin as "Gray Bear (21)", one it cannot yet as "(22, needs 110)";
+	// Mining and Herbalism name a node as "Copper (1, orange)", one for later as "(from 65)".
+	const workable = { 'skinning.guide': /\(\d+\)/, 'mining.guide': /\(\d+, (orange|yellow|green)/, 'herbalism.guide': /\(\d+, (orange|yellow|green)/ };
+	const bad = [];
+	for (const [file, re] of Object.entries(workable)) {
+		let step = null;
+		for (const line of fs.readFileSync(path.join(dir, file), 'utf8').split('\n')) {
+			if (line.startsWith('step ')) step = /\(\d+-\d+\)( cont\.)?$/.test(line) ? line : null;
+			else if (step && line.startsWith('  tip ') && !re.test(line)) bad.push(`${file}: ${step}`);
+		}
+	}
+	assert.deepEqual(bad, []);
+});
+
 test('live-frame spawns come out in the Era frame, so loops on redrawn maps match `coords era`', () => {
 	// A map Forever redrew: its live frame is offset from the Era frame and
 	// covers 800 yards instead of 1000.
@@ -316,4 +357,59 @@ test("the Fishing guide names each band's cooking recipes with their sellers, bu
 	assert.ok(buys > 0, 'some band fishes beside a recipe seller');
 	assert.match(text, /Darkshore Grouper bites only here: eat it as it is\. Gubber Blump \(Darkshore\) takes 6 for The Family and the Fishing Pole, which gives the Blump Family Fishing Pole\./);
 	assert.match(text, /Oily Blackmouth from the schools here is no food: alchemists make Blackmouth Oil from it \(Alchemy 80\); keep it to sell or trade\./);
+});
+
+// Hotline (#3759): the Undead's "Hillsbrad coast" pin lay on the lake south of Tarren Mill, the pool cluster nearest the
+// flight master. A coast spot takes its pools from the sea's schools; Sagefish Schools are lake and river water.
+test('the Fishing guide\'s coast spots lie by sea pools, never a lake\'s Sagefish Schools (#3759)', { skip: hasData ? false : 'data/forever not built' }, () => {
+	const { context } = require('../tools/lib/professions/gathering/common');
+	const fishing = require('../tools/lib/professions/gathering/fishing');
+	const ctx = context(DATA);
+	const text = fishing.render(ctx);
+	const coasts = [];
+	for (const s of text.split('\nstep ').slice(1)) {
+		const zone = (s.match(/\n {2}zone (.+)/) || [])[1];
+		for (const [, x, y, label] of s.matchAll(/\n {2}goto ([\d.]+),([\d.]+) "([^"]* coast)"/g)) coasts.push({ zone, x: Number(x), y: Number(y), label });
+	}
+	const hillsbrad = coasts.find((c) => c.label === 'Hillsbrad coast');
+	assert.ok(hillsbrad, 'the Hillsbrad coast spot is in the guide');
+	const zoneId = { 'Hillsbrad Foothills': 1424, Westfall: 1436, Darkshore: 1439, Wetlands: 1437, 'Stranglethorn Vale': 1434 };
+	for (const c of coasts) {
+		const map = zoneId[c.zone];
+		if (!map) continue;
+		let nearest = null;
+		for (const o of Object.values(ctx.data.objects)) {
+			if (!o.roles || !o.roles.includes('fishing')) continue;
+			const s = o.spawns && o.spawns[String(map)];
+			for (const [x, y] of (s && s.pts) || []) {
+				const d = Math.hypot(x - c.x, y - c.y);
+				if (!nearest || d < nearest.d) nearest = { d, name: o.name };
+			}
+		}
+		assert.ok(nearest, `${c.label}: pools on the map`);
+		assert.doesNotMatch(nearest.name, /Sagefish School/, `${c.label} (${c.x},${c.y}) lies by ${nearest.name}`);
+	}
+});
+
+test('a band keeps the zone its group worked before when another scores within 3% (no trip for a near tie)', () => {
+	const { pickZones } = require('../tools/lib/professions/gathering/build');
+	const project = makeProjector({ era: { 1: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } } });
+	// The same 20 nodes in both zones; zone 1's are worth `w1` each, so its score is w1 times zone 2's.
+	const line = (w) => Array.from({ length: 20 }, (_, i) => ({ name: 'Node', req: 1, w, pt: project.point(1, 10 + i, 10, 'e') }));
+	let w1 = 1.02;
+	const prof = { skill: 'Test', minPoints: 4, points: (ctx, zone) => line(zone === 1 ? w1 : 1) };
+	const band = { from: 1, to: 25, zones: { Alliance: [1, 2] } };
+	const ctx = { project, data: {} };
+	assert.equal(pickZones(ctx, prof, band, 'Alliance', { key: 'a' })[0].zone, 1, 'the better zone with no zone before');
+	assert.equal(pickZones(ctx, prof, band, 'Alliance', { key: 'a' }, new Set([2]))[0].zone, 2, 'the zone worked before, 2% behind');
+	w1 = 1.05;
+	assert.equal(pickZones(ctx, prof, band, 'Alliance', { key: 'a' }, new Set([2]))[0].zone, 1, 'a zone 5% better still wins');
+});
+
+test('Skinning 125-150 stays in Ashenvale for Night Elves and the Horde (a near tie with Thousand Needles)', { skip: hasData ? false : 'data/forever not built' }, () => {
+	const text = fs.readFileSync(path.join(__dirname, '..', 'guides', 'forever', 'professions', 'skinning.guide'), 'utf8');
+	const steps = text.split('\nstep ').slice(1).filter((s) => /\(125-150\)/.test(s.split('\n')[0]));
+	const night = steps.filter((s) => /\n {2}only NightElf\n/.test(s) || /\n {2}only Orc,Troll,Tauren/.test(s));
+	assert.equal(night.length, 2);
+	for (const s of night) assert.match(s, /\n {2}zone Ashenvale\n/, s.split('\n')[0]);
 });

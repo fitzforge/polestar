@@ -58,19 +58,6 @@
 			{
 				"a": [
 					"accept",
-					9415
-				],
-				"b": [
-					"accept",
-					8304
-				],
-				"faction": "Alliance",
-				"why": "From the Alliance flight master, start with Torrig and the commander, then visit the other quest givers on the way down into the sands.",
-				"issue": "#3144"
-			},
-			{
-				"a": [
-					"accept",
 					8304
 				],
 				"b": [
@@ -3225,18 +3212,6 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (2026-11-07, Horde Winterspring 55-56, #1166): Salfa stands at the Winterspring end of Timbermaw Hold's tunnel (27.7,34.5), where the route comes out; Speak to Salfa is handed in and Winterfall Activity taken there, instead of on a later ride back west from Everlook"
-			},
-			{
-				"a": [
-					"turnin",
-					5158
-				],
-				"b": [
-					"accept",
-					91899
-				],
-				"faction": "Horde",
-				"why": "Flow review (2026-11-07, Horde Barrens 56, #1166): the flight lands in Ratchet: Liv Rizzlefix and Islen Waterseer first, then the ride north to Dokimi in the Crossroads, whose flight goes on to Orgrimmar; the order flew to Ratchet, rode north to the Crossroads and back south to Ratchet"
 			},
 			{
 				"a": [
@@ -6551,7 +6526,8 @@
 			{ "a": ["task", 604], "b": ["accept", 2864], "faction": "Horde", "why": "#3145: on the way south from the naga coast, finish the Wild Shore beach work before entering Booty Bay for Krazek and the wind rider when the character is already 42." },
 			{ "a": ["turnin", 598], "b": ["turnin", 95770], "faction": "Horde", "why": "#3145: give Kin'weelay the necklaces and news of the lost city together on the return from the trophy skulls. If only one is ready, he still takes it." },
 			{ "a": ["turnin", 589], "b": ["turnin", 573], "faction": "Horde", "why": "#3145: pay Kin'weelay and Far Seer Mok'thardin at Grom'gol on the way from the flight master to the Orgrimmar zeppelin. Either ready reward can be taken without waiting for the other." },
-			{ "a": ["task", 209, 0], "b": ["task", 598, 0], "faction": "Horde", "why": "#3124: carry both drop counts at the first Skullsplitter warrior camp (the warriors drop tusks and necklaces). The trophy piles remain on their own route." }
+			{ "a": ["task", 209, 0], "b": ["task", 598, 0], "faction": "Horde", "why": "#3124: carry both drop counts at the first Skullsplitter warrior camp (the warriors drop tusks and necklaces). The trophy piles remain on their own route." },
+			{ "a": ["accept", 2987], "b": ["turnin", 2981], "faction": "Horde", "why": "#3023: Camp Mojache is walked once on the first visit: the flight master, Orwin (2987) and the inn (sethome Camp Mojache, Innkeeper Greul) on the camp's south side, then Rok Orhan (2981), Uzer'i and Jangdor, Hadoken and Krueg to the north. The bind was taken between Jangdor and Hadoken, both on the north side, which walked the camp twice (npcs.json: Greul 74.73,45.26, Rok Orhan 73.46,45.86, Jangdor 74.39,42.92, Hadoken 74.87,42.54)." }
 		],
 		"notes": [
 			"Yendi's report (Herble's Bronze Tube before Look to the Stars) is the quest's own order: its buy is a task of 174, before the turn-in.",
@@ -12273,6 +12249,12 @@
 				"q": 8313,
 				"reason": "Horde 50-60 fix pass (2026-11-20), the last guide's top-up: Sharing the Knowledge (Cooking 285): the cookbook's page back to Calandrath on 06's second Cenarion Hold stop.",
 				"issue": "-"
+			},
+			{
+				"q": 3378,
+				"after": ["turnin", 3377],
+				"reason": "#2915 (Soggy): Prayer to Elune's second part (5,900 XP), taken from Zamael Lunthistle right after the first part's hand-in, under the same group choice (when group 3377). Its page drops from the Twilight elites of his camp (Dark Shamans, Fire Guards, Geomancers and Idolaters, about one in five), so the group gets it on the same run, and Astarii Starseeker takes it on the 50-60 Felwood guide's Darnassus stop, which walks through the Temple of the Moon anyway. Left out, the guide suggested abandoning it after the group's first part.",
+				"issue": "#2915"
 			}
 		],
 		"skip": [
@@ -12929,6 +12911,41 @@
 				"faction": "Alliance",
 				"reason": "Alliance 40-50 route round (0.4.3): Cortello's Riddle part three (level 51, the treasure in the far east of the Hinterlands), only after the first two parts, which the Alliance route leaves out.",
 				"issue": "#3144"
+			},
+			{
+				"q": 91899,
+				"faction": "Horde",
+				"reason": "#3265 (Zack): A Sealed Crate (Dokimi in the Crossroads) is handed in with a Sealed Apprentice Crate (248765), which comes from the trade camps' Merchant's Favor system: nothing on the leveling route gives one, so the step held players who had none. The hand-in pays Merchant's Favor only.",
+				"issue": "#3265"
+			},
+			{
+				"q": 91904,
+				"faction": "Horde",
+				"reason": "#3265 (Zack): the second A Sealed Crate at Dokimi (crate 248770), the same Merchant's Favor hand-in as 91899: nothing on the leveling route gives the crate.",
+				"issue": "#3265"
+			},
+			{
+				"q": 4973,
+				"reason": "#3001 (Edet): the second Counting Out Time is repeatable (575 XP for five more watches), and the game never flags a repeatable quest as completed, so after a relog the guide could not tell it had been handed in and went back to it. The repeat leaves the leveling route; the first Counting Out Time (4972) stays.",
+				"issue": "#3001"
+		},
+		{
+				"q": 8464,
+				"faction": "Alliance",
+				"reason": "0.4.2 danger gate: Winterfall Activity sends the player into Winterfall Village east of Everlook for eight Ursa (57-58) and eight Shaman (56-57); the Alliance route reaches it at about 54.4 by the level model (Tanaris, Un'Goro Crater, Felwood & Winterspring guide), so the Ursa stand about three levels over the player. Players' recordings agree it doesn't fit there: 26 people took it (at 49.7-55.5), 6 finished it (at 54.1-59.6) and 7 abandoned it. The route has no later Winterspring stop near Salfa, so it is left out with its follow-up 8469 (the Horde route does it in its last Felwood guide at about 59).",
+				"issue": "-"
+			},
+			{
+				"q": 8469,
+				"faction": "Alliance",
+				"reason": "0.4.2 danger gate: Winterfall Spirit Beads is offered only after Winterfall Activity (8464), which the Alliance route leaves out.",
+				"issue": "-"
+			},
+			{
+				"q": 4864,
+				"faction": "Alliance",
+				"reason": "0.4.2 danger gate: Jaron's Supplies asks for the Blue-feathered Amulet, which drops only from the owlbeasts around Jaron's wagon at Mazthoril: Crazed 56-57, Moontouched 57-58, Berserk 58-59. The Alliance route stands there at about 54.6 by the level model, two to four levels under them, and players' recordings have 4 people taking it (at 55.2-59.9) and 3 finishing it. Left out; Jaron's crate and wagon (4861, 4863) stay, as they ask for no fight.",
+				"issue": "-"
 			}
 		],
 		"revert": [
@@ -17102,19 +17119,6 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 40-50 fix round 2 (0.4.0): The Scent of Lar'korwi goes back to Torwa from the raft on the first Un'Goro visit, at about 50, instead of riding the log for 29 hours through five guides to the second visit's Torwa stop.",
-				"source": "Alliance fix round 2 2026-11-16"
-			},
-			{
-				"a": [
-					"accept",
-					8278
-				],
-				"b": [
-					"accept",
-					9415
-				],
-				"faction": "Alliance",
-				"why": "Alliance 50-60 fix round 2 (0.4.0): Report to Marshal Bluewall and The Twilight Mystery are taken on the Silithus guide's first Cenarion Hold stop, where their work and hand-ins are, not on the Western Plaguelands guide's Cenarion Hold stop at about 57, which carried them through Mount Hyjal (quest log 36 there) and the trip back.",
 				"source": "Alliance fix round 2 2026-11-16"
 			},
 			{

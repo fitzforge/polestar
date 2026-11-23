@@ -37,6 +37,7 @@ step Fly to Rut'theran Village
 
 step Rut'theran Village
   zone Teldrassil
+  when complete 978
   tip The flight lands in Rut'theran Village. Erelas Ambersky stands a short walk north-west of the flight master.
   turnin 978                          -- Erelas Ambersky
   note Erelas' next task sends you back to Ranshalla in Winterspring, behind the route now: skip it.
@@ -50,19 +51,26 @@ step Herald Moonstalker
   tip Herald Moonstalker stands by the Temple of the Moon.
   accept 1047
 
-# Fandral and Mathrengyl stand upstairs in the druids' building, and the walking maps have no way up
-# inside it: the arrow led onto a ledge outside, behind the wall (#1338). A goto at the building's door
-# on its south side, 35.8,11.6 (players' recordings walk in there), makes the arrow point straight at
-# them from there.
+# Fandral (at the top) and Mathrengyl (upstairs) stand in the druids' building, and the walking maps have no way up
+# inside it: the arrow led onto a ledge outside, behind the wall, from the ground and from each other's floor alike
+# (#1338). Before each of them, a goto at the building's door on its south side, 35.8,11.6 (players' recordings walk
+# in there), makes the arrow point straight at him from there.
 step Cenarion Enclave
   zone Darnassus
   goto 35.8,11.6 "Cenarion Enclave"
 
 step Arch Druid Fandral Staghelm
   zone Darnassus
-  tip Fandral and Mathrengyl stand upstairs in the druids' building of the Cenarion Enclave.
+  tip Fandral stands at the top of the druids' building of the Cenarion Enclave; Mathrengyl, next, is lower down inside it.
   turnin 1047                         -- Arch Druid Fandral Staghelm, upstairs
   accept 6761
+
+step Cenarion Enclave
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Mathrengyl Bearwalker
+  zone Darnassus
   turnin 6761                         -- Mathrengyl Bearwalker, upstairs
   accept 6762                         -- Rabine Saturna in Moonglade: Mount Hyjal's Moonglade errand takes you to her, in the next guide; keep it
   train class only Druid              -- Ironforge has no druid trainer
@@ -89,13 +97,17 @@ step Fly to Ironforge
 
 # ---------------------------------------------------------------- Ironforge
 
+step Laris Geardawdle
+  zone Ironforge
+  when complete 4512
+  turnin 4512                         -- Laris Geardawdle, Hall of Explorers
+  note Laris' next task fills his jars in Un'Goro, behind the route now: skip it.
+
 step Ironforge
   zone Ironforge
   tip Bubulo Acerbus and Mistina Steelshield each take sixty Wool, sixty Silk and sixty Mageweave, then sixty Runecloth: hand in what you carry (or buy at the Auction House), skip the rest.
   accept 8275                         -- Cenarion Emissary Jademoon, by the flight master where you land: for Windcaller Proudhorn in Silithus, on the last guide; keep it
   turnin 3461                         -- Tymor, Mystic Ward
-  turnin 4512                         -- Laris Geardawdle, Hall of Explorers
-  note Laris' next task fills his jars in Un'Goro, behind the route now: skip it.
   accept 7261                         -- Lieutenant Rotimer: for Lieutenant Haggerdin, on the way to Chillwind Camp
   collect 2592 x60 optional @24.2,74.7 map 1455 -- Wool Cloth, from your bags
   collect 4306 x60 optional @24.2,74.7 map 1455 -- Silk Cloth, from your bags
@@ -331,13 +343,6 @@ step Sorrow Hill: kill these as you meet them
 
 step Chromie
   turnin 4972                         -- Upstairs
-  accept 4973
-
-step More watches
-  collect 12638 quest 4973.1
-
-step Chromie
-  turnin 4973                         -- Upstairs
 
 step Writhing Haunt cauldron
   tip The cauldron sits at the Writhing Haunt, by Mulgris' farm, east of Andorhal.
@@ -506,6 +511,7 @@ step Light's Hope Chapel
 # ---------------------------------------------------------------- The Plaguewood and Terrordale
 
 step Aurora Skycaller
+  when complete 5245
   tip Ride north-west to Quel'Lithien Lodge, at the edge of the Plaguewood.
   turnin 5245
 
@@ -529,6 +535,7 @@ step Augustus the Touched
 step Tirion Fordring
   zone Eastern Plaguelands
   tip Cross the river west to Tirion's hut.
+  tip Careful: the short way from Terrordale to Tirion is the Terrorweb Tunnel, whose south mouth opens by his hut: Crypt Fiends, Walkers, Horrors and Slayers (53-58) stand close together inside. Pull them one at a time, or ride round by the road outside it.
   turnin 5543
   turnin 5544
   turnin 5542

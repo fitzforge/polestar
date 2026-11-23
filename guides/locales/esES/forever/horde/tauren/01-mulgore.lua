@@ -186,9 +186,9 @@ return {
 	-- Step 36: Mulgore: kill these as you meet them
 	-- {zone:1412} Mulgore
 	["{zone:1412}: kill these as you meet them"] = "",
-	-- {quest:96130} Chakuyak
+	-- {quest:96130} Chakuyak · {npc:3056} Ghost Howl
 	-- plural, as words: Prairie Stalkers = {npc:2959} Prairie Stalker · Flatland Cougars = {npc:3035} Flatland Cougar
-	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it."] = "{quest:96130}, un lobo solitario, ronda las llanuras al oeste del poblado. Los acechadores de pradera y los pumas de las estepas recorren las llanuras al norte y al oeste.",
+	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it.\nCareful: {npc:3056} (12, a rare white wolf) roams the plains too: leave it be."] = "",
 
 	-- Step 37: Bloodhoof Village
 	-- {npc:277182} Ahab Wheathoof · {item:287505} Tender Strider Meat
@@ -493,4 +493,5 @@ return {
 	-- ["{npc:5888} stands in {area:221}. {quest:1516} needs level 4, which you reach with the turn-ins here."] = "{npc:5888} está en {area:221}. {quest:1516} requiere nivel 4, que alcanzas con las entregas de aquí.",
 	-- ["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to {npc:2980}."] = "{npc:6775} está en el extremo oeste del campamento, en la esquina noroeste de las colinas donde rondan los pumas monteses: acepta su misión, caza los pumas desde allí hacia el sur y el este y vuelve con {npc:2980}.",
 	-- ["{quest:96130} and {quest:756}"] = "{quest:96130} y {quest:756}",
+	-- ["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it."] = "{quest:96130}, un lobo solitario, ronda las llanuras al oeste del poblado. Los acechadores de pradera y los pumas de las estepas recorren las llanuras al norte y al oeste.",
 }

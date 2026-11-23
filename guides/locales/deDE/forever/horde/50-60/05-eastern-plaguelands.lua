@@ -380,8 +380,8 @@ return {
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} läuft hier herum: schau in den Kreis auf der Karte",
 
 	-- Step 87: Rabine Saturna
-	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
-	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Geh durch die {area:1769} und nimm die Abzweigung des Tunnels nach {zone:1450}. {npc:11801} ist in {area:2361}.",
+	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven · {quest:5527} A Reliquary of Purity · {area:2577} Dire Maul
+	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}.\n{npc:11801} offers {quest:5527} only after you have been inside {area:2577} once: if he doesn't offer it, carry on without it."] = "",
 
 	-- Step 88: Rabine Saturna
 	-- {zone:1451} Silithus
@@ -390,23 +390,25 @@ return {
 	-- Step 90: Donova Snowden
 	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
 	["From the tunnel's {zone:1452} exit, ride south to {area:2246}."] = "Reite vom Tunnelausgang nach {zone:1452} nach Süden zu {area:2246}.",
+
+	-- Step 91: Donova Snowden
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "{quest:5086} sind in {zone:1448}, bei einer späteren Reise: Behalte sie.",
 
-	-- Step 91: Moontouched Owlbeasts
+	-- Step 92: Moontouched Owlbeasts
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Moontouched Owlbeasts"] = "Mondbestrahlte Eulenbestien",
 	-- {area:2255} Everlook · {area:2241} Frostsaber Rock
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Careful: they are 57-58: pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "Reite nach Osten nach {area:2255} und von dort nach Norden; die Mondbestrahlten Eulenbestien streifen durch die Hügel an den Südhängen von {area:2241}. Vorsicht: Sie sind Stufe 57-58: Zieh sie einzeln.\nVorsicht: Hailspite, Elites der Stufe 60, sammeln sich in den Schneefeldern südöstlich von {area:2255}, wo auch ein paar Mondbestrahlte Eulenbestien umherstreifen: Bleib an den Hängen nördlich der Stadt.",
 
-	-- Step 92: Pristine Yeti Horns
+	-- Step 93: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Makellose Yetihörner",
 	-- {area:2255} Everlook
 	["Umi's horns, carried from your last {area:2255} stop: the yeti hills start just south-east of {area:2255}. Only Matriarchs and Patriarchs drop horns, and the Patriarchs reach 58: pull them one at a time."] = "Umis Hörner, mitgebracht von deinem letzten Halt in {area:2255}: Die Yetihügel beginnen direkt südöstlich von {area:2255}. Nur Matriarchen und Patriarchen lassen Hörner fallen, und die Patriarchen erreichen Stufe 58: Zieh sie einzeln.",
 
-	-- Step 93: Umi Rumplesnicker
+	-- Step 94: Umi Rumplesnicker
 	-- {area:976} Gadgetzan · {area:2255} Everlook · {zone:2482} Mount Hyjal · {zone:1451} Silithus
 	["Umi's third prank targets goblins in {area:976}, Un'Goro and {area:2255}: keep it. {zone:2482} is next: its way in starts here in {area:2255}; {area:976}, Linken's sword and {zone:1451} follow it."] = "",
 
@@ -427,6 +429,7 @@ return {
 	-- ["Frenzied Plaguehounds and Monstrous Plaguebats share the fields around {area:2272} and {area:2271}, south of {area:2273}."] = "Rasende Seuchenhunde und Monströse Seuchenfledermäuse teilen sich die Felder um {area:2272} und den {area:2271}, südlich von {area:2273}.",
 	-- ["Frenzied Plaguehounds share the fields around {area:2272} and {area:2271}, south of {area:2273}; Noxious Plaguebats fly over the fields of the north, and Monstrous Plaguebats around {area:2272} and {area:2271}. Careful: the hounds are 57-58 and the biggest Monstrous Plaguebats 58: pull them one at a time."] = "Rasende Seuchenhunde teilen sich die Felder um {area:2272} und {area:2271}, südlich von {area:2273}; Giftige Seuchenfledermäuse fliegen über die Felder im Norden, Monströse Seuchenfledermäuse um {area:2272} und {area:2271}. Vorsicht: Die Hunde sind Stufe 57-58 und die größten Monströsen Seuchenfledermäuse 58: Zieh sie einzeln.",
 	-- ["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Geh durch die {area:1769} und nimm die Abzweigung des Tunnels nach {area:493}. {npc:11801} ist in {area:2361}.",
+	-- ["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Geh durch die {area:1769} und nimm die Abzweigung des Tunnels nach {zone:1450}. {npc:11801} ist in {area:2361}.",
 	-- ["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner."] = "Hameya versteckt sich zwischen den Trollen der Moosschinder in {area:2273}, in der Nordostecke.",
 	-- ["Hameya's mound"] = "Hameyas Hügel",
 	-- ["Hameya's scroll"] = "Hameyas Schriftrolle",

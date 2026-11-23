@@ -227,8 +227,8 @@ step Fly to Light's Hope Chapel
 
 step Light's Hope Chapel
   turnin 5210                         -- Carlin Redpath
-  accept 5281                         -- Caretaker Alen, if you didn't take The Restless Souls on the last stop
   accept 5181
+  accept 5281                         -- Caretaker Alen, if you didn't take The Restless Souls on the last stop
   note Carlin's Heroes of Darrowshire needs a group in Hearthglen and a ride back here at the end: leave it.
 # Older notes from the export, kept for its history; where they differ from the steps above (Tirion's hunts are
 # handed in on this guide, the bind and hearth are no longer as described), the steps hold.
@@ -615,7 +615,8 @@ step Moonglade
 step Rabine Saturna
   zone Moonglade
   tip Go through Timbermaw Hold and take the Moonglade branch of the tunnel. Rabine is in Nighthaven.
-  accept 5527
+  tip Rabine offers A Reliquary of Purity only after you have been inside Dire Maul once: if he doesn't offer it, carry on without it.
+  accept 5527 optional
 
 step Rabine Saturna
   zone Moonglade
@@ -631,10 +632,15 @@ step Winterspring
 
 step Donova Snowden
   zone Winterspring
+  when complete 3909
+  tip From the tunnel's Winterspring exit, ride south to Frostfire Hot Springs.
+  turnin 3909
+
+step Donova Snowden
+  zone Winterspring
   tip From the tunnel's Winterspring exit, ride south to Frostfire Hot Springs.
   turnin 5085
   accept 5086
-  turnin 3909
   accept 3912
   note Toxic Horrors are in Felwood, on a later trip: keep it.
 

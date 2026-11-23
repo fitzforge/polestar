@@ -28,13 +28,13 @@ return {
 	-- {npc:10667} Chromie
 	["{npc:10667}, upstairs"] = "{npc:10667}, en el piso de arriba",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
-	["Mark {npc:10903} with the {item:12815}"] = "",
+	["Mark {npc:10903} with the {item:12815}"] = "Marca {npc:10903} con la {item:12815}",
 	-- {npc:10904} Andorhal Tower Three · {item:12815} Beacon Torch
-	["Mark {npc:10904} with the {item:12815}"] = "",
+	["Mark {npc:10904} with the {item:12815}"] = "Marca {npc:10904} con la {item:12815}",
 	-- {npc:10905} Andorhal Tower Four · {item:12815} Beacon Torch
-	["Mark {npc:10905} with the {item:12815}"] = "",
+	["Mark {npc:10905} with the {item:12815}"] = "Marca {npc:10905} con la {item:12815}",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
-	["Mark {npc:10902} with the {item:12815}"] = "",
+	["Mark {npc:10902} with the {item:12815}"] = "Marca {npc:10902} con la {item:12815}",
 
 	-- Step 5: Chromie
 	["Upstairs"] = "Arriba",
@@ -380,8 +380,8 @@ return {
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} da vueltas por aquí: búscala dentro del círculo del mapa",
 
 	-- Step 87: Rabine Saturna
-	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
-	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Atraviesa {area:1769} y toma el ramal del túnel hacia {zone:1450}. {npc:11801} está en {area:2361}.",
+	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven · {quest:5527} A Reliquary of Purity · {area:2577} Dire Maul
+	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}.\n{npc:11801} offers {quest:5527} only after you have been inside {area:2577} once: if he doesn't offer it, carry on without it."] = "",
 
 	-- Step 88: Rabine Saturna
 	-- {zone:1451} Silithus
@@ -390,23 +390,25 @@ return {
 	-- Step 90: Donova Snowden
 	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
 	["From the tunnel's {zone:1452} exit, ride south to {area:2246}."] = "Desde la salida del túnel a {zone:1452}, cabalga al sur hasta {area:2246}.",
+
+	-- Step 91: Donova Snowden
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "{quest:5086} están en {zone:1448}, en un viaje posterior: guárdala.",
 
-	-- Step 91: Moontouched Owlbeasts
+	-- Step 92: Moontouched Owlbeasts
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Moontouched Owlbeasts"] = "Lechubestias lunadón ({npc:7453})",
 	-- {area:2255} Everlook · {area:2241} Frostsaber Rock
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Careful: they are 57-58: pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "Cabalga al este hasta {area:2255} y sal al norte; las Lechubestias lunadón recorren las colinas de las laderas sur de {area:2241}. Cuidado: son de nivel 57-58: atráelas de una en una.\nCuidado: los Hailspite, élites de nivel 60, se reúnen en los campos nevados al sureste de {area:2255}, donde también rondan algunas Lechubestias lunadón: quédate en las laderas al norte del pueblo.",
 
-	-- Step 92: Pristine Yeti Horns
+	-- Step 93: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Cuernos prístinos de yeti ({item:12367})",
 	-- {area:2255} Everlook
 	["Umi's horns, carried from your last {area:2255} stop: the yeti hills start just south-east of {area:2255}. Only Matriarchs and Patriarchs drop horns, and the Patriarchs reach 58: pull them one at a time."] = "Los cuernos de Umi, traídos desde tu última parada en {area:2255}: las colinas de los yetis empiezan justo al sureste de {area:2255}. Solo las Matriarcas y los Patriarcas sueltan cuernos, y los Patriarcas llegan a nivel 58: atráelos de uno en uno.",
 
-	-- Step 93: Umi Rumplesnicker
+	-- Step 94: Umi Rumplesnicker
 	-- {area:976} Gadgetzan · {area:2255} Everlook · {zone:2482} Mount Hyjal · {zone:1451} Silithus
 	["Umi's third prank targets goblins in {area:976}, Un'Goro and {area:2255}: keep it. {zone:2482} is next: its way in starts here in {area:2255}; {area:976}, Linken's sword and {zone:1451} follow it."] = "",
 
@@ -427,6 +429,7 @@ return {
 	-- ["Frenzied Plaguehounds and Monstrous Plaguebats share the fields around {area:2272} and {area:2271}, south of {area:2273}."] = "Los Canes de peste demenciados ({npc:8598}) y los Murcipestes monstruosos ({npc:8602}) comparten los campos alrededor de {area:2272} y {area:2271}, al sur de {area:2273}.",
 	-- ["Frenzied Plaguehounds share the fields around {area:2272} and {area:2271}, south of {area:2273}; Noxious Plaguebats fly over the fields of the north, and Monstrous Plaguebats around {area:2272} and {area:2271}. Careful: the hounds are 57-58 and the biggest Monstrous Plaguebats 58: pull them one at a time."] = "Los Canes de peste demenciados comparten los campos alrededor de {area:2272} y {area:2271}, al sur de {area:2273}; los Murcipestes nocivos vuelan sobre los campos del norte, y los Murcipestes monstruosos alrededor de {area:2272} y {area:2271}. Cuidado: los canes son de nivel 57-58 y los Murcipestes monstruosos más grandes de 58: atráelos de uno en uno.",
 	-- ["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Atraviesa {area:1769} y toma el ramal del túnel hacia {area:493}. {npc:11801} está en {area:2361}.",
+	-- ["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Atraviesa {area:1769} y toma el ramal del túnel hacia {zone:1450}. {npc:11801} está en {area:2361}.",
 	-- ["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner."] = "Hameya se esconde entre los trols Fustamusgo de {area:2273}, en la esquina noreste.",
 	-- ["Hameya's mound"] = "El montículo de Hameya",
 	-- ["Hameya's scroll"] = "El pergamino de Hameya",

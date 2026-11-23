@@ -173,7 +173,9 @@ return {
 
 	-- Step 40: Fuzzle
 	-- {area:16723} Sunnyglade · {npc:259158} Fuzzle
-	["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "在羅格瑪西邊，暮光教派佔據了農村{area:16723}。想脫離教派的狗頭人{npc:259158}躲在村子中央。",
+	["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, waits in a cage at the arrow."] = "",
+	-- {quest:94961} Biting the Hand · {npc:259158} Fuzzle
+	["{quest:94961}, {npc:259158} in his cage"] = "",
 
 	-- Step 41: Sunnyglade
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade
@@ -260,7 +262,7 @@ return {
 
 	-- Step 58: Jom-jom's Escape
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
-	["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048}在{npc:256728}東北方的暮光食人魔營地旁等待：帶他回{area:16726}，別讓教徒傷到他。如果他倒下，再向他接受一次任務。",
+	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "",
 	-- {npc:258048} Jom-jom
 	["{npc:258048}, in the cave"] = "",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
@@ -380,7 +382,8 @@ return {
 	-- Step 81: The pirates' ships
 	["The pirates' ships"] = "海盜船",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
-	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "再次前往海盜的懸崖。由南到北，在營地下方停泊的三艘船上安放威茲巴茲的炸藥；{quest:95124}站在中間那艘旁邊，她的戰利品箱就在旁邊。途中留意{npc:259758}。\n小心：{quest:95124}是45級，比你高一兩級：先清掉她周圍甲板上的敵人，滿血再上。",
+	-- was: ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "再次前往海盜的懸崖。由南到北，在營地下方停泊的三艘船上安放威茲巴茲的炸藥；{quest:95124}站在中間那艘旁邊，她的戰利品箱就在旁邊。途中留意{npc:259758}。\n小心：{quest:95124}是45級，比你高一兩級：先清掉她周圍甲板上的敵人，滿血再上。"
+	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "",
 	-- {item:268505} Remote Explosive Charge
 	["{item:268505}, the southern ship"] = "{item:268505}，南邊的船",
 	["the middle ship"] = "中間的船",
@@ -405,7 +408,9 @@ return {
 
 	-- Step 85: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}在港口西南方的淺水區徘徊，位於魚人海灘下方。精英{npc:257001}就在附近岸邊走動：離他遠一點。",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "",
+	-- {item:268633} Sea Monster's Head
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "",
 
 	-- Step 87: The river: Riverweed
 	-- {item:265806} Riverweed
@@ -452,9 +457,10 @@ return {
 
 	-- Step 97: The Twilight camps
 	["The Twilight camps"] = "暮光營地",
-	-- {npc:258570} Da'grosh · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg · {npc:258023} Sergeant Riftan
-	-- plural, as words: Rog'mar Scouts = {npc:257450} Rog'mar Scout · Twilight Enforcers = {npc:256800} Twilight Enforcer · Farholde Lookouts = {npc:258686} Farholde Lookout
-	["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "暮光教派的營地遍布{npc:258570}南邊和西邊的山谷。沿途遇到被俘的羅格瑪斥候就救出來。暮光執行者（精英，45級）會在營地間巡邏：每次拉怪前先看清他們的路線。{npc:256881}和{npc:256891}（精英，46級）駐守在山谷盡頭的堡壘：把教徒拉離他們身邊。{npc:258023}的聯盟營地位於山谷南端，那裡的法霍德瞭望者（46級）會攻擊部落：待在營地北邊。",
+	-- {npc:258570} Da'grosh · {item:265821} Twilight Key · {npc:257450} Rog'mar Scout · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg · {npc:258023} Sergeant Riftan
+	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer · Farholde Lookouts = {npc:258686} Farholde Lookout
+	-- was: ["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "暮光教派的營地遍布{npc:258570}南邊和西邊的山谷。沿途遇到被俘的羅格瑪斥候就救出來。暮光執行者（精英，45級）會在營地間巡邏：每次拉怪前先看清他們的路線。{npc:256881}和{npc:256891}（精英，46級）駐守在山谷盡頭的堡壘：把教徒拉離他們身邊。{npc:258023}的聯盟營地位於山谷南端，那裡的法霍德瞭望者（46級）會攻擊部落：待在營地北邊。"
+	["The cult's camps fill the valley south and west of {npc:258570}. Twilight Champions drop the {item:265821} that frees a captive {npc:257450}: free them as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "",
 	-- plural, as words: Rog'mar Scouts = {npc:257450} Rog'mar Scout
 	["free five captive Rog'mar Scouts"] = "救出五名被俘的羅格瑪斥候",
 
@@ -480,10 +486,15 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:16743} from the port, where your Hearthstone is set. {npc:256418} in the middle of the fort: {npc:255829}'s word sends him looking for {npc:258570}, his warrior in the west."] = "從港口回到{area:16743}，你的爐石設在那裡。堡壘中央的{npc:256418}：{npc:255829}的話讓他派你去找{npc:258570}，他在西方的戰士。",
 	-- ["Careful: {npc:256899}, the two-headed ogre at the western edge of {area:16723}, is an elite (level 41): grouping up is advised under 43. Clear the cultists around him first and come in with full health and mana: recorded players of 42-43 killed him alone. {npc:255829}'s quests in {area:16726} wait on this one: skip him and {quest:95420}, the {area:16726} quests and {npc:258570}'s camp in the west go with him (about 21,000 XP); the guide then leaves them out."] = "小心：{area:16723}西緣的雙頭食人魔{npc:256899}是精英（41級）：43級以下建議組隊。先清掉他周圍的教徒，滿血滿魔再上：有42-43級的玩家單殺過他。{npc:255829}在{area:16726}的任務取決於這一隻：跳過他的話，{quest:95420}、{area:16726}的任務和西邊{npc:258570}的營地都會一併放棄（約21,000經驗值）；之後指南會略過這些。",
+	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "再次前往海盜的懸崖。由南到北，在營地下方停泊的三艘船上安放威茲巴茲的炸藥；{quest:95124}站在中間那艘旁邊，她的戰利品箱就在旁邊。途中留意{npc:259758}。\n小心：{quest:95124}是45級，比你高一兩級：先清掉她周圍甲板上的敵人，滿血再上。",
+	-- ["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "暮光教派的營地遍布{npc:258570}南邊和西邊的山谷。沿途遇到被俘的羅格瑪斥候就救出來。暮光執行者（精英，45級）會在營地間巡邏：每次拉怪前先看清他們的路線。{npc:256881}和{npc:256891}（精英，46級）駐守在山谷盡頭的堡壘：把教徒拉離他們身邊。{npc:258023}的聯盟營地位於山谷南端，那裡的法霍德瞭望者（46級）會攻擊部落：待在營地北邊。",
 	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "下一個指南從{area:3}的{area:340}起飛：往北離開{npc:258570}的山谷，穿過{area:16685}，那是通往{area:3}的路。",
+	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}在港口西南方的淺水區徘徊，位於魚人海灘下方。精英{npc:257001}就在附近岸邊走動：離他遠一點。",
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}：嗅嗅鼻和{npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548}位於{area:3}南方。從{area:657}向東騎到{area:75}，再飛往{area:340}：進入該地區的下坡路從那裡開始。",
+	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "在羅格瑪西邊，暮光教派佔據了農村{area:16723}。想脫離教派的狗頭人{npc:259158}躲在村子中央。",
 	-- ["the {object:707249} poster"] = "{object:707249}告示",
 	-- ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "完成戈巴姆的差事後，{npc:257062}會提供最後兩個任務（根據玩家的錄影），本指南未收錄這兩個任務。它們是44和45級：如果你打{npc:258626}時打得很險，就留到之後再來。",
+	-- ["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048}在{npc:256728}東北方的暮光食人魔營地旁等待：帶他回{area:16726}，別讓教徒傷到他。如果他倒下，再向他接受一次任務。",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "{npc:263190}的長矛，用在淡水鱷魚身上",
 }

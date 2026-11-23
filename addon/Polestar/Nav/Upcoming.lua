@@ -193,6 +193,21 @@ local function soon()
 end
 
 for _, msg in ipairs({ "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED", "TABS_CHANGED", "POLESTAR_PAUSED" }) do ns.On(msg, soon) end
+-- A later step done out of turn (While you're here hands it in, a quest
+-- accepted ahead) changes no step the guide is at, so no STEP_ message says
+-- so: its pin stayed on the map until the guide moved on (#3631). The quest
+-- log's own events redraw the layer too, at most twice a second (the log
+-- updates in bursts).
+local queued = false
+local function onQuestLog()
+	if queued or not ns.Get("nav.upcomingPins") then return end
+	queued = true
+	ns.After(0.5, function()
+		queued = false
+		Upcoming.Refresh()
+	end)
+end
+for _, ev in ipairs({ "QUEST_TURNED_IN", "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_LOG_UPDATE" }) do ns.RegisterEvent(ev, onQuestLog) end
 ns.On("SETTING_CHANGED", function(path)
 	if Upcoming.KEYS[path] or path == "nav" or path == "ui" or path == "" then soon() end
 	if path == "pause.map" or path == "pause" then soon() end

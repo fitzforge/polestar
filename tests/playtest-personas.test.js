@@ -6,6 +6,9 @@
 //
 // The plays need data/forever and Lua 5.1; they skip without them.
 
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { quiet } = require('./helpers/cli');
@@ -13,8 +16,10 @@ const { needs, DATA } = require('./helpers/data');
 const { findLua } = require('../tools/lib/lua');
 const cmd = require('../tools/commands/playtest');
 const { Data, loadData } = require('../tools/lib/dsl/data');
-const { buildSimPack, playGuide, SIMULATE, luaValue } = require('../tools/lib/playtest');
-const { personaTables, personaVariants, updatePoints } = require('../tools/lib/playtest-personas');
+const { buildSimPack, playGuide, personaPlaytest, SIMULATE, luaValue } = require('../tools/lib/playtest');
+const { personaTables, personaVariants, updatePoints, snapshotLines, SNAPSHOT_LUA } = require('../tools/lib/playtest-personas');
+const { readManifest } = require('../tools/lib/pack/manifest');
+const { OFFICIAL_DIR } = require('../tools/lib/dsl/project');
 
 const hasLua = (() => {
 	try {
@@ -166,4 +171,80 @@ test('a play that loses the Applejack is held at An Apple Treat; the gated step 
 	// Skipping the step that gets it is the same.
 	assert.equal(playApple(false, { skip: 1 }).stuck.title, 'Garrison');
 	assert.equal(playApple(true, { skip: 1 }).done, true);
+});
+
+// Tiger Mastery (188): the old guide takes it for a later guide and works none of it; the updated one collects
+// Sin'Dall's paw (3879) and hands it in. The save the old guide left opens the updated one with the quest in the
+// log as the game has it, its paw line included, so the collect can finish.
+const tigerGuide = (body) => `guide forever/horde/tiger-test
+title Tiger
+faction Horde
+levels 36-37
+zone Stranglethorn Vale
+
+step Nesingwary's camp
+  accept 188
+${body}`;
+
+test('update: a quest the old guide only took opens the updated guide with every line the game gives it', { skip }, () => {
+	realData = realData || loadData(DATA);
+	const was = buildSimPack([{ file: 'tiger.guide', text: tigerGuide('\nstep Grom\'gol\n  goto 32.0,28.0\n') }], realData);
+	const now = buildSimPack([{ file: 'tiger.guide', text: tigerGuide('\nstep Sin\'Dall\n  collect 3879 quest 188 @31.8,16.4\n\nstep Back at the camp\n  turnin 188\n') }], realData);
+	try {
+		assert.ok(!was.diag.hasErrors() && !now.diag.hasErrors(), JSON.stringify([...was.diag.errors, ...now.diag.errors]));
+		const who = { race: 'Orc', faction: 'Horde', cls: 'WARRIOR' };
+		const old = was.guides[0];
+		const g = now.guides[0];
+		const emitted = playGuide(was, old, { ...who, before: 'stub.world.level = 36\nstub.world.complete({ 187 })', script: `${snapshotLines(realData, [old, g])}\n${SNAPSHOT_LUA}\nPERSONA = ${luaValue({ snapshots: [2] })}\n${SIMULATE}` });
+		const snap = emitted.find((e) => e && e.snapshot);
+		assert.ok(snap, JSON.stringify(emitted));
+		const t = personaTables(g, realData);
+		const [out] = playGuide(now, g, { ...who, before: snap.world, saved: snap.save, script: `stub.advance(11)\nPERSONA = ${luaValue({ needs: t.needs, gives: t.gives })}\n${SIMULATE}` });
+		assert.equal(out.done, true, JSON.stringify(out.stuck));
+		assert.match(snap.world, /w\.onQuest\(188, \{\[1\]=\{[^}]*\["type"\]="item"/);
+	} finally {
+		was.dispose();
+		now.dispose();
+	}
+});
+
+// Kobold Camp Cleanup (7), a step of its own added after the one that hands in A Threat Within (783), behind a
+// player the last release left past it. A tree not yet bumped for its release carries that release's version;
+// the update persona still plays a real update (the Engine maps a save only across versions), so the added step
+// passes behind them and they reopen where they were (the old Road, now step 4), not on it.
+const northshire = (added) => `guide forever/alliance/update-test
+title Northshire
+faction Alliance
+levels 1-3
+zone Elwynn Forest
+
+step Deputy Willem
+  accept 783
+
+step Marshal McBride
+  turnin 783
+${added ? '\nstep Kobold Camp Cleanup\n  accept 7\n' : ''}
+step Road
+  goto 48.0,40.0
+
+step Hill
+  goto 52.0,50.0
+`;
+
+test('update: a tree carrying the last release\'s version still updates the save, never sending it back', { skip }, async () => {
+	const root = fs.mkdtempSync(path.join(os.tmpdir(), 'persona-update-'));
+	try {
+		for (const [dir, added] of [['now', true], ['was', false]]) {
+			fs.mkdirSync(path.join(root, dir, 'forever/alliance'), { recursive: true });
+			fs.writeFileSync(path.join(root, dir, 'forever/alliance/update-test.guide'), northshire(added));
+		}
+		const manifest = { ...readManifest(OFFICIAL_DIR, { official: true }).manifest, version: '9.9.9' };
+		const { results, diag } = await personaPlaytest({ dir: path.join(root, 'now'), manifest, personas: ['update'], from: { dir: path.join(root, 'was'), version: '9.9.9' } });
+		assert.ok(!diag.hasErrors(), JSON.stringify(diag.errors));
+		const after = results.find((r) => /at its step 3 /.test(r.variant));
+		assert.ok(after, JSON.stringify(results));
+		assert.match(after.variant, /reopened at step 4$/);
+	} finally {
+		fs.rmSync(root, { recursive: true, force: true });
+	}
 });

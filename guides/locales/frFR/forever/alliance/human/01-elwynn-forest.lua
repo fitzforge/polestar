@@ -37,9 +37,9 @@ return {
 	-- Step 6: Echo Ridge Mine: kill these as you meet them
 	-- {area:34} Echo Ridge Mine
 	["{area:34}: kill these as you meet them"] = "{area:34} : tuez-les au passage",
-	-- {object:83763} Stolen Books
+	-- {object:83763} Stolen Books · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
-	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Suivez le chemin vers le nord jusqu'à la mine. Les Ouvriers kobolds grouillent devant ; tous les kobolds de la vallée peuvent laisser tomber les {object:83763}.",
+	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}.\nNow and then a kobold here drops a {quest:91741}: right-click it and hand it to {npc:951} on your next Abbey stop."] = "",
 
 	-- Step 7: Northshire Abbey
 	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
@@ -88,10 +88,9 @@ return {
 	-- Step 14: Inside Echo Ridge Mine
 	-- {area:34} Echo Ridge Mine
 	["Inside {area:34}"] = "Dans la {area:34}",
-	-- {npc:248362} Shinyfinder Narf
+	-- {npc:248362} Shinyfinder Narf · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	-- was: ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "Les Travailleurs kobolds creusent les tunnels de la mine. {npc:248362} attend au fond du deuxième embranchement à droite.\nAttention : {npc:248362} (3) est un élite : laissez-le tranquille, sauf si vous avez un ami avec vous."
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nNow and then a Laborer drops a {quest:91741}: right-click it and hand it to {npc:951} at the Abbey after the mine.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "{npc:80} se promène autour de {area:34} : cherchez dans le cercle sur la carte",
 
@@ -493,6 +492,7 @@ return {
 	-- ["Bait ingredients"] = "Ingrédients de l'appât",
 	-- ["Boar meat"] = "Viande de sanglier",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Les Sorciers-voleurs défias campent sur les rives du {area:86} ; ils laissent aussi tomber les Masques rouges en lin. Le {object:56} gît dans le village murloc de la rive nord-est.",
+	-- ["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Suivez le chemin vers le nord jusqu'à la mine. Les Ouvriers kobolds grouillent devant ; tous les kobolds de la vallée peuvent laisser tomber les {object:83763}.",
 	-- ["Follow the road east past the {area:91} to the bridge."] = "Suivez la route vers l'est, au-delà de la {area:91}, jusqu'au pont.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "Suivez la route vers le nord depuis {area:87} jusqu'à {zone:1453}. {npc:6171} et {npc:6173} sont dans la cathédrale de la Lumière ; {npc:6174} se tient dans la {object:2100} et demande dix {item:2589} (les humanoïdes en laissent tomber ; l'hôtel des ventes en vend).",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "Suivez la route vers le sud pour sortir de la vallée jusqu'à {area:87}. {npc:295} est à l'auberge de la Fierté du lion ; {npc:240} se tient devant la forge de l'autre côté de la route, {npc:253} devant l'auberge et {npc:241} au bord de la route, au sud de celle-ci.",

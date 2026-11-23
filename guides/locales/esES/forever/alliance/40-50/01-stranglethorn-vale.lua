@@ -204,7 +204,8 @@ return {
 	-- Step 37: Bloodsail pirates: kill these as you meet them
 	["Bloodsail pirates: kill these as you meet them"] = "Piratas Velasangre: mátalos según te los encuentres",
 	-- {npc:2493} Dizzy One-Eye · {area:43} Wild Shore
-	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "Todos los Velasangre sueltan rapé y uno de ellos lleva el ojo de {npc:2493}: consíguelos de los Asaltantes y Magos (39-41) del campamento Velasangre de la playa, justo al norte del pueblo, donde encontraste la carta. Deja el campamento de {area:43}, al sur del pueblo (Brujos y Espadachines 41-43), para la visita a nivel 48.",
+	-- was: ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "Todos los Velasangre sueltan rapé y uno de ellos lleva el ojo de {npc:2493}: consíguelos de los Asaltantes y Magos (39-41) del campamento Velasangre de la playa, justo al norte del pueblo, donde encontraste la carta. Deja el campamento de {area:43}, al sur del pueblo (Brujos y Espadachines 41-43), para la visita a nivel 48."
+	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.\nCareful: Rippa (44, a rare crocolisk) swims the shore beside the camp: stay out of the water."] = "",
 
 	-- Step 38: Gorilla hills
 	["Gorilla hills"] = "Colinas de los gorilas",
@@ -262,8 +263,10 @@ return {
 	["{npc:717}, beside the other hunters"] = "",
 
 	-- Step 49: Arbor Tarantula
-	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
+	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	-- {item:213562} Bug Catching Net · {npc:217588} Arbor Tarantula · {item:213566} Arbor Tarantula Specimen
+	["{item:213562}, on an {npc:217588}: the {item:213566}"] = "",
 
 	-- Step 50: Rebel Camp
 	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "Ve al noreste pasando el campamento de Nesingwary y sigue el camino al norte hasta el campamento en lo alto del valle.",
@@ -477,6 +480,7 @@ return {
 	-- ["Bloodsail pirates"] = "Piratas Velasangre",
 	-- ["Cold Eye Basilisks"] = "Basiliscos Ojogélido",
 	-- ["Cortello's scroll"] = "El pergamino de Cortello",
+	-- ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "Todos los Velasangre sueltan rapé y uno de ellos lleva el ojo de {npc:2493}: consíguelos de los Asaltantes y Magos (39-41) del campamento Velasangre de la playa, justo al norte del pueblo, donde encontraste la carta. Deja el campamento de {area:43}, al sur del pueblo (Brujos y Espadachines 41-43), para la visita a nivel 48.",
 	-- ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye; the Swashbucklers walk the shore just north of town. The charts and orders lie in the pirate camp on the {area:43}, south of {area:35}.\nCareful: the {area:43} camp's Warlocks and Swashbucklers are level 41-43, a level or more above you, and stand close together: pull them singly from the edge."] = "Todos los Velasangre sueltan Barril de tabaco y uno de ellos lleva el ojo de {npc:2493}; los Aventureros recorren la orilla justo al norte del pueblo. Las cartas de navegación y las órdenes están en el campamento pirata de la {area:43}, al sur de {area:35}.\nCuidado: los Brujos y Aventureros del campamento de la {area:43} son de nivel 41-43, uno o más niveles por encima de ti, y están muy juntos: atráelos de uno en uno desde el borde.",
 	-- ["Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "Cualquier seguidor de Zanzil puede soltar el mejunje; {npc:2537} recorre el sur del campamento.",
 	-- ["Fly to {area:144}"] = "Vuela a {area:144}",
