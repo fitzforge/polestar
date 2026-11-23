@@ -142,7 +142,7 @@ fn a_new_file_has_every_key_commented_out_filled_ones_translated_unknown_ones_re
 	let retire = V::Obj(forge_guide::obj! { "Old" => "Vieux" });
 	let out = new_locale_text("frFR", &keys.by_file(), &fill, &retire, "Polestar's interface strings", true).unwrap();
 	assert!(
-		out.text.contains("\nlocal ns = Polestar\nif not (ns and GetLocale and GetLocale() == \"frFR\") then return end\nlocal L = ns.L\n"),
+		out.text.contains("\nlocal ns = Polestar\nif not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == \"frFR\") then return end\nlocal L = ns.L\n"),
 		"Polestar_frFR is an addon of its own: Polestar's namespace is the global\n{}",
 		out.text
 	);

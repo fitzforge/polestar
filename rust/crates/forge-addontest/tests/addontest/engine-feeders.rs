@@ -222,6 +222,28 @@ fn far_or_other_zone_feeders_stay_out_and_their_quests_and_empty_steps_go() {
 	assert_eq!(other["hidden"], json!([6621]));
 }
 
+// The guide window's "Left out" line for a quest left out names the quest it needs in the game's language, as the
+// quest's own line does (#3015's group quest question had the same slip): on a German client King of the
+// Foulweald reads "Requires “Zwischen Fels und Distelfell” first", not the guide's English title.
+#[test]
+fn a_left_out_quest_names_the_quest_it_needs_in_the_game_s_language() {
+	let out = run(
+		"function GetLocale() return \"deDE\" end\nw.titles[216] = \"Zwischen Fels und Distelfell\"\n",
+		FAR,
+		&format!(
+			r#"{OPEN}
+local why = {{}}
+for i = 1, E.GetStepCount() do
+	for _, o in ipairs(E.LeftOutHere(i, true)) do
+		if o.quest == 6621 then why[#why + 1] = o.text end
+	end
+end
+emit({{ hidden = r.hidden, why = why }})"#
+		),
+	);
+	assert_eq!(out, json!({ "hidden": [6621], "why": ["Requires “Zwischen Fels und Distelfell” first"] }));
+}
+
 #[test]
 fn a_player_who_did_the_route_gets_the_guide_as_written() {
 	let out = run("w.complete({ 6382, 6383, 216, 98 }); w.abandon(6382)\n", NEAR, &format!("{OPEN}\nemit(r)"));

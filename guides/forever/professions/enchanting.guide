@@ -276,7 +276,7 @@ step Purple Lotus (Alliance)
   only Alliance
   zone The Hinterlands
   tip 34 Purple Lotus for Lesser Mana Oil: Herbalism: Purple Lotus (skill 210) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The densest patch of Purple Lotus in The Hinterlands is marked.
-  collect 8831 x34 @66.3,71.6 era gather Herbalism 210
+  collect 8831 x34 @62.3,69.4 era gather Herbalism 210
 
 step Purple Lotus (Horde)
   only Horde

@@ -2,6 +2,25 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "3036-riverglades-threshadon-summon",
+			"quest": 95267,
+			"objective": 1,
+			"at": {
+				"map": 2548,
+				"x": 74.4,
+				"y": 72.4,
+				"frame": "live"
+			},
+			"note": "The Monster Surfaces: the Monstrous Threshadon is called up by right-clicking the thing floating in the water there, and his head drops there; the step followed his other possible spots, by some junk on a nearby beach.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3036 (Joogz): summoned him at 74.39,72.38 live by right-clicking what floats in the water"
+				}
+			],
+			"issue": 3036
+		},
+		{
 			"id": "searing-surface-taskmasters",
 			"faction": "Alliance",
 			"quest": 7729,
@@ -742,23 +761,6 @@
 					"ref": "items.json 281014: dropped by object 673431; quests.json 98417 objective text (Satyrnaar)"
 				}
 			]
-		},
-		{
-			"id": "646-silithus-silithyst-delivery",
-			"quest": 9422,
-			"objective": 1,
-			"at": {
-				"map": 1451,
-				"x": 50.93,
-				"y": 69.33,
-				"frame": "era"
-			},
-			"note": "Scouring the Desert: the arrow leads to the Horde Silithyst delivery point.",
-			"source": {
-				"kind": "questie",
-				"ref": "npcs.json 18199's spawn, the delivery credit"
-			},
-			"pr": 646
 		},
 		{
 			"id": "646-mulgore-pyall",
@@ -1721,20 +1723,20 @@
 			"id": "final-tanaris-tooga-torta",
 			"quest": 1560,
 			"objective": 1,
-			"faction": "Horde",
 			"at": {
 				"map": 1446,
 				"x": 66.58,
 				"y": 25.67,
 				"frame": "era"
 			},
-			"note": "Tooga's Quest: the escort ends when Tooga reaches his wife Torta in Steamwheedle Port, so the arrow (and the route search) puts its end there, not at Tooga's spawn in Thistleshrub Valley.",
+			"note": "Tooga's Quest: the escort ends when Tooga reaches his wife Torta in Steamwheedle Port, so the arrow (and the route search) puts its end there, not at Tooga's spawn in Thistleshrub Valley. Both factions: the Alliance route's bare complete sent the arrow back to the valley while Tooga walked to the port (#3557).",
 			"source": [
 				{
 					"kind": "questie",
 					"ref": "npcs.json 6015 Torta: map 1446 66.58,25.67; quests.json 1560 objective: Torta (6015)"
 				}
-			]
+			],
+			"issue": 3557
 		},
 		{
 			"id": "1257-duskwood-pygmy-venom-web-spiders",

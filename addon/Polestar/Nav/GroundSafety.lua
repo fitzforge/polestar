@@ -1,17 +1,18 @@
--- Enemy settlements and guarded hubs veto an on-foot segment. Zone levels affect cost, not access.
--- The towns and guard posts are map positions (DangerAreas/DangerHubs: ownership cells kept where builds
--- 70532 and 70959 share the terrain, guard disks from 70532), so they are checked on every client build.
--- A newer client keeps its walks checked rather than refused; the debug log (a report) says the data is older.
+-- Enemy ground refuses no walk (0.4.2.1, Fitz: "go back to our original danger pathing"). As before 0.4.2 the
+-- router prices the other faction's towns (Costs, hostile hubs) and the arrow walks into one when it has to,
+-- saying so ("Hostile town: <names>", Travel.HubText); 0.4.2's veto here sent players straight at quest goals
+-- in Hillsbrad Fields and Shen'dar Village with "No safe walking route", and round a portal for a walk of 150 yd.
+-- The towns and guard posts (DangerAreas/DangerHubs: ownership cells kept where builds 70532 and 70959 share the
+-- terrain, guard disks from 70532) still keep the arrow's bearing from easing across their edge.
 local _,ns=...
 local D=ns.Nav.danger
-local floor,ceil,abs,min,max,byte=math.floor,math.ceil,math.abs,math.min,math.max,string.byte
+local floor,abs,min,max,byte=math.floor,math.abs,math.min,math.max,string.byte
 local REVIEWED=70959 -- the newest build the ground data was paired against (the data files' first line)
 local _,build=GetBuildInfo()
 if not (tonumber(build) and tonumber(build)<=REVIEWED) then
- ns.Log('ground: client build '..tostring(build)..' is newer than the enemy-town data (70532, 70959); walks are still checked')
+ ns.Log('ground: client build '..tostring(build)..' is newer than the enemy-town data (70532, 70959); the arrow still eases by it')
 end
 local pad=.55+1e-7 -- include a shoulder exactly on either edge despite world-to-cell rounding
-local function finite(x) return type(x)=='number' and x==x and abs(x)<17066.67 end
 local function intersects(disks,radii,x,y,dx,dy,dd,half)
  if not disks then return false end
  -- Two biased 24-bit coordinates in tenths of a yard, then the padded radius-squared index.
@@ -28,8 +29,7 @@ local function intersects(disks,radii,x,y,dx,dy,dd,half)
  end
  return false
 end
--- For a walk the bounds cover the segment. For a HUD turn they cover a square
--- around (x,y); zero dx,dy makes the ownership-cell bounds sufficient.
+-- The bounds cover a square around (x,y); zero dx,dy makes the ownership-cell bounds sufficient.
 local function touches(cells,bins,radii,enemy,x,y,dx,dy,dd,lo,hi,le,ri,half)
  for r=floor(lo/128),floor(hi/128) do for c=floor(le/128),floor(ri/128) do
   if intersects(bins[r*512+c],radii,x,y,dx,dy,dd,half) then return true end
@@ -44,26 +44,18 @@ local function touches(cells,bins,radii,enemy,x,y,dx,dy,dd,lo,hi,le,ri,half)
  end end
  return false
 end
-function D.Blocked(map,x,y,X,Y,profile)
- if profile~='Alliance' and profile~='Horde' then return 'unknown-profile' end
- if not (finite(x) and finite(y) and finite(X) and finite(Y)) then return 'unknown-ground' end
- local cells=D.areaCells and D.areaCells[map];local bins=D.hubBins and D.hubBins[map] and D.hubBins[map][profile]
- local radii=D.hubRadii;if not cells or not bins or not radii then return 'unknown-ground' end
- local enemy=profile=='Alliance' and 2 or 1;local n=max(1,ceil(max(abs(X-x),abs(Y-y))*.03));local dx,dy=(X-x)/n,(Y-y)/n;local dd=dx*dx+dy*dy
- for i=1,n do
-  local a,b=x+dx,y+dy;local lo,hi,le,ri=min(x,a),max(x,a),min(y,b),max(y,b)
-  if touches(cells,bins,radii,enemy,x,y,dx,dy,dd,lo,hi,le,ri) then return 'opposing-settlement' end
-  x,y=a,b
- end
- return nil
-end
 
--- Only called after the walk was admitted. Next to enemy ground show the
--- checked bearing instead of easing through unchecked intermediate headings.
--- Cache one 4-yard square; another 2 yards on each side covers the next strides.
+-- The walking engine's strict searches (Polestar_Nav's Path.lua, Safe) ask this of every segment they keep:
+-- nil, nothing on the ground vetoes a walk.
+function D.Blocked() return nil end
+
+-- Next to enemy ground show the checked bearing instead of easing through unchecked intermediate headings.
+-- Cache one 4-yard square; another 2 yards on each side covers the next strides. False on a map or for a
+-- character without the data.
 local lastCells,lastBins,lastX,lastY,lastNear
 function D.NearEnemyGround(map,x,y,profile)
- local cells,bins=D.areaCells[map],D.hubBins[map][profile]
+ local cells,bins=D.areaCells and D.areaCells[map],D.hubBins and D.hubBins[map] and D.hubBins[map][profile]
+ if not (cells and bins and D.hubRadii and (profile=='Alliance' or profile=='Horde')) then return false end
  local i,j=floor(x/4),floor(y/4)
  if lastCells~=cells or lastBins~=bins or lastX~=i or lastY~=j then
   local cx,cy=i*4+2,j*4+2

@@ -54,11 +54,19 @@ return {
 	-- plural, as words: Carrion Recluses = {npc:949} Carrion Recluse · Venom Web Spiders = {npc:217} Venom Web Spider · Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Green Recluses = {npc:569} Green Recluse
 	["Carrion Recluses lurk in the woods on the way west, and Venom Web Spiders, Pygmy Venom Web Spiders and Green Recluses crawl just south of {npc:311}'s camp: each can drop a leg."] = "",
 
-	-- Step 10: Moonbrook
+	-- Step 9: Lars
+	-- {npc:893} Lars · {npc:311} Sven Yorgen
+	["{npc:893}, at {npc:311}'s camp"] = "",
+
+	-- Step 11: Moonbrook
 	-- {quest:67} The Legend of Stalvan · {npc:311} Sven Yorgen · {zone:1436} Westfall · {area:20} Moonbrook · {object:3643} Old Footlocker · {area:42} Darkshire
 	["{quest:67}: west from {npc:311}'s camp over the border into {zone:1436} and on to {area:20}, where the {object:3643} stands among the Defias (15-18). Then hearth back to {area:42}."] = "",
 
-	-- Step 11: Back to Darkshire
+	-- Step 12: Moonbrook
+	-- {quest:67} The Legend of Stalvan · {object:3643} Old Footlocker · {area:20} Moonbrook · {area:42} Darkshire
+	["{quest:67}: the {object:3643} in {area:20}, among the Defias (15-18), holds the next part. Then hearth back to {area:42}."] = "",
+
+	-- Step 13: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "{area:42}(으)로 돌아가기",
 	-- {area:42} Darkshire
@@ -75,29 +83,33 @@ return {
 	-- {npc:273} Tavernkeep Smitts
 	["{npc:273}, in the tavern"] = "{npc:273}, 주점",
 
-	-- Step 12: Clerk Daltry
+	-- Step 14: Clerk Daltry
 	-- {quest:68} The Legend of Stalvan · {npc:267} Clerk Daltry
 	["{quest:68}: {npc:267}, in the town hall, takes the footlocker's contents."] = "",
 	-- {npc:267} Clerk Daltry · {npc:295} Innkeeper Farley · {area:87} Goldshire · {zone:1453} Stormwind
 	["{npc:267}: for {npc:295} in {area:87}, on the walk north to {zone:1453}"] = "",
 
-	-- Step 13: Chef Grual
+	-- Step 15: Chef Grual
 	-- {npc:272} Chef Grual
 	["{npc:272} is in the Scarlet Raven Tavern too."] = "{npc:272}도 주점에 있습니다.",
 	-- {npc:288} Jitters · {area:94} Raven Hill
 	["For {npc:288}, at {area:94} on the way west"] = "",
 
-	-- Step 14: Rot Blossoms
+	-- Step 16: Chef Grual
+	-- {npc:272} Chef Grual
+	["{npc:272} is in the Scarlet Raven Tavern."] = "",
+
+	-- Step 17: Rot Blossoms
 	-- plural, as words: Rot Blossoms = {item:1598} Rot Blossom
 	["Rot Blossoms"] = "{item:1598}",
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
 	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Rot Blossoms = {item:1598} Rot Blossom
 	["Skeletal Horrors walk the hillside between {area:42} and the {area:121}, south-east of town; they drop the Rot Blossoms."] = "{npc:202}은(는) {area:42}와(과) 마을 남동쪽 {area:121} 사이의 언덕을 돌아다니며, {item:1598}을(를) 떨어뜨립니다.",
 
-	-- Step 16: Abercrombie
+	-- Step 19: Abercrombie
 	["Head west to the hermit once more."] = "다시 한 번 서쪽의 은둔자에게 가십시오.",
 
-	-- Step 17: Ghoul Ribs
+	-- Step 20: Ghoul Ribs
 	-- plural, as words: Ghoul Ribs = {item:884} Ghoul Rib
 	["Ghoul Ribs"] = "구울 해골",
 	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms · {npc:503} Lord Malathrom · {npc:771} Commander Felstrom · {npc:1200} Morbent Fel
@@ -106,30 +118,30 @@ return {
 	-- {npc:604} Plague Spreader · {quest:58} The Night Watch
 	["{npc:604}, for {quest:58}"] = "",
 
-	-- Step 19: Jitters
+	-- Step 22: Jitters
 	-- {npc:288} Jitters · {area:94} Raven Hill
 	["{npc:288} hides in the house at the west end of {area:94}."] = "{npc:288}은(는) {area:94} 서쪽 끝의 집에 숨어 있습니다.",
 
-	-- Step 22: Skeletal Raiders
+	-- Step 25: Skeletal Raiders
 	-- plural, as words: Skeletal Raiders = {npc:1110} Skeletal Raider
 	["Skeletal Raiders"] = "",
 	-- {area:492} Raven Hill Cemetery · {npc:311} Sven Yorgen · {npc:522} Mor'Ladim · {npc:771} Commander Felstrom
 	-- plural, as words: Skeletal Raiders = {npc:1110} Skeletal Raider
 	["From level 28: the Skeletal Raiders, Healers and Warders stand in the west part of the {area:492}, just east of {npc:311}'s camp.\nCareful: The Warders are 28-29 and the skeletons stand close together: pull one at a time.\nCareful: {npc:522}, an elite (35), wanders these graves too, and {npc:771} (32, rare) haunts the west part: keep away from both."] = "",
 
-	-- Step 23: Sven Yorgen
+	-- Step 26: Sven Yorgen
 	-- {zone:1453} Stormwind · {area:150} Menethil Harbor · {zone:1437} Wetlands
 	["Next: training, then the flight from {zone:1453} to {area:150} for the {zone:1437}."] = "다음: 수련 후 {zone:1453}에서 {area:150}(으)로 비행해 {zone:1437}(으)로 향합니다.",
 	-- {npc:1212} Bishop Farthing · {zone:1453} Stormwind
 	["For {npc:1212} in {zone:1453}'s Cathedral, on the walk north"] = "",
 
-	-- Step 25: Agent Kearnen
+	-- Step 28: Agent Kearnen
 	-- {area:94} Raven Hill · {zone:1436} Westfall · {npc:7024} Agent Kearnen · {npc:7053} Klaven Mortwake · {npc:7051} Malformed Defias Drone
 	["Head west along the road out of {area:94} into {zone:1436}. {npc:7024} watches {npc:7053}'s tower from the hills just inside the border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "길을 따라 서쪽으로 {area:94}을(를) 벗어나 {zone:1436}(으)로 가십시오. {npc:7024}은(는) 경계 바로 안쪽 언덕에서 {npc:7053}의 탑을 감시합니다. 탑을 지키는 {npc:7051}(레벨 23)이(가) 열쇠를 가지고 있으며, 클라벤의 일지는 꼭대기의 상자에 있습니다.",
 	-- {item:7908} Klaven Mortwake's Journal
 	["{item:7908}, in the chest"] = "상자 안의 {item:7908}",
 
-	-- Step 26: Master Mathias Shaw
+	-- Step 29: Master Mathias Shaw
 	-- {area:1519} Stormwind · {object:2100} Old Town
 	-- was: ["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "엘윈 숲을 지나 북쪽 {zone:1453}(으)로 가십시오. 마티아스 쇼는 {object:2100}의 SI:7에 있습니다."
 	["Head north through Elwynn to {area:1519}; Mathias Shaw is at SI:7 in {object:2100}."] = "",
@@ -144,27 +156,27 @@ return {
 	-- {item:4371} Bronze Tube · {object:2096} Trade District · {npc:5519} Billibub Cogspinner
 	["{item:4371}: the Auction House, {object:2096}; {npc:5519} keeps one and is nearly always sold out"] = "",
 
-	-- Step 27: Elwynn Forest
+	-- Step 30: Elwynn Forest
 	-- {area:94} Raven Hill · {area:87} Goldshire · {zone:1453} Stormwind
 	["North from {area:94} through Elwynn: {area:87} is on the road to {zone:1453}."] = "",
 
-	-- Step 28: Class trainer
+	-- Step 31: Class trainer
 	["Class trainer"] = "직업 전문가",
 	["Your new spells"] = "새 주문",
 
-	-- Step 29: Innkeeper Farley
+	-- Step 32: Innkeeper Farley
 	-- {quest:69} The Legend of Stalvan · {npc:295} Innkeeper Farley · {area:87} Goldshire
 	["{quest:69}: {npc:295} is in {area:87}'s Lion's Pride Inn; the chest with the letter is upstairs."] = "",
 	-- {item:910} An Undelivered Letter · {object:1560} Storage Chest
 	["{item:910}, from the {object:1560} upstairs"] = "",
 
-	-- Step 30: Caretaker Folsom
+	-- Step 33: Caretaker Folsom
 	-- {zone:1453} Stormwind · {npc:297} Caretaker Folsom · {object:1561} Sealed Crate
 	["On into {zone:1453}: {npc:297} (the arrow shows him) takes the letter; the {object:1561} beside him holds the next clue."] = "",
 	-- {object:1561} Sealed Crate
 	["{object:1561}, beside him"] = "",
 
-	-- Step 31: Bishop Farthing
+	-- Step 34: Bishop Farthing
 	-- {zone:1453} Stormwind · {npc:1212} Bishop Farthing · {npc:1217} Glorin Steelbrow · {area:150} Menethil Harbor
 	["On into {zone:1453}: {npc:1212} stands in the Cathedral of Light, on the way to the gryphon master. His next quest is for {npc:1217} in {area:150}, where the flight lands."] = "",
 	-- {npc:1212} Bishop Farthing
@@ -172,27 +184,35 @@ return {
 	-- {npc:1217} Glorin Steelbrow · {area:150} Menethil Harbor · {zone:1437} Wetlands
 	["For {npc:1217} in {area:150} (the {zone:1437} guide)"] = "",
 
-	-- Step 32: Gazin Tenorm
+	-- Step 35: Gazin Tenorm
 	-- {zone:1453} Stormwind · {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall
 	["On into {zone:1453}: {npc:6173} and {npc:6171} are in the Cathedral of Light, on the way to the gryphon master."] = "",
 	["Cathedral of Light"] = "빛의 대성당",
+
+	-- Step 36: Gazin Tenorm
+	-- {item:6846} Defias Script · {npc:6173} Gazin Tenorm · {quest:1787} The Tome of Divinity
+	["The {item:6846} is already with {npc:6173}: take the last part of {quest:1787} from him, in the Cathedral of Light."] = "",
+
+	-- Step 37: Duthorian Rall
+	-- {npc:6171} Duthorian Rall · {npc:6173} Gazin Tenorm
+	["{npc:6171} stands in the Cathedral of Light, beside {npc:6173}."] = "",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}: 구원",
 
-	-- Step 33: Stormwind
+	-- Step 38: Stormwind
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
 	["{zone:1453}'s {object:28027}"] = "",
 
-	-- Step 34: Tram to Ironforge
+	-- Step 39: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "",
 
-	-- Step 35: Shaman training
+	-- Step 40: Shaman training
 	["Shaman training"] = "주술사 수련",
 	-- {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge · {npc:258098} Eldrun Stormbreaker
 	["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453}에는 주술사 상급자가 없습니다. {object:28027}에서 {area:2257}을(를) 타고 {zone:1455}(으)로 가서 {npc:258098}에게 훈련을 받은 뒤, 지하철을 타고 돌아오세요.",
 
-	-- Step 36: Rogue training
+	-- Step 41: Rogue training
 	["Rogue training"] = "",
 	-- {zone:1453} Stormwind
 	["Train here, in {zone:1453}, before you go on."] = "",

@@ -80,8 +80,8 @@ function expectedCrafts(r, s, t) {
 // pfQuest knows) stands in a neutral town and serves both sides: Kania in
 // Cenarion Hold, Qia in Everlook, the goblins of Booty Bay, Gadgetzan and
 // Ratchet (older data builds said "AH" for them; the current ones carry no
-// side). A Forever-new NPC with no side (Pexmit, "Someone's Minion", in Mount
-// Hyjal) may not sell to anyone, so it counts for neither.
+// side). A Forever-new NPC with no side may not sell to anyone, so it counts
+// for neither.
 function bothSidesSell(m, npcs = {}) {
 	const ok = (id) => {
 		const n = npcs[id];
@@ -89,6 +89,16 @@ function bothSidesSell(m, npcs = {}) {
 	};
 	const has = (side) => [...((m && m.vendors && m.vendors[side]) || []), ...((m && m.limitedVendors && m.limitedVendors[side]) || [])].some(ok);
 	return has('Alliance') && has('Horde');
+}
+
+// A rare spawn is no place to send a player for a recipe: it stands at one of
+// several spots, or none, at a time (Pexmit, "Someone's Minion", a rare of
+// Mount Hyjal with eight spots, sells six Forever recipes). A recipe only
+// rares sell is left out.
+function rareOnly(m, npcs = {}) {
+	const ids = [...new Set(SIDES.flatMap((side) => [...((m && m.vendors && m.vendors[side]) || []), ...((m && m.limitedVendors && m.limitedVendors[side]) || [])]))];
+	const rare = (n) => !!n && ((n.roles || []).includes('rare') || n.rank === 2 || n.rank === 4);
+	return ids.length > 0 && ids.every((id) => rare(npcs[id]));
 }
 
 // A recipe quest from quests.json: { id, title, items: [{ item, count }], skill, level, pre: [ids] },
@@ -123,6 +133,7 @@ function planProfession(prof, data, { from = 1, to = 300, exclude = {}, noLevel 
 		else if (!STATIONS.has(r.focus)) why = `needs a ${r.focus}`;
 		else if (/^Transmute/.test(r.name)) why = 'transmute (cooldown, Philosopher\'s Stone)';
 		else if (r.reputation) why = 'recipe needs reputation';
+		else if (r.source === 'vendor' && rareOnly(mats[r.recipeItem], ctx.npcs)) why = 'recipe sold only by a rare spawn';
 		else if (r.source === 'vendor' && !bothSidesSell(mats[r.recipeItem], ctx.npcs)) why = 'recipe sold to one faction only';
 		else if (auction[r.spell] && !(r.source === 'drop' && !(mats[r.recipeItem] || {}).bop)) why = 'pattern is not a world drop that can be traded';
 		else if (r.source !== 'trainer' && r.source !== 'vendor' && r.source !== 'quest' && !auction[r.spell]) why = `recipe is a ${r.source}`;

@@ -110,10 +110,22 @@ step Rakaiah
   turnin 5204                         -- Remains of Trey Lightforge
   accept 5385
 
+step Remains of Trey Lightforge
+  when turnedin 5204
+  when available 5385
+  zone Felwood
+  tip Trey Lightforge's remains lie at the edge of the Jaedenar camp, west of the road: they go back to Jessir at the end of this guide.
+  accept 5385
+
+step Trull Failbane
+  zone Felwood
+  when complete 4741
+  tip Ride north along the road, past Jaedenar, to Bloodvenom Post.
+  turnin 4741                         -- Trull Failbane
+
 step Bloodvenom Post
   zone Felwood
   tip Ride north along the road, past Jaedenar, to Bloodvenom Post.
-  turnin 4741                         -- Trull Failbane
   accept 4721
   note Trull's last Wild Guardians are the Berserk Owlbeasts north of Everlook, on this guide's Winterspring loop; he takes them at the end of the guide, back here.
 
@@ -137,6 +149,7 @@ step Umber
   accept 6845
 
 step Rabine Saturna
+  when complete 5527
   turnin 5527
 
 step Class trainer

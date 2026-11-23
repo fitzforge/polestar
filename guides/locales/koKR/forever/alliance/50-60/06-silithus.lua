@@ -35,36 +35,34 @@ return {
 	-- {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
 	["{npc:13220} stands at {area:3077}, where the pass comes out."] = "",
 
-	-- Step 8: Cenarion Hold
+	-- Step 9: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
-	-- {npc:17082} Rifleman Torrig · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora
-	["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "얼라이언스 천막의 {npc:17082}: {area:2743}의 {npc:17080}에게 가져갑니다",
 	-- {npc:15183} Geologist Larksbane
 	["{npc:15183}: the tablet fragments come from the Twilight dig"] = "{npc:15183}: 서판 조각은 황혼의 발굴지에서 얻습니다",
 	-- {npc:15306} Bor Wildmane
 	["{npc:15306}: his Twilight texts come from the dig"] = "",
 
-	-- Step 9: Silithus: kill these as you meet them
+	-- Step 10: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
 	["{zone:1451}: kill these as you meet them"] = "",
 	-- {npc:15185} Brood of Nozdormu
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around.\nCareful: {npc:15185} (62, elite) guard the Caverns of Time's mouth in the south-west, around 21,82: stay out of there."] = "",
 
-	-- Step 10: Cenarion Hold
+	-- Step 11: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189}, upstairs"] = "{npc:15189}, 위층",
 
-	-- Step 11: Silithus: kill these as you meet them
+	-- Step 12: Silithus: kill these as you meet them
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer · Rock Stalkers = {npc:11739} Rock Stalker
 	["From the hold, west into the sands: Dredge Crushers dig there; Stonelash Pincers, Flayers and Rock Stalkers hunt the same sands."] = "요새에서 서쪽 모래밭으로 가세요. 망치미늘벌레가 그곳을 파고 있으며, 돌꼬리집게전갈, 가죽벗기기전갈, 긴다리 바위거미도 같은 모래밭에서 사냥합니다.",
 	-- {npc:11741} Dredge Crusher
 	["{npc:11741} walks around here: look inside the circle on the map"] = "",
 
-	-- Step 12: Cenarion Hold
+	-- Step 13: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:15190} Noggle Ficklespragg · {npc:15189} Beetix Ficklespragg
@@ -72,7 +70,7 @@ return {
 	-- {npc:15181} Commander Mar'alith
 	["{npc:15181} (from level 58): Bronzebeard's Encampment comes later, on the way south"] = "",
 
-	-- Step 13: Hive'Ashi: kill these as you meet them
+	-- Step 14: Hive'Ashi: kill these as you meet them
 	-- {area:2742} Hive'Ashi
 	["{area:2742}: kill these as you meet them"] = "",
 	-- {item:20404} Encrypted Twilight Text · {npc:15306} Bor Wildmane · {npc:15194} Hermit Ortell · {area:2742} Hive'Ashi · {quest:8308} Brann Bronzebeard's Lost Letter
@@ -84,11 +82,6 @@ return {
 	["Twilight Tablet Fragments"] = "{item:20378}",
 	-- {quest:8323} True Believers
 	["Ten more for {quest:8323}"] = "{quest:8323}에 10개 더",
-
-	-- Step 14: Hive'Zora
-	-- {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora · {spell:642} Divine Shield · {spell:5384} Feign Death · {spell:17} Power Word: Shield
-	["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080}은(는) 서쪽 벌집인 {area:2743} 바깥에 진을 치고 있습니다. 근처 붉은 간헐천에서 실리시스트를 집어 그의 야영지에 있는 얼라이언스 추출기로 가져가세요.\n주의: 탈것을 타거나, 은신하거나, {spell:642}, {spell:5384}, 소멸을 사용하면 실리시스트를 잃습니다. 점멸과 {spell:17}은(는) 떨어뜨리지 않습니다.",
-	["Bring a Silithyst to the Alliance extractor"] = "",
 
 	-- Step 16: Southwind Village
 	["The tortured druids and sentinels haunt the ruined village east of the hold."] = "",
@@ -275,7 +268,9 @@ return {
 	-- ["{npc:15174}, the innkeeper"] = "여관주인 {npc:15174}",
 	-- ["{npc:15181}: Bronzebeard's Encampment comes later, on the way south"] = "{npc:15181}: 브론즈비어드 야영지는 나중에 남쪽으로 가는 길에 들릅니다",
 	-- ["{npc:15306}: his Twilight texts come from the dig after the next stop here"] = "{npc:15306}: 황혼의 문서는 이곳 다음 목적지인 발굴지에서 얻습니다",
+	-- ["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080}은(는) 서쪽 벌집인 {area:2743} 바깥에 진을 치고 있습니다. 근처 붉은 간헐천에서 실리시스트를 집어 그의 야영지에 있는 얼라이언스 추출기로 가져가세요.\n주의: 탈것을 타거나, 은신하거나, {spell:642}, {spell:5384}, 소멸을 사용하면 실리시스트를 잃습니다. 점멸과 {spell:17}은(는) 떨어뜨리지 않습니다.",
 	-- ["{npc:17082}, at the Alliance tents"] = "{npc:17082}, 얼라이언스 천막",
+	-- ["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "얼라이언스 천막의 {npc:17082}: {area:2743}의 {npc:17080}에게 가져갑니다",
 	-- ["{npc:1852} is a level 61 elite"] = "{npc:1852}은(는) 61레벨 정예입니다",
 	-- ["{npc:1855} (optional)"] = "{npc:1855}(선택)",
 	-- ["{npc:1855} lives in a small hut on the border river, north-east of the lumber camp. Hand in {quest:5781} if you finished it."] = "{npc:1855}은(는) 벌목지 북동쪽, 경계 강가의 작은 오두막에 삽니다. {quest:5781}을(를) 완료했다면 제출하세요.",

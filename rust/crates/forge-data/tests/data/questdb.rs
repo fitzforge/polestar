@@ -163,7 +163,7 @@ fn the_fixture_database_keeps_quest_related_entities_only_in_the_documented_layo
 	assert!(!db.items.contains_key(&2000), "item no quest references is dropped");
 	assert!(db.npcs.contains_key(&40) && db.objects.contains_key(&77), "drop sources of objective items are kept");
 	assert_eq!(db.map_frames.keys().copied().collect::<Vec<_>>(), [1411, 1426, 1429], "only maps with points get frames");
-	assert_eq!(db.quests[&7], vals(json!(["Kobold Camp Cleanup", 2, 1, null, null, 1, 197, 197, null, 783, null, [1, 6, 10], 1429, null, null, null, null, null, null, null])));
+	assert_eq!(db.quests[&7], vals(json!(["Kobold Camp Cleanup", 2, 1, null, null, 1, 197, 197, null, 783, null, [1, 6, 10], 1429, null, null, null, null, null, null, null, null])));
 	assert_eq!(db.quests[&16][6], Val::Num(-31.0), "object givers are negative refs");
 	assert_eq!(db.quests[&18][11], val(&json!([3, 55, null, 4, 1, null])));
 	assert_eq!(db.quests[&18][13], val(&json!([1429, 0, 40.5, 70.3])));
@@ -191,7 +191,7 @@ fn a_timed_quest_carries_its_time_limit_in_seconds_and_an_untimed_one_none() {
 	let out = build(&dir, &root(), &Options::default()).unwrap();
 	assert!(out.warnings.is_empty(), "{:?}", out.warnings);
 	let rec = &out.db.quests[&7];
-	assert_eq!(rec.len(), 20);
+	assert_eq!(rec.len(), 21, "limit is the 20th field, doneBy the 21st");
 	assert_eq!(rec[19], Val::Num(2700.0), "limit");
 	assert!(payload(rec).ends_with(";;;;;;;2700"), "{}", payload(rec));
 	assert_eq!(out.db.quests[&5][19], Val::Nil, "a 0 limit is no limit");

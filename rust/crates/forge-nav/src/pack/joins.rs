@@ -21,7 +21,8 @@
 //! them when another way exists. A fall kept is logged and counted, for an in-game check.
 //!
 //! Two kinds of join are drawn straight instead (Kind): a "step" walks between two places a few yards apart both ways
-//! where neither map has the way (a threshold or a counter's gap players walk through: the recordings' grid holes),
+//! where neither map has the way (a threshold or a counter's gap players walk through: the recordings' grid holes;
+//! with "via" places, a chain of such steps: a cave or barrow passage neither map walks, laid along a navmesh's line),
 //! and a "drop" falls from a ledge's edge to where players land, one way, kept even where it hurts and his maps make
 //! another way, because players take it (#1986).
 
@@ -63,7 +64,8 @@ pub enum Kind {
 	Walk,
 	/// "step": a straight walk between its two places, both ways, where our grid has none either (a door's threshold,
 	/// a stair or a counter's gap both maps close and players walk through). Both places carry their height, at most
-	/// STEP_MAX apart, rising no steeper than the walk slope.
+	/// STEP_MAX apart, rising no steeper than the walk slope. With "via" places between them, a chain of such steps
+	/// through every place in order (step_chain), each within those limits, checked and laid as one join.
 	Step,
 	/// "drop": a fall from a (the ledge's edge) to b (where players land), one way, at most DROP_RUN across. Taken
 	/// whatever other way his maps make, even where it hurts: players' recordings show they take it (the Orgrimmar
@@ -86,6 +88,8 @@ pub struct Join {
 	pub map: u32,
 	pub a: (f64, f64, Option<f64>),
 	pub b: (f64, f64, Option<f64>),
+	/// A step join's places between a and b ("via"), in order: a chain of straight steps (step_chain).
+	pub via: Vec<(f64, f64, Option<f64>)>,
 	pub kind: Kind,
 	pub strict: bool,
 }
@@ -98,18 +102,24 @@ pub fn joins() -> Vec<Join> {
 		.as_array()
 		.expect("joins.json: joins")
 		.iter()
-		.map(|j| Join {
-			id: j["id"].as_str().expect("joins.json: id").to_string(),
-			map: j["map"].as_u64().expect("joins.json: map") as u32,
-			a: end(&j["a"]),
-			b: end(&j["b"]),
-			kind: match j["kind"].as_str() {
+		.map(|j| {
+			let kind = match j["kind"].as_str() {
 				None => Kind::Walk,
 				Some("step") => Kind::Step,
 				Some("drop") => Kind::Drop,
 				Some(k) => panic!("joins.json: {}: unknown kind {k}", j["id"]),
-			},
-			strict: j["strict"].as_bool().unwrap_or(false) || j["kind"].as_str() == Some("step"),
+			};
+			let via: Vec<_> = j["via"].as_array().map(|a| a.iter().map(end).collect()).unwrap_or_default();
+			assert!(via.is_empty() || kind == Kind::Step, "joins.json: {}: \"via\" is for step joins", j["id"]);
+			Join {
+				id: j["id"].as_str().expect("joins.json: id").to_string(),
+				map: j["map"].as_u64().expect("joins.json: map") as u32,
+				a: end(&j["a"]),
+				b: end(&j["b"]),
+				via,
+				kind,
+				strict: j["strict"].as_bool().unwrap_or(false) || kind == Kind::Step,
+			}
 		})
 		.collect()
 }
@@ -146,6 +156,19 @@ pub fn step_cells(a: (f64, f64, Option<f64>), b: (f64, f64, Option<f64>)) -> Opt
 	)
 }
 
+/// A step join with "via" places: a chain of straight steps through its places in order (a, the via places, b), each
+/// as step_cells draws it; one cell where two steps meet. None when any step is no step (a place without its height,
+/// over STEP_MAX, steeper than the walk slope): the chain goes in whole or not at all.
+pub fn step_chain(places: &[(f64, f64, Option<f64>)]) -> Option<Vec<WayCell>> {
+	let mut out: Vec<WayCell> = Vec::new();
+	for w in places.windows(2) {
+		let cells = step_cells(w[0], w[1])?;
+		let skip = usize::from(!out.is_empty());
+		out.extend(cells.into_iter().skip(skip));
+	}
+	(!out.is_empty()).then_some(out)
+}
+
 /// A drop join's way: its edge, then where players land (a fall). None when a place lacks its height, the landing is
 /// not below the edge, or it lies over DROP_RUN across.
 pub fn drop_cells(a: (f64, f64, Option<f64>), b: (f64, f64, Option<f64>)) -> Option<Vec<WayCell>> {
@@ -159,16 +182,23 @@ pub fn drop_cells(a: (f64, f64, Option<f64>), b: (f64, f64, Option<f64>)) -> Opt
 /// Our grid's drawn way of each join of `map`, both ways: a walk for no faction, as the guide bake draws a leg
 /// (Walker::route_path). `hubs`: the ground layers' hubs.json, when there is one. A join our grid walks one way only is
 /// joined back along the same cells (back_along); one it cannot walk either way is logged and left out. Step and drop
-/// joins are drawn straight (step_cells, drop_cells).
+/// joins are drawn straight (step_chain, drop_cells).
 pub fn ways(grid_dir: &Path, map: u32, hubs: Option<&Path>, log: &(dyn Fn(&str) + Sync)) -> Result<Vec<JoinWay>, String> {
 	let list: Vec<Join> = joins().into_iter().filter(|j| j.map == map).collect();
 	let mut out = Vec::new();
 	for j in list.iter().filter(|j| j.kind != Kind::Walk) {
 		let ok = match j.kind {
-			Kind::Step => step_cells(j.a, j.b).zip(step_cells(j.b, j.a)).map(|(ab, ba)| {
-				out.push(JoinWay { id: format!("{} a-b", j.id), cells: ab, drop: false, strict: true });
-				out.push(JoinWay { id: format!("{} b-a", j.id), cells: ba, drop: false, strict: true });
-			}),
+			Kind::Step => {
+				let mut places = vec![j.a];
+				places.extend(&j.via);
+				places.push(j.b);
+				let ab = step_chain(&places);
+				places.reverse();
+				ab.zip(step_chain(&places)).map(|(ab, ba)| {
+					out.push(JoinWay { id: format!("{} a-b", j.id), cells: ab, drop: false, strict: true });
+					out.push(JoinWay { id: format!("{} b-a", j.id), cells: ba, drop: false, strict: true });
+				})
+			}
 			_ => drop_cells(j.a, j.b).map(|ab| out.push(JoinWay { id: format!("{} a-b", j.id), cells: ab, drop: true, strict: j.strict })),
 		};
 		if ok.is_none() {
@@ -176,7 +206,7 @@ pub fn ways(grid_dir: &Path, map: u32, hubs: Option<&Path>, log: &(dyn Fn(&str) 
 				"join {}: left out: a {} needs both heights, {}",
 				j.id,
 				if j.kind == Kind::Step { "step" } else { "drop" },
-				if j.kind == Kind::Step { "at most 12 yd apart and no steeper than the walk slope" } else { "a landing below the edge at most 10 yd across" }
+				if j.kind == Kind::Step { "each step at most 12 yd long and no steeper than the walk slope" } else { "a landing below the edge at most 10 yd across" }
 			));
 		}
 	}
@@ -1086,6 +1116,32 @@ mod tests {
 		assert!(step_cells((0.0, 0.0, None), (6.0, 0.0, Some(10.0))).is_none(), "a place without its height");
 		assert!(step_cells((0.0, 0.0, Some(0.0)), (13.0, 0.0, Some(0.0))).is_none(), "13 yd apart: a corridor, not a step");
 		assert!(step_cells((0.0, 0.0, Some(0.0)), (2.0, 0.0, Some(9.0))).is_none(), "9 yd up over 2: a wall");
+	}
+
+	/// A step join's "via" places make a chain of steps: each drawn as step_cells, one cell where two meet; a chain with
+	/// one link that is no step (too long, too steep, no height) is no chain. Laid through two walls neither map walks
+	/// (a barrow's passage), it walks both ways.
+	#[test]
+	fn a_step_chain_walks_through_each_place_and_only_when_every_link_is_a_step() {
+		let got = step_chain(&[(0.0, 0.0, Some(10.0)), (4.0, 0.0, Some(12.0)), (4.0, 6.0, Some(12.0))]).expect("4 yd then 6 yd");
+		assert_eq!(got.iter().map(|c| (c.x, c.y, c.z)).collect::<Vec<_>>(), vec![(0.0, 0.0, 10.0), (2.0, 0.0, 11.0), (4.0, 0.0, 12.0), (4.0, 2.0, 12.0), (4.0, 4.0, 12.0), (4.0, 6.0, 12.0)]);
+		assert!(step_chain(&[(0.0, 0.0, Some(0.0)), (6.0, 0.0, Some(0.0)), (19.0, 0.0, Some(0.0))]).is_none(), "a 13 yd link");
+		assert!(step_chain(&[(0.0, 0.0, Some(0.0)), (6.0, 0.0, None), (12.0, 0.0, Some(0.0))]).is_none(), "a via place without its height");
+		assert!(step_chain(&[(0.0, 0.0, Some(0.0)), (6.0, 0.0, Some(0.0)), (8.0, 0.0, Some(9.0))]).is_none(), "a wall in the chain");
+		let walls: Vec<(usize, usize)> = (0..C).flat_map(|y| [(2, y), (5, y)]).collect();
+		let mut outs = vec![(0u32, out(&walls, Vec::new()))];
+		let (a, b) = (C + 2, 6 * C + 2);
+		assert!(!reaches(&decoded(&outs[0].1), a, b), "his maps alone: two walls across the cluster");
+		let mut places: Vec<(f64, f64, Option<f64>)> = [1.5, 3.5, 5.5, 6.5].iter().map(|&x| (x * CS, 2.5 * CS, Some(0.0))).collect();
+		let ab = step_chain(&places).expect("8.3, 8.3 and 4.2 yd links");
+		places.reverse();
+		let ba = step_chain(&places).unwrap();
+		let ways = [JoinWay { id: "barrow a-b".into(), cells: ab, drop: false, strict: true }, JoinWay { id: "barrow b-a".into(), cells: ba, drop: false, strict: true }];
+		let cg = CellGrid::new(C, 1, 1, 0, 0);
+		let (st, _) = apply(&geo(1), &mut outs, &ways, &cg, &|_| {}).unwrap();
+		assert_eq!((st.ways, st.floors, st.refused), (2, 2, 0), "a floor in each wall's cell: {st:?}");
+		let c = decoded(&outs[0].1);
+		assert!(reaches(&c, a, b) && reaches(&c, b, a), "the chain walks both ways through both walls");
 	}
 
 	/// A drop join's fall that hurts goes in even where his maps make another way down (the gap at row 7), counted:

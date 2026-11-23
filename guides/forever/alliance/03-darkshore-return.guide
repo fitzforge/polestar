@@ -62,10 +62,8 @@ step The Grove of the Ancients
   turnin 1003                                 -- Buzzbox 525
 
 step The Master's Glaive
-  tip Moonstalker Sires prowl the woods around the glaive. The Twilight Tome sits at the bottom of the crater; Therylune stands on its north side. For Onu's quest, use the Phial of Scrying at the bottom of the crater: it makes the Scrying Bowl, and you hand the quest in to the bowl.
+  tip Moonstalker Sires prowl the woods around the glaive. The Twilight Tome sits at the bottom of the crater. For Onu's quest, use the Phial of Scrying at the bottom of the crater: it makes the Scrying Bowl, and you hand the quest in to the bowl.
   collect 5386 quest 986                      -- Fine Moonstalker Pelts
-  accept 945                                  -- Therylune
-  complete 945                                -- Escort her out of the glaive; Therysil takes the turn-in in Ashenvale
   accept 968 optional                         -- Only if a Disciple or Thug dropped Book: The Powers Below: right-click it
   complete 944
   turnin 944                                  -- The Scrying Bowl
@@ -74,6 +72,11 @@ step The Master's Glaive
   accept 950
   accept 98042                                -- The Twilight Tome, once it has The Twilight Camp
   collect 279279 quest 98042                  -- Peerless Eye: Twilight Disciples and Thugs
+
+step Therylune
+  tip Therylune stands on the north side of the crater: escort her out of the glaive. Therysil takes the turn-in in Ashenvale.
+  accept 945                                  -- Therylune
+  complete 945                                -- Escort her out of the glaive; Therysil takes the turn-in in Ashenvale
 
 step Prospector Remtravel
   tip Remtravel's Excavation lies on the coast south of Murkdeep's beach. Protect the prospector while he searches for the fossil.
@@ -168,11 +171,14 @@ step Back south
   turnin 98013                                -- Arbal
 
 step Volcor
-  tip Volcor hides in the hills east of the Master's Glaive. Help him back to the road; he fights on his way out. Terenthis takes the escort in Auberdine on the next visit there.
+  tip Volcor hides in the hills east of the Master's Glaive, inside Blackwood Den.
   turnin 993                                  -- Volcor, inside Blackwood Den
+  kill 12298 quest 6124.1 "Cure Sickly Deer" only NightElf,Skyborne,Druid -- Sickly Deer: use the Curative Animal Salve on them; they roam all of Darkshore
+
+step Escort Volcor
+  tip Help Volcor back to the road; he fights on his way out. Terenthis takes the escort in Auberdine on the next visit there.
   accept 994
   complete 994 @41.7,81.5                     -- His walk ends at the road, where Grimclaw waits
-  kill 12298 quest 6124.1 "Cure Sickly Deer" only NightElf,Skyborne,Druid -- Sickly Deer: use the Curative Animal Salve on them; they roam all of Darkshore
 
 step Auberdine
   only Druid
@@ -262,6 +268,14 @@ step Trial of the Sea Lion
   tip Both half pendants in your bags (the Westfall half from your last Westfall visit, the Darkshore half from the north coast): stand by the Shrine of Remulos on the north-west shore of the lake and use a half to join them, then take the pendant to Dendrite Starblaze with the Cat Form hand-in. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   collect 15885 quest 272.1                   -- Pendant of the Sea Lion: join the halves at the Shrine of Remulos
   turnin 272                                  -- Dendrite Starblaze
+  accept 5061                                 -- Dendrite Starblaze: Aquatic Form, for Mathrengyl Bearwalker
+
+step Dendrite Starblaze
+  only NightElf,Skyborne,Druid
+  zone Moonglade
+  when turnedin 272
+  when available 5061
+  tip The Pendant of the Sea Lion is already with Dendrite Starblaze: take Aquatic Form from him, upstairs in his building.
   accept 5061                                 -- Dendrite Starblaze: Aquatic Form, for Mathrengyl Bearwalker
 
 step Back to Dendrite
