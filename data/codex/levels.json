@@ -18,6 +18,12 @@
 			"overleveledRuns": true,
 			"source": { "kind": "recording", "ref": "players' recordings to 2026-11-17: 109 characters with a boss kill in the Ruins of Lordaeron" },
 			"note": "Players run it well above its range: their 90th percentile entry level is 30.4 (83 people with a boss kill) against the Group Finder's top of 22. The 16 characters who entered at level 25 or higher ran it: 15 full clears of all six bosses, every kill in a party of five, 48 minutes to 7 hours inside. The range (15-22) and the floor stay as the rule makes them."
+		},
+		{
+			"key": "wailing-caverns",
+			"overleveledRuns": true,
+			"source": { "kind": "recording", "ref": "players' recordings to 2026-11-20: 148 characters with a boss kill in Wailing Caverns" },
+			"note": "Players run it well above its range: their 90th percentile entry level is 34 (120 people with a boss kill) against the Group Finder's top of 24; to 17 November it was 31.3, inside the check. The 16 characters who entered at level 30 or higher (30 to 60) killed its bosses 126 times, every kill in a party of five: carries and repeat runs, not a sign the range is wrong. The range and the floor stay as the rule makes them."
 		}
 	]
 }

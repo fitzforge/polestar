@@ -29,6 +29,7 @@
 --   q.engine.levelTarget = N                    -- what Engine.LevelTarget answers above the player's level
 --   q.engine.levelFrac = f                      -- with it, a point inside the level (also at the player's level)
 --   q.engine.kept = { [itemID] = step }         -- what Engine.KeptItems answers
+--   q.engine.itemGuides = { [itemID] = { { guide = g, step = s|nil }, ... } } -- what Engine.ItemGuides answers
 --   q.calls                                     -- { { "UseContainerItem", bag, slot }, { "GetQuestReward", i }, ... }
 --   q.log[questID], q.done[questID], q.watches  -- the quest log, handed-in quests and the game's watch list
 --   q.enterInstance(map[, kind]), q.leaveInstance() -- IsInInstance / GetInstanceInfo, PLAYER_ENTERING_WORLD
@@ -722,7 +723,9 @@ function C_GossipInfo.GetOptions() return q.gossip.options end
 function C_GossipInfo.GetNumAvailableQuests() return q.gossip.available end
 function C_GossipInfo.GetNumActiveQuests() return #q.gossip.active end
 function C_GossipInfo.GetActiveQuests() return q.gossip.active end
-function C_GossipInfo.GetAvailableQuests() return {} end
+-- opts.availableQuests ({ { questID }, ... }) gives the quests on offer their ids; without it the count alone
+-- (opts.available), as a client that names none.
+function C_GossipInfo.GetAvailableQuests() return q.gossip.availableQuests or {} end
 function C_GossipInfo.ForceGossip() return q.gossip.force end
 function C_GossipInfo.SelectOption(id) call("SelectOption", id) end
 function C_GossipInfo.SelectOptionByIndex(i) call("SelectOptionByIndex", i) end
@@ -730,7 +733,8 @@ function C_GossipInfo.SelectOptionByIndex(i) call("SelectOptionByIndex", i) end
 function q.openGossip(npc, opts)
 	q.npc = npc
 	q.gossip.options = opts.options or {}
-	q.gossip.available = opts.available or 0
+	q.gossip.availableQuests = opts.availableQuests
+	q.gossip.available = opts.available or (opts.availableQuests and #opts.availableQuests) or 0
 	q.gossip.active = opts.active or {}
 	q.gossip.force = opts.force or false
 	stub.fire("GOSSIP_SHOW")
@@ -890,6 +894,11 @@ end
 
 -- q.engine.kept: { [itemID] = step } the guide keeps for later steps.
 function Engine.KeptItems() return q.engine.kept or {} end
+-- q.engine.itemGuides: { [itemID] = { { guide = g, step = s|nil }, ... } } the guides whose steps use the item.
+function Engine.ItemGuides(itemID) return q.engine.itemGuides and q.engine.itemGuides[itemID] or nil end
+
+-- q.engine.wants: { ["accept:<id>"] = true, ["direct:<id>"] = true, ... } the quests the guide takes (Engine.WantsQuest).
+function Engine.WantsQuest(verb, questID) return (q.engine.wants or {})[verb .. ":" .. tostring(questID)] == true end
 
 -- A step from raw goals: views get status "active" unless goal.status says otherwise.
 function q.step(goals, index)

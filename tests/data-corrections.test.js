@@ -46,6 +46,30 @@ test('no correction file has the same id twice', () => {
 	assert.deepEqual(dup, []);
 });
 
+test('Gnomish Garbage counts five discards, not five Wastewander Rogue kills (#3159)', () => {
+	const [goal] = corrections.quests[97536].set.objectives;
+	assert.deepEqual([goal.type, goal.id, goal.count], ['event', null, 5]);
+	const [step] = require('../data/mechanics-public.json').quests[97536].steps;
+	assert.deepEqual([step.action, step.item, step.count], ['use-item', 278194, goal.count]);
+});
+
+test('A Reliquary of Purity opens at Rabine Saturna only after a Dire Maul visit (#3104, #3270)', () => {
+	const [step] = require('../data/mechanics-public.json').quests[5527].steps;
+	assert.deepEqual([step.action, step.target.type, step.target.id], ['accept', 'npc', 11801]);
+	assert.match(step.fact, /inside Dire Maul once/);
+});
+
+test('Goblin Lockpicks is a one-talk hand-in at Veenix, only while The Horn of Xelthos is in the log (#3161, #3213)', () => {
+	assert.equal(corrections.quests[78270].set.direct, true);
+	const [step] = require('../data/mechanics-public.json').quests[78270].steps;
+	assert.deepEqual([step.action, step.target.type, step.target.id], ['turnin', 'npc', 4086]);
+	assert.match(step.fact, /only while The Horn of Xelthos is in your quest log/);
+});
+
+test('Burbik Gearspanner sells no Fishing Pole: off its vendor list (#3037)', () => {
+	assert.deepEqual(corrections.items[6256].removeVendors, [5163]);
+});
+
 test('Damp Note requires The Essence of Aku\'Mai on the recorded Priestess drop, not on its follow-up quest (#1923)', () => {
 	assert.deepEqual(corrections.items[16790].dropRequires, { npc: { 4802: [6563] } });
 	assert.match(corrections.items[16790].source.ref, /#1923.*6820003090/);
@@ -230,6 +254,13 @@ test("Henrig Lonebrow's Journal lies where players loot it now, its old spot gon
 	assert.deepEqual(corrections.objects[19861].set.spawns, { 1441: { f: 'e', pts: [[31.29, 28.05]] } });
 });
 
+// #2466: the Ancient Egg's world point is inside both The Hinterlands' and Arathi Highlands' map frames, and it was
+// read in Arathi's (81.3,26.2), so the Sunken Temple pick-up guide's collect step led to Hammerfall. Players loot it
+// in The Hinterlands.
+test('The Ancient Egg lies in The Hinterlands, where players loot it, not on Arathi Highlands\' map (#2466)', () => {
+	assert.deepEqual(corrections.objects[175889].set.spawns, { 1425: { f: 'e', pts: [[57.48, 86.69]] } });
+});
+
 // #1992, #2007: Archmage Tervosh and Lady Jaina Proudmoore show at Sentry Point and North Point Tower only to players on
 // The Missing Diplomat; the corrections had made those spots their spawns, so the Maraudon pick-up guide sent everyone to
 // North Point Tower for Shadowshard Fragments. Their spawns are Theramore's tower; the chain's steps keep their own spots.
@@ -249,6 +280,16 @@ test('quest objects stand where players loot them: Krom\'zar\'s Banner, the coff
 	const box = at(19019, 1436).pts;
 	for (const p of [[43.98, 67.79], [44.9, 71.1], [26.46, 72.78]]) assert.ok(box.some((q) => q[0] === p[0] && q[1] === p[1]), `Box of Assorted Parts at ${p}`);
 	assert.ok(at(19019, 1413).pts.some((q) => q[0] === 61.92 && q[1] === 3.62), 'and in the Barrens where players loot it');
+});
+
+// Merkanex (#2861): the City of Dalaran pick-up guide sent a Horde player up the stairs to the guards for Dalaran
+// Patrols, and to 16,77 for the slaves. Players kill both around the ruins outside the dome, none south of 68.
+test('Dalaran Summoners and Elemental Slaves stand around the ruins outside the dome, none at 10-20,73-81 (#2861)', () => {
+	for (const id of [2358, 2359]) {
+		const pts = corrections.npcs[id].addSpawns[1416].pts;
+		assert.ok(pts.length >= 20, `npc ${id}: the recorded kill spots`);
+		for (const [x, y] of pts) assert.ok(x >= 16 && x <= 28 && y >= 49 && y <= 67, `npc ${id}: ${x},${y} outside the ruins`);
+	}
 });
 
 test('The Glowing Shard\'s one line is to speak with Sputtervalve in Ratchet, so its hand-in guide goes there first (#1326)', () => {
@@ -539,6 +580,80 @@ test('quest XP the recordings confirm is held by the corrections (0.3.8 XP revie
 	assert.deepEqual(corrections.quests[96261].set.preAny, [96259], "The Broodmother's prerequisite stays");
 });
 
+test('Hyjal tracks each seed cast separately and credits the decision at Felflick (#3170, #3121, #3194)', () => {
+	const wrecks = corrections.quests[93747].set.objectives;
+	assert.deepEqual(wrecks.map(o => [o.text, o.type, o.count]), [
+		['Ruined Ballista reclaimed', 'event', 1],
+		['Ruined Catapult reclaimed', 'event', 1],
+		['Ruined Flying Machine reclaimed', 'event', 1],
+	]);
+	assert.deepEqual(corrections.quests[96322].set.objectives, [
+		{ type: 'talk', id: 263757, count: 1, text: 'Decide What to do with Felflick' },
+	]);
+});
+
+test('A Matter of Time asks for fifteen Temporal Parasites in both the goal and its instructions (#3046)', () => {
+	const { objectives: [goal], objectiveText } = corrections.quests[4971].set;
+	assert.deepEqual([goal.type, goal.id, goal.count], ['kill', 10717, 15]);
+	assert.ok(objectiveText.includes(`${goal.count} Temporal Parasites`));
+});
+
+test("Burkrum's stock at Splintertree Post has no ammunition or ammo bags (#3189)", () => {
+	for (const item of [2102, 2512, 2515, 2516, 2519, 3030, 3033, 5439, 11285, 11362]) {
+		assert.ok(corrections.items[item]?.removeVendors.includes(6028), `item ${item} still lists Burkrum`);
+	}
+});
+
+test("Champion's Hall quartermasters sell and repair gear, but offer no inn or auction services (#2984, #3168)", () => {
+	for (const npc of [12777, 12782]) assert.deepEqual(corrections.npcs[npc].set.roles, ['repair', 'vendor']);
+});
+
+// #3112: the Crossroads stall is an auctioneer, a banker or a mailbox by the day (Auctioneer Quickcoin 258878,
+// Steamwheedle Courier 258879 and Uninspected Shipment 258880 share their two spawn points; recordings meet both
+// the auctioneer and the banker there), so the cooking guide's Auction House goal stalled on the other days.
+// Sweep of NPCs sharing every spawn point with another: this stall is the only one that takes turns.
+test('The Crossroads stall that changes by the day gives no Auction House or bank goal (#3112)', () => {
+	for (const npc of [258878, 258880]) assert.deepEqual(corrections.npcs[npc].set.roles, [], `npc ${npc}`);
+});
+
+// #3032: Nearby services' nearest vendor led to Orphan Matron Nightingale, whose vendor flag carries only the
+// Children's Week foods; 36 people's recorded windows with her had no merchant window.
+test('Orphan Matron Nightingale is no everyday vendor (#3032)', () => {
+	assert.deepEqual(corrections.npcs[14450].set.roles, []);
+});
+
+// #3241: Lookup's step for Powering the Pylons (96018) said "Elite: group advised" at the Mana Sieve's altar. The
+// Codex marks an object's objective when hostile elites stand within 40 yards of it, and an elite with no side counts
+// as hostile: the altar's Pylon Protectors (level 61) have none in the merged data, yet players' recordings show them
+// neutral to all 64 people who met them, never fought. Sweep: every elite with no side that marks a Codex objective,
+// checked against the recordings; these six more were seen only neutral or friendly and never killed.
+test('elites players only ever saw neutral are neutral to both sides, so no objective beside them reads "group advised" (#3241)', () => {
+	for (const npc of [252695, 11102, 266878, 266880, 271742, 270571, 269699]) {
+		assert.equal(corrections.npcs[npc]?.set?.faction, 'AH', `npc ${npc}: neutral to both sides`);
+	}
+});
+
+// #3028: Test of Lore's only line is to answer Braug Dimspirit's question, and a wrong answer teleports you to Camp
+// Taurajo; the Scarlet Monastery pick-up guide never said the answer. The mechanics record is the Codex's `how`, the
+// note Lookup shows on the step.
+test('Test of Lore says to answer Braug Dimspirit with Neltharion (#3028)', () => {
+	const [step] = require('../data/mechanics-public.json').quests[6627].steps;
+	assert.deepEqual([step.action, step.target], ['talk', { type: 'npc', id: 4489 }]);
+	assert.match(step.fact, /Neltharion/);
+	assert.match(step.fact, /Camp Taurajo/);
+});
+
+// #3069 (gidi, the Scarlet Monastery pick-up guide): the step for the first Test of Lore (1154) pointed at its book,
+// the Legacy of the Aspects, and never said the book lies underground, at the bottom of the Dor'Danil Barrow Den. The
+// mechanics record is the Codex's `how`, the note Lookup shows on the step.
+test("Test of Lore says its book lies at the bottom of the Dor'Danil Barrow Den (#3069)", () => {
+	const [step] = require('../data/mechanics-public.json').quests[1154].steps;
+	assert.equal(step.action, 'explore');
+	assert.match(step.fact, /Dor'Danil Barrow Den/);
+	assert.match(step.fact, /descend to the bottom/);
+	assert.match(step.fact, /Legacy of the Aspects/);
+});
+
 // #1820: Nearby services' "Bows & guns" at Grom'gol led to Innkeeper Thulbek (5814), who sells food, drink and
 // fish only (the Forever TDB's vendor list, 4 people's recorded merchant windows). pfQuest alone listed him as a
 // vendor of Hunter's Boomstick (2511) and a repairer. Sweep over every Codex `sells:ranged` and `repair` NPC
@@ -675,4 +790,100 @@ test('the release data: Death to the Dragonmaw (#2256) and Open the Maw (#2437) 
 	assert.ok(pre(98291).includes(98246), 'Death to the Dragonmaw after Trying Times');
 	assert.ok(pre(95682).includes(95663), 'Open the Maw after Dragonmaw Rumors');
 	assert.equal(quests[6562].breadcrumbFor, 6563);
+});
+
+// bsolca (#3102): Bloodpetal Poison's goal named the Workers, Reavers and Hive Guards for the Gorishi Sting; players'
+// recordings tick the line only on Wasps and Stingers.
+test('Gorishi Sting is not dropped by the Gorishi Workers, Reavers or Hive Guards (#3102)', () => {
+	assert.deepEqual(corrections.items[22435].removeDrops, { npc: [6552, 6553, 10040] });
+});
+
+// Soggy (#3235): The Super Snapper FX read "Kill Gammerita (elite)"; the snapshot comes from using the camera on her.
+test('Snapshot of Gammerita is no drop of Gammerita: the Super Snapper FX takes it (#3235)', () => {
+	assert.deepEqual(corrections.items[9330].removeDrops, { npc: [7977] });
+});
+
+test('In Demand - Ancient Elven Curiosities is offered from level 60, as the live server says (#3072)', () => {
+	assert.equal(corrections.quests[96076].set.minLevel, 60);
+});
+
+// The Codex's `how` (the public mechanics' facts) is what a Lookup pick-up step says beyond the objectives (#2714).
+test('pick-up steps say what the objectives leave out: the Twilight Key (#3266), Maraudon (#3243), Franclorn the ghost (#3009), the slimes\' chests (#3002)', () => {
+	const { quests } = require('../data/mechanics-public.json');
+	const how = (q) => (quests[q]?.steps ?? []).map((s) => s.fact).join(' ');
+	assert.match(how(94748), /Twilight Champions .* drop the Twilight Key/);
+	assert.match(how(93404), /inside Maraudon/);
+	assert.match(how(3801), /ghost only a dead character can see/);
+	assert.match(how(1027), /Rotting Slimes .* leave a Rusty Chest/);
+});
+
+// Rockout (#3545): My Little Friends' specimens are caught with the Bug Catching Net, not looted, so the goal read
+// "Kill Hay Weevil". The public mechanics name the net and the three insects it works on.
+test('My Little Friends: each specimen is a use of the Bug Catching Net on its insect, not a kill (#3545)', () => {
+	const m = require('../data/mechanics-public.json').quests[93176];
+	assert.deepEqual(m.params, [{ kind: 'use-item-on-mob', item: 213562, npcs: [217588, 217589, 217590] }]);
+	assert.deepEqual(m.steps.map((s) => [s.n, s.action, s.target.id, s.item.id]), [[1, 'use-item', 217588, 213562], [2, 'use-item', 217589, 213562], [3, 'use-item', 217590, 213562]]);
+});
+
+// Gindry (#3546): Tooga gives Oasis only once Tooga's Quest is handed in at Torta.
+test('Oasis comes after Tooga\'s Quest (#3546)', () => {
+	assert.deepEqual(corrections.quests[97540].set.pre, [1560]);
+});
+
+// #3171, #3392, #3522: the live server describes none of Duke Hydraxis's chain, nor Attunement to the Core, and two
+// players at 56 and 60 were offered nothing by him: the quests leave the data until the Molten Core opens.
+test('Duke Hydraxis\'s chain and Attunement to the Core leave the data while the Molten Core is closed (#3171, #3392, #3522)', () => {
+	for (const q of [6804, 6805, 6821, 6822, 6823, 6824, 7486, 7848]) {
+		assert.equal(corrections.quests[q].remove, true, `quest ${q}`);
+		assert.ok(corrections.quests[q].source.some((s) => s.kind === 'eg'), `quest ${q}: the live scans`);
+	}
+});
+
+// Zack (#3338): Scout Bloodfist and Rifleman Torrig are not in the world, and nobody has done their quests.
+test('The Silithus scouts\' quests leave the data: 9415, 9416 and the Scouring the Desert pair (#3338)', () => {
+	for (const q of [9415, 9416, 9419, 9422]) assert.equal(corrections.quests[q].remove, true, `quest ${q}`);
+});
+
+// PierreAnken (#3192): Ignatz offers the Horde's Stinky's Escape from level 36; the Alliance's stays at 30.
+test('Stinky\'s Escape (Horde) is offered from level 36 (#3192)', () => {
+	assert.equal(corrections.quests[1270].set.minLevel, 36);
+	assert.equal(corrections.quests[1222], undefined);
+});
+
+// Sugawolf (#3601): Pix Xizzix offers one In Demand quest a week; the data knew only 96076. All four are known now.
+test('Pix Xizzix\'s four In Demand quests are in the data (#3601)', () => {
+	for (const q of [96075, 96087, 96088]) {
+		const s = corrections.quests[q].set;
+		assert.deepEqual([s.start.npc, s.end.npc, s.minLevel, s.objectives.length], [[227853], [227853], 60, 3], `quest ${q}`);
+	}
+});
+
+// #2465, #3138, #3601, #558: what the game hides behind a condition, for the engine (#3658).
+test('Seeking the Kor Gem counts as done by An Underrated Talent; Zorbin sells after Zapped Giants; Pix\'s In Demand quests rotate; Franclorn is a ghost (#2465, #3138, #3601, #558)', () => {
+	assert.deepEqual(corrections.quests[95042].set.doneBy, [95111]);
+	assert.equal(corrections.npcs[14637].set.vendorAfter, 7003);
+	for (const q of [96075, 96076, 96087, 96088]) assert.equal(corrections.quests[q].set.rotation, 'pix-weekly', `quest ${q}`);
+	assert.equal(corrections.npcs[8888].set.ghostOnly, true);
+});
+
+// Everlast (#3301): Melizza offers her escort in the Maraudine camp, not along its path.
+test('Melizza Brimbuzzle stands only in the Maraudine camp (#3301)', () => {
+	for (const [x, y] of corrections.npcs[12277].set.spawns[1443].pts) assert.ok(x < 34.5 && y < 55, `${x},${y}`);
+});
+
+// Stö (#3531): Blademaster's Bonfires is two bonfires lit, with their objects and spots.
+test('Blademaster\'s Bonfires: the south and southeast bonfires are its objectives, placed where players light them (#3531)', () => {
+	assert.deepEqual(corrections.quests[96959].set.objectives.map((o) => [o.type, o.id]), [['object', 656668], ['object', 656669]]);
+	assert.deepEqual(corrections.objects[656668].addSpawns[2482].pts, [[49.1, 36.02]]);
+	assert.deepEqual(corrections.objects[656669].addSpawns[2482].pts, [[54.84, 40.0]]);
+});
+
+// #3706: Horde Triage (6622) takes place at Doctor Gregory Victor in Hammerfall, Arathi Highlands (1417),
+// not at the Alliance clinic in Theramore Isle (1445).
+test('Horde Triage (6622) is completed at Doctor Gregory Victor in Hammerfall (#3706)', () => {
+	const objs = corrections.quests[6622].set.objectives;
+	assert.ok(objs && objs.length === 1, 'one objective');
+	assert.equal(objs[0].type, 'event');
+	assert.equal(objs[0].map, 1417);
+	assert.deepEqual([objs[0].x, objs[0].y], [73.4, 36.8]);
 });

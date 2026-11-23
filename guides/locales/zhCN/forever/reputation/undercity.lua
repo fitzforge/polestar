@@ -116,7 +116,7 @@ return {
 	-- {quest:5096} Scarlet Diversions
 	["{quest:5096}, +100 (level 53)"] = "{quest:5096}，+100（53级）",
 	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
-	["the {object:176088}"] = "{object:176088}",
+	["the {object:176088}"] = "血色十字军前哨营地",
 
 	-- Step 19: Bulwark: the cauldrons
 	-- {area:152} Bulwark

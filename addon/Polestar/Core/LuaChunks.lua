@@ -66,12 +66,26 @@ end
 
 -- A bulk reader may pass its own cursor: for increasing ids, start at the
 -- last match instead of scanning the same names at the start of the chunk.
+-- For a dense catalogue, index offsets in just the current chunk. A missing
+-- translation then costs one lookup, not a scan of all the names around it.
 function Store:Raw(kind, id, cursor)
 	local list = self.chunks[kind]
 	id = tonumber(id)
 	if not list or not id then return nil end
 	local text = chunkOf(list, id)
 	if not text then return nil end
+	if cursor and cursor.dense then
+		if cursor.block ~= text then
+			local offsets = {}
+			for key, at in gmatch(text, "\n(%-?%d+)\t()") do
+				if not offsets[key] then offsets[key] = at end
+			end
+			cursor.block, cursor.offsets = text, offsets
+		end
+		local at = cursor.offsets[tostring(id)]
+		if at then return sub(text, at, find(text, "\n", at, true) - 1) end
+		return nil
+	end
 	local needle = "\n" .. id .. "\t"
 	local at = cursor and cursor.text == text and id > cursor.id and cursor.at or 1
 	local _, e = find(text, needle, at, true)

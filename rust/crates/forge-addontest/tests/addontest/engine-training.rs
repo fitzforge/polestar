@@ -546,3 +546,50 @@ fn the_banner_s_trainer_on_the_route_is_priced_once_for_repaints_on_one_spot_and
 	// Measured: 0.4.1 planned 12 routes for each repaint (120 for the ten); kept, none.
 	assert!(out["repaints"].as_u64().unwrap() <= 2, "route plans for ten repaints on one spot: {} (the first answer took {})", out["repaints"], out["plans"]);
 }
+
+// On a flight the player's spot changes every few seconds, and the banner's trainer on the route was priced
+// again at each new spot (up to four trainers with three route plans each: frames of 30 ms and more on a
+// flight). The pick is kept for the whole flight and made afresh once the player lands, as a fresh pick.
+#[test]
+fn on_a_flight_the_banner_s_trainer_is_priced_once_and_picked_afresh_on_landing() {
+	let out = run(
+		Some(&on_guide("test/route", 10)),
+		"",
+		r#"
+		stub.advance(0.5)
+		local E, w = Polestar.Engine, stub.world
+		local plans = 0
+		local cost = Polestar.TravelCost
+		Polestar.TravelCost = function(...) plans = plans + 1; return cost(...) end
+		local before = E.TrainingAdvice().trainer.npc
+		-- Boards a flight at the Crossroads, then flies south-west for 30 seconds, the window repainting each second.
+		w.onTaxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		stub.advance(0.5)
+		E.TrainingAdvice()
+		local p0 = plans
+		local x, y = 51.9, 30.4
+		for _ = 1, 30 do
+			x, y = x - 0.5, y + 1.4
+			w.moveTo(1413, x, y)
+			stub.advance(1)
+			E.TrainingAdvice()
+		end
+		local flying = plans - p0
+		-- Lands.
+		w.onTaxi = false
+		stub.fire("PLAYER_CONTROL_GAINED")
+		stub.advance(0.5)
+		local p1 = plans
+		local landed = E.NearestClassTrainer(true).npc
+		local landPlans = plans - p1
+		stub.fire("TRAINER_CLOSED")
+		emit({ before = before ~= nil, flying = flying, landPlans = landPlans, same = landed == E.NearestClassTrainer(true).npc })
+	"#,
+	);
+	assert_eq!(out["before"], true, "{out}");
+	// Measured on 0.4.2-rc1: 300 route plans in the 30 seconds of flight (ten a second); kept, none.
+	assert_eq!(out["flying"], 0, "route plans for the banner's trainer during a flight: {out}");
+	assert!(out["landPlans"].as_u64().unwrap() > 0, "the trainer is not picked afresh on landing: {out}");
+	assert_eq!(out["same"], true, "the pick after landing differs from a fresh one: {out}");
+}

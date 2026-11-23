@@ -585,6 +585,7 @@ function draftGuide(name, data, opts = {}) {
 	const learned = new Set(learnedFree);
 	const toolsDone = new Set();
 	const bought = new Set(); // vendor recipes already bought
+	const optionalBuys = new Set(); // vendor recipes whose buy never holds its step (spec.sellerNotes): their learn neither
 	let gate = 5; // character level the guide has asked for so far
 	let campDone = !spec.camp;
 	const questsTaken = new Set(); // recipe quests (and the quests before them) already in the guide
@@ -603,6 +604,17 @@ function draftGuide(name, data, opts = {}) {
 	};
 	// spec.notes: text added to the craft step whose range holds `at` (or the first after it).
 	const pendingNotes = (spec.notes || []).slice().sort((a, c) => a.at - c.at);
+	const onlyAt = (r) => {
+		const idx = RANK_NAMES.indexOf((spec.taughtBy || {})[r.spell]);
+		return idx > 0 && prof.ranks[idx] ? { idx, rank: prof.ranks[idx] } : null;
+	};
+	// Pin each faction to its teacher, and keep a trainer who spawns over a zone border on their home map.
+	const learnAtRank = (r, rank) => {
+		const ids = SIDES.map((s) => (rank.trainers && rank.trainers[s]) || []);
+		if (!ids.every((l) => l.length === 1)) return line(`  learn ${r.spell}`);
+		const mapPin = (id) => (Object.keys((npcs[id] || {}).spawns || {}).length > 1 && homeMap(npcs[id]) != null ? ` map ${homeMap(npcs[id])}` : '');
+		SIDES.forEach((s, i) => line(`  learn ${r.spell} npc ${ids[i][0]} only ${s}${mapPin(ids[i][0])}`));
+	};
 
 	brackets.forEach((b, bi) => {
 		const rankIdx = CAPS.indexOf(b.cap);
@@ -699,7 +711,11 @@ function draftGuide(name, data, opts = {}) {
 		}
 		// A fixed trainer (no spawn in the data: Annora) teaches the rank step's recipes too.
 		const pin = (r, npc) => (npc && r.learnedAt > (CAPS[rankIdx - 1] || 0) ? ` npc ${npc}` : '');
-		for (const r of firstLearn) line(`  learn ${r.spell}${fixed ? ` npc ${fixed}` : ''}`);
+		for (const r of firstLearn) {
+			const at = onlyAt(r);
+			if (at) learnAtRank(r, at.rank);
+			else line(`  learn ${r.spell}${fixed ? ` npc ${fixed}` : ''}`);
+		}
 		if (!campDone && spec.camp && b.from >= spec.camp.at) for (const l of campLearn()) line(l);
 		for (const r of firstLearn) learned.add(r.spell);
 		sink = out;
@@ -766,8 +782,15 @@ function draftGuide(name, data, opts = {}) {
 			world();
 			const stock = limitedOnly ? ` Its sellers keep one or two in stock that come back some time after a sale${m.bop ? '; it binds when picked up, so the Auction House never has it' : '; the Auction House often has it too'}.` : '';
 			const soldBy = sellers.filter(Boolean).length ? ` Sold by ${sellers.filter(Boolean).join('; ')}.` : '';
-			line(`  tip ${m.name || 'The recipe'} teaches ${r.name} (${P} ${r.learnedAt}) for ${priceOf(r)}.${soldBy}${stock}`);
-			line(`  buy ${r.recipeItem} nearest`);
+			// spec.sellerNotes: what a seller needs before he can be found (Magnus Frostwake, a ghost seen only with
+			// the Spectral Essence); a recipe every seller of which carries an `optional` note never holds its step.
+			const sellerIds = [...new Set(SIDES.flatMap((side) => [...((m.vendors && m.vendors[side]) || []), ...((m.limitedVendors && m.limitedVendors[side]) || [])]))];
+			const notes = sellerIds.map((id) => (spec.sellerNotes || {})[id]).filter(Boolean);
+			const optional = sellerIds.length > 0 && notes.length === sellerIds.length && notes.every((n) => n.optional);
+			const sellerNote = [...new Set(notes.map((n) => ` ${n.text}`))].join('');
+			line(`  tip ${m.name || 'The recipe'} teaches ${r.name} (${P} ${r.learnedAt}) for ${priceOf(r)}.${soldBy}${sellerNote}${stock}`);
+			line(`  buy ${r.recipeItem} nearest${optional ? ' optional' : ''}`);
+			if (optional) optionalBuys.add(r.spell);
 		}
 
 		// 4. The Auction House: what the bracket takes that a player can buy there
@@ -985,10 +1008,6 @@ function draftGuide(name, data, opts = {}) {
 				// spec.taughtBy: recipes only a later rank's trainers teach (Rugged
 				// Leather at Drakk Stonehand or Hahrana Ironhide): the learn is pinned
 				// to them, and the rank itself is offered there when the skill allows.
-				const onlyAt = (r) => {
-					const idx = RANK_NAMES.indexOf((spec.taughtBy || {})[r.spell]);
-					return idx > 0 && prof.ranks[idx] ? { idx, rank: prof.ranks[idx] } : null;
-				};
 				const anywhere = late.filter((r) => !onlyAt(r));
 				const pinned = late.filter((r) => onlyAt(r));
 				const parts = [];
@@ -1003,17 +1022,7 @@ function draftGuide(name, data, opts = {}) {
 				if (offer) parts.push(`You can train ${offer.rank.name} there now if you are level ${offer.rank.minLevel} (it needs ${P} ${offer.rank.minSkill}), which saves the trip at ${CAPS[offer.idx - 1]}.`);
 				line(`  tip ${parts.join(' ')}${camp ? ` ${campTip(seg.from)}` : ''}`);
 				for (const r of anywhere) line(`  learn ${r.spell}${pin(r, fx)}`);
-				// A trainer the data spawns on two maps (Drakk Stonehand at Aerie Peak,
-				// also on Hillsbrad Foothills' corner: one spot over a zone border) is
-				// pinned to the map the tip names (homeMap), else the compiler takes the
-				// first map and the arrow leads through the zone crossing.
-				const mapPin = (id) => (Object.keys((npcs[id] || {}).spawns || {}).length > 1 && homeMap(npcs[id]) != null ? ` map ${homeMap(npcs[id])}` : '');
-				for (const r of pinned) {
-					const { rank } = onlyAt(r);
-					const ids = SIDES.map((s) => (rank.trainers && rank.trainers[s]) || []);
-					if (ids.every((l) => l.length === 1)) SIDES.forEach((s, i) => line(`  learn ${r.spell} npc ${ids[i][0]} only ${s}${mapPin(ids[i][0])}`));
-					else line(`  learn ${r.spell}`);
-				}
+				for (const r of pinned) learnAtRank(r, onlyAt(r).rank);
 				if (offer) line(`  train ${pq} ${offer.rank.name} optional`);
 				if (camp) for (const l of campLearn()) line(l);
 				for (const r of late) learned.add(r.spell);
@@ -1092,11 +1101,13 @@ function draftGuide(name, data, opts = {}) {
 			line(`  tip ${notes.join(' ')}`);
 			for (const r2 of needs(seg)) {
 				if ((r2.source === 'vendor' || r2.source === 'quest' || auction[r2.spell]) && !learned.has(r2.spell)) {
-					line(`  learn ${r2.spell} -- from the ${auction[r2.spell] ? 'pattern bought at the Auction House' : 'recipe in your bags'}`);
+					line(`  learn ${r2.spell}${optionalBuys.has(r2.spell) ? ' optional' : ''} -- from the ${auction[r2.spell] ? 'pattern bought at the Auction House' : 'recipe in your bags'}`);
 					learned.add(r2.spell);
 				}
 			}
-			for (const m of seg.make) line(`  craft ${m.recipe.spell} x${m.count}${seg.tools.some((t) => t.item === m.item) ? ' -- a tool: keep it in your bags' : ''}`);
+			// The parts of a recipe whose plans may never be bought (spec.sellerNotes) hold the step no more than its learn.
+			const partsOptional = optionalBuys.has(r.spell) ? ' optional' : '';
+			for (const m of seg.make) line(`  craft ${m.recipe.spell} x${m.count}${partsOptional}${seg.tools.some((t) => t.item === m.item) ? ' -- a tool: keep it in your bags' : ''}`);
 			line(`  craft ${r.spell} until ${seg.to}`);
 			if (CAPS.includes(seg.to)) line(`  skill ${pq} ${seg.to}`);
 		}

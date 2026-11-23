@@ -31,7 +31,7 @@ local function captionFor(line, completed)
 	local id = line.Quest.Id
 	if type(id) ~= "number" or not readyQuest(id, completed) then return nil end
 	local plan = ns.RoutePlan.GetTurnIn(id)
-	local color = (plan.status == "missed" or plan.status == "skipped" or plan.status == "unplanned") and "ffffbb55" or "ffb4bdcf"
+	local color = (plan.status == "missed" or plan.status == "skipped" or plan.status == "unplanned" or plan.pickupOnly) and "ffffbb55" or "ffb4bdcf"
 	return "\n|c" .. color .. L["Polestar: %s"]:format(ns.RoutePlan.Describe(plan)) .. "|r"
 end
 
