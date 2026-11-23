@@ -216,6 +216,12 @@ step Razormane camp: Thork's quilboar
   kill 3267 quest 871.1
   kill 3268 quest 871.2
   kill 3265 quest 871.3
+
+step Thork's supply crates
+  only Orc,Troll,Warrior,Shaman
+  when group 5041
+  when onquest 5041
+  tip With your group: the supply crates sit at the camp's eastern end, among the Razormane Flesheaters and Berserkers (18-19, elite).
   collect 12708 quest 5041.1 @58.8,25.8
 
 step Durotar
@@ -291,8 +297,13 @@ step Razormane camp
   tip Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time.
   kill 3267 quest 871.1
   kill 3268 quest 871.2
-  collect 12708 quest 5041.1 @58.8,25.8
   kill 3265 quest 871.3
+
+step Thork's supply crates
+  when group 5041
+  when onquest 5041
+  tip With your group: the supply crates sit at the camp's eastern end, among the Razormane Flesheaters and Berserkers (18-19, elite).
+  collect 12708 quest 5041.1 @58.8,25.8
 
 step Finish the Plainstrider Beaks
   when !has 5087 x7
