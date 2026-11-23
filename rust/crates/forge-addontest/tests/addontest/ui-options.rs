@@ -498,7 +498,7 @@ fn built_in_controls_write_settings_and_follow_changes_made_elsewhere() {
 	assert_eq!(out["height"], 0.8, "slider values snap to the step");
 	assert_eq!(out["picked"], json!([0.9, 0.3, 0.1]));
 	assert_eq!(out["cancelled"], false, "cancel restores the previous value: no custom accent");
-	assert_eq!(out["skipGrey"], true);
+	assert_eq!(out["skipGrey"], false, "on by default: the click turns it off");
 }
 
 #[test]
