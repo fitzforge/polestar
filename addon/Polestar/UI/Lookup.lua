@@ -2173,8 +2173,8 @@ end
 local ORDER_LABELS = { best = L["Best match"], az = L["A to Z"] }
 local HISTORY_TIP = { L["Recent lookups show your history."] }
 local VISIBILITY_CHOICES = {
-	{ path = "lookup.hideRetired", text = L["Hide no longer obtainable"] },
-	{ path = "lookup.hideNoSource", text = L["Hide no known source"] },
+	{ path = "lookup.hideRetired", text = L["Hide no longer obtainable"], desc = L["Hides items that can't be obtained any more."] },
+	{ path = "lookup.hideNoSource", text = L["Hide no known source"], desc = L["Hides items with no known source."] },
 }
 
 local function mostLabel(code)
@@ -2747,8 +2747,10 @@ local function installFilterChrome()
 		if lo ~= range.appliedLo or hi ~= range.appliedHi then restoreRange(range, lo, hi) end
 	end
 
-	local function makeRange(panel, text, loKey, hiKey)
-		local range = W.SettingRow(panel, text)
+	local function makeRange(panel, text, desc, loKey, hiKey)
+		local range = W.SettingRow(panel, text, desc)
+		range:SetScript("OnEnter", W.RowEnter)
+		range:SetScript("OnLeave", W.HideTip)
 		range.loKey, range.hiKey = loKey, hiKey
 		local label = range.Label
 		local function box(placeholder)
@@ -2820,7 +2822,7 @@ local function installFilterChrome()
 		group.Rows = {}
 		drawer.Availability = {}
 		for i, choice in ipairs(VISIBILITY_CHOICES) do
-			local row = W.Toggle(group.Panel, choice.text, choice.path)
+			local row = W.Toggle(group.Panel, choice.text, choice.path, choice.desc)
 			group.Rows[i] = { row }
 			drawer.Availability[i] = row
 		end
@@ -2838,19 +2840,21 @@ local function installFilterChrome()
 			})
 			return row.Button
 		end
-		local function customDropdown(label, menu, display)
-			local row = W.Dropdown(panel, label, nil, nil, nil, nil, { openMenu = menu, display = display })
+		local function customDropdown(label, menu, desc, display)
+			local row = W.Dropdown(panel, label, nil, nil, desc, nil, { openMenu = menu, display = display })
 			return row.Button
 		end
-		item.Required = makeRange(panel, L["Required level"], "reqMin", "reqMax")
-		item.Level = makeRange(panel, L["Item level"], "ilvlMin", "ilvlMax")
+		item.Required = makeRange(panel, L["Required level"], L["Uses the level the item requires."], "reqMin", "reqMax")
+		item.Level = makeRange(panel, L["Item level"], L["Uses the item's item level, which sets how strong its stats are."], "ilvlMin", "ilvlMax")
 		item.Class = singleDropdown(L["Usable by"], "class", classChoices, L["Uses item class restrictions and equipment proficiencies."], classText)
-		item.Rarity = customDropdown(L["Rarity"], rarityMenu, function()
+		item.Rarity = customDropdown(L["Rarity"], rarityMenu, L["Uses the item's quality, from Poor to Legendary."], function()
 			local quality = current().saved.quality
 			return rarityText(quality), quality and #quality == 1 and { qualityColor(quality[1]) }
 		end)
-		item.Slot = singleDropdown(L["Slot"], "slot", slotChoices())
-		item.Stat = customDropdown(L["Stat"], statFilterMenu, function() return ns.Search.StatLabel(current().saved.stat) or L["Any stat"] end)
+		item.Slot = singleDropdown(L["Slot"], "slot", slotChoices(), L["Uses where the item is worn; items that aren't worn have no slot."])
+		item.Stat = customDropdown(L["Stat"], statFilterMenu, L["Uses the item's listed stats."], function()
+			return ns.Search.StatLabel(current().saved.stat) or L["Any stat"]
+		end)
 		item.Dropdowns = { item.Class, item.Rarity, item.Slot, item.Stat }
 		item.Rows = { { item.Required, item.Level } }
 		for _, button in ipairs(item.Dropdowns) do item.Rows[#item.Rows + 1] = { button:GetParent() } end

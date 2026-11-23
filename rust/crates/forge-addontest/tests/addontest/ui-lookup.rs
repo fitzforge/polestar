@@ -749,6 +749,37 @@ fn lookup_filter_scope_empty_precedence_history_and_character_storage() {
 }
 
 #[test]
+fn lookup_filter_rows_show_help_on_hover() {
+	let out = run_filter_drawer(
+		r#"
+		UI.ShowLookup({ query = "trial" })
+		nav("item"):Click()
+		local drawer, item = openDrawer()
+		local rows = {
+			{ item.Required, "Required level", "Uses the level the item requires." },
+			{ item.Level, "Item level", "Uses the item's item level, which sets how strong its stats are." },
+			{ item.Rarity:GetParent(), "Rarity", "Uses the item's quality, from Poor to Legendary." },
+			{ item.Slot:GetParent(), "Slot", "Uses where the item is worn; items that aren't worn have no slot." },
+			{ item.Stat:GetParent(), "Stat", "Uses the item's listed stats." },
+			{ drawer.Availability[1], "Hide no longer obtainable", "Hides items that can't be obtained any more." },
+			{ drawer.Availability[2], "Hide no known source", "Hides items with no known source." },
+		}
+		for _, entry in ipairs(rows) do
+			local row, label, help = unpack(entry)
+			assert(row:IsVisible(), label)
+			stub.RunScript(row, "OnEnter")
+			assert(GameTooltip:IsShown() and GameTooltip:GetOwner() == row, label .. " shows its row tooltip")
+			assert(#GameTooltip.lines == 2 and GameTooltip.lines[1] == label and GameTooltip.lines[2] == help, label)
+			stub.RunScript(row, "OnLeave")
+			assert(not GameTooltip:IsShown(), label .. " hides its row tooltip")
+		end
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
 fn lookup_filter_drawer_clears_every_displayed_group_in_one_update() {
 	let out = run_filter_drawer(
 		r#"

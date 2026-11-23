@@ -8332,7 +8332,8 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
 - **Lookup controls** (`UI/Lookup.lua`). Items expands to selectable
   classes and subclasses with counts from `categoryTotals`. The
   Filters drawer holds the two level ranges, class, rarity and availability
-  controls. Items and Everything also offer the Slot and Stat filters and
+  controls. Filter row tooltips show the label and help text on hover.
+  Items and Everything also offer the Slot and Stat filters and
   the Most order with a separate stat picker. Mounts, Pets, Recipes and
   Tabards use the base sort for search and A to Z for browse. They omit
   Slot and Stat from both the drawer and the results' filter predicates.
