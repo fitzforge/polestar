@@ -3352,6 +3352,21 @@ if ns.RegisterMigration then
 	end)
 end
 
+-- The settings window drew at 0.8 x ui.menuScale and draws at 0.92 x it now
+-- (W.SETTINGS_SCALE_BASE, 0.8 x 1.15): a scale the player set is divided by
+-- 1.15 once, to the nearest 1 % within the slider's 70-140 %, so the window
+-- keeps the size they chose (115 % reads 100 %). Runs after "pickerScale",
+-- which copies the old number to the guides window.
+if ns.RegisterMigration then
+	ns.RegisterMigration("menuScale092", function(s)
+		local ui = s.ui
+		local v = type(ui) == "table" and tonumber(ui.menuScale)
+		if not v then return end
+		v = math.min(1.4, math.max(0.7, math.floor(v / 1.15 * 100 + 0.5) / 100))
+		ui.menuScale = v ~= 1 and v or nil
+	end)
+end
+
 -- The class is certain once logged in; a palette read earlier is redone.
 if ns.OnLogin then ns.OnLogin(function() if get("ui.classAccent") then Theme.Refresh() end end) end
 
