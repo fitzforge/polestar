@@ -14665,9 +14665,11 @@ test('Desolace: Kodo Roundup: the Kodo Kombobulator step names the Aged, Dying a
 // collect's spots run through all their camps: the goal now says which mobs spawn at each spot (`fromNpcsAt`), and
 // the button names the spot the arrow takes. A camp of each tribe names its own centaurs first and no other tribe's.
 // Alliance Desolace (30-40/02) works the ears in Kolkar Village only since the 0.4.3 route review (next case): its
-// spots are the Kolkar camps, and each still names its own Kolkar, which is what this report asked for.
+// spots are the Kolkar camps, and each still names its own Kolkar, which is what this report asked for. The Maraudine
+// (36-39) are 3 or more levels above the level 31 quest and drop the ears beside the near tribes, so the collect
+// passes their camps over (#2744): no spot names them.
 test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its own camp\'s centaurs (#1616)', { skip }, () => {
-	const TRIBES = ['Kolkar', 'Magram', 'Gelkis', 'Maraudine'];
+	const TRIBES = ['Kolkar', 'Magram', 'Gelkis'];
 	for (const [file, quest] of [['forever/horde/30-40/04-dustwallow-marsh.guide', 1366]]) {
 		const list = goals(file);
 		const { goal } = list[at(list, `collect 6067 quest ${quest}`, (g) => g.t === 'collect' && g.item === 6067 && g.quest === quest)];
@@ -14679,6 +14681,7 @@ test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its o
 			const own = groups.some((names) => names.length && names[0].startsWith(t) && !names.some((n) => others.some((o) => n.startsWith(o))));
 			assert.ok(own, `${quest}: a spot at a ${t} camp names its ${t} centaurs and no other tribe's`);
 		}
+		assert.ok(!goal.fromNpcs.some((n) => n.npcName.startsWith('Maraudine')), `${quest}: no Maraudine camp, far above the quest (#2744)`);
 		// rockzors' follow-up: at Magram Village it is the Magram Windchaser (4641), not the Kolkar one; the Magram
 		// Wrangler (4640) stands there too.
 		const ids = goal.fromNpcsAt.split(';').map((s) => (s ? s.split(',').map((k) => goal.fromNpcs[Number(k) - 1].npc) : []));
@@ -14713,12 +14716,15 @@ test('Alliance Desolace: Centaur Bounty\'s ears and the Carved Centaur Totems ar
 // Vicious Gray Bears share the Hillsbrad hills, but a spot named only the bears whose own spawn stood within reach of
 // it, so most spots' target button said Vicious Gray Bear alone. Spawn areas joined across connected spawns (#2288,
 // shacklef00rd) name every dropper that roams the same hills, and the guide's hand-placed point still links only the
-// droppers at that point.
+// droppers at that point. Elder Gray Bears (25) are 3 or more levels above the level 22 quest and are passed over
+// (#2744); the Gray and Vicious Gray Bears left roam the same hills, so the goal names both at every spot, without a
+// list per spot.
 test('forever/horde/06-hillsbrad-foothills.guide: Elixir of Suffering: every bear spot of the Gray Bear Tongue collect names Gray Bear (#1869)', { skip }, () => {
 	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
 	const { goal } = list[at(list, 'collect 3476 quest 496', (g) => g.t === 'collect' && g.item === 3476 && g.quest === 496)];
-	assert.equal(typeof goal.fromNpcsAt, 'string', 'the goal lists each spot\'s mobs');
-	const ids = goal.fromNpcsAt.split(';').filter(Boolean).map((s) => s.split(',').map((k) => goal.fromNpcs[Number(k) - 1].npc));
+	const ids = goal.fromNpcsAt
+		? goal.fromNpcsAt.split(';').filter(Boolean).map((s) => s.split(',').map((k) => goal.fromNpcs[Number(k) - 1].npc))
+		: goal.spots.map(() => goal.fromNpcs.map((n) => n.npc));
 	assert.ok(ids.length > 10, `the bear spots are listed (${ids.length})`);
 	const without = ids.filter((l) => !l.includes(2351)).length;
 	assert.equal(without, 0, `every bear spot names Gray Bear (2351): ${without} of ${ids.length} do not`);
