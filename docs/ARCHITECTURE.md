@@ -171,7 +171,7 @@ out again (`GF.Layout`) only when its text would change, never for the login
 check alone.
 
 Modules fire their own (`TABS_CHANGED`, `ROUTE_*`, `TRAIN_DUE`,
-`CLASS_TRAINED`, `GUIDE_OUTLEVELED`, `QUESTDB_*`, `CODEX_LOADED`,
+`CLASS_TRAINED`, `GUIDE_OUTLEVELED`, `CARRIED_CHANGED`, `QUESTDB_*`, `CODEX_LOADED`,
 `ITEMDB_LOADED`, `GEAR_UPDATED`, `FLIGHT_STARTED`/`FLIGHT_ENDED`,
 `FLIGHT_MARK_CHANGED`, `QOL_HEARTH_CHANGED`, `QOL_XP_UPDATED`, `MOUNT_SPOTTED`, `RARE_SPOTTED`,
 `RARE_NAMED`, `RARES_HISTORY`, `SHOW_LOOKUP`, `SHOW_DUNGEON`, `SHOW_RARES`), documented
@@ -275,7 +275,9 @@ planned in too), and the first
 placement with the quest log in passes what of it lies behind the player's
 place (`Own.passAdded`: the first step that holds for content the old guide
 had, by the step's own rule, `Own.holds`: a vendor check-off beside other
-work never holds it), as `gone` steps and goals that no longer apply; nothing shows as
+work never holds it, nor does work of a quest not taken whose every accept
+the update added, `Own.addedWork`, #3464: a kept kill step whose quest the
+update moved before it), as `gone` steps and goals that no longer apply; nothing shows as
 skipped, and what of it the player has done is not passed: it shows done (a
 step passes whole while work of it is open). An accept passed takes its
 quest's later goals with it (orphaned). A quest the player carries whose remaining work is among them (its
@@ -1982,18 +1984,22 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   "Fresh starts") says how much of its quest XP hinges on earlier guides'
   quests. `Engine.FreshFor(g)` scales that share by the part of `needs` the
   character has neither done, nor in the log, nor taken on the way (a feeder
-  step of the guide's plan), and from `FRESH_NOTE` (30) percent in whole
-  percent (the share the note states), below the
-  guide's top level and with `from` a guide for this character, returns
-  `{ guideId, from, fromTitle, share, minutes }` (minutes: that XP as
-  same-level kills, `FRESH_KPM` (1.5) a minute, in fives). `Engine.FreshStart()`
+  step of the guide's plan), nor grey for them (#3879: the quest's level from
+  `from`'s accept), and from `FRESH_NOTE` (30) percent in whole percent,
+  below the guide's top level and with `from` a guide for this character,
+  returns `{ guideId, from, fromTitle, share }`. `Engine.FreshStart()`
   is the active guide's once the quest log is in, while its live step is in
-  the guide's first third: the guide window's "fresh" banner ("Fresh start:
-  about N% of this guide's quest XP follows on from X", "Open X" opens it in
-  a new tab; taken or dismissed, gone for that guide for the session).
+  the guide's first third: the guide window's "fresh" banner, an offer with
+  no percent and no minutes ("Some of this guide's quests follow on from X.
+  Start there for the full set, or carry on here; the guide fills in with
+  nearby quests.", "Open X" opens it in a new tab; taken or dismissed, gone
+  for that guide for the session).
 - **Out-levelled guides.** When the player's level exceeds the active guide's
   top (`maxLevel`, or their side's `factionLevels` one: `Guides.Levels`) by
-  `Engine.OUTGROWN` (3) or more, the Engine fires `GUIDE_OUTLEVELED(guideId,
+  `Engine.OUTGROWN` (3) or more (`Engine.Outgrown`; a Class guide by
+  `Engine.CLASS_OUTGROWN` (5), and only once the character knows every spell
+  its `reward` lines name, the level where QoL/ClassQuests.lua stops
+  offering it, #3845), the Engine fires `GUIDE_OUTLEVELED(guideId,
   suggestedId)` once per guide per session, once the guide is placed (a
   catch-up may pass it whole first); the UI offers the jump. While the
   guides between the active one and the level-best suggestion still hand in
@@ -12234,7 +12240,11 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
 - **Leffe's navigation maps in game** (`forge nav pack --leffe <dir>`, `pack/leffe.rs`, maps format 5): the
   walking maps taken from Leffe's navigation maps (format 4, private, never shipped as files) instead of our grid.
   His grid, height, floor and class fields already are the in-game encodings and pass through (the steps his flags
-  leave open past the walkable slope, which his reader closes, are closed); his zones too. His entrance graph is
+  leave open past the walkable slope, which his reader closes, are closed), but for the class's two hub bits, which are
+  ours (#3830: every cell a disk of the ground layers' `hubs.json` touches, as our grid's maps mark them, so the walk
+  keeps out of the towns `hubs.json` lists, Forever's own among them, and of no other; the entrance edges inside a
+  cluster whose bits change are priced again for the Alliance and Horde profiles by what the change adds to or takes
+  off their walk; PACK.json's `hubBits`); his zones too. His entrance graph is
   re-encoded as the graph field (an entrance on one of his refined ports becomes the surface owning it; an entrance
   keeps its 63 cheapest edges; an edge may be one way: an entrance lists only the edges it can walk; an edge's yards
   are his profile-free way's, as our grid's maps take theirs: he keeps a cost and a yards for each profile, and the

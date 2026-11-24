@@ -1428,6 +1428,12 @@ L["%s to buy"] = "%s à acheter"
 L["(only %s listed)"] = "(seulement %s en vente)"
 L["(old price)"] = "(ancien prix)"
 -- L["Elites nearby"] = ""
+-- L["Group, or careful: a group quest, yours to do or skip"] = ""
+-- L["Group, or careful: an escort that can go wrong"] = ""
+-- L["Group, or careful: elites at your level or above"] = ""
+-- L["Group, or careful: a group is advised"] = ""
+-- L["Careful: elites nearby"] = ""
+-- L["Careful: elites, below your level"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Lieu"
@@ -4747,6 +4753,8 @@ L["This guide is for %s characters. Polestar won't guide you through it."] = "Ce
 -- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 -- L["Looking ahead."] = ""
 -- L["Looking back."] = ""
+-- L["On the way to your map point (%s)."] = ""
+-- L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Appuyez sur %s pour reprendre, ou ouvrez la fenêtre du guide."
@@ -4857,8 +4865,6 @@ L["You have %s"] = "Vous avez %s"
 L["Send to Auctionator"] = "Envoyer à Auctionator"
 L["Copy list"] = "Copier la liste"
 L["Show how the profession guide gets its materials"] = "Afficher comment le guide de métier obtient ses matériaux"
-L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "Départ à zéro : environ %d %% de l'XP de quête de ce guide fait suite à %s."
-L["Expect about %d minutes of extra grinding, or start there."] = "Comptez environ %d minutes de farm en plus, ou commencez par là."
 L["Open %s"] = "Ouvrir %s"
 
 -- Core/ProfileStrings.lua
@@ -5388,3 +5394,5 @@ L["%d of %d"] = "%d sur %d"
 -- L["a game: Play"] = "Jouer"
 -- L["Do you want to play Doom while waiting?"] = "Envie de jouer à Doom en attendant ?"
 -- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "Un itinéraire peut commencer par un sort de téléportation que vous connaissez quand c'est plus rapide : les téléportations de mage vers les capitales, Reflet-de-Lune pour le druide ou Rappel astral pour le chaman (comme une seconde pierre de foyer). Une téléportation vers une capitale demande une rune de téléportation dans vos sacs."
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "Départ à zéro : environ %d %% de l'XP de quête de ce guide fait suite à %s."
+-- L["Expect about %d minutes of extra grinding, or start there."] = "Comptez environ %d minutes de farm en plus, ou commencez par là."

@@ -1584,6 +1584,38 @@ fn a_chokepoint_more_than_30_yd_above_or_below_the_path_is_no_stop_one_on_the_pa
 	assert_eq!(out, json!(["walk|Walk to the Ruins Door cave mouth", "walk|Target"]));
 }
 
+// #3734 (Gnomeregan's and Thunder Bluff's lifts): the landings stand a few yards apart on the map, 100 yd apart in
+// height. Off the lift at the top, the walk on climbs a ramp 20 yd and more past the top landing; that climb read as
+// riding the lift, and the arrow said "Ride the elevator up" again from the bottom, every time the route was planned.
+// A ride reaches both landings' heights; from the bottom the walk still rides up.
+#[test]
+fn issue_3734_a_walk_up_a_ramp_from_a_lifts_top_landing_rides_nothing_from_the_bottom_it_rides_up() {
+	let script = |start: &str, pts: &str| {
+		format!(
+			r#"
+		nav.useTravelWorld()
+		PolestarNavChokepoints = {{ [0] = {{
+			{{ wx = 0, wy = 6, z = 247.6, r = 6, kind = "lift", name = "Vator", liftEnd = "bottom", lift = "Vator", pair = 2 }},
+			{{ wx = 0, wy = 0, z = 348.3, r = 6, kind = "lift", name = "Vator", liftEnd = "top", lift = "Vator", pair = 1 }},
+		}} }}
+		nav.place({start})
+		target(0, -600)
+		N.Sample()
+		local job, pts = fake.last(), {{}}
+		for _, p in ipairs({{ {pts} }}) do pts[#pts + 1] = {{ map = job.map, x = p[1], y = p[2], z = p[3] }} end
+		job.callback(pts, 100, job)
+		local legs, ci = N.GetRoute()
+		local out = {{}}
+		for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit(out)"#
+		)
+	};
+	let top = run(&script("0, 0", "{ 0, 0, 348.3 }, { 0, -40, 366 }, { 0, -60, 370 }, { 0, -600, 409 }"));
+	assert_eq!(top, json!(["walk|Target"]), "off the lift at the top: on to the target");
+	let bottom = run(&script("0, 6", "{ 0, 6, 247.6 }, { 0, 5, 247.6 }, { 0, 0, 348.3 }, { 0, -40, 366 }, { 0, -60, 370 }, { 0, -600, 409 }"));
+	assert_eq!(bottom, json!(["walk|Walk to Vator, Bottom", "lift|Ride the elevator up", "walk|Target"]), "at the bottom: the ride up");
+}
+
 // A cave or building mouth whose name starts with "The" read "Walk to the The Screeching Canyon cave mouth".
 #[test]
 fn a_mouth_named_the_something_gets_one_article_walking_or_riding() {

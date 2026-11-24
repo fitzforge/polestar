@@ -2,6 +2,9 @@
 -- overview over the step number (UI/GuideFrame.lua).
 
 local ADDON, ns = ...
+-- "Say when I've outlevelled a guide" (Options, Guide > Automation > Guides,
+-- #3585): the "outlevel" notice, on unless the player turned it off.
+ns.RegisterDefaults("ui", { outlevelNotice = true })
 ns.UI.GuideFrame.Part(function(GF)
 	local UI, Theme, L, floor = ns.UI, ns.Theme, ns.L, math.floor
 	local Engine = GF.Engine
@@ -210,7 +213,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local fr = g ~= nil and not notices.freshSeen[g.id] and E.FreshStart and E.FreshStart()
 		if fr then return "fresh", fr end
 		local o = notices.outlevel
-		if o and g ~= nil and g.id == o.guideId then return "outlevel", o end
+		if o and g ~= nil and g.id == o.guideId and ns.Get("ui.outlevelNotice") then return "outlevel", o end
 		if notices.train then return "train", notices.train end
 		if notices.riding then return "riding", notices.riding end
 		if notices.classQuest then return "classQuest", notices.classQuest end
@@ -612,11 +615,10 @@ ns.UI.GuideFrame.Part(function(GF)
 			placeLink(banner.Jump, n.choose and L["Choose where to go next"] or string.format(L["Start %s"], n.label), 0, -4)
 			banner.Close:Show()
 		elseif kind == "fresh" then
-			-- What the quests it leaves out cost in grinding, and the guide they follow on from.
+			-- The guide some of its quests follow on from, as an offer, not a warning (Fitz, #3879: no percent,
+			-- no minutes: "it freaks people out that they're behind").
 			banner.Icon:SetTexture(Theme.Media("icon-level"))
-			local text = string.format(L["Fresh start: about %d%% of this guide's quest XP follows on from %s."], n.share, n.fromTitle)
-			if n.minutes then text = text .. "\n" .. string.format(L["Expect about %d minutes of extra grinding, or start there."], n.minutes) end
-			banner.Text:SetText(text)
+			banner.Text:SetText(string.format(L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."], n.fromTitle))
 			placeLink(banner.Jump, string.format(L["Open %s"], n.fromTitle), 0, -4)
 			banner.Close:Show()
 		elseif kind == "outlevel" then
@@ -625,7 +627,10 @@ ns.UI.GuideFrame.Part(function(GF)
 			-- (RoutePlan.LeftBehind): said here, and the jump asks once.
 			local left = ns.RoutePlan and ns.RoutePlan.LeftBehind(n.to)
 			n.left = left and left.n > 0 and left or nil
-			local text = L["You have outlevelled this guide."]
+			-- A Class guide's own words (#3845): its quests are behind you, the jump takes you on leveling.
+			local G = ns.Guides
+			local from = G and G.Get and G.Get(n.guideId)
+			local text = (from and from.category == "Class") and L["You are past this class quest's levels."] or L["You have outlevelled this guide."]
 			if n.left then
 				local what = n.left.n == 1 and L["1 finished quest here first"] or string.format(L["%d finished quests here first"], n.left.n)
 				text = text .. "\n" .. (n.left.xp > 0 and string.format(L["%s (%s XP)"], what, ns.Thousands(n.left.xp)) or what)
@@ -1008,12 +1013,16 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- GUIDE_OUTLEVELED(guideId, suggestedId): the player has outgrown the guide
 		-- in the active tab; offer the suggested one until dismissed or taken.
 		ns.On("GUIDE_OUTLEVELED", function(guideId, suggestedId)
-			if not F then return end
+			if not F or not ns.Get("ui.outlevelNotice") then return end
 			local G = ns.Guides
 			local target = suggestedId and G and G.Get and G.Get(suggestedId)
 			if not target then return end
 			notices.outlevel = { guideId = guideId, to = suggestedId, title = target.title or suggestedId }
 			if ns.IsLoggedIn() then GF.Layout() end
+		end)
+		-- The notice turned off (or on again): one on screen goes (or comes back).
+		ns.On("SETTING_CHANGED", function(path)
+			if (path == "ui.outlevelNotice" or path == "" or path == "ui") and F and notices.outlevel and ns.IsLoggedIn() then GF.Layout() end
 		end)
 		-- GUIDE_CONTINUED(fromId, toId, carried): with "Continue automatically" a
 		-- finished leveling guide handed off by itself. Said in the banner for

@@ -489,10 +489,21 @@ step Earthseer Farsen
   turnin 96390
   turnin 96391 optional
 
+# ---------------------------------------------------------------- North Gate Outpost
+
+step North Gate Outpost
+  zone Dun Morogh
+  tip Follow the road east and take its northern fork to the North Gate Outpost: Pilot Hammerfoot waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into Loch Modan come next, down the road to the south.
+  accept 419                                  -- Pilot Hammerfoot
+  turnin 419                                  -- A Dwarven Corpse
+  accept 417
+  collect 3183 quest 417.1                    -- Mangy Claw: Mangeclaw
+  turnin 417                                  -- Pilot Hammerfoot
+
 # ---------------------------------------------------------------- South Gate Outpost
 
 step South Gate Outpost
-  tip Follow the road all the way east to the South Gate Outpost at the Loch Modan tunnel.
+  tip Back south down the road to the South Gate Outpost at the Loch Modan tunnel.
   turnin 413                                  -- Mountaineer Barleybrew
   accept 414
 
@@ -513,17 +524,6 @@ step Braldir Ashmantle
   tip Go through the tunnel into Loch Modan. Just past it, a path marked by stones climbs the hills on the right of the road north to Braldir's camp.
   turnin 94465                                -- Braldir Ashmantle
   accept 94466
-
-# ---------------------------------------------------------------- North Gate Outpost
-
-step North Gate Outpost
-  zone Dun Morogh
-  tip Pilot Hammerfoot waits at the North Gate Outpost, north of the South Gate; the dwarven corpse lies up the pass to the west of him.
-  accept 419                                  -- Pilot Hammerfoot
-  turnin 419                                  -- A Dwarven Corpse
-  accept 417
-  collect 3183 quest 417.1                    -- Mangy Claw: Mangeclaw
-  turnin 417                                  -- Pilot Hammerfoot
 
 # ---------------------------------------------------------------- Loch Modan: the tunnel post, Thelsamar and the west hills
 

@@ -1427,6 +1427,12 @@ L["%s to buy"] = "需購買 %s 個"
 L["(only %s listed)"] = "（僅有 %s 個在售）"
 L["(old price)"] = "（舊價格）"
 -- L["Elites nearby"] = ""
+-- L["Group, or careful: a group quest, yours to do or skip"] = ""
+-- L["Group, or careful: an escort that can go wrong"] = ""
+-- L["Group, or careful: elites at your level or above"] = ""
+-- L["Group, or careful: a group is advised"] = ""
+-- L["Careful: elites nearby"] = ""
+-- L["Careful: elites, below your level"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -4746,6 +4752,8 @@ L["This guide is for %s characters. Polestar won't guide you through it."] = "�
 -- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 -- L["Looking ahead."] = ""
 -- L["Looking back."] = ""
+-- L["On the way to your map point (%s)."] = ""
+-- L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "按 %s 恢復，或打開指南視窗。"
@@ -4856,8 +4864,6 @@ L["You have %s"] = "你有 %s"
 L["Send to Auctionator"] = "傳送到 Auctionator"
 L["Copy list"] = "複製清單"
 L["Show how the profession guide gets its materials"] = "顯示專業指南如何取得材料"
-L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "從頭開始：此指南約 %d%% 的任務經驗承接自 %s。"
-L["Expect about %d minutes of extra grinding, or start there."] = "預計需要額外練等約 %d 分鐘，或者從那裡開始。"
 L["Open %s"] = "開啟 %s"
 
 -- Core/ProfileStrings.lua
@@ -5340,3 +5346,5 @@ L["%d of %d"] = "%d / %d"
 -- L["a game: Play"] = "開始遊戲"
 -- L["Do you want to play Doom while waiting?"] = "等待時想玩 Doom 嗎？"
 -- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "在較快時，路線可能以你會的傳送法術開始：法師的主城傳送、德魯伊的月光林地，或薩滿的星界傳送（就像第二顆爐石）。主城傳送需要背包中有傳送符文。"
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "從頭開始：此指南約 %d%% 的任務經驗承接自 %s。"
+-- L["Expect about %d minutes of extra grinding, or start there."] = "預計需要額外練等約 %d 分鐘，或者從那裡開始。"

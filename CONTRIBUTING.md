@@ -82,6 +82,13 @@ report goes through the same steps before anything changes:
 6. **Credit the reporter** in the fix's changelog entry, "(thanks <name>)",
    and tell them which release carries the fix.
 
+A report of something an earlier release already fixed is closed as
+completed with that release's label, `released:<tag>`, added first (`gh
+issue edit <N> --add-label released:v0.4.2.2`, then `gh issue close <N>
+--reason completed`): the Discord thread is told which release has the
+fix, and the release gates' pin coverage guard (`tools/pin-coverage.js`)
+counts it as that release's fix, not one the coming release has to pin.
+
 ## Before you start
 
 Many people, and their agents, work on the same reports at once. These

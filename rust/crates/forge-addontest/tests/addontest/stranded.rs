@@ -235,6 +235,28 @@ fn the_guide_window_lists_the_finished_quests_no_route_hands_in_in_one_row_that_
 	assert_eq!(out["room"], json!([true, "Finished quests you're still carrying", "A Fishy Peril"]), "{out}");
 }
 
+// #3568 (LaboredGuineaPig), #3410 (Megabite): the row said 2 finished quests to hand in elsewhere while the list it
+// opened said the route hands in every one. The row was drawn with the step only, so a quest handed in off the step
+// (A Fishy Peril at Marshal Dughan) left it counting. RoutePlan says CARRIED_CHANGED and the row follows the list.
+#[test]
+fn the_carried_row_follows_a_quest_handed_in_off_the_step_and_agrees_with_its_list_3568() {
+	let out = run(r#"
+		local GF = Polestar.UI.GuideFrame
+		GF.Render(); flush()
+		local function row()
+			for _, x in ipairs(GF.alongRows) do
+				if x:IsShown() and x.psCarried then return plain(x.Text:GetText()) end
+			end
+			return false
+		end
+		local r = { before = row() }
+		w.turnIn(40); stub.fire("QUEST_LOG_UPDATE"); flush(); stub.advance(1.2)
+		r.after, r.list = row(), #Polestar.RoutePlan.Carried()
+		emit(r)
+	"#);
+	assert_eq!(out, json!({ "before": "1 finished quest to hand in elsewhere (800 XP)", "after": false, "list": 0 }));
+}
+
 // A kill that ticks an objective (#2555): the client's burst (the quest log three times, the objective, XP, loot)
 // is one evaluation, one step update and one tab update, and the row above is drawn again from the route plan as
 // it stands: the plan is not rebuilt, so no walk over every registered guide (Guides.List from RoutePlan). A quest

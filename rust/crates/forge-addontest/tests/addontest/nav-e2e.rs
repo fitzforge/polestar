@@ -3567,7 +3567,9 @@ fn a_later_walks_failed_search_answered_before_its_sketch_is_kept_and_raises_no_
 /// floor (30) it costs x3 at 26: both travel plans walk, the floor's with fewer yards of Alterac, as in 0.4.1.1 (Main,
 /// 2026-11-21, Fitz: "go back to our original danger pathing"; 0.4.2's guarded-crossing approaches, which kept both
 /// plans on the southern border's road, went with the enemy-ground veto). The walking-only arrow to the same marker
-/// still crosses Alterac, but spends fewer yards there when priced at x3.
+/// crosses Alterac unpriced (the P10) and spends fewer yards there when priced at x3: since #3830 none, as the walk
+/// also keeps out of Dalaran's Kirin Tor guards (hostile to the Horde, #1961), which the walking maps price now, and
+/// goes round by Silverpine. The x3 is a price the walk weighs, not a wall: the unpriced walk still crosses.
 #[test]
 fn zone_danger_1490_alterac_counts_from_its_danger_floor_at_level_26_the_walk_to_modera_crosses_less_of_it() {
 	skip_unless_ready!();
@@ -3584,7 +3586,7 @@ fn zone_danger_1490_alterac_counts_from_its_danger_floor_at_level_26_the_walk_to
 	assert!(alterac(&now) < alterac(&before), "fewer yards of Alterac Mountains: {} with the floor, {} without", alterac(&now), alterac(&before));
 	let direct = tarren_mill_walk(26, to, false, Some(false));
 	let unweighted = tarren_mill_walk(26, to, true, Some(false));
-	assert!(alterac(&direct) > 0.0 && alterac(&direct) < alterac(&unweighted), "soft cost, not exclusion: {direct} vs {unweighted}");
+	assert!(alterac(&unweighted) > 0.0 && alterac(&direct) < alterac(&unweighted), "soft cost, not exclusion: {direct} vs {unweighted}");
 	assert!(f(&direct["price"]) > f(&unweighted["price"]), "the walking engine must charge for traversing Alterac");
 }
 

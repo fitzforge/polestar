@@ -2722,10 +2722,16 @@ local function climbs(a)
 end
 
 -- Whether the path rides a lift at segment a: its height changes DZ.RIDE yards or more from the point before the
--- segment to the one after it (the walking engine's path steps from one landing to the other).
-local function rides(a)
+-- segment to the one after it (the walking engine's path steps from one landing to the other). With the landings'
+-- heights (z1, z2), those points reach both: a walk from the top landing up a ramp climbs as much and rides
+-- nothing (#3734: Gnomeregan's and Thunder Bluff's lifts, "Ride the elevator up" again after the ride).
+local function rides(a, z1, z2)
 	local before, after = ptsZ[a > 1 and a - 1 or 1], ptsZ[a + 2 <= count and a + 2 or count]
-	return type(before) == "number" and type(after) == "number" and abs(after - before) >= DZ.RIDE
+	if not (type(before) == "number" and type(after) == "number" and abs(after - before) >= DZ.RIDE) then return false end
+	if not (type(z1) == "number" and type(z2) == "number") then return true end
+	local tol = DZ.RIDE / 2
+	local lo, hi = before < after and before or after, before < after and after or before
+	return lo <= (z1 < z2 and z1 or z2) + tol and hi >= (z1 < z2 and z2 or z1) - tol
 end
 
 local function liftId(c, wx, wy)
@@ -2769,8 +2775,14 @@ function Walk.Stops(pc, px, py)
 		local d, a, sx, sy, along, t = project(e.wx, e.wy)
 		along = along - here
 		-- A lift the path rides is a step however near the walk's ends (the Great Lift's
-		-- bottom landing a few yards from the Thousand Needles crossing).
-		local ridden = kind == "lift" and rides(a)
+		-- bottom landing a few yards from the Thousand Needles crossing). The landings' heights: a packed
+		-- chokepoint's and its pair's, else Transit's lift's top and bottom.
+		local ridden = false
+		if kind == "lift" then
+			local P = _G.PolestarNavChokepoints
+			local o = e.pair and type(P) == "table" and type(P[gc]) == "table" and P[gc][e.pair]
+			if type(o) == "table" then ridden = rides(a, tonumber(e.z), tonumber(o.z)) else ridden = rides(a, tonumber(e.top), tonumber(e.bottom)) end
+		end
 		if d > r then return end
 		if ridden then
 			if along < -r then return end
