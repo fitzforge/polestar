@@ -126,10 +126,6 @@ return {
 	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands
 	["for {npc:2700} at {area:320}, in the {zone:1417} guide"] = "para {npc:2700} en {area:320}, en la guía de {zone:1417}",
 
-	-- Step 26: Green Belt
-	-- {npc:270637} Howin Kindfeather · {npc:2094} James Halloran · {area:150} Menethil Harbor
-	["{npc:270637}: {npc:2094}'s crate, from {area:150}"] = "{npc:270637}: la caja de {npc:2094}, de {area:150}",
-
 	-- Step 27: Rethiel the Greenwarden
 	-- {area:17732} Excavation Site: Wetlands · {npc:1244} Rethiel the Greenwarden · {npc:270637} Howin Kindfeather
 	["The root core from your {area:17732} run: {npc:1244} stands by the river, just east of {npc:270637}."] = "El núcleo de raíz de tu recorrido por {area:17732}: {npc:1244} está junto al río, justo al este de {npc:270637}.",
@@ -380,6 +376,7 @@ return {
 	-- ["{npc:2366}, in the inn: for {area:35} (04-stranglethorn-vale)"] = "{npc:2366}, en la posada: para {area:35} (04-stranglethorn-vale)",
 	-- ["{npc:2438} also wants a {item:3719}, a {item:2997} and {item:2321}: crafted or bought; the cloak is turned in when you are back in {area:271} later."] = "{npc:2438} también quiere {item:3719}, {item:2997} y {item:2321}: fabricados o comprados; la capa se entrega cuando regreses a {area:271} más tarde.",
 	-- ["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}; you deliver it after the Syndicate camp."] = "{npc:251493} está al noroeste del maestro de vuelo, de camino al norte hacia la cueva de los yetis.\n{quest:98059}: {npc:251493} te da una {item:279386} para el consejo de {area:287}, en las granjas al oeste de {area:271}; la entregas después del campamento del Sindicato.",
+	-- ["{npc:270637}: {npc:2094}'s crate, from {area:150}"] = "{npc:270637}: la caja de {npc:2094}, de {area:150}",
 	-- ["{npc:270844}: for {npc:3649} in {area:442} (02-desolace)"] = "{npc:270844}: para {npc:3649} en {area:442} (02-desolace)",
 	-- ["{npc:2708} is in the {object:2164}; {npc:211033} near the canal; {npc:5081} south of the {object:2101}."] = "{npc:2708} está en {object:2164}; {npc:211033}, cerca del canal; {npc:5081}, al sur de {object:2101}.",
 	-- ["{npc:271462} stands in the south-eastern hills: use the {item:279996} beside it."] = "{npc:271462} está en las colinas del sureste: usa {item:279996} junto a él.",

@@ -156,7 +156,8 @@ function pickSpawn(data, candidates, zoneMap, prev, opts = {}) {
 // An item only elites drop here keeps them. With `rares` (see rareLeads) a
 // rare (isRare) is passed over the same way. With `qlvl` (a collect's quest
 // level), droppers ABOVE_QUEST_LEVELS or more above it are passed over where
-// they would crowd out the droppers nearer its level (levelSplit).
+// they would crowd out the droppers nearer its level, or would be named beside
+// them (levelSplit).
 //
 // Sources with a drop chance: only the likely ones count (at least half the
 // best chance here; sub-1% drops only when nothing better drops here).
@@ -364,9 +365,13 @@ function eliteSplit(data, cands, sides, rares = false) {
 // out droppers near a quest's level `qlvl` only because an npc whose lowest
 // level is ABOVE_QUEST_LEVELS or more above it drops it at a higher chance:
 // `near`, the likely ones among the droppers near the quest's level (their
-// own best chance sets the bar), `above`, those far above it.
+// own best chance sets the bar), `above`, those far above it. A far-above
+// dropper likely beside the near ones is passed over too (#2744: the Elder
+// Timberling, level 10, at 100% beside the level 5 Timberlings' 53% for the
+// level 5 Timberling Seeds named the Elder on the goal).
 // -> { near, above } | null (no quest level, no chances, nothing near the
-// quest's level drops it at 1% while something does, or none crowded out)
+// quest's level drops it at 1% while something does, or no far-above dropper
+// among the likely ones and none near crowded out)
 function levelSplit(data, cands, qlvl) {
 	if (!(qlvl > 0) || !cands.some((c) => typeof c.chance === 'number')) return null;
 	const chanceOf = (c) => c.chance || 0;
@@ -383,7 +388,7 @@ function levelSplit(data, cands, qlvl) {
 	if (Math.max(...rest.map(chanceOf)) < 1 && Math.max(...cands.map(chanceOf)) >= 1) return null;
 	const all = likely(cands);
 	const near = likely(rest);
-	return near.some((c) => !all.includes(c)) ? { near, above } : null;
+	return near.some((c) => !all.includes(c)) || above.some((c) => all.includes(c)) ? { near, above } : null;
 }
 
 // Whether a rare drops the item at the highest chance while normal sources

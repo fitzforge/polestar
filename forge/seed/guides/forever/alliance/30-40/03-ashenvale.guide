@@ -36,8 +36,6 @@ next forever/alliance/30-40/04-stranglethorn-vale
 # which gives Passage to Booty Bay (1040) for the next guide.
 
 step Fly to Menethil Harbor
-  zone Stormwind City
-  goto 66.3,62.7 "Stormwind flight master"
   fly "Menethil Harbor"
   zone Wetlands
 

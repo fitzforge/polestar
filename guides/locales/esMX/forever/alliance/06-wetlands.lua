@@ -298,8 +298,6 @@ return {
 	["On the top floor"] = "En el piso superior",
 	-- {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
 	["For the Dragonmaw catapult, on the {zone:1437} loop of the {zone:1424} guide"] = "Para la catapulta Dragonmaw, en el circuito de {zone:1437} de la guía de {zone:1424}",
-	-- {npc:2094} James Halloran · {npc:270637} Howin Kindfeather · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
-	["{npc:2094}: the crate for {npc:270637}, on the {zone:1437} loop of the {zone:1424} guide"] = "{npc:2094}: la caja para {npc:270637}, en el circuito de {zone:1437} de la guía de {zone:1424}",
 
 	-- Step 54: Captain Halyndor
 	-- {npc:1160} Captain Halyndor · {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands
@@ -712,6 +710,7 @@ return {
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: une las dos mitades",
 	-- ["{npc:1217}, in the {area:2104}"] = "{npc:1217}, en {area:2104}",
 	-- ["{npc:2094}, by the docks, on the way to the boat"] = "{npc:2094}, junto a los muelles, de camino al barco",
+	-- ["{npc:2094}: the crate for {npc:270637}, on the {zone:1437} loop of the {zone:1424} guide"] = "{npc:2094}: la caja para {npc:270637}, en el circuito de {zone:1437} de la guía de {zone:1424}",
 	-- ["{npc:2097}, by the north gate: {npc:1071} takes it on 30-40/01-hillsbrad-foothills' {area:205} stop"] = "{npc:2097}, junto a la puerta norte: la recibe {npc:1071} en la parada de {area:205} de 30-40/01-hillsbrad-foothills",
 	-- ["{npc:3691}, in the inn"] = "{npc:3691}, en la posada",
 	-- ["{npc:3691}: {quest:1025}, the Foulweald on the way to {npc:3897}"] = "{npc:3691}: {quest:1025}, los Malahoja de camino a {npc:3897}",

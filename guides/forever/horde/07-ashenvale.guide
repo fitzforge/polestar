@@ -56,9 +56,7 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # Allegiance to the Old Gods part 2 (6565, a second run) and the Warlock's Orb of Soran'ruk (1740, class guide).
 
 step Fly to Zoram'gar Outpost
-  zone The Barrens
   tip East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to Zoram'gar Outpost. If your hearthstone is ready, hearth to Camp Taurajo and fly from there instead.
-  goto 51.5,30.4 "Crossroads flight master"
   fly "Zoram'gar Outpost"
   zone Ashenvale
 

@@ -195,7 +195,8 @@ return {
 
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
-	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "De nuevo al oeste, a {area:16723}: {npc:260931}, un minero Crepuscular que quiere salirse, espera en el borde este del pueblo. Convéncelo y luego entrega la misión de {npc:256710}; uno de los ogros desaparecidos está a unos pasos al oeste.",
+	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "De nuevo al oeste, a {area:16723}: {npc:260931}, un minero Crepuscular que quiere salirse, espera en el borde este del pueblo. Convéncelo y luego entrega la misión de {npc:256710}; uno de los ogros desaparecidos está a unos pasos al oeste."
+	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "convence a {npc:260931}",
 	-- {npc:261208} Twilight Brute
@@ -493,6 +494,7 @@ return {
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Hocicorresoplo y {npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548} están al sur de {area:3}. Cabalga al este desde {area:657} hasta {area:75} y vuela a {area:340}: el camino de bajada a la zona empieza ahí.",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "Al oeste de Rog'mar, el culto Crepuscular controla el pueblo granjero de {area:16723}. {npc:259158}, un kóbold que quiere salirse, se esconde en medio del pueblo.",
+	-- ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "De nuevo al oeste, a {area:16723}: {npc:260931}, un minero Crepuscular que quiere salirse, espera en el borde este del pueblo. Convéncelo y luego entrega la misión de {npc:256710}; uno de los ogros desaparecidos está a unos pasos al oeste.",
 	-- ["the middle ship"] = "el barco del medio",
 	-- ["the northern ship"] = "el barco del norte",
 	-- ["the {object:707249} poster"] = "el cartel de {object:707249}",

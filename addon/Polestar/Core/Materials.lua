@@ -610,6 +610,10 @@ end
 -- in the game's browse list does) and fills in the count to buy once its listings are there; buying stays the
 -- game's Buy Now, the player's own click. What a search shows is kept as the item's prices (Materials.NoteSearch):
 -- the searches Polestar opened and those the player makes for a tracked material.
+-- In gamepad mode (ns.GamepadUI) the game's gamepad managers take taint from an addon that drives the Auction House
+-- window (its buy view, its quantity event), and the controller's own actions are then blocked (#3700). There the
+-- search is only the game's browse query for the item's name: the window fills its list from its own event, and
+-- the player picks the result and the count.
 local searching = {} -- item -> the count to fill in when its listings come
 local keyWait -- an item whose auction key the client is still loading
 
@@ -621,16 +625,29 @@ end
 local function openItem(item)
 	local AH = C_AuctionHouse
 	local key = AH.MakeItemKey(item)
-	if not AH.GetItemKeyInfo(key) then
+	local info = AH.GetItemKeyInfo(key)
+	if not info then
 		keyWait = item
 		return
 	end
 	keyWait = nil
+	if ns.GamepadUI() then
+		searching[item] = nil
+		local order = Enum and Enum.AuctionHouseSortOrder
+		AH.SendBrowseQuery({ searchString = info.itemName or "", sorts = { { sortOrder = order and order.Price or 0, reverseSort = false } },
+			filters = {}, itemClassFilters = {} })
+		return
+	end
 	AuctionHouseFrame:SelectBrowseResult({ itemKey = key, minPrice = 0, totalQuantity = 0 })
 end
 
 function Materials.Search(item, count)
-	if type(item) ~= "number" or not (Materials.AuctionOpen() and AuctionHouseFrame.SelectBrowseResult) then return false end
+	if type(item) ~= "number" or not Materials.AuctionOpen() then return false end
+	if ns.GamepadUI() then
+		if not C_AuctionHouse.SendBrowseQuery then return false end
+	elseif not AuctionHouseFrame.SelectBrowseResult then
+		return false
+	end
 	searching[item] = max(1, count or 1)
 	openItem(item)
 	return true
