@@ -121,6 +121,32 @@ fn the_generated_forever_overlay_reads_as_forge_encodes_it_and_its_quests_regist
 	assert!(out[1]["quests"].as_f64().unwrap() > 1000.0, "{}", out[1]);
 }
 
+// #3250 (Broob ', Frost Mage): Coldbringer Spine, one of Forever's new items, was not in the item data, so its equip
+// bonuses (59 Frost spell damage, 1% spell hit) never counted and Celestial Stave scored as a big upgrade over it.
+// Forever.lua carries both staves as the Forever client's tables give them: with the Frost weights the report quotes
+// (spell and Frost damage 1.1, spell hit 7.25, Intellect 0.56, Spirit 0.3), the Spine scores well ahead.
+#[test]
+fn coldbringer_spine_carries_its_frost_damage_and_spell_hit_3250() {
+	let items = root().join("addon/Polestar_ItemDB/Items.lua");
+	let file = root().join("addon/Polestar_ItemDB/Forever.lua");
+	let out = emitted(&RunAddon {
+		addons: vec![item_files()],
+		script: format!(
+			r#"dofile({}) dofile({})
+			emit({{ spine = Polestar.ItemDB.Get(274381).stats, stave = Polestar.ItemDB.Get(9517).stats }})"#,
+			lua_path(&items),
+			lua_path(&file)
+		),
+		..Default::default()
+	});
+	let (spine, stave) = (&out[0]["spine"], &out[0]["stave"]);
+	let n = |v: &Value| v.as_f64().unwrap_or(0.0);
+	assert_eq!([n(&spine["spFrost"]), n(&spine["spellHit"]), n(&spine["spi"])], [59.0, 1.0, 20.0], "{spine}");
+	assert_eq!([n(&stave["sp"]), n(&stave["int"])], [46.0, 8.0], "{stave}");
+	let score = |s: &Value| (n(&s["sp"]) + n(&s["spFrost"])) * 1.1 + n(&s["spellHit"]) * 7.25 + n(&s["int"]) * 0.56 + n(&s["spi"]) * 0.3;
+	assert!(score(spine) > score(stave) + 20.0, "{} against {}", score(spine), score(stave));
+}
+
 #[test]
 fn the_item_data_addon_is_loaded_on_the_first_lookup_once_and_never_in_combat() {
 	let out = emitted(&RunAddon {
