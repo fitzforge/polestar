@@ -14,8 +14,6 @@ return {
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Flieg nach {area:42}",
-	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "Flugmeister von {area:35}",
 
 	-- Step 2: The Scythe of Elune
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {zone:1430} Deadwind Pass · {npc:661} Jonathan Carevin
@@ -424,6 +422,7 @@ return {
 	-- ["Walk back onto the span: Ebenezer lies under its Arathi end."] = "Geh zurück auf den Übergang: Ebenezer liegt unter dessen Ende im Arathihochland.",
 	-- ["West along the coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "Nach Westen entlang der Küste zur Bucht der Goblins; Lolo hält auf den Felsen darüber Wache.",
 	-- ["West along the road to {area:320}, on the way to the {object:2689}."] = "Nach Westen entlang der Straße nach {area:320}, auf dem Weg zum {object:2689}.",
+	-- ["{area:35} flight master"] = "Flugmeister von {area:35}",
 	-- ["{item:2321} for {npc:2438}'s cloak, from {npc:2381}, if you have none"] = "{item:2321} für {npc:2438}s Umhang, von {npc:2381}, falls du keinen hast",
 	-- ["{item:3659}: the {object:1760}"] = "{item:3659}: {object:1760}",
 	-- ["{npc:1356}, {object:32356}: for {npc:1344} in {zone:1432}, next"] = "{npc:1356}, {object:32356}: für {npc:1344} in {zone:1432}, als Nächstes",

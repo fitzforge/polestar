@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Летите сюда: {area:392}",
-	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -169,4 +167,5 @@ return {
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} сдается персонажу {npc:10778} ({area:28}): сохраните задание.",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: для NPC {npc:8587} ({area:1237})",
 	-- ["{zone:1454} flight master"] = "Распорядитель полетов: {zone:1454}",
+	-- ["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 }

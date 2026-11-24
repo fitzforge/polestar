@@ -2929,9 +2929,10 @@ local function xpLook(xp)
 	if not (xp.Text and xp.Icon) then return end
 	store(xp).atlas = true
 	local head = {}
-	-- The level and its percent are the XP tracker's: not while it is off.
+	-- The level and its percent are the XP tracker's: not while it is off,
+	-- nor while the XP line is (guideWindow.xpLine, #3304).
 	local Q = Polestar.QoL
-	if Q and Q.GetXPStats and Q.GetXPStats() then
+	if Core.on("xpLine") and Q and Q.GetXPStats and Q.GetXPStats() then
 		local level = UnitLevel and UnitLevel("player")
 		local cur, max = UnitXP and UnitXP("player"), UnitXPMax and UnitXPMax("player")
 		if type(level) == "number" and level > 0 then head[#head + 1] = string.format(tr("Level %d"), level) end

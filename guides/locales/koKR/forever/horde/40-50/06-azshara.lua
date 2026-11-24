@@ -9,8 +9,6 @@ return {
 	-- Step 2: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "{area:35}(으)로 날아가기",
-	-- {area:75} Stonard
-	["{area:75} flight master"] = "{area:75} 비행 조련사",
 
 	-- Step 3: Booty Bay
 	-- {area:75} Stonard · {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
@@ -312,6 +310,7 @@ return {
 	-- ["Xylem's tower stands on the cliff just north of {area:1237}; the path winds up its north side."] = "실렘의 탑은 {area:1237} 바로 북쪽 절벽 위에 있습니다. 길은 북쪽 면을 따라 구불구불 올라갑니다.",
 	-- ["Zapped giants"] = "축소된 거인",
 	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}: 만나는 대로 처치하세요",
+	-- ["{area:75} flight master"] = "{area:75} 비행 조련사",
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344}은(는) {zone:1456}에 있습니다. {zone:1454}에는 성전사 교관이 없습니다.",
 	-- ["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}, 골목길: 아직 가지고 있다면",
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}: 곰은 {zone:1448}에 있음",

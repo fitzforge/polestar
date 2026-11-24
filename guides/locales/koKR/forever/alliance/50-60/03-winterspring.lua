@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "{area:2255}(으)로 날아가기",
-	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "{area:489} 비행 조련사",
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
@@ -508,6 +506,7 @@ return {
 	-- ["{area:2247}: kill these as you meet them"] = "{area:2247}: 만나는 대로 처치하세요",
 	-- ["{area:2255} flight master"] = "{area:2255} 비행 조련사",
 	-- ["{area:2255}'s inn"] = "{area:2255} 여관",
+	-- ["{area:489} flight master"] = "{area:489} 비행 조련사",
 	-- ["{item:12771}, a rare drop"] = "{item:12771}, 드문 전리품",
 	-- ["{npc:10301}'s supplies"] = "{npc:10301}의 보급품",
 	-- ["{npc:10431}: keep both for the Plaguelands; inside"] = "{npc:10431}: 둘 다 역병지대를 위해 보관하세요. 안",

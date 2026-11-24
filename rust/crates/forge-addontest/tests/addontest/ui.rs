@@ -2162,6 +2162,50 @@ fn the_pace_line_turns_off_on_its_own_and_the_xp_row_keeps_the_rest() {
 	assert_eq!(out["back"], json!({ "shown": true, "text": "On pace for level 25.2 by step 96" }), "{out}");
 }
 
+// The XP line has its own switch (guideWindow.xpLine, #3304), outside compact mode: off, XP an hour, time to level
+// and the pace go and the row with them; Boosted Rest keeps its own line, alone in the row; on again, the line is
+// back (a profile switch and Reset all: settings-effects.rs).
+#[test]
+fn the_xp_line_turns_off_on_its_own_and_boosted_rest_keeps_its_line() {
+	let out = run(r#"
+		local stats = { rate = 48000, timeToLevel = 30, maxed = false }
+		local rest
+		Polestar.QoL = {
+			GetXPStats = function() return stats end,
+			Duration = function() return "30s" end,
+			XP = { Short = function(n) return string.format("%.1fk", n / 1000) end, Summary = function() return "Level 24" end },
+			Rest = { Parts = function() return rest end },
+		}
+		local pace = GF.PaceText
+		GF.PaceText = function() return "On pace for level 25.2 by step 96" end
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		local function row()
+			return { shown = GF.xp:IsShown(), text = GF.xp:IsShown() and GF.xp.Text:GetText() or false, rest = GF.xp.Rest:IsShown() }
+		end
+		local r = { on = row(), compact = Polestar.Get("ui.compact") or false }
+		Polestar.Set("guideWindow.xpLine", false)
+		r.off = row()
+		rest = { "Boosted Rest 12m" }
+		Polestar.Fire("QOL_REST_UPDATED")
+		r.rest = row()
+		Polestar.Set("guideWindow.xpLine", true)
+		r.both = row()
+		rest = nil
+		Polestar.Fire("QOL_REST_UPDATED")
+		r.back = row()
+		GF.PaceText = pace
+		emit(r)"#)
+	.remove(0);
+	let line = "48.0k XP/h  \u{b7}  30s to level  \u{b7}  On pace for level 25.2 by step 96";
+	assert_eq!(out["compact"], false, "{out}");
+	assert_eq!(out["on"], json!({ "shown": true, "text": line, "rest": false }), "{out}");
+	assert_eq!(out["off"], json!({ "shown": false, "text": false, "rest": false }), "{out}");
+	assert_eq!(out["rest"], json!({ "shown": true, "text": "Boosted Rest 12m", "rest": false }), "Boosted Rest alone: {out}");
+	assert_eq!(out["both"], json!({ "shown": true, "text": line, "rest": true }), "Boosted Rest under the line: {out}");
+	assert_eq!(out["back"], json!({ "shown": true, "text": line, "rest": false }), "{out}");
+}
+
 // The XP line is measured at the window's width, as the layout measures it: an update that changes nothing in the
 // row lays the window out no more (at the row's own width, 0 before a layout, the two disagreed on a line that takes
 // two, and every XP update laid the whole window out again).
