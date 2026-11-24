@@ -10137,7 +10137,7 @@ local function resetLoaded(id, auto)
 	Own.skipQueue[id] = nil
 	autoChain, sawIncomplete, placing = auto and true or false, false, GetTime() + PLACE_SECONDS
 	Own.opened[id] = true
-	Own.endOpen[id], Own.lastOpen[id] = nil, nil -- seen afresh once placed (Own.noteEnd)
+	Own.endOpen[id], Own.lastOpen[id], Own.leftTold[id] = nil, nil, nil -- seen afresh once placed (Own.noteEnd)
 	tabsDirty = true
 end
 
@@ -10316,22 +10316,31 @@ end
 -- Engine.CarriedQuests(fromId), taken before the hand-off). Other guides always go on.
 --
 -- The end is reached when the guide is done, or when its last step with
--- work for the character (Own.lastWork) is done ahead of the live step,
--- whatever steps before it were skipped or left open (Own.endDoneAhead: by
--- the kinds of its goals). The guide must have been seen unfinished once
--- placed this session (Own.endOpen), and for the last step done ahead, that
--- step seen open (Own.lastOpen), so a guide opened, or brought back by a
--- login, already at its end does not ask; and once per guide per character
+-- work for the character (Own.lastWork) is done ahead of the live step
+-- (Own.endDoneAhead: by the kinds of its goals) and no step before it still
+-- holds required work (Own.stepsLeft: skipped, optional and carried work
+-- does not; #3517). Done ahead with such steps left, by a hand-in a "While
+-- you're here" line offered or by a player gone ahead to its NPC, the last
+-- step is no end yet: GUIDE_STEPS_LEFT(guideId, info) says how many steps
+-- are left (UI/GuideEnd.lua: "Back to step 37"), once, and the end comes
+-- once they are done or skipped. The guide must have been seen unfinished
+-- once placed this session (Own.endOpen), and for the last step done ahead,
+-- that step seen open (Own.lastOpen), so a guide opened, or brought back by
+-- a login, already at its end does not ask (with steps left, it then says
+-- nothing until they are done); and once per guide per character
 -- (CharState().guideEnds[guideId], kept over a reload or relog). That record
 -- is not the end itself: with a live step, it stands only while the end
 -- still holds (Own.endHolds), and Engine.ResetProgress forgets it.
 -- info = { guideId, undone (open steps left), live (the live step, nil when
 -- all are done), next (the guide the hand-off goes to, nil with none or a
 -- choice to make), choose (true: a route choice the player makes) }.
+-- GUIDE_STEPS_LEFT's info = { guideId, left (steps left besides the last
+-- one), live (the live step), next, choose (as GUIDE_END's) }.
 ---------------------------------------------------------------------------
 
 Own.endOpen = {} -- guideId -> true: seen unfinished once placed, this session
-Own.lastOpen = {} -- guideId -> the last step (Own.lastWork) seen open once placed, this session
+Own.lastOpen = {} -- guideId -> the last step (Own.lastWork) seen open, or done ahead with steps left, once placed, this session
+Own.leftTold = {} -- guideId -> the last step whose steps left were seen (told once: GUIDE_STEPS_LEFT), this session
 Own.pendingEnds, Own.pendingContinued = {}, {} -- fired at the end of the evaluation
 
 function Own.leveling(g)
@@ -10346,14 +10355,16 @@ end
 -- `after` (0: any): it applies, is not an along step, and has a goal that
 -- applies and is neither a note nor optional (a closing note-only step, or a
 -- class's training step another class reads empty, is no end). `forAll`:
--- not a step only for some characters either (Own.forSome). -> index | nil
-function Own.lastWork(after, forAll)
+-- not a step only for some characters either (Own.forSome). `uncarried`:
+-- work carried to a later guide (its compiled `carriedTo`) is no work here
+-- either (the end: Own.noteEnd, #3517). -> index | nil
+function Own.lastWork(after, forAll, uncarried)
 	local steps = guide.steps
 	for s = #steps, after + 1, -1 do
 		local step = steps[s]
 		if not step.along and stepApplies(step) and not (forAll and Own.forSome(step)) then
 			for _, goal in ipairs(step.goals) do
-				if goal.t ~= "note" and not goal.optional and goalApplies(goal) then return s end
+				if goal.t ~= "note" and not goal.optional and not (uncarried and goal.carriedTo) and goalApplies(goal) then return s end
 			end
 		end
 	end
@@ -10401,34 +10412,74 @@ function Own.endHolds(last)
 	return Own.endDoneAhead(last)
 end
 
+-- The steps other than step `last` (the last one for everyone, done ahead)
+-- that still hold required work for the character (#3517): from the live
+-- step on (a class's or race's own steps after `last` too), applying, not
+-- skipped, not done, with a goal that holds the route (Own.holds: not
+-- optional), is not carried to a later guide (its compiled `carriedTo`) and
+-- is not unavailable for now. A step open with no such goal open waits for
+-- the player's answer (a group quest, a dungeon) and counts, as does the
+-- live step when `held` (done, but waiting on a level or the group); one
+-- open only for carried work does not. -> count
+function Own.stepsLeft(last, held)
+	local n = 0
+	for s = computed, #guide.steps do
+		local step = guide.steps[s]
+		if s ~= last and stepApplies(step) and not step.along and not isSkipped(s) and (not stepDone(s) or (held and s == computed)) then
+			local carried = false
+			for g, goal in ipairs(step.goals) do
+				if Own.holds(s, goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(s, g, goal) then
+					carried = goal.carriedTo ~= nil
+					if not carried then break end
+				end
+			end
+			if not carried then n = n + 1 end
+		end
+	end
+	return n
+end
+
 -- The loaded tab's guide: note its end (see above).
 function Own.noteEnd()
-	if placing or not Own.endAsks(guide) then return end
-	-- A live step with nothing left to do now (waiting on a level, Own.holdsBefore)
-	-- is no end yet: the end comes after it.
-	if computed and stepDone(computed) and Own.levelHold() == computed then return end
+	if placing or not Own.leveling(guide) then return end
+	-- With "continue" only an end saved before is looked at (below).
+	local asks = Own.endAsks(guide)
+	-- A live step with nothing left to do now (waiting on a level, Own.holdsBefore,
+	-- or on the group, Own.partyHold) is no end yet: the end comes after it. It
+	-- is a step left (below).
+	local held = computed and stepDone(computed) and (Own.levelHold() == computed or Own.partyHold(computed))
 	local id, steps = guide.id, guide.steps
 	local ends = ns.CharState().guideEnds
 	-- The end done ahead is judged on the last step for everyone (Own.forSome).
 	-- With the live step past it, a class's or race's own steps after it
 	-- still to come (Own.lastWork from the live step) are no end yet: the end
 	-- comes with them.
-	local last = Own.lastWork(0, true)
+	local last = Own.lastWork(0, true, true)
 	if computed then
+		if not (asks or ends[id]) then return end
 		-- Seen unfinished once placed: finishing it from now on reaches its end.
-		Own.endOpen[id] = true
+		if asks then Own.endOpen[id] = true end
 		local holds = Own.endHolds(last)
 		-- An end told before stands only while it holds: a quest of the last
 		-- step abandoned, or a record from before 0.3.6 that slipped through
 		-- (Init.lua drops those), and it is forgotten; reached again, it is
-		-- told again.
+		-- told again. One an older version told (CharState().guideEndsOld, kept
+		-- by Init.lua) with steps left (Own.stepsLeft, #3517) is forgotten too,
+		-- untold: the end comes once they are done or skipped. It is looked at
+		-- once; an end this version told stands when a step is brought back
+		-- later (Unskip), as before.
 		if ends[id] then
-			if not holds then
+			local old = ns.CharState().guideEndsOld
+			local left = holds and old and old[id] and Own.stepsLeft(last, held) or 0
+			if old then old[id] = nil end
+			if not holds or left > 0 then
 				ends[id] = nil
 				Own.lastOpen[id] = last
+				if left > 0 then Own.leftTold[id] = last end
 			end
 			return
 		end
+		if not asks then return end
 		-- Its last step done ahead of the live step (Own.endDoneAhead; on
 		-- screen as any step), once that same step was seen open: one that
 		-- reads done from the start (its quest not offered to this character),
@@ -10436,16 +10487,37 @@ function Own.noteEnd()
 		-- when the rest is done; so does one whose work only reads done as
 		-- unavailable for now (Own.endWorkDone, #998). Trailing steps of only
 		-- optional goals or notes are offered, not the end (Own.lastWork).
-		local waits = last ~= nil and computed > last and Own.lastWork(computed - 1) ~= nil
+		local waits = last ~= nil and computed > last and Own.lastWork(computed - 1, false, true) ~= nil
 		if waits or not holds then
 			if last then Own.lastOpen[id] = last end
+			-- Done in turn (the live step past it, on a class's own step), it
+			-- has nothing to tell: a step brought back later (Unskip) is the
+			-- player's own going back.
+			if holds then Own.leftTold[id] = last else Own.leftTold[id] = nil end
+			return
+		end
+		-- The last step itself held for the group: the end comes after it.
+		if held and computed == last then return end
+		-- Steps before it still to do (Own.stepsLeft) hold the end back: the
+		-- last step seen open and now done says how many are left, once; seen
+		-- so first (a login, a reload), it says nothing. Either way the end
+		-- comes once they are done or skipped.
+		local left = Own.stepsLeft(last, held)
+		if left > 0 then
+			if Own.lastOpen[id] == last and Own.leftTold[id] ~= last then
+				local nextId, asks = routeNext(guide)
+				if nextId and not Guides.Get(nextId) then nextId = nil end
+				Own.pendingEnds[#Own.pendingEnds + 1] = { guideId = id, left = left, live = computed, next = nextId, choose = asks or nil }
+			end
+			Own.lastOpen[id], Own.leftTold[id] = last, last
 			return
 		end
 		if Own.lastOpen[id] ~= last then return end
-	elseif ends[id] or not Own.endOpen[id] then
+	elseif not asks or ends[id] or not Own.endOpen[id] then
 		return
 	end
 	ends[id] = true
+	if ns.CharState().guideEndsOld then ns.CharState().guideEndsOld[id] = nil end
 	Own.endPending()
 	local undone = 0
 	for s = computed or #steps + 1, #steps do
@@ -10713,6 +10785,7 @@ local function evaluateLoaded(active)
 				-- "Continue automatically" says so (GUIDE_CONTINUED, after the evaluation).
 				if not through and Own.leveling(guide) then
 					ns.CharState().guideEnds[id] = true
+					if ns.CharState().guideEndsOld then ns.CharState().guideEndsOld[id] = nil end
 					Own.pendingContinued[#Own.pendingContinued + 1] = { id, nextId, Engine.CarriedQuests(id) }
 				end
 				resetLoaded(nextId, true)
@@ -10866,7 +10939,7 @@ local function evaluate()
 	if #Own.pendingEnds > 0 then
 		local list = Own.pendingEnds
 		Own.pendingEnds = {}
-		for i = 1, #list do ns.Fire("GUIDE_END", list[i].guideId, list[i]) end
+		for i = 1, #list do ns.Fire(list[i].left and "GUIDE_STEPS_LEFT" or "GUIDE_END", list[i].guideId, list[i]) end
 	end
 	-- A quest that left the log, answered by the setting (Own.holdLost): said
 	-- in chat; a skip also offers its undo (PLAYER_SKIPPED_QUEST).
@@ -10933,7 +11006,7 @@ function Engine.OpenTab(id, activate, auto)
 	-- Finished or passed earlier this session, it may finish and chain again.
 	completedFired[id] = nil
 	Own.opened[id] = true
-	Own.endOpen[id], Own.lastOpen[id] = nil, nil -- seen afresh once placed (Own.noteEnd)
+	Own.endOpen[id], Own.lastOpen[id], Own.leftTold[id] = nil, nil, nil -- seen afresh once placed (Own.noteEnd)
 	tabs[#tabs + 1] = tab
 	local index = #tabs
 	tabsDirty = true
@@ -17433,7 +17506,7 @@ function Engine.ResetProgress()
 	end
 	state.guideEnds[id] = nil
 	state.guideDone[id] = nil
-	Own.endOpen[id], Own.lastOpen[id] = nil, nil
+	Own.endOpen[id], Own.lastOpen[id], Own.leftTold[id] = nil, nil, nil
 	pin, pinDone, aim, passedUpTo, placing = nil, nil, nil, 0, GetTime() + PLACE_SECONDS
 	for _, p in pairs(Own.sectionPlans) do
 		p.memo = {}
@@ -18378,7 +18451,7 @@ function Engine.ReplaceSteps(id, steps)
 		s.shapes[id] = nil
 		checkShape(g) -- stamps the new shape: nothing left to map
 	end
-	Own.passedNow[id], Own.skipQueue[id], Own.endOpen[id], Own.lastOpen[id] = nil, nil, nil, nil
+	Own.passedNow[id], Own.skipQueue[id], Own.endOpen[id], Own.lastOpen[id], Own.leftTold[id] = nil, nil, nil, nil, nil
 	if not i then return true end
 	local t = tabs[i]
 	if mapped then

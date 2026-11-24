@@ -142,7 +142,8 @@ Messages:
 | `PLAYER_SKIPPED_QUEST` | questID, title or nil | Engine, after `SkipQuest(questID)` (a quest's line, right-clicked): the guide window offers the undo |
 | `WAYPOINT_CHANGED` | waypoint or nil | Engine (and Nav when an override is set/cleared) |
 | `GUIDE_COMPLETED` | guideId | Engine |
-| `GUIDE_END` | guideId, `{ guideId, undone, live, next, choose }` | Engine, after the evaluation, with `behavior.guideEnd = "ask"` (default): the player reached the end of a leveling guide (its last step for the character done, whatever was skipped or left open before it), once per guide per character (`CharState().guideEnds`); `undone` the open steps left, `live` the live step (nil when all are done), `next` the guide the hand-off goes to (nil with none or a choice to make), `choose` a route choice the player makes. The guide-end window asks (UI/GuideEnd.lua); see "End of a leveling guide" |
+| `GUIDE_END` | guideId, `{ guideId, undone, live, next, choose }` | Engine, after the evaluation, with `behavior.guideEnd = "ask"` (default): the player reached the end of a leveling guide (its last step for the character done, and no step before it still holding required work: skipped, optional and carried work does not), once per guide per character (`CharState().guideEnds`); `undone` the open steps left, `live` the live step (nil when all are done), `next` the guide the hand-off goes to (nil with none or a choice to make), `choose` a route choice the player makes. The guide-end window asks (UI/GuideEnd.lua); see "End of a leveling guide" |
+| `GUIDE_STEPS_LEFT` | guideId, `{ guideId, left, live, next, choose }` | Engine, after the evaluation, with `behavior.guideEnd = "ask"`: a leveling guide's last step done while `left` other steps still hold required work (#3517), once, when that step was seen open this session; `live` the live step, `next` and `choose` as `GUIDE_END`'s. No end and nothing recorded: the guide-end window says how many steps are left with "Back to step N" (UI/GuideEnd.lua), and `GUIDE_END` comes once they are done or skipped |
 | `GUIDE_CONTINUED` | fromId, toId, carried | Engine, after the evaluation, with `behavior.guideEnd = "continue"`: a finished leveling guide handed off by itself (the guide window's banner says so, chat while it is hidden; `carried`: Engine.CarriedQuests(fromId), said in chat) |
 | `GUIDE_PLACED` | guideId, stepIndex or nil, `{ guideId, ... }` | Engine, active tab, once placement of a guide just opened ends (see "Placement"; not for a guide a login or /reload brings back): where the guide resumes, and the guides passed whole on the way; the guide window goes over the steps before it, titles and count rolling (`GF.PlayCatchUp`, after `PLAYER_ENTERING_WORLD`) |
 | `CATCH_UP` | true \| false | Guide window, while its catch-up goes over the steps (`GF.PlayCatchUp`): the arrow shows an hourglass turning over in its dial's place (`Arrow.SetBusy`; Media/UI `hourglass`, `hourglass-sand`, tools/media/ui.js) |
@@ -3316,8 +3317,8 @@ and both of its values start on `"ask"`.
   of each goal of its work, names classes or races, or the quest database
   says its quest is a class quest, as Cat Form closing The Barrens for
   Druids, done in the class guide too)
-  done ahead of the live step, whatever steps before it were skipped or left
-  open. With the live step past that step, such own steps still to come are
+  done ahead of the live step, once no step before it still holds required
+  work (below). With the live step past that step, such own steps still to come are
   no end; the end comes with them (completion). It counts once the guide
   was seen unfinished after placement this
   session (`Own.endOpen`), and for the last step done ahead, that same step
@@ -3329,13 +3330,39 @@ and both of its values start on `"ask"`.
   unavailable for now (a level, a missing prerequisite, a giver's refusal)
   comes back, so it is no end; out for good (closed, skipped by the player)
   passes, but a step of nothing else is void.
+- **Steps left** (`Own.stepsLeft`, #3517): the last step done ahead while
+  other steps still hold required work (from the live step on, a class's or
+  race's own steps after it too: applying, not skipped, not done, with a
+  goal that holds the route, `Own.holds`, is not carried to a later guide,
+  its compiled `carriedTo`, and is not unavailable for now; a step waiting
+  for the player's answer, a group quest or a dungeon, counts, and so does a
+  live step done but held, on a level, `Own.levelHold`, or on the group,
+  `Own.partyHold`) is no end. The last step itself held for the group is no
+  end yet either. Carried
+  work is no work for the end at all: a guide's last steps of only such
+  work are not its last step (`Own.lastWork`'s `uncarried`). It does not matter how the step got done: a
+  hand-in a "While you're here" line offered (#3501) and a player who went
+  ahead to the last NPC on purpose are the same case. `GUIDE_STEPS_LEFT`
+  says how many, once per guide per session (`Own.leftTold`), and only when
+  that step was seen open (`Own.lastOpen`); seen so first (a login, a
+  reload, the guide opened again) it says nothing. Nothing is recorded: the
+  end comes as above once the steps are done or skipped (a player who left
+  one behind for good skips it). Up to 0.4.2.2 the end fired here, as
+  "You've reached the end" with the next guide, and players read it as a
+  bug (#2474, #2785, #3517).
 - **The record** (`CharState().guideEnds`) is not the end itself: with a live
   step it stands only while the end still holds (`Own.endHolds`, judged as
   above at every evaluation); one that no longer does (a quest of the last
-  step abandoned) is forgotten, and reached again it asks again. Reset guide
-  progress (`Engine.ResetProgress`) forgets it, so does a pack update that
-  changes the guide's steps (checkShape), and every record saved before
-  0.3.6 is dropped once on load (`guideEndsV`): 0.3.5 reused guide ids and
+  step abandoned) is forgotten, and reached again it asks again. So is an
+  end an older version saved with steps left (#3517), with either
+  `behavior.guideEnd`, so the banner below does not offer the next guide
+  early: Init.lua lists the records it finds from 0.3.6 up to 0.4.2.2
+  (`guideEndsV` 2) in `guideEndsOld`, and the Engine looks at each once,
+  so an end this version told stands when a skipped step is brought back
+  later (Unskip), over a reload too. Reset guide progress
+  (`Engine.ResetProgress`) forgets it, so does a pack update that changes
+  the guide's steps (checkShape), and every record saved before 0.3.6 is
+  dropped once on load (`guideEndsV` unset): 0.3.5 reused guide ids and
   ended guides by where the player stood.
 - **Ahead of the live step** (`Own.endDoneAhead`), by what the game keeps:
   quest state, level, bags, flight paths, spells. Never by where the player
@@ -3346,7 +3373,8 @@ and both of its values start on `"ask"`.
   on the way. Such a goal counts once its step is on screen, when it is
   ticked, or when work after it in the step is done (the walk to the last
   turn-in). tests/addontest/guides-end.rs plays every leveling guide's last
-  step ahead (with the reference data), a class's or race's own last steps
+  step ahead (with the reference data: the steps left told, no end, then the
+  end once they are skipped), a class's or race's own last steps
   first (no end), and lists the guides whose last step is a place
   (no end ahead); guides-end-early.rs plays every one in order, each
   hand-in after its giver's window and each move in its map's zone (no end
@@ -3357,9 +3385,14 @@ and both of its values start on `"ask"`.
   (`UI/GuideEnd.lua`, frame `PolestarGuideEnd`) says "You've completed
   <guide>" or "You've reached the end of <guide>" with the open steps left,
   and names the next guide; it is a summary, its one button (Close, or Back
-  to step N) keeps the guide. The guide window owns the next guide's button:
-  while steps are open its banner offers the next guide (`GF.EndOffer`) until
-  dismissed, and a finished guide's completed state offers it.
+  to step N) keeps the guide. For `GUIDE_STEPS_LEFT` the same window says
+  "2 steps left in <guide>" and what follows once they are done or skipped
+  (the next guide, a route choice, or the guide's end), with Back to step N
+  (the guide's tab at its live step), no next guide shown, no quest lists
+  and no chime; it closes once the live step moves on. The guide window owns
+  the next guide's button: while steps are open its banner offers the next
+  guide (`GF.EndOffer`) until dismissed, and a finished guide's completed
+  state offers it.
 - **Continue:** the hand-off at completion as under "At completion", and
   `GUIDE_CONTINUED(fromId, toId, carried)`: the guide window's banner reads
   "Durotar complete — continuing with The Barrens" for 20 seconds (chat while
