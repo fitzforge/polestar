@@ -8,5 +8,8 @@ section: contributors
   missed still counts by its objective tick, and every player's drops and
   kills are pooled, since players stop at the objective's count and those
   with many kills are the unlucky ones (Grizzled Scalp read 9.09%; it is
-  38.97%). The data build uses them again for quest drops, and Lookup's and
-  the tooltips' chances read the same. (#2747)
+  38.97%). The data build uses them again for quest drops, scales the
+  sources' chances of an item's unmeasured droppers by what players measured
+  for its others (the Enchanted Gyrozephyr's unlooted Construct Parts read
+  100% beside the 30% players found, and drew the arrow under water), and
+  Lookup's and the tooltips' chances read the same. (#2747)
