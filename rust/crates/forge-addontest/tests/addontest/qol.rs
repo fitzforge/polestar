@@ -247,8 +247,8 @@ fn secure_buttons_changes_during_combat_wait_for_player_regen_enabled_display_st
 		q.combat(false)
 		emit({ b:GetAttribute("item"), t:GetAttribute("macrotext"), b:GetScale(), b.itemID, b.Count:GetText() })
 	"#);
-	assert_eq!(out[0], json!(["item:900", "/cleartarget [nocombat]\n/targetexact Murloc\n/cleartarget [dead]", 1, 900]));
-	assert_eq!(out[1], json!(["item:903", "/cleartarget [nocombat]\n/targetexact Gnoll\n/cleartarget [dead]", 1.4, 903, "4"]));
+	assert_eq!(out[0], json!(["item:900", "/cleartarget [nocombat][dead]\n/targetexact Murloc\n/cleartarget [dead]", 1, 900]));
+	assert_eq!(out[1], json!(["item:903", "/cleartarget [nocombat][dead]\n/targetexact Gnoll\n/cleartarget [dead]", 1.4, 903, "4"]));
 }
 
 #[test]
@@ -401,12 +401,15 @@ fn target_button_kill_targets_and_questdb_droppers_preferred_name_first_each_cli
 		q.step({ { t = "goto", map = 9000, x = 1, y = 1 } })
 		emit({ t:GetAttribute("macrotext") or "nil", t:IsShown() })
 	"#);
-	assert_eq!(out[0], "/cleartarget [nocombat]\n/targetexact Kobold Vermin\n/cleartarget [dead]");
-	assert_eq!(out[1], json!(["macro", "/cleartarget [nocombat]\n/targetexact Kobold Vermin\n/cleartarget [dead]\n/targetexact [noexists] Kobold Laborer\n/cleartarget [dead]", "Kobold Vermin"]));
+	assert_eq!(out[0], "/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/cleartarget [dead]");
+	assert_eq!(
+		out[1],
+		json!(["macro", "/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/cleartarget [dead]\n/targetexact [noexists] Kobold Laborer\n/cleartarget [dead]", "Kobold Vermin"])
+	);
 	assert_eq!(out[2], out[1][1]);
-	assert_eq!(out[3], json!(["/cleartarget [nocombat]\n/targetexact Kobold Laborer\n/cleartarget [dead]\n/targetexact [noexists] Kobold Vermin\n/cleartarget [dead]", "Kobold Laborer"]));
+	assert_eq!(out[3], json!(["/cleartarget [nocombat][dead]\n/targetexact Kobold Laborer\n/cleartarget [dead]\n/targetexact [noexists] Kobold Vermin\n/cleartarget [dead]", "Kobold Laborer"]));
 	assert_eq!(out[4], out[3][0], "no macro change in combat");
-	assert_eq!(out[5], "/cleartarget [nocombat]\n/targetexact Kobold Vermin\n/cleartarget [dead]\n/targetexact [noexists] Kobold Laborer\n/cleartarget [dead]", "cycled once combat ended");
+	assert_eq!(out[5], "/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/cleartarget [dead]\n/targetexact [noexists] Kobold Laborer\n/cleartarget [dead]", "cycled once combat ended");
 	assert_eq!(out[6], json!(["nil", false]));
 }
 
@@ -628,11 +631,11 @@ fn step_key_one_binding_does_the_step_s_next_action_the_npc_the_quest_item_the_m
 		emit(now())
 		emit(s:IsShown())
 	"#);
-	assert_eq!(out[0], json!(["macro", "/cleartarget [nocombat]\n/targetexact Marshal McBride\n/cleartarget [dead]"]));
-	assert_eq!(out[1], json!(["macro", "/cleartarget [nocombat]\n/targetexact Kobold Vermin\n/cleartarget [dead]\n/targetexact [noexists] Kobold Worker\n/cleartarget [dead]"]));
+	assert_eq!(out[0], json!(["macro", "/cleartarget [nocombat][dead]\n/targetexact Marshal McBride\n/cleartarget [dead]"]));
+	assert_eq!(out[1], json!(["macro", "/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/cleartarget [dead]\n/targetexact [noexists] Kobold Worker\n/cleartarget [dead]"]));
 	assert_eq!(
 		out[2],
-		json!(["macro", "/cleartarget [nocombat]\n/targetexact Kobold Worker\n/cleartarget [dead]\n/targetexact [noexists] Kobold Vermin\n/cleartarget [dead]"]),
+		json!(["macro", "/cleartarget [nocombat][dead]\n/targetexact Kobold Worker\n/cleartarget [dead]\n/targetexact [noexists] Kobold Vermin\n/cleartarget [dead]"]),
 		"a press moves to the next name"
 	);
 	assert_eq!(out[3], json!(["item", "item:900"]));
@@ -640,9 +643,9 @@ fn step_key_one_binding_does_the_step_s_next_action_the_npc_the_quest_item_the_m
 	assert_eq!(out[5], json!(["item", "item:6948"]));
 	assert_eq!(out[6], json!(["item", "item:901"]));
 	assert_eq!(out[7], json!(["nil", "nil"]));
-	assert_eq!(out[8], json!(["macro", "/cleartarget [nocombat]\n/targetexact Murloc\n/cleartarget [dead]"]));
-	assert_eq!(out[9], json!(["macro", "/cleartarget [nocombat]\n/targetexact Murloc\n/cleartarget [dead]"]), "no change in combat");
-	assert_eq!(out[10], json!(["macro", "/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]"]));
+	assert_eq!(out[8], json!(["macro", "/cleartarget [nocombat][dead]\n/targetexact Murloc\n/cleartarget [dead]"]));
+	assert_eq!(out[9], json!(["macro", "/cleartarget [nocombat][dead]\n/targetexact Murloc\n/cleartarget [dead]"]), "no change in combat");
+	assert_eq!(out[10], json!(["macro", "/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]"]));
 	assert_eq!(out[11], false, "a key only: no button on screen");
 }
 
@@ -667,10 +670,10 @@ fn step_key_the_route_s_own_goals_come_before_optional_ones_and_an_npc_name_with
 		q.step({ { t = "talk", npc = 241, npcName = "Marshal\tDughan" } })
 		emit(now())
 	"#);
-	assert_eq!(out[0], json!(["macro", "/cleartarget [nocombat]\n/targetexact Kobold Vermin\n/cleartarget [dead]"]), "an optional accept does not take the key");
-	assert_eq!(out[1], json!(["macro", "/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]"]));
-	assert_eq!(out[2], json!(["macro", "/cleartarget [nocombat]\n/targetexact Marshal McBride\n/cleartarget [dead]"]), "optional goals still count once the route's are done");
-	assert_eq!(out[3], json!(["macro", "/cleartarget [nocombat]\n/targetexact Kobold Vermin\n/cleartarget [dead]"]), "the unsafe NPC goal is passed over");
+	assert_eq!(out[0], json!(["macro", "/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/cleartarget [dead]"]), "an optional accept does not take the key");
+	assert_eq!(out[1], json!(["macro", "/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]"]));
+	assert_eq!(out[2], json!(["macro", "/cleartarget [nocombat][dead]\n/targetexact Marshal McBride\n/cleartarget [dead]"]), "optional goals still count once the route's are done");
+	assert_eq!(out[3], json!(["macro", "/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/cleartarget [dead]"]), "the unsafe NPC goal is passed over");
 	assert_eq!(out[4], json!(["nil", "nil"]), "a tab is a control character too: no macro");
 }
 
@@ -842,14 +845,14 @@ fn step_key_while_you_re_here_names_past_the_macro_limit_are_left_out_never_the_
 	let out = run(&format!(
 		"{HERE_ROWS}{}",
 		r#"
-		-- 31 bytes a name: the macro holds three (240 bytes), not four (316).
+		-- 31 bytes a name: the macro holds three (246 bytes), not four (322).
 		local long = string.rep("W", 30)
 		q.step({ { t = "kill", target = long .. "1" }, { t = "kill", target = long .. "2" } })
 		rows({ { t = "kill", subject = long .. "3" }, { t = "kill", subject = long .. "4" } })
 		emit({ #PolestarStepButton:GetAttribute("macrotext"), (names():gsub("W", "")) })
 	"#
 	));
-	assert_eq!(out[0], json!([240, "1, 2, 3"]));
+	assert_eq!(out[0], json!([246, "1, 2, 3"]));
 }
 
 #[test]
@@ -941,7 +944,7 @@ fn mark_target_switched_off_on_the_target_button_and_step_key_put_a_skull_on_a_l
 		for i = 1, 5 do long[i] = string.rep("N", 50) .. i end
 		emit(Polestar.QoL.Buttons.TargetMacro(long, 1, "/tm [@target,harm,nodead] !8"))
 	"#);
-	let plain = |name: &str| format!("/cleartarget [nocombat]\n/targetexact {name}\n/cleartarget [dead]");
+	let plain = |name: &str| format!("/cleartarget [nocombat][dead]\n/targetexact {name}\n/cleartarget [dead]");
 	assert_eq!(out[0], json!([plain("Kobold Vermin"), plain("Kobold Vermin")]), "switched off");
 	// Cleared first: when no name is in range, nothing is left targeted to mark.
 	// Not in a fight, where clearing the target would stop melee and Auto Shot.
@@ -951,7 +954,7 @@ fn mark_target_switched_off_on_the_target_button_and_step_key_put_a_skull_on_a_l
 	assert_eq!(out[3], plain("Marshal Dughan").as_str(), "turned off again");
 	let long = text(&out[4]);
 	assert!(long.len() <= 255, "fits a macro");
-	assert!(long.starts_with(&format!("/cleartarget [nocombat]\n/targetexact {}1\n", "N".repeat(50))), "the preferred name stays first when names are dropped");
+	assert!(long.starts_with(&format!("/cleartarget [nocombat][dead]\n/targetexact {}1\n", "N".repeat(50))), "the preferred name stays first when names are dropped");
 	assert!(long.ends_with("\n/cleartarget [dead]\n/tm [@target,harm,nodead] !8"), "and the mark stays last");
 }
 
@@ -978,7 +981,7 @@ fn mark_on_ping_off_by_default_the_target_button_and_step_key_ping_mobs_and_npcs
 		for i = 1, 5 do long[i] = string.rep("N", 50) .. i end
 		emit(Polestar.QoL.Buttons.TargetMacro(long, 1, "/tm [@target,harm,nodead] !8", Polestar.QoL.Buttons.PingLine()))
 	"#;
-	let plain = |name: &str| format!("/cleartarget [nocombat]\n/targetexact {name}\n/cleartarget [dead]");
+	let plain = |name: &str| format!("/cleartarget [nocombat][dead]\n/targetexact {name}\n/cleartarget [dead]");
 	let out = run_with(script, "SLASH_PING1 = \"/ping\"", None);
 	let ping = |name: &str| plain(name) + "\n/ping [@target]";
 	assert_eq!(
@@ -1063,12 +1066,12 @@ fn mark_target_the_icon_for_mobs_and_for_npcs_is_a_setting_a_new_one_each_press_
 		q.step({ { t = "turnin", quest = 9, npc = 240, npcName = "Marshal Dughan" } })
 		emit(s:GetAttribute("macrotext"))
 	"#);
-	assert_eq!(out[0], "/cleartarget [nocombat]\n/targetexact Kobold Vermin\n/cleartarget [dead]\n/tm [@target,harm,nodead] !7");
+	assert_eq!(out[0], "/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/cleartarget [dead]\n/tm [@target,harm,nodead] !7");
 	assert_eq!(out[1], json!(["~1", "~2", "~3", "~4", "~5", "~6", "~8", "~1"]), "cycles, skipping the mobs' icon");
 	assert_eq!(out[2], json!(["~2", "~2"]), "the target button and the step key share the cycle");
 	assert_eq!(out[3], "~2", "one count for both kinds: the NPC press after the mob's goes on from it");
 	assert_eq!(
-		out[4], "/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1",
+		out[4], "/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1",
 		"an unknown setting falls back to the star"
 	);
 }
@@ -1302,8 +1305,8 @@ fn target_button_a_name_with_a_line_break_or_other_control_character_never_reach
 		emit(Polestar.QoL.Buttons.TargetMacro({ "Kobold Laborer", "Bad\n/run X()" }, 2))
 	"#);
 	assert_eq!(out[0], json!(["nil", false]), "only unsafe names: no macro, no button");
-	assert_eq!(out[1], "/cleartarget [nocombat]\n/targetexact Kobold Laborer\n/cleartarget [dead]");
-	assert_eq!(out[2], "/cleartarget [nocombat]\n/targetexact Kobold Laborer\n/cleartarget [dead]", "TargetMacro itself drops an unsafe name");
+	assert_eq!(out[1], "/cleartarget [nocombat][dead]\n/targetexact Kobold Laborer\n/cleartarget [dead]");
+	assert_eq!(out[2], "/cleartarget [nocombat][dead]\n/targetexact Kobold Laborer\n/cleartarget [dead]", "TargetMacro itself drops an unsafe name");
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -1406,14 +1409,14 @@ fn target_button_a_corpse_is_never_left_selected_the_first_living_match_wins_the
 
 	// Past the macro limit the last names in click order go; the preferred one stays first.
 	assert!(long.len() <= 255, "{} characters", long.len());
-	assert!(is_match(long, r"^/cleartarget \[nocombat\]\n/targetexact Defias Pathstalker\n/cleartarget \[dead\]\n/targetexact \[noexists\] Defias Highwayman\n"));
+	assert!(is_match(long, r"^/cleartarget \[nocombat\]\[dead\]\n/targetexact Defias Pathstalker\n/cleartarget \[dead\]\n/targetexact \[noexists\] Defias Highwayman\n"));
 	assert!(!is_match(long, r"Defias Smuggler"));
 }
 
 #[test]
 fn target_button_step_key_and_rows_a_press_on_a_living_one_of_their_names_moves_on_to_the_next_one_of_that_name() {
 	// A player on Discord (2026-11-17): pressing again should take the next mob of the kind when the first one is
-	// tagged. /targetexact moves on only while the target already has the name, and "/cleartarget [nocombat]"
+	// tagged. /targetexact moves on only while the target already has the name, and "/cleartarget [nocombat][dead]"
 	// undid that, so every press out of combat took the nearest one again.
 	let out = run(r#"
 		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 }, { t = "kill", target = "Kobold Worker", quest = 7, oi = 2 } })
@@ -1449,7 +1452,7 @@ fn target_button_step_key_and_rows_a_press_on_a_living_one_of_their_names_moves_
 		emit(out)
 	"#);
 	let o = &out[0];
-	let clear = "/cleartarget [nocombat]\n";
+	let clear = "/cleartarget [nocombat][dead]\n";
 	let vw = "/targetexact Kobold Vermin\n/cleartarget [dead]\n/targetexact [noexists] Kobold Worker\n/cleartarget [dead]";
 	let wv = "/targetexact Kobold Worker\n/cleartarget [dead]\n/targetexact [noexists] Kobold Vermin\n/cleartarget [dead]";
 	let applied = format!("{clear}{vw}");
@@ -1530,7 +1533,7 @@ fn rare_button_targets_the_rares_in_range_comes_up_and_goes_with_them_each_click
 	assert_eq!(out[0], json!(["nil", false]));
 	// #373's macro: from nothing out of combat, the preferred name first, corpses passed over.
 	let mac = |names: &[&str]| {
-		let mut lines = vec!["/cleartarget [nocombat]".to_string()];
+		let mut lines = vec!["/cleartarget [nocombat][dead]".to_string()];
 		for (i, n) in names.iter().enumerate() {
 			lines.push(format!("/targetexact {}{n}", if i > 0 { "[noexists] " } else { "" }));
 			lines.push("/cleartarget [dead]".to_string());
@@ -1562,7 +1565,7 @@ fn rare_button_the_founder_in_front_targets_him_by_full_name_then_first_name_and
 	"#);
 	let founder = "/cleartarget [nocombat]\n/targetexact Fitz Polestar\n/targetexact [noexists] Fitz\n/wave";
 	assert_eq!(out[0], json!(["macro", founder, true, "Fitz Polestar"]));
-	assert_eq!(out[1], "/cleartarget [nocombat]\n/targetexact Hogger\n/cleartarget [dead]", "a rare in front: its own macro, the founder left out");
+	assert_eq!(out[1], "/cleartarget [nocombat][dead]\n/targetexact Hogger\n/cleartarget [dead]", "a rare in front: its own macro, the founder left out");
 	assert_eq!(out[2], founder, "and back to him");
 	assert_eq!(out[3], json!(["nil"]));
 }
@@ -2154,12 +2157,16 @@ fn target_button_names_the_step_s_npc_goals_when_it_has_no_mob_the_arrow_s_goal_
 	);
 	assert_eq!(
 		out[0],
-		json!(["/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/targetexact [noexists] Deputy Willem\n/cleartarget [dead]", ["Marshal Dughan", "Deputy Willem"], true])
+		json!([
+			"/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/targetexact [noexists] Deputy Willem\n/cleartarget [dead]",
+			["Marshal Dughan", "Deputy Willem"],
+			true
+		])
 	);
 	assert_eq!(out[1], json!([["Deputy Willem", "Marshal Dughan"], "Deputy Willem"]), "the arrow's goal first");
 	assert_eq!(out[2], json!(["Kobold Vermin"]));
 	assert_eq!(out[3], 0);
-	assert_eq!(out[4], "/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1", "an NPC takes the NPC mark");
+	assert_eq!(out[4], "/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1", "an NPC takes the NPC mark");
 }
 
 #[test]
@@ -2219,7 +2226,7 @@ fn target_button_in_combat_the_macro_waits_but_the_picture_still_updates_and_mat
 	assert_eq!(out[1][1]["face"], "Kobold Vermin");
 	assert_eq!(out[1][1]["badge"], "icon-elite");
 	assert_eq!(out[1][1]["label"], "quest");
-	assert_eq!(out[2][0], "/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]");
+	assert_eq!(out[2][0], "/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]");
 	assert_eq!(out[2][1]["name"], "Marshal Dughan");
 	assert_eq!(out[2][1]["icon"], "icon-turnin");
 }
@@ -2459,8 +2466,8 @@ fn target_button_while_you_re_here_mobs_before_the_step_s_npc_beyond_the_radius_
 	.concat();
 	let out = run_with(&script, "SLASH_PING1 = \"/ping\"", None);
 	let mob_first =
-		"/cleartarget [nocombat]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8\n/tm [@target,noharm,nodead] !1";
-	let npc_first = "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8\n/tm [@target,noharm,nodead] !1";
+		"/cleartarget [nocombat][dead]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8\n/tm [@target,noharm,nodead] !1";
+	let npc_first = "/cleartarget [nocombat][dead]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8\n/tm [@target,noharm,nodead] !1";
 	assert_eq!(out[0], "Sven Yorgen", "no rows: the NPC alone");
 	assert_eq!(out[1], json!(["Skeletal Fiend, Sven Yorgen", "Skeletal Fiend", mob_first]), "200 yd from Sven: the row's mob first, pinged, each kind with its own mark (#2152)");
 	assert_eq!(out[2], json!(["Sven Yorgen, Skeletal Fiend", "Sven Yorgen", npc_first]), "100 yd: Sven first, pinged, each kind with its own mark");
@@ -2493,15 +2500,21 @@ fn step_key_while_you_re_here_mobs_before_the_step_s_npc_beyond_the_radius_after
 	]
 	.concat();
 	let out = run_with(&script, "SLASH_PING1 = \"/ping\"", None);
-	assert_eq!(out[0], json!(["Sven Yorgen", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/ping [@target]"]), "no rows: the NPC keeps the key, pinged");
+	assert_eq!(out[0], json!(["Sven Yorgen", "/cleartarget [nocombat][dead]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/ping [@target]"]), "no rows: the NPC keeps the key, pinged");
 	assert_eq!(
 		out[1],
-		json!(["Skeletal Fiend, Sven Yorgen", "/cleartarget [nocombat]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]"]),
+		json!([
+			"Skeletal Fiend, Sven Yorgen",
+			"/cleartarget [nocombat][dead]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]"
+		]),
 		"200 yd: the row's mob first, pinged"
 	);
 	assert_eq!(
 		out[2],
-		json!(["Sven Yorgen, Skeletal Fiend", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/ping [@target]"]),
+		json!([
+			"Sven Yorgen, Skeletal Fiend",
+			"/cleartarget [nocombat][dead]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/ping [@target]"
+		]),
 		"100 yd: Sven first, pinged too"
 	);
 	assert_eq!(out[3], "Skeletal Fiend, Sven Yorgen", "210 yd: the mob first again");
