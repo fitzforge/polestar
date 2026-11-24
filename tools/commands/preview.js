@@ -1061,6 +1061,23 @@ uistub.guides[DREADSTEED].reward = { { spell = 23161, spellName = "Summon Dreads
 uistub.guides[DREADSTEED].why = "Your epic mount at 60: summoned anywhere, with no gold spent on an epic horse."
 uistub.guides["forever/collectibles/mounts/neutral/warlock-felsteed"].reward = { { spell = 5784, spellName = "Summon Felsteed" } }
 uistub.player.class, uistub.player.level = "WARLOCK", 60`;
+// The group mark (#3580): a level 40 character on a guide with a group choice (`when group`), an escort, elites
+// under their level and a plain step. Steps written for the preview.
+const GROUP_MARK = `local function G(t, f) f.t = t; return f end
+local MARKS = "forever/alliance/40-50/marks"
+uistub.guides[MARKS] = { id = MARKS, pack = "guides", title = "The Hinterlands", faction = "Alliance", minLevel = 40, maxLevel = 44, category = "Leveling",
+	zone = 0, zoneName = "The Hinterlands", author = "Polestar", version = 1, steps = {
+		{ title = "Mokk the Savage", when = { { k = "group", q = 1 } }, goals = {
+			G("kill", { verb = "Kill", subject = "Mokk the Savage", subjectKind = "npc", npc = 1, progress = { cur = 0, max = 1 }, party = { kind = "elite", rank = 1, lvl = 44 }, status = "active" }) } },
+		{ title = "The escort", goals = {
+			G("complete", { verb = "Escort", subject = "the prisoner", subjectKind = "npc", escort = true, status = "active" }) } },
+		{ title = "The camp", goals = {
+			G("kill", { verb = "Kill", subject = "the camp's elites", subjectKind = "npc", npc = 3, progress = { cur = 3, max = 8 }, party = { kind = "elite", rank = 1, lvl = 38 }, status = "active" }) } },
+		{ title = "Aerie Peak", goals = {
+			G("goto", { verb = "Go to", subject = "Aerie Peak", subjectKind = "place", status = "active" }) } },
+	} }
+table.insert(uistub.order, MARKS)
+uistub.player.level = 40`;
 // A level 12 shaman and two Class guides: Call of Water opens at 20
 // (Engine.StartGate, stubbed as the engine would answer), Call of Earth now.
 const NOT_YET_GUIDES = `local function G(t, f) f.t = t; return f end
@@ -1500,6 +1517,17 @@ Polestar.Fire("RIDING_DUE", { tier = 1, cost = 0, trainer = { map = 1413, x = 62
 				script: pickerScene(`${GROUP_GUIDES}; uistub.openTabs({ { DREADSTEED, 2 } }, 1); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Class")
 Polestar.UI.Picker.Select(DREADSTEED)`),
 			},
+		],
+	},
+	{
+		file: 'guide-group-mark.svg',
+		title: 'The group mark (#3580): a group choice in the step header and the step browser, warning colour; elites under your level, muted; in Hearth, Halo, WoW Forever, Blizzard, Classic and the Atlas layout',
+		panels: [
+			{ roots: GUIDE, script: `${GROUP_MARK}; uistub.setGuide(MARKS, 1)` },
+			{ roots: GUIDE, script: `${GROUP_MARK}; uistub.setGuide(MARKS, 3)` },
+			{ roots: GUIDE, script: `${GROUP_MARK}; uistub.setGuide(MARKS, 1); Polestar.UI.StepList.Toggle(true)` },
+			...LOOKS.slice(1).map((skin) => ({ roots: GUIDE, script: `Polestar.Set("ui.skin", "${skin}"); ${GROUP_MARK}; uistub.setGuide(MARKS, 1)` })),
+			{ roots: GUIDE, addons: [{ name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }], script: `Polestar.Set("ui.layout", "atlas"); ${GROUP_MARK}; uistub.setGuide(MARKS, 1)` },
 		],
 	},
 	{
@@ -2125,6 +2153,14 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 		panels: [
 			{ dungeons: true, roots: PICKER, script: dungeonsScene('done[90001] = true; log[90002] = true; Polestar.Dungeons.Open("wailing-caverns"); DS.SetTab("attune")') },
 			{ dungeons: true, roots: PICKER, script: dungeonsScene('DS.SetFaction("All"); Polestar.Dungeons.Open("deadmines"); DS.SetTab("attune")') },
+		],
+	},
+	{
+		file: 'attunements.svg',
+		title: 'The Attunements section (#3877): cards like the Dungeons page, two to a row, each instance\'s picture with the key and the name over it, its progress, the next step and Guide me; the first quest done; in Hearth',
+		panels: [
+			{ dungeons: true, roots: PICKER, script: dungeonsScene('done[90001] = true; log[90002] = true; Polestar.UI.Attunements.Show()') },
+			{ dungeons: true, roots: PICKER, script: dungeonsScene('Polestar.Set("ui.skin", "hearth"); done[90001] = true; log[90002] = true; Polestar.UI.Attunements.Show()') },
 		],
 	},
 	{

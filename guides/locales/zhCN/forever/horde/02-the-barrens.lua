@@ -214,17 +214,17 @@ return {
 
 	-- Step 48: Vrang Wildgore
 	-- {quest:881} Echeyakee · {npc:3682} Vrang Wildgore
-	["East from the keg toward {quest:881}: {npc:3682} camps below the hills, and his errands lie in the plains beside his camp."] = "",
+	["East from the keg toward {quest:881}: {npc:3682} camps below the hills, and his errands lie in the plains beside his camp."] = "从酒桶向东朝{quest:881}方向：{npc:3682}在山丘下方扎营，他的差事就在营地旁的平原上。",
 
-	-- Step 49: Savannah lions
-	["Savannah lions"] = "",
+	-- Step 42: Savannah lions
+	["Savannah lions"] = "草原狮",
 	-- {npc:3682} Vrang Wildgore
 	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap
-	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "",
+	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "草原狮王在{npc:3682}营地东边的平原上游荡，爆炸陷阱就在它们中间。",
 
 	-- Step 50: Vrang Wildgore
 	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore · {area:383} Dry Hills · {npc:3452} Serena Bloodfeather
-	["{npc:261366}, the hermit on the ridge behind {npc:3682}: on the next {area:383} visit, with {npc:3452}"] = "",
+	["{npc:261366}, the hermit on the ridge behind {npc:3682}: on the next {area:383} visit, with {npc:3452}"] = "{npc:261366}，{npc:3682}身后山脊上的隐士：下次去{area:383}时，和{npc:3452}一起",
 
 	-- Step 51: Echeyakee
 	-- {quest:881} Echeyakee
@@ -345,15 +345,14 @@ return {
 
 	-- Step 75: The Barrens: kill these as you meet them
 	-- {area:383} Dry Hills · {quest:876} Serena Bloodfeather
-	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "",
+	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "向北前往{area:383}：{quest:876}带领西边山丘中的巫翼鹰身人。\n注意：进入的路会经过隐身的巫翼伏击者和一只巡逻的精英鹰身人。",
 	-- {quest:865} Raptor Horns · {npc:3682} Vrang Wildgore
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	-- was: ["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions"] = "如果 {quest:865} 还没完成：赤鳞镰爪龙就在狮群之间游荡"
-	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions below {npc:3682}'s camp"] = "",
+	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions below {npc:3682}'s camp"] = "如果 {quest:865} 还没完成：赤鳞镰爪龙就在{npc:3682}营地下方的狮群之间游荡",
 
 	-- Step 76: Walton
 	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore
-	["{npc:261366}, the hermit, stands on the ridge behind {npc:3682}'s camp."] = "",
+	["{npc:261366}, the hermit, stands on the ridge behind {npc:3682}'s camp."] = "{npc:261366}，那个隐士，站在{npc:3682}营地后方的山脊上。",
 
 	-- Step 77: Trouble in the Valley
 	-- {npc:262119} Corporal Adamore · {npc:261366} Walton

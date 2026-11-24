@@ -146,7 +146,7 @@ return {
 
 	-- Step 24: Zerril Softbreeze
 	-- {npc:251905} Zerril Softbreeze
-	["{npc:251905}: Camping 101 asks you to learn it"] = "",
+	["{npc:251905}: Camping 101 asks you to learn it"] = "{npc:251905}：露營 101 要求你學習這項技能",
 
 	-- Step 25: Village quests
 	["Village quests"] = "村莊任務",

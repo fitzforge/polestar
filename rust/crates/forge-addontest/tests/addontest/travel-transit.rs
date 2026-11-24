@@ -340,6 +340,25 @@ fn a_walk_in_portal_goes_one_way_only() {
 	assert_eq!(out["back"][0], "walk|Walk to the boat", "never back through it");
 }
 
+// #3691: Sanath Lim-yo teleports a player who asks up Archmage Xylem's tower in Azshara; the arrow walked them round
+// instead. An NPC's teleport (TravelData's portal with `npc`) is taken like a portal, one way, and the arrow names
+// the NPC: walk to them, ask them.
+#[test]
+fn an_npc_s_teleport_is_planned_as_a_portal_walk_to_the_npc_and_ask_them_3691() {
+	let out = run(r#"
+		local r = {}
+		N.RegisterTravelData({ portals = { { id = "portal-tower", name = "The Tower", seconds = 5, npc = "Sanath Lim-yo",
+			a = { "Sanath Lim-yo", 0, 0, 900, 9000, 5, 50 }, b = { "The Tower", 1, 0, -400, 9001, 90, 50 } } } })
+		nav.place(0, 850)
+		N.SetTarget(9001, 80, 60, "Archmage Xylem")
+		r.route = route()
+		nav.place(0, 899)
+		r.mode = N.Sample()
+		emit(r)"#);
+	assert_eq!(out["route"], json!(["walk|Walk to Sanath Lim-yo", "portal|Ask Sanath Lim-yo to teleport you to The Tower", "walk|Archmage Xylem"]));
+	assert_eq!(out["mode"], "instruction");
+}
+
 // #2156: a portal that asks for an item (the Transpolyporter from Booty Bay to Gnomeregan's Train Depot opens only
 // for a player carrying the Goblin Transponder) is taken while the item is in the bags, never without it.
 #[test]

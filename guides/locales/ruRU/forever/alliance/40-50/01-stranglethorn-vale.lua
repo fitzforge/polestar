@@ -63,7 +63,7 @@ return {
 	-- Step 10: Theramore
 	-- {area:514} Foothold Citadel
 	["Follow the road east back to Theramore. The officers are in {area:514}."] = "Идите по дороге на восток назад в Терамор. Офицеры – в здании {area:514}.",
-	["On the top floor"] = "",
+	["On the top floor"] = "На верхнем этаже",
 	-- {npc:4948} Adjutant Tesoran
 	["{npc:4948}, on the top floor"] = "",
 	-- {npc:4794} Morgan Stern

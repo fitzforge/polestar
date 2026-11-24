@@ -164,7 +164,7 @@ return {
 
 	-- Step 35: Menethil Harbor
 	["West along the road to Menethil."] = "По дороге на запад, в Гавань Менетилов.",
-	["On the top floor"] = "",
+	["On the top floor"] = "На верхнем этаже",
 
 	-- Step 36: Menethil Harbor
 	-- {npc:4455} Red Jack Flint · {quest:1132} Fiora Longears

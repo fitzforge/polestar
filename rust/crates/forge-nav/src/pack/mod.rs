@@ -430,8 +430,12 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 					"grid joins {c}: {} ways ({} his maps make already, {} refused, {} with a fall that hurts kept, his maps making no other way), {} floors, {} arcs, {} entrances, {} edges, {} components joined, in {} clusters",
 					j.ways, j.walkable, j.refused, j.falls, j.floors, j.arcs, j.entrances, j.edges, j.merged, j.clusters
 				));
+				log(&format!("hub bits {c}: {} nodes take ours (hubs.json), in {} clusters, {} entrance edges priced again", s.hub_nodes, s.hub_clusters, s.hub_edges));
 				cg.areas = used;
 				let mut lj = json!({ "floors": s.floors, "droppedFloors": s.dropped_floors, "jumps": s.jumps, "drops": s.drops, "climbs": s.climbs, "arcs": s.arcs, "droppedEdges": s.dropped, "closedSteps": s.closed, "areaSurfaces": s.areas });
+				if s.hub_nodes > 0 {
+					lj["hubBits"] = json!({ "nodes": s.hub_nodes, "clusters": s.hub_clusters, "edges": s.hub_edges });
+				}
 				if !ways.is_empty() {
 					lj["joins"] =
 						json!({ "ways": j.ways, "refused": j.refused, "falls": j.falls, "floors": j.floors, "arcs": j.arcs, "entrances": j.entrances, "edges": j.edges, "components": j.merged });

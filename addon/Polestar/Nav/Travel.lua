@@ -272,7 +272,7 @@ function Nav.RegisterTravelData(d, replace)
 		local a, b = t.a, t.b
 		if type(a) == "table" and type(b) == "table" then
 			portals[#portals + 1] = {
-				id = t.id, kind = "portal", name = t.name, area = t.area, faction = t.faction or 3, seconds = t.seconds or 5, item = t.item,
+				id = t.id, kind = "portal", name = t.name, area = t.area, faction = t.faction or 3, seconds = t.seconds or 5, item = t.item, npc = t.npc,
 				a = withBoard(point(a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8] or "e", a[9]), a[10]),
 				b = withBoard(point(b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8] or "e", b[9]), b[10]),
 			}
@@ -1684,7 +1684,13 @@ local function planBody(p, S)
 			elseif k == TAXI then
 				leg.label = ride and L["Ride to the flight master"] or L["Walk to the flight master"]
 			elseif k == DOCK then
-				leg.label = ride and (Travel.RIDE_TO[dockOf[to].kind] or Travel.RIDE_TO.boat) or (WALK_TO[dockOf[to].kind] or WALK_TO.boat)
+				local d = dockOf[to]
+				if d.npc then
+					-- An NPC's teleport (#3691: Sanath Lim-yo up Xylem's tower): the walk is to the NPC.
+					leg.label = format(ride and L["Ride to %s"] or L["Walk to %s"], d.npc)
+				else
+					leg.label = ride and (Travel.RIDE_TO[d.kind] or Travel.RIDE_TO.boat) or (WALK_TO[d.kind] or WALK_TO.boat)
+				end
 			elseif k == TARGET then
 				leg.label = tg.label
 				if tg.kind == "goto" then leg.step = "goto" end
@@ -1705,7 +1711,11 @@ local function planBody(p, S)
 		elseif how == RIDE then
 			local t = dockOf[u]
 			leg.kind = t.kind
-			leg.label = format(TAKE[t.kind] or TAKE.boat, Travel.PlaceName(dockEnd[to]))
+			if t.npc then
+				leg.label = format(L["Ask %s to teleport you to %s"], t.npc, Travel.PlaceName(dockEnd[to]))
+			else
+				leg.label = format(TAKE[t.kind] or TAKE.boat, Travel.PlaceName(dockEnd[to]))
+			end
 			leg.transport, leg.side = t, dockSide[u]
 			-- A ride into or out of a place only portals reach is over when the player is seen in it, or out of it
 			-- (Travel.Placed), never by the yards to its landing: the Wizard's Sanctum's lies a few from its entrance (#1970).
@@ -2688,11 +2698,11 @@ local function pointWorld(p)
 	return C.MapToWorld(p.map, p.x, p.y, p.f)
 end
 
--- from, to = { map, x, y, f } (from = nil: the player); budgeted = true: the public API's call;
--- noHearth = true: the way without the Hearthstone (the Engine's hearth goal weighs the two).
--- While a quest timer runs, the player's own estimates leave out the Hearthstone and teleports, as the route does.
---   -> seconds | nil (unknown position or unreachable) | nil, "busy" (budgeted, this frame's budget is spent)
-function Nav.EstimateTravel(from, to, budgeted, noHearth)
+-- The cache's key for an estimate from `from` (nil: the player) to `to`, the
+-- two ends in world coordinates and what the plan reads besides; nil when
+-- either end can't be placed, a false key while a flight master's map is open
+-- (a live offer is never cached).
+function Travel.EstimateKey(from, to, noHearth)
 	local tc, twx, twy = pointWorld(to)
 	if not tc then return nil end
 	local fc, fwx, fwy
@@ -2717,6 +2727,28 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	local key = not offer and format("%d:%.17g:%.17g:%s>%d:%.17g:%.17g:%s:%d:%d:%d", fc, fwx, fwy, fz and format("%.17g", fz) or "?",
 		tc, twx, twy, to.z and format("%.17g", to.z) or "?", from ~= nil and 0 or ghost and 5 or timed == "escort" and 4 or timed and 3 or noHearth and 2 or 1,
 		D and D.Level() or 0, playerFaction)
+	return key, fc, fwx, fwy, tc, twx, twy, timed, ghost, fz, offer
+end
+
+-- Whether Nav.EstimateTravel(from, to, nil, noHearth) answers from its cache
+-- now (no plan), or can't place an end (no plan either). An estimate made
+-- while a flight master's map is open is never cached, so it plans. A caller
+-- that spreads its estimates over frames (UI/DungeonToast.lua) asks first.
+function Nav.EstimateKnown(from, to, noHearth)
+	local key, fc = Travel.EstimateKey(from, to, noHearth)
+	if not fc then return true end
+	if not key then return false end
+	local hit = estimates[key]
+	return hit ~= nil and GetTime() - hit.at < CACHE_SECONDS
+end
+
+-- from, to = { map, x, y, f } (from = nil: the player); budgeted = true: the public API's call;
+-- noHearth = true: the way without the Hearthstone (the Engine's hearth goal weighs the two).
+-- While a quest timer runs, the player's own estimates leave out the Hearthstone and teleports, as the route does.
+--   -> seconds | nil (unknown position or unreachable) | nil, "busy" (budgeted, this frame's budget is spent)
+function Nav.EstimateTravel(from, to, budgeted, noHearth)
+	local key, fc, fwx, fwy, tc, twx, twy, timed, ghost, fz, offer = Travel.EstimateKey(from, to, noHearth)
+	if not fc then return nil end
 	local now = GetTime()
 	local hit = estimates[key]
 	if hit and now - hit.at < CACHE_SECONDS then return hit.seconds end
@@ -3991,6 +4023,18 @@ end
 
 local function onZone()
 	if riding() then return end
+	-- A subzone change on a lift ride (the ride leg current, the player within LIFT_LEAVE of its boarding landing) is the
+	-- ride itself. Planned again there, with no height from the client the walk started on the boarding floor, a few
+	-- yards under the player, and the arrow said "Ride the elevator up" again at the top (#3734: Gnomeregan, Thunder
+	-- Bluff). The ride is over when the player walks off it (LIFT_LEAVE), as without the event.
+	local leg, C = legs and legs[ci], ns.Compat
+	if leg and leg.kind == "lift" and leg.from and C and C.GetPlayerWorldPosition then
+		local pc, px, py = C.GetPlayerWorldPosition()
+		if pc == leg.from.c and px and yards(pc, px, py, leg.from.c, leg.from.wx, leg.from.wy) <= LIFT_LEAVE then
+			Travel:Refresh()
+			return
+		end
+	end
 	if not dirty then dirty = "zone" end
 	Travel:Refresh()
 end

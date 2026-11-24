@@ -93,7 +93,7 @@ return {
 	-- Step 16: Field to Clear
 	-- {npc:3341} Gann Stonespire · {npc:3238} Stormhide
 	-- plural, as words: Hecklefang Stalkers = {npc:4128} Hecklefang Stalker · Qiraji Lieutenants = {npc:15806} Qiraji Lieutenant
-	["On the way back east to {npc:3341}: Hecklefang Stalkers and {npc:3238} lizards roam the plain between the ridge and his camp. Careful: Qiraji Lieutenants (28, elite) sometimes stand on that plain: give them a wide berth."] = "",
+	["On the way back east to {npc:3341}: Hecklefang Stalkers and {npc:3238} lizards roam the plain between the ridge and his camp. Careful: Qiraji Lieutenants (28, elite) sometimes stand on that plain: give them a wide berth."] = "向東返回 {npc:3341} 處的途中：亂齒捕獵者和 {npc:3238} 蜥蜴在山脊與他營地之間的平原遊蕩。小心：其拉中尉（28 級，精英）有時會站在那片平原上：遠遠繞開它們。",
 	-- {npc:4128} Hecklefang Stalker · {area:1156} Southern Barrens
 	["{npc:4128} walks around {area:1156}: look inside the circle on the map"] = "{npc:4128}在{area:1156}一帶走動：到地圖上的圓圈裡找",
 
@@ -101,7 +101,7 @@ return {
 	["Bael'dun fortress"] = "巴爾丹要塞",
 	-- {npc:3414} General Twinbraid
 	-- plural, as words: Bael'dun Soldiers = {npc:3376} Bael'dun Soldier
-	["The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them. {npc:3414} (30) and his Officers stand on the bottom floor: work the soldiers and riflemen on the upper levels and keep away from him.\nCareful: Riflemen (level 24-25) Shoot from 5-30 yd, so nearby ones can join a fight from range."] = "",
+	["The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them. {npc:3414} (30) and his Officers stand on the bottom floor: work the soldiers and riflemen on the upper levels and keep away from him.\nCareful: Riflemen (level 24-25) Shoot from 5-30 yd, so nearby ones can join a fight from range."] = "巴爾丹士兵、巴爾丹火槍手 和 巴爾丹軍官 守衛著挖掘場東側的堡壘；它們會掉落全部三種物品。{npc:3414}（30級）和他的軍官們站在最底層：在上面幾層對付士兵和火槍手，遠離他。\n小心：巴爾丹火槍手（24-25級）的射擊射程為5-30碼，附近的敵人可能從遠處加入戰鬥。",
 
 	-- Step 20: The flying machine
 	["The flying machine"] = "飛行器",

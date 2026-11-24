@@ -557,6 +557,7 @@ L["Bullets"] = "子彈"
 L["Bows & guns"] = "弓與槍"
 L["Mailbox"] = "郵箱"
 -- L["Transmogrifier"] = ""
+-- L["No %s for your side."] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "右鍵點擊以跳過這一段。"
@@ -1349,6 +1350,7 @@ L["Opens the doors of the Armory and the Cathedral."] = "打開軍械庫和大�
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 -- L["Use %s beside %s: it becomes %s."] = ""
 -- L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = ""
+-- L["Not open on Forever yet: the attunement is ready for when it opens."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "地圖 %d"
@@ -1424,6 +1426,13 @@ L["%s has %s"] = "%s 有 %s 個"
 L["%s to buy"] = "需購買 %s 個"
 L["(only %s listed)"] = "（僅有 %s 個在售）"
 L["(old price)"] = "（舊價格）"
+-- L["Elites nearby"] = ""
+-- L["Group, or careful: a group quest, yours to do or skip"] = ""
+-- L["Group, or careful: an escort that can go wrong"] = ""
+-- L["Group, or careful: elites at your level or above"] = ""
+-- L["Group, or careful: a group is advised"] = ""
+-- L["Careful: elites nearby"] = ""
+-- L["Careful: elites, below your level"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -2045,6 +2054,9 @@ L["%d-%d players"] = "%d-%d 名玩家"
 -- L["No boss drops known"] = ""
 -- L["Drops (%d)"] = ""
 -- L["Use %s beside %s"] = ""
+-- L["All attunements and keys"] = ""
+-- L["Every attunement and key, with how far you are"] = ""
+-- L["Not open on Forever yet"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "就在這裡"
@@ -2181,6 +2193,7 @@ L["Leaves out grey quests, and quests behind you that pay less than full XP when
 -- L["%s: /reload after picking it."] = ""
 -- L["The step card, Up next under it."] = ""
 -- L["Alpha"] = ""
+-- L["The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "已為你選取：用 Ctrl+C（Mac 為 Cmd+C）複製，然後按 Escape。"
@@ -2633,7 +2646,6 @@ L["Install's pages: questing, groups, your route and your look, a page at a time
 L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."] = "逐頁重新設定 Polestar：解任務、小隊、你的路線、你的外觀。每項選擇立即生效。"
 L["Show experimental guides"] = "顯示實驗性指南"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "Polestar 為 Forever 新地區製作的指南，仍在測試中：列在指南選單的「升級」下，帶有「實驗性」標籤。它們不會被自動選取；無論如何，路線選擇都會在合適的位置提供它們的地區。"
-L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "在較快時，路線可能以你會的傳送法術開始：法師的主城傳送、德魯伊的月光林地，或薩滿的星界傳送（就像第二顆爐石）。主城傳送需要背包中有傳送符文。"
 L["Sell and repair reminders"] = "販賣與修理提醒"
 L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."] = "當指南即將離開城鎮，而你的背包快滿或裝備磨損時，會提示途中的商人或修理商，每次造訪提示一次。點擊即可讓箭頭指向該處。"
 L["Sell: fewer free bag slots than"] = "販賣：背包空位少於"
@@ -2654,6 +2666,16 @@ L["Nothing to reset"] = "沒有可重置的內容"
 L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "將指南視窗、箭頭、卡片和警示拖到你想要的位置。在你按下「儲存並退出」之前，此視窗會暫時讓開。也可使用 /polestar unlock。"
 -- L["play Sky Jewels by RikyZ90"] = ""
 -- L["play Tetris by beemerwt"] = ""
+-- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."] = ""
+-- L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."] = ""
+-- L["Reload now?"] = ""
+-- L["Polestar shows the new language after a /reload."] = ""
+-- L["Follow the game"] = ""
+-- L["English"] = ""
+-- L["Simplified Chinese"] = ""
+-- L["Traditional Chinese"] = ""
+-- L["General"] = ""
+-- L["The language Polestar shows."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
@@ -4664,6 +4686,8 @@ L["A look in one click: it sets the settings it names and puts the others of the
 -- L["Alpha: /reload after picking it."] = ""
 -- L["Beta: /reload after picking it."] = ""
 -- L["Any issues: @%s in a bug report or on Discord."] = ""
+-- L["Before %s (%s)"] = ""
+-- L["Your setup as it was saved: a click puts back every window setting it holds."] = ""
 
 -- Theme/SkinApi.lua
 L["The skin %s (from %s) could not be added: %s. Polestar's own look stands in."] = "無法新增皮膚 %s（來自 %s）：%s。改以 Polestar 本身的外觀代替。"
@@ -4728,6 +4752,8 @@ L["This guide is for %s characters. Polestar won't guide you through it."] = "�
 -- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 -- L["Looking ahead."] = ""
 -- L["Looking back."] = ""
+-- L["On the way to your map point (%s)."] = ""
+-- L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "按 %s 恢復，或打開指南視窗。"
@@ -4838,8 +4864,6 @@ L["You have %s"] = "你有 %s"
 L["Send to Auctionator"] = "傳送到 Auctionator"
 L["Copy list"] = "複製清單"
 L["Show how the profession guide gets its materials"] = "顯示專業指南如何取得材料"
-L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "從頭開始：此指南約 %d%% 的任務經驗承接自 %s。"
-L["Expect about %d minutes of extra grinding, or start there."] = "預計需要額外練等約 %d 分鐘，或者從那裡開始。"
 L["Open %s"] = "開啟 %s"
 
 -- Core/ProfileStrings.lua
@@ -5034,9 +5058,33 @@ L["Most used"] = "常用設定"
 -- L["Hold"] = ""
 -- L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = ""
 -- L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = ""
+
 -- UI/TabStyles/TabStyles.lua
 L["Open guides"] = "已開啟的指南"
 L["%d of %d"] = "%d / %d"
+
+-- UI/Attunements.lua
+-- L["Finish %s"] = ""
+-- L["Pick up %s from %s"] = ""
+-- L["Pick up %s"] = ""
+-- L["Every step, on the dungeon's page"] = ""
+-- L["Opens %s"] = ""
+-- L["%d of %d steps"] = ""
+-- L["Attunements"] = ""
+-- L["What lets you into each raid and opens a dungeon's doors, and how far you are"] = ""
+-- L["No attunement or key is known for your faction."] = ""
+
+-- UI/LayoutCard.lua
+-- L["Before Atlas (%s)"] = ""
+-- L["New in 0.4.3: the Atlas layout"] = ""
+-- L["Try it on your own guide window: each button switches it now, as often as you like."] = ""
+-- L["Layout"] = ""
+-- L["Your current design"] = ""
+-- L["Tabs are off in Settings > Guide window > Parts."] = ""
+-- L["Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets."] = ""
+-- L["The guide window is hidden: open it to see each choice on your guide."] = ""
+-- L["Atlas layout and tab styles by %s"] = ""
+-- L["Keep this"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐頁重新設定 Polestar。每項選擇立即生效。"
@@ -5297,3 +5345,6 @@ L["%d of %d"] = "%d / %d"
 -- L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "飛行剩餘一分鐘或更久時，Polestar 會詢問你是否想在等待時玩 petllama 的 Freedoom Arcade：Freedoom 的三個關卡，若已安裝 Freedoom Arcade 插件則是完整遊戲。降落前 10 秒，遊戲會存檔、暫停並關閉。隨時可用 /polestar arcade 開啟。"
 -- L["a game: Play"] = "開始遊戲"
 -- L["Do you want to play Doom while waiting?"] = "等待時想玩 Doom 嗎？"
+-- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "在較快時，路線可能以你會的傳送法術開始：法師的主城傳送、德魯伊的月光林地，或薩滿的星界傳送（就像第二顆爐石）。主城傳送需要背包中有傳送符文。"
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "從頭開始：此指南約 %d%% 的任務經驗承接自 %s。"
+-- L["Expect about %d minutes of extra grinding, or start there."] = "預計需要額外練等約 %d 分鐘，或者從那裡開始。"
