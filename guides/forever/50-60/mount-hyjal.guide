@@ -572,6 +572,11 @@ step Owl feathers
   collect 253341 x9 quest 95027.1 only Alliance  -- Hyjal Owl Feather
   collect 253341 x9 quest 92609.1 only Horde
 
+step Shalla'kal and Galvinquam
+  tip East past Mourning's Rest into the Cradle of Tranquility: Shalla'kal, the great cat, waits by the path, and Galvinquam Leafsyre rests in the ruins just south of her.
+  accept 93615                          -- Shalla'kal: Kits and Cats
+  accept 96979                          -- Galvinquam Leafsyre: Sacred Refreshment
+
 step Jereman
   when onquest 96931
   tip North to the old bridge over the Cradle: touch the crow effigy on it and Jereman, the crow wild god, appears.
@@ -686,11 +691,6 @@ step The overlook
   accept 96550                          -- Battle Recall
   talk 255038                           -- Veteran of the Third War
   turnin 96550
-
-step Shalla'kal and Galvinquam
-  tip East past Mourning's Rest into the Cradle of Tranquility: Shalla'kal, the great cat, waits by the path, and Galvinquam Leafsyre rests in the ruins just south of her.
-  accept 93615                          -- Shalla'kal: Kits and Cats
-  accept 96979                          -- Galvinquam Leafsyre: Sacred Refreshment
 
 step Lisbael Highfeather
   tip East across the Cradle to Lisbael Highfeather.
