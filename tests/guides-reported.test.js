@@ -19431,3 +19431,43 @@ test('#3681: Arathi Highlands (Alliance 30-40): Witherbark Village farms the far
 	assert.ok(list[tusk].goal.y >= 78, `the tusks at the far end: ${list[tusk].goal.x},${list[tusk].goal.y}`);
 	assert.ok(list[pouch].goal.y < 75, `the pouches among the huts: ${list[pouch].goal.x},${list[pouch].goal.y}`);
 });
+
+// #2749 (Liquidor): each start's campfire offers a Camping 101 for every profession the character knows, but the
+// guides took only those whose trainer stood on a stop the route already made. Now every one the campfire gives (the
+// quest data's Camping 101s of that giver and side, Cooking aside) is accepted in its start guide in a `when skill`
+// step, and handed in, in that guide or the next one of its chain, in a `when onquest` step at its trainer: a player
+// without the profession never sees either, one with it gets the trip to the trainer. In Dun Morogh two Ironforge
+// trainers give their own (Alchemy, Enchanting); on Zephras Isle the Strange Hermit gives the engineers'.
+test('#2749: every Camping 101 a start campfire gives is taken in a `when skill` step and handed in on the way on', { skip }, () => {
+	const SIDE = { Alliance: 77n | (1n << 32n), Horde: 178n | (1n << 33n) };
+	const starts = [
+		['forever/alliance/human/01-elwynn-forest.guide', 263399, 'Alliance', ['forever/alliance/02-westfall.guide'], []],
+		['forever/alliance/dwarf/01-dun-morogh.guide', 265813, 'Alliance', [], [96045, 96059]],
+		['forever/alliance/gnome/01-dun-morogh.guide', 265813, 'Alliance', [], [96045, 96059]],
+		['forever/alliance/nightelf/01-teldrassil.guide', 265811, 'Alliance', ['forever/alliance/nightelf/02-darkshore.guide'], []],
+		['forever/alliance/skyborne/01-zephras-isle.guide', 263664, 'Alliance', [], [98285]],
+		['forever/horde/orc/01-durotar.guide', 265809, 'Horde', ['forever/horde/03-silverpine-forest.guide'], []],
+		['forever/horde/troll/01-durotar.guide', 265809, 'Horde', ['forever/horde/03-silverpine-forest.guide'], []],
+		['forever/horde/tauren/01-mulgore.guide', 265810, 'Horde', [], []],
+		['forever/horde/undead/01-tirisfal-glades.guide', 265812, 'Horde', ['forever/horde/03-silverpine-forest.guide'], []],
+		['forever/horde/skyborne/01-zephras-isle.guide', 263664, 'Horde', [], [98285]],
+	];
+	compiled(starts[0][0]);
+	const when = (step) => [].concat(step.when || []);
+	for (const [guide, camp, side, later, own] of starts) {
+		const offered = Object.values(data.quests).filter((q) => /^Camping 101: /.test(q.title) && !/Cooking/.test(q.title)
+			&& (q.start?.npc || []).includes(camp) && (q.races == null || (BigInt(q.races) & SIDE[side]) !== 0n)).map((q) => q.id);
+		assert.ok(offered.length >= 9, `${guide}: the campfire's professions (${offered.length})`);
+		const list = goals(guide);
+		const after = later.flatMap((g) => goals(g));
+		for (const q of [...offered, ...own]) {
+			const take = list.findIndex(({ goal }) => goal.t === 'accept' && goal.quest === q);
+			assert.ok(take >= 0, `${guide}: accept ${q} (${data.quests[q].title})`);
+			assert.ok(when(list[take].step).some((w) => w.k === 'skill' && !w.neg), `${guide}: ${q} only with the profession`);
+			const give = [...list.slice(take + 1), ...after].find(({ goal }) => goal.t === 'turnin' && goal.quest === q);
+			assert.ok(give, `${guide}: ${q} is handed in later in the guide or the next one`);
+			assert.ok(when(give.step).some((w) => w.k === 'onquest' && !w.neg && [].concat(w.q).includes(q)), `${guide}: ${q}'s hand-in only with the quest in the log`);
+			assert.ok((data.quests[q].end?.npc || []).includes(give.goal.npc), `${guide}: ${q} goes to its trainer (${give.goal.npcName})`);
+		}
+	}
+});

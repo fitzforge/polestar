@@ -535,6 +535,27 @@ step Stormwind
   accept 97894                                -- Borgus Steelhand, Dwarven District: for his brother in Auberdine
   turnin 399                                  -- Baros Alexston, Cathedral Square
 
+step Gelman Stonehand
+  when onquest 97923
+  when complete 97923
+  zone Stormwind City
+  complete 97923 @58.95,37.79                 -- talk to the trainer
+  turnin 97923                                -- Gelman Stonehand, Dwarven District: Camping 101: Mining
+
+step Sprite Jumpsprocket
+  when onquest 97918
+  when complete 97918
+  zone Stormwind City
+  complete 97918 @61.76,30.48                 -- talk to the trainer
+  turnin 97918                                -- Sprite Jumpsprocket, Dwarven District: Camping 101: Engineering
+
+step Betty Quin
+  when onquest 97917
+  when complete 97917
+  zone Stormwind City
+  complete 97917 @52.92,73.96                 -- talk to the trainer
+  turnin 97917                                -- Betty Quin: Camping 101: Enchanting
+
 step Jennea Cannon
   zone Stormwind City
   when complete 1861

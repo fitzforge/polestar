@@ -12284,6 +12284,141 @@
 				"after": ["turnin", 3377],
 				"reason": "#2915 (Soggy): Prayer to Elune's second part (5,900 XP), taken from Zamael Lunthistle right after the first part's hand-in, under the same group choice (when group 3377). Its page drops from the Twilight elites of his camp (Dark Shamans, Fire Guards, Geomancers and Idolaters, about one in five), so the group gets it on the same run, and Astarii Starseeker takes it on the 50-60 Felwood guide's Darnassus stop, which walks through the Temple of the Moon anyway. Left out, the guide suggested abandoning it after the group's first part.",
 				"issue": "#2915"
+			},
+			{
+				"q": 97921,
+				"reason": "#2749 (Liquidor): Camping 101: Herbalism (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step after the campfire's steps, handed to Herbalist Pomeroy, north of Goldshire (a detour back toward Northshire for holders only) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97915,
+				"reason": "#2749 (Liquidor): Camping 101: Alchemy (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step after the campfire's steps, handed to Alchemist Mallory, beside Herbalist Pomeroy (a detour for holders only) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97925,
+				"reason": "#2749 (Liquidor): Camping 101: Tailoring (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step after the campfire's steps, handed to Eldrin, on the guide's last Eastvale Logging Camp stop in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97923,
+				"reason": "#2749 (Liquidor): Camping 101: Mining (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step after the campfire's steps, handed to Gelman Stonehand, in 02-westfall's Stormwind stop (Dwarven District) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97918,
+				"reason": "#2749 (Liquidor): Camping 101: Engineering (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step after the campfire's steps, handed to Sprite Jumpsprocket, in 02-westfall's Stormwind stop (Dwarven District) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97917,
+				"reason": "#2749 (Liquidor): Camping 101: Enchanting (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step after the campfire's steps, handed to Betty Quin, in 02-westfall's Stormwind stop in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 96055,
+				"reason": "#2749 (Liquidor): Camping 101: Herbalism (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Dun Morogh (Eric Brighthammer), as a required accept in its own `when skill` step after the campfire's steps, handed to Reyna Stonebranch, on the Ironforge round in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 96056,
+				"reason": "#2749 (Liquidor): Camping 101: Skinning (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Dun Morogh (Eric Brighthammer), as a required accept in its own `when skill` step after the campfire's steps, handed to Balthus Stoneflayer, on the Ironforge round in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 96031,
+				"reason": "#2749 (Liquidor): Camping 101: Leatherworking (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Dun Morogh (Eric Brighthammer), as a required accept in its own `when skill` step after the campfire's steps, handed to Gretta Finespindle, on the Ironforge round in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 96057,
+				"reason": "#2749 (Liquidor): Camping 101: Tailoring (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Dun Morogh (Eric Brighthammer), as a required accept in its own `when skill` step after the campfire's steps, handed to Uthrar Threx, on the Ironforge round in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 96050,
+				"reason": "#2749 (Liquidor): Camping 101: Fishing (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Dun Morogh (Eric Brighthammer), as a required accept in its own `when skill` step after the campfire's steps, handed to Paxton Ganter, after the second Brewnall Village stop (players' recordings: 8 took it, 4 handed it in to him) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 96045,
+				"reason": "#2749 (Liquidor): Camping 101: Alchemy (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Ironforge (Vosur Brakthel, who gives and takes it), as a required accept in its own `when skill` step after the campfire's steps, handed to Vosur Brakthel himself, on the Ironforge round in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 96059,
+				"reason": "#2749 (Liquidor): Camping 101: Enchanting (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Ironforge (Thonys Pillarstone, who gives and takes it), as a required accept in its own `when skill` step after the campfire's steps, handed to Thonys Pillarstone himself, on the Ironforge round in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97943,
+				"reason": "#2749 (Liquidor): Camping 101: Fishing (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step after the campfire's steps, handed to Astaia, on the Darnassus stop in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97950,
+				"reason": "#2749 (Liquidor): Camping 101: Tailoring (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step after the campfire's steps, handed to Trianna, on the Darnassus stop in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97940,
+				"reason": "#2749 (Liquidor): Camping 101: Enchanting (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step after the campfire's steps, handed to Alanna Raveneye, north of Darnassus (a detour for holders only) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97939,
+				"reason": "#2749 (Liquidor): Camping 101: Blacksmithing (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step after the campfire's steps, handed to Elisa Steelhand, on nightelf/02-darkshore's last Auberdine stop in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97948,
+				"reason": "#2749 (Liquidor): Camping 101: Mining (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step after the campfire's steps, handed to Kurdram Stonehammer, on nightelf/02-darkshore's last Auberdine stop in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97941,
+				"reason": "#2749 (Liquidor): Camping 101: Engineering (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step after the campfire's steps, handed to Jenna Lemkenilli, on nightelf/02-darkshore's last Auberdine stop in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97968,
+				"reason": "#2749 (Liquidor): Camping 101: Herbalism (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Zephras Isle (Raan Wildwind), both sides, as a required accept in its own `when skill` step after the campfire's steps, handed to Halassa Fernbreeze in Shen'dar Village (players' recordings: 20 took it; 12 handed it in to her, 5 to Syriel Nightrain at the island's south) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 98285,
+				"reason": "#2749 (Liquidor): Camping 101: Engineering (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Zephras Isle (the Strange Hermit, who gives and takes it), both sides, as a required accept in its own `when skill` step after the campfire's steps, handed to the Strange Hermit on the guide's return to him (players' recordings: 2 handed it in to him) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97972,
+				"reason": "#2749 (Liquidor): Camping 101: Tailoring (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Zephras Isle (Raan Wildwind), Horde, as a required accept in its own `when skill` step after the campfire's steps, handed to Taleen Shimmerthread in Shen'dar Village (the quest data's Horde Tailoring variant; the Alliance's is 97973) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 98284,
+				"reason": "#2749 (Liquidor): Camping 101: Enchanting (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Zephras Isle (Raan Wildwind), Horde, as a required accept in its own `when skill` step after the campfire's steps, handed to Nasalanna Windsinger in Shen'dar Village (the quest data's Horde Enchanting variant; the Alliance's is 98286) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97900,
+				"reason": "#2749 (Liquidor): Camping 101: Blacksmithing (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Durotar (Brakk), as a required accept in its own `when skill` step after the campfire's steps, handed to Dwukk in Razor Hill, after the return from Sen'jin; the accept follows the Cooking hand-in like Tailoring's (players' recordings: 4 took it, 3 handed it in) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97904,
+				"reason": "#2749 (Liquidor): Camping 101: Fishing (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Durotar (Brakk), as a required accept in its own `when skill` step after the campfire's steps, handed to Lau'Tiki on the shore south of Sen'jin, after the last Sen'jin stop (players' recordings: 11 took it, 10 handed it in) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97930,
+				"reason": "#2749 (Liquidor): Camping 101: Engineering (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Mulgore (Kaga Wildhoof), as a required accept in its own `when skill` step after the campfire's steps, handed to Twizwick Sprocketgrind in the western Barrens, after the Camp Taurajo stop (a detour for holders only) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97956,
+				"reason": "#2749 (Liquidor): Camping 101: Fishing (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Tirisfal (Eleanor), as a required accept in its own `when skill` step after the campfire's steps, handed to Clyde Kellen east of Brill, after the last Brill stop with the class trainers (players' recordings: 11 took it, 10 handed it in) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
 			}
 		],
 		"skip": [
