@@ -8,10 +8,9 @@
 return {
 	-- Step 1: Fly to Zoram'gar Outpost
 	-- {area:2897} Zoram'gar Outpost
-	["Fly to {area:2897}"] = "",
+	["Fly to {area:2897}"] = "{area:2897}(으)로 날아가기",
 	-- {area:2897} Zoram'gar Outpost · {area:378} Camp Taurajo
 	["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. If your hearthstone is ready, hearth to {area:378} and fly from there instead."] = "세레스의 야영지에서 길을 따라 동쪽 크로스로드의 와이번 조련사로 가서 {area:2897}(으)로 비행하세요. 귀환석을 사용할 수 있다면 {area:378}(으)로 귀환한 뒤 그곳에서 비행하세요.",
-	["Crossroads flight master"] = "크로스로드 비행 조련사",
 
 	-- Step 2: Zoram'gar Outpost
 	-- {npc:12736} Je'neu Sancrea · {npc:12757} Karang Amakkar · {npc:12721} Mitsuwa
@@ -52,7 +51,7 @@ return {
 	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
 	["{npc:12818} is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "",
 	-- {npc:12818} Ruul Snowhoof
-	["{npc:12818}, below ground"] = "",
+	["{npc:12818}, below ground"] = "{npc:12818}, 지하",
 
 	-- Step 10: Zoram'gar Outpost
 	["Back west to Zoram'gar from Thistlefur before heading east for good."] = "완전히 동쪽으로 떠나기 전에 엉겅퀴가죽 소굴에서 서쪽 조람가르로 돌아가세요.",
@@ -102,7 +101,7 @@ return {
 
 	-- Step 24: Splintertree Post
 	-- {npc:12837} Yama Snowhoof
-	["{npc:12837}, inside the inn"] = "",
+	["{npc:12837}, inside the inn"] = "여관 안의 {npc:12837}",
 	-- {npc:12718} Gurda Ragescar
 	["{npc:12718}: only if you carry the manual pages"] = "{npc:12718}: 교본 쪽지를 가지고 있을 때만",
 
@@ -158,7 +157,7 @@ return {
 	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
 	["Fly to {area:1638} from Zoram'gar. If you don't know its flight path, fly to {area:378} and walk north through {zone:1412} instead."] = "조람가르에서 {area:1638}(으)로 날아가세요. 비행 경로를 모른다면 {area:378}(으)로 날아가 {zone:1412}을(를) 지나 북쪽으로 걸어가세요.",
 	-- {area:2897} Zoram'gar Outpost
-	["{area:2897} flight master"] = "",
+	["{area:2897} flight master"] = "{area:2897} 비행 조련사",
 
 	-- Step 42: Skywatcher Plateau
 	-- {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
@@ -174,7 +173,7 @@ return {
 
 	-- Step 45: Gloomrise: kill these as you meet them
 	-- {area:17044} Gloomrise
-	["{area:17044}: kill these as you meet them"] = "",
+	["{area:17044}: kill these as you meet them"] = "{area:17044}: 만나는 대로 처치하세요",
 	-- {area:17044} Gloomrise · {npc:264074} Mazu'kon · {item:273015} Toxin Extractor · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
 	-- plural, as words: Gnawed Corpses = {npc:264096} Gnawed Corpse
 	["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "야영지 북쪽에서 거미들이 {area:17044}의 매장지를 뒤덮고 있습니다. 갉아먹힌 시체에 {npc:264074}의 {item:273015}을(를) 사용하세요. 거미들은 {item:273181}을(를) 떨어뜨립니다. {npc:264082}(30, 정예)은(는) 북쪽 끝에 있습니다. 파티와 함께 {quest:96261}을(를) 하는 게 아니라면 건드리지 마세요. 그녀의 {item:273658}이(가) {quest:96294}을(를) 시작합니다.",
@@ -186,7 +185,7 @@ return {
 
 	-- Step 46: The Earthen Ring
 	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother · {quest:96259} Defending the Dead
-	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "",
+	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "{npc:259118}은(는) {quest:96259}을(를) 반납한 뒤에만 {quest:96261}을(를) 줍니다.",
 
 	-- Step 48: Broodmother Valraxx
 	-- {npc:264082} Broodmother Valraxx · {area:17044} Gloomrise · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
@@ -243,7 +242,7 @@ return {
 	-- {area:378} Camp Taurajo
 	["Fly to {area:378}"] = "{area:378}(으)로 날아가기",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "{zone:1456} 비행 조련사",
 
 	-- Step 60: Tatternack Steelforge
 	-- {npc:3433} Tatternack Steelforge · {area:2237} Whitereach Post
@@ -305,7 +304,7 @@ return {
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
 	["{npc:2986} stands on a mesa top east of the Galak camps. Taking his {quest:1149} puts you on a high cliff far to the west: follow the stone path to the end of the wooden planks and step off there, and you land safely. Jump from anywhere else and you fall to your death."] = "",
 	-- {npc:2986} Dorn Plainstalker
-	["{npc:2986}, below ground"] = "",
+	["{npc:2986}, below ground"] = "{npc:2986}, 지하",
 	["the end of the planks"] = "",
 	-- {npc:2986} Dorn Plainstalker · {npc:4490} Grenka Bloodscreech
 	["{npc:2986}: {npc:4490}, in the harpy den west of the post"] = "{npc:2986}: 거점 서쪽 하피 소굴의 {npc:4490}",
@@ -314,7 +313,7 @@ return {
 
 	-- Step 70: Freewind Post
 	-- {npc:11116} Innkeeper Abeqwa · {npc:4877} Jandia
-	["{npc:11116}, beside {npc:4877}"] = "",
+	["{npc:11116}, beside {npc:4877}"] = "{npc:11116} 옆의 {npc:4877}",
 	-- {npc:4877} Jandia · {area:487} Roguefeather Den
 	["{npc:4877}, inside the inn: {area:487}, south-west of the post, on the way back from Whitereach"] = "",
 
@@ -336,7 +335,7 @@ return {
 	-- {area:2097} Darkcloud Pinnacle
 	["Grimtotem camps below {area:2097}"] = "",
 	-- {npc:10759} Grimtotem Stomper
-	["grind on {npc:10759}"] = "",
+	["grind on {npc:10759}"] = "{npc:10759} 사냥",
 
 	-- Step 74: Lakota Windsong
 	-- {area:485} Great Lift · {area:2097} Darkcloud Pinnacle · {npc:10896} Arnak Grimtotem
@@ -399,7 +398,7 @@ return {
 	-- {area:484} Freewind Post
 	["Back east to {area:484}."] = "동쪽의 {area:484}(으)로 돌아가세요.",
 	-- {npc:10645} Thalia Amberhide
-	["{npc:10645}, inside"] = "",
+	["{npc:10645}, inside"] = "{npc:10645}, 내부",
 	-- {npc:4877} Jandia
 	["{npc:4877}, inside the inn"] = "여관 안의 {npc:4877}",
 	-- {npc:2986} Dorn Plainstalker · {quest:1150} Test of Endurance
@@ -407,7 +406,7 @@ return {
 
 	-- Step 89: Fly to Thunder Bluff
 	-- {area:484} Freewind Post
-	["{area:484} flight master"] = "",
+	["{area:484} flight master"] = "{area:484} 비행 조련사",
 
 	-- Step 90: Melor Stonehoof
 	-- {npc:3441} Melor Stonehoof · {area:1641} Hunter Rise · {quest:1131} Steelsnap
@@ -425,6 +424,7 @@ return {
 	-- ["Back east past {area:2237} to {area:484}."] = "{area:2237}을(를) 지나 동쪽의 {area:484}(으)로 돌아가세요.",
 	-- ["Back to Zoram'gar from the ruins before heading east for good."] = "완전히 동쪽으로 떠나기 전에 폐허에서 조람가르로 돌아가세요.",
 	-- ["Climb the path to the top of {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "길을 따라 {area:2097} 꼭대기로 올라가세요. {npc:10646}은(는) {npc:10896}(29) 옆에 붙잡혀 있습니다. 먼저 경비병과 {npc:10896}을 처치한 뒤 그녀를 풀어 주고, 내려가는 동안 보호하세요. 가는 길에 그림토템부족 복병이 덤벼듭니다.",
+	-- ["Crossroads flight master"] = "크로스로드 비행 조련사",
 	-- ["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. Keep your hearthstone: {area:431}'s bind later in this guide saves more."] = "세레스의 야영지에서 길을 따라 동쪽 크로스로드의 와이번 조련사로 가서 {area:2897}(으)로 비행하십시오. 귀환석은 아껴 두십시오. 이 가이드 후반에 {area:431}에 귀환 지점을 정하는 편이 시간을 더 줄여 줍니다.",
 	-- ["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold."] = "조람가르 동쪽에서는 엉겅퀴일족 털보숭이가 마을과 소굴 주변 언덕을 가득 메우고 있습니다.",
 	-- ["Fly from {area:392} to {area:2897} on the {zone:1440} coast."] = "{area:392}에서 {zone:1440} 해안의 {area:2897}(으)로 날아가세요.",

@@ -72,9 +72,9 @@ return {
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "{npc:2261}在這附近走動：檢視地圖上的圓圈範圍",
 	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
-	["{item:3467}, from {npc:2427}"] = "",
+	["{item:3467}, from {npc:2427}"] = "{item:3467}，來自{npc:2427}",
 	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen
-	["{item:3499}, from {npc:2428}"] = "",
+	["{item:3499}, from {npc:2428}"] = "{item:3499}，來自{npc:2428}",
 	["Drull's ball and chain"] = "德盧爾的腳鐐",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "{npc:2238}的腳鐐",

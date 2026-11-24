@@ -58,4 +58,6 @@
 	<Script file="Trackers.lua"/>
 	<Script file="QuestieTurnIns.lua"/>
 	<Script file="Movers.lua"/>
+	<Script file="TabStyles\Menu.lua"/>
+	<Script file="TabStyles\TabStyles.lua"/>
 </Ui>

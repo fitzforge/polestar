@@ -356,14 +356,16 @@ local function carriedGuide()
 		end
 		local s = table.remove(stops, best)
 		local at, goals = s.at, {}
+		-- An ender inside a dungeon: the stop is its entrance (RoutePlan.Ender), and each hand-in's own line
+		-- says the ender is inside, where it shows whatever the tips setting (#3774: Daewyn Songblade, in
+		-- the Excavation Site: Wetlands, read as a point in the open world).
+		local note = at.inside and string.format(L["%s: inside %s."], at.name or "?", at.zone or "?") or nil
 		for _, c in ipairs(s.quests) do
 			goals[#goals + 1] = { t = "turnin", quest = c.quest, title = c.title or ns.Names.Quest(c.quest) or (L["Quest"] .. " " .. c.quest),
 				npc = at.npc, npcName = at.npc and at.name or nil, object = at.object, objName = at.object and at.name or nil,
-				map = at.map, x = at.x, y = at.y, f = at.f }
+				map = at.map, x = at.x, y = at.y, f = at.f, note = note }
 		end
-		-- An ender inside a dungeon: the stop is its entrance (RoutePlan.Ender).
-		local note = at.inside and string.format(L["%s: inside %s."], at.name or "?", at.zone or "?") or nil
-		steps[#steps + 1] = { title = at.name or L["Quest giver"], note = note, goals = goals }
+		steps[#steps + 1] = { title = at.name or L["Quest giver"], goals = goals }
 		from = at
 	end
 	return { title = L["Hand in your finished quests"], steps = steps }

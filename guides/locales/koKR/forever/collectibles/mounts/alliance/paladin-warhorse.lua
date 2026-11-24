@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: The Tome of Nobility (Ironforge)
 	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {npc:5149} Brandur Ironhammer · {area:2257} Deeprun Tram
-	["At 40 {npc:6179}, upstairs in the {object:32386}, sends you to {npc:6171} in {zone:1453} ({npc:5149} downstairs gives the same errand; take one). Take the {area:2257} to {zone:1453}."] = "",
+	["At 40 {npc:6179}, upstairs in the {object:32386}, sends you to {npc:6171} in {zone:1453} ({npc:5149} downstairs gives the same errand; take one). Take the {area:2257} to {zone:1453}."] = "40레벨에 {object:32386} 위층의 {npc:6179}이(가) {zone:1453}의 {npc:6171}에게 보냅니다(아래층 {npc:5149}도 같은 심부름을 주니 하나만 받으세요). {area:2257}을(를) 타고 {zone:1453}으로 가세요.",
 
 	-- Step 4: Summon Warhorse
 	-- {npc:6171} Duthorian Rall · {quest:1661} The Tome of Nobility · {spell:13819} Summon Warhorse

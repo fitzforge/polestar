@@ -13,6 +13,7 @@ next forever/40-50/shendralas
 # Rizzle's Schematics (1194).
 
 step Fly to Grom'gol
+  skipto feralas when !onquest 209,348,573,576,587,604,609,617,621,624,728,1137,1183,1426,1430,2872,95033,95296
   when zone "Badlands"
   zone Badlands
   tip Coming from the Riverglades: Kargath's flight master stands at the foot of the fortress.
@@ -21,6 +22,7 @@ step Fly to Grom'gol
   zone Stranglethorn Vale
 
 step Fly to Grom'gol
+  skipto feralas when !onquest 209,348,573,576,587,604,609,617,621,624,728,1137,1183,1426,1430,2872,95033,95296
   when zone "Swamp of Sorrows"
   zone Swamp of Sorrows
   goto 46.1,54.7 "Stonard flight master"
@@ -30,6 +32,7 @@ step Fly to Grom'gol
 # ---------------------------------------------------------------- Stranglethorn Vale
 
 step Grom'gol Base Camp
+  skipto feralas when !onquest 209,348,573,576,587,604,609,617,621,624,728,1137,1183,1426,1430,2872,95033,95296
   zone Stranglethorn Vale
   tip The flight lands at Grom'gol. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, Booty Bay's pirates, the naga coast and Mokk, before the Swamp of Sorrows and the Undercity. The Bubbling Cauldron beside Nimboya has the Skullsplitter chief's quest.
   accept 586                          -- the Bubbling Cauldron: Speaking with Gan'zulah
@@ -146,6 +149,7 @@ step Fin Fizracket
   turnin 348                          -- Fin Fizracket, by the inn
 
 step Whiskey Slim and Fin Fizracket
+  skipto feralas when !onquest 209,348,573,576,587,604,609,617,621,624,728,1137,1183,1426,1430,2872,95033,95296
   when !onquest 348
   when !turnedin 348
   tip Under 40 on your first Booty Bay visit? Whiskey Slim, in the inn, and "Sea Wolf" MacKinley, on the top floor, have their quests for you now.
@@ -734,6 +738,7 @@ step Fly to Freewind Post
   zone Thousand Needles
 
 step Feralas
+  label feralas
   zone Feralas
   goto 75.7,44.3 "Camp Mojache"
 

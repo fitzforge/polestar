@@ -67,11 +67,12 @@ local function add(run, x, y)
 end
 
 -- Runs in travel order; `later` keeps the legs after the current one too.
--- Built once per route change.
+-- A walk with no walking path known (`guess`) gets none: Maps/RouteLines.lua
+-- draws it as the line style's dashes instead (#3418). Built once per route change.
 function Sparkle.Paths(drawPaths, later)
 	local out = {}
 	for _, src in ipairs(drawPaths or {}) do
-		if later or not src.later then
+		if (later or not src.later) and not src.guess then
 			local run
 			for i = 1, src.n do
 				local c = src.c[i]

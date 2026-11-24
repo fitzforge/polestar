@@ -181,7 +181,7 @@ return {
 	["{item:3337}: the camp's Raiders and Swamprunners"] = "{item:3337} : les Écumeurs et les Coureurs des marais du camp",
 
 	-- Step 34: Mosshide gnolls
-	["Mosshide gnolls"] = "",
+	["Mosshide gnolls"] = "gnolls Poil-moussu",
 	-- {quest:277} Fire Taboo · {item:2611} Crude Flint · {area:309} Ironbeard's Tomb · {area:1025} Green Belt · {npc:1244} Rethiel the Greenwarden
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Maddened Rotclaws = {npc:271334} Maddened Rotclaw · Mosshide Brutes = {npc:1012} Mosshide Brute
 	["{quest:277} is still short of its nine {item:2611}: the Mosshide Fenrunners and Trappers (22-24) along the river north-west of the Angerfang camp, south-west of {area:309}, drop them. Almost every one carries some.\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244}; Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "",
@@ -214,8 +214,8 @@ return {
 	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "Au nord-ouest de {npc:2093}, jusqu'à la rivière : des Rampants des tourbières se cachent dans ses mares et le long de ses rives, jusqu'à {area:1024} à l'ouest. Remontez-la vers l'ouest jusqu'à en avoir douze, puis retournez à l'est voir {npc:1244}.\nAttention : hors combat, les Rampants des tourbières se camouflent de temps en temps : ils sont alors furtifs et difficiles à voir.",
 
 	-- Step 39: Rethiel the Greenwarden
-	-- {quest:98283} Carnage · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
-	["{quest:98283}, an elite raptor, on the {zone:1437} loop of the {zone:1424} guide"] = "",
+	-- {quest:98283} Carnage · {npc:271334} Maddened Rotclaw · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
+	["{quest:98283}, an elite raptor called out with a {npc:271334}'s flesh, on the {zone:1437} loop of the {zone:1424} guide"] = "",
 
 	-- Step 40: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates
@@ -300,8 +300,6 @@ return {
 	["On the top floor"] = "Au dernier étage",
 	-- {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
 	["For the Dragonmaw catapult, on the {zone:1437} loop of the {zone:1424} guide"] = "",
-	-- {npc:2094} James Halloran · {npc:270637} Howin Kindfeather · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
-	["{npc:2094}: the crate for {npc:270637}, on the {zone:1437} loop of the {zone:1424} guide"] = "",
 
 	-- Step 54: Captain Halyndor
 	-- {npc:1160} Captain Halyndor · {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands

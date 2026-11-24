@@ -27,7 +27,7 @@ return {
 	-- Step 3: Scout Bolain
 	-- {npc:260026} Scout Bolain · {zone:1434} Stranglethorn Vale · {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "",
+	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "{npc:260026} espera junto al camino al este del paso.\nEsta guía está escrita para los niveles 41-45: la ruta llega aquí sobre el 41, después de {zone:1434}. La segunda oleada del puerto y los campamentos del Frente Occidental al norte son 43-45, con ejecutores del Crepúsculo de élite (45) de patrulla y {npc:256881} (46, élite) solo para grupos: por debajo de 41, haz primero Tuercespina.",
 
 	-- Step 4: Southern Watch
 	-- {area:16744} Southern Watch
@@ -199,6 +199,8 @@ return {
 	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
 	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
 	["{npc:259158}: {quest:94961}, in his cage"] = "",
+	["the way in: she is below the town"] = "",
+	["Claire's cave"] = "",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "El culto Crepuscular",
@@ -219,6 +221,7 @@ return {
 	["Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave."] = "",
 	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
+	-- was: ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, al oeste de la granja de Elbrim: cada tumba lleva uno de los {item:266148} que sueltan los Asaltadores del Crepúsculo, así que primero saqua cinco"
 	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop"] = "",
 
 	-- Step 43: Apprentice Claire
@@ -386,10 +389,13 @@ return {
 	["The pirates' ships"] = "Los barcos piratas",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
+	["on board, at the arrow"] = "",
 	-- {item:268505} Remote Explosive Charge
-	["{item:268505}, the southern ship"] = "{item:268505}, el barco del sur",
-	["the middle ship"] = "el barco del medio",
-	["the northern ship"] = "el barco del norte",
+	["Plant a {item:268505} on the southern ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the middle ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the northern ship"] = "",
 
 	-- Step 74: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
@@ -474,7 +480,7 @@ return {
 	-- Step 95: The Western Front
 	-- {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "",
+	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "Cuidado: el Frente Occidental está escrito para el nivel 44 en adelante. Sus campeones del Crepúsculo son 43-44 y sus siervos 44, los ejecutores del Crepúsculo (élite, 45) patrullan los campamentos, y {npc:256881} (46, élite) es solo para grupos. Por debajo de 44, primero sube con los piratas de la Mar del Este junto al puerto, o vuelve con un amigo.",
 
 	-- Step 96: Sergeant Riftan
 	-- {area:16685} Twilight's Shroud · {npc:258023} Sergeant Riftan
@@ -548,10 +554,10 @@ return {
 
 	-- Step 112: Stormwind flight master
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 113: Shaman trainer
-	["Shaman trainer"] = "",
+	["Shaman trainer"] = "Instructor de chamanes",
 	-- {zone:2548} Riverglades · {zone:1453} Stormwind · {zone:1418} Badlands · {zone:1425} Hinterlands · {area:1537} Ironforge · {area:144} Thelsamar
 	["No shaman trainer stands in the {zone:2548} or in {zone:1453}, and the {zone:1418} & {zone:1425} guide passes none: fly to {area:1537} and train there; {area:144} is a short flight on."] = "No hay instructor de chamanes en {zone:2548} ni en {zone:1453}, y la guía de {zone:1418} y {zone:1425} no pasa por ninguno: vuela a {area:1537} y entrena allí; {area:144} está a un vuelo corto.",
 
@@ -578,9 +584,13 @@ return {
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "Vuelve una vez más a los acantilados de los piratas. Coloca las cargas de Whizzbuzz en los tres barcos amarrados bajo el campamento, de sur a norte; {quest:95124} (nivel 45) está junto al del medio, con su cofre de botín al lado. Vigila a {npc:259758} por el camino.",
 	-- ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "Los cultistas llenan las calles y campos de {area:16723}. Empieza por los círculos rituales del centro (llena allí el catalizador de Claire), avanza al oeste por las casas quemadas hasta el borde del pueblo y vuelve al noreste, a la tierra suelta al oeste de la granja de Elbrim: entierra allí los {item:266148} que sueltan los Asaltantes Crepusculares. Los amuletos, páginas y huesos de dedo los sueltan los cultistas.\nGuarda la {item:4338} que sueltan: {npc:263613}, en {area:16724}, te pide veinte cuando vuelvas. De vez en cuando un cultista suelta el {quest:94885}: haz clic derecho para empezar la misión.\nCuidado: {npc:256899}, un ogro élite (nivel 41), recorre las calles del oeste de {area:16723}, hacia 44-47,47-52. Atrae a los cultistas hacia ti y déjalo pasar; aquí han muerto más jugadores que en ningún otro sitio de la zona.\n{npc:263380}, el élite del río (nivel 42), puede subir desde los campos del suroeste: déjalo pasar.",
 	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "El {npc:260244} merodea por las aguas poco profundas al suroeste del puerto, bajo las playas de los múrlocs. {npc:257001}, un élite, recorre la orilla cerca: mantén las distancias.",
+	-- ["the middle ship"] = "el barco del medio",
+	-- ["the northern ship"] = "el barco del norte",
 	-- ["the {object:707245} poster"] = "el cartel de {object:707245}",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, de {npc:272437}",
+	-- ["{item:268505}, the southern ship"] = "{item:268505}, el barco del sur",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} espera junto al camino, al este del paso.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} cuida la vieja catedral en la esquina suroeste de {area:16724}. Los murciélagos anidan en su piso superior; {npc:272437} reparte las velas sagradas a su lado; las tumbas están en el cementerio de la capilla.\n{npc:271742}, un élite de nivel 53, está en la catedral: no te ataca, así que nunca lo ataques y aleja a los murciélagos de él.",
+	-- ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, al oeste de la granja de Elbrim: cada tumba lleva uno de los {item:266148} que sueltan los Asaltadores del Crepúsculo, así que primero saqua cinco",
 	-- ["{object:621813}: bury the mementos"] = "{object:621813}: entierra los recuerdos",
 }

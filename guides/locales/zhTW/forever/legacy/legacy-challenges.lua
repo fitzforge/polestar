@@ -112,7 +112,7 @@ return {
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "地城：等級15-25",
 	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {zone:1454} Orgrimmar
-	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list.\nAlliance: the {area:153}'s entrance is in the ruins beside the {zone:1458}, among Horde guards: go with a group. {area:2437} is inside {zone:1454}: the {area:16919} counts for it. Horde: the {area:16919} is inside {zone:1455}: {area:2437} counts for it."] = "",
+	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list.\nAlliance: the {area:153}'s entrance is in the ruins beside the {zone:1458}, among Horde guards: go with a group. {area:2437} is inside {zone:1454}: the {area:16919} counts for it. Horde: the {area:16919} is inside {zone:1455}: {area:2437} counts for it."] = "擊敗所有 15-25 級地下城的最終首領，合計獲得一點。{area:2437} 和無限的 {area:16919}（位於 {zone:1455}）算作同一個：擊敗任意一處的最終首領即可。每擊殺一個首領就將其勾選，並在遊戲內的傳承面板檢視列表。\n聯盟：{area:153} 的入口在 {zone:1458} 旁的廢墟里，周圍有部落衛兵：請組隊前往。{area:2437} 位於 {zone:1454} 城內：{area:16919} 可以代替它。部落：{area:16919} 位於 {zone:1455} 城內：{area:2437} 可以代替它。",
 	-- {area:2437} Ragefire Chasm · {npc:11519} Bazzalan · {area:16919} Hall of Thanes
 	["{area:2437}: {npc:11519} (or {area:16919})"] = "{area:2437}：{npc:11519}（或{area:16919}）",
 	-- {area:16919} Hall of Thanes · {npc:261319} Durgen Dirgehammer · {area:2437} Ragefire Chasm
@@ -127,11 +127,11 @@ return {
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "地城：等級26-45",
 	-- {area:16550} The Drowned City · {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
-	["The final boss of every level 26-45 dungeon earns one point together. {area:16550} and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "",
+	["The final boss of every level 26-45 dungeon earns one point together. {area:16550} and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "所有26-45級地下城的最終首領全部擊敗後，共計一點。{area:16550}和{area:17780}（位於{zone:2548}）是無限服新增內容，未收錄在我們的資料中：請自行勾選完成。",
 	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
 	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "達拉然城（Forever 專屬，{zone:1416}）：{npc:246020}",
 	-- {area:16550} The Drowned City
-	["the final boss of the {area:16550}"] = "",
+	["the final boss of the {area:16550}"] = "{area:16550}的最終首領",
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Graveyard"] = "{area:796}：墓地",
 	-- {area:796} Scarlet Monastery
@@ -146,9 +146,9 @@ return {
 	-- Step 20: Dungeons: level 46-60
 	["Dungeons: level 46-60"] = "地城：等級46-60",
 	-- {area:16620} Alcaz Prison · {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
-	["The final boss of every level 46-60 dungeon earns one point together. {area:16620}, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "",
+	["The final boss of every level 46-60 dungeon earns one point together. {area:16620}, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "擊敗所有 46-60 級地下城的最終首領，合計獲得一點。{area:16620}、{area:1216} 和 {area:16985} 是無限新增內容，尚未收錄在我們的資料中：請自行勾選。",
 	-- {area:16620} Alcaz Prison
-	["the final boss of {area:16620}"] = "",
+	["the final boss of {area:16620}"] = "{area:16620}的最終首領",
 	-- {area:1216} Blackmaw Hold
 	["the final boss of {area:1216}"] = "{area:1216}的最終首領",
 	-- {area:1583} Blackrock Spire
@@ -169,7 +169,7 @@ return {
 	-- {npc:10184} Onyxia
 	["Raids: {npc:10184}"] = "團隊：{npc:10184}",
 	-- {npc:10184} Onyxia · {area:2159} Onyxia's Lair · {zone:1445} Dustwallow Marsh · {item:16309} Drakefire Amulet · {zone:1428} Burning Steppes · {area:340} Kargath · {zone:1418} Badlands · {npc:10363} General Drakkisath
-	["Killing {npc:10184} is a point. {area:2159} is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in {area:340} ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "",
+	["Killing {npc:10184} is a point. {area:2159} is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in {area:340} ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "擊殺{npc:10184}可獲得一點。{area:2159}是{zone:1445}的40人團隊副本，12月9日起開放。每名團隊成員揹包中都必須有{item:16309}：聯盟任務鏈從{zone:1428}的“黑龍的威脅”開始，部落任務鏈從{area:340}（{zone:1418}）的“Blood and Thunder”開始；兩條任務鏈最終都要在黑石塔上層對付{npc:10363}。",
 
 	-- Step 22: Raids: Hyjal Summit
 	["Raids: Hyjal Summit"] = "團隊：Hyjal Summit",

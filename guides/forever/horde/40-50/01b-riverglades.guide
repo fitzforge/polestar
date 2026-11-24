@@ -319,7 +319,7 @@ step Tran'gul
   accept 94727                          -- Digging for Answers: for Clubtoe in Sunnyglade
 
 step Clubtoe
-  tip West to Sunnyglade again: Clubtoe, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand Tran'gul's quest in; one of the missing ogres stands a few steps west.
+  tip West to Sunnyglade again: Clubtoe, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand Tran'gul's quest in; one of the missing ogres stands a few steps west.
   complete 94727 @49.9,46.9             -- talk Clubtoe round
   turnin 94727
   accept 95417                          -- The Purple Ones
@@ -565,11 +565,11 @@ step Powderfuse Port
 step The pirates' ships
   tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. Admiral Lamora walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for Gul'gash on the way.
   tip Careful: Admiral Lamora is level 45, a level or two over you here: clear the deck around her first and come in with full health.
-  use 268505 quest 95165.3 @90.9,39.5   -- Remote Explosive Charge, the southern ship
+  use 268505 quest 95165.3 @90.9,39.5 "Plant a Remote Explosive Charge on the southern ship" -- on board, at the arrow
   kill 257861 quest 95124.1             -- Admiral Lamora
   collect 268506 quest 95124.2          -- Lamora's Loot
-  use 268505 quest 95165.2 @90.6,29.6   -- the middle ship
-  use 268505 quest 95165.1 @88.3,25.8   -- the northern ship
+  use 268505 quest 95165.2 @90.6,29.6 "Plant a Remote Explosive Charge on the middle ship" -- on board, at the arrow
+  use 268505 quest 95165.1 @88.3,25.8 "Plant a Remote Explosive Charge on the northern ship" -- on board, at the arrow
 
 step Rotflesh Mushrooms
   tip West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too.

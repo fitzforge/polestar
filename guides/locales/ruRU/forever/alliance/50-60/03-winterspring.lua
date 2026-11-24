@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "Летите сюда: {area:2255}",
-	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "Распорядитель полетов: {area:489}",
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
@@ -111,6 +109,8 @@ return {
 	["{area:392} flight master"] = "Распорядитель полетов: {area:392}",
 
 	-- Step 19: Gadgetzan
+	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {quest:4243} Chasing A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} ({quest:4243}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, внутри",
 	-- {npc:7876} Tran'rek
@@ -304,21 +304,21 @@ return {
 	-- plural, as words: Jaedenar Darkweavers = {npc:7118} Jaedenar Darkweaver
 	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns: pull at the edge of each group and fight one pack at a time.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "",
 	-- {object:176159} Brazier of Malice
-	["{object:176159}, below ground"] = "",
+	["{object:176159}, below ground"] = "{object:176159}, под землёй",
 	-- {object:176160} Brazier of Suffering
-	["{object:176160}, below ground"] = "",
+	["{object:176160}, below ground"] = "{object:176160}, под землёй",
 	-- {object:176158} Brazier of Pain
-	["{object:176158}, below ground"] = "",
+	["{object:176158}, below ground"] = "{object:176158}, под землёй",
 	-- {object:176161} Brazier of Hatred
-	["{object:176161}, below ground"] = "",
+	["{object:176161}, below ground"] = "{object:176161}, под землёй",
 	-- {item:11515} Corrupted Soul Shard · {npc:9528} Arathandris Silversky
 	["{item:11515}, from the same cultists: {npc:9528} takes six by the Sanctuary if you did Cleansing Felwood"] = "",
 	-- {npc:11016} Captured Arko'narin
-	["{npc:11016}, in her cell; below ground"] = "",
+	["{npc:11016}, in her cell; below ground"] = "{npc:11016}, в её клетке; под землёй",
 
 	-- Step 60: Arko'narin
 	-- {area:1770} Shadow Hold
-	["Lead her out of {area:1770} and keep her alive until she is outside the cave: clear the way back first."] = "",
+	["Lead her out of {area:1770} and keep her alive until she is outside the cave: clear the way back first."] = "Выведите её из {area:1770} и не дайте ей погибнуть, пока она не выйдет из пещеры: сначала зачистите обратный путь.",
 
 	-- Step 62: Greta Mosshoof: A Final Blow
 	-- {quest:5242} A Final Blow · {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold
@@ -340,7 +340,7 @@ return {
 	-- {npc:9860} Salia
 	["{npc:9860}, below ground"] = "{npc:9860}, под землей",
 	-- {npc:9517} Shadow Lord Fel'dan
-	["{npc:9517}; below ground"] = "",
+	["{npc:9517}; below ground"] = "{npc:9517}; под землёй",
 
 	-- Step 65: The Emerald Sanctuary
 	["Ride back south-east to the Sanctuary."] = "Возвращайтесь на юго-восток в Изумрудное святилище.",
@@ -358,13 +358,13 @@ return {
 	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	["{npc:11558} stands just inside the {area:1769} cave: she needs Neutral with the Timbermaw; the reputation guide gets you there."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558}: walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: walks around here: look inside the circle on the map"] = "{npc:11558}: ходит здесь: ищите внутри круга на карте",
 
 	-- Step 71: Meilosh
 	-- {npc:11557} Meilosh · {npc:11558} Kernda · {quest:6031} Runecloth
 	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw; the reputation guide gets you there."] = "",
 	-- {npc:11557} Meilosh
-	["{npc:11557}; below ground"] = "",
+	["{npc:11557}; below ground"] = "{npc:11557}; под землёй",
 
 	-- Step 72: Into Winterspring
 	-- {zone:1452} Winterspring
@@ -510,6 +510,7 @@ return {
 	-- ["{area:2247}: kill these as you meet them"] = "{area:2247}: убивайте их по пути",
 	-- ["{area:2255} flight master"] = "Распорядитель полетов: {area:2255}",
 	-- ["{area:2255}'s inn"] = "Таверна ({area:2255})",
+	-- ["{area:489} flight master"] = "Распорядитель полетов: {area:489}",
 	-- ["{item:12383}, 110 yd north"] = "{item:12383}, 110 м к северу",
 	-- ["{item:12771}, a rare drop"] = "{item:12771}, редкая добыча",
 	-- ["{item:15785}; below ground"] = "{item:15785}; под землей",

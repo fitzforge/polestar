@@ -100,9 +100,11 @@ Polestar.Guides = {
 	GuideMatches = function(g, p) return not g.classes or g.classes[1] == p.class end,
 }
 local gates = { ["c/air"] = { level = 30 } }
+local outgrown = {}
 Polestar.Engine = {
 	StartGate = function(id) return gates[id] end,
 	GetGuideState = function() return "new" end,
+	Outgrown = function(g) return outgrown[g.id] == true end,
 }
 local offers = {}
 Polestar.On("CLASS_QUEST_READY", function(n) offers[#offers + 1] = n end)
@@ -359,6 +361,34 @@ fn a_druid_on_a_druid_only_accept_sees_the_class_card_with_the_reward_spells_ico
 	let warrior = &out[1];
 	assert_eq!(warrior["shown"], false, "{warrior}");
 	assert_eq!(warrior["row"], "Accept “|cffffd673The Great Cat Spirit|r”");
+}
+
+// #2898: the Forsaken paladin's warhorse guide opens on Report to Danitha (97022). Its card names the chain's end, the
+// Forsaken Summon Warhorse (1279399, from A Paladin's Steed 94971), as a new mount.
+#[test]
+fn report_to_danitha_s_card_is_the_forsaken_paladin_s_summon_warhorse_2898() {
+	let out = run_card(
+		r#"
+		uistub.guides["test/warhorse"] = { id = "test/warhorse", pack = "guides", title = "Paladin Warhorse (Forsaken)", minLevel = 40, maxLevel = 60,
+			category = "Class", zone = 1458, zoneName = "Undercity", author = "Polestar", version = 1, steps = {
+			{ title = "Report to Danitha", goals = {
+				G("accept", { verb = "Accept", subject = "Report to Danitha", subjectKind = "quest", quest = 97022, npc = 260093, npcName = "Garen Largo", minLevel = 40, map = 1458, x = 47.12, y = 15.49, status = "active" }),
+			} },
+			{ title = "Summon Warhorse", goals = {
+				G("accept", { verb = "Accept", subject = "A Paladin's Steed", subjectKind = "quest", quest = 94971, npc = 246378, npcName = "Danitha Morr", minLevel = 40, map = 1420, x = 22, y = 44.66, status = "pending" }),
+				G("turnin", { verb = "Turn in", subject = "A Paladin's Steed", subjectKind = "quest", quest = 94971, npc = 246378, npcName = "Danitha Morr", map = 1420, x = 22, y = 44.66, status = "pending" }),
+			} },
+		} }
+		uistub.player.class, uistub.player.race, uistub.player.faction, uistub.player.level = "PALADIN", "Scourge", "Horde", 40
+		uistub.setGuide("test/warhorse", 1)
+		local c = card()
+		emit({ shown = c.shown, icon = c.icon, learn = c.learn, badge = c.badge })"#,
+	);
+	let c = &out[0];
+	assert_eq!(c["shown"], true, "{c}");
+	assert_eq!(c["icon"], "Interface\\Icons\\spell-1279399");
+	assert!(c["learn"].as_str().unwrap_or("").contains("Summon Warhorse"), "{c}");
+	assert_eq!(c["badge"], "NEW MOUNT");
 }
 
 // Discord (a Rogue on The Horn of Xelthos, 78261): the card read "ROGUE · LEVEL 1". The quest is level 23 and any
@@ -1016,4 +1046,55 @@ emit(r)"#
 			.into(),
 	});
 	assert_eq!(out[0], json!({ "first": 35, "at30": false, "at33": false, "at34": true }));
+}
+
+#[test]
+fn a_guide_the_engine_calls_outgrown_is_never_offered_3845() {
+	let out = run_qol(
+		r#"
+		outgrown["c/fire"] = true
+		levelUp(20)
+		emit(#offers)"#,
+	);
+	assert_eq!(out[0], 0);
+}
+
+// NoThink's report (#3845): a level-25 Human mage in Duskwood was offered the level-15 class quest (Manaweave Robe,
+// levels 15-17), and the guide it opened called itself outgrown at once. Fitz, 23 Nov: a class quest stops being
+// offered 5 levels past its guide's top, unless it rewards a spell the character still lacks (Bear Form, 10-12).
+// The shipped pack, the real Engine.Outgrown.
+#[test]
+fn a_class_quest_stops_being_offered_five_levels_past_its_guide_s_top_unless_its_spell_is_still_missing_3845() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: r#"
+local w = stub.world
+w.addMap(1431, { name = "Duskwood", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.race, w.raceName, w.raceID, w.class, w.className, w.classID, w.faction, w.level = "Human", "Human", 1, "MAGE", "Mage", 8, "Alliance", 21
+w.moveTo(1431, 50, 50)
+"#
+		.into(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "QoL/QoL.xml"]), Addon::name("Polestar_Guides"), Addon::name("Polestar_Guides_Alliance")],
+		saved: vec![("Polestar".into(), "PolestarCharDB = { schema = 1 }".into())],
+		login: true,
+		script: r#"
+local G, E, CQ = Polestar.Guides, Polestar.Engine, Polestar.QoL.ClassQuests
+local robe = "forever/class/mage/manaweave-robe"
+local function ready(id)
+	for _, g in ipairs(CQ.Ready()) do if g.id == id then return true end end
+	return false
+end
+local r = { levels = { G.Levels(G.Get(robe), "Alliance") } }
+for _, n in ipairs({ 21, 22, 25 }) do stub.world.setLevel(n); stub.advance(2); r["robe" .. n] = ready(robe) end
+-- Bear Form (10-12) for a Night Elf druid: 17 is 5 past its top; the spell decides.
+local bear = G.Get("forever/class/druid/bear-form")
+local p = { level = 17, faction = "Alliance" }
+r.bearMissing = E.Outgrown(bear, p)
+stub.world.learnSpell(5487)
+r.bearKnown = E.Outgrown(bear, p)
+r.bearAt16 = E.Outgrown(bear, { level = 16, faction = "Alliance" })
+emit(r)"#
+			.into(),
+	});
+	assert_eq!(out[0], json!({ "levels": [15, 17], "robe21": true, "robe22": false, "robe25": false, "bearMissing": false, "bearKnown": true, "bearAt16": false }));
 }

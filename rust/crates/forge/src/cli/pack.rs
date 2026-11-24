@@ -1,6 +1,7 @@
-//! `forge release pack`: the release archives. In the checkout: dist/Polestar-<version>.zip (Polestar,
-//! Polestar_Guides, Polestar_Nav, Polestar_Options, Polestar_SkinAPI, Polestar_Looks, Polestar_Arcade, Polestar_Experimental built
-//! from experimental/, the Codex and the built data addons) and dist/Polestar_Recorder-<version>.zip, each with
+//! `forge release pack`: the release archives. In the checkout: dist/Polestar-<version>.zip (Polestar with
+//! Polestar's own experimental pack built from experimental/ inside it, Polestar_Guides, Polestar_Nav,
+//! Polestar_Options, Polestar_Skins, Polestar_Arcade, the Codex and the built data addons)
+//! and dist/Polestar_Recorder-<version>.zip, each with
 //! the GPL in its first folder (and the players' README.txt in Polestar/), plus dist/SHA256SUMS for both. Given
 //! another pack (a folder argument, --pack, or the nearest pack.json): <pack>/dist/<folder>-<version>.zip holding
 //! its built addon folder.
@@ -12,7 +13,7 @@ use forge_guide::js::V;
 use forge_guide::project::{
 	build_pack, find_guide_files, find_pack_dir, load_project_data, no_reference_data, own_extra_at, own_extra_manifest, read_sources, same_path, BuildOpts, Context, FileContent, OWN_EXTRAS,
 };
-use forge_release::addons::{codex_data_warning, codex_refusal, guide_notice_refusal, notice_refusal, release_addons, retired_addons, toc_version, CODEX, RECORDER};
+use forge_release::addons::{codex_data_warning, codex_refusal, folded_addons, guide_notice_refusal, notice_refusal, release_addons, retired_addons, toc_version, CODEX, RECORDER};
 use forge_release::pack::{archive_entries, pack_entries, readme, sha256_hex};
 use forge_release::zip::{write_zip, Entry};
 use forge_release::{plural, shown};
@@ -21,19 +22,19 @@ use std::path::{Path, PathBuf};
 pub const USAGE: &str = "usage: forge release pack [<dir>] [options]
 
 In the checkout: compiles our guides into addon/Polestar_Guides and Polestar's own experimental pack
-(experimental/, with our guides as context) into addon/Polestar_Experimental, then writes
-dist/Polestar-<version>.zip (Polestar, Polestar_Guides with its faction parts and race parts, Polestar_Nav,
-Polestar_Options (the settings window), Polestar_SkinAPI (the Skin API's checks), Polestar_Looks (the
-game's looks and Hearth), Polestar_Arcade (Freedoom Arcade by petllama, when there), Polestar_Experimental (loaded on demand, once a player chooses one of its guides or switches it on),
-Polestar_QuestDB and Polestar_ItemDB when built, Polestar_Codex, and the language folders
-Polestar_<locale>: our guides' texts and the game's names),
+(experimental/, with our guides as context) into addon/Polestar/Experimental (inside Polestar), then writes
+dist/Polestar-<version>.zip (Polestar, Polestar_Guides with its faction parts (their races' guides and legs
+inside), Polestar_Nav, Polestar_Options (the settings window), Polestar_Skins (our skins and layouts), Polestar_Arcade
+(Freedoom Arcade by petllama, when there), the walking maps' continent parts, Polestar_QuestDB and
+Polestar_ItemDB when built, Polestar_Codex, and the language folders Polestar_<locale>: our guides' texts
+and the game's names),
 dist/Polestar_Recorder-<version>.zip and dist/SHA256SUMS (the format `sha256sum -c` reads), the version
 taken from package.json. Polestar/ in the zip also carries LICENSE and README.txt (install steps),
 Polestar_Recorder/ the LICENSE. The Codex must be built first (forge data codex) from release-safe inputs:
 pack stops on a missing Codex or a local-extras one. The baked legs must be current: pack stops on a
 guide that changed since its legs were baked (guides/legs.json), or a leveling guide legs.json has no
 legs for, naming each, unless --bake bakes them.
-An error in the experimental guides stops it too; without experimental/pack.json the folder is left out.
+An error in the experimental guides stops it too; without experimental/pack.json Polestar ships without them.
 
 Given another pack (<dir>, --pack, or run inside one): builds it with our guides as context, then writes
 <pack>/dist/<folder>-<version>.zip holding its addon folder (and its texts addons and race parts), the
@@ -157,13 +158,13 @@ fn pack_release(args: &[String], root: &Path, data_dir: &Path) -> Result<(), sup
 		eprintln!("warning: guides/pack.json says version {said}, package.json says {version}");
 	}
 	// Polestar's own extra packs (OWN_EXTRAS: experimental/), their pack.json read as a community pack's (but
-	// for the id reserved for each) and built below as Polestar's; one whose folder the checkout lacks is left
-	// out of the zip.
+	// for the id reserved for each) and built below as Polestar's, inside Polestar's own folder; one whose
+	// folder the checkout lacks is left out.
 	let mut extras = Vec::new();
 	for e in &OWN_EXTRAS {
 		let src = root.join(e.source);
 		if !src.join("pack.json").is_file() {
-			println!("note: no {}/pack.json; leaving {} out of the zip", e.source, e.folder);
+			println!("note: no {}/pack.json; Polestar ships without addon/{}", e.source, e.dir);
 			continue;
 		}
 		let (m, diags) = forge_guide::manifest::read_extra_manifest(&src, e.id);
@@ -178,11 +179,7 @@ fn pack_release(args: &[String], root: &Path, data_dir: &Path) -> Result<(), sup
 		}
 		extras.push((e, src, m));
 	}
-	let shipped = |addons: &Path| {
-		let mut p = release_addons(addons)?;
-		p.names.retain(|n| !OWN_EXTRAS.iter().any(|e| e.folder == n.as_str()) || extras.iter().any(|(e, _, _)| e.folder == n.as_str()));
-		Ok::<_, String>(p)
-	};
+	let shipped = |addons: &Path| release_addons(addons);
 	let product = shipped(&addons)?;
 	// The Codex is part of Polestar (Lookup, Dungeons, Rares): built from release-safe inputs, or no release.
 	if let Some(why) = codex_refusal(&addons.join(CODEX)) {
@@ -200,12 +197,15 @@ fn pack_release(args: &[String], root: &Path, data_dir: &Path) -> Result<(), sup
 	for n in retired_addons(&addons) {
 		println!("note: {n} is left from before 0.3.0 (the language folders replaced it); leaving it out of the zip: delete it");
 	}
+	for n in folded_addons(&addons) {
+		println!("note: {n} is left from before 0.4.3 (folded into another folder, #3507); leaving it out of the zip: delete it");
+	}
 	let license_file = root.join("LICENSE");
 	let license = std::fs::read(&license_file).map_err(io(&license_file))?;
 	let recorder = vec![RECORDER.to_string()];
 	for names in [&product.names, &recorder] {
-		// Our guide pack's TOC is generated below, and so are the extra packs'.
-		for n in names.iter().filter(|n| **n != folder && !OWN_EXTRAS.iter().any(|e| e.folder == n.as_str())) {
+		// Our guide pack's TOC is generated below.
+		for n in names.iter().filter(|n| **n != folder) {
 			let toc = addons.join(n).join(format!("{n}.toc"));
 			if !toc.exists() {
 				return Err(format!("missing {}", toc.display()).into());
@@ -265,9 +265,9 @@ fn pack_release(args: &[String], root: &Path, data_dir: &Path) -> Result<(), sup
 	}
 	forge_guide::project::write_pack_dir(&addons.join(&folder), &files)?;
 	for (e, f, _) in &extra_files {
-		forge_guide::project::write_pack_dir(&addons.join(e.folder), f)?;
+		forge_guide::project::write_pack_dir(&addons.join(e.dir), f)?;
 	}
-	// The folders again: the build writes our pack's parts (its faction parts, format 8) and the extras.
+	// The folders again: the build writes our pack's parts (its faction parts, format 8).
 	let product = shipped(&addons)?;
 	if let Some(why) = guide_notice_refusal(&addons, &product.names) {
 		return Err(why.into());
@@ -290,7 +290,7 @@ fn pack_release(args: &[String], root: &Path, data_dir: &Path) -> Result<(), sup
 	println!("wrote {}", shown(&sums_file));
 	println!("{}: {}", folder, plural(built.project.guides.len(), "guide"));
 	for (e, _, n) in &extra_files {
-		println!("{}: {}", e.folder, plural(*n, "guide"));
+		println!("{}: {}", e.dir, plural(*n, "guide"));
 	}
 	Ok(())
 }

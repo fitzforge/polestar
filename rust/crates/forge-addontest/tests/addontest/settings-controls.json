@@ -2389,6 +2389,14 @@
    "at": [
     "Integrations > Flight arcade"
    ]
+  },
+  {
+   "id": "ui.outlevelNotice",
+   "kind": "toggle",
+   "label": "Say when I've outlevelled a guide",
+   "at": [
+    "Guide > Automation > Guides"
+   ]
   }
  ]
 }

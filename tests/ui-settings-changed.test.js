@@ -47,10 +47,11 @@ function run(script) {
 			local function cardOf(page)
 				for _, card in ipairs(cards()) do if card.psPage and card.psPage.key == page then return card end end
 			end
-			-- The test login (an account from before them) stores a line style and turns the spawn markers off; every
-			-- setting starts at its default here.
+			-- The test login (an account from before them) stores a line style, turns the spawn markers off and keeps
+			-- Skip grey quests off; every setting starts at its default here.
 			Polestar.Set("nav.lineStyle", nil)
 			Polestar.Set("mobMarkers.enabled", nil)
+			Polestar.Set("behavior.skipGrey", nil)
 			Polestar.UI.ShowOptions("qualityoflife")
 			${script}`,
 	}).emitted;
@@ -59,7 +60,7 @@ function run(script) {
 test('Changed: one card per page with changes, in sidebar order, titled "Group › Page"', () => {
 	const [out] = run(`
 		Polestar.Set("nav.arrowScale", 1.3)
-		Polestar.Set("behavior.skipGrey", true)
+		Polestar.Set("behavior.skipGrey", false)
 		G.Filter("changed")
 		local filters, changedCount = {}, nil
 		local list = G._filters()
@@ -112,7 +113,7 @@ test('Changed: one card per page with changes, in sidebar order, titled "Group �
 test('a card resets its page, offers Undo, and its link opens the page', () => {
 	const [out] = run(`
 		Polestar.Set("nav.arrowScale", 1.3)
-		Polestar.Set("behavior.skipGrey", true)
+		Polestar.Set("behavior.skipGrey", false)
 		G.Filter("changed")
 		local lg = cardOf("arrow").Legend
 		lg.Reset:GetScript("OnClick")(lg.Reset)
@@ -172,7 +173,7 @@ test('turning the switch off in the Changed view returns to the current page at 
 test('resetting a card in the Changed view drops it and its jump tab; the last one leaves the empty state', () => {
 	const [out] = run(`
 		Polestar.Set("nav.arrowScale", 1.3)
-		Polestar.Set("behavior.skipGrey", true)
+		Polestar.Set("behavior.skipGrey", false)
 		G.Filter("changed")
 		local lg = cardOf("arrow").Legend
 		lg.Reset:GetScript("OnClick")(lg.Reset)
@@ -193,7 +194,7 @@ test('a setting changed while the Changed view is open lays it out again', () =>
 		Polestar.Set("nav.arrowScale", 1.3)
 		G.Filter("changed")
 		local before = titles()
-		Polestar.Set("behavior.skipGrey", true)
+		Polestar.Set("behavior.skipGrey", false)
 		emit({ before = before, after = titles() })`);
 	assert.deepEqual(out.before, ['Look › Arrow']);
 	assert.deepEqual(out.after, ['Guiding › Guide', 'Look › Arrow']);

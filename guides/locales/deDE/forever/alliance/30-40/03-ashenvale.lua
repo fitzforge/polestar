@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Flieg nach {area:150}",
-	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "Flugmeister von {zone:1453}",
 
 	-- Step 2: Red Jack Flint
 	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
@@ -216,4 +214,5 @@ return {
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "{object:19868} liegt überall auf den Ebenen verstreut. Scorpid Reavers und Salt Flats Scavengers streifen durch die Nordhälfte, Sparkleshell Snappers (Schildkröten) über die gesamten Ebenen. Saltstone Basilisks und Crystalhides halten die Mitte; die Gazers (34-35) nur den äußersten Süden.",
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868} liegen überall in der Ebene. Skorpidhäscher und Salzwüstenaasfresser streifen durch die Nordhälfte, Spiegelpanzerschildkröten (30-31) durch die Mitte der Ebene: Jag sie für die Panzer. Vorsicht: Spiegelpanzerschnapper (34-35) wandern durch die ganze Ebene, und die Salzsteinstarrer (34-35) und Skorpidschrecker (33-34) halten den äußersten Süden: Lass sie in Ruhe und bleib in der Nordhälfte.",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: für {npc:3961} in {area:415}",
+	-- ["{zone:1453} flight master"] = "Flugmeister von {zone:1453}",
 }

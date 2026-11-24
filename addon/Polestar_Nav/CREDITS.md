@@ -140,6 +140,8 @@ matches the hashes 0.4.2's `PACK.json` pinned.
 To check a shipped pack without the source snapshot, only `forge nav check`
 is needed. Version and translated titles/notes can change without invalidating
 a loader; its file order, dependencies, interface and load mode cannot.
+The whole chain, from `forge nav pack` through this import, is one command,
+`tools/nav/repack.sh` (docs/nav/REPACK.md in the repository).
 
 The continent holds the routing graph and a directory. Each eight-by-four-tile
 sector's coarse floors and fine local geometry are two regions (even rows

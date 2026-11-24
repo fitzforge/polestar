@@ -17,7 +17,8 @@
 //! pages and previews, the settings-only widgets (UI/Controls.lua), every module's rows (<Module>/Options.lua
 //! there), Unlock mode (UI/Movers.lua; core keeps its door), the profile strings (Core/ProfileStrings.lua)
 //! and the skin picker's cards and presets (Theme/SkinPicker.lua); the Skin API's checks went to their own
-//! load-on-demand part (Polestar_SkinAPI), loaded only when another addon brings a skin.
+//! load-on-demand part, loaded only when another addon brought a skin (back in the core since 0.4.3, #3507:
+//! 62 KiB); our own skins and the Atlas layout are one folder of their own, Polestar_Skins, never loaded with it.
 //!
 //! The settings' addon (KiB, Lua 5.1, 64-bit) grew from 2026-11-10's figures (760 loaded, 1,890 opened,
 //! 1,190 peak) by what moved into it from the login, then by the pages' own work (their Essentials tabs and
@@ -89,7 +90,15 @@ const LOGIN_BASE: f64 = 11003.0;
 /// The 0.4.2 Horde route round with LegacySteps regenerated for it (2026-11-20: the quests the round moved into a
 /// guide, Souvenirs of Death into Hillsbrad 30-40 among them, so old-route progress places no one; next with #3291
 /// merged): 13,652 KiB at login. The budget is that and about 5 % (the same rule): 14,335.
-const LOGIN: f64 = LOGIN_BASE + 3332.0;
+/// 0.4.3's fewer folders (#3507): the game looks and Hearth, the Skin API's checks, the guide window's tab styles and
+/// the experimental pack folded into the core, +294 KiB, the only part of this figure that is that change's: 14,531
+/// KiB at login on 2026-11-23, next without it 14,237. The budget is that and CI's runner's few KiB: 14,600 (Fitz).
+/// +28 KiB: DangerHubs for Forever's new zones (#3830): 14,610 KiB at login on 2026-11-24, 14,582 with next's
+/// DangerHubs.lua (CI's runner 14,626). The budget: 14,650 (Main, reported to Fitz).
+/// +44 KiB: the class cards' rewards from recorded turn-ins (#2472) list 1,034 class quests, past the 1,024 slots of
+/// the quests table's hash part, which doubles: 14,669 KiB at login on 2026-11-24, 14,625 with next's ClassRewards.lua
+/// (CI's runner 14,672). The budget: 14,700 (reported to Fitz).
+const LOGIN: f64 = LOGIN_BASE + 3697.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).

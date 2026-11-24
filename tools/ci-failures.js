@@ -7,17 +7,22 @@
 //
 //   node --test --test-reporter=spec --test-reporter-destination=stdout \
 //     --test-reporter=./tools/ci-failures.js --test-reporter-destination=<run.jsonl> <files>
-//                                       as a reporter: one JSON line per failing test, { file, name }
+//                                       as a reporter: one JSON line per test, { file, name } failing,
+//                                       { file, name, ok: true } passing; files relative to the folder
+//                                       node --test runs in
 //   node tools/ci-failures.js compare <baseline.jsonl> <run.jsonl>
 //                                       the run's failures the baseline lacks; exit 1 when there is one
 //   --github                            also each new failure as an error annotation and a table in
 //                                       $GITHUB_STEP_SUMMARY
+//   node tools/ci-failures.js rerun <baseline.jsonl> <run.jsonl> --base <dir>
+//                                       the node --test arguments that run the failing tests the baseline
+//                                       has not run again in the base checkout <dir>: a --test-name-pattern
+//                                       per test, then the files <dir> has; NUL-separated, nothing when none
 
 const fs = require('node:fs');
 const path = require('node:path');
 
-const ROOT = path.join(__dirname, '..');
-const rel = (file) => (file ? path.relative(ROOT, file.startsWith('file:') ? new URL(file).pathname : file).split(path.sep).join('/') : '');
+const rel = (file) => (file ? path.relative(process.cwd(), file.startsWith('file:') ? new URL(file).pathname : file).split(path.sep).join('/') : '');
 
 // The reporter: node:test's events in, a JSON line per test out: { file, name } for a failing one, { file, name, ok:
 // true } for a passing one (the baseline needs both: a failure is new only against a test next has run). A failing
@@ -50,34 +55,64 @@ function seenOnNext(baseline, baseDir) {
 }
 
 // baseline, run: [{ file, name, ok? }] -> { added: the run's failures next passes, unseen: failures of tests next
-// has not run (new or renamed), known: failures next has too }
-function compare(baseline, run, { baseDir = null } = {}) {
+// has not run (new or renamed), known: failures next has too }. baseRun: the failures the baseline has not run, run
+// again in the base checkout on the same data (`rerun`). The baseline is next's newest public data run, which can be
+// older than the base: a test merged to next since is not in it. One failing in the base checkout too is next's,
+// known; one passing there is new; one the base has not (the pull request's own) stays unseen.
+function compare(baseline, run, { baseDir = null, baseRun = [] } = {}) {
 	const failing = new Set(baseline.filter((f) => !f.ok).map(key));
 	const seen = seenOnNext(baseline, baseDir);
+	const onBase = new Map();
+	for (const f of baseRun) if (!f.ok || !onBase.has(key(f))) onBase.set(key(f), f.ok ? 'pass' : 'fail');
 	const done = new Set();
 	const out = { added: [], unseen: [], known: [] };
 	for (const f of run) {
 		const k = key(f);
 		if (f.ok || done.has(k)) continue;
 		done.add(k);
-		(failing.has(k) ? out.known : seen(f) ? out.added : out.unseen).push({ file: f.file, name: f.name });
+		const where = failing.has(k) ? out.known : seen(f) ? out.added : onBase.get(k) === 'fail' ? out.known : onBase.get(k) === 'pass' ? out.added : out.unseen;
+		where.push({ file: f.file, name: f.name });
 	}
 	return out;
 }
 
+// The unseen failures as node --test arguments for the base checkout: an exact name pattern for each (a subtest runs
+// only with its parent's, which fails with it and so is listed too), then the files the base has.
+function rerunArgs(unseen, baseDir) {
+	const exact = (name) => `^${name.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')}$`;
+	const files = [...new Set(unseen.map((f) => f.file))].filter((f) => fs.existsSync(path.join(baseDir, f)));
+	if (!files.length) return [];
+	const names = [...new Set(unseen.filter((f) => files.includes(f.file)).map((f) => f.name))];
+	return [...names.map((n) => `--test-name-pattern=${exact(n)}`), ...files];
+}
+
 // --unseen-ok: a failure of a test next has not run only warns (this repository's own branches: their Release
 // data job runs it on the release data). --base <dir>: the base checkout, for a baseline without passing tests.
+// --base-run <file>: `rerun`'s tests in the base checkout.
 function main(argv) {
-	const github = argv.includes('--github');
-	const unseenOk = argv.includes('--unseen-ok');
-	const at = argv.indexOf('--base');
-	const baseDir = at >= 0 ? argv[at + 1] : null;
-	const args = argv.filter((a, i) => !['--github', '--unseen-ok', '--base'].includes(a) && !(at >= 0 && i === at + 1));
+	const flags = new Set(['--github', '--unseen-ok']);
+	const valued = new Set(['--base', '--base-run']);
+	const opt = {};
+	const args = [];
+	for (let i = 0; i < argv.length; i++) {
+		if (flags.has(argv[i])) opt[argv[i]] = true;
+		else if (valued.has(argv[i])) opt[argv[i]] = argv[++i];
+		else args.push(argv[i]);
+	}
+	const baseDir = opt['--base'] || null;
+	if (args[0] === 'rerun' && args.length === 3 && baseDir) {
+		const { unseen } = compare(read(args[1]), read(args[2]), { baseDir });
+		process.stdout.write(rerunArgs(unseen, baseDir).map((a) => `${a}\0`).join(''));
+		return 0;
+	}
 	if (args[0] !== 'compare' || args.length !== 3) {
-		console.error('usage: node tools/ci-failures.js compare <baseline.jsonl> <run.jsonl> [--github] [--unseen-ok] [--base <dir>]');
+		console.error('usage: node tools/ci-failures.js compare <baseline.jsonl> <run.jsonl> [--github] [--unseen-ok] [--base <dir>] [--base-run <base-run.jsonl>]');
+		console.error('       node tools/ci-failures.js rerun <baseline.jsonl> <run.jsonl> --base <dir>');
 		return 2;
 	}
-	const { added, unseen, known } = compare(read(args[1]), read(args[2]), { baseDir });
+	const github = !!opt['--github'];
+	const unseenOk = !!opt['--unseen-ok'];
+	const { added, unseen, known } = compare(read(args[1]), read(args[2]), { baseDir, baseRun: opt['--base-run'] ? read(opt['--base-run']) : [] });
 	console.log(`${known.length} failure(s) next has too (the public data's, not this change's); ${added.length} new; ${unseen.length} of tests next has not run`);
 	for (const f of known) console.log(`  known:  ${f.file}: ${f.name}`);
 	for (const f of added) console.log(`  NEW:    ${f.file}: ${f.name}`);
@@ -98,4 +133,5 @@ if (require.main === module) process.exitCode = main(process.argv.slice(2));
 
 module.exports = reporter;
 module.exports.compare = compare;
+module.exports.rerunArgs = rerunArgs;
 module.exports.read = read;

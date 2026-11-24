@@ -12,19 +12,19 @@ return {
 	-- Step 1: PvP rank 11
 	["PvP rank 11"] = "PvP 11계급",
 	-- {spell:1299382} Rank Points · {spell:436438} Lieutenant General · {skill:762} Riding
-	["{spell:1299382} come from battlegrounds, PvP quests and the season's weekly tasks, with a weekly cap; {spell:436438} (rank 11) unlocks the Black War mounts. The Player vs. Player tab of your character pane shows your rank and what you may buy. {skill:762} one at full speed needs Journeyman {skill:762} (level 60). Polestar cannot read your rank, so this step waits for level 60 and Journeyman {skill:762}."] = "",
+	["{spell:1299382} come from battlegrounds, PvP quests and the season's weekly tasks, with a weekly cap; {spell:436438} (rank 11) unlocks the Black War mounts. The Player vs. Player tab of your character pane shows your rank and what you may buy. {skill:762} one at full speed needs Journeyman {skill:762} (level 60). Polestar cannot read your rank, so this step waits for level 60 and Journeyman {skill:762}."] = "{spell:1299382}은(는) 전장, PvP 퀘스트, 시즌 주간 과제에서 오며 주간 상한이 있습니다. {spell:436438}(11계급)이 검은 전쟁 탈것을 엽니다. 캐릭터 창의 사람 대 사람 탭에 계급과 구매 가능한 것이 나옵니다. 전속도로 {skill:762}하려면 수습 {skill:762}(60레벨)이(가) 필요합니다. Polestar는 계급을 읽을 수 없으니 이 단계는 60레벨과 수습 {skill:762}을(를) 기다립니다.",
 
 	-- Step 2: Raider Bork
 	-- {npc:12796} Raider Bork · {area:2917} Hall of Legends · {zone:1454} Orgrimmar · {object:172958} Valley of Honor
-	["{npc:12796} sells the mounts by the {area:2917} in {zone:1454}'s {object:172958}, beside the other honor quartermasters. The Forever client lists each at 100g. Each one also needs its kind's riding: Orcs ride the wolf, Trolls the raptor, Tauren the kodo, Undead the skeletal warhorse. A Skyborne, or anyone choosing another race's mount, first needs that riding from its trainer (Exalted with the race's city)."] = "",
+	["{npc:12796} sells the mounts by the {area:2917} in {zone:1454}'s {object:172958}, beside the other honor quartermasters. The Forever client lists each at 100g. Each one also needs its kind's riding: Orcs ride the wolf, Trolls the raptor, Tauren the kodo, Undead the skeletal warhorse. A Skyborne, or anyone choosing another race's mount, first needs that riding from its trainer (Exalted with the race's city)."] = "{npc:12796}이(가) {zone:1454}의 {object:172958}, {area:2917} 곁에서 다른 명예 병참장교 옆에 탈것을 팝니다. Forever 클라이언트에는 각각 100골드로 나옵니다. 종류별 승마도 필요합니다. 오크는 늑대, 트롤은 랩터, 타우렌은 코도, 포세이큰은 해골 전마를 탑니다. 스카이본이나 다른 종족 탈것을 고르려면 먼저 그 종족 교관에게서 승마를 배워야 합니다(그 종족 도시와 확고한 동맹).",
 	-- {npc:14329} Black War Wolf · {spell:825} Wolf Riding
-	["{npc:14329}, {spell:825}, 100g"] = "",
+	["{npc:14329}, {spell:825}, 100g"] = "{npc:14329}, {spell:825}, 100골드",
 	-- {npc:14330} Black War Raptor · {spell:10861} Raptor Riding
-	["{npc:14330}, {spell:10861}, 100g"] = "",
+	["{npc:14330}, {spell:10861}, 100g"] = "{npc:14330}, {spell:10861}, 100골드",
 	-- {item:18247} Black War Kodo · {spell:18995} Kodo Riding
-	["{item:18247}, {spell:18995}, 100g"] = "",
+	["{item:18247}, {spell:18995}, 100g"] = "{item:18247}, {spell:18995}, 100골드",
 	-- {item:18248} Red Skeletal Warhorse · {spell:10906} Undead Horsemanship
-	["{item:18248}, {spell:10906}, 100g"] = "",
+	["{item:18248}, {spell:10906}, 100g"] = "{item:18248}, {spell:10906}, 100골드",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["100g"] = "100골드",

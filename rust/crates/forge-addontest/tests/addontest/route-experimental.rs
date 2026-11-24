@@ -1,15 +1,15 @@
 //! Experimental route options (Engine "Route choice"; Core/Guides.lua, Polestar.RegisterExperimental): a guide of
-//! ours whose `next` also names one of Polestar's experimental guides offers it in the route choice. Its pack loads
-//! on demand: at login while it is shown (the default, Guides.OWN_EXTRA), and not at all once the player switched
-//! it off, when the option comes from the experimental index Polestar_Guides carries (levels to the route's top,
-//! travel, quests, pitch, the guide of ours it rejoins); choosing it then switches the pack on, which loads it, and
-//! the route goes on there and back to ours where its last guide hands over. It is never recommended and never
-//! taken by itself, on or off: with behavior.routeChoice "recommended", with only it left, in the hand-in plan and
-//! in the chain's needs the route is the same as without it. Each option says where it goes on ("Then"), a detour
-//! names the zone it travels through, and a shared guide goes on by the character's faction. The real compiled
-//! guides' default route is the same with the offers as without them, and every zone is offered to each side it
-//! is for. Real Core manifest, stub world; the experimental pack is a fixture addon the client loads on demand
-//! (stub_packs.lua).
+//! ours whose `next` also names one of Polestar's experimental guides offers it in the route choice. Its pack is
+//! inside Polestar (Polestar/Experimental since 0.4.3, #3507) and its guides come in on demand
+//! (Polestar.DeferGuides): at login while it is shown (the default, Guides.OWN_EXTRA), and not at all once the
+//! player switched it off, when the option comes from the experimental index Polestar_Guides carries (levels to the
+//! route's top, travel, quests, pitch, the guide of ours it rejoins); choosing it then switches the pack on, which
+//! brings them in, and the route goes on there and back to ours where its last guide hands over. It is never
+//! recommended and never taken by itself, on or off: with behavior.routeChoice "recommended", with only it left, in
+//! the hand-in plan and in the chain's needs the route is the same as without it. Each option says where it goes on
+//! ("Then"), a detour names the zone it travels through, and a shared guide goes on by the character's faction. The
+//! real compiled guides' default route is the same with the offers as without them, and every zone is offered to
+//! each side it is for. Real Core manifest, stub world; the experimental pack is a fixture of Polestar's files.
 
 use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack_offering};
 use forge_addontest::run::{addons_dir, lua_string, root};
@@ -17,8 +17,6 @@ use forge_addontest::tmp::TempDir;
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use forge_guide::project::find_guide_files;
 use serde_json::{json, Value};
-
-const EXP: &str = "Polestar_Experimental";
 
 // Eastern Kingdoms (c = 0): the Badlands, Stranglethorn Vale south-west of them, the Riverglades south of them;
 // Kalimdor (c = 1): Feralas, Desolace north of it, Shen'dralas east of Desolace, Tanaris east of Feralas.
@@ -89,11 +87,13 @@ Polestar.RegisterExperimental({
 "#;
 
 // The experimental pack's own files: its registration and its guides, as `forge guide compile experimental`
-// writes them in shape.
+// writes them in shape (its guides handed to Polestar.DeferGuides, counted here as they come in).
 const EXP_PACK: &str = r#"local ADDON = ...
 Polestar.RegisterPack({ addon = ADDON, id = "polestar-experimental", format = 5, title = "Polestar Experimental", author = "Polestar", version = "1.0.0", license = "GPL-3.0-only" })
 "#;
 const EXP_GUIDES: &str = r#"
+Polestar.DeferGuides("polestar-experimental", function()
+EXP_LOADS = (EXP_LOADS or 0) + 1
 Polestar.RegisterGuide({ id = "polestar-experimental/glades-1", pack = "polestar-experimental", title = "Riverglades 1 (experimental)", faction = "Horde",
 	minLevel = 37, maxLevel = 40, zone = 2548, zoneName = "Riverglades", next = "polestar-experimental/glades-2", pitch = "Forever's new zone south of the Badlands.", steps = {
 	{ goals = { { t = "accept", quest = 9501, title = "Rog'mar", map = 2548, x = 50, y = 20 } } },
@@ -109,6 +109,7 @@ Polestar.RegisterGuide({ id = "polestar-experimental/shen", pack = "polestar-exp
 	{ goals = { { t = "accept", quest = 9601, title = "Strange Pylons", map = 2652, x = 20, y = 20 } } },
 	{ goals = { { t = "turnin", quest = 9601, title = "Strange Pylons", map = 2652, x = 21, y = 20 } } },
 } })
+end)
 "#;
 
 // The experimental guides switched off by the player (Options, Guide: Show experimental guides), saved.
@@ -137,7 +138,7 @@ end
 function option(c, id)
 	for _, o in ipairs(c.options) do if o.id == id then return o end end
 end
-function loads() return stub.packLoads.Polestar_Experimental or 0 end
+function loads() return EXP_LOADS or 0 end
 -- Forever's own quests, as Quests/NewQuestIds.lua lists them: the fixture's 9500s and 9600s.
 Polestar.NewQuests = Polestar.NewQuests or {}
 Polestar.NewQuests.IsNew = function(q) return q >= 9500 and q < 9700 end
@@ -148,47 +149,32 @@ fn lines(v: &Value) -> Vec<String> {
 	v.as_array().map(|a| a.iter().map(|l| l.as_str().unwrap_or("").to_string()).collect()).unwrap_or_default()
 }
 
-/// The experimental pack written into a temp folder: its TOC, Pack.lua and Guides.lua.
+/// The experimental pack written into a temp folder: its Pack.lua and Guides.lua (Polestar's TOC lists them).
 fn exp_pack() -> TempDir {
 	let tmp = TempDir::new("polestar-exp-");
-	let dir = tmp.path().join(EXP);
-	std::fs::create_dir_all(&dir).unwrap();
-	std::fs::write(
-		dir.join(format!("{EXP}.toc")),
-		"## Interface: 16001\n## Title: Polestar Experimental\n## Author: Polestar\n## Version: 1.0.0\n## LoadOnDemand: 1\n## Dependencies: Polestar\n## X-Polestar-Pack: polestar-experimental\n## X-Polestar-Format: 5\n\nPack.lua\nGuides.lua\n",
-	)
-	.unwrap();
-	std::fs::write(dir.join("Pack.lua"), EXP_PACK).unwrap();
-	std::fs::write(dir.join("Guides.lua"), EXP_GUIDES).unwrap();
+	std::fs::write(tmp.path().join("Pack.lua"), EXP_PACK).unwrap();
+	std::fs::write(tmp.path().join("Guides.lua"), EXP_GUIDES).unwrap();
 	tmp
 }
 
-/// The AddOns list: Polestar, and (when `installed`) the experimental pack, loaded only on demand: its TOC's
-/// fields, and its files for stub_packs.lua, which runs them when the client is asked to load it.
-fn addons(pack: &TempDir, installed: bool) -> String {
-	let mut s = "stub.addonMeta.Polestar = { Version = \"1.0.0\" }\nstub.addons = { { name = \"Polestar\", loaded = true }".to_string();
-	if !installed {
-		return s + " }\n";
+/// Polestar's files: the Core manifest and (when `installed`) the experimental pack's, which load with it.
+fn polestar(pack: &TempDir, installed: bool) -> Addon {
+	let mut files = vec!["Core/Core.xml".to_string()];
+	if installed {
+		files.extend(["Pack.lua", "Guides.lua"].map(|f| pack.path().join(f).to_string_lossy().into_owned()));
 	}
-	let dir = pack.path().join(EXP);
-	s.push_str(&format!(", {{ name = {} , reason = \"DEMAND_LOADED\" }} }}\n", lua_string(EXP)));
-	s.push_str(&format!(
-		"stub.addonMeta[{n}] = {{ Title = \"Polestar Experimental\", Author = \"Polestar\", Version = \"1.0.0\", LoadOnDemand = \"1\", [\"X-Polestar-Pack\"] = \"polestar-experimental\", [\"X-Polestar-Format\"] = \"5\" }}\nstub.packs[{n}] = {{ {}, {} }}\n",
-		lua_string(&dir.join("Pack.lua").to_string_lossy()),
-		lua_string(&dir.join("Guides.lua").to_string_lossy()),
-		n = lua_string(EXP)
-	));
-	s
+	Addon::Files("Polestar".into(), files)
 }
 
-/// One run: the world, the AddOns list, our guides (Stranglethorn Vale offered only `stv_when`), the index, the
-/// hand-off by itself (behavior.guideEnd "continue", where these choices are made at a guide's end).
+/// One run: the world, Polestar (with the experimental pack when `installed`), our guides (Stranglethorn Vale
+/// offered only `stv_when`), the index, the hand-off by itself (behavior.guideEnd "continue", where these choices
+/// are made at a guide's end).
 fn run(installed: bool, stv_when: &str, before: &str, script: &str) -> Value {
 	let pack = exp_pack();
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua", "stub_packs.lua"],
-		before: format!("{WORLD}{}{before}", addons(&pack, installed)),
-		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		before: format!("{WORLD}stub.addonMeta.Polestar = {{ Version = \"1.0.0\" }}\nstub.addons = {{ {{ name = \"Polestar\", loaded = true }} }}\n{before}"),
+		addons: vec![polestar(&pack, installed)],
 		script: [TEST_PACK, TEST_SOURCE, &format!("STV_WHEN = {stv_when}"), GUIDES, INDEX, HELPERS, "stub.login()", r#"Polestar.Set("behavior.guideEnd", "continue")"#, script].join("\n"),
 		..Default::default()
 	})
@@ -220,7 +206,7 @@ fn offered_from_the_index_while_its_pack_is_off_beside_the_one_other_option() {
 	assert_eq!(out["asked"], json!(["ROUTE_CHOICE test/badlands"]), "{out}");
 	assert_eq!(out["guide"], "test/badlands");
 	assert_eq!(out["pending"], "test/badlands");
-	assert_eq!(out["loads"], 0, "switched off, nothing of the pack loads to offer it");
+	assert_eq!(out["loads"], 0, "switched off, nothing of the pack comes in to offer it");
 	assert_eq!(out["options"], json!(["test/stv*", "polestar-experimental/glades-1 (experimental)"]));
 	assert_eq!(out["recommended"], "test/stv");
 	assert_eq!(out["joinsAt"], "Feralas", "both meet again in Feralas: the Riverglades' route rejoins where Stranglethorn Vale goes on");
@@ -236,15 +222,15 @@ fn offered_from_the_index_while_its_pack_is_off_beside_the_one_other_option() {
 	assert_eq!(out["stv"], json!({ "experimental": false, "newInForever": false, "thenId": "test/feralas", "quests": 1 }));
 	assert_eq!(out["offeredBy"], "test/badlands", "/polestar path can offer it again from Stranglethorn Vale");
 
-	// Not installed (or turned off in the AddOns list): nothing to offer, the route goes on as before.
+	// Not installed (a source checkout without it): nothing to offer, the route goes on as before.
 	let none = run(false, "nil", OFF, script);
 	assert_eq!(none["asked"], json!(["GUIDE_CHANGED test/stv"]), "{none}");
 	assert_eq!(none["guide"], "test/stv");
 	assert_eq!(none["options"], json!(["test/stv*"]), "{none}");
 }
 
-// On, as it is by default: the pack loaded at login, its zone still offered beside ours and never recommended, the
-// card's levels the route's (the index's) as when it is off.
+// On, as it is by default: the pack's guides in at login, its zone still offered beside ours and never recommended,
+// the card's levels the route's (the index's) as when it is off.
 #[test]
 fn on_by_default_its_guides_are_in_and_the_choice_is_the_same() {
 	let out = run(
@@ -293,7 +279,7 @@ fn choosing_it_switches_the_pack_on_loads_it_and_continues_there_in_a_fight_once
 		out["after"],
 		json!({ "guide": "polestar-experimental/glades-1", "loads": 1, "on": true, "saved": "polestar-experimental/glades-1",
 			"log": ["GUIDE_CHANGED polestar-experimental/glades-1", "ROUTE_CHOSEN test/badlands polestar-experimental/glades-1"], "pending": false }),
-		"switched off, no install, no setting: the choice switches the guides on, loads them and opens its guide"
+		"switched off, no install, no setting: the choice switches the guides on, brings them in and opens its guide"
 	);
 
 	let fight = run(
@@ -312,7 +298,7 @@ fn choosing_it_switches_the_pack_on_loads_it_and_continues_there_in_a_fight_once
 		emit(r)"#,
 	);
 	assert_eq!(fight["chose"], true);
-	assert_eq!(fight["during"], json!({ "guide": "test/badlands", "loads": 0 }), "never loaded in a fight");
+	assert_eq!(fight["during"], json!({ "guide": "test/badlands", "loads": 0 }), "never brought in during a fight");
 	assert_eq!(fight["after"], json!({ "guide": "polestar-experimental/glades-1", "loads": 1, "chosen": "ROUTE_CHOSEN test/badlands polestar-experimental/glades-1" }));
 }
 
@@ -454,19 +440,14 @@ fn our_route(data: &forge_guide::data::Data, offers: bool) -> forge_addontest::d
 	write_test_pack_offering(&compiled.guides, data, &our_manifest(), &index)
 }
 
-/// The AddOns-list lines of the checkout's experimental pack (addon/Polestar_Experimental), loaded on demand, and
-/// its files for stub_packs.lua: shown by default, it loads at login, and the route choices offer its guides.
-fn exp_installed() -> String {
-	let dir = addons_dir().join(EXP);
-	let toc = std::fs::read_to_string(dir.join(format!("{EXP}.toc"))).unwrap();
-	let meta: Vec<String> = toc.lines().filter_map(|l| l.strip_prefix("## ")?.split_once(':')).map(|(k, v)| format!("[{}] = {}", lua_string(k.trim()), lua_string(v.trim()))).collect();
-	let files: Vec<String> = toc.lines().map(str::trim).filter(|l| !l.is_empty() && !l.starts_with('#')).map(|f| lua_string(&dir.join(f).to_string_lossy())).collect();
-	format!(
-		"stub.addonMeta.Polestar = {{ Version = \"1.0.0\" }}\nstub.addons = {{ {{ name = \"Polestar\", loaded = true }}, {{ name = {n}, reason = \"DEMAND_LOADED\" }} }}\nstub.addonMeta[{n}] = {{ {} }}\nstub.packs[{n}] = {{ {} }}\n",
-		meta.join(", "),
-		files.join(", "),
-		n = lua_string(EXP)
-	)
+/// The checkout's experimental pack, inside Polestar (addon/Polestar/Experimental): Polestar's files with its
+/// Pack.lua, MapFrames.lua and Guides.lua, as its TOC lists them. Shown by default, its guides come in at login,
+/// and the route choices offer them.
+fn exp_installed() -> Addon {
+	let toc = std::fs::read_to_string(addons_dir().join("Polestar/Polestar.toc")).unwrap();
+	let own: Vec<&str> = toc.lines().map(str::trim).filter(|l| l.starts_with("Experimental\\")).collect();
+	assert_eq!(own, ["Experimental\\Pack.lua", "Experimental\\MapFrames.lua", "Experimental\\Guides.lua"], "Polestar's TOC lists the experimental pack's files");
+	Addon::Files("Polestar".into(), std::iter::once("Core/Core.xml".to_string()).chain(own.iter().map(|f| f.replace('\\', "/"))).collect())
 }
 
 /// For a character of `race` (faction `faction`) and the pack built in `pack`: for every leveling guide of ours they
@@ -477,8 +458,8 @@ fn route_of(pack: &forge_addontest::dsl::TestPack, race: &str, faction: &str) ->
 	let loads: Vec<String> = pack.scripts.iter().map(|f| format!("assert(loadfile({}))(\"Polestar_Guides\", ns)", lua_string(&f.to_string_lossy()))).collect();
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua", "stub_packs.lua"],
-		before: format!("{}stub.world.race, stub.world.raceName, stub.world.faction = {r}, {r}, {}", exp_installed(), lua_string(faction), r = lua_string(race)),
-		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		before: format!("stub.addonMeta.Polestar = {{ Version = \"1.0.0\" }}\nstub.addons = {{ {{ name = \"Polestar\", loaded = true }} }}\nstub.world.race, stub.world.raceName, stub.world.faction = {r}, {r}, {}", lua_string(faction), r = lua_string(race)),
+		addons: vec![exp_installed()],
 		script: format!(
 			r#"
 			do local ns = {{}}
@@ -567,15 +548,18 @@ fn the_real_route_compiled_with_the_offers_and_without_them_has_the_same_default
 	}
 }
 
-// What players read about the experimental pack outside the game: its AddOns-list notes (the TOC, in English,
-// from experimental/pack.json) say its guides are listed with Polestar's own, so there is nothing to install or
-// switch on first.
+// What players read about the experimental pack: its notes (from experimental/pack.json, the pack's registration
+// in Polestar/Experimental/Pack.lua) say its guides are listed with Polestar's own, so there is nothing to install
+// or switch on first.
 #[test]
 fn the_experimental_pack_says_no_install_or_setting_is_needed() {
 	let pack: Value = serde_json::from_str(&std::fs::read_to_string(root().join("experimental/pack.json")).unwrap()).unwrap();
 	let notes = pack["notes"].as_str().unwrap();
 	assert!(notes.contains("listed with Polestar's own guides"), "{notes}");
 	assert!(!notes.contains("Community guides"), "no switch to find: {notes}");
-	let toc = std::fs::read_to_string(addons_dir().join(EXP).join(format!("{EXP}.toc"))).unwrap();
-	assert!(toc.lines().any(|l| l == format!("## Notes: {notes}")), "addon/{EXP} carries experimental/pack.json's notes: rebuild it with `forge guide compile experimental`");
+	let registration = std::fs::read_to_string(addons_dir().join("Polestar/Experimental/Pack.lua")).unwrap();
+	assert!(
+		registration.contains(&format!("notes = {}", lua_string(notes))),
+		"addon/Polestar/Experimental/Pack.lua carries experimental/pack.json's notes: rebuild it with `forge guide compile experimental`"
+	);
 }

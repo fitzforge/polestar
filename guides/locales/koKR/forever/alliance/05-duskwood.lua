@@ -9,15 +9,13 @@ return {
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "{area:42}(으)로 날아가세요",
-	-- {area:69} Lakeshire · {area:42} Darkshire · {zone:1431} Duskwood
-	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "",
-	-- {area:69} Lakeshire
-	["{area:69} flight master"] = "",
+	-- {area:42} Darkshire · {zone:1431} Duskwood · {area:69} Lakeshire
+	["Fly to {area:42} for {zone:1431}'s second loop: from {area:69}'s gryphon master if you come from the Redridge guide."] = "",
 
 	-- Step 2: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
 	["Her house stands on the hill south-east of {area:42}, above the {area:121}."] = "그녀의 집은 {area:42} 남동쪽 언덕 위, {area:121} 위쪽에 있습니다.",
-	["Inside"] = "",
+	["Inside"] = "내부",
 	-- {item:1946} Mary's Looking Glass · {npc:511} Insane Ghoul
 	["{item:1946}: the {npc:511}, in the crypt of the cemetery just below"] = "",
 
@@ -25,7 +23,7 @@ return {
 	-- {npc:511} Insane Ghoul · {area:121} Tranquil Gardens Cemetery · {area:42} Darkshire
 	["The {npc:511} (26) hides in the small crypt by the {area:121}, south of {area:42}; the glass is inside."] = "",
 	-- {item:1946} Mary's Looking Glass
-	["{item:1946}; inside"] = "",
+	["{item:1946}; inside"] = "{item:1946}; 내부",
 	-- {quest:337} An Old History Book · {zone:1431} Duskwood
 	["{quest:337}: a rare drop from {zone:1431}'s mobs"] = "{quest:337}: {zone:1431} 몹이 드물게 떨어뜨림",
 
@@ -33,7 +31,7 @@ return {
 	-- {area:42} Darkshire · {npc:276} Viktori Prism'Antras
 	["North into {area:42}: {npc:276}'s house stands at the east end of town, on the way in."] = "",
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}, inside"] = "",
+	["{npc:276}, inside"] = "{npc:276}, 내부",
 	-- {quest:177} Look to the Stars · {zone:1431} Duskwood
 	["{quest:177}: the ogres of Vul'Gol, on your {zone:1431} return"] = "",
 
@@ -42,7 +40,7 @@ return {
 
 	-- Step 7: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
-	["{area:492}: kill these as you meet them"] = "",
+	["{area:492}: kill these as you meet them"] = "{area:492}: 만나는 대로 처치하세요",
 	-- {npc:311} Sven Yorgen · {area:94} Raven Hill · {npc:522} Mor'Ladim
 	-- plural, as words: Skeletal Fiends = {npc:531} Skeletal Fiend · Skeletal Horrors = {npc:202} Skeletal Horror
 	["On the way west to {npc:311}: Skeletal Fiends and Skeletal Horrors walk the cemetery's southern half, north of {area:94}. {npc:522}, an elite, wanders the graves: keep away from him."] = "",
@@ -72,7 +70,7 @@ return {
 	-- {area:42} Darkshire
 	["Hearth back to {area:42} if you bound at the Scarlet Raven Tavern on the first loop, or head back east along the road."] = "",
 	-- {npc:265} Madame Eva
-	["{npc:265}, inside"] = "",
+	["{npc:265}, inside"] = "{npc:265}, 내부",
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}, 마을 회관",
 	-- {npc:264} Commander Althea Ebonlocke
@@ -205,7 +203,7 @@ return {
 
 	-- Step 39: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "지하철을 타고 {zone:1455}(으)로",
 
 	-- Step 40: Shaman training
 	["Shaman training"] = "주술사 수련",
@@ -235,6 +233,7 @@ return {
 	-- ["Train in {zone:1453}, north through {zone:1429}. Then take the boat from {area:17203} to {area:442}."] = "{zone:1429}을(를) 지나 북쪽 {zone:1453}에서 수련하십시오. 그다음 {area:17203}에서 배를 타고 {area:442}(으)로 가십시오.",
 	-- ["Wolves, spiders and ghouls"] = "늑대, 거미, 구울",
 	-- ["{area:492}, south"] = "{area:492}, 남쪽",
+	-- ["{area:69} flight master"] = "{area:69} 비행 조련사",
 	-- ["{item:281046}, from the {object:673515}"] = "{object:673515}에서 {item:281046}",
 	-- ["{item:4371}, from {npc:3133}: limited stock. Sold out? {npc:1448} in {area:150} sells it too."] = "{npc:3133}에게서 {item:4371}: 재고 한정. 매진되었다면 {area:150}의 {npc:1448}도 팝니다.",
 	-- ["{npc:2409}, at the north end of town"] = "{npc:2409}, 마을 북쪽 끝",

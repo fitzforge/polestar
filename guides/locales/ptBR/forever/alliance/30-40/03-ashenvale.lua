@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Voe para {area:150}",
-	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "Mestre de voo de {zone:1453}",
 
 	-- Step 2: Red Jack Flint
 	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
@@ -218,4 +216,5 @@ return {
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868} estão espalhados por toda a planície. Aniquiladores Escorpídeos e Catadores da Planície Salgada vagam pela metade norte, e as Tartarugas Quelobrilho (30-31) pelo meio da planície: cace-as pelos cascos. Cuidado: Tartaliscas Quelobrilho (34-35) vagam por toda a planície, e os Observadores Sal-gema (34-35) e Terrores Escorpídeos (33-34) dominam o extremo sul: deixe-os e fique na metade norte.",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: para {npc:3961} em {area:415}",
 	-- ["{quest:1132}, on the docks"] = "{quest:1132}, nas docas",
+	-- ["{zone:1453} flight master"] = "Mestre de voo de {zone:1453}",
 }

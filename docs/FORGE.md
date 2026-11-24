@@ -65,7 +65,7 @@ flowchart LR
    without his maps), kept as its corners with each
    stretch's move and floor and the ground's height every 2 yards, and written beside each start's
    guides as `legs.json` (`legs-qa.txt` lists the walks it left out, and why). Compiling the guides
-   puts them into the race parts, and the arrow follows them in game instead of searching
+   puts them into each race's file of its faction part (`Legs_<Race>.lua`), and the arrow follows them in game instead of searching
    (docs/PACK_FORMAT.md, "Format 7"). `forge guide bake --guides <dir>` does the same for one
    written guides folder.
 9. **report**: the written guides played the way a player follows them, compared with the seed's

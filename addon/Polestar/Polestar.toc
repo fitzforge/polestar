@@ -46,3 +46,6 @@ UI\UI.xml
 Rares\Rares.xml
 Talents\Talents.xml
 Alts\Alts.xml
+Experimental\Pack.lua
+Experimental\MapFrames.lua
+Experimental\Guides.lua

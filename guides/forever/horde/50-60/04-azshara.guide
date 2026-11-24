@@ -16,8 +16,6 @@ next forever/horde/50-60/05-eastern-plaguelands
 # ---------------------------------------------------------------- The Barrens
 
 step Fly to Ratchet
-  zone Thunder Bluff
-  goto 46.6,49.9 "Thunder Bluff flight master"
   fly "Ratchet"
   zone The Barrens
 

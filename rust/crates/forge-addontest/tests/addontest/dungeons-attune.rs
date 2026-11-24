@@ -347,7 +347,11 @@ fn with_the_local_codex_every_attunement_builds_the_reviewed_steps_and_each_cite
 	assert!(diff.is_empty(), "attunements differ from the reviewed list (review, then POLESTAR_WRITE_GOLDEN=1):\n{}", diff.join("\n"));
 	// Every cited `inside` place is one a chain meets, of an NPC or object that has no spawn and that the Codex
 	// places in no instance (the guide reads the Codex's instance itself; Drakkisath's Brand, Franclorn's monument,
-	// Doan's Strongbox and the Inconspicuous Documents are the Codex's).
+	// Doan's Strongbox and the Inconspicuous Documents are the Codex's). A place cited for a quest of a raid Forever
+	// has not opened, whose quests are out of the data (the Core Fragment for Attunement to the Core, #3392), is in
+	// no chain until the raid opens.
+	let closed_out: HashSet<String> =
+		list(&table["attunements"]).iter().filter(|a| a["open"] == false).flat_map(|a| list(&a["goal"])).map(|q| q.to_string()).filter(|q| !truthy(&real["quests"][q.as_str()])).collect();
 	let mut used: HashSet<String> = HashSet::new();
 	for l in by.as_object().unwrap().values() {
 		for a in list(l) {
@@ -357,6 +361,10 @@ fn with_the_local_codex_every_attunement_builds_the_reviewed_steps_and_each_cite
 		}
 	}
 	for e in list(&table["inside"]) {
+		let for_closed = list(&e["sources"]).iter().any(|s| s["kind"] == "quest" && closed_out.contains(&s["id"].to_string()));
+		if for_closed {
+			continue;
+		}
 		assert!(used.contains(&format!("{}:{}:{}", text(&e["kind"]), e["id"], text(&e["instance"]))), "{} is in no chain", text(&e["name"]));
 		let records = if e["kind"] == "npc" { &real["npcs"] } else { &real["objects"] };
 		let rec = &records[e["id"].to_string()];
@@ -398,12 +406,12 @@ local w = stub.world
 	))
 }
 
-// Two attunements as a level 60 Horde character in Orgrimmar gets them from the shipped Codex: the Molten Core's
-// (accept at Lothos Riftwaker outside, the Core Fragment at Blackrock Depths' entrance with what to do inside, back
-// to Lothos, then the note about his teleport) and the Horde's Dalaran Sewer Key (the Tarren Mill chain, then
-// Heart of Disruption's accept alone with the keep-it note). Skips without a built pack.
+// Two attunements as a level 60 Horde character in Orgrimmar gets them from the shipped Codex: none for the Molten
+// Core while Forever has it closed (Attunement to the Core and Duke Hydraxis's chain are out of the data, #3392), and
+// the Horde's Dalaran Sewer Key (the Tarren Mill chain, then Heart of Disruption's accept alone with the keep-it note).
+// Skips without a built pack.
 #[test]
-fn with_the_built_codex_the_molten_core_and_sewer_key_guides_read_like_a_route() {
+fn with_the_built_codex_the_sewer_key_guide_reads_like_a_route_and_the_closed_molten_core_has_none() {
 	let Some(packs) = real_pack_lua() else {
 		eprintln!("skipped: no Codex pack (forge data codex, or POLESTAR_CODEX_DIR) or no data/forever/map-frames.json");
 		return;
@@ -438,16 +446,7 @@ emit(full(D.AttuneGuide("city-of-dalaran", "sewer-key")))"#
 	});
 	let (mc, sewer) = (&out[0], &out[1]);
 	eprintln!("{}\n{}", serde_json::to_string_pretty(mc).unwrap(), serde_json::to_string_pretty(sewer).unwrap());
-	let brd = "@1427 34.8,85.3";
-	assert_eq!(text(&mc[0]["title"]), "Attunement to the Core");
-	let goals: Vec<String> = list(&mc[0]["goals"]).iter().map(|g| text(g).to_string()).collect();
-	assert!(goals[0].starts_with("accept:7848 @"), "Lothos's accept, placed: {goals:?}");
-	assert_eq!(goals[1], format!("collect:7848 {brd}"), "the Core Fragment at Blackrock Depths' entrance");
-	assert!(goals[2].starts_with("turnin:7848 @"), "back to Lothos: {goals:?}");
-	let note = text(&mc[0]["note"]);
-	assert!(note.contains("Molten Core portal") && note.contains("Core Fragment: inside Blackrock Depths."), "what to do inside, then where: {note}");
-	assert_eq!(text(&mc[1]["title"]), "Molten Core");
-	assert!(text(&mc[1]["note"]).contains("Lothos Riftwaker"), "the last step says what the attunement does");
+	assert!(list(mc).is_empty(), "no Molten Core attunement while the raid is closed: {mc:?}");
 	let titles: Vec<String> = list(sewer).iter().map(|s| text(&s["title"]).to_string()).collect();
 	let mut chain = titles[..4].to_vec();
 	chain.sort();
@@ -1157,4 +1156,48 @@ emit({ section = P.Section(), later = list(), notes = notes })"#,
 		"not open: the line instead of the bar, Guide me still there; done: ticked, at the bottom"
 	);
 	assert_eq!(later["notes"].as_array().unwrap().last().unwrap(), "Not open on Forever yet: the attunement is ready for when it opens.");
+}
+
+// #3877: the section laid out like the Dungeons page: a key in the rail, cards two to a row each with the
+// instance's picture band, the key glyph before the name (a check once done) and Guide me unchanged; a raid's
+// attunement before the dungeons' keys; a done one dimmed at the end.
+#[test]
+fn the_attunements_section_is_cards_two_to_a_row_with_a_key_raids_first_done_ones_dimmed_3877() {
+	let f = Fx::new();
+	let out = f.run_ui(
+		r#"
+local AT, P, D = Polestar.UI.Attunements, Polestar.UI.Picker, Polestar.Dungeons
+local icon
+for _, it in ipairs(P.RailItems()) do if it.key == "Attunements" then icon = it.icon end end
+-- The Deadmines a raid, for the order.
+local list = D.List
+D.List = function()
+	local l = list()
+	for _, d in ipairs(l) do if d.key == "deadmines" then d.kind = "raid" end end
+	return l
+end
+AT.Show()
+local c1, c2 = AT.cards[1], AT.cards[2]
+local _, _, _, x1, y1 = c1:GetPoint(1)
+local _, _, _, x2, y2 = c2:GetPoint(1)
+local first = { AT.Shown()[1].id, AT.Shown()[1].raid, AT.Shown()[1].glyph }
+local art = c1.Art:IsShown() and c1.Art:GetHeight() > 0
+-- The Smelting Key in the bags: done, at the end, dimmed.
+Polestar.Compat.GetItemCount = function(id) return id == 90011 and 1 or 0 end
+AT.Render()
+local last = AT.Shown()[#AT.Shown()]
+local lastCard
+for _, c in ipairs(AT.cards) do if c:IsShown() and c.psId == last.id then lastCard = c end end
+emit({ icon = icon, first = first, sideBySide = y1 == y2 and x2 > x1, sameHeight = c1:GetHeight() == c2:GetHeight(), art = art,
+	guide = c1.Guide.Label:GetText(), last = { last.id, last.glyph, lastCard:GetAlpha() } })"#,
+		"",
+	);
+	let out = &out[0];
+	assert_eq!(out["icon"], "key", "a key in the rail: {out}");
+	assert_eq!(out["first"], json!(["smelting-key", true, "key"]), "the raid's first, a key before its name: {out}");
+	assert_eq!(out["sideBySide"], true, "two to a row: {out}");
+	assert_eq!(out["sameHeight"], true, "a row's cards as tall as each other: {out}");
+	assert_eq!(out["art"], true, "the picture band: {out}");
+	assert_eq!(out["guide"], "Guide me");
+	assert_eq!(out["last"], json!(["smelting-key", "check", 0.6]), "done: ticked, at the end, dimmed: {out}");
 }

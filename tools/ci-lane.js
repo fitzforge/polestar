@@ -53,10 +53,10 @@ const RUST_PATHS = ['rust/**', 'tests/fixtures/dsl/**', ...RUST_DOCS, '.github/w
 // equal).
 const FORGE_PATHS = ['rust/**', 'addon/**', 'data/**', 'forever-db/**', 'guides/**', 'tests/lua/**', 'tests/fixtures/dsl/**', ...RUST_DOCS, '.github/workflows/forge.yml'];
 
-// The areas of the part lane, first match wins. A guide's compile output (the guide packs, Polestar_Experimental's
+// The areas of the part lane, first match wins. A guide's compile output (the guide packs, Polestar's experimental
 // guides, each language's Texts.lua) goes with the guides: a guide pull request carries it.
 const AREAS = [
-	{ area: 'guides', re: /^(guides\/|experimental\/|forge\/seed\/|addon\/Polestar_Guides[^/]*\/|addon\/Polestar_Experimental\/Guides\.lua$|addon\/Polestar_[a-z]{2}[A-Z]{2}\/Texts\.lua$)/ },
+	{ area: 'guides', re: /^(guides\/|experimental\/|forge\/seed\/|addon\/Polestar_Guides[^/]*\/|addon\/Polestar\/Experimental\/Guides\.lua$|addon\/Polestar_[a-z]{2}[A-Z]{2}\/Texts\.lua$)/ },
 	{ area: 'lua', re: /^(addon\/|tests\/lua\/)/ },
 	{ area: 'data', re: /^(data\/|forever-db\/)/ },
 	{ area: 'rust', re: /^(rust\/|tests\/fixtures\/dsl\/)/ },

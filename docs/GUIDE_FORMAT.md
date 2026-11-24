@@ -930,6 +930,7 @@ take a jump.
 | spawn areas `spots` | every goal placed at an NPC or object that spawns at more than one place, hand-placed `@x,y` goals whose target the data also knows, and kill, collect and interact goals players' recordings place: see "Spawn areas" below |
 | group content `group` | elite work, dungeon and raid quests and goals on an instance map: see "Group content" below |
 | escort `escort` | the accept, `complete` and objective goals of an escort quest: see "Escort quests" below |
+| repeatable hand-in `repeatable` | a `turnin` (not `direct`) of a quest `quests.json` marks repeatable: the game never marks it completed, so Polestar stores the hand-in, one per goal, and counts the accept and work of the same quest before it, back to the previous turn-in of it, done with it (Zorbin's Ultra-Shrinker quests, #3334) |
 | later hand-in `carriedTo` | `complete` and objective goals of a quest only a later guide of the chain hands in: see "Quests carried to a later guide" below |
 | placeholder target `logLine` | a `kill` or `talk` on one of the game's placeholder targets (a "[DNT] Kill Credit", "PvP Graveyard Credit Marker", "Trigger Ichman", #2614): its `npc` is dropped, `target` (`npcName`) is the name the placeholder carries ("[DNT] Kill Credit: Twilight Thrall" -> "Twilight Thrall"), else the objective's own text, else the goal's note, and the guide window reads it by its quest-log line. None of the three is an error. A `complete`'s `objs` leave out a placeholder's text the same way |
 | fresh start `fresh` | a leveling guide that other leveling guides lead to: how much of its quest XP follows on from their quests: see "Fresh starts" below |
@@ -1391,13 +1392,12 @@ Written only from 10%; there is nothing to write in the guide.
 
 In the game the share left to a character is `share` scaled by the part of
 `needs` they have neither done, nor in the log, nor taken on the way (a
-lead-in step Polestar put in). From 30% (in whole percent, as the note says
-it), below the guide's top level and
-with `from` a guide for them, the guide window says while the guide's live
-step is in its first third: "Fresh start: about N% of this guide's quest XP
-follows on from <guide>. Expect about M minutes of extra grinding, or start
-there." (M: that XP as kills of mobs of their level, 1.5 a minute), with
-"Open <guide>", which opens that guide in a new tab. Taken or dismissed, it
+lead-in step Polestar put in), nor grey for them. From 30% (in whole
+percent), below the guide's top level and with `from` a guide for them, the
+guide window says while the guide's live step is in its first third: "Some
+of this guide's quests follow on from <guide>. Start there for the full set,
+or carry on here; the guide fills in with nearby quests.", with "Open
+<guide>", which opens that guide in a new tab. Taken or dismissed, it
 is gone for that guide until the next session. "Suggested for you" lists
 such a guide after the others of its zone and travel band.
 

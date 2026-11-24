@@ -199,6 +199,8 @@ return {
 	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
 	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
 	["{npc:259158}: {quest:94961}, in his cage"] = "",
+	["the way in: she is below the town"] = "",
+	["Claire's cave"] = "",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "O culto do Crepúsculo",
@@ -219,6 +221,7 @@ return {
 	["Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave."] = "",
 	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
+	-- was: ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, a oeste da fazenda do Elbrim: cada túmulo pede uma das {item:266148} que os Saqueadores do Crepúsculo soltam, então saqueie cinco antes"
 	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop"] = "",
 
 	-- Step 43: Apprentice Claire
@@ -386,10 +389,13 @@ return {
 	["The pirates' ships"] = "Os navios dos piratas",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
+	["on board, at the arrow"] = "",
 	-- {item:268505} Remote Explosive Charge
-	["{item:268505}, the southern ship"] = "{item:268505}, o navio do sul",
-	["the middle ship"] = "o navio do meio",
-	["the northern ship"] = "o navio do norte",
+	["Plant a {item:268505} on the southern ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the middle ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the northern ship"] = "",
 
 	-- Step 74: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
@@ -578,9 +584,13 @@ return {
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "Mais uma vez aos penhascos dos piratas. Plante as cargas de Whizzbuzz nos três navios ancorados abaixo do acampamento, de sul para norte; {quest:95124} (nível 45) fica junto ao do meio, com o baú de saque ao lado dela. Fique de olho em {npc:259758} no caminho.",
 	-- ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "Os cultistas lotam as ruas e os campos de {area:16723}. Comece pelos círculos ritualísticos no meio (encha o catalisador de Claire ali), siga para o oeste pelas casas queimadas até a borda da vila e depois volte para o nordeste até a terra fofa a oeste da fazenda de Elbrim: enterre ali as {item:266148} que os Saqueadores do Crepúsculo deixam cair. Os amuletos, as páginas e os ossos de dedo caem dos cultistas.\nGuarde a {item:4338} que eles deixam cair: {npc:263613}, em {area:16724}, pede vinte quando você voltar lá. De vez em quando um cultista deixa cair {quest:94885}: clique com o botão direito para iniciar a missão.\nCuidado: {npc:256899}, um ogro elite (nível 41), anda pelas ruas a oeste de {area:16723}, por volta de 44-47,47-52. Puxe os cultistas até você e deixe-o passar; aqui morreram mais jogadores do que em qualquer outro lugar da zona.\n{npc:263380}, o elite do rio (nível 42), pode subir dos campos a sudoeste: deixe-o passar.",
 	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} ronda as águas rasas a sudoeste do porto, abaixo das praias dos murlocs. {npc:257001}, um elite, anda pela costa ali perto: mantenha distância.",
+	-- ["the middle ship"] = "o navio do meio",
+	-- ["the northern ship"] = "o navio do norte",
 	-- ["the {object:707245} poster"] = "o cartaz {object:707245}",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, com {npc:272437}",
+	-- ["{item:268505}, the southern ship"] = "{item:268505}, o navio do sul",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} espera ao lado da estrada, a leste do desfiladeiro.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} cuida da velha catedral no canto sudoeste de {area:16724}. Os morcegos se empoleiram no andar superior; {npc:272437} distribui as velas sagradas ao lado dela; os túmulos ficam no cemitério da capela.\n{npc:271742}, um elite de nível 53, fica na catedral: ele não ataca você, então nunca o ataque e puxe os morcegos para longe dele.",
+	-- ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, a oeste da fazenda do Elbrim: cada túmulo pede uma das {item:266148} que os Saqueadores do Crepúsculo soltam, então saqueie cinco antes",
 	-- ["{object:621813}: bury the mementos"] = "{object:621813}: enterre as recordações",
 }

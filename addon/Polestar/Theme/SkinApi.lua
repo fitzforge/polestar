@@ -3,11 +3,11 @@
 -- Polestar needs at login lives here: the version and the capabilities, the
 -- built-in schemes and skins, the hooks' dispatch and the facts a picker
 -- shows. The checks a scheme or skin from another addon goes through (its
--- fields, colours, legibility, variants, preset) load on demand with the
--- first one registered (Polestar_SkinAPI/SkinCheck.lua), and the settings
--- window's side of the API (the picker's cards, a preset applied and undone)
--- loads with the settings (Polestar_Options/Theme/SkinPicker.lua): a player
--- who uses no other addon's skin loads neither.
+-- fields, colours, legibility, variants, preset) are Theme/SkinCheck.lua,
+-- loaded right after this file (their own folder before 0.4.3, #3507), and
+-- the settings window's side of the API (the picker's cards, a preset
+-- applied and undone) loads with the settings
+-- (Polestar_Options/Theme/SkinPicker.lua).
 
 local _, ns = ...
 local Theme = ns.Theme
@@ -66,7 +66,7 @@ local LAYOUT_HOOKS = { guideLayout = true, guideRender = true, guidePlace = true
 -- The registered layouts (Theme.RegisterLayout): id -> { id, name, addon,
 -- author, version, desc, api, hooks, onApply, onLeave, defaults, preset }.
 local LAYOUTS, LAYOUT_FAILED = {}, {}
--- The checks read them too (Polestar_SkinAPI/SkinCheck.lua).
+-- The checks read them too (Theme/SkinCheck.lua).
 I.PAINT_KINDS, I.HOOKS, I.LAYOUT_HOOKS, I.LAYOUTS = PAINT_KINDS, HOOKS, LAYOUT_HOOKS, LAYOUTS
 
 local CAPABILITIES = {}
@@ -110,24 +110,12 @@ local function report(kind, id, spec, msg)
 end
 I.report = report
 
--- The checks a scheme or skin from another addon goes through, loaded with
--- the first one registered (it registers them as I.register). -> the checks,
--- or nil when the addon holding them is missing or disabled.
-local CHECKS = "Polestar_SkinAPI"
-local MISSING = "the Skin API's checks did not load (is the " .. CHECKS .. " folder installed and enabled?)"
-local function checks()
-	if I.register then return I.register end
-	local A = C_AddOns
-	local load = A and A.LoadAddOn or LoadAddOn
-	if load then pcall(load, CHECKS) end
-	return I.register
-end
+-- The checks a scheme, skin or layout goes through: Theme/SkinCheck.lua
+-- registers them as I.register as it loads, right after this file.
 
 -- Register colour scheme `id` (spec: docs/skins/reference.md, "RegisterScheme").
 function Theme.RegisterScheme(id, spec)
-	local c = checks()
-	local ok, msg
-	if c then ok, msg = c.scheme(id, spec) else ok, msg = false, MISSING end
+	local ok, msg = I.register.scheme(id, spec)
 	if not ok then report("scheme", id, spec, "refused: " .. tostring(msg)) end
 	return ok, msg
 end
@@ -135,9 +123,7 @@ end
 -- Register skin `id` (spec: docs/skins/reference.md, "RegisterSkin").
 local refusedSaid = {} -- skin id -> the player was told it could not come
 function Theme.RegisterSkin(id, spec)
-	local c = checks()
-	local ok, msg
-	if c then ok, msg = c.skin(id, spec) else ok, msg = false, MISSING end
+	local ok, msg = I.register.skin(id, spec)
 	if not ok then
 		report("skin", id, spec, "refused: " .. tostring(msg))
 		-- The player chose this skin (it is saved), none came, and this one
@@ -153,9 +139,7 @@ end
 
 -- Register layout `id` (spec: docs/skins/reference.md, "RegisterLayout").
 function Theme.RegisterLayout(id, spec)
-	local c = checks()
-	local ok, msg
-	if c then ok, msg = c.layout(id, spec) else ok, msg = false, MISSING end
+	local ok, msg = I.register.layout(id, spec)
 	if not ok then report("layout", id, spec, "refused: " .. tostring(msg)) end
 	return ok, msg
 end
@@ -424,7 +408,8 @@ local function installed(key)
 	if not (A and A.GetNumAddOns and A.GetAddOnInfo and A.GetAddOnMetadata) then return out end
 	for i = 1, A.GetNumAddOns() do
 		local name, title, notes, loadable, reason = A.GetAddOnInfo(i)
-		local declared = type(name) == "string" and A.GetAddOnMetadata(name, key) or nil
+		-- A skin folder 0.4.3 folded into Polestar_Skins, left installed, never comes.
+		local declared = type(name) == "string" and not ns.Data.Folded(name) and A.GetAddOnMetadata(name, key) or nil
 		if type(declared) == "string" then
 			local ids = {}
 			for id in declared:gmatch("[^,%s]+") do ids[#ids + 1] = id end
@@ -462,10 +447,40 @@ local function loadSkinAddon(rec)
 	return true
 end
 
+-- A skin built when it is first wanted (#3881): a folder that holds several
+-- skins (Polestar_Skins: ten) registers each with Theme.SkinBuilder(id,
+-- build), and `build` (the skin's own file: its tables, textures and
+-- Theme.RegisterSkin) runs the first time that skin is applied, or when the
+-- settings list every skin. Loading the folder builds none of them: applying
+-- Atlas builds Atlas alone. -> nothing
+local BUILDERS = {} -- skin id -> its build, until it has run
+function Theme.SkinBuilder(id, build)
+	if type(id) ~= "string" or type(build) ~= "function" or SKINS[id] then return end
+	BUILDERS[id] = build
+end
+
+-- Skin `id`'s build, run once. -> registered now
+local function build(id)
+	local b = BUILDERS[id]
+	if not b then return false end
+	BUILDERS[id] = nil
+	local ok, err = pcall(b)
+	if not ok then report("skin", id, nil, "its build failed: " .. tostring(err)) end
+	return SKINS[id] ~= nil
+end
+
+-- Whether skin `id` waits to be built (the tests read it).
+function Theme.SkinWaits(id) return BUILDERS[id] ~= nil end
+
 -- Load the installed addon that declares skin (or scheme) `id`, when it is
--- not loaded and can be. -> ok (registered now, or already), why
+-- not loaded and can be, and build that skin alone. -> ok (registered now,
+-- or already), why
 function Theme.LoadSkinAddon(id)
 	if SKINS[id] or SCHEME_INFO[id] then return true end
+	if BUILDERS[id] then
+		if build(id) then return true end
+		return false, "its build did not register it"
+	end
 	for _, rec in ipairs(Theme.InstalledSkins()) do
 		for _, x in ipairs(rec.ids) do
 			if x == id then
@@ -473,6 +488,7 @@ function Theme.LoadSkinAddon(id)
 				if rec.reason then return false, rec.reason end
 				local ok, why = loadSkinAddon(rec)
 				if not ok then return false, why end
+				build(id)
 				if SKINS[id] or SCHEME_INFO[id] then return true end
 				return false, "its addon " .. rec.addon .. " loaded but did not register it"
 			end
@@ -482,15 +498,22 @@ function Theme.LoadSkinAddon(id)
 end
 
 -- Every installed skin addon that can load, loaded (once a session, out of
--- combat), so the settings' picker shows all of them. -> how many loaded
+-- combat), and every skin waiting to be built, built: the settings' picker
+-- shows all of them. -> how many addons loaded
 local loadedAll = false
 function Theme.LoadInstalledSkins()
-	if loadedAll or (InCombatLockdown and InCombatLockdown()) then return 0 end
-	loadedAll = true
+	if InCombatLockdown and InCombatLockdown() then return 0 end
 	local n = 0
-	for _, rec in ipairs(Theme.InstalledSkins()) do
-		if not rec.loaded and not rec.reason and loadSkinAddon(rec) then n = n + 1 end
+	if not loadedAll then
+		loadedAll = true
+		for _, rec in ipairs(Theme.InstalledSkins()) do
+			if not rec.loaded and not rec.reason and loadSkinAddon(rec) then n = n + 1 end
+		end
 	end
+	local ids = {}
+	for id in pairs(BUILDERS) do ids[#ids + 1] = id end
+	table.sort(ids)
+	for _, id in ipairs(ids) do build(id) end
 	return n
 end
 
@@ -687,7 +710,7 @@ function Theme.LayoutPresets()
 end
 
 -- The built-in schemes and skins (their tokens are Theme.lua's tables;
--- Polestar_Looks/GameSkins.lua adds the game looks' painters), taken as they are:
+-- Theme/Looks/GameSkins.lua adds the game looks' painters), taken as they are:
 -- tests/theme holds each to the legibility rule, so login checks nothing.
 local BUILTIN_SCHEME_LABEL = {
 	dusk = function() return ns.L["Dusk"] end,

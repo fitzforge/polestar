@@ -1,22 +1,29 @@
--- The 0.4.3 "What's new" card (#3629): one choice, shown once per account
--- after an update from before 0.4.3, beside the real guide window: the
--- player's current design or the new Atlas layout, and the four tab styles,
--- each switching the window underneath live, as often as they like.
+-- The 0.4.3 layout choice (#3629, #3876): a section of the What's new card
+-- (UI/WhatsNew.lua), centred under the notes, in its style: the Atlas
+-- layout and the four tab styles, each switching the guide window
+-- underneath live, as often as the player likes.
 --
---   Layout: Your current design | Atlas
+--   Layout: Standard | Atlas          "(your current)" after the player's own
 --   Tabs:   Above the step bar | Title menu | Top edge | Left side (the one showing marked)
 --
--- Before anything changes, when the card opens, the guide window's setup is
--- saved as a look snapshot, "Before Atlas (<date>)", that stays in Settings >
--- Guide window > Presets either way (the card says so). Keep this commits
--- what is showing and closes the card; the ✕ or Escape put the snapshot
--- back, so nothing changes by accident. Atlas writes only its own key
+-- When What's new opens with the section, the guide window's setup is saved
+-- as a look snapshot, "Before Atlas (<date>)", that stays in Settings >
+-- Guide window > Presets either way (the section says so); a snapshot that
+-- matches the setup already is used again, not taken twice. The ✕ or Escape
+-- put the snapshot back, so nothing changes by accident; What's new's
+-- buttons (Keep this, Open the guide list) keep what is showing. Standard is
+-- Polestar's own layout and Atlas the new one, whatever the player had: the
+-- one they had is marked "(your current)", and picking it puts their whole
+-- setup back (the tab style with it). Atlas writes only its own key
 -- (ui.layout); a tab style only guideWindow.tabStyle. The credit line names
--- the author. A fresh install never sees it: Install's look step offers the
--- same choice (UI/Welcome.lua). Per account: PolestarDB.layoutCardSeen.
--- It waits as What's new does: a few seconds after login, out of combat,
--- cinematics and instances, after the welcome, the route choice and What's
--- new itself.
+-- the author; one line says what the arrow follows and where a quest of the
+-- player's own is found (#3701), as Install's first page does.
+--
+-- What's new opens at login while its notes are new or the section is due
+-- (LC.Due: Atlas installed, the account not past this choice), once: one
+-- card, not two. A fresh install never sees the section at login: Install's
+-- look step offers the same choice (UI/Welcome.lua). Per account:
+-- PolestarDB.layoutCardSeen. /polestar whatsnew shows it again.
 --
 -- Look snapshots (also taken by the Presets row before a card replaces the
 -- player's own look, Polestar_Options/UI/Presets.lua): the stored values of
@@ -29,10 +36,13 @@
 --   LC.SnapshotKeys() -> { path, ... }
 --   LC.Take(name) -> snapshot     { name, at, keys = { path, ... }, values = { [path] = stored } }
 --   LC.Restore(snapshot)          LC.Snapshots() -> { snapshot, ... }
---   LC.Show(force), LC.Keep(), LC.Close(), LC.IsShown(), LC.State() (what the card shows)
+--   LC.Offered(), LC.Due()        the section shown / due at login
+--   LC.Section(parent) -> frame   LC.LayoutSection(width) -> height
+--   LC.Begin(), LC.End(keep)      What's new opened with it / closed
+--   LC.IsShown(), LC.State()      (what the section shows)
 
 local ADDON, ns = ...
-local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
+local UI, W = ns.UI, ns.Widgets
 local L = ns.L
 local format, ipairs, pairs, type, sort = string.format, ipairs, pairs, type, table.sort
 
@@ -42,8 +52,6 @@ UI.LayoutCard = LC
 LC.VERSION = "0.4.3" -- the update the card is about
 LC.MAX = 5 -- look snapshots kept
 LC.ATLAS = "atlas"
-local DELAY = 4 -- seconds after login: after What's new's own delay
-local WIDTH = 440
 local CREDIT = "TTik3r"
 
 -- The tab styles in the window's order, with the names Settings gives them.
@@ -156,13 +164,11 @@ function LC.Restore(snap)
 end
 
 ---------------------------------------------------------------------------
--- The card
+-- The section in What's new
 ---------------------------------------------------------------------------
 
-local F
-local snapshot -- taken when the card opened
-local kept
-local pending
+local S -- the section's frame (LC.Section)
+local snapshot -- the setup What's new found when it opened with the section
 
 local function seen() return ns.DB().layoutCardSeen ~= nil end
 
@@ -181,67 +187,48 @@ local function atlasOn() return ns.Theme and ns.Theme.LayoutId and ns.Theme.Layo
 
 local function guideWindow() return _G.PolestarGuideFrame end
 
--- Beside the guide window, on the side with room; centred without one.
-local function place()
-	F:ClearAllPoints()
-	local g = guideWindow()
-	if g and g:IsVisible() and g:GetLeft() then
-		local room = g:GetLeft() * (g:GetEffectiveScale() / F:GetEffectiveScale())
-		if room >= WIDTH + 24 then
-			F:SetPoint("RIGHT", g, "LEFT", -24, 0)
-		else
-			F:SetPoint("LEFT", g, "RIGHT", 24, 0)
-		end
-	else
-		F:SetPoint("CENTER", UIParent, "CENTER", 0, 60)
-	end
+-- Without Atlas there is nothing to choose: no section, and it stays due for
+-- when Atlas is installed.
+function LC.Offered() return atlasInstalled() end
+function LC.Due() return not seen() and atlasInstalled() end
+
+-- The layout the player had when What's new opened: "atlas" or nil (Standard).
+local function ownLayout()
+	local v = snapshot and snapshot.values["ui.layout"]
+	return v == LC.ATLAS and LC.ATLAS or nil
 end
 
 local function paint()
-	if not F then return end
-	local atlas = atlasOn()
-	F.Current.psPrimary, F.Atlas.psPrimary = not atlas, atlas
-	W.RepaintButton(F.Current)
-	W.RepaintButton(F.Atlas)
+	if not S then return end
+	local atlas, own = atlasOn(), ownLayout()
+	local mine = " " .. L["(your current)"]
+	W.SetButtonText(S.Standard, L["Standard"] .. (snapshot and own == nil and mine or ""))
+	W.SetButtonText(S.Atlas, "Atlas" .. (own == LC.ATLAS and mine or ""))
+	S.Standard.psPrimary, S.Atlas.psPrimary = not atlas, atlas
+	W.RepaintButton(S.Standard)
+	W.RepaintButton(S.Atlas)
 	local style = ns.Get("guideWindow.tabStyle")
 	local tabs = ns.Get("guideWindow.tabs") ~= false
-	for _, b in ipairs(F.Styles) do
+	for _, b in ipairs(S.Styles) do
 		b.psPrimary = b.psStyle == style
 		W.RepaintButton(b)
 		b:SetEnabled(tabs)
 		b:SetAlpha(tabs and 1 or 0.45)
 	end
-	F.TabsOff:SetShown(not tabs)
+	S.TabsOff:SetShown(not tabs)
 	local g = guideWindow()
-	F.NoWindow:SetShown(not (g and g:IsVisible()))
+	S.NoWindow:SetShown(not (g and g:IsVisible()))
 end
 
-local function finish()
-	ns.DB().layoutCardSeen = LC.VERSION
-	pending = nil
-end
-
-function LC.Keep()
-	kept = true
-	finish()
-	if F then F:Hide() end
-end
-
-function LC.Close()
-	if F then F:Hide() end
-end
-
--- Your current design: the setup the card found, the layout and tab style with it.
-local function current()
-	if snapshot then LC.Restore(snapshot) end
-	paint()
-end
-
-local function atlas()
+-- A layout picked: the player's own puts their whole setup back (the tab
+-- style with it); the other is switched to.
+local function pick(layout)
 	local T = ns.Theme
-	if T and T.SetLayout and not atlasOn() then
-		local ok, why = T.SetLayout(LC.ATLAS)
-		if not ok then ns.Print(format(L["The layout %s could not be chosen: %s."], "Atlas", tostring(why))) end
+	if snapshot and layout == ownLayout() then
+		LC.Restore(snapshot)
+	elseif T and T.SetLayout and (layout == LC.ATLAS) ~= atlasOn() then
+		local ok, why = T.SetLayout(layout)
+		if not ok and layout then ns.Print(format(L["The layout %s could not be chosen: %s."], "Atlas", tostring(why))) end
 	end
 	paint()
 end
@@ -251,174 +238,140 @@ local function style(v)
 	paint()
 end
 
-local function row(parent, label, y)
-	local t = W.Text(parent, "label", "textDim")
-	t:SetText(label)
-	t:SetPoint("TOPLEFT", parent, "TOPLEFT", 24, -y)
+local function centred(parent, role, color)
+	local t = W.Text(parent, role, color)
+	t:SetWordWrap(true)
+	t:SetJustifyH("CENTER")
 	return t
 end
 
-local function build()
-	F = CreateFrame("Frame", "PolestarLayoutCard", ns.UIParent)
-	F:SetFrameStrata("DIALOG")
-	F:SetToplevel(true)
-	F:SetClampedToScreen(true)
-	F:EnableMouse(true)
-	F:SetMovable(true)
-	F:SetWidth(WIDTH)
-	F:Hide()
-	Theme.Skin(F, "window")
-	ns.DragWindow(F, F)
-	F.Title = W.Text(F, "title", "text")
-	F.Title:SetPoint("TOPLEFT", F, "TOPLEFT", 24, -22)
-	F.Title:SetText(L["New in 0.4.3: the Atlas layout"])
-	F.Text = W.Text(F, "body", "textDim")
-	F.Text:SetPoint("TOPLEFT", F, "TOPLEFT", 24, -48)
-	F.Text:SetWidth(WIDTH - 48)
-	F.Text:SetWordWrap(true)
-	F.Text:SetJustifyH("LEFT")
-	F.Text:SetText(L["Try it on your own guide window: each button switches it now, as often as you like."])
-	F.Close = W.IconButton(F, "close", 28, L["Close"], LC.Close, 12)
-	F.Close:SetPoint("TOPRIGHT", F, "TOPRIGHT", -10, -10)
-	W.FrameClose(F, F.Close)
-
-	local y = 96
-	F.LayoutLabel = row(F, L["Layout"], y)
-	F.Current = W.Button(F, L["Your current design"], current, { height = 26 })
-	F.Current:SetPoint("TOPLEFT", F, "TOPLEFT", 24, -(y + 20))
-	F.Atlas = W.Button(F, "Atlas", atlas, { height = 26 })
-	F.Atlas:SetPoint("LEFT", F.Current, "RIGHT", 8, 0)
-	y = y + 60
-	F.TabsLabel = row(F, L["Tabs"], y)
-	F.Styles = {}
-	local prev
+-- The section's frame in `parent` (What's new), built once.
+function LC.Section(parent)
+	if S then return S end
+	S = CreateFrame("Frame", nil, parent)
+	S.Rule = W.Divider(S)
+	S.Rule:SetPoint("TOPLEFT", S, "TOPLEFT", 0, 0)
+	S.Rule:SetPoint("TOPRIGHT", S, "TOPRIGHT", 0, 0)
+	S.Title = centred(S, "heading", "text")
+	S.Title:SetText(L["New in 0.4.3: the Atlas layout"])
+	S.Text = centred(S, "note", "textMuted")
+	S.Text:SetText(L["Try it on your own guide window: each button switches it now, as often as you like."])
+	S.Standard = W.Button(S, L["Standard"], function() pick(nil) end, { height = 26 })
+	S.Atlas = W.Button(S, "Atlas", function() pick(LC.ATLAS) end, { height = 26 })
+	S.TabsLabel = centred(S, "small", "textDim")
+	S.TabsLabel:SetText(L["Tabs"])
+	S.Styles = {}
 	for i, s in ipairs(STYLES) do
-		local b = W.Button(F, s.label, function() style(s.value) end, { height = 24 })
+		local b = W.Button(S, s.label, function() style(s.value) end, { height = 24 })
 		b.psStyle = s.value
-		if i == 1 then
-			b:SetPoint("TOPLEFT", F, "TOPLEFT", 24, -(y + 20))
-		elseif i == 3 then
-			b:SetPoint("TOPLEFT", F.Styles[1], "BOTTOMLEFT", 0, -6)
-		else
-			b:SetPoint("LEFT", prev, "RIGHT", 6, 0)
+		S.Styles[i] = b
+	end
+	S.TabsOff = centred(S, "small", "textMuted")
+	S.TabsOff:SetText(L["Tabs are off in Settings > Guide window > Parts."])
+	-- What the arrow points at (#3701): the route's step, not any quest in the log.
+	S.Arrow = centred(S, "small", "textDim")
+	S.Arrow:SetText(L["The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup."])
+	S.Saved = centred(S, "small", "textDim")
+	S.Saved:SetText(L["Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets."])
+	S.NoWindow = centred(S, "small", "warning")
+	S.NoWindow:SetText(L["The guide window is hidden: open it to see each choice on your guide."])
+	S.Credit = centred(S, "small", "textMuted")
+	S.Credit:SetText(format(L["Atlas layout and tab styles by %s"], CREDIT))
+	S:Hide()
+	LC.frame = S
+	return S
+end
+
+-- A row of buttons centred across `width` from `y`, wrapping into rows of
+-- `perRow` when one row would not fit. -> the y under it
+local function centreRow(list, width, y, gap, perRow)
+	local total = 0
+	for i, b in ipairs(list) do total = total + b:GetWidth() + (i > 1 and gap or 0) end
+	if total > width and perRow < #list then
+		local rows, i = {}, 1
+		while i <= #list do
+			local r = {}
+			for k = i, math.min(#list, i + perRow - 1) do r[#r + 1] = list[k] end
+			rows[#rows + 1], i = r, i + perRow
 		end
-		F.Styles[i], prev = b, b
+		for _, r in ipairs(rows) do y = centreRow(r, width, y, gap, #r) + 6 end
+		return y - 6
 	end
-	F.TabsOff = W.Text(F, "small", "textMuted")
-	F.TabsOff:SetPoint("LEFT", F.TabsLabel, "RIGHT", 10, 0)
-	F.TabsOff:SetText(L["Tabs are off in Settings > Guide window > Parts."])
-	y = y + 20 + 24 + 6 + 24 + 18
-	F.Saved = W.Text(F, "small", "textDim")
-	F.Saved:SetPoint("TOPLEFT", F, "TOPLEFT", 24, -y)
-	F.Saved:SetWidth(WIDTH - 48)
-	F.Saved:SetWordWrap(true)
-	F.Saved:SetJustifyH("LEFT")
-	F.Saved:SetText(L["Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets."])
-	F.NoWindow = W.Text(F, "small", "warning")
-	F.NoWindow:SetPoint("TOPLEFT", F.Saved, "BOTTOMLEFT", 0, -6)
-	F.NoWindow:SetWidth(WIDTH - 48)
-	F.NoWindow:SetWordWrap(true)
-	F.NoWindow:SetJustifyH("LEFT")
-	F.NoWindow:SetText(L["The guide window is hidden: open it to see each choice on your guide."])
-	F.Credit = W.Text(F, "small", "textMuted")
-	F.Credit:SetText(format(L["Atlas layout and tab styles by %s"], CREDIT))
-	F.Keep = W.Button(F, L["Keep this"], LC.Keep, { primary = true })
-	F.Keep:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", -20, 18)
-	F.Credit:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 24, 26)
-	F:SetHeight(y + 40 + 28 + 18 + 24)
-	-- Closed any other way than Keep this (the ✕, Escape): the setup it found.
-	F:SetScript("OnHide", function(self)
-		if self:IsShown() then return end -- Polestar hidden with the rest: the card waits
-		if not kept and snapshot then LC.Restore(snapshot) end
-		if not kept then finish() end
-		kept = nil
-	end)
-	ns.CloseOnEscape("PolestarLayoutCard")
-	LC.frame = F
+	local x = math.floor((width - total) / 2 + 0.5)
+	for _, b in ipairs(list) do
+		b:ClearAllPoints()
+		b:SetPoint("TOPLEFT", S, "TOPLEFT", x, -y)
+		x = x + b:GetWidth() + gap
+	end
+	return y + list[1]:GetHeight()
 end
 
-local function busy()
-	local C = ns.Compat
-	if C.InCombat() or (InCinematic and InCinematic()) then return true end
-	if C.IsInInstance() then return true end
-	local Wel, RC, WN = UI.Welcome, UI.RouteChoice, UI.WhatsNew
-	if Wel and Wel.Busy and Wel.Busy() then return true end
-	if RC and RC.IsShown and RC.IsShown() then return true end
-	if WN and WN.IsShown and WN.IsShown() then return true end
-	return false
-end
-
--- Open now (force: whatever is up, out of combat), else wait for the moment.
-function LC.Show(force)
-	if ns.Compat.InCombat() then
-		pending = true
-		return false
-	end
-	if not force and busy() then
-		pending = true
-		return false
-	end
-	pending = nil
-	-- Without Atlas there is nothing to choose: it stays due for when Atlas is installed.
-	if not atlasInstalled() then return false end
-	if not F then build() end
-	if not F:IsShown() then
-		kept = nil
-		snapshot = LC.Take(format(L["Before Atlas (%s)"], today()))
-	end
-	place()
+-- Lays the section out `width` wide. -> its height
+function LC.LayoutSection(width)
 	paint()
-	F:Show()
-	F:Raise()
-	return true
+	S:SetWidth(width)
+	local function text(t, y)
+		t:SetWidth(width)
+		t:ClearAllPoints()
+		t:SetPoint("TOPLEFT", S, "TOPLEFT", 0, -y)
+		return y + t:GetStringHeight()
+	end
+	local y = text(S.Title, 16) + 4
+	y = text(S.Text, y) + 12
+	y = centreRow({ S.Standard, S.Atlas }, width, y, 8, 2) + 14
+	y = text(S.TabsLabel, y) + 6
+	y = centreRow(S.Styles, width, y, 6, 2) + 8
+	if S.TabsOff:IsShown() then y = text(S.TabsOff, y) + 6 end
+	y = text(S.Arrow, y + 4) + 6
+	y = text(S.Saved, y) + 6
+	if S.NoWindow:IsShown() then y = text(S.NoWindow, y) + 6 end
+	y = text(S.Credit, y + 2)
+	local h = math.ceil(y + 4)
+	S:SetHeight(h)
+	return h
 end
 
-function LC.IsShown() return F ~= nil and F:IsShown() end
+-- What's new opened with the section: the setup it finds is saved (the
+-- newest snapshot again when it holds that setup already).
+function LC.Begin()
+	local newest = LC.Snapshots()[1]
+	snapshot = (newest and LC.Matches(newest)) and newest or LC.Take(format(L["Before Atlas (%s)"], today()))
+	if S then S:Show() end
+	paint()
+end
 
--- What the card shows (the tests read it).
+-- What's new closed: by its ✕ or Escape (`keep` false) the setup it found
+-- goes back; either way the choice is seen.
+function LC.End(keep)
+	if not keep and snapshot then LC.Restore(snapshot) end
+	snapshot = nil
+	if S then S:Hide() end
+	ns.DB().layoutCardSeen = LC.VERSION
+end
+
+function LC.IsShown() return S ~= nil and S:IsVisible() end
+
+-- What the section shows (the tests read it).
 function LC.State()
-	if not F then return nil end
+	if not S then return nil end
 	local styles = {}
-	for _, b in ipairs(F.Styles) do styles[#styles + 1] = { b.psStyle, b.psPrimary and true or false } end
-	return { shown = F:IsShown(), title = F.Title:GetText(), current = F.Current.psPrimary and true or false, atlas = F.Atlas.psPrimary and true or false,
-		styles = styles, saved = F.Saved:GetText(), credit = F.Credit:GetText(), noWindow = F.NoWindow:IsShown(), snapshot = snapshot and snapshot.name }
+	for _, b in ipairs(S.Styles) do styles[#styles + 1] = { b.psStyle, b.psPrimary and true or false } end
+	return { shown = S:IsVisible(), title = S.Title:GetText(), standard = S.Standard.Label:GetText(), atlas = S.Atlas.Label:GetText(),
+		standardOn = S.Standard.psPrimary and true or false, atlasOn = S.Atlas.psPrimary and true or false,
+		styles = styles, saved = S.Saved:GetText(), arrow = S.Arrow:GetText(), credit = S.Credit:GetText(), noWindow = S.NoWindow:IsShown(),
+		snapshot = snapshot and snapshot.name }
 end
 
-local function try()
-	if pending and not seen() then LC.Show(false) end
-end
-
--- DELAY seconds from now, one wait at a time (the login and the entering
--- world that follows it ask for the same one).
-local waiting = false
-local function fire()
-	waiting = false
-	try()
-end
-local function later()
-	if not (C_Timer and C_Timer.After) then return try() end
-	if waiting then return end
-	waiting = true
-	ns.After(DELAY, fire)
-end
-
--- A fresh install chooses in Install's look step: the card is seen.
+-- A fresh install chooses in Install's look step: the choice is seen.
 ns.OnInit(function()
 	local db = ns.DB()
 	if db.layoutCardSeen == nil and ns.IsNewAccount() then db.layoutCardSeen = LC.VERSION end
 end)
 
-ns.OnLogin(function()
-	if seen() then return end
-	pending = true
-	later()
-end)
-
-ns.RegisterEvent("PLAYER_REGEN_ENABLED", function() try() end)
-ns.RegisterEvent("CINEMATIC_STOP", function() later() end)
-ns.RegisterEvent("PLAYER_ENTERING_WORLD", function() if pending then later() end end)
-ns.On("WELCOME_CLOSED", function() try() end)
-ns.On("WHATSNEW_CLOSED", function() try() end)
+-- A layout, tab style or the tabs switched (here or anywhere): What's new
+-- lays the section out again (a line about the tabs comes or goes).
 ns.On("SETTING_CHANGED", function(path)
-	if F and F:IsShown() and (path == "ui.layout" or path == "guideWindow.tabStyle" or path == "guideWindow.tabs" or path == "" or path == "ui") then paint() end
+	if not (S and S:IsShown() and (path == "ui.layout" or path == "guideWindow.tabStyle" or path == "guideWindow.tabs" or path == "" or path == "ui")) then return end
+	local WN = UI.WhatsNew
+	if WN and WN.Relayout then WN.Relayout() else paint() end
 end)

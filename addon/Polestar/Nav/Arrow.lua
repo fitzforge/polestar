@@ -1168,17 +1168,36 @@ local function sample(elapsed)
 	return true
 end
 
+-- Standing still (the same position, facing and target, the route unchanged, nothing being searched): sampled at
+-- STILL_INTERVAL instead of every SAMPLE_INTERVAL, and the dial is not turned once it rests on its bearing (#3881:
+-- the arrow's OnUpdate ran every frame of a 27-minute session). A target change, a setting or a zone event still
+-- samples at once (Refresh).
+local STILL_INTERVAL = 0.1
+local still = { at = nil }
+local function stillSince()
+	if mode == "routing" then return false end
+	-- UnitPosition: four numbers, no table (Compat's map position builds a vector each call).
+	local x, y, _, c
+	if UnitPosition then x, y, _, c = UnitPosition("player") end
+	local T = Nav.travel
+	local f, t, v = facing(), Nav.GetTarget(), T and T.version
+	local same = still.at ~= nil and c == still.c and x == still.x and y == still.y and f == still.f and t == still.t and v == still.v
+	still.at, still.c, still.x, still.y, still.f, still.t, still.v = true, c, x, y, f, t, v
+	return same
+end
+
 frame:SetScript("OnUpdate", ns.Safe(function(_, elapsed)
 	-- The faint ring with no target is still: target changes, settings and
 	-- zone events bring the arrow back (Refresh).
 	if mode == "idle" then return end
 	accum = accum + elapsed
-	if accum >= SAMPLE_INTERVAL then
+	if accum >= SAMPLE_INTERVAL and (accum >= STILL_INTERVAL or not stillSince()) then
 		local step = accum
 		accum = 0
 		if not sample(step) then return end
 	end
 	if (mode == "travel" or mode == "routing") and hasAngle then
+		if not byBearing and abs(turnVel) < 1e-4 and abs(wrap(goalAngle - curBearing)) < 1e-4 then return end
 		curBearing, turnVel = turnStep(curBearing, turnVel, goalAngle, elapsed, look.turnRate)
 		local f = byBearing and facing()
 		local shown = f and wrap(curBearing - f) or curBearing

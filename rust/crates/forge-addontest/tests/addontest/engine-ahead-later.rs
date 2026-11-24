@@ -67,12 +67,16 @@ end
 "#;
 
 fn run(script: &str) -> Value {
+	run_with(GUIDES, script)
+}
+
+fn run_with(guides: &str, script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.into(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/elwynn" }"#.into())],
-		script: [TEST_PACK, TEST_SOURCE, GUIDES, HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, script].join("\n"),
+		script: [TEST_PACK, TEST_SOURCE, guides, HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, script].join("\n"),
 		..Default::default()
 	})
 	.remove(0)
@@ -109,6 +113,24 @@ fn walking_past_that_giver_shows_the_next_guides_quest_as_a_pick_up_line_naming_
 			"-3:9 Take “The Killing Fields” from Marshal Dughan: saves a trip back | For Westfall, later on your route.",
 		])
 	);
+}
+
+// gidi_ (#3652, Riverglades): at Fuzzle's cage the line said taking Biting the Hand "saves a trip back", while the
+// guide's very next step takes it there. A pick-up the route reaches about now anyway (its wolves beside Dughan)
+// says only what to take; one the route walks away from first still says why.
+#[test]
+fn a_pick_up_the_route_takes_right_there_next_claims_no_trip_saved_3652() {
+	let out = run_with(
+		&GUIDES.replace("map = 1429, x = 60, y = 60", "map = 1429, x = 48.0, y = 42.6"),
+		r#"
+		Polestar.Set("behavior.autoAccept", false)
+		w.moveTo(1429, 48.6, 42.2); stub.advance(0.6); stub.advance(0.6)
+		emit(lines())
+	"#,
+	);
+	let lines: Vec<String> = serde_json::from_value(out).unwrap();
+	let take = lines.iter().find(|l| l.starts_with("2:1 ")).expect("Kobold Camp Cleanup's pick-up line");
+	assert!(take.contains("Kobold Camp Cleanup") && !take.contains("saves a trip back"), "{lines:?}");
 }
 
 // The horizon: a guide starting more than HERE_ABOVE levels over the player is out of reach, said in the debug log

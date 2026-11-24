@@ -13,15 +13,15 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "{skill:762} (oficial)",
 	-- {npc:4732} Randal Hunter · {npc:384} Katie Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest · {skill:762} Riding · {faction:72} Stormwind
-	["{npc:4732} and {npc:384}'s horse pen are at {area:88} in eastern {zone:1429}. At 60 {npc:4732} teaches Journeyman {skill:762} to Humans for 1,000g (10% less at Honored with {faction:72}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift horse costs 200g here."] = "",
+	["{npc:4732} and {npc:384}'s horse pen are at {area:88} in eastern {zone:1429}. At 60 {npc:4732} teaches Journeyman {skill:762} to Humans for 1,000g (10% less at Honored with {faction:72}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift horse costs 200g here."] = "{npc:4732} y el corral de {npc:384} están en {area:88}, al este de {zone:1429}. A nivel 60 {npc:4732} enseña {skill:762} de oficial a los humanos por 1000 de oro (un 10% menos con {faction:72} en Honor); Blizzard dice que viene con una montura. Las demás razas lo entrenan con el instructor de equitación de su raza. Cada caballo veloz cuesta 200 de oro aquí.",
 	-- {npc:4732} Randal Hunter
 	["{npc:4732}, riding trainer"] = "{npc:4732}, instructor de equitación",
 
 	-- Step 2: Horse Riding for other races
 	-- {spell:824} Horse Riding
-	["{spell:824} for other races"] = "",
+	["{spell:824} for other races"] = "{spell:824} para otras razas",
 	-- {spell:824} Horse Riding · {skill:762} Riding · {npc:4732} Randal Hunter · {faction:72} Stormwind
-	["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "",
+	["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "Cualquier raza de la Alianza puede comprar estos caballos, pero montar uno también requiere {spell:824}, que solo los humanos obtienen con {skill:762}. {npc:4732} lo enseña a las demás razas cuando son Exaltadas con {faction:72} (la guía de reputación de Ventormenta marca el camino). Hasta entonces, no compres un caballo para este personaje.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Elige un color",

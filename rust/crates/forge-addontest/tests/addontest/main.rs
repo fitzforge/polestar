@@ -172,6 +172,8 @@ mod engine_packs;
 mod engine_pin;
 #[path = "engine-professions.rs"]
 mod engine_professions;
+#[path = "engine-repeatable.rs"]
+mod engine_repeatable;
 #[path = "engine-reset.rs"]
 mod engine_reset;
 #[path = "engine-review.rs"]
@@ -483,6 +485,8 @@ mod ui_card;
 mod ui_dungeons;
 #[path = "ui-game-menu.rs"]
 mod ui_game_menu;
+#[path = "ui-group-mark.rs"]
+mod ui_group_mark;
 #[path = "ui-guide-end.rs"]
 mod ui_guide_end;
 #[path = "ui-headsup-card.rs"]

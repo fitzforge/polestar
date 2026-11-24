@@ -378,9 +378,13 @@ local BUILTIN = {
 		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."], search = "auto guide, choose guide, suggested guide" },
 		{ kind = "dropdown", key = "behavior.guideEnd", label = L["When a leveling guide ends"], help = L["Ask me: a window says the guide is done and offers the next one. Continue automatically: the next guide loads in the same tab."],
 			choices = { { value = "ask", label = L["Ask me"] }, { value = "continue", label = L["Continue automatically"] } } },
+		-- The guide window's "You have outlevelled this guide" notice (UI/GuideFrameBanner.lua, #3585).
+		{ kind = "toggle", key = "ui.outlevelNotice", label = L["Say when I've outlevelled a guide"], new = "0.4.3",
+			help = L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."],
+			search = "outlevelled, outleveled, too high, level, notice, banner, jump to" },
 		{ kind = "dropdown", key = "behavior.routeChoice", label = L["Where to level next"], help = L["Where a guide offers more than one zone to continue in (/polestar path)."],
 			choices = { { value = "ask", label = L["Let me choose"] }, { value = "recommended", label = L["Take the recommended zone"] } } },
-		-- Polestar's experimental guides (Polestar_Experimental; Core/Guides.lua, Guides.OWN_EXTRA): on until switched off.
+		-- Polestar's experimental guides (Polestar/Experimental/; Core/Guides.lua, Guides.OWN_EXTRA): on until switched off.
 		-- Mount Hyjal is the one left there: the Riverglades and Shen'dralas are in the leveling route since 0.4.0.
 		{ kind = "toggle", key = "behavior.experimentalGuides", label = L["Show experimental guides"], new = "0.4.0",
 			help = L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."],
@@ -451,7 +455,7 @@ local BUILTIN = {
 			needs = function() return ns.UI and ns.UI.Materials end },
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Arrow"], controls = {
-		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], move = "arrow", help = L["Points to the current goal. Its look and colours are on the Arrow page."],
+		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], move = "arrow", help = L["Points to the current goal. Off hides only the arrow: the route lines have their own switch, under Routes. Its look and colours are on the Arrow page."],
 			search = "arrow, waypoint, pointer, direction, compass, navigation, hud, show arrow, hide arrow",
 			children = {
 				H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide the arrow with the guide"], help = L["When the guide window is hidden, hide the arrow too."],
@@ -471,13 +475,13 @@ local BUILTIN = {
 		H({ kind = "toggle", key = "nav.travel", label = L["Plan travel routes"], help = L["Flights, boats and your hearthstone when they are faster. Off: the arrow points straight at the goal."],
 			search = "flight, taxi, flight path, boat, zeppelin, hearth, hearthstone, route planning, fastest way, fps, frame rate, performance, lag, stutter, cpu, slow",
 			children = {
-				H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."],
+				H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."],
 					search = "teleport, portal, mage, druid, moonglade, shaman, astral recall" }),
 				-- 0.3.7's detour captions in the journey (Nav/Journey.lua).
 				H({ kind = "toggle", key = "nav.detourCaption", label = L["Detour captions"], help = L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."],
 					search = "detour, enemy town, hostile town, avoid, go round, journey" }),
 			} }),
-		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
+		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap, with the arrow on or off: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
 			search = "path line, route on map, show route, hide route, sparkles, dots, trail",
 			gear = { tip = L["Line style"], onClick = function() UI.ShowOptions("routelines") end },
 			children = {
@@ -4822,7 +4826,7 @@ local function build()
 		-- The box takes a question as well as a word: the longest wording that fits shows.
 		title = GUIDE, tagline = L["Settings"], scalePath = "ui.menuScale", scaleBase = W.SETTINGS_SCALE_BASE,
 		scaleLabel = L["Settings scale"], scaleTip = L["The settings window only; applies when you let go. Right-click to reset."],
-		searchPlaceholder = { L["Ask or search: how do I hide the arrow?"], L["Ask or search settings"], L["Search settings"] },
+		searchPlaceholder = { L["Ask or search: how do I hide the arrow?"], L["Ask or search settings"], L["Search settings"], L["Search"] },
 		headerSearch = true,
 		-- Typing opens the dropdown under the box; the page stays until a row
 		-- is picked, or Enter or See all opens the results page. An emptied

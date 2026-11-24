@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:16724} Farholde Keep
-	["About 90 quests in Forever's new zone, from {area:16724}: the level for its port and Western Front."] = "Forever新地区的约90个任务，从{area:16724}开始：适合其港口和西部前线的等级。",
+	["About 90 quests in Forever's new zone, from {area:16724}: the level for its port and Western Front."] = "无限服新增地区的约90个任务，从{area:16724}开始：适合其港口和西部前线的等级。",
 
 	-- Step 1: Ironforge flight master
 	-- {zone:1455} Ironforge
@@ -199,12 +199,14 @@ return {
 	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
 	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
 	["{npc:259158}: {quest:94961}, in his cage"] = "",
+	["the way in: she is below the town"] = "",
+	["Claire's cave"] = "",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "暮光教派",
 	-- {area:16723} Sunnyglade · {item:266148} Farmers' Mementos · {item:4338} Mageweave Cloth · {npc:263613} Brother Lowley · {area:16724} Farholde Keep · {quest:94885} Field Marshal's Log · {npc:256899} Chogg'Zac · {npc:263380} Ghostmaw
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	-- was: ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "{area:16723}的街道和田地里到处是邪教徒。先从中央的仪式法阵开始（在那里装满克莱尔的催化剂），向西穿过烧毁的房屋到镇子边缘，再折回东北到埃尔布里姆农场西边的松软泥土：把暮光袭击者掉落的{item:266148}埋在那里。护符、书页和指骨都从邪教徒身上掉落。\n留着他们掉落的{item:4338}：回到{area:16724}时，{npc:263613}要二十块。邪教徒偶尔会掉落{quest:94885}：右键点击它接受任务。\n小心：精英食人魔{npc:256899}（41级）在{area:16723}西侧街道巡逻，大约在44-47,47-52。把邪教徒拉到你这边，等他走过去；这里是本地区玩家死得最多的地方。\n河边的精英{npc:263380}（42级）可能从西南的田地游荡过来：让他过去。"
+	-- was: ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "{area:16723}的街道和田地里到处是邪教徒。先从中央的仪式法阵开始（在那里装满克莱尔的催化剂），向西穿过烧毁的房屋到镇子边缘，再折回东北到埃尔布林牧庄西边的松软泥土：把暮光袭击者掉落的{item:266148}埋在那里。护符、书页和指骨都从邪教徒身上掉落。\n留着他们掉落的{item:4338}：回到{area:16724}时，{npc:263613}要二十块。邪教徒偶尔会掉落{quest:94885}：右键点击它接受任务。\n小心：精英食人魔{npc:256899}（41级）在{area:16723}西侧街道巡逻，大约在44-47,47-52。把邪教徒拉到你这边，等他走过去；这里是本地区玩家死得最多的地方。\n河边的精英{npc:263380}（42级）可能从西南的田地游荡过来：让他过去。"
 	["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), then work west through the burnt houses to the edge of town. The charms, pages and finger bones drop from the cultists; keep the {item:266148} the Twilight Raiders drop: five, one for each grave west of Elbrim's farm.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "",
 	-- {item:269990} Crystal Catalyst
 	["fill the {item:269990} at the ritual circles"] = "在仪式法阵装满{item:269990}",
@@ -219,6 +221,7 @@ return {
 	["Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave."] = "",
 	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
+	-- was: ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}，在埃尔布林牧庄西边：每座墓需要一个暮光袭击者掉落的{item:266148}，所以先拾取五个"
 	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop"] = "",
 
 	-- Step 43: Apprentice Claire
@@ -245,7 +248,7 @@ return {
 	["The {area:16743} training grounds"] = "{area:16743}训练场",
 	-- {area:16743} Rog'mar · {npc:263071} Blademaster Kaijo · {npc:263615} Krek the Noxious
 	-- plural, as words: Rog'mar Grunts = {npc:255996} Rog'mar Grunt
-	["North-east of Elbrim's farm, the Horde drills its trainees in the fields north of {area:16743}. Stay north of the fort: its guards are far above your level. The supply crates lie around the drill grounds. Three elites work this ground: {npc:263071} (42) walks among the trainees, {npc:263615} (42) lurks at the north end, and Komuk (45), a Horde elite, patrols the hills to the east; give each of them room.\nCareful: Rog'mar Grunts (55) guard the fort's north wall, around 59,39 to 61,41. Leave the crates and trainees by the wall and take the ones further north, around 57-61,34-37."] = "在埃尔布里姆农场东北，部落在{area:16743}北边的田野里操练新兵。待在要塞北边：要塞守卫的等级远高于你。补给箱散落在训练场周围。这片区域有三个精英：{npc:263071}（42级）在新兵之间走动，{npc:263615}（42级）潜伏在北端，部落精英科穆克（45级）在东边的山丘上巡逻；离他们都远一点。\n注意：洛格玛步兵（55级）守卫着要塞北墙，约在59,39到61,41。别碰墙边的箱子和新兵，去更北边约57-61,34-37处找。",
+	["North-east of Elbrim's farm, the Horde drills its trainees in the fields north of {area:16743}. Stay north of the fort: its guards are far above your level. The supply crates lie around the drill grounds. Three elites work this ground: {npc:263071} (42) walks among the trainees, {npc:263615} (42) lurks at the north end, and Komuk (45), a Horde elite, patrols the hills to the east; give each of them room.\nCareful: Rog'mar Grunts (55) guard the fort's north wall, around 59,39 to 61,41. Leave the crates and trainees by the wall and take the ones further north, around 57-61,34-37."] = "在埃尔布林牧庄东北，部落在{area:16743}北边的田野里操练新兵。待在要塞北边：要塞守卫的等级远高于你。补给箱散落在训练场周围。这片区域有三个精英：{npc:263071}（42级）在新兵之间走动，{npc:263615}（42级）潜伏在北端，部落精英科穆克（45级）在东边的山丘上巡逻；离他们都远一点。\n注意：洛格玛步兵（55级）守卫着要塞北墙，约在59,39到61,41。别碰墙边的箱子和新兵，去更北边约57-61,34-37处找。",
 
 	-- Step 48: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo
@@ -386,10 +389,13 @@ return {
 	["The pirates' ships"] = "海盗船",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
+	["on board, at the arrow"] = "",
 	-- {item:268505} Remote Explosive Charge
-	["{item:268505}, the southern ship"] = "{item:268505}，南边的船",
-	["the middle ship"] = "中间的船",
-	["the northern ship"] = "北边的船",
+	["Plant a {item:268505} on the southern ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the middle ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the northern ship"] = "",
 
 	-- Step 74: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
@@ -576,11 +582,15 @@ return {
 	-- ["Level 44.4 on the Eastsea pirates"] = "在东海海盗身上升到44.4级",
 	-- ["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold hides in the middle of the town, {npc:256831} at its eastern edge, and {npc:258697} waits at his farm on the north-eastern edge."] = "从{area:16724}向北，经过{area:16729}并过河，前往被暮光教派占据的农庄小镇{area:16723}；避开镇子东边的部落要塞{area:16743}。狗头人{npc:259158}躲在镇子中央，{npc:256831}在镇子东边，{npc:258697}在东北边缘的农场等你。",
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "再次前往海盗悬崖。从南到北，在营地下方停泊的三艘船上安放威兹巴兹的炸药；{quest:95124}（45级）站在中间那艘船旁，她的战利品箱就在旁边。途中留意{npc:259758}。",
-	-- ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "{area:16723}的街道和田地里到处是邪教徒。先从中央的仪式法阵开始（在那里装满克莱尔的催化剂），向西穿过烧毁的房屋到镇子边缘，再折回东北到埃尔布里姆农场西边的松软泥土：把暮光袭击者掉落的{item:266148}埋在那里。护符、书页和指骨都从邪教徒身上掉落。\n留着他们掉落的{item:4338}：回到{area:16724}时，{npc:263613}要二十块。邪教徒偶尔会掉落{quest:94885}：右键点击它接受任务。\n小心：精英食人魔{npc:256899}（41级）在{area:16723}西侧街道巡逻，大约在44-47,47-52。把邪教徒拉到你这边，等他走过去；这里是本地区玩家死得最多的地方。\n河边的精英{npc:263380}（42级）可能从西南的田地游荡过来：让他过去。",
+	-- ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "{area:16723}的街道和田地里到处是邪教徒。先从中央的仪式法阵开始（在那里装满克莱尔的催化剂），向西穿过烧毁的房屋到镇子边缘，再折回东北到埃尔布林牧庄西边的松软泥土：把暮光袭击者掉落的{item:266148}埋在那里。护符、书页和指骨都从邪教徒身上掉落。\n留着他们掉落的{item:4338}：回到{area:16724}时，{npc:263613}要二十块。邪教徒偶尔会掉落{quest:94885}：右键点击它接受任务。\n小心：精英食人魔{npc:256899}（41级）在{area:16723}西侧街道巡逻，大约在44-47,47-52。把邪教徒拉到你这边，等他走过去；这里是本地区玩家死得最多的地方。\n河边的精英{npc:263380}（42级）可能从西南的田地游荡过来：让他过去。",
 	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}在港口西南、鱼人海滩下方的浅水中游荡。精英{npc:257001}在附近岸边走动：离他远一点。",
+	-- ["the middle ship"] = "中间的船",
+	-- ["the northern ship"] = "北边的船",
 	-- ["the {object:707245} poster"] = "通缉令",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}，找{npc:272437}领取",
+	-- ["{item:268505}, the southern ship"] = "{item:268505}，南边的船",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026}在山口东边的路旁等候。",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}看守着{area:16724}西南角的旧大教堂。蝙蝠栖息在教堂上层；{npc:272437}在教堂旁发放圣洁蜡烛；坟墓在礼拜堂墓地里。\n{npc:271742}是53级精英，站在大教堂内：他不会主动攻击你，千万别打他，把蝙蝠拉离他身边再打。",
+	-- ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}，在埃尔布林牧庄西边：每座墓需要一个暮光袭击者掉落的{item:266148}，所以先拾取五个",
 	-- ["{object:621813}: bury the mementos"] = "{object:621813}：埋下纪念品",
 }

@@ -34,7 +34,7 @@
 --     in combat, GuideTexts.Pending() lists it until it is tried again;
 --     nil: none (not installed, or English)
 --   GuideTexts.TextsAddon(addon) -> "<addon>_<locale>" (our pack's:
---     "Polestar_<locale>") | nil (English)
+--     "Polestar_<locale>") | nil (English, or a pack inside Polestar itself)
 --   GuideTexts.PackText(packId, text) -> translation or text
 --   GuideTexts.GUIDE_FIELDS   -- the guide-level fields it rewrites
 --   Polestar.RegisterGuideTexts(locale, packId, { pack = {...}, guides = {
@@ -251,11 +251,15 @@ function GuideTexts.Refresh(def)
 	return entry and apply(def, entry, 1, true, ns.EscapeText) or false
 end
 
--- Our pack's texts are in the language folder, beside the game's names.
+-- Our pack's texts are in the language folder, beside the game's names. A
+-- pack inside Polestar itself (its experimental guides, #3507) has no texts
+-- addon: "Polestar_<locale>" is the language folder, which Polestar loads
+-- on its own (Core/Locale.lua), and asking for it as the pack registers,
+-- while Polestar loads, would settle Data.Pack's answer for it too early.
 local OWN = "Polestar_Guides"
 
 function GuideTexts.TextsAddon(addon)
-	if english or not valid(addon) then return nil end
+	if english or not valid(addon) or addon == ADDON then return nil end
 	if addon == OWN then return "Polestar_" .. locale end
 	return addon .. "_" .. locale
 end
