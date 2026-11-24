@@ -233,7 +233,7 @@ impl Engine {
 	}
 
 	/// Updates every installed product that has a newer release, then every community pack
-	/// with a newer version the game can take (the Addons badge counts both).
+	/// with a newer version the game can take (the Addons and Community Guides badges count them).
 	pub async fn update_all(self: &Arc<Self>) -> Result<String, String> {
 		let (ids, packs) = {
 			let state = self.lock();
