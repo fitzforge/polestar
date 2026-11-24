@@ -106,7 +106,11 @@ fn issue_1961_forever_npcs_classic_db_lacks_join_the_hubs_kirin_tor_guards_make_
 	assert_eq!((flags[&900001], flags[&900002], flags[&900003], flags[&900004]), (0x4 | 0x2, 0x4 | 0x4000, 0x10, 0x2), "roles and quests as NpcFlags");
 	let mut templates = json!({ "2": { "name": "Classic Guard", "faction": 85, "npcFlags": 0, "extraFlags": 0x400, "rank": 0, "minLevel": 60 } });
 	let mut spawns = json!({ "2": [[1, 100.0, 100.0, 5.0]] });
-	assert_eq!(add_forever(&mut templates, &mut spawns, &npcs, &spawn_rows, &flags, &Default::default()), 6, "the two Kirin Tor NPCs and the camp's four; not the one classic-db has, nor one without a faction");
+	assert_eq!(
+		add_forever(&mut templates, &mut spawns, &npcs, &spawn_rows, &flags, &Default::default()),
+		6,
+		"the two Kirin Tor NPCs and the camp's four; not the one classic-db has, nor one without a faction"
+	);
 	assert_eq!(templates["246848"], json!({ "name": "Kirin Tor Guard", "faction": 3681, "npcFlags": 0, "extraFlags": 0, "rank": 0, "minLevel": 55 }));
 	assert_eq!(spawns["246848"], json!([[0, -27.5, 33.0], [0, -12.0, 80.0]]), "its NPC spawns, not an object's");
 	assert_eq!(spawns["2"], json!([[1, 100.0, 100.0, 5.0]]), "classic-db's own spawns stay");
