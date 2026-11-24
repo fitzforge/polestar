@@ -756,6 +756,25 @@ impl Learner<'_> {
 				qd.insert(id, qdata(&q));
 			}
 		}
+		// The prerequisites the previous snapshot's trusted `notPre` and `notPreAny` took out of our data
+		// (a data build applies them): run on that build's output, they are no longer in it, so they
+		// would never be judged again and their facts would drop out of the snapshot, letting the next
+		// build put them back (#3359). They count as our data's again, and the recordings judge them anew.
+		// A quest whose prerequisites a correction sets keeps the correction's.
+		if let Some(prev) = previous {
+			let corrections = data.corrections.get("quests");
+			for (k, rec) in prev.entries() {
+				let Ok(id) = k.parse::<i64>() else { continue };
+				let set = corrections.get(&k).get("set");
+				if ["pre", "preAll", "preAny"].iter().any(|f| set.has(f)) {
+					continue;
+				}
+				let any = if usable(&rec.get("notPreAny"), false) { ids(&rec.get("notPreAny").get("value")) } else { Vec::new() };
+				if let Some(d) = qd.get_mut(&id) {
+					d.restore(&not_prereqs(&rec), &any);
+				}
+			}
+		}
 		let quests = Quests::new(qd);
 		let givers = offers::giver_map(&quests, &self.chars);
 		let scope = self.scope;
