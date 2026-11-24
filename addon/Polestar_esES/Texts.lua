@@ -136,7 +136,6 @@ t.guides["forever/50-60/mount-hyjal"] = (function() return {
 		["Slime Workstation"] = "Estación de limo",
 		["Slime ooze as you go"] = "Limo residual por el camino",
 		["Soil and venison"] = "Tierra y venado",
-		["South down the west side of the shrub field to the ancients' outpost: kill the {npc:248395} you pass for {npc:249235}. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "Al sur, por el lado oeste del campo de arbustos, hasta el puesto avanzado de los ancestrales: mata a los {npc:248395} que vayas encontrando para {npc:249235}. {npc:260626}, la maestra de vuelo, espera junto al puesto avanzado; {npc:248367} y {npc:265586} están con el ancestral {npc:248366}.",
 		["South to {area:493}'s flight master (the Alliance's at the southern end of the valley, the Horde's at its south-western end) and fly to {area:2255} for {npc:249235}'s parts order."] = "Al sur, al maestro de vuelo de {area:493} (el de la Alianza en el extremo sur del valle, el de la Horda en su extremo suroeste) y vuela a {area:2255} por el pedido de piezas de {npc:249235}.",
 		["South to {npc:267113}, another wild god, at {area:16868}'s eastern edge."] = "Al sur, hacia {npc:267113}, otro dios salvaje, en el borde este de {area:16868}.",
 		["South-east across {area:16866} to {npc:259695}, the wild god, indoors at its south-eastern edge."] = "Al sureste, a través de {area:16866}, hacia {npc:259695}, el dios salvaje, en un interior de su borde sureste.",
