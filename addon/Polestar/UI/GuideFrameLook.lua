@@ -267,9 +267,10 @@ ns.UI.GuideFrame.Part(function(GF)
 	function GF.ApplyLook(key)
 		if not F or (key and GF.LOOK_LATER[key]) then return end
 		if key == "hideTaxi" then return GF.ApplyVisibility() end
-		-- The pace line (#2371, #2379): the XP row's text read anew, also when
-		-- every setting changes at once (a profile switch, Reset all).
-		if key == "pace" then return GF.UpdateXP() end
+		-- The XP line and its pace part (#3304; #2371, #2379): the XP row's text
+		-- read anew, also when every setting changes at once (a profile switch,
+		-- Reset all).
+		if key == "pace" or key == "xpLine" then return GF.UpdateXP() end
 		if not key then GF.UpdateXP() end
 		if key == "idleAlpha" or key == "combatAlpha" then
 			-- The cursor may sit on a window that never watched it (Standard style).

@@ -57,7 +57,7 @@ for part, keys in pairs({
 	tip = { "noteSize" },
 	upnext = { "upSize" },
 	foot = { "progress", "progressHeight", "progressColor", "progressPct" },
-	xp = { "pace" },
+	xp = { "pace", "xpLine" },
 	journey = { "journeyStyle" },
 }) do
 	for _, k in ipairs(keys) do PART_OF["guideWindow." .. k] = part end
@@ -336,7 +336,7 @@ function UI.GuideWindowScene(band)
 			["guideWindow.targetBarColor"] = marks, ["guideWindow.noteSize"] = { P.tip }, ["ui.showNotes"] = { P.tip },
 			["ui.upcoming"] = { up }, ["guideWindow.upSize"] = { up }, ["guideWindow.progress"] = { foot },
 			["guideWindow.progressHeight"] = { foot }, ["guideWindow.progressColor"] = { foot.Line }, ["guideWindow.progressPct"] = { foot.Pct },
-			["guideWindow.pace"] = { G.xp },
+			["guideWindow.pace"] = { G.xp }, ["guideWindow.xpLine"] = { G.xp }, ["guideWindow.stillToDo"] = { P.along },
 			-- The window itself shown and held in place; the step's goals, whole or one person's; the tip and Up next open.
 			["ui.shown"] = window, ["ui.locked"] = window, ["ui.wholeStep"] = moving, ["ui.notesOpen"] = { P.tip },
 			["ui.upcomingOpen"] = { up },
@@ -734,6 +734,12 @@ local SPECS = {
 				{ value = "foot", label = L["In the foot"] },
 			} },
 	} },
+	-- The Still to do rows over Along the way (#3303).
+	{ page = PAGE, tab = L["Parts"], section = L["Still to do"], controls = {
+		{ kind = "toggle", key = "guideWindow.stillToDo", label = L["Still to do"], new = "0.4.3",
+			help = L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."],
+			search = "still to do, finished quests, carried, hand in elsewhere, behind, left behind, hide still to do, along the way" },
+	} },
 	{ page = PAGE, tab = L["Parts"], section = L["Progress & pace"], controls = {
 		{ kind = "toggle", key = "guideWindow.progress", label = L["Progress bar"], new = NEW,
 			help = L["The guide's progress at the bottom of the window."], search = "progress, bar, percent, footer, completion",
@@ -747,6 +753,9 @@ local SPECS = {
 				{ kind = "toggle", key = "guideWindow.progressPct", label = L["Percent"], new = NEW,
 					help = L["The percent beside the progress bar."], search = "percent, number, percentage" },
 			} },
+		{ kind = "toggle", key = "guideWindow.xpLine", label = L["XP line"], new = "0.4.3",
+			help = L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."],
+			search = "xp line, xp per hour, xp/h, experience, time to level, hide xp" },
 		{ kind = "toggle", key = "guideWindow.pace", label = L["Pace line"], new = "0.4.1",
 			help = L["The line above the progress bar: on pace for a level by a step, or how far behind the route you are."],
 			search = "pace, on pace, behind, level by step, xp line, progress text, hide pace" },

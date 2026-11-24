@@ -2868,7 +2868,9 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   `Levels.Share`); `RoutePlan.Ender(q)` is the Codex ender of the
   character's side nearest the player (`Lookup.QuestEnd`). The guide
   window's "Still to do" list gives them one row, "N finished quests to hand
-  in elsewhere (X XP)", and Make room shows a "Finished quests you're still
+  in elsewhere (X XP)" (with the quests an update left behind, both off with
+  `guideWindow.stillToDo`, Guide window > Parts > Still to do; #3303), and
+  Make room shows a "Finished quests you're still
   carrying (N)" button while there are any; either opens
   `UI.ShowQuestRoom("carried")`: each quest
   with who takes it in and where, an Abandon button on a grey one, and
@@ -8046,8 +8048,10 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   Codex (Lookup), at 60, or with no target (a guide that is not a leveling
   one with no `level` goal ahead), or with the Pace line switch off
   (`guideWindow.pace`, Guide window > Parts > Progress & pace; #2371,
-  #2379: the row keeps the XP an hour). Re-read with the XP row, on that
-  switch and on `STEP_CHANGED`.
+  #2379: the row keeps the XP an hour), or the XP line's (`guideWindow.xpLine`,
+  the same section, #3304: XP an hour, time to level and the pace all go,
+  and under Atlas the level and percent; Boosted Rest keeps its line).
+  Re-read with the XP row, on those switches and on `STEP_CHANGED`.
 
 ### Boosted Rest status — QoL/Rest
 

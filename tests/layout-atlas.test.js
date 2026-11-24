@@ -347,6 +347,48 @@ emit(out)`,
 	assert.equal(out.polestar[0], out.own, "Polestar's own layout: its own room");
 });
 
+// The XP line's switch (guideWindow.xpLine, #3304) under Atlas too: off, the
+// row's level and percent go with XP an hour, time to level and the pace;
+// Boosted Rest keeps its own line, alone in the row; on again, all back.
+test('under Atlas the XP line switch takes the level and percent with it and leaves Boosted Rest', () => {
+	const [out] = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
+		script: `${GUIDE}
+local T, GF = Polestar.Theme, Polestar.UI.GuideFrame
+Polestar.Set("ui.shown", true)
+local Q = Polestar.QoL
+local stats = { rate = 48000, timeToLevel = 30, maxed = false }
+Q.GetXPStats = function() return stats end
+Q.Duration = function() return "30s" end
+Q.XP = { Short = function(n) return string.format("%.1fk", n / 1000) end, Summary = function() return "Level 5" end }
+local rest
+Q.Rest = { Parts = function() return rest end }
+GF.PaceText = function() return "On pace for level 6 by step 12" end
+T.SetLayout("atlas")
+local function row()
+	GF.UpdateXP(stats)
+	GF.Layout()
+	stub.advance(0.5)
+	return { shown = GF.xp:IsShown(), text = GF.xp:IsShown() and GF.xp.Text:GetText() or false }
+end
+local out = { on = row() }
+Polestar.Set("guideWindow.xpLine", false)
+out.off = row()
+rest = { "Boosted Rest 12m" }
+out.rest = row()
+Polestar.Set("guideWindow.xpLine", true)
+rest = nil
+out.back = row()
+emit(out)`,
+	}).emitted;
+	assert.equal(out.on.shown, true, JSON.stringify(out));
+	assert.match(out.on.text, /^Level \d+ {2}· {2}\d+% {2}· {2}48\.0k XP\/h {2}· {2}30s to level {2}· {2}On pace for level 6 by step 12$/, JSON.stringify(out));
+	assert.deepEqual(out.off, { shown: false, text: false }, 'nothing else to say: the row goes');
+	assert.deepEqual(out.rest, { shown: true, text: 'Boosted Rest 12m' }, 'Boosted Rest alone, no level or percent');
+	assert.deepEqual(out.back, out.on, 'on again, as it was');
+});
+
 // A quest's [level] in the goal rows: none, at any width (#3876: the guide
 // window shows no quest level anywhere, Atlas included).
 test('the Atlas goal rows draw no quest level', () => {
