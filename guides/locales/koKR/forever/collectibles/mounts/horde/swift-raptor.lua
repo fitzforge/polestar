@@ -13,15 +13,15 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "수습 {skill:762}",
 	-- {npc:7953} Xar'Ti · {npc:7952} Zjolnir · {area:367} Sen'jin Village · {zone:1411} Durotar · {skill:762} Riding · {faction:530} Darkspear Trolls
-	["{npc:7953} and {npc:7952}'s raptors are in {area:367} on the {zone:1411} coast. At 60 {npc:7953} teaches Journeyman {skill:762} to Trolls for 1,000g (10% less at Honored with {faction:530}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift raptor costs 200g here."] = "",
+	["{npc:7953} and {npc:7952}'s raptors are in {area:367} on the {zone:1411} coast. At 60 {npc:7953} teaches Journeyman {skill:762} to Trolls for 1,000g (10% less at Honored with {faction:530}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift raptor costs 200g here."] = "{npc:7953}과(와) {npc:7952}의 랩터가 {zone:1411} 해안의 {area:367}에 있습니다. 60레벨에 {npc:7953}이(가) 트롤에게 수습 {skill:762}을(를) 1,000골드에 가르칩니다({faction:530}과(와) 우호적이면 10% 할인). 블리자드는 탈것이 함께 온다고 합니다. 다른 종족은 각자 종족의 승마 교관에서 배웁니다. 여기서 빠른 랩터는 마리당 200골드입니다.",
 	-- {npc:7953} Xar'Ti
 	["{npc:7953}, riding trainer"] = "{npc:7953}, 탈것 상급자",
 
 	-- Step 2: Raptor Riding for other races
 	-- {spell:10861} Raptor Riding
-	["{spell:10861} for other races"] = "",
+	["{spell:10861} for other races"] = "{spell:10861} (다른 종족)",
 	-- {spell:10861} Raptor Riding · {skill:762} Riding · {npc:7953} Xar'Ti · {faction:530} Darkspear Trolls
-	["Any Horde race can buy these raptors, but riding one also takes {spell:10861}, which only Trolls get with {skill:762}. {npc:7953} teaches it to other races once they are Exalted with {faction:530} (the Darkspear Trolls Reputation guide shows the way). Until then, don't buy a raptor for this character."] = "",
+	["Any Horde race can buy these raptors, but riding one also takes {spell:10861}, which only Trolls get with {skill:762}. {npc:7953} teaches it to other races once they are Exalted with {faction:530} (the Darkspear Trolls Reputation guide shows the way). Until then, don't buy a raptor for this character."] = "모든 호드 종족이 이 랩터를 살 수 있지만 탑승에는 {spell:10861}도 필요하며 트롤만 {skill:762}과(와) 함께 받습니다. {faction:530}과(와) 확고한 동맹이 되면 {npc:7953}이(가) 다른 종족에게도 가르칩니다(다크스피어 트롤 평판 가이드가 안내). 그 전에는 이 캐릭터로 랩터를 사지 마세요.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "색상 고르기",

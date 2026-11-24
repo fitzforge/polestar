@@ -275,6 +275,28 @@ end
 -- The spawns of the Codex NPCs with `role` on the player's side, outside
 -- instances. A class's own flight master (Nav.TaxiNpcClass: Nighthaven's fly
 -- Druids only, from their gossip) is a flight master for that class alone.
+-- A rare whose spawns lie more than WANDER yards apart is no service place: it
+-- wanders between them and is often not up (#3432: Mount Hyjal's Pexmit,
+-- "Someone's Minion", a rare merchant with 8 spawns across the zone, met at
+-- 11 spots, where "Sell before heading out" sent players). One that stays at
+-- one spot keeps its place (Riverglades' stablemaster Reginald Holmsby).
+local WANDER = 100
+local function wanders(npc, C)
+	if not npc.rare then return false end
+	local c0, x0, y0
+	for _, s in ipairs(npc.spawns or {}) do
+		local c, wx, wy = C.MapToWorld(s.map, s.x, s.y, s.f)
+		if c then
+			if not c0 then
+				c0, x0, y0 = c, wx, wy
+			elseif c ~= c0 or (wx - x0) ^ 2 + (wy - y0) ^ 2 > WANDER * WANDER then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 local function rolePlaces(role)
 	local list = index[role]
 	if list then return list end
@@ -286,7 +308,7 @@ local function rolePlaces(role)
 	for _, id in ipairs(X.WithRole(role)) do
 		local npc = X.Npc(id)
 		local class = only and only(id)
-		if npc and not npc.instance and friendly(npc.faction, code) and not (class and class ~= (info and info.class)) then
+		if npc and not npc.instance and friendly(npc.faction, code) and not (class and class ~= (info and info.class)) and not wanders(npc, C) then
 			for _, s in ipairs(npc.spawns or {}) do
 				local c, wx, wy = C.MapToWorld(s.map, s.x, s.y, s.f)
 				if c then

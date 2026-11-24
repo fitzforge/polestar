@@ -18,7 +18,7 @@ return {
 	["{npc:2216}: the vials come from the Syndicate Shadow Mages on the way to Durnholde"] = "{npc:2216}: 약병은 듀른홀드로 가는 길의 비밀결사대 어둠마법사에게서 얻습니다",
 	["The WANTED poster by the inn"] = "",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}, 내부",
 
 	-- Step 2: Serge Hinott
 	-- {quest:2479} Hinott's Assistance · {npc:2391} Serge Hinott · {area:272} Tarren Mill
@@ -43,7 +43,7 @@ return {
 
 	-- Step 6: Tarren Mill
 	-- {npc:2216} Apothecary Lydon
-	["{npc:2216}, inside"] = "",
+	["{npc:2216}, inside"] = "{npc:2216}, 내부",
 	-- {npc:2230} Umpi
 	["{npc:2230}, next to Lydon; inside"] = "라이던 옆의 {npc:2230}, 안",
 
@@ -53,7 +53,7 @@ return {
 
 	-- Step 8: Hillsbrad Fields: kill these as you meet them
 	-- {area:286} Hillsbrad Fields
-	["{area:286}: kill these as you meet them"] = "",
+	["{area:286}: kill these as you meet them"] = "{area:286}: 만나는 대로 처치하세요",
 	-- {area:287} Hillsbrad
 	-- plural, as words: Kirin Tor Guards = {npc:246848} Kirin Tor Guard
 	-- was: ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "농민은 농가 남쪽 밭에서 일합니다. {area:287}의 인간은 모두 해골을 떨어뜨리며, 농민이 가장 자주 떨어뜨립니다.\n주의: 도망치는 농민이 마을회관에 도착하면 {area:287} 보병을 비롯해 많은 적을 데려올 수 있습니다. 감속, 이동 불가 등의 효과로 도망치지 못하게 하세요. 키린 토 경비병(55)이 농장 북쪽, 알터랙으로 올라가는 길에 서 있으니 밭에서 벗어나지 마세요."
@@ -66,15 +66,15 @@ return {
 
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
-	["{area:275}: kill these as you meet them"] = "",
+	["{area:275}: kill these as you meet them"] = "{area:275}: 만나는 대로 처치하세요",
 	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key · {area:272} Tarren Mill
 	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues, Watchmen and Shadow Mages hold the camps along the way; the Shadow Mages carry Lydon's Vials of Innocent Blood."] = "드럴과 {npc:2238}은(는) {area:275} 안뜰 건물 안에 사슬로 묶여 있습니다. 자물쇠를 열려면 열쇠가 필요합니다. {npc:2427}이(가) {item:3467}을(를), {npc:2428}이(가) {item:3499}을(를) 가지고 있으며, 둘 다 요새 안에 있습니다. 이들을 처치한 뒤 자물쇠 두 개를 모두 여세요.\n{area:272}에서 남동쪽으로 {area:275}(으)로 가는 길의 언덕으로 가세요. 길목의 야영지에는 비밀결사대 도적, 비밀결사대 경비병, 비밀결사대 어둠마법사가 있습니다. 비밀결사대 어둠마법사가 라이던의 순결한 피가 든 유리병을 가지고 있습니다.",
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "",
 	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
-	["{item:3467}, from {npc:2427}"] = "",
+	["{item:3467}, from {npc:2427}"] = "{item:3467}, {npc:2427}에게서",
 	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen
-	["{item:3499}, from {npc:2428}"] = "",
+	["{item:3499}, from {npc:2428}"] = "{item:3499}, {npc:2428}에게서",
 	["Drull's ball and chain"] = "드럴의 족쇄",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "{npc:2238}의 족쇄",
@@ -90,7 +90,7 @@ return {
 	-- {area:272} Tarren Mill · {area:228} The Sepulcher · {npc:2121} Shadow Priest Allister
 	["From {area:272} fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "{area:272}에서 {area:228}(으)로 비행하세요. {npc:2121}은(는) 지하 묘지 입구 옆에 서 있습니다.",
 	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
+	["{area:272} flight master"] = "{area:272} 비행 조련사",
 
 	-- Step 14: Shadow Priest Allister
 	-- {npc:2121} Shadow Priest Allister · {area:233} Ambermill
@@ -116,7 +116,7 @@ return {
 
 	-- Step 19: Fly to the Undercity
 	-- {area:1497} Undercity
-	["Fly to the {area:1497}"] = "",
+	["Fly to the {area:1497}"] = "{area:1497}(으)로 비행",
 	-- {npc:2226} Karos Razok · {area:1497} Undercity
 	["Fly on from {npc:2226}, the bat handler just east of the crypt, to the {area:1497}."] = "",
 

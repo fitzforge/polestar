@@ -402,23 +402,22 @@ return {
 	-- {zone:1455} Ironforge
 	["On the road back west to {zone:1455}."] = "На дороге обратно на запад, в город {zone:1455}.",
 
-	-- Step 78: South Gate Outpost
-	-- {area:806} South Gate Outpost · {area:38} Loch Modan
-	-- was: ["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "Идите по дороге до самого востока, к месту {area:806} у туннеля в зону {zone:1432}."
-	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "",
+	-- Step 78: North Gate Outpost
+	-- {area:808} North Gate Outpost · {npc:1960} Pilot Hammerfoot · {area:38} Loch Modan
+	["Follow the road east and take its northern fork to the {area:808}: {npc:1960} waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into {area:38} come next, down the road to the south."] = "",
 
-	-- Step 79: Bruegs Kindleborn
+	-- Step 79: South Gate Outpost
+	-- {area:806} South Gate Outpost · {area:38} Loch Modan
+	["Back south down the road to the {area:806} at the {area:38} tunnel."] = "",
+
+	-- Step 80: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
 	["{npc:257597} waits in a cave above the farm north-west of the {area:806}; the path up starts behind the farm."] = "{npc:257597} ждет в пещере над фермой к северо-западу от места {area:806}; тропа наверх начинается за фермой.",
 
-	-- Step 81: Braldir Ashmantle
+	-- Step 82: Braldir Ashmantle
 	-- {area:38} Loch Modan · {npc:257808} Braldir Ashmantle
 	-- was: ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "Пройдите через туннель в зону {zone:1432}. Сразу за ним тропа, отмеченная камнями, поднимается по холмам справа от дороги на север, к лагерю {npc:257808}."
 	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "",
-
-	-- Step 82: North Gate Outpost
-	-- {npc:1960} Pilot Hammerfoot · {area:808} North Gate Outpost
-	["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960} ждет в месте {area:808}, севернее Южных ворот; тело гнома лежит наверху по перевалу к западу от него.",
 
 	-- Step 83: The tunnel post
 	["The tunnel post"] = "Пост у туннеля",
@@ -701,6 +700,7 @@ return {
 	-- ["{npc:1252} stands by Eric's campfire in front of the {area:2102}; {npc:1241} is in the cellar west of it."] = "{npc:1252} стоит у костра Эрика перед зданием {area:2102}; {npc:1241} — в подвале к западу от него.",
 	-- ["{npc:1377}, at the depot"] = "{npc:1377}, у депо",
 	-- ["{npc:1702}, beside him: Camping 101, engineers"] = "{npc:1702}, рядом с ним: «Основы походной жизни», инженеры",
+	-- ["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960} ждет в месте {area:808}, севернее Южных ворот; тело гнома лежит наверху по перевалу к западу от него.",
 	-- ["{npc:2326}, inside: Camping 101, {skill:129}"] = "{npc:2326}, внутри: «Основы походной жизни», {skill:129}",
 	-- ["{npc:257808} gives you the {item:6636}. Climb to the peak above his camp, drink the Sapta beside the Spirit Stone and defeat the {npc:5893}, then place its {item:6655} in the {object:61934}, atop the Shrine of Eternal Flame."] = "{npc:257808} дает вам {item:6636}. Поднимитесь на вершину над его лагерем, выпейте сапту рядом с камнем духов и победите NPC {npc:5893}, затем положите {item:6655} сюда: {object:61934}, на вершине Святилища Вечного Пламени.",
 	-- ["{npc:258098}, the shaman trainer, north of the {object:32372}"] = "{npc:258098}, учитель шаманов, к северу от места {object:32372}",

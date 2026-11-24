@@ -29,7 +29,7 @@ one into the other. The addons:
 | `Polestar_Guides` (`addon/Polestar_Guides/`, with `Polestar_Guides_Alliance` and `Polestar_Guides_Horde`) | Polestar's own pack (pack id `guides`): the factionless guides, and each faction's in a part loaded on demand, the player's faction's with the pack (PACK_FORMAT, "Format 8"); each faction part also carries its races' guides and baked legs (`Guides_<Race>.lua`, `Legs_<Race>.lua`, each returning at once unless `Polestar.IsPlayerRace` names the player's race; their own `Polestar_Guides_<Race>` parts before 0.4.3) | `compile`, from `guides/` | yes (generated) | yes |
 | Polestar Experimental (`addon/Polestar/Experimental/`, inside `Polestar` since 0.4.3) | Polestar's experimental pack (pack id `polestar-experimental`): guides for Forever's new zones in testing (alpha), none at the moment (Mount Hyjal joined both routes in 0.4.3); `Polestar.toc` lists its `Pack.lua`, `MapFrames.lua` and `Guides.lua`, whose guides `Polestar.DeferGuides` holds until the pack is shown (out of combat) unless the player switches it off (`behavior.experimentalGuides`, Options > Guide > Show experimental guides, on by default; before 0.4.0 it was off until switched on under Community guides), listed with our guides with an Experimental chip, never suggested, picked or put in a route; the experimental index of the guides our route choices offer is in Polestar_Guides (PACK_FORMAT, "Polestar's own extra packs") | `forge guide compile experimental` and `forge release pack`, from `experimental/` | yes (generated) | yes |
 | community addons | Addons by other authors (`X-Polestar-Pack` in their TOC; `docs/PACKS.md`, `docs/PACK_FORMAT.md`) | the same compiler, from their own repositories | in their own repositories | by their authors |
-| `Polestar_ItemDB` (`addon/Polestar_ItemDB/`) | Item stats and Forever reward choices for the gear advice; loaded on demand | `forge data itemdb` (`Items.lua`), then `forge data gear` (`Forever.lua`) | yes (generated) | yes |
+| `Polestar_ItemDB` (`addon/Polestar_ItemDB/`) | Item stats and Forever reward choices for the gear advice; loaded on demand | `forge data itemdb` (`Items.lua`, Classic Era client tables), then `forge data gear` (`Forever.lua`: Forever's item stats from the Forever client's tables and its hotfixes, quest gear from the Codex) | yes (generated) | yes |
 | `Polestar_<locale>` (`addon/Polestar_deDE/` … `zhTW/`) | The language folder of one client language: Polestar's interface strings (`Interface.lua`, for `Polestar.L`; translators and `forge i18n sync`), our guides' texts (`Texts.lua`, for `Polestar.GuideTexts`), the quest, NPC, object and item names (`Names.lua`, for `Polestar.Names`) and the walking maps' subzone names (`Subzones.lua`, `Polestar.Names`' kind `subzone`, for the arrow's floor by subzone); loaded on demand by `Core/Locale.lua`, only the client's own, never in English. It replaced `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` in 0.3.0 | `forge guide compile` (`Texts.lua`), `forge data names` (`Names.lua`, from the client's tables, the names the client showed players (`data/i18n/names-observed`), DingDB (pinned) and pfQuest) and `forge data subzones` (`Subzones.lua`, from the client's WMOAreaTable and AreaTable at the client build the data is built from); each writes the one TOC alike (`forge_guide::toc::language_toc`) and leaves the others' files alone | yes (generated) | yes |
 | `Polestar_QuestDB` (`addon/Polestar_QuestDB/`) | The quest database behind quest markers and tooltips; loaded on demand | `forge data questdb` | no (local, gitignored) | yes, when built |
 | `Polestar_Codex` (`addon/Polestar_Codex/`) | Lookup's Codex, and the Dungeons and Rares data; loaded on demand | `forge data codex`, from release-safe inputs (`--local-extras` builds a local-only one) | no (generated, gitignored) | yes, always: `pack` fails without it |
@@ -171,7 +171,7 @@ out again (`GF.Layout`) only when its text would change, never for the login
 check alone.
 
 Modules fire their own (`TABS_CHANGED`, `ROUTE_*`, `TRAIN_DUE`,
-`CLASS_TRAINED`, `GUIDE_OUTLEVELED`, `QUESTDB_*`, `CODEX_LOADED`,
+`CLASS_TRAINED`, `GUIDE_OUTLEVELED`, `CARRIED_CHANGED`, `QUESTDB_*`, `CODEX_LOADED`,
 `ITEMDB_LOADED`, `GEAR_UPDATED`, `FLIGHT_STARTED`/`FLIGHT_ENDED`,
 `FLIGHT_MARK_CHANGED`, `QOL_HEARTH_CHANGED`, `QOL_XP_UPDATED`, `MOUNT_SPOTTED`, `RARE_SPOTTED`,
 `RARE_NAMED`, `RARES_HISTORY`, `SHOW_LOOKUP`, `SHOW_DUNGEON`, `SHOW_RARES`), documented
@@ -275,7 +275,9 @@ planned in too), and the first
 placement with the quest log in passes what of it lies behind the player's
 place (`Own.passAdded`: the first step that holds for content the old guide
 had, by the step's own rule, `Own.holds`: a vendor check-off beside other
-work never holds it), as `gone` steps and goals that no longer apply; nothing shows as
+work never holds it, nor does work of a quest not taken whose every accept
+the update added, `Own.addedWork`, #3464: a kept kill step whose quest the
+update moved before it), as `gone` steps and goals that no longer apply; nothing shows as
 skipped, and what of it the player has done is not passed: it shows done (a
 step passes whole while work of it is open). An accept passed takes its
 quest's later goals with it (orphaned). A quest the player carries whose remaining work is among them (its
@@ -334,7 +336,7 @@ Polestar.Profiles.Apply(preview, name, pick?) -> true, undo   -- name = Active()
 Polestar.Profiles.Undo(undo) -> true | nil, why           -- an Apply taken back
 Polestar.Profiles.CategoryOf(path) -> id, how             -- how: "position" | "own" | "page" | "hidden" | "fallback"
 Polestar.Profiles.RegisterPosition(path, shape)          -- a position setting a string may carry ("xy" | "pxy" | "ppxy" | "anchor")
-Polestar.RegisterMigration(id, fn(settings))             -- at file load: runs once per id over every profile
+Polestar.RegisterMigration(id, fn(settings), opts?)       -- at file load: runs once per id over every profile; opts.strings = false: never over a profile string
 ```
 
 `Core/Profiles.lua`. A profile is a named set of settings. The one in use
@@ -346,7 +348,12 @@ its class's (`PolestarDB.classProfiles[CLASS]`), else the account's
 (`PolestarDB.profile`, `"Default"`). At `ADDON_LOADED`, before any `OnInit`
 handler (Init.lua calls `Profiles.Load`), that profile is swapped in and the
 registered migrations run (`PolestarDB.migrations[id] = true`, over the settings
-in use and every stored profile; one registered later runs at once).
+in use and every stored profile; one registered later runs at once). An
+import runs the ones a string is from before over its settings, except those
+registered with `strings = false`: a changed default kept for the players who
+had it (`behavior.skipGrey`, on since 0.4.3, stays off in every profile saved
+before; a fresh install is marked without it) leaves a string's unset value
+at today's default.
 Settings saved before profiles are the profile `Default` where they are. A
 switch fires `SETTING_CHANGED("")` (as `ResetSettings`), so every module
 repaints; any change to the list or the choice fires `PROFILES_CHANGED`. A
@@ -1977,18 +1984,22 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   "Fresh starts") says how much of its quest XP hinges on earlier guides'
   quests. `Engine.FreshFor(g)` scales that share by the part of `needs` the
   character has neither done, nor in the log, nor taken on the way (a feeder
-  step of the guide's plan), and from `FRESH_NOTE` (30) percent in whole
-  percent (the share the note states), below the
-  guide's top level and with `from` a guide for this character, returns
-  `{ guideId, from, fromTitle, share, minutes }` (minutes: that XP as
-  same-level kills, `FRESH_KPM` (1.5) a minute, in fives). `Engine.FreshStart()`
+  step of the guide's plan), nor grey for them (#3879: the quest's level from
+  `from`'s accept), and from `FRESH_NOTE` (30) percent in whole percent,
+  below the guide's top level and with `from` a guide for this character,
+  returns `{ guideId, from, fromTitle, share }`. `Engine.FreshStart()`
   is the active guide's once the quest log is in, while its live step is in
-  the guide's first third: the guide window's "fresh" banner ("Fresh start:
-  about N% of this guide's quest XP follows on from X", "Open X" opens it in
-  a new tab; taken or dismissed, gone for that guide for the session).
+  the guide's first third: the guide window's "fresh" banner, an offer with
+  no percent and no minutes ("Some of this guide's quests follow on from X.
+  Start there for the full set, or carry on here; the guide fills in with
+  nearby quests.", "Open X" opens it in a new tab; taken or dismissed, gone
+  for that guide for the session).
 - **Out-levelled guides.** When the player's level exceeds the active guide's
   top (`maxLevel`, or their side's `factionLevels` one: `Guides.Levels`) by
-  `Engine.OUTGROWN` (3) or more, the Engine fires `GUIDE_OUTLEVELED(guideId,
+  `Engine.OUTGROWN` (3) or more (`Engine.Outgrown`; a Class guide by
+  `Engine.CLASS_OUTGROWN` (5), and only once the character knows every spell
+  its `reward` lines name, the level where QoL/ClassQuests.lua stops
+  offering it, #3845), the Engine fires `GUIDE_OUTLEVELED(guideId,
   suggestedId)` once per guide per session, once the guide is placed (a
   catch-up may pass it whole first); the UI offers the jump. While the
   guides between the active one and the level-best suggestion still hand in
@@ -2000,7 +2011,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   the guide lists who takes each in.", the link reading "Jump anyway"); the
   guide menu's Load asks once (a popup) before replacing the active leveling
   guide while the route still hands some in before the guide loaded. Setting
-  `behavior.skipGrey` (default off; leveling guides only, see "Every step")
+  `behavior.skipGrey` (on by default since 0.4.3, off in profiles saved before; leveling guides only, see "Every step")
   auto-skips `accept` goals for quests already grey for the character (and
   `turnin ... direct` goals, which the compiler gives their quest's level
   too), and with them the quests' turn-ins and objectives,
@@ -12229,7 +12240,11 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
 - **Leffe's navigation maps in game** (`forge nav pack --leffe <dir>`, `pack/leffe.rs`, maps format 5): the
   walking maps taken from Leffe's navigation maps (format 4, private, never shipped as files) instead of our grid.
   His grid, height, floor and class fields already are the in-game encodings and pass through (the steps his flags
-  leave open past the walkable slope, which his reader closes, are closed); his zones too. His entrance graph is
+  leave open past the walkable slope, which his reader closes, are closed), but for the class's two hub bits, which are
+  ours (#3830: every cell a disk of the ground layers' `hubs.json` touches, as our grid's maps mark them, so the walk
+  keeps out of the towns `hubs.json` lists, Forever's own among them, and of no other; the entrance edges inside a
+  cluster whose bits change are priced again for the Alliance and Horde profiles by what the change adds to or takes
+  off their walk; PACK.json's `hubBits`); his zones too. His entrance graph is
   re-encoded as the graph field (an entrance on one of his refined ports becomes the surface owning it; an entrance
   keeps its 63 cheapest edges; an edge may be one way: an entrance lists only the edges it can walk; an edge's yards
   are his profile-free way's, as our grid's maps take theirs: he keeps a cost and a yards for each profile, and the

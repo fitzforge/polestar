@@ -557,6 +557,7 @@ L["Bullets"] = "Пули"
 L["Bows & guns"] = "Луки и ружья"
 L["Mailbox"] = "Почтовый ящик"
 -- L["Transmogrifier"] = ""
+-- L["No %s for your side."] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "ПКМ — пропустить этот участок."
@@ -1350,6 +1351,7 @@ L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one malle
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 -- L["Use %s beside %s: it becomes %s."] = ""
 -- L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = ""
+-- L["Not open on Forever yet: the attunement is ready for when it opens."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "Карта %d"
@@ -1425,6 +1427,13 @@ L["%s has %s"] = "%s: %s"
 L["%s to buy"] = "купить: %s"
 L["(only %s listed)"] = "(выставлено только %s)"
 L["(old price)"] = "(старая цена)"
+-- L["Elites nearby"] = ""
+-- L["Group, or careful: a group quest, yours to do or skip"] = ""
+-- L["Group, or careful: an escort that can go wrong"] = ""
+-- L["Group, or careful: elites at your level or above"] = ""
+-- L["Group, or careful: a group is advised"] = ""
+-- L["Careful: elites nearby"] = ""
+-- L["Careful: elites, below your level"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Место"
@@ -2046,6 +2055,9 @@ L["%d-%d players"] = "Игроков: %d-%d"
 L["No boss drops known"] = "Добыча с боссов неизвестна"
 L["Drops (%d)"] = "Добыча (%d)"
 -- L["Use %s beside %s"] = ""
+-- L["All attunements and keys"] = ""
+-- L["Every attunement and key, with how far you are"] = ""
+-- L["Not open on Forever yet"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Прямо здесь"
@@ -2182,6 +2194,7 @@ L["Leaves out grey quests, and quests behind you that pay less than full XP when
 -- L["%s: /reload after picking it."] = ""
 -- L["The step card, Up next under it."] = ""
 -- L["Alpha"] = ""
+-- L["The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "Выделено для вас: скопируйте Ctrl+C (Cmd+C на Mac), затем нажмите Escape."
@@ -2634,7 +2647,6 @@ L["Install's pages: questing, groups, your route and your look, a page at a time
 L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."] = "Заново настроить Polestar, страница за страницей: задания, группы, ваш маршрут, ваш вид. Каждый выбор действует сразу."
 L["Show experimental guides"] = "Показывать экспериментальные гайды"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "Гайды Polestar для новых зон Forever, которые еще проходят проверку: в меню гайдов в разделе «Прокачка» с меткой «Экспериментальный». Они никогда не выбираются за вас; выбор маршрута в любом случае предлагает их зону там, где она подходит."
-L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "Маршрут может начинаться с известного вам заклинания телепорта, если так быстрее: городские телепорты мага, Лунная поляна друида или Астральное возвращение шамана (как второй камень возвращения). Для телепорта в город нужна руна телепортации в сумках."
 L["Sell and repair reminders"] = "Напоминания о продаже и починке"
 L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."] = "Когда гайд вот-вот уведет из города, а сумки почти полны или снаряжение изношено, показывается торговец или ремонтник по пути, один раз за посещение. Щелкните, чтобы направить туда стрелку."
 L["Sell: fewer free bag slots than"] = "Продажа: свободных ячеек меньше"
@@ -2655,6 +2667,16 @@ L["Nothing to reset"] = "Нечего сбрасывать"
 L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "Перетащите окно гида, стрелку, карточки и оповещения куда нужно. Это окно отойдёт в сторону, пока вы не нажмёте «Сохранить и выйти». Также /polestar unlock."
 -- L["play Sky Jewels by RikyZ90"] = ""
 -- L["play Tetris by beemerwt"] = ""
+-- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."] = ""
+-- L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."] = ""
+-- L["Reload now?"] = ""
+-- L["Polestar shows the new language after a /reload."] = ""
+-- L["Follow the game"] = ""
+-- L["English"] = ""
+-- L["Simplified Chinese"] = ""
+-- L["Traditional Chinese"] = ""
+-- L["General"] = ""
+-- L["The language Polestar shows."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -4664,6 +4686,8 @@ L["A look in one click: it sets the settings it names and puts the others of the
 -- L["Alpha: /reload after picking it."] = ""
 -- L["Beta: /reload after picking it."] = ""
 -- L["Any issues: @%s in a bug report or on Discord."] = ""
+-- L["Before %s (%s)"] = ""
+-- L["Your setup as it was saved: a click puts back every window setting it holds."] = ""
 
 -- Theme/SkinApi.lua
 L["The skin %s (from %s) could not be added: %s. Polestar's own look stands in."] = "Не удалось добавить оформление %s (из %s): %s. Вместо него используется собственный вид Polestar."
@@ -4728,6 +4752,8 @@ L["This guide is for %s characters. Polestar won't guide you through it."] = "Э
 -- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 -- L["Looking ahead."] = ""
 -- L["Looking back."] = ""
+-- L["On the way to your map point (%s)."] = ""
+-- L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Нажмите %s, чтобы продолжить, или откройте окно гайда."
@@ -4838,8 +4864,6 @@ L["You have %s"] = "У вас %s"
 L["Send to Auctionator"] = "Отправить в Auctionator"
 L["Copy list"] = "Копировать список"
 L["Show how the profession guide gets its materials"] = "Показать, как гайд по профессии получает материалы"
-L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "Начало с нуля: около %d%% опыта за задания этого гайда завязано на гайд %s."
-L["Expect about %d minutes of extra grinding, or start there."] = "Придется гриндить примерно на %d мин. дольше, или начните оттуда."
 L["Open %s"] = "Открыть: %s"
 
 -- Core/ProfileStrings.lua
@@ -5034,9 +5058,33 @@ L["Most used"] = "Самое нужное"
 -- L["Hold"] = ""
 -- L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = ""
 -- L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = ""
+
 -- UI/TabStyles/TabStyles.lua
 L["Open guides"] = "Открытые гайды"
 L["%d of %d"] = "%d из %d"
+
+-- UI/Attunements.lua
+-- L["Finish %s"] = ""
+-- L["Pick up %s from %s"] = ""
+-- L["Pick up %s"] = ""
+-- L["Every step, on the dungeon's page"] = ""
+-- L["Opens %s"] = ""
+-- L["%d of %d steps"] = ""
+-- L["Attunements"] = ""
+-- L["What lets you into each raid and opens a dungeon's doors, and how far you are"] = ""
+-- L["No attunement or key is known for your faction."] = ""
+
+-- UI/LayoutCard.lua
+-- L["Before Atlas (%s)"] = ""
+-- L["New in 0.4.3: the Atlas layout"] = ""
+-- L["Try it on your own guide window: each button switches it now, as often as you like."] = ""
+-- L["Layout"] = ""
+-- L["Your current design"] = ""
+-- L["Tabs are off in Settings > Guide window > Parts."] = ""
+-- L["Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets."] = ""
+-- L["The guide window is hidden: open it to see each choice on your guide."] = ""
+-- L["Atlas layout and tab styles by %s"] = ""
+-- L["Keep this"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Заново настроить Polestar, страница за страницей. Каждый выбор действует сразу."
@@ -5304,3 +5352,6 @@ L["%d of %d"] = "%d из %d"
 -- L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "Если до конца полёта осталась минута или больше, Polestar предлагает поиграть в Freedoom Arcade от petllama, пока вы ждёте: три уровня Freedoom или вся игра, если установлен аддон Freedoom Arcade. За 10 секунд до посадки игра сохраняется, ставится на паузу и закрывается. /polestar arcade открывает её в любой момент."
 -- L["a game: Play"] = "Играть"
 -- L["Do you want to play Doom while waiting?"] = "Хотите поиграть в Doom, пока ждёте?"
+-- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "Маршрут может начинаться с известного вам заклинания телепорта, если так быстрее: городские телепорты мага, Лунная поляна друида или Астральное возвращение шамана (как второй камень возвращения). Для телепорта в город нужна руна телепортации в сумках."
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "Начало с нуля: около %d%% опыта за задания этого гайда завязано на гайд %s."
+-- L["Expect about %d minutes of extra grinding, or start there."] = "Придется гриндить примерно на %d мин. дольше, или начните оттуда."

@@ -48,7 +48,7 @@ return {
 	-- {item:6888} Herb Baked Egg
 	["{item:6888}: shopping"] = "{item:6888}: покупки",
 	-- {item:2678} Mild Spices
-	["The arrow picks the nearest vendor of your faction for each item. You need 50 {item:2678} (1s)."] = "",
+	["The arrow picks the nearest vendor of your faction for each item. You need 50 {item:2678} (1s)."] = "Стрелка выбирает ближайшего продавца вашей фракции для каждого предмета. Нужно 50 {item:2678} (1с).",
 
 	-- Step 9: Herb Baked Egg: Auction House
 	-- {item:6888} Herb Baked Egg
@@ -69,8 +69,7 @@ return {
 
 	-- Step 13: Charred Wolf Meat: ingredients
 	-- {npc:250873} Juvenile Vuldren
-	-- was: ["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "Лисвены, {npc:250874} – остров Зефрас или там, куда указывает стрелка"
-	["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "",
+	["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "{npc:250873} на Зеферских островах, или куда укажет стрелка",
 
 	-- Step 14: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire · {item:2672} Stringy Wolf Meat
@@ -114,7 +113,7 @@ return {
 	-- {spell:2544} Crab Cake
 	["{spell:2544}: shopping"] = "{spell:2544}: покупки",
 	-- {item:2678} Mild Spices
-	["The arrow picks the nearest vendor of your faction for each item. You need 44 {item:2678} (90c)."] = "",
+	["The arrow picks the nearest vendor of your faction for each item. You need 44 {item:2678} (90c)."] = "Стрелка выбирает ближайшего продавца вашей фракции для каждого предмета. Нужно 44 {item:2678} (90м).",
 
 	-- Step 29: Crab Cake: Auction House
 	-- {spell:2544} Crab Cake
@@ -157,7 +156,7 @@ return {
 	-- {spell:2546} Dry Pork Ribs
 	["{spell:2546}: shopping"] = "{spell:2546}: покупки",
 	-- {item:2678} Mild Spices
-	["The arrow picks the nearest vendor of your faction for each item. You need 52 {item:2678} (1s 10c)."] = "",
+	["The arrow picks the nearest vendor of your faction for each item. You need 52 {item:2678} (1s 10c)."] = "Стрелка выбирает ближайшего продавца вашей фракции для каждого предмета. Нужно 52 {item:2678} (1с 10м).",
 
 	-- Step 37: Dry Pork Ribs: Auction House
 	-- {spell:2546} Dry Pork Ribs
@@ -179,13 +178,13 @@ return {
 	-- {item:5525} Boiled Clams
 	["{item:5525}: shopping"] = "{item:5525}: покупки",
 	-- {item:159} Refreshing Spring Water
-	["The arrow picks the nearest vendor of your faction for each item. You need 40 {item:159} (2s)."] = "",
+	["The arrow picks the nearest vendor of your faction for each item. You need 40 {item:159} (2s)."] = "Стрелка выбирает ближайшего продавца вашей фракции для каждого предмета. Нужно 40 {item:159} (2с).",
 
 	-- Step 41: Boiled Clams: ingredients
 	-- {item:5525} Boiled Clams
 	["{item:5525}: ingredients"] = "{item:5525}: ингредиенты",
 	-- {npc:3812} Clattering Crawler · {npc:3814} Spined Crawler · {npc:3944} Wrathtail Priestess · {zone:1439} Darkshore · {item:5523} Small Barnacled Clam · {item:5503} Clam Meat
-	["{npc:3812} (42%), {npc:3814} (42%), {npc:3944} (42%) in {zone:1439}, or wherever the arrow points; open each {item:5523} for its {item:5503}"] = "",
+	["{npc:3812} (42%), {npc:3814} (42%), {npc:3944} (42%) in {zone:1439}, or wherever the arrow points; open each {item:5523} for its {item:5503}"] = "{npc:3812} (42%), {npc:3814} (42%), {npc:3944} (42%) в {zone:1439}, или куда укажет стрелка; вскрывайте каждый {item:5523}, чтобы достать {item:5503}",
 
 	-- Step 42: Boiled Clams (50-90)
 	-- {item:5525} Boiled Clams · {object:29784} Basic Campfire · {skill:185} Cooking · {item:2674} Crawler Meat · {spell:2544} Crab Cake
@@ -203,7 +202,7 @@ return {
 	-- {item:5477} Strider Stew
 	["{item:5477}: shopping"] = "{item:5477}: покупки",
 	-- {item:4536} Shiny Red Apple
-	["The arrow picks the nearest vendor of your faction for each item. You need 52 {item:4536} (2s 75c)."] = "",
+	["The arrow picks the nearest vendor of your faction for each item. You need 52 {item:4536} (2s 75c)."] = "Стрелка выбирает ближайшего продавца вашей фракции для каждого предмета. Нужно 52 {item:4536} (2с 75м).",
 
 	-- Step 48: Strider Stew: Auction House
 	-- {item:5477} Strider Stew
@@ -225,7 +224,7 @@ return {
 	-- {item:5479} Crispy Lizard Tail
 	["{item:5479}: shopping"] = "{item:5479}: покупки",
 	-- {item:2692} Hot Spices
-	["The arrow picks the nearest vendor of your faction for each item. You need 30 {item:2692} (12s)."] = "",
+	["The arrow picks the nearest vendor of your faction for each item. You need 30 {item:2692} (12s)."] = "Стрелка выбирает ближайшего продавца вашей фракции для каждого предмета. Нужно 30 {item:2692} (12с).",
 
 	-- Step 52: Crispy Lizard Tail: Auction House
 	-- {item:5479} Crispy Lizard Tail
@@ -255,7 +254,7 @@ return {
 	-- {spell:3376} Curiously Tasty Omelet
 	["{spell:3376}: shopping"] = "{spell:3376}: покупки",
 	-- {item:2692} Hot Spices
-	["The arrow picks the nearest vendor of your faction for each item. You need 46 {item:2692} (18s 40c)."] = "",
+	["The arrow picks the nearest vendor of your faction for each item. You need 46 {item:2692} (18s 40c)."] = "Стрелка выбирает ближайшего продавца вашей фракции для каждого предмета. Нужно 46 {item:2692} (18с 40м).",
 
 	-- Step 57: Curiously Tasty Omelet: Auction House
 	-- {spell:3376} Curiously Tasty Omelet
@@ -277,7 +276,7 @@ return {
 	-- {spell:3398} Hot Lion Chops
 	["{spell:3398}: shopping"] = "{spell:3398}: покупки",
 	-- {item:2692} Hot Spices
-	["The arrow picks the nearest vendor of your faction for each item. You need 45 {item:2692} (18s)."] = "",
+	["The arrow picks the nearest vendor of your faction for each item. You need 45 {item:2692} (18s)."] = "Стрелка выбирает ближайшего продавца вашей фракции для каждого предмета. Нужно 45 {item:2692} (18с).",
 
 	-- Step 61: Hot Lion Chops: Auction House
 	-- {spell:3398} Hot Lion Chops
@@ -300,7 +299,7 @@ return {
 	-- {item:12210} Roast Raptor
 	["{item:12210}: shopping"] = "{item:12210}: покупки",
 	-- {item:2692} Hot Spices
-	["The arrow picks the nearest vendor of your faction for each item. You need 52 {item:2692} (20s 80c)."] = "",
+	["The arrow picks the nearest vendor of your faction for each item. You need 52 {item:2692} (20s 80c)."] = "Стрелка выбирает ближайшего продавца вашей фракции для каждого предмета. Нужно 52 {item:2692} (20с 80м).",
 
 	-- Step 65: Roast Raptor: Auction House
 	-- {item:12210} Roast Raptor
@@ -312,7 +311,7 @@ return {
 	-- {item:12210} Roast Raptor
 	["{item:12210}: ingredients"] = "{item:12210}: ингредиенты",
 	-- {npc:2560} Highland Thrasher · {zone:1417} Arathi Highlands
-	["{npc:2560} (38%) in {zone:1417}, or wherever the arrow points"] = "",
+	["{npc:2560} (38%) in {zone:1417}, or wherever the arrow points"] = "{npc:2560} (38%) в {zone:1417}, или куда укажет стрелка",
 
 	-- Step 67: Roast Raptor (175-225)
 	-- {item:12210} Roast Raptor · {object:29784} Basic Campfire · {item:12228} Recipe: Roast Raptor · {zone:1417} Arathi Highlands · {npc:2810} Hammon Karwn · {area:320} Refuge Pointe · {npc:2821} Keena · {area:321} Hammerfall · {item:2692} Hot Spices · {item:17222} Spider Sausage · {item:12205} White Spider Meat
@@ -350,7 +349,7 @@ return {
 	-- {item:12218} Monster Omelet
 	["{item:12218}: shopping"] = "{item:12218}: покупки",
 	-- {item:3713} Soothing Spices
-	["The arrow picks the nearest vendor of your faction for each item. You need 240 {item:3713} (3g 84s)."] = "",
+	["The arrow picks the nearest vendor of your faction for each item. You need 240 {item:3713} (3g 84s)."] = "Стрелка выбирает ближайшего продавца вашей фракции для каждого предмета. Нужно 240 {item:3713} (3з 84с).",
 
 	-- Step 75: Monster Omelet: Auction House
 	-- {item:12218} Monster Omelet
@@ -362,7 +361,7 @@ return {
 	-- {item:12218} Monster Omelet
 	["{item:12218}: ingredients"] = "{item:12218}: ингредиенты",
 	-- {npc:2929} Savage Owlbeast · {zone:1425} The Hinterlands
-	["{npc:2929} (54%) in {zone:1425}, or wherever the arrow points"] = "",
+	["{npc:2929} (54%) in {zone:1425}, or wherever the arrow points"] = "{npc:2929} (54%) в {zone:1425}, или куда укажет стрелка",
 
 	-- Step 77: Monster Omelet (225-300)
 	-- {item:12218} Monster Omelet · {object:29784} Basic Campfire · {item:16110} Recipe: Monster Omelet · {item:13931} Nightfin Soup · {npc:8137} Gikkix · {area:977} Steamwheedle Port · {item:13932} Poached Sunscale Salmon · {item:279982} Iron Oven

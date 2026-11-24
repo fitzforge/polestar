@@ -556,7 +556,7 @@ return {
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5929} Great Bear Spirit · {area:493} Moonglade · {npc:10897} Sindrayl · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn {area:493}'s flight path from {npc:10897}, south of the lake, for later trips. Then {npc:11800} in {area:2361} flies Druids straight to {area:702} from her gossip: hers is no flight path to learn. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Произнесите {spell:18960}. {npc:11802} – в месте {area:2361}; {quest:5929} – в лесу к северо-западу. Узнайте маршрут полета ({area:493}) у NPC {npc:10897} к югу от озера для будущих поездок. Затем {npc:11800} в месте {area:2361} отправит друидов прямо в {area:702} через диалог: этот маршрут полета изучать не нужно. {npc:11802} стоит наверху в своем здании: поднимитесь внутри, стрелка не различает этажи.",
 	-- {spell:18960} Teleport: Moonglade
-	["Cast {spell:18960}"] = "",
+	["Cast {spell:18960}"] = "Примените {spell:18960}",
 	-- {quest:5929} Great Bear Spirit
 	["Speak with the {quest:5929}"] = "Поговорите: {quest:5929}",
 

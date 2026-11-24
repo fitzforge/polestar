@@ -24,8 +24,7 @@ return {
 
 	-- Step 4: Splintertree Post
 	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run · {npc:12867} Kuray'bin · {quest:6503} Ashenvale Outrunners · {zone:1440} Ashenvale
-	-- was: ["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers Ashenvale Outrunners: leave it for the next {zone:1440} visit, at 26."] = "沿路向北不远就是{area:431}。从南边进入时，先经过飞行管理员和{area:428}的{npc:12696}狩猎告示板，再到商人处。伐木营地的{npc:12867}提供“灰谷先驱者”：留到下次26级来{zone:1440}时再做。"
-	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers {quest:6503}: leave it for the next {zone:1440} visit, at 26."] = "",
+	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers {quest:6503}: leave it for the next {zone:1440} visit, at 26."] = "沿路向北不远就是{area:431}。从南边进入时，先经过飞行管理员和{area:428}的{npc:12696}狩猎告示板，再到商人处。伐木营地的{npc:12867}提供{quest:6503}：留到下次26级来{zone:1440}时再做。",
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
 	["{npc:12696}'s hunt targets Ursangous and Shadumbra are for the next {zone:1440} visit, at 26; Sharptalon (31) only from level 30."] = "{npc:12696}的狩猎目标乌萨苟斯和萨杜布拉留到26级下次来{zone:1440}时再做；沙普塔隆（31级）要到30级才能做。",
 

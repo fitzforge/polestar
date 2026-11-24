@@ -361,7 +361,11 @@ version throughout.
    Then the pin coverage guard: every issue closed as completed has a test
    that names it (in `tests/reported-gate.json`, or a test mentioning `#N`),
    and every route, guide and place record still names a quest some guide
-   has. The gaps known when the guard came in are listed with why in
+   has. An issue labelled `released:<tag>` for a release already out (at or
+   before `package.json`'s version, which step 7 bumps after the gates) is
+   that release's fix, not this one's: a report closed as already fixed
+   carries the older release's label (CONTRIBUTING.md, "How a report is
+   handled"). The gaps known when the guard came in are listed with why in
    `tests/pin-coverage.json`; anything else fails:
 
    ```sh
@@ -579,6 +583,15 @@ version throughout.
     type Release: CurseForge's app lists a project only once it has one) and
     refresh the project description: the steps and settings are in
     [docs/curseforge/README.md](curseforge/README.md).
+
+11. Copy the release's signed data into `releases/<tag>/` on the
+    maintainers' runner: `$POLESTAR_DATA/releases/v0.2.0/forever` (a copy
+    of the signed `data/forever` the release was built and gated on) with
+    `sources/` beside it (links to the data's sources). The weekly
+    route-health run plays the last release's guides on that data
+    (`polestar flow-diff --base-data`): on newer data they may name quests
+    the data has dropped since, and the release's side would not compile.
+    Without the folder the run says the flow check did not run.
 
 
 ## Patch releases

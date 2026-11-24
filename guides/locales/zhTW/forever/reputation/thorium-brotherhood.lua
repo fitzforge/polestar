@@ -22,7 +22,7 @@ return {
 	["{npc:14621} is elite"] = "{npc:14621}是精英",
 
 	-- Step 2: Golems and Dark Iron dwarves
-	["Golems and Dark Iron dwarves"] = "",
+	["Golems and Dark Iron dwarves"] = "魔像和黑鐵矮人",
 	-- {area:1446} Thorium Point · {item:18959} Smithing Tuyere · {item:18960} Lookout's Spyglass
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith · Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["Heavy War Golems and the Dark Iron Taskmasters and Slavers work all over the floor of the Cauldron below {area:1446}. The {item:18959} drops from Dark Iron Steamsmiths at the furnaces in the middle, the {item:18960} from Dark Iron Lookouts on the southern ridges: about one in ten of each."] = "重型戰爭傀儡以及黑鐵監工和奴隸販子在{area:1446}下方的火山口地面上四處活動。{item:18959}由中部熔爐處的黑鐵蒸汽鐵匠掉落，{item:18960}由南部山脊上的黑鐵瞭望員掉落：各約十分之一。",
@@ -154,7 +154,7 @@ return {
 	-- {npc:12944} Lokhtos Darkbargainer
 	["{npc:12944} to Exalted"] = "{npc:12944} 到崇拜",
 	-- {item:17012} Core Leather · {item:11370} Dark Iron Ore · {npc:227939} The Molten Core · {item:19165} Flarecore Leggings · {item:19157} Chromatic Gauntlets · {item:19162} Corehound Belt · {item:19163} Molten Belt · {item:17013} Dark Iron Leggings · {item:19164} Dark Iron Gauntlets · {item:16988} Fiery Chain Shoulders · {item:19166} Black Amnesty · {item:273577} Enchant Weapon - Mighty Intellect · {item:19170} Ebon Hand · {item:20039} Dark Iron Boots
-	["Revered to Exalted is 21,000 more: 105 cores or Bloods, 280 {item:17012} or 4,200 {item:11370}. {npc:227939} materials come from the raid, so a guild or the auction house does most of the work. Revered opens {item:19165} 9g, {item:19157} 9g, {item:19162} 9g, {item:19163} 9g, {item:17013} 18g, {item:19164} 8g, {item:16988} 20g, {item:19166} 7g, Blackfury 7g and {item:273577} 10g. Exalted opens the epic weapon plans {item:19170}, Blackguard and Nightfall (12g each) and {item:20039} 8g."] = "",
+	["Revered to Exalted is 21,000 more: 105 cores or Bloods, 280 {item:17012} or 4,200 {item:11370}. {npc:227939} materials come from the raid, so a guild or the auction house does most of the work. Revered opens {item:19165} 9g, {item:19157} 9g, {item:19162} 9g, {item:19163} 9g, {item:17013} 18g, {item:19164} 8g, {item:16988} 20g, {item:19166} 7g, Blackfury 7g and {item:273577} 10g. Exalted opens the epic weapon plans {item:19170}, Blackguard and Nightfall (12g each) and {item:20039} 8g."] = "從崇敬到崇拜還需21,000：105個核心或鮮血、280張 {item:17012}，或4,200塊 {item:11370}。{npc:227939} 材料來自團隊副本，因此主要靠公會或拍賣行解決。崇敬後可購買 {item:19165} 9金幣、{item:19157} 9金幣、{item:19162} 9金幣、{item:19163} 9金幣、{item:17013} 18金幣、{item:19164} 8金幣、{item:16988} 20金幣、{item:19166} 7金幣、黑色怒火 7金幣和 {item:273577} 10金幣。崇拜後可購買史詩武器圖紙 {item:19170}、黑色衛士和德拉克·奈特弗（各12金幣），以及 {item:20039} 8金幣。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Burninate"] = "回到博恩奈特那裡",

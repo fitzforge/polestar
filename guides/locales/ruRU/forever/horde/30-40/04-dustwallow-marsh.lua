@@ -11,6 +11,8 @@ return {
 	["Zeppelin to {zone:1454}"] = "Дирижабль: {zone:1454}",
 
 	-- Step 2: Orgrimmar
+	-- {zone:1454} Orgrimmar · {zone:1445} Dustwallow Marsh
+	["The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}."] = "",
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "",
 

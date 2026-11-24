@@ -157,11 +157,18 @@ tests with it, and `tools/ci-failures.js` fails the job only on failures the
 baseline lacks: a test that fails on the public data on `next` too is the
 data's, not the change's. The data is built from `next`'s corrections, so
 a pull request's own corrections show in it after the merge. Pushes run
-without it (`ci-data.yml` is their data run). A failing test `next` has
-never run (one the pull request adds or renames) has nothing to be held
-to: for this repository's own branches it is a warning, since their
-`Release data` job runs it on the release data; for a fork it fails. The
-baseline lists the tests that pass on `next` as well, to tell them apart.
+without it (`ci-data.yml` is their data run). The baseline lists the tests
+that pass on `next` as well, so a failing test it lacks is one `next`'s run
+never ran. That is not always the pull request's: the newest baseline can be
+older than the commit the pull request merges into (a run takes over half
+an hour, and a newer push replaces a waiting one), so a test merged to
+`next` in between is missing from it too. `tools/ci-tests.sh` runs those tests
+again in the base checkout on the same data: one that fails there too is
+`next`'s, and passes the job; one that passes there is a new failure. Only a
+failing test the base does not have either (one the pull request adds or
+renames) has nothing to be held to: for this repository's own branches it
+is a warning, since their `Release data` job runs it on the release data;
+for a fork it fails.
 
 **Release data.** The release data is built from recordings and private
 sources and is never published: it stays on the maintainers' machine, where
@@ -279,9 +286,11 @@ Every Monday `route-health.yml` runs the whole route on the release data:
 every leveling guide played, the level model for every race and class on
 `next` and on the last release, and the flow diff against the release
 (`polestar flow-diff`: zone visits, one-quest trips, carried quests, travel,
-moved quests). The table goes to the open issue labelled `route-health`;
-a stuck play or a guide end more than 0.3 level lower than in the release
-also files a `next-gates` issue.
+moved quests), the release's guides played on the data that release shipped
+with (the runner's `$POLESTAR_DATA/releases/<tag>/`, RELEASING.md step 11).
+The table goes to the open issue labelled `route-health`; a flow check that
+could not run says so there. A stuck play or a guide end more than 0.3 level
+lower than in the release also files a `next-gates` issue.
 
 ## After a merge
 

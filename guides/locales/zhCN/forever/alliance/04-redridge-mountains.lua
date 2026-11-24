@@ -275,7 +275,7 @@ return {
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}，在桥南的狮鹫旁",
 	-- {area:42} Darkshire · {zone:1431} Duskwood
-	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (the {zone:1431} guide)."] = "",
+	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (the {zone:1431} guide)."] = "接下来乘狮鹫前往{area:42}，开始{zone:1431}的第二轮行程（见{zone:1431}指南）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Already carrying six? Hand them in now"] = "已经带着六条了？现在就去交掉。",

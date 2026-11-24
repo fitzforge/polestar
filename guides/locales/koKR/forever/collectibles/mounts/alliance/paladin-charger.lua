@@ -84,7 +84,7 @@ return {
 	["Enriched Manna Biscuits"] = "맛 좋은 만나빵",
 	-- {object:2160} The Argent Dawn · {object:92525} Argent Dawn · {npc:10857} Argent Quartermaster Lightspark · {area:3197} Chillwind Camp · {npc:11536} Quartermaster Miranda Breechlock · {area:2268} Light's Hope Chapel
 	-- plural, as words: Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
-	["{object:2160} quartermasters sell Enriched Manna Biscuits, five for 60 silver, once the {object:92525} is Friendly with you: {npc:10857} at {area:3197} or {npc:11536} at {area:2268}. Scourgestones and the Plaguelands quests raise the standing."] = "{object:92525} 평판이 우호적이 되면 {object:2160} 병참장교가 영양 만나빵을 5개에 60실버로 팝니다. {area:3197}의 {npc:10857} 또는 {area:2268}의 {npc:11536}. 스컬지석과 역병지대 퀘스트로 평판이 오릅니다.",
+	["{object:2160} quartermasters sell Enriched Manna Biscuits, five for 60 silver, once the {object:92525} is Friendly with you: {npc:10857} at {area:3197} or {npc:11536} at {area:2268}. Scourgestones and the Plaguelands quests raise the standing."] = "{object:92525} 평판이 우호적이 되면 {object:2160} 병참장교가 맛 좋은 만나빵을 5개에 60실버로 팝니다. {area:3197}의 {npc:10857} 또는 {area:2268}의 {npc:11536}. 스컬지석과 역병지대 퀘스트로 평판이 오릅니다.",
 	-- {npc:10857} Argent Quartermaster Lightspark · {area:3197} Chillwind Camp
 	-- plural, as words: Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
 	["Enriched Manna Biscuits: {npc:10857}, {area:3197}"] = "맛 좋은 만나빵: {npc:10857}, {area:3197}",
@@ -109,7 +109,7 @@ return {
 	-- {item:18804} Lord Grayson's Satchel · {item:18746} Divination Scryer · {item:18792} Blessed Arcanite Barding
 	["Lord Grayson hands you {item:18804}: open it for the {item:18746} and the {item:18792}. Keep both."] = "",
 	-- {item:18792} Blessed Arcanite Barding
-	["{item:18792}, from the satchel"] = "",
+	["{item:18792}, from the satchel"] = "{item:18792}, 가방에서",
 
 	-- Step 18: The Great Ossuary
 	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {item:13704} Skeleton Key · {object:179746} The Great Ossuary (no name in this language: may be words) · {item:18746} Divination Scryer · {spell:1105} Seal of Wisdom · {npc:14516} Death Knight Darkreaver · {item:18749} Charger's Lost Soul · {item:18792} Blessed Arcanite Barding · {npc:14568} Darkreaver's Fallen Charger

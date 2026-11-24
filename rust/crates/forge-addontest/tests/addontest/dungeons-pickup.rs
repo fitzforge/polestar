@@ -2146,6 +2146,47 @@ emit({ route = names(stops, order), big = ok })"#;
 	assert_eq!(out["big"], true);
 }
 
+// #3609 (BestOfLazy): the Hall of Thanes pick-up guide took Thom Filch's and Afadra Dunwall's quests at the
+// entrance first, sent the player out to Dun Morogh for the Underground Map and back. On 0.4.2's data the
+// dungeon's point was at 15.1,86 in Ironforge, nearer Dun Morogh's gate than its givers (the Dun Morogh part
+// then the entrance cost more than going via the givers); 0.4.3's is where 54 players walked in, 28.3,47.6,
+// beside them (data/codex/entrances.json). The travel seconds below are the addon's own (Lookup.Travel, the 0.4.3
+// Codex, a Dwarf in Ironforge): from the city, the Dun Morogh part comes first, on the way in.
+#[test]
+fn the_hall_of_thanes_takes_the_dun_morogh_part_first_on_the_way_in_3609() {
+	let pack = default_pack();
+	let script = r#"
+local T = {
+	city = { thom = 25, afadra = 27, spy = 323, farsen = 300, entrance = 30 },
+	thom = { afadra = 3, spy = 306, farsen = 218, entrance = 6 },
+	afadra = { thom = 3, spy = 308, farsen = 216, entrance = 7 },
+	spy = { thom = 306, afadra = 308, farsen = 113, entrance = 310 },
+	farsen = { thom = 218, afadra = 216, spy = 113, entrance = 213 },
+}
+local OLD = { thom = 46, afadra = 44, farsen = 195, spy = 290, city = 40 } -- to 0.4.2's point, 15.1,86
+local function at(name) return { name = name } end
+local function plan(old)
+	local function travel(a, b)
+		if b.name == "entrance" and old then return OLD[a.name] end
+		return a.name == b.name and 0 or T[a.name][b.name] or T[b.name][a.name]
+	end
+	local stops = {
+		{ inP = at("thom"), outP = at("thom"), deps = {} },
+		{ inP = at("afadra"), outP = at("afadra"), deps = {} },
+		{ inP = at("spy"), outP = at("farsen"), deps = {} }, -- the Underground Map: collected, taken, handed in to Farsen
+		{ inP = at("farsen"), outP = at("farsen"), deps = { 3 } },
+	}
+	local order = D.PlanStops(stops, at("city"), at("entrance"), travel)
+	local out = {}
+	for i, s in ipairs(order) do out[i] = stops[s].inP.name end
+	return out
+end
+emit({ now = plan(false), then_ = plan(true) })"#;
+	let out = run(&pack, script, Opts::default()).remove(0);
+	assert_eq!(out["now"], json!(["spy", "farsen", "afadra", "thom"]), "Dun Morogh first, the givers beside the entrance last");
+	assert_eq!(out["then_"], json!(["thom", "afadra", "spy", "farsen"]), "0.4.2's point: the givers first, then out and back");
+}
+
 // After the run (Dungeons/Handin.lua): Arugal Must Die is finished, The Book of Ur is not; Return to Dalar
 // opens when Arugal Must Die is turned in to Dalar, who gives it.
 fn after_run() -> Opts {
@@ -3070,6 +3111,58 @@ emit({ errand = errand, items = items, unplaced = describe(D.HandinGuide("{KEY}"
 		]),
 		"a part in the log: its errand, then its hand-in"
 	);
+}
+
+// #3744 (Uhohhotdog, Scourge Paladin 24, 0.4.2.2): the same errand's "Collect Toxic Skullcap from Tawny Grisette"
+// showed one point, but she walks a circuit round the Trade Quarter's inner ring (24 places in the data, 62,38 to
+// 70,50), and the reporter met her at 66,50. A seller or a source with several places now gets them all as the
+// collect's spots, as Lookup's own guides show a walking NPC (Lookup.SpawnSpots); a source with one place keeps it.
+#[test]
+fn a_hand_in_errand_from_a_walking_seller_shows_her_circuit_3744_tawny_grisette() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["92055"] = json!({ "id": 92055, "name": "Master Apothecary Faranell", "level": 30, "levelMax": null, "faction": "H", "rare": false,
+		"elite": false, "boss": false, "instance": null, "roles": [], "spawns": [{ "map": 1458, "x": 48.8, "y": 69.3, "f": "e" }] });
+	let ring: Vec<Value> = [(62.0, 38.0), (66.0, 41.0), (70.0, 45.0), (68.0, 50.0), (63.0, 49.0)].iter().map(|(x, y)| json!({ "map": 1458, "x": x, "y": y, "f": "e" })).collect();
+	c["npcs"]["94554"] = json!({ "id": 94554, "name": "Tawny Grisette", "level": 30, "levelMax": null, "faction": "H", "rare": false,
+		"elite": false, "boss": false, "instance": null, "roles": [], "spawns": ring });
+	c["objects"]["973933"] = json!({ "id": 973933, "name": "Blisterweed", "treasure": false, "spawns": [{ "map": 1458, "x": 54.0, "y": 49.3, "f": "e" }] });
+	c["items"]["981246"] = json!({ "id": 981246, "name": "Toxic Skullcap", "quality": 1, "kind": "item", "spell": null, "reqLevel": null,
+		"sources": [{ "type": "vendor", "npc": 94554 }] });
+	c["items"]["981300"] = json!({ "id": 981300, "name": "Blisterweed", "quality": 1, "kind": "item", "spell": null, "reqLevel": null,
+		"sources": [{ "type": "object", "object": 973933 }] });
+	let quest = |id: i32, pre: &[i32], objectives: Value| {
+		json!({
+			"id": id, "title": "Unending Torment", "level": 21, "minLevel": 16, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [92055], "object": [], "item": [] }, "end": { "npc": [92055], "object": [] },
+			"objectives": objectives, "pre": pre, "zone": 1458, "rewards": [], "choices": [], "preAny": pre,
+		})
+	};
+	c["quests"]["997290"] = quest(997290, &[], json!([]));
+	c["quests"]["997291"] = quest(
+		997291,
+		&[997290],
+		json!([
+			{ "type": "item", "id": 981246, "count": 1, "text": "Toxic Skullcap" },
+			{ "type": "item", "id": 981300, "count": 1, "text": "Blisterweed" },
+		]),
+	);
+	i["forever"]["quests"]["997290"] = json!({ "area": 209 });
+	i["forever"]["quests"]["997291"] = json!({ "area": 209 });
+	let own = pack_of(&c, &i);
+	let script = k(r#"
+local out = {}
+for _, s in ipairs(D.HandinGuide("{KEY}").steps or {}) do
+	for _, g in ipairs(s.goals) do
+		if g.t == "collect" then out[#out + 1] = { item = g.item, spots = #(g.spots or {}) } end
+	end
+end
+emit(out)"#);
+	let out =
+		run(&own, &script, Opts { level: 20, race: "Scourge", faction: "Horde", cls: "PALADIN", at: Some(UNDERCITY), done: vec![997290], log: vec![997291], ready: vec![], ..Default::default() })
+			.remove(0);
+	assert_eq!(out, json!([{ "item": 981246, "spots": 5 }, { "item": 981300, "spots": 0 }]), "her whole circuit; the weed's one place");
 }
 
 // #2686 (Fyurie, Night Elf Warrior 54, 0.4.0.1: Sunken Temple's hand-in guide): after Haze of Evil, the guide had

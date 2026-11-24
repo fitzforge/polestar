@@ -557,6 +557,7 @@ L["Bullets"] = "탄환"
 L["Bows & guns"] = "활 및 총"
 L["Mailbox"] = "우체통"
 -- L["Transmogrifier"] = ""
+-- L["No %s for your side."] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "오른쪽 클릭: 이 구간 건너뛰기."
@@ -1349,6 +1350,7 @@ L["Opens the doors of the Armory and the Cathedral."] = "무기고와 대성당�
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 -- L["Use %s beside %s: it becomes %s."] = ""
 -- L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = ""
+-- L["Not open on Forever yet: the attunement is ready for when it opens."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "지도 %d"
@@ -1424,6 +1426,13 @@ L["%s has %s"] = "%s: %s개"
 L["%s to buy"] = "%s개 구매 필요"
 L["(only %s listed)"] = "(%s개만 등록됨)"
 L["(old price)"] = "(오래된 가격)"
+-- L["Elites nearby"] = ""
+-- L["Group, or careful: a group quest, yours to do or skip"] = ""
+-- L["Group, or careful: an escort that can go wrong"] = ""
+-- L["Group, or careful: elites at your level or above"] = ""
+-- L["Group, or careful: a group is advised"] = ""
+-- L["Careful: elites nearby"] = ""
+-- L["Careful: elites, below your level"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "위치"
@@ -2045,6 +2054,9 @@ L["%d-%d players"] = "%d-%d인"
 -- L["No boss drops known"] = ""
 -- L["Drops (%d)"] = ""
 -- L["Use %s beside %s"] = ""
+-- L["All attunements and keys"] = ""
+-- L["Every attunement and key, with how far you are"] = ""
+-- L["Not open on Forever yet"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "바로 여기"
@@ -2181,6 +2193,7 @@ L["Leaves out grey quests, and quests behind you that pay less than full XP when
 -- L["%s: /reload after picking it."] = ""
 -- L["The step card, Up next under it."] = ""
 -- L["Alpha"] = ""
+-- L["The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "선택되어 있습니다: Ctrl+C(Mac은 Cmd+C)로 복사한 뒤 Esc를 누르십시오."
@@ -2633,7 +2646,6 @@ L["Install's pages: questing, groups, your route and your look, a page at a time
 L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다: 퀘스트 진행, 파티, 내 경로, 내 모양. 선택은 바로 적용됩니다."
 L["Show experimental guides"] = "실험적 가이드 표시"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "아직 시험 중인 Forever 신규 지역용 Polestar 가이드: 가이드 메뉴의 레벨업 아래에 실험적 표시와 함께 나열됩니다. 자동으로 선택되지는 않으며, 경로 선택에서는 어느 쪽이든 맞는 곳에서 해당 지역을 제안합니다."
-L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "더 빠르면 아는 순간이동 주문으로 경로를 시작합니다: 마법사의 도시 순간이동, 드루이드의 달의 숲, 주술사의 영혼의 귀환(두 번째 귀환석처럼). 도시 순간이동에는 가방에 순간이동의 룬이 필요합니다."
 L["Sell and repair reminders"] = "판매 및 수리 알림"
 L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."] = "가이드가 마을을 떠나기 직전에 가방이 거의 가득 찼거나 장비가 닳았으면, 가는 길에 있는 상인이나 수리 상인을 방문당 한 번 알려줍니다. 클릭하면 화살표가 그곳을 가리킵니다."
 L["Sell: fewer free bag slots than"] = "판매: 가방 빈 칸이 다음보다 적을 때"
@@ -2654,6 +2666,16 @@ L["Nothing to reset"] = "초기화할 항목 없음"
 L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "가이드 창, 화살표, 카드, 알림을 원하는 곳으로 끌어 옮기세요. 저장 후 나가기를 누를 때까지 이 창은 비켜 있습니다. /polestar unlock으로도 열 수 있습니다."
 -- L["play Sky Jewels by RikyZ90"] = ""
 -- L["play Tetris by beemerwt"] = ""
+-- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."] = ""
+-- L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."] = ""
+-- L["Reload now?"] = ""
+-- L["Polestar shows the new language after a /reload."] = ""
+-- L["Follow the game"] = ""
+-- L["English"] = ""
+-- L["Simplified Chinese"] = ""
+-- L["Traditional Chinese"] = ""
+-- L["General"] = ""
+-- L["The language Polestar shows."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -4664,6 +4686,8 @@ L["A look in one click: it sets the settings it names and puts the others of the
 -- L["Alpha: /reload after picking it."] = ""
 -- L["Beta: /reload after picking it."] = ""
 -- L["Any issues: @%s in a bug report or on Discord."] = ""
+-- L["Before %s (%s)"] = ""
+-- L["Your setup as it was saved: a click puts back every window setting it holds."] = ""
 
 -- Theme/SkinApi.lua
 L["The skin %s (from %s) could not be added: %s. Polestar's own look stands in."] = "스킨 %s(%s 제공)을(를) 추가할 수 없습니다: %s. Polestar 기본 모양을 대신 씁니다."
@@ -4728,6 +4752,8 @@ L["This guide is for %s characters. Polestar won't guide you through it."] = "�
 -- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 -- L["Looking ahead."] = ""
 -- L["Looking back."] = ""
+-- L["On the way to your map point (%s)."] = ""
+-- L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "%s 키를 눌러 다시 시작하거나 가이드 창을 여십시오."
@@ -4838,8 +4864,6 @@ L["You have %s"] = "보유 금액: %s"
 L["Send to Auctionator"] = "Auctionator로 보내기"
 L["Copy list"] = "목록 복사"
 L["Show how the profession guide gets its materials"] = "전문 기술 가이드가 재료를 얻는 방법 보기"
-L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "새로 시작: 이 가이드의 퀘스트 경험치 중 약 %d%%가 %s에서 이어집니다."
-L["Expect about %d minutes of extra grinding, or start there."] = "약 %d분 더 사냥해야 합니다. 아니면 거기서 시작하십시오."
 L["Open %s"] = "%s 열기"
 
 -- Core/ProfileStrings.lua
@@ -5034,9 +5058,33 @@ L["Most used"] = "자주 쓰는 설정"
 -- L["Hold"] = ""
 -- L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = ""
 -- L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = ""
+
 -- UI/TabStyles/TabStyles.lua
 L["Open guides"] = "열린 가이드"
 L["%d of %d"] = "%d / %d"
+
+-- UI/Attunements.lua
+-- L["Finish %s"] = ""
+-- L["Pick up %s from %s"] = ""
+-- L["Pick up %s"] = ""
+-- L["Every step, on the dungeon's page"] = ""
+-- L["Opens %s"] = ""
+-- L["%d of %d steps"] = ""
+-- L["Attunements"] = ""
+-- L["What lets you into each raid and opens a dungeon's doors, and how far you are"] = ""
+-- L["No attunement or key is known for your faction."] = ""
+
+-- UI/LayoutCard.lua
+-- L["Before Atlas (%s)"] = ""
+-- L["New in 0.4.3: the Atlas layout"] = ""
+-- L["Try it on your own guide window: each button switches it now, as often as you like."] = ""
+-- L["Layout"] = ""
+-- L["Your current design"] = ""
+-- L["Tabs are off in Settings > Guide window > Parts."] = ""
+-- L["Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets."] = ""
+-- L["The guide window is hidden: open it to see each choice on your guide."] = ""
+-- L["Atlas layout and tab styles by %s"] = ""
+-- L["Keep this"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."
@@ -5297,3 +5345,6 @@ L["%d of %d"] = "%d / %d"
 -- L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "남은 비행 시간이 1분 이상이면 Polestar가 기다리는 동안 petllama의 Freedoom Arcade를 플레이할지 묻습니다. Freedoom 3개 레벨이며, Freedoom Arcade 애드온이 설치되어 있으면 전체 게임입니다. 착륙 10초 전에 게임을 저장하고 일시 정지한 뒤 닫습니다. /polestar arcade로 언제든 열 수 있습니다."
 -- L["a game: Play"] = "플레이"
 -- L["Do you want to play Doom while waiting?"] = "기다리는 동안 Doom을 플레이할까요?"
+-- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "더 빠르면 아는 순간이동 주문으로 경로를 시작합니다: 마법사의 도시 순간이동, 드루이드의 달의 숲, 주술사의 영혼의 귀환(두 번째 귀환석처럼). 도시 순간이동에는 가방에 순간이동의 룬이 필요합니다."
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "새로 시작: 이 가이드의 퀘스트 경험치 중 약 %d%%가 %s에서 이어집니다."
+-- L["Expect about %d minutes of extra grinding, or start there."] = "약 %d분 더 사냥해야 합니다. 아니면 거기서 시작하십시오."

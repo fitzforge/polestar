@@ -32,7 +32,7 @@ ns.RegisterDefaults("behavior", {
 	autoTurnin = true,
 	guideEnd = "ask", -- "ask" | "continue": at the end of a leveling guide the guide-end window asks (UI/GuideEnd.lua), or the next guide loads by itself; other guides always go on (Own.endAsks)
 	autoSelectGuide = true,
-	skipGrey = false,
+	skipGrey = true, -- on since 0.4.3 for a new account and a new profile; profiles saved before keep theirs (the migration below)
 	deathskips = false, -- `die` goals (deathskips) apply; never on a Hardcore character (Own.deathskips)
 	warnClosing = false, -- name what an offered quest closes for good, and leave its accept to the player (Closes.lua)
 	closeSkipped = true, -- close the quest window the game opens after an auto accept/turn-in when it shows only quests the guide skips (Automation.lua)
@@ -65,6 +65,18 @@ ns.OnInit(function()
 	if type(b) == "table" then b.autoNextGuide = nil end
 end)
 
+-- behavior.skipGrey was off by default before 0.4.3: a setting at its
+-- default is never stored, so a profile saved before then that holds no
+-- value had it off, and keeps it off (an account Polestar had seen, every
+-- stored profile, once). A fresh install starts on the new default, as does
+-- a profile made later. A profile string carries what its maker changed, so
+-- one from before 0.4.3 leaves this setting at today's default.
+ns.RegisterMigration("skipGreyOn", function(s)
+	if ns.IsNewAccount() then return end
+	if type(s.behavior) ~= "table" then s.behavior = {} end
+	if s.behavior.skipGrey == nil then s.behavior.skipGrey = false end
+end, { strings = false })
+
 local outleveled = {} -- guideId -> true, GUIDE_OUTLEVELED once per session
 
 local Engine = {}
@@ -73,6 +85,10 @@ ns.Engine = Engine
 -- the guide window calls it outgrown (GUIDE_OUTLEVELED): most players run a
 -- little ahead of the route, so 2 past the top is still the guide's ground.
 Engine.OUTGROWN = 3
+-- The same for a Class guide (Fitz, 2026-11-23, #3845): its chain is no longer
+-- offered (QoL/ClassQuests.lua) and its window calls it outgrown 5 levels past
+-- its top, never while a spell it rewards is still unknown.
+Engine.CLASS_OUTGROWN = 5
 
 -- The player's own word: goal skips, the current goal, header arrival, the
 -- saved view, state carried over pack updates. One table (Lua 5.1 caps a
@@ -569,6 +585,31 @@ function Own.usedBy(goal)
 	return hit or nil
 end
 
+-- A `buy` (no quest) of an item a quest this guide accepts asks for (an
+-- objective, the quest database: the Holy Candles for Keeping the Light On)
+-- -> those accepts, so the purchase goes with its quests (#3458): left out
+-- (Skip grey quests, the catch-up) or not this character's, it is no longer
+-- bought, counted or kept. Nil without the quest database (read live,
+-- remembered per goal once it has answered), for a buy no quest here asks
+-- for, or outside the loaded guide.
+Own.buyFor = setmetatable({}, { __mode = "k" })
+function Own.boughtFor(goal)
+	if goal.t ~= "buy" or goal.quest or not goal.item or not guide then return nil end
+	local hit = Own.buyFor[goal]
+	if hit ~= nil then return hit or nil end
+	local Q, l = ns.QuestDB, layoutOf(guide)
+	if not (l.stepOf[goal] and Q and Q.IsLoaded() and Q.Asks) then return nil end
+	hit = false
+	for q, list in pairs(l.accepts) do
+		if Q.Asks(q, goal.item) then
+			hit = hit or {}
+			for _, a in ipairs(list) do hit[#hit + 1] = a.goal end
+		end
+	end
+	Own.buyFor[goal] = hit
+	return hit or nil
+end
+
 -- A turn-in, complete or objective goal for a quest the character neither
 -- has nor has done, and that this guide does not (for this character) accept
 -- at or before that step, in a step the player has not skipped, with an
@@ -665,6 +706,18 @@ local function goalApplies(goal)
 	-- and so is one it works with (Own.usedBy, #2670).
 	local starts = goal.t == "collect" and not goal.quest and guide and layoutOf(guide).starters[goal] or Own.usedBy(goal)
 	if starts and not goalApplies(starts) then return false end
+	-- A purchase goes with the quests that ask for it (Own.boughtFor, #3458): one of them still the character's.
+	local fors = goal.t == "buy" and Own.boughtFor(goal)
+	if fors then
+		local any = false
+		for i = 1, #fors do
+			if goalApplies(fors[i]) then
+				any = true
+				break
+			end
+		end
+		if not any then return false end
+	end
 	if goal.t == "die" and not Own.deathskips() then return false end
 	-- A material's gather or Auction House goal applies while its item's way is theirs (Own.materialApplies).
 	if (goal.t == "auction" or goal.gather) and not Own.materialApplies(goal) then return false end
@@ -2011,18 +2064,20 @@ end
 -- such an accept, "Requires X first"). `ok` false when the chain cannot be
 -- done from the route (a quest further down no such guide takes) or the
 -- player skipped one of its quests (Engine.SkipQuest, or a feeder step:
--- CharState().feedSkips; then `skipped`, and its accepts stay, "skipped"). -> { p, from = idx.first[p], ok, quests = { [q] = true | "turnin" }, deps = {} }
+-- CharState().feedSkips; then `skipped`, and its accepts stay, "skipped"). -> { p, from = idx.first[p], ok, quests = { [q] = true | "turnin" }, deps = {},
+-- path = { p, the quest p lacks, ... } (down to the deepest one the chain reached) }
 function Own.feederChain(p, idx)
 	local from = idx.first[p]
 	if not from then return nil end
 	local C, skips = Compat(), ns.CharState().feedSkips
-	local ch = { p = p, from = from, ok = true, quests = {}, deps = {} }
+	local ch = { p = p, from = from, ok = true, quests = {}, deps = {}, path = {} }
 	local cur = p
 	for _ = 1, 8 do
 		if Own.questSkipped(cur) or (type(skips) == "table" and skips[cur]) then
 			ch.ok, ch.skipped = false, true
 			break
 		end
+		ch.path[#ch.path + 1] = cur
 		if C.IsOnQuest(cur) then
 			ch.quests[cur] = "turnin"
 			break
@@ -2556,10 +2611,49 @@ function Own.feederPlan(g)
 	-- "skipped" (Engine.SkipQuest), not left out. So do those waiting on a
 	-- quest the player holds: "Hand in X first" says what to do. A waiting
 	-- accept that could not go in (`carry`) leaves g as it is.
+	-- What a left-out accept needs (the report's "hidden: needs X from Y", the
+	-- window's "Requires X first"): the first quest down its chain that g does
+	-- not accept itself (#3880: an accept an update passed read as "needs
+	-- Mahren Skyseer from The Barrens & Stonetalon Mountains", where the
+	-- character lacks guide 02's Cry of the Thunderhawk), with the
+	-- guide leading here that takes it, else the guide g's `fresh` header names
+	-- for it. Only a chain of g's own quests an update passed, with nothing
+	-- missing before them, names that quest: the update's pass is the reason.
+	local fresh = (g.base or g).fresh
+	local function ownAccept(q)
+		for _, t in ipairs(l.accepts[q] or NONE) do
+			if Guides.Matches(t.step.only, player) and Guides.Matches(t.goal.only, player) then return true end
+		end
+		return false
+	end
+	local function needOf(ch)
+		local path = ch.path or { ch.p }
+		for i = 1, #path do
+			local q = path[i]
+			if not ownAccept(q) then
+				local e = idx and idx.first[q]
+				if e and e.id ~= g.id then return q, e.title, e.guide, e.id end
+				for _, n in ipairs(type(fresh) == "table" and type(fresh.needs) == "table" and fresh.needs or NONE) do
+					local fg = n == q and Guides.Get(fresh.from)
+					if fg then
+						local a = layoutOf(fg).accepts[q]
+						if not Engine.TabIds()[fg.id] then Guides.Release(fg.id) end
+						return q, a and a[1].goal.title or nil, fg.title, fg.id
+					end
+				end
+				return q
+			end
+		end
+		return ch.p, ch.from.title, ch.from.guide, ch.from.id
+	end
 	for _, ch in ipairs(list) do
+		local need, needTitle, from, fromId
 		if not ch.inserted and not ch.skipped and not ch.work and not ch.carry and ch.quests[ch.p] ~= "turnin" then
+			need, needTitle, from, fromId = needOf(ch)
+		end
+		if need then
 			for _, d in ipairs(ch.deps) do
-				hidden[d.q] = { title = d.title, need = ch.p, needTitle = ch.from.title, from = ch.from.guide, fromId = ch.from.id }
+				hidden[d.q] = { title = d.title, need = need, needTitle = needTitle, from = from, fromId = fromId }
 				drop[d.q] = true
 			end
 		end
@@ -3429,16 +3523,51 @@ function Own.onePlace(goal)
 	return (goal.npc or goal.object) and not (Own.FIELD[goal.t] or goal.t == "use" or goal.t == "level" or goal.grind or goal.spread) or false
 end
 
+-- A `learn` goal taught by a recipe (`item`) has no place of its own. Until
+-- the recipe is in the bags, the arrow leads to its vendors: the candidates of
+-- the guide's `buy` of that recipe, the one of the player's side that goal
+-- picks, so a player who passed the shopping step without it is still led
+-- there (#3823: Hot Lion Chops at step 63 of Cooking 1-300). With the recipe in
+-- the bags there is nothing to walk to (it is used from there), nor once known
+-- (the goal is done). -> that `buy` goal, or nil.
+Own.recipeBuy = setmetatable({}, { __mode = "k" })
+function Own.recipeVendor(goal)
+	if goal.t ~= "learn" or not goal.item or goal.map then return nil end
+	local found = Own.recipeBuy[goal]
+	if found == nil then
+		if not guide then return nil end
+		local mine = false
+		for _, step in ipairs(guide.steps) do
+			for _, g in ipairs(step.goals) do
+				if g == goal then
+					mine = true
+				elseif not found and g.t == "buy" and g.item == goal.item and g.candidates then
+					found = g
+				end
+			end
+		end
+		-- Another tab's goal: asked again under its own guide.
+		if not mine then return nil end
+		found = found or false
+		Own.recipeBuy[goal] = found
+	end
+	if not found or (Compat().GetItemCount(goal.item) or 0) > 0 then return nil end
+	return found
+end
+
 -- map, x, y, f of the goal (the chosen candidate's when it has candidates,
 -- the chosen spawn area's when it has spots), then that area's radius in
 -- yards (none for a goal done at one NPC or object: Own.onePlace), then the
 -- height `z` there (the compiler's, from the spawn of the NPC or object it
 -- stands for): the candidate's or spawn area's own, else the goal's while the
--- position is the goal's own point.
+-- position is the goal's own point. A recipe's `learn`: its vendor's
+-- (Own.recipeVendor).
 local function posOf(goal)
 	-- A material whose rest waits in the mail or the bank: there (Own.materialPlace).
 	local held = (goal.t == "auction" or goal.gather) and Own.materialPlace(goal)
 	if held then return held.map, held.x, held.y, held.f, nil, held.z end
+	local shop = Own.recipeVendor(goal)
+	if shop then return posOf(shop) end
 	local c = chosen(goal)
 	if c then return c.map, c.x, c.y, c.f, nil, c.z end
 	local s = goal.spots and Spots.get(goal)
@@ -8370,6 +8499,26 @@ function Own.goalMoved(added, j, goal)
 	return type(e) == "table" and e[Own.goalId(goal)] ~= nil
 end
 
+-- Whether `goal` is work of a quest the update brought: a goal of a quest not
+-- taken nor done whose every accept here for the character is one the update
+-- added (Own.goalAdded). Such work holds nothing in the old guide's place
+-- either (#3464: Duskwood's The Night Watch moved to the first visit, and its
+-- Raven Hill kills, a step 0.4.2.2 had too, read as the player's place).
+function Own.addedWork(added, goal)
+	local q = goal.quest
+	if not q or goal.t == "accept" then return false end
+	local C = Compat()
+	if C.IsOnQuest(q) or questDone(q) then return false end
+	local any = false
+	for _, a in ipairs(layoutOf(guide).accepts[q] or NONE) do
+		if Guides.Matches(a.step.only, player) and Guides.Matches(a.goal.only, player) then
+			if not Own.goalAdded(added, a.s, a.goal) then return false end
+			any = true
+		end
+	end
+	return any
+end
+
 -- What an update added behind the player passes for them. At the first
 -- placement after the update with the quest log in: the player's place is the
 -- first step that holds for what the save's guide had too (a goal open that
@@ -8416,7 +8565,7 @@ function Own.passAdded()
 			local holds = false
 			for g, goal in ipairs(steps[j].goals) do
 				if Own.holds(j, goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(j, g, goal)
-					and not Own.goalAdded(added, j, goal) then
+					and not Own.goalAdded(added, j, goal) and not Own.addedWork(added, goal) then
 					holds = true
 					break
 				end
@@ -10612,6 +10761,21 @@ function Own.watchHearth()
 	end)
 end
 
+-- Whether the character `p` (level, faction) has outgrown guide g: Engine.OUTGROWN
+-- levels past its top; a Class guide Engine.CLASS_OUTGROWN past it, and only once
+-- they know every spell it rewards (Compat.KnowsSpell). False with no top.
+function Engine.Outgrown(g, p)
+	local _, top = Guides.Levels(g, p.faction)
+	if not top then return false end
+	local level = p.level or 1
+	if g.category ~= "Class" then return level >= top + Engine.OUTGROWN end
+	if level < top + Engine.CLASS_OUTGROWN then return false end
+	for _, r in ipairs(g.reward or {}) do
+		if r.spell and not ns.Compat.KnowsSpell(r.spell, r.spellName) then return false end
+	end
+	return true
+end
+
 -- Evaluate every tab, the active one last.
 local function evaluate()
 	lastEval = GetTime()
@@ -10628,11 +10792,10 @@ local function evaluate()
 	Own.watchHearth()
 	Own.watchWait()
 	Own.progressQueue() -- a progress count that waited for this evaluation
-	-- Out-levelled (Engine.OUTGROWN past the top): once per guide per session; for a guide the catch-up may
+	-- Out-levelled (Engine.Outgrown): once per guide per session; for a guide the catch-up may
 	-- pass whole for the player (Own.opened, autoChain), once it is placed.
 	local mayPass = placing and autoChain and Own.opened[guide and guide.id or ""] and ns.Get("behavior.skipGrey")
-	local _, top = Guides.Levels(guide, player.faction)
-	if guide and top and (player.level or 1) >= top + Engine.OUTGROWN and not outleveled[guide.id] and not mayPass then
+	if guide and not outleveled[guide.id] and not mayPass and Engine.Outgrown(guide, player) then
 		outleveled[guide.id] = true
 		local suggested = Guides.Suggest()
 		-- The next guide instead of the level-best one while the guides between
@@ -11563,16 +11726,16 @@ end
 -- compiler fills in") says how much: `share` percent of its quest XP `xp`
 -- hinges on `needs`, quests of earlier guides, most of them `from`'s. For
 -- this character the share left is scaled by the part of `needs` neither
--- done, in the log nor taken on the way (a feeder step of the guide's plan).
--- From FRESH_NOTE (30) percent as the note states it (whole percent: 29.75
--- reads "about 30%"), below the guide's top level, with `from` a guide for
--- this character: { guideId, from, fromTitle, share (whole percent),
--- minutes } | nil. minutes: the XP left out as same-level kills
--- at FRESH_KPM (1.5) a minute (farmSeconds' rate), in fives, at least 5;
--- nil without the level tables. Guides.Suggestions ranks such a guide
--- lower. (The two are locals: a key more on Own doubles its table at login.)
+-- done, in the log nor taken on the way (a feeder step of the guide's plan),
+-- nor grey for them, each weighted by the XP it pays at their level
+-- (Levels.Share; #3879: a level 25 told 42% follows on from the Barrens'
+-- level 18-23 quests, some grey or paying less; the quest's level from
+-- `from`'s accept, Levels.QuestLevel). From FRESH_NOTE (30)
+-- percent (whole percent: 29.75 counts as 30), below the guide's top level,
+-- with `from` a guide for this character: { guideId, from, fromTitle, share
+-- (whole percent) } | nil. Guides.Suggestions ranks such a guide lower.
 function Engine.FreshFor(g)
-	local FRESH_NOTE, FRESH_KPM = 30, 1.5
+	local FRESH_NOTE = 30
 	local f = type(g) == "table" and g.fresh
 	if type(f) ~= "table" or type(f.share) ~= "number" or type(f.from) ~= "string" then return nil end
 	if not (g.category == nil or g.category == "Leveling") then return nil end
@@ -11595,18 +11758,26 @@ function Engine.FreshFor(g)
 		end
 	end
 	local C = Compat()
-	local needs, have = type(f.needs) == "table" and f.needs or NONE, 0
+	local needs, left = type(f.needs) == "table" and f.needs or NONE, {}
 	for _, q in ipairs(needs) do
-		if questDone(q) or C.IsOnQuest(q) or onWay[q] then have = have + 1 end
+		if not (questDone(q) or C.IsOnQuest(q) or onWay[q]) then left[#left + 1] = q end
 	end
-	local left = #needs > 0 and f.share * (1 - have / #needs) or f.share
-	local share = math.floor(left + 0.5)
+	local function shareOf(n) return #needs > 0 and f.share * n / #needs or f.share end
+	if math.floor(shareOf(#left) + 0.5) < FRESH_NOTE then return nil end
+	-- Only now the levels: they read `from`'s steps (loaded for this, given back after).
+	local Lv, worth = ns.Levels, 0
+	for _, q in ipairs(left) do
+		local qlvl = Lv and Lv.QuestLevel and Lv.QuestLevel(q, from)
+		if not qlvl then
+			worth = worth + 1
+		elseif not C.IsQuestTrivial(qlvl, lvl) then
+			worth = worth + (Lv.Share and Lv.Share(lvl, qlvl) or 1)
+		end
+	end
+	if not Engine.TabIds()[from.id] then Guides.Release(from.id) end
+	local share = math.floor(shareOf(worth) + 0.5)
 	if share < FRESH_NOTE then return nil end
-	local Lv = ns.Levels
-	local per = Lv and Lv.MobXP and Lv.MobXP(lvl, lvl, false) or 0
-	local xp = (tonumber(f.xp) or 0) * left / 100
-	local minutes = per > 0 and xp > 0 and math.max(5, math.floor(xp / (per * FRESH_KPM) / 5 + 0.5) * 5) or nil
-	return { guideId = g.id, from = f.from, fromTitle = from.title or f.from, share = share, minutes = minutes }
+	return { guideId = g.id, from = f.from, fromTitle = from.title or f.from, share = share }
 end
 
 -- The active guide's fresh-start note (Engine.FreshFor) once the quest log is
@@ -17509,20 +17680,23 @@ function Own.trainerLearned()
 end
 
 -- The open window of a class trainer of the character's class lists nothing
--- the character can learn now (no "available" service): that is the visit
--- `train class` remembers for the level too (Own.nothingToTrain), so a
--- training step never holds the guide when there is nothing new (a Dwarf at
--- 19 in Ironforge held Loch Modan's step, 2026-11-09). With a spell
--- available it waits for the spell learned, as before. Unknown without the
--- client's trainer list, or with its "available" filter off (the list then
--- hides them). On TRAINER_SHOW and TRAINER_UPDATE (the list after a purchase).
+-- new the character can learn now (no "available" service, or only new ranks
+-- of spells they know: a spellbook spell of that name, Compat.KnowsSpellNamed;
+-- #3608, JAKEJ skips ranks on purpose): that is the visit `train class`
+-- remembers for the level too (Own.nothingToTrain), so a training step never
+-- holds the guide when there is nothing new (a Dwarf at 19 in Ironforge held
+-- Loch Modan's step, 2026-11-09). With a new spell available it waits for the
+-- spell learned, as before. Unknown without the client's trainer list, or
+-- with its "available" filter off (the list then hides them). On TRAINER_SHOW
+-- and TRAINER_UPDATE (the list after a purchase).
 function Own.trainerChecked()
 	if openKind ~= "train" or not (openNpc and player) or not Engine.IsClassTrainer(openNpc) then return end
 	if not (GetNumTrainerServices and GetTrainerServiceInfo) then return end
 	if GetTrainerServiceTypeFilter and not GetTrainerServiceTypeFilter("available") then return end
+	local C = Compat()
 	for i = 1, GetNumTrainerServices() or 0 do
-		local _, kind = GetTrainerServiceInfo(i)
-		if kind == "available" then return end
+		local name, kind = GetTrainerServiceInfo(i)
+		if kind == "available" and not C.KnowsSpellNamed(C.Readable(name)) then return end
 	end
 	refreshPlayer()
 	local s, level = ns.CharState(), player.level or 1

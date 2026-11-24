@@ -132,7 +132,7 @@ return {
 
 	-- Step 27: Heavy Silk Bandage (180-210)
 	-- {item:6451} Heavy Silk Bandage · {item:16112} Manual: Heavy Silk Bandage · {skill:129} First Aid
-	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
+	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "{item:6451} es amarillo desde 180 (amarillo a 180, verde a 210, gris a 240): unas 42 fabricaciones hasta 210. Las vendas no necesitan fuego: fabrícalas en cualquier lugar. Lee el {item:16112} que compraste con {skill:129} experto para aprenderlo; si no lo tienes, el mercader que te vendió el libro también lo vende.",
 
 	-- Step 28: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage
@@ -148,7 +148,7 @@ return {
 
 	-- Step 30: Mageweave Bandage (210-225)
 	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
-	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
+	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "{item:8544} es amarillo desde 210 (amarillo a 210, verde a 240, gris a 270): unas 18 fabricaciones hasta 225. Las vendas no necesitan fuego: fabrícalas en cualquier lugar. Lee el {item:16113} que compraste con {skill:129} experto para aprenderlo; si no lo tienes, el mercader que te vendió el libro también lo vende.",
 
 	-- Step 31: Trauma
 	["Trauma"] = "Traumatismo",

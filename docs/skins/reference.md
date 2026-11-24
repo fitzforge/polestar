@@ -197,8 +197,10 @@ loaded by the game at login as usual, and is listed all the same.
 | Function | Returns |
 |---|---|
 | `InstalledSkins()` | Every installed addon that declares skins, loaded or not: `{ { addon, title, notes, ids = { id, ... }, loaded, reason }, ... }`. `reason` is the client's (`"DISABLED"`, `"INTERFACE_VERSION"`, `"DEP_MISSING"`...) when the addon cannot load, nil when it is loaded or can load. |
-| `LoadSkinAddon(id)` | `ok, why`: loads the installed addon that declares skin or scheme `id` when it is not loaded and can be. `true` once `id` is registered (also when it already was); else `false` and why: the client's reason (`"DISABLED"`...), `"in combat: it loads once the fight ends"`, `"its addon <addon> is loaded but did not register it"`, `"its addon <addon> loaded but did not register it"`, or `"no installed addon declares it (## X-Polestar-Skin)"`. |
-| `LoadInstalledSkins()` | How many it loaded: every installed skin addon that can load, once a session, out of combat. `SkinChoices()` calls it. |
+| `LoadSkinAddon(id)` | `ok, why`: loads the installed addon that declares skin or scheme `id` when it is not loaded and can be, and builds that skin when it waits on `SkinBuilder`. `true` once `id` is registered (also when it already was); else `false` and why: the client's reason (`"DISABLED"`...), `"in combat: it loads once the fight ends"`, `"its addon <addon> is loaded but did not register it"`, `"its addon <addon> loaded but did not register it"`, `"its build did not register it"`, or `"no installed addon declares it (## X-Polestar-Skin)"`. |
+| `LoadInstalledSkins()` | How many it loaded: every installed skin addon that can load, once a session, out of combat; then every skin waiting on `SkinBuilder` is built. `SkinChoices()` calls it. |
+| `SkinBuilder(id, build)` | Nothing. For an addon that holds several skins: registers skin `id` as `build`, a function that registers it (`RegisterSkin`) and makes its textures, run the first time the skin is wanted (`LoadSkinAddon`: the saved skin at login, the player's pick) or when the settings list every skin. Loading the addon then builds none of its skins (Polestar_Skins: applying Atlas builds Atlas alone). |
+| `SkinWaits(id)` | Whether skin `id` is registered with `SkinBuilder` and not built yet. |
 
 ```lua
 local Theme = Polestar.Theme
@@ -1491,7 +1493,7 @@ version 1, the API's preview before it.
 | `kit.glow`, `kit.gameArt`, `kit.crossfade`, `kit.tintArt`, `kit.color` (**2**) | those kit functions |
 | `kit.gradient.horizontal` (**2**) | `kit.gradient`'s `"HORIZONTAL"` |
 | `arrow.parts` (**2**), `pin.parts` (**2**) | the parts the `arrow` and `pin` hooks are handed |
-| `skins.installed` (**2**) | `## X-Polestar-Skin`, `InstalledSkins`, `LoadSkinAddon`, `LoadInstalledSkins` |
+| `skins.installed` (**2**) | `## X-Polestar-Skin`, `InstalledSkins`, `LoadSkinAddon`, `LoadInstalledSkins`, `SkinBuilder`, `SkinWaits` |
 | `layouts` (**2**) | [Layouts](#layouts): `RegisterLayout`, `SetLayout`, `## X-Polestar-Layout` and the functions beside them |
 | `theme.functions` (**2**) | the [Theme functions](#other-theme-functions-a-skin-may-use) under the version promise |
 | `surfaces.window`, `surfaces.guide`, `surfaces.toast`, `surfaces.panel`, `surfaces.sidebar`, `surfaces.inset`, `surfaces.button`, `surfaces.tile`, `surfaces.dropdown`, `surfaces.editbox`, `surfaces.checkbox`, `surfaces.tab`, `surfaces.close`, `surfaces.scrollbar` | each painter kind |
