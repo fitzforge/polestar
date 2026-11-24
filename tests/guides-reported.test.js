@@ -9192,11 +9192,12 @@ test("forever/alliance/50-60/03-winterspring.guide: flow re-order: the four reli
 });
 
 // Flow review (2026-11-07): Alliance Western Plaguelands fetched the Annals from Andorhal and came back to the same
-// town for the Temporal Parasites on a later loop; Chromie takes both together.
+// town for the Temporal Parasites on a later loop; Chromie takes both together. Since #3046 the parasites have the
+// silo step of their own (its `loop` would pull the Annals and the fragments onto the silos), right after the Annals'.
 test('forever/alliance/50-60/04-western-plaguelands.guide: flow re-order: the Temporal Parasites on the Annals visit to Andorhal', { skip }, () => {
 	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
-	assert.equal(stepOf('the parasites (4971)', (g) => g.t === 'kill' && g.quest === 4971), stepOf('the Annals (5154)', (g) => g.t === 'collect' && g.quest === 5154), 'one Andorhal visit');
+	assert.equal(stepOf('the parasites (4971)', (g) => g.t === 'kill' && g.quest === 4971) - stepOf('the Annals (5154)', (g) => g.t === 'collect' && g.quest === 5154), 1, 'one Andorhal visit: the silos straight after the town hall');
 });
 
 // Flow review (2026-11-07): Alliance Silithus handed Noggle's Last Hope to Beetix with Noggle standing beside him and
