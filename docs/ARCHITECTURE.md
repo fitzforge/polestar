@@ -9494,17 +9494,26 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   shows only once no group of the step is open after the focus (it names the
   next step's first person). The goals sit in a scroll area (`W.Scroll`)
   between the header and the tip: the window never grows past `ui.maxHeight`
-  of the screen's height (0.5; 0.3 to 0.9 in Options > Guide window > Window, in
-  the window's own units, so its scale and the UI scale count), the goals
+  of the screen's height (0.5; 0.3 to 1 in Options > Guide window > Window,
+  read in pixels and typed in pixels there, in the window's own units, so
+  its scale and the UI scale count), less the class quest card's room while
+  it shows above or below the window (`ClassToast.Reserved`, #1066), the goals
   area giving up the difference (never below 72 px), the header, the tip
-  and everything under the card staying whole. Past the cap the goals area
-  ends on a whole goal or line, never inside one (a wrapped goal's second
-  line was cut in half under the tip): the bottom of the last one that fits,
-  or, where that is under the 72 px floor, the bottom of the one the cap
-  cuts (unless that passes the cap by more than 72 px); while goals fold it
-  keeps its height and settles once they are done. With Grow upward the cap is
-  also the height from the pinned bottom edge to the top of the screen (the
-  game would otherwise move the window down, bottom edge and all, #666);
+  and everything under the card staying whole. `ui.heightMode` (#1067):
+  "fit" (Follows the step, the default) as above; "fixed" keeps the window
+  at that height for a short step too (the progress bar under the last goal
+  or, `ui.footAt` "edge", on the window's edge), resized by the grip; "auto"
+  takes all the room on screen from the pinned edge, less a margin. Past the
+  cap the goals area ends on a whole goal or line, never inside one (a
+  wrapped goal's second line was cut in half under the tip): the bottom of
+  the last one that fits from which the wheel's last stop is a goal's top
+  too, else the last that fits, or, where that is under the 72 px floor,
+  the bottom of the one the cap cuts (unless that passes the cap by more
+  than 72 px); the wheel stops on goal tops; while goals fold it keeps its
+  height and settles once they are done. With Grow upward the cap is also
+  the height from the pinned bottom edge to the top of the screen (the
+  game would otherwise move the window down, bottom edge and all, #666),
+  and there the window ends on the screen's top, not on a whole goal;
   when even the shortest goals area does not fit there, the body clips its
   lower lines at the bars (at least 40 px of it stays). Past the cap the wheel
   scrolls the goals (48 px a notch; without more to see the wheel stays the
