@@ -226,6 +226,30 @@ fn at_the_auction_house_the_list_opens_beside_it_with_the_guides_materials_to_bu
 	assert_eq!(out["closed"], json!(false), "it goes with the Auction House");
 }
 
+// #3651: "Search next" works the list through without a click on each row: the row after the one searched last,
+// round to the first again; it shows only at the Auction House.
+#[test]
+fn at_the_auction_house_search_next_goes_down_the_rows_one_press_at_a_time() {
+	let out = run(&[
+		"local selected = {}",
+		AUCTION_HOUSE,
+		r#"
+		local F = PolestarAuctionBuys
+		r.shown = F.Next:IsShown()
+		for _ = 1, 3 do F.Next:Click(); stub.advance(0.5) end
+		r.selected = selected
+		AuctionHouseFrame:Hide()
+		stub.fire("AUCTION_HOUSE_CLOSED"); stub.advance(0.5)
+		Polestar.UI.AuctionBuys.Show()
+		r.away = F.Next:IsShown()
+		"#,
+	]
+	.concat());
+	assert_eq!(out["shown"], json!(true));
+	assert_eq!(out["selected"], json!([2318, 2592, 2318]), "Light Leather, Wool Cloth, then Light Leather again");
+	assert_eq!(out["away"], json!(false), "away from the Auction House there is nothing to search");
+}
+
 // A client in another language names the skill its own way, and a guide's title may be in it: the headings stay in
 // capitals (Polestar.Upper), where Lua's upper() leaves accented and Cyrillic letters small ("ПОРТНЯЖНОЕ ДЕЛО", not
 // "Портняжное дело"; "PREMIÈRE", not "PREMIèRE").

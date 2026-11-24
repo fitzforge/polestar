@@ -32,6 +32,9 @@
 --   beside the game's window while either group has something to buy and goes
 --   with it, and each row's Search opens the item in the game's own buy view
 --   with the count filled in (Materials.Search; the player presses Buy).
+--   "Search next" under the rows searches the row after the one searched
+--   last, so the list is worked through without clicking each row (#3651):
+--   a row bought off the list hands its place to the one that moved up.
 --
 -- Another heads-up on the card goes first: these wait for it to be dismissed
 -- (HEADS_UP_HIDDEN), the newest of each kind kept. Colours are Theme tokens.
@@ -307,6 +310,8 @@ local function build()
 		if N and N.Go and N.Go("auction") then F:Hide() end
 	end, { primary = true, height = 28 })
 
+	F.Next = W.Button(F, L["Search next"], function() AU.SearchNext() end, { primary = true, height = 28 })
+
 	-- The running profession guide's materials to buy (Materials.BuyRows), under the quest items.
 	F.MatHead = W.Text(F, "caption", "textDim")
 	F.MatHead:SetJustifyH("LEFT")
@@ -352,6 +357,35 @@ local function row(i, pool)
 	r.Why:SetWordWrap(false)
 	pool[i] = r
 	return r
+end
+
+-- The shown rows in order (the quests' items, then the materials).
+local function shownRows()
+	local out = {}
+	for _, pool in ipairs({ F.rows, F.mrows }) do
+		for _, r in ipairs(pool) do
+			if r:IsShown() and r.psItem then out[#out + 1] = r end
+		end
+	end
+	return out
+end
+
+-- Search the row after the one searched last (F.psLast, at F.psLastAt), the
+-- first when none was; when that one has left the list (bought), the row now
+-- in its place. -> the item searched | nil.
+function AU.SearchNext()
+	local M = ns.Materials
+	if not (F and M and M.Search) then return nil end
+	local rows = shownRows()
+	if #rows == 0 then return nil end
+	local at = math.min(F.psLastAt or 1, #rows)
+	for i, r in ipairs(rows) do
+		if F.psLast and r.psItem == F.psLast then at = i % #rows + 1 end
+	end
+	local r = rows[at]
+	if not M.Search(r.psItem, r.psCount) then return nil end
+	F.psLast, F.psLastAt = r.psItem, at
+	return r.psItem
 end
 
 -- A row's texts run up to its Search button while the Auction House is open, else to its edge.
@@ -441,6 +475,11 @@ function AU.Layout()
 	F.Go:SetPoint("TOPRIGHT", F, "TOPRIGHT", -PAD, -y)
 	F.Go:SetShown(go)
 	if go then y = y + 28 + 6 end
+	local nextShown = (#list + #mats) > 0 and open
+	F.Next:ClearAllPoints()
+	F.Next:SetPoint("TOPRIGHT", F, "TOPRIGHT", -PAD, -y)
+	F.Next:SetShown(nextShown)
+	if nextShown then y = y + 28 + 6 end
 	F:SetHeight(y + PAD - 6)
 end
 
