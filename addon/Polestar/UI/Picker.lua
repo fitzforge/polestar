@@ -47,7 +47,8 @@
 -- selected. Home's tab card and tab rows close their tab from their
 -- right-click menu (Close tab, Move left, Move right; the card's ··· too) or
 -- Y on a gamepad. A name cut short (the tab card's, a row's, a community
--- pack's in the sidebar, the Zones fact) reads whole in its tooltip.
+-- pack's in the sidebar, the Quests in and Passes through facts) reads
+-- whole in its tooltip.
 --
 -- Selecting shows details; loading is explicit: the buttons, a double-click,
 -- or Enter in the search box (a row's tooltip says so). Opened from the guide
@@ -113,7 +114,7 @@ UI.Picker = P
 P.RECENT_MAX = RECENT_MAX
 
 local win, details
-local factCache = {} -- guide id -> { quests, zones } (guideFacts)
+local factCache = {} -- guide id -> { quests, questsIn, passes } (guideFacts)
 local folderPool, rowPool = {}, {}
 local query = ""
 local questContext -- { id, query, steps = { [guideId] = matching steps } }
@@ -602,12 +603,15 @@ local mapName = ns.Compat.MapName
 
 -- What a guide's steps hold for this character: the quests it accepts
 -- (steps and goals filtered by `only`, as the route choice counts them) and
--- the zones its goals visit, in step order (its own zone without any).
--- Cached per guide until guides register again.
+-- the zones its goals visit, in step order: `questsIn` those where
+-- QUEST_STEPS or more of its steps carry a quest goal, `passes` the rest
+-- (its own zone when no goal has one). Cached per guide until guides
+-- register again.
+local QUEST_STEPS = 6
 local function guideFacts(g)
 	local f = factCache[g.id]
 	if f then return f end
-	f = { quests = 0, zones = {} }
+	f = { quests = 0, questsIn = {}, passes = {} }
 	local G, C = ns.Guides, ns.Compat
 	local full = G and G.Get and G.Get(g.id)
 	local player
@@ -620,22 +624,33 @@ local function guideFacts(g)
 		if type(only) ~= "table" or not fits then return true end
 		return player ~= nil and fits(only, player)
 	end
-	local seen = {}
+	local zones, questSteps = {}, {} -- route order; zone -> steps with a quest goal there
 	for _, step in ipairs(full and type(full.steps) == "table" and full.steps or {}) do
 		if applies(step.only) and type(step.goals) == "table" then
+			local counted = {}
 			for _, goal in ipairs(step.goals) do
 				if applies(goal.only) then
 					if goal.t == "accept" then f.quests = f.quests + 1 end
 					local name = mapName(goal.map)
-					if name and not seen[name] then
-						seen[name] = true
-						f.zones[#f.zones + 1] = name
+					if name then
+						if not questSteps[name] then
+							questSteps[name] = 0
+							zones[#zones + 1] = name
+						end
+						if goal.quest and not counted[name] then
+							counted[name] = true
+							questSteps[name] = questSteps[name] + 1
+						end
 					end
 				end
 			end
 		end
 	end
-	if #f.zones == 0 then f.zones[1] = UI.GuidePlace(g) end
+	for _, name in ipairs(zones) do
+		local list = questSteps[name] >= QUEST_STEPS and f.questsIn or f.passes
+		list[#list + 1] = name
+	end
+	if #zones == 0 then f.passes[1] = UI.GuidePlace(g) end
 	if player then factCache[g.id] = f end
 	return f
 end
@@ -1563,7 +1578,7 @@ local function factRow(i)
 	f.Value:SetJustifyH("LEFT")
 	f.Value:SetJustifyV("TOP")
 	f.Value:SetWordWrap(true)
-	-- Over a value cut short (the Zones fact): the whole of it on hover.
+	-- Over a value cut short (Quests in, Passes through): the whole of it on hover.
 	f.Hit = CreateFrame("Frame", nil, details)
 	f.Hit:SetAllPoints(f.Value)
 	f.Hit:SetScript("OnEnter", W.SimpleTip)
@@ -1969,9 +1984,10 @@ local function renderDetails(byId, tabs, active)
 	y = y + (started and (20 + 2) or 14) + 16
 
 	-- Facts: what the guide's goal gives and why (a Class guide's `reward`
-	-- and `why`), then steps, the quests this character takes, the zones in
-	-- route order, where the guide leads. Reward entries are tiles: those
-	-- given outright under "Reward", a choice under "Choose one".
+	-- and `why`), then steps, the quests this character takes, the zones it
+	-- quests in and those it passes through (each in route order), where the
+	-- guide leads. Reward entries are tiles: those given outright under
+	-- "Reward", a choice under "Choose one".
 	local facts, info = {}, guideFacts(g)
 	if type(g.reward) == "table" then
 		local get, choose = {}, {}
@@ -1995,7 +2011,8 @@ local function renderDetails(byId, tabs, active)
 	end
 	if g.stepCount then facts[#facts + 1] = { L["Steps"], tostring(g.stepCount) } end
 	if info.quests > 0 then facts[#facts + 1] = { L["Quests"], tostring(info.quests) } end
-	if #info.zones > 0 then facts[#facts + 1] = { L["Zones"], info.zones, "textDim" } end
+	if #info.questsIn > 0 then facts[#facts + 1] = { L["Quests in"], info.questsIn, "textDim" } end
+	if #info.passes > 0 then facts[#facts + 1] = { L["Passes through"], info.passes, "textDim" } end
 	local nextText = nextFact(g, byId)
 	if nextText then facts[#facts + 1] = { L["Next"], nextText, "textDim" } end
 	d.FactRule:ClearAllPoints()

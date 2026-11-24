@@ -18,6 +18,29 @@
 --   %s (level %d)
 --   %s takes these once you reach their level: %s
 --   Waiting for your level, taken where a later guide passes the giver: %s
+--
+-- Machine-translated, to be reviewed (0.4.3 guide titles, 24 Nov 2026): translated by an AI model
+-- (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
+-- one: keep or fix it, and take it off this list. The interface texts:
+--   Quests in
+--   Passes through
+-- and, in guides/locales/zhCN/, these guides' route-order line (the Horde 55-56 guide's title too,
+-- whose zone name is the client's own):
+--   forever/alliance/30-40/05-arathi-highlands
+--   forever/alliance/40-50/01-stranglethorn-vale
+--   forever/alliance/40-50/07-un-goro-crater
+--   forever/alliance/50-60/01-burning-steppes
+--   forever/alliance/50-60/02-felwood
+--   forever/alliance/50-60/03-winterspring
+--   forever/horde/40-50/02-feralas
+--   forever/horde/40-50/05-the-hinterlands
+--   forever/horde/40-50/06-azshara
+--   forever/horde/50-60/01-un-goro-crater
+--   forever/horde/50-60/02-felwood
+--   forever/horde/50-60/03-winterspring
+--   forever/horde/50-60/04-azshara
+--   forever/horde/50-60/05-eastern-plaguelands
+--   forever/horde/50-60/06-silithus
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
@@ -248,6 +271,12 @@ L["Requires level %d: kept for a later guide"] = "需要%d级：留给后续的�
 L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = "你路线上后面的某个指南会在这里接受此任务：现在接受的话，到达该步骤时它就已完成。"
 -- L["For %s, later on your route."] = ""
 -- L["kill %s as you meet them"] = ""
+-- L["Escort, about %d min"] = ""
+-- L["Escort"] = ""
+-- L["%s; 1 in %d runs fails"] = ""
+-- L["%s. Optional: the route doesn't need it."] = ""
+-- L["Kept for %s"] = ""
+-- L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "选择一个奖励以完成交还。"
@@ -496,6 +525,10 @@ L["Ride to the entrance"] = "前往入口"
 -- L["List the flight paths Polestar knows you have (reset: forget them)"] = ""
 -- L["Faster if you have the flight path at %s"] = ""
 -- L["Ask %s to teleport you to %s"] = ""
+-- L["Riding the boat to %s"] = ""
+-- L["Riding the zeppelin to %s"] = ""
+-- L["Riding the airship to %s"] = ""
+-- L["Riding the tram to %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -609,6 +642,8 @@ L["Airship to %s"] = "前往%s的飞空艇"
 -- Quests/Tracker.lua
 L["Done"] = "完成"
 L["Not done"] = "未完成"
+-- L["Hand-ins"] = ""
+-- L["Objectives"] = ""
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "开始任务"
@@ -1259,6 +1294,7 @@ L["Tailoring"] = "裁缝"
 L["Cooking"] = "烹饪"
 L["Fishing"] = "钓鱼"
 L["First Aid"] = "急救"
+-- L["%s walks around here: look inside the circle on the map"] = ""
 
 -- Lookup/Guide.lua
 L["Lookup is turned off (Settings > Discovery > Lookup)."] = "查询已关闭（设置 > 发现 > 查询）。"
@@ -1451,6 +1487,7 @@ L["(old price)"] = "（旧价格）"
 -- L["Group, or careful: a group is advised"] = ""
 -- L["Careful: elites nearby"] = ""
 -- L["Careful: elites, below your level"] = ""
+-- L["%s · kept for %s"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -1837,6 +1874,8 @@ L["This zone is new in Forever. Its guide is experimental and still a work in pr
 L["This zone is new in Forever."] = "此地区为 Forever 新增。"
 -- L["Suggested"] = ""
 -- L["The guides window only. Click to pick a size; right-click to reset."] = ""
+L["Quests in"] = "任务地区"
+L["Passes through"] = "途经"
 
 -- UI/Lookup.lua
 L["Companion"] = "小伙伴"
@@ -3283,6 +3322,7 @@ L["The licence differs from the stored guide's."] = "许可证与已存储指南
 
 -- Nav/Pins.lua
 L["Polestar trail dots"] = "Polestar 轨迹圆点"
+-- L["Click to open the zone's map"] = ""
 
 -- UI/LineStyle.lua
 L["Dots"] = "圆点"
@@ -3648,6 +3688,11 @@ L["Not part of your route"] = "不在你的路线中"
 L["Keep or abandon them"] = "保留或放弃"
 L["Each with its Abandon button, which asks in the game's own window first."] = "每个任务都有“放弃”按钮，会先在游戏自身的窗口中确认。"
 L["%s · at level %d"] = "%s · %d级"
+-- L["%d steps left in %s"] = ""
+-- L["1 step left in %s"] = ""
+-- L["Do or skip what's left, and you choose where to go next."] = ""
+-- L["Do or skip what's left, and the next guide follows."] = ""
+-- L["Do or skip what's left, and the guide ends."] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "点击选中并标记 %s（战斗外）。"
@@ -4471,6 +4516,9 @@ L["The size of the guide window's text, apart from its scale and the rest of Pol
 -- L["Under the window, folded"] = ""
 -- L["On the timeline"] = ""
 -- L["In the foot"] = ""
+-- L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = ""
+-- L["XP line"] = ""
+-- L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "提醒队列"
@@ -4774,6 +4822,8 @@ L["Waiting for your level, taken where a later guide passes the giver: %s"] = "�
 -- L["On the way to your map point (%s)."] = ""
 -- L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = ""
 -- L["You are past this class quest's levels."] = ""
+-- L["Escort: %s"] = ""
+-- L["Do it"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "按 %s 恢复，或打开指南窗口。"
@@ -5009,6 +5059,7 @@ L["Reload to finish?"] = "重新加载以完成？"
 L["Some guide window and look changes only show in full after a reload. Recommended."] = "部分指南窗口和外观的更改需要重新加载界面后才能完全生效。建议重新加载。"
 L["New settings page"] = "新设置页面"
 L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "设置的预览布局：分组显示，带标签页、筛选和行旁的预览。设置相同；关闭即回到当前页面。"
+-- L["New settings in this group"] = ""
 
 -- UI/Essentials.lua
 L["Most used"] = "常用设置"
@@ -5104,6 +5155,11 @@ L["%d of %d"] = "%d / %d"
 -- L["Atlas layout and tab styles by %s"] = ""
 -- L["Keep this"] = ""
 -- L["(your current)"] = ""
+
+-- Quests/KeptFor.lua
+-- L["kept for %s"] = ""
+-- L["kept"] = ""
+-- L["Kept for %s: the route hands it in there."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"

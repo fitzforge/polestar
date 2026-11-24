@@ -124,6 +124,29 @@
 --   Perf probe: measurements cleared.
 --   /polestar perf: on, off, report or reset
 --   Find what makes your game stutter: times Polestar's own work (on, off, report, reset)
+--
+-- Machine-translated, to be reviewed (0.4.3 guide titles, 24 Nov 2026): translated by an AI model
+-- (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
+-- one: keep or fix it, and take it off this list. The interface texts:
+--   Quests in
+--   Passes through
+-- and, in guides/locales/frFR/, these guides' route-order line (the Horde 55-56 guide's title too,
+-- whose zone name is the client's own):
+--   forever/alliance/30-40/05-arathi-highlands
+--   forever/alliance/40-50/01-stranglethorn-vale
+--   forever/alliance/40-50/07-un-goro-crater
+--   forever/alliance/50-60/01-burning-steppes
+--   forever/alliance/50-60/02-felwood
+--   forever/alliance/50-60/03-winterspring
+--   forever/horde/40-50/02-feralas
+--   forever/horde/40-50/05-the-hinterlands
+--   forever/horde/40-50/06-azshara
+--   forever/horde/50-60/01-un-goro-crater
+--   forever/horde/50-60/02-felwood
+--   forever/horde/50-60/03-winterspring
+--   forever/horde/50-60/04-azshara
+--   forever/horde/50-60/05-eastern-plaguelands
+--   forever/horde/50-60/06-silithus
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "frFR") then return end
@@ -354,6 +377,12 @@ L["Requires level %d: kept for a later guide"] = "Nécessite le niveau %d : gard
 L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = "Un guide plus loin sur votre itinéraire prend cette quête ici : prise maintenant, son étape sera faite quand vous y arriverez."
 -- L["For %s, later on your route."] = ""
 -- L["kill %s as you meet them"] = ""
+-- L["Escort, about %d min"] = ""
+-- L["Escort"] = ""
+-- L["%s; 1 in %d runs fails"] = ""
+-- L["%s. Optional: the route doesn't need it."] = ""
+-- L["Kept for %s"] = ""
+-- L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Choisissez une récompense pour rendre la quête."
@@ -602,6 +631,10 @@ L["Ride to the entrance"] = "Chevauchez jusqu'à l'entrée"
 -- L["List the flight paths Polestar knows you have (reset: forget them)"] = ""
 -- L["Faster if you have the flight path at %s"] = ""
 -- L["Ask %s to teleport you to %s"] = ""
+-- L["Riding the boat to %s"] = ""
+-- L["Riding the zeppelin to %s"] = ""
+-- L["Riding the airship to %s"] = ""
+-- L["Riding the tram to %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -715,6 +748,8 @@ L["Airship to %s"] = "Aéronef pour %s"
 -- Quests/Tracker.lua
 L["Done"] = "Fait"
 L["Not done"] = "Non fait"
+-- L["Hand-ins"] = ""
+-- L["Objectives"] = ""
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "Débute une quête"
@@ -1364,6 +1399,7 @@ L["Tailoring"] = "Couture"
 L["Cooking"] = "Cuisine"
 L["Fishing"] = "Pêche"
 L["First Aid"] = "Secourisme"
+-- L["%s walks around here: look inside the circle on the map"] = ""
 
 -- Lookup/Guide.lua
 L["Lookup is turned off (Settings > Discovery > Lookup)."] = "La recherche est désactivée (Réglages > Découverte > Recherche)."
@@ -1556,6 +1592,7 @@ L["(old price)"] = "(ancien prix)"
 -- L["Group, or careful: a group is advised"] = ""
 -- L["Careful: elites nearby"] = ""
 -- L["Careful: elites, below your level"] = ""
+-- L["%s · kept for %s"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Lieu"
@@ -1942,6 +1979,8 @@ L["This zone is new in Forever. Its guide is experimental and still a work in pr
 L["This zone is new in Forever."] = "Cette zone est nouvelle dans Forever."
 -- L["Suggested"] = ""
 -- L["The guides window only. Click to pick a size; right-click to reset."] = ""
+L["Quests in"] = "Quêtes dans"
+L["Passes through"] = "Traverse"
 
 -- UI/Lookup.lua
 L["Companion"] = "Mascotte"
@@ -3388,6 +3427,7 @@ L["The licence differs from the stored guide's."] = "La licence diffère de cell
 
 -- Nav/Pins.lua
 L["Polestar trail dots"] = "Points de piste de Polestar"
+-- L["Click to open the zone's map"] = ""
 
 -- UI/LineStyle.lua
 L["Dots"] = "Points"
@@ -3753,6 +3793,11 @@ L["Not part of your route"] = "Hors de votre itinéraire"
 L["Keep or abandon them"] = "Les garder ou les abandonner"
 L["Each with its Abandon button, which asks in the game's own window first."] = "Chacune avec son bouton Abandonner, qui demande d'abord dans la fenêtre du jeu."
 L["%s · at level %d"] = "%s · au niveau %d"
+-- L["%d steps left in %s"] = ""
+-- L["1 step left in %s"] = ""
+-- L["Do or skip what's left, and you choose where to go next."] = ""
+-- L["Do or skip what's left, and the next guide follows."] = ""
+-- L["Do or skip what's left, and the guide ends."] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "Cliquez pour cibler et marquer %s (hors combat)."
@@ -4576,6 +4621,9 @@ L["The size of the guide window's text, apart from its scale and the rest of Pol
 -- L["Under the window, folded"] = ""
 -- L["On the timeline"] = ""
 -- L["In the foot"] = ""
+-- L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = ""
+-- L["XP line"] = ""
+-- L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "File d'alertes"
@@ -4880,6 +4928,8 @@ L["Waiting for your level, taken where a later guide passes the giver: %s"] = "E
 -- L["On the way to your map point (%s)."] = ""
 -- L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = ""
 -- L["You are past this class quest's levels."] = ""
+-- L["Escort: %s"] = ""
+-- L["Do it"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Appuyez sur %s pour reprendre, ou ouvrez la fenêtre du guide."
@@ -5115,6 +5165,7 @@ L["Reload to finish?"] = "Recharger pour terminer ?"
 L["Some guide window and look changes only show in full after a reload. Recommended."] = "Certains changements de la fenêtre de guide et de l'apparence ne s'affichent pleinement qu'après un rechargement. Recommandé."
 L["New settings page"] = "Nouvelle page des réglages"
 L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "Un aperçu des réglages en groupes, avec des onglets, un filtre et un aperçu à côté des lignes. Les mêmes réglages ; désactivez-la pour la page actuelle."
+-- L["New settings in this group"] = ""
 
 -- UI/Essentials.lua
 L["Most used"] = "Les plus utilisés"
@@ -5210,6 +5261,11 @@ L["%d of %d"] = "%d sur %d"
 -- L["Atlas layout and tab styles by %s"] = ""
 -- L["Keep this"] = ""
 -- L["(your current)"] = ""
+
+-- Quests/KeptFor.lua
+-- L["kept for %s"] = ""
+-- L["kept"] = ""
+-- L["Kept for %s: the route hands it in there."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Reconfigurer Polestar, une page à la fois. Chaque choix s'applique tout de suite."
