@@ -8095,6 +8095,8 @@ test("Konky88's report (#1150): Valuable Vantages' three vials come before its h
 // level 30 (after the horn job), not at the quest data's 25: its correction goes by 30. The quest itself is level 35
 // (the Scarlet Monastery), so under Fitz's level rule (0.4.0) the guide holds its accept at the Dead Drop for 34, and
 // the class-quest heads-up waits for the guide's hold (34) instead of telling you at 30 about a quest it then holds.
+// Since the 0.4.3 data, the second Horn of Xelthos quest leads to it (78307 -> 78676): it is part of the horn job's
+// chain and gets no heads-up of its own, which is never earlier than the hold either.
 test("Erá's report (#1160): The Eye of Bhossca opens at 30 and holds its level 35 quest for 34", { skip }, () => {
 	const guide = 'forever/class/rogue/the-eye-of-bhossca.guide';
 	assert.match(fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8'), /^levels 30-35$/m);
@@ -8104,7 +8106,9 @@ test("Erá's report (#1160): The Eye of Bhossca opens at 30 and holds its level 
 	assert.equal(gate && gate.goal.level, 34, 'a level 34 gate before the Dead Drop');
 	const corrections = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'quests.json'), 'utf8'));
 	assert.equal(corrections[78676].set.minLevel, 30, 'the correction a data build applies');
-	assert.match(fs.readFileSync(path.join(__dirname, '..', 'addon', 'Polestar', 'UI', 'ClassRewards.lua'), 'utf8'), /\[78676\] = \{ 34, /, 'the heads-up waits for the guide\'s hold at 34');
+	const lua = fs.readFileSync(path.join(__dirname, '..', 'addon', 'Polestar', 'UI', 'ClassRewards.lua'), 'utf8');
+	const start = lua.slice(lua.indexOf('\tstarts = {')).match(/\[78676\] = \{ (\d+), /);
+	assert.ok(!start || Number(start[1]) >= 34, `the heads-up waits for the guide's hold at 34 (${start && start[1]})`);
 });
 
 // --- Flow re-order (2026-11-07, Alliance starts 1-20): the walks below crossed back over ground for one
