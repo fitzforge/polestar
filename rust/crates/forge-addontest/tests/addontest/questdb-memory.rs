@@ -36,11 +36,43 @@ use forge_addontest::{emitted, Addon, RunAddon};
 // `read` raised by the string table's one doubling (256 KiB, the module comment) for 0.4.3 (Main, 2026-11-23):
 // the settings set (#3730) adds enough interface strings that the reads' strings cross a doubling even with
 // the id list built first: next read 1,523, #3730 1,778 on the 0.4.3 data (resident 1,382 and peak 1,434,
-// within theirs). The table is the whole addon's, not the quest database's: measuring the pack alone is #3762.
+// within theirs). The table is the whole addon's, not the quest database's: since #3762 the test pre-grows it
+// (BALLAST), so no figure holds a doubling; `read` is to come back down to the pack's own figure once measured.
 const BUDGET: [(&str, f64); 3] = [("resident", 1400.0), ("peak", 1450.0), ("read", 1810.0)];
 
 /// Records read between full collects while `read` is measured.
 const READ_BATCH: usize = 256;
+
+/// The string table pre-grown before `base` (#3762), so no figure holds one of its doublings (the module
+/// comment): strings are interned one by one, with the collector stopped, until the memory count jumps by more
+/// than a string's worth, the table's doubling to twice the slots it had (8 bytes a slot). The interned strings
+/// then fill half the new table and stay alive (`ballast`) through the measurement: a collect never halves the
+/// table (that needs under a quarter live), and the pack's strings have half the slots to grow into before
+/// the next doubling. The ballast's own array grows when its count passes a power of two; those steps are
+/// passed over. `slots`: the table's size found, for the log.
+const BALLAST: &str = r#"
+local ballast, slots = {}, nil
+do
+	full()
+	collectgarbage("stop")
+	local last, cap, i = collectgarbage("count"), 1, 0
+	while not slots and i < 4000000 do
+		i = i + 1
+		ballast[i] = "polestar ballast " .. i
+		local now = collectgarbage("count")
+		if i - 1 == cap then
+			cap = cap * 2
+		elseif i > 1 and now - last > 32 then
+			-- The jump is the old slots' 8 bytes each, and the string's own few: the power of two under it.
+			local old = 1
+			while old * 2 * 8 <= (now - last) * 1024 do old = old * 2 end
+			slots = old * 2
+		end
+		last = now
+	end
+	collectgarbage("restart")
+	assert(slots, "the string table never doubled")
+end"#;
 
 #[test]
 fn the_quest_database_stays_within_its_memory_budget_693() {
@@ -55,6 +87,7 @@ fn the_quest_database_stays_within_its_memory_budget_693() {
 local Q = Polestar.QuestDB
 local files = {files}
 local function full() collectgarbage("collect"); collectgarbage("collect"); return collectgarbage("count") end
+{ballast}
 local base = full()
 collectgarbage("stop")
 for _, f in ipairs(files) do assert(loadfile(f))("Polestar_QuestDB", {{}}) end
@@ -71,14 +104,16 @@ for i, q in ipairs(ids) do
 end
 collectgarbage("restart")
 local read = full() - base
-emit({{ resident = resident, peak = peak, read = read, quests = n, loaded = Q.IsLoaded() }})"#,
+emit({{ resident = resident, peak = peak, read = read, quests = n, loaded = Q.IsLoaded(), slots = slots, kept = #ballast }})"#,
 		files = db.lua_files(),
-		batch = READ_BATCH
+		batch = READ_BATCH,
+		ballast = BALLAST
 	);
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua", "stub_quests.lua"], addons: vec![Addon::name("Polestar")], script, ..Default::default() });
 	let m = &out[0];
 	assert_eq!(m["quests"], db.out.db.quests.len(), "every quest reads back");
 	assert_eq!(m["loaded"], true);
+	eprintln!("string table: {} slots, {} ballast strings", m["slots"], m["kept"]);
 	let mut over = vec![];
 	for (k, budget) in BUDGET {
 		let v = m[k].as_f64().unwrap();
