@@ -19493,3 +19493,21 @@ test('#3046 A Matter of Time: the Temporal Displacer and its parasites search fo
 		}
 	}
 });
+
+// #3927 (Sekyno): Mount Hyjal's walk to the ancients' outpost told players to kill the Tainted Shrubbery they passed
+// for Kaylaena, before Hyacinth's Leaves to Ligatures (91755) was in the log. The shrubs drop the Verdant Leaves only
+// with that quest (200 of 228 leaf ticks in players' recordings came with a shrub kill, none before the accept), so
+// those kills were lost for the leaves. No step before the accept sends you at the shrubs; the shrub field after it
+// does both quests.
+test('#3927 Mount Hyjal: the Tainted Shrubbery are killed after Leaves to Ligatures is taken, not on the way to it', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const accept = at(list, 'accept 91755', is('accept', 91755));
+	const kill = at(list, 'kill 248395', (g) => g.t === 'kill' && g.npc === 248395);
+	const leaves = at(list, 'collect 247892', (g) => g.t === 'collect' && g.item === 247892);
+	assert.ok(kill > accept && leaves > accept, 'the shrub field comes after the accept');
+	assert.equal(list[kill].s, list[leaves].s, 'the kills and the leaves in one step');
+	for (const step of new Set(list.slice(0, accept + 1).map((e) => e.step))) {
+		const tip = [step.note, step.tip].flat().filter(Boolean).join(' ');
+		assert.doesNotMatch(tip, /\bkill[^.:;]*Tainted Shrubbery/i, `${step.title}: no shrub kills before the accept`);
+	}
+});
