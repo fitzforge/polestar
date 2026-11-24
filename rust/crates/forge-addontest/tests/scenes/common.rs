@@ -61,7 +61,8 @@ pub fn load_on_demand(dir: &Path, name: &str) -> bool {
 
 /// A release folder, installed: the addons the client loads at login (in the client's order: Polestar
 /// first, then the rest as the release lists them, then the Recorder), and the Lua that registers every
-/// load-on-demand folder with the stubbed client (stub.packs, stub.addons).
+/// load-on-demand folder with the stubbed client (stub.packs, stub.addons), with the TOC fields the Skin API reads
+/// (`X-Polestar-Skin`, `X-Polestar-Layout…`: Polestar_Skins' skins and layout, which load when one is wanted).
 pub struct Install {
 	pub login: Vec<Addon>,
 	pub names: Vec<String>,
@@ -85,6 +86,16 @@ pub fn install(dir: &Path) -> Install {
 			loaded = !lod,
 			reason = if lod { "\"DEMAND_LOADED\"" } else { "nil" },
 		));
+		let toc = std::fs::read_to_string(dir.join(n).join(format!("{n}.toc"))).unwrap_or_default();
+		let skin_api: Vec<String> = toc
+			.lines()
+			.filter_map(|l| l.strip_prefix("##")?.split_once(':'))
+			.filter(|(k, _)| k.trim().starts_with("X-Polestar-Skin") || k.trim().starts_with("X-Polestar-Layout"))
+			.map(|(k, v)| format!("[{}] = {}", lua_string(k.trim()), lua_string(v.trim())))
+			.collect();
+		if !skin_api.is_empty() {
+			lua.push(format!("stub.addonMeta[{}] = {{ {} }}", lua_string(n), skin_api.join(", ")));
+		}
 		if lod {
 			let files = forge_addontest::run::dir_files(&dir.join(n)).unwrap_or_else(|e| panic!("{n}: {e}"));
 			let list: Vec<String> = files.iter().map(|f| lua_string(&f.to_string_lossy())).collect();

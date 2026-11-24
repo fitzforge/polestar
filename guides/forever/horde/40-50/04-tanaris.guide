@@ -22,8 +22,6 @@ step Fly to Gadgetzan
 step Fly to Gadgetzan
   when !zone "Dustwallow Marsh"
   when !zone "Tanaris"
-  zone Feralas
-  goto 75.4,44.3 "Camp Mojache flight master"
   fly "Gadgetzan"
   zone Tanaris
 
@@ -188,14 +186,26 @@ step Thistleshrub Valley: kill these as you meet them
   collect 8623 optional                 -- OOX-17/TN Distress Beacon, a rare drop
   collect 8428 quest 2605.1 @29.2,66.1
 
+step Tooga
+  tip Tooga, a little turtle, wanders the west edge of the Thistleshrub Valley between several spots: the arrow goes from one to the next until you find him. Leave the Thistleshrubs (48-50) alone.
+  loop
+  goto 28.59,67.38 map 1446
+  goto 30.23,70.7 map 1446
+  goto 29.8,73.9 map 1446
+  goto 30.31,64.56 map 1446
+  goto 29.47,60.44 map 1446
+  accept 1560                                    -- Tooga
+
 step Tooga's escort
-  tip Tooga waits in the valley. Walk him all the way to his wife Torta in Steamwheedle Port, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. Yeh'kinya stands in the port too.
-  accept 1560 @30.2,70.7 map 1446                -- Tooga
+  tip Walk Tooga all the way to his wife Torta in Steamwheedle Port, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. Yeh'kinya stands in the port too.
   complete 1560 @66.58,25.67 map 1446 era
 
 step Steamwheedle Port
   turnin 1560                           -- Torta, Steamwheedle Port
-  turnin 3520                           -- Yeh'kinya
+
+step Yeh'kinya
+  when complete 3520
+  turnin 3520                           -- Yeh'kinya, Steamwheedle Port
 
 step Slake That Thirst
   tip Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and Shadow Bolt. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less.
@@ -236,7 +246,7 @@ step OOX-17/TN
   complete 648 optional
 
 step Tanaris Field Sampling
-  tip Back north, just south of Gadgetzan, use the Model 4711-FTZ Power Source now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each.
+  tip Back north, just south of Gadgetzan, use the Model 4711-FTZ Power Source now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon Tanaris Field Sampling if it is in your log, then take Another Power Source? from Chief Engineer Bilgewhizzle: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of Gadgetzan.
   accept 654                            -- Use the Model 4711-FTZ Power Source
   collect 9441 quest 654.2 @50.2,31.6 map 1446
   collect 9440 quest 654.1 @49.4,31.0 map 1446

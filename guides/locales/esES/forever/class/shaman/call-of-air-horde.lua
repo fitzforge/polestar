@@ -47,28 +47,28 @@ return {
 	["Twisted Air Totems"] = "Tótems de aire retorcidos",
 	-- {area:2408} Shadowprey Village · {zone:1443} Desolace · {spell:9654} Jumping Lightning
 	-- plural, as words: Twisted Air Totems = {item:274047} Twisted Air Totem
-	["Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of {area:2408} in western {zone:1443} carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw {spell:9654}: pull one at a time. Respawn about five minutes."] = "",
+	["Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of {area:2408} in western {zone:1443} carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw {spell:9654}: pull one at a time. Respawn about five minutes."] = "Cinco tótems de aire retorcidos. Los centauros de Maraudine (nivel 36-40) al norte y noreste de {area:2408} en el oeste de {zone:1443} los llevan; los exploradores sueltan uno casi una de cada dos muertes. Los domadores lanzan redes y desarman, los cazavientos curan, los tempestuosos lanzan {spell:9654}: saca de uno en uno. Reaparecen unos cinco minutos.",
 
 	-- Step 13: Twisted Water Totems
 	-- plural, as words: Twisted Water Totems = {item:274046} Twisted Water Totem
 	["Twisted Water Totems"] = "Tótems de agua retorcidos",
 	-- {area:496} Brackenwall Village · {zone:1445} Dustwallow Marsh
 	-- plural, as words: Twisted Water Totems = {item:274046} Twisted Water Totem
-	["Five Twisted Water Totems. The Mirefin murlocs (level 35-38) north-east of {area:496} in northern {zone:1445} carry them."] = "",
+	["Five Twisted Water Totems. The Mirefin murlocs (level 35-38) north-east of {area:496} in northern {zone:1445} carry them."] = "Cinco tótems de agua retorcidos. Los murlocs Aleta de Pantano (nivel 35-38) al noreste de {area:496} en el norte de {zone:1445} los llevan.",
 
 	-- Step 14: Twisted Fire Totems
 	-- plural, as words: Twisted Fire Totems = {item:274044} Twisted Fire Totem
 	["Twisted Fire Totems"] = "Tótems de fuego retorcidos",
 	-- {area:338} Angor Fortress · {zone:1418} Badlands · {npc:3560} Healing Ward
 	-- plural, as words: Twisted Fire Totems = {item:274044} Twisted Fire Totem · Fire Nova Totems = {npc:5879} Fire Nova Totem
-	["Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of {area:338} in the {zone:1418} carry them; the Shamans drop Fire Nova Totems and a {npc:3560}, the Bonesnappers run for help when hurt. Respawn about five minutes."] = "",
+	["Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of {area:338} in the {zone:1418} carry them; the Shamans drop Fire Nova Totems and a {npc:3560}, the Bonesnappers run for help when hurt. Respawn about five minutes."] = "Cinco tótems de fuego retorcidos. Los troggs de Stonevault (quebranta cráneos, rompehuesos y chamanes, nivel 37-41) al sur de {area:338} en {zone:1418} los llevan; los chamanes sueltan tótems de nova de fuego y un {npc:3560}, los rompehuesos piden ayuda cuando están heridos. Reaparecen unos cinco minutos.",
 
 	-- Step 15: Twisted Earth Totems
 	-- plural, as words: Twisted Earth Totems = {item:274045} Twisted Earth Totem
 	["Twisted Earth Totems"] = "Tótems de tierra retorcidos",
 	-- {area:75} Stonard · {zone:1435} Swamp of Sorrows
 	-- plural, as words: Twisted Earth Totems = {item:274045} Twisted Earth Totem · The Lost Ones = {npc:256028} The Lost One
-	["Five Twisted Earth Totems. The Lost Ones (murlocs, level 34-39) north and north-east of {area:75} in the {zone:1435} carry them; most run for help when hurt."] = "",
+	["Five Twisted Earth Totems. The Lost Ones (murlocs, level 34-39) north and north-east of {area:75} in the {zone:1435} carry them; most run for help when hurt."] = "Cinco tótems de tierra retorcidos. Los Perdidos (murlocs, nivel 34-39) al norte y noreste de {area:75} en {zone:1435} los llevan; la mayoría piden ayuda cuando están heridos.",
 
 	-- Step 17: The steam pools
 	["The steam pools"] = "Las pozas de vapor",

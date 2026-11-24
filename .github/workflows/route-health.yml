@@ -1,0 +1,201 @@
+name: Route health
+
+# The weekly whole-route run (#3654, docs/CI.md "Route integrity"): both factions, every start, 1-60, on next and on
+# the last release, on the release data, on the maintainers' self-hosted runner. It plays every leveling guide,
+# runs the level model (every race and class) on both trees, and diffs the route's flow (zone visits, one-quest
+# trips, carried quests, travel minutes, moved quests: `polestar flow-diff`) against the release. The table goes to
+# the open issue labelled `route-health` as a comment (one issue, a comment a week); a regression (a stuck play, a
+# guide end reached more than 0.3 level lower than in the release) also files an issue labelled `next-gates`.
+on:
+  schedule:
+    - cron: "0 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: route-health
+  cancel-in-progress: false
+
+jobs:
+  health:
+    name: Whole route
+    runs-on: [self-hosted, polestar-gates]
+    timeout-minutes: 240
+    outputs:
+      release: ${{ steps.release.outputs.tag }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: next
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Release data
+        run: |
+          test -f "$POLESTAR_DATA/forever/meta.json"
+          rm -rf data/forever && cp -r "$POLESTAR_DATA/forever" data/forever
+          mkdir -p data/sources "$RUNNER_TEMP/health"
+          for s in "$POLESTAR_DATA"/sources/*; do ln -sfn "$s" "data/sources/$(basename "$s")"; done
+
+      # The last release players have: the newest v* tag that is no pre-release.
+      - name: Last release
+        id: release
+        run: |
+          tag=$(git tag --list 'v[0-9]*' --sort=-v:refname | grep -vE -- '-(test|rc)' | head -n 1)
+          test -n "$tag"
+          git worktree add --detach --quiet "$RUNNER_TEMP/release" "$tag"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Forge cache key
+        id: forgekey
+        run: echo "key=forge-quick-Linux-${{ hashFiles('rust/**', 'tests/lua/simulate.lua') }}" >> "$GITHUB_OUTPUT"
+
+      - name: Forge (cache)
+        id: forgecache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: rust/target/quick/forge
+          key: ${{ steps.forgekey.outputs.key }}
+
+      - name: Build forge
+        if: steps.forgecache.outputs.cache-hit != 'true'
+        working-directory: rust
+        run: cargo build --profile quick --locked -j 4 -p forge
+
+      - name: Forge path
+        run: echo "FORGE=$GITHUB_WORKSPACE/rust/target/quick/forge" >> "$GITHUB_ENV"
+
+      - name: Playtest
+        id: playtest
+        continue-on-error: true
+        run: node tools/polestar.js playtest 2>&1 | tee "$RUNNER_TEMP/health/playtest.txt"
+
+      - name: Level model, next and the release
+        id: levels
+        continue-on-error: true
+        env:
+          TAG: ${{ steps.release.outputs.tag }}
+        run: |
+          h=$RUNNER_TEMP/health; m=$POLESTAR_GATES/model/run-rested.sh
+          test -x "$m"
+          for f in Alliance Horde; do
+            OUT=$h "$m" "next-$f" "$PWD/guides" "$f" & a=$!
+            OUT=$h "$m" "rel-$f" "$RUNNER_TEMP/release/guides" "$f" & b=$!
+            wait $a; wait $b
+          done
+          rc=0
+          for f in Alliance Horde; do
+            { echo "#### $f"; node tools/ci-route-gate.js levels "$h/rel-$f.json" "$h/next-$f.json" | sed '1,2d'; } >> "$h/levels.md" || rc=1
+          done
+          exit $rc
+
+      # The release's guides on the data that release shipped with (#3826): the runner keeps each release's signed
+      # data in $POLESTAR_DATA/releases/<tag>/ (docs/RELEASING.md). On today's data the release's guides may name
+      # quests the newer data dropped, and the base side does not compile.
+      - name: Flow against the release
+        id: flow
+        continue-on-error: true
+        env:
+          TAG: ${{ steps.release.outputs.tag }}
+        run: |
+          h=$RUNNER_TEMP/health; rel=$POLESTAR_DATA/releases/$TAG/forever
+          if [ ! -f "$rel/quests.json" ]; then
+            echo "no reference data for $TAG in $rel (docs/RELEASING.md)" | tee "$h/flow.log"
+            exit 2
+          fi
+          node tools/polestar.js flow-diff --base "$TAG" --base-data "$rel" --head HEAD --md "$h/flow.md" --work "$RUNNER_TEMP/flow" 2>&1 | tee "$h/flow.log"
+
+      - name: Summary
+        if: always()
+        env:
+          TAG: ${{ steps.release.outputs.tag }}
+          PLAYTEST: ${{ steps.playtest.outcome }}
+          LEVELS: ${{ steps.levels.outcome }}
+          FLOW: ${{ steps.flow.outcome }}
+          SHA: ${{ github.sha }}
+        run: |
+          h=$RUNNER_TEMP/health
+          plays=$(grep -cE '^ok ' "$h/playtest.txt" 2>/dev/null || true)
+          stuck=$(grep -E '^(stuck|fail) ' "$h/playtest.txt" 2>/dev/null || true)
+          # The flow diff writes its table only when both trees played; without it the check did not run, which is
+          # never "no difference" (#3826).
+          if [ -s "$h/flow.md" ]; then
+            flow=$FLOW; [ "$FLOW" = success ] || flow="$FLOW: new revisits or one-quest trips without a reason"
+          else
+            flow="flow check did not run"
+          fi
+          {
+            echo "## Route health: next ${SHA:0:10} against $TAG"
+            echo
+            echo "| check | result |"
+            echo "|---|---|"
+            echo "| playtest, every leveling guide | $PLAYTEST: ${plays:-0} plays ok, $(printf '%s' "$stuck" | grep -c . || true) stuck or failing |"
+            echo "| level model against $TAG (every race and class) | $LEVELS |"
+            echo "| flow against $TAG | $flow |"
+            echo
+            if [ -n "$stuck" ]; then echo '### Stuck or failing plays'; echo '```'; echo "$stuck" | head -n 40; echo '```'; echo; fi
+            echo "### Levels at guide ends"; echo; cat "$h/levels.md" 2>/dev/null || echo 'no model run'; echo
+            echo "### Flow"; echo
+            if [ -s "$h/flow.md" ]; then
+              cat "$h/flow.md"
+            else
+              echo "The flow check did not run, so nothing about the route's flow can be read from this run. Its last lines:"
+              echo; echo '```'; tail -n 20 "$h/flow.log" 2>/dev/null || echo 'no output'; echo '```'
+            fi
+          } > "$h/summary.md"
+          cat "$h/summary.md" >> "$GITHUB_STEP_SUMMARY"
+          bad=0
+          [ "$PLAYTEST" = success ] || bad=1
+          [ "$LEVELS" = success ] || bad=1
+          echo "$bad" > "$h/regressed.txt"
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: route-health
+          path: |
+            ${{ runner.temp }}/health/summary.md
+            ${{ runner.temp }}/health/regressed.txt
+          retention-days: 90
+
+  # The table to the route-health issue; a regression files a next-gates issue. Runs no repository code.
+  report:
+    name: Report
+    needs: health
+    if: always() && needs.health.result != 'cancelled' && needs.health.result != 'skipped'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        continue-on-error: true
+        with:
+          name: route-health
+          path: health
+
+      - name: Issues
+        shell: bash
+        run: |
+          [ -f health/summary.md ] || printf 'The route-health run left no summary: %s\n' "$RUN" > health/summary.md
+          printf '\nRun: %s\n' "$RUN" >> health/summary.md
+          gh label create route-health --color 0E8A16 --description "The weekly whole-route run" 2>/dev/null || true
+          gh label create next-gates --color B60205 --description "A post-merge gate fails on next" 2>/dev/null || true
+          open=$(gh issue list --label route-health --state open --json number --jq '.[0].number // empty')
+          if [ -n "$open" ]; then
+            gh issue comment "$open" --body-file health/summary.md
+          else
+            gh issue create --label route-health --title "Route health: the weekly whole-route run" --body-file health/summary.md
+          fi
+          if [ "$(cat health/regressed.txt 2>/dev/null || echo 1)" != 0 ]; then
+            gh issue create --label next-gates --title "Route health: a regression against the release ($(date -u +%Y-%m-%d))" --body-file health/summary.md
+          fi

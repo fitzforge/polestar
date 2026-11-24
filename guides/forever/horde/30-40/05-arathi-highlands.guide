@@ -69,7 +69,7 @@ step Undercity trainers
 
 step Calder Gray
   zone Undercity
-  when onquest 97985
+  when complete 97985
   tip Calder Gray stands in the Apothecarium.
   turnin 97985                        -- Calder Gray: Stormheart's heart from Thousand Needles
 

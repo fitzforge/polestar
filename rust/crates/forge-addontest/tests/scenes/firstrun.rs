@@ -6,7 +6,7 @@
 
 use crate::common::{play, release_or_skip, Play};
 use crate::questlog::empty;
-use serde_json::Value;
+use serde_json::{json, Value};
 
 /// Lua: the run's first login. Clicks through Install (choosing the third route style on "Your route" when the
 /// page has its style cards) and emits what it saw, and the saved variables after logout.
@@ -52,6 +52,7 @@ emit({ shown = shown, open = F ~= nil and F:IsShown(), pages = pages, picked = p
 	waitMs = wait.ms, loginMs = ScenesQ.loginMs(), loginLines = atLogin.lines,
 	lines = d.lines, sounds = d.soundIds, alerts = d.alerts, actions = d.actions,
 	account = PolestarDB.welcomeSeen or false, char = PolestarCharDB.welcomeSeen or false,
+	layoutCard = PolestarLayoutCard ~= nil and PolestarLayoutCard:IsShown(), layoutCardSeen = PolestarDB.layoutCardSeen or false,
 	saved = ScenesQ.saved({ "PolestarDB", "PolestarCharDB" }) })
 "#;
 
@@ -78,6 +79,7 @@ fn a_new_character_gets_install_and_every_page_through_finish_works_2592() {
 	assert!(keys.contains(&"targeting"), "no Targeting page (#2592's): {keys:?}");
 	assert_eq!(pages.last().map(|p| p["click"].clone()), Some(Value::from("Finish")), "the last page ends with Finish: {shown}");
 	assert_eq!(out["open"], false, "Install is still open after Finish: {shown}");
+	assert_eq!(json!([out["layoutCard"], out["layoutCardSeen"]]), json!([false, "0.4.3"]), "#3629: a fresh install chooses its layout in Install, never on the card");
 	assert_eq!(out["betaNote"], false, "the Install no longer calls the routes beta: {shown}");
 	assert!(empty(&out["unpainted"]), "#2592: controls bound before they could paint themselves (a Lua error in game): {}", out["unpainted"]);
 	assert!(empty(&out["loginLines"]), "chat lines at a new character's login: {}", out["loginLines"]);

@@ -13,11 +13,11 @@ return {
 	-- Step 1: Niby the Almighty
 	-- {npc:14469} Niby the Almighty · {npc:14470} Impsy · {zone:1448} Felwood · {area:1997} Bloodvenom Post · {area:1765} Bloodvenom Falls
 	-- plural, as words: Flawless Fel Essences = {quest:7602} Flawless Fel Essence
-	["At 50 {npc:14469} and his imp {npc:14470} wait on a rise in central {zone:1448} just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. {npc:14469} sends you to {npc:14470}, beside him, who wants three Flawless Fel Essences from three places."] = "",
+	["At 50 {npc:14469} and his imp {npc:14470} wait on a rise in central {zone:1448} just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. {npc:14469} sends you to {npc:14470}, beside him, who wants three Flawless Fel Essences from three places."] = "A nivel 50 {npc:14469} y su diablillo {npc:14470} esperan en una elevación del centro de {zone:1448}, al noreste del {area:1997}: viniendo hacia el norte por el puente del {area:1765}, están apartados de la carretera al este, tras unos deslizados. {npc:14469} te envía con {npc:14470}, junto a él, que quiere tres esencias de energía vil puras de tres sitios.",
 
 	-- Step 2: Azshara
 	-- {zone:1447} Azshara
-	["The Legashi satyrs (level 51-53) hold the Legash Encampment on {zone:1447}'s northern coast. Every kind drops the essence three times in four; the satyrs burn mana and the Hellcallers rain fire, so pull them singly."] = "",
+	["The Legashi satyrs (level 51-53) hold the Legash Encampment on {zone:1447}'s northern coast. Every kind drops the essence three times in four; the satyrs burn mana and the Hellcallers rain fire, so pull them singly."] = "Los sátiros Legashi (51-53) ocupan el campamento Legash en la costa norte de {zone:1447}. Todos los tipos sueltan la esencia tres de cada cuatro; los sátiros queman maná y los clamainfernos lloviznan fuego, así que atráelos de uno en uno.",
 
 	-- Step 3: Jaedenar
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post · {area:1770} Shadow Hold · {npc:9516} Lord Banehollow
@@ -26,15 +26,15 @@ return {
 
 	-- Step 4: The Dark Portal
 	-- {area:72} The Dark Portal · {zone:1419} Blasted Lands
-	["The Felguard Sentries (level 54) walk around the {area:72} in the south of the {zone:1419}, each with a felhunter. Leave the level 57 Servants of Razelikh alone: they cannot be killed without their own quest."] = "",
+	["The Felguard Sentries (level 54) walk around the {area:72} in the south of the {zone:1419}, each with a felhunter. Leave the level 57 Servants of Razelikh alone: they cannot be killed without their own quest."] = "Los centinelas guardiafelino (54) caminan alrededor del {area:72} en el sur del {zone:1419}, cada uno con un cazador infernal. Deja en paz a los siervos de Razelikh de nivel 57: no se pueden matar sin su propia misión.",
 
 	-- Step 5: Impsy
 	-- {npc:14470} Impsy · {item:18626} Fel Fire · {npc:14467} Kroshius
-	["Back to {npc:14470}. He hands you the {item:18626}: keep it, it wakes the infernal {npc:14467}."] = "",
+	["Back to {npc:14470}. He hands you the {item:18626}: keep it, it wakes the infernal {npc:14467}."] = "Vuelve con {npc:14470}. Te entrega el {item:18626}: guárdalo, despierta al infernal {npc:14467}.",
 
 	-- Step 6: Kroshius
 	-- {npc:14467} Kroshius · {area:1766} Shatter Scar Vale · {npc:14469} Niby the Almighty · {item:18626} Fel Fire · {npc:14470} Impsy
-	["{npc:14467}' remains lie in {area:1766}, the burnt crater north of {npc:14469}: follow the road north from his camp; the remains lie a little east of it. Use the {item:18626} beside them and wait for him to rise. {npc:14467} is elite (level 55): grouping up is encouraged; a warlock of 55 or more can solo him with Fear and damage over time, or with Enslave Demon, but fire spells do nothing to him and he knocks you back. If you die he heals to full; he rises again three minutes after he dies. An elite infernal patrols the pool south of the remains: pull {npc:14467} away from it. He always drops his core. Lost the {item:18626}? Abandon the quest and take it again from {npc:14470}."] = "",
+	["{npc:14467}' remains lie in {area:1766}, the burnt crater north of {npc:14469}: follow the road north from his camp; the remains lie a little east of it. Use the {item:18626} beside them and wait for him to rise. {npc:14467} is elite (level 55): grouping up is encouraged; a warlock of 55 or more can solo him with Fear and damage over time, or with Enslave Demon, but fire spells do nothing to him and he knocks you back. If you die he heals to full; he rises again three minutes after he dies. An elite infernal patrols the pool south of the remains: pull {npc:14467} away from it. He always drops his core. Lost the {item:18626}? Abandon the quest and take it again from {npc:14470}."] = "Los restos de {npc:14467} están en {area:1766}, el cráter quemado al norte de {npc:14469}: sigue la carretera al norte de su campamento; los restos están un poco al este de ella. Usa el {item:18626} junto a ellos y espera a que se alce. {npc:14467} es élite (55): se anima a ir en grupo; un brujo de 55 o más puede hacerlo solo con Miedo y daño en el tiempo, o con Esclavizar demonio, pero los hechizos de fuego no le hacen nada y te empuja. Si mueres, se cura al completo; vuelve a alzarse tres minutos después de morir. Un infernal élite patrulla la poza al sur de los restos: aleja a {npc:14467} de ella. Siempre suelta su núcleo. ¿Perdiste el {item:18626}? Abandona la misión y vuelve a cogerla con {npc:14470}.",
 	-- {item:18626} Fel Fire · {object:179677} Kroshius' Remains (no name in this language: may be words)
 	["{item:18626}, at {object:179677}"] = "{item:18626}, en {object:179677}",
 

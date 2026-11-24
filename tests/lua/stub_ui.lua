@@ -853,14 +853,15 @@ function uistub.install(opts)
 			arrowColor = false, arrowNearColor = false })
 	end
 	if Polestar.GetDefault("behavior.autoAccept") == nil then
-		Polestar.RegisterDefaults("behavior", { autoAccept = true, autoTurnin = true, guideEnd = "ask", autoSelectGuide = true, skipGrey = false, offerClassQuests = true, groupQuests = "ask", dungeons = "skip" })
+		Polestar.RegisterDefaults("behavior", { autoAccept = true, autoTurnin = true, guideEnd = "ask", autoSelectGuide = true, skipGrey = true, offerClassQuests = true, groupQuests = "ask", dungeons = "skip" })
 	end
-	-- An account and a character that have seen the welcome and the newest
-	-- notes, so neither opens over windows under test; ui-welcome.rs and
-	-- ui-whatsnew.rs restore the saved values.
+	-- An account and a character that have seen the welcome, the newest
+	-- notes and the 0.4.3 layout card, so none opens over windows under test;
+	-- ui-welcome.rs, ui-whatsnew.rs and ui-layout-card.rs restore the saved values.
 	Polestar.DB().welcomeSeen = 1
 	Polestar.CharState().welcomeSeen = 1
 	Polestar.DB().whatsNewSeen = Polestar.UI.WhatsNew and Polestar.UI.WhatsNew.LATEST or nil
+	Polestar.DB().layoutCardSeen = Polestar.UI.LayoutCard and Polestar.UI.LayoutCard.VERSION or nil
 end
 
 -- Show guide `id` at step `step` in the active tab (opening a first tab).

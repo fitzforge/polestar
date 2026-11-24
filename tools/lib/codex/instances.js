@@ -53,7 +53,8 @@
 //                (or MapDifficulty's); max: the highest boss level, at most 60.
 //   entrance     best evidence first: a recorded entrance (Recorder `enter`,
 //                the most-seen one inside the dungeon's known entrance
-//                zone), else the curated table
+//                zone; inside a capital, the most-seen one within
+//                TABLE_YARDS of the table's door), else the curated table
 //                (data/codex/entrances.json: the point on the zone map
 //                where one walks in, each with its public source), else a
 //                guide's `goto x,y "<instance name> ..."` line, else the map's
@@ -234,7 +235,8 @@ function loadEntranceTable(file = path.join(__dirname, '..', '..', '..', 'data',
 // Recorder entrances [ { map, x, y, f?, n } ]; table: its entrances.json entry
 // or null; guides: curatedEntrances(); corpse: the Map row's { c, x, y } |
 // null; prefer: uiMap ids of the zones holding it (for the corpse point).
-// A table entry's `A` (the Alliance's own way in) rides along as entrance.A; its z (the door's floor where floors
+// A table entry's `A` (the Alliance's own way in) rides along as entrance.A, its `doors` (other ways in open to both
+// sides: Blackrock Mountain's two, #3348) as entrance.doors ([ { map, x, y } ]); its z (the door's floor where floors
 // stack) as entrance.z when the chosen point lies within DOOR_YARDS of the entry's on the same map (forge-data's
 // instances.rs choose_entrance).
 const DOOR_YARDS = 30;
@@ -243,17 +245,28 @@ function chooseEntrance(args) {
 	const t = args.table;
 	const a = t && t.A;
 	if (e && a && a.map) e = { ...e, A: { map: Number(a.map), x: round1(a.x), y: round1(a.y) } };
+	if (e && t && Array.isArray(t.doors) && t.doors.length) e = { ...e, doors: t.doors.map((d) => ({ map: Number(d.map), x: round1(d.x), y: round1(d.y) })) };
 	const f = e && t && typeof t.z === 'number' && Number(t.map) === e.map && (args.frames || {})[String(e.map)];
 	if (f && Math.hypot(((e.x - t.x) / 100) * (f.left - f.right), ((e.y - t.y) / 100) * (f.top - f.bottom)) <= DOOR_YARDS) e = { ...e, z: t.z };
 	return e;
 }
 
+// Inside the capitals the most-seen recorded point can lie far from the door: Orgrimmar's south gate for Ragefire
+// Chasm (86 entries against 57 + 14 in the Cleft of Shadow), Ironforge 15.1,86.0 for the Hall of Thanes (166 against
+// 80 below the city), where players stood when the game moved them in (#3562, #2447). There a recorded point within
+// TABLE_YARDS of the table entry's door wins, the most-seen of them; elsewhere the most-seen point anywhere does.
+const TABLE_YARDS = 60;
 function chooseEntrancePoint({ name, recorded = [], table = null, guides = [], corpse = null, zones = {}, frames = {}, prefer = [] }) {
 	let rec = null;
+	let door = null;
+	const tf = table && CAPITAL_MAPS.has(Number(table.map)) && frames[table.map];
 	for (const r of recorded) {
 		if (num(r.n) < 2 && CAPITAL_MAPS.has(Number(r.map))) continue;
 		if (!rec || num(r.n) > num(rec.n)) rec = r;
+		const near = tf && Number(r.map) === Number(table.map) && Math.hypot(((r.x - table.x) / 100) * (tf.left - tf.right), ((r.y - table.y) / 100) * (tf.top - tf.bottom)) <= TABLE_YARDS;
+		if (near && (!door || num(r.n) > num(door.n))) door = r;
 	}
+	if (door) rec = door;
 	if (rec && rec.map) {
 		const f = rec.f === 'e' ? 'e' : null;
 		const frame = frames[rec.map];

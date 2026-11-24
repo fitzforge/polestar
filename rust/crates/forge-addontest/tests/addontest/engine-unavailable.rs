@@ -1379,3 +1379,48 @@ fn a_direct_progress_window_does_not_complete_missing_items_or_unlock_quests_wit
 		assert_eq!(out["calls"], 0, "an incomplete or unidentified window cannot be handed in");
 	}
 }
+
+// #3458 (imp, 0.4.1.1): with Skip grey quests on, Riverglades left Keeping the Light On (95613) out with its
+// turn-in, but its "buy 17028 x5" (Holy Candles from Marla Bell) stayed: the step asked for the candles and the bags
+// kept them. A `buy` of no quest whose item a quest the guide accepts asks for (the quest database's objectives)
+// goes with that quest; a buy no quest here asks for stays.
+#[test]
+fn a_purchase_for_a_quest_left_out_goes_with_it_3458() {
+	let guide = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Riverglades", faction = "Horde", minLevel = 40, maxLevel = 50, steps = {
+	{ title = "The cathedral", goals = {
+		{ t = "accept", quest = 95613, title = "Keeping the Light On", qlvl = 38, npc = 262031, npcName = "Sister Rowland", map = 1413, x = 51, y = 30 },
+		{ t = "buy", item = 17028, itemName = "Holy Candle", count = 5, npc = 272437, npcName = "Marla Bell", map = 1413, x = 52, y = 30 },
+		{ t = "buy", item = 159, itemName = "Refreshing Spring Water", count = 5, npc = 272437, npcName = "Marla Bell", map = 1413, x = 52, y = 30 },
+		{ t = "turnin", quest = 95613, title = "Keeping the Light On", npc = 262031, npcName = "Sister Rowland", map = 1413, x = 51, y = 30 },
+	} },
+	{ title = "Current", goals = { { t = "accept", quest = 99, title = "Current", qlvl = 50, npc = 3353, npcName = "Giver", map = 1413, x = 52, y = 31 } } },
+} })
+"#;
+	let script = r#"
+			local w = stub.world
+			-- field 12: the objectives (kind, id, count; kind 2 an item).
+			AddRecords("quests", { [95613] = { "Keeping the Light On", 38, 36, nil, nil, nil, { 262031 }, { 262031 }, nil, nil, nil, { 2, 17028, 5 } } })
+			Polestar.QuestDB.SetMeta({})
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			local function kept() return { candles = E.KeptItems()[17028] ~= nil, water = E.KeptItems()[159] ~= nil } end
+			local r = { on = brief(1), keptOn = kept() }
+			Polestar.Set("behavior.skipGrey", false); stub.fire("QUEST_LOG_UPDATE"); flush()
+			r.off, r.keptOff = brief(1), kept()
+			emit(r)
+		"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}\nw.level = 50"),
+		addons: vec![Addon::name("Polestar")],
+		saved: vec![("Polestar".into(), "PolestarDB = { schema = 1, settings = { behavior = { skipGrey = true } } }".into())],
+		script: format!("{}\n{TEST_PACK}\n{TEST_SOURCE}\n{guide}\n{HELPERS}{script}", forge_addontest::questdb::ADD_RECORDS_LUA),
+		..Default::default()
+	})
+	.remove(0);
+	let status = |k: &str| -> Vec<String> { out[k].as_array().unwrap().iter().map(|v| v.as_str().unwrap().split(':').next().unwrap().to_string()).collect() };
+	assert_eq!(status("on"), ["na", "na", "active", "na"], "the candles go with the grey quest, the water stays: {out}");
+	assert_eq!(out["keptOn"], json!({ "candles": false, "water": true }), "{out}");
+	assert_eq!(status("off")[1], "active", "Skip grey quests off: the candles are back: {out}");
+	assert_eq!(out["keptOff"], json!({ "candles": true, "water": true }), "{out}");
+}

@@ -90,8 +90,8 @@ step Leatherworking 1-75: Auction House
 step Light Leather (Elwynn Forest)
   only Human
   zone Elwynn Forest
-  tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20. Skin Gray Forest Wolf, Mangy Wolf, Prowler, Rockhide Boar, Stonetusk Boar and Young Forest Bear here (level 5-20); the Skinning guide routes this.
-  collect 2318 x349 @55.5,76.6 era gather Skinning 1
+  tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20. Skin Gray Forest Wolf, Prowler, Rockhide Boar, Stonetusk Boar and Young Forest Bear here (level 5-20); the Skinning guide routes this.
+  collect 2318 x349 @64.4,62.6 era gather Skinning 1
 
 step Light Leather (Dun Morogh)
   only Dwarf,Gnome
@@ -109,7 +109,7 @@ step Light Leather (Zephras Isle)
   only Skyborne
   zone Zephras Isle
   tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20. Skin Cloudrunner, Galestrider, Highlands Ursera, Hippogryph Protector, Hippogryph Youth, Ornery Galestrider, Prideclaw, Shadowgale Shriekling, Shriekling Fledgling, Vuldren, Vuldren Alpha and Windsong Crawler here (level 5-20); the Skinning guide routes this.
-  collect 2318 x349 @51.3,63.7 live gather Skinning 1
+  collect 2318 x349 @48.6,64.1 live gather Skinning 1
 
 step Light Leather (Durotar)
   only Orc,Troll
@@ -168,7 +168,7 @@ step Medium Leather (Hillsbrad Foothills)
   only Human,Dwarf,Gnome,Skyborne,Alliance
   zone Hillsbrad Foothills
   tip 144 Medium Leather for Nimble Leather Gloves: Skinning: beasts of level 18-30. Skin Cave Yeti, Elder Gray Bear, Feral Mountain Lion, Gray Bear, Snapjaw, Starving Mountain Lion and Vicious Gray Bear here (level 18-30); the Skinning guide routes this.
-  collect 2319 x144 @45.4,34.9 era gather Skinning 80
+  collect 2319 x144 @41,34.5 era gather Skinning 80
 
 step Medium Leather (Darkshore)
   only NightElf
@@ -186,7 +186,7 @@ step Medium Leather (Hillsbrad Foothills)
   only Undead
   zone Hillsbrad Foothills
   tip 144 Medium Leather for Nimble Leather Gloves: Skinning: beasts of level 18-30. Skin Cave Yeti, Elder Gray Bear, Feral Mountain Lion, Gray Bear, Snapjaw, Starving Mountain Lion and Vicious Gray Bear here (level 18-30); the Skinning guide routes this.
-  collect 2319 x144 @45.4,34.9 era gather Skinning 80
+  collect 2319 x144 @41,34.5 era gather Skinning 80
 
 step Elixir of Minor Agility
   zone Azeroth
@@ -286,7 +286,8 @@ step Expert Leatherworking
   learn 7151
 
 step Heavy Armor Kit to 158
-  tip Heavy Armor Kit is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 Heavy Leather and 1 Fine Thread. Five Heavy Leather a craft (beasts of level 28-40); the kits sell to vendors.
+  tip Heavy Armor Kit is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 Heavy Leather and 1 Fine Thread. Five Heavy Leather a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning Heavy Armor Kit, learn it now: an earlier step teaches it.
+  learn 3780
   craft 3780 until 158
 
 step Barbaric Shoulders to 165

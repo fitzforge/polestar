@@ -31,7 +31,7 @@ return {
 
 	-- Step 4: Strahnbrad: Barton
 	-- {npc:266357} Barton · {area:280} Strahnbrad
-	["{npc:266357} hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "",
+	["{npc:266357} hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "{npc:266357} 藏在 {area:280} 的一棟房屋裡，周圍是潛行的辛迪加成員。對他使用偷竊取得報告；如果等級比他低，可用擾亂讓他轉身。",
 	-- {item:275482} Barton's Scouting Report · {npc:266357} Barton
 	["{item:275482}: pickpocket {npc:266357}"] = "{item:275482}：對{npc:266357}偷竊",
 
@@ -99,7 +99,7 @@ return {
 	["{quest:8233}, rogues 50+"] = "{quest:8233}，盜賊50級以上",
 	-- {npc:6768} Lord Jorach Ravenholdt · {quest:8234} Sealed Azure Bag · {zone:1447} Azshara · {quest:8235} Encoded Fragments · {quest:8236} The Azure Key · {area:1477} Temple of Atal'Hakkar
 	-- plural, as words: Timbermaw Shamans = {npc:6188} Timbermaw Shaman · Forest Oozes = {npc:8766} Forest Ooze
-	["At level 50 your class trainer has another letter for you, and {npc:6768} a short chain: 360 reputation in all. The {quest:8234} drops from Timbermaw Shamans in northern {zone:1447} (about 1 in 27, or pick their pockets); the {quest:8235} from Forest Oozes in {zone:1447} (4 in 5). {quest:8236} comes from Morphaz, an elite drake deep in the {area:1477}: a five-player dungeon, group up."] = "",
+	["At level 50 your class trainer has another letter for you, and {npc:6768} a short chain: 360 reputation in all. The {quest:8234} drops from Timbermaw Shamans in northern {zone:1447} (about 1 in 27, or pick their pockets); the {quest:8235} from Forest Oozes in {zone:1447} (4 in 5). {quest:8236} comes from Morphaz, an elite drake deep in the {area:1477}: a five-player dungeon, group up."] = "50 級時，職業訓練師會再給你一封信，{npc:6768} 也有一條簡短任務鏈：總共 360 點聲望。{quest:8234} 由 {zone:1447} 北部的木喉薩滿祭司掉落（約二十七分之一，也可以偷竊）；{quest:8235} 由 {zone:1447} 的森林軟泥怪掉落（五分之四）。{quest:8236} 來自 {area:1477} 深處的精英幼龍摩弗拉斯：這是五人地下城，要組隊。",
 	-- {quest:8234} Sealed Azure Bag
 	-- plural, as words: Timbermaw Shamans = {npc:6188} Timbermaw Shaman
 	["{quest:8234}: Timbermaw Shamans"] = "{quest:8234}：木喉薩滿",

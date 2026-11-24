@@ -22,85 +22,85 @@ return {
 
 	-- Step 2: Valley of Trials (optional hub)
 	-- {area:363} Valley of Trials
-	["{area:363} (optional hub)"] = "",
+	["{area:363} (optional hub)"] = "{area:363} (необязательный узел)",
 	-- {area:363} Valley of Trials · {zone:1454} Orgrimmar · {npc:3143} Gornek · {npc:10176} Kaltunk
 	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {zone:1454} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "",
 	-- {npc:3144} Eitrigg · {zone:1454} Orgrimmar · {quest:787} The New Horde
 	["{npc:3144}, in {zone:1454}: {quest:787}, +50"] = "",
 	-- {npc:5765} Ruzan · {quest:792} Vile Familiars
-	["{npc:5765}: {quest:792}, warlocks only"] = "",
+	["{npc:5765}: {quest:792}, warlocks only"] = "{npc:5765}: {quest:792}, только для чернокнижников",
 
 	-- Step 3: Boars, weapons and peons
-	["Boars, weapons and peons"] = "",
+	["Boars, weapons and peons"] = "Кабаны, оружие и прислужники",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
-	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "",
+	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "Тренировочное оружие лежит на земле в Логове и среди кабанов к северу. Для прислужников: выберите спящего {npc:10556} и используйте на нём {item:16114}.",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
-	["{npc:10556}: hit it with the {item:16114}"] = "",
+	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556}: ударьте его {item:16114}",
 	-- {npc:10556} Lazy Peon
-	["Wake {npc:10556}"] = "",
+	["Wake {npc:10556}"] = "Разбудите {npc:10556}",
 
 	-- Step 4: The Den: hand in
 	-- {area:364} The Den
-	["{area:364}: hand in"] = "",
+	["{area:364}: hand in"] = "{area:364}: сдать",
 
 	-- Step 5: North of the Den
-	["North of the Den"] = "",
+	["North of the Den"] = "Севернее Логова",
 	-- {npc:3287} Hana'zua · {quest:790} Sarkoth · {quest:792} Vile Familiars · {area:365} Burning Blade Coven · {quest:6394} Thazz'ril's Pick
-	["The cactus apples grow beside the cacti north of the Den. {npc:3287} lies wounded by the rocks to the north; {quest:790}, his big scorpid, roams close by. {quest:792} swarm at the mouth of the {area:365}; {quest:6394} lies inside: take the middle tunnel where it splits three ways."] = "",
+	["The cactus apples grow beside the cacti north of the Den. {npc:3287} lies wounded by the rocks to the north; {quest:790}, his big scorpid, roams close by. {quest:792} swarm at the mouth of the {area:365}; {quest:6394} lies inside: take the middle tunnel where it splits three ways."] = "Кактусовые яблоки растут рядом с кактусами к северу от Логова. {npc:3287} лежит раненый у скал к северу; {quest:790}, его большой скорпион, бродит неподалёку. {quest:792} роятся у входа в {area:365}; {quest:6394} лежит внутри: возьмите средний тоннель там, где он разветвляется на три.",
 	-- {quest:6394} Thazz'ril's Pick
-	["{quest:6394}, in the cave"] = "",
+	["{quest:6394}, in the cave"] = "{quest:6394}, в пещере",
 
 	-- Step 6: The Den: hand in again
 	-- {area:364} The Den
-	["{area:364}: hand in again"] = "",
+	["{area:364}: hand in again"] = "{area:364}: сдать снова",
 
 	-- Step 7: Burning Blade Coven
 	-- {npc:3183} Yarrog Baneshadow
-	["Go back into the cave and keep to the right-hand wall all the way, over a small stream, to {npc:3183} on a ledge above a pool."] = "",
+	["Go back into the cave and keep to the right-hand wall all the way, over a small stream, to {npc:3183} on a ledge above a pool."] = "Вернитесь в пещеру и держитесь правой стены до конца, через небольшой ручей, к {npc:3183} на уступе над водоёмом.",
 	-- {quest:794} Burning Blade Medallion · {npc:3183} Yarrog Baneshadow
-	["{quest:794}, from {npc:3183}"] = "",
+	["{quest:794}, from {npc:3183}"] = "{quest:794}, от {npc:3183}",
 	-- {npc:3145} Zureetha Fargaze
-	["{npc:3145}, in the Den"] = "",
+	["{npc:3145}, in the Den"] = "{npc:3145}, в Логове",
 	-- {quest:805} Report to Sen'jin Village · {quest:97225} Forgotten Loa Idols
-	["{quest:805}, +50: {quest:97225} waits on it"] = "",
+	["{quest:805}, +50: {quest:97225} waits on it"] = "{quest:805}, +50: {quest:97225} ждёт на нём",
 
 	-- Step 9: Sen'jin Village (optional hub)
 	-- {area:367} Sen'jin Village
-	["{area:367} (optional hub)"] = "",
+	["{area:367} (optional hub)"] = "{area:367} (необязательный узел)",
 	-- {area:367} Sen'jin Village · {area:368} Echo Isles · {zone:1454} Orgrimmar · {npc:3188} Master Gadrin · {npc:3304} Master Vornal · {npc:3194} Vel'rin Fang · {npc:7953} Xar'Ti
 	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 625 {zone:1454} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "",
 	-- {quest:97225} Forgotten Loa Idols · {quest:805} Report to Sen'jin Village
-	["{quest:97225}, +100: needs {quest:805} from the Den"] = "",
+	["{quest:97225}, +100: needs {quest:805} from the Den"] = "{quest:97225}, +100: нужно {quest:805} из Логова",
 
 	-- Step 10: The Echo Isles
 	-- {area:368} Echo Isles
 	["The {area:368}"] = "{area:368}",
 	-- {area:368} Echo Isles · {quest:826} Zalazane
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger
-	["Swim to the largest of the {area:368}, south-east of the village. {quest:826}, the idols and the skulls at the circle of power are all there; the Durotar Tigers prowl the smaller islands."] = "",
+	["Swim to the largest of the {area:368}, south-east of the village. {quest:826}, the idols and the skulls at the circle of power are all there; the Durotar Tigers prowl the smaller islands."] = "Плывите к крупнейшему из {area:368}, юго-восточнее деревни. {quest:826}, идолы и черепа у круга силы — всё там; дуротарские тигры бродят по меньшим островам.",
 	-- {quest:808} Minshina's Skull · {object:3237} Imprisoned Darkspear
-	["{quest:808}: click an {object:3237} skull"] = "",
+	["{quest:808}: click an {object:3237} skull"] = "{quest:808}: щёлкните по черепу {object:3237}",
 
 	-- Step 11: The coast and the road
-	["The coast and the road"] = "",
+	["The coast and the road"] = "Побережье и дорога",
 	-- {quest:97223} Bloodtalon Matriarch
 	["Makrura and surf crawlers walk the beaches east and south of Sen'jin. The {quest:97223} is east of the village."] = "",
 
 	-- Step 12: Sen'jin Village: hand in
 	-- {area:367} Sen'jin Village
-	["{area:367}: hand in"] = "",
+	["{area:367}: hand in"] = "{area:367}: сдать",
 
 	-- Step 13: Razor Hill: Sen'jin hand-ins
 	-- {area:362} Razor Hill
-	["{area:362}: Sen'jin hand-ins"] = "",
+	["{area:362}: Sen'jin hand-ins"] = "{area:362}: сдать за Сен'джин",
 
 	-- Step 14: Razor Hill (optional hub)
 	-- {area:362} Razor Hill
-	["{area:362} (optional hub)"] = "",
+	["{area:362} (optional hub)"] = "{area:362} (необязательный узел)",
 	-- {area:362} Razor Hill · {zone:1411} Durotar · {zone:1454} Orgrimmar · {npc:3142} Orgnil Soulscar · {npc:3139} Gar'Thok · {npc:3191} Cook Torka · {npc:3147} Furl Scornbrow
 	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,650 {zone:1454} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and Turroc at the edges."] = "",
 	-- {quest:806} Dark Storms · {quest:823} Report to Orgnil
-	["{quest:806}, +100: needs {quest:823} from Sen'jin"] = "",
+	["{quest:806}, +100: needs {quest:823} from Sen'jin"] = "{quest:806}, +100: нужно {quest:823} из Сен'джина",
 
 	-- Step 15: Tiragarde Keep
 	-- {area:362} Razor Hill · {npc:3192} Lieutenant Benedict · {object:3239} Benedict's Chest · {item:4881} Aged Envelope · {quest:830} The Admiral's Orders · {item:4870} Canvas Scraps
@@ -108,47 +108,47 @@ return {
 
 	-- Step 16: Razormane Grounds and the Echo Isles
 	-- {area:816} Razormane Grounds · {area:368} Echo Isles
-	["{area:816} and the {area:368}"] = "",
+	["{area:816} and the {area:368}"] = "{area:816} и {area:368}",
 	-- {area:362} Razor Hill · {area:368} Echo Isles · {object:3240} Taillasher Eggs
 	["The Razormane camps are south-west and west of {area:362}. Then head to the {area:368} for the {object:3240}: each nest gives an egg every time."] = "",
 
 	-- Step 17: Razor Hill: hand in
 	-- {area:362} Razor Hill
-	["{area:362}: hand in"] = "",
+	["{area:362}: hand in"] = "{area:362}: сдать",
 	-- {quest:830} The Admiral's Orders · {npc:3230} Nazgrel · {zone:1454} Orgrimmar
 	["{quest:830}, +100: to {npc:3230} in {zone:1454}"] = "",
 
 	-- Step 18: The wreck
-	["The wreck"] = "",
+	["The wreck"] = "Кораблекрушение",
 	-- {area:372} Tiragarde Keep
-	["The wrecked ship lies in the shallows east of {area:372}. Open the Gnomish Toolboxes."] = "",
+	["The wrecked ship lies in the shallows east of {area:372}. Open the Gnomish Toolboxes."] = "Разбитый корабль лежит на отмели восточнее {area:372}. Откройте гномские ящики с инструментами.",
 	-- {npc:3139} Gar'Thok · {area:362} Razor Hill
-	["back at {npc:3139} in {area:362}"] = "",
+	["back at {npc:3139} in {area:362}"] = "вернувшись к {npc:3139} в {area:362}",
 
 	-- Step 19: North Durotar
 	-- {zone:1411} Durotar
-	["North {zone:1411}"] = "",
+	["North {zone:1411}"] = "Северный {zone:1411}",
 	-- {npc:3293} Rezlak · {area:362} Razor Hill · {npc:3193} Misha Tor'kren
-	["{npc:3293} stands on the road north of {area:362}, {npc:3193} at her farm west of it."] = "",
+	["{npc:3293} stands on the road north of {area:362}, {npc:3193} at her farm west of it."] = "{npc:3293} стоит на дороге севернее {area:362}, {npc:3193} — на её ферме западнее неё.",
 
 	-- Step 20: Thunder Ridge and Razorwind Canyon
 	-- {area:369} Thunder Ridge · {area:410} Razorwind Canyon
-	["{area:369} and {area:410}"] = "",
+	["{area:369} and {area:410}"] = "{area:369} и {area:410}",
 	-- {npc:3203} Fizzle Darkstorm · {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {area:410} Razorwind Canyon · {area:362} Razor Hill · {item:4891} Kron's Amulet
 	["{npc:3203} keeps a Burning Blade camp in {area:369}, south of {zone:1454}, among the thunder lizards. The supply sacks lie in {area:410}, north of {area:362}. {item:4891} drops from the crocolisks along the river to the west, about one in ten."] = "",
 
 	-- Step 21: Rezlak and Misha
 	-- {npc:3293} Rezlak
-	["{npc:3293} and Misha"] = "",
+	["{npc:3293} and Misha"] = "{npc:3293} и Миша",
 	-- {npc:3118} Dustwind Storm Witch · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm · {npc:3293} Rezlak · {quest:97282} Stormy Potential
-	["A {npc:3118} may drop a {item:277661}: use it to start {quest:97281}. Once you hand that in, {npc:3293} offers {quest:97282}."] = "",
+	["A {npc:3118} may drop a {item:277661}: use it to start {quest:97281}. Once you hand that in, {npc:3293} offers {quest:97282}."] = "{npc:3118} может уронить {item:277661}: используйте его, чтобы начать {quest:97281}. Как только вы сдадите его, {npc:3293} предложит {quest:97282}.",
 	-- {npc:3117} Dustwind Savage · {area:370} Drygulch Ravine
 	["{npc:3117}, in {area:370}"] = "{npc:3117}, здесь: {area:370}",
 
 	-- Step 22: Stormy Potential
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
 	-- plural, as words: Charged Thunder Lizard Organs = {item:277665} Charged Thunder Lizard Organ
-	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "",
+	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "Заряженные органы рокочущей ящерицы добываются с громовых ящеров на {area:369}, прямо западнее {npc:3293}.",
 
 	-- Step 24: Skull Rock
 	-- {quest:828} Margoz · {quest:827} Skull Rock · {zone:1454} Orgrimmar
@@ -170,25 +170,25 @@ return {
 	-- {npc:14727} Vehena · {item:14047} Runecloth · {quest:7837} Additional Runecloth
 	["From here it is cloth. Wool, Silk and Mageweave must all be handed in before {npc:14727} offers the {item:14047} donation, and {quest:7837} needs the {item:14047} donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, {item:14047} 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey."] = "",
 	-- {item:2592} Wool Cloth
-	["{item:2592}: the Thistlefur furbolgs drop it about one kill in four"] = "",
+	["{item:2592}: the Thistlefur furbolgs drop it about one kill in four"] = "{item:2592}: фурболги Хилствера роняют её примерно с одного убийства из четырёх",
 
 	-- Step 29: A Donation of Silk
 	-- {area:287} Hillsbrad
-	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "",
+	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "Шёлк: Отродье в {area:287} и Альтераке роняет его примерно с одного убийства из трёх, или купите.",
 	-- {item:4306} Silk Cloth
-	["{item:4306}: the Syndicate"] = "",
+	["{item:4306}: the Syndicate"] = "{item:4306}: Отродье",
 
 	-- Step 30: A Donation of Mageweave
 	-- {zone:1448} Felwood · {zone:1446} Tanaris
-	["Mageweave: the Jadefire satyrs in southern {zone:1448} and the Dunemaul ogres in {zone:1446} drop it about one kill in three, or buy it."] = "",
+	["Mageweave: the Jadefire satyrs in southern {zone:1448} and the Dunemaul ogres in {zone:1446} drop it about one kill in three, or buy it."] = "Магическая ткань: сатиры Нефритового Пламени в южном {zone:1448} и огры Дюнмола в {zone:1446} роняют её примерно с одного убийства из трёх, или купите.",
 	-- {item:4338} Mageweave Cloth
-	["{item:4338}: the Jadefire satyrs"] = "",
+	["{item:4338}: the Jadefire satyrs"] = "{item:4338}: сатиры Нефритового Пламени",
 
 	-- Step 31: A Donation of Runecloth
 	-- {item:14047} Runecloth · {area:2266} Tyr's Hand · {zone:1423} Eastern Plaguelands · {area:2577} Dire Maul · {zone:1444} Feralas · {zone:1451} Silithus
-	["{item:14047}: the Scarlet at {area:2266} in the {zone:1423}, the Gordok ogres outside {area:2577} in {zone:1444} and the Twilight camps of {zone:1451} drop it about one kill in three. The Auction House is faster if you have gold."] = "",
+	["{item:14047}: the Scarlet at {area:2266} in the {zone:1423}, the Gordok ogres outside {area:2577} in {zone:1444} and the Twilight camps of {zone:1451} drop it about one kill in three. The Auction House is faster if you have gold."] = "{item:14047}: Алые в {area:2266} в {zone:1423}, огры Гордок снаружи {area:2577} в {zone:1444} и лагеря Сумеречного Братства в {zone:1451} роняют её примерно с одного убийства из трёх. Аукцион быстрее, если у вас есть золото.",
 	-- {item:14047} Runecloth · {area:2266} Tyr's Hand
-	["{item:14047}: the Scarlet outside {area:2266}"] = "",
+	["{item:14047}: the Scarlet outside {area:2266}"] = "{item:14047}: Алые снаружи {area:2266}",
 
 	-- Step 32: Everlook: A Little Luck
 	-- {quest:969} Luck Be With You · {npc:11755} Harlo Wigglesworth · {area:2255} Everlook · {npc:10307} Witch Doctor Mau'ari · {item:12334} Frostmaul Shards · {area:2249} Frostwhisper Gorge · {zone:1452} Winterspring
@@ -196,7 +196,7 @@ return {
 	["{quest:969} is level 60, so it pays in full. {npc:11755} in {area:2255} sends you to {npc:10307}, who stands in the same town. The {item:12334} lie on the ground in {area:2249}, the canyon at the south end of {zone:1452}, and the Frostmaul Giants there drop them too (about one in five). The giants are elite level 59 and 60 and stand close together: pick the shards at the edges, pull one giant at a time, or bring a friend."] = "",
 
 	-- Step 33: Blackrock Mountain, with a group
-	["Blackrock Mountain, with a group"] = "",
+	["Blackrock Mountain, with a group"] = "Гора Черной Скалы, с группой",
 	-- {area:1583} Blackrock Spire · {faction:530} Darkspear Trolls · {area:340} Kargath · {zone:1418} Badlands · {quest:4903} Warlord's Command · {npc:3144} Eitrigg · {zone:1458} Undercity · {area:978} Zul'Farrak · {zone:1425} Hinterlands
 	["For The Horde! (Rend's head, {area:1583}) and The Lord of Blackrock (Nefarian's head) pay 200 to every Horde city, the {faction:530} included. {area:340} in the {zone:1418} starts the Rend chain: {quest:4903}, {npc:3144}'s Wisdom, then For The Horde!. Take them when your group goes. The Spider God chain of the {zone:1458} guide ({area:978} and the {zone:1425}) pays 225 Darkspear on the way."] = "",
 	-- {npc:9077} Warlord Goretooth · {quest:4903} Warlord's Command
@@ -212,7 +212,7 @@ return {
 	-- {quest:7837} Additional Runecloth
 	["{quest:7837} to Revered"] = "{quest:7837} — до почтения",
 	-- {item:14047} Runecloth
-	["Honored to Revered is 12,000: 240 hand-ins, 4,800 {item:14047}. The Auction House price of a stack decides whether to farm or buy."] = "",
+	["Honored to Revered is 12,000: 240 hand-ins, 4,800 {item:14047}. The Auction House price of a stack decides whether to farm or buy."] = "От «Уважения» до «Почтения» — 12000: 240 сдач, 4800 {item:14047}. Цена на аукционе за стопку решает, фармить или покупать.",
 
 	-- Step 36: Additional Runecloth to Exalted
 	-- {quest:7837} Additional Runecloth

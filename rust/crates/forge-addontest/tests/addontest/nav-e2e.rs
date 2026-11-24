@@ -258,8 +258,10 @@ fn an_ironforge_waypoint_across_the_signpost_is_not_a_visit_from_the_pavement() 
 }
 
 // The arrow eases its turn onto the Ironforge trainer ramp as every other turn (Fitz, 0.4.2.1: 0.4.1.1's manners;
-// 0.4.2 snapped it at a sharp turn beside a mapped wall): the first stride past the bend still shows the heading it
-// is turning from, and standing a second it settles on the ramp.
+// 0.4.2 snapped it at a sharp turn beside a mapped wall): along the whole approach the shown bearing never moves more
+// than MAX_TURN (3.5 rad/s) allows in a frame, it trails the walk's bearing somewhere on the way (it eased, it did not
+// jump), and standing a second at the end it has settled on the ramp. Since #3513 the aim looks past the next point,
+// so the walk's bearing itself turns gradually and the shown one keeps up with it closely.
 #[test]
 fn the_displayed_arrow_eases_onto_the_ironforge_trainer_ramp_and_settles_on_it() {
 	skip_unless_ready!();
@@ -271,26 +273,31 @@ fn the_displayed_arrow_eases_onto_the_ironforge_trainer_ramp_and_settles_on_it()
 		local mx,my=C.WorldToMap(0,-4876.6,-1149.2,1455)
 		assert(N.SetTarget(1455,mx,my,"Trainer",nil,"npc",512.5))
 		for _=1,500 do aim();stub.advance(.05) end
-		-- Approach on the pavement, then take the first stride past the bend.
+		local function gap(a,b) return math.abs(math.atan2(math.sin(a-b), math.cos(a-b))) end
+		local prev, step, lag = nil, 0, 0
+		-- Approach on the pavement and walk on down the ramp past the bend.
 		for _,p in ipairs({{-4822.9167,-1156.25},{-4827.0833,-1160.4167},{-4835.4167,-1160.4167},{-4860.5958,-1135.2313}}) do
 			local ax,ay=x,y; local n=math.ceil(dist(ax,ay,p[1],p[2])/.32)
 			for i=1,n do
 				x,y=ax+(p[1]-ax)*i/n,ay+(p[2]-ay)*i/n
 				place(1455,x,y,502.18);stub.advance(.05)
+				local cur, goal = N.arrow.GetTurn()
+				if prev then step = math.max(step, gap(cur, prev)) end
+				prev, lag = cur, math.max(lag, gap(cur, goal))
 			end
 		end
 		local state,_,a,_,_,measured=N.Sample()
-		local shown=N.arrow.GetAngle()+w.facing
 		for _=1,20 do stub.advance(.05) end
 		local _,_,a2=N.Sample()
 		local settled=N.arrow.GetAngle()+w.facing
-		emit({travel=state=="travel" and measured==true, requestedWest=math.sin(a+w.facing), shownWest=math.sin(shown),
-			gap=math.abs(math.atan2(math.sin(settled-(a2+w.facing)), math.cos(settled-(a2+w.facing))))})"#,
+		emit({travel=state=="travel" and measured==true, requestedWest=math.sin(a+w.facing), step=step, lag=lag,
+			gap=gap(settled, a2+w.facing)})"#,
 		true,
 	);
 	assert_eq!(out["travel"], true);
 	assert!(f(&out["requestedWest"]) < -0.5, "the walk has turned onto the ramp");
-	assert!(f(&out["shownWest"]) > f(&out["requestedWest"]) + 0.1, "the first stride shows the eased heading, not a snap: {out}");
+	assert!(f(&out["step"]) <= 3.5 * 0.05 + 1e-6, "the shown bearing never snaps (at most MAX_TURN a frame): {out}");
+	assert!(f(&out["lag"]) > 0.05, "it trails the walk's bearing on the way: eased, not jumped: {out}");
 	assert!(f(&out["gap"]) < 0.05, "a second later the arrow has settled on the ramp: {out}");
 }
 
@@ -3560,7 +3567,9 @@ fn a_later_walks_failed_search_answered_before_its_sketch_is_kept_and_raises_no_
 /// floor (30) it costs x3 at 26: both travel plans walk, the floor's with fewer yards of Alterac, as in 0.4.1.1 (Main,
 /// 2026-11-21, Fitz: "go back to our original danger pathing"; 0.4.2's guarded-crossing approaches, which kept both
 /// plans on the southern border's road, went with the enemy-ground veto). The walking-only arrow to the same marker
-/// still crosses Alterac, but spends fewer yards there when priced at x3.
+/// crosses Alterac unpriced (the P10) and spends fewer yards there when priced at x3: since #3830 none, as the walk
+/// also keeps out of Dalaran's Kirin Tor guards (hostile to the Horde, #1961), which the walking maps price now, and
+/// goes round by Silverpine. The x3 is a price the walk weighs, not a wall: the unpriced walk still crosses.
 #[test]
 fn zone_danger_1490_alterac_counts_from_its_danger_floor_at_level_26_the_walk_to_modera_crosses_less_of_it() {
 	skip_unless_ready!();
@@ -3577,7 +3586,7 @@ fn zone_danger_1490_alterac_counts_from_its_danger_floor_at_level_26_the_walk_to
 	assert!(alterac(&now) < alterac(&before), "fewer yards of Alterac Mountains: {} with the floor, {} without", alterac(&now), alterac(&before));
 	let direct = tarren_mill_walk(26, to, false, Some(false));
 	let unweighted = tarren_mill_walk(26, to, true, Some(false));
-	assert!(alterac(&direct) > 0.0 && alterac(&direct) < alterac(&unweighted), "soft cost, not exclusion: {direct} vs {unweighted}");
+	assert!(alterac(&unweighted) > 0.0 && alterac(&direct) < alterac(&unweighted), "soft cost, not exclusion: {direct} vs {unweighted}");
 	assert!(f(&direct["price"]) > f(&unweighted["price"]), "the walking engine must charge for traversing Alterac");
 }
 

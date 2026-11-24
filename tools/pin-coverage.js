@@ -5,7 +5,8 @@
 // some outlived the step they fixed, and the reports came back on another path. Two lists:
 //
 // - fixed issues with no pin: every issue closed as completed (GitHub's state reason COMPLETED,
-//   without a `resolution:*`, `duplicate`, `invalid` or `wontfix` label) that no test names: not in
+//   without a `resolution:*`, `duplicate`, `invalid` or `wontfix` label, nor a `released:v<X>` label
+//   for a release out already: X at or before package.json's version) that no test names: not in
 //   tests/reported-gate.json (tests, same or uncheckable) and no test file mentions `#N` (node tests,
 //   the forge crates' tests and test modules, the judge's seeds);
 // - records that match nothing: a data/route-fixes.json, data/guide-fixes.json or data/places.json
@@ -77,10 +78,44 @@ function pinnedIssues(root = ROOT) {
 	return pinned;
 }
 
-// Closed issues -> the fixed ones (completed, no label saying nothing changed), sorted by number.
-function fixedIssues(closed) {
+// A version's numbers ("v0.4.2.1" -> [0, 4, 2, 1]); null for anything else (a Client tag, `client-v0.1.6`).
+function versionParts(text) {
+	const m = /^v?(\d+(?:\.\d+)*)$/.exec(String(text || ''));
+	return m ? m[1].split('.').map(Number) : null;
+}
+
+// a <= b, a missing number read as 0 (0.4.2 = 0.4.2.0).
+function versionAtMost(a, b) {
+	for (let i = 0; i < Math.max(a.length, b.length); i++) {
+		const x = a[i] || 0;
+		const y = b[i] || 0;
+		if (x !== y) return x < y;
+	}
+	return true;
+}
+
+// Labelled `released:v<X>` with X at or before `last` (the release out now: package.json's version, which a
+// release sets only after its gates): the fix shipped in an earlier release, whose gates pinned it. A report
+// closed as already fixed carries the older release's label (#3625: three stale reports closed as completed
+// failed the next release's gate).
+function shippedBefore(labels, last) {
+	const lastParts = versionParts(last);
+	if (!lastParts) return false;
+	return labels.some((name) => {
+		const m = /^released:(.+)$/.exec(name);
+		const parts = m && versionParts(m[1]);
+		return parts != null && versionAtMost(parts, lastParts);
+	});
+}
+
+// Closed issues -> the fixed ones (completed, no label saying nothing changed, not shipped before `last`),
+// sorted by number.
+function fixedIssues(closed, last = null) {
 	return closed
-		.filter((i) => i.stateReason === 'COMPLETED' && !(i.labels || []).some((l) => NOT_FIXES.test(typeof l === 'string' ? l : l.name)))
+		.filter((i) => {
+			const labels = (i.labels || []).map((l) => (typeof l === 'string' ? l : l.name));
+			return i.stateReason === 'COMPLETED' && !labels.some((l) => NOT_FIXES.test(l)) && !shippedBefore(labels, last);
+		})
 		.map((i) => ({ number: i.number, title: i.title }))
 		.sort((a, b) => a.number - b.number);
 }
@@ -186,7 +221,7 @@ function main(argv) {
 			}
 			text = r.stdout;
 		}
-		fixed = fixedIssues(JSON.parse(text));
+		fixed = fixedIssues(JSON.parse(text), JSON.parse(read('package.json')).version);
 	}
 	const r = compare({ fixed, pinned: pinnedIssues(), dead: deadRecords(), baseline: loadBaseline() });
 	for (const i of r.newIssues) console.log(`unpinned #${i.number} ${i.title}: add its test to tests/reported-gate.json (or, with why, to tests/pin-coverage.json)`);

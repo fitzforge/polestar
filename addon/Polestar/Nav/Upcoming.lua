@@ -124,13 +124,18 @@ function Upcoming.Look(n, want, k)
 end
 
 -- The pins for the steps after the live one (pure on the Engine's views):
--- { { map, x, y, f, text, tooltip, color, size, grow, textScale, textColor, rimColor, priority, steps = { i, ... } }, ... }.
+-- { { map, x, y, f, text, tooltip, color, size, grow, textScale, textColor, rimColor, priority, steps = { i, ... },
+--   corner }, ... }. corner: the step's group mark (UI.StepMark, #3580) on the pin's top-right corner, { tex, color,
+--   state }; a pin several steps share takes "group" over "careful". Its reason goes in the tooltip.
 function Upcoming.Build()
 	local E = ns.Engine
 	local live = E and E.GetLiveStep and E.GetLiveStep()
 	if not live then return {} end
 	local want = Upcoming.Count()
 	local count, pins, n = E.GetStepCount(), {}, 0
+	local UI, T = ns.UI, ns.Theme
+	local guide = E.GetGuide and E.GetGuide()
+	local raws = type(guide) == "table" and guide.steps or nil
 	for s = live + 1, count do
 		if n >= want then break end
 		local v = E.GetStepView(s, true)
@@ -143,19 +148,28 @@ function Upcoming.Build()
 				if gv.map and gv.x and gv.y and (gv.status == "active" or gv.status == "pending") then
 					local title = (v.title and v.title ~= "") and v.title or L["Step %d"]:format(no)
 					local line = L["Step %d"]:format(no) .. ": " .. title
+					local mark, reason
+					if UI and UI.StepMark then mark, reason = UI.StepMark(v, raws and raws[s]) end
+					if mark and reason then line = line .. " (" .. reason .. ")" end
 					local shared
 					for _, p in ipairs(pins) do
 						if p.map == gv.map and math.abs(p.x - gv.x) < NEAR and math.abs(p.y - gv.y) < NEAR then shared = p break end
 					end
+					local p = shared
 					if shared then
 						shared.steps[#shared.steps + 1] = s
 						shared.lines[#shared.lines + 1] = line
 					else
-						local p, numbered = Upcoming.Look(n, want)
+						local numbered
+						p, numbered = Upcoming.Look(n, want)
 						p.map, p.x, p.y, p.f = gv.map, gv.x, gv.y, gv.f
 						p.text = numbered and tostring(no) or nil
 						p.priority, p.steps, p.lines = PRIORITY, { s }, { line }
 						pins[#pins + 1] = p
+					end
+					if mark and T and T.Color and T.Media and not (p.corner and p.corner.state == "group") then
+						local r, g, b = T.Color(mark == "group" and "warning" or "textMuted")
+						p.corner = { tex = T.Media("icon-group"), color = { r, g, b }, state = mark }
 					end
 					break
 				end
@@ -193,6 +207,21 @@ local function soon()
 end
 
 for _, msg in ipairs({ "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED", "TABS_CHANGED", "POLESTAR_PAUSED" }) do ns.On(msg, soon) end
+-- A later step done out of turn (While you're here hands it in, a quest
+-- accepted ahead) changes no step the guide is at, so no STEP_ message says
+-- so: its pin stayed on the map until the guide moved on (#3631). The quest
+-- log's own events redraw the layer too, at most twice a second (the log
+-- updates in bursts).
+local queued = false
+local function onQuestLog()
+	if queued or not ns.Get("nav.upcomingPins") then return end
+	queued = true
+	ns.After(0.5, function()
+		queued = false
+		Upcoming.Refresh()
+	end)
+end
+for _, ev in ipairs({ "QUEST_TURNED_IN", "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_LOG_UPDATE" }) do ns.RegisterEvent(ev, onQuestLog) end
 ns.On("SETTING_CHANGED", function(path)
 	if Upcoming.KEYS[path] or path == "nav" or path == "ui" or path == "" then soon() end
 	if path == "pause.map" or path == "pause" then soon() end

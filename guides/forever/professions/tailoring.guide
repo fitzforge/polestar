@@ -184,8 +184,9 @@ step Expert Tailoring
   learn 3865
 
 step Azure Silk Cloak to 170
-  tip Azure Silk Cloak is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 Bolt of Silk Cloth, 2 Blue Dye and 2 Fine Thread. Make the 66 Bolt of Silk Cloth first. Its recipe is the one bought above; it is the cheapest way through these points in the data.
+  tip Azure Silk Cloak is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 Bolt of Silk Cloth, 2 Blue Dye and 2 Fine Thread. Make the 66 Bolt of Silk Cloth first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning Bolt of Silk Cloth, learn it now: an earlier step teaches it.
   learn 8786 -- from the recipe in your bags
+  learn 3839
   craft 3839 x66
   craft 8786 until 170
 

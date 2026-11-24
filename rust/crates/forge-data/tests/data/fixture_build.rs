@@ -436,6 +436,41 @@ fn the_learned_layer_gives_trusted_prerequisites_and_levels_and_never_its_gaps()
 }
 
 #[test]
+fn a_placeholder_name_stops_our_builds_and_is_a_warning_naming_the_quest_in_an_authors() {
+	// #3797: QuestieDB 1.1.3 gave six battleground quests a credit NPC's placeholder name before the
+	// corrections had their words; an author's build stopped on them. Here a correction gives one.
+	let dir = common_scratch("forge-data-placeholders");
+	std::fs::create_dir_all(&dir).unwrap();
+	let credit = json!({ "101": {
+		"set": { "objectives": [{ "type": "event", "id": null, "count": 1, "text": "Credit" }] },
+		"source": { "kind": "in-game-check", "ref": "#3797" },
+		"note": "an objective with a placeholder name"
+	} });
+	std::fs::write(dir.join("quests.json"), credit.to_string()).unwrap();
+	let mut o = options(Some(&no_recordings()));
+	o.corrections = dir.clone();
+	let line = "quest 101 (Wolf Trouble): objective 1 text \"Credit\"";
+
+	assert_eq!(o.placeholders, forge_data::Placeholders::Stop, "the default: forge build");
+	let err = run(&o, &|_| {}).err().expect("our builds stop");
+	assert!(err.to_string().contains(line), "{err}");
+
+	o.placeholders = forge_data::Placeholders::Warn;
+	let logged = std::cell::RefCell::new(Vec::new());
+	let out = run(&o, &|m| logged.borrow_mut().push(m.to_string())).expect("an author's build goes on");
+	let warning = logged.borrow().iter().find(|m| m.starts_with("warning: 1 placeholder name")).cloned().expect("a warning");
+	assert!(warning.contains(line), "{warning}");
+	let q: Value = serde_json::from_str(&out.files.iter().find(|(n, _)| n == "quests").unwrap().1).unwrap();
+	assert_eq!(q["101"]["objectives"][0]["text"], "Credit", "kept as it is");
+
+	o.placeholders = forge_data::Placeholders::Count;
+	let logged = std::cell::RefCell::new(Vec::new());
+	run(&o, &|m| logged.borrow_mut().push(m.to_string())).unwrap();
+	assert!(logged.borrow().iter().any(|m| m == "placeholder names left (public build, no corrections): 1"));
+	assert!(!logged.borrow().iter().any(|m| m.contains(line)), "a public build only counts them");
+}
+
+#[test]
 fn without_the_private_overlay_one_plain_line_and_a_warning_when_other_private_sources_are_there() {
 	let line = "private corrections: none found (public corrections only)";
 	let root = common_scratch("forge-data-private");

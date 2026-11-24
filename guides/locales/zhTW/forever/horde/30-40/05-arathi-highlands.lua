@@ -40,7 +40,7 @@ return {
 	-- {npc:2410} Magus Wordeen Voidglare
 	["{npc:2410}, inside"] = "{npc:2410}，室內",
 	-- {npc:2410} Magus Wordeen Voidglare · {quest:93680} Key to the City · {item:279469} Grimy Key
-	["{npc:2410}: {quest:93680}, the {item:279469} is by the traitors"] = "",
+	["{npc:2410}: {quest:93680}, the {item:279469} is by the traitors"] = "{npc:2410}：{quest:93680}，{item:279469}在叛徒附近",
 	-- {npc:2437} Keeper Bel'varil
 	["{npc:2437}, inside"] = "{npc:2437}，室內",
 	-- {npc:2770} Tallow · {npc:2771} Drum Fel · {area:321} Hammerfall
@@ -68,12 +68,12 @@ return {
 
 	-- Step 10: The Dalaran crater
 	-- {area:279} Dalaran
-	["The {area:279} crater"] = "",
+	["The {area:279} crater"] = "{area:279} 巨坑",
 	-- {area:279} Dalaran · {npc:2411} Ricter · {npc:2412} Alina · {npc:2413} Dermot · {npc:2414} Kegan Darkmar
 	-- plural, as words: Worn Stone Tokens = {item:3714} Worn Stone Token · Kirin Tor Guards = {npc:246848} Kirin Tor Guard · Kirin Tor Enforcers = {npc:276215} Kirin Tor Enforcer
 	["From the south, walk up into the camp below the violet dome of {area:279}. {npc:2411}, {npc:2412} and {npc:2413} (33-34) stand together in the camp, {npc:2414} (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens: the ones on the camp's west side are furthest from the Guard's road.\nCareful: Kirin Tor Guards (55) attack the Horde on sight, and one of them patrols the road that comes down into the camp from the north-east and walks right up to the traitors: he has killed many players here. Watch for him, let him walk back up the road, then pull the traitors. Many of the camp's guards stand in linked pairs and others patrol alone. Arcane Sentries (55, elite) and Kirin Tor Enforcers (55) stand around the violet dome itself: keep to the camp below the rim."] = "從南邊走上{area:279}紫色穹頂下方的營地。{npc:2411}、{npc:2412}和{npc:2413}（33-34級）一起站在營地裡，{npc:2414}（35級）在他們西邊不遠；每人身上各帶一塊血石碎片。周圍的護盾衛兵和法術師（31-33級）會掉落用舊的石雕：營地西側的離守衛的巡邏路線最遠。\n注意：祈倫托守衛（55級）見到部落就會攻擊，其中一名沿著從東北方下到營地的道路巡邏，直接走到叛徒身邊：他在這裡殺過很多玩家。留意他，等他沿路走回去再拉叛徒。營地很多守衛是成對連動的，其他則單獨巡邏。奧術哨兵（55級，精英）和祈倫托執法者（55級）站在紫色穹頂周圍：待在坑緣下方的營地。",
 	-- {item:279469} Grimy Key
-	["{item:279469}: an object to loot, by the traitors"] = "",
+	["{item:279469}: an object to loot, by the traitors"] = "{item:279469}：在叛徒旁邊的可拾取物體中",
 	-- plural, as words: Worn Stone Tokens = {item:3714} Worn Stone Token
 	["Worn Stone Tokens, from the Shield Guards and Theurgists on the camp's west side"] = "用舊的石雕，來自營地西側的護盾衛兵和法術師",
 
@@ -118,7 +118,7 @@ return {
 	["Boulderfist camp"] = "石拳營地",
 	-- {area:272} Tarren Mill · {area:1057} Thoradin's Wall · {area:313} Northfold Manor
 	-- plural, as words: Boulderfist Ogres = {npc:2562} Boulderfist Ogre
-	["Head east out of {area:272} through {area:1057} and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of {area:313}; the Enforcers stay in the cave there."] = "",
+	["Head east out of {area:272} through {area:1057} and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of {area:313}; the Enforcers stay in the cave there."] = "從{area:272}向東出發，穿過{area:1057}後沿路繼續向東。石拳巨魔和石拳執行者（32-34級）的營地在路南、{area:313}以南；石拳執行者待在那裡的洞穴中。",
 	["Below ground"] = "地下",
 
 	-- Step 20: Dabyrie's Farmstead
@@ -139,7 +139,7 @@ return {
 
 	-- Step 22: Hammerfall
 	-- {npc:2851} Urda · {npc:15126} Rutherford Twing · {quest:8263} Defiler's Basic Care Package · {zone:1461} Arathi Basin
-	["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate.\n{npc:15126} offers the {quest:8263} only once you are Friendly with the Defilers ({zone:1461}): skip it if he doesn't offer it."] = "",
+	["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate.\n{npc:15126} offers the {quest:8263} only once you are Friendly with the Defilers ({zone:1461}): skip it if he doesn't offer it."] = "道路東端的獸人要塞。雙足飛龍管理員 {npc:2851} 站在大門旁。\n只有你在 汙染者（{zone:1461}）的聲望達到友善，{npc:15126} 才會提供 {quest:8263}：若他沒有提供，就跳過。",
 	-- {npc:2792} Gor'mul
 	["{npc:2792}, by the gate"] = "{npc:2792}，在大門旁",
 	-- {npc:12920} Doctor Gregory Victor · {skill:129} First Aid
@@ -165,17 +165,17 @@ return {
 	["Each {object:180105} is a ring of standing stones; the key sits on the stone at its heart. The eastern circle is on the hills north-west of {area:321}.\nCareful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East."] = "每處{object:180105}都是一圈立石，鑰匙就放在正中的石頭上。東部的法陣在{area:321}西北的丘陵上。\n小心：每塊中心石都有約三個接近39級的元素生物看守，不清掉它們就點石頭會引來圍攻：西部是燃燒流放者，外部是雷霆流放者，東部是巨浪流放者。",
 
 	-- Step 27: Witherbark Village
-	["South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "",
+	["South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "落錘鎮南邊，枯木巨魔佔據山中的村莊。枯木擲斧者守在外圍小屋，枯木巫醫和枯木獵頭者守在村莊深處。小心：這三種巨魔都會在生命值降到15%時逃跑求援，可能引來附近營地的更多巨魔。",
 
 	-- Step 28: Highland raptors and Plains Creepers
 	-- plural, as words: Plains Creepers = {npc:2563} Plains Creeper
-	["Highland raptors and Plains Creepers"] = "",
+	["Highland raptors and Plains Creepers"] = "高地迅猛龍和平原狼蛛",
 	-- {area:321} Hammerfall
 	-- plural, as words: Highland Striders = {npc:2559} Highland Strider · Plains Creepers = {npc:2563} Plains Creeper
-	["On the way back north, Highland Striders roam the hills all around {area:321} and drop the eyes, and south of it the Plains Creepers (32-33) spin their webs in the grass; they carry the spidersilk."] = "",
+	["On the way back north, Highland Striders roam the hills all around {area:321} and drop the eyes, and south of it the Plains Creepers (32-33) spin their webs in the grass; they carry the spidersilk."] = "向北返回的路上，高地闊步龍在 {area:321} 周圍的山間遊蕩，會掉落眼球；南側的平原狼蛛（32-33 級）在草地間結網，會掉落蛛絲。",
 	-- {item:278225} Surgical Spidersilk
 	-- plural, as words: Plains Creepers = {npc:2563} Plains Creeper
-	["{item:278225}, from Plains Creepers"] = "",
+	["{item:278225}, from Plains Creepers"] = "{item:278225}，由平原狼蛛掉落",
 
 	-- Step 29: Hammerfall
 	-- {area:321} Hammerfall

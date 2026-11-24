@@ -36,6 +36,11 @@ const MAX_NAMED_SOURCES = 8;
 // an unknown chance (0), the data's drop list is no guide to where to farm it.
 const FEW_SOURCES_BAR = 20;
 
+// A rare that tops an item's droppers gives way to the normal ones (rareLeads)
+// when one of them drops it at this percentage or more: the common mobs are
+// where it is farmed (#3578).
+const COMMON_SOURCE_BAR = 5;
+
 // `fromNpcs` on a collect: the mobs its point and spots belong to, for the
 // target button, which cycles at most this many names.
 const MAX_SOURCE_NPCS = 5;
@@ -151,7 +156,8 @@ function pickSpawn(data, candidates, zoneMap, prev, opts = {}) {
 // An item only elites drop here keeps them. With `rares` (see rareLeads) a
 // rare (isRare) is passed over the same way. With `qlvl` (a collect's quest
 // level), droppers ABOVE_QUEST_LEVELS or more above it are passed over where
-// they would crowd out the droppers nearer its level (levelSplit).
+// they would crowd out the droppers nearer its level, or would be named beside
+// them (levelSplit).
 //
 // Sources with a drop chance: only the likely ones count (at least half the
 // best chance here; sub-1% drops only when nothing better drops here).
@@ -359,9 +365,13 @@ function eliteSplit(data, cands, sides, rares = false) {
 // out droppers near a quest's level `qlvl` only because an npc whose lowest
 // level is ABOVE_QUEST_LEVELS or more above it drops it at a higher chance:
 // `near`, the likely ones among the droppers near the quest's level (their
-// own best chance sets the bar), `above`, those far above it.
+// own best chance sets the bar), `above`, those far above it. A far-above
+// dropper likely beside the near ones is passed over too (#2744: the Elder
+// Timberling, level 10, at 100% beside the level 5 Timberlings' 53% for the
+// level 5 Timberling Seeds named the Elder on the goal).
 // -> { near, above } | null (no quest level, no chances, nothing near the
-// quest's level drops it at 1% while something does, or none crowded out)
+// quest's level drops it at 1% while something does, or no far-above dropper
+// among the likely ones and none near crowded out)
 function levelSplit(data, cands, qlvl) {
 	if (!(qlvl > 0) || !cands.some((c) => typeof c.chance === 'number')) return null;
 	const chanceOf = (c) => c.chance || 0;
@@ -378,19 +388,21 @@ function levelSplit(data, cands, qlvl) {
 	if (Math.max(...rest.map(chanceOf)) < 1 && Math.max(...cands.map(chanceOf)) >= 1) return null;
 	const all = likely(cands);
 	const near = likely(rest);
-	return near.some((c) => !all.includes(c)) ? { near, above } : null;
+	return near.some((c) => !all.includes(c)) || above.some((c) => all.includes(c)) ? { near, above } : null;
 }
 
 // Whether a rare drops the item at the highest chance while normal sources
-// drop it at 50% or more (the `fromAlso` bar): the goal would read "Kill
-// <rare> or <normal>", and the arrow would lead to the rare's spawns, which
-// are the camps of other mobs (Ribchaser stands among the Redridge Mongrels,
-// who drop nothing). Not for an item that drops all over the world.
+// drop it at COMMON_SOURCE_BAR% or more: the goal would name the rare ("Kill
+// <rare>", or "Kill <rare> or <normal>"), and the arrow would lead to the
+// rare's spawns, which are the camps of other mobs (Ribchaser stands among the
+// Redridge Mongrels, who drop nothing) or a spot the rare is often away from
+// (Alshirr Banebreath, 80%, while every Jadefire satyr drops the Felbind at
+// 23%: #3578). Not for an item that drops all over the world.
 function rareLeads(data, cands, sides) {
 	const top = cands.reduce((a, b) => (b.chance > a.chance ? b : a), cands[0] || { chance: 0 });
 	const n = top.kind === 'npc' ? data.npc(top.id) : null;
 	if (!n || !isRare(n.rank, n.faction, sides)) return false;
-	return cands.some((c) => c.chance >= 50 && normalSource(data, c, sides, true));
+	return cands.some((c) => c.chance >= COMMON_SOURCE_BAR && normalSource(data, c, sides, true));
 }
 
 function eliteSource(data, cand, sides, rares) {
