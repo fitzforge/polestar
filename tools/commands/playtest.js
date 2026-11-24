@@ -95,8 +95,8 @@ options:
                         an explicitly named file must exist
   --filter <text>       play only the guides whose file or id contains it
   --class <c>           play only this class (e.g. Warrior), in every guide
-  --group do|skip       the answer at every group quest (when group): skip
-                        (the default, the solo route) or do (with a group)
+  --group do|skip       the answer at every group quest (when group) and escort
+                        (#3439): skip (the default, the solo route) or do
   --dungeon <list>      play as a player who chose these dungeons in Options
                         (\`when dungeon\`): names or map ids, comma-separated
                         (\`--dungeon "The Deadmines,Wailing Caverns"\`), or all;
