@@ -11530,8 +11530,9 @@ same spell: Elixir of Minor Fortitude) and the client does not give it
 with the skill (`AcquireMethod` 1); else the skill seen on Forever, for the few recipes in
 forge-data's `CHECKED_LEARN` (`learnedAtFrom`: `"in-game"` a player's trainer window, Thick Leather,
 Cured Thick Hide and Thick Armor Kit at 175, #1553; `"recordings"` the skill players learned it at,
-Forever's leather armor and pants patterns 5 below their yellow, Magenta Dye 120; `"classic"`
-Classic's list where Forever kept the colours and no world DB list has it, Goldthorn Tea 175); else,
+Forever's leather armor and pants patterns 5 below their yellow, Magenta Dye 120, Black Mageweave
+Headband 200; `"classic"` Classic's list where Forever kept the colours and no world DB list has it,
+Goldthorn Tea 175); else,
 when an older (Classic) list in the same DB teaches it (`professionSpellsClassic`: the highest skill
 any Classic list asks, as CMaNGOS's; a stray low list put Thick Leather at 155, #1553), Classic's
 learn skill moved by as much as Forever moved the recipe's yellow rank from Era's
