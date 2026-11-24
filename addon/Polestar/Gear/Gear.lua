@@ -179,6 +179,48 @@ function Client.ItemInfo(link)
 	return nil
 end
 
+-- The classes an item's tooltip says may use it, as a class mask (Gear.CLASSES'
+-- bits): its "Classes: Paladin" line (ITEM_CLASSES_ALLOWED), each name the
+-- client's (LOCALIZED_CLASS_NAMES_MALE / _FEMALE, else the English). nil when
+-- the tooltip has no such line, names no class Polestar knows, is not loaded
+-- yet, or the client has no C_TooltipInfo. Polestar.ItemDB has no entry for
+-- Forever's newer items (#3785: Vindicator's Belt, Paladin only).
+local CLASS_LINE = "^" .. (type(ITEM_CLASSES_ALLOWED) == "string" and ITEM_CLASSES_ALLOWED or "Classes: %s"):gsub("[%%%^%$%(%)%.%[%]%*%+%-%?]", "%%%0"):gsub("%%%%s", "(.+)") .. "$"
+local classByName
+local function classNames()
+	if classByName then return classByName end
+	classByName = {}
+	for file, meta in pairs(CLASSES) do
+		classByName[file:sub(1, 1) .. file:sub(2):lower()] = meta.bit
+		for _, names in ipairs({ LOCALIZED_CLASS_NAMES_MALE, LOCALIZED_CLASS_NAMES_FEMALE }) do
+			local name = type(names) == "table" and names[file]
+			if type(name) == "string" then classByName[name] = meta.bit end
+		end
+	end
+	return classByName
+end
+function Client.ItemClasses(link)
+	local T = C_TooltipInfo
+	local get = T and (type(link) == "number" and T.GetItemByID or T.GetHyperlink)
+	if not get then return nil end
+	local ok, data = pcall(get, link)
+	local lines = ok and type(data) == "table" and data.lines
+	if type(lines) ~= "table" then return nil end
+	for _, l in ipairs(lines) do
+		local text = type(l) == "table" and readable(l.leftText)
+		local list = type(text) == "string" and text:match(CLASS_LINE)
+		if list then
+			local mask, names = 0, classNames()
+			for name in list:gmatch("[^,]+") do
+				local bit = names[name:match("^%s*(.-)%s*$")]
+				if bit and mask % (bit * 2) < bit then mask = mask + bit end
+			end
+			return mask > 0 and mask or nil
+		end
+	end
+	return nil
+end
+
 -- An item's vendor sell price in copper (0: it doesn't sell), nil while the
 -- client hasn't cached it.
 function Client.SellPrice(link)
@@ -649,6 +691,9 @@ local function itemInfo(link)
 		infoCount = 0
 	end
 	local info = buildInfo(link)
+	-- No class list from Polestar.ItemDB (an item it has no entry for, #3785):
+	-- the item's own "Classes:" line.
+	if info and (info.allow or 0) == 0 then info.allow = Client.ItemClasses(link) or 0 end
 	infoCache[link] = info or false
 	infoCount = infoCount + 1
 	return info

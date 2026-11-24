@@ -19,7 +19,6 @@ t.pack = {
 	["Reputation · Cities"] = "평판 · 도시",
 	["Reputation · Raids and dungeons"] = "평판 · 공격대와 던전",
 	["Reputation · World"] = "평판 · 세계",
-	["The Drowned City"] = "가라앉은 도시",
 }
 t.guides["forever/40-50/shendralas"] = (function() return {
 		["A Prowler gave up a {quest:93568}: {npc:255385}, north of the temple, knows whose it was."] = "배회자가 {quest:93568}을(를) 떨어뜨렸습니다. 사원 북쪽의 {npc:255385}이(가) 주인을 알고 있습니다.",
@@ -7034,10 +7033,6 @@ t.guides["forever/miscellaneous/library-books"] = (function() return {
 } end)()
 t.guides["forever/miscellaneous/stalk-with-the-earthmother"] = (function() return {
 		["{item:206157}, from the {object:403041}"] = "{item:206157}: {object:403041}에서",
-} end)()
-t.guides["forever/miscellaneous/the-drowned-city-alliance"] = (function() return {
-		["In the {object:32356}."] = "{object:32356}에 있습니다.",
-		["Skullsplitter trolls"] = "백골가루부족 트롤",
 } end)()
 t.guides["forever/professions/alchemy"] = (function() return {
 		["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1411} is marked."] = "{item:5997} 및 {spell:2331}에 필요한 {item:2447} 110개(75-150에 28개: 지금 모두 채집하세요): {skill:182}: {item:2447}(숙련도 1). {zone:1411}에서 가장 많이 나는 {item:2447} 지역이 표시됩니다.",

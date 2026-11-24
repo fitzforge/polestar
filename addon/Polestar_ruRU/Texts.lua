@@ -6851,10 +6851,6 @@ t.guides["forever/miscellaneous/stalk-with-the-earthmother"] = (function() retur
 		["{item:206157}, from the {object:403041}"] = "{item:206157}: из {object:403041}",
 		["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the {item:206159}. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "{npc:205729} скрывается в незаметности на главной горе {zone:1456}, к югу от пруда: идите туда, куда указывает стрелка, пока не появится его силуэт. Он выдаст вам {item:206159}. Задание доступно с 4-го уровня, но в руднике находятся рабочие Торговой компании (уровень 8-9), надсмотрщики (9-10) и {npc:3051} (12): идите на 9-10-м уровне.",
 } end)()
-t.guides["forever/miscellaneous/the-drowned-city-alliance"] = (function() return {
-		["In the {object:32356}."] = "Ориентир: {object:32356}.",
-		["Skullsplitter trolls"] = "Тролли из племени Дробителей Черепов",
-} end)()
 t.guides["forever/professions/alchemy"] = (function() return {
 		["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1411} is marked."] = "{item:2447} 110 для {item:5997} и {spell:2331} (28 из них на 75-150: соберите все сейчас): {skill:182}: {item:2447} (навык 1). В {zone:1411} отмечено место, где {item:2447} встречается чаще всего.",
 		["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1412} is marked."] = "{item:2447} 110 для {item:5997} и {spell:2331} (28 из них на 75-150: соберите все сейчас): {skill:182}: {item:2447} (навык 1). В {zone:1412} отмечено место, где {item:2447} встречается чаще всего.",
