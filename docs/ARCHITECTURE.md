@@ -5144,7 +5144,14 @@ continent, is a vertex too: walked to, learnt there (10 s: talking to it, its
 and never walked on from (no walk measure from it; otherwise Rut'theran's
 would beat the Darnassus portal, #989) (#1174: Ironforge's, beside a player
 who knows Menethil Harbor); its flight leg reads "Learn the flight path at X,
-then fly to Y". The known flight
+then fly to Y". Each vertex keeps two arrivals (#2812): the cheapest on foot,
+whose walk on is limited (a walk from ground with no walk to the target walks
+into it no more, #1564; a walk that stops at a place only to walk on is the same
+walk past it, #1694), and the cheapest by a flight, ride, the Hearthstone or a
+teleport, which may go on in every way; the second is kept while it is cheaper,
+or while its way does not pass the vertex already (a boat out and back sheds
+nothing, #1890). So a flight master first reached on foot from a cliff top
+still lands the flight that walks on to the target. The known flight
 masters (`flags.taxi`) come from the flight map when one opens and the game's
 "New flight path discovered" (the world map's flight points can't add any:
 on Forever they mark every node discovered, #1795). A continent counts
