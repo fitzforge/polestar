@@ -154,3 +154,34 @@ fn without_loop_the_gotos_stay_a_path_to_walk() {
 	assert_eq!(g.iter().map(|g| g["t"].as_str().unwrap()).collect::<Vec<_>>(), ["goto", "goto", "goto", "kill", "collect", "interact", "note"]);
 	assert_ne!(g[3].get("spots"), Some(&spots()));
 }
+
+// #1616 kept (Alliance Desolace, Kolkar Village): a loop collect's target button names the droppers at the author's
+// points, not the map's best droppers elsewhere. The Gelkis drop the token at 40% and 38% far from the loop; the
+// Kolkar Raider and Scout (30%, 25%) stand at its first point, the Kolkar Mauler (10%, under half the map's best)
+// alone at its second. Each point names its own; the Mauler's camp still has its target. The JS twin is in
+// tests/dsl-loop-search.test.js.
+const CAMP: [(u32, &str, u32, f64, f64); 5] = [
+	(95941, "Gelkis Raider", 40, 60.0, 60.0),
+	(95942, "Gelkis Scout", 38, 61.0, 60.0),
+	(95943, "Kolkar Raider", 30, 30.0, 30.0),
+	(95944, "Kolkar Scout", 25, 30.3, 30.2),
+	(95945, "Kolkar Mauler", 10, 40.0, 30.0),
+];
+
+#[test]
+fn a_loop_collect_names_the_droppers_at_each_of_its_points_a_point_none_of_the_likely_ones_stands_at_its_own_1616() {
+	let dir = data_dir_with("loop-npcs", &data_dir(), |raw| {
+		let drops: serde_json::Map<String, Value> = CAMP.iter().map(|c| (c.0.to_string(), json!(c.2))).collect();
+		raw.get_mut("items.json").unwrap()["95940"] = json!({ "id": 95940, "name": "Camp Token", "drops": { "npc": drops, "object": {} }, "vendors": [] });
+		for (id, name, _, x, y) in CAMP {
+			raw.get_mut("npcs.json").unwrap()[id.to_string()] = json!({ "id": id, "name": name, "level": 5, "faction": null, "spawns": { "1429": { "f": "e", "pts": [[x, y], [x + 0.1, y]] } } });
+		}
+	});
+	let r = compile_with(&guide_text(&["step Kolkar Village", "  loop", "  goto 30,30 r 60", "  goto 40,30 r 60", "  collect 95940 x5"]), &forge_guide::data::load_data(&dir).unwrap());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let steps = r.steps();
+	let goal = &steps[0]["goals"][0];
+	let names: Vec<&str> = goal["fromNpcs"].as_array().unwrap().iter().map(|n| n["npcName"].as_str().unwrap()).collect();
+	assert_eq!(names, ["Kolkar Raider", "Kolkar Scout", "Kolkar Mauler"], "{goal}");
+	assert_eq!(goal["fromNpcsAt"], "1,2;3");
+}

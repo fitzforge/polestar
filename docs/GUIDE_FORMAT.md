@@ -1110,7 +1110,12 @@ gets no `spots`, except an NPC who walks around:
   after another as in an area objective. Compile-time
   only: the compiled step has no `loop`. It is an error when the step has
   fewer than two gotos, gotos on different maps or frames, an `optional` or
-  `only` goto, or no goal to place.
+  `only` goto, or no goal to place. A `collect`'s target button names the
+  droppers at the points, not the map's best ones elsewhere: at each point the
+  likely droppers (as for `fromNpcs`) spawning within its radius, most spawns
+  first, or, where none of those spawns, every dropper that does; a point no
+  dropper spawns at names the others. Points that all name the same five or
+  fewer share `fromNpcs`; otherwise `fromNpcsAt` lists each point's (#1616).
 
   ```
   step Kobold camps
