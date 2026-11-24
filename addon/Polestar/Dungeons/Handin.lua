@@ -474,8 +474,10 @@ local function questGoal(t, id, title, at)
 		goal.npc, goal.npcName = at.id, at.name
 	end
 	goal.z = LK().SpawnZ(at.kind == "object" and "object" or "npc", at.id, at)
-	-- An NPC only the dead see: optional, and its goal says so (Lookup.GhostOnly, #558).
-	return LK().GhostOnly(goal)
+	-- An NPC who walks about: her walk as the goal's one spot, not one point of it
+	-- (Lookup.Walk: Nikova Raskol in Old Town, #3041); an NPC only the dead see:
+	-- optional, and its goal says so (Lookup.GhostOnly, #558).
+	return LK().GhostOnly(LK().Walk(goal))
 end
 
 -- plan, follow-ups -> stops: one per place a quest is turned in, the

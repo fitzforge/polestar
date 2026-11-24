@@ -480,6 +480,36 @@ emit({ plan = ender or false, guide = turnin or false, ender = e and e.name or f
 	assert_eq!(horde, json!({ "plan": "Rau Cliffrunner", "guide": "Rau Cliffrunner", "ender": "Rau Cliffrunner" }), "the Horde keeps the page's Rau");
 }
 
+// #3041 (qqname), #3019: an ender who walks about. Nikova Raskol walks a round of Old Town, which the Codex has as
+// several spawns, and the hand-in guide pointed at one of them as if she stood there. Here 90350 is turned in to
+// a walker the Codex has at four spawns in the Undercity, 25 yd from their middle at 62,42.5: the turn-in goal
+// gets her walk as its one spot, its point in the middle, and says she walks, as the guides' own steps do.
+#[test]
+fn a_hand_in_to_an_npc_who_walks_about_gets_her_walk_as_its_spot_and_says_so_3041() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	let walk: Vec<Value> = [(60, 40), (64, 40), (64, 45), (60, 45)].iter().map(|&(x, y)| json!({ "map": 1458, "x": x, "y": y, "f": "e" })).collect();
+	c["npcs"]["9013"] =
+		json!({ "id": 9013, "name": "Walking Warden", "level": 30, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false, "instance": null, "roles": [], "spawns": walk });
+	c["quests"]["90350"] = json!({
+		"id": 90350, "title": "The Color of Rot", "level": 25, "minLevel": 18, "faction": "H", "races": null, "classes": null,
+		"start": { "npc": [9013], "object": [], "item": [] }, "end": { "npc": [9013], "object": [] },
+		"objectives": [], "pre": [], "zone": 1458, "rewards": [], "choices": [], "preAny": [],
+	});
+	i["forever"]["quests"]["90350"] = json!({ "area": 209 });
+	let own = pack_of(&c, &i);
+	let script = k(r#"
+local turnin
+for _, s in ipairs(D.HandinGuide("{KEY}").steps) do
+	for _, g in ipairs(s.goals) do if g.t == "turnin" and g.quest == 90350 then turnin = g end end
+end
+local sp = turnin.spots and turnin.spots[1]
+emit({ turnin.npcName, turnin.x, turnin.y, turnin.spots and #turnin.spots or 0, sp and sp.x or false, sp and sp.y or false, sp and sp.r or false, turnin.note or false })"#);
+	let out = run(&own, &script, Opts { level: 25, ready: vec![90350], ..Default::default() }).remove(0);
+	assert_eq!(out, json!(["Walking Warden", 62, 42.5, 1, 62, 42.5, 25, "Walking Warden walks around here: look inside the circle on the map"]), "{out}");
+}
+
 // #1326 (TrustmeXD): The Glowing Shard (6981) drops inside Wailing Caverns, and its one quest-log line is to speak
 // to Sputtervalve in Ratchet, after the run, before Falla Sagewind takes it. The Codex had no line for it, so the
 // hand-in guide found it unfinished and left it out ("Not finished yet"). A quest whose open lines are all talks to
