@@ -16202,6 +16202,7 @@ do
 				{
 					title = "Into {area:254}",
 					note = "Ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals.",
+					when = { { k = "taxi", neg = true, name = "Flame Crest", node = 70 } },
 					goals = {
 						{ t = "goto", text = "Bridge into {area:254}", map = 1427, x = 34.8, y = 83, f = "e" },
 					},

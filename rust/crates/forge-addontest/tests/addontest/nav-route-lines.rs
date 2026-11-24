@@ -289,6 +289,16 @@ Polestar.Set("nav.navRouting", false) -- The painters draw a direct walk on this
 -- The dots style, drawn at once: the line style and the draw-in have tests of their own below.
 Polestar.Set("nav.lineStyle", "dots")
 Polestar.Set("ui.reduceMotion", true)
+-- With navRouting off the walks are drawn straight, no walking path known (`straight`), which every style dashes
+-- (#3418, the strokes' own test below): these scenes paint them as found walks.
+do
+	local geometry = N.GetRouteGeometry
+	N.GetRouteGeometry = function(...)
+		local g = geometry(...)
+		for _, l in ipairs(type(g) == "table" and g.legs or {}) do l.straight = nil end
+		return g
+	end
+end
 local function target(wx, wy)
 	local m, x, y = nav.mapPoint(wx, wy)
 	N.SetTarget(m, x, y, "Target")
@@ -1106,8 +1116,11 @@ fn line_style_the_walked_stretch_fades_out_behind_the_player_over_the_tail_the_w
 	assert!((330.0..=340.0).contains(&reach), "the tail ends about 120 px behind ({reach})");
 }
 
+// #3418: the arrow's straight fallback where no walk was found (#3409) must never read as a found walk. A walk with no
+// walking path known is the line style's paler dashes in every style: the dots draw it as those dashes, not as dots,
+// on the world map and the minimap; the sparkles give it no sparkles (Maps/RouteLines.lua draws it dashed over them).
 #[test]
-fn line_style_a_walk_with_no_walking_path_known_is_dashed_and_paler_the_dots_style_keeps_its_dots() {
+fn a_walk_with_no_walking_path_known_is_dashed_and_paler_in_every_style_3418() {
 	let out = strokes(
 		r#"
 		local pts = { { 0, 500, 100 }, { 0, 500, 700 } }
@@ -1118,14 +1131,39 @@ fn line_style_a_walk_with_no_walking_path_known_is_dashed_and_paler_the_dots_sty
 		S.Map(b, { known }, view({ style = "line" }))
 		S.Map(c, { guess }, view())
 		S.Map(d, { known }, view())
-		emit({ guess = list(a), known = list(b), dotsGuess = list(c), dots = list(d), flag = guess.guess })"#,
+		local mv = { c = 0, x = 500, y = 400, radius = 400, facing = 0, width = 200, height = 200, scale = 1, colors = COLORS }
+		local e, g = S.New(), S.New()
+		S.Minimap(e, { guess }, mv)
+		S.Minimap(g, { known }, mv)
+		emit({ guess = list(a), known = list(b), dotsGuess = list(c), dots = list(d), mmGuess = list(e), mmDots = list(g), flag = guess.guess })"#,
 	);
 	assert_eq!(out["flag"], true);
 	let guess = arr(&out["guess"]);
 	assert!(guess.len() > 20, "dashed: {} dashes", guess.len());
-	assert!(guess.iter().all(|s| near(f(&s["alpha"]), 0.55) && truthy(&s["soft"]) && f(&s["len"]) <= 2.0 * DASH + 1e-6), "paler dashes as thick as the line");
+	let dashed = |l: &Vec<Value>| l.iter().all(|s| near(f(&s["alpha"]), 0.55) && truthy(&s["soft"]) && !truthy(&s["dot"]) && f(&s["len"]) <= 2.0 * DASH + 1e-6);
+	assert!(dashed(guess), "paler dashes as thick as the line");
 	assert_eq!(arr(&out["known"]).iter().filter(|s| truthy(&s["soft"])).count(), 1, "a known path: one line");
-	assert_eq!(out["dotsGuess"], out["dots"], "the dots look the same either way");
+	assert_eq!(out["dotsGuess"], out["guess"], "the dots style draws it as the same dashes");
+	assert!(arr(&out["dots"]).iter().all(|s| truthy(&s["dot"])), "a known path in the dots style: dots");
+	let mm = arr(&out["mmGuess"]);
+	assert!(!mm.is_empty() && dashed(mm), "the minimap too: {mm:?}");
+	assert!(arr(&out["mmDots"]).iter().all(|s| truthy(&s["dot"])), "a known path on the minimap: dots");
+}
+
+#[test]
+fn the_sparkles_leave_out_a_walk_with_no_walking_path_known_3418() {
+	let out = emitted(&RunAddon {
+		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Maps/RouteStrokes.lua", "Maps/RouteSparkle.lua"])],
+		script: r#"
+		local S, K = Polestar.RouteStrokes, Polestar.RouteSparkle
+		local pts = { { 0, 500, 100 }, { 0, 500, 700 } }
+		local runs = K.Paths({ S.Path("walk", pts, false, nil, nil, true), S.Path("walk", { { 0, 600, 100 }, { 0, 600, 700 } }, false) }, true)
+		emit({ n = #runs, x = runs[1] and runs[1].xs[1] })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out, json!({ "n": 1, "x": 600 }), "only the found walk sparkles");
 }
 
 #[test]
