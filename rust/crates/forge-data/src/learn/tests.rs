@@ -31,7 +31,16 @@ fn learn_in(sessions: &[String], quests: &str, corrections: &str, verdicts: &Ver
 
 /// `learn_in` with the snapshot `previous` (the last quests.json) given.
 #[allow(clippy::too_many_arguments)]
-fn learn_over(sessions: &[String], quests: &str, corrections: &str, verdicts: &Verdicts, scope: &dyn Fn(i64) -> bool, all_spots: bool, eg: Option<&[crate::players::EgTick]>, previous: Option<&V>) -> (Output, V) {
+fn learn_over(
+	sessions: &[String],
+	quests: &str,
+	corrections: &str,
+	verdicts: &Verdicts,
+	scope: &dyn Fn(i64) -> bool,
+	all_spots: bool,
+	eg: Option<&[crate::players::EgTick]>,
+	previous: Option<&V>,
+) -> (Output, V) {
 	let cfg = Config { exclude: FxHashSet::default(), min_build: None, establish: OPEN, min_voters: 3 };
 	let mut frames = FxHashMap::default();
 	frames.insert(1426, (1000.0, 1000.0));
