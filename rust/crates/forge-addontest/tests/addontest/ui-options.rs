@@ -2859,7 +2859,7 @@ fn every_page_keeps_the_layout_rules_at_defaults() {
 		-- Sections kept to one row (or a switch-only card) on purpose: one home per setting and the pages ordered by
 		-- the player's journey give these settings a section of their own where the player looks for them.
 		local ONE_ROW = { ["Level pace"] = true, ["Step errands"] = true, ["Along the route"] = true, ["Other waypoints"] = true,
-			["Step spacing"] = true, ["Up next"] = true, ["All alerts"] = true, ["Experience"] = true, ["XP tracker"] = true,
+			["Step spacing"] = true, ["Up next"] = true, ["Still to do"] = true, ["All alerts"] = true, ["Experience"] = true, ["XP tracker"] = true,
 			["Dungeon Journal"] = true, ["Characters"] = true,
 			-- Setup > General > Language (#3643): the one setting players look for under that name.
 			["Language"] = true }
