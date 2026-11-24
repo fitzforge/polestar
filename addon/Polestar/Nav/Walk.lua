@@ -2939,7 +2939,7 @@ local WAY_IN_YD = 500
 -- the way in before it still leads to the target (#1338)
 local SAME_SPOT_YD = 3
 -- The goals whose target is one NPC or object the player goes up to (Walk.FollowsGoto, #3488).
-local NPC_KIND = { accept = true, turnin = true, talk = true, interact = true }
+city.NPC_KIND = { accept = true, turnin = true, talk = true, interact = true }
 
 -- The goal's point in world yards: c, wx, wy | nil.
 local function worldOf(t)
@@ -2957,7 +2957,7 @@ end
 -- are looked past. The goto is found once per target; its state is asked
 -- every time. Since the towns have walking maps, the straight line from there
 -- went through houses (#3488: Northshire Abbey): for an NPC or object the
--- player talks to (NPC_KIND, one spot), it is kept only while the line from
+-- player talks to (city.NPC_KIND, one spot), it is kept only while the line from
 -- the player's floor to the target crosses no wall, cliff or floor change
 -- (city.GotoClear); a blocked one is walked like any other target. A kill or
 -- collect goal's spots stay straight: walked round, the nearest spot changes
@@ -2995,7 +2995,7 @@ function Walk.FollowsGoto(target)
 	if not gotoStep then return false end
 	local E = ns.Engine
 	if not (E and E.GoalDone and E.GoalDone(gotoStep, gotoGoal) == true) then return false end
-	if not NPC_KIND[target.kind] or target.spots or target.spot or target.area or target.search then return true end
+	if not city.NPC_KIND[target.kind] or target.spots or target.spot or target.area or target.search then return true end
 	return city.GotoClear(target)
 end
 
