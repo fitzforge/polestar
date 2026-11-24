@@ -45,7 +45,9 @@ local GATHER_AGAIN = 300 -- seconds before the same object (a fishing pool) is a
 local GATHER_PER_MINUTE = 20 -- most `gather` records in any 60 seconds
 local BOBBER = 35591 -- the Fishing Bobber: a catch from open water, not from a pool
 
-local RARE = { rare = true, rareelite = true, worldboss = true }
+-- Rares and rare elites only: a world boss (the faction leaders in the
+-- capitals) is a `unit` in the census, never a `rare` sighting (#2894).
+local RARE = { rare = true, rareelite = true }
 
 -- Gathering casts whose loot window is not a kill's or a chest's (Classic
 -- spell ids, every rank).

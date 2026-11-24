@@ -117,6 +117,29 @@ fn train_profession_the_default_rank_follows_earlier_skill_targets_and_never_rep
 	assert_eq!(done.errors, ["test.guide:9: `train Mining`: Artisan is already trained earlier in this guide"]);
 }
 
+// Oli's report (#1708): Doctor Herbert Halsey only trains Alchemy from 125, so Journeyman (taken at 50)
+// pointed at him was refused. professions.json's `trainerSkill` (the skill a trainer's "Train me." option
+// asks for) leaves a trainer out of a rank whose skill is below it, and out of a recipe learned below it.
+#[test]
+fn train_and_learn_point_only_at_trainers_who_train_at_that_skill_1708() {
+	let data = data_with("trainer-skill", |raw| {
+		raw.get_mut("professions.json").unwrap()["129"]["trainerSkill"] = json!({ "5150": 50 });
+	});
+	let body = ["step S", "  train First Aid", "  learn 3275", "  train First Aid Journeyman", "  learn 3276"];
+	let (r, g) = goals(&text(head(Some("Alliance"), &[]), &body), Some(&data));
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let npcs = |i: usize| cands(&g[i], |c| c["npc"].clone());
+	// Apprentice (from 0) and Linen Bandage (learned at 1): not Nissa Firestone, who trains from 50.
+	assert_eq!(npcs(0), [json!(2329)]);
+	assert_eq!(npcs(1), [json!(2329)]);
+	// Journeyman (from 50): both; Heavy Linen Bandage (learned at 40): still not her.
+	assert_eq!(npcs(2), [json!(2329), json!(5150)]);
+	assert_eq!(npcs(3), [json!(2329)]);
+	// Without the gates every trainer is a candidate, as before.
+	let plain = goals(&text(head(Some("Alliance"), &[]), &body), None).1;
+	assert_eq!(cands(&plain[0], |c| c["npc"].clone()), [json!(2329), json!(5150)]);
+}
+
 #[test]
 fn train_profession_npc_id_keeps_the_trainer_errors_for_unknown_professions_and_coordinates() {
 	let g = goals(&text(head(Some("Alliance"), &[]), &["step S", "  train Mining npc 1681"]), None).1;
@@ -293,6 +316,31 @@ fn a_live_frame_spawn_is_placed_in_the_maps_forever_frame_so_a_town_beside_it_is
 	let mut ids: Vec<u64> = g[0]["candidates"].as_array().unwrap().iter().filter(|c| c["map"] == 1412 || c["map"] == 1456).map(|c| c["npc"].as_u64().unwrap()).collect();
 	ids.sort();
 	assert_eq!(ids, [92000, 92001]);
+}
+
+/// #2018 (Mouchoir, Tailoring 75-150 in Stormwind): the vendor goods step sent a player standing beside Alexandra
+/// Bolero in the Mage Quarter to Edna Mullby in the Trade District, 235 yards away: one candidate per 250 yards kept
+/// one seller for the whole city. On a capital city's map each district keeps its own (one hub within 60 yards); a
+/// town in the open keeps one per 250 yards as before.
+#[test]
+fn in_a_capital_city_each_district_keeps_its_own_candidate_2018() {
+	let data = data_with("city-districts", |raw| {
+		let npcs = raw.get_mut("npcs.json").unwrap();
+		// Stormwind: the Mage Quarter's and the Trade District's sellers, and a second one in the same Trade
+		// District shop (5 yards on).
+		smith(npcs, 93000, "Mage Quarter Seller", 1453, 53.14, 81.76, true);
+		smith(npcs, 93001, "Trade District Seller", 1453, 64.73, 71.26, true);
+		smith(npcs, 93002, "Trade District Seller B", 1453, 65.0, 71.3, true);
+		// Elwynn Forest: two smiths 139 yards apart, one town.
+		smith(npcs, 93010, "Field Smith A", 1429, 70.0, 50.0, true);
+		smith(npcs, 93011, "Field Smith B", 1429, 74.0, 50.0, true);
+	});
+	let g = goals(&text(head(Some("Alliance"), &[]), &["step S", "  vendor nearest"]), Some(&data)).1;
+	let ids: Vec<u64> = cands(&g[0], |c| c["npc"].clone()).iter().map(|v| v.as_u64().unwrap()).collect();
+	let mut city: Vec<u64> = ids.iter().copied().filter(|i| (93000..=93002).contains(i)).collect();
+	city.sort();
+	assert_eq!(city, [93000, 93001], "each district's seller, one per shop: {ids:?}");
+	assert_eq!(ids.iter().filter(|&&i| (93010..=93011).contains(&i)).count(), 1, "one per town in the open: {ids:?}");
 }
 
 #[test]

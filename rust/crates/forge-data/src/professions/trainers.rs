@@ -9,7 +9,8 @@ use rustc_hash::FxHashMap;
 /// Rank requirements: name, max skill, character level and skill a trainer asks for. Classic's,
 /// except Apprentice: Forever's sniffed trainer lists (VB 70124) ask level 1 for every crafting
 /// Apprentice rank (Alchemy, Blacksmithing, Enchanting, Engineering, Leatherworking, Tailoring)
-/// and 0 or 1 for the gathering and secondary ones; Classic asked 5.
+/// and 0 or 1 for the gathering and secondary ones; Classic asked 5. The gathering ranks and the
+/// Journeyman rank of Cooking and First Aid ask no level on Forever ([`rank_level`]).
 const RANKS: [(&str, f64, f64, f64); 4] = [("Apprentice", 75.0, 1.0, 0.0), ("Journeyman", 150.0, 10.0, 50.0), ("Expert", 225.0, 20.0, 125.0), ("Artisan", 300.0, 35.0, 200.0)];
 
 type Names = &'static [&'static str];
@@ -76,11 +77,15 @@ const CURATED: [Curated; 12] = [
 	Curated {
 		id: 164,
 		name: "Blacksmithing",
+		// Angus Hammerhand (Tirisfal, Forever's) teaches Apprentice and Journeyman; Dane Lindgren (Stormwind)
+		// and Delfrum Flintbeard (Auberdine) Apprentice: the world DB's lists and players' recordings agree
+		// (0.3.7 profession research).
 		train: s(
 			&["Therum Deepforge", "Bengus Deepforge", "Rotgath Stonebeard", "Clarise Gnarltree", "Brikk Keencraft"],
-			&["Saru Steelfury", "Karn Stonehoof", "James Van Brunt", "Snarl", "Traugh", "Brikk Keencraft"],
+			&["Saru Steelfury", "Karn Stonehoof", "James Van Brunt", "Snarl", "Traugh", "Brikk Keencraft", "Angus Hammerhand"],
 		),
-		novice: Some(s(&["Smith Argus", "Ironus Coldsteel", "Groum Stonebeard", "Tognus Flintfire"], &["Dwukk", "Thrag Stonehoof", "Basil Frye"])),
+		// Not Ironus Coldsteel (Ironforge): the Weaponsmith specialisation trainer, whose trainer list starts at 235.
+		novice: Some(s(&["Smith Argus", "Groum Stonebeard", "Tognus Flintfire", "Dane Lindgren", "Delfrum Flintbeard"], &["Dwukk", "Thrag Stonehoof", "Basil Frye"])),
 		expert: Some(s(&["Bengus Deepforge", "Brikk Keencraft"], &["Saru Steelfury", "Brikk Keencraft"])),
 		artisan: Some(s(&["Brikk Keencraft"], &["Brikk Keencraft"])),
 		junior: None,
@@ -92,7 +97,9 @@ const CURATED: [Curated; 12] = [
 		id: 333,
 		name: "Enchanting",
 		train: s(&["Lucan Cordell", "Kitta Firewind", "Gimble Thistlefuzz", "Taladan", "Xylinnia Starshine"], &["Godan", "Teg Dawnstrider", "Lavinia Crowe", "Hgarth"]),
-		novice: Some(s(&["Betty Quin", "Tilli Thistlefuzz", "Thonys Pillarstone", "Lalina Summermoon", "Alanna Raveneye"], &["Jhag", "Mot Dawnstrider", "Malcomb Wynn", "Vance Undergloom"])),
+		// Tilli Thistlefuzz (Ironforge) sells enchanting supplies; she has no trainer list.
+		// Pa'zula (Forever's) teaches Apprentice: the world DB's sniffed list and players' recordings.
+		novice: Some(s(&["Betty Quin", "Thonys Pillarstone", "Lalina Summermoon", "Alanna Raveneye"], &["Jhag", "Mot Dawnstrider", "Malcomb Wynn", "Vance Undergloom", "Pa'zula"])),
 		expert: Some(s(&["Kitta Firewind"], &["Hgarth"])),
 		// Annora teaches inside Uldaman; the reference data has no spawn for her, so she is kept by name only.
 		artisan: Some(s(&["Annora"], &["Annora"])),
@@ -117,7 +124,10 @@ const CURATED: [Curated; 12] = [
 		id: 165,
 		name: "Leatherworking",
 		train: s(&["Simon Tanner", "Fimble Finespindle", "Telonis", "Faldron", "Aayndia Floralwind"], &["Karolek", "Una", "Tarn", "Arthur Moore", "Brawn", "Krulmoo Fullmoon", "Narv Hidecrafter"]),
-		novice: Some(s(&["Adele Fielder", "Randal Worth", "Darianna"], &["Chaw Stronghide"])),
+		// Gretta Finespindle, Kamari, Dan Golthas and Shelene Rhobart teach Apprentice: the world DB's lists
+		// and players' recordings agree; without them the Horde had no Leatherworking Apprentice trainer
+		// in Orgrimmar, the Undercity or Brill.
+		novice: Some(s(&["Adele Fielder", "Randal Worth", "Darianna", "Nadyia Maneweaver", "Gretta Finespindle"], &["Chaw Stronghide", "Kamari", "Dan Golthas", "Shelene Rhobart"])),
 		expert: Some(s(&["Telonis", "Drakk Stonehand"], &["Una", "Hahrana Ironhide"])),
 		artisan: Some(s(&["Drakk Stonehand"], &["Hahrana Ironhide"])),
 		junior: None,
@@ -129,7 +139,8 @@ const CURATED: [Curated; 12] = [
 		id: 197,
 		name: "Tailoring",
 		train: s(&["Georgio Bolero", "Sellandus", "Jormund Stonebrow", "Me'lynn", "Grarnik Goodstitch"], &["Magar", "Rhiannon Davis", "Mahani", "Josef Gregorian", "Tepa", "Grarnik Goodstitch"]),
-		novice: Some(s(&["Eldrin", "Lawrence Schneider", "Uthrar Threx", "Sinda", "Nadyia Maneweaver"], &["Snang", "Josephine Lister", "Victor Ward", "Bowen Brisboise", "Vhan"])),
+		// Not Josephine Lister (Undercity): she teaches Shadoweave patterns only, from 210 (#1498).
+		novice: Some(s(&["Eldrin", "Lawrence Schneider", "Uthrar Threx", "Trianna", "Grondal Moonbreeze"], &["Snang", "Victor Ward", "Bowen Brisboise", "Vhan"])),
 		expert: Some(s(&["Georgio Bolero", "Timothy Worthington"], &["Josef Gregorian", "Daryl Stack"])),
 		artisan: Some(s(&["Timothy Worthington"], &["Daryl Stack"])),
 		junior: None,
@@ -190,7 +201,7 @@ const CURATED: [Curated; 12] = [
 		name: "Skinning",
 		train: s(
 			&["Maris Granger", "Helene Peltskinner", "Balthus Stoneflayer", "Radnaal Maneweaver", "Jayla", "Eladriel", "Wilma Ranthal"],
-			&["Thuwd", "Mooranta", "Rand Rhobart", "Killian Sanatha", "Yonn Deepcut", "Dranh", "Kulleg Stonehorn", "Malux"],
+			&["Thuwd", "Mooranta", "Rand Rhobart", "Killian Hagey", "Yonn Deepcut", "Dranh", "Kulleg Stonehorn", "Malux"],
 		),
 		novice: None,
 		expert: None,
@@ -204,8 +215,14 @@ const CURATED: [Curated; 12] = [
 	Curated {
 		id: 185,
 		name: "Cooking",
-		train: s(&["Stephen Ryback", "Tomas", "Daryl Riknussun", "Gremlock Pilsnor", "Alegorn", "Zarrin"], &["Zamja", "Aska Mistrunner", "Eunice Burch", "Duhng"]),
-		novice: None,
+		// Cook Ghilm, Crystal Boughman, Pyall Silentstride and Mudduk: the world DB's lists and players'
+		// recordings; Cook Torka (Razor Hill) is in no list but 28 players learned Cooking from him, and the
+		// Camping 101: Cooking quest ends at him.
+		train: s(
+			&["Stephen Ryback", "Tomas", "Daryl Riknussun", "Gremlock Pilsnor", "Alegorn", "Zarrin", "Cook Ghilm", "Crystal Boughman"],
+			&["Zamja", "Aska Mistrunner", "Eunice Burch", "Duhng", "Pyall Silentstride", "Mudduk"],
+		),
+		novice: Some(s(&[], &["Cook Torka"])),
 		expert: None,
 		artisan: None,
 		junior: None,
@@ -216,7 +233,12 @@ const CURATED: [Curated; 12] = [
 	Curated {
 		id: 129,
 		name: "First Aid",
-		train: s(&["Shaina Fuller", "Michelle Belle", "Nissa Firestone", "Thamner Pol", "Byancie"], &["Arnok", "Rawrk", "Pand Stonebinder", "Mary Edras", "Nurse Neela"]),
+		// Dannelor, Fremal Doohickey and Vira Younghoof (Bloodhoof Village): the world DB's lists and players'
+		// recordings agree.
+		train: s(
+			&["Shaina Fuller", "Michelle Belle", "Nissa Firestone", "Thamner Pol", "Byancie", "Dannelor", "Fremal Doohickey"],
+			&["Arnok", "Rawrk", "Pand Stonebinder", "Mary Edras", "Nurse Neela", "Vira Younghoof"],
+		),
 		novice: None,
 		expert: None,
 		artisan: None,
@@ -368,6 +390,19 @@ fn plain_rank(r: &(&str, f64, f64, f64)) -> Obj {
 	o
 }
 
+/// The character level a rank asks on Forever: none for a gathering profession's later ranks (the
+/// sniffed lists of Herbalism, Mining and Skinning ask level 0; players train Expert Mining at 15 and
+/// Artisan Skinning at 29), none for Cooking's and First Aid's Journeyman (players train them at 6-7);
+/// else Classic's (Fishing's Journeyman keeps 10).
+fn rank_level(skill_line: i64, kind: &str, r: &(&str, f64, f64, f64)) -> f64 {
+	let first_aid_or_cooking = skill_line == 129 || skill_line == 185;
+	if (kind == "gathering" && r.0 != "Apprentice") || (first_aid_or_cooking && r.0 == "Journeyman") {
+		0.0
+	} else {
+		r.2
+	}
+}
+
 /// resolveTrainers(skillLine, npcs, { kind }).
 pub fn resolve(skill_line: i64, finder: &Finder, kind: &str) -> Resolved {
 	let mut warnings = Vec::new();
@@ -409,6 +444,7 @@ pub fn resolve(skill_line: i64, finder: &Finder, kind: &str) -> Resolved {
 	let mut ranks = Vec::with_capacity(RANKS.len());
 	for r in &RANKS {
 		let rank = plain_rank(r);
+		rank.set("minLevel", rank_level(skill_line, kind, r));
 		if r.0 == "Apprentice" {
 			rank.set("trainers", sides_obj(&std::array::from_fn(|s| merge(&[&train[s], &pick(&expert, s), &pick(&novice, s), &pick(&junior, s)]))));
 		} else if r.0 == "Journeyman" || kind == "gathering" {
@@ -466,6 +502,19 @@ mod tests {
 		assert_eq!(r.main.len(), 2);
 	}
 
+	// #1498: Josephine Lister (Undercity) teaches only Shadoweave patterns, from 210, and Ironus Coldsteel
+	// (Ironforge) only the Weaponsmith's, from 235: neither is an Apprentice trainer, so no recipe step sends a new
+	// tailor or smith to them. Victor Ward and Smith Argus are.
+	#[test]
+	fn specialists_are_no_apprentice_trainers_1498() {
+		let npcs = parse_json(r#"{"1":{"id":1,"name":"Josephine Lister","faction":"H","spawns":{"1458":{"pts":[[86,22]]}}},"2":{"id":2,"name":"Victor Ward","faction":"H","spawns":{"1458":{"pts":[[70,30]]}}},"3":{"id":3,"name":"Ironus Coldsteel","faction":"A","spawns":{"1455":{"pts":[[51,42]]}}},"4":{"id":4,"name":"Smith Argus","faction":"A","spawns":{"1429":{"pts":[[41,65]]}}}}"#).unwrap();
+		let f = Finder::new(npcs.as_obj().unwrap());
+		let tailoring = resolve(197, &f, "primary");
+		assert_eq!(stringify(&tailoring.ranks[0].get("trainers").get("Horde"), None), "[2]");
+		let smithing = resolve(164, &f, "primary");
+		assert_eq!(stringify(&smithing.ranks[0].get("trainers").get("Alliance"), None), "[4]");
+	}
+
 	// A neutral trainer (Booty Bay's) serves both sides; the starting areas' lakeside trainers are listed,
 	// so `train Fishing` sends a new character to the water it fishes first.
 	#[test]
@@ -493,5 +542,91 @@ mod tests {
 		let level = |i: usize| r.ranks[i].get("minLevel").num();
 		assert_eq!([level(0), level(1), level(2), level(3)], [1.0, 10.0, 20.0, 35.0]);
 		assert_eq!(resolve(186, &f, "gathering").ranks[0].get("minLevel").num(), 1.0);
+	}
+
+	// Forever's rank levels (0.3.7 profession research: sniffed trainer lists and players' recordings):
+	// gathering ranks ask no level after Apprentice, Cooking and First Aid Journeyman none, Fishing's
+	// Journeyman still 10.
+	#[test]
+	fn gathering_and_secondary_ranks_ask_forevers_levels() {
+		let npcs = parse_json(r#"{}"#).unwrap();
+		let f = Finder::new(npcs.as_obj().unwrap());
+		let levels = |line: i64, kind: &str| resolve(line, &f, kind).ranks.iter().map(|r| r.get("minLevel").num()).collect::<Vec<_>>();
+		assert_eq!(levels(186, "gathering"), [1.0, 0.0, 0.0, 0.0], "Mining");
+		assert_eq!(levels(393, "gathering"), [1.0, 0.0, 0.0, 0.0], "Skinning");
+		assert_eq!(levels(185, "secondary")[1], 0.0, "Cooking Journeyman");
+		assert_eq!(levels(129, "secondary")[1], 0.0, "First Aid Journeyman");
+		assert_eq!(levels(356, "secondary")[1], 10.0, "Fishing Journeyman");
+		assert_eq!(levels(171, "primary"), [1.0, 10.0, 20.0, 35.0], "Alchemy");
+	}
+	// Undercity's Skinning trainer is Killian Hagey; Killian Sanatha (The Sepulcher) teaches Fishing,
+	// and no Forever trainer list has him teaching Skinning (#1608's trainer sweep).
+	#[test]
+	fn undercity_skinning_trainer_is_killian_hagey() {
+		let npcs = parse_json(
+			r#"{"1":{"id":1,"name":"Killian Hagey","faction":"H","spawns":{"1458":{"pts":[[70,59]]}}},"2":{"id":2,"name":"Killian Sanatha","faction":"H","spawns":{"1421":{"pts":[[43,40]]}}}}"#,
+		)
+		.unwrap();
+		let f = Finder::new(npcs.as_obj().unwrap());
+		let r = resolve(393, &f, "gathering");
+		assert_eq!(stringify(&r.trainers.get("Horde"), None), "[1]");
+		for rank in &r.ranks {
+			assert_eq!(stringify(&rank.get("trainers").get("Horde"), None), "[1]");
+		}
+	}
+
+	fn forever_db(table: &str) -> Vec<serde_json::Value> {
+		let path = format!("{}/../../../forever-db/data/{table}.jsonl", env!("CARGO_MANIFEST_DIR"));
+		std::fs::read_to_string(&path).unwrap().lines().filter(|l| !l.is_empty()).map(|l| serde_json::from_str(l).unwrap()).collect()
+	}
+
+	/// Every name a profession lists for a side, in any trainer group.
+	fn listed(c: &Curated, side: usize) -> Vec<&'static str> {
+		let groups = [Some(c.train), c.novice, c.expert, c.artisan, c.junior];
+		groups.iter().flatten().flat_map(|g| g.get(side).iter().copied()).collect()
+	}
+
+	// `train <Profession>` sends the arrow to the nearest listed name, so a vendor on the list sends a
+	// player to an NPC who teaches nothing (#1536: Sinda, Dolanaar's leather armor merchant, was listed
+	// for Tailoring). Forever's npc.jsonl has no side, only faction templates; every listed name is one
+	// NPC there, so the name finds it. Only the professions checked so far: Blacksmithing and
+	// Enchanting still list a weapon crafter and a supplies vendor.
+	#[test]
+	fn listed_trainers_teach_their_profession() {
+		let checked = [
+			("Tailoring", r"^(Journeyman|Expert|Artisan|Master)( Shadoweave)? Tailor$"),
+			("Leatherworking", r"^(Journeyman|Expert|Artisan|Master) (Leatherworker|Leathercrafter|Leatherworking Trainer)$"),
+		];
+		let npcs = forever_db("npc");
+		let mut bad = Vec::new();
+		for (profession, title) in checked {
+			let title = regex::Regex::new(title).unwrap();
+			let c = CURATED.iter().find(|c| c.name == profession).unwrap();
+			for side in 0..2 {
+				for name in listed(c, side) {
+					let found: Vec<&serde_json::Value> = npcs.iter().filter(|n| n["name"] == name).collect();
+					let subname = found.first().and_then(|n| n["subname"].as_str()).unwrap_or("");
+					if found.len() != 1 || !title.is_match(subname) {
+						bad.push(format!("{profession} {} {name}: {} NPCs, {subname:?}", SIDES[side], found.len()));
+					}
+				}
+			}
+		}
+		assert!(bad.is_empty(), "{bad:#?}");
+	}
+
+	// Teldrassil's campfire quests send a new Night Elf to a trainer: Camping 101: Tailoring (97950)
+	// and Leatherworking (97946). Each ends at an NPC on its profession's Alliance list.
+	#[test]
+	fn camping_101_trainers_are_listed() {
+		let npcs = forever_db("npc");
+		let ends = forever_db("quest_end");
+		for (quest, profession) in [(97950, "Tailoring"), (97946, "Leatherworking")] {
+			let end = ends.iter().find(|e| e["quest"] == quest && e["kind"] == "npc").unwrap();
+			let npc = npcs.iter().find(|n| n["id"] == end["id"]).unwrap();
+			let name = npc["name"].as_str().unwrap();
+			let c = CURATED.iter().find(|c| c.name == profession).unwrap();
+			assert!(listed(c, 0).contains(&name), "{quest} ends at {name}, not on the Alliance {profession} list");
+		}
 	}
 }

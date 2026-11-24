@@ -10,11 +10,11 @@ return {
 	-- {spell:71} Defensive Stance
 	["{spell:71} and a Weapon (Alliance)"] = "",
 	-- {spell:71} Defensive Stance · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus
-	["{spell:71} at 10 and a one-hand weapon of your choice from {zone:1453}, {zone:1455} or {zone:1457}."] = "",
+	["{spell:71} at 10 and a one-hand weapon of your choice from {zone:1453}, {zone:1455} or {zone:1457}."] = "10레벨에 {spell:71}와(과) {zone:1453}, {zone:1455}, {zone:1457} 중에서 고르는 한손 무기 하나.",
 
 	-- Step 1: Seena Skybreaker in Valanaar
 	-- {npc:252377} Seena Skybreaker · {area:16638} Valanaar
-	["{npc:252377} in {area:16638}"] = "",
+	["{npc:252377} in {area:16638}"] = "{area:16638}의 {npc:252377}",
 	-- {npc:252377} Seena Skybreaker · {area:16638} Valanaar · {npc:257196} Zaal Stormshield · {area:16629} Shrine of Akir
 	["At 10, {npc:252377} stands with the trainers by {area:16638}'s west gate. A cultist, {npc:257196}, holds her family's shield at the {area:16629}."] = "",
 
@@ -22,7 +22,7 @@ return {
 	-- {area:16638} Valanaar · {area:16629} Shrine of Akir · {npc:257196} Zaal Stormshield · {item:263993} Skybreaker Bulwark
 	["Head north-west from {area:16638} to the {area:16629}. {npc:257196} stands west of the shrine's approach, among the cult's Guardians, Spiritcallers and Blademasters: pull them one at a time before you take him. He drops the {item:263993}."] = "",
 	-- {item:263993} Skybreaker Bulwark · {npc:257196} Zaal Stormshield
-	["{item:263993}, from {npc:257196}"] = "",
+	["{item:263993}, from {npc:257196}"] = "{item:263993}, {npc:257196}에게서",
 
 	-- Step 3: The Skybreaker Bulwark
 	-- {npc:252377} Seena Skybreaker · {area:16638} Valanaar · {spell:71} Defensive Stance · {item:275290} Stormforged Protector · {npc:6090} Bartleby · {zone:1453} Stormwind
@@ -50,7 +50,7 @@ return {
 	-- {quest:1681} Ironband's Compound · {zone:1426} Dun Morogh · {area:212} Helm's Bed Lake · {object:85562} Ironband's Strongbox · {npc:6124} Captain Beld
 	["{quest:1681} lies in eastern {zone:1426}, below {area:212} on its south side. Dark Iron Spies (level 8-10) stand along the way, far enough apart to pull one at a time. {object:85562} is in the basement of the southernmost house; {npc:6124} (level 11) stands by it and charges on sight. The box always holds the ore and refills 15 minutes after opening."] = "",
 	-- {item:6800} Umbral Ore · {object:85562} Ironband's Strongbox
-	["{item:6800}, from {object:85562}"] = "",
+	["{item:6800}, from {object:85562}"] = "{item:6800}, {object:85562}에서",
 
 	-- Step 10: Elanaria
 	-- {npc:3598} Kyra Windblade · {area:186} Dolanaar · {npc:2151} Moon Priestess Amara · {quest:1684} Elanaria · {area:1660} Warrior's Terrace · {zone:1457} Darnassus · {zone:1453} Stormwind · {npc:5480} Ilsa Corbin · {quest:1638} A Warrior's Training
@@ -74,7 +74,7 @@ return {
 	-- {item:6808} Elunite Ore
 	["{item:6808}, from Crates of Elunite"] = "",
 	-- {item:6809} Elura's Medallion · {npc:6133} Shade of Elura
-	["{item:6809}, from the {npc:6133}"] = "",
+	["{item:6809}, from the {npc:6133}"] = "{item:6809}, {npc:6133}에게서",
 
 	-- Step 15: Smith Mathiel
 	-- {area:1660} Warrior's Terrace · {npc:4088} Elanaria · {item:6812} Case of Elunite · {npc:6142} Mathiel
@@ -98,7 +98,7 @@ return {
 	-- {npc:6093} Dead-Tooth Jack
 	["from {npc:6093}"] = "",
 	-- {item:6782} Marshal Haggard's Badge · {object:85563} Dead-tooth's Strongbox
-	["{item:6782}, from {object:85563}"] = "",
+	["{item:6782}, from {object:85563}"] = "{item:6782}, {object:85563}에서",
 
 	-- Step 20: Back to Marshal Haggard
 	-- {npc:294} Marshal Haggard
@@ -110,5 +110,4 @@ return {
 	-- ["{npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "{npc:5480}은(는) {object:2100}에서 전사를 훈련시킵니다. {npc:6089}와(과) {npc:6090}은(는) 그곳 {object:2152} 옆에 함께 서 있습니다. {npc:6090}은(는) 자기 잔을 걸고 당신과 싸웁니다.",
 	-- ["{npc:6093} camps in the far south-east of {zone:1429}, south-east of {npc:294}. He carries the key to the strongbox in his camp."] = "{npc:6093}은(는) {zone:1429} 남동쪽 끝, {npc:294}의 남동쪽에 진을 치고 있습니다. 그가 야영지 금고의 열쇠를 지니고 있습니다.",
 	-- ["{npc:6093}: his key opens the strongbox"] = "{npc:6093}: 그의 열쇠로 금고를 여세요",
-	-- ["{spell:71} and a one-hand weapon of your choice at 10."] = "10레벨에 {spell:71}와(과) 원하는 한손 무기 하나.",
 }

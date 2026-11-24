@@ -14,17 +14,17 @@ contracts between the modules are in [docs/ARCHITECTURE.md](ARCHITECTURE.md).
 | Navigation (core) | Arrow, travel planner, waypoints; `/polestar way <x> <y> [label]` (or `/pole way`) points the arrow at a spot on the current map; Shift-click a map to go there; `/polestar near <service>` for the quickest trainer, vendor, inn, bank...; other addons' TomTom waypoints and `/way` without TomTom; `Polestar.Nav.API` for addon authors |
 | Quests | Map and minimap pins for available quests, objective areas, quest givers (off by default, Map options); tooltip lines on mobs and items that a quest needs; quest levels in the log; a quest icon beside the health bar of nameplates of mobs a quest needs (replacement nameplates included) |
 | Lookup (Codex) | One search over guides and entities (items, mounts, pets, recipes, tabards, quests, NPCs, rares, treasures, dungeons, zones). "How to get" for any item, mount or pet: sources ranked for this character, one click to a guide (curated when one exists, otherwise built on the spot). Tooltip source lines; Alt-click an item link to guide; target or mouse over a player to see their mount and how to get it. Search only: no browse-everything lists |
-| Dungeons | A journal page per dungeon: every quest with where to get it, its objective, its chain and its rewards (item choices, XP, money, reputation), plus bosses and the entrance on the map, with "guide me" to givers and the entrance; attunements and keys (Molten Core, Onyxia's Lair, Blackwing Lair, Naxxramas, Scholomance, Blackrock Depths, the City of Dalaran...) with this character's progress and a guide through what is left. No loot tables |
-| Upgrades | Upgrade indicator on item tooltips and an upgrade arrow on bag items (the game's bags and Baganator), the best pick on quest reward choices, from stat weights per spec (detected from the client's talent points) and level band |
+| Dungeons | A journal page per dungeon: every quest with where to get it, its objective, its chain and its rewards (item choices, XP, money, reputation), plus bosses with their known drops and the entrance on the map, with "guide me" to givers and the entrance; attunements and keys (Molten Core, Onyxia's Lair, Blackwing Lair, Naxxramas, Scholomance, Blackrock Depths, the City of Dalaran...) with this character's progress and a guide through what is left |
+| Upgrades | Upgrade indicator on item tooltips and an upgrade arrow on bag items (the game's bags and Baganator), the best pick on quest reward choices, from stat weights per spec (detected from the client's talent points) and level band, which the player can adjust |
 | Rares | Rare NPC and treasure database with locations and loot, map pins (off by default, Map options), alerts (only through APIs the Forever client has) |
 | Maps | World map without fog of war (the zone-art overlay table), coordinates, zone level ranges, dungeon entrance and travel pins (off by default, Map options) |
 | QoL | Quality of life helpers: action buttons, XP and pace, merchant, reward marks, flight masters, death helper, toggles, requests from other players |
 | Characters | An account-wide page of every character you have played: level, class, zone, hearth, gold, professions, the guide it follows and an XP bar with rested XP worked out to now. Each is as of its last logout; sorts by last played, most rested or level |
 | Talents (planned) | Where your next talent points go, level by level, on the talent panel, per class and spec. The trees are read from the client; the builds are written by contributors |
 
-Out of scope: a full UI suite (Polestar integrates with EllesmereUI through its
-public skinning API), boss and combat warnings, aura tracking, best-in-slot
-lists and loot browsing. Polestar keeps the dungeon quest journal and the
+Out of scope: a full UI suite (Polestar integrates with EllesmereUI, and with
+ErgoBars through the same contract, through their public skinning APIs), boss and combat warnings, aura tracking, best-in-slot
+lists and general loot browsing. Polestar keeps the dungeon quest journal and the
 upgrade indicator on tooltips.
 
 Every module can be switched off in options, and none costs memory until it is
@@ -35,7 +35,7 @@ opening or typing never stalls a frame.
 ## Consuming other addons and sites
 
 Inputs are read from the installed copies under
-`<client>/_classic_beta_/Interface/AddOns/`, from the client's own files
+`<client>/_forever_/Interface/AddOns/` (a `_classic_beta_` one on the old beta), from the client's own files
 (CASC/DB2), and from public sites (the Forever web databases: the Forever client's quest cache, Forever's quest
 chain data, and a web quest database's pages as cached in
 `data/sources/web/`). Polestar itself is GPL-3.0; each input keeps its own licence,
@@ -43,7 +43,7 @@ and the rules follow it:
 
 | Input | What may enter the repository and the releases |
 |---|---|
-| MIT (pfQuest, ForeverLevelingBiS, wowsims) | Derived data, with attribution (THIRD_PARTY.md) |
+| MIT (pfQuest, wowsims) | Derived data, with attribution (THIRD_PARTY.md) |
 | QuestieDB (no licence file; its maintainers ask that it be treated as all rights reserved) | Facts only, credited, in the shipped packs (the compiled guides, `Polestar_QuestDB`, `Polestar_Codex`); `data build --no-questie` builds without them if the maintainers ask |
 | Web sources (Forever's quest data, warcraft.wiki.gg, the Forever databases) | Facts only, each with its source: corrections, `entrances.json`, `repgates.json`, `attunements.json`, `journal-quests.json`, the web caches in `data/sources/web/` (incl. its dungeon and raid quest lists) |
 | GPL-2.0, no licence or All Rights Reserved addons (AtlasLoot, DungeonJournal, RareScanner, Attune) | Nothing: the importer code only, read by `forge data codex --local-extras` for the parity comparison (Attune: by `codex attune`, the local comparison of dungeon quests and attunements); its output stays local and `pack` refuses it |
@@ -55,7 +55,7 @@ their versions in its `meta`.
 ## Data layer
 
 - Importers: `tools/lib/consume/<addon>.js` for the Codex and gear sources
-  (AtlasLoot, ForeverLevelingBiS, RareScanner, wowsims), sharing one
+  (AtlasLoot, RareScanner, wowsims), sharing one
   Lua-literal reader (`lua.js`); QuestieDB is read by `forge data build`,
   DungeonJournal by `forge data dungeons`. Each returns plain JSON. Web sources are
   cached under `data/sources/` and only fetched when asked.

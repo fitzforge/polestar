@@ -12,7 +12,7 @@ return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "탈것 타기 배우기",
 	-- {skill:762} Riding
-	["Galestriders need level 40 and {skill:762}. Train it at your own race's riding trainer; see the Level 40 mount guides for where."] = "",
+	["Galestriders need level 40 and {skill:762}. Train it at your own race's riding trainer; see the Level 40 mount guides for where."] = "돌풍타조에는 40레벨과 {skill:762}이(가) 필요합니다. 자기 종족의 탈것 상급자에게 배우세요. 위치는 40레벨 탈것 가이드를 보세요.",
 
 	-- Step 2: Skyboat from Dalaran
 	-- {area:279} Dalaran
@@ -30,24 +30,20 @@ return {
 
 	-- Step 4: Riding with Genn Fairweather
 	-- {skill:762} Riding · {npc:265756} Genn Fairweather
-	["{skill:762} with {npc:265756}"] = "",
+	["{skill:762} with {npc:265756}"] = "{skill:762}, {npc:265756}에게서",
 	-- {skill:762} Riding · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
-	["Skyborne learn {skill:762} from {npc:265756} himself for 100g, and it comes with a Galestrider. He stands at the {area:17684} in {area:16638}, near the skyboat docks."] = "",
+	["Skyborne learn {skill:762} from {npc:265756} himself for 100g, and it comes with a Galestrider. He stands at the {area:17684} in {area:16638}, near the skyboat docks."] = "스카이본은 {npc:265756}에게서 {skill:762}을(를) 100골드에 배우고 갤러스트라이더도 함께 받습니다. 그는 {area:16638}의 {area:17684}, 하늘배 부두 근처에 있습니다.",
 	-- {npc:265756} Genn Fairweather
-	["{npc:265756}, riding trainer"] = "",
+	["{npc:265756}, riding trainer"] = "{npc:265756}, 탈것 상급자",
 
 	-- Step 5: Galestrider Riding for other races
 	-- {spell:1285849} Galestrider Riding
-	["{spell:1285849} for other races"] = "",
+	["{spell:1285849} for other races"] = "{spell:1285849} (다른 종족)",
 	-- {spell:1285849} Galestrider Riding · {skill:762} Riding · {npc:265756} Genn Fairweather
-	["Any race can buy Galestriders, but riding one also takes {spell:1285849}, which only the Skyborne get with {skill:762}. Other races can learn it too, but how is not known yet: in Classic another race's riding needed Exalted with its home faction, here the High Order (Alliance) or the Windshapers (Horde). Ask {npc:265756} before you buy."] = "",
+	["Any race can buy Galestriders, but riding one also takes {spell:1285849}, which only the Skyborne get with {skill:762}. Other races can learn it too, but how is not known yet: in Classic another race's riding needed Exalted with its home faction, here the High Order (Alliance) or the Windshapers (Horde). Ask {npc:265756} before you buy."] = "모든 종족이 갤러스트라이더를 살 수 있지만 탑승에는 {spell:1285849}도 필요하며 스카이본만 {skill:762}과(와) 함께 받습니다. 다른 종족도 배울 수 있지만 방법은 아직 알려지지 않았습니다. 클래식에서는 다른 종족의 승마에 본진 평판 확고한 동맹이 필요했고 여기서는 얼라이언스는 최고단, 호드는 바람조형사입니다. 사기 전에 {npc:265756}에게 물어보세요.",
 
 	-- Step 6: Genn Fairweather
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
-	["{npc:265756} is at the {area:17684} in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Galestrider at 20g; choose one."] = "",
+	["{npc:265756} is at the {area:17684} in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Galestrider at 20g; choose one."] = "{npc:265756}은(는) 섬의 항구 마을인 {area:16638}의 {area:17684}, 하늘배 선착장 근처에 있습니다. Forever 클라이언트에서 돌풍타조는 각 20골드입니다. 하나를 고르십시오.",
 	["20g"] = "20골드",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Galestriders need level 40 and {skill:762} ({spell:1285849} comes with it in the Forever client). Any riding trainer of your faction teaches it; see the Level 40 mount guides for where."] = "돌풍타조에는 40레벨과 {skill:762}이(가) 필요합니다(Forever 클라이언트에서는 {spell:1285849}이(가) 함께 따라옵니다). 같은 진영의 탈것 상급자라면 누구나 가르칩니다. 위치는 40레벨 탈것 가이드를 보세요.",
-	-- ["{npc:265756} is in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Galestrider at 20g; choose one."] = "{npc:265756}은(는) 섬의 항구 마을인 {area:16638}의 하늘배 선착장 근처에 있습니다. Forever 클라이언트에서 돌풍타조는 각 20골드입니다. 하나를 고르십시오.",
 }

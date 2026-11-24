@@ -41,13 +41,18 @@ local function names() local out = {} for i, a in ipairs(got) do out[i] = a.name
 "#;
 
 fn run_with(script: &str, at: [i32; 3], settings: Option<&str>) -> Vec<Value> {
+	run_saved(script, at, settings.map(|s| format!("PolestarDB = {{ schema = 1, settings = {{ rares = {s} }} }}")))
+}
+
+/// `saved`: the Lua restoring PolestarDB before ADDON_LOADED (a /reload or relog into that state).
+fn run_saved(script: &str, at: [i32; 3], saved: Option<String>) -> Vec<Value> {
 	let codex = sample_codex();
 	let pack = pack();
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua", "stub_rares.lua"],
 		before: format!("{}\nlocal w = stub.world\n{}\nw.moveTo({}, {}, {})\nw.setLevel(10)\n", pack.stub_lua, maps(&codex), at[0], at[1], at[2]),
 		addons: vec![Addon::files("Polestar", &FILES)],
-		saved: settings.map(|s| ("Polestar".to_string(), format!("PolestarDB = {{ schema = 1, settings = {{ rares = {s} }} }}"))).into_iter().collect(),
+		saved: saved.map(|s| ("Polestar".to_string(), s)).into_iter().collect(),
 		login: true,
 		script: format!("{PRELUDE}{script}"),
 	})
@@ -121,6 +126,152 @@ emit({
 	assert_eq!(out["combat"], json!(["hold", "combat"]));
 	assert_eq!(out["combatOn"], json!(["alert"]));
 	assert_eq!(out["keys"], json!(["rare:61", "treasure:2843", "name:Some Name"]));
+}
+
+#[test]
+fn decide_a_rare_on_the_player_s_side_and_the_faction_leaders_never_alert_2929_2942() {
+	let out = run(r#"
+local function d(s, extra)
+	local c = R.Context()
+	for k, v in pairs(extra or {}) do c[k] = v end
+	local a, r = R.Decide(s, c)
+	return { a, r or false }
+end
+local rare = { source = "nameplate", kind = "rare", id = 99, name = "Morgaine the Sly", classification = "rare" }
+local function with(t) local s = {} for k, v in pairs(rare) do s[k] = v end for k, v in pairs(t) do s[k] = v end return s end
+local vignette = { source = "vignette", kind = "rare", id = 99, name = "Morgaine the Sly" }
+emit({
+	hostile = d(with({ attackable = true })),
+	unread = d(rare),
+	friendly = d(with({ attackable = false })),
+	friendlyDead = d(with({ attackable = false, dead = true })),
+	vignetteFriendly = d(vignette, { friendly = function(id) return id == 99 end }),
+	vignetteHostile = d(vignette, { friendly = function() return false end }),
+	leader = d({ source = "nameplate", kind = "rare", id = 4949, name = "Thrall", classification = "rare", attackable = true }),
+	leaderVignette = d({ source = "vignette", kind = "rare", id = 2784, name = "King Magni Bronzebeard" }),
+})"#);
+	let out = &out[0];
+	assert_eq!(out["hostile"], json!(["alert", false]));
+	assert_eq!(out["unread"], json!(["alert", false]), "a unit whose side the client can't tell is left to the other checks");
+	assert_eq!(out["friendly"], json!(["skip", "friendly"]), "a rare the player can't attack is on their side");
+	assert_eq!(out["friendlyDead"], json!(["record", "dead"]), "a death is still recorded");
+	assert_eq!(out["vignetteFriendly"], json!(["skip", "friendly"]), "a vignette whose NPC the Codex puts on the player's side");
+	assert_eq!(out["vignetteHostile"], json!(["alert", false]));
+	assert_eq!(out["leader"], json!(["skip", "notRare"]), "a faction leader is never a rare");
+	assert_eq!(out["leaderVignette"], json!(["skip", "notRare"]));
+}
+
+/// The sample Codex plus what the 0.4.1 Codex had in its rare group: Thrall and King Magni (world bosses, each on
+/// his faction's side, listed as rares from players' sightings) and Serra Mountainhome (classed rare elite, on the
+/// Alliance's side; her spawn here is a stand-in on the test map).
+fn sides_codex() -> Value {
+	let mut codex = sample_codex();
+	let npcs = codex["npcs"].as_object_mut().unwrap();
+	let leader = |id: u32, name: &str, faction: &str, map: u32, x: f64, y: f64| {
+		json!({ "id": id, "name": name, "level": 63, "levelMax": null, "faction": faction, "rare": true, "elite": true, "boss": true,
+			"instance": null, "roles": ["rare"], "loot": [], "spawns": [{ "map": map, "x": x, "y": y, "f": "e" }] })
+	};
+	npcs.insert("4949".into(), leader(4949, "Thrall", "H", 1454, 31.9, 37.8));
+	npcs.insert("2784".into(), leader(2784, "King Magni Bronzebeard", "A", 1455, 39.2, 56.3));
+	npcs.insert(
+		"5789".into(),
+		json!({ "id": 5789, "name": "Serra Mountainhome", "level": 10, "levelMax": null, "faction": "A", "rare": true, "elite": true,
+			"boss": false, "instance": null, "roles": ["rare"], "loot": [], "spawns": [{ "map": 1429, "x": 40.0, "y": 60.0, "f": "e" }] }),
+	);
+	codex
+}
+
+fn run_sides(script: &str, at: [i32; 3], faction: &str) -> Vec<Value> {
+	let codex = sides_codex();
+	let pack = write_codex_pack(&codex, &CodexOpts { ..Default::default() });
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_rares.lua"],
+		before: format!(
+			"{}\nlocal w = stub.world\n{}\nw.moveTo({}, {}, {})\nw.setLevel(10)\nw.faction = {}\n",
+			pack.stub_lua,
+			maps(&codex),
+			at[0],
+			at[1],
+			at[2],
+			serde_json::to_string(faction).unwrap()
+		),
+		addons: vec![Addon::files("Polestar", &FILES)],
+		saved: vec![],
+		login: true,
+		script: format!("{PRELUDE}{script}"),
+	})
+}
+
+#[test]
+fn a_friendly_rare_never_alerts_on_any_path_and_a_hostile_rare_still_does_2929_2942() {
+	let out = run_sides(
+		r#"
+local U = stub.rares
+Polestar.Codex.Load()
+local serra = { npc = 5789, name = "Serra Mountainhome", level = 10, class = "rareelite", friendly = true }
+local function as(t) local u = {} for k, v in pairs(serra) do u[k] = v end for k, v in pairs(t or {}) do u[k] = v end return u end
+U.unit("nameplate1", as())
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
+U.unit("target", as())
+stub.fire("PLAYER_TARGET_CHANGED")
+U.unit("mouseover", as())
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+U.vignette("V1", { npc = 5789, name = "Serra Mountainhome", map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V1", true)
+local n = 0
+for _ in pairs(R.History()) do n = n + 1 end
+emit({ alerts = #got, history = n, nearby = #R.Nearby() })
+-- A hostile rare still alerts.
+U.unit("nameplate2", { npc = 61, name = "Thuros Lightfingers", level = 11, class = "rare" })
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+-- Serra is the Horde's to fight: her vignette alerts a Horde player.
+stub.world.faction = "Horde"
+U.vignetteGone("V1")
+U.vignette("V2", { npc = 5789, name = "Serra Mountainhome", map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V2", true)
+emit({ alerts = #got, names = names() })"#,
+		[1429, 88, 78],
+		"Alliance",
+	);
+	assert_eq!(out[0], json!({ "alerts": 0, "history": 0, "nearby": 0 }), "an Alliance player is never alerted to an Alliance rare");
+	assert_eq!(out[1], json!({ "alerts": 2, "names": ["Thuros Lightfingers", "Serra Mountainhome"] }));
+}
+
+#[test]
+fn thrall_in_orgrimmar_and_king_magni_on_hover_are_no_rares_for_either_faction_2929_2942() {
+	let out = run_sides(
+		r#"
+local U = stub.rares
+Polestar.Codex.Load()
+local thrall = { npc = 4949, name = "Thrall", level = 63, class = "worldboss", friendly = true }
+U.unit("target", thrall)
+stub.fire("PLAYER_TARGET_CHANGED")
+U.unit("mouseover", thrall)
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+U.unit("nameplate1", thrall)
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
+emit({ alerts = #got })
+-- An Alliance player can attack him: still no rare.
+stub.world.faction = "Alliance"
+stub.advance(4)
+U.unit("target", { npc = 4949, name = "Thrall", level = 63, class = "worldboss" })
+stub.fire("PLAYER_TARGET_CHANGED")
+-- King Magni on hover, on the Alliance's side (#2942).
+U.unit("mouseover", { npc = 2784, name = "King Magni Bronzebeard", level = 63, class = "worldboss", friendly = true })
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+local n = 0
+for _ in pairs(R.History()) do n = n + 1 end
+emit({ alerts = #got, history = n, known = R.Known("rare", 4949), info = R.Info("rare", 4949) or false, magni = R.Info("rare", 2784) or false })
+-- A hostile rare in the same city still alerts.
+U.unit("nameplate2", { npc = 61, name = "Thuros Lightfingers", level = 11, class = "rare" })
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+emit({ alerts = #got, names = names() })"#,
+		[1454, 40, 60],
+		"Horde",
+	);
+	assert_eq!(out[0], json!({ "alerts": 0 }), "Thrall on target, mouseover and nameplate: no alert for a Horde player");
+	assert_eq!(out[1], json!({ "alerts": 0, "history": 0, "known": false, "info": false, "magni": false }));
+	assert_eq!(out[2], json!({ "alerts": 1, "names": ["Thuros Lightfingers"] }));
 }
 
 // ---------------------------------------------------- detection and cooldown
@@ -681,11 +832,11 @@ end
 fn rare_card_target_button_targets_the_rare_by_its_full_name_and_pings_it_where_the_client_has_ping() {
 	let plain = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]";
 	let out = run_card("SLASH_PING1 = \"/ping\"", &format!("{SPOT_THUROS}emit(card())\nemit(R.Toast.TargetMacro({{ kind = \"rare\", name = \"Bad\\n/run X()\" }}) or false)"));
-	assert_eq!(out[0], json!({ "shown": true, "enabled": true, "secure": true, "over": true, "tip": false, "macro": format!("{plain}\n/ping [@target]") }));
+	assert_eq!(out[0], json!({ "shown": true, "enabled": true, "secure": true, "over": true, "tip": false, "macro": format!("{plain}\n/ping [@target]\n/tm [@target,harm,nodead] !8") }));
 	assert_eq!(out[1], json!(false), "a name with a line break never becomes a macro");
-	// A client without the command: no ping line.
+	// A client without the command: no ping line (the mark is on by default).
 	let out = run_card("SLASH_PING1 = nil", &format!("{SPOT_THUROS}emit(card().macro)"));
-	assert_eq!(out[0], json!(plain));
+	assert_eq!(out[0], json!(format!("{plain}\n/tm [@target,harm,nodead] !8")));
 }
 
 #[test]
@@ -713,7 +864,7 @@ emit(card().macro)"#
 		),
 	);
 	let ping = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]";
-	assert_eq!(out[0], json!(ping), "marking is off by default");
+	assert_eq!(out[0], json!(format!("{ping}\n/tm [@target,harm,nodead] !8")), "marking is on by default");
 	assert_eq!(out[1], json!(format!("{ping}\n/tm [@target,harm,nodead] !8")));
 	assert_eq!(out[2], json!(format!("{ping}\n/tm [@target,harm,nodead] ~8")));
 	assert_eq!(out[3], json!(ping));
@@ -744,8 +895,9 @@ stub.inCombat = true
 emit(card().tip)"#
 		),
 	);
-	let thuros = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]";
-	let narg = "/cleartarget [nocombat]\n/targetexact Narg the Taskmaster\n/cleartarget [dead]\n/ping [@target]";
+	// Mark target is on by default: the skull follows the ping.
+	let thuros = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
+	let narg = "/cleartarget [nocombat]\n/targetexact Narg the Taskmaster\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
 	let keyed = "The card can't target during a fight. Use the rare button or its key (sT).";
 	assert_eq!(out[0], json!({ "shown": true, "enabled": false, "secure": false, "over": false, "points": 0, "macro": thuros, "tip": keyed }));
 	assert_eq!(out[1], json!({ "shown": true, "enabled": false, "secure": false, "over": false, "macro": thuros, "tip": keyed }), "a card that appears in a fight keeps the old macro, unarmed");
@@ -766,6 +918,104 @@ emit({ PolestarRareToast.Target:IsShown(), PolestarRareCardTarget:IsShown() })"#
 	);
 	assert_eq!(out[0], json!([false, false]));
 	assert_eq!(out[1], json!([false, false]));
+}
+
+#[test]
+fn rare_card_a_rare_first_seen_without_its_name_has_no_target_button_until_a_later_sighting_names_it() {
+	// A rare the Codex doesn't know (Forever-only; the id is a stand-in) whose vignette first gives no name (#2254).
+	let out = run_card(
+		"",
+		r#"
+local U = stub.rares
+U.vignette("V9", { npc = 990001, map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+local f, s = PolestarRareToast, PolestarRareCardTarget
+emit({ n = #got, name = f.Name:GetText(), target = f.Target:IsShown(), secure = s:IsShown() })
+-- Seen again inside the cooldown, now with its name: the same card takes it, no second alert or sound.
+-- 4 s: Detect looks at one vignette (or unit GUID) at most once per 3 s (DEBOUNCE), so a name readable
+-- sooner reaches the card at the next event after that.
+stub.advance(4)
+U.vignette("V9", { npc = 990001, name = "Bjorn", map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+emit({ n = #got, sounds = #stub.sounds, name = f.Name:GetText(), target = f.Target:IsShown(), secure = s:IsShown(),
+	macro = s:GetAttribute("macrotext") })
+-- A later alert for it, past the cooldown, starts from the name seen.
+stub.advance(11 * 60)
+U.vignette("V9", { npc = 990001, map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+emit({ n = #got, name = got[#got].name, unnamed = got[#got].unnamed or false })"#,
+	);
+	assert_eq!(out[0], json!({ "n": 1, "name": "Unknown rare", "target": false, "secure": false }));
+	assert_eq!(out[1]["n"], 1);
+	assert_eq!(out[1]["sounds"], 1);
+	assert_eq!(out[1]["name"], "Bjorn");
+	assert_eq!(out[1]["target"], true);
+	assert_eq!(out[1]["secure"], true);
+	assert!(out[1]["macro"].as_str().unwrap().contains("/targetexact Bjorn"), "{:?}", out[1]["macro"]);
+	assert_eq!(out[2], json!({ "n": 2, "name": "Bjorn", "unnamed": false }));
+}
+
+#[test]
+fn a_unit_the_client_still_calls_unknown_alerts_unnamed_and_keeps_unknown_out_of_the_history_and_the_rare_list() {
+	// UnitName gives the client's UNKNOWNOBJECT placeholder for a creature it hasn't cached yet (#2254 review).
+	let out = run(r#"
+UNKNOWNOBJECT = "Unknown"
+local U = stub.rares
+U.unit("nameplate1", { npc = 990003, name = "Unknown", level = 10, class = "rare" })
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
+local f = PolestarRareToast
+emit({ n = #got, name = f.Name:GetText(), unnamed = got[1].unnamed or false, seen = R.History()["rare:990003"].name or false,
+	nearby = #R.Nearby() })
+-- 4 s on (the per-GUID debounce), targeted with its name: the card takes it.
+stub.advance(4)
+U.unit("target", { npc = 990003, name = "Bjorn", level = 10, class = "rare" })
+stub.fire("PLAYER_TARGET_CHANGED")
+emit({ n = #got, name = f.Name:GetText(), seen = R.History()["rare:990003"].name, nearby = R.Nearby()[1] })"#);
+	assert_eq!(out[0], json!({ "n": 1, "name": "Unknown rare", "unnamed": true, "seen": false, "nearby": 0 }));
+	assert_eq!(out[1], json!({ "n": 1, "name": "Bjorn", "seen": "Bjorn", "nearby": "Bjorn" }));
+}
+
+#[test]
+fn rare_card_an_unnamed_card_named_in_a_fight_shows_target_disabled_until_the_fight_ends() {
+	let out = run_card(
+		"",
+		r#"
+local U = stub.rares
+U.vignette("V9", { npc = 990001, map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+local f, s = PolestarRareToast, PolestarRareCardTarget
+stub.qol.combat(true)
+stub.advance(4)
+U.vignette("V9", { npc = 990001, name = "Bjorn", map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+emit({ n = #got, name = f.Name:GetText(), target = f.Target:IsShown(), enabled = f.Target:IsEnabled() and true or false,
+	secure = s:IsShown() })
+stub.qol.combat(false)
+emit({ enabled = f.Target:IsEnabled() and true or false, secure = s:IsShown(), macro = s:GetAttribute("macrotext") })"#,
+	);
+	assert_eq!(out[0], json!({ "n": 1, "name": "Bjorn", "target": true, "enabled": false, "secure": false }));
+	assert_eq!(out[1]["enabled"], true);
+	assert_eq!(out[1]["secure"], true);
+	assert!(out[1]["macro"].as_str().unwrap().contains("/targetexact Bjorn"), "{:?}", out[1]["macro"]);
+}
+
+#[test]
+fn rare_card_another_rare_s_name_leaves_an_unnamed_card_alone() {
+	let out = run_card(
+		"",
+		r#"
+local U = stub.rares
+-- Rocklance alerts first, so a later sighting of it falls inside its cooldown and alerts nothing.
+U.vignette("V8", { npc = 990002, name = "Rocklance", map = 1429, x = 89, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V8", true)
+U.vignette("V9", { npc = 990001, map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+stub.advance(4)
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V8", true)
+local f = PolestarRareToast
+emit({ n = #got, name = f.Name:GetText(), target = f.Target:IsShown(), unnamed = R.Toast.Current().unnamed or false })"#,
+	);
+	assert_eq!(out[0], json!({ "n": 2, "name": "Unknown rare", "target": false, "unnamed": true }));
 }
 
 // Where a frame is on screen, from its anchors (stub frames keep them, the stub lays nothing out): offsets and
@@ -846,7 +1096,7 @@ end
 emit(out)"#
 		),
 	);
-	let macro_ = "/cleartarget [nocombat]\n/targetexact Rocklance\n/cleartarget [dead]\n/ping [@target]";
+	let macro_ = "/cleartarget [nocombat]\n/targetexact Rocklance\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
 	for (i, case) in out[0].as_array().unwrap().iter().enumerate() {
 		assert_eq!(case["first"], true, "case {i}: the click lands on the secure overlay where the card's Target button shows");
 		assert_eq!(case["moved"], true, "case {i}: and still after the card moved");
@@ -885,6 +1135,38 @@ local f, s = PolestarRareToast, PolestarRareCardTarget
 emit({ f.Target:IsShown(), f.Target.Label:GetText(), s:IsShown(), s:GetAttribute("macrotext") })"#,
 	);
 	assert_eq!(out[0], json!([true, "Wave", true, "/cleartarget [nocombat]\n/targetexact Fitz Polestar\n/targetexact [noexists] Fitz\n/wave"]));
+}
+
+#[test]
+fn rare_card_the_founder_s_card_shows_his_crest_alone_and_bigger_other_cards_their_tinted_glyph_in_the_ring() {
+	let out = run_card(
+		"",
+		r#"
+Polestar.Codex.Load()
+-- The card is built on its first alert, so look it up each time.
+local function glyph()
+	local f = PolestarRareToast
+	local r, g, b, a = f.Glyph:GetVertexColor()
+	local tr, tg, tb = Polestar.Theme.Color(R.ColorName("rare"))
+	local w, h = f.Glyph:GetSize()
+	local _, rel, _, x = f.Name:GetPoint(1)
+	return { f.Glyph:GetTexture(), r == 1 and g == 1 and b == 1 and a == 1, r == tr and g == tg and b == tb,
+		w, h, f.Ring:IsShown() and true or false, rel == f.Ring and x }
+end
+Polestar.Fire("RARE_SPOTTED", { kind = "founder", name = "Fitz Polestar", zone = "Elwynn Forest", button = true })
+emit(glyph())
+-- A rare after him: its own glyph, tinted again.
+Polestar.Fire("RARE_SPOTTED", R.AlertOf({ source = "nameplate", kind = "rare", id = 61, name = "Thuros Lightfingers" }, { map = 1429, x = 88, y = 78 }, true))
+emit(glyph())
+Polestar.Fire("RARE_SPOTTED", { kind = "founder", name = "Fitz Polestar", zone = "Elwynn Forest", button = true })
+-- A theme repaint leaves his emblem untinted.
+Polestar.Theme.Refresh()
+emit(glyph())"#,
+	);
+	let media = |name: &str| format!("Interface\\AddOns\\Polestar\\Media\\UI\\{name}");
+	assert_eq!(out[0], json!([media("founder-emblem"), true, false, 40, 40, false, 12]), "the founder: his crest alone, 40 px, untinted, the text still off the ring's slot");
+	assert_eq!(out[1], json!([media("qol-target"), false, true, 16, 16, true, 12]), "a rare: the crosshair in the ring, in the rare colour");
+	assert_eq!(out[2], json!([media("founder-emblem"), true, false, 40, 40, false, 12]), "still untinted after a theme change");
 }
 
 // ------------------------------------------------------------ the section
@@ -1030,7 +1312,7 @@ emit({ during = during, idle = idle, sync = sync, built = decoded > 0, layer = P
 // ------------------------------------------------------------ the founder
 
 #[test]
-fn decide_founder_every_reason_it_stays_quiet_and_the_half_hour() {
+fn decide_founder_every_reason_it_stays_quiet_and_the_day() {
 	let out = run(r#"
 local function d(over, extra)
 	local cfg = { enabled = true, founder = true }
@@ -1049,7 +1331,12 @@ emit({
 	combat = d(nil, { inCombat = true }),
 	stillHere = d(nil, { alerted = 5000 - 40 * 60, present = true }),
 	cooldown = d(nil, { alerted = 5000 - 29 * 60 }),
-	again = d(nil, { alerted = 5000 - 31 * 60 }),
+	sessionDay = d(nil, { now = 90000, alerted = 90000 - 23 * 3600 }),
+	again = d(nil, { now = 90000, alerted = 90000 - 25 * 3600 }),
+	savedDay = d(nil, { last = 1e9 - 23 * 3600, time = 1e9 }),
+	savedAgain = d(nil, { last = 1e9 - 24 * 3600, time = 1e9 }),
+	savedFuture = d(nil, { last = 1e9 + 3600, time = 1e9 }),
+	noTime = d(nil, { last = 1e9 }),
 	name = R.FOUNDER,
 	is = { R.IsFounder("Fitz Polestar"), R.IsFounder("Fitz Polestar-CAMWOW EU5 Realm 8 PvP"), R.IsFounder("Fitz Poletsar"),
 		R.IsFounder("Fitz"), R.IsFounder("fitz polestar"), R.IsFounder("Fitz Polestar Jr"), R.IsFounder(nil) },
@@ -1061,9 +1348,14 @@ emit({
 	assert_eq!(out["self"], json!(["skip", "self"]));
 	assert_eq!(out["instance"], json!(["skip", "instance"]));
 	assert_eq!(out["combat"], json!(["skip", "combat"]));
-	assert_eq!(out["stillHere"], json!(["skip", "stillHere"]), "past the half hour, but he never left");
+	assert_eq!(out["stillHere"], json!(["skip", "stillHere"]), "he never left");
 	assert_eq!(out["cooldown"], json!(["skip", "cooldown"]));
+	assert_eq!(out["sessionDay"], json!(["skip", "cooldown"]), "this session's alert, 23 h ago");
 	assert_eq!(out["again"], json!(["alert"]));
+	assert_eq!(out["savedDay"], json!(["skip", "cooldown"]), "the account's saved alert, 23 h ago");
+	assert_eq!(out["savedAgain"], json!(["alert"]), "a day after the saved alert");
+	assert_eq!(out["savedFuture"], json!(["alert"]), "a saved time in the future holds nothing");
+	assert_eq!(out["noTime"], json!(["alert"]));
 	assert_eq!(out["name"], "Fitz Polestar");
 	assert_eq!(out["is"], json!([true, true, false, false, false, false, false]));
 }
@@ -1071,8 +1363,14 @@ emit({
 /// The observer is a Forever character (a surname); `scene` runs after it, with `fitz(token, o)` showing a player
 /// named Fitz Polestar (o: guid, faction, name, surname) and `founders()` the founder alerts so far.
 fn founder_run(scene: &str) -> Vec<Value> {
-	run(&format!(
-		r#"local U = stub.rares
+	founder_run_saved(scene, None)
+}
+
+/// `founder_run` after a /reload or relog into `saved` (PolestarDB Lua).
+fn founder_run_saved(scene: &str, saved: Option<String>) -> Vec<Value> {
+	run_saved(
+		&format!(
+			r#"local U = stub.rares
 U.me = {{ "Ana", "Smith" }}
 local function fitz(token, o)
 	o = o or {{}}
@@ -1085,7 +1383,10 @@ local function founders()
 	return n
 end
 {scene}"#
-	))
+		),
+		[1429, 88, 78],
+		saved,
+	)
 }
 
 #[test]
@@ -1125,7 +1426,7 @@ emit({ nearby = #R.Nearby(), action = { R.FounderSighting("target", "target", "P
 		})
 	);
 	assert_eq!(out[2], json!({ "history": 0 }), "the founder never enters the rares history");
-	assert_eq!(out[3], json!({ "nearby": 0, "action": ["skip", "cooldown"] }), "the one-string name matches too (inside the half hour)");
+	assert_eq!(out[3], json!({ "nearby": 0, "action": ["skip", "cooldown"] }), "the one-string name matches too (inside the day)");
 }
 
 #[test]
@@ -1140,12 +1441,12 @@ emit({ n = founders(), enemy = got[1] and got[1].enemy, row = PolestarRareToast.
 }
 
 #[test]
-fn founder_once_per_half_hour_never_while_he_stays_again_after_he_left_and_the_half_hour_is_up() {
+fn founder_once_a_day_never_while_he_stays_again_after_he_left_and_the_day_is_up() {
 	let out = founder_run(
 		r#"
 fitz("nameplate1")
 stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
-emit(founders())
+emit({ founders(), type(PolestarDB.rares.founderAt) == "number" and PolestarDB.rares.founderAt == time() })
 -- Still in range, seen by other paths: no second alert.
 stub.advance(4)
 fitz("target")
@@ -1157,7 +1458,7 @@ stub.advance(31 * 60)
 fitz("mouseover")
 stub.fire("UPDATE_MOUSEOVER_UNIT")
 emit({ founders(), R.Nearby()[1] })
--- He leaves: off the list within a minute. Back after that, more than half an hour after the alert: due again.
+-- He leaves: off the list within a minute. Back after that, inside the day: quiet.
 U.clear("nameplate1")
 U.clear("mouseover")
 stub.advance(120)
@@ -1165,19 +1466,46 @@ emit(#R.Nearby())
 fitz("nameplate2")
 stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
 emit(founders())
--- Leaves again and comes back ten minutes later: inside the new half hour.
+-- Leaves, back more than a day after the alert: due again.
 U.clear("nameplate2")
-stub.advance(10 * 60)
+stub.advance(24 * 3600)
 fitz("nameplate3")
 stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate3")
+emit(founders())
+-- Leaves again and comes back ten minutes later: inside the new day.
+U.clear("nameplate3")
+stub.advance(10 * 60)
+fitz("nameplate4")
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate4")
 emit(founders())"#,
 	);
-	assert_eq!(out[0], 1);
+	assert_eq!(out[0], json!([1, true]), "alerted once, the time saved account-wide");
 	assert_eq!(out[1], 1, "seen again while in range");
-	assert_eq!(out[2], json!([1, "Fitz Polestar"]), "the half hour passed, but he stayed in range");
+	assert_eq!(out[2], json!([1, "Fitz Polestar"]), "half an hour passed, but he stayed in range");
 	assert_eq!(out[3], 0, "out of sight: off the rare button");
-	assert_eq!(out[4], 2, "left and came back after the half hour");
-	assert_eq!(out[5], 2, "back inside the half hour");
+	assert_eq!(out[4], 1, "left and came back inside the day");
+	assert_eq!(out[5], 2, "back after the day");
+	assert_eq!(out[6], 2, "back inside the new day");
+}
+
+#[test]
+fn founder_a_reload_or_relog_keeps_the_day() {
+	let saved = |ago: i64| Some(format!("PolestarDB = {{ schema = 1, rares = {{ founderAt = time() - {ago} }} }}"));
+	let scene = r#"
+fitz("target")
+stub.fire("PLAYER_TARGET_CHANGED")
+emit(founders())"#;
+	// Alerted an hour before the /reload: this new session stays quiet.
+	assert_eq!(founder_run_saved(scene, saved(3600))[0], 0, "a /reload inside the day");
+	assert_eq!(founder_run_saved(scene, saved(23 * 3600 + 59 * 60))[0], 0, "a relog a minute short of the day");
+	// A day or more since: alerts, and saves the new time.
+	let after = founder_run_saved(&format!("{scene}\nemit(PolestarDB.rares.founderAt == time())"), saved(24 * 3600 + 60));
+	assert_eq!(after, vec![json!(1), json!(true)], "a day after the saved alert");
+	// Due again, but still never in an instance or in combat.
+	let instance = founder_run_saved(&format!("stub.world.inInstance = true\n{scene}"), saved(2 * 24 * 3600));
+	assert_eq!(instance[0], 0, "due, but inside an instance");
+	let combat = founder_run_saved(&format!("stub.inCombat = true\n{scene}"), saved(2 * 24 * 3600));
+	assert_eq!(combat[0], 0, "due, but in combat");
 }
 
 #[test]
@@ -1217,4 +1545,118 @@ Polestar.Set("rares.founder", false)
 emit({ before, #R.Nearby() })"#,
 	);
 	assert_eq!(later[0], json!([1, 0]));
+}
+
+// The alert card drags as Polestar's windows do (Polestar.DragWindow): from the first pixel, by exactly the
+// pointer's travel at its scale; the drop is saved as { point, x, y } on the card's own point (the top), in whole
+// units.
+#[test]
+fn the_rare_alert_follows_the_pointer_and_saves_its_spot_on_its_own_point() {
+	let out = run(r#"
+Polestar.Codex.Load()
+Polestar.Fire("RARE_SPOTTED", R.AlertOf({ source = "vignette", kind = "treasure", id = 2843, name = "Battered Chest" }, { map = 1429, x = 79.6, y = 55.7 }, true))
+-- Once its arrival has settled (Anim moves it in).
+stub.advance(1)
+local f = PolestarRareToast
+f:SetScale(1.2)
+f.x, f.y = 700, 800
+local s, left0, top0 = f:GetEffectiveScale(), f:GetLeft(), f:GetTop()
+local function near(a, b) return math.abs(a - b) < 1e-9 end
+stub.cursor = { 900, 500 }
+stub.RunScript(f, "OnMouseDown", "LeftButton")
+stub.cursor = { 901, 500 }
+stub.advance(0.02)
+local p, _, rp, x, y = f:GetPoint(1)
+local first = p == "TOPLEFT" and rp == "BOTTOMLEFT" and near(x, left0 + 1 / s) and near(y, top0)
+stub.cursor = { 940, 470 }
+stub.advance(0.02)
+p, _, rp, x, y = f:GetPoint(1)
+local follows = near(x, left0 + 40 / s) and near(y, top0 - 30 / s)
+stub.RunScript(f, "OnMouseUp", "LeftButton")
+local saved = Polestar.Get("rares.toastPoint")
+local k = UIParent:GetEffectiveScale() / s
+local wx = math.floor(f:GetLeft() + f:GetWidth() / 2 - UIParent:GetWidth() * k / 2 + 0.5)
+local wy = math.floor(f:GetBottom() + f:GetHeight() - UIParent:GetHeight() * k + 0.5)
+emit({ first = first, follows = follows, saved = saved, want = { "TOP", wx, wy } })"#);
+	assert_eq!(out[0]["first"], true, "from the first pixel");
+	assert_eq!(out[0]["follows"], true, "by exactly the pointer's travel, at the card's scale");
+	assert_eq!(out[0]["saved"], out[0]["want"], "saved on its own point, in whole units");
+}
+
+// #2776 (Liquidor): a search in the Rares section left the sidebar's counts at every rare and treasure, where the
+// Guides and Lookup sidebars count the matches. While searching, each tab counts what it would list.
+#[test]
+fn while_searching_rares_sidebar_counts_the_matches_of_each_tab() {
+	let pack = pack();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_rares.lua"],
+		before: pack.stub_lua.clone(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Lookup/Lookup.xml", "UI/UI.xml", "Rares/Rares.xml"])],
+		login: true,
+		script: r#"Polestar.Codex.Load()
+local RV = Polestar.UI.RaresSection
+local function counts()
+	local out = {}
+	for _, it in ipairs((RV.Nav())) do out[it.key] = it.count end
+	return out
+end
+local all = counts()
+RV.Search("thuros")
+local found = counts()
+RV.Search("chest")
+local chest = counts()
+RV.Search("")
+emit({ all = all, found = found, chest = chest, again = counts() })"#
+			.into(),
+		..Default::default()
+	});
+	let out = &out[0];
+	assert_eq!(out["all"], json!({ "rare": 1, "treasure": 1, "seen": 0 }), "the sample pack: Thuros Lightfingers and a Battered Chest");
+	assert_eq!(out["found"], json!({ "rare": 1, "treasure": 0, "seen": 0 }));
+	assert_eq!(out["chest"], json!({ "rare": 0, "treasure": 1, "seen": 0 }));
+	assert_eq!(out["again"], out["all"]);
+}
+
+// #3158 (Vesper): "Boss whisper" never sounded, Play included: Forever's SoundKit table plays kit 37666 at 1% volume.
+// The third choice plays the boss emote warning (12197, at 40%); its saved value is unchanged.
+#[test]
+fn the_third_alert_sound_is_one_the_client_plays_aloud_3158() {
+	let out = run(r#"
+local R = Polestar.Rares
+SOUNDKIT = nil
+local kits = {}
+for _, s in ipairs(R.SOUNDS) do
+	stub.sounds = {}
+	R.PlaySoundOf(s.value)
+	kits[#kits + 1] = { value = s.value, played = stub.sounds[1] or false }
+end
+emit(kits)"#);
+	assert_eq!(out[0], json!([{ "value": "raid", "played": 8959 }, { "value": "ready", "played": 8960 }, { "value": "whisper", "played": 12197 }]), "never the silent 37666");
+}
+
+// #3424: the sidebar said Rares 397 · Treasures 196 while the lists held 378 and 150: it counted every record of the
+// Codex, the lists only what they can show. A treasure with no spot is in no list; a rare with none is, under
+// "Dungeons and unplaced". The sidebar counts what each list shows.
+#[test]
+fn the_rares_sidebar_counts_what_the_lists_show_never_a_treasure_with_no_spot_3424() {
+	let mut codex = sample_codex();
+	codex["objects"]["2844"] = json!({ "id": 2844, "name": "Lost Chest", "treasure": true, "loot": [1179], "spawns": [] });
+	codex["npcs"]["62"] = json!({ "id": 62, "name": "Hidden Rare", "level": 30, "levelMax": null, "faction": null, "rare": true,
+		"elite": false, "boss": false, "instance": null, "roles": [], "loot": [], "spawns": [] });
+	let pack = write_codex_pack(&codex, &CodexOpts { ..Default::default() });
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_rares.lua"],
+		before: pack.stub_lua.clone(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Lookup/Lookup.xml", "UI/UI.xml", "Rares/Rares.xml"])],
+		login: true,
+		script: r#"Polestar.Codex.Load()
+local RV, R = Polestar.UI.RaresSection, Polestar.Rares
+local out = {}
+for _, it in ipairs((RV.Nav())) do out[it.key] = it.count end
+out.placed = { rare = #R.ListOf("rare"), treasure = #R.ListOf("treasure") }
+emit(out)"#
+			.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!({ "rare": 2, "treasure": 1, "seen": 0, "placed": { "rare": 1, "treasure": 1 } }), "the unplaced rare is listed, the chest with no spot is not");
 }

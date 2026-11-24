@@ -1,4 +1,4 @@
-//! What givers' windows say about when a quest is offered: the OfferAudit rules (Fitz,
+//! What givers' windows say about when a quest is offered: the offer audit's rules (Fitz,
 //! 2026-11-07), ported from the one-off audit that fixed #1132.
 //!
 //! - A refusal counts only from a giver's quest LIST (a gossip or greeting window): a quest the NPC
@@ -167,6 +167,30 @@ impl QData {
 			all.dedup();
 		}
 		(all, any)
+	}
+
+	/// Puts back prerequisites a data build took out on recorded evidence (learn's previous snapshot,
+	/// #3359): each of `all` not among ours joins the all-of list, and `any` becomes the any-of group
+	/// while ours has none. Nothing changes when they are all there.
+	pub fn restore(&mut self, all: &[i64], any: &[i64]) {
+		let (mut a, mut b) = self.split();
+		let before = (a.clone(), b.clone());
+		for p in all {
+			if !a.contains(p) && !b.contains(p) {
+				a.push(*p);
+			}
+		}
+		if b.is_empty() {
+			b.extend(any.iter().filter(|p| !a.contains(p)));
+		}
+		if (a.clone(), b.clone()) == before {
+			return;
+		}
+		let mut pre = a.clone();
+		pre.extend(b.iter().filter(|p| !a.contains(p)));
+		self.pre = pre;
+		self.pre_all = a;
+		self.pre_any = b;
 	}
 }
 

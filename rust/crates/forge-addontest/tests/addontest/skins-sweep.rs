@@ -1,7 +1,8 @@
 //! #1390: every Polestar frame follows Appearance > Windows > Skin, live. The whole addon is loaded, its frames
 //! are built (the flight timer, the instance tracker, the party panel, the confirm dialog, the toasts, the
-//! welcome and copy windows), and the skin is switched through every choice: each skinned frame is painted in
-//! the skin in use, the floating ones on the window skin (Halo's veil, not a menu's fill), and the quest item and
+//! welcome, copy and Materials windows), and the skin is switched through every choice: each skinned frame is painted in
+//! the skin in use (one hidden by a closed window above it as that window shows), the floating ones on the window
+//! skin (Halo's veil, not a menu's fill), and the quest item and
 //! travel buttons' hover wash follows the skin's.
 
 use forge_addontest::{emitted, Addon, RunAddon};
@@ -18,10 +19,12 @@ W.Modal({ title = "Reset?", text = "Sure?", action = "Reset" })
 Polestar.Nav.alerts.ShowSample()
 Polestar.Rares.Toast.Show({ kind = "rare", name = "Mother Fang", map = 1429, x = 50, y = 50 })
 Polestar.UI.ShowCopy("Copy", "text")
+Polestar.UI.Materials.Show()
 -- The swept frames by global name: a name that is gone (a renamed frame) is reported missing, not skipped.
 local NAMES = {
 	timer = "PolestarFlightTimer", tracker = "PolestarInstanceTracker", party = "PolestarPartyPanel",
 	modal = "PolestarModal", transit = "PolestarAlert", rare = "PolestarRareToast", copy = "PolestarCopy",
+	materials = "PolestarMaterials",
 }
 local named, missing = {}, {}
 for k, name in pairs(NAMES) do
@@ -37,8 +40,25 @@ local function hover(b) local hl = b and rawget(b, "Hl"); return hl and { hl:Get
 local out = { missing = table.concat(missing, ","), painted = #painted, skins = {} }
 for _, key in ipairs(T.SKIN_ORDER) do
 	Polestar.Set("ui.skin", key)
+	-- Every skinned frame in the skin in use: one that shows at once, one hidden by a frame above it (a
+	-- closed window's part) as that frame shows (each hidden frame above it shown, then hidden again).
 	local stale = 0
-	for _, f in ipairs(painted) do if f.psSkin.skin ~= key then stale = stale + 1 end end
+	for _, f in ipairs(painted) do
+		if f.psSkin.skin ~= key then
+			if f:IsVisible() then
+				stale = stale + 1
+			else
+				local up, p = {}, f:GetParent()
+				while p do
+					if not p:IsShown() then up[#up + 1] = p end
+					p = p:GetParent()
+				end
+				for i = #up, 1, -1 do up[i]:Show() end
+				if f.psSkin.skin ~= key then stale = stale + 1 end
+				for i = 1, #up do up[i]:Hide() end
+			end
+		end
+	end
 	local s = { stale = stale, frames = {} }
 	for k, f in pairs(named) do
 		local d = f.psSkin
@@ -70,7 +90,7 @@ fn switching_the_skin_restyles_the_flight_timer_and_every_polestar_frame_live_13
 	for (key, s) in skins {
 		assert_eq!(s["stale"], 0, "{key}: every skinned frame repainted in the skin in use");
 		let frames = s["frames"].as_object().unwrap();
-		assert_eq!(frames.len(), 7, "{key}: every swept frame reported");
+		assert_eq!(frames.len(), 8, "{key}: every swept frame reported");
 		for (name, f) in frames {
 			assert_eq!(f["skin"], json!(key), "{key}: {name} painted in it");
 			// The window skin: Halo's soft veil (a panel would take the menu fill), the house drop shadow.

@@ -294,3 +294,55 @@ fn the_window_offers_reopen_after_a_close_and_the_guide_list_lists_it_under_rece
 	assert_eq!(out["recent"], json!([["Recently closed 2"], ["Goldshire", "Northshire"]]));
 	assert_eq!(out["binding"], json!([{ "tabs": ["test/route"], "active": 1 }, played()]));
 }
+
+// A tab's tooltip on the window's strip says how many of its guide's steps are done, counted when it is
+// hovered (Engine.GetTabs(true)). Those counts run the done rules over every step of every tab, so the strip's
+// repaints, TABS_CHANGED and every other GetTabs() leave them out: a step change asks for none.
+#[test]
+fn a_tabs_tooltip_counts_its_done_steps_on_hover_and_a_step_change_counts_none() {
+	let out = run_with(
+		vec![Addon::name("Polestar")],
+		None,
+		r#"
+		Polestar.Set("ui.shown", true); flush()
+		E.OpenTab("test/route"); flush()
+		-- play() without its look back: the window stays on the live step, 4.
+		E.ToggleGoal(1, 1); flush()
+		E.ToggleGoal(2, 1); flush()
+		E.Skip(); flush()
+		E.ToggleGoal(4, 1); flush()
+		local asked, sent = {}, nil
+		local get = E.GetTabs
+		E.GetTabs = function(counts) asked[#asked + 1] = counts == true; return get(counts) end
+		Polestar.On("TABS_CHANGED", function(list)
+			for _, t in ipairs(list) do if t.guideId == "test/route" then sent = t end end
+		end)
+		-- Step 4 done: the route moves on to step 5, the window and the strip repaint.
+		E.ToggleGoal(4, 2); flush()
+		local r = { live = E.GetLiveStep(), sent = sent and { sent.guideId, sent.done or false, sent.total or false } or false }
+		r.counted = false
+		for _, c in ipairs(asked) do r.counted = r.counted or c end
+		local plain = E.GetTabs()[at("test/route")]
+		r.plain = { plain.done or false, plain.total or false }
+		local full = E.GetTabs(true)[at("test/route")]
+		r.full = { full.done, full.total }
+		for _, f in ipairs(stub.frames) do
+			if f.psIndex and f.psTitle and rawget(f, "Close") and f:IsShown() and E.GetTabs()[f.psIndex].guideId == "test/route" then
+				GameTooltip.lines = {}
+				stub.RunScript(f, "OnEnter")
+				r.tip = GameTooltip.lines
+			end
+		end
+		emit(r)
+	"#,
+	)
+	.remove(0);
+	assert_eq!(out["live"], json!(5));
+	assert_eq!(out["counted"], json!(false), "a step change asked for no tab counts");
+	assert_eq!(out["sent"], json!(["test/route", false, false]));
+	assert_eq!(out["plain"], json!([false, false]));
+	assert_eq!(out["full"], json!([4, 6]));
+	let tip = out["tip"].as_array().expect("the route tab's tooltip");
+	assert!(tip.contains(&json!("4 of 6 steps done")), "{tip:?}");
+	assert!(tip.contains(&json!("Right-click for tab options")), "{tip:?}");
+}

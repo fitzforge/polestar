@@ -66,11 +66,13 @@ why A Scholomance fight at 60 for Horde reputation; the Skyfury Helm may be gone
 step Sagorne Creststrider
   zone Orgrimmar
   tip At 58 Sagorne Creststrider, the shaman trainer in the Valley of Wisdom, asks for two rare diamonds; every Horde shaman goes to him. Skyborne: Forever's quest page lists this quest for Orcs, Tauren and Trolls only: ask before you buy the diamonds.
+  level 59
   accept 7667                                 -- Sagorne Creststrider
 
 step Two diamonds
   zone Western Plaguelands
   tip Both diamonds are rare: the auction house is the quick way. Miners find the Azerothian Diamond in about one Thorium vein in a hundred (the Small Thorium Veins north of Morgan's Vigil in the Burning Steppes respawn every five minutes). The Pristine Black Diamond drops from high-level elites at about one in a hundred, best from the rare elite Revanchion (about one in nine).
+  level 60
   collect 12800 quest 7667.1                  -- Azerothian Diamond
   collect 18335 quest 7667.2                  -- Pristine Black Diamond
 
@@ -84,6 +86,7 @@ step Sagorne Creststrider
 step The Great Ossuary
   zone Western Plaguelands
   tip A five-player dungeon event: Scholomance lies under Caer Darrow, the island town in the south-east of the Western Plaguelands. In the Great Ossuary's basement, first clear every mob in the room, then use the Divination Scryer at its centre: four waves of spirits follow, each closing with an Aspect mini-boss (the first wave weak and slow, the rest elite). Fight in a corner so nothing else joins, and drink between waves: it is long. Then Death Knight Darkreaver (level 62 elite) appears: he Cleaves, casts Shadow Bolt and Blood Leech, and Dominates a player's mind against the group. His head always drops.
+  level 60
   collect 18880 quest 8258.1 @68.9,75.2 group 5 -- Darkreaver's Head
 
 step Sagorne Creststrider

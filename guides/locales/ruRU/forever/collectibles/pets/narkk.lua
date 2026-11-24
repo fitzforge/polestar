@@ -12,12 +12,9 @@ return {
 
 	-- Step 1: Narkk
 	-- {npc:2663} Narkk · {area:35} Booty Bay · {npc:2664} Kelsey Yance · {area:392} Ratchet
-	["{npc:2663}, the pirate supplier in {area:35}, sells two parrots (40s each), with no stock limit. He stands next to {npc:2664}, the cook. {area:35} is neutral: the boat from {area:392} and the Stranglethorn road both arrive there. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:2663}, the pirate supplier in {area:35}, sells two parrots (40s each), with no stock limit. He stands next to {npc:2664}, the cook. {area:35} is neutral: the boat from {area:392} and the Stranglethorn road both arrive there. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:2663}, пиратский поставщик (локация: {area:35}), продает двух попугаев (по 40 с), без ограничения запаса. Он стоит рядом с NPC {npc:2664}, поваром. {area:35} – нейтральная территория: туда приходит корабль из места {area:392} и ведет дорога через Тернистую долину. Каждый предмет питомца при использовании дает спутника; цели после этого остаются отмеченными.",
 	-- {item:8495} Parrot Cage (Senegal)
 	["{item:8495}, 40s"] = "{item:8495}, 40 с",
 	-- {item:8496} Parrot Cage (Cockatiel)
 	["{item:8496}, 40s"] = "{item:8496}, 40 с",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{npc:2663}, the pirate supplier in {area:35}, sells two parrots (40s each). {area:35} is neutral: the boat from {area:392} and the Stranglethorn road both arrive there. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:2663}, пиратский поставщик (локация: {area:35}), продает двух попугаев (по 40 с). {area:35} — нейтральная территория: туда приходит корабль из места {area:392} и ведет дорога через Тернистую долину. Каждый предмет питомца при использовании дает спутника; цели после этого остаются отмеченными.",
 }

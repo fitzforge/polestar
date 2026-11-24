@@ -179,6 +179,45 @@ fn sources_required_item_level_quest_minlevel_and_mob_level_gate_a_source() {
 	assert!(truthy(&ok[0]["available"]));
 }
 
+// #3370 (Zack: a level 57 went to Pix Xizzix for In Demand, which the game offers from level 60): a quest's Lookup
+// line (its row, its page's header) says from which level it is offered while the character is below it, after its
+// quest level when that is higher ("Level 32 · From level 30"), alone when the two are one ("From level 10"); at or
+// above that level the line is as before.
+#[test]
+fn a_quest_s_lookup_line_says_from_which_level_it_is_offered_while_the_character_is_below_it_3370() {
+	let line = |level: i32| {
+		run_with(
+			r#"
+		Polestar.Codex.Load()
+		local S = Polestar.Lookup.Subtitle
+		emit({ peril = S("quest", 7005), taming = S("quest", 7009) })
+	"#,
+			&Opts { level, ..Default::default() },
+		)
+		.remove(0)
+	};
+	assert_eq!(line(9), json!({ "peril": "Level 32 \u{b7} From level 30 \u{b7} Amber Vale", "taming": "From level 10 \u{b7} Amber Vale" }));
+	assert_eq!(line(15), json!({ "peril": "Level 32 \u{b7} From level 30 \u{b7} Amber Vale", "taming": "Level 10 \u{b7} Amber Vale" }));
+	assert_eq!(line(30), json!({ "peril": "Level 32 \u{b7} Amber Vale", "taming": "Level 10 \u{b7} Amber Vale" }));
+}
+
+// #1745: the level gate is for creatures you fight. A level 30 vendor of the character's side and a level 55
+// factionless banker (a goblin town's) stay open to a level 20 character; a level 40 beast and a vendor of the
+// other side are still out of reach.
+#[test]
+fn sources_friendly_npcs_are_open_at_any_level() {
+	let [mira, fizzle, grumble, grosh] = first::<4>(run(r#"
+		emit((rows("npc", 5001)))
+		emit((rows("npc", 5020)))
+		emit((rows("npc", 5006)))
+		emit((rows("npc", 5002)))
+	"#));
+	assert_eq!(pick(&mira, &["label", "available", "why"]), json!([{ "label": "Mira Saddler", "available": true, "why": null }]));
+	assert_eq!(pick(&fizzle, &["label", "available", "why"]), json!([{ "label": "Fizzle Gearspin", "available": true, "why": null }]));
+	assert_eq!(pick(&grumble, &["available", "why"]), json!([{ "available": false, "why": "level" }]));
+	assert_eq!(pick(&grosh, &["available", "why"]), json!([{ "available": false, "why": "level" }]));
+}
+
 #[test]
 fn sources_professions_gate_crafts_unless_the_character_can_still_learn_them() {
 	let script = r#"emit((rows("item", 8005)))"#;
@@ -197,6 +236,38 @@ fn sources_professions_gate_crafts_unless_the_character_can_still_learn_them() {
 	assert!(num(&none[0]["effort"]) > num(&low[0]["effort"]), "learning the profession costs more than skilling up");
 	assert!(num(&low[0]["effort"]) > num(&high[0]["effort"]), "missing skill points cost effort");
 	assert_eq!(high[0]["effort"], stubbed[0]["effort"]);
+}
+
+// #3784: item 8005 needs Tailoring 100 (Journeyman). 5010 (nearer) teaches only Apprentice; 5011 teaches the
+// next ranks. A trainer is chosen only when it teaches the rank the character lacks and accepts their skill.
+#[test]
+fn sources_a_crafts_trainer_teaches_the_rank_it_needs_3784() {
+	let ranks = |journeyman_a: Value| {
+		json!([
+			{ "minSkill": 0, "max": 75, "trainers": { "Alliance": [5010], "Horde": [] } },
+			{ "minSkill": 50, "max": 150, "trainers": { "Alliance": journeyman_a, "Horde": [] } },
+			{ "minSkill": 125, "max": 225, "trainers": { "Alliance": [5011], "Horde": [] } },
+			{ "minSkill": 200, "max": 300, "trainers": { "Alliance": [], "Horde": [] } },
+		])
+	};
+	let trainer = |journeyman_a: Value, gates: Value, skill: &str| {
+		let mut c = codex();
+		let mut tobin = c["npcs"]["5010"].clone();
+		tobin["id"] = json!(5011);
+		tobin["name"] = json!("Tailor Tobin");
+		tobin["spawns"] = json!([{ "map": 9001, "x": 70, "y": 70, "f": "e" }]);
+		c["npcs"]["5011"] = tobin;
+		c["professions"] = json!({ "197": { "id": 197, "name": "Tailoring", "ranks": ranks(journeyman_a), "trainerSkill": gates } });
+		let pack = write_codex_pack(&c, &CodexOpts::default());
+		let setup = format!("{}\nw.learnSkill(197, \"Tailoring\", {skill})", pack.stub_lua);
+		let rows = run_with(r#"emit((rows("item", 8005)))"#, &Opts { with_pack: false, setup, ..Default::default() }).remove(0);
+		drop(pack);
+		rows[0]["trainer"].clone()
+	};
+	assert_eq!(trainer(json!([5011]), json!({}), "60, 75"), 5011, "Apprentice only so far: the trainer of the next rank, not the nearer one");
+	assert_eq!(trainer(json!([5011]), json!({}), "120, 150"), 5010, "the rank is held: the nearest trainer");
+	assert_eq!(trainer(json!([5011]), json!({ "5010": 125 }), "120, 150"), 5011, "5010 turns the character away below 125");
+	assert_eq!(trainer(json!([]), json!({}), "60, 75"), Value::Null, "no trainer teaches the rank: none, not the wrong one");
 }
 
 #[test]
@@ -294,6 +365,66 @@ fn sources_npcs_quests_dungeons_and_zones_give_location_rows() {
 	assert_eq!(zone, json!({ "n": 0, "name": "Amber Vale" }));
 }
 
+// #1743: a zone picked in Lookup said "No guide could be made for this (nosource)": zones had no rows. Now its
+// flight masters and inns (Nav's travel data, here a fake Nav) are its rows, the other side's listed but not open
+// and a class's own flight master only for that class; with none open to the character, its middle too
+// (Nav.ZoneMiddle); a map with none of them (a continent) still has no rows. The guide is one goto there, which the
+// arrow's route leads to.
+#[test]
+fn issue_1743_a_zone_s_rows_are_its_flight_masters_and_inns_else_its_middle_and_its_guide_goes_there() {
+	let [vale, hollow, other, isle, guide] = first::<5>(run(r#"
+		local middle = false
+		Polestar.Nav = {
+			GetTravelData = function() return {
+				taxi = {
+					{ id = 1, name = "Amber Post", map = 9001, x = 20, y = 20, faction = 1 },
+					{ id = 2, name = "Ember Camp", map = 9001, x = 80, y = 80, faction = 2 },
+					{ id = 3, name = "Druid Grove", map = 9001, x = 50, y = 60, faction = 3, class = "DRUID" },
+					{ id = 4, name = "Hollow Post", map = 9002, x = 50, y = 50, faction = 3 },
+				},
+				inns = {
+					{ name = "Amber Inn", map = 9001, x = 52, y = 48, npc = 5001 },
+					{ name = "Grosh's Inn", map = 9001, x = 51, y = 50, npc = 5002 },
+					middle and { name = "Isle Inn", map = 9003, x = 30, y = 30, npc = 5002 } or nil,
+				},
+			} end,
+			-- Amber Vale's middle is never listed: rows there are open.
+			ZoneMiddle = function(map)
+				if map == 9001 then return 0, 0, 0 end
+				if middle and map == 9003 then return 1, 0, 0 end
+			end,
+		}
+		emit((rows("zone", 9001)))
+		emit((rows("zone", 9002)))
+		-- Frost Isle with no inn or middle (as a continent): no rows. Straight-line rows, past the ranked ones' cache.
+		emit({ n = #(Polestar.Lookup.Sources("zone", 9003, true)) })
+		middle = true
+		emit((rows("zone", 9003)))
+		local def, err = Polestar.Lookup.BuildGuide("zone", 9001)
+		emit(def and { title = def.title, steps = def.steps } or { err = err })
+	"#));
+	assert_eq!(
+		pick(&vale, &["type", "label", "detail", "available", "whyText", "guideable"]),
+		json!([
+			{ "type": "inn", "label": "Amber Inn", "detail": "Innkeeper \u{b7} Amber Vale", "available": true, "whyText": null, "guideable": true },
+			{ "type": "flight", "label": "Amber Post", "detail": "Flight master \u{b7} Amber Vale", "available": true, "whyText": null, "guideable": true },
+			{ "type": "inn", "label": "Grosh's Inn", "detail": "Innkeeper \u{b7} Amber Vale", "available": false, "whyText": "Horde only", "guideable": true },
+			{ "type": "flight", "label": "Ember Camp", "detail": "Flight master \u{b7} Amber Vale", "available": false, "whyText": "Horde only", "guideable": true },
+		])
+	);
+	assert_eq!(pick(&hollow, &["type", "label", "available"]), json!([{ "type": "flight", "label": "Hollow Post", "available": true }]));
+	assert_eq!(
+		pick(&isle, &["type", "label", "detail", "available", "map", "x", "y"]),
+		json!([
+			{ "type": "middle", "label": "Frost Isle", "detail": "Zone \u{b7} Frost Isle", "available": true, "map": 9003, "x": 50, "y": 50 },
+			{ "type": "inn", "label": "Isle Inn", "detail": "Innkeeper \u{b7} Frost Isle", "available": false, "map": 9003, "x": 30, "y": 30 },
+		]),
+		"the other side's inn only: the middle too"
+	);
+	assert_eq!(other, json!({ "n": 0 }), "a map with no flight master, inn or middle: no rows");
+	assert_eq!(guide, json!({ "title": "Amber Vale", "steps": [{ "title": "Amber Vale", "goals": [{ "t": "goto", "text": "Amber Inn", "map": 9001, "x": 52, "y": 48 }] }] }));
+}
+
 // A French client whose names pack lands after the first look: the Codex names Elder Rowan in French from then
 // on, and so must the cached rows.
 #[test]
@@ -355,6 +486,52 @@ fn curated_guides_the_one_for_this_character_and_class_mounts_by_keyword() {
 	assert_eq!(tabs, json!(["test/alliance-strider", "test/alliance-strider"]));
 	let horde = run_with(&(guides() + r#" emit(Polestar.Lookup.CuratedGuide("mount", 8000))"#), &Opts { race: "Orc", faction: "Horde", ..Default::default() }).remove(0);
 	assert_eq!(horde, "test/horde-strider");
+}
+
+// #2606 (Sayvil972, 0.4.0, frFR): looking up The Test of Righteousness built a guide from the quest's data, which sent
+// the paladin to Bailor Stonehand for an ore shipment he only gives after his own quest; Verigan's Fist, the class
+// guide that walks the whole chain, lists the quest among its keywords. A quest whose English title is a whole
+// keyword of a guide this character can follow opens that guide, in any client language; a keyword merely holding
+// the title, or a guide for another class, does not.
+#[test]
+fn a_quest_lookup_opens_the_class_guide_that_lists_it_2606() {
+	let setup = r#"
+		local function g(id, extra)
+			local def = { id = id, pack = "test", title = id, category = "Class", steps = { { goals = { { t = "note", text = "x" } } } } }
+			for k, v in pairs(extra) do def[k] = v end
+			assert(Polestar.RegisterGuide(def))
+		end
+		g("test/vale-warrior", { classes = { "WARRIOR" }, keywords = { "Saddles", "Trouble in the Vale", "Alliance Errand runs" } })
+		g("test/vale-mage", { classes = { "MAGE" }, keywords = { "Saddles", "The Saddler's Request" } })
+		g("test/route", { category = "Leveling", minLevel = 1, maxLevel = 60 })
+	"#;
+	let [warrior, other_class, part, english, opened] = first::<5>(run(&[
+		"\n",
+		TEST_PACK,
+		"\n",
+		TEST_SOURCE,
+		setup,
+		r#"
+		local L = Polestar.Lookup
+		emit(L.CuratedGuide("quest", 7001) or false)
+		emit(L.CuratedGuide("quest", 7002) or false)
+		emit(L.CuratedGuide("quest", 7004) or false)
+		-- A French client: the quest's title is translated, the guide's keywords are not.
+		local N = Polestar.Names
+		N.Localised = function() return true end
+		local cached = N.Cached
+		N.Cached = function(kind, id) if kind == "quest" and id == 7001 then return "Des ennuis dans le val" end return cached(kind, id) end
+		Polestar.Fire("NAMES_LOADED")
+		emit(L.CuratedGuide("quest", 7001) or false)
+		emit(L.Guide("quest", 7001) or false)
+	"#,
+	]
+	.concat()));
+	assert_eq!(warrior, "test/vale-warrior");
+	assert_eq!(other_class, false, "the mage's guide is not this warrior's");
+	assert_eq!(part, false, "a keyword holding Alliance Errand is not the quest");
+	assert_eq!(english, "test/vale-warrior");
+	assert_eq!(opened, "test/vale-warrior");
 }
 
 #[test]
@@ -427,6 +604,29 @@ fn generated_guides_a_live_frame_point_is_a_goal_without_a_frame_an_era_one_keep
 	"#));
 	assert_eq!(live, json!([["accept", false], ["turnin", false]]));
 	assert_eq!(era, json!([["accept", "e"], ["turnin", "e"]]));
+}
+
+// #2468: Toxic Test's pickup line said "Kill Devilsaur" for a stab with the quest item. The Codex
+// marks that kill with `useItem`; the same kill without it stays "Kill". Not one quest id.
+#[test]
+fn a_kill_finished_by_using_an_item_says_use_and_the_same_kill_without_one_says_kill() {
+	let [kill, used] = first::<2>(run(&(TEST_PACK.to_string()
+		+ r#"
+		local function line(id, objective)
+			local q = { id = 88001, title = "Stab", start = { npc = { 777001 } }, ["end"] = { npc = { 777001 } }, objectives = { objective } }
+			local step = Polestar.Lookup.QuestStep(q, { map = 9001, x = 50, y = 50 }, { inside = function() return { map = 9001, x = 40, y = 40, name = "Inside" } end })
+			local obj = step.goals[2]
+			assert(Polestar.RegisterGuide({ id = id, pack = "test", title = "Stab", steps = { step } }))
+			Polestar.Engine.SetGuide(id)
+			local view = Polestar.Engine.GetStepView(1)
+			local row = view and view.goals[2]
+			return { t = obj.t, item = obj.item or false, npc = obj.npc, oi = obj.oi, verb = row and row.verb or false }
+		end
+		emit(line("test/kill-credit", { type = "kill", id = 6498, count = 1, text = "Devilsaur" }))
+		emit(line("test/use-on-mob", { type = "kill", id = 6498, count = 1, text = "Devilsaur", useItem = 22432 }))
+	"#)));
+	assert_eq!(kill, json!({ "t": "kill", "item": false, "npc": 6498, "oi": 1, "verb": "Kill" }));
+	assert_eq!(used, json!({ "t": "use", "item": 22432, "npc": 6498, "oi": 1, "verb": "Use" }));
 }
 
 // A guide built from a mount's best source would leave out level 40, riding and the gold: only a
@@ -697,6 +897,85 @@ fn search_one_letter_queries_read_name_prefixes_only_capped_paging_with_offset_l
 	assert_eq!(lazy, json!({ "before": 0, "after": 1, "s1": "Sub 100030" }));
 }
 
+#[test]
+fn translated_search_keeps_only_the_extra_names_and_ranks_them_with_english() {
+	let [kept, matches] = first::<2>(run_with(
+		r#"
+		local opts = { kinds = { item = true }, subtitles = false }
+		local chunks = {}
+		for i = 1, 5000 do chunks[i] = "\2old silver blade number "..i.."\1"..i..",2,,20\n" end
+		local base = table.concat(chunks); chunks = nil
+		Polestar.Codex.Index = function(k) if k == "item" then return base end end
+		Polestar.Codex.IsLoaded = function() return true end
+		Polestar.Names.Localised = function() return true end
+		-- Build the same item index twice. Before the names pack is ready the result is not cached;
+		-- this pays the first scan's VM costs without charging them to the retained translation.
+		local ready = false
+		Polestar.Names.Ready = function() return ready end
+		Polestar.Names.Cached = function(_, id) if id == (ready and 1 or 2) then return "Silver Blade" end end
+		Polestar.Search.Query("unmatched", opts)
+		local function retainedKiB()
+			-- Lua 5.1 can halve its string table and scratch buffer one collection at a time.
+			local last
+			for _ = 1, 32 do
+				collectgarbage()
+				local kib = collectgarbage("count")
+				if kib == last then return kib end
+				last = kib
+			end
+			error("retained Lua heap did not settle")
+		end
+		-- Lua 5.1's string table doubles when full and a full collect halves it only while it is under a quarter
+		-- full: grown first, a resize the query's short-lived strings set off is not counted as kept.
+		do local t = {} for i = 1, 100000 do t[i] = "\3" .. i end end
+		local before = retainedKiB()
+		ready = true
+		Polestar.Search.Query("unmatched", opts)
+		emit((retainedKiB() - before) * 1024 / #base)
+		local rows, counts, more = Polestar.Search.Query("silver blade", opts)
+		emit({ rows[1].id, rows[1].title, counts.item, more.item })
+	"#,
+		&Opts { with_pack: false, ..Default::default() },
+	));
+	assert!(num(&kept) < 0.5, "one translated name should not retain a second whole English catalogue: {kept} copies");
+	assert_eq!(matches, json!([1, "Silver Blade", 199, true]), "exact translation before English word matches, one id once, one shared read limit");
+}
+
+#[test]
+fn building_a_translated_catalogue_does_not_rescan_the_name_chunk_for_each_missing_id() {
+	let [ratio, edge] = first::<2>(run_with(
+		r#"
+		local store, lines = Polestar.LuaChunks.New(), {}
+		for i = 1, 500 do lines[i] = "\n" .. (2 * i) .. "\t" .. string.rep("name ", 8) .. i end
+		store:Add("npc", 1, 1000, table.concat(lines) .. "\n")
+		local function run(bulk)
+			local times = {}
+			for i = 1, 5 do
+				local start = os.clock()
+				for pass = 1, 3 do
+					local cursor = bulk and { dense = true } or nil
+					for id = 1, 1000 do
+						local s = store:Raw("npc", id, cursor)
+						assert((s ~= nil) == (id % 2 == 0))
+					end
+				end
+				times[i] = os.clock() - start
+			end
+			table.sort(times)
+			return times[3]
+		end
+		emit(run(true) / run(false))
+		store:Add("npc", 1001, 1009, "\n1009\tLast\n1001\tFirst\n1003\t\n")
+		local c = { dense = true }
+		local function read(id) return store:Raw("npc", id, c) end
+		emit({ read(1009), read(1003), read(1001), read(1002) or false, read(998), read(1009) })
+	"#,
+		&Opts { with_pack: false, ..Default::default() },
+	));
+	assert!(num(&ratio) < 0.5, "bulk reads in a partly translated chunk cost {ratio} times separate lookups");
+	assert_eq!(edge, json!(["Last", "", "First", false, "name ".repeat(8) + "499", "Last"]));
+}
+
 // Search speed without pinning one machine's: a keystroke is timed against the same run's cost of scanning every
 // name once (one plain find over each index, what any search must do), and 25,000 names against 2,500. A search
 // rebuilding its index per keystroke (a Lua pass over every line) costs far more than a few C scans; a quadratic
@@ -757,8 +1036,8 @@ fn search_a_keystroke_costs_a_few_scans_of_the_names_and_grows_linearly_from_2_5
 	let ms = |t: &Value| format!("keystroke {:.3} ms, one scan {:.3} ms", num(&t["key"]), num(&t["scan"]));
 	// Here (Linux, lua5.1): a keystroke ~3 scans, 25,000 names ~2.5x 2,500; a Lua pass over every line alone
 	// costs ~35 scans.
-	assert!(num(&large["key"]) < 12.0 * num(&large["scan"]).max(0.01), "25,000 names: {}: more than 12 scans a keystroke", ms(&large));
-	assert!(num(&large["key"]) < 15.0 * num(&small["key"]).max(0.01), "25,000 names {} vs 2,500 {}: grows faster than the names", ms(&large), ms(&small));
+	forge_addontest::assert_timing!(num(&large["key"]) < 12.0 * num(&large["scan"]).max(0.01), "25,000 names: {}: more than 12 scans a keystroke", ms(&large));
+	forge_addontest::assert_timing!(num(&large["key"]) < 15.0 * num(&small["key"]).max(0.01), "25,000 names {} vs 2,500 {}: grows faster than the names", ms(&large), ms(&small));
 }
 
 // ---------------------------------------------------------------------------
@@ -1288,16 +1567,37 @@ fn options_the_lookup_tab_of_discovery_and_its_defaults() {
 		local out = {}
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
 			if spec.page == "Discovery" and spec.tab == "Lookup" then
+				-- The feature's switch sits in its section's header.
+				local t = spec.toggle
+				if t then out[#out + 1] = { key = t.key, kind = t.kind, label = t.label, help = t.help ~= nil } end
 				for _, c in ipairs(spec.controls) do out[#out + 1] = { key = c.key, kind = c.kind, label = c.label, help = c.help ~= nil } end
 			end
 		end
 		emit(out)
 		emit({ Polestar.Get("lookup.enabled"), Polestar.Get("lookup.tooltip"), Polestar.Get("lookup.altClick"), Polestar.Get("lookup.mounts") })
 	"#,
-		&Opts { files: &["Core/Core.xml", "Theme/Theme.xml", "Lookup/Lookup.xml"], ..Default::default() },
+		&Opts { files: &["Core/Core.xml", "Theme/Theme.xml", "Lookup/Lookup.xml", "../Polestar_Options/Lookup/Options.lua"], ..Default::default() },
 	));
 	let keys: Vec<Value> = arr(&controls).iter().map(|c| c["key"].clone()).collect();
 	assert_eq!(keys, ["lookup.enabled", "lookup.tooltip", "lookup.altClick", "lookup.mounts"]);
 	assert!(arr(&controls).iter().all(|c| c["kind"] == "toggle" && truthy(&c["label"]) && truthy(&c["help"])));
 	assert_eq!(defaults, json!([true, true, true, true]));
+}
+
+// Mokii's report (#2943): Tirion Fordring has a spawn on Western Plaguelands' map from the Classic data (Era frame)
+// and the same place on Eastern Plaguelands' map from Forever's data; Stratholme's pick-up guide, built in Western
+// Plaguelands, took the western point and the arrow went through Western Plaguelands to him. An Era spawn that is the
+// same place as a live spawn on another map is that live spawn; one far from it stays.
+#[test]
+fn an_era_spawn_at_the_same_place_as_a_live_spawn_on_another_map_is_the_live_one_2943() {
+	let out = run(r#"
+		-- The fixture's maps, side by side: Amber Vale's east edge is Ember Hollow's west edge.
+		Polestar.RegisterMapFrames({ era = { [9001] = { c = 0, left = 1000, right = -1000, top = 1000, bottom = -1000 }, [9002] = { c = 0, left = -1000, right = -3000, top = 1000, bottom = -1000 } } })
+		local N = Polestar.Lookup.Nearest
+		local twin = N({ { map = 9001, x = 99.5, y = 50, f = "e" }, { map = 9002, x = 0.5, y = 50, f = "l" } }, { map = 9001, x = 90, y = 50 })
+		local apart = N({ { map = 9001, x = 60, y = 50, f = "e" }, { map = 9002, x = 0.5, y = 50, f = "l" } }, { map = 9001, x = 55, y = 50 })
+		local unplaced = N({ { map = 9001, x = 99.5, y = 50, f = "e" }, { map = 9002, x = 0.5, y = 50, f = "l" } })
+		emit({ twin = twin.map, apart = apart.map, unplaced = unplaced.map })"#)
+	.remove(0);
+	assert_eq!(out, json!({ "twin": 9002, "apart": 9001, "unplaced": 9002 }));
 }

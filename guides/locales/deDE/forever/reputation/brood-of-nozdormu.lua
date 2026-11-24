@@ -132,7 +132,7 @@ return {
 	-- Step 22: Dirge Quikcleave's Chops
 	-- {npc:8125} Dirge Quikcleave
 	["{npc:8125}'s Chops"] = "Koteletts von {npc:8125}",
-	-- {npc:8125} Dirge Quikcleave · {item:9061} Goblin Rocket Fuel · {item:8150} Deeprock Salt · {npc:11811} Narain Soothfancy · {item:18562} Elementium Ore · {item:21136} Arcanite Buoy · {object:180669} Swirling Maelstrom (no name in this language: may be words) · {zone:1447} Azshara · {area:1227} Bay of Storms · {npc:15571} Maws · {item:21137} Blue Scepter Shard
+	-- {npc:8125} Dirge Quikcleave · {item:9061} Goblin Rocket Fuel · {item:8150} Deeprock Salt · {npc:11811} Narain Soothfancy · {item:18562} Elementium Ore · {item:21136} Arcanite Buoy · {object:180669} Swirling Maelstrom · {zone:1447} Azshara · {area:1227} Bay of Storms · {npc:15571} Maws · {item:21137} Blue Scepter Shard
 	-- plural, as words: Arcanite Bars = {item:12360} Arcanite Bar · Azerothian Diamonds = {item:12800} Azerothian Diamond · Blue Sapphires = {item:12361} Blue Sapphire
 	["{npc:8125} wants 20 {item:9061} and 20 {item:8150} with the meat. {npc:11811} then wants 20 Arcanite Bars, 10 {item:18562}, 10 Azerothian Diamonds and 10 Blue Sapphires, and gives you an {item:21136}: placed at the {object:180669} in {zone:1447}'s {area:1227}, it calls up {npc:15571}, a level 63 boss for a raid. {npc:15571} drops the {item:21137} for one raider on the quest each kill."] = "{npc:8125} will 20 {item:9061} und 20 {item:8150} zum Fleisch. {npc:11811} will dann 20 Arcanite Bars, 10 {item:18562}, 10 Azerothian Diamonds und 10 Blue Sapphires und gibt dir eine {item:21136}: Am {object:180669} in der {area:1227} von {zone:1447} aufgestellt, ruft sie {npc:15571} herbei, einen Boss der Stufe 63 für einen Schlachtzug. {npc:15571} lässt bei jedem Kill den {item:21137} für einen Schlachtzügler mit der Quest fallen.",
 	-- {item:12360} Arcanite Bar
@@ -158,8 +158,8 @@ return {
 	["{npc:15624}: 25 (and 25 Cenarion Circle)"] = "{npc:15624}: 25 (und 25 Zirkel des Cenarius)",
 
 	-- Step 26: Keeper Remulos
-	-- {quest:8735} The Nightmare's Corruption · {zone:1440} Ashenvale · {zone:1444} Feralas · {zone:1425} Hinterlands · {npc:15625} Twilight Corrupter · {zone:1431} Duskwood
-	["{quest:8735} wants a fragment from each of the four Dragons of Nightmare portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "{quest:8735} verlangt ein Fragment von jedem der vier Portale der Drachen des Alptraums: Elite-Drachkin an den Portalen in {zone:1440}, {zone:1444} und {zone:1425} (je 5%) und der {npc:15625} in {zone:1431}. Schlachtzug-Inhalt.",
+	-- {quest:8735} The Nightmare's Corruption · {npc:235289} Dragons of Nightmare · {zone:1440} Ashenvale · {zone:1444} Feralas · {zone:1425} Hinterlands · {npc:15625} Twilight Corrupter · {zone:1431} Duskwood
+	["{quest:8735} wants a fragment from each of the four {npc:235289} portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "{quest:8735} verlangt ein Fragment von jedem der vier Portale der {npc:235289}: Elite-Drachkin an den Portalen in {zone:1440}, {zone:1444} und {zone:1425} (je 5%) und der {npc:15625} in {zone:1431}. Schlachtzug-Inhalt.",
 	["10 (and 100 Cenarion Circle)"] = "10 (und 100 Zirkel des Cenarius)",
 
 	-- Step 27: The Ashenvale portal
@@ -202,6 +202,8 @@ return {
 	["Neutral to Friendly is 3,000 reputation. Every trash mob of the {area:16076} (a 40-player raid behind the {area:2737}) gives 100, and the Twin Emperors 210 each, until 2,999 of 3,000 Neutral, one point short of Friendly; there they stop. Then hand in one saved {item:21230} (1,000, to {npc:15502}) or {item:21229} (500, to {npc:15503}) to tip you over. The shoulder and boot exchanges of the Temple's tier set need no standing: the token, two idols and ten scarabs to {npc:15502} (shoulders) or {npc:15503} (boots) pay 200 each. The {area:3454} (20 players) give a little from bosses: Kurinnaxx, Moam, Buru and Ayamiss 50 each, Rajaxx 34, Ossirian 100, to Exalted."] = "Von Neutral bis Freundlich sind es 3.000 Ruf. Jeder Trash-Mob im {area:16076} (ein Schlachtzug für 40 Spieler hinter der {area:2737}) gibt 100, die Twin Emperors je 210, bis 2.999 von 3.000 Neutral, einen Punkt vor Freundlich; dort hören sie auf. Gib dann einen aufgesparten {item:21230} (1.000, an {npc:15502}) oder ein {item:21229} (500, an {npc:15503}) ab, um darüberzukommen. Die Schulter- und Stiefeltausche des Tier-Sets des Tempels brauchen keinen Ruf: Die Marke, zwei Idole und zehn Skarabäen an {npc:15502} (Schultern) oder {npc:15503} (Stiefel) zahlen je 200. Die {area:3454} (20 Spieler) geben ein wenig von Bossen: Kurinnaxx, Moam, Buru und Ayamiss je 50, Rajaxx 34, Ossirian 100, bis Ehrfürchtig.",
 	-- {item:21229} Qiraji Lord's Insignia
 	["{item:21229}, Temple bosses"] = "{item:21229}, Bosse des Tempels",
+	-- {npc:15503} Kandrostrasz
+	["{npc:15503}: 500, handed in from his window"] = "{npc:15503}: 500, über sein Fenster abgegeben",
 
 	-- Step 35: The ring at Friendly
 	["The ring at Friendly"] = "Der Ring bei Freundlich",

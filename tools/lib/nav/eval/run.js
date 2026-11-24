@@ -6,8 +6,9 @@
 //   runQueries({ navDir, queries, lua?, zoneLevels? }) -> { init, results }   raw harness lines (harness.lua's header)
 //     zoneLevels: tools/lib/maps/zonelevels.js's { [uiMapID]: { min, ... } }, for the routes with a level
 //   runRoutes({ navDir, routes, profile?, lua?, zoneLevels? })
-//     routes: [{ id, map, from: [x, y, z|null], to, profile?, level?, danger? }] (world, UnitPosition's frame)
-//     -> [{ id, ok, reason, cost, yards, pts: [[x, y, z]], hubs, ms, warmMs, kb, wet, zones, endZones }]
+//     routes: [{ id, map, from: [x, y, z|null], to, reach?, profile?, level?, danger? }] (world, UnitPosition's frame;
+//     reach: Path.lua's, the goal's nearest surface on its level within reach yards when no walk reaches its floor)
+//     -> [{ id, ok, reason, cost, yards, pts: [[x, y, z]], hubs, ms, warmMs, kb, wet, zones, endZones, reached, goal }]
 //   loadCorpus(file = routes.json) -> { routes: [{ id, kind, map?, from, to, profile, level?, danger?, expect }] }
 //   resolveRoutes(routes, geo) -> the routes with world ends: an end [x, y, z] is kept (on `map`), an end
 //     { uiMap, x, y, f? } (map percent in the live frame, as the player sees it; f "e" the Era frame, as Guides.lua's
@@ -28,6 +29,7 @@ const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const { ROOT } = require('../../paths');
 const { metrics } = require('./metrics');
+const { navParts } = require('../parts');
 const { evaluateExpectations, summarize } = require('./compare');
 
 const HARNESS = path.join(__dirname, 'harness.lua');
@@ -67,10 +69,9 @@ function navFiles(navDir) {
 			files.push(fs.existsSync(mine) ? mine : path.join(REPO_NAV, entry));
 		}
 	}
-	for (const part of ['Polestar_Nav_EK', 'Polestar_Nav_Kalimdor']) {
+	for (const part of navParts(navDir)) {
 		const dir = path.join(path.dirname(path.resolve(navDir)), part);
 		const partToc = path.join(dir, `${part}.toc`);
-		if (!fs.existsSync(partToc)) continue;
 		for (const raw of fs.readFileSync(partToc, 'utf8').split(/\r?\n/)) {
 			const entry = raw.trim();
 			if (entry && !entry.startsWith('#')) files.push(path.join(dir, entry.replace(/\\/g, '/')));
@@ -90,7 +91,7 @@ function runQueries({ navDir, queries, lua = findInterpreter(), zoneLevels = nul
 		fs.writeFileSync(qfile, queries.map((q) => JSON.stringify(q)).join('\n') + '\n');
 		if (zoneLevels) {
 			const zfile = path.join(tmp, 'zones.json');
-			fs.writeFileSync(zfile, JSON.stringify(Object.fromEntries(Object.entries(zoneLevels).map(([id, z]) => [id, z.min]))));
+			fs.writeFileSync(zfile, JSON.stringify(Object.fromEntries(Object.entries(zoneLevels).map(([id, z]) => [id, z.danger !== undefined ? z.danger : z.min]))));
 			args.push(zfile);
 		}
 		if (warm) args.push('warm');
@@ -104,7 +105,7 @@ function runQueries({ navDir, queries, lua = findInterpreter(), zoneLevels = nul
 	}
 }
 
-const routeQuery = (r, profile, style = 'balanced') => ({ type: 'route', id: r.id, map: r.map, from: r.from, to: r.to, profile: r.profile !== undefined ? r.profile : profile, style, level: r.level === undefined ? null : r.level, danger: r.danger || null });
+const routeQuery = (r, profile, style = 'balanced') => ({ type: 'route', id: r.id, map: r.map, from: r.from, to: r.to, reach: typeof r.reach === 'number' ? r.reach : null, profile: r.profile !== undefined ? r.profile : profile, style, level: r.level === undefined ? null : r.level, danger: r.danger || null });
 
 function runRoutes({ navDir, routes, profile = null, style = 'balanced', lua, zoneLevels = null }) {
 	const { results } = runQueries({ navDir, lua, zoneLevels, queries: routes.map((r) => routeQuery(r, profile, style)) });

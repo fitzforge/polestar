@@ -8,8 +8,13 @@
 -- Before the offer, the heads-up (ClassQuests.Heads, from the compiled
 -- guide): how long the chain is, escorts, and its objectives' mobs. A chain
 -- whose objectives are elites is offered only from 2 levels below the
--- highest of them (the elites' `group.lvl`); any other chain as soon as it
--- opens.
+-- highest of them (the elites' `group.lvl`). Every chain waits for one level
+-- below its first quest's level (Fitz, 2026-11-10): the game often offers a
+-- class quest 3-5 levels before its level (The Eye of Bhossca, level 35, at
+-- 30), and cards stacked up there. A chain the character has outgrown
+-- (Engine.Outgrown: 5 levels past its guide's top, and every spell it rewards
+-- known; Fitz, 2026-11-23, #3845) is no longer offered. The guide still opens
+-- early from the guide list, as soon as Engine.StartGate allows.
 --
 -- Per-character state in CharState().flags.classOffered (guide id ->):
 --   true    offered and taken, or dismissed: never again
@@ -34,10 +39,15 @@ local max, tonumber, gmatch, match = math.max, tonumber, string.gmatch, string.m
 
 -- An elite chain is offered from this many levels below its highest elite.
 ClassQuests.ELITE_MARGIN = 2
+-- Any chain is offered from this many levels below its first quest's level.
+ClassQuests.QUEST_MARGIN = 1
 -- A chain this long (quests, or zones, or two continents) is called long.
 local LONG_QUESTS, LONG_ZONES = 5, 3
 -- Non-elite mobs this many levels above the chain's start are named.
 local MOBS_ABOVE = 5
+-- A level above this is no real level (9999: a mob the game shows as "??"),
+-- never a level to name (#2947: "mobs up to level 9999").
+local MAX_LEVEL = 63
 
 local function offered()
 	local flags = ns.CharState().flags
@@ -59,17 +69,20 @@ end
 
 -- The highest level of a goal's spawn areas: its `lvl` and each area's own
 -- (packed "x,y,z,r,n,alt,lvl" or tables), read raw so no spot table is built.
+-- Levels above MAX_LEVEL are left out.
+local function real(lvl) return lvl and lvl <= MAX_LEVEL and lvl or nil end
 local function spotLevel(goal)
-	local top = tonumber(rawget(goal, "lvl")) or 0
+	local top = real(tonumber(rawget(goal, "lvl"))) or 0
 	local packed = rawget(goal, "spotsPacked")
 	if type(packed) == "string" then
 		for spot in gmatch(packed, "[^;]+") do
-			local lvl = tonumber(match(spot, "^[^,]*,[^,]*,[^,]*,[^,]*,[^,]*,[^,]*,([^,]*)"))
+			local lvl = real(tonumber(match(spot, "^[^,]*,[^,]*,[^,]*,[^,]*,[^,]*,[^,]*,([^,]*)")))
 			if lvl and lvl > top then top = lvl end
 		end
 	elseif type(rawget(goal, "spots")) == "table" then
 		for _, spot in ipairs(goal.spots) do
-			if tonumber(spot.lvl) and spot.lvl > top then top = spot.lvl end
+			local lvl = real(tonumber(spot.lvl))
+			if lvl and lvl > top then top = lvl end
 		end
 	end
 	return top
@@ -85,8 +98,9 @@ end
 
 -- The chain's facts for this character (its steps and goals that apply,
 -- optional ones aside): { quests, zones, continents, escort, eliteMin,
--- eliteMax, mobMax }. eliteMin/eliteMax: its elite objectives' highest levels
--- (nil: none, or none known); mobMax: the highest objective mob level (0: none known).
+-- eliteMax, mobMax, firstLevel }. eliteMin/eliteMax: its elite objectives' highest levels
+-- (nil: none, or none known); mobMax: the highest objective mob level (0: none known);
+-- firstLevel: the level of its first quest (nil: not known).
 function ClassQuests.Heads(g, player)
 	local quests, maps, conts = {}, {}, {}
 	local h = { quests = 0, zones = 0, continents = 0, escort = false, mobMax = 0 }
@@ -98,6 +112,10 @@ function ClassQuests.Heads(g, player)
 					if goal.t == "accept" and goal.quest and not quests[goal.quest] then
 						quests[goal.quest] = true
 						h.quests = h.quests + 1
+						if h.quests == 1 then
+							local Lv = ns.Levels
+							h.firstLevel = tonumber(goal.qlvl) or (Lv and Lv.QuestLevel and Lv.QuestLevel(goal.quest, g)) or nil
+						end
 					end
 					local m = tonumber(goal.map)
 					if m and not maps[m] then
@@ -152,8 +170,10 @@ function ClassQuests.HeadsLine(h, g)
 	return table.concat(parts, " \194\183 ")
 end
 
--- Whether an elite chain is still too hard to offer at this level.
+-- Whether an elite chain is still too hard to offer at this level, or the
+-- chain's first quest more than one level above it.
 local function tooHard(h, level)
+	if h.firstLevel and level < h.firstLevel - ClassQuests.QUEST_MARGIN then return true end
 	return h.eliteMax ~= nil and level < h.eliteMax - ClassQuests.ELITE_MARGIN
 end
 
@@ -162,7 +182,7 @@ local pending
 
 function ClassQuests.Ready()
 	local G, E, C = ns.Guides, ns.Engine, ns.Compat
-	if not (G and G.List and G.Get and G.GuideMatches and E and E.StartGate and E.GetGuideState) then return {} end
+	if not (G and G.List and G.Get and G.GuideMatches and E and E.StartGate and E.GetGuideState and E.Outgrown) then return {} end
 	local ok, player = pcall(C.GetPlayerInfo)
 	if not (ok and type(player) == "table") then return {} end
 	local level = player.level or 1
@@ -173,7 +193,7 @@ function ClassQuests.Ready()
 		local due = v == nil or (type(v) == "number" and level > v)
 		if h.category == "Class" and due and G.GuideMatches(h, player) and E.GetGuideState(h.id) == "new" then
 			local g = G.Get(h.id)
-			if g and not E.StartGate(h.id) and not underWay(g) and not tooHard(ClassQuests.Heads(g, player), level) then out[#out + 1] = g end
+			if g and not E.StartGate(h.id) and not underWay(g) and not tooHard(ClassQuests.Heads(g, player), level) and not E.Outgrown(g, player) then out[#out + 1] = g end
 		end
 	end
 	return out

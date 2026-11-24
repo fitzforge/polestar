@@ -283,6 +283,7 @@ const GLYPHS = {
 		),
 	],
 	use: [F(GEAR(12, 12, 10, 7.25, 8) + Ci(12, 12, 3))],
+	transmog: [F('M8 3H10L12 5.5L14 3H16L21.5 7L19.5 11L17 10V21H7V10L4.5 11L2.5 7Z' + STAR(12, 12, 2.7, 2.7, 0.85))],
 	explore: [S(Ci(12, 12, 8.25)), F('M16.25 7.75L13.6 13.6L7.75 16.25L10.4 10.4Z')],
 	loot: [F('M2.5 13.5H8L9.5 16.5H14.5L16 13.5H21.5V21H2.5Z'), F(Re(10.5, 2.5, 3, 7)), F('M6.75 8.5H17.25L12 13.75Z')],
 	rare: [S(Ci(12, 12, 6.75)), S('M12 1.75V7.25M12 16.75V22.25M1.75 12H7.25M16.75 12H22.25'), F(Ci(12, 12, 1.75))],
@@ -415,6 +416,17 @@ function medallion(m) {
 function ring() {
 	return new Canvas(64, 64).fill(sdf.ring(32, 32, 30.5, 3), WHITE);
 }
+
+// The spawn markers' mob ring (Maps/MobMarkers.lua, rohkin's design): a band
+// round the medallion whose hole is 1/1.3 of the texture (MobMarkers' HOLE),
+// at 16, 32 and 64 px so a small ring is drawn from a texture its size.
+const MOB_RING_SIZES = [16, 32, 64];
+function mobRing(n) {
+	const c = n / 2;
+	const outer = c - 0.5;
+	const inner = c / 1.3;
+	return new Canvas(n, n).fill(sdf.ring(c, c, (outer + inner) / 2, outer - inner), WHITE);
+}
 function ringDashed() {
 	const c = new Canvas(64, 64);
 	const r = 31, circ = 2 * Math.PI * r, dash = (3 / 32) * 64, gap = (2 / 32) * 64;
@@ -464,6 +476,7 @@ function generate(addonRoot) {
 	for (const [skin, m] of Object.entries(MEDALLIONS)) out.push(medallion(m).write(path.join(dir, `medallion-${skin}.tga`)));
 	out.push(ring().write(path.join(dir, 'ring.tga')));
 	out.push(ringDashed().write(path.join(dir, 'ring-dashed.tga')));
+	for (const n of MOB_RING_SIZES) out.push(mobRing(n).write(path.join(dir, `mob-ring${n}.tga`)));
 	out.push(glow().write(path.join(dir, 'glow.tga')));
 	out.push(edge().write(path.join(dir, 'edge.tga')));
 	out.push(badge().write(path.join(dir, 'badge.tga')));

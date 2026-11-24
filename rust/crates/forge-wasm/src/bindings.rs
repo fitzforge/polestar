@@ -25,7 +25,7 @@ impl JsPlanner {
 		Planner::new(&texts, instances, areas).map(JsPlanner).map_err(err)
 	}
 
-	/// The client's spell names (the bundle's spell-names.json): JSON [[name, id], ...].
+	/// The client's spell names (the bundle's spell-names.json): JSON [[name, id, classMask], ...] ([name, id] reads as classMask 0).
 	#[wasm_bindgen(js_name = setSpellNames)]
 	pub fn set_spell_names(&mut self, json: &str) -> Result<(), JsValue> {
 		self.0.set_spell_names(json).map_err(err)

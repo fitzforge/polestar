@@ -43,6 +43,8 @@ pub struct Output {
 	/// One line per profession: `  <name> <n> recipes (left out: ...)`, as the JS prints them.
 	pub report: Vec<String>,
 	pub warnings: Vec<String>,
+	/// Trainer recipes with a price from the Forever TDB's sniffed trainer lists (none without them).
+	pub trainer_costs: usize,
 }
 
 impl Output {
@@ -52,6 +54,18 @@ impl Output {
 		let rel = if rel.is_empty() { absolute(out).display().to_string() } else { rel };
 		format!("wrote {rel} from Forever build {} (gaps filled from Classic Era {}):\n{}", self.build, self.era_build, self.report.join("\n"))
 	}
+}
+
+/// The release gate: professions.json built without the Forever TDB's sniffed trainer lists has no
+/// trainer price and Classic-estimated learn skills (every 0.3.6 build until the gate came: 351 of
+/// 2181 learn skills off, e.g. Copper Mace 55 for 15), which the Codex and the generated profession
+/// guides then carry. The data builds call this after `build`; the goldens build without a TDB on
+/// purpose and do not.
+pub fn require_trainer_costs(out: &Output) -> Result<(), String> {
+	if out.trainer_costs > 0 {
+		return Ok(());
+	}
+	Err("professions.json: no trainer recipe has a price, so the Forever TDB's sniffed trainer lists were not read (data/sources/forever-tdb/extract.json or data/local/forever-tdb/world.sqlite); trainer learn skills would be Classic estimates".into())
 }
 
 /// pfQuest db/items.lua: item -> ["V"] = { [npc] = limit } (0 = unlimited).
@@ -148,6 +162,8 @@ pub fn build(opts: &Options) -> Result<Output, String> {
 	let mut trained: rustc_hash::FxHashMap<i64, (f64, f64)> = rustc_hash::FxHashMap::default();
 	let mut trained_classic: rustc_hash::FxHashMap<i64, (f64, f64)> = rustc_hash::FxHashMap::default();
 	let mut trainer_lists: rustc_hash::FxHashMap<i64, Vec<i64>> = rustc_hash::FxHashMap::default();
+	let mut trainer_skill: rustc_hash::FxHashMap<i64, (i64, f64)> = rustc_hash::FxHashMap::default();
+	let mut trainer_any: rustc_hash::FxHashMap<i64, Vec<i64>> = rustc_hash::FxHashMap::default();
 	let mut currency: rustc_hash::FxHashSet<(i64, i64)> = rustc_hash::FxHashSet::default();
 	match crate::tdb::load(&opts.sources, &opts.tdb, &|_| {})? {
 		Some(t) if t.get("professionSpells").is_obj() => {
@@ -159,6 +175,12 @@ pub fn build(opts: &Options) -> Result<Output, String> {
 			}
 			for (k, v) in t.get("professionTrainers").entries() {
 				trainer_lists.insert(forge_guide::js::str_to_num(&k) as i64, v.items().iter().map(|x| x.num() as i64).collect());
+			}
+			for (k, v) in t.get("professionTrainerSkill").entries() {
+				trainer_skill.insert(forge_guide::js::str_to_num(&k) as i64, (v.num_at(0) as i64, v.num_at(1)));
+			}
+			for (k, v) in t.get("professionTrainersAny").entries() {
+				trainer_any.insert(forge_guide::js::str_to_num(&k) as i64, v.items().iter().map(|x| x.num() as i64).collect());
 			}
 			for (k, v) in t.get("currencyVendors").entries() {
 				let npc = forge_guide::js::str_to_num(&k) as i64;
@@ -200,6 +222,8 @@ pub fn build(opts: &Options) -> Result<Output, String> {
 		era_yellow: &loaded.era_yellow,
 		currency: &currency,
 		trainer_lists: &trainer_lists,
+		trainer_skill: &trainer_skill,
+		trainer_any: &trainer_any,
 	};
 	let res = extract::extract(&loaded.tables, &ctx);
 	warnings.extend(res.warnings);
@@ -224,7 +248,9 @@ pub fn build(opts: &Options) -> Result<Output, String> {
 			format!("  {:<15} {:>4} recipes{left}", r.name, r.recipes)
 		})
 		.collect();
-	Ok(Output { files: vec![("professions.json".into(), text)], build: loaded.build, era_build: loaded.era_build, report, warnings })
+	let trainer_costs =
+		res.professions.iter().flat_map(|(_, prof)| prof.get("recipes").items()).filter(|r| r.get("source").to_js_string() == "trainer" && r.get("cost").as_num().is_some_and(|c| c > 0.0)).count();
+	Ok(Output { files: vec![("professions.json".into(), text)], build: loaded.build, era_build: loaded.era_build, report, warnings, trainer_costs })
 }
 
 /// Writes each file into `out_dir` (atomically: `<file>.tmp`, then renamed).

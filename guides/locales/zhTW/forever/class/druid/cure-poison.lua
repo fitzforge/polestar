@@ -12,71 +12,71 @@ return {
 
 	-- Step 1: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {skill:182} Herbalism · {item:2449} Earthroot
-	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "",
+	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "{npc:4217}站在{area:1658}德魯伊建築的樓上。沒有{skill:182}？先在拍賣行買五個{item:2449}：你後面會用到。",
 
 	-- Step 3: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {npc:270459} Alfina Nightgaze · {spell:18960} Teleport: Moonglade · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {skill:182} Herbalism · {item:2449} Earthroot
-	["{npc:4217} stands upstairs in the druids' building of the {area:1658}; {npc:270459} by the Skyborne Portal does not give this quest. Cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "",
+	["{npc:4217} stands upstairs in the druids' building of the {area:1658}; {npc:270459} by the Skyborne Portal does not give this quest. Cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "{npc:4217}站在{area:1658}德魯伊建築的樓上；天裔傳送門旁的{npc:270459}不給這個任務。施放{spell:18960}，在{area:2361}中央乘{npc:11800}的航班（她把德魯伊送到{area:702}，無需飛行路線），然後乘傳送門上去。沒有{skill:182}？先在拍賣行買五個{item:2449}：你後面會用到。",
 
 	-- Step 5: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {item:15844} Empty Cliffspring Falls Sampler · {area:442} Auberdine · {zone:1450} Moonglade
-	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15844}. Then fly to {area:442} (learn the {zone:1450} flight path at Sindrayl first if you have not)."] = "",
+	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15844}. Then fly to {area:442} (learn the {zone:1450} flight path at Sindrayl first if you have not)."] = "施放{spell:18960}：{npc:11802}就在你旁邊那棟樓的樓上。他會給你{item:15844}。然後飛往{area:442}（如果還沒學過{zone:1450}的飛行路線，先在Sindrayl那裡學習）。",
 
 	-- Step 6: Cliffspring Falls
 	-- {area:442} Auberdine · {area:445} Cliffspring Falls · {item:15844} Empty Cliffspring Falls Sampler · {item:12350} Empty Sampling Tube
-	["Head north-east from {area:442} to {area:445}. Stand at the cave mouth at the top of the waterfall, not in the river below, and use the {item:15844} (not the {item:12350} of another quest). Naga line the climb, a caster waits on the far bank, and filling the sampler calls two more (a Wave Rider and a Toxicologist, level 15): clear the way first and be ready to fight."] = "",
+	["Head north-east from {area:442} to {area:445}. Stand at the cave mouth at the top of the waterfall, not in the river below, and use the {item:15844} (not the {item:12350} of another quest). Naga line the climb, a caster waits on the far bank, and filling the sampler calls two more (a Wave Rider and a Toxicologist, level 15): clear the way first and be ready to fight."] = "從{area:442}向東北到{area:445}。站在瀑布頂端的洞口，而不是下面的河裡，使用{item:15844}（不是另一個任務的{item:12350}）。納迦沿攀爬路線分佈，對岸有一名施法者，灌滿取樣器還會召來兩個（一名逐浪者和一名毒理學家，15級）：先清路，並做好戰鬥準備。",
 	-- {item:15844} Empty Cliffspring Falls Sampler
-	["{item:15844}, at the cave mouth"] = "",
+	["{item:15844}, at the cave mouth"] = "{item:15844}，在洞口",
 
 	-- Step 7: Alanndarian Nightsong
 	-- {area:442} Auberdine
-	["Back in {area:442}, at the north end of the village."] = "",
+	["Back in {area:442}, at the north end of the village."] = "回到{area:442}，在村子北端。",
 
 	-- Step 8: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
 	["{item:15851} and {item:2449}"] = "{item:15851}與{item:2449}",
 	-- {area:442} Auberdine · {skill:182} Herbalism · {item:2449} Earthroot · {zone:1439} Darkshore · {npc:1313} Maria Lumere · {npc:1302} Bernard Gump · {zone:1453} Stormwind
 	-- plural, as words: Lunar Fungal Blooms = {object:177750} Lunar Fungal Bloom
-	["The Lunar Fungal Blooms are tiny white-spotted mushrooms on the floors and walls of the small moonkin caves in the hills just east and south-east of {area:442}; each gives one or two fungus, and each cave holds only a few, so go from cave to cave (they regrow in three minutes). The moonkin there are irritable. No {skill:182} needed for the blooms. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else buys it ({npc:1313} or {npc:1302} in {zone:1453}, or the Auction House)."] = "",
+	["The Lunar Fungal Blooms are tiny white-spotted mushrooms on the floors and walls of the small moonkin caves in the hills just east and south-east of {area:442}; each gives one or two fungus, and each cave holds only a few, so go from cave to cave (they regrow in three minutes). The moonkin there are irritable. No {skill:182} needed for the blooms. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else buys it ({npc:1313} or {npc:1302} in {zone:1453}, or the Auction House)."] = "月光菌花是{area:442}正東和東南丘陵裡小型梟獸洞穴地面和牆上的白色斑點小蘑菇；每朵給一兩個菌，而每個洞穴只有幾朵，所以要一個洞一個洞地走（三分鐘重生）。那裡的梟獸脾氣暴躁。採月光菌花不需要{skill:182}。{item:2449}則需要{skill:182}：草藥師能在{zone:1439}各處採到，其他人只能購買（{zone:1453}的{npc:1313}或{npc:1302}，或者拍賣行）。",
 
 	-- Step 9: Alanndarian Nightsong
 	-- {item:15826} Curative Animal Salve · {item:15851} Lunar Fungus
-	["She hands you the {item:15826}: ten doses, one per deer. Destroy any leftover {item:15851}."] = "",
+	["She hands you the {item:15826}: ten doses, one per deer. Destroy any leftover {item:15851}."] = "她會給你{item:15826}：十劑，每隻鹿用一劑。銷燬剩餘的{item:15851}。",
 
 	-- Step 10: Sickly Deer
 	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer · {zone:1439} Darkshore · {area:456} Cliffspring River · {zone:1440} Ashenvale · {area:442} Auberdine · {spell:339} Entangling Roots · {npc:3702} Alanndarian Nightsong
-	["Use the {item:15826} on living {npc:12298} (level 5, a green cloud over them): they roam {zone:1439} from the {area:456} to the {zone:1440} border, many around the Blackwood furbolg camp north-east of {area:442}. Druid trick: root a deer with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from {npc:3702} for a fresh salve."] = "",
+	["Use the {item:15826} on living {npc:12298} (level 5, a green cloud over them): they roam {zone:1439} from the {area:456} to the {zone:1440} border, many around the Blackwood furbolg camp north-east of {area:442}. Druid trick: root a deer with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from {npc:3702} for a fresh salve."] = "對活著的{npc:12298}（5級，頭頂有綠色雲霧）使用{item:15826}：它們在{zone:1439}從{area:456}到{zone:1440}邊界一帶遊蕩，{area:442}東北的黑木熊怪營地周圍尤其多。德魯伊小技巧：用{spell:339}纏住一隻鹿，在纏繞生效前塗上藥膏，纏繞造成的擊殺會再計一次。在某隻不計數的鹿身上浪費了一劑？放棄任務，從{npc:3702}重新接取，就能拿到新的藥膏。",
 	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer
-	["Use the {item:15826} on {npc:12298}"] = "",
+	["Use the {item:15826} on {npc:12298}"] = "對{npc:12298}使用{item:15826}",
 
 	-- Step 11: Curing the Sick
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {zone:1457} Darnassus
-	["Cast {spell:18960} and see {npc:11802}, then take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed) and the portal up to {zone:1457}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960} and see {npc:11802}, then take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed) and the portal up to {zone:1457}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "施放{spell:18960}去見{npc:11802}，然後在{area:2361}中央乘{npc:11800}的航班（她把德魯伊送到{area:702}，無需飛行路線），再乘傳送門上去到{zone:1457}。{npc:11802}在他那棟樓的樓上：從裡面上樓，箭頭分不清樓層。",
 
 	-- Step 12: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:8946} Cure Poison
-	["{npc:4217}, upstairs in the {area:1658}, teaches you {spell:8946}."] = "",
+	["{npc:4217}, upstairs in the {area:1658}, teaches you {spell:8946}."] = "{area:1658}樓上的{npc:4217}會教你{spell:8946}。",
 
 	-- Step 14: Lessons Anew
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:262560} Hana Lighthoof · {zone:1412} Mulgore · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
-	["{npc:3033} stands in the druids' hut on {area:1639}; {npc:262560}, the Skyborne druid trainer where the airship from Zephras Isle lands in northern {zone:1412}, gives the same quest. No {skill:182}? {npc:3490} at the Crossroads sells {item:2449} later, or buy five on the Auction House now."] = "",
+	["{npc:3033} stands in the druids' hut on {area:1639}; {npc:262560}, the Skyborne druid trainer where the airship from Zephras Isle lands in northern {zone:1412}, gives the same quest. No {skill:182}? {npc:3490} at the Crossroads sells {item:2449} later, or buy five on the Auction House now."] = "{npc:3033}站在{area:1639}的德魯伊小屋中；{npc:262560}是澤弗拉斯島飛艇在{zone:1412}北部降落處的天裔德魯伊訓練師，也會給同樣的任務。沒有{skill:182}？十字路口的{npc:3490}以後會賣{item:2449}，或者現在就在拍賣行買五個。",
 	-- {npc:3033} Turak Runetotem · {npc:262560} Hana Lighthoof · {zone:1412} Mulgore
-	["{npc:3033}, or {npc:262560} in northern {zone:1412}"] = "",
+	["{npc:3033}, or {npc:262560} in northern {zone:1412}"] = "{npc:3033}，或{zone:1412}北部的{npc:262560}",
 
 	-- Step 15: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {item:15842} Empty Dreadmist Peak Sampler · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15842}. {npc:11798} flies druids to {area:1638}; fly on to the Crossroads from there."] = "",
+	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15842}. {npc:11798} flies druids to {area:1638}; fly on to the Crossroads from there."] = "施放{spell:18960}：{npc:11802}站在你旁邊建築的樓上。他會交給你{item:15842}。{npc:11798}會載德魯伊飛往{area:1638}；再從那裡飛往十字路口。",
 
 	-- Step 16: Dreadmist Peak
 	-- {area:384} Dreadmist Peak · {object:19464} Dreadmist Peak Pool · {item:15842} Empty Dreadmist Peak Sampler
 	-- plural, as words: Burning Blade Toxicologists = {npc:12319} Burning Blade Toxicologist
-	["From the Crossroads head north to {area:384} and climb to the bubbling {object:19464} on its summit. Burning Blade cultists camp around it: pull them one or two at a time. Stand in the water and use the {item:15842}: three Burning Blade Toxicologists (level 13-14, curses and warlock spells) appear and attack. You need not kill them: once the sampler is full, run."] = "",
+	["From the Crossroads head north to {area:384} and climb to the bubbling {object:19464} on its summit. Burning Blade cultists camp around it: pull them one or two at a time. Stand in the water and use the {item:15842}: three Burning Blade Toxicologists (level 13-14, curses and warlock spells) appear and attack. You need not kill them: once the sampler is full, run."] = "從十字路口向北到{area:384}，爬上山頂冒泡的{object:19464}。燃燒之刃教徒在周圍紮營：一次拉一兩個。站在水裡使用{item:15842}：三個燃燒之刃毒理學家（13-14級，會詛咒和術士法術）出現並攻擊。不必殺掉他們：取樣器一滿就跑。",
 	-- {item:15842} Empty Dreadmist Peak Sampler
-	["{item:15842}, standing in the pool"] = "",
+	["{item:15842}, standing in the pool"] = "{item:15842}，站在水池中",
 
 	-- Step 17: Tonga Runetotem
 	-- {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
-	["{npc:3448} stands in the Crossroads. No {skill:182}? {npc:3490}, a few steps away by the wind rider master, sells {item:2449} for 80 copper each, three at a time until he restocks."] = "",
+	["{npc:3448} stands in the Crossroads. No {skill:182}? {npc:3490}, a few steps away by the wind rider master, sells {item:2449} for 80 copper each, three at a time until he restocks."] = "{npc:3448}站在十字路口。沒有{skill:182}？幾步外雙足飛龍管理員旁的{npc:3490}販售{item:2449}，每個80銅幣，每次補貨前只有三個。",
 	-- {item:2449} Earthroot
 	["{item:2449}; herbalists pick it on the plains"] = "{item:2449}；草藥師可以在平原上採集",
 
@@ -85,36 +85,34 @@ return {
 	-- plural, as words: Kodo Horns = {item:15852} Kodo Horn
 	["{item:2449} and Kodo Horns"] = "{item:2449}與科多獸角",
 	-- {npc:3234} Lost Barrens Kodo · {area:382} Sludge Fen · {area:388} Stagnant Oasis · {item:2449} Earthroot · {zone:1413} Barrens
-	["Every {npc:3234} (level 14-15) drops a horn, but they are few and wander: search the far north near the {area:382} and the oases, above all the {area:388} south-east of the Crossroads. They charge from range and stomp. Herbalists find {item:2449} all over the northern {zone:1413}."] = "",
+	["Every {npc:3234} (level 14-15) drops a horn, but they are few and wander: search the far north near the {area:382} and the oases, above all the {area:388} south-east of the Crossroads. They charge from range and stomp. Herbalists find {item:2449} all over the northern {zone:1413}."] = "每隻{npc:3234}（14-15級）都會掉一隻角，但它們數量稀少且四處遊蕩：到{area:382}附近的極北地帶和各處綠洲尋找，尤其是十字路口東南的{area:388}。它們會遠端衝鋒並踐踏。草藥師能在{zone:1413}北部各處採到{item:2449}。",
 
 	-- Step 19: Tonga Runetotem
 	-- {item:15826} Curative Animal Salve
-	["He hands you the {item:15826}: ten doses, one per gazelle."] = "",
+	["He hands you the {item:15826}: ten doses, one per gazelle."] = "他會給你{item:15826}：十劑，每隻瞪羚用一劑。",
 
 	-- Step 20: Sickly Gazelles
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
 	["Sickly Gazelles"] = "生病的瞪羚",
 	-- {item:15826} Curative Animal Salve · {zone:1440} Ashenvale · {area:392} Ratchet · {spell:339} Entangling Roots · {npc:3448} Tonga Runetotem
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
-	["Use the {item:15826} on living Sickly Gazelles (level 3): they graze on both sides of the road north of the Crossroads up to the {zone:1440} border, north-west of the Crossroads and west of {area:392}. Druid trick: root a gazelle with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from {npc:3448} for a fresh salve."] = "",
+	["Use the {item:15826} on living Sickly Gazelles (level 3): they graze on both sides of the road north of the Crossroads up to the {zone:1440} border, north-west of the Crossroads and west of {area:392}. Druid trick: root a gazelle with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from {npc:3448} for a fresh salve."] = "對活著的病弱瞪羚（3級）使用{item:15826}：它們在十字路口以北、直到{zone:1440}邊界的道路兩側吃草，也在十字路口西北和{area:392}以西活動。德魯伊小技巧：用{spell:339}纏住一隻瞪羚，在纏繞生效前塗上藥膏，纏繞造成的擊殺會再計一次，所以五隻瞪羚就夠。浪費了一劑？放棄任務，從{npc:3448}重新接取，就能拿到新的藥膏。",
 	-- {item:15826} Curative Animal Salve
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
-	["Use the {item:15826} on Sickly Gazelles"] = "",
+	["Use the {item:15826} on Sickly Gazelles"] = "對病弱的瞪羚使用{item:15826}",
 
 	-- Step 21: Curing the Sick
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960} and see {npc:11802}, then take {npc:11798}'s flight to {area:1638}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960} and see {npc:11802}, then take {npc:11798}'s flight to {area:1638}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "施放{spell:18960}並找{npc:11802}，然後搭乘{npc:11798}的飛行路線前往{area:1638}。{npc:11802}站在他建築的樓上：從裡面走上去，箭頭無法分辨樓層。",
 
 	-- Step 22: Power over Poison
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:8946} Cure Poison
-	["{npc:3033} on {area:1639} teaches you {spell:8946}."] = "",
+	["{npc:3033} on {area:1639} teaches you {spell:8946}."] = "{area:1639}的{npc:3033}會教你{spell:8946}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back in {area:442}."] = "回到{area:442}。",
 	-- ["Cast {spell:18960} and see {npc:11802}, then fly to {area:702} and take the portal up to {zone:1457}."] = "施放{spell:18960}並找{npc:11802}，然後飛往{area:702}，走傳送門上到{zone:1457}。",
-	-- ["Cast {spell:18960} and see {npc:11802}, then take {npc:11798}'s flight to {area:1638}."] = "施放{spell:18960}並找{npc:11802}，然後搭乘{npc:11798}的飛行路線前往{area:1638}。",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Then fly to {area:442}."] = "施放{spell:18960}。{npc:11802}在{area:2361}。然後飛往{area:442}。",
-	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. {npc:11798} flies druids to {area:1638}; fly on to the {area:380} from there."] = "施放{spell:18960}。{npc:11802}在{area:2361}。{npc:11798}會載德魯伊飛往{area:1638}；再從那裡飛往{area:380}。",
 	-- ["From the {area:380} ride north to {area:384} and fill the {item:15842} at the {object:19464}."] = "從{area:380}向北騎往{area:384}，在{object:19464}裝滿{item:15842}。",
 	-- ["Lost Barrens Kodos roam the plains north and west of the {area:380} and around the {area:388}; each drops a horn. Herbalists find {item:2449} all over the northern {zone:1413}."] = "落單的草原科多獸在{area:380}北邊和西邊的平原以及{area:388}周圍遊蕩；每隻都會掉落一根角。草藥師在{zone:1413}北部各處都能找到{item:2449}。",
 	-- ["Ride north-east from {area:442} to {area:445} and fill the {item:15844} at the mouth of the cave by the falls."] = "從{area:442}向東北騎往{area:445}，在瀑布旁的洞口裝滿{item:15844}。",
@@ -123,7 +121,4 @@ return {
 	-- ["Use the {item:15826} on {npc:12298}. They roam {zone:1439} from the {area:456} in the north to the {zone:1440} border in the south."] = "對{npc:12298}使用{item:15826}。牠們在{zone:1439}從北邊的{area:456}到南邊的{zone:1440}邊界一帶遊蕩。",
 	-- ["{npc:12296}: use the salve on them"] = "{npc:12296}：對牠們使用藥膏",
 	-- ["{npc:12298}: use the salve on them"] = "{npc:12298}：對牠們使用藥膏",
-	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033}站在{area:1639}。",
-	-- ["{npc:3448} stands in the {area:380}. No {skill:182}? {npc:3490}, a few steps away, sells {item:2449}, three at a time until he restocks."] = "{npc:3448}站在{area:380}。沒有{skill:182}？幾步外的{npc:3490}販售{item:2449}，每次補貨前只有三個。",
-	-- ["{npc:4217} stands in the {area:1658}."] = "{npc:4217}站在{area:1658}。",
 }

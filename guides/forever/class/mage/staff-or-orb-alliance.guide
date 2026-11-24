@@ -146,7 +146,7 @@ step Belann's wand (optional)
   zone Zephras Isle
   tip Belann's quest is open to Human and Gnome mages too, if you ever visit Valanaar on Zephras Isle, the Skyborne home: Anathamaas Aetherwind, the town's mage trainer, sends you to Belann Windwood next door, who wants a Wind-Infused Bough from the ground by the Windstone Formations south of Falaath Village, for the Windbough Wand. It does not shut out the staff or the orb.
   accept 93791 npc 252373 optional            -- Anathamaas Aetherwind
-  turnin 93791 optional                       -- Belann Windwood
+  turnin 93791                                -- Belann Windwood
   accept 93797 optional
   collect 262668 quest 93797.1 optional       -- Wind-Infused Bough
   turnin 93797 reward 263430 optional         -- Belann Windwood: Windbough Wand

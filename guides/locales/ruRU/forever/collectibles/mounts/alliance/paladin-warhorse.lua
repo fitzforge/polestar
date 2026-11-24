@@ -16,9 +16,8 @@ return {
 
 	-- Step 4: Summon Warhorse
 	-- {npc:6171} Duthorian Rall · {quest:1661} The Tome of Nobility · {spell:13819} Summon Warhorse
-	["{npc:6171} stands in the Cathedral of Light. At 40 he offers {quest:1661}: accept it and hand it straight back to learn {spell:13819}. Paladins do not buy a horse."] = "",
+	["{npc:6171} stands in the Cathedral of Light. At 40 he offers {quest:1661}: accept it and hand it straight back to learn {spell:13819}. Paladins do not buy a horse."] = "{npc:6171} стоит в Соборе Света. На 40-м уровне он предлагает {quest:1661}: примите задание и сразу сдайте его, чтобы изучить «{spell:13819}». Паладины не покупают коня.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 40 {npc:5149} in the {object:32362} sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the tram from {zone:1455} to {zone:1453}."] = "На 40-м уровне {npc:5149} ({object:32362}) отправляет вас к персонажу {npc:6171} в Собор Света ({zone:1453}). Поезжайте на метро: {zone:1455} → {zone:1453}.",
-	-- ["{npc:6171} stands in the Cathedral of Light. Turning in the {item:6779} teaches {spell:13819}; Paladins do not buy a mount."] = "{npc:6171} стоит в Соборе Света. Сдав предмет {item:6779}, вы изучите заклинание «{spell:13819}»; паладины не покупают транспорт.",
 }

@@ -9,7 +9,7 @@
 //! a matcher ([`token_at`], [`replace_tokens`]). Texts are scanned as UTF-16 code units like JS strings.
 //! The JS per-data caches (WeakMaps) are rebuilt per [`tokenise_guides`] call, except the client's spell
 //! names, cached in `data.memo` under `tokens.spellNames` (a host without a file system may fill that slot with
-//! [[name, id], ...] itself).
+//! [[name, id, classMask], ...] itself, as [`read_spell_names`] gives them; [name, id] reads as classMask 0).
 
 use std::rc::Rc;
 use std::sync::LazyLock;
@@ -27,9 +27,11 @@ pub const GUIDE_LISTS: [&str; 2] = ["pros", "cons"];
 pub const STEP_FIELDS: [&str; 2] = ["title", "note"];
 pub const GOAL_FIELDS: [&str; 2] = ["note", "text"];
 
+// A kill named only by its target's words is prose; one read by its quest-log line (`logLine`, a placeholder
+// target's, #2614) is not: the game words that line in the player's language, its target only the fallback.
 fn goal_fields(goal: &V) -> &'static [&'static str] {
 	static WITH_TARGET: [&str; 3] = ["note", "text", "target"];
-	if goal.get("t").as_str() == Some("kill") && goal.get("npc").is_undef() && str_(&goal.get("target")).is_some() {
+	if goal.get("t").as_str() == Some("kill") && goal.get("npc").is_undef() && !goal.get("logLine").truthy() && str_(&goal.get("target")).is_some() {
 		&WITH_TARGET
 	} else {
 		&GOAL_FIELDS
@@ -48,6 +50,7 @@ const MIN_NAME: usize = 3;
 const MIN_FIRST: usize = 4;
 const RANKS: [&str; 4] = ["Apprentice", "Journeyman", "Expert", "Artisan"];
 const MEMO_SPELLS: &str = "tokens.spellNames";
+const MEMO_TAUGHT: &str = "tokens.taughtSpells";
 
 // ---------------------------------------------------------------- JS character classes
 
@@ -285,18 +288,22 @@ struct Named {
 	id: f64,
 	name: String,
 	own: bool,
+	/// An exclusive's title (in the goal's preTitles and closedBy): a quest that closes the goal's.
+	closes: bool,
 }
 
 fn static_kind(k: &str) -> Option<&'static str> {
 	KINDS.iter().copied().find(|x| *x == k)
 }
 
-/// Every { kind, id, name } a goal names, its own (the NPC, object, target or item it shows) flagged `own`.
+/// Every { kind, id, name } a goal names, its own (the NPC, object, target or item it shows) flagged `own`, its
+/// exclusives' titles `closes`.
 fn goal_names(goal: &V, data: &Data) -> Vec<Named> {
 	let mut out = Vec::new();
+	let closes = std::cell::Cell::new(false);
 	let mut add = |kind: &'static str, id: &V, name: &V, own: bool| {
 		if let (Some(id), Some(name)) = (int_of(id), str_(name)) {
-			out.push(Named { kind, id, name: name.to_string(), own });
+			out.push(Named { kind, id, name: name.to_string(), own, closes: closes.get() });
 		}
 	};
 	add("quest", &goal.get("quest"), &goal.get("title"), false);
@@ -330,9 +337,13 @@ fn goal_names(goal: &V, data: &Data) -> Vec<Named> {
 	}
 	let pre = goal.get("preTitles");
 	if pre.truthy() {
+		let closed_by = goal.get("closedBy").items();
 		for (id, title) in pre.entries() {
-			add("quest", &V::Num(str_to_num(&id)), &title, false);
+			let id = str_to_num(&id);
+			closes.set(closed_by.iter().any(|c| c.as_num() == Some(id)));
+			add("quest", &V::Num(id), &title, false);
 		}
+		closes.set(false);
 	}
 	let area = goal.get("area");
 	if is_int(&area) {
@@ -732,6 +743,18 @@ fn lower_after(rest: &[char]) -> bool {
 	p > 0 && p < rest.len() && is_ll(rest[p])
 }
 
+/// The lower-case word `lower_after` saw: /^[ \t]+(\p{Ll}[\p{L}'’-]*)/u's group, as tokens.js reads it.
+fn word_after(rest: &[char]) -> String {
+	let p = rest.iter().take_while(|c| sp_tab(**c)).count();
+	rest[p..].iter().enumerate().take_while(|(n, c)| if *n == 0 { is_ll(**c) } else { c.is_alphabetic() || matches!(c, '\'' | '’' | '-') }).map(|(_, c)| *c).collect()
+}
+
+/// "and" or "or" after a title's object ends its name ("Supply Crate and Defias Bandit"): no kind of thing, no
+/// warning (tokens.js's JOINS_NAMES).
+fn joins_names(word: &str) -> bool {
+	matches!(word, "and" | "or")
+}
+
 /// One index of a lookup: a name index, or one consulted only right after "cast" or "your".
 #[derive(Clone, Copy)]
 pub enum Ix<'a> {
@@ -861,6 +884,27 @@ fn world_index(data: &Data, common: &Rc<FxHashSet<String>>) -> (NameIndex, NameI
 	(idx, abilities)
 }
 
+/// The JS `classIndex`: the spells of the classes of `mask` that another thing of the game is called
+/// ([`client_spells`]), filed as [`world_index`] files spells: (idx, abilities).
+fn class_index(data: &Data, common: &Rc<FxHashSet<String>>, mask: i64) -> (NameIndex, NameIndex) {
+	let mut idx = NameIndex::new(common.clone());
+	let mut abilities = NameIndex::new(common.clone());
+	for (name, id, class_mask) in client_spells(data) {
+		if class_mask & mask != 0 {
+			let target = if name.contains(' ') || name.chars().any(|c| c == '\'' || c == '’' || c == ':') { &mut idx } else { &mut abilities };
+			target.add("spell", &V::Num(id), Some(&name), WORLD_SPELL);
+		}
+	}
+	idx.finish();
+	abilities.finish();
+	(idx, abilities)
+}
+
+/// The class bits of a guide's `classes` header (0: none).
+fn class_mask(guide: &V) -> i64 {
+	guide.get("classes").items().iter().filter_map(|c| crate::races::class_by_file(&c.to_js_string())).fold(0, |m, c| m | c.bit as i64)
+}
+
 /// The number a JS relational comparison reads (`z.type >= 2`).
 fn js_num(v: &V) -> f64 {
 	match v {
@@ -872,32 +916,47 @@ fn js_num(v: &V) -> f64 {
 	}
 }
 
-/// Spell names the client gives by id: [(name, id)], each name once (its lowest id), cached in `data.memo`.
-fn spell_names(data: &Data) -> Vec<(String, f64)> {
+/// The client's spells: [(name, id, class mask)], each name once (its lowest id), cached in `data.memo`.
+fn client_spells(data: &Data) -> Vec<(String, f64, i64)> {
 	let cached = data.memo.borrow().get(MEMO_SPELLS).cloned();
 	let v = match cached {
 		Some(v) => v,
 		None => {
-			let v: V = read_spell_names(data).into_iter().map(|(n, id)| arr![V::from(n), V::Num(id)]).collect::<Vec<V>>().into();
+			let v: V = read_spell_names(data).into_iter().map(|(n, id, mask)| arr![V::from(n), V::Num(id), V::Num(mask as f64)]).collect::<Vec<V>>().into();
 			data.memo.borrow_mut().insert(MEMO_SPELLS, v.clone());
 			v
 		}
 	};
-	v.items().iter().map(|p| (p.at(0).to_js_string(), p.at(1).num())).collect()
+	v.items().iter().map(|p| (p.at(0).to_js_string(), p.at(1).num(), p.at(2).as_num().unwrap_or(0.0) as i64)).collect()
 }
 
-/// `readSpellNames(data)`: from the Forever SpellName table of the data's own client build.
+/// Spell names every guide's texts may use: [(name, id)].
+fn spell_names(data: &Data) -> Vec<(String, f64)> {
+	client_spells(data).into_iter().filter(|s| s.2 == 0).map(|(n, id, _)| (n, id)).collect()
+}
+
+/// `readSpellNames(data)`: from the Forever SpellName table of the data's own client build, [(name, id, class
+/// mask)]: the mask 0 for a name every guide's texts may use; a name another thing of the game is called is
+/// only a class's spell (SkillLineAbility ClassMask; its lowest id of those rows), for the guides of that
+/// class, and never a place's.
 #[cfg(feature = "native")]
-pub fn read_spell_names(data: &Data) -> Vec<(String, f64)> {
+pub fn read_spell_names(data: &Data) -> Vec<(String, f64, i64)> {
 	use std::fs;
 	let Some(dir) = data.dir.as_ref().and_then(|_| pinned_build_dir(data, &["SpellName.csv", "SkillLineAbility.csv"])) else { return Vec::new() };
 	let csv = |file: &std::path::Path| -> Vec<V> {
 		let text = fs::read_to_string(file).unwrap_or_else(|e| panic!("{}: {e}", file.display()));
 		crate::areas::parse_csv(&text).unwrap_or_else(|e| panic!("{e}"))
 	};
-	let abilities: FxHashSet<i64> = csv(&dir.join("SkillLineAbility.csv")).iter().map(|r| r.get("Spell").num()).filter(|n| is_integer(*n)).map(|n| n as i64).collect();
+	// Each ability with the classes it is a spell of.
+	let mut abilities: FxHashMap<i64, i64> = FxHashMap::default();
+	for r in csv(&dir.join("SkillLineAbility.csv")) {
+		let spell = r.get("Spell").num();
+		if is_integer(spell) {
+			*abilities.entry(spell as i64).or_default() |= r.get("ClassMask").num() as i64;
+		}
+	}
 	let mut taken: FxHashSet<String> = FxHashSet::default();
-	for t in [&data.npcs, &data.objects, &data.items, &data.zones] {
+	for t in [&data.npcs, &data.objects, &data.items] {
 		if !t.truthy() {
 			continue;
 		}
@@ -933,12 +992,22 @@ pub fn read_spell_names(data: &Data) -> Vec<(String, f64)> {
 			}
 		}
 	}
-	if data.areas.truthy() {
-		for key in data.areas.get("byName").keys() {
-			taken.insert(key.to_string());
+	let mut places: FxHashSet<String> = FxHashSet::default();
+	if data.zones.truthy() {
+		for z in data.zones.values() {
+			if z.truthy() {
+				if let Some(n) = str_(&z.get("name")) {
+					places.insert(js_trim(n).to_lowercase());
+				}
+			}
 		}
 	}
-	let mut best: Vec<(String, f64)> = Vec::new();
+	if data.areas.truthy() {
+		for key in data.areas.get("byName").keys() {
+			places.insert(key.to_string());
+		}
+	}
+	let mut best: Vec<(String, f64, i64)> = Vec::new();
 	let mut pos: FxHashMap<String, usize> = FxHashMap::default();
 	for r in csv(&dir.join("SpellName.csv")) {
 		let id = r.get("ID").num();
@@ -948,21 +1017,26 @@ pub fn read_spell_names(data: &Data) -> Vec<(String, f64)> {
 		if !is_integer(id) || name.is_empty() || junk_spell(&name) {
 			continue;
 		}
-		if ["Apprentice ", "Journeyman ", "Expert ", "Artisan ", "Master "].iter().any(|p| name.starts_with(p)) || name.ends_with(" Reputation") || taken.contains(&name.to_lowercase()) {
+		if ["Apprentice ", "Journeyman ", "Expert ", "Artisan ", "Master "].iter().any(|p| name.starts_with(p)) || name.ends_with(" Reputation") || places.contains(&name.to_lowercase()) {
 			continue;
 		}
-		if !name.chars().any(|c| c == ' ' || c == '\'' || c == '’' || c == ':') && !abilities.contains(&(id as i64)) {
+		let is_taken = taken.contains(&name.to_lowercase());
+		let class_mask = if is_taken { abilities.get(&(id as i64)).copied().unwrap_or(0) } else { 0 };
+		if is_taken && class_mask == 0 {
+			continue;
+		}
+		if !name.chars().any(|c| c == ' ' || c == '\'' || c == '’' || c == ':') && !abilities.contains_key(&(id as i64)) {
 			continue;
 		}
 		match pos.get(&name) {
 			Some(&p) => {
 				if id < best[p].1 {
-					best[p].1 = id;
+					best[p] = (name, id, class_mask);
 				}
 			}
 			None => {
 				pos.insert(name.clone(), best.len());
-				best.push((name, id));
+				best.push((name, id, class_mask));
 			}
 		}
 	}
@@ -970,7 +1044,7 @@ pub fn read_spell_names(data: &Data) -> Vec<(String, f64)> {
 }
 
 #[cfg(not(feature = "native"))]
-pub fn read_spell_names(_data: &Data) -> Vec<(String, f64)> {
+pub fn read_spell_names(_data: &Data) -> Vec<(String, f64, i64)> {
 	Vec::new()
 }
 
@@ -992,17 +1066,64 @@ fn junk_spell(name: &str) -> bool {
 	false
 }
 
-/// The Forever client build folder the data was built from, when it holds every file of `files`.
+/// The Forever client build the data was built from (its meta's client tables source) and that source's
+/// name, which lists the tables read; None when the data names no build.
 #[cfg(feature = "native")]
-fn pinned_build_dir(data: &Data, files: &[&str]) -> Option<std::path::PathBuf> {
+fn pinned_build(data: &Data) -> Option<(String, String)> {
 	let sources = if data.meta.truthy() { data.meta.get("sources") } else { V::Undef };
 	let src = or_empty(&sources).into_iter().find(|x| x.truthy() && x.get("name").to_js_string().starts_with("World of Warcraft: Forever client tables"))?;
 	let rev = src.get("revision");
 	let rev = if rev.truthy() { rev.to_js_string() } else { String::new() };
 	static RE: LazyLock<regex::Regex> = LazyLock::new(|| class_re(r"[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"));
 	let m = RE.find(&rev)?;
-	let dir = path_join(data.dir.as_deref()?, &["..", "sources", "wago", m.as_str()]);
+	Some((m.as_str().to_string(), src.get("name").to_js_string()))
+}
+
+/// That build's folder in the sources beside the data (`<data>/../sources/wago/<build>`).
+#[cfg(feature = "native")]
+fn build_dir(data: &Data, build: &str) -> Option<std::path::PathBuf> {
+	Some(path_join(data.dir.as_deref()?, &["..", "sources", "wago", build]))
+}
+
+/// The Forever client build folder the data was built from, when it holds every file of `files`.
+#[cfg(feature = "native")]
+fn pinned_build_dir(data: &Data, files: &[&str]) -> Option<std::path::PathBuf> {
+	let dir = build_dir(data, &pinned_build(data)?.0)?;
 	files.iter().all(|f| dir.join(f).exists()).then_some(dir)
+}
+
+/// The reference data built from a Forever client build has, in the sources beside it, the tables of that
+/// build the compile reads: AreaTable (places by ID) unless its client tables source lists the tables it
+/// read without it, and SpellName and SkillLineAbility (spell tokens) when it lists SpellName. Without
+/// them the guide texts read differently: spell names stay words and places miss their area, so a compile
+/// writes other texts and good translations read as stale. Ok when the data names no build. Err: the
+/// build, the folder and the missing tables. The node side: tools/lib/data/pinned.js.
+#[cfg(feature = "native")]
+pub fn check_pinned_tables(data: &Data) -> Result<(), String> {
+	let Some((build, name)) = pinned_build(data) else { return Ok(()) };
+	let Some(dir) = build_dir(data, &build) else { return Ok(()) };
+	let listed: Vec<&str> = name.split_once('(').and_then(|(_, rest)| rest.split_once(')')).map(|(list, _)| list.split(',').map(str::trim).collect()).unwrap_or_default();
+	let mut need = Vec::new();
+	if listed.contains(&"SpellName") {
+		need.extend(["SpellName.csv", "SkillLineAbility.csv"]);
+	}
+	if listed.is_empty() || listed.contains(&"AreaTable") {
+		need.push("AreaTable.csv");
+	}
+	let missing: Vec<&str> = need.into_iter().filter(|f| !dir.join(f).exists()).collect();
+	if missing.is_empty() {
+		return Ok(());
+	}
+	Err(format!(
+		"the reference data was built from Forever client build {build}, but {} lacks {}: the guide texts would read differently (spell names as words, places without their area) and their translations as stale. Put the sources the data was built with beside it, or rebuild the data with `forge data build`",
+		dir.display(),
+		missing.join(", ")
+	))
+}
+
+#[cfg(not(feature = "native"))]
+pub fn check_pinned_tables(_data: &Data) -> Result<(), String> {
+	Ok(())
 }
 
 /// node's `path.join` (lexical normalisation).
@@ -1038,6 +1159,61 @@ fn path_join(base: &str, parts: &[&str]) -> std::path::PathBuf {
 pub fn spell_id_of(data: &Data, name: &str) -> Option<f64> {
 	let n = js_trim(name);
 	spell_names(data).into_iter().find(|(s, _)| s == n).map(|(_, id)| id).filter(|id| *id != 0.0)
+}
+
+/// `taughtSpellName(data, id)`: the client's name of a spell a skill line teaches (SkillLineAbility: class
+/// spells, talents, recipes, Forever's new ones), each rank by its own id, from the SpellName table of the
+/// data's own client build; None without that build and for any other spell. Cached in `data.memo` under
+/// `tokens.taughtSpells` as { id: name }. Read only from the data's own client build, unlike the spell names: a
+/// host without one (the browser planner) has none, and its `learn`s of such spells keep their old warning or
+/// error.
+pub fn taught_spell_name(data: &Data, id: &V) -> Option<String> {
+	let n = id.as_num()?;
+	let cached = data.memo.borrow().get(MEMO_TAUGHT).cloned();
+	let names = match cached {
+		Some(v) => v,
+		None => {
+			let v = read_taught_spells(data);
+			data.memo.borrow_mut().insert(MEMO_TAUGHT, v.clone());
+			v
+		}
+	};
+	str_(&names.get(&num_str(n))).map(str::to_string)
+}
+
+#[cfg(feature = "native")]
+fn read_taught_spells(data: &Data) -> V {
+	let out = V::obj();
+	let Some(dir) = data.dir.as_ref().and_then(|_| pinned_build_dir(data, &["SpellName.csv", "SkillLineAbility.csv"])) else { return out };
+	let csv = |file: &str| -> Vec<V> {
+		let path = dir.join(file);
+		let text = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{}: {e}", path.display()));
+		crate::areas::parse_csv(&text).unwrap_or_else(|e| panic!("{e}"))
+	};
+	// A profession's recipes stay professions.json's, as for `craft`: their skill lines are left out.
+	let taught: FxHashSet<i64> =
+		csv("SkillLineAbility.csv").iter().filter(|r| !recipe_line(r.get("SkillLine").num())).map(|r| r.get("Spell").num()).filter(|n| is_integer(*n)).map(|n| n as i64).collect();
+	for r in csv("SpellName.csv") {
+		let id = r.get("ID").num();
+		let nl = r.get("Name_lang");
+		let name = if nl.truthy() { js_trim(&nl.to_js_string()).to_string() } else { String::new() };
+		if !name.is_empty() && is_integer(id) && taught.contains(&(id as i64)) {
+			out.set(&num_str(id), name);
+		}
+	}
+	out
+}
+
+/// A profession's skill line ([`crate::data::BUILTIN_PROFESSIONS`]; Riding teaches no recipe): its spells are
+/// recipes. Not SkillLine's CategoryID: its secondary skills (9) also hold Comprehension, Poisons and Riding.
+#[cfg(feature = "native")]
+fn recipe_line(line: f64) -> bool {
+	crate::data::BUILTIN_PROFESSIONS.iter().any(|&(id, name)| f64::from(id) == line && name != "Riding")
+}
+
+#[cfg(not(feature = "native"))]
+fn read_taught_spells(_data: &Data) -> V {
+	V::obj()
 }
 
 fn first_words(data: &Data) -> FxHashMap<String, usize> {
@@ -1181,11 +1357,19 @@ fn guide_index(guide: &V, data: &Data, common: &Rc<FxHashSet<String>>, ctx: &mut
 	idx
 }
 
+/// The names a step's text reads first: its goals' own. An exclusive's title that is also one of the step's own
+/// quests' titles is left out, so the step's quest is the token: Forever's same-named variants ("Call of Air" 96136
+/// for Skyborne, 1531 for the others; the Great Cat Spirit's per race) close each other, and the lower id would win
+/// otherwise. (A same-named prerequisite, the next quest of a chain, keeps its place.)
 fn step_index(step: &V, data: &Data, common: &Rc<FxHashSet<String>>, ctx: &Ctx) -> NameIndex {
 	let mut idx = NameIndex::new(common.clone());
 	let goals = or_empty(&step.get("goals"));
+	let own_quests: FxHashSet<String> = goals.iter().filter(|g| is_int(&g.get("quest"))).filter_map(|g| str_(&g.get("title")).map(str::to_string)).collect();
 	for goal in &goals {
 		for n in goal_names(goal, data) {
+			if n.closes && own_quests.contains(&n.name) {
+				continue;
+			}
 			idx.add(n.kind, &V::Num(n.id), Some(&n.name), STEP);
 		}
 	}
@@ -1225,10 +1409,10 @@ enum Part {
 	Tok { token: String, name: Option<String>, used: Used },
 }
 
-/// text -> { text, used, plurals }: the names `indexes` know replaced by tokens, where `accept(entry)` allows;
-/// tokens already in the text are kept (and listed, `author`); `plurals`: names that stand there in their
-/// English plural.
-pub fn tokenise_text(text: &str, indexes: &[Ix], accept: &mut dyn FnMut(&Entry) -> bool) -> Tokenised {
+/// text -> { text, used, plurals }: the names `indexes` know replaced by tokens, where `accept(entry, rest)` allows
+/// (`rest`: the text after the name, its first 40 UTF-16 units); tokens already in the text are kept (and listed,
+/// `author`); `plurals`: names that stand there in their English plural.
+pub fn tokenise_text(text: &str, indexes: &[Ix], accept: &mut dyn FnMut(&Entry, &[char]) -> bool) -> Tokenised {
 	let t = u16s(text);
 	let mut parts: Vec<Part> = Vec::new();
 	let mut plurals = Vec::new();
@@ -1252,7 +1436,8 @@ pub fn tokenise_text(text: &str, indexes: &[Ix], accept: &mut dyn FnMut(&Entry) 
 		if !unit_word(if i == 0 { None } else { Some(t[i - 1]) }) {
 			let e = longest_at(indexes, &t, i, false);
 			if let Some(e) = &e {
-				if accept(e) {
+				let end = (i + e.name16.len()).min(t.len());
+				if accept(e, &chars16(&t[end..(end + 40).min(t.len())])) {
 					flush(&mut parts, &mut plain);
 					parts.push(Part::Tok {
 						token: format!("{{{}:{}}}", e.kind, num_str(e.id)),
@@ -1328,6 +1513,14 @@ fn key_of(kind: &str, id: f64) -> String {
 pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 	let common = Rc::new(common_words(guides));
 	let (world, abilities) = world_index(data, &common);
+	// class mask -> class_index, for each mask the guides' headers name (built before the guides borrow them)
+	let mut classes: FxHashMap<i64, (NameIndex, NameIndex)> = FxHashMap::default();
+	for guide in guides {
+		let mask = class_mask(guide);
+		if mask != 0 && !classes.contains_key(&mask) {
+			classes.insert(mask, class_index(data, &common, mask));
+		}
+	}
 	let mut ctx = Ctx { first_words: first_words(data), other_names: other_names(data), zone_areas: FxHashMap::default() };
 	let replaced = Obj::new();
 	for k in KINDS {
@@ -1341,12 +1534,19 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 	let bump = |o: &Obj, k: &str| o.set(k, o.get(k).num() + 1.0);
 	let problems = Arr::new();
 	let aliases = Arr::new();
+	// An object of the step's own goals before a lower-case word in its title (the lint warns).
+	let title_objects = Arr::new();
 	let mut out = Vec::new();
 	for guide in guides {
 		let base = guide_index(guide, data, &common, &mut ctx);
 		let cat = guide.get("category");
-		let ab = if matches!(cat.as_str(), Some("Class" | "Professions")) { Ix::Plain(&abilities) } else { Ix::Cast(&abilities) };
-		let worlds = [Ix::Plain(&world), ab];
+		let plain = matches!(cat.as_str(), Some("Class" | "Professions"));
+		let ab = |x| if plain { Ix::Plain(x) } else { Ix::Cast(x) };
+		let mut worlds = vec![Ix::Plain(&world), ab(&abilities)];
+		// The guide's classes' own spells, ahead of the NPCs, objects and items of their name.
+		if let Some((idx, abs)) = classes.get(&class_mask(guide)) {
+			worlds.splice(0..0, [Ix::Plain(idx), ab(abs)]);
+		}
 		let copy = guide.as_obj().unwrap().spread();
 		let steps_copy: Vec<V> = guide
 			.get("steps")
@@ -1385,8 +1585,26 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 		let mut seen: FxHashMap<String, String> = FxHashMap::default();
 		let mut written: FxHashMap<String, String> = FxHashMap::default();
 		let gid = guide.get("id");
-		let mut replace = |text: &str, holder: &V, key: &TextKey, indexes: &[Ix], ln: f64, names: &mut FxHashMap<String, String>| {
-			let mut r = tokenise_text(text, indexes, &mut |e: &Entry| {
+		// A step's title takes the token of an object no goal of the step names only where the object's name
+		// stands alone (`title` is Some): before a lower-case word it describes a kind of thing ("Dark Iron
+		// dwarves", whose object "Dark Iron" would put its name in the title on a translated client), while
+		// "Trade District" or "Boat to Auberdine" alone is that object's name. An object of the step's own goals
+		// there keeps its token, and `title` gets its id, words and the lower-case word after them.
+		let kept = |own_objects: bool, e: &Entry, rest: &[char]| !own_objects || e.kind != "object" || e.prio.floor() == STEP || !lower_after(rest);
+		let mut replace = |text: &str, holder: &V, key: &TextKey, indexes: &[Ix], ln: f64, names: &mut FxHashMap<String, String>, mut title: Option<&mut Vec<(f64, String, String)>>| {
+			let own_objects = title.is_some();
+			let mut r = tokenise_text(text, indexes, &mut |e: &Entry, rest: &[char]| {
+				if !kept(own_objects, e, rest) {
+					return false;
+				}
+				if let Some(list) = title.as_deref_mut() {
+					if e.kind == "object" && lower_after(rest) && !list.iter().any(|(id, ..)| *id == e.id) {
+						let word = word_after(rest);
+						if !joins_names(&word) {
+							list.push((e.id, e.name.clone(), word));
+						}
+					}
+				}
 				let k = key_of(e.kind, e.id);
 				names.entry(k).or_insert_with(|| if e.next.is_some() { e.english.clone() } else { e.name.clone() });
 				true
@@ -1400,7 +1618,18 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 				}
 			}
 			if seen.get(&r.text).is_some_and(|s| *s != fill_tokens_map(text, names)) {
-				r = tokenise_text(text, indexes, &mut |e: &Entry| {
+				r = tokenise_text(text, indexes, &mut |e: &Entry, rest: &[char]| {
+					if !kept(own_objects, e, rest) {
+						return false;
+					}
+					if let Some(list) = title.as_deref_mut() {
+						if e.kind == "object" && lower_after(rest) && !list.iter().any(|(id, ..)| *id == e.id) {
+							let word = word_after(rest);
+							if !joins_names(&word) {
+								list.push((e.id, e.name.clone(), word));
+							}
+						}
+					}
 					if e.next.is_some() {
 						return false;
 					}
@@ -1459,24 +1688,40 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 		};
 		let line_or = |v: V, d: f64| if v.truthy() { v.num() } else { d };
 		{
-			let gi: Vec<Ix> = std::iter::once(Ix::Plain(&base)).chain(worlds).collect();
+			let gi: Vec<Ix> = std::iter::once(Ix::Plain(&base)).chain(worlds.iter().copied()).collect();
 			let mut texts: Vec<(String, V, TextKey)> = Vec::new();
 			// forEachText reads each field when it reaches it; replace writes only the field it was given.
 			for_each_text(&copy, false, &mut |text, holder, key, _, _| texts.push((text.to_string(), holder.clone(), key.clone())));
 			for (text, holder, key) in texts {
-				replace(&text, &holder, &key, &gi, guide_line, &mut names);
+				replace(&text, &holder, &key, &gi, guide_line, &mut names, None);
 			}
 		}
 		let orig_steps = guide.get("steps").items();
 		for (si, step) in copy.get("steps").items().iter().enumerate() {
 			let orig = &orig_steps[si];
 			let sidx = step_index(orig, data, &common, &ctx);
-			let indexes: Vec<Ix> = [Ix::Plain(&sidx), Ix::Plain(&base)].into_iter().chain(worlds).collect();
+			let indexes: Vec<Ix> = [Ix::Plain(&sidx), Ix::Plain(&base)].into_iter().chain(worlds.iter().copied()).collect();
 			let step_line = line_or(orig.hidden("_line"), guide_line);
 			for f in STEP_FIELDS {
 				let v = step.get(f);
 				if let Some(s) = str_(&v) {
-					replace(s, step, &TextKey::Field(f), &indexes, step_line, &mut names);
+					// A title's object of the step's own goals before a lower-case word keeps its token, and
+					// the author hears of it.
+					let mut before: Vec<(f64, String, String)> = Vec::new();
+					replace(s, step, &TextKey::Field(f), &indexes, step_line, &mut names, (f == "title").then_some(&mut before));
+					let now = step.get(f).to_js_string();
+					for (id, name, word) in before {
+						let id = num_str(id);
+						if !now.contains(&format!("{{object:{id}}}")) {
+							continue;
+						}
+						title_objects.push(obj! {
+							"guide" => guide.clone(),
+							"line" => V::Num(step_line),
+							"message" => format!("the title's \"{name}\" is the token of object {id}, which the step's goals name, though \"{word}\" follows it in lower case: a translated client shows the object's name there"),
+							"hint" => format!("reword the title if \"{name} {word}\" means a kind of thing rather than that object"),
+						});
+					}
 				}
 			}
 			let orig_goals = orig.get("goals").items();
@@ -1490,7 +1735,7 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 				for f in goal_fields(goal) {
 					let v = goal.get(f);
 					if let Some(s) = str_(&v) {
-						replace(s, goal, &TextKey::Field(f), &indexes, ln, &mut names);
+						replace(s, goal, &TextKey::Field(f), &indexes, ln, &mut names, None);
 					}
 				}
 			}
@@ -1518,5 +1763,5 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 		out.push(copy);
 	}
 	let stats = obj! { "replaced" => replaced, "bySource" => by_source, "dropped" => dropped };
-	obj! { "guides" => out, "stats" => stats, "problems" => problems, "aliases" => aliases }.into()
+	obj! { "guides" => out, "stats" => stats, "problems" => problems, "aliases" => aliases, "titleObjects" => title_objects }.into()
 }

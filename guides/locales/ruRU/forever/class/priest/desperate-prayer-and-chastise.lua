@@ -43,8 +43,8 @@ return {
 	["{npc:11401}: take her {quest:5634} letter"] = "",
 
 	-- Step 6: Desperate Prayer: High Priest Rohan
-	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries · {zone:1455} Ironforge · {object:32362} Mystic Ward · {quest:5634} Desperate Prayer
-	["At 10, go to {npc:11406} in the {object:32386}, in {zone:1455}'s {object:32362} (north-west of the city): he gives {quest:5634} and takes it back at once. No letter needed. {quest:5634} heals you instantly, costs no mana and has a long cooldown: keep it for emergencies."] = "",
+	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries · {zone:1455} Ironforge · {object:32362} Mystic Ward · {quest:5639} Desperate Prayer
+	["At 10, go to {npc:11406} in the {object:32386}, in {zone:1455}'s {object:32362} (north-west of the city): he gives {quest:5639} and takes it back at once. No letter needed. {quest:5639} heals you instantly, costs no mana and has a long cooldown: keep it for emergencies."] = "",
 
 	-- Step 7: Desperate Prayer: Maxan Anvol's letter
 	-- {quest:5637} Desperate Prayer · {npc:1226} Maxan Anvol

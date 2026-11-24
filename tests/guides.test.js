@@ -14,7 +14,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { needs } = require('./helpers/data');
-const { playtest, withChain, resultLines } = require('../tools/lib/playtest');
+const { playtest, resultLines } = require('../tools/lib/playtest');
 const { OFFICIAL_DIR, findGuideFiles } = require('../tools/lib/dsl/project');
 const { readManifest } = require('../tools/lib/pack/manifest');
 const { format } = require('../tools/lib/dsl/diag');
@@ -23,14 +23,15 @@ const skip = needs('quests.json') || (findGuideFiles(OFFICIAL_DIR).length === 0 
 
 test('every authored guide can be played to the end by every class it branches on', { skip }, async () => {
 	const { manifest } = readManifest(OFFICIAL_DIR, { official: true });
-	// Fixed in route generation (Desperate Prayer race lock 5635; WPL Arcane Quickener timing), see data/local route
-	// handover: the human Elwynn Forest guide's `accept 5635` no longer compiles (the quest is Dwarf-only now), so its
-	// `next` chain is left out until the generated routes land.
-	const all = findGuideFiles(OFFICIAL_DIR);
-	const waiting = new Set(withChain(OFFICIAL_DIR, all, ['forever/alliance/human/01-elwynn-forest.guide']));
+	// Every guide, the leveling chains included: the Elwynn Forest guide's `accept 5635` that once kept its `next`
+	// chain out (Desperate Prayer is Dwarf-only) left with the generated routes.
 	const only = process.env.POLESTAR_GUIDES;
-	const filter = (rel) => !waiting.has(rel) && (!only || rel.includes(only));
-	const { results, diag, played } = await playtest({ dir: OFFICIAL_DIR, manifest, official: true, filter });
+	const filter = (rel) => !only || rel.includes(only);
+	// Class guides open at their start gate as `polestar playtest` plays them (#3238): the simulated player meets
+	// the opening level or an outside prerequisite (Tyr's Watch: level 2 and The Mindless Ones, 364; Call of Earth:
+	// Dwarven Outfitters, 179) before the guide. The library stays strict by default, and since #3238 skipped goals
+	// are passed over as the addon does, so without this both guides wait at step 1 with every goal skipped.
+	const { results, diag, played } = await playtest({ dir: OFFICIAL_DIR, manifest, official: true, filter, openStartGates: true });
 	assert.deepEqual(diag.errors.map(format), [], 'guides must compile without errors');
 	assert.ok(played > 0, `no guide matches POLESTAR_GUIDES=${process.env.POLESTAR_GUIDES}`);
 	const failures = results.filter((r) => !r.ok).flatMap(resultLines);

@@ -133,6 +133,114 @@ fn quest_objectives_normalize_to_text_type_finished_numfulfilled_numrequired() {
 	);
 }
 
+// #3020 / #1935: one ability under several spell ids. KnowsSpellNamed reads the spellbook's names once and again
+// after the spellbook changes.
+#[test]
+fn knows_spell_named_reads_the_spellbook_names_and_again_after_a_change_3020() {
+	let out = run(r#"
+		local book = { 900001 }
+		local names = { [900001] = "Tame Beast", [900002] = "Bear Form" }
+		C_Spell = C_Spell or {}
+		C_Spell.GetSpellName = function(id) return names[id] end
+		C_SpellBook.GetNumSpellBookSkillLines = function() return 1 end
+		C_SpellBook.GetSpellBookSkillLineInfo = function() return { itemIndexOffset = 0, numSpellBookItems = #book } end
+		C_SpellBook.GetSpellBookItemInfo = function(k) return book[k] and { spellID = book[k], itemType = 1 } or nil end
+		local r = { C.KnowsSpellNamed("Tame Beast"), C.KnowsSpellNamed("Bear Form") }
+		book[2] = 900002
+		r[3] = C.KnowsSpellNamed("Bear Form")
+		stub.fire("SPELLS_CHANGED")
+		r[4] = C.KnowsSpellNamed("Bear Form")
+		r[5] = C.KnowsSpellNamed("")
+		emit(r)
+	"#);
+	assert_eq!(out, json!([true, false, false, true, false]), "read once; again after SPELLS_CHANGED");
+}
+
+// The Witch Doctor's Head: the game said it was ready to hand in with Zum'rah's Head still at 0/1, and the guide
+// counted it among the finished quests to hand in elsewhere (#3639). Ready needs the flag and no item or kill line
+// short of its count; a line of another kind (a skill, #1952) leaves the flag the word, and a quest with no lines
+// has only the flag.
+#[test]
+fn issue_3639_ready_to_hand_in_needs_every_counted_line_done() {
+	let out = run(r#"
+		local lines = {
+			[1] = { { text = "Zum'rah's Head: 0/1", type = "item", finished = false, numFulfilled = 0, numRequired = 1 } },
+			[2] = { { text = "Zum'rah's Head: 1/1", type = "item", finished = true, numFulfilled = 1, numRequired = 1 } },
+			[3] = {},
+			[4] = { { text = "Zum'rah's Head: 1/1", type = "item", finished = true, numFulfilled = 1, numRequired = 1 } },
+			[6] = { { text = "Raise your skinning skill to 20", type = "object", finished = false, numFulfilled = 0, numRequired = 1 } },
+			[7] = { { text = "Witch Doctor slain: 0/1", type = "monster", finished = false, numFulfilled = 0, numRequired = 1 } },
+		}
+		C_QuestLog.GetQuestObjectives = function(q) return lines[q] end
+		C_QuestLog.IsOnQuest = function(q) return lines[q] ~= nil end
+		C_QuestLog.ReadyForTurnIn = function(q) return q ~= 4 end
+		C_QuestLog.IsComplete = function() return false end
+		local r = {}
+		for q = 1, 7 do r[q] = C.IsQuestReadyForTurnIn(q) end
+		emit(r)
+	"#);
+	assert_eq!(
+		out,
+		json!([false, true, true, false, false, true, false]),
+		"item 0/1: not ready; 1/1: ready; no lines: ready; no flag: not ready; not in the log: not; a skill line: the flag; kill 0/1: not"
+	);
+}
+
+// Camping 101: Alchemy's one objective, "Raise your alchemy skill to 20", came back from Forever's client counted
+// full while unfinished (alchemy 2 of 20): the guide window read "1/1" on a quest still to do (#1952).
+#[test]
+fn issue_1952_an_unfinished_objective_never_reads_full() {
+	let out = run(r#"
+		C_QuestLog.GetQuestObjectives = function(q)
+			return {
+				{ text = "Raise your alchemy skill to 20", type = "object", finished = false, numFulfilled = 2, numRequired = 1 },
+				{ text = "Linen Cloth: 6/6", type = "item", finished = true, numFulfilled = 6, numRequired = 6 },
+			}
+		end
+		local o = C.GetQuestObjectives(97938)
+		emit({ skill = { o[1].numFulfilled, o[1].numRequired, o[1].finished }, cloth = { o[2].numFulfilled, o[2].numRequired } })
+	"#);
+	assert_eq!(out, json!({ "skill": [0, 1, false], "cloth": [6, 6] }));
+}
+
+// A step's view, an evaluation and the arrival poll each ask for the same quest's lines once per goal on it (a kill
+// step of four lines asked four times per poll, a table per line each time: the idle arrival poll's garbage, perf
+// sweep). Inside one moment (ns.Moment: no game event, timer or message in between, the same frame) the client is
+// asked once and every reader gets the same lines; anything that can change the log starts a new moment.
+#[test]
+fn quest_objectives_are_read_from_the_client_once_per_moment() {
+	let out = run(r#"
+		local calls, have = 0, 3
+		C_QuestLog.GetQuestObjectives = function(q)
+			calls = calls + 1
+			if q ~= 1 then return {} end
+			return { { text = "Kobold Vermin slain: " .. have .. "/10", type = "monster", finished = false, numFulfilled = have, numRequired = 10 } }
+		end
+		local r = {}
+		local a, b = C.GetQuestObjectives(1), C.GetQuestObjectives(1)
+		local none1, none2 = C.GetQuestObjectives(2), C.GetQuestObjectives(2)
+		r.moment = { a == b, none1 == nil and none2 == nil, calls }
+		have = 4
+		stub.fire("QUEST_LOG_UPDATE")
+		r.event = { C.GetQuestObjectives(1)[1].numFulfilled, calls }
+		have = 5
+		Polestar.Fire("POLESTAR_TEST_MESSAGE")
+		r.message = { C.GetQuestObjectives(1)[1].numFulfilled, calls }
+		have = 6
+		stub.advance(0.05)
+		r.frame = { C.GetQuestObjectives(1)[1].numFulfilled, calls }
+		r.nilQuest = C.GetQuestObjectives(nil) == nil
+		emit(r)
+	"#);
+	assert_eq!(out["moment"], json!([true, true, 2]), "one client read per quest in a moment, the same lines to every reader");
+	assert_eq!(out["event"], json!([4, 3]), "a game event starts a new moment: read again");
+	assert_eq!(out["message"], json!([5, 4]), "so does a message");
+	assert_eq!(out["frame"], json!([6, 5]), "and the next frame");
+	assert_eq!(out["nilQuest"], true);
+}
+
+// Each change the client makes to a quest (its objectives done, a failure, a hand-in or an abandon) comes with
+// QUEST_LOG_UPDATE, as in game; the walk over the log is kept until then.
 #[test]
 fn issue_1327_a_quest_timer_runs_while_a_log_quest_has_time_allowed_and_is_neither_ready_nor_failed() {
 	let out = run(r#"
@@ -144,19 +252,57 @@ fn issue_1327_a_quest_timer_runs_while_a_log_quest_has_time_allowed_and_is_neith
 		C_QuestLog.ReadyForTurnIn = function() return ready end
 		C_QuestLog.IsComplete = function() return ready end
 		C_QuestLog.IsFailed = function() return failed end
+		local function changed() stub.fire("QUEST_LOG_UPDATE") end
 		local r = { running = C.QuestTimerRunning() }
-		ready = true
+		ready = true; changed()
 		r.ready = C.QuestTimerRunning()
-		ready, failed = false, true
+		ready, failed = false, true; changed()
 		r.failed = C.QuestTimerRunning()
-		failed, allowed[29] = false, nil
+		failed, allowed[29] = false, nil; changed()
 		r.untimed = C.QuestTimerRunning()
 		allowed[29] = 1800
-		C_QuestLog.GetTimeAllowed = nil
+		C_QuestLog.GetTimeAllowed = nil; changed()
 		r.noApi = C.QuestTimerRunning()
 		emit(r)
 	"#);
 	assert_eq!(out, json!({ "running": true, "ready": false, "failed": false, "untimed": false, "noApi": false }));
+}
+
+// While-here's poll (every 0.5 s) and the travel planner (every plan) ask whether a quest timer runs: the quest log
+// is walked once per quest-log change, not on every ask, and each answer is the walk's.
+#[test]
+fn the_quest_timer_walks_the_log_once_until_the_quest_log_changes() {
+	let out = run(r#"
+		GetQuestTimers = nil
+		local allowed, walks = { [29] = 1800 }, 0
+		C_QuestLog.GetNumQuestLogEntries = function() walks = walks + 1; return 2, 2 end
+		C_QuestLog.GetInfo = function(i) return ({ { questID = 0, isHeader = true }, { questID = 29 } })[i] end
+		C_QuestLog.GetTimeAllowed = function(q) return allowed[q], 10 end
+		C_QuestLog.IsOnQuest = function() return true end
+		C_QuestLog.ReadyForTurnIn = function() return false end
+		C_QuestLog.IsComplete = function() return false end
+		C_QuestLog.IsFailed = function() return false end
+		stub.fire("QUEST_LOG_UPDATE")
+		local r = { answers = {} }
+		for i = 1, 20 do r.answers[i] = C.QuestTimerRunning() end
+		r.walks = walks
+		allowed[29] = nil; stub.fire("QUEST_LOG_UPDATE")
+		r.after = { C.QuestTimerRunning(), C.QuestTimerRunning() }
+		r.walksAfter = walks
+		for _, e in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "UNIT_QUEST_LOG_CHANGED", "PLAYER_ENTERING_WORLD" }) do
+			allowed[29] = 1800; stub.fire(e, "player")
+			r[e] = C.QuestTimerRunning()
+			allowed[29] = nil; stub.fire("QUEST_LOG_UPDATE")
+		end
+		emit(r)
+	"#);
+	assert_eq!(out["walks"], 1, "twenty asks, one walk: {out}");
+	assert!(out["answers"].as_array().unwrap().iter().all(|a| a == &json!(true)));
+	assert_eq!(out["after"], json!([false, false]));
+	assert_eq!(out["walksAfter"], 2);
+	for e in ["QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "UNIT_QUEST_LOG_CHANGED", "PLAYER_ENTERING_WORLD"] {
+		assert_eq!(out[e], true, "{e} walks the log again");
+	}
 }
 
 #[test]
@@ -197,6 +343,58 @@ fn player_info_zone_text_bind_location_taxi_and_items_come_from_the_client() {
 			"none": 0,
 			"node": "The Sepulcher, Silverpine Forest",
 			"taxi": false,
+		})
+	);
+}
+
+/// Acen (#2512): the Durnholde jailors' keys go onto the keyring (bag -2) when looted. Whether the client's
+/// GetItemCount counts the keyring or not, a key there counts once as in the bags; one in a bag stays counted once.
+const KEYRING: &str = r#"
+	slots = { [-2] = {}, [0] = {} }
+	C_Container = {
+		GetContainerNumSlots = function(bag) return slots[bag] and 4 or 0 end,
+		GetContainerItemInfo = function(bag, slot)
+			local id = slots[bag] and slots[bag][slot]
+			if id then return { itemID = id, stackCount = 1 } end
+		end,
+	}
+	countsKeyring = false
+	C_Item.GetItemCount = function(id, includeBank)
+		local n = 0
+		for bag, list in pairs(slots) do
+			if bag >= 0 or countsKeyring then for _, v in pairs(list) do if v == id then n = n + 1 end end end
+		end
+		return n + (includeBank and w.bank[id] or 0)
+	end
+	GetItemCount = C_Item.GetItemCount
+"#;
+
+#[test]
+fn getitemcount_counts_a_key_on_the_keyring_once_whether_the_client_counts_the_keyring_or_not() {
+	let out = run_with(
+		r#"
+		local function counts()
+			Polestar.NewMoment()
+			return { C.GetItemCount(3467), C.GetItemCount(3499), C.GetItemCount(3467, true), C.GetItemCount(159) }
+		end
+		slots[-2][1] = 3467                -- the Dull Iron Key on the keyring
+		slots[0][2] = 3499                 -- the Burnished Gold Key in the backpack
+		w.bank[3467] = 1                   -- and a second Dull Iron Key in the bank
+		local without = counts()
+		countsKeyring = true
+		local with = counts()
+		slots[-2][1] = nil
+		local gone = counts()
+		emit({ without = without, with = with, gone = gone })
+	"#,
+		KEYRING,
+	);
+	assert_eq!(
+		out,
+		json!({
+			"without": [1, 1, 2, 0],
+			"with": [1, 1, 2, 0],
+			"gone": [0, 1, 1, 0],
 		})
 	);
 }
@@ -329,6 +527,67 @@ fn secret_unit_values_read_as_unknown_instead_of_throwing() {
 	assert_eq!(out, json!({ "npc": false, "target": 197, "faction": "Neutral", "race": "Human" }));
 }
 
+// #2533: a player's taint log named Polestar for arithmetic on secret values: the travel planner's run speed
+// (GetUnitSpeed) and the map position worked out into percent. Both read as unknown now, never touched.
+#[test]
+fn a_secret_run_speed_or_map_position_reads_as_unknown_and_is_never_worked_on_2533() {
+	let out = run(r#"
+		-- A secret value throws when added to, compared or indexed, as in the client.
+		local function boom() error("secret touched") end
+		local SECRET = setmetatable({}, { __add = boom, __sub = boom, __mul = boom, __div = boom, __eq = boom,
+			__lt = boom, __le = boom, __index = boom, __tostring = function() return "secret" end })
+		function issecretvalue(v) return rawequal(v, SECRET) end
+		local speed, xy, map, vector = 7, nil, 1429, false
+		function GetUnitSpeed(unit) return 0, speed, 7, 4.7 end
+		C_Map.GetBestMapForUnit = function() return map end
+		C_Map.GetPlayerMapPosition = function()
+			if vector then return SECRET end
+			return { x = xy and xy[1] or 0.5, y = xy and xy[2] or 0.25 }
+		end
+		local r = { readable = { C.GetRunSpeed(), { C.GetPlayerMapPosition() }, { C.GetUnitMapPosition("party1") } } }
+		speed = SECRET
+		r.speed = C.GetRunSpeed() or false
+		speed, xy = 7, { SECRET, 0.25 }
+		r.x = C.GetPlayerMapPosition() == nil
+		xy, map = nil, SECRET
+		r.map = C.GetUnitMapPosition("party1") == nil
+		map, vector = 1429, true
+		r.vector = C.GetPlayerMapPosition() == nil
+		emit(r)
+	"#);
+	assert_eq!(out["readable"], json!([7, [1429, 50, 25], [1429, 50, 25]]), "readable values pass through as before");
+	assert_eq!(out["speed"], false, "a secret run speed is unknown");
+	assert_eq!(out["x"], true, "a secret coordinate is no position");
+	assert_eq!(out["map"], true, "a secret map is no position");
+	assert_eq!(out["vector"], true, "a secret position vector is never indexed");
+}
+
+// #2595: in the client a secret string throws when it is compared, even with "", so each tooltip and map name
+// reader asks issecretvalue before it checks the text against anything. A Lua 5.1 string can't throw on ==, so the
+// test watches the order instead: given an empty text, every reader still asks whether it is secret first.
+#[test]
+fn the_tooltip_and_map_name_readers_ask_whether_a_text_is_secret_before_comparing_it_2595() {
+	let out = run(r#"
+		local asked
+		function issecretvalue(v) if v == "" then asked = true end return false end
+		C_TooltipInfo = {
+			GetHyperlink = function() return { lines = { { leftText = "" } } } end,
+			GetItemByID = function() return { lines = { { leftText = "", leftColor = { r = 1, g = 1, b = 1 } } } } end,
+		}
+		C_Item = C_Item or {}
+		C_Item.GetItemNameByID = function() return "" end
+		C.GetMapName = function() return "" end
+		local function asks(read) asked = false; read(); return asked end
+		emit({
+			creature = asks(function() return C.CreatureCached(12345) end),
+			color = asks(function() return C.ItemTipColor(6462) end),
+			name = asks(function() return C.GetItemName(6462) end),
+			map = asks(function() return C.MapName(1429) end),
+		})
+	"#);
+	assert_eq!(out, json!({ "creature": true, "color": true, "name": true, "map": true }), "issecretvalue is asked first");
+}
+
 #[test]
 fn c3_nav_qa_the_world_map_opens_through_c_map_openworldmap_when_the_client_has_it_the_global_opener_only_as_a_fallback_never_in_combat() {
 	let out = run(r#"
@@ -355,15 +614,15 @@ fn c3_nav_qa_the_world_map_opens_through_c_map_openworldmap_when_the_client_has_
 	assert_eq!(out["calls"], "C_Map 1429;global 1411", "C_Map first; the global only without it");
 }
 
-fn walk(dir: &Path, root: &Path, bare: &[Regex], comment: &Regex, found: &mut Vec<String>) {
+fn walk(dir: &Path, root: &Path, bare: &[Regex], comment: &Regex, found: &mut Vec<String>, skip_compat: bool) {
 	for e in std::fs::read_dir(dir).unwrap() {
 		let e = e.unwrap();
 		let p = e.path();
 		if e.file_type().unwrap().is_dir() {
-			walk(&p, root, bare, comment, found);
+			walk(&p, root, bare, comment, found, skip_compat);
 		} else {
 			let rel = p.strip_prefix(root).unwrap();
-			if p.extension().is_some_and(|x| x == "lua") && rel != Path::new("Polestar/Core/Compat.lua") {
+			if p.extension().is_some_and(|x| x == "lua") && !(skip_compat && rel == Path::new("Polestar/Core/Compat.lua")) {
 				// The walking maps' parts may hold zlib bytes in their literals (maps format 5): not UTF-8.
 				let text = String::from_utf8_lossy(&std::fs::read(&p).unwrap()).into_owned();
 				for (i, line) in text.split('\n').enumerate() {
@@ -379,13 +638,72 @@ fn walk(dir: &Path, root: &Path, bare: &[Regex], comment: &Regex, found: &mut Ve
 
 #[test]
 fn c3_nav_qa_no_addon_code_outside_core_compat_lua_opens_or_moves_the_world_map_itself_openworldmap_toggleworldmap_showuipanel_worldmapframe_worldmapframe_setmapid() {
-	let bare: Vec<Regex> =
-		[r"(^|[^.:\w])OpenWorldMap\b", r"(^|[^.:\w])ToggleWorldMap\s*\(", r"ShowUIPanel\s*\(\s*WorldMapFrame\b", r"WorldMapFrame\s*:\s*SetMapID\s*\("].iter().map(|p| Regex::new(p).unwrap()).collect();
+	let bare: Vec<Regex> = [
+		r"(^|[^.:\w])OpenWorldMap\b",
+		r"(^|[^.:\w])ToggleWorldMap\s*\(",
+		r"ShowUIPanel\s*\(\s*WorldMapFrame\b",
+		r"WorldMapFrame\s*:\s*SetMapID\s*\(",
+		// The quest log is the world map's side panel: its openers open the map too (Compat.OpenQuestLog).
+		r"(^|[^.:\w])(OpenQuestLog|ToggleQuestLog|QuestMapFrame_OpenToQuestDetails)\b",
+	]
+	.iter()
+	.map(|p| Regex::new(p).unwrap())
+	.collect();
 	let comment = Regex::new(r"--.*$").unwrap();
 	let root = addons_dir();
 	let mut found = Vec::new();
-	walk(&root, &root, &bare, &comment, &mut found);
+	walk(&root, &root, &bare, &comment, &mut found, true);
 	assert_eq!(found, Vec::<String>::new());
+}
+
+// #2924: the client's Lua quest log openers (QuestMapFrame_OpenToQuestDetails and the other QuestMapFrame_ functions,
+// OpenQuestLog, ToggleQuestLog, the popup's QuestLogPopupDetailFrame_Show), called from addon code, write the quest's
+// page into the map's tables in the addon's name; while it stays open the map's quest pins are blocked in combat (62
+// blocked SetPassThroughButtons calls in the report). No addon code calls them, Core/Compat.lua included.
+#[test]
+fn no_addon_code_calls_the_client_s_lua_quest_log_openers_not_even_core_compat_lua_2924() {
+	let bare: Vec<Regex> = [r"(^|[^.:\w])(QuestMapFrame_\w+|OpenQuestLog|ToggleQuestLog|QuestLogPopupDetailFrame_\w+)\b"].iter().map(|p| Regex::new(p).unwrap()).collect();
+	let comment = Regex::new(r"--.*$").unwrap();
+	let root = addons_dir();
+	let mut found = Vec::new();
+	walk(&root, &root, &bare, &comment, &mut found, false);
+	assert_eq!(found, Vec::<String>::new());
+}
+
+// #2924: "Show in quest log" selects the quest and opens the map through the client's C opener at the zone the game
+// shows the quest on (the player's own when it shows none), never through the Lua opener; nothing in combat, with the
+// gamepad interface, or on a client without C_Map.OpenWorldMap (the global opener taints the map too).
+#[test]
+fn the_quest_log_opens_by_selecting_the_quest_and_opening_the_map_through_c_map_at_its_zone_2924() {
+	let out = run(r#"
+		local calls = {}
+		QuestMapFrame_OpenToQuestDetails = function(q) calls[#calls + 1] = "lua " .. q end
+		OpenWorldMap = function(map) calls[#calls + 1] = "global " .. tostring(map) end
+		C_Map.OpenWorldMap = function(map) calls[#calls + 1] = "C_Map " .. tostring(map) end
+		C_QuestLog.SetSelectedQuest = function(q) calls[#calls + 1] = "select " .. q end
+		GetQuestUiMapID = function(q) if q == 33 then return 1429 end return 0 end
+		local r = {}
+		r.can = C.CanOpenQuestLog()
+		r.opened = C.OpenQuestLog(33)
+		r.noZone = C.OpenQuestLog(47)
+		stub.inCombat = true
+		r.combat = C.OpenQuestLog(33)
+		stub.inCombat = false
+		r.notQuest = C.OpenQuestLog("33")
+		local copen = C_Map.OpenWorldMap
+		C_Map.OpenWorldMap = nil
+		r.noC = { C.CanOpenQuestLog(), C.OpenQuestLog(33) }
+		C_Map.OpenWorldMap = copen
+		r.calls = table.concat(calls, ";")
+		emit(r)
+	"#);
+	assert_eq!(out["can"], true);
+	assert_eq!(out["opened"], true);
+	assert_eq!(out["noZone"], true);
+	assert_eq!(out["combat"], false, "nothing opens in combat");
+	assert_eq!(out["notQuest"], false);
+	assert_eq!(out["noC"], json!([false, false]), "no fallback to the global opener");
+	assert_eq!(out["calls"], "select 33;C_Map 1429;select 47;C_Map nil", "selected, then the C opener at the quest's zone");
 }
 
 #[test]
@@ -403,6 +721,23 @@ fn isindoors_the_client_s_indoor_state_nil_without_isindoors_or_when_it_errors()
 		emit(r)
 	"#);
 	assert_eq!(out, json!({ "inside": true, "outside": false, "err": true, "none": true }));
+}
+
+#[test]
+fn isswimming_the_client_s_swimming_state_nil_without_isswimming_or_when_it_errors() {
+	let out = run(r#"
+		local r = {}
+		IsSwimming = function() return 1 end
+		r.swimming = C.IsSwimming()
+		IsSwimming = function() return nil end
+		r.dry = C.IsSwimming()
+		IsSwimming = function() error("no") end
+		r.err = C.IsSwimming() == nil
+		IsSwimming = nil
+		r.none = C.IsSwimming() == nil
+		emit(r)
+	"#);
+	assert_eq!(out, json!({ "swimming": true, "dry": false, "err": true, "none": true }));
 }
 
 // #837: the colour a tile takes. The red "Retrieving item information" line is never an item's colour.

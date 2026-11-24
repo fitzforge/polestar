@@ -1,5 +1,6 @@
 //! The forge-data integration tests, one binary: one module per test file (they used to be one
 //! test binary each, which cost a link per file).
+mod class_spells;
 mod client;
 mod codex;
 mod common;
@@ -19,6 +20,7 @@ mod professions;
 mod publish;
 mod questdb;
 mod questie_store;
+mod subzones;
 mod talents;
 mod trainers;
 mod travel;

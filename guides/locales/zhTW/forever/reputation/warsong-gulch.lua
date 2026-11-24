@@ -8,107 +8,107 @@
 return {
 	-- Guide
 	["Warsong Gulch Reputation"] = "戰歌峽谷聲望",
-	["Flag captures and Marks of Honor raise it; Exalted gives a Legacy Point and epic bracers and legs."] = "",
-	["Master of Warsong Gulch: a Legacy Point at Exalted"] = "",
+	["Flag captures and Marks of Honor raise it; Exalted gives a Legacy Point and epic bracers and legs."] = "奪旗和榮譽獎章可提升聲望；崇拜可獲得1點傳承點數以及史詩護腕和腿甲。",
+	["Master of Warsong Gulch: a Legacy Point at Exalted"] = "戰歌峽谷大師：崇拜時獲得1點傳承點數",
 
 	-- Step 1: Sentinel Farsong
 	-- {zone:1460} Warsong Gulch · {npc:14733} Sentinel Farsong
-	["{zone:1460} is a 10 against 10 capture-the-flag battle, from level 10. Queue at any battlemaster in the capitals or from the battleground screen. In Classic every flag your team captures pays everyone 35 reputation (45 on the {zone:1460} holiday weekend), and a game pays 3 Warsong Gulch Marks of Honor for a win, 1 for a loss. {npc:14733} pays 200 reputation for one mark, once per character: the best mark you will ever turn in. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide."] = "",
+	["{zone:1460} is a 10 against 10 capture-the-flag battle, from level 10. Queue at any battlemaster in the capitals or from the battleground screen. In Classic every flag your team captures pays everyone 35 reputation (45 on the {zone:1460} holiday weekend), and a game pays 3 Warsong Gulch Marks of Honor for a win, 1 for a loss. {npc:14733} pays 200 reputation for one mark, once per character: the best mark you will ever turn in. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide."] = "{zone:1460}是10對10的奪旗戰，10級起可玩。可在主城任意戰場指揮官處或從戰場介面排隊。經典舊世中，你隊伍每奪一面旗給所有人35聲望（{zone:1460}節日週末為45），每局獲勝給3枚戰歌峽谷榮譽勳章，失敗給1枚。{npc:14733}用一枚勳章給200聲望，每個角色一次：這是你交過最值的勳章。Forever的傳承特長“外交家”使本指南中的每個數字最多提高10%。",
 	-- {item:20558} Warsong Gulch Mark of Honor
-	["one {item:20558}: play a game"] = "",
+	["one {item:20558}: play a game"] = "一枚{item:20558}：打一局",
 
 	-- Step 2: Alliance Brigadier General
-	-- {npc:15351} Alliance Brigadier General · {quest:8372} Fight for Warsong Gulch · {area:3319} Silverwing Grove · {npc:14733} Sentinel Farsong · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands · {zone:1459} Alterac Valley · {zone:1460} Warsong Gulch
-	["The {npc:15351} pays 100 reputation for 3 Warsong Gulch Marks of Honor the first time, then 50 for every 3 more ({quest:8372}). One stands right here at {area:3319} beside {npc:14733}; others in {zone:1453}, {zone:1455} and {zone:1457}, at {area:320} in the {zone:1417} and at both gates of {zone:1459}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1460} marks: hand in or spend them before you reach that."] = "",
-	["three Warsong Gulch Marks of Honor"] = "",
+	-- {npc:15351} Alliance Brigadier General · {quest:8402} Fight for Warsong Gulch · {area:3319} Silverwing Grove · {npc:14733} Sentinel Farsong · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands · {zone:1459} Alterac Valley · {zone:1460} Warsong Gulch
+	["The {npc:15351} pays 100 reputation for 3 Warsong Gulch Marks of Honor the first time, then 50 for every 3 more ({quest:8402}). One stands right here at {area:3319} beside {npc:14733}; others in {zone:1453}, {zone:1455} and {zone:1457}, at {area:320} in the {zone:1417} and at both gates of {zone:1459}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1460} marks: hand in or spend them before you reach that."] = "{npc:15351}第一次繳交3個戰歌峽谷榮譽印記可得100聲望，之後每3個得50（{quest:8402}）。這裡{area:3319}的{npc:14733}旁就有一位；其他位於{zone:1453}、{zone:1455}和{zone:1457}，{zone:1417}的{area:320}，以及{zone:1459}的兩座大門。Forever的PvP裝備除了榮譽外也需要榮譽印記：繳交前先決定你要什麼。{zone:1460}印記最多只能攜帶30個：達到上限前就繳交或花掉。",
+	["three Warsong Gulch Marks of Honor"] = "三枚戰歌峽谷榮譽勳章",
 
 	-- Step 3: Silverwing Sentinels to Friendly
 	-- {faction:890} Silverwing Sentinels
 	["{faction:890} to Friendly"] = "{faction:890}到友好",
 	-- {npc:14733} Sentinel Farsong · {quest:8372} Fight for Warsong Gulch
-	["Neutral to Friendly is 3000 reputation. In Classic a 3-capture win paid 105, and its 3 marks bring 50 more at the Brigadier General: about 155 a win, so some 20 wins. Losses still pay 35 for each flag your team captured. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50, {npc:14733}'s one-mark quest and the Brigadier General's {quest:8372} come in a version for your bracket (from 20 and from 10): 200 once, then 100 and 50 per 3 marks."] = "",
+	["Neutral to Friendly is 3000 reputation. In Classic a 3-capture win paid 105, and its 3 marks bring 50 more at the Brigadier General: about 155 a win, so some 20 wins. Losses still pay 35 for each flag your team captured. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50, {npc:14733}'s one-mark quest and the Brigadier General's {quest:8372} come in a version for your bracket (from 20 and from 10): 200 once, then 100 and 50 per 3 marks."] = "中立到友善需要3000聲望。經典舊世中，以奪旗3次獲勝獎勵105，其3枚獎章在准將處還能換50：每勝約155，因此約需20勝。即使失敗，小隊每奪取一面旗幟仍獎勵35。無限未公佈戰場聲望倍率，因此場次數量僅供粗略參考。50級以下，{npc:14733}的單枚獎章任務和准將的{quest:8372}會提供對應等級段版本（分別從20級和10級起）：一次性200，之後每3枚獎章分別獎勵100和50。",
 	-- {npc:15351} Alliance Brigadier General · {quest:8372} Fight for Warsong Gulch
-	["{npc:15351}: {quest:8372} again, 50 reputation for 3 marks"] = "",
+	["{npc:15351}: {quest:8372} again, 50 reputation for 3 marks"] = "{npc:15351}：再次交{quest:8372}，3枚勳章換50聲望",
 
 	-- Step 4: Silverwing Sentinels to Honored
 	-- {faction:890} Silverwing Sentinels
 	["{faction:890} to Honored"] = "{faction:890}到尊敬",
 	-- {npc:14753} Illiyana Moonblaze · {npc:14733} Sentinel Farsong · {item:21567} Rune of Duty · {item:21565} Rune of Perfection
-	["Friendly to Honored is 6000 reputation, about 39 wins at the Classic rate. Friendly opens the first rewards at {npc:14753} beside {npc:14733}: the {item:21567} and {item:21565} trinkets (2g at level 20, 4g at level 40) and food, bandages and draughts that work in the battleground (5s to 20s). She also gives one Sentinel care package at Friendly (pick the one for your level): 10 reputation and a bag of battleground food and bandages."] = "",
+	["Friendly to Honored is 6000 reputation, about 39 wins at the Classic rate. Friendly opens the first rewards at {npc:14753} beside {npc:14733}: the {item:21567} and {item:21565} trinkets (2g at level 20, 4g at level 40) and food, bandages and draughts that work in the battleground (5s to 20s). She also gives one Sentinel care package at Friendly (pick the one for your level): 10 reputation and a bag of battleground food and bandages."] = "友善到尊敬需6000聲望，按經典舊世的速度約39勝。友善在{npc:14733}旁的{npc:14753}處開放第一批獎勵：{item:21567}和{item:21565}飾品（20級2金，40級4金），以及在戰場內有效的食物、繃帶和藥劑（5銀到20銀）。她還在友善時給一個哨兵關懷包（挑適合你等級的）：10聲望和一包戰場食物與繃帶。",
 	-- {npc:14753} Illiyana Moonblaze
-	["{npc:14753}: Friendly rewards"] = "",
+	["{npc:14753}: Friendly rewards"] = "{npc:14753}：友善獎勵",
 	-- {npc:15351} Alliance Brigadier General
-	["{npc:15351}: 50 reputation for 3 marks"] = "",
+	["{npc:15351}: 50 reputation for 3 marks"] = "{npc:15351}：3枚勳章換50聲望",
 
 	-- Step 5: Silverwing Sentinels to Revered
 	-- {faction:890} Silverwing Sentinels
 	["{faction:890} to Revered"] = "{faction:890}到崇敬",
 	-- {item:19530} Caretaker's Cape · {item:19538} Sentinel's Medallion · {item:19522} Lorekeeper's Ring · {item:19514} Protector's Band
-	["Honored to Revered is 12000 reputation, about 78 wins. Honored opens the {item:19530} (cloak), {item:19538} (neck), {item:19522} and {item:19514}, each sold for levels 18, 28, 38, 48 and 58 (cloak 36s50c to 8g55s, the rest 2g to 7g50s), and the Major Healing and Mana Draughts (10s)."] = "",
+	["Honored to Revered is 12000 reputation, about 78 wins. Honored opens the {item:19530} (cloak), {item:19538} (neck), {item:19522} and {item:19514}, each sold for levels 18, 28, 38, 48 and 58 (cloak 36s50c to 8g55s, the rest 2g to 7g50s), and the Major Healing and Mana Draughts (10s)."] = "尊敬到崇敬需12000聲望，約78勝。尊敬開放{item:19530}（斗篷）、{item:19538}（頸部）、{item:19522}和{item:19514}，各有18、28、38、48和58級版本出售（斗篷36銀50銅到8金55銀，其餘2金到7金50銀），以及強效治療藥劑和法力藥劑（10銀）。",
 	-- {npc:14753} Illiyana Moonblaze
-	["{npc:14753}: Honored rewards"] = "",
+	["{npc:14753}: Honored rewards"] = "{npc:14753}：尊敬獎勵",
 
 	-- Step 6: Silverwing Sentinels to Exalted
 	-- {faction:890} Silverwing Sentinels
 	["{faction:890} to Exalted"] = "{faction:890}到崇拜",
-	-- {item:19546} Sentinel's Blade · {item:19554} Protector's Sword · {item:19562} Outrunner's Bow · {item:19570} Lorekeeper's Staff
-	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19546} (dagger), {item:19554}, {item:19562} and {item:19570} (91s to 35g61s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the Trainee's Sentinel Nightsaber mount (level 25, 10g) with no standing listed."] = "",
+	-- {item:19546} Sentinel's Blade · {item:19554} Protector's Sword · {item:19562} Outrunner's Bow · {item:19570} Lorekeeper's Staff · {item:211498} Trainee's Sentinel Nightsaber
+	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19546} (dagger), {item:19554}, {item:19562} and {item:19570} (91s to 35g61s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the {item:211498} mount (level 25, 10g) with no standing listed."] = "崇敬到崇拜需要21000聲望，約贏136場：佔整個過程的一半。崇敬時開放18到58級的武器：{item:19546}（匕首）、{item:19554}、{item:19562}和{item:19570}（91銀到35金61銀）。無限服軍需官還出售這四種武器的25級版本、20級頭部裝備（堅韌的布質頭帶、堅韌的皮甲面具或堅韌的鎖甲頭盔，各2金50銀），以及{item:211498}坐騎（25級，10金幣），未列出聲望要求。",
 	-- {npc:14753} Illiyana Moonblaze
-	["{npc:14753}: Revered rewards"] = "",
+	["{npc:14753}: Revered rewards"] = "{npc:14753}：崇敬獎勵",
 
 	-- Step 7: Illiyana Moonblaze
 	-- {item:19578} Berserker Bracers · {item:19582} Windtalker's Wristguards · {item:19587} Forest Stalker's Bracers · {item:19595} Dryad's Wrist Bindings · {item:19506} Silverwing Battle Tabard
-	["Exalted gives the Legacy Point \"Master of Warsong Gulch\" and opens the epics: {item:19578} (plate), {item:19582} (mail), {item:19587} (leather) and {item:19595} (cloth) for levels 40, 50 and 60 (2g47s to 12g11s), and the level 60 Sentinel's legs in plate, lamellar, chain, leather, lizardhide and silk (16g63s to 24g22s). The {item:19506} is 5g."] = "",
+	["Exalted gives the Legacy Point \"Master of Warsong Gulch\" and opens the epics: {item:19578} (plate), {item:19582} (mail), {item:19587} (leather) and {item:19595} (cloth) for levels 40, 50 and 60 (2g47s to 12g11s), and the level 60 Sentinel's legs in plate, lamellar, chain, leather, lizardhide and silk (16g63s to 24g22s). The {item:19506} is 5g."] = "崇拜給傳承點數“戰歌峽谷大師”，並開放史詩物品：40、50和60級可用的{item:19578}（板甲）、{item:19582}（鎖甲）、{item:19587}（皮甲）和{item:19595}（布甲）（2金47銀到12金11銀），以及60級的哨兵腿甲，分板甲、片甲、鍊甲、皮甲、蜥蜴皮和絲綢（16金63銀到24金22銀）。{item:19506}售價5金。",
 	-- {item:19506} Silverwing Battle Tabard
-	["{item:19506}, 5g"] = "",
+	["{item:19506}, 5g"] = "{item:19506}，5金",
 
 	-- Step 8: Captain Shatterskull
 	-- {zone:1460} Warsong Gulch · {area:1599} Mor'shan Base Camp · {npc:14781} Captain Shatterskull
-	["{zone:1460} is a 10 against 10 capture-the-flag battle, from level 10. Queue at any battlemaster in the capitals or from the battleground screen; the Horde gate is here at {area:1599}. In Classic every flag your team captures pays everyone 35 reputation (45 on the {zone:1460} holiday weekend), and a game pays 3 Warsong Gulch Marks of Honor for a win, 1 for a loss. {npc:14781} pays 200 reputation for one mark, once per character: the best mark you will ever turn in. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide."] = "",
+	["{zone:1460} is a 10 against 10 capture-the-flag battle, from level 10. Queue at any battlemaster in the capitals or from the battleground screen; the Horde gate is here at {area:1599}. In Classic every flag your team captures pays everyone 35 reputation (45 on the {zone:1460} holiday weekend), and a game pays 3 Warsong Gulch Marks of Honor for a win, 1 for a loss. {npc:14781} pays 200 reputation for one mark, once per character: the best mark you will ever turn in. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide."] = "{zone:1460}是10對10的奪旗戰，10級起可玩。可在主城任意戰場指揮官處或從戰場介面排隊；部落的入口就在這裡{area:1599}。經典舊世中，你隊伍每奪一面旗給所有人35聲望（{zone:1460}節日週末為45），每局獲勝給3枚戰歌峽谷榮譽勳章，失敗給1枚。{npc:14781}用一枚勳章給200聲望，每個角色一次：這是你交過最值的勳章。Forever的傳承特長“外交家”使本指南中的每個數字最多提高10%。",
 
 	-- Step 9: Horde Warbringer
-	-- {npc:15350} Horde Warbringer · {quest:8368} Battle of Warsong Gulch · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:1458} Undercity · {area:321} Hammerfall · {zone:1417} Arathi Highlands · {zone:1459} Alterac Valley · {zone:1416} Alterac Mountains · {zone:1460} Warsong Gulch
-	["The {npc:15350} pays 100 reputation for 3 Warsong Gulch Marks of Honor the first time, then 50 for every 3 more ({quest:8368}). One stands right here at Mor'shan; others in {zone:1454}, {zone:1456} (and on the plain below it) and the {zone:1458}, at {area:321} in the {zone:1417} and at the {zone:1459} gate in the {zone:1416}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1460} marks: hand in or spend them before you reach that."] = "",
+	-- {npc:15350} Horde Warbringer · {quest:8429} Battle of Warsong Gulch · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:1458} Undercity · {area:321} Hammerfall · {zone:1417} Arathi Highlands · {zone:1459} Alterac Valley · {zone:1416} Alterac Mountains · {zone:1460} Warsong Gulch
+	["The {npc:15350} pays 100 reputation for 3 Warsong Gulch Marks of Honor the first time, then 50 for every 3 more ({quest:8429}). One stands right here at Mor'shan; others in {zone:1454}, {zone:1456} (and on the plain below it) and the {zone:1458}, at {area:321} in the {zone:1417} and at the {zone:1459} gate in the {zone:1416}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:1460} marks: hand in or spend them before you reach that."] = "{npc:15350}第一次繳交3個戰歌峽谷榮譽印記可得100聲望，之後每3個得50（{quest:8429}）。這裡莫爾杉就有一位；其他位於{zone:1454}、{zone:1456}（及其下方平原）和{zone:1458}，{zone:1417}的{area:321}，以及{zone:1416}的{zone:1459}大門。Forever的PvP裝備除了榮譽外也需要榮譽印記：繳交前先決定你要什麼。{zone:1460}印記最多只能攜帶30個：達到上限前就繳交或花掉。",
 
 	-- Step 10: Warsong Outriders to Friendly
 	-- {faction:889} Warsong Outriders
 	["{faction:889} to Friendly"] = "{faction:889}到友好",
 	-- {npc:14781} Captain Shatterskull · {quest:8368} Battle of Warsong Gulch
-	["Neutral to Friendly is 3000 reputation. In Classic a 3-capture win paid 105, and its 3 marks bring 50 more at the Warbringer: about 155 a win, so some 20 wins. Losses still pay 35 for each flag your team captured. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50, {npc:14781}'s one-mark quest and the Warbringer's {quest:8368} come in a version for your bracket (from 20 and from 10): 200 once, then 100 and 50 per 3 marks."] = "",
+	["Neutral to Friendly is 3000 reputation. In Classic a 3-capture win paid 105, and its 3 marks bring 50 more at the Warbringer: about 155 a win, so some 20 wins. Losses still pay 35 for each flag your team captured. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50, {npc:14781}'s one-mark quest and the Warbringer's {quest:8368} come in a version for your bracket (from 20 and from 10): 200 once, then 100 and 50 per 3 marks."] = "從中立到友善需要3000點聲望。經典版中，奪旗3次獲勝可得105點，3枚獎章交給戰爭使者還能獲得50點：每次勝利約155點，因此約需20勝。失敗時，己方每次成功奪旗仍可獲得35點。無限服尚未公佈戰場聲望倍率，因此場次只能作為粗略參考。50級以下時，{npc:14781} 的單枚獎章任務和戰爭使者的 {quest:8368} 會提供適合你等級段的版本（分別從20級和10級開始）：首次200點，之後每3枚獎章首次100點、後續每次50點。",
 	-- {npc:15350} Horde Warbringer · {quest:8368} Battle of Warsong Gulch
-	["{npc:15350}: {quest:8368} again, 50 reputation for 3 marks"] = "",
+	["{npc:15350}: {quest:8368} again, 50 reputation for 3 marks"] = "{npc:15350}：再次交{quest:8368}，3枚勳章換50聲望",
 
 	-- Step 11: Warsong Outriders to Honored
 	-- {faction:889} Warsong Outriders
 	["{faction:889} to Honored"] = "{faction:889}到尊敬",
 	-- {npc:14754} Kelm Hargunth · {npc:14781} Captain Shatterskull · {item:21567} Rune of Duty · {item:21565} Rune of Perfection
-	["Friendly to Honored is 6000 reputation, about 39 wins at the Classic rate. Friendly opens the first rewards at {npc:14754} beside {npc:14781}: the {item:21567} and {item:21565} trinkets (2g at level 20, 4g at level 40) and food, bandages and draughts that work in the battleground (5s to 20s). He also gives one Outrider care package at Friendly (pick the one for your level): 10 reputation and a bag of battleground food and bandages."] = "",
+	["Friendly to Honored is 6000 reputation, about 39 wins at the Classic rate. Friendly opens the first rewards at {npc:14754} beside {npc:14781}: the {item:21567} and {item:21565} trinkets (2g at level 20, 4g at level 40) and food, bandages and draughts that work in the battleground (5s to 20s). He also gives one Outrider care package at Friendly (pick the one for your level): 10 reputation and a bag of battleground food and bandages."] = "友善到尊敬需6000聲望，按經典舊世的速度約39勝。友善在{npc:14781}旁的{npc:14754}處開放第一批獎勵：{item:21567}和{item:21565}飾品（20級2金，40級4金），以及在戰場內有效的食物、繃帶和藥劑（5銀到20銀）。他還在友善時給一個斥候關懷包（挑適合你等級的）：10聲望和一包戰場食物與繃帶。",
 	-- {npc:14754} Kelm Hargunth
-	["{npc:14754}: Friendly rewards"] = "",
+	["{npc:14754}: Friendly rewards"] = "{npc:14754}：友善獎勵",
 	-- {npc:15350} Horde Warbringer
-	["{npc:15350}: 50 reputation for 3 marks"] = "",
+	["{npc:15350}: 50 reputation for 3 marks"] = "{npc:15350}：3枚勳章換50聲望",
 
 	-- Step 12: Warsong Outriders to Revered
 	-- {faction:889} Warsong Outriders
 	["{faction:889} to Revered"] = "{faction:889}到崇敬",
 	-- {item:19526} Battle Healer's Cloak · {item:19534} Scout's Medallion · {item:19518} Advisor's Ring · {item:19510} Legionnaire's Band
-	["Honored to Revered is 12000 reputation, about 78 wins. Honored opens the {item:19526}, {item:19534} (neck), {item:19518} and {item:19510}, each sold for levels 18, 28, 38, 48 and 58 (cloak 36s50c to 9g6s, the rest 2g to 7g50s), and the Major Healing and Mana Draughts (10s)."] = "",
+	["Honored to Revered is 12000 reputation, about 78 wins. Honored opens the {item:19526}, {item:19534} (neck), {item:19518} and {item:19510}, each sold for levels 18, 28, 38, 48 and 58 (cloak 36s50c to 9g6s, the rest 2g to 7g50s), and the Major Healing and Mana Draughts (10s)."] = "尊敬到崇敬需12000聲望，約78勝。尊敬開放{item:19526}、{item:19534}（頸部）、{item:19518}和{item:19510}，各有18、28、38、48和58級版本出售（斗篷36銀50銅到9金6銀，其餘2金到7金50銀），以及強效治療藥劑和法力藥劑（10銀）。",
 	-- {npc:14754} Kelm Hargunth
-	["{npc:14754}: Honored rewards"] = "",
+	["{npc:14754}: Honored rewards"] = "{npc:14754}：尊敬獎勵",
 
 	-- Step 13: Warsong Outriders to Exalted
 	-- {faction:889} Warsong Outriders
 	["{faction:889} to Exalted"] = "{faction:889}到崇拜",
-	-- {item:19542} Scout's Blade · {item:19550} Legionnaire's Sword · {item:19558} Outrider's Bow · {item:19566} Advisor's Gnarled Staff
-	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19542} (dagger), {item:19550}, {item:19558} and {item:19566} (91s to 35g9s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the Trainee's Outrider Wolf mount (level 25, 10g) with no standing listed."] = "",
+	-- {item:19542} Scout's Blade · {item:19550} Legionnaire's Sword · {item:19558} Outrider's Bow · {item:19566} Advisor's Gnarled Staff · {item:211499} Trainee's Outrider Wolf
+	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19542} (dagger), {item:19550}, {item:19558} and {item:19566} (91s to 35g9s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the {item:211499} mount (level 25, 10g) with no standing listed."] = "崇敬到崇拜需要21000聲望，約136場勝利：佔整個提升過程的一半。崇敬後解鎖18至58級武器：{item:19542}（匕首）、{item:19550}、{item:19558}和{item:19566}（91銀至35金9銀）。無限的軍需官還出售這4種武器的25級版本、20級頭部裝備（堅韌的布質頭帶、堅韌的皮甲面具或堅韌的鎖甲頭盔，各2金50銀）及 {item:211499} 坐騎（25級，10金幣），未列出聲望等級要求。",
 	-- {npc:14754} Kelm Hargunth
-	["{npc:14754}: Revered rewards"] = "",
+	["{npc:14754}: Revered rewards"] = "{npc:14754}：崇敬獎勵",
 
 	-- Step 14: Kelm Hargunth
 	-- {item:19578} Berserker Bracers · {item:19582} Windtalker's Wristguards · {item:19587} Forest Stalker's Bracers · {item:19595} Dryad's Wrist Bindings · {item:19505} Warsong Battle Tabard
-	["Exalted gives the Legacy Point \"Master of Warsong Gulch\" and opens the epics: {item:19578} (plate), {item:19582} (mail), {item:19587} (leather) and {item:19595} (cloth) for levels 40, 50 and 60 (2g47s to 12g11s), and the level 60 Outrider's legs in plate, chain, mail, leather, lizardhide and silk (16g57s to 25g33s). The {item:19505} is 5g."] = "",
+	["Exalted gives the Legacy Point \"Master of Warsong Gulch\" and opens the epics: {item:19578} (plate), {item:19582} (mail), {item:19587} (leather) and {item:19595} (cloth) for levels 40, 50 and 60 (2g47s to 12g11s), and the level 60 Outrider's legs in plate, chain, mail, leather, lizardhide and silk (16g57s to 25g33s). The {item:19505} is 5g."] = "崇拜給傳承點數“戰歌峽谷大師”，並開放史詩物品：40、50和60級可用的{item:19578}（板甲）、{item:19582}（鎖甲）、{item:19587}（皮甲）和{item:19595}（布甲）（2金47銀到12金11銀），以及60級的斥候腿甲，分板甲、鍊甲、鎖甲、皮甲、蜥蜴皮和絲綢（16金57銀到25金33銀）。{item:19505}售價5金。",
 	-- {item:19505} Warsong Battle Tabard
-	["{item:19505}, 5g"] = "",
+	["{item:19505}, 5g"] = "{item:19505}，5金",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Exalted with the {faction:889} earns a Legacy Point."] = "與{faction:889}達到崇拜可獲得1點傳承點數。",

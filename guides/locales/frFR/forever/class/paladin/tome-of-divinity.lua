@@ -27,16 +27,16 @@ return {
 	["{npc:6171}, Cathedral of Light"] = "{npc:6171}, cathédrale de la Lumière",
 
 	-- Step 5: The Tome of Divinity
-	-- {npc:6171} Duthorian Rall · {item:6775} Tome of Divinity · {item:2589} Linen Cloth
-	["{npc:6171} stands inside the Cathedral of Light. He hands you the {item:6775}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6171} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6171} se tient dans la cathédrale de la Lumière. Il vous remet le {item:6775} : faites un clic droit dessus dans vos sacs pour lancer la quête suivante. Si le livre indique que la quête est déjà faite, détruisez-le et demandez un nouvel exemplaire à {npc:6171}. Apportez 10 {item:2589} pour l'étape suivante si vous en avez.",
-	-- {item:6775} Tome of Divinity
-	["Right-click the {item:6775}"] = "Clic droit sur le {item:6775}",
+	-- {npc:6171} Duthorian Rall · {quest:2998} Tome of Divinity · {item:2589} Linen Cloth
+	["{npc:6171} stands inside the Cathedral of Light. He hands you the {quest:2998}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6171} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6171} se tient dans la cathédrale de la Lumière. Il vous remet le {quest:2998} : faites un clic droit dessus dans vos sacs pour lancer la quête suivante. Si le livre indique que la quête est déjà faite, détruisez-le et demandez un nouvel exemplaire à {npc:6171}. Apportez 10 {item:2589} pour l'étape suivante si vous en avez.",
+	-- {quest:2998} Tome of Divinity
+	["Right-click the {quest:2998}"] = "Clic droit sur le {quest:2998}",
 
 	-- Step 6: Stephanie Turner
 	-- {npc:6174} Stephanie Turner · {object:2096} Trade District · {item:2589} Linen Cloth · {zone:1436} Westfall
 	["{npc:6174} stands at a corner in the middle of the {object:2096}, outside a general goods store. She wants 10 {item:2589}: humanoids drop it (Riverpaw gnolls in {zone:1436} about every other kill, Defias and kobolds a little less), or buy it at the Auction House a few steps away in the {object:2096}."] = "{npc:6174} se tient à un coin au milieu du {object:2096}, devant un magasin d'articles généraux. Elle veut 10 {item:2589} : les humanoïdes en laissent tomber (les gnolls Rivepatte de la {zone:1436} environ une fois sur deux, les Défias et les kobolds un peu moins), ou achetez-en à l'hôtel des ventes, à quelques pas dans le {object:2096}.",
 	-- {item:2589} Linen Cloth
-	["{item:2589} x10"] = "{item:2589} x10",
+	["{item:2589} x10: humanoids, or the Auction House"] = "{item:2589} x10 : humanoïdes, ou l'hôtel des ventes",
 
 	-- Step 7: The Symbol of Life
 	-- {item:6866} Symbol of Life
@@ -70,15 +70,15 @@ return {
 	["{npc:6179}, upstairs in the {object:32386}"] = "{npc:6179}, à l'étage de la salle des Mystères",
 
 	-- Step 14: The Tome of Divinity
-	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward · {item:6916} Tome of Divinity · {item:2589} Linen Cloth
-	["{npc:6179} stands upstairs in the {object:32386}, in the {object:32362}: take the ramp at the back of the hall. She hands you the {item:6916}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6179} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6179} se tient à l'étage de la salle des Mystères, dans {object:32362} : prenez la rampe au fond de la salle. Elle vous remet le {item:6916} : faites un clic droit dessus dans vos sacs pour lancer la quête suivante. Si le livre indique que la quête est déjà faite, détruisez-le et demandez un nouvel exemplaire à {npc:6179}. Apportez 10 {item:2589} pour l'étape suivante si vous en avez.",
-	-- {item:6916} Tome of Divinity
-	["Right-click the {item:6916}"] = "Clic droit sur le {item:6916}",
+	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward · {quest:2997} Tome of Divinity · {item:2589} Linen Cloth
+	["{npc:6179} stands upstairs in the {object:32386}, in the {object:32362}: take the ramp at the back of the hall. She hands you the {quest:2997}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6179} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6179} se tient à l'étage de {object:32386}, dans {object:32362} : prenez la rampe au fond de la salle. Elle vous remet le {quest:2997} : faites un clic droit dessus dans vos sacs pour lancer la quête suivante. Si le livre indique que la quête est déjà faite, détruisez-le et demandez un nouvel exemplaire à {npc:6179}. Apportez 10 {item:2589} pour l'étape suivante si vous en avez.",
+	-- {quest:2997} Tome of Divinity
+	["Right-click the {quest:2997}"] = "Clic droit sur le {quest:2997}",
 
 	-- Step 15: John Turner
-	-- {npc:6175} John Turner · {item:2589} Linen Cloth · {npc:1245} Kogan Forgestone · {area:131} Kharanos
+	-- {npc:6175} John Turner · {item:2589} Linen Cloth · {zone:1432} Loch Modan
 	-- plural, as words: Dark Iron Ambushers = {npc:1981} Dark Iron Ambusher
-	["{npc:6175} walks the outer ring of the Commons, past the front gate, the bank and the Auction House. He wants 10 {item:2589}: humanoids drop it ({npc:1245} in {area:131} every time, Dark Iron Ambushers about two kills in five), or buy it at the Auction House on his ring."] = "{npc:6175} arpente l'anneau extérieur de la Grande Cour, devant la porte d'entrée, la banque et l'hôtel des ventes. Il veut 10 {item:2589} : les humanoïdes en laissent tomber ({npc:1245} à {area:131} à chaque fois, les Embusqués Sombrefer environ deux fois sur cinq), ou achetez-en à l'hôtel des ventes de son anneau.",
+	["{npc:6175} walks the outer ring of the Commons, past the front gate, the bank and the Auction House. He wants 10 {item:2589}: humanoids drop it (in {zone:1432} the Dark Iron Ambushers, Tunnel Rat kobolds and Stonesplinter troggs about two kills in five), or buy it at the Auction House on his ring."] = "{npc:6175} arpente l'anneau extérieur de la Grande Cour, devant la porte d'entrée, la banque et l'hôtel des ventes. Il veut 10 {item:2589} : les humanoïdes en laissent tomber (au {zone:1432}, les Embusqués Sombrefer, les kobolds Rat des tunnels et les troggs Brisepierre environ deux fois sur cinq), ou achetez-en à l'hôtel des ventes de son anneau.",
 
 	-- Step 16: The Symbol of Life
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6179} Tiza Battleforge · {item:6866} Symbol of Life · {npc:6178} Muiredon Battleforge · {npc:6177} Narm Faulk
@@ -101,4 +101,7 @@ return {
 	-- Step 19: Redemption
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6178} Muiredon Battleforge · {npc:6179} Tiza Battleforge · {spell:7328} Redemption
 	["Back up to the {object:32386}: {npc:6178} takes the script, {npc:6179} teaches you {spell:7328}."] = "Remontez à la salle des Mystères : {npc:6178} prend le texte, {npc:6179} vous apprend {spell:7328}.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{item:2589} x10"] = "{item:2589} x10",
 }

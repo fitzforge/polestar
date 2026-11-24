@@ -1,13 +1,16 @@
 //! `forge gamedata list` and `forge gamedata export --table T --out FILE`: the installed
 //! client's tables read locally (CASC + DB2 + WoWDBDefs). `cache` decodes the client's WDB
 //! caches (quests, creatures, gameobjects the server described to it) to JSON; `hotfix` reads its
-//! DBCache.bin (the server's hotfix rows): a per-table summary, or one table's rows decoded.
+//! DBCache.bin (the server's hotfix rows): a per-table summary, or one table's rows decoded. `file`
+//! writes one file of the client by its fileDataID, as stored (game tables such as
+//! `gametables/combatratings.txt` (1391669), whose IDs the community listfile names; the Forever client has
+//! no `chancetomeleecrit` or regen tables).
 //! `compare --wago DIR` (a developer check, not in the help) exports every table a wago.tools
 //! build folder holds and compares the CSVs.
 //!
 //! Common options: `--wow DIR` (World of Warcraft folder; default `$POLESTAR_WOW_DIR` or the
-//! detected install), `--product P` (default wow_classic_beta, the product wago.tools lists
-//! Forever under; `wowf` is the `_forever_` client), `--build auto|X.Y.Z.B` (the installed one;
+//! detected install), `--product P` (default: the install's Forever client, `wowf` (the
+//! `_forever_` folder), else the old beta `wow_classic_beta`), `--build auto|X.Y.Z.B` (the installed one;
 //! anything else must equal it), `--locale enUS`, `--defs DIR` (WoWDBDefs checkout; default
 //! `<checkout>/data/sources/wowdbdefs`).
 
@@ -24,6 +27,7 @@ use forge_gamedata::{csv, find_install, flavor_dir, Client};
 
 pub(super) const USAGE: &str = "usage: forge gamedata list [options]                 the tables the client holds
        forge gamedata export --table <name> [--out <file>] [options]   a table as CSV (no --out: stdout)
+       forge gamedata file --fdid <id> [--out <file>] [options]   one file of the client as stored (no --out: stdout)
        forge gamedata check [--maps 0,1,...] [options]   is the install complete? (exit 1 when not)
        forge gamedata cache [--kind quest|creature|gameobject|all] [--cache <dir>] [--out <file.json>] [options]
                  the client's WDB caches as JSON keyed by id (all: keyed by kind, then id), with counts
@@ -34,7 +38,7 @@ pub(super) const USAGE: &str = "usage: forge gamedata list [options]            
                  compares them with the installed tables' rows of the same IDs)
                  (--cache default: <the product's client folder>/Cache/ADB/<locale>/DBCache.bin)
 
-options: --wow <dir>  --product <name> (default wow_classic_beta)  --build auto|X.Y.Z.B  --locale enUS  --defs <dir>";
+options: --wow <dir>  --product <name> (default: the Forever client, wowf, else wow_classic_beta)  --build auto|X.Y.Z.B  --locale enUS  --defs <dir>";
 
 pub fn main() {
 	super::exit("gamedata", run());
@@ -43,7 +47,8 @@ pub fn main() {
 struct Opts {
 	cmd: String,
 	wow: Option<PathBuf>,
-	product: String,
+	/// `--product`; None: the install's Forever product ([`product`]).
+	product: Option<String>,
 	build: String,
 	locale: String,
 	defs: Option<PathBuf>,
@@ -56,6 +61,7 @@ struct Opts {
 	cache: Option<PathBuf>,
 	all_statuses: bool,
 	db2: bool,
+	fdid: Option<u32>,
 }
 
 fn parse() -> Result<Opts, Fail> {
@@ -63,7 +69,7 @@ fn parse() -> Result<Opts, Fail> {
 	let mut o = Opts {
 		cmd: String::new(),
 		wow: None,
-		product: "wow_classic_beta".into(),
+		product: None,
 		build: "auto".into(),
 		locale: "enUS".into(),
 		defs: None,
@@ -76,12 +82,13 @@ fn parse() -> Result<Opts, Fail> {
 		cache: None,
 		all_statuses: false,
 		db2: false,
+		fdid: None,
 	};
 	while let Some(a) = args.next() {
 		let mut val = || args.next().ok_or_else(|| usage(format!("{a} needs a value")));
 		match a.as_str() {
 			"--wow" => o.wow = Some(val()?.into()),
-			"--product" => o.product = val()?,
+			"--product" => o.product = Some(val()?),
 			"--build" => o.build = val()?,
 			"--locale" => o.locale = val()?,
 			"--defs" => o.defs = Some(val()?.into()),
@@ -105,6 +112,10 @@ fn parse() -> Result<Opts, Fail> {
 				}
 			}
 			"--db2" => o.db2 = true,
+			"--fdid" => {
+				let v = val()?;
+				o.fdid = Some(v.parse().map_err(|_| usage(format!("--fdid {v}: not a fileDataID")))?);
+			}
 			"-h" | "--help" => {
 				println!("{USAGE}");
 				std::process::exit(0)
@@ -127,6 +138,11 @@ fn wow_dir(o: &Opts) -> Result<PathBuf, String> {
 	o.wow.clone().or_else(find_install).ok_or_else(|| "no World of Warcraft folder found; pass --wow or set POLESTAR_WOW_DIR".to_string())
 }
 
+/// `--product`, else the Forever product installed in `wow` (`wowf`, else `wow_classic_beta`).
+fn product(o: &Opts, wow: &Path) -> Result<String, String> {
+	o.product.clone().map_or_else(|| forge_gamedata::casc::forever_product(wow), Ok)
+}
+
 fn defs_dir(o: &Opts) -> Result<PathBuf, String> {
 	o.defs.clone().or_else(default_defs).ok_or_else(|| "no WoWDBDefs checkout; git clone https://github.com/wowdev/WoWDBDefs data/sources/wowdbdefs, or pass --defs".to_string())
 }
@@ -135,11 +151,11 @@ fn open(o: &Opts) -> Result<Client, String> {
 	let wow = wow_dir(o)?;
 	let defs = defs_dir(o)?;
 	let t = Instant::now();
-	let c = Client::open(&wow, &o.product, &defs)?;
+	let c = Client::open(&wow, &product(o, &wow)?, &defs)?;
 	if o.build != "auto" && o.build != c.storage.version {
-		return Err(format!("--build {}: the installed {} is {} (local storage holds only the installed build)", o.build, o.product, c.storage.version));
+		return Err(format!("--build {}: the installed {} is {} (local storage holds only the installed build)", o.build, c.storage.product, c.storage.version));
 	}
-	eprintln!("{} {} ({}), opened in {:.0} ms", o.product, c.storage.version, wow.display(), t.elapsed().as_secs_f64() * 1e3);
+	eprintln!("{} {} ({}), opened in {:.0} ms", c.storage.product, c.storage.version, wow.display(), t.elapsed().as_secs_f64() * 1e3);
 	Ok(c)
 }
 
@@ -190,6 +206,21 @@ fn run() -> Result<(), Fail> {
 			eprintln!("{table}: {} rows in {:.1} ms", tb.rows(), t.elapsed().as_secs_f64() * 1e3);
 			Ok(())
 		}
+		"file" => {
+			let fdid = o.fdid.ok_or_else(|| usage("file needs --fdid <id>"))?;
+			let c = open(&o)?;
+			let locale = forge_gamedata::casc::locale_flag(&o.locale).ok_or_else(|| usage(format!("--locale {}: not a client locale", o.locale)))?;
+			let d = c.storage.read_fdid(fdid, locale)?;
+			if !d.encrypted.is_empty() {
+				eprintln!("fileDataID {fdid}: {} encrypted chunk(s) left as zeros ({})", d.encrypted.len(), d.encrypted.join(", "));
+			}
+			match &o.out {
+				Some(p) => std::fs::write(p, &d.data).map_err(|e| format!("{}: {e}", p.display()))?,
+				None => std::io::stdout().write_all(&d.data).map_err(|e| e.to_string())?,
+			}
+			eprintln!("fileDataID {fdid}: {} bytes", d.data.len());
+			Ok(())
+		}
 		"compare" => Ok(compare(&o)?),
 		"cache" => Ok(cache(&o)?),
 		"hotfix" => Ok(hotfix_cmd(&o)?),
@@ -199,7 +230,8 @@ fn run() -> Result<(), Fail> {
 
 /// The product's client folder's `Cache/<sub>/<locale>` (`--cache` overrides it).
 fn cache_dir(o: &Opts, sub: &str) -> Result<PathBuf, String> {
-	Ok(flavor_dir(&wow_dir(o)?, &o.product)?.join("Cache").join(sub).join(&o.locale))
+	let wow = wow_dir(o)?;
+	Ok(flavor_dir(&wow, &product(o, &wow)?)?.join("Cache").join(sub).join(&o.locale))
 }
 
 fn write_out(out: Option<&Path>, bytes: &[u8]) -> Result<(), String> {
@@ -295,7 +327,7 @@ fn hotfix_cmd(o: &Opts) -> Result<(), String> {
 	let [major, minor, patch, installed] = c.build.0;
 	let build = forge_gamedata::Build([major, minor, patch, cache.build]);
 	if installed != cache.build {
-		eprintln!("note: {} is from build {build}, the installed {} is {}; rows typed by {build}'s definitions", file.display(), o.product, c.build);
+		eprintln!("note: {} is from build {build}, the installed {} is {}; rows typed by {build}'s definitions", file.display(), c.storage.product, c.build);
 	}
 	let names = c.table_hashes()?;
 	let hash = names.iter().find(|(_, n)| n.eq_ignore_ascii_case(table)).map(|(h, _)| *h).ok_or_else(|| format!("{table}: no tableHash in WoWDBDefs manifest.json"))?;

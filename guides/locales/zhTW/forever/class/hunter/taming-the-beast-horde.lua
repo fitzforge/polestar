@@ -8,144 +8,144 @@
 return {
 	-- Guide
 	-- {quest:6061} Taming the Beast
-	["{quest:6061} (Horde)"] = "",
+	["{quest:6061} (Horde)"] = "{quest:6061}（部落）",
 	-- {item:15908} Taming Rod · {spell:1515} Tame Beast · {spell:5149} Beast Training
-	["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "",
+	["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "10級獲得自己的寵物：用{item:15908}練習馴服三次，學會{spell:1515}，然後學會{spell:5149}。",
 
 	-- Step 1: Thotar in Razor Hill
 	-- {npc:3171} Thotar · {area:362} Razor Hill
-	["{npc:3171} in {area:362}"] = "",
-	-- {npc:3171} Thotar · {area:362} Razor Hill · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:11814} Kali Remik · {area:367} Sen'jin Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff
-	["At 10 go to {npc:3171}, the hunter trainer inside the barracks in {area:362}. If {npc:3407} in {zone:1454}, {npc:11814} in {area:367} or {npc:3038} in {zone:1456} hands you The Hunter's Path, take it and hand it to {npc:3171} for a little experience; it is only a pointer, and you can take the first rod without it."] = "",
+	["{npc:3171} in {area:362}"] = "{npc:3171}，在{area:362}",
+	-- {npc:3171} Thotar · {area:362} Razor Hill · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:11814} Kali Remik · {area:367} Sen'jin Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {quest:6068} The Hunter's Path
+	["At 10 go to {npc:3171}, the hunter trainer inside the barracks in {area:362}. If {npc:3407} in {zone:1454}, {npc:11814} in {area:367} or {npc:3038} in {zone:1456} hands you {quest:6068}, take it and hand it to {npc:3171} for a little experience; it is only a pointer, and you can take the first rod without it."] = "10級時，找 {area:362} 兵營裡的獵人訓練師 {npc:3171}。如果 {zone:1454} 的 {npc:3407}、{area:367} 的 {npc:11814} 或 {zone:1456} 的 {npc:3038} 給你{quest:6068}，就接下並交給 {npc:3171}，獲得少量經驗；這只是引導任務，不做也能拿到第一根馴獸棒。",
 	-- {npc:3171} Thotar · {item:15908} Taming Rod
-	["{npc:3171}: the first {item:15908}"] = "",
+	["{npc:3171}: the first {item:15908}"] = "{npc:3171}：第一根{item:15908}",
 
 	-- Step 2: Dire Mottled Boar
 	-- {area:362} Razor Hill · {item:15908} Taming Rod · {npc:3171} Thotar · {spell:75} Auto Shot
 	-- plural, as words: Dire Mottled Boars = {npc:3099} Dire Mottled Boar
-	["Dire Mottled Boars (level 6-7) roam just north and west of {area:362}. How the rod works: target a living beast, use the {item:15908} from inside its range and stand still for the whole channel while the beast hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again from {npc:3171}. The boars charge from 20 yards, so start with the rod, not {spell:75}. The tamed boar becomes your pet for practice. Keep each rod: it goes back to {npc:3171}."] = "",
+	["Dire Mottled Boars (level 6-7) roam just north and west of {area:362}. How the rod works: target a living beast, use the {item:15908} from inside its range and stand still for the whole channel while the beast hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again from {npc:3171}. The boars charge from 20 yards, so start with the rod, not {spell:75}. The tamed boar becomes your pet for practice. Keep each rod: it goes back to {npc:3171}."] = "兇惡斑紋野豬（6-7級）就在{area:362}北面和西面遊蕩。魔杖用法：選中一隻活著的野獸，在它的範圍內使用{item:15908}，在整個引導期間站著不動、任由野獸攻擊你。移動、還手、他人治療或任何人攻擊該野獸都會中斷，並消耗魔杖少量充能之一；若充能耗盡，就摧毀魔杖、放棄任務並回去找{npc:3171}再接。野豬會從20碼外衝鋒，所以先用魔杖，別用{spell:75}。馴服的野豬會成為你的練習寵物。每根魔杖都留著：要還給{npc:3171}。",
 	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living boar"] = "",
+	["Use the {item:15908} on a living boar"] = "對活著的野豬使用{item:15908}",
 
 	-- Step 3: Surf Crawler
 	-- {spell:2641} Dismiss Pet · {area:367} Sen'jin Village · {area:368} Echo Isles
 	-- plural, as words: Surf Crawlers = {npc:3107} Surf Crawler · Pygmy Surf Crawlers = {npc:3106} Pygmy Surf Crawler
-	["First dismiss the boar (right-click your pet's portrait, {spell:2641}): a released practice pet can turn on you. Surf Crawlers (level 7-8) walk the beaches around {area:367} and the {area:368}; the small Pygmy Surf Crawlers do not count. A crawler runs for help at 15% health, so do not hurt it."] = "",
+	["First dismiss the boar (right-click your pet's portrait, {spell:2641}): a released practice pet can turn on you. Surf Crawlers (level 7-8) walk the beaches around {area:367} and the {area:368}; the small Pygmy Surf Crawlers do not count. A crawler runs for help at 15% health, so do not hurt it."] = "先解散野豬（右鍵點選寵物頭像，{spell:2641}）：放生的練習寵物可能會反咬你。海濱爬行者（7-8級）在{area:367}和{area:368}周圍的海灘上活動；小型的迷你海濱爬行者不算。爬行者血量到15%會跑去求援，所以別傷它。",
 	-- {item:15908} Taming Rod · {npc:3107} Surf Crawler
-	["Use the {item:15908} on a living {npc:3107}"] = "",
+	["Use the {item:15908} on a living {npc:3107}"] = "對活著的{npc:3107}使用{item:15908}",
 
 	-- Step 4: Armored Scorpid
 	-- {area:362} Razor Hill · {spell:1494} Track Beasts
 	-- plural, as words: Armored Scorpids = {npc:3126} Armored Scorpid
-	["Dismiss the crawler. Armored Scorpids (level 7-8) crawl the dry plains west and south-west of {area:362}, some just south of the road west out of town; {spell:1494} shows them. Their hits can break the channel: start at full health and keep still."] = "",
+	["Dismiss the crawler. Armored Scorpids (level 7-8) crawl the dry plains west and south-west of {area:362}, some just south of the road west out of town; {spell:1494} shows them. Their hits can break the channel: start at full health and keep still."] = "解散爬行者。裝甲蠍（7-8級）在{area:362}西面和西南面的乾燥平原上爬行，有些就在出鎮西行道路的南側；{spell:1494}能顯示它們。它們的攻擊會打斷引導：滿血開始並保持不動。",
 	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living scorpid"] = "",
+	["Use the {item:15908} on a living scorpid"] = "對活著的蠍子使用{item:15908}",
 
 	-- Step 5: Ormak Grimshot in Orgrimmar
 	-- {npc:3352} Ormak Grimshot · {zone:1454} Orgrimmar
-	["{npc:3352} in {zone:1454}"] = "",
+	["{npc:3352} in {zone:1454}"] = "{npc:3352}，在{zone:1454}",
 	-- {zone:1454} Orgrimmar · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor · {npc:10088} Xao'tsu
-	["Follow the road north to {zone:1454}'s gate. {npc:3352} stands with the hunter trainers in the {object:172958}, up the ramp at the city's east side; {npc:10088}, the pet trainer, is a few steps north of him."] = "",
+	["Follow the road north to {zone:1454}'s gate. {npc:3352} stands with the hunter trainers in the {object:172958}, up the ramp at the city's east side; {npc:10088}, the pet trainer, is a few steps north of him."] = "沿道路向北到{zone:1454}的城門。{npc:3352}和獵人訓練師們一起待在{object:172958}裡，從城市東側的坡道上去；寵物訓練師{npc:10088}就在他北邊幾步遠。",
 
 	-- Step 6: Yaw Sharpmane at Bloodhoof
 	-- {npc:3065} Yaw Sharpmane
-	["{npc:3065} at Bloodhoof"] = "",
-	-- {npc:3065} Yaw Sharpmane · {area:222} Bloodhoof Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:3171} Thotar · {area:362} Razor Hill
-	["At 10 go to {npc:3065}, who stands at the north edge of {area:222}. The Hunter's Path from {npc:3038} in {zone:1456}, {npc:3407} in {zone:1454} or {npc:3171} in {area:362} also leads here, for a little experience; it is only a pointer."] = "",
+	["{npc:3065} at Bloodhoof"] = "{npc:3065}，在血蹄村",
+	-- {npc:3065} Yaw Sharpmane · {area:222} Bloodhoof Village · {quest:6065} The Hunter's Path · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:3171} Thotar · {area:362} Razor Hill
+	["At 10 go to {npc:3065}, who stands at the north edge of {area:222}. {quest:6065} from {npc:3038} in {zone:1456}, {npc:3407} in {zone:1454} or {npc:3171} in {area:362} also leads here, for a little experience; it is only a pointer."] = "10級時，找站在 {area:222} 北緣的 {npc:3065}。{zone:1456} 的 {npc:3038}、{zone:1454} 的 {npc:3407} 或 {area:362} 的 {npc:3171} 提供的{quest:6065}也會指引你來這裡，並獎勵少量經驗；它只是引導任務。",
 	-- {npc:3065} Yaw Sharpmane · {item:15908} Taming Rod
-	["{npc:3065}: the first {item:15908}"] = "",
+	["{npc:3065}: the first {item:15908}"] = "{npc:3065}：第一根{item:15908}",
 
 	-- Step 7: Adult Plainstrider
 	-- {area:222} Bloodhoof Village · {item:15908} Taming Rod
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
-	["Adult Plainstriders (level 6-7) walk the plains south-west and north-west of {area:222}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). A plainstrider flees at 25% health, so do not damage it first. Keep each rod: it goes back to Yaw."] = "",
+	["Adult Plainstriders (level 6-7) walk the plains south-west and north-west of {area:222}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). A plainstrider flees at 25% health, so do not damage it first. Keep each rod: it goes back to Yaw."] = "成年平原陸行鳥（6-7級）在{area:222}西南和西北的平原上活動。魔杖用法：選中一隻活著的野獸，使用{item:15908}，在整個引導期間站著不動、任由它攻擊你；移動、還手或他人幫忙都會中斷，並消耗魔杖少量充能之一（充能耗盡：摧毀魔杖，放棄任務，再接一次）。平原陸行鳥血量到25%會逃跑，所以不要先傷它。每根魔杖都留著：要還給Yaw。",
 	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living plainstrider"] = "",
+	["Use the {item:15908} on a living plainstrider"] = "對活著的平原陸行鳥使用{item:15908}",
 
 	-- Step 8: Prairie Stalker
 	-- {spell:2641} Dismiss Pet · {area:222} Bloodhoof Village
 	-- plural, as words: Prairie Stalkers = {npc:2959} Prairie Stalker
-	["Dismiss the plainstrider first (right-click the pet portrait, {spell:2641}): a released practice pet may attack you. Prairie Stalkers (level 7-8) roam the grass north of {area:222}."] = "",
+	["Dismiss the plainstrider first (right-click the pet portrait, {spell:2641}): a released practice pet may attack you. Prairie Stalkers (level 7-8) roam the grass north of {area:222}."] = "先解散平原陸行鳥（右鍵點選寵物頭像，{spell:2641}）：放生的練習寵物可能會攻擊你。草原潛伏者（7-8級）在{area:222}北面的草地上游蕩。",
 	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living stalker"] = "",
+	["Use the {item:15908} on a living stalker"] = "對活著的潛伏者使用{item:15908}",
 
 	-- Step 9: Swoop
 	-- {npc:2970} Swoop
 	-- plural, as words: Swoops = {npc:2970} Swoop · Taloned Swoops = {npc:2971} Taloned Swoop
-	["Dismiss the stalker. Swoops (level 7-9) glide over the plains north-west and north-east of Bloodhoof; the Taloned Swoops do not count. A {npc:2970}'s knockdown breaks the channel, but it lands only once per channel: start the rod just after it has used it."] = "",
+	["Dismiss the stalker. Swoops (level 7-9) glide over the plains north-west and north-east of Bloodhoof; the Taloned Swoops do not count. A {npc:2970}'s knockdown breaks the channel, but it lands only once per channel: start the rod just after it has used it."] = "解散潛伏者。俯衝者（7-9級）在血蹄村西北和東北的平原上空滑翔；利爪俯衝者不算。{npc:2970}的擊倒會打斷引導，但每次引導只會命中一次：在它用過擊倒之後再開始用魔杖。",
 	-- {item:15908} Taming Rod · {npc:2970} Swoop
-	["Use the {item:15908} on a living {npc:2970}"] = "",
+	["Use the {item:15908} on a living {npc:2970}"] = "對活著的{npc:2970}使用{item:15908}",
 
 	-- Step 10: Holt Thunderhorn in Thunder Bluff
 	-- {npc:3039} Holt Thunderhorn · {zone:1456} Thunder Bluff
-	["{npc:3039} in {zone:1456}"] = "",
+	["{npc:3039} in {zone:1456}"] = "{npc:3039}，在{zone:1456}",
 	-- {zone:1456} Thunder Bluff · {npc:3039} Holt Thunderhorn · {area:1641} Hunter Rise · {npc:10086} Hesuwa Thunderhorn
-	["Head north to {zone:1456} and take a lift up. {npc:3039} stands with the hunter trainers on {area:1641}; {npc:10086}, the pet trainer, is nearby."] = "",
+	["Head north to {zone:1456} and take a lift up. {npc:3039} stands with the hunter trainers on {area:1641}; {npc:10086}, the pet trainer, is nearby."] = "向北到{zone:1456}，乘升降梯上去。{npc:3039}和獵人訓練師們在{area:1641}；寵物訓練師{npc:10086}就在附近。",
 
 	-- Step 11: Elayaa Easewind
 	-- {npc:254084} Elayaa Easewind · {zone:2521} Zephras Isle · {area:16638} Valanaar · {quest:94007} Taming the Beast
-	["At 10, {npc:254084}, a hunter trainer on {zone:2521}, may send you on to {area:16638} with {quest:94007}. It is only a pointer: skip it if you are already in {area:16638}."] = "",
+	["At 10, {npc:254084}, a hunter trainer on {zone:2521}, may send you on to {area:16638} with {quest:94007}. It is only a pointer: skip it if you are already in {area:16638}."] = "10級時，{zone:2521}上的獵人訓練師{npc:254084}可能會用{quest:94007}派你前往{area:16638}。這只是指路任務：如果你已經在{area:16638}，就跳過它。",
 
 	-- Step 12: Quel'ana Quickgale in Valanaar
 	-- {npc:252389} Quel'ana Quickgale · {area:16638} Valanaar
-	["{npc:252389} in {area:16638}"] = "",
+	["{npc:252389} in {area:16638}"] = "{npc:252389}，在{area:16638}",
 	-- {npc:252389} Quel'ana Quickgale · {area:16638} Valanaar · {npc:254411} Quel'dora Quickgale
-	["{npc:252389} stands with the trainers by {area:16638}'s west gate, {npc:254411} beside her."] = "",
+	["{npc:252389} stands with the trainers by {area:16638}'s west gate, {npc:254411} beside her."] = "{npc:252389}和訓練師們一起站在{area:16638}西門旁，{npc:254411}就在她身邊。",
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod
-	["{npc:252389}: the first {item:15908}"] = "",
+	["{npc:252389}: the first {item:15908}"] = "{npc:252389}：第一根{item:15908}",
 
 	-- Step 13: Windsong Crawler
 	-- {area:16638} Valanaar · {item:15908} Taming Rod
 	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
-	["Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of {area:16638}, among the crabs. How the rod works: target a living crawler, use the {item:15908} and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs a charge. Killing one does not count."] = "",
+	["Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of {area:16638}, among the crabs. How the rod works: target a living crawler, use the {item:15908} and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs a charge. Killing one does not count."] = "鳴風爬行者只生活在有水的地方：最近的一群在{area:16638}西南面的岸邊，混在螃蟹之間。魔杖用法：選中一隻活著的爬行者，使用{item:15908}，在整個引導期間站著不動、任由它攻擊你；移動、還手或他人幫忙都會中斷並消耗一次充能。殺死它不算數。",
 	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living crawler"] = "",
+	["Use the {item:15908} on a living crawler"] = "對活著的爬行者使用{item:15908}",
 	-- {npc:254588} Windsong Crawler
-	["Tame {npc:254588}"] = "",
+	["Tame {npc:254588}"] = "馴服{npc:254588}",
 
 	-- Step 14: Ornery Galestrider
 	-- {spell:2641} Dismiss Pet · {area:16626} Gustberry Lowlands · {area:16638} Valanaar
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider
-	["Dismiss the crawler first (right-click the pet portrait, {spell:2641}). Ornery Galestriders graze in the {area:16626}, the fields a short walk west and south-west of {area:16638}."] = "",
+	["Dismiss the crawler first (right-click the pet portrait, {spell:2641}). Ornery Galestriders graze in the {area:16626}, the fields a short walk west and south-west of {area:16638}."] = "先解散爬行者（右鍵點選寵物頭像，{spell:2641}）。暴躁風行者（Ornery Galestrider）在{area:16626}吃草，那片田野就在{area:16638}西面和西南面不遠處。",
 	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living galestrider"] = "",
+	["Use the {item:15908} on a living galestrider"] = "對活著的風行者使用{item:15908}",
 	-- {npc:251707} Ornery Galestrider
-	["Tame {npc:251707}"] = "",
+	["Tame {npc:251707}"] = "馴服{npc:251707}",
 
 	-- Step 15: Vuldren Alpha
 	-- {area:16626} Gustberry Lowlands
 	-- plural, as words: Vuldren Alphas = {npc:250874} Vuldren Alpha
-	["Dismiss the galestrider. Vuldren Alphas hunt in the same {area:16626}, a little further south."] = "",
+	["Dismiss the galestrider. Vuldren Alphas hunt in the same {area:16626}, a little further south."] = "解散風行者。烏爾德倫首領在同一片{area:16626}狩獵，位置稍偏南。",
 	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living alpha"] = "",
+	["Use the {item:15908} on a living alpha"] = "對活著的首領使用{item:15908}",
 	-- {npc:250874} Vuldren Alpha
-	["Tame {npc:250874}"] = "",
+	["Tame {npc:250874}"] = "馴服{npc:250874}",
 	-- {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
-	["{npc:254411}, beside her: {spell:5149}"] = "",
+	["{npc:254411}, beside her: {spell:5149}"] = "她身邊的{npc:254411}：{spell:5149}",
 
 	-- Step 16: Your first pet
-	["Your first pet"] = "",
+	["Your first pet"] = "你的第一隻寵物",
 	-- {spell:1515} Tame Beast · {spell:17253} Bite
-	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "",
-	["Tame a beast of your level to keep"] = "",
+	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "{spell:1515}的用法和魔杖一樣：目標須是與你同級或更低階的野獸，引導期間不能移動，野獸會一直攻擊你。寵物會保持你馴服它時的等級，並隨你一起升級；它永遠不會高於你的等級，所以抓一隻等級接近你的。在Forever上每個科系都有自己的技能（比如野豬的衝鋒）。練級時，貓科傷害最高（爪擊與{spell:17253}），野豬則更耐打。",
+	["Tame a beast of your level to keep"] = "馴服一隻與你等級相當的野獸作為永久寵物",
 	-- {area:362} Razor Hill · {zone:1411} Durotar · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {zone:1413} Barrens
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger · Venomtail Scorpids = {npc:3127} Venomtail Scorpid
-	["Near {area:362}: Durotar Tigers (cats, level 7-8) roam the south of {zone:1411}, from {area:367} down the coast; Venomtail Scorpids (9-10) the north-west toward {zone:1454}; at 11-12, Savannah Huntresses (cats) prowl the plains around the Crossroads in the {zone:1413}."] = "",
+	["Near {area:362}: Durotar Tigers (cats, level 7-8) roam the south of {zone:1411}, from {area:367} down the coast; Venomtail Scorpids (9-10) the north-west toward {zone:1454}; at 11-12, Savannah Huntresses (cats) prowl the plains around the Crossroads in the {zone:1413}."] = "{area:362}附近：杜洛塔虎（貓科，7-8級）在{zone:1411}南部、從{area:367}沿海岸一帶遊蕩；毒尾蠍（9-10級）在西北靠{zone:1454}的方向；11-12級時，草原雌獵手（貓科）在{zone:1413}的十字路口周圍的平原徘徊。",
 	-- {zone:1412} Mulgore · {zone:1413} Barrens
 	-- plural, as words: Flatland Prowlers = {npc:3566} Flatland Prowler · Prairie Wolf Alphas = {npc:2960} Prairie Wolf Alpha
-	["Near Bloodhoof: Flatland Prowlers (cats, level 9) and Prairie Wolf Alphas (wolves, 9-10) roam the plains of northern {zone:1412}; at 11-12, Savannah Huntresses (cats) prowl around the Crossroads in the {zone:1413}."] = "",
+	["Near Bloodhoof: Flatland Prowlers (cats, level 9) and Prairie Wolf Alphas (wolves, 9-10) roam the plains of northern {zone:1412}; at 11-12, Savannah Huntresses (cats) prowl around the Crossroads in the {zone:1413}."] = "血蹄村附近：平原徘徊者（貓科，9級）和草原狼首領（狼，9-10級）在{zone:1412}北部的平原上游蕩；11-12級時，草原雌獵手（貓科）在{zone:1413}的十字路口一帶徘徊。",
 	-- {area:16638} Valanaar · {area:16626} Gustberry Lowlands · {zone:2521} Zephras Isle
 	-- plural, as words: Vuldren Alphas = {npc:250874} Vuldren Alpha · Shriekling Matriarchs = {npc:253283} Shriekling Matriarch · Shadowgale Urseras = {npc:250927} Shadowgale Ursera
-	["Near {area:16638}: Vuldren Alphas (level 10), the beast of your last practice tame, hunt the {area:16626}; Shriekling Matriarchs (raptors, level 9) nest just west of {area:16638}; Shadowgale Urseras (bears, 10-11) roam the north of {zone:2521}."] = "",
+	["Near {area:16638}: Vuldren Alphas (level 10), the beast of your last practice tame, hunt the {area:16626}; Shriekling Matriarchs (raptors, level 9) nest just west of {area:16638}; Shadowgale Urseras (bears, 10-11) roam the north of {zone:2521}."] = "{area:16638}附近：烏爾德倫首領（10級，也就是你最後一次練習馴服的野獸）在{area:16626}狩獵；尖嘯迅猛龍族長（迅猛龍，9級）在{area:16638}以西築巢；暗風烏瑟拉斯（熊，10-11級）在{zone:2521}北部遊蕩。",
 	-- {spell:1584} Feed Pet · {npc:6928} Innkeeper Grosk · {area:362} Razor Hill · {npc:3025} Kaga Mistrunner · {zone:1456} Thunder Bluff · {zone:2521} Zephras Isle
-	["{spell:1584}: open your spellbook, cast {spell:1584} and click a food your pet's family eats (the pet's tooltip lists them: cats eat meat and fish, boars almost anything). Raw meat looted from beasts counts. To buy: Grimtak the butcher and {npc:6928} in {area:362} sell meat, {npc:3025} in {zone:1456} and the innkeepers on {zone:2521} too; Bloodhoof's innkeeper and bakers sell bread. Food near the pet's level makes it happiest; much lower food gives about half. You cannot feed in combat."] = "",
-	["Happiness: the face on the pet frame. An unhappy pet does three quarters of its damage, a happy one a quarter more. Happiness drains slowly, faster when the pet dies; a pet left unhappy too long can run away."] = "",
+	["{spell:1584}: open your spellbook, cast {spell:1584} and click a food your pet's family eats (the pet's tooltip lists them: cats eat meat and fish, boars almost anything). Raw meat looted from beasts counts. To buy: Grimtak the butcher and {npc:6928} in {area:362} sell meat, {npc:3025} in {zone:1456} and the innkeepers on {zone:2521} too; Bloodhoof's innkeeper and bakers sell bread. Food near the pet's level makes it happiest; much lower food gives about half. You cannot feed in combat."] = "{spell:1584}：開啟法術書，施放{spell:1584}，然後點選一份你寵物科系會吃的食物（寵物提示裡會列出：貓科吃肉和魚，野豬幾乎什麼都吃）。從野獸身上拾取的生肉也算。購買：{area:362}的屠夫格里姆塔克和{npc:6928}賣肉，{zone:1456}的{npc:3025}以及{zone:2521}的旅店老闆也賣；血蹄村的旅店老闆和麵包師賣麵包。食物等級接近寵物等級時它最快樂；食物低太多隻能得到大約一半效果。戰鬥中不能餵食。",
+	["Happiness: the face on the pet frame. An unhappy pet does three quarters of its damage, a happy one a quarter more. Happiness drains slowly, faster when the pet dies; a pet left unhappy too long can run away."] = "快樂值：寵物框上的表情。不快樂的寵物只能造成四分之三的傷害，快樂的則多四分之一。快樂值會緩慢下降，寵物死亡時下降更快；寵物不快樂太久可能會跑掉。",
 	-- {spell:5149} Beast Training
-	["Loyalty grows with time and kills. Each loyalty rank raises the training points you spend in {spell:5149} (pet level times loyalty rank minus one)."] = "",
+	["Loyalty grows with time and kills. Each loyalty rank raises the training points you spend in {spell:5149} (pet level times loyalty rank minus one)."] = "忠誠度隨時間與擊殺增長。每提升一級忠誠度都會提高你在{spell:5149}中可用的訓練點數（寵物等級乘以忠誠等級再減一）。",
 	-- {spell:5149} Beast Training · {npc:9987} Shoja'my · {area:362} Razor Hill · {npc:265756} Genn Fairweather · {zone:2521} Zephras Isle · {npc:9988} Xon'cha · {zone:1454} Orgrimmar
-	["{spell:5149} (spellbook, General tab) teaches your current pet the abilities you know. To learn a new ability or rank: leave your pet with a stable master ({npc:9987} in {area:362}, Seikwa at Bloodhoof, {npc:265756} on {zone:2521}, {npc:9988} in {zone:1454}), tame a beast that has it (its pet spellbook tab shows what it knows), use the ability in fights until the game says you learned it, then take your own pet back and teach it with {spell:5149}. A pet holds four active abilities at most."] = "",
+	["{spell:5149} (spellbook, General tab) teaches your current pet the abilities you know. To learn a new ability or rank: leave your pet with a stable master ({npc:9987} in {area:362}, Seikwa at Bloodhoof, {npc:265756} on {zone:2521}, {npc:9988} in {zone:1454}), tame a beast that has it (its pet spellbook tab shows what it knows), use the ability in fights until the game says you learned it, then take your own pet back and teach it with {spell:5149}. A pet holds four active abilities at most."] = "{spell:5149}（法術書，通用頁）會把你已學會的技能教給當前寵物。要學新技能或更高等級：把寵物寄放在獸欄管理員處（{area:362}的{npc:9987}、血蹄村的塞克瓦、{zone:2521}上的{npc:265756}、{zone:1454}的{npc:9988}），馴服一隻擁有該技能的野獸（它的寵物法術書頁會顯示它會什麼），在戰鬥中反覆使用該技能直到遊戲提示你已學會，然後接回自己的寵物並用{spell:5149}教它。寵物最多同時擁有四個主動技能。",
 	-- {spell:1853} Growl · {area:362} Razor Hill · {npc:3688} Reban Freerunner · {npc:10088} Xao'tsu · {zone:1454} Orgrimmar · {object:172958} Valley of Honor · {npc:10086} Hesuwa Thunderhorn · {zone:1456} Thunder Bluff · {area:1641} Hunter Rise · {npc:254411} Quel'dora Quickgale · {area:16638} Valanaar · {area:75} Stonard · {object:3202} Grom'gol
-	["Pet trainers sell {spell:1853} ranks and resistances. Horde: Harruk in {area:362}, {npc:3688} at Bloodhoof, {npc:10088} in {zone:1454}'s {object:172958}, {npc:10086} on {zone:1456}'s {area:1641}, {npc:254411} in {area:16638}, later Grokor in {area:75} and Zudd at {object:3202}."] = "",
+	["Pet trainers sell {spell:1853} ranks and resistances. Horde: Harruk in {area:362}, {npc:3688} at Bloodhoof, {npc:10088} in {zone:1454}'s {object:172958}, {npc:10086} on {zone:1456}'s {area:1641}, {npc:254411} in {area:16638}, later Grokor in {area:75} and Zudd at {object:3202}."] = "寵物訓練師出售{spell:1853}的各級和抗性。部落：{area:362}的哈魯克、血蹄村的{npc:3688}、{zone:1454}的{object:172958}裡的{npc:10088}、{zone:1456}的{area:1641}上的{npc:10086}、{area:16638}的{npc:254411}，之後還有{area:75}的格羅科爾和{object:3202}的祖德。",
 	-- {spell:883} Call Pet · {spell:2641} Dismiss Pet · {spell:982} Revive Pet · {spell:136} Mend Pet
-	["{spell:883}, {spell:2641} and {spell:982} are in your spellbook now; {spell:136} comes from your trainer at 12. A dead pet needs {spell:982}; one that is away more than about 100 yards is dismissed and comes back with {spell:883}."] = "",
+	["{spell:883}, {spell:2641} and {spell:982} are in your spellbook now; {spell:136} comes from your trainer at 12. A dead pet needs {spell:982}; one that is away more than about 100 yards is dismissed and comes back with {spell:883}."] = "{spell:883}、{spell:2641}和{spell:982}現在已在你的法術書裡；{spell:136}會在12級時由訓練師教你。死掉的寵物需要{spell:982}；離你超過約100碼的寵物會被解散，用{spell:883}召回。",
 }

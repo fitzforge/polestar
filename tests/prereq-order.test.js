@@ -14,16 +14,17 @@ const skip = needs('quests.json', 'npcs.json', 'objects.json');
 
 let data = null;
 // files: { name: text } -> the check's findings as "file:line quest<-missing race path-start".
-function check(files) {
+// recorded: recordedPrereqs()'s shape, { quest: [ids] }.
+function check(files, recorded) {
 	const { compileSources } = require('../tools/lib/dsl/project');
 	const { loadData } = require('../tools/lib/dsl/data');
 	const { DATA } = require('../tools/lib/paths');
 	const { prereqOrder } = require('../tools/lib/route/prereq-order');
 	data = data || loadData(DATA);
 	const { guides } = compileSources(Object.entries(files).map(([file, text]) => ({ file, source: file, text })), data);
-	return [...new Set(prereqOrder(guides, data).map((v) => `${v.file}:${v.line} ${v.quest}<-${v.missing.join(',')} ${v.race} ${v.path[0]}`))];
+	return [...new Set(prereqOrder(guides, data, { recorded }).map((v) => `${v.file}:${v.line} ${v.quest}<-${v.missing.join(',')} ${v.race} ${v.path[0]}`))];
 }
-const head = (id, more = '') => `guide ${id}\ntitle ${id}\nfaction Alliance\nlevels 20-30\nzone Wetlands\n${more}\n`;
+const head = (id, more = '', faction = 'Alliance') => `guide ${id}\ntitle ${id}\nfaction ${faction}\nlevels 20-30\nzone Wetlands\n${more}\n`;
 
 // Karl Boran's Reclaiming Goods (281) follows Claws from the Deep (279).
 test('a hand-in on one start does not count for another: each start\'s path is played alone', { skip }, () => {
@@ -47,4 +48,59 @@ test('an accept before its prerequisite\'s hand-in, or after a hand-in the chara
 test('`when group` is played both ways: a group step\'s accept needs its prerequisite too', { skip }, () => {
 	const g = head('t/group', 'race Dwarf') + 'step Karl Boran\n  when group 281\n  accept 281\n\nstep Karl Boran\n  accept 279\n  turnin 279\n';
 	assert.deepEqual(check({ 'group.guide': g }), ['group.guide:9 281<-279 Dwarf t/group']);
+});
+
+// A guide for both factions (no `faction`, as Shen'dralas since 0.4.0) sits on each side's route: the path goes
+// through it and on by the player's own faction's `next` option, so the guide after it is no start of its own.
+test('a guide for both factions is on the path between its sides\' guides, and each side goes on by its own `next`', { skip }, () => {
+	const before = head('t/before', 'race Dwarf\nnext t/shared') + 'step Karl Boran\n  accept 279\n  turnin 279\n';
+	const shared = 'guide t/shared\ntitle t/shared\nlevels 20-30\nzone Wetlands\nnext t/after-horde\nnext t/after\n\nstep Wetlands\n  goto 10.8,59.8\n';
+	const after = head('t/after') + 'step Karl Boran\n  accept 281\n';
+	const horde = head('t/after-horde', '', 'Horde') + 'step Karl Boran\n  goto 10.8,59.8\n';
+	assert.deepEqual(check({ 'before.guide': before, 'shared.guide': shared, 'after.guide': after, 'after-horde.guide': horde }), []);
+});
+
+// #1299: the data named no prerequisite for This Land Was Their Land, which the giver offers only after Defeat
+// Nek'rosh, so the check above passed an accept nobody could take. The prerequisites players' recordings teach
+// (data/recorded/quests.json) count too. Here Claws from the Deep (279, no prerequisite in the data) plays as if
+// recorded after The Third Fleet (288).
+test('a recorded prerequisite is needed before the accept, as one of the data\'s own prerequisites or the recorded ones', { skip }, () => {
+	const early = head('t/early', 'race Dwarf') + 'step Karl Boran\n  accept 279\n';
+	assert.deepEqual(check({ 'early.guide': early }, { 279: [288] }), ['early.guide:8 279<-288 Dwarf t/early']);
+	assert.deepEqual(check({ 'early.guide': early }), [], 'without the recording the data sees nothing wrong');
+	const after = head('t/after', 'race Dwarf') + 'step Menethil\n  accept 288\n  turnin 288\n  accept 279\n';
+	assert.deepEqual(check({ 'after.guide': after }, { 279: [288] }), []);
+	// Reclaiming Goods (281) has the data prerequisite 279: either one opens it here, so the recording only widens.
+	const own = head('t/own', 'race Dwarf') + 'step Karl Boran\n  accept 279\n  turnin 279\n  accept 281\n';
+	assert.deepEqual(check({ 'own.guide': own }, { 281: [288] }), []);
+});
+
+test('a recorded prerequisite that is the quest\'s breadcrumb never blocks it', { skip }, () => {
+	// The Forgotten Pools (870) is offered right after The Barrens Oases (886), its breadcrumb, for players who carried it.
+	const g = head('t/pools', 'race Orc', 'Horde') + 'step Tonga Runetotem\n  accept 870\n';
+	assert.deepEqual(check({ 'pools.guide': g }, { 870: [886] }), []);
+});
+
+// A `when taxi` step (fly where the flight path is known, else walk) is played with the flight paths the character
+// knows on that path: its race's from character creation (Dwarves know Ironforge's) and every getfp or flight
+// before the step. The check used to stop at the first such step (`w.node is not a function`).
+test('`when taxi` holds with the flight paths the character knows on the path: its race\'s and the getfp lines before', { skip }, () => {
+	const steps = 'step Fly to Ironforge\n  when taxi "Ironforge"\n  fly "Ironforge"\n  accept 279\n  turnin 279\n\n' +
+		'step Walk to Ironforge\n  when !taxi "Ironforge"\n  goto 21.6,77.8\n\nstep Karl Boran\n  accept 281\n';
+	const g = head('t/taxi', 'race Dwarf,Human') + steps;
+	assert.deepEqual(check({ 'taxi.guide': g }), ['taxi.guide:18 281<-279 Human t/taxi'], 'a Human has never learnt Ironforge\'s flight path');
+	const learnt = head('t/learnt', 'race Human') + 'step Gryth Thurden\n  getfp "Ironforge"\n\n' + steps;
+	assert.deepEqual(check({ 'learnt.guide': learnt }), [], 'the getfp line before the step teaches it');
+});
+
+test('the check takes the recorded prerequisites Lookup shows, and none of a quest whose prerequisites a correction sets', () => {
+	const { recordedPrereqs } = require('../tools/lib/route/prereq-order');
+	const fact = (value, status) => ({ value, voters: 3, counted: 2, status, builds: [70862, 70888], beats: null });
+	const learned = {
+		279: { pre: [fact(288, 'trusted'), fact(290, 'gap'), fact(291, 'stale'), fact(292, 'conflict')] },
+		281: { pre: [fact(288, 'gap')] },
+		282: { notPre: [fact(279, 'trusted')] },
+	};
+	assert.deepEqual(recordedPrereqs(learned), { 279: [288, 290, 291], 281: [288] });
+	assert.deepEqual(recordedPrereqs(learned, { 281: { set: { preAny: [279] } }, 279: { set: { xp: 100 } } }), { 279: [288, 290, 291] });
 });

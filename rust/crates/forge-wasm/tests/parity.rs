@@ -106,7 +106,7 @@ fn pack_files_equal_the_native_compile() {
 		iface: forge_guide::project::core_interface(&seed).unwrap(),
 	})
 	.unwrap();
-	let spells: Vec<serde_json::Value> = forge_guide::tokens::read_spell_names(&data).into_iter().map(|(n, id)| serde_json::json!([n, id])).collect();
+	let spells: Vec<serde_json::Value> = forge_guide::tokens::read_spell_names(&data).into_iter().map(|(n, id, mask)| serde_json::json!([n, id, mask])).collect();
 	p.set_spell_names(&serde_json::Value::Array(spells).to_string()).unwrap();
 	let (ours, diags) = p.pack_files();
 	let ours = ours.unwrap_or_else(|| panic!("browser compile failed: {:?}", diags.iter().filter(|d| d.severity == "error").map(|d| &d.message).collect::<Vec<_>>()));

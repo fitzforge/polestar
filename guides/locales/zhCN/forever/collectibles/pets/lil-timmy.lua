@@ -14,7 +14,7 @@ return {
 
 	-- Step 2: Xaphod Bizznox
 	-- {npc:7386} White Kitten · {npc:262471} Xaphod Bizznox · {area:2539} Malaka'jin · {zone:1442} Stonetalon Mountains · {zone:1413} Barrens
-	["Horde players buy the {npc:7386} (60s) from {npc:262471}, a trader new in Forever, at {area:2539}, the Darkspear camp at the southern tip of {zone:1442}, on the way up from the {zone:1413}. He keeps one kitten at a time: if he has none, someone just bought it. Each pet item teaches its companion when you use it; the goal stays ticked afterwards."] = "",
+	["Horde players buy the {npc:7386} (60s) from {npc:262471}, a trader new in Forever, at {area:2539}, the Darkspear camp at the southern tip of {zone:1442}, on the way up from the {zone:1413}. He keeps one kitten at a time: if he has none, someone just bought it. Each pet item teaches its companion when you use it; the goal stays ticked afterwards."] = "部落玩家可向 {npc:262471} 购买 {npc:7386}（60银币）。他是无限新增的商人，位于 {zone:1442} 最南端的暗矛营地 {area:2539}，从 {zone:1413} 向北上来时会经过。他每次只备有一只小猫：如果没货，就是刚被其他玩家买走。使用每个宠物物品后即可学会召唤对应的小伙伴；之后目标仍会保持勾选。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Horde players buy the {npc:7386} (60s) from {npc:262471}, a trader new in Forever, at {area:2539}, the Darkspear camp at the southern tip of {zone:1442}, on the way up from the {zone:1413}. Each pet item teaches its companion when you use it; the goal stays ticked afterwards."] = "部落玩家可向 {npc:262471} 购买 {npc:7386}（60 银币）。他是无限新增的商人，位于 {zone:1442} 最南端的暗矛营地 {area:2539}，从 {zone:1413} 向北上来时会经过。使用每个宠物物品后即可学会召唤对应的小伙伴；之后目标仍会保持勾选。",

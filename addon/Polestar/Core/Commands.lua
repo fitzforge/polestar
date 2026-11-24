@@ -8,17 +8,30 @@ local ADDON, ns = ...
 local L = ns.L
 local Engine = ns.Engine
 
-BINDING_HEADER_POLESTAR = "Polestar"
+-- Options > Keybindings lists them in a "Polestar" section of their own
+-- (Bindings.xml's category, the Recorder's too), whose rows are only ~22
+-- characters wide: short names. None has searchTags: after login the game
+-- builds the Options search's list of bindings and reads each tag's global
+-- outside securecallfunction (Blizzard_SettingsDefinitions_Frame/
+-- Keybindings.lua, CreateSearchableSettings), so a tag global of ours
+-- tainted every search, and the game blocked the Discord sign-in row's
+-- C_Discord.IsUserOAuthed() in its results, blaming Polestar or the
+-- Recorder (#1996, #2207). The search finds a binding by its name.
 BINDING_NAME_POLESTAR_TOGGLE = L["Toggle guide window"]
+BINDING_NAME_POLESTAR_HIDE = L["Hide/show Polestar"]
 BINDING_NAME_POLESTAR_NEXT = L["Next step"]
 BINDING_NAME_POLESTAR_PREV = L["Previous step"]
-BINDING_NAME_POLESTAR_FOCUS = L["Browse the guide with the gamepad"]
+BINDING_NAME_POLESTAR_FOCUS = L["Browse guide (gamepad)"]
 BINDING_NAME_POLESTAR_MENU = L["Open the guide menu"]
-BINDING_NAME_POLESTAR_OPTIONS = L["Open Polestar options"]
+BINDING_NAME_POLESTAR_OPTIONS = L["Open Polestar settings"]
 BINDING_NAME_POLESTAR_REPORT = L["Report a problem"]
 BINDING_NAME_POLESTAR_NEXT_WAYPOINT = L["Next waypoint"]
 BINDING_NAME_POLESTAR_PREV_WAYPOINT = L["Previous waypoint"]
 BINDING_NAME_POLESTAR_REOPEN_TAB = L["Reopen closed tab"]
+BINDING_NAME_POLESTAR_PAUSE = L["Pause the guide"]
+-- The item under the cursor (QoL/Marks.lua, Marks.Press).
+BINDING_NAME_POLESTAR_MARK_JUNK = L["Mark as junk"]
+BINDING_NAME_POLESTAR_MARK_KEEP = L["Mark to keep"]
 -- Labels for the QoL secure buttons' CLICK bindings (QoL/Buttons.lua). The
 -- client looks these names up as globals; they contain spaces and a colon,
 -- so they can only be set through _G.
@@ -26,23 +39,37 @@ _G["BINDING_NAME_CLICK PolestarQuestItemButton:LeftButton"] = L["Use quest item"
 _G["BINDING_NAME_CLICK PolestarTargetButton:LeftButton"] = L["Target quest mob"]
 _G["BINDING_NAME_CLICK PolestarRareButton:LeftButton"] = L["Target rare"]
 _G["BINDING_NAME_CLICK PolestarHearthButton:LeftButton"] = L["Use Hearthstone"]
-_G["BINDING_NAME_CLICK PolestarStepButton:LeftButton"] = L["Step action: NPC, quest item, mob or Hearthstone"]
-_G["BINDING_NAME_CLICK PolestarTravelButton:LeftButton"] = L["Use the route's Hearthstone or teleport"]
-_G["BINDING_NAME_CLICK PolestarBagButton:LeftButton"] = L["Make bag room: delete the cheapest junk (press twice)"]
+_G["BINDING_NAME_CLICK PolestarStepButton:LeftButton"] = L["Use the step button"]
+_G["BINDING_NAME_CLICK PolestarTravelButton:LeftButton"] = L["Use the travel button"]
+_G["BINDING_NAME_CLICK PolestarBagButton:LeftButton"] = L["Delete cheapest junk"]
 
 -- Entry points for Bindings.xml (and Polestar's gamepad chords, UI/Gamepad.lua).
+-- A key that opens a window brings a hidden Polestar back first (the toggle
+-- of the guide window does it in UI/UI.lua's TOGGLE_FRAME). -> true when it did
+local function unhide()
+	if not ns.Hidden() then return false end
+	ns.SetHidden(false)
+	return true
+end
 ns.Bindings = {
 	Toggle = function() ns.Fire("TOGGLE_FRAME") end,
+	Hide = function() ns.ToggleHidden() end,
 	Next = function() Engine.Next() end,
 	Prev = function() Engine.Prev() end,
-	Focus = function() ns.Fire("TOGGLE_FOCUS") end,
-	Menu = function() ns.Fire("TOGGLE_PICKER") end,
-	Options = function() ns.Fire("TOGGLE_OPTIONS") end,
-	Report = function() ns.Fire("SHOW_REPORT") end,
+	Focus = function() unhide(); ns.Fire("TOGGLE_FOCUS") end,
+	-- A window open out of sight comes back with Polestar: shown, not toggled shut.
+	Menu = function() ns.Fire(unhide() and "SHOW_PICKER" or "TOGGLE_PICKER") end,
+	Options = function() ns.Fire(unhide() and "SHOW_OPTIONS" or "TOGGLE_OPTIONS") end,
+	Report = function() unhide(); ns.Fire("SHOW_REPORT") end,
 	-- The arrow to the step's next or previous place: spawn spot, else goal.
 	NextWaypoint = function() Engine.CycleWaypoint(1) end,
 	PrevWaypoint = function() Engine.CycleWaypoint(-1) end,
 	ReopenTab = function() ns.RunCommand("reopen") end,
+	-- Pause or resume (Core/Pause.lua); it leaves hiding as it is.
+	Pause = function() ns.TogglePaused() end,
+	-- Junk or keep mark on the item under the cursor, or off again.
+	MarkJunk = function() local M = ns.QoL and ns.QoL.Marks; if M then M.Press("junk") end end,
+	MarkKeep = function() local M = ns.QoL and ns.QoL.Marks; if M then M.Press("keep") end end,
 }
 
 local function needGuide()
@@ -52,13 +79,25 @@ local function needGuide()
 end
 
 ns.RegisterCommand("show", function() ns.Fire("SHOW_FRAME") end, L["Show the guide window"])
-ns.RegisterCommand("hide", function() ns.Fire("HIDE_FRAME") end, L["Hide the guide window"])
+-- Quiet: it toggles the hidden state itself (Polestar.SetHidden).
+ns.RegisterCommand("hide", function(rest)
+	if (rest or ""):lower() == "arrow" then
+		ns.SetHideKeepsArrow(not ns.HideKeepsArrow())
+		ns.Print(ns.HideKeepsArrow() and L["Hiding Polestar keeps the arrow."] or L["Hiding Polestar hides the arrow too."])
+		return
+	end
+	ns.ToggleHidden()
+	if ns.Hidden() then ns.Print(L["Polestar is hidden: /polestar hide or the minimap button shows it again."]) end
+end, L["Hide or show everything Polestar shows (hide arrow: keep the arrow when hidden)"], true)
 ns.RegisterCommand("guides", function() ns.Fire("SHOW_PICKER") end, L["Choose a guide"])
 ns.RegisterCommand("options", function(rest) ns.Fire("SHOW_OPTIONS", rest ~= "" and rest or nil) end, L["Open settings"])
+-- A question in the player's own words: the settings open with it in their
+-- search box and its dropdown on the settings it finds (/ps ask too).
+ns.RegisterCommand("ask", function(rest) ns.Fire("SHOW_OPTIONS", nil, rest or "") end, L["Find a setting by asking, such as: how do I hide the arrow?"])
 ns.RegisterCommand("debug", function()
 	ns.debug = not ns.debug
 	ns.Print(L["Debug output"], ns.debug and L["on"] or L["off"])
-end, L["Toggle debug output"])
+end, L["Toggle debug output"], true)
 
 ns.RegisterCommand("next", function()
 	if needGuide() then Engine.Next() end
@@ -116,7 +155,7 @@ ns.RegisterCommand("status", function()
 			DEFAULT_CHAT_FRAME:AddMessage("  " .. mark .. goal.text .. progress)
 		end
 	end
-end, L["Show the current guide and step"])
+end, L["Show the current guide and step"], true)
 
 ns.RegisterCommand("tabs", function()
 	local list, active = Engine.GetTabs()
@@ -130,7 +169,7 @@ ns.RegisterCommand("tabs", function()
 		local state = t.complete and L["complete"] or (L["step %d of %d"]):format(t.stepNumber or t.stepIndex or 0, t.stepTotal or t.stepCount)
 		DEFAULT_CHAT_FRAME:AddMessage(("%s%d. %s  |cff8a8f98%s|r"):format(mark, i, t.title, state))
 	end
-end, L["List the open guide tabs"])
+end, L["List the open guide tabs"], true)
 
 ns.RegisterCommand("tab", function(rest)
 	local n = tonumber(rest and rest:match("^%s*(%d+)"))
@@ -164,9 +203,11 @@ ns.RegisterCommand("path", function()
 	end
 end, L["Choose (or change) where to level next"])
 
-ns.RegisterCommand("welcome", function()
-	ns.Fire("SHOW_WELCOME")
-end, L["Show the welcome again"])
+-- Install (UI/Welcome.lua): every page, whenever asked; `welcome`, its name
+-- before, still opens it.
+local function showInstall() ns.Fire("SHOW_WELCOME") end
+ns.RegisterCommand("install", showInstall, L["Set Polestar up again, a page at a time (Install)"])
+ns.RegisterCommand("welcome", showInstall, L["Opens Install, as /polestar install does"])
 
 ns.RegisterCommand("whatsnew", function()
 	ns.Fire("SHOW_WHATSNEW")
@@ -190,6 +231,49 @@ ns.RegisterCommand("questlog", function() ns.Fire("SHOW_QUEST_ROOM") end, L["Lis
 
 ns.RegisterCommand("report", function() ns.Fire("SHOW_REPORT") end, L["Report a problem with the step on screen"])
 ns.RegisterCommand("discord", function() ns.Fire("SHOW_DISCORD") end, L["The invite to the Polestar Discord"])
+
+-- What Polestar's addons hold in memory, as the client counts it, before and
+-- after a full garbage collection: a debug aid for reports. The client's
+-- figure carries the garbage an addon made that the collector has not freed
+-- yet; what is left after the collection is what the addon keeps.
+local function memoryNames()
+	local A = C_AddOns or {}
+	local count, info, loaded = A.GetNumAddOns or GetNumAddOns, A.GetAddOnInfo or GetAddOnInfo, A.IsAddOnLoaded or IsAddOnLoaded
+	local names = { ADDON }
+	if not (count and info and loaded) then return names end
+	for i = 1, count() or 0 do
+		local name = info(i)
+		if type(name) == "string" and name ~= ADDON and name:find("^Polestar_") and loaded(name) then names[#names + 1] = name end
+	end
+	return names
+end
+
+local function readMemory(names, into)
+	UpdateAddOnMemoryUsage()
+	local total = 0
+	for i, name in ipairs(names) do
+		into[i] = GetAddOnMemoryUsage(name) or 0
+		total = total + into[i]
+	end
+	return total
+end
+
+local function megabytes(kib) return ("%.2f MB"):format(kib / 1024) end
+
+ns.RegisterCommand("memory", function()
+	if not (UpdateAddOnMemoryUsage and GetAddOnMemoryUsage) then return end
+	local names, before, after = memoryNames(), {}, {}
+	local b = readMemory(names, before)
+	collectgarbage("collect")
+	local a = readMemory(names, after)
+	ns.Print(L["Memory before and after a full garbage collection (what is left is what Polestar keeps):"])
+	for i, name in ipairs(names) do
+		if before[i] > 0 or after[i] > 0 then
+			DEFAULT_CHAT_FRAME:AddMessage(("  %s  %s -> %s"):format(name, megabytes(before[i]), megabytes(after[i])))
+		end
+	end
+	DEFAULT_CHAT_FRAME:AddMessage("  " .. (L["All of Polestar: %s -> %s (%s was garbage)"]):format(megabytes(b), megabytes(a), megabytes(math.max(0, b - a))))
+end, L["Show Polestar's memory before and after a full garbage collection"], true)
 
 ns.RegisterCommand("packs", function() ns.Fire("SHOW_OPTIONS", "guidepacks") end, L["Open the Community guides page"])
 ns.RegisterCommand("gamepad", function() ns.Fire("SHOW_OPTIONS", "gamepad") end, L["Open the Gamepad page: button names and bindings"])

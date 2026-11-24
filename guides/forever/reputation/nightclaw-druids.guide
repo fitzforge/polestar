@@ -113,7 +113,6 @@ step Ears at the Shrine of Akir
 step Mercy Falls on Deaf Ears
   tip Back to Vayn inside the den. Ten ears for 1000 reputation and a green piece: leather gloves, cloth pants or mail boots. Vayn then takes ears five at a time, for 1000 each, as often as you like, up to level 18; in Classic the pay drops from level 19 and is 200 from level 22. The Legacy perk Diplomat adds up to 10% to every gain.
   turnin 93165 choose 263306 263307 263308   -- 1000 reputation
-  accept 93459
 
 step Back to Valanaar
   tip Lotheluum waits in Valanaar. Hand in on your way to a skyboat or to the Gustberry Lowlands.
@@ -123,24 +122,21 @@ step Friendly to Honored
   tip The storyline and Vayn's first quest leave you at Friendly with 2100 to spare. Honored is 3900 more: four turn-ins of five ears up to level 18, twenty from level 22. Friendly opens 32 of Vayn's patterns, in two colours, Cloudy and Azure: Blacksmithing Skyforged Wristguards and Chain (skill 50, 9s 50c), Gauntlets and Greaves (55, 11s); Leatherworking Gustwoven and Windraveled bracers and belts (50) and gloves and boots (55); Tailoring Stormsewn Cuffs and Cord (50), Handwraps and Shoes (55). They bind when you buy them, so buy them on the crafter.
   rep 2758 Honored
   collect 258771 x5 optional                  -- five ears per turn-in
-  turnin 93459 optional                       -- More Al'Aketh Ears: 1000 reputation
-  accept 93459 optional
+  turnin 93459 direct optional                -- More Al'Aketh Ears: 1000 reputation, handed in from Vayn's window
   vendor 254151 optional                      -- Vayn's patterns
 
 step Honored to Revered
   tip Honored opens the chest and leg patterns (skill 60, 12s 50c): Skyforged chainmail and legguards, Gustwoven harness and trousers, Windraveled jerkin and pants, Stormsewn vest and leggings. Revered is 12000 more: 12 turn-ins (60 ears, about 160 cultist kills at the Shrine) up to level 18, 60 turn-ins (300 ears) from level 22.
   rep 2758 Revered
   collect 258771 x5 optional                  -- five ears per turn-in
-  turnin 93459 optional                       -- More Al'Aketh Ears: 1000 reputation
-  accept 93459 optional
+  turnin 93459 direct optional                -- More Al'Aketh Ears: 1000 reputation, handed in from Vayn's window
   vendor 254151 optional                      -- Vayn's patterns
 
 step Revered to Exalted
   tip Revered opens the Shadowgale Squirrel, a companion pet, for 50s. Exalted is 21000 more: 21 turn-ins (105 ears, about 280 kills) up to level 18, 105 turn-ins (525 ears) from level 22.
   rep 2758 Exalted
   collect 258771 x5 optional                  -- five ears per turn-in
-  turnin 93459 optional                       -- More Al'Aketh Ears: 1000 reputation
-  accept 93459 optional
+  turnin 93459 direct optional                -- More Al'Aketh Ears: 1000 reputation, handed in from Vayn's window
   buy 280347 npc 254151 optional              -- Shadowgale Squirrel, 50s
 
 step The Nightclaw Mantle

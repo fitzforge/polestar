@@ -12,15 +12,15 @@ return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "Aprende a montar",
 	-- {npc:4753} Jartsam · {npc:4730} Lelanai · {area:1658} Cenarion Enclave · {faction:69} Darnassus · {skill:762} Riding
-	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {faction:69}. At 40 {npc:4753} teaches {skill:762} to Night Elves for 100g (10% less at Honored with {faction:69}), and it comes with a saber. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {faction:69}. At 40 {npc:4753} teaches {skill:762} to Night Elves for 100g (10% less at Honored with {faction:69}), and it comes with a saber. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "Los sables de {npc:4753} y {npc:4730} están en el campo de equitación de {area:1658}, en {faction:69}. A nivel 40 {npc:4753} enseña {skill:762} a los elfos de la noche por 100 de oro (10% menos en Honorable con {faction:69}), y viene con un sable. Las demás razas aprenden {skill:762}, con su propia primera montura, con el instructor de equitación de su raza.",
 	-- {npc:4753} Jartsam
 	["{npc:4753}, riding trainer"] = "{npc:4753}, instructor de equitación",
 
 	-- Step 2: Tiger Riding for other races
 	-- {spell:828} Tiger Riding
-	["{spell:828} for other races"] = "",
+	["{spell:828} for other races"] = "{spell:828} para otras razas",
 	-- {spell:828} Tiger Riding · {skill:762} Riding · {npc:4753} Jartsam · {faction:69} Darnassus
-	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "",
+	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "Cualquier raza de la Alianza puede comprar estos sables, pero para montar uno también hace falta {spell:828}, que solo los elfos de la noche reciben con {skill:762}. {npc:4753} se la enseña a las demás razas una vez que están en Exaltado con {faction:69} (la guía de reputación de Darnassus muestra el camino). Hasta entonces, no le compres un sable a este personaje.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Elige un color",
@@ -32,7 +32,7 @@ return {
 	["{item:8631}, 20g"] = "{item:8631}, 20g",
 	-- {item:8632} Reins of the Spotted Frostsaber
 	["{item:8632}, 20g"] = "{item:8632}, 20g",
-	["new in Forever, 20g; beta players found it here"] = "",
+	["new in Forever, 20g; beta players found it here"] = "nuevo en Forever, 20 de oro; los jugadores de la beta lo encontraron aquí",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{item:274706} is a new Forever saber (level 40, 20g in the client) whose source is not known yet."] = "{item:274706} es un sable nuevo de Forever (nivel 40, 20g en el cliente) cuyo origen aún no se conoce.",

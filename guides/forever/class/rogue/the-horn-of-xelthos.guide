@@ -47,11 +47,12 @@ step C's dead drop
 
 step Veenix
   zone Stonetalon Mountains
-  tip Veenix, a goblin friendly to both factions, stands among the Venture Co. in the Windshear Crag, east Stonetalon, a short way north-east of Sun Rock Retreat. Horde fly to Sun Rock Retreat; Alliance to Stonetalon Peak. He wants a Venture Co. Work Order before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them in their pockets. Stealth up behind one and Pick Pocket it; killing them does not give it.
-  talk 4086                                   -- Veenix
-  accept 78270
+  when !turnedin 78261
+  when !complete 78261
+  tip Veenix, a goblin friendly to both factions, stands among the Venture Co. in the Windshear Crag, east Stonetalon, a short way north-east of Sun Rock Retreat. Horde fly to Sun Rock Retreat; Alliance to Stonetalon Peak. He wants a Venture Co. Work Order before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them in their pockets. Stealth up behind one and Pick Pocket it; killing them does not give it. Then talk to Veenix: Goblin Lockpicks never goes into your quest log, you hand the Work Order in at once, and he takes it only while The Horn of Xelthos is in your quest log: if you dropped it, take it again from C's Dead Drop by Pyrewood first.
   collect 210187 x1 "Pick Pocket a Venture Co. Logger for a Venture Co. Work Order"
-  turnin 78270 reward 210186 "Breaching Charge"
+  talk 4086                                   -- Veenix
+  turnin 78270 direct reward 210186 "Breaching Charge"
 
 step Shadowfang Keep
   zone Silverpine Forest
@@ -59,7 +60,6 @@ step Shadowfang Keep
   collect 210183 quest 78261.1 @44.8,67.8 live -- Horn of Xelthos, inside Shadowfang Keep
 
 step Back to the dead drop
-  tip Place the horn in the Dead Drop near Pyrewood. The payment may not appear immediately: check a capital mailbox for C's follow-up letter on your next planned city visit, then return to this chest for the reward quest. Do not repeat the dungeon just because the payment is not yet offered.
+  tip Open the Dead Drop again, the chest outside Pyrewood you took the job from, and hand in the horn there. C's payment is a second hand-in at the same chest, with nothing to accept first, and it may not be there right away: players have waited from a quarter of an hour to two hours. Check a capital mailbox for C's follow-up letter on your next planned city visit, then return to this chest for it. Do not repeat the dungeon just because the payment is not yet offered.
   turnin 78261 object 410369                  -- Dead Drop
-  accept 78307 object 410369
-  turnin 78307 object 410369 reward 277210    -- Pyrewood Signet Ring
+  turnin 78307 object 410369 direct reward 277210 -- Pyrewood Signet Ring

@@ -46,6 +46,7 @@ const BUILD_HELP: &str = "usage: forge build --out <dir> [--guides <dir>] [--wow
                    [--data-root <checkout>] [--walks-from <dir>] [--walk-pairs <file>] [--grid <dir>] [--pack <dir>] [--allow-incomplete]
                    [--strict] [--until data|walks] [--cut all|knee] [--search edits|free|hybrid] [--tries N] [--members N]
                    [--no-questie] [--accept-fewer-quests] [--forever-tables saved|client|wago] [--allow-build-mismatch]
+                   [--walks-serial] [--leffe-cache MB]
 
 Runs the stages grid, data, prepare, world, walks, routes, guides and report into --out. A stage whose
 inputs did not change since the last run (a BLAKE3 key in <out>/.forge/<stage>.key) is skipped.
@@ -96,6 +97,13 @@ inputs did not change since the last run (a BLAKE3 key in <out>/.forge/<stage>.k
   --deathskips   price deathskips in the routes (off by default): die near a leg's start and go on from
                  the graveyard the game resurrects at, where that beats the leg by 30 s, through
                  level 10; written as `die` steps, which only players with \"Use deathskips\" take
+  --walks-serial the walks stage's two passes (our grid's, Leffe's maps') one after the other instead of
+                 side by side: about half the peak memory, a longer walks stage, the same walks
+  --leffe-cache  MB of Leffe's decoded maps the walks stage keeps (default 4096): less memory, slower
+                 searches, the same walks
+
+One faction's walks are the build's largest memory: build one faction at a time (--starts) with
+--walks-serial when memory is short.
 
 With more than one start of a faction, its routes are one shared route from the join (the Horde after
 horde/02-the-barrens, the Alliance after alliance/02-westfall); each start's own cut is kept in
@@ -117,8 +125,7 @@ const FETCH_HELP: &str = "usage: forge data fetch [--url <pack index URL or path
 
 Downloads the data pack (default: the `data-pack` release, or $POLESTAR_DATA_PACK_URL), checks its
 BLAKE3 and unpacks it into --dest (default: $POLESTAR_DATA_PACK, else the user's data folder,
-polestar/data-pack). No public data pack has been published yet: until one is, build from your own
-game client (forge build --wow <dir>).";
+polestar/data-pack).";
 
 /// The options each of build, pack and fetch takes: (with a value, flags).
 fn options(cmd: &str) -> (&'static [&'static str], &'static [&'static str]) {
@@ -146,8 +153,9 @@ fn options(cmd: &str) -> (&'static [&'static str], &'static [&'static str]) {
 				"--members",
 				"--walk-pairs",
 				"--forever-tables",
+				"--leffe-cache",
 			],
-			&["--allow-incomplete", "--strict", "--no-questie", "--accept-fewer-quests", "--allow-build-mismatch", "--deathskips"],
+			&["--allow-incomplete", "--strict", "--no-questie", "--accept-fewer-quests", "--allow-build-mismatch", "--deathskips", "--walks-serial"],
 		),
 		"pack" => (&["--out", "--root", "--walks-from", "--grid"], &[]),
 		_ => (&["--url", "--dest"], &[]),
@@ -332,6 +340,11 @@ fn run(cmd: &str, args: &[String]) -> Result<(), Fail> {
 			},
 		),
 		deathskips: args.iter().any(|a| a == "--deathskips"),
+		walks_serial: args.iter().any(|a| a == "--walks-serial"),
+		leffe_cache_mb: match val("--leffe-cache") {
+			None => forge::LEFFE_WALKS_CACHE_MB,
+			Some(v) => v.parse().ok().filter(|&n: &usize| n >= 256).ok_or_else(|| Fail::Usage(format!("--leffe-cache {v}: megabytes, 256 or more")))?,
+		},
 	};
 	if let Some(w) = &o.wow {
 		match forge_gamedata::remember_wow(w) {

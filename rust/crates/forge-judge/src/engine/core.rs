@@ -310,6 +310,23 @@ fn craft_mode(goal: &Goal) -> u8 {
 	}
 }
 
+/// Own.craftsFrom: expected crafts of a `craft … until` goal from skill k, the goal taking over at `start`.
+fn crafts_from(goal: &Goal, start: f64, k: f64) -> f64 {
+	let (Some(to), Some(y), Some(grey)) = (goal.until_skill, goal.yellow, goal.grey) else { return 0.0 };
+	if grey <= y {
+		return 0.0;
+	}
+	let (mut n, mut x) = (0.0, start.max(k));
+	while x <= to - 1.0 {
+		let p = if x < y { 1.0 } else { (grey - x) / (grey - y) };
+		if p > 0.0 {
+			n += 1.0 / p;
+		}
+		x += 1.0;
+	}
+	n
+}
+
 fn blocks(goal: &Goal) -> bool {
 	goal.t != T::Note && !goal.optional
 }
@@ -329,7 +346,9 @@ fn latchable(goal: &Goal) -> bool {
 		|| (goal.t == T::Train && goal.class)
 }
 
-fn missing_pre(pre: &Option<Vec<u32>>, pre_all: &Option<Vec<u32>>, done: impl Fn(u32) -> bool) -> Option<u32> {
+/// missingPre: the first of `preAll` not done, else the first of `pre` when none is done, else a breadcrumb in
+/// the log (`crumbs`: the game holds the quest back until it is handed in).
+fn missing_pre(pre: &Option<Vec<u32>>, pre_all: &Option<Vec<u32>>, crumbs: &Option<Vec<u32>>, done: impl Fn(u32) -> bool, in_log: impl Fn(u32) -> bool) -> Option<u32> {
 	if let Some(all) = pre_all {
 		for &q in all {
 			if !done(q) {
@@ -338,14 +357,11 @@ fn missing_pre(pre: &Option<Vec<u32>>, pre_all: &Option<Vec<u32>>, done: impl Fn
 		}
 	}
 	if let Some(any) = pre {
-		if !any.is_empty() {
-			if any.iter().any(|&q| done(q)) {
-				return None;
-			}
+		if !any.is_empty() && !any.iter().any(|&q| done(q)) {
 			return Some(any[0]);
 		}
 	}
-	None
+	crumbs.iter().flatten().copied().find(|&c| in_log(c))
 }
 
 impl<'a> Sim<'a> {
@@ -470,8 +486,8 @@ impl<'a> Sim<'a> {
 		list_matches(&c.races, &self.w.race, true) && list_matches(&c.classes, &self.w.class, false)
 	}
 
-	fn missing_pre_of(&self, pre: &Option<Vec<u32>>, pre_all: &Option<Vec<u32>>) -> Option<u32> {
-		missing_pre(pre, pre_all, |q| self.quest_done(q))
+	fn missing_pre_of(&self, pre: &Option<Vec<u32>>, pre_all: &Option<Vec<u32>>, crumbs: &Option<Vec<u32>>) -> Option<u32> {
+		missing_pre(pre, pre_all, crumbs, |q| self.quest_done(q), |q| self.w.on_quest(q))
 	}
 
 	fn skill_rank(&self, line: Option<u32>, name: Option<&str>) -> Option<(f64, f64)> {
@@ -546,7 +562,7 @@ impl<'a> Sim<'a> {
 				return false;
 			}
 		}
-		if self.missing_pre_of(&p.pre, &p.pre_all).is_some() {
+		if self.missing_pre_of(&p.pre, &p.pre_all, &None).is_some() {
 			return false;
 		}
 		!p.closed_by.iter().flatten().any(|&by| self.w.on_quest(by) || self.quest_done(by))
@@ -597,6 +613,7 @@ impl<'a> Sim<'a> {
 			"skill" => self.skill_rank(p.skill_line, p.name.as_deref()).map_or(0.0, |r| r.0) >= p.n.unwrap_or(0.0),
 			// No cooldowns run in the stub.
 			"cooldown" => false,
+			"taxi" => self.fp_known(p.node, p.name.as_deref()),
 			// No spellbook in the stub: no spell is known.
 			"knows" => false,
 			"group" => match q0.and_then(|q| self.group_answer(q)) {
@@ -655,7 +672,7 @@ impl<'a> Sim<'a> {
 			if goal.t == T::Accept && goal.quest == Some(q) {
 				takes = true;
 				let low = goal.min_level.is_some_and(|l| self.pl_level < l);
-				if self.goal_applies(s, gi + 1) && self.unavailable_for(s, gi + 1, 0).is_none() && !low && self.missing_pre_of(&goal.pre, &goal.pre_all).is_none() {
+				if self.goal_applies(s, gi + 1) && self.unavailable_for(s, gi + 1, 0).is_none() && !low && self.missing_pre_of(&goal.pre, &goal.pre_all, &goal.crumbs).is_none() {
 					return true;
 				}
 			}
@@ -728,7 +745,7 @@ impl<'a> Sim<'a> {
 	/// Own.preBlocked.
 	fn pre_blocked(&mut self, s: usize, g: usize, depth: u32) -> Option<u32> {
 		let a = self.gd().goal(s, g);
-		self.missing_pre_of(&a.pre, &a.pre_all)?;
+		self.missing_pre_of(&a.pre, &a.pre_all, &a.crumbs)?;
 		if let Some(all) = &a.pre_all {
 			for &p in all {
 				if !self.quest_done(p) && !self.coming(p, depth) {
@@ -828,11 +845,17 @@ impl<'a> Sim<'a> {
 		}
 		for &(as_, ag) in &list {
 			let a = gd.goal(as_, ag);
-			if (a.pre.is_some() || a.pre_all.is_some()) && self.pre_blocked(as_, ag, depth).is_some() {
+			if ((a.pre.is_some() || a.pre_all.is_some()) && self.pre_blocked(as_, ag, depth).is_some()) || self.crumb_held(as_, ag, depth).is_some() {
 				return Some(Reason::Pre);
 			}
 		}
 		None
+	}
+
+	/// Own.crumbHeld: a breadcrumb of the accept in the log, not skipped, that the guide does not hand in.
+	fn crumb_held(&mut self, s: usize, g: usize, depth: u32) -> Option<u32> {
+		let crumbs = self.gd().goal(s, g).crumbs.clone()?;
+		crumbs.into_iter().find(|&c| self.w.on_quest(c) && !self.skipped_quests.contains(&c) && !self.coming(c, depth))
 	}
 
 	/// The level a goal waits for (its view's `unavailable == "level"`, the number in "Requires level
@@ -936,10 +959,83 @@ impl<'a> Sim<'a> {
 		oi > objs.len() && objs[..oi - 1].iter().all(|o| o.finished)
 	}
 
-	fn count_state(&self, goal: &Goal) -> Done {
-		let need = goal.count.unwrap_or(1.0);
+	/// countState (its need from Own.needOf).
+	fn count_state(&mut self, s: usize, g: usize) -> Done {
+		let need = self.need_of(s, g);
+		let goal = self.gd().goal(s, g);
 		let have = goal.item.map_or(0.0, |i| self.w.item_count(i));
 		Done { done: have >= need, cur: Some(if have < need { have } else { need }), max: Some(need) }
+	}
+
+	/// Own.needOf: a bag count under a section, less what the section's crafts already made would have used.
+	fn need_of(&mut self, s: usize, g: usize) -> f64 {
+		let gd = self.gd();
+		let goal = gd.goal(s, g);
+		let count = goal.count.unwrap_or(1.0);
+		if !matches!(goal.t, T::Collect | T::Buy) || goal.quest.is_some() || count <= 1.0 {
+			return count;
+		}
+		let (Some(n), Some(item)) = (gd.step(s).section, goal.item) else { return count };
+		let Some(sec) = gd.sections.get(n.wrapping_sub(1)) else { return count };
+		let Some((rank, _)) = self.skill_rank(sec.skill_line, sec.skill.as_deref()) else { return count };
+		if rank <= sec.from {
+			return count;
+		}
+		let used = self.section_demand(n, sec.from, item, false) - self.section_demand(n, rank.min(sec.to), item, false);
+		(count - (used - 0.001).ceil()).max(0.0)
+	}
+
+	/// Own.sectionDemand, for one item: what section n's crafts for the character still use of it from skill k.
+	fn section_demand(&mut self, n: usize, k: f64, item: u32, until_only: bool) -> f64 {
+		let gd = self.gd();
+		let from = gd.sections[n - 1].from;
+		let (mut start, mut d) = (from, 0.0);
+		let mut counted = Vec::new();
+		for s in 1..=gd.steps.len() {
+			if gd.step(s).section != Some(n) {
+				continue;
+			}
+			for g in 1..=gd.step(s).goals.len() {
+				let goal = gd.goal(s, g);
+				if goal.t != T::Craft || !self.step_applies(s) || !self.goal_applies(s, g) {
+					continue;
+				}
+				if let Some(until) = goal.until_skill {
+					let crafts = crafts_from(goal, start, k);
+					d += goal.reagents.iter().filter(|r| r.0 == item).map(|r| crafts * r.1).sum::<f64>();
+					start = start.max(until);
+				} else if goal.count.is_some() && goal.item.is_some() {
+					counted.push(goal);
+				}
+			}
+		}
+		if !until_only {
+			for goal in counted {
+				let made = goal.item.unwrap_or(0);
+				let full = self.section_demand(n, from, made, true);
+				let share = if full > 0.0 { (self.section_demand(n, k, made, true) / full).min(1.0) } else { 1.0 };
+				d += goal.reagents.iter().filter(|r| r.0 == item).map(|r| goal.count.unwrap_or(0.0) * r.1 * share).sum::<f64>();
+			}
+		}
+		d
+	}
+
+	/// Own.sectionPassed: step s is under a section the player's skill has passed (a profession rank one of its
+	/// goals trains and the player lacks still holds it).
+	fn section_passed(&mut self, s: usize) -> bool {
+		let gd = self.gd();
+		let Some(sec) = gd.step(s).section.and_then(|n| gd.sections.get(n.wrapping_sub(1))) else { return false };
+		match self.skill_rank(sec.skill_line, sec.skill.as_deref()) {
+			Some((rank, _)) if rank >= sec.to => {}
+			_ => return false,
+		}
+		for g in 1..=gd.step(s).goals.len() {
+			let goal = gd.goal(s, g);
+			if goal.t == T::Train && is_profession_train(goal) && self.goal_applies(s, g) && !self.goal_done(s, g).done {
+				return false;
+			}
+		}
+		true
 	}
 
 	/// Own.starterTaken.
@@ -987,11 +1083,13 @@ impl<'a> Sim<'a> {
 		same(zone, goal.location.as_deref()) || same(sub, goal.location.as_deref())
 	}
 
-	fn fp_known(&self, goal: &Goal) -> bool {
-		if goal.node.is_some() {
+	/// Own.fpKnown: a getfp goal's or `taxi` predicate's flight path is known. The stub records no flight map's
+	/// nodes (CharState().flags.taxi), so one with a node never is; else by name among the opened flight maps.
+	fn fp_known(&self, node: Option<u32>, location: Option<&str>) -> bool {
+		if node.is_some() {
 			return false;
 		}
-		let want = goal.location.as_deref().unwrap_or("").to_lowercase();
+		let want = location.unwrap_or("").to_lowercase();
 		self.fp.iter().any(|n| {
 			let n = n.to_lowercase();
 			n == want || n.split(',').next() == Some(want.as_str())
@@ -1076,9 +1174,9 @@ impl<'a> Sim<'a> {
 				if self.starter_taken(s, g) {
 					return Done::yes();
 				}
-				self.count_state(goal)
+				self.count_state(s, g)
 			}
-			T::Buy => self.count_state(goal),
+			T::Buy => self.count_state(s, g),
 			T::Goto => {
 				if self.arrived.contains(&(self.gi(), s, g)) {
 					return Done::yes();
@@ -1149,7 +1247,7 @@ impl<'a> Sim<'a> {
 				}
 				Done::no()
 			}
-			T::Getfp => Done::of(self.fp_known(goal)),
+			T::Getfp => Done::of(self.fp_known(goal.node, goal.location.as_deref())),
 			T::Level => Done::of(self.level_reached(goal.level.unwrap_or(1.0), goal.frac)),
 			T::Skill => {
 				let target = goal.level.unwrap_or(0.0);
@@ -1164,7 +1262,7 @@ impl<'a> Sim<'a> {
 					let rank = self.skill_rank(goal.skill_line, goal.skill.as_deref()).map_or(0.0, |r| r.0);
 					Done { done: rank >= target, cur: Some(rank.min(target)), max: Some(target) }
 				}
-				1 => self.count_state(goal),
+				1 => self.count_state(s, g),
 				_ => Done::no(),
 			},
 			T::Rep => match goal.faction.and_then(|f| self.w.factions.get(&f)) {
@@ -1217,7 +1315,7 @@ impl<'a> Sim<'a> {
 
 	/// stepDone.
 	pub fn step_done(&mut self, s: usize) -> bool {
-		if self.gd().step(s).along != Along::No {
+		if self.gd().step(s).along != Along::No || self.section_passed(s) {
 			return true;
 		}
 		if self.group_pending(s) {
@@ -1315,7 +1413,7 @@ impl<'a> Sim<'a> {
 		if goal.min_level.is_some_and(|l| self.pl_level < l) {
 			return Some(Reason::Level);
 		}
-		if self.missing_pre_of(&goal.pre, &goal.pre_all).is_some() {
+		if self.missing_pre_of(&goal.pre, &goal.pre_all, &goal.crumbs).is_some() {
 			return Some(Reason::Pre);
 		}
 		None
@@ -1690,13 +1788,15 @@ impl<'a> Sim<'a> {
 		Some(if d > 0.0 { d } else { 0.0 })
 	}
 
-	/// Spots.repick (no spot picked by hand, never moving on).
+	/// Spots.repick (no spot picked by hand, never moving on). Exact points (every spot `r` 0, #1944) are
+	/// searched as an area objective's spots, and a point once reached is done: the next takes over at once.
 	fn spot_repick(&mut self, gr: GRef, pos: Option<(i64, f64, f64)>) -> bool {
 		let gs: &'a [Guide] = self.gs;
 		let goal = gs[gr.0].goal(gr.1, gr.2);
 		let Some(spots) = goal.spots.as_ref() else { return false };
 		let now = self.now;
-		let spread = goal.spread;
+		let exact = goal.exact();
+		let spread = goal.spread || exact;
 		let reach = goal.r.unwrap_or(DEFAULT_RADIUS);
 		let cur = self.spot_chosen.get(&gr).copied();
 		if cur.is_some() && pos.is_none() {
@@ -1715,7 +1815,7 @@ impl<'a> Sim<'a> {
 				}
 			}
 		}
-		if cur.is_some() && spread && cur_d.is_some_and(|d| d <= reach + SPOT_LEAVE) {
+		if cur.is_some() && spread && !exact && cur_d.is_some_and(|d| d <= reach + SPOT_LEAVE) {
 			return false;
 		}
 		let fresh = |k: usize| {
@@ -1723,7 +1823,7 @@ impl<'a> Sim<'a> {
 			match t {
 				None => true,
 				Some(t) if now - t > SPOT_FORGET => true,
-				Some(_) => pos.is_some() && edge(k).is_some_and(|d| d <= reach),
+				Some(_) => !exact && pos.is_some() && edge(k).is_some_and(|d| d <= reach),
 			}
 		};
 		let at = cur.map_or(0, |k| k + 1) as i64;
@@ -2126,7 +2226,7 @@ impl<'a> Sim<'a> {
 		let a = self.gs[gi].goal(s, g);
 		if a.min_level.is_some_and(|l| self.pl_level < l) {
 			Some(Reason::Level)
-		} else if self.missing_pre_of(&a.pre, &a.pre_all).is_some() {
+		} else if self.missing_pre_of(&a.pre, &a.pre_all, &a.crumbs).is_some() {
 			Some(Reason::Pre)
 		} else {
 			None
@@ -2626,7 +2726,7 @@ impl<'a> Sim<'a> {
 							}
 						}
 						_ => {
-							if self.missing_pre_of(&goal.pre, &goal.pre_all).is_some() {
+							if self.missing_pre_of(&goal.pre, &goal.pre_all, &goal.crumbs).is_some() {
 								pre = true;
 							} else if !goal.closed_by.iter().flatten().any(|&by| self.w.on_quest(by) || self.quest_done(by)) {
 								doable = true;

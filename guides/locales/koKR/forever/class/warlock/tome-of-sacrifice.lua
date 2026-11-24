@@ -12,25 +12,25 @@ return {
 
 	-- Step 1: Daio the Decrepit
 	-- {npc:14463} Daio the Decrepit · {area:73} Tainted Scar · {zone:1419} Blasted Lands
-	["At 60 {npc:14463} waits in the {area:73}, the demon-filled hollow in the west of the {zone:1419}. The Scar is full of hard-hitting elites: Soulstone yourself first, then keep to the right-hand wall going in, or ride through mounted. {npc:14463} gives you two errands at once."] = "",
+	["At 60 {npc:14463} waits in the {area:73}, the demon-filled hollow in the west of the {zone:1419}. The Scar is full of hard-hitting elites: Soulstone yourself first, then keep to the right-hand wall going in, or ride through mounted. {npc:14463} gives you two errands at once."] = "60레벨에 {npc:14463}은(는) {zone:1419} 서부의 악마로 가득한 움푹한 곳인 {area:73}에서 기다립니다. 흉터에는 강력한 정예가 가득하니 먼저 영혼석을 쓰고, 들어갈 때는 오른쪽 벽을 따라가거나 말을 타고 지나가세요. {npc:14463}은(는) 두 심부름을 한꺼번에 줍니다.",
 
 	-- Step 2: Satyr Blood
 	-- {area:2577} Dire Maul · {area:2518} Lariss Pavilion · {item:18249} Crescent Key · {zone:1444} Feralas
-	["The Wildspawn satyrs (level 55-57, elite) fill the Warpwood Quarter, {area:2577}'s eastern wing: bring a group of five. Four in five drop a blood, but they do not come back for two hours and one full clear may come up short of fifteen; reset and run it again. The back door at {area:2518} needs the {item:18249}, which drops inside this wing; until someone has it, go in by {area:2577}'s main gate in central {zone:1444}."] = "",
+	["The Wildspawn satyrs (level 55-57, elite) fill the Warpwood Quarter, {area:2577}'s eastern wing: bring a group of five. Four in five drop a blood, but they do not come back for two hours and one full clear may come up short of fifteen; reset and run it again. The back door at {area:2518} needs the {item:18249}, which drops inside this wing; until someone has it, go in by {area:2577}'s main gate in central {zone:1444}."] = "야생싹트 사티로스(55-57레벨, 정예)가 {area:2577} 동쪽 날개 왜곡목 구역을 채웁니다. 5인 파티를 데려가세요. 다섯 중 네 마리가 피를 떨어뜨리지만 2시간 동안 다시 나오지 않아 한 번 완전히 쓸어도 열다섯 개가 모자랄 수 있습니다. 초기화하고 다시 돌세요. {area:2518}의 뒤문은 이 날개 안에서 떨어지는 {item:18249}이(가) 필요합니다. 누군가 가질 때까지는 중앙 {zone:1444}의 {area:2577} 정문으로 들어가세요.",
 	-- {item:18603} Satyr Blood
-	["{item:18603}, from the Wildspawn inside"] = "",
+	["{item:18603}, from the Wildspawn inside"] = "{item:18603}, 안쪽 야생싹트에게서",
 
 	-- Step 3: Tears of the Hederine
 	-- {area:2256} Darkwhisper Gorge · {zone:1452} Winterspring · {spell:7645} Dominate Mind · {spell:710} Banish
-	["The Hederine demons (level 57-60, elite) hold {area:2256} in the far south of {zone:1452}: grouping up is encouraged. Two Slayers guard the gorge past the bridge; the western tunnel leads to more Initiates, the easiest of them (watch for their {spell:7645}). A warlock can solo them one at a time with Fear or {spell:710} and damage over time, but slowly. Any of them can drop the Tears, four kills in five."] = "",
+	["The Hederine demons (level 57-60, elite) hold {area:2256} in the far south of {zone:1452}: grouping up is encouraged. Two Slayers guard the gorge past the bridge; the western tunnel leads to more Initiates, the easiest of them (watch for their {spell:7645}). A warlock can solo them one at a time with Fear or {spell:710} and damage over time, but slowly. Any of them can drop the Tears, four kills in five."] = "헤데린 악마(57-60레벨, 정예)가 {zone:1452} 최남단 {area:2256}을(를) 지킵니다. 파티를 권장합니다. 다리 너머 협곡을 척살자 두 마리가 지키고, 서쪽 터널은 입회자가 더 많은 곳으로 이어집니다. 가장 쉬운 쪽이며 {spell:7645}을(를) 조심하세요. 흑마법사는 공포나 {spell:710}과(와) 지속 피해로 하나씩 솔로도 가능하지만 느립니다. 누구나 눈물을 떨어뜨릴 수 있으며 다섯 번 중 네 번입니다.",
 
 	-- Step 4: Suppression
 	-- {npc:14463} Daio the Decrepit · {item:18601} Glowing Crystal Prison · {npc:12396} Doomguard Commander · {area:73} Tainted Scar · {spell:45} War Stomp · {item:18605} Imprisoned Doomguard
-	["Hand both in to {npc:14463} and take the {item:18601}. Find a {npc:12396} (level 61, elite) standing alone in the {area:73}, open from about 30 yards with your voidwalker on him, and channel the prison on him for about 20 seconds: he attacks you to break free, and his {spell:45} can interrupt the channel, so sacrifice the voidwalker for its shield if you must. Grouping up is encouraged: a second player to tank makes it easy. When the channel finishes he becomes the {item:18605}: click it. If the channel breaks, kill him or run, and try another."] = "",
+	["Hand both in to {npc:14463} and take the {item:18601}. Find a {npc:12396} (level 61, elite) standing alone in the {area:73}, open from about 30 yards with your voidwalker on him, and channel the prison on him for about 20 seconds: he attacks you to break free, and his {spell:45} can interrupt the channel, so sacrifice the voidwalker for its shield if you must. Grouping up is encouraged: a second player to tank makes it easy. When the channel finishes he becomes the {item:18605}: click it. If the channel breaks, kill him or run, and try another."] = "두 개를 모두 {npc:14463}에게 제출하고 {item:18601}을(를) 받으세요. {area:73}에 홀로 서 있는 {npc:12396}(61레벨, 정예)을 찾아 약 30야드 거리에서 공허의 하수인을 먼저 붙이고 약 20초 동안 감옥을 시전하세요. 그는 풀려나려 공격하고 {spell:45}이(가) 시전을 끊을 수 있으니 필요하면 하수인을 희생해 보호막을 얻으세요. 파티를 권장합니다. 탱킹해 줄 두 번째 플레이어가 있으면 쉽습니다. 시전이 끝나면 {item:18605}이(가) 되니 클릭하세요. 시전이 끊기면 처치하거나 도망치고 다른 놈을 시도하세요.",
 	-- {item:18601} Glowing Crystal Prison · {npc:12396} Doomguard Commander
-	["{item:18601}, on a {npc:12396}"] = "",
+	["{item:18601}, on a {npc:12396}"] = "{item:18601}, {npc:12396}에게",
 	-- {item:18605} Imprisoned Doomguard
-	["{item:18605}, click it"] = "",
+	["{item:18605}, click it"] = "{item:18605}, 클릭하세요",
 
 	-- Step 5: Back to Daio the Decrepit
 	-- {npc:14463} Daio the Decrepit
@@ -41,6 +41,5 @@ return {
 	-- ["Hand both in to {npc:14463}, then find the {npc:12396} in the {area:73} and use the {item:18601} on him. He is elite and fights to escape: grouping up is advised."] = "둘 다 {npc:14463}에게 제출한 뒤, {area:73}에서 {npc:12396}을(를) 찾아 {item:18601}을(를) 사용하세요. 정예이며 도망치려고 싸웁니다. 파티를 권장합니다.",
 	-- ["The Hederine demons hold {area:2256}, in southern {zone:1452}. They are elite: grouping up is advised."] = "헤더린 악마들이 {zone:1452} 남부의 {area:2256}을(를) 차지하고 있습니다. 정예이니 파티를 권장합니다.",
 	-- ["The Wildspawn satyrs of the Warpwood Quarter, {area:2577}'s eastern wing, carry the blood. The back door at {area:2518}, north of {area:1099}, needs the {item:18249}; otherwise go in by {area:2577}'s main entrance. Bring a group."] = "{area:2577} 동쪽 구역인 굽이나무 지구의 야생혈족 사티로스가 피를 지니고 있습니다. {area:1099} 북쪽 {area:2518}의 뒷문에는 {item:18249}이(가) 필요하며, 없으면 {area:2577}의 정문으로 들어가세요. 파티를 데려가세요.",
-	-- ["{item:18601}, on the {npc:12396}"] = "{item:18601}, {npc:12396}에게",
 	-- ["{item:18603}, inside the Warpwood Quarter"] = "{item:18603}, 굽이나무 지구 안",
 }

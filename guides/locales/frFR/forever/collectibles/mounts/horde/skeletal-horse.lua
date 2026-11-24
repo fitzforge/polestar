@@ -20,7 +20,7 @@ return {
 	["Any Horde race can buy these skeletal horses, but riding one also takes {spell:10906}, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "Toute race de la Horde peut acheter ces chevaux squelettes, mais en monter un demande aussi {spell:10906}, que seuls les Morts-vivants reçoivent avec la {skill:762}. {npc:4773} l'enseigne aux autres races une fois Exaltées auprès de {faction:68} (le guide de réputation de Fossoyeuse montre le chemin). D'ici là, n'achetez pas de cheval squelette pour ce personnage.",
 
 	-- Step 3: Pick a colour
-	["Pick a colour"] = "Choisir une couleur",
+	["Pick a colour"] = "Choisissez une couleur",
 	-- {npc:4731} Zachariah Post
 	["{npc:4731} sells the other colours (20g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like."] = "{npc:4731} vend les autres couleurs (20 po chacune dans le client Forever). Achetez celles que vous voulez, ou aucune si la monture reçue vous plaît.",
 	-- {item:13331} Red Skeletal Horse

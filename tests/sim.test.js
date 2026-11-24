@@ -11,7 +11,7 @@ const path = require('node:path');
 
 const xp = require('../tools/lib/game/xp');
 const { buildWorld } = require('../tools/lib/sim/world');
-const { compileRun, makeTables, K_ACCEPT, NEAR_CAND } = require('../tools/lib/sim/run');
+const { compileRun, makeTables, K_ACCEPT, K_TASK, K_GRIND, NEAR_CAND } = require('../tools/lib/sim/run');
 const { Travel } = require('../tools/lib/sim/travel');
 const { Evaluator, MAX_VISITS } = require('../tools/lib/sim/evaluate');
 const { PRIORS, effective, means, draws } = require('../tools/lib/sim/params');
@@ -56,9 +56,11 @@ const pkg = (run, key) => {
 
 // ---------------------------------------------------------------- formulas
 
-test('quest XP reduction steps: 100% to +5, then 80/60/40/20/10%', () => {
+// Forever's payout above a quest's level in players' recordings (55,838 turn-ins; the table by levels
+// over is in forge-sim's xp::SHARE test): 1.00 at +5, 0.80 at +6, 0.60 at +7, 0.50 from +8 to +16 and over.
+test('quest XP reduction steps: 100% to +5, 80% at +6, 60% at +7, then 50% from +8 on', () => {
 	const share = (d) => xp.questXpShare(10 + d, 10);
-	assert.deepEqual([-3, 0, 5, 6, 7, 8, 9, 10, 15].map(share), [1, 1, 1, 0.8, 0.6, 0.4, 0.2, 0.1, 0.1]);
+	assert.deepEqual([-3, 0, 5, 6, 7, 8, 9, 10, 15].map(share), [1, 1, 1, 0.8, 0.6, 0.5, 0.5, 0.5, 0.5]);
 	assert.equal(xp.questXpAt(1000, 17, 10), 600);
 });
 
@@ -340,6 +342,66 @@ test('a quest taken late does the objectives and follow-ups the tour already pas
 	assert.deepEqual(late, [], 'nothing left for a second pass');
 });
 
+// Deep Boar Bounty: level 9, minimum 1 (or `minLevel`), from the Testvale elder; its boars (level 9) in Farfield.
+function redQuestSetup(minLevel = 1) {
+	const data = syn.makeData();
+	data.quests[520] = { ...data.quests[505], id: 520, title: 'Deep Boar Bounty', level: 9, minLevel, pre: [], start: { npc: [1], object: [], item: [] } };
+	const w = buildWorld(data, { faction: 'Horde', bandWidth: 5, extraStarts: syn.START });
+	w.questXp = syn.questXpRows();
+	const s = setup({ world: w, rules: false });
+	const q = s.run.qIndex.get(520);
+	const play = (events) => {
+		const c = compileSequence(s.run, events);
+		for (let i = 0; i < c.kind.length; i++) {
+			if (c.kind[i] === K_GRIND) s.ev.grindTo(c.q[i], c.task[i]);
+			else s.ev.step(c.kind[i], c.q[i], c.task[i], c.pt[i]);
+		}
+	};
+	return { ...s, q, play };
+}
+
+test('a written route never waits for a level it does not hold for: a red quest is taken and worked where the route says, only its `level` steps grind (regression: 189 min ground before Carved Centaur Totems, 178 before The Apes of Un\'Goro)', () => {
+	const { run, ev, p, q, play } = redQuestSetup();
+	ev.reset();
+	ev.grindTo(3);
+	assert.ok(ev.level + p.dangerGap < run.qLevel[q], 'red at level 3');
+	const g0 = ev.grindSec;
+	play([{ t: 'accept', q: 520 }]);
+	assert.equal(ev.active[q], 1, 'taken at level 3');
+	assert.equal(ev.grindSec, g0, 'no grinding for the pick-up');
+	play([{ t: 'complete', q: 520 }]);
+	assert.equal(ev.grindSec, g0, 'no grinding for the work either');
+	assert.equal(ev.level, 3, 'worked at level 3, where the route put it');
+	play([{ t: 'level', level: 5 }, { t: 'turnin', q: 520 }]);
+	assert.ok(ev.grindSec > g0, 'the route\'s own level step grinds');
+	assert.equal(ev.done[q], 1, 'handed in');
+});
+
+test('a written route\'s accept under the quest\'s minimum level is refused and counted, not ground for', () => {
+	const { ev, q, play } = redQuestSetup(4);
+	ev.reset();
+	ev.grindTo(3);
+	const g0 = ev.grindSec;
+	play([{ t: 'accept', q: 520 }]);
+	assert.equal(ev.grindSec, g0, 'no grinding to the minimum level');
+	assert.equal(ev.active[q], 0, 'the game does not hand it over');
+	assert.equal(ev.result().acceptsUnderMinLevel, 1, 'counted as a guide bug');
+});
+
+test('the route search still holds a red quest\'s work to the danger gap (a package\'s second pass grinds first)', () => {
+	const { run, ev, p, q, play } = redQuestSetup();
+	ev.reset();
+	ev.grindTo(3);
+	play([{ t: 'accept', q: 520 }]);
+	let workLevel = 0;
+	ev.hook = (kind, x) => {
+		if (kind === K_TASK && x === q) workLevel = ev.level;
+	};
+	ev.runPackage(pkg(run, 'Farfield 6-10'));
+	ev.hook = null;
+	assert.ok(workLevel + p.dangerGap >= run.qLevel[q], `worked on level: ${workLevel}`);
+});
+
 test('trial moves undo exactly (journal)', () => {
 	const { run, ev } = setup();
 	ev.reset();
@@ -384,6 +446,32 @@ test('dungeons: only in the dungeon family; a run gives party-shared elite XP an
 });
 
 // ---------------------------------------------------------------- starts and travel safety
+
+// travel.json's taxi leg `cost` is the TaxiPath's price in copper; the world builder read it as the flight's seconds
+// up to version 31 (Orgrimmar to Thunder Bluff 50 s, Everlook to Orgrimmar 1020 s).
+test('a flight takes its taxi path\'s yards at flightSpeed, not the leg\'s price in copper', () => {
+	const data = syn.makeData();
+	// Two Horde flight masters 6,000 yd apart; the path between them 3,000 yd, its price 5 copper.
+	data.travel.taxi.nodes.push(
+		{ id: 901, name: 'Vale Roost', c: 1, wx: 500, wy: -500, map: syn.VALE, faction: 2 },
+		{ id: 902, name: 'Far Roost', c: 1, wx: 6500, wy: -500, map: syn.VALE, faction: 2 },
+	);
+	data.travel.taxi.legs.push({ path: 1, from: 901, to: 902, yards: 3000, cost: 5 }, { path: 2, from: 902, to: 901, yards: 3000, cost: 5 });
+	const w = buildWorld(data, { faction: 'Horde', bandWidth: 5, extraStarts: syn.START });
+	w.questXp = syn.questXpRows();
+	const node = (id) => w.nodes.findIndex((n) => n.taxi === id);
+	const [a, b] = [node(901), node(902)];
+	assert.deepEqual(w.taxi, [[a, b, 3000], [b, a, 3000]]);
+	const { run, p, ev } = setup({ world: w });
+	assert.equal(p.flightSpeed, 30);
+	const tr = ev.travel;
+	assert.deepEqual(tr.taxiFrom[a], [[b, 100]]);
+	// Both flight paths known: a to b is the flight's 100 s and its overhead, not 5 s (6,000 yd on foot take longer).
+	const bit = (n) => 2 ** run.fpBit[n];
+	const once = tr.learn(tr.base[0], bit(a), a, false);
+	const both = tr.learn(once, bit(a) + bit(b), b, false);
+	assert.ok(Math.abs(both[a * run.N + b] - (100 + p.flightOverhead)) < 1e-3, `a to b ${both[a * run.N + b]} s`);
+});
 
 test('Zephras Isle is Skyborne-only: its quests are closed to other races, its exit is one way', () => {
 	const w = rulesWorld();

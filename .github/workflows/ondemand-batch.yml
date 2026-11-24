@@ -1,0 +1,125 @@
+name: On-demand batch
+
+# One run for a batch of work: the full suites (ondemand-suites.yml), guide compile and playtests
+# (ondemand-guides.yml) and the gates (ondemand-gates.yml) on one branch, each compared with `base`
+# where it reads reference data. Start it once per batch, not per item; each part can also be
+# started alone. docs/CI.md lists what runs here and what stays local; docs/RELEASING.md how the
+# integrator starts it and the security rules every on-demand workflow keeps.
+#
+#   gh workflow run ondemand-batch.yml --ref <branch> -f base=next
+#   gh run watch "$(gh run list --workflow ondemand-batch.yml --branch <branch> -L 1 --json databaseId -q '.[0].databaseId')"
+#
+# A push to a branch named ci/<anything> starts the whole batch on it too, compared with next (only
+# people with write access can push here): `git push origin HEAD:ci/<name>`. It also works before
+# these files are on next, which workflow_dispatch needs.
+on:
+  push:
+    branches: ["ci/**"]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch or tag of this repository to test (empty = the branch the run was started on)
+        type: string
+        default: ""
+      base:
+        description: Branch or tag the reference-data checks compare with (e.g. next); empty = every finding counts
+        type: string
+        default: ""
+      suites:
+        description: Full suites
+        type: boolean
+        default: true
+      suites_data:
+        description: "The suites' data: none (data tests skip, as in CI) or public"
+        type: choice
+        options: [none, public]
+        default: none
+      guides:
+        description: Guide compile and playtests
+        type: boolean
+        default: true
+      groups:
+        description: "Playtest groups (comma list of filters); empty = every group"
+        type: string
+        default: ""
+      classes:
+        description: "Playtest classes (comma list); empty = each guide's own"
+        type: string
+        default: ""
+      gates:
+        description: Gates (committed files, reference data, skip-ahead and upgrade, guide pack memory)
+        type: boolean
+        default: true
+
+# No token scope at the top: each job asks for what it needs (here: reading the repository).
+permissions: {}
+
+# One batch run per branch at a time; a newer start waits (and replaces an older waiting one).
+concurrency:
+  group: ondemand-batch-${{ inputs.ref || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  # The code under test pinned once: every part tests the same commits even if the branch moves.
+  ref:
+    name: Ref
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      sha: ${{ steps.ref.outputs.sha }}
+      base: ${{ steps.ref.outputs.base }}
+    steps:
+      # The workflow's own actions, from its own commit.
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          ref: ${{ github.sha }}
+          path: .ondemand
+          sparse-checkout: .github/actions
+          persist-credentials: false
+
+      # A branch or tag of this repository only, never a pull request's ref or a bare commit.
+      - name: Ref
+        id: ref
+        uses: ./.ondemand/.github/actions/ondemand-ref
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+          base: ${{ inputs.base || (github.event_name == 'push' && 'next') || '' }}
+
+  suites:
+    name: Suites
+    needs: ref
+    if: github.event_name == 'push' || inputs.suites
+    permissions:
+      contents: read
+    uses: ./.github/workflows/ondemand-suites.yml
+    with:
+      sha: ${{ needs.ref.outputs.sha }}
+      data: ${{ inputs.suites_data || 'none' }}
+
+  guides:
+    name: Guides
+    needs: ref
+    if: github.event_name == 'push' || inputs.guides
+    permissions:
+      contents: read
+    uses: ./.github/workflows/ondemand-guides.yml
+    with:
+      sha: ${{ needs.ref.outputs.sha }}
+      base_sha: ${{ needs.ref.outputs.base }}
+      base_name: ${{ inputs.base || (github.event_name == 'push' && 'next') || '' }}
+      groups: ${{ inputs.groups }}
+      classes: ${{ inputs.classes }}
+
+  gates:
+    name: Gates
+    needs: ref
+    if: github.event_name == 'push' || inputs.gates
+    permissions:
+      contents: read
+    uses: ./.github/workflows/ondemand-gates.yml
+    with:
+      sha: ${{ needs.ref.outputs.sha }}
+      base_sha: ${{ needs.ref.outputs.base }}
+      base_name: ${{ inputs.base || (github.event_name == 'push' && 'next') || '' }}

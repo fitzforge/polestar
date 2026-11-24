@@ -41,8 +41,8 @@ return {
 	["{npc:14529}, a human, wanders the western {zone:1428} south of {area:254}. Talk to him and he becomes {npc:14534}, the easiest of the four. Keep {spell:3043} on him the whole fight: while it lasts he barely hurts you. When he goes into {spell:23257}, remove it with {spell:19801} and never stand in melee while it is up; between frenzies you can fight him in melee with {spell:2974} and {spell:2973}. He cannot leave the {zone:1428}, so kite him around the trees if needed."] = "",
 
 	-- Step 6: Nelson the Nice
-	-- {npc:14536} Nelson the Nice · {area:3428} Ahn'Qiraj · {zone:1451} Silithus · {npc:14530} Solenor the Slayer · {spell:23272} Soul Flame · {object:164639} Frost Trap (no name in this language: may be words) · {spell:5384} Feign Death · {spell:2974} Wing Clip · {npc:14761} Creeping Doom · {spell:2643} Multi-Shot
-	["{npc:14536}, a gnome, walks around the gates of {area:3428} in the far south-west of {zone:1451}. Talk to him and he becomes {npc:14530}. He enrages with {spell:23272} as he turns: drop a {object:164639}, {spell:5384}, and he resets without the enrage. {spell:2974} roots him for a long time; while rooted he fears you and sends beetles ({npc:14761}): kill them fast with traps and {spell:2643} before they wear you down."] = "",
+	-- {npc:14536} Nelson the Nice · {area:3428} Ahn'Qiraj · {zone:1451} Silithus · {npc:14530} Solenor the Slayer · {spell:23272} Soul Flame · {spell:13809} Frost Trap · {spell:5384} Feign Death · {spell:2974} Wing Clip · {npc:14761} Creeping Doom · {spell:2643} Multi-Shot
+	["{npc:14536}, a gnome, walks around the gates of {area:3428} in the far south-west of {zone:1451}. Talk to him and he becomes {npc:14530}. He enrages with {spell:23272} as he turns: drop a {spell:13809}, {spell:5384}, and he resets without the enrage. {spell:2974} roots him for a long time; while rooted he fears you and sends beetles ({npc:14761}): kill them fast with traps and {spell:2643} before they wear you down."] = "노움인 {npc:14536}은(는) {zone:1451} 남서쪽 끝 {area:3428}의 관문 주변을 걸어 다닙니다. 그에게 말을 걸면 {npc:14530}(으)로 변합니다. 변신하면서 {spell:23272}(으)로 격노하니, {spell:13809}을(를) 깔고 {spell:5384}을(를) 쓰면 격노 없이 초기화됩니다. {spell:2974}은(는) 그를 오랫동안 묶어 둡니다. 묶여 있는 동안 그는 공포를 걸고 딱정벌레({npc:14761})를 보냅니다. 지치기 전에 덫과 {spell:2643}(으)로 빨리 처치하세요.",
 
 	-- Step 7: Artorius the Amiable
 	-- {npc:14531} Artorius the Amiable · {zone:1452} Winterspring · {area:2255} Everlook · {npc:14535} Artorius the Doombringer · {spell:23298} Demonic Doom · {spell:5118} Aspect of the Cheetah · {spell:1978} Serpent Sting · {spell:23299} Stinging Trauma · {spell:23257} Demonic Frenzy · {spell:19801} Tranquilizing Shot
@@ -60,7 +60,7 @@ return {
 
 	-- Step 10: Rhok'delar and Lok'delar
 	-- {item:18707} Ancient Rune Etched Stave · {item:18724} Enchanted Black Dragon Sinew · {item:18715} Lok'delar, Stave of the Ancient Keepers
-	["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and talking to Vartrus once more then gave {item:18715}, at no extra cost."] = "",
+	["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and talking to Vartrus once more then gave {item:18715}, at no extra cost."] = "Forever에서는 확인되지 않았습니다. 클래식에서는 {item:18724}을(를) 가방에 넣고 {item:18707}을(를) 사용하면 라크델라 - 고대수호자의 장궁이 만들어졌고, 그 뒤 고대정령 바르투스와 한 번 더 대화하면 추가 비용 없이 {item:18715}을(를) 주었습니다.",
 	-- {item:18707} Ancient Rune Etched Stave
 	["{item:18707}, by Vartrus"] = "{item:18707}, 바르투스 곁에서",
 	-- {npc:14524} Vartrus the Ancient
@@ -75,7 +75,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Azuregos"] = "아주어고스",
 	-- ["Hastat's quiver needs the {item:18704}. {npc:6109}, a world boss for a raid, roams the south of {zone:1447} and drops it most of the time; the Cobalt dragonkin of {zone:1452} drop it very rarely. Skip the rest of this guide if you do not want the quiver."] = "하스타트의 화살통에는 {item:18704}이(가) 필요합니다. 공격대용 필드 우두머리인 {npc:6109}은(는) {zone:1447} 남부를 돌아다니며 대부분 이것을 떨어뜨립니다. {zone:1452}의 푸른비늘 용족은 매우 드물게 떨어뜨립니다. 화살통을 원하지 않으면 이 가이드의 나머지는 건너뛰세요.",
-	-- ["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and Vartrus then gave {item:18715} ({spell:425121})."] = "Forever에서는 확인되지 않았습니다. 클래식에서는 {item:18724}을(를) 가방에 넣고 {item:18707}을(를) 사용하면 라크델라 - 고대수호자의 장궁이 만들어졌고, 그 뒤 고대정령 바르투스가 {item:18715}({spell:425121})을(를) 주었습니다.",
 	-- ["Onyxia drops the {item:18705}; she is the 40-player raid boss of {area:2159}, a cave in the {area:511} of southern {zone:1445}."] = "오닉시아가 {item:18705}을(를) 떨어뜨립니다. 오닉시아는 {zone:1445} 남부 {area:511}의 동굴인 {area:2159}의 40인 공격대 우두머리입니다.",
 	-- ["The {object:179703} appears in {area:2717} when {npc:12018} yields; it holds the {item:18703} about half the time. {area:2717} is a 40-player raid inside {area:254}. Right-click the leaf to start the quest."] = "{npc:12018}이(가) 항복하면 {area:2717}에 {object:179703}이(가) 나타나며, 약 절반의 확률로 {item:18703}이(가) 들어 있습니다. {area:2717}은(는) {area:254} 안의 40인 공격대 던전입니다. 나뭇잎을 오른쪽 클릭해 퀘스트를 시작하세요.",
 	-- ["Vartrus, Stoma and {npc:14526} stand together in the north of {zone:1448}. Alliance: {area:1998} is the nearest flight point; Horde: {area:1997}."] = "바르투스, 스토마, {npc:14526}은(는) {zone:1448} 북쪽에 함께 서 있습니다. 얼라이언스는 {area:1998}, 호드는 {area:1997}이(가) 가장 가까운 비행 지점입니다.",

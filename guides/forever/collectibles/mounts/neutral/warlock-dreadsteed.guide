@@ -60,9 +60,9 @@ zone Burning Steppes
 # someone free to watch each of the three nodes.
 # Places inside the dungeons have no spawns in our data: their goals point at
 # the Scholomance entrance (Caer Darrow 69.7,73.2, Forever's dungeon data) and
-# at Dire Maul West's door (60.3,30.2: one reference guide's door step and a Forever
-# dungeon guide's 60.3,31.8 agree; our data has only the Dire Maul gate,
-# 59.2,45.1, at the foot of the ruins, a long walk south of the wing).
+# at Dire Maul West's door (60.3,30.2: the West wing's portal in
+# data/codex/entrances.json, from QuestieDB's Forever dungeon table; the Dire
+# Maul gate, 59.2,45.1, is at the foot of the ruins, a long walk south of the wing).
 # Materials nothing drops (elixirs, shards, bars) point at the auctioneers of
 # Stormwind and Orgrimmar.
 # ASSUMED: The ritual and fights run as in Classic (Classic flow; Forever's data has no play reports past the level-30 beta cap). In-game check: node recharging, the Dread Guard waves and Hel'nurath at half health.

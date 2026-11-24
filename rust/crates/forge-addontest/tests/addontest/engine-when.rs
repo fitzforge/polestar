@@ -201,6 +201,47 @@ fn quest_predicates_onquest_any_of_complete_turnedin_and_their_negations() {
 	);
 }
 
+// #2350 (Redridge's Magistrate Solomon hand-ins, `when group 169` + `when complete 169`): the route passed the
+// hand-in step while the Wanted quest was in the log but not done yet, and stored the failed `complete` as skipped,
+// so once the elite was dead the hand-in never came back. A `complete` that fails on a quest the player carries is
+// their own work under way: it is checked again, never stored, so the step comes back the moment the quest is done.
+// One whose quest is not in the log is stored as any failed `when` is.
+#[test]
+fn a_failed_complete_on_a_quest_the_player_carries_is_checked_again_and_its_step_comes_back_once_it_is_done() {
+	let out = run(
+		r#"{ { k = "complete", q = 783 } }"#,
+		"w.onQuest(783, { { required = 1, fulfilled = 0 } })",
+		None,
+		"",
+		r#"
+			emit(state())
+			stub.fire("PLAYER_LOGOUT")
+			emit({ skipped = PolestarCharDB.skipped })
+			stub.world.progress(783, 1, 1); flush()
+			emit(state())
+		"#,
+	);
+	assert_eq!(out[0], json!({ "live": 3, "status": "na" }), "passed while 783 is not done");
+	assert_eq!(out[1], json!({ "skipped": {} }), "nothing stored");
+	assert_eq!(out[2], json!({ "live": 2, "status": "current" }), "783 done: the step is back");
+
+	// Not in the log (its accept skipped): stored as skipped, as any failed `when` is.
+	let saved = format!("PolestarCharDB = {}", lua_value(&json!({ "schema": 1, "guide": "test/when", "skipped": { "test/when": { "1": true } } })));
+	let off = run(
+		r#"{ { k = "complete", q = 783 } }"#,
+		"",
+		Some(&saved),
+		"",
+		r#"
+			emit(state())
+			stub.fire("PLAYER_LOGOUT")
+			emit({ skipped = PolestarCharDB.skipped })
+		"#,
+	);
+	assert_eq!(off[0]["status"], "skipped", "{}", off[0]);
+	assert_eq!(off[1], json!({ "skipped": { "test/when": [true, true] } }));
+}
+
 #[test]
 fn available_not_taken_or_done_the_level_reached_prerequisites_done_and_nothing_that_closes_it_taken() {
 	let out = run(
@@ -263,6 +304,32 @@ fn zone_subzone_and_bound_read_the_area_name_in_the_client_s_language_else_the_n
 }
 
 #[test]
+fn taxi_holds_for_a_flight_path_the_character_knows_by_its_node_else_by_its_name() {
+	let out = run(
+		"WHEN",
+		&format!("{TAKEN}{WHEN_BEFORE}"),
+		None,
+		"",
+		r#"
+			local G = Polestar.Guides.Get("test/when")
+			local flags = Polestar.CharState().flags
+			local out = {}
+			local function check(label, pred) PolestarCharDB.when["test/when"] = nil; G.steps[2].when = { pred }; flush(); out[#out + 1] = label .. "=" .. E.GetStepView(2).status end
+			check("node not known", { k = "taxi", name = "Ironforge", node = 6 })
+			check("!node not known", { k = "taxi", name = "Ironforge", node = 6, neg = true })
+			flags.taxi = { [6] = true }
+			check("node known", { k = "taxi", name = "Ironforge", node = 6 })
+			check("!node known", { k = "taxi", name = "Ironforge", node = 6, neg = true })
+			check("name not known", { k = "taxi", name = "Thelsamar" })
+			flags.fp = { ["Thelsamar, Loch Modan"] = true }
+			check("name known", { k = "taxi", name = "Thelsamar" })
+			emit(out)
+		"#,
+	);
+	assert_eq!(out[0], json!(["node not known=na", "!node not known=current", "node known=current", "!node known=na", "name not known=na", "name known=current"]));
+}
+
+#[test]
 fn a_turn_in_whose_only_accept_sits_in_a_step_passed_by_its_when_goes_with_it() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
@@ -307,7 +374,7 @@ fn a_guide_with_a_malformed_when_is_refused() {
 local V = Polestar.Guides.Validate
 local function step(when) return { id = "test/x", title = "X", steps = { { when = when, goals = { { t = "level", level = 2 } } } } } end
 emit({
-	ok = V(step({ { k = "level", op = "<", n = 3 }, { k = "onquest", q = { 7 } }, { k = "has", item = 159 }, { k = "zone", name = "Elwynn Forest" }, { k = "dungeon", name = "Ragefire Chasm", map = 389 }, { k = "dungeon", name = "Ragefire Chasmm" } })) or false,
+	ok = V(step({ { k = "level", op = "<", n = 3 }, { k = "onquest", q = { 7 } }, { k = "has", item = 159 }, { k = "zone", name = "Elwynn Forest" }, { k = "dungeon", name = "Ragefire Chasm", map = 389 }, { k = "dungeon", name = "Ragefire Chasmm" }, { k = "taxi", name = "Ironforge", node = 6 }, { k = "taxi", name = "Thelsamar" } })) or false,
 	empty = V(step({})),
 	op = V(step({ { k = "level", op = "=", n = 3 } })),
 	kind = V(step({ { k = "weather", n = 3 } })),
@@ -316,6 +383,8 @@ emit({
 	place = V(step({ { k = "bound" } })),
 	dungeon = V(step({ { k = "dungeon", map = 389 } })),
 	dungeonMap = V(step({ { k = "dungeon", name = "Ragefire Chasm", map = "389" } })),
+	taxi = V(step({ { k = "taxi", node = 6 } })),
+	taxiNode = V(step({ { k = "taxi", name = "Ironforge", node = "6" } })),
 })
 "#
 		.into(),
@@ -333,6 +402,164 @@ emit({
 			"place": "step 1: bad when",
 			"dungeon": "step 1: bad when",
 			"dungeonMap": "step 1: bad when",
+			"taxi": "step 1: bad when",
+			"taxiNode": "step 1: bad when",
 		})
 	);
+}
+
+// #1934 (WoneX, 0.3.6): The Sacred Flame's hand-in step (`when complete 1195`) was passed while the quest was not in
+// the log, so it was stored as skipped. Taken later from Zangen and the step brought back with Unskip, it applied
+// "whatever its when", and the guide showed Turn in The Sacred Flame as the live step with the quest at 0/1. A hand-in
+// can't be done before its quest is: an unskipped step whose `when` fails only on `complete` is not kept applying; it
+// comes back once the quest is ready. Unskipped before the quest is taken, the same.
+#[test]
+fn an_unskipped_step_whose_when_fails_only_on_complete_waits_for_the_quest_to_be_ready_1934() {
+	let saved = format!("PolestarCharDB = {}", lua_value(&json!({ "schema": 1, "guide": "test/when", "skipped": { "test/when": { "1": true } } })));
+	// Whether step 2 is the live step, and its status.
+	let script = |order: &str| {
+		format!(
+			r#"
+			local function s2() local v = E.GetStepView(2); return {{ live2 = E.GetLiveStep() == 2, status = v.status }} end
+			emit(s2())
+			{order}
+			emit(s2())
+			stub.world.progress(783, 1, 1); flush()
+			emit(s2())
+		"#
+		)
+	};
+	let take = r#"stub.world.onQuest(783, { { required = 1, fulfilled = 0 } }); stub.fire("QUEST_LOG_UPDATE"); flush()"#;
+	for order in [format!("{take}; E.Unskip(2); flush()"), format!("E.Unskip(2); flush(); {take}")] {
+		let out = run(r#"{ { k = "complete", q = 783 } }"#, "", Some(&saved), "", &script(&order));
+		assert_eq!(out[0], json!({ "live2": false, "status": "skipped" }), "passed without the quest: stored as skipped");
+		assert_eq!(out[1], json!({ "live2": false, "status": "na" }), "unskipped at 0/1: not the live step ({order})");
+		assert_eq!(out[2], json!({ "live2": true, "status": "current" }), "the quest done: the hand-in step is back ({order})");
+	}
+}
+
+// #2610 (Malifax, 0.4.0, Horde Thousand Needles): Moktar Krin's step is shown only while The Swarm Grows' second part
+// is in the log (`when onquest 1146`); it hands that in and takes the third part (1147). Here step 3, `when onquest
+// 783`, hands 783 in and takes 7; step 2 is elsewhere. The hand-in at the step itself, a few seconds of reading
+// the follow-up's text, then the accept; and the hand-in done on the way while the route is still at step 2 (While
+// you're here, or a stop at the NPC in passing). Both keep the step for the follow-up (its `when` stored as held).
+const SWARM: &str = r#"Polestar.RegisterGuide({
+	id = "test/swarm", pack = "test", title = "Swarm", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Deputy Willem", goals = {
+			{ t = "accept", quest = 783, title = "A Threat Within", npc = 823, npcName = "Deputy Willem", map = 1429, x = 48.2, y = 42.0 },
+		} },
+		{ title = "Elsewhere", goals = {
+			{ t = "accept", quest = 33, title = "Wolves Across the Border", npc = 196, npcName = "Eagan Peltskinner", map = 1429, x = 48.9, y = 40.1 },
+		} },
+		{ title = "Moktar", when = { { k = "onquest", q = { 783 } } }, goals = {
+			{ t = "turnin", quest = 783, title = "A Threat Within", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+			{ t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+		{ title = "Kobolds", goals = {
+			{ t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+	},
+})"#;
+
+fn swarm(before: &str, script: &str) -> Vec<Value> {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}w.titles[33] = \"Wolves Across the Border\"\n{before}"),
+		addons: vec![core()],
+		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/swarm" }"#.into())],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			SWARM,
+			HELPERS,
+			"function state3() local v = E.GetStepView(3); return { live = E.GetLiveStep(), status = v.status } end",
+			"stub.login()",
+			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
+			script,
+		]
+		.join("\n"),
+		..Default::default()
+	})
+}
+
+#[test]
+fn a_step_when_onquest_that_hands_the_quest_in_waits_for_its_follow_up_2610() {
+	let out = swarm(
+		"w.onQuest(783, {}); w.onQuest(33, {})",
+		r#"
+			emit(state3())
+			stub.world.turnIn(783); flush()
+			emit(state3())
+			stub.advance(5)
+			emit(state3())
+			stub.world.accept(7, { 1 }); flush()
+			emit(state3())
+		"#,
+	);
+	assert_eq!(out[0], json!({ "live": 3, "status": "current" }));
+	assert_eq!(out[1], json!({ "live": 3, "status": "current" }), "handed in, the follow-up still to take");
+	assert_eq!(out[2], json!({ "live": 3, "status": "current" }), "a few seconds on, the follow-up still to take");
+	assert_eq!(out[3], json!({ "live": 4, "status": "done" }), "the follow-up taken");
+}
+
+#[test]
+fn a_step_when_onquest_whose_quest_is_handed_in_on_the_way_keeps_its_follow_up_2610() {
+	let out = swarm(
+		"w.onQuest(783, {})",
+		r#"
+			emit(state3())
+			stub.world.turnIn(783); flush()
+			emit(state3())
+			stub.world.accept(33, {}); flush()
+			emit(state3())
+			stub.world.accept(7, { 1 }); flush()
+			emit(state3())
+		"#,
+	);
+	assert_eq!(out[0], json!({ "live": 2, "status": "upcoming" }));
+	assert_eq!(out[1]["live"], json!(2), "handed in on the way: the route still at step 2: {:?}", out[1]);
+	assert_eq!(out[2], json!({ "live": 3, "status": "current" }), "the route reaches Moktar: the follow-up still to take");
+	assert_eq!(out[3], json!({ "live": 4, "status": "done" }), "the follow-up taken");
+}
+
+// #2847: Hillsbrad's Razormaw nests (`when onquest` Trying Times) were passed without the quest and stored as
+// skipped; the window said "You skipped this step" and offered an unskip that brought back nothing, its one goal
+// still for a quest not in the log. The step's `why` names the condition that fails instead.
+#[test]
+fn a_step_passed_because_its_quest_is_not_in_the_log_says_so_unskipped_it_still_holds_nothing_2847() {
+	let g = r#"
+Polestar.RegisterGuide({
+	id = "test/when", pack = "test", title = "When", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Deputy Willem", goals = {
+			{ t = "accept", quest = 783, title = "A Threat Within", npc = 823, npcName = "Deputy Willem", map = 1429, x = 48.2, y = 42.0 },
+		} },
+		{ title = "Nests", when = { { k = "onquest", q = { 7 } } }, goals = {
+			{ t = "collect", item = 159, itemName = "Egg", title = "Kobold Camp Cleanup", count = 1, quest = 7, oi = 1, map = 1429, x = 40, y = 40 },
+		} },
+		{ title = "Marshal McBride", goals = {
+			{ t = "turnin", quest = 783, title = "A Threat Within", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+	},
+})
+"#;
+	let script = r#"
+		local function st() local v = E.GetStepView(2); return { live = E.GetLiveStep(), skipped = v.skipped, why = v.why or false } end
+		local before = st()
+		E.Unskip(2); flush()
+		emit({ before = before, after = st() })
+	"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}{TAKEN}"),
+		addons: vec![core()],
+		saved: vec![("Polestar".into(), DEFAULT_SAVED.into())],
+		script: [TEST_PACK, TEST_SOURCE, g, HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, script].join("\n"),
+		..Default::default()
+	})
+	.remove(0);
+	let why = "Only with \u{201c}Kobold Camp Cleanup\u{201d} in your quest log";
+	assert_eq!(out["before"], json!({ "live": 3, "skipped": true, "why": why }), "passed and stored as skipped: the condition says why");
+	assert_eq!(out["after"], json!({ "live": 3, "skipped": false, "why": why }), "unskipped, it still holds nothing");
 }

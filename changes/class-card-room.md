@@ -1,6 +1,7 @@
 ---
 section: players
 ---
-- Guide window: the class quest card sits a little apart from the window and
-  counts against the window's maximum height, so the goals scroll instead of
-  running behind it; the goals scroll to a whole goal at the top.
+- Guide window: the class quest card counts against the window's maximum
+  height while it shows above or below it, so window and card together keep
+  to it and the goals scroll instead; the goals' scroll stops on a whole goal
+  at the top, the last stop too. (thanks soulrocha, #1066)

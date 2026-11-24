@@ -2,7 +2,7 @@
 guide forever/alliance/07-thousand-needles
 title Duskwood
 faction Alliance
-levels 29-31
+levels 30-31
 zone Duskwood
 next forever/alliance/30-40/01-hillsbrad-foothills
 
@@ -12,6 +12,10 @@ next forever/alliance/30-40/01-hillsbrad-foothills
 # Added here: Look to the Stars (181), The Weathered Grave (225).
 # Since 2026-11-07 the Wetlands and Ashenvale's 27-32 quests come before this guide (06-wetlands).
 # Thousand Needles' Mirage Raceway is done at 33-34 with Dustwallow Marsh, in 30-40/03.
+# Fix round 2026-11-20: 05-duskwood finishes The Night Watch (57), the Insane Ghoul (177) and, from level 28, Proving
+# Your Worth (323) on Duskwood's second visit, and takes The Night Watch's third part (58) and Look to the Stars (181)
+# there: this guide hands 58 in on its first Darkshire stop when it is done, and keeps every step of those quests for a
+# character who arrives without them.
 
 step Duskwood
   zone Duskwood
@@ -22,10 +26,31 @@ step Darkshire
   sethome "Darkshire" npc 6790            -- Innkeeper Trelayne, Scarlet Raven Tavern
   turnin 1243                             -- Watcher Backus, at the north entrance of town; walks around Darkshire: look inside the circle on the map
   accept 1244
+
+step Commander Althea Ebonlocke
+  zone Duskwood
+  when complete 57
+  tip The Night Watch's skeletons, from your last Duskwood visit: Commander Althea is in the town hall.
   turnin 57                               -- Commander Althea Ebonlocke
-  accept 58
+
+step Commander Althea Ebonlocke
+  zone Duskwood
+  accept 58                               -- once The Night Watch's skeletons are handed in
+
+step Commander Althea Ebonlocke
+  zone Duskwood
+  when complete 58
+  tip The Night Watch's Plague Spreaders, from your last Duskwood visit: Commander Althea is in the town hall.
+  turnin 58                               -- Commander Althea Ebonlocke
 
 # ---------------------------------------------------------------- Worgen
+
+step Calor
+  when !onquest 173
+  when !turnedin 173
+  zone Duskwood
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
+  accept 173                              -- Calor, by the town hall
 
 step Nightbane Shadow Weavers
   tip The worgen hold the woods of Brightwood, west of Darkshire and north of the road. Pull them one at a time.
@@ -43,25 +68,18 @@ step Calor
   turnin 221
   accept 222
 
-step Nightbane Vile Fangs and the Insane Ghoul
-  tip The strongest worgen roam the woods south of Darkshire, west and south of the Tranquil Gardens Cemetery. The Insane Ghoul hides in the small crypt by the cemetery.
-  tip Careful: Curse of Blood lasts 10 minutes and adds 13 to each hit of physical damage you take.
-  tip Careful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance.
+step The Insane Ghoul
+  tip The Insane Ghoul hides in the small crypt by the Tranquil Gardens Cemetery, south of Darkshire. Calor's Nightbane Vile Fangs and Tainted Ones (level 29-31) roam the woods around it: they come at the end of this guide, a level later.
   collect 1946 quest 177                  -- Mary's Looking Glass; inside
-  kill 206 quest 222                      -- Nightbane Vile Fang
-  kill 920 quest 222                      -- Nightbane Tainted One
 
 step Darkshire
   turnin 177                              -- Viktori Prism'Antras, inside
   accept 181
-  turnin 222                              -- Calor
-  accept 223
-  turnin 223                              -- Jonathan Carevin, by Elaine Carevin's house; inside
   vendor nearest
 
 step Vul'Gol Ogre Mound: kill these as you meet them
   zone Duskwood
-  tip Head south-west from Darkshire to the ogre mound. Abercrombie's Crate sits in the camp at its entrance; Splinter Fist ogres guard it.
+  tip Head south-west from Darkshire to the ogre mound. Abercrombie's Crate sits in the camp at its entrance; Splinter Fist ogres guard it. Zzarc' Vul is inside the ogre mound's cave: go in by the cave mouth on the mound's west side.
   accept 96138 optional                   -- Only if a Lost Watcher dropped Merrick's Bow: right-click it
   kill 212 x8 quest 96138.1 optional      -- Splinter Fist Warrior
   kill 892 x4 quest 96138.2 optional      -- Splinter Fist Taskmaster
@@ -87,7 +105,7 @@ step Raven Hill Cemetery: kill these as you meet them
   kill 787 quest 323                      -- Skeletal Healer
 
 step The Weathered Grave
-  tip The grave stands among the skeletons at the cemetery's north-west corner, on the way to Sven. Its quest and the next are talk-only, to Sirra Von'Indi and Commander Althea in Darkshire: level 35 from level 28, but no fight.
+  tip The grave stands among the skeletons at the cemetery's north-west corner, on the way to Sven. Its quest and the next are talk-only, to Sirra Von'Indi and Commander Althea in Darkshire: level 35 quests, but no fight.
   accept 225 optional                         -- A Weathered Grave
 
 step Sven's Camp
@@ -95,20 +113,34 @@ step Sven's Camp
   accept 269                              -- For Bishop Farthing in Stormwind, in the next guide
 
 step Back to Darkshire
+  tip Hearth back to Darkshire (bound at the start of this guide): Sven's camp is at the far west of Duskwood.
   turnin 160                              -- Lord Ello Ebonlocke, in the town hall
   accept 251
   turnin 251                              -- Sirra Von'Indi, in the house behind the town hall
   turnin 225 optional
   accept 227 optional
-  turnin 227 optional                         -- Commander Althea Ebonlocke
   turnin 96138 optional                   -- Sirra Von'Indi
   accept 401
   turnin 401                              -- Wait a moment, then speak with her again
   accept 252
   turnin 252                              -- Lord Ello Ebonlocke
+  turnin 227 optional                         -- Commander Althea Ebonlocke
   turnin 58                               -- Commander Althea Ebonlocke
   turnin 1244                             -- Watcher Backus walks around Darkshire: look inside the circle on the map
   accept 1245                             -- For Elling Trias in Stormwind, in the next guide
+
+step Nightbane Vile Fangs and Tainted Ones
+  tip The strongest worgen roam the woods south of Darkshire, west and south of the Tranquil Gardens Cemetery.
+  tip Careful: Curse of Blood lasts 10 minutes and adds 13 to each hit of physical damage you take.
+  tip Careful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance.
+  tip Careful: Gutspill, a level 32 abomination, walks these woods: let it pass.
+  kill 206 quest 222                      -- Nightbane Vile Fang
+  kill 920 quest 222                      -- Nightbane Tainted One
+
+step Calor and Jonathan Carevin
+  turnin 222                              -- Calor
+  accept 223
+  turnin 223                              -- Jonathan Carevin, by Elaine Carevin's house; inside
 
 step Viktori Prism'Antras
   tip Viktori's house stands at the east end of town, on the way to the flight master.

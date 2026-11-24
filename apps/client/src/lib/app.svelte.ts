@@ -5,6 +5,7 @@
 import { api } from './backend';
 import { fault } from './fault';
 import { afterIntro, appIsReady } from './intro.svelte';
+import { sight } from './sight.svelte';
 import { tick } from 'svelte';
 import type { PackLink, Snapshot } from './types';
 
@@ -65,5 +66,6 @@ export async function start(): Promise<void> {
 	clearTimeout(late);
 	await tick();
 	appIsReady();
-	setInterval(() => (app.now = Date.now()), 1000);
+	// Out of sight, nothing on screen needs "4 min ago" kept fresh (main.ts refreshes it on the way back).
+	setInterval(() => sight.still || (app.now = Date.now()), 1000);
 }

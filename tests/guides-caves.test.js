@@ -79,6 +79,22 @@ const CASES = [
 		mouth: { map: 1438, x: 44.3, y: 57.9 },
 		tip: /relics of Wakening lie in the Ban'ethil Barrow Den/,
 	},
+	{
+		// #1506: the walking maps have no way into Algaz Station, Captain Rugelfuss's bunker at the tunnel post,
+		// from anywhere in Loch Modan, so the arrow drew a straight line from the trogg site.
+		guide: 'forever/alliance/03-loch-modan.guide',
+		target: (g) => g.t === 'turnin' && g.quest === 86585, // Banner of the Fallen, to Captain Rugelfuss
+		mouth: { map: 1432, x: 23.5, y: 75.6 }, // players' recordings: 16 people walked in at 23.33,75.75 -> 23.33,74.55
+		tip: /inside the bunker at the tunnel post: go in by its door/,
+	},
+	{
+		// Degen G. (#3642): the mine's mouth was only in the step before; past it, the arrow pointed straight at the
+		// miners inside and left him on the hill over the tunnels (his report: about 20 yards above them).
+		guide: 'forever/horde/30-40/01-hillsbrad-foothills.guide',
+		target: (g) => g.t === 'kill' && g.npc === 2269 && g.quest === 539, // Hillsbrad Miner, the mine step's first kill
+		mouth: { map: 1424, x: 28.5, y: 55 }, // the mine's west mouth, where the route's walk goes in
+		tip: /inside the Azurelode Mine, below the hill: go in at its mouth/,
+	},
 ];
 
 let data;
@@ -104,3 +120,57 @@ for (const c of CASES) {
 		assert.match(goals[at].step.note || '', c.tip);
 	});
 }
+
+// Goals underground where the walking maps do join the cave or mine: the goal carries its floor's height, so the
+// arrow's walk goes in through the mouth instead of ending on the hill over the target (heights.js: an objective's
+// object or creature, or the objects its item comes out of; a collect's sources; a goto leading to a goal with one).
+// Each case is a player report.
+const FLOORS = [
+	{
+		// Pilsnerinn (#2126): the Filled Etched Phial is used on the Ancient Brazier deep in Splithoof Hold, and the
+		// arrow went up the Great Lift to the hill over the cave instead of in at its mouth.
+		guide: 'forever/horde/07-ashenvale.guide',
+		target: (g) => g.t === 'use' && g.quest === 1197 && g.oi === 1,
+		z: -70.5, // the Ancient Brazier's spawn (spawnz.json), the object the Cloven Hoof comes out of
+	},
+	{
+		// Redrett (#1786): "Azurelode Mine" leads to the Hillsbrad Miners inside, not onto the hill over the tunnels.
+		guide: 'forever/horde/30-40/01-hillsbrad-foothills.guide',
+		target: (g) => g.t === 'goto' && g.area === 288 && g.x === 28.5 && g.y === 55,
+		z: 21.3, // the miners' kill goal it leads to
+	},
+	{
+		// dloyd (#1945): the arrow led straight over the hill above the Vul'Gol Ogre Mound to Zzarc' Vul, below ground.
+		guide: 'forever/alliance/07-thousand-needles.guide',
+		target: (g) => g.t === 'collect' && g.item === 1968, // the Ogre's Monocle, from Zzarc' Vul
+		z: 13.7, // Zzarc' Vul's spawn (spawnz.json)
+	},
+	...[
+		[280502, 429], // the Relic of the Fang
+		[280679, 439], // the Relic of the Claw
+		[280680, 431], // the Relic of the Silent Shadow
+	].map(([item, z]) => ({
+		// ddos (#2005), Jaesais (#1919): the relics lie deep in the Stormrage Barrow Dens, and the arrow aimed at the hill
+		// above them. Their objects have no spawn data: data/goal-heights.json's records, from players' recordings.
+		guide: 'forever/class/druid/cat-form.guide',
+		target: (g) => g.t === 'collect' && g.item === item && g.quest === 98342,
+		z,
+	})),
+];
+
+for (const c of FLOORS) {
+	test(`${c.guide}: a goal underground carries its floor's height (${c.z})`, { skip }, () => {
+		const goal = compiled(c.guide).steps.flatMap((step) => step.goals).find(c.target);
+		assert.ok(goal, 'the target goal is in the guide');
+		assert.equal(goal.z, c.z, JSON.stringify(goal));
+	});
+}
+
+// Redrett (#1782) had the Rod of Helcular used at the Flames of Azel and Veraz, in the Foothill Caverns under Darrow
+// Hill, with each flame's floor height. Since the 0.4.0 level tidy Helcular's Revenge part 2 (553) is left out of the
+// Horde route (#1925: its last flame stands among yetis 32-34 and its end inside Southshore), so no goal there needs
+// a height any more.
+test("forever/horde/30-40/01-hillsbrad-foothills.guide: Helcular's flames are no longer a goal (#1925)", { skip }, () => {
+	const goals = compiled('forever/horde/30-40/01-hillsbrad-foothills.guide').steps.flatMap((step) => step.goals);
+	assert.ok(!goals.some((g) => g.quest === 553), "no Helcular's Revenge goal");
+});

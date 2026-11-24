@@ -79,11 +79,11 @@ fn an_undead_horde_player_in_the_barrens_is_sent_to_the_nearest_horde_trainer_ne
 		true,
 	);
 	assert_eq!(out["first"], json!([3373, "Arnok", 1411, 50, 50, 2]));
-	assert_eq!(out["wp"], json!([1411, 50, 50, "Train First Aid"]));
+	assert_eq!(out["wp"], json!([1411, 50, 50, "Learn Journeyman First Aid"]));
 	assert_eq!(out["cycled"], json!(["Rawrk", "Nurse Neela", "Arnok"]));
 	assert_eq!(out["wpAfter"], 1411);
-	assert_eq!(out["text"], "Train First Aid");
-	assert_eq!(out["detail"], "at Arnok");
+	assert_eq!(out["text"], "Learn Journeyman First Aid");
+	assert_eq!(out["detail"], "from Arnok");
 }
 
 #[test]
@@ -217,31 +217,66 @@ fn suggest_prefers_the_current_zone_then_the_nearest_by_travel_race_chains_win_t
 	assert_eq!(home, "test/silverpine");
 }
 
+// Engine.OUTGROWN: most players run a little ahead of the route, so a guide is outgrown 3 levels past its top, not 2.
+// With Skip grey quests off: with it on, the catch-up may pass the opened guide whole and the notice waits (mayPass).
 #[test]
-fn guide_outleveled_fires_once_per_guide_when_the_level_passes_maxlevel_2() {
+fn guide_outleveled_fires_once_per_guide_three_levels_past_its_top_never_at_two() {
 	let out = run(
 		"stub.world.level = 5",
 		r#"
 			Polestar.RegisterGuide({ id = "test/low", pack = "test", title = "Low", faction = "Horde", minLevel = 1, maxLevel = 6, steps = { { goals = { { t = "level", level = 60 } } } } })
 			Polestar.RegisterGuide({ id = "test/mid", pack = "test", title = "Mid", faction = "Horde", minLevel = 7, maxLevel = 20, steps = { { goals = { { t = "level", level = 60 } } } } })
 		"#,
-		None,
+		SKIP_GREY_OFF,
 		r#"
 			local fired = {}
 			Polestar.On("GUIDE_OUTLEVELED", function(id, s) fired[#fired + 1] = id .. ">" .. tostring(s) end)
 			local w = stub.world
 			w.setLevel(7); flush()
-			local at7 = #fired
 			w.setLevel(8); flush()
+			local at8 = #fired
 			w.setLevel(9); flush()
-			emit({ at7 = at7, fired = fired, guide = E.GetGuide().id })
+			local at9 = #fired
+			w.setLevel(10); flush()
+			emit({ at8 = at8, at9 = at9, fired = fired, guide = E.GetGuide().id, margin = E.OUTGROWN })
 		"#,
 		true,
 	);
-	assert_eq!(out, json!({ "at7": 0, "fired": ["test/low>test/mid"], "guide": "test/low" }));
+	assert_eq!(out, json!({ "at8": 0, "at9": 1, "fired": ["test/low>test/mid"], "guide": "test/low", "margin": 3 }));
+}
+
+// #3845 (Fitz, 23 Nov): a Class guide is outgrown 5 levels past its top, as its offer stops, and never while a
+// spell it rewards is unknown: the window's notice comes then, not at 3 past.
+#[test]
+fn a_class_guide_is_outleveled_five_levels_past_its_top_once_its_reward_spell_is_known_3845() {
+	let out = run(
+		"stub.world.level = 12",
+		r#"
+			Polestar.RegisterGuide({ id = "test/mid", pack = "test", title = "Mid", faction = "Horde", minLevel = 10, maxLevel = 30, steps = { { goals = { { t = "level", level = 60 } } } } })
+			Polestar.RegisterGuide({ id = "test/bear", pack = "test", title = "Bear", category = "Class", minLevel = 10, maxLevel = 12,
+				reward = { { spell = 5487, spellName = "Bear Form" } }, steps = { { goals = { { t = "level", level = 60 } } } } })
+		"#,
+		SKIP_GREY_OFF,
+		r#"
+			local fired = {}
+			Polestar.On("GUIDE_OUTLEVELED", function(id) fired[#fired + 1] = id end)
+			E.SetGuide("test/bear"); flush()
+			local w = stub.world
+			w.setLevel(16); flush()
+			local at16 = #fired
+			w.setLevel(17); flush()
+			local missing = #fired
+			w.learnSpell(5487); w.setLevel(18); flush()
+			emit({ at16 = at16, missing = missing, fired = fired, margin = E.CLASS_OUTGROWN })
+		"#,
+		true,
+	);
+	assert_eq!(out, json!({ "at16": 0, "missing": 0, "fired": ["test/bear"], "margin": 5 }));
 }
 
 const SKIP_GREY_ON: Option<&str> = Some("PolestarDB = { schema = 1, settings = { behavior = { skipGrey = true } } }");
+// Skip grey quests is on by default since 0.4.3: off is a stored choice.
+const SKIP_GREY_OFF: Option<&str> = Some("PolestarDB = { schema = 1, settings = { behavior = { skipGrey = false } } }");
 
 // Wogi's report: a Human at 20 in Darkshore (16-21) was sent to grey quests. With the setting on, a grey quest
 // turned in later in the guide is left out with its turn-in; a grey quest stays when a quest down the chain that
@@ -295,7 +330,7 @@ fn skipgrey_skips_grey_accepts_and_their_turn_ins_unless_a_quest_worth_doing_nee
 			"at": 3, "accepted101": false, "grey": true, "byHand": ["done", "pending"],
 		})
 	);
-	let off = run("", guides, None, script, true);
+	let off = run("", guides, SKIP_GREY_OFF, script, true);
 	assert_eq!(off["statuses"].as_array().unwrap().iter().filter(|s| **s == "na").count(), 0, "{}", off["statuses"]);
 	assert_eq!(json!([off["at"].clone(), off["accepted101"].clone(), off["grey"].clone()]), json!([1, true, false]));
 }
@@ -341,7 +376,7 @@ fn skipgrey_a_grey_accept_kept_for_its_chain_names_the_nearest_open_quest_it_lea
 			{ "level": 23, "kept": false, "text": false, "skipped": true, "accepts": ["skipped", "skipped", "skipped"] },
 		])
 	);
-	let off = run("", guides, None, script, true);
+	let off = run("", guides, SKIP_GREY_OFF, script, true);
 	let rows = Value::Array(off.as_array().unwrap().iter().map(|r| json!([r["kept"].clone(), r["text"].clone(), r["skipped"].clone()])).collect());
 	assert_eq!(rows, json!([[false, false, false], [false, false, false], [false, false, false]]));
 }
@@ -542,10 +577,12 @@ fn a_vendor_in_a_zone_far_above_the_character_comes_after_every_other_choice_sti
 
 // #1357 (MrBackus, Skyborne Shaman 30): Orgrimmar's training step came up while he stood in the Barrens by
 // Ratchet, and the nearest Shaman trainer by line was Shikrik in the Valley of Trials, a starter village.
-// A `train class` goal carries its step's zone: that map's trainers come first wherever the player stands,
-// unless one stands within 100 yards of them (the Skyborne camp's trainers below Thunder Bluff).
+// A `train class` goal of Polestar's own guides carries its step's zone: that map's trainers come first wherever the
+// player stands, unless one stands within 100 yards of them (the Skyborne camp's trainers below Thunder Bluff).
+const OUR_PACK: &str = r#"assert(Polestar.RegisterPack({ addon = "Polestar_Guides", id = "guides", format = 1, title = "Polestar Guides", author = "Polestar", version = "1", license = "GPL-3.0" }))"#;
 const ZONE_FIRST: &str = r#"
-	Polestar.RegisterGuide({ id = "test/tc", pack = "test", title = "Train", minLevel = 1, maxLevel = 60, steps = {
+	${OUR_PACK}
+	Polestar.RegisterGuide({ id = "forever/tc", pack = "guides", title = "Train", minLevel = 1, maxLevel = 60, steps = {
 		{ goals = { { t = "train", class = true, zone = 1454, candidates = ${SHIKRIK_KARDRIS} } } },
 		{ goals = { { t = "train", class = true, candidates = ${SHIKRIK_KARDRIS} } } },
 		{ goals = { { t = "train", class = true, zone = 1454, candidates = {
@@ -568,10 +605,10 @@ fn train_class_ranks_its_step_s_zone_first_wherever_the_player_stands_unless_a_t
 		}"#;
 	let out = run(
 		r#"stub.world.race, stub.world.raceName, stub.world.class, stub.world.className = "Skyborne", "Skyborne", "SHAMAN", "Shaman""#,
-		&ZONE_FIRST.replace("${SHIKRIK_KARDRIS}", cands),
+		&ZONE_FIRST.replace("${OUR_PACK}", OUR_PACK).replace("${SHIKRIK_KARDRIS}", cands),
 		None,
 		r#"
-			E.SetGuide("test/tc")
+			E.SetGuide("forever/tc")
 			local function npc(s) return E.GetStepView(s).goals[1].npcName end
 			local first = { npc(1), npc(2), npc(3), npc(4) }
 			E.CycleCandidate(1, 1)
@@ -583,9 +620,99 @@ fn train_class_ranks_its_step_s_zone_first_wherever_the_player_stands_unless_a_t
 	assert_eq!(
 		out,
 		json!({
-			"first": ["Kardris Dreamseeker", "Shikrik", "Palah Thunderhoof", "Shikrik"],
+			"first": ["Kardris Dreamseeker", "Kardris Dreamseeker", "Palah Thunderhoof", "Shikrik"],
 			"cycled": "Shikrik",
 		}),
-		"the step's zone first; no zone: the nearest; a trainer by the player stays first; a zone with no trainer of the class: the nearest"
+		"the step's zone first; no zone: the nearest that still teaches (Shikrik's training stops at 6, #2477); a trainer by the player stays first; a zone with no other trainer of the class: Shikrik"
+	);
+}
+
+// #2477 (Metalcalfe, Night Elf Hunter 12): Goldshire's training step, live while he stood in Northshire, sent him
+// to Tordrin Sternblade, whose training stops at 6 like every starting area's. A class trainer the character has
+// outgrown (ClassTrainers.lua's RegisterClassTrainerTops: the highest level it teaches) comes after every other,
+// though it stands beside the player and in the step's zone; at its level or below it is a trainer like any.
+// The training reminder's pick (Engine.NearestClassTrainer) follows the same rule.
+const OUTGROWN: &str = r#"
+	${OUR_PACK}
+	Polestar.RegisterGuide({ id = "forever/outgrown", pack = "guides", title = "Train", minLevel = 1, maxLevel = 60, steps = {
+		{ goals = { { t = "train", class = true, zone = 1454, candidates = {
+			{ npc = 90001, npcName = "Starter Trainer", map = 1454, x = 40, y = 40, faction = "H", classes = { "MAGE" } },
+			{ npc = 90002, npcName = "City Trainer", map = 1454, x = 60, y = 60, faction = "H", classes = { "MAGE" } },
+		} } } },
+		{ goals = { { t = "level", level = 60 } } },
+	} })
+	Polestar.RegisterClassTrainers({
+		{ npc = 90001, npcName = "Starter Trainer", map = 1454, x = 40, y = 40, faction = "H", classes = { "MAGE" } },
+		{ npc = 90002, npcName = "City Trainer", map = 1454, x = 60, y = 60, faction = "H", classes = { "MAGE" } },
+	})
+"#;
+
+#[test]
+fn a_class_trainer_the_character_has_outgrown_comes_after_every_other_beside_the_player_or_not_2477() {
+	let pick = |level: i32, tops: bool| {
+		run(
+			&format!("w.level = {level}\nw.moveTo(1454, 40, 41)"),
+			&OUTGROWN.replace("${OUR_PACK}", OUR_PACK),
+			None,
+			&format!(
+				r#"
+			{}
+			E.SetGuide("forever/outgrown")
+			emit({{ step = E.GetStepView(1).goals[1].npcName, reminder = E.NearestClassTrainer().npc ~= 90001 }})
+		"#,
+				if tops { "Polestar.RegisterClassTrainerTops({ [90001] = 6 })" } else { "" }
+			),
+			true,
+		)
+	};
+	let starter = json!({ "step": "Starter Trainer", "reminder": false });
+	assert_eq!(pick(20, false), starter, "with no top known, the trainer beside the player");
+	assert_eq!(pick(20, true), json!({ "step": "City Trainer", "reminder": true }), "outgrown at 20: the city's, and the reminder passes it over too");
+	assert_eq!(pick(6, true), starter, "at 6 it still teaches");
+}
+
+// A community pack's step can't know the player's race: the Protection Paladin pack trains in Dun Morogh and
+// Ironforge, and its steps' zone sent Human paladins in Elwynn Forest to the Dwarf trainers. A community pack's
+// `train class` goes to the nearest trainer of the player's class; the same step in Polestar's own guides keeps its
+// zone.
+const PALADIN_STEPS: &str = r#"{
+		{ goals = { { t = "train", class = true, zone = 1426, candidates = {
+			{ npc = 1232, npcName = "Azar Stronghammer", map = 1426, x = 47.6, y = 52.07, faction = "A", classes = { "PALADIN" } },
+			{ npc = 926, npcName = "Bromos Grummner", map = 1426, x = 28.83, y = 68.33, faction = "A", classes = { "PALADIN" } },
+			{ npc = 925, npcName = "Brother Sammuel", map = 1429, x = 50.43, y = 42.12, faction = "A", classes = { "PALADIN" } },
+			{ npc = 927, npcName = "Brother Wilhelm", map = 1429, x = 41.1, y = 66.04, faction = "A", classes = { "PALADIN" } },
+		} } } },
+		{ goals = { { t = "level", level = 60 } } },
+	}"#;
+const PALADIN_GUIDES: &str = r#"
+	${OUR_PACK}
+	Polestar.RegisterGuide({ id = "forever/paladin", pack = "guides", title = "Paladin", minLevel = 1, maxLevel = 60, steps = ${STEPS} })
+	Polestar.RegisterGuide({ id = "test/paladin", pack = "test", title = "Paladin", minLevel = 1, maxLevel = 60, steps = ${STEPS} })
+"#;
+
+#[test]
+fn a_community_pack_s_train_class_leads_to_the_nearest_trainer_of_the_class_polestar_s_own_guides_keep_the_step_s_zone() {
+	let out = run(
+		r#"
+		local w = stub.world
+		w.addMap(1426, { name = "Dun Morogh", c = 0, left = 1802.083, right = -3122.917, top = -3877.083, bottom = -7160.417 })
+		w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1535.417, right = -1935.417, top = -7939.583, bottom = -10254.166 })
+		w.race, w.raceName, w.faction, w.class, w.className = "Human", "Human", "Alliance", "PALADIN", "Paladin"
+		w.level = 14
+		w.moveTo(1429, 55, 70)
+		w.zone, w.subzone = "Elwynn Forest", "Crystal Lake"
+		"#,
+		&PALADIN_GUIDES.replace("${OUR_PACK}", OUR_PACK).replace("${STEPS}", PALADIN_STEPS),
+		None,
+		r#"
+			local function npc(id) E.SetGuide(id); return E.GetStepView(1).goals[1].npcName end
+			emit({ ours = npc("forever/paladin"), pack = npc("test/paladin") })
+		"#,
+		true,
+	);
+	assert_eq!(
+		out,
+		json!({ "ours": "Azar Stronghammer", "pack": "Brother Wilhelm" }),
+		"by Crystal Lake: our step's zone, Dun Morogh (Kharanos: Coldridge Valley's Bromos Grummner teaches to 6, #2477); the pack's step, the trainer in Goldshire"
 	);
 }

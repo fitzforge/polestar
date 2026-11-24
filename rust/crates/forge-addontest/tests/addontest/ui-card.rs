@@ -403,6 +403,144 @@ fn the_window_stops_at_its_height_cap_the_goals_scroll_and_the_current_goal_is_s
 	assert!(f(&out["calm"]["h"]) <= f(&c["cap"]) + 0.5);
 }
 
+// Every goal kind with a long name, so each wraps at the narrow widths: the Barrens' "Kill Kreenig Snarlsnout for
+// Kreenig Snarlsnout's Tusk" (an item in its colour) was cut in half where the height cap ended the goals area.
+const EVERY_KIND: &str = r#"
+local function everyKind()
+	local function G(t, f) f.t = t; f.status = f.status or "active"; return f end
+	local B = 1413
+	local steps = uistub.guides[uistub.elwynn].steps
+	steps[#steps + 1] = { title = "The Disruption Ends", note = "Back to the Razormane camp. Geomancers and Defenders hold its eastern half; Kreenig Snarlsnout walks among them.", goals = {
+		G("kill", { verb = "Kill", subject = "Razormane Defender", subjectKind = "npc", npc = 3266, quest = 893, progress = { cur = 0, max = 8 } }),
+		G("collect", { verb = "Kill Kreenig Snarlsnout for", subject = "Kreenig Snarlsnout's Tusk", subjectKind = "item", item = 5063, npc = 3438, quest = 893, progress = { cur = 0, max = 1 } }),
+		G("accept", { verb = "Accept", subject = "Report to Kadrak at Mor'shan Rampart", subjectKind = "quest", quest = 6541, npc = 3429, npcName = "Thork", map = B, x = 51.4, y = 30.2 }),
+		G("turnin", { verb = "Turn in", subject = "The Forgotten Pools of the Barrens", subjectKind = "quest", quest = 870, npc = 3448, npcName = "Tonga Runetotem", map = B, x = 52.3, y = 31.9 }),
+		G("complete", { verb = "Complete", subject = "Plainstrider Menace in the Northern Barrens", subjectKind = "quest", quest = 844 }),
+		G("goto", { verb = "Go to", subject = "the Razormane camp east of the Crossroads road", subjectKind = "place", map = B, x = 56.1, y = 23.4 }),
+		G("talk", { verb = "Talk to", subject = "Apothecary Helbrim at the Crossroads inn", subjectKind = "npc", npc = 3390 }),
+		G("interact", { verb = "Click", subject = "the Sealed Supply Crate behind the tents", subjectKind = "object", map = B, x = 55.2, y = 26.6, progress = { cur = 0, max = 3 } }),
+		G("use", { verb = "Use", subject = "the Bottle of Disease-Ridden Water at the Forgotten Pools", subjectKind = "item", item = 5052 }),
+		G("enter", { verb = "Enter", subject = "the Wailing Caverns through the Mouth of the Serpent", subjectKind = "place", map = B, x = 46.0, y = 35.7 }),
+		G("sethome", { verb = "Set your hearthstone at", subject = "Innkeeper Boorand Plainswind", subjectKind = "npc", npc = 3934 }),
+		G("getfp", { verb = "Learn the flight path at", subject = "the Crossroads flight master Devrak", subjectKind = "npc", npc = 3615 }),
+		G("fly", { verb = "Fly to", subject = "Ratchet on the coast of the Southern Barrens", subjectKind = "place", map = B, x = 63.1, y = 37.2 }),
+		G("train", { verb = "Train at", subject = "Thotar, the Crossroads hunter trainer", subjectKind = "npc", npc = 3171 }),
+		G("buy", { verb = "Buy", subject = "Refreshing Spring Water from Innkeeper Boorand Plainswind", subjectKind = "item", item = 159, progress = { cur = 0, max = 20 } }),
+		G("note", { verb = "", subject = "Grind on the quilboar around the camp until you are halfway into level 19 before you go on", subjectKind = "note" }),
+		G("kill", { verb = "Kill", subject = "Razormane Geomancer", subjectKind = "npc", npc = 3269, quest = 893, optional = true, progress = { cur = 0, max = 8 } }),
+		G("collect", { verb = "Collect", subject = "Plainstrider Beaks from the Plainstriders near the road", subjectKind = "item", item = 5087, quest = 844, progress = { cur = 3, max = 7 } }),
+	} }
+	return #steps
+end
+-- From the top of `item` to the top of `f` (anchored down a chain of TOP points to it); nil for other anchors.
+local function height(f) return f.GetStringHeight and f:GetStringHeight() or f:GetHeight() end
+local function depth(f, item)
+	local p, rel, rp, _, y = f:GetPoint(1)
+	if not p or not p:find("^TOP") then return nil end
+	if rel == item or rel == nil then return rp:find("^TOP") and -y or nil end
+	local base = depth(rel, item)
+	if not base then return nil end
+	return base + (rp:find("^BOTTOM") and height(rel) or 0) - y
+end
+-- Checks the goals area as laid out now (scroll 0), adding what is wrong to `bad` (`at` names the run): no item's
+-- text, sub line or bar runs past the top of the next item, and past the cap the area's bottom cuts no item.
+-- -> whether the cap binds, whether the floor took the window past the cap, the goal rows whose text wraps.
+local function checkCard(at, bad)
+	local goals = GF.parts.goals
+	local items, content, view = GF.CardItems(), goals.psContentH, goals.psViewH
+	local wrapped = 0
+	for i, item in ipairs(items) do
+		local top = GF.ItemTop(item)
+		local room = (items[i + 1] and GF.ItemTop(items[i + 1]) or content) - top
+		for _, part in ipairs({ item.Text, item.Sub, item.psBar }) do
+			local d = part and part:IsShown() and depth(part, item)
+			if d and d + height(part) > room + 0.5 then
+				bad[#bad + 1] = ("%s: item %d's text ends at %.1f, the next item starts at %.1f (%s)"):format(at, i, d + height(part), room, plain(item.Text:GetText()))
+			end
+		end
+		if item.psGoal and item.Text:GetStringHeight() > item.Text:GetLineHeight() then wrapped = wrapped + 1 end
+		if content > view + 0.5 and top < view - 0.5 and top + room > view + 0.5 then
+			bad[#bad + 1] = ("%s: the goals area ends at %.1f, inside item %d (%.1f to %.1f: %s)"):format(at, view, i, top, top + room, plain(item.Text:GetText()))
+		end
+	end
+	local capped = content > view + 0.5 or F:GetHeight() > GF.CapHeight() + 0.5
+	return capped, F:GetHeight() > GF.CapHeight() + 0.5, wrapped
+end
+"#;
+
+// A Lua list of findings: an empty one arrives as {}.
+fn findings(v: &Value) -> Vec<String> {
+	v.as_array().map_or_else(Vec::new, |_| strings(v))
+}
+
+#[test]
+fn under_the_height_cap_the_goals_area_ends_on_a_whole_row_and_no_row_s_text_runs_into_the_next_at_any_width_or_scale() {
+	let out = run(&format!(
+		r#"{EVERY_KIND}
+		local s = everyKind()
+		Polestar.Set("ui.wholeStep", true)
+		uistub.setGuide(uistub.elwynn, s)
+		local bad, runs, capped, wrapped = {{}}, 0, 0, 0
+		for _, ui in ipairs({{ 0.65, 1 }}) do
+			UIParent:SetScale(ui)
+			for _, scale in ipairs({{ 0.65, 1, 1.25 }}) do
+				Polestar.Set("ui.scale", scale)
+				for _, cap in ipairs({{ 0.3, 0.5, 0.9 }}) do
+					Polestar.Set("ui.maxHeight", cap)
+					for _, width in ipairs({{ 260, 340, 450, 560 }}) do
+						Polestar.Set("ui.width", width)
+						stub.advance(0.5)
+						runs = runs + 1
+						local c, _, w = checkCard(("ui %.2f, scale %.2f, cap %.1f, width %d"):format(ui, scale, cap, width), bad)
+						if c then capped = capped + 1 end
+						wrapped = wrapped + w
+					end
+				end
+			end
+		end
+		emit({{ bad = bad, runs = runs, capped = capped, wrapped = wrapped }})"#
+	))
+	.remove(0);
+	let bad = findings(&out["bad"]);
+	assert!(bad.is_empty(), "{} cut or overlapping:\n{}", bad.len(), bad.join("\n"));
+	assert_eq!(f(&out["runs"]), 72.0);
+	assert!(f(&out["capped"]) >= 12.0, "the cap binds in many of the runs: {}", out["capped"]);
+	assert!(f(&out["wrapped"]) > 0.0, "goal lines wrap");
+}
+
+// The Barrens' field step as the window showed it (Tauren Hunter at 18): two kills and Kreenig's tusk, the tip under
+// them, so little room under the cap that the goals area's floor (CARD.minView) holds: it grows to the tusk's bottom
+// rather than end inside its second line.
+#[test]
+fn where_the_goals_area_s_floor_outranks_the_cap_it_still_ends_on_a_whole_row() {
+	let out = run(&format!(
+		r#"{EVERY_KIND}
+		local steps = uistub.guides[uistub.elwynn].steps
+		local k = steps[everyKind()]
+		k.goals = {{ k.goals[1], k.goals[17], k.goals[2] }}
+		k.goals[2].optional = nil
+		uistub.setGuide(uistub.elwynn, #steps)
+		Polestar.Set("ui.maxHeight", 0.3)
+		local bad, floored, wrapped = {{}}, 0, 0
+		for _, scale in ipairs({{ 1.4, 1.5, 1.6 }}) do
+			Polestar.Set("ui.scale", scale)
+			for _, width in ipairs({{ 260, 340, 450, 560 }}) do
+				Polestar.Set("ui.width", width)
+				stub.advance(0.5)
+				local _, fl, w = checkCard(("scale %.2f, width %d"):format(scale, width), bad)
+				if fl then floored = floored + 1 end
+				wrapped = wrapped + w
+			end
+		end
+		emit({{ bad = bad, floored = floored, wrapped = wrapped }})"#
+	))
+	.remove(0);
+	let bad = findings(&out["bad"]);
+	assert!(bad.is_empty(), "{} cut or overlapping:\n{}", bad.len(), bad.join("\n"));
+	assert!(f(&out["floored"]) >= 1.0, "the floor holds past the cap in some runs");
+	assert!(f(&out["wrapped"]) > 0.0, "the tusk's line wraps");
+}
+
 #[test]
 fn along_the_way_leaves_out_goals_the_step_on_screen_lists_itself() {
 	let out = run(r#"
@@ -426,16 +564,18 @@ fn along_the_way_leaves_out_goals_the_step_on_screen_lists_itself() {
 }
 
 #[test]
-fn the_options_offer_show_the_whole_step_and_a_window_height_in_guide_window() {
+fn the_options_offer_show_the_whole_step_and_a_maximum_height_in_guide_window() {
 	let out = run(r#"
-		UI.ShowOptions("guide")
+		UI.ShowOptions("guidewindow")
 		local O = UI.Options
-		local widgets = O.Controls("guide", "Window")
+		O.Select("guidewindow", "Parts")
+		O.Select("guidewindow", "Window")
+		local widgets = { ["ui.wholeStep"] = O.Controls("guidewindow", "Parts")["ui.wholeStep"], ["ui.maxHeight"] = O.Controls("guidewindow", "Window")["ui.maxHeight"] }
 		local found = {}
-		for _, q in ipairs({ "whole step", "window height", "height" }) do
+		for _, q in ipairs({ "whole step", "maximum height" }) do
 			for _, g in ipairs(O.Search(q)) do
 				for _, c in ipairs(g.controls) do
-					if c.key == "ui.wholeStep" or c.key == "ui.maxHeight" or c.key == "ui.heightMode" then
+					if c.key == "ui.wholeStep" or c.key == "ui.maxHeight" then
 						found[c.key] = { title = g.title, kind = c.kind, min = c.min, max = c.max, label = c.label }
 					end
 				end
@@ -446,9 +586,10 @@ fn the_options_offer_show_the_whole_step_and_a_window_height_in_guide_window() {
 	.remove(0);
 	assert_eq!(out["defaults"], json!({ "whole": false, "max": 0.5 }), "one person at a time and half the screen by default");
 	assert_eq!(out["widgets"], json!({ "whole": true, "max": true }));
-	assert_eq!(out["found"]["ui.wholeStep"], json!({ "title": "Guide  \u{b7}  Window", "kind": "toggle", "label": "Show the whole step" }));
-	assert_eq!(out["found"]["ui.maxHeight"], json!({ "title": "Guide  \u{b7}  Window", "kind": "slider", "min": 0.3, "max": 1, "label": "Height" }));
-	assert_eq!(out["found"]["ui.heightMode"], json!({ "title": "Guide  \u{b7}  Window", "kind": "dropdown", "label": "Window height" }));
+	// Search result cards are titled page · tab · section (a section named as its tab once): both on Look > Guide
+	// window, their one home; the whole step on Parts' Step text.
+	assert_eq!(out["found"]["ui.wholeStep"], json!({ "title": "Guide window  \u{b7}  Parts  \u{b7}  Step text", "kind": "toggle", "label": "Show the whole step" }));
+	assert_eq!(out["found"]["ui.maxHeight"], json!({ "title": "Guide window  \u{b7}  Window", "kind": "slider", "min": 0.3, "max": 0.9, "label": "Max height" }));
 	assert!(is_match(text(&out["found"]["ui.maxHeight"]["title"]), "Window$"));
 }
 
@@ -811,6 +952,190 @@ fn along_the_way_up_next_and_the_next_step_s_line_wrap_to_two_lines() {
 	assert!(text(&out["along"]["text"]).contains("Echo Ridge Mine entrance"), "{}", out["along"]);
 	assert!(text(&out["up"]["text"]).contains("Northshire vineyards"), "{}", out["up"]);
 	assert_eq!(out["afterShown"], true);
-	assert_eq!(out["after"]["text"], "Then: Echo Ridge Mine, the kobold tunnels past the Northshire vineyards");
+	assert_eq!(out["after"]["text"], "Next step: Echo Ridge Mine, the kobold tunnels past the Northshire vineyards");
 	assert!(f(&out["after"]["h"]) > 28.0, "the line grows by its second line: {}", out["after"]);
+}
+
+// #1684 (Hillsbrad's farms, 0.3.6): the client breaks a wrapped line after "/", so "Kill Hillsbrad Farmhand 0/6"
+// read "0/" at the end of the line and "6" under it. A count never splits: it moves whole to the next line, in the
+// goal rows of every kind (a kill, a collect, a `complete` goal's objective lines), While you're here and Along the
+// way, at every window width, compact or not. The check measures each count on screen the way the client lays it
+// out: the string's height through the count's first character and through its last are the same.
+#[test]
+fn a_count_never_splits_across_two_lines_at_any_width() {
+	let out = run(r#"
+		local steps = uistub.guides[uistub.elwynn].steps
+		steps[#steps + 1] = { title = "The farms east of Hillsbrad", goals = {
+			{ t = "kill", verb = "Kill", subject = "Hillsbrad Farmer", subjectKind = "npc", npc = 2264, quest = 567, progress = { cur = 0, max = 6 }, status = "active" },
+			{ t = "kill", verb = "Kill", subject = "Hillsbrad Farmhand", subjectKind = "npc", npc = 2265, quest = 567, progress = { cur = 0, max = 6 }, status = "active" },
+			{ t = "collect", verb = "Collect", subject = "Mountain Lion Blood", subjectKind = "item", item = 3496, quest = 501, progress = { cur = 3, max = 10 }, status = "active" },
+			{ t = "complete", verb = "Complete", subject = "Dangerous!", subjectKind = "quest", quest = 567, status = "active", progress = { cur = 3, max = 16 },
+				objectiveLines = { { text = "Hillsbrad Farmer slain", cur = 0, max = 6 }, { text = "Hillsbrad Farmhand slain", cur = 3, max = 10 } } },
+		} }
+		local n = #steps
+		uistub.along = { { n, { 1, 3 } } }
+		Polestar.Engine.GetWhileHereList = function()
+			return { { step = n, index = 3, t = "collect", verb = "Collect", subject = "Mountain Lion Blood", subjectKind = "item", item = 3496, quest = 501,
+				progress = { cur = 3, max = 10 }, status = "active", yards = 55 } }
+		end
+		uistub.setGuide(uistub.elwynn, 5)
+		local probe = UIParent:CreateFontString()
+		local function walk(f, out)
+			if not f:IsVisible() then return end
+			for _, r in ipairs(f.regions or {}) do
+				if r:GetObjectType() == "FontString" and r:IsShown() and r:GetWordWrap() and (r:GetText() or "") ~= "" then out[#out + 1] = r end
+			end
+			for _, c in ipairs(f.children or {}) do walk(c, out) end
+		end
+		local split, counts, moved = {}, 0, 0
+		local seen = {}
+		local function check(label)
+			local list = {}
+			walk(F, list)
+			for _, fs in ipairs(list) do
+				local text = fs:GetText()
+				probe:SetFont(fs:GetFont())
+				probe:SetWidth(fs:GetWidth())
+				probe:SetMaxLines(fs:GetMaxLines())
+				local from = 1
+				while true do
+					local s, e = text:find("%d+/%d+", from)
+					if not s then break end
+					counts = counts + 1
+					probe:SetText(text:sub(1, s))
+					local h1 = probe:GetStringHeight()
+					probe:SetText(text:sub(1, e))
+					if probe:GetStringHeight() ~= h1 then split[#split + 1] = label .. ": " .. plain(text) end
+					from = e + 1
+				end
+				if fs.psCounted and text ~= fs.psCounted and not seen[fs.psCounted] then
+					seen[fs.psCounted] = true
+					moved = moved + 1
+				end
+			end
+		end
+		for _, compact in ipairs({ false, true }) do
+			Polestar.Set("ui.compact", compact)
+			for width = 260, 560, 10 do
+				Polestar.Set("ui.width", width)
+				uistub.setStep(n)
+				check((compact and "compact " or "") .. width)
+			end
+		end
+		emit({ split = table.concat(split, " | "), counts = counts, moved = moved, here = GF.here:IsShown() })"#)
+	.remove(0);
+	assert_eq!(out["here"], true, "While you're here is on screen");
+	assert_eq!(out["split"], "", "no count starts on one line and ends on the next");
+	assert!(f(&out["counts"]) > 300.0, "the counts on screen were all measured: {}", out["counts"]);
+	assert!(f(&out["moved"]) > 0.0, "some count had to move to the next line at some width: {}", out["moved"]);
+}
+
+// #3363 (vile, 0.4.1.1): "Kill Hillsbrad Farmhand 0/" with the "6" under it, the row's Next spot button beside it.
+// The same check with that button on the kill rows, at the window's text sizes (smallest, default, largest) and the
+// goal size's smallest, default and largest, from the narrowest window to the widest, compact or not, in the
+// standard and the transparent style.
+#[test]
+fn a_count_never_splits_with_the_next_spot_button_at_any_text_size_or_width() {
+	let out = run(r#"
+		local steps = uistub.guides[uistub.elwynn].steps
+		steps[#steps + 1] = { title = "Hillsbrad Fields", goals = {
+			{ t = "kill", verb = "Kill", subject = "Hillsbrad Farmer", subjectKind = "npc", npc = 2264, quest = 567, progress = { cur = 0, max = 6 }, status = "active", spots = 3 },
+			{ t = "kill", verb = "Kill", subject = "Hillsbrad Farmhand", subjectKind = "npc", npc = 2265, quest = 567, progress = { cur = 0, max = 6 }, status = "active", spots = 3 },
+			{ t = "kill", verb = "Kill", subject = "Farmer Ray", subjectKind = "npc", npc = 232, quest = 567, status = "active" },
+			{ t = "kill", verb = "Kill", subject = "Farmer Getz", subjectKind = "npc", npc = 2403, quest = 567, status = "active" },
+		} }
+		local n = #steps
+		Polestar.Engine.CycleSpot = function() end
+		uistub.setGuide(uistub.elwynn, 5)
+		local probe = UIParent:CreateFontString()
+		local split, counts, alts = {}, 0, 0
+		local function check(label)
+			for _, r in ipairs(GF.rows) do
+				if r:IsVisible() and r.Alt:IsShown() then alts = alts + 1 end
+				local fs = r.Text
+				local text = r:IsVisible() and fs:GetText() or ""
+				probe:SetFont(fs:GetFont())
+				probe:SetWidth(fs:GetWidth())
+				probe:SetMaxLines(fs:GetMaxLines())
+				local from = 1
+				while true do
+					local s, e = text:find("%d+/%d+", from)
+					if not s then break end
+					counts = counts + 1
+					probe:SetText(text:sub(1, s))
+					local h1 = probe:GetStringHeight()
+					probe:SetText(text:sub(1, e))
+					local h2 = probe:GetStringHeight()
+					-- A count moved to a line of its own: whole there when its glyphs fit the width. The stub counts
+					-- its colour code's characters as glyphs (the client draws them zero wide), which at the largest
+					-- sizes alone ran past the width.
+					local own = text:sub(1, s - 1):find("\n|c%x%x%x%x%x%x%x%x$") or text:sub(1, s - 1):find("\n$")
+					probe:SetText(text:sub(s, e))
+					local fits = probe:GetUnboundedStringWidth() <= fs:GetWidth()
+					if h2 ~= h1 and not (own and fits) then split[#split + 1] = label .. ": " .. plain(text) end
+					from = e + 1
+				end
+			end
+		end
+		for _, style in ipairs({ "standard", "transparent" }) do
+			Polestar.Set("ui.style", style)
+			for _, textSize in ipairs({ 0.8, 1, 1.4 }) do
+				Polestar.Set("ui.guideTextSize", textSize)
+				for _, goalSize in ipairs({ 0.7, 1, 1.8 }) do
+					Polestar.Set("guideWindow.goalSize", goalSize)
+					for _, compact in ipairs({ false, true }) do
+						Polestar.Set("ui.compact", compact)
+						for width = 260, 560, 10 do
+							Polestar.Set("ui.width", width)
+							uistub.setStep(n)
+							check(string.format("%s text %s goals %s%s %d", style, textSize, goalSize, compact and " compact" or "", width))
+						end
+					end
+				end
+			end
+		end
+		emit({ split = table.concat(split, " | "), counts = counts, alts = alts })"#)
+	.remove(0);
+	assert_eq!(out["split"], "", "no count starts on one line and ends on the next");
+	assert!(f(&out["alts"]) > 0.0, "the Next spot button was on screen: {out}");
+	assert!(f(&out["counts"]) > 1000.0, "the counts on screen were all measured: {}", out["counts"]);
+}
+
+// At the height cap the goals area ends on a whole row, in every look: never half a goal's second line ("Kreenig
+// Snarlsnout's Tusk" cut through). Its height is the top of a row (or the whole content), at caps 0.3 to 0.4, widths
+// 260 and 560 and scales 0.64, 1 and 1.5, unless the room is under three lines (CARD.minView), its floor.
+#[test]
+fn at_the_height_cap_the_goals_area_ends_on_a_whole_row_in_every_look() {
+	let out = run(r#"
+		local s = brewnall()
+		local out = {}
+		for _, look in ipairs({ "polestar", "halo" }) do
+			Polestar.Set("ui.skin", look)
+			for _, cap in ipairs({ 0.3, 0.35, 0.4 }) do
+				for _, width in ipairs({ 260, 560 }) do
+					for _, scale in ipairs({ 0.64, 1, 1.5 }) do
+						Polestar.Set("ui.maxHeight", cap)
+						Polestar.Set("ui.wholeStep", true)
+						Polestar.Set("ui.width", width)
+						Polestar.Set("ui.scale", scale)
+						uistub.setGuide(uistub.elwynn, s)
+						stub.advance(1)
+						local goals = GF.parts.goals
+						local view, whole = goals.psViewH, math.abs(goals.psContentH - goals.psViewH) < 0.5
+						for _, item in ipairs(GF.CardItems()) do
+							if math.abs(GF.ItemTop(item) - view) < 0.5 then whole = true end
+						end
+						out[#out + 1] = { at = look .. " " .. cap .. " " .. width .. " x" .. scale, whole = whole, floor = view == GF.CARD.minView,
+							over = goals.psOver }
+					end
+				end
+			end
+		end
+		emit(out)"#)
+	.remove(0);
+	let cases = out.as_array().unwrap();
+	assert!(cases.iter().filter(|c| c["over"] == true && c["floor"] == false).count() >= 20, "the step is cut by the cap in most cases: {out}");
+	for c in cases {
+		assert!(c["whole"] == true || c["floor"] == true, "{}: the area ends on a whole row", c["at"]);
+	}
 }

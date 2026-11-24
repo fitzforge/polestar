@@ -35,7 +35,7 @@ fn every_addon_toc_names_the_addon_in_every_client_language_as_toc_rs_has_it() {
 #[test]
 fn the_translations_keep_polestars_name_fill_every_locale_and_the_language_folders_name_their_language() {
 	let fill = regex::Regex::new(r"%[0-9]").unwrap();
-	for addon in ["Polestar", "Polestar_Codex", "Polestar_Guides", "Polestar_ItemDB", "Polestar_Nav", "Polestar_QuestDB", "Polestar_Recorder", "Polestar_deDE", "Polestar_zhTW"] {
+	for addon in ["Polestar", "Polestar_Codex", "Polestar_Guides", "Polestar_ItemDB", "Polestar_Nav", "Polestar_Options", "Polestar_QuestDB", "Polestar_Recorder", "Polestar_deDE", "Polestar_zhTW"] {
 		let t = toc_text(addon).unwrap();
 		assert_eq!(t.len(), LOCALE_CODES.len());
 		for (l, title, notes) in t {
@@ -72,14 +72,14 @@ fn every_polestar_folder_sits_in_polestars_group_one_language_folder_per_languag
 			assert_eq!(f.get("Group").map(String::as_str), Some("Polestar"), "{addon} is missing ## Group: Polestar");
 		}
 	}
-	// The two writers of a language folder write the one TOC alike, and it lists the interface strings too.
+	// The writers of a language folder write the one TOC alike, and it lists the interface strings too.
 	for l in LOCALE_CODES {
 		let name = language_addon(l);
 		let dir = root().join("addon").join(&name);
 		let text = std::fs::read_to_string(dir.join(format!("{name}.toc"))).unwrap();
 		let f = fields(&text);
 		assert_eq!(text, language_toc(l, &f["Interface"], &f["Version"]), "{name}");
-		for file in ["Interface.lua", "Names.lua", "Texts.lua"] {
+		for file in ["Interface.lua", "Names.lua", "Subzones.lua", "Texts.lua"] {
 			assert!(dir.join(file).exists(), "{name}/{file}");
 		}
 	}

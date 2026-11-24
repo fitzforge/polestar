@@ -28,7 +28,9 @@ local Dungeons = ns.Dungeons
 
 local ART = {
 	[531] = { file = 131819, l = 0.03, r = 0.41, t = 0.207, b = 0.713, lift = 0.3 }, -- Ahn'Qiraj Temple
+	[2994] = { file = 7963734, l = 0.4, r = 0.7, t = 0.233, b = 0.767 }, -- Alcaz Prison
 	[48] = { file = 131823, l = 0, r = 0.36, t = 0.21, b = 0.69, lift = 0.2 }, -- Blackfathom Deeps
+	[2974] = { file = 7963784, l = 0.5, r = 0.8, t = 0.233, b = 0.767 }, -- Blackmaw Hold
 	[230] = { file = 131824, l = 0.29, r = 0.71, t = 0.21, b = 0.77 }, -- Blackrock Depths
 	[229] = { file = 131825, l = 0.15, r = 0.51, t = 0.22, b = 0.7, lift = 1 }, -- Blackrock Spire
 	[469] = { file = 131827, l = 0.29, r = 0.71, t = 0.21, b = 0.77, lift = 0.4 }, -- Blackwing Lair
@@ -37,6 +39,7 @@ local ART = {
 	[429] = { file = 131835, l = 0.13, r = 0.53, t = 0.233, b = 0.767 }, -- Dire Maul
 	[2998] = { file = 7963777, l = 0.35, r = 0.65, t = 0.233, b = 0.767 }, -- Excavation Site: Wetlands
 	[90] = { file = 131841, l = 0.29, r = 0.71, t = 0.21, b = 0.77 }, -- Gnomeregan
+	[3039] = { file = 7963780, l = 0.4, r = 0.7, t = 0.233, b = 0.767 }, -- Krol'dok Stronghold
 	[349] = { file = 131850, l = 0.29, r = 0.71, t = 0.21, b = 0.77 }, -- Maraudon
 	[409] = { file = 131851, l = 0.29, r = 0.71, t = 0.21, b = 0.77, lift = 0.25 }, -- Molten Core
 	[533] = { file = 131854, l = 0.01, r = 0.39, t = 0.247, b = 0.753, lift = 0.55 }, -- Naxxramas
@@ -52,7 +55,9 @@ local ART = {
 	[34] = { file = 131870, l = 0.29, r = 0.71, t = 0.21, b = 0.77, lift = 1 }, -- Stormwind Stockade
 	[329] = { file = 131871, l = 0.29, r = 0.71, t = 0.21, b = 0.77, lift = 1 }, -- Stratholme
 	[109] = { file = 131872, l = 0.29, r = 0.71, t = 0.21, b = 0.77 }, -- Sunken Temple
+	[2970] = { file = 7963741, l = 0.25, r = 0.55, t = 0.233, b = 0.767 }, -- The Drowned City
 	[3065] = { file = 7963781, l = 0.35, r = 0.65, t = 0.233, b = 0.767 }, -- The Hall of Thanes
+	[3001] = { file = 7963783, l = 0.4, r = 0.7, t = 0.233, b = 0.767, lift = 0.3 }, -- The Shaper's Terrace
 	[70] = { file = 131876, l = 0.27, r = 0.63, t = 0.23, b = 0.71, lift = 0.95 }, -- Uldaman
 	[43] = { file = 131882, l = 0.35, r = 0.75, t = 0.233, b = 0.767, lift = 0.35 }, -- Wailing Caverns
 	[209] = { file = 131885, l = 0.36, r = 0.7, t = 0.34, b = 0.793, lift = 0.25 }, -- Zul'Farrak

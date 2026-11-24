@@ -11,12 +11,12 @@ return {
 
 	-- Step 1: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:18960} Teleport: Moonglade · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
-	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. Skyborne: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up."] = "",
+	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. Skyborne: cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up."] = "{npc:4217}站在{area:1658}德魯伊建築的樓上。天裔：施放{spell:18960}，在{area:2361}中央乘{npc:11800}的航班（她把德魯伊送到{area:702}，無需飛行路線），然後乘傳送門上去。",
 
 	-- Step 3: Trial of the Lake
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:29} Trial of the Lake · {npc:11799} Tajarri · {area:656} Lake Elune'ara · {area:2361} Nighthaven · {object:177524} Bubbly Fissure (no name in this language: may be words) · {item:15877} Shrine Bauble · {area:2362} Shrine of Remulos
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:29} Trial of the Lake · {npc:11799} Tajarri · {area:656} Lake Elune'ara · {area:2361} Nighthaven · {object:177524} Bubbly Fissure · {item:15877} Shrine Bauble · {area:2362} Shrine of Remulos
 	-- plural, as words: Bauble Containers = {object:177785} Bauble Container
-	["Cast {spell:18960} to get here: {npc:11802} stands upstairs in the building beside where you land. {quest:29} runs on a 30-minute timer: once you accept it, no teleport or Hearthstone until {npc:11799} has it. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "",
+	["Cast {spell:18960} to get here: {npc:11802} stands upstairs in the building beside where you land. {quest:29} runs on a 30-minute timer: once you accept it, no teleport or Hearthstone until {npc:11799} has it. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "施放{spell:18960}到這裡：{npc:11802}在落腳點旁邊那棟樓的樓上。{quest:29}限時30分鐘：一旦接下，在{npc:11799}收到之前不能傳送也不能用爐石。六個珠子容器（花瓶）躺在{area:2361}下方{area:656}底部深處的狹窄凹坑裡，常在冒泡的裂縫附近（湖中央的{object:177524}能補滿呼吸）；每個開啟後三分鐘重新出現，別的德魯伊也會來拿。浮出水面之前確認包裡有{item:15877}：拾取後五分鐘就會消失。直接把它游到西北岸的{area:2362}，在神殿範圍內使用，再找樹旁的{npc:11799}說話。",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
 	["{item:15877}, from a {object:177785} in the lake"] = "{item:15877}，來自湖中的{object:177785}",
 	-- {area:2362} Shrine of Remulos
@@ -25,56 +25,60 @@ return {
 	-- Step 4: Half Pendant of Aquatic Agility
 	-- {area:2361} Nighthaven · {area:442} Auberdine · {object:177792} Strange Lockbox · {area:456} Cliffspring River
 	-- plural, as words: Darkshore Threshers = {npc:2185} Darkshore Thresher
-	["Fly from {area:2361} to {area:442}. The {object:177792} lies far out on the sea floor off the north coast, between tall rocks west of where the {area:456} reaches the sea: it cannot be seen from the east side of the rocks. Watch your breath and the Darkshore Threshers; fight above water."] = "",
+	["Fly from {area:2361} to {area:442}. The {object:177792} lies far out on the sea floor off the north coast, between tall rocks west of where the {area:456} reaches the sea: it cannot be seen from the east side of the rocks. Watch your breath and the Darkshore Threshers; fight above water."] = "從{area:2361}飛往{area:442}。{object:177792}在北部海岸外的遠海海底，位於{area:456}入海處以西的高聳岩石之間：從岩石東側看不到它。注意呼吸和黑海岸長尾鯊；在水面上戰鬥。",
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
-	["{item:15883}, from the {object:177792}"] = "",
+	["{item:15883}, from the {object:177792}"] = "{item:15883}，來自{object:177792}",
 
 	-- Step 5: Half Pendant of Aquatic Endurance
 	-- {area:442} Auberdine · {zone:1453} Stormwind · {area:108} Sentinel Hill · {object:177790} Strange Lockbox
-	["Take the boat from {area:442} to {zone:1453} and fly to {area:108}. Head west to the coast: the {object:177790} lies far out on the sea floor beside a bubbling fissure (air), west of a sunken anchor. Sharks roam here; do not swim on past the wreck beyond it, the deep water brings fatigue."] = "",
+	["Take the boat from {area:442} to {zone:1453} and fly to {area:108}. Head west to the coast: the {object:177790} lies far out on the sea floor beside a bubbling fissure (air), west of a sunken anchor. Sharks roam here; do not swim on past the wreck beyond it, the deep water brings fatigue."] = "從{area:442}乘船到{zone:1453}，再飛往{area:108}。向西走到海岸：{object:177790}在遠海海底、一處冒泡的裂隙（能補呼吸）旁，位置在一隻沉沒的錨以西。這裡有鯊魚遊蕩；不要越過殘骸繼續往前遊，深水會帶來疲勞。",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
-	["{item:15882}, from the {object:177790}"] = "",
+	["{item:15882}, from the {object:177790}"] = "{item:15882}，來自{object:177790}",
 
 	-- Step 6: Pendant of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {item:15883} Half Pendant of Aquatic Agility · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
-	["Cast {spell:18960}. With both halves in your bags, stand by the {area:2362} on the north-west shore and use the {item:15883} to join them, then cast {spell:18960} again (it works inside {zone:1450}) to land by {npc:11802}. He stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. Afterwards {npc:11800}, in the middle of {area:2361}, flies druids straight to {area:702}."] = "",
+	["Cast {spell:18960}. With both halves in your bags, stand by the {area:2362} on the north-west shore and use the {item:15883} to join them, then cast {spell:18960} again (it works inside {zone:1450}) to land by {npc:11802}. He stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. Afterwards {npc:11800}, in the middle of {area:2361}, flies druids straight to {area:702}."] = "施放{spell:18960}。把兩半都放在揹包裡，站在西北岸的{area:2362}旁，使用{item:15883}把它們拼合，然後再次施放{spell:18960}（在{zone:1450}內有效）降落到{npc:11802}身旁。他在自己那棟樓的樓上：從裡面上樓，箭頭分不清樓層。之後，{area:2361}中央的{npc:11800}會把德魯伊直接送到{area:702}。",
 	-- {item:15885} Pendant of the Sea Lion
 	["{item:15885}: join the halves at the shrine"] = "{item:15885}：在神殿組合兩半",
 
 	-- Step 7: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {quest:31} Aquatic Form
-	["Take the portal up to {npc:4217} in the {area:1658}. {quest:31}: swim fast and breathe underwater."] = "",
+	["Take the portal up to {npc:4217} in the {area:1658}. {quest:31}: swim fast and breathe underwater."] = "搭傳送門上去，到{area:1658}找{npc:4217}。{quest:31}：游得快，還能在水下呼吸。",
 
 	-- Step 8: Aquatic Form
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {quest:5061} Aquatic Form
-	["Take the portal up to {npc:4217} in the {area:1658}. {quest:5061}: swim fast and breathe underwater."] = "",
+	["Take the portal up to {npc:4217} in the {area:1658}. {quest:5061}: swim fast and breathe underwater."] = "乘傳送門上去找{area:1658}裡的{npc:4217}。{quest:5061}：遊得快些，並在水下呼吸。",
 
 	-- Step 9: A Lesson to Learn
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["{npc:3033} stands in the druids' hut on {area:1639}."] = "",
+	["{npc:3033} stands in the druids' hut on {area:1639}."] = "{npc:3033}站在{area:1639}的德魯伊小屋裡。",
 
 	-- Step 10: Trial of the Lake
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:28} Trial of the Lake · {npc:11799} Tajarri · {area:656} Lake Elune'ara · {area:2361} Nighthaven · {object:177524} Bubbly Fissure (no name in this language: may be words) · {item:15877} Shrine Bauble · {area:2362} Shrine of Remulos
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:28} Trial of the Lake · {npc:11799} Tajarri · {area:656} Lake Elune'ara · {area:2361} Nighthaven · {object:177524} Bubbly Fissure · {item:15877} Shrine Bauble · {area:2362} Shrine of Remulos
 	-- plural, as words: Bauble Containers = {object:177785} Bauble Container
-	["Cast {spell:18960} to get here: {npc:11802} stands upstairs in the building beside where you land. {quest:28} runs on a 30-minute timer: once you accept it, no teleport or Hearthstone until {npc:11799} has it. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "",
+	["Cast {spell:18960} to get here: {npc:11802} stands upstairs in the building beside where you land. {quest:28} runs on a 30-minute timer: once you accept it, no teleport or Hearthstone until {npc:11799} has it. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "施放{spell:18960}到這裡：{npc:11802}在落腳點旁邊那棟樓的樓上。{quest:28}限時30分鐘：一旦接下，在{npc:11799}收到之前不能傳送也不能用爐石。六個珠子容器（花瓶）躺在{area:2361}下方{area:656}底部深處的狹窄凹坑裡，常在冒泡的裂縫附近（湖中央的{object:177524}能補滿呼吸）；每個開啟後三分鐘重新出現，別的德魯伊也會來拿。浮出水面之前確認包裡有{item:15877}：拾取後五分鐘就會消失。直接把它游到西北岸的{area:2362}，在神殿範圍內使用，再找樹旁的{npc:11799}說話。",
 
 	-- Step 11: Half Pendant of Aquatic Agility
-	-- {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff · {area:1637} Orgrimmar · {object:177792} Strange Lockbox · {area:382} Sludge Fen
-	["Take {npc:11798}'s flight to {area:1638} and fly on to {area:1637}. The {object:177792} lies underwater in the {area:382} pond, a short walk out of {area:1637}'s west gate, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "",
+	-- {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff · {area:1637} Orgrimmar · {object:177794} Strange Lockbox · {area:382} Sludge Fen
+	["Take {npc:11798}'s flight to {area:1638} and fly on to {area:1637}. The {object:177794} lies underwater in the {area:382} pond, a short walk out of {area:1637}'s west gate, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "乘坐{npc:11798}的航班前往{area:1638}，再飛往{area:1637}。從{area:1637}西門步行一小段路即可到達{area:382}，{object:177794}就在池塘水下的一面木牆前。那裡的風險投資公司成員很容易加入戰鬥，從西面接近可避開大部分敵人。",
+	-- {item:15883} Half Pendant of Aquatic Agility · {object:177794} Strange Lockbox
+	["{item:15883}, from the {object:177794}"] = "{item:15883}，來自{object:177794}",
 
 	-- Step 12: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "搭飛艇前往{zone:1458}",
 	-- {area:1637} Orgrimmar · {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["Back through {area:1637} to the zeppelin towers outside its main gate: the zeppelin to the {zone:1458} lands in {zone:1420}, and {zone:1421} is south of the {zone:1458}."] = "",
+	["Back through {area:1637} to the zeppelin towers outside its main gate: the zeppelin to the {zone:1458} lands in {zone:1420}, and {zone:1421} is south of the {zone:1458}."] = "穿過{area:1637}回到正門外的飛艇塔：飛往{zone:1458}的飛艇在{zone:1420}降落，{zone:1421}在{zone:1458}以南。",
 
 	-- Step 13: Half Pendant of Aquatic Endurance
-	-- {object:177790} Strange Lockbox · {area:228} Sepulcher · {spell:18960} Teleport: Moonglade
-	["The {object:177790} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down. Then {spell:18960} takes you straight back."] = "",
+	-- {object:177844} Strange Lockbox · {area:228} Sepulcher · {spell:18960} Teleport: Moonglade
+	["The {object:177844} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down. Then {spell:18960} takes you straight back."] = "{object:177844}在{area:228}西北海岸外的深水底部，旁邊有可供呼吸的氣泡裂隙，下潛時注意呼吸條。拿到後用{spell:18960}直接返回。",
+	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177844} Strange Lockbox
+	["{item:15882}, from the {object:177844}"] = "{item:15882}，來自{object:177844}",
 
 	-- Step 14: Pendant of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {item:15883} Half Pendant of Aquatic Agility · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960}. With both halves in your bags, stand by the {area:2362} on the north-west shore and use the {item:15883} to join them, then cast {spell:18960} again (it works inside {zone:1450}) to land by {npc:11802}. He stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:11798} flies druids to {area:1638}."] = "",
+	["Cast {spell:18960}. With both halves in your bags, stand by the {area:2362} on the north-west shore and use the {item:15883} to join them, then cast {spell:18960} again (it works inside {zone:1450}) to land by {npc:11802}. He stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:11798} flies druids to {area:1638}."] = "施放{spell:18960}。把兩半都放在揹包裡，站在西北岸的{area:2362}旁，使用{item:15883}把它們拼合，然後再次施放{spell:18960}（在{zone:1450}內有效）降落到{npc:11802}身旁。他在自己那棟樓的樓上：從裡面上樓，箭頭分不清樓層。{npc:11798}會把德魯伊送到{area:1638}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cast {spell:18960}. Join the two halves into the {item:15885} near the {area:2362}, on the north-west shore of the lake, then see {npc:11802} in {area:2361}. Fly to {area:702} afterwards."] = "施放{spell:18960}。在湖的西北岸、{area:2362}附近把兩半組合成{item:15885}，然後去{area:2361}找{npc:11802}。之後飛往{area:702}。",
@@ -83,9 +87,7 @@ return {
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}."] = "施放{spell:18960}。{npc:11802}在{area:2361}。神殿靈珠躺在{area:656}的湖底，幾分鐘內就會消失：拿到一個後直接游到西北岸的{area:2362}，在那裡使用它，然後與{npc:11799}交談。",
 	-- ["Fly from {area:2361} to {area:442}. The {object:177792} lies under the water off the north coast, west of the {area:443}."] = "從{area:2361}飛往{area:442}。{object:177792}在北岸外的水下，{area:443}西邊。",
 	-- ["Take the boat from {area:442} to {zone:1453} and fly to {area:108}. Ride north-west to the coast: the {object:177790} lies on the sea floor off the shore."] = "從{area:442}搭船前往{zone:1453}，再飛往{area:108}。向西北騎到海岸：{object:177790}在岸外的海底。",
-	-- ["Take the portal up to {npc:4217} in the {area:1658}."] = "搭傳送門上去，到{area:1658}找{npc:4217}。",
 	-- ["Take {npc:11798}'s flight to {zone:1456}, fly to {zone:1454} and take the zeppelin to {zone:1420}; {zone:1421} is south of the {zone:1458}. The {object:177790} lies on the coast west of the {area:240}, north of the {area:228}."] = "搭{npc:11798}的飛行路線前往{zone:1456}，飛往{zone:1454}，再搭飛艇前往{zone:1420}；{zone:1421}在{zone:1458}南邊。{object:177790}在{area:228}北邊、{area:240}西邊的海岸上。",
 	-- ["The {object:177792} lies at the north edge of the {area:382}, by the Venture Co. tower, north of the {area:380}."] = "{object:177792}在{area:382}北緣、風險投資公司的塔旁，{area:380}北邊。",
-	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033}站在{area:1639}。",
 	-- ["{npc:4217} stands in the {area:1658}."] = "{npc:4217}站在{area:1658}。",
 }

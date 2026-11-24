@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Alterac Mountains (1/2)
 	-- {zone:1416} Alterac Mountains · {zone:1424} Hillsbrad Foothills · {zone:1434} Stranglethorn Vale
-	["Starts in the {zone:1416}, north of {zone:1424}, and ends in {zone:1434}. 15 areas to discover here, levels 27-39."] = "",
+	["Starts in the {zone:1416}, north of {zone:1424}, and ends in {zone:1434}. 15 areas to discover here, levels 27-39."] = "{zone:1416}에서 시작해 {zone:1424} 북쪽을 지나 {zone:1434}에서 끝납니다. 여기서 발견할 지역은 15개, 27-39레벨입니다.",
 	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "한 캐릭터로 세계 지도 전체를 탐험하는 것은 Forever 유산 도전입니다(계정 공통 유산 점수 1점).",
 	-- {area:271} Southshore · {zone:1424} Hillsbrad Foothills · {zone:1416} Alterac Mountains
 	["Fly to {area:271} in {zone:1424} and walk north into the {zone:1416}."] = "{zone:1424}의 {area:271}(으)로 비행한 뒤 북쪽 {zone:1416}(으)로 걸어가십시오.",
@@ -51,14 +51,18 @@ return {
 
 	-- Step 7: Riverglades (1/2)
 	-- {area:16724} Farholde Keep · {area:16743} Rog'mar
-	["14 areas to discover here, levels 36-44. Flight paths: {area:16724} in the south-east (Alliance), {area:16743} in the middle (Horde)."] = "",
+	["14 areas to discover here, levels 36-44. Flight paths: {area:16724} in the south-east (Alliance), {area:16743} in the middle (Horde)."] = "여기서 발견할 지역은 14개, 36-44레벨입니다. 비행 경로: 남동쪽 {area:16724}(얼라이언스), 중앙 {area:16743}(호드).",
 	-- {zone:1418} Badlands · {area:345} Agmond's End · {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:2417} Blackrock Pass · {area:977} Steamwheedle Port · {zone:1446} Tanaris · {area:16727} Powderfuse Port · {area:17780} Krol'dok Stronghold
-	["From the south of the {zone:1418}, past {area:345}, a way leads down into the {zone:2548} by {area:16685}. (The {zone:2548} also open off northern Redridge through {area:2417}, and a ship runs from {area:977} in {zone:1446} to {area:16727}, the neutral goblin port on its coast.) {area:17780} is an ogre clan's outdoor dungeon."] = "",
+	["From the south of the {zone:1418}, past {area:345}, a way leads down into the {zone:2548} by {area:16685}. (The {zone:2548} also open off northern Redridge through {area:2417}, and a ship runs from {area:977} in {zone:1446} to {area:16727}, the neutral goblin port on its coast.) {area:17780} is an ogre clan's outdoor dungeon."] = "{zone:1418} 남쪽에서 {area:345}를(을) 지나 {area:16685} 옆으로 {zone:2548}(으)로 낮아지는 길이 있습니다. ({zone:2548}은(는) 북부 레드리지의 {area:2417}을(를) 통해서도 열리고, {zone:1446}의 {area:977}에서 해안의 중립 고블린 항구 {area:16727}(으)로 배가 다닙니다.) {area:17780}은(는) 오우거 일족의 야외 던전입니다.",
+	-- {area:16724} Farholde Keep · {npc:257087} Gretchen Mayberry
+	["Flight path here: {area:16724} ({npc:257087})."] = "이곳의 비행 경로: {area:16724} ({npc:257087}).",
+	-- {area:16743} Rog'mar
+	["Flight path here: {area:16743} (Grakna)."] = "이곳의 비행 경로: {area:16743} (그라크나).",
 
 	-- Step 9: Swamp of Sorrows (1/2)
 	["11 areas to discover here, levels 36-43."] = "이곳에서 발견할 지역은 11곳, 36-43레벨입니다.",
 	-- {zone:1435} Swamp of Sorrows · {zone:2548} Riverglades · {area:16725} Wheeler's Grange · {area:16737} Bristle Hills
-	["The {zone:1435} lies south of the {zone:2548}: swim south from {area:16725}, or walk through Redridge Pass, south of the {area:16737}."] = "",
+	["The {zone:1435} lies south of the {zone:2548}: swim south from {area:16725}, or walk through Redridge Pass, south of the {area:16737}."] = "{zone:1435}은(는) {zone:2548} 남쪽에 있습니다. {area:16725}에서 남쪽으로 수영하거나, {area:16737} 남쪽의 레드리지 고개를 지나 걸어가세요.",
 	-- {area:75} Stonard
 	["{area:75} is the Horde town."] = "{area:75}은(는) 호드 마을입니다.",
 	-- {area:75} Stonard
@@ -68,9 +72,9 @@ return {
 	-- {area:35} Booty Bay · {area:392} Ratchet
 	["27 areas to discover here, levels 30-50. {area:35} at the southern tip is a neutral goblin port with a boat to {area:392}."] = "이곳에서 발견할 지역은 27곳, 30-50레벨입니다. 남쪽 끝의 {area:35}은(는) {area:392}(으)로 가는 배가 있는 중립 고블린 항구입니다.",
 	-- {zone:1435} Swamp of Sorrows · {zone:1430} Deadwind Pass · {zone:1431} Duskwood · {zone:1434} Stranglethorn Vale
-	["Ride west out of the {zone:1435} through {zone:1430} (level 50+ creatures off the road) into {zone:1431} and take the road south into northern {zone:1434}."] = "",
+	["Ride west out of the {zone:1435} through {zone:1430} (level 50+ creatures off the road) into {zone:1431} and take the road south into northern {zone:1434}."] = "{zone:1435}에서 서쪽으로 나와 {zone:1430}(으)로 관통하세요(길 밖에 50레벨 이상 크리쳐). {zone:1431}까지 가서 남쪽 길로 들어가 북부 {zone:1434}(으)로 가세요.",
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {area:117} Grom'gol Base Camp
-	["Or take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "",
+	["Or take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "또는 {zone:1454}나 {zone:1458}에서 비행선을 타고 {area:117}(으)로 가십시오.",
 	-- {area:35} Booty Bay
 	["Flight path here: {area:35} (Gyll)."] = "이곳의 비행 경로: {area:35} (가일).",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol
@@ -88,6 +92,5 @@ return {
 	-- ["Fly to {area:42} (or {zone:1453}) and take the road south out of {zone:1431} into northern {zone:1434}."] = "{area:42}(또는 {zone:1453})(으)로 비행한 뒤 남쪽 길로 {zone:1431}을(를) 빠져나가 {zone:1434} 북부로 가십시오.",
 	-- ["Go back north into {zone:1431} and follow its road east through {zone:1430} (level 50+ creatures off the road) into the {zone:1435}."] = "북쪽 {zone:1431}(으)로 돌아가 길을 따라 동쪽으로 {zone:1430}을(를) 지나(길 밖에는 50레벨 이상 몹) {zone:1435}(으)로 가십시오.",
 	-- ["Picks up in {zone:1424}, where the 1-30 guide leaves the Horde and passes the Alliance. 15 areas to discover here, levels 27-39."] = "1-30 가이드가 호드를 남겨 두고 얼라이언스가 지나가는 {zone:1424}에서 이어집니다. 이곳에서 발견할 지역은 15곳, 27-39레벨입니다.",
-	-- ["Take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "{zone:1454} 또는 {zone:1458}에서 비행선을 타고 {area:117}(으)로 가십시오.",
 	-- ["The {zone:2548} lie east of the {zone:1418} and the {zone:1428}: the way in is the fork east off the {zone:1433} road (a ship also runs from {zone:1446} to {area:16727}, the neutral goblin port on its coast). {area:17780} is an ogre clan's outdoor dungeon."] = "{zone:2548}은(는) {zone:1418}와(과) {zone:1428}의 동쪽에 있습니다. {zone:1433} 길에서 동쪽으로 갈라지는 길로 들어가십시오({zone:1446}에서 해안의 중립 고블린 항구 {area:16727}(으)로 가는 배도 있습니다). {area:17780}은(는) 오우거 부족의 야외 던전입니다.",
 }

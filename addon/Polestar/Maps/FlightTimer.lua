@@ -5,7 +5,12 @@
 -- recording of that exact from -> to flight when there is one
 -- (CharState().flightTimes, learned on every landing at the destination),
 -- otherwise an estimate from the travel data: the shortest chain of known
--- flight legs at gryphon speed. Estimates show with a "~".
+-- flight legs at gryphon speed. Estimates show with a "≈" ("~" in a face
+-- without it: Theme.Approx, #1906).
+--
+-- Its look (size, width, type, outline, the bar's thickness and colour, the
+-- time as time left or percent, the ground) and whether it shows in a fight
+-- or in an instance: trackers.flight.* (Options > Trackers).
 --
 -- Cost: one hidden driver frame, shown only between picking a destination
 -- and landing, ticking five times a second; text is formatted only when the
@@ -17,11 +22,9 @@ local Client = Maps.Client
 local serverTime = ns.Compat.Now
 local L = ns.L
 
-local type, pairs, ipairs, floor, lower, huge = type, pairs, ipairs, math.floor, string.lower, math.huge
+local type, pairs, ipairs, floor, lower = type, pairs, ipairs, math.floor, string.lower
 local sqrt = math.sqrt
 
-local FLIGHT_SPEED = 30   -- yd/s along the path (Classic gryphon/wyvern; Nav's planner uses the same)
-local FLIGHT_STOP = 2     -- seconds per hop: take-off and landing
 local TICK = 0.2
 local BOARD_WINDOW = 10   -- seconds from picking a node to being on the taxi
 local LAND_RADIUS = 300   -- yards: landed at the destination, so the time is learnable
@@ -73,47 +76,17 @@ end
 
 -- Estimated seconds for one flight leg of `yards`.
 function Maps.LegSeconds(yards)
-	return yards / FLIGHT_SPEED + FLIGHT_STOP
+	return ns.Nav.travel.FlightLegSeconds(yards)
 end
 
 -- Seconds by air from node `from` to node `to`, Dijkstra over the flight legs
 -- through nodes this faction may use and, when known nodes are recorded, only
 -- through known ones (the client routes over discovered nodes). nil: no route.
 function Maps.EstimateFlight(from, to, faction, known)
-	local d = travel()
-	if not (d and from and to) or from == to then return nil end
-	local nodes, flights = d.taxiById, d.flights
-	if not (nodes[from] and nodes[to]) then return nil end
-	faction = faction or 0
-	local useKnown = false
-	if type(known) == "table" then
-		for _ in pairs(known) do
-			useKnown = true
-			break
-		end
-	end
-	local dist, done = { [from] = 0 }, {}
-	while true do
-		local u, best = nil, huge
-		for id, dv in pairs(dist) do
-			if not done[id] and dv < best then u, best = id, dv end
-		end
-		if not u then return nil end
-		if u == to then return floor(best + 0.5) end
-		done[u] = true
-		local legs = flights[u]
-		if legs then
-			for i = 1, #legs - 1, 2 do
-				local v, yards = legs[i], legs[i + 1]
-				local node = nodes[v]
-				if node and not done[v] and Maps.Allowed(node.faction, faction)
-					and (not useKnown or known[v] or v == to) then
-					local alt = best + Maps.LegSeconds(yards)
-					if not dist[v] or alt < dist[v] then dist[v] = alt end
-				end
-			end
-		end
-	end
+	local N = ns.Nav
+	if not (N and from ~= to and N.GetTaxiNode(from) and N.GetTaxiNode(to)) then return nil end
+	local seconds = N.travel.FlightTimes(from, faction or 0, known, to)[to]
+	return seconds and floor(seconds + 0.5) or nil
 end
 
 -- Learned durations are keyed by node IDs when both are known, else by names.
@@ -162,31 +135,46 @@ local function onTaxi()
 	return C and C.IsOnTaxi and C.IsOnTaxi() or false
 end
 
+local function trackers() return ns.UI and ns.UI.Trackers end
+
+-- The time as the player reads it (Trackers > Flight timer: the time left,
+-- how far along, or both): state "late" | "estimate" | "learned" | "up"
+-- (no duration: the time up), `second` the time left (up), frac how far.
+function Maps.FlightTimeText(state, second, frac)
+	if state == "late" then return L["landing"] end
+	local text = Maps.FormatTime(second)
+	if state == "estimate" then text = ns.Theme.Approx() .. text end
+	local TR = trackers()
+	local fmt = TR and TR.Get("flight", "format") or "left"
+	if state == "up" or not frac or fmt == "left" then return text end
+	local pct = string.format("%d%%", floor(math.min(1, math.max(0, frac)) * 100 + 0.5))
+	if fmt == "percent" then return pct end
+	return text .. "  \194\183  " .. pct
+end
+
 local function render()
 	if not frame then return end
+	local TR = trackers()
 	if not (flight and ns.Get("maps.flightTimer")) then
 		frame:Hide()
 		return
 	end
 	local elapsed = GetTime() - flight.start
-	local state, second
+	local state, second, frac
 	if flight.total then
 		local left = flight.total - elapsed
 		if left <= 0 then state, second = "late", 0 else state, second = flight.source, floor(left + 0.5) end
+		frac = elapsed / flight.total
 		local W = ns.Widgets
-		if W and W.SetProgress then W.SetProgress(frame.Progress, elapsed / flight.total) end
+		if W and W.SetProgress then W.SetProgress(frame.Progress, frac) end
 	else
 		state, second = "up", floor(elapsed)
 	end
-	if second ~= shownSecond or state ~= shownState then
-		shownSecond, shownState = second, state
-		if state == "late" then
-			frame.Time:SetText(L["landing"])
-		elseif state == "estimate" then
-			frame.Time:SetText("~" .. Maps.FormatTime(second))
-		else
-			frame.Time:SetText(Maps.FormatTime(second))
-		end
+	-- How far along changes more often than the second only when the percent shows.
+	local pct = frac and floor(frac * 100) or nil
+	if second ~= shownSecond or state ~= shownState or (pct ~= frame.psPct and TR and TR.Get("flight", "format") ~= "left") then
+		shownSecond, shownState, frame.psPct = second, state, pct
+		frame.Time:SetText(Maps.FlightTimeText(state, second, frac))
 	end
 	if not frame:IsShown() then
 		frame.Dest:SetText(flight.toName or L["In flight"])
@@ -253,23 +241,55 @@ local function tick()
 	if not (flight or pending) then driver:Hide() end
 end
 
+-- The timer's parts on f: the live frame (a Maps.CompactFrame) or a sandbox
+-- one for the options' preview (Maps.NewFlightTimer). Its size, type, bar
+-- and ground are the player's (Options > Trackers, UI/Looks/Trackers.lua).
+local function dress(f, sandbox)
+	local W = ns.Widgets
+	f:SetSize(220, 34)
+	local icon = W.Tex(f, "ARTWORK", "icon-fly", "accent")
+	icon:SetSize(16, 16)
+	icon:SetPoint("LEFT", f, "LEFT", 10, 1)
+	f.Icon = icon
+	f.Time = W.Text(f, "number", "text")
+	f.Time:SetPoint("RIGHT", f, "RIGHT", -10, 1)
+	f.Time:SetJustifyH("RIGHT")
+	f.Dest = W.Text(f, "body", "text")
+	f.Dest:SetPoint("LEFT", icon, "RIGHT", 8, 0)
+	f.Dest:SetPoint("RIGHT", f.Time, "LEFT", -8, 0)
+	f.Progress = W.ProgressLine(f, 2)
+	f.Progress:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 1, 1)
+	f.Progress:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -1, 1)
+	local TR = trackers()
+	if TR then
+		-- Larger type: the timer grows to hold it.
+		TR.Attach("flight", f, { titles = { f.Time }, bodies = { f.Dest }, bar = f.Progress, sandbox = sandbox,
+			relayout = function(self)
+				self:SetHeight(math.floor(34 * math.max(1, self.psTextK or 1) + 0.5))
+				self.psPct = nil
+				shownSecond = nil
+				if not sandbox then render() end
+			end })
+	end
+	return f
+end
+
+-- A sandbox timer for the options' preview: to `dest`, `frac` of the way.
+function Maps.NewFlightTimer(parent)
+	local f = CreateFrame("Frame", nil, parent)
+	f.psLight = true
+	ns.Theme.Skin(f, "window")
+	return dress(f, true)
+end
+function Maps.FillFlightTimer(f, dest, seconds, frac, state)
+	f.Dest:SetText(dest)
+	f.Time:SetText(Maps.FlightTimeText(state or "learned", seconds, frac))
+	ns.Widgets.SetProgress(f.Progress, frac, f:GetWidth() - 2)
+end
+
 local function buildFrame()
 	if frame or not ns.Widgets then return end
-	local W = ns.Widgets
-	frame = Maps.CompactFrame("PolestarFlightTimer", "maps.timerPos", "TOP", 0, -140)
-	frame:SetSize(220, 34)
-	local icon = W.Tex(frame, "ARTWORK", "icon-fly", "accent")
-	icon:SetSize(16, 16)
-	icon:SetPoint("LEFT", frame, "LEFT", 10, 1)
-	frame.Time = W.Text(frame, "number", "text")
-	frame.Time:SetPoint("RIGHT", frame, "RIGHT", -10, 1)
-	frame.Time:SetJustifyH("RIGHT")
-	frame.Dest = W.Text(frame, "body", "text")
-	frame.Dest:SetPoint("LEFT", icon, "RIGHT", 8, 0)
-	frame.Dest:SetPoint("RIGHT", frame.Time, "LEFT", -8, 0)
-	frame.Progress = W.ProgressLine(frame, 2)
-	frame.Progress:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 1, 1)
-	frame.Progress:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -1, 1)
+	frame = dress(Maps.CompactFrame("PolestarFlightTimer", "maps.timerPos", "TOP", 0, -140))
 end
 
 driver = CreateFrame("Frame")

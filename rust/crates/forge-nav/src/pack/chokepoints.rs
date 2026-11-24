@@ -4,7 +4,9 @@
 //!
 //! Rules (decided 2026-10-15):
 //! - lift: both landings of every lift of the grid (lifts.json), one entry per landing (landings
-//!   within LIFT_SAME yd and STEP in height are one); liftEnd top or bottom, `pair` the other end.
+//!   within LIFT_SAME yd and STEP in height are one); liftEnd top or bottom, `pair` the other end;
+//!   `ride` the seconds a ride takes with the wait for the car (lift_rides: the client's
+//!   TransportAnimation), when the client's table has the lift.
 //! - cave, building, pass: the mouth of each approach chain of the aids; a cave's or building's
 //!   mouth is where the chain's line first reaches an indoor surface, centred on the indoor
 //!   boundary around it (indoor_mouth). A chain whose line is indoors from its first step (it starts
@@ -16,6 +18,11 @@
 //!   separate ends; gate (from the grid): outdoor ground under a low WMO span with two ends.
 //! - A grid bridge or gate within MERGE yd of an aids entry of its kind is that entry; an aids pass
 //!   there becomes it. A grid gate elsewhere is left out.
+//! - A grid gate under a bridge makes its aids pass a bridge, not a gate: within MERGE yd of the gate, and higher
+//!   than its ground by more than STEP, stands a model deck of at least DECK_MIN columns, WET_SHARE of them over
+//!   water (the bridge rule leaves such a deck out when it is wide or its ends are not two). The gate is then the
+//!   ground under the bridge's land span (the Southfury River's road crossing between Durotar and the Barrens: its
+//!   deck over the water meets the land on one side only as the bridge rule sees it; the arrow said "Through the gate").
 
 use super::layers::{AreaName, AreaTable, Frames};
 use crate::grid::{cell_centre, cell_of, flag, Grid, CELL, DIRS, NO_LINK, STEP, TILE_CELLS};
@@ -23,6 +30,44 @@ use crate::legs::{Nav, SnapAsk};
 use forge_core::jsnum::{js_hypot, js_round, js_to_string};
 use rustc_hash::FxHashMap;
 use serde_json::Value;
+
+/// Each lift's ride with its wait, in seconds, by its GameObject entry (as chokepoints' liftObject writes it), from the
+/// client's TransportAnimation.csv (ID, Pos_0, Pos_1, Pos_2, SequenceID, TimeIndex, TransportID): a car's height
+/// offset (Pos_2) at each time (ms) of its loop. The car stands at its lowest and highest heights for a while (its
+/// dwell at each landing) and travels between them; a ride is half the loop's travel, and a player who comes to a
+/// landing at a random moment waits on average (loop - dwell)^2 / (2 loop) for the car to be back there (the shorter
+/// dwell of the two). The Undercity's lifts: a 16.7 s loop, 3.4 s rides, 4.2 s of wait: 7.6 s; Thunder Bluff's and the
+/// Great Lift: 30 s, 10 s and 10.4 s: 20.4 s.
+pub fn lift_rides(csv: &str) -> FxHashMap<String, f64> {
+	let mut keys: FxHashMap<String, Vec<(f64, f64)>> = FxHashMap::default();
+	for line in csv.lines().skip(1) {
+		let f: Vec<&str> = line.split(',').collect();
+		if f.len() < 7 {
+			continue;
+		}
+		let (Ok(z), Ok(t)) = (f[3].trim().parse::<f64>(), f[5].trim().parse::<f64>()) else { continue };
+		keys.entry(f[6].trim().to_string()).or_default().push((t, z));
+	}
+	let mut out = FxHashMap::default();
+	for (id, mut k) in keys {
+		k.sort_by(|a, b| a.0.total_cmp(&b.0));
+		let loop_s = k.last().map_or(0.0, |x| x.0) / 1000.0;
+		let lo = k.iter().map(|x| x.1).fold(f64::INFINITY, f64::min);
+		let hi = k.iter().map(|x| x.1).fold(f64::NEG_INFINITY, f64::max);
+		if loop_s <= 0.0 || hi - lo < 1.0 {
+			continue;
+		}
+		// at a landing: two keyframes in a row within DWELL_YD of the extreme (Gnomeregan's car settles by a few inches)
+		let dwell = |v: f64| k.windows(2).filter(|w| (w[0].1 - v).abs() <= DWELL_YD && (w[1].1 - v).abs() <= DWELL_YD).map(|w| w[1].0 - w[0].0).sum::<f64>() / 1000.0;
+		let (d_lo, d_hi) = (dwell(lo), dwell(hi));
+		let ride = (loop_s - d_lo - d_hi) / 2.0;
+		let gap = loop_s - d_lo.min(d_hi);
+		out.insert(id, js_round((ride + gap * gap / (2.0 * loop_s)) * 10.0) / 10.0);
+	}
+	out
+}
+/// A lift's car stands at a landing while its height stays within this of the landing's.
+const DWELL_YD: f64 = 0.5;
 
 const LIFT_SAME: f64 = 8.0;
 pub const MERGE: f64 = 25.0;
@@ -84,6 +129,8 @@ pub struct Choke {
 	/// The lift's GameObject entry, as a Lua literal (lifts.json's id: a number, or a string).
 	pub lift_object: Option<String>,
 	pub lift_end: Option<&'static str>,
+	/// A lift landing's ride to its pair with the wait for the car, seconds (lift_rides), when the client has it.
+	pub ride: Option<f64>,
 	pub pair: Option<usize>,
 	pub sides: Option<Vec<Side>>,
 }
@@ -118,7 +165,7 @@ impl Ctx<'_> {
 
 	fn entry(&self, wx: f64, wy: f64, z: Option<f64>, r: f64, kind: &str, at: (f64, f64)) -> Choke {
 		let (name, area, zone, zone_area) = place_names(self.place(at.0, at.1));
-		Choke { wx, wy, z, r, kind: kind.into(), name, area, zone, zone_area, lift: None, lift_object: None, lift_end: None, pair: None, sides: None }
+		Choke { wx, wy, z, r, kind: kind.into(), name, area, zone, zone_area, lift: None, lift_object: None, lift_end: None, ride: None, pair: None, sides: None }
 	}
 
 	/// The surface nearest `z` (any when None) within `radius` yd of a point -> (its height, its flags).
@@ -216,8 +263,16 @@ struct Col {
 	wet: bool,
 }
 
-/// Grid scan of one continent: deck (bridge) and covered (gate) columns -> components -> entries.
-fn grid_chokepoints(cx: &Ctx, grid: &Grid) -> Vec<Choke> {
+/// Whether a grid gate whose middle column stands at `mid` (wx, wy, z) is the ground under a bridge: a column of one of
+/// `decks` (the columns of every model deck over water of at least DECK_MIN columns, WET_SHARE of them wet: wx, wy, z)
+/// within MERGE yd of it and higher than its ground by more than STEP.
+fn under_bridge(mid: (f64, f64, f64), decks: &[(f64, f64, f32)]) -> bool {
+	decks.iter().any(|&(wx, wy, z)| js_hypot(wx - mid.0, wy - mid.1) <= MERGE && z as f64 > mid.2 + STEP)
+}
+
+/// Grid scan of one continent: deck (bridge) and covered (gate) columns -> components -> entries, each gate with
+/// whether it stands under a bridge (under_bridge).
+fn grid_chokepoints(cx: &Ctx, grid: &Grid) -> Vec<(Choke, bool)> {
 	let c = cx.c;
 	let tiles: Vec<(i64, i64)> = grid.index["continents"][c.to_string()]["tiles"]
 		.as_array()
@@ -292,6 +347,9 @@ fn grid_chokepoints(cx: &Ctx, grid: &Grid) -> Vec<Choke> {
 		(col, row, (j * 256 + i) as usize)
 	};
 	let mut out = Vec::new();
+	// The columns of every model deck over water big enough to be a bridge, whatever its shape (under_bridge): the
+	// decks come first, so the gates after them see every one.
+	let mut decks: Vec<(f64, f64, f32)> = Vec::new();
 	for (set, kind, min, width) in [(&deck, "bridge", DECK_MIN, DECK_WIDTH), (&cover, "gate", GATE_MIN, GATE_WIDTH)] {
 		let mut seen: rustc_hash::FxHashSet<String> = Default::default();
 		let mut starts: Vec<(&String, &Col)> = set.iter().collect();
@@ -333,6 +391,9 @@ fn grid_chokepoints(cx: &Ctx, grid: &Grid) -> Vec<Choke> {
 			}
 			if comp.len() < min {
 				continue;
+			}
+			if kind == "bridge" && (comp.iter().filter(|q| q.wet).count() as f64) >= WET_SHARE * comp.len() as f64 {
+				decks.extend(comp.iter().map(|q| (q.wx, q.wy, q.z)));
 			}
 			let far = |a: Col| comp.iter().fold(a, |b, q| if js_hypot(q.wx - a.wx, q.wy - a.wy) > js_hypot(b.wx - a.wx, b.wy - a.wy) { *q } else { b });
 			let a = far(comp[0]);
@@ -378,14 +439,15 @@ fn grid_chokepoints(cx: &Ctx, grid: &Grid) -> Vec<Choke> {
 				.collect();
 			let mut ch = cx.entry(round1(mid.wx), round1(mid.wy), Some(round1(mid.z as f64)), js_round(R_MAX.min(R_MIN.max(span / 2.0))), kind, (mid.wx, mid.wy));
 			ch.sides = Some(sides);
-			out.push(ch);
+			out.push((ch, kind == "gate" && under_bridge((mid.wx, mid.wy, mid.z as f64), &decks)));
 		}
 	}
 	out
 }
 
-/// One continent's chokepoints. aids: aids.json (or Null); lifts: lifts.json's list for c.
-pub fn chokepoints(nav: &Nav, c: u32, aids: &Value, lifts: &[Value], frames: &Frames, areas: &AreaTable) -> Vec<Choke> {
+/// One continent's chokepoints. aids: aids.json (or Null); lifts: lifts.json's list for c; rides: lift_rides' seconds by
+/// lift (empty without the client's TransportAnimation).
+pub fn chokepoints(nav: &Nav, c: u32, aids: &Value, lifts: &[Value], rides: &FxHashMap<String, f64>, frames: &Frames, areas: &AreaTable) -> Vec<Choke> {
 	let cx = Ctx { nav, c, areas };
 	let mut list: Vec<Choke> = Vec::new();
 	struct Landing {
@@ -428,6 +490,7 @@ pub fn chokepoints(nav: &Nav, c: u32, aids: &Value, lifts: &[Value], frames: &Fr
 		ch.lift_object = Some(l.id.clone());
 		ch.lift_end = Some(l.end);
 		ch.pair = l.pair.map(|p| base + p);
+		ch.ride = rides.get(&l.id).copied();
 		list.push(ch);
 	}
 	let near = |list: &[Choke], wx: f64, wy: f64, kind: &str| list.iter().position(|x| x.kind == kind && js_hypot(x.wx - wx, x.wy - wy) <= MERGE);
@@ -484,7 +547,7 @@ pub fn chokepoints(nav: &Nav, c: u32, aids: &Value, lifts: &[Value], frames: &Fr
 		ch.sides = Some(sides);
 		list.push(ch);
 	}
-	for g in grid_chokepoints(&cx, &nav.grid) {
+	for (g, under) in grid_chokepoints(&cx, &nav.grid) {
 		if near(&list, g.wx, g.wy, &g.kind).is_some() {
 			continue;
 		}
@@ -492,7 +555,7 @@ pub fn chokepoints(nav: &Nav, c: u32, aids: &Value, lifts: &[Value], frames: &Fr
 			// The pass keeps its own ids where the grid's place has no area (the JS spreads { name: '', zone: '' }).
 			let place = cx.place(g.wx, g.wy);
 			let e = &mut list[p];
-			e.kind = g.kind.clone();
+			e.kind = if under { "bridge".into() } else { g.kind.clone() };
 			e.wx = g.wx;
 			e.wy = g.wy;
 			e.z = g.z;
@@ -603,6 +666,9 @@ pub fn chokepoints_lua(by_map: &[(u32, Vec<Choke>)], gen: &str) -> String {
 			if let Some(l) = x.lift_end {
 				f.push(format!("liftEnd = {}", lua_str(l)));
 			}
+			if let Some(s) = x.ride {
+				f.push(format!("ride = {}", n(s)));
+			}
 			if let Some(p) = x.pair {
 				f.push(format!("pair = {}", p + 1));
 			}
@@ -629,6 +695,24 @@ pub fn chokepoints_lua(by_map: &[(u32, Vec<Choke>)], gen: &str) -> String {
 #[cfg(test)]
 mod tests {
 	use super::*;
+
+	/// A lift's ride with its wait, from its car's keyframes (the client's TransportAnimation rows for the Undercity's
+	/// lift 20652 and Thunder Bluff's 4171): the Undercity's 16.7 s loop rides 3.4 s and waits 4.2 s on average, Thunder
+	/// Bluff's 30 s loop rides 10 s and waits 10.4 s. A transport whose height never changes (a boat) is no lift.
+	#[test]
+	fn a_lifts_ride_is_half_its_travel_and_the_average_wait_for_the_car() {
+		let rows = |id: u32, keys: &[(u32, f64)]| keys.iter().enumerate().map(|(n, (t, z))| format!("{n},0,0,{z},0,{t},{id}\n")).collect::<String>();
+		let csv = format!(
+			"ID,Pos_0,Pos_1,Pos_2,SequenceID,TimeIndex,TransportID\n{}{}{}",
+			rows(20652, &[(0, 0.0), (167, 0.0), (3667, 96.5), (8500, 96.5), (11833, 0.0), (16667, 0.0)]),
+			rows(4171, &[(0, 0.0), (5000, 0.0), (6667, 4.69), (13100, 53.47), (15000, 61.5), (20000, 61.5), (21800, 54.27), (28967, 1.97), (30000, 0.0)]),
+			rows(176495, &[(0, 0.0), (60000, 0.0)])
+		);
+		let rides = lift_rides(&csv);
+		assert_eq!(rides.get("20652"), Some(&7.6), "the Undercity's lift");
+		assert_eq!(rides.get("4171"), Some(&20.4), "Thunder Bluff's lift");
+		assert_eq!(rides.get("176495"), None, "a car that never rises is no lift");
+	}
 
 	// A cave or building mouth is a doorway: indoor ground with outdoor ground at its height beside
 	// it (tests/navmesh-chokepoints.test.js's scene, as surfaces). A hut: an indoor floor at 0.2
@@ -674,5 +758,18 @@ mod tests {
 		assert!(matches!(indoor_mouth(&snap, &[(330.0, 280.0), (330.0, 330.0), (330.0, 345.0)]), Mouth::NoDoorway), "down the shaft onto the sunken hall");
 		assert!(matches!(indoor_mouth(&snap, &[(120.0, 120.0), (60.0, 120.0)]), Mouth::NoDoorway), "starting inside the hut");
 		assert!(matches!(indoor_mouth(&snap, &[(0.0, 0.0), (50.0, 0.0)]), Mouth::None), "never indoors");
+	}
+
+	// A gate under a bridge (under_bridge): the Southfury River's road crossing between Durotar and the Barrens, whose
+	// gate (the river bank under the bridge's land span, z 17) has the bridge's wet deck (z 36) 6.5 yd off and was
+	// named "Through the gate". Thoradin's Wall and Stromgarde Keep have no deck over water; Northwatch Hold's nearest
+	// wet deck pieces are too small to be a bridge, so it stays a gate.
+	#[test]
+	fn a_gate_with_a_bridge_deck_over_water_above_it_is_under_a_bridge() {
+		let deck: Vec<(f64, f64, f32)> = (0..6).flat_map(|i| (0..6).map(move |j| (330.0 + i as f64 * CELL, -3760.0 - j as f64 * CELL, 36.0))).collect();
+		assert!(under_bridge((324.0, -3777.0, 17.3), &deck), "the deck 9 yd off and 19 yd up");
+		assert!(!under_bridge((324.0, -3777.0, 36.0), &deck), "a gate on the deck's own level is not under it");
+		assert!(!under_bridge((324.0, -3820.0, 17.3), &deck), "a gate farther than MERGE yd from every column");
+		assert!(!under_bridge((-638.5, -1744.8, 57.1), &[]), "no deck over water");
 	}
 }

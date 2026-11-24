@@ -43,6 +43,8 @@ pub struct GoalView {
 	pub t: String,
 	pub quest: Option<u32>,
 	pub item: Option<u32>,
+	/// The quest objective it counts (its `oi`).
+	pub oi: Option<u32>,
 	pub status: Status,
 	pub optional: bool,
 	/// goalText for a goal with the author's text (not a goto or explore, whose text is a place);
@@ -131,6 +133,7 @@ impl<'a> Sim<'a> {
 				t: g.verb.clone(),
 				quest: g.quest,
 				item: g.item,
+				oi: g.oi,
 				status: v.status,
 				optional: g.optional,
 				text: match (&g.text, g.t) {

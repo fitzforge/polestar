@@ -8,15 +8,15 @@
 return {
 	-- Guide
 	-- {quest:6061} Taming the Beast
-	["{quest:6061} (Horde)"] = "",
+	["{quest:6061} (Horde)"] = "{quest:6061} (호드)",
 	-- {item:15908} Taming Rod · {spell:1515} Tame Beast · {spell:5149} Beast Training
 	["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "",
 
 	-- Step 1: Thotar in Razor Hill
 	-- {npc:3171} Thotar · {area:362} Razor Hill
-	["{npc:3171} in {area:362}"] = "",
-	-- {npc:3171} Thotar · {area:362} Razor Hill · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:11814} Kali Remik · {area:367} Sen'jin Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff
-	["At 10 go to {npc:3171}, the hunter trainer inside the barracks in {area:362}. If {npc:3407} in {zone:1454}, {npc:11814} in {area:367} or {npc:3038} in {zone:1456} hands you The Hunter's Path, take it and hand it to {npc:3171} for a little experience; it is only a pointer, and you can take the first rod without it."] = "",
+	["{npc:3171} in {area:362}"] = "{area:362}의 {npc:3171}",
+	-- {npc:3171} Thotar · {area:362} Razor Hill · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:11814} Kali Remik · {area:367} Sen'jin Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {quest:6068} The Hunter's Path
+	["At 10 go to {npc:3171}, the hunter trainer inside the barracks in {area:362}. If {npc:3407} in {zone:1454}, {npc:11814} in {area:367} or {npc:3038} in {zone:1456} hands you {quest:6068}, take it and hand it to {npc:3171} for a little experience; it is only a pointer, and you can take the first rod without it."] = "",
 	-- {npc:3171} Thotar · {item:15908} Taming Rod
 	["{npc:3171}: the first {item:15908}"] = "",
 
@@ -50,8 +50,8 @@ return {
 	-- Step 6: Yaw Sharpmane at Bloodhoof
 	-- {npc:3065} Yaw Sharpmane
 	["{npc:3065} at Bloodhoof"] = "",
-	-- {npc:3065} Yaw Sharpmane · {area:222} Bloodhoof Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:3171} Thotar · {area:362} Razor Hill
-	["At 10 go to {npc:3065}, who stands at the north edge of {area:222}. The Hunter's Path from {npc:3038} in {zone:1456}, {npc:3407} in {zone:1454} or {npc:3171} in {area:362} also leads here, for a little experience; it is only a pointer."] = "",
+	-- {npc:3065} Yaw Sharpmane · {area:222} Bloodhoof Village · {quest:6065} The Hunter's Path · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:3171} Thotar · {area:362} Razor Hill
+	["At 10 go to {npc:3065}, who stands at the north edge of {area:222}. {quest:6065} from {npc:3038} in {zone:1456}, {npc:3407} in {zone:1454} or {npc:3171} in {area:362} also leads here, for a little experience; it is only a pointer."] = "",
 	-- {npc:3065} Yaw Sharpmane · {item:15908} Taming Rod
 	["{npc:3065}: the first {item:15908}"] = "",
 
@@ -88,7 +88,7 @@ return {
 
 	-- Step 12: Quel'ana Quickgale in Valanaar
 	-- {npc:252389} Quel'ana Quickgale · {area:16638} Valanaar
-	["{npc:252389} in {area:16638}"] = "",
+	["{npc:252389} in {area:16638}"] = "{area:16638}의 {npc:252389}",
 	-- {npc:252389} Quel'ana Quickgale · {area:16638} Valanaar · {npc:254411} Quel'dora Quickgale
 	["{npc:252389} stands with the trainers by {area:16638}'s west gate, {npc:254411} beside her."] = "",
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod
@@ -101,7 +101,7 @@ return {
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living crawler"] = "",
 	-- {npc:254588} Windsong Crawler
-	["Tame {npc:254588}"] = "",
+	["Tame {npc:254588}"] = "{npc:254588} 길들이기",
 
 	-- Step 14: Ornery Galestrider
 	-- {spell:2641} Dismiss Pet · {area:16626} Gustberry Lowlands · {area:16638} Valanaar
@@ -110,7 +110,7 @@ return {
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living galestrider"] = "",
 	-- {npc:251707} Ornery Galestrider
-	["Tame {npc:251707}"] = "",
+	["Tame {npc:251707}"] = "{npc:251707} 길들이기",
 
 	-- Step 15: Vuldren Alpha
 	-- {area:16626} Gustberry Lowlands
@@ -119,9 +119,9 @@ return {
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living alpha"] = "",
 	-- {npc:250874} Vuldren Alpha
-	["Tame {npc:250874}"] = "",
+	["Tame {npc:250874}"] = "{npc:250874} 길들이기",
 	-- {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
-	["{npc:254411}, beside her: {spell:5149}"] = "",
+	["{npc:254411}, beside her: {spell:5149}"] = "{npc:254411}, 그녀 옆: {spell:5149}",
 
 	-- Step 16: Your first pet
 	["Your first pet"] = "",

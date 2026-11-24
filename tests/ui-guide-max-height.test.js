@@ -315,6 +315,10 @@ test('with the class quest card up, the line shows the height the window can rea
 	const [c] = run(`${DRAG}
 		Polestar.Set("ui.heightMode", "fixed")
 		short()
+		-- Room for the card under the window, which stands at the top of the screen.
+		F.GetBottom = function(self) return self:GetTop() - self:GetHeight() end
+		CT.Show(1506)
+		stub.advance(1)
 		drag(500, 600, 500, 500)
 		local _, _, _, _, y = GF.limitLine:GetPoint(1)
 		emit({ cap = GF.CapHeight(), card = CT.Reserved(), y = y, text = GF.limitLine.Text:GetText() })
@@ -324,121 +328,96 @@ test('with the class quest card up, the line shows the height the window can rea
 	assert.equal(c.text, (c.cap - c.card) + ' px');
 });
 
-// The Options row on the height: a slider with a number field, always shown, between the track and the text.
+// The Options row on the height (#2542): the slider shows the pixels and the
+// share; a click on the number types a height in pixels (W.EditSliderValue).
 const ROWS = `
-Polestar.UI.ShowOptions("guide")
+Polestar.UI.ShowOptions("guidewindow")
+Polestar.UI.Options.Select("guidewindow", Polestar.L["Window"])
 local function find(f, key, out) for _, c in ipairs({ f:GetChildren() }) do if c.psPath == key then out[#out + 1] = c end find(c, key, out) end return out end
 local function rowOf(key) for _, r in ipairs(find(UIParent, key, {})) do if rawget(r, "Slider") then return r end end end
 local slider = rowOf("ui.maxHeight")
-local field = slider.ValueField
 local function typeIn(text)
-	field:SetFocus()
-	stub.RunScript(field, "OnEditFocusGained")
-	field:SetText(text)
-	stub.RunScript(field, "OnEnterPressed")
-	field:ClearFocus()
-	stub.RunScript(field, "OnEditFocusLost")
+	slider.ValueHit:Click()
+	local e = slider.Entry
+	e:SetText(text)
+	stub.RunScript(e, "OnEnterPressed")
+	stub.RunScript(e, "OnEditFocusLost")
 end
 `;
 
-test('the field is always shown, holds the px, and sits between the track and the text without covering either', () => {
-	const [c] = run(`${ROWS}
-		local _, trackRel = slider.Slider:GetPoint(1)
-		local fp, fieldRel, frp = field:GetPoint(1)
-		emit({ shown = field:IsShown(), value = slider.Value:IsShown(), text = field:GetText(), label = slider.Value:GetText(),
-			trackOnField = trackRel == field, fieldOnValue = fieldRel == slider.Value, fp = fp, frp = frp })`);
-	assert.equal(c.shown, true);
-	assert.equal(c.value, true, 'the text stays');
-	assert.equal(c.text, '432');
-	assert.match(c.label, /^px .* 40%$/, c.label);
-	assert.equal(c.trackOnField, true, 'the track ends at the field');
-	assert.deepEqual([c.fieldOnValue, c.fp, c.frp], [true, 'RIGHT', 'LEFT'], 'the field ends where the text starts');
-});
-
-test('typing a height applies it on Enter and clamps it; the slider and the field follow', () => {
-	const [b, lo, hi] = run(`${ROWS}
+test('the height reads in pixels and as a share; a click on it types the pixels, applied on Enter and kept in range', () => {
+	const [start, b, px, lo, hi] = run(`${ROWS}
+		emit({ label = slider.Value:GetText() })
 		typeIn("600")
-		emit({ max = Polestar.Get("ui.maxHeight"), field = field:GetText(), label = slider.Value:GetText(), slider = slider.Slider:GetValue() })
+		emit({ max = Polestar.Get("ui.maxHeight"), label = slider.Value:GetText(), slider = slider.Slider:GetValue() })
+		typeIn("540 px")
+		emit({ max = Polestar.Get("ui.maxHeight") })
 		typeIn("50")
-		emit({ max = Polestar.Get("ui.maxHeight"), field = field:GetText() })
+		emit({ max = Polestar.Get("ui.maxHeight"), label = slider.Value:GetText() })
 		typeIn("5000")
-		emit({ max = Polestar.Get("ui.maxHeight"), field = field:GetText() })`);
-	assert.ok(Math.abs(b.max - 600 / 1080) < 1e-9);
-	assert.equal(b.field, '600');
-	assert.match(b.label, /56%$/);
+		emit({ max = Polestar.Get("ui.maxHeight"), label = slider.Value:GetText() })`);
+	assert.match(start.label, /^432 px .* 40%$/, start.label);
+	assert.ok(Math.abs(b.max - 600 / 1080) < 1e-9, String(b.max));
+	assert.match(b.label, /^600 px .* 56%$/, b.label);
 	assert.ok(Math.abs(b.slider - 600 / 1080) < 1e-9, 'the slider follows');
+	assert.ok(Math.abs(px.max - 540 / 1080) < 1e-9, '"540 px" reads as pixels');
 	assert.equal(lo.max, 0.3);
-	assert.equal(lo.field, '324', 'the corrected value is shown');
+	assert.match(lo.label, /^324 px/, 'the corrected value is shown');
 	assert.equal(hi.max, 1);
-	assert.equal(hi.field, '1080');
+	assert.match(hi.label, /^1080 px/);
 });
 
-test('a height between two 1% steps (402 px) is kept, and the field still says 402', () => {
-	const [c] = run(`${ROWS}
+test('a height between two 1% steps (402 px) is kept and still reads 402 px; a share typed with its sign reads as one', () => {
+	const [c, share] = run(`${ROWS}
 		typeIn("402")
-		-- The game's slider keeps its value on the 1% step and reports that (0.37 for 402 of 1080 px).
-		stub.RunScript(slider.Slider, "OnValueChanged", 0.37, false)
-		emit({ field = field:GetText(), label = slider.Value:GetText(), max = Polestar.Get("ui.maxHeight") })`);
+		emit({ label = slider.Value:GetText(), max = Polestar.Get("ui.maxHeight") })
+		typeIn("45%")
+		emit({ max = Polestar.Get("ui.maxHeight") })`);
 	assert.ok(Math.abs(c.max - 402 / 1080) < 1e-9, 'the typed height is kept: ' + c.max);
-	assert.equal(c.field, '402');
-	assert.match(c.label, /37%$/);
+	assert.match(c.label, /^402 px .* 37%$/, c.label);
+	assert.equal(share.max, 0.45);
 });
 
-test('Escape and an empty or non-numeric field put the old number back', () => {
+test('Escape, an empty or a non-numeric entry keeps the height', () => {
 	const [esc, empty, junk] = run(`${ROWS}
-		field:SetFocus()
-		field:SetText("900")
-		stub.RunScript(field, "OnEscapePressed")
-		field:ClearFocus()
-		stub.RunScript(field, "OnEditFocusLost")
-		emit({ max = Polestar.Get("ui.maxHeight"), field = field:GetText() })
+		slider.ValueHit:Click()
+		slider.Entry:SetText("900")
+		stub.RunScript(slider.Entry, "OnEscapePressed")
+		stub.RunScript(slider.Entry, "OnEditFocusLost")
+		emit({ max = Polestar.Get("ui.maxHeight"), label = slider.Value:GetText() })
 		typeIn("")
-		emit({ max = Polestar.Get("ui.maxHeight"), field = field:GetText() })
+		emit({ max = Polestar.Get("ui.maxHeight"), label = slider.Value:GetText() })
 		typeIn("abc")
-		emit({ max = Polestar.Get("ui.maxHeight"), field = field:GetText() })`);
+		emit({ max = Polestar.Get("ui.maxHeight"), label = slider.Value:GetText() })`);
 	for (const r of [esc, empty, junk]) {
 		assert.equal(r.max, 0.4);
-		assert.equal(r.field, '432');
+		assert.match(r.label, /^432 px/);
 	}
 });
 
-test('the field follows a drag of the grip, and typing a height under Automatic switches to Fixed', () => {
+test('the number follows a drag of the grip, and typing a height under Automatic switches to Fixed', () => {
 	const [dragged, typed] = run(`${DRAG}${ROWS}
 		Polestar.Set("ui.heightMode", "fixed")
 		drag(500, 600, 500, 500)
 		drop()
-		emit({ field = field:GetText() })
+		emit({ label = slider.Value:GetText() })
 		Polestar.Set("ui.heightMode", "auto")
 		typeIn("700")
 		emit({ mode = Polestar.Get("ui.heightMode"), max = Polestar.Get("ui.maxHeight") })`);
-	assert.equal(dragged.field, '532');
+	assert.match(dragged.label, /^532 px/, dragged.label);
 	assert.equal(typed.mode, 'fixed');
 	assert.ok(Math.abs(typed.max - 700 / 1080) < 1e-9);
 });
 
-test('a slider without opts.edit is as before: no field, the track ends at the text, a click on the value does nothing', () => {
+test('another slider reads a typed value as before, on its own terms and step', () => {
 	const [c] = run(`${ROWS}
-		local other = rowOf("ui.upcoming")
-		local before = Polestar.Get("ui.upcoming")
-		stub.RunScript(other.Value, "OnMouseUp")
-		stub.RunScript(other.Value, "OnMouseDown")
-		local _, trackRel = other.Slider:GetPoint(1)
-		emit({ field = rawget(other, "ValueField") ~= nil, trackOnValue = trackRel == other.Value, shown = other.Value:IsShown(),
-			text = other.Value:GetText(), kept = Polestar.Get("ui.upcoming") == before })`);
-	assert.equal(c.field, false);
-	assert.equal(c.trackOnValue, true);
-	assert.equal(c.shown, true);
-	assert.equal(c.text, '0');
-	assert.equal(c.kept, true);
-});
-
-test('a focused field is not overwritten when the setting changes under it', () => {
-	const [c] = run(`${ROWS}
-		field:SetFocus()
-		field:SetText("77")
-		Polestar.Set("ui.maxHeight", 0.6)
-		emit({ field = field:GetText() })`);
-	assert.equal(c.field, '77');
+		local other = rowOf("ui.width")
+		other.ValueHit:Click()
+		other.Entry:SetText("401")
+		stub.RunScript(other.Entry, "OnEnterPressed")
+		emit({ width = Polestar.Get("ui.width"), parse = rawget(other, "psParse") ~= nil })`);
+	assert.equal(c.parse, false);
+	assert.equal(c.width, 400, 'on the width slider\'s 10 px step');
 });
 
 // Fixed with the progress bar under the last goal (ui.footAt "goals", the default) or on the edge.

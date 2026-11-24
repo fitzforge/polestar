@@ -1,0 +1,17 @@
+{
+ "_about": "The new revisits and trips a change makes on purpose (node tools/polestar.js flow-diff; docs/ROUTE-FEEL.md \"Flow diff\"). Each row accepts one: `kind` \"revisit\" with the `guide` it happens in and the `zone` it goes back into, or \"trip\" with the `guide` and the `quest` (a one-quest trip) or the `step` title (a walk with nothing there). `reason` says why the route is better that way for players, on our own evidence. A pull request that adds a revisit or a trip adds its row here; rows sorted by guide.",
+ "allow": [
+  {
+   "kind": "revisit",
+   "guide": "forever/alliance/30-40/03-ashenvale",
+   "zone": "The Barrens",
+   "reason": "#2419: the guide's last leg walks from Theramore through the Barrens' coast to Ratchet's boat to Booty Bay, where 30-40/04-stranglethorn-vale now starts. It replaces the boat to Menethil, the flight to Darkshire, the walk down Stranglethorn and back and the flight to Sentinel Hill: three revisits and three one-quest trips gone in 04, Stranglethorn's walk and fly 48.3/12.8 -> 37.4/7.4 min, the level model 13 minutes less to 60. A transfer with no work in the Barrens; recordings: 12 Alliance walks Theramore to Ratchet at 29-38, none with a death in Dustwallow."
+  },
+  {
+   "kind": "trip",
+   "guide": "forever/horde/40-50/01-stranglethorn-vale",
+   "quest": 192,
+   "reason": "#2792: the Shadowmaw Panthers step shows only while Panther Mastery (192) is still in the log (`when onquest 192`): a player who reaches the guide with it unfinished, as the flow play does, kills the panthers north of the Venture Co. mine before the hand-in at Nesingwary's camp, instead of walking there to hand in a quest that isn't done. A player who finished it in 30-40 skips the step."
+  }
+ ]
+}

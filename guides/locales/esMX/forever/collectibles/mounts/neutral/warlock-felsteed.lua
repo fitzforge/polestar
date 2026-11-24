@@ -8,29 +8,29 @@
 return {
 	-- Guide
 	["Warlock Felsteed"] = "Corcel vil de brujo",
-	["Your own mount at 40, summoned anywhere: no 100g riding training needed."] = "",
+	["Your own mount at 40, summoned anywhere: no 100g riding training needed."] = "Tu propia montura a nivel 40, invocada en cualquier lugar: sin necesidad de la equitación de 100 de oro.",
 
 	-- Step 1: Summon Felsteed (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["At 40 {npc:461}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:461}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "A nivel 40 {npc:461}, en el sótano de {object:2164} en {object:2101}, te manda con {npc:6251} en {area:392}. ¿No te ofrece la misión? Termina primero la cadena del manáfago: los jugadores dicen que la montura viene después.",
 
 	-- Step 2: Summon Felsteed (Ironforge)
 	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["At 40 {npc:5172}, by the warlock trainers in {zone:1455}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:5172}, by the warlock trainers in {zone:1455}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "A nivel 40 {npc:5172}, junto a los instructores de brujos de {zone:1455}, te manda con {npc:6251} en {area:392}. ¿No te ofrece la misión? Termina primero la cadena del manáfago: los jugadores dicen que la montura viene después.",
 
 	-- Step 3: Summon Felsteed (Orgrimmar)
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["At 40 {npc:3326}, in the {object:172960}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:3326}, in the {object:172960}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "A nivel 40 {npc:3326}, en {object:172960}, te manda con {npc:6251} en {area:392}. ¿No te ofrece la misión? Termina primero la cadena del manáfago: los jugadores dicen que la montura viene después.",
 
 	-- Step 4: Summon Felsteed (Undercity)
 	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {zone:1454} Orgrimmar
-	["At 40 {npc:4563}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}; {area:392} is a short flight from {zone:1454}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:4563}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}; {area:392} is a short flight from {zone:1454}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "A nivel 40 {npc:4563}, en {object:36082}, te manda con {npc:6251} en {area:392}. El zepelín de {zone:1420} vuela a {zone:1411}; {area:392} está a un vuelo corto de {zone:1454}. ¿No te ofrece la misión? Termina primero la cadena del manáfago: los jugadores dicen que la montura viene después.",
 
 	-- Step 5: Strahad Farsan in Ratchet
 	-- {npc:6251} Strahad Farsan · {area:392} Ratchet
 	["{npc:6251} in {area:392}"] = "{npc:6251} en {area:392}",
 	-- {area:392} Ratchet · {zone:1413} Barrens · {area:35} Booty Bay · {npc:6251} Strahad Farsan · {quest:3631} Summon Felsteed
-	["{area:392} is the goblin port on the {zone:1413} coast, east of the Crossroads; from the Alliance side take the boat from {area:35}. {npc:6251} stands by his small tower on the hill above the town, not down at the docks. Hand in, then take his own {quest:3631} and hand it straight back: that teaches you the mount. No fight, and the quests ask for nothing."] = "",
+	["{area:392} is the goblin port on the {zone:1413} coast, east of the Crossroads; from the Alliance side take the boat from {area:35}. {npc:6251} stands by his small tower on the hill above the town, not down at the docks. Hand in, then take his own {quest:3631} and hand it straight back: that teaches you the mount. No fight, and the quests ask for nothing."] = "{area:392} es el puerto goblin de la costa de {zone:1413}, al este del Cruce; desde el lado de la Alianza toma el barco de {area:35}. {npc:6251} está junto a su torrecita en la colina sobre el pueblo, no abajo en los muelles. Entrega, y luego toma su propia {quest:3631} y entrégala enseguida: eso te enseña la montura. Sin pelea, y las misiones no piden nada.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 40 {npc:3326} in the {object:172960} sends you to {npc:6251} in {area:392}."] = "A nivel 40, {npc:3326}, en {object:172960}, te envía con {npc:6251} en {area:392}.",

@@ -54,10 +54,10 @@ zone Stormwind City
 # Places: npcs.json for the givers, the quartermasters and the Terrordale
 # auras; data/codex/entrances.json (QuestieDB Forever) for Scholomance (Caer
 # Darrow, Western Plaguelands 69.7,73.2) and Stratholme's main gate (Eastern
-# Plaguelands 26.5,10.4, Forever's map). Our data has only the Dire Maul gate
-# at the foot of the ruins (Feralas 59.2,45.1); the West wing's door is at
-# 60.3,30.2 (one reference guide's door step and a Forever dungeon guide's 60.3,31.8
-# agree; the same point as forever/collectibles/mounts/neutral/warlock-dreadsteed).
+# Plaguelands 26.5,10.4, Forever's map). The Dire Maul gate is at the foot of
+# the ruins (Feralas 59.2,45.1); the West wing's door is at 60.3,30.2, where
+# data/codex/entrances.json puts the West wing's portal (QuestieDB's Forever
+# dungeon table; the same point as forever/collectibles/mounts/neutral/warlock-dreadsteed).
 # Tendris Warpwood, the Ancient Equine Spirit, Darkreaver and his Fallen
 # Charger have no spawns in our data (they are inside the dungeons): their
 # goals point at the entrances.

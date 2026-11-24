@@ -6,7 +6,7 @@
 mod common;
 use forge_sim::gate::{levels, under_min};
 use forge_sim::order::{keep_records, Order, Together};
-use forge_sim::run::{K_ACCEPT, K_GRIND, K_TASK, K_TURNIN};
+use forge_sim::run::{K_ACCEPT, K_GRIND, K_TASK, K_TURNIN, W_KILL};
 use forge_sim::search::passby::accept_gates;
 use forge_sim::search::{pool, runs, search, Member, Mode, Problem, SearchOpts};
 
@@ -98,4 +98,60 @@ fn the_search_never_takes_a_quest_under_its_minimum_level() {
 	let now = under_min(r, &c.steps, c.levels());
 	assert!(now.iter().all(|q| was.contains(q)), "the search took {:?} under their minimum (the seed: {was:?})", now.iter().filter(|q| !was.contains(q)).collect::<Vec<_>>());
 	assert!(out.stats.refused[7] > 0, "the rule refused moves: {:?}", out.stats.refused);
+}
+
+/// The danger gap (the 0.4.0 audit): a red quest, more than dangerGap levels over the character, is
+/// handed over at its minimum level like any other; the danger holds its work. The model ground
+/// 385 min before an accept-only pick-up of The Apes of Un'Goro, whose work came on the second
+/// Un'Goro visit.
+#[test]
+fn a_red_quest_is_handed_over_at_its_minimum_level_and_its_work_waits_for_the_danger_gap() {
+	let o = common::orc();
+	let mut m = o.model(&[]);
+	let (danger, gate) = (m.tables.p.danger_gap, m.tables.p.gate_gap);
+	let seed = o.seed();
+	// A quest of the slice the seed picks up with no work on the spot (no prerequisite, kill work,
+	// level 9 or more), given minimum level 1: The Apes of Un'Goro's gap, minimum 47 at level 55.
+	let (q, acc, work) = {
+		let r = &m.run;
+		seed.steps
+			.iter()
+			.filter(|s| s.kind == K_ACCEPT && s.task < 0)
+			.find_map(|a| {
+				let q = a.q as usize;
+				let free = r.q_pre[q].is_empty() && r.q_parent[q] < 0 && r.q_all[q].is_empty();
+				if !free || r.q_level[q] < 9 {
+					return None;
+				}
+				let t = seed.steps.iter().find(|s| {
+					let t = s.task as usize;
+					s.kind == K_TASK && s.q == a.q && !r.task_bag[t] && r.buy_ix[t] < 0 && (r.task_w0[t]..r.task_w1[t]).any(|w| r.w_kind[w as usize] == W_KILL)
+				})?;
+				Some((q, *a, *t))
+			})
+			.expect("a quest of the slice of level 9 or more with kill work")
+	};
+	m.run.q_min_level[q] = 1;
+	let r = &m.run;
+	let need = r.q_level[q] as f64 - danger;
+	let mut ev = m.evaluator(&o.walks);
+	// Within gateGap of its danger level: the pick-up grinds nothing, its work grinds first.
+	ev.reset();
+	ev.s.level = (need - gate).ceil() as usize;
+	let g0 = ev.s.grind_sec;
+	assert!(ev.step(acc), "taken at level {}, red (quest level {})", ev.s.level, r.q_level[q]);
+	assert_eq!(ev.active[q], 1);
+	assert_eq!(ev.s.grind_sec, g0, "no grinding for the pick-up");
+	assert_eq!(ev.s.level, (need - gate).ceil() as usize);
+	assert!(ev.step(work), "its work");
+	assert!(ev.s.grind_sec > g0, "its work grinds first");
+	assert!(ev.s.level as f64 >= need, "its work on level: {}", ev.s.level);
+	// Further under: taken all the same; its work not yet, and nothing ground for it.
+	ev.reset();
+	ev.s.level = r.q_min_level[q].max(1) as usize;
+	let g0 = ev.s.grind_sec;
+	assert!(ev.step(acc), "taken at its minimum level {}", ev.s.level);
+	assert!(!ev.step(work), "its work waits for the level");
+	assert_eq!(ev.task_done[work.task as usize], 0);
+	assert_eq!(ev.s.grind_sec, g0, "nothing ground");
 }

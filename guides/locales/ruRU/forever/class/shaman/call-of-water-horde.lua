@@ -14,11 +14,11 @@ return {
 
 	-- Step 1: Searn Firewarder
 	-- {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom · {npc:5901} Islen Waterseer · {zone:1413} Barrens · {area:362} Razor Hill
-	["At 20 {npc:5892} in the {object:172957} sends you to {npc:5901} in the {zone:1413}. (Swart in {area:362} gives the same letter: carry either.)"] = "",
+	["At 20 {npc:5892} in the {object:172957} sends you to {npc:5901} in the {zone:1413}. (Swart in {area:362} gives the same letter: carry either.)"] = "На 20-м уровне {npc:5892} ({object:172957}) отправит вас сюда: {npc:5901} ({zone:1413}). (Сварт в месте {area:362} дает такое же письмо: подойдет любое.)",
 
 	-- Step 2: Xanis Flameweaver
 	-- {npc:5906} Xanis Flameweaver · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {npc:5901} Islen Waterseer · {zone:1413} Barrens · {npc:3066} Narm Skychaser · {area:222} Bloodhoof Village
-	["At 20 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5901} in the {zone:1413}. ({npc:3066} in {area:222} gives the same letter: carry either.)"] = "",
+	["At 20 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5901} in the {zone:1413}. ({npc:3066} in {area:222} gives the same letter: carry either.)"] = "На 20-м уровне {npc:5906}, учитель шаманов ({area:1640}, {zone:1456}), отправит вас сюда: {npc:5901} ({zone:1413}). ({npc:3066} в месте {area:222} дает такое же письмо: подойдет любое.)",
 
 	-- Step 3: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
@@ -46,7 +46,7 @@ return {
 
 	-- Step 10: The Quilboar Watering Hole
 	-- {object:107046} Quilboar Watering Hole
-	["The {object:107046}"] = "",
+	["The {object:107046}"] = "{object:107046}",
 	-- {npc:5899} Brine · {item:7766} Empty Brown Waterskin · {npc:3456} Razormane Pathfinder
 	["The muddy pond below {npc:5899}'s hut. Step right into the puddle before you use the {item:7766} (too far away and it refuses). Filling it calls a hostile {npc:3456} (level 20): kill it, and watch for the quilboar hunter by the pond, who may start shooting afterwards."] = "",
 	-- {item:7766} Empty Brown Waterskin
@@ -96,7 +96,7 @@ return {
 
 	-- Step 19: The Minor Manifestation of Water
 	-- {npc:5895} Minor Manifestation of Water
-	["The {npc:5895}"] = "",
+	["The {npc:5895}"] = "{npc:5895}",
 	-- {object:113791} Brazier of Everfount · {npc:5895} Minor Manifestation of Water · {spell:8202} Sapta Sight · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {quest:63} Call of Water · {quest:972} Water Sapta · {npc:7007} Tiev Mordune
 	["Click the {object:113791} to place the bracers and the drops. A few seconds later the pure {npc:5895} rises on the stone in the middle of the pool: speak to it while the {spell:8202} lasts (drink again by the stone if it has worn off). It gives you the {item:7813} for {npc:5901}. Gone before you could speak to it? Back at {npc:5901} ask for {quest:63} (a fresh {quest:972} for {npc:7007}, who stands just west of the shrine): hand it to Tiev, stay close while he calls the spirit back, then speak to it."] = "",
 
@@ -107,8 +107,6 @@ return {
 	["{npc:5901}: {spell:5394} and your {item:5177}"] = "{npc:5901}: {spell:5394} и ваш предмет {item:5177}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 20 {npc:5892} in the {object:172957} sends you to {npc:5901} in the {zone:1413}."] = "На 20-м уровне {npc:5892} ({object:172957}) отправит вас сюда: {npc:5901} ({zone:1413}).",
-	-- ["At 20 {npc:5906}, a shaman trainer in {zone:1456}, sends you to {npc:5901} in the {zone:1413}."] = "На 20-м уровне {npc:5906}, учитель шаманов ({zone:1456}), отправит вас сюда: {npc:5901} ({zone:1413}).",
 	-- ["Fill the {item:7766} at the quilboar watering hole"] = "Наполните {item:7766} у водопоя свинобразов",
 	-- ["Fill the {item:7767} at the fountain"] = "Наполните {item:7767} у фонтана",
 	-- ["Fill the {item:7768} at the {object:107045}"] = "Наполните {item:7768}. Цель: {object:107045}",

@@ -1,9 +1,13 @@
 //! Port of tools/lib/dsl/heights.js.
 //! Goal heights (docs/GUIDE_FORMAT.md, "Heights"): a goal whose point stands for an NPC or object gets `z`,
 //! the height of that entity's spawn within HEIGHT_YARDS of its world point (spawnz.json), never a guess.
+//! A `use` or `interact` bound to a quest objective (`quest Q.O`) whose target is an object or a creature stands
+//! for that one (#1782: the Rod of Helcular used at the Flame of Azel, in the Foothill Caverns under Darrow Hill);
+//! one bound to an item objective, for the objects the item comes out of (#2126: the Filled Etched Phial used on the
+//! Ancient Brazier whose Cloven Hoof is the objective, deep in Splithoof Hold).
 
 use crate::data::Data;
-use crate::js::{hypot, V};
+use crate::js::{hypot, str_to_num, V};
 use crate::obj;
 
 pub const HEIGHT_YARDS: f64 = 15.0;
@@ -72,17 +76,152 @@ pub fn spawn_height(data: &Data, kind: &str, id: &V, point: &V) -> Option<V> {
 	best.map(|b| b.1)
 }
 
-/// The goal's height, or None (height_entity).
+/// The objects or creature a `use` or `interact` goal bound to a quest objective (`quest Q.O`, no npc or object
+/// of its own) is done at: the objective's (type object; kill or talk: a creature; item: the objects the item comes
+/// out of, items.json `drops.object`, in id order), or none. The goal gets a height only from one of their spawns
+/// within HEIGHT_YARDS of its point.
+pub fn objective_entities(data: &Data, goal: &V) -> Vec<(&'static str, V)> {
+	let t = goal.get("t");
+	if !(t.as_str() == Some("use") || t.as_str() == Some("interact")) || goal.get("candidates").truthy() || goal.get("x").is_undef() || goal.get("y").is_undef() || goal.get("map").is_undef() {
+		return Vec::new();
+	}
+	if !goal.get("npc").is_undef() || !goal.get("object").is_undef() || goal.get("quest").is_undef() {
+		return Vec::new();
+	}
+	let Some(oi) = goal.get("oi").as_num().filter(|i| *i >= 1.0 && i.fract() == 0.0) else {
+		return Vec::new();
+	};
+	let Some(o) = data.quest(&goal.get("quest")).get("objectives").items().get(oi as usize - 1).cloned() else {
+		return Vec::new();
+	};
+	let id = o.get("id");
+	if id.is_nullish() {
+		return Vec::new();
+	}
+	let kind = match o.get("type").as_str() {
+		Some("object") => "object",
+		Some("kill") | Some("talk") => "npc",
+		Some("item") => {
+			let mut ids: Vec<f64> = data.item(&id).get("drops").get("object").keys().iter().map(|k| str_to_num(k)).filter(|n| n.fract() == 0.0 && *n > 0.0).collect();
+			ids.sort_by(|a, b| a.total_cmp(b));
+			return ids.into_iter().map(|n| ("object", V::Num(n))).collect();
+		}
+		_ => return Vec::new(),
+	};
+	vec![(kind, id)]
+}
+
+/// What a goal without an NPC or object of its own is done at: a `collect`'s sources (the creatures it drops from,
+/// `fromNpcs`; its one source, `fromKind` npc or object, `fromId`) and a `level … grind` goal's creature (#1782: the
+/// Rod of Helcular from the Foothill Caverns' yetis, under Darrow Hill).
+pub fn source_entities(goal: &V) -> Vec<(&'static str, V)> {
+	if goal.get("candidates").truthy() || goal.get("x").is_undef() || goal.get("y").is_undef() || goal.get("map").is_undef() {
+		return Vec::new();
+	}
+	match goal.get("t").as_str() {
+		Some("collect") => {
+			let mut out: Vec<(&'static str, V)> = goal.get("fromNpcs").items().iter().map(|n| ("npc", n.get("npc"))).filter(|e| !e.1.is_undef()).collect();
+			let kind = match goal.get("fromKind").as_str() {
+				Some("object") => Some("object"),
+				Some("npc") => Some("npc"),
+				_ => None,
+			};
+			if let Some(kind) = kind.filter(|_| !goal.get("fromId").is_undef()) {
+				if !out.iter().any(|e| e.0 == kind && e.1.strict_eq(&goal.get("fromId"))) {
+					out.push((kind, goal.get("fromId")));
+				}
+			}
+			out
+		}
+		Some("level") if !goal.get("grind").is_undef() => vec![("npc", goal.get("grind"))],
+		_ => Vec::new(),
+	}
+}
+
+/// The entities a goal's point stands for: its NPC or object (height_entity), else the objective's
+/// (objective_entities), else its sources (source_entities).
+fn entities(data: &Data, goal: &V) -> Vec<(&'static str, V)> {
+	if let Some(e) = height_entity(goal) {
+		return vec![e];
+	}
+	let done = objective_entities(data, goal);
+	if !done.is_empty() {
+		return done;
+	}
+	source_entities(goal)
+}
+
+/// The height at `point` of the nearest spawn of any of `list` within HEIGHT_YARDS, or None.
+fn nearest_height(data: &Data, list: &[(&'static str, V)], point: &V) -> Option<V> {
+	if list.is_empty() {
+		return None;
+	}
+	if list.len() == 1 {
+		return spawn_height(data, list[0].0, &list[0].1, point);
+	}
+	let p = world_point(data, point);
+	if !data.spawnz.truthy() || !p.truthy() {
+		return None;
+	}
+	let (c, wx, wy) = (p.get("c"), p.get("wx").num(), p.get("wy").num());
+	let mut best: Option<(f64, V)> = None;
+	for (kind, id) in list {
+		for e in data.spawnz.get(kind).get(&id.to_js_string()).items() {
+			if !e.at(0).strict_eq(&c) {
+				continue;
+			}
+			let d = hypot(e.at(1).num() - wx, e.at(2).num() - wy);
+			if d <= HEIGHT_YARDS && best.as_ref().is_none_or(|b| d < b.0) {
+				best = Some((d, e.at(3)));
+			}
+		}
+	}
+	best.map(|b| b.1)
+}
+
+/// Yards within which a goal's point is a goal-heights.json point.
+pub const POINT_YARDS: f64 = 5.0;
+
+/// The height data/goal-heights.json gives a goal's point (a record within POINT_YARDS), or None: the floor
+/// players' recordings show such a goal done on where no NPC or object says (inside a mine or cave, #1782).
+pub fn point_height(data: &Data, goal: &V) -> Option<V> {
+	if !data.goal_heights.is_arr() || goal.get("candidates").truthy() || goal.get("map").is_undef() || goal.get("x").is_undef() || goal.get("y").is_undef() {
+		return None;
+	}
+	let p = world_point(data, goal);
+	if !p.truthy() {
+		return None;
+	}
+	let (c, wx, wy) = (p.get("c"), p.get("wx").num(), p.get("wy").num());
+	let mut best: Option<(f64, V)> = None;
+	for r in data.goal_heights.items() {
+		let f = if r.get("frame").as_str() == Some("era") { "e" } else { "l" };
+		let at: V = obj! { "map" => r.get("map"), "x" => r.get("x"), "y" => r.get("y"), "f" => f }.into();
+		let q = world_point(data, &at);
+		if !q.truthy() || !q.get("c").strict_eq(&c) || r.get("z").as_num().is_none() {
+			continue;
+		}
+		let d = hypot(q.get("wx").num() - wx, q.get("wy").num() - wy);
+		if d <= POINT_YARDS && best.as_ref().is_none_or(|b| d < b.0) {
+			best = Some((d, r.get("z")));
+		}
+	}
+	best.map(|b| b.1)
+}
+
+/// The goal's height, or None (entities, else point_height).
 pub fn goal_height(data: &Data, goal: &V) -> Option<V> {
-	let (kind, id) = height_entity(goal)?;
-	spawn_height(data, kind, &id, goal)
+	nearest_height(data, &entities(data, goal), goal).or_else(|| point_height(data, goal))
 }
 
 /// A spawn spot's height ({ x, y } of the goal's `spots`, on the goal's map and frame), or None.
 pub fn spot_height(data: &Data, goal: &V, spot: &V) -> Option<V> {
-	let (kind, id) = height_entity(goal)?;
+	let list = entities(data, goal);
+	if list.is_empty() {
+		return None;
+	}
 	let point: V = obj! { "map" => goal.get("map"), "x" => spot.get("x"), "y" => spot.get("y"), "f" => goal.get("f") }.into();
-	spawn_height(data, kind, &id, &point)
+	nearest_height(data, &list, &point)
 }
 
 /// A smart target's candidate's height ({ npc, map, x, y, f }), or None: by its own NPC.
@@ -91,6 +230,44 @@ pub fn candidate_height(data: &Data, cand: &V) -> Option<V> {
 		return None;
 	}
 	spawn_height(data, "npc", &cand.get("npc"), cand)
+}
+
+/// A `goto` without a height that leads to a goal with one (a later goal of its own step, or one of the next
+/// step) whose point lies within HEIGHT_YARDS of its own gets that goal's height, the nearest such goal's: the
+/// walk to the place ends on the floor the goal is done on (#1786: "Azurelode Mine" at the miners, over the hill
+/// the mine runs under). `steps`: a guide's resolved steps, in order.
+pub fn goto_heights(data: &Data, steps: &[V]) {
+	for (i, step) in steps.iter().enumerate() {
+		let goals = step.get("goals").items();
+		for (k, goto) in goals.iter().enumerate() {
+			if goto.get("t").as_str() != Some("goto") || !goto.get("z").is_undef() || goto.get("map").is_undef() || goto.get("x").is_undef() || goto.get("y").is_undef() {
+				continue;
+			}
+			let p = world_point(data, goto);
+			if !p.truthy() {
+				continue;
+			}
+			let (c, wx, wy) = (p.get("c"), p.get("wx").num(), p.get("wy").num());
+			let next = steps.get(i + 1).map(|s| s.get("goals").items()).unwrap_or_default();
+			let mut best: Option<(f64, V)> = None;
+			for g in goals[k + 1..].iter().chain(next.iter()) {
+				if g.get("z").is_undef() || g.get("map").is_undef() || g.get("x").is_undef() || g.get("y").is_undef() {
+					continue;
+				}
+				let q = world_point(data, g);
+				if !q.truthy() || !q.get("c").strict_eq(&c) {
+					continue;
+				}
+				let d = hypot(q.get("wx").num() - wx, q.get("wy").num() - wy);
+				if d <= HEIGHT_YARDS && best.as_ref().is_none_or(|b| d < b.0) {
+					best = Some((d, g.get("z")));
+				}
+			}
+			if let Some((_, z)) = best {
+				goto.set("z", z);
+			}
+		}
+	}
 }
 
 /// -> { eligible, withZ, candidates, candidatesWithZ, spots, spotsWithZ }.

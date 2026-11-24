@@ -2,7 +2,7 @@
 guide forever/horde/30-40/06-badlands
 title Badlands
 faction Horde
-levels 39-40
+levels 38-39
 zone Badlands
 next forever/horde/40-50/01-stranglethorn-vale
 
@@ -10,6 +10,10 @@ next forever/horde/40-50/01-stranglethorn-vale
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: To the Undercity for Yagyin's Digest (728), News for Fizzle (1137).
+# Hand-ins for what you carry (2026-11-20): Rigglefuzz's Pearl Diving (705, nine Blue Pearls) and
+# Lotwil's and Lucien's Coolant Heads Prevail, Gyro... What? and Liquid Stone (713-715: a Frost Oil,
+# a Gyrochronatom, a Healing Potion and a Lesser Invisibility Potion), 11,350 XP at givers the route
+# stands at anyway. Their steps show only while the bags hold the items; nothing is bought for them.
 
 # The Badlands at 39-40, the last zone of Horde 30-40 (the 2026-11-07 re-order; they followed
 # Arathi at 37-38 before, and the route went back to Stranglethorn, Orgrimmar and Dustwallow
@@ -17,9 +21,10 @@ next forever/horde/40-50/01-stranglethorn-vale
 #
 # Flow: Faldir's Cove (where the previous guide ends) -> the Thandol Span, the Wetlands and
 # Loch Modan -> the Valley of Fangs (Martek, Rigglefuzz) -> Lotwil's camp -> Kargath (flight
-# path, bind) -> the lesser rock elementals -> Lotwil -> the coyotes and buzzards -> the slabs
+# path) -> the lesser rock elementals -> Lotwil -> the coyotes and buzzards -> the slabs
 # by Agmond's End -> Agmond's End -> the Stonevault troggs -> the Valley of Fangs -> the Uldaman
-# dig -> Agmond's End -> Lotwil -> Kargath, from where the next guide flies to Grom'gol.
+# dig -> Agmond's End -> Lotwil -> Kargath, from where the next guide flies to Grom'gol (Warriors, Paladins, Rogues,
+# Priests, Mages and Warlocks first to the Undercity, for training and Genavie Callow's hand-in).
 #
 # The slabs come from the Rock Elementals beside Agmond's End, and Lotwil takes them on the way
 # back to Kargath (2026-11-09 audit): no walk back to his camp from the basin in between. Left
@@ -38,14 +43,45 @@ step Valley of Fangs
   accept 1108
   accept 703                          -- Rigglefuzz
 
+step Rigglefuzz: Pearl Diving
+  when has 4611 x9
+  tip Rigglefuzz buys nine Blue Pearls (Giant Clams on the sea floor, or the Auction House): this step shows only when you carry them.
+  accept 705 optional                 -- Rigglefuzz
+  collect 4611 x9 quest 705.1 optional @42.2,52.9 -- Blue Pearl, in your bags
+  turnin 705 optional
+
 step The Dustbowl
   tip Head west along the road towards Kargath; Lotwil's camp sits in the Dustbowl halfway there.
   accept 710                          -- Lotwil Veriatus
 
+step Lotwil Veriatus: Coolant Heads Prevail
+  when has 3829
+  tip Lotwil wants a Frost Oil (Alchemy or the Auction House): this step shows only when you carry one.
+  accept 713 optional                 -- Lotwil Veriatus
+  collect 3829 quest 713.1 optional @25.7,44.9 -- Frost Oil, in your bags
+  turnin 713 optional
+
+step Lotwil Veriatus: Gyro... What?
+  when turnedin 713
+  when has 4389
+  tip Then a Gyrochronatom (Engineering, or the engineering supply vendors): this step shows only when you carry one.
+  accept 714 optional                 -- Lotwil Veriatus
+  collect 4389 quest 714.1 optional @25.7,44.9 -- Gyrochronatom, in your bags
+  turnin 714 optional
+
+step Lucien Tosselwrench: Liquid Stone
+  when turnedin 714
+  when has 929
+  when has 3823
+  tip Lucien, beside Lotwil, wants a Healing Potion and a Lesser Invisibility Potion (Alchemy or the Auction House): this step shows only when you carry both.
+  accept 715 optional                 -- Lucien Tosselwrench
+  collect 929 quest 715.1 optional @25.8,44.3 -- Healing Potion, in your bags
+  collect 3823 quest 715.2 optional @25.8,44.3 -- Lesser Invisibility Potion, in your bags
+  turnin 715 optional
+
 step Kargath
   tip Kargath is the Horde fortress built into the cliffs at the zone's western edge. Neeka Bloodscar stands on Kargath's upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart.
   getfp "Kargath"
-  sethome "Kargath"
   accept 1419                         -- Neeka Bloodscar
   accept 1420                         -- for Helgrum in Stonard, around level 42
   accept 2258                         -- Jarkal Mossmeld, inside
@@ -65,19 +101,22 @@ step Lotwil Veriatus
 # ---------------------------------------------------------------- The south
 step Badlands: kill these as you meet them
   zone Badlands
-  tip The Elder Crag Coyotes and Giant Buzzards roam the basin south of the Dustbowl. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards.
+  tip The Elder Crag Coyotes and Giant Buzzards roam the basin south of the Dustbowl. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the Badlands: give them a wide berth.
+  tip Careful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for Rigglefuzz's wings drop gizzards too, more rarely.
+  tip Careful: Zaricotl (55, a rare buzzard) circles over the Badlands too: if you see him, keep away.
   collect 6166 quest 1419
   collect 7846 quest 2258.2
   collect 7847 quest 2258.1
 
 step Rock Elementals
   zone Badlands
-  tip South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of Agmond's End; each one drops a slab. Every rock elemental can drop Jarkal's Rock Elemental Shards.
+  tip South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of Agmond's End; each one drops a slab. Every rock elemental can drop Jarkal's Rock Elemental Shards. Careful: Malevolent Mirages (42, elite) drift across these slopes too.
   collect 4627 quest 711 @40.4,77.1 map 1418
   collect 7848 quest 2258.3
 
 step Agmond's End
-  tip Theldurin sits among the dwarven ruins at Agmond's End, just east of the elementals.
+  when group 709
+  tip Theldurin sits among the dwarven ruins at Agmond's End, just east of the elementals. His tablet lies just inside Uldaman's cave mouth, beside level 38 elites: a quest for a group.
   accept 709
 
 step Stonevault troggs
@@ -92,10 +131,12 @@ step Valley of Fangs
   accept 1137                         -- for Fizzle at the Mirage Raceway, on the way from Freewind Post to Tanaris around level 43
 
 step Ancient Chest
-  tip Keep north on the road; the chest lies in the Uldaman dig site, at the foot of the ruins north-west of the road.
+  when group 709
+  tip Keep north on the road to Uldaman's entrance, in the north of the Badlands: the chest lies just inside the cave mouth. Magregan Deepshadow and the Obsidian Golems (38) stand beside it and Shadowforge Diggers (35-36) work the tunnel, all elite: keep your group together.
   collect 4631 quest 709              -- Below ground
 
 step Agmond's End
+  when group 709
   tip Head back south down the road, past the Valley of Fangs.
   turnin 709                          -- Theldurin the Lost
   accept 728
@@ -110,4 +151,4 @@ step Kargath
   tip Head west back to Kargath. Neeka Bloodscar stands on Kargath's upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart.
   turnin 1419                         -- Neeka Bloodscar
   turnin 2258                         -- Jarkal Mossmeld, inside
-  note The next guide flies from Kargath to Grom'gol.
+  note The next guide flies from Kargath to Grom'gol; Warriors, Paladins, Rogues, Priests, Mages and Warlocks go by the Undercity first, for their training and Genavie Callow.

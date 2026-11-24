@@ -88,13 +88,51 @@ the client and pfQuest), Forever's quest data, Polestar Recorder
 recordings, and what a maintainer saw in the game. Sources that don't
 count: the classic quest data, Classic guides, memory, and your own training data.
 
+Before any verdict, three questions, in this order (the maintainer's rules,
+23 Nov 2026):
+
+1. **Is it working as designed?** A reminder the player can switch off, a
+   step that is optional by its mark, a rule written in AGENTS.md or a
+   setting's help. If yes, the verdict is *working as designed*: name the
+   design (the setting, the rule), explain it, close. Never turn "I don't
+   understand why it does this" into a feature request.
+2. **Is something wrong against a fact?** A quest not offered or already
+   closed, a wrong NPC or place, a wrong count, a step the player cannot
+   complete, a condition that misfires, a crash, an arrow that refuses or
+   walks through something. Only that is a bug, and only with evidence
+   (data, a recording, a reproduction).
+3. **Is it an opinion?** "Would be nicer", "feels off", "should be in the
+   other guide", "takes too long". That is a *flow opinion*: label it, ask
+   one question (did it cost a trip? what happened in the game?), and it
+   becomes one data point for the next route round, weighed with the
+   recordings and the level model. Never a guide change on its own; three
+   independent opinions on one step make it a route-round item, still not a
+   fix. A route is tuned as a whole: one step moved on one player's feel
+   can cost every later player levels or trips.
+
+Two more rules:
+
+- **Community guides.** A report whose guide is outside `forever/*` (a
+  community pack) is for the pack's author: label `community-guide`, reply
+  kindly naming the pack and its author and pointing at the pack's page on
+  the website, close as not planned. The exception: the addon itself
+  misbehaving (a Lua error, the arrow refusing, the window breaking) that
+  reproduces on one of Polestar's own guides is ours whichever guide showed it.
+- **No feature requests from reports.** An agent never files an
+  enhancement issue or writes "noted as a feature request" from a report.
+  A possible design gap is one question line for the maintainer, who
+  decides.
+
 Give one verdict:
 
+- **Working as designed**: name the design, explain, close.
 - **Confirmed bug**: the guide, data or addon is wrong, with the evidence.
 - **Already fixed**: it was a bug in their version, and a release or the
   coming one has the fix; name the commit and where it ships.
 - **Reporter mistaken**: what Polestar does is right, with the evidence.
 - **Partly right**: which claims hold and which don't.
+- **Flow opinion**: nothing is wrong against a fact; the step order is the
+  route round's question, not this report's.
 - **Unclear**: what you checked, and the one piece of evidence that would
   settle it. When the data supports the guide but only the game can settle
   the claim (an NPC that was "not there"), this is the verdict, with what
@@ -110,7 +148,17 @@ gets its own issue.
 ## 5. Draft the reply
 
 A human reads it before it goes up. Don't post it yourself, and don't write
-as a maintainer. Keep it plain, warm and short, evidence first:
+as a maintainer. **Check first, then reply once.** Never answer before the
+guide file, the data and the recordings have been read: a reply written
+before the check is a hedge, and a correction after it makes the thread
+read as if the project argued with the reporter and lost. The reply is two
+or three lines in the maintainer's own voice, to someone who helped: "you're
+right, here's what we found, here's what changes", or "here's how it works,
+here's the switch". No process words ("route review", "data point", "noted",
+"we'll look into it"), no explaining why nothing might happen, no question
+unless one fact is missing and the question names it.
+
+Keep it plain, warm and short, evidence first:
 
 - Thank them, and say what you checked. When they wrote in another
   language, reply in that language.
@@ -125,18 +173,46 @@ as a maintainer. Keep it plain, warm and short, evidence first:
 - When it is already fixed: say which release has it and that updating
   fixes it (with the Polestar Client, the CurseForge app, or the zip from the
   GitHub release), and ask them to say if it still happens after updating.
+- When the maintainer is already talking to the reporter (a Discord thread
+  mirrored on the issue): one voice per thread. Don't post on the issue until
+  the maintainer has finished; never contradict a position already in the
+  thread. Post once, with the settled verdict.
+- Never label an issue `released:<tag>` or `fix-merged` unless a merged pull
+  request names it (`gh api "search/issues?q=repo:...+is:pr+is:merged+%23N"`);
+  a promise without a merged fix is a broken promise the next release has to
+  explain.
 
 Suggest the labels with the draft; a maintainer sets them:
 
 | Verdict | Label | Then |
 |---|---|---|
 | Confirmed | `confirmed` | the fix |
-| Already fixed | none | closed as completed. The release workflow tells a Discord thread when the fix ships and labels the issue `released:<tag>` |
+| Already fixed | `released:<tag>` when a release out already has the fix | closed as completed. Fixed in a release already out: `gh issue edit <N> --add-label released:<tag>` (that release's tag) first, then `gh issue close <N> --reason completed`; the thread is told which release has it, and the release gates' pin coverage guard counts it as that release's fix (#3625). Fixed only on `next`: no label; the release workflow tells the thread when the fix ships and labels the issue `released:<tag>` |
 | Unclear | `needs-info` | without a reply it closes on its own after three weeks; a maintainer reopens it when the answer comes |
 | Mistaken | `resolution:no-action` | closed as not planned, once the reporter has had the explanation: `gh issue edit <N> --add-label resolution:no-action`, then `gh issue close <N> --reason "not planned"`. Every not-planned close gets its `resolution:` label, so the Discord thread's first line fits: `resolution:no-action` (works as designed, or mistaken), `resolution:cannot-reproduce`, `resolution:not-resolved`, `resolution:wontfix` (`gh label create <label>` first when it is missing) |
 | Duplicate | none | `gh issue close <N> --duplicate-of <M>`, with one plain comment first saying what the earlier issue covers and where it stands (confirmed, fix merged, released, open). The Discord thread is told #M's status and quotes that comment. Not `--reason "not planned"` with a `Duplicate of #M` comment |
+| Working as designed | `resolution:no-action` | closed as not planned, with the design named in the comment (the setting's path, or the rule) |
+| Flow opinion | `flow-opinion` | open, no milestone, one question asked; the route round reads these; three independent opinions on one step make it a route-round item |
+| Community guide | `community-guide` | closed as not planned after the kind redirect to the pack's author |
 
 ## 6. Only then, fix
+
+**Claim it first.** The moment you decide to fix a confirmed bug, before
+writing any code, open a draft pull request into `next` that says
+`Fixes #N`. An empty commit is enough:
+
+```sh
+git switch -c fix-<N> origin/next
+git commit --allow-empty -s -m "Claim: <the issue's title> (#N)"
+git push -u origin fix-<N>
+gh pr create --draft --base next --title "<the fix, in plain words> (#N)" --body "Fixes #N
+
+<one line: the fix you plan>"
+```
+
+The issue then shows that someone is on it (label `has-pr`), so nobody else
+starts the same fix. A verdict written down but not claimed looks free to
+everyone else. If you stop, close the draft so the issue is free again.
 
 A confirmed bug in a guide goes on to the polestar-guide-fix skill
 (`skills/polestar-guide-fix/SKILL.md`). With a confirmed verdict, name where

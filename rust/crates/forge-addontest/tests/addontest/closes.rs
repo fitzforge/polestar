@@ -59,7 +59,7 @@ fn off_by_default_the_guide_quest_is_accepted_and_nothing_is_said() {
 #[test]
 fn on_offering_a_quest_that_closes_another_for_good_names_it_and_leaves_the_accept_to_the_player() {
 	let out = run("", vec![core()], &warn_offer());
-	assert_eq!(out, json!({ "accepted": {}, "said": ["Taking “Sven's Revenge” closes “Deliveries to Sven” for good."] }));
+	assert_eq!(out, json!({ "accepted": {}, "said": ["Taking “Sven's Revenge” closes “Deliveries to Sven” for good. Decline to keep it, or click Accept to skip it."] }));
 }
 
 #[test]
@@ -79,13 +79,13 @@ fn the_warning_stands_without_quest_automation_and_a_quest_the_game_accepts_itse
 			w.questDetail(311, 95, { title = "Sven's Revenge", auto = true })"#
 		.replace("OFFER", OFFER);
 	let out = run("", vec![core()], &script);
-	assert_eq!(out, json!({ "accepted": {}, "said": ["Taking “Sven's Revenge” closes “Deliveries to Sven” for good."] }));
+	assert_eq!(out, json!({ "accepted": {}, "said": ["Taking “Sven's Revenge” closes “Deliveries to Sven” for good. Decline to keep it, or click Accept to skip it."] }));
 }
 
 #[test]
 fn a_night_elf_loses_the_night_elf_quest_too() {
 	let out = run(r#"w.race, w.raceName = "NightElf", "Night Elf""#, vec![core()], &warn_offer());
-	assert_eq!(out["said"], json!(["Taking “Sven's Revenge” closes “Deliveries to Sven”, “Elune's Grace” for good."]));
+	assert_eq!(out["said"], json!(["Taking “Sven's Revenge” closes “Deliveries to Sven”, “Elune's Grace” for good. Decline to keep them, or click Accept to skip them."]));
 }
 
 const SILITHUS: &str = r#"Polestar.RegisterGuide({
@@ -118,18 +118,20 @@ fn a_guide_for_the_other_faction_never_counts_a_horde_character_offered_8280_is_
 	});
 	let out = &out[0];
 	assert_eq!(out["closes"], json!([8276]));
-	assert_eq!(out["said"], json!(["Taking “Securing the Supply Lines” closes “Taking Back Silithus” for good."]));
+	assert_eq!(out["said"], json!(["Taking “Securing the Supply Lines” closes “Taking Back Silithus” for good. Decline to keep it, or click Accept to skip it."]));
 }
 
 #[test]
 fn the_quest_database_adds_the_quests_no_guide_takes_read_the_way_its_links_point() {
-	// 282 lists 287 in its excl and 287 lists nothing back (as in the shipped data); 283 is Horde only.
+	// 282 lists 287 in its excl and 287 lists nothing back (as in the shipped data); 283 is Horde only; 288 is
+	// handed in to 1965, the NPC offering 287: nothing to miss there.
 	// Layout: title, level, minLevel, races, classes, faction, start, finish, startItem, pre, excl.
 	let script = r#"
 			local Q = Polestar.QuestDB
 			AddRecords("quests", {
 				[282] = { "Senir's Observations", 5, 1, nil, nil, 1, nil, nil, nil, nil, { 287 } },
 				[283] = { "Horde Errand", 5, 1, nil, nil, 2, nil, nil, nil, nil, { 287 } },
+				[288] = { "Word for the Mountaineer", 5, 1, nil, nil, 1, nil, { 1965 }, nil, nil, { 287 } },
 				[287] = { "Frostmane Hold", 8, 5, nil, nil, 1 },
 			})
 			Q.SetMeta({})
@@ -140,7 +142,13 @@ fn the_quest_database_adds_the_quests_no_guide_takes_read_the_way_its_links_poin
 		.replace("OFFER", OFFER);
 	let script = format!("{}{script}", forge_addontest::questdb::ADD_RECORDS_LUA);
 	let out = run("", vec![Addon::name("Polestar")], &script);
-	assert_eq!(out["said"], json!(["Taking “Frostmane Hold” closes “Senir's Observations” for good.", "Taking “Sven's Revenge” closes “Deliveries to Sven” for good."]));
+	assert_eq!(
+		out["said"],
+		json!([
+			"Taking “Frostmane Hold” closes “Senir's Observations” for good. Decline to keep it, or click Accept to skip it.",
+			"Taking “Sven's Revenge” closes “Deliveries to Sven” for good. Decline to keep it, or click Accept to skip it."
+		])
+	);
 }
 
 #[test]
@@ -160,4 +168,50 @@ fn a_quest_the_game_accepted_itself_is_still_acknowledged_by_automation() {
 		..Default::default()
 	});
 	assert_eq!(out[0], json!(["AcknowledgeAutoAcceptQuest"]));
+}
+
+// Daily Delivery (469) is a breadcrumb to James Halloran (2094); taking Young Crocolisk Skins (484) closes it for
+// good. The compiler puts on 469's accept where it is handed in (endNpcs) and its XP. 9001 closes for good when
+// 9002 is taken, and gives no XP.
+const DELIVERY: &str = r#"Polestar.RegisterGuide({
+	id = "test/delivery", pack = "test", title = "Delivery", minLevel = 1, maxLevel = 30,
+	steps = {
+		{ goals = {
+			{ t = "accept", quest = 469, title = "Daily Delivery", npc = 2093, npcName = "Einar Stonegrip", qlvl = 21, closedBy = { 484 },
+				endNpcs = { 2094 }, xp = 830, preTitles = { [484] = "Young Crocolisk Skins" }, map = 1429, x = 52, y = 42 },
+			{ t = "accept", quest = 484, title = "Young Crocolisk Skins", npc = 2094 },
+			{ t = "accept", quest = 9001, title = "Errand", closedBy = { 9002 }, xp = 0, preTitles = { [9002] = "Other Errand" } },
+			{ t = "accept", quest = 9002, title = "Other Errand" },
+		} },
+		{ goals = { { t = "level", level = 30 } } },
+	},
+})
+"#;
+
+fn delivery(script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{MAP}\nw.level = 20"),
+		addons: vec![core()],
+		script: format!("\n{TEST_PACK}\n{TEST_SOURCE}\n{DELIVERY}\nstub.login()\n{WARN}\n{script}{TAIL}"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn the_line_names_the_closed_quest_s_giver_how_far_away_it_is_and_its_xp_and_says_what_to_do() {
+	// Offered somewhere other than at James Halloran: the giver stands 4% of a 3,000-yard map east of the player.
+	let out = delivery(r#"w.questDetail(1000, 484, { title = "Young Crocolisk Skins" })"#);
+	assert_eq!(
+		out,
+		json!({ "accepted": {}, "said": ["Taking “Young Crocolisk Skins” closes “Daily Delivery” (from Einar Stonegrip, 120 yd away, 830 XP) for good. Decline to keep it, or click Accept to skip it."] })
+	);
+}
+
+#[test]
+fn nothing_is_said_or_held_for_a_breadcrumb_to_the_npc_offering_the_quest_or_a_closed_quest_worth_no_xp() {
+	let at_halloran = delivery(r#"w.questDetail(2094, 484, { title = "Young Crocolisk Skins" })"#);
+	let no_xp = delivery(r#"w.questDetail(1000, 9002, { title = "Other Errand" })"#);
+	assert_eq!(json!([at_halloran, no_xp]), json!([{ "accepted": [484], "said": {} }, { "accepted": [9002], "said": {} }]));
 }

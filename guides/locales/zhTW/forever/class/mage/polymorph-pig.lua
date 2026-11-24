@@ -11,24 +11,24 @@ return {
 	["A new look for {spell:118}: it turns the target into a pig rather than a sheep."] = "{spell:118}的新外觀：把目標變成豬而不是綿羊。",
 
 	-- Step 1: Xylem's tower
-	["Xylem's tower"] = "",
+	["Xylem's tower"] = "克希雷姆的塔",
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem · {zone:1447} Azshara · {area:1221} Ruins of Eldarath
-	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below {npc:8379}'s tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Dismount, and he teleports you up; a trail climbs to the Archmage at the top of the tower."] = "",
+	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below {npc:8379}'s tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Dismount, and he teleports you up; a trail climbs to the Archmage at the top of the tower."] = "飛往{area:3137}（聯盟）或{area:1237}（部落）。{npc:8395}在{npc:8379}的塔下紮營，位於{area:1237}東邊不遠處：從{area:1221}處{zone:1447}主要道路的岔路口，直直往北走到懸崖。下坐騎後，他會把你傳送上去；一條小徑通往塔頂的大法師。",
 
 	-- Step 2: Warlord Krellian
 	-- {npc:8408} Warlord Krellian · {spell:99} Demoralizing Roar · {area:1223} Temple of Zin-Malor · {area:1221} Ruins of Eldarath · {item:23250} Prismatic Shell
-	["{npc:8408} (level 55, not elite, Strike and {spell:99}) hides behind his Spitelash guards in the {area:1223}, the biggest building in the middle of the {area:1221}. He always drops the {item:23250} and is back 5 1/2 minutes after a kill. Leave any raid group first: a raid gets no credit, a party is fine."] = "",
+	["{npc:8408} (level 55, not elite, Strike and {spell:99}) hides behind his Spitelash guards in the {area:1223}, the biggest building in the middle of the {area:1221}. He always drops the {item:23250} and is back 5 1/2 minutes after a kill. Leave any raid group first: a raid gets no credit, a party is fine."] = "{npc:8408}（55級，非精英，會使用打擊和{spell:99}）躲在{area:1221}中央最大的建築{area:1223}裡，在他的惡鞭守衛後方。他必定掉落{item:23250}，被擊殺後5分半鐘重生。先離開任何團隊：團隊無法獲得任務進度，小隊則沒問題。",
 
 	-- Step 3: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
-	["Back to {npc:8395} and up to the tower. Xylem hands the shell back with the next quest: keep it in your bags."] = "",
+	["Back to {npc:8395} and up to the tower. Xylem hands the shell back with the next quest: keep it in your bags."] = "回到{npc:8395}處，再上塔。Xylem會在下一個任務中把龜殼還給你：把它留在揹包裡。",
 
 	-- Step 4: Polymorph Clones
 	-- plural, as words: Polymorph Clones = {npc:16479} Polymorph Clone
 	["Polymorph Clones"] = "變形複製",
 	-- {area:1221} Ruins of Eldarath · {spell:118} Polymorph · {spell:122} Frost Nova · {spell:1449} Arcane Explosion
 	-- plural, as words: Polymorph Clones = {npc:16479} Polymorph Clone
-	["Back to the {area:1221}, full of Spitelash naga. Cast your sheep {spell:118} (the turtle one does nothing) on a naga and wait a few seconds: it splits into two to six Polymorph Clones of about 150 health that run off fast. Stand next to the sheep and hit them the moment they appear with {spell:122} and {spell:1449}. Fifty clones are needed, so it takes a while; not in a raid group."] = "",
+	["Back to the {area:1221}, full of Spitelash naga. Cast your sheep {spell:118} (the turtle one does nothing) on a naga and wait a few seconds: it splits into two to six Polymorph Clones of about 150 health that run off fast. Stand next to the sheep and hit them the moment they appear with {spell:122} and {spell:1449}. Fifty clones are needed, so it takes a while; not in a raid group."] = "回到{area:1221}，那裡滿是怒鱗納迦。對一名納迦施放你的變羊術{spell:118}（變龜的那個沒有用），等幾秒：它會分裂成兩到六個約150點生命值的變形術克隆體，並很快跑開。站在羊旁邊，克隆體一出現就用{spell:122}和{spell:1449}打它們。需要五十個克隆體，所以要花些時間；不要在團隊中做。",
 
 	-- Step 5: Fragmented Magic
 	-- {npc:8395} Sanath Lim-yo
@@ -38,6 +38,4 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Carry the {item:23250} back to the {area:1221}. Polymorph a Spitelash naga and wait a few seconds: it splits into small Polymorph Clones. Kill the clones quickly; the shell collects their essence."] = "把{item:23250}帶回{area:1221}。對一隻惡鞭納迦施放變形術並等幾秒：牠會分裂成小型的變形複製。迅速擊殺這些複製體；貝殼會收集它們的精華。",
-	-- ["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below {npc:8379}'s tower: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. He teleports you up to the Archmage."] = "飛往{area:3137}（聯盟）或{area:1237}（部落）。{npc:8395}在{npc:8379}的塔下紮營：從{area:1221}處{zone:1447}主要道路的岔路口，直直往北走到懸崖。他會把你傳送到大法師那裡。",
-	-- ["Krellian hides behind his Spitelash guards in the {area:1223}, the biggest building in the middle of the {area:1221}. He drops the {item:23250}."] = "克雷利安躲在{area:1221}中央最大的建築{area:1223}裡，在他的惡鞭守衛後方。他會掉落{item:23250}。",
 }

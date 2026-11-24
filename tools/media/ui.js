@@ -139,6 +139,28 @@ const GLYPHS = {
 		subtract(dot(15, 9.4, 6.6), dot(9, 14.6, 8.4)),
 		subtract(dot(9, 14.6, 6.6), ring(9, 14.6, 4.1, 1.3)),
 	),
+	// While you're here's sell and repair reminders: the signs the game shows for merchants and repairers (the
+	// merchant's tied coin bag, the repair anvil), drawn our way. The bag: a round sack, its neck tied and the
+	// cloth gathered above the tie, a coin before it.
+	'icon-sell': union(
+		subtract(
+			union(
+				dot(10.6, 14.6, 6.6),
+				poly([[8.4, 9], [12.8, 9], [15.4, 11.6], [5.8, 11.6]]),
+				box(10.6, 7.6, 3.2, 1.05, 0.5),
+				poly([[7, 2], [9.4, 3.4], [10.6, 2.2], [11.8, 3.4], [14.2, 2], [13, 5.8], [8.2, 5.8]]),
+			),
+			dot(17.4, 17.6, 5.6),
+		),
+		subtract(dot(17.4, 17.6, 4.2), ring(17.4, 17.6, 2.2, 1.1)),
+	),
+	// The anvil, its horn to the left, and a hammer striking it.
+	'icon-repair': union(
+		poly([[2.4, 12.6], [16.6, 12.6], [16.6, 15], [13.6, 17.2], [10.4, 17.2], [7.6, 15], [5, 15]]),
+		box(12, 18.8, 1.9, 1.8),
+		box(12, 21, 5.6, 1.3, 0.5),
+		rotate(union(box(14.6, 7, 4.8, 1.8, 0.4), line(14.6, 7, 14.6, -0.6, 1.9)), 42, 14.6, 7),
+	),
 	'icon-level': union(polyline([[6, 12.5], [12, 6.5], [18, 12.5]], 2.6), polyline([[6, 18.5], [12, 12.5], [18, 18.5]], 2.6)),
 	'icon-note': subtract(dot(12, 12, 9.5), union(line(12, 10.6, 12, 17, 2.5), dot(12, 7.1, 1.6))),
 	// Professions: rising bars for a skill rank, a scroll for a recipe to
@@ -169,6 +191,22 @@ const GLYPHS = {
 	'icon-dungeon': union(
 		subtract(union(box(12, 15.6, 7.6, 6), dot(12, 9.6, 7.6)), union(box(12, 17.4, 4.4, 4.6), dot(12, 12.8, 4.4))),
 		poly([[12, 10.4], [12.9, 13.2], [15.4, 14], [12.9, 14.8], [12, 17.6], [11.1, 14.8], [8.6, 14], [11.1, 13.2]]),
+	),
+	// Group content and hard fights (#3580): two heads side by side, the one
+	// in front cut clear of the one behind. A party, not a skull (a kill
+	// target) and not a sword (a fight): bring friends.
+	'icon-group': (() => {
+		const front = union(dot(8.4, 9.6, 3.7), sdf.intersect(dot(8.4, 22.6, 7.6), box(8.4, 18.8, 8, 3.4)));
+		const back = union(dot(16, 7.2, 3.3), sdf.intersect(dot(16, 19.8, 6.8), box(16, 16.4, 7.4, 3.4)));
+		return union(front, subtract(back, sdf.offset(front, g(1.5))));
+	})(),
+	// Attunements and keys (#3877): a key, its bow a ring on the left, two
+	// teeth under the end of its shaft.
+	key: union(
+		ring(7.2, 12, 4.4, 2.6),
+		line(11.4, 12, 21.6, 12, 2.6),
+		line(17.2, 12, 17.2, 16.6, 2.4),
+		line(20.6, 12, 20.6, 15.6, 2.4),
 	),
 	// Options in the hub rail: three tracks with their knobs (not the gear,
 	// which is the Gear section's).
@@ -222,6 +260,19 @@ const GLYPHS = {
 	),
 	search: union(ring(10.5, 10.5, 6, 2.4), line(15, 15, 20.2, 20.2, 2.8)),
 	lock: union(box(12, 15.4, 7.2, 5.6, 1.4), arc(12, 9, 4.2, -180, 0, 2.3), line(7.8, 9, 7.8, 10.4, 2.3), line(16.2, 9, 16.2, 10.4, 2.3)),
+	// Move (a setting's frame, placed in Move frames): a cross with an
+	// arrowhead at each of its four ends.
+	move: union(
+		line(12, 3.4, 12, 20.6, 2), line(3.4, 12, 20.6, 12, 2),
+		polyline([[9.4, 6], [12, 3.4], [14.6, 6]], 2), polyline([[9.4, 18], [12, 20.6], [14.6, 18]], 2),
+		polyline([[6, 9.4], [3.4, 12], [6, 14.6]], 2), polyline([[18, 9.4], [20.6, 12], [18, 14.6]], 2),
+	),
+	// A link to another page (the settings' cross-link rows): two chain
+	// links, overlapping, on the diagonal.
+	link: rotate(union(
+		subtract(box(8, 12, 5.6, 3.6, 3.6), box(8, 12, 3.6, 1.6, 1.6)),
+		subtract(box(16, 12, 5.6, 3.6, 3.6), box(16, 12, 3.6, 1.6, 1.6)),
+	), -45),
 	menu: union(dot(5.5, 12, 2), dot(12, 12, 2), dot(18.5, 12, 2)),
 	skip: union(poly([[4.5, 5.5], [15, 12], [4.5, 18.5]]), line(18.5, 6, 18.5, 18, 2.6)),
 	// Report a problem: a beetle from above, its shell split down the back,
@@ -236,6 +287,9 @@ const GLYPHS = {
 	resize: union(line(20, 9, 9, 20, 1.8), line(20, 15, 15, 20, 1.8)),
 	compact: union(line(5, 8, 19, 8, 2.4), line(5, 12, 19, 12, 2.4), line(5, 16, 13, 16, 2.4)),
 	reset: union(arc(12, 12.5, 7.2, -150, 160, 2.4), poly([[2.2, 4.4], [9.4, 6.2], [4.4, 11.4]])),
+	// New to the player (the settings' rows and sidebar): a ring, so it
+	// differs from the changed dot in shape as well as colour.
+	ring: ring(12, 12, 9, 6),
 	circle: (x, y) => Math.hypot(x - SIZE / 2, y - SIZE / 2) - (SIZE / 2 - 1),
 	// Options pages and shell controls.
 	window: subtract(box(12, 12, 9.4, 8.4, 2), union(box(12, 13.9, 7.2, 4.3, 0.6), dot(6.6, 6.4, 0.9), dot(9.4, 6.4, 0.9))),
@@ -245,6 +299,18 @@ const GLYPHS = {
 	info: subtract(dot(12, 12, 9.5), union(line(12, 10.6, 12, 17, 2.5), dot(12, 7.1, 1.6))),
 	plus: union(line(12, 5, 12, 19, 2.4), line(5, 12, 19, 12, 2.4)),
 	reload: union(arc(12, 12.5, 7.2, -60, 250, 2.4), poly([[19.6, 2.6], [20.4, 10], [13.2, 8.2]])),
+	// A speaker and two waves: a sound you can hear before you pick it.
+	speaker: union(
+		box(5.4, 12, 2.6, 3.4, 0.6),
+		poly([[7.6, 8.6], [13, 4.4], [13, 19.6], [7.6, 15.4]]),
+		arc(13.4, 12, 4.4, -48, 48, 2.2),
+		arc(13.4, 12, 8.2, -50, 50, 2.2),
+	),
+	// An eye: look through (the settings window's Peek).
+	eye: union(
+		subtract(sdf.intersect(dot(12, 21, 14), dot(12, 3, 14)), sdf.intersect(dot(12, 21, 12.1), dot(12, 3, 12.1))),
+		dot(12, 12, 2.9),
+	),
 	layers: union(
 		poly([[12, 3], [21, 8], [12, 13], [3, 8]]),
 		polyline([[3.6, 12.2], [12, 16.8], [20.4, 12.2]], 2.1),
@@ -349,6 +415,43 @@ function shadow() {
 
 function white() {
 	return new Canvas(8, 8).fill(() => -1, [1, 1, 1, 1]);
+}
+
+// The switch (Theme/Widgets.lua W.Toggle, W.Switch) and the slider's thumb,
+// each part one texture drawn whole at its own shape, at three sizes. The
+// client makes no mipmaps for these files, so a texture shrunk to under half
+// its size aliases at its edge; Theme.SharpMedia picks the smallest size at
+// or above the part's height on screen, so none is ever shrunk by two or
+// more, from UI scale 0.64 on a 1080p screen to 1.5 on a 4K one.
+//   disc-N            the knob and the thumb (N x N)
+//   switch-edge-N     the 36x18 track's outline, filled (2N x N)
+//   switch-fill-N     the track's fill, one unit (N/18 px) inside the edge
+//   switch-focus-N    the focus ring: a 44x26 capsule ring 2 units wide, in
+//                     a 52x26 texture (drawn 4 units round the track)
+//   knob-shadow       one soft disc, blurred past any aliasing: the knob's
+//                     edge sits at 14/18 of its radius, still about half
+//                     strength there, fading out at the texture's edge
+// A wider capsule (the knob held down, chips) is a disc's two halves with
+// its middle column stretched between them (W.Capsule).
+const SHARP_SIZES = [16, 32, 64];
+function disc(n) {
+	return new Canvas(n, n).fill(sdf.circle(n / 2, n / 2, n / 2 - 0.5), [1, 1, 1, 1]);
+}
+const capsuleShape = (cx, cy, hw, hh) => sdf.box(cx, cy, hw, hh, hh);
+function switchEdge(n) {
+	return new Canvas(2 * n, n).fill(capsuleShape(n, n / 2, n - 0.5, n / 2 - 0.5), [1, 1, 1, 1]);
+}
+function switchFill(n) {
+	const e = n / 18;
+	return new Canvas(2 * n, n).fill(capsuleShape(n, n / 2, n - 0.5 - e, n / 2 - 0.5 - e), [1, 1, 1, 1]);
+}
+function switchFocus(n) {
+	const u = n / 26;
+	const mid = capsuleShape(n, n / 2, 22 * u - 0.5 - u, 13 * u - 0.5 - u);
+	return new Canvas(2 * n, n).fill((x, y) => Math.abs(mid(x, y)) - u, [1, 1, 1, 1]);
+}
+function knobShadow() {
+	return new Canvas(32, 32).fill(sdf.circle(16, 16, 12.5), [1, 1, 1, 1], { feather: 7 });
 }
 
 // ---------------------------------------------------------------------------
@@ -656,6 +759,13 @@ function forever() {
 function generate(addonRoot) {
 	const dir = path.join(addonRoot, 'Media', 'UI');
 	const written = [];
+	for (const n of SHARP_SIZES) {
+		written.push(disc(n).write(path.join(dir, `disc-${n}.tga`)));
+		written.push(switchEdge(n).write(path.join(dir, `switch-edge-${n}.tga`)));
+		written.push(switchFill(n).write(path.join(dir, `switch-fill-${n}.tga`)));
+		written.push(switchFocus(n).write(path.join(dir, `switch-focus-${n}.tga`)));
+	}
+	written.push(knobShadow().write(path.join(dir, 'knob-shadow.tga')));
 	for (const [name, shape] of Object.entries(GLYPHS)) written.push(glyph(shape).write(path.join(dir, `${name}.tga`)));
 	written.push(glyph(discordMark()).write(path.join(dir, 'discord.tga')));
 	written.push(glow().write(path.join(dir, 'glow.tga')));

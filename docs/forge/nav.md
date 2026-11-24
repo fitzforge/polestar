@@ -476,14 +476,16 @@ Approximate, on 8 threads; yours will differ.
 | one customized CCH metric | about 0.7 GB per continent, base walks only |
 | Leffe's decoded map pieces | a byte-bounded cache: 4,096 MB in `forge build`'s walks stage (a faction's walks read about 3.5 GB of them; with 2,048 MB each piece was decoded about nine times), 2,048 MB for its legs and on `forge walks walks`' hybrid; `POLESTAR_LEFFE_NAV_CACHE_MB` for `forge walks walks` with `POLESTAR_NAV=leffe` (default 1,024) |
 | pairs sent to the walker at once | 150,000 |
-| peak memory, one faction | about 5-6 GB on one backend; 13-15 GB on the hybrid, whose two passes run at once |
+| peak memory, one faction | about 5-6 GB on one backend; 13-18 GB on the hybrid, whose two passes run at once (an Alliance rebuild from changed data reached 17.8 GB at 6 threads); about half with `--walks-serial` |
 | a faction from an empty store | tens of minutes on our grid, longer on Leffe's maps or the hybrid |
 | a faction after a quest fix | a few minutes: only the new pairs are routed |
 
 `forge build --threads N` (default 8) sets the threads; on the hybrid each of its two passes has N
-of its own. `forge walks walks` uses 8. If a machine runs out of memory, lower `--threads` first.
-With `forge walks walks` on Leffe's maps alone you can also lower `POLESTAR_LEFFE_NAV_CACHE_MB`;
-`forge build` keeps the walks stage's cache at 4,096 MB.
+of its own. `forge walks walks` uses 8. If a machine runs out of memory, build one faction at a time
+(`--starts`), add `--walks-serial` (the hybrid's two passes one after the other: about half the peak, a
+longer walks stage, the same walks), then lower `--threads` and `--leffe-cache <MB>` (Leffe's decoded maps,
+default 4,096: smaller decodes pieces again, slower, the same walks). `forge walks walks` takes
+`POLESTAR_WALKS_SERIAL=1`, and `POLESTAR_LEFFE_NAV_CACHE_MB` with `POLESTAR_NAV=leffe`.
 
 ## Running it
 
@@ -633,10 +635,14 @@ city and the Alliance and Horde hubs; every graph edge priced per faction; forma
 surface's WMO group area). `forge nav pack` writes them from the grid and the ground layers:
 
 ```sh
-forge nav pack --dir <grid> --date 2026-10-25 --leffe <Leffe's maps>    # what ships
+forge nav pack --dir <grid> --date 2026-10-25 --leffe <Leffe's maps>    # Leffe's maps (step 1 of what ships)
 forge nav pack --dir <grid> --date 2026-10-23                           # our grid's maps
 forge nav check
 ```
+
+What ships is that pack with 0.4.2's extra layers grafted on, the Ironforge cluster rebuild and the regional
+import: one command, `tools/nav/repack.sh`, with `--check` to repack and check the shipped maps byte for byte
+([docs/nav/REPACK.md](../nav/REPACK.md)).
 
 - `--leffe <dir>` (his format-4 Nav folder, or the folder holding it: the same client build and
   cells as the grid) takes the maps from his: his surfaces, floors, classes, zones and entrance graph,
@@ -646,6 +652,73 @@ forge nav check
   the maps taken from his (default all three); the others are the grid's, byte for byte, so one
   continent can go back to our grid if his maps walk it wrong. About 90 s for the three maps.
   The rules are in [ARCHITECTURE.md](../ARCHITECTURE.md), "Leffe's navigation maps in game".
+- **Grid joins** (`pack/joins.rs`; the pairs in `pack/joins.json`, compiled in): places players walk between that
+  our grid joins and his maps do not (a mine they cut off from its mouth, a tower's top, Felwood's road, Darkcloud
+  Pinnacle's rope bridges). With `--leffe`, each pair of a map taken from his is routed on our grid both ways (the
+  guide bake's drawn way; a pair it walks one way only goes back along the same cells unless a step back rises over
+  the walk slope, 50 degrees, or 1 yd: the Shadowprey inn's door, a step our grid takes only down) and put into his
+  clusters where they lack it: each cell of the way stands on his surface
+  nearest its height (within 3.5 yd), else on a floor of ours added after the cell's floors (our surface's value,
+  class and area, so every entrance keeps its layer); a step his maps cannot make within 40 yd of walking becomes an
+  arc inside a cluster, or an entrance on each side of a cluster border with an edge between them; each entrance of
+  a cluster the way changed gets an edge to every entrance it then reaches for less, priced as the router prices
+  the grid, unless the cluster's edges already lead there for no more (an inn opened to its village would otherwise
+  give each entrance of one an edge to each of the other, past the 63 an entrance holds); an entrance still past 63
+  keeps its edges across the cluster's borders, then its cheapest, his and the join's alike; and the components the
+  way joins become one. A way that climbs a face his maps lack, or that leaves his maps, is refused, and a lift ride
+  is left to the lift chokepoints; each is logged. A way with a fall his maps lack that hurts (over 14.57 yd, the
+  height a fall starts to hurt, as for the ledge drops below) goes in only where his maps make no other way between
+  its ends that the router finds (8 times the straight line plus 2000 yd): players are not walked off a ledge that
+  hurts them where another way exists. A fall kept is logged ("falls N yd at x,y") and counted (`falls` in
+  PACK.json's `leffe.joins`), for an in-game check. A way his maps already make
+  adds nothing, so a later pack of his that has the way changes nothing. PACK.json's `leffe.joins` counts what was
+  added. Add a pair only when players walk it in the game (recordings, an in-game check, a report) and the walking
+  maps have no way, or a long detour, between its ends.
+
+  Two kinds of pair are drawn straight instead of routed on our grid (`"kind"`): a **step** (`"step"`) walks
+  between two places at most 12 yd apart, both ways, rising no steeper than the walk slope, where neither map has
+  the way and players walk through (a threshold, a stair or a counter's gap: the players' recordings step through
+  a hole in our grid there); a **drop** (`"drop"`) falls from a ledge's edge (a) to where players land (b, below it
+  and at most 10 yd across), one way, and goes in even where it hurts and his maps make another way. Add a drop
+  only where the recordings show it is a fall players take (the falling flag and the time it takes, not a stair
+  our grid lacks), taken by 70% or more of the 20 or more players who pass the ledge, and under half a full
+  health's fall damage (about 41 yd): the Orgrimmar wind rider tower's drop into the Valley of Strength (#1986).
+  Both kinds need both heights; `"people"` counts the distinct recorded players who walked it. A step, and any pair
+  marked `"strict": true`, is **strict**: each step of its way his maps make no move of their own for gets one (an
+  arc, or an edge across a cluster border) even where his maps walk round to it within 40 yd, because that way round
+  can be the start of a long detour (a threshold his maps close, a bridge his maps cut at its crest).
+- **Cuts** (`pack/cuts.rs`; the lines in `pack/joins.json`'s `cuts`, compiled in): faces players cannot walk up
+  that his maps (and our grid) walk up. A cut is a line on a map and a band of heights; with `--leffe`, every move of
+  his maps that crosses the line going up (its end more than 0.5 yd above its start, both ends in the band) is taken
+  out: a base cell's step by its data flag, a floor's step by its step mask, an explicit link, an arc. Each step taken
+  out comes back as a one-way arc down, so walks still go down the face, never up it. The cut clusters' entrance
+  edges are priced again where the cut changed their walk (dearer by the way round, gone with no way left); the
+  others keep their costs. PACK.json's `cuts` counts them. Add a cut only where players' recordings or a report show
+  the face can't be climbed (Ghost Walker Post's east face, #2316).
+- Ground no player reaches is left out of his maps (`pack/reach.rs`, Shortest Path Forever v1.33's rule,
+  ported): a walk is followed from every fixed place (flight masters and inns by their NPC's spawn in
+  `data/forever/spawnz.json`, boat, zeppelin, tram and lift landings and portal ends from `travel.json`, the travel
+  chains' nodes in `data/crossings.json`, and the two ends of each grid join's ways, where the join leads into ground
+  his maps cut off), the way the router walks (steps, links, arcs, ledge drops, the graph's
+  kept edges), and a surface it never reaches goes: a floor is dropped, a base cell loses its surface, an entrance on
+  it goes. PACK.json's `leffe` entry counts them (`places`, `unplaced`, `unreachedFloors`, `unreachedBases`,
+  `unreachedEntrances`). By default (`--ground cities`) only in the capitals (a surface whose cell lies in a
+  capital's zone) but the Undercity (its floors are joined by lifts the reach walk doesn't ride; the rule lost walks
+  through it), the ground outside them staying whole: a city walk's ends then settle on ground a player reaches
+  (a roof, a sealed room or the ground under Stormwind's and Orgrimmar's streets is no floor to start or end on),
+  and nothing changes outside the cities. Measured on the city gate's held-out recorded walks (2026-11-18): the
+  addon's walks failing 95 -> 63 of 1,000 with the joins of that day, no walk newly failing. `--ground reached` drops
+  it everywhere (off: 8 of 2,000 walks of the broad sample lost where a goal's ledge goes), `--ground all` nowhere.
+- Ledge drops (`pack/drops.rs`, Shortest Path Forever v1.31's rule on our grid's falls): a fall of our grid of 2 to
+  14.57 yd (the height a fall starts to hurt) into the ledge's cell or one beside it, inside one tile, becomes a
+  one-way arc between his surfaces nearest the two heights (within 3.5 yd), priced as the walk across plus the time
+  free fall takes at run speed, where his maps have no step or link between them (`ledgeDrops` in PACK.json).
+  On with `--ledges on` (off by default until measured).
+- Spawn heights where floors overlap (`pack/spawns.rs`, Shortest Path Forever v1.30's rule): every NPC spawn and
+  every spawn of an object a quest starts at, ends at or names (`data/forever/spawnz.json`, `quests.json`) whose
+  surface has another more than 10 yd above or below within a cell gets its height in the maps' `spawn` field (per
+  cluster "x y z ..." in whole yards; `spawnHeights` in PACK.json); `Routing/Path.lua` walks a goal without a height
+  within 8 yd of one to that spawn's floor first. On with `--spawns on` (off by default until measured).
 - `--dir` is the grid (format 4: it needs each surface's slope), `--layers` the ground layers
   (default `data/local/nav-layers`, below), `--out` the addon folder (default `addon/Polestar_Nav`),
   `--cells` the cells per ADT tile (default 128, 4.17 yd), `--date` the date in the generated headers
@@ -662,7 +735,9 @@ forge nav check
   (`area`, 3-symbol ids, run-length), and the metadata names the rows (`areaNames`). Only rows with a
   name are packed (others as none): the planner matches a surface's area by name to the client's
   subzone, and the unnamed rows were over half the field (about 0.6 MB of Polestar_Nav's resident
-  memory). A grid without sidecars, or whose rows have no names, packs format 2.
+  memory). A grid without sidecars, or whose rows have no names, packs format 2. The names are the
+  English client's: `forge data subzones` writes them in each client language into the language
+  folders (`Subzones.lua`), so run it after a pack.
 - The writer is a port of the Node writer (tools/lib/nav/pack.js, chokepoints.js): on the 1.60.1.70532
   grid every file is byte-identical to it (rust/tests/golden/nav-pack and its opt-in real-grid test);
   a format 3 grid differs from the last JS writer only by the unnamed rows left out.

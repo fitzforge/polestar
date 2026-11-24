@@ -12,7 +12,7 @@ use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::jsv::{arr, math_round, nums};
 
-pub const SCHEMA: f64 = 9.0;
+pub const SCHEMA: f64 = 14.0;
 pub const SNIFFED: i64 = 70000;
 const REPO_URL: &str = "https://github.com/advocaite/TrinityCore/tree/forever";
 const SPAWN_MAPS: &str = "0,1,2991,2997";
@@ -303,7 +303,7 @@ pub fn extract(file: &Path) -> Result<V, String> {
 		objs.entry(r.i("QuestID")).or_default().push(arr(vec![r.js("Type"), r.js("ObjectID"), r.js("Amount")]));
 	}
 	let quests = Obj::new();
-	for r in all(&db, "select ID, VerifiedBuild, TimeAllowed, RewardNextQuest, QuestInfoID, RewardSpell, RewardDisplaySpell1, RewardXPDifficulty, RewardXPMultiplier, cast(AllowableRaces as text) races from quest_template", &[])? {
+	for r in all(&db, "select ID, VerifiedBuild, QuestType, TimeAllowed, RewardNextQuest, QuestInfoID, RewardSpell, RewardDisplaySpell1, RewardXPDifficulty, RewardXPMultiplier, cast(AllowableRaces as text) races from quest_template", &[])? {
 		let id = r.i("ID");
 		if !set.contains(&id) {
 			continue;
@@ -315,6 +315,13 @@ pub fn extract(file: &Path) -> Result<V, String> {
 		q.set("obj", arr(objs.get(&id).cloned().unwrap_or_default()));
 		if r.n("TimeAllowed") > 0.0 {
 			q.set("time", r.js("TimeAllowed"));
+		}
+		// QuestType 0: the server hands the quest in on the spot. Its giver opens straight on the
+		// hand-in window (what it wants, then Continue); it is never accepted and never in the log
+		// (#1699: Essence of the Exile at Bath'rah's Cauldron; players' recordings: 66 such quests
+		// handed in, none ever accepted).
+		if matches!(r.v("QuestType"), Sq::Integer(0)) {
+			q.set("auto", true);
 		}
 		let next = if r.truthy("RewardNextQuest") { r.js("RewardNextQuest") } else if ad.is_some_and(|a| a.truthy("NextQuestID")) { ad.unwrap().js("NextQuestID") } else { V::Num(0.0) };
 		if next.num() > 0.0 {
@@ -532,7 +539,13 @@ pub fn extract(file: &Path) -> Result<V, String> {
 		lists.insert(t.i("Id"), List { cls, vb: t.n0("VerifiedBuild"), rows });
 	}
 	let trainers = Obj::new();
+	// The highest level a class trainer's sniffed lists teach at (#2477): the starting areas' trainers stop at 6
+	// (Llane Beshere, Tordrin Sternblade), so a character past it has nothing to learn there.
+	let mut tops: IndexMap<i64, f64> = IndexMap::new();
 	let mut used: IndexMap<String, IndexSet<i64>> = IndexMap::new();
+	// The distinct spells a class trainer's lists teach (#2559): the capitals' portal trainers (Larimaine Purdue)
+	// teach a city's Teleport and Portal only; the knowledge base leaves such a trainer out of the class trainers.
+	let mut taught: IndexMap<i64, IndexSet<i64>> = IndexMap::new();
 	for l in &links {
 		let Some(list) = lists.get(&l.i("TrainerID")) else { continue };
 		if !spawned[0].contains(&l.i("CreatureID")) {
@@ -547,6 +560,12 @@ pub fn extract(file: &Path) -> Result<V, String> {
 			cl.push(list.cls.as_str());
 		}
 		used.entry(list.cls.clone()).or_default().insert(l.i("TrainerID"));
+		taught.entry(l.i("CreatureID")).or_default().extend(list.rows.iter().map(|r| r.i("SpellId")));
+		if list.vb >= SNIFFED as f64 {
+			let top = list.rows.iter().map(|r| r.n0("ReqLevel")).fold(0.0, f64::max);
+			let t = tops.entry(l.i("CreatureID")).or_insert(0.0);
+			*t = t.max(top);
+		}
 	}
 	let training = Obj::new();
 	let training_spells = Obj::new();
@@ -639,7 +658,10 @@ pub fn extract(file: &Path) -> Result<V, String> {
 	}
 	// The same for the older (Classic) lists, VerifiedBuild below SNIFFED: Forever kept each recipe's
 	// distance from learn skill to yellow when it moved thresholds, so these place the recipes no
-	// sniffed list reaches (professions extract.rs, `learnedAtFrom: "classic"`).
+	// sniffed list reaches (professions extract.rs, `learnedAtFrom: "classic"`). The highest skill any
+	// list asks: on the 18 spells where the Classic lists disagree, the highest is Classic's own trainer
+	// skill and the lower ones are stray lists (Thick Leather 180 for 200, which put it at 155 on
+	// Forever: #1553; Rugged Leather 230 for 250).
 	let mut classic: IndexMap<i64, (f64, f64)> = IndexMap::new();
 	for r in all(
 		&db,
@@ -648,7 +670,7 @@ pub fn extract(file: &Path) -> Result<V, String> {
 	)? {
 		let (k, m) = (r.n0("k"), r.n0("m"));
 		let e = classic.entry(r.i("s")).or_insert((k, m));
-		e.0 = e.0.min(k);
+		e.0 = e.0.max(k);
 		e.1 = e.1.min(m);
 	}
 	let pc = Obj::new();
@@ -665,6 +687,35 @@ pub fn extract(file: &Path) -> Result<V, String> {
 	for (c, spells) in &by_creature {
 		pt.set(&c.to_string(), nums(&spells.iter().map(|&s| s as f64).collect::<Vec<_>>()));
 	}
+	// creature -> [skill line, skill] its "Train me." gossip option asks for (conditions on the
+	// creature_trainer menu option, type 7 = skill): below it the trainer only talks ("I don't train
+	// novices", "You don't yet have the skill to study with me"). Doctor Herbert Halsey trains
+	// Alchemy from 125, Josephine Lister Tailoring from 200 (#1708, #1498).
+	let mut gates: IndexMap<i64, (i64, f64)> = IndexMap::new();
+	for r in all(
+		&db,
+		"select ct.CreatureID c, cd.ConditionValue1 l, cd.ConditionValue2 k from creature_trainer ct join trainer t on t.Id = ct.TrainerID join conditions cd on cd.SourceTypeOrReferenceId = 15 and cd.SourceGroup = ct.MenuID and cd.SourceEntry = ct.OptionID where t.Type = 2 and cd.ConditionTypeOrReference = 7 and cd.NegativeCondition = 0 and cd.ConditionValue2 > 0 order by ct.CreatureID",
+		&[],
+	)? {
+		let e = gates.entry(r.i("c")).or_insert((r.i("l"), r.n0("k")));
+		e.1 = e.1.max(r.n0("k"));
+	}
+	let pg = Obj::new();
+	for (c, (l, k)) in &gates {
+		pg.set(&c.to_string(), nums(&[*l as f64, *k]));
+	}
+	// creature -> the spells any of its profession lists (sniffed or Classic) teaches: a curated rank
+	// trainer whose lists lack the rank's spell doesn't teach the rank (Narv Hidecrafter teaches
+	// Journeyman Leatherworking, not Apprentice; Josephine Lister only Shadoweave). A creature with no
+	// list (Forever's junior trainers) says nothing.
+	let mut any_list: IndexMap<i64, IndexSet<i64>> = IndexMap::new();
+	for r in all(&db, "select ct.CreatureID c, ts.SpellId s from creature_trainer ct join trainer t on t.Id = ct.TrainerID join trainer_spell ts on ts.TrainerId = t.Id where t.Type = 2 order by ct.CreatureID, ts.SpellId", &[])? {
+		any_list.entry(r.i("c")).or_default().insert(r.i("s"));
+	}
+	let pa = Obj::new();
+	for (c, spells) in &any_list {
+		pa.set(&c.to_string(), nums(&spells.iter().map(|&s| s as f64).collect::<Vec<_>>()));
+	}
 
 	let out = Obj::new();
 	out.set("schema", SCHEMA);
@@ -677,6 +728,16 @@ pub fn extract(file: &Path) -> Result<V, String> {
 	out.set("currencyVendors", sort_num_keys(&currency));
 	out.set("vendorLimits", sort_num_keys(&limits));
 	out.set("trainers", sort_num_keys(&trainers));
+	let top = Obj::new();
+	for (id, t) in &tops {
+		top.set(&id.to_string(), *t);
+	}
+	out.set("trainerTop", sort_num_keys(&top));
+	let spells = Obj::new();
+	for (id, s) in &taught {
+		spells.set(&id.to_string(), s.len() as f64);
+	}
+	out.set("trainerSpells", sort_num_keys(&spells));
 	out.set("training", training);
 	out.set("trainingSpells", training_spells);
 	out.set("trainingDropped", dropped);
@@ -684,6 +745,8 @@ pub fn extract(file: &Path) -> Result<V, String> {
 	out.set("professionSpells", po);
 	out.set("professionSpellsClassic", pc);
 	out.set("professionTrainers", pt);
+	out.set("professionTrainerSkill", pg);
+	out.set("professionTrainersAny", pa);
 	Ok(V::Obj(out))
 }
 

@@ -26,4 +26,5 @@ return {
 	["Reputation · Cities"] = "Репутация · Города",
 	["Reputation · Raids and dungeons"] = "Репутация · Рейды и подземелья",
 	["Reputation · World"] = "Репутация · Мир",
+	["The Drowned City"] = "",
 }

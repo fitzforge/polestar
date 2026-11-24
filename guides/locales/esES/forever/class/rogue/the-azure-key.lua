@@ -7,14 +7,14 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Ravenholdt reputation and experience at 50; Classic's item choice may be gone on Forever."] = "",
+	["Ravenholdt reputation and experience at 50; Classic's item choice may be gone on Forever."] = "Reputación con Ravenholdt y experiencia a nivel 50; puede que Forever haya eliminado la elección de objeto de Classic.",
 	["Ravenholdt reputation"] = "Reputación con Ravenholdt",
 
 	-- Step 1: A Simple Request (Alliance)
 	-- {quest:8233} A Simple Request
 	["{quest:8233} (Alliance)"] = "{quest:8233} (Alianza)",
 	-- {npc:918} Osborne the Night Man · {zone:1453} Stormwind · {object:2100} Old Town · {zone:1457} Darnassus · {npc:5165} Hulfdan Blackbeard · {zone:1455} Ironforge
-	["At 50 {npc:918} in {zone:1453}'s {object:2100} has it; so do Syurna in {zone:1457} and {npc:5165} in {zone:1455}."] = "",
+	["At 50 {npc:918} in {zone:1453}'s {object:2100} has it; so do Syurna in {zone:1457} and {npc:5165} in {zone:1455}."] = "A nivel 50, la tiene {npc:918} en {object:2100} de {zone:1453}; también Syurna en {zone:1457}, y {npc:5165} en {zone:1455}.",
 
 	-- Step 2: A Simple Request (Horde)
 	-- {quest:8233} A Simple Request
@@ -24,21 +24,21 @@ return {
 
 	-- Step 3: Lord Jorach Ravenholdt
 	-- {area:3486} Ravenholdt Manor · {area:272} Tarren Mill · {area:271} Southshore · {area:275} Durnholde Keep · {zone:1416} Alterac Mountains
-	["{area:3486} hides in the hills east of {area:272}. Horde fly to {area:272}, Alliance to {area:271}. The trail starts behind the plateau north of {area:275}, climbs into the hills and runs through a small tunnel into the {zone:1416}; Lord Jorach is inside the manor. Do not attack anyone at the manor: lost Ravenholdt reputation makes him refuse to speak to you."] = "",
+	["{area:3486} hides in the hills east of {area:272}. Horde fly to {area:272}, Alliance to {area:271}. The trail starts behind the plateau north of {area:275}, climbs into the hills and runs through a small tunnel into the {zone:1416}; Lord Jorach is inside the manor. Do not attack anyone at the manor: lost Ravenholdt reputation makes him refuse to speak to you."] = "El {area:3486} se esconde en las colinas al este de {area:272}. La Horda vuela a {area:272}, la Alianza a {area:271}. El rastro empieza tras la meseta al norte de {area:275}, sube a las colinas y pasa por un túnel pequeño hacia el {zone:1416}; Lord Jorach está dentro de la casa solariega. No ataques a nadie de la casa: perder reputación de Ravenholdt hace que se niegue a hablar contigo.",
 
 	-- Step 4: Sealed Azure Bag
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {zone:1447} Azshara · {spell:921} Pick Pocket · {area:1769} Timbermaw Hold · {spell:403} Lightning Bolt · {spell:6535} Lightning Cloud
 	-- plural, as words: Timbermaw Shamans = {npc:6188} Timbermaw Shaman
-	["Alliance fly to {area:3137}, Horde to {area:1237}. Only the level 50-51 Timbermaw Shamans in the furbolg hills of northern {zone:1447} carry the bag (the level 47-49 furbolgs further south do not): about one kill in thirty drops it. {spell:921} them instead and you lose no Timbermaw reputation; if you are Unfriendly or better with {area:1769}, mark them At War in your reputation panel first. They cast {spell:403} and {spell:6535}, heal each other and run at low health."] = "",
+	["Alliance fly to {area:3137}, Horde to {area:1237}. Only the level 50-51 Timbermaw Shamans in the furbolg hills of northern {zone:1447} carry the bag (the level 47-49 furbolgs further south do not): about one kill in thirty drops it. {spell:921} them instead and you lose no Timbermaw reputation; if you are Unfriendly or better with {area:1769}, mark them At War in your reputation panel first. They cast {spell:403} and {spell:6535}, heal each other and run at low health."] = "La Alianza vuela a {area:3137}, la Horda a {area:1237}. Solo los chamanes Fauces de Madera de nivel 50-51 de las colinas de furbolgs del norte del {zone:1447} llevan la bolsa (los furbolgs de nivel 47-49 más al sur no): unos treinta muertes la sueltan. {spell:921} sobre ellos y no pierdes reputación Levatopino; si eres Inamistoso o mejor con {area:1769}, márcalos En Guerra en tu panel de reputación primero. Lanzan {spell:403} y {spell:6535}, se curan entre ellos y huyen con poca vida.",
 
 	-- Step 5: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo · {area:1237} Valormok
-	["{npc:8395}, camped below the cliffs just east of {area:1237}, teleports you up (dismount first); a trail leads to Xylem's tower."] = "",
+	["{npc:8395}, camped below the cliffs just east of {area:1237}, teleports you up (dismount first); a trail leads to Xylem's tower."] = "{npc:8395}, acampado bajo los acantilados al este de {area:1237}, te teletransporta arriba (baja de montura primero); un rastro lleva a la torre de Xylem.",
 
 	-- Step 6: Encoded Fragments
 	-- {spell:6907} Diseased Slime · {area:2497} Bitter Reaches · {zone:1447} Azshara · {area:1237} Valormok
 	-- plural, as words: Forest Oozes = {npc:8766} Forest Ooze · Mistwing Ravagers = {npc:8764} Mistwing Ravager
-	["The Forest Oozes (level 52-53, {spell:6907} up close) drop a fragment four times in five: the biggest group, seven of them, is in the {area:2497} hills of north-eastern {zone:1447}, four more south-east of {area:1237}. Pick their pockets before the kill for an extra fragment or two. Killing the Mistwing Ravagers and hippogryphs that share their spots makes more oozes appear."] = "",
+	["The Forest Oozes (level 52-53, {spell:6907} up close) drop a fragment four times in five: the biggest group, seven of them, is in the {area:2497} hills of north-eastern {zone:1447}, four more south-east of {area:1237}. Pick their pockets before the kill for an extra fragment or two. Killing the Mistwing Ravagers and hippogryphs that share their spots makes more oozes appear."] = "Los mocos del bosque (52-53, {spell:6907} cuerpo a cuerpo) sueltan un fragmento en cuatro de cada cinco: el grupo más grande, siete de ellos, está en las colinas del {area:2497} al noreste del {zone:1447}, cuatro más al sureste de {area:1237}. Registra sus bolsillos antes de matarlos por un fragmento extra o dos. Matar a los devastadores y hipogrifos Brumatormenta que comparten sus puntos hace aparecer más mocos.",
 
 	-- Step 7: Back to Xylem
 	["Back to Xylem"] = "De vuelta con Xylem",
@@ -47,20 +47,18 @@ return {
 	-- {area:1417} Sunken Temple
 	["Morphaz in the {area:1417}"] = "Morphaz en el {area:1417}",
 	-- {area:1417} Sunken Temple · {area:74} Pool of Tears · {area:75} Stonard · {area:1438} Nethergarde Keep · {npc:5710} Jammal'an the Prophet · {spell:12533} Acid Breath · {spell:2094} Blind
-	["Morphaz, a level 52 elite green drake, lives deep in the {area:1417}: a group of five, level 50-54. The temple stands in the {area:74}; climb into the sunken building, swim down through it and follow the passage to the portal. Horde: fly to {area:75}; Alliance: fly to {area:1438} and ride on. He is not there when you arrive: first kill the six troll guardians (elites of 50-52) on the platforms around the upper ring, which opens the way down (the left-hand ramp from the entrance) to {npc:5710} in the Pit of Sacrifice. Jammal'an's death brings out two drakes, Weaver and Dreamscythe; when both are dead, Morphaz and Hazzas appear together and fight as a pair. Their {spell:12533} is nature damage: nature protection potions help; poisons and {spell:2094} do not work on them. The key always drops. Hunters, Priests and Mages of 50 need Morphaz too: one clear serves them all."] = "",
+	["Morphaz, a level 52 elite green drake, lives deep in the {area:1417}: a group of five, level 50-54. The temple stands in the {area:74}; climb into the sunken building, swim down through it and follow the passage to the portal. Horde: fly to {area:75}; Alliance: fly to {area:1438} and ride on. He is not there when you arrive: first kill the six troll guardians (elites of 50-52) on the platforms around the upper ring, which opens the way down (the left-hand ramp from the entrance) to {npc:5710} in the Pit of Sacrifice. Jammal'an's death brings out two drakes, Weaver and Dreamscythe; when both are dead, Morphaz and Hazzas appear together and fight as a pair. Their {spell:12533} is nature damage: nature protection potions help; poisons and {spell:2094} do not work on them. The key always drops. Hunters, Priests and Mages of 50 need Morphaz too: one clear serves them all."] = "Morphaz, un draco verde de nivel 52 de élite, vive en lo profundo del {area:1417}: un grupo de cinco, nivel 50-54. El templo está en el {area:74}; sube al edificio hundido, nada a través de él y sigue el pasadizo hasta el portal. Horda: vuela a {area:75}; Alianza: vuela a {area:1438} y sigue. No está ahí cuando llegas: primero mata a los seis guardianes trol (élite, 50-52) de las plataformas del anillo superior, que abre el camino hacia abajo (la rampa de la izquierda desde la entrada) hasta {npc:5710} en el Foso del Sacrificio. La muerte de Jammal'an hace salir dos dracos, Tejedor y Guadañosueños; cuando mueren ambos, Morphaz y Hazzas aparecen juntos y luchan como pareja. Su {spell:12533} es daño de naturaleza: las pociones de protección de naturaleza ayudan; los venenos y {spell:2094} no funcionan con ellos. La llave siempre cae. Cazadores, sacerdotes y magos de 50 también necesitan a Morphaz: una pasada les sirve a todos.",
 	-- {item:20022} Azure Key
 	["{item:20022}: Morphaz, inside the temple"] = "{item:20022}: Morphaz, dentro del templo",
 
 	-- Step 9: Lord Ravenholdt
 	["Lord Ravenholdt"] = "Lord Ravenholdt",
 	-- {item:19982} Duskbat Drape · {item:19984} Ebon Mask · {item:20255} Whisperwalk Boots
-	["Look at the reward window before you hand in: Classic offered the {item:19982}, the {item:19984} or the {item:20255}, and Forever's notes say the choice may be gone."] = "",
+	["Look at the reward window before you hand in: Classic offered the {item:19982}, the {item:19984} or the {item:20255}, and Forever's notes say the choice may be gone."] = "Mira la ventana de recompensa antes de entregar: el clásico ofrecía el {item:19982}, el {item:19984} o el {item:20255}, y las notas de Forever dicen que la elección puede haber desaparecido.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Alliance fly to {area:3137}, Horde to {area:1237}. The Timbermaw Shamans in {zone:1447}'s northern hills drop the bag, about one in thirty."] = "La Alianza vuela a {area:3137}; la Horda, a {area:1237}. Los chamanes Fauces de Madera de las colinas del norte de {zone:1447} sueltan la bolsa, más o menos uno de cada treinta.",
-	-- ["At 50 {npc:918} in {zone:1453}'s {object:2100} has it; so do Syurna in {zone:1457} and {npc:5165} and Fenthwick in {zone:1455}."] = "A nivel 50, la tiene {npc:918} en {object:2100} de {zone:1453}; también Syurna en {zone:1457}, y {npc:5165} y Fenthwick en {zone:1455}.",
 	-- ["Morphaz, a green drake, is an elite boss deep in the {area:1417}, a level 50 dungeon: bring a group of five. The temple stands in the {area:74}; swim down to the entrance. Horde: fly to {area:75}; Alliance: fly to {area:1438} and ride on."] = "Morphaz, un draco verde, es un jefe de élite en lo más hondo del {area:1417}, una mazmorra de nivel 50: lleva un grupo de cinco. El templo está en {area:74}; bucea hasta la entrada. Horda: vuela a {area:75}. Alianza: vuela a {area:1438} y sigue cabalgando.",
-	-- ["Ravenholdt reputation and experience at 50; Forever removed the Classic item choice."] = "Reputación con Ravenholdt y experiencia a nivel 50; Forever eliminó la elección de objeto de Classic.",
 	-- ["The Forest Oozes of southern {zone:1447} drop the fragments."] = "Los mocos del bosque del sur de {zone:1447} sueltan los fragmentos.",
 	-- ["{area:3486} hides in the hills east of {area:272}, up a path into the {zone:1416}. Horde fly to {area:272}, Alliance to {area:271}."] = "La {area:3486} se oculta en las colinas al este de {area:272}, subiendo por un sendero hacia {zone:1416}. La Horda vuela a {area:272}; la Alianza, a {area:271}.",
 	-- ["{npc:6768}: no item choices in Forever"] = "{npc:6768}: sin elección de objeto en Forever",

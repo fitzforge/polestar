@@ -13,7 +13,7 @@ return {
 
 	-- Step 1: Therzok
 	-- {npc:3170} Kaplak · {area:362} Razor Hill · {quest:1859} Therzok · {zone:1454} Orgrimmar · {quest:1963} The Shattered Hand
-	["At 10 {npc:3170}, the rogue trainer in {area:362}, sends you to {quest:1859} in {zone:1454}. It is only a pointer: an Orc already in {zone:1454} can skip it and take {quest:1963} from {quest:1859} straight away."] = "",
+	["At 10 {npc:3170}, the rogue trainer in {area:362}, sends you to {quest:1859} in {zone:1454}. It is only a pointer: an Orc already in {zone:1454} can skip it and take {quest:1963} from {quest:1859} straight away."] = "10級時，{area:362}的盜賊訓練師{npc:3170}讓你去{zone:1454}做{quest:1859}。這只是個指引：已經在{zone:1454}的獸人可以跳過它，直接從{quest:1859}那裡接{quest:1963}。",
 
 	-- Step 2: The Shattered Hand
 	-- {quest:1859} Therzok · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {quest:1963} The Shattered Hand
@@ -21,7 +21,7 @@ return {
 
 	-- Step 3: Tazan
 	-- {npc:6494} Tazan · {area:391} Merchant Coast · {area:392} Ratchet
-	["{npc:6494} (level 13, not elite) is a troll pirate on the {area:391} south of {area:392}: he walks the fenced hill path between the lower pirate camp by the beached ship and the upper camp by a big tree. Fight him at the foot of the hill, away from the camps. He always drops his satchel and is back 4 1/2 minutes after a death; one satchel per kill, so two rogues need two kills. Hand the satchel in unopened: picking its lock now destroys it and you must kill him again."] = "",
+	["{npc:6494} (level 13, not elite) is a troll pirate on the {area:391} south of {area:392}: he walks the fenced hill path between the lower pirate camp by the beached ship and the upper camp by a big tree. Fight him at the foot of the hill, away from the camps. He always drops his satchel and is back 4 1/2 minutes after a death; one satchel per kill, so two rogues need two kills. Hand the satchel in unopened: picking its lock now destroys it and you must kill him again."] = "{npc:6494}（13 級，非精英）是一名巨魔海盜，位於 {area:392} 南側的 {area:391}：他沿著有圍欄的山路，在擱淺船隻旁的下層海盜營地與大樹旁的上層營地之間來回走動。在山腳下遠離營地的地方與他戰鬥。他必定掉落揹包，死亡 4 分半後重生；每次只掉一個揹包，因此兩名潛行者需要擊殺兩次。交還揹包前不要開啟：現在開鎖會毀掉它，你就必須再殺他一次。",
 
 	-- Step 4: Back to Therzok
 	-- {npc:6446} Therzok
@@ -29,9 +29,9 @@ return {
 
 	-- Step 5: Tazan's Key
 	-- {quest:1859} Therzok · {npc:6466} Gamon · {object:172982} Valley of Strength · {item:7208} Tazan's Key · {item:7209} Tazan's Satchel · {spell:1804} Pick Lock
-	["{quest:1859} hands the satchel back: now open it. {npc:6466} (level 12) kneels by the innkeeper in the inn in the {object:172982}; stealth up and pick his pocket for {item:7208} (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on {item:7209} in your bags. If you have trained {spell:1804}, you can pick the satchel's lock instead."] = "",
+	["{quest:1859} hands the satchel back: now open it. {npc:6466} (level 12) kneels by the innkeeper in the inn in the {object:172982}; stealth up and pick his pocket for {item:7208} (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on {item:7209} in your bags. If you have trained {spell:1804}, you can pick the satchel's lock instead."] = "{quest:1859}會把揹包還給你：現在開啟它。{npc:6466}（12級）跪在{object:172982}旅店的老闆身旁；潛行上去偷他的口袋拿{item:7208}（別殺他：鑰匙幾乎不掉）。玩家經常殺他，所以你可能要等他重新出現，最長5分鐘。然後對揹包裡的{item:7209}使用鑰匙。如果你已學會{spell:1804}，也可以直接撬開揹包的鎖。",
 	-- {item:7208} Tazan's Key
-	["Pick Pocket Gamon for {item:7208}"] = "",
+	["Pick Pocket Gamon for {item:7208}"] = "從加摩爾身上偷取{item:7208}",
 	-- {item:7209} Tazan's Satchel
 	["{item:7209}, once you have the key"] = "{item:7209}，拿到鑰匙後",
 	-- {item:7295} Tazan's Logbook
@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: Mennet Carkad
 	-- {npc:2130} Marion Call · {area:2119} Gallows' End Tavern · {area:159} Brill · {quest:1885} Mennet Carkad · {zone:1458} Undercity
-	["At 10 {npc:2130}, the rogue trainer upstairs in the {area:2119} in {area:159}, sends you to {quest:1885} in the {zone:1458}."] = "",
+	["At 10 {npc:2130}, the rogue trainer upstairs in the {area:2119} in {area:159}, sends you to {quest:1885} in the {zone:1458}."] = "10級時，{area:159}{area:2119}樓上的盜賊訓練師{npc:2130}會派你去找{zone:1458}的{quest:1885}。",
 
 	-- Step 8: The Rogues' Quarter
 	-- {object:36073} Rogues' Quarter
@@ -53,7 +53,7 @@ return {
 
 	-- Step 9: Astor Hadren
 	-- {npc:6497} Astor Hadren · {area:228} Sepulcher · {zone:1458} Undercity
-	["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "",
+	["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "{npc:6497}（13級）在{area:228}與{zone:1458}之間的大路上來回走，位於{area:228}以北。他看上去像個友善的旅人，頭上沒有任務標記。與他交談，兩個回答選項都點一遍：他就會轉為敵對。殺掉他拿信件（必掉）。打他時離守衛遠一點，守衛可能搶走擊殺而且不掉落；每次擊殺只有一名盜賊能拿到信。他死後5分鐘重新出現。",
 
 	-- Step 10: Back to Mennet Carkad
 	-- {npc:6467} Mennet Carkad
@@ -61,16 +61,15 @@ return {
 
 	-- Step 11: Andron Gant
 	-- {npc:6522} Andron Gant
-	["{npc:6522} is in the Apothecarium, in its biggest room, where two huge guards watch a small bridge. His ledger is on the bookshelf in the back room behind him, not the shelf on the wall next to him."] = "",
+	["{npc:6522} is in the Apothecarium, in its biggest room, where two huge guards watch a small bridge. His ledger is on the bookshelf in the back room behind him, not the shelf on the wall next to him."] = "{npc:6522}在鍊金房最大的房間裡，那裡有兩名高大的守衛守著一座小橋。他的賬本在他身後裡屋的書架上，不在他旁邊牆上的架子。",
 
 	-- Step 12: Mennet Carkad and Varimathras
 	-- {npc:6467} Mennet Carkad · {npc:2425} Varimathras
 	["{npc:6467} and {npc:2425}"] = "{npc:6467}與{npc:2425}",
 	-- {npc:6467} Mennet Carkad · {npc:2425} Varimathras · {object:36126} Royal Quarter · {npc:6522} Andron Gant
-	["{npc:6467} sends the ledger on to {npc:2425}, the big demon in the middle of the Hall of the Dark Lady in the {object:36126}, past its elite guards; the way in is the passage off the Apothecarium. If you lose the ledger, take another from {npc:6522}'s bookshelf."] = "",
+	["{npc:6467} sends the ledger on to {npc:2425}, the big demon in the middle of the Hall of the Dark Lady in the {object:36126}, past its elite guards; the way in is the passage off the Apothecarium. If you lose the ledger, take another from {npc:6522}'s bookshelf."] = "{npc:6467}讓你把賬本送給{npc:2425}——那頭大惡魔就在{object:36126}黑暗女士大廳的中央，一路都是精英守衛；入口在鍊金房旁邊的通道。如果賬本弄丟了，從{npc:6522}的書架上再拿一本。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 10 {npc:2130}, the rogue trainer in the {area:2119} in {area:159}, sends you to {quest:1885} in the {zone:1458}."] = "10級時，{area:159}{area:2119}的盜賊訓練師{npc:2130}會派你去找{zone:1458}的{quest:1885}。",
 	-- ["At 10 {npc:3170}, the rogue trainer in {area:362}, sends you to {quest:1859} in {zone:1454}."] = "10級時，{area:362}的盜賊訓練師{npc:3170}會派你去找{zone:1454}的{quest:1859}。",
 	-- ["Tazan"] = "塔贊",
 	-- ["{item:7208}: Gamon"] = "{item:7208}：加摩爾",

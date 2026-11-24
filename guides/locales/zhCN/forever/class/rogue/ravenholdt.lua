@@ -23,8 +23,6 @@ return {
 	["Horde fly to {area:272}, Alliance to {area:271}. The trail to the manor is hard to see: it starts behind the plateau north of {area:275}, east of {area:272}, climbs into the hills and bends twice to a small tunnel. A chest sits in the tunnel: do not open it. Cast {spell:1846} near it and walk up close; that is the Rite of Cunning (it comes back after 5 minutes). Opening the chest calls Milton, an elite rogue of about level 32. Through the tunnel lies {area:3486}: {npc:6707} is upstairs inside. Do not attack anyone at the manor: it costs {npc:13936} reputation."] = "部落飞往{area:272}，联盟飞往{area:271}。通往庄园的小路很难发现：起点在{area:275}北面高地的后方、{area:272}以东，沿路爬上山丘，拐两次弯后到达一条小隧道。隧道内有个箱子：不要打开。在附近施放{spell:1846}，再走近箱子；这样就完成了入门考验（五分钟后刷新）。打开箱子会召来米尔顿·西弗，一名约32级的精英盗贼。穿过隧道就是{area:3486}：{npc:6707}在屋内楼上。不要攻击庄园中的任何人：会损失{npc:13936}声望。",
 	-- {spell:1846} Detect Traps
 	["Rite of Cunning: {spell:1846} beside the tunnel chest"] = "狡诈仪式：在隧道宝箱旁使用 {spell:1846}。",
-	-- {npc:6766} Ravenholdt Guard · {quest:6701} Syndicate Emblems
-	["{npc:6766}: {quest:6701}, repeatable; take it now, the emblems are quest items"] = "",
 
 	-- Step 3: Lord Tomas
 	-- {npc:266216} Lord Tomas · {area:275} Durnholde Keep · {npc:13085} Myrokos Silentform · {quest:6701} Syndicate Emblems
@@ -35,11 +33,11 @@ return {
 
 	-- Step 4: Myrokos Silentform
 	-- {npc:6766} Ravenholdt Guard
-	["{npc:6766}: one emblem each time, 100 reputation"] = "",
+	["{npc:6766}: one emblem each time, 100 reputation"] = "{npc:6766}：每次一枚徽记，100点声望",
 
 	-- Step 5: What's the Big Idea?
-	-- {npc:13085} Myrokos Silentform · {area:280} Strahnbrad · {zone:1416} Alterac Mountains · {spell:921} Pick Pocket
-	["In your mid 30s {npc:13085} has two more jobs; take both. Barton leads a Syndicate scouting party at {area:280}, in the east of the {zone:1416}, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. {spell:921} can miss several times in a row."] = "35级左右时，{npc:13085} 还有两项任务，都接下。巴顿 带领一支辛迪加侦察队，位于 {zone:1416} 东部的 {area:280}，在其中一栋房屋内，周围有潜行的辛迪加成员。对他使用偷窃取得报告，不要杀他：他不会掉落报告。如果你等级比他低，他能识破潜行；欺诈高手天赋有帮助，也可以先扰乱他，再消失并绕到背后接近。{spell:921} 可能连续几次未命中。",
+	-- {npc:13085} Myrokos Silentform · {npc:266357} Barton · {area:280} Strahnbrad · {zone:1416} Alterac Mountains · {spell:921} Pick Pocket
+	["In your mid 30s {npc:13085} has two more jobs; take both. {npc:266357} leads a Syndicate scouting party at {area:280}, in the east of the {zone:1416}, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. {spell:921} can miss several times in a row."] = "35级左右时，{npc:13085} 还有两项任务，都接下。{npc:266357} 带领一支辛迪加侦察队，位于 {zone:1416} 东部的 {area:280}，在其中一栋房屋内，周围有潜行的辛迪加成员。对他使用偷窃取得报告，不要杀他：他不会掉落报告。如果你等级比他低，他能识破潜行；欺诈高手天赋有帮助，也可以先扰乱他，再消失并绕到背后接近。{spell:921} 可能连续几次未命中。",
 	-- {item:275482} Barton's Scouting Report
 	["Pick Pocket Barton for {item:275482}"] = "对巴顿使用搜索，获得{item:275482}",
 
@@ -52,7 +50,7 @@ return {
 	["{item:275635}, in the southern tower"] = "{item:275635}，在南面的塔楼中",
 
 	-- Step 7: A Way In
-	-- {area:324} Stromgarde Keep · {area:313} Northfold Manor · {object:656157} Syndicate Footlocker (no name in this language: may be words) · {quest:96783} A Way In
+	-- {area:324} Stromgarde Keep · {area:313} Northfold Manor · {object:656157} Syndicate Footlocker · {quest:96783} A Way In
 	["{area:324} in western Arathi is a Syndicate stronghold; to get in you need a uniform. {area:313}, in north-western Arathi, is held by Syndicate Highwaymen, Pathstalkers and Mercenaries (level 30-32): find the {object:656157} there and take the uniform; that ends {quest:96783}."] = "阿拉希西部的 {area:324} 是辛迪加的据点；要进去，需要一套制服。阿拉希西北部的 {area:313} 被辛迪加路霸、巡路者和雇佣兵（30-32 级）占据：在那里找到 {object:656157}，取走制服，即可完成 {quest:96783}。",
 	-- {quest:96784} Master of Disguise · {item:275706} Syndicate Uniform
 	["{quest:96784}: the {item:275706}"] = "{quest:96784}：{item:275706}",

@@ -131,6 +131,9 @@ pub struct Run {
 	pub q_excl: Vec<Vec<u32>>,
 	pub q_after: Vec<Vec<u32>>,
 	pub q_parent: Vec<i32>,
+	/// Per quest: the breadcrumbs leading to it (run indices; Run::set_crumbs). While one is in the
+	/// log the game holds the quest back until it is handed in or abandoned (forge_world::CrumbIndex).
+	pub q_crumbs: Vec<Vec<u32>>,
 	/// Clamped levels 0..63 and quests by level, then index (abandonable).
 	pub q_lv: Vec<usize>,
 	pub q_by_level: Vec<u32>,
@@ -246,6 +249,10 @@ pub struct Run {
 	pub train_ranks: Vec<u32>,
 	/// Per quest: its time limit in seconds (0: none).
 	pub q_limit: Vec<f64>,
+	/// Per quest: a timed delivery (a time limit and no tasks: ready at its accept, nothing to do but
+	/// carry it to its ender, Apothecary Zamah's Rendered Spores). While only deliveries run, the
+	/// route profiles still fly, sail and hearth (eval: only other timed quests are walked).
+	pub q_delivery: Vec<bool>,
 	/// Per quest: the task that holds its escort (-1: none).
 	pub q_escort_task: Vec<i32>,
 	/// Camps of kill work (see RunCamp).
@@ -417,6 +424,7 @@ pub fn compile_run(world: &World, rules: &Rules, race: &str, cls: Option<&str>, 
 		q_excl: vec![Vec::new(); nq],
 		q_after: vec![Vec::new(); nq],
 		q_parent: vec![-1; nq],
+		q_crumbs: vec![Vec::new(); nq],
 		q_lv: Vec::new(),
 		q_by_level: Vec::new(),
 		q_lv_start: Vec::new(),
@@ -487,6 +495,7 @@ pub fn compile_run(world: &World, rules: &Rules, race: &str, cls: Option<&str>, 
 		town_away_share: 0.0,
 		train_ranks: Vec::new(),
 		q_limit: Vec::new(),
+		q_delivery: Vec::new(),
 		q_escort_task: Vec::new(),
 		camps: Vec::new(),
 		w_alts: Vec::new(),
@@ -555,6 +564,7 @@ pub fn compile_run(world: &World, rules: &Rules, race: &str, cls: Option<&str>, 
 		}
 		r.q_after[i] = q.after.iter().flatten().filter_map(|c| q_index.get(c).copied()).collect();
 		r.q_limit.push(q.limit.filter(|l| *l > 0.0).unwrap_or(0.0));
+		r.q_delivery.push(r.q_limit[i] > 0.0 && r.q_task0[i] == r.q_task1[i]);
 		r.q_escort_task.push((r.q_task0[i]..r.q_task1[i]).find(|&t| (r.task_w0[t as usize]..r.task_w1[t as usize]).any(|w| r.w_kind[w as usize] == W_ESCORT)).map_or(-1, |t| t as i32));
 	}
 	let ntask = r.task_pt.len();
@@ -912,7 +922,30 @@ pub type StepKey = (u8, u32, i32);
 /// Quests started by a rare drop (route::rare_starts): (quest id, [(npc id, chance per kill 0-1)]).
 pub type RareStarts = Vec<(u32, Vec<(u32, f64)>)>;
 
+/// (breadcrumb, the quest it leads to) quest id pairs (route::crumb_pairs; Run::set_crumbs).
+pub type Crumbs = Vec<(u32, u32)>;
+
 impl Run {
+	/// The breadcrumbs of `crumbs` that lead to quests of the run, both in the character's set: each
+	/// holds its target back while it is in the log (the evaluator's accept, the guards, the edits).
+	pub fn set_crumbs(&mut self, crumbs: &Crumbs) {
+		self.q_crumbs = vec![Vec::new(); self.n_quests()];
+		for &(c, t) in crumbs {
+			if let (Some(ci), Some(ti)) = (self.q(c), self.q(t)) {
+				let v = &mut self.q_crumbs[ti as usize];
+				if ci != ti && !v.contains(&ci) {
+					v.push(ci);
+				}
+			}
+		}
+	}
+
+	/// The breadcrumbs leading to quest q (run indices; empty without Run::set_crumbs).
+	#[inline]
+	pub fn crumbs(&self, q: usize) -> &[u32] {
+		self.q_crumbs.get(q).map_or(&[], Vec::as_slice)
+	}
+
 	/// Marks the rare-start quests of `rare` (route profiles): their sources' mobs get slots, each
 	/// kill work item on such a mob its slot (the evaluator tallies those kills).
 	pub fn set_rare(&mut self, rare: &RareStarts) {

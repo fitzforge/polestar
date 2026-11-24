@@ -168,6 +168,7 @@ step Mount Hyjal (1/2)
   zone Mount Hyjal
   tip 9 areas to discover here. Its creatures are level 54-60.
   note "Mount Hyjal is reached from Winterspring through Darkwhisper Gorge in the south. It is Forever's endgame leveling zone."
+  note "Flight paths here: Summit of Eternity (Fayran Elthas), Tainted Foothills (Bluebell)."
   explore 70.6,73 "Tainted Foothills" live
   explore 50.6,59.1 "Shrine of Aviana" live
   explore 46.2,76.8 "Felblood Scar" live

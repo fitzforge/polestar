@@ -11,7 +11,7 @@ return {
 	["A robe at 15 for Horde mages, from the {zone:1458} and {zone:1421}."] = "部落法师15级的长袍，任务在{zone:1458}和{zone:1421}。",
 
 	-- Step 1: Uthel'nay (Orgrimmar)
-	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {object:172961} Valley of Spirits · {zone:1420} Tirisfal Glades
+	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge · {object:172961} Valley of Spirits · {zone:1420} Tirisfal Glades
 	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311}是{zone:1454}的法师训练师之一，位于{object:172961}的{object:173161}内。随后从{zone:1454}正门外高塔乘飞艇前往{zone:1420}。",
 
 	-- Step 2: Cain Firesong (Brill)
@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: Josef Gregorian
 	-- {zone:1458} Undercity · {npc:4576} Josef Gregorian · {npc:11048} Victor Ward · {npc:11049} Rhiannon Davis · {object:36082} Magic Quarter · {quest:1962} Spellfire Robes
-	["Back to the {zone:1458}. {npc:4576}, {npc:11048} and {npc:11049} keep the tailor's shop in the {object:36082}. Hand the gems and cloth to {npc:4576} and let the three of them talk for a moment; then {npc:4576} offers {quest:1962}: take it and hand it straight back to him for the robe."] = "",
+	["Back to the {zone:1458}. {npc:4576}, {npc:11048} and {npc:11049} keep the tailor's shop in the {object:36082}. Hand the gems and cloth to {npc:4576} and let the three of them talk for a moment; then {npc:4576} offers {quest:1962}: take it and hand it straight back to him for the robe."] = "返回{zone:1458}。{npc:4576}、{npc:11048}和{npc:11049}在{object:36082}经营裁缝店。将宝石和布料交给{npc:4576}，让他们三人交谈片刻；随后{npc:4576}会提供{quest:1962}，接取后直接交还给他，领取长袍。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Algernon's alchemist shop is in the Apothecarium. Use the {item:7308} there to make the {npc:6492} visible, subdue one with your spells, then use the {item:7247} to throw down a coffer and capture it."] = "奥格诺恩的炼金商店在幽暗城的炼金区。在那里使用{item:7308}让{npc:6492}现形，用法术制服一只，然后使用{item:7247}扔下一个箱子将其捕获。",

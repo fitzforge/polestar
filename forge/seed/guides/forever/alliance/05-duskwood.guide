@@ -2,7 +2,7 @@
 guide forever/alliance/05-duskwood
 title Duskwood
 faction Alliance
-levels 27-28
+levels 27-29
 zone Duskwood
 next forever/alliance/06-wetlands
 
@@ -10,7 +10,7 @@ next forever/alliance/06-wetlands
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 
-# Duskwood and Redridge, second half (about 25 to 26.5).
+# Duskwood and Redridge, second half (about 27 to 29).
 #
 # Since 2026-11-07 Duskwood and Redridge are played together, so Redridge
 # comes at 23+ where its quests fit (Ashenvale and Stonetalon first): Duskwood's first
@@ -20,51 +20,70 @@ next forever/alliance/06-wetlands
 # visit and its quests are in 04-redridge-mountains.
 #
 # Flow: fly from Lakeshire to Darkshire -> Blind Mary, the Tranquil Gardens
-# Cemetery, Madame Eva -> west: Abercrombie, Sven -> Darkshire -> the
-# Skeletal Horrors south-east of town (Rot Blossoms, The Night Watch's
-# Horrors) -> Darkshire -> west: Abercrombie, the ghouls, the cemetery's
-# Skeletal Fiends, Jitters, Sven -> north through Elwynn for training (Shamans in
-# Ironforge by the Deeprun Tram, Rogues in Stormwind) -> the Stormwind
+# Cemetery (the Insane Ghoul), Viktori, Madame Eva -> west: Abercrombie, the
+# Raven Hill Cemetery's Skeletal Fiends and Horrors (The Night Watch), Sven ->
+# Darkshire (The Night Watch handed in, its third part taken) -> the Skeletal
+# Horrors south-east of town (Rot Blossoms) -> Darkshire -> west: Abercrombie,
+# the ghouls and Plague Spreaders, Jitters, Sven (Proving Your Worth from 28)
+# -> north through Elwynn for training (Shamans in Ironforge by the Deeprun
+# Tram, Rogues in Stormwind; Bishop Farthing in the Cathedral) -> the Stormwind
 # gryphon to Menethil Harbor, where the next guide (06-wetlands) starts. The
-# Night Watch's second part is handed in on the Duskwood return
-# (07-thousand-needles), where its third part starts.
+# Night Watch's third part (58) is handed in on the Duskwood return
+# (07-thousand-needles), with Look to the Stars' fourth part (181), taken here.
 #
 # Deviations from the export:
 # - Look To The Stars (174): the export finds the Bronze Tube on Venture Co.
-#   machines in Stonetalon (a 1-2% drop). Herble Baubbletump sells it in
-#   Darkshire, next to Viktori: handed in on the first visit, and its second
-#   part (175) handed to Blind Mary on her visit; the Insane Ghoul (177, level
-#   26) waits for the Duskwood return (07-thousand-needles).
+#   machines in Stonetalon (a 1-2% drop). The tube comes from the Stormwind
+#   Auction House on 04-redridge-mountains' Stormwind stop (Herble Baubbletump,
+#   next to Viktori, keeps one and is nearly always sold out, #1348): handed in
+#   on the first Darkshire visit, and its second part (175) handed to Blind
+#   Mary on her visit; the Insane Ghoul (177, level 26, at the player's level
+#   here) is in the Tranquil Gardens' crypt right below her, and Viktori takes
+#   the glass on the way into town (fix round 2026-11-20).
+# - The Night Watch (57): its Skeletal Fiends and Horrors are worked in the
+#   Raven Hill Cemetery on the first west trip and handed to Commander Althea on
+#   the Darkshire stop after it (fix round 2026-11-20; it was handed in on the
+#   Duskwood return two guides later). Its third part (58, Plague Spreaders
+#   27-28) is taken there and worked with Abercrombie's ghoul ribs, which the
+#   same ghouls drop.
+# - Proving Your Worth (323, Skeletal Raiders 27-28, Healers 26-27, Warders
+#   28-29 just east of Sven's camp) is worked on the spot from level 28
+#   (`when level>=28`), and Seeking Wisdom (269) goes to Bishop Farthing on the
+#   Stormwind walk: his The Doomed Fleet (270) opens Lightforge Iron in Menethil
+#   on 06-wetlands. Below 28 it waits for the Duskwood return.
 # - Wolves at Our Heels (226) is turned in on the second visit to Sven's camp
 #   (Lars stands beside Sven) instead of walking back west for it.
-# - Hearthstone: none here. The second loop ends at Sven's camp in the west,
-#   and the walk north through Goldshire (training) to Stormwind's gryphon is
-#   on the way to Menethil; the Darkshire flight path and hearth are taken on
-#   the first loop's visit (04-redridge-mountains).
-# - Dropped Awaiting Word (236): a no-XP breadcrumb to Watcher Callahan at
-#   Manor Mistmantle, a detour north the route never passes otherwise.
+# - Hearthstone: the second loop's Moonbrook footlocker is followed by the
+#   hearth back to Darkshire (bound on the first loop's visit,
+#   04-redridge-mountains, with the flight path); the walk north through
+#   Goldshire (training) to Stormwind's gryphon is on the way to Menethil.
+# - No Awaiting Word (236): Watcher Dodds doesn't offer it on Forever (#2148;
+#   forever-db/corrections removes it from the data).
 # - Redridge's elites (Tharil'zun 19, Gath'Ilzogg 169, Incinerator Gar'im
 #   95999, Shadow Magic's Blackrock Shadowcasters 115) and Lieutenant Fangore
-#   (180, 26) are on 04-redridge-mountains' loop at about 25, where those
+#   (180, 26) are on 04-redridge-mountains' loop at about 26-27, where those
 #   quests fit: players finished them solo at 21-23 in the recordings, so they
-#   are in the route's steps with a tip to group up if you can; the four elite
-#   quests' goals are optional (the leveling rule for elite-only drops),
-#   Fangore's (not elite) is not.
+#   are in the route's steps with a tip to group up if you can; the elite
+#   Wanted posters' work (169, 95999) is on steps the player opts into
+#   (`when group`, #1415: an all-optional step was passed at once, so nobody
+#   was led there), Fangore's (not elite) is a plain goal.
 # - Worgen in the Woods (173) needs level 23: the step before it says so.
 #
 # Class quests: Rogues finish Mathias and the Defias with Klaven's Tower
 # (2360, 2359, Poisons) at the end: Agent Kearnen and the tower stand just
 # over the Westfall border from Raven Hill, and Mathias Shaw is in Stormwind
 # on the way to the boat. Optional for Rogues there: The Touch of Zanzil
-# (2607-2609, Doc Mixilpixil in the Barracks cellar; Wildflowers, a Leaded
-# Vial and a Bronze Tube from Stormwind vendors, the thread in the city),
-# 1,305 XP without leaving Stormwind.
-# Human Paladins hand the Defias Script (1787, from Henze Faulk in
-# 04-redridge-mountains) to Gazin Tenorm at the Stormwind stop and learn
-# Redemption from Duthorian Rall (1788).
+# (2607-2609, Doc Mixilpixil in the Barracks cellar; Wildflowers and a Leaded
+# Vial from Stormwind vendors, a Bronze Tube from the Auction House, the thread
+# in the city), 1,305 XP without leaving Stormwind.
+# Human Paladins still carrying the Defias Script (1787: 03-loch-modan does Henze Faulk and
+# Redemption, 04-redridge-mountains is the fallback) hand it to Gazin Tenorm at the Stormwind
+# stop and learn Redemption from Duthorian Rall (1788).
 #
-# Left out (not in the export): Jitters' Growling Gut and Dusky Crab Cakes
-# (163, 5, 93), Seasoned Wolf Kabobs (90: Cooking), The Weathered Grave chain
+# Dusky Crab Cakes (93, taken in 04-redridge-mountains with Jitters' Growling Gut's hand-in): its
+# Gooey Spider Legs on the first west trip, handed to Chef Grual on the next Darkshire stop, and
+# Return to Jitters (240) handed in on the Raven Hill stop.
+# Left out (not in the export): Seasoned Wolf Kabobs (90: Cooking), The Weathered Grave chain
 # (225: ends at the elite Mor'Ladim), Ira's Dagger (96137: it starts from a
 # drop of the Lost Stalkers, Forever's new Duskwood mobs, at an unknown rate,
 # and is not in the new consensus either).
@@ -74,14 +93,18 @@ next forever/alliance/06-wetlands
 # Valor Family (98447, a Forever quest listed for Duskwood, level 27)
 # is not in our data: no giver, objective or ender we can place, so it is
 # not added. The Valor Family 96139 (Sirra Von'Indi) stays as it is.
-# Checked and skipped: The Legend of Stalvan (98) needs 97 (the Stalvan
-# chain through Westfall and Elwynn, not on this route) and ends at Stalvan
-# Mistmantle, an elite.
+# The Legend of Stalvan (fix round 2026-11-20): Clerk Daltry's first part (67, taken on 04-redridge-mountains'
+# Darkshire stop) is the Old Footlocker in Westfall's Moonbrook, west of Sven's camp at the end of the first west
+# trip; Daltry takes it on the Darkshire stop after (68) and sends you to Innkeeper Farley in Goldshire (69, 70),
+# then Caretaker Folsom and his Sealed Crate in Stormwind (72), all on the walk north to the gryphon. Its next part
+# (74) goes to Marshal Haggard in Elwynn's far east, off the route from here on, so the chain stops there;
+# Stalvan Mistmantle himself (98, level 32, not elite in our data) is never reached.
+# Checked and skipped: The Missing Diplomat (1274, from Thomas in Stormwind's Trade District, 28) is a chain of
+# Stormwind errands (the Keep, the gate, the cheese shop) that then goes to Watcher Backus in Duskwood and on to
+# Theramore: after 1243 it is off this route, and the Stormwind part alone is a detour through the Keep for 230 XP a part.
 
 step Fly to Darkshire
-  zone Redridge Mountains
-  tip Back to the Lakeshire gryphon master: fly to Darkshire for Duskwood's second loop.
-  goto 25.5,59.4 "Lakeshire flight master"
+  tip Fly to Darkshire for Duskwood's second loop: from Lakeshire's gryphon master if you come from the Redridge guide.
   fly "Darkshire"
 
 step Blind Mary
@@ -90,11 +113,18 @@ step Blind Mary
   turnin 149                          -- Inside
   accept 154
   turnin 175
-  accept 177                              -- Mary's Looking Glass: the Insane Ghoul in the cemetery's crypt is level 26; it waits for the Duskwood return
+  accept 177                              -- Mary's Looking Glass: the Insane Ghoul, in the crypt of the cemetery just below
 
 step Tranquil Gardens Cemetery
+  tip The Insane Ghoul (26) hides in the small crypt by the Tranquil Gardens Cemetery, south of Darkshire; the glass is inside.
+  collect 1946 quest 177                  -- Mary's Looking Glass; inside
   collect 2794 optional                   -- An Old History Book: a rare drop from Duskwood's mobs
   accept 337 optional
+
+step Viktori Prism'Antras
+  tip North into Darkshire: Viktori's house stands at the east end of town, on the way in.
+  turnin 177                              -- Viktori Prism'Antras, inside
+  accept 181                              -- Look to the Stars: the ogres of Vul'Gol, on your Duskwood return
 
 step Madame Eva
   turnin 154                          -- Inside
@@ -107,26 +137,73 @@ step Abercrombie
   turnin 157
   accept 158
 
+step Raven Hill Cemetery: kill these as you meet them
+  zone Duskwood
+  tip On the way west to Sven: Skeletal Fiends and Skeletal Horrors walk the cemetery's southern half, north of Raven Hill. Mor'Ladim, an elite, wanders the graves: keep away from him.
+  kill 531 quest 57                       -- Skeletal Fiend
+  kill 202 quest 57                       -- Skeletal Horror
+
+step Gooey Spider Legs
+  when onquest 93
+  tip Carrion Recluses lurk in the woods on the way west, and Venom Web Spiders, Pygmy Venom Web Spiders and Green Recluses crawl just south of Sven's camp: each can drop a leg.
+  collect 2251 quest 93 @10.5,41.5            -- Gooey Spider Leg
+
+step Lars
+  when complete 226
+  turnin 226                              -- Lars, at Sven's camp
+
 step Sven's Camp
-  turnin 226                              -- Lars
   turnin 230                              -- Sven Yorgen
   accept 262
 
+step Moonbrook
+  zone Westfall
+  when onquest 67
+  tip The Legend of Stalvan: west from Sven's camp over the border into Westfall and on to Moonbrook, where the Old Footlocker stands among the Defias (15-18). Then hearth back to Darkshire.
+  turnin 67                               -- Old Footlocker
+  accept 68
+
+step Moonbrook
+  zone Westfall
+  when turnedin 67
+  when available 68
+  tip The Legend of Stalvan: the Old Footlocker in Moonbrook, among the Defias (15-18), holds the next part. Then hearth back to Darkshire.
+  accept 68
+
 step Back to Darkshire
-  tip Head back east to Darkshire.
+  tip Hearth back to Darkshire if you bound at the Scarlet Raven Tavern on the first loop, or head back east along the road.
   turnin 262                              -- Madame Eva, inside
   accept 265
   turnin 265                              -- Clerk Daltry, in the town hall
   accept 266
+  turnin 57                               -- Commander Althea Ebonlocke, in the town hall
+  accept 58                               -- Commander Althea Ebonlocke: the Plague Spreaders, with Abercrombie's ghouls on the next trip west
   turnin 266                              -- Tavernkeep Smitts, in the tavern
   accept 453
   turnin 158                              -- Tavernkeep Smitts
   accept 156
 
+step Clerk Daltry
+  when onquest 68
+  tip The Legend of Stalvan: Clerk Daltry, in the town hall, takes the footlocker's contents.
+  turnin 68                               -- Clerk Daltry
+  accept 69                               -- Clerk Daltry: for Innkeeper Farley in Goldshire, on the walk north to Stormwind
+
+step Chef Grual
+  when onquest 93
+  tip Chef Grual is in the Scarlet Raven Tavern too.
+  turnin 93
+  accept 240                              -- For Jitters, at Raven Hill on the way west
+
+step Chef Grual
+  when turnedin 93
+  when available 240
+  tip Chef Grual is in the Scarlet Raven Tavern.
+  accept 240                              -- For Jitters, at Raven Hill on the way west
+
 step Rot Blossoms
   tip Skeletal Horrors walk the hillside between Darkshire and the Tranquil Gardens Cemetery, south-east of town; they drop the Rot Blossoms.
   collect 1598 quest 156
-  kill 202 quest 57                       -- Skeletal Horror
 
 step Tavernkeep Smitts
   turnin 156                          -- Inside
@@ -141,19 +218,15 @@ step Abercrombie
   accept 133
 
 step Ghoul Ribs
-  tip Every ghoul of the Raven Hill Cemetery's northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.
+  tip Every ghoul of the Raven Hill Cemetery's northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. Mor'Ladim, an elite, wanders the graves: keep away from him.
   tip Careful: A Rotted One casts Summon Flesh Eating Worms as it dies, which brings extra adds.
+  tip Careful: Lord Malathrom (31) and Commander Felstrom (32), both rares, haunt the cemetery's north and west, and Morbent Fel (32, elite) keeps to the house at its western edge: leave them be.
   collect 884 quest 133
+  kill 604 quest 58                       -- Plague Spreader, for The Night Watch
 
 step Abercrombie
   turnin 133
   accept 134
-
-step Raven Hill Cemetery: kill these as you meet them
-  zone Duskwood
-  tip Head south through the cemetery towards Raven Hill. Skeletal Fiends and Skeletal Horrors walk its southern half. Mor'Ladim, an elite, wanders the graves: keep away from him.
-  kill 531 quest 57                       -- Skeletal Fiend
-  kill 202 quest 57                       -- Skeletal Horror
 
 # ---------------------------------------------------------------- West
 
@@ -162,13 +235,32 @@ step Jitters
   turnin 453
   accept 268
 
+step Jitters
+  when onquest 240
+  turnin 240
+
 step Sven's Camp
   turnin 268                              -- Sven Yorgen
-  note Next: training, then the flight from Stormwind to Menethil Harbor for the Wetlands.
   accept 323                              -- Sven Yorgen
+
+step Skeletal Raiders
+  when level>=28
+  tip From level 28: the Skeletal Raiders, Healers and Warders stand in the west part of the Raven Hill Cemetery, just east of Sven's camp.
+  tip Careful: The Warders are 28-29 and the skeletons stand close together: pull one at a time.
+  tip Careful: Mor'Ladim, an elite (35), wanders these graves too, and Commander Felstrom (32, rare) haunts the west part: keep away from both.
+  kill 1110 quest 323                     -- Skeletal Raider
+  kill 787 quest 323                      -- Skeletal Healer
+  kill 785 quest 323                      -- Skeletal Warder
+
+step Sven Yorgen
+  when level>=28
+  note Next: training, then the flight from Stormwind to Menethil Harbor for the Wetlands.
+  turnin 323                              -- Sven Yorgen
+  accept 269                              -- For Bishop Farthing in Stormwind's Cathedral, on the walk north
 
 step Westfall
   only Rogue
+  when onquest 2360
   zone Westfall
   goto 68.5,70.1 "Westfall"
 
@@ -187,6 +279,7 @@ step Master Mathias Shaw
   only Rogue
   zone Stormwind City
   tip Head north through Elwynn to Stormwind; Mathias Shaw is at SI:7 in Old Town.
+  enter "Stormwind City" @69.5,85.5
   turnin 2359 reward 18160                    -- Master Mathias Shaw: Poisons, and Recipe: Thistle Tea
   accept 2607 optional                        -- The Touch of Zanzil: Doc Mixilpixil, in the cellar of the Barracks
   turnin 2607 optional
@@ -196,7 +289,7 @@ step Master Mathias Shaw
   accept 2609 optional
   buy 3421 x1 npc 1302 optional               -- Simple Wildflowers: Bernard Gump
   buy 3372 x1 npc 1313 optional               -- Leaded Vial: Maria Lumere, Alchemy Supplies
-  buy 4371 x1 npc 5519 optional               -- Bronze Tube: Billibub Cogspinner, Dwarven District
+  collect 4371 x1 @61.2,71.3 map 1453 live optional -- Bronze Tube: the Auction House, Trade District; Billibub Cogspinner keeps one and is nearly always sold out
   collect 8431 quest 2609.4 optional @50.6,60.1 live -- Spool of Light Chartreuse Silk Thread
   turnin 2609 optional                        -- Doc Mixilpixil: Eau de Mixilpixil
 
@@ -208,15 +301,55 @@ step Elwynn Forest
 
 step Class trainer
   only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid
-  train class only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid -- Level 22 and 24 spells
+  train class only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid -- Your new spells
+
+step Innkeeper Farley
+  zone Elwynn Forest
+  when onquest 69
+  tip The Legend of Stalvan: Innkeeper Farley is in Goldshire's Lion's Pride Inn; the chest with the letter is upstairs.
+  turnin 69                               -- Innkeeper Farley
+  accept 70
+  collect 910 quest 70                    -- An Undelivered Letter, from the Storage Chest upstairs
+
+step Caretaker Folsom
+  zone Stormwind City
+  when onquest 70
+  tip On into Stormwind: Caretaker Folsom (the arrow shows him) takes the letter; the Sealed Crate beside him holds the next clue.
+  turnin 70                               -- Caretaker Folsom
+  accept 72
+  turnin 72                               -- Sealed Crate, beside him
+
+step Bishop Farthing
+  zone Stormwind City
+  when onquest 269
+  tip On into Stormwind: Bishop Farthing stands in the Cathedral of Light, on the way to the gryphon master. His next quest is for Glorin Steelbrow in Menethil Harbor, where the flight lands.
+  turnin 269                              -- Bishop Farthing, in the Cathedral of Light
+  accept 270                              -- For Glorin Steelbrow in Menethil Harbor (the Wetlands guide)
 
 step Gazin Tenorm
   only Human,Paladin
   zone Stormwind City
+  when complete 1787
   tip On into Stormwind: Gazin Tenorm and Duthorian Rall are in the Cathedral of Light, on the way to the gryphon master.
-  goto 50.5,47.5 "Cathedral of Light"
+  goto 50.5,47.5 "Cathedral of Light" live
   turnin 1787 only Human -- Gazin Tenorm
   accept 1788 only Human
+
+step Gazin Tenorm
+  only Human,Paladin
+  zone Stormwind City
+  when turnedin 1787
+  when available 1788
+  tip The Defias Script is already with Gazin Tenorm: take the last part of The Tome of Divinity from him, in the Cathedral of Light.
+  goto 50.5,47.5 "Cathedral of Light" live
+  accept 1788 only Human
+
+step Duthorian Rall
+  only Human,Paladin
+  zone Stormwind City
+  when onquest 1788
+  tip Duthorian Rall stands in the Cathedral of Light, beside Gazin Tenorm.
+  goto 50.5,47.5 "Cathedral of Light" live
   turnin 1788 only Human -- Duthorian Rall: Redemption
 
 step Stormwind City

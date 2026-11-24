@@ -1,7 +1,8 @@
 'use strict';
 // playtest --honest: the compiled guides played from their lines and the
 // reference data only, with nothing free. The stub world of tools/lib/playtest.js
-// accepts any quest, completes a quest's objectives at the turn-in and puts a
+// accepts any quest, completes a quest's item objectives at the turn-in (its
+// kill, talk, object and event lines only through a goal) and puts a
 // `collect`'s items in the bags from nowhere, so a guide can play clean and
 // still strand a player (docs/superpowers/research/2026-10-21-v2-playable-audit.md).
 // Here the character gains a quest, an item, a flight path or a place only
@@ -13,7 +14,11 @@
 //       die) unless it is a short step over the border; `fly` leaves from a
 //       flight master where the guide leaves the player and needs both flight
 //       paths learnt (`getfp`); `hearth` needs the inn bound (`sethome`).
-//       Goals of an `along` step do not move the player.
+//       Goals of an `along` step do not move the player. A character knows
+//       its race's starting flight paths from the first login, and a chain
+//       that does not open at level 1 (a guide pack's zone at 38) starts
+//       with every flight path each start route of its race learns in the
+//       guides below that level.
 //   R2  accept: the giver stands at the step's place; a quest started by an
 //       item needs the item in the bags from an earlier line.
 //   R3  items: `collect` needs a source in the data (a mob or object that
@@ -26,18 +31,19 @@
 //       quest with several givers and no `npc` must resolve to the one near
 //       the player.
 //   R5  turn-in: the quest is in the log and every objective was credited by
-//       an earlier line (a kill, collect, use or interact tied to it, or the
-//       mobs and items it names); with the local knowledge base, its required
-//       steps (use an item, combine, summon, escort, buy, loot an object) each
-//       have a line.
+//       an earlier line (a kill, collect, use, talk or interact tied to it, or
+//       the mobs and items it names); with the local knowledge base, its
+//       required steps (use an item, combine, summon, escort, buy, loot an
+//       object) each have a line.
 //
 // A broken line is reported, then played as the stub world would (the quest
 // taken, the item given), so one cause gives one finding, not a cascade.
 // Chains are played whole: each guide with no guide leading into it and
-// every guide its `next` (the first option) leads to, carrying the state.
+// every guide its `next` (the first option for the persona's side) leads to,
+// carrying the state.
 //
 //   const { honestPlay } = require('./playtest-honest');
-//   const findings = honestPlay(guides, data, { race: 'Orc', faction: 'Horde', cls: 'WARRIOR' }, { kb });
+//   const findings = honestPlay(guides, data, (root) => [{ race: 'Orc', faction: 'Horde', cls: 'WARRIOR' }], { kb });
 //   // [{ rule, severity: 'fail'|'warn', guide, file, line, step, title, reason, repair }]
 
 const fs = require('node:fs');
@@ -69,6 +75,28 @@ const DOCK_YD = 120;
 // kinds, kill and loot, are the data's objectives).
 const KB_ACTIONS = new Set(['use-item', 'combine', 'summon', 'escort', 'buy', 'collect-object']);
 const KB_FILE = path.join(__dirname, '..', '..', 'data', 'local', 'kb', 'forever-kb.sqlite');
+// The flight paths each race knows from character creation (the server
+// core's start nodes): its capital's, and for Night Elves Auberdine too.
+const START_NODES = { Human: [2], Orc: [23], Dwarf: [6], NightElf: [26, 27], Scourge: [11], Undead: [11], Tauren: [22], Gnome: [6], Troll: [23] };
+
+// The taxi nodes (travel.json) by id, and the node of a getfp, fly or `when taxi` line: its `node`, else by name
+// among the ones the faction can use (1 Alliance, 2 Horde, else both). World and the prerequisite-order check
+// (route/prereq-order.js) share them.
+function taxiNodes(data) {
+	return new Map(((data.travel && data.travel.taxi && data.travel.taxi.nodes) || []).map((n) => [n.id, n]));
+}
+function taxiUsable(n, faction) {
+	const side = faction === 'Alliance' ? 1 : faction === 'Horde' ? 2 : 0;
+	return !side || (n.faction !== 1 && n.faction !== 2) || n.faction === side;
+}
+function taxiNode(nodes, faction, x) {
+	if (x.node != null && nodes.has(x.node)) return nodes.get(x.node);
+	const name = String(x.location || '').toLowerCase();
+	for (const n of nodes.values()) {
+		if (taxiUsable(n, faction) && (String(n.short).toLowerCase() === name || String(n.name).toLowerCase() === name)) return n;
+	}
+	return null;
+}
 
 // The knowledge base's required steps per quest, { quest: [{ n, action, target, item, fact }] },
 // from `file` (default data/local/kb/forever-kb.sqlite); null when it is not there.
@@ -108,8 +136,13 @@ function fits(only, { race, faction, cls }) {
 	return group(only.classes, cls) && group(only.races, race) && group(only.factions, faction);
 }
 
+// Guide headers use a singular faction; their race/class lists match `only`.
+function guideFits(guide, persona) {
+	return fits(guide, persona) && (!guide.faction || guide.faction.toUpperCase() === persona.faction.toUpperCase());
+}
+
 class World {
-	constructor(data, persona, kb) {
+	constructor(data, persona, kb, known = null) {
 		this.data = data;
 		this.persona = persona;
 		this.kb = kb;
@@ -118,13 +151,13 @@ class World {
 		this.log = new Map(); // quest -> { credit: [], since: index of the accept's goal }
 		this.done = new Set();
 		this.bags = new Map();
-		this.known = new Set(); // taxi nodes
+		this.known = new Set([...(START_NODES[persona.race] || []), ...(known || [])]); // taxi nodes
 		this.bound = null;
 		this.pos = null; // { map, x, y, f, w: { c, wx, wy } }
 		this.travelled = null; // the kind of the last travel line since pos: 'zone' | 'world'
 		this.worked = []; // every executed goal, for the knowledge base's steps
 		this.findings = [];
-		this.nodes = new Map(((data.travel && data.travel.taxi && data.travel.taxi.nodes) || []).map((n) => [n.id, n]));
+		this.nodes = taxiNodes(data);
 		this.needing = new Map(); // item -> quests whose objectives ask for it
 		for (const q of Object.values(data.quests)) {
 			for (const o of q.objectives || []) {
@@ -136,20 +169,14 @@ class World {
 		this._names = null;
 	}
 
-	// Whether the character's faction can use taxi node n (1 Alliance, 2 Horde, else both).
+	// Whether the character's faction can use taxi node n.
 	usable(n) {
-		const side = this.persona.faction === 'Alliance' ? 1 : this.persona.faction === 'Horde' ? 2 : 0;
-		return !side || (n.faction !== 1 && n.faction !== 2) || n.faction === side;
+		return taxiUsable(n, this.persona.faction);
 	}
 
-	// The taxi node of a getfp or fly line: its `node`, else by name among the usable ones.
+	// The taxi node of a getfp or fly line.
 	node(x) {
-		if (x.node != null && this.nodes.has(x.node)) return this.nodes.get(x.node);
-		const name = String(x.location || '').toLowerCase();
-		for (const n of this.nodes.values()) {
-			if (this.usable(n) && (String(n.short).toLowerCase() === name || String(n.name).toLowerCase() === name)) return n;
-		}
-		return null;
+		return taxiNode(this.nodes, this.persona.faction, x);
 	}
 
 	// NPC ids by lower-case name (for step titles).
@@ -223,6 +250,13 @@ class World {
 		return this.log.has(q);
 	}
 
+	// Drop prerequisites belong to a source, not to every way of getting the item.
+	dropAllowed(item, kind, source) {
+		const it = this.data.items[item];
+		const required = it && it.dropRequires && it.dropRequires[kind] && it.dropRequires[kind][source];
+		return (required || []).every((q) => this.held(q) || this.done.has(q));
+	}
+
 	// The quests held now that ask for item.
 	heldNeeding(item) {
 		return (this.needing.get(item) || []).filter((q) => this.held(q));
@@ -283,7 +317,17 @@ function whenHolds(w, when) {
 				break;
 			}
 			case 'group': ok = w.groups === 'do'; break; // playtest's answer at group quests (skip: the solo route)
-			case 'bound': ok = !p.location || w.bound == null || String(w.bound).toLowerCase() === String(p.location).toLowerCase(); break;
+			case 'dungeon': ok = !!(w.chosen && w.chosen(p)); break; // the dungeons the player chose (none: the solo route)
+			case 'bound': ok = !p.name || w.bound == null || String(w.bound).toLowerCase() === String(p.name).toLowerCase(); break;
+			case 'taxi': { // a flight path learnt on the way (a getfp), by its node, else its name
+				const n = w.node({ node: p.node, location: p.name });
+				ok = w.known.has(n ? n.id : p.name);
+				break;
+			}
+			case 'zone': // the zone of the last place a line put the player at; before any, the step plays either way
+				if (!w.pos || !p.name || typeof w.zoneName !== 'function') ok = !p.neg;
+				else ok = String(w.zoneName(w.pos.map)).toLowerCase() === String(p.name).toLowerCase();
+				break;
 			default: ok = true;
 		}
 		if (p.neg && p.k !== 'level') ok = !ok;
@@ -292,15 +336,18 @@ function whenHolds(w, when) {
 	return true;
 }
 
-// Play `guides` (compiled, in chain order) as persona -> findings.
-function playChain(chain, data, persona, { kb = null, report = null, groups = 'skip' } = {}) {
-	const w = new World(data, persona, kb);
+// Play `guides` (compiled, in chain order) as persona -> findings. `known`:
+// taxi nodes the character has at the chain's start besides its race's own.
+function playChain(chain, data, persona, { kb = null, report = null, groups = 'skip', chosen = null, known = null } = {}) {
+	const w = new World(data, persona, kb, known);
 	w.groups = groups;
+	w.chosen = chosen;
 	for (const g of chain) playGuide(w, g, !report || report.has(g.id));
 	return w.findings;
 }
 
 function playGuide(w, g, reporting) {
+	if (!guideFits(g, w.persona)) return;
 	const { data } = w;
 	const file = (g._ast && g._ast.file) || g.id;
 	const astSteps = (g._ast && g._ast.steps) || [];
@@ -467,7 +514,13 @@ function playGoal(w, g, x, gi, find, explicitNpc, along = false) {
 			w.level = Math.max(w.level, Math.floor(x.level || 0));
 			return;
 		case 'buy':
+		case 'auction':
+			// `auction`: bought at the Auction House, a bag count as `buy` is.
 			w.give(x.item, x.count || 1);
+			return;
+		case 'deposit':
+			// Into the bank: what the goal counts, else all the bags hold.
+			w.take(x.item, x.count || w.bags.get(x.item) || 0);
 			return;
 		case 'accept':
 			return accept(w, x, gi, find, explicitNpc, prior);
@@ -475,6 +528,11 @@ function playGoal(w, g, x, gi, find, explicitNpc, along = false) {
 			return turnin(w, g, x, gi, find);
 		case 'kill':
 			return kill(w, x);
+		case 'talk':
+			// `talk <npc> quest Q.O`: speaking to the NPC is the objective ("Speak with ..."), as `kill` credits its own.
+			if (x.quest && x.oi) w.credit(x.quest, x.oi, x.count || 1);
+			w.worked.push(x);
+			return;
 		case 'collect':
 			return collect(w, x, gi, find, p);
 		case 'use':
@@ -487,10 +545,11 @@ function playGoal(w, g, x, gi, find, explicitNpc, along = false) {
 			if (x.quest && x.oi) w.credit(x.quest, x.oi, x.count || 1);
 			w.worked.push(x);
 			return;
+		case 'talk':
 		case 'interact':
 			if (x.quest && x.oi) w.credit(x.quest, x.oi, x.count || 1);
 			for (const [item, it] of Object.entries(data.items)) {
-				if (it.drops && it.drops.object && x.object != null && it.drops.object[x.object] !== undefined) w.give(Number(item), 1);
+				if (it.drops && it.drops.object && x.object != null && it.drops.object[x.object] !== undefined && w.dropAllowed(item, 'object', x.object)) w.give(Number(item), 1);
 			}
 			w.worked.push(x);
 			return;
@@ -630,14 +689,14 @@ function kill(w, x) {
 		for (const o of (quest && quest.objectives) || []) {
 			if (o.type !== 'item') continue;
 			const it = data.items[o.id];
-			if (it && it.drops && it.drops.npc && x.npc != null && it.drops.npc[x.npc] !== undefined && !w.has(o.id, o.count || 1)) w.give(o.id, (o.count || 1) - (w.bags.get(o.id) || 0));
+			if (it && it.drops && it.drops.npc && x.npc != null && it.drops.npc[x.npc] !== undefined && w.dropAllowed(o.id, 'npc', x.npc) && !w.has(o.id, o.count || 1)) w.give(o.id, (o.count || 1) - (w.bags.get(o.id) || 0));
 		}
 	}
 	// Quest starters it drops (an item that starts a quest, not yet held).
 	for (const q of Object.values(data.quests)) {
 		for (const i of (q.start && q.start.item) || []) {
 			const it = data.items[i];
-			if (it && it.drops && it.drops.npc && x.npc != null && it.drops.npc[x.npc] !== undefined && !w.has(i) && !w.done.has(q.id)) w.give(i, 1);
+			if (it && it.drops && it.drops.npc && x.npc != null && it.drops.npc[x.npc] !== undefined && w.dropAllowed(i, 'npc', x.npc) && !w.has(i) && !w.done.has(q.id)) w.give(i, 1);
 		}
 	}
 	w.worked.push(x);
@@ -663,12 +722,15 @@ function collect(w, x, gi, find, p) {
 		// Where the player collects: the goal's place, else where the guide left them.
 		const at = p && p.w ? p : w.pos && w.pos.w ? w.pos : null;
 		let sourced = true;
-		const npcs = Object.keys((it && it.drops && it.drops.npc) || {}).map(Number);
-		const objs = Object.keys((it && it.drops && it.drops.object) || {}).map(Number);
+		const dropNpcs = Object.keys((it && it.drops && it.drops.npc) || {}).map(Number);
+		const dropObjs = Object.keys((it && it.drops && it.drops.object) || {}).map(Number);
+		const npcs = dropNpcs.filter((id) => w.dropAllowed(item, 'npc', id));
+		const objs = dropObjs.filter((id) => w.dropAllowed(item, 'object', id));
 		const vendors = (it && it.vendors) || [];
 		if (!npcs.length && !objs.length && !vendors.length) {
 			sourced = false;
-			find(gi, 'R3', optional ? 'warn' : 'fail', `collect ${name}: the data has no mob, object or vendor for it and no earlier line gives it`, `write the line that makes it (\`buy\` what it takes, the object to use, the quest that rewards it) before, or drop the goal`);
+			if (dropNpcs.length || dropObjs.length) find(gi, 'R3', optional ? 'warn' : 'fail', `collect ${name}: its drop sources require quests that are neither held nor completed`, `accept or complete the drop source's required quests before collecting it, or use another source`);
+			else find(gi, 'R3', optional ? 'warn' : 'fail', `collect ${name}: the data has no mob, object or vendor for it and no earlier line gives it`, `write the line that makes it (\`buy\` what it takes, the object to use, the quest that rewards it) before, or drop the goal`);
 		} else if (at && !vendors.length) {
 			const nearAt = (pt, r) => npcs.some((m) => w.npcDist(m, pt) <= SOURCE_YD + r) || objs.some((o) => w.objDist(o, pt) <= SOURCE_YD + r);
 			// A goal searched over spots, a `loop` circuit's (Gordo walks the road Patience asks for his
@@ -700,15 +762,23 @@ function collect(w, x, gi, find, p) {
 // Chains through `next`: the main route, the first option offered without a
 // `when` (a catch-up guide behind `when level<N` is its own chain), else the
 // first. Each guide no other leads into, then each guide its next leads to,
-// once; a cycle's guides start their own.
-function chains(guides) {
-	const byId = new Map(guides.map((g) => [g.id, g]));
+// once; a cycle's guides start their own. With `faction`, the chains of that
+// side only: its guides and those of both sides, and an option to the other
+// side's guide is skipped the way the engine skips it (Guides.GuideMatches), so
+// a guide both sides play, listing the Horde option first, leads an Alliance
+// chain to the Alliance guide.
+function chains(guides, faction = null) {
+	const side = (g) => !faction || !g.faction || String(g.faction).toLowerCase() === faction.toLowerCase();
+	const ours = guides.filter(side);
+	const byId = new Map(ours.map((g) => [g.id, g]));
+	const theirs = new Set(guides.filter((g) => !side(g)).map((g) => g.id));
+	const optionsOf = (g) => (g.nextChoices && g.nextChoices.length ? g.nextChoices : g.next ? [g.next] : []).filter((id) => !theirs.has(id));
 	const nextOf = (g) => {
-		const opts = g.nextChoices && g.nextChoices.length ? g.nextChoices : g.next ? [g.next] : [];
+		const opts = optionsOf(g);
 		return opts.find((id) => !(g.nextWhen && g.nextWhen[id])) || opts[0] || null;
 	};
 	// Roots: guides no option of another leads to (a catch-up guide is not one).
-	const into = new Set(guides.flatMap((g) => (g.nextChoices && g.nextChoices.length ? g.nextChoices : g.next ? [g.next] : [])).filter((id) => byId.has(id)));
+	const into = new Set(ours.flatMap(optionsOf).filter((id) => byId.has(id)));
 	const seen = new Set();
 	const out = [];
 	const walk = (g) => {
@@ -720,20 +790,59 @@ function chains(guides) {
 		}
 		if (chain.length) out.push(chain);
 	};
-	for (const g of guides) if (!into.has(g.id)) walk(g);
-	for (const g of guides) walk(g);
+	for (const g of ours) if (!into.has(g.id)) walk(g);
+	for (const g of ours) walk(g);
 	return out;
 }
 
-// Play every chain holding a guide of `play` (ids) as each of its personas
+const raceOf = (r) => (r === 'Undead' ? 'Scourge' : r);
+const minLevel = (g) => Number(g.minLevel) || 0;
+
+// The taxi nodes a character has at the start of root's chain from the start
+// routes (chains whose first guide is a race's, at level 1): those every start
+// route of persona's race learns in its guides below root's level. Null for a
+// chain opening at level 1 and for a race no start route is for.
+function startRouteNodes(starts, data, persona, root, groups, chosen, memo) {
+	const level = minLevel(root);
+	if (level <= 1 || starts.some((c) => c[0] === root)) return null;
+	const mine = starts.filter((c) => c[0].races.some((r) => raceOf(r) === persona.race));
+	if (!mine.length) return null;
+	const key = `${persona.race}|${persona.cls}|${level}`;
+	if (!memo.has(key)) {
+		let common = null;
+		for (const chain of mine) {
+			const w = new World(data, persona, null);
+			w.groups = groups;
+			w.chosen = chosen;
+			for (const g of chain) {
+				if (minLevel(g) >= level) break;
+				playGuide(w, g, false);
+			}
+			common = common ? new Set([...common].filter((n) => w.known.has(n))) : w.known;
+		}
+		memo.set(key, common);
+	}
+	return memo.get(key);
+}
+
+// Play every chain holding a guide of `play` (ids) as each of its personas,
+// each side's chains (chains(guides, side)) as that side's personas only.
+// `personas` receives the root guide and the chain (classes sampled across it).
 // -> findings of those guides, by file and line.
-function honestPlay(guides, data, personas, { kb = null, play = null, groups = 'skip' } = {}) {
+function honestPlay(guides, data, personas, { kb = null, play = null, groups = 'skip', chosen = null } = {}) {
 	const report = play ? new Set(play) : null;
 	const out = [];
-	for (const chain of chains(guides)) {
-		if (report && !chain.some((g) => report.has(g.id))) continue;
-		for (const persona of personas(chain[0])) {
-			for (const f of playChain(chain, data, persona, { kb, report, groups })) out.push({ ...f, race: persona.race, cls: persona.cls });
+	const memo = new Map();
+	for (const side of ['Alliance', 'Horde']) {
+		const all = chains(guides, side);
+		const starts = all.filter((c) => minLevel(c[0]) <= 1 && c[0].races && c[0].races.length);
+		for (const chain of all) {
+			if (report && !chain.some((g) => report.has(g.id))) continue;
+			for (const persona of personas(chain[0], chain)) {
+				if (persona.faction !== side) continue;
+				const known = startRouteNodes(starts, data, persona, chain[0], groups, chosen, memo);
+				for (const f of playChain(chain, data, persona, { kb, report, groups, chosen, known })) out.push({ ...f, race: persona.race, cls: persona.cls });
+			}
 		}
 	}
 	return out.sort((a, b) => (a.file < b.file ? -1 : a.file > b.file ? 1 : a.line - b.line));
@@ -744,4 +853,4 @@ function findingLines(f) {
 	return [`${f.rule} ${f.severity} ${f.file}:${f.line} (${f.race} ${f.cls ? f.cls[0] + f.cls.slice(1).toLowerCase() : ''}) step ${f.step}${f.title ? ` "${f.title}"` : ''}: ${f.reason}`, `  repair: ${f.repair}`];
 }
 
-module.exports = { honestPlay, playChain, chains, goalLines, whenHolds, fits, loadKb, findingLines, KB_FILE };
+module.exports = { honestPlay, playChain, chains, goalLines, whenHolds, fits, guideFits, loadKb, findingLines, KB_FILE, START_NODES, taxiNodes, taxiNode };

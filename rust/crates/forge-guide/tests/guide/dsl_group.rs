@@ -30,6 +30,17 @@ fn a_collect_is_elite_group_content_only_when_every_dropper_is_an_elite() {
 	assert_eq!(groups(&guide(&["step S", "  collect 95100 x3", "  collect 95101 x3"])).1, [json!({ "kind": "elite", "lvl": 7, "rank": 1 }), Value::Null]);
 }
 
+// #1778: Berard's Bookshelf in Pyrewood Village stands among the village's elites; its quest step said nothing.
+#[test]
+fn a_quest_s_object_work_among_hostile_elites_is_elite_near_and_leaves_the_guide_s_group_chip_alone() {
+	let (g, goals) = groups(&guide(&["step S", "  accept 9604", "  interact 95200 quest 9604", "  interact 95201 quest 9604", "  collect 95102 x1 quest 9604", "  interact 95200"]));
+	let near = json!({ "kind": "elite", "lvl": 7, "near": true, "rank": 1 });
+	// The journal: one of its two spawn points (the one the cap left out of `pts` counts) beside the Elite Kobold;
+	// the ledger: one of three, under half; the notes come only from the journal; no quest, no mark.
+	assert_eq!(goals, [Value::Null, near.clone(), Value::Null, near, Value::Null]);
+	assert!(g.get("group").is_undef());
+}
+
 #[test]
 fn every_goal_of_a_dungeon_quest_names_the_dungeon_a_raid_quest_the_raid_a_breadcrumb_with_the_area_is_not_one() {
 	let (_, goals) = groups(&guide(&["step S", "  accept 9600", "  kill 95040 quest 9600", "  complete 9600", "  turnin 9600", "  accept 9601", "  turnin 9601", "  accept 9602", "  turnin 9602"]));

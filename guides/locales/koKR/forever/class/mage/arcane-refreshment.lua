@@ -13,19 +13,18 @@ return {
 
 	-- Step 1: Lorekeeper Lydros
 	-- {area:1099} Camp Mojache · {area:2577} Dire Maul · {zone:1444} Feralas · {npc:14368} Lorekeeper Lydros · {item:18249} Crescent Key · {item:18594} Powerful Seaforium Charge
-	["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing, or through the North wing's courtyard doors with a {item:18249} (it drops from the imp Pusillin in the East wing; a {item:18594} also opens them; Blink no longer gets past). Other mages in your group can take it too: share it."] = "",
+	["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing, or through the North wing's courtyard doors with a {item:18249} (it drops from the imp Pusillin in the East wing; a {item:18594} also opens them; Blink no longer gets past). Other mages in your group can take it too: share it."] = "얼라이언스는 페더문으로, 호드는 {area:1099}로 날아가 중앙 {zone:1444}의 {area:2577}까지 말을 타고 가세요. {npc:14368}은(는) 서쪽 날개를 지나 또는 {item:18249}으로(를) 열 수 있는 북쪽 날개 뜰 안쪽 도서관 아테나이움에 있습니다. 그 열쇠는 동쪽 날개의 임프 푸실린이 떨어뜨립니다. {item:18594}도 문을 열 수 있고 점멸로는 더 통과할 수 없습니다. 파티의 다른 마법사도 가져갈 수 있으니 나눠 쓰세요.",
 
 	-- Step 2: Hydrospawn
 	["Hydrospawn"] = "히드로스폰",
-	-- {area:1758} Riptide
-	["Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. {area:1758} hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets."] = "",
+	["Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. His knockback hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets."] = "57레벨 정예 물의 정령 히드로스폰은 굽이나무 지구(혈투의 전장 동쪽)에 있습니다. 임프 푸실린이 돌아서서 싸울 때까지 쫓아가고, 사티로스 방을 정리한 뒤 나선형 경사로를 따라 웅덩이로 내려가십시오. 5인 파티용입니다. 냉기는 통하지 않으니 냉기 마법사는 화염이나 비전으로 바꾸십시오. 이 밀쳐내기 공격은 10미터 안의 모두를 공격하므로 원거리 공격자는 물러서 있으십시오. 생명력이 4분의 1이 되면 작은 물의 정령을 부릅니다. 정수는 항상 떨어지며, 인스턴스가 초기화될 때까지 다시 나타나지 않습니다.",
 	-- {item:18299} Hydrospawn Essence
 	["{item:18299}: Hydrospawn"] = "{item:18299}: 히드로스폰",
 
 	-- Step 3: Back to Lydros
 	["Back to Lydros"] = "리드로스에게 돌아가기",
 	-- {npc:14368} Lorekeeper Lydros · {spell:10140} Conjure Water
-	["{npc:14368}: {spell:10140}, and 200 Shen'dralar reputation"] = "",
+	["{npc:14368}: {spell:10140}, and 200 Shen'dralar reputation"] = "{npc:14368}: {spell:10140}, 그리고 셴드랄 평판 200",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing (or the North wing with a {item:18249})."] = "페더문 요새(얼라이언스) 또는 {area:1099}(호드)(으)로 비행한 뒤 {zone:1444} 중앙의 {area:2577}(으)로 달려가십시오. {npc:14368}은(는) 서쪽 구역(또는 {item:18249}이(가) 있으면 북쪽 구역)을 지나 도착하는 도서관에서 기다립니다.",

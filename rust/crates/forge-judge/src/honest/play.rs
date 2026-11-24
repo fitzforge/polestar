@@ -5,11 +5,36 @@ use super::world::{dist, has, id_of, Id, NodeKey, Pos, Worked, World};
 use super::{Finding, Groups, Move, Persona, Place, Severity, AT_FLIGHT_YD, AT_NPC_YD, DOCK_YD, GIVER_NEARER_YD, RIDE_WALK_YD, SOURCE_YD, WALK_FAR_YD, ZONE_STEP_YD};
 use forge_core::{js_round, js_to_string};
 use forge_guide::js::V;
+use rustc_hash::FxHashSet;
 use Severity::{Fail, Info, Warn};
 
 /// Whether an `only` ({ classes, races, factions }) lets the persona in.
 pub fn fits(only: &V, p: &Persona) -> bool {
 	!only.truthy() || forge_guide::conditions::Audience::of_compiled(only).admits(&p.race, &p.cls, &p.faction)
+}
+
+/// The quests a chain hands in `direct` for persona `p` (steps and goals its `only` lets in): the game takes
+/// them straight from the giver's window, so they are never in the log.
+pub fn direct_turnins(chain: &[&V], p: &Persona) -> FxHashSet<Id> {
+	let mut out = FxHashSet::default();
+	for g in chain {
+		for s in g.get("steps").items() {
+			if !fits(&s.get("only"), p) {
+				continue;
+			}
+			for x in s.get("goals").items() {
+				if x.get("t").as_str() == Some("turnin") && x.get("direct").truthy() && fits(&x.get("only"), p) {
+					out.insert(id_of(&x.get("quest")));
+				}
+			}
+		}
+	}
+	out
+}
+
+/// Guide headers use a singular faction; their race/class lists match `only`.
+pub(super) fn guide_fits(guide: &V, p: &Persona) -> bool {
+	fits(guide, p) && guide.get("faction").as_str().filter(|f| !f.is_empty()).is_none_or(|f| f.eq_ignore_ascii_case(&p.faction))
 }
 
 fn nn(a: V, b: impl FnOnce() -> V) -> V {
@@ -88,8 +113,17 @@ pub fn when_holds(w: &World, when: &V) -> bool {
 			}
 			"group" => w.opts.groups == Groups::Do,
 			"bound" => {
-				let loc = p.get("location");
-				!loc.truthy() || w.bound.is_nullish() || w.bound.to_js_string().to_lowercase() == loc.to_js_string().to_lowercase()
+				let name = p.get("name");
+				!name.truthy() || w.bound.is_nullish() || w.bound.to_js_string().to_lowercase() == name.to_js_string().to_lowercase()
+			}
+			// A flight path learnt on the way (a getfp), by its node, else its name.
+			"taxi" => {
+				let name = p.get("name");
+				let key = match w.node_at(&p.get("node"), &name) {
+					Some(n) => NodeKey::of(&n.get("id")),
+					None => NodeKey::of(&name),
+				};
+				w.known.contains(&key)
 			}
 			_ => true,
 		};
@@ -589,7 +623,9 @@ pub fn play_goal(w: &mut World, x: &V, t: &str, gi: usize, h: &Here, explicit_np
 			if has(&o) {
 				if let Some(items) = w.ctx.object_items.get(&id_of(&o)) {
 					for i in items.clone() {
-						w.give_id(i, 1.0);
+						if w.drop_allowed(i, "object", id_of(&o)) {
+							w.give_id(i, 1.0);
+						}
 					}
 				}
 				// (A portal the goal works, the Skyborne Portal to Stormwind in Alterac, takes the player
@@ -748,6 +784,10 @@ fn turnin(w: &mut World, x: &V, gi: usize, h: &Here) {
 	}
 	if x.get("direct").truthy() {
 		w.done.insert(qid);
+		// (Handed in on the spot, its rewards come at the hand-in all the same; legacy honest gave none.)
+		if !w.opts.legacy {
+			give_rewards(w, &q);
+		}
 		return;
 	}
 	if !w.held(qid) {
@@ -798,8 +838,13 @@ fn turnin(w: &mut World, x: &V, gi: usize, h: &Here) {
 	}
 	w.log_delete(qid);
 	w.done.insert(qid);
-	let rewards = q.get(concat!("wow", "head")).get("items");
-	for it in rewards.items() {
+	give_rewards(w, &q);
+	w.worked.push(Worked::of(x));
+}
+
+/// A turned-in quest's reward items (the data's `web.items`: an id, or [id, count]) into the bags.
+fn give_rewards(w: &mut World, q: &V) {
+	for it in q.get("web").get("items").items() {
 		if it.is_arr() {
 			let n = it.at(1);
 			w.give(&it.at(0), if n.truthy() { n.num() } else { 1.0 });
@@ -807,7 +852,6 @@ fn turnin(w: &mut World, x: &V, gi: usize, h: &Here) {
 			w.give(&it, 1.0);
 		}
 	}
-	w.worked.push(Worked::of(x));
 }
 
 /// The knowledge base's required steps since the accept: an item step (use, combine, buy) needs a line
@@ -878,7 +922,7 @@ fn kill(w: &mut World, x: &V) {
 			let it = ctx.item(oid);
 			let drops = it.get("drops").get("npc");
 			let need = count_or_1(&o);
-			if it.truthy() && drops.truthy() && has(&npc) && drops.has(&nkey) && !w.has(oid, need) {
+			if it.truthy() && drops.truthy() && has(&npc) && drops.has(&nkey) && w.drop_allowed(oid, "npc", nid) && !w.has(oid, need) {
 				let give = need - w.bag(oid);
 				w.give_id(oid, give);
 			}
@@ -887,7 +931,7 @@ fn kill(w: &mut World, x: &V) {
 	if has(&npc) {
 		if let Some(list) = ctx.starters.get(&nid) {
 			for &(q, i) in list {
-				if !w.has(i, 1.0) && !w.done.contains(&q) {
+				if w.drop_allowed(i, "npc", nid) && !w.has(i, 1.0) && !w.done.contains(&q) {
 					w.give_id(i, 1.0);
 				}
 			}
@@ -914,21 +958,31 @@ fn collect(w: &mut World, x: &V, gi: usize, h: &Here, p: Option<&Pos>) {
 		};
 		let mut sourced = true;
 		let drops = it.get("drops");
-		let npcs: Vec<Id> = drops.get("npc").keys().iter().map(|k| forge_guide::js::str_to_num(k) as Id).collect();
-		let objs: Vec<Id> = drops.get("object").keys().iter().map(|k| forge_guide::js::str_to_num(k) as Id).collect();
+		let drop_npcs = drops.get("npc").keys();
+		let drop_objs = drops.get("object").keys();
+		let npcs: Vec<Id> = drop_npcs.iter().map(|k| forge_guide::js::str_to_num(k) as Id).filter(|id| w.drop_allowed(iid, "npc", *id)).collect();
+		let objs: Vec<Id> = drop_objs.iter().map(|k| forge_guide::js::str_to_num(k) as Id).filter(|id| w.drop_allowed(iid, "object", *id)).collect();
 		let vendors = it.get("vendors");
 		let has_vendors = vendors.truthy() && !vendors.is_empty();
+		// (An objective item of a quest the chain hands in `direct`: the quest never enters the log, so the
+		// item comes without it, from wherever the guide's line says when the data names no source.)
+		let for_direct = w.ctx.needing.get(&iid).is_some_and(|qs| qs.iter().any(|q| w.direct.contains(q)));
 		if npcs.is_empty() && objs.is_empty() && !has_vendors {
-			sourced = false;
-			find(
-				w,
-				h,
-				gi,
-				"R3",
-				sev,
-				format!("collect {name}: the data has no mob, object or vendor for it and no earlier line gives it"),
-				"write the line that makes it (`buy` what it takes, the object to use, the quest that rewards it) before, or drop the goal".into(),
-			);
+			if !for_direct {
+				sourced = false;
+				let (reason, repair) = if !drop_npcs.is_empty() || !drop_objs.is_empty() {
+					(
+						format!("collect {name}: its drop sources require quests that are neither held nor completed"),
+						"accept or complete the drop source's required quests before collecting it, or use another source",
+					)
+				} else {
+					(
+						format!("collect {name}: the data has no mob, object or vendor for it and no earlier line gives it"),
+						"write the line that makes it (`buy` what it takes, the object to use, the quest that rewards it) before, or drop the goal",
+					)
+				};
+				find(w, h, gi, "R3", sev, reason, repair.into());
+			}
 		} else if let (Some(at), false) = (&at, has_vendors) {
 			let near_at = |wp: Option<super::world::Wpt>, r: f64| npcs.iter().any(|m| w.ctx.npc_dist(*m, wp) <= SOURCE_YD + r) || objs.iter().any(|o| w.ctx.obj_dist(*o, wp) <= SOURCE_YD + r);
 			// (A goal searched over spots, a `loop` circuit's: sourced at any of them, not only the first.)
@@ -960,7 +1014,7 @@ fn collect(w: &mut World, x: &V, gi: usize, h: &Here, p: Option<&Pos>) {
 			}
 		}
 		let needers = w.ctx.needing.get(&iid).cloned().unwrap_or_default();
-		if !needers.is_empty() && !has_vendors && !w.held_needing(iid) {
+		if !needers.is_empty() && !has_vendors && !for_direct && !w.held_needing(iid) {
 			let qs = needers.iter().take(2).map(|q| w.ctx.title_of(&V::Num(*q as f64))).collect::<Vec<_>>().join(" / ");
 			let repair = format!("move the collect after `accept {}`", needers[0]);
 			if it.truthy() && it.get("questItem").truthy() {

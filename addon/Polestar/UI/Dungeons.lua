@@ -1,7 +1,7 @@
 -- The Dungeons section of the hub: a quest journal per dungeon and raid, laid
 -- out the way DungeonJournal lays its pages out (every quest with where it
 -- starts and ends, its objective, chain and rewards; the bosses with the
--- quests tied to them; the entrance), in Polestar's world. No loot tables.
+-- quests tied to them and their known drops; the entrance), in Polestar's world.
 -- Data: Polestar.Dungeons (Dungeons/Dungeons.lua) over the Codex pack, loaded
 -- on first show; one dungeon page decoded at a time.
 --
@@ -26,7 +26,10 @@
 -- gained) and what was counted.
 --   Quests: one panel per quest: the name in its difficulty colour (lifted
 --   to 4.5:1 on the ground) above a rule, this character's
---   state (done, in the log, ready, too low), level and requirement,
+--   state (done, in the log, ready, too low, not for your class or race:
+--   muted, as the pick-up guide leaves it out), level and requirement, who
+--   it is for ("Warlock only" in the class colour, races too: #1730, also on
+--   chain lines, their hover and attunement quest rows),
 --   faction, shareable, picked up inside; a label column with the
 --   objective, where it starts and ends (each with a pin that sets the
 --   arrow; the whole Starts line is a link to the giver, or to the first
@@ -44,7 +47,7 @@
 --   note, the item with whether it is owned, "Guide me through it" (a guide
 --   built by Dungeons.Attune, in a new tab) and one row per step with its
 --   state glyph (Dungeons.AttunementState); a click sets the arrow there.
---   Bosses: kill order, name, level and the quests each one serves; a chest
+--   Bosses: kill order, name, known drops and the quests each one serves; a chest
 --   boss says Chest, the bosses after the encounters say Rare, Event or
 --   Optional.
 --   Map: the entrance on its zone's painting, with the quest givers there.
@@ -90,9 +93,12 @@ local SIDE = { Alliance = "A", Horde = "H" }
 local band -- the sidebar's key; nil until the first render picks one
 local page -- the dungeon shown, nil on Home
 local tab = "quests"
+local lootBoss, lootPage, lootBlock
 local filter = ""
+local searchBand -- a band picked while searching: narrows the results (nil: every match), as a guide category does
 local root, hub, home, pg, segs
 local cards, heads, blocks, bossRows, ties, givers = {}, {}, {}, {}, {}, {}
+local bossLootTiles = {}
 local atts, attSteps = {}, {} -- the Attunement tab: one head per attunement, one row per step
 local listCache
 local shown = {} -- what the last render put up, for tests and the preview
@@ -119,6 +125,31 @@ end
 
 local function questWidth() return mainWidth() - CARD_X * 2 end
 
+-- A page's plans, worked out once while nothing they read changes: the
+-- header's (the levels chip, the pick-up and hand-in plans) and the quests
+-- tab's (each quest's lines and layout). Every tab re-renders the page, and
+-- each plan walks every quest, its givers and the travel to them: worked out
+-- per render, a dungeon's tabs made about 2.5 MB of garbage. One page's at a
+-- time, for MEMO_SECONDS at most (the travel estimates move with the player),
+-- at the level it was worked out at, dropped at once by a quest, level, XP,
+-- bag, standing, names or look change.
+local memo = { at = -math.huge }
+local MEMO_SECONDS = 10
+local function playerLevel()
+	local C = ns.Compat
+	local info = C and C.GetPlayerInfo and C.GetPlayerInfo()
+	return info and info.level or 1
+end
+local function memoFor(key, f)
+	local now, w, level = GetTime(), mainWidth(), playerLevel()
+	if memo.key ~= key or memo.f ~= f or memo.w ~= w or memo.level ~= level or now - memo.at > MEMO_SECONDS then
+		memo.key, memo.f, memo.w, memo.level, memo.at = key, f, w, level, now
+		memo.header, memo.quests = nil, nil
+	end
+	return memo
+end
+local function forget() memo.key = nil end
+
 local function viewHeight()
 	local h = hub and hub:GetHeight() or 0
 	if h <= 0 then h = SH.height end
@@ -137,18 +168,7 @@ local function factionKey()
 	return f
 end
 
-local function playerLevel()
-	local C = ns.Compat
-	local info = C and C.GetPlayerInfo and C.GetPlayerInfo()
-	return info and info.level or 1
-end
-
-local function thousands(n)
-	local s = tostring(floor(n or 0))
-	local out = s:reverse():gsub("(%d%d%d)", "%1,"):reverse()
-	if out:sub(1, 1) == "," then out = out:sub(2) end
-	return out
-end
+local thousands = ns.Thousands
 
 local function money(copper)
 	local LK = UI.Lookup
@@ -273,12 +293,15 @@ local function bandLabel(key)
 	return key
 end
 
--- For your level: from the dungeon's recommended start to its top (Fitz,
--- 2026-11-08: the Ruins of Lordaeron, 15-22, is not for a level
--- 13; an overlap with a wide window let it in from 13).
+-- For your level: from the dungeon's floor to its top (Fitz, 2026-11-08: the
+-- Ruins of Lordaeron, 15-22, is not for a level 13; an overlap with a wide
+-- window let it in from 13). The floor is the level its run in the route
+-- starts at (Dungeons.List: its range's bottom or where players who killed a
+-- boss there entered, whichever is higher), so the hub never offers a
+-- dungeon the route would still hold back (Fitz, 2026-11-13).
 local function forYou(d, plevel)
 	if d.kind == "raid" or not d.minLevel then return false end
-	return plevel >= d.minLevel and plevel <= (d.maxLevel or d.minLevel)
+	return plevel >= (d.floor or d.minLevel) and plevel <= (d.maxLevel or d.minLevel)
 end
 
 -- The level the dungeon suits best (Dungeons.BestAt), nil without one.
@@ -309,12 +332,14 @@ local function questCount(d, f)
 end
 
 -- For your level under the filter: a dungeon whose quests are all the other
--- faction's is theirs, not yours; so is one whose way in lies inside their
--- capital (Dungeons.EnemyCapital: The Hall of Thanes is not a Horde dungeon).
+-- faction's is theirs, not yours; so is a city dungeon of theirs
+-- (Dungeons.EnemyCapital: The Hall of Thanes is not a Horde dungeon). Under
+-- All, never a city dungeon of the player's other faction.
 local function forYouAs(d, plevel, f)
 	if not forYou(d, plevel) then return false end
+	local side = f == "All" and SIDE[UI.PlayerFaction() or ""] or SIDE[f]
+	if D().EnemyCapital and D().EnemyCapital(d.key, side) then return false end
 	if f == "All" then return true end
-	if D().EnemyCapital and D().EnemyCapital(d.key, SIDE[f]) then return false end
 	local q = d.quests or {}
 	return (q[SIDE[f]] or 0) > 0 or ((q.A or 0) == 0 and (q.H or 0) == 0)
 end
@@ -324,25 +349,27 @@ local function list()
 	return listCache
 end
 
+-- Whether dungeon d is under a sidebar key.
+local function inKey(d, key, plevel, f)
+	if key == "level" then return forYouAs(d, plevel, f) end
+	if key == "raid" then return d.kind == "raid" end
+	if key == "all" then return d.kind ~= "raid" end
+	return d.kind ~= "raid" and bandOf(d.minLevel) == key
+end
+
+-- Whether dungeon d's name holds the search q (lower case; nil: no search).
+local function matches(d, q)
+	return not q or find(lower(d.name), q, 1, true) ~= nil
+end
+
 -- The cards a sidebar key shows, in level order; For your level, the ones
 -- that fit first, by closeness to where each suits best, the tough ones after.
+-- A search shows every match, or those under a key picked while searching (searchBand, #2776).
 local function entries(key, plevel, f)
 	local out = {}
 	local q = filter ~= "" and lower(filter) or nil
 	for _, d in ipairs(list()) do
-		local ok
-		if q then
-			ok = find(lower(d.name), q, 1, true) ~= nil
-		elseif key == "level" then
-			ok = forYouAs(d, plevel, f)
-		elseif key == "raid" then
-			ok = d.kind == "raid"
-		elseif key == "all" then
-			ok = d.kind ~= "raid"
-		else
-			ok = d.kind ~= "raid" and bandOf(d.minLevel) == key
-		end
-		if ok then out[#out + 1] = d end
+		if matches(d, q) and ((q and not searchBand) or inKey(d, key, plevel, f)) then out[#out + 1] = d end
 	end
 	if key == "level" and not q then
 		local rank = {}
@@ -360,7 +387,9 @@ local function entries(key, plevel, f)
 	return out
 end
 
--- Quest state for this character: "done", "ready", "log", "low", "open".
+-- Quest state for this character: "done", "ready", "log", "class" / "race"
+-- (not for this character's class or race: Dungeons.QuestFor, the rule the
+-- pick-up guide leaves it out by), "low", "open".
 local function questState(q, plevel)
 	local C = ns.Compat
 	if C and q.id then
@@ -370,12 +399,15 @@ local function questState(q, plevel)
 			return "log"
 		end
 	end
+	local _, why = D().QuestFor(q)
+	if why then return why end
 	if q.minLevel and plevel < q.minLevel then return "low" end
 	return "open"
 end
 
 local STATE_GLYPH = {
 	done = { "check", "success" }, ready = { "icon-turnin", "success" }, log = { "icon-turnin", "quest" },
+	class = { "lock", "textMuted" }, race = { "lock", "textMuted" },
 	low = { "lock", "warning" }, open = { "icon-accept", "quest" },
 }
 
@@ -383,17 +415,43 @@ local function stateChip(state, q)
 	if state == "done" then return L["Done"], "success" end
 	if state == "ready" then return L["Ready to turn in"], "success" end
 	if state == "log" then return L["In your log"], "neutral" end
+	if state == "class" then return L["Not for your class"], "neutral" end
+	if state == "race" then return L["Not for your race"], "neutral" end
 	if state == "low" then return format(L["From level %d"], q.minLevel), "warning" end
 	return nil
 end
 
+-- Who a quest is for (Dungeons.QuestFor), "Warlock only" with each class in
+-- its colour, "Dwarf and Gnome only"; nil when anyone of its side may take it.
+local function whoText(q)
+	local who = D().QuestFor(q)
+	if not who then return nil end
+	local function names(list, name, colour)
+		if not list then return nil end
+		local out = {}
+		for i, f in ipairs(list) do
+			local text = name(f)
+			local r, g, b
+			if colour then r, g, b = Theme.ClassColor(f) end
+			out[i] = r and format("|cff%02x%02x%02x%s|r", floor(r * 255 + 0.5), floor(g * 255 + 0.5), floor(b * 255 + 0.5), text) or text
+		end
+		if #out == 2 then return format(L["%s and %s"], out[1], out[2]) end
+		return concat(out, ", ")
+	end
+	local r, c = names(who.races, UI.RaceName), names(who.classes, UI.ClassName, true)
+	return format(L["%s only"], (r and c) and (r .. " " .. c) or r or c)
+end
+
 local POINT_COLOR = { npc = "npc", object = "object", item = "item" }
 
--- "Nalpak  ·  The Barrens", coloured; "inside the dungeon" when it is.
+-- "Nalpak  ·  The Barrens", coloured; "inside the dungeon" when it is. A
+-- giver or ender inside whom the data has not named (Alcaz Prison's
+-- prisoners, #2560) is the place alone.
 local function pointText(p)
 	if type(p) ~= "table" then return "|c" .. Theme.Hex("textMuted") .. L["Not known"] .. "|r" end
 	local N = ns.Names
 	local own = type(p.id) == "number" and ((p.kind == "npc" and N.Npc(p.id)) or (p.kind == "object" and N.Object(p.id)) or (p.kind == "item" and N.Item(p.id))) or nil
+	if p.inside and not (own or p.name) then return "|c" .. Theme.Hex("dungeon") .. L["inside the dungeon"] .. "|r" end
 	local name = own or p.name or L["Not known"]
 	local text = "|c" .. Theme.Hex(POINT_COLOR[p.kind] or "npc") .. name .. "|r"
 	local place
@@ -535,6 +593,8 @@ local function chainEnter(self)
 	local meta = {}
 	if q.level then meta[#meta + 1] = format(L["Level %d"], q.level) end
 	if q.minLevel then meta[#meta + 1] = format(L["Requires level %d"], q.minLevel) end
+	local who = whoText(q)
+	if who then meta[#meta + 1] = who end
 	if #meta > 0 then lines[#lines + 1] = concat(meta, DOT) end
 	local stateText, kind = stateChip(questState(q, self.psLevel or 1), q)
 	if stateText then
@@ -694,6 +754,8 @@ local function bossRow(i)
 	r.Name:SetPoint("LEFT", r, "TOPLEFT", PAD, -24)
 	r.Level = W.Text(r, "small", "textMuted")
 	r.Level:SetPoint("LEFT", r.Name, "RIGHT", 10, 0)
+	r.Loot = W.Button(r, "", function(self) DS.SetBossLoot(self.psBoss) end, { ghost = true, icon = "chevron-right", height = 24 })
+	r.NoLoot = label(r, L["No boss drops known"])
 	r.Rule = W.Divider(r)
 	r.Rule:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", PAD, 0)
 	r.Rule:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", -PAD, 0)
@@ -713,9 +775,11 @@ local function tie(i)
 	t.Text = W.Text(t, "label", "textDim")
 	t.Text:SetPoint("LEFT", t, "LEFT", 24, 0)
 	t:SetScript("OnClick", function(self) DS.ShowQuest(self.psQuest) end)
-	t:SetScript("OnEnter", W.SimpleTip)
+	-- The quest's tooltip (UI.QuestTip), what a click does under it.
+	t:SetScript("OnEnter", function(self)
+		if self.psQuest then UI.QuestTip(self, self.psQuest, "ANCHOR_TOP", { { L["Show the quest"], Theme.Accent() } }, self.psTitle) end
+	end)
 	t:SetScript("OnLeave", W.HideTip)
-	t.psTip = L["Show the quest"]
 	ties[i] = t
 	return t
 end
@@ -841,10 +905,22 @@ local function scrim(parent)
 	return t
 end
 
+-- The hub's title and subtitle, veiled over a dungeon's zone art or back:
+-- by their colour's alpha (W.Color's psVeiled), which a theme repaint keeps.
+-- A bare SetAlpha(0) did not: the repaint (a UI scale or display size
+-- change) set their colour back on, and in the client a string's colour
+-- alpha is its alpha, so they drew over the art (#1753's pattern).
+local function veilHeader(veiled)
+	for _, fs in ipairs({ hub.Title, hub.Subtitle }) do
+		fs.psVeiled = veiled or nil
+		fs:SetAlpha(veiled and 0 or 1)
+		W.Recolor(fs)
+	end
+end
+
 local function restoreHeader()
 	if not hub then return end
-	hub.Title:SetAlpha(1)
-	hub.Subtitle:SetAlpha(1)
+	veilHeader(false)
 	hub.Band:Show()
 end
 
@@ -992,7 +1068,10 @@ function DS.Build(parent, shell)
 		segs[i] = b
 	end
 
-	root:SetScript("OnHide", function()
+	-- The picker hides the section parent when leaving Dungeons. Hiding the
+	-- whole hub leaves that parent's shown state intact, so its page can resume.
+	root:SetScript("OnHide", function(self)
+		if self:IsShown() and parent:IsShown() then return end
 		restoreHeader()
 		UI.LevelTip.Hide()
 		for _, b in ipairs(segs) do b:Hide() end
@@ -1008,6 +1087,20 @@ local function hidePool(pool, from)
 	for i = from or 1, #pool do pool[i]:Hide() end
 end
 
+-- A dungeon's painting: its zone framed on the entrance, or the whole zone
+-- where only the zone is known (Forever's dungeons nobody has walked into
+-- yet), else its own loading screen (Dungeons.Art), so no dungeon shows the
+-- bare night band. -> "entrance" | "zone" | "picture" | nil
+local function paintDungeon(art, d, index)
+	local e = d.entrance
+	if ZoneArt.Paint(art, e and e.map or d.zone, e and e.x, e and e.y, index) then
+		return (e and e.map) and "entrance" or "zone"
+	end
+	local pic = D().Art and D().Art(d.key)
+	if pic and ZoneArt.Picture then return ZoneArt.Picture(art, pic) and "picture" end
+	return nil
+end
+
 -- Paint the cards in view (and one line past it); the rest wait.
 function DS.PaintVisible()
 	if not (home and home:IsShown()) then return end
@@ -1017,22 +1110,23 @@ function DS.PaintVisible()
 		local c = cards[i]
 		local key = c.psKey
 		if c.psPainted ~= key and c.psY < top + view + CARD_H and c.psY + CARD_H > top - CARD_H then
-			local d = c.psEntry
-			local e = d.entrance
-			c.psArt = ZoneArt.Paint(c.Art, e and e.map or d.zone, e and e.x, e and e.y, i)
+			c.psArt = paintDungeon(c.Art, c.psEntry, i)
 			c.psPainted = key
 			shown.painted = (shown.painted or 0) + 1
 		end
 	end
 end
 
-local function navItems(plevel, f)
+-- q: the search (lower case) or nil; while searching, each entry counts its matches, as the guide categories do (#2776).
+local function navItems(plevel, f, q)
 	local items = {}
-	local counts, level, all, raids = {}, 0, 0, 0
+	local counts, level, all, raids, anyRaid = {}, 0, 0, 0, false
 	for _, d in ipairs(list()) do
+		local hit = matches(d, q)
 		if d.kind == "raid" then
-			raids = raids + 1
-		else
+			anyRaid = true
+			if hit then raids = raids + 1 end
+		elseif hit then
 			all = all + 1
 			local k = bandOf(d.minLevel)
 			if k then counts[k] = (counts[k] or 0) + 1 end
@@ -1044,7 +1138,7 @@ local function navItems(plevel, f)
 	for _, b in ipairs(BANDS) do
 		items[#items + 1] = { key = b.key, label = bandLabel(b.key), icon = "icon-level", count = counts[b.key] or 0 }
 	end
-	if raids > 0 then items[#items + 1] = { key = "raid", label = L["Raids"], icon = "icon-kill", count = raids } end
+	if anyRaid then items[#items + 1] = { key = "raid", label = L["Raids"], icon = "icon-kill", count = raids } end
 	return items, level
 end
 
@@ -1088,7 +1182,8 @@ local function paintCard(c, d, f, plevel, key)
 	if lv then facts[#facts + 1] = lv end
 	local best = bestAtFact(d)
 	if best then facts[#facts + 1] = best end
-	if d.zoneName then facts[#facts + 1] = d.zoneName end
+	local zn = d.zoneName or (d.zone and mapName(d.zone))
+	if zn then facts[#facts + 1] = zn end
 	local n, a, h = questCount(d, f)
 	if f == "All" and a ~= h and a > 0 and h > 0 then
 		facts[#facts + 1] = format(L["%d Alliance, %d Horde quests"], a, h)
@@ -1142,7 +1237,7 @@ local function renderHome(plevel)
 	W.ShellTabs(hub, nil)
 	hub.psKeepTabRow = nil
 	local f = factionKey()
-	local key = defaultBand(plevel)
+	local key = (filter ~= "" and searchBand) or defaultBand(plevel)
 	local rows = entries(key, plevel, f)
 	-- The header: where you are and what the grid holds.
 	local title, sub
@@ -1224,8 +1319,8 @@ end
 local function pageHeader(d)
 	local art = pg.Art
 	local e = d.entrance
-	local painted = ZoneArt.Paint(art, e and e.map or d.zone, e and e.x, e and e.y, 1)
-	if painted and e and e.map then
+	local painted = paintDungeon(art, d, 1)
+	if painted == "entrance" then
 		placeOn(art.Entrance, art, e.x, e.y)
 		art.Entrance:Show()
 	else
@@ -1233,17 +1328,19 @@ local function pageHeader(d)
 	end
 	art:Show()
 	hub.Band:Hide()
-	hub.Title:SetAlpha(0)
-	hub.Subtitle:SetAlpha(0)
+	veilHeader(true)
 	hub.Close:SetFrameLevel(pg.Over:GetFrameLevel() + 2)
 	local facts = {}
 	local lv = UI.LevelRange(d.minLevel, d.maxLevel)
 	if lv then facts[#facts + 1] = format(L["Levels %s"], lv) end
 	local best = bestAtFact(d)
 	if best then facts[#facts + 1] = best end
-	local z = d.zoneName or (e and mapName(e.map))
+	local zm = (e and e.map) or d.zone
+	local z = d.zoneName or (zm and mapName(zm))
 	if z then facts[#facts + 1] = z end
-	if d.players then facts[#facts + 1] = format(L["%d players"], d.players) end
+	if d.players then
+		facts[#facts + 1] = (d.playersMax and d.playersMax > d.players) and format(L["%d-%d players"], d.players, d.playersMax) or format(L["%d players"], d.players)
+	end
 	if (d.bosses or 0) > 0 then facts[#facts + 1] = d.bosses == 1 and L["1 boss"] or format(L["%d bosses"], d.bosses) end
 	local sub = concat(facts, DOT)
 	W.ShellTitle(hub, d.name, sub)
@@ -1256,8 +1353,19 @@ local function pageHeader(d)
 		pg.Forever:Hide()
 	end
 	-- The levels chip: what the quests still to do are worth, after the
-	-- Forever chip; none at 60 or with no XP to count.
-	local xs = D().QuestXP and D().QuestXP(d.key)
+	-- Forever chip; none at 60 or with no XP to count. With the pick-up and
+	-- hand-in plans, worked out once per page (memo).
+	local Dg, LKm = D(), ns.Lookup
+	local m = memoFor(d.key, factionKey())
+	local hd = m.header
+	if not hd then
+		local guided = LKm and LKm.Guide
+		hd = { xs = Dg.QuestXP and Dg.QuestXP(d.key) or false,
+			plan = guided and Dg.PickupPlan and Dg.PickupPlan(d.key) or false,
+			hplan = guided and Dg.HandinPlan and Dg.HandinPlan(d.key) or false }
+		m.header = hd
+	end
+	local xs = hd.xs or nil
 	if UI.LevelTip.Set(pg.XP, xs, { head = L["If you finish the quests here"], need = L["You are level %d. Level %d is recommended for the quests here; from there:"] }) then
 		pg.XP:ClearAllPoints()
 		if d.forever then
@@ -1268,12 +1376,11 @@ local function pageHeader(d)
 	end
 	-- The actions, right to left: the primary first.
 	local go = e ~= nil and ns.Nav ~= nil
-	local Dg, LKm = D(), ns.Lookup
-	local plan = LKm and LKm.Guide and Dg.PickupPlan and Dg.PickupPlan(d.key) or nil
-	local hplan = LKm and LKm.Guide and Dg.HandinPlan and Dg.HandinPlan(d.key) or nil
+	local plan = hd.plan or nil
+	local hplan = hd.hplan or nil
 	local take = plan and #plan.take or 0
-	local hand = hplan and #hplan.hand or 0
-	local logged = hplan and hand + #hplan.unfinished + #hplan.inside + #hplan.unplaced or 0
+	local hand = hplan and #hplan.hand + #(hplan.errands or {}) or 0
+	local logged = hplan and #hplan.hand + #hplan.unfinished + #hplan.inside + #hplan.unplaced or 0
 	local lead = hand > 0 and "handin" or take > 0 and "pickup" or "go"
 	local side = SIDE[UI.PlayerFaction() or ""]
 	local none = plan ~= nil and take == 0 and #Dg.Quests(d.key, side) > 0 and lead == "go"
@@ -1535,9 +1642,10 @@ local function paintQuest(b, q, p, top, plevel, key)
 	b.Glyph:SetTexture(Theme.Media(g[1]))
 	W.Color(b.Glyph, g[2])
 	b.Title:SetText(q.title or (L["Quest"] .. " " .. tostring(q.id)))
-	-- Done: the muted text colour (held legible), its chip says so; else the
-	-- quest's difficulty colour, as on the Attunement tab and in the quest log.
-	if state == "done" then W.Color(b.Title, "textMuted") else paintRGB(b.Title, difficulty(q.level, plevel)) end
+	-- Done, or not for this character's class or race: the muted text colour
+	-- (held legible), its chip says why; else the quest's difficulty colour,
+	-- as on the Attunement tab and in the quest log.
+	if state == "done" or state == "class" or state == "race" then W.Color(b.Title, "textMuted") else paintRGB(b.Title, difficulty(q.level, plevel)) end
 	-- Right of the title line: the state, then the faction mark.
 	local right = PAD
 	local text, kind = stateChip(state, q)
@@ -1562,7 +1670,9 @@ local function paintQuest(b, q, p, top, plevel, key)
 	local meta = {}
 	if q.level then meta[#meta + 1] = format(L["Level %d"], q.level) end
 	if q.minLevel then meta[#meta + 1] = format(L["Requires level %d"], q.minLevel) end
-	if q.classes and #q.classes > 0 then meta[#meta + 1] = format(L["%s only"], UI.ClassList(q.classes)) end
+	-- Who it is for: "Warlock only" in the class colour (#1730), races too.
+	local who = whoText(q)
+	if who then meta[#meta + 1] = who end
 	-- An item that starts it: where it drops decides (dropsOf), else the page.
 	local drops, insideOnly = dropsOf(q, key)
 	if (drops and insideOnly) or (not drops and q.inside) then meta[#meta + 1] = L["Picked up inside the dungeon"] end
@@ -1589,10 +1699,10 @@ local function paintQuest(b, q, p, top, plevel, key)
 	b.StartPin:SetPoint("TOPLEFT", b, "TOPLEFT", VALUE_X - 4, -y)
 	-- The arrow goes to the first prerequisite still to do, else the giver.
 	local Dg = D()
-	local target, tlabel, first, turnIn
-	if key and Dg.GiverTarget then target, tlabel, first, turnIn = Dg.GiverTarget(key, q.id) end
+	local target, tlabel, first, turnIn, blocked
+	if key and Dg.GiverTarget then target, tlabel, first, turnIn, blocked = Dg.GiverTarget(key, q.id) end
 	-- Its own giver, or where the item that starts it drops outside (#1380).
-	if not target then target, tlabel = s, s and s.name end
+	if not target and not blocked then target, tlabel = s, s and s.name end
 	local go = canGuide(target)
 	b.StartPin.psPoint, b.StartPin.psLabel = target, tlabel
 	W.SetIconState(b.StartPin, false, go)
@@ -1663,6 +1773,8 @@ local function paintQuest(b, q, p, top, plevel, key)
 			if cs == "done" then W.Color(r.Title, "textMuted") else paintRGB(r.Title, difficulty(cq.level, plevel)) end
 			local sub = {}
 			if cq.level then sub[#sub + 1] = format(L["Level %d"], cq.level) end
+			local cw = whoText(cq)
+			if cw then sub[#sub + 1] = cw end
 			local st = startOf(cq, ns.PlayerPoint())
 			if st and st.name then
 				local z = st.inside and L["inside the dungeon"] or mapName(st.map)
@@ -1735,17 +1847,25 @@ end
 
 local function renderQuests(key, f, plevel)
 	local side = SIDE[f]
-	local qs = D().Quests(key, side)
 	hidePool(blocks)
-	qpass.quests, qpass.key, qpass.plevel = qs, key, plevel
-	local plans, tops = {}, {}
-	local y = CARD_GAP
-	for i, q in ipairs(qs) do
-		local p = plan(q, key)
-		plans[i], tops[i] = p, y
-		y = y + p.h + CARD_GAP
+	-- Each quest's lines and layout, once per page (memo).
+	local m = memoFor(key, f)
+	local mq = m.quests
+	if not mq then
+		local qs = D().Quests(key, side)
+		local plans, tops = {}, {}
+		local y = CARD_GAP
+		for i, q in ipairs(qs) do
+			local p = plan(q, key)
+			plans[i], tops[i] = p, y
+			y = y + p.h + CARD_GAP
+		end
+		mq = { qs = qs, plans = plans, tops = tops, y = y }
+		m.quests = mq
 	end
-	qpass.plans, qpass.tops, qpass.painted = plans, tops, {}
+	local qs, y = mq.qs, mq.y
+	qpass.quests, qpass.key, qpass.plevel = qs, key, plevel
+	qpass.plans, qpass.tops, qpass.painted = mq.plans, mq.tops, {}
 	if #qs == 0 then
 		local other = 0
 		if side then other = #D().Quests(key, side == "A" and "H" or "A") end
@@ -1780,11 +1900,28 @@ local function bossFacts(boss)
 	return concat(t, DOT)
 end
 
+local function lootArea()
+	if lootBlock then return lootBlock end
+	lootBlock = CreateFrame("Frame", nil, pg.Body)
+	lootBlock.Tiles = bossLootTiles
+	lootBlock.Label = label(lootBlock, L["Drops"])
+	lootBlock.Label:SetPoint("TOPLEFT", lootBlock, "TOPLEFT", PAD, -8)
+	return lootBlock
+end
+
 local function renderBosses(key, f, plevel)
+	if lootPage ~= key then lootPage, lootBoss = key, nil end
+	if lootBlock then lootBlock:Hide() end
 	local side = SIDE[f]
 	local MW = mainWidth()
 	local y, nt = 0, 0
 	local bosses = D().Bosses(key)
+	-- A Codex pack built before boss drops (#2718) has no `loot` at all: say
+	-- "no drops known" only on a page whose pack carries them.
+	local anyLoot = false
+	for _, b in ipairs(bosses) do
+		if b.loot and #b.loot > 0 then anyLoot = true; break end
+	end
 	for i, boss in ipairs(bosses) do
 		local r = bossRow(i)
 		r:ClearAllPoints()
@@ -1810,7 +1947,7 @@ local function renderBosses(key, f, plevel)
 				else
 					row.Text:SetText(format(spec[2], qh))
 				end
-				row.psQuest = q.id
+				row.psQuest, row.psTitle = q.id, q.title
 				row:ClearAllPoints()
 				row:SetPoint("TOPLEFT", pg.Body, "TOPLEFT", PAD - 4, -(y + h - 6))
 				row:SetWidth(MW - PAD * 2 + 4)
@@ -1820,6 +1957,47 @@ local function renderBosses(key, f, plevel)
 			end
 		end
 		if n > 0 then h = h + 10 end
+		local loot = boss.loot or {}
+		r.Loot:ClearAllPoints()
+		r.Loot:SetPoint("TOPLEFT", r, "TOPLEFT", PAD, -h)
+		r.Loot.psBoss = i
+		r.NoLoot:ClearAllPoints()
+		r.NoLoot:SetPoint("TOPLEFT", r, "TOPLEFT", PAD, -(h + 4))
+		if #loot > 0 then
+			local open = lootBoss == i
+			W.SetButtonText(r.Loot, format(L["Drops (%d)"], #loot))
+			W.SetIcon(r.Loot, open and "chevron-down" or "chevron-right")
+			r.Loot.psTip = open and L["Collapse"] or L["Expand"]
+			r.Loot:Show()
+			r.NoLoot:Hide()
+			h = h + 32
+			if open then
+				local area = lootArea()
+				area:ClearAllPoints()
+				area:SetPoint("TOPLEFT", pg.Body, "TOPLEFT", 0, -(y + h))
+				area:SetWidth(MW)
+				local items = {}
+				local C = ns.Codex
+				for _, id in ipairs(loot) do
+					local item = C and C.Item(id)
+					items[#items + 1] = { id = id, name = (item and item.name) or ns.Compat.GetItemName(id), quality = item and item.quality }
+				end
+				placeTiles(area, 0, items, false, 0)
+				hidePool(bossLootTiles, #items + 1)
+				local height = tilesHeight(#items) + 12
+				area:SetHeight(height)
+				area:Show()
+				h = h + height
+			end
+		else
+			r.Loot:Hide()
+			if anyLoot then
+				r.NoLoot:Show()
+				h = h + 28
+			else
+				r.NoLoot:Hide()
+			end
+		end
 		r:SetHeight(h)
 		r:Show()
 		y = y + h
@@ -1829,7 +2007,7 @@ local function renderBosses(key, f, plevel)
 	if #bosses == 0 then
 		y = emptyPage(L["No bosses known yet"], L["The sources Polestar reads list no bosses for this dungeon."], 28)
 	end
-	shown.bosses, shown.ties = #bosses, nt
+	shown.bosses, shown.ties, shown.lootBoss = #bosses, nt, lootBoss
 	return y + 16
 end
 
@@ -1837,18 +2015,23 @@ local function renderMap(key, d, f)
 	local art = pg.MapArt
 	local e = d.entrance
 	local side = SIDE[f]
-	local painted = e and ZoneArt.Paint(art, e.map, e.x, e.y, 1)
+	local painted = paintDungeon(art, d, 1)
 	art:Show()
 	pg.MapNote:Show()
 	local n = 0
-	if painted then
+	if painted == "entrance" then
 		placeOn(art.Entrance, art, e.x, e.y)
 		art.Entrance:Show()
-		-- The quest givers on the entrance's zone, one marker per giver.
+	else
+		art.Entrance:Hide()
+	end
+	if painted == "entrance" or painted == "zone" then
+		-- The quest givers on the zone shown, one marker per giver.
+		local zm = (e and e.map) or d.zone
 		local byGiver, order = {}, {}
 		for _, q in ipairs(D().Quests(key, side)) do
 			local s = startOf(q, e)
-			if s and s.map == e.map and s.x and s.y and not s.inside then
+			if s and s.map == zm and s.x and s.y and not s.inside then
 				local id = (s.kind or "") .. tostring(s.id or s.name)
 				local gq = byGiver[id]
 				if not gq then
@@ -1866,22 +2049,22 @@ local function renderMap(key, d, f)
 			g.psName, g.psLines = gq.point.name, gq.lines
 			g:Show()
 		end
-	else
-		art.Entrance:Hide()
-		if not e then ZoneArt.Paint(art, nil, nil, nil, 1) end
 	end
 	hidePool(givers, n + 1)
+	local text
 	if e then
 		local z = mapName(e.map) or d.zoneName or ""
-		local text = format(L["The entrance, on %s (%.1f, %.1f)."], z, e.x or 0, e.y or 0)
-		if n > 0 then text = text .. " " .. (n == 1 and L["The quest giver nearby is marked; hover for their quests."] or format(L["The %d quest givers nearby are marked; hover for their quests."], n)) end
-		local warn = enemyWarning(d, f)
-		if warn then text = warn .. "\n" .. text end
-		pg.MapNote:SetText(text)
+		text = format(L["The entrance, on %s (%.1f, %.1f)."], z, e.x or 0, e.y or 0)
+	elseif painted == "zone" then
+		text = format(L["The entrance of this dungeon is not known yet; it lies in %s."], d.zoneName or mapName(d.zone) or "")
 	else
-		pg.MapNote:SetText(L["The entrance of this dungeon is not known yet."])
+		text = L["The entrance of this dungeon is not known yet."]
 	end
-	shown.map, shown.givers = e and "entrance" or "none", n
+	if n > 0 then text = text .. " " .. (n == 1 and L["The quest giver nearby is marked; hover for their quests."] or format(L["The %d quest givers nearby are marked; hover for their quests."], n)) end
+	local warn = e and enemyWarning(d, f)
+	if warn then text = warn .. "\n" .. text end
+	pg.MapNote:SetText(text)
+	shown.map, shown.givers = painted or "none", n
 	return 24 + MAP_H + 14 + pg.MapNote:GetStringHeight() + 24
 end
 
@@ -1915,16 +2098,21 @@ local function stepLine(s, plevel)
 	elseif s.kind == "drop" then
 		return format(L["%s from %s"], colored("item", s.item.name), colored("npc", s.npc and s.npc.name)), s.npc
 	elseif s.kind == "object" then
-		return format(L["%s from %s"], colored("item", s.item.name), colored("object", s.object and s.object.name)), s.object
+		-- A chest the Codex names no object for (the Black Tome's table): the item alone.
+		if not (s.object and s.object.name) then return colored("item", s.item.name), s.object end
+		return format(L["%s from %s"], colored("item", s.item.name), colored("object", s.object.name)), s.object
 	elseif s.kind == "rep" then
 		return format(L["Reach %s with %s"], standingName(s.standing), colored("faction", factionName(s.faction, s.name))), nil
 	elseif s.kind == "gift" then
 		return format(L["%s gives you %s"], colored("npc", s.npc and s.npc.name), colored("item", s.item.name)), s.npc
+	elseif s.kind == "use" then
+		return format(L["Use %s beside %s"], colored("item", s.from and s.from.name), colored("npc", s.at and s.at.name)), s.at
 	end
 	return "", nil
 end
 
--- The words after a step: its state, then where (a quest's giver, a drop's chance and instance).
+-- The words after a step: its state, who a quest is for (whoText), then
+-- where (a quest's giver, a drop's chance and instance).
 local function stepSub(s, state)
 	local t = {}
 	if state == "done" then t[#t + 1] = L["Done"]
@@ -1935,12 +2123,16 @@ local function stepSub(s, state)
 	elseif state == "rep" and s.rep then t[#t + 1] = format(L["Needs %s with %s"], standingName(s.rep.standing), factionName(s.rep.faction, s.rep.name) or L["Not known"])
 	elseif state == "skip" then t[#t + 1] = L["Not needed"]
 	end
+	if s.kind == "quest" then
+		local who = whoText(s)
+		if who then t[#t + 1] = who end
+	end
 	if s.kind == "quest" and s.start then
 		t[#t + 1] = pointText(s.start)
 	elseif (s.kind == "drop" or s.kind == "object") and s.chance then
 		t[#t + 1] = format(L["%d%% chance"], floor(s.chance + 0.5))
 	end
-	if s.kind == "drop" and s.instance then
+	if (s.kind == "drop" or s.kind == "object") and s.instance then
 		local inst = D().Get(s.instance)
 		if inst then t[#t + 1] = format(L["inside %s"], inst.name) end
 	end
@@ -1958,6 +2150,17 @@ local function renderAttune(key, f, plevel)
 	local mineCode = SIDE[UI.PlayerFaction() or ""]
 	local list_ = Dg.Attunements(key, side)
 	local y, nr = 0, 0
+	-- Every attunement and key with this character's progress: the Attunements section (UI/Attunements.lua).
+	if #list_ > 0 and UI.Attunements then
+		if not rawget(pg, "AttLink") then
+			pg.AttLink = W.Link(pg.Body, L["All attunements and keys"], function() UI.Attunements.Show() end)
+			pg.AttLink.psTip = L["Every attunement and key, with how far you are"]
+		end
+		pg.AttLink:ClearAllPoints()
+		pg.AttLink:SetPoint("TOPRIGHT", pg.Body, "TOPRIGHT", -PAD, -12)
+		pg.AttLink:Show()
+		y = 20
+	end
 	shown.attune = {}
 	for i, a in ipairs(list_) do
 		local st = Dg.AttunementState(a)
@@ -1998,6 +2201,7 @@ local function renderAttune(key, f, plevel)
 		facts[#facts + 1] = a.need == "one" and L["One in the group is enough"] or L["Everyone entering needs it"]
 		if a.level then facts[#facts + 1] = format(L["From level %d"], a.level) end
 		if a.faction == "A" then facts[#facts + 1] = L["Alliance only"] elseif a.faction == "H" then facts[#facts + 1] = L["Horde only"] end
+		if a.open == false then facts[#facts + 1] = L["Not open on Forever yet"] end
 		h.Meta:SetText(concat(facts, DOT))
 		local hy = 66
 		if a.note then
@@ -2128,8 +2332,16 @@ local function renderPage(key, plevel)
 		hidePool(blocks)
 		qpass.key = nil
 	end
-	if tab ~= "bosses" then hidePool(bossRows); hidePool(ties) end
-	if tab ~= "attune" then hidePool(atts); hidePool(attSteps) end
+	if tab ~= "bosses" then
+		hidePool(bossRows)
+		hidePool(ties)
+		if lootBlock then lootBlock:Hide() end
+	end
+	if tab ~= "attune" then
+		hidePool(atts)
+		hidePool(attSteps)
+		if rawget(pg, "AttLink") then pg.AttLink:Hide() end
+	end
 	if tab ~= "map" then
 		pg.MapArt:Hide()
 		pg.MapNote:Hide()
@@ -2173,7 +2385,7 @@ local function renderEmpty(reason)
 	home.Watermark:Show()
 	local text
 	if reason == "off" then
-		text = L["The Dungeons section is turned off. Turn it on under Options > Discovery > Dungeons."]
+		text = L["The Dungeons section is turned off. Turn it on under Settings > Discovery > Lookup."]
 	else
 		local LK = UI.Lookup
 		text = REASON[reason] or (LK and LK.ReasonText and LK.ReasonText(reason)) or tostring(reason)
@@ -2186,8 +2398,23 @@ local function renderEmpty(reason)
 	shown.view, shown.empty = "empty", reason
 end
 
+-- A new search (or none) lists every match again: a band picked during the last one no longer narrows it.
+local function setFilter(text)
+	text = text or ""
+	if text ~= filter then filter, searchBand = text, nil end
+end
+
+-- The hub's search is this section's filter, as Rares takes it: the hub empties its box when another section shows,
+-- without telling this one, which kept its old search under an empty box and the bands dead (#2773).
+local function syncFilter()
+	local P = UI.Picker
+	local s = P and P.ActiveSection and P.ActiveSection()
+	if s and s.key == "Dungeons" and P.Query then setFilter(P.Query()) end
+end
+
 function DS.Render()
 	if not root then return end
+	syncFilter()
 	for k in pairs(shown) do shown[k] = nil end
 	local Dg = D()
 	local loaded, reason
@@ -2216,16 +2443,27 @@ local function refresh()
 	end
 end
 
+function DS.SetBossLoot(i)
+	if not (page and tab == "bosses") then return end
+	local boss = D().Bosses(page)[i]
+	if not (boss and boss.loot and #boss.loot > 0) then return end
+	if lootBoss == i then lootBoss = nil else lootBoss = i end
+	refresh()
+end
+
 function DS.Nav()
+	syncFilter()
 	local Dg = D()
 	if not (Dg and Dg.IsEnabled() and Dg.Load()) then return {}, nil end
 	local plevel = playerLevel()
-	local items = navItems(plevel, factionKey())
-	return items, (filter == "" and defaultBand(plevel)) or nil
+	local items = navItems(plevel, factionKey(), filter ~= "" and lower(filter) or nil)
+	if filter ~= "" then return items, searchBand end
+	return items, defaultBand(plevel)
 end
 
+-- While searching, a band narrows the results (and the band shown without a search stays as it was).
 function DS.SetBand(key)
-	band = key
+	if filter ~= "" then searchBand = key else band = key end
 	page = nil
 	if home then W.ScrollTo(home.Scroll, 0) end
 	refresh()
@@ -2250,6 +2488,7 @@ end
 function DS.Open(key)
 	page = key
 	tab = "quests"
+	lootBoss = nil
 	if pg then W.ScrollTo(pg.Scroll, 0) end
 	refresh()
 end
@@ -2317,16 +2556,17 @@ function DS.HandIn(key)
 	return openPlanned(Dg.HandIn, key, function() return Dg.HandinText(Dg.HandinPlan(key)) end)
 end
 
--- An attunement's guide (Dungeons.Attune), from the page's Attunement tab;
--- nothing left says so instead.
-function DS.Attune(id)
+-- An attunement's guide (Dungeons.Attune), from the page's Attunement tab
+-- (or `key`'s, from the Attunements section); nothing left says so instead.
+function DS.Attune(id, key)
 	local Dg = D()
-	if not (page and id and Dg and Dg.Attune) then return nil end
-	return openPlanned(function(key)
-		local gid, reason = Dg.Attune(key, id)
+	key = key or page
+	if not (key and id and Dg and Dg.Attune) then return nil end
+	return openPlanned(function(k)
+		local gid, reason = Dg.Attune(k, id)
 		if reason == "done" then reason = "nothing" end
 		return gid, reason
-	end, page, function() return L["Nothing is left to do for it."] end)
+	end, key, function() return L["Nothing is left to do for it."] end)
 end
 
 -- In combat the map stays shut (Compat.OpenWorldMap: opening it then is
@@ -2342,7 +2582,7 @@ function DS.ShowOnMap()
 end
 
 function DS.Search(text)
-	filter = text or ""
+	setFilter(text)
 	page = nil
 	if home then W.ScrollTo(home.Scroll, 0) end
 	refresh()
@@ -2355,11 +2595,12 @@ function DS.Enter()
 	if c and c:IsShown() and c.psKey then DS.Open(c.psKey) end
 end
 
--- SHOW_DUNGEON(key): the hub at the page (nil: Home).
-function DS.Show(key)
+-- SHOW_DUNGEON(key): the hub at the page (nil: Home), on tab `tabKey`
+-- ("quests" when nil; "attune", "bosses", "map").
+function DS.Show(key, tabKey)
 	page = key
-	tab = "quests"
-	filter = ""
+	tab = tabKey or "quests"
+	setFilter("")
 	local P = UI.Picker
 	local win = PolestarPicker
 	local was = win and win:IsShown()
@@ -2373,7 +2614,7 @@ end
 function DS.Page() return page end
 function DS.Tab() return tab end
 function DS.Shown() return shown end
-DS.cards, DS.blocks, DS.bossRows, DS.ties, DS.givers = cards, blocks, bossRows, ties, givers
+DS.cards, DS.blocks, DS.bossRows, DS.ties, DS.givers, DS.bossLootTiles = cards, blocks, bossRows, ties, givers, bossLootTiles
 DS.atts, DS.attSteps = atts, attSteps
 function DS.Frames() return root, home, pg, segs end
 
@@ -2381,19 +2622,29 @@ ns.On("SHOW_DUNGEON", function(key) DS.Show(key) end)
 -- The dungeon list carries names: a late names pack sorts and names it anew.
 local function listChanged()
 	listCache = nil
+	forget()
 	if root and root:IsVisible() then DS.Render() end
 end
 ns.On("CODEX_LOADED", listChanged)
 ns.On("NAMES_LOADED", listChanged)
 Theme.OnChanged(function() if root and root:IsVisible() then DS.Render() end end)
+-- Another font measures the quests' lines anew.
+W.OnFontChanged(forget)
 local function questsChanged()
+	forget()
 	if root and root:IsVisible() and page then DS.Render() end
 end
 for _, ev in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "PLAYER_LEVEL_UP" }) do
 	ns.RegisterEvent(ev, questsChanged)
 end
+-- An objective done (a quest ready to hand in) or XP gained changes the
+-- plans; the page shows them with its next render.
+for _, ev in ipairs({ "QUEST_LOG_UPDATE", "PLAYER_XP_UPDATE" }) do
+	ns.RegisterEvent(ev, forget)
+end
 -- A key picked up or a standing reached changes the Attunement tab only.
 local function ownedChanged()
+	forget()
 	if tab == "attune" and root and root:IsVisible() and page then DS.Render() end
 end
 for _, ev in ipairs({ "BAG_UPDATE_DELAYED", "UPDATE_FACTION" }) do

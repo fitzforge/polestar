@@ -39,6 +39,11 @@ const DATA = new WeakMap();
 // The part of a flight point's name before its first comma, as the addon reads it.
 const town = (name) => String(name).split(',')[0];
 
+// A flight master with a flight path to learn: never a class's own
+// (travel.json `class`: Nighthaven's Silva Fil'naveth and Bunthen Plainswind
+// fly Druids from their gossip only, and teach no flight path).
+const learnable = (node) => !node.class;
+
 function zoneOf(data, map) {
 	const z = map != null ? data.zone(map) : null;
 	return z && z.name ? String(z.name) : null;
@@ -62,8 +67,9 @@ function placesOf(data) {
 	}
 	if (nodes.length) {
 		out.fly = set([...nodes.map((n) => town(n.name)), ...innNames, ...nodes.map((n) => zoneOf(data, n.map))]);
-		const full = set(nodes.map((n) => String(n.name)));
-		const towns = set(nodes.map((n) => town(n.name)));
+		const learn = nodes.filter(learnable);
+		const full = set(learn.map((n) => String(n.name)));
+		const towns = set(learn.map((n) => town(n.name)));
 		out.getfp = { names: towns.names, accepts: (l) => full.accepts(l) || towns.accepts(l) };
 	}
 	DATA.set(data, out);
@@ -141,26 +147,28 @@ function goalArea(data, goal) {
 
 // A getfp's or fly's taxi node ID, or undefined: the node of its flight master
 // (`npc`), else the one node whose name or town is its location and that
-// serves every faction in `sides` (the factions the goal applies to).
+// serves every faction in `sides` (the factions the goal applies to). Never a
+// class's own flight master (`learnable`), which teaches no flight path and is
+// no flight's landing.
 function goalNode(data, goal, sides) {
 	if ((goal.t !== 'getfp' && goal.t !== 'fly') || typeof goal.location !== 'string') return undefined;
 	const nodes = data.flightNodes();
 	if (goal.npc !== undefined) {
 		const own = nodes.filter((n) => n.npc === goal.npc);
-		if (own.length === 1) return own[0].id;
+		if (own.length === 1) return learnable(own[0]) ? own[0].id : undefined;
 	}
 	const named = namedNode(nodes, goal.location, sides);
 	return named ? named.id : undefined;
 }
 
-// The one taxi node whose name or town is `location` (ignoring case) and that
-// serves every faction in `sides`, or null.
+// The one learnable taxi node whose name or town is `location` (ignoring
+// case) and that serves every faction in `sides`, or null.
 function namedNode(nodes, location, sides) {
 	const want = location.trim().toLowerCase();
 	const mask = (sides || []).reduce((m, s) => m | (SIDE_MASK[s] || 0), 0);
 	const named = nodes.filter((n) => {
 		const full = String(n.name).toLowerCase();
-		return (full === want || town(full) === want) && (n.faction & mask) === mask;
+		return learnable(n) && (full === want || town(full) === want) && (n.faction & mask) === mask;
 	});
 	return named.length === 1 ? named[0] : null;
 }

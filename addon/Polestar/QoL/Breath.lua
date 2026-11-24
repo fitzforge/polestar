@@ -20,10 +20,11 @@ local POLL = 0.25
 local edge, ticker
 local warned -- the last mark said: WARN_AT or LAST_AT
 
--- A soft red frame round the screen, pulsing; made on first use.
+-- A soft red frame round the screen, pulsing; made on first use, on
+-- Polestar's layer (it hides with Polestar).
 local function edgeFrame()
 	if edge then return edge end
-	edge = CreateFrame("Frame", nil, UIParent)
+	edge = CreateFrame("Frame", nil, ns.UIParent)
 	edge:SetAllPoints(UIParent)
 	edge:SetFrameStrata("FULLSCREEN_DIALOG")
 	edge:EnableMouse(false)
@@ -50,8 +51,10 @@ local function edgeFrame()
 	return edge
 end
 
+-- Nothing while Polestar is hidden: no sound, flash or edge.
 local function alarm()
-	if PlaySound and SOUNDKIT and SOUNDKIT.RAID_WARNING then PlaySound(SOUNDKIT.RAID_WARNING, "Master") end
+	if ns.Hidden() then return end
+	if SOUNDKIT and SOUNDKIT.RAID_WARNING then ns.PlaySound(SOUNDKIT.RAID_WARNING, "Master") end
 	if FlashClientIcon then FlashClientIcon() end
 	local f = edgeFrame()
 	f:Show()

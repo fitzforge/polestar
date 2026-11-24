@@ -340,6 +340,10 @@ impl Walk<'_> {
 		if r.q_excl[qi].iter().any(|&e| self.accepted_by(e, t)) || r.q_all[qi].iter().any(|&a| !self.done_by(a, t)) {
 			return false;
 		}
+		// Held back while one of its breadcrumbs is in the log.
+		if r.crumbs(qi).iter().any(|&c| self.in_log_at(c, t)) {
+			return false;
+		}
 		r.q_pre[qi].is_empty() || r.q_pre[qi].iter().any(|&p| self.done_by(p, t))
 	}
 	fn in_window(&self, q: u32, t: usize) -> bool {
@@ -709,12 +713,17 @@ pub fn grind_before_handin(run: &Run, steps: &[Step], lv_after: &[f64]) -> u32 {
 
 /// Whether a grind at `p` right before `steps[from..]` is on the trip of a hand-in that waits (the
 /// #617 guard, grind_before_handin): a turn-in among the next GRIND_TRIP_STEPS steps, within
-/// GRIND_TRIP_YD of p, of a quest with no tasks or whose work is all done before (`last_task`: per
-/// quest the index of its last task step before `from`, -1 none), none of its tasks in between.
+/// GRIND_TRIP_YD of p or of the route's next town (the next stop, a turn-in in p's zone with no work
+/// before it: towns lie farther than that from their camps, Brackenwall from the Mirefin coast,
+/// Gadgetzan from Dunemaul, the grind-or-hand-in review), of a quest with no tasks or whose work is all done before
+/// (`last_task`: per quest the index of its last task step before `from`, -1 none), none of its tasks
+/// in between.
 pub fn handin_waits(run: &Run, steps: &[Step], from: usize, p: u32, last_task: &[i64]) -> bool {
-	(from..(from + GRIND_TRIP_STEPS).min(steps.len())).any(|j| {
+	let end = (from + GRIND_TRIP_STEPS).min(steps.len());
+	let town = steps[from..end].iter().find(|t| matches!(t.kind, K_TURNIN | K_TASK)).filter(|t| t.kind == K_TURNIN && run.p_map[t.pt as usize] == run.p_map[p as usize]).map(|t| t.pt);
+	(from..end).any(|j| {
 		let t = steps[j];
-		t.kind == K_TURNIN && run.straight(p, t.pt) <= GRIND_TRIP_YD && {
+		t.kind == K_TURNIN && (run.straight(p, t.pt) <= GRIND_TRIP_YD || town.is_some_and(|h| run.straight(h, t.pt) <= GRIND_TRIP_YD)) && {
 			let q = t.q as usize;
 			let has_tasks = run.q_task0[q] < run.q_task1[q];
 			!has_tasks || (last_task[q] >= 0 && last_task[q] < from as i64 && !steps[from..j].iter().any(|x| x.kind == K_TASK && x.q == t.q))

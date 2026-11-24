@@ -174,6 +174,23 @@ fn publish_is_deterministic_and_keeps_the_hand_written_files() {
 }
 
 #[test]
+fn publish_puts_the_release_note_under_this_version_s_heading() {
+	// --release-note: the maintainer's paragraph opens this version's section, before the generated
+	// lists, trimmed, and the same bytes on every run.
+	let input = scratch("release-note-input");
+	let note = input.join("note.md");
+	std::fs::write(&note, "\nStarting items are no longer objectives.\n\n").unwrap();
+	let (_, out, _) = publish_opts("release-note", "", |o| o.release_note = Some(note.clone()));
+	let text = std::fs::read_to_string(out.join("CHANGELOG.md")).unwrap();
+	assert!(text.contains("## [2026.10.1] - 2026-10-23\n\nStarting items are no longer objectives.\n\nFirst release.\n"), "{text}");
+	let first = snapshot(&out);
+	let (base, out, _) = publish_opts("release-note", "", |o| o.release_note = Some(note.clone()));
+	assert_eq!(first, snapshot(&out), "the same inputs give the same bytes");
+	let _ = std::fs::remove_dir_all(&base);
+	let _ = std::fs::remove_dir_all(&input);
+}
+
+#[test]
 fn publish_quest_notes_and_note_fixes() {
 	// --notes: steps and notes from the rewritten quest notes, each with its stable id; a note fix
 	// record applies, the ledger lists it, and --check fails on a conflicting one.
@@ -369,6 +386,77 @@ fn publish_tier_selection_and_schema() {
 }
 
 #[test]
+fn the_public_builds_leave_the_placeholder_check_to_the_full_build() {
+	// #2585: publish's public builds take no corrections, so the objectives #2614's corrections give
+	// their quest-log words (Eyes of the Sentinels 98067: "Credit" x4) stopped every release; the
+	// public tables carry no objective text. The full build keeps the check.
+	let base = scratch("placeholder-guard");
+	let o = publish::public_build_options(&base, &base.join("sources"), false, &base.join("empty.json"));
+	assert_eq!(o.placeholders, forge_data::Placeholders::Count);
+	assert_eq!(forge_data::Options::new(&base).placeholders, forge_data::Placeholders::Stop);
+	let _ = std::fs::remove_dir_all(&base);
+}
+
+#[test]
+fn a_full_publish_without_the_cmangos_loot_fails() {
+	// #2585: a build tree without cm.db lost 2,995 item_source rows with only a note. With the KB
+	// and a CMaNGOS path that does not exist, publish refuses; a path left out (None) still notes.
+	let base = scratch("no-cmangos");
+	let kb = base.join("kb.sqlite");
+	make_kb(&kb);
+	let mut o = publish::Options::new(&base, &base.join("release"));
+	o.kb = kb;
+	o.public_data = Some(fixture());
+	o.public_drops = Some(fixture());
+	o.provenance = base.join("private").join("provenance.sqlite");
+	o.sources = base.join("no-sources");
+	o.corrections = base.join("no-corrections.json");
+	o.factoruide = None;
+	o.tdb = None;
+	o.version = Some("2026.10.1".into());
+	o.date = Some("2026-10-23".into());
+	o.producer_commit = Some("test".into());
+	o.evidence = None;
+	o.cmangos = Some(base.join("missing").join("cm.db"));
+	let err = publish::run(&o, &|_| {}).err().expect("refused");
+	assert!(err.contains("CMaNGOS classic-db sqlite") && err.contains("--cmangos"), "{err}");
+	o.cmangos = None;
+	assert!(publish::run(&o, &|_| {}).is_ok());
+	let _ = std::fs::remove_dir_all(&base);
+}
+
+#[test]
+fn publish_takes_public_corrections_and_never_the_private_overlay() {
+	// The KB labels both `correction`; its correction_origin tells them apart (#2585). A public
+	// correction whose source names an independent check stands alone; one the private overlay
+	// sets never does, nor does a private mechanics fix.
+	let (base, out, side) = publish_with(
+		"origins",
+		"create table correction_origin(kind text, id integer, field text, origin text, kinds text, primary key(kind, id, field));
+		insert into correction_origin values ('quest', 1, 'min_level', 'public', 'in-game-check');
+		insert into facts values ('quest', 2, 'level', '15', 'correction', 'high', 1, 1);
+		insert into correction_origin values ('quest', 2, 'level', 'private', '');
+		insert into mechanics values (2, 'delayed-offer', 'kept', 'correction', 'high', 1, '[\"correction\"]');
+		insert into correction_origin values ('mechanic', 2, '*', 'private', '');
+		insert into mechanics values (5, 'delayed-offer', 'kept', 'correction', 'high', 1, '[\"correction\"]');
+		insert into correction_origin values ('mechanic', 5, '*', 'public', 'recording');",
+	);
+	let q = rows(&out, "quest");
+	let q1 = q.iter().find(|r| r["id"] == 1).unwrap();
+	assert_eq!(q1["min_level"], 6, "{q1}");
+	let q2 = q.iter().find(|r| r["id"] == 2).unwrap();
+	assert!(q2.get("level").is_none(), "{q2}");
+	let mech: Vec<(i64, String)> = rows(&out, "mechanic").iter().map(|r| (r["quest"].as_i64().unwrap(), r["kind"].as_str().unwrap().to_string())).collect();
+	assert!(mech.contains(&(5, "delayed-offer".into())) && !mech.contains(&(2, "delayed-offer".into())), "{mech:?}");
+	let db = rusqlite::Connection::open(&side).unwrap();
+	let s: String = db.query_row("select sources from prov where tbl = 'quest' and key = '1' and field = 'min_level'", [], |r| r.get(0)).unwrap();
+	assert_eq!(s, "correction,recorder");
+	let (find, _) = check::check(&out, &check::CheckOptions { provenance: Some(side.clone()), evidence: None, corrections: None }).unwrap();
+	assert!(find.is_empty(), "{find:#?}");
+	let _ = std::fs::remove_dir_all(&base);
+}
+
+#[test]
 fn publish_check_catches_planted_findings() {
 	let (base, out, side) = publish_once("check");
 	let opts = check::CheckOptions { provenance: Some(side.clone()), evidence: None, corrections: None };
@@ -391,6 +479,77 @@ fn publish_check_catches_planted_findings() {
 	assert!(has("level_min 9999") && has("level_max 9999"), "{find:#?}");
 	assert!(has("guard word 'page snapshot'"), "{find:#?}");
 	assert!(has("(a) data/npc.jsonl") && has("no provenance"), "{find:#?}");
+	let _ = std::fs::remove_dir_all(&base);
+}
+
+#[test]
+fn publish_check_reads_the_game_s_words_in_corrections_as_names() {
+	// A guard word that is also a plain word (pack-spec's `never`: a private folder's name) passes in
+	// the game's own text a correction carries, a quest's title and objective text, as it does in the
+	// data rows' names and titles; never in the correction's own words.
+	let (base, out, side) = publish_once("check-game-text");
+	let dir = out.join("corrections");
+	std::fs::create_dir_all(&dir).unwrap();
+	let quests = r#"{
+	"10": {
+		"set": {
+			"title": "Foal Play",
+			"objectiveText": "Search the stables for evidence of the missing horses."
+		},
+		"source": {
+			"kind": "questie",
+			"ref": "QuestieDB quest record"
+		},
+		"note": "The quest's record as the game has it."
+	}
+}
+"#;
+	std::fs::write(dir.join("quests.json"), quests).unwrap();
+	let opts = check::CheckOptions { provenance: Some(side.clone()), evidence: None, corrections: None };
+	let (find, _) = check::check(&out, &opts).unwrap();
+	assert!(find.is_empty(), "{find:#?}");
+	std::fs::write(dir.join("quests.json"), quests.replace("as the game has it", "from the evidence folder")).unwrap();
+	let (find, _) = check::check(&out, &opts).unwrap();
+	assert_eq!(find, vec!["(b) corrections/quests.json:11: guard word 'evidence' (1x)".to_string()], "{find:#?}");
+	let _ = std::fs::remove_dir_all(&base);
+}
+
+#[test]
+fn build_only_publish_leaves_out_a_restriction_no_source_states() {
+	// Build-only mode (no KB: the public release CI makes): a quest record only a correction makes,
+	// without races or classes, publishes neither, as 0 would say every race and class and no
+	// independent source holds that. A pfQuest record without them still means every race and class.
+	let (base, out, side) = publish_opts("build-only-restrictions", "", |o| {
+		let base = o.out.parent().unwrap().to_path_buf();
+		o.kb = base.join("no-kb.sqlite");
+		let public = base.join("public");
+		std::fs::create_dir_all(&public).unwrap();
+		for e in std::fs::read_dir(fixture()).unwrap().flatten() {
+			std::fs::copy(e.path(), public.join(e.file_name())).unwrap();
+		}
+		let qp = public.join("quests.json");
+		let mut q: Value = serde_json::from_str(&std::fs::read_to_string(&qp).unwrap()).unwrap();
+		q["99"] = serde_json::json!({ "id": 99, "title": "Errand", "level": 38, "minLevel": 36, "races": null, "classes": null,
+			"start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [], "object": [] }, "pre": [], "objectives": [], "source": ["polestar-correction"] });
+		std::fs::write(&qp, serde_json::to_string(&q).unwrap()).unwrap();
+		o.public_data = Some(public);
+		let corrections = base.join("corrections.json");
+		std::fs::write(
+			&corrections,
+			r#"{ "quests": { "99": { "set": { "title": "Errand", "level": 38, "minLevel": 36 }, "source": { "kind": "questie", "ref": "quest record" }, "note": "A quest the client tables lack." } } }"#,
+		)
+		.unwrap();
+		o.corrections = corrections;
+	});
+	let quests = rows(&out, "quest");
+	let row = |id: i64| quests.iter().find(|r| r["id"] == id).cloned().unwrap_or_else(|| panic!("quest {id}: {quests:#?}"));
+	let errand = row(99);
+	assert!(errand.get("classes").is_none() && errand.get("races").is_none() && errand.get("side").is_none(), "{errand}");
+	assert_eq!(errand["title"], "Errand");
+	assert_eq!(row(1)["classes"], 0, "a pfQuest record without a restriction: every class");
+	let opts = check::CheckOptions { provenance: Some(side.clone()), evidence: None, corrections: None };
+	let (find, _) = check::check(&out, &opts).unwrap();
+	assert!(find.is_empty(), "{find:#?}");
 	let _ = std::fs::remove_dir_all(&base);
 }
 

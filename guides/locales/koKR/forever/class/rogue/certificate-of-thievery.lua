@@ -12,44 +12,41 @@ return {
 
 	-- Step 1: SI:7 (Goldshire)
 	-- {npc:917} Keryn Sylvius · {area:87} Goldshire · {npc:6946} Renzik "The Shiv" · {zone:1453} Stormwind
-	["At 16 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in {area:87}, sends you to {npc:6946} in {zone:1453}. Taking it shuts out the other towns' breadcrumbs."] = "",
+	["At 16 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in {area:87}, sends you to {npc:6946} in {zone:1453}. Taking it shuts out the other towns' breadcrumbs."] = "16레벨에 {area:87} 사자무리 여관 위층의 도적 상급자 {npc:917}이(가) {zone:1453}의 {npc:6946}에게 보냅니다. 이것을 받으면 다른 마을의 안내 퀘스트는 받을 수 없습니다.",
 
 	-- Step 2: To Hulfdan! (Kharanos)
 	-- {npc:1234} Hogral Bakkan · {area:2102} Thunderbrew Distillery · {area:131} Kharanos · {npc:5165} Hulfdan Blackbeard · {zone:1455} Ironforge · {object:32383} Forlorn Cavern
-	["At 16 {npc:1234} in the {area:2102} in {area:131} sends you to {npc:5165} in {zone:1455}'s {object:32383}."] = "",
+	["At 16 {npc:1234} in the {area:2102} in {area:131} sends you to {npc:5165} in {zone:1455}'s {object:32383}."] = "16레벨에 {area:131} {area:2102}의 {npc:1234}이(가) {zone:1455} {object:32383}의 {npc:5165}에게 보냅니다.",
 
 	-- Step 3: Hulfdan Blackbeard
 	-- {npc:5165} Hulfdan Blackbeard · {object:32383} Forlorn Cavern · {area:2257} Deeprun Tram · {zone:1453} Stormwind
-	["{npc:5165} is in the house with a shady dealer outside, in the {object:32383}, down the stairs. Then fly or take the {area:2257} to {zone:1453}."] = "",
+	["{npc:5165} is in the house with a shady dealer outside, in the {object:32383}, down the stairs. Then fly or take the {area:2257} to {zone:1453}."] = "{npc:5165}은(는) {object:32383} 계단 아래 집에 있고 밖에 수상한 상인이 있습니다. 그런 다음 비행기나 {area:2257}을(를) 타고 {zone:1453}으로 가세요.",
 
 	-- Step 4: Erion Shadewhisper (Dolanaar)
 	-- {npc:3599} Jannok Breezesong · {area:186} Dolanaar · {quest:2259} Erion Shadewhisper · {zone:1457} Darnassus
-	["At 16 {npc:3599} in the {area:186} inn sends you to {quest:2259} in {zone:1457}."] = "",
+	["At 16 {npc:3599} in the {area:186} inn sends you to {quest:2259} in {zone:1457}."] = "16레벨에 {area:186} 여관의 {npc:3599}이(가) {zone:1457}의 {quest:2259}에게 보냅니다.",
 
 	-- Step 5: Erion Shadewhisper
 	-- {npc:4214} Erion Shadewhisper · {area:1658} Cenarion Enclave · {area:702} Rut'theran Village · {area:442} Auberdine · {area:17203} Stormwind Harbor
-	["{npc:4214} stands in the {area:1658}. Then the boat from {area:702} to {area:442}, and the boat from {area:442} to {area:17203}."] = "",
+	["{npc:4214} stands in the {area:1658}. Then the boat from {area:702} to {area:442}, and the boat from {area:442} to {area:17203}."] = "{npc:4214}은(는) {area:1658}에 있습니다. 그다음 {area:702}에서 {area:442}로, {area:442}에서 {area:17203}으로 배를 타세요.",
 
 	-- Step 6: Renzik "The Shiv"
 	-- {npc:6946} Renzik "The Shiv" · {quest:2300} SI:7 · {object:2100} Old Town · {spell:1804} Pick Lock · {npc:13283} Lord Tony Romano
-	["{npc:6946} stands upstairs in the {quest:2300} building in {object:2100}, behind the rogue trainers. Before you leave: if you lack {spell:1804}, {npc:13283} in the {quest:2300} building teaches it; Lockpicking is the test of the next quest."] = "",
+	["{npc:6946} stands upstairs in the {quest:2300} building in {object:2100}, behind the rogue trainers. Before you leave: if you lack {spell:1804}, {npc:13283} in the {quest:2300} building teaches it; Lockpicking is the test of the next quest."] = "{npc:6946}은(는) {object:2100}의 {quest:2300} 건물 위층, 도적 교관 뒤에 있습니다. 떠나기 전에 {spell:1804}이(가) 없다면 {quest:2300} 건물의 {npc:13283}이(가) 가르칩니다. 자물쇠 따기가 다음 퀘스트의 시험입니다.",
 
 	-- Step 7: Lucius
 	-- {zone:1429} Elwynn Forest · {area:69} Lakeshire · {npc:6966} Lucius · {item:5060} Thieves' Tools · {npc:3090} Gerald Crawley · {spell:1804} Pick Lock
-	["Head east through {zone:1429} into Redridge, or fly to {area:69}. {npc:6966} stands on a crate on one of the {area:69} docks, south of town; he gives you {item:5060} with the job ({npc:3090} in {area:69} sells more). {spell:1804} does not work without the tools in your bags."] = "",
+	["Head east through {zone:1429} into Redridge, or fly to {area:69}. {npc:6966} stands on a crate on one of the {area:69} docks, south of town; he gives you {item:5060} with the job ({npc:3090} in {area:69} sells more). {spell:1804} does not work without the tools in your bags."] = "{zone:1429}를 지나 동쪽 붉은마루로 가거나 {area:69}로 날아가세요. {npc:6966}은(는) 마을 남쪽 {area:69} 부두의 상자 위에 서 있으며 일과 함께 {item:5060}을(를) 줍니다({area:69}의 {npc:3090}이(가) 더 팝니다). 가방에 도구가 없으면 {spell:1804}이(가) 통하지 않습니다.",
 
 	-- Step 8: Alther's Mill
 	-- {quest:2282} Alther's Mill · {area:69} Lakeshire · {object:121264} Lucius's Lockbox
-	["{quest:2282} stands east of {area:69}, up off the road; Blackrock orcs roam near it. Inside, the Practice Lockboxes come back almost at once: pick them until {object:121264} opens for you (about 25 Lockpicking). Your Lockpicking cap rises 5 per level, so a low character may stall. Some boxes are trapped (a frost trap, for one); the skill still goes up. On Forever level 20 spiders wander near the boxes: clear them first or bring a friend. The lockbox always holds the token and is back two seconds after use. Practise on while it still gives skill: the next class quest needs about 75."] = "",
+	["{quest:2282} stands east of {area:69}, up off the road; Blackrock orcs roam near it. Inside, the Practice Lockboxes come back almost at once: pick them until {object:121264} opens for you (about 25 Lockpicking). Your Lockpicking cap rises 5 per level, so a low character may stall. Some boxes are trapped (a frost trap, for one); the skill still goes up. On Forever level 20 spiders wander near the boxes: clear them first or bring a friend. The lockbox always holds the token and is back two seconds after use. Practise on while it still gives skill: the next class quest needs about 75."] = "{quest:2282}은(는) {area:69} 동쪽, 도로 위 언덕에 있고 근처에 검은바위 오크가 배회합니다. 안의 연습 상자는 거의 즉시 다시 나옵니다. {object:121264}이(가) 열릴 때까지(자물쇠 따기 약 25) 계속 따세요. 숙련도 상한은 레벨당 5씩 오르니 낮은 레벨에서는 막힐 수 있습니다. 함정이 있는 상자도 있지만(서리 함정 등) 숙련도는 오릅니다. Forever에서는 20레벨 거미가 상자 근처를 배회하니 먼저 정리하거나 친구를 데려가세요. 상자에는 토큰이 항상 들어 있고 사용 후 2초 만에 다시 나옵니다. 숙련도가 오르는 동안 계속 연습하세요. 다음 직업 퀘스트에는 약 75가 필요합니다.",
 
 	-- Step 9: Back to Lucius
 	-- {npc:6966} Lucius
 	["Back to {npc:6966}"] = "{npc:6966}에게 돌아가기",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 16 {npc:1234} in the {area:2102} in {area:131} sends you to {npc:5165}, in the north of {zone:1455}."] = "16레벨에 {area:131} {area:2102}의 {npc:1234}이(가) {zone:1455} 북쪽의 {npc:5165}에게 보냅니다.",
-	-- ["At 16 {npc:3599} in {area:186} sends you to {quest:2259} in {zone:1457}."] = "16레벨에 {area:186}의 {npc:3599}이(가) {zone:1457}의 {quest:2259}에게 보냅니다.",
-	-- ["At 16 {npc:917}, the rogue trainer in the Lion's Pride Inn in {area:87}, sends you to {npc:6946} in {zone:1453}."] = "16레벨에 {area:87} 사자무리 여관의 도적 상급자 {npc:917}이(가) {zone:1453}의 {npc:6946}에게 보냅니다.",
 	-- ["Ride east through {zone:1429} into Redridge, or fly to {area:69}. {npc:6966} waits on the west side of {area:69} and gives you {item:5060}."] = "{zone:1429}을(를) 지나 동쪽의 붉은마루 산맥으로 가거나 {area:69}(으)로 날아가십시오. {npc:6966}은(는) {area:69} 서쪽에서 기다리며 {item:5060}을(를) 줍니다.",
 	-- ["Your first lockpicking job at 16: {npc:6966}'s lockbox at {quest:2282}, for {quest:2300}."] = "16레벨의 첫 자물쇠 따기 임무: {quest:2300}을(를) 위해 {quest:2282}에서 {npc:6966}의 금고를 엽니다.",
 	-- ["{npc:6946} stands beside {npc:332} at {quest:2300} in {object:2100}. Dwarves and Gnomes take the {area:2257} from {zone:1455}; Night Elves take the boat from {area:442} to {area:17203}."] = "{npc:6946}은(는) {object:2100}의 {quest:2300}에서 {npc:332} 옆에 서 있습니다. 드워프와 노움은 {zone:1455}에서 {area:2257}을(를) 타십시오. 나이트 엘프는 {area:442}에서 배를 타고 {area:17203}(으)로 가십시오.",

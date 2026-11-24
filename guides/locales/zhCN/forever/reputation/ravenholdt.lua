@@ -30,17 +30,15 @@ return {
 	["{npc:266216} is inside {area:275}, the Syndicate fortress east of {area:271}. Stealth past the guards in the courtyard."] = "{npc:266216} 在 {area:271} 以东的辛迪加堡垒 {area:275} 内。潜行绕过庭院里的守卫。",
 
 	-- Step 4: Strahnbrad: Barton
-	-- {area:280} Strahnbrad
-	["{area:280}: Barton"] = "{area:280}：巴顿",
-	-- {area:280} Strahnbrad
-	["Barton hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "巴顿 藏在 {area:280} 的一栋房屋里，周围是潜行的辛迪加成员。对他使用偷窃取得报告；如果等级比他低，可用扰乱让他转身。",
-	-- {item:275482} Barton's Scouting Report
-	["{item:275482}: pickpocket Barton"] = "{item:275482}：对巴顿使用偷窃",
+	-- {npc:266357} Barton · {area:280} Strahnbrad
+	["{npc:266357} hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "{npc:266357} 藏在 {area:280} 的一栋房屋里，周围是潜行的辛迪加成员。对他使用偷窃取得报告；如果等级比他低，可用扰乱让他转身。",
+	-- {item:275482} Barton's Scouting Report · {npc:266357} Barton
+	["{item:275482}: pickpocket {npc:266357}"] = "{item:275482}：对{npc:266357}使用偷窃",
 
 	-- Step 5: Northfold Manor: a uniform
 	-- {area:313} Northfold Manor
 	["{area:313}: a uniform"] = "{area:313}：一套制服",
-	-- {object:656157} Syndicate Footlocker (no name in this language: may be words) · {area:313} Northfold Manor · {quest:96783} A Way In · {item:275706} Syndicate Uniform
+	-- {object:656157} Syndicate Footlocker · {area:313} Northfold Manor · {quest:96783} A Way In · {item:275706} Syndicate Uniform
 	["The {object:656157} stands among the Syndicate camps of {area:313}, north of Stromgarde. Open it to finish {quest:96783} and take the {item:275706}."] = "{object:656157} 位于激流堡以北 {area:313} 的辛迪加营地之间。打开它，完成 {quest:96783} 并取得 {item:275706}。",
 
 	-- Step 6: Stromgarde: Anastasia Miller
@@ -82,7 +80,7 @@ return {
 	-- {item:17124} Syndicate Emblem
 	["{item:17124}: pickpocket Syndicate"] = "{item:17124}：偷窃辛迪加成员",
 	-- {npc:6766} Ravenholdt Guard
-	["a {npc:6766}: 100 per emblem"] = "{npc:6766}：每枚徽记100点",
+	["a {npc:6766}: 100 per emblem, handed in from his window"] = "{npc:6766}：每枚徽记100点，在他的窗口中直接交还",
 
 	-- Step 11: Syndicate kills to the end of Honored
 	["Syndicate kills to the end of Honored"] = "击杀辛迪加，直到尊敬满",
@@ -118,5 +116,10 @@ return {
 	-- {item:16885} Heavy Junkbox · {area:1445} Blackrock Mountain
 	["{item:16885}: pickpocket level 50+ humanoids, {area:1445}"] = "{item:16885}：对50级以上人型生物使用偷窃，地点为 {area:1445}",
 	-- {npc:6707} Fahrad
-	["{npc:6707}: 50 per five boxes"] = "{npc:6707}：每五个箱子换 50 点声望",
+	["{npc:6707}: 50 per five boxes, handed in from his window"] = "{npc:6707}：每五个箱子换 50 点声望，在他的窗口中直接交还",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["a {npc:6766}: 100 per emblem"] = "{npc:6766}：每枚徽记100点",
+	-- ["{area:280}: Barton"] = "{area:280}：巴顿",
+	-- ["{npc:6707}: 50 per five boxes"] = "{npc:6707}：每五个箱子换 50 点声望",
 }

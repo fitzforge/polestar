@@ -1,4 +1,4 @@
-//! Issue #1559 (NightTriage036b): a start campfire offers, after its rest quest, a Camping 101 for each profession
+//! Issue #1559: a start campfire offers, after its rest quest, a Camping 101 for each profession
 //! the character has (Brakk's Skinning one, 97908, for Thuwd in Orgrimmar). Written as an `optional` accept beside
 //! the required Cooking one (96655), Automation took Cooking, the step read done, the optional accept was no longer
 //! wanted and behavior.closeSkipped closed the window the game showed next. The guides now write it as a step of its
@@ -16,7 +16,7 @@ const THUWD: i32 = 7088;
 // As the guides write them: the campfire step (Cooking), one step per profession gated `when skill <Prof> 1` with a
 // plain accept carrying the quest's profession, the start-zone trainer's hand-in on a carrier-only step
 // (tauren/orc/troll/undead starts), the rest of the route, and the next guide's Orgrimmar trainer on a carrier-only
-// step (03-silverpine-forest, BrHorde1230's bd9c102cc).
+// step (03-silverpine-forest, bd9c102cc).
 fn guide() -> String {
 	let skinning = r#"profLine = 393, profName = "Skinning", profRank = 1"#;
 	let mining = r#"profLine = 186, profName = "Mining", profRank = 1"#;
@@ -109,7 +109,7 @@ fn t_1559_a_character_without_the_profession_is_not_held_by_it() {
 	assert_eq!(out["calls"], json!(["C_GossipInfo.SelectAvailableQuest 96655 nil", "AcceptQuest 96655 nil", "live 5 nil"]), "past the profession steps, on Away: {out}");
 }
 
-// The Alliance starts are written the same way (BrAllianceStart, #1559): Eric Brighthammer's campfire in Kharanos
+// The Alliance starts are written the same way (#1559): Eric Brighthammer's campfire in Kharanos
 // (Dun Morogh, Dwarves and Gnomes) gives Cooking (96629) and, to a character with First Aid, its Camping 101 (96047),
 // handed in to Thamner Pol in the Thunderbrew Distillery on a step gated `when onquest 96047`.
 const ERIC: i32 = 265813;

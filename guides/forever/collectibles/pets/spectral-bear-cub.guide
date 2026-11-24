@@ -20,6 +20,7 @@ zone The Barrens
 # quest at Wiley below and at 25 points.
 
 step Innkeeper Wiley in Ratchet
+  when !turnedin 96383
   tip Legacy Points are account-wide: each Legacy Challenge (a class reaching 25, 45 and 60, a crafting profession at 150, 225 and 300, PvP ranks and battleground reputations, exploring, dungeons and raids) is worth one, and the track counts points earned, not spent. It gives the Replica Ironforge Air Rifle at 15, the Spectral Bear Cub at 25, the Spectral Bear Tabard at 40 and the Reins of the Spectral Bear at 55. The rewards are claimed as quests from Innkeeper Wiley in the inn at Ratchet, the goblin port on the Barrens coast (Alliance players come by the boat from Booty Bay): with 25 points he offers Legacy Reward: Spectral Bear Cub; hand it straight back for the cub.
   note "Without PvP one character can earn 17 points: its class at 25, 45 and 60, two professions to 300, the two adventure challenges, the three dungeon tiers and the three raids. A second class or more professions on an alt make up the rest; the Legacy Challenges guide plans them."
   accept 96383

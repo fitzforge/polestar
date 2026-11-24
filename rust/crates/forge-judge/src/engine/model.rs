@@ -71,6 +71,8 @@ pub struct Pred {
 	pub name: Option<String>,
 	pub label: Option<String>,
 	pub area: Option<u32>,
+	/// A `taxi` predicate's taxi node.
+	pub node: Option<u32>,
 	pub map: Option<u32>,
 	pub skill_line: Option<u32>,
 	pub min_level: Option<f64>,
@@ -98,6 +100,7 @@ impl Pred {
 			name: text(v, "name"),
 			label: text(v, "label"),
 			area: id(v, "area"),
+			node: id(v, "node"),
 			map: id(v, "map"),
 			skill_line: id(v, "skillLine"),
 			min_level: num(v, "minLevel"),
@@ -247,12 +250,19 @@ pub struct Goal {
 	pub frac: Option<f64>,
 	pub money: Option<f64>,
 	pub until_skill: Option<f64>,
+	/// A `craft … until` goal's skill-up colours (the crafts still to make for a section's materials).
+	pub yellow: Option<f64>,
+	pub grey: Option<f64>,
+	/// A craft's reagents: (item, count).
+	pub reagents: Vec<(u32, f64)>,
 	pub location: Option<String>,
 	pub min_level: Option<f64>,
 	pub qlvl: Option<f64>,
 	pub pre: Option<Vec<u32>>,
 	pub pre_all: Option<Vec<u32>>,
 	pub closed_by: Option<Vec<u32>>,
+	/// An accept's breadcrumbs: the game holds the quest back while one is in the log.
+	pub crumbs: Option<Vec<u32>>,
 	pub text: Option<String>,
 	pub node: Option<u32>,
 	pub area: Option<u32>,
@@ -331,12 +341,16 @@ impl Goal {
 			frac: num(v, "frac"),
 			money: num(v, "money"),
 			until_skill: num(v, "untilSkill"),
+			yellow: num(v, "yellow"),
+			grey: num(v, "grey"),
+			reagents: v.get("reagents").as_arr().map(|a| a.to_vec().iter().filter_map(|r| id(r, "item").map(|i| (i, num(r, "count").unwrap_or(1.0)))).collect()).unwrap_or_default(),
 			location: text(v, "location"),
 			min_level: tonumber(&v.get("minLevel")),
 			qlvl: tonumber(&v.get("qlvl")),
 			pre: ids(v, "pre"),
 			pre_all: ids(v, "preAll"),
 			closed_by: ids(v, "closedBy"),
+			crumbs: ids(v, "crumbs"),
 			text: text(v, "text"),
 			node: id(v, "node"),
 			area: id(v, "area"),
@@ -361,6 +375,11 @@ impl Goal {
 	pub fn report_id(&self) -> Option<u32> {
 		self.quest.or(self.item).or(self.npc).or(self.spell)
 	}
+
+	/// Whether its spots are exact points (every one `r` 0, #1944): Engine.lua's Spots.exact.
+	pub fn exact(&self) -> bool {
+		self.spots.as_ref().is_some_and(|s| !s.is_empty() && s.iter().all(|p| p.r.unwrap_or(0.0) == 0.0))
+	}
 }
 
 /// `along`: not an along step, along until the guide's end, or until the step so labelled.
@@ -379,7 +398,18 @@ pub struct Step {
 	pub skipto: Option<Vec<(String, Pred)>>,
 	pub label: Option<String>,
 	pub along: Along,
+	/// The 1-based index in the guide's `sections` of the skill range the step is under.
+	pub section: Option<usize>,
 	pub goals: Vec<Goal>,
+}
+
+/// A profession guide's skill-range heading (`section <Profession> <from>-<to>`).
+#[derive(Clone, Debug)]
+pub struct Section {
+	pub skill: Option<String>,
+	pub skill_line: Option<u32>,
+	pub from: f64,
+	pub to: f64,
 }
 
 /// A quest's accept, turn-in or abandon goal in a guide (layoutOf: `{ s, key, step, goal }`).
@@ -394,6 +424,7 @@ pub struct At {
 pub struct Guide {
 	pub id: String,
 	pub steps: Vec<Step>,
+	pub sections: Vec<Section>,
 	pub next: Option<String>,
 	pub next_choices: Option<Vec<String>>,
 	pub next_when: FxHashMap<String, Vec<Pred>>,
@@ -433,6 +464,7 @@ impl Guide {
 							skipto,
 							label: text(s, "label"),
 							along,
+							section: num(s, "section").map(|n| n as usize),
 							goals: s.get("goals").as_arr().map(|g| g.to_vec().iter().map(Goal::read).collect()).unwrap_or_default(),
 						}
 					})
@@ -451,6 +483,11 @@ impl Guide {
 		let mut g = Guide {
 			id: text(v, "id").unwrap_or_default(),
 			steps,
+			sections: v
+				.get("sections")
+				.as_arr()
+				.map(|a| a.to_vec().iter().map(|s| Section { skill: text(s, "skill"), skill_line: id(s, "skillLine"), from: num(s, "from").unwrap_or(0.0), to: num(s, "to").unwrap_or(0.0) }).collect())
+				.unwrap_or_default(),
 			next: text(v, "next"),
 			next_choices,
 			next_when,

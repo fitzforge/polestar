@@ -559,7 +559,7 @@
 	},
 	"warnings": [
 		"correction not applied: quests 990002: no such record, and the correction lacks title, start, end to stand alone",
-		"correction not applied: items 990301: no such item (an item correction only removes sources)",
+		"correction not applied: items 990301: no such item (an item correction only changes the sources of an item the data has)",
 		"correction not applied: npcs 990102: no such record, and the correction lacks name, addSpawns to stand alone",
 		"correction not applied: objects 990201: no such record, and the correction lacks addSpawns to stand alone"
 	]

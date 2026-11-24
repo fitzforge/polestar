@@ -73,13 +73,40 @@ pub fn goal_world(goal: &V, frames: &V) -> Option<World> {
 /// goal before the step to its first located goal, on one continent and at
 /// least MIN_LEG_YD apart. -> [(s, from, to)].
 pub fn step_targets(guide: &V, frames: &V) -> Vec<(usize, World, World)> {
+	step_targets_for(guide, frames, None)
+}
+
+/// The guide's factions its legs are baked for (#3360): its `faction` header's, or both for a guide
+/// shared by the two factions (no `faction`: Shen'dralas, Mount Hyjal), whose walks differ where
+/// the factions' steps, flight paths and safe routes do.
+pub fn leg_factions(guide: &V) -> Vec<&'static str> {
+	match guide.get("faction").as_str() {
+		Some("Horde") => vec!["Horde"],
+		Some("Alliance") => vec!["Alliance"],
+		_ => vec!["Horde", "Alliance"],
+	}
+}
+
+/// Whether a step's or goal's `only` lets a character of `faction` have it (no `only.factions`: anyone).
+fn for_faction(only: &V, faction: &str) -> bool {
+	let f = only.get("factions");
+	!f.is_arr() || f.items().iter().any(|x| x.as_str() == Some(faction))
+}
+
+/// step_targets as a character of `faction` walks the guide (None: every step and goal): steps and
+/// goals `only` for the other faction are left out, so a shared guide's legs run between that
+/// faction's own places (#3360).
+pub fn step_targets_for(guide: &V, frames: &V, faction: Option<&str>) -> Vec<(usize, World, World)> {
 	let mut out = Vec::new();
 	let mut last: Option<World> = None;
 	for (i, step) in guide.get("steps").items().iter().enumerate() {
+		if faction.is_some_and(|f| !for_faction(&step.get("only"), f)) {
+			continue;
+		}
 		let mut first: Option<World> = None;
 		let mut end: Option<World> = None;
 		for goal in step.get("goals").items() {
-			if goal.get("t").as_str() == Some("note") {
+			if goal.get("t").as_str() == Some("note") || faction.is_some_and(|f| !for_faction(&goal.get("only"), f)) {
 				continue;
 			}
 			let Some(p) = goal_world(&goal, frames) else { continue };
@@ -106,13 +133,28 @@ fn leg_key(from: &World, to: &World) -> String {
 
 /// The guide's leg ends, hashed (staleness): sha1 hex, first 12 digits.
 pub fn guide_hash(guide: &V, frames: &V) -> String {
+	guide_hash_for(guide, frames, None)
+}
+
+/// guide_hash of the legs step_targets_for gives `faction`.
+pub fn guide_hash_for(guide: &V, frames: &V, faction: Option<&str>) -> String {
 	let mut text = String::new();
-	for (s, from, to) in step_targets(guide, frames) {
+	for (s, from, to) in step_targets_for(guide, frames, faction) {
 		text.push_str(&format!("{s}:{};", leg_key(&from, &to)));
 	}
 	let digest = sha1(text.as_bytes());
 	let hex: String = digest.iter().map(|b| format!("{b:02x}")).collect();
 	hex[..12].to_string()
+}
+
+/// A shared guide's (leg_factions gives both) legs.json entry: `{ sides: { Horde: { hash, steps },
+/// Alliance: { hash, steps } } }`, each side baked as step_targets_for walks it. A one-faction
+/// guide's entry is `{ hash, steps }` itself.
+pub const SIDES: &str = "sides";
+
+/// Whether a guide is shared by both factions as its legs go (leg_factions gives both).
+pub fn shared_legs(guide: &V) -> bool {
+	leg_factions(guide).len() > 1
 }
 
 /// SHA-1 (FIPS 180-4), for guide_hash.

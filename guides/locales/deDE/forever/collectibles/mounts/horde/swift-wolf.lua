@@ -35,5 +35,8 @@ return {
 	["{item:18798}, 200g"] = "{item:18798}, 200g",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Any Horde race can buy these wolves, but riding one also takes Wolf Riding, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "Jede Hordenrasse kann diese Wölfe kaufen, aber um einen zu reiten, braucht man auch Wolfreiten, das nur Orcs mit {skill:762} bekommen. {npc:4752} lehrt es andere Rassen, sobald sie bei {faction:76} Ehrfürchtig sind (der Ruf-Guide für Orgrimmar zeigt den Weg). Bis dahin kaufe für diesen Charakter keinen Wolf.",
+	-- ["Wolf {skill:762} for other races"] = "Wolf-{skill:762} für andere Rassen",
 	-- ["{npc:4752} and {npc:3362}'s kennel are in {zone:1454}'s {object:172958}. At 60 {npc:4752} teaches Journeyman {skill:762} (1,000g per Blizzard's designers); Blizzard says learning riding grants a mount. The Forever client sells each swift wolf for 200g at level 60."] = "{npc:4752} und der Zwinger von {npc:3362} sind im {object:172958} von {zone:1454}. Auf Stufe 60 lehrt {npc:4752} {skill:762} (Geselle) (1.000g laut Blizzards Designern); laut Blizzard gibt das Erlernen ein Reittier. Der Forever-Client verkauft jeden schnellen Wolf für 200g auf Stufe 60.",
+	-- ["{npc:4752}, Wolf Riding"] = "{npc:4752}, Wolfreiten",
 }

@@ -19,14 +19,18 @@ const HOP_YARDS: f64 = 600.0;
 const CAPTION: usize = 160;
 const OFF_MAP: [f64; 2] = [-50.0, 150.0];
 
-const KEYS_TOP: &[&str] = &["schema", "frame", "source", "build", "crossings", "open", "chains"];
+const KEYS_TOP: &[&str] = &["schema", "frame", "source", "build", "crossings", "open", "chains", "areas"];
 /// (`source`: where a crossing the top-level source does not cover comes from.)
 const KEYS_CROSSING: &[&str] = &["id", "a", "b", "ab", "ba", "oneWay", "source"];
 /// (`z`: the end's height, for ends on a ramp or a ledge: the crossings baked-legs measured.)
 const KEYS_END: &[&str] = &["map", "x", "y", "z", "radius", "offMap"];
 const KEYS_OPEN: &[&str] = &["a", "b", "oneWay", "source"];
 const KEYS_CHAIN: &[&str] = &["id", "name", "open", "note", "nodes"];
-const KEYS_NODE: &[&str] = &["map", "x", "y", "z", "radius", "caption", "back", "offMap"];
+const KEYS_NODE: &[&str] = &["map", "x", "y", "z", "radius", "caption", "back", "alone", "offMap"];
+/// (`box`: x1, y1, x2, y2 in map percent of the area's uiMap.)
+/// (`z`: min and max, a height range: a place only the portals that land in it reach.)
+/// (`subzone`: AreaTable id for a height-ranged place that also contains heightless goals.)
+const KEYS_AREA: &[&str] = &["id", "name", "map", "box", "z", "subzone", "note", "source"];
 
 /// A checked point: map percent, radius, world position (and a chain node's captions).
 #[derive(Clone, Debug)]
@@ -42,6 +46,9 @@ pub struct XPt {
 	pub wy: f64,
 	pub caption: Option<String>,
 	pub back: Option<String>,
+	/// A chain node with nothing walkable above or below it within its reach: a player there whose height is unknown
+	/// is on its floor (the Undercity's courtyard inside the Ruins' mouth).
+	pub alone: bool,
 }
 
 #[derive(Clone, Debug)]
@@ -73,11 +80,32 @@ pub struct Chain {
 	pub nodes: Vec<XPt>,
 }
 
+/// A part of a zone no walk joins to the rest of it (Rut'theran Village at the foot of Teldrassil): the
+/// planner treats it as a zone of its own, reached only by crossings, portals, ships and flights.
+/// World box: top/bottom (wx), left/right (wy), as a zone frame. With a height range (zmin, zmax) it holds only the
+/// points at those heights: a place the walking maps have no floor in, under or over others on its map, reached only
+/// by the portals that land in it (the Wizard's Sanctum's chamber under its tower, #1970).
+#[derive(Clone, Debug)]
+pub struct Area {
+	pub id: String,
+	pub name: String,
+	pub map: f64,
+	pub c: f64,
+	pub top: f64,
+	pub bottom: f64,
+	pub left: f64,
+	pub right: f64,
+	pub z: Option<(f64, f64)>,
+	/// AreaTable id for a height-ranged area that also holds heightless goals in its box.
+	pub subzone: Option<f64>,
+}
+
 #[derive(Clone, Debug, Default)]
 pub struct Set {
 	pub crossings: Vec<Crossing>,
 	pub open: Vec<Open>,
 	pub chains: Vec<Chain>,
+	pub areas: Vec<Area>,
 }
 
 fn is_obj(v: &V) -> bool {
@@ -173,7 +201,7 @@ fn check_point(p: &V, at: &str, keys: &[&str], frames: &Frames, errors: &mut Vec
 	}
 	let (map, x, y) = (map.unwrap(), p.get("x").num(), p.get("y").num());
 	let w = frames.to_world(map as i64, x, y).unwrap();
-	Some(XPt { map, x: Some(x), y: Some(y), r: p.get("radius").num(), z: zv.as_num(), c: w.c, wx: round(w.wx, 1), wy: round(w.wy, 1), caption: None, back: None })
+	Some(XPt { map, x: Some(x), y: Some(y), r: p.get("radius").num(), z: zv.as_num(), c: w.c, wx: round(w.wx, 1), wy: round(w.wy, 1), caption: None, back: None, alone: false })
 }
 
 fn yards(a: &XPt, b: &XPt) -> f64 {
@@ -336,7 +364,12 @@ pub fn validate_crossings(doc: &V, frames: &Frames) -> (Vec<String>, Set) {
 				let get = |f: &str| if n.is_object() { n.get(f) } else { V::Undef };
 				let caption = check_caption(&get("caption"), &format!("{at}.nodes[{k}].caption"), &mut errors);
 				let back = check_caption(&get("back"), &format!("{at}.nodes[{k}].back"), &mut errors);
-				p.map(|p| XPt { caption, back, ..p })
+				let av = get("alone");
+				if !av.is_undef() && !matches!(av, V::Bool(_)) {
+					errors.push(format!("{at}.nodes[{k}]: alone must be true or false"));
+				}
+				let alone = matches!(av, V::Bool(true));
+				p.map(|p| XPt { caption, back, alone, ..p })
 			})
 			.collect();
 		if nodes.iter().any(Option::is_none) {
@@ -357,6 +390,70 @@ pub fn validate_crossings(doc: &V, frames: &Frames) -> (Vec<String>, Set) {
 		let id = e.get("id").to_js_string();
 		let name = if name.truthy() { name.to_js_string() } else { id.clone() };
 		out.chains.push(Chain { id, name, open, c: nodes[0].c, nodes });
+	}
+
+	for (i, e) in list("areas", &mut errors).iter().enumerate() {
+		let at = named("areas", i, e);
+		if !is_obj(e) {
+			errors.push(format!("{at}: expected an object"));
+			continue;
+		}
+		unknown_keys(e, KEYS_AREA, &at, &mut errors);
+		claim(&e.get("id"), &at, &mut errors);
+		let name = e.get("name");
+		if name.as_str().is_none_or(|s| s.trim().is_empty()) {
+			errors.push(format!("{at}: name must be a non-empty string"));
+		}
+		let map = is_integer(&e.get("map")).filter(|m| frames.frame(*m as i64).is_some());
+		if map.is_none() {
+			errors.push(format!("{at}: map {} is not a known uiMap id with a map frame", json(&e.get("map"))));
+		}
+		let b = e.get("box");
+		let corners: Vec<Option<f64>> = ["x1", "y1", "x2", "y2"].iter().map(|k| b.get(k).as_num().filter(|v| v.is_finite() && (0.0..=100.0).contains(v))).collect();
+		if !is_obj(&b) || corners.iter().any(Option::is_none) {
+			errors.push(format!("{at}: box must give x1, y1, x2, y2 in map percent (0-100)"));
+			continue;
+		}
+		let (x1, y1, x2, y2) = (corners[0].unwrap(), corners[1].unwrap(), corners[2].unwrap(), corners[3].unwrap());
+		if !(x1 < x2 && y1 < y2) {
+			errors.push(format!("{at}: box x1 < x2 and y1 < y2"));
+			continue;
+		}
+		let zr = e.get("z");
+		let z = if zr.is_undef() {
+			None
+		} else {
+			match (zr.get("min").as_num().filter(|v| v.is_finite()), zr.get("max").as_num().filter(|v| v.is_finite())) {
+				(Some(lo), Some(hi)) if is_obj(&zr) && lo < hi => Some((lo, hi)),
+				_ => {
+					errors.push(format!("{at}: z must give min < max (yards)"));
+					continue;
+				}
+			}
+		};
+		let subzone = e.get("subzone");
+		let subzone = if subzone.is_undef() {
+			None
+		} else if let Some(id) = is_integer(&subzone).filter(|&id| id > 0.0 && z.is_some()) {
+			Some(id)
+		} else {
+			errors.push(format!("{at}: subzone must be a positive AreaTable id and requires z"));
+			continue;
+		};
+		let Some(map) = map else { continue };
+		let (Some(a), Some(b)) = (frames.to_world(map as i64, x1, y1), frames.to_world(map as i64, x2, y2)) else { continue };
+		out.areas.push(Area {
+			id: e.get("id").to_js_string(),
+			name: name.to_js_string(),
+			map,
+			c: a.c,
+			top: round(a.wx, 1),
+			bottom: round(b.wx, 1),
+			left: round(a.wy, 1),
+			right: round(b.wy, 1),
+			z,
+			subzone,
+		});
 	}
 	(errors, out)
 }
@@ -416,7 +513,7 @@ pub fn recorded_crossings(steps: &[ZoneStep], frames: &Frames) -> Vec<Crossing> 
 				let wx = round(sx / g.n, 1);
 				let wy = round(sy / g.n, 1);
 				let p = frames.to_map(map, g.c, wx, wy);
-				XPt { map: map as f64, x: p.map(|p| round(p.0, 2)), y: p.map(|p| round(p.1, 2)), r: RECORDED_RADIUS, z: None, c: g.c, wx, wy, caption: None, back: None }
+				XPt { map: map as f64, x: p.map(|p| round(p.0, 2)), y: p.map(|p| round(p.1, 2)), r: RECORDED_RADIUS, z: None, c: g.c, wx, wy, caption: None, back: None, alone: false }
 			};
 			let mut sessions: Vec<String> = g.sessions.iter().cloned().collect();
 			sessions.sort_by(|a, b| cmp_utf16(a, b));
@@ -457,6 +554,9 @@ fn zone_table(set: &Set, frames: &Frames, complete: bool, live: &Live) -> (Vec<Z
 		for n in &ch.nodes {
 			maps.insert(n.map as i64);
 		}
+	}
+	for a in &set.areas {
+		maps.insert(a.map as i64);
 	}
 	let frame_of = |map: i64| live.get(&map.to_string()).copied().or_else(|| frames.frame(map));
 	let mut sorted: Vec<i64> = maps.iter().copied().collect();
@@ -533,7 +633,7 @@ pub fn crossings_lua(set: &Set, frames: &Frames, complete: bool, live: &Live) ->
 		l.push("\t},".into());
 	}
 	if !set.chains.is_empty() {
-		l.push("\t-- nodes: uiMap, continent, world yards, z (the floor height when given), radius, caption walking in, caption walking out".into());
+		l.push("\t-- nodes: uiMap, continent, world yards, z (the floor height when given), radius, caption walking in, caption walking out, alone (nothing walkable above or below it)".into());
 		l.push("\tchains = {".into());
 		for ch in &set.chains {
 			l.push(format!("\t\t{{ id = {}, name = {}, open = {}, nodes = {{", lua_str(&ch.id), lua_str(&ch.name), lua_str(&ch.open)));
@@ -549,9 +649,33 @@ pub fn crossings_lua(set: &Set, frames: &Frames, complete: bool, live: &Live) ->
 				if let Some(b) = n.back.as_ref().filter(|s| !s.is_empty()) {
 					parts.push(format!("back = {}", lua_str(b)));
 				}
+				if n.alone {
+					parts.push("alone = true".into());
+				}
 				l.push(format!("\t\t\t{{ {} }},", parts.join(", ")));
 			}
 			l.push("\t\t} },".into());
+		}
+		l.push("\t},".into());
+	}
+	if !set.areas.is_empty() {
+		l.push("\t-- parts of a zone no walk joins to the rest of it: id, name, uiMap, continent, world box (top, bottom: wx; left, right: wy),".into());
+		l.push("\t-- with a height range (zmin, zmax) a place only the portals that land in it reach".into());
+		l.push("\tareas = {".into());
+		for a in &set.areas {
+			let z = a.z.map_or(String::new(), |(lo, hi)| format!(", zmin = {}, zmax = {}", num_str(lo), num_str(hi)));
+			let subzone = a.subzone.map_or(String::new(), |id| format!(", subzone = {}", num_str(id)));
+			l.push(format!(
+				"\t\t{{ id = {}, name = {}, map = {}, c = {}, top = {}, bottom = {}, left = {}, right = {}{z}{subzone} }},",
+				lua_str(&a.id),
+				lua_str(&a.name),
+				num_str(a.map),
+				num_str(a.c),
+				num_str(a.top),
+				num_str(a.bottom),
+				num_str(a.left),
+				num_str(a.right)
+			));
 		}
 		l.push("\t},".into());
 	}
@@ -610,4 +734,101 @@ pub fn crossing_counts(set: &Set) -> Vec<(f64, [usize; 4])> {
 	let mut v: Vec<(f64, [usize; 4])> = out.into_values().collect();
 	v.sort_by(|a, b| a.0.partial_cmp(&b.0).unwrap_or(std::cmp::Ordering::Equal));
 	v
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	fn frames() -> Frames {
+		let era = parse_json(r#"{ "1438": { "c": 1, "left": 3814.583, "right": -1277.083, "top": 11831.25, "bottom": 8437.5 } }"#).unwrap();
+		let zones = parse_json(r#"{ "1438": { "id": 1438, "name": "Teldrassil", "type": 3 } }"#).unwrap();
+		Frames::new(&era, &zones)
+	}
+
+	// #1761: Rut'theran Village, at the foot of Teldrassil on the same map as the tree's top, which no walk joins
+	// it to: a part of the zone the planner keeps apart, its world box in the crossing set.
+	#[test]
+	fn an_area_of_a_zone_is_checked_and_written_with_its_world_box_1761() {
+		let doc = parse_json(
+			r#"{ "schema": 1, "frame": "e", "areas": [ { "id": "rutheran-village", "name": "Rut'theran Village", "map": 1438,
+				"box": { "x1": 47, "y1": 84, "x2": 66, "y2": 100 }, "note": "at the foot of the tree" } ] }"#,
+		)
+		.unwrap();
+		let (errors, set) = validate_crossings(&doc, &frames());
+		assert!(errors.is_empty(), "{errors:?}");
+		let a = &set.areas[0];
+		assert_eq!((a.id.as_str(), a.map, a.c), ("rutheran-village", 1438.0, 1.0));
+		assert_eq!((a.top, a.bottom, a.left, a.right), (8980.5, 8437.5, 1421.5, 454.1));
+		let lua = crossings_lua(&set, &frames(), true, &Live::new()).join("\n");
+		assert!(
+			lua.contains("\tareas = {\n\t\t{ id = \"rutheran-village\", name = \"Rut'theran Village\", map = 1438, c = 1, top = 8980.5, bottom = 8437.5, left = 1421.5, right = 454.1 },\n\t},"),
+			"{lua}"
+		);
+		assert!(lua.contains("[1438] = { name = \"Teldrassil\""), "its zone is in the zone table: {lua}");
+
+		let bad = parse_json(
+			r#"{ "schema": 1, "areas": [ { "id": "x", "name": "X", "map": 1438, "box": { "x1": 60, "y1": 84, "x2": 50, "y2": 100 } }, { "id": "y", "name": "", "map": 9999, "box": {} } ] }"#,
+		)
+		.unwrap();
+		let (errors, set) = validate_crossings(&bad, &frames());
+		assert!(set.areas.is_empty());
+		assert_eq!(errors.len(), 4, "{errors:?}");
+	}
+
+	// A chain node with nothing walkable above or below it (`alone`, #2224: the Undercity's courtyard inside the Ruins'
+	// mouth) is written as such; anything but true or false is an error.
+	#[test]
+	fn a_chain_node_alone_on_its_floor_is_checked_and_written_2224() {
+		let doc = parse_json(
+			r#"{ "schema": 1, "chains": [ { "id": "hall", "open": "both", "nodes": [ { "map": 1438, "x": 50, "y": 90, "z": 60, "radius": 30 },
+				{ "map": 1438, "x": 51, "y": 90, "z": 61, "radius": 12, "alone": true }, { "map": 1438, "x": 52, "y": 90, "z": 62, "radius": 20 } ] } ] }"#,
+		)
+		.unwrap();
+		let (errors, set) = validate_crossings(&doc, &frames());
+		assert!(errors.is_empty(), "{errors:?}");
+		assert_eq!(set.chains[0].nodes.iter().map(|n| n.alone).collect::<Vec<_>>(), vec![false, true, false]);
+		let lua = crossings_lua(&set, &frames(), true, &Live::new()).join("\n");
+		assert!(lua.contains("z = 61, r = 12, alone = true }"), "{lua}");
+		assert_eq!(lua.matches("alone = true").count(), 1, "{lua}");
+
+		let bad = parse_json(
+			r#"{ "schema": 1, "chains": [ { "id": "hall", "nodes": [ { "map": 1438, "x": 50, "y": 90, "radius": 30 }, { "map": 1438, "x": 51, "y": 90, "radius": 12, "alone": "yes" } ] } ] }"#,
+		)
+		.unwrap();
+		let (errors, _) = validate_crossings(&bad, &frames());
+		assert_eq!(errors, vec!["chains[0] (hall).nodes[1]: alone must be true or false".to_string()]);
+	}
+
+	// #1970: the Wizard's Sanctum's chamber, under its tower on the same map: an area with a height range holds only
+	// the points at those heights, a place only the portals that land in it reach.
+	#[test]
+	fn an_area_with_a_height_range_is_checked_and_written_with_it_1970() {
+		let doc = parse_json(
+			r#"{ "schema": 1, "areas": [ { "id": "chamber", "name": "Chamber", "map": 1438, "box": { "x1": 47, "y1": 84, "x2": 66, "y2": 100 }, "z": { "min": 10, "max": 50 } },
+				{ "id": "bad-z", "name": "Bad", "map": 1438, "box": { "x1": 47, "y1": 84, "x2": 66, "y2": 100 }, "z": { "min": 50, "max": 10 } } ] }"#,
+		)
+		.unwrap();
+		let (errors, set) = validate_crossings(&doc, &frames());
+		assert_eq!(errors, vec!["areas[1] (bad-z): z must give min < max (yards)".to_string()]);
+		assert_eq!(set.areas.iter().map(|a| (a.id.as_str(), a.z)).collect::<Vec<_>>(), vec![("chamber", Some((10.0, 50.0)))]);
+		let lua = crossings_lua(&set, &frames(), true, &Live::new()).join("\n");
+		assert!(lua.contains("\t\t{ id = \"chamber\", name = \"Chamber\", map = 1438, c = 1, top = 8980.5, bottom = 8437.5, left = 1421.5, right = 454.1, zmin = 10, zmax = 50 },"), "{lua}");
+	}
+
+	#[test]
+	fn an_area_with_a_subzone_requires_a_height_range() {
+		let doc = parse_json(
+			r#"{ "schema": 1, "areas": [
+				{ "id": "spires", "name": "Spires", "map": 1438, "box": { "x1": 47, "y1": 84, "x2": 66, "y2": 100 }, "z": { "min": 1100, "max": 1300 }, "subzone": 16630 },
+				{ "id": "no-height", "name": "Ground", "map": 1438, "box": { "x1": 47, "y1": 84, "x2": 66, "y2": 100 }, "subzone": 16630 }
+			] }"#,
+		)
+		.unwrap();
+		let (errors, set) = validate_crossings(&doc, &frames());
+		assert_eq!(errors, vec!["areas[1] (no-height): subzone must be a positive AreaTable id and requires z"]);
+		assert_eq!(set.areas[0].subzone, Some(16630.0));
+		let lua = crossings_lua(&set, &frames(), true, &Live::new()).join("\n");
+		assert!(lua.contains("zmin = 1100, zmax = 1300, subzone = 16630"), "{lua}");
+	}
 }

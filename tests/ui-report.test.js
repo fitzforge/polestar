@@ -40,6 +40,8 @@ test('the bug in the navigator reports the step on screen: the player\'s words, 
 		stub.RunScript(F.Desc, "OnTextChanged", true)
 		local hidden = not F.Box:IsShown()
 		local closedH = F:GetHeight()
+		-- The note on the report's settings, under the buttons until the report shows: the room it gives up.
+		local note = F.SettingsNote:IsShown() and F.SettingsNote:GetStringHeight() + 10 or 0
 		F.Copy:Click()
 		local text = F.Box:GetText()
 		local selected = F.Box:IsShown() and stub.focus == F.Box
@@ -47,7 +49,7 @@ test('the bug in the navigator reports the step on screen: the player\'s words, 
 		local grown = F:GetHeight() - closedH
 		local openH = F:GetHeight()
 		F.Invite:Click()
-		emit({ noGuide = noGuide, shown = shown, opened = opened, text = text, hidden = hidden, selected = selected, grown = grown, openH = openH,
+		emit({ noGuide = noGuide, shown = shown, opened = opened, text = text, hidden = hidden, selected = selected, grown = grown, openH = openH, note = note,
 			invite = { shown = PolestarCopy:IsShown(), text = PolestarCopy.Box:GetText(), focus = stub.focus == PolestarCopy.Box }, boxH = boxH })`);
 	assert.equal(out.noGuide, false, 'no guide, no step to report: the bug is not there');
 	assert.equal(out.shown, true);
@@ -75,9 +77,10 @@ test('the bug in the navigator reports the step on screen: the player\'s words, 
 	const versions = lineWith(out.text, 'client ');
 	assert.ok(versions.startsWith('Polestar ') && versions.includes('client 1.60.1 (70338)') && versions.endsWith('enUS'), versions);
 	assert.ok(lines.includes('Errors: none'), out.text);
+	assert.equal(lines[lines.indexOf('Errors: none') + 1], 'Settings: all defaults', 'nothing changed: one line says so');
 	assert.equal(out.hidden, true, 'the report is not shown until it is asked for');
 	assert.equal(out.selected, true, 'Copy report shows the report in focus, selected for Ctrl+C');
-	assert.ok(out.grown >= out.boxH, `the window grows to hold it (${out.grown}px for a ${out.boxH}px box)`);
+	assert.ok(out.grown + out.note >= out.boxH, `the window grows to hold it, the note under the buttons giving way (${out.grown}px and the note's ${out.note}px for a ${out.boxH}px box)`);
 	assert.ok(out.openH <= 720, `with the report shown, the window fits a 720-unit screen (${out.openH})`);
 	assert.deepEqual(out.invite, { shown: true, text: INVITE, focus: true }, 'Get the invite opens the invite on its own, selected');
 	assert.ok(out.boxH >= lines.length * 11, `the box holds every line (${out.boxH}px for ${lines.length})`);
@@ -107,9 +110,79 @@ test('the report says how the arrow routes: the route style, then only the routi
 	assert.equal(out.unknown, 'Routes: balanced · real paths off · travel planner off', 'a style the router reads as Balanced is reported as Balanced');
 });
 
+test('the report lists the travel plan from the current leg: each caption and time, "(assumed)" on a flight to a flight master the character may not have, no line without a plan (#1795)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local function travel()
+			UI.ShowReport()
+			for line in PolestarReport.Box:GetText():gmatch("[^\\n]+") do
+				if line:find("^Travel: ") then return line end
+			end
+		end
+		local r = { none = travel() }
+		Polestar.Nav.GetRoute = function()
+			return {
+				{ kind = "walk", label = "Walked already", seconds = 5 },
+				{ kind = "walk", label = "Walk to the flight master", seconds = 83 },
+				{ kind = "fly", label = "Fly to Astranaar", seconds = 185.4, maybe = true },
+				{ kind = "walk", label = "Delgren the Purifier", seconds = 40 },
+			}, 2
+		end
+		r.plan = travel()
+		emit(r)`);
+	assert.equal(out.none, undefined, 'no plan: no line');
+	assert.equal(out.plan, 'Travel: Walk to the flight master 1:23 · Fly to Astranaar 3:05 (assumed) · Delgren the Purifier 0:40');
+});
+
+test('the report names the flight paths Polestar takes the character to know on this continent, and whether a flight map opened here (#3290)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local function flights()
+			UI.ShowReport()
+			for line in PolestarReport.Box:GetText():gmatch("[^\\n]+") do
+				if line:find("^Flight paths: ") then return line end
+			end
+		end
+		local r = { none = flights() }
+		local nodes = { [1] = { name = "Ratchet", c = 1 }, [2] = { name = "Auberdine", c = 1 }, [3] = { name = "Stormwind", c = 0 } }
+		local known, seen = { [1] = true, [2] = true, [3] = true }, {}
+		Polestar.Nav.GetKnownTaxiNodes = function() return known end
+		Polestar.Nav.GetTaxiNode = function(id) return nodes[id] end
+		Polestar.Nav.GetTaxiSeen = function() return seen end
+		Polestar.Compat.GetPlayerWorldPosition = function() return 1, 100, 200 end
+		r.unseen = flights()
+		seen[1] = true
+		r.seen = flights()
+		emit(r)`);
+	assert.equal(out.none, undefined, 'no travel data: no line');
+	assert.equal(out.unseen, 'Flight paths: 2 known here · no flight map opened here yet · Auberdine, Ratchet', 'this continent\'s, by name; not Stormwind');
+	assert.equal(out.seen, 'Flight paths: 2 known here · flight map opened here · Auberdine, Ratchet');
+});
+
+test('the Where line gives the height of the floor Polestar takes the player to stand on, when it knows one (#2215)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local function whereLine()
+			UI.ShowReport()
+			for line in PolestarReport.Box:GetText():gmatch("[^\\n]+") do
+				if line:find("^Where: ") then return line end
+			end
+		end
+		Polestar.Compat.GetPlayerWorldPosition = function() return 0, -9200, 100 end
+		Polestar.Nav.walk = Polestar.Nav.walk or {}
+		Polestar.Nav.walk.Floor = function() return nil end
+		local r = { none = whereLine() }
+		Polestar.Nav.walk.Floor = function() return 15.6 end
+		r.floor = whereLine()
+		emit(r)`);
+	assert.doesNotMatch(out.none, / · z /, 'no floor known: none said');
+	assert.match(out.floor, /^Where: Elwynn Forest · .* · z 16$/);
+});
+
 // The longest report a player can send: every line at its cap in `word`'s
-// script under `locale`, the description at its most letters, 40 addons and
-// a marked right spot. Returns the report for Discord and the issue link.
+// script under `locale`, the description at its most letters (or
+// `opts.descLen`), 40 addons and a marked right spot. Returns the report for
+// Discord and the issue link.
 function longest(locale, word, letter, opts = {}) {
 	return run(`
 		local word, letter = ${JSON.stringify(word)}, ${JSON.stringify(letter)}
@@ -137,7 +210,7 @@ function longest(locale, word, letter, opts = {}) {
 		uistub.setGuide(id, 1)
 		UI.ShowReport()
 		local F = PolestarReport
-		F.Desc:SetText(string.rep(letter, UI.Report.DESC_MAX))
+		F.Desc:SetText(string.rep(letter, ${opts.descLen || 'UI.Report.DESC_MAX'}))
 		stub.RunScript(F.Desc, "OnTextChanged", true)
 		${opts.unmarked ? '' : `F.Mark:Click()
 		PolestarMark.Here:Click()`}
@@ -157,28 +230,127 @@ const SCRIPTS = [
 // The details code block of a report, its lines between the fences.
 const block = (text) => text.slice(text.indexOf('```\n') + 4, text.lastIndexOf('\n```')).split('\n');
 
-test('at its longest, with a marked spot and 40 addons, the report still fits one Discord message in every script: the Addons line is shortened, never a line the Discord bot reads', () => {
+test('at its longest, a 1,000-letter description, a marked spot and 40 addons, the report still fits one Discord message in every script: the description is kept whole, details go, never a line the Discord bot reads', () => {
+	const { parseReport } = require('../tools/discord-bot/lib/report');
 	for (const [locale, word, letter] of SCRIPTS) {
 		const { text, details } = longest(locale, word, letter);
 		const lines = text.split('\n');
 		// Discord counts characters, as JavaScript does: one each, two past U+FFFF.
 		assert.ok(text.length <= 2000, `${locale}: ${text.length} characters, ${Buffer.byteLength(text, 'utf8')} bytes`);
-		assert.ok(lines[0].endsWith(letter.repeat(250)), `${locale}: the description is kept whole`);
-		assert.deepEqual(block(text), details, `${locale}: every detail line, as taken`);
+		assert.ok(lines[0].endsWith(' ' + letter.repeat(1000)), `${locale}: the description is kept whole`);
 		// The label is the locale's (ruRU translates it); the spot after it is kept whole.
 		assert.match(lines[1], /^\*\*[^*]+\*\* zone map 1429 · goto 51\.23,40\.50 live$/, `${locale}: the right spot is kept`);
+		assert.ok(!lines[2].startsWith('**'), `${locale}: the Addons line went first`);
+		const kept = block(text);
+		assert.match(kept[kept.length - 1], /^[(（].+[)）]$/, `${locale}: the block's last line says it was trimmed`);
+		for (const i of [0, 1, 2, 3]) assert.equal(kept[i], details[i], `${locale}: versions, character, guide and step lines kept`);
+		assert.ok(kept.some((l) => l.startsWith('[>] ')), `${locale}: the current goal is kept`);
+		const r = parseReport(text);
+		assert.ok(kept.includes(r.details.arrow) && r.details.arrow === details[details.indexOf(r.details.where) - 1], `${locale}: Arrow and Where kept, in their places`);
+		assert.equal(r.description.split('\n')[0], letter.repeat(1000), `${locale}: the bot reads the description whole`);
+		assert.equal(r.details.guideId, 'test/a-long-guide', locale);
+		assert.equal(r.details.step, 1, locale);
+		assert.equal(r.details.map, 1429, `${locale}: the bot still finds Where`);
 	}
-	const english = longest(...SCRIPTS[0]);
-	assert.equal(english.text.length, 2000, 'English is the one that runs over');
-	const addons = english.text.split('\n')[2];
-	assert.match(addons, /^\*\*Addons:\*\* QuestAndMapHelperWithALongName01, .*\.\.\.$/, `the Addons line gives way: ${addons}`);
-	const unmarked = longest(...SCRIPTS[0], { unmarked: true }).text;
+	const english = longest(...SCRIPTS[0]).text;
+	assert.equal(lineWith(english, 'Arrow:'), longest(...SCRIPTS[0]).details.find((l) => l.startsWith('Arrow:')));
+	assert.match(english, /^Errors:$/m, 'the Errors header stays');
+	assert.match(english, /^\(trimmed to fit Discord\)\n```$/m);
+});
+
+test('with a short description the long report only gives up its log and shortens its Addons line (or gives it up, left no room for a name), then says it was trimmed', () => {
+	for (const [locale, word, letter] of SCRIPTS) {
+		const { text, details } = longest(locale, word, letter, { descLen: 250 });
+		assert.ok(text.length <= 2000, `${locale}: ${text.length} characters`);
+		assert.ok(text.split('\n')[0].endsWith(letter.repeat(250)), `${locale}: the description is kept whole`);
+		// The log's lines went, which the details do not hold.
+		assert.deepEqual(block(text), [...details, '(trimmed to fit Discord)'], `${locale}: every detail line, as taken, and the note`);
+	}
+	const russian = longest(...SCRIPTS[1], { descLen: 250 });
+	assert.equal(russian.text.length, 2000, 'Russian runs over by less than its Addons line holds');
+	const addons = russian.text.split('\n')[2];
+	assert.match(addons, /^\*\*[^*]+\*\* QuestAndMapHelperWithALongName.*\.\.\.$/, `the Addons line gives way: ${addons}`);
+	const unmarked = longest(...SCRIPTS[1], { unmarked: true, descLen: 250 }).text;
 	const unmarkedAddons = unmarked.split('\n')[1];
 	assert.ok(unmarked.length <= 2000, `the unmarked report fits too: ${unmarked.length}`);
-	assert.ok(unmarkedAddons.split(', ').length > english.text.split('\n')[2].split(', ').length, `without the Right spot line the Addons line takes the room it frees, not a fixed 100 bytes: ${unmarkedAddons}`);
+	assert.ok(unmarkedAddons.split(', ').length > addons.split(', ').length, `without the Right spot line the Addons line takes the room it frees, not a fixed 100 bytes: ${unmarkedAddons}`);
+	// English, whose lines hold the most characters, leaves its Addons line less room than an addon's name: it goes
+	// whole, and every detail line stays.
+	const english = longest(...SCRIPTS[0], { descLen: 250 });
+	assert.equal(english.text.split('\n')[2], '```', 'English gives the Addons line up before any detail');
 	assert.match(english.text, /^\.\.\. 3 more goals$/m, 'goals past the sixth are counted, not listed');
 	assert.equal((english.text.match(/^ {2}1x /gm) || []).length, 3, 'the newest three of the errors and blocked calls together');
 	assert.equal((english.text.match(/^ {2}1x blocked in Polestar_Long/gm) || []).length, 3, 'the blocked calls came last');
+});
+
+// A report's details by kind, made by hand, for R.Text to trim with
+// `textMax` characters of room; the long lines are padded to 90.
+function trimmedAt(textMax, opts = {}) {
+	return run(`
+		local R = UI.Report
+		R.TEXT_MAX = ${textMax}
+		local function line(s) return s .. string.rep(".", 90 - #s) end
+		local d = { lines = {}, kinds = {}, names = { "Questie", "TomTom" }, tail = { "log one", "log two" } }
+		local function add(kind, s) d.lines[#d.lines + 1] = s; d.kinds[#d.lines] = kind end
+		add("versions", "Polestar 0.3.7 · client 1.60.1 (70532) · enUS")
+		add("character", "Human Warrior · level 4 · Alliance")
+		add("guide", "Guide: Elwynn Forest (forever/alliance/human/01-elwynn-forest)")
+		add("step", "Step 3 of 8 (guide step 3): Kobold Camp")
+		d.goals = { first = #d.lines + 1, current = #d.lines + 3, more = 2 }
+		for g = 1, 7 do add("goal", line((g == 3 and "[>]" or "[ ]") .. " goal " .. g)) end
+		d.goals.last = #d.lines
+		add("more", "... 2 more goals")
+		add("arrow", "Arrow: goal 3 · 42 yd")
+		add("where", "Where: Elwynn Forest · map 1429 @47.60,35.10 live")
+		add("routes", "Routes: balanced")
+		add("whilehere", line("While here: none"))
+		add("packs", line("Packs: pack"))
+		add("errors", "Errors:")
+		for e = 1, 3 do add("error", line("  1x error " .. e)) end
+		add("questlog", line("Quest log 2/40: 783 1/2"))
+		add("settings", "Settings: profile Default (account) · 9 changed")
+		local head = #d.lines
+		add("settinglist", line("behavior.autoAccept=off behavior.autoTurnin=off nav.travel=off"))
+		local list1 = #d.lines
+		add("settinglist", line("gear.minUpgrade=1->5 qol.sellJunk=off update.card=off"))
+		local list2 = #d.lines
+		add("settinglooks", line("looks: skin=hearth"))
+		d.settings = { head = head, at = #d.lines, counts = { [list1] = 3, [list2] = 3 }, more = 2, hash = "0123abcd" }
+		add("settingmore", "+2 more #0123abcd")
+		add("settingcode", line("!PSR1!0123abcd!eJw"))
+		emit({ text = R.Text(${JSON.stringify(opts.desc || 'The vermin were all by the tents.')}, d), lines = d.lines })`)[0];
+}
+
+test('a report over one Discord message gives up, in order: the log, the Addons line, the packed settings, goals past the current one and the next two, the looks line, the settings list from its last line (counted in "+N more"), Packs, the quest log, then the older errors; never the description, the guide and step, the current goal, Arrow, Where or the Errors header', () => {
+	const order = [/^> log/, /^\*\*Addons:/, /^!PSR1!/, /^\[ \] goal 7/, /^\[ \] goal 6/, /^\[ \] goal 1/, /^\[ \] goal 2/, /^looks: /, /^gear\.minUpgrade/, /^behavior\.autoAccept/, /^Packs:/, /^Quest log/, /^ {2}1x error 1/, /^ {2}1x error 2/];
+	const never = [/^Polestar 0\.3\.7/, /^Human Warrior/, /^Guide: /, /^Step 3 of 8/, /^\[>\] goal 3/, /^\[ \] goal 4/, /^\[ \] goal 5/, /^Arrow: /, /^Where: /, /^Errors:$/];
+	const untrimmed = trimmedAt(4000);
+	assert.doesNotMatch(untrimmed.text, /trimmed/, 'room for all: nothing goes, no note');
+	for (const re of [...order, ...never]) assert.match(untrimmed.text, new RegExp(re.source, 'm'));
+	let gone = 0;
+	let counted;
+	for (let max = untrimmed.text.length - 1; max >= 800; max -= 30) {
+		const { text } = trimmedAt(max);
+		assert.ok(text.length <= max, `${text.length} > ${max}`);
+		assert.ok(text.startsWith('**What went wrong:** The vermin were all by the tents.\n'), 'the description first, whole');
+		const missing = order.map((re) => !new RegExp(re.source, 'm').test(text));
+		const n = missing.indexOf(false) === -1 ? order.length : missing.indexOf(false);
+		assert.deepEqual(missing.slice(n), missing.slice(n).map(() => false), `in order, at ${max}: ${missing}`);
+		assert.ok(n >= gone, `nothing comes back as room shrinks, at ${max}`);
+		gone = n;
+		for (const re of never) assert.match(text, new RegExp(re.source, 'm'), `${re} kept at ${max}`);
+		assert.match(text, /\n\(trimmed to fit Discord\)\n```$/, `the note closes the block at ${max}`);
+		if (missing.slice(3, 7).some(Boolean)) assert.match(text, /^\.\.\. \d+ more goals$/m, 'goals left out are counted');
+		// The settings the list gives up join the ones it never listed, under the same hash, while the Settings line stays.
+		const more = 2 + (missing[8] ? 3 : 0) + (missing[9] ? 3 : 0);
+		if (/^Settings: /m.test(text)) assert.match(text, new RegExp(`^\\+${more} more #0123abcd$`, 'm'), `+${more} more at ${max}: ${text}`);
+		else assert.doesNotMatch(text, / more #/, `no count without the Settings line, at ${max}`);
+		if (!counted && missing[6] && !missing[7]) counted = text;
+	}
+	assert.equal(gone, order.length, 'the smallest room took every line the order names');
+	assert.ok(counted, 'a room where every goal the order names went and the quest log stayed');
+	const goals = counted.split('\n').filter((l) => /^\[/.test(l) || /^\.\.\. /.test(l));
+	assert.deepEqual(goals.map((l) => l.slice(0, 12)), ['[>] goal 3..', '[ ] goal 4..', '[ ] goal 5..', '... 6 more g'], `the four goals left out, with the two never listed: ${counted}`);
 });
 
 test('errors Polestar caught come with the report, counted, by their path from the AddOns folder; !BugGrabber adds the session\'s errors in Polestar\'s files', () => {
@@ -259,6 +431,31 @@ test('a blocked call says which line of ours made it, so "UNKNOWN()" can be trac
 	]);
 });
 
+// Xaden Ryan's report (#1883, 0.3.7) had "1x blocked in Polestar: UNKNOWN()" with no line of ours: the game's own
+// code made the call, tainted by ours earlier. The report then names the blocked function and the game's line that
+// called it, so it can still be traced; with nothing to name it stays as before.
+test('a blocked call with none of our lines under it names the game\'s function and line instead', () => {
+	const [out] = run(`
+		debugstack = function() return
+			'[string "@Interface/AddOns/Polestar/Core/Init.lua"]:768: in function <Interface/AddOns/Polestar/Core/Init.lua:768>\\n' ..
+			'[C]: in function \\'xpcall\\'\\n' ..
+			'[string "@Interface/AddOns/Polestar/Core/Init.lua"]:120: in function <Interface/AddOns/Polestar/Core/Init.lua:110>\\n' ..
+			'[C]: in function \\'Show\\'\\n' ..
+			'[string "@Interface/AddOns/Blizzard_UIParent/Shared/UIParent.lua"]:2125: in function \\'ShowUIPanel\\'\\n' ..
+			'[string "@Interface/AddOns/Blizzard_QuestLog/QuestLogFrame.lua"]:88: in function <...>\\n'
+		end
+		stub.fire("ADDON_ACTION_BLOCKED", "Polestar", "UNKNOWN()")
+		debugstack = function() return '[C]: ?\\n' end
+		stub.fire("ADDON_ACTION_BLOCKED", "Polestar", "UNKNOWN()")
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		emit({ text = PolestarReport.Box:GetText(), at = date("%H:%M:%S") })`);
+	assert.deepEqual(out.text.split('\n').filter((l) => l.startsWith('  ')), [
+		`  1x blocked in Polestar: UNKNOWN() via Show Blizzard_UIParent/Shared/UIParent.lua:2125 (${out.at})`,
+		`  1x blocked in Polestar: UNKNOWN() (${out.at})`,
+	]);
+});
+
 test('what the player typed stays while it is the same step; a report on another step starts empty', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)
@@ -277,9 +474,11 @@ test('what the player typed stays while it is the same step; a report on another
 	assert.deepEqual(out.other, { text: '', placeholder: true, report: '**What went wrong:** (not described)' });
 });
 
-test('the guide window\'s menu and /polestar report open it too; Escape closes it', () => {
+test('the guide window\'s menu (with the header\'s bug off) and /polestar report open it too; Escape closes it', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)
+		-- The menu lists Report a problem while the header has no bug to click.
+		GF.parts.nav.Report:Hide()
 		GF.menuButton:Click()
 		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Report a problem" then r:Click() end end
 		local fromMenu = PolestarReport:IsShown()
@@ -289,6 +488,26 @@ test('the guide window\'s menu and /polestar report open it too; Escape closes i
 		for _, name in ipairs(UISpecialFrames) do if name == "PolestarReport" then special = true end end
 		emit({ fromMenu = fromMenu, fromCommand = PolestarReport:IsShown(), special = special })`);
 	assert.deepEqual(out, { fromMenu: true, fromCommand: true, special: true });
+});
+
+// The game gives addons no clipboard: Copy report selects the report, and a line over it says to press Ctrl+C
+// (Cmd+C on a Mac) (#1826).
+test('Copy report selects the report and says over it how to copy it: Ctrl+C, or Cmd+C on a Mac', () => {
+	const script = `
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		local F = PolestarReport
+		F.Desc:SetText("The vermin were all by the tents.")
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		local before = F.CopyHint:IsShown()
+		F.Copy:Click()
+		stub.advance(0.1)
+		local hl = F.Box.highlight
+		emit({ before = before, hint = F.CopyHint:IsShown() and F.CopyHint:GetText() or false,
+			selected = stub.focus == F.Box and hl ~= nil and hl[1] == 0 and hl[2] == #F.Box:GetText(),
+			over = select(5, F.CopyHint:GetPoint()) > select(5, F.BoxWell:GetPoint()) })`;
+	assert.deepEqual(run(script)[0], { before: false, hint: 'Selected: press Ctrl+C to copy.', selected: true, over: true });
+	assert.equal(run(script, 'function IsMacClient() return true end')[0].hint, 'Selected: press Cmd+C to copy.');
 });
 
 test('the hub and the settings carry the Polestar Discord at the foot of the sidebar: Discord\'s mark in its own colour, the invite selected on a click', () => {
@@ -477,21 +696,374 @@ test('the issue link holds the report taken when the window opened: the step on 
 	assert.match(out.report, /^Step 3 of 8 \(guide step 3\): Kobold Camp$/m);
 });
 
-test('the issue link stays under GitHub\'s limit in every script: goals past the arrow\'s are left out first, then the report is cut, its code block kept closed', () => {
+test('the issue link stays under GitHub\'s limit in every script: details go as in the Discord report, the description is kept whole, the code block closed', () => {
 	for (const [locale, word, letter] of SCRIPTS) {
-		const out = longest(locale, word, letter);
-		assert.ok(out.url.length <= out.max, `${locale}: ${out.url.length} characters`);
-		const q = Object.fromEntries(new URL(out.url).searchParams);
-		assert.equal(q.template, 'wrong-step.yml', locale);
-		assert.ok(q.wrong.endsWith('\n```'), `${locale}: the code block is closed`);
-		assert.ok(q.wrong.startsWith(`**`), locale);
-		assert.ok(!q.wrong.includes('\ufffd'), `${locale}: no character cut in half`);
-		for (const k of ['title', 'guide', 'step', 'character']) {
-			assert.ok(Buffer.byteLength(q[k]) <= 120, `${locale}: ${k} is bounded (${Buffer.byteLength(q[k])} bytes)`);
+		for (const descLen of [250, 1000]) {
+			const at = `${locale}, ${descLen} letters`;
+			const out = longest(locale, word, letter, { descLen });
+			assert.ok(out.url.length <= out.max, `${at}: ${out.url.length} characters`);
+			const q = Object.fromEntries(new URL(out.url).searchParams);
+			assert.equal(q.template, 'wrong-step.yml', at);
+			assert.ok(q.wrong.endsWith('\n```'), `${at}: the code block is closed`);
+			assert.ok(q.wrong.startsWith(`**`), at);
+			assert.ok(!q.wrong.includes('\ufffd'), `${at}: no character cut in half`);
+			for (const k of ['title', 'guide', 'step', 'character']) {
+				assert.ok(Buffer.byteLength(q[k]) <= 120, `${at}: ${k} is bounded (${Buffer.byteLength(q[k])} bytes)`);
+			}
+			// A 1,000-letter description in Cyrillic or Chinese encodes to 6000 or
+			// 9000 characters, more than GitHub takes in a link: only there is
+			// the description itself cut.
+			if (locale === 'enUS' || descLen === 250) {
+				assert.ok(q.wrong.split('\n')[0].endsWith(' ' + letter.repeat(descLen)), `${at}: the description is kept whole`);
+				assert.match(q.wrong, /^\[>\] /m, `${at}: the current goal is kept`);
+				assert.ok(q.addons, `${at}: the addons field gets what is left`);
+			}
+			if (locale !== 'enUS' && descLen === 250) assert.match(q.wrong, /^\(trimmed to fit the link\)$/m, at);
 		}
-		assert.ok(q.addons, `${locale}: the addons field gets what is left`);
-		if (locale !== 'enUS') assert.match(q.wrong, /^\.\.\. \d+ goals left out to fit the link$/m, locale);
-		assert.match(q.wrong, /^\[>\] /m, `${locale}: the arrow's goal is kept`);
+	}
+});
+
+test('Open on GitHub carries a 1,000-character description of several lines whole: the title is its first line, cut at 80', () => {
+	const desc = ('The arrow points into the lake at Goldshire and never moves on.\n\n' + 'I walked round the lake twice, reloaded, and the step stayed. '.repeat(16)).slice(0, 990).trimEnd().padEnd(1000, '!');
+	const [out] = run(`
+		local desc = ${JSON.stringify(desc)}
+		for i = 1, 40 do stub.addons[#stub.addons + 1] = { name = ("QuestAndMapHelperWithALongName%02d"):format(i), loaded = true } end
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		local F = PolestarReport
+		F.Desc:SetText(desc)
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		emit({ desc = F.Desc:GetText(), url = UI.Report.IssueURL(F.Desc:GetText(), F.details), report = UI.Report.Text(F.Desc:GetText(), F.details), max = UI.Report.LINK_MAX })`);
+	assert.equal(out.desc.length, 1000);
+	assert.ok(out.url.length <= out.max, `${out.url.length} characters`);
+	const q = new URL(out.url).searchParams;
+	assert.equal(q.get('title'), 'Bug: The arrow points into the lake at Goldshire and never moves on.');
+	assert.ok(q.get('steps').startsWith(`**What went wrong:** ${out.desc}\n\`\`\`\n`), 'the description whole, above the details');
+	assert.match(q.get('steps'), /^Step 3 of 8 \(guide step 3\): Kobold Camp$/m);
+	assert.ok(out.report.length <= 2000, `${out.report.length}`);
+	assert.ok(out.report.startsWith(`**What went wrong:** ${out.desc}\n`), 'the Discord report keeps it whole too');
+	const { parseReport } = require('../tools/discord-bot/lib/report');
+	const r = parseReport(out.report);
+	assert.ok(r.description.startsWith(out.desc.trim()), 'the bot reads all of it, its lines kept');
+	assert.equal(r.details.guideId, 'forever/alliance/human/01-elwynn-forest');
+	const long = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		emit({ url = UI.Report.IssueURL(string.rep("w", 120) .. "\\nmore", PolestarReport.details) })`)[0];
+	assert.equal(new URL(long.url).searchParams.get('title'), `Bug: ${'w'.repeat(77)}...`);
+});
+
+test('the description box takes 1,000 letters: it grows with the text from three lines to seven, then scrolls, the window staying on a 720-unit screen', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		local F = PolestarReport
+		local function state()
+			return { well = F.DescWell:GetHeight(), box = F.Desc:GetHeight(), content = F.DescScroll.psContent, window = F:GetHeight() }
+		end
+		local empty = state()
+		F.Desc:SetText("One line.\\nTwo lines.\\nThree.\\nFour.\\nFive.")
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		local five = state()
+		F.Desc:SetText(string.rep("The vermin were all by the tents. ", 30):sub(1, UI.Report.DESC_MAX))
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		local full = state()
+		emit({ max = UI.Report.DESC_MAX, empty = empty, five = five, full = full, letters = #F.Desc:GetText() })`);
+	assert.equal(out.max, 1000);
+	assert.equal(out.letters, 1000);
+	assert.equal(out.empty.well, 3 * 16 + 16, 'three lines to start');
+	assert.ok(out.five.well > out.empty.well && out.five.well < 7 * 16 + 16, `it grows with the lines typed (${out.five.well})`);
+	assert.equal(out.full.well, 7 * 16 + 16, 'no taller than seven lines');
+	assert.ok(out.full.box > out.full.well && out.full.content === out.full.box, `the text runs on in the scroll (${out.full.box} in ${out.full.well})`);
+	assert.ok(out.full.window <= 720, `the window fits a 720-unit screen (${out.full.window})`);
+});
+
+test('report scrolling survives repeated cursor notifications, while real cursor movement follows the edited line (#1905)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		local F = PolestarReport
+		F.Desc:SetText(string.rep("A line of the report.\\n", 30))
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		local sf, e = F.DescScroll, F.Desc
+		local y = -(sf.psContent - 16)
+		local function cursor(x, cy) stub.RunScript(e, "OnCursorChanged", x, cy, 1, 16) end
+		cursor(10, y)
+		local bottom = sf:GetVerticalScroll()
+		stub.RunScript(sf, "OnMouseWheel", 1)
+		local wheeled = sf:GetVerticalScroll()
+		for i = 1, 3 do cursor(10, y) end
+		local repeated = sf:GetVerticalScroll()
+		cursor(20, y)
+		local horizontal = sf:GetVerticalScroll()
+		stub.RunScript(sf, "OnMouseWheel", 1)
+		e:SetText((e:GetText():gsub("A line", "B line")))
+		stub.RunScript(e, "OnTextChanged", true)
+		cursor(20, y)
+		local edited = sf:GetVerticalScroll()
+		stub.cursor = { 100, 500 }
+		stub.RunScript(sf.Bar, "OnMouseDown", "LeftButton")
+		stub.cursor = { 100, 1000 }
+		stub.RunScript(sf.Bar, "OnUpdate", 0.1)
+		stub.RunScript(sf.Bar, "OnMouseUp", "LeftButton")
+		local dragged = sf:GetVerticalScroll()
+		for i = 1, 3 do cursor(20, y) end
+		local repeatedDrag = sf:GetVerticalScroll()
+		cursor(20, y + 16)
+		local vertical = sf:GetVerticalScroll()
+		cursor(20, 0)
+		emit({ bottom = bottom, wheeled = wheeled, repeated = repeated, horizontal = horizontal, edited = edited,
+			dragged = dragged, repeatedDrag = repeatedDrag, vertical = vertical, firstLine = sf:GetVerticalScroll() })`);
+	assert.ok(out.bottom > 60, 'the description needs scrolling');
+	assert.equal(out.wheeled, out.bottom - 60, 'the wheel moves up');
+	assert.equal(out.repeated, out.wheeled, 'unchanged cursor notifications keep the wheel position');
+	assert.equal(out.horizontal, out.bottom, 'moving along the edited line brings it back into view');
+	assert.equal(out.edited, out.bottom, 'new text follows the cursor even at unchanged coordinates');
+	assert.equal(out.dragged, 0, 'the thumb can reach the first lines');
+	assert.equal(out.repeatedDrag, 0, 'unchanged cursor notifications keep the dragged position');
+	assert.ok(out.vertical > 0 && out.vertical < out.bottom, 'moving to the preceding line follows that line');
+	assert.equal(out.firstLine, 0, 'moving the cursor to the first line scrolls back to the top');
+});
+
+for (const cursorFirst of [true, false]) {
+	test(`report edits at the same caret position follow it with the cursor event ${cursorFirst ? 'before' : 'after'} the text event (#1905)`, () => {
+		const [out] = run(`
+			uistub.setGuide(uistub.elwynn, 3)
+			UI.ShowReport()
+			local F = PolestarReport
+			local sf, e = F.DescScroll, F.Desc
+			e:SetText(string.rep("A line of the report.\\n", 30))
+			stub.RunScript(e, "OnTextChanged", false)
+			local y = -(sf.psContent - 16)
+			local function cursor() stub.RunScript(e, "OnCursorChanged", 10, y, 1, 16) end
+			cursor()
+			local bottom = sf:GetVerticalScroll()
+			stub.RunScript(sf, "OnMouseWheel", 1)
+			local before = sf:GetVerticalScroll()
+			-- A replacement can change the text without changing the caret's
+			-- geometry. Model both notification orders; the stub does not
+			-- establish which order the game client uses.
+			e:SetText((e:GetText():gsub("A line", "B line")))
+			if ${cursorFirst} then cursor() end
+			stub.RunScript(e, "OnTextChanged", true)
+			if not ${cursorFirst} then cursor() end
+			local edited = sf:GetVerticalScroll()
+			stub.RunScript(sf, "OnMouseWheel", 1)
+			local wheeled = sf:GetVerticalScroll()
+			for i = 1, 3 do cursor() end
+			emit({ bottom = bottom, before = before, edited = edited,
+				wheeled = wheeled, repeated = sf:GetVerticalScroll() })`);
+		assert.ok(out.bottom > 60, 'the edited line starts outside the scrolled view');
+		assert.equal(out.before, out.bottom - 60);
+		assert.equal(out.edited, out.bottom, 'the edit reveals the unchanged caret position');
+		assert.equal(out.wheeled, out.bottom - 60);
+		assert.equal(out.repeated, out.wheeled, 'later layout events preserve scrolling after the edit');
+	});
+
+	test(`report edits reveal a new last line with the cursor event ${cursorFirst ? 'before' : 'after'} the text event (#1905)`, () => {
+		const [out] = run(`
+			uistub.setGuide(uistub.elwynn, 3)
+			UI.ShowReport()
+			local F = PolestarReport
+			local sf, e = F.DescScroll, F.Desc
+			e:SetText(string.rep("A line.\\n", 10))
+			stub.RunScript(e, "OnTextChanged", false)
+			local old, h = sf.psContent, F.DescMeasure:GetLineHeight()
+			stub.RunScript(e, "OnCursorChanged", 10, -(old - h), 1, h)
+			e:SetText(e:GetText() .. "One more line.\\n")
+			local function cursor() stub.RunScript(e, "OnCursorChanged", 10, -old, 1, h) end
+			if ${cursorFirst} then cursor() end
+			stub.RunScript(e, "OnTextChanged", true)
+			if not ${cursorFirst} then cursor() end
+			local edited = sf:GetVerticalScroll()
+			cursor()
+			local repeated = sf:GetVerticalScroll()
+			stub.RunScript(sf, "OnMouseWheel", 1)
+			local wheeled = sf:GetVerticalScroll()
+			cursor()
+			emit({ edited = edited, repeated = repeated, view = sf.psView, content = sf.psContent,
+				caretBottom = old + h, wheeled = wheeled, afterWheel = sf:GetVerticalScroll() })`);
+		assert.equal(out.content, out.caretBottom, 'the new empty last line expands the scroll content');
+		assert.equal(out.edited + out.view, out.caretBottom, 'the new caret is visible after the edit');
+		assert.equal(out.repeated, out.edited, 'repeated layout does not move the viewport');
+		assert.ok(out.wheeled < out.edited, 'the player can scroll away from the new last line');
+		assert.equal(out.afterWheel, out.wheeled, 'layout notifications preserve that manual scroll');
+	});
+}
+
+test('the foreground report description forwards mouse-wheel scrolling to its viewport (#1905)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		local F = PolestarReport
+		F.Desc:SetText(string.rep("A line of the report.\\n", 30))
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		Polestar.Widgets.ScrollTo(F.DescScroll, F.DescScroll.psContent)
+		local bottom = F.DescScroll:GetVerticalScroll()
+		stub.RunScript(F.Desc, "OnMouseWheel", 1)
+		emit({ enabled = rawget(F.Desc, "mouseWheel") or false, bottom = bottom, after = F.DescScroll:GetVerticalScroll() })`);
+	assert.equal(out.enabled, true);
+	assert.equal(out.after, out.bottom - 60);
+});
+
+test('the report description pads its viewport instead of its multiline text, keeping the outer window size (#1905)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		local F = PolestarReport
+		stub.RunScript(F.Desc, "OnTextChanged", false)
+		local function size()
+			return { well = F.DescWell:GetHeight(), view = F.DescScroll.psView, window = F:GetHeight() }
+		end
+		local empty = size()
+		F.Desc:SetText(string.rep("A line of the report.\\n", 30))
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		emit({ insets = F.Desc.testInsets, empty = empty, full = size(),
+			top = select(5, F.DescScroll:GetPoint(1)), bottom = select(5, F.DescScroll:GetPoint(2)) })`, `
+		-- Capture a native setting the stub does not model; caret rendering
+		-- itself still needs the game client.
+		local create = CreateFrame
+		CreateFrame = function(kind, ...)
+			local f = create(kind, ...)
+			if kind == "EditBox" then
+				local setInsets = f.SetTextInsets
+				f.SetTextInsets = function(self, ...)
+					self.testInsets = { ... }
+					return setInsets(self, ...)
+				end
+			end
+			return f
+		end`);
+	assert.deepEqual(out.insets, [10, 10, 0, 0], 'multiline text has no vertical insets');
+	assert.equal(out.top, -8);
+	assert.equal(out.bottom, 8);
+	assert.equal(out.empty.well, 64, 'the empty well keeps its height');
+	assert.equal(out.empty.view, 48);
+	assert.equal(out.full.well, 128, 'the full well keeps its height');
+	assert.equal(out.full.view, 112);
+	assert.ok(out.full.window <= 720, 'the window still fits the screen');
+});
+
+// #1753: the report window as doctor-house had it in 0.3.6: 28 other addons,
+// an error caught 63 times, a full quest log and changed settings, `desc`
+// typed, Copy report pressed, then a theme repaint (what a UI scale or
+// display size change runs). `outdated` adds the update line.
+function crowded({ desc = 'Guide is throwing lua errors and the report a problem page is broken', addons = 28, errors = 63, outdated = false } = {}) {
+	return run(`
+		for i = 1, ${addons} do stub.addons[#stub.addons + 1] = { name = ("Details_SomeLongModuleName%02d"):format(i), loaded = true } end
+		for i = 1, ${errors} do Polestar.NoteError("Interface/AddOns/Polestar/Core/Engine.lua:2311: attempt to compare nil with number") end
+		local log = {}
+		for i = 1, 23 do log[i] = 1000 + i * 37 end
+		Polestar.Compat.GetLogQuests = function() return log end
+		Polestar.Compat.GetQuestObjectives = function() return { { finished = true }, { finished = false } } end
+		Polestar.Set("behavior.deathskips", true)
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		local F = PolestarReport
+		${outdated ? 'F.Outdated:SetText("Polestar 9.9.9 is out: update first, it may fix this."); F.Outdated:Show()' : ''}
+		F.Desc:SetText(${JSON.stringify(desc)})
+		stub.RunScript(F.Desc, "OnTextChanged", true)
+		F.Copy:Click()
+		stub.advance(0.1)
+		-- Selected for Ctrl+C: in focus, all of it, once the frame has passed.
+		local function sel() return { focus = stub.focus == F.Box, from = F.Box.highlight and F.Box.highlight[1] or false, to = F.Box.highlight and F.Box.highlight[2] or false } end
+		local copied = sel()
+		-- Ctrl+A in the box selects all of it again; so does a click in it.
+		F.Box:HighlightText(0, 0)
+		local ctrl = IsControlKeyDown
+		IsControlKeyDown = function() return true end
+		stub.RunScript(F.Box, "OnKeyDown", "A")
+		IsControlKeyDown = ctrl
+		local ctrlA = sel()
+		F.Box:HighlightText(0, 0)
+		F.Desc:SetFocus()
+		stub.RunScript(F.Box, "OnMouseUp", "LeftButton")
+		stub.advance(0.1)
+		local clicked = sel()
+		-- A click on the well around it (its insets, the space under a short
+		-- report) does too.
+		F.Box:HighlightText(0, 0)
+		F.Desc:SetFocus()
+		stub.RunScript(F.BoxWell, "OnMouseUp", "LeftButton")
+		stub.advance(0.1)
+		local wellClicked = sel()
+		-- Each box is its view's own scroll child, as the game's scrolling
+		-- input boxes are: nested in a child frame, rc1's took no click.
+		local scroll = rawget(F, "BoxScroll")
+		local children = { report = scroll ~= nil and scroll:GetScrollChild() == F.Box, description = F.DescScroll:GetScrollChild() == F.Desc }
+		-- Selected, nothing sets the box's text or cursor again: not a compose
+		-- for the description's box, not a theme repaint, not another click on
+		-- the well, not the frames after (0.3.7-rc2 in game: the selection
+		-- flashed, then the cursor sat at the start).
+		Polestar.Widgets.SelectCopy(F.Box)
+		stub.advance(0.1)
+		local sets = {}
+		local setText, setCursor = F.Box.SetText, F.Box.SetCursorPosition
+		F.Box.SetText = function(self, t) sets[#sets + 1] = "SetText"; return setText(self, t) end
+		F.Box.SetCursorPosition = function(self, p) sets[#sets + 1] = "SetCursorPosition"; return setCursor(self, p) end
+		stub.RunScript(F.Desc, "OnTextChanged", false)
+		Polestar.Theme.Refresh()
+		stub.RunScript(F.BoxWell, "OnMouseUp", "LeftButton")
+		stub.advance(0.1)
+		local kept = sel()
+		kept.sets = table.concat(sets, ",")
+		F.Box.SetText, F.Box.SetCursorPosition = setText, setCursor
+		-- Every font string drawn in the window, by its text.
+		local drawn = {}
+		local function walk(f)
+			for _, r in ipairs({ f:GetRegions() }) do
+				if r:GetObjectType() == "FontString" and r:IsVisible() and (r:GetText() or "") ~= "" then drawn[#drawn + 1] = r:GetText() end
+			end
+			for _, c in ipairs({ f:GetChildren() }) do walk(c) end
+		end
+		walk(F)
+		-- Each part's top and bottom, down from the window's top.
+		local function span(o) local y = select(5, o:GetPoint(1)); return { -y, -y + o:GetHeight() } end
+		-- Before #1753 the box had no well of its own: the box stands for it.
+		local well = rawget(F, "BoxWell") or F.Box
+		emit({ report = F.Box:GetText(), bytes = #F.Box:GetText(), copied = copied, ctrlA = ctrlA, clicked = clicked, wellClicked = wellClicked, children = children, kept = kept, drawn = drawn, window = F:GetHeight(), boxShown = F.Box:IsShown(),
+			box = F.Box:GetHeight(), view = well:GetHeight(), content = scroll and scroll.psContent or F.Box:GetHeight(),
+			copy = span(F.Copy), well = span(well), rule = span(F.GitHubRule), github = span(F.GitHub),
+			desc = span(F.DescWell), mark = span(F.Mark) })`)[0];
+}
+
+test('a long report with many addons and an error caught 63 times stays in its box: the box scrolls under Copy report, selected whole for Ctrl+C, nothing draws over the form, the window fits a 720-unit screen (#1753)', () => {
+	const cases = [
+		['short, one addon', { addons: 1, errors: 1 }],
+		['the reporter\'s', {}],
+		['the reporter\'s, outdated line shown', { outdated: true }],
+		['1,000 letters', { desc: 'The arrow kept pointing at the bank. '.repeat(28).slice(0, 1000) }],
+		['1,000 letters, outdated line shown', { desc: 'w'.repeat(1000), outdated: true }],
+	];
+	for (const [name, opts] of cases) {
+		const out = crowded(opts);
+		assert.equal(out.boxShown, true, name);
+		assert.ok(out.report.length > 0 && out.report.length <= 2000, `${name}: ${out.report.length}`);
+		// Copy report puts the box in focus with all of the report selected
+		// (0.3.7-rc1: not selected in the scrolling box); Ctrl+A and a click
+		// select it all again.
+		const all = { focus: true, from: 0, to: out.bytes };
+		assert.deepEqual(out.copied, all, `${name}: Copy report selects the whole report`);
+		assert.deepEqual(out.ctrlA, all, `${name}: Ctrl+A selects the whole report`);
+		assert.deepEqual(out.clicked, all, `${name}: a click in the box selects the whole report`);
+		assert.deepEqual(out.wellClicked, all, `${name}: a click on its well selects the whole report`);
+		assert.deepEqual(out.children, { report: true, description: true }, `${name}: each box is its view's scroll child`);
+		assert.deepEqual(out.kept, { ...all, sets: '' }, `${name}: the selection stays; nothing sets the box's text or cursor again`);
+		// The bug: the box's measuring string drew the report over the window
+		// once a theme repaint gave it its colour's alpha back.
+		for (const s of out.drawn) {
+			assert.ok(!s.includes('Engine.lua:2311') && !s.includes('**What went wrong:**'), `${name}: a font string draws the report: ${s.slice(0, 80)}`);
+		}
+		assert.ok(out.window <= 720, `${name}: the window fits a 720-unit screen (${out.window})`);
+		assert.ok(out.view <= out.box && out.view >= Math.min(out.box, 96), `${name}: the view (${out.view}) holds up to the box (${out.box})`);
+		assert.equal(out.content, out.box, `${name}: the whole report scrolls in the view`);
+		assert.ok(out.box >= out.report.split('\n').length * 11, `${name}: the box holds every line (${out.box})`);
+		// The form stays where it is: the box sits between Copy report and the
+		// GitHub row, under the description and the mark button.
+		assert.ok(out.desc[1] <= out.mark[0] && out.mark[1] <= out.copy[0], `${name}: description, mark, copy in order`);
+		assert.ok(out.well[0] >= out.copy[1] && out.well[1] <= out.rule[0] && out.rule[1] <= out.github[0], `${name}: the box between Copy report (${out.copy}) and the GitHub row (${out.rule}): ${out.well}`);
+		assert.ok(out.github[1] <= out.window, `${name}: Open on GitHub inside the window`);
+		if (name !== 'short, one addon') assert.ok(out.view < out.box, `${name}: a long report scrolls (${out.view} of ${out.box})`);
 	}
 });
 
@@ -607,6 +1179,52 @@ test('the Discord bot reads the report the window gives: the details from the co
 	assert.match(zh.description, /^The vermin were all by the tents\.\n\*\*[^*\n]+\*\* zone map 1429 · goto 51\.23,40\.50 live\n\*\*[^*\n]+\*\* Questie, TomTom$/);
 });
 
+test('the Discord bot unfolds the report\'s settings on the issue, folded: the list as the report shows it, or every setting the packed line carries, each "key = value (default d)"', () => {
+	const { parseReport } = require('../tools/discord-bot/lib/report');
+	const { issueBody } = require('../tools/discord-bot/lib/issue');
+	const [few, many] = run(`
+		local s = Polestar.DB().settings
+		s.behavior = { autoAccept = false, whileHereRadius = 400 }
+		s.ui = { scheme = "night", pos = { 100, 200 } }
+		uistub.setGuide(uistub.elwynn, 3)
+		emit({ text = UI.Report.Text("The vermin were all by the tents.", UI.Report.Details()) })
+		-- Every setting these files register, turned; room for the packed line too.
+		local n = 0
+		local function turn(def, into)
+			for k, v in pairs(def) do
+				if type(v) == "boolean" then into[k], n = not v, n + 1
+				elseif type(v) == "number" then into[k], n = v + 1, n + 1
+				elseif type(v) == "string" then into[k], n = v .. "2", n + 1
+				elseif type(v) == "table" and v[1] == nil then into[k] = {}; turn(v, into[k]) end
+			end
+		end
+		for _, sec in ipairs({ "behavior", "update", "routePlan", "ui", "guideWindow" }) do
+			s[sec] = {}
+			turn(Polestar.GetDefault(sec), s[sec])
+		end
+		UI.Report.TEXT_MAX = 100000
+		emit({ text = UI.Report.Text("The vermin were all by the tents.", UI.Report.Details()), n = n })`);
+	const a = parseReport(few.text).details.settings;
+	assert.deepEqual(a, {
+		count: 4, profile: 'Default', source: 'account', looks: 'scheme=night · 1 position moved',
+		entries: [{ key: 'behavior.autoAccept', value: 'off', default: 'on' }, { key: 'behavior.whileHereRadius', value: '400', default: '180' }],
+	});
+	const fewBody = issueBody({ report: parseReport(few.text), reporter: 'Tom', guild: '1', thread: '2' });
+	assert.match(fewBody, /^\| Settings \| 4 changed · profile Default \(account\) \|$/m);
+	assert.ok(fewBody.includes('<details><summary>Settings: 4 changed · profile Default (account)</summary>\n\n```text\nbehavior.autoAccept = off (default on)\nbehavior.whileHereRadius = 400 (default 180)\nlooks: scheme=night · 1 position moved\n```\n\n</details>'), fewBody);
+	const b = parseReport(many.text).details.settings;
+	assert.equal(b.count, many.n);
+	assert.equal(b.unfolded, true, 'the packed line unfolded');
+	assert.equal(b.entries.length, many.n, 'into every setting off its default');
+	assert.ok(b.more > 0 && /^[0-9a-f]{8}$/.test(b.hash), `${b.more} more #${b.hash}`);
+	assert.deepEqual(b.entries.find((e) => e.key === 'guideWindow.titleSize'), { key: 'guideWindow.titleSize', value: '2', default: '1' }, 'the looks with their values too');
+	const manyBody = issueBody({ report: parseReport(many.text), reporter: 'Tom', guild: '1', thread: '2' });
+	const folded = manyBody.slice(manyBody.indexOf('<details><summary>Settings: '), manyBody.indexOf('<details><summary>Full report'));
+	assert.equal(folded.split('\n').filter((l) => / = /.test(l)).length, many.n, 'one line a setting');
+	assert.match(folded, /^behavior\.autoAccept = off \(default on\)$/m);
+	assert.doesNotMatch(folded, /more the report had no room for/, 'nothing left out once unfolded');
+});
+
 test('the Discord steps say to press Ctrl+C after Copy report: the button selects the report, the game copies nothing itself', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)
@@ -687,15 +1305,114 @@ test('the report carries the quest log, the settings turned away from their defa
 		Polestar.Compat.GetLogQuests = function() return { 783, 7 } end
 		Polestar.Compat.IsQuestReadyForTurnIn = function(q) return q == 7 end
 		Polestar.Compat.GetQuestObjectives = function() return { { finished = true }, { finished = false } } end
-		Polestar.Set("qol.stepInteract", true)
+		Polestar.Set("behavior.deathskips", true)
 		Polestar.Debug("picked the inn at Goldshire")
 		uistub.setGuide(uistub.elwynn, 3)
 		UI.ShowReport()
 		emit({ text = PolestarReport.Box:GetText() })`);
 	const lines = out.text.split('\n');
 	assert.ok(lines.includes('Quest log 2/40: 783 1/2, 7 done'), out.text);
-	assert.ok(lineWith(out.text, 'Settings: ').includes('qol.stepInteract=true'), out.text);
+	const settings = lines.indexOf('Settings: profile Default (account) \u00b7 1 changed');
+	assert.ok(settings > lines.indexOf('Quest log 2/40: 783 1/2, 7 done'), out.text);
+	assert.equal(lines[settings + 1], 'behavior.deathskips=on', 'the setting by its key, a switch as on or off');
 	const log = lines.indexOf('Log:');
 	assert.ok(log > 0, out.text);
 	assert.match(lines[lines.length - 2], /^> \d\d:\d\d:\d\d picked the inn at Goldshire$/, 'the newest line last, inside the block');
+});
+
+// #3847 (from #3699, thanks Semper): at his context line the window shook by
+// a few pixels every other frame, drawn at two places. The window is placed
+// once, on whole pixels, kept on the screen by its own layout; and a layout
+// pass that would undo the last one by the same step (a label measured
+// differently on alternate passes) keeps the height it has.
+test('at UI scale 0.64 on 1080p, "Step 106 of 112 · Stormwind · Riverglades": the window keeps its height and its place over 10 layout passes, on whole pixels, and a pass that would undo the last is kept out (#3847)', () => {
+	const [out] = run(`
+		local steps = {}
+		for i = 1, 112 do steps[i] = { title = i == 106 and "Stormwind" or ("Step " .. i), goals = { { t = "note", text = "Go on.", status = "pending" } } } end
+		local id = "forever/alliance/riverglades"
+		uistub.guides[id] = { id = id, pack = "guides", title = "Riverglades", faction = "Alliance", minLevel = 38, maxLevel = 47, steps = steps }
+		uistub.setGuide(id, 106)
+		UI.ShowReport()
+		local F = PolestarReport
+		F.Desc:SetText("The window shakes up and down.")
+		-- typed: each pass a new text, of the same length (the event repeated
+		-- with nothing changed lays nothing out: the next test).
+		local function passes(typed)
+			local list = {}
+			for i = 1, 10 do
+				if typed then F.Desc:SetText("The window shakes up and down" .. (i % 2 == 0 and "." or "!")) end
+				stub.RunScript(F.Desc, "OnTextChanged", true)
+				stub.advance(0.05)
+				local point, rel, relPoint, x, y = F:GetPoint(1)
+				list[#list + 1] = { h = F:GetHeight(), at = table.concat({ point, rel == UIParent and "UIParent" or tostring(rel), relPoint, x, y, F:GetNumPoints() }, " ") }
+			end
+			return list
+		end
+		local hidden = passes()
+		F.Copy:Click()
+		local shown = passes()
+		-- A label measured 6 units taller on every other pass.
+		local real, n = F.DiscordNote.GetStringHeight, 0
+		F.DiscordNote.GetStringHeight = function(self) n = n + 1; return real(self) + (n % 2 == 0 and 6 or 0) end
+		local flipping = passes(true)
+		local noted = 0
+		for _, line in ipairs(Polestar.DebugLog()) do if line:find("Report window: a layout pass undid", 1, true) then noted = noted + 1 end end
+		local _, _, _, x, y = F:GetPoint(1)
+		emit({ context = F.Context:GetText(), hidden = hidden, shown = shown, flipping = flipping, noted = noted,
+			px = Polestar.Theme.PixelsPerUnit(F), x = x, y = y, screen = UIParent:GetHeight() })`, 'UIParent:SetScale(0.64); UIParent.width, UIParent.height = 1200 * 16 / 9, 1200');
+	assert.equal(out.context, 'Step 106 of 112  \u00b7  Stormwind  \u00b7  Riverglades');
+	for (const name of ['hidden', 'shown']) {
+		const list = out[name];
+		for (const p of list) assert.deepEqual(p, list[0], `${name}: the same height and place on every pass: ${JSON.stringify(list)}`);
+		assert.match(list[0].at, /^TOPLEFT UIParent BOTTOMLEFT /, `${name}: placed by its top-left corner: ${list[0].at}`);
+		assert.ok(list[0].h <= 720, `${name}: fits a 720-unit screen (${list[0].h})`);
+	}
+	for (const v of [out.x, out.y]) {
+		const px = v * out.px;
+		assert.ok(Math.abs(px - Math.round(px)) < 1e-6, `on a whole pixel: ${v} units = ${px} px`);
+	}
+	assert.ok(out.y <= out.screen, 'its top on the screen');
+	const settled = out.flipping.slice(1);
+	for (const p of settled) assert.deepEqual(p, settled[0], `the flip is kept out from the second pass on: ${JSON.stringify(out.flipping.map((p) => p.h))}`);
+	assert.equal(out.noted, 1, 'noted once in the report\'s Log');
+});
+
+// #3847, Semper's clip (#3699), frame by frame: at UI scale off on 1080p
+// (768/1080, a unit a pixel) the window grew and shrank by one line of the
+// GitHub note on alternate frames, its centre still, so its top and its text
+// went 6 px up and down. The note's last line is exactly as wide as its box:
+// measured, it came out 2 lines and 3 on alternate passes, and a pass ran
+// every frame with nothing typed (the description's OnTextChanged, which the
+// client repeats). That event with nothing changed now lays nothing out.
+test('the description\'s OnTextChanged repeated every frame with nothing typed lays the window out once: a GitHub note measured 2 and 3 lines on alternate passes moves nothing (#3847, Semper\'s clip)', () => {
+	const [out] = run(`
+		local steps = {}
+		for i = 1, 112 do steps[i] = { title = i == 106 and "Stormwind" or ("Step " .. i), goals = { { t = "note", text = "Go on.", status = "pending" } } } end
+		local id = "forever/alliance/riverglades"
+		uistub.guides[id] = { id = id, pack = "guides", title = "Riverglades", faction = "Alliance", minLevel = 38, maxLevel = 47, steps = steps }
+		uistub.setGuide(id, 106)
+		UI.ShowReport()
+		local F = PolestarReport
+		local real, n = F.GitHubNote.GetStringHeight, 0
+		F.GitHubNote.GetStringHeight = function(self) n = n + 1; return real(self) + (n % 2 == 0 and self:GetLineHeight() or 0) end
+		local setHeight, layouts = F.SetHeight, 0
+		F.SetHeight = function(self, h) layouts = layouts + 1; return setHeight(self, h) end
+		local function at(r)
+			local point, rel, relPoint, x, y = r:GetPoint(1)
+			return table.concat({ point, rel == UIParent and "UIParent" or rel == F and "F" or tostring(rel), relPoint, x, y }, " ")
+		end
+		local frames = {}
+		for _ = 1, 10 do
+			stub.RunScript(F.Desc, "OnTextChanged", false)
+			stub.RunScript(F.Desc, "OnCursorChanged", 0, 0, 0, 16)
+			stub.advance(1 / 60)
+			frames[#frames + 1] = { h = F:GetHeight(), window = at(F), note = at(F.GitHubNote), button = at(F.GitHub) }
+		end
+		emit({ context = F.Context:GetText(), box = F.Box:IsShown(), placeholder = F.Desc.Placeholder:IsShown(), frames = frames, layouts = layouts })`,
+	'UIParent:SetScale(768 / 1080); UIParent.width, UIParent.height = 1920, 1080');
+	assert.equal(out.context, 'Step 106 of 112  \u00b7  Stormwind  \u00b7  Riverglades');
+	assert.equal(out.box, false, 'the report box hidden, as in the clip');
+	assert.equal(out.placeholder, true, 'nothing typed');
+	for (const f of out.frames) assert.deepEqual(f, out.frames[0], `the window, the note and the button stay where they are: ${JSON.stringify(out.frames)}`);
+	assert.ok(out.layouts <= 1, `laid out at most once over 10 frames (${out.layouts})`);
 });

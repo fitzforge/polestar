@@ -21,6 +21,10 @@
 -- nav.alertSound, nav.alertFlash (the taskbar icon, FlashClientIcon).
 -- Checked on Nav's once-a-second tick; nothing runs per frame except the
 -- banner's countdown while it is shown.
+-- The banner's size, opacity, type, ground, entrance, how long it stays
+-- after the arrival and its place (toasts.transport.*) are the player's
+-- (Options > Alerts & toasts, UI/Looks/Toasts.lua);
+-- Alerts.NewBanner/FillBanner draw a sandbox one for its preview.
 
 local ADDON, ns = ...
 local Nav = ns.Nav
@@ -45,12 +49,13 @@ Alerts.AT_DOCK, Alerts.ON_BOARD, Alerts.RADIUS = AT_DOCK, ON_BOARD, RADIUS
 local ARRIVES = {
 	boat = L["Boat to %s"],
 	zeppelin = L["Zeppelin to %s"],
+	airship = L["Airship to %s"],
 	tram = L["Tram to %s"],
 }
 -- What the game plays for each (FileDataIDs, sound/doodad/): the bell a ship
 -- rings as it docks (boatdockedwarning.ogg), the zeppelin's horn
--- (zeppelinhorn.ogg), the tram pulling in (subwaystop.ogg).
-local SOUND = { boat = 566652, zeppelin = 566719, tram = 566056 }
+-- (zeppelinhorn.ogg, for the airships too), the tram pulling in (subwaystop.ogg).
+local SOUND = { boat = 566652, zeppelin = 566719, airship = 566719, tram = 566056 }
 Alerts.SOUND = SOUND
 
 -- [route .. ":" .. dock] = GetTime() of its alert.
@@ -114,12 +119,14 @@ local function paintRing(f)
 end
 
 -- One line (a countdown) or a notice's wrapping line; the banner grows by
--- the extra lines and the text block stays centred on the ring.
+-- the extra lines (and by a title the player made larger, Alerts & toasts)
+-- and the text block stays centred on the ring.
 local function layout(f)
 	local wrap = f.psNotice and true or false
 	f.When:SetWordWrap(wrap)
 	f.When:SetMaxLines(wrap and NOTICE_LINES or 1)
 	local extra = wrap and math.max(0, f.When:GetStringHeight() - f.When:GetLineHeight()) or 0
+	extra = extra + math.max(0, f.Title:GetStringHeight() + f.When:GetLineHeight() + 28 - HEIGHT)
 	local height = HEIGHT + extra
 	f:SetHeight(height)
 	f.Title:SetPoint("BOTTOMLEFT", f.Ring, "RIGHT", 12, 1 + extra / 2)
@@ -127,14 +134,31 @@ local function layout(f)
 	f.Band:SetTexCoord(ns.Theme.BandCoords(WIDTH - 2, height - 2))
 end
 
-local function build()
-	local Theme, W, Anim = ns.Theme, ns.Widgets, ns.Anim
-	local f = CreateFrame("Frame", "PolestarAlert", UIParent)
+-- The look's settings (UI/Looks/Toasts.lua), when that file is loaded.
+local function looks() return ns.UI and ns.UI.Toasts end
+
+-- The banner's own place: toasts.transport.point (the movers), else centred
+-- near the top; or its place in the line of alerts while they stack.
+local function ownPlace()
+	local p = ns.Get("toasts.transport.point")
+	if type(p) ~= "table" or type(p[1]) ~= "string" then p = { "TOP", 0, DEFAULT_Y } end
+	ns.Anim.Anchor(banner, p[1], UIParent, p[1], tonumber(p[2]) or 0, tonumber(p[3]) or 0)
+end
+
+local function place()
+	local TS = looks()
+	if TS and TS.Place("transport", banner, ownPlace) then return end
+	ownPlace()
+end
+
+-- The banner, drawn into `parent`: the live one (build) or a sandbox one for
+-- the options' preview (Alerts.NewBanner): no countdown of its own, and a
+-- click does nothing.
+local function newBanner(parent, name, sandbox)
+	local Theme, W = ns.Theme, ns.Widgets
+	local f = CreateFrame("Frame", name, parent)
 	f:SetSize(WIDTH, HEIGHT)
-	f:SetFrameStrata("HIGH")
-	f:SetClampedToScreen(true)
 	f:EnableMouse(true)
-	f:SetPoint("TOP", UIParent, "TOP", 0, DEFAULT_Y)
 	-- A toast: the game's looks give it the guide window's light frame.
 	f.psLight = true
 	Theme.Skin(f, "window")
@@ -144,23 +168,7 @@ local function build()
 	head:SetPoint("TOPLEFT", f, "TOPLEFT", 1, -1)
 	head:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -1, 1)
 	f.Head = head
-	f.Night = head:CreateTexture(nil, "BACKGROUND", nil, -8)
-	f.Night:SetTexture(Theme.Media("white"))
-	f.Night:SetAllPoints(head)
-	W.Painter(f.Night, function(t)
-		t:SetShown(Theme.SkinKey() == "polestar")
-		local tr, tg, tb = Theme.Color("scrim")
-		local br, bg, bb = Theme.Color("bg")
-		if t.SetGradient and CreateColor then
-			t:SetVertexColor(1, 1, 1, 1)
-			t:SetGradient("VERTICAL", CreateColor(br, bg, bb, 1), CreateColor(tr, tg, tb, 1))
-		else
-			t:SetVertexColor(br, bg, bb, 1)
-		end
-	end)
-	if W.Haze then f.Haze = W.Haze(head, { height = HEIGHT, sub = -6 }) end
-	f.Band = Theme.Band(head, "BACKGROUND", -5)
-	f.Band:SetAllPoints(head)
+	f.Night, f.Haze, f.Band = W.Night(head, { height = HEIGHT, sub = -6 })
 	f.Band:SetTexCoord(Theme.BandCoords(WIDTH - 2, HEIGHT - 2))
 
 	f.Ring = W.Tex(head, "ARTWORK", "qol-ring", "place")
@@ -198,7 +206,29 @@ local function build()
 	f.Timer:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -1, 1)
 	-- The rim's light kept inside the banner.
 	if W.Rim then W.Rim(f, { height = HEIGHT }) end
+	local TS = looks()
+	if TS then TS.Attach("transport", f, { titles = { f.Title }, bodies = { f.When }, sandbox = sandbox, relayout = layout }) end
+	return f
+end
 
+-- A sandbox banner for the options' preview, and its paint: a transport's
+-- countdown (notice false) or one of Polestar's notices, `frac` of its line
+-- left.
+function Alerts.NewBanner(parent) return newBanner(parent, nil, true) end
+function Alerts.FillBanner(f, notice, title, line, frac)
+	f.psNotice = notice and true or false
+	f.Title:SetText(title)
+	f.When:SetText(line)
+	paintRing(f)
+	layout(f)
+	ns.Widgets.SetProgress(f.Timer, frac or 1, WIDTH - 2)
+end
+
+local function build()
+	local W, Anim = ns.Widgets, ns.Anim
+	local f = newBanner(ns.UIParent, "PolestarAlert")
+	f:SetFrameStrata("HIGH")
+	f:SetClampedToScreen(true)
 	f:SetScript("OnMouseUp", function(self) self:Hide() end)
 	f:SetScript("OnUpdate", ns.Safe(function(self)
 		local left = self.arriveAt - GetTime()
@@ -221,7 +251,9 @@ local function build()
 	Alerts.banner = f
 end
 
+-- Nothing shows while Polestar is hidden, and nothing waits for it to come back.
 local function present(notice, seconds)
+	if ns.Hidden() then return end
 	banner.psNotice = notice
 	paintRing(banner)
 	layout(banner)
@@ -229,8 +261,24 @@ local function present(notice, seconds)
 	banner.arriveAt = GetTime() + seconds
 	banner.lastShown = nil
 	local wasShown = banner:IsShown()
+	place()
 	banner:Show()
-	if not wasShown then banner.Anim.To(banner, "alpha", 0, 1, banner.Anim.FAST, "out") end
+	if not wasShown then
+		-- Its entrance, speed and opacity are the player's (Alerts & toasts); a fade by default.
+		local TS = looks()
+		if TS then
+			TS.Enter("transport", banner, 12, banner.Anim.FAST)
+		else
+			banner.Anim.To(banner, "alpha", 0, 1, banner.Anim.FAST, "out")
+		end
+	end
+end
+
+-- How long the banner stays after the arrival (Alerts & toasts), else LINGER.
+local function linger()
+	local TS = looks()
+	local v = TS and tonumber(TS.Get("transport", "linger"))
+	return v and v >= 0 and v or LINGER
 end
 
 -- title: what is coming; whenFormat: "Arrives in %s" or the like.
@@ -239,7 +287,7 @@ local function showBanner(title, whenFormat, seconds)
 	if not banner then build() end
 	banner.Title:SetText(title)
 	banner.whenFormat = whenFormat
-	banner.linger = LINGER
+	banner.linger = linger()
 	banner.When:SetText(format(whenFormat, Alerts.Countdown(seconds)))
 	present(false, seconds)
 end
@@ -263,6 +311,12 @@ function Alerts.HideNotice()
 	if banner and banner.psNotice and banner:IsShown() then banner:Hide() end
 end
 
+-- Hiding Polestar takes the banner down, countdown or notice: news while
+-- hidden is not kept for after (Alerts.Check stays quiet until it is back).
+ns.On("POLESTAR_HIDDEN", function(hidden)
+	if hidden and banner and banner:IsShown() then banner:Hide() end
+end)
+
 ---------------------------------------------------------------------------
 -- Checking
 ---------------------------------------------------------------------------
@@ -273,7 +327,7 @@ local function alert(key, kind, title, whenFormat, seconds)
 	if last and now - last < REPEAT then return false end
 	alerted[key] = now
 	if ns.Get("nav.alertBanner") then showBanner(title, whenFormat, seconds) end
-	if ns.Get("nav.alertSound") and PlaySoundFile then PlaySoundFile(SOUND[kind], "Master") end
+	if ns.Get("nav.alertSound") then ns.PlaySoundFile(SOUND[kind], "Master") end
 	if ns.Get("nav.alertFlash") and FlashClientIcon then FlashClientIcon() end
 	ns.Fire("NAV_TRANSIT_ALERT", kind, title, seconds)
 	return true
@@ -332,43 +386,13 @@ end
 function Alerts:Refresh() Alerts.Check() end
 Nav.RegisterModule(Alerts)
 ns.On("NAV_TRANSIT", function() Alerts.Check() end)
+-- Moved from elsewhere (reset, the movers): the banner on screen follows.
+ns.On("SETTING_CHANGED", function(path)
+	if (path == "toasts.transport.point" or path == "toasts" or path == "") and banner and banner:IsShown() then place() end
+end)
 
 -- A sample, from the options page.
 function Alerts.ShowSample()
 	showBanner(format(ARRIVES.boat, L["Menethil Harbor"]), L["Arrives in %s"], AT_DOCK)
-	if ns.Get("nav.alertSound") and PlaySoundFile then PlaySoundFile(SOUND.boat, "Master") end
-end
-
----------------------------------------------------------------------------
--- Options: Guide > Arrow & routes > Along the route; the alerts' switch also
--- on Quality of Life > Travel > Along the route (one setting, a fresh control
--- per page: the registry keeps per-control state).
----------------------------------------------------------------------------
-
-if ns.RegisterOptions then
-	local function off() return not ns.Get("nav.alerts") end
-	local H = Nav.HandoffOption
-	local function alerts()
-		return H({ kind = "toggle", key = "nav.alerts", label = L["Transport alerts"],
-			search = "boat, ship, zeppelin, tram, transport, departure, arrival, warning",
-			help = L["Before your boat, zeppelin or tram comes in: 30 seconds ahead at the dock, 20 before the next stop on board. Never for lifts or in combat."] })
-	end
-	local ok, err = ns.RegisterOptions({
-		page = L["Guide"], tab = L["Arrow & routes"], section = L["Along the route"],
-		controls = {
-			alerts(),
-			H({ kind = "toggle", key = "nav.alertBanner", label = L["Show a banner"], disabled = off,
-				help = L["A small card near the top of the screen with a countdown. Click it to dismiss."] }),
-			H({ kind = "toggle", key = "nav.alertSound", label = L["Play the transport's sound"], disabled = off,
-				help = L["The ship's bell, the zeppelin's horn or the tram, on the Master channel so you hear it with the game in the background."] }),
-			H({ kind = "toggle", key = "nav.alertFlash", label = L["Flash the taskbar icon"], disabled = off,
-				help = L["The game's icon flashes while the game is in the background."] }),
-			{ kind = "button", button = L["Show"], label = L["Show a sample alert"], disabled = off,
-				help = L["See the banner and hear the boat's bell."],
-				onClick = function() Alerts.ShowSample() end },
-		},
-	})
-	if not ok and geterrorhandler then geterrorhandler()(err) end
-	ok, err = ns.RegisterOptions({ page = L["Quality of Life"], tab = L["Travel"], section = L["Along the route"], controls = { alerts() } })
-	if not ok and geterrorhandler then geterrorhandler()(err) end
+	if ns.Get("nav.alertSound") then ns.PlaySoundFile(SOUND.boat, "Master") end
 end

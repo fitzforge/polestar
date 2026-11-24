@@ -4,19 +4,19 @@ category Reputation
 folder Reputation · Raids and dungeons
 levels 60-60
 zone Azshara
-keywords Hydraxian Waterlords, Duke Hydraxis, Aqual Quintessence, Eternal Quintessence, Molten Core, Majordomo Executus, Ragnaros, Dust Stormer, Desert Rumbler, Pyroguard Emberseer, Eye of the Emberseer, Hands of the Enemy, A Hero's Reward, Ocean's Breeze, Tidal Loop, fire resistance, Lothos Riftwaker, attunement
-why Aqual Quintessence to douse the Molten Core's runes, the reusable Eternal Quintessence at Revered and a fire resistance ring.
+keywords Hydraxian Waterlords, Duke Hydraxis, Eternal Quintessence, Molten Core, Majordomo Executus, Ragnaros, Dust Stormer, Desert Rumbler, Huricanian, Lord Incendius, Pyroguard Emberseer, fire resistance
+why The reputation kills to Honored, and the reusable Eternal Quintessence at Revered once the Molten Core opens.
 reward item 22754
-reward item 17333
-reward item 18399 18398
 
-# Built from Forever's data: Duke Hydraxis's chain (Poisoned Water 6804 and Stormers and Rumblers 6805,
-# both needed for Eye of the Emberseer 6821, then The Molten Core 6822, Agent of Hydraxis 6823 at
-# Honored, Hands of the Enemy 6824 and A Hero's Reward 7486), the reputation per quest from Forever's quest
-# pages (only A Hero's Reward pays the Waterlords: 200), the kill reputation of the world database with
-# the last standing each kill counts in, the Molten Core's spawn counts, and Duke Hydraxis's gossip
-# conditions (Aqual Quintessence once Hands of the Enemy is done and you are Honored, Eternal Quintessence
-# at Revered). Neutral to Exalted is 42,000 reputation.
+# Built from Forever's data: the kill reputation of the world database with the last standing each kill
+# counts in, the Molten Core's spawn counts, and Duke Hydraxis's gossip conditions (Eternal Quintessence at
+# Revered). Neutral to Exalted is 42,000 reputation.
+# Duke Hydraxis's quests (Poisoned Water 6804, Stormers and Rumblers 6805, Eye of the Emberseer 6821, The
+# Molten Core 6822, Agent of Hydraxis 6823, Hands of the Enemy 6824, A Hero's Reward 7486) and Attunement to
+# the Core (7848) are left out (#3522): Forever does not offer them yet (live quest scans of builds 70959
+# and 71037 return none of them, no player recorded a quest window for them, two in-game reports agree).
+# They paid no reputation but A Hero's Reward's 200, so the standings below come from kills as before. The
+# data round restores the steps when the scans show the chain open.
 # Kill reputation: Dust Stormers, Desert Rumblers and Greater Obsidian Elementals 5 (count through
 # Friendly); Huricanian 25, Lord Incendius 15, Pyroguard Emberseer 50 and the Molten Core's elementals 20 or
 # 40 (count through Honored); seven Molten Core bosses 100 (count through Revered, so they never make you
@@ -35,85 +35,24 @@ reward item 18399 18398
 # and Onyxia's Lair; the Molten Core is in the client but not announced. Until it opens the Waterlords stop
 # at Honored (Lord Incendius, Pyroguard Emberseer and Huricanian count until then).
 
-step Duke Hydraxis
-  tip Duke Hydraxis stands on a small island off the east coast of Azshara; swim out to him. Everyone starts Neutral with the Waterlords, and nearly all of their reputation comes from killing the servants of fire, air and earth: the quests themselves pay nothing until the last one. Take both quests: the chain goes on only when both are done. Everything past Honored happens in the Molten Core, a raid of 40 that is not among the first raids Blizzard has announced for Forever; until it opens, Honored is as far as the Waterlords go. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%.
-  accept 6804
-  accept 6805
-
-step Stormers and Rumblers
-  zone Silithus
-  tip Dust Stormers and Desert Rumblers drift around the Crystal Vale in the north-west of Silithus. Each kill also pays 5 reputation while you are Neutral or Friendly, so stay if you mean to farm (next steps).
-  kill 11744 x15 quest 6805.1         -- Dust Stormer
-  kill 11746 x15 quest 6805.2         -- Desert Rumbler
-
-step Poisoned Water
-  zone Eastern Plaguelands
-  tip Use the Aspect of Neptulon on a Blighted Horror or a Plague Monstrosity: it turns into a Discordant Surge. Kill the surge and loot its Discordant Bracers. Twelve are needed, and the vial must still be in your bags at the turn-in.
-  use 17310 optional @44.0,41.0       -- Aspect of Neptulon, on the poisoned elementals
-  collect 17309 x12 quest 6804.1      -- Discordant Bracers
-
-step Back to Duke Hydraxis
-  zone Azshara
-  turnin 6804
-  turnin 6805
-  accept 6821
-
-step Eye of the Emberseer
-  zone Burning Steppes
-  tip Pyroguard Emberseer is a boss in Upper Blackrock Spire, inside Blackrock Mountain: a group of up to ten, and someone needs the Seal of Ascension to open the door. He drops the Eye and pays 50 reputation per kill up to 11,999 of 12,000 Honored. Lord Incendius in Blackrock Depths pays 15 the same way.
-  collect 17322 quest 6821.1 optional @26.4,24.5 -- Eye of the Emberseer: raid of ten
-  turnin 6821 optional
-  accept 6822 optional
-
-step Attunement to the Core
-  zone Searing Gorge
-  tip Lothos Riftwaker in Blackrock Mountain attunes you to the Molten Core: bring him a Core Fragment from beside the Molten Core's portal at the bottom of Blackrock Depths. Once attuned, he can send you straight into the Molten Core.
-  accept 7848 optional map 1428
-  collect 18412 quest 7848.1 optional @32.1,94.7 -- Core Fragment, at the portal in Blackrock Depths
-  turnin 7848 optional map 1428
-
-step The Molten Core
-  tip The Molten Core is a raid of 40. Kill one Molten Giant, Firelord, Ancient Core Hound and Lava Surger for Duke Hydraxis. Every elemental there pays: Firewalkers, Flameguards, Lava Elementals, Lava Reavers and Molten Destroyers 40, Firelords, Lava Surgers, Molten Giants and Ancient Core Hounds 20, up to 11,999 of 12,000 Honored; about 3,360 for a full clear of the trash. The bosses pay 100 each (Golemagg 150, Ragnaros 200).
-  kill 11658 quest 6822.1 optional @32.1,94.7 -- Molten Giant: raid of 40
-  kill 11668 quest 6822.2 optional @32.1,94.7 -- Firelord
-  kill 11673 quest 6822.3 optional @32.1,94.7 -- Ancient Core Hound
-  kill 12101 quest 6822.4 optional @32.1,94.7 -- Lava Surger
-
 step Elementals to Honored
   zone Silithus
-  tip Neutral to Honored is 9,000 reputation, and Agent of Hydraxis asks for Honored. One Molten Core clear pays about 4,000 of it. Without a raid it comes from the elementals: 5 per Dust Stormer, Desert Rumbler or Greater Obsidian Elemental (the Burning Steppes), about 1,800 kills from Neutral. They stop at 5,999 of 6,000 Friendly, one point short, so the last point needs a kill that still counts there: Huricanian, a rare air elemental in the Crystal Vale (25), or Lord Incendius at the Black Anvil in Blackrock Depths (15, a five-player dungeon). Those two and Pyroguard Emberseer keep paying through Honored as well.
+  tip Everyone starts Neutral with the Waterlords, and their reputation comes from killing the servants of fire, air and earth. Duke Hydraxis's quests aren't offered on Forever yet: they come back when the Molten Core opens. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%.
+  tip Neutral to Honored is 9,000 reputation. It comes from the elementals: 5 per Dust Stormer or Desert Rumbler, which drift around the Crystal Vale in the north-west of Silithus, or Greater Obsidian Elemental (the Burning Steppes), about 1,800 kills from Neutral. They stop at 5,999 of 6,000 Friendly, one point short, so the last point needs a kill that still counts there: Huricanian, a rare air elemental in the Crystal Vale (25), or Lord Incendius at the Black Anvil in Blackrock Depths (15, a five-player dungeon). Those two keep paying through Honored as well.
   kill 11744 optional                 -- Dust Stormer, 5
   kill 11746 optional                 -- Desert Rumbler, 5
   kill 14478 optional                 -- Huricanian, rare, 25
   kill 9017 optional @32.1,94.7 map 1427 -- Lord Incendius, Blackrock Depths: 15, group up
   rep 749 Honored
 
-step Agent of Hydraxis
-  zone Azshara
-  tip Back to Duke Hydraxis. Agent of Hydraxis is done the moment you are Honored.
-  turnin 6822 optional
-  accept 6823 optional
-  turnin 6823 optional
-  accept 6824 optional
-
-step Hands of the Enemy
-  zone Searing Gorge
-  tip Lucifron, Gehennas, Shazzrah and Sulfuron Harbinger are Molten Core bosses: each drops his hand for the quest.
-  collect 17332 quest 6824.1 optional @32.1,94.7 -- Hand of Shazzrah: raid of 40
-  collect 17329 quest 6824.2 optional @32.1,94.7 -- Hand of Lucifron
-  collect 17331 quest 6824.3 optional @32.1,94.7 -- Hand of Gehennas
-  collect 17330 quest 6824.4 optional @32.1,94.7 -- Hand of Sulfuron
-
-step A Hero's Reward
-  zone Azshara
-  tip Hand in the hands, then dive under the surf at the southern foot of the island: Hydraxis' Coffer holds your ring and pays the only quest reputation the Waterlords give, 200. From now on, while you are Honored or better, the Duke hands you Aqual Quintessence: pour it on a rune in the Molten Core to douse it. With every rune doused, Majordomo Executus comes out, and after him Ragnaros.
-  turnin 6824 optional
-  accept 7486 optional
-  turnin 7486 optional choose 18399 18398
-  collect 17333 npc 13278 optional    -- Aqual Quintessence, ask the Duke
+step Pyroguard Emberseer
+  zone Burning Steppes
+  tip Pyroguard Emberseer is a boss in Upper Blackrock Spire, inside Blackrock Mountain: a group of up to ten, and someone needs the Seal of Ascension to open the door. He pays 50 reputation per kill up to 11,999 of 12,000 Honored.
+  kill 9816 optional @26.4,24.5       -- Pyroguard Emberseer: raid of ten
 
 step Molten Core to Revered
   zone Searing Gorge
+  tip The Molten Core is a raid of 40 and not open on Forever yet. Once it is: every elemental there pays, Firewalkers, Flameguards, Lava Elementals, Lava Reavers and Molten Destroyers 40, Firelords, Lava Surgers, Molten Giants and Ancient Core Hounds 20, up to 11,999 of 12,000 Honored; about 3,360 for a full clear of the trash.
   tip Honored to Revered is 12,000 reputation. The trash still counts, so a full clear pays about 3,360 plus 700 from the seven bosses, 150 from Golemagg and 200 from Ragnaros: about three clears. Lord Incendius (15) and Pyroguard Emberseer (50) count too while you are Honored. The trash stops at 11,999 of 12,000 Honored; the bosses carry you over.
   kill 11666 optional @32.1,94.7      -- Firewalker, 40
   kill 11667 optional @32.1,94.7      -- Flameguard, 40
@@ -125,7 +64,7 @@ step Molten Core to Revered
 
 step The Eternal Quintessence
   zone Azshara
-  tip At Revered the Duke gives you the Eternal Quintessence: it does the Aqual Quintessence's work and is not used up, so you never come back for another vial.
+  tip Duke Hydraxis stands on a small island off the east coast of Azshara; swim out to him. At Revered he gives you the Eternal Quintessence: pour it on a rune in the Molten Core to douse it. It is not used up, so you never come back for another. With every rune doused, Majordomo Executus comes out, and after him Ragnaros.
   collect 22754 npc 13278 optional    -- Eternal Quintessence, ask the Duke
 
 step Molten Core to Exalted

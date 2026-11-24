@@ -8,6 +8,8 @@
 //   data/forever/quests.json        which quests a class may take (classes),
 //                                   their links (next, pre, preAll, preAny) and
 //                                   item rewards (the web quest data's items and choices)
+//   data/codex/recorded.json        the items players were handed at each turn-in
+//                                   (their recordings' `rewards`; a trusted row wins)
 //   data/sources/forever-tdb        quest RewardSpell (else RewardDisplaySpell1)
 //   the client tables               SpellEffect (a "teach" spell's learned
 //                                   spell), SpellName, SpellMisc and Item (names,
@@ -101,7 +103,9 @@ function walkGuides(dir, out = []) {
 }
 
 // The guides with a `class` header: { file, mask, reward (first spell or item
-// line, choices together), quests (accept/turnin/complete ids in order) }.
+// line, choices together), quests (accept/turnin/complete ids in order),
+// holds (quest -> the level its first accept step waits for: the guide's
+// opening level or the step's own `level` hold, the higher) }.
 function classGuides(dir) {
 	const diag = { error() {}, warn() {}, push() {} };
 	const out = [];
@@ -118,18 +122,39 @@ function classGuides(dir) {
 		if (first && first.spell) reward = { spell: first.spell };
 		else if (first) reward = { items: lines.filter((r) => r.item && r.line === first.line).map((r) => r.item), choice: !!first.choice };
 		const quests = [];
+		const holds = {};
+		const opening = (g.header.levels && g.header.levels.min) || 1;
 		for (const step of g.steps || []) {
+			const hold = Math.max(opening, ...(step.goals || []).filter((goal) => goal.verb === 'level').map((goal) => Number(goal.level) || 0));
 			for (const goal of step.goals || []) {
 				const q = Number(goal.quest);
 				if (q && ['accept', 'turnin', 'complete'].includes(goal.verb) && !quests.includes(q)) quests.push(q);
+				if (q && goal.verb === 'accept' && !(q in holds)) holds[q] = hold;
 			}
 		}
-		out.push({ file: path.relative(ROOT, file), mask, reward, quests });
+		out.push({ file: path.relative(ROOT, file), mask, reward, quests, holds });
 	}
 	return out;
 }
 
-function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}, races = {} }) {
+// A live-frame point (map percent on the client's map) on map m -> the same place in Era map percent, or null
+// without both frames (data/forever/map-frames.json: { era, forever }, each map's world bounds).
+function eraPoint(frames, m, pt) {
+	const live = frames && frames.forever && frames.forever[m];
+	const era = frames && frames.era && frames.era[m];
+	if (!live || !era || !pt || live.c !== era.c) return null;
+	const wx = live.top + ((live.bottom - live.top) * pt[1]) / 100;
+	const wy = live.left + ((live.right - live.left) * pt[0]) / 100;
+	const x = ((wy - era.left) / (era.right - era.left)) * 100;
+	const y = ((wx - era.top) / (era.bottom - era.top)) * 100;
+	if (!(x >= 0 && x <= 100 && y >= 0 && y <= 100)) return null;
+	return [Math.round(x * 100) / 100, Math.round(y * 100) / 100];
+}
+
+// recorded: data/codex/recorded.json `rewards` ({ quest: { items, choices, voters, trusted } }): what players were
+// handed at the turn-in, in their recordings; a trusted row wins over the quest data's `web` items. frames:
+// data/forever/map-frames.json, to place a giver the data knows only on the live frame.
+function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}, races = {}, recorded = {}, frames = null }) {
 	// Spells: what a "teach" spell teaches, names, icons, kinds.
 	const effects = new Map();
 	for (const r of table('SpellEffect')) {
@@ -169,11 +194,16 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 		if (!it) return 'item';
 		return it.cls === ITEM_WEAPON ? 'weapon' : it.cls === ITEM_ARMOR ? 'armor' : 'item';
 	}
-	// A class spell (a spell some class's skill lines list), not a buff the
-	// turn-in casts (Call of Air's Swift Wind).
-	const classSpells = new Set();
-	for (const r of table('SkillLineAbility')) classSpells.add(Number(r.Spell));
-	const teaches = (s) => learned(s).length > 0 || classSpells.has(s);
+	// A class spell the quest's own class learns (a spell its skill lines
+	// list), not a buff the turn-in casts (Call of Air's Swift Wind; the
+	// priests' Blood of Morphaz casts the druids' Mark of the Wild, #2440).
+	// SkillLineAbility's ClassMask 0 (or -1) is every class.
+	const classSpells = new Map();
+	for (const r of table('SkillLineAbility')) {
+		const s = Number(r.Spell), m = Number(r.ClassMask) || 0;
+		classSpells.set(s, (classSpells.get(s) || 0) | (m > 0 ? m & ALL_CLASSES : ALL_CLASSES));
+	}
+	const teaches = (s, m) => learned(s).length > 0 || ((classSpells.get(s) || 0) & m) !== 0;
 	// A shaman's totem (Earth, Fire, Water, Air Totem: a reagent).
 	const isTotem = (i) => {
 		const it = items.get(i);
@@ -199,11 +229,12 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 		const r = {};
 		const t = tq[q];
 		const s = t && Number(t.rewardSpell);
-		if (s > 0 && teaches(s)) {
+		if (s > 0 && teaches(s, mask.get(q))) {
 			r.teach = s;
 			r.spell = resolve(s);
 		}
-		const w = webOf(quests[q]);
+		const seen = recorded[q];
+		const w = seen && seen.trusted && ((seen.items || []).length || (seen.choices || []).length) ? seen : webOf(quests[q]);
 		const fixed = ((w && w.items) || []).map((e) => Number(Array.isArray(e) ? e[0] : e)).filter(kept);
 		const choices = ((w && w.choices) || []).map((e) => Number(Array.isArray(e) ? e[0] : e)).filter(kept);
 		if (fixed.length) r.items = [fixed.find(isTotem) || fixed[0]];
@@ -233,10 +264,16 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 		guideGiver.set(g, q);
 	}
 
-	// Links between class quests of the same class.
+	// Links between class quests of the same class and side: a quest both factions' chains lead to (The Tempest's
+	// Weapons, 79442, lists the Horde's Heed My Call and the Alliance's as `pre`) joins neither to the other.
 	const succ = new Map(), pred = new Map();
+	const raceBits = (q) => BigInt(Number((quests[q] || {}).races) || 0);
+	const sameSide = (a, b) => {
+		const x = raceBits(a), y = raceBits(b);
+		return x === 0n || y === 0n || (x & y) !== 0n;
+	};
 	const link = (a, b) => {
-		if (!a || !b || a === b || !mask.has(a) || !mask.has(b) || !(mask.get(a) & mask.get(b))) return;
+		if (!a || !b || a === b || !mask.has(a) || !mask.has(b) || !(mask.get(a) & mask.get(b)) || !sameSide(a, b)) return;
 		if (!succ.has(a)) succ.set(a, new Set());
 		if (!pred.has(b)) pred.set(b, new Set());
 		succ.get(a).add(b);
@@ -365,6 +402,16 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 	// its heads-up (Quel'Serrar, Arcane Refreshment): the guide is the opt-in.
 	const guided = new Set();
 	for (const g of guides) for (const q of g.quests) if (mask.has(q)) guided.add(find(q));
+	// The heads-up comes when the class guide would let you take the quest: its
+	// accept step's level hold (Fitz's level rule, 0.4.0) when that is above the
+	// quest's own minimum. A level 1 start stays at 1 (no heads-up: the trainer
+	// gives it at the start).
+	const heldAt = new Map();
+	for (const g of guides) for (const [q, hold] of Object.entries(g.holds || {})) if (!heldAt.has(Number(q)) || hold < heldAt.get(Number(q))) heldAt.set(Number(q), hold);
+	const startLevel = (q, v) => {
+		const min = Number(v.minLevel) || Number(v.level) || 1;
+		return min > 1 ? Math.max(min, heldAt.get(q) || 0) : min;
+	};
 	const gearSet = (e, v) => {
 		const w = webOf(v);
 		const sort = Number(w && w.zone);
@@ -381,12 +428,26 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 			.filter((w) => w && w.name)
 			.map((w) => {
 				const spawns = w.spawns || {};
-				const maps = Object.keys(spawns).filter((k) => spawns[k].f === 'e' && (spawns[k].pts || []).length).map(Number);
+				// Where the giver stands decides which races it is offered to: a spawn the recordings placed on the
+				// client's live frame (f 'l') is on that map too. The card's point stays an Era one: a giver with only
+				// live spawns (the 0.4.3 data has many) gets its live point carried onto the Era map (eraPoint).
+				const placed = Object.keys(spawns).filter((k) => (spawns[k].pts || []).length).map(Number);
+				const maps = placed.filter((m) => spawns[String(m)].f === 'e');
+				const g = { name: w.name, faction: w.faction, maps: placed };
 				const at = maps.includes(Number(v.zone)) ? Number(v.zone) : maps[0];
-				const g = { name: w.name, faction: w.faction, maps };
 				if (at) {
 					g.map = at;
 					[g.x, g.y] = spawns[String(at)].pts[0];
+				} else {
+					const live = placed.includes(Number(v.zone)) ? [Number(v.zone), ...placed] : placed;
+					for (const m of live) {
+						const p = spawns[String(m)].f === 'l' ? eraPoint(frames, m, spawns[String(m)].pts[0]) : null;
+						if (p) {
+							g.map = m;
+							[g.x, g.y] = p;
+							break;
+						}
+					}
 				}
 				return g;
 			});
@@ -399,7 +460,7 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 				const rank = !g.maps.length ? 3 : g.maps.some((m) => rs.home.has(m)) ? 0 : g.maps.some((m) => anyHome.has(m)) ? 2 : 1;
 				if (!best || rank < best.rank) best = { rank, i };
 			});
-			if (best) candidates.push({ q, reward: e.reward, minLevel: Number(v.minLevel) || Number(v.level) || 1, key: rs.key, rank: best.rank, giver: givers[best.i] });
+			if (best) candidates.push({ q, reward: e.reward, minLevel: startLevel(q, v), key: rs.key, rank: best.rank, giver: givers[best.i] });
 		}
 	}
 	// One start per reward and race: the best-placed giver, then the lowest level, then the lowest id.
@@ -489,10 +550,13 @@ module.exports = {
 		const npcs = JSON.parse(fs.readFileSync(path.join(dataDir, 'npcs.json'), 'utf8'));
 		const objects = JSON.parse(fs.readFileSync(path.join(dataDir, 'objects.json'), 'utf8'));
 		const races = JSON.parse(fs.readFileSync(path.join(dataDir, 'races.json'), 'utf8'));
+		const recordedFile = path.join(ROOT, 'data', 'codex', 'recorded.json');
+		const recorded = fs.existsSync(recordedFile) ? JSON.parse(fs.readFileSync(recordedFile, 'utf8')).rewards || {} : {};
 		const tdbFile = path.join(sources, 'forever-tdb', 'extract.json');
 		const tdb = fs.existsSync(tdbFile) ? JSON.parse(fs.readFileSync(tdbFile, 'utf8')) : null;
 		const guides = classGuides(path.resolve(values.guides || path.join(ROOT, 'guides')));
-		const data = { ...buildClassRewards({ quests, tdb, table: tableFinder(sources), guides, npcs, objects, races }) };
+		const frames = JSON.parse(fs.readFileSync(path.join(dataDir, 'map-frames.json'), 'utf8'));
+		const data = { ...buildClassRewards({ quests, tdb, table: tableFinder(sources), guides, npcs, objects, races, recorded, frames }) };
 		const out = path.resolve(values.lua || path.join(ROOT, 'addon', 'Polestar', 'UI', 'ClassRewards.lua'));
 		fs.mkdirSync(path.dirname(out), { recursive: true });
 		fs.writeFileSync(out, toLua(data));

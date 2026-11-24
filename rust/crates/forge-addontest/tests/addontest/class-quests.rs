@@ -100,9 +100,11 @@ Polestar.Guides = {
 	GuideMatches = function(g, p) return not g.classes or g.classes[1] == p.class end,
 }
 local gates = { ["c/air"] = { level = 30 } }
+local outgrown = {}
 Polestar.Engine = {
 	StartGate = function(id) return gates[id] end,
 	GetGuideState = function() return "new" end,
+	Outgrown = function(g) return outgrown[g.id] == true end,
 }
 local offers = {}
 Polestar.On("CLASS_QUEST_READY", function(n) offers[#offers + 1] = n end)
@@ -236,6 +238,50 @@ fn a_short_chain_with_low_mobs_has_no_heads_up_line() {
 	assert_eq!(out[0], true);
 }
 
+// coredump's report (#2947): Call of Earth (Horde)'s card read "mobs up to level 9999": one spawn area of the
+// Signet of Akir's droppers carries the level of a mob the game shows as "??". No real level is named.
+#[test]
+fn a_spawn_area_of_no_real_level_is_never_named_on_the_card_2947() {
+	let out = run_qol(
+		r#"
+		local g = { id = "c/earth", title = "Call of Earth", category = "Class", classes = { "SHAMAN" }, minLevel = 4, steps = {
+			{ goals = { { t = "accept", quest = 21, map = 2521 } } },
+			{ goals = { { t = "collect", quest = 21, item = 6, map = 2521, spotsPacked = "43.8,24.1,,40,1,,3;48.9,54.2,781.3,40,3,,9999;65.6,65.6,696,40,1,,10" } } },
+		} }
+		local h = CQ.Heads(g, { class = "SHAMAN" })
+		emit({ mobMax = h.mobMax, line = CQ.HeadsLine(h, g) or false })"#,
+	);
+	assert_eq!(out[0], json!({ "mobMax": 10, "line": "mobs up to level 10" }), "the real levels only");
+}
+
+// Discord feedback via Fitz (2026-11-10): the game offers The Eye of Bhossca (level 35) at 30, and class cards
+// stacked up there. A chain is offered from one level below its first quest's level; the guide list still opens it
+// as soon as its gate does (Engine.StartGate is not touched).
+#[test]
+fn a_chain_is_offered_one_level_below_its_first_quest_s_level_not_when_the_game_first_allows_it() {
+	let out = run_qol(
+		r#"
+		levelUp(20)
+		CQ.Resolve("c/fire")
+		local g = { id = "c/eye", title = "The Eye", category = "Class", classes = { "SHAMAN" }, minLevel = 30, steps = {
+			{ goals = { { t = "level", level = 30 }, { t = "accept", quest = 78676, minLevel = 30, qlvl = 35 } } },
+			{ goals = { { t = "accept", quest = 78699, qlvl = 35 } } },
+		} }
+		guides[#guides + 1] = g
+		byId[g.id] = g
+		local seen = {}
+		for _, n in ipairs({ 30, 31, 32, 33, 34 }) do
+			local before = #offers
+			levelUp(n)
+			seen[#seen + 1] = #offers > before and offers[#offers].guideId or false
+		end
+		emit(seen)
+		emit(CQ.Heads(g, { class = "SHAMAN" }).firstLevel)"#,
+	);
+	assert_eq!(out[0], json!([false, false, false, false, "c/eye"]), "not at 30-33, at 34");
+	assert_eq!(out[1], 35);
+}
+
 // ---------------------------------------------------------------------------
 // Section 3: the class-quest card (UI/ClassCard.lua) over a class quest's step
 // ---------------------------------------------------------------------------
@@ -315,6 +361,58 @@ fn a_druid_on_a_druid_only_accept_sees_the_class_card_with_the_reward_spells_ico
 	let warrior = &out[1];
 	assert_eq!(warrior["shown"], false, "{warrior}");
 	assert_eq!(warrior["row"], "Accept “|cffffd673The Great Cat Spirit|r”");
+}
+
+// #2898: the Forsaken paladin's warhorse guide opens on Report to Danitha (97022). Its card names the chain's end, the
+// Forsaken Summon Warhorse (1279399, from A Paladin's Steed 94971), as a new mount.
+#[test]
+fn report_to_danitha_s_card_is_the_forsaken_paladin_s_summon_warhorse_2898() {
+	let out = run_card(
+		r#"
+		uistub.guides["test/warhorse"] = { id = "test/warhorse", pack = "guides", title = "Paladin Warhorse (Forsaken)", minLevel = 40, maxLevel = 60,
+			category = "Class", zone = 1458, zoneName = "Undercity", author = "Polestar", version = 1, steps = {
+			{ title = "Report to Danitha", goals = {
+				G("accept", { verb = "Accept", subject = "Report to Danitha", subjectKind = "quest", quest = 97022, npc = 260093, npcName = "Garen Largo", minLevel = 40, map = 1458, x = 47.12, y = 15.49, status = "active" }),
+			} },
+			{ title = "Summon Warhorse", goals = {
+				G("accept", { verb = "Accept", subject = "A Paladin's Steed", subjectKind = "quest", quest = 94971, npc = 246378, npcName = "Danitha Morr", minLevel = 40, map = 1420, x = 22, y = 44.66, status = "pending" }),
+				G("turnin", { verb = "Turn in", subject = "A Paladin's Steed", subjectKind = "quest", quest = 94971, npc = 246378, npcName = "Danitha Morr", map = 1420, x = 22, y = 44.66, status = "pending" }),
+			} },
+		} }
+		uistub.player.class, uistub.player.race, uistub.player.faction, uistub.player.level = "PALADIN", "Scourge", "Horde", 40
+		uistub.setGuide("test/warhorse", 1)
+		local c = card()
+		emit({ shown = c.shown, icon = c.icon, learn = c.learn, badge = c.badge })"#,
+	);
+	let c = &out[0];
+	assert_eq!(c["shown"], true, "{c}");
+	assert_eq!(c["icon"], "Interface\\Icons\\spell-1279399");
+	assert!(c["learn"].as_str().unwrap_or("").contains("Summon Warhorse"), "{c}");
+	assert_eq!(c["badge"], "NEW MOUNT");
+}
+
+// Discord (a Rogue on The Horn of Xelthos, 78261): the card read "ROGUE · LEVEL 1". The quest is level 23 and any
+// level may take it (minLevel 1); the head showed the minimum. It shows the quest's own level, and the minimum only
+// when there is no level and the minimum is one (above 1).
+#[test]
+fn the_class_card_shows_the_quest_s_level_not_a_minimum_of_1_horn_of_xelthos() {
+	let out = run_card(
+		r#"
+		local function horn(fields)
+			local accept = { verb = "Accept", subject = "The Horn of Xelthos", subjectKind = "quest", quest = 78261, object = 410369, objName = "Dead Drop", map = 1421, x = 46.5, y = 73.5, status = "active" }
+			for k, v in pairs(fields) do accept[k] = v end
+			uistub.guides["test/horn"] = { id = "test/horn", pack = "guides", title = "The Horn of Xelthos", minLevel = 23, maxLevel = 26,
+				category = "Class", zone = 1421, zoneName = "Silverpine Forest", author = "Polestar", version = 1, steps = {
+				{ title = "C's dead drop", goals = { G("accept", accept) } },
+				{ title = "Back", goals = { G("turnin", { verb = "Turn in", subject = "The Horn of Xelthos", subjectKind = "quest", quest = 78261, object = 410369, map = 1421, x = 46.5, y = 73.5, status = "pending" }) } },
+			} }
+			uistub.setGuide("test/horn", 1)
+			return card().head
+		end
+		uistub.player.class, uistub.player.race, uistub.player.level = "ROGUE", "Human", 23
+		emit({ quest = horn({ minLevel = 1, qlvl = 23 }), noLevel = horn({ minLevel = 1 }), minOnly = horn({ minLevel = 20 }) })"#,
+	);
+	assert_eq!(out[0], json!({ "quest": "ROGUE · LEVEL 23", "noLevel": "ROGUE", "minOnly": "ROGUE · LEVEL 20" }));
 }
 
 // Only the quest data makes a class quest (UI/ClassRewards.lua's class mask), never a line's
@@ -560,8 +658,8 @@ fn a_hand_in_in_a_later_step_reads_later_in_this_guide() {
 
 // A Warlock class guide with three chains in order (Imp, Voidwalker, Succubus: the Orc's quests,
 // Ruzan, Ophek and Gan'rul Bloodeye), a Druid one for Cat Form, and a Durotar leveling guide that
-// takes the Voidwalker chain at its third step.
-const TOAST_PRE: &str = r#"uistub.install()
+// takes the Voidwalker chain at its third step. The heads-up card's place and style (ui-headsup-card.rs) too.
+pub(crate) const TOAST_PRE: &str = r#"uistub.install()
 stub.login()
 local GF = Polestar.UI.GuideFrame
 local CT = Polestar.UI.ClassToast
@@ -640,6 +738,36 @@ fn a_druid_reaching_20_gets_the_cat_form_heads_up_once_a_warrior_does_not() {
 	let warrior = &out[2];
 	assert_ne!(warrior["quest"], 98393, "{warrior}");
 	assert!(!warrior["title"].as_str().unwrap_or("").contains("Cat Form"), "{warrior}");
+}
+
+// #3727 (Liquidor): a level 50 hunter's card read "#20083, #19991 or #19992 ready": reward items the client had not
+// cached had no name. The card asks for them and names them the moment they arrive.
+#[test]
+fn a_reward_item_the_client_has_not_cached_is_asked_for_and_the_card_names_it_when_it_arrives() {
+	let out = run_toast(
+		r#"
+		local names, asked = {}, {}
+		C_Item = C_Item or {}
+		C_Item.GetItemNameByID = function(id) return names[id] end
+		-- What the client is asked for (Compat.RequestItem: C_Item.RequestLoadItemDataByID in the game).
+		Polestar.Compat.RequestItem = function(id) asked[#asked + 1] = id return names[id] ~= nil end
+		GetItemInfo = function(id) return names[id] end
+		who("WARLOCK", "Orc", "Horde", 10)
+		uistub.openTabs({ { "test/durotar", 1 } }, 1)
+		local m = CT.Model(1506)
+		m.reward = { kind = "weapon", show = "item", items = { 20083, 19991 }, choice = true }
+		m.title = string.format("%s ready", Polestar.UI.ClassCard.RewardName(m.reward))
+		CT.ShowCard(m)
+		local before = CT.frame.Title:GetText()
+		names[20083], names[19991] = "Hunting Spear", "Devilsaur Eye"
+		stub.fire("GET_ITEM_INFO_RECEIVED", 20083)
+		emit({ before = before, asked = asked, after = CT.frame.Title:GetText() })"#,
+	);
+	let o = &out[0];
+	assert!(o["before"].as_str().unwrap().contains("#20083"), "{o}");
+	assert!(o["asked"].as_array().unwrap().iter().any(|x| x == 20083) && o["asked"].as_array().unwrap().iter().any(|x| x == 19991), "asked for: {o}");
+	let after = o["after"].as_str().unwrap();
+	assert!(after.contains("Hunting Spear") && after.contains("Devilsaur Eye") && !after.contains('#'), "named once they arrive: {o}");
 }
 
 #[test]
@@ -775,6 +903,25 @@ fn no_heads_up_for_a_reward_already_known_or_owned_or_a_chain_already_taken() {
 	assert_eq!(out[4]["quest"], 98393, "{}", out[4]);
 }
 
+// #3020 (FleshExpress): a Highborne hunter who had Tame Beast for days got the "Taming the Beast" card at 35: the
+// card checked the one spell id the data names, and another race's chain teaches it under another id. #1935: the
+// same for a Skyborne druid's Bear Form. The reward counts as known by its name in the spellbook too.
+#[test]
+fn issue_3020_a_reward_spell_known_under_another_id_counts_by_its_name() {
+	let out = run_toast(
+		r#"
+		local book = {}
+		Polestar.Compat.KnowsSpellNamed = function(name) return book[name] == true end
+		local tame = { kind = "pet", spell = 1515, spellName = "Tame Beast" }
+		local r = { CT.RewardKnown(tame) }
+		book["Tame Beast"] = true
+		r[2] = CT.RewardKnown(tame)
+		r[3] = CT.RewardKnown({ kind = "ability", spell = 5487, spellName = "Bear Form" })
+		emit(r)"#,
+	);
+	assert_eq!(out[0], json!([false, true, false]), "not known; known by name; another name stays unknown");
+}
+
 #[test]
 fn login_tells_only_of_chains_opened_in_the_last_two_levels_and_never_of_level_1_ones() {
 	let out = run_toast(
@@ -821,6 +968,34 @@ fn the_giver_is_the_one_for_the_characters_race_and_without_a_class_guide_show_m
 	assert_eq!(out[2], json!({ "target": "Ageron Kargal", "map": 1420, "shown": false }));
 }
 
+// #1639's sweep: "Show me" put the arrow on the giver's map point without a height, so a giver in a
+// stacked town (the Undercity's Royal Quarter, Orgrimmar's Cleft of Shadow) was sought on the nearest
+// floor. The height comes from the Codex spawn of the quest's start nearest the point; a spawn far
+// from it (another of the NPC's spots) or none leaves it unknown, as before.
+#[test]
+fn show_me_carries_the_giver_s_codex_height_so_a_giver_in_a_stacked_town_is_sought_on_its_floor_1639() {
+	let out = run_toast(
+		r#"
+		who("WARLOCK", "Scourge", "Horde", 9)
+		stub.fire("PLAYER_LEVEL_UP", 10)
+		local m = CT.current
+		local spawns = { { map = m.map, x = m.x + 20, y = m.y, z = 99 }, { map = m.map, x = m.x + 0.5, y = m.y, z = -61.4 } }
+		Polestar.Codex = {
+			IsLoaded = function() return true end,
+			Quest = function(q) return q == m.quest and { start = { npc = { 7 } } } or nil end,
+			Npc = function(id) return id == 7 and { id = 7, spawns = spawns } or nil end,
+			Object = function() return nil end,
+		}
+		CT.frame.ShowMe:Click()
+		local near = uistub.target and uistub.target.z
+		spawns[2] = nil
+		CT.Show(m.quest)
+		CT.frame.ShowMe:Click()
+		emit({ near = near, far = uistub.target and uistub.target.z == nil })"#,
+	);
+	assert_eq!(out[0], json!({ "near": -61.4, "far": true }), "the spawn 20 map percent off is another spot, no height for the giver");
+}
+
 // Fitz, 2026-11-05: "NEW WEAPON" crowded the quest's name. With a badge the title starts
 // below the badge (10 down, 20 high) with a gap, never beside or under it.
 #[test]
@@ -837,4 +1012,89 @@ fn the_class_card_title_starts_below_the_reward_badge() {
 	let r = &out[0];
 	assert_eq!(r["badge"], true, "{r}");
 	assert!(r["titleTop"].as_f64().unwrap() >= r["badgeBottom"].as_f64().unwrap() + 4.0, "{r}");
+}
+
+// The shipped pack (Polestar_Guides): The Eye of Bhossca's first accept carries its compiled quest level, so the
+// heads-up reads 35 from the pack itself, with no quest database or client answer needed, and a Rogue past the horn
+// job is offered it at 34, not at 30-33.
+#[test]
+fn the_shipped_eye_of_bhossca_is_offered_at_34_from_its_compiled_quest_level() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: r#"
+local w = stub.world
+w.addMap(1421, { name = "Silverpine Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.race, w.raceName, w.raceID, w.class, w.className, w.classID, w.faction, w.level = "Human", "Human", 1, "ROGUE", "Rogue", 4, "Alliance", 30
+w.moveTo(1421, 47, 70)
+w.complete({ 78261, 78270, 78307 })
+"#
+		.into(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "QoL/QoL.xml"]), Addon::name("Polestar_Guides")],
+		saved: vec![("Polestar".into(), "PolestarCharDB = { schema = 1 }".into())],
+		login: true,
+		script: r#"
+local G, CQ = Polestar.Guides, Polestar.QoL.ClassQuests
+local id = "forever/class/rogue/the-eye-of-bhossca"
+local function ready()
+	for _, g in ipairs(CQ.Ready()) do if g.id == id then return true end end
+	return false
+end
+local r = { first = CQ.Heads(G.Get(id), Polestar.Compat.GetPlayerInfo()).firstLevel }
+-- Each level reached as in game (PLAYER_LEVEL_UP): the engine reads the player's level then, not on every call.
+for _, n in ipairs({ 30, 33, 34 }) do stub.world.setLevel(n); stub.advance(2); r["at" .. n] = ready() end
+emit(r)"#
+			.into(),
+	});
+	assert_eq!(out[0], json!({ "first": 35, "at30": false, "at33": false, "at34": true }));
+}
+
+#[test]
+fn a_guide_the_engine_calls_outgrown_is_never_offered_3845() {
+	let out = run_qol(
+		r#"
+		outgrown["c/fire"] = true
+		levelUp(20)
+		emit(#offers)"#,
+	);
+	assert_eq!(out[0], 0);
+}
+
+// NoThink's report (#3845): a level-25 Human mage in Duskwood was offered the level-15 class quest (Manaweave Robe,
+// levels 15-17), and the guide it opened called itself outgrown at once. Fitz, 23 Nov: a class quest stops being
+// offered 5 levels past its guide's top, unless it rewards a spell the character still lacks (Bear Form, 10-12).
+// The shipped pack, the real Engine.Outgrown.
+#[test]
+fn a_class_quest_stops_being_offered_five_levels_past_its_guide_s_top_unless_its_spell_is_still_missing_3845() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: r#"
+local w = stub.world
+w.addMap(1431, { name = "Duskwood", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.race, w.raceName, w.raceID, w.class, w.className, w.classID, w.faction, w.level = "Human", "Human", 1, "MAGE", "Mage", 8, "Alliance", 21
+w.moveTo(1431, 50, 50)
+"#
+		.into(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "QoL/QoL.xml"]), Addon::name("Polestar_Guides"), Addon::name("Polestar_Guides_Alliance")],
+		saved: vec![("Polestar".into(), "PolestarCharDB = { schema = 1 }".into())],
+		login: true,
+		script: r#"
+local G, E, CQ = Polestar.Guides, Polestar.Engine, Polestar.QoL.ClassQuests
+local robe = "forever/class/mage/manaweave-robe"
+local function ready(id)
+	for _, g in ipairs(CQ.Ready()) do if g.id == id then return true end end
+	return false
+end
+local r = { levels = { G.Levels(G.Get(robe), "Alliance") } }
+for _, n in ipairs({ 21, 22, 25 }) do stub.world.setLevel(n); stub.advance(2); r["robe" .. n] = ready(robe) end
+-- Bear Form (10-12) for a Night Elf druid: 17 is 5 past its top; the spell decides.
+local bear = G.Get("forever/class/druid/bear-form")
+local p = { level = 17, faction = "Alliance" }
+r.bearMissing = E.Outgrown(bear, p)
+stub.world.learnSpell(5487)
+r.bearKnown = E.Outgrown(bear, p)
+r.bearAt16 = E.Outgrown(bear, { level = 16, faction = "Alliance" })
+emit(r)"#
+			.into(),
+	});
+	assert_eq!(out[0], json!({ "levels": [15, 17], "robe21": true, "robe22": false, "robe25": false, "bearMissing": false, "bearKnown": true, "bearAt16": false }));
 }

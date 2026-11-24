@@ -15,7 +15,7 @@ return {
 	["Picks up west of the {zone:1413}, in {zone:1443}, and ends in {zone:1445}. 15 areas to discover here, levels 30-39."] = "{zone:1413} 서쪽의 {zone:1443}에서 이어지며 {zone:1445}에서 끝납니다. 이곳에서 발견할 지역은 15곳, 30-39레벨입니다.",
 	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "한 캐릭터로 세계 지도 전체를 탐험하는 것은 Forever 유산 도전입니다(계정 공통 유산 점수 1점).",
 	-- {area:467} Stonetalon Peak · {area:608} Nijel's Point · {zone:1442} Stonetalon Mountains · {zone:1443} Desolace
-	["Fly to {area:467} (or to {area:608} if you have it) and take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "",
+	["Fly to {area:467} (or to {area:608} if you have it) and take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "{area:467}(으)로(비행 경로가 있다면 {area:608}(으)로) 날아가 남서쪽 길로 {zone:1442}을(를) 빠져나가 {zone:1443}(으)로 가십시오. 북쪽의 {area:608}은(는) 얼라이언스 마을입니다.",
 	-- {area:460} Sun Rock Retreat · {zone:1443} Desolace · {area:2408} Shadowprey Village
 	["Fly to {area:460} and take the road south-west into {zone:1443}; {area:2408} on the west coast is the Horde town."] = "{area:460}(으)로 비행한 뒤 남서쪽 길로 {zone:1443}에 가십시오. 서해안의 {area:2408}은(는) 호드 마을입니다.",
 	-- {area:608} Nijel's Point · {npc:6706} Baritanas Skyriver
@@ -47,9 +47,9 @@ return {
 
 	-- Step 6: Feralas: level 60+ areas
 	-- {zone:1444} Feralas
-	["{zone:1444}: level 60+ areas"] = "",
+	["{zone:1444}: level 60+ areas"] = "{zone:1444}: 60레벨 이상 지역",
 	-- {area:1113} Oneiros · {area:1111} Dream Bough
-	["{area:1113} and {area:1111} are level 60 areas, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs them."] = "",
+	["{area:1113} and {area:1111} are level 60 areas, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs them."] = "{area:1113}와(과) {area:1111}은(는) 60레벨 지역으로 이 가이드보다 훨씬 높습니다. 지금은 이 단계를 걷너뛰고 그 레벨 근처에서 돌아오세요. 지도 전체를 발견하려면 필요합니다.",
 	["level 60 area, well above this guide's range"] = "60레벨 지역으로, 이 가이드 범위보다 훨씬 높습니다",
 
 	-- Step 7: Dustwallow Marsh
@@ -67,12 +67,11 @@ return {
 
 	-- Step 8: Dustwallow Marsh: level 61+ area
 	-- {zone:1445} Dustwallow Marsh
-	["{zone:1445}: level 61+ area"] = "",
+	["{zone:1445}: level 61+ area"] = "{zone:1445}: 61레벨 이상 지역",
 	-- {area:2079} Alcaz Island
-	["{area:2079} is a level 61 area, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs it."] = "",
+	["{area:2079} is a level 61 area, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs it."] = "{area:2079}은(는) 61레벨 지역으로 이 가이드보다 훨씬 높습니다. 지금은 이 단계를 걷너뛰고 그 레벨 근처에서 돌아오세요. 지도 전체를 발견하려면 필요합니다.",
 	["level 61 area, well above this guide's range"] = "61레벨 지역으로, 이 가이드 범위보다 훨씬 높습니다",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "남서쪽 길로 {zone:1442}을(를) 빠져나가 {zone:1443}(으)로 가십시오. 북쪽의 {area:608}은(는) 얼라이언스 마을입니다.",
 	-- ["The {area:1108}"] = "{area:1108}",
 }

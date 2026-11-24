@@ -70,19 +70,25 @@ return {
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["{npc:3649} is in {area:442}. Take his quest before you hunt naga: the Kor Gem never drops without it."] = "{npc:3649} ist in {area:442}. Nimm seine Quest an, bevor du Naga jagst: Der Kor Gem fällt ohne sie nie.",
 
-	-- Step 12: The Corrupted Kor Gem
+	-- Step 12: The north end of the Zoram Strand
+	-- {area:414} Zoram Strand
+	["The north end of the {area:414}"] = "Das Nordende von {area:414}",
+	-- {area:414} Zoram Strand · {zone:1439} Darkshore
+	["The naga's flooded ruins lie just past the north end of the {area:414}, south of {zone:1439} along the coast. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins."] = "Die überfluteten Ruinen der Naga liegen gleich hinter dem Nordende von {area:414}, südlich von {zone:1439} an der Küste. Der Pfeil findet selbst den Abstieg nicht, also führt er dich erst zum Wasserrand: Von dort schwimm nordwärts in die Ruinen.",
+
+	-- Step 13: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
 	["The {item:6995}"] = "{item:6995}",
 	-- {area:2797} Blackfathom Deeps · {zone:1440} Ashenvale · {item:6995} Corrupted Kor Gem · {spell:122} Frost Nova
 	["The Blackfathom naga in the flooded passages around the {area:2797} entrance, on {zone:1440}'s north-west coast, drop the {item:6995}: Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24), one in two. You do not need to enter the instance. All are elite: grouping up is encouraged; players solo them one at a time, with difficulty. They heal themselves, run for help at low health, satyrs stand near some, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "Die Blackfathom Naga in den überfluteten Gängen rund um den Eingang von {area:2797} an der Nordwestküste von {zone:1440} lassen den {item:6995} fallen: Tide Priestesses (Stufe 20-21), Oracles (21-22) und Sea Witches (23-24), jede zweite. Du musst die Instanz nicht betreten. Alle sind Elite: Sich zu gruppieren ist empfehlenswert; Solo schaffst du sie nur einzeln und mit Mühe. Sie heilen sich selbst, rufen bei wenig Leben um Hilfe, bei manchen stehen Satyrn, und die Sea Witches wirken aus der Nähe {spell:122}. Manche Spieler berichten, dass in einer Schlachtzugsgruppe nichts fällt.",
 
-	-- Step 13: The Purified Kor Gem
+	-- Step 14: The Purified Kor Gem
 	-- {item:7083} Purified Kor Gem
 	["The {item:7083}"] = "{item:7083}",
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["Back to {npc:3649} in {area:442}: he purifies the gem."] = "Zurück zu {npc:3649} in {area:442}: Er reinigt den Edelstein.",
 
-	-- Step 14: Verigan's Fist
+	-- Step 15: Verigan's Fist
 	-- {npc:6181} Jordan Stilwell · {zone:1455} Ironforge
 	["Bring the four parts to {npc:6181} outside {zone:1455}. Accept his last quest and wait by him while he forges the mace at his anvil."] = "Bring die vier Teile zu {npc:6181} vor {zone:1455}. Nimm seine letzte Quest an und warte bei ihm, während er die Keule an seinem Amboss schmiedet.",
 
@@ -92,6 +98,7 @@ return {
 	-- ["Protect {npc:6182}"] = "Beschütze {npc:6182}",
 	-- ["The Alliance paladin's rare two-handed mace for the 20s, with a shield on the way."] = "Der seltene Zweihandstreitkolben der Allianz-Paladine für die 20er, mit einem Schild unterwegs.",
 	-- ["The Blackfathom naga by the entrance of {area:2797} on {zone:1440}'s north-west coast drop the {item:6995}. They are elite: grouping up is advised."] = "Die Blackfathom-Naga am Eingang der {area:2797} an der Nordwestküste von {zone:1440} lassen {item:6995} fallen. Sie sind Elite: Eine Gruppe wird empfohlen.",
+	-- ["The Blackfathom naga in the flooded passages around the {area:2797} entrance, on {zone:1440}'s north-west coast, drop the {item:6995}: Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24), one in two. You do not need to enter the instance. All are elite: grouping up is encouraged; players solo them one at a time, with difficulty. They heal themselves, run for help at low health, satyrs stand near some, and the Sea Witches cast Frost Nova up close. Some players report no drop while in a raid group."] = "Die Blackfathom-Naga in den überfluteten Gängen um den Eingang von {area:2797}, an der Nordwestküste von {zone:1440}, lassen {item:6995} fallen: Tide Priestesses (Stufe 20-21), Oracles (21-22) und Sea Witches (23-24), jede zweite. Du musst die Instanz nicht betreten. Alle sind Elite: Sich zu gruppieren ist empfehlenswert; Spieler schaffen sie allein einzeln, aber mühsam. Sie heilen sich selbst, laufen bei wenig Gesundheit um Hilfe, bei manchen stehen Satyrn, und die Sea Witches wirken im Nahbereich Frostnova. Manche Spieler berichten, dass in einer Schlachtzugsgruppe nichts fällt.",
 	-- ["The ore crate lies by the trees in the middle of the Mo'grosh ogre camp in north-east {zone:1432}. The Mo'grosh ogres are elite: grouping up is advised."] = "Die Erzkiste liegt bei den Bäumen mitten im Lager der Oger der Mo'grosh im Nordosten von {zone:1432}. Die Oger der Mo'grosh sind Elite: Eine Gruppe wird empfohlen.",
 	-- ["from the {item:6776}"] = "von {item:6776}",
 	-- ["{area:1581} is a group of five under {area:20}; the instance portal is inside the {area:20} mine. The Goblin Woodcarvers in the Mast Room, with Sneed, drop the lumber."] = "{area:1581} ist für eine Gruppe von fünf unter {area:20}; das Instanzportal liegt in der Mine von {area:20}. Die Goblin-Holzschnitzer bei Sneed in der Mast Room lassen das Holz fallen.",

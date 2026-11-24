@@ -5,6 +5,7 @@
 //! `polestar://install?pack=<id>` links.
 
 mod addons;
+mod clientinfo;
 mod commands;
 mod community;
 #[cfg(target_os = "linux")]

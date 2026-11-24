@@ -190,7 +190,7 @@ fn polestar_help_prints_each_line_in_the_client_language_core_s_own_commands_too
 			"options": "Einstellungen öffnen",
 			"debug": "Debug-Ausgabe umschalten",
 			"prev": "Vorherigen Schritt ansehen",
-			"hide": "Hide the guide window",
+			"hide": "Hide or show everything Polestar shows (hide arrow: keep the arrow when hidden)",
 		})
 	);
 }

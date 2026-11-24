@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {quest:6063} Taming the Beast
-	["{quest:6063} (Alliance)"] = "",
+	["{quest:6063} (Alliance)"] = "{quest:6063} (얼라이언스)",
 	-- {item:15908} Taming Rod · {spell:1515} Tame Beast · {spell:5149} Beast Training
 	["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "",
 
@@ -18,7 +18,7 @@ return {
 
 	-- Step 2: Quel'ana Quickgale in Valanaar
 	-- {npc:252389} Quel'ana Quickgale · {area:16638} Valanaar
-	["{npc:252389} in {area:16638}"] = "",
+	["{npc:252389} in {area:16638}"] = "{area:16638}의 {npc:252389}",
 	-- {npc:252389} Quel'ana Quickgale · {area:16638} Valanaar · {npc:254411} Quel'dora Quickgale
 	["{npc:252389} stands with the trainers by {area:16638}'s west gate, {npc:254411} beside her."] = "",
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod
@@ -31,7 +31,7 @@ return {
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living crawler"] = "",
 	-- {npc:254588} Windsong Crawler
-	["Tame {npc:254588}"] = "",
+	["Tame {npc:254588}"] = "{npc:254588} 길들이기",
 
 	-- Step 4: Ornery Galestrider
 	-- {spell:2641} Dismiss Pet · {area:16626} Gustberry Lowlands · {area:16638} Valanaar
@@ -40,7 +40,7 @@ return {
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living galestrider"] = "",
 	-- {npc:251707} Ornery Galestrider
-	["Tame {npc:251707}"] = "",
+	["Tame {npc:251707}"] = "{npc:251707} 길들이기",
 
 	-- Step 5: Vuldren Alpha
 	-- {area:16626} Gustberry Lowlands
@@ -49,15 +49,15 @@ return {
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living alpha"] = "",
 	-- {npc:250874} Vuldren Alpha
-	["Tame {npc:250874}"] = "",
+	["Tame {npc:250874}"] = "{npc:250874} 길들이기",
 	-- {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
-	["{npc:254411}, beside her: {spell:5149}"] = "",
+	["{npc:254411}, beside her: {spell:5149}"] = "{npc:254411}, 그녀 옆: {spell:5149}",
 
 	-- Step 6: Grif Wildheart in Kharanos
 	-- {npc:1231} Grif Wildheart · {area:131} Kharanos
-	["{npc:1231} in {area:131}"] = "",
-	-- {npc:1231} Grif Wildheart · {area:131} Kharanos · {npc:5116} Olmin Burningbeard · {zone:1455} Ironforge · {npc:11807} Tristane Shadowstone · {npc:5515} Einris Brightspear · {zone:1453} Stormwind · {npc:251507} Josephine Carson · {area:87} Goldshire
-	["At 10 go to {npc:1231}, the hunter trainer at the smithy in {area:131}. The Hunter's Path from {npc:5116} in {zone:1455}, {npc:11807} north-west of {area:131} or {npc:5515} in {zone:1453} also leads here, for a little experience; it is only a pointer. In Elwynn at 10 instead? {npc:251507}'s chain in {area:87} teaches the same."] = "",
+	["{npc:1231} in {area:131}"] = "{area:131}의 {npc:1231}",
+	-- {npc:1231} Grif Wildheart · {area:131} Kharanos · {quest:6074} The Hunter's Path · {npc:5116} Olmin Burningbeard · {zone:1455} Ironforge · {npc:11807} Tristane Shadowstone · {npc:5515} Einris Brightspear · {zone:1453} Stormwind · {npc:251507} Josephine Carson · {area:87} Goldshire
+	["At 10 go to {npc:1231}, the hunter trainer at the smithy in {area:131}. {quest:6074} from {npc:5116} in {zone:1455}, {npc:11807} north-west of {area:131} or {npc:5515} in {zone:1453} also leads here, for a little experience; it is only a pointer. In Elwynn at 10 instead? {npc:251507}'s chain in {area:87} teaches the same."] = "",
 	-- {npc:1231} Grif Wildheart · {item:15908} Taming Rod
 	["{npc:1231}: the first {item:15908}"] = "",
 
@@ -90,9 +90,9 @@ return {
 
 	-- Step 11: Dazalar in Dolanaar
 	-- {npc:3601} Dazalar · {area:186} Dolanaar
-	["{npc:3601} in {area:186}"] = "",
-	-- {npc:3601} Dazalar · {area:186} Dolanaar · {npc:3596} Ayanna Everstride · {area:256} Aldrassil · {npc:4146} Jocaste · {zone:1457} Darnassus · {npc:5515} Einris Brightspear · {zone:1453} Stormwind · {npc:5116} Olmin Burningbeard · {zone:1455} Ironforge · {npc:1231} Grif Wildheart · {area:131} Kharanos · {npc:251507} Josephine Carson · {area:87} Goldshire
-	["At 10 go to {npc:3601}, the hunter trainer in {area:186}. The Hunter's Path from {npc:3596} at {area:256}, {npc:4146} in {zone:1457}, {npc:5515} in {zone:1453}, {npc:5116} in {zone:1455} or {npc:1231} in {area:131} also leads here, for a little experience; it is only a pointer. In Elwynn at 10 instead? {npc:251507}'s chain in {area:87} teaches the same."] = "",
+	["{npc:3601} in {area:186}"] = "{area:186}의 {npc:3601}",
+	-- {npc:3601} Dazalar · {area:186} Dolanaar · {quest:6071} The Hunter's Path · {npc:3596} Ayanna Everstride · {area:256} Aldrassil · {npc:4146} Jocaste · {zone:1457} Darnassus · {npc:5515} Einris Brightspear · {zone:1453} Stormwind · {npc:5116} Olmin Burningbeard · {zone:1455} Ironforge · {npc:1231} Grif Wildheart · {area:131} Kharanos · {npc:251507} Josephine Carson · {area:87} Goldshire
+	["At 10 go to {npc:3601}, the hunter trainer in {area:186}. {quest:6071} from {npc:3596} at {area:256}, {npc:4146} in {zone:1457}, {npc:5515} in {zone:1453}, {npc:5116} in {zone:1455} or {npc:1231} in {area:131} also leads here, for a little experience; it is only a pointer. In Elwynn at 10 instead? {npc:251507}'s chain in {area:87} teaches the same."] = "",
 	-- {npc:3601} Dazalar · {item:15908} Taming Rod
 	["{npc:3601}: the first {item:15908}"] = "",
 
@@ -125,7 +125,7 @@ return {
 
 	-- Step 16: Josephine Carson in Goldshire
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire
-	["{npc:251507} in {area:87}"] = "",
+	["{npc:251507} in {area:87}"] = "{area:87}의 {npc:251507}",
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {npc:258930} Isaac Chan · {zone:2521} Zephras Isle
 	["At 10 go to {npc:251507}, the hunter trainer who stands with the other trainers by the Lion's Pride Inn in {area:87}; {npc:258930}, the pet trainer, is beside her. Skyborne: this is for one who left {zone:2521} without taming; it teaches the same."] = "",
 	-- {npc:251507} Josephine Carson · {item:15908} Taming Rod
@@ -136,7 +136,7 @@ return {
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar
 	["Rockhide Boars (level 7-8) graze in three herds south and south-east of {area:87}, toward the {area:64}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again. The boars use {spell:6268}, so start with the rod, not {spell:75}. Killing a boar does not count. Keep each rod: it goes back to Josephine. A Dwarf or Night Elf who took Josephine's rod instead of their home trainer's is led through {area:87} from here."] = "",
 	-- {npc:524} Rockhide Boar
-	["Tame {npc:524}"] = "",
+	["Tame {npc:524}"] = "{npc:524} 길들이기",
 
 	-- Step 18: Gray Forest Wolf
 	-- {spell:2641} Dismiss Pet · {area:87} Goldshire · {area:18} Crystal Lake
@@ -144,14 +144,14 @@ return {
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living wolf"] = "",
 	-- {npc:1922} Gray Forest Wolf
-	["Tame {npc:1922}"] = "",
+	["Tame {npc:1922}"] = "{npc:1922} 길들이기",
 
 	-- Step 19: Young Forest Bear
 	-- {area:87} Goldshire
 	-- plural, as words: Young Forest Bears = {npc:822} Young Forest Bear
 	["Dismiss the wolf. Young Forest Bears (level 8-9) roam the woods just south of {area:87}, with more south-west and south-east of town."] = "",
 	-- {npc:822} Young Forest Bear
-	["Tame {npc:822}"] = "",
+	["Tame {npc:822}"] = "{npc:822} 길들이기",
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
 	["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}, 그녀 옆: {spell:5149}",
 

@@ -31,6 +31,30 @@ fn options(root: &Path, data: &Path) -> Options {
 }
 
 #[test]
+fn loot_source_requirements_survive_the_codex_build_and_pack() {
+	let (root, data) = setup("codex-drop-requires");
+	let file = data.join("items.json");
+	let mut items: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap();
+	items["16790"] = serde_json::json!({ "id":16790, "name":"Damp Note", "source":["pfquest"], "vendors":[4803],
+		"drops":{"npc":{"4802":33,"4803":10},"object":{"30":50}}, "dropRequires":{"npc":{"4802":[6563]},"object":{"30":[6563,6564]}} });
+	std::fs::write(file, items.to_string()).unwrap();
+	let file = data.join("npcs.json");
+	let mut npcs: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap();
+	for id in [4802, 4803] {
+		npcs[id.to_string()] = serde_json::json!({"id":id,"name":format!("NPC {id}"),"level":20,"spawns":{"1429":{"f":"e","pts":[[50,50]]}},"source":["pfquest"]});
+	}
+	std::fs::write(file, npcs.to_string()).unwrap();
+	let out = codex::build_logged(&options(&root, &data), &|_| {}).unwrap();
+	let items: serde_json::Value = serde_json::from_str(&out.json.iter().find(|(n, _)| n == "items.json").unwrap().1).unwrap();
+	let sources = items["16790"]["sources"].as_array().unwrap();
+	assert_eq!(sources.iter().find(|s| s["type"] == "drop" && s["npc"] == 4802).unwrap()["requiresQuests"], serde_json::json!([6563]));
+	assert_eq!(sources.iter().find(|s| s["type"] == "object").unwrap()["requiresQuests"], serde_json::json!([6563, 6564]));
+	assert!(sources.iter().filter(|s| s["npc"] == 4803).all(|s| s.get("requiresQuests").is_none()), "alternative drop and vendor stay ungated");
+	assert!(out.pack.iter().any(|(_, text)| text.contains("d4802,33,,p,6563")));
+	assert!(out.pack.iter().any(|(_, text)| text.contains("o30,50,p,6563%2C6564")));
+}
+
+#[test]
 fn codex_matches_golden() {
 	let (root, data) = setup("codex");
 	let out = codex::build_logged(&options(&root, &data), &|_| {}).unwrap();
@@ -92,4 +116,160 @@ fn dungeon_pages_take_forever_dbs_xp_first() {
 	assert!(shows(in_store, 4600.0), "{in_store} takes forever-db's XP: {after:?}");
 	assert!(shows(not_in_store, 2200.0), "{not_in_store} keeps quests.json's XP: {after:?}");
 	assert!(shows(corrected, 5000.0), "{corrected} takes the unpublished correction: {after:?}");
+}
+
+// #1913: Badlands Reagent Run II (2501) needs Alchemy 210 (quests.json skill 171, skillLevel 210), and the dungeon
+// hand-in guide offered it to every character. The Codex quest record carries the profession's skill line and rank,
+// and the pack writes them as l<line>,<rank> (the rank empty when the data names none) for Lookup's questBlock; a
+// quest without a profession carries neither.
+#[test]
+fn a_quest_carries_the_profession_it_needs() {
+	let (root, data) = setup("codex-quest-skill");
+	let file = data.join("quests.json");
+	let mut quests: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap();
+	quests["2751"]["skillLevel"] = 210.into();
+	std::fs::write(&file, quests.to_string()).unwrap();
+
+	let out = codex::build_logged(&options(&root, &data), &|_| {}).unwrap();
+	let json: serde_json::Value = serde_json::from_str(&out.json.iter().find(|(n, _)| n == "quests.json").unwrap().1).unwrap();
+	let skill = |id: &str| (json[id]["skill"].as_f64(), json[id]["skillLevel"].as_f64());
+	assert_eq!(skill("2751"), (Some(164.0), Some(210.0)), "Barbaric Battlements: Blacksmithing at the rank the data names");
+	assert_eq!(skill("862"), (Some(185.0), None), "Dig Rat Stew: Cooking, no rank in the data");
+	assert!(json["6"].get("skill").is_none() && json["6"].get("skillLevel").is_none(), "a quest without a profession carries neither");
+	let pack: String = out.pack.iter().map(|(_, t)| t.as_str()).collect();
+	assert_eq!(pack.matches(";l164,210").count(), 1, "2751's pack record");
+	assert_eq!(pack.matches(";l185,").count(), 4, "the four Cooking quests (862, 6611, 8763, 8799), no rank");
+}
+
+/// A dungeon key as data/codex/levels.json writes it (`the-hall-of-thanes`, `kroldok-stronghold`) for a client
+/// map name ("Hall of Thanes", "Krol'dok Stronghold"): lowercase words joined by `-`, apostrophes dropped.
+fn level_key(name: &str) -> String {
+	let s: String = name.to_lowercase().chars().filter(|c| *c != '\'').map(|c| if c.is_ascii_alphanumeric() { c } else { ' ' }).collect();
+	s.split_whitespace().collect::<Vec<_>>().join("-")
+}
+
+/// Fitz, 2026-11-13: every dungeon's floor is the highest of the client's Group Finder minimum, its own fixed
+/// minimum and players' 25th percentile entry level (5 people with a boss kill or more), and its top the Group
+/// Finder's, but for the two named rows of data/codex/levels.json: The Hall of Thanes' top of 18 and Krol'dok
+/// Stronghold's floor of 43, so a third exception can't get in uncited. And where 5 or more people were recorded,
+/// the Group Finder's minimum is at or under their 25th percentile and their 90th percentile at most
+/// `journal::CHECK_SLACK` (8) over the top: a broken join or a wrong client row shows. On the newest Forever
+/// client tables with the Group Finder in the source cache (FORGE_SOURCES, else <repo>/data/sources) and this
+/// checkout's data/codex/recorded.json and levels.json; a fresh clone has no client tables and skips.
+#[test]
+fn dungeon_levels_follow_the_group_finder_and_players_recorded_entries() {
+	use forge_data::codex::{client, journal};
+	use forge_guide::js::V;
+	const TABLES: [&str; 7] = ["Map", "AreaTable", "DungeonEncounter", "LFGDungeons", "MapDifficulty", "ContentTuning", "GroupFinderActivity"];
+	let repo = super::fixture_build::repo();
+	let sources = std::env::var_os("FORGE_SOURCES").map(PathBuf::from).unwrap_or_else(|| repo.join("data/sources"));
+	let Ok(build) = client::newest_forever_build(&sources, &TABLES) else {
+		eprintln!("skipped: no cached Forever client tables with GroupFinderActivity under {}", sources.display());
+		return;
+	};
+	let tables = client::load_tables(&sources, &build, &TABLES, &repo).unwrap();
+	let mut facts = client::instance_facts(&tables, None);
+	client::attach_finder(&mut facts.maps, tables.get("GroupFinderActivity").map(Vec::as_slice).unwrap_or(&[]));
+	let read = |f: &str| std::fs::read_to_string(repo.join("data/codex").join(f)).unwrap();
+	let recorded = forge_guide::js::parse_json(&read("recorded.json")).unwrap().get("dungeons");
+	let levels = journal::load_levels_table(&read("levels.json")).unwrap();
+	let (mut exceptions, mut checked, mut problems) = (Vec::new(), 0, Vec::new());
+	for m in facts.maps.iter().filter(|m| !m.raid) {
+		let Some(f) = m.finder.as_ref() else { continue };
+		let fixed = facts.rec_min.get(&(m.id as i64)).map_or(V::Null, |n| V::Num(*n));
+		let rec = recorded.get(&(m.id as i64).to_string());
+		let key = level_key(&m.name);
+		let curated = [key.clone(), format!("the-{key}")].iter().map(|k| levels.get(k)).find(V::truthy).unwrap_or_else(V::obj);
+		let named = journal::levels_of(fixed.clone(), V::Null, Some(f), &rec, &curated);
+		let rule = journal::levels_of(fixed.clone(), V::Null, Some(f), &rec, &V::obj());
+		// The rule itself, spelled out: the highest of the three, the recorded one to a tenth of a level.
+		let p25 = rec.get("p25").as_num().filter(|_| rec.get("people").as_num().is_some_and(|n| n >= journal::FLOOR_PEOPLE));
+		let want = [Some(f.min), fixed.as_num(), p25.map(|p| (p * 10.0).round() / 10.0)].into_iter().flatten().fold(f64::MIN, f64::max);
+		assert_eq!((rule.floor.num(), rule.max.num()), (want, f.max), "{}: the rule's floor and top", m.name);
+		if named.floor.num() != rule.floor.num() {
+			exceptions.push(format!("{}: floor {}", m.name, named.floor.num()));
+		}
+		if named.max.num() != rule.max.num() {
+			exceptions.push(format!("{}: top {}", m.name, named.max.num()));
+		}
+		if p25.is_some() {
+			checked += 1;
+		}
+		problems.extend(journal::recorded_check(&m.name, Some(f), &named.max, &rec, &curated));
+	}
+	exceptions.sort();
+	assert_eq!(exceptions, ["Krol'dok Stronghold: floor 43", "The Hall of Thanes: top 18"], "the named exceptions, and only those (client build {build})");
+	assert!(checked >= 15, "{checked} dungeons with 5 or more people recorded: data/codex/recorded.json has its dungeons block");
+	assert!(problems.is_empty(), "{problems:?}");
+}
+
+// #3784: the pack's profession group: each rank's trainers per side and the profession's trainerSkill,
+// so Nearby and Lookup only send a player to a trainer who teaches their next rank. The golden has no
+// trainerSkill, so the test gives Tailoring's and Blacksmithing's Journeyman trainers a 125 gate.
+#[test]
+fn the_codex_carries_each_professions_rank_trainers_and_trainer_skill_3784() {
+	let (root, data) = setup("codex-profession-trainers");
+	let file = data.join("professions.json");
+	let mut src: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap();
+	let tailoring_alliance = src["197"]["ranks"][1]["trainers"]["Alliance"][0].clone();
+	let smithing_horde = src["164"]["ranks"][1]["trainers"]["Horde"][0].clone();
+	for (id, npc) in [("197", tailoring_alliance.clone()), ("164", smithing_horde.clone())] {
+		let mut gates = serde_json::Map::new();
+		gates.insert(npc.to_string(), serde_json::json!(125));
+		src[id]["trainerSkill"] = serde_json::Value::Object(gates);
+	}
+	std::fs::write(&file, src.to_string()).unwrap();
+
+	let out = codex::build_logged(&options(&root, &data), &|_| {}).unwrap();
+	let text = &out.pack.iter().find(|(n, _)| n == "Professions1.lua").expect("the pack has Professions1.lua").1;
+	// Records are lines of the Lua string literal: `id\trecord` (names have a second tab).
+	let unescaped = text.replace("\\n", "\n").replace("\\t", "\t");
+	let mut records: std::collections::BTreeMap<String, String> = std::collections::BTreeMap::new();
+	for line in unescaped.lines() {
+		if let Some((id, rec)) = line.split_once('\t') {
+			// The last record shares its line with the Register call's closing `", 164, 393)`.
+			let rec = rec.split('"').next().unwrap_or_default();
+			if !rec.contains('\t') && !id.is_empty() && id.bytes().all(|b| b.is_ascii_digit()) {
+				records.insert(id.to_string(), rec.to_string());
+			}
+		}
+	}
+
+	let sided = |p: &serde_json::Value| p["ranks"].as_array().is_some_and(|r| r.len() == 4 && r.iter().all(|r| r["trainers"].get("Alliance").is_some() || r["trainers"].get("Horde").is_some()));
+	for (id, p) in src.as_object().unwrap() {
+		let Some(rec) = records.get(id) else {
+			assert!(!sided(p), "{id} {}: rank trainers but no pack record", p["name"]);
+			continue;
+		};
+		assert!(sided(p), "{id} {}: a pack record without four sided ranks", p["name"]);
+		let fields: Vec<&str> = rec.split(';').collect();
+		assert_eq!(fields.len(), 5, "{id}: {rec}");
+		for (i, r) in p["ranks"].as_array().unwrap().iter().enumerate() {
+			let f: Vec<&str> = fields[i].split(',').collect();
+			assert_eq!(f.len(), 4, "{id} rank {i}: {rec}");
+			assert_eq!(f[0].parse::<i64>().unwrap(), r["minSkill"].as_i64().unwrap(), "{id} rank {i} minSkill");
+			assert_eq!(f[1].parse::<i64>().unwrap(), r["max"].as_i64().unwrap(), "{id} rank {i} max");
+			for (side, col) in [("Alliance", 2), ("Horde", 3)] {
+				let mut want: Vec<i64> = r["trainers"][side].as_array().map(|a| a.iter().filter_map(|v| v.as_i64()).collect()).unwrap_or_default();
+				want.sort_unstable();
+				want.dedup();
+				let mut got: Vec<i64> = f[col].split_whitespace().map(|v| v.parse().unwrap()).collect();
+				got.sort_unstable();
+				assert_eq!(got, want, "{id} rank {i} {side}");
+			}
+		}
+		let mut want: Vec<(String, i64)> = p["trainerSkill"].as_object().map(|o| o.iter().map(|(k, v)| (k.clone(), v.as_i64().unwrap())).collect()).unwrap_or_default();
+		want.sort_by_key(|(k, _)| k.parse::<i64>().unwrap());
+		let mut got: Vec<(String, i64)> =
+			if fields[4].is_empty() { Vec::new() } else { fields[4].split(',').collect::<Vec<_>>().chunks(2).map(|c| (c[0].to_string(), c[1].parse().unwrap())).collect() };
+		got.sort_by_key(|(k, _)| k.parse::<i64>().unwrap());
+		assert_eq!(got, want, "{id} trainerSkill");
+	}
+	for id in ["164", "165", "171", "182", "186", "197", "202", "333", "393"] {
+		assert!(records.contains_key(id), "profession {id} has a record");
+	}
+	for id in ["129", "185", "356"] {
+		assert!(!records.contains_key(id), "profession {id} has no rank trainers, so no record");
+	}
+	assert_eq!(records["197"].split(';').nth(4).unwrap(), format!("{tailoring_alliance},125"), "Tailoring's trainerSkill");
 }

@@ -9,6 +9,7 @@ const { Frames } = require('./geo');
 
 const { ROOT, DATA } = require('../paths');
 const NAV = path.join(ROOT, 'addon', 'Polestar', 'Nav');
+const { grid } = require('../../../addon/Polestar_Nav/PACK.json');
 
 function luaLiteral(v) {
 	if (v === null || v === undefined) return 'nil';
@@ -61,19 +62,25 @@ function resolveKnown(travel, known, faction) {
 // the addon core; ns.Nav.PlanRoute is ready after it. Shared with batched
 // runs (tools/lib/nav/arrow.js).
 function plannerLua({ travelLua = path.join(NAV, 'TravelData.lua'), crossingsLua } = {}) {
+	const split = grid.build.lastIndexOf('.');
 	return `local noop = function() end
 local ns = { L = setmetatable({}, { __index = function(_, k) return k end }), Nav = { RegisterModule = noop } }
 ns.RegisterDefaults, ns.On, ns.Fire, ns.RegisterEvent, ns.OnInit, ns.OnLogin, ns.RegisterCommand, ns.Print = noop, noop, noop, noop, noop, noop, noop, noop
 ns.Get = function() return true end
 ns.CharState = function() return { flags = {} } end
 Polestar = ns
+-- An offline trip uses the build of its walking pack, not a live player's build.
+GetBuildInfo = function() return ${luaLiteral(grid.build.slice(0, split))}, ${luaLiteral(grid.build.slice(split + 1))} end
+${['Danger.lua', 'DangerAreas.lua', 'DangerHubs.lua', 'GroundSafety.lua'].map(file => `assert(loadfile(${luaLiteral(path.join(NAV, file))}))("Polestar", ns)`).join('\n')}
 assert(loadfile(${luaLiteral(path.join(NAV, 'Travel.lua'))}))("Polestar", ns)
 assert(loadfile(${luaLiteral(travelLua)}))("Polestar", ns)
 ${crossingsLua ? `assert(loadfile(${luaLiteral(crossingsLua)}))("Polestar_Travel", {})` : ''}`;
 }
 
 // crossingsLua: Polestar_Travel's Crossings.lua (the local crossings), loaded after TravelData.lua.
-function planRoute({ from, to, faction = 'Alliance', known = [], speed, hearth, dataDir = DATA, travelLua = path.join(NAV, 'TravelData.lua'), crossingsLua }) {
+// cls: the character's class file name ("DRUID"), for a class's own flights (Nighthaven's); teleports: its class
+// teleports as Transit.Teleports gives them ({ spell, name, cast, ready, to = { name, c, wx, wy, map, x, y, f } }).
+function planRoute({ from, to, faction = 'Alliance', known = [], speed, hearth, dataDir = DATA, travelLua = path.join(NAV, 'TravelData.lua'), crossingsLua, cls, teleports }) {
 	const read = (f) => JSON.parse(fs.readFileSync(path.join(dataDir, f), 'utf8'));
 	const frames = new Frames(read('map-frames.json').era, read('zones.json'));
 	const travel = read('travel.json');
@@ -101,9 +108,11 @@ function planRoute({ from, to, faction = 'Alliance', known = [], speed, hearth, 
 		speed,
 		hearth: inn,
 		hearthName: inn ? hearth : undefined,
+		teleports,
 	};
 	const expr = `
 ${plannerLua({ travelLua, crossingsLua })}
+${cls ? `ns.Compat = { GetPlayerInfo = function() return { class = ${luaLiteral(cls)}, faction = ${luaLiteral(faction)} } end }` : ''}
 local legs = ns.Nav.PlanRoute(${luaLiteral(params)})
 if legs then for _, leg in ipairs(legs) do leg.rest = nil end end
 return legs`;

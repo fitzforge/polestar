@@ -1,11 +1,13 @@
 {
-	"_about": "Attunements and keys per Codex instance (tools/lib/codex/attunements.js, docs/ARCHITECTURE.md, 'Codex'). Each entry names only its goal (the quests that end the chain, or the key item) and our own one-line note; the steps are built from the Codex's quests (pre, preAny), items (sources) and npcs. `links` adds a prerequisite our quest data lacks, each with its public source. `inside` places an NPC or object of a chain that has no open-world spawn and that the Codex places in no instance (a quest giver, turn-in or objective inside a dungeon), with its public source. `removed` lists what Forever took out, with the evidence. Sources checked on 2026-10-15 against client build 1.60.1.70374.",
+	"_about": "Attunements and keys per Codex instance (tools/lib/codex/attunements.js, docs/ARCHITECTURE.md, 'Codex'). Each entry names only its goal (the quests that end the chain, or the key item) and our own one-line note; the steps are built from the Codex's quests (pre, preAny), items (sources) and npcs. `via` names the item a goal item is made from (its drops become the steps; the note says how it is made); `useAt` ({ kind, id }) names the NPC or object standing where `via` is used, which adds a use step there. `onAccept` says the goal quests hand over the item as they are taken (a provided item), so the chain ends at their accept. `open: false` marks a raid Forever has not opened yet, with `openSource` saying how that is known (the Attunements page shows 'Not open on Forever yet' instead of its progress, and the guide's last step says it); remove both once the raid opens. `links` adds a prerequisite our quest data lacks, each with its public source. `inside` places an NPC or object of a chain that has no open-world spawn and that the Codex places in no instance (a quest giver, turn-in or objective inside a dungeon), with its public source. `removed` lists what Forever took out, with the evidence. Sources checked on 2026-11-22 against client build 1.60.1.70532 and the Codex of 1.60.1.70888.",
 	"attunements": [
 		{
 			"key": "molten-core",
 			"id": "core",
 			"name": "Attunement to the Core",
 			"kind": "attunement",
+			"open": false,
+			"openSource": "Forever's raids at its 9 Dec launch are Onyxia's Lair, The Barrow Deeps and Hyjal Summit; Molten Core is not open (maintainer, #3695)",
 			"need": "each",
 			"goal": [7848],
 			"note": "Lets Lothos Riftwaker in Blackrock Mountain send you to the Molten Core; without it, walk in through Blackrock Depths.",
@@ -16,6 +18,8 @@
 			"id": "aqual",
 			"name": "Aqual Quintessence",
 			"kind": "item",
+			"open": false,
+			"openSource": "Forever's raids at its 9 Dec launch are Onyxia's Lair, The Barrow Deeps and Hyjal Summit; Molten Core is not open (maintainer, #3695)",
 			"need": "one",
 			"item": 17333,
 			"goal": [6824],
@@ -51,6 +55,8 @@
 			"id": "blackhand",
 			"name": "Blackhand's Command",
 			"kind": "attunement",
+			"open": false,
+			"openSource": "Forever's raids at its 9 Dec launch are Onyxia's Lair, The Barrow Deeps and Hyjal Summit; Blackwing Lair is not open (maintainer, #3695)",
 			"need": "each",
 			"goal": [7761],
 			"note": "Lets you touch the Orb of Command in Upper Blackrock Spire to reach Blackwing Lair; without it, walk in through the spire.",
@@ -61,6 +67,8 @@
 			"id": "dread-citadel",
 			"name": "The Dread Citadel",
 			"kind": "attunement",
+			"open": false,
+			"openSource": "Forever's raids at its 9 Dec launch are Onyxia's Lair, The Barrow Deeps and Hyjal Summit; Naxxramas is not open (maintainer, #3695)",
 			"need": "each",
 			"goal": [9121, 9122, 9123],
 			"any": true,
@@ -161,17 +169,71 @@
 			"faction": "H",
 			"item": 277507,
 			"goal": [96984],
-			"note": "Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows.",
-			"links": {
-				"92434": { "pre": [545, 93680], "source": { "edition": "forever", "kind": "guide", "ref": "city-of-dalaran-dungeon-overview-location-rewards", "note": "Unlocking the City of Dalaran: Prison Break In and Key to the City, then Dalaran Patrols, then Blood in the Streets" } },
-				"96984": { "pre": [92434], "source": { "edition": "forever", "kind": "quest", "id": 96984, "note": "series: Blood in the Streets, Heart of Disruption, Shrewd Negotiations" } }
-			},
-			"sources": [{ "edition": "forever", "kind": "item", "id": 277507 }, { "edition": "forever", "kind": "quest", "id": 96984 }, { "edition": "forever", "kind": "guide", "ref": "city-of-dalaran-dungeon-overview-location-rewards" }]
+			"onAccept": true,
+			"note": "Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Image of Archmage Modera gives it with Heart of Disruption: keep that quest in your log until you are inside. The Alliance walks in through the sewer pipe in Cantrips & Crows.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 277507 }, { "edition": "forever", "kind": "quest", "id": 96984, "note": "provided item: Dalaran Sewer Key (277507), handed over at the accept" }, { "edition": "forever", "kind": "guide", "ref": "city-of-dalaran-dungeon-overview-location-rewards" }]
+		},
+		{
+			"key": "city-of-dalaran",
+			"id": "tome-of-dalaran",
+			"name": "Tome of Dalaran",
+			"kind": "item",
+			"need": "one",
+			"item": 275989,
+			"via": 276561,
+			"useAt": { "kind": "npc", "id": 2120 },
+			"note": "Calls up Lyn the Ignored, a hidden boss, at the summoning circle in the City of Dalaran's Underbelly, in the small room past Atrexis the Grave Knight. The Black Tome lies on a table up the stairs behind Archmage Arugal in Shadowfang Keep; use it at the Ambermill Leyline Focus, the blue crystal beside Archmage Ataeric in Ambermill's town hall, and it becomes the Tome of Dalaran.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 275989 }, { "edition": "forever", "kind": "item", "id": 276561, "note": "use: at the Ambermill Leyline Focus" }, { "edition": "forever", "kind": "npc", "id": 2120 }, "https://www.warcrafttavern.com/forever/news/tome-of-dalaran-mystery-solved-in-wow-forever"]
+		},
+		{
+			"key": "maraudon",
+			"id": "scepter-of-celebras",
+			"name": "Scepter of Celebras",
+			"kind": "key",
+			"need": "one",
+			"item": 17191,
+			"goal": [7046],
+			"note": "Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 17191, "note": "use: creates a portal to Earth Song Falls in inner Maraudon" }, { "edition": "forever", "kind": "quest", "id": 7046 }, "https://warcraft.wiki.gg/wiki/Scepter_of_Celebras"]
+		},
+		{
+			"key": "kroldok-stronghold",
+			"id": "compound-key-a",
+			"name": "Krol'dok Compound Key",
+			"kind": "key",
+			"need": "one",
+			"faction": "A",
+			"item": 267089,
+			"goal": [94981],
+			"note": "Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 267089 }, { "edition": "forever", "kind": "quest", "id": 94981, "note": "rewards the Krol'dok Compound Key" }, "https://www.icy-veins.com/wow-forever/krol-dok-stronghold-quests (Key Ingredients: the key that grants access to the upper area)"]
+		},
+		{
+			"key": "kroldok-stronghold",
+			"id": "compound-key-h",
+			"name": "Krol'dok Compound Key",
+			"kind": "key",
+			"need": "one",
+			"faction": "H",
+			"item": 267089,
+			"goal": [94974],
+			"note": "Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 267089 }, { "edition": "forever", "kind": "quest", "id": 94974, "note": "rewards the Krol'dok Compound Key" }, "https://www.icy-veins.com/wow-forever/krol-dok-stronghold-quests (Key Ingredients: the key that grants access to the upper area)"]
+		},
+		{
+			"key": "zulfarrak",
+			"id": "mallet",
+			"name": "Mallet of Zul'Farrak",
+			"kind": "item",
+			"need": "one",
+			"item": 9240,
+			"via": 9241,
+			"note": "Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 9240 }, { "edition": "forever", "kind": "item", "id": 9241 }, { "edition": "forever", "kind": "npc", "id": 7996 }]
 		}
 	],
 	"inside": [
-		{ "kind": "object", "id": 179553, "name": "Core Fragment", "instance": "blackrock-depths", "sources": [{ "edition": "forever", "kind": "object", "id": 179553, "note": "'can be found in Blackrock Depths'" }, { "edition": "forever", "kind": "quest", "id": 7848, "note": "'the Molten Core entry portal in Blackrock Depths'" }] },
-		{ "kind": "object", "id": 175785, "name": "Inconspicuous Documents", "instance": "blackrock-spire", "sources": [{ "edition": "forever", "kind": "object", "id": 175785, "note": "'can be found in Blackrock Spire'" }] }
+		{ "kind": "object", "id": 179553, "name": "Core Fragment", "instance": "blackrock-depths", "sources": [{ "edition": "forever", "kind": "object", "id": 179553, "note": "'can be found in Blackrock Depths'" }, { "edition": "forever", "kind": "quest", "id": 7848, "note": "'the Molten Core entry portal in Blackrock Depths'" }] }
 	],
 	"removed": [
 		{
@@ -181,7 +243,7 @@
 			"item": 12344,
 			"quests": [4742, 4743],
 			"why": "Forever's Seal of Ascension quest no longer rewards the seal, and the Forever client has no ItemSparse row for it, so Upper Blackrock Spire takes no key.",
-			"sources": [{ "edition": "forever", "kind": "quest", "id": 4743, "note": "Forever change: 'Rewards: no longer Seal of Ascension'" }, { "edition": "forever", "kind": "item", "id": 12344, "note": "unnamed: 'Item #12344'" }, "wago.tools ItemSparse 1.60.1.70374 (no row 12344)"]
+			"sources": [{ "edition": "forever", "kind": "quest", "id": 4743, "note": "Forever change: 'Rewards: no longer Seal of Ascension'" }, { "edition": "forever", "kind": "item", "id": 12344, "note": "unnamed: 'Item #12344'" }, "wago.tools ItemSparse 1.60.1.70374 (no row 12344)", "wago.tools ItemSparse 1.60.1.70532 (still no row 12344; the Unadorned, Unforged and Forged Seal rows are there)"]
 		}
 	]
 }

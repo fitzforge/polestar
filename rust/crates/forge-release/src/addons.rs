@@ -2,12 +2,57 @@
 
 use std::path::Path;
 
-/// Always in the release: the addon, our guides and the walking router and maps (committed).
-pub const RELEASE_ADDONS: [&str; 3] = ["Polestar", "Polestar_Guides", "Polestar_Nav"];
+/// Always in the release: the addon (with the game looks and Hearth, the Skin API's checks, the tab styles and
+/// our experimental guides inside it since 0.4.3), our guides, the walking router and maps, and the settings
+/// window (loaded on demand; all committed).
+pub const RELEASE_ADDONS: [&str; 4] = ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options"];
+/// Our ten skins and the Atlas layout, one folder loaded on demand with the first one used or listed (#3507:
+/// their own folders before 0.4.3; not in the settings folder, so a player on one of them never loads the
+/// settings for it); shipped when present (committed), right after the settings.
+pub const SKINS: &str = "Polestar_Skins";
+/// Freedoom Arcade by petllama, three levels to play on a flight (GPL-2.0-or-later, its own folder: LICENSE,
+/// FREEDOOM-COPYING.txt, CREDITS.md), loaded on demand the first time Play is pressed; shipped when present
+/// (committed), right after the settings and the skins.
+pub const ARCADE: &str = "Polestar_Arcade";
+/// Parts of a shipped folder that stay in the repository and out of the release zip (archive paths; a name
+/// ending in `/` is a folder and everything in it): Freedoom Arcade's own build, test and publish scripts, its
+/// CurseForge page images, and the standalone addon's TOC under src/ (the client never reads a TOC there).
+/// Its licences, credits, README and changelog ship.
+pub const NOT_SHIPPED: &[&str] = &["Polestar_Arcade/tools/", "Polestar_Arcade/curseforge/", "Polestar_Arcade/src/FreedoomArcade.toc"];
 /// The Codex folder (Lookup, Dungeons and Rares read it): a release refuses to go without it.
 pub const CODEX: &str = "Polestar_Codex";
 /// The optional recorder, in a zip of its own.
 pub const RECORDER: &str = "Polestar_Recorder";
+/// The folders 0.4.3 folded into others (#3507), which no release ships any more: the game looks, the Skin
+/// API's checks, the tab styles and the experimental guides went into Polestar; our skins and the Atlas
+/// layout into Polestar_Skins; the race parts into their faction parts (Polestar_Guides_Alliance,
+/// _Horde). Core/Data.lua's FOLDED has the same; the Polestar Client deletes them on update.
+pub const FOLDED_ADDONS: &[&str] = &[
+	"Polestar_Looks",
+	"Polestar_SkinAPI",
+	"Polestar_TabStyles",
+	"Polestar_Experimental",
+	"Polestar_Layout_Atlas",
+	"Polestar_Skin_Vellum",
+	"Polestar_Skin_Lumen",
+	"Polestar_Skin_Beacon",
+	"Polestar_Skin_Aurora",
+	"Polestar_Skin_Hairline",
+	"Polestar_Skin_Umbra",
+	"Polestar_Skin_Waymark",
+	"Polestar_Skin_Lanterns",
+	"Polestar_Skin_Sheen",
+	"Polestar_Skin_Atlas",
+	"Polestar_Guides_Human",
+	"Polestar_Guides_Orc",
+	"Polestar_Guides_Dwarf",
+	"Polestar_Guides_NightElf",
+	"Polestar_Guides_Scourge",
+	"Polestar_Guides_Tauren",
+	"Polestar_Guides_Gnome",
+	"Polestar_Guides_Troll",
+	"Polestar_Guides_Skyborne",
+];
 
 /// The generated data addons, shipped when built: the quest and item databases, the Codex, then the
 /// language folders `Polestar_<locale>` (our guides' texts and the game's names in each language).
@@ -32,25 +77,31 @@ fn has_toc(addons: &Path, name: &str) -> bool {
 /// Leffe's, loaded on demand by Polestar_Nav's router).
 pub const NAV_PARTS: [&str; 2] = ["Polestar_Nav_EK", "Polestar_Nav_Kalimdor"];
 
-/// The release's folders: the three always shipped, the walking maps' part addons when written, our guides'
-/// faction parts and race parts once built, then the data addons that are built (our guides' texts are in the
-/// language folders).
-pub fn release_addons(addons: &Path) -> Release {
+/// The release's folders: the four always shipped, our skins and Freedoom Arcade's folder when there, the walking
+/// maps' part addons when written, our guides' faction parts once built (with their races' guides and legs
+/// inside), then the data addons that are built (our guides' texts are in the language folders).
+pub fn release_addons(addons: &Path) -> Result<Release, String> {
 	let guides = forge_guide::project::OWN_FOLDER;
 	let factions = forge_guide::project::FACTION_PARTS.iter().map(|f| forge_guide::project::part_addon(guides, f));
-	let parts = forge_guide::races::RACE_FILES.iter().map(|r| forge_guide::project::part_addon(guides, r));
 	let (data, skipped): (Vec<String>, Vec<String>) = data_addons().into_iter().partition(|n| has_toc(addons, n));
 	let mut names: Vec<String> = RELEASE_ADDONS.iter().map(|s| s.to_string()).collect();
+	names.extend([SKINS, ARCADE].iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(NAV_PARTS.iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
-	names.extend(factions.chain(parts).filter(|n| has_toc(addons, n)));
+	names.extend(factions.filter(|n| has_toc(addons, n)));
 	names.extend(data);
-	Release { names, skipped }
+	Ok(Release { names, skipped })
 }
 
 /// The folders under `addons` the language folders replaced (Polestar_Guides_<locale> and
 /// Polestar_Names_<locale>, before 0.3.0): never shipped; a release names them so they get deleted.
 pub fn retired_addons(addons: &Path) -> Vec<String> {
 	forge_guide::locales::LOCALE_CODES.iter().flat_map(|l| forge_guide::toc::retired_language_addons(l)).filter(|n| addons.join(n).is_dir()).collect()
+}
+
+/// The folders 0.4.3 folded (FOLDED_ADDONS) still under `addons`: never shipped; a release names them so they
+/// get deleted.
+pub fn folded_addons(addons: &Path) -> Vec<String> {
+	FOLDED_ADDONS.iter().filter(|n| addons.join(n).is_dir()).map(|n| n.to_string()).collect()
 }
 
 /// The `## Version:` value of `<dir>/<name>.toc`; None without the file or the line.
@@ -157,6 +208,7 @@ mod tests {
 		let root = tmp("order");
 		for n in [
 			"Polestar",
+			"Polestar_Skins",
 			"Polestar_Codex",
 			"Polestar_QuestDB",
 			"Polestar_deDE",
@@ -166,19 +218,22 @@ mod tests {
 			"Polestar_frFR",
 			"Polestar_Guides_deDE",
 			"Polestar_Names_frFR",
+			"Polestar_Looks",
+			"Polestar_Skin_Sheen",
 		] {
 			addon(&root, n);
 		}
-		let r = release_addons(&root);
+		let r = release_addons(&root).unwrap();
 		assert_eq!(
 			r.names,
 			[
 				"Polestar",
 				"Polestar_Guides",
 				"Polestar_Nav",
+				"Polestar_Options",
+				"Polestar_Skins",
 				"Polestar_Guides_Alliance",
 				"Polestar_Guides_Horde",
-				"Polestar_Guides_Orc",
 				"Polestar_QuestDB",
 				"Polestar_Codex",
 				"Polestar_deDE",
@@ -189,6 +244,27 @@ mod tests {
 		assert!(!r.skipped.contains(&"Polestar_Codex".to_string()));
 		// The folders the language folders replaced never ship; the release names them.
 		assert_eq!(retired_addons(&root), ["Polestar_Guides_deDE", "Polestar_Names_frFR"]);
+		// Nor do the ones 0.4.3 folded into others (#3507): a race part, the looks, a skin.
+		assert_eq!(folded_addons(&root), ["Polestar_Looks", "Polestar_Skin_Sheen", "Polestar_Guides_Orc"]);
+	}
+
+	// Our skins' and Freedoom Arcade's folders ship when they are there (both are committed), after the settings
+	// and before the walking maps' parts.
+	#[test]
+	fn the_skins_and_arcade_folders_ship_after_the_settings_when_they_are_there() {
+		let root = tmp("arcade");
+		for n in ["Polestar", "Polestar_Nav_EK"] {
+			addon(&root, n);
+		}
+		let names = release_addons(&root).unwrap().names;
+		assert!(!names.contains(&ARCADE.to_string()) && !names.contains(&SKINS.to_string()));
+		addon(&root, ARCADE);
+		addon(&root, SKINS);
+		let names = release_addons(&root).unwrap().names;
+		let at = |n: &str| names.iter().position(|x| x == n).unwrap();
+		assert_eq!(at(SKINS), at("Polestar_Options") + 1);
+		assert_eq!(at(ARCADE), at(SKINS) + 1);
+		assert!(at(ARCADE) < at("Polestar_Nav_EK"));
 	}
 
 	#[test]

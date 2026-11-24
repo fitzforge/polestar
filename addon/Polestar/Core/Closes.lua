@@ -3,8 +3,14 @@
 -- Contract: docs/ARCHITECTURE.md, "Engine" (Missable quests).
 --
 -- Setting behavior.warnClosing (off by default): when a quest giver offers
--- such a quest, a chat line names what it closes, and Automation leaves its
--- accept to the player.
+-- such a quest, a chat line names what it closes, with each one's giver, how
+-- far away it is and its XP, and says what to do (decline to keep it, or
+-- click Accept to skip it); Automation leaves the accept to the player.
+-- Nothing is said, and the accept is not held, for a closed quest with
+-- nothing to miss (Closes.Missed): one turned in at the NPC offering the
+-- quest (a breadcrumb to where the player stands), or one worth no XP. The
+-- guide's accept carries what that needs, from the compiler: the quest's
+-- `endNpcs` and `xp`, beside its giver's name and point.
 --
 -- Sources: `closedBy` on the accepts of every shown guide (breadcrumbs and
 -- exclusive groups, from the compiler), and the quest database's `excl` when
@@ -64,9 +70,10 @@ local function anyTaken(C, ids, except)
 	return false
 end
 
--- { { id, title }, ... }: what taking quest q closes for good for this
--- character, in guide order, then the database's; nil when nothing. `title`
--- is q's own title when the caller has it (the quest window's).
+-- { { id, title, goal | db }, ... }: what taking quest q closes for good for
+-- this character, in guide order (goal: the guide's accept of it), then the
+-- database's (db = true); nil when nothing. `title` is q's own title when the
+-- caller has it (the quest window's).
 function Closes.For(q, title)
 	if type(q) ~= "number" or q <= 0 then return nil end
 	local C, Guides = ns.Compat, ns.Guides
@@ -84,19 +91,19 @@ function Closes.For(q, title)
 	title = title or (r and r[Q.F.TITLE])
 
 	local out, seen = {}, { [q] = true }
-	local function add(id, name)
+	local function add(id, name, goal)
 		if seen[id] then return end
 		seen[id] = true
 		if name and name == title then return end
 		if taken(C, id) then return end
-		out[#out + 1] = { id = id, title = name or ("#" .. id) }
+		out[#out + 1] = { id = id, title = name or ("#" .. id), goal = goal, db = not goal or nil }
 	end
 
 	for _, e in ipairs(list or {}) do
 		local goal = e.goal
 		if Guides.GuideMatches(e.guide, player) and Guides.Matches(e.step.only, player) and Guides.Matches(goal.only, player)
 			and not anyTaken(C, goal.closedBy, q) then
-			add(goal.quest, goal.title)
+			add(goal.quest, goal.title, goal)
 		end
 	end
 
@@ -120,12 +127,45 @@ function Closes.For(q, title)
 	return #out > 0 and out or nil, title
 end
 
--- The quest the quest window offers, and its title as shown.
+-- Whether closed quest c leaves nothing to miss for a player at NPC npc: it
+-- is turned in right there (a breadcrumb to the NPC offering the quest), or
+-- it gives no XP.
+local function trivial(c, npc)
+	local goal = c.goal
+	local ends = goal and goal.endNpcs
+	if not ends and c.db then
+		local Q = ns.QuestDB
+		local r = Q and Q.GetQuest(c.id)
+		ends = r and r.finish.npc
+	end
+	if npc and ends then
+		for _, e in ipairs(ends) do
+			if e == npc then return true end
+		end
+	end
+	return goal ~= nil and goal.xp == 0
+end
+
+-- What taking quest q from NPC npc closes that the player would miss:
+-- Closes.For's list without the quests with nothing to miss. -> list | nil, title
+function Closes.Missed(q, title, npc)
+	local list
+	list, title = Closes.For(q, title)
+	if not list then return nil, title end
+	local out = {}
+	for _, c in ipairs(list) do
+		if not trivial(c, npc) then out[#out + 1] = c end
+	end
+	return #out > 0 and out or nil, title
+end
+
+-- The quest the quest window offers, its title as shown, and the NPC offering it.
 local function offered()
-	local readable = ns.Compat.Readable
+	local C = ns.Compat
+	local readable = C.Readable
 	local q = readable(GetQuestID and GetQuestID())
 	local title = readable(GetTitleText and GetTitleText())
-	return q, type(title) == "string" and title ~= "" and title or nil
+	return q, type(title) == "string" and title ~= "" and title or nil, C.GetNpcID and C.GetNpcID("npc")
 end
 
 -- Whether a choice is still open: the setting is on and the game has not
@@ -136,15 +176,43 @@ end
 
 -- Whether the setting leaves the offered quest's accept to the player.
 function Closes.HoldsOffer()
-	return choosing() and Closes.For(offered()) ~= nil or false
+	return choosing() and Closes.Missed(offered()) ~= nil or false
+end
+
+-- A closed quest as the chat line names it: “Daily Delivery” (from Einar
+-- Stonegrip, 350 yd away, 830 XP), with what the guide's accept of it tells:
+-- its giver, the walk to its giver's point (here: the player's world
+-- position, on that continent) and its XP at the player's level.
+local function named(c, here, level)
+	local goal, parts = c.goal, {}
+	if goal and goal.npcName then parts[#parts + 1] = L["from %s"]:format(goal.npcName) end
+	if goal and here[1] then
+		local cont, wy, wx = ns.Compat.MapToWorld(goal.map, goal.x, goal.y, goal.f)
+		if cont and cont == here[1] then
+			local dy, dx = wy - here[2], wx - here[3]
+			parts[#parts + 1] = L["%s away"]:format(ns.FormatDistance(math.sqrt(dx * dx + dy * dy), { round = 10, compact = true }))
+		end
+	end
+	local xp = goal and goal.xp
+	if type(xp) == "number" and xp > 0 then
+		xp = math.floor(xp * ns.Levels.Share(level, tonumber(goal.qlvl) or level) + 0.5)
+		parts[#parts + 1] = L["%s XP"]:format(xp)
+	end
+	if #parts == 0 then return ns.Quoted(c.title) end
+	return L["%s (%s)"]:format(ns.Quoted(c.title), table.concat(parts, ", "))
 end
 
 ns.RegisterEvent("QUEST_DETAIL", function()
 	if not choosing() then return end
-	local q, shown = offered()
-	local list, title = Closes.For(q, shown)
+	local q, shown, npc = offered()
+	local list, title = Closes.Missed(q, shown, npc)
 	if not list then return end
+	local C = ns.Compat
+	local here = { C.GetPlayerWorldPosition() }
+	local level = C.GetPlayerInfo().level
 	local names = {}
-	for i, c in ipairs(list) do names[i] = ns.Quoted(c.title) end
-	ns.Print(L["Taking %s closes %s for good."]:format(ns.Quoted(title) or ("#" .. q), table.concat(names, ", ")))
+	for i, c in ipairs(list) do names[i] = named(c, here, level) end
+	local text = #list == 1 and L["Taking %s closes %s for good. Decline to keep it, or click Accept to skip it."]
+		or L["Taking %s closes %s for good. Decline to keep them, or click Accept to skip them."]
+	ns.Print(text:format(ns.Quoted(title) or ("#" .. q), table.concat(names, ", ")))
 end)

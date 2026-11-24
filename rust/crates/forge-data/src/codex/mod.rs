@@ -14,6 +14,7 @@
 pub mod atlasloot;
 pub mod attune;
 pub mod client;
+pub mod elites;
 pub mod heights;
 pub mod instances;
 pub mod journal;
@@ -136,11 +137,22 @@ pub struct Inputs {
 	pub curated_vendors: V,
 	pub entrances: Vec<GuideGoto>,
 	pub entrance_table: V,
+	/// The named exceptions to a dungeon's range and floor: data/codex/levels.json
+	/// (`journal::load_levels_table`), by dungeon key.
+	pub levels_table: V,
 	pub rep_table: V,
 	pub attunement_table: V,
 	pub journal_quests: Vec<V>,
 	/// forever-db's quest XP (`journal::load_store_xp`).
 	pub store_xp: FxHashMap<i64, f64>,
+	/// data/forever/mechanics.json (optional). A kill done by using an item on that NPC keeps
+	/// `useItem` on the Codex objective (merge.rs `use_item_on`). Null when the file is absent,
+	/// which leaves every objective as it was.
+	pub mechanics: V,
+	/// data/mechanics-public.json (optional): our own public words on how a quest is done. Its steps'
+	/// facts become the quest's `how`, which Lookup's quest steps show (merge.rs `public_how`, #2714).
+	/// Only this file: the merged mechanics.json also holds private layers' text, which never ships.
+	pub mechanics_public: V,
 	pub warnings: Vec<String>,
 }
 
@@ -220,6 +232,13 @@ pub fn is_web_citation(c: &V) -> bool {
 		Some("quest" | "npc" | "item" | "object" | "zone" | "spell") => id.is_num() && forge_guide::js::is_integer(id.num()) && id.num() > 0.0 && c.get("ref").is_undef(),
 		_ => false,
 	}
+}
+
+/// `isSourceCitation(c)` (tools/lib/codex/web.js): a curated table's citation of players'
+/// recordings or an open game database the way the corrections cite one, `{ kind, ref }` with a
+/// kind of `crate::corrections::SOURCE_KINDS`, a non-empty `ref` and nothing else.
+pub fn is_source_citation(c: &V) -> bool {
+	c.as_obj().is_some_and(|o| o.len() == 2) && c.get("kind").as_str().is_some_and(|k| crate::corrections::SOURCE_KINDS.contains(&k)) && c.get("ref").as_str().is_some_and(|r| !r.is_empty())
 }
 
 /// Every .guide file under dir, by path (build.js guideTexts).
@@ -451,6 +470,7 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 	let tables = client::load_tables(&opts.sources_dir, &build, &TABLES, &opts.cwd)?;
 	let mut cl = client::client_facts(&tables, &build);
 	cl.instance_maps = client::instance_maps_of(tables.get("Map").map(Vec::as_slice).unwrap_or(&[]), tables.get("AreaTable").map(Vec::as_slice).unwrap_or(&[]));
+	client::attach_finder(&mut cl.instance_maps, tables.get("GroupFinderActivity").map(Vec::as_slice).unwrap_or(&[]));
 	let mut era_maps = None;
 	match client::load_tables(&opts.sources_dir, ERA_BUILD, &ERA_TABLES, &opts.cwd) {
 		Ok(era) => {
@@ -476,6 +496,7 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 	let lib = opts.root.join("data").join("codex");
 	let read = |f: &str| std::fs::read_to_string(lib.join(f)).map_err(|e| format!("{}: {e}", lib.join(f).display()));
 	let entrance_table = if lib.join("entrances.json").exists() { instances::load_entrance_table(&read("entrances.json")?)? } else { V::obj() };
+	let levels_table = if lib.join("levels.json").exists() { journal::load_levels_table(&read("levels.json")?)? } else { V::obj() };
 	let att = parse_json(&read("attunements.json")?)?;
 	let attunement_table = Obj::new();
 	for k in ["attunements", "inside", "removed"] {
@@ -497,10 +518,13 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 		curated_vendors: curated_vendors(&texts),
 		entrances: instances::curated_entrances(&guides),
 		entrance_table,
+		levels_table,
 		rep_table: load_rep_gate_table(&lib.join("repgates.json"))?,
 		attunement_table: V::Obj(attunement_table),
 		journal_quests,
 		store_xp: journal::load_store_xp(&opts.root.join("forever-db"))?,
+		mechanics: j("mechanics.json", true)?,
+		mechanics_public: read_json(&opts.root.join("data").join("mechanics-public.json"), true, &opts.cwd)?,
 		warnings,
 	})
 }
@@ -556,7 +580,7 @@ fn sources_meta(inputs: &Inputs) -> V {
 	let ne = inputs.entrance_table.len();
 	if ne > 0 && inputs.atlasloot.is_none() {
 		out.push(source(
-			"Curated instance entrances (data/codex/entrances.json): QuestieDB Forever dungeon table, warcraft.wiki.gg, the web quest database (Forever pages)",
+			"Curated instance entrances (data/codex/entrances.json): QuestieDB Forever dungeon table, warcraft.wiki.gg, the web quest database (Forever pages), Polestar Recorder sessions",
 			V::str(&format!("{ne} entrances")),
 			V::str("Facts only (coordinates), each entry with its source"),
 		));
@@ -577,6 +601,10 @@ fn sources_meta(inputs: &Inputs) -> V {
 			V::str("Facts only (quest and item ids), each entry with its sources"),
 		));
 	}
+	let nd = inputs.levels_table.len();
+	if nd > 0 {
+		out.push(source("Curated dungeon levels (data/codex/levels.json): in-game checks", V::str(&format!("{nd} dungeons")), V::str("Facts only (levels), each row with its source")));
+	}
 	if let Some(s) = recorded::source_meta(&inputs.recorded) {
 		out.push(s);
 	}
@@ -591,7 +619,7 @@ fn sources_meta(inputs: &Inputs) -> V {
 	let nj = inputs.journal_quests.len();
 	if nj > 0 {
 		out.push(source(
-			"Curated Dungeons journal quests (data/codex/journal-quests.json): the web quest database (Forever pages)",
+			"Curated Dungeons journal quests (data/codex/journal-quests.json): the web quest database (Forever pages), Polestar Recorder sessions",
 			V::str(&format!("{nj} quests")),
 			V::str("Facts only (quest ids and instances), each row with its source"),
 		));
@@ -671,6 +699,9 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 	let placed =
 		heights::add_heights(&V::Obj(m.npcs.clone()), &sz.get("npc"), &inputs.forever.map_frames) + heights::add_heights(&V::Obj(m.objects.clone()), &sz.get("object"), &inputs.forever.map_frames);
 	log(&format!("{placed} NPC and object places with a spawn height"));
+	let f = &inputs.forever;
+	let marked = elites::mark(&V::Obj(m.quests.clone()), &f.npcs, &f.objects, &f.items, &f.map_frames);
+	log(&format!("{marked} quest objectives at objects among hostile elites"));
 	let (counts, coverage) = summarize(&m);
 	let cl = inputs.client.as_ref();
 	let meta = Obj::new();
@@ -711,6 +742,7 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 			V::obj()
 		}
 	};
+	let recorded_dungeons = inputs.recorded.get("dungeons");
 	let (journal, journal_warnings) = journal::build_journal(
 		&journal::JournalInputs {
 			maps: cl.map(|c| c.instance_maps.as_slice()).unwrap_or(&[]),
@@ -722,6 +754,8 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 			journal_quests: &inputs.journal_quests,
 			attunement_table: &inputs.attunement_table,
 			store_xp: &inputs.store_xp,
+			recorded_dungeons: &recorded_dungeons,
+			levels_table: &inputs.levels_table,
 		},
 		&jc,
 	);
@@ -772,6 +806,7 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 			spells: &V::Obj(m.spells.clone()),
 			meta: &meta_v,
 			frames: &V::Obj(m.frames.clone()),
+			professions: &V::Obj(m.professions.clone()),
 		},
 		&version,
 		&meta.get("build"),
@@ -793,7 +828,7 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 	p.set("loadMs", mem.as_ref().map(|m| V::Num(opts.load_ms.unwrap_or(m.load_ms))).unwrap_or(V::Null));
 	meta.set("pack", V::Obj(p));
 
-	let outs: [(&str, V); 11] = [
+	let outs: [(&str, V); 12] = [
 		("meta", meta_v.clone()),
 		("items", jc.items.clone()),
 		("npcs", jc.npcs.clone()),
@@ -805,6 +840,7 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 		("spells", V::Obj(m.spells.clone())),
 		("frames", V::Obj(m.frames.clone())),
 		("journal", journal.clone()),
+		("professions", V::Obj(m.professions.clone())),
 	];
 	let json: Vec<(String, String)> = outs.iter().map(|(n, v)| (format!("{n}.json"), format!("{}\n", stringify(&sort_keys_deep(v), Some("\t"))))).collect();
 

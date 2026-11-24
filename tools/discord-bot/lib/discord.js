@@ -51,7 +51,8 @@ function createDiscord({ token, api = API, fetch: fetchImpl = fetch }) {
 		me: () => request('GET', '/users/@me'),
 		getChannel: (id) => request('GET', `/channels/${id}`),
 		getMessage: (channel, id) => request('GET', `/channels/${channel}/messages/${id}`),
-		getMessages: (channel, limit = 50) => request('GET', `/channels/${channel}/messages?limit=${limit}`),
+		// Newest first; `before`: only messages older than that id.
+		getMessages: (channel, limit = 50, before = null) => request('GET', `/channels/${channel}/messages?limit=${limit}${before ? `&before=${before}` : ''}`),
 		getMember: (guild, user) => request('GET', `/guilds/${guild}/members/${user}`),
 		getGuild: (id) => request('GET', `/guilds/${id}`),
 		activeThreads: (guild) => request('GET', `/guilds/${guild}/threads/active`),

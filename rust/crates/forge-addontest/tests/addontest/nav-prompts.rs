@@ -104,6 +104,126 @@ fn travel_button_a_hearth_leg_gets_a_secure_item_button_under_the_arrow_out_of_c
 	assert_eq!(out[5]["shown"], false);
 }
 
+// #2009 ("can't hide the Hearthstone button"): the travel button sits under the arrow and goes with it. With the arrow
+// turned off (nav.arrow) it hides; turned on again it shows as before. (The step's own Hearthstone button has a switch of
+// its own, QoL's hearthButton.)
+#[test]
+fn travel_button_turning_the_arrow_off_hides_it_and_turning_it_on_brings_it_back_2009() {
+	let out = run_nav(
+		r#"
+		nav.items[6948] = 1
+		setRoute({ HEARTH, WALK })
+		emit(state())
+		Polestar.Set("nav.arrow", false)
+		emit(state())
+		Polestar.Set("nav.arrow", true)
+		emit(state())
+	"#,
+	);
+	assert_eq!(out[0]["shown"], true, "the arrow on: the button under it");
+	assert_eq!(out[1]["shown"], false, "the arrow off: the button goes with it");
+	assert_eq!(out[2], json!({ "exists": true, "shown": true, "type1": "item", "item": "item:6948", "spell": false }), "back on: as before");
+}
+
+#[test]
+fn travel_button_2297_cast_prompts_hide_on_takeoff_and_return_only_for_the_remaining_leg() {
+	let out = run_nav(
+		r#"
+		nav.items[6948], nav.items[900001] = 1, 1
+		Polestar.Compat.IsSpellKnown = function(id) return id == 3565 end
+		for _, leg in ipairs({ HEARTH, { kind="teleport", spell=3565 }, { kind="item", item=900001 } }) do
+			leg.from, leg.to = HEARTH.from, HEARTH.to
+			setRoute({ leg, WALK })
+			local ground = state()
+			nav.taxi = true
+			stub.fire("PLAYER_CONTROL_LOST")
+			local takeoff = state()
+			-- Reannouncing the same leg and the ordinary refresh cannot revive it.
+			setRoute(route.legs)
+			N.Refresh()
+			local flying = state()
+			nav.taxi = false
+			stub.fire("PLAYER_CONTROL_GAINED")
+			emit({ground=ground,takeoff=takeoff,flying=flying,landed=state(),leg=route.ci,skipped=skipped})
+		end
+	"#,
+	);
+	let hidden = json!({ "exists": true, "shown": false, "type1": false, "item": false, "spell": false });
+	assert_eq!(out.len(), 3);
+	for row in out {
+		assert_eq!(row["ground"]["shown"], true);
+		assert_eq!(row["takeoff"], hidden, "takeoff hides and empties the secure action immediately");
+		assert_eq!(row["flying"], hidden, "refreshing a frozen route cannot offer its cast during a taxi");
+		assert_eq!(row["landed"], row["ground"], "landing restores the still-current action");
+		assert_eq!(row["leg"], 1, "hiding the prompt does not complete or skip the leg");
+		assert_eq!(row["skipped"], 0);
+	}
+}
+
+#[test]
+fn travel_button_2297_landing_does_not_revive_an_advanced_or_cleared_cast_leg() {
+	let out = run_nav(
+		r#"
+		nav.items[6948] = 1
+		setRoute({ HEARTH, WALK })
+		nav.taxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		route.ci = 2
+		Polestar.Fire("ROUTE_ADVANCED", route.legs, 2)
+		nav.taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED")
+		emit(state())
+		setRoute({ HEARTH, WALK })
+		nav.taxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		setRoute(nil)
+		nav.taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED")
+		emit(state())
+	"#,
+	);
+	for row in out {
+		assert_eq!(row, json!({ "exists": true, "shown": false, "type1": false, "item": false, "spell": false }));
+	}
+}
+
+#[test]
+fn travel_button_2297_taxi_changes_respect_combat_lockdown_and_the_latest_request() {
+	let out = run_nav(
+		r#"
+		nav.items[6948] = 1
+		setRoute({ HEARTH, WALK })
+		combat(true)
+		nav.taxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		emit({state(),P.Pending()})
+		combat(false)
+		emit({state(),P.Pending()})
+		-- Landing during lockdown queues restoration, but taking off again wins.
+		combat(true)
+		nav.taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED")
+		nav.taxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		combat(false)
+		emit({state(),P.Pending()})
+		-- The reverse ordering also follows the latest state, without protected calls.
+		nav.taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED")
+		combat(true)
+		nav.taxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		nav.taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED")
+		combat(false)
+		emit({state(),P.Pending()})
+	"#,
+	);
+	let shown = json!({ "exists": true, "shown": true, "type1": "item", "item": "item:6948", "spell": false });
+	let hidden = json!({ "exists": true, "shown": false, "type1": false, "item": false, "spell": false });
+	assert_eq!(out, vec![json!([shown, true]), json!([hidden, false]), json!([hidden, false]), json!([shown, false])]);
+}
+
 #[test]
 fn travel_button_a_mouse_click_casts_once_on_its_release_its_binding_once_and_a_right_click_casts_nothing_at_either_key_down_setting() {
 	let out = run_nav(
@@ -193,6 +313,125 @@ fn travel_button_issues_c1_a_route_cleared_or_replaced_while_a_change_waits_on_c
 	assert_eq!(out[0], json!([{ "exists": false }, false]));
 	assert_eq!(out[1], json!({ "exists": true, "shown": false, "type1": false, "item": false, "spell": false }));
 	assert_eq!(out[2], out[1]);
+}
+
+// A small layout of the client's for the travel button's spot: frames held by one point of a 1920 x 1080
+// UIParent, resolved in UIParent's units. The arrow's measured rectangle (GetCenter, GetBottom) comes from the
+// same layout once the client has laid it out (`arrow.laidOut`); before that it is nil, as right after a reload.
+// `under()` is the button's top against the arrow's foot: { 0, -6 } is just under it.
+const LAYOUT: &str = r#"
+UIParent:SetSize(1920, 1080)
+local function frac(p)
+	return p:find("LEFT") and 0 or p:find("RIGHT") and 1 or 0.5, p:find("TOP") and 1 or p:find("BOTTOM") and 0 or 0.5
+end
+local function own(f) return f:GetEffectiveScale() / UIParent:GetEffectiveScale() end
+local function spot(f, which)
+	local point, rel, relPoint, x, y = f:GetPoint(1)
+	assert(f:GetNumPoints() == 1 and rel == UIParent, "held by one point of UIParent")
+	local k = own(f)
+	local rx, ry = frac(relPoint)
+	local px, py = frac(point)
+	local wx, wy = frac(which)
+	return rx * UIParent:GetWidth() + x * k + (wx - px) * f:GetWidth() * k,
+		ry * UIParent:GetHeight() + y * k + (wy - py) * f:GetHeight() * k
+end
+local arrow = N.arrow.frame
+arrow.laidOut = true
+function arrow:GetCenter()
+	if not self.laidOut then return nil end
+	local x, y = spot(self, "CENTER")
+	return x / own(self), y / own(self)
+end
+function arrow:GetBottom()
+	if not self.laidOut then return nil end
+	local _, y = spot(self, "BOTTOM")
+	return y / own(self)
+end
+local function r(v) return math.floor(v * 1000 + 0.5) / 1000 end
+local function under()
+	local bx, by = spot(btn(), "TOP")
+	local ax, ay = spot(arrow, "BOTTOM")
+	return { r(bx - ax), r(by - ay) }
+end
+arrow:ClearAllPoints()
+arrow:SetPoint("TOP", UIParent, "TOP", 0, -140)
+nav.items[6948] = 1
+"#;
+
+#[test]
+fn travel_button_issues_1821_after_a_reload_the_arrow_taking_its_saved_scale_and_spot_or_a_new_size_takes_the_button_with_it() {
+	let out = run_nav(&format!(
+		"{LAYOUT}{}",
+		r#"
+		-- the reload: the cast leg puts the button out while the arrow is still at its default spot
+		arrow:Show()
+		setRoute({ HEARTH, WALK })
+		emit(under())
+		-- then the arrow takes its saved scale and spot, as its settings put them
+		arrow:SetScale(1.4)
+		arrow:ClearAllPoints()
+		arrow:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 300, -500)
+		emit(under())
+		-- a taller arrow
+		local w, h = arrow:GetSize()
+		arrow:SetSize(w, h + 40)
+		stub.RunScript(arrow, "OnSizeChanged", w, h + 40)
+		emit(under())
+	"#
+	));
+	assert_eq!(out[0], json!([0, -6]), "under the arrow's default spot");
+	assert_eq!(out[1], json!([0, -6]), "under its saved spot and scale");
+	assert_eq!(out[2], json!([0, -6]), "under the taller arrow");
+}
+
+#[test]
+fn travel_button_issues_1821_placed_while_the_arrow_is_hidden_or_not_laid_out_yet_it_is_under_the_arrow_s_own_spot_not_the_fallback() {
+	let out = run_nav(&format!(
+		"{LAYOUT}{}",
+		r#"
+		arrow:SetScale(0.8)
+		arrow:ClearAllPoints()
+		arrow:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -400, 300)
+		-- hidden when the button comes, then shown
+		arrow:Hide()
+		setRoute({ HEARTH, WALK })
+		emit(under())
+		arrow:Show()
+		emit(under())
+		-- shown, but the client hasn't laid it out yet (the moment after a reload)
+		setRoute(nil)
+		arrow.laidOut = false
+		setRoute({ HEARTH, WALK })
+		emit({ state().shown, under() })
+	"#
+	));
+	assert_eq!(out[0], json!([0, -6]), "under the hidden arrow's spot");
+	assert_eq!(out[1], json!([0, -6]), "still under it once shown");
+	assert_eq!(out[2], json!([true, [0, -6]]), "under the arrow before its first layout");
+}
+
+#[test]
+fn travel_button_issues_1821_the_arrow_moved_in_combat_takes_the_button_with_it_once_combat_ends() {
+	let out = run_nav(&format!(
+		"{LAYOUT}{}",
+		r#"
+		arrow:Show()
+		setRoute({ HEARTH, WALK })
+		local function at() return { btn():GetPoint(1) } end
+		local was = at()
+		-- the arrow moves and rescales mid-fight: the secure button stays put (a change would be refused)
+		combat(true)
+		arrow:SetScale(1.25)
+		arrow:ClearAllPoints()
+		arrow:SetPoint("TOP", UIParent, "TOP", -200, -320)
+		local now = at()
+		emit(was[1] == now[1] and was[3] == now[3] and was[4] == now[4] and was[5] == now[5])
+		combat(false)
+		emit({ state().shown, under() })
+	"#
+	));
+	assert_eq!(out[0], true, "not moved in combat");
+	assert_eq!(out[1], json!([true, [0, -6]]), "under the arrow once combat ends");
 }
 
 #[test]
@@ -376,7 +615,7 @@ fn alerts_a_notice_wraps_its_line_grows_the_banner_and_goes_on_hide_a_transport_
 		out[0]["notice"],
 		json!({ "shown": true, "title": "Polestar is hidden here", "line": "Click the minimap button or press Ctrl-Shift-P to show it. It comes back when you leave.",
 			"wraps": true, "multi": true, "grown": true, "glyph": true, "tint": [1, 1, 1, 1] }),
-		"the emblem in its own colours, not the boat glyph's tint (RegressVisual V2)"
+		"the emblem in its own colours, not the boat glyph's tint (visual regression check)"
 	);
 	assert_eq!(out[0]["still"], true, "a fixed line, no countdown");
 	assert_eq!(out[0]["gone"], true, "gone after its time, without the transport's linger");

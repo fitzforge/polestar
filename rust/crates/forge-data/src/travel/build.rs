@@ -5,12 +5,12 @@ use std::path::{Path, PathBuf};
 use forge_guide::js::{cmp_utf16, num_str, parse_json, stringify, Obj, V};
 
 use super::classicdb::load_classic_db;
-use super::crossings::{crossing_counts, crossings_lua, emit_travel_addon, read_crossings_file, recorded_crossings, Crossing, Live, Set, XPt, TRAVEL_ADDON};
+use super::crossings::{crossing_counts, crossings_lua, emit_travel_addon, read_crossings_file, recorded_crossings, Area, Crossing, Live, Set, XPt, TRAVEL_ADDON};
 use super::geo::{Frame, Frames};
 use super::inns::{build_inns, Inn};
 use super::paths::{build_paths, live_frames_of};
 use super::sources::{load_travel_tables, Loaded, Product};
-use super::taxi::{build_taxi, Leg, LiveFrames, Node, TRACK_TOLERANCE};
+use super::taxi::{build_taxi, Leg, LiveFrames, Node, TaxiTables, TRACK_TOLERANCE};
 use super::timetable::{build_timetables, Portal, Route, Service, Teleport, Timetables};
 use super::transports::{build_transports, End, Nav, Transport};
 use super::{header, lua_str};
@@ -175,6 +175,10 @@ fn node_v(n: &Node) -> V {
 	if let Some(c) = n.class {
 		v.push(("class", c.into()));
 	}
+	// (Only a node on a map Forever added carries it: x, y on the live frame.)
+	if n.f == "l" {
+		v.push(("f", "l".into()));
+	}
 	obj(v)
 }
 
@@ -266,7 +270,7 @@ fn crossing_v(e: &Crossing) -> V {
 }
 
 fn set_v(s: &Set) -> V {
-	obj(vec![
+	let mut pairs = vec![
 		("crossings", s.crossings.iter().map(crossing_v).collect::<Vec<V>>().into()),
 		("open", s.open.iter().map(|o| obj(vec![("a", o.a.into()), ("b", o.b.into()), ("c", o.c.into()), ("oneWay", o.one_way.into())])).collect::<Vec<V>>().into()),
 		(
@@ -285,7 +289,31 @@ fn set_v(s: &Set) -> V {
 				.collect::<Vec<V>>()
 				.into(),
 		),
-	])
+	];
+	if !s.areas.is_empty() {
+		let area = |a: &Area| {
+			let mut pairs = vec![
+				("id", a.id.as_str().into()),
+				("name", a.name.as_str().into()),
+				("map", a.map.into()),
+				("c", a.c.into()),
+				("top", a.top.into()),
+				("bottom", a.bottom.into()),
+				("left", a.left.into()),
+				("right", a.right.into()),
+			];
+			if let Some((lo, hi)) = a.z {
+				pairs.push(("zmin", lo.into()));
+				pairs.push(("zmax", hi.into()));
+			}
+			if let Some(id) = a.subzone {
+				pairs.push(("subzone", id.into()));
+			}
+			obj(pairs)
+		};
+		pairs.push(("areas", s.areas.iter().map(area).collect::<Vec<V>>().into()));
+	}
+	obj(pairs)
 }
 
 fn fit_v(r: &Route) -> V {
@@ -325,6 +353,8 @@ fn portal_v(p: &Portal) -> V {
 		("a", end_v(&p.a)),
 		("b", end_v(&p.b)),
 		("seconds", p.seconds.into()),
+		("item", opt(p.item)),
+		("npc", opt(p.npc.as_deref())),
 		("source", p.source.as_str().into()),
 	])
 }
@@ -440,6 +470,8 @@ fn transit_lua(t: &Timetables) -> Result<Vec<String>, String> {
 struct Emit<'a> {
 	build: &'a str,
 	forever_build: Option<&'a str>,
+	/// The Forever build's TaxiNodes and TaxiPath were read: the flight points Forever added.
+	forever_taxi: bool,
 	transit_build: Option<&'a str>,
 	cmangos_rev: Option<&'a str>,
 	area_build: Option<String>,
@@ -456,12 +488,48 @@ struct Emit<'a> {
 	live: &'a Live,
 }
 
+/// A taxi node's row of TravelData.lua: id, continent, wx, wy, uiMapID, x, y, faction mask, name; then the class
+/// alone that flies from it (or nil), "l" for x, y on a live frame (or nil), and a class node's flight master's npc.
+fn taxi_row(n: &Node) -> V {
+	let mut row: Vec<V> = vec![n.id.into(), n.c.into(), n.wx.into(), n.wy.into(), n.map.into(), n.x.into(), n.y.into(), n.faction.into(), n.name.as_str().into()];
+	let class_npc = n.class.and(n.npc.as_ref().map(|(id, _)| *id));
+	if n.class.is_some() || n.f == "l" {
+		row.push(n.class.map(V::from).unwrap_or(V::Null));
+	}
+	if n.f == "l" || class_npc.is_some() {
+		row.push(if n.f == "l" { "l".into() } else { V::Null });
+	}
+	if let Some(npc) = class_npc {
+		row.push(npc.into());
+	}
+	V::from(row)
+}
+
+/// TravelData.lua's taxiZ: each node's height (TaxiNodes), the floor a flight lands on (Nav/Walk.lua), by node id;
+/// nothing when no node has one.
+fn taxi_z_lines(nodes: &[Node]) -> Vec<String> {
+	if !nodes.iter().any(|n| n.z.is_some()) {
+		return Vec::new();
+	}
+	let mut lines = vec!["\t-- each node's height (TaxiNodes): the floor a flight lands on, by node id".to_string(), "\ttaxiZ = {".to_string()];
+	for n in nodes {
+		if let Some(z) = n.z {
+			lines.push(format!("\t\t[{}] = {},", num_str(n.id), num_str(z)));
+		}
+	}
+	lines.push("\t},".into());
+	lines
+}
+
 fn emit_lua(t: &Emit) -> Result<String, String> {
 	let mut lines: Vec<String> = Vec::new();
 	lines.push(header("travel build", "the client tables, CMaNGOS classic-db, data/forever and data/recordings"));
 	lines.push(format!("-- Blizzard Classic Era client tables (wago.tools build {}): TaxiNodes, TaxiPath,", t.build));
 	lines.push("-- TaxiPathNode, AreaTrigger; WoW Forever client TaxiPathNode (wago.tools build".into());
 	lines.push(format!("-- {}) for the ships Forever added; docks and inns placed from data/forever (pfQuest, MIT);", t.forever_build.unwrap_or("none")));
+	if t.forever_taxi {
+		lines.push("-- the flight points Forever added, with their flights: WoW Forever client TaxiNodes, TaxiPath and TaxiPathNode (that build);".into());
+	}
 	lines.push(format!("-- learned walking paths from {} recorded session(s).", t.sessions));
 	lines.push("-- Timetables, portals and teleports: WoW Forever TransportAnimation and spell tables (wago.tools build".into());
 	lines.push(format!("-- {}), CMaNGOS classic-db {} (spawns, areatrigger_teleport,", t.transit_build.unwrap_or("none"), t.cmangos_rev.map(|r| &r[..7]).unwrap_or("none")));
@@ -476,16 +544,18 @@ fn emit_lua(t: &Emit) -> Result<String, String> {
 	lines.push("N.RegisterTravelData({".into());
 	lines.push(format!("\tbuild = {},", lua_str(t.build)));
 	lines.push("\t-- id, continent, wx, wy, uiMapID, x, y (Era frame), faction mask (1 Alliance, 2 Horde), name[, the one class that flies from it]".into());
+	if t.nodes.iter().any(|n| n.f == "l") {
+		lines.push("\t-- (then \"l\", after the class or nil: x, y on the live frame of a map Forever added, which has no Era frame)".into());
+	}
+	if t.nodes.iter().any(|n| n.class.is_some() && n.npc.is_some()) {
+		lines.push("\t-- (a class's node then its flight master's npc id, after \"l\" or nil: Nearby leaves them to that class)".into());
+	}
 	lines.push("\ttaxi = {".into());
 	for n in t.nodes {
-		let mut row: Vec<V> = vec![n.id.into(), n.c.into(), n.wx.into(), n.wy.into(), n.map.into(), n.x.into(), n.y.into(), n.faction.into(), n.name.as_str().into()];
-		if let Some(c) = n.class {
-			row.push(c.into());
-		}
-		let v = V::from(row);
-		lines.push(format!("\t\t{},", lua_val(&v)?));
+		lines.push(format!("\t\t{},", lua_val(&taxi_row(n))?));
 	}
 	lines.push("\t},".into());
+	lines.extend(taxi_z_lines(t.nodes));
 	lines.push("\t-- one-way flights: from, to, yards flown".into());
 	lines.push("\tflights = {".into());
 	for l in t.legs {
@@ -510,7 +580,7 @@ fn emit_lua(t: &Emit) -> Result<String, String> {
 		lines.push(format!("\t\t{},", lua_val(&v)?));
 	}
 	lines.push("\t},".into());
-	lines.push("\t-- walk-in portals, one way a -> b: id, destination name and area, ends as transports (with z), seconds (the loading screen)".into());
+	lines.push("\t-- walk-in portals, one way a -> b: id, destination name and area, ends as transports (with z), seconds (the loading screen), item (one the player must carry, else none), npc (the NPC who teleports the player who asks, else none)".into());
 	lines.push("\tportals = {".into());
 	for p in &t.transit.portals {
 		let v = obj(vec![
@@ -520,6 +590,8 @@ fn emit_lua(t: &Emit) -> Result<String, String> {
 			("a", to_lua_end(&p.a, true)),
 			("b", to_lua_end(&p.b, true)),
 			("seconds", p.seconds.into()),
+			("item", opt(p.item)),
+			("npc", opt(p.npc.as_deref())),
 		]);
 		lines.push(format!("\t\t{},", lua_val(&v)?));
 	}
@@ -550,7 +622,7 @@ fn emit_lua(t: &Emit) -> Result<String, String> {
 	}
 	if !t.recorded.is_empty() {
 		lines.push("-- zone crossings learned from recorded play (used where a continent has full crossing data)".into());
-		let set = Set { crossings: t.recorded.to_vec(), open: Vec::new(), chains: Vec::new() };
+		let set = Set { crossings: t.recorded.to_vec(), ..Set::default() };
 		lines.extend(crossings_lua(&set, t.frames, false, t.live));
 	}
 	for part in t.paths.nodes.chunks(PATH_CHUNK) {
@@ -572,12 +644,16 @@ fn emit_lua(t: &Emit) -> Result<String, String> {
 	Ok(format!("{}\n", lines.join("\n")))
 }
 
-/// The flights' tracks: ns.FlightTracks[from][to] = { wx, wy, ... }.
-fn emit_flight_lua(build: &str, legs: &[Leg]) -> Result<String, String> {
+/// The flights' tracks: ns.FlightTracks[from][to] = { wx, wy, ... }. `forever`: the Forever build whose
+/// TaxiPathNode the flights of Forever's own flight points fly, when they were read.
+fn emit_flight_lua(build: &str, forever: Option<&str>, legs: &[Leg]) -> Result<String, String> {
 	let mut lines: Vec<String> = Vec::new();
 	lines.push(header("travel build", "the client tables"));
 	lines.push("-- What each flight in TravelData.lua flies: Blizzard Classic Era TaxiPathNode (wago.tools build".into());
 	lines.push(format!("-- {build}), on the ground plane, simplified to {} yards and rounded to the yard.", num_str(TRACK_TOLERANCE)));
+	if let Some(fb) = forever {
+		lines.push(format!("-- The flights of the flight points Forever added: WoW Forever client TaxiPathNode (wago.tools build {fb})."));
+	}
 	lines.push("-- ns.FlightTracks[from][to] = { wx, wy, wx, wy, ... } (taxi node ids, world yards: wx north, wy west).".into());
 	lines.push("-- Drawn by Maps/RouteLines.lua.".into());
 	lines.push(String::new());
@@ -662,7 +738,11 @@ pub fn build(o: &Options) -> Result<Output, String> {
 		}
 	};
 
-	let taxi = build_taxi(src.rows("TaxiNodes"), src.rows("TaxiPath"), src.rows("TaxiPathNode"), &frames, &npcs, &live);
+	// (A crossing's end, or a flight point, on a map Forever added, with no Era frame, is in the Forever
+	// client's frame: the Riverglades' ways to Redridge, the Badlands and the Swamp of Sorrows; Rog'mar.)
+	let placing = frames.with_forever(&forever_frames);
+	let forever_taxi = forever.as_ref().and_then(|f| Some(TaxiTables { nodes: f.tables.get("TaxiNodes")?, paths: f.tables.get("TaxiPath")?, points: f.rows("TaxiPathNode") }));
+	let taxi = build_taxi(&TaxiTables { nodes: src.rows("TaxiNodes"), paths: src.rows("TaxiPath"), points: src.rows("TaxiPathNode") }, forever_taxi.as_ref(), &frames, &placing, &npcs, &live);
 	let nav = o.grid_dir.as_deref().and_then(Nav::open);
 	let grid_warnings: Vec<String> = if nav.is_some() {
 		Vec::new()
@@ -699,12 +779,9 @@ pub fn build(o: &Options) -> Result<Output, String> {
 		if areas.truthy() { Vec::new() } else { vec![format!("no cached WoW Forever AreaTable under {}: the inns get no area (`data build` downloads it)", o.sources_dir.join("wago").display())] };
 	let paths = build_paths(&recordings, &live, &frames);
 	let recorded = recorded_crossings(&paths.zone_steps, &frames);
-	// (A crossing's end on a map Forever added, with no Era frame, is in the Forever client's frame:
-	// the Riverglades' ways to Redridge, the Badlands and the Swamp of Sorrows.)
-	let crossing_frames = frames.with_forever(&forever_frames);
-	let local = read_crossings_file(&o.crossings_file, &crossing_frames)?;
+	let local = read_crossings_file(&o.crossings_file, &placing)?;
 	let shipped = match &o.shipped_file {
-		Some(f) => read_crossings_file(f, &crossing_frames)?.map(|(set, doc)| {
+		Some(f) => read_crossings_file(f, &placing)?.map(|(set, doc)| {
 			let s = doc.get("source");
 			let source = if s.truthy() { s.to_js_string() } else { f.file_name().map(|n| n.to_string_lossy().to_string()).unwrap_or_default() };
 			(set, source)
@@ -715,6 +792,12 @@ pub fn build(o: &Options) -> Result<Output, String> {
 	warnings.extend(src.warnings.iter().cloned());
 	if let Some(f) = &forever {
 		warnings.extend(f.warnings.iter().cloned());
+		if forever_taxi.is_none() {
+			warnings.push(format!(
+				"WoW Forever client build {}: its TaxiNodes and TaxiPath are not both cached, so the flight points Forever added are left out (`forge data sources --only builders` fetches them)",
+				f.build
+			));
+		}
 	}
 	if let Some(t) = &transit_tables {
 		warnings.extend(t.warnings.iter().cloned());
@@ -730,7 +813,7 @@ pub fn build(o: &Options) -> Result<Output, String> {
 
 	let mut sources: Vec<V> = vec![tables_source("Blizzard Classic Era client tables (wago.tools)", &src, None)];
 	if let Some(f) = &forever {
-		sources.push(tables_source("WoW Forever client tables (wago.tools)", f, Some("ship loops Forever added")));
+		sources.push(tables_source("WoW Forever client tables (wago.tools)", f, Some(if forever_taxi.is_some() { "flight points and ship loops Forever added" } else { "ship loops Forever added" })));
 	}
 	if let Some(t) = &transit_tables {
 		sources.push(tables_source("WoW Forever client tables (wago.tools)", t, Some("lift and tram tracks, class teleports")));
@@ -858,6 +941,7 @@ pub fn build(o: &Options) -> Result<Output, String> {
 	let emit = Emit {
 		build: &src.build,
 		forever_build: forever.as_ref().map(|f| f.build.as_str()),
+		forever_taxi: forever_taxi.is_some(),
 		transit_build: transit_tables.as_ref().map(|t| t.build.as_str()),
 		cmangos_rev: db.as_ref().map(|d| d.rev),
 		area_build: area_build.clone(),
@@ -874,7 +958,7 @@ pub fn build(o: &Options) -> Result<Output, String> {
 		live: &live_obj,
 	};
 	let travel_lua = emit_lua(&emit)?;
-	let flight_lua = emit_flight_lua(&src.build, &taxi.legs)?;
+	let flight_lua = emit_flight_lua(&src.build, forever.as_ref().filter(|_| forever_taxi.is_some()).map(|f| f.build.as_str()), &taxi.legs)?;
 	let travel_addon = match &local {
 		Some((set, _)) => Some(emit_travel_addon(set, &frames, &live_obj, &package_version(&o.root)?)),
 		None => None,
@@ -908,4 +992,48 @@ pub fn build(o: &Options) -> Result<Output, String> {
 		None => Vec::new(),
 	};
 	Ok(Output { travel_json: format!("{}\n", stringify(&travel, Some("\t"))), travel_lua, flight_lua, travel_addon, warnings, summary, local_counts })
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	fn node(id: f64, name: &str, faction: i32, npc: f64, class: Option<&'static str>, f: &'static str) -> Node {
+		Node {
+			id,
+			name: name.into(),
+			short: name.split(',').next().unwrap().into(),
+			c: 1.0,
+			wx: 7793.6,
+			wy: -2403.5,
+			z: None,
+			map: 1450,
+			x: 44.28,
+			y: 45.34,
+			f,
+			faction,
+			npc: Some((npc, "Someone".into())),
+			class,
+		}
+	}
+
+	// Nighthaven's Druid flight masters (TaxiNodes 62, 63) name their npc, so Nearby can leave Silva Fil'naveth and
+	// Bunthen Plainswind to Druids; every other row stays as it was.
+	#[test]
+	fn a_class_s_taxi_row_carries_its_flight_master_s_npc_other_rows_are_unchanged() {
+		let row = |n: &Node| lua_val(&taxi_row(n)).unwrap();
+		assert_eq!(row(&node(62.0, "Nighthaven, Moonglade", 1, 11800.0, Some("DRUID"), "e")), r#"{62,1,7793.6,-2403.5,1450,44.28,45.34,1,"Nighthaven, Moonglade","DRUID",nil,11800}"#);
+		assert_eq!(row(&node(49.0, "Moonglade", 1, 10897.0, None, "e")), r#"{49,1,7793.6,-2403.5,1450,44.28,45.34,1,"Moonglade"}"#);
+		assert_eq!(row(&node(90.0, "Rog'mar, Riverglades", 2, 5.0, None, "l")), r#"{90,1,7793.6,-2403.5,1450,44.28,45.34,2,"Rog'mar, Riverglades",nil,"l"}"#);
+	}
+
+	// The floor a flight lands on (Nav/Walk.lua, the capitals' landings): each node with a height, by id; none, none.
+	#[test]
+	fn taxi_z_lists_each_node_s_landing_height_by_id_and_nothing_without_heights() {
+		let mut tb = node(22.0, "Thunder Bluff, Mulgore", 2, 2995.0, None, "e");
+		tb.z = Some(176.9);
+		let rows = [node(49.0, "Moonglade", 1, 10897.0, None, "e"), tb];
+		assert_eq!(taxi_z_lines(&rows), ["\t-- each node's height (TaxiNodes): the floor a flight lands on, by node id", "\ttaxiZ = {", "\t\t[22] = 176.9,", "\t},"]);
+		assert!(taxi_z_lines(&rows[..1]).is_empty());
+	}
 }

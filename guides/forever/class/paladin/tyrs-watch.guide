@@ -103,6 +103,7 @@ step A Second Home
 
 step Bandarion Keep
   tip {area:16602} stands on the bluffs north-west of the Solliden Farmstead (the road west starts near 29,46). Breton Samuels waits at the gate. Hilda the Breaker, the keep's trainer, and Ephram Barbaro, its stable master, stand at the forest's edge just south of him. They only have work for you from level 10 and after A Righteous Cause from Leonid at the keep, the end of Hadric Harlson's chain that starts south-east of Brill; take their quests when you see them.
+  level 11
   turnin 91282                        -- Breton Samuels
   accept 91285
   accept 99152 optional               -- Hilda the Breaker: As Above, So Below
@@ -110,11 +111,13 @@ step Bandarion Keep
 
 step Murlocs at the Gates
   tip The Vile Fin murlocs (level 9-11) lurk on the bluffs along the road east of the keep and in the camps around the lake to the south-west, on the way down to Shadowvale.
+  level 11
   kill 250283 quest 91285.1           -- Vile Fin Attackers x8
   kill 250282 quest 91285.2           -- Vile Fin Seers x8
 
 step Touring the Grounds
   tip Breton gives you a weapon, then sends you round the keep to speak with four of its people: Hilda the Breaker just south of the gate, Ander Solliden, the lookout, who walks the road south-east of the keep, then Jorin Croge and Danitha Morr inside the keep. Pick the conversation option with each.
+  level 10
   turnin 91285 choose 246164 246165   -- Breton Samuels: Skullthumper or Driftwood Smasher
   accept 91294
   talk 246389 quest 91294.1           -- Hilda the Breaker
@@ -125,28 +128,32 @@ step Touring the Grounds
 step Danitha Morr
   tip Danitha Morr leads the order from inside the keep; Jorin Croge stands beside it. The Tarnished need level 9.
   turnin 91294                        -- Danitha Morr
-  level 9
+  level 11
   accept 91317
   accept 91316                        -- Jorin Croge
 
 step Shadowvale
   tip The Tarnished (level 8-9) hold the ruined village of Shadowvale in the Whispering Forest, south-west of the keep. Commander Rudolph Gelhardt (level 10) stands on the upper floor of a house, with Drudges below him: clear the ground floor first.
+  level 12
   kill 259434 quest 91317.2           -- Tarnished Drudges x8
   kill 259433 quest 91317.3           -- Tarnished Zealots x6
   collect 270435 quest 91317.1        -- Rudolph Gelhardt's Head
 
 step The crypt under Shadowvale
   tip The cellar is under the village, not on the surface: the way down is inside a burned-out house, where the arrow points. Twelve Lumber Piles (stacked beams) lie in the cellar, each good for one Sturdy Lumber. Whispering Horror, an elite (level 11-13), sits at the far end: leave it alone.
+  level 12
   collect 246213 quest 91316.1 @12.9,65.7 -- Lumber Piles, in the cellar: the way down is here
 
 step Hilda's bones
   when onquest 99152
   tip The Shadowvale Lurchers and Mystics (level 8-10) in the crypt drop the Faintly Glowing Bones: about one in two from Lurchers, more from one kind of Mystic, less from the other.
+  level 12
   collect 286259 quest 99152.1 @9.89,66.36 -- Faintly Glowing Bones x6
 
 step Ephram's crystal
   when onquest 99153
   tip The Glowing Crystal Fragment, a green crystal, lies on the floor in the left-hand part of the crypt.
+  level 12
   collect 286269 quest 99153.1 @9.8,69.3 -- Glowing Crystal Fragment
 
 step Back to the keep
@@ -175,6 +182,7 @@ step A Lesson in Divinity
 step The Undercity
   zone Undercity
   tip Walk south from Brill to the Ruins of Lordaeron and down into the Undercity. Lady Sylvanas Windrunner holds court in the Royal Quarter; Tanis Alderwood begs in the Trade Quarter.
+  level 11
   turnin 95803                        -- Lady Sylvanas Windrunner
   turnin 94427                        -- Tanis Alderwood
   accept 94434
@@ -182,6 +190,7 @@ step The Undercity
 step Linen Cloth
   zone Tirisfal Glades
   tip Tanis needs 10 Linen Cloth. Humanoids drop it: the Scarlet Zealots and Friars of the glades about three kills in ten. The Undercity Auction House sells it too.
+  level 11
   collect 2589 quest 94434.1          -- Linen Cloth x10
 
 step Tanis Alderwood
@@ -199,11 +208,13 @@ step The Symbol of Life
 
 step Deathguard Falgan
   tip Venomweb Vale is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there: target his body and use the Symbol of Life, then talk to him at once, as he does not stay alive long. If he is already up (another player), just talk to him; if he died again, raise him again.
+  level 11
   turnin 94438                        -- Deathguard Falgan
   accept 94440
 
 step The Scarlet attack plans
   tip The Scarlet Zealots (level 8-9), Friars (9-10) and Tarnished around Venomweb Vale carry the attack plans. They run for help at low health and respawn in five minutes.
+  level 12
   collect 264693 quest 94440.1        -- Scarlet Crusade Attack Plans
 
 step Redemption

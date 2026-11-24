@@ -22,8 +22,8 @@ return {
 	-- Step 2: The emissary in Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["The emissary in {zone:1454}"] = "Der Gesandte in {zone:1454}",
-	-- {npc:15188} Cenarion Emissary Blackhoof · {zone:1451} Silithus · {quest:8275} Taking Back Silithus
-	["Optional, and needed only for the Dredge quests later: {npc:15188} sends you to {zone:1451} with {quest:8275}, a 10-reputation letter. Skip it if you are already in {zone:1451}."] = "Optional und nur für die späteren Dredge-Quests nötig: {npc:15188} schickt dich mit {quest:8275}, einem Brief für 10 Ruf, nach {zone:1451}. Überspringe es, wenn du schon in {zone:1451} bist.",
+	-- {npc:15188} Cenarion Emissary Blackhoof · {zone:1451} Silithus · {quest:8276} Taking Back Silithus
+	["Optional, and needed only for the Dredge quests later: {npc:15188} sends you to {zone:1451} with {quest:8276}, a 10-reputation letter. Skip it if you are already in {zone:1451}."] = "Optional und nur für die späteren Dredge-Quests nötig: {npc:15188} schickt dich mit {quest:8276}, einem Brief für 10 Ruf, nach {zone:1451}. Überspringe es, wenn du schon in {zone:1451} bist.",
 
 	-- Step 3: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {zone:1451} Silithus · {faction:609} Cenarion Circle · {npc:15270} Huum Wildmane · {quest:8318} Secret Communication · {item:20404} Encrypted Twilight Text
@@ -83,7 +83,7 @@ return {
 	-- Step 10: Back at the Hold
 	["Back at the Hold"] = "Zurück in der Feste",
 	-- {npc:15189} Beetix Ficklespragg
-	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} steht oben in seinem Gebäude: Geh drinnen hinauf, der Pfeil kann die Stockwerke nicht unterscheiden.",
 
 	-- Step 11: Stonelash and Dredge Crushers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
@@ -99,7 +99,7 @@ return {
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} and Proudhorn"] = "{npc:15190} und Proudhorn",
 	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
-	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} und {npc:15190} stehen oben in ihrem Gebäude: Geht drinnen hinauf, der Pfeil kann die Stockwerke nicht unterscheiden.",
 
 	-- Step 13: The Ravaged Twilight Camp
 	-- {area:3100} Ravaged Twilight Camp
@@ -135,7 +135,7 @@ return {
 	-- {area:3425} Cenarion Hold
 	["Back to {area:3425} with news"] = "Zurück nach {area:3425} mit Neuigkeiten",
 	-- {npc:15190} Noggle Ficklespragg
-	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} steht oben in seinem Gebäude: Geh drinnen hinauf, der Pfeil kann die Stockwerke nicht unterscheiden.",
 	["Natalia, elite: group up"] = "Natalia, Elite: such dir eine Gruppe",
 
 	-- Step 20: Rubbings and brains
@@ -206,15 +206,9 @@ return {
 	-- {quest:8800} Cenarion Battlegear · {npc:15176} Vargus
 	["{quest:8800}: {npc:15176}'s badge gear"] = "{quest:8800}: Abzeichen-Ausrüstung von {npc:15176}",
 
-	-- Step 31: Silithyst
-	["Silithyst"] = "Silithyst",
-	-- {quest:9419} Scouring the Desert · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora · {npc:17079} General Kirika · {area:2744} Hive'Regal
-	["Optional, 100 reputation once: {quest:9419}. Your side's camp sits by a hive: {npc:17080}'s by {area:2743} (Alliance), {npc:17079}'s by {area:2744} (Horde). Silithyst rises from glowing geysers around the desert: walk through one, carry the Silithyst to your camp's Silithyst Extractor, then talk to the camp's leader. It is a world PvP objective: players of the other side can take it from you."] = "Optional, einmalig 100 Ruf: {quest:9419}. Das Lager deiner Seite liegt bei einem Stock: das von {npc:17080} bei {area:2743} (Allianz), das von {npc:17079} bei {area:2744} (Horde). Silithyst steigt aus glühenden Geysiren in der Wüste auf: Geh durch einen hindurch, trage das Silithyst zum Silithyst-Extraktor deines Lagers und sprich dann mit dem Anführer des Lagers. Es ist ein Welt-PvP-Ziel: Spieler der anderen Seite können es dir abnehmen.",
-	["deliver Silithyst at the extractor"] = "liefere Silithyst am Extraktor ab",
-
-	-- Step 32: Templars and the Abyssal Council
+	-- Step 31: Templars and the Abyssal Council
 	["Templars and the Abyssal Council"] = "Templars und der Abyssal Council",
-	-- {object:180456} Lesser Wind Stone (no name in this language: may be words) · {item:20513} Abyssal Crest · {quest:8361} Abyssal Contacts · {npc:15270} Huum Wildmane · {quest:8331} Aurel Goldleaf · {item:14344} Large Brilliant Shard · {object:180461} Wind Stone · {item:20514} Abyssal Signet
+	-- {object:180456} Lesser Wind Stone · {item:20513} Abyssal Crest · {quest:8361} Abyssal Contacts · {npc:15270} Huum Wildmane · {quest:8331} Aurel Goldleaf · {item:14344} Large Brilliant Shard · {object:180461} Wind Stone · {item:20514} Abyssal Signet
 	["Wearing a full set of Twilight Trappings (cultist Cowl, Mantle and Robe, about 8%, 8% and 6% per cultist) lets you use a {object:180456}: two stand in each of the three western camps. A random Abyssal Templar appears: a level 60 elite for 1 to 3 players, 5 reputation until the top of Honored and an {item:20513} 93% of the time. The summon uses up the set (and later the medallion and ring too), and if the elemental gets away they are gone: summon only when you can win. {quest:8361} pays 100 for the first crest; after that Bor takes 3 crests for 50. From Friendly, {npc:15270} sends you to {quest:8331}: 3 crests and a {item:14344} buy the Medallion of Station that, worn with a set, opens the larger {object:180461} for a Duke (level 62 elite, group of 5; 25 reputation, {item:20514} 85%)."] = "Wer ein vollständiges Set Twilight Trappings trägt (Kapuze, Mantel und Robe der Kultisten, etwa 8%, 8% und 6% pro Kultist), kann einen {object:180456} benutzen: In jedem der drei westlichen Lager stehen zwei. Ein zufälliger Abyssal Templar erscheint: eine Elite der Stufe 60 für 1 bis 3 Spieler, 5 Ruf bis zum Ende von Wohlwollend und in 93% der Fälle ein {item:20513}. Die Beschwörung verbraucht das Set (und später auch Medaillon und Ring), und wenn der Elementar entkommt, sind sie weg: Beschwöre nur, wenn du gewinnen kannst. {quest:8361} zahlt 100 für das erste Wappen; danach nimmt Bor 3 Wappen für 50 an. Ab Freundlich schickt dich {npc:15270} zu {quest:8331}: 3 Wappen und ein {item:14344} kaufen das Medallion of Station, das zusammen mit einem Set den größeren {object:180461} für einen Duke öffnet (Elite der Stufe 62, Gruppe mit 5; 25 Ruf, {item:20514} in 85%).",
 	-- {item:20513} Abyssal Crest
 	["{item:20513}: Templar, group of 1 to 3"] = "{item:20513}: Templar, Gruppe aus 1 bis 3",
@@ -225,9 +219,9 @@ return {
 	-- {item:20514} Abyssal Signet
 	["{item:20514}: Duke, group of 5"] = "{item:20514}: Herzog, Gruppe aus 5",
 
-	-- Step 33: Signets and scepters to Exalted
+	-- Step 32: Signets and scepters to Exalted
 	["Signets and scepters to Exalted"] = "Siegel und Zepter bis Ehrfürchtig",
-	-- {quest:8363} Abyssal Signets · {npc:15282} Aurel Goldleaf · {item:20515} Abyssal Scepter · {quest:9248} A Humble Offering · {quest:8343} Goldleaf's Discovery · {quest:8341} Lords of the Council · {object:180466} Greater Wind Stone (no name in this language: may be words) · {item:22252} Satchel of Cenarius · {item:22660} Gaea's Embrace · {item:22756} Sylvan Vest · {npc:15176} Vargus
+	-- {quest:8363} Abyssal Signets · {npc:15282} Aurel Goldleaf · {item:20515} Abyssal Scepter · {quest:9248} A Humble Offering · {quest:8343} Goldleaf's Discovery · {quest:8341} Lords of the Council · {object:180466} Greater Wind Stone · {item:22252} Satchel of Cenarius · {item:22660} Gaea's Embrace · {item:22756} Sylvan Vest · {npc:15176} Vargus
 	-- plural, as words: Large Brilliant Shards = {item:14344} Large Brilliant Shard
 	["Revered to Exalted is 21,000 reputation: 210 text turn-ins (2,100 texts), or less with the rest. From Honored, Bor takes 3 {quest:8363} for 100 (each Duke also gives 25, to Exalted), and {npc:15282} takes one {item:20515} for {quest:9248} (200, once). From Revered, {quest:8343} leads to {quest:8341}: 3 signets and 5 Large Brilliant Shards buy the Ring of Lordship, and set, medallion and ring open the {object:180466} for an Abyssal Lord: a level 63 boss for a raid of about 20, 50 reputation, and an {item:20515}. Bor pays 200 for the first scepter and 150 for each 3 after. Revered opens Mishta's {item:22252} (5g), {item:22660} (9g) and {item:22756} (5g); Exalted is the standing for Champion's Battlegear at {npc:15176}."] = "Von Respektvoll bis Ehrfürchtig sind es 21.000 Ruf: 210 Text-Abgaben (2.100 Texte), oder weniger mit dem Rest. Ab Wohlwollend nimmt Bor 3 {quest:8363} für 100 an (jeder Herzog gibt zusätzlich 25, bis Ehrfürchtig), und {npc:15282} nimmt ein {item:20515} für {quest:9248} an (200, einmalig). Ab Respektvoll führt {quest:8343} zu {quest:8341}: 3 Siegel und 5 Große strahlende Splitter kaufen den Ring of Lordship, und Set, Medaillon und Ring öffnen den {object:180466} für einen Abyssal Lord: ein Boss der Stufe 63 für einen Schlachtzug von etwa 20, 50 Ruf und ein {item:20515}. Bor zahlt 200 für das erste Zepter und 150 für je 3 weitere. Respektvoll schaltet Mishtas {item:22252} (5g), {item:22660} (9g) und {item:22756} (5g) frei; Ehrfürchtig ist die nötige Stufe für die Champion's Battlegear bei {npc:15176}.",
 	["10 texts: 100"] = "10 Texte: 100",
@@ -242,13 +236,13 @@ return {
 	-- {quest:8364} Abyssal Scepters
 	["3 {quest:8364}: 150, Revered"] = "3 {quest:8364}: 150, Respektvoll",
 
-	-- Step 34: The Ruins of Ahn'Qiraj, when they open
+	-- Step 33: The Ruins of Ahn'Qiraj, when they open
 	-- {area:3454} Ruins of Ahn'Qiraj
 	["The {area:3454}, when they open"] = "Das {area:3454}, wenn es öffnet",
 	-- {area:2737} Scarab Wall · {zone:1451} Silithus · {quest:8791} The Fall of Ossirian · {npc:15185} Brood of Nozdormu · {npc:15498} Windcaller Yessendra · {npc:15500} Keyl Swiftclaw · {npc:15499} Warden Haro · {npc:16091} Dirk Thunderwood · {quest:9023} The Perfect Poison · {item:22217} Kurinnaxx's Venom Sac · {area:19} Zul'Gurub · {npc:15471} Lieutenant General Andorov · {item:22219} Plans: Jagged Obsidian Shield · {item:22191} Obsidian Mail Tunic
 	["A 20-player raid behind the {area:2737} in the far south-west of {zone:1451}. A full clear is about 1,600 Cenarion reputation: the trash 3 each until 20,999 of 21,000 Revered, Kurinnaxx, Moam, Buru and Ayamiss 150 each and Ossirian 300, to Exalted. Ossirian's head starts {quest:8791} (200 here and 200 {npc:15185}). Their drops buy the ring (Honored), cloak (Revered) and weapon (Exalted) quests of {npc:15498}, {npc:15500} and {npc:15499} in the Hold, 100 reputation each. {npc:16091} in the Hold pays 100 once for {quest:9023}: {item:22217} from here and Venoxis's from {area:19}. {npc:15471} sells {item:22219} (Revered, 5g) and {item:22191} (Exalted, 8g) inside."] = "Ein Schlachtzug für 20 Spieler hinter der {area:2737} im äußersten Südwesten von {zone:1451}. Ein kompletter Clear bringt etwa 1.600 Ruf bei Cenarion: der Trash je 3 bis 20.999 von 21.000 Respektvoll, Kurinnaxx, Moam, Buru und Ayamiss je 150 und Ossirian 300, bis Ehrfürchtig. Ossirians Kopf startet {quest:8791} (200 hier und 200 bei {npc:15185}). Ihre Beute kauft die Ring- (Wohlwollend), Umhang- (Respektvoll) und Waffenquests (Ehrfürchtig) von {npc:15498}, {npc:15500} und {npc:15499} in der Feste, je 100 Ruf. {npc:16091} in der Feste zahlt einmalig 100 für {quest:9023}: {item:22217} von hier und Venoxis' von {area:19}. {npc:15471} verkauft drinnen {item:22219} (Respektvoll, 5g) und {item:22191} (Ehrfürchtig, 8g).",
 
-	-- Step 35: Venoxis's Venom Sac, Zul'Gurub
+	-- Step 34: Venoxis's Venom Sac, Zul'Gurub
 	-- {quest:9023} The Perfect Poison · {npc:14507} High Priest Venoxis · {area:19} Zul'Gurub · {zone:1434} Stranglethorn Vale
 	["Optional, for {quest:9023}: {npc:14507} is the first boss of {area:19}, a 20-player raid in north-east {zone:1434}."] = "Optional, für {quest:9023}: {npc:14507} ist der erste Boss von {area:19}, einem Schlachtzug für 20 Spieler im Nordosten von {zone:1434}.",
 	-- {item:22216} Venoxis's Venom Sac
@@ -261,7 +255,12 @@ return {
 	-- ["From here on, the {area:3454} raid and the Abyssal Council turn-ins (crests, signets, scepters) carry most of the reputation."] = "Ab hier bringen der Schlachtzug {area:3454} und die Abgaben für den Abyssischen Rat (Wappen, Siegel, Szepter) den meisten Ruf.",
 	-- ["Keep farming the Twilight camps. Wearing the Twilight Trappings (the Twilight cultist set plus a Medallion of Station, from {npc:15282}'s Medallion of Station quest) lets you summon Abyssal Templars at the Wind Stones; their Abyssal Crests go to {npc:15306}."] = "Farm weiter in den Twilight-Lagern. Mit der Twilight-Kultistenausrüstung (das Twilightkultisten-Set plus ein Standesmedaillon aus der Quest Das Standesmedallion von {npc:15282}) kannst du an den Windsteinen Abyssische Templer beschwören; ihre Abyssischen Wappen gehen an {npc:15306}.",
 	-- ["Keep running the {area:3454} and turning in Abyssal Council insignia until Exalted."] = "Lauf weiter {area:3454} und gib Insignien für den Abyssischen Rat ab, bis du Ehrfürchtig bist.",
+	-- ["Optional, 100 reputation once: {quest:9419}. Your side's camp sits by a hive: {npc:17080}'s by {area:2743} (Alliance), {npc:17079}'s by {area:2744} (Horde). Silithyst rises from glowing geysers around the desert: walk through one, carry the Silithyst to your camp's Silithyst Extractor, then talk to the camp's leader. It is a world PvP objective: players of the other side can take it from you."] = "Optional, einmalig 100 Ruf: {quest:9419}. Das Lager deiner Seite liegt bei einem Stock: das von {npc:17080} bei {area:2743} (Allianz), das von {npc:17079} bei {area:2744} (Horde). Silithyst steigt aus glühenden Geysiren in der Wüste auf: Geh durch einen hindurch, trage das Silithyst zum Silithyst-Extraktor deines Lagers und sprich dann mit dem Anführer des Lagers. Es ist ein Welt-PvP-Ziel: Spieler der anderen Seite können es dir abnehmen.",
+	-- ["Optional, and needed only for the Dredge quests later: {npc:15188} sends you to {zone:1451} with {quest:8275}, a 10-reputation letter. Skip it if you are already in {zone:1451}."] = "Optional und nur für die späteren Dredge-Quests nötig: {npc:15188} schickt dich mit {quest:8275}, einem Brief für 10 Ruf, nach {zone:1451}. Überspringe es, wenn du schon in {zone:1451} bist.",
+	-- ["Silithyst"] = "Silithyst",
+	-- ["The dwarves' camp in the south of {zone:1451}. Talk {npc:15171} and {npc:15170} through their whole stories for {quest:8304}. {item:20379} lies on the mountain south-east of the camp. {npc:15196} lives up the trail east of the camp: an elite, and his Knock Away can throw you off the cliff."] = "Das Lager der Zwerge im Süden von {zone:1451}. Sprich mit {npc:15171} und {npc:15170} durch ihre ganzen Geschichten für {quest:8304}. {item:20379} liegt auf dem Berg südöstlich des Lagers. {npc:15196} wohnt den Pfad östlich des Lagers hinauf: eine Elite, und sein Wegschlagen kann dich von der Klippe werfen.",
 	-- ["Twilight's Hammer cultists hold the camps in western {zone:1451}. {quest:8320} and Stonecallers mix here; any cultist can drop an {item:20404}. Every cultist kill also counts toward the {faction:609}. The Geolords count for {quest:8320} only if you are 60 and took it."] = "Kultisten des Twilight-Hammers halten die Lager im Westen von {zone:1451}. {quest:8320} und Steinrufer sind hier gemischt; jeder Kultist kann {item:20404} fallen lassen. Jeder getötete Kultist zählt auch für den {faction:609}. Die Geolords zählen nur für {quest:8320}, wenn du 60 bist und die Quest angenommen hast.",
+	-- ["deliver Silithyst at the extractor"] = "liefere Silithyst am Extraktor ab",
 	-- ["{area:3425} is the walled town in north-central {zone:1451}. Bor and {npc:15270} stand together inside. The {faction:609} starts out Neutral. Forever's Legacy Diplomat perk increases reputation gains."] = "{area:3425} ist die ummauerte Stadt im nördlichen Zentrum von {zone:1451}. Bor und {npc:15270} stehen zusammen drinnen. Beim {faction:609} beginnst du mit Neutral. Forevers Vermächtnis-Vorteil „Diplomat“ erhöht den Rufgewinn.",
 	-- ["{faction:609} to Exalted"] = "{faction:609} bis Ehrfürchtig",
 	-- ["{faction:609} to Honored"] = "{faction:609} bis Wohlwollend",

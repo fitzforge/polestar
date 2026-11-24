@@ -14,11 +14,17 @@
 //      the sellers in the main trainer's town and the money they take;
 //   3. recipe items sold by vendors (`buy <recipe> nearest`), each with its
 //      sellers by faction and place, price and stock;
-//   4. gathered and dropped materials with a farming spot (a node, beasts or
+//   4. the Auction House (`auction <item> xN`): every material of the bracket
+//      it sells (no vendor good, nothing that binds when picked up), and the
+//      patterns the route buys there (docs/GUIDE_FORMAT.md, "Materials");
+//   5. gathered and dropped materials with a farming spot (a node, beasts or
 //      humanoids by level, a dropping mob, a clam), per faction where the
-//      spots differ (see farmSpot); materials with no spot (disenchanting,
-//      another profession's goods) are named in the first craft step using them;
-//   5. one shared `craft <recipe> until <N>` step per plan segment: colour at
+//      spots differ (see farmSpot), each collect marked `gather` with what
+//      gathering it takes; a material with no spot that the player can make
+//      or keep while gathering (disenchanting, another profession's goods, a
+//      rare node find) is a bag count with its profession; the rest (a rare
+//      drop) is bought, named in the first craft step using it;
+//   6. one shared `craft <recipe> until <N>` step per plan segment: colour at
 //      the start, crafts, materials per craft, why this recipe, the specs.js
 //      notes for that skill (specialisations), with `skill` checkpoints at
 //      75/150/225/300.
@@ -28,6 +34,7 @@
 const { planProfession, CAPS } = require('./plan');
 const { homeMap } = require('./materials');
 const { ZONES } = require('./gathering/tables');
+const { byBanners } = require('./sections');
 const { BEASTS } = require('./gathering/skinning');
 const { RACE_GROUPS, TWO_SIDED, raceCondition, maxZoneLevel } = require('./gathering/groups');
 const { header } = require('../generated');
@@ -88,6 +95,12 @@ const PROTECTED_MOBS = new Set([6184, 6185, 6186, 6187, 6188, 6189, 6651, 11516,
 // this many levels outside it is a different player's farm (Mageweave went
 // to the Shadowsworn Adepts of the Blasted Lands, level 52-53).
 const CLOTH_SLACK = 2;
+// The data spawns a creature at one spot on every map whose frame covers it:
+// the Sand Skitterers of Silithus' north-east also stand on Un'Goro Crater's
+// west edge. A map's copy whose every point lies this close (yards) to a
+// point of another copy is that spot seen from the neighbouring zone (see
+// overlapCopies).
+const DUP_YARDS = 30;
 
 function slug(name) {
 	return String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -98,6 +111,19 @@ function quote(s) {
 }
 
 const round1 = (v) => Math.round(v * 10) / 10;
+
+// The skill Skinning asks of a beast of level `level` (Classic's rule): 1 to
+// level 10, (level - 10) x 10 to level 20, level x 5 above.
+const skinSkill = (level) => (level <= 10 ? 1 : level <= 20 ? (level - 10) * 10 : level * 5);
+
+// A profession named in a `gather` (quoted when it has a space: "First Aid").
+const profWord = (name) => (/\s/.test(name) ? quote(name) : name);
+
+// ` levels a-b` from a mob level written "L" or "L-M"; '' without one.
+function levelsOf(level) {
+	const [a, c] = String(level == null ? '' : level).split('-').map(Number);
+	return Number.isFinite(a) && a > 0 ? ` levels ${a}-${Number.isFinite(c) ? c : a}` : '';
+}
 
 // Where an npc stands: { map, x, y } | null, on its interior map (see homeMap).
 function anchor(npc) {
@@ -154,6 +180,37 @@ function zoneFriendly(map, side) {
 	return !!(z && z.side && z.side.includes(side === 'Alliance' ? 'A' : 'H'));
 }
 
+// The maps (ids) where an entity's spawns are only another map's copy, seen
+// over the zone border: each point lies within DUP_YARDS of a point of the
+// other copy, and its spot is nearer its map's edges (homeMap's measure: the
+// most inland point's distance to the edge), as the overlap of two maps is at
+// their edges. A step there would name the neighbouring zone, and the arrow
+// would lead through the zone crossing to the creatures beside it. Live-frame
+// copies (no Era frame to compare in) are kept.
+function overlapCopies(entity, frames) {
+	const copies = [];
+	for (const [map, s] of Object.entries((entity && entity.spawns) || {})) {
+		const fr = frames[map];
+		const pts = [...((s && s.pts) || []), ...((s && s.more) || [])];
+		if (!fr || s.f === 'l' || !pts.length) continue;
+		const world = pts.map((p) => [fr.top + ((fr.bottom - fr.top) * p[1]) / 100, fr.left + ((fr.right - fr.left) * p[0]) / 100]);
+		const edge = Math.max(...pts.map((p) => Math.min(p[0], 100 - p[0], p[1], 100 - p[1])));
+		copies.push({ map: Number(map), c: fr.c, world, edge });
+	}
+	const out = new Set();
+	for (const a of copies) {
+		for (const b of copies) {
+			if (a === b || a.c !== b.c || out.has(b.map)) continue;
+			const nearer = a.edge < b.edge || (a.edge === b.edge && a.map > b.map);
+			if (nearer && a.world.every((p) => b.world.some((q) => Math.hypot(p[0] - q[0], p[1] - q[1]) <= DUP_YARDS))) {
+				out.add(a.map);
+				break;
+			}
+		}
+	}
+	return out;
+}
+
 // Where a faction farms a material: the herb/ore/fishing node, or the hostile
 // non-elite mob outside towns or the clickable object (Giant Clams for pearls),
 // whose (drop chance x how many there are) is highest on an outdoor zone,
@@ -177,9 +234,10 @@ function farmSpot(itemId, kind, side, home, data, minChance = 0, opts = {}) {
 	const frames = (data.mapFrames && data.mapFrames.era) || {};
 	const cands = [];
 	const consider = (entity, chance, label, level, mob, node = false) => {
+		const copy = overlapCopies(entity, frames);
 		for (const [map, s] of Object.entries(entity.spawns || {})) {
 			const z = zones[map];
-			if (!z || z.type !== 3 || !s.pts || !s.pts.length) continue;
+			if (!z || z.type !== 3 || !s.pts || !s.pts.length || copy.has(Number(map))) continue;
 			if (opts.maps && !opts.maps.has(Number(map))) continue;
 			const pts = mob ? outsideTowns(s.pts, Number(map), data) : s.pts;
 			if (!pts.length || (opts.minPts && pts.length < opts.minPts)) continue;
@@ -354,7 +412,23 @@ function draftGuide(name, data, opts = {}) {
 	// `sink` is where `line` writes: a rank step held back for the one-visit
 	// order (below) is written aside and placed after the bracket's shopping.
 	let sink = out;
-	const line = (s = '') => sink.push(s);
+	// Every recipe's learn lines, with the bracket (the guide's section) they are in: a craft step in a later
+	// section repeats them (`againOf`), since a player whose skill came past the step that teaches a recipe has
+	// that step marked done without it (#3401). The repeat is not recorded again.
+	const taught = new Map(); // spell -> { bi, lines }
+	let curBi = 0;
+	let repeating = false;
+	const line = (s = '') => {
+		const m = !repeating && /^ {2}learn (\d+)/.exec(s);
+		if (m) {
+			const t = taught.get(+m[1]);
+			if (!t) taught.set(+m[1], { bi: curBi, lines: [s] });
+			else if (t.bi === curBi) t.lines.push(s);
+		}
+		sink.push(s);
+	};
+	// The recipes of craft step `seg` taught in an earlier section than bracket `bi`.
+	const againOf = (seg, bi) => [...new Set([...seg.make.map((m) => m.recipe), seg.recipe])].filter((r) => taught.has(r.spell) && taught.get(r.spell).bi < bi);
 	// `zone` is sticky: steps after a farming spot go back to the world map, so
 	// their goals are not resolved against that farming zone.
 	let curZone = 'Azeroth';
@@ -365,11 +439,22 @@ function draftGuide(name, data, opts = {}) {
 	};
 	const matName = (id) => (mats[id] && mats[id].name) || `item ${id}`;
 	const zoneName = (map) => (zones[map] && zones[map].name) || null;
-	// A node material with a rare chance per node (farmSpot `chance`): how rare, where.
-	const rareText = (item, s) => {
+	// A node material with a rare chance per node (farmSpot `chance`): how rare, where;
+	// `market`: and that the Auction House sells it.
+	const rareText = (item, s, market = true) => {
 		const nodes = D.nodeNames(data, ((mats[item] || {}).gather || {})[s.kind] || []);
 		const gather = s.kind === 'herb' ? 'picking herbs' : 'mining';
-		return `${matName(item)} turns up in about one ${D.list(nodes.length ? nodes : [s.label]).replace(/ and ([^,]+)$/, ' or $1')} in ${Math.round(100 / s.chance)}: buy it at the Auction House, or keep the ones you find while ${gather}`;
+		return `${matName(item)} turns up in about one ${D.list(nodes.length ? nodes : [s.label]).replace(/ and ([^,]+)$/, ' or $1')} in ${Math.round(100 / s.chance)}: ${market ? 'buy it at the Auction House, or keep' : 'keep'} the ones you find while ${gather}`;
+	};
+	// Who makes a material another profession crafts: { name, rank } (the recipe's skill), or null.
+	const madeBy = (item) => {
+		for (const x of (mats[item] || {}).madeBy || []) {
+			const p = profs[x.skillLine];
+			if (!p || p.id === prof.id) continue;
+			const r = (p.recipes || []).find((y) => y.spell === x.spell);
+			return { name: p.name, rank: Math.max(1, (r && r.learnedAt) || 1) };
+		}
+		return null;
 	};
 	// Home continent per faction (where its capital trainer stands): farming spots prefer it.
 	const homeOf = (side) => {
@@ -516,6 +601,7 @@ function draftGuide(name, data, opts = {}) {
 	const learned = new Set(learnedFree);
 	const toolsDone = new Set();
 	const bought = new Set(); // vendor recipes already bought
+	const optionalBuys = new Set(); // vendor recipes whose buy never holds its step (spec.sellerNotes): their learn neither
 	let gate = 5; // character level the guide has asked for so far
 	let campDone = !spec.camp;
 	const questsTaken = new Set(); // recipe quests (and the quests before them) already in the guide
@@ -534,8 +620,20 @@ function draftGuide(name, data, opts = {}) {
 	};
 	// spec.notes: text added to the craft step whose range holds `at` (or the first after it).
 	const pendingNotes = (spec.notes || []).slice().sort((a, c) => a.at - c.at);
+	const onlyAt = (r) => {
+		const idx = RANK_NAMES.indexOf((spec.taughtBy || {})[r.spell]);
+		return idx > 0 && prof.ranks[idx] ? { idx, rank: prof.ranks[idx] } : null;
+	};
+	// Pin each faction to its teacher, and keep a trainer who spawns over a zone border on their home map.
+	const learnAtRank = (r, rank) => {
+		const ids = SIDES.map((s) => (rank.trainers && rank.trainers[s]) || []);
+		if (!ids.every((l) => l.length === 1)) return line(`  learn ${r.spell}`);
+		const mapPin = (id) => (Object.keys((npcs[id] || {}).spawns || {}).length > 1 && homeMap(npcs[id]) != null ? ` map ${homeMap(npcs[id])}` : '');
+		SIDES.forEach((s, i) => line(`  learn ${r.spell} npc ${ids[i][0]} only ${s}${mapPin(ids[i][0])}`));
+	};
 
 	brackets.forEach((b, bi) => {
+		curBi = bi;
 		const rankIdx = CAPS.indexOf(b.cap);
 		const rank = prof.ranks[rankIdx] || { name: RANK_NAMES[rankIdx], max: b.cap, minLevel: 1, minSkill: 0 };
 		const trainRank = bi === 0 || b.from >= ((prof.ranks[rankIdx - 1] || {}).max || CAPS[rankIdx - 1]);
@@ -554,7 +652,7 @@ function draftGuide(name, data, opts = {}) {
 		// to another rank's trainers (spec.taughtBy: Rugged Leather at Drakk
 		// Stonehand or Hahrana Ironhide) keeps its own trip, when it comes after the
 		// bracket's other learns.
-		const few = rankIdx >= 2 && SIDES.map((s) => D.rankTrainers(data, rank, s)).every((l) => l.length && l.length <= 4);
+		const few = rankIdx >= 2 && SIDES.map((s) => D.rankTrainers(data, rank, s, prof)).every((l) => l.length && l.length <= 4);
 		const lateAll = [];
 		for (const seg of b.segments) for (const r of needs(seg)) if (r.source === 'trainer' && !learned.has(r.spell) && !firstLearn.includes(r) && !lateAll.includes(r)) lateAll.push(r);
 		const teachesHere = (r) => {
@@ -589,7 +687,7 @@ function draftGuide(name, data, opts = {}) {
 		if (trainRank) {
 			const who = (() => {
 				if (fixed) return TRAINER_NOTES[(npcs[fixed] || {}).name] || `${D.npcPlace(data, fixed)} teaches it`;
-				const lists = SIDES.map((s) => D.rankTrainers(data, rank, s));
+				const lists = SIDES.map((s) => D.rankTrainers(data, rank, s, prof));
 				if (rankIdx >= 2 && lists.every((l) => l.length && l.length <= 4)) return `Only a few trainers teach it: Alliance ${D.list(lists[0])}; Horde ${D.list(lists[1])}. The arrow picks the nearest of your faction`;
 				// Journeyman: the starting-town trainers (Smith Argus, Dwukk) teach Apprentice only.
 				const all = SIDES.map((s) => new Set(((prof.trainers || {})[s]) || []));
@@ -630,7 +728,11 @@ function draftGuide(name, data, opts = {}) {
 		}
 		// A fixed trainer (no spawn in the data: Annora) teaches the rank step's recipes too.
 		const pin = (r, npc) => (npc && r.learnedAt > (CAPS[rankIdx - 1] || 0) ? ` npc ${npc}` : '');
-		for (const r of firstLearn) line(`  learn ${r.spell}${fixed ? ` npc ${fixed}` : ''}`);
+		for (const r of firstLearn) {
+			const at = onlyAt(r);
+			if (at) learnAtRank(r, at.rank);
+			else line(`  learn ${r.spell}${fixed ? ` npc ${fixed}` : ''}`);
+		}
 		if (!campDone && spec.camp && b.from >= spec.camp.at) for (const l of campLearn()) line(l);
 		for (const r of firstLearn) learned.add(r.spell);
 		sink = out;
@@ -697,15 +799,45 @@ function draftGuide(name, data, opts = {}) {
 			world();
 			const stock = limitedOnly ? ` Its sellers keep one or two in stock that come back some time after a sale${m.bop ? '; it binds when picked up, so the Auction House never has it' : '; the Auction House often has it too'}.` : '';
 			const soldBy = sellers.filter(Boolean).length ? ` Sold by ${sellers.filter(Boolean).join('; ')}.` : '';
-			line(`  tip ${m.name || 'The recipe'} teaches ${r.name} (${P} ${r.learnedAt}) for ${priceOf(r)}.${soldBy}${stock}`);
-			line(`  buy ${r.recipeItem} nearest`);
+			// spec.sellerNotes: what a seller needs before he can be found (Magnus Frostwake, a ghost seen only with
+			// the Spectral Essence); a recipe every seller of which carries an `optional` note never holds its step.
+			const sellerIds = [...new Set(SIDES.flatMap((side) => [...((m.vendors && m.vendors[side]) || []), ...((m.limitedVendors && m.limitedVendors[side]) || [])]))];
+			const notes = sellerIds.map((id) => (spec.sellerNotes || {})[id]).filter(Boolean);
+			const optional = sellerIds.length > 0 && notes.length === sellerIds.length && notes.every((n) => n.optional);
+			const sellerNote = [...new Set(notes.map((n) => ` ${n.text}`))].join('');
+			line(`  tip ${m.name || 'The recipe'} teaches ${r.name} (${P} ${r.learnedAt}) for ${priceOf(r)}.${soldBy}${sellerNote}${stock}`);
+			line(`  buy ${r.recipeItem} nearest${optional ? ' optional' : ''}`);
+			if (optional) optionalBuys.add(r.spell);
 		}
 
-		// 4. Gathered and dropped materials. Mob drops the compiler can place
+		// 4. The Auction House: what the bracket takes that a player can buy there
+		// (no vendor good, nothing that binds when picked up), for the whole
+		// bracket, and the patterns the route buys there. Each of those materials
+		// is bought here or gathered in the steps below, whose collects carry
+		// `gather`, one way at a time (docs/GUIDE_FORMAT.md, "Materials").
+		const market = b.list.filter((t) => SIDES.some((s) => t.src[s].kind !== 'vendor') && !(mats[t.item] || {}).bop);
+		const sold = new Set(market.map((t) => t.item));
+		const patterns = b.recipes.filter((r) => auction[r.spell] && r.recipeItem);
+		if (market.length || patterns.length) {
+			line('');
+			line(`step ${P} ${b.from}-${b.cap}: Auction House`);
+			world();
+			const what = [...market.map((t) => `${t.count} ${matName(t.item)}`), ...patterns.map((r) => D.article(matName(r.recipeItem)))];
+			line(`  tip What ${b.from}-${b.cap} takes that the Auction House sells: ${D.list(what)}. The counts drop by what your bags, bank and mail hold.`);
+			for (const t of market) {
+				const sides = SIDES.filter((s) => t.src[s].kind !== 'vendor');
+				line(`  auction ${t.item} x${t.count}${sides.length === 1 ? ` only ${sides[0]}` : ''}`);
+			}
+			for (const r of patterns) line(`  auction ${r.recipeItem} x1`);
+		}
+
+		// 5. Gathered and dropped materials. Mob drops the compiler can place
 		// (`data.farmable(item)` -> { Alliance, Horde }: a qualifying farm spot
 		// safe for that side) become one `collect … nearest` step that the
 		// engine resolves by level, faction and travel time. Nodes, fish and the
-		// rest keep a farming spot per faction where the spots differ.
+		// rest keep a farming spot per faction where the spots differ. A material
+		// the Auction House step buys carries `gather` with what Mix asks of the
+		// character: the levels of its mobs, the profession and skill of its node.
 		const shared = new Map(); // item -> where it comes from, for materials with no farm spot
 		for (const t of b.list) {
 			const kinds = SIDES.map((side) => t.src[side].kind);
@@ -713,16 +845,35 @@ function draftGuide(name, data, opts = {}) {
 			const need = SIDES.filter((side, i) => kinds[i] !== 'vendor');
 			const ahead = (t.ahead || []).map((a) => `${a.count} of them for ${a.from}-${a.cap}`);
 			const forWhat = `${t.count} ${matName(t.item)} for ${D.list(t.uses)}${ahead.length ? ` (${D.list(ahead)}: pick them all now)` : ''}`;
-			// The engine skips spots whose mobs are 3+ levels above the player; the
-			// player is at least at the last `level` gate here.
-			const ok = data.farmable ? data.farmable(t.item) : null;
-			if (ok && need.every((side) => MOB_KINDS.has(t.src[side].kind) && ok[side] != null && ok[side] - gate < 3)) {
+			// The collect's `gather` (with `facts`) when the Auction House step buys the item too; else
+			// its tips name the Auction House themselves (`ahText`).
+			const mark = (facts = '') => (sold.has(t.item) ? ` gather${facts}` : '');
+			const ahText = !sold.has(t.item);
+			// Cloth: counted in the bags, from humanoids of its band as the character
+			// levels. No farm spot: a trip to a named camp is a long journey for what
+			// the player loots anyway; `anywhere` keeps the compiler from placing the
+			// count at one dropper of hundreds.
+			if (need.every((side) => t.src[side].kind === 'cloth')) {
+				const lv = D.CLOTH_LEVELS[matName(t.item)];
 				line('');
 				line(`step ${matName(t.item)}`);
 				world();
 				if (need.length === 1) line(`  only ${need[0]}`);
-				line(`  tip ${forWhat}: ${D.sourceText(data, t.item, mats[t.item], t.src[need[0]], need[0])}. The arrow picks a farm spot for your level and faction.`);
-				line(`  collect ${t.item} x${t.count} nearest`);
+				line(`  tip ${forWhat}: humanoids${lv ? ` of level ${lv[0]}-${lv[1]}` : ''} drop it. Keep what you loot as you level${ahText ? ', take it from your bank, or buy it at the Auction House' : ', or take it from your bank'}.`);
+				line(`  collect ${t.item} x${t.count} anywhere${mark(lv ? ` levels ${lv[0]}-${lv[1]}` : '')}`);
+				continue;
+			}
+			// The engine skips spots whose mobs are 3+ levels above the player; the
+			// player is at least at the last `level` gate here.
+			const ok = data.farmable ? data.farmable(t.item) : null;
+			if (ok && need.every((side) => MOB_KINDS.has(t.src[side].kind) && ok[side] != null && ok[side] - gate < 3)) {
+				const lows = need.map((side) => ok[side]);
+				line('');
+				line(`step ${matName(t.item)}`);
+				world();
+				if (need.length === 1) line(`  only ${need[0]}`);
+				line(`  tip ${forWhat}: ${D.sourceText(data, t.item, mats[t.item], t.src[need[0]], need[0], { market: ahText })}. The arrow picks a farm spot for your level and faction.`);
+				line(`  collect ${t.item} x${t.count} nearest${mark(` levels ${Math.min(...lows)}-${Math.max(...lows)}`)}`);
 				continue;
 			}
 			// Droppers a character can farm by the bracket's end (skill 225: level 47 at most).
@@ -787,10 +938,31 @@ function draftGuide(name, data, opts = {}) {
 				}
 			}
 			if (entries.every((e) => !e.spot || rare(e.spot)) && kinds.every((k) => k !== 'vendor')) {
-				// No farming spot (disenchanting, other professions, a rare find): no
-				// goal of its own (the craft step's `craft … until` needs it anyway);
-				// its source goes into the tip of the first craft step that uses it.
+				// No farming spot (disenchanting, other professions, a rare find). A
+				// material the Auction House step buys that the player can also make
+				// (disenchant, smelt, craft) or keep while gathering is a bag count with
+				// the profession it takes; the rest (a rare drop) is bought, and its
+				// source goes into the tip of the first craft step that uses it.
 				const r0 = entries.find((e) => rare(e.spot));
+				const kind = t.src.Alliance.kind;
+				const maker = kind === 'crafted' ? madeBy(t.item) : null;
+				const way = !sold.has(t.item) || !SIDES.every((s) => t.src[s].kind === kind)
+					? null
+					: r0 && NODE_KINDS.has(r0.spot.kind)
+						? { tip: rareText(t.item, r0.spot, false), facts: ` ${r0.spot.kind === 'herb' ? 'Herbalism' : 'Mining'} ${D.nodeSkill(r0.spot.label) ?? 1}` }
+						: kind === 'disenchant'
+							? { tip: D.sourceText(data, t.item, mats[t.item], t.src.Alliance, 'Alliance', { market: false }), facts: ' Enchanting 1' }
+							: maker
+								? { tip: D.sourceText(data, t.item, mats[t.item], t.src.Alliance, 'Alliance', { market: false }), facts: ` ${profWord(maker.name)} ${maker.rank}` }
+								: null;
+				if (way) {
+					line('');
+					line(`step ${matName(t.item)}`);
+					world();
+					line(`  tip ${forWhat}: ${way.tip}.`);
+					line(`  collect ${t.item} x${t.count} anywhere gather${way.facts}`);
+					continue;
+				}
 				shared.set(t.item, r0 ? rareText(t.item, r0.spot) : noSpot(t.item, t.src.Alliance, 'Alliance'));
 				continue;
 			}
@@ -808,7 +980,7 @@ function draftGuide(name, data, opts = {}) {
 				line(`step ${matName(t.item)}${e.races ? ` (${zoneName(s.map)})` : side ? ` (${side})` : ''}`);
 				if (e.races) line(`  only ${raceCondition(e.races, e.sides)}`);
 				else if (side) line(`  only ${side}`);
-				const about = `${forWhat}: ${D.sourceText(data, t.item, mats[t.item], s0, side || 'Alliance', { zones: !e.races, marked: s.map })}.`;
+				const about = `${forWhat}: ${D.sourceText(data, t.item, mats[t.item], s0, side || 'Alliance', { zones: !e.races, marked: s.map, market: ahText })}.`;
 				line(`  zone ${zoneName(s.map)}`);
 				curZone = zoneName(s.map);
 				const here = {
@@ -819,9 +991,18 @@ function draftGuide(name, data, opts = {}) {
 				}[s0.kind] || (s.object ? `Open the ${s.label}s here` : `It drops from ${s.label} (level ${s.level}) here`);
 				// A drop's own note names the first dropper in the data (often a rare or a
 				// raid boss); the spot's mobs are the ones to farm.
-				const dropAbout = s0.kind === 'drop' ? `${forWhat}: ${s.object ? `open the ${s.label}s at the marked spot` : `it drops from ${s.label} (level ${s.level}) at the marked spot`}, or buy it at the Auction House.` : null;
+				const dropAbout = s0.kind === 'drop' ? `${forWhat}: ${s.object ? `open the ${s.label}s at the marked spot` : `it drops from ${s.label} (level ${s.level}) at the marked spot`}${ahText ? ', or buy it at the Auction House' : ''}.` : null;
 				line(`  tip ${dropAbout || `${about} ${here}.`}`);
-				line(`  collect ${t.item} x${t.count} @${s.x},${s.y} ${s.frame || 'era'}`);
+				// What Mix asks before it gathers here: the node's skill, Skinning for the
+				// beasts' level, the mobs' levels; fish need no skill (low skill only lets
+				// some get away).
+				const facts = {
+					herb: () => ` Herbalism ${D.nodeSkill(s.label) ?? 1}`,
+					mine: () => ` Mining ${D.nodeSkill(s.label) ?? 1}`,
+					fishing: () => ' Fishing 1',
+					skinning: () => ` Skinning ${skinSkill(s.min != null ? s.min : parseInt(String(s.level), 10) || 1)}`,
+				}[s0.kind];
+				line(`  collect ${t.item} x${t.count} @${s.x},${s.y} ${s.frame || 'era'}${mark(facts ? facts() : s.object ? '' : levelsOf(s.level))}`);
 			}
 		}
 		if (oneVisit) {
@@ -832,7 +1013,7 @@ function draftGuide(name, data, opts = {}) {
 			for (const l of held.slice(2)) line(l);
 		}
 
-		// 5. Crafting, with a trainer visit for recipes learnable only later.
+		// 6. Crafting, with a trainer visit for recipes learnable only later.
 		for (const seg of b.segments) {
 			const late = needs(seg).filter((r) => r.source === 'trainer' && !learned.has(r.spell));
 			if (late.length) {
@@ -844,10 +1025,6 @@ function draftGuide(name, data, opts = {}) {
 				// spec.taughtBy: recipes only a later rank's trainers teach (Rugged
 				// Leather at Drakk Stonehand or Hahrana Ironhide): the learn is pinned
 				// to them, and the rank itself is offered there when the skill allows.
-				const onlyAt = (r) => {
-					const idx = RANK_NAMES.indexOf((spec.taughtBy || {})[r.spell]);
-					return idx > 0 && prof.ranks[idx] ? { idx, rank: prof.ranks[idx] } : null;
-				};
 				const anywhere = late.filter((r) => !onlyAt(r));
 				const pinned = late.filter((r) => onlyAt(r));
 				const parts = [];
@@ -855,19 +1032,14 @@ function draftGuide(name, data, opts = {}) {
 				let offer = null;
 				for (const r of pinned) {
 					const { idx, rank } = onlyAt(r);
-					const who = SIDES.map((s) => `${s} ${D.list(D.rankTrainers(data, rank, s))}`).join('; ');
+					const who = SIDES.map((s) => `${s} ${D.list(D.rankTrainers(data, rank, s, prof))}`).join('; ');
 					parts.push(`${learnWhen(r)} is taught only by the ${rank.name} trainers: ${who}.`);
 					if (idx > rankIdx && seg.from >= rank.minSkill && (!offer || offer.idx < idx)) offer = { idx, rank };
 				}
 				if (offer) parts.push(`You can train ${offer.rank.name} there now if you are level ${offer.rank.minLevel} (it needs ${P} ${offer.rank.minSkill}), which saves the trip at ${CAPS[offer.idx - 1]}.`);
 				line(`  tip ${parts.join(' ')}${camp ? ` ${campTip(seg.from)}` : ''}`);
 				for (const r of anywhere) line(`  learn ${r.spell}${pin(r, fx)}`);
-				for (const r of pinned) {
-					const { rank } = onlyAt(r);
-					const ids = SIDES.map((s) => (rank.trainers && rank.trainers[s]) || []);
-					if (ids.every((l) => l.length === 1)) SIDES.forEach((s, i) => line(`  learn ${r.spell} npc ${ids[i][0]} only ${s}`));
-					else line(`  learn ${r.spell}`);
-				}
+				for (const r of pinned) learnAtRank(r, onlyAt(r).rank);
 				if (offer) line(`  train ${pq} ${offer.rank.name} optional`);
 				if (camp) for (const l of campLearn()) line(l);
 				for (const r of late) learned.add(r.spell);
@@ -943,14 +1115,21 @@ function draftGuide(name, data, opts = {}) {
 			}
 			if (r.enchant) notes.push('Enchant any item for that slot in your bags, even a grey one.');
 			if (MILESTONES.has(seg.to)) notes.push(`${P} ${seg.to} is a Legacy System milestone.`);
+			const again = againOf(seg, bi);
+			if (again.length) notes.push(`If you got here without learning ${D.list(again.map((x) => x.name))}, learn ${again.length > 1 ? 'them' : 'it'} now: an earlier step teaches ${again.length > 1 ? 'them' : 'it'}.`);
 			line(`  tip ${notes.join(' ')}`);
 			for (const r2 of needs(seg)) {
 				if ((r2.source === 'vendor' || r2.source === 'quest' || auction[r2.spell]) && !learned.has(r2.spell)) {
-					line(`  learn ${r2.spell} -- from the ${auction[r2.spell] ? 'pattern bought at the Auction House' : 'recipe in your bags'}`);
+					line(`  learn ${r2.spell}${optionalBuys.has(r2.spell) ? ' optional' : ''} -- from the ${auction[r2.spell] ? 'pattern bought at the Auction House' : 'recipe in your bags'}`);
 					learned.add(r2.spell);
 				}
 			}
-			for (const m of seg.make) line(`  craft ${m.recipe.spell} x${m.count}${seg.tools.some((t) => t.item === m.item) ? ' -- a tool: keep it in your bags' : ''}`);
+			// The parts of a recipe whose plans may never be bought (spec.sellerNotes) hold the step no more than its learn.
+			const partsOptional = optionalBuys.has(r.spell) ? ' optional' : '';
+			repeating = true;
+			for (const x of again) for (const l of taught.get(x.spell).lines) line(l);
+			repeating = false;
+			for (const m of seg.make) line(`  craft ${m.recipe.spell} x${m.count}${partsOptional}${seg.tools.some((t) => t.item === m.item) ? ' -- a tool: keep it in your bags' : ''}`);
 			line(`  craft ${r.spell} until ${seg.to}`);
 			if (CAPS.includes(seg.to)) line(`  skill ${pq} ${seg.to}`);
 		}
@@ -967,7 +1146,8 @@ function draftGuide(name, data, opts = {}) {
 		line(`  tip ${spec.last || `On Forever no recipe a trainer teaches or both factions' vendors sell gives ${P} points past ${plan.reach}, so Polestar has no route for the last points.${names.length ? ` Recipes that still do: ${names.join(', ')}.` : ''}`}`);
 		line(`  skill ${pq} ${goal}`);
 	}
-	return { text: `${out.join('\n')}\n`, plan };
+	// Each bracket's range is a section (the guide window's heading; the guide starts at the player's skill).
+	return { text: `${byBanners(out.join('\n'), P)}\n`, plan };
 }
 
 module.exports = { draftGuide, farmSpot, skinSpot, money: D.money, slug };

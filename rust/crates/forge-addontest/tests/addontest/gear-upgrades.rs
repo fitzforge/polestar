@@ -24,12 +24,16 @@ const ITEMS: &str = r#"{
 	[9131] = "12 25 20 2 4 0 ap40",
 	[9140] = "13 25 20 2 2 15 agi3 dmin10 dmax18 speed1700",
 	[9150] = "1 25 20 2 4 1 int10 spi6 armor40 cls128",
+	[9160] = "15 25 20 2 2 2 agi3 dmin20 dmax30 speed2000",
+	[9161] = "13 25 0 1 2 14 dmin1 dmax2 speed2000",
+	[9162] = "21 25 20 2 2 15 agi3 dmin10 dmax18 speed1700",
+	[9163] = "22 25 20 2 2 15 agi3 dmin10 dmax18 speed1700",
 }"#;
 
 const LEVELING: &str = r#"{
-	names = { [9101] = "Militia Helm", [9102] = "Scholar Cap", [9103] = "Twin Helm" },
-	src = { [9101] = "q5001", [9102] = "q5001", [9103] = "q5001" },
-	quests = { [5001] = "20 15 1 12 0 0 0|9101,9102,9103||Alliance Choice" },
+	names = { [9101] = "Militia Helm", [9102] = "Scholar Cap", [9103] = "Twin Helm", [9110] = "Hunter Axe", [9140] = "Hunter Dagger" },
+	src = { [9101] = "q5001", [9102] = "q5001", [9103] = "q5001", [9110] = "q5002", [9140] = "q5002" },
+	quests = { [5001] = "20 15 1 12 0 0 0|9101,9102,9103||Alliance Choice", [5002] = "20 15 2 12 0 0 0|9110,9140||Hunter Choice" },
 	npcs = {}, zones = { [12] = "Elwynn Forest" },
 }"#;
 
@@ -118,8 +122,8 @@ fn upgrade_line_unusable_items_say_why_class_restricted_the_downgrade_in_red_equ
 	let cls_only = run(r#"emit(line("item:9150"))"#).remove(0);
 	let worn = run(r#"g.equip(1, "item:9101"); emit(line("item:9101"))"#).remove(0);
 	assert_eq!(mail, false, "the worn helm itself");
-	assert_eq!(mage_line, "Polestar · Frost | armor you cannot wear");
-	assert_eq!(cls_only, "Polestar · Arms | not for your class");
+	assert_eq!(mage_line, "Polestar | armor you cannot wear");
+	assert_eq!(cls_only, "Polestar | not for your class");
 	assert_eq!(worn, false);
 }
 
@@ -128,8 +132,8 @@ fn upgrade_line_why_an_item_is_unusable_is_in_the_client_language() {
 	let es = fake_locale("itIT", &[("armor you cannot wear", "armadura que no puedes llevar"), ("not for your class", "no es para tu clase")]);
 	let mage_line = run_with(r#"emit(line("item:9101"))"#, Opts { locale: es.clone(), ..mage() }).remove(0);
 	let cls = run_with(r#"emit(line("item:9150"))"#, Opts { locale: es, ..Default::default() }).remove(0);
-	assert_eq!(mage_line, "Polestar · Frost | armadura que no puedes llevar");
-	assert_eq!(cls, "Polestar · Arms | no es para tu clase");
+	assert_eq!(mage_line, "Polestar | armadura que no puedes llevar");
+	assert_eq!(cls, "Polestar | no es para tu clase");
 }
 
 #[test]
@@ -143,9 +147,9 @@ fn two_hand_vs_one_hand_a_two_hander_against_main_off_hand_a_one_hander_against_
 	"#);
 	let (two_hand, one_hand, main_hand) = (text(&out[0]), text(&out[1]), text(&out[2]));
 	// The slot is the client's word for it (MAINHANDSLOT).
-	assert!(is_match(two_hand, r"^Polestar · Arms \| \+[\d.]+% upgrade · "));
+	assert!(is_match(two_hand, r"^Polestar \| \+[\d.]+% upgrade · "));
 	assert!(two_hand.ends_with(&format!(" · {main_hand}")), "{two_hand}");
-	assert!(is_match(one_hand, r"^Polestar · Arms \| -[\d.]+% downgrade · "));
+	assert!(is_match(one_hand, r"^Polestar \| -[\d.]+% downgrade · "));
 	assert!(one_hand.ends_with(&format!(" · {main_hand}")), "{one_hand}");
 }
 
@@ -161,10 +165,10 @@ fn rings_and_trinkets_against_the_weaker_equipped_one_a_unique_ring_only_against
 		emit(line("item:9131"))
 	"#);
 	// 9122 (str 2) against the weaker ring 9120 (str 4): -50%
-	assert_eq!(out[0], "Polestar · Arms | -50% downgrade · Finger");
-	assert_eq!(out[1], "Polestar · Arms | +50% upgrade · Finger");
-	assert_eq!(out[2], "Polestar · Arms | big upgrade · Trinket");
-	assert_eq!(out[3], "Polestar · Arms | upgrade (empty slot)");
+	assert_eq!(out[0], "Polestar | -50% downgrade · Finger");
+	assert_eq!(out[1], "Polestar | +50% upgrade · Finger");
+	assert_eq!(out[2], "Polestar | big upgrade · Trinket");
+	assert_eq!(out[3], "Polestar | upgrade (empty slot)");
 }
 
 #[test]
@@ -177,6 +181,8 @@ fn reward_picks_a_known_upgrade_above_a_known_downgrade_the_same_in_any_order_ti
 		emit(pick({ "item:9103", "item:9101", "item:9102" }))
 		g.equip(1, "item:9105")
 		G.Invalidate("equipment")
+		-- Cached, none of them selling: the best this character can use.
+		for _, id in ipairs({ 9101, 9102, 9103 }) do g.defineItem("item:" .. id, {}) end
 		local p = G.QuestPick(5001)
 		emit({ p.entry.id, p.upgrade })
 	"#);
@@ -184,6 +190,44 @@ fn reward_picks_a_known_upgrade_above_a_known_downgrade_the_same_in_any_order_ti
 	assert_eq!(out[1], out[0]);
 	assert_eq!(out[2], out[0]);
 	assert_eq!(out[3], json!([9101, false]));
+}
+
+// #2865: a mage turning in Solution to Doom was sent to a -53% robe while the leather pants (no use to a mage) sold
+// for 13s more. With no upgrade among the choices the pick is the one that sells for the most, usable or not, as the
+// reward panel's coin; equal prices keep the usable one; an unknown price waits; an upgrade still wins.
+#[test]
+fn issue_2865_with_no_upgrade_the_reward_pick_is_the_best_sell_price_usable_or_not() {
+	let out = run(r#"
+		g.equip(1, "item:9105")
+		G.Invalidate("equipment")
+		local links = { "item:9101", "item:9150", "item:9102" }
+		local function ranked()
+			local list, p, best, pending, byValue = G.RankChoices(links)
+			return { id = p and list[p].id or false, usable = p and list[p].usable or false, best = best or false,
+				pending = pending, byValue = byValue }
+		end
+		g.defineItem("item:9101", { sellPrice = 500 })
+		g.defineItem("item:9150", { sellPrice = 900 })
+		g.defineItem("item:9102", { sellPrice = 100 })
+		emit(ranked())
+		g.defineItem("item:9150", { sellPrice = 500 })
+		emit(ranked())
+		g.defineItem("item:9102", { sellPrice = 100, cached = false })
+		emit(ranked())
+		g.defineItem("item:9102", { sellPrice = 100 })
+		g.defineItem("item:9103", { sellPrice = 2000 })
+		local q = G.QuestPick(5001)
+		emit({ id = q.entry.id, value = q.value, upgrade = q.upgrade })
+		g.equip(1, "item:9102")
+		G.Invalidate("equipment")
+		emit(ranked())
+	"#);
+	assert_eq!(out[0], json!({ "id": 9150, "usable": false, "best": false, "pending": false, "byValue": true }), "the dearest, though a warrior can't wear it");
+	assert_eq!(out[1], json!({ "id": 9101, "usable": true, "best": false, "pending": false, "byValue": true }), "equal prices: the usable one");
+	assert_eq!(out[2], json!({ "id": false, "usable": false, "best": false, "pending": true, "byValue": false }), "a price not cached yet waits");
+	assert_eq!(out[3], json!({ "id": 9103, "value": true, "upgrade": false }), "the guide window's pick");
+	assert_eq!(out[4]["byValue"], false, "an upgrade wins over any price: {}", out[4]);
+	assert_eq!(out[4]["id"], 9101);
 }
 
 #[test]
@@ -205,13 +249,110 @@ fn reward_item_tooltips_best_pick_on_an_upgrade_pick_reward_pick_naming_it_on_th
 	assert_eq!(other[1], "Reward pick | Militia Helm");
 	// No upgrade: the reward panel's coin (the most valuable) decides, not Gear.
 	assert!(!none.as_array().unwrap().iter().any(|l| is_match(text(l), r"^(Best|Reward) pick")), "{}", none);
-	assert_eq!(off.as_array().unwrap().len(), 1);
+	// The upgrade line, then the weights it was scored with: no pick line.
+	assert_eq!(off.as_array().unwrap().len(), 2, "{}", off);
+	// The weights' line closes every tooltip with an upgrade line or a pick.
+	for lines in [best, other, none, off] {
+		assert_eq!(lines.as_array().unwrap().last().map(text), Some("Scored for Arms until you spend talent points"), "{}", lines);
+	}
+}
+
+fn hunter() -> Opts {
+	Opts { cls: "HUNTER", class_name: "Hunter", class_id: 3, ..Default::default() }
+}
+
+const STATS: &str = "Your ranged damage uses this weapon's stats, not its damage";
+
+fn stats_lines(lines: &Value) -> usize {
+	lines.as_array().map_or(0, |l| l.iter().filter(|l| text(l) == STATS).count())
+}
+
+// #2229: a Hunter's melee weapon counts for its stats, said once, right under Polestar's score line, on a quest
+// reward choice (Hidden Enemies' staff).
+#[test]
+fn a_hunters_melee_reward_choice_says_once_under_the_score_line_that_its_stats_count_not_its_damage() {
+	let out = run_with(
+		r#"
+		emit(g.showTooltip(GameTooltip, "item:9140"))
+		emit(g.showTooltip(GameTooltip, "item:9110"))
+		Polestar.Set("gear.pickTooltip", false)
+		emit(g.showTooltip(GameTooltip, "item:9140")) -- no pick line, skill unknown: nothing to explain
+		Polestar.Set("gear.pickTooltip", true); Polestar.Set("gear.tooltip", false)
+		emit(g.showTooltip(GameTooltip, "item:9140")) -- no score line to sit under
+	"#,
+		hunter(),
+	);
+	for lines in &out[..2] {
+		let l = lines.as_array().unwrap();
+		assert!(text(&l[0]).starts_with("Polestar | "), "{lines}");
+		assert_eq!(text(&l[1]), STATS, "{lines}");
+		assert_eq!(stats_lines(lines), 1, "{lines}");
+		assert!(l.iter().any(|l| is_match(text(l), r"^(Best|Reward) pick \| ")), "{lines}");
+	}
+	assert_eq!(stats_lines(&out[2]), 0, "{}", out[2]);
+	assert_eq!(stats_lines(&out[3]), 0, "{}", out[3]);
+}
+
+// Off the reward window: only a weapon whose skill is under half its cap, the case the report met (a staff at
+// skill 1), in every melee slot; the scores and the reward pick do not change with the rank.
+#[test]
+fn a_hunters_melee_weapon_says_it_while_its_skill_is_under_half_its_cap_whatever_the_rank_the_score_stays() {
+	let out = run_with(
+		r#"
+		Polestar.Set("gear.pickTooltip", false)
+		for _, rank in ipairs({ 1, 54, 55, 110 }) do
+			w.learnSkill(173, "Daggers", rank, 110); w.learnSkill(172, "Two-Handed Axes", rank, 110)
+			local lines = {}
+			for _, id in ipairs({ 9140, 9110, 9162, 9163 }) do lines[#lines + 1] = g.showTooltip(GameTooltip, "item:" .. id) end
+			emit({ lines = lines, score = G.ScoreItem("item:9140"), pick = G.QuestPick(5002).entry.id })
+		end
+	"#,
+		hunter(),
+	);
+	for (i, shown) in [(0, true), (1, true), (2, false), (3, false)] {
+		for lines in out[i]["lines"].as_array().unwrap() {
+			assert_eq!(stats_lines(lines), usize::from(shown), "rank case {i}: {lines}");
+			if shown {
+				assert_eq!(text(&lines[1]), STATS, "{lines}");
+			}
+		}
+		assert_eq!(out[i]["score"], out[0]["score"]);
+		assert_eq!(out[i]["pick"], 9110);
+	}
+}
+
+#[test]
+fn the_hunter_stats_line_is_not_for_other_classes_ranged_or_untrained_weapons_tools_or_forever_leveling_bis_scores() {
+	let out = run_with(
+		r#"
+		for _, id in ipairs({ 9160, 9161 }) do emit(g.showTooltip(GameTooltip, "item:" .. id)) end
+		G.UsesFLB = function(min) return min == 2 end
+		emit(g.showTooltip(GameTooltip, "item:9140"))
+		G.UsesFLB = function() return false end
+		w.learnSkill(45, "Bows", 1, 110) -- skills readable, Daggers not trained
+		emit(g.showTooltip(GameTooltip, "item:9140"))
+	"#,
+		hunter(),
+	);
+	for lines in &out {
+		assert_eq!(stats_lines(lines), 0, "{lines}");
+	}
+	assert!(text(&out[3][0]).ends_with("| weapon skill not trained"), "{}", out[3]);
+	let warrior = run(r#"w.learnSkill(173, "Daggers", 1, 110); emit(g.showTooltip(GameTooltip, "item:9162"))"#);
+	assert_eq!(stats_lines(&warrior[0]), 0, "{}", warrior[0]);
+}
+
+#[test]
+fn the_hunter_stats_line_is_in_the_clients_language() {
+	let locale = fake_locale("itIT", &[(STATS, "il danno a distanza usa le statistiche dell'arma, non il suo danno")]);
+	let out = run_with(r#"emit(g.showTooltip(GameTooltip, "item:9140"))"#, Opts { locale, ..hunter() });
+	assert_eq!(text(&out[0][1]), "il danno a distanza usa le statistiche dell'arma, non il suo danno", "{}", out[0]);
 }
 
 #[test]
 fn racials_mace_specialization_makes_a_dwarf_shaman_a_forever_pair_prefer_the_mace_an_orc_the_axe() {
-	const R: &str = r#"G.RACIALS[3] = { weaponCrit = { pct = 1, subclasses = { [4] = true, [5] = true } } }
-		G.RACIALS[2] = { weaponCrit = { pct = 1, subclasses = { [0] = true, [1] = true } } }
+	const R: &str = r#"G.RACIALS[3] = { { name = "Mace Specialization", weaponCrit = { pct = 1, subclasses = { [4] = true, [5] = true } } } }
+		G.RACIALS[2] = { { name = "Axe Specialization", weaponCrit = { pct = 1, subclasses = { [0] = true, [1] = true } } } }
 		G.RefreshPlayer()"#;
 	let dwarf = run_with(
 		&format!(r#"{R}; emit(G.ScoreItem("item:9106") > G.ScoreItem("item:9107"))"#),
@@ -225,6 +366,33 @@ fn racials_mace_specialization_makes_a_dwarf_shaman_a_forever_pair_prefer_the_ma
 	.remove(0);
 	assert_eq!(dwarf, true);
 	assert_eq!(orc, true);
+}
+
+// A race's traits apply to the classes in their classMask: Forever's Expansive Mind (+5% maximum mana) is for the
+// Gnome's mana classes only (mask 400: Priest, Mage, Warlock); traits multiply together.
+#[test]
+fn racial_traits_apply_to_their_classes_and_multiply_together() {
+	const R: &str = r#"G.RACIALS[7] = { { name = "Expansive Mind", classMask = 400, statMult = { int = 1.05 } }, { name = "Sharp", statMult = { int = 1.1, spi = 1.02 } } }
+		G.RefreshPlayer()
+		emit(G.GetRacial())"#;
+	let gnome = |cls: &'static str, class_name: &'static str, class_id: i32| Opts { cls, class_name, class_id, race: "Gnome", race_id: 7, faction: "Alliance", ..Default::default() };
+	let mage = run_with(R, gnome("MAGE", "Mage", 8)).remove(0);
+	let warrior = run_with(R, gnome("WARRIOR", "Warrior", 1)).remove(0);
+	assert!((mage["statMult"]["int"].as_f64().unwrap() - 1.155).abs() < 1e-9, "{mage}");
+	assert_eq!(warrior, json!({ "statMult": { "int": 1.1, "spi": 1.02 } }));
+}
+
+// The shipped traits (SpecData.lua, from the Forever client's racial spells) are lists of named traits.
+#[test]
+fn the_shipped_racial_traits_are_named_trait_lists() {
+	let out = run(r#"local bad = {}
+		for race, traits in pairs(G.RACIALS) do
+			if type(traits) ~= "table" or #traits == 0 then bad[#bad + 1] = race end
+			for _, t in ipairs(traits) do if type(t.name) ~= "string" or not (t.statMult or t.weaponCrit) then bad[#bad + 1] = race end end
+		end
+		emit({ bad = table.concat(bad, ","), any = next(G.RACIALS) ~= nil })"#)
+	.remove(0);
+	assert_eq!(out, json!({ "bad": "", "any": true }));
 }
 
 #[test]
@@ -270,6 +438,6 @@ fn cost_a_tooltip_show_stays_under_1_ms_cold_and_cached_per_item_spec_and_level(
 	let cold = t["cold"].as_f64().unwrap();
 	let warm = t["warm"].as_f64().unwrap();
 	println!("tooltip show: {cold:.4} ms cold, {warm:.4} ms cached");
-	assert!(cold < 1.0, "cold {cold} ms");
-	assert!(warm < 1.0, "cached {warm} ms");
+	forge_addontest::assert_timing!(cold < 1.0, "cold {cold} ms");
+	forge_addontest::assert_timing!(warm < 1.0, "cached {warm} ms");
 }

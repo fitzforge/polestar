@@ -125,7 +125,7 @@ step Elayaa Easewind
 step Quel'ana Quickgale in Valanaar
   only Skyborne
   tip Quel'ana Quickgale stands with the trainers by Valanaar's west gate, Quel'dora Quickgale beside her.
-  turnin 94007 optional                       -- Quel'ana Quickgale
+  turnin 94007                                -- Quel'ana Quickgale
   accept 94978                                -- Quel'ana Quickgale: the first Taming Rod
 
 step Windsong Crawler

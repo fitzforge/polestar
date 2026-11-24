@@ -34,6 +34,10 @@ pub const ALONG_FREE_YD: f64 = 60.0;
 /// Seconds before a buy's accept a stop at one of its vendors buys it on the way (route profiles):
 /// an hour of play, the trip into the zone (Ratchet's spices for Dustwallow).
 pub const BUY_AHEAD_SEC: f64 = 3600.0;
+/// The share of a timed quest's limit its hand-in must come within, or it counts as late (route
+/// profiles, Scalars::late, which no kept move adds to): the model's times are a fast player's, so
+/// the route leaves 40% for real play, as the addon does (Own.LIMIT_SHARE).
+pub const TIMED_SHARE: f64 = 0.6;
 /// Pooled kills: another open objective's mobs count as met during a kill work when its site
 /// lies this close to the work's (spawn grounds overlapping: a camp's reach is ~100-200 yd).
 pub const POOL_YD: f64 = 200.0;
@@ -168,11 +172,11 @@ pub struct Scalars {
 	pub noops: u32,
 	/// Class training stops taken.
 	pub trains: u32,
-	/// Timed quests in the log (their legs are walked, `feasible`).
+	/// Timed quests in the log whose legs are walked (`feasible`; a delivery is not: Run::q_delivery).
 	pub timed_active: u32,
-	/// When the latest limit of the timed quests in the log runs out (walk-only until then).
+	/// When the latest limit of those timed quests runs out (walk-only until then).
 	pub timed_until: f64,
-	/// Feasibility violations: a timed quest handed in after its limit.
+	/// Feasibility violations: a timed quest handed in after TIMED_SHARE of its limit.
 	pub late: u32,
 	/// What the time was spent on, for re-pricing under other parameters.
 	pub c: Counters,
@@ -558,16 +562,16 @@ impl<'a> Evaluator<'a> {
 		-1
 	}
 
-	/// timed_until from the timed quests still in the log.
+	/// timed_until from the walked timed quests still in the log (not the deliveries).
 	fn timed_recount(&mut self) {
 		let r = self.run;
-		self.s.timed_until = (0..r.n_quests()).filter(|&x| self.active[x] != 0 && r.q_limit[x] > 0.0).map(|x| self.accept_t[x] + r.q_limit[x]).fold(0.0, f64::max);
+		self.s.timed_until = (0..r.n_quests()).filter(|&x| self.active[x] != 0 && r.q_limit[x] > 0.0 && !r.q_delivery[x]).map(|x| self.accept_t[x] + r.q_limit[x]).fold(0.0, f64::max);
 	}
 
 	fn abandon(&mut self, q: usize) {
 		let r = self.run;
 		self.set(Arr::Active, q, 0.0);
-		if self.t.p.feasible && r.q_limit[q] > 0.0 {
+		if self.t.p.feasible && r.q_limit[q] > 0.0 && !r.q_delivery[q] {
 			self.s.timed_active -= 1;
 			self.timed_recount();
 		}
@@ -657,7 +661,7 @@ impl<'a> Evaluator<'a> {
 		let Some(plan) = r.plan.as_ref() else { return };
 		let Some(key) = r.step_key(st.kind, st.q, st.task) else { return };
 		if let Some(fps) = plan.fp.get(&key) {
-			// Only a flight master the character is at (RevH1: the Orgrimmar flight path learnt at
+			// Only a flight master the character is at (review: the Orgrimmar flight path learnt at
 			// the Sepulcher, Thunder Bluff's at the Earthen Ring, no trip paid).
 			for &fp in fps {
 				if self.at_fp(fp as usize) {
@@ -672,7 +676,7 @@ impl<'a> Evaluator<'a> {
 		}
 	}
 
-	/// v1's bind, only where the character is at that inn (RevH2: v1's `sethome Ratchet` keyed to
+	/// v1's bind, only where the character is at that inn (review: v1's `sethome Ratchet` keyed to
 	/// accept 1251 was played at Shady Rest, 2885 yd away, and the hearth then went to Ratchet).
 	fn bind_plan(&mut self, inn: u32) {
 		let r = self.run;
@@ -956,8 +960,8 @@ impl<'a> Evaluator<'a> {
 		}
 		self.s.travel_sec += c;
 		// The flight masters a network leg walks through (its departure and arrival nodes and the
-		// walks between): learned on the way (Rev15DwarfGnome B2: the tram's arrival walks past
-		// Stormwind's; Rev15H2 B11: Freewind's flight lands short of Steamwheedle Port and walks
+		// walks between): learned on the way (c15 review B2: the tram's arrival walks past
+		// Stormwind's; c15 review B11: Freewind's flight lands short of Steamwheedle Port and walks
 		// through Gadgetzan's, learned only at the next stop there).
 		if mode == 1 && nodes.0 >= 0 && nodes.1 >= 0 {
 			let via = self.s.moved.via;
@@ -1454,8 +1458,25 @@ impl<'a> Evaluator<'a> {
 				return false;
 			}
 		}
+		// A breadcrumb in the log holds its target back until it is handed in (or abandoned).
+		if r.crumbs(q).iter().any(|&c| self.active[c as usize] != 0) {
+			return false;
+		}
 		let pre = &r.q_pre[q];
 		pre.is_empty() || pre.iter().any(|&p| self.done[p as usize] != 0)
+	}
+
+	/// The level quest q's work waits for when the quest is red, more than dangerGap levels over the
+	/// character, and dangerous; None when it is not. Its accept does not wait: the game hands a
+	/// quest over at its minimum level. (Route profiles: a quest with no kill work of its own, done
+	/// over time from what the character carries, is no danger: The Green Hills of Stranglethorn's
+	/// pages, G6. Its chapters' kills wait for their own level, workGap.)
+	fn red(&self, q: usize) -> Option<f64> {
+		let r = self.run;
+		let p = &self.t.p;
+		let need = r.q_level[q] as f64 - p.danger_gap;
+		let fights = || !p.feasible || (r.q_task0[q]..r.q_task1[q]).any(|t| (r.task_w0[t as usize]..r.task_w1[t as usize]).any(|w| matches!(r.w_kind[w as usize], W_KILL | W_ESCORT)));
+		((self.s.level as f64) < need && fights()).then_some(need)
 	}
 
 	/// Bought on the way (route profiles; c13: Soothing Spices 1218 flown for to the Crossroads after
@@ -1590,9 +1611,16 @@ impl<'a> Evaluator<'a> {
 				if self.done[q] != 0 || self.active[q] != 0 || !self.prereq_ok(q) {
 					return false;
 				}
-				let level = self.s.level as f64;
-				let opens = (r.q_min_level[q] as f64 - p.gate_gap).max(r.q_level[q] as f64 - p.danger_gap - p.gate_gap);
-				if level < opens {
+				// The work on the spot: a quest-starting item's kills. A rare start is not farmed for
+				// (its guide line is optional): taken at its chance.
+				let rare = !self.weight.is_empty() && r.rare(q);
+				let works = st.task >= 0 && !rare;
+				// A red quest is handed over at its minimum level: the danger holds its work (K_TASK)
+				// and an accept that works on the spot, not an accept-only pick-up. (The 0.4.0 audit:
+				// 385 min ground before The Apes of Un'Goro, picked up for the second Un'Goro visit.)
+				let red = if works { self.red(q) } else { None };
+				let opens = (r.q_min_level[q] as f64).max(red.unwrap_or(0.0)) - p.gate_gap;
+				if (self.s.level as f64) < opens {
 					return false;
 				}
 				let full = self.s.open >= r.log_cap;
@@ -1608,19 +1636,13 @@ impl<'a> Evaluator<'a> {
 				if (self.s.level as i32) < r.q_min_level[q] {
 					self.grind_to(r.q_min_level[q] as usize, 0.0);
 				}
-				// (Route profiles: a quest with no kill work of its own, done over time from what
-				// the character carries, is no danger to take early: The Green Hills of Stranglethorn's
-				// pages, G6. Its chapters' kills wait for their own level, workGap.)
-				let fights = !self.t.p.feasible || (r.q_task0[q]..r.q_task1[q]).any(|t| (r.task_w0[t as usize]..r.task_w1[t as usize]).any(|w| matches!(r.w_kind[w as usize], W_KILL | W_ESCORT)));
-				if fights && (self.s.level as f64) + self.t.p.danger_gap < r.q_level[q] as f64 {
-					self.grind_to((r.q_level[q] as f64 - self.t.p.danger_gap) as usize, 0.0);
+				if let Some(need) = red.filter(|&need| (self.s.level as f64) < need) {
+					self.grind_to(need as usize, 0.0);
 				}
 				if drop >= 0 {
 					self.abandon(drop as usize);
 				}
-				// A rare start is not farmed for (its guide line is optional): taken at its chance.
-				let rare = !self.weight.is_empty() && r.rare(q);
-				if st.task >= 0 && !rare {
+				if works {
 					self.do_work(st.task as usize, None);
 				}
 				if !self.weight.is_empty() {
@@ -1634,8 +1656,11 @@ impl<'a> Evaluator<'a> {
 				self.set(Arr::Active, q, 1.0);
 				if self.t.p.feasible && r.q_limit[q] > 0.0 {
 					self.set(Arr::AcceptT, q, self.s.time);
-					self.s.timed_active += 1;
-					self.s.timed_until = self.s.timed_until.max(self.s.time + r.q_limit[q]);
+					// A delivery's legs fly and sail as any other (the clock runs on a flight too).
+					if !r.q_delivery[q] {
+						self.s.timed_active += 1;
+						self.s.timed_until = self.s.timed_until.max(self.s.time + r.q_limit[q]);
+					}
 				} else if self.t.p.feasible && (r.q_task0[q]..r.q_task1[q]).any(|t| r.buy_ix[t as usize] >= 0) {
 					// (A buy's BUY_AHEAD_SEC counts back from its accept: untimed, it was 0, so any
 					// vendor stood at before counted, c14 Orc's Thousand Needles inn ten levels
@@ -1661,12 +1686,21 @@ impl<'a> Evaluator<'a> {
 				let buy = r.buy_ix.get(task).copied().filter(|&b| b >= 0 && self.t.p.feasible);
 				let bought = buy.is_some_and(|b| self.bought[b as usize] >= self.accept_t[q] - BUY_AHEAD_SEC);
 				if !bag && !bought && !self.covered(task) {
+					// Work on a red quest (Evaluator::red): on level first, a gap of up to gateGap levels
+					// ground; further under, not yet (as its accept was before the 0.4.0 audit).
+					let red = self.red(q);
+					if red.is_some_and(|need| (self.s.level as f64) < need - self.t.p.gate_gap) {
+						return false;
+					}
 					let (at, alt) = if buy.is_some() { (self.vendor(task, pt, q), None) } else { self.spot(task, pt, q) };
 					let escort = self.t.p.feasible && r.q_escort_task[q] == task as i32;
 					let walk_only = escort || (self.t.p.feasible && self.s.timed_active > 0 && self.s.time < self.s.timed_until);
 					if !self.move_to_by(at, walk_only) {
 						self.s.unreachable += 1;
 						return false;
+					}
+					if let Some(need) = red.filter(|&need| (self.s.level as f64) < need) {
+						self.grind_to(need as usize, 0.0);
 					}
 					// Kill work on mobs more than workGap levels above the character is not solo-safe
 					// (A7, A8): the character grinds up to it first (the route profiles only). The
@@ -1720,13 +1754,15 @@ impl<'a> Evaluator<'a> {
 				let d = self.s.level as i64 - r.q_level[q] as i64;
 				let xp = self.t.q_full[q] * SHARE[d.clamp(0, 63) as usize] * self.weight.get(q).copied().unwrap_or(1.0);
 				if self.t.p.feasible && r.q_limit[q] > 0.0 {
-					self.s.timed_active -= 1;
-					if self.s.time - self.accept_t[q] > r.q_limit[q] {
+					if !r.q_delivery[q] {
+						self.s.timed_active -= 1;
+					}
+					if self.s.time - self.accept_t[q] > r.q_limit[q] * TIMED_SHARE {
 						self.s.late += 1;
 					}
 				}
 				self.set(Arr::Active, q, 0.0);
-				if self.t.p.feasible && r.q_limit[q] > 0.0 {
+				if self.t.p.feasible && r.q_limit[q] > 0.0 && !r.q_delivery[q] {
 					self.timed_recount();
 				}
 				self.s.open -= 1;
@@ -1756,9 +1792,9 @@ impl<'a> Evaluator<'a> {
 			K_TRAIN => {
 				// A class training stop: to the town's trainers, then train (no quest work,
 				// so no spot mark). In the route profiles only when it teaches a new rank
-				// (teaches_at): a training with nothing to learn does nothing (RevHumanStart:
+				// (teaches_at): a training with nothing to learn does nothing (start-zone review:
 				// Northshire at 3.06, a second Goldshire training at 9.73).
-				// (Not below the level of the class quests v1's step takes with it: RevA1, the
+				// (Not below the level of the class quests v1's step takes with it: start-zone review, the
 				// Tome of Divinity at 12 with a training moved to 9.7.)
 				if self.t.p.feasible && st.task > 0 && (self.s.level as i32) < st.task {
 					return false;

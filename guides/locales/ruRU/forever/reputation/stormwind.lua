@@ -15,177 +15,187 @@ return {
 	-- {faction:72} Stormwind · {area:3197} Chillwind Camp · {zone:1428} Burning Steppes
 	["About 1,150 {faction:72} reputation from level 52-58 quests at {area:3197} and in the {zone:1428}"] = "Около 1150 репутации ({faction:72}) за задания уровня 52-58: {area:3197} и зона {zone:1428}",
 	-- {faction:72} Stormwind · {area:717} Stockade
-	["About 4,500 {faction:72} reputation from low-level quests in Elwynn and the {area:717}"] = "",
+	["About 4,500 {faction:72} reputation from low-level quests in Elwynn and the {area:717}"] = "Около 4500 репутации ({faction:72}) за задания низкого уровня в Элвиннском лесу и в подземелье {area:717}",
 
 	-- Step 1: Clavicus Knavingham, the cloth quartermaster
 	-- {npc:14722} Clavicus Knavingham
-	["{npc:14722}, the cloth quartermaster"] = "",
+	["{npc:14722}, the cloth quartermaster"] = "{npc:14722}, квартирмейстер по ткани",
 	-- {npc:14722} Clavicus Knavingham · {faction:72} Stormwind · {item:14047} Runecloth · {quest:7796} Additional Runecloth · {zone:1436} Westfall · {zone:1431} Duskwood · {zone:1422} Western Plaguelands · {zone:1428} Burning Steppes · {area:717} Stockade · {area:87} Goldshire · {zone:1455} Ironforge · {zone:1457} Darnassus
-	["{npc:14722} takes cloth for {faction:72}. The arrow leads to him; he stands upstairs inside his building. Each first donation of 60 Wool, Silk, Mageweave and {item:14047} pays 150 reputation once; after the {item:14047} one, {quest:7796} pays 50 for every 20 {item:14047}, as often as you like. The Auction House is the quickest source of cloth. In Classic, quests pay full reputation while they are at most 5 levels below you, so do Elwynn (levels 1-10), {zone:1436} (10-18), Redridge (15-25) and {zone:1431} (20-30) while you level through them. After the donations come the level 52-58 quests of the {zone:1422} and the {zone:1428} (about 1,150), then the optional low-level hubs, best rate first: Northshire and the city errands (about 40 a minute at full value), the {area:717} (30), Eastvale and {area:87} (25). Every {faction:72} gain also gives a quarter as much to {zone:1455}, {zone:1457} and the Gnomeregan Exiles, except quests in the level 1-10 start areas. Legacy Diplomat adds up to 10% to every gain."] = "",
+	["{npc:14722} takes cloth for {faction:72}. The arrow leads to him; he stands upstairs inside his building. Each first donation of 60 Wool, Silk, Mageweave and {item:14047} pays 150 reputation once; after the {item:14047} one, {quest:7796} pays 50 for every 20 {item:14047}, as often as you like. The Auction House is the quickest source of cloth. In Classic, quests pay full reputation while they are at most 5 levels below you, so do Elwynn (levels 1-10), {zone:1436} (10-18), Redridge (15-25) and {zone:1431} (20-30) while you level through them. After the donations come the level 52-58 quests of the {zone:1422} and the {zone:1428} (about 1,150), then the optional low-level hubs, best rate first: Northshire and the city errands (about 40 a minute at full value), the {area:717} (30), Eastvale and {area:87} (25). Every {faction:72} gain also gives a quarter as much to {zone:1455}, {zone:1457} and the Gnomeregan Exiles, except quests in the level 1-10 start areas. Legacy Diplomat adds up to 10% to every gain."] = "{npc:14722} берёт ткань для {faction:72}. Стрелка ведёт к нему; он стоит наверху внутри своего здания. Первая сдача 60 шерсти, шёлка, магической ткани и {item:14047} платит по 150 репутации один раз; после сдачи {item:14047} {quest:7796} платит 50 за каждые 20 {item:14047}, сколько угодно раз. Аукцион — самый быстрый источник ткани. В Classic задания платят полную репутацию, пока они не более чем на 5 уровней ниже, так что делайте Элвинн (1–10), {zone:1436} (10–18), Красногорье (15–25) и {zone:1431} (20–30), пока качаетесь по ним. После сдач идут задания 52–58 уровней в {zone:1422} и {zone:1428} (около 1 150), затем необязательные низкоуровневые хабы, по лучшей ставке сначала: Североземье и городские поручения (около 40 в минуту по полной ценности), {area:717} (30), Восточная Долина и {area:87} (25). Каждый прирост {faction:72} также даёт четверть от него {zone:1455}, {zone:1457} и Изгнанникам Гномрегана, кроме заданий в стартовых зонах 1–10 уровней. Наследие Дипломат добавляет до 10% к каждой награде.",
 	-- {item:2592} Wool Cloth · {zone:1436} Westfall
-	["{item:2592}: Defias, gnolls and kobolds in {zone:1436} and Redridge"] = "",
+	["{item:2592}: Defias, gnolls and kobolds in {zone:1436} and Redridge"] = "{item:2592}: Братство Справедливости, гноллы и кобольды в {zone:1436} и Красногорье",
 
 	-- Step 2: Stormwind errands
 	-- {faction:72} Stormwind
-	["{faction:72} errands"] = "",
+	["{faction:72} errands"] = "Поручения {faction:72}",
 	-- {faction:72} Stormwind
-	["Optional: four quick deliveries inside {faction:72} for 200 reputation in about five minutes. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: four quick deliveries inside {faction:72} for 200 reputation in about five minutes. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Необязательно: четыре быстрые доставки внутри {faction:72} за 200 репутации примерно за пять минут. Forever платит эти старые задания полностью на любом уровне. Пропустите этот шаг, чтобы пропустить хаб.",
 
 	-- Step 3: Northshire Valley
 	-- {area:87} Goldshire · {npc:823} Deputy Willem · {npc:197} Marshal McBride · {area:24} Northshire Abbey
-	["Optional: the Human start valley north of {area:87}: about 1,600 reputation in 40 minutes at 60, the best rate of the hubs. {npc:823} and {npc:197} stand at {area:24}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the Human start valley north of {area:87}: about 1,600 reputation in 40 minutes at 60, the best rate of the hubs. {npc:823} and {npc:197} stand at {area:24}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Необязательно: долина старта людей севернее {area:87}: около 1 600 репутации за 40 минут на 60, лучшая ставка хабов. {npc:823} и {npc:197} стоят в {area:24}. Forever платит эти старые задания полностью на любом уровне. Пропустите этот шаг, чтобы пропустить хаб.",
 
 	-- Step 4: Northshire: kobolds, wolves and bandanas
-	["Northshire: kobolds, wolves and bandanas"] = "",
+	["Northshire: kobolds, wolves and bandanas"] = "Североземье: кобольды, волки и бандана",
 	-- {npc:6} Kobold Vermin · {item:247834} Nibbled-On Book
-	["The {npc:6} dig at the camp north of the abbey; the wolves roam the valley; the Defias at the vineyard east of the abbey drop the bandanas. Keep any {item:247834} a kobold drops: it starts Forever's book chain."] = "",
+	["The {npc:6} dig at the camp north of the abbey; the wolves roam the valley; the Defias at the vineyard east of the abbey drop the bandanas. Keep any {item:247834} a kobold drops: it starts Forever's book chain."] = "{npc:6} роют в лагере севернее аббатства; волки бродят по долине; Братство Справедливости на винограднике восточнее аббатства роняет банданы. Сохраняйте любую {item:247834}, которую уронит кобольд: она запускает книжную цепочку Forever.",
 	-- {item:247834} Nibbled-On Book
-	["{item:247834}, from the kobolds"] = "",
+	["{item:247834}, from the kobolds"] = "{item:247834}, от кобольдов",
 
 	-- Step 5: Northshire: back at the abbey
-	["Northshire: back at the abbey"] = "",
+	["Northshire: back at the abbey"] = "Североземье: назад в аббатство",
 
-	-- Step 6: Northshire: Echo Ridge, Garrick Padfoot and the vineyard
+	-- Step 6: Northshire: the Nibbled-On Book
+	-- {quest:91741} Nibbled-On Book
+	["Northshire: the {quest:91741}"] = "Североземье: {quest:91741}",
+	-- {quest:91741} Nibbled-On Book
+	["Right-click the {quest:91741} a kobold dropped: it starts its quest."] = "Щёлкните правой кнопкой по {quest:91741}, которую уронил кобольд: это запускает её задание.",
+
+	-- Step 7: Northshire: Brother Paxton's books
+	-- {npc:951} Brother Paxton
+	["Northshire: {npc:951}'s books"] = "Североземье: книги {npc:951}",
+
+	-- Step 8: Northshire: Echo Ridge, Garrick Padfoot and the vineyard
 	-- {npc:103} Garrick Padfoot
-	["Northshire: Echo Ridge, {npc:103} and the vineyard"] = "",
+	["Northshire: Echo Ridge, {npc:103} and the vineyard"] = "Североземье: Эхо-Хребет, {npc:103} и виноградник",
 	-- {area:34} Echo Ridge Mine · {npc:103} Garrick Padfoot · {quest:3904} Milly's Harvest · {object:83763} Stolen Books
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
-	["The Kobold Workers are in {area:34} north of the abbey; {npc:103} stands in the Defias camp east of the vineyard; {quest:3904} crates lie in the vineyard; the rats carrying the {object:83763} run about the abbey grounds."] = "",
+	["The Kobold Workers are in {area:34} north of the abbey; {npc:103} stands in the Defias camp east of the vineyard; {quest:3904} crates lie in the vineyard; the rats carrying the {object:83763} run about the abbey grounds."] = "Кобольды-работники в {area:34} севернее аббатства; {npc:103} стоит в лагере Братства восточнее виноградника; ящики {quest:3904} лежат на винограднике; крысы, несущие {object:83763}, бегают по землям аббатства.",
 
-	-- Step 7: Northshire: second hand-in
-	["Northshire: second hand-in"] = "",
+	-- Step 9: Northshire: second hand-in
+	["Northshire: second hand-in"] = "Североземье: вторая сдача",
 
-	-- Step 8: Northshire: the mine and the books
-	["Northshire: the mine and the books"] = "",
+	-- Step 10: Northshire: the mine and the books
+	["Northshire: the mine and the books"] = "Североземье: шахта и книги",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
-	["{npc:80}, deep in {area:34}"] = "",
+	["{npc:80}, deep in {area:34}"] = "{npc:80}, в глубине {area:34}",
 
-	-- Step 9: Northshire: last hand-in
-	["Northshire: last hand-in"] = "",
+	-- Step 11: Northshire: last hand-in
+	["Northshire: last hand-in"] = "Североземье: последняя сдача",
 	-- {object:563442} Kobold Tracks
-	["{object:563442}, east of the abbey"] = "",
+	["{object:563442}, east of the abbey"] = "{object:563442}, восточнее аббатства",
 
-	-- Step 10: Northshire: the books end in Goldshire
+	-- Step 12: Northshire: the books end in Goldshire
 	-- {area:87} Goldshire
-	["Northshire: the books end in {area:87}"] = "",
+	["Northshire: the books end in {area:87}"] = "Североземье: книги заканчиваются в {area:87}",
 	-- {npc:240} Marshal Dughan · {area:87} Goldshire · {area:57} Fargodeep Mine
 	-- plural, as words: Lost Books = {item:248001} Lost Book
-	["{npc:240} stands in front of the Lion's Pride Inn in {area:87}. The Lost Books drop from the kobolds of {area:57} south of {area:87}; the picture book and the two rare books from the named kobolds there."] = "",
-	["Arcane Explainer"] = "",
+	["{npc:240} stands in front of the Lion's Pride Inn in {area:87}. The Lost Books drop from the kobolds of {area:57} south of {area:87}; the picture book and the two rare books from the named kobolds there."] = "{npc:240} стоит перед таверной «Львиная Гордость» в {area:87}. Потерянные книги падают с кобольдов {area:57} южнее {area:87}; картинную книгу и две редкие — с именованных кобольдов там.",
+	["Arcane Explainer"] = "Объяснитель магии",
 	-- {npc:951} Brother Paxton
-	["{npc:951}, back at the abbey"] = "",
+	["{npc:951}, back at the abbey"] = "{npc:951}, назад в аббатстве",
 
-	-- Step 11: Goldshire
+	-- Step 13: Goldshire
 	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:253} William Pestle
-	["Optional: {area:87}, Westbrook and the farms south of {area:87}: about 1,450 reputation in an hour at 60. {npc:240}, {npc:241} and {npc:253} stand around the Lion's Pride Inn. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: {area:87}, Westbrook and the farms south of {area:87}: about 1,450 reputation in an hour at 60. {npc:240}, {npc:241} and {npc:253} stand around the Lion's Pride Inn. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Необязательно: {area:87}, Вестбрук и фермы южнее {area:87}: около 1 450 репутации за час на 60. {npc:240}, {npc:241} и {npc:253} стоят вокруг таверны «Львиная Гордость». Forever платит эти старые задания полностью на любом уровне. Пропустите этот шаг, чтобы пропустить хаб.",
 
-	-- Step 12: Goldshire: the mines
+	-- Step 14: Goldshire: the mines
 	-- {area:87} Goldshire
-	["{area:87}: the mines"] = "",
+	["{area:87}: the mines"] = "{area:87}: шахты",
 	-- {area:57} Fargodeep Mine · {area:87} Goldshire · {area:54} Jasperlode Mine · {item:773} Gold Dust
-	["{area:57} is south of {area:87}, {area:54} north-east of it. The kobolds in both drop the candles and the {item:773}; the wolves around {area:87} the pelts."] = "",
+	["{area:57} is south of {area:87}, {area:54} north-east of it. The kobolds in both drop the candles and the {item:773}; the wolves around {area:87} the pelts."] = "{area:57} южнее {area:87}, {area:54} северо-восточнее неё. Кобольды в обеих роняют свечи и {item:773}; волки вокруг {area:87} — шкуры.",
 
-	-- Step 13: Goldshire: back at the inn
+	-- Step 15: Goldshire: back at the inn
 	-- {area:87} Goldshire
-	["{area:87}: back at the inn"] = "",
+	["{area:87}: back at the inn"] = "{area:87}: назад к таверне",
 
-	-- Step 14: Goldshire: Jasperlode Mine
-	["walk into the mine"] = "",
+	-- Step 16: Goldshire: Jasperlode Mine
+	["walk into the mine"] = "войдите в шахту",
 
-	-- Step 15: Goldshire: Westbrook and Hogger
+	-- Step 17: Goldshire: Westbrook and Hogger
 	-- {area:87} Goldshire · {npc:448} Hogger
-	["{area:87}: Westbrook and {npc:448}"] = "",
+	["{area:87}: Westbrook and {npc:448}"] = "{area:87}: Вестбрук и {npc:448}",
 	-- {npc:448} Hogger · {area:120} Westbrook Garrison
-	["{npc:448} is an elite gnoll west of {area:120}; at 60 he is no trouble. The Wanted poster hangs on the garrison."] = "",
+	["{npc:448} is an elite gnoll west of {area:120}; at 60 he is no trouble. The Wanted poster hangs on the garrison."] = "{npc:448} — элитный гнолл западнее {area:120}; на 60 он не проблема. Объявление о награде висит на гарнизоне.",
 	-- {item:782} Painted Gnoll Armband
-	["{item:782}, from the Riverpaw gnolls"] = "",
+	["{item:782}, from the Riverpaw gnolls"] = "{item:782}, от гноллов Речной Лапы",
 	-- {item:1931} Huge Gnoll Claw · {npc:448} Hogger
-	["{item:1931}, from {npc:448}"] = "",
+	["{item:1931}, from {npc:448}"] = "{item:1931}, у персонажа {npc:448}",
 
-	-- Step 16: The farms south of Goldshire
+	-- Step 18: The farms south of Goldshire
 	-- {area:87} Goldshire
-	["The farms south of {area:87}"] = "",
+	["The farms south of {area:87}"] = "Фермы южнее {area:87}",
 	-- {area:87} Goldshire · {quest:87} Goldtooth · {area:57} Fargodeep Mine · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch
-	["The Stonefields' farm and the Maclures' farm lie on either side of the road south of {area:87}. {quest:87} guards the back of {area:57}; {npc:330} the boar roams the {area:62}."] = "",
+	["The Stonefields' farm and the Maclures' farm lie on either side of the road south of {area:87}. {quest:87} guards the back of {area:57}; {npc:330} the boar roams the {area:62}."] = "Ферма Стоунфилдов и ферма Маклуров лежат по обе стороны дороги южнее {area:87}. {quest:87} охраняет заднюю часть {area:57}; {npc:330} — кабан бродит по {area:62}.",
 	-- {item:1006} Brass Collar · {npc:330} Princess
-	["{item:1006}, from {npc:330}"] = "",
+	["{item:1006}, from {npc:330}"] = "{item:1006}, у персонажа {npc:330}",
 
-	-- Step 17: Goldtooth and the kelp
+	-- Step 19: Goldtooth and the kelp
 	-- {quest:87} Goldtooth
-	["{quest:87} and the kelp"] = "",
+	["{quest:87} and the kelp"] = "{quest:87} и ламинария",
 	-- {item:981} Bernice's Necklace · {quest:87} Goldtooth
-	["{item:981}, from {quest:87}"] = "",
+	["{item:981}, from {quest:87}"] = "{item:981}: {quest:87}",
 	-- {item:1256} Crystal Kelp Frond · {area:18} Crystal Lake
-	["{item:1256}, from the murlocs of {area:18}"] = "",
+	["{item:1256}, from the murlocs of {area:18}"] = "{item:1256}, от мурлоков {area:18}",
 
-	-- Step 18: Goldshire: last hand-in
+	-- Step 20: Goldshire: last hand-in
 	-- {area:87} Goldshire
-	["{area:87}: last hand-in"] = "",
+	["{area:87}: last hand-in"] = "{area:87}: последняя сдача",
 
-	-- Step 19: Shipment to Stormwind
+	-- Step 21: Shipment to Stormwind
 	-- {npc:279} Morgan Pestle · {object:2096} Trade District
-	["{npc:279}, in the {object:2096}"] = "",
+	["{npc:279}, in the {object:2096}"] = "{npc:279}, {object:2096}",
 
-	-- Step 20: Eastvale
-	["Eastvale"] = "",
+	-- Step 22: Eastvale
+	["Eastvale"] = "Восточная Долина",
 	-- {npc:261} Guard Thomas · {area:91} Tower of Azora
-	["Optional: eastern Elwynn, around {npc:261} on the bridge and the {area:91}, about 1,000 reputation in 40 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: eastern Elwynn, around {npc:261} on the bridge and the {area:91}, about 1,000 reputation in 40 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Необязательно: восточный Элвинн, вокруг {npc:261} на мосту и {area:91}, около 1 000 репутации за 40 минут на 60. Forever платит эти старые задания полностью на любом уровне. Пропустите этот шаг, чтобы пропустить хаб.",
 
-	-- Step 21: Eastvale: the work
-	["Eastvale: the work"] = "",
+	-- Step 23: Eastvale: the work
+	["Eastvale: the work"] = "Восточная Долина: работа",
 	-- {area:91} Tower of Azora · {area:54} Jasperlode Mine
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear · Kobold Geomancers = {npc:476} Kobold Geomancer
-	["The murlocs along the river south of the bridge drop the fins; Prowlers and Young Forest Bears roam the woods; the Defias around the Brackwell farm and the {area:91} carry the bandanas; the enchanting supplies lie in their camps north of the tower; the Kobold Geomancers dig at {area:54}; the tools and the river finds lie along the river north of the logging camp."] = "",
+	["The murlocs along the river south of the bridge drop the fins; Prowlers and Young Forest Bears roam the woods; the Defias around the Brackwell farm and the {area:91} carry the bandanas; the enchanting supplies lie in their camps north of the tower; the Kobold Geomancers dig at {area:54}; the tools and the river finds lie along the river north of the logging camp."] = "Мурлоки вдоль реки южнее моста роняют плавники; лесные хищники и молодые лесные медведи бродят по лесам; Братство Справедливости вокруг фермы Бреквеллов и {area:91} несёт банданы; зачарованные припасы лежат в их лагерях севернее башни; кобольды-геоманты роют в {area:54}; инструменты и находки у реки лежат вдоль реки севернее лесопилки.",
 
-	-- Step 22: Eastvale: hand in
-	["Eastvale: hand in"] = "",
+	-- Step 24: Eastvale: hand in
+	["Eastvale: hand in"] = "Восточная Долина: сдача",
 
-	-- Step 23: Eastvale: Defias Rogue Wizards
+	-- Step 25: Eastvale: Defias Rogue Wizards
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["Eastvale: Defias Rogue Wizards"] = "",
-	["opens with Thomas' report"] = "",
+	["Eastvale: Defias Rogue Wizards"] = "Восточная Долина: волшебники-плуты из Братства Справедливости",
+	["opens with Thomas' report"] = "начинается с доклада Томаса",
 	-- {item:780} Torn Murloc Fin
-	["{item:780}, from the murlocs south of the bridge"] = "",
+	["{item:780}, from the murlocs south of the bridge"] = "{item:780}, от мурлоков южнее моста",
 
-	-- Step 24: Stockade: two quests
+	-- Step 26: Stockade: two quests
 	-- {area:717} Stockade
-	["{area:717}: two quests"] = "",
+	["{area:717}: two quests"] = "{area:717}: два задания",
 	-- {area:717} Stockade · {faction:72} Stormwind · {object:2101} Mage Quarter · {npc:1719} Warden Thelwater · {npc:1721} Nikova Raskol · {object:2100} Old Town · {npc:1696} Targorr the Dread · {npc:859} Guard Berton · {area:69} Lakeshire · {npc:1663} Dextren Ward · {npc:270} Councilman Millstipe · {area:42} Darkshire · {npc:639} Edwin VanCleef · {area:1581} Deadmines
-	["Optional: the {area:717} is {faction:72}'s prison, a dungeon in the canals of the {object:2101}. At 60 you clear it alone in ten minutes: 300 reputation. {npc:1719} stands at the gate, {npc:1721} in {object:2100}. Two more {area:717} quests start outside the city, 100 each, if you pass by: What Comes Around... ({npc:1696}) from {npc:859} in {area:69} and Crime and Punishment ({npc:1663}) from {npc:270} in {area:42}. (The Stockade Riots, 100 more, needs the Unsent Letter from {npc:639} in the {area:1581} first.) Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the {area:717} is {faction:72}'s prison, a dungeon in the canals of the {object:2101}. At 60 you clear it alone in ten minutes: 300 reputation. {npc:1719} stands at the gate, {npc:1721} in {object:2100}. Two more {area:717} quests start outside the city, 100 each, if you pass by: What Comes Around... ({npc:1696}) from {npc:859} in {area:69} and Crime and Punishment ({npc:1663}) from {npc:270} in {area:42}. (The Stockade Riots, 100 more, needs the Unsent Letter from {npc:639} in the {area:1581} first.) Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Необязательно: {area:717} — тюрьма {faction:72}, подземелье в каналах {object:2101}. На 60 вы зачищаете его в одиночку за десять минут: 300 репутации. {npc:1719} стоит у ворот, {npc:1721} в {object:2100}. Ещё два задания {area:717} начинаются за городом, по 100, если вы проходите мимо: «Что посеешь...» ({npc:1696}) от {npc:859} в {area:69} и «Преступление и наказание» ({npc:1663}) от {npc:270} в {area:42}. («Бунт в тюрьме», ещё 100, требует сначала Неотправленное письмо от {npc:639} в {area:1581}.) Forever платит эти старые задания полностью на любом уровне. Пропустите этот шаг, чтобы пропустить хаб.",
 
-	-- Step 25: Inside the Stockade
+	-- Step 27: Inside the Stockade
 	-- {area:717} Stockade
-	["Inside the {area:717}"] = "",
+	["Inside the {area:717}"] = "Внутри {area:717}",
 	-- {npc:1716} Bazil Thredd
 	-- plural, as words: Red Wool Bandanas = {item:2909} Red Wool Bandana
-	["Kill the prisoners, convicts and insurgents in the cells; the Red Wool Bandanas drop from the Defias inside. {npc:1716} waits in the far end."] = "",
+	["Kill the prisoners, convicts and insurgents in the cells; the Red Wool Bandanas drop from the Defias inside. {npc:1716} waits in the far end."] = "Убейте заключённых, осуждённых и мятежников в камерах; красные шерстяные банданы падают с Братства Справедливости внутри. {npc:1716} ждёт в дальнем конце.",
 
-	-- Step 26: Stockade: hand in
+	-- Step 28: Stockade: hand in
 	-- {area:717} Stockade
-	["{area:717}: hand in"] = "",
+	["{area:717}: hand in"] = "{area:717}: сдача",
 
-	-- Step 27: A Donation of Silk
+	-- Step 29: A Donation of Silk
 	-- {item:4306} Silk Cloth · {area:94} Raven Hill
-	["{item:4306} drops from humanoids level 23 to 40: Syndicate in Alterac and Arathi, the Defias of Duskwood's {area:94}, Stranglethorn's trolls."] = "",
+	["{item:4306} drops from humanoids level 23 to 40: Syndicate in Alterac and Arathi, the Defias of Duskwood's {area:94}, Stranglethorn's trolls."] = "{item:4306} падает с гуманоидов 23–40 уровней: Синдикат в Альтераке и Арати, Братство Справедливости {area:94} в Сумеречном лесу, тролли Тернистой долины.",
 
-	-- Step 28: A Donation of Mageweave
+	-- Step 30: A Donation of Mageweave
 	-- {item:4338} Mageweave Cloth · {zone:1446} Tanaris · {zone:1444} Feralas · {zone:1418} Badlands
-	["{item:4338} drops from humanoids level 35 to 50: the Dunemaul ogres of {zone:1446}, the Hatecrest naga of {zone:1444}, the Shadowforge dwarves of the {zone:1418}."] = "",
+	["{item:4338} drops from humanoids level 35 to 50: the Dunemaul ogres of {zone:1446}, the Hatecrest naga of {zone:1444}, the Shadowforge dwarves of the {zone:1418}."] = "{item:4338} падает с гуманоидов 35–50 уровней: огры Дюнмола в {zone:1446}, наги Гребня Ненависти в {zone:1444}, дворфы Тенезаковки в {zone:1418}.",
 
-	-- Step 29: A Donation of Runecloth
+	-- Step 31: A Donation of Runecloth
 	-- {item:14047} Runecloth · {zone:1448} Felwood · {zone:1452} Winterspring · {quest:7796} Additional Runecloth
-	["{item:14047} drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of {zone:1448}, the Winterfall furbolgs of {zone:1452}. Keep any {item:14047} past the first 60: it all goes to {quest:7796} later."] = "",
+	["{item:14047} drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of {zone:1448}, the Winterfall furbolgs of {zone:1452}. Keep any {item:14047} past the first 60: it all goes to {quest:7796} later."] = "{item:14047} падает с гуманоидов 50 уровня и выше: культисты Плети и Алый орден в Чумных землях, фурболги Дредвуда в {zone:1448}, фурболги Винтерфолла в {zone:1452}. Сохраняйте любую {item:14047} сверх первых 60: всё пойдёт в {quest:7796} позже.",
 
-	-- Step 30: Chillwind Camp: Clear the Way
+	-- Step 32: Chillwind Camp: Clear the Way
 	-- {npc:10838} Commander Ashlam Valorfist · {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {faction:72} Stormwind · {object:92525} Argent Dawn
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul
-	["These quests are level 52 to 58, so they pay in full at 60. {npc:10838} and {npc:11053} at {area:3197}, in the south of the {zone:1422}, send you against the four Scourge cauldrons: 820 {faction:72} reputation in all and 600 {object:92525} on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp."] = "",
+	["These quests are level 52 to 58, so they pay in full at 60. {npc:10838} and {npc:11053} at {area:3197}, in the south of the {zone:1422}, send you against the four Scourge cauldrons: 820 {faction:72} reputation in all and 600 {object:92525} on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp."] = "Это задания 52–58 уровней, так что на 60 они платят полностью. {npc:10838} и {npc:11053} в {area:3197}, на юге {zone:1422}, отправляют вас против четырёх котлов Плети: всего 820 репутации {faction:72} и 600 {object:92525} попутно. Скелеты-живодеры и слюнявые вурдалаки бродят по полям севернее лагеря.",
 
-	-- Step 31: Andorhal and Felstone Field
+	-- Step 33: Andorhal and Felstone Field
 	-- {area:199} Felstone Field
-	["Andorhal and {area:199}"] = "",
+	["Andorhal and {area:199}"] = "Андорхал и {area:199}",
 	-- {item:12815} Beacon Torch · {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field · {npc:10778} Janice Felstone · {faction:72} Stormwind
-	["Mark the four watchtowers around Andorhal, north of the camp, with the {item:12815} at each door. {npc:11075} guards the cauldron at {area:199}, west of Andorhal; his key opens it. {npc:10778}'s ghost wanders by the Felstone farmhouse, and her parcel lies inside: it goes to {faction:72} for 150 more."] = "",
+	["Mark the four watchtowers around Andorhal, north of the camp, with the {item:12815} at each door. {npc:11075} guards the cauldron at {area:199}, west of Andorhal; his key opens it. {npc:10778}'s ghost wanders by the Felstone farmhouse, and her parcel lies inside: it goes to {faction:72} for 150 more."] = "Отметьте четыре сторожевые башни вокруг Андорхала, севернее лагеря, {item:12815} у каждой двери. {npc:11075} охраняет котёл в {area:199}, западнее Андорхала; его ключ открывает его. Призрак {npc:10778} бродит у фермерского дома Фелстоун, и её посылка лежит внутри: она идёт в {faction:72} ещё за 150.",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["Mark {npc:10902} with the {item:12815}"] = "Отметьте предметом {item:12815}: {npc:10902}",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
@@ -195,87 +205,86 @@ return {
 	-- {npc:10905} Andorhal Tower Four · {item:12815} Beacon Torch
 	["Mark {npc:10905} with the {item:12815}"] = "Отметьте предметом {item:12815}: {npc:10905}",
 	-- {item:13194} Felstone Field Cauldron Key · {npc:11075} Cauldron Lord Bilemaw
-	["{item:13194}, from {npc:11075}"] = "",
+	["{item:13194}, from {npc:11075}"] = "{item:13194}, у персонажа {npc:11075}",
 	-- {object:176361} Scourge Cauldron
-	["the {object:176361}"] = "",
+	["the {object:176361}"] = "{object:176361}",
 	-- {object:175894} Janice's Parcel
-	["{object:175894}, in the farmhouse"] = "",
+	["{object:175894}, in the farmhouse"] = "{object:175894}, в фермерском доме",
 
-	-- Step 33: Dalson's Tears
+	-- Step 35: Dalson's Tears
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears · {area:199} Felstone Field
-	["{npc:11077} guards the cauldron at {area:200}, north-east of {area:199}."] = "",
+	["{npc:11077} guards the cauldron at {area:200}, north-east of {area:199}."] = "{npc:11077} охраняет котёл в {area:200}, северо-восточнее {area:199}.",
 	-- {object:177289} Scourge Cauldron
-	["the {object:177289}"] = "",
+	["the {object:177289}"] = "{object:177289}",
 
-	-- Step 34: Chillwind Camp: the Writhing Haunt
+	-- Step 36: Chillwind Camp: the Writhing Haunt
 	-- {area:3197} Chillwind Camp · {area:202} Writhing Haunt
-	["{area:3197}: the {area:202}"] = "",
+	["{area:3197}: the {area:202}"] = "{area:3197}: {area:202}",
 
-	-- Step 35: Writhing Haunt
+	-- Step 37: Writhing Haunt
 	-- {npc:11076} Cauldron Lord Razarch · {area:202} Writhing Haunt · {area:200} Dalson's Tears
-	["{npc:11076} guards the cauldron at the {area:202}, the farm east of {area:200}."] = "",
+	["{npc:11076} guards the cauldron at the {area:202}, the farm east of {area:200}."] = "{npc:11076} охраняет котёл в {area:202}, ферме восточнее {area:200}.",
 	-- {object:176393} Scourge Cauldron
-	["the {object:176393}"] = "",
+	["the {object:176393}"] = "{object:176393}",
 
-	-- Step 37: Gahrron's Withering
+	-- Step 39: Gahrron's Withering
 	-- {npc:11078} Cauldron Lord Soulwrath · {area:201} Gahrron's Withering
-	["{npc:11078} guards the cauldron at {area:201}, in the east of the zone."] = "",
+	["{npc:11078} guards the cauldron at {area:201}, in the east of the zone."] = "{npc:11078} охраняет котёл в {area:201}, на востоке зоны.",
 	-- {object:176392} Scourge Cauldron
-	["the {object:176392}"] = "",
+	["the {object:176392}"] = "{object:176392}",
 
-	-- Step 38: Chillwind Camp: done
+	-- Step 40: Chillwind Camp: done
 	-- {area:3197} Chillwind Camp
-	["{area:3197}: done"] = "",
+	["{area:3197}: done"] = "{area:3197}: готово",
 	-- {npc:11056} Alchemist Arbington · {area:2057} Scholomance
-	["{npc:11056} in the camp also ends The Key to {area:2057} (200), after a longer chain that needs a {area:2057} group."] = "",
+	["{npc:11056} in the camp also ends The Key to {area:2057} (200), after a longer chain that needs a {area:2057} group."] = "{npc:11056} в лагере также завершает «Ключ от {area:2057}» (200) после более длинной цепочки, которая требует группу для {area:2057}.",
 
-	-- Step 39: Stormwind: Janice Felstone's parcel
+	-- Step 41: Stormwind: Janice Felstone's parcel
 	-- {faction:72} Stormwind · {npc:10778} Janice Felstone
-	["{faction:72}: {npc:10778}'s parcel"] = "",
+	["{faction:72}: {npc:10778}'s parcel"] = "{faction:72}: посылка {npc:10778}",
 	-- {npc:10782} Royal Factor Bathrilor · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {npc:3520} Ol' Emma
-	["{npc:10782} stands in the city hall on {object:2098}, beside {npc:1646}; {npc:3520} walks the canals."] = "",
+	["{npc:10782} stands in the city hall on {object:2098}, beside {npc:1646}; {npc:3520} walks the canals."] = "{npc:10782} стоит в ратуше на {object:2098}, рядом с {npc:1646}; {npc:3520} ходит по каналам.",
 
-	-- Step 40: Morgan's Vigil: Dragonkin Menace
+	-- Step 42: Morgan's Vigil: Dragonkin Menace
 	-- {npc:9562} Helendis Riverhorn · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4183} The True Masters · {area:69} Lakeshire · {object:2117} Stormwind Keep · {faction:72} Stormwind · {zone:1457} Darnassus · {npc:7044} Black Drake · {npc:7040} Black Dragonspawn · {npc:7041} Black Wyrmkin
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "",
+	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562} в {area:2418}, на юго-востоке {zone:1428}, запускает {quest:4183}: цепочку к {area:69} и {object:2117}, 175 репутации {faction:72} и 175 {zone:1457} (54 уровень). Детеныши черного дракона и {npc:7044} живут на склонах севернее дозора; {npc:7040} и {npc:7041} — западнее него, в середине зоны.",
 
-	-- Step 41: Lakeshire: Magistrate Solomon
+	-- Step 43: Lakeshire: Magistrate Solomon
 	-- {npc:344} Magistrate Solomon · {area:69} Lakeshire
-	["{npc:344} waits in the town hall of {area:69}."] = "",
+	["{npc:344} waits in the town hall of {area:69}."] = "{npc:344} ждёт в ратуше {area:69}.",
 
-	-- Step 42: Stormwind Keep
+	-- Step 44: Stormwind Keep
 	-- {npc:1748} Highlord Bolvar Fordragon · {object:2117} Stormwind Keep · {npc:1749} Lady Katrana Prestor
-	["{npc:1748} holds court in {object:2117} with {npc:1749} at his side: speak with her for the second of his quests."] = "",
+	["{npc:1748} holds court in {object:2117} with {npc:1749} at his side: speak with her for the second of his quests."] = "{npc:1748} держит двор в {object:2117} с {npc:1749} рядом: поговорите с ней для второго из его заданий.",
 	-- {npc:1749} Lady Katrana Prestor
 	["Speak with {npc:1749}"] = "Поговорить: {npc:1749}",
 
-	-- Step 43: Lakeshire: Solomon again
+	-- Step 45: Lakeshire: Solomon again
 	-- {area:69} Lakeshire
-	["{area:69}: Solomon again"] = "",
+	["{area:69}: Solomon again"] = "{area:69}: Соломон снова",
 	-- {area:1584} Blackrock Depths · {npc:9023} Marshal Windsor · {faction:72} Stormwind · {area:1583} Blackrock Spire · {npc:11878} Nathanos Blightcaller · {zone:1423} Eastern Plaguelands · {area:2057} Scholomance
-	["With a group the chain goes on into {area:1584}: {npc:9023}, Jail Break! and The Great Masquerade back in {faction:72} pay about 750 {faction:72} more, Maxwell's Mission (Lower {area:1583}) 250, Delivery to Ridgewell 135. Order Must Be Restored ({npc:11878} in the {zone:1423}) pays 200, The Key to {area:2057} 200; Onyxia's head 400 and Nefarian's 200 when the raids open."] = "",
+	["With a group the chain goes on into {area:1584}: {npc:9023}, Jail Break! and The Great Masquerade back in {faction:72} pay about 750 {faction:72} more, Maxwell's Mission (Lower {area:1583}) 250, Delivery to Ridgewell 135. Order Must Be Restored ({npc:11878} in the {zone:1423}) pays 200, The Key to {area:2057} 200; Onyxia's head 400 and Nefarian's 200 when the raids open."] = "С группой цепочка идёт дальше в {area:1584}: {npc:9023}, «Побег из тюрьмы!» и «Великий маскарад» обратно в {faction:72} платят ещё около 750 {faction:72}, «Миссия Максвелла» (Нижний {area:1583}) 250, «Доставка в Риджвелл» 135. «Порядок должен быть восстановлен» ({npc:11878} в {zone:1423}) платит 200, «Ключ от {area:2057}» 200; голова Ониксии 400 и Нефариана 200, когда откроются рейды.",
 
-	-- Step 44: Additional Runecloth to Honored
+	-- Step 46: Additional Runecloth to Honored
 	-- {quest:7796} Additional Runecloth
 	["{quest:7796} to Honored"] = "{quest:7796} до уровня «Уважение»",
 	-- {quest:7796} Additional Runecloth · {item:14047} Runecloth · {faction:72} Stormwind · {zone:1436} Westfall · {area:69} Lakeshire · {zone:1431} Duskwood · {area:42} Darkshire
-	["{quest:7796}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a non-Human stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Humans start 900 higher: 88 turn-ins; a Skyborne's Exploring the Alliance paid 100, two fewer). The level 52-58 quests above take 23 turn-ins off; every Elwynn hub you did takes 20 to 30 more off. More quest hubs pay {faction:72}, in full while they are no more than 5 levels below you: {zone:1436} (about 2,500 in all), Redridge's {area:69} (about 3,000) and {zone:1431}'s {area:42} (about 2,900). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
+	["{quest:7796}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a non-Human stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Humans start 900 higher: 88 turn-ins; a Skyborne's Exploring the Alliance paid 100, two fewer). The level 52-58 quests above take 23 turn-ins off; every Elwynn hub you did takes 20 to 30 more off. More quest hubs pay {faction:72}, in full while they are no more than 5 levels below you: {zone:1436} (about 2,500 in all), Redridge's {area:69} (about 3,000) and {zone:1431}'s {area:42} (about 2,900). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7796}: 50 репутации за 20 {item:14047}, сколько угодно раз. После четырёх первых сдач не-человек стоит на 700 из 6 000 «Дружелюбия», так что до «Уважения» 5 300: 106 сдач, 2 120 {item:14047} (люди начинают на 900 выше: 88 сдач; «Исследование Альянса» Небесного происхождения платит 100, на две меньше). Задания 52–58 уровней выше снимают 23 сдачи; каждый пройденный хаб Элвинна снимает ещё 20–30. Больше заданий хабов платят {faction:72}, полностью, пока они не более чем на 5 уровней ниже: {zone:1436} (всего около 2 500), {area:69} в Красногорье (около 3 000) и {area:42} в {zone:1431} (около 2 900). Каждый прирост в городе также даёт четверть остальным трём городам Альянса (здесь не учтено). Сдавайте всю {item:14047} разом.",
 
-	-- Step 45: Additional Runecloth to Revered
+	-- Step 47: Additional Runecloth to Revered
 	-- {quest:7796} Additional Runecloth
 	["{quest:7796} to Revered"] = "{quest:7796} до уровня «Почтение»",
 	-- {npc:384} Katie Hunter · {item:14047} Runecloth
-	["Honored: in Classic Stormwind's vendors take 10% off for you, {npc:384}'s horses (20g, the swift ones 200g) included; Forever has not settled it, and guide sites report 5% at Friendly rising to 20% at Exalted. Honored to Revered is 12,000 reputation: 240 turn-ins, 4,800 {item:14047}."] = "",
+	["Honored: in Classic Stormwind's vendors take 10% off for you, {npc:384}'s horses (20g, the swift ones 200g) included; Forever has not settled it, and guide sites report 5% at Friendly rising to 20% at Exalted. Honored to Revered is 12,000 reputation: 240 turn-ins, 4,800 {item:14047}."] = "«Уважение»: в Classic торговцы Штормграда дают вам скидку 10%, включая лошадей {npc:384} (20з, быстрые 200з); Forever этого не решил, а сайты гайдов сообщают 5% на «Дружелюбии», растущие до 20% на «Превознесении». От «Уважения» до «Почтения» — 12 000 репутации: 240 сдач, 4 800 {item:14047}.",
 
-	-- Step 46: Additional Runecloth to Exalted
+	-- Step 48: Additional Runecloth to Exalted
 	-- {quest:7796} Additional Runecloth
 	["{quest:7796} to Exalted"] = "{quest:7796} до уровня «Превознесение»",
 	-- {item:14047} Runecloth · {npc:384} Katie Hunter · {area:88} Eastvale Logging Camp
-	["Revered to Exalted is 21,000 reputation: 420 turn-ins, 8,400 {item:14047}. At Exalted, {npc:384} at {area:88} sells her horses to other races in Classic; the Horse and Swift Horse guides cover them."] = "",
+	["Revered to Exalted is 21,000 reputation: 420 turn-ins, 8,400 {item:14047}. At Exalted, {npc:384} at {area:88} sells her horses to other races in Classic; the Horse and Swift Horse guides cover them."] = "От «Почтения» до «Превознесения» — 21 000 репутации: 420 сдач, 8 400 {item:14047}. На «Превознесении» {npc:384} в {area:88} продаёт своих лошадей другим расам в Classic; гайды по лошадям и быстрым лошадям их покрывают.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["About 4,500 {faction:72} reputation from low-level quests in Elwynn and the {area:717} (in Classic, a fifth of it at 60)"] = "Около 4500 репутации ({faction:72}) за задания низкого уровня в Элвиннском лесу и в подземелье {area:717} (в Classic на 60 уровне – пятая часть)",
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "Добыча здесь: адепты Тьмы ({npc:8546}) и темные маги (уровень 58-60); каждое убийство Плети здесь также дает репутацию ({object:92525}, см. тот гайд). Подойдет и аукцион.",
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "Добыча здесь: огры из клана Песчаного Молота (уровень 45-48). Подойдет и аукцион.",
 	-- ["Keep handing in {quest:7796} until {faction:72} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Сдавайте задание {quest:7796}, пока репутация ({faction:72}) не дойдет до превознесения. {item:14047}: Адепты Тьмы и темные маги (уровень 58-60) – зона {zone:1423}, или аукцион.",

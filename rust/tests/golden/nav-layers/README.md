@@ -16,7 +16,10 @@ Read by `forge-navbuild/tests/roads.rs` (the roads layer and its allowlist) and 
   No client file, no game data.
 - **Outputs (the JS's):** `roads-out/roads/` (tools/lib/nav/layers/roads.js buildRoads: the tiles' weights and
   index.json), `roads-out/road-textures.json` (roadAllowlist's document as `nav layers roads --allowlist`
-  wrote it), `hubs.json` (hubs.js buildHubs as `nav layers hubs` wrote it).
+  wrote it), `hubs.json` (hubs.js buildHubs as `nav layers hubs` wrote it; its rules since carry the Rust
+  builder's `forever` line, Forever's own NPCs (#1961), which these inputs have none of; and since #3830 the
+  Rust builder's `hub` line (a camp both sides share is no hub) and the `forever` line's codex side, which change no
+  hub of these inputs: the rules' text edited by hand, nothing else).
 - **JS:** tools/lib/nav/layers of this branch at d1a565942.
 - **Command:** `node rust/tests/golden/nav-layers/regen.js <js root> rust/tests/golden/nav-layers`, `<js root>` a
   checkout of that commit.

@@ -34,5 +34,8 @@ return {
 	["{item:5873}, 20g"] = "{item:5873}, 20g",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Any Alliance race can buy these rams, but riding one also takes Ram Riding, which only Dwarves get with {skill:762}. {npc:4772} teaches it to other races once they are Exalted with {faction:47} (the Ironforge Reputation guide shows the way). Until then, don't buy a ram for this character."] = "Jede Allianzrasse kann diese Widder kaufen, aber um einen zu reiten, braucht man auch Widderreiten, das nur Zwerge mit {skill:762} bekommen. {npc:4772} lehrt es andere Rassen, sobald sie bei {faction:47} Ehrfürchtig sind (der Ruf-Guide für Eisenschmiede zeigt den Weg). Bis dahin kaufe für diesen Charakter keinen Widder.",
+	-- ["Ram {skill:762} for other races"] = "Widder-{skill:762} für andere Rassen",
 	-- ["{area:803} is east of {area:131} on the road to {zone:1432}; {npc:4772} stands beside {npc:1261}'s rams. At 40 {npc:4772} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Alliance race ride these."] = "{area:803} liegt östlich von {area:131} an der Straße nach {zone:1432}; {npc:4772} steht neben den Widdern von {npc:1261}. Ab Stufe 40 lehrt {npc:4772} {skill:762} (laut Blizzards Designern 100g), und beim Erlernen bekommst du ein Reittier. Im Forever-Client darf jedes Allianzvolk sie reiten.",
+	-- ["{npc:4772}, Ram Riding"] = "{npc:4772}, Widderreiten",
 }

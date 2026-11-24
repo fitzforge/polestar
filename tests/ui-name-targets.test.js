@@ -136,7 +136,7 @@ function run(script, { before = '', enabled = true } = {}) {
 	}).emitted;
 }
 
-test('each enabled mob or item-source objective uses the shared target macro with marking off by default', () => {
+test('each enabled mob or item-source objective uses the shared target macro with the default skull mark', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)
 		settle()
@@ -145,16 +145,16 @@ test('each enabled mob or item-source objective uses the shared target macro wit
 		emit({ enabled = Polestar.GetDefault("qol.guideNameTarget"), marking = Polestar.GetDefault("qol.markTarget"),
 			kill = kill and { name = kill.psName, kind = kill.psKind, macro = kill:GetAttribute("macrotext1"), type = kill:GetAttribute("type1") },
 			collect = collect and { name = collect.psName, kind = collect.psKind, macro = collect:GetAttribute("macrotext1") },
-			expected = Polestar.QoL.Buttons.TargetMacro({ "Kobold Vermin" }, 1),
+			expected = Polestar.QoL.Buttons.TargetMacro({ "Kobold Vermin" }, 1, Polestar.QoL.Buttons.MarkLine("mob")),
 			header = targetFor(GF.parts.person) ~= nil })`);
 	assert.equal(out.enabled, false);
-	assert.equal(out.marking, false);
+	assert.equal(out.marking, true);
 	assert.equal(out.kill?.name, 'Kobold Vermin');
 	assert.equal(out.kill.kind, 'mob');
 	assert.equal(out.kill.type, 'macro');
 	assert.equal(out.kill.macro, out.expected);
 	assert.doesNotMatch(out.kill.macro, /Young Wolf/);
-	assert.doesNotMatch(out.kill.macro, /\/tm/);
+	assert.match(out.kill.macro, /\n\/tm \[@target,harm,nodead\] !8$/, 'a skull on the mob');
 	assert.equal(out.collect?.name, 'Young Wolf');
 	assert.equal(out.collect.kind, 'mob');
 	assert.match(out.collect.macro, /\/targetexact Young Wolf(?:\n|$)/);
@@ -187,6 +187,8 @@ test('the NPC header follows the focused giver and ordinary guide frames stay un
 
 test('shared mob and NPC mark settings update overlays and their hovered tooltip', () => {
 	const [out] = run(`
+		-- Starts unmarked: Mark target is on by default.
+		Polestar.Set("qol.markTarget", false)
 		uistub.setGuide(uistub.elwynn, 3)
 		settle()
 		local b = assert(targetFor(rowFor("Kobold Vermin")))
@@ -341,6 +343,8 @@ test('targeting is off by default and ordinary row actions remain available with
 
 test('icon, text, subline and whitespace target the row while checkbox, Skip and next-spot win hit testing', () => {
 	const [out] = run(`
+		-- The plain hint: Mark target (on by default) is not what this tests.
+		Polestar.Set("qol.markTarget", false)
 		local goal = uistub.guides[uistub.elwynn].steps[3].goals[3]
 		goal.optional, goal.spots, goal.note = true, 2, "Stay near the mine entrance."
 		uistub.setGuide(uistub.elwynn, 3)
@@ -416,6 +420,46 @@ test('the real gear-reward link remains above the objective overlay and keeps it
 	assert.equal(out.clicked, 750);
 	assert.equal(out.ordinary, true);
 	assert.equal(out.navigation, 0);
+});
+
+test('an accept goal shows a muted reward line when its quest pick is an upgrade', () => {
+	const [out] = run(`
+		local asked = {}
+		Polestar.Gear = { IsEnabled = function() return true end,
+			GainText = function() return "+12%" end,
+			QuestPick = function(q) asked[#asked + 1] = q; return { entry = { id = 750, pct = 12 }, upgrade = true } end }
+		Polestar.Set("gear.rewards", true)
+		uistub.setGuide(uistub.elwynn, 4)
+		local row = assert(rowFor("Investigate Echo Ridge"))
+		local gear = row.psGearPick
+		emit({ shown = gear and gear:IsShown(), text = gear and gear.Text:GetText(), chevron = gear and gear.Chevron:IsShown(),
+			gain = gear and gear.Gain:IsShown(), item = gear and gear.psEntry and gear.psEntry.id, asked = "," .. table.concat(asked, ",") .. "," })`);
+	assert.equal(out.shown, true);
+	assert.match(out.text, /^Reward: .* \+12% · at turn-in$/);
+	assert.equal(out.chevron, false);
+	assert.equal(out.gain, false);
+	assert.equal(out.item, 750);
+	assert.match(out.asked, /,15,/);
+});
+
+test('an accept goal shows no reward line when the pick is no upgrade, and none with gear advice off', () => {
+	const [out] = run(`
+		local asked = 0
+		Polestar.Gear = { IsEnabled = function() return true end,
+			QuestPick = function() asked = asked + 1; return { entry = { id = 750 }, upgrade = false } end }
+		Polestar.Set("gear.rewards", true)
+		uistub.setGuide(uistub.elwynn, 4)
+		local row = assert(rowFor("Investigate Echo Ridge"))
+		local noUpgrade = not (row.psGearPick and row.psGearPick:IsShown())
+		Polestar.Gear.IsEnabled = function() return false end
+		asked = 0
+		uistub.setGuide(uistub.elwynn, 3)
+		uistub.setGuide(uistub.elwynn, 4)
+		row = assert(rowFor("Investigate Echo Ridge"))
+		emit({ noUpgrade = noUpgrade, offHidden = not (row.psGearPick and row.psGearPick:IsShown()), askedOff = asked })`);
+	assert.equal(out.noUpgrade, true);
+	assert.equal(out.offHidden, true);
+	assert.equal(out.askedOff, 0);
 });
 
 test('objective clicks retain row navigation and the quest right-click menu', () => {

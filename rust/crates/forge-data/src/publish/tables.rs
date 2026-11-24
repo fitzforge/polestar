@@ -316,7 +316,14 @@ impl Asm<'_> {
 		for k in ["races", "classes"] {
 			let (v, p) = field(k);
 			match v {
-				Some(Value::Null) | None => c.fields.push((if k == "races" { "races" } else { "classes" }, json!(0), p)),
+				// No restriction stated: 0, every race or class, when an independent source holds the
+				// record without one; a record only a correction makes, not setting the field, leaves it
+				// out (unknown, which 0 would not say).
+				Some(Value::Null) | None => {
+					if p.backed() {
+						c.fields.push((if k == "races" { "races" } else { "classes" }, json!(0), p))
+					}
+				}
 				Some(x) => {
 					if let Some(n) = x.as_u64().or_else(|| x.as_f64().map(|f| f as u64)) {
 						c.fields.push((if k == "races" { "races" } else { "classes" }, json!(n), p));
@@ -1076,7 +1083,8 @@ pub fn assemble(inp: &Inputs) -> Result<Tables, String> {
 	if let Some(kb) = inp.kb {
 		let mut seen = FxHashSet::default();
 		for m in &kb.mechanics {
-			let own: Vec<String> = m.sources.iter().filter(|s| OWN_OK.contains(&s.as_str())).cloned().collect();
+			// A `correction` here is a mechanics fix: public only when forever-db/corrections made it.
+			let own: Vec<String> = m.sources.iter().filter(|s| OWN_OK.contains(&s.as_str()) && !(*s == "correction" && kb.private_mechanics_fix(m.quest))).cloned().collect();
 			if m.status != "kept" || own.is_empty() || !quest_ids.contains(&m.quest) {
 				*a.t.held.entry(format!("mechanic {}", m.kind)).or_default() += 1;
 				continue;
@@ -1094,7 +1102,7 @@ pub fn assemble(inp: &Inputs) -> Result<Tables, String> {
 	let quotes_page = |text: &str| inp.evidence.is_some_and(|sh| super::check::words(text).windows(8).any(|w| sh.contains(&super::check::shingle_hash(w))));
 	if let Some(qn) = inp.notes {
 		quest_notes(&mut a.t, qn, &quest_ids, &pr, &quotes_page);
-	} else if let Some(steps) = inp.kb.and_then(|kb| kb.steps.as_ref()) {
+	} else if let Some((kb, steps)) = inp.kb.and_then(|kb| Some((kb, kb.steps.as_ref()?))) {
 		// Rewritten notes (a `basis`): game-data rows ship as they are, community rows marked
 		// unconfirmed. Before those: only high steps from structured sources whose evidence
 		// quotes no page text.
@@ -1117,7 +1125,7 @@ pub fn assemble(inp: &Inputs) -> Result<Tables, String> {
 			let ev = s.evidence.to_lowercase();
 			let ok = match s.basis.as_str() {
 				"game-data" | "community" => true,
-				"" => s.confidence == "high" && OWN_OK.contains(&s.source.as_str()) && !PAGE_TEXT.iter().any(|w| ev.contains(w)),
+				"" => s.confidence == "high" && OWN_OK.contains(&s.source.as_str()) && !(s.source == "correction" && kb.private_mechanics_fix(s.quest)) && !PAGE_TEXT.iter().any(|w| ev.contains(w)),
 				_ => false,
 			};
 			if !ok || quotes_page(&s.text) || !quest_ids.contains(&s.quest) || s.action.is_empty() {

@@ -97,7 +97,7 @@ pub fn seed_order(ev: &mut Evaluator, events: &[Event], train_stops: bool) -> Or
 			towns.retain(|t| !run.valley_towns.contains(t));
 		}
 		// A long leg that passes a trainer town (the town costs at most TOWN_ON_WAY_SEC more):
-		// training there, on the way. (Not from a trainer town: the stop there trains, c17 RevA 6.)
+		// training there, on the way. (Not from a trainer town: the stop there trains, c17 review, item 6.)
 		if s.kind != K_GRIND
 			&& s.kind != K_TRAIN
 			&& !ev.s.finished
@@ -216,7 +216,7 @@ pub(crate) fn place_trains(ev: &mut Evaluator, out: &mut Order) {
 		// (Where the player stands when the place is in a trainer town: trained there, not at the town
 		// it was made for. c17 Dwarf and Gnome: Kharanos's stop, moved to after the Ironforge hand-ins
 		// as Kharanos lies on the line to Westfall, was a hearth to Kharanos from Ironforge, which
-		// trains every class, c17 RevA 6.)
+		// trains every class, c17 review, item 6.)
 		let mut s = s;
 		if let Some(t) = (j > 0).then(|| town_here(run, loc[j - 1])).flatten() {
 			s.pt = t;
@@ -236,7 +236,7 @@ pub fn town_here(run: &Run, here: u32) -> Option<u32> {
 
 /// Trainings inside a field stretch: a training whose steps either side (grind checkpoints skipped)
 /// are both work away from its town (beyond the hub reach, crate::hubs::HUB_YD): the trip to the
-/// trainer splits the field work (RevNightElf3, c13 Shadowglen: the level-4 training between the
+/// trainer splits the field work (c13 review, Shadowglen: the level-4 training between the
 /// cave's tasks). A kept move adds none (search::Member::replay).
 pub fn field_trains(run: &Run, steps: &[Step]) -> u32 {
 	let away = |x: &Step, t: &Step| x.kind == K_TASK && run.straight(x.pt, t.pt) > crate::hubs::HUB_YD;
@@ -1171,7 +1171,7 @@ pub const SAME_STOP_YD: f64 = 40.0;
 /// The order with each breadcrumb (`crumbs`: (breadcrumb, the quest it leads to), run indices)
 /// handed in before its follow-up is taken, when the follow-up's accept comes first at the same
 /// stop (every step from it to the hand-in within SAME_STOP_YD of it): taking the follow-up first
-/// closes the breadcrumb in the game (RevA2: 2872/2873, 3763/3764).
+/// closes the breadcrumb in the game (review: 2872/2873, 3763/3764).
 pub fn breadcrumbs_first(run: &Run, crumbs: &[(u32, u32)], o: &Order) -> Order {
 	let mut out = o.clone();
 	for &(b, f) in crumbs {
@@ -1339,6 +1339,8 @@ pub fn chain_breaks(run: &Run, steps: &[Step], leads: &[Pair]) -> Vec<(u32, u32)
 			out.extend(pre.into_iter().map(|x| (x, s.q)));
 		}
 		out.extend(leads.iter().filter(|p| p.kb == K_ACCEPT && p.qb == s.q && p.ka == K_TURNIN && late(p.qa)).map(|p| (p.qa, s.q)));
+		// A breadcrumb taken before and handed in after: it holds the quest back while in the log.
+		out.extend(run.crumbs(q).iter().copied().filter(|&c| late(c) && steps[..i].iter().any(|x| x.kind == K_ACCEPT && x.q == c)).map(|c| (c, s.q)));
 	}
 	out.sort_unstable();
 	out.dedup();
@@ -1547,7 +1549,7 @@ pub fn deliberate_optional(run: &Run) -> Vec<u32> {
 
 /// The route fixes' `deliberate` `together` rules for a run, the player reports' (`why` names the
 /// issue, "#555: ...") last: repaired last in each pass of keep_records, they win a conflict with a
-/// reviewer's read (c14 Night Elf: #555's Nightsaber Fangs then Pelts and RevNightElf3's lurkers
+/// reviewer's read (c14 Night Elf: #555's Nightsaber Fangs then Pelts and the c13 review's lurkers
 /// then the recipe both want the step right after Zenn's Bidding).
 pub fn deliberate_together(run: &Run) -> Vec<Together> {
 	let fixes = crate::fixes::get();

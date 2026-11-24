@@ -159,7 +159,7 @@ step Kharanos: Brewnall and Frostmane Hold
   kill 1201 x8 quest 319.3            -- Snow Leopard
   collect 2676 x6 quest 315.1         -- Shimmerweed
   kill 1123 x5 quest 287.1            -- Frostmane Headhunter
-  complete 287 @22.4,51.8             -- walk to the back of the cave
+  complete 287 @21.3,54.2             -- walk to the back of the cave
   turnin 319
   accept 320
   turnin 315
@@ -174,7 +174,7 @@ step The quarry and Amberstill Ranch
   label ge-east
   zone Dun Morogh
   tip Optional: eastern Dun Morogh, from Earthseer Farsen's camp to the Gol'Bolar Quarry and Amberstill Ranch, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.
-  turnin 96408 optional
+  turnin 96408
   accept 96392
   turnin 96392
   accept 96390
@@ -229,6 +229,7 @@ step Tinker Town: Laris Geardawdle
 step Felwood: Cursed and Tainted Oozes
   zone Felwood
   tip The Cursed and Tainted Oozes slide about the streams and fel pools around Jaedenar and Bloodvenom Falls: kill one and use an empty jar on its remains.
+  level 51
   collect 11947 x6 quest 4512.1       -- Filled Cursed Ooze Jar
   collect 11949 x6 quest 4512.2       -- Filled Tainted Ooze Jar
 
@@ -252,8 +253,9 @@ step Morgan's Vigil: Jalinda Sprig
   accept 4262                         -- Overmaster Pyron, +100
 
 step Blackrock Mountain: Overmaster Pyron
-  zone map 1415
+  zone Searing Gorge
   tip Blackrock Mountain stands in the west of the Burning Steppes. Overmaster Pyron, a fire elemental, walks the lava paths inside it, near the door of Blackrock Depths but outside the dungeon: at 60 you take him alone.
+  level 52
   kill 9026 quest 4262.1              -- Overmaster Pyron
 
 step Morgan's Vigil: hand in

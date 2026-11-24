@@ -7,10 +7,13 @@
 //! Library: [`build::run`] (`Options` -> `Output`, the files' texts) and [`build::write`].
 
 pub mod build;
+pub mod class_spells;
 pub mod client;
 pub mod cmangos;
 pub mod codex;
 pub mod corrections;
+pub mod credit;
+pub mod diff;
 pub mod dungeons;
 pub mod extras;
 pub mod factions;
@@ -39,11 +42,13 @@ pub mod sim_inputs;
 pub mod sources;
 pub mod spawns;
 pub mod stats;
+pub mod subzones;
 pub mod tables;
 pub mod talents;
+pub mod talk;
 pub mod tdb;
 pub mod trainers;
 pub mod travel;
 pub mod worldmap;
 
-pub use build::{quest_drop, run, write, Options, Output, MAX_QUEST_DROP, VERSION};
+pub use build::{quest_drop, run, write, Options, Output, Placeholders, MAX_QUEST_DROP, VERSION};

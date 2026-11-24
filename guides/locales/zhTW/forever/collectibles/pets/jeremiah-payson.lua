@@ -12,11 +12,8 @@ return {
 
 	-- Step 1: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson · {zone:1458} Undercity
-	["{npc:8403} sells three cockroaches in the {zone:1458} (50s each, 1g 50s for all three); the Plagued and Undercity Cockroaches are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:8403} sells three cockroaches in the {zone:1458} (50s each, 1g 50s for all three); the Plagued and Undercity Cockroaches are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:8403}在{zone:1458}出售三種蟑螂（各50銀，三隻共1金50銀）；染疫蟑螂和幽暗城蟑螂是Forever新增的。使用每件寵物物品即可學會對應的小寵物；之後目標會保持勾選。",
 	-- {item:10393} Cockroach
 	["{item:10393}, 50s"] = "{item:10393}，50銀",
 	["50s"] = "50銀",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{npc:8403} sells three cockroaches in the {zone:1458} (50s each); the Plagued and Undercity Cockroaches are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:8403}在{zone:1458}出售三種蟑螂（各50銀）；染疫蟑螂和幽暗城蟑螂是Forever新增的。使用每件寵物物品即可學會對應的小寵物；之後目標會保持勾選。",
 }

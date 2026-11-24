@@ -13,19 +13,18 @@ return {
 
 	-- Step 1: Lorekeeper Lydros
 	-- {area:1099} Camp Mojache · {area:2577} Dire Maul · {zone:1444} Feralas · {npc:14368} Lorekeeper Lydros · {item:18249} Crescent Key · {item:18594} Powerful Seaforium Charge
-	["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing, or through the North wing's courtyard doors with a {item:18249} (it drops from the imp Pusillin in the East wing; a {item:18594} also opens them; Blink no longer gets past). Other mages in your group can take it too: share it."] = "",
+	["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing, or through the North wing's courtyard doors with a {item:18249} (it drops from the imp Pusillin in the East wing; a {item:18594} also opens them; Blink no longer gets past). Other mages in your group can take it too: share it."] = "Vuela a Plumaluna (Alianza) o a {area:1099} (Horda) y ve hasta {area:2577}, en el centro de {zone:1444}. {npc:14368} espera en el Athenaeum, la biblioteca, a la que se llega por el ala Oeste o por las puertas del patio del ala Norte con una {item:18249} (la suelta el diablillo Pusillin en el ala Este; una {item:18594} también las abre; Parpadeo ya no sirve para pasar). Otros magos de tu grupo también pueden cogerla: compártela.",
 
 	-- Step 2: Hydrospawn
 	["Hydrospawn"] = "Hidromilecio",
-	-- {area:1758} Riptide
-	["Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. {area:1758} hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets."] = "",
+	["Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. His knockback hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets."] = "Hidromilecio, un elemental de agua élite de nivel 57, vive en el Barrio Alabeo (La Masacre Este): persigue al diablillo Pusillin hasta que se gire a luchar, limpia la sala de los sátiros y baja por la rampa en espiral hasta el estanque. Un grupo de cinco. La escarcha no le hace nada, así que los magos de escarcha cambian a fuego o arcano. Su ataque de repulsión golpea a todos a menos de 10 metros, así que los de distancia se quedan atrás; con un cuarto de salud llama a Hidrolinos. La esencia cae siempre; no vuelve hasta que se reinicia la instancia.",
 	-- {item:18299} Hydrospawn Essence
 	["{item:18299}: Hydrospawn"] = "{item:18299}: Hidromilecio",
 
 	-- Step 3: Back to Lydros
 	["Back to Lydros"] = "De vuelta con Lydros",
 	-- {npc:14368} Lorekeeper Lydros · {spell:10140} Conjure Water
-	["{npc:14368}: {spell:10140}, and 200 Shen'dralar reputation"] = "",
+	["{npc:14368}: {spell:10140}, and 200 Shen'dralar reputation"] = "{npc:14368}: {spell:10140} y 200 de reputación con los Shen'dralar",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing (or the North wing with a {item:18249})."] = "Vuela al Bastión Plumaluna (Alianza) o a {area:1099} (Horda) y cabalga hasta {area:2577}, en el centro de {zone:1444}. {npc:14368} espera en el Ateneo, la biblioteca, a la que se llega por el ala oeste (o por el ala norte con una {item:18249}).",

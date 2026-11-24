@@ -101,10 +101,24 @@ fn source_steps(item_id: &V, codex: &V, drops: bool, grants: bool) -> Vec<V> {
 					},
 				);
 			} else {
+				// A chest's instance too (the Black Tome in Shadowfang Keep, Doan's Strongbox), so the guide sends the player
+				// to its entrance.
 				o.set("kind", "object");
 				o.set("item", item.clone());
 				o.set("object", place_of("object", &s.get("object"), codex));
 				o.set("chance", nn(s.get("chance")));
+				let inst = s.get("instance");
+				let oi = codex.get("objects").get(&kstr(&s.get("object")));
+				o.set(
+					"instance",
+					if inst.truthy() {
+						inst
+					} else if oi.truthy() && oi.get("instance").truthy() {
+						oi.get("instance")
+					} else {
+						V::Null
+					},
+				);
 			}
 			out.push(V::Obj(o));
 		}
@@ -303,6 +317,9 @@ fn build_one(entry: &V, codex: &V, warn: &mut Vec<String>, inside: &[V]) -> V {
 		}
 		steps.push(step);
 	}
+	// A raid Forever has not opened yet (`open: false`) may have its quests out of the data (Molten Core's,
+	// #3392): it builds no guide, without a warning.
+	let closed = matches!(entry.get("open"), V::Bool(false));
 	let goal_in = entry.get("goal").items();
 	let goal: Vec<V> = goal_in
 		.iter()
@@ -310,7 +327,9 @@ fn build_one(entry: &V, codex: &V, warn: &mut Vec<String>, inside: &[V]) -> V {
 			if quests.get(&kstr(id)).truthy() {
 				return true;
 			}
-			warn.push(format!("{eid}: goal quest {} is not in the Codex", kstr(id)));
+			if !closed {
+				warn.push(format!("{eid}: goal quest {} is not in the Codex", kstr(id)));
+			}
 			false
 		})
 		.cloned()
@@ -324,7 +343,40 @@ fn build_one(entry: &V, codex: &V, warn: &mut Vec<String>, inside: &[V]) -> V {
 	for s in &steps {
 		if s.get("kind").as_str() == Some("quest") && has_v(&goal, &s.get("id")) {
 			s.set("goal", true);
+			// `onAccept`: the quest hands over the item as it is taken and takes it back if it is dropped
+			// (Heart of Disruption's Dalaran Sewer Key): the chain ends at the accept.
+			if entry.get("onAccept").truthy() {
+				s.set("accept", true);
+			}
 		}
+	}
+	// `via`: the item the goal item is made from, by a use the steps can't show (#2338: the Sacred Mallet, used at
+	// Jintha'Alor's altar, becomes the Mallet of Zul'Farrak). Its drops and chests come first; the note says how it
+	// turns into the goal item. `useAt` names the NPC standing where it is used (Archmage Ataeric by the Ambermill
+	// Leyline Focus, where the Black Tome becomes the Tome of Dalaran): a use step there follows the drops.
+	let via = entry.get("via");
+	let use_at = entry.get("useAt");
+	if via.truthy() {
+		if !codex.get("items").get(&kstr(&via)).truthy() {
+			warn.push(format!("{eid}: via item {} is not in the Codex", kstr(&via)));
+		}
+		steps.extend(source_steps(&via, codex, true, false));
+		if use_at.truthy() {
+			let kind = if use_at.get("kind").as_str() == Some("object") { "object" } else { "npc" };
+			let at = place_of(kind, &use_at.get("id"), codex);
+			if at.truthy() && !at.get("map").is_nullish() {
+				let o = Obj::new();
+				o.set("kind", "use");
+				o.set("from", item_ref(&via, codex));
+				o.set("item", item_ref(&entry.get("item"), codex));
+				o.set("at", at);
+				steps.push(V::Obj(o));
+			} else {
+				warn.push(format!("{eid}: useAt {} {} has no spawn in the Codex", use_at.get("kind").to_js_string(), kstr(&use_at.get("id"))));
+			}
+		}
+	} else if use_at.truthy() {
+		warn.push(format!("{eid}: useAt without via"));
 	}
 	let item = entry.get("item");
 	if item.truthy() {
@@ -379,6 +431,11 @@ fn build_one(entry: &V, codex: &V, warn: &mut Vec<String>, inside: &[V]) -> V {
 	o.set("note", or_null(entry.get("note")));
 	o.set("level", level.map(V::Num).unwrap_or(V::Null));
 	o.set("any", entry.get("any").truthy());
+	// `open: false`: a raid Forever has not opened yet (Molten Core, Blackwing Lair, Naxxramas at launch, #3695);
+	// the Attunements page and the guide say so. Absent while it is open.
+	if matches!(entry.get("open"), V::Bool(false)) {
+		o.set("open", false);
+	}
 	o.set("goal", V::from(goal));
 	let inside_v = placed_inside(&steps, codex, inside);
 	o.set("steps", V::from(steps));
@@ -406,4 +463,145 @@ pub fn attunements_of(codex: &V, table: &V) -> (Vec<(String, Vec<V>)>, Vec<Strin
 		}
 	}
 	(by_key, warnings)
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+	use forge_guide::js::parse_json;
+
+	// #2338: the Mallet of Zul'Farrak drops nowhere; it is the Sacred Mallet (Qiaga the Keeper's drop) used at
+	// Jintha'Alor's altar. Without `via` the entry had no steps and was left out; with it, the page and its guide
+	// lead to Qiaga, and the entry stays done by the goal item.
+	#[test]
+	fn an_item_made_from_another_lists_that_one_s_drops_via_2338() {
+		let codex = parse_json(
+			r#"{ "quests": {}, "instances": { "zulfarrak": {} },
+				"items": { "9240": { "name": "Mallet of Zul'Farrak", "quality": 2, "sources": [] },
+					"9241": { "name": "Sacred Mallet", "quality": 1, "sources": [{ "type": "drop", "npc": 7996, "chance": 100 }] } },
+				"npcs": { "7996": { "name": "Qiaga the Keeper", "spawns": [{ "map": 1425, "x": 48.6, "y": 68.2, "f": "e" }] } } }"#,
+		)
+		.unwrap();
+		let table = |via: &str| {
+			parse_json(&format!(r#"{{ "attunements": [{{ "key": "zulfarrak", "id": "mallet", "name": "Mallet of Zul'Farrak", "kind": "item", "need": "one", "item": 9240{via}, "note": "n" }}] }}"#))
+				.unwrap()
+		};
+
+		let (by_key, warnings) = attunements_of(&codex, &table(""));
+		assert!(by_key.is_empty(), "no steps without via");
+		assert_eq!(warnings, vec!["mallet: no steps".to_string()]);
+
+		let (by_key, warnings) = attunements_of(&codex, &table(r#", "via": 9241"#));
+		assert!(warnings.is_empty(), "{warnings:?}");
+		let a = &by_key[0].1[0];
+		assert_eq!(a.get("item").get("id").num(), 9240.0);
+		let steps = a.get("steps").items();
+		assert_eq!(steps.len(), 1);
+		assert_eq!(steps[0].get("kind").as_str(), Some("drop"));
+		assert_eq!(steps[0].get("item").get("id").num(), 9241.0);
+		assert_eq!(steps[0].get("npc").get("id").num(), 7996.0);
+		assert_eq!(steps[0].get("npc").get("map").num(), 1425.0);
+	}
+
+	// The Tome of Dalaran drops nowhere: the Black Tome from Shadowfang Keep, used at the Ambermill Leyline Focus
+	// by Archmage Ataeric, becomes it. `useAt` adds that use, at Ataeric's spawn, after the Black Tome's chest.
+	#[test]
+	fn use_at_adds_a_use_of_the_via_item_where_the_named_npc_stands() {
+		let codex = parse_json(
+			r#"{ "quests": {}, "instances": { "city-of-dalaran": {} },
+				"items": { "275989": { "name": "Tome of Dalaran", "quality": 2, "sources": [] },
+					"276561": { "name": "Black Tome", "quality": 1, "sources": [{ "type": "object", "object": 659376, "instance": "shadowfang-keep" }] } },
+				"objects": { "659376": { "name": "Black Tome", "spawns": [] } },
+				"npcs": { "2120": { "name": "Archmage Ataeric", "spawns": [{ "map": 1421, "x": 63.4, "y": 64.3, "f": "e" }] },
+					"9": { "name": "Nowhere", "spawns": [] } } }"#,
+		)
+		.unwrap();
+		let table = |use_at: &str| {
+			parse_json(&format!(
+				r#"{{ "attunements": [{{ "key": "city-of-dalaran", "id": "tome", "name": "Tome of Dalaran", "kind": "item", "need": "one", "item": 275989, "via": 276561{use_at}, "note": "n" }}] }}"#
+			))
+			.unwrap()
+		};
+		let (by_key, warnings) = attunements_of(&codex, &table(r#", "useAt": { "kind": "npc", "id": 2120 }"#));
+		assert!(warnings.is_empty(), "{warnings:?}");
+		let steps = by_key[0].1[0].get("steps").items();
+		assert_eq!(steps.iter().map(|s| s.get("kind").to_js_string()).collect::<Vec<_>>(), vec!["object", "use"]);
+		assert_eq!(steps[0].get("instance").as_str(), Some("shadowfang-keep"), "the chest's instance, for its entrance");
+		let use_step = &steps[1];
+		assert_eq!((use_step.get("from").get("id").num(), use_step.get("item").get("id").num()), (276561.0, 275989.0));
+		assert_eq!(use_step.get("at").get("name").as_str(), Some("Archmage Ataeric"));
+		assert_eq!((use_step.get("at").get("map").num(), use_step.get("at").get("x").num()), (1421.0, 63.4));
+
+		let (by_key, warnings) = attunements_of(&codex, &table(r#", "useAt": { "kind": "npc", "id": 9 }"#));
+		assert_eq!(warnings, vec!["tome: useAt npc 9 has no spawn in the Codex".to_string()]);
+		assert_eq!(by_key[0].1[0].get("steps").items().len(), 1, "the chest stays, no use without a place");
+	}
+
+	// Heart of Disruption hands over the Dalaran Sewer Key as it is taken and takes it back if it is dropped:
+	// with `onAccept` its goal step says `accept`, the steps before it do not.
+	#[test]
+	fn on_accept_marks_the_goal_steps_as_ending_at_their_accept() {
+		let codex = parse_json(
+			r#"{ "instances": { "city-of-dalaran": {} },
+				"quests": { "1": { "id": 1, "title": "Blood in the Streets", "pre": [], "preAny": [], "start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [], "object": [] } },
+					"2": { "id": 2, "title": "Heart of Disruption", "pre": [], "preAny": [1], "start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [], "object": [] } } },
+				"items": { "277507": { "name": "Dalaran Sewer Key", "quality": 2, "sources": [] } }, "npcs": {} }"#,
+		)
+		.unwrap();
+		let table = |on: &str| {
+			parse_json(&format!(
+				r#"{{ "attunements": [{{ "key": "city-of-dalaran", "id": "sewer-key", "name": "Dalaran Sewer Key", "kind": "key", "need": "one", "item": 277507, "goal": [2]{on}, "note": "n" }}] }}"#
+			))
+			.unwrap()
+		};
+		let (by_key, warnings) = attunements_of(&codex, &table(r#", "onAccept": true"#));
+		assert!(warnings.is_empty(), "{warnings:?}");
+		let steps = by_key[0].1[0].get("steps").items();
+		assert_eq!(steps.iter().map(|s| (s.get("id").num(), s.get("accept").truthy())).collect::<Vec<_>>(), vec![(1.0, false), (2.0, true)]);
+		let (by_key, _) = attunements_of(&codex, &table(""));
+		assert!(!by_key[0].1[0].get("steps").items()[1].get("accept").truthy(), "without onAccept the goal is the whole quest");
+	}
+
+	// #3695: Molten Core, Blackwing Lair and Naxxramas are not open on Forever yet. `open: false` in the table rides
+	// through to the attunement (the Attunements page and the guide say so); an open one carries no `open` at all.
+	#[test]
+	fn open_false_marks_a_raid_not_open_yet_and_an_open_one_carries_nothing() {
+		let codex = parse_json(
+			r#"{ "instances": { "molten-core": {} },
+				"quests": { "7848": { "id": 7848, "title": "Attunement to the Core", "pre": [], "preAny": [], "start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [], "object": [] } } },
+				"items": {}, "npcs": {} }"#,
+		)
+		.unwrap();
+		let table = |open: &str| {
+			parse_json(&format!(
+				r#"{{ "attunements": [{{ "key": "molten-core", "id": "core", "name": "Attunement to the Core", "kind": "attunement", "need": "each", "goal": [7848]{open}, "note": "n" }}] }}"#
+			))
+			.unwrap()
+		};
+		let (by_key, warnings) = attunements_of(&codex, &table(r#", "open": false, "openSource": "s""#));
+		assert!(warnings.is_empty(), "{warnings:?}");
+		assert!(matches!(by_key[0].1[0].get("open"), V::Bool(false)));
+		let (by_key, _) = attunements_of(&codex, &table(""));
+		assert!(matches!(by_key[0].1[0].get("open"), V::Undef), "open: no field");
+		let (by_key, _) = attunements_of(&codex, &table(r#", "open": true"#));
+		assert!(matches!(by_key[0].1[0].get("open"), V::Undef), "open: true is the same as none");
+	}
+
+	// #3392: the 0.4.3 data took Molten Core's attunement quests out while the raid is closed. A closed raid whose goal
+	// quests the Codex lacks builds no attunement and warns about nothing; an open one still warns.
+	#[test]
+	fn a_closed_raid_whose_goal_quests_are_out_of_the_data_builds_nothing_without_a_warning() {
+		let codex = parse_json(r#"{ "instances": { "molten-core": {} }, "quests": {}, "items": {}, "npcs": {} }"#).unwrap();
+		let table = |open: &str| {
+			parse_json(&format!(
+				r#"{{ "attunements": [{{ "key": "molten-core", "id": "core", "name": "Attunement to the Core", "kind": "attunement", "need": "each", "goal": [7848]{open}, "note": "n" }}] }}"#
+			))
+			.unwrap()
+		};
+		let (by_key, warnings) = attunements_of(&codex, &table(r#", "open": false, "openSource": "s""#));
+		assert!(warnings.is_empty(), "{warnings:?}");
+		assert!(by_key.iter().all(|(_, l)| l.is_empty()), "no attunement built");
+		let (_, warnings) = attunements_of(&codex, &table(""));
+		assert_eq!(warnings, vec!["core: goal quest 7848 is not in the Codex".to_string()]);
+	}
 }

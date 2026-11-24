@@ -212,6 +212,49 @@ fn c5_a_ride_is_timed_when_the_client_reports_its_height_as_0_along_a_track_up_i
 	assert_eq!(out[0], "you", "timed from the ride, matched on the ground plane");
 }
 
+// The skycutter from Zephras Isle to Dalaran is no taxi to the client (players' recordings: `pos` breadcrumbs, written
+// only off a taxi, every 2 s for about 70 s, 40-60 yd apart, with GetUnitSpeed 0 and not falling) and no transport
+// the timetables know: Transit.Carried says the player is carried from the second sample that moved them with no
+// speed of their own, never for a teleport (one jump), a walk, a fall or a taxi, and ends at the first sample they
+// move on their own or stand still.
+#[test]
+fn carried_the_position_moving_with_no_speed_of_the_player_s_own_two_samples_running_never_a_teleport_a_walk_a_fall_or_a_taxi() {
+	let out = lua(r#"
+		local P = { x = 0, y = 0 }
+		function UnitPosition() return P.x, P.y, 0, 0 end
+		OWN, FALL, TAXI = 0, false, false
+		function GetUnitSpeed() return OWN, 7, 0, 0 end
+		function IsFalling() return FALL end
+		function UnitOnTaxi() return TAXI end
+		local function step(dx) P.x = P.x + dx; stub.advance(1); return T.Carried() end
+		local r = {}
+		r.still = step(0)
+		r.ride = { step(25), step(25), step(25) }
+		r.stops = step(0)
+		r.teleport = { step(500), step(0) }
+		OWN = 7
+		r.walk = { step(7), step(7), step(7) }
+		OWN, FALL = 0, true
+		r.fall = { step(25), step(25), step(25) }
+		FALL, TAXI = false, true
+		r.taxi = { step(25), step(25), step(25) }
+		TAXI = false
+		r.again = { step(25), step(25), step(25) }
+		OWN = 7
+		r.walksOff = step(25)
+		emit(r)
+	"#);
+	assert_eq!(out[0]["still"], false);
+	assert_eq!(out[0]["ride"], json!([false, true, true]), "carried from the second sample that moved the player");
+	assert_eq!(out[0]["stops"], false, "standing still: off");
+	assert_eq!(out[0]["teleport"], json!([false, false]), "one jump is no ride");
+	assert_eq!(out[0]["walk"], json!([false, false, false]), "walking: the player's own speed");
+	assert_eq!(out[0]["fall"], json!([false, false, false]), "falling");
+	assert_eq!(out[0]["taxi"], json!([false, false, false]), "a taxi is the taxi's own state");
+	assert_eq!(out[0]["again"], json!([false, true, true]));
+	assert_eq!(out[0]["walksOff"], false, "moving on their own: off at once");
+}
+
 #[test]
 fn lifts_found_near_a_crossing_listed_untimed_average_captions_then_timed_either_landing_when_the_side_is_unknown_k3() {
 	let out = lua(r#"
@@ -298,6 +341,11 @@ fn class_teleports_known_spells_with_their_reagents_cooldowns_counted_the_settin
 		COOL[556] = { GetTime(), 900 }
 		COOL[3567] = { GetTime(), 1.5 } -- the global cooldown does not count
 		emit(names(T.Teleports(T.Now())))
+		-- Each one's full cooldown as the client tells it (Astral Recall's against the Hearthstone's, Nav/Travel.lua).
+		GetSpellBaseCooldown = function(id) if id == 556 then return 900000, 0 end return 0, 0 end
+		local lengths = {}
+		for _, t in ipairs(T.Teleports(T.Now())) do lengths[#lengths + 1] = t.length or false end
+		emit(lengths)
 		Polestar.Set("nav.teleports", false)
 		emit(#T.Teleports(T.Now()))
 	"#);
@@ -305,28 +353,46 @@ fn class_teleports_known_spells_with_their_reagents_cooldowns_counted_the_settin
 	assert_eq!(out[1], json!([["Teleport: Orgrimmar", 0, 1454, false], ["Teleport: Moonglade", 0, 1450, false], ["Astral Recall", 0, false, true]]));
 	let cooling: Vec<Value> = out[2].as_array().unwrap().iter().map(|t| json!([t[0], t[1]])).collect();
 	assert_eq!(json!(cooling), json!([["Teleport: Orgrimmar", 0], ["Teleport: Moonglade", 0], ["Astral Recall", 900]]));
-	assert_eq!(out[3], 0);
+	assert_eq!(out[3], json!([false, false, 900]), "Astral Recall's 15 minutes as the client tells them; none told, none assumed");
+	assert_eq!(out[4], 0);
 }
 
-fn walk(dir: &Path, compat: &Path, offenders: &mut Vec<String>) {
-	let mut entries: Vec<_> = fs::read_dir(dir).unwrap().map(|e| e.unwrap()).collect();
-	entries.sort_by_key(|e| e.file_name());
-	for e in entries {
-		let p = e.path();
-		if e.file_type().unwrap().is_dir() {
-			walk(&p, compat, offenders);
-		} else if e.file_name().to_string_lossy().ends_with(".lua") && p != compat && is_match(&String::from_utf8_lossy(&fs::read(&p).unwrap()), r"\bUnitPosition\b") {
-			offenders.push(p.strip_prefix(root()).unwrap().display().to_string());
-		}
-	}
-}
-
+// #3815 (Aireil): a mage with the legacy talent Reagent Economy casts a city teleport with no Rune of Teleportation, but
+// Polestar counted runes and never offered it. With no rune in the bags it asks the game whether the spell can be cast
+// (Compat.IsSpellUsable): the talent's plain yes offers it; a no, or a no for the mana alone (the game does not say then
+// whether the rune is there too), does not; a rune in the bags offers it whatever the game says, as before.
 #[test]
-fn c5_unitposition_is_read_in_one_place_core_compat_lua() {
-	let mut offenders = Vec::new();
-	let compat = root().join("addon").join("Polestar").join("Core").join("Compat.lua");
-	walk(&root().join("addon").join("Polestar"), &compat, &mut offenders);
-	assert_eq!(offenders, Vec::<String>::new());
+fn class_teleports_a_talent_that_does_away_with_the_rune_offers_the_city_teleport_without_one() {
+	let out = lua(r#"
+		KNOWN = { [3567] = true }
+		RUNES, TALENT, LOW_MANA = 0, false, false
+		C_SpellBook = { IsSpellKnown = function(id) return KNOWN[id] or false end }
+		C_Item = { GetItemCount = function(id) return id == 17031 and RUNES or 0 end }
+		C_Spell = {
+			GetSpellCooldown = function() return { startTime = 0, duration = 0 } end,
+			IsSpellUsable = function(id)
+				if id ~= 3567 then return false, false end
+				if LOW_MANA then return false, true end
+				return TALENT or RUNES > 0, false
+			end,
+		}
+		local function names() local out = {} for _, t in ipairs(T.Teleports(T.Now())) do out[#out + 1] = t.name end return table.concat(out, ", ") end
+		emit({ none = names() })
+		TALENT = true
+		emit({ talent = names() })
+		LOW_MANA = true
+		emit({ lowMana = names() })
+		RUNES = 1
+		emit({ rune = names() })
+		C_Spell.IsSpellUsable = nil
+		RUNES = 0
+		emit({ noApi = names() })
+	"#);
+	assert_eq!(out[0], json!({ "none": "" }), "no rune, no talent: no teleport");
+	assert_eq!(out[1], json!({ "talent": "Teleport: Orgrimmar" }), "the talent: the game says it can be cast");
+	assert_eq!(out[2], json!({ "lowMana": "" }), "short of mana the game does not say: no rune, no offer");
+	assert_eq!(out[3], json!({ "rune": "Teleport: Orgrimmar" }), "a rune in the bags, as before");
+	assert_eq!(out[4], json!({ "noApi": "" }), "a client that cannot tell: the runes are counted");
 }
 
 // --- review fixes ---------------------------------------------------------------

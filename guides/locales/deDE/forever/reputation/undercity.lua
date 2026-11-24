@@ -18,6 +18,7 @@ return {
 	["{faction:68}: how it works"] = "{faction:68}: So funktioniert es",
 	-- {faction:68} Undercity · {npc:14729} Ralston Farnsley · {object:36082} Magic Quarter · {quest:7819} Additional Runecloth · {item:14047} Runecloth · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:287} Hillsbrad · {area:272} Tarren Mill · {object:1661} The Undercity
 	["{faction:68} reputation comes from quests and cloth. {npc:14729}, the cloth quartermaster, stands in the {object:36082} beside the tailors. He takes four one-time donations of 60 cloth (150 each) and then {quest:7819}, 20 {item:14047} for 50, as often as you like. Every point you earn with the {faction:68} also gives a quarter as much to {zone:1454}, {zone:1456} and the Darkspear Trolls. While you level, do the {faction:68}'s quests within 5 levels of them: Tirisfal at 1 to 12, Silverpine at 10 to 20, {area:287} and {area:272} at 20 to 33. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored the {faction:68}'s merchants sell to you for 10% less (the Classic rule), the horse vendor included; at Exalted other races can buy the skeletal horses: 20 gold for a level 40 horse, 200 gold for a level 60 warhorse, once you have mount training. {object:1661} has no tabard or other reward."] = "Der Ruf bei den {faction:68} kommt aus Quests und Stoff. {npc:14729}, der Stoff-Rüstmeister, steht im {object:36082} neben den Schneidern. Er nimmt vier einmalige Spenden von je 60 Stoff (je 150) und danach {quest:7819}, 20 {item:14047} für 50, so oft du willst. Jeder Punkt, den du bei den {faction:68} verdienst, gibt außerdem ein Viertel davon an {zone:1454}, {zone:1456} und die Darkspear-Trolle. Mach beim Leveln die Quests der {faction:68}, die höchstens 5 Stufen unter dir liegen: Tirisfal auf Stufe 1 bis 12, Silberwald auf 10 bis 20, {area:287} und {area:272} auf 20 bis 33. Der Vermächtnis-Vorteil „Diplomat“ bringt bis zu 10% extra. Belohnungen: Bei Wohlwollend verkaufen dir die Händler der {faction:68} 10% günstiger (die Classic-Regel), den Pferdehändler eingeschlossen; bei Ehrfürchtig können andere Völker die Skeletal Horses kaufen: 20 Gold für ein Pferd der Stufe 40, 200 Gold für ein Schlachtross der Stufe 60, sobald du die Reitausbildung hast. {object:1661} hat keinen Wappenrock und keine andere Belohnung.",
+	["his donations are handed in from his window and never enter the log"] = "seine Spenden werden über sein Fenster abgegeben und landen nie im Questlog",
 
 	-- Step 2: Deathknell (optional hub)
 	-- {area:154} Deathknell
@@ -63,7 +64,8 @@ return {
 	["Around {area:159}"] = "Rund um {area:159}",
 	-- {item:286176} Executor's Motivator · {area:159} Brill · {quest:99141} Patience · {npc:1496} Deathguard Dillinger · {npc:251001} Deathguard Kristof · {npc:10666} Gordo · {npc:1525} Rotting Dead
 	["Use the {item:286176} on five Deathguards around {area:159}. For {quest:99141}, talk to {npc:1496} west of {area:159}, {npc:251001} at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}. The {npc:1525} walk around the old bridge west of {area:159}; the dry branches lie under the trees there. Darkhounds roam everywhere."] = "Benutze den {item:286176} an fünf Todeswachen rund um {area:159}. Für {quest:99141} sprich mit {npc:1496} westlich von {area:159}, {npc:251001} an der Wegstation östlich davon und {npc:10666} auf der Straße. Die Rot Hide-Gnolle graben am Massengrab nördlich von {area:159}. Die {npc:1525} laufen um die alte Brücke westlich von {area:159}; die trockenen Äste liegen dort unter den Bäumen. Darkhounds streifen überall umher.",
-	["Motivate 5 Deathguards"] = "Motiviere 5 Todeswachen",
+	-- {area:159} Brill
+	["Motivate 5 Deathguards: the Deathguards around {area:159}"] = "Motiviere 5 Todeswachen: die Todeswachen rund um {area:159}",
 
 	-- Step 10: Agamand Mills
 	-- {npc:1657} Devlin Agamand · {area:157} Agamand Mills
@@ -105,8 +107,8 @@ return {
 	["{item:14047}: the Scarlet outside {area:2266}"] = "{item:14047}: die Scharlachroten vor {area:2266}",
 
 	-- Step 17: Undercity: Harbinger Balthazad
-	-- {area:152} Bulwark · {npc:10879} Harbinger Balthazad · {faction:68} Undercity
-	["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there."] = "Die Quests der Stufen 55 bis 60 zahlen voll. Zuerst die {area:152}: {npc:10879} bei den Aufzügen der {faction:68} schickt dich dorthin.",
+	-- {area:152} Bulwark · {npc:10879} Harbinger Balthazad · {faction:68} Undercity · {object:36126} Royal Quarter · {quest:5961} The Champion of the Banshee Queen · {npc:11878} Nathanos Blightcaller · {quest:6136} The Corpulent One
+	["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there. Lady Sylvanas in the {object:36126} gives {quest:5961}, an introduction to {npc:11878}: {quest:6136}, his last quest here, needs it handed in."] = "Die Quests der Stufen 55 bis 60 zahlen voll. Zuerst das {area:152}: {npc:10879} bei den Aufzügen der {faction:68} schickt dich dorthin. Lady Sylvanas im {object:36126} gibt {quest:5961}, eine Empfehlung an {npc:11878}: Für {quest:6136}, seine letzte Quest hier, muss sie abgegeben sein.",
 
 	-- Step 18: Bulwark: Scarlet Diversions
 	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity · {item:12814} Flame in a Bottle · {area:200} Dalson's Tears · {area:199} Felstone Field · {item:12807} Scourge Banner
@@ -170,7 +172,7 @@ return {
 
 	-- Step 28: Nathanos Blightcaller
 	-- {npc:11878} Nathanos Blightcaller · {zone:1423} Eastern Plaguelands · {faction:68} Undercity
-	["{npc:11878}, the Ranger Lord, keeps his camp on the western edge of the {zone:1423}. His quests are level 58 to 60 and pay in full: 500 {faction:68} reputation."] = "{npc:11878}, der Waldläuferlord, hat sein Lager am Westrand der {zone:1423}. Seine Quests sind Stufe 58 bis 60 und zahlen voll: 500 Ruf bei den {faction:68}.",
+	["{npc:11878}, the Ranger Lord, keeps his camp on the western edge of the {zone:1423}. His quests are level 58 to 60 and pay in full: 525 {faction:68} reputation with Sylvanas's introduction."] = "{npc:11878}, der Waldläuferlord, hat sein Lager am Westrand der {zone:1423}. Seine Quests sind Stufe 58 bis 60 und zahlen voll: 525 Ruf bei den {faction:68} mit Sylvanas' Empfehlung.",
 
 	-- Step 29: Plaguebats, Quel'Lithien Lodge and Corin's Crossing
 	-- {area:2276} Quel'Lithien Lodge · {area:2264} Corin's Crossing
@@ -191,7 +193,7 @@ return {
 	-- {npc:11897} Duskwing · {area:2260} Marris Stead · {npc:11896} Borelgore · {area:2272} Northdale
 	["{npc:11897}, an elite bat, roams the fields north of {area:2260}. {npc:11896} paces a long valley west of {area:2272}."] = "{npc:11897}, eine Elite-Fledermaus, streift durch die Felder nördlich von {area:2260}. {npc:11896} läuft durch ein langes Tal westlich von {area:2272}.",
 	-- {npc:11878} Nathanos Blightcaller · {faction:68} Undercity · {area:2279} Stratholme · {npc:12337} Crimson Courier
-	["{npc:11878}: 500 {faction:68} reputation. His {area:2279} quests (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) need a group."] = "{npc:11878}: 500 Ruf bei den {faction:68}. Seine Quests in {area:2279} (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) brauchen eine Gruppe.",
+	["{npc:11878}: 525 {faction:68} reputation with Sylvanas's introduction. His {area:2279} quests (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) need a group."] = "{npc:11878}: 525 Ruf bei den {faction:68} mit Sylvanas' Empfehlung. Seine Quests in {area:2279} (Der {npc:12337}, Das scharlachrote Orakel, Demetria, Ramstein) brauchen eine Gruppe.",
 
 	-- Step 32: The Spider God (optional chain)
 	-- {quest:2936} The Spider God
@@ -265,7 +267,10 @@ return {
 	-- ["Keep handing in {quest:7819} until {faction:68} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Gib weiter {quest:7819} ab, bis {faction:68} Ehrfürchtig ist. {item:14047}: Dunkle Adepten und Schattenmagier (Stufe 58-60) im Gebiet {zone:1423} oder das Auktionshaus.",
 	-- ["Keep handing in {quest:7819}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Gib weiter {quest:7819} ab, jeweils 20 {item:14047}. {item:14047}: Dunkle Adepten und Schattenmagier (Stufe 58-60) im Gebiet {zone:1423} oder das Auktionshaus.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "Zentauren der Kolkar (Stufe 30-33) lassen ihn hier fallen. Das Auktionshaus geht auch.",
+	-- ["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there."] = "Die Quests der Stufen 55 bis 60 zahlen voll. Zuerst die {area:152}: {npc:10879} bei den Aufzügen der {faction:68} schickt dich dorthin.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Vollstrecker der Venture Co. an der {area:381} (Stufe 16-17) lassen ihn hier fallen. Das Auktionshaus geht auch.",
+	-- ["{npc:11878}, the Ranger Lord, keeps his camp on the western edge of the {zone:1423}. His quests are level 58 to 60 and pay in full: 500 {faction:68} reputation."] = "{npc:11878}, der Waldläuferlord, hat sein Lager am Westrand der {zone:1423}. Seine Quests sind Stufe 58 bis 60 und zahlen voll: 500 Ruf bei den {faction:68}.",
+	-- ["{npc:11878}: 500 {faction:68} reputation. His {area:2279} quests (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) need a group."] = "{npc:11878}: 500 Ruf bei den {faction:68}. Seine Quests in {area:2279} (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) brauchen eine Gruppe.",
 	-- ["{npc:14729} takes cloth for {faction:68} in {faction:68}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7819} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14729} nimmt Stoff für {faction:68} an, in {faction:68}. Die ersten Spenden von Woll-, Seiden-, Magie- und {item:14047} (je 60 Stoff) gibt es nur einmal, und sie bringen den meisten Ruf pro Stoff; danach wiederholt sich {quest:7819} bis Ehrfürchtig. Ehrfürchtig bei der Hauptstadt eines anderen Volkes erlaubt dir, dessen Reittiere zu kaufen. Forevers Vermächtnis-Vorteil „Diplomat“ erhöht den Rufgewinn.",
 	-- ["{npc:14729}: {item:14047} delivered"] = "{npc:14729}: {item:14047} abgegeben",
 	-- ["{quest:7819} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7819} nimmt 20 {item:14047} pro Abgabe und lässt sich beliebig oft wiederholen. Bring {item:14047} in Vielfachen von 20 mit und gib alles auf einmal ab, eine Abgabe nach der anderen. {item:14047}: Dunkle Adepten und Schattenmagier (Stufe 58-60) im Gebiet {zone:1423} oder das Auktionshaus.",

@@ -23,7 +23,7 @@ local floor, ceil, sqrt, sin, abs, pi = math.floor, math.ceil, math.sqrt, math.s
 local Sparkle = {}
 ns.RouteSparkle = Sparkle
 
--- The settings and their ranges (nav.sparkle*; UI/LineStyle.lua shows them).
+-- The settings and their ranges (nav.sparkle*; the Route lines page, Maps/RouteOptions.lua, shows them).
 Sparkle.DEFAULTS = {
 	sparkleIntensity = 0.75, sparkleDensity = 5, sparkleSubtlety = 0.35, sparkleSize = 14,
 	sparkleFlow = 0.5, sparkleMax = 140, sparkleColor = "gold", sparkleLater = false,
@@ -67,11 +67,12 @@ local function add(run, x, y)
 end
 
 -- Runs in travel order; `later` keeps the legs after the current one too.
--- Built once per route change.
+-- A walk with no walking path known (`guess`) gets none: Maps/RouteLines.lua
+-- draws it as the line style's dashes instead (#3418). Built once per route change.
 function Sparkle.Paths(drawPaths, later)
 	local out = {}
 	for _, src in ipairs(drawPaths or {}) do
-		if later or not src.later then
+		if (later or not src.later) and not src.guess then
 			local run
 			for i = 1, src.n do
 				local c = src.c[i]

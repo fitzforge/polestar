@@ -70,19 +70,25 @@ return {
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["{npc:3649} is in {area:442}. Take his quest before you hunt naga: the Kor Gem never drops without it."] = "{npc:3649} fica em {area:442}. Pegue a missão dele antes de caçar nagas: sem ela, a Gema Kor nunca cai.",
 
-	-- Step 12: The Corrupted Kor Gem
+	-- Step 12: The north end of the Zoram Strand
+	-- {area:414} Zoram Strand
+	["The north end of the {area:414}"] = "A ponta norte de {area:414}",
+	-- {area:414} Zoram Strand · {zone:1439} Darkshore
+	["The naga's flooded ruins lie just past the north end of the {area:414}, south of {zone:1439} along the coast. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins."] = "As ruínas alagadas dos nagas ficam logo após a ponta norte de {area:414}, ao sul de {zone:1439} ao longo da costa. A seta não consegue encontrar o caminho até elas, então leva você primeiro à beira da água: de lá, nade para o norte até as ruínas.",
+
+	-- Step 13: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
 	["The {item:6995}"] = "A {item:6995}",
 	-- {area:2797} Blackfathom Deeps · {zone:1440} Ashenvale · {item:6995} Corrupted Kor Gem · {spell:122} Frost Nova
 	["The Blackfathom naga in the flooded passages around the {area:2797} entrance, on {zone:1440}'s north-west coast, drop the {item:6995}: Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24), one in two. You do not need to enter the instance. All are elite: grouping up is encouraged; players solo them one at a time, with difficulty. They heal themselves, run for help at low health, satyrs stand near some, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "Os nagas das Profundezas Negras nas passagens alagadas em volta da entrada de {area:2797}, na costa noroeste de {zone:1440}, deixam cair a {item:6995}: Sacerdotisas da Maré (nível 20-21), Oráculos (21-22) e Bruxas do Mar (23-24), uma vez em duas. Não precisa entrar na instância. Todos são elite: vale ir em grupo; a galera encara um de cada vez sozinha, com dificuldade. Eles se curam, fogem atrás de ajuda com pouca vida, há sátiros perto de alguns, e as Bruxas do Mar soltam {spell:122} de perto. Há quem relate que não cai nada em grupo de raide.",
 
-	-- Step 13: The Purified Kor Gem
+	-- Step 14: The Purified Kor Gem
 	-- {item:7083} Purified Kor Gem
 	["The {item:7083}"] = "A {item:7083}",
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["Back to {npc:3649} in {area:442}: he purifies the gem."] = "De volta a {npc:3649} em {area:442}: ele purifica a gema.",
 
-	-- Step 14: Verigan's Fist
+	-- Step 15: Verigan's Fist
 	-- {npc:6181} Jordan Stilwell · {zone:1455} Ironforge
 	["Bring the four parts to {npc:6181} outside {zone:1455}. Accept his last quest and wait by him while he forges the mace at his anvil."] = "Leve as quatro partes a {npc:6181}, do lado de fora de {zone:1455}. Aceite a última missão dele e espere ao lado enquanto ele forja a maça na bigorna.",
 

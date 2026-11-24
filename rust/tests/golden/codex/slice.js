@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 // Cuts the codex golden's client tables (not run in CI):
 //   node slice.js <data/sources> <out input dir>
-// Forever 1.60.1.70450 (the 16 tables `codex build` reads) and Classic Era 1.15.9.70003 (Item,
+// Forever 1.60.1.70450 (the 17 tables `codex build` reads) and Classic Era 1.15.9.70003 (Item,
 // ItemSparse, ItemEffect, Map) client tables, wago.tools CSV rows verbatim:
 // - AreaTable: top-level areas plus the slice zones' sub-areas;
 // - whole: SkillLine, Map, DungeonEncounter, LFGDungeons, MapDifficulty, ContentTuning,
-//   Mount, BattlePetSpecies (small);
+//   Mount, BattlePetSpecies, GroupFinderActivity (small);
 // - SkillLineAbility: the rows of SKILLS (First Aid, riding, companions);
 // - the items: the world slice's items.json and the items that teach the first MOUNTS mounts and PETS pets
 //   or SKILLS' spells; Item, ItemSparse, ItemEffect and ItemXItemEffect rows of those items;
@@ -20,9 +20,9 @@ const MOUNTS = 10;
 const PETS = 10;
 const ERA = '1.15.9.70003';
 const FOREVER = '1.60.1.70450';
-const FOREVER_TABLES = ['Item', 'ItemSparse', 'ItemEffect', 'ItemXItemEffect', 'SpellEffect', 'SpellName', 'SkillLine', 'SkillLineAbility', 'Map', 'AreaTable', 'DungeonEncounter', 'LFGDungeons', 'MapDifficulty', 'ContentTuning', 'Mount', 'BattlePetSpecies'];
+const FOREVER_TABLES = ['Item', 'ItemSparse', 'ItemEffect', 'ItemXItemEffect', 'SpellEffect', 'SpellName', 'SkillLine', 'SkillLineAbility', 'Map', 'AreaTable', 'DungeonEncounter', 'LFGDungeons', 'MapDifficulty', 'ContentTuning', 'Mount', 'BattlePetSpecies', 'GroupFinderActivity'];
 const ERA_TABLES = ['Item', 'ItemSparse', 'ItemEffect', 'Map'];
-const WHOLE = new Set(['SkillLine', 'Map', 'DungeonEncounter', 'LFGDungeons', 'MapDifficulty', 'ContentTuning', 'Mount', 'BattlePetSpecies']);
+const WHOLE = new Set(['SkillLine', 'Map', 'DungeonEncounter', 'LFGDungeons', 'MapDifficulty', 'ContentTuning', 'Mount', 'BattlePetSpecies', 'GroupFinderActivity']);
 
 const [src, out] = process.argv.slice(2);
 if (!src || !out) throw new Error('usage: slice.js <data/sources> <out input dir>');

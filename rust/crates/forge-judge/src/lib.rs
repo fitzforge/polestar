@@ -9,9 +9,12 @@
 //! - [`report`]: the judge report and the dashboard's route status; [`feedback`]: player reports into route overrides.
 //! - [`check`]: `forge judge check`, the route gate on a build's written guides (one line per broken rule).
 //! - [`cases`]: the sim cases (tests/fixtures/sim/cases/reported.json) property evaluator.
+//! - [`doors`]: `forge judge doors`, the dungeon runs in the leveling guides against their floors (the walk to the
+//!   door at the run's gate, and the level model's placements).
 
 pub mod cases;
 pub mod check;
+pub mod doors;
 pub mod engine;
 pub mod feedback;
 pub mod guidetext;

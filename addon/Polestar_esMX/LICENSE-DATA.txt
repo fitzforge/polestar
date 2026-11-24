@@ -9,23 +9,23 @@ first one with a name for an id winning.
 
 World of Warcraft client tables, via wago.tools
 -----------------------------------------------
-Build: 1.60.1.70425, World of Warcraft: Forever (wow_classic_beta)
-Build: 1.15.9.70003, Classic Era (wow_classic_era), for the items Forever's table lacks
-Table: https://wago.tools/db2/DungeonEncounter/csv?build=1.60.1.70425&locale=esMX
-Table: https://wago.tools/db2/Faction/csv?build=1.60.1.70425&locale=esMX
-Table: https://wago.tools/db2/ItemSparse/csv?build=1.15.9.70003&locale=esMX
-Table: https://wago.tools/db2/ItemSparse/csv?build=1.60.1.70425&locale=esMX
-Table: https://wago.tools/db2/Map/csv?build=1.60.1.70425&locale=esMX
-Table: https://wago.tools/db2/TaxiNodes/csv?build=1.60.1.70425&locale=esMX
+Build: 1.60.1.70532, World of Warcraft: Forever (wow_classic_beta)
+Build: 1.15.9.70576, Classic Era (wow_classic_era), for the items Forever's table lacks
+Table: https://wago.tools/db2/DungeonEncounter/csv?build=1.60.1.70532&locale=esMX
+Table: https://wago.tools/db2/Faction/csv?build=1.60.1.70532&locale=esMX
+Table: https://wago.tools/db2/ItemSparse/csv?build=1.15.9.70576&locale=esMX
+Table: https://wago.tools/db2/ItemSparse/csv?build=1.60.1.70532&locale=esMX
+Table: https://wago.tools/db2/Map/csv?build=1.60.1.70532&locale=esMX
+Table: https://wago.tools/db2/TaxiNodes/csv?build=1.60.1.70532&locale=esMX
 The client's own strings: names only.
-Names taken: 21276 items, 22 instances, 224 encounters, 68 factions, 55 flight points.
+Names taken: 23216 items, 22 instances, 224 encounters, 68 factions, 61 flight points.
 
 The web quest database, World of Warcraft: Forever pages
 --------------------------------------------------------
 Pages: the Spanish (Latin America) list pages and tooltips
 Read: 2026-10-16 to 2026-10-16
 Public web pages; the game's names only (facts), credited in THIRD_PARTY.md.
-Names taken: 3897 quests, 3767 NPCs, 886 objects, 485 items, 26 quest objectives.
+Names taken: 257 quests, 353 NPCs, 83 objects, 485 items, 26 quest objectives.
 
 DingDB, the game database of Ding! by Yendi (@moust4ki)
 -------------------------------------------------------
@@ -35,7 +35,7 @@ File: Ding/DB/CREDITS.md (sha256 d32ce3d857766e88d0afd94d39eb0d4e3317ccc5538a467
 File: Ding/DB/Locales/esMX.lua (sha256 380da93d12f47ede6b8e248a8d8096431de6a8865e9cd5cf8ff775cb78a90ceb)
 License: GPL-3.0 (Copyright Yendi), used in Polestar with his permission
 (THIRD_PARTY.md in the Polestar repository).
-Names taken: 522 quests, 2792 NPCs, 205 objects, 11 items.
+Names taken: 4161 quests, 6237 NPCs, 1045 objects, 11 items.
 DingDB's base data is generated from Questie and QuestieDB: see CREDITS.md
 beside this file.
 

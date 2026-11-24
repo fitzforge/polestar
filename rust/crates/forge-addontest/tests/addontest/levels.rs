@@ -3,9 +3,11 @@
 //! (tools/lib/game/xp.js); and a guide's turn-ins for this character, their XP from the Codex.
 //! ui-dungeons.rs and ui-picker-levels.rs cover the chips and their tooltip.
 
+use forge_addontest::run::{addons_dir, join};
 use forge_addontest::{emitted, lua_value, truthy, Addon, RunAddon};
 use forge_guide::xp::{mob_xp, quest_xp_share, LEVEL_XP, MAX_LEVEL};
 use serde_json::{json, Value};
+use std::path::{Path, PathBuf};
 
 const FILES: &[&str] = &["Core/Core.xml"];
 
@@ -72,7 +74,8 @@ fn quests_in_turn_in_order_carry_the_character_over_a_level_the_client_s_xp_to_l
 
 #[test]
 fn a_quest_far_below_gives_its_share_at_the_level_reached_when_it_is_turned_in() {
-	// At 26 the level 17 quest is 9 below: 20%. The level 20 one is 6 below: 80%.
+	// At 26 the level 17 quest is 9 below: half, Forever's floor from 8 below (players' recordings,
+	// forge-sim's xp::SHARE test). The level 20 one is 6 below: 80%.
 	let s = run(
 		json!({ "level": 26, "xp": 0, "class": "MAGE", "faction": "Alliance" }),
 		json!([
@@ -82,7 +85,7 @@ fn a_quest_far_below_gives_its_share_at_the_level_reached_when_it_is_turned_in()
 		]),
 		&[],
 	);
-	assert_eq!(s["xp"], 200 + 800 + 1000);
+	assert_eq!(s["xp"], 500 + 800 + 1000);
 	assert_eq!(s["reduced"], 2);
 	assert_eq!(s["quests"], 3);
 	// The order counts: a level gained on the way reduces what comes after.
@@ -112,6 +115,37 @@ fn done_quests_another_class_s_and_those_with_no_xp_known_are_left_out_and_count
 	);
 	assert_eq!(s["xp"], 1000);
 	assert_eq!(json!([s["quests"], s["done"], s["other"], s["unknown"]]), json!([1, 1, 1, 1]));
+}
+
+// A quest the character may not take by class or race (Dungeons.QuestFor's verdict, which reads the Codex
+// masks the page greys it out by) is left out like another class's, not counted in the dungeon's XP.
+#[test]
+fn a_blocked_quest_is_left_out_like_another_class_s() {
+	let s = run(
+		json!({ "level": 20, "xp": 0, "class": "DRUID", "faction": "Horde" }),
+		json!([
+			{ "id": 1, "level": 20, "xp": 1000 },
+			{ "id": 2, "level": 20, "xp": 1000, "blocked": true }
+		]),
+		&[],
+	);
+	assert_eq!(s["xp"], 1000);
+	assert_eq!(json!([s["quests"], s["other"]]), json!([1, 1]));
+}
+
+#[test]
+fn quests_named_a_group_are_summed_per_group_with_the_highest_min_level() {
+	let s = run(
+		json!({ "level": 20, "xp": 0, "class": "DRUID", "faction": "Horde" }),
+		json!([
+			{ "id": 1, "level": 20, "xp": 1000, "group": "ready" },
+			{ "id": 2, "level": 22, "xp": 700, "group": "level", "minLevel": 21 },
+			{ "id": 3, "level": 23, "xp": 800, "group": "level", "minLevel": 22 },
+			{ "id": 4, "level": 20, "xp": null, "group": "ready" }
+		]),
+		&[],
+	);
+	assert_eq!(s["groups"], json!({ "ready": { "n": 1, "xp": 1000 }, "level": { "n": 2, "xp": 1500, "need": 22 } }));
 }
 
 #[test]
@@ -253,6 +287,117 @@ emit({ below = s.below, from = s.from.level, now = s.now.level })"#,
 	assert_eq!(low, json!({ "below": 10, "from": 10, "now": 7 }), "below the guide's minLevel: from there");
 }
 
+// #1697: Surgical Spidersilk (12 for Silky Sutures) had one dropper at 0.01% (a quest's loot counted over every
+// kill of the mob) beside the Plains Creepers, no chance known, that drop it on almost every kill: "120,188 kills
+// the guide asks for", +12 levels on a 29-33 guide. A chance under 5% beside a dropper with none known counts as no
+// chance known (no kills, as loot with no drop chance at all); alone, or with every dropper's chance known, it still
+// counts; the goal's own mob's chance always does.
+const STRAYS: &str = r#"
+local guide = { id = "silk", minLevel = 30, steps = {
+	{ goals = { { t = "collect", quest = 30, oi = 1, item = 600, count = 12 } } },
+	{ goals = { { t = "collect", quest = 31, oi = 1, item = 601, count = 1 } } },
+	{ goals = { { t = "collect", quest = 32, oi = 1, item = 602, count = 2 } } },
+	{ goals = { { t = "collect", quest = 33, oi = 1, item = 603, count = 1, fromKind = "npc", fromId = 201 } } },
+	{ goals = { { t = "collect", quest = 34, oi = 1, item = 604, count = 4 } } },
+} }
+Polestar.Guides.Get = function(id) return id == "silk" and guide or nil end
+local NPCS = { [200] = { level = 30 }, [201] = { level = 30 }, [202] = { level = 30 } }
+local ITEMS = {
+	[600] = { sources = { { type = "drop", npc = 200, chance = 0.01 }, { type = "drop", npc = 201 } } },
+	[601] = { sources = { { type = "drop", npc = 200, chance = 2 } } },
+	[602] = { sources = { { type = "drop", npc = 200, chance = 4 }, { type = "drop", npc = 201, chance = 1 } } },
+	[603] = { sources = { { type = "drop", npc = 202 }, { type = "drop", npc = 201, chance = 2 } } },
+	[604] = { sources = { { type = "drop", npc = 202 }, { type = "drop", npc = 200, chance = 40 } } },
+}
+Polestar.Codex = { IsLoaded = function() return true end, Quest = function() return nil end,
+	Npc = function(id) return NPCS[id] end, Item = function(id) return ITEMS[id] end }
+"#;
+
+#[test]
+fn a_stray_drop_chance_beside_a_dropper_with_none_known_is_not_estimated_1697() {
+	let s = lua(&[STRAYS, r#"emit(Lv.ForGuide("silk", { level = 30, xp = 0, class = "MAGE", race = "Orc", faction = "Horde" }))"#].join("\n")).remove(0);
+	// 600: 0.01% beside 201 (none known): no kills, not 120,000. 601: 1 / 2% = 50, the only dropper. 602: 2 / 4% =
+	// 50, every chance known. 603: 1 / 2% = 50, its own mob. 604: 4 / 40% = 10, not a stray.
+	assert_eq!(s["killsUnknown"], 0);
+	assert_eq!(s["kills"], 50 + 50 + 50 + 10);
+}
+
+// Badlands' Lotwil takes a Frost Oil only from a player who carries one: the step shows only while the bags hold it
+// (`when has`), and nothing is farmed for it. Its one dropper at 0.02% made it "5,000 kills" and the 38-39 guide
+// "ends at 50". A step's `when has` covers that many of a loot goal's items; the rest still count, and a `!has`
+// covers none.
+#[test]
+fn a_loot_goal_for_items_the_step_s_when_has_needs_in_the_bags_asks_no_kills_for_them() {
+	let s = lua(&[
+		r#"
+local guide = { id = "carry", minLevel = 38, steps = {
+	{ when = { { k = "has", n = 1, item = 700 } }, goals = { { t = "collect", quest = 40, oi = 1, item = 700, count = 1 } } },
+	{ when = { { k = "has", n = 3, item = 701 } }, goals = { { t = "collect", quest = 41, oi = 1, item = 701, count = 5 } } },
+	{ when = { { k = "has", n = 1, item = 702, neg = true } }, goals = { { t = "collect", quest = 42, oi = 1, item = 702, count = 1 } } },
+	{ when = { { k = "has", n = 1, item = 700 } }, goals = { { t = "collect", quest = 43, oi = 1, item = 703, count = 2 } } },
+} }
+Polestar.Guides.Get = function(id) return id == "carry" and guide or nil end
+local NPCS = { [200] = { level = 38 } }
+local ITEMS = {
+	[700] = { sources = { { type = "drop", npc = 200, chance = 0.02 } } },
+	[701] = { sources = { { type = "drop", npc = 200, chance = 50 } } },
+	[702] = { sources = { { type = "drop", npc = 200, chance = 50 } } },
+	[703] = { sources = { { type = "drop", npc = 200, chance = 20 } } },
+}
+Polestar.Codex = { IsLoaded = function() return true end, Quest = function() return nil end,
+	Npc = function(id) return NPCS[id] end, Item = function(id) return ITEMS[id] end }
+"#,
+		r#"emit(Lv.ForGuide("carry", { level = 38, xp = 0, class = "WARRIOR", race = "Orc", faction = "Horde" }))"#,
+	]
+	.join("\n"))
+	.remove(0);
+	// 700: carried, none (not 5,000). 701: 3 of 5 carried, 2 / 50% = 4. 702: `!has`, 1 / 50% = 2. 703: another
+	// item than the one carried, 2 / 20% = 10.
+	assert_eq!(s["killsUnknown"], 0);
+	assert_eq!(s["kills"], 4 + 2 + 10);
+}
+
+// A step change moves every span's start (the pace line, While-here's planned levels): the
+// steps' Codex records are read once per guide and character, and a span from any start sums the same as one
+// worked out afresh. A quest done since still counts when the span is asked again.
+#[test]
+fn spans_from_a_later_start_read_no_codex_record_again_and_sum_as_a_fresh_one() {
+	let out = lua(&[
+		KILLS,
+		r#"local reads = 0
+local npc, item = Polestar.Codex.Npc, Polestar.Codex.Item
+Polestar.Codex.Npc = function(id) reads = reads + 1; return npc(id) end
+Polestar.Codex.Item = function(id) reads = reads + 1; return item(id) end
+local p = { level = 10, xp = 0, class = "MAGE", race = "Human", faction = "Alliance" }
+local function sum(s) return { s.kills, s.killXP, s.killsUnknown, s.to.level, s.to.xp } end
+local first = sum(Lv.ForGuide("hunt", p, 1, nil))
+local r1 = reads
+local later = { sum(Lv.ForGuide("hunt", p, 2, nil)), sum(Lv.ForGuide("hunt", p, 3, 5)), sum(Lv.ForGuide("hunt", p, 1, 3)) }
+local r2 = reads - r1
+-- Quest 20 done now: the spans go (QUEST_TURNED_IN), the rows stay; and the same spans from nothing.
+Polestar.Compat.IsQuestCompleted = function(id) return id == 21 or id == 20 end
+stub.fire("QUEST_TURNED_IN", 20)
+local again = sum(Lv.ForGuide("hunt", p, 1, nil))
+local r3 = reads - r1 - r2
+Polestar.Fire("CODEX_LOADED")
+local fresh = { sum(Lv.ForGuide("hunt", p, 1, nil)) }
+Polestar.Compat.IsQuestCompleted = function(id) return id == 21 end
+Polestar.Fire("CODEX_LOADED")
+for _, span in ipairs({ { 2 }, { 3, 5 }, { 1, 3 } }) do fresh[#fresh + 1] = sum(Lv.ForGuide("hunt", p, span[1], span[2])) end
+emit({ first = first, reads = { r1, r2, r3 }, later = later, again = again, fresh = fresh })"#,
+	]
+	.join("\n"))
+	.remove(0);
+	assert!(out["reads"][0].as_i64().unwrap() > 0, "the first span reads the records: {out}");
+	assert_eq!(out["reads"][1], 0, "later spans read none again: {out}");
+	assert_eq!(out["reads"][2], 0, "a hand-in drops the sums, not the records: {out}");
+	assert_eq!(out["fresh"][0], out["again"], "quest 20 done: its kills drop out, as in a fresh span");
+	assert_eq!(out["fresh"][1], out["later"][0]);
+	assert_eq!(out["fresh"][2], out["later"][1]);
+	assert_eq!(out["fresh"][3], out["later"][2]);
+	assert_ne!(out["again"], out["first"], "the hand-in changed the sums");
+}
+
 #[test]
 fn pace_the_route_from_the_live_step_to_the_next_level_target_says_how_many_bars_short_or_on_pace() {
 	let out = lua(&[
@@ -305,14 +450,17 @@ local p = { level = 19, xp = 14550, xpMax = 19400, class = "WARRIOR", race = "Hu
 "#;
 
 // The guide window asks for the pace line on every PLAYER_XP_UPDATE. The route's quests and kills only change with
-// a turn-in, a level, or the guide itself: a kill's XP reruns the sums, not the scan of every step left.
+// a turn-in, a level, or the guide itself: a kill's XP reruns the sums, not the scan of every step left. A turn-in or
+// a level sums the route again from the records already read (each step's are kept until the guide or the Codex
+// changes), and says what a fresh read says.
 #[test]
-fn pace_a_kill_s_xp_reruns_the_sums_without_scanning_the_route_again_a_turn_in_or_a_level_does_scan() {
+fn pace_a_kill_s_xp_reruns_the_sums_a_turn_in_or_a_level_sums_again_from_the_records_read_once() {
 	let out = lua(&[
 		RIDGE,
 		r#"local reads = 0
 local quest = Polestar.Codex.Quest
 Polestar.Codex.Quest = function(id) reads = reads + 1 return quest(id) end
+local function line(s) return { s.reach, s.short, s.xp } end
 local first = Lv.Pace(p)
 local scan = reads
 p.xp = p.xp + 300
@@ -320,21 +468,30 @@ local kill0 = reads
 local second = Lv.Pace(p)
 local kill = reads - kill0
 local before = reads
+done[11] = true
 stub.fire("QUEST_TURNED_IN", 11, 0, 0)
-Lv.Pace(p)
+local afterTurnin = line(Lv.Pace(p))
 local turnin = reads - before
 before = reads
+p.level, p.xp, p.xpMax = 20, 100, 20800
 stub.fire("PLAYER_LEVEL_UP", 20)
-Lv.Pace(p)
-emit({ scan = scan, kill = kill, turnin = turnin, levelup = reads - before, moved = second.reach > first.reach })"#,
+local afterLevel = line(Lv.Pace(p))
+local levelup = reads - before
+Polestar.Fire("CODEX_LOADED")
+local fresh = line(Lv.Pace(p))
+emit({ scan = scan, kill = kill, turnin = turnin, levelup = levelup, moved = second.reach > first.reach,
+	afterLevel = afterLevel, fresh = fresh, freshReads = reads - before - levelup, turnedIn = afterTurnin[1] ~= line(second)[1] })"#,
 	]
 	.join("\n"))
 	.remove(0);
 	assert!(out["scan"].as_i64().unwrap() > 0, "the first pace line reads the route's quests");
 	assert_eq!(out["kill"], 0, "a kill's XP reads none of them again");
 	assert_eq!(out["moved"], true, "and the line still moves with the XP");
-	assert!(out["turnin"].as_i64().unwrap() > 0, "a turn-in reads the route again");
-	assert!(out["levelup"].as_i64().unwrap() > 0, "so does a level");
+	assert_eq!(out["turnin"], 0, "a turn-in sums again from the records read: {out}");
+	assert_eq!(out["turnedIn"], true, "and the line follows the hand-in: {out}");
+	assert_eq!(out["levelup"], 0, "so does a level: {out}");
+	assert!(out["freshReads"].as_i64().unwrap() > 0, "a Codex change reads them again");
+	assert_eq!(out["afterLevel"], out["fresh"], "what the kept records say is what a fresh read says");
 }
 
 /// Levels 19 to `to`, from 19,050 of 19,400 into 19: what is left of 19, then each whole level's XP.
@@ -350,7 +507,7 @@ fn pace_on_target_for_a_level_goal_ahead_nothing_hard_before_it() {
 	assert_eq!(out["bars"], 0, "on pace");
 	assert_eq!(out["short"], 0);
 	assert_eq!(out["xp"], 0);
-	assert!(out["hard"].is_null(), "quests at 20 and 21 before step 4 are not hard for a level 19");
+	assert!(out["hard"].is_null(), "the pace line names no quest (#3438)");
 	assert!((out["reach"].as_f64().unwrap() - (19.0 + 19050.0 / 19400.0)).abs() < 1e-9);
 }
 
@@ -368,7 +525,7 @@ fn pace_behind_with_a_level_goal_coming_says_how_far_and_that_its_step_grinds_it
 }
 
 #[test]
-fn pace_behind_with_no_grind_step_measures_against_the_guide_s_end_level_and_names_the_quest_that_will_be_too_hard() {
+fn pace_behind_with_no_grind_step_measures_against_the_guide_s_end_level() {
 	let out = lua(&[RIDGE, "emit(Lv.Pace(p))"].join("\n")).remove(0);
 	// No `level` goal: the guide's own end, level 24 (its `levels` top) at its last step. All three quests'
 	// 7,500 XP: 14,550 + 7,500 = 22,050, over the 19,400 of 19 into 20 by 2,650 of 23,200.
@@ -379,28 +536,8 @@ fn pace_behind_with_no_grind_step_measures_against_the_guide_s_end_level_and_nam
 	assert!((out["reach"].as_f64().unwrap() - reach).abs() < 1e-9);
 	assert!((out["short"].as_f64().unwrap() - (24.0 - reach)).abs() < 1e-9);
 	assert_eq!(out["xp"], (23200 - 2650) + LEVEL_XP[21] as i64 + LEVEL_XP[22] as i64 + LEVEL_XP[23] as i64);
-	// Step 4's level 25 escort: the route has you at 19.98 there, 6 levels under it; 23 makes it doable.
-	let hard = &out["hard"];
-	assert_eq!(hard["quest"], 25);
-	assert_eq!(hard["title"], "Missing In Action");
-	assert_eq!(hard["level"], 25);
-	assert_eq!(hard["step"], 4);
-	assert_eq!(hard["need"], 23);
-	assert_eq!(hard["xp"], xp_from_19_050(23));
-	assert!((hard["reach"].as_f64().unwrap() - (19.0 + 19050.0 / 19400.0)).abs() < 1e-9);
-	// Taken earlier (an accept alone at step 2): the line still points at step 4, which does it; step 2 says no
-	// quest level (Fitz, 0.3.6: taking a quest above your level early is normal).
-	let early = lua(&[
-		RIDGE,
-		r#"table.insert(guide.steps[2].goals, { t = "accept", quest = 25, qlvl = 25, title = "Missing In Action" })
-local s = Lv.Pace(p)
-local h = Lv.StepHint(2, p)
-emit({ step = s.hard.step, hint = h and h.level or false })"#,
-	]
-	.join("\n"))
-	.remove(0);
-	assert_eq!(early, json!({ "step": 4, "hint": false }));
-	// Done already: nothing hard is left, the gap to 24 still shows.
+	// Step 4's level 25 escort, 6 over where the route has you there: the line names no quest (#3438), done or not.
+	assert!(out["hard"].is_null(), "{out}");
 	let left = lua(&[RIDGE, "done[25] = true\nlocal s = Lv.Pace(p)\nemit({ hard = s.hard == nil, kind = s.kind, bars = s.bars })"].join("\n")).remove(0);
 	assert_eq!(left, json!({ "hard": true, "kind": "end", "bars": 81 }), "19.98 to 24: 4.02 levels, 81 bars");
 	// Not a leveling guide, no `level` goal ahead: no target, no line.
@@ -408,51 +545,22 @@ emit({ step = s.hard.step, hint = h and h.level or false })"#,
 	assert_eq!(other, true);
 }
 
+// #3438 (Foomix, 0.4.2): "Level 38 quest: you're 35.7" on a normal Stranglethorn step read as a warning, and the pace
+// line's "On pace, but <quest> (38) at step 13 is hard" said the same. Polestar doesn't tell players what level a
+// quest is: no step line (Levels.StepHint is gone) and no hard quest on the pace line, even for a level 25 escort a
+// level 19 works on (step 4) or a delivery (#1333's Calling in the Reserves).
 #[test]
-fn a_step_whose_quest_is_three_or_more_levels_over_the_character_says_so() {
-	let out = lua(&[
-		RIDGE,
-		r#"emit({ escort = Lv.StepHint(4, p), two = Lv.StepHint(2, p) == nil, handIn = Lv.StepHint(5, p) == nil })
-done[25] = true
-emit(Lv.StepHint(4, p) == nil)"#,
-	]
-	.join("\n"));
-	assert_eq!(out[0]["escort"]["level"], 25);
-	assert_eq!(out[0]["escort"]["quest"], 25);
-	assert_eq!(out[0]["escort"]["title"], "Missing In Action");
-	assert_eq!(out[0]["escort"]["you"], 19.75);
-	assert_eq!(out[0]["two"], true, "a level 21 quest is 2 over a level 19: no hint");
-	assert_eq!(out[0]["handIn"], true, "handing a quest in is never hard");
-	assert_eq!(out[1], true, "a done quest: no hint");
-}
-
-// #1333: Calling in the Reserves (level 28) is a delivery: taken at Sun Rock, handed in at the Great Lift. Its step
-// said "Level 28 quest" in red to everyone. A quest with no work (no objective goal in the guide, none in the
-// Codex) never counts as hard; one whose work the Codex lists (done in another guide) does for the pace line,
-// though its accept-only step says no quest level (Fitz, 0.3.6).
-#[test]
-fn a_delivery_s_level_gives_no_hint_a_quest_with_work_elsewhere_still_does_1333() {
+fn no_step_says_a_quest_s_level_and_the_pace_line_names_no_hard_quest_3438() {
 	let out = lua(&[
 		RIDGE,
 		r#"table.insert(guide.steps[2].goals, { t = "accept", quest = 26, qlvl = 28, title = "Calling in the Reserves" })
 table.insert(guide.steps[5].goals, { t = "turnin", quest = 26 })
-table.insert(guide.steps[3].goals, { t = "accept", quest = 27, qlvl = 23, title = "Work Elsewhere" })
-CODEX[26] = { level = 28, xp = 1000, objectives = {} }
-CODEX[27] = { level = 23, xp = 1000, objectives = { { type = "monster", id = 1, count = 8 } } }
-local d, w = Lv.StepHint(2, p), Lv.StepHint(3, p)
-local pace = Lv.Pace(p).hard.quest
--- Its work on step 3 (as the Codex has it elsewhere): that step hints.
-table.insert(guide.steps[3].goals, { t = "kill", target = "Raider", count = 8, quest = 27, oi = 1 })
-local k = Lv.StepHint(3, p)
-emit({ delivery = d and d.quest or false, elsewhere = w and w.quest or false, work = k and k.quest or false, pace = pace })"#,
+local s = Lv.Pace(p)
+emit({ stepHint = Lv.StepHint ~= nil, hard = s.hard ~= nil, kind = s.kind })"#,
 	]
 	.join("\n"))
 	.remove(0);
-	assert_eq!(
-		out,
-		json!({ "delivery": false, "elsewhere": false, "work": 27, "pace": 25 }),
-		"no hint for the delivery or an accept; work on the quest hints; the pace line still points at the escort"
-	);
+	assert_eq!(out, json!({ "stepHint": false, "hard": false, "kind": "end" }));
 }
 
 #[test]
@@ -461,4 +569,78 @@ fn pace_at_or_past_the_guide_s_top_is_on_pace_and_reaches_beyond_it() {
 	// already has, so on pace; the route's XP takes it past 24, which the guide window shows (ui.rs).
 	let out = lua(&[RIDGE, "p.level, p.xp, p.xpMax = 24, 0, 30000\nlocal s = Lv.Pace(p)\nemit({ kind = s.kind, target = s.target, bars = s.bars, past = s.reach > 24 })"].join("\n")).remove(0);
 	assert_eq!(out, json!({ "kind": "end", "target": 24, "bars": 0, "past": true }));
+}
+
+/// The Codex: $POLESTAR_CODEX_DIR (a Polestar_Codex folder), else addon/Polestar_Codex (`forge data codex`).
+fn codex_dir() -> PathBuf {
+	std::env::var_os("POLESTAR_CODEX_DIR").map_or_else(|| addons_dir().join("Polestar_Codex"), PathBuf::from)
+}
+
+/// A pack folder's TOC files, as absolute paths.
+fn toc_files(dir: &Path, toc: &str) -> Vec<String> {
+	let Ok(text) = std::fs::read_to_string(dir.join(toc)) else { return Vec::new() };
+	text.lines().map(str::trim).filter(|l| !l.is_empty() && !l.starts_with('#')).map(|f| join(dir, f).to_string_lossy().into_owned()).collect()
+}
+
+// Every leveling guide the addon ships, on the real Codex, for a character of its faction (its first race when it
+// names races) at its start level: the "If you finish this guide" card's kills and the level it ends at.
+const SHIPPED: &str = r#"
+assert(loadfile(@CODEX_LUA@))("Polestar", Polestar)
+for _, f in ipairs(@CODEX@) do assert(loadfile(f))("Polestar_Codex", {}) end
+local guides, order = {}, {}
+Polestar.RegisterGuide = function(g)
+	if not guides[g.id] then order[#order + 1] = g.id end
+	guides[g.id] = g
+	return true
+end
+Polestar.RetireGuides = function() end
+for _, f in ipairs(@GUIDES@) do assert(loadfile(f))("Polestar_Guides", {}) end
+Polestar.Guides.Get = function(id) return guides[id] end
+Polestar.Compat.IsQuestCompleted = function() return false end
+local out = {}
+for _, id in ipairs(order) do
+	local g = guides[id]
+	if g.category == "Leveling" and g.minLevel and g.maxLevel then
+		local faction = g.faction or "Horde"
+		local race = type(g.races) == "table" and g.races[1] or (faction == "Alliance" and "Human" or "Orc")
+		local s = Lv.ForGuide(id, { level = g.minLevel, xp = 0, class = "WARRIOR", race = race, faction = faction })
+		if s then
+			out[#out + 1] = { id = id, top = g.maxLevel, kills = s.kills, to = s.to.level + (s.to.need > 0 and s.to.xp / s.to.need or 0) }
+		end
+	end
+end
+emit({ loaded = Polestar.Codex.IsLoaded(), guides = out })
+"#;
+
+/// #1697: 120,188 kills and +12 levels on the 29-33 Hillsbrad guide, from one stray drop chance. No leveling guide
+/// may ask for more than 2,000 kills or end more than 3 levels past its top. Skips without a Codex pack.
+#[test]
+fn every_shipped_leveling_guide_s_estimate_stays_sane_on_the_real_codex_1697() {
+	let dir = codex_dir();
+	if !dir.join("Polestar_Codex.toc").exists() {
+		eprintln!("skipped: no Codex pack at {} (forge data codex, or POLESTAR_CODEX_DIR)", dir.display());
+		return;
+	}
+	let mut guides = Vec::new();
+	for pack in std::fs::read_dir(addons_dir()).unwrap().flatten() {
+		let name = pack.file_name().to_string_lossy().into_owned();
+		if name.starts_with("Polestar_Guides") {
+			guides.extend(toc_files(&pack.path(), &format!("{name}.toc")).into_iter().filter(|f| f.ends_with("Guides.lua")));
+		}
+	}
+	guides.sort();
+	let script = SHIPPED
+		.replace("@CODEX_LUA@", &lua_value(&json!(addons_dir().join("Polestar/Lookup/Codex.lua").to_string_lossy())))
+		.replace("@CODEX@", &lua_value(&json!(toc_files(&dir, "Polestar_Codex.toc"))))
+		.replace("@GUIDES@", &lua_value(&json!(guides)));
+	let out = lua(&script).remove(0);
+	assert_eq!(out["loaded"], true, "the Codex pack at {} loads", dir.display());
+	let list = out["guides"].as_array().cloned().unwrap_or_default();
+	assert!(list.len() > 40, "every leveling guide estimated: {}", list.len());
+	let bad: Vec<String> = list
+		.iter()
+		.filter(|g| g["kills"].as_f64().unwrap_or(0.0) > 2000.0 || g["to"].as_f64().unwrap_or(0.0) > g["top"].as_f64().unwrap_or(0.0) + 3.0)
+		.map(|g| format!("{}: {} kills, ends at {:.1} (top {})", g["id"].as_str().unwrap_or(""), g["kills"], g["to"].as_f64().unwrap_or(0.0), g["top"]))
+		.collect();
+	assert!(bad.is_empty(), "estimates past any sense:\n{}", bad.join("\n"));
 }

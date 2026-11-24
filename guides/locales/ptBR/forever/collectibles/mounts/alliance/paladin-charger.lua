@@ -11,8 +11,8 @@ return {
 	["Your epic mount at 60, summoned at will: the faster step up from the Warhorse."] = "Sua montaria épica no nível 60, evocada quando quiser: o passo mais rápido depois do Cavalo de Guerra.",
 
 	-- Step 1: Lord Grayson Shadowbreaker (Ironforge)
-	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward (no name in this language: may be words) · {quest:7638} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
-	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "No nível 60, {npc:5149} na {object:32362} manda você a {quest:7638} na Catedral da Luz de {zone:1453}.",
+	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward (no name in this language: may be words) · {quest:7670} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
+	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7670} in {zone:1453}'s Cathedral of Light."] = "No nível 60, {npc:5149} na {object:32362} manda você a {quest:7670} na Catedral da Luz de {zone:1453}.",
 
 	-- Step 2: Lord Grayson Shadowbreaker
 	-- {spell:23214} Summon Charger · {area:2279} Stratholme · {area:2057} Scholomance · {item:14047} Runecloth · {item:8836} Arthas' Tears · {npc:6171} Duthorian Rall
@@ -119,6 +119,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: the Auction House is the usual source."] = "Um {item:12800} vem de veios de tório, um {item:18335} dos elites das {zone:1422}, ambos raramente: a Casa de Leilões é a fonte habitual.",
 	-- ["Arcanite Bars: the Auction House"] = "Barras de Arcanita: a Casa de Leilões",
+	-- ["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "No nível 60, {npc:5149} na {object:32362} manda você a {quest:7638} na Catedral da Luz de {zone:1453}.",
 	-- ["Bring 150 gold for {npc:1416} along with the materials."] = "Leve 150 de ouro para {npc:1416} junto com os materiais.",
 	-- ["Supply Crates, inside"] = "Caixotes de Suprimentos, lá dentro",
 	-- ["Terrordale Spirits"] = "Espíritos da Várzea do Medo",

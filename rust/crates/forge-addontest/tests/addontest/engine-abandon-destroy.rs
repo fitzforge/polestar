@@ -82,8 +82,8 @@ fn an_abandon_goal_is_done_once_its_quest_is_out_of_the_log_and_the_accept_befor
 		"#,
 		..Default::default()
 	});
-	assert_eq!(out[0], json!({ "live": 2, "status": "current", "goals": ["active:Abandon “A Threat Within”", "active:Train at Llane Beshere"] }));
-	assert_eq!(out[1], json!({ "live": 2, "status": "current", "goals": ["done:Abandon “A Threat Within”", "active:Train at Llane Beshere"] }));
+	assert_eq!(out[0], json!({ "live": 2, "status": "current", "goals": ["active:Abandon “A Threat Within”", "active:Learn new spells from Llane Beshere"] }));
+	assert_eq!(out[1], json!({ "live": 2, "status": "current", "goals": ["done:Abandon “A Threat Within”", "active:Learn new spells from Llane Beshere"] }));
 	// Looking ahead past the abandon before taking the quest does not pass the accept.
 	let ahead =
 		run(Run { goals: r#"{ { t = "abandon", quest = 783, title = "A Threat Within" } }"#, on_quest: false, script: "E.Next(); E.Next(); flush(); emit(E.GetLiveStep())", ..Default::default() });
@@ -116,7 +116,7 @@ fn a_destroy_goal_is_done_once_the_item_is_out_of_the_bags_and_stays_done_for_it
 		"#,
 		..Default::default()
 	});
-	assert_eq!(out[0], json!({ "live": 2, "status": "current", "goals": ["active:Destroy Hearthstone", "active:Train at Llane Beshere"] }));
+	assert_eq!(out[0], json!({ "live": 2, "status": "current", "goals": ["active:Destroy Hearthstone", "active:Learn new spells from Llane Beshere"] }));
 	assert_eq!(out[1]["goals"][0], "done:Destroy Hearthstone");
 	assert_eq!(out[2]["goals"][0], "done:Destroy Hearthstone");
 }

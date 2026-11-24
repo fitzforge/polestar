@@ -132,7 +132,7 @@ return {
 	-- Step 22: Dirge Quikcleave's Chops
 	-- {npc:8125} Dirge Quikcleave
 	["{npc:8125}'s Chops"] = "{npc:8125} 的肉排",
-	-- {npc:8125} Dirge Quikcleave · {item:9061} Goblin Rocket Fuel · {item:8150} Deeprock Salt · {npc:11811} Narain Soothfancy · {item:18562} Elementium Ore · {item:21136} Arcanite Buoy · {object:180669} Swirling Maelstrom (no name in this language: may be words) · {zone:1447} Azshara · {area:1227} Bay of Storms · {npc:15571} Maws · {item:21137} Blue Scepter Shard
+	-- {npc:8125} Dirge Quikcleave · {item:9061} Goblin Rocket Fuel · {item:8150} Deeprock Salt · {npc:11811} Narain Soothfancy · {item:18562} Elementium Ore · {item:21136} Arcanite Buoy · {object:180669} Swirling Maelstrom · {zone:1447} Azshara · {area:1227} Bay of Storms · {npc:15571} Maws · {item:21137} Blue Scepter Shard
 	-- plural, as words: Arcanite Bars = {item:12360} Arcanite Bar · Azerothian Diamonds = {item:12800} Azerothian Diamond · Blue Sapphires = {item:12361} Blue Sapphire
 	["{npc:8125} wants 20 {item:9061} and 20 {item:8150} with the meat. {npc:11811} then wants 20 Arcanite Bars, 10 {item:18562}, 10 Azerothian Diamonds and 10 Blue Sapphires, and gives you an {item:21136}: placed at the {object:180669} in {zone:1447}'s {area:1227}, it calls up {npc:15571}, a level 63 boss for a raid. {npc:15571} drops the {item:21137} for one raider on the quest each kill."] = "{npc:8125} 要求在肉之外再交20份 {item:9061} 和20份 {item:8150}。随后 {npc:11811} 需要20块奥金锭、10份 {item:18562}、10颗艾泽拉斯钻石和10颗蓝宝石，并给你一个 {item:21136}：放在 {zone:1447} 的 {area:1227} 内的 {object:180669} 处，可召出63级团队首领 {npc:15571}。每次击杀 {npc:15571}，只会为一名接有任务的团队成员掉落 {item:21137}。",
 	-- {item:12360} Arcanite Bar
@@ -158,8 +158,8 @@ return {
 	["{npc:15624}: 25 (and 25 Cenarion Circle)"] = "{npc:15624}：25声望（另有25点塞纳里奥议会声望）",
 
 	-- Step 26: Keeper Remulos
-	-- {quest:8735} The Nightmare's Corruption · {zone:1440} Ashenvale · {zone:1444} Feralas · {zone:1425} Hinterlands · {npc:15625} Twilight Corrupter · {zone:1431} Duskwood
-	["{quest:8735} wants a fragment from each of the four Dragons of Nightmare portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "{quest:8735} 需要从四座梦魇之龙传送门各获得一块碎片：{zone:1440}、{zone:1444} 和 {zone:1425} 传送门处的精英龙人（各5%），以及 {zone:1431} 的 {npc:15625}。这是团队内容。",
+	-- {quest:8735} The Nightmare's Corruption · {npc:235289} Dragons of Nightmare · {zone:1440} Ashenvale · {zone:1444} Feralas · {zone:1425} Hinterlands · {npc:15625} Twilight Corrupter · {zone:1431} Duskwood
+	["{quest:8735} wants a fragment from each of the four {npc:235289} portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "{quest:8735} 需要从四座{npc:235289}传送门各获得一块碎片：{zone:1440}、{zone:1444} 和 {zone:1425} 传送门处的精英龙人（各5%），以及 {zone:1431} 的 {npc:15625}。这是团队内容。",
 	["10 (and 100 Cenarion Circle)"] = "10 点声望（另有 100 点塞纳里奥议会声望）",
 
 	-- Step 27: The Ashenvale portal
@@ -202,6 +202,8 @@ return {
 	["Neutral to Friendly is 3,000 reputation. Every trash mob of the {area:16076} (a 40-player raid behind the {area:2737}) gives 100, and the Twin Emperors 210 each, until 2,999 of 3,000 Neutral, one point short of Friendly; there they stop. Then hand in one saved {item:21230} (1,000, to {npc:15502}) or {item:21229} (500, to {npc:15503}) to tip you over. The shoulder and boot exchanges of the Temple's tier set need no standing: the token, two idols and ten scarabs to {npc:15502} (shoulders) or {npc:15503} (boots) pay 200 each. The {area:3454} (20 players) give a little from bosses: Kurinnaxx, Moam, Buru and Ayamiss 50 each, Rajaxx 34, Ossirian 100, to Exalted."] = "中立到友善需要3,000声望。{area:16076}（{area:2737}后方的40人团队副本）的每只普通怪提供100，双子皇帝各提供210，直到中立进度2,999/3,000，距离友善差一点时停止。此时交还一个留存的{item:21230}（1,000，交给{npc:15502}）或{item:21229}（500，交给{npc:15503}），即可跨过门槛。神殿套装的肩部和鞋子兑换没有声望等级要求：将兑换物、2个雕像和10个圣甲虫交给{npc:15502}（肩部）或{npc:15503}（鞋子），每次奖励200。{area:3454}（20人）的首领提供少量声望：库林纳克斯、莫阿姆、布鲁和阿亚米斯各50，拉贾克斯34，奥斯里安100，可一直到崇拜。",
 	-- {item:21229} Qiraji Lord's Insignia
 	["{item:21229}, Temple bosses"] = "{item:21229}，由神殿首领掉落",
+	-- {npc:15503} Kandrostrasz
+	["{npc:15503}: 500, handed in from his window"] = "{npc:15503}：500，在他的窗口中直接交还",
 
 	-- Step 35: The ring at Friendly
 	["The ring at Friendly"] = "友善时的戒指",

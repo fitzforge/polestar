@@ -206,8 +206,9 @@ fn a_trainer_close_by_line_but_far_by_the_route_planner_a_mountain_between_loses
 		run(Some(&on_guide("test/route", 10)), pre, "stub.advance(0.5); emit({ npc = DUE[1].npc })")["npc"].clone()
 	};
 	assert_eq!(pick(false), 3063);
-	// Harutt Thunderhorn, the next Mulgore trainer.
-	assert_eq!(pick(true), 3059);
+	// Torm Ragetotem in Thunder Bluff: Harutt Thunderhorn, the next by Mulgore's line, is Camp Narache's, whose
+	// training stops at 6 (#2477), and this character is 12.
+	assert_eq!(pick(true), 3041);
 }
 
 #[test]
@@ -442,6 +443,40 @@ fn train_class_is_done_when_the_class_trainer_lists_nothing_to_learn_and_waits_f
 	);
 }
 
+// #3608 (JAKEJ): "Sends me to the trainer when I have things to train. It's common, probably typical to skip
+// things": the guide's `train class` step stayed open while the trainer listed a new rank of a spell he knows and
+// skips. A new rank of a known spell (the spellbook holds one of that name) is nothing new; a new spell still is.
+#[test]
+fn train_class_is_done_when_the_trainer_lists_only_new_ranks_of_known_spells_3608() {
+	let play = |services: &str| {
+		let pre = format!(
+			r#"stub.world.level = 19
+			SERVICES = {services}
+			function GetNumTrainerServices() return #SERVICES end
+			function GetTrainerServiceInfo(i) local s = SERVICES[i] if s then return s[1], s[2] end end
+			C_Spell = C_Spell or {{}}
+			C_Spell.GetSpellName = function(id) return id == 78 and "Heroic Strike" or nil end
+			C_SpellBook.GetNumSpellBookSkillLines = function() return 1 end
+			C_SpellBook.GetSpellBookSkillLineInfo = function() return {{ itemIndexOffset = 0, numSpellBookItems = 1 }} end
+			C_SpellBook.GetSpellBookItemInfo = function(k) return k == 1 and {{ spellID = 78, itemType = 1 }} or nil end"#
+		);
+		run(
+			None,
+			&pre,
+			&format!(
+				r#"{AGAIN} stub.advance(0.5)
+				stub.world.trainer(3353); stub.advance(0.5)
+				stub.world.close(); stub.advance(0.5)
+				emit({{ after = Polestar.Engine.GetStepIndex(), visit = PolestarCharDB.classTrainVisit or false }})"#
+			),
+		)
+	};
+	let rank = r#"{ { "Battle Shout", "used" }, { "Heroic Strike", "available" } }"#;
+	assert_eq!(play(rank), json!({ "after": 2, "visit": 19 }), "only Heroic Strike's next rank: done, closed without training");
+	let new = r#"{ { "Heroic Strike", "available" }, { "Hamstring", "available" } }"#;
+	assert_eq!(play(new), json!({ "after": 1, "visit": false }), "Hamstring is new: still open");
+}
+
 #[test]
 fn a_spell_learned_at_a_class_trainer_records_the_visit_s_level_opening_the_window_or_a_first_sight_does_not() {
 	let out = run(
@@ -456,4 +491,139 @@ fn a_spell_learned_at_a_class_trainer_records_the_visit_s_level_opening_the_wind
 			emit({ before = before or false, opened = opened or false, visit = PolestarCharDB.classTrainVisit })"#,
 	);
 	assert_eq!(out, json!({ "before": false, "opened": false, "visit": 12 }));
+}
+
+// The guide's class training stop `at` applicable steps from the first: walks across the Barrens, then Orgrimmar.
+fn trains_at(at: usize) -> String {
+	let mut steps: Vec<String> = (1..at).map(|i| format!(r#"{{ title = "Walk {i}", goals = {{ {{ t = "goto", map = 1413, x = {}, y = 30 }} }} }}"#, 40 + i)).collect();
+	steps.push(
+		r#"{ title = "Orgrimmar", goals = { { t = "train", class = true, candidates = { { npc = 3353, npcName = "Grezz Ragefist", map = 1454, x = 79.8, y = 31.4, f = "e", faction = "H", classes = { "WARRIOR" } } } } } }"#
+			.into(),
+	);
+	steps.push(r#"{ goals = { { t = "level", level = 20 } } }"#.into());
+	format!(r#"Polestar.RegisterGuide({{ id = "test/orgrimmar-{at}", pack = "test", title = "To Orgrimmar", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {{ {} }} }})"#, steps.join(", "))
+}
+
+const ADVICE: &str = r#"stub.advance(0.5)
+local a = Polestar.Engine.TrainingAdvice()
+local t = Polestar.Engine.NearestClassTrainer(true)
+emit({ guide = a.guide or false, steps = a.steps, title = a.title, trainer = a.trainer and a.trainer.npc or false,
+	planner = t and t.npc or false, due = #DUE, dueNpc = DUE[1] and DUE[1].npc or false })"#;
+
+#[test]
+fn at_the_crossroads_with_the_guide_training_in_orgrimmar_in_10_steps_the_advice_is_the_guide_s_stop_and_names_no_trainer() {
+	let out = run(Some(&on_guide("test/orgrimmar-10", 10)), &trains_at(10), ADVICE);
+	assert_eq!(out["guide"], true, "{out}");
+	assert_eq!(out["steps"], 10);
+	assert_eq!(out["title"], "Orgrimmar");
+	assert_eq!(out["trainer"], false, "no other trainer named: {out}");
+	// The reminder itself still comes (the stop is past its 4-step hold); the banner words it from the advice.
+	assert_eq!(out["due"], 1, "{out}");
+}
+
+#[test]
+fn with_no_guide_stop_within_10_steps_the_advice_is_the_planner_s_trainer_the_reminder_names() {
+	let out = run(Some(&on_guide("test/orgrimmar-11", 10)), &trains_at(11), ADVICE);
+	assert_eq!(out["guide"], false, "{out}");
+	assert_eq!(out["steps"], 11);
+	assert_ne!(out["trainer"], false, "{out}");
+	assert_eq!(out["trainer"], out["planner"], "ranked by the travel planner on the guide's way: {out}");
+	assert_eq!(out["trainer"], out["dueNpc"], "the banner's trainer and the advice agree: {out}");
+	let none = run(Some(&on_guide("test/barrens", 10)), "", ADVICE);
+	assert_eq!(none["steps"], false, "{none}");
+	assert_eq!(none["trainer"], none["planner"], "{none}");
+}
+
+// Kill stutter (0.4.1): the guide window's training banner asks for the trainer on the guide's way on every
+// repaint (each kill and loot while training is due), and each answer priced up to four trainers with three
+// route plans each. The answer is kept while the player stays put on the same step: ten repaints in a second
+// plan routes once. Walking on in small steps, after a trainer window and at a level-up, it is the same as the
+// uncached answer.
+#[test]
+fn the_banner_s_trainer_on_the_route_is_priced_once_for_repaints_on_one_spot_and_matches_the_uncached_pick() {
+	let out = run(
+		Some(&on_guide("test/route", 10)),
+		"",
+		r#"
+		stub.advance(0.5)
+		local E, w = Polestar.Engine, stub.world
+		local plans = 0
+		local cost = Polestar.TravelCost
+		Polestar.TravelCost = function(...) plans = plans + 1; return cost(...) end
+		local first = E.TrainingAdvice().trainer.npc
+		local p0 = plans
+		for _ = 1, 10 do stub.advance(0.1); E.TrainingAdvice() end
+		local repaints = plans - p0
+		-- The cached pick against a fresh one (a trainer window closing drops the cache), walking south-west.
+		local same, n = true, 0
+		local x, y = 51.9, 30.4
+		for k = 1, 30 do
+			x, y = x - 0.3, y + 0.9
+			w.moveTo(1413, x, y)
+			stub.advance(0.1)
+			local kept = E.NearestClassTrainer(true).npc
+			stub.fire("TRAINER_CLOSED")
+			local fresh = E.NearestClassTrainer(true).npc
+			n = n + 1
+			if kept ~= fresh then same = false end
+		end
+		w.setLevel(14)
+		stub.advance(0.5)
+		local afterLevel = E.NearestClassTrainer(true).npc
+		stub.fire("TRAINER_CLOSED")
+		emit({ first = first ~= nil, repaints = repaints, plans = p0, same = same, n = n, level = afterLevel == E.NearestClassTrainer(true).npc })
+	"#,
+	);
+	assert_eq!(out["first"], true);
+	assert_eq!(out["same"], true, "the kept pick differs from a fresh one on the walk");
+	assert_eq!(out["level"], true);
+	// Measured: 0.4.1 planned 12 routes for each repaint (120 for the ten); kept, none.
+	assert!(out["repaints"].as_u64().unwrap() <= 2, "route plans for ten repaints on one spot: {} (the first answer took {})", out["repaints"], out["plans"]);
+}
+
+// On a flight the player's spot changes every few seconds, and the banner's trainer on the route was priced
+// again at each new spot (up to four trainers with three route plans each: frames of 30 ms and more on a
+// flight). The pick is kept for the whole flight and made afresh once the player lands, as a fresh pick.
+#[test]
+fn on_a_flight_the_banner_s_trainer_is_priced_once_and_picked_afresh_on_landing() {
+	let out = run(
+		Some(&on_guide("test/route", 10)),
+		"",
+		r#"
+		stub.advance(0.5)
+		local E, w = Polestar.Engine, stub.world
+		local plans = 0
+		local cost = Polestar.TravelCost
+		Polestar.TravelCost = function(...) plans = plans + 1; return cost(...) end
+		local before = E.TrainingAdvice().trainer.npc
+		-- Boards a flight at the Crossroads, then flies south-west for 30 seconds, the window repainting each second.
+		w.onTaxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		stub.advance(0.5)
+		E.TrainingAdvice()
+		local p0 = plans
+		local x, y = 51.9, 30.4
+		for _ = 1, 30 do
+			x, y = x - 0.5, y + 1.4
+			w.moveTo(1413, x, y)
+			stub.advance(1)
+			E.TrainingAdvice()
+		end
+		local flying = plans - p0
+		-- Lands.
+		w.onTaxi = false
+		stub.fire("PLAYER_CONTROL_GAINED")
+		stub.advance(0.5)
+		local p1 = plans
+		local landed = E.NearestClassTrainer(true).npc
+		local landPlans = plans - p1
+		stub.fire("TRAINER_CLOSED")
+		emit({ before = before ~= nil, flying = flying, landPlans = landPlans, same = landed == E.NearestClassTrainer(true).npc })
+	"#,
+	);
+	assert_eq!(out["before"], true, "{out}");
+	// Measured on 0.4.2-rc1: 300 route plans in the 30 seconds of flight (ten a second); kept, none.
+	assert_eq!(out["flying"], 0, "route plans for the banner's trainer during a flight: {out}");
+	assert!(out["landPlans"].as_u64().unwrap() > 0, "the trainer is not picked afresh on landing: {out}");
+	assert_eq!(out["same"], true, "the pick after landing differs from a fresh one: {out}");
 }

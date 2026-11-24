@@ -149,6 +149,7 @@ step Coleman Farthing
 step The Agamand Family Crypt
   when !turnedin 1505
   tip The four Agamand Weapon Racks are inside the Agamand Family Crypt at the north end of Agamand Mills, north of Brill, one rack per room: one in the lowest room, two in the pair of rooms up the stairs, one in the room above those. The axe rack stands in a dark corner. The crypt's undead come in packs of three or more and return quickly; the ones in the top room are not linked. The axe, dagger and mace racks take 15 minutes to refill after someone loots them.
+  level 11
   collect 7567 quest 1821.1                   -- Agamand Family Axe
   collect 7568 quest 1821.2                   -- Agamand Family Dagger
   collect 7569 quest 1821.3                   -- Agamand Family Mace

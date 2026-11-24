@@ -8,37 +8,37 @@
 return {
 	-- Guide
 	-- {area:2057} Scholomance · {item:20134} Skyfury Helm
-	["A {area:2057} fight at 60 for Horde reputation; the {item:20134} may be gone in Forever."] = "",
+	["A {area:2057} fight at 60 for Horde reputation; the {item:20134} may be gone in Forever."] = "호드 평판을 위한 60레벨 {area:2057} 전투. Forever에서는 {item:20134}이(가) 사라졌을 수 있습니다.",
 	["200 Horde reputation"] = "호드 평판 200",
 
 	-- Step 1: Sagorne Creststrider
 	-- {npc:13417} Sagorne Creststrider · {object:172957} Valley of Wisdom
-	["At 58 {npc:13417}, the shaman trainer in the {object:172957}, asks for two rare diamonds; every Horde shaman goes to him. Skyborne: Forever's quest page lists this quest for Orcs, Tauren and Trolls only: ask before you buy the diamonds."] = "",
+	["At 58 {npc:13417}, the shaman trainer in the {object:172957}, asks for two rare diamonds; every Horde shaman goes to him. Skyborne: Forever's quest page lists this quest for Orcs, Tauren and Trolls only: ask before you buy the diamonds."] = "58레벨에 {object:172957}의 주술사 교관 {npc:13417}이(가) 희귀 다이아몬드 두 개를 요청합니다. 모든 호드 주술사가 그에게 갑니다. 스카이본: Forever 퀘스트 페이지에는 이 퀘스트가 오크, 타우렌, 트롤만 대상으로 나옵니다. 다이아몬드를 사기 전에 물어보세요.",
 
 	-- Step 2: Two diamonds
 	["Two diamonds"] = "다이아몬드 두 개",
 	-- {item:12800} Azerothian Diamond · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {item:18335} Pristine Black Diamond
 	-- plural, as words: Small Thorium Veins = {object:324} Small Thorium Vein
-	["Both diamonds are rare: the auction house is the quick way. Miners find the {item:12800} in about one Thorium vein in a hundred (the Small Thorium Veins north of {area:2418} in the {zone:1428} respawn every five minutes). The {item:18335} drops from high-level elites at about one in a hundred, best from the rare elite Revanchion (about one in nine)."] = "",
+	["Both diamonds are rare: the auction house is the quick way. Miners find the {item:12800} in about one Thorium vein in a hundred (the Small Thorium Veins north of {area:2418} in the {zone:1428} respawn every five minutes). The {item:18335} drops from high-level elites at about one in a hundred, best from the rare elite Revanchion (about one in nine)."] = "두 다이아몬드 모두 희귀하니 경매장이 가장 빠릅니다. 광부는 토륨 광맥 백 개당 하나꼴로 {item:12800}을(를) 찾습니다({zone:1428}의 {area:2418} 북쪽 작은 토륨 광맥은 5분마다 리스폰합니다). {item:18335}은(는) 고레벨 정예가 백 번에 한 번꼴로 떨어뜨리며 희귀 정예 레반치온이 아홉 번에 한 번으로 가장 좋습니다.",
 
 	-- Step 3: Sagorne Creststrider
-	-- {quest:7668} The Darkreaver Menace
-	["{quest:7668} needs level 60."] = "{quest:7668}은(는) 60레벨이 필요합니다.",
+	-- {quest:8258} The Darkreaver Menace
+	["{quest:8258} needs level 60."] = "{quest:8258}은(는) 60레벨이 필요합니다.",
 	-- {item:18746} Divination Scryer
 	["he hands you the {item:18746}"] = "그가 {item:18746}을(를) 줍니다",
 
 	-- Step 4: The Great Ossuary
 	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {object:179746} The Great Ossuary (no name in this language: may be words) · {item:18746} Divination Scryer · {npc:14516} Death Knight Darkreaver · {spell:686} Shadow Bolt · {spell:6958} Blood Leech
 	-- plural, as words: Cleaves = {spell:845} Cleave
-	["A five-player dungeon event: {area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}. In the {object:179746}'s basement, first clear every mob in the room, then use the {item:18746} at its centre: four waves of spirits follow, each closing with an Aspect mini-boss (the first wave weak and slow, the rest elite). Fight in a corner so nothing else joins, and drink between waves: it is long. Then {npc:14516} (level 62 elite) appears: he Cleaves, casts {spell:686} and {spell:6958}, and Dominates a player's mind against the group. His head always drops."] = "",
+	["A five-player dungeon event: {area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}. In the {object:179746}'s basement, first clear every mob in the room, then use the {item:18746} at its centre: four waves of spirits follow, each closing with an Aspect mini-boss (the first wave weak and slow, the rest elite). Fight in a corner so nothing else joins, and drink between waves: it is long. Then {npc:14516} (level 62 elite) appears: he Cleaves, casts {spell:686} and {spell:6958}, and Dominates a player's mind against the group. His head always drops."] = "5인 던전 이벤트입니다. {area:2057}은(는) {zone:1422} 남동부 섬 마을 {area:2298} 아래에 있습니다. {object:179746} 지하실에서 먼저 방의 몹을 모두 정리한 뒤 중앙에서 {item:18746}을(를) 사용하세요. 영혼 네 무리가 이어 나오고 각 무리는 특성 미니 보스로 끝납니다(첫 무리는 약하고 느리며 나머지는 정예). 다른 놈이 끼어들지 않도록 구석에서 싸우고 무리 사이에 물을 마시세요. 오래 걸립니다. 그다음 {npc:14516}(62레벨 정예)이(가) 나타납니다. 그는 횡베기를 쓰고 {spell:686}과(와) {spell:6958}을(를) 시전하며 플레이어의 마음을 조종해 파티를 공격하게 합니다. 머리는 반드시 떨어집니다.",
 
 	-- Step 5: Sagorne Creststrider
 	-- {npc:13417} Sagorne Creststrider · {item:20134} Skyfury Helm
-	["{npc:13417}: 200 Horde reputation; the {item:20134} may be gone"] = "",
+	["{npc:13417}: 200 Horde reputation; the {item:20134} may be gone"] = "{npc:13417}: 호드 평판 200; {item:20134}은(는) 사라졌을 수 있습니다",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["A {area:2057} fight at 60 for Horde reputation; Forever removed the {item:20134}."] = "호드 평판을 위한 60레벨 {area:2057} 전투. Forever에서는 {item:20134}이(가) 사라졌습니다.",
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: buy them at the auction house if you can."] = "{item:12800}은(는) 토륨 광맥에서, {item:18335}은(는) {zone:1422}의 정예 몹에게서 나오며 둘 다 드뭅니다. 가능하면 경매장에서 사세요.",
 	-- ["At 58 {npc:13417}, the shaman trainer in the {object:172957}, asks for two rare diamonds."] = "58레벨에 {object:172957}의 주술사 상급자 {npc:13417}이(가) 희귀한 다이아몬드 두 개를 요구합니다.",
 	-- ["{area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}. Use the {item:18746} in the heart of the {object:179746}'s basement, beat the spirits it calls, then {npc:14516}. All are elite: bring a group."] = "{area:2057}은(는) {zone:1422} 남동쪽의 섬 마을인 {area:2298} 아래에 있습니다. 거대한 납골당 지하실 중앙에서 {item:18746}을(를) 사용하고 나타나는 영혼들을 물리친 뒤 {npc:14516}을(를) 물리치세요. 모두 정예이니 파티를 데려가세요.",
+	-- ["{quest:7668} needs level 60."] = "{quest:7668}은(는) 60레벨이 필요합니다.",
 }

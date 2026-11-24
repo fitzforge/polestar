@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: The Hinterlands (1/2)
 	-- {zone:1425} The Hinterlands · {zone:1424} Hillsbrad Foothills · {zone:1415} Eastern Kingdoms
-	["Starts in the {zone:1425}, north-east of {zone:1424}. The last area of this guide completes the {zone:1415} map. 14 areas to discover here, levels 41-49."] = "",
+	["Starts in the {zone:1425}, north-east of {zone:1424}. The last area of this guide completes the {zone:1415} map. 14 areas to discover here, levels 41-49."] = "{zone:1424} 북동쪽의 {zone:1425}에서 시작합니다. 이 가이드의 마지막 지역으로 {zone:1415} 지도가 완성됩니다. 이곳에서 발견할 지역 14곳, 레벨 41-49.",
 	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "한 캐릭터로 세계 지도 전체를 탐험하는 것은 Forever 유산 도전입니다(계정 공통 유산 점수 1점).",
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1424} Hillsbrad Foothills · {zone:1425} The Hinterlands
 	["Fly to {area:348} if you have it; otherwise fly to {area:271} and walk north-east from {zone:1424} into the {zone:1425}."] = "{area:348} 비행 경로가 있으면 그곳으로 비행하고, 없으면 {area:271}(으)로 비행한 뒤 {zone:1424}에서 북동쪽 {zone:1425}로 걸어가십시오.",
@@ -30,11 +30,11 @@ return {
 	-- Step 3: Searing Gorge
 	["7 areas to discover here, levels 43-56."] = "이곳에서 발견할 지역 7곳, 레벨 43-56.",
 	-- {zone:1418} Badlands · {area:340} Kargath · {zone:1427} Searing Gorge
-	["The way in on foot is from the western {zone:1418}: the path by {area:340} climbs west into the {zone:1427}."] = "",
+	["The way in on foot is from the western {zone:1418}: the path by {area:340} climbs west into the {zone:1427}."] = "걸어서 들어가는 길은 서부 {zone:1418}에서 나옵니다. {area:340} 옆 길이 서쪽으로 올라가 {zone:1427}(으)로 들어갑니다.",
 	-- {area:144} Thelsamar · {zone:1432} Loch Modan · {zone:1418} Badlands · {area:340} Kargath
-	["Fly to {area:144} and ride south through {zone:1432} into the {zone:1418}, then west to {area:340} (Horde guards)."] = "",
+	["Fly to {area:144} and ride south through {zone:1432} into the {zone:1418}, then west to {area:340} (Horde guards)."] = "{area:144}(으)로 날아가 남쪽으로 달려 {zone:1432}를(을) 지나 {zone:1418}(으)로 들어간 뒤 서쪽으로 {area:340}(으)로 가세요(호드 경비병).",
 	-- {area:340} Kargath · {zone:1418} Badlands
-	["Fly to {area:340} in the {zone:1418}."] = "",
+	["Fly to {area:340} in the {zone:1418}."] = "{zone:1418}의 {area:340}(으)로 날아가세요.",
 	-- {area:1446} Thorium Point · {npc:2941} Lanie Reed
 	["Flight path here: {area:1446} ({npc:2941})."] = "이곳의 비행 경로: {area:1446}({npc:2941}).",
 	-- {area:1446} Thorium Point
@@ -43,7 +43,7 @@ return {
 	-- Step 4: Burning Steppes (1/2)
 	["10 areas to discover here, levels 50-59."] = "이곳에서 발견할 지역 10곳, 레벨 50-59.",
 	-- {area:254} Blackrock Mountain · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes · {area:2418} Morgan's Vigil
-	["Cross {area:254} from the south of the {zone:1427} into the {zone:1428}: stay on the chain path inside, past the dungeon entrances. {area:2418} (Alliance) is in the east."] = "",
+	["Cross {area:254} from the south of the {zone:1427} into the {zone:1428}: stay on the chain path inside, past the dungeon entrances. {area:2418} (Alliance) is in the east."] = "{zone:1427} 남쪽에서 {area:254}을(를) 가로질러 {zone:1428}(으)로 가십시오: 안에서는 사슬 통로를 따라 던전 입구들을 지나치십시오. {area:2418}(얼라이언스)은(는) 동쪽에 있습니다.",
 	-- {area:2418} Morgan's Vigil · {npc:2299} Borgus Stoutarm
 	["Flight path here: {area:2418} ({npc:2299})."] = "이곳의 비행 경로: {area:2418}({npc:2299}).",
 	-- {area:251} Flame Crest
@@ -53,13 +53,13 @@ return {
 	-- Step 6: Deadwind Pass
 	["3 areas to discover here, levels 50-60."] = "이곳에서 발견할 지역 3곳, 레벨 50-60.",
 	-- {zone:1428} Burning Steppes · {zone:1433} Redridge Mountains · {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire · {zone:1430} Deadwind Pass
-	["Take the pass south from the {zone:1428} into the {zone:1433}, follow the road south-west through {area:1002} into {zone:1431} and east past {area:42} into {zone:1430}."] = "",
+	["Take the pass south from the {zone:1428} into the {zone:1433}, follow the road south-west through {area:1002} into {zone:1431} and east past {area:42} into {zone:1430}."] = "{zone:1428} 남쪽 고개로 들어가 {zone:1433}(으)로 가세요. 길을 따라 남서쪽으로 {area:1002}를(을) 지나 {zone:1431}(으)로 들어가고, {area:42} 동쪽을 지나 {zone:1430}(으)로 가세요.",
 	["high-level undead around the tower: discover it from the road"] = "탑 주변에 고레벨 언데드가 있습니다: 길에서 발견하십시오",
 
 	-- Step 7: Blasted Lands (1/2)
-	["9 areas to discover here, levels 46-63."] = "",
+	["9 areas to discover here, levels 46-63."] = "이곳에서 발견할 지역 9곳, 레벨 46-63.",
 	-- {zone:1430} Deadwind Pass · {zone:1435} Swamp of Sorrows · {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
-	["Ride east out of {zone:1430} into the {zone:1435} and take the road south into the {zone:1419}; {area:1438} (Alliance) stands just inside."] = "",
+	["Ride east out of {zone:1430} into the {zone:1435} and take the road south into the {zone:1419}; {area:1438} (Alliance) stands just inside."] = "{zone:1430}에서 동쪽으로 나와 {zone:1435}(으)로 들어가 남쪽 길로 들어가 {zone:1419}(으)로 가세요. {area:1438}(얼라이언스)이(가) 바로 안쪽에 서 있습니다.",
 	-- {area:1438} Nethergarde Keep · {npc:8609} Alexandra Constantine
 	["Flight path here: {area:1438} ({npc:8609})."] = "이곳의 비행 경로: {area:1438}({npc:8609}).",
 	["level 63 area, well above this guide's range"] = "레벨 63 지역으로, 이 가이드의 범위보다 훨씬 높습니다",
@@ -67,9 +67,9 @@ return {
 	-- Step 9: Western Plaguelands (1/2)
 	["13 areas to discover here, levels 46-57."] = "이곳에서 발견할 지역 13곳, 레벨 46-57.",
 	-- {area:3197} Chillwind Camp · {area:271} Southshore · {zone:1416} Alterac Mountains · {zone:1422} Western Plaguelands
-	["Fly to {area:3197} if you have it; otherwise fly to {area:271} and ride north through the {zone:1416} to {area:3197} in southern {zone:1422}."] = "",
+	["Fly to {area:3197} if you have it; otherwise fly to {area:271} and ride north through the {zone:1416} to {area:3197} in southern {zone:1422}."] = "{area:3197} 비행 경로가 있다면 그곳으로 날아가십시오. 없다면 {area:271}(으)로 날아가 {zone:1416}을(를) 지나 북쪽 {zone:1422} 남부의 {area:3197}까지 가십시오.",
 	-- {area:272} Tarren Mill · {zone:1416} Alterac Mountains · {zone:1422} Western Plaguelands · {zone:1420} Tirisfal Glades · {area:813} The Bulwark
-	["Fly to {area:272} and ride north through the {zone:1416} into southern {zone:1422}, or go east from {zone:1420} past {area:813}."] = "",
+	["Fly to {area:272} and ride north through the {zone:1416} into southern {zone:1422}, or go east from {zone:1420} past {area:813}."] = "{area:272}(으)로 날아가 {zone:1416}을(를) 지나 북쪽 {zone:1422} 남부로 들어가거나, {zone:1420}에서 {area:813}을(를) 지나 동쪽으로 가십시오.",
 	-- {area:3197} Chillwind Camp · {npc:12596} Bibilfaz Featherwhistle
 	["Flight path here: {area:3197} ({npc:12596})."] = "이곳의 비행 경로: {area:3197}({npc:12596}).",
 
@@ -83,12 +83,7 @@ return {
 	["Flight path here: {area:2268} (Georgia)."] = "이곳의 비행 경로: {area:2268}(조지아).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["14 areas to discover here, levels 41-49."] = "이곳에서 발견할 지역 14곳, 레벨 41-49.",
 	-- ["Continue west into {zone:1431}, north to {zone:1433} and take the pass north out of Redridge into the {zone:1428}; {area:2418} (Alliance) is near the top."] = "서쪽 {zone:1431}(으)로, 북쪽 {zone:1433}(으)로 계속 간 뒤 붉은마루 산맥 북쪽 고개를 넘어 {zone:1428}(으)로 가십시오. {area:2418}(얼라이언스)은(는) 고개 꼭대기 근처에 있습니다.",
-	-- ["Cross {area:254} from the western {zone:1428} into the {zone:1427}: stay on the chain path inside, past the dungeon entrances."] = "{zone:1428} 서부에서 {area:254}을(를) 가로질러 {zone:1427}(으)로 가십시오: 안에서는 사슬 통로를 따라 던전 입구들을 지나치십시오.",
 	-- ["Go back north through the {zone:1435} and west into {zone:1430}."] = "{zone:1435}을(를) 지나 북쪽으로 되돌아간 뒤 서쪽 {zone:1430}(으)로 가십시오.",
-	-- ["Starts where the 30-45 guide ends, in the {zone:1435}. The last area of this guide completes the {zone:1415} map. 9 areas to discover here, levels 46-63."] = "30-45 가이드가 끝나는 {zone:1435}에서 시작합니다. 이 가이드의 마지막 지역으로 {zone:1415} 지도가 완성됩니다. 이곳에서 발견할 지역 9곳, 레벨 46-63.",
 	-- ["The {zone:1419} are south of the {zone:1435}; the road arrives at {area:1438} (Alliance)."] = "{zone:1419}은(는) {zone:1435} 남쪽에 있습니다. 길은 {area:1438}(얼라이언스)에 닿습니다.",
-	-- ["Walk back to {zone:1424} and north through the {zone:1416} to {area:3197} in southern {zone:1422}."] = "{zone:1424}(으)로 걸어서 돌아간 뒤 {zone:1416}을(를) 지나 북쪽 {zone:1422} 남부의 {area:3197}(으)로 가십시오.",
-	-- ["Walk back to {zone:1424} and north through the {zone:1416}, or from {zone:1420} east past {area:813}, into {zone:1422}."] = "{zone:1424}(으)로 걸어서 돌아가 {zone:1416}을(를) 지나 북쪽으로, 또는 {zone:1420}에서 {area:813}을(를) 지나 동쪽으로 {zone:1422}에 들어가십시오.",
 }

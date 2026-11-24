@@ -10,88 +10,87 @@ return {
 	-- {quest:94817} Confounding Flash · {quest:94818} Contingency Plan
 	["{quest:94817} and {quest:94818}"] = "{quest:94817}與{quest:94818}",
 	-- {quest:94817} Confounding Flash · {quest:94818} Contingency Plan
-	["The Gnome priest spells, new in Forever: {quest:94817} at 10, {quest:94818} at 20. Free, no objectives."] = "",
+	["The Gnome priest spells, new in Forever: {quest:94817} at 10, {quest:94818} at 20. Free, no objectives."] = "地精的牧師法術，Forever 新增：10級的{quest:94817}，20級的{quest:94818}。免費，沒有任務目標。",
 
 	-- Step 1: Confounding Flash: Maxan Anvol
 	-- {npc:1226} Maxan Anvol · {area:2102} Thunderbrew Distillery · {area:131} Kharanos · {quest:94817} Confounding Flash · {npc:258785} High Priestess Mims · {zone:1455} Ironforge
-	["At 10, {npc:1226}, the priest trainer inside the {area:2102} in {area:131}, hands you a {quest:94817} letter for {npc:258785} in {zone:1455}. {area:131} is on the road up to the city."] = "",
+	["At 10, {npc:1226}, the priest trainer inside the {area:2102} in {area:131}, hands you a {quest:94817} letter for {npc:258785} in {zone:1455}. {area:131} is on the road up to the city."] = "10級時，{area:131}的{area:2102}內的牧師訓練師{npc:1226}會交給你一封給{npc:258785}（位於{zone:1455}）的{quest:94817}信件。{area:131}在通往城市的路上。",
 	-- {npc:1226} Maxan Anvol · {quest:94817} Confounding Flash
-	["{npc:1226}: take his {quest:94817} letter"] = "",
+	["{npc:1226}: take his {quest:94817} letter"] = "{npc:1226}：接取他的{quest:94817}信件",
 
 	-- Step 2: Confounding Flash: Priestess Josetta
 	-- {zone:1429} Elwynn Forest · {npc:377} Priestess Josetta · {area:87} Goldshire · {quest:94817} Confounding Flash · {npc:258785} High Priestess Mims · {zone:1455} Ironforge
-	["At 10 in {zone:1429}, {npc:377}, upstairs in the Lion's Pride Inn in {area:87}, hands you a {quest:94817} letter for {npc:258785} in {zone:1455}."] = "",
+	["At 10 in {zone:1429}, {npc:377}, upstairs in the Lion's Pride Inn in {area:87}, hands you a {quest:94817} letter for {npc:258785} in {zone:1455}."] = "10級時在{zone:1429}，{area:87}獅王之傲旅店樓上的{npc:377}會交給你一封給{npc:258785}（位於{zone:1455}）的{quest:94817}信件。",
 	-- {npc:377} Priestess Josetta · {quest:94817} Confounding Flash
-	["{npc:377}: take her {quest:94817} letter"] = "",
+	["{npc:377}: take her {quest:94817} letter"] = "{npc:377}：接取她的{quest:94817}信件",
 
 	-- Step 3: Confounding Flash: High Priestess Laurena
 	-- {zone:1453} Stormwind · {npc:376} High Priestess Laurena · {quest:94817} Confounding Flash · {npc:258785} High Priestess Mims · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {object:28027} Dwarven District
-	["At 10 in {zone:1453}, {npc:376} at the altar of the Cathedral of Light hands you a {quest:94817} letter for {npc:258785} in {zone:1455} (the {area:2257} from the {object:28027})."] = "",
+	["At 10 in {zone:1453}, {npc:376} at the altar of the Cathedral of Light hands you a {quest:94817} letter for {npc:258785} in {zone:1455} (the {area:2257} from the {object:28027})."] = "10級時在{zone:1453}，光明大教堂祭壇旁的{npc:376}會交給你一封給{npc:258785}（位於{zone:1455}）的{quest:94817}信件（乘{object:28027}的{area:2257}）。",
 	-- {npc:376} High Priestess Laurena · {quest:94817} Confounding Flash
-	["{npc:376}: take her {quest:94817} letter"] = "",
+	["{npc:376}: take her {quest:94817} letter"] = "{npc:376}：接取她的{quest:94817}信件",
 
 	-- Step 4: Confounding Flash: High Priestess Mims
 	-- {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {zone:1455} Ironforge · {object:32362} Mystic Ward · {npc:11406} High Priest Rohan · {quest:94817} Confounding Flash
-	["At 10, go to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362} (north-west of the city), right beside {npc:11406}: she gives {quest:94817} and takes it back at once. No letter needed. {quest:94817} confuses up to five enemies around you for 3 seconds (any damage wakes them) on a 2-minute cooldown: time to step back and heal, or to run."] = "",
+	["At 10, go to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362} (north-west of the city), right beside {npc:11406}: she gives {quest:94817} and takes it back at once. No letter needed. {quest:94817} confuses up to five enemies around you for 3 seconds (any damage wakes them) on a 2-minute cooldown: time to step back and heal, or to run."] = "10級時，前往{zone:1455}的{object:32362}內、{object:32386}中的{npc:258785}（城市西北），就在{npc:11406}旁邊：她會給出{quest:94817}並立刻收回。不需要信。{quest:94817}使周圍最多五名敵人迷惑3秒（任何傷害都會喚醒他們），冷卻2分鐘：用來後撤治療或逃跑。",
 
 	-- Step 5: Confounding Flash: Maxan Anvol's letter
 	-- {quest:94824} Confounding Flash · {npc:1226} Maxan Anvol
-	["{quest:94824}: {npc:1226}'s letter"] = "",
+	["{quest:94824}: {npc:1226}'s letter"] = "{quest:94824}：{npc:1226}的信",
 	-- {area:131} Kharanos · {zone:1455} Ironforge · {object:32362} Mystic Ward · {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {quest:94824} Confounding Flash
-	["Follow the road up from {area:131} into {zone:1455} and to the {object:32362}: {npc:258785} in the {object:32386} takes the letter and teaches {quest:94824}."] = "",
+	["Follow the road up from {area:131} into {zone:1455} and to the {object:32362}: {npc:258785} in the {object:32386} takes the letter and teaches {quest:94824}."] = "沿路從{area:131}向上進入{zone:1455}，到達{object:32362}：{object:32386}中的{npc:258785}收下信件並教授{quest:94824}。",
 
 	-- Step 6: Confounding Flash: Josetta's letter
 	-- {quest:94822} Confounding Flash
-	["{quest:94822}: Josetta's letter"] = "",
+	["{quest:94822}: Josetta's letter"] = "{quest:94822}：喬塞塔的信",
 	-- {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {zone:1455} Ironforge · {object:32362} Mystic Ward · {area:2257} Deeprun Tram · {zone:1453} Stormwind · {object:28027} Dwarven District
-	["Hand the letter to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}: the {area:2257} from {zone:1453}'s {object:28027}."] = "",
+	["Hand the letter to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}: the {area:2257} from {zone:1453}'s {object:28027}."] = "把信交給{zone:1455}的{object:32362}內、{object:32386}中的{npc:258785}：乘{zone:1453}的{object:28027}的{area:2257}。",
 
 	-- Step 7: Confounding Flash: Laurena's letter
 	-- {quest:94821} Confounding Flash
-	["{quest:94821}: Laurena's letter"] = "",
+	["{quest:94821}: Laurena's letter"] = "{quest:94821}：勞瑞娜的信",
 
 	-- Step 8: Confounding Flash: a letter from another trainer
 	-- {quest:94823} Confounding Flash
-	["{quest:94823}: a letter from another trainer"] = "",
+	["{quest:94823}: a letter from another trainer"] = "{quest:94823}：另一位訓練師的來信",
 	-- {quest:94823} Confounding Flash · {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {zone:1455} Ironforge · {object:32362} Mystic Ward
-	["Any {quest:94823} letter goes to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}."] = "",
+	["Any {quest:94823} letter goes to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}."] = "任何{quest:94823}信件都交給{zone:1455}的{object:32362}內、{object:32386}中的{npc:258785}。",
 
 	-- Step 9: Confounding Flash: a letter from another trainer
 	-- {quest:94825} Confounding Flash
-	["{quest:94825}: a letter from another trainer"] = "",
+	["{quest:94825}: a letter from another trainer"] = "{quest:94825}：另一位訓練師的來信",
 	-- {quest:94825} Confounding Flash · {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {zone:1455} Ironforge · {object:32362} Mystic Ward
-	["Any {quest:94825} letter goes to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}."] = "",
+	["Any {quest:94825} letter goes to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}."] = "任何{quest:94825}信件都交給{zone:1455}的{object:32362}內、{object:32386}中的{npc:258785}。",
 
 	-- Step 10: Confounding Flash: a letter from another trainer
 	-- {quest:94826} Confounding Flash
-	["{quest:94826}: a letter from another trainer"] = "",
+	["{quest:94826}: a letter from another trainer"] = "{quest:94826}：另一位訓練師的來信",
 	-- {quest:94826} Confounding Flash · {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {zone:1455} Ironforge · {object:32362} Mystic Ward
-	["Any {quest:94826} letter goes to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}."] = "",
+	["Any {quest:94826} letter goes to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}."] = "任何{quest:94826}信件都交給{zone:1455}的{object:32362}內、{object:32386}中的{npc:258785}。",
 
 	-- Step 11: Contingency Plan: High Priestess Laurena
 	-- {zone:1453} Stormwind · {npc:376} High Priestess Laurena · {quest:94818} Contingency Plan · {npc:258785} High Priestess Mims · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {object:28027} Dwarven District
-	["At 20 in {zone:1453}, {npc:376} at the altar of the Cathedral of Light hands you a {quest:94818} letter for {npc:258785} in {zone:1455} (the {area:2257} from the {object:28027})."] = "",
+	["At 20 in {zone:1453}, {npc:376} at the altar of the Cathedral of Light hands you a {quest:94818} letter for {npc:258785} in {zone:1455} (the {area:2257} from the {object:28027})."] = "20級時在{zone:1453}，光明大教堂祭壇旁的{npc:376}會交給你一封給{npc:258785}（位於{zone:1455}）的{quest:94818}信件（乘{object:28027}的{area:2257}）。",
 	-- {npc:376} High Priestess Laurena · {quest:94818} Contingency Plan
-	["{npc:376}: take her {quest:94818} letter"] = "",
+	["{npc:376}: take her {quest:94818} letter"] = "{npc:376}：接取她的{quest:94818}信件",
 
 	-- Step 12: Contingency Plan: High Priestess Mims
 	-- {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {quest:94818} Contingency Plan · {spell:139} Renew · {spell:17} Power Word: Shield
-	["At 20, {npc:258785} in the {object:32386} teaches {quest:94818} with a quest she gives and takes back at once. {quest:94818} wards a friend for 30 seconds: if they drop below 35% health, they get a shield and a heal over time at once (it stacks with {spell:139} and {spell:17}). 5-minute cooldown."] = "",
+	["At 20, {npc:258785} in the {object:32386} teaches {quest:94818} with a quest she gives and takes back at once. {quest:94818} wards a friend for 30 seconds: if they drop below 35% health, they get a shield and a heal over time at once (it stacks with {spell:139} and {spell:17}). 5-minute cooldown."] = "20級時，{object:32386}中的{npc:258785}透過一個她給出並立刻收回的任務教授{quest:94818}。{quest:94818}為一個友方提供30秒守護：如果其生命值降到35%以下，立刻獲得一個護盾和持續治療（可與{spell:139}和{spell:17}疊加）。冷卻5分鐘。",
 
 	-- Step 13: Contingency Plan: Laurena's letter
 	-- {quest:94819} Contingency Plan
-	["{quest:94819}: Laurena's letter"] = "",
+	["{quest:94819}: Laurena's letter"] = "{quest:94819}：勞瑞娜的信",
 	-- {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {zone:1455} Ironforge · {object:32362} Mystic Ward · {area:2257} Deeprun Tram · {zone:1453} Stormwind · {object:28027} Dwarven District
-	["Hand Laurena's letter to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}: the {area:2257} from {zone:1453}'s {object:28027}."] = "",
+	["Hand Laurena's letter to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}: the {area:2257} from {zone:1453}'s {object:28027}."] = "把勞瑞娜的信交給{zone:1455}的{object:32362}內、{object:32386}中的{npc:258785}：乘{zone:1453}的{object:28027}的{area:2257}。",
 
 	-- Step 14: Contingency Plan: a letter from another trainer
 	-- {quest:94820} Contingency Plan
-	["{quest:94820}: a letter from another trainer"] = "",
+	["{quest:94820}: a letter from another trainer"] = "{quest:94820}：另一位訓練師的來信",
 	-- {quest:94820} Contingency Plan · {npc:258785} High Priestess Mims · {object:32386} Hall of Mysteries · {zone:1455} Ironforge · {object:32362} Mystic Ward
-	["Any {quest:94820} letter goes to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}."] = "",
+	["Any {quest:94820} letter goes to {npc:258785} in the {object:32386}, {zone:1455}'s {object:32362}."] = "任何{quest:94820}信件都交給{zone:1455}的{object:32362}內、{object:32386}中的{npc:258785}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:258785} in the {object:32386}, in {zone:1455}'s {object:32362}. {npc:1226} in {area:131}, {npc:377} in {area:87} and {npc:376} in {zone:1453} send you to her with a quest of the same name (its text may say {zone:1453}: Mims is in {zone:1455})."] = "10級時，到{zone:1455}{object:32362}的{object:32386}找{npc:258785}。{area:131}的{npc:1226}、{area:87}的{npc:377}和{zone:1453}的{npc:376}會用同名任務派你去找她（任務文字可能寫{zone:1453}：敏絲在{zone:1455}）。",
 	-- ["At 20, {npc:258785} teaches {quest:94818}. {npc:376} in {zone:1453} sends you to her with a quest of the same name."] = "20級時，{npc:258785}會教你{quest:94818}。{zone:1453}的{npc:376}會用同名任務派你去找她。",
-	-- ["The Gnome priest spells, new in Forever: one at 10, one at 20."] = "地精的牧師法術，Forever 新增：10級一個，20級一個。",
 }

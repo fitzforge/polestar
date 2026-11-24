@@ -502,6 +502,32 @@ fn the_route_s_unneeded_quests_are_the_ones_it_never_hands_in_and_none_while_a_c
 	assert_eq!(out, json!({ "open": [["One", "Stray"], "missed", "unplanned"], "undecided": true }));
 }
 
+// #3132: a quest an accept still ahead on the route needs first (its `pre` or `preAny`) is never offered for
+// abandoning, though the route passed (One) or never makes (Stray) its hand-in: abandoning it closes that accept
+// and sends the player back to take it again. An accept the route has passed needs nothing any more.
+#[test]
+fn a_quest_an_accept_ahead_needs_first_is_not_unneeded_3132() {
+	let out = run(
+		&format!(
+			"{ROOM}{}",
+			r#"
+    local before = titles(R.Unneeded())
+    table.insert(guideA.steps[3].goals, { t="accept", quest=12, pre={1} })
+    table.insert(guideB.steps[1].goals, { t="accept", quest=13, preAny={77, 99} })
+    table.insert(guideA.steps[1].goals, { t="accept", quest=14, pre={5} })
+    P.Fire("GUIDES_REGISTERED")
+    local ahead = titles(R.Unneeded())
+    live = 4; P.Fire("GUIDES_REGISTERED")
+    emit({ before = before, ahead = ahead, past = titles(R.Unneeded()) })
+  "#
+		),
+		false,
+	);
+	assert_eq!(out["before"], json!(["One", "Stray"]));
+	assert_eq!(out["ahead"], json!({}), "Starter's step 3 needs One, Westfall needs Stray (an empty Lua list)");
+	assert_eq!(out["past"], json!(["One", "Three"]), "past Starter's step 3: One is needed no more (Three's hand-in passed too); Westfall still needs Stray");
+}
+
 #[test]
 fn an_accept_step_past_the_log_s_cap_names_what_to_drop_unneeded_first_then_the_latest_hand_in() {
 	let out = run(
@@ -523,6 +549,68 @@ fn an_accept_step_past_the_log_s_cap_names_what_to_drop_unneeded_first_then_the_
 	assert_eq!(out, json!({ "full": [2, 0, ["One", "Stray"]], "one": ["One"], "later": ["Five"], "fits": true }));
 }
 
+#[test]
+fn nijels_point_turn_ins_make_room_for_the_next_karnitol_quest() {
+	let out = run(
+		r#"
+    local w = stub.world
+    local goals = {}
+    for _, q in ipairs({1387, 93224, 1459, 1455}) do
+        w.onQuest(q, {})
+        goals[#goals + 1] = { t="turnin", quest=q, status="active" }
+    end
+    goals[#goals + 1] = { t="accept", quest=1456, status="active" }
+    C_QuestLog.GetMaxNumQuestsCanAccept = function() return 40 end
+    for q = 1001, 1036 do w.onQuest(q, {}) end
+    P.Engine.GetStepView = function() return { goals = goals } end
+    emit(R.LogOverflow() == nil)
+  "#,
+		false,
+	);
+	assert_eq!(out, true, "the full log has room by the time the step reaches the pickup");
+}
+
+#[test]
+fn the_log_warning_uses_the_largest_shortfall_in_goal_order() {
+	let out = run(
+		&format!(
+			"{ROOM}{}",
+			r#"
+    local handIn = { t="turnin", quest=3, status="pending" }
+    local first, second = accepts[1], accepts[2]
+    local function overflow(goals)
+        accepts = goals
+        local warn = R.LogOverflow()
+        return warn and { warn.take, warn.free, titles(warn.drop) } or false
+    end
+    local early = overflow({ first, handIn, second })
+    local late = overflow({ first, second, handIn })
+    local duplicate = overflow({ handIn, handIn, first, second })
+    local skipped = overflow({ { t="turnin", quest=3, status="skipped" }, first })
+    local missing = overflow({ { t="turnin", quest=99, status="active" }, first })
+    w.onQuest(3, { 1 }, "Three")
+    local unfinished = overflow({ handIn, first })
+    local alreadyAccepted = overflow({ { t="accept", quest=3, status="active" } })
+    emit({ early=early, late=late, duplicate=duplicate, skipped=skipped, missing=missing,
+        unfinished=unfinished, alreadyAccepted=alreadyAccepted })
+  "#
+		),
+		false,
+	);
+	assert_eq!(
+		out,
+		json!({
+			"early": [1, 0, ["One"]],
+			"late": [2, 0, ["One", "Stray"]],
+			"duplicate": [2, 1, ["One"]],
+			"skipped": [1, 0, ["One"]],
+			"missing": [1, 0, ["One"]],
+			"unfinished": [1, 0, ["One"]],
+			"alreadyAccepted": false,
+		})
+	);
+}
+
 // Grey quests at level 20 (grey up to 13): 3 (handed in later in this chapter), 5 (handed in in the next
 // chapter) and 77 (never handed in) are level 10; 1 (hand-in passed) is level 18.
 const GREY: &str = r#"
@@ -531,21 +619,36 @@ const GREY: &str = r#"
     P.Compat.GetPlayerInfo = function() return {cls="DRUID", class="DRUID", race="NightElf", faction="Alliance", level=20} end
 "#;
 
+// A grey quest the next chapter hands in (Five) is kept while Skip grey quests is off, and while a quest still
+// worth doing on that chapter's chain needs it; with the setting on and no such need, that chapter leaves it out
+// too (Engine.GreyLeftOut), so it is listed.
 #[test]
-fn grey_quests_are_listed_as_grey_unless_the_route_hands_them_in_this_chapter() {
-	let out = run(
+fn grey_quests_are_listed_as_grey_unless_the_route_still_hands_them_in() {
+	let room = r#"
+    function room()
+        local list, why = R.Unneeded(), {}
+        for i, u in ipairs(list) do why[i] = u.status end
+        return { titles = titles(list), why = why }
+    end
+"#;
+	let out = run(&format!("{ROOM}{GREY}{room}{}", r#"P.Set("behavior.skipGrey", false); local off = room(); P.Set("behavior.skipGrey", true); emit({ off = off, on = room() })"#), false);
+	assert_eq!(out["off"], json!({ "titles": ["One", "Stray"], "why": ["missed", "grey"] }), "Skip grey off: the next guide hands Five in");
+	assert_eq!(out["on"], json!({ "titles": ["One", "Five", "Stray"], "why": ["missed", "grey", "grey"] }));
+	// Westfall's own accept of 6 (level 18, not grey) needs Five first.
+	let needed =
+		run(&format!("{ROOM}{GREY}{room}{}", r#"table.insert(guideB.steps, 1, { goals = { { t="accept", quest=6, qlvl=18, pre={5} } } }); P.Set("behavior.skipGrey", true); emit(room())"#), false);
+	assert_eq!(needed, json!({ "titles": ["One", "Stray"], "why": ["missed", "grey"] }), "a later quest needs Five");
+	// Westfall's route choice, the other option not loaded: what it needs is unknown, so Five stays.
+	let unknown = run(
 		&format!(
-			"{ROOM}{GREY}{}",
-			r#"
-    local list = R.Unneeded()
-    local why = {}
-    for i, u in ipairs(list) do why[i] = u.status end
-    emit({ titles = titles(list), why = why })
-  "#
+			"{ROOM}{GREY}{room}{}",
+			r#"guides["route/d"] = { id = "route/d", title = "Duskwood", steps = {} }
+    guideB.nextChoices = { "route/d", "route/gone" }; P.CharState().routes = { [guideB.id] = "route/d" }
+    P.Set("behavior.skipGrey", true); emit(room())"#
 		),
 		false,
 	);
-	assert_eq!(out, json!({ "titles": ["One", "Five", "Stray"], "why": ["missed", "grey", "grey"] }));
+	assert_eq!(unknown, json!({ "titles": ["One", "Stray"], "why": ["missed", "grey"] }), "a later guide's needs unknown");
 }
 
 #[test]
@@ -554,6 +657,7 @@ fn a_grey_quest_handed_in_later_is_named_once_when_the_log_overflows() {
 		&format!(
 			"{ROOM}{GREY}{}",
 			r#"
+    P.Set("behavior.skipGrey", true)
     w.abandon(1); w.abandon(77); cap = 2
     emit(titles(R.LogOverflow().drop))
   "#
@@ -561,4 +665,84 @@ fn a_grey_quest_handed_in_later_is_named_once_when_the_log_overflows() {
 		false,
 	);
 	assert_eq!(out, json!(["Five", "Three"]));
+}
+
+// Quest work a later guide hands in (the compiled `carriedTo`) is "later" there, even where the plan cannot reach
+// that guide (not loaded here): never unplanned, never listed, grey or not, and said as that guide's hand-in.
+#[test]
+fn a_quest_a_later_guide_hands_in_beyond_the_plan_is_not_called_unneeded() {
+	let out = run(
+		&format!(
+			"{ROOM}{GREY}{}",
+			r#"
+    w.onQuest(88, {}, "Sceptre")
+    levels[88] = 10
+    table.insert(guideA.steps, { goals = { { t="kill", quest=88, oi=1, carriedTo="route/z" } } })
+    guides["route/y"] = { id = "route/y", title = "Badlands", steps = {} }
+    table.insert(guideA.steps, { goals = { { t="collect", quest=89, item=1, carriedTo="route/y" } } })
+    P.Fire("GUIDES_REGISTERED")
+    P.Set("behavior.skipGrey", true)
+    local plan = R.GetTurnIn(88)
+    emit({ status = plan.status, guide = plan.guide, listed = titles(R.Unneeded()), named = R.Describe(R.GetTurnIn(89)) })
+  "#
+		),
+		false,
+	);
+	assert_eq!(out["status"], "later");
+	assert_eq!(out["guide"], "route/z");
+	assert_eq!(out["listed"], json!(["One", "Five", "Stray"]), "Sceptre is the unloaded later guide's: kept even grey with Skip grey on");
+	assert_eq!(out["named"], "Turn in at Badlands");
+}
+
+// A dungeon's pick-up guide in the active tab (a Lookup guide: no next), the leveling guide (Starter, live at
+// step 2) in another tab. In the log: 959 (a page quest of the dungeon, handed in after the run), 3 (Starter hands
+// it in at step 3), 1 (Starter passed its hand-in) and 77 (no route hands it in).
+const PICKUP: &str = r#"
+    local w = stub.world
+    w.onQuest(959, {}, "Trouble at the Docks"); w.onQuest(3, {}, "Three"); w.onQuest(1, {}, "One"); w.onQuest(77, {}, "Stray")
+    local pick = { id = "lookup/pickup/wc", title = "Wailing Caverns: pick up the quests", category = "Lookup",
+        lookup = { kind = "pickup", id = "wc" }, steps = {
+        { goals = { { t="accept", quest=959 }, { t="accept", quest=865 } } },
+        { goals = { { t="turnin", quest=865 } } } } }
+    guides[pick.id] = pick
+    P.Engine.GetGuide = function() return pick end
+    live = 1
+    P.Engine.TabLiveSteps = function() return { { guide = guideA, live = 2 }, { guide = pick, live = 1 } } end
+    P.Dungeons = { Meta = function() return {} end,
+        Get = function(key) if key == "wc" then return { key = "wc", name = "Wailing Caverns" } end end,
+        Quests = function(key) if key == "wc" then return { { id = 959 }, { id = 865 } } end return {} end }
+    P.Fire("TABS_CHANGED")
+    local function listed() local out = {} for i, u in ipairs(R.Unneeded() or {}) do out[i] = { u.title, u.status } end return out end
+"#;
+
+// #1830: the dungeon's quest (its hand-in plan turns it in after the run) and the leveling guide's quest in
+// another tab are not "Not handed in on this route", and their captions name the guide that hands them in.
+#[test]
+fn a_dungeon_pick_up_guide_in_the_active_tab_keeps_the_dungeon_s_and_the_leveling_tab_s_quests_1830() {
+	let out = run(
+		&format!(
+			"{PICKUP}{}",
+			r#"
+    local dungeon, leveling = R.GetTurnIn(959), R.GetTurnIn(3)
+    emit({ listed = listed(), dungeon = { dungeon.status, dungeon.dungeon }, leveling = { leveling.status, leveling.via, leveling.guide },
+        dungeonText = R.Describe(dungeon), levelingText = R.Describe(leveling) })
+  "#
+		),
+		false,
+	);
+	let titles: Vec<&str> = out["listed"].as_array().unwrap().iter().map(|u| text(&u[0])).collect();
+	assert!(!titles.contains(&"Trouble at the Docks"), "the dungeon's quest is kept: {titles:?}");
+	assert!(!titles.contains(&"Three"), "the leveling tab's quest is kept: {titles:?}");
+	assert_eq!(out["dungeon"], json!(["other", "wc"]));
+	assert_eq!(out["leveling"], json!(["other", "future", "route/a"]));
+	assert_eq!(out["dungeonText"], "No turn-in in this route · Wailing Caverns: hand in the quests");
+	assert!(is_match(text(&out["levelingText"]), r"^Turn in at Starter · step 3$"), "{}", out["levelingText"]);
+}
+
+// A quest no open route hands in is still listed, with the leveling route's reason first: Starter passed One's
+// hand-in (the pick-up guide alone would call it unplanned), and Stray is on no route.
+#[test]
+fn with_a_dungeon_pick_up_guide_active_a_quest_no_open_route_hands_in_is_listed_with_the_leveling_route_s_reason() {
+	let out = run(&format!("{PICKUP}{}", "emit(listed())"), false);
+	assert_eq!(out, json!([["One", "missed"], ["Stray", "unplanned"]]));
 }
