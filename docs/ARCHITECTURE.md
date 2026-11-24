@@ -248,7 +248,7 @@ them are keyed by step position: `stepKeys` (a hash per step of its verbs and
 ids) lets a pack update carry them to the steps it kept (see "Placement"),
 and, for a step it changed, to the step that has the same goal now: the
 changed step's goals come from `ns.LegacySteps` (Core/LegacySteps.lua,
-written by `tools/legacy-steps.js` from earlier releases' guides), so a
+written by `forge guide legacy-steps` from earlier releases' guides), so a
 check-off goes to the goal with the same verb and quest (or item, landing),
 a skip and the saved view to the step sharing most of its quest goals
 (`Own.remap`, `Own.legacyMaps`). The save's keys are those of the steps as
@@ -3611,7 +3611,7 @@ holds at its opening, see "Not yet available"):
   Hillsbrad visit, was put past Orgrimmar, training and the Undercity in
   Hillsbrad 29-32, at every load), nor on a quest an earlier release's route
   offered in another leveling guide (`ns.LegacyMovedIn` in LegacySteps.lua,
-  resident, from `tools/legacy-steps.js`: 0.4.0 offers Dangerous! on Hillsbrad
+  resident, from `forge guide legacy-steps`: 0.4.0 offers Dangerous! on Hillsbrad
   30-40's first Tarren Mill stop, and Tincho's old-route progress put him there
   again). And a soft step behind it passes only
   when the quest work it leads to (the next quest goal for the character

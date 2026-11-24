@@ -5058,7 +5058,7 @@ end
 
 -- The quests guide `id` offers that an earlier release's route offered in
 -- another leveling guide of its faction, not in this one (ns.LegacyMovedIn,
--- tools/legacy-steps.js), as a set, built once per guide. A character who
+-- forge guide legacy-steps), as a set, built once per guide. A character who
 -- played that route may have done them before ever reaching this guide.
 Own.movedInSets = {}
 function Own.movedIn(id)
@@ -7972,7 +7972,7 @@ end
 
 -- An old step's goals as the Engine names them (Own.stepParts), from the save's
 -- step key: a step of the new guide (kept) or one an earlier release had
--- (Own.legacy, tools/legacy-steps.js). -> { "turnin:783", ... } | nil
+-- (Own.legacy, forge guide legacy-steps). -> { "turnin:783", ... } | nil
 function Own.legacyGoals(id, key)
 	local L = Own.legacy()
 	local p = L and L[id] and L[id][key]
@@ -8402,7 +8402,7 @@ function Own.noteAdded(g, map, old)
 	local mine = s.added[g.id] or {}
 	local keys = Own.stepKeys(g)
 	-- Quest goals an earlier release had optional only that block now
-	-- (tools/legacy-steps.js `required`): a player may have passed them, so in
+	-- (forge guide legacy-steps' `required`): a player may have passed them, so in
 	-- a kept step too they count as added (Wetlands 98216, Hillsbrad 98283).
 	local L = Own.legacy()
 	local req = L and L[g.id] and L[g.id].required

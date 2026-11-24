@@ -56,7 +56,7 @@ PolestarCharDB = {{ schema = 1, tabs = {{ "test/up" }}, activeTab = 1,
 
 const SCRIPT: &str = r#"
 E = Polestar.Engine
--- The changed step's goals as the earlier release had them (tools/legacy-steps.js).
+-- The changed step's goals as the earlier release had them (forge guide legacy-steps).
 local function h(s) local x = 5381 for i = 1, #s do x = (x * 33 + s:byte(i)) % 4294967296 end return x end
 Polestar.LegacyStepsLoad = function() return { ["test/up"] = { [h("accept:102")] = "accept:102" } } end
 stub.login(); stub.advance(0.25)

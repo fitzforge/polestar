@@ -382,6 +382,61 @@ fn guidecheck(args: &[String]) -> i32 {
 	i32::from(!failures.is_empty())
 }
 
+/// `forge guide legacy-steps --old <dir> [--old <dir> ...] [--data <dir>] [--out <file>] [--current <dir>]
+/// [--root <checkout>]` (forge::legacy_steps).
+fn legacy_steps(args: &[String]) -> i32 {
+	let usage = |m: &str| {
+		eprintln!("forge guide legacy-steps: {m}\n(forge guide --help for the options)");
+		2
+	};
+	if let Err(e) = super::check_args(args, &["--old", "--data", "--out", "--current", "--root"], &[], 0) {
+		return usage(&e);
+	}
+	let cwd = std::env::current_dir().unwrap_or_default();
+	let mut olds: Vec<PathBuf> = Vec::new();
+	let mut opts: Vec<(String, String)> = Vec::new();
+	let mut it = args.iter();
+	while let Some(a) = it.next() {
+		let (k, v) = match a.split_once('=') {
+			Some((k, v)) => (k.to_string(), v.to_string()),
+			None => (a.clone(), it.next().cloned().unwrap_or_default()),
+		};
+		if k == "--old" {
+			olds.push(cwd.join(v));
+		} else {
+			opts.push((k, v));
+		}
+	}
+	let opt = |k: &str| opts.iter().find(|(o, _)| o == k).map(|(_, v)| cwd.join(v));
+	if olds.is_empty() {
+		return usage("at least one --old <guides dir>: an earlier release's guides (git archive <tag> guides)");
+	}
+	let Some(root) = opt("--root").or_else(find_root) else {
+		return usage("no Polestar checkout (addon/Polestar/Polestar.toc and guides/pack.json) above here or the forge binary: pass --root <checkout>");
+	};
+	let data_dir = opt("--data").unwrap_or_else(|| root.join("data/forever"));
+	let out = opt("--out").unwrap_or_else(|| root.join("addon/Polestar/Core/LegacySteps.lua"));
+	let current = opt("--current").unwrap_or_else(|| root.join("guides"));
+	let data = match forge_guide::data::load_data(&data_dir) {
+		Ok(d) => d,
+		Err(e) => {
+			eprintln!("forge guide legacy-steps: {}: {e}", data_dir.display());
+			return 1;
+		}
+	};
+	let olds: Vec<&Path> = olds.iter().map(PathBuf::as_path).collect();
+	match forge::legacy_steps::build(&current, &olds, &data).and_then(|w| std::fs::write(&out, &w.lua).map(|_| w).map_err(|e| format!("{}: {e}", out.display()))) {
+		Ok(w) => {
+			eprintln!("forge guide legacy-steps: wrote {}: {} steps of {} guides; {} quests moved into {} guides", out.display(), w.steps, w.guides, w.moved, w.moved_guides);
+			0
+		}
+		Err(e) => {
+			eprintln!("forge guide legacy-steps: {e}");
+			1
+		}
+	}
+}
+
 const COMPILE_VALUES: [&str; 8] = ["--root", "--pack", "--guides", "--data", "--context", "--context-data", "--out", "--format"];
 const LINT_VALUES: [&str; 8] = ["--root", "--pack", "--guides", "--data", "--context", "--context-data", "--sim", "--format"];
 
@@ -401,8 +456,11 @@ fn run() -> i32 {
 	if cmd == "bake" {
 		return bake(&args[1..]);
 	}
+	if cmd == "legacy-steps" {
+		return legacy_steps(&args[1..]);
+	}
 	if cmd != "compile" && cmd != "lint" {
-		return usage(&format!("unknown command {cmd}: compile, lint, check, bake, seed, publish, check-generated or rehash"));
+		return usage(&format!("unknown command {cmd}: compile, lint, check, bake, seed, publish, check-generated, rehash or legacy-steps"));
 	}
 	let rest = &args[1..];
 	let values: &[&str] = if cmd == "compile" { &COMPILE_VALUES } else { &LINT_VALUES };
