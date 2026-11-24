@@ -32,8 +32,8 @@ const PINNED = {
 	DRUID: { prompted: ['aquatic-form', 'bear-form', 'cat-form', 'cure-poison'], optional: ['bloodpetal-poison'] },
 	HUNTER: { prompted: ['taming-the-beast-alliance', 'taming-the-beast-horde'], optional: ['rhokdelar', 'the-hunters-charm'] },
 	MAGE: {
-		prompted: ['arcane-refreshment', 'celestial-orb', 'mages-wand', 'polymorph-pig', 'teleports-alliance', 'teleports-horde'],
-		optional: ['astral-knot-garment', 'atiesh', 'destroy-morphaz', 'ju-ju-heaps', 'manaweave-robe', 'nether-lace-garment', 'spellfire-robes', 'staff-or-orb-alliance'],
+		prompted: ['arcane-refreshment', 'celestial-orb', 'polymorph-pig', 'teleports-alliance', 'teleports-horde'],
+		optional: ['astral-knot-garment', 'atiesh', 'destroy-morphaz', 'ju-ju-heaps', 'mages-wand', 'manaweave-robe', 'nether-lace-garment', 'spellfire-robes', 'staff-or-orb-alliance'],
 	},
 	PALADIN: {
 		prompted: ['alliance/paladin-charger', 'alliance/paladin-warhorse', 'horde/paladin-warhorse', 'lumina-windsinger', 'tome-of-divinity', 'tyrs-watch', 'verigans-fist'],
@@ -52,8 +52,8 @@ const PINNED = {
 		optional: ['darkreaver', 'spirit-totem'],
 	},
 	WARLOCK: {
-		prompted: ['felhunter-alliance', 'felhunter-horde', 'imp-alliance', 'imp-horde', 'incubus-alliance', 'incubus-horde', 'neutral/warlock-dreadsteed', 'neutral/warlock-felsteed', 'orb-of-soranruk', 'voidwalker-alliance', 'voidwalker-horde'],
-		optional: ['dread-mage-hat', 'enchanted-gold-bloodrobe', 'impsys-request', 'orb-of-orahil', 'shard-of-the-green-flame', 'tome-of-sacrifice'],
+		prompted: ['felhunter-alliance', 'felhunter-horde', 'imp-alliance', 'imp-horde', 'incubus-alliance', 'incubus-horde', 'neutral/warlock-dreadsteed', 'neutral/warlock-felsteed', 'voidwalker-alliance', 'voidwalker-horde'],
+		optional: ['dread-mage-hat', 'enchanted-gold-bloodrobe', 'impsys-request', 'orb-of-orahil', 'orb-of-soranruk', 'shard-of-the-green-flame', 'tome-of-sacrifice'],
 	},
 	WARRIOR: { prompted: ['haggards-weapons', 'heirloom-weapon', 'whirlwind-weapon'], optional: ['brutal-armor', 'fire-hardened-armor', 'quelserrar', 'voodoo-feathers'] },
 };
@@ -63,12 +63,10 @@ const PINNED = {
 // Weapon are alerted for their spell or stance anyway; the rest are item-only, prompted as "worth".
 const WORTH = [
 	'forever/class/mage/celestial-orb',
-	'forever/class/mage/mages-wand',
 	'forever/class/paladin/lumina-windsinger',
 	'forever/class/paladin/verigans-fist',
 	'forever/class/shaman/call-of-air-alliance',
 	'forever/class/shaman/call-of-air-horde',
-	'forever/class/warlock/orb-of-soranruk',
 	WHIRLWIND,
 ];
 
@@ -189,28 +187,28 @@ const HEADS_UP = {
 	Alliance: {
 		DRUID: { on: ['aquatic-form', 'bear-form', 'cat-form', 'cure-poison'], dropped: ['bloodpetal-poison'] },
 		HUNTER: { on: ['taming-the-beast-alliance'], dropped: ['rhokdelar', 'the-hunters-charm'] },
-		MAGE: { on: ['arcane-refreshment', 'celestial-orb', 'mages-wand', 'polymorph-pig'], dropped: ['astral-knot-garment', 'destroy-morphaz', 'manaweave-robe', 'staff-or-orb-alliance'] },
+		MAGE: { on: ['arcane-refreshment', 'celestial-orb', 'polymorph-pig'], dropped: ['astral-knot-garment', 'destroy-morphaz', 'mages-wand', 'manaweave-robe', 'staff-or-orb-alliance'] },
 		PALADIN: { on: ['alliance/paladin-charger', 'alliance/paladin-warhorse', 'tome-of-divinity', 'verigans-fist'], dropped: ['holy-mightstone'] },
 		PRIEST: { on: ['divine-grace-and-feedback'], dropped: ['benediction', 'blood-of-morphaz', 'priest-robes-alliance'] },
 		ROGUE: { on: ['poisons-alliance'], dropped: ['blade-of-cunning-alliance', 'certificate-of-thievery', 'the-azure-key', 'the-eye-of-bhossca'] },
 		SHAMAN: { on: ['call-of-air-alliance', 'call-of-fire-alliance', 'call-of-water-alliance'], dropped: [] },
 		WARLOCK: {
-			on: ['felhunter-alliance', 'incubus-alliance', 'neutral/warlock-dreadsteed', 'neutral/warlock-felsteed', 'orb-of-soranruk', 'voidwalker-alliance'],
-			dropped: ['dread-mage-hat', 'enchanted-gold-bloodrobe', 'impsys-request', 'orb-of-orahil', 'shard-of-the-green-flame', 'tome-of-sacrifice'],
+			on: ['felhunter-alliance', 'incubus-alliance', 'neutral/warlock-dreadsteed', 'neutral/warlock-felsteed', 'voidwalker-alliance'],
+			dropped: ['dread-mage-hat', 'enchanted-gold-bloodrobe', 'impsys-request', 'orb-of-orahil', 'orb-of-soranruk', 'shard-of-the-green-flame', 'tome-of-sacrifice'],
 		},
 		WARRIOR: { on: ['haggards-weapons', 'whirlwind-weapon'], dropped: ['fire-hardened-armor', 'voodoo-feathers'] },
 	},
 	Horde: {
 		DRUID: { on: ['aquatic-form', 'bear-form', 'cat-form', 'cure-poison'], dropped: ['bloodpetal-poison'] },
 		HUNTER: { on: ['taming-the-beast-horde'], dropped: ['rhokdelar', 'the-hunters-charm'] },
-		MAGE: { on: ['arcane-refreshment', 'celestial-orb', 'mages-wand', 'polymorph-pig'], dropped: ['destroy-morphaz', 'ju-ju-heaps', 'nether-lace-garment', 'spellfire-robes'] },
+		MAGE: { on: ['arcane-refreshment', 'celestial-orb', 'polymorph-pig'], dropped: ['destroy-morphaz', 'ju-ju-heaps', 'mages-wand', 'nether-lace-garment', 'spellfire-robes'] },
 		PALADIN: { on: ['horde/paladin-warhorse', 'lumina-windsinger', 'tyrs-watch'], dropped: [] },
 		PRIEST: { on: ['hex-of-weakness-and-shadowguard'], dropped: ['benediction', 'blood-of-morphaz', 'priest-robes-horde'] },
 		ROGUE: { on: ['poisons-horde'], dropped: ['blade-of-cunning-horde', 'plundering-the-plunderers', 'the-azure-key', 'the-eye-of-bhossca'] },
 		SHAMAN: { on: ['call-of-air-horde', 'call-of-earth-horde', 'call-of-fire-horde', 'call-of-water-horde'], dropped: ['darkreaver', 'spirit-totem'] },
 		WARLOCK: {
-			on: ['felhunter-horde', 'incubus-horde', 'neutral/warlock-dreadsteed', 'neutral/warlock-felsteed', 'orb-of-soranruk', 'voidwalker-horde'],
-			dropped: ['enchanted-gold-bloodrobe', 'impsys-request', 'orb-of-orahil', 'shard-of-the-green-flame', 'tome-of-sacrifice'],
+			on: ['felhunter-horde', 'incubus-horde', 'neutral/warlock-dreadsteed', 'neutral/warlock-felsteed', 'voidwalker-horde'],
+			dropped: ['enchanted-gold-bloodrobe', 'impsys-request', 'orb-of-orahil', 'orb-of-soranruk', 'shard-of-the-green-flame', 'tome-of-sacrifice'],
 		},
 		WARRIOR: { on: ['heirloom-weapon', 'whirlwind-weapon'], dropped: ['brutal-armor', 'voodoo-feathers'] },
 	},
