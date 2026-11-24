@@ -918,9 +918,9 @@ reloads the UI when it changes). With it on, Polestar:
   (UI/Options: the chat says to close it);
 - hooks no button the gamepad's navigation moves over: no Polestar line on
   talent tooltips (Talents/Overlay), no route on the flight map
-  (QoL/Flight; the node keeps its mark), no quest levels in the game's
-  quest windows (Quests/QuestLevels, whose surfaces lay out windows the
-  gamepad manages);
+  (QoL/Flight; the node keeps its mark), no quest levels or "kept for"
+  labels in the game's quest windows (Quests/QuestLevels, Quests/KeptFor,
+  whose surfaces lay out windows the gamepad manages);
 - leaves the game's request dialogs for the player (QoL/Social) and the
   error-message setting off (QoL/Toggles, which writes the game's
   `BLACK_LISTED_MESSAGE_TYPES`);
@@ -2809,6 +2809,25 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   or skipping it otherwise forgets the hold (`Own.pruneLost`). A step the
   player brings back (Unskip, Goto) asks nothing unless its quest left the
   log.
+- **Quests kept for a later guide** (#3390: the Booty Bay quests the
+  Stranglethorn guide takes for the next one's Wild Shore stop). One
+  abandoned while the route still hands it in (`RoutePlan.StillHandsIn`) is
+  noted on `QUEST_REMOVED` (`heldLeft[questID]`, per character). Once the
+  loaded guide hands it in ahead without taking it itself, it is held and
+  asked about as above (`Own.retakeAsk`; titled from its hand-in), its goals
+  staying the guide's meanwhile (`orphaned` leaves a held quest's goals
+  alone); `behavior.lostQuests` answers it at once too. Go back for it waits
+  it as a level wait does (`levelWaits`, from the nearest accept in the
+  guides leading here: `Own.retake`) and plans the guide again, so the
+  carried accept goes in where the route passes its giver
+  (`Own.carryChains`). Auto-accept takes a quest the loaded guide hands in
+  and does not take itself at its giver (`Own.retakeWants`, in
+  `Engine.WantsQuest`), one the player never had too: its goals apply again
+  and the route comes back for them. While carried, the quest log's and the
+  tracker's titles say "kept for <guide>" (`Quests/KeptFor.lua`,
+  `RoutePlan.KeptFor`), and so does its While-you're-here line (`keptFor`
+  after its step; a stranded hand-in's line says it in place of "Handed in
+  later on the route").
 - **Quests that failed in the log** (an escort lost, a timer run out, an
   event's NPC killed: `Compat.IsQuestFailed`, C_QuestLog.IsFailed, which
   Forever answers: the Recorder's `fail` events) can't be done until they
@@ -6729,6 +6748,11 @@ on the item; quest-starting items get "Starts a quest: <title>".
 `Quests/QuestLevels.lua` prefixes "[12]" (and "+" for elite) to quest titles
 the client lists without one (gossip, greeting, details; camelot's own log and
 tracker already show it, so it adds there only when missing).
+`Quests/KeptFor.lua` adds " · kept for <guide>" (dimmed) after the title of a quest
+in the log that a later guide of the route hands in (`RoutePlan.KeptFor`, #3390),
+in the quest log and the objective tracker, " · kept" where the whole would wrap
+the laid-out title, nothing where that would too; a quest log row's tooltip says
+it whole. While-you're-here lines say it after their step (`UI.HereStep`).
 (camelot is Forever's game type in Blizzard's UI source: the files the Forever client loads carry `AllowLoadGameType camelot`, and its own overrides sit in `Camelot/` folders.)
 
 Nameplate icons (`qol.nameplateIcons`): a mob an open objective still needs

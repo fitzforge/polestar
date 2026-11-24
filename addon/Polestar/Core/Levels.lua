@@ -363,6 +363,9 @@ function Levels.ForGuide(id, p, from, to)
 		rows[who], rowsCount = mine, rowsCount + 1
 	end
 	local entries, turnedIn, counted = {}, {}, {}
+	-- An escort the player chose to skip (#3439) is no XP of the route's.
+	local E = ns.Engine
+	local function skipped(q) return q ~= nil and E and E.EscortSkipped and E.EscortSkipped(g, q) or false end
 	for si = from or 1, to and math.min(to - 1, #g.steps) or #g.steps do
 		local list = mine[si]
 		if not list then
@@ -371,11 +374,11 @@ function Levels.ForGuide(id, p, from, to)
 		end
 		for _, r in ipairs(list) do
 			if r.turnin then
-				if not turnedIn[r.turnin] then
+				if not turnedIn[r.turnin] and not skipped(r.turnin) then
 					turnedIn[r.turnin] = true
 					entries[#entries + 1] = r.entry
 				end
-			elseif not done(r.quest) and not (r.key and counted[r.key]) then
+			elseif not done(r.quest) and not (r.key and counted[r.key]) and not skipped(r.quest) then
 				-- An objective split over steps is counted once.
 				if r.key then counted[r.key] = true end
 				if r.entry then entries[#entries + 1] = r.entry end

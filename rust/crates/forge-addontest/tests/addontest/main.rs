@@ -106,6 +106,8 @@ mod engine_dwell;
 mod engine_empty_stop;
 #[path = "engine-enter.rs"]
 mod engine_enter;
+#[path = "engine-escort-choice.rs"]
+mod engine_escort_choice;
 #[path = "engine-exact-points.rs"]
 mod engine_exact_points;
 #[path = "engine-faction-levels.rs"]
@@ -132,6 +134,8 @@ mod engine_group_default;
 mod engine_guide_end;
 #[path = "engine-heights.rs"]
 mod engine_heights;
+#[path = "engine-held-quests.rs"]
+mod engine_held_quests;
 #[path = "engine-keep.rs"]
 mod engine_keep;
 #[path = "engine-l10n.rs"]
