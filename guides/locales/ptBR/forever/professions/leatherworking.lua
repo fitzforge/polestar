@@ -189,7 +189,8 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780} até 158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} é amarela em 150 (amarelo 145, verde 155, cinza 165): cerca de 15 criações até 158. Cada uma usa 5 {item:4234} e 1 {item:2321}. Cinco {item:4234} por criação (feras de nível 28-40); os kits vendem para vendedores.",
+	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} é amarela em 150 (amarelo 145, verde 155, cinza 165): cerca de 15 criações até 158. Cada uma usa 5 {item:4234} e 1 {item:2321}. Cinco {item:4234} por criação (feras de nível 28-40); os kits vendem para vendedores."
+	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 39: Barbaric Shoulders to 165
 	-- {item:5964} Barbaric Shoulders
@@ -423,6 +424,7 @@ return {
 	-- ["{spell:3763} to 105"] = "{spell:3763} até 105",
 	-- ["{spell:3768} to 150"] = "{spell:3768} até 150",
 	-- ["{spell:3776} to 185"] = "{spell:3776} até 185",
+	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} é amarela em 150 (amarelo 145, verde 155, cinza 165): cerca de 15 criações até 158. Cada uma usa 5 {item:4234} e 1 {item:2321}. Cinco {item:4234} por criação (feras de nível 28-40); os kits vendem para vendedores.",
 	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 8 crafts to 155. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} é amarela em 150 (amarelo 145, verde 155, cinza 165): cerca de 8 criações até 155. Cada uma usa 5 {item:4234} e 1 {item:2321}. Cinco {item:4234} por criação (feras de nível 28-40); os kits vendem para vendedores.",
 	-- ["{spell:3780} to 155"] = "{spell:3780} até 155",
 }

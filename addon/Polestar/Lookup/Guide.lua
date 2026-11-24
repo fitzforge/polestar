@@ -474,10 +474,12 @@ end
 Lookup.SpawnSpots = spawnSpots
 
 -- Quests to do in order to get questId, prerequisites first: every one of
--- `pre`, and of `preAny` (unless one is done) the first this character can
--- take, else the first it can take once it has the level (Fury in the Depths
--- waits on The Dark Iron War, level 25: leaving that out sent a level 23 to
--- a giver who refused, #1076). Done prerequisites are left out. The chain is
+-- `pre`, and of `preAny` (unless one is done) the one in the quest log, else
+-- the first this character can take, else the first it can take once it has
+-- the level (Fury in the Depths waits on The Dark Iron War, level 25: leaving
+-- that out sent a level 23 to a giver who refused, #1076). The one in the log
+-- first: a Rogue holding Forever's An Earnest Proposition (84152) was sent to
+-- take the Classic one (8910) all the same (#3081). Done prerequisites are left out. The chain is
 -- whole however long (Alba Fairmoon's to The State of the Mines is ten
 -- quests): a cut would drop the first quests to do. Each quest is visited
 -- once, so the walk ends. avoid(id), optional: a `preAny` alternative it
@@ -500,6 +502,10 @@ local function questChain(questId, player, avoid)
 				if ns.Compat.IsQuestCompleted(pid) then done = true; break end
 			end
 			if not done then
+				local held
+				for _, pid in ipairs(any) do
+					if ns.Compat.IsOnQuest(pid) and C.Quest(pid) then held = pid; break end
+				end
 				local function choose(skip)
 					local pick, later
 					for _, pid in ipairs(any) do
@@ -510,7 +516,7 @@ local function questChain(questId, player, avoid)
 					end
 					return pick or later
 				end
-				local pick = avoid and choose(true) or choose(false)
+				local pick = held or (avoid and choose(true) or choose(false))
 				if pick then visit(pick, depth + 1) end
 			end
 		end

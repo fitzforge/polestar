@@ -189,7 +189,8 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780} bis 158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} ist bei 150 gelb (gelb 145, grün 155, grau 165): etwa 15 Herstellungen bis 158. Jede braucht 5 {item:4234} und 1 {item:2321}. Fünf {item:4234} pro Herstellung (Tiere der Stufen 28-40); die Sets lassen sich an Händler verkaufen.",
+	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} ist bei 150 gelb (gelb 145, grün 155, grau 165): etwa 15 Herstellungen bis 158. Jede braucht 5 {item:4234} und 1 {item:2321}. Fünf {item:4234} pro Herstellung (Tiere der Stufen 28-40); die Sets lassen sich an Händler verkaufen."
+	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 39: Barbaric Shoulders to 165
 	-- {item:5964} Barbaric Shoulders
@@ -425,6 +426,7 @@ return {
 	-- ["{spell:3763} to 105"] = "{spell:3763} bis 105",
 	-- ["{spell:3768} to 150"] = "{spell:3768} bis 150",
 	-- ["{spell:3776} to 185"] = "{spell:3776} bis 185",
+	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} ist bei 150 gelb (gelb 145, grün 155, grau 165): etwa 15 Herstellungen bis 158. Jede braucht 5 {item:4234} und 1 {item:2321}. Fünf {item:4234} pro Herstellung (Tiere der Stufen 28-40); die Sets lassen sich an Händler verkaufen.",
 	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 8 crafts to 155. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} ist bei 150 gelb (gelb 145, grün 155, grau 165): etwa 8 Herstellungen bis 155. Jede braucht 5 {item:4234} und 1 {item:2321}. Fünf {item:4234} pro Herstellung (Tiere der Stufen 28-40); die Sets lassen sich an Händler verkaufen.",
 	-- ["{spell:3780} to 155"] = "{spell:3780} bis 155",
 }

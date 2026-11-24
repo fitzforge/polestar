@@ -189,7 +189,8 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780} до 158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}: желтый на 150 (желтый 145, зеленый 155, серый 165): около 15 изготовлений до 158. Каждое требует 5 {item:4234} и 1 {item:2321}. По пять {item:4234} на изготовление (звери 28-40 уровня); наборы можно продать торговцам.",
+	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}: желтый на 150 (желтый 145, зеленый 155, серый 165): около 15 изготовлений до 158. Каждое требует 5 {item:4234} и 1 {item:2321}. По пять {item:4234} на изготовление (звери 28-40 уровня); наборы можно продать торговцам."
+	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 39: Barbaric Shoulders to 165
 	-- {item:5964} Barbaric Shoulders
@@ -385,4 +386,5 @@ return {
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}: распыляйте необычные (зеленые) вещи (или аукцион)",
 	-- ["{spell:3768} to 150"] = "{spell:3768} до 150",
 	-- ["{spell:3776} to 185"] = "{spell:3776} до 185",
+	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}: желтый на 150 (желтый 145, зеленый 155, серый 165): около 15 изготовлений до 158. Каждое требует 5 {item:4234} и 1 {item:2321}. По пять {item:4234} на изготовление (звери 28-40 уровня); наборы можно продать торговцам.",
 }

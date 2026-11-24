@@ -2,6 +2,22 @@
 -- Keys are the English strings exactly as the code writes them; a key
 -- missing here, or commented out, shows in English. Grouped by the file that
 -- first uses each key. docs/TRANSLATING.md explains the rest.
+--
+-- Machine-translated, to be reviewed (#3423, 24 Nov 2026): the interface texts 0.4.2 added or
+-- reworded that this file still showed in English, translated by an AI model (Claude Opus 5.5)
+-- in this file's own wording, and waiting for a native speaker's check. Reviewing one: keep or
+-- fix its line below, and take its key off this list.
+--   Requires level %d: the guide comes back for it then
+--   Requires level %d: kept for a later guide
+--   A guide later on your route takes this quest here: taken now, its step is done when you get there.
+--   Arrived underwater
+--   Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is.
+--   %d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character.
+--   Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on.
+--   %s · at level %d
+--   %s (level %d)
+--   %s takes these once you reach their level: %s
+--   Waiting for your level, taken where a later guide passes the giver: %s
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
@@ -227,9 +243,9 @@ L["No Hearthstone in your bags: ride to the inn"] = "背包中没有炉石：请
 L["Hearthstone ready in %s: ride to the inn, or wait for it"] = "炉石将在 %s 后就绪：可自行前往旅店，或等待冷却结束"
 L["Ride to %s"] = "前往 %s"
 L["Ride to the flight master"] = "前往飞行管理员处"
--- L["Requires level %d: the guide comes back for it then"] = ""
--- L["Requires level %d: kept for a later guide"] = ""
--- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
+L["Requires level %d: the guide comes back for it then"] = "需要%d级：届时指南会回来接取"
+L["Requires level %d: kept for a later guide"] = "需要%d级：留给后续的指南"
+L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = "你路线上后面的某个指南会在这里接受此任务：现在接受的话，到达该步骤时它就已完成。"
 -- L["For %s, later on your route."] = ""
 -- L["kill %s as you meet them"] = ""
 
@@ -375,7 +391,7 @@ L["Drag to move."] = "拖动以移动。"
 L["Click for the next spot."] = "点击前往下一地点。"
 L["Shift-drag to move."] = "按住 Shift 拖动可移动。"
 L["No waypoint"] = "没有路径点"
--- L["Arrived underwater"] = ""
+L["Arrived underwater"] = "已在水下到达"
 -- L["Under water nearby: swim down to it"] = ""
 -- L["%d yd below you: swim down"] = ""
 
@@ -479,6 +495,7 @@ L["Ride to the entrance"] = "前往入口"
 -- L["Known flight paths (%d): %s"] = ""
 -- L["List the flight paths Polestar knows you have (reset: forget them)"] = ""
 -- L["Faster if you have the flight path at %s"] = ""
+-- L["Ask %s to teleport you to %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -2677,6 +2694,8 @@ L["Drag the guide window, the arrow, the cards and the alerts where you want the
 -- L["General"] = ""
 -- L["The language Polestar shows."] = ""
 -- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."] = ""
+-- L["Say when I've outlevelled a guide"] = ""
+-- L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -3506,9 +3525,9 @@ L["1 character"] = "1个角色"
 L["1 character · each as of their last logout"] = "1个角色 · 为其上次登出时的数据"
 L["%d characters · each as of their last logout"] = "%d个角色 · 均为各自上次登出时的数据"
 L["Forget %s"] = "忘记 %s"
--- L["Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is."] = ""
--- L["%d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character."] = ""
--- L["Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on."] = ""
+L["Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is."] = "另一个名为%s的角色是在 Forever 客户端停止向插件提供服务器名称之前保存的。Polestar 无法判断它是否就是这个角色，因此保持原样列出；如果是，请忘记它。"
+L["%d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character."] = "%d 个名为%s的角色在 Forever 客户端停止向插件提供服务器名称之前保存在不同的服务器上。Polestar 无法判断你正在玩哪一个，因此它们保持原样列出，此角色有了一个新条目；请忘记原本属于此角色的旧条目。"
+L["Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on."] = "在 %d 个服务器上遇到的稀有怪物分开保存：Forever 客户端不再向插件提供服务器名称，因此 Polestar 无法判断当前是其中哪一个。“稀有”将列出你从现在起遇到的稀有怪物。"
 L["Characters is turned off. Turn it on under Settings > Discovery > Lookup."] = "“角色”功能已关闭。请在“设置 > 发现 > 查询”中开启。"
 
 -- QoL/Keep.lua
@@ -3628,7 +3647,7 @@ L["Carried to later guides"] = "留待之后指南的任务"
 L["Not part of your route"] = "不在你的路线中"
 L["Keep or abandon them"] = "保留或放弃"
 L["Each with its Abandon button, which asks in the game's own window first."] = "每个任务都有“放弃”按钮，会先在游戏自身的窗口中确认。"
--- L["%s · at level %d"] = ""
+L["%s · at level %d"] = "%s · %d级"
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "点击选中并标记 %s（战斗外）。"
@@ -4747,13 +4766,14 @@ L["Open any flight master's map once on this continent so Polestar knows your fl
 L["This guide is for %s characters. Polestar won't guide you through it."] = "此指南适用于%s角色。Polestar 不会引导你完成它。"
 L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = "先在幽暗城找加伦·拉戈接取「Report to Danitha」，再到班达里安堡找丹妮莎·莫尔完成「A Paladin's Steed」，即可学会「召唤军马」。"
 L["Equip it"] = "装备"
--- L["%s (level %d)"] = ""
--- L["%s takes these once you reach their level: %s"] = ""
--- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
+L["%s (level %d)"] = "%s（%d级）"
+L["%s takes these once you reach their level: %s"] = "达到所需等级后，%s会接受这些任务：%s"
+L["Waiting for your level, taken where a later guide passes the giver: %s"] = "等待你的等级，在后续指南经过任务给予者时接受：%s"
 -- L["Looking ahead."] = ""
 -- L["Looking back."] = ""
 -- L["On the way to your map point (%s)."] = ""
 -- L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = ""
+-- L["You are past this class quest's levels."] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "按 %s 恢复，或打开指南窗口。"
@@ -5078,13 +5098,12 @@ L["%d of %d"] = "%d / %d"
 -- L["Before Atlas (%s)"] = ""
 -- L["New in 0.4.3: the Atlas layout"] = ""
 -- L["Try it on your own guide window: each button switches it now, as often as you like."] = ""
--- L["Layout"] = ""
--- L["Your current design"] = ""
 -- L["Tabs are off in Settings > Guide window > Parts."] = ""
 -- L["Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets."] = ""
 -- L["The guide window is hidden: open it to see each choice on your guide."] = ""
 -- L["Atlas layout and tab styles by %s"] = ""
 -- L["Keep this"] = ""
+-- L["(your current)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"

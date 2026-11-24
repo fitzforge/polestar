@@ -76,6 +76,11 @@ the rules of the offer audit that fixed #1132 (`learn/offers.rs`):
   explains it handed in, same level), an unlock within 5 s of that hand-in, or present in every
   same-level unlock of two characters. Offered without it contradicts it: with that unlock evidence
   too, the prerequisite is a conflict.
+- "Our data's prerequisites" include those the last snapshot's trusted `notPre` and `notPreAny`
+  took out (`--data` is often a build that applied them): they are judged again on the recordings,
+  so learning over corrected data keeps the facts the build applied instead of dropping them (and
+  letting the next build put the prerequisites back, #3359). A quest whose prerequisites a
+  correction sets keeps the correction's.
 - Minimum level: the lowest offered level bounds it from above, the highest level refused with every
   required quest done (below that) from below. It is learned when the two meet; when the bounds only
   show our data's level is wrong, the report lists it with the bounds. A quest that also needs a
