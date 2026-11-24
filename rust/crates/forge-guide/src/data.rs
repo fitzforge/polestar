@@ -104,6 +104,9 @@ pub struct Data {
 	/// data/recorded/quests.json (`forge record learn`: players' recorded objective spots, beside the data folder:
 	/// its parent's recorded/quests.json), or Null; read by recorded.rs.
 	pub recorded: V,
+	/// data/recorded/escorts.json (`forge record learn`: how long players' escorts take and how often they fail,
+	/// beside the data folder as `recorded`), or Null; escort.rs reads it (#3439).
+	pub escorts: V,
 	/// The counted voters each recorded spot needs (data/recorded/meta.json `thresholds.spotVoters`).
 	pub spot_voters: f64,
 	/// mechanics.json's `quests` (quest id -> { kinds, params, ... }: how each quest is done, `forge data build`), or
@@ -172,6 +175,7 @@ impl Data {
 			spawnz,
 			goal_heights: V::Null,
 			recorded: V::Null,
+			escorts: V::Null,
 			spot_voters: crate::recorded::SPOT_VOTERS,
 			mechanics: V::Null,
 			moves,
@@ -589,6 +593,9 @@ pub fn load_data(dir: &std::path::Path) -> Result<Data, String> {
 		data.recorded = doc;
 		let need = read(beside.join("recorded").join("meta.json"))?.map(|m| m.get("thresholds").get("spotVoters").num()).filter(|n| *n >= 1.0);
 		data.spot_voters = need.unwrap_or(crate::recorded::SPOT_VOTERS);
+	}
+	if let Some(doc) = read(beside.join("recorded").join("escorts.json"))? {
+		data.escorts = doc;
 	}
 	if let Some(doc) = read(dir.join("mechanics.json"))? {
 		data.mechanics = doc.get("quests");

@@ -486,9 +486,10 @@ end
 -- `collect` of an item (no quest) -> the accept after it in its step that
 -- the item starts (`accept <q> item <item>`, no giver: Ursangous's Paw
 -- before The Hunt Continues), as Own.starterTaken pairs them, the goals
--- at each NPC (`at[npc]`) or object (`at[-object]`), the same entries, and
+-- at each NPC (`at[npc]`) or object (`at[-object]`), the same entries,
 -- `needs[p]`: the quests whose accept here cannot be taken without p (p is
--- in its `preAll`, or its one `pre`).
+-- in its `preAll`, or its one `pre`), and `escorts[q]`: the escorts the
+-- player chooses to do or skip (Own.escortChoice, #3439).
 local NONE = {}
 Own.layoutCache = setmetatable({}, { __mode = "k" })
 local function layoutOf(g)
@@ -555,6 +556,21 @@ local function layoutOf(g)
 				end
 				list[#list + 1] = { s = s, key = s .. ":" .. gi, step = step, goal = goal }
 			end
+		end
+	end
+	-- An escort is a choice (#3439): a quest with a required accept carrying
+	-- the compiled `escort`, unless a step's `when` asks about it already
+	-- (`group` or `!group`: the author's own choice). forge-guide's
+	-- escort.rs choice_quests lists the same in a deferred guide's header.
+	l.escorts = {}
+	for q, list in pairs(l.accepts) do
+		for _, e in ipairs(list) do
+			if e.goal.escort and not e.goal.optional then l.escorts[q] = true end
+		end
+	end
+	for _, step in ipairs(g.steps) do
+		for _, p in ipairs(step.when or NONE) do
+			if p.k == "group" and p.q then l.escorts[p.q] = nil end
 		end
 	end
 	Own.layoutCache[g] = l
@@ -723,6 +739,8 @@ end
 -- (Inline: the main chunk is at Lua's 200 locals.)
 local function goalApplies(goal)
 	if not Guides.Matches(goal.only, player) or Own.barred(goal) or Own.gone(goal) then return false end
+	-- An escort the player chose to skip (Own.escortChoice, #3439): its accept, work and hand-in are out.
+	if goal.quest and Own.escortChoice(goal.quest) and Own.groupAnswer(goal.quest) == "skip" then return false end
 	-- The item a quest starts from is collected only for that quest (#1531),
 	-- and so is one it works with (Own.usedBy, #2670).
 	local starts = goal.t == "collect" and not goal.quest and guide and layoutOf(guide).starters[goal] or Own.usedBy(goal)
@@ -1124,13 +1142,29 @@ end
 -- Nor does a step with nothing to do for the quest now (Own.groupOpen): it
 -- then applies as it would without the question, and the route asks once
 -- the quest can be taken. Nor does one whose work is done while every later
--- step with work for the quest asks too (Own.groupAskedLater).
+-- step with work for the quest asks too (Own.groupAskedLater). An escort the
+-- player chooses (Own.escortChoice, #3439) asks the same way at the step of
+-- its accept, as if that accept's step had `when group <quest>`.
 function Own.groupPending(step)
-	if step.along or not step.when then return nil end
-	for _, p in ipairs(step.when) do
+	if step.along then return nil end
+	for _, p in ipairs(step.when or NONE) do
 		if p.k == "group" and Own.groupAnswer(p.q) == nil and Own.groupOpen(step, p.q) and not Own.groupAskedLater(step, p.q) then return p.q end
 	end
+	local esc = guide and layoutOf(guide).escorts
+	if esc and next(esc) then
+		for _, goal in ipairs(step.goals) do
+			local q = goal.t == "accept" and goal.quest
+			if q and esc[q] and Own.groupAnswer(q) == nil and goalApplies(goal) and Own.groupOpen(step, q) and not Own.groupAskedLater(step, q) then return q end
+		end
+	end
 	return nil
+end
+
+-- Whether quest q is an escort of the loaded guide the player chooses to do
+-- or skip (#3439: layoutOf's `escorts`). Skipped (Own.groupAnswer "skip"),
+-- its accept, work and hand-in are no longer the player's (goalApplies).
+function Own.escortChoice(q)
+	return guide ~= nil and q ~= nil and layoutOf(guide).escorts[q] == true
 end
 
 -- Whether the group step can pass unanswered: its own work is done (the
@@ -11788,15 +11822,37 @@ end
 -- quest id and title in the client's language (questTitle: the step's goal
 -- for it, else the guide's accept, else the step's title), or nil. #3015: the
 -- banner showed the guide's English title beside the goal's translated one.
+-- An escort the player chooses (Own.escortChoice, #3439) adds a third value:
+-- { escort = true, text = Engine.EscortNote(q) }, for the banner's own words.
 function Engine.GroupQuestion()
 	local step = guide and computed and guide.steps[computed]
 	local q = step and Own.groupPending(step)
 	if not q then return nil end
+	local info = Own.escortChoice(q) and { escort = true, text = Engine.EscortNote(q) } or nil
 	for _, goal in ipairs(step.goals) do
-		if goal.quest == q and goal.title then return q, questTitle(goal) end
+		if goal.quest == q and goal.title then return q, questTitle(goal), info end
 	end
 	local a = layoutOf(guide).accepts[q]
-	return q, (a and questTitle(a[1].goal)) or step.title
+	return q, (a and questTitle(a[1].goal)) or step.title, info
+end
+
+-- What an escort the player chooses (#3439) asks of them, in one line: how
+-- long players' runs of it take and how often they fail (the accept's
+-- compiled `escortSecs` and `escortFail`, from players' recordings), and
+-- that the route does without it: "Escort, about 12 min; 1 in 3 runs fails.
+-- Optional: the route doesn't need it." Without recordings: "Escort.
+-- Optional: ...". nil for any other quest.
+function Engine.EscortNote(q)
+	if not Own.escortChoice(q) then return nil end
+	local a = layoutOf(guide).accepts[q]
+	local goal = a and a[1].goal or NONE
+	local secs, fail = tonumber(goal.escortSecs), tonumber(goal.escortFail)
+	local head = secs and L["Escort, about %d min"]:format(math.max(1, math.floor(secs / 60 + 0.5))) or L["Escort"]
+	if fail and fail >= 0.05 then
+		local one = math.max(2, math.floor(1 / fail + 0.5))
+		head = L["%s; 1 in %d runs fails"]:format(head, one)
+	end
+	return L["%s. Optional: the route doesn't need it."]:format(head)
 end
 
 -- Whether the live step's escort runs: an escort goal (compiled `escort`) of
@@ -11814,13 +11870,14 @@ function Engine.EscortRunning()
 end
 
 -- The group quests (`when group`) of the guides for this character (the
--- guide's faction, races and classes, the step's `only`): { { quest, title } },
--- each quest once, in guide and step order, titled in the client's language
--- (Names.Quest) where it knows them, else as the guide has them (#3015). For
--- the Options list and Install's Groups page, which asks on each layout
--- (after every fight while it waits): kept while the guides listed (each
--- guide table, and whether it is read in) and the character's faction, race
--- and class stay the same. Read-only.
+-- guide's faction, races and classes, the step's `only`), and the escorts
+-- they leave to the player (Own.escortChoice, #3439: `escort = true`):
+-- { { quest, title, escort } }, each quest once, in guide and step order,
+-- titled in the client's language (Names.Quest) where it knows them, else as
+-- the guide has them (#3015). For the Options list and Install's Groups
+-- page, which asks on each layout (after every fight while it waits): kept
+-- while the guides listed (each guide table, and whether it is read in) and
+-- the character's faction, race and class stay the same. Read-only.
 function Engine.GroupQuests()
 	if not player then refreshPlayer() end
 	local list = Guides.List()
@@ -11845,12 +11902,14 @@ function Engine.GroupQuests()
 			for _, gq in ipairs(type(g.groupQuests) == "table" and g.groupQuests or NONE) do
 				if type(gq) == "table" and type(gq.quest) == "number" and not seen[gq.quest] then
 					seen[gq.quest] = true
-					out[#out + 1] = { quest = gq.quest, title = ns.Names.Quest(gq.quest) or gq.title }
+					out[#out + 1] = { quest = gq.quest, title = ns.Names.Quest(gq.quest) or gq.title, escort = gq.escort == true or nil }
 				end
 			end
 		elseif g and Guides.GuideMatches(g, player) then
+			local escorts = layoutOf(g).escorts
 			for _, step in ipairs(g.steps) do
-				for _, p in ipairs(Guides.Matches(step.only, player) and step.when or NONE) do
+				local mine = Guides.Matches(step.only, player)
+				for _, p in ipairs(mine and step.when or NONE) do
 					if p.k == "group" and not seen[p.q] then
 						seen[p.q] = true
 						local title
@@ -11858,6 +11917,13 @@ function Engine.GroupQuests()
 							if goal.quest == p.q and goal.title then title = goal.title break end
 						end
 						out[#out + 1] = { quest = p.q, title = ns.Names.Quest(p.q) or title or step.title }
+					end
+				end
+				for _, goal in ipairs(mine and step.goals or NONE) do
+					local q = goal.t == "accept" and goal.quest
+					if q and escorts[q] and not seen[q] and Guides.Matches(goal.only, player) then
+						seen[q] = true
+						out[#out + 1] = { quest = q, title = ns.Names.Quest(q) or goal.title or step.title, escort = true }
 					end
 				end
 			end
@@ -11879,7 +11945,16 @@ function Engine.AnswerGroup(q, answer)
 	if Engine.GroupQuestion() == q then Own.groupAsked[q] = true end
 	ns.CharState().groupQuests[q] = answer
 	Own.hereDirty = true
+	-- The level sums leave a skipped escort out (Engine.EscortSkipped).
+	if ns.Levels and ns.Levels.Invalidate then ns.Levels.Invalidate() end
 	requestUpdate()
+end
+
+-- Whether guide g leaves quest q out because the player chose to skip it as
+-- an escort (Own.escortChoice, #3439): its XP is not the route's
+-- (Levels.ForGuide).
+function Engine.EscortSkipped(g, q)
+	return type(g) == "table" and type(g.steps) == "table" and q ~= nil and layoutOf(g).escorts[q] == true and Own.groupAnswer(q) == "skip"
 end
 
 -- The quest the active guide holds for the player's answer (it left the log
