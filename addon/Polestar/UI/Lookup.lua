@@ -1595,8 +1595,10 @@ do
 
 	function itemDetails.Read(s, loaded, entity)
 		if not (KIND[s.kind] and KIND[s.kind].item) then return end
-		if not detailCache.item then detailCache.item = readItem(s, loaded, entity) end
-		return detailCache.item
+		-- Kept once the Codex is loaded: before that, the facts fill in later.
+		local item = detailCache.item or readItem(s, loaded, entity)
+		if loaded then detailCache.item = item end
+		return item
 	end
 
 	local function tooltipText(text)
@@ -1640,7 +1642,6 @@ do
 		end
 		local rows = {}
 		local effectAt, sellAt, appearanceAt, nativeSell
-		local normal = tooltipColor(NORMAL_FONT_COLOR)
 		for i = 2, #lines do -- The item's name is already in the banner.
 			local line = lines[i]
 			local left, right = tooltipText(line.leftText), tooltipText(line.rightText)
@@ -1659,8 +1660,7 @@ do
 				if not appearanceAt and plain == TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN then appearanceAt = #rows + 1 end
 			end
 			if left or right then
-				rows[#rows + 1] = { left = left, right = right, leftColor = tooltipColor(line.leftColor) or normal,
-					rightColor = tooltipColor(line.rightColor) or normal }
+				rows[#rows + 1] = { left = left, right = right, leftColor = tooltipColor(line.leftColor), rightColor = tooltipColor(line.rightColor) }
 			end
 		end
 		if not nativeSell then
