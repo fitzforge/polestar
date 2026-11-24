@@ -2720,6 +2720,43 @@ emit({ take = take, direct = page and page.direct or false, without = without, w
 	assert_eq!(out["with"], json!({ "t": "turnin", "direct": true, "npc": 90710 }), "with the ores: handed in at Pozzik, a direct turn-in");
 }
 
+// #3914 (Olivia, Blackrock Depths' hand-in guide): Master Smith Burninate takes Gaining Acceptance's Dark Iron
+// Residue only from one Friendly with the Thorium Brotherhood, and the hand-in guide sent her to him on the
+// residue alone. A direct page quest whose record names a standing is handed in only once it is held.
+#[test]
+fn a_page_quest_handed_in_at_one_talk_waits_for_the_standing_it_names_3914() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["90710"] = json!({
+		"id": 90710, "name": "Pozzik", "level": 30, "levelMax": null, "faction": "AH", "rare": false, "elite": false, "boss": false,
+		"instance": null, "roles": [], "spawns": [{ "map": 1458, "x": 60, "y": 40, "f": "e" }],
+	});
+	c["items"]["90720"] = json!({ "id": 90720, "name": "Indurium Ore", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [] });
+	c["quests"]["90701"] = json!({
+		"id": 90701, "title": "Indurium Ore", "level": 25, "minLevel": 20, "faction": null, "races": null, "classes": null,
+		"start": { "npc": [90710], "object": [], "item": [] }, "end": { "npc": [90710], "object": [] },
+		"objectives": [{ "type": "item", "id": 90720, "count": 4, "text": "Indurium Ore" }],
+		"pre": [], "zone": 1458, "rewards": [], "choices": [], "preAny": [], "repFaction": 59, "repStanding": 5,
+	});
+	i["forever"]["quests"]["90701"] = json!({ "area": 209, "direct": true });
+	let script = k(r#"
+stub.world.addItem(90720, 4)
+local def = D.HandinGuide("{KEY}")
+local found = false
+for _, s in ipairs(def and def.steps or {}) do
+	for _, g in ipairs(s.goals) do
+		if g.quest == 90701 then found = true end
+	end
+end
+emit(found)"#);
+	let pack = pack_of(&c, &i);
+	let neutral = run(&pack, &format!("stub.world.setRep(59, \"Thorium Brotherhood\", 4, 0, 0, 3000)\n{script}"), Opts::default()).remove(0);
+	assert_eq!(neutral, json!(false), "Neutral: not handed in");
+	let friendly = run(&pack, &format!("stub.world.setRep(59, \"Thorium Brotherhood\", 5, 3000, 3000, 9000)\n{script}"), Opts::default()).remove(0);
+	assert_eq!(friendly, json!(true), "Friendly: handed in");
+}
+
 // #1593 (Fitz, out of Ragefire Chasm in the Cleft of Shadow, 20 yd from Neeru Fireblade): the hand-in guide led
 // to Rahauro in Thunder Bluff first, 5,063 yd, and came back for Neeru later. A stop at hand (AT_HAND, 15 s of
 // travel from the player) now comes first, whatever the cheapest path from there. Here the cheapest open path
