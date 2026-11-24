@@ -156,6 +156,10 @@ function SL.Refresh()
 	local G = GF()
 	if G and G.Render then G.Render() end
 end
+-- A quest brought back here or elsewhere (the guide window's quest line, its
+-- banner's Undo): a skip redraws through its undo banner, an unskip has
+-- nothing else to.
+ns.On("PLAYER_UNSKIPPED_QUEST", function() if SL.On() then SL.Refresh() end end)
 
 -- An accent "Unskip" link on card r, as wide as its word; onClick(self).
 local function unskipLink(r, onClick)
@@ -272,9 +276,9 @@ local function line(r, j)
 	-- A skipped quest's way back, at the line's right end (Engine.SkipQuest).
 	g.Unskip = unskipLink(r, function(self)
 		local E = ns.Engine
+		-- A quest's unskip redraws the list through PLAYER_UNSKIPPED_QUEST.
 		if self.psQuest and E and E.SkipQuest then E.SkipQuest(self.psQuest, false)
-		elseif self.psStep and E and E.Unskip then E.Unskip(self.psStep) end
-		SL.Refresh()
+		elseif self.psStep and E and E.Unskip then E.Unskip(self.psStep); SL.Refresh() end
 	end)
 	g.Unskip.psTip = L["Bring it back"]
 	r.G[j] = g
