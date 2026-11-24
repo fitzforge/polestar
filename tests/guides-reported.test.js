@@ -19118,6 +19118,20 @@ test('What Is Love?: the figurine steps say to throw the lit torch onto the cart
 	}
 });
 
+test('Riverglades (#3960): Old Rot-Chum is only handed in once the bounty is complete', { skip }, () => {
+	for (const side of ['alliance', 'horde']) {
+		const handIns = goals(`forever/${side}/40-50/01b-riverglades.guide`)
+			.filter(({ goal }) => goal.t === 'turnin' && goal.quest === 95120);
+		assert.ok(handIns.length, `${side}: the hand-in is still on the route`);
+		for (const { step } of handIns) {
+			for (const kind of ['onquest', 'complete']) {
+				assert.ok((step.when || []).some((p) => p.k === kind && !p.neg && [].concat(p.q).includes(95120)),
+					`${side}: the hand-in requires ${kind} 95120`);
+			}
+		}
+	}
+});
+
 // #3036 (Joogz): the Monstrous Threshadon is called up from what floats in the water at 74.4,72.4; the step followed
 // his other possible spots instead. Both factions' Riverglades guides lead there and say how.
 test('The Monster Surfaces: the head is taken where the Threshadon is called up (#3036)', { skip }, () => {
