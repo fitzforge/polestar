@@ -3658,8 +3658,10 @@ local function refresh()
 			.. "\t" .. tostring(verbs and verbs[i]) .. "\t" .. tostring(marks and marks[i]) .. "\t" .. tostring(ids and ids[i])
 	end
 	local sig = concat(parts, "\n")
-	if sig ~= target.sig or dismissed ~= target.dismissals then
-		target.sig, target.dismissals = sig, dismissed
+	local dismissalsChanged = dismissed ~= target.dismissals
+	target.dismissals = dismissed
+	if sig ~= target.sig then
+		target.sig = sig
 		local copy, cv, ci, cm, info = {}, {}, {}, {}, {}
 		for i = 1, #list do
 			copy[i], cv[i], ci[i], cm[i] = list[i], verbs[i], ids[i], marks[i]
@@ -3674,6 +3676,9 @@ local function refresh()
 		end
 		applyTarget(targetButton)
 		seeAll()
+	elseif dismissalsChanged then
+		-- Advance the rows' dismissal context without replacing live count records.
+		applyTarget(targetButton)
 	end
 	-- Counts change with every kill and loot, and a drop chance can arrive
 	-- with the QuestDB after the rows: not in the signature (the count is
