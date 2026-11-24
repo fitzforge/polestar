@@ -139,18 +139,25 @@ pub fn load(sources: &Path, build: Option<&str>, hotfix_dir: Option<&Path>, offl
 		if !d.is_dir() {
 			return Err(format!("{}: no such hotfix folder", d.display()));
 		}
-		for &t in &names {
-			let f = d.join(format!("{t}.csv"));
-			if !f.exists() {
-				continue;
-			}
-			let text = std::fs::read_to_string(&f).map_err(|e| format!("{}: {e}", f.display()))?;
-			let hot = crate::tables::parse_csv(&text)?;
-			let rows = tables.get_mut(t).ok_or_else(|| format!("{t}: not loaded"))?;
-			applied.push(apply_hotfixes(t, rows, &hot));
-		}
+		applied = apply_hotfix_dir(d, &names, &mut tables)?;
 	}
 	Ok(Tables { build, tables, hotfix_dir: dir, applied, warnings })
+}
+
+/// Applies `<dir>/<table>.csv`, for each of `names` that has one, to that table's rows, in `names` order.
+pub fn apply_hotfix_dir(dir: &Path, names: &[&'static str], tables: &mut FxHashMap<&'static str, Rows>) -> Result<Vec<Applied>, String> {
+	let mut applied = Vec::new();
+	for &t in names {
+		let f = dir.join(format!("{t}.csv"));
+		if !f.exists() {
+			continue;
+		}
+		let text = std::fs::read_to_string(&f).map_err(|e| format!("{}: {e}", f.display()))?;
+		let hot = crate::tables::parse_csv(&text)?;
+		let rows = tables.get_mut(t).ok_or_else(|| format!("{t}: not loaded"))?;
+		applied.push(apply_hotfixes(t, rows, &hot));
+	}
+	Ok(applied)
 }
 
 #[cfg(test)]

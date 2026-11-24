@@ -467,7 +467,16 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 		None => client::newest_forever_build(&opts.sources_dir, &TABLES)?,
 	};
 	log(&format!("Forever client build {build}{}", if opts.build.is_some() { " (--build)" } else { "" }));
-	let tables = client::load_tables(&opts.sources_dir, &build, &TABLES, &opts.cwd)?;
+	let mut tables = client::load_tables(&opts.sources_dir, &build, &TABLES, &opts.cwd)?;
+	// The rows the server pushed over the shipped tables, as `forge data gear` reads them
+	// (`forge gamedata hotfix --table <T> --status all --out <sources>/hotfix/<build>/<T>.csv`):
+	// the game shows these, so they come before the shipped rows and Classic Era's.
+	let hotfix_dir = opts.sources_dir.join("hotfix").join(&build);
+	if hotfix_dir.is_dir() {
+		for a in crate::gear::client::apply_hotfix_dir(&hotfix_dir, &TABLES, &mut tables)? {
+			log(&format!("hotfixes {}: {} replaced, {} added, {} deleted", a.table, a.replaced, a.added, a.deleted));
+		}
+	}
 	let mut cl = client::client_facts(&tables, &build);
 	cl.instance_maps = client::instance_maps_of(tables.get("Map").map(Vec::as_slice).unwrap_or(&[]), tables.get("AreaTable").map(Vec::as_slice).unwrap_or(&[]));
 	client::attach_finder(&mut cl.instance_maps, tables.get("GroupFinderActivity").map(Vec::as_slice).unwrap_or(&[]));
