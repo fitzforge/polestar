@@ -1009,6 +1009,10 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 			if ie.get("z").is_num() {
 				o.set("z", ie.get("z"));
 			}
+			// (other ways in open to both sides, the nearer one the arrow's: Polestar/Dungeons' Dungeons.Entrance, #3348)
+			if ie.get("doors").truthy() {
+				o.set("doors", ie.get("doors"));
+			}
 			V::Obj(o)
 		} else {
 			V::Null

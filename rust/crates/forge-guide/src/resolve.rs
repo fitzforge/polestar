@@ -613,7 +613,8 @@ fn elite_split(data: &Data, cands: &[V], sides: &V, rares: bool) -> Option<(Vec<
 	}
 }
 
-/// Droppers near a quest's level crowded out by ones far above it. -> (near, above) | None
+/// Droppers near a quest's level crowded out by ones far above it, or named beside ones far above it (resolve.js
+/// levelSplit, #2744). -> (near, above) | None
 fn level_split(data: &Data, cands: &[V], qlvl: f64) -> Option<(Vec<V>, Vec<V>)> {
 	if !(qlvl > 0.0) || !cands.iter().any(|c| c.get("chance").is_num()) {
 		return None;
@@ -639,7 +640,7 @@ fn level_split(data: &Data, cands: &[V], qlvl: f64) -> Option<(Vec<V>, Vec<V>)> 
 	}
 	let all = likely(cands);
 	let near = likely(&rest);
-	if near.iter().any(|c| !includes(&all, c)) {
+	if near.iter().any(|c| !includes(&all, c)) || above.iter().any(|c| includes(&all, c)) {
 		Some((near, above))
 	} else {
 		None
@@ -4036,11 +4037,20 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 		set_if(&goal, "preAll", gate.get("preAll"));
 		set_if(&goal, "parent", gate.get("parent"));
 	}
+	// A turn-in of a repeatable quest the log hands in: the client never flags it completed, so the engine
+	// remembers the hand-in itself, one per goal, and the round's accept and work with it (#3334, Zorbin's
+	// Ultra-Shrinker quests in Horde 40-50/06). A `direct` one is remembered already.
+	if v == "turnin" && !g.get("direct").truthy() && !goal.get("quest").is_undef() && data.quest(&goal.get("quest")).get("repeatable").truthy() {
+		goal.set("repeatable", true);
+	}
 	if (v == "kill" || v == "use") && goal.get("fromNpcs").is_undef() {
 		set_if(&goal, "fromNpcs", credit_npcs(data, &goal));
 	}
 	set_if(&goal, "group", crate::group::group_of(&goal, &g.get("group"), &ctx.sides, data));
 	set_if(&goal, "escort", crate::escort::escort_of(&goal, data));
+	let (secs, fail) = crate::escort::recorded_of(&goal, data);
+	set_if(&goal, "escortSecs", secs);
+	set_if(&goal, "escortFail", fail);
 	set_if(&goal, "only", only_of(&g.get("only")));
 	set_if(&goal, "note", g.get("note"));
 	set_if(&goal, "spots", crate::walks::walk_spot(data, &goal).unwrap_or_default());

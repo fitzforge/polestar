@@ -98,7 +98,19 @@ const LOGIN_BASE: f64 = 11003.0;
 /// +44 KiB: the class cards' rewards from recorded turn-ins (#2472) list 1,034 class quests, past the 1,024 slots of
 /// the quests table's hash part, which doubles: 14,669 KiB at login on 2026-11-24, 14,625 with next's ClassRewards.lua
 /// (CI's runner 14,672). The budget: 14,700 (reported to Fitz).
-const LOGIN: f64 = LOGIN_BASE + 3697.0;
+/// +22 KiB: held quests (#3390), Quests/KeptFor.lua's hooks and the Engine's re-take: 14,717 KiB at login on
+/// 2026-11-24, 14,695 with next (CI's runner 14,711 on the pull request's first run). The budget: 14,750 (reported
+/// to Fitz in the pull request).
+/// +15 KiB: escorts as the player's choice (#3439), the Engine's escort layout, question and note: 14,732 KiB at
+/// login on 2026-11-24, 14,717 with next (CI's runner 14,702 on the pull request's first run, before #3390). The
+/// budget: 14,760 (reported to Fitz in the pull request).
+/// +13 KiB: the guide window's height modes and the class card's room (#1066, #1067): the cap by mode, the grip's
+/// vertical drag and its limit line, the whole-row scroll stops: 14,755 KiB at login on 2026-11-24, 14,742 with next
+/// (CI's runner 14,761 on the pull request's run). The budget: 14,775 (reported to Fitz in the pull request).
+/// +8 KiB: the Engine's target mark, step views, trainer pick and party line, the guide's trainer stop and off-route
+/// work (#3965): 14,774 KiB at login on 2026-11-24, 14,766 with next (CI's runner 14,778 on the pull request's run).
+/// The budget: 14,790 (reported to Fitz).
+const LOGIN: f64 = LOGIN_BASE + 3787.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).

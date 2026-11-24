@@ -558,6 +558,125 @@ fn a_reward_choice_reads_as_one_line_and_the_card_shines_and_chimes_once_per_cha
 	assert_eq!(out[1]["icon"], "Interface\\Icons\\item-6975");
 }
 
+// A Priest at 20 met Dark Sacrifice on the card and wanted to know what it does before taking the quest: the
+// card's reward (its ring and its "Learn ..." line) shows the game's own tooltip of what the line names, beside
+// the guide window, and Shift-click links it, as the class heads-up's spell icons do.
+#[test]
+fn the_card_s_reward_shows_the_game_s_tooltip_of_what_it_names_beside_the_guide_window() {
+	let out = run_card(
+		r#"
+		uistub.player.class, uistub.player.race, uistub.player.level = "DRUID", "NightElf", 20
+		local tips, links = {}, {}
+		GameTooltip.SetSpellByID = function(self, id) tips[#tips + 1] = "spell:" .. id end
+		GameTooltip.SetHyperlink = function(self, l) tips[#tips + 1] = l end
+		Polestar.Compat.SpellLink = function(id) return "spell-link-" .. id end
+		ChatEdit_InsertLink = function(l) links[#links + 1] = l end
+		uistub.setGuide("test/darkshore", 1)
+		local f = CC.frame
+		local r = { ring = f.RingHit:IsShown(), learn = f.LearnHit:IsShown() }
+		stub.RunScript(f.RingHit, "OnEnter")
+		local _, rel = GameTooltip:GetPoint(1)
+		r.over = { GameTooltip:IsShown(), GameTooltip.owner == f.RingHit, rel == GF.frame }
+		stub.RunScript(f.RingHit, "OnLeave")
+		r.left = GameTooltip:IsShown()
+		stub.RunScript(f.LearnHit, "OnEnter")
+		r.learnOwner = GameTooltip.owner == f.LearnHit
+		stub.RunScript(f.LearnHit, "OnLeave")
+		-- A plain click does nothing; Shift-click puts the spell in chat.
+		IsModifiedClick = function() return false end
+		stub.RunScript(f.RingHit, "OnClick", "LeftButton")
+		IsModifiedClick = function() return true end
+		stub.RunScript(f.RingHit, "OnClick", "LeftButton")
+		r.tips, r.links = { unpack(tips) }, { unpack(links) }
+		-- The hover area is the line's words, never wider than its column.
+		r.learnW = { f.LearnHit:GetWidth(), Polestar.Widgets.TextWidth(f.Learn), f.Learn:GetWidth() }
+		-- The window keeps its hover look while the reward is under the cursor.
+		local hovers = 0
+		local hoverIn = GF.HoverIn
+		GF.HoverIn = function() hovers = hovers + 1 end
+		stub.RunScript(f.RingHit, "OnEnter")
+		GF.HoverIn = hoverIn
+		r.hovers = hovers
+		emit(r)
+		-- Taken under a still cursor: the slim line has no ring and no reward line, and the tooltip goes with them.
+		uistub.goal(1, 1).status = "done"
+		uistub.update()
+		emit({ slim = f.psSlim, ring = f.RingHit:IsShown(), learn = f.LearnHit:IsShown(), tip = GameTooltip:IsShown() })
+		-- The card gone under a still cursor (Auberdine, no class quest): no tooltip left behind.
+		uistub.goal(1, 1).status = "active"
+		uistub.update()
+		stub.RunScript(f.RingHit, "OnEnter")
+		local before = GameTooltip:IsShown()
+		uistub.setGuide("test/darkshore", 4)
+		local gone = { before = before, card = f:IsShown(), tip = GameTooltip:IsShown() }
+		-- The guide window hidden (hide-all, a close) with the cursor on the reward: the tooltip goes with it.
+		uistub.setGuide("test/darkshore", 1)
+		stub.RunScript(f.RingHit, "OnEnter")
+		gone.shownAgain = GameTooltip:IsShown()
+		stub.cascadeVisibility = true
+		GF.frame:Hide()
+		stub.cascadeVisibility = false
+		gone.windowHidden = GameTooltip:IsShown()
+		emit(gone)"#,
+	);
+	let r = &out[0];
+	assert_eq!(r["ring"], true, "{r}");
+	assert_eq!(r["learn"], true, "{r}");
+	assert_eq!(r["over"], json!([true, true, true]), "shown, owned by the ring, beside the guide window: {r}");
+	assert_eq!(r["left"], false, "{r}");
+	assert_eq!(r["learnOwner"], true, "{r}");
+	// Cat Form (768): the spell the line names, from the ring and from the line.
+	assert_eq!(r["tips"], json!(["spell:768", "spell:768"]), "{r}");
+	assert_eq!(r["links"], json!(["spell-link-768"]), "{r}");
+	let w: Vec<f64> = r["learnW"].as_array().unwrap().iter().map(|v| v.as_f64().unwrap()).collect();
+	assert!(w[0] > 0.0 && w[0] <= w[2] && (w[0] - w[1].min(w[2])).abs() < 0.5, "{r}");
+	assert_eq!(r["hovers"], 1, "{r}");
+	assert_eq!(out[1], json!({ "slim": true, "ring": false, "learn": false, "tip": false }));
+	assert_eq!(out[2], json!({ "before": true, "card": false, "tip": false, "shownAgain": true, "windowHidden": false }));
+}
+
+// An item reward (a weapon or a totem): the ring shows the item's tooltip and a click goes to W.ItemClick (the bag's: plain
+// does nothing, Shift links, Ctrl tries on, Alt guides). The options' preview card has no reward to hover.
+#[test]
+fn an_item_reward_shows_the_item_s_tooltip_and_a_modified_click_is_the_bag_s_and_the_preview_has_none() {
+	let out = run_card(
+		r#"
+		uistub.player.class, uistub.player.race, uistub.player.level = "DRUID", "NightElf", 20
+		local tips, clicks = {}, {}
+		GameTooltip.SetSpellByID = function(self, id) tips[#tips + 1] = "spell:" .. id end
+		GameTooltip.SetHyperlink = function(self, l) tips[#tips + 1] = l end
+		Polestar.Widgets.ItemClick = function(id) clicks[#clicks + 1] = id; return true end
+		uistub.setGuide("test/darkshore", 1)
+		local f = CC.frame
+		f.psReward = { kind = "weapon", show = "item", items = { 6975, 6977, 6976 }, choice = true }
+		stub.RunScript(f.RingHit, "OnEnter")
+		stub.RunScript(f.RingHit, "OnClick", "LeftButton")
+		local demo = CC.NewCard(UIParent)
+		CC.FillDemo(demo, { class = "DRUID", head = "DRUID", title = "T", learn = "Learn Cat Form", badge = "NEW ABILITY", trip = "x" }, 300)
+		emit({ tips = tips, clicks = clicks, demo = { demo.RingHit:IsShown(), demo.LearnHit:IsShown() } })"#,
+	);
+	assert_eq!(out[0], json!({ "tips": ["item:6975"], "clicks": [6975], "demo": [false, false] }));
+}
+
+// The tooltip is of what the "Learn"/"Earn" line names: a totem quest that teaches the totem spell (its icon the
+// totem item) shows the spell; an item reward its item, a choice the first (the ring's icon); nothing without one.
+#[test]
+fn the_reward_tooltip_is_of_the_spell_or_item_the_line_names() {
+	let out = run_card(
+		r#"
+		local function tip(reward) local kind, id = CC.TipOf(reward); return kind and (kind .. ":" .. id) or false end
+		emit({
+			stream = tip({ kind = "ability", show = "item", spell = 5394, items = { 5177 } }),
+			cat = tip({ kind = "ability", show = "spell", spell = 768 }),
+			imp = tip({ kind = "pet", show = "spell", spell = 688 }),
+			whirl = tip({ kind = "weapon", show = "item", items = { 6975, 6977, 6976 }, choice = true }),
+			air = tip({ kind = "ability", show = "item", items = { 5178 } }),
+			none = tip(nil),
+		})"#,
+	);
+	assert_eq!(out[0], json!({ "stream": "spell:5394", "cat": "spell:768", "imp": "spell:688", "whirl": "item:6975", "air": "item:5178", "none": false }));
+}
+
 // Dun Morogh's Anvilmar step for a Gnome Mage (guides/forever/alliance/dwarf-gnome/01-dun-morogh.guide):
 // Glyphic Memorandum from Sten Stoutarm, A New Threat from Balir Frosthammer next to him, the memorandum
 // to Marryk Nurribit inside Anvilmar. `later` moves the hand-in to the next step.

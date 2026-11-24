@@ -9192,11 +9192,12 @@ test("forever/alliance/50-60/03-winterspring.guide: flow re-order: the four reli
 });
 
 // Flow review (2026-11-07): Alliance Western Plaguelands fetched the Annals from Andorhal and came back to the same
-// town for the Temporal Parasites on a later loop; Chromie takes both together.
+// town for the Temporal Parasites on a later loop; Chromie takes both together. Since #3046 the parasites have the
+// silo step of their own (its `loop` would pull the Annals and the fragments onto the silos), right after the Annals'.
 test('forever/alliance/50-60/04-western-plaguelands.guide: flow re-order: the Temporal Parasites on the Annals visit to Andorhal', { skip }, () => {
 	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
-	assert.equal(stepOf('the parasites (4971)', (g) => g.t === 'kill' && g.quest === 4971), stepOf('the Annals (5154)', (g) => g.t === 'collect' && g.quest === 5154), 'one Andorhal visit');
+	assert.equal(stepOf('the parasites (4971)', (g) => g.t === 'kill' && g.quest === 4971) - stepOf('the Annals (5154)', (g) => g.t === 'collect' && g.quest === 5154), 1, 'one Andorhal visit: the silos straight after the town hall');
 });
 
 // Flow review (2026-11-07): Alliance Silithus handed Noggle's Last Hope to Beetix with Noggle standing beside him and
@@ -9905,6 +9906,18 @@ test('forever/horde/50-60/01-un-goro-crater.guide: no Tarren Mill landing for Ve
 	const kargath = at(list, 'turnin 3822 at Kargath', is('turnin', 3822));
 	const next = list.slice(kargath).find(({ goal }) => goal.t === 'fly');
 	assert.equal(next && next.goal.location, 'Undercity', 'the next flight after Kargath goes to the Undercity');
+});
+
+// #3123 (Zack): sent through Blackrock Mountain to learn Flame Crest's flight path he already had. The walk into the
+// mountain is for a character without it; one who has it goes on to Flame Crest by the travel planner's way. The
+// Velarok steps before it, Overmaster Pyron and Blackrock Depths inside keep their own conditions.
+test('forever/horde/50-60/01-un-goro-crater.guide: the walk through Blackrock Mountain is only for a character without Flame Crest\'s flight path (#3123)', { skip }, () => {
+	const steps = compiled('forever/horde/50-60/01-un-goro-crater.guide').steps;
+	const into = steps.find((st) => st.goals.some((g) => g.t === 'goto' && /Bridge into Blackrock Mountain/.test(g.label || g.text || '')));
+	assert.ok(into, 'the walk into the mountain');
+	assert.ok((into.when || []).some((p) => p.k === 'taxi' && p.neg && /Flame Crest/.test(p.name || p.location || '')), 'only without Flame Crest\'s flight path');
+	const crest = steps.find((st) => st.goals.some((g) => g.t === 'getfp' && /Flame Crest/.test(g.location || g.name || '')));
+	assert.ok(crest && !(crest.when || []).some((p) => p.k === 'taxi'), 'Flame Crest\'s own step is for everyone');
 });
 
 // Horde 50-60 audit (0.4.0), travel sweep of the Hearthstone binds: Winterspring bound at Everlook and no step hearthed
@@ -14665,9 +14678,11 @@ test('Desolace: Kodo Roundup: the Kodo Kombobulator step names the Aged, Dying a
 // collect's spots run through all their camps: the goal now says which mobs spawn at each spot (`fromNpcsAt`), and
 // the button names the spot the arrow takes. A camp of each tribe names its own centaurs first and no other tribe's.
 // Alliance Desolace (30-40/02) works the ears in Kolkar Village only since the 0.4.3 route review (next case): its
-// spots are the Kolkar camps, and each still names its own Kolkar, which is what this report asked for.
+// spots are the Kolkar camps, and each still names its own Kolkar, which is what this report asked for. The Maraudine
+// (36-39) are 3 or more levels above the level 31 quest and drop the ears beside the near tribes, so the collect
+// passes their camps over (#2744): no spot names them.
 test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its own camp\'s centaurs (#1616)', { skip }, () => {
-	const TRIBES = ['Kolkar', 'Magram', 'Gelkis', 'Maraudine'];
+	const TRIBES = ['Kolkar', 'Magram', 'Gelkis'];
 	for (const [file, quest] of [['forever/horde/30-40/04-dustwallow-marsh.guide', 1366]]) {
 		const list = goals(file);
 		const { goal } = list[at(list, `collect 6067 quest ${quest}`, (g) => g.t === 'collect' && g.item === 6067 && g.quest === quest)];
@@ -14679,6 +14694,7 @@ test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its o
 			const own = groups.some((names) => names.length && names[0].startsWith(t) && !names.some((n) => others.some((o) => n.startsWith(o))));
 			assert.ok(own, `${quest}: a spot at a ${t} camp names its ${t} centaurs and no other tribe's`);
 		}
+		assert.ok(!goal.fromNpcs.some((n) => n.npcName.startsWith('Maraudine')), `${quest}: no Maraudine camp, far above the quest (#2744)`);
 		// rockzors' follow-up: at Magram Village it is the Magram Windchaser (4641), not the Kolkar one; the Magram
 		// Wrangler (4640) stands there too.
 		const ids = goal.fromNpcsAt.split(';').map((s) => (s ? s.split(',').map((k) => goal.fromNpcs[Number(k) - 1].npc) : []));
@@ -14713,12 +14729,15 @@ test('Alliance Desolace: Centaur Bounty\'s ears and the Carved Centaur Totems ar
 // Vicious Gray Bears share the Hillsbrad hills, but a spot named only the bears whose own spawn stood within reach of
 // it, so most spots' target button said Vicious Gray Bear alone. Spawn areas joined across connected spawns (#2288,
 // shacklef00rd) name every dropper that roams the same hills, and the guide's hand-placed point still links only the
-// droppers at that point.
+// droppers at that point. Elder Gray Bears (25) are 3 or more levels above the level 22 quest and are passed over
+// (#2744); the Gray and Vicious Gray Bears left roam the same hills, so the goal names both at every spot, without a
+// list per spot.
 test('forever/horde/06-hillsbrad-foothills.guide: Elixir of Suffering: every bear spot of the Gray Bear Tongue collect names Gray Bear (#1869)', { skip }, () => {
 	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
 	const { goal } = list[at(list, 'collect 3476 quest 496', (g) => g.t === 'collect' && g.item === 3476 && g.quest === 496)];
-	assert.equal(typeof goal.fromNpcsAt, 'string', 'the goal lists each spot\'s mobs');
-	const ids = goal.fromNpcsAt.split(';').filter(Boolean).map((s) => s.split(',').map((k) => goal.fromNpcs[Number(k) - 1].npc));
+	const ids = goal.fromNpcsAt
+		? goal.fromNpcsAt.split(';').filter(Boolean).map((s) => s.split(',').map((k) => goal.fromNpcs[Number(k) - 1].npc))
+		: goal.spots.map(() => goal.fromNpcs.map((n) => n.npc));
 	assert.ok(ids.length > 10, `the bear spots are listed (${ids.length})`);
 	const without = ids.filter((l) => !l.includes(2351)).length;
 	assert.equal(without, 0, `every bear spot names Gray Bear (2351): ${without} of ${ids.length} do not`);
@@ -18703,6 +18722,63 @@ test('forever/professions/first-aid.guide: the manual bandages say to read the m
 	}
 });
 
+// #3401 (Cip1337, 0.4.2): Heavy Wool Bandage is learned in the 115-125 step; a player who reached 125 on Wool Bandages
+// had that section passed, so its learn never showed, and the 125-150 step only asked to craft. Every profession guide:
+// a craft step whose recipe (or a part it makes first) an earlier section teaches repeats that learn in its own step.
+test('forever/professions: a recipe taught in an earlier section is learned again where a later section crafts it (#3401)', { skip }, () => {
+	for (const guide of allGuides().filter((g) => g.startsWith('forever/professions/'))) {
+		const list = goals(guide);
+		const taught = new Map(); // spell -> section of its first learn
+		for (const { step, goal } of list) if (goal.t === 'learn' && goal.spell && !taught.has(goal.spell)) taught.set(goal.spell, step.section);
+		for (const { step, goal, s } of list) {
+			if (goal.t !== 'craft' || !taught.has(goal.spell) || taught.get(goal.spell) === step.section) continue;
+			assert.ok(step.goals.some((g) => g.t === 'learn' && g.spell === goal.spell), `${guide} step ${s}: craft ${goal.spell} has its learn`);
+		}
+	}
+	const fa = goals('forever/professions/first-aid.guide');
+	const late = fa.find(({ goal, step }) => goal.t === 'craft' && goal.spell === 3278 && step.goals.some((g) => g.t === 'craft' && g.untilSkill === 150));
+	assert.ok(late && late.step.goals.some((g) => g.t === 'learn' && g.spell === 3278), 'Heavy Wool Bandage 125-150 learns it');
+});
+
+// #3365 (0.4.1.1, Felwood): the Corrupted Sabers line read only "Complete Corrupted Sabers" while the arrow led to
+// Winna Hazzard at Bloodvenom Post; its one objective is returning the cat to her. The line names her.
+test('forever/horde/50-60/03-winterspring.guide: the Corrupted Sabers line names Winna Hazzard (#3365)', { skip }, () => {
+	const list = goals('forever/horde/50-60/03-winterspring.guide');
+	const { goal } = list[at(list, 'complete 4506', is('complete', 4506))];
+	assert.match(goal.note || '', /Winna Hazzard/);
+});
+
+// #3309 (Zack, 0.4.1.1): Defenders of Darrowshire's spirits are not in the world: each rises where one of Corin's
+// Crossing's Scourge dies, so the target button, which looked for the spirits, found nothing. The step names the three
+// mobs (optional kills): the target button targets them.
+test('forever/horde/50-60/05-eastern-plaguelands.guide: the Darrowshire step targets the Scourge that leave the spirits (#3309)', { skip }, () => {
+	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const { step } = list[at(list, 'talk 11064', (g) => g.t === 'talk' && g.npc === 11064)];
+	for (const npc of [8530, 8531, 8532]) assert.ok(step.goals.some((g) => g.t === 'kill' && g.npc === npc && g.optional), `kill ${npc} optional on the spirits' step`);
+});
+
+// #3354 (Horde) and #3761 (Soggy, Alliance): A-Me 01 asks for a Mithril Casing before her escort, and the guides said so
+// only at her, in Un'Goro, with no auction house near. Gadgetzan's step, the last auction house before the crater on
+// both routes, says to buy one there.
+for (const guide of ['forever/horde/40-50/06-azshara.guide', 'forever/alliance/50-60/03-winterspring.guide']) {
+	test(`${guide}: Gadgetzan's step says to buy a Mithril Casing for A-Me 01 (#3354)`, { skip }, () => {
+		const list = goals(guide);
+		const { step } = list[at(list, 'accept 4504', is('accept', 4504))];
+		assert.match(step.note || '', /Mithril Casing/);
+		assert.ok(list.findIndex(({ goal }) => goal.t === 'turnin' && goal.quest === 4243) < 0 || at(list, 'turnin 4243', is('turnin', 4243)) > at(list, 'accept 4504', is('accept', 4504)), 'before A-Me 01');
+	});
+}
+
+// #3099 (rAmandaK, 0.4.1.1): a Horde Skyborne druid still on Zephras Isle walked off the isle's edge following the
+// arrow to Muln Earthfury's airship. A step before Child of Nature, while the player is on the isle, leads to the
+// Valanaar Skydocks, where the skycutter to Mulgore leaves.
+test('forever/class/druid/bear-form.guide: a Horde Skyborne druid on Zephras Isle is led to the Valanaar Skydocks first (#3099)', { skip }, () => {
+	const list = goals('forever/class/druid/bear-form.guide');
+	const dock = list[at(list, 'goto Valanaar Skydocks', (g) => g.t === 'goto' && g.map === 2521 && Math.hypot(g.x - 58.0, g.y - 81.0) < 1)];
+	assert.ok(dock.s < list[at(list, 'accept 94911', is('accept', 94911))].s, 'before Child of Nature');
+	assert.ok((dock.step.when || []).some((p) => p.k === 'zone' && !p.neg), 'only while on the isle');
+});
+
 // #3512 #3492 #3489 #3486 #3481 (Stö, 0.4.2, Mount Hyjal): "talked with Whisperfur / Brie / Solstice / the Peasant /
 // Elder Pinespeaker but the guide didn't mark it". A `talk` with no quest ticks only on something the player does in
 // the NPC's window (a gossip choice, an accept, a hand-in: #741), but players' recordings show these lines tick with
@@ -19355,4 +19431,25 @@ test('#3681: Arathi Highlands (Alliance 30-40): Witherbark Village farms the far
 	assert.ok(knife < tusk && tusk < pouch, 'knife, tusks, then pouches');
 	assert.ok(list[tusk].goal.y >= 78, `the tusks at the far end: ${list[tusk].goal.x},${list[tusk].goal.y}`);
 	assert.ok(list[pouch].goal.y < 75, `the pouches among the huts: ${list[pouch].goal.x},${list[pouch].goal.y}`);
+});
+
+// #3046 (Nostaroi): A Matter of Time's Temporal Displacer had one pin (45.1,62.3), though the parasites come out at
+// every grain silo of Andorhal. Both sides now search four silos on the north side of town (the Temporal Parasite's
+// spawn points there, where most players drew them out in their recordings) with the displacer and the kill, and
+// no other goal of the step is pulled onto that circuit.
+test('#3046 A Matter of Time: the Temporal Displacer and its parasites search four silos, nothing else moves there', { skip }, () => {
+	const silos = [[45.15, 62.28], [46.38, 62.33], [47.83, 63.45], [48.45, 62.81]];
+	for (const guide of ['forever/alliance/50-60/04-western-plaguelands.guide', 'forever/horde/50-60/05-eastern-plaguelands.guide']) {
+		const list = goals(guide);
+		const use = list[at(list, 'use 12627', (g) => g.t === 'use' && g.item === 12627)];
+		const kill = list[at(list, 'kill 10717', (g) => g.t === 'kill' && g.npc === 10717)];
+		assert.equal(use.s, kill.s, `${guide}: one step`);
+		for (const { goal } of [use, kill]) {
+			assert.equal(goal.map, 1422, `${guide}: ${goal.t} in Western Plaguelands`);
+			assert.deepEqual((goal.spots || []).map(({ x, y }) => [x, y]), silos, `${guide}: ${goal.t} searches the four silos in order`);
+		}
+		for (const { goal } of list.filter((g) => g.s === use.s && g.goal !== use.goal && g.goal !== kill.goal)) {
+			assert.ok(!(goal.spots || []).some(({ x, y }) => silos.some(([sx, sy]) => sx === x && sy === y)), `${guide}: ${goal.t} ${goal.npc || goal.item || goal.quest} keeps its own place`);
+		}
+	}
 });

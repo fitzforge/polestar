@@ -84,7 +84,7 @@ pub const WHEN_KEYS: [&str; 22] =
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 90] = [
+pub const GOAL_KEYS: [&str; 93] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
@@ -185,9 +185,15 @@ pub const GOAL_KEYS: [&str; 90] = [
 	"rewards",
 	"group",
 	"direct",
+	// A turn-in of a repeatable quest (not `direct`): the engine remembers its hand-in (#3334).
+	"repeatable",
 	"gossip",
 	"seconds",
 	"escort",
+	// An escort's accept: players' median seconds for a completed run and the share of runs that failed
+	// (data/recorded/escorts.json, #3439).
+	"escortSecs",
+	"escortFail",
 	// A `complete` goal's quest objectives from the data (text, count) and the item the quest hands over: what
 	// the window reads before the quest is in the log, and "Use <item>:" (#942).
 	"objs",
@@ -651,9 +657,9 @@ fn emit_guide(guide: &V, source_rel: &V, deferred: bool, packed: bool) -> String
 		}
 		if k == "steps" && deferred {
 			out.push(format!("\t\t\tstepCount = {},", v.len()));
-			// The group quests its steps ask about (`when group`), for the
-			// options' list without reading the steps (Engine.GroupQuests).
-			let mut groups: Vec<(V, V)> = Vec::new();
+			// The group quests its steps ask about (`when group`), and its escorts, which ask the same way
+			// (escort.rs choice_quests, #3439), for the options' list without reading the steps (Engine.GroupQuests).
+			let mut groups: Vec<(V, V, bool)> = Vec::new();
 			for step in v.items() {
 				for p in step.get("when").items() {
 					let q = p.get("q");
@@ -665,15 +671,21 @@ fn emit_guide(guide: &V, source_rel: &V, deferred: bool, packed: bool) -> String
 						Some(g) => g.get("title"),
 						None => step.get("title"),
 					};
-					groups.push((q, title));
+					groups.push((q, title, false));
+				}
+			}
+			for (q, title) in crate::escort::choice_quests(&v) {
+				if !groups.iter().any(|x| x.0.strict_eq(&q)) {
+					groups.push((q, title, true));
 				}
 			}
 			if !groups.is_empty() {
 				let parts: Vec<String> = groups
 					.iter()
-					.map(|(quest, title)| {
+					.map(|(quest, title, escort)| {
 						let t = if title.truthy() { format!(", title = {}", lua_str_v(title)) } else { String::new() };
-						format!("{{ quest = {}{t} }}", quest.to_js_string())
+						let e = if *escort { ", escort = true" } else { "" };
+						format!("{{ quest = {}{t}{e} }}", quest.to_js_string())
 					})
 					.collect();
 				out.push(format!("\t\t\tgroupQuests = {{ {} }},", parts.join(", ")));

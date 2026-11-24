@@ -121,6 +121,8 @@ return {
 	["Take the kitten back to the Jadefire moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "",
 	-- {item:12565} Winna's Kitten Carrier
 	["{item:12565}, at the Jadefire moonwell"] = "{item:12565}，在碧火月亮井",
+	-- {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard · {area:1997} Bloodvenom Post
+	["Bring the {npc:10042} to {npc:9996} at {area:1997} and click on it to hand it over."] = "",
 
 	-- Step 23: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache

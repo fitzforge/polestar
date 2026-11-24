@@ -189,7 +189,8 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780}: 158까지",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}은(는) 150에서 노란색입니다(노란색 145, 녹색 155, 회색 165). 158까지 약 15번 만듭니다. 한 번에 {item:4234} 5개와 {item:2321} 1개가 듭니다. 한 번에 {item:4234} 5개(28-40레벨 야수)이며, 키트는 상인에게 팔 수 있습니다.",
+	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}은(는) 150에서 노란색입니다(노란색 145, 녹색 155, 회색 165). 158까지 약 15번 만듭니다. 한 번에 {item:4234} 5개와 {item:2321} 1개가 듭니다. 한 번에 {item:4234} 5개(28-40레벨 야수)이며, 키트는 상인에게 팔 수 있습니다."
+	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 39: Barbaric Shoulders to 165
 	-- {item:5964} Barbaric Shoulders
@@ -385,4 +386,5 @@ return {
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}: 고급(녹색) 장비 마력 추출 (또는 경매장)",
 	-- ["{spell:3768} to 150"] = "{spell:3768}: 150까지",
 	-- ["{spell:3776} to 185"] = "{spell:3776}: 185까지",
+	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}은(는) 150에서 노란색입니다(노란색 145, 녹색 155, 회색 165). 158까지 약 15번 만듭니다. 한 번에 {item:4234} 5개와 {item:2321} 1개가 듭니다. 한 번에 {item:4234} 5개(28-40레벨 야수)이며, 키트는 상인에게 팔 수 있습니다.",
 }

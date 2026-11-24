@@ -189,7 +189,8 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780}做到158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} 在技能 150 时为黄色（145 变黄、155 变绿、165 变灰）：约制作 15 次可到 158。每次需要 5 个 {item:4234} 和 1 个 {item:2321}。即每次五个 {item:4234}（来自 28-40 级野兽）；做出的护甲片可卖给商人。",
+	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} 在技能 150 时为黄色（145 变黄、155 变绿、165 变灰）：约制作 15 次可到 158。每次需要 5 个 {item:4234} 和 1 个 {item:2321}。即每次五个 {item:4234}（来自 28-40 级野兽）；做出的护甲片可卖给商人。"
+	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 39: Barbaric Shoulders to 165
 	-- {item:5964} Barbaric Shoulders
@@ -423,6 +424,7 @@ return {
 	-- ["{spell:3763} to 105"] = "{spell:3763}做到105",
 	-- ["{spell:3768} to 150"] = "{spell:3768}做到150",
 	-- ["{spell:3776} to 185"] = "{spell:3776}做到185",
+	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} 在技能 150 时为黄色（145 变黄、155 变绿、165 变灰）：约制作 15 次可到 158。每次需要 5 个 {item:4234} 和 1 个 {item:2321}。即每次五个 {item:4234}（来自 28-40 级野兽）；做出的护甲片可卖给商人。",
 	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 8 crafts to 155. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} 在技能 150 时为黄色（145 变黄、155 变绿、165 变灰）：约制作 8 次可到 155。每次需要 5 个 {item:4234} 和 1 个 {item:2321}。即每次五个 {item:4234}（来自 28-40 级野兽）；做出的护甲片可卖给商人。",
 	-- ["{spell:3780} to 155"] = "制作{spell:3780}，提升至 155",
 }

@@ -189,7 +189,8 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780} hasta 158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} es amarillo a 150 (amarillo 145, verde 155, gris 165): unas 15 fabricaciones hasta 158. Cada una lleva 5 {item:4234} y 1 {item:2321}. Cinco {item:4234} por fabricación (bestias de nivel 28-40); los kits se venden a los mercaderes.",
+	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} es amarillo a 150 (amarillo 145, verde 155, gris 165): unas 15 fabricaciones hasta 158. Cada una lleva 5 {item:4234} y 1 {item:2321}. Cinco {item:4234} por fabricación (bestias de nivel 28-40); los kits se venden a los mercaderes."
+	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 39: Barbaric Shoulders to 165
 	-- {item:5964} Barbaric Shoulders
@@ -397,4 +398,5 @@ return {
 	-- ["{spell:3763} to 105"] = "{spell:3763} hasta 105",
 	-- ["{spell:3768} to 150"] = "{spell:3768} hasta 150",
 	-- ["{spell:3776} to 185"] = "{spell:3776} hasta 185",
+	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} es amarillo a 150 (amarillo 145, verde 155, gris 165): unas 15 fabricaciones hasta 158. Cada una lleva 5 {item:4234} y 1 {item:2321}. Cinco {item:4234} por fabricación (bestias de nivel 28-40); los kits se venden a los mercaderes.",
 }

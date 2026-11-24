@@ -17082,6 +17082,42 @@
 			"note": "#3279: the Un'Goro guide hands Lines of Communication in, but its three Highvale objectives are in the Hinterlands guide (forever/horde/40-50/05-the-hinterlands, step Highvale), which a player who ran the earlier guides has already left. The hand-in alone left beardedoak with an arrow to the Undercity for a quest he could not finish. The next route update brings an unfinished quest's objectives back before its hand-in only when they are close to the route; the Hinterlands are too far from Un'Goro, so the hand-in says where the work is.",
 			"source": { "kind": "in-game-check", "ref": "#3279: beardedoak's report; fitzforge's confirmation naming the Highvale step and its three interact goals" },
 			"issue": 3279
+		},
+		{
+			"id": "3123-blackrock-walk-only-without-flame-crest",
+			"faction": "Horde",
+			"at": { "quest": 4296, "goal": "accept", "guide": "forever/horde/50-60/01-un-goro-crater" },
+			"way": { "when": "!taxi \"Flame Crest\"" },
+			"note": "#3123: the walk into Blackrock Mountain from the Searing Gorge (step Into Blackrock Mountain) is the way to Flame Crest and its flight path on foot. Zack already knew Flame Crest's flight path and was walked through the mountain all the same. It is for a character without that flight path only; one who has it goes on to Flame Crest the way the travel planner finds. Overmaster Pyron and Blackrock Depths keep their own conditions.",
+			"source": { "kind": "in-game-check", "ref": "#3123: Zack's report (sent into Blackrock Mountain for a flight path he had), confirmed by fitzforge" },
+			"issue": 3123
+		},
+		{
+			"id": "3365-corrupted-sabers-winna",
+			"faction": "Horde",
+			"at": { "quest": 4506, "goal": "complete" },
+			"goalNote": "Bring the Corrupted Saber to Winna Hazzard at Bloodvenom Post and click on it to hand it over.",
+			"note": "#3365: Corrupted Sabers' one objective is an event, returning the corrupted cat to Winna Hazzard at Bloodvenom Post; the line read only \"Complete Corrupted Sabers\" while the arrow pointed at Winna, 567 yd off, so the reporter could not tell where to go with the saber. The line names her.",
+			"source": { "kind": "in-game-check", "ref": "#3365: the reporter's /polestar report (arrow at Winna Hazzard, 34.2,52.3) and the quest's objective, Return the corrupted cat to Winna Hazzard" },
+			"issue": 3365
+		},
+		{
+			"id": "3354-mithril-casing-gadgetzan-horde",
+			"faction": "Horde",
+			"at": { "quest": 4504, "goal": "accept", "guide": "forever/horde/40-50/06-azshara" },
+			"tip": "Gadgetzan's Auction House is the last one before Un'Goro. There, A-Me 01 (Chasing A-Me 01) asks for a Mithril Casing, an Engineering item, before her escort: buy one here if you want that chain.",
+			"note": "#3354: Chasing A-Me 01's second part (4244) asks for a Mithril Casing (10561), and the guide said so only at A-Me 01 on Un'Goro's Ironstone Plateau, with no auction house near. Gadgetzan's, on this step, is the last the route passes before the crater: the heads-up goes here.",
+			"source": { "kind": "in-game-check", "ref": "#3354 and #3761: the reporters' /polestar reports at A-Me 01; quest 4244's objective, Mithril Casing" },
+			"issue": 3354
+		},
+		{
+			"id": "3354-mithril-casing-gadgetzan-alliance",
+			"faction": "Alliance",
+			"at": { "quest": 4504, "goal": "accept", "guide": "forever/alliance/50-60/03-winterspring" },
+			"tip": "Gadgetzan's Auction House is the last one before Un'Goro. There, A-Me 01 (Chasing A-Me 01) asks for a Mithril Casing, an Engineering item, before her escort: buy one here if you want that chain.",
+			"note": "#3354 (#3761, Alliance): Chasing A-Me 01's second part (4244) asks for a Mithril Casing (10561); nothing said so before the flight to Marshal's Refuge. Gadgetzan's Auction House, on this step, is the last the route passes before the crater.",
+			"source": { "kind": "in-game-check", "ref": "#3761: Soggy's /polestar report in Winterspring with Chasing A-Me 01 unfinished; quest 4244's objective, Mithril Casing" },
+			"issue": 3354
 		}
 	]
 }

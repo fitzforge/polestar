@@ -128,7 +128,8 @@ return {
 	-- {spell:3320} Rough Grinding Stone
 	["{spell:3320} to 83"] = "{spell:3320} до 83",
 	-- {spell:3320} Rough Grinding Stone · {item:2835} Rough Stone
-	["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}: зеленый на 75 (желтый 45, зеленый 65, серый 85): около 58 изготовлений до 83. Каждое требует 2 {item:2835}. По два {item:2835} на изготовление. Точильные камни – детали для более поздних планов; лишние продаются торговцам.",
+	-- was: ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}: зеленый на 75 (желтый 45, зеленый 65, серый 85): около 58 изготовлений до 83. Каждое требует 2 {item:2835}. По два {item:2835} на изготовление. Точильные камни – детали для более поздних планов; лишние продаются торговцам."
+	["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors. If you got here without learning {spell:3320}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 28: Runed Copper Belt to 100
 	-- {spell:2666} Runed Copper Belt
@@ -482,5 +483,6 @@ return {
 	-- ["{skill:393} (or the Auction House)"] = "{skill:393} (или аукцион)",
 	-- ["{spell:2668} to 121"] = "{spell:2668} до 121",
 	-- ["{spell:3117} to 112"] = "{spell:3117} до 112",
+	-- ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}: зеленый на 75 (желтый 45, зеленый 65, серый 85): около 58 изготовлений до 83. Каждое требует 2 {item:2835}. По два {item:2835} на изготовление. Точильные камни – детали для более поздних планов; лишние продаются торговцам.",
 	-- ["{spell:3333} to 155"] = "{spell:3333} до 155",
 }

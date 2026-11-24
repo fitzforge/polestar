@@ -16,7 +16,7 @@ use crate::merge::{apply_questie, Ctx, World};
 use crate::normalize::normalize;
 use crate::pfquest;
 use crate::questie::{read_questie, QUESTIE_REPO, REPO as QUESTIEDB_REPO};
-use crate::recordings::{apply_recordings, scan_recordings};
+use crate::recordings::{apply_recordings, scan_recordings, DropChances};
 use crate::spawns::{SpawnOptions, DEFAULTS};
 use crate::tables::{self, Source};
 
@@ -669,9 +669,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		so_,
 		&live,
 		sim,
-		// Recorded drop chances count loot windows, which read 1.2-3x high (players open a window on
-		// only some kills): off until they count kills while the item is wanted (#2747).
-		false,
+		// A quest drop's recorded chance, counted on the kills while it was wanted (#2747); any other
+		// drop's still counts loot windows, which read 1.2-3x high: the sources' stands.
+		DropChances::QuestDrops,
 	);
 	if let Some(e) = unread {
 		return Err(e);

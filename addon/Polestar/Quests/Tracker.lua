@@ -1248,7 +1248,7 @@ local function publish(layer)
 	end
 	-- Areas on the minimap too (cut at its rim) while the objective layer draws any.
 	local areas = layer == LAYER_OBJECTIVES and spotMode() ~= "icons"
-	Pins.SetLayer(layer, pins, { world = world, minimap = minimap, edge = false, scale = 1, minimapAreas = areas or nil })
+	Pins.SetLayer(layer, pins, { world = world, minimap = minimap, edge = false, scale = 1, minimapAreas = areas or nil, summary = layer == LAYER_TURNIN and ns.L["Hand-ins"] or layer == LAYER_AVAILABLE and ns.L["Available quests"] or ns.L["Objectives"] })
 	published[layer] = true
 	stats.publishes = stats.publishes + 1
 end
