@@ -9555,7 +9555,13 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   (`GetSpellTexture` on the reward spell, else the first item's
   `GetItemIcon`, else the class icon); "<CLASS> · LEVEL <n>", the quest
   name, "Learn <spell>" or "Earn <item>" (a choice: "Earn the Whirlwind Axe,
-  Sword or Warhammer"); a NEW ABILITY / PET / MOUNT / WEAPON / ARMOR badge;
+  Sword or Warhammer"); hovering the ring or that line shows the game's
+  tooltip of what the line names (`ClassCard.TipOf`: the spell taught, else
+  the first item; `Widgets.SpellTip`/`ItemTip`, placed beside the guide
+  window by `ClassToast.PlaceTip`, keeping the window's hover look);
+  Shift-click links it; none on the slim line; the tooltip goes when the
+  card hides, folds or changes reward under a still cursor; a NEW ABILITY /
+  PET / MOUNT / WEAPON / ARMOR badge;
   the zones the chain's remaining steps cross and their count; "Only you see
   this". The step's quest names take the class colour (`UI.GoalLine`'s
   `questHex`). Compact keeps the head, name and reward line. The first time
