@@ -214,7 +214,7 @@ version throughout.
    `addon/Polestar/Core/LegacySteps.lua` with every release players may
    update from as an `--old` (each `vX.Y.Z` tag's `guides`, the last release
    included): `git archive <tag> guides | tar -x -C <dir>/<tag>`, then
-   `node tools/legacy-steps.js --old <dir>/v0.3.4/guides ... --old
+   `forge guide legacy-steps --old <dir>/v0.3.4/guides ... --old
    <dir>/<last release>/guides`, and commit it. The mapping above reads a
    save's changed steps from it: a step it does not list keeps no check-off,
    skip or saved view, and nothing in its stretch passes behind the player;

@@ -651,6 +651,7 @@ print the forge command to run):
 |---|---|
 | `forge guide compile`, `lint`, `check` | compile and lint a guide pack; read written guides as a player would |
 | `forge guide seed`, `publish`, `check-generated`, `rehash` | the seed, the generated leveling guides, their CI check, their manifests recomputed from the files |
+| `forge guide legacy-steps` | Core/LegacySteps.lua: earlier releases' steps, so an update mid-guide keeps the player's check-offs (docs/RELEASING.md) |
 | `forge data build`, `sources`, `check`, `check-corrections` | the reference data, its sources and its gates |
 | `forge data questdb`, `names`, `itemdb`, `codex`, `gear`, `talents`, `maps`, `trainers`, `travel`, `professions`, `dungeons` | the data addons and the generated Lua |
 | `forge data pack`, `fetch`, `publish` | the data pack for contributors, and the open Forever database |
