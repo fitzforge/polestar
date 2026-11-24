@@ -902,6 +902,15 @@
 				}
 			],
 			"note": "Marshal Windsor (4241, the Alliance's Onyxia chain): its turn-in, Marshal Windsor (9023), has no open-world spawn; the Codex places him in Blackrock Depths. Source: the game's quest text ('enter Blackrock Depths. Find out what became of Marshal Windsor. You recall Ragged John talking about Windsor being dragged off to a prison')."
+		},
+		"5211": {
+			"steps": [
+				{ "n": 1, "action": "kill", "target": { "type": "npc", "id": 8530 }, "fact": "Kill the Cannibal Ghouls around Corin's Crossing: a Darrowshire Spirit rises where one dies.", "confidence": "high" },
+				{ "n": 2, "action": "kill", "target": { "type": "npc", "id": 8531 }, "fact": "Gibbering Ghouls around Corin's Crossing leave a Darrowshire Spirit too.", "confidence": "high" },
+				{ "n": 3, "action": "kill", "target": { "type": "npc", "id": 8532 }, "fact": "Diseased Flayers around Corin's Crossing leave a Darrowshire Spirit too.", "confidence": "high" },
+				{ "n": 4, "action": "talk", "target": { "type": "npc", "id": 11064 }, "fact": "Talk to each Darrowshire Spirit to free it (objective 1).", "confidence": "high" }
+			],
+			"note": "Defenders of Darrowshire (5211): the Darrowshire Spirits (11064) it asks you to free are not in the world; each rises where one of the Scourge around Corin's Crossing dies (Cannibal Ghoul 8530, Gibbering Ghoul 8531, Diseased Flayer 8532). The guide's target button looked for the spirits alone. Source: Zack's report (#3309) and its confirmation; the quest's text."
 		}
 	}
 }

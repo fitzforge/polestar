@@ -18617,6 +18617,15 @@ test('forever/horde/50-60/03-winterspring.guide: the Corrupted Sabers line names
 	assert.match(goal.note || '', /Winna Hazzard/);
 });
 
+// #3309 (Zack, 0.4.1.1): Defenders of Darrowshire's spirits are not in the world: each rises where one of Corin's
+// Crossing's Scourge dies, so the target button, which looked for the spirits, found nothing. The step names the three
+// mobs (optional kills): the target button targets them.
+test('forever/horde/50-60/05-eastern-plaguelands.guide: the Darrowshire step targets the Scourge that leave the spirits (#3309)', { skip }, () => {
+	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const { step } = list[at(list, 'talk 11064', (g) => g.t === 'talk' && g.npc === 11064)];
+	for (const npc of [8530, 8531, 8532]) assert.ok(step.goals.some((g) => g.t === 'kill' && g.npc === npc && g.optional), `kill ${npc} optional on the spirits' step`);
+});
+
 // #3354 (Horde) and #3761 (Soggy, Alliance): A-Me 01 asks for a Mithril Casing before her escort, and the guides said so
 // only at her, in Un'Goro, with no auction house near. Gadgetzan's step, the last auction house before the crater on
 // both routes, says to buy one there.
