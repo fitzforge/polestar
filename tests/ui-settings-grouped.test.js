@@ -606,3 +606,35 @@ test('a reference waiting on a switch in another tab shows the dependency line a
 	assert.equal(out.tab, 'Travel', "on the switch's tab");
 	assert.equal(out.still, false, 'with the switch on, the line is gone');
 });
+
+// #2541 (skez): the number beside a page read as a notification, or a setting
+// that needed attention. Each mark on the sidebar says what it is when hovered:
+// the count, settings changed from their default there; the ring, new settings.
+test('the sidebar\'s count and ring say what they are when hovered (#2541)', () => {
+	const [out] = run(`
+		local G = O.Grouped
+		PolestarDB.optionsLayout = "grouped"
+		Polestar.Set("nav.arrowScale", 1.3)
+		Polestar.UI.ShowOptions()
+		O.Select("questing")
+		local function row(key)
+			for _, b in ipairs(PolestarOptions.navButtons) do if b:IsShown() and b.psKey == key then return b end end
+		end
+		-- What the row's tooltip says (W.SimpleTip shows psTip).
+		local function hover(b) return b.psTip or false end
+		local function itemOf(key)
+			for _, it in ipairs(G.NavItems()) do if it.key == key then return it end end
+		end
+		-- A page with a change and one without (Questing: none changed here).
+		local changed, plain
+		for _, it in ipairs(G.NavItems()) do
+			if it.indent and it.count and not changed then changed = it.key end
+			if it.indent and not it.count and not it.new and not plain then plain = it.key end
+		end
+		emit({ changed = changed or false, count = changed and itemOf(changed).count or false, new = changed and itemOf(changed).new or false,
+			changedTip = changed and hover(row(changed)) or false, plainTip = plain and hover(row(plain)) or false })`);
+	assert.ok(out.changed, 'a page in the open group counts the changed arrow scale');
+	const both = out.new ? '\nNew settings on this page' : '';
+	assert.equal(out.changedTip, `Settings on this page changed from their default${both}`, `the count explains itself (${out.count}), and a ring beside it`);
+	assert.equal(out.plainTip, false, 'a row with no mark has no tooltip');
+});
