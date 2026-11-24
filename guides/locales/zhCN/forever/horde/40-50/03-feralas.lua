@@ -82,36 +82,45 @@ return {
 	-- {object:2555} Musty Scroll
 	["The {object:2555} lies to the south-west."] = "",
 
-	-- Step 14: The Dragonmurk: kill these as you meet them
+	-- Step 14: Mudsprocket
+	["Mudsprocket"] = "泥链营地",
+	-- {object:2555} Musty Scroll · {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle · {item:280092} Wyrmtail
+	["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "",
+
+	-- Step 15: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510}：沿途遇到就击杀",
-	-- {area:511} Wyrmbog
-	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "向东穿过{area:511}：火鬃斥候和火鬃灰尾龙人与灼热龙崽、灼热雏龙一起在北缘游荡；火鬃守卫守着更东南方的龙穴。莫格穆洛克的鼻烟、烈酒和保险箱散落在龙人营地里。",
+	-- {area:511} Wyrmbog · {item:280092} Wyrmtail
+	-- was: ["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "向东穿过{area:511}：火鬃斥候和火鬃灰尾龙人与灼热龙崽、灼热雏龙一起在北缘游荡；火鬃守卫守着更东南方的龙穴。莫格穆洛克的鼻烟、烈酒和保险箱散落在龙人营地里。"
+	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps. The {item:280092} grows in the bog just east of Mudsprocket."] = "",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329}在{area:510}附近巡逻，请在地图标出的圆圈内寻找",
 	["Below ground"] = "在地下",
 
-	-- Step 15: Brackenwall Village
+	-- Step 16: Mudsprocket
+	["Back to Mudsprocket before you ride north."] = "",
+
+	-- Step 17: Brackenwall Village
 	["Ride back north to Brackenwall."] = "向北骑回蕨墙村。",
 
-	-- Step 16: Onyxia's eggs
+	-- Step 18: Onyxia's eggs
 	["Onyxia's eggs"] = "奥妮克希亚的蛋",
 	-- {area:511} Wyrmbog
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "奥妮克希亚的蛋在{area:511}东南的龙穴里，由火鬃守卫看守；砸碎五个。",
 
-	-- Step 17: Muckshell crabs
+	-- Step 19: Muckshell crabs
 	["Muckshell crabs"] = "",
 	-- plural, as words: Muckshell Razorclaws = {npc:4405} Muckshell Razorclaw
 	["On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for."] = "",
 
-	-- Step 18: Level 45.37
+	-- Step 20: Level 45.37
 	["Level 45.37"] = "等级 45.37",
 	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak
 	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon instead."] = "回到蕨墙村后，{npc:4500}的挑战需要三人小队。独自一人的话，在向北骑回去之前，就在{area:511}北缘这里击杀火鬃斥候刷到45.37级，免得之后还要专程回来。也可组队挑战{area:978}地下城。",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "击杀{npc:4329}刷经验",
 
-	-- Step 19: Brackenwall Village
+	-- Step 21: Brackenwall Village
 	-- {npc:4791} Nazeer Bloodpike · {item:5942} Jeweled Pendant
 	["{npc:4791}: the {item:5942}"] = "",
 	-- {npc:4047} Zor Lonetree · {zone:1454} Orgrimmar · {zone:1447} Azshara
@@ -119,7 +128,7 @@ return {
 	-- {quest:3128} Natural Materials · {zone:1444} Feralas
 	["Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain."] = "",
 
-	-- Step 20: Challenge Overlord Mok'Morokk
+	-- Step 22: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "这些是精英怪：建议组队，找人一起做。{quest:1173} 需要三人小队。独自一人就跳过：路线会让你打怪补回这部分经验。\n{npc:4500} 是精英：建议组队。把他打到投降，然后向 {npc:4501} 汇报。",
 
@@ -128,6 +137,7 @@ return {
 	-- ["Back to {npc:14637} on the dock."] = "回到码头上的{npc:14637}处。",
 	-- ["Coming from Stranglethorn, you carry these already. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "从荆棘谷来的话，应该已经接了这些任务。若从这里开始：{npc:5591}在{area:75}的大厅内，{npc:1443}在顶层。",
 	-- ["Dragon caves"] = "龙穴",
+	-- ["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "向东穿过{area:511}：火鬃斥候和火鬃灰尾龙人与灼热龙崽、灼热雏龙一起在北缘游荡；火鬃守卫守着更东南方的龙穴。莫格穆洛克的鼻烟、烈酒和保险箱散落在龙人营地里。",
 	-- ["Fly to {area:75}"] = "飞往{area:75}",
 	-- ["Fly to {object:3202}"] = "飞往{object:3202}",
 	-- ["Follow the road south-east to the small Horde post on the shore. {npc:5592} takes the crocolisk flanks from the last swamp visit."] = "沿路向东南前往岸边的小型部落岗哨。{npc:5592}需要上次来沼泽时收集的鳄鱼肉。",

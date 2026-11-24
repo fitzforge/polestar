@@ -33,8 +33,6 @@ step Swamp of Sorrows
   goto 46.1,54.7 "Stonard"
 
 step Fly to Booty Bay
-  zone Swamp of Sorrows
-  goto 46.1,54.7 "Stonard flight master"
   fly "Booty Bay"
   zone Stranglethorn Vale
 
