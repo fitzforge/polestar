@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "{area:392}(으)로 날아가기",
-	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "{zone:1456} 비행 조련사",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -168,4 +166,5 @@ return {
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050}은(는) {area:28}의 {npc:10778}에게 돌아갑니다. 보관하세요.",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: {area:1237}의 {npc:8587}에게",
 	-- ["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
+	-- ["{zone:1456} flight master"] = "{zone:1456} 비행 조련사",
 }

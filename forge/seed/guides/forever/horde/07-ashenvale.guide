@@ -48,9 +48,7 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # Sharptalon in the same woods (0.3.7): on the first visit at 21-23 the model's players were 1-1.5 levels under it.
 
 step Fly to Zoram'gar Outpost
-  zone The Barrens
   tip East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to Zoram'gar Outpost. If your hearthstone is ready, hearth to Camp Taurajo and fly from there instead.
-  goto 51.5,30.4 "Crossroads flight master"
   fly "Zoram'gar Outpost"
   zone Ashenvale
 

@@ -9,8 +9,6 @@ return {
 	-- Step 2: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Voe até {area:35}",
-	-- {area:75} Stonard
-	["{area:75} flight master"] = "Mestre de voo de {area:75}",
 
 	-- Step 3: Booty Bay
 	-- {area:75} Stonard · {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
@@ -55,6 +53,11 @@ return {
 	-- {npc:818} Mai'Zoth
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:818} (elite nível 47) pede um grupo de 2. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.\nCuidado: dois guardas elite lançadores de feitiço, por volta do nível 45, ficam com {npc:818} e entram na luta junto com ele.",
 	["Below ground"] = "No subterrâneo",
+
+	-- Step 17: Saving Yenniku
+	["while he is alive: the gem fills; don't kill him"] = "",
+	-- {item:3912} Soul Gem
+	["Use the {item:3912} on Yenniku"] = "",
 
 	-- Step 19: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -314,6 +317,7 @@ return {
 	-- ["grind on {npc:6125}"] = "mate {npc:6125} até subir",
 	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}: vá matando estes pelo caminho",
 	-- ["{area:1221}: kill these as you meet them"] = "{area:1221}: vá matando estes pelo caminho",
+	-- ["{area:75} flight master"] = "Mestre de voo de {area:75}",
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} em {zone:1456}; {zone:1454} não tem instrutor de paladino",
 	-- ["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}, no Drag: se você ainda estiver com ele",
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}: os ursos ficam em {zone:1448}",

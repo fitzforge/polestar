@@ -177,7 +177,8 @@ return {
 
 	-- Step 41: Egan
 	-- {npc:11140} Egan · {area:2627} Terrordale · {npc:12384} Augustus the Touched
-	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut."] = "{npc:11140}, el fantasma, está junto a una cabaña en {area:2627}, en la esquina noroeste; {npc:12384} está sentado dentro de la cabaña.",
+	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit · Crypt Horrors = {npc:8557} Crypt Horror · Crypt Walkers = {npc:8556} Crypt Walker
+	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time."] = "",
 	-- {npc:12384} Augustus the Touched
 	["{npc:12384}, inside"] = "{npc:12384}, dentro",
 
@@ -481,6 +482,7 @@ return {
 	-- ["{npc:10880} walks the {object:172982} and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk."] = "{npc:10880} recorre {object:172982} y las calles que salen de él: búscalo de camino a la torre del maestro de vuelo; el círculo del mapa es su recorrido.",
 	-- ["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "{npc:10880}: para {npc:7776} en {quest:7492}, al final de esta guía",
 	-- ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner."] = "{npc:11140}, el fantasma, está junto a una cabaña en {area:2627}, en la esquina noroeste.",
+	-- ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut."] = "{npc:11140}, el fantasma, está junto a una cabaña en {area:2627}, en la esquina noroeste; {npc:12384} está sentado dentro de la cabaña.",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}."] = "El campeón de {npc:15193} ocupa la granja de {area:2260}, al norte de {area:2261}.",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}. His {npc:8564} hunt, in the north of the zone, waits for the next guide's Plaguelands trip."] = "El campeón de {npc:15193} ocupa la granja de {area:2260}, al norte de {area:2261}. Su caza de {npc:8564}, en el norte de la zona, espera al viaje a las Tierras de la Peste de la próxima guía.",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse."] = "El campeón de {npc:15193} ocupa la granja de {area:2260}.",

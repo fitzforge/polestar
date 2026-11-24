@@ -1,9 +1,10 @@
-//! The 0.4.3 "What's new" card (addon/Polestar/UI/LayoutCard.lua, #3629) against the real Core + Theme + UI
-//! manifests, the Atlas layout and the fake Engine of tests/lua/stub_ui.lua: once per account after an update from
-//! before 0.4.3, never on a fresh install; Your current design / Atlas and the four tab styles switch the real
-//! window live; the guide window's setup is saved as "Before Atlas (<date>)" when the card opens; Keep this commits,
-//! the ✕ and Escape put the saved setup back key for key; the saved setup stays in Presets, and a Presets card picked
-//! over the player's own look saves that look first.
+//! The 0.4.3 layout choice (addon/Polestar/UI/LayoutCard.lua, #3629, #3876): a section of the What's new card, against
+//! the real Core + Theme + UI manifests, the Atlas layout and the fake Engine of tests/lua/stub_ui.lua. One card at
+//! the first login after an update from before 0.4.3, never on a fresh install; Standard / Atlas ("(your current)"
+//! after the player's own) and the four tab styles switch the real window live; the guide window's setup is saved as
+//! "Before Atlas (<date>)" when What's new opens; Keep this commits, the ✕ and Escape put the saved setup back key
+//! for key; the saved setup stays in Presets, and a Presets card picked over the player's own look saves that look
+//! first.
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
@@ -25,7 +26,9 @@ local function tuned()
 	return out
 end
 local LC = Polestar.UI.LayoutCard
-local function card() return PolestarLayoutCard ~= nil and PolestarLayoutCard:IsShown() end"#;
+local WN = Polestar.UI.WhatsNew
+-- What's new on screen with the layout section in it.
+local function card() return PolestarWhatsNew ~= nil and PolestarWhatsNew:IsShown() and LC.IsShown() end"#;
 
 // uistub.install marks the card seen for every other UI test; here the account keeps what it saved.
 fn run_with(script: &str, saved: Option<&str>) -> Value {
@@ -40,34 +43,39 @@ fn run_with(script: &str, saved: Option<&str>) -> Value {
 }
 
 #[test]
-fn after_an_update_it_shows_once_the_buttons_switch_the_real_window_live_and_keep_this_commits() {
+fn after_an_update_it_shows_once_in_what_s_new_the_buttons_switch_the_real_window_live_and_keep_this_commits() {
 	let out = run_with(
 		r#"
 		local atLogin = card()
 		stub.advance(6)
 		local opened = LC.State()
+		local keepLabel = WN.frame.GotIt.Label:GetText()
 		local before = tuned()
 		local snap = LC.Snapshots()[1]
 		LC.frame.Atlas:Click()
-		local atlas = { layout = Polestar.Theme.LayoutId(), tabStyle = Polestar.Get("guideWindow.tabStyle"), lit = LC.State().atlas, rest = tuned() }
+		local atlas = { layout = Polestar.Theme.LayoutId(), tabStyle = Polestar.Get("guideWindow.tabStyle"), lit = LC.State().atlasOn, rest = tuned() }
 		LC.frame.Styles[4]:Click()
 		local strip = { Polestar.Get("guideWindow.tabStyle"), LC.State().styles }
-		LC.frame.Current:Click()
-		local back = { tuned(), LC.State().current }
+		LC.frame.Standard:Click()
+		local back = { tuned(), LC.State().standardOn }
 		LC.frame.Atlas:Click()
-		LC.frame.Keep:Click()
-		emit({ atLogin = atLogin, opened = opened, before = before, snapName = snap.name, snapLayout = snap.values["ui.layout"] or false,
-			atlas = atlas, strip = strip, back = back, kept = { Polestar.Theme.LayoutId(), card(), PolestarDB.layoutCardSeen, #LC.Snapshots() } })"#,
+		WN.frame.GotIt:Click()
+		emit({ atLogin = atLogin, opened = opened, keepLabel = keepLabel, oldCard = PolestarLayoutCard ~= nil, before = before, snapName = snap.name,
+			snapLayout = snap.values["ui.layout"] or false, atlas = atlas, strip = strip, back = back,
+			kept = { Polestar.Theme.LayoutId(), card(), PolestarDB.layoutCardSeen, #LC.Snapshots() } })"#,
 		Some(TUNED),
 	);
 	assert_eq!(out["atLogin"], false, "a few seconds after login");
+	assert_eq!(out["oldCard"], false, "one card: the section is in What's new, no window of its own");
 	let opened = &out["opened"];
 	assert_eq!(opened["shown"], true);
-	assert_eq!(json!([opened["current"], opened["atlas"]]), json!([true, false]), "the player's design is the one showing");
+	assert_eq!(json!([opened["standard"], opened["atlas"]]), json!(["Standard (your current)", "Atlas"]), "Standard and Atlas, the player's own marked");
+	assert_eq!(json!([opened["standardOn"], opened["atlasOn"]]), json!([true, false]), "the player's design is the one showing");
 	assert_eq!(opened["styles"], json!([["underline", false], ["switcher", false], ["edge", true], ["strip", false]]), "the tab style showing is marked");
 	assert_eq!(opened["credit"], "Atlas layout and tab styles by TTik3r");
 	assert_eq!(opened["saved"], "Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets.");
 	assert_eq!(opened["arrow"], "The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup.", "what the arrow follows (#3701)");
+	assert_eq!(out["keepLabel"], "Keep this", "What's new's own button commits what shows");
 	assert!(out["snapName"].as_str().unwrap().starts_with("Before Atlas ("), "{}", out["snapName"]);
 	assert_eq!(out["snapLayout"], false, "the snapshot holds Polestar's own layout");
 	assert_eq!(json!([out["atlas"]["layout"], out["atlas"]["lit"]]), json!(["atlas", true]), "Atlas on the real window");
@@ -79,15 +87,44 @@ fn after_an_update_it_shows_once_the_buttons_switch_the_real_window_live_and_kee
 	assert_eq!(out["atlas"]["rest"], with_atlas, "nothing else written");
 	assert_eq!(out["strip"][0], "strip");
 	assert_eq!(out["strip"][1][3], json!(["strip", true]));
-	assert_eq!(out["back"][0], out["before"], "Your current design: every key as it was, the tab style too");
+	assert_eq!(out["back"][0], out["before"], "Standard, the player's own: every key as it was, the tab style too");
 	assert_eq!(out["back"][1], true);
-	assert_eq!(out["kept"], json!(["atlas", false, "0.4.3", 1]), "Keep this: Atlas stays, the card is seen, the snapshot stays in Presets");
+	assert_eq!(out["kept"], json!(["atlas", false, "0.4.3", 1]), "Keep this: Atlas stays, the choice is seen, the snapshot stays in Presets");
 	// The next login, with what this one saved.
 	let again = run_with(
-		"stub.advance(10)\nemit({ shown = card() })",
+		"stub.advance(10)\nemit({ shown = PolestarWhatsNew ~= nil and PolestarWhatsNew:IsShown() })",
 		Some("PolestarDB = { schema = 1, welcomeSeen = 1, whatsNewSeen = \"0.4.0\", layoutCardSeen = \"0.4.3\", settings = {} }\nPolestarCharDB = { schema = 1, welcomeSeen = 1 }"),
 	);
 	assert_eq!(again["shown"], false, "once per account");
+}
+
+// #3876: a player already on Atlas sees a difference too: the buttons are Standard and Atlas, "(your current)" after
+// Atlas; Standard is Polestar's own layout, Atlas puts their whole setup back. /polestar whatsnew shows the section
+// again without saving the same setup twice.
+#[test]
+fn a_player_already_on_atlas_gets_standard_and_atlas_marked_as_theirs() {
+	let out = run_with(
+		r#"
+		Polestar.Theme.SetLayout("atlas")
+		Polestar.Set("guideWindow.tabStyle", "strip")
+		stub.advance(6)
+		local opened = LC.State()
+		LC.frame.Standard:Click()
+		local standard = { Polestar.Theme.LayoutId() or false, LC.State().standardOn, Polestar.Get("guideWindow.tabStyle") }
+		LC.frame.Atlas:Click()
+		local atlas = { Polestar.Theme.LayoutId() or false, LC.State().atlasOn, Polestar.Get("guideWindow.tabStyle") }
+		WN.frame.GotIt:Click()
+		local snaps = #LC.Snapshots()
+		WN.Show()
+		local again = { card(), LC.State().atlas, #LC.Snapshots() }
+		emit({ opened = { opened.standard, opened.atlas, opened.atlasOn }, standard = standard, atlas = atlas, snaps = snaps, again = again })"#,
+		Some(TUNED),
+	);
+	assert_eq!(out["opened"], json!(["Standard", "Atlas (your current)", true]));
+	assert_eq!(out["standard"][0], false, "Standard: Polestar's own layout");
+	assert_eq!(out["standard"][1], true);
+	assert_eq!(out["atlas"], json!(["atlas", true, "strip"]), "Atlas, theirs: their setup back, the tab style with it");
+	assert_eq!(out["again"], json!([true, "Atlas (your current)", out["snaps"].clone()]), "/polestar whatsnew: the section again, no second snapshot of the same setup");
 }
 
 // Closing with the ✕ or Escape puts back every key the snapshot holds: the ten tuned settings, the layout and the
@@ -103,7 +140,7 @@ fn the_close_button_and_escape_put_the_setup_back_key_for_key() {
 				LC.frame.Atlas:Click()
 				LC.frame.Styles[2]:Click()
 				local tried = {{ Polestar.Theme.LayoutId(), Polestar.Get("guideWindow.tabStyle") }}
-				if "{how}" == "close" then LC.frame.Close:Click() else PolestarLayoutCard:Hide() end
+				if "{how}" == "close" then WN.frame.Close:Click() else PolestarWhatsNew:Hide() end
 				emit({{ before = before, tried = tried, after = tuned(), shown = card(), seen = PolestarDB.layoutCardSeen, layout = Polestar.Theme.LayoutId() or false }})"#
 			),
 			Some(TUNED),

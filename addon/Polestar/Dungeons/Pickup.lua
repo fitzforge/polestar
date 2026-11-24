@@ -1045,7 +1045,9 @@ local function acceptGoal(pq, rec, g)
 end
 
 -- Collect the item that starts a quest at drop point d (Dungeons.DropPoint):
--- the mob or object nearest the player that gives it.
+-- the mob or object nearest the player that gives it. A mob is named as the
+-- one to kill, as compiled goals' `from` does (#3718: "Collect Damp Note"
+-- left the Blackfathom Tide Priestesses unsaid).
 local function collectGoal(d)
 	local goal = { t = "collect", item = d.item, itemName = d.itemName, count = 1, map = d.map, x = d.x, y = d.y, f = d.f == "e" and "e" or nil }
 	if d.source == "object" then
@@ -1053,6 +1055,12 @@ local function collectGoal(d)
 	else
 		goal.npc, goal.npcName = d.id, d.name
 		goal.z = LK().SpawnZ("npc", d.id, d)
+		goal.from, goal.fromId, goal.fromKind = d.name, d.id, "npc"
+		local r = ns.Codex and ns.Codex.Npc(d.id)
+		if r then
+			goal.fromRank = (r.boss and 3) or (r.rare and r.elite and 2) or (r.elite and 1) or (r.rare and 4) or nil
+			if r.faction == "A" or r.faction == "H" or r.faction == "AH" then goal.fromFaction = r.faction end
+		end
 	end
 	return goal
 end

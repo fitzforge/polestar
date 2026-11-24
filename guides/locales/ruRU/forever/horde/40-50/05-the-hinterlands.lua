@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Летите сюда: {area:272}",
-	-- {area:1446} Thorium Point
-	["{area:1446} flight master"] = "Распорядитель полетов: {area:1446}",
 
 	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
@@ -209,6 +207,7 @@ return {
 	-- ["Vulture hills"] = "Холмы грифов",
 	-- ["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples."] = "К западу от острова охотники за скальпами из племени Порочной Ветви занимают храмы {area:1884} и {area:1917}. Инструменты Углежога лежат у одного из храмов.",
 	-- ["grind on {npc:5982} at the northern hills, {zone:1419}"] = "бейте монстров {npc:5982} на северных холмах, {zone:1419}",
+	-- ["{area:1446} flight master"] = "Распорядитель полетов: {area:1446}",
 	-- ["{npc:2926} on the way"] = "{npc:2926} по пути",
 	-- ["{npc:6741}: for {zone:1456}, around level 50"] = "{npc:6741}: для города {zone:1456}, примерно на 50-м уровне",
 	-- ["{npc:7825}, the {object:36126}"] = "{npc:7825}, {object:36126}",

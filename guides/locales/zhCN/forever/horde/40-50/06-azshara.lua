@@ -9,8 +9,6 @@ return {
 	-- Step 2: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "飞往{area:35}",
-	-- {area:75} Stonard
-	["{area:75} flight master"] = "{area:75}的飞行管理员",
 
 	-- Step 3: Booty Bay
 	-- {area:75} Stonard · {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
@@ -55,6 +53,11 @@ return {
 	-- {npc:818} Mai'Zoth
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "这些怪物是精英：建议组队，找人一起完成。{npc:818}（47级精英）需要两人小队。独自一人就跳过：路线会安排刷怪补回经验。\n小心：{npc:818} 身边有两名约45级的精英施法守卫，会与他同时加入战斗。",
 	["Below ground"] = "在地下",
+
+	-- Step 17: Saving Yenniku
+	["while he is alive: the gem fills; don't kill him"] = "",
+	-- {item:3912} Soul Gem
+	["Use the {item:3912} on Yenniku"] = "",
 
 	-- Step 19: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -314,6 +317,7 @@ return {
 	-- ["grind on {npc:6125}"] = "击杀{npc:6125}刷经验",
 	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}：沿途击杀以下目标",
 	-- ["{area:1221}: kill these as you meet them"] = "{area:1221}：沿途遇到就击杀",
+	-- ["{area:75} flight master"] = "{area:75}的飞行管理员",
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{zone:1456}的{npc:246344}；{zone:1454}没有圣骑士训练师",
 	-- ["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}，在暗巷区：如果你还带着它",
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}：熊在{zone:1448}",

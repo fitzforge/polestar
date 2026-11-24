@@ -895,6 +895,24 @@ test('Blademaster\'s Bonfires: the south and southeast bonfires are its objectiv
 	assert.deepEqual(corrections.objects[656669].addSpawns[2482].pts, [[54.84, 40.0]]);
 });
 
+// gidi_ (#3676): Biting the Hand's second part, leading Fuzzle out of Sunnyglade, is an escort its text never names.
+test('Biting the Hand (94963) is an escort (#3676)', () => {
+	assert.equal(corrections.quests[94963].set.escort, true);
+});
+
+// cjtylr (#3739): The Return of the King? had no objective, so the pick-up guide sent players straight back to Sully.
+test('The Return of the King? (95198) has its eavesdropping objective at the Theramore Mage Tower (#3739)', () => {
+	const [o, ...rest] = corrections.quests[95198].set.objectives;
+	assert.equal(rest.length, 0, 'one objective');
+	assert.equal(o.text, "Relieve Jaina's guard and eavesdrop");
+	assert.equal(o.map, 1445);
+});
+
+// devanpy (#3773): Twilight Tablet Fragments lie on the ground; the elementals pfQuest lists at 100 never drop them.
+test('Twilight Tablet Fragment (20378) drops from no elemental (#3773)', () => {
+	assert.deepEqual(corrections.items[20378].removeDrops.npc, [11744, 11746, 14455]);
+});
+
 // #3706: Horde Triage (6622) takes place at Doctor Gregory Victor in Hammerfall, Arathi Highlands (1417),
 // not at the Alliance clinic in Theramore Isle (1445).
 test('Horde Triage (6622) is completed at Doctor Gregory Victor in Hammerfall (#3706)', () => {

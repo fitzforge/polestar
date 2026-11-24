@@ -2570,6 +2570,65 @@ fn an_untied_collect_of_an_item_its_quest_uses_is_done_once_that_quest_is_ready_
 	);
 }
 
+// #3556 (Qabhal-Oğuz, 0.4.1.1, Eastern Plaguelands): the Horde guide's Pamela's Doll step collects the doll's head
+// and two sides (plain bag counts) before the doll itself, Pamela's Doll's objective. With the doll joined, or the
+// quest already handed in, the pieces are gone from the bags and the step still sent him to collect them. An untied
+// collect of an item a later goal's quest uses without asking for it is done once that quest is ready or handed
+// in, whatever kind the later goal is; with no dropper to name, its line says which quest it is for.
+const PAMELA: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/pamela", pack = "test", title = "Eastern Plaguelands", faction = "Horde", minLevel = 53, maxLevel = 60, zone = 1423,
+	steps = {
+		{ title = "Pamela's Doll", goals = {
+			{ t = "collect", item = 12886, itemName = "Pamela's Doll's Head", map = 1423, x = 38.6, y = 90.6 },
+			{ t = "collect", item = 12887, itemName = "Pamela's Doll's Left Side", map = 1423, x = 37.4, y = 90.2 },
+			{ t = "collect", item = 12888, itemName = "Pamela's Doll's Right Side", map = 1423, x = 39.4, y = 92.0 },
+			{ t = "collect", item = 12885, itemName = "Pamela's Doll", count = 1, quest = 5149, oi = 1, title = "Pamela's Doll", map = 1423, x = 38.5, y = 91.4 },
+		} },
+		{ goals = { { t = "level", level = 60 } } },
+	},
+})
+"#;
+const PAMELA_DB: &str = r#"
+Polestar.QuestDB.SetMeta({ schema = 2 })
+AddRecords("quests", {
+	[5149] = { "Pamela's Doll", 55, 52, nil, nil, 2, 10926, 10926, nil, nil, nil, { 2, 12885 }, 1423, nil, nil, nil, nil, nil, { 12886, 12887, 12888 } },
+})
+"#;
+
+#[test]
+fn untied_pieces_of_a_quests_item_are_done_once_the_quest_is_ready_or_handed_in_and_say_what_they_are_for_3556_pamela() {
+	let guides = format!("{NORTHSHIRE}{PAMELA}");
+	let script = r#"
+			local w = stub.world
+			{PAMELA_DB}
+			E.SetGuide("test/pamela"); flush()
+			w.accept(5149, { { text = "Pamela's Doll: 0/1", type = "item" } }); flush()
+			local function state()
+				local g = E.GetStepView(1).goals
+				return { E.GetStepIndex(), g[1].status, g[3].status, g[1].detail or false }
+			end
+			emit(state())
+			w.progress(5149, 1, 1); flush()
+			emit(state())
+			w.complete({ 5149 }); flush()
+			emit(state())
+		"#
+	.replace("{PAMELA_DB}", &format!("{}{PAMELA_DB}", forge_addontest::questdb::ADD_RECORDS_LUA));
+	let out = run(Run { guides: &guides, full: true, script: &script, ..Default::default() });
+	assert_eq!(
+		json!(out),
+		json!([
+			// No pieces in the bags, the doll not joined: the pieces count the bags, and say what they are for.
+			[1, "active", "active", "for “Pamela's Doll”"],
+			// The doll joined from the pieces, the quest ready: nothing holds the step.
+			[2, "done", "done", "for “Pamela's Doll”"],
+			// Handed in (the report: a character who had done it before the step came up).
+			[2, "done", "done", "for “Pamela's Doll”"],
+		])
+	);
+}
+
 #[test]
 fn an_objective_goal_keeps_its_compiled_position_when_no_line_names_its_target() {
 	let guides = format!("{NORTHSHIRE}{MURLOCS}");
