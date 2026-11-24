@@ -137,11 +137,11 @@ return {
 
 	-- Step 23: Camping 101: Tailoring
 	-- {npc:251991} Taleen Shimmerthread · {skill:197} Tailoring
-	["{npc:251991} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:251991} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251991} la recibe cuando tu habilidad de {skill:197} llegue a 20: recolecta o fabrica hasta entonces; mientras tanto, la guía sigue.",
 
 	-- Step 24: Camping 101: Enchanting
 	-- {npc:257020} Nasalanna Windsinger · {skill:333} Enchanting
-	["{npc:257020} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:257020} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257020} la recibe cuando tu habilidad de {skill:333} llegue a 20: recolecta o fabrica hasta entonces; mientras tanto, la guía sigue.",
 
 	-- Step 25: Shen'dar Village
 	-- {npc:251905} Zerril Softbreeze

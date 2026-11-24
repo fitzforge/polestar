@@ -346,7 +346,7 @@ return {
 	["{npc:7232}, {object:28027}: for his brother in {area:442}"] = "{npc:7232}, {object:28027}: для его брата в {area:442}",
 
 	-- Step 68: Gelman Stonehand
-	["talk to the trainer"] = "",
+	["talk to the trainer"] = "поговорите с учителем",
 
 	-- Step 71: Jennea Cannon
 	-- {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake

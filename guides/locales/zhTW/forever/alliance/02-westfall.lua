@@ -346,7 +346,7 @@ return {
 	["{npc:7232}, {object:28027}: for his brother in {area:442}"] = "{npc:7232}，{object:28027}：為了他在{area:442}的兄弟",
 
 	-- Step 68: Gelman Stonehand
-	["talk to the trainer"] = "",
+	["talk to the trainer"] = "與訓練師交談",
 
 	-- Step 71: Jennea Cannon
 	-- {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake
