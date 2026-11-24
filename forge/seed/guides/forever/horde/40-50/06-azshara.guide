@@ -369,6 +369,7 @@ step Alchemist Pestlezugg
 
 step Gadgetzan
   zone Tanaris
+  tip Gadgetzan's Auction House is the last one before Un'Goro. There, A-Me 01 (Chasing A-Me 01) asks for a Mithril Casing, an Engineering item, before her escort: buy one here if you want that chain.
   turnin 2641                         -- Sprinkle
   accept 2661
   accept 4504                         -- Tran'rek, beside the wind rider master

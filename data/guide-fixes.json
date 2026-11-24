@@ -17068,6 +17068,24 @@
 			"note": "#3365: Corrupted Sabers' one objective is an event, returning the corrupted cat to Winna Hazzard at Bloodvenom Post; the line read only \"Complete Corrupted Sabers\" while the arrow pointed at Winna, 567 yd off, so the reporter could not tell where to go with the saber. The line names her.",
 			"source": { "kind": "in-game-check", "ref": "#3365: the reporter's /polestar report (arrow at Winna Hazzard, 34.2,52.3) and the quest's objective, Return the corrupted cat to Winna Hazzard" },
 			"issue": 3365
+		},
+		{
+			"id": "3354-mithril-casing-gadgetzan-horde",
+			"faction": "Horde",
+			"at": { "quest": 4504, "goal": "accept", "guide": "forever/horde/40-50/06-azshara" },
+			"tip": "Gadgetzan's Auction House is the last one before Un'Goro. There, A-Me 01 (Chasing A-Me 01) asks for a Mithril Casing, an Engineering item, before her escort: buy one here if you want that chain.",
+			"note": "#3354: Chasing A-Me 01's second part (4244) asks for a Mithril Casing (10561), and the guide said so only at A-Me 01 on Un'Goro's Ironstone Plateau, with no auction house near. Gadgetzan's, on this step, is the last the route passes before the crater: the heads-up goes here.",
+			"source": { "kind": "in-game-check", "ref": "#3354 and #3761: the reporters' /polestar reports at A-Me 01; quest 4244's objective, Mithril Casing" },
+			"issue": 3354
+		},
+		{
+			"id": "3354-mithril-casing-gadgetzan-alliance",
+			"faction": "Alliance",
+			"at": { "quest": 4504, "goal": "accept", "guide": "forever/alliance/50-60/03-winterspring" },
+			"tip": "Gadgetzan's Auction House is the last one before Un'Goro. There, A-Me 01 (Chasing A-Me 01) asks for a Mithril Casing, an Engineering item, before her escort: buy one here if you want that chain.",
+			"note": "#3354 (#3761, Alliance): Chasing A-Me 01's second part (4244) asks for a Mithril Casing (10561); nothing said so before the flight to Marshal's Refuge. Gadgetzan's Auction House, on this step, is the last the route passes before the crater.",
+			"source": { "kind": "in-game-check", "ref": "#3761: Soggy's /polestar report in Winterspring with Chasing A-Me 01 unfinished; quest 4244's objective, Mithril Casing" },
+			"issue": 3354
 		}
 	]
 }

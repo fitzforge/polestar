@@ -18617,6 +18617,18 @@ test('forever/horde/50-60/03-winterspring.guide: the Corrupted Sabers line names
 	assert.match(goal.note || '', /Winna Hazzard/);
 });
 
+// #3354 (Horde) and #3761 (Soggy, Alliance): A-Me 01 asks for a Mithril Casing before her escort, and the guides said so
+// only at her, in Un'Goro, with no auction house near. Gadgetzan's step, the last auction house before the crater on
+// both routes, says to buy one there.
+for (const guide of ['forever/horde/40-50/06-azshara.guide', 'forever/alliance/50-60/03-winterspring.guide']) {
+	test(`${guide}: Gadgetzan's step says to buy a Mithril Casing for A-Me 01 (#3354)`, { skip }, () => {
+		const list = goals(guide);
+		const { step } = list[at(list, 'accept 4504', is('accept', 4504))];
+		assert.match(step.note || '', /Mithril Casing/);
+		assert.ok(list.findIndex(({ goal }) => goal.t === 'turnin' && goal.quest === 4243) < 0 || at(list, 'turnin 4243', is('turnin', 4243)) > at(list, 'accept 4504', is('accept', 4504)), 'before A-Me 01');
+	});
+}
+
 // #3512 #3492 #3489 #3486 #3481 (Stö, 0.4.2, Mount Hyjal): "talked with Whisperfur / Brie / Solstice / the Peasant /
 // Elder Pinespeaker but the guide didn't mark it". A `talk` with no quest ticks only on something the player does in
 // the NPC's window (a gossip choice, an accept, a hand-in: #741), but players' recordings show these lines tick with
