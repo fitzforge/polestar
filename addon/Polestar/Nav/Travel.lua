@@ -4013,6 +4013,18 @@ end
 
 local function onZone()
 	if riding() then return end
+	-- A subzone change on a lift ride (the ride leg current, the player within LIFT_LEAVE of its boarding landing) is the
+	-- ride itself. Planned again there, with no height from the client the walk started on the boarding floor, a few
+	-- yards under the player, and the arrow said "Ride the elevator up" again at the top (#3734: Gnomeregan, Thunder
+	-- Bluff). The ride is over when the player walks off it (LIFT_LEAVE), as without the event.
+	local leg, C = legs and legs[ci], ns.Compat
+	if leg and leg.kind == "lift" and leg.from and C and C.GetPlayerWorldPosition then
+		local pc, px, py = C.GetPlayerWorldPosition()
+		if pc == leg.from.c and px and yards(pc, px, py, leg.from.c, leg.from.wx, leg.from.wy) <= LIFT_LEAVE then
+			Travel:Refresh()
+			return
+		end
+	end
 	if not dirty then dirty = "zone" end
 	Travel:Refresh()
 end
