@@ -345,31 +345,34 @@ return {
 	-- {npc:7232} Borgus Steelhand · {object:28027} Dwarven District · {area:442} Auberdine
 	["{npc:7232}, {object:28027}: for his brother in {area:442}"] = "{npc:7232}，{object:28027}：为了他在{area:442}的兄弟",
 
-	-- Step 68: Jennea Cannon
+	-- Step 68: Gelman Stonehand
+	["talk to the trainer"] = "与训练师交谈",
+
+	-- Step 71: Jennea Cannon
 	-- {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake
 	["{npc:5497}, Wizard's Sanctum: {quest:1861}"] = "{npc:5497}，法师圣殿：{quest:1861}",
 
-	-- Step 70: Woo Ping
+	-- Step 73: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "顺便：找{npc:11867}学习{spell:202}（{object:2096}，10银币）；双手武器能让战士升级最快。",
 
-	-- Step 71: Woo Ping
+	-- Step 74: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "顺便：在{npc:11867}处学习{spell:202}（{object:2096}，10银币）；圣骑士用双手武器升级最快。",
 
-	-- Step 72: Woo Ping
+	-- Step 75: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "顺路找{npc:11867}学法杖（{object:2096}，10银）。猎人的近战武器主要看属性，双手武器属性最高。",
 
-	-- Step 73: Woo Ping
+	-- Step 76: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "顺路找{npc:11867}学剑类武器（{object:2096}，10银），主手拿剑，潜行者升级更稳。",
 
-	-- Step 74: Woo Ping
+	-- Step 77: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "顺路找{npc:11867}学法杖（{object:2096}，10银），升级时法杖带的法术属性比单手武器高。",
 
-	-- Step 76: Fishin' Time
+	-- Step 79: Fishin' Time
 	-- {npc:5494} Catherine Leland · {object:2096} Trade District · {npc:267118} Gilbert Gray
 	["{npc:5494} sells fishing supplies along the canal just west of the {object:2096}; {npc:267118} fishes at the harbor, on the way to the boat."] = "{npc:5494}在{object:2096}西边的运河旁出售钓鱼用品；{npc:267118}在港口钓鱼，就在去坐船的路上。",
 	-- {item:6529} Shiny Bauble · {npc:5494} Catherine Leland

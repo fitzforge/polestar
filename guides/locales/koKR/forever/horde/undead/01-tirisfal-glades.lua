@@ -149,7 +149,8 @@ return {
 
 	-- Step 26: Eleanor Shackleton
 	-- {area:159} Brill · {zone:1458} Undercity
-	["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, at Linnea's camp, or in the {zone:1458} in the next guide."] = "엘리노어 섀클턴은 마을 바로 남서쪽에서 야영합니다. 전문 기술을 배웠다면 그녀가 해당 야영 기초 퀘스트도 주며, 그 기술의 상급자에게 가져가면 됩니다. 상급자는 {area:159}, 리니아의 야영지, 또는 다음 가이드의 {zone:1458}에 있습니다.",
+	-- was: ["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, at Linnea's camp, or in the {zone:1458} in the next guide."] = "엘리노어 섀클턴은 마을 바로 남서쪽에서 야영합니다. 전문 기술을 배웠다면 그녀가 해당 야영 기초 퀘스트도 주며, 그 기술의 상급자에게 가져가면 됩니다. 상급자는 {area:159}, 리니아의 야영지, 또는 다음 가이드의 {zone:1458}에 있습니다."
+	["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, east of {area:159} for fishing, at Linnea's camp, or in the {zone:1458} in the next guide."] = "",
 	-- {spell:1229451} Boosted Rest
 	["/sit by her campfire until you get {spell:1229451}"] = "{spell:1229451}을(를) 얻을 때까지 그녀의 모닥불 옆에서 /앉기 하세요",
 
@@ -207,7 +208,13 @@ return {
 	-- {npc:4586} Graham Van Talen
 	["Eleanor: for {npc:4586}"] = "엘리노어: {npc:4586}에게",
 
-	-- Step 37: Brill
+	-- Step 37: Camping 101: Fishing
+	-- {npc:5690} Clyde Kellen · {skill:356} Fishing
+	["{npc:5690} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	-- {npc:5690} Clyde Kellen
+	["Eleanor: for {npc:5690}"] = "",
+
+	-- Step 38: Brill
 	-- {npc:1518} Apothecary Johaan · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren
 	["{npc:1518} is in the apothecary's house on the west side of the square, {npc:1515} in front of the inn with the Wanted poster beside him, {npc:1499} in the town hall on the square's north side. The inn comes last, in one go."] = "{npc:1518}은(는) 광장 서쪽 약초상 집에, {npc:1515}은(는) 현상수배 전단이 옆에 붙은 여관 앞에, {npc:1499}은(는) 광장 북쪽 시청에 있습니다. 여관은 마지막에 한 번에 가세요.",
 	-- {npc:1518} Apothecary Johaan
@@ -219,36 +226,36 @@ return {
 	-- {npc:1499} Magistrate Sevren
 	["{npc:1499}, in the town hall"] = "마을 회관 안의 {npc:1499}",
 
-	-- Step 38: Faruza
+	-- Step 39: Faruza
 	-- {npc:2114} Faruza · {quest:97957} Camping 101: Herbalism
 	["{npc:2114}, beside Johaan: {quest:97957}"] = "연금술사 요한 옆의 {npc:2114}: {quest:97957}",
 
-	-- Step 39: Carolai Anise
+	-- Step 40: Carolai Anise
 	-- {npc:2132} Carolai Anise · {quest:97951} Camping 101: Alchemy
 	["{npc:2132}, beside Johaan: {quest:97951}"] = "연금술사 요한 옆의 {npc:2132}: {quest:97951}",
 
-	-- Step 40: Carolai Anise
+	-- Step 41: Carolai Anise
 	-- {npc:2132} Carolai Anise · {area:159} Brill
 	["From level 7 {npc:2132}, beside Johaan in the apothecary's house, offers her elixir quest; below 7 it waits for the next {area:159} visit."] = "7레벨부터 약초상 집에서 조안 옆의 {npc:2132}가 자기 영약 퀘스트를 줍니다. 7 미만이면 다음 {area:159} 방문을 기다립니다.",
 	-- {npc:2132} Carolai Anise
 	["{npc:2132}, beside Johaan; inside"] = "연금술사 요한 옆의 {npc:2132}, 안",
 
-	-- Step 41: Discipline
+	-- Step 42: Discipline
 	-- {item:286176} Executor's Motivator
 	["Use the {item:286176} on five idle Deathguards around town"] = "마을 주변에서 빈둥거리는 죽음의경비병 5명에게 {item:286176}을(를) 사용하세요",
 
-	-- Step 43: Gallows' End Tavern
+	-- Step 44: Gallows' End Tavern
 	-- {npc:5688} Innkeeper Renee · {npc:265944} William Pickman · {npc:1931} Captured Scarlet Zealot · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["Everything here is inside the inn, through its door on the south side: {npc:5688} at the bar, {npc:265944} at the north end of the ground floor, the {npc:1931} in the cellar under that end, and {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) upstairs: take the stairs inside, the arrow cannot tell the floors apart."] = "여기의 모든 것은 남쪽 문으로 들어가는 여관 안에 있습니다. {npc:5688}은(는) 바에, {npc:265944}은(는) 1층 북쪽 끝에, {npc:1931}은(는) 그 끝 아래 지하실에, {npc:2128}(마법사), {npc:2129}(사제), {npc:2127}(흑마법사), {npc:2130}(도적)은(는) 2층에 있습니다. 안쪽 계단으로 올라가세요. 화살표는 층을 구분하지 못합니다.",
 	-- {npc:265944} William Pickman
 	["{npc:265944}, at the inn's north end: Camping 101 asks you to learn it"] = "{npc:265944}, 여관 북쪽 끝: 야영 101이 그것을 배우라고 합니다",
 
-	-- Step 44: The cellar stairs
+	-- Step 45: The cellar stairs
 	["The cellar stairs"] = "지하실 계단",
 	-- {npc:1931} Captured Scarlet Zealot
 	["The {npc:1931} is in the cellar under the inn's north end. The stairs down start at the west side of that end: go down them, then turn east to him."] = "{npc:1931}은(는) 여관 북쪽 끝 아래 지하실에 있습니다. 아래로 가는 계단은 그 끝의 서쪽에서 시작합니다. 계단을 내려간 뒤 동쪽으로 돌아 그에게 가세요.",
 
-	-- Step 45: Gallows' End Tavern
+	-- Step 46: Gallows' End Tavern
 	-- {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call · {npc:2131} Austil de Mon
 	["Back up from the cellar: {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) are upstairs, {npc:2131} (warriors) on the ground floor; take the stairs inside, the arrow cannot tell the floors apart."] = "지하실에서 다시 위로: {npc:2128}(마법사), {npc:2129}(사제), {npc:2127}(흑마법사), {npc:2130}(도적)은(는) 2층에, {npc:2131}(전사)은(는) 1층에 있습니다. 안쪽 계단으로 올라가세요. 화살표는 층을 구분하지 못합니다.",
 	-- {npc:1931} Captured Scarlet Zealot
@@ -258,11 +265,11 @@ return {
 	-- {npc:2129} Dark Cleric Beryl
 	["{npc:2129}, upstairs"] = "위층의 {npc:2129}",
 
-	-- Step 46: Nurse Neela
+	-- Step 47: Nurse Neela
 	-- {npc:5759} Nurse Neela · {quest:97955} Camping 101: First Aid
 	["{npc:5759}, by the bar: {quest:97955}"] = "바 옆의 {npc:5759}: {quest:97955}",
 
-	-- Step 48: Coleman Farthing and Gretchen Dedmar
+	-- Step 49: Coleman Farthing and Gretchen Dedmar
 	-- {npc:1500} Coleman Farthing · {npc:1521} Gretchen Dedmar
 	["{npc:1500} and {npc:1521}"] = "{npc:1500}와(과) {npc:1521}",
 	-- {npc:1500} Coleman Farthing · {npc:1521} Gretchen Dedmar · {area:159} Brill
@@ -272,7 +279,7 @@ return {
 	-- {npc:1521} Gretchen Dedmar
 	["{npc:1521}, upstairs"] = "{npc:1521}, 위층",
 
-	-- Step 49: Deathguard Linnea's camp
+	-- Step 50: Deathguard Linnea's camp
 	-- {npc:1495} Deathguard Linnea
 	["{npc:1495}'s camp"] = "{npc:1495}의 야영지",
 	-- {area:159} Brill · {npc:3549} Shelene Rhobart
@@ -280,34 +287,34 @@ return {
 	-- {npc:251001} Deathguard Kristof
 	["Ask {npc:251001} for his report"] = "{npc:251001}에게 보고를 요청하세요",
 
-	-- Step 50: Rand Rhobart
+	-- Step 51: Rand Rhobart
 	-- {npc:6289} Rand Rhobart · {npc:3549} Shelene Rhobart · {quest:97960} Camping 101: Skinning
 	["{npc:6289}, beside {npc:3549}: {quest:97960}"] = "{npc:3549} 옆의 {npc:6289}: {quest:97960}",
 
-	-- Step 52: Deathguard Dillinger
+	-- Step 53: Deathguard Dillinger
 	-- {area:159} Brill
 	["Back up the road and through {area:159} to its west end."] = "길을 따라 돌아가 {area:159}을(를) 지나 서쪽 끝까지 가세요.",
 	-- {npc:1496} Deathguard Dillinger
 	["Ask {npc:1496} for his report"] = "{npc:1496}에게 보고를 요청하세요",
 
-	-- Step 53: Cold Hearth Manor: kill these as you meet them
+	-- Step 54: Cold Hearth Manor: kill these as you meet them
 	-- {area:166} Cold Hearth Manor
 	["{area:166}: kill these as you meet them"] = "{area:166}: 만나는 대로 처치하세요",
 	-- {npc:1525} Rotting Dead · {area:159} Brill · {npc:10666} Gordo · {npc:3549} Shelene Rhobart
 	-- plural, as words: Ravaged Corpses = {npc:1526} Ravaged Corpse · Decrepit Darkhounds = {npc:1547} Decrepit Darkhound
 	["{npc:1525} and Ravaged Corpses shamble through the fields just west of {area:159}; Decrepit Darkhounds roam there and on west along the road toward {npc:10666}. Johaan wants their blood, {npc:3549} their hides."] = "{npc:1525}과(와) 심하게 훼손된 시체가 {area:159} 바로 서쪽 들판을 비틀거리며 돌아다니고, 광포한 암흑사냥개가 그곳과 도로를 따라 서쪽 {npc:10666} 쪽까지 떠돕니다. 조안은 그 피를, {npc:3549}는 가죽을 원합니다.",
 
-	-- Step 54: Bowen Brisboise
+	-- Step 55: Bowen Brisboise
 	-- {npc:3523} Bowen Brisboise · {area:159} Brill · {quest:97961} Camping 101: Tailoring
 	["{npc:3523}, by the road west of {area:159}: {quest:97961}"] = "{area:159} 서쪽 길가의 {npc:3523}: {quest:97961}",
 
-	-- Step 55: Gordo
+	-- Step 56: Gordo
 	-- {npc:10666} Gordo · {area:159} Brill · {area:166} Cold Hearth Manor
 	["{npc:10666} walks the long road west of {area:159}, past {area:166}, and back: the arrow follows his road west until you meet him."] = "{npc:10666}이(가) {area:159} 서쪽의 긴 도로를 따라 {area:166}을(를) 지나 돌아오며 거닙니다. 화살표가 그의 서쪽 길을 따라가니 만날 때까지 가세요.",
 	-- {npc:10666} Gordo
 	["Ask {npc:10666} for his report"] = "{npc:10666}에게 보고를 요청하세요",
 
-	-- Step 56: Calvin Montague
+	-- Step 57: Calvin Montague
 	-- {npc:6784} Calvin Montague · {area:156} Solliden Farmstead
 	["{npc:6784} stands by the farmhouse at the {area:156}, on the way to the Crusader's Outpost."] = "{npc:6784}가 {area:156}의 농가 곁, 성전사 전초기지로 가는 길에 서 있습니다.",
 	-- {npc:6784} Calvin Montague · {npc:5688} Innkeeper Renee
@@ -315,7 +322,7 @@ return {
 	-- {npc:6784} Calvin Montague
 	["Beat {npc:6784} in the duel"] = "결투에서 {npc:6784}을(를) 이기세요",
 
-	-- Step 57: Crusader's Outpost
+	-- Step 58: Crusader's Outpost
 	["Crusader's Outpost"] = "붉은십자군 전초기지",
 	-- {npc:275954} Bareth Dawnstone
 	-- plural, as words: Scarlet Warriors = {npc:1535} Scarlet Warrior
@@ -325,19 +332,19 @@ return {
 	-- {npc:275954} Bareth Dawnstone
 	["Escort {npc:275954} out of the outpost"] = "{npc:275954}을(를) 전초기지 밖으로 호위하세요",
 
-	-- Step 58: Brill
+	-- Step 59: Brill
 	-- {area:159} Brill · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["Back east along the road to {area:159}. {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "동쪽 도로를 따라 {area:159}로 돌아가세요. {npc:2128}(마법사), {npc:2129}(사제), {npc:2127}(흑마법사), {npc:2130}(도적)은(는) 여관 2층에 서 있습니다. 안쪽 계단으로 올라가세요. 화살표는 층을 구분하지 못합니다.",
 	-- {item:2320} Coarse Thread · {npc:2118} Abigail Shiel
 	["{item:2320} from {npc:2118}, for Gretchen"] = "그레첸 데드마에게 줄 {item:2320}, {npc:2118}에게서 구입",
 
-	-- Step 59: Deathguard Kel
+	-- Step 60: Deathguard Kel
 	-- {npc:12428} Deathguard Kel · {area:159} Brill · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
 	["{npc:12428} kneels by the north gate of {area:159}'s graveyard, on your way north. Cast {spell:613} (Rank 2) on him, then {spell:1243}: Fortitude first does not count."] = "{npc:12428}은(는) 북쪽으로 가는 길에 있는 {area:159} 묘지 북문 옆에 무릎 꿇고 있습니다. 그에게 {spell:613}(2레벨)을 시전한 뒤 {spell:1243}을(를) 시전하세요. 인내를 먼저 걸면 인정되지 않습니다.",
 	-- {npc:12428} Deathguard Kel
 	["Heal and fortify {npc:12428}"] = "{npc:12428}을(를) 치유하고 인내를 걸어 주세요",
 
-	-- Step 60: Tirisfal Glades: kill these as you meet them
+	-- Step 61: Tirisfal Glades: kill these as you meet them
 	-- {zone:1420} Tirisfal Glades
 	["{zone:1420}: kill these as you meet them"] = "{zone:1420}: 만나는 대로 처치하세요",
 	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {area:164} Garren's Haunt · {npc:1753} Maggot Eye · {area:157} Agamand Mills
@@ -347,7 +354,7 @@ return {
 	-- {npc:1675} Rot Hide Mongrel · {area:164} Garren's Haunt
 	["{npc:1675} walks around {area:164}: look inside the circle on the map"] = "{npc:1675}이(가) {area:164} 주변을 거닙니다. 지도의 원 안을 보세요.",
 
-	-- Step 61: Brill
+	-- Step 62: Brill
 	-- {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["{npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:2128}(마법사), {npc:2129}(사제), {npc:2127}(흑마법사), {npc:2130}(도적)은(는) 여관 2층에 서 있습니다. 안쪽 계단으로 올라가세요. 화살표는 층을 구분하지 못합니다.",
 	-- {npc:246152} Shari Stilwell · {quest:91282} A Second Home · {quest:96899} Bandarion Keep
@@ -357,24 +364,24 @@ return {
 	-- {npc:2129} Dark Cleric Beryl · {item:16607} Acolyte's Sacrificial Robes
 	["{npc:2129}, upstairs: the {item:16607}"] = "위층의 {npc:2129}: {item:16607}",
 
-	-- Step 62: Deathguard Terrence
+	-- Step 63: Deathguard Terrence
 	-- {npc:1738} Deathguard Terrence · {quest:96895} The Argent Emissary · {npc:267009} Hadric Harlson · {area:159} Brill · {area:157} Agamand Mills
 	["From level 10 {npc:1738} offers {quest:96895}: {npc:267009} waits at Linnea's camp, the next stop. Below 10 it waits for the {area:159} visit after {area:157}."] = "10레벨부터 {npc:1738}이(가) {quest:96895}를(을) 줍니다: {npc:267009}가 다음 정류지인 린니아의 야영지에서 기다립니다. 10 미만이면 {area:157} 다음의 {area:159} 방문을 기다립니다.",
 
-	-- Step 63: Deathguard Linnea's camp
+	-- Step 64: Deathguard Linnea's camp
 	-- {area:159} Brill
 	["Follow the road south-east from {area:159} past the zeppelin towers."] = "{area:159}에서 남동쪽 길을 따라 비행선 탑을 지나가세요.",
 
-	-- Step 64: Hadric Harlson
+	-- Step 65: Hadric Harlson
 	-- {npc:267009} Hadric Harlson
 	["{npc:267009} stands at the camp beside Linnea."] = "{npc:267009}이(가) 린니아 곁 야영지에 서 있습니다.",
 
-	-- Step 65: Magistrate Sevren
+	-- Step 66: Magistrate Sevren
 	-- {area:159} Brill · {area:157} Agamand Mills · {npc:1753} Maggot Eye · {npc:1515} Executor Zygand
 	["Back up the road to {area:159}, on the way north-west to {area:157}. The Wanted poster for {npc:1753} stands beside {npc:1515}, in front of the inn."] = "",
 	["The Wanted poster beside Zygand"] = "자이간드 옆의 현상수배 전단",
 
-	-- Step 66: Agamand Mills
+	-- Step 67: Agamand Mills
 	-- {area:157} Agamand Mills · {npc:1657} Devlin Agamand · {npc:1656} Thurman Agamand · {item:2839} A Letter to Yvette
 	-- plural, as words: Cracked Skull Soldiers = {npc:1523} Cracked Skull Soldier · Darkeye Bonecasters = {npc:1522} Darkeye Bonecaster
 	["Follow the road north-west to {area:157}. {npc:1657} walks the graveyard south of the mills; Nissa, Gregor and {npc:1656} haunt the mills themselves. Rattlecage and Cracked Skull Soldiers drop the ribs, Darkeye Bonecasters the skulls, and any of them may drop {item:2839}.\nCareful: Rotting undead and Darkeye Bonecasters near the Agamands can join a fight as adds."] = "길을 따라 북서쪽 {area:157}(으)로 가세요. {npc:1657}은(는) 방앗간 남쪽 묘지를 걸어 다니고, 니사, 그레고르, {npc:1656}은(는) 방앗간 안에 출몰합니다. 덜그럭거리는 해골병사와 금이간 해골병사는 갈비뼈를, 검은눈 해골마법사는 두개골을 떨어뜨리며, 누구든 {item:2839}을(를) 떨어뜨릴 수 있습니다.\n주의: 아가만드 근처의 썩어가는 언데드와 검은눈 해골마법사가 싸움에 합류할 수 있습니다.",
@@ -384,13 +391,13 @@ return {
 	["{item:2839}, a rare drop"] = "희귀 획득품 {item:2839}",
 	["Only if the letter dropped"] = "편지를 얻었을 때만",
 
-	-- Step 67: Maggot Eye
+	-- Step 68: Maggot Eye
 	-- {area:159} Brill · {area:164} Garren's Haunt · {npc:1753} Maggot Eye
 	["On the way back to {area:159}, {area:164} is the Rot Hide camp on the hill east of the mills, south of the shore. {npc:1753} stands in the hut.\nCareful: {npc:1753} is level 11 and gnoll guards stand outside the hut and can join the fight: clear them one at a time first. If you slip past them and fight him inside, he fights alone."] = "",
 	-- {item:3635} Maggot Eye's Paw
 	["{item:3635}; inside"] = "{item:3635}; 안쪽",
 
-	-- Step 68: Brill
+	-- Step 69: Brill
 	-- {npc:1560} Yvette Farthing
 	["{npc:1560}, in the inn"] = "여관 안의 {npc:1560}",
 	-- {npc:2128} Cain Firesong · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity
@@ -400,11 +407,11 @@ return {
 	-- {npc:1738} Deathguard Terrence · {area:159} Brill
 	["{npc:1738}, if you were below 10 on the last {area:159} visit"] = "{npc:1738}, 지난 {area:159} 방문에서 10 미만이었다면",
 
-	-- Step 69: Ulag the Cleaver
+	-- Step 70: Ulag the Cleaver
 	-- {npc:6390} Ulag the Cleaver
 	["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390}은(는) 마을 바로 북쪽 언덕의 묘지에서 기다립니다. 문을 열고 그와 싸우십시오.",
 
-	-- Step 70: Carendin Halgar
+	-- Step 71: Carendin Halgar
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "{area:159}에서 남쪽 {area:153}(으)로 가서 {area:1497}(으)로 내려가세요. {npc:5675}은(는) {object:36082}에 있습니다. 붉은십자군 야영지는 폐허 바로 서쪽입니다.",
 	-- {npc:4551} Michael Garrett
@@ -412,30 +419,30 @@ return {
 	-- {npc:5675} Carendin Halgar · {quest:1473} Creature of the Void
 	["{npc:5675}: he offers {quest:1473} only once this is handed in"] = "{npc:5675}: 이것을 제출해야만 {quest:1473}을(를) 줍니다",
 
-	-- Step 71: Anastasia Hartwell
+	-- Step 72: Anastasia Hartwell
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "{area:159}에서 남쪽 {area:153}(으)로 가서 {area:1497}(으)로 내려가세요. {npc:4568}은(는) {object:36082}에 있습니다. 붉은십자군 야영지는 폐허 바로 서쪽입니다.",
 
-	-- Step 72: Back to Tirisfal Glades
+	-- Step 73: Back to Tirisfal Glades
 	-- {zone:1420} Tirisfal Glades
 	["Back to {zone:1420}"] = "{zone:1420}로 돌아가기",
 	["The Scarlet camp"] = "붉은십자군 야영지",
 
-	-- Step 73: Tirisfal Glades: kill these as you meet them
+	-- Step 74: Tirisfal Glades: kill these as you meet them
 	-- {area:159} Brill · {npc:1662} Captain Perrine
 	["Follow the road south-west from {area:159} to the Scarlet Crusade camp. {npc:1662} stands at its south end; every Scarlet there can drop a ring."] = "{area:159}에서 남서쪽 길을 따라 붉은십자군 야영지로 가세요. {npc:1662}은(는) 남쪽 끝에 있으며, 그곳의 붉은십자군은 모두 반지를 떨어뜨릴 수 있습니다.",
 	-- {npc:1537} Scarlet Zealot
 	["{npc:1537} walks around here: look inside the circle on the map"] = "{npc:1537}이(가) 이곳 주변을 거닙니다. 지도의 원 안을 보세요.",
 
-	-- Step 74: Perrine's Chest
+	-- Step 75: Perrine's Chest
 	-- {object:37098} Perrine's Chest · {npc:1662} Captain Perrine
 	["{object:37098} stands beside {npc:1662} at the camp's south end."] = "{object:37098}은(는) 야영지 남쪽 끝 {npc:1662} 옆에 있습니다.",
 
-	-- Step 76: Hadric Harlson
+	-- Step 77: Hadric Harlson
 	-- {npc:267009} Hadric Harlson · {npc:1495} Deathguard Linnea
 	["{npc:267009} stands at {npc:1495}'s camp, on the road to the cult's farm."] = "{npc:267009}은(는) 교단 농장으로 가는 길의 {npc:1495} 야영지에 있습니다.",
 
-	-- Step 77: Balnir Farmstead: kill these as you meet them
+	-- Step 78: Balnir Farmstead: kill these as you meet them
 	-- {area:165} Balnir Farmstead
 	["{area:165}: kill these as you meet them"] = "{area:165}: 만나는 대로 처치하세요",
 	-- {quest:99142} Tomb Weed · {npc:1664} Captain Vachon
@@ -444,12 +451,12 @@ return {
 	-- {item:7227} Balnir Snapdragons
 	["{item:7227}, in the farmstead's garden"] = "농장 정원의 {item:7227}",
 
-	-- Step 78: Tirisfal Glades: kill these as you meet them
+	-- Step 79: Tirisfal Glades: kill these as you meet them
 	-- {npc:1495} Deathguard Linnea
 	-- plural, as words: Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
 	["On the way back west, the Cult of the Damned holds the farm just south-east of {npc:1495}'s camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.\nCareful: the cultists (10-12) stand close together and the Neophytes cast: pull one at a time from the edge of the farm."] = "서쪽으로 돌아가는 길에, 저주받은 자의 교단이 {npc:1495}의 야영지 바로 남동쪽 농장을 차지하고 있습니다. 괴저 수정 파편은 교단원들 사이 땅에 놓여 있고, 교단원들도 일부 가지고 있습니다.\n주의: 교단원(10-12)은 붙어 서 있고 수습생은 주문을 씁니다. 농장 가장자리에서 하나씩 끄세요.",
 
-	-- Step 80: Brill
+	-- Step 81: Brill
 	-- {area:159} Brill · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["Back up the road to {area:159}. {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "도로를 따라 올라가 {area:159}로. {npc:2128}(마법사), {npc:2129}(사제), {npc:2127}(흑마법사), {npc:2130}(도적)은(는) 여관 2층에 서 있습니다. 안쪽 계단으로 올라가세요. 화살표는 층을 구분하지 못합니다.",
 	-- {npc:1518} Apothecary Johaan · {area:228} Sepulcher
@@ -457,20 +464,24 @@ return {
 	-- {npc:2211} Captured Mountaineer
 	["The {npc:2211}, in the inn's cellar"] = "여관 지하실의 {npc:2211}",
 
-	-- Step 81: Leonid Barthalomew the Revered
+	-- Step 82: Clyde Kellen
+	-- {npc:5690} Clyde Kellen · {area:159} Brill · {quest:97956} Camping 101: Fishing
+	["{npc:5690}, east of {area:159}: {quest:97956}"] = "",
+
+	-- Step 83: Leonid Barthalomew the Revered
 	-- {area:159} Brill · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
 	-- was: ["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "{area:164}에서 서쪽으로 {area:157}을(를) 지나 {area:16616}(으)로 가세요. 레오니드는 {npc:246389}의 야영지 바로 북쪽에 있습니다.\n{npc:246389}와(과) {npc:259190}은(는) 레오니드 바로 남쪽 숲 가장자리에서 야영합니다. {quest:96896}을(를) 제출하면(레벨 10) 모든 직업이 두 퀘스트를 수락할 수 있습니다. 다음 목적지인 {area:16881} 아래 지하실로 보냅니다."
 	["North-west from {area:159} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "",
 	-- {npc:246378} Danitha Morr
 	["Listen to Leonid and {npc:246378}, then talk to him again"] = "리어니드와 {npc:246378}의 대화를 들은 뒤 그에게 다시 말을 거세요",
 
-	-- Step 82: Paladin: Bandarion Keep
+	-- Step 84: Paladin: Bandarion Keep
 	-- {quest:96899} Bandarion Keep
 	["Paladin: {quest:96899}"] = "성기사: {quest:96899}",
 	-- {npc:246349} Breton Samuels
 	["{npc:246349} waits at the keep's gate beside Leonid."] = "{npc:246349}가 레오니드 곁 성채 문에서 기다립니다.",
 
-	-- Step 83: Paladin: Murlocs at the Gates
+	-- Step 85: Paladin: Murlocs at the Gates
 	-- {quest:91285} Murlocs at the Gates
 	["Paladin: {quest:91285}"] = "성기사: {quest:91285}",
 	-- {area:16881} Shadowvale
@@ -480,7 +491,7 @@ return {
 	-- plural, as words: Vile Fin Seers = {npc:250282} Vile Fin Seer
 	["Vile Fin Seers"] = "Vile Fin Seer",
 
-	-- Step 84: Shadowvale
+	-- Step 86: Shadowvale
 	-- {area:16881} Shadowvale · {area:16616} Whispering Forest
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher
 	["{area:16881} is the hollow at the west edge of the glades, south-west of the {area:16616}. Go down into the big basement under the ruined house (only a floor and a few pillars left, not the two-storey house): the bottles lie on its floor among the Shadowvale Lurchers and Mystics."] = "{area:16881}은(는) 글레이즈 서쪽 가장자리 골짜기로, {area:16616} 남서쪽에 있습니다. 폐허가 된 집 아래 큰 지하실로 낮아져 가세요(바닥과 기둥 몇 개만 남은 것이지 2층 집이 아닙니다). 병은 그 바닥의 그림자골 잠복자와 신비술사 사이에 있습니다.",
@@ -490,23 +501,23 @@ return {
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher
 	["the Shadowvale Lurchers and Mystics drop the bones; below ground"] = "그림자골 잠복자와 신비술사가 뼛가지를 떨어뜨립니다; 지하",
 
-	-- Step 85: Hilda the Breaker and Ephram Barbaro
+	-- Step 87: Hilda the Breaker and Ephram Barbaro
 	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
 	["{npc:246389} and {npc:259190}"] = "{npc:246389}와(과) {npc:259190}",
 	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
 	["Back up to the forest's edge south of the keep's gate: {npc:246389} and {npc:259190} take the bones and the crystal."] = "성채 문 남쪽 숲 가장자리로 다시 올라가세요. {npc:246389}과(와) {npc:259190}이(가) 뼛가지와 수정을 받습니다.",
 
-	-- Step 86: Paladin: Bandarion Keep
+	-- Step 88: Paladin: Bandarion Keep
 	-- {npc:259190} Ephram Barbaro · {npc:246389} Hilda the Breaker · {npc:246349} Breton Samuels · {npc:246393} Jorin Croge · {npc:246394} Ander Solliden · {npc:246378} Danitha Morr
 	["{npc:259190} and {npc:246389} at the forest's edge, {npc:246349} at the gate, {npc:246393} and {npc:246394} nearby, {npc:246378} inside."] = "{npc:259190}과(와) {npc:246389}는(은) 숲 가장자리에, {npc:246349}는(은) 문에, {npc:246393}과(와) {npc:246394}는(은) 근처에, {npc:246378}는(은) 안에 있습니다.",
 	-- {npc:246378} Danitha Morr
 	["{npc:246378}, inside the keep"] = "{npc:246378}, 성채 안",
 
-	-- Step 87: The Undercity
+	-- Step 89: The Undercity
 	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter · {item:6284} Runes of Summoning · {npc:4606} Aelthalyste · {object:36070} War Quarter · {npc:4568} Anastasia Hartwell
 	["{object:1661} is under the {area:153}, beside the zeppelin towers. {npc:5675} is in the {object:36082}: use the {item:6284} on the summoning circle beside him and defeat the voidwalker. {npc:4606} is in the {object:36070}. {npc:4568} is in the {object:36082} too."] = "{object:1661}은(는) 비행선 탑 옆 {area:153} 아래에 있습니다. {npc:5675}은(는) {object:36082}에 있습니다. 그 옆의 소환진에서 {item:6284}을(를) 사용하고 공허방랑자를 물리치세요. {npc:4606}은(는) {object:36070}에 있습니다. {npc:4568}도 {object:36082}에 있습니다.",
 
-	-- Step 89: Brill
+	-- Step 91: Brill
 	-- {npc:2132} Carolai Anise
 	["{npc:2132}, inside"] = "{npc:2132}, 내부",
 	-- {area:159} Brill · {zone:1421} Silverpine Forest
@@ -518,6 +529,7 @@ return {
 	-- ["Balnir graves"] = "발니르 농장 무덤",
 	-- ["Duskbats and Darkhounds roam all along the road back west; finish the wings and hides on the way."] = "서쪽으로 돌아가는 길 내내 그늘박쥐와 암흑사냥개가 돌아다닙니다. 가는 길에 날개와 가죽을 마저 모으세요.",
 	-- ["Eleanor camps just south-west of town."] = "엘리노어 섀클턴은 마을 바로 남서쪽에서 야영합니다.",
+	-- ["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, at Linnea's camp, or in the {zone:1458} in the next guide."] = "엘리노어 섀클턴은 마을 바로 남서쪽에서 야영합니다. 전문 기술을 배웠다면 그녀가 해당 야영 기초 퀘스트도 주며, 그 기술의 상급자에게 가져가면 됩니다. 상급자는 {area:159}, 리니아의 야영지, 또는 다음 가이드의 {zone:1458}에 있습니다.",
 	-- ["Fields west of {area:159}"] = "{area:159} 서쪽 들판",
 	-- ["Follow the road east to {area:159}. {npc:10665} stands at the north-west edge of town; the {area:2119} is the big inn in the middle, with {npc:1515} in front of it."] = "길을 따라 동쪽 {area:159}(으)로 가세요. {npc:10665}은(는) 마을 북서쪽 끝에 있습니다. {area:2119}은(는) 마을 한가운데의 큰 여관이며, 그 앞에 {npc:1515}이(가) 있습니다.",
 	-- ["Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows."] = "길을 따라 동쪽으로 가세요. 피투성이 좀비와 떠도는 영혼이 농장 동쪽 무덤에 출몰하며, 그곳에 {quest:99142}이(가) 자랍니다.",
