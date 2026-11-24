@@ -338,14 +338,23 @@ step Chromie
   accept 4971
 
 step Andorhal
-  tip Use the Temporal Displacer by the grain silos to draw out Temporal Parasites. The Annals of Darrowshire is one of the musty tomes in the town hall. Every skeleton in town drops Skeletal Fragments.
-  tip Careful: the Temporal Parasites are 55-57, and Skeletal Warlords and Flesh Golems (57, elites) walk the streets: draw the parasites out by the silos, one at a time, and let the elites pass.
+  tip The Annals of Darrowshire is one of the musty tomes in the town hall. Every skeleton in town drops Skeletal Fragments.
+  tip Careful: Skeletal Warlords and Flesh Golems (57, elites) walk the streets: let them pass.
   tip Araj the Summoner is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal.
   collect 12900 quest 5154.1          -- Annals of Darrowshire
-  use 12627 @45.1,62.3 "Temporal Displacer"
-  kill 10717 quest 4971.1 @45.1,62.3  -- Temporal Parasite
   collect 14619 quest 5537.1          -- Skeletal Fragments
   collect 17114 quest 211.1 optional  -- Araj's Phylactery Shard
+
+step Andorhal's grain silos
+  loop
+  tip Use the Temporal Displacer by each grain silo on the north side of town to draw out Temporal Parasites, one silo after another.
+  tip Careful: the Temporal Parasites are 55-57: draw them out one silo at a time, away from the Skeletal Warlords and Flesh Golems (57, elites) in the streets.
+  goto 45.15,62.28 r 8
+  goto 46.38,62.33 r 8
+  goto 47.83,63.45 r 8
+  goto 48.45,62.81 r 8
+  use 12627 quest 4971.1              -- Temporal Displacer
+  kill 10717 quest 4971.1             -- Temporal Parasite
 
 step Chromie
   turnin 4971                         -- Upstairs
