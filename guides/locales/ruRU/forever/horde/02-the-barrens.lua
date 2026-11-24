@@ -155,7 +155,7 @@ return {
 	-- {npc:3391} Gazlowe · {area:392} Ratchet
 	["{npc:3391}: the crates lie at the south end of the beach camp, on the next {area:392} stop at 18"] = "{npc:3391}: ящики лежат в южном конце лагеря на пляже, при следующем заходе сюда: {area:392}, на 18-м уровне",
 
-	-- Step 27: Fly to Crossroads
+	-- Step 33: Fly to Crossroads
 	["Fly to Crossroads"] = "Летите на Перекрёсток",
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "Распорядитель полетов: {area:392}",
@@ -216,7 +216,7 @@ return {
 	-- {quest:881} Echeyakee · {npc:3682} Vrang Wildgore
 	["East from the keg toward {quest:881}: {npc:3682} camps below the hills, and his errands lie in the plains beside his camp."] = "На восток от бочки к {quest:881}: {npc:3682} стоит лагерем под холмами, и его поручения лежат на равнинах рядом с лагерем.",
 
-	-- Step 42: Savannah lions
+	-- Step 49: Savannah lions
 	["Savannah lions"] = "Львы саванны",
 	-- {npc:3682} Vrang Wildgore
 	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap
@@ -234,8 +234,8 @@ return {
 	-- plural, as words: Raptor Heads = {item:5062} Raptor Head
 	["Finish the Raptor Heads"] = "Доберите головы ящеров",
 	-- {quest:881} Echeyakee
-	-- plural, as words: Sunscale Lashtails = {npc:3254} Sunscale Lashtail
-	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "Всё ещё не хватает двенадцати? Яркочешуйчатые кнутохвосты и крикуны бродят по равнинам к северо-востоку от Перекрёстка, по пути обратно на юг от логова {quest:881}.",
+	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
+	["Still short of twelve? Sunscale Screechers are thickest on the open plains just north of {quest:881}'s lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp."] = "",
 
 	-- Step 53: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
@@ -393,7 +393,7 @@ return {
 	-- {quest:3923} Rilli Greasygob · {zone:1454} Orgrimmar · {object:172958} Valley of Honor
 	["Keep it: {quest:3923} is in {zone:1454}'s {object:172958}, on the {zone:1454} trip at 20"] = "Сохраните: {quest:3923} – в {object:172958} города {zone:1454}, в поездке в {zone:1454} на 20-м",
 
-	-- Step 79: the Crossroads
+	-- Step 86: the Crossroads
 	["the Crossroads"] = "Перекрёсток",
 	-- {npc:3449} Darsok Swiftdagger · {npc:3448} Tonga Runetotem
 	["South down the road to the Crossroads: {npc:3449} stands on the tower platform, {npc:3448} at the south gate."] = "На юг по дороге до Перекрёстка: {npc:3449} стоит на площадке башни, {npc:3448} – у южных ворот.",
@@ -768,6 +768,7 @@ return {
 	-- ["South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank; {npc:3448} takes the result on the next Crossroads stop, so carry on north-west to the {area:383} from here."] = "К юго-востоку от Перекрестка. Проверьте семена у бурлящей расщелины на восточном берегу оазиса; результат {npc:3448} примет при следующем заходе в Перекресток, так что отсюда идите дальше на северо-запад. Цель: {area:383}.",
 	-- ["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "К юго-востоку от места {area:380}. Проверьте семена у бурлящей расщелины на восточном берегу оазиса.",
 	-- ["Southsea beach"] = "Пляж Южных морей",
+	-- ["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "Всё ещё не хватает двенадцати? Яркочешуйчатые кнутохвосты и крикуны бродят по равнинам к северо-востоку от Перекрёстка, по пути обратно на юг от логова {quest:881}.",
 	-- ["Still short of twelve? The Sunscale Screechers are thickest on the plains around {quest:881}'s lair, north of the Razormane camp."] = "Не хватает до двенадцати? Больше всего яркочешуйчатых крикунов на равнинах вокруг логова ({quest:881}), к северу от лагеря Иглогривых.",
 	-- ["Sunscale raptors here count toward the heads."] = "Яркочешуйчатые ящеры здесь тоже дают головы.",
 	-- ["The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end."] = "Хищники саванны ({npc:3425}) охотятся на равнинах между поселением и лагерем Иглогривых к востоку. В лагере водоискатели и терноплеты держат западную половину, охотники – середину; ящики с припасами стоят на восточном краю.",

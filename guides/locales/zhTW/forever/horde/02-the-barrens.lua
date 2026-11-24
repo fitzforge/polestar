@@ -216,7 +216,7 @@ return {
 	-- {quest:881} Echeyakee · {npc:3682} Vrang Wildgore
 	["East from the keg toward {quest:881}: {npc:3682} camps below the hills, and his errands lie in the plains beside his camp."] = "從酒桶向東朝{quest:881}方向：{npc:3682}在山丘下方紮營，他的差事就在營地旁的平原上。",
 
-	-- Step 42: Savannah lions
+	-- Step 49: Savannah lions
 	["Savannah lions"] = "薩凡納獅子",
 	-- {npc:3682} Vrang Wildgore
 	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap

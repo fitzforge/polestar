@@ -155,7 +155,7 @@ return {
 	-- {npc:3391} Gazlowe · {area:392} Ratchet
 	["{npc:3391}: the crates lie at the south end of the beach camp, on the next {area:392} stop at 18"] = "{npc:3391}: 상자는 해변 야영지 남쪽 끝에 있으며, 18레벨에 다음 {area:392} 방문 때 합니다",
 
-	-- Step 27: Fly to Crossroads
+	-- Step 33: Fly to Crossroads
 	["Fly to Crossroads"] = "크로스로드로 비행",
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "{area:392} 비행 조련사",
@@ -216,7 +216,7 @@ return {
 	-- {quest:881} Echeyakee · {npc:3682} Vrang Wildgore
 	["East from the keg toward {quest:881}: {npc:3682} camps below the hills, and his errands lie in the plains beside his camp."] = "케그에서 {quest:881} 쪽으로 동쪽: {npc:3682}은(는) 언덕 아래에 야영하고, 그의 심부름은 야영지 옆 평원에 있습니다.",
 
-	-- Step 42: Savannah lions
+	-- Step 49: Savannah lions
 	["Savannah lions"] = "사바나 사자",
 	-- {npc:3682} Vrang Wildgore
 	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap
@@ -234,8 +234,8 @@ return {
 	-- plural, as words: Raptor Heads = {item:5062} Raptor Head
 	["Finish the Raptor Heads"] = "랩터 머리 마저 모으기",
 	-- {quest:881} Echeyakee
-	-- plural, as words: Sunscale Lashtails = {npc:3254} Sunscale Lashtail
-	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "아직 12개가 부족하다면 채찍꼬리 열대초원랩터와 긴송곳니 열대초원랩터가 크로스로드 북동쪽 평원, {quest:881} 둥지에서 남쪽으로 돌아오는 길에 있습니다.",
+	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
+	["Still short of twelve? Sunscale Screechers are thickest on the open plains just north of {quest:881}'s lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp."] = "",
 
 	-- Step 53: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
@@ -393,7 +393,7 @@ return {
 	-- {quest:3923} Rilli Greasygob · {zone:1454} Orgrimmar · {object:172958} Valley of Honor
 	["Keep it: {quest:3923} is in {zone:1454}'s {object:172958}, on the {zone:1454} trip at 20"] = "보관하세요: {quest:3923}은(는) 20레벨에 {zone:1454} 여행에서 {zone:1454}의 {object:172958}에 있습니다",
 
-	-- Step 79: the Crossroads
+	-- Step 86: the Crossroads
 	["the Crossroads"] = "크로스로드",
 	-- {npc:3449} Darsok Swiftdagger · {npc:3448} Tonga Runetotem
 	["South down the road to the Crossroads: {npc:3449} stands on the tower platform, {npc:3448} at the south gate."] = "도로를 따라 남쪽으로 크로스로드까지: {npc:3449}은(는) 탑 승강장에, {npc:3448}은(는) 남문에 있습니다.",
@@ -763,6 +763,7 @@ return {
 	-- ["South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank; {npc:3448} takes the result on the next Crossroads stop, so carry on north-west to the {area:383} from here."] = "십자로 남동쪽입니다. 오아시스 동쪽 기슭의 부글거리는 균열에서 씨앗을 시험하세요. 결과는 다음에 십자로에 들를 때 {npc:3448}에게 전달하므로, 여기서 바로 북서쪽 {area:383}(으)로 계속 가세요.",
 	-- ["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "{area:380} 남동쪽입니다. 오아시스 동쪽 기슭의 부글거리는 균열에서 씨앗을 시험하세요.",
 	-- ["Southsea beach"] = "남쪽바다해적단 해변",
+	-- ["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "아직 12개가 부족하다면 채찍꼬리 열대초원랩터와 긴송곳니 열대초원랩터가 크로스로드 북동쪽 평원, {quest:881} 둥지에서 남쪽으로 돌아오는 길에 있습니다.",
 	-- ["The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end."] = "굶주린 사바나 사자는 마을과 동쪽의 서슬갈기일족 야영지 사이 평원에서 사냥합니다. 야영지 서쪽 절반은 풍수사와 가시마술사가, 가운데는 사냥꾼이 차지하고 있으며, 보급품 상자는 동쪽 끝에 있습니다.",
 	-- ["The Witchwing Slayers hold the western {area:383}; they wear the rings."] = "칼날바람일족 암살자는 {area:383} 서부를 차지하고 있으며, 반지를 끼고 있습니다.",
 	-- ["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to {npc:6394} in {area:378}, before the thunderhawks. Careful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds; Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds. A {npc:3253} (24, rare) also wanders the mounds: leave it."] = "더듬이는 떨어진 지 15분 뒤에 사라집니다. 같은 둔덕에서 실리시드 무리벌레와 실리시드 포복충을 다섯 개가 될 때까지 처치한 뒤, 천둥매보다 먼저 곧장 {area:378}의 {npc:6394}에게 가져가십시오. 주의: 실리시드 무리벌레(21-22레벨)는 전투 중에도 전투 밖에서도 {npc:4196}을(를) 시전해 작은 몹 여럿을 불러오고, 실리시드 포복충(20-21레벨)은 전투 중 주기적으로 {npc:5781}을(를) 시전해 몹을 추가로 불러냅니다. {npc:3253}(24, 희귀)도 둔덕을 돌아다닙니다. 건드리지 마십시오.",

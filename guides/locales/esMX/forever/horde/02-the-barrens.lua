@@ -213,7 +213,7 @@ return {
 	-- {quest:881} Echeyakee · {npc:3682} Vrang Wildgore
 	["East from the keg toward {quest:881}: {npc:3682} camps below the hills, and his errands lie in the plains beside his camp."] = "Al este del barril, hacia {quest:881}: {npc:3682} acampa bajo las colinas, y sus recados están en las llanuras junto a su campamento.",
 
-	-- Step 42: Savannah lions
+	-- Step 49: Savannah lions
 	["Savannah lions"] = "los leones de la sabana",
 	-- {npc:3682} Vrang Wildgore
 	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap
@@ -284,7 +284,7 @@ return {
 	-- Step 58: Fly to Ratchet
 	["Crossroads flight master"] = "Maestro de vuelo del Cruce",
 
-	-- Step 52: Ratchet
+	-- Step 59: Ratchet
 	["WANTED poster"] = "Cartel de ¡Se busca!",
 
 	-- Step 60: Mebok Mizzyrix
