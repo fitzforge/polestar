@@ -2668,8 +2668,11 @@ end
 -- one's height (its own when it has one); two whose surfaces lie further apart in height than Path.trailRise yards a
 -- yard plus Path.trailPad (a fence's step, a bank) are never joined: another floor, not a gap. The searches of a set
 -- trail are their own (weights' tag carries its
--- version; a trail with the same joins keeps it, so caches stay). -> the joins made (map gaps the player walked
--- through) and the middle of the first: n, x, y (0 for none).
+-- version; a trail with the same joins keeps it, so caches stay). Reads decoded clusters only: a place in a cluster
+-- not decoded (dropped at rest, never searched) is passed over, so a walk asked at a step change never decodes the
+-- player's last minute of ground in that frame (#3451: 30-60 ms frames); the search decodes what it needs in its
+-- slices, and the next walk asked has those places. -> the joins made (map gaps the player walked through) and the
+-- middle of the first: n, x, y (0 for none).
 local TRAIL_STEP, TRAIL_DETOUR, TRAIL_SLACK = 6, 3, 2
 Path.trailRise, Path.trailPad = 1.2, 3
 local trailVersion = 0
@@ -2696,7 +2699,7 @@ function Path.SetTrail(map, samples)
 			z = nil
 		end
 		local k, lc = locate(st, x, y)
-		local node = k and snap(st, k, lc, x, y, z or pz)
+		local node = k and st.cl[k] and snap(st, k, lc, x, y, z or pz)
 		local c = node and grid(st, k)
 		if node and c then
 			local cell = node < N and node or floorCell(c, node)

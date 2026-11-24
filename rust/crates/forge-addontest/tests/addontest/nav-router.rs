@@ -361,6 +361,34 @@ fn a_walked_trail_opens_the_steps_the_grid_closes_for_the_searches_until_it_is_c
 	assert!(round(&got["cleared"]), "cleared: round again: {got}");
 }
 
+// #3451: a walk asked at a step change set the player's trail first, and Path.SetTrail decoded every cluster the
+// last minute of his steps crossed in that frame (dropped at rest while he stood at the goal): 30-60 ms frames in
+// the arrow stretches, most of the step changes' cost. It reads decoded clusters only: on ground no search has
+// decoded it makes no joins and decodes nothing; once the search has decoded it, the same trail opens the hole.
+#[test]
+fn a_walked_trail_reads_decoded_clusters_only_and_decodes_nothing_itself_3451() {
+	let mut cells = layout(4, Cls::default(), Cls::default());
+	cells.remove(&((X0 + S / 2) * C + Y0));
+	let (a, b) = (from(), to());
+	let n = ((b.x - a.x) / 2.0).ceil() as usize;
+	let samples: Vec<String> = (0..=n).map(|i| format!("{}, {}, false", js(a.x + (b.x - a.x) * i as f64 / n as f64), js(a.y))).collect();
+	let set = format!("Path.SetTrail({MAP}, {{ {} }})", samples.join(", "));
+	let got = route(
+		&map_files(&cells, true, Opts::default()),
+		&[
+			q("cold", "lua", &format!("local d = Path.decodes or 0; out.cold = {{ {set} }}; out.coldDecodes = (Path.decodes or 0) - d")),
+			q("before", "find", r#"{ profile = "Horde" }"#),
+			q("drain", "lua", "while #frames > 0 do table.remove(frames, 1)() end"),
+			q("warm", "lua", &format!("local d = Path.decodes or 0; out.warm = {{ {set} }}; out.warmDecodes = (Path.decodes or 0) - d")),
+		],
+	);
+	assert_eq!(got["cold"][0].as_f64(), Some(0.0), "no cluster decoded: no joins: {got}");
+	assert_eq!(got["coldDecodes"].as_f64(), Some(0.0), "and nothing decoded for the trail: {got}");
+	assert!(round(&got["before"]), "the grid's way: round the U: {got}");
+	assert!(got["warm"][0].as_f64().unwrap() >= 1.0, "decoded by the search: the hole the trail crossed is a gap: {got}");
+	assert_eq!(got["warmDecodes"].as_f64(), Some(0.0), "{got}");
+}
+
 // Two searches queued together, the second marked urgent (Routing/PathJobs.lua: the walk the arrow is on,
 // Nav/Walk.lua), one slice a frame (a zero budget): which one answers first, and the frames each took.
 fn urgent_order(urgent: bool) -> Value {
