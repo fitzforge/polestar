@@ -61,26 +61,26 @@ return {
 	-- {area:205} Dun Modr · {npc:1071} Longbraid the Grim · {npc:1075} Rhag Garmason · {object:147516} Dark Iron
 	["North along the road to {area:205}. {npc:1071} and {npc:1075} stand together in the dwarves' camp on the east side of the road; the {object:147516} ruins west of it are full of elites."] = "Au nord par la route jusqu'à {area:205}. {npc:1071} et {npc:1075} se tiennent ensemble dans le camp des nains, du côté est de la route ; les ruines des nains {object:147516}, à l'ouest, sont pleines d'élites.",
 
-	-- Step 13: Captive Fire Elemental
-	-- {npc:271481} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:271481} est retenu tout à l'ouest des ruines des nains {object:147516}, après des nains élites de niveau 27-30, et {npc:1364} (34, élite) peut se trouver parmi eux. Ramenez-le vers l'est hors des ruines, puis rendez la quête à {npc:1072}, dans le camp. Passez-la si vous êtes seul.",
-
-	-- Step 14: Modr
-	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
-	["{npc:271460} stands in the ruins of {area:205} (use the {item:279996})."] = "{npc:271460} se dresse dans les ruines de {area:205} (utilisez la {item:279996}).",
-
-	-- Step 15: Motley Garmason
+	-- Step 13: Motley Garmason
 	-- {quest:303} The Dark Iron War
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron
 	["{quest:303} is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone."] = "{quest:303} est une quête de groupe : 30 Nains Sombrefer élites (27-31) dans les ruines à l'ouest du camp. Passez-la si vous êtes seul.",
 	-- {npc:1074} Motley Garmason
 	["{npc:1074}, in the camp"] = "{npc:1074}, dans le camp",
 
-	-- Step 16: Ashlan Stonesmirk
+	-- Step 14: Ashlan Stonesmirk
 	-- {quest:88756} Bring Back a Bang · {item:280806} Stolen Explosives · {object:147516} Dark Iron · {area:1016} Direforge Hill · {area:205} Dun Modr
 	["{quest:88756} is a group quest: the {item:280806} lie in the {object:147516} camp on {area:1016}, south-east of {area:205}, among the same elite dwarves. Skip it if you are alone."] = "{quest:88756} est une quête de groupe : les {item:280806} se trouvent dans le camp des {object:147516} sur {area:1016}, au sud-est de {area:205}, parmi les mêmes nains élites. Passez-la si vous êtes seul.",
 	-- {npc:1073} Ashlan Stonesmirk
 	["{npc:1073}, in the camp"] = "{npc:1073}, dans le camp",
+
+	-- Step 15: Captive Fire Elemental
+	-- {npc:271481} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:271481} est retenu tout à l'ouest des ruines des nains {object:147516}, après des nains élites de niveau 27-30, et {npc:1364} (34, élite) peut se trouver parmi eux. Ramenez-le vers l'est hors des ruines, puis rendez la quête à {npc:1072}, dans le camp. Passez-la si vous êtes seul.",
+
+	-- Step 16: Modr
+	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
+	["{npc:271460} stands in the ruins of {area:205} (use the {item:279996})."] = "{npc:271460} se dresse dans les ruines de {area:205} (utilisez la {item:279996}).",
 
 	-- Step 17: The Dark Iron War
 	-- {npc:1364} Balgaras the Foul

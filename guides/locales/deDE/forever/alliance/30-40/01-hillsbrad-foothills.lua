@@ -61,26 +61,26 @@ return {
 	-- {area:205} Dun Modr · {npc:1071} Longbraid the Grim · {npc:1075} Rhag Garmason · {object:147516} Dark Iron
 	["North along the road to {area:205}. {npc:1071} and {npc:1075} stand together in the dwarves' camp on the east side of the road; the {object:147516} ruins west of it are full of elites."] = "Nach Norden entlang der Straße nach {area:205}. {npc:1071} und {npc:1075} stehen zusammen im Lager der Zwerge an der Ostseite der Straße; die Ruinen von {object:147516} westlich davon sind voller Elites.",
 
-	-- Step 13: Captive Fire Elemental
-	-- {npc:271481} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Mitspieler dafür. Der {npc:271481} wird am äußersten Westende der Ruinen von {object:147516} festgehalten, hinter Elite-Zwergen der Stufe 27-30, und {npc:1364} (34, Elite) kann unter ihnen sein. Führ ihn nach Osten aus den Ruinen und gib ihn dann bei {npc:1072} im Lager ab. Überspring ihn, wenn du allein bist.",
-
-	-- Step 14: Modr
-	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
-	["{npc:271460} stands in the ruins of {area:205} (use the {item:279996})."] = "{npc:271460} steht in den Ruinen von {area:205} (benutze den {item:279996}).",
-
-	-- Step 15: Motley Garmason
+	-- Step 13: Motley Garmason
 	-- {quest:303} The Dark Iron War
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron
 	["{quest:303} is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone."] = "{quest:303} ist eine Gruppenquest: 30 Elite-Dunkeleisen (27-31) in den Ruinen westlich des Lagers. Überspring sie, wenn du allein bist.",
 	-- {npc:1074} Motley Garmason
 	["{npc:1074}, in the camp"] = "{npc:1074}, im Lager",
 
-	-- Step 16: Ashlan Stonesmirk
+	-- Step 14: Ashlan Stonesmirk
 	-- {quest:88756} Bring Back a Bang · {item:280806} Stolen Explosives · {object:147516} Dark Iron · {area:1016} Direforge Hill · {area:205} Dun Modr
 	["{quest:88756} is a group quest: the {item:280806} lie in the {object:147516} camp on {area:1016}, south-east of {area:205}, among the same elite dwarves. Skip it if you are alone."] = "{quest:88756} ist eine Gruppenquest: Die {item:280806} liegen im Lager der {object:147516} auf {area:1016}, südöstlich von {area:205}, zwischen denselben Elite-Zwergen. Überspring sie, wenn du allein bist.",
 	-- {npc:1073} Ashlan Stonesmirk
 	["{npc:1073}, in the camp"] = "{npc:1073}, im Lager",
+
+	-- Step 15: Captive Fire Elemental
+	-- {npc:271481} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Mitspieler dafür. Der {npc:271481} wird am äußersten Westende der Ruinen von {object:147516} festgehalten, hinter Elite-Zwergen der Stufe 27-30, und {npc:1364} (34, Elite) kann unter ihnen sein. Führ ihn nach Osten aus den Ruinen und gib ihn dann bei {npc:1072} im Lager ab. Überspring ihn, wenn du allein bist.",
+
+	-- Step 16: Modr
+	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
+	["{npc:271460} stands in the ruins of {area:205} (use the {item:279996})."] = "{npc:271460} steht in den Ruinen von {area:205} (benutze den {item:279996}).",
 
 	-- Step 17: The Dark Iron War
 	-- {npc:1364} Balgaras the Foul
