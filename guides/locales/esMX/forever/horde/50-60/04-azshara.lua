@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Spanish (Latin America) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:392} Ratchet · {zone:1454} Orgrimmar · {zone:1458} Undercity
+	["{area:392}, {zone:1454} and the {zone:1458}, then into the Plaguelands."] = "{area:392}, {zone:1454} y {zone:1458}, luego a las Tierras de la Peste.",
+
 	-- Step 1: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Vuela a {area:392}",
-	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -43,7 +45,7 @@ return {
 
 	-- Step 8: Zilzibin Drumlore
 	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1451} Silithus · {zone:2482} Mount Hyjal
-	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "",
+	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "Solo si todavía no hiciste {quest:4494}: {npc:7010} trabaja en la Calle Mayor. Pestlezugg la recibe en {area:976} en la primera parada de la guía de {zone:1451}, después de {zone:2482}.",
 
 	-- Step 9: Vehena
 	-- {object:172961} Valley of Spirits
@@ -172,4 +174,5 @@ return {
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} regresa con {npc:10778} en {area:28}: guárdala.",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: para {npc:8587} en {area:1237}",
 	-- ["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
+	-- ["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 }

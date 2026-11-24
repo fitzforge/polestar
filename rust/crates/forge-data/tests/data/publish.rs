@@ -392,8 +392,8 @@ fn the_public_builds_leave_the_placeholder_check_to_the_full_build() {
 	// public tables carry no objective text. The full build keeps the check.
 	let base = scratch("placeholder-guard");
 	let o = publish::public_build_options(&base, &base.join("sources"), false, &base.join("empty.json"));
-	assert!(!o.placeholder_guard);
-	assert!(forge_data::Options::new(&base).placeholder_guard);
+	assert_eq!(o.placeholders, forge_data::Placeholders::Count);
+	assert_eq!(forge_data::Options::new(&base).placeholders, forge_data::Placeholders::Stop);
 	let _ = std::fs::remove_dir_all(&base);
 }
 

@@ -275,6 +275,15 @@ local function buildPinsPreview(view)
 	}) do
 		f:Light(key, unpack(parts))
 	end
+	-- The spawn markers (Maps/MobMarkers.lua) draw on the world map, its legend over it, and on the minimap.
+	if ns.MobMarkers then
+		for key, parts in pairs({
+			["mobMarkers.enabled"] = { h.Map, mm }, ["mobMarkers.showMinimap"] = { mm }, ["mobMarkers.showLegend"] = { h.Map },
+			["mobMarkers.stepOnly"] = { h.Map, mm }, ["mobMarkers.questPalette"] = { h.Map, mm }, ["mobMarkers.mobPalette"] = { h.Map, mm },
+		}) do
+			f:Light(key, unpack(parts))
+		end
+	end
 	return f
 end
 
@@ -525,6 +534,35 @@ local SPECS = {
 			shown = function() return Theme.Color("scrim") end, source = function() return L["Scheme"] end },
 	} },
 }
+
+-- Spawn markers for your quests (Maps/MobMarkers.lua, rohkin's Mob Markers): every spawn of the mobs and
+-- objects the quests shown need, a skull colour per quest, a ring per mob, a legend on the world map. Their
+-- size and opacity are the Icons tab's. On the Pins tab after the numbered pins, while the module is there.
+if ns.MobMarkers then
+	local function off() return not ns.Get("mobMarkers.enabled") end
+	local palettes = ns.MobMarkers.Palettes()
+	table.insert(SPECS, 3, { page = PAGE, tab = L["Pins"], section = L["Spawn markers"],
+		toggle = { kind = "toggle", key = "mobMarkers.enabled", label = L["Spawn markers for your quests"], new = "0.4.3",
+			search = "mob markers, spawn markers, spawn points, every spawn, kill, skull, mobs, quest mobs, objects, legend",
+			help = L["A skull on the world map and the minimap at every spawn of the mobs your quests need, one colour per quest and a ring per mob; the things you pick up or use get the pickup bag. Their size and opacity are on the Icons tab."] },
+		controls = {
+		{ kind = "toggle", key = "mobMarkers.showMinimap", label = L["On the minimap"], new = "0.4.3", disabled = off,
+			search = "mob markers, spawn markers, minimap, radar",
+			help = L["Off: the spawn markers show on the world map only."] },
+		{ kind = "toggle", key = "mobMarkers.showLegend", label = L["Legend on the world map"], new = "0.4.3", disabled = off,
+			search = "mob markers, spawn markers, legend, key, list",
+			help = L["Lists the quests and mobs on the shown map. Hover a row to highlight its markers, click it to turn them off or on."] },
+		{ kind = "toggle", key = "mobMarkers.stepOnly", label = L["Only the current step's quests"], new = "0.4.3", disabled = off,
+			search = "mob markers, spawn markers, step, quest log, all quests",
+			help = L["Marks only the quests the guide step you're on works on, not your whole quest log. With no guide running, the whole log shows."] },
+		{ kind = "dropdown", key = "mobMarkers.questPalette", label = L["Quest colours"], new = "0.4.3", disabled = off,
+			choices = palettes, search = "mob markers, spawn markers, colour blind, palette, skull",
+			help = L["The colours quests are given, in quest-log order: the skull's colour. The first quest keeps the skull's own colours."] },
+		{ kind = "dropdown", key = "mobMarkers.mobPalette", label = L["Mob colours"], new = "0.4.3", disabled = off,
+			choices = palettes, search = "mob markers, spawn markers, colour blind, palette, rings",
+			help = L["The colours of the rings that tell a quest's mobs apart. A quest with one mob has no ring."] },
+	} })
+end
 
 ---------------------------------------------------------------------------
 -- Essentials (the page's lead tab): its presets as picture cards, then the

@@ -31,6 +31,8 @@ ns.RegisterDefaults("ui", {
 	width = 340,
 	stepListHeight = 0, -- the step browser's height, dragged with the window's grip while it is open; 0: the window's height when it opens
 	maxHeight = 0.5, -- the guide window's tallest, as a share of the screen's height; a longer step scrolls (#843)
+	footAt = "goals", -- with heightMode "fixed": the progress bar right under the last goal ("goals") or on the window's edge ("edge")
+	heightMode = "fit", -- "fit": the window follows the step up to maxHeight; "fixed": it is always maxHeight tall; "auto": it grows into all the room on screen (under its top edge; with growUp, over its bottom one)
 	wholeStep = false, -- the card lists every goal of the step, finished ones kept, instead of one person at a time (#843)
 	upcoming = 0, -- Up next is off by default (the reading flow names the next person instead)
 	upcomingOpen = false, -- when on, upcoming steps start listed instead of collapsed
@@ -348,12 +350,15 @@ end
 -- this guide"), or with `tip` its tooltip's sentence on why doing it now
 -- pays: the Engine's own words when it gives them (`hereSub`, `hereTip`: a
 -- flight path line's), else its step's (`firstStep`: the earliest step that
--- holds the objective).
+-- holds the objective). A quest kept for a later guide (`keptFor`, #3390)
+-- says so after it: "Step 14 · kept for Stranglethorn & Swamp".
 function UI.HereStep(v, tip)
 	if tip then
 		return v.hereTip or format(L["Step %d does this later; done now, that step is shorter or skipped when you get there."], UI.StepNo(v.firstStep or v.step))
 	end
-	return v.hereSub or format(v.later and L["Step %d, later in this guide"] or L["Step %d"], UI.StepNo(v.firstStep or v.step))
+	local sub = v.hereSub or format(v.later and L["Step %d, later in this guide"] or L["Step %d"], UI.StepNo(v.firstStep or v.step))
+	if v.keptFor then sub = format(L["%s · kept for %s"], sub, v.keptFor) end
+	return sub
 end
 
 -- The goal's main line. The Engine's `text` is the truth (it carries author
@@ -571,13 +576,17 @@ end
 -- Group content (the goal's `party`, the compiled `group`): "Elite: group
 -- advised", "Rare elite: group advised", "Boss: group advised", "Dungeon:
 -- Dire Maul", "Raid: Molten Core", "Group of 3 advised" or "Group advised",
--- in the dungeon colour. Nil once the goal is done or skipped.
+-- in the dungeon colour; an object's work among elites (`near`: the crate
+-- needs no group, the camp round it has elites, #3653) "Elites nearby".
+-- Nil once the goal is done or skipped.
 local ELITE_LINE = { [1] = L["Elite: group advised"], [2] = L["Rare elite: group advised"], [3] = L["Boss: group advised"] }
 function UI.GroupLine(goal)
 	local p = goal.party
 	if type(p) ~= "table" or goal.status == "done" or goal.status == "skipped" then return nil end
 	local text
-	if p.kind == "elite" then
+	if p.kind == "elite" and p.near then
+		text = L["Elites nearby"]
+	elseif p.kind == "elite" then
 		text = ELITE_LINE[p.rank] or ELITE_LINE[1]
 	elseif (p.kind == "dungeon" or p.kind == "raid") and type(p.name) == "string" then
 		text = format(p.kind == "raid" and L["Raid: %s"] or L["Dungeon: %s"], (type(p.map) == "number" and ns.Names.Instance(p.map)) or p.name)
@@ -594,6 +603,72 @@ end
 function UI.EscortLine(goal)
 	if goal.escort ~= true or goal.status == "done" or goal.status == "skipped" then return nil end
 	return "|c" .. Theme.Hex("dungeon") .. L["Escort: if the NPC is not there, wait for it to respawn"] .. "|r"
+end
+
+-- The group mark (#3580): two heads beside a step meant for a group or
+-- holding a hard fight, in the step browser's card header and after the
+-- step header's name. Driven from what the step already carries, no guide
+-- syntax of its own. Two states, one shape:
+--   "group" (the warning colour): a group choice (a `when group <quest>`
+--   step, taken or still asked), an escort (`escort`), elite work at or
+--   above the player's level or of no known level, an author's group size;
+--   "careful" (muted): elites near an object's work (`near`), elite work
+--   below the player's level.
+-- Dungeon and raid work keep the dungeon mark alone. Goals done, skipped or
+-- not applying count for nothing; `raw` is the compiled step (its `when`).
+-- -> state, the tooltip's reason | nil
+local MARK_GROUP = {
+	choice = L["Group, or careful: a group quest, yours to do or skip"],
+	escort = L["Group, or careful: an escort that can go wrong"],
+	elite = L["Group, or careful: elites at your level or above"],
+	group = L["Group, or careful: a group is advised"],
+}
+local MARK_CAREFUL = { near = L["Careful: elites nearby"], below = L["Careful: elites, below your level"] }
+function UI.StepMark(view, raw)
+	if type(view) ~= "table" or view.status == "done" or view.status == "skipped" or view.status == "na" or view.skipped == true then return nil end
+	for _, p in ipairs(type(raw) == "table" and raw.when or {}) do
+		if p.k == "group" and not p.neg then return "group", MARK_GROUP.choice end
+	end
+	local level
+	local careful
+	for _, goal in ipairs(view.goals or {}) do
+		local s = goal.status
+		if s ~= "done" and s ~= "skipped" and s ~= "na" and not goal.dismissed then
+			if goal.escort == true then return "group", MARK_GROUP.escort end
+			local p = goal.party
+			if type(p) == "table" and p.kind == "group" then return "group", MARK_GROUP.group end
+			if type(p) == "table" and p.kind == "elite" then
+				if p.near then
+					careful = careful or MARK_CAREFUL.near
+				else
+					if level == nil then
+						local C = ns.Compat
+						local ok, info = pcall(C.GetPlayerInfo)
+						level = ok and type(info) == "table" and info.level or 0
+					end
+					if type(p.lvl) ~= "number" or p.lvl >= level then return "group", MARK_GROUP.elite end
+					careful = MARK_CAREFUL.below
+				end
+			end
+		end
+	end
+	if careful then return "careful", careful end
+	return nil
+end
+
+-- The mark as an inline texture at the line's height, in its state's colour
+-- (warning, textMuted), made again when the colour changes (a new scheme).
+local markGlyph = {}
+function UI.StepMarkGlyph(state)
+	local r, g, b = Theme.Color(state == "group" and "warning" or "textMuted")
+	local key = r .. "," .. g .. "," .. b
+	local c = markGlyph[state]
+	if not c or c.key ~= key then
+		c = { key = key, text = format("|T%s:0:0:0:0:32:32:0:32:0:32:%d:%d:%d|t", Theme.Media("icon-group"),
+			math.floor(r * 255 + 0.5), math.floor(g * 255 + 0.5), math.floor(b * 255 + 0.5)) }
+		markGlyph[state] = c
+	end
+	return c.text
 end
 
 -- A dungeon's way in (the goal view's `entrance`: a dungeon guide's "Enter

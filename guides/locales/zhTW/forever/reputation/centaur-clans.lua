@@ -163,7 +163,7 @@ return {
 	["Gelkis: {npc:5601}"] = "吉爾吉斯：{npc:5601}",
 	-- {npc:5601} Khan Jehn · {area:604} Magram Village · {npc:253177} Nerlokh · {npc:5397} Uthek the Wise · {item:271801} Abandoned Ferocity · {item:271802} Bludgeon of Betrayed Virtues · {item:271805} Thrice-Damned Effigy
 	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: {npc:5601} (level 37) leads the Magram from the west side of {area:604}, north-east of {npc:253177}. The village is hostile to a friend of the Gelkis, and two Magram Necrokhans, elite and level 45, stand a little west of the khan. {npc:5397} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271801} (two-handed axe: Strength, Stamina, Agility), {item:271802} (one-handed mace: Strength, Stamina, Agility) or {item:271805} (off-hand: Spirit, Intellect, Stamina). The quest costs the Magram 30,000."] = "",
+	["From the quest data: {npc:5601} (level 37) leads the Magram from the west side of {area:604}, north-east of {npc:253177}. The village is hostile to a friend of the Gelkis, and two Magram Necrokhans, elite and level 45, stand a little west of the khan. {npc:5397} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271801} (two-handed axe: Strength, Stamina, Agility), {item:271802} (one-handed mace: Strength, Stamina, Agility) or {item:271805} (off-hand: Spirit, Intellect, Stamina). The quest costs the Magram 30,000."] = "根據任務資料：{npc:5601}（37級）在 {area:604} 西側、{npc:253177} 東北方統領瑪格拉姆。該村莊對吉爾吉斯的朋友懷有敵意，可汗西邊不遠處還站著兩名45級精英瑪格拉姆死靈可汗。{npc:5397} 會獎勵6,000點聲望、一個頭銜，以及三件35級稀有武器中的一件：{item:271801}（雙手斧：力量、耐力、敏捷）、{item:271802}（單手錘：力量、耐力、敏捷）或 {item:271805}（副手：精神、智力、耐力）。該任務會扣除瑪格拉姆30,000聲望。",
 
 	-- Step 22: Gelkis: totems to Exalted
 	["Gelkis: totems to Exalted"] = "吉爾吉斯：圖騰衝崇拜",
@@ -303,7 +303,7 @@ return {
 	-- {quest:93196} Khan Jehn
 	["Magram: {quest:93196}"] = "瑪格拉姆：{quest:93196}",
 	-- {item:257517} Ultimate Necromancy Staff · {area:604} Magram Village · {quest:93196} Khan Jehn · {item:271800} Scavenged Magram Armament · {item:271803} Greatstaff of the Necrokhans · {item:271804} Soulsplatter Mace
-	["From the quest data: take the {item:257517} to the ritual site, a tent by the lake in the middle of {area:604}, and raise {quest:93196}. The risen khan takes the quest: 6,000, a title, and your pick of three rare level 35 weapons: {item:271800} (polearm: Stamina, attack power, Agility), {item:271803} (staff: Intellect, Stamina, Spirit) or {item:271804} (main-hand mace: Intellect, Stamina, Spirit). The quest costs the Gelkis 30,000."] = "",
+	["From the quest data: take the {item:257517} to the ritual site, a tent by the lake in the middle of {area:604}, and raise {quest:93196}. The risen khan takes the quest: 6,000, a title, and your pick of three rare level 35 weapons: {item:271800} (polearm: Stamina, attack power, Agility), {item:271803} (staff: Intellect, Stamina, Spirit) or {item:271804} (main-hand mace: Intellect, Stamina, Spirit). The quest costs the Gelkis 30,000."] = "根據任務資料：把{item:257517}帶到儀式地點，即{area:604}中央湖邊的一頂帳篷，復活{quest:93196}。復活的可汗接收任務：獎勵6,000聲望、一個頭銜，以及三件35級精良武器任選一件：{item:271800}（長柄武器：耐力、攻擊強度、敏捷）、{item:271803}（法杖：智力、耐力、精神）或{item:271804}（主手錘：智力、耐力、精神）。該任務會扣除吉爾吉斯30,000聲望。",
 	-- {quest:93196} Khan Jehn
 	["raise {quest:93196} at the tent by the lake"] = "在湖邊的帳篷復活{quest:93196}",
 

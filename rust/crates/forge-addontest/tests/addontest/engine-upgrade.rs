@@ -56,7 +56,7 @@ PolestarCharDB = {{ schema = 1, tabs = {{ "test/up" }}, activeTab = 1,
 
 const SCRIPT: &str = r#"
 E = Polestar.Engine
--- The changed step's goals as the earlier release had them (tools/legacy-steps.js).
+-- The changed step's goals as the earlier release had them (forge guide legacy-steps).
 local function h(s) local x = 5381 for i = 1, #s do x = (x * 33 + s:byte(i)) % 4294967296 end return x end
 Polestar.LegacyStepsLoad = function() return { ["test/up"] = { [h("accept:102")] = "accept:102" } } end
 stub.login(); stub.advance(0.25)
@@ -580,4 +580,56 @@ fn a_saved_step_with_a_class_goal_and_two_quests_left_out_is_read_from_its_relea
 	.remove(0);
 	assert_eq!(out["live"], 8, "at 103's hand-in, where the player was: {out}");
 	assert_eq!(out["changed"], json!(["done", "na"]), "{out}");
+}
+
+// #3464 (0.4.2.2 -> 0.4.3, Duskwood): the update moved The Night Watch's accept to the first Darkshire visit, before
+// Raven Hill's kills, a step 0.4.2.2 had too (kept), which the player had walked past for a quest they had not taken.
+// Those kills read as the player's place, so only what the update added before them passed, and an accept it added
+// after them (Sven's Camp) held the player 18 steps back. Work of a quest whose only accepts the update added is no
+// sign of the player's place: they stay at 103's hand-in, and every added accept behind it passes.
+#[test]
+fn work_of_a_quest_the_update_moved_before_the_player_never_reads_as_their_place_3464() {
+	let saved = saved("")
+		.replace(
+			r#"local OLD = { "accept:100", "turnin:100", "accept:102", "goto:1429", "turnin:102", "accept:103", "turnin:103" }"#,
+			r#"local OLD = { "accept:100", "kill:150", "turnin:100", "accept:102", "turnin:102", "accept:103", "turnin:103", "accept:150", "turnin:150" }"#,
+		)
+		.replace(r#""7-1""#, r#""9-1""#);
+	let guide = r#"
+local M = 1429
+local function a(q, x) return { t = "accept", quest = q, title = "Quest " .. q, map = M, x = x or 50, y = 50 } end
+local function t(q, x) return { t = "turnin", quest = q, title = "Quest " .. q, map = M, x = x or 50, y = 50 } end
+Polestar.RegisterGuide({ id = "test/up", pack = "test", title = "Upgraded", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ title = "Start", goals = { a(100) } },
+	{ title = "The Night Watch, moved here", goals = { a(150, 40) } },
+	{ title = "Raven Hill: kill these as you meet them", goals = { { t = "kill", target = "Skeletal Warrior", npc = 9, count = 3, quest = 150, oi = 1, map = M, x = 40, y = 40 } } },
+	{ title = "Hand in 100", goals = { t(100) } },
+	{ title = "Sven's Camp, new", goals = { a(160, 45) } },
+	{ title = "Take 102", goals = { a(102) } },
+	{ title = "Hand in 102", goals = { t(102) } },
+	{ title = "Take 103", goals = { a(103) } },
+	{ title = "Hand in 103", goals = { t(103) } },
+	{ title = "Hand in 150", goals = { t(150) } },
+	{ title = "Hand in 160", goals = { t(160) } },
+} })"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved)],
+		login: false,
+		script: format!(
+			r#"{TEST_PACK}
+{TEST_SOURCE}
+{guide}
+E = Polestar.Engine
+Polestar.LegacyStepsLoad = function() return {{}} end
+stub.login(); stub.advance(0.25)
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)
+emit({{ live = E.GetLiveStep(), moved = E.GetStepView(2).status, new = E.GetStepView(5).status }})"#
+		),
+	})
+	.remove(0);
+	assert_eq!(out["live"], 9, "at 103's hand-in, where the player was: {out}");
+	assert_eq!(json!([out["moved"], out["new"]]), json!(["na", "na"]), "the moved and the new accept pass behind the player: {out}");
 }

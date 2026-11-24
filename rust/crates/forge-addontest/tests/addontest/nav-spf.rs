@@ -1584,6 +1584,38 @@ fn a_chokepoint_more_than_30_yd_above_or_below_the_path_is_no_stop_one_on_the_pa
 	assert_eq!(out, json!(["walk|Walk to the Ruins Door cave mouth", "walk|Target"]));
 }
 
+// #3734 (Gnomeregan's and Thunder Bluff's lifts): the landings stand a few yards apart on the map, 100 yd apart in
+// height. Off the lift at the top, the walk on climbs a ramp 20 yd and more past the top landing; that climb read as
+// riding the lift, and the arrow said "Ride the elevator up" again from the bottom, every time the route was planned.
+// A ride reaches both landings' heights; from the bottom the walk still rides up.
+#[test]
+fn issue_3734_a_walk_up_a_ramp_from_a_lifts_top_landing_rides_nothing_from_the_bottom_it_rides_up() {
+	let script = |start: &str, pts: &str| {
+		format!(
+			r#"
+		nav.useTravelWorld()
+		PolestarNavChokepoints = {{ [0] = {{
+			{{ wx = 0, wy = 6, z = 247.6, r = 6, kind = "lift", name = "Vator", liftEnd = "bottom", lift = "Vator", pair = 2 }},
+			{{ wx = 0, wy = 0, z = 348.3, r = 6, kind = "lift", name = "Vator", liftEnd = "top", lift = "Vator", pair = 1 }},
+		}} }}
+		nav.place({start})
+		target(0, -600)
+		N.Sample()
+		local job, pts = fake.last(), {{}}
+		for _, p in ipairs({{ {pts} }}) do pts[#pts + 1] = {{ map = job.map, x = p[1], y = p[2], z = p[3] }} end
+		job.callback(pts, 100, job)
+		local legs, ci = N.GetRoute()
+		local out = {{}}
+		for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit(out)"#
+		)
+	};
+	let top = run(&script("0, 0", "{ 0, 0, 348.3 }, { 0, -40, 366 }, { 0, -60, 370 }, { 0, -600, 409 }"));
+	assert_eq!(top, json!(["walk|Target"]), "off the lift at the top: on to the target");
+	let bottom = run(&script("0, 6", "{ 0, 6, 247.6 }, { 0, 5, 247.6 }, { 0, 0, 348.3 }, { 0, -40, 366 }, { 0, -60, 370 }, { 0, -600, 409 }"));
+	assert_eq!(bottom, json!(["walk|Walk to Vator, Bottom", "lift|Ride the elevator up", "walk|Target"]), "at the bottom: the ride up");
+}
+
 // A cave or building mouth whose name starts with "The" read "Walk to the The Screeching Canyon cave mouth".
 #[test]
 fn a_mouth_named_the_something_gets_one_article_walking_or_riding() {
@@ -2780,6 +2812,50 @@ fn a_way_in_reaches_past_goals_at_the_target_s_own_spot_1338_the_optional_turn_i
 		})"#,
 	);
 	assert_eq!(out, json!({ "same": true, "elsewhere": false }));
+}
+
+// #3488: past a reached way in, the arrow pointed straight at the next NPC, through the town's houses (Northshire
+// Abbey). The straight line is kept only while the walking grid sees no wall, cliff or floor change on it from the
+// player's floor; a blocked one is walked to the end. With the floor unknown it stays straight (#914: a search from
+// no height can start on the hill above the cave). A kill goal's spots stay straight: walked round, the nearest spot
+// changes under the player and the arrow flips between two.
+#[test]
+fn a_reached_way_in_keeps_the_straight_line_only_while_nothing_blocks_it_3488() {
+	let out = run_many(
+		r#"
+		local m, tx, ty = nav.mapPoint(0, 0)          -- the NPC
+		local _, dx, dy = nav.mapPoint(0, 25)         -- the way in, a guide goto
+		local guide = { steps = {
+			{ goals = { { t = "goto", map = m, x = dx, y = dy } } },
+			{ goals = { { t = "accept", map = m, x = tx, y = ty } } },
+		} }
+		Polestar.Engine.GetGuide = function() return guide end
+		Polestar.Engine.GoalDone = function(s, g) return s == 1 and g == 1 end -- the way in reached
+		local function target() return { map = m, x = tx, y = ty, stepIndex = 2, goalIndex = 1, kind = "accept" } end
+		nav.place(0, 25)
+		local C = Polestar.Compat
+		local world = C.GetPlayerWorldPosition
+		C.GetPlayerUnitPosition = function() local c, x, y = world(); return x, y, 40, c end -- the client's height
+		local r = {}
+		local t = target()
+		fake.sight = function() return true end
+		r.clear = N.walk.FollowsGoto(t)
+		fake.sight = function() return false end
+		stub.advance(1)
+		r.wall = N.walk.FollowsGoto(t)
+		fake.sight = function() return true end
+		stub.advance(1)
+		r.stays = N.walk.FollowsGoto(t)
+		fake.sight = function() return false end
+		local grind = target()
+		grind.kind, grind.spots = "kill", { { x = tx, y = ty }, { x = tx + 0.01, y = ty } }
+		r.grind = N.walk.FollowsGoto(grind)                                -- blocked, yet straight
+		C.GetPlayerUnitPosition = function() return nil end              -- no height, no floor followed
+		fake.sight = function() return false end
+		r.noFloor = N.walk.FollowsGoto(target())
+		emit(r)"#,
+	);
+	assert_eq!(out, json!({ "clear": true, "wall": false, "stays": false, "grind": true, "noFloor": true }));
 }
 
 // A boat from Testshire Docks (-900, 0) to Farland Pier (c1: 400, 0); on Farland,

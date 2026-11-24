@@ -172,7 +172,7 @@ version throughout.
 
    ```sh
    forge release version 0.2.0
-   forge data build --kb --questie <AddOns folder of the QuestieDB to use> --recordings <the recordings archive>   # fetches the sources first (forge data sources)
+   forge data build --kb --strict-placeholders --questie <AddOns folder of the QuestieDB to use> --recordings <the recordings archive>   # fetches the sources first (forge data sources); stops on a placeholder name a player would read
    forge data questdb
    forge data itemdb && forge data gear
    forge data sources --only builders && forge data codex   # release-safe inputs only
@@ -183,10 +183,10 @@ version throughout.
    ```
 
    `experimental/` holds Polestar Experimental: guides for Forever's new
-   zones in testing, a pack of Polestar's own that ships in the zip as
-   `Polestar_Experimental`, loaded on demand and off until a player chooses
-   one of its guides at a route choice or switches it on under Options >
-   Community guides (PACK_FORMAT.md, "Polestar's own extra packs"). `forge
+   zones in testing, a pack of Polestar's own that ships in the zip inside
+   `Polestar` (`Polestar/Experimental`; its own folder until 0.4.3), on until
+   a player switches it off under Options > Guide > Show experimental guides
+   (PACK_FORMAT.md, "Polestar's own extra packs"). `forge
    release version` sets its `pack.json` with `guides/pack.json`, and `forge
    release pack` builds it again and stops on an error in it. `forge guide
    compile` reads it too: Polestar_Guides carries the index of the
@@ -214,7 +214,7 @@ version throughout.
    `addon/Polestar/Core/LegacySteps.lua` with every release players may
    update from as an `--old` (each `vX.Y.Z` tag's `guides`, the last release
    included): `git archive <tag> guides | tar -x -C <dir>/<tag>`, then
-   `node tools/legacy-steps.js --old <dir>/v0.3.4/guides ... --old
+   `forge guide legacy-steps --old <dir>/v0.3.4/guides ... --old
    <dir>/<last release>/guides`, and commit it. The mapping above reads a
    save's changed steps from it: a step it does not list keeps no check-off,
    skip or saved view, and nothing in its stretch passes behind the player;
@@ -361,7 +361,11 @@ version throughout.
    Then the pin coverage guard: every issue closed as completed has a test
    that names it (in `tests/reported-gate.json`, or a test mentioning `#N`),
    and every route, guide and place record still names a quest some guide
-   has. The gaps known when the guard came in are listed with why in
+   has. An issue labelled `released:<tag>` for a release already out (at or
+   before `package.json`'s version, which step 7 bumps after the gates) is
+   that release's fix, not this one's: a report closed as already fixed
+   carries the older release's label (CONTRIBUTING.md, "How a report is
+   handled"). The gaps known when the guard came in are listed with why in
    `tests/pin-coverage.json`; anything else fails:
 
    ```sh
@@ -421,7 +425,7 @@ version throughout.
    ```sh
    rm -rf dist && forge release pack     # stops naming any leveling guide whose legs are stale or missing; add --bake --grid <canon grid> --leffe <Leffe's maps> to bake them
    (cd dist && sha256sum -c SHA256SUMS)
-   unzip -l dist/Polestar-0.2.0.zip      # Polestar_Codex/ with its LICENSE-DATA.txt, Polestar_Nav/ with its LICENSE and CREDITS.md, and Polestar_Experimental/ are listed
+   unzip -l dist/Polestar-0.2.0.zip      # Polestar_Codex/ with its LICENSE-DATA.txt, Polestar_Nav/ with its LICENSE and CREDITS.md, and Polestar/Experimental/ are listed
    forge nav check                       # Polestar_Nav's walking maps match its PACK.json
    ```
 
@@ -501,7 +505,7 @@ version throughout.
 
    ```sh
    forge changelog build 0.2.0     # writes "## 0.2.0 (<today>)", deletes the fragments
-   git add CHANGELOG.md changes package.json guides/pack.json experimental/pack.json addon/Polestar addon/Polestar_Guides addon/Polestar_Experimental addon/Polestar_ItemDB addon/Polestar_Nav addon/Polestar_Recorder
+   git add CHANGELOG.md changes package.json guides/pack.json experimental/pack.json addon/Polestar addon/Polestar_Guides addon/Polestar_ItemDB addon/Polestar_Nav addon/Polestar_Recorder
    git commit -m "Release: 0.2.0"
    git switch main && git merge --ff-only release/0.2.0
    git tag -a v0.2.0 -m "Polestar 0.2.0" main
@@ -579,6 +583,15 @@ version throughout.
     type Release: CurseForge's app lists a project only once it has one) and
     refresh the project description: the steps and settings are in
     [docs/curseforge/README.md](curseforge/README.md).
+
+11. Copy the release's signed data into `releases/<tag>/` on the
+    maintainers' runner: `$POLESTAR_DATA/releases/v0.2.0/forever` (a copy
+    of the signed `data/forever` the release was built and gated on) with
+    `sources/` beside it (links to the data's sources). The weekly
+    route-health run plays the last release's guides on that data
+    (`polestar flow-diff --base-data`): on newer data they may name quests
+    the data has dropped since, and the release's side would not compile.
+    Without the folder the run says the flow check did not run.
 
 
 ## Patch releases

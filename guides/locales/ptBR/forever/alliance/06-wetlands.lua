@@ -43,7 +43,7 @@ return {
 	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Voe para {area:150}",
-	-- {zone:1453} Stormwind City
+	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Mestre de voo de {zone:1453}",
 
 	-- Step 13: First Mate Fitzsimmons
@@ -71,7 +71,7 @@ return {
 	["{npc:2097}, by the north gate: {npc:1071} takes it at {area:205}, at the north end of this visit's east loop"] = "",
 
 	-- Step 16: Glorin Steelbrow
-	-- {quest:270} The Doomed Fleet · {npc:1212} Bishop Farthing · {zone:1453} Stormwind City · {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {quest:321} Lightforge Iron · {item:279915} Nord'el
+	-- {quest:270} The Doomed Fleet · {npc:1212} Bishop Farthing · {zone:1453} Stormwind · {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {quest:321} Lightforge Iron · {item:279915} Nord'el
 	["{quest:270}, from {npc:1212} in {zone:1453}: {npc:1217} stands in the {area:2104}, south of the keep. His {quest:321} lies in the wreck just south of town, by {item:279915}."] = "",
 	["Inside"] = "Lá dentro",
 
@@ -102,7 +102,7 @@ return {
 	-- Step 22: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
 	["Back north through Menethil: {npc:1217} is in the {area:2104}, on the way to the hovels."] = "",
-	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind City
+	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind
 	["For {npc:1416} in {zone:1453}, on this guide's {zone:1453} stop"] = "",
 
 	-- Step 23: The Bluegill hovels
@@ -181,7 +181,7 @@ return {
 	["{item:3337}: the camp's Raiders and Swamprunners"] = "{item:3337}: os Saqueadores e Corre-brejos do acampamento",
 
 	-- Step 34: Mosshide gnolls
-	["Mosshide gnolls"] = "",
+	["Mosshide gnolls"] = "gnolls Pelemusgo",
 	-- {quest:277} Fire Taboo · {item:2611} Crude Flint · {area:309} Ironbeard's Tomb · {area:1025} Green Belt · {npc:1244} Rethiel the Greenwarden
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Maddened Rotclaws = {npc:271334} Maddened Rotclaw · Mosshide Brutes = {npc:1012} Mosshide Brute
 	["{quest:277} is still short of its nine {item:2611}: the Mosshide Fenrunners and Trappers (22-24) along the river north-west of the Angerfang camp, south-west of {area:309}, drop them. Almost every one carries some.\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244}; Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "",
@@ -214,8 +214,8 @@ return {
 	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "Ao noroeste de {npc:2093}, até o rio: Rastejantes do Pântano se escondem nas poças e ao longo das margens dele, por todo o caminho para oeste até {area:1024}. Siga para oeste ao longo dele até juntar doze e depois volte para leste, até {npc:1244}.\nCuidado: fora de combate, os Rastejantes do Pântano ficam furtivos de vez em quando, então costumam estar escondidos e difíceis de ver.",
 
 	-- Step 39: Rethiel the Greenwarden
-	-- {quest:98283} Carnage · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
-	["{quest:98283}, an elite raptor, on the {zone:1437} loop of the {zone:1424} guide"] = "",
+	-- {quest:98283} Carnage · {npc:271334} Maddened Rotclaw · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
+	["{quest:98283}, an elite raptor called out with a {npc:271334}'s flesh, on the {zone:1437} loop of the {zone:1424} guide"] = "",
 
 	-- Step 40: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates
@@ -300,8 +300,6 @@ return {
 	["On the top floor"] = "No último andar",
 	-- {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
 	["For the Dragonmaw catapult, on the {zone:1437} loop of the {zone:1424} guide"] = "",
-	-- {npc:2094} James Halloran · {npc:270637} Howin Kindfeather · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
-	["{npc:2094}: the crate for {npc:270637}, on the {zone:1437} loop of the {zone:1424} guide"] = "",
 
 	-- Step 54: Captain Halyndor
 	-- {npc:1160} Captain Halyndor · {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands
@@ -313,7 +311,7 @@ return {
 	-- Step 55: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
 	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "De volta ao sul até Menethil: {npc:1217} fica em {area:2104}.",
-	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind City
+	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind
 	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "Para {npc:1284} em {zone:1453}, no fim deste guia",
 
 	-- Step 56: Level 28
@@ -636,8 +634,8 @@ return {
 	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
 	["{npc:2784} holds court in the {object:171709}."] = "",
 
-	-- Step 123: Tram to Stormwind City
-	-- {zone:1453} Stormwind City
+	-- Step 123: Tram to Stormwind
+	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "Metrô para {zone:1453}",
 
 	-- Step 124: Baros Alexston
@@ -654,7 +652,7 @@ return {
 
 	-- Step 126: Cathedral of Light
 	["Cathedral of Light"] = "Catedral da Luz",
-	-- {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind City · {object:28027} Dwarven District · {object:2098} Cathedral Square
+	-- {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind · {object:28027} Dwarven District · {object:2098} Cathedral Square
 	["Take the {area:2257} from {object:171524} to {zone:1453}'s {object:28027}, then walk to the {object:2098}."] = "Pegue o {area:2257} em {object:171524} até o {object:28027} de {zone:1453}, depois ande até a {object:2098}.",
 	-- {npc:4982} Thomas
 	["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}, na Catedral da Luz",

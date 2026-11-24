@@ -120,9 +120,10 @@ const DOOR_YARDS: f64 = 30.0;
 /// TABLE_YARDS).
 const TABLE_YARDS: f64 = 60.0;
 
-/// instances.js `chooseEntrance`: a table entry's `A` (the Alliance's own way in) rides along as entrance.A; its `z`
-/// (the door's floor where floors stack: the Excavation Site's door over Thelgen Rock) as entrance.z when the chosen
-/// point lies within DOOR_YARDS of the entry's on the same map (a recording's point near it too).
+/// instances.js `chooseEntrance`: a table entry's `A` (the Alliance's own way in) rides along as entrance.A, its
+/// `doors` (other ways in open to both sides: Blackrock Mountain's two, #3348) as entrance.doors ([ { map, x, y } ]);
+/// its `z` (the door's floor where floors stack: the Excavation Site's door over Thelgen Rock) as entrance.z when the
+/// chosen point lies within DOOR_YARDS of the entry's on the same map (a recording's point near it too).
 fn choose_entrance(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], corpse: Option<&super::client::Corpse>, zones: &V, frames: &V, prefer: &[f64]) -> V {
 	let e = choose_entrance_point(name, recorded, table, guides, corpse, zones, frames, prefer);
 	let a = table.get("A");
@@ -132,6 +133,18 @@ fn choose_entrance(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], co
 		ao.set("x", round1(a.get("x").num()));
 		ao.set("y", round1(a.get("y").num()));
 		o.set("A", V::Obj(ao));
+	}
+	let doors = table.get("doors");
+	if let (Some(o), true) = (e.as_obj(), table.truthy() && doors.is_arr() && !doors.is_empty()) {
+		let list = V::arr();
+		for d in doors.items() {
+			let dobj = Obj::new();
+			dobj.set("map", d.get("map").num());
+			dobj.set("x", round1(d.get("x").num()));
+			dobj.set("y", round1(d.get("y").num()));
+			list.push(V::Obj(dobj));
+		}
+		o.set("doors", list);
 	}
 	let z = table.get("z");
 	if let (Some(o), true) = (e.as_obj(), table.truthy() && z.is_num() && z.num().is_finite() && e.get("map").num() == table.get("map").num()) {
@@ -848,6 +861,25 @@ mod tests {
 	use super::*;
 	use forge_guide::js::parse_json;
 
+	// #3348: Blackrock Mountain has a door on each side, open to both factions; the table's other door rides along as
+	// entrance.doors whichever point wins (the arrow takes the nearer one in the game).
+	#[test]
+	fn a_table_entry_s_other_doors_ride_along_as_entrance_doors_3348() {
+		let brd = parse_json(r#"{ "key": "blackrock-depths", "map": 1427, "x": 34.8, "y": 85.3, "doors": [{ "map": 1428, "x": 29.41, "y": 38.3, "note": "Burning Steppes" }] }"#).unwrap();
+		let none = V::Null;
+		let e = choose_entrance("Blackrock Depths", &none, &brd, &[], None, &none, &none, &[]);
+		assert_eq!(e.get("doors").len(), 1);
+		let d = e.get("doors").at(0);
+		assert_eq!((d.get("map").num(), d.get("x").num(), d.get("y").num()), (1428.0, 29.4, 38.3));
+		assert!(!d.get("note").truthy(), "only the point rides along");
+		let recorded = parse_json(r#"[{ "map": 1427, "x": 34.9, "y": 85.0, "n": 19 }]"#).unwrap();
+		let rec = choose_entrance("Blackrock Depths", &recorded, &brd, &[], None, &none, &none, &[]);
+		assert_eq!(rec.get("x").num(), 34.9, "the recording wins");
+		assert_eq!(rec.get("doors").at(0).get("map").num(), 1428.0, "and keeps the other door");
+		let one = parse_json(r#"{ "key": "deadmines", "map": 1436, "x": 42.5, "y": 71.7 }"#).unwrap();
+		assert!(!choose_entrance("Deadmines", &none, &one, &[], None, &none, &none, &[]).get("doors").truthy(), "one way in: no doors");
+	}
+
 	#[test]
 	fn a_table_entry_s_alliance_way_in_rides_along_as_entrance_a_whichever_point_wins_706() {
 		let dalaran = parse_json(r#"{ "key": "city-of-dalaran", "map": 1416, "x": 8.5, "y": 59.2, "A": { "map": 1416, "x": 14.68, "y": 62.99 } }"#).unwrap();
@@ -990,5 +1022,22 @@ mod tests {
 		assert_eq!((a.get("map").num(), a.get("x").num(), a.get("y").num()), (1416.0, 14.7, 63.0));
 		assert!(a.get("source").as_str().is_some_and(|s| s.starts_with("https://")));
 		assert!(a.get("note").truthy());
+	}
+
+	/// #3025 (Logan): the way into Gnomeregan is at the bottom of its lift, 120 yd under the tunnel from Dun Morogh.
+	/// Players' entries (on the Eastern Kingdoms map: no zone map down there) place it on Dun Morogh's map, and the
+	/// curated entry beside them gives it the lift's bottom floor, so the walk ends at the door and rides the lift.
+	#[test]
+	fn gnomeregans_way_in_carries_the_floor_at_the_bottom_of_the_lift_3025() {
+		let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../../data/codex/entrances.json")).unwrap();
+		let table = load_entrance_table(&text).unwrap().get("gnomeregan");
+		let frames = parse_json(
+			r#"{ "1415": { "c": 0, "left": 16000, "right": -19199.9, "top": 7466.6, "bottom": -16000 },
+			     "1426": { "c": 0, "left": 1802.083, "right": -3122.917, "top": -3877.083, "bottom": -7160.417 } }"#,
+		)
+		.unwrap();
+		let rec = parse_json(r#"[{ "map": 1415, "x": 43.41, "y": 53.75, "n": 156 }, { "map": 1426, "x": 42, "y": 47.09, "n": 2 }]"#).unwrap();
+		let e = choose_entrance("Gnomeregan", &rec, &table, &[], None, &V::Null, &frames, &[]);
+		assert_eq!((e.get("map").num(), e.get("x").num(), e.get("y").num(), e.get("z").num()), (1426.0, 22.0, 38.7, 248.0));
 	}
 }

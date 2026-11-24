@@ -21,10 +21,12 @@ return {
 	["Mounts · Level 60"] = "탈것 · 레벨 60",
 	["Mounts · PvP"] = "탈것 · PvP",
 	["Mounts · Reputation"] = "탈것 · 평판",
-	["Raid"] = "",
-	["Reputation · Battlegrounds"] = "",
-	["Reputation · Cities"] = "",
-	["Reputation · Raids and dungeons"] = "",
-	["Reputation · World"] = "",
-	["The Drowned City"] = "",
+	["Raid"] = "공격대",
+	["Reputation · Battlegrounds"] = "평판 · 전장",
+	["Reputation · Cities"] = "평판 · 도시",
+	["Reputation · Raids and dungeons"] = "평판 · 공격대와 던전",
+	["Reputation · World"] = "평판 · 세계",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The Drowned City"] = "가라앉은 도시",
 }

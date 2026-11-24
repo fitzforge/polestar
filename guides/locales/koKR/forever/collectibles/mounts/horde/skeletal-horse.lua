@@ -15,9 +15,9 @@ return {
 
 	-- Step 2: Undead Horsemanship for other races
 	-- {spell:10906} Undead Horsemanship
-	["{spell:10906} for other races"] = "",
+	["{spell:10906} for other races"] = "{spell:10906} (다른 종족)",
 	-- {spell:10906} Undead Horsemanship · {skill:762} Riding · {npc:4773} Velma Warnam · {faction:68} Undercity
-	["Any Horde race can buy these skeletal horses, but riding one also takes {spell:10906}, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "",
+	["Any Horde race can buy these skeletal horses, but riding one also takes {spell:10906}, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "모든 호드 종족이 이 해골 말을 살 수 있지만 탑승에는 {spell:10906}도 필요하며 포세이큰만 {skill:762}과(와) 함께 받습니다. {faction:68}과(와) 확고한 동맹이 되면 {npc:4773}이(가) 다른 종족에게도 가르칩니다(언더시티 평판 가이드가 안내). 그 전에는 이 캐릭터로 해골 말을 사지 마세요.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "색상 고르기",

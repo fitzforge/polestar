@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (traditional) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1448} Felwood · {area:2255} Everlook · {zone:1457} Darnassus · {zone:1444} Feralas
+	["{zone:1448} and a stop in {area:2255}, then {zone:1457} and {zone:1444}."] = "{zone:1448}，途中在{area:2255}停留，然後是{zone:1457}和{zone:1444}。",
+
 	-- Step 1: Felwood
 	-- {area:3137} Talrendis Point · {area:2358} Forest Song · {zone:1448} Felwood · {area:2479} Emerald Sanctuary · {zone:1440} Ashenvale
 	["From {area:3137} ride west along the road past {area:2358}, then north-west into {zone:1448}: the {area:2479} is the druids' camp on the road just past the {zone:1440} border."] = "",
@@ -263,6 +267,7 @@ return {
 	-- ["Fly from {area:1998} to the Sanctuary's end of the road, or ride south along it."] = "從{area:1998}飛往道路上聖地那一端，或沿路向南騎。",
 	-- ["Fly to {area:415}"] = "飛往{area:415}",
 	-- ["Follow the road north to the cratered vale and walk to each crater, killing the Entropic Beasts and Horrors between them."] = "沿著道路向北前往坑窪山谷，走到每個坑洞，並擊殺途中的熱能野獸和熱能恐獸。",
+	-- ["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan."] = "如果跳過了瑪爾戈的巨角或{item:9328}，就在這裡刷到52.58級，以跟上路線進度。",
 	-- ["Keep her alive until she is out of the cave"] = "在她離開洞穴之前保住她的性命",
 	-- ["Level 52.58"] = "52.58級",
 	-- ["Level 52.69"] = "52.69級",
@@ -281,10 +286,12 @@ return {
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}."] = "{area:1762}的死木熊怪佈滿洞穴西邊的山丘。死木復仇者可能掉落{quest:8470}。",
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "碧火薩特佔據道路西邊的山谷，{npc:9454}在山谷深處。",
 	-- ["The vial is filled in {zone:1457}: keep it; inside"] = "瓶子在{zone:1457}裝滿：保留此任務；在裡面",
+	-- ["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53."] = "在這裡補到52.69級，再去{area:1763}交任務，交完會升到53級。",
 	-- ["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}. If you freed {npc:11018}, go back into {area:1770} for the succubus {npc:9518}; Trey Lightforge's remains lie beside her."] = "在{area:1763}中央的腐化月井使用{item:12922}。如果你釋放了{npc:11018}，回到{area:1770}找魅魔{npc:9518}；特雷·萊弗治的殘骸就在她旁邊。",
 	-- ["grind on {npc:7109}"] = "刷{npc:7109}",
 	-- ["grind on {npc:7153}"] = "刷{npc:7153}",
 	-- ["grind on {npc:7155}"] = "刷{npc:7155}",
+	-- ["grind on {npc:9878}"] = "刷{npc:9878}",
 	-- ["{area:1763} is the ruined temple north of the glen."] = "{area:1763}是林地以北的廢棄神殿。",
 	-- ["{area:1763} is the ruined temple north of the glen. Some of its cultists drop a {item:13140}, about one kill in thirty: it opens {npc:11018}'s cell in {area:1770}, the cave at the back. If it drops, clear the way out before you free her; if not, skip her quests."] = "{area:1763}是山谷北邊的神殿廢墟。部分教徒會掉落{item:13140}，大約每三十次擊殺一次：它能打開後方洞穴{area:1770}裡{npc:11018}的牢房。若有掉落，先清出離開的路再釋放她；若沒有，跳過她的任務。",
 	-- ["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}."] = "{area:2618}是西北方的薩特山谷，{npc:10648}在山谷盡頭。他會掉落{quest:939}；每個碧火薩特都可能掉落{item:11674}。",

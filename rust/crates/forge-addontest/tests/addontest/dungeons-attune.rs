@@ -219,6 +219,7 @@ fn the_journal_carries_the_attunements_on_their_pages_counts_them_and_the_pack_f
 fn the_goal_table_every_entry_cites_public_sources_names_a_goal_or_an_item_and_nothing_comes_from_attune() {
 	let t = attunement_table();
 	let mut ids: HashSet<String> = HashSet::new();
+	let mut closed: Vec<String> = Vec::new();
 	for a in list(&t["attunements"]) {
 		let js = a.to_string();
 		assert!(truthy(&a["key"]) && truthy(&a["id"]) && truthy(&a["name"]), "{js}");
@@ -237,7 +238,18 @@ fn the_goal_table_every_entry_cites_public_sources_names_a_goal_or_an_item_and_n
 			}
 		}
 		assert!(!names_attune(&js), "{id} names Attune");
+		// `open: false` (#3695): a raid Forever has not opened yet, saying how that is known.
+		if !a["open"].is_null() {
+			assert!(a["open"] == false && truthy(&a["openSource"]), "{id}: open is false or absent, with its openSource");
+			closed.push(format!("{}:{id}", text(&a["key"])));
+		}
 	}
+	closed.sort();
+	assert_eq!(
+		closed,
+		["blackwing-lair:blackhand", "molten-core:aqual", "molten-core:core", "naxxramas:dread-citadel"],
+		"Molten Core, Blackwing Lair and Naxxramas are not open on Forever yet; Onyxia's Lair is"
+	);
 	for r in list(&t["removed"]) {
 		assert!(truthy(&r["why"]) && !list(&r["sources"]).is_empty(), "{}", r["id"]);
 	}
@@ -335,7 +347,11 @@ fn with_the_local_codex_every_attunement_builds_the_reviewed_steps_and_each_cite
 	assert!(diff.is_empty(), "attunements differ from the reviewed list (review, then POLESTAR_WRITE_GOLDEN=1):\n{}", diff.join("\n"));
 	// Every cited `inside` place is one a chain meets, of an NPC or object that has no spawn and that the Codex
 	// places in no instance (the guide reads the Codex's instance itself; Drakkisath's Brand, Franclorn's monument,
-	// Doan's Strongbox and the Inconspicuous Documents are the Codex's).
+	// Doan's Strongbox and the Inconspicuous Documents are the Codex's). A place cited for a quest of a raid Forever
+	// has not opened, whose quests are out of the data (the Core Fragment for Attunement to the Core, #3392), is in
+	// no chain until the raid opens.
+	let closed_out: HashSet<String> =
+		list(&table["attunements"]).iter().filter(|a| a["open"] == false).flat_map(|a| list(&a["goal"])).map(|q| q.to_string()).filter(|q| !truthy(&real["quests"][q.as_str()])).collect();
 	let mut used: HashSet<String> = HashSet::new();
 	for l in by.as_object().unwrap().values() {
 		for a in list(l) {
@@ -345,6 +361,10 @@ fn with_the_local_codex_every_attunement_builds_the_reviewed_steps_and_each_cite
 		}
 	}
 	for e in list(&table["inside"]) {
+		let for_closed = list(&e["sources"]).iter().any(|s| s["kind"] == "quest" && closed_out.contains(&s["id"].to_string()));
+		if for_closed {
+			continue;
+		}
 		assert!(used.contains(&format!("{}:{}:{}", text(&e["kind"]), e["id"], text(&e["instance"]))), "{} is in no chain", text(&e["name"]));
 		let records = if e["kind"] == "npc" { &real["npcs"] } else { &real["objects"] };
 		let rec = &records[e["id"].to_string()];
@@ -386,12 +406,12 @@ local w = stub.world
 	))
 }
 
-// Two attunements as a level 60 Horde character in Orgrimmar gets them from the shipped Codex: the Molten Core's
-// (accept at Lothos Riftwaker outside, the Core Fragment at Blackrock Depths' entrance with what to do inside, back
-// to Lothos, then the note about his teleport) and the Horde's Dalaran Sewer Key (the Tarren Mill chain, then
-// Heart of Disruption's accept alone with the keep-it note). Skips without a built pack.
+// Two attunements as a level 60 Horde character in Orgrimmar gets them from the shipped Codex: none for the Molten
+// Core while Forever has it closed (Attunement to the Core and Duke Hydraxis's chain are out of the data, #3392), and
+// the Horde's Dalaran Sewer Key (the Tarren Mill chain, then Heart of Disruption's accept alone with the keep-it note).
+// Skips without a built pack.
 #[test]
-fn with_the_built_codex_the_molten_core_and_sewer_key_guides_read_like_a_route() {
+fn with_the_built_codex_the_sewer_key_guide_reads_like_a_route_and_the_closed_molten_core_has_none() {
 	let Some(packs) = real_pack_lua() else {
 		eprintln!("skipped: no Codex pack (forge data codex, or POLESTAR_CODEX_DIR) or no data/forever/map-frames.json");
 		return;
@@ -426,16 +446,7 @@ emit(full(D.AttuneGuide("city-of-dalaran", "sewer-key")))"#
 	});
 	let (mc, sewer) = (&out[0], &out[1]);
 	eprintln!("{}\n{}", serde_json::to_string_pretty(mc).unwrap(), serde_json::to_string_pretty(sewer).unwrap());
-	let brd = "@1427 34.8,85.3";
-	assert_eq!(text(&mc[0]["title"]), "Attunement to the Core");
-	let goals: Vec<String> = list(&mc[0]["goals"]).iter().map(|g| text(g).to_string()).collect();
-	assert!(goals[0].starts_with("accept:7848 @"), "Lothos's accept, placed: {goals:?}");
-	assert_eq!(goals[1], format!("collect:7848 {brd}"), "the Core Fragment at Blackrock Depths' entrance");
-	assert!(goals[2].starts_with("turnin:7848 @"), "back to Lothos: {goals:?}");
-	let note = text(&mc[0]["note"]);
-	assert!(note.contains("Molten Core portal") && note.contains("Core Fragment: inside Blackrock Depths."), "what to do inside, then where: {note}");
-	assert_eq!(text(&mc[1]["title"]), "Molten Core");
-	assert!(text(&mc[1]["note"]).contains("Lothos Riftwaker"), "the last step says what the attunement does");
+	assert!(list(mc).is_empty(), "no Molten Core attunement while the raid is closed: {mc:?}");
 	let titles: Vec<String> = list(sewer).iter().map(|s| text(&s["title"]).to_string()).collect();
 	let mut chain = titles[..4].to_vec();
 	chain.sort();
@@ -1055,4 +1066,138 @@ emit(DS.atts[1].Meta:GetText())"#,
 		&fake_locale("itIT", &[("Attunement", "Zugangsquest"), ("Everyone entering needs it", "Jeder braucht sie"), ("From level %d", "Ab Stufe %d")]),
 	);
 	assert_eq!(out[0], "Zugangsquest  \u{b7}  Jeder braucht sie  \u{b7}  Ab Stufe 17");
+}
+
+// ---------------------------------------------------------------------------
+// The Attunements section (UI/Attunements.lua, #3695)
+// ---------------------------------------------------------------------------
+
+// A rail entry of its own after Dungeons: every attunement and key of this character's faction (the Alliance's
+// Ironclad Key left out for a Tauren), each with what it opens, a bar of the steps done as Dungeons.AttunementState
+// counts them, the next step in words and Guide me, which opens the same guide as the dungeon page's button. A raid
+// not open on Forever yet says so instead of its bar and comes after the open ones, its guide still built with that
+// line at the end; a done one is ticked at the bottom. The dungeon page's Attunement tab links here.
+#[test]
+fn the_attunements_section_lists_this_side_s_attunements_with_their_progress_next_step_and_guide_not_open_ones_after_done_ones_last() {
+	let f = Fx::new();
+	let out = f.run_ui(
+		r#"
+local AT, P, D = Polestar.UI.Attunements, Polestar.UI.Picker, Polestar.Dungeons
+local rail = {}
+for _, it in ipairs(P.RailItems()) do rail[#rail + 1] = it.key end
+AT.Show()
+local function list()
+	local out = {}
+	for i, s in ipairs(AT.Shown()) do out[i] = { s.id, s.opens, s.progress, s.nextStep, s.closed, s.guide, s.chip } end
+	return out
+end
+-- What AttunementState says, counted as the card counts it.
+local function counted(key, id)
+	for _, a in ipairs(D.Attunements(key, "H")) do
+		if a.id == id then
+			local st, did, total = D.AttunementState(a), 0, 0
+			for _, e in ipairs(st.steps) do
+				if e.state ~= "na" and e.state ~= "skip" then total = total + 1; if e.state == "done" then did = did + 1 end end
+			end
+			return { did, total }
+		end
+	end
+end
+emit({ rail = rail, section = P.Section(), fresh = list(), counted = counted("wailing-caverns", "fang") })
+done[90001] = true
+log[90002] = true
+AT.Render()
+local asked = {}
+D.Attune = function(key, id) asked[#asked + 1] = key .. ":" .. id return "lookup/attune/" .. key .. ":" .. id end
+for _, c in ipairs(AT.cards) do if c:IsShown() and c.psId == "fang" then c.Guide:Click() end end
+Polestar.Dungeons.Open("wailing-caverns")
+DS.SetTab("attune")
+DS.atts[1].Guide:Click()
+local _, _, pg = DS.Frames()
+emit({ progress = list(), counted = counted("wailing-caverns", "fang"), asked = asked, link = pg.AttLink and pg.AttLink:IsShown() and pg.AttLink.Label:GetText() or false })
+-- Fang's raid not open yet; the Smelting Key in the bags.
+Polestar.Compat.GetItemCount = function(id) return id == 90011 and 1 or 0 end
+local attunements = D.Attunements
+D.Attunements = function(key, side)
+	local l = attunements(key, side)
+	for _, a in ipairs(l) do if a.id == "fang" then a.open = false end end
+	return l
+end
+pg.AttLink:Click()
+local guide = D.AttuneGuide("wailing-caverns", "fang")
+local last = guide.steps[#guide.steps]
+local notes = {}
+for _, g in ipairs(last.goals) do if g.t == "note" then notes[#notes + 1] = g.text end end
+emit({ section = P.Section(), later = list(), notes = notes })"#,
+		"",
+	);
+	let (fresh, progress, later) = (&out[0], &out[1], &out[2]);
+	let at = fresh["rail"].as_array().unwrap().iter().position(|k| k == "Attunements").expect("a rail entry");
+	assert_eq!(fresh["rail"][at - 1], "Dungeons", "next to Dungeons: {}", fresh["rail"]);
+	assert_eq!(fresh["section"], "Attunements");
+	assert_eq!(
+		fresh["fresh"],
+		json!([
+			["fang", "Wailing Caverns", [0, 3], "Next: Pick up Rite of the Serpent from Nara Wildmane", false, true, false],
+			["smelting-key", "The Deadmines", [0, 1], "Next: Smelting Key from Edwin VanCleef", false, true, false],
+		]),
+		"the Horde's two, by level; the Alliance's Ironclad Key left out"
+	);
+	assert_eq!(fresh["fresh"][0][2], fresh["counted"], "the bar counts what AttunementState says");
+	assert_eq!(progress["progress"][0][2], json!([1, 3]));
+	assert_eq!(progress["progress"][0][2], progress["counted"]);
+	assert_eq!(progress["progress"][0][3], "Next: Finish The Serpent's Trial", "the quest in the log is the next step");
+	assert_eq!(progress["asked"], json!(["wailing-caverns:fang", "wailing-caverns:fang"]), "Guide me opens the dungeon page's guide");
+	assert_eq!(progress["link"], "All attunements and keys", "the dungeon page links here");
+	assert_eq!(later["section"], "Attunements", "the link opens the section");
+	assert_eq!(
+		later["later"],
+		json!([["fang", "Wailing Caverns", false, "Next: Finish The Serpent's Trial", "Not open on Forever yet", true, false], ["smelting-key", "The Deadmines", true, false, false, false, "Done"]]),
+		"not open: the line instead of the bar, Guide me still there; done: ticked, at the bottom"
+	);
+	assert_eq!(later["notes"].as_array().unwrap().last().unwrap(), "Not open on Forever yet: the attunement is ready for when it opens.");
+}
+
+// #3877: the section laid out like the Dungeons page: a key in the rail, cards two to a row each with the
+// instance's picture band, the key glyph before the name (a check once done) and Guide me unchanged; a raid's
+// attunement before the dungeons' keys; a done one dimmed at the end.
+#[test]
+fn the_attunements_section_is_cards_two_to_a_row_with_a_key_raids_first_done_ones_dimmed_3877() {
+	let f = Fx::new();
+	let out = f.run_ui(
+		r#"
+local AT, P, D = Polestar.UI.Attunements, Polestar.UI.Picker, Polestar.Dungeons
+local icon
+for _, it in ipairs(P.RailItems()) do if it.key == "Attunements" then icon = it.icon end end
+-- The Deadmines a raid, for the order.
+local list = D.List
+D.List = function()
+	local l = list()
+	for _, d in ipairs(l) do if d.key == "deadmines" then d.kind = "raid" end end
+	return l
+end
+AT.Show()
+local c1, c2 = AT.cards[1], AT.cards[2]
+local _, _, _, x1, y1 = c1:GetPoint(1)
+local _, _, _, x2, y2 = c2:GetPoint(1)
+local first = { AT.Shown()[1].id, AT.Shown()[1].raid, AT.Shown()[1].glyph }
+local art = c1.Art:IsShown() and c1.Art:GetHeight() > 0
+-- The Smelting Key in the bags: done, at the end, dimmed.
+Polestar.Compat.GetItemCount = function(id) return id == 90011 and 1 or 0 end
+AT.Render()
+local last = AT.Shown()[#AT.Shown()]
+local lastCard
+for _, c in ipairs(AT.cards) do if c:IsShown() and c.psId == last.id then lastCard = c end end
+emit({ icon = icon, first = first, sideBySide = y1 == y2 and x2 > x1, sameHeight = c1:GetHeight() == c2:GetHeight(), art = art,
+	guide = c1.Guide.Label:GetText(), last = { last.id, last.glyph, lastCard:GetAlpha() } })"#,
+		"",
+	);
+	let out = &out[0];
+	assert_eq!(out["icon"], "key", "a key in the rail: {out}");
+	assert_eq!(out["first"], json!(["smelting-key", true, "key"]), "the raid's first, a key before its name: {out}");
+	assert_eq!(out["sideBySide"], true, "two to a row: {out}");
+	assert_eq!(out["sameHeight"], true, "a row's cards as tall as each other: {out}");
+	assert_eq!(out["art"], true, "the picture band: {out}");
+	assert_eq!(out["guide"], "Guide me");
+	assert_eq!(out["last"], json!(["smelting-key", "check", 0.6]), "done: ticked, at the end, dimmed: {out}");
 }

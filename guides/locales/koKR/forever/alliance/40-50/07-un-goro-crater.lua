@@ -7,17 +7,15 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- was: ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "49~50레벨 캐릭터용이지만, 여기 퀘스트 대부분은 51-53레벨입니다. 경험치를 위해 일부러 넣었습니다. 이번 첫 방문은 야수가 48-52레벨인 분화구 동쪽 절반만 다니니 하나씩 끌어오세요. 수정탑, 뼈, 벌집은 약 56레벨의 나중 운고로 방문 때 합니다."
-	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "",
+	-- {zone:1446} Tanaris · {area:976} Gadgetzan
+	["{zone:1446} first ({area:976} hand-ins), then into Un'Goro. For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "먼저 {zone:1446}({area:976}에서 퀘스트 완료), 그다음 운고로로 들어갑니다. 49~50레벨 캐릭터용이지만, 여기 퀘스트 대부분은 51-53레벨입니다. 경험치를 위해 일부러 넣었습니다. 이번 첫 방문은 야수가 48-52레벨인 분화구 동쪽 절반만 다니니 하나씩 끌어오세요. 수정탑, 뼈, 벌집은 약 54레벨의 나중 운고로 방문 때 합니다.",
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "{area:150}(으)로 비행",
-	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 
 	-- Step 3: Theramore
-	["Theramore"] = "",
+	["Theramore"] = "테라모어",
 	-- {npc:2616} Privateer Groy
 	["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616}은(는) 배가 도착하는 부두에 있습니다.",
 
@@ -36,7 +34,7 @@ return {
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "{area:976}(으)로 날아가기",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392} 비행 조련사",
 
 	-- Step 8: Gadgetzan
 	-- {area:976} Gadgetzan
@@ -54,11 +52,11 @@ return {
 	-- {npc:12046} Gor'marok the Ravager
 	["Ride south to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "남쪽 오우거 주둔지로 가세요. 야수와 집행자(46-48)로 가득하고, {npc:12046}(49)이(가) 한가운데에 경비병에 둘러싸여 서 있습니다. 경비병부터 처리하세요.",
 	-- {npc:12046} Gor'marok the Ravager
-	["{npc:12046}, below ground"] = "",
+	["{npc:12046}, below ground"] = "{npc:12046}, 지하",
 
 	-- Step 13: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
-	["{quest:3362}: kill these as you meet them"] = "",
+	["{quest:3362}: kill these as you meet them"] = "{quest:3362}: 만나는 대로 처치하세요",
 	-- {quest:3362} Thistleshrub Valley
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	["Ride west into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley.\nCareful: the thistleshrubs wander a lot, so you can easily pull extra mobs."] = "서쪽 {quest:3362}(으)로 가세요. 이슬 수집가가 분비샘을 떨어뜨리는데, 가득 찬 것은 일부뿐이니 가득 찬 것을 챙기세요. 옹이진 덤불나무괴물과 뿌리조각가도 골짜기에 있습니다.\n주의: 덤불나무괴물은 많이 돌아다니므로 몹을 더 끌기 쉽습니다.",
@@ -67,7 +65,7 @@ return {
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
 	["Ride back north-east to {area:976}: {npc:11758} stands on the east side of town."] = "북동쪽 {area:976}(으)로 돌아가세요. {npc:11758}은(는) 마을 동쪽에 서 있습니다.",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, 내부",
 
 	-- Step 15: Broken Pillar
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {item:10556} Stone Circle
@@ -79,7 +77,7 @@ return {
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
 	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "남쪽으로 {area:1938}을(를) 지나 하잘리 굴인 {area:981}으로 가십시오. 슈섕크의 측량 장비는 깊숙한 곳에 있습니다.\n주의: 벌레 하나가 장비를 지킵니다. 많은 벌레가 굴을 순찰하며 일부는 50레벨이라, 싸우면 몹이 추가로 끌려오는 경우가 많습니다.",
 	-- {item:8593} Scrimshank's Surveying Gear
-	["{item:8593}; below ground"] = "",
+	["{item:8593}; below ground"] = "{item:8593}; 지하",
 
 	-- Step 17: Gadgetzan
 	-- {npc:7740} Gracina Spiritmight · {zone:1457} Darnassus · {zone:1448} Felwood
@@ -108,7 +106,7 @@ return {
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["The Lar'korwi Mates prowl the jungle west of {npc:9619}. The wrecked raft lies on the shore of the lake there; the small pack sits in the water beside it. Keep the compass, map and key for {npc:8737}. Any beast in the crater may drop {item:11116}: right-click it."] = "{npc:9683}은(는) {npc:9619} 서쪽 밀림을 어슬렁거립니다. 부서진 뗏목은 그곳 호숫가에 있고, 작은 꾸러미는 그 옆 물속에 있습니다. 나침반, 지도, 열쇠는 {npc:8737}에게 주도록 보관하세요. 분화구의 어떤 야수든 {item:11116}을(를) 떨어뜨릴 수 있습니다. 오른쪽 클릭하세요.",
 	-- {object:161504} A Small Pack
-	["{object:161504}, underwater"] = "",
+	["{object:161504}, underwater"] = "{object:161504}, 물속",
 
 	-- Step 23: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
@@ -146,7 +144,7 @@ return {
 
 	-- Step 27: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, 지하",
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["For {npc:7775} in {zone:1444}: keep it"] = "{zone:1444}의 {npc:7775}에게 줄 것: 보관하세요",
 
@@ -156,7 +154,7 @@ return {
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Still short of level 50 after the refuge's hand-ins? The next guide opens in {zone:1455} with quests that need level 50: top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "",
 	-- {npc:6511} Bloodpetal Thresher
-	["grind on {npc:6511}"] = "",
+	["grind on {npc:6511}"] = "{npc:6511} 사냥",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Archesonus stands beside King Magni in the {object:171709}."] = "아케소누스는 {object:171709}에서 국왕 마그니 브론즈비어드 옆에 서 있습니다.",
@@ -169,6 +167,7 @@ return {
 	-- ["Escort {npc:9999}"] = "{npc:9999} 호위",
 	-- ["Fly from {area:144} to {area:1537}."] = "{area:144}에서 {area:1537}(으)로 날아가세요.",
 	-- ["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
+	-- ["Fly to {area:415}"] = "{area:415}(으)로 날아가기",
 	-- ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. The crater's beasts are 48-55 and the Gorishi silithids 51-54, so pull them one at a time."] = "49~50레벨 캐릭터용이지만, 여기 퀘스트 대부분은 51-53레벨입니다. 경험치를 위해 일부러 넣었습니다. 분화구의 야수는 48-55레벨, 고리쉬 실리시드는 51-54레벨이니 하나씩 끌어오세요.",
 	-- ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "49~50레벨 캐릭터용이지만, 여기 퀘스트 대부분은 51-53레벨입니다. 경험치를 위해 일부러 넣었습니다. 이번 첫 방문은 야수가 48-52레벨인 분화구 동쪽 절반만 다니니 하나씩 끌어오세요. 수정탑, 뼈, 벌집은 약 56레벨의 나중 운고로 방문 때 합니다.",
 	-- ["For {npc:7740} in {zone:1457}, at the end of the {zone:1428} guide: keep it"] = "{zone:1428} 가이드 마지막에 {zone:1457}의 {npc:7740}에게: 간직하세요",
@@ -178,6 +177,7 @@ return {
 	-- ["Grind to 51"] = "51레벨까지 사냥",
 	-- ["Gryfe"] = "그리페",
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "{npc:9999}을(를) 북쪽 {area:541}까지 데려가세요. 그가 기절하면 {item:11804}을(를) 사용해 깨우세요.",
+	-- ["Level 49.79"] = "49.79레벨",
 	-- ["Northern Pylon"] = "북쪽 수정탑",
 	-- ["Pterrordax"] = "테러닥스",
 	-- ["Ride down the ramp into the crater: {npc:9619} camps at its foot."] = "비탈을 내려가 분화구로 가세요. {npc:9619}은(는) 비탈 아래에 진을 치고 있습니다.",
@@ -202,6 +202,7 @@ return {
 	-- ["The Gorishi hive"] = "고리쉬 벌집",
 	-- ["The dead Threshadon lies by the water north of {npc:9619}."] = "죽은 트레샤돈은 {npc:9619} 북쪽 물가에 있습니다.",
 	-- ["The east side"] = "동쪽 지역",
+	-- ["The flight from Theramore lands in {area:976}."] = "테라모어에서 출발한 비행기는 {area:976}에 착륙합니다.",
 	-- ["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55."] = "고릴라는 {area:541} 동쪽의 {area:1943}에 삽니다. 가죽은 {npc:9619}에게 주도록 보관하세요. 가장 깊은 동굴에는 들어가지 마세요. {npc:9622}은(는) 55레벨입니다.",
 	-- ["The gorillas of {area:1943} come in small groups and drop nothing for you yet; {npc:9619}'s pelt quest comes later. Stay out of the deepest cave: {npc:9622} is level 55."] = "{area:1943}의 고릴라는 작은 무리로 다니며 아직은 필요한 것을 떨어뜨리지 않습니다. {npc:9619}의 가죽 퀘스트는 나중에 나옵니다. 가장 깊은 동굴에는 들어가지 마세요. {npc:9622}은(는) 55레벨입니다.",
 	-- ["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "{area:1943}의 고릴라가 가죽을 지니고 있습니다: 56레벨 무렵 두 번째로 운고로에 올 때까지 보관하세요",
@@ -218,10 +219,12 @@ return {
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "{area:976} 주변의 황무지유랑단이나 모래망치 오우거를 사냥하세요",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "{zone:1446} {area:982}에서 {npc:5458} 사냥",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "{zone:1449} {area:1943}에서 {npc:6514} 사냥",
+	-- ["{area:442} flight master"] = "{area:442} 비행 조련사",
 	-- ["{area:541} flight master"] = "{area:541} 비행 조련사",
 	-- ["{area:978} (optional)"] = "{area:978}(선택)",
 	-- ["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: {zone:1447}의 오그틴크에게 줄 것, 보관하세요",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: 이전 가이드가 귀환석으로 이곳에 데려오므로 보통 바로 완료됩니다",
+	-- ["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "{npc:7312}, 마법사 교관: {zone:1447}의 {npc:8395}에게: 보관하세요",
 	-- ["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "{npc:9272}, {npc:9271}, {npc:9270}, {npc:9618}의 퀘스트는 51-55레벨 몹 사이에서 진행됩니다: 56레벨 무렵 운고로에 다시 올 때로 미루세요.",
 	-- ["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: 수액괴물은 {zone:1448}에 있습니다. 보관하세요",
 	-- ["{npc:9618} stands just outside the refuge."] = "{npc:9618}은(는) 야영지 바로 바깥에 서 있습니다.",
@@ -230,4 +233,5 @@ return {
 	-- ["{npc:9998}, at the refuge entrance"] = "{npc:9998}, 야영지 입구",
 	-- ["{npc:9998}, at the refuge's entrance"] = "{npc:9998}, 야영지 입구",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}은(는) 분화구 한가운데 {area:537}의 남동쪽 비탈에 앉아 있습니다.",
+	-- ["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 }

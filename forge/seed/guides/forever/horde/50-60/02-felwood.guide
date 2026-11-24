@@ -1,9 +1,10 @@
 guide forever/horde/50-60/02-felwood
-title Western Plaguelands, Azshara & Felwood
+title Azshara & Felwood
 faction Horde
 levels 53-54
 zone Felwood
 next forever/horde/50-60/03-winterspring
+pitch Western Plaguelands and the Bulwark first, then Azshara and Felwood.
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 70-73) and machine-checked with lint; not play-tested on Forever yet.
 #
@@ -307,7 +308,7 @@ step Winna Hazzard
 step Winna's kitten
   tip Take the kitten to the same moonwell and release it there with Winna's Kitten Carrier; once it has turned into a Corrupted Saber, bring it back to Winna and click on it to hand it over.
   use 12565 quest 4506.1 @32.3,66.6 map 1448 -- Winna's Kitten Carrier, at the Jadefire moonwell
-  complete 4506
+  complete 4506 -- Bring the Corrupted Saber to Winna Hazzard at Bloodvenom Post and click on it to hand it over.
 
 step Winna Hazzard
   turnin 4506

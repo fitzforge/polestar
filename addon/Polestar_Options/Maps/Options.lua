@@ -22,13 +22,14 @@ local function register(spec)
 	if not ok and err then ns.Debug(err) end
 end
 
--- Integrations > Freedoom Arcade (Maps/Arcade.lua): there while a copy of the game is (Polestar's own
--- ships with it; the standalone addon takes its place when installed).
+-- Integrations > Flight arcade (Maps/Arcade.lua): the game the flight card offers, there while a game is
+-- (Polestar_Arcade ships them; the standalone Freedoom Arcade addon takes its place when installed).
 if ns.Arcade then
-	register({ page = L["Integrations"], section = "Freedoom Arcade", controls = {
-		{ kind = "toggle", key = "maps.flightArcade", label = L["Offer Freedoom Arcade on flights"],
-			help = L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."],
-			search = "doom, freedoom, arcade, game, flight, taxi, petllama",
+	register({ page = L["Integrations"], section = L["Flight arcade"], controls = {
+		{ kind = "dropdown", key = "arcade.game", label = L["Game on flights"],
+			help = L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time."],
+			search = "doom, freedoom, arcade, game, flight, taxi, petllama, sky jewels, match three, jewels, rikyz90, tetris, blocks, beemerwt",
+			choices = { { value = "freedoom", label = L["Freedoom Arcade"] }, { value = "skyjewels", label = L["Sky Jewels"] }, { value = "tetris", label = L["Tetris"] }, { value = "none", label = L["None: don't offer a game"] } },
 			needs = function() return ns.Arcade.Available() end },
 	} })
 end

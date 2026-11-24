@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:340} Kargath · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes
+	["Un'Goro first, then {area:340}, the {zone:1427} and the {zone:1428}."] = "먼저 운고로, 그다음 {area:340}, {zone:1427}, {zone:1428}.",
+
 	-- Step 2: Into Un'Goro Crater
 	-- {zone:1449} Un'Goro Crater
 	["Into {zone:1449}"] = "{zone:1449}(으)로",
@@ -42,7 +46,7 @@ return {
 
 	-- Step 7: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
-	["{area:538}: kill these as you meet them"] = "",
+	["{area:538}: kill these as you meet them"] = "{area:538}: 만나는 대로 처치하세요",
 	-- {area:537} Fire Plume Ridge · {npc:9998} Shizzle · {npc:8659} Jes'rimon
 	-- plural, as words: Bloodpetal Flayers = {npc:6510} Bloodpetal Flayer · Dinosaur Bones = {item:11114} Dinosaur Bone · Elder Diemetradons = {npc:9164} Elder Diemetradon · Bloodpetal Trappers = {npc:6512} Bloodpetal Trapper
 	["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot.\nSouth of the hot springs, Dinosaur Bones lie on the ground among the Stegodons and drop from the Diemetradons nearby, which also carry the scales {npc:9998} wants. Careful: the Stegodons are elites (52-53): pick the bones up around them, don't pull them; the Elder Diemetradons are 53-55, take the smaller ones. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon.\nRide south-west along the western cliffs. Bloodpetal Trappers grow in the jungle there. Careful: the biggest Trappers are 53: pull them one at a time."] = "남서쪽으로 분화구 한가운데의 화산인 {area:537}(으)로 가세요. 그 기슭에 칼날가시 붉은꽃잎덩굴손이 자랍니다.\n온천 남쪽에서는 공룡 뼈가 스테고돈 사이 땅에 놓여 있고 근처 디메트로돈도 떨어뜨립니다. 디메트로돈은 {npc:9998}이(가) 원하는 비늘도 지니고 있습니다. 주의: 스테고돈은 정예(52-53)이니 끌지 말고 주변의 뼈만 주우세요. 덩치큰 디메트로돈은 53-55이니 작은 것을 잡으세요. 라바사우루스는 남서쪽에서 무리 지어 사냥합니다. 발톱은 {npc:8659}에게 가져가며, 가끔 구겨진 일지를 지닌 개체가 있습니다(희귀 획득물: 얻었을 때만 퀘스트를 받으세요). 레벨 57 스테고돈인 그러프는 피하세요.\n서쪽 절벽을 따라 남서쪽으로 가세요. 그곳 밀림에 질긴뿌리 붉은꽃잎덩굴손이 자랍니다. 주의: 가장 큰 것은 53레벨이니 하나씩 끌어오세요.",
@@ -98,14 +102,14 @@ return {
 
 	-- Step 20: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
-	["{zone:1449}: kill these as you meet them"] = "",
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449}: 만나는 대로 처치하세요",
 	["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "원정대의 상자는 동쪽 정글의 버려진 야영지에 있습니다.",
 
 	-- Step 21: Marshal's Refuge
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the entrance"] = "입구의 {npc:9998}",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, 지하",
 	-- {npc:9997} Spraggle Frock · {npc:9999} Ringo
 	["{npc:9997}, beside the flight master: {npc:9999} is found at the end of this loop"] = "",
 	-- {npc:9118} Larion · {quest:4147} Marvon's Workshop · {npc:8737} Linken
@@ -127,7 +131,7 @@ return {
 	-- Step 24: Un'Goro Crater: kill these as you meet them
 	-- {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast {spell:8137} and Tunnelers and the Hive Guard use {spell:14120}."] = "",
+	["Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast {spell:8137} and Tunnelers and the Hive Guard use {spell:14120}."] = "주의: 고리시 일꾼은 체력이 45% 아래로 떨어지면 25야드 내에서 도움을 부를 수 있습니다. 실리시드는 {spell:8137}을(를) 시전하고 굴파는 놈과 벌집 경비병은 {spell:14120}을(를) 사용합니다.",
 
 	-- Step 25: Eastern Pylon
 	["Eastern Pylon"] = "동쪽 수정탑",
@@ -178,12 +182,12 @@ return {
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:9117} J.D. Collie
 	["{area:541}: {npc:9997} beside the flight master, {npc:9117} below ground."] = "",
 	-- {npc:9997} Spraggle Frock
-	["{npc:9997}, beside the flight master"] = "",
+	["{npc:9997}, beside the flight master"] = "{npc:9997}, 비행 조련사 옆",
 	["Below ground"] = "지하",
 
 	-- Step 37: To Gadgetzan
 	-- {area:976} Gadgetzan
-	["To {area:976}"] = "",
+	["To {area:976}"] = "{area:976}(으)로",
 
 	-- Step 38: Andi Lynn
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
@@ -195,7 +199,7 @@ return {
 
 	-- Step 41: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, 내부",
 
 	-- Step 42: Orgrimmar
 	-- {area:1637} Orgrimmar · {area:16727} Powderfuse Port · {zone:1458} Undercity
@@ -203,19 +207,19 @@ return {
 
 	-- Step 43: Back to Gadgetzan
 	-- {area:976} Gadgetzan
-	["Back to {area:976}"] = "",
+	["Back to {area:976}"] = "{area:976}(으)로 돌아가기",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
 
 	-- Step 44: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "배를 타고 {area:16727}(으)로",
 	-- {npc:9706} Yorba Screwspigot · {quest:4324} Yuka Screwspigot · {area:251} Flame Crest
-	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "",
+	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "{npc:9706}, 부두 곁: 이 가이드 뒷부분 {area:251}의 {quest:4324}용",
 
 	-- Step 45: Badlands
 	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {zone:1418} Badlands
-	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {zone:1418}."] = "",
+	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {zone:1418}."] = "{zone:2548}에서 북서쪽, {area:16685} 북쪽으로 도보 이동해 {zone:1418}으로 들어가세요.",
 
 	-- Step 46: Kargath
 	-- {area:340} Kargath · {zone:1418} Badlands
@@ -308,7 +312,7 @@ return {
 
 	-- Step 65: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
-	["{area:250}: kill these as you meet them"] = "",
+	["{area:250}: kill these as you meet them"] = "{area:250}: 만나는 대로 처치하세요",
 	-- {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900 · {npc:7040} Black Dragonspawn · {npc:7044} Black Drake
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
 	-- was: ["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills: pull the broodlings away from them, or bring a group."] = "서쪽 발굴지로 가세요. {quest:4296}은(는) 발굴지 한가운데 타우릿산 드워프들 사이에 있습니다. 베껴 쓰세요.\n검은 새끼용이 {area:251} 바로 동쪽 언덕에 둥지를 틉니다. 새끼용이 거의 죽었을 때 {npc:10267}의 {item:12284}을(를) 사용해 정수를 포획하세요.\n주의: 50-53 정예인 {npc:7040}와(과) {npc:7044}이(가) 같은 언덕을 돌아다닙니다. 새끼용을 그들에게서 떨어진 곳으로 끌어오거나 파티를 꾸리세요."
@@ -326,7 +330,7 @@ return {
 
 	-- Step 71: Fly to Undercity
 	-- {area:1497} Undercity
-	["Fly to {area:1497}"] = "",
+	["Fly to {area:1497}"] = "{area:1497}(으)로 날아가기",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "{area:340} 비행 조련사",
 
@@ -346,7 +350,7 @@ return {
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
 	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "연금술 실험실의 {npc:8390}: 약병은 나중에 {zone:1447}에서 채웁니다",
 	-- {npc:5204} Apothecary Zinge
-	["{npc:5204}, near Cuely in the Apothecarium"] = "",
+	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}, 연금술사 구역의 큘리 곁",
 
 	-- Step 77: The Bulwark
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
@@ -367,7 +371,7 @@ return {
 	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "서쪽으로 몇 걸음 돌아가 길가의 첫 번째 농장인 펠스톤 농장으로 가세요. {npc:10778}은(는) 집 안에서 기다립니다.",
 	["Upstairs"] = "위층",
 	-- {object:175894} Janice's Parcel
-	["{object:175894}, beside the house; inside"] = "",
+	["{object:175894}, beside the house; inside"] = "{object:175894}, 집 옆; 안쪽",
 	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
 	["Keep the parcel: {npc:10781} is in the {zone:1458}. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "꾸러미는 보관하세요. {npc:10781}은(는) {zone:1458}에 있습니다. 다음 가이드는 이곳 남동쪽 {area:202} 옆의 {npc:10739}에게서 시작합니다.",
 
@@ -439,6 +443,7 @@ return {
 	-- ["Western jungle"] = "서쪽 정글",
 	-- ["With {npc:11063}'s quest in your log, slain Scourge sometimes leave a {npc:11064}; talk to it to free it. Kill undead on the ride south-west to {area:2262}."] = "{npc:11063}의 퀘스트가 있으면 처치한 스컬지가 가끔 {npc:11064}을(를) 남깁니다. 말을 걸어 풀어 주세요. 남서쪽 {area:2262}(으)로 가는 길에 언데드를 처치하세요.",
 	-- ["grind on Tar Lurkers at {area:538}, {zone:1449}"] = "{zone:1449}, {area:538}에서 송진껍질괴물 사냥",
+	-- ["grind on {npc:6511}"] = "{npc:6511} 사냥",
 	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}의 유령은 남서쪽 {area:2262} 폐허에 있습니다.",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250}은(는) {area:2262} 바로 서쪽에 숨어 있습니다.",
 	-- ["{npc:6522}, the {object:36073}"] = "{object:36073}의 {npc:6522}",

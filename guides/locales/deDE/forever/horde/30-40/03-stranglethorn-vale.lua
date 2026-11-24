@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Flieg nach {area:1637}",
-	-- {area:2408} Shadowprey Village
-	["{area:2408} flight master"] = "Flugmeister: {area:2408}",
 
 	-- Step 2: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
@@ -94,8 +92,7 @@ return {
 	["{zone:1434}: kill these as you meet them"] = "{zone:1434}: Töte diese, sobald sie dir begegnen",
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent
-	-- was: ["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "Schlingendorntiger (32) streifen durch die Hügel um das Lager und südlich davon, Panther (32) durch die Lichtungen westlich und südwestlich davon. Die Geologen der Venture Co. (34-36), die die Gerommelten Kristalle tragen, arbeiten in den Lagern bei {area:37}, südöstlich des Lagers. Vorsicht: Agenten der Venture Co. (39) stehen zwischen den Geologen in den westlichen Lagern beim Haus der Venture Co.: Bearbeite die östlichen Lager, abseits von ihnen."
-	["Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "",
+	["Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "Schlingendorntiger (32) streifen durch die Hügel westlich des Lagers und östlich davon Richtung See: Der Pfeil führt zu den östlichen, auf dem Weg zu den Geologen. Panther (32) streifen durch die Lichtungen westlich und südwestlich des Lagers. Die Geologen der Venture Co. (34-36), die die Gerommelten Kristalle tragen, arbeiten in den Lagern bei {area:37}, südöstlich des Lagers. Vorsicht: Agenten der Venture Co. (39) stehen zwischen den Geologen in den westlichen Lagern beim Haus der Venture Co.: Bearbeite die östlichen Lager, abseits von ihnen.",
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Tumbled Crystals, from the geologists of the eastern camps"] = "Gerommelte Kristalle, von den Geologen der östlichen Lager",
 
@@ -274,6 +271,7 @@ return {
 	-- ["from {npc:4723}"] = "von {npc:4723}",
 	-- ["grind on {npc:1142}"] = "grinde an {npc:1142}",
 	-- ["grind on {npc:686}"] = "grinde an {npc:686}",
+	-- ["{area:2408} flight master"] = "Flugmeister: {area:2408}",
 	-- ["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35."] = "Die nächsten Quests von {area:35} und {object:3202} sind 35-38. Nach der Abgabe bei Aggro'gosh noch unter 35? Die Lashtail-Raptoren (35) jagen im Dschungel direkt nördlich von {object:3202}: Töte sie, bis du Stufe 35 bist.",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, in {object:20691}",
 	-- ["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465}: für forever/horde/40-50/01-stranglethorn-vale",

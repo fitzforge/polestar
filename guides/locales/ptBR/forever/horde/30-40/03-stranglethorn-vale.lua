@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Voe para {area:1637}",
-	-- {area:2408} Shadowprey Village
-	["{area:2408} flight master"] = "Mestre de voo da {area:2408}",
 
 	-- Step 2: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
@@ -94,8 +92,7 @@ return {
 	["{zone:1434}: kill these as you meet them"] = "{zone:1434}: vá matando estes pelo caminho",
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent
-	-- was: ["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "Tigres-do-espinhaço (32) vagam pelas colinas em volta do acampamento e ao sul dele, Panteras (32) pelas clareiras a oeste e sudoeste. Os Geólogos da Empreendimentos S.A. (34-36), que carregam os Cristais Rolados, trabalham nos acampamentos perto de {area:37}, a sudeste do acampamento. Cuidado: Agentes da Empreendimentos S.A. (39) ficam entre os geólogos nos acampamentos do oeste, perto da casa da Empreendimentos S.A.: cace nos acampamentos do leste, longe deles."
-	["Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "",
+	["Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "Os Tigres-do-espinhaço (32) vagam pelas colinas a oeste do acampamento e a leste dele rumo ao lago: a seta leva você aos do leste, no caminho para os geólogos. As Panteras (32) vagam pelas clareiras a oeste e sudoeste do acampamento. Os Geólogos da Empreendimentos S.A. (34-36), que carregam os Cristais Rolados, trabalham nos acampamentos perto de {area:37}, a sudeste do acampamento. Cuidado: Agentes da Empreendimentos S.A. (39) ficam entre os geólogos nos acampamentos do oeste, perto da casa da Empreendimentos S.A.: cace nos acampamentos do leste, longe deles.",
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Tumbled Crystals, from the geologists of the eastern camps"] = "Cristais Rolados, dos geólogos dos acampamentos do leste",
 
@@ -278,6 +275,7 @@ return {
 	-- ["from {npc:4723}"] = "de {npc:4723}",
 	-- ["grind on {npc:1142}"] = "mate {npc:1142} até subir",
 	-- ["grind on {npc:686}"] = "mate {npc:686} até subir",
+	-- ["{area:2408} flight master"] = "Mestre de voo da {area:2408}",
 	-- ["{area:35}'s and {object:3202}'s next quests are 35-38. Below 35? The Lashtail Raptors (35) hunt the slopes south of the camp, on your way back to {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "As próximas missões de {area:35} e {object:3202} são de nível 35-38. Abaixo de 35? Os Raptores Batecauda (35) caçam nas encostas ao sul do acampamento, no seu caminho de volta a {object:3202}: mate-os até o nível 35. Ou, em grupo, faça a masmorra {area:796} (Biblioteca ou Arsenal).",
 	-- ["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35."] = "As próximas missões de {area:35} e {object:3202} são de nível 35-38. Ainda abaixo de 35 depois da entrega a Aggro'gosh? Os Raptores Batecauda (35) caçam na selva logo ao norte de {object:3202}: mate-os até o nível 35.",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, em {object:20691}",

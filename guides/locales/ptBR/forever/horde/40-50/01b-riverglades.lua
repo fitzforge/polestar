@@ -165,7 +165,7 @@ return {
 	["South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with {npc:263190}'s spears. The Alliance trains its scouts and priests at a camp on the far bank. {npc:257079}, the Alliance elite, rides the road just east of the camp: pull the scouts and priests away from it.\nCareful: {npc:263380}, an elite (level 42), hunts along this river: if he comes your way, back off and let him pass."] = "A sudoeste de Rog'mar, o rio corre entre as fazendas: empale os Crocoliscos de Água Doce com as lanças de {npc:263190}. A Aliança treina seus batedores e sacerdotes num acampamento na outra margem. {npc:257079}, o Elite da Aliança, percorre a estrada logo a leste do acampamento: puxe os batedores e sacerdotes para longe dela.\nCuidado: {npc:263380}, um Elite (nível 42), caça ao longo deste rio: se ele vier na sua direção, recue e deixe-o passar.",
 	-- {npc:263190} Tan'jani
 	-- plural, as words: Freshwater Crocolisks = {npc:259046} Freshwater Crocolisk
-	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "",
+	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "as lanças de {npc:263190}, nos Crocodilos de água doce do rio",
 
 	-- Step 39: Tran'gul
 	-- {npc:256710} Tran'gul · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
@@ -195,7 +195,8 @@ return {
 
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
-	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Para o oeste até {area:16723} de novo: {npc:260931}, um mineiro do Crepúsculo que quer sair, espera na borda leste da cidade. Convença-o e depois entregue a Missão de {npc:256710}; um dos ogros desaparecidos fica a alguns passos a oeste.",
+	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Para o oeste até {area:16723} de novo: {npc:260931}, um mineiro do Crepúsculo que quer sair, espera na borda leste da cidade. Convença-o e depois entregue a Missão de {npc:256710}; um dos ogros desaparecidos fica a alguns passos a oeste."
+	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "convença {npc:260931}",
 	-- {npc:261208} Twilight Brute
@@ -264,7 +265,7 @@ return {
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
 	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "",
 	-- {npc:258048} Jom-jom
-	["{npc:258048}, in the cave"] = "",
+	["{npc:258048}, in the cave"] = "{npc:258048}, na caverna",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
 	["help {npc:258048} reach {area:16726}"] = "ajude {npc:258048} a chegar a {area:16726}",
 
@@ -384,10 +385,13 @@ return {
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	-- was: ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "Volte mais uma vez aos penhascos dos piratas. Plante as cargas de Whizzbuzz nos três navios atracados abaixo do acampamento, de sul para norte; {quest:95124} fica junto ao do meio, com seu baú de saque ao lado. Fique de olho em {npc:259758} no caminho.\nCuidado: {quest:95124} é de nível 45, um ou dois níveis acima de você aqui: limpe o convés ao redor dela primeiro e chegue com a vida cheia."
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "",
+	["on board, at the arrow"] = "",
 	-- {item:268505} Remote Explosive Charge
-	["{item:268505}, the southern ship"] = "{item:268505}, o navio do sul",
-	["the middle ship"] = "o navio do meio",
-	["the northern ship"] = "o navio do norte",
+	["Plant a {item:268505} on the southern ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the middle ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the northern ship"] = "",
 
 	-- Step 82: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
@@ -493,7 +497,11 @@ return {
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Fuçafocinho e {npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548} ficam ao sul de {area:3}. Siga para leste de {area:657} até {area:75} e voe para {area:340}: o caminho de descida para a zona começa lá.",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "A oeste de Rog'mar, o culto do Crepúsculo domina a cidade agrícola de {area:16723}. {npc:259158}, um kobold que quer sair, se esconde no meio da cidade.",
+	-- ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Para o oeste até {area:16723} de novo: {npc:260931}, um mineiro do Crepúsculo que quer sair, espera na borda leste da cidade. Convença-o e depois entregue a Missão de {npc:256710}; um dos ogros desaparecidos fica a alguns passos a oeste.",
+	-- ["the middle ship"] = "o navio do meio",
+	-- ["the northern ship"] = "o navio do norte",
 	-- ["the {object:707249} poster"] = "o cartaz de {object:707249}",
+	-- ["{item:268505}, the southern ship"] = "{item:268505}, o navio do sul",
 	-- ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "{npc:257062} oferece as duas últimas depois que as tarefas de Gobam são concluídas (segundo gravações de jogadores), que este Guia deixa de fora. Elas são de nível 44 e 45: deixe-as para depois se a luta contra {npc:258626} foi apertada.",
 	-- ["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048} espera junto ao acampamento dos ogros do Crepúsculo, a nordeste de {npc:256728}: leve-o para casa em {area:16726} e mantenha os sectários longe dele. Se ele morrer, pegue a missão com ele de novo.",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "Lanças de {npc:263190}, nos Crocoliscos de Água Doce",

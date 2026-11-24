@@ -91,12 +91,18 @@ function rankIn(ctx, prof, band, zones, start = true) {
 // Skinning 100-125 for Undead is Silverpine Forest to 105, then Hillsbrad
 // Foothills, whose lowest beast (Gray Bear, level 21) needs 105 (#3355). A
 // starting zone without nodes (Teldrassil has no ore) falls back to the
-// group's next zone.
-function pickZones(ctx, prof, band, faction, group) {
+// group's next zone. A zone the group worked the band before (`prev`) is kept
+// over a better one within KEEP_SHARE of its score: a near tie is not worth a
+// trip (Skinning 125-150 for Night Elves and the Horde stays in Ashenvale,
+// 0.0036 against Thousand Needles' 0.0036).
+const KEEP_SHARE = 0.03;
+function pickZones(ctx, prof, band, faction, group, prev = new Set()) {
 	let zones = candidatesFor(ctx, band, faction, group);
 	if (!rankIn(ctx, prof, band, zones).length && band.scope === 'start') zones = group.next;
 	const piece = (from, to) => {
-		const best = rankIn(ctx, prof, { ...band, from, to }, zones)[0];
+		const ranked = rankIn(ctx, prof, { ...band, from, to }, zones);
+		const top = ranked[0];
+		const best = (top && ranked.find((r) => prev.has(r.zone) && r.score >= top.score * (1 - KEEP_SHARE))) || top;
 		return best ? { zone: best.zone, points: best.points, from, to } : null;
 	};
 	const min = prof.minPoints || 6;
@@ -173,6 +179,9 @@ function rareKinds(prof, points) {
 function plan(ctx, prof) {
 	const out = [{ kind: 'learn' }];
 	let prevFrom = 0;
+	// Where each race of each faction worked the band before ("Horde|Tauren" -> zone): pickZones keeps it on a near tie.
+	const lastZone = new Map();
+	const racesOf = (faction, group) => group.races || RACE_GROUPS[faction].flatMap((g) => g.races);
 	for (const band of prof.bands) {
 		const splits = RANKS.filter((r) => r.learnAt > band.from && r.learnAt < band.to);
 		const rankAtStart = RANKS.find((r) => r.learnAt === band.from && r.learnAt > 0);
@@ -183,9 +192,12 @@ function plan(ctx, prof) {
 		const picks = [];
 		for (const faction of FACTIONS) {
 			for (const group of groupsFor(band.scope, faction)) {
-				for (const p of pickZones(ctx, prof, band, faction, group)) picks.push({ faction, group, ...p });
+				const prev = new Set(racesOf(faction, group).map((r) => lastZone.get(`${faction}|${r}`)).filter(Boolean));
+				for (const p of pickZones(ctx, prof, band, faction, group, prev)) picks.push({ faction, group, ...p });
 			}
 		}
+		// The part that ends the band is the zone each race worked last.
+		for (const p of picks) for (const r of racesOf(p.faction, p.group)) lastZone.set(`${p.faction}|${r}`, p.zone);
 		// In skill order; groups keep their order within a part of the band.
 		const merged = mergePicks(picks).sort((a, b) => a.from - b.from);
 		const recipes = rankAtStart ? atStart : atStart.filter((r) => worthTrip(ctx, prof, r, merged));

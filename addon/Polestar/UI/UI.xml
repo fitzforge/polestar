@@ -38,10 +38,12 @@
 	<Script file="QuestLinks.lua"/>
 	<Script file="Lookup.lua"/>
 	<Script file="Dungeons.lua"/>
+	<Script file="Attunements.lua"/>
 	<Script file="RouteChoice.lua"/>
 	<Script file="GuideEnd.lua"/>
 	<Script file="Welcome.lua"/>
 	<Script file="WhatsNew.lua"/>
+	<Script file="LayoutCard.lua"/>
 	<Script file="Copy.lua"/>
 	<Script file="QuestRoom.lua"/>
 	<Script file="Materials.lua"/>
@@ -56,4 +58,6 @@
 	<Script file="Trackers.lua"/>
 	<Script file="QuestieTurnIns.lua"/>
 	<Script file="Movers.lua"/>
+	<Script file="TabStyles\Menu.lua"/>
+	<Script file="TabStyles\TabStyles.lua"/>
 </Ui>

@@ -32,8 +32,9 @@
 //                                          verdicts default to data/local/attunements-verdicts.md)
 //
 // Attunement: { id, name, kind: 'attunement'|'key'|'item', need: 'each'|'one', faction: 'A'|'H'|null,
-//   item: { id, name, quality }|null, note, level, any: bool, goal: [questIds], steps: [Step],
-//   inside: [{ kind: 'npc'|'object', id, instance }]|null }   (the table's `inside` its steps use)
+//   item: { id, name, quality }|null, note, level, any: bool, [open: false], goal: [questIds], steps: [Step],
+//   inside: [{ kind: 'npc'|'object', id, instance }]|null }   (the table's `inside` its steps use;
+//   `open: false` only for a raid Forever has not opened yet, #3695: the Attunements page and the guide say so)
 // Step: { kind: 'quest', id, title, level, minLevel, faction, classes, start, finish, startItem,
 //          after: [ids], afterAny: [ids], goal: bool, accept: bool (an `onAccept` goal: taking it is the end),
 //          rep: { faction, name, standing }|null }
@@ -198,9 +199,11 @@ function buildOne(entry, codex, warn, inside = []) {
 		if (step.startItem) steps.push(...sourceSteps(step.startItem.id, codex));
 		steps.push(step);
 	};
+	// A raid Forever has not opened yet (`open: false`) may have its quests out of the data (Molten Core's,
+	// #3392): it builds no guide, without a warning.
 	const goal = (entry.goal || []).filter((id) => {
 		if (quests[id]) return true;
-		warn(`${entry.id}: goal quest ${id} is not in the Codex`);
+		if (entry.open !== false) warn(`${entry.id}: goal quest ${id} is not in the Codex`);
 		return false;
 	});
 	if ((entry.goal || []).length && !goal.length) return null;
@@ -253,6 +256,7 @@ function buildOne(entry, codex, warn, inside = []) {
 		note: entry.note || null,
 		level,
 		any: !!entry.any,
+		...(entry.open === false ? { open: false } : {}),
 		goal,
 		steps,
 		inside: placedInside(steps, codex, inside),

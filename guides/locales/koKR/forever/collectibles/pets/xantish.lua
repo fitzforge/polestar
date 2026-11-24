@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Xan'tish
 	-- {npc:8404} Xan'tish · {object:172961} Valley of Spirits · {item:280703} Jungle Boa
-	["{npc:8404}, the snake vendor, walks with his three snakes: from the {object:172961} north along the city's west side to the battleground emissaries and back. The waypoint is where his walk starts; if he is not there, follow the road north. He sells four snakes (50s each); the {item:280703} is new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:8404}, the snake vendor, walks with his three snakes: from the {object:172961} north along the city's west side to the battleground emissaries and back. The waypoint is where his walk starts; if he is not there, follow the road north. He sells four snakes (50s each); the {item:280703} is new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "뱀 상인 {npc:8404}은(는) 뱀 세 마리와 함께 {object:172961}에서 도시 서쪽을 따라 북쪽 전장 사절단까지 갔다가 돌아옵니다. 지점은 산책이 시작되는 곳이며 없으면 도로를 따라 북쪽으로 가세요. 뱀 네 마리를 팝니다(각 50실버). {item:280703}은(는) Forever에 새로 추가된 아이템입니다. 애완동물 아이템을 사용하면 동료를 배우고 목표는 이후에도 체크된 상태로 남습니다.",
 	-- {item:10360} Black Kingsnake
 	["{item:10360}, 50s"] = "{item:10360}, 50실버",
 	-- {item:10361} Brown Snake

@@ -86,6 +86,8 @@ fn settings_saved_before_profiles_become_the_profile_default_with_nothing_lost()
 			"nav": { "arrowStyle": "3d", "arrowPos": { "point": "TOP", "relPoint": "TOP", "x": -35.211196899414, "y": -20.12544631958 } },
 			"rares": { "toastPoint": ["CENTER", -520, 130] },
 			"qol": { "markTarget": true },
+			// Skip grey quests was off for this account (the default before 0.4.3): kept off (Engine's skipGreyOn).
+			"behavior": { "skipGrey": false },
 		}),
 		"every saved setting stays where it was"
 	);
@@ -227,8 +229,9 @@ fn a_migration_runs_once_over_every_profile_before_init_and_over_a_string_from_b
 	assert_eq!(first["calls"], 2 + 1, "Default and Raid at load, then the old string");
 	assert_eq!(first["atInit"], 2, "moved before any OnInit handler reads it");
 	assert_eq!(first["now"], 2);
-	assert_eq!(first["raid"], json!({ "new": { "size": 3 }, "old": {} }));
-	assert_eq!(first["marks"], json!({ "move-size": true, "late": true }));
+	// Skip grey quests stays off in a profile saved before 0.4.3 (Engine's skipGreyOn, once, over the saved profiles).
+	assert_eq!(first["raid"], json!({ "new": { "size": 3 }, "old": {}, "behavior": { "skipGrey": false } }));
+	assert_eq!(first["marks"], json!({ "move-size": true, "late": true, "skipGreyOn": true }));
 	assert_eq!(first["before"], json!({ "new.size": 4 }), "a string from before the migration is migrated");
 	assert_eq!(first["after"], json!({}));
 	assert_eq!(first["afterDropped"], json!(["old.size"]));
@@ -764,6 +767,42 @@ fn the_profiles_tab_shows_a_card_per_profile_a_click_selects_and_use_switches_ne
 	assert_eq!(out["disarmed"], "Delete", "another profile's section starts unarmed");
 	assert_eq!(out["afterDelete"]["cards"].as_array().map(|c| c.len()), Some(2));
 	assert_eq!(out["afterDelete"]["selected"], "Default", "the profile in use once the selected one is gone");
+}
+
+// #3627: an hour of tweaking, "created a profile", and the setup didn't carry. New profile starts from the settings
+// in use (Start from: Your current settings), or from the defaults when that is picked; Copy and Rename don't ask.
+#[test]
+fn a_new_profile_starts_from_the_current_settings_unless_defaults_is_picked() {
+	let out = run_page(
+		r#"Polestar.Set("ui.scale", 1.2)
+		Polestar.Set("ui.skin", "hearth")
+		card("\0new"):Click()
+		local asked = PV.Shown().startFrom
+		v.NameBox:SetText("Mine")
+		v.NameOK:Click()
+		local mine = { P.Active(), Polestar.Get("ui.scale"), Polestar.Get("ui.skin"), PV.Shown().startFrom or false }
+		card("\0new"):Click()
+		v.StartFrom.psSet("defaults")
+		local picked = PV.Shown().startFrom
+		v.NameBox:SetText("Fresh")
+		v.NameOK:Click()
+		local fresh = { P.Active(), Polestar.Get("ui.scale"), Polestar.Get("ui.skin") }
+		card("\0new"):Click()
+		local again = PV.Shown().startFrom
+		PV.CancelEdit()
+		card("Mine"):Click()
+		v.Copy:Click()
+		local copying = PV.Shown().startFrom
+		emit({ asked = asked, mine = mine, picked = picked, fresh = fresh, again = again, copying = copying or false,
+			default = { P.Switch("Default") and Polestar.Get("ui.scale") } })"#,
+	);
+	assert_eq!(out["asked"], "Your current settings", "the current settings unless the player picks otherwise");
+	assert_eq!(out["mine"], json!(["Mine", 1.2, "hearth", false]), "the new profile in use, the setup carried, the question gone");
+	assert_eq!(out["picked"], "Defaults");
+	assert_eq!(out["fresh"], json!(["Fresh", 1, "polestar"]), "Defaults: every setting at its default");
+	assert_eq!(out["again"], "Your current settings", "each new profile asks afresh");
+	assert_eq!(out["copying"], false, "Copy copies the profile it is of: no question");
+	assert_eq!(out["default"], json!([1.2]), "the profile it started from keeps its own");
 }
 
 #[test]

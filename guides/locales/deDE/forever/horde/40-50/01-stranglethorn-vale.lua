@@ -11,8 +11,6 @@ return {
 	["Fly to the {area:1497}"] = "Flieg nach {area:1497}",
 	-- {area:1497} Undercity · {area:340} Kargath · {object:3202} Grom'gol (no name in this language: may be words)
 	["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}."] = "Dein Training für Stufe 40 ist in {area:1497}: Flieg von {area:340} dorthin, trainiere und nimm an den Türmen vor der Stadt den Zeppelin nach {object:3202}.",
-	-- {area:340} Kargath
-	["{area:340} flight master"] = "Flugmeister in {area:340}",
 
 	-- Step 2: Genavie Callow
 	-- {npc:4486} Genavie Callow · {zone:1417} Arathi Highlands
@@ -40,6 +38,8 @@ return {
 	-- Step 6: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Flieg nach {object:3202}",
+	-- {area:340} Kargath
+	["{area:340} flight master"] = "Flugmeister in {area:340}",
 
 	-- Step 7: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
@@ -128,17 +128,17 @@ return {
 
 	-- Step 22: Shadowmaw Panthers
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["Shadowmaw Panthers"] = "",
+	["Shadowmaw Panthers"] = "Schattentatzenpanther",
 	-- {quest:192} Panther Mastery
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
-	["{quest:192} is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone."] = "",
+	["{quest:192} is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone."] = "{quest:192} ist noch offen: Die Schattentatzenpanther (37-38) pirschen durch den Dschungel nördlich der Mine, Richtung Mosh'Ogg-Hügel. Sie benutzen Schleichen, sodass sie nur erscheinen, wenn du nah bist: Zieh sie einzeln und lass die Alten Schattentatzenpanther (42-43) in Ruhe.",
 
 	-- Step 24: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["Lashtail Raptors"] = "Lashtail-Raptoren",
 	-- {quest:195} Raptor Mastery · {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "",
+	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "{quest:195} ist noch offen: Die Schmetterschwänze (35-36) jagen im Dschungel zwischen {object:3202} und Nesingwarys Lager, auf dem Weg nach Norden.",
 
 	-- Step 25: Foreman Cozzle's house
 	-- {npc:4723} Foreman Cozzle

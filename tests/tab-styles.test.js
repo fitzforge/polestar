@@ -1,5 +1,5 @@
 'use strict';
-// Tab styles (addon/Polestar_TabStyles): with edge tabs the window's lines
+// Tab styles (addon/Polestar/UI/TabStyles): with edge tabs the window's lines
 // along the tabs' edge are cut under the active tab (drawn again as two
 // pieces), and come back whole, at their own alpha, with another style.
 const { test } = require('node:test');
@@ -253,7 +253,8 @@ emit({ n = strip.psCount, tabs = tabs })`);
 test('transparent: the side strip and edge tabs draw no ground or frame in any skin', () => {
 	const fs = require('node:fs');
 	const path = require('node:path');
-	const skinAddons = fs.readdirSync(path.join(__dirname, '..', 'addon')).filter((d) => /^Polestar_Skin_/.test(d)).sort();
+	// Our skins are folders of Polestar_Skins since 0.4.3 (#3507): one add-on, every skin inside.
+	const ownSkins = fs.readdirSync(path.join(__dirname, '..', 'addon', 'Polestar_Skins', 'Skins')).sort();
 	const script = SCRIPT.replace(/Polestar\.Set\("guideWindow\.tabStyle", "edge"\)[\s\S]*$/, `
 Polestar.RegisterGuide({ id = "test/tabs2", pack = "test", title = "Tabs two", minLevel = 1, maxLevel = 20,
 	steps = { { goals = { { t = "accept", quest = 33, title = "Wolves Across the Border" } } } } })
@@ -301,10 +302,10 @@ for _, c in ipairs(Polestar.Theme.SkinChoices()) do
 	end
 end
 emit(res)`);
-	const [out] = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar', 'Polestar_Looks', ...skinAddons], script }).emitted;
+	const [out] = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar', 'Polestar_Skins'], script }).emitted;
 	const skins = new Set(out.map((r) => r.skin));
 	for (const k of ['polestar', 'classic', 'forever']) assert.ok(skins.has(k), `${k} among the skins: ${[...skins]}`);
-	assert.ok(skins.size >= 4 + skinAddons.length - 1, `every skin addon's skin: ${[...skins]}`);
+	assert.ok(skins.size >= 4 + ownSkins.length, `every skin of Polestar_Skins: ${[...skins]}`);
 	for (const r of out) {
 		const at = `${r.skin} ${r.style} ${r.tabs}`;
 		assert.equal(r.shown, true, `${at}: shown`);

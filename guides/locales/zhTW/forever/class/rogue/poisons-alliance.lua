@@ -45,7 +45,7 @@ return {
 
 	-- Step 6: Doc Mixilpixil
 	-- {quest:2607} The Touch of Zanzil · {npc:7207} Doc Mixilpixil · {npc:1325} Jasper Fel
-	["{quest:2607} still sits on you. {npc:7207} works in the cellar of the SI:7 building: the stairs down are under the stairs to the upper floor, behind {npc:1325}. Target him and type /lay (nothing after it) to be examined, then wait. If he does nothing, abandon the quest, take it again and wait until he asks you to lie down."] = "",
+	["{quest:2607} still sits on you. {npc:7207} works in the cellar of the SI:7 building: the stairs down are under the stairs to the upper floor, behind {npc:1325}. Target him and type /lay (nothing after it) to be examined, then wait. If he does nothing, abandon the quest, take it again and wait until he asks you to lie down."] = "你身上仍有{quest:2607}。{npc:7207}在軍情七處大樓的地下室工作：向下的樓梯就在上樓樓梯下方、{npc:1325}身後。選中他並輸入 /lay（後面不要加任何內容）讓他檢查，然後等待。若他沒有反應，放棄任務後重新接受，等他要求你躺下。",
 	["/lay with the Doc targeted"] = "選中醫生後輸入 /lay",
 
 	-- Step 7: The cure's ingredients

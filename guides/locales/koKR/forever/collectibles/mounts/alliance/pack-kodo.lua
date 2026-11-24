@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Azeroth Commerce Authority
 	-- {area:1002} Three Corners · {zone:1433} Redridge Mountains · {zone:1429} Elwynn Forest · {zone:1431} Duskwood · {area:69} Lakeshire · {npc:256736} Huey Sunnydale · {npc:10636} Pack Kodo · {faction:2586} Azeroth Commerce Authority · {item:280179} Shipping Label
-	["The camp is at {area:1002} in western {zone:1433}, where the roads from {zone:1429}, {zone:1431} and {area:69} meet. {npc:256736} sells the {npc:10636} only once you are Exalted with the {faction:2586}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "",
+	["The camp is at {area:1002} in western {zone:1433}, where the roads from {zone:1429}, {zone:1431} and {area:69} meet. {npc:256736} sells the {npc:10636} only once you are Exalted with the {faction:2586}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "야영지는 서부 {zone:1433}의 {area:1002}에 있으며 {zone:1429}, {zone:1431}, {area:69}에서 오는 길이 만납니다. {npc:256736}은(는) {faction:2586}과(와) 확고한 동맹이 되어야 {npc:10636}을(를) 팔며 상인의 호의 6,000이 필요합니다. 상자는 호의만 줍니다(상자당 약 15 반환). 평판은 장인의 서면과 일회성 {item:280179}에서 오니 자원 분파 평판 가이드를 따라가며 호의 6,000을 남겨 두세요.",
 	-- {faction:2586} Azeroth Commerce Authority
 	["{faction:2586} camp"] = "{faction:2586} 주둔지",
 

@@ -11,13 +11,12 @@ return {
 	["Fly to {area:2897}"] = "飛到{area:2897}",
 	-- {area:2897} Zoram'gar Outpost · {area:378} Camp Taurajo
 	["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. If your hearthstone is ready, hearth to {area:378} and fly from there instead."] = "從希瑞斯的營地沿道路向東，到十字路口的雙足飛龍管理員那裡，飛往{area:2897}。如果爐石已冷卻，改用爐石回{area:378}，從那裡飛過去。",
-	["Crossroads flight master"] = "十字路口飛行管理員",
 
 	-- Step 2: Zoram'gar Outpost
 	-- {npc:12736} Je'neu Sancrea · {npc:12757} Karang Amakkar · {npc:12721} Mitsuwa
 	["{npc:12736}, {npc:12757} and {npc:12721} stand in the outpost."] = "{npc:12736}、{npc:12757}和{npc:12721}在哨站裡。",
 	-- {npc:12721} Mitsuwa
-	["{npc:12721}: the troll charms are in Thistlefur Hold, east of the outpost"] = "",
+	["{npc:12721}: the troll charms are in Thistlefur Hold, east of the outpost"] = "{npc:12721}：巨魔符咒在前哨站東邊的薊皮熊怪的巢穴",
 
 	-- Step 3: Je'neu Sancrea
 	-- {area:2797} Blackfathom Deeps · {npc:12736} Je'neu Sancrea
@@ -40,7 +39,7 @@ return {
 	["{quest:6921}: the {item:16762}, from the {object:177964}"] = "{quest:6921}：{item:16762}，來自{object:177964}",
 
 	-- Step 7: Thistlefur Village
-	["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold.\nCareful: A Shaman at 15% health or lower runs off to find help, which can pull extra furbolgs."] = "",
+	["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold.\nCareful: A Shaman at 15% health or lower runs off to find help, which can pull extra furbolgs."] = "佐拉姆加以東，薊皮熊怪遍佈村莊及其據點周圍的山丘。\n注意：薩滿祭司的生命值降到15%或以下時會逃跑求援，可能會引來更多熊怪。",
 
 	-- Step 8: Thistlefur Hold
 	["Thistlefur Hold"] = "薊皮熊怪的巢穴",
@@ -50,9 +49,10 @@ return {
 
 	-- Step 9: Ruul Snowhoof
 	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
+	-- was: ["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "據點內部的隧道沿線有食人妖的箱子。{npc:12818}被囚禁在深處：釋放他並一路保護他離開，之後他會跑回{area:428}的家。\n小心：會觸發兩次固定伏擊，每次由3名薊皮熊怪組成（一名薩滿祭司、一名探路者，以及一名復仇者、巨熊戰士或巢穴守衛）：第一處在洞內返回隧道岔口時，第二處在越過{npc:3987}遊蕩的大門後不遠處。"
 	["{npc:12818} is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "",
 	-- {npc:12818} Ruul Snowhoof
-	["{npc:12818}, below ground"] = "",
+	["{npc:12818}, below ground"] = "{npc:12818}，地下",
 
 	-- Step 10: Zoram'gar Outpost
 	["Back west to Zoram'gar from Thistlefur before heading east for good."] = "最後一次往東出發之前，先從薊皮營地往西回到左拉姆加。",
@@ -102,7 +102,7 @@ return {
 
 	-- Step 24: Splintertree Post
 	-- {npc:12837} Yama Snowhoof
-	["{npc:12837}, inside the inn"] = "",
+	["{npc:12837}, inside the inn"] = "{npc:12837}，在旅店裡",
 	-- {npc:12718} Gurda Ragescar
 	["{npc:12718}: only if you carry the manual pages"] = "{npc:12718}：只有在你帶著手冊書頁時",
 
@@ -303,10 +303,10 @@ return {
 
 	-- Step 69: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
-	["{npc:2986} stands on a mesa top east of the Galak camps. Taking his {quest:1149} puts you on a high cliff far to the west: follow the stone path to the end of the wooden planks and step off there, and you land safely. Jump from anywhere else and you fall to your death."] = "",
+	["{npc:2986} stands on a mesa top east of the Galak camps. Taking his {quest:1149} puts you on a high cliff far to the west: follow the stone path to the end of the wooden planks and step off there, and you land safely. Jump from anywhere else and you fall to your death."] = "{npc:2986}站在加拉克營地東邊的高原頂上。接他的{quest:1149}會把你送到西邊遠處的高崖上：沿石徑走到木板盡頭，從那裡跳下，就能安全落地。從別處跳會摔死。",
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}, below ground"] = "{npc:2986}，地下",
-	["the end of the planks"] = "",
+	["the end of the planks"] = "木板盡頭",
 	-- {npc:2986} Dorn Plainstalker · {npc:4490} Grenka Bloodscreech
 	["{npc:2986}: {npc:4490}, in the harpy den west of the post"] = "{npc:2986}：{npc:4490}，在崗哨西邊的鷹身人巢穴",
 	-- {quest:1150} Test of Endurance · {npc:4490} Grenka Bloodscreech
@@ -393,7 +393,7 @@ return {
 	-- {area:487} Roguefeather Den · {npc:4877} Jandia · {npc:4490} Grenka Bloodscreech · {npc:2986} Dorn Plainstalker · {quest:1150} Test of Endurance
 	["South of Darkcloud Pinnacle the Screeching harpies hold {area:487}; {npc:4877}'s stolen supplies lie on the ground around it.\nCareful: the harpies (28-29) stand in packs and the Windcallers cast from range: pull at the edge. {npc:4490} (31) waits deeper in the den: leave her for {npc:2986}'s {quest:1150} at about 30, in the next guide."] = "",
 	-- {quest:98069} Stolen Freewind Supplies
-	["{quest:98069}, on the ground around the den"] = "",
+	["{quest:98069}, on the ground around the den"] = "{quest:98069}，在巢穴周圍的地面上",
 
 	-- Step 88: Freewind Post
 	-- {area:484} Freewind Post
@@ -425,6 +425,7 @@ return {
 	-- ["Back east past {area:2237} to {area:484}."] = "向東經過{area:2237}回到{area:484}。",
 	-- ["Back to Zoram'gar from the ruins before heading east for good."] = "在永久往東之前，先從廢墟回到左拉姆加。",
 	-- ["Climb the path to the top of {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "沿著小路爬到{area:2097}頂端。{npc:10646}被囚禁在{npc:10896}（29級）旁邊：先清掉守衛和{npc:10896}，再救出她，並在下山途中保護她；路上會有恐怖圖騰伏擊者來攻擊你。",
+	-- ["Crossroads flight master"] = "十字路口飛行管理員",
 	-- ["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. Keep your hearthstone: {area:431}'s bind later in this guide saves more."] = "從希瑞斯的營地沿道路向東，到十字路口的雙足飛龍管理員那裡，飛往{area:2897}。先留著爐石：本指南稍後在{area:431}綁定更省時間。",
 	-- ["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold."] = "在左拉姆加東邊，薊皮熊怪佔據村莊和他們巢穴周圍的山丘。",
 	-- ["Fly from {area:392} to {area:2897} on the {zone:1440} coast."] = "從{area:392}飛往{zone:1440}海岸的{area:2897}。",
@@ -437,6 +438,7 @@ return {
 	-- ["His crate is for Stranglethorn, later on the route"] = "他的箱子要送到荊棘谷，在路線稍後",
 	-- ["If you skipped {quest:5151} and are still short of 29.49, kill harpies here first: {area:487} is your next stop anyway. The Screeching Harpies (28-29) at its edge are at your level; the Roguefeathers and Windcallers (29-30) inside hit harder. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon instead."] = "如果跳過了{quest:5151}，而且還沒到29.49級，先在這裡擊殺鷹身人：反正下一站就是{area:487}。外圍的尖嘯的鷹身人（28-29級）與你等級相當；裡面的尖嘯的遊蕩者和尖嘯的喚風者（29-30級）打得更痛。超過這個進度，本步驟會自動跳過。或者，組隊去打{area:2797}地城。",
 	-- ["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}."] = "巢穴裡的隧道沿途散落著食人妖的箱子。{npc:12818}被關在深處：救出他並一路保護他出去，之後他會跑回{area:428}。",
+	-- ["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "據點內部的隧道沿線有食人妖的箱子。{npc:12818}被囚禁在深處：釋放他並一路保護他離開，之後他會跑回{area:428}的家。\n小心：會觸發兩次固定伏擊，每次由3名薊皮熊怪組成（一名薩滿祭司、一名探路者，以及一名復仇者、巨熊戰士或巢穴守衛）：第一處在洞內返回隧道岔口時，第二處在越過{npc:3987}遊蕩的大門後不遠處。",
 	-- ["Keep {npc:4877}'s two harpy quests and {npc:2986}'s {quest:1150}: {area:487} comes with the next Freewind visit, at about 30, with the {area:2240}'s quests."] = "保留{npc:4877}的兩個鷹身人任務和{npc:2986}的{quest:1150}：{area:487}留到下次來亂風崗時再做，約30級，連同{area:2240}的任務一起。",
 	-- ["Level 29"] = "29級",
 	-- ["Naga brazier"] = "納迦火盆",

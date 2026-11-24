@@ -83,33 +83,67 @@ ${script}
 emit({ p = p:GetScale(), o = o:GetScale(), pk = Polestar.Get("ui.pickerScale"), mk = Polestar.Get("ui.menuScale") })`,
 }).emitted[0];
 
-test('at menu scale 1 the settings window is 0.8 and the guides window 1.0', () => {
+test('at menu scale 1 the settings window is 0.92 and the guides window 1.0', () => {
 	const a = scales('');
-	assert.equal(a.o, 0.8);
+	assert.equal(a.o, 0.92);
 	assert.equal(a.p, 1);
 });
 
 test('each scale setting rescales only its own window, live', () => {
 	const a = scales('Polestar.Set("ui.menuScale", 1.2)');
-	assert.ok(Math.abs(a.o - 0.96) < 1e-9, JSON.stringify(a));
+	assert.ok(Math.abs(a.o - 1.2 * 0.92) < 1e-9, JSON.stringify(a));
 	assert.equal(a.p, 1);
 	const b = scales('Polestar.Set("ui.pickerScale", 0.75)');
 	assert.equal(b.p, 0.75);
-	assert.equal(b.o, 0.8);
+	assert.equal(b.o, 0.92);
 	const c = scales('Polestar.Set("ui.menuScale", 9)');
-	assert.ok(Math.abs(c.o - 1.4 * 0.8) < 1e-9, JSON.stringify(c));
+	assert.ok(Math.abs(c.o - 1.4 * 0.92) < 1e-9, JSON.stringify(c));
 });
 
-test('a saved menu scale is copied to the guides scale once; the settings scale stays as saved', () => {
-	const a = scales('', 'PolestarDB = { schema = 1, settings = { ui = { menuScale = 0.75 } } }');
-	assert.equal(a.pk, 0.75);
-	assert.equal(a.mk, 0.75);
-	assert.equal(a.p, 0.75);
-	assert.ok(Math.abs(a.o - 0.6) < 1e-9, JSON.stringify(a));
+test('a saved menu scale is copied to the guides scale once, as it was saved', () => {
+	const a = scales('', 'PolestarDB = { schema = 1, settings = { ui = { menuScale = 0.9 } } }');
+	assert.equal(a.pk, 0.9);
+	assert.equal(a.p, 0.9);
 	const b = scales('', 'PolestarDB = { schema = 1, settings = { ui = { menuScale = 1 } } }');
 	assert.equal(b.p, 1);
 	const c = scales('', 'PolestarDB = { schema = 1, settings = { ui = { menuScale = 0.75, pickerScale = 1.1 } } }');
 	assert.equal(c.pk, 1.1);
+});
+
+// #3789: 100 % drew the settings window too small. It draws at 0.92 x the
+// setting now (0.8 x 1.15): the default window is what 115 % showed, and a
+// saved scale is divided by 1.15 once (to the nearest 1 %, within 70-140 %),
+// so the window keeps the size its player chose. The guides window keeps its own.
+test('the settings window\'s 100 % is the old 115 %; a saved settings scale moves once and keeps its size', () => {
+	const size = (saved) => runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar'],
+		login: true,
+		saved: saved ? { Polestar: saved } : undefined,
+		script: `
+Polestar.UI.ShowOptions()
+local o = PolestarOptions
+emit({ h = o:GetHeight() * o:GetScale(), o = o:GetScale(), mk = Polestar.Get("ui.menuScale"), stored = PolestarDB.settings.ui and PolestarDB.settings.ui.menuScale,
+	pk = Polestar.Get("ui.pickerScale"), ran = PolestarDB.migrations.menuScale092 })`,
+	}).emitted[0];
+	const fresh = size();
+	assert.equal(fresh.o, 0.92);
+	assert.ok(Math.abs(fresh.h - 946 * 0.8 * 1.15) < 1e-6, `the default window at 1080p is 1.15 times the old 757 pixels: ${JSON.stringify(fresh)}`);
+	const was115 = size('PolestarDB = { schema = 1, settings = { ui = { menuScale = 1.15 } } }');
+	assert.equal(was115.mk, 1, '115 % reads 100 %');
+	assert.equal(was115.stored, undefined, 'the default, nothing stored');
+	assert.ok(Math.abs(was115.o - 1.15 * 0.8) < 1e-9, JSON.stringify(was115));
+	assert.equal(was115.pk, 1.15, 'the guides window keeps the number it had');
+	assert.equal(was115.ran, true);
+	const was100 = size('PolestarDB = { schema = 1, settings = { ui = { menuScale = 1 } } }');
+	assert.equal(was100.mk, 0.87);
+	const low = size('PolestarDB = { schema = 1, settings = { ui = { menuScale = 0.75 } } }');
+	assert.equal(low.mk, 0.7, 'within the slider: 65 % is 70 %');
+	const once = size('PolestarDB = { schema = 1, migrations = { menuScale092 = true }, settings = { ui = { menuScale = 1.15 } } }');
+	assert.equal(once.mk, 1.15, 'once: a scale saved after the move stays as it is');
+	const picker = size('PolestarDB = { schema = 1, settings = { ui = { menuScale = 1.2, pickerScale = 1.3 } } }');
+	assert.equal(picker.pk, 1.3, 'the guides scale untouched');
+	assert.equal(picker.mk, 1.04);
 });
 
 // The settings window's default is 16:9 (1680 x 946 on a 1080p screen), its

@@ -54,7 +54,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		W.ShowMenu(self, items, self.psMenuAt or { point = "TOPLEFT", relPoint = "BOTTOMLEFT", x = 0, y = -2 })
 	end
 
-	-- A tab's clicks and tooltip, for every tab style's buttons (Polestar_TabStyles/TabStyles.lua):
+	-- A tab's clicks and tooltip, for every tab style's buttons (UI/TabStyles/TabStyles.lua):
 	-- the button carries psIndex, psActive, psTitle, psMeta and psExperimental.
 	local function tabClick(self, button)
 		local E = Engine()
@@ -190,7 +190,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 
 	-- The underline style's strip (guideWindow.tabStyle "underline"); the
-	-- other styles draw in Polestar_TabStyles (GF.RenderTabStyle).
+	-- other styles draw in UI/TabStyles (GF.RenderTabStyle).
 	function GF.RenderTabs()
 		if not F then return end
 		local tabs, active = tabsOf(Engine())

@@ -11,8 +11,6 @@ return {
 	["Fly to the {area:1497}"] = "飛往{area:1497}",
 	-- {area:1497} Undercity · {area:340} Kargath · {object:3202} Grom'gol
 	["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}."] = "你的40級訓練在{area:1497}：從{area:340}飛過去，學習技能，然後從城外的飛艇塔搭飛艇前往{object:3202}。",
-	-- {area:340} Kargath
-	["{area:340} flight master"] = "{area:340}飛行管理員",
 
 	-- Step 2: Genavie Callow
 	-- {npc:4486} Genavie Callow · {zone:1417} Arathi Highlands
@@ -40,6 +38,8 @@ return {
 	-- Step 6: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "飛往{object:3202}",
+	-- {area:340} Kargath
+	["{area:340} flight master"] = "{area:340}飛行管理員",
 
 	-- Step 7: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
@@ -128,17 +128,17 @@ return {
 
 	-- Step 22: Shadowmaw Panthers
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["Shadowmaw Panthers"] = "",
+	["Shadowmaw Panthers"] = "深喉獵豹",
 	-- {quest:192} Panther Mastery
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
-	["{quest:192} is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone."] = "",
+	["{quest:192} is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone."] = "{quest:192}仍未完成：深喉獵豹（37-38級）在礦井北邊的叢林中潛行，朝向莫什奧格山丘。它們會潛行，所以只有靠近才會現身：一次只拉一隻，別去惹老年深喉獵豹（42-43級）。",
 
 	-- Step 24: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["Lashtail Raptors"] = "鞭尾迅猛龍",
 	-- {quest:195} Raptor Mastery · {object:3202} Grom'gol
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "",
+	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "{quest:195}仍未完成：鞭尾迅猛龍（35-36級）在{object:3202}和奈辛瓦裏營地之間的叢林中狩獵，順路向北。",
 
 	-- Step 25: Foreman Cozzle's house
 	-- {npc:4723} Foreman Cozzle
@@ -203,7 +203,7 @@ return {
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}: {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel (wolves 20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "騎術需要40級，花費100金；學會後會得到一隻坐騎，荊棘谷之後的{zone:2548}沒有坐騎要走很久。從{object:3202}的塔搭飛艇前往{zone:1454}：{npc:4752}在{object:172958}的{npc:3362}狼舍旁教獸人騎術（狼每隻20金）。然後搭飛艇回{object:3202}。金錢不夠？跳過這個步驟：{zone:1444}指南約45級時會再經過{zone:1454}。",
 	-- {npc:4752} Kildar
-	["{npc:4752}, riding trainer"] = "",
+	["{npc:4752}, riding trainer"] = "騎術訓練師{npc:4752}",
 
 	-- Step 40: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:367} Sen'jin Village · {npc:7953} Xar'Ti · {zone:1444} Feralas
@@ -215,7 +215,7 @@ return {
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:222} Bloodhoof Village · {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}, fly to {zone:1456} and ride down to {area:222}: {npc:3690} teaches Tauren there, with {npc:3685}'s kodos (20 gold each). Then fly back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1456} again at about 45."] = "騎術需要40級，花費100金；學會後會得到一隻坐騎，荊棘谷之後的{zone:2548}沒有坐騎要走很久。從{object:3202}的塔搭飛艇前往{zone:1454}，飛到{zone:1456}再騎下去到{area:222}：{npc:3690}在那裡教牛頭人騎術，旁邊有{npc:3685}的科多獸（每隻20金）。然後飛回{zone:1454}搭往{object:3202}的飛艇。金錢不夠？跳過這個步驟：{zone:1444}指南約45級時會再經過{zone:1456}。",
 	-- {npc:3690} Kar Stormsinger
-	["{npc:3690}, riding trainer"] = "",
+	["{npc:3690}, riding trainer"] = "騎術訓練師{npc:3690}",
 
 	-- Step 42: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {zone:1444} Feralas
@@ -294,7 +294,7 @@ return {
 	-- {object:3202} Grom'gol
 	["Fly back to {object:3202}: Zul'Mamwe's Skullsplitters are just east of it."] = "飛回{object:3202}：祖瑪維的劈顱巨魔就在它東邊。",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "{area:35}飛行管理員",
 
 	-- Step 52: Zul'Mamwe
 	["Zul'Mamwe"] = "祖瑪維廢墟",

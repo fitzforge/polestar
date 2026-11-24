@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (traditional) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1425} The Hinterlands · {area:75} Stonard · {zone:1419} Blasted Lands
+	["{zone:1425} first, then {area:75} and the {zone:1419}."] = "先去{zone:1425}，再去{area:75}和{zone:1419}。",
+
 	-- Step 1: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "飛往{area:272}",
-	-- {area:1446} Thorium Point
-	["{area:1446} flight master"] = "{area:1446}飛行管理員",
 
 	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
@@ -118,7 +120,7 @@ return {
 	-- Step 25: Level 49.02
 	["Level 49.02"] = "49.02級",
 	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor
-	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan."] = "",
+	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan."] = "如果跳過了{quest:7816}或{area:354}的組隊任務，就在這裡刷到49.02級，以跟上路線進度。",
 	-- {npc:2505} Saltwater Snapjaw
 	["grind on {npc:2505}"] = "刷{npc:2505}",
 
@@ -208,6 +210,7 @@ return {
 	-- ["Vulture hills"] = "禿鷲丘陵",
 	-- ["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples."] = "小島西邊，邪枝割顱者佔據{area:1884}和{area:1917}的神廟。斯拉提的工具在其中一座神廟。",
 	-- ["grind on {npc:5982} at the northern hills, {zone:1419}"] = "在{zone:1419}北部丘陵刷{npc:5982}",
+	-- ["{area:1446} flight master"] = "{area:1446}飛行管理員",
 	-- ["{npc:6741}: for {zone:1456}, around level 50"] = "{npc:6741}：給{zone:1456}，約50級",
 	-- ["{npc:7825}, the {object:36126}"] = "{npc:7825}，{object:36126}",
 }

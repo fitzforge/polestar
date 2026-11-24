@@ -46,27 +46,27 @@ return {
 
 	-- Step 10: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {area:146} Stonewrought Dam · {item:7810} Vial of Purest Water · {item:6637} Water Sapta · {item:7811} Remaining Drops of Purest Water · {zone:1436} Westfall
-	["Back to {npc:258043} by {area:146} with the {item:7810}. He hands you the {item:6637} and the {item:7811}: keep both for {zone:1436}."] = "",
+	["Back to {npc:258043} by {area:146} with the {item:7810}. He hands you the {item:6637} and the {item:7811}: keep both for {zone:1436}."] = "{item:7810}을(를) 들고 {area:146} 옆 {npc:258043}에게 돌아가세요. 그가 {item:6637}과(와) {item:7811}을(를) 줍니다. {zone:1436}을(를) 위해 둘 다 보관하세요.",
 	-- {npc:258043} Norric Lochthane · {item:6637} Water Sapta
 	["{npc:258043}: your {item:6637}"] = "{npc:258043}: {item:6637}",
 
 	-- Step 11: Lost the Water Sapta?
 	-- {quest:94616} Water Sapta
-	["Lost the {quest:94616}?"] = "",
+	["Lost the {quest:94616}?"] = "{quest:94616}을(를) 잃었나요?",
 	-- {quest:94616} Water Sapta · {npc:258043} Norric Lochthane · {zone:1436} Westfall
-	["Only if the {quest:94616} is gone from your bags: {npc:258043} gives you another before you leave for {zone:1436}."] = "",
+	["Only if the {quest:94616} is gone from your bags: {npc:258043} gives you another before you leave for {zone:1436}."] = "{quest:94616}이(가) 가방에서 사라졌을 때만: {zone:1436}으로 떠나기 전 {npc:258043}이(가) 다시 줍니다.",
 	-- {npc:258043} Norric Lochthane · {quest:94616} Water Sapta
-	["{npc:258043}: a new {quest:94616}"] = "",
+	["{npc:258043}: a new {quest:94616}"] = "{npc:258043}: 새 {quest:94616}",
 
 	-- Step 12: Stendel's Pond
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {area:919} Stendel's Pond · {object:619896} Forgotten Shrine · {item:6637} Water Sapta · {npc:5894} Corrupt Minor Manifestation of Water · {spell:8056} Frost Shock · {spell:122} Frost Nova · {item:7811} Remaining Drops of Purest Water · {npc:258043} Norric Lochthane · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water
-	["Fly to {area:108} and head south to {area:20}: {area:919} and the {object:619896} lie just north of it. Drink the {item:6637} by the shrine to see the {npc:5894} (level 22, {spell:8056} and {spell:122}; one spawn, back three minutes after a kill), defeat it for its bracers (always dropped), then place them and the {item:7811} on the {object:619896} (this, not {npc:258043}, ends the quest). Click the shrine again: the {npc:5895} rises beside it; speak to it before you walk off (if it is gone, abandon and take the quest again at the shrine). It gives you the {item:7813}."] = "",
+	["Fly to {area:108} and head south to {area:20}: {area:919} and the {object:619896} lie just north of it. Drink the {item:6637} by the shrine to see the {npc:5894} (level 22, {spell:8056} and {spell:122}; one spawn, back three minutes after a kill), defeat it for its bracers (always dropped), then place them and the {item:7811} on the {object:619896} (this, not {npc:258043}, ends the quest). Click the shrine again: the {npc:5895} rises beside it; speak to it before you walk off (if it is gone, abandon and take the quest again at the shrine). It gives you the {item:7813}."] = "{area:108}로 날아가 남쪽 {area:20}으로 가세요. {area:919}과(와) {object:619896}은 바로 그 북쪽에 있습니다. 성소 곁에서 {item:6637}을(를) 마시면 {npc:5894}(22레벨, {spell:8056}, {spell:122})이(가) 나타납니다. 한 번만 나오며 처치하면 3분 후 다시 나옵니다. 팔찌는 반드시 떨어지니 처치한 뒤 팔찌와 {item:7811}을(를) {object:619896}에 놓으세요. 퀘스트를 끝내는 것은 {npc:258043}이(가) 아니라 이것입니다. 성소를 다시 클릭하면 {npc:5895}이(가) 옆에서 올라옵니다. 걸어가기 전에 대화하세요(사라졌으면 포기하고 성소에서 퀘스트를 다시 받으세요). 그가 {item:7813}을(를) 줍니다.",
 	-- {npc:5895} Minor Manifestation of Water
 	["{npc:5895}, beside the shrine"] = "{npc:5895}, 제단 옆",
 
 	-- Step 13: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {item:7813} Shard of Water · {item:5177} Water Totem
-	["Back to {npc:258043} with the {item:7813}. Keep the {item:5177} in your bags for good: every water totem needs it."] = "",
+	["Back to {npc:258043} with the {item:7813}. Keep the {item:5177} in your bags for good: every water totem needs it."] = "{item:7813}을(를) 들고 {npc:258043}에게 돌아가세요. {item:5177}은(는) 가방에 계속 두세요. 모든 물 토템에 필요합니다.",
 	-- {npc:258043} Norric Lochthane · {spell:5394} Healing Stream Totem · {item:5177} Water Totem
 	["{npc:258043}: {spell:5394} and your {item:5177}"] = "{npc:258043}: {spell:5394}과(와) {item:5177}",
 

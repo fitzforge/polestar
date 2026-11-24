@@ -505,8 +505,11 @@ fn hubs_layer(args: &[String]) -> Result<(), Fail> {
 		let text = std::fs::read_to_string(&f).map_err(|e| format!("{}: {e}", f.display()))?;
 		text.lines().filter(|l| !l.is_empty()).map(|l| serde_json::from_str(l).map_err(|e| format!("{}: {e}", f.display()))).collect()
 	};
-	let flags = forge_nav::hubs::forever_flags(&read("npcs.json")?, &read("quests.json")?);
-	let forever = forge_nav::hubs::add_forever(&mut templates, &mut spawns, &jsonl("npc.jsonl")?, &jsonl("spawn.jsonl")?, &flags);
+	let npcs = read("npcs.json")?;
+	let flags = forge_nav::hubs::forever_flags(&npcs, &read("quests.json")?);
+	// #3830: most of Forever's new zones' NPCs have no faction template; their side is the codex's friendliness.
+	let sides = forge_nav::hubs::forever_sides(&npcs);
+	let forever = forge_nav::hubs::add_forever(&mut templates, &mut spawns, &jsonl("npc.jsonl")?, &jsonl("spawn.jsonl")?, &flags, &sides);
 	println!("hubs: {forever} Forever NPCs classic-db lacks (forever-db)");
 	let frames = forge_nav::pack::layers::Frames::new(&read("map-frames.json")?, read("zones.json")?);
 	let area_at = |c: u32, x: f64, y: f64| -> u32 {

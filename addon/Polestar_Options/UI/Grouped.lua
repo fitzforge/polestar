@@ -76,7 +76,7 @@ G.TREE = {
 	{ key = "look", label = L["Look"], iconPage = "theme",
 		pages = { "guidewindow", "theme", "arrow", "mappins", "routelines", "buttons", "alerts", "trackers" } },
 	{ key = "setup", label = L["Setup"], iconPage = "profiles",
-		pages = { "profiles", "integrations", "guidepacks", "gamepad", "recorder" } },
+		pages = { "language", "profiles", "integrations", "guidepacks", "gamepad", "recorder" } },
 	-- foot: the group's pages stand at the sidebar's foot, over the profile
 	-- card, as rows of their own (folded to the rail, a group like the rest).
 	{ key = "about", label = L["About"], iconPage = "about", foot = true,
@@ -486,6 +486,18 @@ local function pinDisabled(c)
 	return function() return rowOff() or moduleOff(c) end
 end
 
+-- What a row's marks mean, as its tooltip (W.ShellNav's markTip): the count
+-- is the settings changed from their default there, the ring new settings
+-- (#2541: a number on the sidebar read as a notification).
+local function marksTip(changed, new)
+	if changed and changed > 0 and new then
+		return L["Settings on this page changed from their default"] .. "\n" .. L["New settings on this page"]
+	end
+	if changed and changed > 0 then return L["Settings on this page changed from their default"] end
+	if new then return L["New settings on this page"] end
+	return nil
+end
+
 -- The sidebar: the groups of the tree, the one shown open on its pages (all
 -- of them while Expand all is on), each group and page with a ring while it
 -- holds settings new to the player; then the settings pinned there, each a
@@ -511,6 +523,7 @@ function G.NavItems()
 			else
 				local _, fresh = groupCounts(g)
 				it.new = fresh > 0 or nil
+				it.markTip = it.new and L["New settings in this group"] or nil
 			end
 			if rail then
 				it.open = (not hits and shown and g.key == st.group) or nil
@@ -531,15 +544,17 @@ function G.NavItems()
 			if fp then
 				for _, t in ipairs(pageTabs(fp)) do
 					local n, fresh = tabCounts(fp, t)
+					local new = (not hits and fresh > 0) or nil
 					items[#items + 1] = { key = tabKey(fp, t), label = t.name, indent = true,
-						count = n > 0 and n or nil, dot = n == 0 and G.TabDot(t) or nil, new = (not hits and fresh > 0) or nil }
+						count = n > 0 and n or nil, dot = n == 0 and G.TabDot(t) or nil, new = new, markTip = marksTip(n, new) }
 				end
 			elseif open then
 				for _, p in ipairs(g.pages) do
 					if pageShown(p) or p == B.page then
 						local n, fresh = pageCounts(p)
+						local new = (not hits and fresh > 0) or nil
 						items[#items + 1] = { key = p.key, label = p.name, indent = true,
-							count = n > 0 and n or nil, dot = p.dot and p.dot() or nil, new = (not hits and fresh > 0) or nil }
+							count = n > 0 and n or nil, dot = p.dot and p.dot() or nil, new = new, markTip = marksTip(n, new) }
 					end
 				end
 			end
@@ -577,8 +592,9 @@ function G.NavItems()
 		items[#items + 1] = { separator = true }
 		for _, p in ipairs(foot) do
 			local n, fresh = pageCounts(p)
+			local new = (not hits and fresh > 0) or nil
 			items[#items + 1] = { key = p.key, label = p.name, icon = p.icon,
-				count = n > 0 and n or nil, new = (not hits and fresh > 0) or nil }
+				count = n > 0 and n or nil, new = new, markTip = marksTip(n, new) }
 		end
 	end
 	if names then

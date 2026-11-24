@@ -29,8 +29,6 @@ con A long trip out to Kalimdor
 # ---------------------------------------------------------------- To Theramore
 
 step Fly to Menethil Harbor
-  zone Loch Modan
-  goto 33.9,50.8 "Thelsamar flight master"
   fly "Menethil Harbor"
   zone Wetlands
 

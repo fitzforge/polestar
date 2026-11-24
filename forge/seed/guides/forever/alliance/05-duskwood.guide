@@ -104,9 +104,7 @@ next forever/alliance/06-wetlands
 # Theramore: after 1243 it is off this route, and the Stormwind part alone is a detour through the Keep for 230 XP a part.
 
 step Fly to Darkshire
-  zone Redridge Mountains
-  tip Back to the Lakeshire gryphon master: fly to Darkshire for Duskwood's second loop.
-  goto 25.5,59.4 "Lakeshire flight master" live
+  tip Fly to Darkshire for Duskwood's second loop: from Lakeshire's gryphon master if you come from the Redridge guide.
   fly "Darkshire"
 
 step Blind Mary

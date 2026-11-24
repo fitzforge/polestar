@@ -56,7 +56,9 @@ const AUDIT_LUA = path.join(__dirname, 'audit.lua');
 const MEDIA = path.join(ROOT, 'addon', 'Polestar', 'Media');
 
 // The bundled looks: Polestar's own and its built-in ones, the game's looks
-// (Polestar_Looks), and the skins in the download (addon/Polestar_Skin_*).
+// (Polestar/Theme/Looks), and our skins (addon/Polestar_Skins/Skins/<skin>):
+// one folder, loaded whole as the client loads it.
+const OWN_SKINS = 'Polestar_Skins';
 const LOOKS = [
 	{ id: 'polestar', name: 'Polestar' },
 	{ id: 'halo', name: 'Halo' },
@@ -64,15 +66,15 @@ const LOOKS = [
 	{ id: 'forever', name: 'WoW Forever' },
 	{ id: 'blizzard', name: 'Blizzard' },
 	{ id: 'classic', name: 'Classic' },
-	{ id: 'vellum', name: 'Vellum', addon: 'Polestar_Skin_Vellum' },
-	{ id: 'lumen', name: 'Lumen', addon: 'Polestar_Skin_Lumen' },
-	{ id: 'beacon', name: 'Beacon', addon: 'Polestar_Skin_Beacon' },
-	{ id: 'aurora', name: 'Aurora', addon: 'Polestar_Skin_Aurora' },
-	{ id: 'hairline', name: 'Hairline', addon: 'Polestar_Skin_Hairline' },
-	{ id: 'umbra', name: 'Umbra', addon: 'Polestar_Skin_Umbra' },
-	{ id: 'waymark', name: 'Waymark', addon: 'Polestar_Skin_Waymark' },
-	{ id: 'lanterns', name: 'Lanterns', addon: 'Polestar_Skin_Lanterns' },
-	{ id: 'sheen', name: 'Sheen', addon: 'Polestar_Skin_Sheen' },
+	{ id: 'vellum', name: 'Vellum', addon: OWN_SKINS },
+	{ id: 'lumen', name: 'Lumen', addon: OWN_SKINS },
+	{ id: 'beacon', name: 'Beacon', addon: OWN_SKINS },
+	{ id: 'aurora', name: 'Aurora', addon: OWN_SKINS },
+	{ id: 'hairline', name: 'Hairline', addon: OWN_SKINS },
+	{ id: 'umbra', name: 'Umbra', addon: OWN_SKINS },
+	{ id: 'waymark', name: 'Waymark', addon: OWN_SKINS },
+	{ id: 'lanterns', name: 'Lanterns', addon: OWN_SKINS },
+	{ id: 'sheen', name: 'Sheen', addon: OWN_SKINS },
 ];
 
 // The game's UI scale (UIParent's): the rule's three.
@@ -171,6 +173,12 @@ T.Show({ t = "kill", here = "goal", verb = "Kill", subject = "Kobold Vermin", ya
 assert(Polestar.Arcade.Open(), "the game did not open")`,
 	},
 	{
+		key: 'sky-jewels-window', title: "Sky Jewels' window from Polestar_Arcade (0.4.3)", roots: ['PolestarSkyJewels'], files: P.MODULE_FILES, needs: 'Polestar.Arcade',
+		script: `math.randomseed(1)
+stub.addons[#stub.addons + 1] = { name = "Polestar_Arcade", reason = "DEMAND_LOADED" }
+assert(Polestar.Arcade.Open("skyjewels"), "the game did not open")`,
+	},
+	{
 		key: 'dialog-confirm', title: 'the confirm dialog', roots: ['PolestarModal'],
 		script: `${TABS}
 Polestar.Widgets.Modal({ title = "Reset this guide?", text = "Your check-offs in this guide are cleared.", action = "Reset", danger = true, onAccept = function() end })`,
@@ -204,11 +212,12 @@ ${SHARE.STATES[state]}`,
 const q = (s) => JSON.stringify(String(s));
 
 // The layouts an audit pass may pick (Theme.RegisterLayout): the id saved as
-// ui.layout and the addon that registers it, loaded after Polestar and the look.
-const LAYOUTS = { atlas: { id: 'atlas', addon: 'Polestar_Layout_Atlas' } };
+// ui.layout and the folder that registers it (our skins' folder), loaded
+// after Polestar and the look.
+const LAYOUTS = { atlas: { id: 'atlas', addon: OWN_SKINS } };
 
 // The guide window's tab styles an audit pass may pick (guideWindow.tabStyle;
-// all but underline are Polestar_TabStyles', loaded on demand when drawn).
+// all but underline are drawn by Polestar/UI/TabStyles).
 const TAB_STYLES = ['underline', 'switcher', 'edge', 'strip'];
 
 // PolestarDB as a player who picked `look` (and `layout`, a LAYOUTS entry, and
@@ -247,7 +256,7 @@ function program(look, surface, prelude, scale, layout, tabStyle) {
 	return buildProgram({
 		stubs: surface.stubs || ['stub_ui.lua'],
 		before: [P.panelBefore(surface, prelude), `dofile(${q(DRIVER)})`, `dofile(${q(AUDIT_LUA)})`].join('\n'),
-		addons: [{ name: 'Polestar', files: filesFor(look, surface) }, ...(surface.addons || []), ...(look.addon ? [look.addon] : []), ...(layout ? [layout.addon] : [])],
+		addons: [...new Set([{ name: 'Polestar', files: filesFor(look, surface) }, ...(surface.addons || []), ...(look.addon ? [look.addon] : []), ...(layout ? [layout.addon] : [])])],
 		saved: { Polestar: savedFor(look, layout, tabStyle) },
 		script: `UIParent:SetScale(${scale})\n${surface.stubs ? '' : 'uistub.install()\n'}stub.login()\nstub.advance(1)\n${missing}${surface.script}\nstub.advance(1)\naudit.dump(${q(surface.key)}, ${scale})`,
 	});

@@ -378,9 +378,13 @@ local BUILTIN = {
 		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."], search = "auto guide, choose guide, suggested guide" },
 		{ kind = "dropdown", key = "behavior.guideEnd", label = L["When a leveling guide ends"], help = L["Ask me: a window says the guide is done and offers the next one. Continue automatically: the next guide loads in the same tab."],
 			choices = { { value = "ask", label = L["Ask me"] }, { value = "continue", label = L["Continue automatically"] } } },
+		-- The guide window's "You have outlevelled this guide" notice (UI/GuideFrameBanner.lua, #3585).
+		{ kind = "toggle", key = "ui.outlevelNotice", label = L["Say when I've outlevelled a guide"], new = "0.4.3",
+			help = L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."],
+			search = "outlevelled, outleveled, too high, level, notice, banner, jump to" },
 		{ kind = "dropdown", key = "behavior.routeChoice", label = L["Where to level next"], help = L["Where a guide offers more than one zone to continue in (/polestar path)."],
 			choices = { { value = "ask", label = L["Let me choose"] }, { value = "recommended", label = L["Take the recommended zone"] } } },
-		-- Polestar's experimental guides (Polestar_Experimental; Core/Guides.lua, Guides.OWN_EXTRA): on until switched off.
+		-- Polestar's experimental guides (Polestar/Experimental/; Core/Guides.lua, Guides.OWN_EXTRA): on until switched off.
 		-- Mount Hyjal is the one left there: the Riverglades and Shen'dralas are in the leveling route since 0.4.0.
 		{ kind = "toggle", key = "behavior.experimentalGuides", label = L["Show experimental guides"], new = "0.4.0",
 			help = L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."],
@@ -451,7 +455,7 @@ local BUILTIN = {
 			needs = function() return ns.UI and ns.UI.Materials end },
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Arrow"], controls = {
-		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], move = "arrow", help = L["Points to the current goal. Its look and colours are on the Arrow page."],
+		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], move = "arrow", help = L["Points to the current goal. Off hides only the arrow: the route lines have their own switch, under Routes. Its look and colours are on the Arrow page."],
 			search = "arrow, waypoint, pointer, direction, compass, navigation, hud, show arrow, hide arrow",
 			children = {
 				H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide the arrow with the guide"], help = L["When the guide window is hidden, hide the arrow too."],
@@ -471,13 +475,13 @@ local BUILTIN = {
 		H({ kind = "toggle", key = "nav.travel", label = L["Plan travel routes"], help = L["Flights, boats and your hearthstone when they are faster. Off: the arrow points straight at the goal."],
 			search = "flight, taxi, flight path, boat, zeppelin, hearth, hearthstone, route planning, fastest way, fps, frame rate, performance, lag, stutter, cpu, slow",
 			children = {
-				H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."],
+				H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."],
 					search = "teleport, portal, mage, druid, moonglade, shaman, astral recall" }),
 				-- 0.3.7's detour captions in the journey (Nav/Journey.lua).
 				H({ kind = "toggle", key = "nav.detourCaption", label = L["Detour captions"], help = L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."],
 					search = "detour, enemy town, hostile town, avoid, go round, journey" }),
 			} }),
-		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
+		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap, with the arrow on or off: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
 			search = "path line, route on map, show route, hide route, sparkles, dots, trail",
 			gear = { tip = L["Line style"], onClick = function() UI.ShowOptions("routelines") end },
 			children = {
@@ -734,6 +738,33 @@ local UPDATE = { kind = "toggle", key = "update.card", label = L["Tell me when a
 	help = L["At login, a card on the guide window says a newer Polestar is out and how to update; Got it keeps it away for a day. A line in the guide window stays until you update. Two or more updates behind, both show even with this off (the card at most once a day)."],
 	search = "update, new version, outdated, old version, release, curseforge, polestar client, upgrade" }
 
+-- The Language setting (#3643; Core/Locale.lua keeps it, account-wide, in
+-- PolestarLanguage): Follow the game, English, or a language Polestar ships,
+-- each named in the language shown now. The strings are read as the files
+-- load, so a change asks for a /reload (Later keeps the choice for the next one).
+local LANGUAGE = { kind = "dropdown", label = L["Language"], new = "0.4.3",
+	help = L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."],
+	search = "language, languages, english, german, deutsch, french, spanish, russian, korean, chinese, portuguese, translation, translated, locale",
+	get = function() return ns.Language and ns.Language.Get() or "game" end,
+	set = function(v)
+		local Lang = ns.Language
+		if not Lang then return end
+		v = v or "game"
+		if v == Lang.Get() or not Lang.Set(v) then return end
+		W.Modal({ title = L["Reload now?"], icon = "reload", action = L["Reload UI"], cancel = L["Later"],
+			text = L["Polestar shows the new language after a /reload."], onAccept = function() if ReloadUI then ReloadUI() end end })
+	end,
+	choices = function()
+		local names = {
+			game = L["Follow the game"], enUS = L["English"], deDE = L["German"], esES = L["Spanish (Spain)"], esMX = L["Spanish (Latin America)"],
+			frFR = L["French"], koKR = L["Korean"], ptBR = L["Portuguese (Brazil)"], ruRU = L["Russian"], zhCN = L["Simplified Chinese"],
+			zhTW = L["Traditional Chinese"],
+		}
+		local list = {}
+		for _, code in ipairs(ns.Language and ns.Language.CHOICES or {}) do list[#list + 1] = { value = code, label = names[code] or code } end
+		return list
+	end }
+
 -- The About hero: the sidebar's lockup at full size. The emblem (64, its ink
 -- on the 32 edge, in its glow), then the wordmark (Media/UI/wordmark.tga,
 -- 1:1, its ink 3px into the box and on rows 4-27), the tagline under it, and
@@ -815,6 +846,8 @@ local function buildAbout(view)
 		.. hex .. "/polestar install|r   " .. L["set Polestar up again, a page at a time"] .. "\n"
 		.. hex .. "/polestar report|r   " .. L["report a problem with a step on the Polestar Discord"] .. "\n"
 		.. hex .. "/polestar arcade|r   " .. L["play Freedoom Arcade by petllama"] .. "\n"
+		.. hex .. "/polestar jewels|r   " .. L["play Sky Jewels by RikyZ90"] .. "\n"
+		.. hex .. "/polestar tetris|r   " .. L["play Tetris by beemerwt"] .. "\n"
 		.. hex .. "/polestar help|r   " .. L["every command"])
 	-- Install (UI/Welcome.lua) and what's new, first under the hero: the
 	-- setup a new character gets, again whenever the player wants it.
@@ -936,6 +969,9 @@ add({ page = L["Guiding Stars"], key = "thanks", icon = "star", order = 80, subt
 	custom = UI.Thanks.Build }, true)
 add({ page = REC, key = "recorder", icon = "record", order = 90, subtitle = L["The data recorder for guide authors."], custom = buildRecorder }, true)
 add({ page = ABOUT, key = "about", icon = "info", order = 100, subtitle = L["Why Polestar exists, its commands and its credits."], custom = buildAbout }, true)
+-- Setup > General (key "language": the old key "general" still reaches Look > Guide window, ALIASES).
+add({ page = L["General"], key = "language", icon = "icon-talk", order = 63, group = "setup", subtitle = L["The language Polestar shows."],
+	section = L["Language"], controls = { LANGUAGE } }, true)
 -- Install and the update notices: Setup > Profiles' Install & updates card, where a first install and
 -- troubleshooting look (UI/Profiles.lua draws the card; the page's own registration there).
 add({ page = L["Profiles"], key = "profiles", icon = "layers", order = 64, group = "setup", tab = L["Profiles"],
@@ -1063,7 +1099,7 @@ local function makeControl(parent, c)
 		w = W.Toggle(parent, labelOf(c), c.key, c.help, nil, (c.gear or c.get or c.set) and { gear = c.gear, get = c.get, set = c.set } or nil)
 	elseif c.kind == "slider" then
 		local opts
-		if c.release or c.get or c.set then opts = { release = c.release, get = c.get, set = c.set } end
+		if c.release or c.get or c.set or c.parse then opts = { release = c.release, get = c.get, set = c.set, parse = c.parse } end
 		w = W.Slider(parent, labelOf(c), c.key, c.min or 0, c.max or 1, c.step or 0.1, c.format, c.help, nil, opts)
 	elseif c.kind == "dropdown" or c.kind == "font" then
 		local choices = type(c.choices) == "function" and function() return choicesOf(c) end or choicesOf(c)
@@ -4790,7 +4826,7 @@ local function build()
 		-- The box takes a question as well as a word: the longest wording that fits shows.
 		title = GUIDE, tagline = L["Settings"], scalePath = "ui.menuScale", scaleBase = W.SETTINGS_SCALE_BASE,
 		scaleLabel = L["Settings scale"], scaleTip = L["The settings window only; applies when you let go. Right-click to reset."],
-		searchPlaceholder = { L["Ask or search: how do I hide the arrow?"], L["Ask or search settings"], L["Search settings"] },
+		searchPlaceholder = { L["Ask or search: how do I hide the arrow?"], L["Ask or search settings"], L["Search settings"], L["Search"] },
 		headerSearch = true,
 		-- Typing opens the dropdown under the box; the page stays until a row
 		-- is picked, or Enter or See all opens the results page. An emptied

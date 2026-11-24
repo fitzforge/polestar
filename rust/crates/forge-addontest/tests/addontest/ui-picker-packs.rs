@@ -82,6 +82,33 @@ fn a_pack_s_entry_lists_its_guides_grouped_by_its_folders_categories_and_bands()
 	assert_eq!(out["joe"], json!(["[Leveling 1–30]", "Joe's Barrens", "Joe's Redridge", "[Night routes]", "Night Run", "[Professions]", "Joe's Tailoring"]));
 }
 
+// #3817 (Catagris): a pack's four starting zones, all from level 1, each offering the other three as its `next`
+// choices. Guides that hand over to each other gave table.sort no consistent order, and the guide menu failed
+// ("Picker.lua: attempt to compare string with nil"). They are listed by id; a one-way hand-over still puts the
+// guide that hands over first, along a whole chain too, though the chain's last guide has the first id.
+#[test]
+fn guides_that_hand_over_to_each_other_are_listed_in_one_order_without_an_error() {
+	let out = run(r#"
+		assert(Polestar.RegisterPack({ addon = "StartsAddon", id = "starts", format = 1, title = "Starts", author = "Cat", version = "1.0.0", license = "MIT" }))
+		local ids = { "starts/01", "starts/02", "starts/03", "starts/04" }
+		for _, id in ipairs(ids) do
+			local others = {}
+			for _, o in ipairs(ids) do if o ~= id then others[#others + 1] = o end end
+			guide(id, "starts", { title = "Start " .. id:sub(-2), category = "Leveling", minLevel = 1, maxLevel = 12, nextChoices = others })
+		end
+		guide("starts/z-lead", "starts", { title = "Lead", category = "Leveling", minLevel = 14, maxLevel = 15, next = "starts/m-middle" })
+		guide("starts/m-middle", "starts", { title = "Middle", category = "Leveling", minLevel = 14, maxLevel = 16, next = "starts/a-last" })
+		guide("starts/a-last", "starts", { title = "Last", category = "Leveling", minLevel = 14, maxLevel = 17 })
+		local ok, entries = pcall(P.Entries, "", "pack:starts")
+		local okAll, all = pcall(P.Entries, "", "All")
+		emit({ ok = ok, okAll = okAll, err = not ok and tostring(entries) or not okAll and tostring(all) or nil,
+			list = ok and titles(entries) or nil })"#);
+	assert_eq!(out["err"], Value::Null);
+	assert_eq!((&out["ok"], &out["okAll"]), (&json!(true), &json!(true)));
+	let guides: Vec<&str> = strs(&out["list"]).into_iter().filter(|t| !t.starts_with('[')).collect();
+	assert_eq!(guides, ["Start 01", "Start 02", "Start 03", "Start 04", "Lead", "Middle", "Last"]);
+}
+
 #[test]
 fn the_community_guides_heading_and_one_entry_per_shown_pack_title_author_hiding_the_pack_removes_them() {
 	let out = run(r#"
@@ -371,9 +398,9 @@ fn every_community_addon_switched_off_ours_not_installed_the_empty_states_point_
 }
 
 // Polestar Guides installed but unticked in the AddOns list (Fitz's 0.3.6 screenshot): the client nests it
-// under Polestar there, and ticking Polestar does not tick it. Its race and faction parts and the walking packs
-// are off too here (after "Disable All"); an old 0.2.x language folder, the Recorder and a community addon are
-// off and stay off.
+// under Polestar there, and ticking Polestar does not tick it. Its faction part and the walking packs are off
+// too here (after "Disable All"); an old 0.2.x language folder, race parts left from before 0.4.3 (inside the
+// faction parts since, #3507), the Recorder and a community addon are off and stay off.
 const GUIDES_OFF: &str = r#"stub.addons = {
 	{ name = "Polestar", loaded = true },
 	{ name = "Polestar_Guides", reason = "DISABLED" },
@@ -387,7 +414,7 @@ const GUIDES_OFF: &str = r#"stub.addons = {
 	{ name = "PolestarPack_Joe", reason = "DISABLED" },
 }"#;
 
-const TURNED_ON: &[&str] = &["Polestar_Guides", "Polestar_Guides_Orc", "Polestar_Guides_Horde", "Polestar_Nav", "Polestar_Nav_Kalimdor"];
+const TURNED_ON: &[&str] = &["Polestar_Guides", "Polestar_Guides_Horde", "Polestar_Nav", "Polestar_Nav_Kalimdor"];
 
 fn guides_off(script: &str, saved: Option<&str>) -> Value {
 	emitted(&RunAddon {
@@ -504,8 +531,9 @@ fn guides_not_installed_no_question_and_the_empty_states_keep_the_addons_list_hi
 	);
 }
 
-// #2594: an update left Polestar Settings and Polestar Looks unticked (GeForce NOW), so Options could not open and
-// only a chat line said why. The login question covers them, and opening Options asks again even after a "Not now".
+// #2594: an update left Polestar Settings unticked (GeForce NOW), so Options could not open and only a chat line
+// said why. The login question covers it, and opening Options asks again even after a "Not now". Polestar Looks
+// left from before 0.4.3 (inside Polestar since, #3507) is not needed and stays off.
 const NEEDED_OFF: &str = r#"stub.addons = {
 	{ name = "Polestar", loaded = true },
 	{ name = "Polestar_Guides", loaded = true },
@@ -527,7 +555,7 @@ fn needed_off(script: &str, saved: Option<&str>) -> Value {
 }
 
 #[test]
-fn settings_and_looks_off_asked_at_login_and_yes_turns_both_on_and_reloads() {
+fn settings_off_asked_at_login_and_yes_turns_it_on_and_reloads() {
 	let out = needed_off(
 		r#"
 		stub.login()
@@ -539,8 +567,8 @@ fn settings_and_looks_off_asked_at_login_and_yes_turns_both_on_and_reloads() {
 		None,
 	);
 	assert_eq!(out["popups"], 1);
-	assert_eq!(out["text"], "Part of Polestar is turned off in the AddOns list (Polestar Settings, Polestar Looks), so its settings cannot open. Turn it on for all your characters and reload?");
-	assert_eq!(out["enabled"], json!(["Polestar_Options", "Polestar_Looks"]), "never the Recorder");
+	assert_eq!(out["text"], "Part of Polestar is turned off in the AddOns list (Polestar Settings), so its settings cannot open. Turn it on for all your characters and reload?");
+	assert_eq!(out["enabled"], json!(["Polestar_Options"]), "never the Recorder nor the old Polestar_Looks");
 	assert_eq!(out["reloaded"], true);
 }
 

@@ -212,7 +212,9 @@ the step's `only` name), which leave the step. Only
 factions the goal can apply to are kept, and each set keeps one candidate per town
 (within 250 yards), nearest to the previous goal first; in a capital city (Stormwind,
 Orgrimmar, Ironforge, Thunder Bluff, Darnassus, the Undercity) one per district
-(within 60 yards), since its districts are a long walk apart.
+(within 60 yards), since its districts are a long walk apart. Of a town's or district's
+NPCs the one most players train with is kept (`trainers.json` `visits`, from players'
+recordings), else the first by distance and id.
 Smart targets take no coordinates.
 
 Modifiers, in any order after the positional arguments:
@@ -316,12 +318,16 @@ quest is ready. One failure is never stored: a `complete <quest>` that fails whi
 player carries the quest (a Wanted hand-in passed before the elite is dead)
 is checked again, and the step comes back once the quest is done. Nor, while
 the guide lasts, is a failure that can still turn as the player plays it: a
-`level>=N` or `level>N` not reached yet, or `onquest`, `complete` or
+`level>=N` or `level>N` not reached yet, a `skill <Profession> N` not
+reached yet (a profession learned or raised later), or `onquest`, `complete` or
 `turnedin` of a quest the guide still takes (or one waiting for the
 character's level). Such a step comes back if the route reaches it again (the
 level-up brings the route back to a quest's accept, and its `when onquest`
 step follows it); once it holds behind the live step, it stays passed and its
-quest's work is listed under "Still to do" instead of pulling the arrow back;
+quest's work is listed under "Still to do" instead of pulling the arrow back,
+and with a `skill` in its `when` its accepts are "While you're here" lines at
+their giver (a start camp's Camping 101 for a profession learned after the
+route passed the camp: "“Camping 101: Mining” at Sam Sarsaparilla");
 at the guide's end it is stored as skipped. A step with `group` or `dungeon`
 in its `when` is stored as it passes, as the player's answer decides it.
 Resetting the guide's progress forgets the stored outcomes.
@@ -930,6 +936,7 @@ take a jump.
 | spawn areas `spots` | every goal placed at an NPC or object that spawns at more than one place, hand-placed `@x,y` goals whose target the data also knows, and kill, collect and interact goals players' recordings place: see "Spawn areas" below |
 | group content `group` | elite work, dungeon and raid quests and goals on an instance map: see "Group content" below |
 | escort `escort` | the accept, `complete` and objective goals of an escort quest: see "Escort quests" below |
+| repeatable hand-in `repeatable` | a `turnin` (not `direct`) of a quest `quests.json` marks repeatable: the game never marks it completed, so Polestar stores the hand-in, one per goal, and counts the accept and work of the same quest before it, back to the previous turn-in of it, done with it (Zorbin's Ultra-Shrinker quests, #3334) |
 | later hand-in `carriedTo` | `complete` and objective goals of a quest only a later guide of the chain hands in: see "Quests carried to a later guide" below |
 | placeholder target `logLine` | a `kill` or `talk` on one of the game's placeholder targets (a "[DNT] Kill Credit", "PvP Graveyard Credit Marker", "Trigger Ichman", #2614): its `npc` is dropped, `target` (`npcName`) is the name the placeholder carries ("[DNT] Kill Credit: Twilight Thrall" -> "Twilight Thrall"), else the objective's own text, else the goal's note, and the guide window reads it by its quest-log line. None of the three is an error. A `complete`'s `objs` leave out a placeholder's text the same way |
 | fresh start `fresh` | a leveling guide that other leveling guides lead to: how much of its quest XP follows on from their quests: see "Fresh starts" below |
@@ -1343,6 +1350,22 @@ of the escort after it). There is no modifier: a wrong label is a data fix.
 While you're here never offers an escort's accept ahead of its own step
 ("Take X: saves a trip back"): the NPC walks off the moment it is taken.
 
+An escort is the player's choice (#3439). A required `accept` of an escort
+quest asks at its step as a group quest does (`when group`): the guide window
+says how long players' runs of it take and how often they fail ("Escort,
+about 12 min; 1 in 3 runs fails. Optional: the route doesn't need it."), with
+Skip it (the default) and Do it. The answer is kept per character and quest
+with the group answers, Options lists it with the group quests, and "Group
+quests" in Options, Guide, Automation answers it too. Skipped, the quest's
+accept, work and hand-in are out of the route and of its level sums, with no
+"left out" line. The compiler writes the time and the failures on the accept
+(`escortSecs`, the median seconds a completed run takes; `escortFail`, the
+share of runs that failed) from `data/recorded/escorts.json` (`forge record
+learn`, docs/forge/learn.md), only from three or more counted players; without
+them the line says "Escort." alone. A step that asks about the quest itself
+(`when group <quest>` or `when !group <quest>`) keeps the author's choice, and
+an `optional` accept asks nothing.
+
 ## Quests carried to a later guide
 
 A quest worked in one guide and handed in only in a later guide of its chain
@@ -1391,13 +1414,12 @@ Written only from 10%; there is nothing to write in the guide.
 
 In the game the share left to a character is `share` scaled by the part of
 `needs` they have neither done, nor in the log, nor taken on the way (a
-lead-in step Polestar put in). From 30% (in whole percent, as the note says
-it), below the guide's top level and
-with `from` a guide for them, the guide window says while the guide's live
-step is in its first third: "Fresh start: about N% of this guide's quest XP
-follows on from <guide>. Expect about M minutes of extra grinding, or start
-there." (M: that XP as kills of mobs of their level, 1.5 a minute), with
-"Open <guide>", which opens that guide in a new tab. Taken or dismissed, it
+lead-in step Polestar put in), nor grey for them. From 30% (in whole
+percent), below the guide's top level and with `from` a guide for them, the
+guide window says while the guide's live step is in its first third: "Some
+of this guide's quests follow on from <guide>. Start there for the full set,
+or carry on here; the guide fills in with nearby quests.", with "Open
+<guide>", which opens that guide in a new tab. Taken or dismissed, it
 is gone for that guide until the next session. "Suggested for you" lists
 such a guide after the others of its zone and travel band.
 

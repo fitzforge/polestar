@@ -63,5 +63,12 @@ return {
 			cleanup = function() if PolestarWelcome then PolestarWelcome:Hide() end end, probe = function()
 			return PolestarWelcome ~= nil and PolestarWelcome:IsShown() and (Polestar.UI.Welcome.Page()) or false
 		end },
+		-- Setup > General > Language (#3643): the language the next load shows (Core/Locale.lua reads it at
+		-- ADDON_LOADED from its own saved variable, PolestarLanguage: the strings are read as the files load). The
+		-- reload it asks for closed after the check.
+		["General:Language"] = {
+			probe = function() return Polestar.Language.Get() end,
+			cleanup = function() Polestar.Widgets.HideModal() end,
+		},
 	},
 }

@@ -76,6 +76,33 @@ test('Damp Note requires The Essence of Aku\'Mai on the recorded Priestess drop,
 	assert.notEqual(corrections.quests[6564]?.set?.pre?.includes(6563), true, 'accepting the root is enough; it is not a completion prerequisite');
 });
 
+// #3918 (Deadshot): a Gnome Mage held Forever's An Earnest Proposition 84149 while the Lookup guide for the chain
+// waited for the Classic 8907, since 8922 did not follow 84149 and the data gave it no class or objectives. Every
+// version players' quest logs held or Deliana and Mokvar offered (game build 70959) is one of A Supernatural Device's
+// prerequisites on its side, for its class, with the side's samples and the class's bracers, given and taken back by
+// the side's giver.
+test('A Supernatural Device follows every recorded class version of An Earnest Proposition (#3918, #3081)', () => {
+	const SAMPLE = { 8922: 21928, 8923: 22381 };
+	const GIVER = { 8922: 230319, 8923: 230317 };
+	const versions = [
+		[84149, 8922, 128, 16683], // Mage: Magister's Bindings
+		[84150, 8922, 2, 16722], // Paladin: Lightforge Bracers
+		[84152, 8922, 8, 16710], // Rogue: Shadowcraft Bracers
+		[84160, 8923, 64, 16671], // Shaman: Bindings of Elements
+		[84161, 8923, 256, 16703], // Warlock: Dreadmist Bracers
+		[97411, 8923, 2, 16722], // Paladin (Horde): Lightforge Bracers
+	];
+	for (const [id, device, cls, bracers] of versions) {
+		assert.ok(corrections.quests[device].set.preAny.includes(id), `${device} follows ${id}`);
+		const { set, remove } = corrections.quests[id];
+		assert.ok(!remove, `${id} stays in the data`);
+		assert.equal(set.classes, cls, `${id}'s class`);
+		assert.equal(set.next, device, `${id} leads to ${device}`);
+		assert.deepEqual(set.objectives.map((o) => [o.id, o.count]), [[SAMPLE[device], 15], [bracers, 1]], `${id}'s objectives`);
+		for (const end of [set.start, set.end].filter(Boolean)) assert.deepEqual(end.npc, [GIVER[device]], `${id} at its side's giver`);
+	}
+});
+
 test('the overlay takes mechanics flat or under quests; mechanics 603 and 1064 stay private', () => {
 	const out = overlayCorrections({ mechanics: {} }, { mechanics: { quests: { 603: { note: 'nested' } }, 1064: { note: 'flat' } } });
 	assert.deepEqual(Object.keys(out.mechanics).sort(), ['1064', '603']);
@@ -160,6 +187,23 @@ test('A Void Path waits for Never Coming Back, handed in to the same giver (#100
 test('Moonbrook Espionage waits for Murloc Gills as well as The State of the Mines (#991)', () => {
 	const { all, any } = blockingPrereqs({ id: 92747, start: { npc: [253092] }, ...corrections.quests[92747].set });
 	assert.deepEqual({ all, any }, { all: [92744], any: [92745] });
+});
+
+test('Explosive Consultation waits for A Dynamite Plan as well as the second Detonation at a Distance (#3357)', () => {
+	const { all } = blockingPrereqs({ id: 92752, start: { npc: [11026] }, preAny: [92751], ...corrections.quests[92752].set });
+	assert.deepEqual(all, [92749, 92751]);
+});
+
+test('Report to Sen\'jin Village is Forgotten Loa Idols\' breadcrumb, not its prerequisite (#3214, #796)', () => {
+	const set = corrections.quests[97225].set;
+	assert.deepEqual(blockingPrereqs({ id: 97225, start: { npc: [3304] }, pre: [805], ...set }), { all: [], any: [] });
+	assert.deepEqual(set.breadcrumbs, [805], 'held back while 805 is in the log');
+});
+
+// The hand-in guide leads to a placed objective with no id before the hand-in (Dungeons/Handin.lua, talksLeft).
+test('More Valuable Than Gold\'s treasure is placed at Connery\'s Trunk, where it is handed in (#3382)', () => {
+	const [o] = corrections.quests[96337].set.objectives;
+	assert.deepEqual([o.type, o.id, o.map, o.x, o.y], ['event', null, 1436, 43.4, 67.9]);
 });
 
 test('The State of the Mines waits for both Testing the Wells and Murloc Gills (dungeon pre-quest sweep)', () => {
@@ -876,4 +920,32 @@ test('Blademaster\'s Bonfires: the south and southeast bonfires are its objectiv
 	assert.deepEqual(corrections.quests[96959].set.objectives.map((o) => [o.type, o.id]), [['object', 656668], ['object', 656669]]);
 	assert.deepEqual(corrections.objects[656668].addSpawns[2482].pts, [[49.1, 36.02]]);
 	assert.deepEqual(corrections.objects[656669].addSpawns[2482].pts, [[54.84, 40.0]]);
+});
+
+// gidi_ (#3676): Biting the Hand's second part, leading Fuzzle out of Sunnyglade, is an escort its text never names.
+test('Biting the Hand (94963) is an escort (#3676)', () => {
+	assert.equal(corrections.quests[94963].set.escort, true);
+});
+
+// cjtylr (#3739): The Return of the King? had no objective, so the pick-up guide sent players straight back to Sully.
+test('The Return of the King? (95198) has its eavesdropping objective at the Theramore Mage Tower (#3739)', () => {
+	const [o, ...rest] = corrections.quests[95198].set.objectives;
+	assert.equal(rest.length, 0, 'one objective');
+	assert.equal(o.text, "Relieve Jaina's guard and eavesdrop");
+	assert.equal(o.map, 1445);
+});
+
+// devanpy (#3773): Twilight Tablet Fragments lie on the ground; the elementals pfQuest lists at 100 never drop them.
+test('Twilight Tablet Fragment (20378) drops from no elemental (#3773)', () => {
+	assert.deepEqual(corrections.items[20378].removeDrops.npc, [11744, 11746, 14455]);
+});
+
+// #3706: Horde Triage (6622) takes place at Doctor Gregory Victor in Hammerfall, Arathi Highlands (1417),
+// not at the Alliance clinic in Theramore Isle (1445).
+test('Horde Triage (6622) is completed at Doctor Gregory Victor in Hammerfall (#3706)', () => {
+	const objs = corrections.quests[6622].set.objectives;
+	assert.ok(objs && objs.length === 1, 'one objective');
+	assert.equal(objs[0].type, 'event');
+	assert.equal(objs[0].map, 1417);
+	assert.deepEqual([objs[0].x, objs[0].y], [73.4, 36.8]);
 });

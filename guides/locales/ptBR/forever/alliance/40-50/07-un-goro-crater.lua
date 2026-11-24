@@ -7,14 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- was: ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "Para personagens de nível 49 a 50, mas a maioria das missões aqui é de nível 51-53: de propósito, pela experiência. Esta primeira visita fica na metade leste da cratera, onde as feras são de nível 48-52, então puxe uma de cada vez; os pilares, os ossos e a colmeia ficam para a visita posterior a Un'Goro, por volta do nível 56."
-	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "",
+	-- {zone:1446} Tanaris · {area:976} Gadgetzan
+	["{zone:1446} first ({area:976} hand-ins), then into Un'Goro. For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "Primeiro {zone:1446} (entregas em {area:976}), depois para Un'Goro. Para personagens de nível 49 a 50, mas a maioria das missões aqui é de nível 51-53: de propósito, pela experiência. Esta primeira visita fica na metade leste da cratera, onde as feras são de nível 48-52, então puxe uma de cada vez; os pilares, os ossos e a colmeia ficam para a visita posterior a Un'Goro, por volta do nível 54.",
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Voe para {area:150}",
-	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "Mestre de voo de {zone:1455}",
 
 	-- Step 3: Theramore
 	["Theramore"] = "Theramore",
@@ -250,4 +248,5 @@ return {
 	-- ["{npc:9998}, at the refuge entrance"] = "{npc:9998}, na entrada do refúgio",
 	-- ["{npc:9998}, at the refuge's entrance"] = "{npc:9998}, na entrada do refúgio",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999} está sentado na encosta sudeste de {area:537}, no meio da cratera.",
+	-- ["{zone:1455} flight master"] = "Mestre de voo de {zone:1455}",
 }

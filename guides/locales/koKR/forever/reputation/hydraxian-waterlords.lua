@@ -37,7 +37,7 @@ return {
 
 	-- Step 4: The Eternal Quintessence
 	-- {item:22754} Eternal Quintessence
-	["The {item:22754}"] = "",
+	["The {item:22754}"] = "{item:22754}",
 	-- {npc:13278} Duke Hydraxis · {zone:1447} Azshara · {item:22754} Eternal Quintessence · {area:2717} Molten Core · {npc:12018} Majordomo Executus · {npc:11502} Ragnaros
 	["{npc:13278} stands on a small island off the east coast of {zone:1447}; swim out to him. At Revered he gives you the {item:22754}: pour it on a rune in the {area:2717} to douse it. It is not used up, so you never come back for another. With every rune doused, {npc:12018} comes out, and after him {npc:11502}."] = "",
 	-- {item:22754} Eternal Quintessence

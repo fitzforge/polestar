@@ -108,7 +108,7 @@ step Kaylaena's workshop
   accept 92008                          -- Premiere Parts: for Nami in Everlook; you go there from Moonglade at the end of this guide
 
 step The ancients' outpost
-  tip South down the west side of the shrub field to the ancients' outpost: kill the Tainted Shrubbery you pass for Kaylaena. Bluebell, the flight mistress, waits by the outpost; Hyacinth and Thylaen stand with the ancient Fraxinus.
+  tip South down the west side of the shrub field to the ancients' outpost. Leave the Tainted Shrubbery for now: their Verdant Leaves drop only once Hyacinth's Leaves to Ligatures is in your log, and the guide brings you back to the shrub field for the leaves and Kaylaena's kills together. Bluebell, the flight mistress, waits by the outpost; Hyacinth and Thylaen stand with the ancient Fraxinus.
   getfp "Tainted Foothills"             -- Bluebell
   accept 91754                          -- Hyacinth: Rub Some Dirt In It
   accept 91755                          -- Leaves to Ligatures

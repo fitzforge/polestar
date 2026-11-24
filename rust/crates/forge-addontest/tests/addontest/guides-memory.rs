@@ -89,8 +89,15 @@ fn pack_files(name: &str) -> String {
 /// 0.4.3 step-condition sweep (2026-11-23, #3696 on next: 80 steps added, carried hand-ins split to wait for their
 /// quest's completion and follow-ups' fallback steps): Alliance read 26,862 against 26,845, Horde read 25,880 against
 /// 25,860. The reads: those plus ~1% (a reported raise, for Fitz to confirm in the pull request); the rest stays.
+/// 0.4.3 fewer folders (2026-11-23, #3507): each race's legs file is in its faction part, no longer a race part of its
+/// own, so the part's load reads and compiles the races' files too (each returning at once but for the player's):
+/// Alliance resident 19,024 and peak 40,692, Horde resident 17,701 (next without it 17,597: +104) and peak 37,502.
+/// Fitz approved Alliance resident 19,100 and peak 40,800, Horde resident 17,800 and peak 37,600; the reads stay.
+/// 0.4.3 Camping 101 at every start campfire (2026-11-24, #3963: 27 quests behind their profession, handed in at the
+/// trainers): Horde peak 37,607 against its 37,600. The peak: that plus ~1% (a reported raise, for Fitz to confirm in
+/// the pull request); the rest stays.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 18910.0), ("peak", 40455.0), ("read", 27130.0)]), ("Horde", "Orc", [("resident", 17700.0), ("peak", 37470.0), ("read", 26140.0)])];
+	[("Alliance", "Human", [("resident", 19100.0), ("peak", 40800.0), ("read", 27130.0)]), ("Horde", "Orc", [("resident", 17800.0), ("peak", 37980.0), ("read", 26140.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {
@@ -188,11 +195,12 @@ fn the_other_faction_s_part_stays_out_unless_a_saved_tab_needs_it() {
 	assert_eq!(saved[0], serde_json::json!({ "loads": 1, "guide": "forever/alliance/02-westfall" }), "the saved tab of an Alliance guide comes back on a Horde character");
 }
 
-// Baked legs in Polestar's own pack (formats 7 and 8): an Alliance zone guide ships in the faction part and
-// its legs in each Alliance race's part, here one with Legs.lua alone. The faction part loads before the
-// race part, so Polestar.RegisterLegs finds the guide registered and keeps its legs.
+// Baked legs in Polestar's own pack (formats 7 and 8, #3507): an Alliance zone guide ships in the faction part,
+// and so do its legs, one Legs_<race>.lua per Alliance race, each returning at once for a player of another race.
+// The faction part's guides load before its races' files, so Polestar.RegisterLegs finds the guide registered and
+// keeps its legs; no race part loads, not even one left installed from before 0.4.3.
 #[test]
-fn the_faction_part_loads_before_a_race_part_holding_only_legs_whose_legs_are_kept() {
+fn the_faction_part_carries_its_races_legs_and_no_race_part_loads() {
 	let r = forge_addontest::dsl::compile(&forge_addontest::dsl::guide_text(&[
 		"guide forever/alliance/t-legs",
 		"title Legs",
@@ -207,16 +215,18 @@ fn the_faction_part_loads_before_a_race_part_holding_only_legs_whose_legs_are_ke
 	r.guides[0].set_hidden("_legs", forge_guide::js::parse_json(r#"{ "1": "CgA" }"#).unwrap());
 	r.guides[0].set_hidden("_legsGrid", "test");
 	let pack = forge_addontest::dsl::write_our_test_pack(&r.guides);
-	assert_eq!(pack.text("../Polestar_Guides_Human/Polestar_Guides_Human.toc").rsplit("\n\n").next(), Some("Legs.lua\n"));
+	let toc = pack.text("../Polestar_Guides_Alliance/Polestar_Guides_Alliance.toc");
+	assert_eq!(toc.rsplit("\n\n").next(), Some("Guides.lua\nLegs_Dwarf.lua\nLegs_Gnome.lua\nLegs_Human.lua\nLegs_NightElf.lua\nLegs_Skyborne.lua\n"));
+	assert!(pack.text("../Polestar_Guides_Alliance/Legs_Dwarf.lua").contains("\nif not Polestar.IsPlayerRace(\"Dwarf\") then return end\n"));
+	let parent = pack.dir.parent().unwrap().to_path_buf();
+	assert!(!parent.join("Polestar_Guides_Human").exists(), "no race part of our pack");
 	let lua_list = |files: Vec<PathBuf>| files.iter().map(|f| lua_string(&f.to_string_lossy())).collect::<Vec<_>>().join(", ");
 	let entries = |dir: PathBuf| lua_list(forge_addontest::run::toc_entries(&dir).unwrap_or_else(|e| panic!("{e}")).iter().map(|f| dir.join(f)).collect());
-	let parent = pack.dir.parent().unwrap().to_path_buf();
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua", "stub_packs.lua"],
 		before: format!(
-			"stub.packs.Polestar_Guides_Alliance = {{ {} }}\nstub.packs.Polestar_Guides_Human = {{ {} }}\nlocal w = stub.world\nw.faction, w.race, w.raceName = \"Alliance\", \"Human\", \"Human\"",
+			"stub.packs.Polestar_Guides_Alliance = {{ {} }}\nstub.packs.Polestar_Guides_Human = {{}}\nlocal w = stub.world\nw.faction, w.race, w.raceName = \"Alliance\", \"Human\", \"Human\"",
 			entries(parent.join("Polestar_Guides_Alliance")),
-			entries(parent.join("Polestar_Guides_Human"))
 		),
 		addons: vec![Addon::name("Polestar")],
 		script: format!(
@@ -227,12 +237,13 @@ stub.addonLoaded("Polestar_Guides")
 stub.login()
 local legs = Polestar.Guides.Legs("forever/alliance/t-legs")
 emit({{ guide = Polestar.Guides.Get("forever/alliance/t-legs") ~= nil, leg = legs and legs[1] or false,
-	alliance = stub.packLoads.Polestar_Guides_Alliance or 0, human = stub.packLoads.Polestar_Guides_Human or 0 }})"#,
+	alliance = stub.packLoads.Polestar_Guides_Alliance or 0, human = stub.packLoads.Polestar_Guides_Human or 0,
+	dwarf = Polestar.IsPlayerRace("Dwarf"), mine = Polestar.IsPlayerRace("Human") }})"#,
 			entries(pack.dir.clone())
 		),
 		..Default::default()
 	});
-	assert_eq!(out[0], serde_json::json!({ "guide": true, "leg": "CgA", "alliance": 1, "human": 1 }));
+	assert_eq!(out[0], serde_json::json!({ "guide": true, "leg": "CgA", "alliance": 1, "human": 0, "dwarf": false, "mine": true }));
 }
 
 // A goal's packed spots (format 8) are checked at registration without being built, read back on the goal's
