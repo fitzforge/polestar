@@ -54,9 +54,11 @@ function plain(t) return t and (t:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""))
 local X = Polestar.Codex
 X.Load = function() return true end
 X.IsLoaded = function() return true end
+-- AT_DUGHAN (set in `before`): more quests Marshal Dughan takes in.
 X.Quest = function(id)
+	local dughan = id == 40 or id == 46 or (AT_DUGHAN or {})[id]
 	return { id = id, title = "Quest " .. id, faction = "A", level = id == 40 and 5 or 10, xp = 1000,
-		["end"] = (id == 40 or id == 46) and { npc = { 240 } } or id == 47 and { npc = { 241 } } or nil }
+		["end"] = dughan and { npc = { 240 } } or id == 47 and { npc = { 241 } } or nil }
 end
 -- Nikova (241) walks a round the Codex has as four spawns 34 yd from their middle, 44.8,39.2 (#3019).
 local WALK = { { map = 1429, x = 44.0, y = 38.0 }, { map = 1429, x = 45.6, y = 38.0 }, { map = 1429, x = 45.6, y = 40.4 }, { map = 1429, x = 44.0, y = 40.4 } }
@@ -188,6 +190,22 @@ fn a_stranded_hand_in_to_an_npc_who_walks_about_circles_her_walk_and_says_so_301
 	assert_eq!(out["mapBefore"], json!([[0, 0]]), "{out}");
 	assert_eq!(out["mapAimed"], json!([[0, 0]]), "{out}");
 	assert_eq!(out["waypoint"], json!([44.8, 39.2, false]), "{out}");
+}
+
+// #3390: a finished quest a later guide of the route hands in (test/b's 44, its ender Marshal Dughan here) says
+// which guide keeps it on its While-here line, not "Handed in later on the route".
+#[test]
+fn a_stranded_hand_in_kept_for_a_later_guide_names_that_guide_3390() {
+	let out = run_before(
+		&format!("{WORLD}AT_DUGHAN = {{ [44] = true }}\n"),
+		r#"
+		local r = {}
+		for _, v in ipairs(E.GetWhileHereList()) do r[#r + 1] = { v.index, v.hereSub or false } end
+		table.sort(r, function(a, b) return a[1] < b[1] end)
+		emit(r)
+	"#,
+	);
+	assert_eq!(out, json!([[40, "Not handed in on the route ahead"], [44, "Kept for B"]]));
 }
 
 // #2918 (Chm137): Auto turn-in hands in the guide's quests. A finished quest's stranded line is handed in by
