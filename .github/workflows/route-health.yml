@@ -94,12 +94,21 @@ jobs:
           done
           exit $rc
 
+      # The release's guides on the data that release shipped with (#3826): the runner keeps each release's signed
+      # data in $POLESTAR_DATA/releases/<tag>/ (docs/RELEASING.md). On today's data the release's guides may name
+      # quests the newer data dropped, and the base side does not compile.
       - name: Flow against the release
         id: flow
         continue-on-error: true
         env:
           TAG: ${{ steps.release.outputs.tag }}
-        run: node tools/polestar.js flow-diff --base "$TAG" --head HEAD --md "$RUNNER_TEMP/health/flow.md" --work "$RUNNER_TEMP/flow"
+        run: |
+          h=$RUNNER_TEMP/health; rel=$POLESTAR_DATA/releases/$TAG/forever
+          if [ ! -f "$rel/quests.json" ]; then
+            echo "no reference data for $TAG in $rel (docs/RELEASING.md)" | tee "$h/flow.log"
+            exit 2
+          fi
+          node tools/polestar.js flow-diff --base "$TAG" --base-data "$rel" --head HEAD --md "$h/flow.md" --work "$RUNNER_TEMP/flow" 2>&1 | tee "$h/flow.log"
 
       - name: Summary
         if: always()
@@ -113,6 +122,13 @@ jobs:
           h=$RUNNER_TEMP/health
           plays=$(grep -cE '^ok ' "$h/playtest.txt" 2>/dev/null || true)
           stuck=$(grep -E '^(stuck|fail) ' "$h/playtest.txt" 2>/dev/null || true)
+          # The flow diff writes its table only when both trees played; without it the check did not run, which is
+          # never "no difference" (#3826).
+          if [ -s "$h/flow.md" ]; then
+            flow=$FLOW; [ "$FLOW" = success ] || flow="$FLOW: new revisits or one-quest trips without a reason"
+          else
+            flow="flow check did not run"
+          fi
           {
             echo "## Route health: next ${SHA:0:10} against $TAG"
             echo
@@ -120,11 +136,17 @@ jobs:
             echo "|---|---|"
             echo "| playtest, every leveling guide | $PLAYTEST: ${plays:-0} plays ok, $(printf '%s' "$stuck" | grep -c . || true) stuck or failing |"
             echo "| level model against $TAG (every race and class) | $LEVELS |"
-            echo "| flow against $TAG | $FLOW |"
+            echo "| flow against $TAG | $flow |"
             echo
             if [ -n "$stuck" ]; then echo '### Stuck or failing plays'; echo '```'; echo "$stuck" | head -n 40; echo '```'; echo; fi
             echo "### Levels at guide ends"; echo; cat "$h/levels.md" 2>/dev/null || echo 'no model run'; echo
-            echo "### Flow"; echo; cat "$h/flow.md" 2>/dev/null || echo 'no flow diff'
+            echo "### Flow"; echo
+            if [ -s "$h/flow.md" ]; then
+              cat "$h/flow.md"
+            else
+              echo "The flow check did not run, so nothing about the route's flow can be read from this run. Its last lines:"
+              echo; echo '```'; tail -n 20 "$h/flow.log" 2>/dev/null || echo 'no output'; echo '```'
+            fi
           } > "$h/summary.md"
           cat "$h/summary.md" >> "$GITHUB_STEP_SUMMARY"
           bad=0

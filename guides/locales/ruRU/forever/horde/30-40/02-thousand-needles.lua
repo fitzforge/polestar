@@ -229,7 +229,7 @@ return {
 	-- Step 44: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "Идите на восток: {area:599}. Избейте культиста Пылающего Клинка и, пока он не умер, используйте на нем {item:6436}, чтобы получить {item:6435}. {npc:13019} стоит на верхнем этаже крепости со Скипетром. Культисты иногда роняют {item:20310} (1-5%); если выпадет, прочитайте. Красный {object:176581} пока не трогайте: {npc:11876} там 37-го уровня, к нему вернетесь во второй визит в зону {zone:1443}.",
-	["On the top floor"] = "",
+	["On the top floor"] = "На верхнем этаже",
 
 	-- Step 45: Sargeron
 	-- {area:603} Sargeron

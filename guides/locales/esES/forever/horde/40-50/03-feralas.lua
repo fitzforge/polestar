@@ -83,7 +83,7 @@ return {
 	["The {object:2555} lies to the south-west."] = "",
 
 	-- Step 14: Mudsprocket
-	["Mudsprocket"] = "",
+	["Mudsprocket"] = "Barroñuela",
 	-- {object:2555} Musty Scroll · {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle · {item:280092} Wyrmtail
 	["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "",
 

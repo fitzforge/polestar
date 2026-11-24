@@ -13,6 +13,8 @@ return {
 	-- Step 1: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "飛往{area:702}",
+	-- {zone:1457} Darnassus · {zone:1450} Moonglade · {zone:1455} Ironforge · {area:3197} Chillwind Camp
+	["The {zone:1457}, {zone:1450} and {zone:1455} stops are for players coming from the previous guides with their quests; opened with none of those quests in the log, the guide starts at {area:3197}."] = "",
 
 	-- Step 2: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:7916} Erelas Ambersky
@@ -335,7 +337,7 @@ return {
 	-- {area:190} Hearthglen
 	["{area:190} overlook"] = "{area:190}瞭望點",
 	-- {area:190} Hearthglen
-	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "",
+	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "爬上{area:190}西側山丘，俯瞰城鎮。\n注意：大門處的哨兵能夠偵測潛行玩家，鎮內也有更多哨兵，附近還有一名精英巡邏。",
 
 	-- Step 62: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:2277} Plaguewood · {area:2627} Terrordale
@@ -519,6 +521,7 @@ return {
 	-- ["From {area:702}, fly to {area:1116}."] = "從{area:702}飛往{area:1116}。",
 	-- ["Hearth to {area:392} (bound there earlier on this guide), then fly on to {area:976}."] = "使用爐石回到{area:392}（本指南稍早已在那裡綁定），再飛往{area:976}。",
 	-- ["Horgus' skull lies at {area:2624} and Marduk's sword in the {area:2623}, each where ghosts fight; grown Plaguehounds hunt the plains between."] = "霍古斯的顱骨在{area:2624}，馬杜克的劍在{area:2623}，各自位於鬼魂交戰之處；成年的瘟疫犬在兩地之間的平原上獵食。",
+	-- ["If you skipped The {item:9328}, grind here to level 56.89 to stay on the route's plan."] = "如果跳過了{item:9328}相關任務，就在這裡刷怪到56.89級，跟上路線的等級規劃。",
 	-- ["Into {zone:1451}"] = "進入{zone:1451}",
 	-- ["Lead {npc:7774} back to {npc:7765} at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them."] = "以步行速度把{npc:7774}帶回{npc:7765}那裡：她會走開，所以搖鈴把她叫回來（戰鬥時不行），並在她走到之前先清掉路上的鷹身人。",
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "把{npc:9999}向北帶到{area:541}。他昏倒時，對他使用{item:11804}喚醒他。",

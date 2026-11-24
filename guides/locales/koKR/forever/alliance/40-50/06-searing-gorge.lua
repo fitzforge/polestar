@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
-	["Into {zone:1427}"] = "",
+	["Into {zone:1427}"] = "{zone:1427}(으)로",
 
 	-- Step 3: Searing Gorge
 	["The Grimesilt outhouse"] = "검댕가루 간이화장실",
@@ -31,7 +31,7 @@ return {
 	-- {item:3985} Monogrammed Sash
 	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan."] = "",
 	-- {npc:5839} Dark Iron Geologist
-	["grind on {npc:5839}"] = "",
+	["grind on {npc:5839}"] = "{npc:5839} 사냥",
 
 	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
@@ -118,7 +118,7 @@ return {
 	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
 	["Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in."] = "",
 	-- {npc:9318} Incendosaur
-	["grind on {npc:9318}"] = "",
+	["grind on {npc:9318}"] = "{npc:9318} 사냥",
 
 	-- Step 33: The Flame's Casing
 	-- {npc:5860} Twilight Dark Shaman
@@ -192,6 +192,7 @@ return {
 	-- ["To {zone:1455}"] = "{zone:1455}(으)로",
 	-- ["Velarok Windblade"] = "벨라로크 윈드블레이드",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "벨라로크는 {area:1446} 남쪽, 용광로 가장자리에 서 있습니다. 그의 이야기를 들으십시오.",
+	-- ["grind on {npc:5844}"] = "{npc:5844} 사냥",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: 이전 가이드가 귀환석으로 이곳에 데려오므로 보통 바로 완료됩니다",
 	-- ["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509}와(과) 용군단의 보물은 {area:1446} 남쪽 가장자리, 벨라록 옆에 있습니다.",
 	-- ["{object:147516} dwarves"] = "{object:147516} 드워프",

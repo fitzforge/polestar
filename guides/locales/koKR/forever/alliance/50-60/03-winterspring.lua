@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
-	["Fly to {area:2255}"] = "",
+	["Fly to {area:2255}"] = "{area:2255}(으)로 날아가기",
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
@@ -43,7 +43,7 @@ return {
 
 	-- Step 6: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
-	["{area:2246}: kill these as you meet them"] = "",
+	["{area:2246}: kill these as you meet them"] = "{area:2246}: 만나는 대로 처치하세요",
 	-- {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {item:14047} Runecloth · {npc:11557} Meilosh
 	-- plural, as words: Winterfall Ritual Totems = {quest:8471} Winterfall Ritual Totem
 	["The western Winterfall camp sits in the hills between {npc:9298} and the tunnel. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need): right-click it. They also drop Winterfall Ritual Totems (about one in thirty) and {item:14047}, which only matter if you are Neutral (the totem) or Friendly ({npc:11557}'s {item:14047}) with the Timbermaw: keep them then.\nCareful: the Pathfinders are 53 and the Totemics 54, but the Den Watchers inside the camp are 55: take the camp from its edge and pull one at a time."] = "",
@@ -105,11 +105,11 @@ return {
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392} 비행 조련사",
 
 	-- Step 19: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, 내부",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, north side of town: the tar is in Un'Goro"] = "",
 
@@ -127,7 +127,7 @@ return {
 
 	-- Step 23: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	["Fly to {area:541}"] = "",
+	["Fly to {area:541}"] = "{area:541}(으)로 날아가기",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976} 비행 조련사",
 
@@ -137,7 +137,7 @@ return {
 	-- {npc:9997} Spraggle Frock
 	["The wooden sign beside {npc:9997}"] = "{npc:9997} 옆의 나무 표지판",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, 지하",
 	-- {npc:9116} Eridan Bluewind · {zone:1448} Felwood
 	["For {npc:9116} in {zone:1448}, later in this guide: keep it"] = "",
 
@@ -166,7 +166,7 @@ return {
 
 	-- Step 29: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
-	["{area:538}: kill these as you meet them"] = "",
+	["{area:538}: kill these as you meet them"] = "{area:538}: 만나는 대로 처치하세요",
 	-- {area:538} Lakkari Tar Pits
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Tar Lords = {npc:6519} Tar Lord
 	["The Tar Beasts and Tar Lords wallow in the {area:538}, south of the refuge on the way down into the crater."] = "타르 야수와 타르 군주는 분화구로 내려가는 길에 있는 피난처 남쪽의 {area:538}에서 뒹굴고 있습니다.",
@@ -215,7 +215,7 @@ return {
 
 	-- Step 41: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
-	["{area:1942}: kill these as you meet them"] = "",
+	["{area:1942}: kill these as you meet them"] = "{area:1942}: 만나는 대로 처치하세요",
 
 	-- Step 42: The Gorishi hive
 	["The Gorishi hive"] = "고리쉬 벌집",
@@ -269,7 +269,7 @@ return {
 
 	-- Step 55: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "{area:415}(으)로 날아가기",
 
 	-- Step 56: Felwood
 	-- {area:415} Astranaar · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
@@ -281,7 +281,7 @@ return {
 	-- {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary
 	["{npc:9116} stands inside, in the {area:2479}."] = "",
 	-- {npc:9116} Eridan Bluewind
-	["{npc:9116}, inside"] = "",
+	["{npc:9116}, inside"] = "{npc:9116}, 내부",
 
 	-- Step 58: The Emerald Sanctuary
 	-- {npc:10924} Ivy Leafrunner · {npc:11079} Wynd Nightchaser · {area:2253} Starfall Village
@@ -301,21 +301,21 @@ return {
 	-- plural, as words: Jaedenar Darkweavers = {npc:7118} Jaedenar Darkweaver
 	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns: pull at the edge of each group and fight one pack at a time.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "",
 	-- {object:176159} Brazier of Malice
-	["{object:176159}, below ground"] = "",
+	["{object:176159}, below ground"] = "{object:176159}, 지하",
 	-- {object:176160} Brazier of Suffering
-	["{object:176160}, below ground"] = "",
+	["{object:176160}, below ground"] = "{object:176160}, 지하",
 	-- {object:176158} Brazier of Pain
-	["{object:176158}, below ground"] = "",
+	["{object:176158}, below ground"] = "{object:176158}, 지하",
 	-- {object:176161} Brazier of Hatred
-	["{object:176161}, below ground"] = "",
+	["{object:176161}, below ground"] = "{object:176161}, 지하",
 	-- {item:11515} Corrupted Soul Shard · {npc:9528} Arathandris Silversky
 	["{item:11515}, from the same cultists: {npc:9528} takes six by the Sanctuary if you did Cleansing Felwood"] = "",
 	-- {npc:11016} Captured Arko'narin
-	["{npc:11016}, in her cell; below ground"] = "",
+	["{npc:11016}, in her cell; below ground"] = "{npc:11016}, 그녀의 감방에; 지하",
 
 	-- Step 60: Arko'narin
 	-- {area:1770} Shadow Hold
-	["Lead her out of {area:1770} and keep her alive until she is outside the cave: clear the way back first."] = "",
+	["Lead her out of {area:1770} and keep her alive until she is outside the cave: clear the way back first."] = "그녀를 {area:1770} 밖으로 인도하고 동굴 밖에 나올 때까지 살려 두세요. 먼저 돌아오는 길을 정리하세요.",
 
 	-- Step 62: Greta Mosshoof: A Final Blow
 	-- {quest:5242} A Final Blow · {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold
@@ -325,19 +325,19 @@ return {
 	-- {area:1770} Shadow Hold · {npc:9518} Rakaiah
 	["Back into {area:1770}: the succubus {npc:9518} (56) waits on the way to its deepest chamber, with Trey Lightforge's remains beside her.\nCareful: {npc:9518} is level 56: clear the cultists around her first and fight her at full health."] = "",
 	-- {npc:9518} Rakaiah
-	["{npc:9518}, below ground"] = "",
+	["{npc:9518}, below ground"] = "{npc:9518}, 지하",
 	-- {npc:11020} Remains of Trey Lightforge
-	["{npc:11020}, below ground"] = "",
+	["{npc:11020}, below ground"] = "{npc:11020}, 지하",
 
 	-- Step 64: A Final Blow
 	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {npc:9518} Rakaiah
 	["{npc:9861} and {npc:9860} guard {npc:9517} in {area:1770}'s deepest chamber, just past {npc:9518}.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
 	-- {npc:9861} Moora
-	["{npc:9861}, below ground"] = "",
+	["{npc:9861}, below ground"] = "{npc:9861}, 지하",
 	-- {npc:9860} Salia
-	["{npc:9860}, below ground"] = "",
+	["{npc:9860}, below ground"] = "{npc:9860}, 지하",
 	-- {npc:9517} Shadow Lord Fel'dan
-	["{npc:9517}; below ground"] = "",
+	["{npc:9517}; below ground"] = "{npc:9517}; 지하",
 
 	-- Step 65: The Emerald Sanctuary
 	["Ride back south-east to the Sanctuary."] = "남동쪽의 성소로 돌아가세요.",
@@ -355,17 +355,17 @@ return {
 	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	["{npc:11558} stands just inside the {area:1769} cave: she needs Neutral with the Timbermaw; the reputation guide gets you there."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558}: walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: walks around here: look inside the circle on the map"] = "{npc:11558}: 여기 돌아다닙니다: 지도에서 원 안을 보세요",
 
 	-- Step 71: Meilosh
 	-- {npc:11557} Meilosh · {npc:11558} Kernda · {quest:6031} Runecloth
 	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw; the reputation guide gets you there."] = "",
 	-- {npc:11557} Meilosh
-	["{npc:11557}; below ground"] = "",
+	["{npc:11557}; below ground"] = "{npc:11557}; 지하",
 
 	-- Step 72: Into Winterspring
 	-- {zone:1452} Winterspring
-	["Into {zone:1452}"] = "",
+	["Into {zone:1452}"] = "{zone:1452}(으)로",
 	-- {area:1769} Timbermaw Hold · {zone:1452} Winterspring
 	["Through {area:1769}'s tunnel to its {zone:1452} end."] = "",
 
@@ -381,7 +381,7 @@ return {
 	-- {zone:1448} Felwood · {area:1998} Talonbranch Glade · {quest:5086} Toxic Horrors · {area:1767} Irontree Woods
 	["Back through the tunnel to {zone:1448} and south past {area:1998}: the {quest:5086} (53) roam the north-eastern tip of {area:1767}."] = "",
 	-- {quest:5086} Toxic Horrors
-	["The {quest:5086}"] = "",
+	["The {quest:5086}"] = "{quest:5086}",
 
 	-- Step 75: Toxic Horrors
 	-- {quest:5086} Toxic Horrors
@@ -394,7 +394,7 @@ return {
 
 	-- Step 78: Winterspring: kill these as you meet them
 	-- {zone:1452} Winterspring
-	["{zone:1452}: kill these as you meet them"] = "",
+	["{zone:1452}: kill these as you meet them"] = "{zone:1452}: 길에서 만나는 대로 잡으세요",
 	-- {quest:5087} Winterfall Runners · {area:2246} Frostfire Hot Springs · {zone:1448} Felwood · {spell:5384} Feign Death
 	["The {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "",
 
@@ -462,6 +462,8 @@ return {
 	-- ["Free Darrowshire Spirits: talk to them"] = "{npc:11064} 해방: 대화하기",
 	-- ["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}."] = "얼음엉겅퀴설인은 {area:2244} 남쪽 언덕에, 서리바람 키메라는 {area:2255} 쪽 계곡에 삽니다.",
 	-- ["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}.\nCareful: the Ice Thistle Yetis are 55-56 and the Chimaeras 55-57: take the Rogue Ice Thistles (53-55) and the Fledgling Chillwinds (53-55) at the edge of the hills, and leave the Chillwind Ravagers (57-59) alone."] = "얼음엉겅퀴설인은 {area:2244} 남쪽 언덕에, 서리바람 키메라는 {area:2255} 쪽 골짜기에 삽니다.\n주의: 얼음엉겅퀴설인은 55-56레벨, 키메라는 55-57레벨입니다. 언덕 가장자리의 떠도는 얼음엉겅퀴설인(53-55)과 어린 서리바람 키메라(53-55)를 잡고, 갈퀴발톱 서리바람 키메라(57-59)는 피하세요.",
+	-- ["Inside"] = "내부",
+	-- ["Into {zone:1423}"] = "{zone:1423}(으)로",
 	-- ["Its jars are filled on the {zone:1451} guide's Un'Goro visit: keep it"] = "단지는 {zone:1451} 가이드의 운고로 방문 때 채웁니다: 보관하세요",
 	-- ["Keep it: Gregan in {zone:1444} brews the elixir later"] = "보관하세요: 나중에 {zone:1444}의 그레간이 비약을 만듭니다",
 	-- ["Level 55 at {area:2246}"] = "{area:2246}에서 55레벨",
@@ -497,9 +499,14 @@ return {
 	-- ["Your Hearthstone is not set at {zone:1455} (the {zone:1425} guide binds there, and this guide leaves {zone:1452} through it): bind at {area:2255} instead, for the trips back to town."] = "귀환석이 {zone:1455}에 설정되어 있지 않습니다({zone:1425} 가이드가 그곳에 귀환 지점을 정하고, 이 가이드는 그곳을 통해 {zone:1452}을(를) 떠납니다). 대신 마을로 돌아올 때를 위해 {area:2255}에 귀환 지점을 정하세요.",
 	-- ["Your Hearthstone is still set at {zone:1455}: from there the gryphon to {area:3197} is about ten minutes quicker than {area:2255}'s flight to Theramore and the boat."] = "귀환석이 아직 {zone:1455}에 설정되어 있습니다. 그곳에서 {area:3197}행 그리폰을 타는 것이 {area:2255}에서 테라모어 섬으로 날아가 배를 타는 것보다 약 10분 빠릅니다.",
 	-- ["Zaeldarr is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "잴다르는 정예이니 파티를 권장합니다. 그는 지역 남서쪽의 지하실인 {area:2261}의 맨 아래에서 기다립니다.",
+	-- ["grind on {npc:7442}"] = "{npc:7442} 사냥",
 	-- ["grind on {npc:7460} at the {area:2247}, {zone:1452}"] = "{zone:1452}의 {area:2247}에서 {npc:7460}을(를) 사냥하세요",
+	-- ["{area:150} flight master"] = "{area:150} 비행 조련사",
 	-- ["{area:199} cauldron"] = "{area:199} 가마솥",
+	-- ["{area:2247}: kill these as you meet them"] = "{area:2247}: 만나는 대로 처치하세요",
+	-- ["{area:2255} flight master"] = "{area:2255} 비행 조련사",
 	-- ["{area:2255}'s inn"] = "{area:2255} 여관",
+	-- ["{area:489} flight master"] = "{area:489} 비행 조련사",
 	-- ["{item:12771}, a rare drop"] = "{item:12771}, 드문 전리품",
 	-- ["{npc:10301}'s supplies"] = "{npc:10301}의 보급품",
 	-- ["{npc:10431}: keep both for the Plaguelands; inside"] = "{npc:10431}: 둘 다 역병지대를 위해 보관하세요. 안",

@@ -76,7 +76,7 @@ return {
 
 	-- Step 12: Kernda: the Deadwood totem
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Deadwood totem"] = "",
+	["{npc:11558}: the Deadwood totem"] = "{npc:11558}：死木圖騰",
 
 	-- Step 13: Winterfall Ritual Totem
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda
@@ -85,7 +85,7 @@ return {
 
 	-- Step 14: Kernda: the Winterfall totem
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Winterfall totem"] = "",
+	["{npc:11558}: the Winterfall totem"] = "{npc:11558}：冬寒圖騰",
 
 	-- Step 15: Neutral to Friendly
 	["Neutral to Friendly"] = "中立到友善",
@@ -112,7 +112,7 @@ return {
 
 	-- Step 20: Honored to Revered
 	["Honored to Revered"] = "尊敬到崇敬",
-	["Honored to Revered is 12,000: 2,400 kills, the last ones that count. Kills stop at 11,999 of 12,000 Honored and never tip you into Revered: when they stop, hand in one set of 5 feathers or beads to cross over. Saving every feather and bead pays off now: about 4,800 kills from the start to the end of Honored leave you with about 2,100 feathers and beads, and that is all of Revered to Exalted. Turning them in early would cost you about 2,400 more kills."] = "",
+	["Honored to Revered is 12,000: 2,400 kills, the last ones that count. Kills stop at 11,999 of 12,000 Honored and never tip you into Revered: when they stop, hand in one set of 5 feathers or beads to cross over. Saving every feather and bead pays off now: about 4,800 kills from the start to the end of Honored leave you with about 2,100 feathers and beads, and that is all of Revered to Exalted. Turning them in early would cost you about 2,400 more kills."] = "從尊敬到崇敬需要12,000聲望：2,400次擊殺，這是最後能靠擊殺獲得的聲望。到尊敬11,999/12,000時，擊殺不再提供聲望，無法靠它升到崇敬：此時交一組5根羽毛或5顆珠子跨過上限。之前保留的所有羽毛和珠子現在派上用場：從起點刷到尊敬上限，約4,800次擊殺會留下約2,100個羽毛和珠子，足以覆蓋崇敬到崇拜的全部需求。提前交還會讓你多刷約2,400只怪。",
 	-- {item:19445} Formula: Enchant Weapon - Agility · {skill:333} Enchanting
 	["{item:19445} ({skill:333}), 3 gold"] = "{item:19445}（{skill:333}），3金",
 	-- {quest:8467} Feathers for Nafien

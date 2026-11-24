@@ -79,9 +79,9 @@ return {
 
 	-- Step 11: The north end of the Zoram Strand
 	-- {area:414} Zoram Strand
-	["The north end of the {area:414}"] = "",
+	["The north end of the {area:414}"] = "L'extrémité nord de {area:414}",
 	-- {area:414} Zoram Strand
-	["The naga's flooded ruins lie just past the north end of the {area:414}. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins."] = "",
+	["The naga's flooded ruins lie just past the north end of the {area:414}. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins."] = "Les ruines inondées des nagas se trouvent juste après l'extrémité nord de {area:414}. La flèche ne trouve pas elle-même le chemin pour y descendre, elle vous mène donc d'abord au bord de l'eau : de là, nagez vers le nord dans les ruines.",
 
 	-- Step 12: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem

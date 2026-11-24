@@ -87,12 +87,13 @@ local DEFAULTS = { enabled = true, showMinimap = true, showLegend = true, stepOn
 ns.RegisterDefaults("mobMarkers", DEFAULTS)
 
 -- On for a new install; a profile Polestar had before the markers keeps its maps as they were (off), until the
--- player turns them on.
+-- player turns them on. Saved profiles only: a profile string from before leaves the markers at today's default
+-- instead of carrying an off (and the Map pins category with it) into the importer's settings.
 ns.RegisterMigration("mobMarkersOff", function(s)
 	if ns.IsNewAccount() then return end
 	if type(s.mobMarkers) ~= "table" then s.mobMarkers = {} end
 	if s.mobMarkers.enabled == nil then s.mobMarkers.enabled = false end
-end)
+end, { strings = false })
 
 local preview = false -- a test view, never saved: each session starts on the real quest log
 local function opt(k)

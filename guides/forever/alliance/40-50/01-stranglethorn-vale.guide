@@ -520,6 +520,7 @@ step Boat to Auberdine
   only NightElf
   zone Stormwind City
   when level>=40
+  when !skill Riding 1
   goto 22.71,56.69 "Boat to Auberdine" live
 
 step Fly to Rut'theran Village

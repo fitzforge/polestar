@@ -12,11 +12,11 @@ return {
 
 	-- Step 1: Fly to Kargath
 	-- {area:340} Kargath
-	["Fly to {area:340}"] = "",
+	["Fly to {area:340}"] = "{area:340}(으)로 날아가기",
 	-- {zone:2548} Riverglades · {area:3} Badlands · {area:75} Stonard · {area:340} Kargath
 	["The {zone:2548} lie south of the {area:3}. Fly from {area:75} to {area:340}: the way down into the zone starts there."] = "",
 	-- {area:75} Stonard
-	["{area:75} flight master"] = "",
+	["{area:75} flight master"] = "{area:75} 비행 조련사",
 
 	-- Step 2: Into the Riverglades
 	-- {area:16591} Riverglades
@@ -36,7 +36,7 @@ return {
 
 	-- Step 5: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "배를 타고 {area:16727}(으)로",
 	-- {area:977} Steamwheedle Port · {area:976} Gadgetzan · {area:16727} Powderfuse Port
 	["{area:977} is on the coast north-east of {area:976}: wait on the pier for the goblin boat to {area:16727}."] = "{area:977}은(는) {area:976} 북동쪽 해안에 있습니다. 부두에서 {area:16727}행 고블린 배를 기다리세요.",
 
@@ -165,7 +165,7 @@ return {
 	["South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with {npc:263190}'s spears. The Alliance trains its scouts and priests at a camp on the far bank. {npc:257079}, the Alliance elite, rides the road just east of the camp: pull the scouts and priests away from it.\nCareful: {npc:263380}, an elite (level 42), hunts along this river: if he comes your way, back off and let him pass."] = "로그마르 남서쪽에서 강이 농장 사이를 흐릅니다. {npc:263190}의 창으로 민물 악어를 꿰뚫으세요. 얼라이언스는 건너편 강둑의 야영지에서 정찰병과 사제를 훈련합니다. 얼라이언스 정예인 {npc:257079}이(가) 야영지 바로 동쪽 길을 순찰합니다. 정찰병과 사제를 그에게서 떼어 끌어오세요.\n주의: 정예(42레벨)인 {npc:263380}이(가) 이 강을 따라 사냥합니다. 다가오면 물러나서 지나가게 두세요.",
 	-- {npc:263190} Tan'jani
 	-- plural, as words: Freshwater Crocolisks = {npc:259046} Freshwater Crocolisk
-	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "",
+	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "{npc:263190}의 창, 강의 민물 악어에게서",
 
 	-- Step 39: Tran'gul
 	-- {npc:256710} Tran'gul · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
@@ -265,7 +265,7 @@ return {
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
 	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "",
 	-- {npc:258048} Jom-jom
-	["{npc:258048}, in the cave"] = "",
+	["{npc:258048}, in the cave"] = "{npc:258048}, 동굴 안",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
 	["help {npc:258048} reach {area:16726}"] = "{npc:258048}이(가) {area:16726}에 도착하도록 돕기",
 

@@ -32,6 +32,7 @@ next forever/alliance/04-redridge-mountains
 # ---------------------------------------------------------------- Darkshore
 
 step Kerlonian Evershade
+  skipto ashenvale when !onquest 945,967,968,990,98461
   zone Darkshore
   tip Back north from the glaive (Druids: south along the road from Auberdine) to the Grove of the Ancients, where Kerlonian sleeps beside Arbal. Take his quest: it gives you the Horn of Awakening. Use the horn to wake him and lead him south along the road to his bag at the southern edge of Darkshore; blow it again whenever he falls asleep. Then go on to Liladris Moonriver at Maestra's Post.
   tip Careful: Scripted ambushes of three mobs each attack along the road.
@@ -41,6 +42,7 @@ step Kerlonian Evershade
   note Escort Kerlonian south along the road to his bag at the southern edge of Darkshore, then go on to Liladris at Maestra's Post.
 
 step Ashenvale
+  label ashenvale
   zone Ashenvale
   goto 26.2,38.7 "Ashenvale"
 

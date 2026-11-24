@@ -8,14 +8,13 @@
 return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
-	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} y {zone:1427} a nivel 46-48: los campamentos Vagayermo, la escolta de {npc:5955} y {area:1446}."
-	["{area:976} and the {zone:1427} at 47-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "",
+	["{area:976} and the {zone:1427} at 47-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} y {zone:1427} a nivel 47-49: los campamentos Vagayermo, la escolta de {npc:5955} y {area:1446}.",
 
 	-- Step 1: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Vuela a {area:976}",
 	-- {zone:1445} Dustwallow Marsh · {area:496} Brackenwall Village · {area:976} Gadgetzan
-	["Coming from {zone:1445}: {area:496}'s flight master flies you to {area:976}."] = "",
+	["Coming from {zone:1445}: {area:496}'s flight master flies you to {area:976}."] = "Si vienes de {zone:1445}: el maestro de vuelo de {area:496} te lleva a {area:976}.",
 	-- {area:496} Brackenwall Village
 	["{area:496} flight master"] = "Maestro de vuelo de {area:496}",
 
@@ -25,7 +24,7 @@ return {
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, junto al maestro de jinetes del viento",
 	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
-	["{npc:11758}: the {area:983} is on this guide's western loop"] = "",
+	["{npc:11758}: the {area:983} is on this guide's western loop"] = "{npc:11758}: {area:983} está en el recorrido por el oeste de esta guía",
 
 	-- Step 4: Senior Surveyor Fizzledowser
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "No hiciste esto en la visita anterior de la ruta a esta zona: ahora va primero. Es rápido y abre las misiones que le siguen.",
@@ -72,7 +71,7 @@ return {
 	-- {quest:3161} Gahz'ridian
 	["{quest:3161} ornaments"] = "Ornamentos de {quest:3161}",
 	-- {quest:3161} Gahz'ridian · {area:1938} Broken Pillar · {area:983} Dunemaul Compound
-	["Dig up the {quest:3161} ornaments around the {area:1938} and north of the {area:983}."] = "",
+	["Dig up the {quest:3161} ornaments around the {area:1938} and north of the {area:983}."] = "Desentierra los ornamentos de {quest:3161} alrededor de {area:1938} y al norte de {area:983}.",
 
 	-- Step 15: The Noxious Lair
 	-- {npc:4196} Silithid Swarm
@@ -81,7 +80,7 @@ return {
 
 	-- Step 16: The Dunemaul Compound
 	-- {area:982} The Noxious Lair · {quest:3362} Thistleshrub Valley · {npc:12046} Gor'marok the Ravager
-	["South of the {area:982}, on the way west to {quest:3362}, the Dunemaul ogres hold their compound: the Brutes (46-48) and Enforcers (45-47) fill it, {npc:12046} (49) stands at its eastern end.\nCareful: {npc:12046} is one to two levels above you here, and the Ogre Mages and Warlocks (46-48) cast from range: pull from the compound's edge, one at a time, and leave {npc:12046} for last with full health."] = "",
+	["South of the {area:982}, on the way west to {quest:3362}, the Dunemaul ogres hold their compound: the Brutes (46-48) and Enforcers (45-47) fill it, {npc:12046} (49) stands at its eastern end.\nCareful: {npc:12046} is one to two levels above you here, and the Ogre Mages and Warlocks (46-48) cast from range: pull from the compound's edge, one at a time, and leave {npc:12046} for last with full health."] = "Al sur de {area:982}, de camino al oeste hacia {quest:3362}, los ogros Machacaduna ocupan su recinto: los toscos (46-48) y los déspotas (45-47) lo llenan, y {npc:12046} (49) está en su extremo este.\nCuidado: {npc:12046} está uno o dos niveles por encima de ti aquí, y los magos ogros y brujos (46-48) lanzan hechizos a distancia: atráelos desde el borde del recinto, de uno en uno, y deja a {npc:12046} para el final con la salud llena.",
 	["Below ground"] = "Bajo tierra",
 
 	-- Step 17: Thistleshrub Valley: kill these as you meet them
@@ -89,8 +88,7 @@ return {
 	["{quest:3362}: kill these as you meet them"] = "{quest:3362}: mata a estos según te los encuentres",
 	-- {zone:1446} Tanaris · {quest:2864} Tran'rek · {area:1938} Broken Pillar
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
-	-- was: ["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "Al oeste del recinto, las criaturas cactus llenan el valle; solo los recolectores de rocío (47-48) llevan una glándula de rocío. La mayoría de los enemigos de {zone:1446} pueden soltar la baliza de socorro de OOX-17/TN, rara vez: guárdala si te sale.\nCuidado: Los otros enemigos cardo de la zona son de nivel 48-50 y deambulan mucho, así que es fácil atraer de más: ve por los recolectores de rocío en el borde del valle, y deja los cardizales nudosos y los formarraíces de {quest:2864} para el viaje por {area:1938} hacia Un'Goro, hacia el nivel 51."
-	["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers (49-50) for the {area:1938} ride into Un'Goro at about 51."] = "",
+	["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers (49-50) for the {area:1938} ride into Un'Goro at about 51."] = "Al oeste del recinto, las criaturas cactus llenan el valle; solo los recolectores de rocío (47-48) llevan una glándula de rocío. La mayoría de los enemigos de {zone:1446} pueden soltar el localizador de emergencia OOX-17/TN, rara vez: guárdalo si te sale.\nCuidado: los otros enemigos cardizal de la zona son de nivel 48-50 y deambulan mucho, así que es fácil atraer de más: ve por los recolectores de rocío en el borde del valle, y deja los cardizales nudosos y los enraizadores (49-50) de {quest:2864} para el viaje por {area:1938} hacia Un'Goro, hacia el nivel 51.",
 	-- {item:8623} OOX-17/TN Distress Beacon
 	["{item:8623}, a rare drop"] = "{item:8623}, botín raro",
 
@@ -115,12 +113,11 @@ return {
 
 	-- Step 24: Andi Lynn
 	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
-	["{npc:11758} stands a few steps from Bilgewhizzle: the {area:983}."] = "",
+	["{npc:11758} stands a few steps from Bilgewhizzle: the {area:983}."] = "{npc:11758} está a unos pasos de Bilgewhizzle: {area:983}.",
 
 	-- Step 25: Gadgetzan
 	-- {quest:2864} Tran'rek · {quest:3362} Thistleshrub Valley · {area:1938} Broken Pillar
-	-- was: ["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come with the {area:983} at the {area:1938}, on the way into Un'Goro at about 51."] = "Conserva {quest:3362} de {quest:2864}: sus formarraíces (49-50) van junto con {area:983} en {area:1938}, camino a Un'Goro hacia el nivel 51."
-	["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come at the {area:1938}, on the way into Un'Goro at about 51."] = "",
+	["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come at the {area:1938}, on the way into Un'Goro at about 51."] = "Conserva {quest:3362} de {quest:2864}: sus enraizadores (49-50) van en {area:1938}, camino a Un'Goro hacia el nivel 51.",
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "{item:8526} crece en {zone:1425}, alrededor del nivel 48",
 	-- {npc:5594} Alchemist Pestlezugg
@@ -148,7 +145,7 @@ return {
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "para {npc:7010} en {zone:1454}, alrededor del nivel 50",
 	-- {item:4306} Silk Cloth · {npc:8661} Auctioneer Beardo · {quest:4449} Caught! · {area:247} Grimesilt Dig Site · {zone:1427} Searing Gorge
-	["{item:4306}: {npc:8661}, for {quest:4449} at the {area:247} in the {zone:1427}"] = "",
+	["{item:4306}: {npc:8661}, for {quest:4449} at the {area:247} in the {zone:1427}"] = "{item:4306}: {npc:8661}, para {quest:4449} en {area:247} de {zone:1427}",
 
 	-- Step 31: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -165,8 +162,7 @@ return {
 	-- Step 34: The Grimesilt Dig Site
 	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth · {area:976} Gadgetzan
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	-- was: ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Desde {area:16727}, entra a {zone:1427} por su paso del este y luego ve al oeste hasta la excavación. {object:173265} está en su extremo sur; los geólogos Hierro Negro excavan justo al norte. Lleva 15 {item:4306} (se vende en la casa de subastas)."
-	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring the 15 {item:4306} from {area:976}'s Auction House: the Geologists drop it only now and then."] = "",
+	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring the 15 {item:4306} from {area:976}'s Auction House: the Geologists drop it only now and then."] = "Desde {area:16727}, entra a {zone:1427} por su paso del este y luego ve al oeste hasta la excavación. El {object:173265} está en su extremo sur; los geólogos Hierro Negro excavan justo al norte. Lleva los 15 {item:4306} de la casa de subastas de {area:976}: los geólogos la sueltan solo de vez en cuando.",
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "{object:173265}",
 
@@ -210,7 +206,7 @@ return {
 
 	-- Step 45: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {quest:3452} The Flame's Casing
-	["{npc:8479}: {quest:3452}, for the next guide's crossing of the gorge at about 52 (its Twilight cultists, elites 47-50, are at your level now)"] = "",
+	["{npc:8479}: {quest:3452}, for the next guide's crossing of the gorge at about 52 (its Twilight cultists, elites 47-50, are at your level now)"] = "{npc:8479}: {quest:3452}, para el cruce de la garganta de la siguiente guía hacia el nivel 52 (sus cultistas Crepusculares, élites de 47-50, son de tu nivel ahora)",
 	-- {item:10552} Symbol of Ragnaros
 	["His next request needs the {item:10552} from elite cultists: leave it."] = "Su siguiente petición necesita {item:10552} de sectarios élite: déjala.",
 

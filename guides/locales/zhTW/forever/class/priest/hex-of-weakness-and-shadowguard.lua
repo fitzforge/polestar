@@ -76,7 +76,7 @@ return {
 
 	-- Step 12: Shadowguard: Ur'kyo
 	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {quest:5680} Shadowguard
-	["At 20, {npc:6018} in the {object:172961} teaches {quest:5680} with a quest he gives and takes back at once."] = "",
+	["At 20, {npc:6018} in the {object:172961} teaches {quest:5680} with a quest he gives and takes back at once."] = "達到 20 級後，{object:172961} 中的 {npc:6018} 會給予一個任務，並立即接受交還，以此教你 {quest:5680}。",
 
 	-- Step 13: Shadowguard: Miles Welsh's letter
 	-- {quest:5642} Shadowguard · {npc:3044} Miles Welsh

@@ -373,6 +373,7 @@ return {
 	-- ["{npc:15306}, on the west side of the Hold"] = "{npc:15306}，在城堡西側",
 	-- ["{npc:1852} (61, elite) stands in the middle of Andorhal among Skeletal Warlords (56-57, elite): kill him with your group, then take the shard from {object:177241} there."] = "{npc:1852}（61級，精英）站在安多哈爾中央，周圍是骷髏督軍（56-57級，精英）：和你的隊伍一起殺了他，然後從那裡的{object:177241}取得碎片。",
 	-- ["{npc:1855}'s next task, Of Lost Honor, is not on this route. Skip it."] = "{npc:1855}的下一個任務「失落的榮耀」不在這條路線上。跳過。",
+	-- ["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565}在{area:2276}一帶走動：檢視地圖上的圓圈範圍",
 	-- ["{npc:9117} is inside the cave."] = "{npc:9117}在洞穴裡面。",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "{npc:9619}現在要{npc:9622}的毛皮，在東北方的洞穴裡：跳過。",
 	-- ["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "{quest:105}的碎片就在安多哈爾中央{npc:1852}的腳邊：他是61級精英，身邊有精英骷髏督軍，需要組隊戰鬥。",

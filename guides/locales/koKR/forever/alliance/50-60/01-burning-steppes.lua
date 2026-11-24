@@ -40,7 +40,7 @@ return {
 
 	-- Step 7: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
-	["Fly to {area:348}"] = "",
+	["Fly to {area:348}"] = "{area:348}(으)로 날아가기",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 
@@ -56,7 +56,7 @@ return {
 
 	-- Step 11: Fly to Southshore
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "{area:348} 비행 조련사",
 
 	-- Step 12: Orphan Matron Aria
 	-- {area:271} Southshore · {area:279} Dalaran · {npc:34365} Orphan Matron Aria · {npc:266524} Lieutenant Connar · {area:1438} Nethergarde Keep
@@ -72,7 +72,7 @@ return {
 
 	-- Step 15: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
-	["{area:197}: kill these as you meet them"] = "",
+	["{area:197}: kill these as you meet them"] = "{area:197}: 만나는 대로 처치하세요",
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Skeletal Flayers and Slavering Ghouls (50) roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "",
@@ -84,9 +84,9 @@ return {
 
 	-- Step 17: Fly to Morgan's Vigil
 	-- {area:2418} Morgan's Vigil
-	["Fly to {area:2418}"] = "",
+	["Fly to {area:2418}"] = "{area:2418}(으)로 날아가기",
 	-- {area:3197} Chillwind Camp
-	["{area:3197} flight master"] = "",
+	["{area:3197} flight master"] = "{area:3197} 비행 조련사",
 
 	-- Step 18: Fly to Lakeshire
 	-- {area:69} Lakeshire
@@ -94,7 +94,7 @@ return {
 
 	-- Step 19: Morgan's Vigil flight master
 	-- {area:2418} Morgan's Vigil
-	["{area:2418} flight master"] = "",
+	["{area:2418} flight master"] = "{area:2418} 비행 조련사",
 	-- {area:69} Lakeshire · {zone:1428} Burning Steppes · {area:2418} Morgan's Vigil
 	["Ride east out of {area:69} and up the pass into the {zone:1428}: {area:2418} stands at the top."] = "{area:69}에서 동쪽으로 나가 고개를 넘어 {zone:1428}(으)로 가십시오. {area:2418}은(는) 꼭대기에 있습니다.",
 
@@ -107,7 +107,7 @@ return {
 	-- plural, as words: Firegut Ogres = {npc:7033} Firegut Ogre · Escaped Core Hounds = {npc:227746} Escaped Core Hound
 	["The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.\nCareful: the Firegut Ogres are 50 and the Ogre Mages 51, but the Brutes on the rock's east side are 52: take the ogres on the near side first and pull the Brutes one at a time.\nCareful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of {area:249}: pull the ogres on the rock itself and look around before each pull.\nCareful: the Firegut chiefs {npc:9602} and {npc:9604} (54) stand on the rock's east side among the Brutes: leave them be."] = "",
 	-- {npc:7034} Firegut Ogre Mage
-	["{npc:7034}, below ground"] = "",
+	["{npc:7034}, below ground"] = "{npc:7034}, 지하",
 
 	-- Step 22: Morgan's Vigil
 	-- {npc:9177} Oralius · {npc:9176} Gor'tesh · {area:254} Blackrock Mountain
@@ -120,7 +120,7 @@ return {
 
 	-- Step 24: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
-	["{area:250}: kill these as you meet them"] = "",
+	["{area:250}: kill these as you meet them"] = "{area:250}: 만나는 대로 처치하세요",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling · {area:251} Flame Crest · {npc:8981} Malfunctioning Reaver · {npc:7040} Black Dragonspawn
 	-- was: ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "{area:251} 동쪽 비탈의 {npc:7047}이(가) 죽기 직전에 {item:12284}을(를) 사용한 뒤, 남긴 정수를 획득하세요.\n주의: {npc:8981}(56레벨, 희귀)이(가) 새끼용 근처 비탈을 돌아다니며, 주변의 {npc:7040}과(와) 용족은 정예입니다. 가장자리의 새끼용에게 속박장치를 사용하고, 끌어오기 전마다 주위를 살피세요."
 	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, Volchan (60, a rare fire elemental) roams the hills east of {area:251}, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "",
@@ -207,7 +207,7 @@ return {
 	["For {npc:34365} in Alterac, on the Western & {zone:1423} guide's ride to {area:3197}: keep it"] = "",
 
 	-- Step 43: The bloodmages
-	["The bloodmages"] = "",
+	["The bloodmages"] = "혈법사",
 	-- {zone:1419} Blasted Lands
 	["Ride west out of the keep to the bloodmages' camp beside the road into the {zone:1419}."] = "",
 	["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "혈법사들의 두 번째 단계는 같은 재료에 경험치 없이 강화 아이템만 줍니다: 건너뛰십시오.",
@@ -236,11 +236,11 @@ return {
 
 	-- Step 53: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "{area:415}(으)로 날아가기",
 	-- {area:442} Auberdine · {area:415} Astranaar · {zone:1448} Felwood · {zone:1457} Darnassus
 	["The boat lands in {area:442}: fly straight on to {area:415}. Erelas, Jenal and Gracina take their deliveries on the {zone:1448} guide's {zone:1457} stop, which goes there anyway."] = "",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "{area:442} 비행 조련사",
 
 	-- Step 54: Into Azshara
 	-- {zone:1447} Azshara
@@ -345,7 +345,7 @@ return {
 
 	-- Step 79: The Temple of Zin-Malor
 	-- {area:1223} Temple of Zin-Malor
-	["The {area:1223}"] = "",
+	["The {area:1223}"] = "{area:1223}",
 	-- {area:1223} Temple of Zin-Malor · {npc:8395} Sanath Lim-yo
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren
 	["The Spitelash Sirens wander the ruins and the beach around the {area:1223}, just south of {npc:8395}. Only the Sirens carry the coral, not the Screamers."] = "",
@@ -377,6 +377,7 @@ return {
 	-- ["Fly from {zone:1455} to {area:150} and take the boat to {area:442}."] = "{zone:1455}에서 {area:150}(으)로 날아가 배를 타고 {area:442}(으)로 가세요.",
 	-- ["Fly from {zone:1455} to {area:69}."] = "{zone:1455}에서 {area:69}(으)로 날아가세요.",
 	-- ["Fly to {area:150} and take the boat to {area:442}, then the boat on to {area:702}."] = "{area:150}(으)로 날아가 배를 타고 {area:442}(으)로 간 뒤, 다시 배를 타고 {area:702}(으)로 가세요.",
+	-- ["Fly to {area:702}"] = "{area:702}(으)로 날아가기",
 	-- ["For {npc:5594} in {area:976}, on the {zone:1422} guide: keep it"] = "{zone:1422} 가이드에서 {area:976}의 {npc:5594}에게 줄 것: 보관하세요",
 	-- ["For {zone:1453}: keep it"] = "{zone:1453}용: 보관하세요",
 	-- ["From the {area:442} dock, fly to {area:415}."] = "{area:442} 부두에서 {area:415}(으)로 날아가세요.",
@@ -418,7 +419,9 @@ return {
 	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "{area:251} 동쪽 비탈의 {npc:7047}이(가) 죽기 직전에 {item:12284}을(를) 사용한 뒤, 남긴 정수를 획득하세요.\n주의: {npc:8981}(56레벨, 희귀)이(가) 새끼용 근처 비탈을 돌아다니며, 주변의 {npc:7040}과(와) 용족은 정예입니다. 가장자리의 새끼용에게 속박장치를 사용하고, 끌어오기 전마다 주위를 살피세요.",
 	-- ["Wildkin feathers"] = "올빼미야수 깃털",
 	-- ["Your Hearthstone is set at {zone:1455} (the {zone:1425} guide binds it there): hearth back to the inn."] = "귀환석이 {zone:1455}에 설정되어 있습니다({zone:1425} 가이드에서 그곳으로 정합니다). 귀환석으로 여관에 돌아가십시오.",
+	-- ["grind on {npc:6196}"] = "{npc:6196} 사냥",
 	-- ["grind on {npc:7033}"] = "{npc:7033} 사냥",
+	-- ["grind on {npc:9690}"] = "{npc:9690} 사냥",
 	-- ["keep it: the {area:199} cauldron waits for the {zone:1452} guide's Chillwind stop, at about 55"] = "보관하세요: {area:199}의 가마솥은 약 55레벨, {zone:1452} 가이드의 서리바람 야영지 방문 때 진행합니다",
 	-- ["{area:199} cauldron"] = "{area:199} 가마솥",
 	-- ["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "{npc:10778}의 유령은 {area:200} 서쪽, {area:199}의 농가 근처를 떠돕니다. 소포는 농가 안에 있습니다.",

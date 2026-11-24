@@ -29,7 +29,7 @@ return {
 	-- Step 4: Reagent Pouch
 	-- {area:923} Stonesplinter Valley · {area:144} Thelsamar · {spell:1245113} Lightning Bolts
 	-- plural, as words: Stonesplinter Seers = {npc:1166} Stonesplinter Seer
-	["The Stonesplinter Seers (level 13-14) stand among the troggs of {area:923} in the south of the loch, and in the trogg camps north-east of {area:144}. They throw {spell:1245113} from 40 yards and run for help when hurt: pull one at a time. Respawn about five minutes."] = "",
+	["The Stonesplinter Seers (level 13-14) stand among the troggs of {area:923} in the south of the loch, and in the trogg camps north-east of {area:144}. They throw {spell:1245113} from 40 yards and run for help when hurt: pull one at a time. Respawn about five minutes."] = "碎石怪先知（13—14級）位於湖泊南部 {area:923} 的穴居人群中，以及 {area:144} 東北面的穴居人營地內。它們能從40碼外施放 {spell:1245113}，受傷後會逃跑求援：一次只引一隻。大約五分鐘重生。",
 
 	-- Step 5: Fire Tar
 	-- {area:149} Silver Stream Mine · {area:144} Thelsamar · {spell:2136} Fire Blast · {spell:134} Fire Shield

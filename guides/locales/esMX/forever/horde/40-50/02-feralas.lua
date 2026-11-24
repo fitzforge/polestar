@@ -20,15 +20,14 @@ return {
 
 	-- Step 3: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1435} Swamp of Sorrows · {zone:1458} Undercity · {object:2076} Bubbling Cauldron
-	-- was: ["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "El vuelo aterriza en {object:3202}. Los encargos más difíciles de Tuercespina, pendientes de tu primera visita, ya son para ti: el jefe Partecráneos, los campamentos de Zanzil, los piratas de {area:35}, la costa de los naga y {npc:1514}, antes del zepelín a {zone:1454}. La {object:2076} junto a Nimboya tiene la misión del jefe Partecráneos."
-	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the {zone:1435} and the {zone:1458}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "",
+	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the {zone:1435} and the {zone:1458}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "El vuelo aterriza en Grom'gol. Los encargos más difíciles de Tuercespina, pendientes de tu primera visita, ya son para ti: el jefe Machacacráneos, los campamentos de Zanzil, los piratas de {area:35}, la costa de los naga y {npc:1514}, antes de {zone:1435} y {zone:1458}. El {object:2076} junto a Nimboya tiene la misión del jefe Machacacráneos.",
 	-- {object:2076} Bubbling Cauldron · {quest:586} Speaking with Gan'zulah
 	["the {object:2076}: {quest:586}"] = "{object:2076}: {quest:586}",
 
 	-- Step 4: Tusks and necklaces on the Skullsplitter hunt
-	["Tusks and necklaces on the Skullsplitter hunt"] = "",
+	["Tusks and necklaces on the Skullsplitter hunt"] = "Colmillos y collares en la caza Machacacráneos",
 	-- {npc:737} Kebok · {npc:2519} Kin'weelay
-	["The hunters also drop {npc:737}'s tusks and {npc:2519}'s necklaces. Collect any you still need during the cauldron hunt."] = "",
+	["The hunters also drop {npc:737}'s tusks and {npc:2519}'s necklaces. Collect any you still need during the cauldron hunt."] = "Los cazadores también sueltan los colmillos de {npc:737} y los collares de {npc:2519}. Recoge los que todavía te falten durante la caza del caldero.",
 
 	-- Step 5: Zul'Mamwe
 	["Zul'Mamwe"] = "Ruinas de Zul'Mamwe",
@@ -58,8 +57,7 @@ return {
 	["Pirate ghosts and Zanzil's camps"] = "Fantasmas piratas y campamentos de Zanzil",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2537} Chucky "Ten Thumbs" · {npc:2534} Zanzil the Outcast
 	-- plural, as words: Zanzil Witch Doctors = {npc:1490} Zanzil Witch Doctor
-	-- was: ["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and {npc:2536} stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "Sigue al suroeste hasta la jungla al noreste de Vallebruma: los tres piratas fantasmales la rondan junto a los campamentos de Zanzil. {npc:2535} y {npc:2536} están juntos, {npc:2537} más al este. Cualquier seguidor de Zanzil puede llevar el brebaje.\nCuidado: los médicos brujos Zanzil (44) lanzan hechizos y los campamentos están llenos: atráelos desde el borde, uno a la vez. El propio {npc:2534} (46) está en el campamento del sur alrededor de 39.6,58.6, a unos pasos del fantasma de {npc:2537}: lleva a {npc:2537} al norte o al este antes de pelear con él."
-	["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and Jon-Jon stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "",
+	["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and Jon-Jon stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "Sigue al suroeste hasta la jungla al noreste de Velo de Bruma: los tres piratas fantasmales la rondan junto a los campamentos de Zanzil. {npc:2535} y Jon-Jon están juntos, {npc:2537} más al este. Cualquier seguidor de Zanzil puede llevar el brebaje.\nCuidado: los médicos brujos Zanzil (44) lanzan hechizos y los campamentos están llenos: atráelos desde el borde, uno a la vez. El propio {npc:2534} (46) está en el campamento del sur alrededor de 39.6,58.6, a unos pasos del fantasma de {npc:2537}: lleva a {npc:2537} al norte o al este antes de pelear con él.",
 
 	-- Step 10: Witch Doctor Unbagwa
 	-- {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -69,17 +67,17 @@ return {
 	-- {area:1577} The Cape of Stranglethorn
 	["{area:1577}: kill these as you meet them"] = "{area:1577}: mata a estos según te los encuentres",
 	-- {object:759} Holy Spring · {area:43} Wild Shore · {area:35} Booty Bay
-	["West to the coast: the naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them.\nFollow the coast south. If you still need the {area:43} pirates, take the road past the {area:35} tunnel to the beach before going into town."] = "",
+	["West to the coast: the naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them.\nFollow the coast south. If you still need the {area:43} pirates, take the road past the {area:35} tunnel to the beach before going into town."] = "Al oeste hasta la costa: los expedicionarios naga recorren la orilla y llevan los haces de juncos; el {object:759} burbujea en las colinas justo al este de ellos.\nSigue la costa al sur. Si todavía necesitas a los piratas de {area:43}, toma el camino que pasa el túnel de {area:35} hasta la playa antes de entrar al pueblo.",
 
 	-- Step 12: The Wild Shore
 	-- {area:43} Wild Shore
 	["The {area:43}"] = "{area:43}",
 	-- {area:35} Booty Bay
-	["From the north, take the outer shore east of the {area:35} tunnel. Work south-west through the swashbucklers (41-43) into the camp; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Stay ashore."] = "",
+	["From the north, take the outer shore east of the {area:35} tunnel. Work south-west through the swashbucklers (41-43) into the camp; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Stay ashore."] = "Desde el norte, toma la orilla exterior al este del túnel de {area:35}. Avanza al suroeste entre los espadachines (41-43) hasta el campamento; las cartas y las órdenes están en sus tiendas y en el bote de remos junto al campamento más grande. Quédate en tierra.",
 
 	-- Step 13: Bloodsail tents and rowboat
-	["Bloodsail tents and rowboat"] = "",
-	["Search the tents and the rowboat for both papers; if one place is empty, try the next. Neither paper is on a ship."] = "",
+	["Bloodsail tents and rowboat"] = "Tiendas y bote de remos Velasangre",
+	["Search the tents and the rowboat for both papers; if one place is empty, try the next. Neither paper is on a ship."] = "Busca los dos papeles en las tiendas y en el bote de remos; si un lugar está vacío, prueba el siguiente. Ninguno de los papeles está en un barco.",
 
 	-- Step 16: Booty Bay
 	-- {area:35} Booty Bay · {npc:2494} Privateer Bloads · {npc:2498} Crank Fizzlebub · {npc:737} Kebok · {npc:773} Krazek
@@ -90,17 +88,18 @@ return {
 
 	-- Step 17: Fin Fizracket
 	-- {npc:2486} Fin Fizracket
-	["{npc:2486}, by the inn"] = "",
+	["{npc:2486}, by the inn"] = "{npc:2486}, junto a la posada",
 
 	-- Step 18: Whiskey Slim and Fin Fizracket
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
-	["{npc:2491} and {npc:2486}"] = "",
+	["{npc:2491} and {npc:2486}"] = "{npc:2491} y {npc:2486}",
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim
+	-- was: ["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "¿Tenías menos de 40 en tu primera visita a {area:35}? {npc:2491}, en la posada, {npc:2486}, al lado, y MacKinley \"Lobo de Mar\", en el piso superior, tienen sus misiones para ti ahora."
 	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}, en la posada: sus botellas llegan a la costa de {zone:1425}, alrededor del nivel 48",
 	-- {quest:2872} Stoley's Debt · {npc:7881} Stoley · {zone:1446} Tanaris
-	["MacKinley, on the top floor: {quest:2872}, for {npc:7881} in {zone:1446} on this guide"] = "",
+	["MacKinley, on the top floor: {quest:2872}, for {npc:7881} in {zone:1446} on this guide"] = "MacKinley, en el piso superior: {quest:2872}, para {npc:7881} en {zone:1446}, en esta guía",
 
 	-- Step 19: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -110,7 +109,7 @@ return {
 
 	-- Step 20: Witch Doctor Unbagwa
 	-- {area:35} Booty Bay · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
-	["North into Mistvale, a short ride from {area:35}: {npc:1449} sits among the gorillas. Hand him ten gorilla fangs and stay by him: three waves of gorillas, then {npc:1514}. Start at full health and mana."] = "",
+	["North into Mistvale, a short ride from {area:35}: {npc:1449} sits among the gorillas. Hand him ten gorilla fangs and stay by him: three waves of gorillas, then {npc:1514}. Start at full health and mana."] = "Al norte, hacia Velo de Bruma, a poca distancia de {area:35}: {npc:1449} está sentado entre los gorilas. Entrégale diez colmillos de gorila y quédate junto a él: tres oleadas de gorilas, y luego {npc:1514}. Empieza con la salud y el maná llenos.",
 
 	-- Step 22: Kebok
 	-- {npc:737} Kebok
@@ -122,8 +121,8 @@ return {
 
 	-- Step 26: Unfinished Wild Shore errands
 	-- {area:43} Wild Shore
-	["Unfinished {area:43} errands"] = "",
-	["If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships."] = "",
+	["Unfinished {area:43} errands"] = "Encargos pendientes de {area:43}",
+	["If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships."] = "Si las recompensas del pueblo acaban de llevarte a 42 y todavía te queda trabajo con los piratas, usa las tiendas de la orilla, no los barcos.",
 
 	-- Step 30: Fly to Grom'gol
 	-- {area:35} Booty Bay
@@ -131,13 +130,13 @@ return {
 
 	-- Step 31: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {npc:2519} Kin'weelay · {npc:2465} Far Seer Mok'thardin
-	["The flight lands at {object:3202}: {npc:2519} and {npc:2465}, then back to the flight master."] = "",
+	["The flight lands at {object:3202}: {npc:2519} and {npc:2465}, then back to the flight master."] = "El vuelo aterriza en Grom'gol: {npc:2519} y {npc:2465}, y luego de vuelta al maestro de vuelo.",
 
 	-- Step 34: Fly to Stonard
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "Vuela a {area:75}",
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:75} Stonard · {area:1978} Misty Reed Post
-	["Stranglethorn's errands are done: from {object:3202}'s flight master, fly on to {area:75} for the swamp's coast and {area:1978}, which fit you now."] = "",
+	["Stranglethorn's errands are done: from {object:3202}'s flight master, fly on to {area:75} for the swamp's coast and {area:1978}, which fit you now."] = "Los encargos de Tuercespina están hechos: desde el maestro de vuelo de Grom'gol, sigue en vuelo hasta {area:75} por la costa del pantano y {area:1978}, que ya son para ti.",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["{object:3202} flight master"] = "Maestro de vuelo de {object:3202}",
 
@@ -145,11 +144,11 @@ return {
 	-- {area:75} Stonard
 	["To {area:75}"] = "A {area:75}",
 	-- {area:75} Stonard · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1431} Duskwood · {zone:1430} Deadwind Pass
-	["No flight path to {area:75} yet: ride north-east from {object:3202} through {zone:1431} and {zone:1430} into the swamp, then east along the road to {area:75}, and learn its flight path."] = "",
+	["No flight path to {area:75} yet: ride north-east from {object:3202} through {zone:1431} and {zone:1430} into the swamp, then east along the road to {area:75}, and learn its flight path."] = "¿Todavía no tienes la ruta de vuelo a {area:75}? Cabalga al noreste desde Grom'gol cruzando {zone:1431} y {zone:1430} hasta el pantano, luego al este por el camino hasta {area:75}, y aprende su ruta de vuelo.",
 
 	-- Step 36: Stonard
 	-- {quest:698} Lack of Surplus · {quest:1424} Pool of Tears · {quest:1430} Fresh Meat · {npc:5593} Katar · {npc:5591} Dar · {area:75} Stonard · {npc:1443} Fel'zerul
-	["The Stranglethorn & Swamp guide already finished {quest:698}' first part and the {quest:1424} with you; its {quest:1430} and {npc:5593}'s murlocs are in your log. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "",
+	["The Stranglethorn & Swamp guide already finished {quest:698}' first part and the {quest:1424} with you; its {quest:1430} and {npc:5593}'s murlocs are in your log. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "La guía de Tuercespina y el Pantano ya terminó contigo la primera parte de {quest:698} y {quest:1424}; su {quest:1430} y los múrlocs de {npc:5593} están en tu registro. Si empiezas aquí: {npc:5591} está dentro del gran salón de {area:75} y {npc:1443}, en su piso superior.",
 	-- {npc:5591} Dar
 	["{npc:5591}, inside"] = "{npc:5591}, adentro",
 	-- {npc:1443} Fel'zerul
@@ -158,7 +157,7 @@ return {
 	-- Step 37: A Soggy Scroll
 	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "Cabalga al oeste por el camino; el pergamino está a la orilla del agua, en el extremo oeste del pantano.",
 	-- {object:2555} Musty Scroll · {zone:1445} Dustwallow Marsh
-	["for the {object:2555} in {zone:1445}, on the Dustwallow guide"] = "",
+	["for the {object:2555} in {zone:1445}, on the Dustwallow guide"] = "para el {object:2555} de {zone:1445}, en la guía de Marjal Revolcafango",
 
 	-- Step 38: A Soggy Scroll
 	["The scroll lies at the water's edge in the swamp's far west."] = "",
@@ -174,7 +173,7 @@ return {
 
 	-- Step 41: Misty Reed Post
 	-- {npc:5592} Tok'Kar · {npc:5593} Katar
-	["Follow the road south-east to the small Horde post on the shore: {npc:5592} and {npc:5593}."] = "",
+	["Follow the road south-east to the small Horde post on the shore: {npc:5592} and {npc:5593}."] = "Sigue el camino al sureste hasta el pequeño puesto de la Horda en la orilla: {npc:5592} y {npc:5593}.",
 
 	-- Step 42: The Forbidding Sea: kill these as you meet them
 	-- {area:2403} The Forbidding Sea
@@ -194,13 +193,13 @@ return {
 
 	-- Step 48: Stonard
 	-- {npc:5598} Atal'ai Exile · {zone:1425} Hinterlands
-	["for the {npc:5598} in the {zone:1425}, around level 49"] = "",
+	["for the {npc:5598} in the {zone:1425}, around level 49"] = "para el {npc:5598} de {zone:1425}, alrededor del nivel 49",
 
 	-- Step 49: Fly to the Undercity
 	-- {area:1497} Undercity
 	["Fly to the {area:1497}"] = "Vuela a {area:1497}",
 	-- {area:75} Stonard · {area:1497} Undercity · {area:340} Kargath · {npc:5204} Apothecary Zinge · {zone:1454} Orgrimmar
-	["From {area:75}'s flight master, fly to the {area:1497} (by way of {area:340}): {npc:5204}'s errands and your {area:1497} training, then the zeppelin from the towers outside the city to {zone:1454}."] = "",
+	["From {area:75}'s flight master, fly to the {area:1497} (by way of {area:340}): {npc:5204}'s errands and your {area:1497} training, then the zeppelin from the towers outside the city to {zone:1454}."] = "Desde el maestro de vuelo de {area:75}, vuela a {area:1497} (pasando por {area:340}): los encargos de {npc:5204} y tu entrenamiento en {area:1497}, y luego el zepelín desde las torres de las afueras de la ciudad hasta {zone:1454}.",
 
 	-- Step 50: Apothecary Zinge
 	-- {npc:2934} Keeper Bel'dugur
@@ -215,7 +214,7 @@ return {
 	-- Step 52: Riding at 40
 	["Riding at 40"] = "Equitación a nivel 40",
 	-- {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1454} Orgrimmar
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {zone:1454} zeppelin."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {zone:1454} zeppelin."] = "Para montar necesitas nivel 40 y 100 de oro; al aprenderlo recibes una montura. Cada raza lo aprende con el instructor de su propia raza: el tuyo es {npc:4773} en {area:159}, un poco al norte de las torres del zepelín, con los caballos esqueléticos de {npc:4731} (20 de oro cada uno) a su lado. Vuelve a las torres por el zepelín a {zone:1454}.",
 	-- {npc:4773} Velma Warnam
 	["{npc:4773}, riding trainer"] = "{npc:4773}, instructora de equitación",
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
@@ -231,7 +230,7 @@ return {
 
 	-- Step 55: Orgrimmar
 	-- {zone:1458} Undercity
-	["the {zone:1458}'s classes trained there on the way"] = "",
+	["the {zone:1458}'s classes trained there on the way"] = "las clases de {zone:1458} entrenaron ahí de camino",
 
 	-- Step 56: Riding at 40
 	-- {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff
@@ -293,9 +292,9 @@ return {
 	-- {area:976} Gadgetzan · {area:2240} Mirage Raceway · {zone:1446} Tanaris
 	["Flown in: {area:976}'s quests first, by the flight master, then the {area:2240} is a short ride north over the {zone:1446} border."] = "Si llegaste volando: primero las misiones de {area:976}, junto al maestro de vuelo; luego {area:2240} está a poca distancia a caballo al norte, cruzando la frontera de {zone:1446}.",
 	-- {npc:7407} Chief Engineer Bilgewhizzle · {npc:5204} Apothecary Zinge · {item:8523} Field Testing Kit · {zone:1458} Undercity
-	["{npc:7407}: {npc:5204}'s {item:8523}, from the {zone:1458}"] = "",
+	["{npc:7407}: {npc:5204}'s {item:8523}, from the {zone:1458}"] = "{npc:7407}: el {item:8523} de {npc:5204}, de {zone:1458}",
 	-- {npc:7407} Chief Engineer Bilgewhizzle
-	["{npc:7407}: the water pouches come from the same Wastewander camps"] = "",
+	["{npc:7407}: the water pouches come from the same Wastewander camps"] = "{npc:7407}: las bolsas de agua salen de los mismos campamentos Vagayermo",
 
 	-- Step 76: Gadgetzan
 	-- {area:978} Zul'Farrak · {quest:2864} Tran'rek · {npc:7804} Trenton Lighthammer · {quest:3042} Troll Temper
@@ -307,7 +306,7 @@ return {
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}: {quest:1137}, de parte de Martek en {zone:1418}",
 	-- {npc:4630} Pozzik · {npc:2496} Baron Revilgaz · {area:35} Booty Bay
-	["{npc:4630}: {npc:2496}'s word, from {area:35}"] = "",
+	["{npc:4630}: {npc:2496}'s word, from {area:35}"] = "{npc:4630}: el aviso de {npc:2496}, desde {area:35}",
 	-- {npc:4706} Razzeric · {npc:4630} Pozzik
 	["{npc:4706}, beside {npc:4630}"] = "{npc:4706}, junto a {npc:4630}",
 
@@ -324,12 +323,11 @@ return {
 	["{area:1937}: kill these as you meet them"] = "{area:1937}: mata a estos según te los encuentres",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	-- was: ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Los bandidos y ladrones acampan en las dunas al este de {area:976}. Cualquier Vagayermo puede llevar una bolsa de agua: Luglunket quiere cinco.\nCuidado: Los pícaros Vagayermo (nivel 43-44) se mueven en sigilo, así que pueden acercarse sin que los veas."
-	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five, and Bilgewhizzle five more.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "",
+	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five, and Bilgewhizzle five more.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Los bandidos y ladrones acampan en las dunas al este de {area:976}. Cualquier Vagayermo puede llevar una bolsa de agua: Luglunket quiere cinco, y Bilgewhizzle cinco más.\nCuidado: los pícaros Vagayermo (nivel 43-44) se mueven en sigilo, así que pueden acercarse sin que los veas.",
 
 	-- Step 82: Gadgetzan
 	-- {zone:1446} Tanaris
-	["Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts Tanaris Field Sampling, a two-hour timer, for the {zone:1446} guide at about 48, on the way back north from Scrimshank's hive."] = "",
+	["Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts Tanaris Field Sampling, a two-hour timer, for the {zone:1446} guide at about 48, on the way back north from Scrimshank's hive."] = "Guarda la fuente de alimentación modelo 4711-FTZ que te dio Bilgewhizzle: inicia Recogida de muestras en Tanaris, con un temporizador de dos horas, para la guía de {zone:1446} hacia el nivel 48, en la vuelta al norte desde la colmena de Scrimshank.",
 
 	-- Step 83: Steamwheedle Port
 	["Ride north-east to the goblin harbour on the coast."] = "Cabalga al noreste hasta el puerto goblin de la costa.",
@@ -338,7 +336,7 @@ return {
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}, adentro",
 	-- {npc:8579} Yeh'kinya · {zone:1444} Feralas
-	["{npc:8579}: the screechers live in {zone:1444}, on this guide's west sweep"] = "",
+	["{npc:8579}: the screechers live in {zone:1444}, on this guide's west sweep"] = "{npc:8579}: los chilladores viven en {zone:1444}, en el recorrido por el oeste de esta guía",
 	-- {npc:260405} Wharfmaster Steamfizzle · {zone:2548} Riverglades
 	["{npc:260405}, on the pier: Friz's errand from the {zone:2548}, if you carry it"] = "{npc:260405}, en el muelle: el encargo de Friz de {zone:2548}, si lo llevas",
 
@@ -346,11 +344,10 @@ return {
 	-- {area:1336} Lost Rigger Cove
 	["{area:1336}: kill these as you meet them"] = "{area:1336}: mata a estos según te los encuentres",
 	-- {npc:7883} Andre Firebeard · {item:9276} Pirate's Footlocker · {item:9250} Ship Schedule · {area:977} Steamwheedle Port
-	-- was: ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "Al sur por la costa, los piratas de los Mares del Sur ocupan la cala. {npc:7883} y la carga robada están en los muelles del extremo. Cualquier pirata puede soltar un sombrero, los secuestradores con más frecuencia.\nCuidado: Dos o tres piratas están con {npc:7883} (45), y muchos más piratas del pueblo se unen a la pelea cuando empieza: primero aleja a sus guardias de él."
-	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first.\nThe cove's pirates sometimes drop a {item:9276}: open it, and if it holds a {item:9250}, read it to start a quest for the Security Chief in {area:977}."] = "",
+	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first.\nThe cove's pirates sometimes drop a {item:9276}: open it, and if it holds a {item:9250}, read it to start a quest for the Security Chief in {area:977}."] = "Al sur por la costa, los piratas de los Mares del Sur ocupan la cala. {npc:7883} y la carga robada están en los muelles del extremo. Cualquier pirata puede soltar un sombrero, los secuestradores con más frecuencia.\nCuidado: dos o tres piratas están con {npc:7883} (45), y muchos más piratas del pueblo se unen a la pelea cuando empieza: primero aleja a sus guardias de él.\nLos piratas de la cala a veces sueltan un {item:9276}: ábrelo, y si contiene un {item:9250}, léelo para iniciar una misión del jefe de seguridad de {area:977}.",
 	["Upstairs"] = "Arriba",
 	-- {item:9250} Ship Schedule · {item:9276} Pirate's Footlocker
-	["{item:9250}, from a {item:9276}"] = "",
+	["{item:9250}, from a {item:9276}"] = "{item:9250}, de un {item:9276}",
 
 	-- Step 85: Waterspring Field: kill these as you meet them
 	-- {area:985} Waterspring Field
@@ -365,7 +362,7 @@ return {
 	-- {area:35} Booty Bay
 	["for {area:35}, around level 51 (40-50/06)"] = "para {area:35}, alrededor del nivel 51 (40-50/06)",
 	-- {npc:7882} Security Chief Bilgewhizzle · {item:9250} Ship Schedule
-	["{npc:7882}: the {item:9250}, if the cove gave you one"] = "",
+	["{npc:7882}: the {item:9250}, if the cove gave you one"] = "{npc:7882}: el {item:9250}, si la cala te dio uno",
 
 	-- Step 88: Fly to Freewind Post
 	-- {area:976} Gadgetzan
@@ -377,15 +374,13 @@ return {
 	-- {npc:8115} Witch Doctor Uzer'i · {npc:263190} Tan'jani · {zone:2548} Riverglades
 	["{npc:8115}: {npc:263190}'s errand from the {zone:2548}, if you carry it"] = "{npc:8115}: el encargo de {npc:263190} de {zone:2548}, si lo llevas",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
-	-- was: ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: para {zone:1454}, alrededor del nivel 45"
-	["{npc:8115}: for {zone:1454}, around level 47"] = "",
+	["{npc:8115}: for {zone:1454}, around level 47"] = "{npc:8115}: para {zone:1454}, alrededor del nivel 47",
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "{npc:7854}, adentro",
 
 	-- Step 91: Gordunni Outpost
 	-- {npc:222233} Ohk'zi · {item:9466} Orwin's Shovel · {object:144064} Gordunni Dirt Mound
-	-- was: ["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "Al norte de los gnolls, los ogros ocupan una avanzada en una colina; atrae a los ogros magos hacia ti. El cobalto está en los montículos de tierra alrededor de la avanzada y el pergamino está en el suelo, adentro.\nCuidado: {npc:222233} (nivel 43, élite) está en la avanzada: atrae a los ogros hacia ti, lejos de él."
-	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him.\nUse {item:9466} on each {object:144064} around the outpost: the arrow goes from mound to mound."] = "",
+	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him.\nUse {item:9466} on each {object:144064} around the outpost: the arrow goes from mound to mound."] = "Al norte de los gnolls, los ogros ocupan una avanzada en una colina; atrae a los ogros magos hacia ti. El cobalto está en los montículos de tierra alrededor de la avanzada y el pergamino está en el suelo, adentro.\nCuidado: {npc:222233} (nivel 43, élite) está en la avanzada: atrae a los ogros hacia ti, lejos de él.\nUsa la {item:9466} en cada {object:144064} alrededor de la avanzada: la flecha va de montículo en montículo.",
 
 	-- Step 92: Woodpaw north camp
 	["Woodpaw north camp"] = "Campamento norte Zarpaleña",
@@ -411,7 +406,7 @@ return {
 
 	-- Step 98: Camp Mojache
 	-- {zone:1454} Orgrimmar
-	["for {zone:1454}, around level 47"] = "",
+	["for {zone:1454}, around level 47"] = "para {zone:1454}, alrededor del nivel 47",
 
 	-- Step 99: The Writhing Deep
 	-- {quest:7731} Stinglasher
@@ -435,7 +430,7 @@ return {
 	["Rogue Vale screechers"] = "Estridadores del valle huido",
 	-- {area:1099} Camp Mojache · {area:1105} Feral Scar Vale · {item:10699} Yeh'kinya's Bramble · {npc:8579} Yeh'kinya · {area:977} Steamwheedle Port · {zone:1446} Tanaris
 	-- plural, as words: Rogue Vale Screechers = {npc:5308} Rogue Vale Screecher
-	["On the way back north-east towards {area:1099}, the Rogue Vale Screechers (44-46) hunt the open ground north of {area:1105}. Kill one, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all; {npc:8579} takes them in {area:977} on your next {zone:1446} visit."] = "",
+	["On the way back north-east towards {area:1099}, the Rogue Vale Screechers (44-46) hunt the open ground north of {area:1105}. Kill one, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all; {npc:8579} takes them in {area:977} on your next {zone:1446} visit."] = "De vuelta al noreste hacia {area:1099}, los estridadores del valle huido (44-46) cazan en el terreno abierto al norte de {area:1105}. Mata uno, usa la {item:10699} sobre su cuerpo antes de despojarlo y luego habla con el espíritu que se alza: es amistoso. Tres espíritus en total; {npc:8579} los recibe en {area:977} en tu próxima visita a {zone:1446}.",
 
 	-- Step 103: Homing Robot OOX-22/FE
 	-- {zone:1444} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
@@ -494,6 +489,7 @@ return {
 	-- ["The {object:3202} zeppelin leaves from the tower just north-east of {zone:1454}'s main gate."] = "El zepelín a {object:3202} sale de la torre justo al noreste de la puerta principal de {zone:1454}.",
 	-- ["The {zone:1454} zeppelin leaves from the tower beside {object:3202}; it lands just outside {zone:1454}'s main gate."] = "El zepelín a {zone:1454} sale de la torre junto a {object:3202}; aterriza justo afuera de la puerta principal de {zone:1454}.",
 	-- ["Thysta, the flight master, stands just east of the zeppelin tower. Fly to {area:75}: the next guide starts there."] = "Thysta, la maestra de vuelo, está justo al este de la torre de zepelín. Vuela a {area:75}: la siguiente guía empieza allí.",
+	-- ["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "¿Tenías menos de 40 en tu primera visita a {area:35}? {npc:2491}, en la posada, {npc:2486}, al lado, y MacKinley \"Lobo de Mar\", en el piso superior, tienen sus misiones para ti ahora.",
 	-- ["West to the coast: the naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them. Then follow the coast south to {area:35}."] = "Al oeste hasta la costa: los exploradores naga recorren la orilla y llevan los haces de juncos; {object:759} burbujea en las colinas justo al este. Luego sigue la costa al sur hasta {area:35}.",
 	-- ["Your trainer is in {area:1638}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins). Fly there from {zone:1454}, then on to {area:484}."] = "Tu instructor está en {area:1638}: {npc:3033} (druidas) en {area:1639}, {npc:246344} (paladines). Vuela allí desde {zone:1454} y luego a {area:484}.",
 	-- ["Zeppelin to {object:3202}"] = "Zepelín a {object:3202}",

@@ -13,7 +13,7 @@ return {
 
 	-- Step 1: Lorekeeper Lydros
 	-- {area:1099} Camp Mojache · {area:2577} Dire Maul · {zone:1444} Feralas · {npc:14368} Lorekeeper Lydros · {item:18249} Crescent Key · {item:18594} Powerful Seaforium Charge
-	["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing, or through the North wing's courtyard doors with a {item:18249} (it drops from the imp Pusillin in the East wing; a {item:18594} also opens them; Blink no longer gets past). Other mages in your group can take it too: share it."] = "",
+	["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing, or through the North wing's courtyard doors with a {item:18249} (it drops from the imp Pusillin in the East wing; a {item:18594} also opens them; Blink no longer gets past). Other mages in your group can take it too: share it."] = "얼라이언스는 페더문으로, 호드는 {area:1099}로 날아가 중앙 {zone:1444}의 {area:2577}까지 말을 타고 가세요. {npc:14368}은(는) 서쪽 날개를 지나 또는 {item:18249}으로(를) 열 수 있는 북쪽 날개 뜰 안쪽 도서관 아테나이움에 있습니다. 그 열쇠는 동쪽 날개의 임프 푸실린이 떨어뜨립니다. {item:18594}도 문을 열 수 있고 점멸로는 더 통과할 수 없습니다. 파티의 다른 마법사도 가져갈 수 있으니 나눠 쓰세요.",
 
 	-- Step 2: Hydrospawn
 	["Hydrospawn"] = "히드로스폰",
@@ -24,7 +24,7 @@ return {
 	-- Step 3: Back to Lydros
 	["Back to Lydros"] = "리드로스에게 돌아가기",
 	-- {npc:14368} Lorekeeper Lydros · {spell:10140} Conjure Water
-	["{npc:14368}: {spell:10140}, and 200 Shen'dralar reputation"] = "",
+	["{npc:14368}: {spell:10140}, and 200 Shen'dralar reputation"] = "{npc:14368}: {spell:10140}, 그리고 셴드랄 평판 200",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to Feathermoon (Alliance) or {area:1099} (Horde) and ride to {area:2577} in central {zone:1444}. {npc:14368} waits in the Athenaeum, the library, reached through the West wing (or the North wing with a {item:18249})."] = "페더문 요새(얼라이언스) 또는 {area:1099}(호드)(으)로 비행한 뒤 {zone:1444} 중앙의 {area:2577}(으)로 달려가십시오. {npc:14368}은(는) 서쪽 구역(또는 {item:18249}이(가) 있으면 북쪽 구역)을 지나 도착하는 도서관에서 기다립니다.",

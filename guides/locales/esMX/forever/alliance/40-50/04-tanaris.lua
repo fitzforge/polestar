@@ -8,7 +8,7 @@
 return {
 	-- Step 2: Mirage Raceway
 	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek · {quest:1137} News for Fizzle
-	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. With {quest:1137} handed in, {npc:4630} has work: {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
+	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. With {quest:1137} handed in, {npc:4630} has work: {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "{area:2240} está en {area:439}, en el sureste de {zone:1441}: {npc:4454} está en el campamento de los gnomos junto a la pista; {npc:4630} y {npc:4709}, junto al campamento de los goblins. Con {quest:1137} entregada, {npc:4630} tiene trabajo: primero {npc:4630}, luego {npc:4709}, que sale corriendo a distraer a Rizzle; después toma los planos de Rizzle del campamento de los gnomos y llévaselos a {npc:4630}.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}: {quest:1137}, de parte de Martek en {zone:1418}",
 
@@ -74,7 +74,7 @@ return {
 
 	-- Step 12: Ship Schedules
 	-- {item:9250} Ship Schedule · {npc:7882} Security Chief Bilgewhizzle
-	["Only if a Southsea pirate gave you a {item:9250}: it starts a quest for {npc:7882}, inside, where you stand."] = "",
+	["Only if a Southsea pirate gave you a {item:9250}: it starts a quest for {npc:7882}, inside, where you stand."] = "Solo si un pirata de los Mares del Sur te dio un {item:9250}: inicia una misión para {npc:7882}, adentro, donde estás.",
 
 	-- Step 14: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "Cuidado: Los ladrones lanzan Desarmar. Los pícaros se mantienen ocultos con Sigilo. Los asesinos usan Ejecutar cuando tu salud está al 20% o menos.",
@@ -121,9 +121,9 @@ return {
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {quest:3161} Gahz'ridian
 	["Ride south to the dig camp at the {area:1938}. {npc:7771} hands you a detector helm: wear it to see the {quest:3161} mounds, which lie thick in the sand around the camp and south-west toward the ogres."] = "Cabalga al sur hasta el campamento de excavación en {area:1938}. {npc:7771} te da un yelmo detector: póntelo para ver los montículos de {quest:3161}, abundantes en la arena alrededor del campamento y al suroeste, hacia los ogros.",
 	-- {npc:7771} Marvon Rivetseeker · {quest:3380} The Sunken Temple
-	["{npc:7771}: {quest:3380}, from Angelas in Feathermoon"] = "",
+	["{npc:7771}: {quest:3380}, from Angelas in Feathermoon"] = "{npc:7771}: {quest:3380}, de Angelas en Plumaluna",
 	-- {npc:7771} Marvon Rivetseeker · {item:10556} Stone Circle · {area:392} Ratchet · {area:976} Gadgetzan
-	["{npc:7771}: the {item:10556} is in {area:392}, on the Un'Goro guide's flight to {area:976}, which hands it in here: keep it"] = "",
+	["{npc:7771}: the {item:10556} is in {area:392}, on the Un'Goro guide's flight to {area:976}, which hands it in here: keep it"] = "{npc:7771}: el {item:10556} está en {area:392}, en el vuelo a {area:976} de la guía de Un'Goro, que la entrega aquí: guárdala",
 
 	-- Step 25: Dunemaul Compound
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
@@ -250,6 +250,7 @@ return {
 	-- ["The Wanted poster by {npc:7882}"] = "El cartel de Se busca junto a {npc:7882}",
 	-- ["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "La pequeña tortuga {npc:5955} se esconde en el extremo norte del valle. Llévalo a casa con su esposa {npc:6015}, junto al agua justo al este de {area:977}: camina despacio y las bestias del desierto lo atacan, así que mantenlo con vida.",
 	-- ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "La pequeña tortuga {npc:5955} se esconde en el extremo norte de {quest:3362}: tómalo desde el borde y deja en paz a los Cardizales (48-50). Llévalo a casa con su esposa {npc:6015}, junto al agua justo al este de {area:977}: camina despacio y las bestias del desierto lo atacan, así que mantenlo con vida.",
+	-- ["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "La pequeña tortuga {npc:5955} vaga por el borde oeste de {quest:3362}, sobre todo por donde lleva la flecha: tómalo desde el borde y deja en paz a los Cardizales (48-50). Llévalo a casa de su esposa {npc:6015}, junto al agua justo al este de {area:977}: camina despacio y las bestias del desierto lo atacan, así que mantenlo con vida.",
 	-- ["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later."] = "Los pícaros, magos oscuros y asesinos Vagayermo, más duros, acampan al sureste de {area:976}, al sur de los bandidos. Deja a {npc:7847}, en el centro del campamento del sur, para más tarde.",
 	-- ["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240} está en {area:439}, al sureste de {zone:1441}: {npc:4454} está en el campamento de los gnomos junto a la pista, y Zamek, junto al campamento goblin.",
 	-- ["Underwater"] = "Bajo el agua",

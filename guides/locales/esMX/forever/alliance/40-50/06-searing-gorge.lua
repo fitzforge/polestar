@@ -46,8 +46,8 @@ return {
 	["The {object:179827} board"] = "El tablón {object:179827}",
 
 	-- Step 9: Culling the Competition
-	["Culling the Competition"] = "",
-	["Take the bounty from the board only if you want to hunt the linked dwarf packs with a group."] = "",
+	["Culling the Competition"] = "Culling the Competition",
+	["Take the bounty from the board only if you want to hunt the linked dwarf packs with a group."] = "Acepta la recompensa del tablón solo si quieres cazar con un grupo los grupos vinculados de enanos.",
 
 	-- Step 11: Zamael Lunthistle
 	-- {npc:8436} Zamael Lunthistle · {area:1442} Firewatch Ridge · {area:1446} Thorium Point · {npc:8282} Highlord Mastrogonde · {quest:3377} Prayer to Elune
@@ -56,9 +56,9 @@ return {
 
 	-- Step 14: Prayer to Elune: the page
 	-- {quest:3378} Prayer to Elune
-	["{quest:3378}: the page"] = "",
+	["{quest:3378}: the page"] = "{quest:3378}: la página",
 	-- {npc:8436} Zamael Lunthistle · {quest:3378} Prayer to Elune
-	["The Twilight elites of {npc:8436}'s camp drop the {quest:3378} page, about one in five: keep the group together here until one drops."] = "",
+	["The Twilight elites of {npc:8436}'s camp drop the {quest:3378} page, about one in five: keep the group together here until one drops."] = "Los élites Crepusculares del campamento de {npc:8436} sueltan la página de {quest:3378}, más o menos uno de cada cinco: mantén al grupo junto aquí hasta que caiga.",
 
 	-- Step 15: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
@@ -78,26 +78,26 @@ return {
 
 	-- Step 21: Dark Iron Taskmasters
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster
-	["Dark Iron Taskmasters"] = "",
+	["Dark Iron Taskmasters"] = "Capataces Hierro Negro",
 	-- {area:1443} Slag Pit
 	["With your group, look for Taskmasters on the open ledges first. Last stop, if you still need some: take the lift (the scaffold cars) down into the {area:1443} below, where four more stand."] = "",
 
 	-- Step 22: Dark Iron Slavers
 	-- plural, as words: Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Dark Iron Slavers"] = "",
-	["Careful: Slavers can net you and call allies within 15 yards. A Taskmaster or Steamsmith may be standing beside one. Wait for a clear pull or leave the pack; don't descend into the Cauldron for this bounty."] = "",
+	["Dark Iron Slavers"] = "Esclavistas Hierro Negro",
+	["Careful: Slavers can net you and call allies within 15 yards. A Taskmaster or Steamsmith may be standing beside one. Wait for a clear pull or leave the pack; don't descend into the Cauldron for this bounty."] = "Cuidado: los esclavistas pueden atraparte con una red y llamar a los aliados a 15 yardas. Puede haber un capataz o un vapoherrero junto a uno. Espera a poder atraerlo limpio o deja el grupo; no bajes a la Caldera por esta recompensa.",
 
 	-- Step 23: The furnaces and southern ridges
-	["The furnaces and southern ridges"] = "",
+	["The furnaces and southern ridges"] = "Las forjas y las crestas del sur",
 	-- {item:18959} Smithing Tuyere · {item:11818} Grimesilt Outhouse Key
-	["The Steamsmiths at the furnaces carry the {item:18959}; the Lookouts on the southern ridges carry the Spyglass. Keep the {item:11818} if a dwarf drops it."] = "",
+	["The Steamsmiths at the furnaces carry the {item:18959}; the Lookouts on the southern ridges carry the Spyglass. Keep the {item:11818} if a dwarf drops it."] = "Los vapoherreros de las forjas llevan la {item:18959}; los oteadores de las crestas del sur llevan el catalejo de oteador. Guarda la {item:11818} si un enano la suelta.",
 
 	-- Step 24: Thorium Plated Daggers
 	-- plural, as words: Thorium Plated Daggers = {item:10551} Thorium Plated Dagger
-	["Thorium Plated Daggers"] = "",
+	["Thorium Plated Daggers"] = "Dagas bañadas en torio",
 	-- {item:18959} Smithing Tuyere
 	-- plural, as words: Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith · Thorium Plated Daggers = {item:10551} Thorium Plated Dagger
-	["Dark Iron Steamsmiths at the surface furnaces carry Thorium Plated Daggers as well as the {item:18959}. Pull from the outside of the camp."] = "",
+	["Dark Iron Steamsmiths at the surface furnaces carry Thorium Plated Daggers as well as the {item:18959}. Pull from the outside of the camp."] = "Los vapoherreros Hierro Negro de las forjas de la superficie llevan dagas bañadas en torio además de la {item:18959}. Atráelos desde el exterior del campamento.",
 
 	-- Step 28: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
@@ -116,7 +116,7 @@ return {
 	["Level 48.66"] = "Nivel 48.66",
 	-- {area:1443} Slag Pit · {quest:7701} WANTED: Overseer Maltorius · {npc:14621} Overseer Maltorius
 	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
-	["Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in."] = "",
+	["Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in."] = "¿Todavía por debajo del nivel 48.66 después de {area:1443} (un jugador solo suele estarlo; Culling the Competition o {quest:7701} en grupo lo cubren)? Completa la experiencia con los incendosaurios (47) de los charcos de lava de {area:1443}, atraídos hasta el borde.\nCuidado: {npc:14621} (50, élite) y sus guardias élite ocupan lo profundo de {area:1443}: quédate en los charcos cerca de la entrada y no sigas los túneles hacia adentro.",
 	-- {npc:9318} Incendosaur
 	["grind on {npc:9318}"] = "farmea {npc:9318}",
 
@@ -145,9 +145,9 @@ return {
 	["Level 48.98"] = "Nivel 48.98",
 	-- {quest:3452} The Flame's Casing · {object:147516} Dark Iron (no name in this language: may be words) · {area:1442} Firewatch Ridge
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider · Magma Elementals = {npc:5855} Magma Elemental
-	["Still under level 48.98 (a solo player usually is; a group's {quest:3452} covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the {object:147516} camps.\nCareful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at {area:1442}, whose cultists are elites."] = "",
+	["Still under level 48.98 (a solo player usually is; a group's {quest:3452} covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the {object:147516} camps.\nCareful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at {area:1442}, whose cultists are elites."] = "¿Todavía por debajo del nivel 48.98 (un jugador solo suele estarlo; {quest:3452} en grupo lo cubre)? Completa la experiencia con las arañas de lava abrasadoras (47-48) de las mesetas del oeste, lejos de los campamentos Hierro Negro.\nCuidado: los elementales de magma (46-48) flotan entre las arañas: atráelos de uno en uno. Mantente al sur del campamento Crepuscular de {area:1442}, cuyos cultistas son élites.",
 	-- {npc:5858} Searing Lava Spider
-	["grind on {npc:5858}"] = "",
+	["grind on {npc:5858}"] = "sube de nivel con {npc:5858}",
 
 	-- Step 39: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
@@ -202,6 +202,7 @@ return {
 	-- ["To {zone:1455}"] = "A {zone:1455}",
 	-- ["Velarok Windblade"] = "Velarok Windblade",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok está en el borde de La Caldera, al sur de {area:1446}. Escucha su historia.",
+	-- ["With your group, look for Taskmasters on the open ledges. Stay on the surface; don't follow the arrow into the {area:1443}."] = "Con tu grupo, busca capataces en las cornisas abiertas. Quédate en la superficie; no sigas la flecha hacia {area:1443}.",
 	-- ["grind on {npc:5844}"] = "farmea {npc:5844}",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: la guía anterior te trae aquí con la piedra de hogar, así que esto suele marcarse de inmediato",
 	-- ["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509} y el tesoro del Vuelo Negro están junto a Velarok, en el borde al sur de {area:1446}.",

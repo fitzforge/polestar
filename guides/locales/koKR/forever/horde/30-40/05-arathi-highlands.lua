@@ -30,19 +30,19 @@ return {
 	-- {npc:4486} Genavie Callow
 	["{npc:4486}, beside the flight master"] = "",
 	-- {zone:1458} Undercity
-	["{zone:1458} flight master"] = "",
+	["{zone:1458} flight master"] = "{zone:1458} 비행 조련사",
 
 	-- Step 5: Tarren Mill
 	-- {npc:2229} Krusk · {npc:2410} Magus Wordeen Voidglare · {npc:2437} Keeper Bel'varil · {npc:2770} Tallow
 	["{npc:2229}, {npc:2410} and {npc:2437} are inside the inn; {npc:2770} stands outside it."] = "{npc:2229}, {npc:2410}, {npc:2437}은(는) 여관 안에 있고, {npc:2770}은(는) 여관 밖에 서 있습니다.",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}, 내부",
 	-- {npc:2410} Magus Wordeen Voidglare
-	["{npc:2410}, inside"] = "",
+	["{npc:2410}, inside"] = "{npc:2410}, 내부",
 	-- {npc:2410} Magus Wordeen Voidglare · {quest:93680} Key to the City · {item:279469} Grimy Key
 	["{npc:2410}: {quest:93680}, the {item:279469} is by the traitors"] = "",
 	-- {npc:2437} Keeper Bel'varil
-	["{npc:2437}, inside"] = "",
+	["{npc:2437}, inside"] = "{npc:2437}, 내부",
 	-- {npc:2770} Tallow · {npc:2771} Drum Fel · {area:321} Hammerfall
 	["{npc:2770}: for {npc:2771} in {area:321}, later in this guide"] = "{npc:2770}: 이 가이드 후반에 {area:321}의 {npc:2771}에게 줄 것",
 
@@ -84,7 +84,7 @@ return {
 	-- Step 14: Gol'dir
 	-- {quest:535} Valik · {area:280} Strahnbrad · {npc:2431} Jailor Borhuin · {item:3704} Rusted Iron Key · {quest:503} Gol'dir
 	["Head north up the road past {quest:535}'s camp to {area:280}, the Syndicate-held village (35-37). {npc:2431} carries the {item:3704}; {quest:503} sits in a cage in the house on the north side.\nCareful: Stealthed Syndicate spies roam {area:280}, and the buildings hold many Syndicate mobs, mages among them."] = "{quest:535}의 야영지를 지나 길을 따라 북쪽으로 비밀결사가 점령한 마을 {area:280}(35-37)(으)로 가세요. {npc:2431}이(가) {item:3704}을(를) 가지고 있고, {quest:503}은(는) 북쪽 집의 우리에 갇혀 있습니다.\n주의: {area:280}에는 은신한 비밀결사 첩자가 돌아다니며, 건물 안에는 마법사를 포함한 비밀결사 몹이 많습니다.",
-	["Inside"] = "",
+	["Inside"] = "내부",
 	-- {quest:503} Gol'dir
 	["Find where {quest:503} is held, on the top floor"] = "",
 	-- {quest:503} Gol'dir
@@ -94,7 +94,7 @@ return {
 
 	-- Step 15: Old Dalaran Ruins: kill these as you meet them
 	-- {area:17707} Old Dalaran Ruins
-	["{area:17707}: kill these as you meet them"] = "",
+	["{area:17707}: kill these as you meet them"] = "{area:17707}: 만나는 대로 처치하세요",
 	-- {area:280} Strahnbrad · {area:1357} Gallows' Corner · {area:279} Dalaran
 	-- plural, as words: Dalaran Summoners = {npc:2358} Dalaran Summoner · Elemental Slaves = {npc:2359} Elemental Slave · Kirin Tor Guards = {npc:246848} Kirin Tor Guard
 	["From {area:280} follow the road south-west to {area:1357} and on west to the ruins north of the {area:279} crater, along the lake shore. The Dalaran Summoners lead Elemental Slaves; the bracers drop from the slaves. Careful: Arcane Sentries (55, elite) and Kirin Tor Guards (55) guard the dome itself and attack the Horde: work the ruins' outer edge and don't go up to the dome."] = "{area:280}에서 길을 따라 남서쪽으로 {area:1357}까지 간 뒤, 호숫가를 따라 계속 서쪽으로 {area:279} 분화구 북쪽 폐허까지 가세요. 달라란 소환사가 노예 바위 정령을 이끌며, 팔보호구는 노예 바위 정령이 떨어뜨립니다. 주의: 비전 파수병(55, 정예)과 키린 토 경비병(55)이 돔을 지키며 호드를 공격합니다. 폐허 바깥쪽에서만 사냥하고 돔으로 올라가지 마세요.",
@@ -205,14 +205,14 @@ return {
 	-- {area:321} Hammerfall
 	["Back to {area:321}"] = "{area:321}(으)로 돌아가기",
 	-- {area:321} Hammerfall
-	["Back north-east to {area:321}."] = "",
+	["Back north-east to {area:321}."] = "북동쪽 {area:321}(으)로 돌아가세요.",
 
 	-- Step 34: Boulderfist quests for a group
 	["Boulderfist quests for a group"] = "",
 	-- {npc:2771} Drum Fel · {quest:678} Call to Arms · {npc:2772} Korin Fel · {quest:680} The Real Threat
 	["{npc:2771}'s next {quest:678} and {npc:2772}'s {quest:680} are the elite ogres (38-40) in Stromgarde's ogre quarter, on the same group trip as the Sigil."] = "",
 	-- {npc:2772} Korin Fel
-	["{npc:2772}, beside him"] = "",
+	["{npc:2772}, beside him"] = "{npc:2772}, 그의 옆",
 
 	-- Step 35: The Stone of Outer Binding
 	-- {object:2690} Stone of Outer Binding
@@ -244,7 +244,7 @@ return {
 
 	-- Step 42: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
-	["{area:328}: kill these as you meet them"] = "",
+	["{area:328}: kill these as you meet them"] = "{area:328}: 만나는 대로 처치하세요",
 	-- plural, as words: Daggerspine Raiders = {npc:2595} Daggerspine Raider
 	["Careful: west of the cove the Daggerspine Raiders and Sorceresses (38-40) stand close together on the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "",
 	["Underwater"] = "물속",

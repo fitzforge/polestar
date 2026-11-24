@@ -93,7 +93,9 @@ const LOGIN_BASE: f64 = 11003.0;
 /// 0.4.3's fewer folders (#3507): the game looks and Hearth, the Skin API's checks, the guide window's tab styles and
 /// the experimental pack folded into the core, +294 KiB, the only part of this figure that is that change's: 14,531
 /// KiB at login on 2026-11-23, next without it 14,237. The budget is that and CI's runner's few KiB: 14,600 (Fitz).
-const LOGIN: f64 = LOGIN_BASE + 3597.0;
+/// +28 KiB: DangerHubs for Forever's new zones (#3830): 14,610 KiB at login on 2026-11-24, 14,582 with next's
+/// DangerHubs.lua (CI's runner 14,626). The budget: 14,650 (Main, reported to Fitz).
+const LOGIN: f64 = LOGIN_BASE + 3647.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).

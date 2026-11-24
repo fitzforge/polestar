@@ -349,7 +349,7 @@ return {
 
 	-- Step 79: Captured Arko'narin
 	-- {npc:11016} Captured Arko'narin
-	["{npc:11016}, below ground"] = "",
+	["{npc:11016}, below ground"] = "{npc:11016}，地下",
 	-- {npc:11016} Captured Arko'narin · {area:1770} Shadow Hold
 	["{npc:11016}: lead her out of {area:1770}"] = "",
 

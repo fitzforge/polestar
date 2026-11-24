@@ -35,7 +35,7 @@ return {
 
 	-- Step 3: Back to Refuge Pointe
 	-- {area:320} Refuge Pointe
-	["Back to {area:320}"] = "",
+	["Back to {area:320}"] = "{area:320}(으)로 돌아가기",
 	["hand in the three marks first"] = "",
 
 	-- Step 4: League of Arathor to Friendly

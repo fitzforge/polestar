@@ -76,7 +76,7 @@ return {
 
 	-- Step 12: Dark Sacrifice: Aelthalyste
 	-- {npc:4606} Aelthalyste · {object:36070} War Quarter · {quest:5679} Dark Sacrifice · {spell:2944} Devouring Plague
-	["At 20, {npc:4606} in the {object:36070} teaches {quest:5679} with a quest she gives and takes back at once (its text still speaks of {spell:2944}, which every priest now learns from the trainer)."] = "",
+	["At 20, {npc:4606} in the {object:36070} teaches {quest:5679} with a quest she gives and takes back at once (its text still speaks of {spell:2944}, which every priest now learns from the trainer)."] = "20級時，{object:36070} 的 {npc:4606} 會透過一個接到後立即交還的任務教你 {quest:5679}（任務文字仍提到 {spell:2944}，不過如今所有牧師都能向訓練師學習這個法術）。",
 
 	-- Step 13: Dark Sacrifice: Ur'kyo's letter
 	-- {quest:5646} Dark Sacrifice · {npc:6018} Ur'kyo
