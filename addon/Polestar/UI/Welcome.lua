@@ -20,7 +20,8 @@
 --      bar and progress line (the guide window), the gold dart with the
 --      guide's first walk (the arrow), the library's Leveling, Professions
 --      and Reputation rows with their counts (every guide); a line on what
---      the next pages do;
+--      the arrow follows (the route's step; a quest of the player's own is
+--      found in Lookup, #3701); a line on what the next pages do;
 --   2. questing: quest automation (behavior.autoAccept and autoTurnin as one
 --      switch), grey quests (behavior.skipGrey) and the guide at login
 --      (behavior.autoSelectGuide), each with its description inline; then
@@ -804,7 +805,9 @@ PAGES[#PAGES + 1] = {
 		p.Goal = goalMini(p.Cards[1].Media)
 		p.Arrow = arrowMini(p.Cards[2].Media)
 		p.Library = libraryMini(p.Cards[3].Media)
-		-- What the next pages are for.
+		-- What the arrow follows (#3701), then what the next pages are for.
+		p.Follow = para(p, "note", "textDim", CW, 3)
+		p.Follow:SetText(L["The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup."])
 		p.Ahead = para(p, "note", "textMuted", CW, 3)
 	end,
 	layout = function(P)
@@ -847,6 +850,8 @@ PAGES[#PAGES + 1] = {
 			c.Desc:SetPoint("TOPLEFT", c.Title, "BOTTOMLEFT", 0, -4)
 		end
 		y = y + 6 + MEDIA_H + 10 + textH + 12 + 18
+		place(p.Follow, 0, y)
+		y = y + p.Follow:GetStringHeight() + 10
 		-- A later character's settings are the account's: only its own choices follow.
 		local own = #pageList() > 2
 		if full then

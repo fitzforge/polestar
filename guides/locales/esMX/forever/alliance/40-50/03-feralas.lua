@@ -134,23 +134,23 @@ return {
 
 	-- Step 25: OOX-22/FE Distress Beacon
 	-- {zone:1444} Feralas
-	["Only with the distress beacon, a rare drop in {zone:1444}: it starts a quest to find the robot it calls for."] = "",
+	["Only with the distress beacon, a rare drop in {zone:1444}: it starts a quest to find the robot it calls for."] = "Solo con la baliza de socorro, un botín raro de {zone:1444}: inicia una misión para encontrar al robot que llama.",
 
 	-- Step 26: Homing Robot OOX-22/FE
 	-- {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {zone:1425} Hinterlands
-	["The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}, where the boat to Feathermoon leaves; its reward waits with {npc:7406} in {area:35}, on the {zone:1425} guide's {area:35} stop.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "",
+	["The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}, where the boat to Feathermoon leaves; its reward waits with {npc:7406} in {area:35}, on the {zone:1425} guide's {area:35} stop.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "El robot está en una pequeña cueva del lado norte de {area:1105}, justo al noroeste de las ruinas. Escóltalo hasta el muelle de {area:1108}, de donde sale el barco a Plumaluna; su recompensa espera con {npc:7406} en {area:35}, en la parada de {area:35} de la guía de {zone:1425}.\nCuidado: durante la escolta aparecen tres emboscadas, y el robot avisa antes de cada una. La primera son 3 yetis, justo después de que el robot sale de la cueva y sube hacia el camino. La segunda son 3 gorilas, en el sendero que bordea el acantilado. La tercera son unos 4 gnolls, uno de ellos lanzador de hechizos, donde la ruta se desvía hacia el muelle.",
 
 	-- Step 27: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
 	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} está en el piso de arriba de su edificio: sube por adentro, la flecha no distingue los pisos.",
 	-- {npc:3936} Shandris Feathermoon · {quest:4267} Rise of the Silithid · {npc:7740} Gracina Spiritmight · {zone:1446} Tanaris · {zone:1457} Darnassus
-	["{npc:3936}: {quest:4267}, for {npc:7740} on the {zone:1446} guide's {zone:1457} stop: keep it"] = "",
+	["{npc:3936}: {quest:4267}, for {npc:7740} on the {zone:1446} guide's {zone:1457} stop: keep it"] = "{npc:3936}: {quest:4267}, para {npc:7740} en la parada de {zone:1457} de la guía de {zone:1446}: guárdala",
 
 	-- Step 28: Angelas Moonbreeze
 	-- {npc:7900} Angelas Moonbreeze · {area:1116} Feathermoon Stronghold · {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
-	["{npc:7900} in {area:1116} sends you to {npc:7771} at the {area:1938} in {zone:1446}, where the {zone:1446} guide stops for his dig."] = "",
+	["{npc:7900} in {area:1116} sends you to {npc:7771} at the {area:1938} in {zone:1446}, where the {zone:1446} guide stops for his dig."] = "{npc:7900}, en {area:1116}, te manda con {npc:7771} en {area:1938} de {zone:1446}, donde la guía de {zone:1446} para en su excavación.",
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
-	["for {npc:7771} at the {area:1938} in {zone:1446}: keep it"] = "",
+	["for {npc:7771} at the {area:1938} in {zone:1446}: keep it"] = "para {npc:7771} en {area:1938} de {zone:1446}: guárdala",
 
 	-- Step 30: Ride to Thalanaar
 	-- {area:489} Thalanaar

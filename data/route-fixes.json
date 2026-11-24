@@ -6527,7 +6527,8 @@
 			{ "a": ["turnin", 598], "b": ["turnin", 95770], "faction": "Horde", "why": "#3145: give Kin'weelay the necklaces and news of the lost city together on the return from the trophy skulls. If only one is ready, he still takes it." },
 			{ "a": ["turnin", 589], "b": ["turnin", 573], "faction": "Horde", "why": "#3145: pay Kin'weelay and Far Seer Mok'thardin at Grom'gol on the way from the flight master to the Orgrimmar zeppelin. Either ready reward can be taken without waiting for the other." },
 			{ "a": ["task", 209, 0], "b": ["task", 598, 0], "faction": "Horde", "why": "#3124: carry both drop counts at the first Skullsplitter warrior camp (the warriors drop tusks and necklaces). The trophy piles remain on their own route." },
-			{ "a": ["accept", 2987], "b": ["turnin", 2981], "faction": "Horde", "why": "#3023: Camp Mojache is walked once on the first visit: the flight master, Orwin (2987) and the inn (sethome Camp Mojache, Innkeeper Greul) on the camp's south side, then Rok Orhan (2981), Uzer'i and Jangdor, Hadoken and Krueg to the north. The bind was taken between Jangdor and Hadoken, both on the north side, which walked the camp twice (npcs.json: Greul 74.73,45.26, Rok Orhan 73.46,45.86, Jangdor 74.39,42.92, Hadoken 74.87,42.54)." }
+			{ "a": ["accept", 2987], "b": ["turnin", 2981], "faction": "Horde", "why": "#3023: Camp Mojache is walked once on the first visit: the flight master, Orwin (2987) and the inn (sethome Camp Mojache, Innkeeper Greul) on the camp's south side, then Rok Orhan (2981), Uzer'i and Jangdor, Hadoken and Krueg to the north. The bind was taken between Jangdor and Hadoken, both on the north side, which walked the camp twice (npcs.json: Greul 74.73,45.26, Rok Orhan 73.46,45.86, Jangdor 74.39,42.92, Hadoken 74.87,42.54)." },
+			{ "a": ["turnin", 417], "b": ["turnin", 413], "faction": "Alliance", "why": "#3846: the Dun Morogh starts (Dwarf, Gnome) go to Pilot Hammerfoot at the North Gate Outpost (83.8,39.3; the corpse 79.7,36.2) on the road east, then down to the South Gate Outpost (86.3,48.9) and its tunnel into Loch Modan, instead of South Gate, North Gate and back to the South Gate. Nothing at the North Gate needs the Loch Modan side (94466's items come from the Loch Modan steps)." }
 		],
 		"notes": [
 			"Yendi's report (Herble's Bronze Tube before Look to the Stars) is the quest's own order: its buy is a task of 174, before the turn-in.",
@@ -9207,6 +9208,16 @@
 				"q": 5121,
 				"size": 3,
 				"why": "High Chief Winterfall: a level 59 elite with his guards in the cave at the back of Winterfall Village, at the player's level on 07 (about 59.5): a group choice after Donova's Winterfall Runners, with his log (5123, The Final Piece) and Words of the High Chief (5128) to Kelek Skykeeper at 07's last stop: 16,000 XP for a group (Horde fix pass, 2026-11-20)."
+			},
+			{
+				"q": 5041,
+				"size": 3,
+				"why": "Horde 0.4.3 route round (#3145): Supplies for the Crossroads' three crates lie in the Razormane camp east of the Crossroads among Forever's Razormane Flesheaters and Berserkers (18-19, elite; 62 spawns over 54.8-60.0,21.1-27.4, 7 to 13 of them within a map unit of each crate), at a route level of 15-16. No later Horde visit passes the camp at their level, so Thork's accept is a group choice with the house's elite tip (975 XP, no follow-up)."
+			},
+			{
+				"q": 872,
+				"size": 3,
+				"why": "Horde 0.4.3 route round (#3145): The Disruption Ends sends players of about 16-17 back into the Razormane camp's eastern half, where Kreenig Snarlsnout has 7 elite Flesheater and Berserker (18-19) spawns within a map unit and every Defender and Geomancer spawn is 0.1-1.0 units from an elite. Players' recordings: of 19 people on 0.4.x who handed it in, 5 died in the camp while following the guide (3 of them at 19-20, on the quest's own step). A group choice with the house's elite tip (1050 XP, no follow-up); Disrupt the Attacks (871, the western half) stays solo with its tip."
 			}
 		]
 	},

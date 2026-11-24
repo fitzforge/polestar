@@ -12,19 +12,19 @@ return {
 	-- Step 1: PvP rank 11
 	["PvP rank 11"] = "PvP 계급 11",
 	-- {spell:1299382} Rank Points · {skill:762} Riding
-	["{spell:1299382} come from battlegrounds, PvP quests and the season's weekly tasks, with a weekly cap; Commander (rank 11) unlocks the Black War mounts. The Player vs. Player tab of your character pane shows your rank and what you may buy. {skill:762} one at full speed needs Journeyman {skill:762} (level 60). Polestar cannot read your rank, so this step waits for level 60 and Journeyman {skill:762}."] = "",
+	["{spell:1299382} come from battlegrounds, PvP quests and the season's weekly tasks, with a weekly cap; Commander (rank 11) unlocks the Black War mounts. The Player vs. Player tab of your character pane shows your rank and what you may buy. {skill:762} one at full speed needs Journeyman {skill:762} (level 60). Polestar cannot read your rank, so this step waits for level 60 and Journeyman {skill:762}."] = "{spell:1299382}은(는) 전장, PvP 퀘스트, 시즌 주간 과제에서 오며 주간 상한이 있습니다. 지휘관(11계급)이 검은 전쟁 탈것을 엽니다. 캐릭터 창의 사람 대 사람 탭에 계급과 구매 가능한 것이 나옵니다. 전속도로 {skill:762}하려면 수습 {skill:762}(60레벨)이(가) 필요합니다. Polestar는 계급을 읽을 수 없으니 이 단계는 60레벨과 수습 {skill:762}을(를) 기다립니다.",
 
 	-- Step 2: Lieutenant Karter
 	-- {npc:12783} Lieutenant Karter · {zone:1453} Stormwind · {object:2100} Old Town · {area:2918} Champions' Hall
-	["{npc:12783} sells the mounts in {zone:1453}'s {object:2100} by the {area:2918}, beside the other honor quartermasters. The Forever client lists each at 100g. Each one also needs its kind's riding: Humans ride the steed, Night Elves the tiger, Gnomes the battlestrider, Dwarves the ram. A Skyborne, or anyone choosing another race's mount, first needs that riding from its trainer (Exalted with the race's city)."] = "",
+	["{npc:12783} sells the mounts in {zone:1453}'s {object:2100} by the {area:2918}, beside the other honor quartermasters. The Forever client lists each at 100g. Each one also needs its kind's riding: Humans ride the steed, Night Elves the tiger, Gnomes the battlestrider, Dwarves the ram. A Skyborne, or anyone choosing another race's mount, first needs that riding from its trainer (Exalted with the race's city)."] = "{npc:12783}이(가) {zone:1453}의 {object:2100}, {area:2918} 곁에서 다른 명예 병참장교 옆에 탈것을 팝니다. Forever 클라이언트에는 각각 100골드로 나옵니다. 종류별 승마도 필요합니다. 인간은 전마, 나이트 엘프는 호랑이, 노움은 전투기계산책로, 드워프는 숫양을 탑니다. 스카이본이나 다른 종족 탈것을 고르려면 먼저 그 종족 교관에게서 승마를 배워야 합니다(그 종족 도시와 확고한 동맹).",
 	-- {npc:14332} Black War Steed · {spell:824} Horse Riding
-	["{npc:14332}, {spell:824}, 100g"] = "",
+	["{npc:14332}, {spell:824}, 100g"] = "{npc:14332}, {spell:824}, 100골드",
 	-- {spell:22723} Black War Tiger · {spell:828} Tiger Riding
-	["{spell:22723}, {spell:828}, 100g"] = "",
+	["{spell:22723}, {spell:828}, 100g"] = "{spell:22723}, {spell:828}, 100골드",
 	-- {item:18243} Black Battlestrider · {spell:10907} Mechanostrider Piloting
-	["{item:18243}, {spell:10907}, 100g"] = "",
+	["{item:18243}, {spell:10907}, 100g"] = "{item:18243}, {spell:10907}, 100골드",
 	-- {item:18244} Black War Ram · {spell:826} Ram Riding
-	["{item:18244}, {spell:826}, 100g"] = "",
+	["{item:18244}, {spell:826}, 100g"] = "{item:18244}, {spell:826}, 100골드",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["100g"] = "100골드",

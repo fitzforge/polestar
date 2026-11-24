@@ -24,7 +24,7 @@ return {
 	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "Toute race de la Horde peut acheter ces kodos, mais en monter un demande aussi {spell:18995}, que seuls les Taurens reçoivent avec la {skill:762}. {npc:3690} l'enseigne aux autres races une fois Exaltées auprès des {faction:81} (le guide de réputation des Pitons-du-Tonnerre montre le chemin). D'ici là, n'achetez pas de kodo pour ce personnage.",
 
 	-- Step 3: Pick a colour
-	["Pick a colour"] = "Choisir une couleur",
+	["Pick a colour"] = "Choisissez une couleur",
 	-- {npc:3685} Harb Clawhoof
 	["{npc:3685} sells the other colours (200g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like."] = "{npc:3685} vend les autres couleurs (200 po chacune dans le client Forever). Achetez celles que vous voulez, ou aucune si la monture reçue vous plaît.",
 	-- {item:18793} Great White Kodo

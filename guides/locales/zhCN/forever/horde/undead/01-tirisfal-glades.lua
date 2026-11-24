@@ -244,13 +244,13 @@ return {
 	["{npc:265944}, at the inn's north end: Camping 101 asks you to learn it"] = "{npc:265944}，在旅店北端：野营入门需要你学会它",
 
 	-- Step 44: The cellar stairs
-	["The cellar stairs"] = "",
+	["The cellar stairs"] = "地窖楼梯",
 	-- {npc:1931} Captured Scarlet Zealot
-	["The {npc:1931} is in the cellar under the inn's north end. The stairs down start at the west side of that end: go down them, then turn east to him."] = "",
+	["The {npc:1931} is in the cellar under the inn's north end. The stairs down start at the west side of that end: go down them, then turn east to him."] = "{npc:1931}在旅店北端下方的地窖里。向下的楼梯从那一端西侧开始：走下楼梯，然后向东转去找他。",
 
 	-- Step 45: Gallows' End Tavern
 	-- {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call · {npc:2131} Austil de Mon
-	["Back up from the cellar: {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) are upstairs, {npc:2131} (warriors) on the ground floor; take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["Back up from the cellar: {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) are upstairs, {npc:2131} (warriors) on the ground floor; take the stairs inside, the arrow cannot tell the floors apart."] = "从地窖返回楼上：{npc:2128}（法师）、{npc:2129}（牧师）、{npc:2127}（术士）和{npc:2130}（潜行者）在楼上，{npc:2131}（战士）在一楼；从室内楼梯上去，箭头无法区分楼层。",
 	-- {npc:1931} Captured Scarlet Zealot
 	["The {npc:1931}, in the inn's cellar"] = "{npc:1931}，在旅店地窖里",
 	-- {area:159} Brill · {npc:2131} Austil de Mon · {npc:246152} Shari Stilwell
@@ -440,7 +440,7 @@ return {
 	["{area:165}: kill these as you meet them"] = "{area:165}：沿途遇到就击杀",
 	-- {quest:99142} Tomb Weed · {npc:1664} Captain Vachon
 	-- plural, as words: Bleeding Horrors = {npc:1529} Bleeding Horror · Wandering Spirits = {npc:1532} Wandering Spirit · Scarlet Friars = {npc:1538} Scarlet Friar
-	["Follow the road east past the cult's farm. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows: Linnea wants eight of each.\nThe Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them.\nThe spiders lurk in the woods at the far east end of the glades.\nCareful: Riptear (13) is elite and prowls west and north of the Scarlet Friars' camp: watch for him before you pull."] = "沿道路向东经过教派的农场。{npc:1529}和{npc:1532}在农场东侧的墓地里出没，{quest:99142}也生长在那里：林奈各需要八个。\n{npc:1538}在墓地东北方不远处扎营；{npc:1664}站在他们中间。\n蜘蛛潜伏在林地最东端的树林里。\n小心：Riptear（13级）是精英，在{npc:1538}营地的西边和北边徘徊：引怪前先注意他的位置。",
+	["Follow the road east past the cult's farm. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows: Linnea wants eight of each.\nThe Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them.\nThe spiders lurk in the woods at the far east end of the glades.\nCareful: Riptear (13) is elite and prowls west and north of the Scarlet Friars' camp: watch for him before you pull."] = "沿道路向东经过教派的农场。{npc:1529}和{npc:1532}在农场东侧的墓地里出没，{quest:99142}也生长在那里：林奈各需要八个。\n{npc:1538}在墓地东北方不远处扎营；{npc:1664}站在他们中间。\n蜘蛛潜伏在林地最东端的树林里。\n小心：撕裂者（13级）是精英，在{npc:1538}营地的西边和北边徘徊：引怪前先注意他的位置。",
 	-- {item:7227} Balnir Snapdragons
 	["{item:7227}, in the farmstead's garden"] = "{item:7227}，在农场的花园里",
 

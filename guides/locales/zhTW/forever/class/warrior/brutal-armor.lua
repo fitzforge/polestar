@@ -28,7 +28,7 @@ return {
 	-- Step 5: Trial at the Field of Giants
 	-- {item:7119} Twitching Antenna · {area:390} Field of Giants · {area:378} Camp Taurajo · {item:7120} Ruga's Bulwark
 	-- plural, as words: Silithid Mounds = {object:3685} Silithid Mound
-	["You have 30 minutes, and each {item:7119} rots 15 minutes after you loot it, so take the quest only when ready (logging out does not stop the clock). The Silithid Mounds dot the {area:390} south of {area:378}; every silithid drops an antenna. Creepers (level 20-21) and Grubs are the easiest: Swarmers (21-22) call small swarms and Creepers lay eggs that hatch adds. The eastern part of the field has plenty of Creepers. {item:7120}, a shield, is the reward."] = "",
+	["You have 30 minutes, and each {item:7119} rots 15 minutes after you loot it, so take the quest only when ready (logging out does not stop the clock). The Silithid Mounds dot the {area:390} south of {area:378}; every silithid drops an antenna. Creepers (level 20-21) and Grubs are the easiest: Swarmers (21-22) call small swarms and Creepers lay eggs that hatch adds. The eastern part of the field has plenty of Creepers. {item:7120}, a shield, is the reward."] = "你有30分鐘，而且每份 {item:7119} 都會在拾取後15分鐘腐爛，所以準備好後再接任務（下線不會暫停計時）。{area:378} 南面的 {area:390} 散佈著異種蠍土丘；每隻異種蠍都掉落一根觸角。爬行者（20—21級）和格拉布最容易對付：異種群居蠍（21—22級）會召來小蟲群，爬行者 會產卵並孵出額外敵人。田地東部有很多 爬行者。獎勵是盾牌 {item:7120}。",
 	-- {item:7119} Twitching Antenna
 	["{item:7119}, from the silithid"] = "{item:7119}，來自異種蠍",
 

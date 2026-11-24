@@ -40,7 +40,7 @@ test('every bundled look on every surface, at every UI scale', { timeout: 15 * 6
 	);
 });
 
-// The same bar with a layout picked (Atlas, Polestar_Layout_Atlas): every
+// The same bar with a layout picked (Atlas, Polestar_Skins/Layouts/Atlas): every
 // look on every surface, the layout saved before login as a player's is.
 // EXPECTED_ATLAS as EXPECTED: a finding named with its owner, never a check
 // loosened.
@@ -63,7 +63,7 @@ test('every bundled look on every surface with the Atlas layout picked, at every
 	);
 });
 
-// The same bar with each of Polestar_TabStyles' styles picked: every look on
+// The same bar with each of the tab styles (Polestar/UI/TabStyles) picked: every look on
 // the guide window's surfaces (the only ones the tab style draws on), the
 // style saved before login as a player's is. EXPECTED_TAB_STYLES as EXPECTED:
 // a finding named with its owner, never a check loosened.

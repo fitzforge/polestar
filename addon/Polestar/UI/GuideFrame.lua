@@ -85,8 +85,8 @@
 local ADDON, ns = ...
 
 -- The live window's table, every file's part in load order and the copies
--- made so far. A part a load-on-demand addon adds later (Polestar_TabStyles)
--- joins the copies that exist too, after their build.
+-- made so far. A part a load-on-demand addon adds later joins the copies
+-- that exist too, after their build.
 local GF, partsOf, copies = { live = true }, {}, setmetatable({}, { __mode = "k" })
 ns.UI.GuideFrame = GF
 function GF.Part(fn)
@@ -336,7 +336,7 @@ GF.Part(function(GF)
 		-- steps before, a 28 px XP row).
 		stepSpace = false, titleSpace = false, tipSpace = false, tipPadding = false, upRowHeight = false, lastRowHeight = false, xpRowHeight = false,
 		-- Where the Journey goes: "inside" (under the step); a layout may offer
-		-- more ("joined", "folded", "rail", "foot": Polestar_Layout_Atlas).
+		-- more ("joined", "folded", "rail", "foot": Polestar_Skins/Layouts/Atlas).
 		journeyStyle = "inside",
 		-- The banner's action: "under" the text, or "right" on its line, by
 		-- the × (only a notice with one action; two stay under).
@@ -1613,7 +1613,12 @@ GF.Part(function(GF)
 		local verb = GROUP_VERB[kind] or "goto"
 		person.Icon:SetTexture(Theme.VerbIcon(verb))
 		W.Color(person.Icon, "textDim")
-		person.Name:SetText(UI.GroupName(view, group))
+		-- The group mark after the name (UI.StepMark, #3580); its reason in the tooltip.
+		local E = Engine()
+		local guide = E and E.GetGuide and E.GetGuide()
+		local mark, reason = UI.StepMark(view, guide and guide.steps and view and guide.steps[view.index])
+		person.Name:SetText(UI.GroupName(view, group) .. (mark and (" " .. UI.StepMarkGlyph(mark)) or ""))
+		person.psMark, person.psMarkWhy = mark, reason
 		W.Color(person.Name, kind == "here" and "text" or (kind == "object" and "object" or "npc"))
 		local place = groupPlace(group)
 		local where = place and UI.MapName(place.map) or nil
@@ -1637,6 +1642,9 @@ GF.Part(function(GF)
 			lines[#lines + 1] = { L["Click to point the arrow here"], r, g, b }
 		end
 		if view and view.title and view.title ~= self.psLabel then lines[#lines + 1] = view.title end
+		if self.psMark then
+			lines[#lines + 1] = { UI.StepMarkGlyph(self.psMark) .. " " .. self.psMarkWhy, Theme.TipColor(self.psMark == "group" and "warning" or "textDim") }
+		end
 		W.Tooltip(self, tooltipAnchor(), self.psLabel or "", lines)
 		GF.HoverIn()
 	end
@@ -3234,7 +3242,7 @@ GF.Part(function(GF)
 		end
 		F:SetSize(ns.Get("ui.width") or 340, 200)
 		-- The guide window's own frame in the game's looks from its first paint
-		-- (Polestar_Looks/GameSkins.lua GUIDE): painted before the flag, it took
+		-- (Theme/Looks/GameSkins.lua GUIDE): painted before the flag, it took
 		-- the big windows' title bar and drag strip, which lay over the card above
 		-- it (#1802). psGuideWindow: this window itself, live or a copy, not a
 		-- card painted as it (a skin may dress the two apart).
@@ -3919,6 +3927,8 @@ GF.Part(function(GF)
 		ns.On("STEP_CHANGED", whenReady(GF.Render))
 		ns.On("STEP_UPDATED", whenReady(GF.Update))
 		ns.On("PARTY_PROGRESS", whenReady(GF.Update))
+		-- The finished quests to hand in elsewhere changed off the step (RoutePlan, #3568): the row follows.
+		ns.On("CARRIED_CHANGED", whenReady(GF.Update))
 		-- A finished guide's card counts the quests in the log (GF.EndQuestLines):
 		-- one taken, handed in or abandoned paints it afresh. Only on that card.
 		ns.RegisterEvent("QUEST_LOG_UPDATE", function()

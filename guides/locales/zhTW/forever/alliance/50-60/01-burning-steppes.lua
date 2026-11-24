@@ -179,7 +179,7 @@ return {
 
 	-- Step 37: Blasted Lands: kill these as you meet them
 	-- {zone:1419} Blasted Lands
-	["{zone:1419}: kill these as you meet them"] = "",
+	["{zone:1419}: kill these as you meet them"] = "{zone:1419}：沿途擊殺以下目標",
 	-- {zone:1419} Blasted Lands · {npc:5982} Black Slayer · {npc:221740} Calefactus the Unleashed · {npc:247015} Vek'zol · {npc:8301} Clack the Reaver · {npc:8298} Akubar the Seer · {area:1440} Serpent's Coil · {item:8244} Flawless Draenethyst Sphere
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk · Snickerfang Matriarchs = {npc:272386} Snickerfang Matriarch
 	["Ride back south into the {zone:1419} for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and {npc:5982} vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.\nCareful: two elites roam here: {npc:221740} (50) in the middle of the zone around 44,34, and {npc:247015} (55) on the ridge around 39,32. When you see one, hunt somewhere else.\nCareful: {npc:8301} (53, a rare scorpid) walks the north around 47,36, {npc:8298} (54, rare) the middle around 45,48, and Snickerfang Matriarchs (60) roam the ground east of here, between Kum'isha's hill and the {area:1440} (about 54-62, 31-47): give them room.\nAny mob here may drop a {item:8244}: keep it for Kum'isha."] = "",
@@ -384,6 +384,7 @@ return {
 	-- ["For {zone:1453}: keep it"] = "給{zone:1453}：保留此任務",
 	-- ["From the {area:442} dock, fly to {area:415}."] = "從{area:442}碼頭飛往{area:415}。",
 	-- ["Help her escape the camp"] = "幫助她逃出營地",
+	-- ["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon instead."] = "如果跳過了{quest:4022}，就在這裡刷到52.08級，以跟上路線進度。也可以組隊去{area:1417}地下城。",
 	-- ["Level 51.3 on the way north"] = "往北途中升到51.3級",
 	-- ["Level 52 at {area:249}"] = "在{area:249}升到52級",
 	-- ["Level 52.08"] = "52.08級",

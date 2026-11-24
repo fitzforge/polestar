@@ -78,7 +78,7 @@ Theme.HexColor = hex
 --               accent, drawn in Polestar's own art (no client textures)
 --   "forever", "blizzard", "classic"   the client's own art: WoW Forever's,
 --               the retail art (Blizzard Style) and the vanilla files
---               (Polestar_Looks/GameSkins.lua draws them)
+--               (Theme/Looks/GameSkins.lua draws them)
 -- A skin brings its whole palette, its fonts, its frame paints and its sizes.
 -- The colour scheme, ground colour and brightness belong to the house style;
 -- the player's own accent, window border and arrow colours win in every skin.
@@ -229,7 +229,7 @@ Theme.SKIN_ORDER = { "polestar", "halo", "hearth", "forever", "blizzard", "class
 local HIDDEN_SKINS = {}
 -- Tests may set Theme._testShowHidden = true to render hidden skins directly.
 Theme._testShowHidden = false
--- The skins drawn in the game's own colours and controls (Polestar_Looks/GameSkins.lua:
+-- The skins drawn in the game's own colours and controls (Theme/Looks/GameSkins.lua:
 -- the client's check boxes, sliders, red buttons, its font and hard shadow).
 local GAME_SKINS = { forever = true, blizzard = true, classic = true }
 -- The Skin API's registries (Theme.RegisterSkin / Theme.RegisterScheme at the
@@ -758,16 +758,12 @@ end
 
 -- The built-in look the skin in use is drawn from: the skin itself for the
 -- six built in, the look a registered skin extends (its base, or its
--- variant's). Modules that vary their own art by skin key it by this. The
--- game's looks and Hearth are drawn by their part (Polestar_Looks): with the
--- part missing or disabled, Polestar's own look stands in, whole (not the
--- look's sizes and controls on Polestar's frames).
+-- variant's). Modules that vary their own art by skin key it by this.
 function Theme.SkinKey()
 	local m = not drawing.id and skinMemo
 	if m and m.key then return m.key end
 	local s = SKINS[Theme.SkinId()]
 	local key = s and baseOf(s) or "polestar"
-	if (GAME_SKINS[key] or key == "hearth") and Theme.LoadLooks and not Theme.LoadLooks(key) then key = "polestar" end
 	if m then m.key = key end
 	return key
 end
@@ -1305,7 +1301,7 @@ end
 -- A texture the skin in use brings in place of Polestar's (its media, or
 -- its variant's: "band", "bandStars", "medallion", the arrow's and the
 -- pins' parts), or nil for Polestar's own. The game's looks bring their
--- arrow and map pins from the client's own art (Polestar_Looks/Parts.lua;
+-- arrow and map pins from the client's own art (Theme/Looks/Parts.lua;
 -- their "dartArt": the dart in its own colours, without Polestar's edge).
 function Theme.SkinMedia(name)
 	local s = SKINS[Theme.SkinId()]
@@ -1500,7 +1496,7 @@ local METRICS = {
 	},
 }
 -- The game's looks bring their own sizes and type ladder with their part
--- (Polestar_Looks/Parts.lua), which loads before Theme.SkinKey names one.
+-- (Theme/Looks/Parts.lua), which loads with Polestar.
 Theme.METRICS = METRICS
 
 function Theme.Metric(key, house)
@@ -2360,7 +2356,7 @@ local function clearSkin(f)
 	-- The house look's window edges (Theme/House.lua).
 	if d.edge then hideAll(d.edge) end
 	if d.hover then d.hover:SetVertexColor(1, 1, 1, 0) end
-	-- The game's looks (Polestar_Looks/GameSkins.lua) keep their pieces here.
+	-- The game's looks (Theme/Looks/GameSkins.lua) keep their pieces here.
 	if d.kit then hideAll(d.kit) end
 end
 
@@ -2387,45 +2383,9 @@ local function veilAlpha(f, token)
 end
 
 -- The game's looks (WoW Forever, Blizzard, Classic: their kits and painters)
--- and Hearth's painters live in their own part, Polestar_Looks (load on
--- demand), loaded the first time one of them is painted: a player on the
--- house look never pays for them at login. Until then Theme.Kit is nil and
--- the Theme.Kit* calls draw nothing; the part replaces them as it loads
--- (Polestar_Looks/GameSkins.lua, Hearth.lua).
-local loadLooks
-do
-	local LOOKS, BASES = "Polestar_Looks", { hearth = true, forever = true, blizzard = true, classic = true }
-	local tried = false
-	-- Loads the part when `base` is one of its looks (once: a part that is
-	-- missing or disabled leaves the house look standing). -> whether it is in
-	function loadLooks(base)
-		if Theme.KITS then return true end
-		if not BASES[base] or tried then return false end
-		tried = true
-		local A = C_AddOns
-		local load = A and A.LoadAddOn or LoadAddOn
-		if load then pcall(load, LOOKS) end
-		return Theme.KITS ~= nil
-	end
-	Theme.LoadLooks = loadLooks
-	-- The kit of the skin in use, or nil (the house style, Halo, Hearth).
-	function Theme.Kit()
-		local key = Theme.SkinKey()
-		if not GAME_SKINS[key] or not loadLooks(key) then return nil end
-		return Theme.KITS[key]
-	end
-	-- The kit calls the guide window and the widgets make, in the house
-	-- look: nothing drawn, until a game look brings the part in.
-	for _, name in ipairs({ "KitTab", "KitRowLit", "KitHeader", "KitStrip", "KitStatus", "KitCheck", "KitSlider",
-		"KitDropArrow", "KitIconButton", "KitHide" }) do
-		local standIn
-		standIn = function(...)
-			if loadLooks(Theme.SkinKey()) and Theme[name] ~= standIn then return Theme[name](...) end
-			return false
-		end
-		Theme[name] = standIn
-	end
-end
+-- and Hearth's painters are in Theme/Looks/ (GameSkins.lua, Hearth.lua),
+-- loaded after this file: they set Theme.Kit, the Theme.Kit* calls and their
+-- entries in Theme.SKIN_PAINT (in their own folder before 0.4.3, #3507).
 
 local SKIN_PAINT = {
 	halo = {
@@ -2484,7 +2444,7 @@ local SKIN_PAINT = {
 	},
 }
 Theme.SKIN_PAINT = SKIN_PAINT
--- The paint helpers the game's looks and Hearth build from (Polestar_Looks).
+-- The paint helpers the game's looks and Hearth build from (Theme/Looks/).
 Theme.Paint = { fill = fill, hoverWash = hoverWash, bare = bare, hideBorder = hideBorder, redButton = redButton, house = HOUSE_PAINT }
 
 -- What a registered skin's painters and hooks may build with
@@ -2694,7 +2654,7 @@ local function kitCrossfade(tex, file, seconds)
 	end)
 end
 
--- kit.tintArt: the game art a base look drew on the frame (Polestar_Looks/GameSkins.lua:
+-- kit.tintArt: the game art a base look drew on the frame (Theme/Looks/GameSkins.lua:
 -- its nine-slices, plates and the red buttons), desaturated (0-1), brighter
 -- or darker (brightness -1..1) and tinted. What the base sets again on its
 -- next paint is tinted again from there; another skin puts it all back.
@@ -2800,7 +2760,7 @@ end
 -- A piece of the base look's art in colour r, g, b, a (white when nil), with
 -- the skin in use's artTint over it (spec.artTint: tinted, brighter or
 -- darker, desaturated); without one, as given and fully saturated. The game
--- looks draw every piece of their art through this (Polestar_Looks/GameSkins.lua), so
+-- looks draw every piece of their art through this (Theme/Looks/GameSkins.lua), so
 -- the tint reaches it all and goes when the skin does.
 function Theme.TintArt(t, r, g, b, a)
 	r, g, b, a = r or 1, g or 1, b or 1, a or 1
@@ -2855,7 +2815,6 @@ local function paint(frame, kind)
 		end
 		frame.psSkin.skin = look
 	end
-	if not SKIN_PAINT[base] then loadLooks(base) end
 	local own = SKIN_PAINT[base]
 	local fn = (own and own[kind]) or HOUSE_PAINT[kind] or HOUSE_PAINT.panel
 	local registered = s and not s.builtin
@@ -3349,6 +3308,21 @@ if ns.RegisterMigration then
 	ns.RegisterMigration("pickerScale", function(s)
 		local ui = s.ui
 		if type(ui) == "table" and ui.pickerScale == nil and tonumber(ui.menuScale) and tonumber(ui.menuScale) ~= 1 then ui.pickerScale = ui.menuScale end
+	end)
+end
+
+-- The settings window drew at 0.8 x ui.menuScale and draws at 0.92 x it now
+-- (W.SETTINGS_SCALE_BASE, 0.8 x 1.15): a scale the player set is divided by
+-- 1.15 once, to the nearest 1 % within the slider's 70-140 %, so the window
+-- keeps the size they chose (115 % reads 100 %). Runs after "pickerScale",
+-- which copies the old number to the guides window.
+if ns.RegisterMigration then
+	ns.RegisterMigration("menuScale092", function(s)
+		local ui = s.ui
+		local v = type(ui) == "table" and tonumber(ui.menuScale)
+		if not v then return end
+		v = math.min(1.4, math.max(0.7, math.floor(v / 1.15 * 100 + 0.5) / 100))
+		ui.menuScale = v ~= 1 and v or nil
 	end)
 end
 

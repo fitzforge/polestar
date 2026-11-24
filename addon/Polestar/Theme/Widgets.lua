@@ -738,7 +738,7 @@ function W.SetIconState(b, active, enabled)
 end
 
 -- A big window's own close button. The game's looks draw a close of their
--- own on the window frame's corner (Polestar_Looks/GameSkins.lua), which
+-- own on the window frame's corner (Theme/Looks/GameSkins.lua), which
 -- stands for it, so it shows in the other looks only. The window is painted
 -- again now that its close exists: the corner close is then there from the
 -- first paint, where only a repaint drew it, beside or over this one.
@@ -3172,7 +3172,9 @@ local PLACEHOLDER_X, PLACEHOLDER_PAD = 30, 10
 
 -- The placeholder takes the first of its wordings (longest first) that fits
 -- inside the box in the current font; the last one is cut with an ellipsis
--- if even it does not. Refitted when the box's size or the font changes.
+-- if even it does not. Refitted when the box's size or the font changes. A
+-- box with less than 24 for any word (the settings header's search giving
+-- its room to a long page title, #3425) shows its glyph alone.
 local function fitPlaceholder(e)
 	local ph, list = e.Placeholder, e.psPlaceholders
 	if not list then return end
@@ -3183,6 +3185,7 @@ local function fitPlaceholder(e)
 		if i == #list or room <= 0 or ph:GetStringWidth() <= room then break end
 	end
 	if room > 0 then ph:SetWidth(room) end
+	ph:SetAlpha(room >= 24 and 1 or 0)
 end
 
 -- placeholder: a string, or a list of wordings, longest first.
@@ -3344,7 +3347,7 @@ local function scrollUpdate(sf)
 	end
 	bar:Show()
 	-- A game look's scroll bar keeps its arrow buttons at the ends
-	-- (bar.psInset, Polestar_Looks/GameSkins.lua): the thumb runs between them.
+	-- (bar.psInset, Theme/Looks/GameSkins.lua): the thumb runs between them.
 	local inset = bar.psInset or 0
 	local track = max(1, view - 2 * inset)
 	local h = max(24, track * view / content)
@@ -3440,7 +3443,7 @@ end
 
 -- The strip a scroll area's bar takes at the area's right edge: its margin,
 -- its width and what a game look's arrow buttons reach past it on the left
--- (bar.psReach, Polestar_Looks/GameSkins.lua). Rows that take the mouse end
+-- (bar.psReach, Theme/Looks/GameSkins.lua). Rows that take the mouse end
 -- short of it while the bar shows (W.ShellNav).
 function W.ScrollBarRoom(sf)
 	local bar = sf.Bar
@@ -4330,12 +4333,75 @@ local function footerButton(f, side, i, ghost)
 	return b
 end
 
+-- The footer's two groups, placed from either edge, never run into each
+-- other (#3425: German at the settings window's smallest size, a long
+-- profile name). While the buttons and 16 between the groups are wider than
+-- the footer, the widest button gives, down to the next widest and 56 at
+-- most, its label cut short and whole in its tooltip. Fitted again as the
+-- window's size changes. W.ShellUncutFooter(b) gives a button its own width
+-- back before it is labelled again.
+function W.ShellUncutFooter(b)
+	if not rawget(b, "psFooterCut") then return end
+	b.psFooterCut = nil
+	b.Label:SetWidth(0)
+	b.psTip = rawget(b, "psFooterTip")
+	b:SetWidth(b.psFooterW)
+end
+function W.ShellFitFooter(f)
+	local GAP, LEAST = 16, 56
+	local room = f.Footer:GetWidth()
+	local shown, need, firstGhost = {}, SHELL.pad * 2 + GAP, false
+	for _, side in ipairs({ "left", "right" }) do
+		local n = 0
+		for _, b in ipairs(f.footerButtons[side]) do
+			W.ShellUncutFooter(b)
+			if b:IsShown() then
+				if side == "left" and n == 0 then firstGhost = b.psGhost and true or false end
+				shown[#shown + 1] = b
+				need = need + b:GetWidth() + (n > 0 and 8 or 0)
+				n = n + 1
+			end
+		end
+	end
+	if firstGhost then need = need - 8 end
+	local over = need - room
+	-- No width known yet (the footer not laid out): nothing to fit to.
+	if room <= 0 or over <= 0.5 then return end
+	while over > 0.5 do
+		local widest, second = nil, LEAST
+		for _, b in ipairs(shown) do
+			local w = b:GetWidth()
+			if not widest or w > widest:GetWidth() then
+				if widest then second = max(second, widest:GetWidth()) end
+				widest = b
+			else
+				second = max(second, w)
+			end
+		end
+		local w = widest and widest:GetWidth() or 0
+		if w <= LEAST then break end
+		local give = min(over, w - LEAST, max(1, w - second))
+		if not rawget(widest, "psFooterCut") then
+			widest.psFooterCut, widest.psFooterW, widest.psFooterTip = true, w, rawget(widest, "psTip")
+			widest.psTip = widest.Label:GetText()
+			widest.Label:SetWordWrap(false)
+		end
+		widest:SetWidth(w - give)
+		widest.Label:SetWidth(max(1, w - give - 16 - (rawget(widest, "Icon") and widest.Icon:IsShown() and 19 or 0)))
+		over = over - give
+	end
+end
+
 -- Without any button the footer bar goes and the body runs to the bottom.
 -- A window without its footer (W.ShellSetFooter) keeps it gone.
 function W.ShellFooter(f, left, right)
 	if rawget(f, "psNoFooter") then return W.ShellSetFooter(f, false) end
 	f.Footer:SetShown(#(left or {}) + #(right or {}) > 0)
 	layoutBody(f)
+	if not rawget(f, "psFooterFits") then
+		f.psFooterFits = true
+		f.Footer:HookScript("OnSizeChanged", function() W.ShellFitFooter(f) end)
+	end
 	for _, side in ipairs({ "left", "right" }) do
 		local specs
 		if side == "left" then specs = left or {} else specs = right or {} end
@@ -4359,6 +4425,7 @@ function W.ShellFooter(f, left, right)
 				b.Icon:Hide()
 				b.psIconSpare, b.Icon = b.Icon, nil
 			end
+			W.ShellUncutFooter(b)
 			W.SetButtonText(b, spec.label)
 			if spec.opts and spec.opts.confirm then
 				W.Confirm(b, spec.label, spec.onClick)
@@ -4377,6 +4444,7 @@ function W.ShellFooter(f, left, right)
 		end
 		for i = #specs + 1, #list do list[i]:Hide() end
 	end
+	W.ShellFitFooter(f)
 end
 
 -- The footer bar shown (on) or gone for good (the new settings page: its
@@ -4548,12 +4616,23 @@ function W.HeaderScale(f, path, label, tip)
 			end
 			-- Still too long (a narrow window, a long word in German or Russian):
 			-- the scale goes without its label (its tooltip names it), then the
-			-- title's font steps down, to the title role's size at least.
+			-- search down to its glyph (#3425: "Alarme & Meldungen" at the
+			-- smallest window), then the title's font steps down, to the title
+			-- role's size at least.
 			if t:IsShown() and need > mainW - SHELL.pad - edge then
 				local was = t:GetWidth()
 				t.Label:Hide()
 				t:SetWidth(SCALE_TRACK + 10 + vw)
 				edge = edge - (was - t:GetWidth())
+			end
+			-- The search down to 34, its glyph alone (#3425).
+			if gives and need > mainW - SHELL.pad - edge then
+				local cur = search:GetWidth()
+				local give = min(need - (mainW - SHELL.pad - edge), cur - 34)
+				if give > 0 then
+					search:SetWidth(cur - give)
+					edge = edge - give
+				end
 			end
 			local room = mainW - SHELL.pad - edge
 			if need > room and room > 0 then
@@ -4672,9 +4751,11 @@ end
 -- The guides window keeps the skin's size in UI units (UI/Picker.lua).
 W.SHELL_BASE_W, W.SHELL_BASE_H = 1680, 946
 W.SHELL_MIN_W, W.SHELL_MIN_H = 860, 560 -- the least either window is, the screen allowing
--- The settings window draws at this share of its scale setting (ui.menuScale), so 100 % is
--- what 80 % was; the guides window (ui.pickerScale) draws at its setting as it is.
-W.SETTINGS_SCALE_BASE = 0.8
+-- The settings window draws at this share of its scale setting (ui.menuScale): 100 % is what
+-- 115 % was before 0.4.3 (#3789: 0.8 drew it too small; a saved scale moved with it, the
+-- migration "menuScale092" in Theme.lua). The guides window (ui.pickerScale) draws at its
+-- setting as it is.
+W.SETTINGS_SCALE_BASE = 0.92
 function W.ShellDefaultSize()
 	local ph = GetPhysicalScreenSize and select(2, GetPhysicalScreenSize()) or 0
 	local uh = UIParent:GetHeight()

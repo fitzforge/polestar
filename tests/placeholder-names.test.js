@@ -23,12 +23,14 @@ function placeholder(name) {
 // The fields of a compiled goal or step a player reads.
 const SHOWN = /\b(title|target|npcName|objName|itemName|from|fromAlso|startItemName|text|note) = "((?:[^"\\]|\\.)*)"/g;
 
+// Every guides file shipped: each Polestar_Guides* part's Guides.lua and, in the faction parts since 0.4.3,
+// its races' Guides_<race>.lua; and the experimental guides inside Polestar (Polestar/Experimental).
 function packs() {
-	return fs
+	const files = fs
 		.readdirSync(ADDON)
-		.filter((d) => d.startsWith('Polestar_Guides') || d === 'Polestar_Experimental')
-		.map((d) => path.join(ADDON, d, 'Guides.lua'))
-		.filter((f) => fs.existsSync(f));
+		.filter((d) => d.startsWith('Polestar_Guides'))
+		.flatMap((d) => fs.readdirSync(path.join(ADDON, d)).filter((f) => /^Guides(_\w+)?\.lua$/.test(f)).sort().map((f) => path.join(ADDON, d, f)));
+	return [...files, path.join(ADDON, 'Polestar', 'Experimental', 'Guides.lua')].filter((f) => fs.existsSync(f));
 }
 
 test('the placeholder test reads the shipped guide packs', () => {

@@ -71,7 +71,7 @@ return {
 	-- Step 10: Stranglethorn Tigers
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger
 	["Stranglethorn Tigers"] = "Schlingendorntiger",
-	["The adult tigers prowl the hills just south and west of the camp."] = "Die ausgewachsenen Tiger streifen durch die Hügel gleich südlich und westlich des Lagers.",
+	["The adult tigers prowl the hills on both sides of the camp: west of it, and east of it toward the lake. The arrow takes the eastern group."] = "",
 
 	-- Step 11: Ajeck Rouack
 	-- {area:99} Rebel Camp
@@ -240,6 +240,7 @@ return {
 	-- ["The Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp."] = "Die Bloodscalp-Trolle halten die Ruinen an der Küste westlich von Nesingwarys Lager.",
 	-- ["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents."] = "Die Rebellen von Kurzen halten das Lager östlich des {area:99}; arbeite dich am Außenrand entlang, wo Kurzens Dschungelkämpfer und Medizinmänner stehen, und plündere die Vorratskisten bei den Zelten.",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "Die Skullsplitter-Trolle halten die Ruinen östlich der Straße zwischen Nesingwary und {object:3202}.",
+	-- ["The adult tigers prowl the hills just south and west of the camp."] = "Die ausgewachsenen Tiger streifen durch die Hügel gleich südlich und westlich des Lagers.",
 	-- ["The jungle ruins"] = "Die Dschungelruinen",
 	-- ["The jungle's quests climb to 37 from here: short of 33.2? Keep on the Stranglethorn Tigers in the hills just south and west of the camp until level 33.2. Or, with a group, run the {area:796} dungeon (Library) instead."] = "Die Quests im Dschungel steigen von hier an bis 37: Unter 33,2? Bleib bei den Stranglethorn Tigers in den Hügeln direkt südlich und westlich des Lagers, bis du Stufe 33,2 hast. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:796} (Bibliothek).",
 	-- ["The ore drops from Drywhisker kobolds in {zone:1417}"] = "Das Erz lassen Kobolde der Trockenstoppel im {zone:1417} fallen",

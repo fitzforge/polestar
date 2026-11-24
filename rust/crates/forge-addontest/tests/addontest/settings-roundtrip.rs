@@ -144,14 +144,20 @@ function values(c)
 	end
 	if c.kind == "dropdown" or c.kind == "cards" or c.kind == "font" then
 		local out = {}
-		for _, ch in ipairs(choices(c)) do out[#out + 1] = ch.value end
+		-- A saved setup's card in the guide window's Presets (a look snapshot, UI/LayoutCard.lua) puts its keys back
+		-- and is never lit: no value the row reads back, so not one the walks write (ui_layout_card checks it).
+		for _, ch in ipairs(choices(c)) do
+			if not (type(ch.value) == "string" and ch.value:find("^snapshot:")) then out[#out + 1] = ch.value end
+		end
 		return out
 	end
 	if c.kind == "color" then return { { 1, 0, 0, 1 }, { 0, 1, 0, 0.5 }, { 0.2, 0.4, 0.6 } } end
 	return {}
 end
--- The game's image sharpening is the game's own CVar, which no reset writes and the game keeps (settings-game.rs).
-GAME = { ["Quality of Life:Increase game image quality"] = true }
+-- Kept outside the settings, so a reload of PolestarDB alone does not bring them back: the game's image sharpening
+-- (the game's own CVar, which no reset writes and the game keeps, settings-game.rs) and the Language (#3643: its own
+-- saved variable, PolestarLanguage, read once at load; ui_options and locale_load check it across a reload).
+GAME = { ["Quality of Life:Increase game image quality"] = true, ["General:Language"] = true }
 "#;
 
 fn run_saved(saved: Option<String>, script: &str) -> Value {

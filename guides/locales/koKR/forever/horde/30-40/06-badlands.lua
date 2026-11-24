@@ -53,7 +53,7 @@ return {
 	-- {area:75} Stonard
 	["for Helgrum in {area:75}, around level 42"] = "42레벨쯤 {area:75}의 헬그럼에게",
 	-- {npc:6868} Jarkal Mossmeld
-	["{npc:6868}, inside"] = "",
+	["{npc:6868}, inside"] = "{npc:6868}, 내부",
 
 	-- Step 9: Lesser Rock Elementals
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental

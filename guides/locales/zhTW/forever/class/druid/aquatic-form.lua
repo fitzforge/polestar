@@ -60,7 +60,7 @@ return {
 
 	-- Step 11: Half Pendant of Aquatic Agility
 	-- {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff · {area:1637} Orgrimmar · {object:177794} Strange Lockbox · {area:382} Sludge Fen
-	["Take {npc:11798}'s flight to {area:1638} and fly on to {area:1637}. The {object:177794} lies underwater in the {area:382} pond, a short walk out of {area:1637}'s west gate, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "",
+	["Take {npc:11798}'s flight to {area:1638} and fly on to {area:1637}. The {object:177794} lies underwater in the {area:382} pond, a short walk out of {area:1637}'s west gate, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "乘坐{npc:11798}的航班前往{area:1638}，再飛往{area:1637}。從{area:1637}西門步行一小段路即可到達{area:382}，{object:177794}就在池塘水下的一面木牆前。那裡的風險投資公司成員很容易加入戰鬥，從西面接近可避開大部分敵人。",
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177794} Strange Lockbox
 	["{item:15883}, from the {object:177794}"] = "{item:15883}，來自{object:177794}",
 
@@ -72,7 +72,7 @@ return {
 
 	-- Step 13: Half Pendant of Aquatic Endurance
 	-- {object:177844} Strange Lockbox · {area:228} Sepulcher · {spell:18960} Teleport: Moonglade
-	["The {object:177844} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down. Then {spell:18960} takes you straight back."] = "",
+	["The {object:177844} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down. Then {spell:18960} takes you straight back."] = "{object:177844}在{area:228}西北海岸外的深水底部，旁邊有可供呼吸的氣泡裂隙，下潛時注意呼吸條。拿到後用{spell:18960}直接返回。",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177844} Strange Lockbox
 	["{item:15882}, from the {object:177844}"] = "{item:15882}，來自{object:177844}",
 

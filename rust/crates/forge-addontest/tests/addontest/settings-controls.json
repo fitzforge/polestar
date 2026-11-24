@@ -3,6 +3,7 @@
  "_retired": {
 		"qol.trainAll": "0.3.7.1 removed trainer bulk purchases (Train All); a saved value is ignored and Polestar never buys at a trainer",
 		"qol.trainAllButton": "0.3.7.1 removed trainer bulk purchases (Train All button)",
+		"maps.flightArcade": "0.4.3 replaced Freedoom Arcade's offer on flights with the flight game picker (arcade.game); a profile that had the offer off offers no game",
 		"ui.pickerFaction": "0.4.0 removed the guide menu's faction filter (#2462): the menu lists the character's own side only; a saved value is ignored"
 	},
 	"0.3.6": [
@@ -2379,6 +2380,22 @@
    "label": "Dungeons in my route",
    "at": [
     "Guide > Automation > Quests"
+   ]
+  },
+  {
+   "id": "arcade.game",
+   "kind": "dropdown",
+   "label": "Game on flights",
+   "at": [
+    "Integrations > Flight arcade"
+   ]
+  },
+  {
+   "id": "ui.outlevelNotice",
+   "kind": "toggle",
+   "label": "Say when I've outlevelled a guide",
+   "at": [
+    "Guide > Automation > Guides"
    ]
   }
  ]

@@ -28,7 +28,7 @@ return {
 	-- Step 4: Glittering Dust
 	-- {area:1220} Thalassian Base Camp · {zone:1447} Azshara · {spell:8349} Fire Nova · {spell:133} Fireball · {spell:139} Renew
 	-- plural, as words: Blood Elf Surveyors = {npc:6198} Blood Elf Surveyor
-	["The blood elves hold the {area:1220} on the hills of north-eastern {zone:1447}. Blood Elf Surveyors (51-52, {spell:8349} up close) and Reclaimers (52-53, {spell:133}, and they heal and {spell:139} each other) each drop the dust about one time in four; they spot you from far off, so pull at the edges. They come back after 5 1/2 minutes."] = "",
+	["The blood elves hold the {area:1220} on the hills of north-eastern {zone:1447}. Blood Elf Surveyors (51-52, {spell:8349} up close) and Reclaimers (52-53, {spell:133}, and they heal and {spell:139} each other) each drop the dust about one time in four; they spot you from far off, so pull at the edges. They come back after 5 1/2 minutes."] = "블러드 엘프가 {zone:1447} 동북부 언덕의 {area:1220}을(를) 지킵니다. 블러드 엘프 측량사(51-52레벨, 가까이서 {spell:8349})와 재건자(52-53레벨, {spell:133}을(를) 쓰고 서로 치료하고 {spell:139}도 시전)가 네 번에 한 번꼴로 가루를 떨어뜨립니다. 멀리서 눈치채니 가장자리에서 끌어오세요. 5분 30초 후 다시 나옵니다.",
 
 	-- Step 5: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
@@ -37,7 +37,7 @@ return {
 	-- Step 6: Enchanted Coral
 	-- {area:1221} Ruins of Eldarath · {area:1237} Valormok · {area:1223} Temple of Zin-Malor · {npc:7864} Lingering Highborne
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren · Spitelash Screamers = {npc:6193} Spitelash Screamer
-	["The Spitelash Sirens (level 50-52) walk the ruins and beaches around the {area:1221} and the bay east of {area:1237}, often three together, and a few stand inside the {area:1223}; each drops a coral about one time in four. The Spitelash Screamers look almost the same but never drop it. Killing the other naga there makes more Sirens appear in their spots. {npc:7864} ghosts wander the ruins: watch your back."] = "",
+	["The Spitelash Sirens (level 50-52) walk the ruins and beaches around the {area:1221} and the bay east of {area:1237}, often three together, and a few stand inside the {area:1223}; each drops a coral about one time in four. The Spitelash Screamers look almost the same but never drop it. Killing the other naga there makes more Sirens appear in their spots. {npc:7864} ghosts wander the ruins: watch your back."] = "원한채찍 사이렌(50-52레벨)이 {area:1221} 주변 폐허와 해변, {area:1237} 동쪽 만을 돌아다니며 보통 세 마리씩이고 {area:1223} 안에도 몇 마리가 있습니다. 네 번에 한 번꼴로 산호를 떨어뜨립니다. 원한채찍 비명지음이는 거의 똑같이 생겼지만 산호를 떨어뜨리지 않습니다. 그곳의 다른 나가를 처치하면 사이렌이 그 지점에 더 나타납니다. {npc:7864} 유령이 폐허를 배회하니 뒤를 살피세요.",
 
 	-- Step 7: Archmage Xylem again
 	-- {npc:8379} Archmage Xylem
@@ -48,7 +48,7 @@ return {
 	-- Step 8: Morphaz
 	["Morphaz"] = "몰파즈",
 	-- {area:1477} The Temple of Atal'Hakkar · {area:1417} Sunken Temple · {area:74} Pool of Tears · {npc:5710} Jammal'an the Prophet · {npc:5711} Ogom the Wretched · {spell:12533} Acid Breath · {spell:11019} Wing Flap
-	["{area:1477}, the {area:1417}, lies in the {area:74}: climb the steps into the sunken building, swim down through it and follow the passage down to the portal. A group of five, level 50-54. Morphaz is not waiting when you arrive. First kill the six troll guardians (elites of 50-52) on the platforms around the upper ring; that opens the way down (the left-hand ramp from the entrance) to {npc:5710} and {npc:5711} in the Pit of Sacrifice. Once Jammal'an dies, two green drakes, Weaver and Dreamscythe, come out and patrol the pit: pull them one at a time. When both are dead, Morphaz (level 52 elite, {spell:12533} and {spell:11019}) and Hazzas appear together and cannot be split, so fight both. The shard always drops. Hunters, Priests and Rogues of 50 need Morphaz too: a group of them shares one clear."] = "",
+	["{area:1477}, the {area:1417}, lies in the {area:74}: climb the steps into the sunken building, swim down through it and follow the passage down to the portal. A group of five, level 50-54. Morphaz is not waiting when you arrive. First kill the six troll guardians (elites of 50-52) on the platforms around the upper ring; that opens the way down (the left-hand ramp from the entrance) to {npc:5710} and {npc:5711} in the Pit of Sacrifice. Once Jammal'an dies, two green drakes, Weaver and Dreamscythe, come out and patrol the pit: pull them one at a time. When both are dead, Morphaz (level 52 elite, {spell:12533} and {spell:11019}) and Hazzas appear together and cannot be split, so fight both. The shard always drops. Hunters, Priests and Rogues of 50 need Morphaz too: a group of them shares one clear."] = "{area:1477}, 즉 {area:1417}은(는) {area:74}에 있습니다. 계단을 올라 가라앉은 건물로 들어가 수영해 내려가 통로를 따라 차원문까지 가세요. 50-54레벨 5인 파티입니다. 모르파즈는 도착했을 때 없습니다. 먼저 상층 고리 주변 발판의 트롤 여섯 명(50-52레벨 정예)을 처치하면 입구 왼쪽 경사로로 {npc:5710}과(와) {npc:5711}이(가) 있는 희생의 구덩이에 내려갑니다. 잠말란이 죽으면 녹색 용 직조자와 꿈낫 두 마리가 나와 구덩이를 순찰하니 하나씩 끌어오세요. 둘 다 죽으면 모르파즈(52레벨 정예, {spell:12533}, {spell:11019})와 하자스가 함께 나타나 떼어낼 수 없으니 둘 다 상대하세요. 파편은 반드시 떨어집니다. 50레벨 사냥꾼, 사제, 도적도 모르파즈가 필요하니 파티가 한 번 돌면 모두 해결됩니다.",
 	-- {item:20085} Arcane Shard
 	["{item:20085}: Morphaz"] = "{item:20085}: 몰파즈",
 
@@ -56,7 +56,7 @@ return {
 	-- {item:20085} Arcane Shard
 	["The {item:20085}"] = "{item:20085}",
 	-- {zone:1447} Azshara · {npc:8395} Sanath Lim-yo · {item:20037} Arcane Crystal Pendant · {item:20036} Fire Ruby · {item:20035} Glacial Spike
-	["Back to {zone:1447}, {npc:8395} and the tower. Look at the reward window before you hand in: Classic offered the {item:20037}, the {item:20036} or the {item:20035}, and Forever's notes say the choice may be gone."] = "",
+	["Back to {zone:1447}, {npc:8395} and the tower. Look at the reward window before you hand in: Classic offered the {item:20037}, the {item:20036} or the {item:20035}, and Forever's notes say the choice may be gone."] = "{zone:1447}, {npc:8395}과(와) 탑으로 돌아가세요. 제출하기 전에 보상 창을 확인하세요. 클래식에서는 {item:20037}, {item:20036} 또는 {item:20035}을(를) 선택했지만 Forever 변경 사항에는 선택이 사라졌을 수 있다고 적혀 있습니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {zone:1447}, {npc:8395} and the tower."] = "{zone:1447}의 {npc:8395}에게 돌아가 탑으로 가세요.",

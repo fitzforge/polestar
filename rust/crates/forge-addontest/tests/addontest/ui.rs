@@ -1624,6 +1624,59 @@ fn on_the_way_to_a_nearby_service_a_banner_and_the_nearby_menu_offer_the_way_bac
 	assert_eq!(out["after"], false, "the banner goes with the trip");
 }
 
+// #3843: the arrow on a point the player picked on the map (Journey.PlanTo marks it `mine`) is said in the guide
+// window as a trip is, with Back to the guide, which lets it go; a goal's own point clicked (no `mine`) says nothing.
+#[test]
+fn on_the_way_to_your_own_map_point_a_banner_offers_the_way_back_to_the_guide() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local B = GF.parts.banner
+		Polestar.Nav.SetTarget(1429, 43.3, 14.8, "Kill Stranglethorn Tiger")
+		stub.advance(0.1)
+		local goal = B:IsShown()
+		local t = Polestar.Nav.SetTarget(1429, 41.5, 10.7, "Stranglethorn Vale 41, 11")
+		t.mine = true
+		stub.advance(0.1)
+		local shown = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText(), B.Close:IsShown() }
+		B.Jump:Click()
+		stub.advance(0.1)
+		emit({ goal = goal, shown = shown, back = lastCall("BackToGuide") ~= nil, target = uistub.target == nil, after = B:IsShown() })"#)
+	.remove(0);
+	assert_eq!(out["goal"], false, "a goal's own point is no point of yours");
+	assert_eq!(out["shown"], json!([true, "On the way to your map point (Stranglethorn Vale 41, 11).", "Back to the guide", false]));
+	assert_eq!(out["back"], true);
+	assert_eq!(out["target"], true);
+	assert_eq!(out["after"], false, "the banner goes with the point");
+}
+
+// #3878: with the action on the right (guideWindow.bannerLinks "right", Atlas's), a notice whose text would wrap
+// beside it (Fresh start's two sentences) keeps the text's full width and puts the action on its own line under it at
+// the right; a short one (Looking back.) keeps the action on its line.
+#[test]
+fn a_banner_s_action_on_the_right_takes_its_own_line_when_the_text_would_wrap_beside_it() {
+	let out = run(r#"
+		Polestar.Set("guideWindow.bannerLinks", "right")
+		local B = GF.parts.banner
+		local E = Polestar.Engine
+		E.FreshStart = function() return { guideId = uistub.elwynn, share = 42, fromTitle = "The Barrens", minutes = 25 } end
+		uistub.setGuide(uistub.elwynn, 3)
+		local full = B:GetWidth()
+		local point, rel, relPoint = B.Jump:GetPoint(1)
+		local fresh = { B.psKind, B.Text:GetWidth(), point, rel == B.Text, relPoint }
+		B.Close:Click()
+		E.FreshStart = function() return nil end
+		uistub.live = 4
+		uistub.setStep(3)
+		local p2, r2 = B.Jump:GetPoint(1)
+		local short = { B.psKind, p2, r2 == B, B.Text:GetText() }
+		emit({ full = full, fresh = fresh, short = short })"#)
+	.remove(0);
+	assert_eq!(out["fresh"][0], "fresh", "{out}");
+	assert_eq!(json!([out["fresh"][2], out["fresh"][3], out["fresh"][4]]), json!(["TOPRIGHT", true, "BOTTOMRIGHT"]), "the action under the text, at its right: {out}");
+	assert!(out["fresh"][1].as_f64().unwrap() > out["full"].as_f64().unwrap() * 0.7, "the text keeps the card's width: {out}");
+	assert_eq!(out["short"], json!(["away", "TOPRIGHT", true, "Looking back."]), "a one-line notice keeps its action on its line: {out}");
+}
+
 #[test]
 fn guide_outleveled_a_dismissible_banner_offers_the_better_guide_in_the_same_tab() {
 	let out = run(r#"
@@ -1651,6 +1704,39 @@ fn guide_outleveled_a_dismissible_banner_offers_the_better_guide_in_the_same_tab
 	assert_eq!(out["after"], false);
 	assert_eq!(out["header"], "Westfall");
 	assert_eq!(out["tabs"], 3, "the jump replaced the guide in its tab");
+}
+
+// #3845: a Class guide outlevelled says it in its own words ("past this class quest's levels") and jumps on to the
+// leveling guide that fits. #3585: "Say when I've outlevelled a guide" off hides the notice on screen and keeps any
+// new one from coming; on again, the one still standing shows.
+#[test]
+fn guide_outleveled_a_class_guide_says_its_own_words_and_the_notice_has_an_off_switch() {
+	let out = run(r#"
+		local CLASS = "forever/class/mage/test-class-quest"
+		uistub.guides[CLASS] = { id = CLASS, pack = "guides", title = "A Mage's quest", classes = { "MAGE" }, minLevel = 15, maxLevel = 17,
+			category = "Class", folder = "Mage", zone = 0, zoneName = "Elwynn Forest", author = "Polestar", version = 1,
+			steps = { { title = "The tower", goals = { { t = "note", text = "Step 1", status = "pending" } } } } }
+		table.insert(uistub.order, CLASS)
+		uistub.openTabs({ { uistub.elwynn, 3 }, { CLASS, 1 } }, 2)
+		local B = GF.parts.banner
+		Polestar.Fire("GUIDE_OUTLEVELED", CLASS, "forever/alliance/02-westfall")
+		local class = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText() }
+		Polestar.Set("ui.outlevelNotice", false)
+		local off = B:IsShown()
+		Polestar.Set("ui.outlevelNotice", true)
+		local again = B:IsShown()
+		B.Close:Click()
+		Polestar.Set("ui.outlevelNotice", false)
+		Polestar.Fire("GUIDE_OUTLEVELED", CLASS, "forever/alliance/02-westfall")
+		local offNew = B:IsShown()
+		Polestar.Set("ui.outlevelNotice", true)
+		emit({ class = class, off = off, again = again, offNew = offNew, onAfter = B:IsShown() })"#)
+	.remove(0);
+	assert_eq!(out["class"], json!([true, "You are past this class quest's levels.", "Jump to Westfall"]));
+	assert_eq!(out["off"], false, "off hides the notice on screen");
+	assert_eq!(out["again"], true, "on again, the notice still standing shows");
+	assert_eq!(out["offNew"], false, "off, a new one does not come");
+	assert_eq!(out["onAfter"], false, "and none was kept for later");
 }
 
 #[test]
@@ -3150,6 +3236,23 @@ fn labels_kept_in_tables_are_in_the_client_language_the_group_line_and_the_guide
 	assert!(is_match(text(&out["elite"]), r"\|c\w+Rarer Elite: Gruppe empfohlen\|r"));
 	assert_eq!(out["tabs"], json!(["Start", "Stöbern", "Aktuell", "Zuletzt"]));
 	assert_eq!(out["title"], "Anleitungen", "Home's header names the section");
+}
+
+// #3653 (TheLombaxLegend): Crossroads' Supply Crates read "Elite: group advised", though the crate needs no group;
+// the camp round it has elites (the compiled group's `near`). Work among elites says "Elites nearby"; elite work
+// itself keeps its line.
+#[test]
+fn work_near_elites_says_elites_nearby_elite_work_itself_says_group_advised() {
+	let out = run(r#"
+		local function plain(s) return s and (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) or false end
+		emit({
+			near = plain(UI.GroupLine({ party = { kind = "elite", rank = 1, lvl = 20, near = true } })),
+			elite = plain(UI.GroupLine({ party = { kind = "elite", rank = 1, lvl = 20 } })),
+			rare = plain(UI.GroupLine({ party = { kind = "elite", rank = 2 } })),
+			done = plain(UI.GroupLine({ party = { kind = "elite", near = true }, status = "done" })),
+		})"#)
+	.remove(0);
+	assert_eq!(out, json!({ "near": "Elites nearby", "elite": "Elite: group advised", "rare": "Rare elite: group advised", "done": false }));
 }
 
 #[test]

@@ -14,7 +14,7 @@ return {
 
 	-- Step 4: Bathran's Haunt: kill these as you meet them
 	-- {area:411} Bathran's Haunt
-	["{area:411}: kill these as you meet them"] = "",
+	["{area:411}: kill these as you meet them"] = "{area:411}: 만나는 대로 처치하세요",
 	-- {area:411} Bathran's Haunt · {item:5366} Glowing Soul Gem
 	["North of Maestra's Post, plant bundles lie around the ruins of {area:411}. Dark Strand cultists hold the ruins just south of them: any of them can drop the {item:5366}."] = "마에스트라 주둔지 북쪽, {area:411} 폐허 주변에 식물 꾸러미가 놓여 있습니다. 암흑이교도는 그 바로 남쪽 폐허를 차지하고 있으며, 누구든 {item:5366}을(를) 떨어뜨릴 수 있습니다.",
 	-- {quest:1010} Bathran's Hair
@@ -28,11 +28,11 @@ return {
 	-- {npc:3691} Raene Wolfrunner
 	["{npc:3691}, in the inn"] = "{npc:3691}, 여관 안",
 	-- {npc:3691} Raene Wolfrunner · {quest:990} Trek to Ashenvale · {area:442} Auberdine
-	["{npc:3691}: {quest:990}, from {area:442}"] = "",
+	["{npc:3691}: {quest:990}, from {area:442}"] = "{npc:3691}: {area:442}에서 받은 {quest:990}",
 	-- {npc:3691} Raene Wolfrunner · {npc:3987} Dal Bloodclaw
 	["{npc:3691}: {npc:3987}, north of town, at the end of this visit"] = "",
 	-- {npc:3894} Pelturas Whitemoon
-	["{npc:3894}, inside"] = "",
+	["{npc:3894}, inside"] = "{npc:3894}, 내부",
 
 	-- Step 7: Elune's Tear
 	-- {area:415} Astranaar
@@ -121,12 +121,12 @@ return {
 
 	-- Step 25: Windshear Crag: kill these as you meet them
 	-- {area:461} Windshear Crag
-	["{area:461}: kill these as you meet them"] = "",
+	["{area:461}: kill these as you meet them"] = "{area:461}: 만나는 대로 처치하세요",
 	-- {area:461} Windshear Crag
 	["The Venture Co. clear the forest of {area:461}. Loggers and Deforesters work all over it; the Operators run the shredders and one carries the blueprints."] = "투자개발회사가 {area:461}의 숲을 베어내고 있습니다. 나무꾼과 벌채꾼이 곳곳에서 일하고, 운전수가 벌목기를 몰며 그중 하나가 설계도를 지니고 있습니다.",
 
 	-- Step 26: Webwinder Path
-	["Inside"] = "",
+	["Inside"] = "내부",
 
 	-- Step 27: Night Elf Courier
 	-- {area:1076} Webwinder Path · {npc:16458} Innkeeper Faralia · {area:467} Stonetalon Peak
@@ -146,7 +146,7 @@ return {
 
 	-- Step 30: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "{area:415}(으)로 날아가기",
 	-- {area:467} Stonetalon Peak
 	["{area:467} flight master"] = "",
 
@@ -183,13 +183,13 @@ return {
 	-- {npc:3987} Dal Bloodclaw · {area:415} Astranaar · {npc:3691} Raene Wolfrunner · {npc:3961} Maliynn
 	["South from {npc:3987}'s camp to {area:415}: {npc:3691} and {npc:3961} are in the inn, the flight master at the west end."] = "",
 	-- {npc:3961} Maliynn
-	["{npc:3961}, in the inn"] = "",
+	["{npc:3961}, in the inn"] = "{npc:3961}, 여관 안",
 
 	-- Step 37: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "{area:442}(으)로 비행",
 	-- {area:415} Astranaar
-	["{area:415} flight master"] = "",
+	["{area:415} flight master"] = "{area:415} 비행 조련사",
 
 	-- Step 38: Terenthis
 	-- {npc:3693} Terenthis · {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin
@@ -245,7 +245,7 @@ return {
 	-- Step 45: Whelgar's Excavation Site
 	["The excavation site sits on the hill south of the road."] = "발굴 현장은 길 남쪽 언덕 위에 있습니다.",
 	-- {npc:1076} Merrin Rockweaver
-	["{npc:1076}, below ground"] = "",
+	["{npc:1076}, below ground"] = "{npc:1076}, 지하",
 
 	-- Step 46: The raptor hills
 	["The raptor hills"] = "랩터 언덕",
@@ -292,11 +292,11 @@ return {
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2096} Tarrel Rockweaver · {npc:2111} Sida · {npc:1480} Caitlin Grassman · {npc:2086} Valstag Ironjaw · {npc:2094} James Halloran · {npc:1242} Karl Boran
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road into Menethil: {npc:2096} by the road in at the north gate, {npc:2111} and {npc:1480} at the inn, {npc:2086} in the keep, {npc:2094} on the west side by the docks, {npc:1242} on the pier north of the inn."] = "",
 	-- {npc:1480} Caitlin Grassman
-	["{npc:1480}, inside"] = "",
+	["{npc:1480}, inside"] = "{npc:1480}, 내부",
 	-- {npc:2086} Valstag Ironjaw
 	["{npc:2086}, in the keep"] = "{npc:2086}, 성채 안",
 	-- {npc:1242} Karl Boran
-	["{npc:1242}, on the pier"] = "",
+	["{npc:1242}, on the pier"] = "{npc:1242}, 부두 위",
 
 	-- Step 54: Fly to Ironforge
 	-- {area:1537} Ironforge
@@ -304,7 +304,7 @@ return {
 	-- {npc:1571} Shellei Brondir
 	["{npc:1571} is the flight master by Menethil's inn: you have both flight paths since your first trip east."] = "",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "{area:150} 비행 조련사",
 
 	-- Step 55: Ironforge
 	-- {object:32372} Great Forge (no name in this language: may be words) · {npc:4081} Lomac Gearstrip · {object:171524} Tinker Town · {area:2257} Deeprun Tram
@@ -316,15 +316,15 @@ return {
 
 	-- Step 56: Buliwyf Stonehand
 	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "여기 있을 때: {npc:11865}에게 {spell:197}을(를) 배우세요({object:32359}, 은화 10개); 양손 무기가 전사를 가장 빨리 키웁니다.",
 
 	-- Step 57: Buliwyf Stonehand
 	-- {spell:199} Two-Handed Maces · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "여기 있을 때: {npc:11865}에게 {spell:199}을(를) 배우세요({object:32359}, 은화 10개); 양손 무기가 전사를 가장 빨리 키웁니다.",
 
 	-- Step 58: Buliwyf Stonehand
 	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "여기 있을 때: {npc:11865}에게 {spell:197}을(를) 배우세요({object:32359}, 은화 10개); 양손 무기가 성기사를 가장 빨리 키웁니다.",
 
 	-- Step 59: Tram to Stormwind
 	-- {zone:1453} Stormwind

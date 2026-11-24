@@ -46,9 +46,9 @@ return {
 	["On the way back to {area:348}: the lost gryphon eggs lie in the hills just east of the aviary."] = "{area:348}(으)로 돌아가는 길에: 잃어버린 그리핀 알은 그리핀 둥지 바로 동쪽 언덕에 있습니다.",
 
 	-- Step 8: Aerie Peak
-	["Inside"] = "",
+	["Inside"] = "내부",
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, inside"] = "",
+	["{npc:5636}, inside"] = "{npc:5636}, 내부",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep · {zone:1428} Burning Steppes
 	["for {quest:2990} at {area:1438}: the {zone:1428} guide hands it in"] = "",
 	-- {npc:270263} Farseer Maret Firetend
@@ -58,7 +58,7 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "{area:348} 비행 조련사",
 
 	-- Step 10: Class trainer
 	["Class trainer"] = "직업 전문가",
@@ -77,14 +77,14 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "{area:35}(으)로 날아가기",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "{zone:1453} 비행 조련사",
 
 	-- Step 15: Booty Bay
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 	-- {npc:2487} Fleet Master Seahorn
 	["{npc:2487}, top floor"] = "{npc:2487}, 꼭대기 층",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, 내부",
 
 	-- Step 16: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -102,7 +102,7 @@ return {
 
 	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
-	["{area:43}: kill these as you meet them"] = "",
+	["{area:43}: kill these as you meet them"] = "{area:43}: 만나는 대로 처치하세요",
 	-- {area:43} Wild Shore · {area:35} Booty Bay
 	["The charts and orders lie in the pirate camp on the {area:43}, just south of {area:35}; its Swashbucklers walk the shore. The Warlocks and Swashbucklers (41-43) are under you now."] = "해도와 명령서는 {area:35} 바로 남쪽 {area:43}의 해적 야영지에 있습니다. 해적 검객들이 해안을 돌아다닙니다. 흑마법사와 검객(41-43)은 이제 레벨이 낮습니다.",
 
@@ -141,7 +141,7 @@ return {
 	-- {npc:1514} Mokk the Savage
 	["Hand in the fangs and stay: three waves of gorillas come, {npc:1514} last.\nCareful: three waves of gorillas come one after another with little rest between, then {npc:1514}. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy."] = "송곳니를 건네고 그 자리에 머무르십시오. 고릴라가 세 차례 몰려오고, 마지막에 {npc:1514}이(가) 나옵니다.\n주의: 고릴라 세 무리가 쉴 틈 없이 연달아 몰려온 뒤 {npc:1514}이(가) 나타납니다. 생명력과 마나를 가득 채우고 시작하고, 운바그와 근처에 머무르십시오. 일부 직업은 혼자 하기 어렵습니다. 친구와 함께하면 쉽습니다.",
 	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
-	["{npc:1449}, inside {area:1742}"] = "",
+	["{npc:1449}, inside {area:1742}"] = "{npc:1449}, {area:1742} 안",
 
 	-- Step 29: Booty Bay
 	["Ride back down to town."] = "다시 마을로 내려가십시오.",
@@ -157,7 +157,7 @@ return {
 
 	-- Step 31: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "정예 몹입니다. 파티를 권장하니 사람을 구하세요. {quest:8552}은(는) 2인 파티가 필요합니다. 혼자라면 건너뛰세요. 경로에서 경험치를 다시 채워 줍니다.",
 
 	-- Step 35: Negolash's bait
 	-- {npc:1494} Negolash
@@ -205,12 +205,14 @@ return {
 	-- ["for {quest:2990} at {area:1438}, later"] = "나중에 {area:1438}의 {quest:2990}에게",
 	-- ["the book on her table"] = "그녀의 탁자 위 책",
 	-- ["the soil comes from {zone:1449}, later"] = "흙은 나중에 {zone:1449}에서 구합니다",
+	-- ["{area:1438} flight master"] = "{area:1438} 비행 조련사",
 	-- ["{area:144} flight master"] = "{area:144} 비행 조련사",
 	-- ["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, 꼭대기 층, 가시덤불 골짜기 가이드에서 받지 않았다면",
 	-- ["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, 가시덤불 골짜기 가이드에서 받지 않았다면",
 	-- ["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, 안쪽, 가시덤불 골짜기 가이드에서 받지 않았다면",
 	-- ["{npc:2535} and {npc:2536}"] = "{npc:2535}와(과) {npc:2536}",
 	-- ["{npc:3516}, at the top of the tree"] = "{npc:3516}, 나무 꼭대기",
+	-- ["{npc:5385}, upstairs"] = "{npc:5385}, 위층",
 	-- ["{npc:7505}: keep the five, their beasts (48-53) wait for the level-52 {zone:1419} stop"] = "{npc:7505}: 5개 퀘스트는 보관하십시오. 야수(48-53)는 레벨 52 {zone:1419} 단계에서 처리합니다",
 	-- ["{npc:7740}, beside her"] = "{npc:7740}, 그녀의 옆",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once"] = "{npc:7744}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",

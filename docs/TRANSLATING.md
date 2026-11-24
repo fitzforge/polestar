@@ -326,9 +326,7 @@ Polestar addon's are written once in `rust/crates/forge-guide/src/toc.rs`, and i
 Codex stay as they are); the generated TOCs take them from there, the
 hand-written ones (Polestar, Polestar_Nav, Polestar_ItemDB,
 Polestar_Recorder) carry the same lines, and the forge-i18n tests check
-that every TOC under `addon/` has all nine and that they match. Our guides'
-race parts (`Polestar_Guides_<race>`, class chains and baked legs) fill one
-title and notes with the race's name as the interface files (`addon/Polestar_<locale>/Interface.lua`) have it.
+that every TOC under `addon/` has all nine and that they match.
 
 ## Guide texts
 

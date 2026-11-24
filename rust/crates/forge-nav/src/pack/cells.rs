@@ -87,6 +87,9 @@ pub struct CellGrid {
 	pub links: FxHashMap<u32, Vec<u32>>,
 	/// After finish: cluster -> its sorted nodes with links.
 	pub linked_of: FxHashMap<u32, Vec<u32>>,
+	/// The hub bits (HUB_ALLIANCE, HUB_HORDE) of every global cell (gx * GH + gy) a hub's disk touches (mark_hubs),
+	/// whether or not our grid has a surface there: Leffe's maps take them (pack/leffe.rs our_hubs, #3830).
+	pub hub_cells: FxHashMap<u32, u8>,
 }
 
 impl CellGrid {
@@ -113,6 +116,7 @@ impl CellGrid {
 			pairs: Vec::new(),
 			links: FxHashMap::default(),
 			linked_of: FxHashMap::default(),
+			hub_cells: FxHashMap::default(),
 		}
 	}
 
@@ -263,6 +267,7 @@ impl CellGrid {
 
 	/// ORs hub bits into every surface of global cell (gx, gy).
 	fn add_hub(&mut self, gx: i64, gy: i64, bits: u8) {
+		*self.hub_cells.entry((gx as usize * self.gh + gy as usize) as u32).or_default() |= bits;
 		let Some((s, l)) = self.at(gx, gy) else { return };
 		let cl = &mut self.clusters[s];
 		if cl.val[l] != 0 {

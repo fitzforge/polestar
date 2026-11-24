@@ -2938,6 +2938,29 @@
 		],
 		"note": "Allegiance to the Old Gods (6564) starts from the Damp Note and needs no earlier quest: anyone holding the note can take it. The merged data made it wait for Trouble in the Deeps (6562)."
 	},
+	"6622": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "15 Patients Saved!",
+					"map": 1417,
+					"f": "e",
+					"x": 73.4,
+					"y": 36.8
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3706: Doctor Gregory Victor (12920) in Hammerfall (1417 73.3,36.9); the wounded soldiers are in the room with him"
+			}
+		],
+		"note": "Triage (6622, Horde): Doctor Gregory Victor and the wounded soldiers are in Hammerfall (Arathi Highlands 73.3,36.9), not at the Alliance clinic in Theramore."
+	},
 	"6641": {
 		"set": {
 			"escort": true
@@ -21171,5 +21194,164 @@
 			}
 		],
 		"note": "Blademaster's Bonfires (Mount Hyjal, Dae'gun) is done by lighting two bonfires; our data had no objectives, so the guide could not see them lit and moved on to the hand-in with them still dark (#3531)."
+	},
+	"98903": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 98903, builds 1.60.1.70840 and 70862: one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98903 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Alliance, levels 30-39) is done by winning a Darkspear Islands battleground and returning to Brelinda McFarry at Northwatch Hold. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"98904": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 98904, build 1.60.1.70862: one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98904 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Alliance, levels 40-49) is done by winning a Darkspear Islands battleground and returning to Brelinda McFarry at Northwatch Hold. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"98905": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link quest record 98905 from players' caches of the beta client, build 1.60.1.70450 (the live scans have none for it yet): one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188, as in the live records of 98903 and 98904"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98905 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Alliance, levels 50-60) is done by winning a Darkspear Islands battleground and returning to Brelinda McFarry at Northwatch Hold. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"98906": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 98906, builds 1.60.1.70840 and 70862: one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98906 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Horde, levels 30-39) is done by winning a Darkspear Islands battleground and returning to Nizook Boof at The Merchant Coast. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"98907": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 98907, build 1.60.1.70862: one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98907 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Horde, levels 40-49) is done by winning a Darkspear Islands battleground and returning to Nizook Boof at The Merchant Coast. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"98908": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link quest record 98908 from players' caches of the beta client, build 1.60.1.70450 (the live scans have none for it yet): one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188, as in the live records of 98906 and 98907"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98908 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Horde, levels 50-60) is done by winning a Darkspear Islands battleground and returning to Nizook Boof at The Merchant Coast. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"94971": {
+		"set": {
+			"pre": [],
+			"preAll": [],
+			"preAny": [],
+			"breadcrumbs": [
+				97022
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-18 (excluded contributors left out): Danitha Morr offered A Paladin's Steed at 40 to an Undead Paladin who had never taken Report to Danitha (97022) and had trained at Bandarion Keep, and 5 people took it right after handing 97022 in to her (game builds 70862 to 70938)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14's Forever quest rows (generated base, 2026-11-11): A Paladin's Steed has no prerequisite"
+			}
+		],
+		"note": "A Paladin's Steed (94971, Danitha Morr at Bandarion Keep, the Forsaken paladins' warhorse) needs no earlier quest: Report to Danitha (97022, from Garen Largo, the Undercity's paladin trainer) only sends the player to her. The merged data had 97022 as its prerequisite, from players taking the two in a row, so a paladin who went straight to Danitha would have been told to fetch the errand first (#2898)."
 	}
 }

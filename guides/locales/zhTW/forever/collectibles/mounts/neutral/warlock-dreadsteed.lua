@@ -32,7 +32,7 @@ return {
 
 	-- Step 6: Raging Beast's Blood
 	-- {zone:1452} Winterspring · {area:2250} Owl Wing Thicket · {area:2242} Hidden Grove
-	["Every owlbeast of {zone:1452} (level 53-58, none elite) drops the blood about one time in three: about ninety kills for thirty. {area:2250}, in the north-east, and the {area:2242}'s surroundings are packed with them, and they respawn in five and a half minutes."] = "",
+	["Every owlbeast of {zone:1452} (level 53-58, none elite) drops the blood about one time in three: about ninety kills for thirty. {area:2250}, in the north-east, and the {area:2242}'s surroundings are packed with them, and they respawn in five and a half minutes."] = "{zone:1452}的所有梟獸（53-58級，均非精英）都有約三分之一機率掉落血液：收集30份約需擊殺90只。東北面的{area:2250}和{area:2242}周圍分佈密集，重生時間為5分半。",
 
 	-- Step 7: Wildeyes
 	-- {npc:14436} Mor'zul Bloodbringer · {item:18591} Case of Blood · {npc:14437} Gorzeeki Wildeyes · {quest:7623} Lord Banehollow · {area:1763} Jaedenar · {npc:14523} Ulathek

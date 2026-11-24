@@ -16,5 +16,6 @@
 	<Script file="RouteLines.lua"/>
 	<Script file="FlightTimer.lua"/>
 	<Script file="Arcade.lua"/>
+	<Script file="MobMarkers.lua"/>
 	<Script file="Instances.lua"/>
 </Ui>
