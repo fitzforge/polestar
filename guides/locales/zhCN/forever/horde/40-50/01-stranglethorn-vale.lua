@@ -11,8 +11,6 @@ return {
 	["Fly to the {area:1497}"] = "飞往{area:1497}",
 	-- {area:1497} Undercity · {area:340} Kargath · {object:3202} Grom'gol
 	["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}."] = "40级的训练在{area:1497}：从{area:340}飞过去，学习技能，然后在城外的飞艇塔乘飞艇前往{object:3202}。",
-	-- {area:340} Kargath
-	["{area:340} flight master"] = "{area:340}的飞行管理员",
 
 	-- Step 2: Genavie Callow
 	-- {npc:4486} Genavie Callow · {zone:1417} Arathi Highlands
@@ -40,6 +38,8 @@ return {
 	-- Step 6: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "飞往{object:3202}",
+	-- {area:340} Kargath
+	["{area:340} flight master"] = "{area:340}的飞行管理员",
 
 	-- Step 7: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah

@@ -11,8 +11,6 @@ return {
 	["Fly to the {area:1497}"] = "Voe para a {area:1497}",
 	-- {area:1497} Undercity · {area:340} Kargath · {object:3202} Grom'gol (no name in this language: may be words)
 	["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}."] = "Seu treinamento do nível 40 é na {area:1497}: voe para lá a partir de {area:340}, treine e pegue o zepelim nas torres do lado de fora da cidade até {object:3202}.",
-	-- {area:340} Kargath
-	["{area:340} flight master"] = "Mestre de voo de {area:340}",
 
 	-- Step 2: Genavie Callow
 	-- {npc:4486} Genavie Callow · {zone:1417} Arathi Highlands
@@ -40,6 +38,8 @@ return {
 	-- Step 6: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Voe para {object:3202}",
+	-- {area:340} Kargath
+	["{area:340} flight master"] = "Mestre de voo de {area:340}",
 
 	-- Step 7: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah

@@ -11,7 +11,6 @@ return {
 	["Fly to {area:2897}"] = "飞往{area:2897}",
 	-- {area:2897} Zoram'gar Outpost · {area:378} Camp Taurajo
 	["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. If your hearthstone is ready, hearth to {area:378} and fly from there instead."] = "从希瑞斯的营地沿道路向东到十字路口的双足飞龙管理员处，飞往{area:2897}。如果炉石已冷却完毕，就用炉石回{area:378}，改从那里起飞。",
-	["Crossroads flight master"] = "十字路口的飞行管理员",
 
 	-- Step 2: Zoram'gar Outpost
 	-- {npc:12736} Je'neu Sancrea · {npc:12757} Karang Amakkar · {npc:12721} Mitsuwa
@@ -430,6 +429,7 @@ return {
 	-- ["Back to {area:484}. The {area:2240}'s quests come with the next visit to the {area:439}, at 33."] = "返回 {area:484}。{area:2240} 的任务留到下次去 {area:439} 时再做，届时为 33 级。",
 	-- ["Back west to Zoram'gar before heading east for good."] = "向西回到佐拉姆加前哨站，然后再彻底向东出发。",
 	-- ["Climb the path to the top of {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "沿小路爬上{area:2097}顶部。{npc:10646}被囚禁在{npc:10896}（29级）旁边：先清掉守卫和{npc:10896}，再救出她并在下山路上保护她；途中会有恐怖图腾伏击者袭击你。",
+	-- ["Crossroads flight master"] = "十字路口的飞行管理员",
 	-- ["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. Keep your hearthstone: {area:431}'s bind later in this guide saves more."] = "从希瑞斯的营地沿道路向东到十字路口的双足飞龙管理员处，飞往{area:2897}。先别用炉石：本指南稍后绑定在{area:431}能省更多时间。",
 	-- ["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold."] = "在佐拉姆加前哨站东边，蓟皮熊怪占满了村庄和它们巢穴周围的山丘。",
 	-- ["Fly from {area:392} to {area:2897} on the {zone:1440} coast."] = "从{area:392}飞往{zone:1440}海岸的{area:2897}。",

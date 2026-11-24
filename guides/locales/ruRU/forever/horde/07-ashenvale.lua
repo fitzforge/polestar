@@ -11,7 +11,6 @@ return {
 	["Fly to {area:2897}"] = "Летите сюда: {area:2897}",
 	-- {area:2897} Zoram'gar Outpost · {area:378} Camp Taurajo
 	["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. If your hearthstone is ready, hearth to {area:378} and fly from there instead."] = "На восток по дороге от лагеря Сирета к распорядителю полетов на Перекрестке, затем летите сюда: {area:2897}. Если камень возвращения готов, вернитесь в {area:378} и летите оттуда.",
-	["Crossroads flight master"] = "Распорядитель полетов на Перекрестке",
 
 	-- Step 2: Zoram'gar Outpost
 	-- {npc:12736} Je'neu Sancrea · {npc:12757} Karang Amakkar · {npc:12721} Mitsuwa
@@ -427,6 +426,7 @@ return {
 	-- ["Back south-west to {area:421}. Befouled Water Elementals drift around its shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "Назад на юго-запад: {area:421}. Злобные элементали воды ({npc:3917}) плавают у берегов; беседка стоит на острове, напротив заставы Альянса.",
 	-- ["Back to Zoram'gar from the ruins before heading east for good."] = "Вернитесь от руин в форт Зорам'гар, прежде чем окончательно уйти на восток.",
 	-- ["Climb the path to the top of {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "Поднимитесь по тропе на вершину: {area:2097}. {npc:10646} в плену рядом с NPC {npc:10896} (29): сначала уберите стражу и {npc:10896}, затем освободите ее и защищайте на спуске; по пути нападут засадники Зловещего Тотема.",
+	-- ["Crossroads flight master"] = "Распорядитель полетов на Перекрестке",
 	-- ["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. Keep your hearthstone: {area:431}'s bind later in this guide saves more."] = "На восток по дороге от лагеря Сирета к распорядителю полетов на Перекрестке, затем летите сюда: {area:2897}. Сохраните камень возвращения: привязка к месту {area:431} позже в этом гайде сэкономит больше.",
 	-- ["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold."] = "К востоку от форта Зорам'гар фурболги из племени Колючего Меха заполняют деревню и холмы вокруг своего логова.",
 	-- ["Fly from {area:392} to {area:2897} on the {zone:1440} coast."] = "Летите из поселения {area:392}: {area:2897} на побережье зоны {zone:1440}.",

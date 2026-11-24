@@ -9,10 +9,8 @@ return {
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Prendre un vol pour {area:42}",
-	-- {area:69} Lakeshire · {area:42} Darkshire · {zone:1431} Duskwood
-	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "Retournez à la maîtresse des griffons de {area:69} : prenez un vol pour {area:42}, pour la deuxième boucle du {zone:1431}.",
-	-- {area:69} Lakeshire
-	["{area:69} flight master"] = "Maître de vol de {area:69}",
+	-- {area:42} Darkshire · {zone:1431} Duskwood · {area:69} Lakeshire
+	["Fly to {area:42} for {zone:1431}'s second loop: from {area:69}'s gryphon master if you come from the Redridge guide."] = "",
 
 	-- Step 2: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
@@ -218,6 +216,7 @@ return {
 	["Train here, in {zone:1453}, before you go on."] = "Entraînez-vous ici, à {zone:1453}, avant de continuer.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "Retournez à la maîtresse des griffons de {area:69} : prenez un vol pour {area:42}, pour la deuxième boucle du {zone:1431}.",
 	-- ["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "Continuez vers l'ouest jusqu'à {area:94}. Le {object:673515} brille près de la maison en ruine au sud de la route.",
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Toutes les goules de la moitié nord du {area:492} peuvent lâcher une côte : les Dévoreurs et les Mâcheurs d'os (24-27) sont les plus faciles à tuer ; les Répandeurs de peste et les Mangeurs de cervelle (27-29) en lâchent aussi. {npc:522}, un élite, erre parmi les tombes : tenez-vous loin de lui.\nAttention : un {npc:948} lance {spell:3428} en mourant, ce qui fait apparaître des renforts.",
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters."] = "Toute goule de la moitié nord de {area:492} peut laisser tomber une côte : Dévoreurs, Mâcheurs d'os, Répandeurs de peste et Mangeurs de cervelle.",
@@ -252,6 +251,7 @@ return {
 	-- ["{area:1097}: kill these as you meet them"] = "{area:1097} : tuez-les au passage",
 	-- ["{area:121}: kill these as you meet them"] = "{area:121} : tuez-les au passage",
 	-- ["{area:492}, south"] = "{area:492}, sud",
+	-- ["{area:69} flight master"] = "Maître de vol de {area:69}",
 	-- ["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "{item:1946} : la {npc:511} de la crypte du cimetière est de niveau 26 ; elle attend votre retour au {zone:1431}",
 	-- ["{item:281046}, from the {object:673515}"] = "{item:281046}, sur le {object:673515}",
 	-- ["{item:3372}: {npc:1313}, {skill:171} Supplies"] = "{item:3372} : {npc:1313}, fournitures d'{skill:171}",

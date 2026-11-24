@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "{area:272}(으)로 날아가기",
-	-- {area:1446} Thorium Point
-	["{area:1446} flight master"] = "{area:1446}의 비행 조련사",
 
 	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
@@ -208,6 +206,7 @@ return {
 	-- ["Vulture hills"] = "대머리수리 언덕",
 	-- ["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples."] = "섬 서쪽에서 썩은가지부족 무두장이가 {area:1884}와(과) {area:1917}의 사원을 차지하고 있습니다. 슬래그트리의 도구는 사원 중 한 곳에 있습니다.",
 	-- ["grind on {npc:5982} at the northern hills, {zone:1419}"] = "{zone:1419} 북쪽 언덕에서 {npc:5982} 사냥",
+	-- ["{area:1446} flight master"] = "{area:1446}의 비행 조련사",
 	-- ["{npc:6741}: for {zone:1456}, around level 50"] = "{npc:6741}: 50레벨쯤 {zone:1456}에서",
 	-- ["{npc:7825}, the {object:36126}"] = "{object:36126}의 {npc:7825}",
 }

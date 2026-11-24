@@ -585,6 +585,26 @@ function Own.usedBy(goal)
 	return hit or nil
 end
 
+-- The quest goal an untied `collect` gathers its item for: the accept the item
+-- starts (layout `starters`, #1531), the accept whose quest works with it
+-- (Own.usedBy, #2670), else a later goal of its step whose quest uses the item
+-- without asking for it (QuestDB.UsesOnly: Pamela's doll pieces before the doll,
+-- #3556). Nil otherwise, or without the quest database for the last two.
+function Own.collectFor(goal)
+	if goal.t ~= "collect" or goal.quest or not goal.item or not guide then return nil end
+	local l = layoutOf(guide)
+	local a = l.starters[goal] or Own.usedBy(goal)
+	if a then return a end
+	local s, Q = l.stepOf[goal], ns.QuestDB
+	if not (s and Q and Q.IsLoaded()) then return nil end
+	local after = false
+	for _, later in ipairs(guide.steps[s].goals) do
+		if after and later.quest and later.t ~= "accept" and Q.UsesOnly(later.quest, goal.item) then return later end
+		if later == goal then after = true end
+	end
+	return nil
+end
+
 -- A `buy` (no quest) of an item a quest this guide accepts asks for (an
 -- objective, the quest database: the Holy Candles for Keeping the Light On)
 -- -> those accepts, so the purchase goes with its quests (#3458): left out
@@ -4543,22 +4563,26 @@ function Own.usedLaterDone(s, g, goal)
 	return false
 end
 
--- Whether a later `complete` or `turnin` of step s is done for a quest that
--- uses the item untied collect goal g gathers without asking for it
--- (QuestDB.UsesOnly): the collect is then done too. The quest's objective is
--- what the item becomes (seven Living Rot ground into To Kill With Purpose's
--- Coagulated Rot, #3565; Witherbark Skulls on Nimboya's Pike; the two halves
--- of the Good Luck Charm), so a character who gathered and used the item
--- before the step came up was sent back for more.
+-- Whether a later goal of step s is for a quest that uses the item untied
+-- collect goal g gathers without asking for it (QuestDB.UsesOnly), with that
+-- quest ready to hand in or handed in (a `complete` or `turnin` also by its own
+-- state): the collect is then done too. The quest's objective is what the item
+-- becomes (seven Living Rot ground into To Kill With Purpose's Coagulated Rot,
+-- #3565; Pamela's Doll joined from its head and two sides, the step's `collect`
+-- of the doll, #3556; Witherbark Skulls on Nimboya's Pike; the two halves of
+-- the Good Luck Charm), so a character who gathered and used the item before
+-- the step came up was sent back for more.
 function Own.usedQuestDone(s, g, goal)
 	local Q = ns.QuestDB
 	if not (goal.item and Q and Q.IsLoaded()) then return false end
+	local C = Compat()
 	local goals = guide.steps[s].goals
 	for j = g + 1, #goals do
 		local later = goals[j]
-		if (later.t == "complete" or later.t == "turnin") and later.quest and goalApplies(later)
-			and Q.UsesOnly(later.quest, goal.item) and goalDone(s, j, later) then
-			return true
+		local q = later.quest
+		if q and later.t ~= "accept" and goalApplies(later) and Q.UsesOnly(q, goal.item) then
+			if questDone(q) or C.IsQuestReadyForTurnIn(q) then return true end
+			if (later.t == "complete" or later.t == "turnin") and goalDone(s, j, later) then return true end
 		end
 	end
 	return false
@@ -6192,6 +6216,9 @@ local function describe(goal, s)
 		local item = N.Item(goal.item) or goal.itemName
 		if goal.quest then return L["Collect"], item, "item", fmt(L["for %s"], ns.Quoted(questTitle(goal))) end
 		local _, npcName = npcOf(goal)
+		-- No dropper to name: the quest it is gathered for (#3556: Pamela's doll pieces).
+		local q = not npcName and Own.collectFor(goal)
+		if q then return L["Collect"], item, "item", fmt(L["for %s"], ns.Quoted(questTitle(q))) end
 		return L["Collect"], item, "item", fmt(L["from %s"], npcName)
 	elseif t == "goto" then
 		local mapName = C.GetMapName(goal.map)
@@ -15013,9 +15040,29 @@ end
 
 Own.hereBack = {} -- the hand-in check's waypoint (reused)
 
+-- Whether hand-in goal `goal`, d yards off on another floor, is a short walk
+-- up or down: the walking router's way to it at its height (`z`) no longer
+-- than the town's walk check allows (HERE_WALK times the straight line, and
+-- 20 yd): a staircase in a house (#3751: Loremaster Dibbs and Magistrate
+-- Maleb upstairs in Southshore's town hall, 113 yd off, turned away). A level
+-- reached by a lift or a long way round (Undercity, Thunder Bluff, a cave
+-- whose mouth is round the hill) is longer, and no answer from the router
+-- (no Nav, busy, no route) keeps the floor's word.
+function Own.hereStairs(goal, d)
+	local nav = ns.Nav
+	if not (d and nav and nav.EstimateTravel) then return false end
+	local to = Own.hereTo
+	to.map, to.f, to.x, to.y, to.z = goal.map, goal.f, goal.x, goal.y, goal.z
+	local ok, there = pcall(nav.EstimateTravel, nil, to, true, true)
+	to.z = nil
+	return ok and type(there) == "number" and there * Own.HERE_SPEED <= d * Own.HERE_WALK + 20 or false
+end
+
 -- A hand-in, once as it would appear (Own.hereMayShow): never on another
 -- floor (the NPC's height `z` against the player's floor, Nav's walking
--- engine: Undercity's levels, Thunder Bluff's rises); in the player's town,
+-- engine: Undercity's levels, Thunder Bluff's rises, a cave under the
+-- hill) unless the walk to it on its floor is a short one (Own.hereStairs:
+-- Southshore's town hall, its upstairs a staircase away, #3751); in the player's town,
 -- a walk there not far longer than the straight line (a canal, a lift
 -- without heights); else the detour the walking router gives (there, on to
 -- the waypoint, less the waypoint straight from here) at most its seconds:
@@ -15027,7 +15074,7 @@ function Own.hereTurninOk(e, d)
 	if goal.z and W and W.Floor then
 		local c, px, py = Compat().GetPlayerWorldPosition()
 		local ok, z = pcall(W.Floor, c, px, py)
-		if ok and type(z) == "number" and math.abs(z - goal.z) > Own.HERE_FLOOR then return Own.hereTurnAway(e, "floor") end
+		if ok and type(z) == "number" and math.abs(z - goal.z) > Own.HERE_FLOOR and not Own.hereStairs(goal, d) then return Own.hereTurnAway(e, "floor") end
 	end
 	if Own.hereAt(e, d) then return true end
 	if not (nav and nav.EstimateTravel) then return true end
@@ -15422,12 +15469,18 @@ function Own.hereViewOf(e)
 			v.hereTitle = title
 		elseif e.kind == "take" then
 			-- Auto-accept off, at the NPC of a quest the route takes in its next
-			-- steps (Own.hereFits): take it now.
+			-- steps (Own.hereFits): take it now. One the route reaches about now
+			-- anyway (e.soon) saves no trip back, so the line says only what to
+			-- take (#3652: Biting the Hand at Fuzzle's cage, the next step).
 			local _, npc = npcOf(goal)
 			local raw = questTitle(goal) or titleOfQuest(goal.quest)
 			local title = ns.Quoted(raw)
-			text = (not npc or Own.namesake(raw, npc)) and L["Take %s from them: saves a trip back"]:format(title)
-				or L["Take %s from %s: saves a trip back"]:format(title, npc)
+			if e.soon then
+				text = v.text or ""
+			else
+				text = (not npc or Own.namesake(raw, npc)) and L["Take %s from them: saves a trip back"]:format(title)
+					or L["Take %s from %s: saves a trip back"]:format(title, npc)
+			end
 			v.hereTitle = title
 		elseif goal.t == "complete" then
 			-- A placed `complete` (#2484): the quest and how it is done there, in
