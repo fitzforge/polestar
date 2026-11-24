@@ -460,6 +460,75 @@ fn pack_spot_npcs(initial: &[V], mobs: &[(V, String, Vec<V>)], at: &[Vec<(usize,
 	SpotNpcMapping { list, packed, missing_sources }
 }
 
+/// A `loop` collect's target names: the droppers at each of the author's points (#1616), not the map's best
+/// ones the arrow would otherwise pick from (Kolkar Village's search named Gelkis and Magram centaurs from
+/// across Desolace once recorded chances reordered them). The likely droppers on the map (on_map's) that
+/// spawn within a point's radius lead, the most spawns first; a point none of them spawns at names every
+/// dropper spawning there, so a camp whose mobs a better chance elsewhere passed over still has its targets;
+/// a point no dropper spawns at names the loop's others. Points that all name the same mobs, five at most,
+/// share the plain list; otherwise each has its own (`fromNpcsAt`). With no dropper at any point, the goal
+/// keeps the map's. `drops`: { likely, all } (resolve's).
+fn loop_npcs(data: &Data, goal: &V, drops: &V, map: &V, f: &V) {
+	let spots = goal.get("spots").items();
+	if spots.is_empty() || !data.map_size(map).truthy() {
+		return;
+	}
+	let mobs_of = |list: Vec<V>| -> Vec<(V, String, Vec<V>)> {
+		list.iter()
+			.filter(|s| s.get("kind").as_str() == Some("npc"))
+			.filter_map(|s| {
+				let name = name_of(data, "npc", &s.get("id"))?;
+				let pts = spawn_points_of(data, std::slice::from_ref(s), map, f);
+				(!pts.is_empty()).then(|| (s.get("id"), name, pts))
+			})
+			.collect()
+	};
+	let likely = mobs_of(drops.get("likely").items());
+	let every = mobs_of(drops.get("all").items());
+	let at = |mobs: &[(V, String, Vec<V>)], spot: &V| -> Vec<(V, String)> {
+		let (sx, sy, r) = (num(spot, "x"), num(spot, "y"), num(spot, "r"));
+		let mut here: Vec<(usize, &(V, String, Vec<V>))> =
+			mobs.iter().map(|m| (m.2.iter().filter(|p| distance(data, map, px(p), py(p), sx, sy) <= r + 1.0).count(), m)).filter(|(n, _)| *n > 0).collect();
+		here.sort_by_key(|h| std::cmp::Reverse(h.0));
+		here.into_iter().map(|(_, m)| (m.0.clone(), m.1.clone())).collect()
+	};
+	let per: Vec<Vec<(V, String)>> = spots
+		.iter()
+		.map(|spot| {
+			let own = at(&likely, spot);
+			if own.is_empty() {
+				at(&every, spot)
+			} else {
+				own
+			}
+		})
+		.collect();
+	let mut list: Vec<(V, String)> = Vec::new();
+	for m in per.iter().flatten() {
+		if !list.iter().any(|n| n.0.strict_eq(&m.0)) {
+			list.push(m.clone());
+		}
+	}
+	if list.is_empty() {
+		return;
+	}
+	let ids: Vec<Vec<V>> = per.iter().map(|here| if here.is_empty() { list.iter().map(|n| n.0.clone()).collect() } else { here.iter().map(|n| n.0.clone()).collect() }).collect();
+	let names = |l: &[(V, String)]| -> Vec<V> { l.iter().map(|(id, name)| obj! { "npc" => id.clone(), "npcName" => name.clone() }.into()).collect() };
+	goal.as_obj().unwrap().delete("fromNpcsAt");
+	if list.len() <= MAX_SOURCE_NPCS && ids.iter().all(|l| l.len() == list.len()) {
+		goal.set("fromNpcs", names(&list));
+		return;
+	}
+	let kept = &list[..list.len().min(crate::importstring::LIMITS.from_npcs)];
+	let packed = ids.iter().map(|l| l.iter().filter_map(|id| kept.iter().position(|n| n.0.strict_eq(id)).map(|k| (k + 1).to_string())).collect::<Vec<_>>().join(",")).collect::<Vec<_>>().join(";");
+	if packed.len() > crate::importstring::LIMITS.text {
+		goal.set("fromNpcs", names(&list[..list.len().min(MAX_SOURCE_NPCS)]));
+		return;
+	}
+	goal.set("fromNpcs", names(kept));
+	goal.set("fromNpcsAt", packed);
+}
+
 /// The quests that hand item `item` over when taken (their `sourceItem`), by quest id.
 fn quests_handing_over(data: &Data, item: &V) -> Vec<V> {
 	const KEY: &str = "resolve.sourceItemQuests";
@@ -1522,6 +1591,9 @@ fn apply_loop(step: &V, s: &V, r: &mut R) {
 		set_if(goal, "z", crate::heights::goal_height(data, goal).unwrap_or_default());
 		for p in goal.get("spots").items() {
 			set_if(&p, "z", crate::heights::spot_height(data, goal, &p).unwrap_or_default());
+		}
+		if goal.get("t").as_str() == Some("collect") && goal.hidden("_drops").truthy() {
+			loop_npcs(data, goal, &goal.hidden("_drops"), &first.get("map"), &first.get("f"));
 		}
 	}
 	let kept: Vec<V> = goals.into_iter().filter(|g| g.get("t").as_str() != Some("goto")).collect();
@@ -3911,8 +3983,11 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			}
 			if v == "collect" && goal.get("npc").is_undef() {
 				set_if(&goal, "fromNpcs", source_npcs(data, &c, &picked.get("sources").items()));
-				// A `loop` step's goals take its gotos as their spots (apply_loop).
-				if !ctx.loop_ {
+				// A `loop` step's goals take its gotos as their spots, and the droppers there as their targets
+				// (apply_loop, loop_npcs).
+				if ctx.loop_ {
+					goal.set_hidden("_drops", obj! { "likely" => V::from(srcs.clone()), "all" => V::from(candidates.clone()) });
+				} else {
 					spot_npcs(data, &goal, &srcs, &pmap, &pf, None);
 				}
 			}
