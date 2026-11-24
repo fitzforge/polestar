@@ -378,6 +378,24 @@ fn with_no_walk_from_the_player_an_unmeasured_last_walk_never_beats_walking_stra
 	assert_eq!(out["farUnmeasured"], "walk", "an unmeasured last walk never wins over walking at it");
 }
 
+// #2812: the search kept one arrival per place, and an arrival on foot may not walk on where the walk into it went
+// (#1694). From a cliff top whose walk down the walking maps measure the long way round (5,000 yd), East Hold's flight
+// master 150 yd off was reached on foot first, so a flight landing there later, which may walk on, was dropped as
+// dearer: "teleport, fly, walk" was never found and the plan walked from the teleport's landing instead. Each place
+// now keeps its arrivals by what they may do next.
+#[test]
+fn a_flight_master_first_reached_on_foot_still_takes_a_flight_s_landing_that_walks_on_2812() {
+	let out = run(r#"
+		local legs = N.PlanRoute({ c = 0, wx = 0, wy = -650, faction = 1, level = nav.level, known = { [1] = true, [2] = true }, speed = 7,
+			target = { c = 0, wx = 0, wy = -1000, label = "Camp" },
+			teleports = { { spell = 3561, name = "Teleport: West Hold", to = { c = 0, wx = 0, wy = 780 }, cast = 10, ready = 0 } },
+			walkCost = function(_, _, _, start) if start then return 5000, 5000 end end })
+		local out = {}
+		for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind end
+		emit({ route = table.concat(out, " ") })"#);
+	assert_eq!(out["route"], "teleport walk fly walk");
+}
+
 #[test]
 fn never_flies_through_a_node_the_character_does_not_know_or_cannot_use() {
 	let out = run(r#"

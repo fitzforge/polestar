@@ -212,7 +212,9 @@ the step's `only` name), which leave the step. Only
 factions the goal can apply to are kept, and each set keeps one candidate per town
 (within 250 yards), nearest to the previous goal first; in a capital city (Stormwind,
 Orgrimmar, Ironforge, Thunder Bluff, Darnassus, the Undercity) one per district
-(within 60 yards), since its districts are a long walk apart.
+(within 60 yards), since its districts are a long walk apart. Of a town's or district's
+NPCs the one most players train with is kept (`trainers.json` `visits`, from players'
+recordings), else the first by distance and id.
 Smart targets take no coordinates.
 
 Modifiers, in any order after the positional arguments:

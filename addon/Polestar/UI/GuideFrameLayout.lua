@@ -381,13 +381,27 @@ ns.UI.GuideFrame.Part(function(GF)
 		return (tonumber(ns.Get("ui.scale")) or 1) * UIParent:GetEffectiveScale()
 	end
 
+	local roomAbove -- below
 	-- The tallest the window may be: ui.maxHeight of the screen's height, in
 	-- the window's own units (its scale and the game's UI scale applied), and
 	-- never under UI.MIN_HEIGHT, so the cap always leaves a readable window.
+	-- ui.heightMode "auto" (the live window): all the room from the pinned
+	-- edge to the screen's edge, less a margin, never under 30% of the screen
+	-- nor over it; "fixed": its height, but never past that same room.
 	local function capHeight()
-		local share = tonumber(ns.Get("ui.maxHeight")) or 0.5
+		-- While the grip is dragged, its height (GF.dragShare): ui.maxHeight is written once, on release.
+		local share = GF.dragShare or tonumber(ns.Get("ui.maxHeight")) or 0.5
 		local screen = UIParent:GetHeight() * UIParent:GetEffectiveScale()
-		return max(UI.MIN_HEIGHT or 0, screen * share / max(0.01, screenScale()))
+		local scale = max(0.01, screenScale())
+		local mode = ns.Get("ui.heightMode")
+		if GF.live and (mode == "auto" or mode == "fixed") then
+			local room = ns.Get("ui.growUp") and roomAbove() or F:GetTop()
+			if type(room) == "number" then
+				local fits = min(screen / scale, max(room - 24, screen * 0.3 / scale))
+				return max(UI.MIN_HEIGHT or 0, mode == "auto" and fits or min(fits, screen * share / scale))
+			end
+		end
+		return max(UI.MIN_HEIGHT or 0, screen * share / scale)
 	end
 	GF.CapHeight = function() return F and capHeight() or nil end
 
@@ -441,8 +455,14 @@ ns.UI.GuideFrame.Part(function(GF)
 			nav:SetPoint("BOTTOMRIGHT", strip, "TOPRIGHT", 0, 0)
 			foot:SetPoint("BOTTOMLEFT", nav, "TOPLEFT", 0, 0)
 			foot:SetPoint("BOTTOMRIGHT", nav, "TOPRIGHT", 0, 0)
-			body:SetPoint("TOPLEFT", F, "TOPLEFT", 0, 0)
-			body:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, 0)
+			if fit.follow then
+				-- The goals sit on the bar, the free room above them.
+				body:SetPoint("BOTTOMLEFT", foot, "TOPLEFT", 0, 0)
+				body:SetPoint("BOTTOMRIGHT", foot, "TOPRIGHT", 0, 0)
+			else
+				body:SetPoint("TOPLEFT", F, "TOPLEFT", 0, 0)
+				body:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, 0)
+			end
 			band:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 1, 1)
 			band:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", -1, 1)
 		else
@@ -450,10 +470,22 @@ ns.UI.GuideFrame.Part(function(GF)
 			strip:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, 0)
 			nav:SetPoint("TOPLEFT", strip, "BOTTOMLEFT", 0, 0)
 			nav:SetPoint("TOPRIGHT", strip, "BOTTOMRIGHT", 0, 0)
-			body:SetPoint("TOPLEFT", nav, "BOTTOMLEFT", 0, 0)
-			body:SetPoint("TOPRIGHT", nav, "BOTTOMRIGHT", 0, 0)
 			foot:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 0, 0)
 			foot:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 0, 0)
+			if fit.follow and ns.Get("ui.growUp") then
+				-- The goals sit on the bar at the pinned bottom edge, the free room above them.
+				body:SetPoint("BOTTOMLEFT", foot, "TOPLEFT", 0, 0)
+				body:SetPoint("BOTTOMRIGHT", foot, "TOPRIGHT", 0, 0)
+			else
+				body:SetPoint("TOPLEFT", nav, "BOTTOMLEFT", 0, 0)
+				body:SetPoint("TOPRIGHT", nav, "BOTTOMRIGHT", 0, 0)
+				if fit.follow then
+					-- The bar right under the last goal, the free room below it.
+					foot:ClearAllPoints()
+					foot:SetPoint("TOPLEFT", body, "BOTTOMLEFT", 0, 0)
+					foot:SetPoint("TOPRIGHT", body, "BOTTOMRIGHT", 0, 0)
+				end
+			end
 			band:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 			band:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
 		end
@@ -489,7 +521,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- With ui.growUp, the height from the window's pinned bottom edge to the top
 	-- of the screen, in the window's scale (nil without Grow upward): the
 	-- window is never taller (fit.limit, #666). A copy is pinned nowhere.
-	local function roomAbove()
+	function roomAbove()
 		if not (GF.live and ns.Get("ui.growUp")) then return nil end
 		local top = UIParent:GetTop()
 		local scale, uiScale = F:GetEffectiveScale(), UIParent:GetEffectiveScale()
@@ -501,6 +533,45 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		if type(bottom) ~= "number" then return nil end
 		return top * uiScale / scale - bottom
+	end
+
+	-- The grip sits on the edge that moves: the bottom-right corner, or with Grow
+	-- upward just over the top-right one, clear of the header's menu button.
+	function GF.PlaceGrip()
+		local grip = GF.grip
+		if not grip then return end
+		local up = ns.Get("ui.growUp")
+		grip:ClearAllPoints()
+		grip:SetPoint("BOTTOMRIGHT", F, up and "TOPRIGHT" or "BOTTOMRIGHT", -1, 1)
+		grip.Icon:SetTexCoord(0, 1, up and 1 or 0, up and 0 or 1)
+	end
+
+	-- The line at the height limit, with its value in px, while the grip is dragged:
+	-- the window may be shorter than its limit, so the limit shows on its own.
+	function GF.ShowLimit(on)
+		local limitLine = GF.limitLine
+		if not limitLine then
+			if not on then return end
+			limitLine = CreateFrame("Frame", nil, F)
+			GF.limitLine = limitLine
+			limitLine:SetHeight(2)
+			limitLine:SetFrameLevel(F:GetFrameLevel() + 20)
+			limitLine.Line = limitLine:CreateTexture(nil, "OVERLAY")
+			limitLine.Line:SetAllPoints()
+			W.Color(limitLine.Line, "accent")
+			limitLine.Text = W.Text(limitLine, "number", "text")
+			limitLine.Text:SetPoint("BOTTOMRIGHT", limitLine, "TOPRIGHT", -4, 2)
+		end
+		limitLine:SetShown(on)
+		if not on then return end
+		-- What the window can reach: with the class quest card up, the cap less the card's room (as GF.Layout).
+		local toast = UI.ClassToast
+		local cap = capHeight() - (toast and toast.Reserved and toast.Reserved() or 0)
+		local up = ns.Get("ui.growUp")
+		limitLine:ClearAllPoints()
+		limitLine:SetPoint(up and "BOTTOMLEFT" or "TOPLEFT", F, up and "BOTTOMLEFT" or "TOPLEFT", 0, up and cap or -cap)
+		limitLine:SetPoint(up and "BOTTOMRIGHT" or "TOPRIGHT", F, up and "BOTTOMRIGHT" or "TOPRIGHT", 0, up and cap or -cap)
+		limitLine.Text:SetText(string.format(ns.L["%d px"], floor(cap * F:GetEffectiveScale() + 0.5)))
 	end
 
 	-- How far a layout's frames reach below the window's bottom edge (Atlas's
@@ -618,6 +689,11 @@ ns.UI.GuideFrame.Part(function(GF)
 		local stripH = showStrip and SH or 0
 		fit.outer = stripH + NAV_H + (showFoot and PROG_H or 0)
 		fit.limit = roomAbove()
+		-- ui.heightMode (the live window): "fixed" keeps the window at
+		-- its height; with the progress bar under the last goal (ui.footAt) the
+		-- free room goes past the bar (fit.follow).
+		fit.fixedH = GF.live and ns.Get("ui.heightMode") == "fixed" or false
+		fit.follow = showFoot and fit.fixedH and ns.Get("ui.footAt") ~= "edge" or false
 		if fit.from then
 			-- Past the cap (or the top of the screen with Grow upward), the goals
 			-- area gives up the difference and scrolls.
@@ -626,7 +702,15 @@ ns.UI.GuideFrame.Part(function(GF)
 			-- A skin may keep the goals area whole, the window as tall as it
 			-- takes (GF.Shows "goalScroll" false).
 			if GF.Shows("goalScroll", true) then
-				fit.room = min(capHeight(), fit.limit or math.huge) - (fit.outer + y - content)
+				-- The class quest card (UI/ClassToast.lua) counts against the cap
+				-- while it shows: window and card together stay within ui.maxHeight.
+				local toast = UI.ClassToast
+				local toastRoom = toast and toast.Reserved and toast.Reserved() or 0
+				local cap = capHeight() - toastRoom
+				-- Whole items under the cap alone (fitGoals): at the top of the
+				-- screen the window ends exactly on it (#666).
+				fit.snap = cap <= (fit.limit or math.huge)
+				fit.room = min(cap, fit.limit or math.huge) - (fit.outer + y - content)
 			else
 				fit.room = math.huge
 			end
@@ -635,6 +719,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			sizeWindow(y)
 		end
 		placeBars(showFoot)
+		GF.PlaceGrip()
 		band:SetHeight(stripH + NAV_H)
 		local x0, x1, y0, y1 = Theme.BandCoords(width - 2, stripH + NAV_H, 30)
 		if barsBottom() then y0, y1 = y1, y0 end

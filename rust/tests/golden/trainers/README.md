@@ -7,3 +7,5 @@ Inputs: the data golden; input/guides and input/recordings are synthetic (Polest
 Test: rust/crates/forge-data/tests/trainers.rs (byte compare of every file in expected/). Regenerate only when the JS is the reference; CI never runs the generator.
 
 Since the JS command was retired, the generated files' first line names `forge data trainers` instead of `node tools/polestar.js trainers build`; expected/ is the JS output with that line (and the byte counts that include it) as forge writes it.
+
+trainers.json's `visits` (the counted players recorded training with a trainer, #2992) came after the JS was retired: expected/trainers.json is the JS output plus that field, as `forge data trainers` writes it on these inputs.

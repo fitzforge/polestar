@@ -589,7 +589,7 @@ fn the_options_offer_show_the_whole_step_and_a_maximum_height_in_guide_window() 
 	// Search result cards are titled page · tab · section (a section named as its tab once): both on Look > Guide
 	// window, their one home; the whole step on Parts' Step text.
 	assert_eq!(out["found"]["ui.wholeStep"], json!({ "title": "Guide window  \u{b7}  Parts  \u{b7}  Step text", "kind": "toggle", "label": "Show the whole step" }));
-	assert_eq!(out["found"]["ui.maxHeight"], json!({ "title": "Guide window  \u{b7}  Window", "kind": "slider", "min": 0.3, "max": 0.9, "label": "Max height" }));
+	assert_eq!(out["found"]["ui.maxHeight"], json!({ "title": "Guide window  \u{b7}  Window", "kind": "slider", "min": 0.3, "max": 1, "label": "Height" }));
 	assert!(is_match(text(&out["found"]["ui.maxHeight"]["title"]), "Window$"));
 }
 
