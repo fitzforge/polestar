@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Spanish (Latin America) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:3197} Chillwind Camp · {zone:1428} Burning Steppes · {zone:1419} Blasted Lands · {zone:1447} Azshara
+	["{area:3197} first, then the {zone:1428} and the {zone:1419}, then {zone:1447}."] = "Primero {area:3197}, luego {zone:1428} y {zone:1419}, y después {zone:1447}.",
+
 	-- Step 1: To Ironforge
 	-- {zone:1455} Ironforge
 	["To {zone:1455}"] = "A {zone:1455}",

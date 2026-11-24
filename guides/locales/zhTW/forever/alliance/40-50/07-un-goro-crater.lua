@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- was: ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "適合49到50級的角色，但這裡的大多數任務是51-53級：這是刻意安排的，為了它們的經驗值。第一次來只在環形山東半部活動，那裡的野獸為48-52級，所以一次拉一隻；水晶塔、骨頭和蟲巢留到約56級再來安戈洛時處理。"
-	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "",
+	-- {zone:1446} Tanaris · {area:976} Gadgetzan
+	["{zone:1446} first ({area:976} hand-ins), then into Un'Goro. For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "先去{zone:1446}（在{area:976}交任務），再進入安戈洛。適合49到50級的角色，但這裡的大多數任務是51-53級：這是刻意安排的，為了它們的經驗值。第一次來只在環形山東半部活動，那裡的野獸為48-52級，所以一次拉一隻；水晶塔、骨頭和蟲巢留到約54級再來安戈洛時處理。",
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor

@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Russian words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1445} Dustwallow Marsh · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{zone:1445} first, then {zone:1434} and the {zone:1435}."] = "Сначала {zone:1445}, затем {zone:1434} и {zone:1435}.",
+
 	-- Step 1: Theramore
 	["Theramore"] = "Терамор",
 	-- {quest:1260} Morgan Stern · {npc:4897} Helenia Olden

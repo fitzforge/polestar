@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:3197} Chillwind Camp · {zone:1428} Burning Steppes · {zone:1419} Blasted Lands · {zone:1447} Azshara
+	["{area:3197} first, then the {zone:1428} and the {zone:1419}, then {zone:1447}."] = "먼저 {area:3197}, 그다음 {zone:1428}, {zone:1419}, 마지막으로 {zone:1447}.",
+
 	-- Step 1: To Ironforge
 	-- {zone:1455} Ironforge
 	["To {zone:1455}"] = "{zone:1455}(으)로",

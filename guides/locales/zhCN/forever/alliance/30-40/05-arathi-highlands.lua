@@ -7,9 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {area:327} Faldir's Cove
-	-- was: ["For characters of 35 to 37. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "适合35到37级角色。{area:327}的纳迦和教授的水元素为38-40级，需要组队：单人就跳过。"
-	["For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "",
+	-- {zone:1435} Swamp of Sorrows · {area:271} Southshore · {area:327} Faldir's Cove
+	["{zone:1435} first, then north to {area:271}, Alterac and Arathi. For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "先去{zone:1435}，再向北前往{area:271}、奥特兰克和阿拉希。适合36到38级的角色。{area:327}的娜迦和教授的水元素为38-40级，那里是组队站点：单人就跳过。",
 
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire

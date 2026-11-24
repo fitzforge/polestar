@@ -1,9 +1,10 @@
 guide forever/horde/50-60/02-felwood
-title Western Plaguelands, Azshara & Felwood
+title Azshara & Felwood
 faction Horde
 levels 53-54
 zone Felwood
 next forever/horde/50-60/03-winterspring
+pitch Western Plaguelands and the Bulwark first, then Azshara and Felwood.
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 70-73) and machine-checked with lint; not play-tested on Forever yet.
 #

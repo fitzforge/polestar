@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- was: ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "Für Charaktere der Stufe 49 bis 50, aber die meisten Quests hier sind Stufe 51-53: mit Absicht, wegen ihrer Erfahrung. Dieser erste Besuch bleibt in der Osthälfte des Kraters, wo die Bestien 48-52 sind, also zieh sie einzeln; die Pylonen, die Knochen und der Bau warten auf den späteren Un'Goro-Besuch mit etwa 56."
-	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "",
+	-- {zone:1446} Tanaris · {area:976} Gadgetzan
+	["{zone:1446} first ({area:976} hand-ins), then into Un'Goro. For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "Zuerst {zone:1446} (Abgaben in {area:976}), dann hinein nach Un'Goro. Für Charaktere der Stufe 49 bis 50, aber die meisten Quests hier sind Stufe 51-53: mit Absicht, wegen ihrer Erfahrung. Dieser erste Besuch bleibt in der Osthälfte des Kraters, wo die Bestien 48-52 sind, also zieh sie einzeln; die Pylonen, die Knochen und der Bau warten auf den späteren Un'Goro-Besuch mit etwa 54.",
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor

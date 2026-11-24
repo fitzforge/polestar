@@ -93,8 +93,11 @@ fn pack_files(name: &str) -> String {
 /// own, so the part's load reads and compiles the races' files too (each returning at once but for the player's):
 /// Alliance resident 19,024 and peak 40,692, Horde resident 17,701 (next without it 17,597: +104) and peak 37,502.
 /// Fitz approved Alliance resident 19,100 and peak 40,800, Horde resident 17,800 and peak 37,600; the reads stay.
+/// 0.4.3 Camping 101 at every start campfire (2026-11-24, #3963: 27 quests behind their profession, handed in at the
+/// trainers): Horde peak 37,607 against its 37,600. The peak: that plus ~1% (a reported raise, for Fitz to confirm in
+/// the pull request); the rest stays.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 19100.0), ("peak", 40800.0), ("read", 27130.0)]), ("Horde", "Orc", [("resident", 17800.0), ("peak", 37600.0), ("read", 26140.0)])];
+	[("Alliance", "Human", [("resident", 19100.0), ("peak", 40800.0), ("read", 27130.0)]), ("Horde", "Orc", [("resident", 17800.0), ("peak", 37980.0), ("read", 26140.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {

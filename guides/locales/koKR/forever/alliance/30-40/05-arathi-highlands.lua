@@ -7,9 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {area:327} Faldir's Cove
-	-- was: ["For characters of 35 to 37. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "35~37레벨 캐릭터용입니다. 나가와 교수의 물의 정령이 38-40레벨인 {area:327}은(는) 파티용이니 혼자라면 건너뛰세요."
-	["For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "",
+	-- {zone:1435} Swamp of Sorrows · {area:271} Southshore · {area:327} Faldir's Cove
+	["{zone:1435} first, then north to {area:271}, Alterac and Arathi. For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "먼저 {zone:1435}, 그다음 북쪽의 {area:271}, 알터랙, 아라시로 갑니다. 36~38레벨 캐릭터용입니다. 나가와 교수의 물의 정령이 38-40레벨인 {area:327}은(는) 파티용 경유지이니 혼자라면 건너뛰세요.",
 
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire

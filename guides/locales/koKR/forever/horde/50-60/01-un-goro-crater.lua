@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:340} Kargath · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes
+	["Un'Goro first, then {area:340}, the {zone:1427} and the {zone:1428}."] = "먼저 운고로, 그다음 {area:340}, {zone:1427}, {zone:1428}.",
+
 	-- Step 2: Into Un'Goro Crater
 	-- {zone:1449} Un'Goro Crater
 	["Into {zone:1449}"] = "{zone:1449}(으)로",

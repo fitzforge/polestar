@@ -3992,13 +3992,33 @@
 	},
 	"8922": {
 		"set": {
-			"preAny": [8905, 8906, 8907, 8908, 8909, 8910, 8911, 8912, 84152]
+			"preAny": [8905, 8906, 8907, 8908, 8909, 8910, 8911, 8912, 84149, 84150, 84152]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3081: a Rogue's quest log holds An Earnest Proposition as quest 84152, with 8910's objectives (15 Winterspring Blood Samples, Shadowcraft Bracers): Forever's version of the quest before A Supernatural Device"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3918: a level 58 Gnome Mage's quest log holds An Earnest Proposition as quest 84149 (1 of 2 objectives) while the Lookup guide waited for 8907"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): a Human Paladin was offered An Earnest Proposition 84150 by Deliana (230319) and took it"
+			}
+		],
+		"note": "A Supernatural Device (8922) follows any class's An Earnest Proposition for Deliana in Ironforge: Forever's versions held or taken by players, the Mage's 84149 (#3918), the Paladin's 84150 and the Rogue's 84152 (#3081), as well as the eight of the Classic data, so the chain starts from the version in the player's quest log."
+	},
+	"8923": {
+		"set": {
+			"preAny": [8913, 8914, 8915, 8916, 8917, 8918, 8919, 8920, 84160, 84161, 97411]
 		},
 		"source": {
-			"kind": "in-game-check",
-			"ref": "#3081: a Rogue's quest log holds An Earnest Proposition as quest 84152, with 8910's objectives (15 Winterspring Blood Samples, Shadowcraft Bracers): Forever's version of the quest before A Supernatural Device"
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): at Mokvar (230317) in Orgrimmar a Troll Shaman took An Earnest Proposition 84160, two Scourge Paladins took 97411 and a Troll Warlock was offered 84161"
 		},
-		"note": "A Supernatural Device (8922) follows any class's An Earnest Proposition for Deliana in Ironforge: Forever's Rogue version 84152 (#3081) as well as the eight of the Classic data, so the Darkmantle chain starts from the version a Rogue holds."
+		"note": "A Supernatural Device (8923) follows any class's An Earnest Proposition for Mokvar in Orgrimmar: Forever's versions players were offered or took, the Shaman's 84160, the Warlock's 84161 and the Paladin's 97411, as well as the eight of the Classic data, so the chain starts from the version in the player's quest log (#3918, the Horde side of 8922's record)."
 	},
 	"9015": {
 		"set": {
@@ -4602,19 +4622,58 @@
 		],
 		"note": "An Earnest Proposition 84147 is a second copy of 8905 (the same Deliana quest in Ironforge for Druids: 15 Winterspring Blood Samples and the Wildheart Bracers). Only one source lists it and Forever's server quest table has 8905 alone, so the Dungeons page listed the quest twice. The copy leaves the data."
 	},
-	"84150": {
-		"remove": true,
+	"84149": {
+		"set": {
+			"classes": 128,
+			"next": 8922,
+			"objectives": [
+				{ "type": "item", "id": 21928, "count": 15, "text": "Winterspring Blood Sample" },
+				{ "type": "item", "id": 16683, "count": 1, "text": "Magister's Bindings" }
+			]
+		},
 		"source": [
 			{
-				"kind": "tdb",
-				"ref": "Forever server data (world database dump 2026-10-14): the quest table has An Earnest Proposition 8908 and no 84150"
+				"kind": "in-game-check",
+				"ref": "#3918: a level 58 Gnome Mage's /polestar report has An Earnest Proposition as quest 84149 in the quest log (1 of 2 objectives)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): Deliana (230319) did not offer 84148, 84149 or 84154 to a Human Paladin, who took 84150 there"
 			},
 			{
 				"kind": "questie",
-				"ref": "QuestieDB (Questie-Forever) is the only source of 84150; pfQuest and the server have 8908 alone, with the same objectives (15 Winterspring Blood Samples, Lightforge Bracers), level and Alliance race mask"
+				"ref": "QuestieDB (Questie-Forever): 84149 starts and ends at Deliana (230319) in Ironforge and asks for 15 Winterspring Blood Samples and a set of Magister's Bindings"
 			}
 		],
-		"note": "An Earnest Proposition 84150 is a second copy of 8908 (the same Deliana quest in Ironforge for Paladins). Only one source lists it and Forever's server quest table has 8908 alone, so Scholomance's Alliance pick-up guide asked Deliana for An Earnest Proposition twice. The copy leaves the data."
+		"note": "An Earnest Proposition 84149 is the Mage's version Forever gives now: the 15 Winterspring Blood Samples and the Magister's Bindings of 8907 for Deliana in Ironforge, before A Supernatural Device (8922). The data had no class or objectives for it, and 8922 did not follow it, so the Lookup guide for the chain waited for an accept of 8907 the player never saw (#3918)."
+	},
+	"84150": {
+		"set": {
+			"title": "An Earnest Proposition",
+			"level": 60,
+			"minLevel": 58,
+			"races": 4294967373,
+			"classes": 2,
+			"zone": 1455,
+			"start": { "npc": [230319], "object": [], "item": [] },
+			"end": { "npc": [230319], "object": [] },
+			"next": 8922,
+			"objectives": [
+				{ "type": "item", "id": 21928, "count": 15, "text": "Winterspring Blood Sample" },
+				{ "type": "item", "id": 16722, "count": 1, "text": "Lightforge Bracers" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): a Human Paladin was offered An Earnest Proposition 84150 by Deliana (230319) twice and took it; the quest log listed two item lines, 15 of one and 1 of the other"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 84150 asks for 15 Winterspring Blood Samples and a set of Lightforge Bracers for Deliana in Ironforge"
+			}
+		],
+		"note": "An Earnest Proposition 84150 is the Paladin's version Forever gives now: the 15 Winterspring Blood Samples and the Lightforge Bracers of 8908 for Deliana (230319) in Ironforge, before A Supernatural Device (8922). It left the data on 2026-11-15 as a copy of 8908, which the server dump of 2026-10-14 had alone; game build 70959 gives 84150 (#3918)."
 	},
 	"84152": {
 		"set": {
@@ -4643,6 +4702,70 @@
 			}
 		],
 		"note": "An Earnest Proposition 84152 is the Rogue's version Forever gives now (the server dump of 2026-10-14 had 8910 only): the same 15 Winterspring Blood Samples and Shadowcraft Bracers for Deliana in Ironforge, before A Supernatural Device. No source had it, so the Darkmantle Tunic guide waited for an accept of 8910 the player never saw and did not notice the 84152 in the log (#3081)."
+	},
+	"84160": {
+		"set": {
+			"classes": 64,
+			"next": 8923,
+			"objectives": [
+				{ "type": "item", "id": 22381, "count": 15, "text": "Silithus Venom Sample" },
+				{ "type": "item", "id": 16671, "count": 1, "text": "Bindings of Elements" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): a Troll Shaman was offered An Earnest Proposition 84160 by Mokvar (230317) in Orgrimmar and took it; the quest log listed two item lines, 15 of one and 1 of the other"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 84160 starts and ends at Mokvar (230317) and asks for 15 Silithus Venom Samples and a set of Bindings of the Elements"
+			}
+		],
+		"note": "An Earnest Proposition 84160 is the Shaman's version Forever gives now: the 15 Silithus Venom Samples and the Bindings of Elements of 8918 for Mokvar in Orgrimmar, before A Supernatural Device (8923). The data had no class or objectives for it (#3918)."
+	},
+	"84161": {
+		"set": {
+			"classes": 256,
+			"next": 8923,
+			"objectives": [
+				{ "type": "item", "id": 22381, "count": 15, "text": "Silithus Venom Sample" },
+				{ "type": "item", "id": 16703, "count": 1, "text": "Dreadmist Bracers" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): Mokvar (230317) in Orgrimmar offered An Earnest Proposition 84161 to a Troll Warlock"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 84161 starts and ends at Mokvar (230317) and asks for 15 Silithus Venom Samples and a set of Dreadmist Bracers"
+			}
+		],
+		"note": "An Earnest Proposition 84161 is the Warlock's version Forever gives now: the 15 Silithus Venom Samples and the Dreadmist Bracers of 8919 for Mokvar in Orgrimmar, before A Supernatural Device (8923). The data had no class or objectives for it (#3918)."
+	},
+	"97411": {
+		"set": {
+			"classes": 2,
+			"end": { "npc": [230317], "object": [] },
+			"next": 8923,
+			"objectives": [
+				{ "type": "item", "id": 22381, "count": 15, "text": "Silithus Venom Sample" },
+				{ "type": "item", "id": 16722, "count": 1, "text": "Lightforge Bracers" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): two Scourge Paladins (2 people) were offered An Earnest Proposition 97411 by Mokvar (230317) in Orgrimmar and took it; the quest log listed 15 of an item and Lightforge Bracers"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 97411 asks for 15 Silithus Venom Samples and a set of Lightforge Bracers for Mokvar in Orgrimmar"
+			}
+		],
+		"note": "An Earnest Proposition 97411 is the Horde Paladin's version: 15 Silithus Venom Samples and the Lightforge Bracers for Mokvar in Orgrimmar, before A Supernatural Device (8923). The data had no class, objectives or ender; it ends at Mokvar, who gives it, as every version of the chain ends with its giver (#3918)."
 	},
 	"84396": {
 		"set": {

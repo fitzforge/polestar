@@ -3079,6 +3079,12 @@ goes on to after it (`Own.travelOnto`), and the player stands on that step's
 continent. Thousand Needles & Desolace opens at the Undercity's zeppelin to
 Orgrimmar, where the previous guide ends; a player who loads it at Freewind
 Post goes straight to Orgrimmar instead of to the Undercity's tower and back.
+Along one continent (#1983, `Own.pastDock`), a walk that ends at a crossing's
+dock passes when both the player and the next step's work lie nearer the
+crossing's far end than the dock. A walk-in portal counts by its mouth, its
+far end being where it lands (#3906): the portal takes the player before the
+walk's goto is reached, so Tanaris's "Portal to Darnassus" passes once the
+player is in Darnassus.
 
 With the planner off the other steps hold as written. `forge guide lint`
 reports a flight to a stop with nothing to do followed by another flight
@@ -11530,8 +11536,9 @@ same spell: Elixir of Minor Fortitude) and the client does not give it
 with the skill (`AcquireMethod` 1); else the skill seen on Forever, for the few recipes in
 forge-data's `CHECKED_LEARN` (`learnedAtFrom`: `"in-game"` a player's trainer window, Thick Leather,
 Cured Thick Hide and Thick Armor Kit at 175, #1553; `"recordings"` the skill players learned it at,
-Forever's leather armor and pants patterns 5 below their yellow, Magenta Dye 120; `"classic"`
-Classic's list where Forever kept the colours and no world DB list has it, Goldthorn Tea 175); else,
+Forever's leather armor and pants patterns 5 below their yellow, Magenta Dye 120, Black Mageweave
+Headband 200; `"classic"` Classic's list where Forever kept the colours and no world DB list has it,
+Goldthorn Tea 175); else,
 when an older (Classic) list in the same DB teaches it (`professionSpellsClassic`: the highest skill
 any Classic list asks, as CMaNGOS's; a stray low list put Thick Leather at 155, #1553), Classic's
 learn skill moved by as much as Forever moved the recipe's yellow rank from Era's
