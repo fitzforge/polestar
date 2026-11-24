@@ -5018,5 +5018,21 @@
 			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
 		],
 		"note": "Old Rusthowl is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"249052": {
+		"set": { "faction": "AH" },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): Stemming the Demon Tide (95793) taken from and handed in to Witherbeard by 9 Horde and 5 Alliance players; both factions saw him neutral" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5 makes him Alliance (1.1.2: both factions)" }
+		],
+		"note": "Witherbeard in Mount Hyjal deals with both factions: Horde and Alliance players take Stemming the Demon Tide from him and hand it in to him. QuestieDB 1.1.5 makes him Alliance only, which would keep the Horde's Mount Hyjal route away from him."
+	},
+	"253136": {
+		"set": { "faction": null },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): an Alliance player took Corrupting Tears, Proof of Concept, Bristleback Retreat and Khan Jehn from Orgrul; Alliance and Horde characters saw him neutral (hostile to some below the Magram's standing)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5 makes him Horde (1.1.2: no faction)" }
+		],
+		"note": "Orgrul, the Magram centaur in Desolace, gives his quests by the Magram's standing, not the player's faction: an Alliance player took four of them from him. QuestieDB 1.1.5 makes him Horde, which would take the Magram chain away from the Alliance."
 	}
 }
