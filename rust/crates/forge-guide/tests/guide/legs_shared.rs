@@ -30,10 +30,7 @@ step End
 /// The pack folder with the shared guide and `legs` as its legs.json (None: no file).
 fn pack(name: &str, legs: Option<&str>) -> std::path::PathBuf {
 	let dir = scratch(&format!("legs-shared-{name}"));
-	let mut files = vec![
-		("pack.json", r#"{"id":"parts","title":"Parts Pack","author":"Ann","version":"1.0.0","license":"CC0-1.0","folder":"PolestarPack_Parts"}"#),
-		("guides/shared.guide", SHARED),
-	];
+	let mut files = vec![("pack.json", r#"{"id":"parts","title":"Parts Pack","author":"Ann","version":"1.0.0","license":"CC0-1.0","folder":"PolestarPack_Parts"}"#), ("guides/shared.guide", SHARED)];
 	if let Some(l) = legs {
 		files.push(("legs.json", l));
 	}

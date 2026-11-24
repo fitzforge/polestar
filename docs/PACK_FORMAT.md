@@ -781,7 +781,11 @@ detour) and writes them beside the guides as `legs.json`: `{ "schema": 1,
 legs while its leg ends still hash as when they were baked (a changed guide
 warns and goes without) and writes them into `Legs.lua` of the race parts
 that guide is for: its own race part's races (a class chain), else the races
-its `race` header names, else every race of its faction. One call per grid:
+its `race` header names, else every race of its faction. A leveling guide
+both factions share (no `faction` header) is walked once per faction, each
+without the steps and goals `only` the other faction, and kept as `{ "sides":
+{ "Horde": { "hash", "steps" }, "Alliance": { ... } } }`; each side goes into
+its faction's races' `Legs.lua` under the guide's id. One call per grid:
 
 ```lua
 Polestar.RegisterLegs("joe-routes", "grid 1.60.1.70450, leffe 6e0f5f2529c5", {
