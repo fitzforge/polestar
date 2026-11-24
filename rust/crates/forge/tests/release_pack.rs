@@ -479,13 +479,26 @@ fn guides_with_legs(root: &Path, fresh: bool, unbaked: Option<&str>) -> PathBuf 
 	let (manifest, _) = forge_guide::manifest::read_manifest(&guides, true);
 	let project = forge_guide::project::compile_project(&guides, &manifest.unwrap(), &data, diag, false, None);
 	let mut legs = serde_json::Map::new();
-	for g in project.guides.iter().filter(|g| forge_guide::project::legs_races(g).is_some()) {
+	for g in project.guides.iter() {
+		let Some(sides) = forge_guide::project::legs_sides(g) else { continue };
 		let id = g.get("id").to_js_string();
 		if Some(id.as_str()) == unbaked {
 			continue;
 		}
-		let hash = if fresh || id != "forever/alliance/human/02-elwynn" { forge_guide::bake::guide_hash(g, &data.map_frames) } else { "000000000000".into() };
-		legs.insert(id, serde_json::json!({ "hash": hash, "steps": { "1": "CgA" } }));
+		let entry = |side: Option<&str>| {
+			let hash = if fresh || id != "forever/alliance/human/02-elwynn" { forge_guide::bake::guide_hash_for(g, &data.map_frames, side) } else { "000000000000".into() };
+			serde_json::json!({ "hash": hash, "steps": { "1": "CgA" } })
+		};
+		let e = match sides.as_slice() {
+			[(None, _)] => entry(None),
+			_ => {
+				let by: serde_json::Map<String, serde_json::Value> = sides.iter().map(|(f, _)| (f.unwrap_or_default().to_string(), entry(*f))).collect();
+				let mut m = serde_json::Map::new();
+				m.insert(forge_guide::bake::SIDES.to_string(), serde_json::Value::Object(by));
+				serde_json::Value::Object(m)
+			}
+		};
+		legs.insert(id.clone(), e);
 	}
 	let doc = serde_json::json!({ "schema": 1, "grid": "test maps", "legs": legs });
 	std::fs::write(guides.join("legs.json"), serde_json::to_string_pretty(&doc).unwrap() + "\n").unwrap();
