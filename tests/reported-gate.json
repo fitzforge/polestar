@@ -1771,6 +1771,9 @@
 		"3845": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/class-quests.rs", "test": "a_class_quest_stops_being_offered_five_levels_past_its_guide_s_top_unless_its_spell_is_still_missing_3845" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-smart.rs", "test": "a_class_guide_is_outleveled_five_levels_past_its_top_once_its_reward_spell_is_known_3845" }
+		] },
+		"3996": { "tests": [
+			{ "node": "tests/guides-caves.test.js", "test": "Meta (#3996): the arrow led onto Dreadmaul Rock above Krom'Grul, who stands inside its caves" }
 		] }
 	},
 	"seedDrift": {

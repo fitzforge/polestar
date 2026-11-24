@@ -3205,6 +3205,19 @@
 				{ "kind": "in-game-check", "ref": "#3825: Meta used the gem on Yenniku alive and the quest completed" }
 			],
 			"issue": 3825
+		},
+		{
+			"id": "3996-kromgrul-in-the-cave",
+			"faction": "Horde",
+			"quest": 3822,
+			"objective": 1,
+			"at": { "map": 1428, "x": 79.7, "y": 47.4, "frame": "era" },
+			"note": "Sha'ni's Nose-Ring drops from Krom'Grul, who stands inside the caves of Dreadmaul Rock at his spawn (79.7,47.4, on the cave floor). The goal's point sat on the hill above the cave (83.04,45.97), and the arrow led on top of the rock.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#3996 (Meta, 0.4.2.2): the arrow led onto Dreadmaul Rock above the cave; the cave entrance at 82.71,38.86 and Krom'Grul inside at 79.82,47.49, read with /polestar where" },
+				{ "kind": "client", "ref": "forever-db spawn.jsonl: Krom'Grul (8977) on map 0 at -7957,-2600, z 173.9 (Burning Steppes 79.7,47.4)" }
+			],
+			"issue": 3996
 		}
 	]
 }

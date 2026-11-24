@@ -18366,6 +18366,18 @@
 				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
 			},
 			"issue": 2749
+		},
+		{
+			"id": "3996-kromgrul-cave-mouth",
+			"faction": "Horde",
+			"at": { "quest": 3822, "goal": "objective", "objective": 1 },
+			"way": { "at": { "map": 1428, "x": 82.7, "y": 38.9, "frame": "era" }, "label": "Dreadmaul Rock cave" },
+			"note": "The walk to Krom'Grul ends at the cave mouth on Dreadmaul Rock's north side, where the reporter went in, before the arrow points into the cave at him.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#3996 (Meta, 0.4.2.2): the arrow led onto Dreadmaul Rock above the cave; the cave entrance at 82.71,38.86 and Krom'Grul inside at 79.82,47.49, read with /polestar where" },
+				{ "kind": "client", "ref": "forever-db spawn.jsonl: Krom'Grul (8977) on map 0 at -7957,-2600, z 173.9 (Burning Steppes 79.7,47.4)" }
+			],
+			"issue": 3996
 		}
 	]
 }

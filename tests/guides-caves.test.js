@@ -41,6 +41,13 @@ const CASES = [
 		tip: /inside the troll cave/,
 	})),
 	{
+		// Meta (#3996): the arrow led onto Dreadmaul Rock above Krom'Grul, who stands inside its caves.
+		guide: 'forever/horde/50-60/01-un-goro-crater.guide',
+		target: (g) => g.t === 'collect' && g.item === 11058, // Sha'ni's Nose-Ring, from Krom'Grul
+		mouth: { map: 1428, x: 82.7, y: 38.9 }, // where the reporter went in, read with /polestar where
+		tip: /caves and mine tunnels of Dreadmaul Rock/,
+	},
+	{
 		// Onrevax (#392): the Whispering Elixir bottles are in the basement under Shadowvale's ruined house.
 		guide: 'forever/horde/undead/01-tirisfal-glades.guide',
 		target: (g) => g.t === 'collect' && g.item === 268801, // Bottle of Whispering Elixir
