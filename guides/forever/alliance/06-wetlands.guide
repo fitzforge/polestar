@@ -346,7 +346,7 @@ step Fen Creepers along the river
 
 step Rethiel the Greenwarden
   turnin 275
-  accept 98283 optional               -- Carnage, an elite raptor, on the Wetlands loop of the Hillsbrad Foothills guide
+  accept 98283 optional               -- Carnage, an elite raptor called out with a Maddened Rotclaw's flesh, on the Wetlands loop of the Hillsbrad Foothills guide
 
 # ---------------------------------------------------------------- The Dragonmaw Gates and Dun Modr
 

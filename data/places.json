@@ -3126,6 +3126,51 @@
 				}
 			],
 			"issue": 3400
+		},
+		{
+			"id": "3731-95165-3",
+			"quest": 95165,
+			"objective": 3,
+			"label": "Plant a Remote Explosive Charge on the southern ship",
+			"note": "See Ya, Scallywags!: each charge is planted on board one of the three pirate ships, but the lines read only \"Use Remote Explosive Charge\", which a player took for a use anywhere in the port (#3731, gidi_). Each line names its ship, south to north as the step plants them.",
+			"source": [
+				{ "kind": "recording", "ref": "data/recorded quests.json 95165: 78 people tick each line on the charge's cast (1282576), the casts at 91,39 (line 3), 91,30 (line 2) and 88,26 (line 1)" },
+				{ "kind": "in-game-check", "ref": "#3731: gidi_'s follow-up on Discord" }
+			],
+			"issue": 3731
+		},
+		{
+			"id": "3731-95165-2",
+			"quest": 95165,
+			"objective": 2,
+			"label": "Plant a Remote Explosive Charge on the middle ship",
+			"note": "See Ya, Scallywags!: the middle ship's charge (as 3731-95165-3).",
+			"source": [
+				{ "kind": "recording", "ref": "data/recorded quests.json 95165 line 2: the casts at 91,30" }
+			],
+			"issue": 3731
+		},
+		{
+			"id": "3731-95165-1",
+			"quest": 95165,
+			"objective": 1,
+			"label": "Plant a Remote Explosive Charge on the northern ship",
+			"note": "See Ya, Scallywags!: the northern ship's charge (as 3731-95165-3).",
+			"source": [
+				{ "kind": "recording", "ref": "data/recorded quests.json 95165 line 1: the casts at 88,26" }
+			],
+			"issue": 3731
+		},
+		{
+			"id": "3825-592-1",
+			"quest": 592,
+			"objective": 1,
+			"label": "Use the Soul Gem on Yenniku",
+			"note": "Saving Yenniku: the Filled Soul Gem comes from using the Soul Gem on Yenniku while he is alive (mechanics-public 592); the data lists it as his drop, so the line read \"Kill Yenniku for Filled Soul Gem\" (#3825, Meta).",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#3825: Meta used the gem on Yenniku alive and the quest completed" }
+			],
+			"issue": 3825
 		}
 	]
 }

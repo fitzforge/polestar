@@ -19044,6 +19044,63 @@ test('an escort or taming has a step of its own, so skipping it skips no other q
 	}
 });
 
+// --- 0.4.3 afternoon reports (2026-11-23) --------------------------------------------------------------------------
+
+// #3804 (holyjezus): Carnage comes out only when the Malignant Rotclaw Flesh is used at his lair (players' recordings:
+// the flesh's cast 13 times, all at Wetlands 70,29; 33 of 39 people with both items had the flesh first). The guide
+// listed his head first and the flesh only for players who held the head.
+test('#3804 Carnage: the Rotclaws\' flesh first, used at his lair to call him out, then his head', { skip }, () => {
+	const list = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
+	const flesh = at(list, 'collect 280331 (Malignant Rotclaw Flesh)', (g) => g.t === 'collect' && g.item === 280331);
+	const use = at(list, 'use 280331 (the flesh at the lair)', (g) => g.t === 'use' && g.item === 280331);
+	const head = at(list, 'collect 280330 (Carnage\'s Head)', (g) => g.t === 'collect' && g.item === 280330);
+	assert.ok(flesh < use && use < head, `flesh ${flesh}, use ${use}, head ${head}`);
+	const lair = list[use].goal;
+	assert.equal(lair.map, 1437);
+	assert.ok(Math.hypot(lair.x - 70, lair.y - 29) < 1.5, `the flesh is used at Carnage's lair (${lair.x},${lair.y})`);
+	assert.ok(whenOn(list[use].step, 'group', 98283), 'Carnage (elite) for players who chose to do him');
+	for (const { step } of list) assert.ok(!(step.when || []).some((p) => p.k === 'has' && p.item === 280330), `no step waits for the head (${step.title})`);
+	const turnin = list[at(list, 'turnin 98283', is('turnin', 98283))].step;
+	assert.ok(whenOn(turnin, 'complete', 98283), 'handed in when complete');
+	assert.ok(whenOn(turnin, 'group', 98283), 'handed in by the players who chose to do him: a solo route never holds his head');
+});
+
+// #3825 (Meta): the Filled Soul Gem comes from using the Soul Gem on Yenniku while he is alive; the step read "Kill
+// Yenniku for Filled Soul Gem" before "Use Soul Gem".
+test('#3825 Saving Yenniku: one goal, use the Soul Gem on him; nothing says to kill him', { skip }, () => {
+	const list = goals('forever/horde/40-50/06-azshara.guide').filter(({ goal }) => goal.quest === 592 && goal.t !== 'accept' && goal.t !== 'turnin');
+	assert.deepEqual(list.map(({ goal }) => `${goal.t} ${goal.item || ''}`.trim()), ['use 3912'], 'one use of the Soul Gem');
+	assert.match(list[0].goal.text, /Soul Gem on Yenniku/);
+	assert.ok(!list.some(({ goal }) => /\bKill\b/.test(goal.text || '')), 'no "Kill Yenniku"');
+	const mech = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'mechanics-public.json'), 'utf8')).quests['592'];
+	assert.deepEqual(mech.params, [{ kind: 'use-item-on-mob', item: 3912, npcs: [2530] }], 'the record the build writes the use from');
+});
+
+// #3822 (Ashwarden): Apprentice Claire stands in a cave below Sunnyglade (#2900); her map point is the town above her,
+// and the way in (50.0,46.0) was only in the tips. Both her steps lead to the cave's entrance first.
+test('#3822 Claire\'s cave: the arrow goes to the cave entrance before her accept and her hand-in', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01b-riverglades.guide');
+	for (const t of ['accept', 'turnin']) {
+		const i = at(list, `${t} 95642`, is(t, 95642));
+		const before = list[i - 1];
+		assert.ok(before && before.goal.t === 'goto' && before.s === list[i].s, `${t}: a goto right before it, in its step`);
+		assert.ok(Math.hypot(before.goal.x - 50, before.goal.y - 46) < 0.5, `${t}: at the entrance (${before.goal.x},${before.goal.y})`);
+	}
+});
+
+// #3731 (gidi_): each charge is planted on board one of the three pirate ships, but every line read "Use Remote
+// Explosive Charge". Each line names its ship, on both factions' Riverglades.
+test('#3731 See Ya, Scallywags!: each charge line names its ship', { skip }, () => {
+	for (const side of ['alliance', 'horde']) {
+		const list = goals(`forever/${side}/40-50/01b-riverglades.guide`).filter(({ goal }) => goal.t === 'use' && goal.quest === 95165);
+		assert.deepEqual(
+			list.map(({ goal }) => [goal.oi, (goal.text || '').match(/on the (\w+) ship/)?.[1]]),
+			[[3, 'southern'], [2, 'middle'], [1, 'northern']],
+			`${side}: south to north, each ship named`,
+		);
+	}
+});
+
 // #3823 (charlesketchup): Cooking 1-300, step 63 "Hot Lion Chops (130-175)": `learn 3398` waits for the recipe in
 // the bags but had no place, so the arrow had nowhere to go once the shopping step three steps earlier was passed
 // without the recipe. Until the recipe is in the bags or known, the learn leads to the recipe's vendor, the same one

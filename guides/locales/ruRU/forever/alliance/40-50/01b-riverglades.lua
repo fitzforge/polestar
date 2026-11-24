@@ -199,6 +199,8 @@ return {
 	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
 	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
 	["{npc:259158}: {quest:94961}, in his cage"] = "",
+	["the way in: she is below the town"] = "",
+	["Claire's cave"] = "",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "Сумеречный культ",
@@ -386,10 +388,13 @@ return {
 	["The pirates' ships"] = "Корабли пиратов",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
+	["on board, at the arrow"] = "",
 	-- {item:268505} Remote Explosive Charge
-	["{item:268505}, the southern ship"] = "{item:268505}, южный корабль",
-	["the middle ship"] = "средний корабль",
-	["the northern ship"] = "северный корабль",
+	["Plant a {item:268505} on the southern ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the middle ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the northern ship"] = "",
 
 	-- Step 74: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
@@ -578,8 +583,11 @@ return {
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "Снова к утесам пиратов. Заложите заряды Виззбазза на три корабля, стоящих под лагерем, с юга на север; {quest:95124} (45 уровень) стоит у среднего, рядом с ней – ее сундук с добычей. По пути следите за NPC {npc:259758}.",
 	-- ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "Культисты заполонили улицы и поля ({area:16723}). Начните с ритуальных кругов в центре (там наполните катализатор Клэр), пройдите на запад через сгоревшие дома до края городка, затем вернитесь на северо-восток к рыхлой земле к западу от фермы Элбрима: закопайте там {item:266148}, которые выпадают из Сумеречных грабителей. Амулеты, страницы и кости пальцев выпадают из культистов.\nСохраняйте {item:4338} с культистов: {npc:263613} ({area:16724}) попросит двадцать штук, когда вернетесь. Иногда из культиста выпадает {quest:94885}: нажмите на него правой кнопкой мыши, чтобы начать задание.\nОсторожно: {npc:256899}, элитный огр (41-й уровень), бродит по западным улицам ({area:16723}), около 44-47,47-52. Выманивайте культистов к себе и пропускайте его; здесь игроки гибли чаще, чем где-либо еще в зоне.\n{npc:263380}, речная элита (42-й уровень), может забрести с юго-западных полей: пропустите его.",
 	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} рыщет по отмели к юго-западу от порта, ниже пляжей мурлоков. {npc:257001} (элита) ходит по берегу неподалеку: держитесь от него подальше.",
+	-- ["the middle ship"] = "средний корабль",
+	-- ["the northern ship"] = "северный корабль",
 	-- ["the {object:707245} poster"] = "объявление «{object:707245}»",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028} – у NPC {npc:272437}",
+	-- ["{item:268505}, the southern ship"] = "{item:268505}, южный корабль",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} ждет у дороги к востоку от перевала.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} присматривает за старым собором в юго-западном углу локации {area:16724}. Летучие мыши гнездятся на его верхнем этаже; {npc:272437} раздает святые свечи рядом с ним; могилы – на кладбище у часовни.\n{npc:271742}, элита 53-го уровня, стоит в соборе: он вас не тронет, поэтому никогда не атакуйте его и уводите летучих мышей подальше от него.",
 	-- ["{object:621813}: bury the mementos"] = "{object:621813}: закопайте памятные вещи",

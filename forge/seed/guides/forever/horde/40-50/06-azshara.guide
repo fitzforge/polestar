@@ -108,8 +108,7 @@ step Kin'weelay
 
 step Saving Yenniku
   when group 591
-  collect 3913 quest 592.1 @39.0,58.4 map 1434 group 2
-  use 3912 quest 592.1 @39.0,58.4 map 1434
+  use 3912 quest 592.1 @39.0,58.4 map 1434 "Use the Soul Gem on Yenniku" -- while he is alive: the gem fills; don't kill him
 
 step Nimboya
   when group 591
