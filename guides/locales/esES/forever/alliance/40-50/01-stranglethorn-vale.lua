@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Spanish (Spain) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1445} Dustwallow Marsh · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{zone:1445} first, then {zone:1434} and the {zone:1435}."] = "Primero {zone:1445}, luego {zone:1434} y {zone:1435}.",
+
 	-- Step 1: Theramore
 	["Theramore"] = "Theramore",
 	-- {quest:1260} Morgan Stern · {npc:4897} Helenia Olden

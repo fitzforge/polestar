@@ -1,9 +1,10 @@
 guide forever/horde/40-50/05-the-hinterlands
-title The Hinterlands & Blasted Lands
+title The Hinterlands & Swamp of Sorrows
 faction Horde
 levels 49-50
 zone The Hinterlands
 next forever/horde/40-50/06-azshara
+pitch The Hinterlands first, then Stonard and the Blasted Lands.
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
 # visits 49-53, levels 47.6-49.5. Checked by lint, not play-tested on
 # Forever yet. Era + known Forever quests only.

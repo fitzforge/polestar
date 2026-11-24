@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1445} Dustwallow Marsh · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{zone:1445} first, then {zone:1434} and the {zone:1435}."] = "먼저 {zone:1445}, 그다음 {zone:1434}, {zone:1435} 순서입니다.",
+
 	-- Step 1: Theramore
 	["Theramore"] = "테라모어",
 	-- {quest:1260} Morgan Stern · {npc:4897} Helenia Olden

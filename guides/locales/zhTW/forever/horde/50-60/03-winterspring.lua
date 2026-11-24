@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (traditional) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1452} Winterspring · {zone:1448} Felwood · {zone:1444} Feralas · {zone:1456} Thunder Bluff
+	["{zone:1452} and {zone:1448}, then {zone:1444} and {zone:1456}."] = "{zone:1452}和{zone:1448}，然後是{zone:1444}和{zone:1456}。",
+
 	-- Step 1: Into Winterspring
 	-- {zone:1452} Winterspring
 	["Into {zone:1452}"] = "進入{zone:1452}",

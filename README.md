@@ -278,20 +278,20 @@ one guide for both factions.
 | 2 | Darkshore | 15 to 20 |
 | 3 | Loch Modan, Redridge Mountains & Westfall | 18 to 22 |
 | 4 | Darkshore | 21 to 23 |
-| 5 | Ashenvale, Wetlands & Stonetalon Mountains | 22 to 25 |
+| 5 | Ashenvale, Stonetalon Mountains & Wetlands | 22 to 25 |
 | 6 | Duskwood & Redridge Mountains | 24 to 27 |
 | 7 | Duskwood | 27 to 28 |
-| 8 | Wetlands, Ashenvale, Ironforge & Stormwind City | 27 to 30 |
+| 8 | Wetlands & Ashenvale | 27 to 30 |
 | 9 | Duskwood | 29 to 31 |
 | 10 | Wetlands & Hillsbrad Foothills | 30 to 32 |
 | 11 | Wetlands, Dustwallow Marsh & Thousand Needles | 31 to 33 |
 | 12 | Stranglethorn Vale | 32 to 34 |
 | 13 | Desolace | 33 to 35 |
 | 14 | Stranglethorn Vale | 35 to 36 |
-| 15 | Arathi Highlands, Alterac Mountains & Swamp of Sorrows | 35 to 37 |
+| 15 | Swamp of Sorrows, Hillsbrad Foothills, Alterac Mountains & Arathi Highlands | 35 to 37 |
 | 16 | Badlands | 37 to 38 |
 | 17 | Desolace | 38 to 39 |
-| 18 | Stranglethorn Vale, Dustwallow Marsh & Swamp of Sorrows | 39 to 41 |
+| 18 | Dustwallow Marsh, Stranglethorn Vale & Swamp of Sorrows | 39 to 41 |
 | 19 | **Riverglades** | 41 to 45 |
 | 20 | Badlands & The Hinterlands | 44 to 45 |
 | 21 | **Shen'dralas** | 45 to 46 |
@@ -299,13 +299,13 @@ one guide for both factions.
 | 23 | Tanaris | 46 to 48 |
 | 24 | The Hinterlands & Stranglethorn Vale | 47 to 48 |
 | 25 | Searing Gorge | 48 to 49 |
-| 26 | Un'Goro Crater | 49 to 50 |
-| 27 | Azshara, Western Plaguelands & Burning Steppes | 50 to 53 |
-| 28 | Felwood | 52 to 54 |
-| 29 | Winterspring & Eastern Plaguelands | 53 to 56 |
-| 30 | Western Plaguelands, Eastern Plaguelands, Feralas, Un'Goro Crater & Silithus | 55 to 58 |
+| 26 | Tanaris & Un'Goro Crater | 49 to 50 |
+| 27 | Western Plaguelands, Burning Steppes, Blasted Lands & Azshara | 50 to 53 |
+| 28 | Felwood & Feralas | 52 to 54 |
+| 29 | Winterspring, Felwood, Tanaris & Un'Goro Crater | 53 to 56 |
+| 30 | Western & Eastern Plaguelands | 55 to 58 |
 | 31 | **Mount Hyjal** | 57 to 59 |
-| 32 | Silithus, Felwood, Winterspring & the Plaguelands | 59 to 60 |
+| 32 | Silithus | 59 to 60 |
 
 **Horde, from Silverpine Forest**
 
@@ -325,19 +325,19 @@ one guide for both factions.
 | 12 | Badlands | 38 to 40 |
 | 13 | Stranglethorn Vale & Swamp of Sorrows | 39 to 42 |
 | 14 | **Riverglades** | 41 to 44 |
-| 15 | Feralas & Tanaris | 44 to 47 |
+| 15 | Stranglethorn Vale, Swamp of Sorrows, Tanaris & Feralas | 44 to 47 |
 | 16 | **Shen'dralas** | 46 to 47 |
-| 17 | Feralas, Dustwallow Marsh & Swamp of Sorrows | 46 to 48 |
+| 17 | Dustwallow Marsh | 46 to 48 |
 | 18 | Tanaris & Searing Gorge | 48 to 49 |
-| 19 | The Hinterlands & Blasted Lands | 49 to 51 |
-| 20 | Azshara, Feralas & Stranglethorn Vale | 50 to 51 |
-| 21 | Un'Goro Crater, Burning Steppes & Western Plaguelands | 51 to 53 |
-| 22 | Felwood & Western Plaguelands | 52 to 55 |
-| 23 | Winterspring | 55 to 56 |
-| 24 | Azshara & The Barrens | 55 to 56 |
-| 25 | Eastern Plaguelands, Winterspring & Tanaris | 56 to 57 |
+| 19 | The Hinterlands & Swamp of Sorrows | 49 to 51 |
+| 20 | Stranglethorn Vale, Azshara, Feralas & Tanaris | 50 to 51 |
+| 21 | Un'Goro Crater, Badlands, Searing Gorge & Burning Steppes | 51 to 53 |
+| 22 | Azshara & Felwood | 52 to 55 |
+| 23 | Winterspring & Felwood | 55 to 56 |
+| 24 | The Barrens & Western Plaguelands | 55 to 56 |
+| 25 | Western & Eastern Plaguelands & Felwood | 56 to 57 |
 | 26 | **Mount Hyjal** | 57 to 58 |
-| 27 | Silithus, Western Plaguelands & Eastern Plaguelands | 58 to 60 |
+| 27 | Tanaris, Un'Goro Crater & Silithus | 58 to 60 |
 | 28 | Felwood, Moonglade & Winterspring | 59 to 60 |
 
 Mount Hyjal, Forever's new endgame zone, comes in both routes before the
