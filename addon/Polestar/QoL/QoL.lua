@@ -364,12 +364,16 @@ end
 -- offer that the guide doesn't take holds nothing back: nobody picks it, so
 -- the helper would wait for good (#3088: Gadgetzan's innkeeper offers
 -- Overseas Delivery, off the route, at every level, and the bind never
--- came). One whose id the client doesn't give still counts.
-function QoL.HasQuestBusiness()
+-- came). One whose id the client doesn't give still counts. With `anyOffer`,
+-- every quest on offer counts (the flight map, #3428: a flight master's own
+-- quest, Ride to Orgrimmar at Devrak, stays in sight and the player picks
+-- the flight, one click).
+function QoL.HasQuestBusiness(anyOffer)
 	local G = C_GossipInfo
 	if not G then return false end
 	local n = G.GetNumAvailableQuests and G.GetNumAvailableQuests() or 0
 	if n > 0 then
+		if anyOffer then return true end
 		local list = G.GetAvailableQuests and G.GetAvailableQuests() or {}
 		if #list < n then return true end
 		local E = ns.Engine

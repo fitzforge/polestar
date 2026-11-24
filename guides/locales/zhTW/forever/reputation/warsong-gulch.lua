@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Warsong Gulch Reputation"] = "戰歌峽谷聲望",
-	["Flag captures and Marks of Honor raise it; Exalted gives a Legacy Point and epic bracers and legs."] = "",
-	["Master of Warsong Gulch: a Legacy Point at Exalted"] = "",
+	["Flag captures and Marks of Honor raise it; Exalted gives a Legacy Point and epic bracers and legs."] = "奪旗和榮譽獎章可提升聲望；崇拜可獲得1點傳承點數以及史詩護腕和腿甲。",
+	["Master of Warsong Gulch: a Legacy Point at Exalted"] = "戰歌峽谷大師：崇拜時獲得1點傳承點數",
 
 	-- Step 1: Sentinel Farsong
 	-- {zone:1460} Warsong Gulch · {npc:14733} Sentinel Farsong
@@ -26,7 +26,7 @@ return {
 	-- {faction:890} Silverwing Sentinels
 	["{faction:890} to Friendly"] = "{faction:890}到友好",
 	-- {npc:14733} Sentinel Farsong · {quest:8372} Fight for Warsong Gulch
-	["Neutral to Friendly is 3000 reputation. In Classic a 3-capture win paid 105, and its 3 marks bring 50 more at the Brigadier General: about 155 a win, so some 20 wins. Losses still pay 35 for each flag your team captured. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50, {npc:14733}'s one-mark quest and the Brigadier General's {quest:8372} come in a version for your bracket (from 20 and from 10): 200 once, then 100 and 50 per 3 marks."] = "",
+	["Neutral to Friendly is 3000 reputation. In Classic a 3-capture win paid 105, and its 3 marks bring 50 more at the Brigadier General: about 155 a win, so some 20 wins. Losses still pay 35 for each flag your team captured. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50, {npc:14733}'s one-mark quest and the Brigadier General's {quest:8372} come in a version for your bracket (from 20 and from 10): 200 once, then 100 and 50 per 3 marks."] = "中立到友善需要3000聲望。經典舊世中，以奪旗3次獲勝獎勵105，其3枚獎章在准將處還能換50：每勝約155，因此約需20勝。即使失敗，小隊每奪取一面旗幟仍獎勵35。無限未公佈戰場聲望倍率，因此場次數量僅供粗略參考。50級以下，{npc:14733}的單枚獎章任務和准將的{quest:8372}會提供對應等級段版本（分別從20級和10級起）：一次性200，之後每3枚獎章分別獎勵100和50。",
 	-- {npc:15351} Alliance Brigadier General · {quest:8372} Fight for Warsong Gulch
 	["{npc:15351}: {quest:8372} again, 50 reputation for 3 marks"] = "{npc:15351}：再次交{quest:8372}，3枚勳章換50聲望",
 
@@ -52,7 +52,7 @@ return {
 	-- {faction:890} Silverwing Sentinels
 	["{faction:890} to Exalted"] = "{faction:890}到崇拜",
 	-- {item:19546} Sentinel's Blade · {item:19554} Protector's Sword · {item:19562} Outrunner's Bow · {item:19570} Lorekeeper's Staff · {item:211498} Trainee's Sentinel Nightsaber
-	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19546} (dagger), {item:19554}, {item:19562} and {item:19570} (91s to 35g61s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the {item:211498} mount (level 25, 10g) with no standing listed."] = "",
+	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19546} (dagger), {item:19554}, {item:19562} and {item:19570} (91s to 35g61s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the {item:211498} mount (level 25, 10g) with no standing listed."] = "崇敬到崇拜需要21000聲望，約贏136場：佔整個過程的一半。崇敬時開放18到58級的武器：{item:19546}（匕首）、{item:19554}、{item:19562}和{item:19570}（91銀到35金61銀）。無限服軍需官還出售這四種武器的25級版本、20級頭部裝備（堅韌的布質頭帶、堅韌的皮甲面具或堅韌的鎖甲頭盔，各2金50銀），以及{item:211498}坐騎（25級，10金幣），未列出聲望要求。",
 	-- {npc:14753} Illiyana Moonblaze
 	["{npc:14753}: Revered rewards"] = "{npc:14753}：崇敬獎勵",
 
@@ -74,7 +74,7 @@ return {
 	-- {faction:889} Warsong Outriders
 	["{faction:889} to Friendly"] = "{faction:889}到友好",
 	-- {npc:14781} Captain Shatterskull · {quest:8368} Battle of Warsong Gulch
-	["Neutral to Friendly is 3000 reputation. In Classic a 3-capture win paid 105, and its 3 marks bring 50 more at the Warbringer: about 155 a win, so some 20 wins. Losses still pay 35 for each flag your team captured. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50, {npc:14781}'s one-mark quest and the Warbringer's {quest:8368} come in a version for your bracket (from 20 and from 10): 200 once, then 100 and 50 per 3 marks."] = "",
+	["Neutral to Friendly is 3000 reputation. In Classic a 3-capture win paid 105, and its 3 marks bring 50 more at the Warbringer: about 155 a win, so some 20 wins. Losses still pay 35 for each flag your team captured. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50, {npc:14781}'s one-mark quest and the Warbringer's {quest:8368} come in a version for your bracket (from 20 and from 10): 200 once, then 100 and 50 per 3 marks."] = "從中立到友善需要3000點聲望。經典版中，奪旗3次獲勝可得105點，3枚獎章交給戰爭使者還能獲得50點：每次勝利約155點，因此約需20勝。失敗時，己方每次成功奪旗仍可獲得35點。無限服尚未公佈戰場聲望倍率，因此場次只能作為粗略參考。50級以下時，{npc:14781} 的單枚獎章任務和戰爭使者的 {quest:8368} 會提供適合你等級段的版本（分別從20級和10級開始）：首次200點，之後每3枚獎章首次100點、後續每次50點。",
 	-- {npc:15350} Horde Warbringer · {quest:8368} Battle of Warsong Gulch
 	["{npc:15350}: {quest:8368} again, 50 reputation for 3 marks"] = "{npc:15350}：再次交{quest:8368}，3枚勳章換50聲望",
 
@@ -100,7 +100,7 @@ return {
 	-- {faction:889} Warsong Outriders
 	["{faction:889} to Exalted"] = "{faction:889}到崇拜",
 	-- {item:19542} Scout's Blade · {item:19550} Legionnaire's Sword · {item:19558} Outrider's Bow · {item:19566} Advisor's Gnarled Staff · {item:211499} Trainee's Outrider Wolf
-	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19542} (dagger), {item:19550}, {item:19558} and {item:19566} (91s to 35g9s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the {item:211499} mount (level 25, 10g) with no standing listed."] = "",
+	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19542} (dagger), {item:19550}, {item:19558} and {item:19566} (91s to 35g9s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the {item:211499} mount (level 25, 10g) with no standing listed."] = "崇敬到崇拜需要21000聲望，約136場勝利：佔整個提升過程的一半。崇敬後解鎖18至58級武器：{item:19542}（匕首）、{item:19550}、{item:19558}和{item:19566}（91銀至35金9銀）。無限的軍需官還出售這4種武器的25級版本、20級頭部裝備（堅韌的布質頭帶、堅韌的皮甲面具或堅韌的鎖甲頭盔，各2金50銀）及 {item:211499} 坐騎（25級，10金幣），未列出聲望等級要求。",
 	-- {npc:14754} Kelm Hargunth
 	["{npc:14754}: Revered rewards"] = "{npc:14754}：崇敬獎勵",
 

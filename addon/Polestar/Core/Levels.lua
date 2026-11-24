@@ -48,6 +48,8 @@
 --       what level a quest is; #3438)
 --   Levels.QuestLevel(qid[, g]) -> level | nil  -- guide g's own (an accept's
 --       qlvl), else the Codex's while loaded, else the client's
+--   Levels.LootKills(item, count) -> kills | nil  -- a loot objective's kills (as
+--       ForGuide counts them, no mob of its own; nil: no drop to estimate from)
 --   Levels.Player() -> p ; Levels.LEVEL_XP[L] -> XP from L to L + 1 ; Levels.MAX_LEVEL
 --   Levels.Share(playerLevel, questLevel) -> 1, 0.8, 0.6 or 0.5
 --   Levels.MobXP(playerLevel, mobLevel, elite) -> XP for one kill
@@ -252,6 +254,12 @@ local function lootKills(Cx, goal, count)
 	local mob, elite = mobOf(Cx, best.npc)
 	if not mob then return nil end
 	return ceil(count / (min(best.chance, 100) / 100)), mob, elite
+end
+
+function Levels.LootKills(item, count)
+	local Cx = ns.Codex
+	if not (Cx and Cx.Item and item) then return nil end
+	return (lootKills(Cx, { item = item, count = count }, count or 1))
 end
 
 -- A span's entries depend on the guide (its table: an updated import is a new one), the span, who the character is (level, class, race, faction:

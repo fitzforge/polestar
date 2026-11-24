@@ -235,6 +235,65 @@ fn the_guide_window_lists_the_finished_quests_no_route_hands_in_in_one_row_that_
 	assert_eq!(out["room"], json!([true, "Finished quests you're still carrying", "A Fishy Peril"]), "{out}");
 }
 
+// #3303: the Still to do rows have their own switch (guideWindow.stillToDo, on by default): off, neither the finished
+// quests' row nor a quest an update left behind shows, and with no other row the card goes; the finished quests are
+// still the guide menu's (RoutePlan.Carried, its Hand in finished quests); on again, both rows are back.
+#[test]
+fn the_still_to_do_rows_turn_off_with_their_switch_and_come_back_on() {
+	let out = run(r#"
+		local GF = Polestar.UI.GuideFrame
+		E.GetBehind = function() return { { quest = 33, title = "Wolves Across the Border", zone = "Elwynn Forest", yards = 240 } } end
+		local function card()
+			GF.Render(); flush()
+			local rows = {}
+			for _, x in ipairs(GF.alongRows) do
+				if x:IsShown() then rows[#rows + 1] = plain(x.Text:GetText()) end
+			end
+			return { rows = rows, n = #rows, shown = GF.parts.along:IsShown(), header = plain(GF.parts.along.Label:GetText()) }
+		end
+		local r = { default = Polestar.Get("guideWindow.stillToDo"), on = card() }
+		Polestar.Set("guideWindow.stillToDo", false)
+		r.off = card()
+		r.carried = #Polestar.RoutePlan.Carried()
+		Polestar.Set("guideWindow.stillToDo", true)
+		r.back = card()
+		emit(r)
+	"#);
+	assert_eq!(out["default"], true, "{out}");
+	assert_eq!(out["on"]["shown"], true, "{out}");
+	assert_eq!(out["on"]["header"], "Still to do", "{out}");
+	let rows = out["on"]["rows"].as_array().unwrap();
+	assert_eq!(rows.len(), 2, "{out}");
+	assert!(is_match(text(&rows[0]), r"^Still to do: .Wolves Across the Border., back in Elwynn Forest, "), "{out}");
+	assert_eq!(rows[1], "1 finished quest to hand in elsewhere (800 XP)", "{out}");
+	assert_eq!(out["off"]["shown"], false, "{out}");
+	assert_eq!(out["off"]["n"], 0, "{out}");
+	assert_eq!(out["carried"], 1, "the menu's list keeps them: {out}");
+	assert_eq!(out["back"], out["on"], "{out}");
+}
+
+// #3568 (LaboredGuineaPig), #3410 (Megabite): the row said 2 finished quests to hand in elsewhere while the list it
+// opened said the route hands in every one. The row was drawn with the step only, so a quest handed in off the step
+// (A Fishy Peril at Marshal Dughan) left it counting. RoutePlan says CARRIED_CHANGED and the row follows the list.
+#[test]
+fn the_carried_row_follows_a_quest_handed_in_off_the_step_and_agrees_with_its_list_3568() {
+	let out = run(r#"
+		local GF = Polestar.UI.GuideFrame
+		GF.Render(); flush()
+		local function row()
+			for _, x in ipairs(GF.alongRows) do
+				if x:IsShown() and x.psCarried then return plain(x.Text:GetText()) end
+			end
+			return false
+		end
+		local r = { before = row() }
+		w.turnIn(40); stub.fire("QUEST_LOG_UPDATE"); flush(); stub.advance(1.2)
+		r.after, r.list = row(), #Polestar.RoutePlan.Carried()
+		emit(r)
+	"#);
+	assert_eq!(out, json!({ "before": "1 finished quest to hand in elsewhere (800 XP)", "after": false, "list": 0 }));
+}
+
 // A kill that ticks an objective (#2555): the client's burst (the quest log three times, the objective, XP, loot)
 // is one evaluation, one step update and one tab update, and the row above is drawn again from the route plan as
 // it stands: the plan is not rebuilt, so no walk over every registered guide (Guides.List from RoutePlan). A quest

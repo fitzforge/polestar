@@ -33,8 +33,6 @@ step Swamp of Sorrows
   goto 46.1,54.7 "Stonard"
 
 step Fly to Booty Bay
-  zone Swamp of Sorrows
-  goto 46.1,54.7 "Stonard flight master"
   fly "Booty Bay"
   zone Stranglethorn Vale
 
@@ -46,9 +44,13 @@ step Booty Bay
   turnin 836 optional
   turnin 648 optional
   turnin 3721 direct optional
-  turnin 580                          -- Whiskey Slim, in the inn
   turnin 2874                         -- "Sea Wolf" MacKinley, on the top floor: Stoley's shipment from Tanaris
   accept 608                          -- Fleet Master Seahorn, on the balcony of the same building
+
+step Whiskey Slim
+  when complete 580
+  tip Whiskey Slim sits in the Booty Bay inn.
+  turnin 580                          -- Whiskey Slim, in the inn
 
 step The Bloodsail ships
   tip South of Booty Bay, three Bloodsail ships lie off the Wild Shore: Captain Stillwater, Captain Keelhaul and Fleet Master Firallon each stand on a deck with their crews. Swim out and work from ship to ship.
@@ -88,6 +90,7 @@ step Fly to Grom'gol
   fly "Grom'gol"
 
 step Grom'gol Base Camp
+  when complete 2932
   tip The flight lands at Grom'gol Base Camp; Nimboya stands by the Bubbling Cauldron.
   turnin 2932                         -- Nimboya
 
@@ -108,8 +111,7 @@ step Kin'weelay
 
 step Saving Yenniku
   when group 591
-  collect 3913 quest 592.1 @39.0,58.4 map 1434 group 2
-  use 3912 quest 592.1 @39.0,58.4 map 1434
+  use 3912 quest 592.1 @39.0,58.4 map 1434 "Use the Soul Gem on Yenniku" -- while he is alive: the gem fills; don't kill him
 
 step Nimboya
   when group 591
@@ -232,9 +234,13 @@ step Fly to Camp Mojache
   fly "Camp Mojache"
   zone Feralas
 
+step Witch Doctor Uzer'i
+  when complete 3123
+  zone Feralas
+  turnin 3123                         -- Witch Doctor Uzer'i
+
 step Camp Mojache
   sethome "Camp Mojache"
-  turnin 3123                         -- Witch Doctor Uzer'i
   accept 3124
   accept 3128                         -- Witch Doctor Uzer'i, if you don't carry it yet: the materials come on this loop
   accept 3380
@@ -367,9 +373,14 @@ step Alchemist Pestlezugg
   when available 4496
   accept 4496                         -- Alchemist Pestlezugg, inside
 
+step Sprinkle
+  zone Tanaris
+  when complete 2641
+  turnin 2641                         -- Sprinkle
+
 step Gadgetzan
   zone Tanaris
-  turnin 2641                         -- Sprinkle
+  tip Gadgetzan's Auction House is the last one before Un'Goro. There, A-Me 01 (Chasing A-Me 01) asks for a Mithril Casing, an Engineering item, before her escort: buy one here if you want that chain.
   accept 2661
   accept 4504                         -- Tran'rek, beside the wind rider master
   sethome "Gadgetzan"

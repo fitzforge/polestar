@@ -34,6 +34,7 @@ Pets1.lua
 Npcs1.lua
 Rares1.lua
 Roles1.lua
+Professions1.lua
 Objects1.lua
 Treasures1.lua
 Quests1.lua

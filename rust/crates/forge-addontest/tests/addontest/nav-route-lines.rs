@@ -289,6 +289,16 @@ Polestar.Set("nav.navRouting", false) -- The painters draw a direct walk on this
 -- The dots style, drawn at once: the line style and the draw-in have tests of their own below.
 Polestar.Set("nav.lineStyle", "dots")
 Polestar.Set("ui.reduceMotion", true)
+-- With navRouting off the walks are drawn straight, no walking path known (`straight`), which every style dashes
+-- (#3418, the strokes' own test below): these scenes paint them as found walks.
+do
+	local geometry = N.GetRouteGeometry
+	N.GetRouteGeometry = function(...)
+		local g = geometry(...)
+		for _, l in ipairs(type(g) == "table" and g.legs or {}) do l.straight = nil end
+		return g
+	end
+end
 local function target(wx, wy)
 	local m, x, y = nav.mapPoint(wx, wy)
 	N.SetTarget(m, x, y, "Target")
@@ -345,6 +355,58 @@ fn the_painters_draw_the_route_on_the_world_map_and_the_minimap_and_stand_in_for
 	assert_eq!(out["offTrail"], true, "and the trail is back");
 	assert_eq!(out["backTrail"], false);
 	assert!(f(&out["backWorld"]) > 10.0);
+}
+
+// #3828 (flep): the route line is a switch of its own. Only the arrow's samples asked for the walk to a new target,
+// so with the arrow off the line stayed until the next step, then nothing was drawn. Now, arrow off: the walk to
+// each step's goal is asked and drawn; with the lines off as well, nothing is asked.
+#[test]
+fn with_the_arrow_off_the_walk_to_each_new_step_is_asked_and_its_line_drawn() {
+	let out = painted(
+		r#"
+		Polestar.Set("nav.travel", false)
+		Polestar.Set("nav.navRouting", true)
+		Polestar.Set("nav.arrow", false)
+		local asked = {}
+		N.Path = { Find = function(_, from, to, done)
+			local job = { from = from, to = to, done = done }
+			asked[#asked + 1] = job
+			return job
+		end, Cancel = function() end }
+		local function answer()
+			local job = asked[#asked]
+			if job then job.done({ job.from, job.to }, 600, { walkChecked = true }) end
+		end
+		local function step(i, wx, wy)
+			local m, x, y = nav.mapPoint(wx, wy)
+			nav.changeStep(i, { map = m, x = x, y = y, label = "Step " .. i, stepIndex = i, goalIndex = 1, kind = "goto", r = 8 })
+		end
+		local function to() local job = asked[#asked]; return job and { math.floor(job.to.x + 0.5), math.floor(job.to.y + 0.5) } or false end
+		nav.place(0, 0)
+		nav.showWorldMap(9000)
+		step(1, 0, -600)
+		stub.advance(0.6)
+		local first = { asked = #asked, to = to() }
+		answer()
+		stub.advance(0.6)
+		first.world = R.GetStrokes("world").n
+		step(2, 600, 0)
+		stub.advance(0.6)
+		local second = { asked = #asked, to = to() }
+		answer()
+		stub.advance(0.6)
+		second.world, second.paths, second.arrow = R.GetStrokes("world").n, #R.GetPaths(), N.arrow.frame:IsShown() and true or false
+		Polestar.Set("nav.routeLines", false)
+		step(3, -600, 0)
+		stub.advance(0.6)
+		emit({ first = first, second = second, linesOff = #asked })"#,
+	);
+	assert_eq!(json!([&out["first"]["asked"], &out["first"]["to"]]), json!([1, [0, -600]]), "the first step's walk is asked: {out}");
+	assert!(f(&out["first"]["world"]) > 10.0, "and drawn: {out}");
+	assert_eq!(json!([&out["second"]["asked"], &out["second"]["to"]]), json!([2, [600, 0]]), "the next step's walk is asked too: {out}");
+	assert!(f(&out["second"]["world"]) > 10.0 && out["second"]["paths"] == 1, "and drawn: {out}");
+	assert_eq!(out["second"]["arrow"], false, "the arrow stays off");
+	assert_eq!(out["linesOff"], 2, "the lines off too: no walk asked");
 }
 
 #[test]
@@ -1054,8 +1116,11 @@ fn line_style_the_walked_stretch_fades_out_behind_the_player_over_the_tail_the_w
 	assert!((330.0..=340.0).contains(&reach), "the tail ends about 120 px behind ({reach})");
 }
 
+// #3418: the arrow's straight fallback where no walk was found (#3409) must never read as a found walk. A walk with no
+// walking path known is the line style's paler dashes in every style: the dots draw it as those dashes, not as dots,
+// on the world map and the minimap; the sparkles give it no sparkles (Maps/RouteLines.lua draws it dashed over them).
 #[test]
-fn line_style_a_walk_with_no_walking_path_known_is_dashed_and_paler_the_dots_style_keeps_its_dots() {
+fn a_walk_with_no_walking_path_known_is_dashed_and_paler_in_every_style_3418() {
 	let out = strokes(
 		r#"
 		local pts = { { 0, 500, 100 }, { 0, 500, 700 } }
@@ -1066,14 +1131,39 @@ fn line_style_a_walk_with_no_walking_path_known_is_dashed_and_paler_the_dots_sty
 		S.Map(b, { known }, view({ style = "line" }))
 		S.Map(c, { guess }, view())
 		S.Map(d, { known }, view())
-		emit({ guess = list(a), known = list(b), dotsGuess = list(c), dots = list(d), flag = guess.guess })"#,
+		local mv = { c = 0, x = 500, y = 400, radius = 400, facing = 0, width = 200, height = 200, scale = 1, colors = COLORS }
+		local e, g = S.New(), S.New()
+		S.Minimap(e, { guess }, mv)
+		S.Minimap(g, { known }, mv)
+		emit({ guess = list(a), known = list(b), dotsGuess = list(c), dots = list(d), mmGuess = list(e), mmDots = list(g), flag = guess.guess })"#,
 	);
 	assert_eq!(out["flag"], true);
 	let guess = arr(&out["guess"]);
 	assert!(guess.len() > 20, "dashed: {} dashes", guess.len());
-	assert!(guess.iter().all(|s| near(f(&s["alpha"]), 0.55) && truthy(&s["soft"]) && f(&s["len"]) <= 2.0 * DASH + 1e-6), "paler dashes as thick as the line");
+	let dashed = |l: &Vec<Value>| l.iter().all(|s| near(f(&s["alpha"]), 0.55) && truthy(&s["soft"]) && !truthy(&s["dot"]) && f(&s["len"]) <= 2.0 * DASH + 1e-6);
+	assert!(dashed(guess), "paler dashes as thick as the line");
 	assert_eq!(arr(&out["known"]).iter().filter(|s| truthy(&s["soft"])).count(), 1, "a known path: one line");
-	assert_eq!(out["dotsGuess"], out["dots"], "the dots look the same either way");
+	assert_eq!(out["dotsGuess"], out["guess"], "the dots style draws it as the same dashes");
+	assert!(arr(&out["dots"]).iter().all(|s| truthy(&s["dot"])), "a known path in the dots style: dots");
+	let mm = arr(&out["mmGuess"]);
+	assert!(!mm.is_empty() && dashed(mm), "the minimap too: {mm:?}");
+	assert!(arr(&out["mmDots"]).iter().all(|s| truthy(&s["dot"])), "a known path on the minimap: dots");
+}
+
+#[test]
+fn the_sparkles_leave_out_a_walk_with_no_walking_path_known_3418() {
+	let out = emitted(&RunAddon {
+		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Maps/RouteStrokes.lua", "Maps/RouteSparkle.lua"])],
+		script: r#"
+		local S, K = Polestar.RouteStrokes, Polestar.RouteSparkle
+		local pts = { { 0, 500, 100 }, { 0, 500, 700 } }
+		local runs = K.Paths({ S.Path("walk", pts, false, nil, nil, true), S.Path("walk", { { 0, 600, 100 }, { 0, 600, 700 } }, false) }, true)
+		emit({ n = #runs, x = runs[1] and runs[1].xs[1] })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out, json!({ "n": 1, "x": 600 }), "only the found walk sparkles");
 }
 
 #[test]

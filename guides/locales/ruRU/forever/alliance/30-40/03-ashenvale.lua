@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Летите сюда: {area:150}",
-	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "Распорядитель полетов: {zone:1453}",
 
 	-- Step 2: Red Jack Flint
 	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
@@ -210,4 +208,5 @@ return {
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}, {npc:4963} и {npc:4962} — все в таверне Менетила; Тапоке нападает, когда вы говорите с NPC {npc:4963}, но сдается после поражения. {npc:1480} стоит недалеко к северо-востоку от таверны.",
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868} разбросаны по всей равнине. Скорпиды-разорители и солончаковые падальщики бродят в северной половине, блестопанцирные черепахи (30-31) – в середине равнины: бейте их ради панцирей. Осторожно: блестопанцирные крепкохваты (34-35) бродят по всей равнине, а просоленные взорени (34-35) и скорпиды-убийцы (33-34) держат дальний юг: не трогайте их и держитесь северной половины.",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: для NPC {npc:3961} ({area:415})",
+	-- ["{zone:1453} flight master"] = "Распорядитель полетов: {zone:1453}",
 }

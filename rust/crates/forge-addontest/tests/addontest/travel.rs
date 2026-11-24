@@ -353,6 +353,31 @@ fn issue_1603_a_measured_road_walk_never_beats_a_faster_flight_and_a_near_tie_wa
 	assert_eq!(out["slope"], json!(["fly|59", "walk|4"]));
 }
 
+// #3482 (Buzzbox 827 in Auberdine, 20 yd off on the pier no walk reaches): with no walk from the player to the target
+// (the engine found none: noDirect), the player's straight walk was left out and a detour ending in a walk nobody
+// measured won: by the flight master and a flight, its last walk priced straight from the landing. An unmeasured walk
+// into the target now costs at least the player's own straight walk (x1.25), which is offered at that price: a goal
+// 20 yd off is walked to; a far one is flown to only where the landing's walk into it was measured.
+#[test]
+fn with_no_walk_from_the_player_an_unmeasured_last_walk_never_beats_walking_straight_at_the_target_3482() {
+	let out = run(r#"
+		local function plan(from, to, landing)
+			local legs = N.PlanRoute({ c = 0, wx = 0, wy = from, faction = 1, level = nav.level, known = { [1] = true, [2] = true }, speed = 7,
+				target = { c = 0, wx = 0, wy = to, label = "Buzzbox" }, noDirect = true,
+				walkCost = function(_, x, y, start)
+					if start then return false end
+					if landing and x == 0 and y == -800 then return landing, landing end
+				end })
+			local out = {}
+			for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind end
+			return table.concat(out, " ")
+		end
+		emit({ near = plan(600, 580), farMeasured = plan(700, -780, 20), farUnmeasured = plan(700, -780) })"#);
+	assert_eq!(out["near"], "walk", "20 yd off: walked to, no detour");
+	assert_eq!(out["farMeasured"], "walk fly walk", "a flight whose landing's walk in was measured still wins");
+	assert_eq!(out["farUnmeasured"], "walk", "an unmeasured last walk never wins over walking at it");
+}
+
 #[test]
 fn never_flies_through_a_node_the_character_does_not_know_or_cannot_use() {
 	let out = run(r#"
@@ -700,11 +725,12 @@ fn flight_masters_not_known_count_as_missing_only_once_a_flight_map_opened_on_th
 	assert_eq!(out["listed"], json!(""), "listed: known (the Horde's roost is never one to learn)");
 }
 
-// A character that opened a flight map on a continent before the seen continents were kept keeps its lines: they
-// start, once, from the flight paths it already knows (each came from a flight map there). One that knows none starts
-// with none.
+// Only a flight map marks a continent seen (#3632, #3062, "it keeps forgetting the person has a flight path"): a flight
+// path known some other way (here West Hold, from a landing or a lost save restored in part) leaves the continent
+// unseen, so East Hold is one the character may have, never one to walk to and learn. Until 0.4.3 the seen continents
+// were made from the known nodes, and that one node made every other flight master there missing.
 #[test]
-fn the_seen_continents_start_from_the_flight_paths_already_known_1795() {
+fn a_continent_is_seen_only_once_a_flight_map_opened_there_not_from_a_node_known_otherwise_3632() {
 	let run_saved = |saved: &str| -> Value {
 		emitted(&RunAddon {
 			stubs: vec!["stub_nav.lua"],
@@ -716,7 +742,7 @@ fn the_seen_continents_start_from_the_flight_paths_already_known_1795() {
 				r#"
 				local ids = {}
 				for _, node in ipairs(N.UnknownTaxiOn(0, {})) do ids[#ids + 1] = node.id end
-				emit({ seen = N.GetTaxiSeen()[0] == true, unknown = table.concat(ids, ","), kept = Polestar.CharState().flags.taxiSeen ~= nil })"#
+				emit({ seen = N.GetTaxiSeen()[0] == true, unknown = table.concat(ids, ","), maybe = N.TaxiMaybe(2) })"#
 			),
 			..Default::default()
 		})
@@ -724,15 +750,101 @@ fn the_seen_continents_start_from_the_flight_paths_already_known_1795() {
 	};
 	assert_eq!(
 		run_saved("PolestarCharDB = { schema = 1, flags = { taxi = { [1] = true } } }"),
-		json!({ "seen": true, "unknown": "2", "kept": true }),
-		"West Hold known: a flight map opened on its continent"
+		json!({ "seen": false, "unknown": "", "maybe": true }),
+		"West Hold known without a flight map: East Hold may be known"
 	);
-	assert_eq!(run_saved("PolestarCharDB = { schema = 1 }"), json!({ "seen": false, "unknown": "", "kept": true }));
+	assert_eq!(
+		run_saved("PolestarCharDB = { schema = 1, flags = { taxi = { [1] = true }, taxiSeen = { [0] = true } } }"),
+		json!({ "seen": true, "unknown": "2", "maybe": false }),
+		"a flight map opened there before: East Hold missing, as before"
+	);
+}
+
+// A flight lands at a flight master the character has: known (Travel.Landed), whatever the saved data said.
+#[test]
+fn a_landing_marks_its_flight_master_known_3632() {
+	let out = run(r#"
+		known(1)
+		nav.place(0, 600)
+		target(0, -780, "Kobolds")
+		nav.place(0, 790)
+		nav.taxi = true
+		stub.advance(1.5)
+		nav.place(0, -795)
+		nav.taxi = false
+		stub.advance(1.5)
+		emit({ east = Polestar.CharState().flags.taxi[2] == true })"#);
+	assert_eq!(out["east"], true);
+}
+
+// The known flight paths live twice: in the character's saved data and account-wide by character
+// (PolestarFlightsDB["Name-Realm"], its own file). A lost or reset PolestarCharDB keeps them from the second copy.
+#[test]
+fn the_known_flight_paths_survive_a_lost_character_save_from_the_account_wide_copy_3632() {
+	let run_saved = |saved: &str| -> Value {
+		emitted(&RunAddon {
+			stubs: vec!["stub_nav.lua"],
+			addons: vec![nav()],
+			saved: vec![("Polestar".into(), saved.into())],
+			login: true,
+			script: format!(
+				"{PRELUDE}\nnav.faction = \"Alliance\"\nnav.useTravelWorld(nil)\n{}",
+				r#"
+				local flags = Polestar.CharState().flags
+				local m = PolestarFlightsDB and PolestarFlightsDB["Testchar-Test Realm"]
+				emit({ east = flags.taxi[2] == true, seen = flags.taxiSeen[0] == true, mirrored = m ~= nil and m.known == flags.taxi })"#
+			),
+			..Default::default()
+		})
+		.remove(0)
+	};
+	assert_eq!(
+		run_saved(
+			r#"PolestarCharDB = { schema = 1 }
+PolestarFlightsDB = { ["Testchar-Test Realm"] = { known = { [2] = true }, seen = { [0] = true } } }"#
+		),
+		json!({ "east": true, "seen": true, "mirrored": true }),
+		"the character's save lost: the account-wide copy fills it"
+	);
+	assert_eq!(run_saved("PolestarCharDB = { schema = 1, flags = { taxi = { [2] = true } } }"), json!({ "east": true, "seen": false, "mirrored": true }), "no copy yet: made from the character's");
+}
+
+// A flight map forgets a known flight path only where it proves it missing: a node one flight from one it lists, on its
+// continent, that it doesn't list (#3290: known nodes were only ever added). The other faction's stays.
+#[test]
+fn a_flight_map_forgets_a_known_node_one_flight_from_a_listed_one_that_it_does_not_list_3290() {
+	let out = run(r#"
+		known(1, 2, 3)
+		nav.taxiMap = { mapID = 1415, nodes = { 1 } }
+		stub.fire("TAXIMAP_OPENED", 1)
+		local t = Polestar.CharState().flags.taxi
+		emit({ west = t[1] == true, east = t[2] == true, third = t[3] == true })"#);
+	assert_eq!(out["west"], true);
+	assert_eq!(out["east"], false, "one flight from West Hold, not listed: missing");
+	assert_eq!(out["third"], true, "the Horde roost: not this character's, not the map's to say");
+}
+
+// A long walk a flight would beat with a flight path Polestar doesn't know of (a flight map opened there, East Hold not
+// on it): the walk stands, and Nav.FlightHint names East Hold ("Faster if you have the flight path at East Hold").
+#[test]
+fn a_long_walk_a_flight_would_beat_names_the_flight_path_it_would_need() {
+	let out = run(r#"
+		known(1)
+		nav.place(0, 600)
+		target(0, -780, "Kobolds")
+		local walk, hint = route(), N.FlightHint()
+		known(1, 2)
+		target(0, -780, "Kobolds")
+		emit({ walk = walk, flown = route(), hint = hint and hint.name or false, after = N.FlightHint() and N.FlightHint().name or false })"#);
+	assert_eq!(out["walk"], json!(["walk|Kobolds"]), "{out}");
+	assert_eq!(out["flown"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]), "{out}");
+	assert_eq!(out["hint"], "East Hold, Testshire", "{out}");
+	assert_eq!(out["after"], false, "known: flown, no hint");
 }
 
 // #1795, the plan: on a continent where no flight map has opened yet for this character, a flight master Polestar
 // doesn't know may be one the character learnt before Polestar ran. The plan flies there like a known one (each
-// landing there costing 60 s more, never forbidden) and the leg says so (`maybe`); Auberdine to Astranaar is this,
+// landing there costing 15 s more, never forbidden) and the leg says so (`maybe`); Auberdine to Astranaar is this,
 // here West Hold to East Hold. Once a flight map has opened on that continent without East Hold, the character lacks
 // it: walked, as before.
 #[test]
@@ -755,6 +867,26 @@ fn an_unseen_continent_plans_a_flight_to_a_flight_master_the_player_may_have_179
 	assert_eq!(out["unseen"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]));
 	assert_eq!(out["maybe"], true, "the flight lands where the player may not have the flight path");
 	assert_eq!(out["seen"], json!(["walk|Kobolds"]), "a flight map opened there without East Hold: walked");
+}
+
+// Fitz's example: on a continent no flight map has opened on, a flight master 50 yd away the character may never have
+// visited and a goal 200 yd past another one: the plan walks the 50 yd, learns the flight path there (if it is new) and
+// flies to the assumed one, never the 1,700 yd walk; the leg says to learn it. With the near one known: just the flight.
+#[test]
+fn an_unseen_continent_walks_to_the_near_flight_master_learns_it_and_flies_to_the_assumed_one() {
+	let out = run(r#"
+		local flags = Polestar.CharState().flags
+		known()
+		flags.taxiSeen = {}
+		nav.place(0, 740)
+		target(0, -1000, "Kobolds")
+		local r = { fresh = route() }
+		known(1)
+		target(0, -1000, "Kobolds")
+		r.startKnown = route()
+		emit(r)"#);
+	assert_eq!(out["fresh"], json!(["walk|Walk to the flight master", "fly|Learn the flight path at West Hold, then fly to East Hold", "walk|Kobolds"]), "{out}");
+	assert_eq!(out["startKnown"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]), "{out}");
 }
 
 // The first flight map on that continent settles it, even when it adds no flight path: West Hold's map, without East
@@ -1089,6 +1221,53 @@ fn a_boat_end_with_a_board_point_the_walk_ends_on_the_deck_and_arriving_there_bo
 	assert_eq!(out["atDeck"], json!([2, "boat|Take the boat to Testshire Docks"]), "at the deck: the ride");
 	assert_eq!(out["sailing"], json!([2, "boat|Take the boat to Testshire Docks"]), "boarded at the deck: sailing away is the ride, no new plan");
 	assert_eq!(out["landed"], json!(["walk|Docks quest"]));
+}
+
+// #3538: a boat, zeppelin or airship is ridden like a flight. Boarded at the deck, the leg reads "Take the boat to
+// X" with the departure; once the ship is under way (off the deck, carried or past LEAVE) it reads "Riding the boat to
+// X", the arrow aims at the far dock (not back at the one left), and the time left is the ride's own (60 s here) from
+// there, its wait over. Walking about the deck before it leaves changes nothing.
+#[test]
+fn under_way_the_ride_says_where_it_goes_aims_at_the_far_dock_and_counts_the_ride_down_3538() {
+	let out = run(r#"
+		N.RegisterTravelData({ build = "test", taxi = {}, flights = {}, inns = {},
+			transports = { { id = "boat-test", kind = "boat", faction = 3, ab = 60, ba = 60, waitA = 30, waitB = 30,
+				a = { "Testshire Docks", 0, -900, 0, 9000, 50, 95, "e", nil, { wx = -900, wy = 70, z = 5.9 } },
+				b = { "Farland Pier", 1, 400, 0, 9001, 50, 10, "e", nil, { wx = 400, wy = 70, z = 4.5 } } } } }, true)
+		local T = N.travel
+		local r = {}
+		nav.place(0, 0, 1)
+		target(-800, 100, "Docks quest")
+		stub.advance(0.2)
+		local function now()
+			local mode, c, x, y = T.Aim(Polestar.Compat.GetPlayerWorldPosition())
+			local legs, ci = N.GetRoute()
+			return { ci, T.CurrentLabel(), mode, c, x, y, math.floor(T.Remaining() + 0.5) - legs[#legs].seconds }
+		end
+		nav.place(400, 70, 1)                            -- on the deck
+		stub.advance(0.2)
+		r.deck = now()
+		nav.place(390, 100, 1)                           -- walking about the deck, 30 yd off: not under way
+		stub.advance(0.2)
+		r.about = now()
+		nav.place(250, 70, 1)                            -- under way: 150 yd out
+		stub.advance(1.2)
+		r.underway = now()
+		nav.place(-500, 70)                              -- the other continent, nearing Testshire
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		stub.advance(1.2)
+		r.nearing = now()
+		emit(r)"#);
+	let label = |v: &Value| v[1].as_str().unwrap().split('\n').next().unwrap().to_string();
+	assert_eq!(out["deck"][0], 2);
+	assert_eq!(label(&out["deck"]), "Take the boat to Testshire Docks", "at the deck: take the boat");
+	assert_eq!(json!([out["deck"][3], out["deck"][4], out["deck"][5]]), json!([1, 400, 70]), "the arrow at the deck boarded");
+	assert_eq!(label(&out["about"]), "Take the boat to Testshire Docks", "about the deck: still waiting");
+	assert_eq!(out["underway"][1], "Riding the boat to Testshire Docks");
+	assert_eq!(json!([out["underway"][2], out["underway"][3], out["underway"][4], out["underway"][5]]), json!(["instruction", 0, -900, 70]), "the arrow at the far dock");
+	let left = out["underway"][6].as_i64().unwrap();
+	assert!((58..=60).contains(&left), "the ride's own 60 s from here, its wait over: {left}");
+	assert_eq!(out["nearing"][1], "Riding the boat to Testshire Docks", "still the ride across the loading screen");
 }
 
 // Igotthis rode the Deeprun Tram toward Duskwood and the arrow vanished: the tram is a map of its own (Map 369,

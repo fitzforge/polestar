@@ -14,14 +14,14 @@ return {
 	["Each robot starts with a distress beacon that mobs in its zone drop, about one kill in 40 to 100 in Classic's data. In {zone:1444} the best are the Coast Crawl Snapclaws and Deepseers (levels 43-45) on the {area:1108} and the Sprite Dragons (47-48), about 2.5%; ogres, harpies, naga and Grimtotems drop it about 1%. You can loot it from level 40."] = "每個機器人一開始都要靠其所在地區的怪物掉落遇難信標，按經典舊世的資料約40到100殺掉一個。在{zone:1444}，最好的是{area:1108}的海岸爬行鉗爪者和深海先知（43-45級）以及精靈龍（47-48級），約2.5%；食人魔、鷹身人、納迦和恐怖圖騰約1%。40級起就能拾取。",
 
 	-- Step 2: OOX-22/FE's beacon
-	["OOX-22/FE's beacon"] = "",
+	["OOX-22/FE's beacon"] = "OOX-22/FE定位器",
 	-- {quest:2766} Find OOX-22/FE!
-	["Right-click the beacon: it starts {quest:2766}"] = "",
+	["Right-click the beacon: it starts {quest:2766}"] = "右鍵點選定位器：它會開啟{quest:2766}",
 
 	-- Step 3: Rescue OOX-22/FE
 	["Rescue OOX-22/FE"] = "拯救OOX-22/FE",
 	-- {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
-	["OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later."] = "",
+	["OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later."] = "右鍵點選定位器。OOX-22/FE 在 {area:1105} 附近的洞穴中，周圍是雪人和猿。護送路線沿道路向西，到 {area:1108} 的碼頭，途中有三次伏擊：先是三隻雪人，再是三隻大猩猩，最後是四五隻豺狼人，其中有施法者。低於 47 級就帶位朋友。機器人只要沒被攻擊就會一直走，注意跟緊；如果它不肯動，說明其他玩家正在護送，等它回來。任務在 {area:35} 交還，先留著以後再交。",
 	["Escort OOX-22/FE"] = "護送OOX-22/FE",
 
 	-- Step 4: OOX-17/TN Distress Beacon in Tanaris
@@ -32,9 +32,9 @@ return {
 	["{zone:1446} mobs drop OOX-17/TN's beacon about one kill in 50 to 150. Best: the Treasure Hunting Pirates and Buccaneers on the south shore (44-45) and the Ground Pounders in the north (41-43), about 2%. You can loot it from level 43."] = "{zone:1446}的怪物約50到150殺掉一次OOX-17/TN的信標。最好的是南岸的尋寶海盜和劫掠者（44-45級）以及北部的重擊者（41-43級），約2%。43級起就能拾取。",
 
 	-- Step 5: OOX-17/TN's beacon
-	["OOX-17/TN's beacon"] = "",
+	["OOX-17/TN's beacon"] = "OOX-17/TN定位器",
 	-- {quest:351} Find OOX-17/TN!
-	["Right-click the beacon: it starts {quest:351}"] = "",
+	["Right-click the beacon: it starts {quest:351}"] = "右鍵點選定位器：它會開啟{quest:351}",
 
 	-- Step 6: Rescue OOX-17/TN
 	["Rescue OOX-17/TN"] = "拯救OOX-17/TN",
@@ -49,9 +49,9 @@ return {
 	["Most {zone:1425} mobs drop OOX-09/HL's beacon about once in 100 kills: Silvermane wolves, owlbeasts, Highvale elves, Witherbark and Vilebranch trolls. You can loot it from level 43."] = "{zone:1425}的大多數怪物約100殺掉一次OOX-09/HL的信標：銀鬃狼、貓頭鷹獸、高谷精靈、枯木和邪枝食人妖。43級起就能拾取。",
 
 	-- Step 8: OOX-09/HL's beacon
-	["OOX-09/HL's beacon"] = "",
+	["OOX-09/HL's beacon"] = "OOX-09/HL定位器",
 	-- {quest:485} Find OOX-09/HL!
-	["Right-click the beacon: it starts {quest:485}"] = "",
+	["Right-click the beacon: it starts {quest:485}"] = "右鍵點選定位器：它會開啟{quest:485}",
 
 	-- Step 9: Rescue OOX-09/HL
 	["Rescue OOX-09/HL"] = "拯救OOX-09/HL",

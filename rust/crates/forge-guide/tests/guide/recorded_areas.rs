@@ -21,7 +21,8 @@ const MULGORE_FOREVER: &str = r#""1412":{"c":1,"left":2479.167,"right":-3675,"to
 /// The Barrens with Trouble in the Valley (95621: Benedict's Orders from Corporal Adamore's seven spawns about
 /// one camp), a quest whose drops spawn far from where players get them (92553: the Hatchling's mobs at
 /// 60,60), sacks of oats at three farms 300 yd apart (95705), and Mulgore (both frames) with Galak centaurs away
-/// from where players kill them (99080) and Galak outrunners in one small camp (99081).
+/// from where players kill them (99080) and Galak outrunners in one small camp (99081), and Razormane Seers'
+/// wands at Blackthorn Ridge (893), whose giver stands at Camp Taurajo.
 fn data() -> Data {
 	let mut t: FxHashMap<String, String> = FxHashMap::default();
 	t.insert("zones".into(), r#"{"1413":{"id":1413,"name":"The Barrens","areaId":17,"type":3},"1412":{"id":1412,"name":"Mulgore","areaId":215,"type":3}}"#.into());
@@ -38,7 +39,8 @@ fn data() -> Data {
 		"95705":{"id":95705,"title":"Oats","level":12,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"item","id":8888,"count":8}]},
 		"99080":{"id":99080,"title":"Galak","level":8,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"kill","id":2967,"count":6}]},
 		"99081":{"id":99081,"title":"Outrunners","level":8,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"kill","id":2968,"count":4}]},
-		"95706":{"id":95706,"title":"Bear Tongues","level":18,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"item","id":9501,"count":10}]}}"#
+		"95706":{"id":95706,"title":"Bear Tongues","level":18,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"item","id":9501,"count":10}]},
+		"893":{"id":893,"title":"Weapons of Choice","level":24,"start":{"npc":[3433],"object":[],"item":[]},"end":{"npc":[3433],"object":[]},"objectives":[{"type":"item","id":5092,"count":1}]}}"#
 			.into(),
 	);
 	t.insert(
@@ -50,6 +52,8 @@ fn data() -> Data {
 		"9001":{"id":9001,"name":"Wandering Courier","level":18,"spawns":{"1413":{"f":"e","pts":[[40.0,30.0]]}}},
 		"2967":{"id":2967,"name":"Galak Centaur","level":8,"spawns":{"1412":{"f":"e","pts":[[66.0,62.0],[66.3,62.2],[65.8,62.3]]}}},
 		"2968":{"id":2968,"name":"Galak Outrunner","level":8,"spawns":{"1412":{"f":"e","pts":[[63.5,58.5],[63.9,58.2],[63.3,58.0]]}}},
+		"3458":{"id":3458,"name":"Razormane Seer","level":24,"spawns":{"1413":{"f":"e","pts":[[42.0,81.0],[42.4,81.3],[41.7,80.6],[43.0,82.5]]}}},
+		"3433":{"id":3433,"name":"Tatternack Steelforge","level":14,"spawns":{"1413":{"f":"l","pts":[[45.06,57.68]]}}},
 		"9500":{"id":9500,"name":"Hill Bear","level":18,"spawns":{"1413":{"f":"e","pts":[[40.0,70.0],[40.1,70.0],[40.2,70.0],[40.0,70.1],[40.1,70.1],[40.2,70.1],[40.0,70.2],[40.2,70.2],[44.0,70.0],[44.1,70.0],[44.2,70.0],[44.0,70.1],[44.1,70.1],[44.2,70.1],[44.0,70.2],[44.2,70.2],[48.0,70.0],[48.1,70.0],[48.2,70.0],[48.0,70.1],[48.1,70.1],[48.2,70.1],[48.0,70.2],[48.2,70.2]]}}}}"#
 			.into(),
 	);
@@ -67,6 +71,7 @@ fn data() -> Data {
 		r#"{"270151":{"id":270151,"name":"Benedict's Orders","drops":{"npc":{"262119":null},"object":{}},"questItem":true},
 		"6889":{"id":6889,"name":"Raptor Egg","drops":{"npc":{"7":null},"object":{}},"questItem":true},
 		"7777":{"id":7777,"name":"Small Egg","drops":{"npc":{},"object":{}},"questItem":true},
+		"5092":{"id":5092,"name":"Charred Razormane Wand","drops":{"npc":{"3458":null},"object":{}},"questItem":true},
 		"9999":{"id":9999,"name":"Centaur Totem","drops":{"npc":{"8001":null,"8002":null},"object":{}},"questItem":true},
 		"8888":{"id":8888,"name":"Handful of Oats","drops":{"npc":{},"object":{"700":100}},"questItem":true},
 		"9501":{"id":9501,"name":"Bear Tongue","drops":{"npc":{"9500":30},"object":{}},"questItem":true}}"#
@@ -126,6 +131,21 @@ fn trouble_in_the_valley_takes_the_47_yard_spot_players_loot_the_orders_in_not_t
 	assert_eq!((g.get("x").num(), g.get("y").num()), (41.8, 15.6));
 	// One of Corporal Adamore's spawns lies in the area.
 	assert_eq!(spots[0].get("n").num(), 1.0);
+}
+
+// Fitz on 0.4.3-preview4 (#3788): at Camp Taurajo, While you're here offered the Razormane drops at 10 yd, and its
+// arrow led to his own spot, though the Razormane live at Blackthorn Ridge, 1,500 yd south. Five players' wand had
+// ticked at Camp Taurajo: they looted it before taking Weapons of Choice from Tatternack there, and the line ticked
+// when they took it. A collect's recorded spot at its quest's giver, far from every place its item comes from, is no
+// alternative; one far from the giver too stays (players met the mob where the spawn data has none).
+#[test]
+fn an_item_ticked_far_from_every_place_it_drops_is_no_alternative_place_3788() {
+	let mut d = data();
+	recorded(&mut d, &[line(893, 1413, r#""item""#, "trusted", &[(42.33, 82.09, 211.0, 60), (45.09, 58.99, 4.0, 5), (60.0, 30.0, 30.0, 4)])]);
+	let (goals, _) = compiled(&d, "The Barrens", &["collect 5092 quest 893.1"]);
+	let spots = goals[0].get("spots").items();
+	assert!(!spots.iter().any(|s| (s.get("y").num() - 59.0).abs() < 1.0), "no place at Camp Taurajo: {spots:?}");
+	assert!(spots.iter().any(|s| s.get("x").num() == 60.0 && s.get("alt").truthy()), "the far spot stays an alternative: {spots:?}");
 }
 
 #[test]

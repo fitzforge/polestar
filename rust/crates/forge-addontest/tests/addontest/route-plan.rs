@@ -549,6 +549,68 @@ fn an_accept_step_past_the_log_s_cap_names_what_to_drop_unneeded_first_then_the_
 	assert_eq!(out, json!({ "full": [2, 0, ["One", "Stray"]], "one": ["One"], "later": ["Five"], "fits": true }));
 }
 
+#[test]
+fn nijels_point_turn_ins_make_room_for_the_next_karnitol_quest() {
+	let out = run(
+		r#"
+    local w = stub.world
+    local goals = {}
+    for _, q in ipairs({1387, 93224, 1459, 1455}) do
+        w.onQuest(q, {})
+        goals[#goals + 1] = { t="turnin", quest=q, status="active" }
+    end
+    goals[#goals + 1] = { t="accept", quest=1456, status="active" }
+    C_QuestLog.GetMaxNumQuestsCanAccept = function() return 40 end
+    for q = 1001, 1036 do w.onQuest(q, {}) end
+    P.Engine.GetStepView = function() return { goals = goals } end
+    emit(R.LogOverflow() == nil)
+  "#,
+		false,
+	);
+	assert_eq!(out, true, "the full log has room by the time the step reaches the pickup");
+}
+
+#[test]
+fn the_log_warning_uses_the_largest_shortfall_in_goal_order() {
+	let out = run(
+		&format!(
+			"{ROOM}{}",
+			r#"
+    local handIn = { t="turnin", quest=3, status="pending" }
+    local first, second = accepts[1], accepts[2]
+    local function overflow(goals)
+        accepts = goals
+        local warn = R.LogOverflow()
+        return warn and { warn.take, warn.free, titles(warn.drop) } or false
+    end
+    local early = overflow({ first, handIn, second })
+    local late = overflow({ first, second, handIn })
+    local duplicate = overflow({ handIn, handIn, first, second })
+    local skipped = overflow({ { t="turnin", quest=3, status="skipped" }, first })
+    local missing = overflow({ { t="turnin", quest=99, status="active" }, first })
+    w.onQuest(3, { 1 }, "Three")
+    local unfinished = overflow({ handIn, first })
+    local alreadyAccepted = overflow({ { t="accept", quest=3, status="active" } })
+    emit({ early=early, late=late, duplicate=duplicate, skipped=skipped, missing=missing,
+        unfinished=unfinished, alreadyAccepted=alreadyAccepted })
+  "#
+		),
+		false,
+	);
+	assert_eq!(
+		out,
+		json!({
+			"early": [1, 0, ["One"]],
+			"late": [2, 0, ["One", "Stray"]],
+			"duplicate": [2, 1, ["One"]],
+			"skipped": [1, 0, ["One"]],
+			"missing": [1, 0, ["One"]],
+			"unfinished": [1, 0, ["One"]],
+			"alreadyAccepted": false,
+		})
+	);
+}
+
 // Grey quests at level 20 (grey up to 13): 3 (handed in later in this chapter), 5 (handed in in the next
 // chapter) and 77 (never handed in) are level 10; 1 (hand-in passed) is level 18.
 const GREY: &str = r#"
@@ -569,7 +631,7 @@ fn grey_quests_are_listed_as_grey_unless_the_route_still_hands_them_in() {
         return { titles = titles(list), why = why }
     end
 "#;
-	let out = run(&format!("{ROOM}{GREY}{room}{}", r#"local off = room(); P.Set("behavior.skipGrey", true); emit({ off = off, on = room() })"#), false);
+	let out = run(&format!("{ROOM}{GREY}{room}{}", r#"P.Set("behavior.skipGrey", false); local off = room(); P.Set("behavior.skipGrey", true); emit({ off = off, on = room() })"#), false);
 	assert_eq!(out["off"], json!({ "titles": ["One", "Stray"], "why": ["missed", "grey"] }), "Skip grey off: the next guide hands Five in");
 	assert_eq!(out["on"], json!({ "titles": ["One", "Five", "Stray"], "why": ["missed", "grey", "grey"] }));
 	// Westfall's own accept of 6 (level 18, not grey) needs Five first.
@@ -673,7 +735,7 @@ fn a_dungeon_pick_up_guide_in_the_active_tab_keeps_the_dungeon_s_and_the_levelin
 	assert!(!titles.contains(&"Three"), "the leveling tab's quest is kept: {titles:?}");
 	assert_eq!(out["dungeon"], json!(["other", "wc"]));
 	assert_eq!(out["leveling"], json!(["other", "future", "route/a"]));
-	assert_eq!(out["dungeonText"], "Turn in at Wailing Caverns: hand in the quests");
+	assert_eq!(out["dungeonText"], "No turn-in in this route · Wailing Caverns: hand in the quests");
 	assert!(is_match(text(&out["levelingText"]), r"^Turn in at Starter · step 3$"), "{}", out["levelingText"]);
 }
 

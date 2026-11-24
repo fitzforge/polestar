@@ -787,7 +787,7 @@ fn a_finished_pick_up_guide_offers_the_hand_in_while_the_dungeons_quests_are_in_
 			"asked": ["wailing-caverns"],
 		})
 	);
-	assert_eq!(out[1]["primary"], "Choose a guide", "nothing in the log: the usual end");
+	assert_eq!(out[1]["primary"], false, "nothing in the log: the usual end, no next guide: only the Other guides link");
 }
 
 #[test]
@@ -1379,6 +1379,60 @@ fn a_level_up_tells_once_that_wailing_caverns_is_open_and_its_button_picks_up_th
 	assert_eq!(out[2], json!({ "sounds": 1, "seen": { "wailing-caverns": true } }));
 	assert_eq!(out[3], json!({ "again": false }), "once per dungeon per character");
 	assert_eq!(out[4], json!({ "shown": true, "asked": ["wailing-caverns"], "after": false, "ui": true }));
+}
+
+// The level-up check prices the quests' givers from where the player stands (Nav.EstimateTravel, a route plan for
+// each answer Nav's cache lacks, and a level-up empties it): Ragefire Chasm's at 15 on the Barrens was 12 plans,
+// 12-21 ms in the one frame 1.5 s after the level-up (Stutter041's kill harness). They come at most two a frame
+// now, and the card is the same. A Nav that counts its plans by frame and keeps its answers, as Nav/Travel.lua's
+// cache does. The fixture's quests each have one giver, placed on the page (Dungeons.Giver prices none), so each
+// plan here prices six places from the player, as a quest several NPCs give and a breadcrumb's detour do on the
+// real data. Before: every plan in the check's frame.
+#[test]
+fn a_level_up_check_makes_at_most_two_route_plans_a_frame_and_shows_the_same_card() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local cache, byFrame, plans = {{}}, {{}}, 0
+		local function key(from, to)
+			local f = from and (from.map .. ":" .. from.x .. ":" .. from.y) or "player"
+			return f .. ">" .. tostring(to.map) .. ":" .. tostring(to.x) .. ":" .. tostring(to.y)
+		end
+		Polestar.Nav = {{
+			EstimateKnown = function(from, to) return cache[key(from, to)] ~= nil end,
+			EstimateTravel = function(from, to)
+				local k = key(from, to)
+				if cache[k] == nil then
+					plans = plans + 1
+					byFrame[stub.now] = (byFrame[stub.now] or 0) + 1
+					cache[k] = Polestar.DirectTravelCost(from, to) or false
+				end
+				return cache[k] or nil
+			end,
+		}}
+		-- The player at the Crossroads, on a flat world.
+		local C = Polestar.Compat
+		C.GetPlayerMapPosition = function() return 1413, 51.5, 30.3 end
+		C.MapToWorld = function(map, x, y) return 1, x * 10, y * 10 end
+		local pickup = Polestar.Dungeons.PickupPlan
+		Polestar.Dungeons.PickupPlan = function(key, offer)
+			local from = Polestar.PlayerPoint()
+			for i = 1, 6 do Polestar.TravelCost(from, {{ map = 1413, x = 40 + i, y = 30 }}) end
+			return pickup(key, offer)
+		end
+		stub.fire("PLAYER_LEVEL_UP", 20)
+		stub.advance(3)
+		local most, frames = 0, 0
+		for _, n in pairs(byFrame) do
+			frames = frames + 1
+			if n > most then most = n end
+		end
+		local c = card()
+		emit({{ plans = plans, most = most, frames = frames, dungeon = c.dungeon or false, line = c.line or false }})"#
+	));
+	let o = &out[0];
+	assert!(o["plans"].as_u64().unwrap() > 2, "the check makes more plans than a frame's share: {o}");
+	assert!(o["most"].as_u64().unwrap() <= 2, "at most two plans a frame: {o}");
+	assert_eq!((&o["dungeon"], &o["line"]), (&json!("wailing-caverns"), &json!("2 quests to pick up  ·  Levels 17–24  ·  The Barrens")), "the same card: {o}");
 }
 
 // The ring wears the dungeon's own picture (Dungeons/Art.lua: Wailing Caverns' loading screen, file 131882, by its

@@ -13,15 +13,15 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "수습 {skill:762}",
 	-- {npc:4732} Randal Hunter · {npc:384} Katie Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest · {skill:762} Riding · {faction:72} Stormwind
-	["{npc:4732} and {npc:384}'s horse pen are at {area:88} in eastern {zone:1429}. At 60 {npc:4732} teaches Journeyman {skill:762} to Humans for 1,000g (10% less at Honored with {faction:72}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift horse costs 200g here."] = "",
+	["{npc:4732} and {npc:384}'s horse pen are at {area:88} in eastern {zone:1429}. At 60 {npc:4732} teaches Journeyman {skill:762} to Humans for 1,000g (10% less at Honored with {faction:72}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift horse costs 200g here."] = "{npc:4732}과(와) {npc:384}의 말 우리가 동부 {zone:1429}의 {area:88}에 있습니다. 60레벨에 {npc:4732}이(가) 인간에게 수습 {skill:762}을(를) 1,000골드에 가르칩니다({faction:72}과(와) 우호적이면 10% 할인). 블리자드는 탈것이 함께 온다고 합니다. 다른 종족은 각자 종족의 승마 교관에서 배웁니다. 여기서 빠른 말은 마리당 200골드입니다.",
 	-- {npc:4732} Randal Hunter
 	["{npc:4732}, riding trainer"] = "{npc:4732}, 탈것 상급자",
 
 	-- Step 2: Horse Riding for other races
 	-- {spell:824} Horse Riding
-	["{spell:824} for other races"] = "",
+	["{spell:824} for other races"] = "{spell:824} (다른 종족)",
 	-- {spell:824} Horse Riding · {skill:762} Riding · {npc:4732} Randal Hunter · {faction:72} Stormwind
-	["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "",
+	["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "모든 얼라이언스 종족이 이 말을 살 수 있지만 탑승에는 {spell:824}도 필요하며 인간만 {skill:762}과(와) 함께 받습니다. {faction:72}과(와) 확고한 동맹이 되면 {npc:4732}이(가) 다른 종족에게도 가르칩니다(스톰윈드 평판 가이드가 안내). 그 전에는 이 캐릭터로 말을 사지 마세요.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "색상 고르기",

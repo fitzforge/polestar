@@ -84,7 +84,7 @@ pub const WHEN_KEYS: [&str; 22] =
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 90] = [
+pub const GOAL_KEYS: [&str; 91] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
@@ -185,6 +185,8 @@ pub const GOAL_KEYS: [&str; 90] = [
 	"rewards",
 	"group",
 	"direct",
+	// A turn-in of a repeatable quest (not `direct`): the engine remembers its hand-in (#3334).
+	"repeatable",
 	"gossip",
 	"seconds",
 	"escort",
@@ -252,8 +254,9 @@ fn header_main() -> String {
 	header("lua", crate::format::COMPILE_COMMAND, "the .guide files")
 }
 
-/// The fixed file set every pack loads, in order (a new guide changes Guides.lua, never this list).
-const PACK_SCRIPTS: [&str; 3] = ["Pack.lua", "MapFrames.lua", "Guides.lua"];
+/// The fixed file set every pack loads, in order (a new guide changes Guides.lua, never this list): its TOC's, or
+/// for one of Polestar's own extra packs, the lines Polestar's TOC lists for it.
+pub const PACK_SCRIPTS: [&str; 3] = ["Pack.lua", "MapFrames.lua", "Guides.lua"];
 
 pub fn lua_string(s: &str) -> String {
 	let mut out = String::with_capacity(s.len() + 2);
@@ -870,40 +873,25 @@ fn needs_str(format: u32) -> String {
 /// Every pack sits in Polestar's group there, under Polestar's own entry;
 /// Polestar's menus show the plain title (Pack.lua). A title
 /// already carrying that prefix or the legacy "Polestar Pack: " is kept.
-/// One of Polestar's own extra packs (project.rs OWN_EXTRAS, by its folder,
-/// which a community pack.json cannot name) reads as ours, and loads on
-/// demand: Polestar loads it once the player switches it on.
+/// (One of Polestar's own extra packs has none: project.rs OwnExtra.)
 /// (JS default format: FORMAT.)
 pub fn emit_toc(manifest: &V, iface: &str, format: u32) -> String {
 	let ours = manifest.get("id").as_str() == Some("guides");
-	let folder = manifest.get("folder").to_js_string();
-	let extra = crate::project::own_extra(&folder).is_some();
 	let m_title = manifest.get("title").to_js_string();
 	let prefixed = [TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX].iter().any(|p| m_title.starts_with(p));
-	let title = if ours || extra || prefixed { m_title.clone() } else { format!("{TOC_TITLE_PREFIX}{m_title}") };
+	let title = if ours || prefixed { m_title.clone() } else { format!("{TOC_TITLE_PREFIX}{m_title}") };
 	let author = manifest.get("author").to_js_string();
 	let notes = manifest.get("notes");
-	let notes = if notes.truthy() {
-		notes.to_js_string()
-	} else if extra {
-		"Part of Polestar.".to_string()
-	} else {
-		format!("Community addon for Polestar by {author}")
-	};
+	let notes = if notes.truthy() { notes.to_js_string() } else { format!("Community addon for Polestar by {author}") };
 	let mut lines = vec![format!("## Interface: {iface}"), format!("## Title: {title}"), format!("## Notes: {notes}")];
-	// Polestar's own packs: the AddOns list in the client's language too.
+	// Polestar's own pack: the AddOns list in the client's language too.
 	if ours {
 		lines.extend(crate::toc::toc_lines("Polestar_Guides"));
-	} else if extra {
-		lines.extend(crate::toc::toc_lines(&folder));
 	}
 	lines.push(format!("## Author: {author}"));
 	lines.push(format!("## Version: {}", manifest.get("version").to_js_string()));
 	lines.push("## Category: Polestar".into());
 	lines.push("## Group: Polestar".into());
-	if extra {
-		lines.push("## LoadOnDemand: 1".into());
-	}
 	lines.push("## Dependencies: Polestar".into());
 	lines.push(format!("## X-Polestar-Pack: {}", manifest.get("id").to_js_string()));
 	lines.push(format!("## X-Polestar-Format: {format}"));
@@ -922,8 +910,8 @@ pub fn emit_toc(manifest: &V, iface: &str, format: u32) -> String {
 /// A pack's race part (project.rs build_pack_files): the leveling
 /// guides for one race, <folder>_<race file>, which Polestar loads on demand
 /// once the pack is in, for a player of that race only (Core/Guides.lua). Its
-/// guides register into the pack; its TOC names the pack and the race, and
-/// (Polestar's own) the AddOns list in every client language. `guides`, `legs`:
+/// guides register into the pack; its TOC names the pack and the race (any
+/// pack but ours: its races ride in its faction parts). `guides`, `legs`:
 /// whether it holds guides (Guides.lua) and baked legs (Legs.lua).
 pub fn emit_part_toc(manifest: &V, race: &str, iface: &str, guides: bool, legs: bool) -> String {
 	let title = manifest.get("title").to_js_string();
@@ -937,9 +925,6 @@ pub fn emit_part_toc(manifest: &V, race: &str, iface: &str, guides: bool, legs: 
 			format!("## Notes: The walks of {title}'s leveling guides for {label} characters. Loaded on demand for that race.")
 		},
 	];
-	if manifest.get("id").as_str() == Some("guides") {
-		lines.extend(crate::toc::toc_lines(&format!("Polestar_Guides_{race}")));
-	}
 	lines.extend([
 		format!("## Author: {}", manifest.get("author").to_js_string()),
 		format!("## Version: {}", manifest.get("version").to_js_string()),
@@ -986,15 +971,39 @@ pub fn emit_legs(pack_id: &str, guides: &[V]) -> String {
 	format!("{}\n", out.join("\n"))
 }
 
+/// A race's file in Polestar's own pack's faction part (project.rs build_pack_files: Guides_<race>.lua,
+/// Legs_<race>.lua): `text` with a line after its header that returns at once for a player of another race
+/// (Core/Guides.lua Polestar.IsPlayerRace), so it keeps nothing of the other races' guides and legs.
+pub fn race_guard(text: String, race: &str) -> String {
+	let guard = format!("if not Polestar.IsPlayerRace({}) then return end\n", lua_string(race));
+	match text.find('\n') {
+		Some(at) => format!("{}\n{guard}{}", &text[..at], &text[at + 1..]),
+		None => format!("{guard}{text}"),
+	}
+}
+
+/// One of Polestar's own extra packs' Guides.lua (project.rs OwnExtra: inside Polestar's own folder, loaded with
+/// it): `text` after its header line wrapped in one function handed to Polestar.DeferGuides, which Core/Guides.lua
+/// runs the first time the pack is shown, as it loaded the pack's own folder before 0.4.3.
+pub fn defer_guides(pack_id: &str, text: &str) -> String {
+	let (head, body) = text.split_once('\n').unwrap_or((text, ""));
+	format!("{head}\n\nPolestar.DeferGuides({}, function()\n{}\nend)\n", lua_string(pack_id), body.trim_matches('\n'))
+}
+
 /// Polestar's own pack's faction part (project.rs build_pack_files, format 8):
 /// the guides of one faction that no race part holds, <folder>_<faction>,
 /// which Polestar loads on demand once the pack is in, for a player of that
-/// faction (and the other faction's when the player asks for its guides). Its
-/// guides register into the pack; its TOC names the pack and the faction, and
+/// faction (and the other faction's when the player asks for its guides), then
+/// `races`: the faction's races' own guides and baked legs (Guides_<race>.lua,
+/// Legs_<race>.lua, each kept for a player of that race only). Its guides
+/// register into the pack; its TOC names the pack and the faction, and
 /// (Polestar's own) the AddOns list in every client language.
-pub fn emit_faction_toc(manifest: &V, faction: &str, iface: &str) -> String {
+pub fn emit_faction_toc(manifest: &V, faction: &str, iface: &str, races: &[&str]) -> String {
 	let title = manifest.get("title").to_js_string();
-	let mut lines = vec![format!("## Interface: {iface}"), format!("## Title: {title} ({faction})"), format!("## Notes: {faction} guides of {title}. Loaded on demand for {faction} characters.")];
+	// Our pack's faction parts carry their races' walks too (#3507), as their texts in every language say.
+	let with = if manifest.get("id").as_str() == Some("guides") { format!(", with each {faction} race's walks") } else { String::new() };
+	let mut lines =
+		vec![format!("## Interface: {iface}"), format!("## Title: {title} ({faction})"), format!("## Notes: {faction} guides of {title}{with}. Loaded on demand for {faction} characters.")];
 	if manifest.get("id").as_str() == Some("guides") {
 		lines.extend(crate::toc::toc_lines(&format!("Polestar_Guides_{faction}")));
 	}
@@ -1012,6 +1021,7 @@ pub fn emit_faction_toc(manifest: &V, faction: &str, iface: &str) -> String {
 		String::new(),
 		"Guides.lua".into(),
 	]);
+	lines.extend(races.iter().map(|f| f.to_string()));
 	format!("{}\n", lines.join("\n"))
 }
 

@@ -47,14 +47,13 @@ return {
 	["The {area:2657}: a {quest:93644}"] = "{area:2657}: {quest:93644}",
 	-- {quest:93644} Tattered Journal · {zone:2652} Shen'dralas · {area:2657} Valley of Bones
 	-- plural, as words: Outcast Necromancers = {npc:11559} Outcast Necromancer · Magram Necromancers = {npc:253272} Magram Necromancer
-	-- was: ["New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe Outcast Necromancers and the Magram Necromancers of the valley drop a {quest:93644} whose writer lives in {zone:2652}: players got it within a few kills. The Magram centaurs leave you be until you attack; the Magram Necrokhans among them (level 45) are elites: leave them be.\nThe Gelkis and Magram centaurs have {area:2657} quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how."] = "Nuevo en Forever: si un paso está mal, avísanos en el Discord o GitHub de Polestar e indica el paso.\nLos Necrománticos parias y los Necrománticos Magram del valle sueltan {quest:93644}, cuyo autor vive en {zone:2652}: los jugadores lo obtuvieron tras pocas muertes. Los centauros Magram no te atacan a menos que los ataques; los Necrokhans Magram entre ellos (nivel 45) son élite: déjalos en paz.\nLos centauros Gelkis y Magram tienen sus propias cadenas de misiones en {area:2657}, que dan unos 20,000 a 30,000 de experiencia más, pero cada cadena pide Honorable con su clan. Los dos clanes son rivales, así que trabaja para uno: la guía de Reputación de los centauros Gelkis y Magram, en Reputación, explica cómo."
-	["New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe Outcast Necromancers and the Magram Necromancers of the valley drop a {quest:93644} whose writer lives in {zone:2652}: players got it within a few kills. Take it from the Outcast Necromancers and leave the Magram alone: the Magram centaurs leave you be until you attack, but once you have killed Magram the whole clan turns on you, and their Necrokhans (level 45, elites) stand around the western pylon you repair later.\nThe Gelkis and Magram centaurs have {area:2657} quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how."] = "",
+	["New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe Outcast Necromancers and the Magram Necromancers of the valley drop a {quest:93644} whose writer lives in {zone:2652}: players got it within a few kills. Take it from the Outcast Necromancers and leave the Magram alone: the Magram centaurs leave you be until you attack, but once you have killed Magram the whole clan turns on you, and their Necrokhans (level 45, elites) stand around the western pylon you repair later.\nThe Gelkis and Magram centaurs have {area:2657} quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how."] = "Nuevo en Forever: si un paso está mal, avísanos en el Discord o el GitHub de Polestar e indica el paso.\nLos necrománticos parias y los Magram Necromancers del valle sueltan {quest:93644}, cuyo autor vive en {zone:2652}: los jugadores la obtuvieron tras pocas muertes. Consíguela de los necrománticos parias y deja en paz a los Magram: los centauros Magram no te atacan a menos que los ataques, pero en cuanto mates a un Magram todo el clan se vuelve contra ti, y sus Necrokhans (nivel 45, élites) están alrededor del pilón del oeste que reparas después.\nLos centauros Gelkis y Magram tienen sus propias cadenas de misiones en {area:2657}, que dan unos 20.000 a 30.000 de experiencia más, pero cada cadena pide Honorable con su clan. Los dos clanes son rivales, así que trabaja para uno: la guía de reputación de los centauros Gelkis y Magram, en Reputación, explica cómo.",
 
 	-- Step 7: The western pylon
 	["The western pylon"] = "El pilón del oeste",
 	-- {quest:92914} Strange Pylons
 	-- plural, as words: Decrepit Pylon Protectors = {npc:252711} Decrepit Pylon Protector · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["East through the valley to the strange crystal on its pedestal: clicking it starts {quest:92914}. The Decrepit Pylon Protectors (levels 42-43) around it are the mana elementals that guard it. Corpsefeeders (level 45, elite) roam the valley east of here.\nCareful: click the crystal from the road on its west side and move on: the Protectors stand two and three together east and north-east of it, where Corpsefeeders and the Magram Necrokhans (elites, 45) walk too."] = "",
+	["East through the valley to the strange crystal on its pedestal: clicking it starts {quest:92914}. The Decrepit Pylon Protectors (levels 42-43) around it are the mana elementals that guard it. Corpsefeeders (level 45, elite) roam the valley east of here.\nCareful: click the crystal from the road on its west side and move on: the Protectors stand two and three together east and north-east of it, where Corpsefeeders and the Magram Necrokhans (elites, 45) walk too."] = "Ve al este por el valle hasta el extraño cristal en su pedestal: al hacer clic en él empieza {quest:92914}. Los Decrepit Pylon Protectors (nivel 42-43) a su alrededor son los elementales de maná que lo vigilan. Los Corpsefeeders (élite de nivel 45) deambulan por el valle al este de aquí.\nCuidado: haz clic en el cristal desde el camino de su lado oeste y sigue: los Protectors están de a dos y de a tres al este y al noreste de él, donde también andan los Corpsefeeders y los Magram Necrokhans (élites, 45).",
 
 	-- Step 8: Bristleback Retreat: the eastern pylon
 	-- {area:16677} Bristleback Retreat
@@ -79,7 +78,7 @@ return {
 	-- Step 12: Magram Village
 	-- {item:255656} Pylon Fragment
 	-- plural, as words: Magram Guardians = {npc:255560} Magram Guardian
-	["The {item:255656} lies at the western edge of the village; Magram Guardians (levels 39-41) watch over it. They leave you be unless you have fought the Magram: pick the fragment up without a fight. Every Magram you kill turns the clan against you, and back in the valley that means the Necrokhans (level 45, elites) at the western pylon as well."] = "",
+	["The {item:255656} lies at the western edge of the village; Magram Guardians (levels 39-41) watch over it. They leave you be unless you have fought the Magram: pick the fragment up without a fight. Every Magram you kill turns the clan against you, and back in the valley that means the Necrokhans (level 45, elites) at the western pylon as well."] = "El {item:255656} está en el borde oeste del poblado; los Magram Guardians (nivel 39-41) lo vigilan. No te atacan a menos que hayas peleado con los Magram: recoge el fragmento sin pelear. Cada Magram que mates pone al clan en tu contra, y de vuelta en el valle eso incluye a los Necrokhans (nivel 45, élites) del pilón del oeste.",
 
 	-- Step 13: Gelkis Village
 	-- {area:405} Desolace · {area:606} Gelkis Village · {item:255657} Pylon Shard
@@ -101,33 +100,33 @@ return {
 
 	-- Step 17: Unstable Mana Rifts: mana for the western pylon
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift
-	["Unstable Mana Rifts: mana for the western pylon"] = "",
+	["Unstable Mana Rifts: mana for the western pylon"] = "Unstable Mana Rifts: maná para el pilón del oeste",
 	-- {item:255662} Mana Sieve
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal
-	["Use the {item:255662} on the Unstable Mana Rifts, the floating sparks along the road north: each pylon takes four Coalesced Mana Crystals, and the repair uses them up."] = "",
+	["Use the {item:255662} on the Unstable Mana Rifts, the floating sparks along the road north: each pylon takes four Coalesced Mana Crystals, and the repair uses them up."] = "Usa el {item:255662} en los Unstable Mana Rifts, las chispas flotantes a lo largo del camino al norte: cada pilón lleva cuatro cristales de maná fusionados, y la reparación los consume.",
 	-- {item:255667} Coalesced Mana Crystal · {item:255662} Mana Sieve
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift
-	["{item:255667}, from the Unstable Mana Rifts with the {item:255662}"] = "",
+	["{item:255667}, from the Unstable Mana Rifts with the {item:255662}"] = "{item:255667}, de los Unstable Mana Rifts con el {item:255662}",
 
 	-- Step 18: The road south of the western pylon
-	["The road south of the western pylon"] = "",
+	["The road south of the western pylon"] = "El camino al sur del pilón del oeste",
 	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Magram Necrokhans = {npc:253274} Magram Necrokhan · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
-	["North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one {npc:252711} at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use {spell:1289727}, as players did to repair it.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds."] = "",
-	["the road just south of the western pylon"] = "",
+	["North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one {npc:252711} at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use {spell:1289727}, as players did to repair it.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds."] = "Al norte por el camino hasta el primer pilón, juntando maná de los Unstable Mana Rifts en el camino. Detente donde marca la flecha, en el camino justo al sur del pilón, pegado a su borde oeste: el lado tranquilo, sin Protectors a tu espalda. Atrae un {npc:252711} a la vez hasta ese punto, primero el más cercano al lado sur del pilón, y mátalo ahí; luego sube al lado oeste del pilón y usa {spell:1289727}, como hicieron los jugadores para repararlo.\nCuidado: no te acerques al lado este y noreste del pilón. Ahí los Protectors están de a dos y de a tres, un Corpsefeeder (nivel 45, élite) anda entre ellos y los Magram Necrokhans (élites, 45) están un poco más allá: casi todas las muertes registradas en este pilón ocurrieron al este de él. Si los Magram te atacan (lo hacen en cuanto mataste Magram), espera en la flecha hasta que cualquier Necrokhan junto al pilón se aleje antes de atraer. Los Nascent Pylon Protectors (élites, 43) deambulan por el camino al sur: déjalos pasar.\nSi mueres aquí, lleva tu fantasma de vuelta a la flecha antes de revivir: los jugadores que revivieron junto al pilón volvieron a morir en segundos.",
+	["the road just south of the western pylon"] = "el camino justo al sur del pilón del oeste",
 
 	-- Step 19: The western pylon: repair it
 	["The western pylon: repair it"] = "El pilar occidental: repáralo",
-	["Pull a single Protector down to the road, then repair the pylon from its west side."] = "",
+	["Pull a single Protector down to the road, then repair the pylon from its west side."] = "Atrae a un solo Protector hasta el camino y luego repara el pilón desde su lado oeste.",
 	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
-	["{npc:252711}, pulled to the arrow's spot, then {spell:1289727} on the pylon's west side"] = "",
+	["{npc:252711}, pulled to the arrow's spot, then {spell:1289727} on the pylon's west side"] = "{npc:252711}, atraído al punto de la flecha, y luego {spell:1289727} en el lado oeste del pilón",
 
 	-- Step 20: Unstable Mana Rifts: mana for the eastern pylon
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift
-	["Unstable Mana Rifts: mana for the eastern pylon"] = "",
+	["Unstable Mana Rifts: mana for the eastern pylon"] = "Unstable Mana Rifts: maná para el pilón del este",
 	-- {item:255662} Mana Sieve
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal
-	["The western repair used up your crystals: on the way east, use the {item:255662} on the Unstable Mana Rifts again for four more Coalesced Mana Crystals."] = "",
+	["The western repair used up your crystals: on the way east, use the {item:255662} on the Unstable Mana Rifts again for four more Coalesced Mana Crystals."] = "La reparación del oeste consumió tus cristales: de camino al este, vuelve a usar el {item:255662} en los Unstable Mana Rifts para conseguir cuatro cristales de maná fusionados más.",
 
 	-- Step 21: Bristleback Retreat: repair the eastern pylon
 	-- {area:16677} Bristleback Retreat
@@ -172,15 +171,15 @@ return {
 
 	-- Step 29: A Heart of Crystal
 	-- {npc:252711} Decrepit Pylon Protector
-	["Use the west face of the western pylon, where you repaired it. Approach on the road from the south and pull one {npc:252711} back to you. Wait for the elite patrols to pass; do not follow a Protector around the east side."] = "",
+	["Use the west face of the western pylon, where you repaired it. Approach on the road from the south and pull one {npc:252711} back to you. Wait for the elite patrols to pass; do not follow a Protector around the east side."] = "Usa la cara oeste del pilón del oeste, donde lo reparaste. Acércate por el camino desde el sur y atrae un {npc:252711} hacia ti. Espera a que pasen las patrullas élite; no sigas a un Protector por el lado este.",
 
 	-- Step 31: Mana Mania
 	-- {item:286647} Depleted Crystal Heart · {npc:264149} Unstable Mana Rift · {npc:276401} Nascent Pylon Protector
-	["Take the {item:286647} to an {npc:264149} on the road north of the temple and throw it into the rift. The {npc:276401} is elite: grouping up is advised."] = "",
+	["Take the {item:286647} to an {npc:264149} on the road north of the temple and throw it into the rift. The {npc:276401} is elite: grouping up is advised."] = "Lleva el {item:286647} a una {npc:264149} en el camino al norte del templo y tíralo dentro de la grieta. El {npc:276401} es élite: se recomienda ir en grupo.",
 
 	-- Step 32: Shadowprey Village
 	-- {zone:2652} Shen'dralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:2408} Shadowprey Village · {area:1637} Orgrimmar · {zone:1444} Feralas · {area:1099} Camp Mojache
-	["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408} and fly to {area:1637}: the next guide picks up there, with the {zone:1444} guide's hand-ins. Keep your hearthstone (bound at {area:1099}): the next guide uses it to get from {area:1637} back to {area:1099}."] = "",
+	["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408} and fly to {area:1637}: the next guide picks up there, with the {zone:1444} guide's hand-ins. Keep your hearthstone (bound at {area:1099}): the next guide uses it to get from {area:1637} back to {area:1099}."] = "{zone:2652} está terminado. Cabalga de vuelta al norte por {area:2657} y al oeste por el borde sur de {area:405} hasta {area:2408}, y vuela a {area:1637}: la siguiente guía continúa ahí, con las entregas de la guía de {zone:1444}. Guarda tu piedra de hogar (vinculada en {area:1099}): la siguiente guía la usa para ir de {area:1637} de vuelta a {area:1099}.",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "Maestro de vuelo de {area:2408}",
 

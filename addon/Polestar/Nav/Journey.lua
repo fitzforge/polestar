@@ -142,7 +142,9 @@ function Journey.Estimate(from, to, budgeted)
 end
 
 -- Point the arrow at (x, y) percent of map, moved onto the zone under it.
--- False (and a line in chat) when no route can go there.
+-- False (and a line in chat) when no route can go there. The target is the
+-- player's own point (`mine`: a map or minimap click, /way): the guide
+-- window says so, with Back to the guide (#3843).
 function Journey.PlanTo(map, x, y, label, f)
 	local zm, zx, zy = map, x, y
 	if not f then zm, zx, zy = Journey.ZonePoint(map, x, y) end
@@ -150,7 +152,9 @@ function Journey.PlanTo(map, x, y, label, f)
 		ns.Print(L["No route can be planned to that spot."])
 		return false
 	end
-	return Nav.SetTarget(zm, zx, zy, label or spotLabel(zm, zx, zy), f)
+	local t = Nav.SetTarget(zm, zx, zy, label or spotLabel(zm, zx, zy), f)
+	if t then t.mine = true end
+	return t
 end
 
 -- A planned target (any picked point) within `yards` of world (c, wx, wy)
@@ -494,21 +498,31 @@ function Nav.FollowerPins() return any("pin") end
 function Nav.FollowerShows() return any("shows") end
 
 -- The arrow's samples (Nav.Sample) are what follow the player's floor
--- (Walk.Aim: Forever gives no height) and see an arrival. While a follower
--- shows the way and the arrow is hidden, nothing else samples, so the route
--- loses the floor (the Ruins of Lordaeron read as the Undercity under them:
--- "Walk to the lift" all the way out): sample at Walk's own pace instead.
+-- (Walk.Aim: Forever gives no height), ask for the walk to each new target
+-- and see an arrival. While a follower shows the way and the arrow is hidden,
+-- nothing else samples, so the route loses the floor (the Ruins of Lordaeron
+-- read as the Undercity under them: "Walk to the lift" all the way out):
+-- sample at Walk's own pace instead. The same while the route lines draw and
+-- the arrow is hidden (switched off, or hidden with the guide): the line is
+-- its own switch, and with the arrow off no walk was asked after the next
+-- step, so the line went with it (#3828, flep).
 local SAMPLE_EVERY = 0.25
 local sampler
+
+local function linesDraw()
+	local R = ns.RouteLines
+	return R ~= nil and R.Shown ~= nil and R.Shown() and not Nav.HandedOff()
+end
 
 local function sampleNow()
 	local A = Nav.arrow
 	if not Nav.GetTarget() or (A and A.frame and A.frame:IsShown()) then return end
+	if not next(followers) and not linesDraw() then return end
 	Nav.Sample()
 end
 
 local function updateSampler()
-	local want = next(followers) ~= nil
+	local want = next(followers) ~= nil or (Nav.GetTarget() ~= nil and linesDraw())
 	if want and not sampler then
 		sampler = ns.NewTicker(SAMPLE_EVERY, sampleNow)
 	elseif not want and sampler then
@@ -542,7 +556,13 @@ function API.Dismiss(owner)
 	return true
 end
 
-Nav.RegisterModule({ OnTarget = queue })
+Nav.RegisterModule({ OnTarget = function()
+	updateSampler()
+	queue()
+end })
+-- The lines switched on or off, a map's pins or route, hiding Polestar.
+ns.On("SETTING_CHANGED", updateSampler)
+ns.On("POLESTAR_HIDDEN", updateSampler)
 ns.On("ROUTE_CHANGED", queue)
 ns.On("ROUTE_ADVANCED", queue)
 
@@ -667,8 +687,8 @@ local function tomtomInstalled()
 	if not A then return false end
 	if A.IsAddOnLoaded and A.IsAddOnLoaded("TomTom") then return true end
 	if A.GetAddOnInfo then
-		local name, _, _, loadable = A.GetAddOnInfo("TomTom")
-		if name and loadable then return true end
+		local name, _, _, loadable, reason = A.GetAddOnInfo("TomTom")
+		if name and (loadable or reason == "DEMAND_LOADED") then return true end
 	end
 	return false
 end

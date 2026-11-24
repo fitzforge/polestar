@@ -330,10 +330,13 @@ becomes an `event` in the quest log's own words ("Graveyard Assaulted"), placed 
 name gives way to it ("[DNT] Kill Credit: Twilight Thrall"); one that carries none needs a correction with the
 quest log's words, from players' recordings or the game's quest objectives. The battlegrounds' quests, Lunar
 Fireworks and The Challenge have such records too: the public build has no source for the quest log's words and
-would otherwise read only the markers' names. Then the build fails while any placeholder name a player could read
-is left: a title, an objective's words, or the name of an NPC, object or item an objective, giver, ender or
+would otherwise read only the markers' names. Then any placeholder name a player could read that is left is named,
+one line each: a title, an objective's words, or the name of an NPC, object or item an objective, giver, ender or
 starting item points at, in every quest but the game's unused and test ones ("<UNUSED>", "<TEST> HEY MISTER
-WILSON!", "REUSE"), which Lookup's search leaves out, as it does NPCs and items with a placeholder name.
+WILSON!", "REUSE"), which Lookup's search leaves out, as it does NPCs and items with a placeholder name. `forge
+build` and `forge data build --strict-placeholders` (our release builds and CI) stop on them; a plain `forge data
+build`, a guide author's, names them as a warning and goes on, so a QuestieDB newer than the corrections still
+builds (#3797); `forge data publish`'s public builds only count them.
 
 ### What it writes
 
@@ -428,7 +431,7 @@ first.
 | `forge data professions` | `data/forever/professions.json` (or `--out FILE`) | the game's profession tables, items, NPCs and vendor stock |
 | `forge data dungeons` | `data/forever/dungeons.json` (or `--out FILE`) | a dungeon journal addon installed in your client (`--source DIR`); only facts (ids, names, levels, places, rewards, chains), none of its text |
 | `forge data codex` | `data/forever/codex/*.json` and `addon/Polestar_Codex` | `data/forever`, the game's tables, Polestar's guides and curated tables, the recorded item sources `data/codex/recorded.json` (`--recordings DIR` rewrites it first from a recordings folder) |
-| `forge data gear` | `addon/Polestar_ItemDB/…`, `addon/Polestar/Gear/SpecData.lua`, `data/forever/gear/report.json` | an installed gear addon (`--addons DIR`), Polestar's item database and weights |
+| `forge data gear` | `addon/Polestar_ItemDB/…`, `addon/Polestar/Gear/SpecData.lua`, `data/forever/gear/report.json` | the Forever client's tables (`--build`, cached wago.tools tables) with the server's hotfix rows (`data/sources/hotfix/<build>/`, from `forge gamedata hotfix`), the Codex (`data/forever/codex`: which quests reward which gear), Polestar's item database and weights |
 | `forge data sim-inputs --out DIR` | the game-table and server-fact files the simulator's world reads beside `data/forever`, in the `data/sources` layout | the installed client (or the cached tables) and the cached server facts |
 | `forge data extracts --out DIR` | the server-fact extracts, rebuilt from the pinned database dump in `data/sources` | for checking the cached extracts |
 | `forge data itemdb` | `addon/Polestar_ItemDB/Items.lua` and its TOC (size budget 1 MiB) | the Classic Era item tables (ItemSparse, Item, ItemEffect, SpellEffect) |
@@ -1070,7 +1073,7 @@ release's tables; `cargo test -p forge-data --test publish` runs it.
 | The navigation grid | `data/local/nav4` | built from your own client's map tiles |
 | Forever's quest data | your Forever client's AddOns | Questie and QuestieDB: no data licence stated; used with credit, with the Questie maintainers' agreement; read from your install |
 | `dungeons.json` | `data/forever` | built from an installed addon with no licence; facts only, kept local |
-| `codex/`, `gear/` | `data/forever` | addon side products built from installed addons; not route inputs |
+| `codex/`, `gear/` | `data/forever` | addon side products (the Codex, the gear report); not route inputs |
 
 Some local evidence is read only when `forge-data` is built with the `local-sources` feature, which is
 off by default.
