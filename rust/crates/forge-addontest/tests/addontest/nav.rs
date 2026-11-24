@@ -1326,7 +1326,8 @@ fn an_area_target_is_arrived_anywhere_inside_it_shows_the_distance_to_its_edge_o
 		stub.advance(0.2); snap()                     -- 200 yd from the centre: 140 to the edge
 		nav.place(150, 0); stub.advance(0.2); snap()  -- 50 from the centre: inside
 		nav.place(260, 0); stub.advance(0.2); snap()  -- 60 on the far side: on the edge
-		nav.place(125, 0); stub.advance(0.2); snap()  -- 75: 15 past the edge
+		nav.place(125, 0); stub.advance(0.2); snap()  -- 75: 15 past the edge, still arrived on open ground (#3828)
+		nav.place(65, 0); stub.advance(0.2); snap()   -- 135: 75 past the edge, past Nav.NEAR_LINE: on the way again
 		nav.showWorldMap(9000)
 		local areas = nav.pins("areas")
 		local r = { seen = seen, areas = #areas }
@@ -1345,7 +1346,8 @@ fn an_area_target_is_arrived_anywhere_inside_it_shows_the_distance_to_its_edge_o
 			["travel", "140 yd", "Kill Bristlebacks", 140],
 			["arrived", "Arrived", "Kill Bristlebacks", 0],
 			["arrived", "Arrived", "Kill Bristlebacks", 0],
-			["travel", "15 yd", "Kill Bristlebacks", 15]
+			["arrived", "Arrived", "Kill Bristlebacks", 15],
+			["travel", "75 yd", "Kill Bristlebacks", 75]
 		])
 	);
 	assert_eq!(out["areas"], 1);
@@ -1393,6 +1395,55 @@ fn an_area_objective_never_says_arrived_inside_a_spot_the_arrow_says_to_search_h
 		.concat(),
 	);
 	assert_eq!(out, json!([["travel", "140 yd", "Collect Raptor Head", false, false], ["search", "Search here", "Collect Raptor Head", "Click the arrow for the next spot", true]]));
+}
+
+// #3828 (flep): "if it's a big area to farm mobs for a quest, it keeps re-appearing when I move a bit away from the
+// actual point". Arrived in a kill goal's spawn area, the arrow stays down while the player stays within
+// Nav.NEAR_LINE (60) yards of the area on open ground, the area where no route line is drawn either (#3690), also
+// when the goal moves on to another of its spawn areas there, with no second chime. It comes back on leaving that
+// ground or on a new goal; indoors, as before, a few yards past the area's edge.
+#[test]
+fn arrived_in_a_kill_area_the_arrow_stays_down_while_the_player_stays_near_it_on_open_ground() {
+	let out = run_compass(
+		r#"
+		local function kill(wx, wy, extra)
+			local t = { kind = "kill", area = 40, quest = 7 }
+			for k, v in pairs(extra or {}) do t[k] = v end
+			return wp(wx, wy, "Kill Boar", t)
+		end
+		local seen = {}
+		local function snap(what) seen[#seen + 1] = { what, A.GetMode(), #stub.sounds } end
+		nav.setWaypoint(kill(200, 0))
+		stub.advance(0.2); snap("on the way")
+		nav.place(170, 0); stub.advance(0.2); snap("in the area")
+		nav.place(110, 0); stub.advance(0.2); snap("50 yd out")
+		nav.setWaypoint(kill(150, 60, { spot = 2 }))
+		stub.advance(0.2); snap("its next area, 32 yd off")
+		nav.place(110, -80); stub.advance(0.2); snap("100 yd off")
+		nav.place(150, 60); stub.advance(0.2); snap("in that area")
+		nav.place(110, 0); stub.advance(0.2); snap("32 yd out")
+		nav.setWaypoint(kill(150, 60, { goalIndex = 2, quest = 8 }))
+		stub.advance(0.2); snap("a new goal")
+		IsIndoors = function() return true end
+		nav.place(150, 60); stub.advance(0.2); snap("indoors, in it")
+		nav.place(150, 0); stub.advance(0.2); snap("indoors, 20 yd out")
+		emit(seen)"#,
+	);
+	assert_eq!(
+		out,
+		json!([
+			["on the way", "travel", 0],
+			["in the area", "arrived", 1],
+			["50 yd out", "arrived", 1],
+			["its next area, 32 yd off", "arrived", 1],
+			["100 yd off", "travel", 1],
+			["in that area", "arrived", 2],
+			["32 yd out", "arrived", 2],
+			["a new goal", "travel", 2],
+			["indoors, in it", "arrived", 3],
+			["indoors, 20 yd out", "travel", 3]
+		])
+	);
 }
 
 #[test]

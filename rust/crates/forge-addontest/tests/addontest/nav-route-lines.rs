@@ -347,6 +347,58 @@ fn the_painters_draw_the_route_on_the_world_map_and_the_minimap_and_stand_in_for
 	assert!(f(&out["backWorld"]) > 10.0);
 }
 
+// #3828 (flep): the route line is a switch of its own. Only the arrow's samples asked for the walk to a new target,
+// so with the arrow off the line stayed until the next step, then nothing was drawn. Now, arrow off: the walk to
+// each step's goal is asked and drawn; with the lines off as well, nothing is asked.
+#[test]
+fn with_the_arrow_off_the_walk_to_each_new_step_is_asked_and_its_line_drawn() {
+	let out = painted(
+		r#"
+		Polestar.Set("nav.travel", false)
+		Polestar.Set("nav.navRouting", true)
+		Polestar.Set("nav.arrow", false)
+		local asked = {}
+		N.Path = { Find = function(_, from, to, done)
+			local job = { from = from, to = to, done = done }
+			asked[#asked + 1] = job
+			return job
+		end, Cancel = function() end }
+		local function answer()
+			local job = asked[#asked]
+			if job then job.done({ job.from, job.to }, 600, { walkChecked = true }) end
+		end
+		local function step(i, wx, wy)
+			local m, x, y = nav.mapPoint(wx, wy)
+			nav.changeStep(i, { map = m, x = x, y = y, label = "Step " .. i, stepIndex = i, goalIndex = 1, kind = "goto", r = 8 })
+		end
+		local function to() local job = asked[#asked]; return job and { math.floor(job.to.x + 0.5), math.floor(job.to.y + 0.5) } or false end
+		nav.place(0, 0)
+		nav.showWorldMap(9000)
+		step(1, 0, -600)
+		stub.advance(0.6)
+		local first = { asked = #asked, to = to() }
+		answer()
+		stub.advance(0.6)
+		first.world = R.GetStrokes("world").n
+		step(2, 600, 0)
+		stub.advance(0.6)
+		local second = { asked = #asked, to = to() }
+		answer()
+		stub.advance(0.6)
+		second.world, second.paths, second.arrow = R.GetStrokes("world").n, #R.GetPaths(), N.arrow.frame:IsShown() and true or false
+		Polestar.Set("nav.routeLines", false)
+		step(3, -600, 0)
+		stub.advance(0.6)
+		emit({ first = first, second = second, linesOff = #asked })"#,
+	);
+	assert_eq!(json!([&out["first"]["asked"], &out["first"]["to"]]), json!([1, [0, -600]]), "the first step's walk is asked: {out}");
+	assert!(f(&out["first"]["world"]) > 10.0, "and drawn: {out}");
+	assert_eq!(json!([&out["second"]["asked"], &out["second"]["to"]]), json!([2, [600, 0]]), "the next step's walk is asked too: {out}");
+	assert!(f(&out["second"]["world"]) > 10.0 && out["second"]["paths"] == 1, "and drawn: {out}");
+	assert_eq!(out["second"]["arrow"], false, "the arrow stays off");
+	assert_eq!(out["linesOff"], 2, "the lines off too: no walk asked");
+}
+
 #[test]
 fn the_minimap_redraws_only_when_something_changed_and_its_line_pool_never_shrinks_or_passes_its_bound() {
 	let out = painted(
