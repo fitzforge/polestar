@@ -1023,4 +1023,40 @@ fn the_near_walk_over_a_closed_zone_border_goes_only_within_its_reach_and_never_
 	assert_eq!(out["areaYards"], false, "nor probed");
 }
 
+// #3532: the cities whose floors only their lifts join are sided by height, as the walking maps side them (forge-nav
+// f4/lifts.rs: below 7.45 in the Undercity, above 102 on Thunder Bluff's bluff, within 400 yd of a shaft), not by the
+// client's map: it names the Undercity (1458) for the Ruins of Lordaeron's courtyard above it, and Thunder Bluff
+// (1456) at the lifts' feet on Mulgore's ground, and the route sent a player at the foot of the north lift "to
+// Mulgore" first. Without a height the map decides, as before; away from the shafts nothing changes.
+#[test]
+fn the_undercity_and_thunder_bluff_are_sided_by_height_near_their_lifts_not_by_the_clients_map_3532() {
+	let out = run_raw(
+		r#"
+		local N = Polestar.Nav
+		N.RegisterCrossings({ complete = true, crossings = {}, zones = {
+			[1458] = { name = "Undercity", c = 0, top = 1877.945, bottom = 1237.841, left = 873.193, right = -86.182 },
+			[1420] = { name = "Tirisfal Glades", c = 0, top = 3837.5, bottom = 825, left = 3033.333, right = -1485.417 },
+			[1456] = { name = "Thunder Bluff", c = 1, top = -850, bottom = -1545.833, left = 516.667, right = -527.083 },
+			[1412] = { name = "Mulgore", c = 1, top = 266.666, bottom = -3835.416, left = 2479.167, right = -3675 },
+		} })
+		local Z = N.travel.ZoneOf
+		emit({
+			courtyard = Z(1458, 0, 1807.5, 230.1, nil, 62),       -- the Ruins' courtyard over the city
+			tradeQuarter = Z(1458, 0, 1559.2, 229.4, nil, -43),   -- down in the city
+			ucNoHeight = Z(1458, 0, 1807.5, 230.1),               -- no height: the map
+			liftFoot = Z(1456, 1, -1036.5, -53.1, nil, 69),       -- the north lift's foot, on Mulgore's ground
+			bluff = Z(1456, 1, -1040.6, -49, nil, 140.7),         -- its top, on the bluff
+			tbNoHeight = Z(1456, 1, -1036.5, -53.1),
+			farMulgore = Z(1412, 1, -2300, -400, nil, 50),        -- far from the shafts: unchanged
+		})"#,
+	);
+	assert_eq!(out["courtyard"], 1420, "the courtyard over the Undercity is outside it");
+	assert_eq!(out["tradeQuarter"], 1458);
+	assert_eq!(out["ucNoHeight"], 1458, "no height: the client's map, as before");
+	assert_eq!(out["liftFoot"], 1412, "the lift's foot is on Mulgore's ground");
+	assert_eq!(out["bluff"], 1456);
+	assert_eq!(out["tbNoHeight"], 1456);
+	assert_eq!(out["farMulgore"], 1412);
+}
+
 // KEPT IN JS:

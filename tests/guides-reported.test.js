@@ -9901,6 +9901,18 @@ test('forever/horde/50-60/01-un-goro-crater.guide: no Tarren Mill landing for Ve
 	assert.equal(next && next.goal.location, 'Undercity', 'the next flight after Kargath goes to the Undercity');
 });
 
+// #3123 (Zack): sent through Blackrock Mountain to learn Flame Crest's flight path he already had. The walk into the
+// mountain is for a character without it; one who has it goes on to Flame Crest by the travel planner's way. The
+// Velarok steps before it, Overmaster Pyron and Blackrock Depths inside keep their own conditions.
+test('forever/horde/50-60/01-un-goro-crater.guide: the walk through Blackrock Mountain is only for a character without Flame Crest\'s flight path (#3123)', { skip }, () => {
+	const steps = compiled('forever/horde/50-60/01-un-goro-crater.guide').steps;
+	const into = steps.find((st) => st.goals.some((g) => g.t === 'goto' && /Bridge into Blackrock Mountain/.test(g.label || g.text || '')));
+	assert.ok(into, 'the walk into the mountain');
+	assert.ok((into.when || []).some((p) => p.k === 'taxi' && p.neg && /Flame Crest/.test(p.name || p.location || '')), 'only without Flame Crest\'s flight path');
+	const crest = steps.find((st) => st.goals.some((g) => g.t === 'getfp' && /Flame Crest/.test(g.location || g.name || '')));
+	assert.ok(crest && !(crest.when || []).some((p) => p.k === 'taxi'), 'Flame Crest\'s own step is for everyone');
+});
+
 // Horde 50-60 audit (0.4.0), travel sweep of the Hearthstone binds: Winterspring bound at Everlook and no step hearthed
 // back there; the guide leaves Everlook by flight for Camp Mojache, which the Gadgetzan bind (set in the Azshara guide
 // at 50 and still in force) makes about 5 minutes shorter (Hearthstone to Gadgetzan, then the flight), and dropping it
