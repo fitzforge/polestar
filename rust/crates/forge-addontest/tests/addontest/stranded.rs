@@ -54,8 +54,10 @@ function plain(t) return t and (t:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""))
 local X = Polestar.Codex
 X.Load = function() return true end
 X.IsLoaded = function() return true end
+-- AT_DUGHAN (set in `before`): more quests Marshal Dughan takes in.
 X.Quest = function(id)
-	return { id = id, title = "Quest " .. id, faction = "A", level = id == 40 and 5 or 10, xp = 1000, ["end"] = (id == 40 or id == 46) and { npc = { 240 } } or nil }
+	local dughan = id == 40 or id == 46 or (AT_DUGHAN or {})[id]
+	return { id = id, title = "Quest " .. id, faction = "A", level = id == 40 and 5 or 10, xp = 1000, ["end"] = dughan and { npc = { 240 } } or nil }
 end
 Polestar.Lookup.QuestEnd = function(ends)
 	if ends and ends.npc and ends.npc[1] == 240 then return { npc = 240, name = "Marshal Dughan", spawn = { map = 1429, x = 42.0, y = 35.1 } } end
@@ -125,6 +127,22 @@ fn a_finished_quest_no_route_hands_in_is_listed_with_its_ender_and_handed_in_whi
 		"{out}"
 	);
 	assert_eq!(out["guide"], json!(["lookup/carried/log", "Marshal Dughan", "turnin", 40, 1]), "{out}");
+}
+
+// #3390: a finished quest a later guide of the route hands in (test/b's 44, its ender Marshal Dughan here) says
+// which guide keeps it on its While-here line, not "Handed in later on the route".
+#[test]
+fn a_stranded_hand_in_kept_for_a_later_guide_names_that_guide_3390() {
+	let out = run_before(
+		&format!("{WORLD}AT_DUGHAN = {{ [44] = true }}\n"),
+		r#"
+		local r = {}
+		for _, v in ipairs(E.GetWhileHereList()) do r[#r + 1] = { v.index, v.hereSub or false } end
+		table.sort(r, function(a, b) return a[1] < b[1] end)
+		emit(r)
+	"#,
+	);
+	assert_eq!(out, json!([[40, "Not handed in on the route ahead"], [44, "Kept for B"]]));
 }
 
 // #2918 (Chm137): Auto turn-in hands in the guide's quests. A finished quest's stranded line is handed in by
