@@ -18366,6 +18366,17 @@
 				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
 			},
 			"issue": 2749
+		},
+		{
+			"id": "3780-small-pack-open-in-bags",
+			"at": { "quest": 3845, "goal": "collect", "item": 11104 },
+			"goalNote": "Taking the quest from the pack in the water puts A Small Pack in your bags: right-click it there for the Large Compass, the Curled Map Parchment and the Lion-headed Key.",
+			"note": "It's a Secret to Everybody (3845) asks for three items that come out of A Small Pack (11107), the bag item the quest hands over; the step only said to take the quest at the pack in the water, so the player waited for the items to appear.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#3780 (Insomniaq, 0.4.2.2): A Small Pack went into the bags and had to be opened there" },
+				{ "kind": "client", "ref": "forever-db item.jsonl: 11107 A Small Pack and its contents 11104-11106, quest items; quest_objective.jsonl: 3845 asks for 11104, 11105 and 11106" }
+			],
+			"issue": 3780
 		}
 	]
 }

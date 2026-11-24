@@ -19512,3 +19512,13 @@ test('#3046 A Matter of Time: the Temporal Displacer and its parasites search fo
 		}
 	}
 });
+
+// Insomniaq (#3780): It's a Secret to Everybody's compass, map and key come out of A Small Pack, an item in the
+// bags to right-click; the step only said to take the quest at the pack in the water.
+for (const guide of ['forever/alliance/40-50/07-un-goro-crater.guide', 'forever/horde/50-60/01-un-goro-crater.guide']) {
+	test(`${guide}: It's a Secret to Everybody says to open A Small Pack in the bags (#3780)`, { skip }, () => {
+		const list = goals(guide);
+		const { goal } = list[at(list, 'collect 11104 (3845)', (g) => g.t === 'collect' && g.item === 11104)];
+		assert.match(goal.note || '', /A Small Pack in your bags: right-click it/);
+	});
+}

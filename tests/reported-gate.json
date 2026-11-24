@@ -1768,6 +1768,9 @@
 		"3608": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-training.rs", "test": "train_class_is_done_when_the_trainer_lists_only_new_ranks_of_known_spells_3608" }
 		] },
+		"3780": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Insomniaq (#3780): It's a Secret to Everybody's compass, map and key come out of A Small Pack" }
+		] },
 		"3845": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/class-quests.rs", "test": "a_class_quest_stops_being_offered_five_levels_past_its_guide_s_top_unless_its_spell_is_still_missing_3845" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-smart.rs", "test": "a_class_guide_is_outleveled_five_levels_past_its_top_once_its_reward_spell_is_known_3845" }
