@@ -136,7 +136,6 @@ t.guides["forever/50-60/mount-hyjal"] = (function() return {
 		["Slime Workstation"] = "Schleim-Werkstation",
 		["Slime ooze as you go"] = "Schleimreste auf dem Weg",
 		["Soil and venison"] = "Erde und Hirschfleisch",
-		["South down the west side of the shrub field to the ancients' outpost: kill the {npc:248395} you pass for {npc:249235}. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "Nach Süden die Westseite des Strauchfelds hinab zum Außenposten der Uralten: Töte die {npc:248395}, an denen du vorbeikommst, für {npc:249235}. {npc:260626}, die Flugmeisterin, wartet beim Außenposten; {npc:248367} und {npc:265586} stehen bei dem Uralten {npc:248366}.",
 		["South to {area:493}'s flight master (the Alliance's at the southern end of the valley, the Horde's at its south-western end) and fly to {area:2255} for {npc:249235}'s parts order."] = "Nach Süden zum Flugmeister von {area:493} (der der Allianz am südlichen Ende des Tals, der der Horde an dessen südwestlichem Ende) und fliege für den Ersatzteileauftrag von {npc:249235} nach {area:2255}.",
 		["South to {npc:267113}, another wild god, at {area:16868}'s eastern edge."] = "Nach Süden zu {npc:267113}, einem weiteren Wilden Gott, am östlichen Rand von {area:16868}.",
 		["South-east across {area:16866} to {npc:259695}, the wild god, indoors at its south-eastern edge."] = "Nach Südosten über {area:16866} zu {npc:259695}, dem Wilden Gott, im Inneren an dessen südöstlichem Rand.",
