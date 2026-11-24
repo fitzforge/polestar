@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "飛往{area:1637}",
-	-- {area:2408} Shadowprey Village
-	["{area:2408} flight master"] = "{area:2408}的飛行管理員",
 
 	-- Step 2: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
@@ -261,6 +259,7 @@ return {
 	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "經過營地往西，晶背蜥蜴（34-35級）待在岩石上；再過去村子裡的每個血頂食人妖都可能掉落耳朵。\n營地西南方山頂上的37級猛虎{npc:729}先別打：他在這裡比你高兩級，40-50級荊棘谷指南會再回來處理他。\n小心：迅猛龍巢穴裡有幼年迅猛龍，你攻擊成年迅猛龍時牠們會加入戰鬥。",
 	-- ["Zeppelin to {object:3202}"] = "搭飛艇前往{object:3202}",
 	-- ["from {npc:4723}"] = "從{npc:4723}身上取得",
+	-- ["{area:2408} flight master"] = "{area:2408}的飛行管理員",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}，在{object:20691}裡",
 	-- ["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465}：留給（forever/horde/40-50/01-stranglethorn-vale）",
 	-- ["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master."] = "{npc:2495}的商店在旅店東邊的建築裡；{npc:2498}在旅店的一樓，{npc:2496}、{npc:737}和{npc:773}在樓上的飛行管理員旁邊。",

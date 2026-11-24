@@ -14,13 +14,7 @@ next forever/alliance/40-50/07-un-goro-crater
 # (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: the four Sentry Braziers on the southern rim, handed
 # in on the way back to Thorium Point) and Trinkets... (3481), 13,710 XP.
 
-step To Ironforge
-  zone Ironforge
-  goto 18.15,51.45 "Stonefire Tavern"
-
 step Fly to Thelsamar
-  zone Ironforge
-  goto 55.9,47.9 "Ironforge flight master"
   fly "Thelsamar"
   zone Loch Modan
 
@@ -128,12 +122,14 @@ step Velarok Windblade
 step Dark Iron Taskmasters
   when group 7729
   zone Searing Gorge
-  tip With your group, look for Taskmasters on the open ledges. Stay on the surface; don't follow the arrow into the Slag Pit.
+  tip With your group, look for Taskmasters on the open ledges first. Last stop, if you still need some: take the lift (the scaffold cars) down into the Slag Pit below, where four more stand.
   loop
   goto 43.12,40.38 map 1427 r 12
   goto 45.68,39.66 map 1427 r 12
   goto 49.15,39.93 map 1427 r 12
   goto 44.79,51.93 map 1427 r 12
+  goto 39.6,50.8 map 1427 r 12
+  goto 40.6,53.6 map 1427 r 12
   kill 5846 quest 7729                -- Dark Iron Taskmaster
 
 step Dark Iron Slavers

@@ -11,7 +11,6 @@ return {
 	["Fly to {area:2897}"] = "Prendre un vol pour {area:2897}",
 	-- {area:2897} Zoram'gar Outpost · {area:378} Camp Taurajo
 	["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. If your hearthstone is ready, hearth to {area:378} and fly from there instead."] = "À l'est par la route depuis le camp de Seereth jusqu'au maître des coursiers du vent de la Croisée, puis prenez un vol pour l'{area:2897}. Si votre Pierre de foyer est prête, utilisez-la pour aller au {area:378} et prenez plutôt un vol depuis là-bas.",
-	["Crossroads flight master"] = "Maître de vol de la Croisée",
 
 	-- Step 2: Zoram'gar Outpost
 	-- {npc:12736} Je'neu Sancrea · {npc:12757} Karang Amakkar · {npc:12721} Mitsuwa
@@ -431,6 +430,7 @@ return {
 	-- ["Back west to Zoram'gar before heading east for good."] = "Retournez à Zoram'gar à l'ouest avant de partir pour de bon vers l'est.",
 	-- ["Below ground"] = "Sous terre",
 	-- ["Climb the path to the top of {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "Montez le chemin jusqu'au sommet de {area:2097}. {npc:10646} est retenue captive près de {npc:10896} (29) : éliminez d'abord les gardes et {npc:10896}, puis libérez-la et protégez-la pendant la descente ; des embusqués du Totem sinistre vous attaquent en route.",
+	-- ["Crossroads flight master"] = "Maître de vol de la Croisée",
 	-- ["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. Keep your hearthstone: {area:431}'s bind later in this guide saves more."] = "À l'est par la route depuis le camp de Seereth jusqu'au maître des coursiers du vent de la Croisée, puis prenez un vol pour l'{area:2897}. Gardez votre Pierre de foyer : la liaison au {area:431}, plus loin dans ce guide, fait gagner davantage.",
 	-- ["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold."] = "À l'est de Zoram'gar, les furbolgs Crin-de-Chardon occupent le village et les collines autour de leur antre.",
 	-- ["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold.\nCareful: A Shaman at 15% health or lower runs off to find help, which can pull extra furbolgs."] = "À l'est de Zoram'gar, les furbolgs Crins-de-chardon remplissent le village et les collines autour de leur repaire.\nAttention : un Chaman à 15 % de vie ou moins fuit chercher de l'aide, ce qui peut attirer des furbolgs en plus.",

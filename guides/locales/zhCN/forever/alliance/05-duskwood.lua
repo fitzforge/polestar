@@ -9,10 +9,8 @@ return {
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "飞往{area:42}",
-	-- {area:69} Lakeshire · {area:42} Darkshire · {zone:1431} Duskwood
-	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "返回 {area:69} 的狮鹫管理员处，飞往 {area:42}，进行 {zone:1431} 的第二轮路线。",
-	-- {area:69} Lakeshire
-	["{area:69} flight master"] = "{area:69} 飞行管理员",
+	-- {area:42} Darkshire · {zone:1431} Duskwood · {area:69} Lakeshire
+	["Fly to {area:42} for {zone:1431}'s second loop: from {area:69}'s gryphon master if you come from the Redridge guide."] = "",
 
 	-- Step 2: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
@@ -218,6 +216,7 @@ return {
 	["Train here, in {zone:1453}, before you go on."] = "继续出发前，先在{zone:1453}学习技能。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "返回 {area:69} 的狮鹫管理员处，飞往 {area:42}，进行 {zone:1431} 的第二轮路线。",
 	-- ["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "继续向西到{area:94}。{object:673515}在道路南边的废弃房屋旁发光。",
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "{area:492}北半部的所有食尸鬼都可能掉落肋骨：{npc:3}和{npc:210}（24-27级）比较好打；{npc:604}和{npc:570}（27-29级）也会掉。精英{npc:522}在墓间游荡：远离他。\n小心：{npc:948}死亡时会施放{spell:3428}，召来额外的敌人。",
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters."] = "{area:492}北半部的所有食尸鬼都可能掉落肋骨：食腐者、噬骨者、瘟疫食尸鬼和食脑者。",
@@ -246,6 +245,7 @@ return {
 	-- ["Train in {zone:1453}, north through {zone:1429}. Then take the boat from {area:17203} to {area:442}."] = "在{zone:1453}训练，从{zone:1429}向北走。然后从{area:17203}乘船前往{area:442}。",
 	-- ["Wolves, spiders and ghouls"] = "狼、蜘蛛和食尸鬼",
 	-- ["{area:492}, south"] = "{area:492}，南部",
+	-- ["{area:69} flight master"] = "{area:69} 飞行管理员",
 	-- ["{item:1130}: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses"] = "{item:1130}：小型结网毒蜘蛛、结网毒蜘蛛和绿色隐士蛛",
 	-- ["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "{item:1946}：墓地地穴里的{npc:511}是26级；留到回到{zone:1431}时再做",
 	-- ["{item:281046}, from the {object:673515}"] = "{item:281046}，来自{object:673515}",
