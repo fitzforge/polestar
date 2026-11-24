@@ -25,7 +25,7 @@ return {
 
 	-- Step 4: OOX-09/HL Distress Beacon
 	-- {zone:1425} The Hinterlands
-	["Only with the distress beacon, a rare drop in the {zone:1425}: it starts a quest to find the robot it calls for."] = "",
+	["Only with the distress beacon, a rare drop in the {zone:1425}: it starts a quest to find the robot it calls for."] = "Nur mit dem Notrufsignalan, einem seltenen Gegenstand in der {zone:1425}: es startet einen Quest, um den Roboter zu finden, dem es hilft.",
 
 	-- Step 5: OOX-09/HL
 	["OOX-09/HL"] = "OOX-09/HL",
@@ -49,7 +49,7 @@ return {
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, inside"] = "{npc:5636}, drinnen",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep · {zone:1428} Burning Steppes
-	["for {quest:2990} at {area:1438}: the {zone:1428} guide hands it in"] = "",
+	["for {quest:2990} at {area:1438}: the {zone:1428} guide hands it in"] = "für {quest:2990} in {area:1438}: der {zone:1428}-Guide überlässt es",
 	-- {npc:270263} Farseer Maret Firetend
 	["{npc:270263}, just east of the aviary"] = "{npc:270263}, gleich östlich des Greifenhorsts",
 
@@ -89,15 +89,15 @@ return {
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
 	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
 	-- {npc:2486} Fin Fizracket
-	["{npc:2486}, beside the inn"] = "",
+	["{npc:2486}, beside the inn"] = "{npc:2486}, neben dem Gasthaus",
 
 	-- Step 17: Oglethorpe Obnoticus
 	-- {zone:1444} Feralas · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
-	["Only if you escorted the {zone:1444} robot: its reward waits with {npc:7406} here in {area:35}."] = "",
+	["Only if you escorted the {zone:1444} robot: its reward waits with {npc:7406} here in {area:35}."] = "Nur falls du den Roboter des {zone:1444} begleitet hast: seine Belohnung wartet bei {npc:7406} hier in {area:35}.",
 
 	-- Step 18: Oglethorpe Obnoticus
 	-- {zone:1425} The Hinterlands · {npc:7406} Oglethorpe Obnoticus
-	["Only if you escorted the {zone:1425} robot: {npc:7406} has its reward too."] = "",
+	["Only if you escorted the {zone:1425} robot: {npc:7406} has its reward too."] = "Nur falls du den Roboter des {zone:1425} begleitet hast: {npc:7406} hat auch seine Belohnung.",
 
 	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
@@ -123,11 +123,11 @@ return {
 	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon
 	-- {npc:2535} Maury "Club Foot" Wilkins
 	-- was: ["{npc:2535} and {npc:2536}"] = "{npc:2535} und {npc:2536}"
-	["{npc:2535} and Jon-Jon"] = "",
+	["{npc:2535} and Jon-Jon"] = "{npc:2535} und Jon-Jon",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535} und {npc:2536} stehen zusammen in den Hügeln gleich nördlich von Zanzils Dorf.",
 	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
-	["{item:3925}, from {npc:2536}"] = "",
+	["{item:3925}, from {npc:2536}"] = "{item:3925}, von {npc:2536}",
 
 	-- Step 26: Gorilla hills
 	["Gorilla hills"] = "Gorillahügel",
@@ -152,7 +152,7 @@ return {
 
 	-- Step 30: Fin Fizracket
 	-- {npc:2486} Fin Fizracket
-	["{npc:2486}, by the inn"] = "",
+	["{npc:2486}, by the inn"] = "{npc:2486}, am Gasthaus",
 
 	-- Step 31: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash

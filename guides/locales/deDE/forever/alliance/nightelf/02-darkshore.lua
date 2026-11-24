@@ -183,7 +183,7 @@ return {
 	["{npc:3649}: for {npc:1646} in {zone:1453}, on the walk from the boat"] = "",
 
 	-- Step 31: Elisa Steelhand
-	["talk to the trainer"] = "",
+	["talk to the trainer"] = "sprich mit dem Lehrer",
 
 	-- Step 32: Kurdram Stonehammer
 	-- {npc:6297} Kurdram Stonehammer · {npc:6300} Elisa Steelhand · {quest:97948} Camping 101: Mining

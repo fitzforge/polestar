@@ -16,7 +16,7 @@ return {
 	-- {npc:2216} Apothecary Lydon
 	-- plural, as words: Syndicate Shadow Mages = {npc:2244} Syndicate Shadow Mage
 	["{npc:2216}: the vials come from the Syndicate Shadow Mages on the way to Durnholde"] = "{npc:2216}: Die Phiolen bekommst du von den Schattenmagiern des Syndikats auf dem Weg nach Durnholde",
-	["The WANTED poster by the inn"] = "",
+	["The WANTED poster by the inn"] = "Das Gesuch (Wanted-Poster) am Gasthaus",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "{npc:2229}, drinnen",
 
@@ -62,7 +62,7 @@ return {
 	-- Step 9: Tarren Mill
 	-- {quest:528} Battle of Hillsbrad
 	-- was: ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "Darthalias nächste Quest {quest:528} und Lydons Elixier der Qualen sind für den nächsten Besuch, bei etwa 30."
-	["Darthalia's next {quest:528}, Samsa's Souvenirs of Death and Lydon's Elixir of Agony are for the next visit, at about 30."] = "",
+	["Darthalia's next {quest:528}, Samsa's Souvenirs of Death and Lydon's Elixir of Agony are for the next visit, at about 30."] = "Darthalias nächste {quest:528}, Samsas Kindertote und Lydons Elixier der Agonie, warten auf den nächsten Besuch, ungefähr bei Level 30.",
 
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep

@@ -26,7 +26,7 @@ return {
 
 	-- Step 4: Whiskey Slim
 	-- {npc:2491} Whiskey Slim · {area:35} Booty Bay
-	["{npc:2491} sits in the {area:35} inn."] = "",
+	["{npc:2491} sits in the {area:35} inn."] = "{npc:2491} sitzt im Gasthaus in {area:35}.",
 	-- {npc:2491} Whiskey Slim
 	["{npc:2491}, in the inn"] = "{npc:2491}, im Gasthaus",
 
@@ -59,9 +59,9 @@ return {
 	["Below ground"] = "Unter der Erde",
 
 	-- Step 17: Saving Yenniku
-	["while he is alive: the gem fills; don't kill him"] = "",
+	["while he is alive: the gem fills; don't kill him"] = "solange er lebt: das Edelstein füllt sich; töte ihn nicht",
 	-- {item:3912} Soul Gem
-	["Use the {item:3912} on Yenniku"] = "",
+	["Use the {item:3912} on Yenniku"] = "Benutze das {item:3912} auf Yenniku",
 
 	-- Step 19: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -190,7 +190,7 @@ return {
 	-- Step 47: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast · {npc:14637} Zorbin Fandazzle
 	-- was: ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Reite nach Nordwesten zum Ort {area:1108}; {npc:14637} wartet am Steg."
-	["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "",
+	["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Reite nach Nordwesten zum Ort {area:1108}; {npc:14637} wartet am Steg.",
 
 	-- Step 48: Forgotten Coast: the water and the shore
 	-- {area:1108} Forgotten Coast
@@ -246,7 +246,7 @@ return {
 
 	-- Step 61: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
-	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} (Chasing {npc:9623}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} (Chasing {npc:9623}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "Der Auktionshaus von {area:976} ist das letzte vor Un'Goro. Dort bittet {npc:9623} (Chasing {npc:9623}) um ein {item:10561}, ein {skill:202}-Item, vor ihrem Gefährte: kaufe eines hier, wenn du diese Kette haben willst.",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, neben dem Windreitermeister",
 

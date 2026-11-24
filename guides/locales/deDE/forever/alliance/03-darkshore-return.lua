@@ -41,7 +41,7 @@ return {
 	-- {object:12666} Twilight Tome · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
 	-- was: ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Mondpirscherpatriarchen streifen durch die Wälder rund um die Gleve. Der {object:12666} steht am Grund des Kraters; {npc:3584} steht an seiner Nordseite. Für die Quest von {quest:948} benutzt du die {item:5251} am Grund des Kraters: Sie erzeugt die {object:10076}, und du gibst die Quest an der Schale ab."
-	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "",
+	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Mondwächter-Stuten patrouillieren die Wälder um das Glaive. Der {object:12666} liegt am Grund des Kraters. Für den Quest von {quest:948} benutze das {item:5251} am Kraterboden: es ergibt das {object:10076}, und du gibst den Quest dem Schüssel.",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "Feine Mondpirscherpelze",
 	-- {item:5352} Book: The Powers Below
@@ -58,7 +58,7 @@ return {
 
 	-- Step 7: Therylune
 	-- {npc:3584} Therylune · {zone:1440} Ashenvale
-	["{npc:3584} stands on the north side of the crater: escort her out of the glaive. Therysil takes the turn-in in {zone:1440}."] = "",
+	["{npc:3584} stands on the north side of the crater: escort her out of the glaive. Therysil takes the turn-in in {zone:1440}."] = "{npc:3584} steht am nördlichen Abgrat der Mondkrater. Begleite sie aus dem Glaive. Therysil überlässt die Abgabe in {zone:1440}.",
 	-- {zone:1440} Ashenvale
 	["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "Eskortiere sie aus der Gleve; Therysil nimmt die Abgabe in {zone:1440} entgegen",
 
@@ -120,7 +120,7 @@ return {
 
 	-- Step 21: Volcor
 	-- {npc:3692} Volcor · {area:449} Master's Glaive · {area:455} Blackwood Den
-	["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "",
+	["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "{npc:3692} versteckt sich in den Hügeln östlich von {area:449}, innen in {area:455}.",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
 	["{npc:3692}, inside {area:455}"] = "{npc:3692}, in {area:455}",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
@@ -130,9 +130,9 @@ return {
 
 	-- Step 22: Escort Volcor
 	-- {npc:3692} Volcor
-	["Escort {npc:3692}"] = "",
+	["Escort {npc:3692}"] = "Begleite {npc:3692}",
 	-- {npc:3692} Volcor · {npc:3693} Terenthis · {area:442} Auberdine
-	["Help {npc:3692} back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "",
+	["Help {npc:3692} back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "Hilf {npc:3692} zurück zur Straße; er kämpft auf dem Weg heraus. {npc:3693} übernimmt die Begleitung in {area:442} bei deinem nächsten Besuch dort.",
 	["His walk ends at the road, where Grimclaw waits"] = "Sein Weg endet an der Straße, wo Grimclaw wartet",
 
 	-- Step 23: Auberdine
@@ -178,7 +178,7 @@ return {
 
 	-- Step 34: Dendrite Starblaze
 	-- {item:15885} Pendant of the Sea Lion · {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form
-	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "",
+	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "Das {item:15885} ist bereits bei {npc:11802}: nimm {quest:5061} von ihm, oben in seinem Gebäude.",
 
 	-- Step 35: Back to Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze

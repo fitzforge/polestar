@@ -24,7 +24,7 @@ return {
 
 	-- Step 4: Neeru Fireblade
 	-- {quest:829} Neeru Fireblade · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength
-	["{quest:829} stands at the far end of the {object:172960}, the canyon under the {object:172982}."] = "",
+	["{quest:829} stands at the far end of the {object:172960}, the canyon under the {object:172982}."] = "{quest:829} steht am weiteren Ende von {object:172960}, der Schlucht unterhalb von {object:172982}.",
 
 	-- Step 5: The Drag
 	-- {npc:3348} Kor'geld · {npc:3347} Yelmak · {npc:11046} Whuut
@@ -116,11 +116,11 @@ return {
 
 	-- Step 22: Thrall
 	-- {npc:4949} Thrall · {item:14544} Lieutenant's Insignia · {area:817} Skull Rock · {quest:829} Neeru Fireblade · {zone:1454} Orgrimmar
-	["{npc:4949}, on his throne in Grommash Hold, takes the {item:14544} from {area:817}. His next errand is only a word with {quest:829}, on this guide's last {zone:1454} walk."] = "",
+	["{npc:4949}, on his throne in Grommash Hold, takes the {item:14544} from {area:817}. His next errand is only a word with {quest:829}, on this guide's last {zone:1454} walk."] = "{npc:4949}, auf seinem Thron in Grommash-Hold, nimmt das {item:14544} von {area:817}. Sein nächster Auftrag ist nur ein Wort mit {quest:829}, auf diesem Guide's letzten {zone:1454}-Spaziergang.",
 
 	-- Step 23: Thrall
 	-- {npc:4949} Thrall · {npc:3216} Neeru Fireblade · {zone:1454} Orgrimmar
-	["{npc:4949} sits on his throne in Grommash Hold. His next errand is only a word with {npc:3216}, on this guide's last {zone:1454} walk."] = "",
+	["{npc:4949} sits on his throne in Grommash Hold. His next errand is only a word with {npc:3216}, on this guide's last {zone:1454} walk."] = "{npc:4949} sitzt auf seinem Thron in Grommash-Hold. Sein nächster Auftrag ist nur ein Wort mit {npc:3216}, auf diesem Guide's letzten {zone:1454}-Spaziergang.",
 
 	-- Step 24: Zeppelin to Undercity
 	-- {zone:1458} Undercity
@@ -151,7 +151,7 @@ return {
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "{npc:1952}, unter Tage",
 	-- {npc:1937} Apothecary Renferrel
-	["{npc:1937}: bear hearts from the Grizzled Bears all over the forest, the spiders' blood in the north-west hills later"] = "",
+	["{npc:1937}: bear hearts from the Grizzled Bears all over the forest, the spiders' blood in the north-west hills later"] = "{npc:1937}: Bärenherzen von den Grau-Bären im gesamten Wald, später das Spinnerschlangenblut in den nordwestlichen Hügeln",
 
 	-- Step 31: The Sepulcher
 	-- {quest:264} Until Death Do Us Part · {object:24776} Yuriv's Tombstone
@@ -222,23 +222,23 @@ return {
 	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "{npc:1499} in {area:159}, auf dem Weg zum Zeppelin am Ende",
 
 	-- Step 45: North-west hills
-	["North-west hills"] = "",
+	["North-west hills"] = "Nördliche Westen Hügel",
 	-- {area:228} The Sepulcher · {item:3254} Skittering Blood
 	-- plural, as words: Moonrage Gluttons = {npc:1779} Moonrage Glutton · Moss Stalkers = {npc:1780} Moss Stalker · Mist Creepers = {npc:1781} Mist Creeper · Giant Grizzled Bears = {npc:1797} Giant Grizzled Bear
 	["North-west of the {area:228} the Moonrage Gluttons and Darksouls roam the hills between the road and the lake; their shackles drop from them. Past them, farther north-west, Moss Stalkers and Mist Creepers bleed the {item:3254}, and Giant Grizzled Bears roam among them for the hearts (any Grizzled Bear in the forest drops one)."] = "",
 	-- {item:3156} Glutton Shackle
 	-- plural, as words: Moonrage Gluttons = {npc:1779} Moonrage Glutton
-	["{item:3156}, from the Moonrage Gluttons"] = "",
+	["{item:3156}, from the Moonrage Gluttons"] = "{item:3156}, von den Mondrase-Fressern",
 	-- {item:3157} Darksoul Shackle
 	-- plural, as words: Moonrage Darksouls = {npc:1782} Moonrage Darksoul
-	["{item:3157}, from the Moonrage Darksouls"] = "",
+	["{item:3157}, from the Moonrage Darksouls"] = "{item:3157}, von den Mondrase-Dunkelseelen",
 	-- {item:3254} Skittering Blood
 	-- plural, as words: Moss Stalkers = {npc:1780} Moss Stalker · Mist Creepers = {npc:1781} Mist Creeper
-	["{item:3254}, from the Moss Stalkers and Mist Creepers"] = "",
+	["{item:3254}, from the Moss Stalkers and Mist Creepers"] = "{item:3254}, von Moos-Wächtern und Nebel-Gespenstern",
 
 	-- Step 46: The Sepulcher
 	-- {area:228} The Sepulcher
-	["Back south-east to the {area:228}."] = "",
+	["Back south-east to the {area:228}."] = "Rückwärts ost-, südlich zum {area:228}.",
 
 	-- Step 47: The Ivar Patch
 	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
@@ -263,7 +263,7 @@ return {
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}, in the Apothecarium"] = "{npc:5204}, im Apothekarium",
 	-- {npc:2055} Master Apothecary Faranell
-	["{npc:2055}, beside Zinge"] = "",
+	["{npc:2055}, beside Zinge"] = "{npc:2055}, bei Zinge",
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}: Helbrim at the Crossroads, in the next guide"] = "{npc:5204}: Helbrim am Wegekreuz, im nächsten Guide",
 	-- {npc:260093} Garen Largo · {area:1497} Undercity
@@ -309,7 +309,7 @@ return {
 
 	-- Step 61: Neeru Fireblade
 	-- {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:3216} Neeru Fireblade · {npc:4949} Thrall
-	["The {object:172960} is the canyon under the {object:172982}; {npc:3216} stands at its far end. Tell him what {npc:4949} found."] = "",
+	["The {object:172960} is the canyon under the {object:172982}; {npc:3216} stands at its far end. Tell him what {npc:4949} found."] = "{object:172960} ist die Schlucht unterhalb von {object:172982}; {npc:3216} steht am weiteren Ende. Sage ihm, was {npc:4949} gefunden hat.",
 
 	-- Step 62: Neeru Fireblade
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:3216} Neeru Fireblade
@@ -332,11 +332,11 @@ return {
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:362} Razor Hill · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
 	-- was: ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} und {npc:268682} sitzen hinter der Burg Grommash im {object:172957}; die Glatten Felsbrocken liegen um sie herum. Der nächste Guide führt von hier nach {area:379} und zum Wegekreuz."
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:362}, then {area:379} and the Crossroads."] = "",
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:362}, then {area:379} and the Crossroads."] = "{npc:268684} und {npc:268682} sitzen hinter Grommash-Hold in {object:172957}; die Glatter Felsbrocken liegen um sie herum. Der nächste Guide geht von hier nach {area:362}, dann {area:379} und dem Klüftkreuz.",
 
 	-- Step 71: Thrall
 	-- {npc:4949} Thrall · {npc:268684} Thra · {npc:268682} Migi
-	["{npc:4949} waits in Grommash Hold, beside {npc:268684} and {npc:268682}."] = "",
+	["{npc:4949} waits in Grommash Hold, beside {npc:268684} and {npc:268682}."] = "{npc:4949} wartet in Grommash-Hold, bei {npc:268684} und {npc:268682}.",
 
 	-- Step 72: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {npc:4049} Seereth Stonebreak

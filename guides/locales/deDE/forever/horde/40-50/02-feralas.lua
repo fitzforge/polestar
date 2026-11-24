@@ -94,11 +94,11 @@ return {
 
 	-- Step 17: Fin Fizracket
 	-- {npc:2486} Fin Fizracket
-	["{npc:2486}, by the inn"] = "",
+	["{npc:2486}, by the inn"] = "{npc:2486}, am Gasthaus",
 
 	-- Step 18: Whiskey Slim and Fin Fizracket
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
-	["{npc:2491} and {npc:2486}"] = "",
+	["{npc:2491} and {npc:2486}"] = "{npc:2491} und {npc:2486}",
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim
 	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
@@ -165,7 +165,7 @@ return {
 	["for the {object:2555} in {zone:1445}, on the Dustwallow guide"] = "",
 
 	-- Step 38: A Soggy Scroll
-	["The scroll lies at the water's edge in the swamp's far west."] = "",
+	["The scroll lies at the water's edge in the swamp's far west."] = "Das Siegel liegt am Wasserfuß im Feuer der Sümpfe im westlichsten Teil der Moors.",
 
 	-- Step 39: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Sägezahnkrokilisken",
@@ -222,7 +222,7 @@ return {
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {zone:1454} zeppelin."] = "",
 	-- {npc:4773} Velma Warnam
 	-- was: ["{npc:4773}, riding trainer"] = "{npc:4773}, Reitlehrerin"
-	["{npc:4773}, riding trainer"] = "",
+	["{npc:4773}, riding trainer"] = "{npc:4773}, Reitlehrer",
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
 	["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Skelettpferde: {npc:4731}, neben {npc:4773} in {area:159}.",
 

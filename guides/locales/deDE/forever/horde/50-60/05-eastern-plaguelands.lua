@@ -217,11 +217,11 @@ return {
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "Befreie Geister von Darrowehr: Sprich mit ihnen",
 	-- {npc:8530} Cannibal Ghoul · {npc:11064} Darrowshire Spirit
-	["{npc:8530}: a {npc:11064} rises where one dies"] = "",
+	["{npc:8530}: a {npc:11064} rises where one dies"] = "{npc:8530}: ein {npc:11064} erwacht, wo ein Tod passiert",
 	-- {npc:8531} Gibbering Ghoul
-	["{npc:8531}: leaves a spirit too"] = "",
+	["{npc:8531}: leaves a spirit too"] = "{npc:8531}: lässt auch einen Geist zurück",
 	-- {npc:8532} Diseased Flayer
-	["{npc:8532}: leaves a spirit too"] = "",
+	["{npc:8532}: leaves a spirit too"] = "{npc:8532}: lässt auch einen Geist zurück",
 
 	-- Step 47: Carlin Redpath
 	-- {area:2268} Light's Hope Chapel

@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Hydraxian Waterlords Reputation"] = "Ruf: Hydraxianer",
 	-- {item:22754} Eternal Quintessence · {area:2717} Molten Core
-	["The reputation kills to Honored, and the reusable {item:22754} at Revered once the {area:2717} opens."] = "",
+	["The reputation kills to Honored, and the reusable {item:22754} at Revered once the {area:2717} opens."] = "Der Ruf bringt Honored, und das wiederverwendbare {item:22754} ist im Revered-Status, sobald {area:2717} geöffnet wird.",
 
 	-- Step 1: Elementals to Honored
 	["Elementals to Honored"] = "Elementare bis Wohlwollend",
@@ -23,9 +23,9 @@ return {
 	-- Step 2: Pyroguard Emberseer
 	-- {npc:9816} Pyroguard Emberseer · {area:254} Blackrock Mountain · {item:12344} Seal of Ascension
 	-- was: ["{npc:9816} is a boss in Upper Blackrock Spire, inside {area:254}: a group of up to ten, and someone needs the {item:12344} to open the door. He drops the Eye and pays 50 reputation per kill up to 11,999 of 12,000 Honored. {npc:9017} in {area:1584} pays 15 the same way."] = "{npc:9816} ist ein Boss in der Oberen Schwarzfelsspitze, im {area:254}: eine Gruppe von bis zu zehn, und jemand braucht den {item:12344}, um die Tür zu öffnen. Er lässt das Auge fallen und zahlt 50 Ruf pro Kill bis 11.999 von 12.000 Wohlwollend. {npc:9017} in {area:1584} zahlt auf dieselbe Weise 15."
-	["{npc:9816} is a boss in Upper Blackrock Spire, inside {area:254}: a group of up to ten, and someone needs the {item:12344} to open the door. He pays 50 reputation per kill up to 11,999 of 12,000 Honored."] = "",
+	["{npc:9816} is a boss in Upper Blackrock Spire, inside {area:254}: a group of up to ten, and someone needs the {item:12344} to open the door. He pays 50 reputation per kill up to 11,999 of 12,000 Honored."] = "{npc:9816} ist eine Boss-Stelle in Obernem-Ausblick-Turm, innen in {area:254}: eine Gruppe von bis zu zehn Personen, und jemand benötigt das {item:12344} zum Öffnen der Tür. Er zahlt 50 Rufpunkte pro Tötung bis auf 11.999 von 12.000 Honored.",
 	-- {npc:9816} Pyroguard Emberseer
-	["{npc:9816}: raid of ten"] = "",
+	["{npc:9816}: raid of ten"] = "{npc:9816}: Raid von zehn",
 
 	-- Step 3: Molten Core to Revered
 	-- {area:2717} Molten Core
@@ -40,7 +40,7 @@ return {
 	-- {item:22754} Eternal Quintessence
 	["The {item:22754}"] = "Die {item:22754}",
 	-- {npc:13278} Duke Hydraxis · {zone:1447} Azshara · {item:22754} Eternal Quintessence · {area:2717} Molten Core · {npc:12018} Majordomo Executus · {npc:11502} Ragnaros
-	["{npc:13278} stands on a small island off the east coast of {zone:1447}; swim out to him. At Revered he gives you the {item:22754}: pour it on a rune in the {area:2717} to douse it. It is not used up, so you never come back for another. With every rune doused, {npc:12018} comes out, and after him {npc:11502}."] = "",
+	["{npc:13278} stands on a small island off the east coast of {zone:1447}; swim out to him. At Revered he gives you the {item:22754}: pour it on a rune in the {area:2717} to douse it. It is not used up, so you never come back for another. With every rune doused, {npc:12018} comes out, and after him {npc:11502}."] = "{npc:13278} steht auf einer kleinen Insel vor der Ostküste von {zone:1447}; schwimme aus, um zu ihm. Im Revered-Status gibt er dir das {item:22754}: gieß es über ein Runenzeichen in {area:2717} aus, um es zu löschen. Es wird nicht verbraucht, also kommt man nie wieder für ein anderes. Mit jeder verloschten Runenzeichen erscheint {npc:12018}, danach {npc:11502}.",
 	-- {item:22754} Eternal Quintessence
 	["{item:22754}, ask the Duke"] = "{item:22754}, frag den Herzog",
 

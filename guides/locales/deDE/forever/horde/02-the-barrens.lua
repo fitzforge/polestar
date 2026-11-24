@@ -8,23 +8,23 @@
 return {
 	-- Step 1: Razor Hill
 	-- {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:814} Southfury River · {area:362} Razor Hill · {npc:3336} Takrin Pathseeker · {npc:3142} Orgnil Soulscar
-	["Leave {zone:1454} by the main gate and follow the road south through {zone:1411}. Before it turns west to the {area:814} bridge, step east into {area:362}: {npc:3336} stands on the west side of town, {npc:3142} in the middle."] = "",
+	["Leave {zone:1454} by the main gate and follow the road south through {zone:1411}. Before it turns west to the {area:814} bridge, step east into {area:362}: {npc:3336} stands on the west side of town, {npc:3142} in the middle."] = "Verlasse {zone:1454} durch die Hauptpforte und folge der Straße Südwest durch {zone:1411}. Bevor sie nach Westen zum {area:814}-Brücke ausweicht, geh in {area:362} rechts herein: {npc:3336} steht auf der Westseite der Stadt, {npc:3142} in der Mitte.",
 	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post
-	["{npc:3336}: {npc:3337} at {area:379}, on the way"] = "",
+	["{npc:3336}: {npc:3337} at {area:379}, on the way"] = "{npc:3336}: {npc:3337} in {area:379}, auf dem Weg",
 
 	-- Step 2: Orgnil Soulscar
 	-- {npc:3142} Orgnil Soulscar · {area:362} Razor Hill
-	["{npc:3142} stands in the middle of {area:362}."] = "",
+	["{npc:3142} stands in the middle of {area:362}."] = "{npc:3142} steht in der Mitte von {area:362}.",
 	-- {npc:3142} Orgnil Soulscar · {quest:99051} Threat from Below · {zone:1411} Durotar
-	["{npc:3142}: {quest:99051}, from {zone:1411}'s naga beach"] = "",
+	["{npc:3142}: {quest:99051}, from {zone:1411}'s naga beach"] = "{npc:3142}: {quest:99051}, von {zone:1411}'s Naga-Sand",
 
 	-- Step 4: Uzzek
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth
-	["{npc:5810} stands at {area:379} with {npc:3337} and {quest:809}."] = "",
+	["{npc:5810} stands at {area:379} with {npc:3337} and {quest:809}."] = "{npc:5810} steht in {area:379} mit {npc:3337} und {quest:809}.",
 
 	-- Step 5: Far Watch Post
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {zone:1413} The Barrens · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth · {npc:5810} Uzzek
-	["Back west to the road and over the {area:814} bridge: {area:379} sits just above it on the {zone:1413} side. {npc:3337}, {quest:809} and {npc:5810} stand together."] = "",
+	["Back west to the road and over the {area:814} bridge: {area:379} sits just above it on the {zone:1413} side. {npc:3337}, {quest:809} and {npc:5810} stand together."] = "Rückwärts nach Westen zur Straße und über die {area:814}-Brücke: {area:379} sitzt direkt darüber auf der {zone:1413}-Seite. {npc:3337}, {quest:809} und {npc:5810} stehen zusammen.",
 	-- {quest:809} Ak'Zeloth · {npc:3337} Kargal Battlescar · {npc:3216} Neeru Fireblade · {zone:1454} Orgrimmar
 	["{quest:809}, beside {npc:3337}: from {npc:3216} in {zone:1454}"] = "{quest:809}, neben {npc:3337}: von {npc:3216} in {zone:1454}",
 
@@ -34,7 +34,7 @@ return {
 
 	-- Step 7: Far Watch Post
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {area:814} Southfury River
-	["{npc:5810} stands at {area:379}, just above the {area:814} bridge."] = "",
+	["{npc:5810} stands at {area:379}, just above the {area:814} bridge."] = "{npc:5810} steht in {area:379}, direkt über der {area:814}-Brücke.",
 
 	-- Step 8: The Crossroads
 	-- {area:379} Far Watch Post · {npc:3489} Zargh · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3615} Devrak · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger
@@ -50,7 +50,7 @@ return {
 	-- {npc:3429} Thork
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3429}'s supply crates lie in the Razormane camp's north-east, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "",
 	-- {npc:3429} Thork
-	["{npc:3429}, on the tower"] = "",
+	["{npc:3429}, on the tower"] = "{npc:3429}, auf dem Turm",
 
 	-- Step 10: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze · {area:392} Ratchet
@@ -71,9 +71,9 @@ return {
 
 	-- Step 13: Thork's supply crates
 	-- {npc:3429} Thork
-	["{npc:3429}'s supply crates"] = "",
+	["{npc:3429}'s supply crates"] = "{npc:3429}'s Versorgungskisten",
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	["With your group: the supply crates sit at the camp's eastern end. Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand beside the crates."] = "",
+	["With your group: the supply crates sit at the camp's eastern end. Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand beside the crates."] = "Mit deiner Gruppe: die Versorgungskisten sitzen am östlichen Ende des Lagers. Vorsicht: Razormane-Flesheaters und Berserker (18-19) sind Eliten; sie stehen neben den Kisten.",
 
 	-- Step 15: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
@@ -87,7 +87,7 @@ return {
 	-- {area:380} The Crossroads · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3615} Devrak · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:3448} Tonga Runetotem
 	["{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn: {npc:3338} by the inn, Helbrim and {npc:3464} by the north gate, then up the tower to {npc:3615}, the wind rider master, {npc:3429} and {npc:3449}, and {npc:3448} at the south gate on the way out."] = "{area:380} ist deine Basis für diesen Guide. Alle, die du brauchst, stehen nur wenige Schritte vom Gasthaus entfernt: {npc:3338} beim Gasthaus, Helbrim und {npc:3464} am Nordtor, dann den Turm hinauf zu {npc:3615}, dem Windreitermeister, {npc:3429} und {npc:3449}, und {npc:3448} am Südtor auf dem Weg hinaus.",
 	-- {quest:860} Sergra Darkthorn · {quest:842} Crossroads Conscription · {area:379} Far Watch Post
-	["{quest:860}: {quest:842}, from {area:379}"] = "",
+	["{quest:860}: {quest:842}, from {area:379}"] = "{quest:860}: {quest:842}, von {area:379}",
 	-- {npc:3429} Thork
 	["{npc:3429}, at the top of the tower"] = "{npc:3429}, oben auf dem Turm",
 
@@ -125,7 +125,7 @@ return {
 	-- Step 30: Ratchet
 	-- {area:392} Ratchet · {npc:3391} Gazlowe · {npc:7161} Wrenix the Wretched · {npc:3442} Sputtervalve · {npc:16227} Bragok · {npc:3446} Mebok Mizzyrix · {quest:1492} Wharfmaster Dizzywig
 	-- was: ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "Folge der Straße nach Südosten nach {area:392} an der Küste: {npc:3391} und {npc:7161} am Nordende der Stadt, {npc:3442} und {npc:16227}, {npc:3446} und das Plakat {object:3972}, dann {quest:1492} auf dem Steg, auf dem Weg nach Süden hinaus."
-	["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the WANTED poster, then {quest:1492} on the dock on the way out south."] = "",
+	["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the WANTED poster, then {quest:1492} on the dock on the way out south."] = "Fahre südöstlich entlang der Straße zu {area:392} an der Küste: {npc:3391} und {npc:7161} am nördlichen Stadtrand, {npc:3442} und {npc:16227}, {npc:3446} und das gesuchte Schild, dann {quest:1492} am Dock auf dem Weg nach Süden.",
 	-- {npc:3391} Gazlowe
 	["{npc:3391}, upstairs"] = "{npc:3391}, oben",
 	-- {npc:3442} Sputtervalve · {area:382} Sludge Fen
@@ -134,10 +134,10 @@ return {
 	["{npc:16227}, beside {npc:3442}"] = "{npc:16227}, neben {npc:3442}",
 	-- {npc:3446} Mebok Mizzyrix · {area:392} Ratchet
 	-- was: ["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{npc:3446}, neben dem Plakat {object:3972}: Die Bluthorn-Raptoren kommen beim nächsten Halt in {area:392}, mit 18"
-	["{npc:3446}, beside the WANTED poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "",
+	["{npc:3446}, beside the WANTED poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{npc:3446}, neben dem gesuchten Schild: die Sunscale-Raubvögel kommen auf dem nächsten {area:392}-Stop, bei 18",
 	-- {npc:3467} Baron Longshore · {area:392} Ratchet
 	-- was: ["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "Das Plakat {object:3972}: {npc:3467} kommt ebenfalls beim nächsten Halt in {area:392}"
-	["The WANTED poster: {npc:3467} comes on the next {area:392} stop too"] = "",
+	["The WANTED poster: {npc:3467} comes on the next {area:392} stop too"] = "Das gesuchte Schild: {npc:3467} kommt auch auf dem nächsten {area:392}-Stop",
 	-- {quest:1492} Wharfmaster Dizzywig
 	["{quest:1492}, on the dock"] = "{quest:1492}, am Kai",
 	-- {quest:1492} Wharfmaster Dizzywig · {area:381} Boulder Lode Mine
@@ -235,7 +235,7 @@ return {
 	["Finish the Raptor Heads"] = "Schließe die Raptorköpfe ab",
 	-- {quest:881} Echeyakee
 	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
-	["Still short of twelve? Sunscale Screechers are thickest on the open plains just north of {quest:881}'s lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp."] = "",
+	["Still short of twelve? Sunscale Screechers are thickest on the open plains just north of {quest:881}'s lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp."] = "Noch kurz von zwölf? Sunscale-G 예금과는? Sunscale-Giffs sind am dichtesten auf den offenen Ebenen direkt nördlich vom Nest von {quest:881}: fertige dort, dann kehrst du nach Südwest zum Klüft zurück, wobei westlich des Razormane-Camps bleibst.",
 
 	-- Step 53: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
@@ -288,7 +288,7 @@ return {
 	["Crossroads flight master"] = "Flugmeister des Wegekreuzes",
 
 	-- Step 59: Ratchet
-	["WANTED poster"] = "",
+	["WANTED poster"] = "Gesuchtes Schild",
 
 	-- Step 60: Mebok Mizzyrix
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {quest:1491} Smart Drinks
@@ -329,7 +329,7 @@ return {
 	-- {area:392} Ratchet
 	["Back north along the beach to {area:392}."] = "Den Strand entlang zurück nach Norden nach {area:392}.",
 	-- {npc:3446} Mebok Mizzyrix
-	["{npc:3446}, beside the WANTED poster"] = "",
+	["{npc:3446}, beside the WANTED poster"] = "{npc:3446}, neben dem gesuchten Schild",
 
 	-- Step 73: Dreadmist Peak
 	-- {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool (no name in this language: may be words) · {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
@@ -538,7 +538,7 @@ return {
 	["{area:392}: {area:718} quests"] = "{area:392}: Quests für {area:718}",
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {npc:3665} Crane Operator Bigglefuzz · {npc:3396} Hezrul Bloodmark
 	-- was: ["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "Deine Quests für {area:718}, falls du sie noch nicht angenommen hast: {npc:3446} neben dem Plakat {object:3972}, {npc:3665} auf dem Steg beim Flugmeister. Der Run kommt später in diesem Guide, nach {npc:3396}."
-	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the WANTED poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "",
+	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the WANTED poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "Deine {area:718}-Quests, falls du sie noch nicht abgeschlossen hast: {npc:3446} neben dem gesuchten Schild, {npc:3665} am Dock bei dem Flugmaster. Die Strecke ist später in diesem Guide, nach {npc:3396}.",
 
 	-- Step 121: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
