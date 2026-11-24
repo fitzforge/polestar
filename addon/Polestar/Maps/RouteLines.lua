@@ -385,6 +385,14 @@ function RouteLines.Drawable(leg)
 	return false
 end
 
+-- Whether the lines draw anywhere (the world map or the minimap): their own
+-- switch, whatever the arrow's (Nav/Journey.lua samples for them while the
+-- arrow is hidden, #3828).
+function RouteLines.Shown()
+	local world, minimap = surfaces()
+	return world or minimap
+end
+
 -- Whether the lines stand in for the trail: on, and a leg they can draw.
 function RouteLines.Active()
 	if not ns.Get("nav.routeLines") then return false end
