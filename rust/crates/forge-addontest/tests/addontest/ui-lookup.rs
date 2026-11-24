@@ -1090,16 +1090,20 @@ fn what_cannot_be_got_a_muted_chip_carries_it_in_the_list_and_the_hub_search_the
 }
 
 #[test]
-fn a_vendor_mount_facts_ranked_sources_with_travel_and_price_the_closed_one_dimmed_with_why() {
+fn a_vendor_mount_summary_and_ranked_sources_with_travel_price_and_restrictions() {
 	let out = run(r#"
 		Polestar.Lookup.Show(nil, "mount", 8631)
-		emit({ query = LK.Query(), d = LK.detail, title = LK.details.Title:GetText(), color = { LK.details.Title:GetTextColor() } })"#);
+		emit({
+			query = LK.Query(), d = LK.detail, title = LK.details.Title:GetText(),
+			color = { LK.details.Title:GetTextColor() }, summary = LK.details.ItemSummary:GetText(),
+		})"#);
 	assert_eq!(out["query"], "Reins of the Striped Frostsaber");
 	assert_eq!(out["title"], "Reins of the Striped Frostsaber");
 	let c = |i: usize| out["color"][i].as_f64().unwrap();
 	assert!(c(2) > c(0) && c(2) > c(1), "rare quality: blue");
 	assert!(c(0) > 0.0, "lifted toward the text colour to read on the ground");
-	assert_eq!(out["d"]["facts"], json!([["Type", "Mount  \u{b7}  Rare"], ["Requires", "Level 40"], ["Sources", "2  \u{b7}  1 open to you"],]));
+	assert!(is_match(text(&out["summary"]), r"^\|cff[0-9a-f]{6}Rare\|r · Requires level 40$"));
+	assert_eq!(out["d"]["facts"], json!({}));
 	assert_eq!(
 		cols(&out["d"]["sources"], &["label", "travel", "facts", "why", "available"]),
 		json!([["Lelanai", "4 min", "80g", null, true], ["Zachariah Post", "32 min", "80g  \u{b7}  Limited stock", "Horde only", false],])
@@ -2231,7 +2235,7 @@ fn item_details_summarize_known_facts_from_mixed_sources() {
 }
 
 #[test]
-fn item_details_add_only_the_selected_items_cached_tooltip_lines() {
+fn item_details_follow_the_selected_items_cached_tooltip_order() {
 	let out = run_packed_lookup(
 		&json!({"items": {
 			"5200": {"name": "Impaling Harpoon", "quality": 3, "reqLevel": 20, "itemLevel": 22,
@@ -2245,23 +2249,29 @@ fn item_details_add_only_the_selected_items_cached_tooltip_lines() {
 		C_Item = {
 			IsItemDataCachedByID = function(id) return cached[id] == true end,
 			RequestLoadItemDataByID = function(id) requests[id] = true end,
+			GetItemInfo = function(id) return nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 955 end,
 		}
 		C_TooltipInfo = { GetItemByID = function(id) reads = reads + 1; return data[id] end }
-		Enum.TooltipDataLineType = { None = 0, ItemName = 22, ItemLevel = 31, ItemQuality = 35, EquipSlot = 21, UsageRequirement = 43 }
-		ITEM_CLASSES_ALLOWED, ITEM_MIN_LEVEL = "Classes admises (%s)", "Niveau %d requis"
+		Enum.TooltipDataLineType = { SellPrice = 11 }
+		ITEM_MIN_LEVEL = "Niveau %d requis."
+		ITEM_SPELL_TRIGGER_ONEQUIP = "Équipé :"
+		SELL_PRICE, TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN = "Prix de vente", "Vous n’avez pas cette apparence"
+		GetCoinTextureString = function(price) return ("[coins %d]"):format(price) end
 		RETRIEVING_ITEM_INFO = "Retrieving item information"
 		local function line(text, kind, right, color)
 			return { leftText = text, type = kind or 0, rightText = right, leftColor = color }
 		end
 		data[5200] = { id = 5200, lines = {
-			line("Impaling Harpoon", 22), line("Rare", 35), line("Item Level 22", 31), line("Two-Hand", 21, "Polearm"),
-			line("Classes admises (Guerrier)", 43), line("Niveau 20 requis", 43), line("+8 Stamina"),
-			line("Binds when picked up", 20), line("Unique"), line("92 Armor"),
-			line("30 - 40 Damage", 0, "Speed 2.00"), line("(17.5 damage per second)"), line("Durability 60 / 60"),
-			line("Use: Summon a companion.", 44), line("Equip: Improves your chance to hit.", 45, nil, { r = 0, g = 1, b = 0 }),
+			line("Impaling Harpoon", 22), line("Rare", 35), line("Item Level 22", 31),
+			line("Binds when picked up", 20), line("Unique"), line("Two-Hand", 21, "Polearm"),
+			line("28 - 53 Damage", 0, "Speed 1.80"), line("(22.5 damage per second)"), line("+8 Stamina"),
+			line("Durability 60 / 60"), line("Classes admises (Guerrier)", 43), line("|cffff2020Niveau 21 requis.|r", 43),
+			line("Équipé : Améliore vos chances de toucher.", 45, nil, { r = 0, g = 1, b = 0 }),
+			{ type = 11, price = 1234 }, line(TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN),
 			line("A test set (0/2)"), line("  A test piece"), line("(2) Set: Improves your chance to hit."),
 			line('"Test flavor text."', 37),
 		} }
+		data[5200].lines[7].rightColor = { r = 0.5, g = 0.75, b = 1 }
 		local function open(id) UI.ShowLookup({ query = "#" .. id, kind = "item", id = id }) end
 		local function shown()
 			local result = {}
@@ -2275,7 +2285,8 @@ fn item_details_add_only_the_selected_items_cached_tooltip_lines() {
 		local compact = d.Scroll.psContent
 		assert(requests[5200], "selected item requested")
 		assert(shown() == "", "no game lines before caching")
-		assert(d.StatRows[1]:GetText() == "+8 Stamina", d.StatRows[1]:GetText())
+		assert(d.ItemSummary:IsVisible() and d.ItemClasses:IsVisible())
+		assert(not rawget(d, "ItemSlot") and not rawget(d, "ItemSubtype") and not rawget(d, "StatRows") and not rawget(d, "StatMore"))
 		cached[5200] = true
 		local before = reads
 		stub.fire("GET_ITEM_INFO_RECEIVED", 647, true)
@@ -2286,15 +2297,23 @@ fn item_details_add_only_the_selected_items_cached_tooltip_lines() {
 		GameTooltip:SetText("Another tooltip")
 		stub.fire("GET_ITEM_INFO_RECEIVED", 5200, true)
 		assert(GameTooltip:GetOwner() == hovered and GameTooltip.lines[1] == "Another tooltip")
-		assert(shown() == table.concat({ "Binds when picked up", "Unique", "92 Armor", "30 - 40 Damage",
-			"(17.5 damage per second)", "Durability 60 / 60", "Use: Summon a companion.", "Equip: Improves your chance to hit.",
+		assert(shown() == table.concat({ "Rare", "Item Level 22", "Binds when picked up", "Unique", "Two-Hand", "28 - 53 Damage",
+			"(22.5 damage per second)", "+8 Stamina", "Durability 60 / 60", "Classes admises (Guerrier)", "|cffff2020Niveau 21 requis.|r",
+			"Équipé : Améliore vos chances de toucher.", "Prix de vente [coins 1234]", TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN,
 			"A test set (0/2)", "  A test piece", "(2) Set: Improves your chance to hit.", '"Test flavor text."' }, "\n"), shown())
-		local damage, equip = d.TooltipRows[4], d.TooltipRows[8]
+		local damage, equip = d.TooltipRows[6], d.TooltipRows[12]
 		local function y(region) return select(5, region:GetPoint(1)) end
-		assert(damage.Right:IsVisible() and damage.Right:GetText() == "Speed 2.00" and y(damage.Left) == y(damage.Right))
+		assert(damage.Right:IsVisible() and damage.Right:GetText() == "Speed 1.80" and y(damage.Left) == y(damage.Right))
+		assert(damage.Right:GetJustifyH() == "RIGHT")
+		assert(select(4, damage.Right:GetPoint(1)) + damage.Right:GetWidth() == d.ItemFactsPanel:GetWidth())
+		assert(damage.Right:GetWidth() >= damage.Right:GetUnboundedStringWidth() and damage.Left:GetWidth() > d.ItemFactsPanel:GetWidth() / 2)
+		local rr, rg, rb = damage.Right:GetTextColor()
+		assert(rr == 0.5 and rg == 0.75 and rb == 1)
 		local r, g, b = equip.Left:GetTextColor()
 		assert(r == 0 and g == 1 and b == 0 and equip.Left:GetWidth() > damage.Left:GetWidth())
-		assert(d.Scroll.psContent > compact and y(d.StatRows[1]) > y(d.TooltipRows[1].Left) and y(d.ItemHead) < y(d.TooltipRows[12].Left))
+		assert(d.Scroll.psContent > compact and y(d.ItemSummary) > y(d.TooltipRows[1].Left))
+		assert(d.ItemClasses:GetText():match("^Classes: |cff%x%x%x%x%x%x" .. UI.ClassName("WARRIOR") .. "|r$"))
+		assert(y(d.TooltipRows[18].Left) > y(d.ItemClasses) and y(d.ItemClasses) > y(d.ItemHead))
 		open(647)
 		assert(requests[647] and shown() == "" and not damage.Right:IsShown())
 		before = reads
@@ -2312,7 +2331,7 @@ fn item_details_add_only_the_selected_items_cached_tooltip_lines() {
 		stub.fire("GET_ITEM_INFO_RECEIVED", 647, true)
 		assert(reads == before)
 		open(647)
-		assert(shown() == "Binds when equipped" and not damage.Right:IsShown())
+		assert(shown() == "Binds when equipped\nNiveau 52 requis.\nPrix de vente [coins 955]" and not damage.Right:IsShown())
 		cached[647] = false
 		LK.Render()
 		assert(shown() == "", "previously cached rows are cleared when the cache misses")
@@ -2323,7 +2342,70 @@ fn item_details_add_only_the_selected_items_cached_tooltip_lines() {
 }
 
 #[test]
-fn item_details_keep_legacy_facts_when_the_tooltip_arrives() {
+fn item_details_insert_missing_level_and_sell_price() {
+	let out = run_packed_lookup(
+		&json!({"items": {
+			"647": {"name": "Destiny", "reqLevel": 52, "levelsSource": "client"},
+			"6948": {"name": "Hearthstone", "reqLevel": 1, "levelsSource": "client"}
+		}}),
+		r##"
+		Polestar.Compat.ItemTooltipLines = realCompat.ItemTooltipLines
+		ITEM_MIN_LEVEL = "Requires Level %d"
+		ITEM_SPELL_TRIGGER_ONEQUIP, ITEM_SPELL_TRIGGER_ONUSE, ITEM_SPELL_TRIGGER_ONPROC = "Equip:", "Use:", "Chance on hit:"
+		SELL_PRICE, TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN = "Sell Price", "You haven't collected this appearance"
+		Enum.TooltipDataLineType = { SellPrice = 11 }
+		local price, lines, reads = 205, {}, 0
+		C_Item = {
+			IsItemDataCachedByID = function() return true end,
+			GetItemInfo = function()
+				reads = reads + 1
+				if price == nil then error("item price is unavailable") end
+				return nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, price
+			end,
+		}
+		C_TooltipInfo = { GetItemByID = function(id) return { id = id, lines = lines } end }
+		GetCoinTextureString = function(copper) assert(copper > 0); return ("[coins %d]"):format(copper) end
+		local bind, level, appearance = "Binds when equipped", "Requires Level 52", TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN
+		local function check(game, expected, id)
+			lines = { { leftText = "Item name" } }
+			for _, row in ipairs(game) do lines[#lines + 1] = type(row) == "table" and row or { leftText = row } end
+			id = id or 647
+			UI.ShowLookup({ query = "#" .. id, kind = "item", id = id })
+			local shown = {}
+			for _, row in ipairs(LK.details.TooltipRows) do
+				if row.Left:IsVisible() then
+					local text = row.Left:GetText()
+					shown[#shown + 1] = text
+					if text == level then assert(colorIs(row.Left, "text")) end
+				end
+			end
+			assert(table.concat(shown, "\n") == table.concat(expected, "\n"), table.concat(shown, "\n"))
+		end
+		local sell = "Sell Price [coins 205]"
+		for _, trigger in ipairs({ ITEM_SPELL_TRIGGER_ONEQUIP, ITEM_SPELL_TRIGGER_ONUSE, ITEM_SPELL_TRIGGER_ONPROC }) do
+			local effect = trigger .. " A test effect."
+			check({ bind, effect, appearance }, { bind, level, effect, sell, appearance })
+		end
+		check({ bind, "Equip: First effect.", "Use: Second effect.", appearance },
+			{ bind, level, "Equip: First effect.", "Use: Second effect.", sell, appearance })
+		check({ bind, appearance, "After appearance" }, { bind, level, sell, appearance, "After appearance" })
+		local before = reads
+		check({ bind, { type = 11, price = 0 }, appearance }, { bind, level, appearance })
+		assert(reads == before, "native zero does not consult the item price")
+		check({ bind, { type = 11 }, "Before appearance", appearance }, { bind, level, sell, "Before appearance", appearance })
+		price = 0
+		check({ bind, appearance }, { bind, level, appearance })
+		price = nil
+		check({ bind }, { bind, level })
+		check({ bind }, { bind }, 6948)
+		emit(true)
+		"##,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn item_details_keep_known_summary_when_the_pack_has_no_filters() {
 	let out = run_packed_lookup(
 		&json!({"items": { "647": {"name": "Destiny", "quality": 4, "reqLevel": 52, "levelsSource": "client"} }}),
 		r##"
@@ -2337,14 +2419,14 @@ fn item_details_keep_legacy_facts_when_the_tooltip_arrives() {
 		} } end }
 		UI.ShowLookup({ query = "#647", kind = "item", id = 647 })
 		local d = LK.details
-		assert(LK.detail.facts[1][1] == "Type" and LK.detail.facts[2][2] == "Level 52")
-		assert(rawget(d, "TooltipRows") == nil)
+		local summary = d.ItemSummary:GetText()
+		assert(summary:match("Requires level 52$") and #LK.detail.facts == 0 and #d.TooltipRows == 0)
 		cached = true
 		stub.fire("GET_ITEM_INFO_RECEIVED", 647, true)
-		assert(LK.detail.facts[1][1] == "Type" and LK.detail.facts[2][2] == "Level 52")
+		assert(#LK.detail.facts == 0 and d.ItemSummary:GetText() == summary)
 		assert(d.TooltipRows[1].Left:IsVisible() and d.TooltipRows[1].Left:GetText() == "Binds when equipped")
-		assert(#d.TooltipRows == 1)
-		assert(not d.ItemSummary:IsShown() and d.ItemHead.Text:GetText() == "Where to get it")
+		assert(#d.TooltipRows == 2 and d.TooltipRows[2].Left:GetText() == "Requires Level 52")
+		assert(d.ItemSummary:IsShown() and d.ItemHead.Text:GetText() == "Where to get it")
 		emit(true)
 		"##,
 	);
@@ -2352,7 +2434,7 @@ fn item_details_keep_legacy_facts_when_the_tooltip_arrives() {
 }
 
 #[test]
-fn item_details_scroll_facts_stats_and_sources_with_the_acquisition_action_pinned() {
+fn item_details_scroll_tooltip_and_sources_with_the_acquisition_action_pinned() {
 	let out = run_packed_lookup(
 		&json!({"items": {
 			"19019": {"name": "Thunderfury", "reqLevel": 0, "itemLevel": 80, "quality": 0,
@@ -2376,45 +2458,29 @@ fn item_details_scroll_facts_stats_and_sources_with_the_acquisition_action_pinne
 		}}),
 		r##"
 		ITEM_QUALITY0_DESC, ITEM_QUALITY4_DESC = nil, "Client epic"
+		Polestar.Compat.ItemTooltipLines = function(id)
+			if id ~= 19019 then return end
+			local lines = { { leftText = "Thunderfury" }, { leftText = "+8 Stamina" } }
+			for i = 1, 18 do lines[#lines + 1] = { leftText = ("Tooltip line %d"):format(i) } end
+			return lines
+		end
 		local function open(id, kind) UI.ShowLookup({ query = "#" .. id, kind = kind or "item", id = id }) end
 		open(19019)
 		local d, W = LK.details, Polestar.Widgets
 		local function summary()
 			return d.ItemSummary:GetText():gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
 		end
-		local function stat(text)
-			for _, line in ipairs(d.StatRows) do
-				if line:IsShown() and line:GetText() == text then return line end
-			end
-		end
-		local function statCount()
-			local count = 0
-			for _, line in ipairs(d.StatRows) do if line:IsShown() then count = count + 1 end end
-			return count
-		end
 		assert(summary() == "Poor · Item level 80 · No level required")
-		assert(d.ItemSlot:GetText() == "One-hand" and d.ItemSubtype:GetText() == "Sword")
-		local function x(line) return select(4, line:GetPoint(1)) end
-		local function y(line) return select(5, line:GetPoint(1)) end
-		assert(x(d.ItemSlot) < x(d.ItemSubtype) and y(d.ItemSlot) == y(d.ItemSubtype))
 		local classes = {}
 		for _, token in ipairs({ "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "MAGE", "WARLOCK" }) do
-			classes[#classes + 1] = UI.ClassName(token)
+			local r, g, b = Polestar.Theme.ClassColor(token)
+			classes[#classes + 1] = ("|cff%02x%02x%02x%s|r"):format(math.floor(r * 255 + 0.5), math.floor(g * 255 + 0.5), math.floor(b * 255 + 0.5), UI.ClassName(token))
 		end
 		assert(d.ItemClasses:GetText() == "Classes: " .. table.concat(classes, ", "))
-		assert(rawget(d, "Stats") == nil and d.StatMore:IsShown() and d.StatMore.Label:GetText() == "Show all")
-		assert(statCount() == 8 and colorIs(assert(stat("Hit")), "textMuted"))
-		assert(y(d.ItemSummary) > y(d.ItemSlot) and y(d.ItemSlot) > y(d.ItemClasses) and y(d.ItemClasses) > y(d.StatRows[1]))
-		assert(x(d.StatRows[1]) < x(d.StatRows[2]) and y(d.StatRows[1]) == y(d.StatRows[2]))
-		assert(x(d.StatRows[1]) == x(d.StatRows[3]) and y(d.StatRows[1]) > y(d.StatRows[3]))
 		assert(d.ItemFactsPanel:GetParent() == d.Scroll.Child and d.ItemHead.Text:GetText() == "Where to get it")
 		assert(d.Primary:IsShown() and d.Primary:GetParent() == d, "pinned acquisition button")
 		local _, pinnedTo, _, _, pinnedY = d.Primary:GetPoint(1)
-		local compact = d.Scroll.psContent
-		d.StatMore:Click()
-		assert(statCount() == 9 and d.StatMore.Label:GetText() == "Show fewer")
-		assert(d.Scroll.psContent > compact and d.Scroll.psContent > d.Scroll.psView)
-		assert(colorIs(assert(stat("+8 Stamina")), "text"))
+		assert(d.Scroll.psContent > d.Scroll.psView and d.TooltipRows[1].Left:GetText() == "+8 Stamina")
 		local firstSource = d.Rows[1]
 		assert(firstSource:GetParent() == d.Scroll.Child)
 		W.ScrollTo(d.Scroll, d.Scroll.psContent)
@@ -2424,31 +2490,23 @@ fn item_details_scroll_facts_stats_and_sources_with_the_acquisition_action_pinne
 		assert(firstSource.Guide:IsShown())
 		at = d.Scroll:GetVerticalScroll()
 		LK.Render()
-		assert(stat("+8 Stamina"):IsVisible() and at > 0 and d.Scroll:GetVerticalScroll() == at)
+		assert(d.TooltipRows[1].Left:IsVisible() and at > 0 and d.Scroll:GetVerticalScroll() == at)
 		local _, stillPinned, _, _, stillY = d.Primary:GetPoint(1)
 		assert(stillPinned == pinnedTo and stillY == pinnedY)
-		d.StatMore:Click()
-		assert(statCount() == 8 and d.StatMore.Label:GetText() == "Show all")
-		d.StatMore:Click()
-		assert(statCount() == 9)
 		open(647)
-		assert(d.Scroll:GetVerticalScroll() == 0 and not d.StatMore:IsShown())
+		assert(d.Scroll:GetVerticalScroll() == 0 and not d.TooltipRows[1].Left:IsShown())
 		assert(summary() == "Client epic · Item level 57 · Requires level 52")
-		assert(d.ItemSlot:GetText() == "Non-equippable" and not d.ItemSubtype:IsShown() and not d.ItemClasses:IsShown())
-		assert(statCount() == 1 and stat("+3 Stamina"))
-		open(19019)
-		assert(d.StatMore.Label:GetText() == "Show all" and statCount() == 8 and d.Scroll:GetVerticalScroll() == 0)
+		assert(not d.ItemClasses:IsShown())
 		open(6948)
 		assert(d.ItemClasses:IsShown() and d.ItemClasses:GetText() == "Classes: None of these classes")
 		open(71)
-		assert(not d.ItemSummary:IsShown() and not d.ItemSlot:IsShown() and not d.ItemClasses:IsShown())
-		assert(d.ItemSubtype:IsShown() and d.ItemSubtype:GetText() == "Type 44" and statCount() == 0)
+		assert(not d.ItemSummary:IsShown() and not d.ItemClasses:IsShown())
 		open(73, "recipe")
 		assert(summary() == "Item level 20 · Requires level 10")
-		assert(d.ItemSubtype:IsShown() and d.ItemSubtype:GetText() == "Tailoring" and not d.ItemClasses:IsShown())
+		assert(not d.ItemClasses:IsShown())
 		open(72)
 		assert(summary() == "Client epic")
-		assert(not d.ItemSlot:IsShown() and not d.ItemSubtype:IsShown() and not d.ItemClasses:IsShown() and statCount() == 0)
+		assert(not d.TooltipRows[1].Left:IsShown() and not d.ItemClasses:IsShown())
 		local link
 		GameTooltip.SetHyperlink = function(_, value) link = value end
 		stub.RunScript(d.Well, "OnEnter")
@@ -2460,7 +2518,7 @@ fn item_details_scroll_facts_stats_and_sources_with_the_acquisition_action_pinne
 }
 
 #[test]
-fn lookup_pack_compatibility_keeps_legacy_details_and_drops_most_without_supported_data() {
+fn lookup_pack_compatibility_keeps_known_summary_and_drops_most_without_supported_data() {
 	for version in [0, 2] {
 		let out = run_packed_lookup(
 			&json!({"items": {
@@ -2475,7 +2533,7 @@ fn lookup_pack_compatibility_keeps_legacy_details_and_drops_most_without_support
 			LK.SetItemFilters({{ reqMax = 0, stat = 7 }})
 			UI.ShowLookup({{ query = "#647" }})
 			assert(LK.Selected().id == 647 and LK.ItemFilters().reqMax == 0)
-			assert(LK.detail.facts[1][1] == "Type" and LK.detail.facts[2][1] == "Requires" and LK.detail.facts[2][2] == "Level 52")
+			assert(LK.details.ItemSummary:GetText():match("Requires level 52$") and #LK.detail.facts == 0)
 			LK.root.Visibility:Click()
 			local drawer, order = LK.root.FilterDrawer, LK.root.SearchOrder
 			assert(drawer:GetHeight() == drawer.Status:GetHeight() + drawer.Clear:GetHeight() + 8 + ({version} == 0 and 36 or 0) and not rawget(drawer, "Item") and #drawer.Availability == 2)
@@ -2486,7 +2544,7 @@ fn lookup_pack_compatibility_keeps_legacy_details_and_drops_most_without_support
 			assert(not menuChoice("Most Stamina") and not menuChoice("Choose a stat…"))
 			UI.ShowLookup({{ query = "#932" }})
 			assert(Polestar.Codex.Item(932).reqLevelFallback)
-			assert(LK.detail.facts[1][1] == "Type" and LK.detail.facts[2][1] == "Sources" and #LK.detail.facts == 2)
+			assert(not LK.details.ItemSummary:GetText():find("Requires", 1, true) and #LK.detail.facts == 0)
 			emit(true)
 			"##
 			),

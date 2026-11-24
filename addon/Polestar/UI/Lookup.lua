@@ -26,10 +26,10 @@
 -- on the selection.
 -- Right: the selection's details (its sources asked for once per
 -- selection): a band (the zone art of where it is got, the night band
--- without) with the kind, the icon and the name; key facts (for items,
--- type, levels, rarity, usable classes, slot and category) and Stats, with
--- provenance where known. Sources from Lookup.Sources appear best first
--- (label, detail, travel time, chance, price
+-- without) with the kind, the icon and the name; key facts. Items show
+-- rarity and levels, the game's tooltip in its own order once loaded, and
+-- any class restrictions in class colours. Sources from Lookup.Sources
+-- appear best first (label, detail, travel time, chance, price
 -- or standing; ones this character cannot use yet dimmed and saying why);
 -- the selected source carries its own "Guide" button; for a quest in a
 -- chain, the chain under them (Lookup.ChainProgress, #2554): each quest done,
@@ -263,8 +263,8 @@ local function qualityColor(q)
 end
 LK.QualityColor = qualityColor
 
--- Item qualities and standings in the client's words (Core/Init.lua).
-local qualityName, standingName = ns.QualityName, ns.StandingName
+-- Standings in the client's words (Core/Init.lua).
+local standingName = ns.StandingName
 
 -- Paint a font string in a result's colour: its quality for item kinds,
 -- else its kind's subject colour.
@@ -954,13 +954,7 @@ local function factsFor(s, entity, list, chain)
 		if g.stepCount or g.steps then add(L["Steps"], tostring(g.stepCount or #g.steps)) end
 		return out
 	end
-	if KIND[k] and KIND[k].item then
-		local q = qualityName(e.quality or s.quality)
-		add(L["Type"], KIND[k].name .. (q and (DOT .. q) or ""))
-		if not e.reqLevelFallback and type(e.reqLevel) == "number" and e.reqLevel > 1 then
-			add(L["Requires"], format(L["Level %d"], e.reqLevel))
-		end
-	elseif k == "npc" or k == "rare" then
+	if k == "npc" or k == "rare" then
 		local tags = { KIND[k].name }
 		if e.elite then tags[#tags + 1] = L["Elite"] end
 		if e.boss then tags[#tags + 1] = L["Boss"] end
@@ -996,7 +990,7 @@ local function factsFor(s, entity, list, chain)
 	if list and k ~= "zone" then
 		local avail = 0
 		for _, row in ipairs(list) do if row.available ~= false then avail = avail + 1 end end
-		local label = (KIND[k] and KIND[k].item) and L["Sources"] or L["Places"]
+		local label = L["Places"]
 		if #list == 0 then
 			add(label, L["None known"], "textMuted")
 		elseif avail == #list then
@@ -1009,7 +1003,6 @@ local function factsFor(s, entity, list, chain)
 end
 
 local function headText(k)
-	if KIND[k] and KIND[k].item then return L["Where to get it"] end
 	if k == "quest" then return L["Start and turn-in"] end
 	if k == "instance" then return L["Entrance"] end
 	return L["Where to find it"]
@@ -1183,9 +1176,8 @@ local function renderDetails(loaded, reason)
 	end
 	local Lk = ns.Lookup
 	local chain = s.kind == "quest" and Lk and Lk.ChainProgress and Lk.ChainProgress(s.id) or nil
-	local item = itemDetails.Read(s, loaded)
+	local item = itemDetails.Read(s, loaded, entity)
 	local facts = not item and factsFor(s, entity, list, chain)
-	local tooltip = itemDetails.Tooltip(d.Well.psItem, item, facts, quality)
 	local shown = {}
 	y = itemDetails.Outside(d, itemDetails.outside, y)
 	y = paintLegacyFacts(d, facts, shown, y)
@@ -1274,15 +1266,15 @@ local function renderDetails(loaded, reason)
 
 	-- Sources.
 	local rowsShown = {}
-	if item or tooltip or (list and (s.kind ~= "zone" or #list > 0)) then
+	if item or (list and (s.kind ~= "zone" or #list > 0)) then
 		list = list or itemDetails.Empty
 		local child = d.Scroll.Child
 		local cw = INNER + 8
 		child:SetWidth(cw)
 		local cy = 0
-		if item or tooltip then
+		if item then
 			d.Head:Hide()
-			cy = itemDetails.Paint(d, item, quality, #list, tooltip)
+			cy = itemDetails.Paint(d, item, quality, #list, itemDetails.Tooltip(d.Well.psItem, item.reqLevel))
 		else
 			itemDetails.HideFacts(d)
 			d.Head.Text:SetText(headText(s.kind))
@@ -1564,7 +1556,12 @@ end
 do
 	itemDetails.Empty = {}
 	local SEP = " \194\183 "
-	local COL_W, LINE_GAP, STAT_PREVIEW = (INNER - 12) / 2, 4, 8
+	local PAIR_GAP, LINE_GAP = 12, 4
+
+	local function coloredText(text, r, g, b)
+		if not r then return text end
+		return format("|cff%02x%02x%02x%s|r", floor(r * 255 + 0.5), floor(g * 255 + 0.5), floor(b * 255 + 0.5), text)
+	end
 
 	local function restrictedClasses(S, f)
 		local names, count = nil, 0
@@ -1572,7 +1569,7 @@ do
 			local eligible = S.ClassEligible(token, f.allowClass, f.itemClass, f.itemSubclass, f.slot)
 			if eligible == nil then return end
 			if eligible then
-				local name = UI.ClassName(token)
+				local name = coloredText(UI.ClassName(token), Theme.ClassColor(token))
 				names = names and format(L["%s, %s"], names, name) or name
 				count = count + 1
 			end
@@ -1580,111 +1577,110 @@ do
 		if count < #itemDetails.ClassTokens then return names or L["None of these classes"] end
 	end
 
-	local function statOrder(a, b)
-		if a.key ~= b.key then return a.key < b.key end
-		return a.code < b.code
-	end
-
-	local function readItem(s)
+	local function readItem(s, loaded, entity)
 		local C, S = ns.Codex, ns.Search
-		local f = C.FilterFacts(s.kind, s.id) or itemDetails.Empty
+		local f = loaded and C and C.HasFilters and C.HasFilters() and C.FilterFacts(s.kind, s.id)
 		local levels = {}
-		if f.itemLevel then levels[#levels + 1] = format(L["Item level %d"], f.itemLevel) end
-		local req = f.reqLevel
+		if f and f.itemLevel then levels[#levels + 1] = format(L["Item level %d"], f.itemLevel) end
+		local req = f and f.reqLevel
+		if not f and entity and not entity.reqLevelFallback then req = entity.reqLevel end
 		if req then levels[#levels + 1] = req == 0 and L["No level required"] or format(L["Requires level %d"], req) end
-		local classes = restrictedClasses(S, f)
-		local coverage = f ~= itemDetails.Empty and C.ItemStats(s.id)
-		local stats, statCodes = {}, {}
-		for _, stat in ipairs(coverage or itemDetails.Empty) do
-			local label = S.StatLabel(stat.code)
-			if label then
-				stats[#stats + 1] = {
-					text = stat.amount and format(L["%+d %s"], stat.amount, label) or label,
-					dim = stat.amount == nil, key = S.Fold(label), code = stat.code,
-				}
-				statCodes[stat.code] = true
-			end
-		end
-		table.sort(stats, statOrder)
+		local classes = f and restrictedClasses(S, f)
 		return {
 			levels = #levels > 0 and table.concat(levels, SEP) or nil,
-			itemLevel = f.itemLevel,
 			reqLevel = req,
-			slot = f.slot and itemDetails.SlotName(f.slot),
-			subtype = f.itemClass and f.itemSubclass and itemCategories.SubclassLabel(f.itemClass, f.itemSubclass),
 			classes = classes and format(L["Classes: %s"], classes),
-			stats = stats,
-			statCodes = statCodes,
 		}
 	end
 
-	function itemDetails.Read(s, loaded)
-		local C = ns.Codex
-		if not (loaded and KIND[s.kind] and KIND[s.kind].item and C and C.HasFilters and C.HasFilters()) then return end
-		if not detailCache.item then detailCache.item = readItem(s) end
+	function itemDetails.Read(s, loaded, entity)
+		if not (KIND[s.kind] and KIND[s.kind].item) then return end
+		if not detailCache.item then detailCache.item = readItem(s, loaded, entity) end
 		return detailCache.item
 	end
 
 	local function tooltipText(text)
-		if type(text) == "string" and not secret(text) and text:find("%S") then return text end
+		if type(text) == "string" and not secret(text) then return text end
 	end
 
 	local function tooltipColor(color)
-		if type(color) ~= "table" then return end
+		if type(color) ~= "table" or secret(color) then return end
 		local r, g, b = color.r, color.g, color.b
 		if type(r) == "number" and type(g) == "number" and type(b) == "number" and not (secret(r) or secret(g) or secret(b)) then
 			return { r, g, b }
 		end
 	end
 
-	local function tooltipPattern(template)
-		if not template then return end
-		local pattern = template:gsub("([%^%$%(%)%.%[%]%*%+%-%?%%])", "%%%1")
-			:gsub("%%%%%d+%%%$[ds]", ".+"):gsub("%%%%[ds]", ".+")
-		return "^" .. pattern .. "$"
+	local function sellPriceText(id, price)
+		if type(price) ~= "number" or secret(price) then
+			if not (C_Item and C_Item.GetItemInfo) then return end
+			local ok, _, _, _, _, _, _, _, _, _, _, copper = pcall(C_Item.GetItemInfo, id)
+			if not ok or type(copper) ~= "number" or secret(copper) then return end
+			price = copper
+		end
+		if price > 0 and SELL_PRICE then
+			local coins = GetCoinTextureString and GetCoinTextureString(price) or (price .. "c")
+			return SELL_PRICE .. " " .. coins
+		end
 	end
 
-	function itemDetails.Tooltip(id, item, facts, quality)
+	local function startsWith(text, prefix)
+		return prefix and text:sub(1, #prefix) == prefix
+	end
+
+	function itemDetails.Tooltip(id, reqLevel)
 		local lines = id and ns.Compat.ItemTooltipLines(id)
 		if not lines then return end
-		-- Prefer the compact facts where they already cover a tooltip row.
-		local types = Enum and Enum.TooltipDataLineType or itemDetails.Empty
-		local showsRequiredLevel = item and item.reqLevel
-		for _, fact in ipairs(facts or itemDetails.Empty) do
-			if fact[1] == L["Requires"] then showsRequiredLevel = true end
+		local types = Enum and Enum.TooltipDataLineType
+		local sellType = types and types.SellPrice
+		local levelPattern
+		if ITEM_MIN_LEVEL and reqLevel and reqLevel > 1 then
+			levelPattern = "^" .. ITEM_MIN_LEVEL:gsub("([%^%$%(%)%.%[%]%*%+%-%?%%])", "%%%1")
+				:gsub("%%%%%d+%%%$d", "%%d+"):gsub("%%%%d", "%%d+") .. "$"
 		end
-		local classes = item and item.classes and tooltipPattern(ITEM_CLASSES_ALLOWED)
-		local requiredLevel = showsRequiredLevel and tooltipPattern(ITEM_MIN_LEVEL)
-		local itemLevel = item and item.itemLevel and tooltipPattern(ITEM_LEVEL)
 		local rows = {}
+		local effectAt, sellAt, appearanceAt, nativeSell
+		local normal = tooltipColor(NORMAL_FONT_COLOR)
 		for i = 2, #lines do -- The item's name is already in the banner.
 			local line = lines[i]
 			local left, right = tooltipText(line.leftText), tooltipText(line.rightText)
 			local kind = line.type
-			local plain = left and left:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
-			local stat = item and plain and not right and (not kind or kind == types.None)
-				and ns.Search.MatchStat(plain:match("^%s*[+-]%d+%s+(.+)$"))
-			local duplicate = kind ~= nil and (kind == types.ItemName or (quality and kind == types.ItemQuality)
-				or (item and item.itemLevel and kind == types.ItemLevel)
-				or (item and item.slot and kind == types.EquipSlot and (not right or item.subtype)))
-			if plain and not right then
-				duplicate = duplicate or (classes and plain:match(classes)) or (requiredLevel and plain:match(requiredLevel))
-					or (itemLevel and plain:match(itemLevel)) or (stat and item.statCodes[stat])
+			if sellType and not secret(kind) and kind == sellType then
+				nativeSell = true
+				left, right = sellPriceText(id, line.price), nil
+				if left then sellAt = #rows + 1 end
+			elseif left then
+				local plain = left:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+				if levelPattern and plain:match(levelPattern) then levelPattern = nil end
+				if not effectAt and (startsWith(plain, ITEM_SPELL_TRIGGER_ONEQUIP) or startsWith(plain, ITEM_SPELL_TRIGGER_ONUSE)
+					or startsWith(plain, ITEM_SPELL_TRIGGER_ONPROC)) then
+					effectAt = #rows + 1
+				end
+				if not appearanceAt and plain == TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN then appearanceAt = #rows + 1 end
 			end
-			if (left or right) and not duplicate then
-				rows[#rows + 1] = { left = left, right = right, leftColor = tooltipColor(line.leftColor), rightColor = tooltipColor(line.rightColor) }
+			if left or right then
+				rows[#rows + 1] = { left = left, right = right, leftColor = tooltipColor(line.leftColor) or normal,
+					rightColor = tooltipColor(line.rightColor) or normal }
 			end
 		end
-		return #rows > 0 and rows or nil
+		if not nativeSell then
+			local sell = sellPriceText(id)
+			if sell then
+				sellAt = appearanceAt or #rows + 1
+				table.insert(rows, sellAt, { left = sell })
+				if effectAt and effectAt >= sellAt then effectAt = effectAt + 1 end
+			end
+		end
+		if levelPattern then
+			table.insert(rows, effectAt or sellAt or appearanceAt or #rows + 1, { left = format(ITEM_MIN_LEVEL, reqLevel) })
+		end
+		return rows
 	end
 
 	local function summaryText(item, quality)
 		local rarity = itemDetails.RarityName(quality)
 		if not rarity then return item.levels end
-		local r, g, b = qualityColor(quality)
-		if r then
-			rarity = format("|cff%02x%02x%02x%s|r", floor(r * 255 + 0.5), floor(g * 255 + 0.5), floor(b * 255 + 0.5), rarity)
-		end
+		rarity = coloredText(rarity, qualityColor(quality))
 		return item.levels and (rarity .. SEP .. item.levels) or rarity
 	end
 
@@ -1731,24 +1727,27 @@ do
 		itemDetails.Outside(d, false)
 	end
 
-	local function toggleMoreStats()
-		detailCache.allStats = not detailCache.allStats
-		LK.Render()
-	end
-
 	local function paintTooltip(d, rows, y)
 		for i, row in ipairs(rows) do
 			local pair = d.TooltipRows[i]
 			if not pair then
-				pair = { Left = detailLine(d.ItemFactsPanel, INNER), Right = detailLine(d.ItemFactsPanel, COL_W) }
+				pair = { Left = detailLine(d.ItemFactsPanel, INNER), Right = detailLine(d.ItemFactsPanel, INNER) }
 				pair.Right:SetJustifyH("RIGHT")
 				d.TooltipRows[i] = pair
 			end
-			pair.Left:SetWidth(row.right and COL_W or INNER)
+			local leftW, rightW = INNER, INNER
+			if row.right then
+				pair.Right:SetText(row.right)
+				local room = row.left and (INNER - PAIR_GAP - 1) or INNER
+				rightW = max(1, min(room, math.ceil(pair.Right:GetUnboundedStringWidth())))
+				leftW = INNER - rightW - PAIR_GAP
+			end
+			pair.Left:SetWidth(row.left and leftW or INNER)
+			pair.Right:SetWidth(rightW)
 			W.Color(pair.Left, row.leftColor or "text")
 			W.Color(pair.Right, row.rightColor or "text")
 			local leftH = paintLine(pair.Left, row.left, 0, y)
-			local rightH = paintLine(pair.Right, row.right, INNER - COL_W, y)
+			local rightH = paintLine(pair.Right, row.right, INNER - rightW, y)
 			y = y + max(leftH, rightH)
 		end
 		for i = #rows + 1, #d.TooltipRows do
@@ -1758,61 +1757,22 @@ do
 		return y
 	end
 
-	local blankItem = { stats = itemDetails.Empty }
 	function itemDetails.Paint(d, item, quality, sourceCount, tooltip)
 		local panel = rawget(d, "ItemFactsPanel")
 		if not panel then
 			panel = CreateFrame("Frame", nil, d.Scroll.Child)
 			panel:SetPoint("TOPLEFT", d.Scroll.Child, "TOPLEFT", 8, 0)
 			panel:SetWidth(INNER)
-			d.ItemFactsPanel, d.StatRows, d.TooltipRows = panel, {}, {}
+			d.ItemFactsPanel, d.TooltipRows = panel, {}
 			d.ItemSummary = detailLine(panel, INNER, "textDim")
-			d.ItemSlot = detailLine(panel, COL_W)
-			d.ItemSubtype = detailLine(panel, COL_W)
-			d.ItemSubtype:SetJustifyH("RIGHT")
 			d.ItemClasses = detailLine(panel, INNER)
-			d.StatMore = W.Button(panel, L["Show all"], toggleMoreStats, { ghost = true, height = 24 })
 			d.ItemHead = makeFolder(panel)
 			d.ItemHead:SetWidth(INNER + TEXT_X * 2)
 			d.ItemHead.Text:SetText(L["Where to get it"])
 		end
-		local summary = item and summaryText(item, quality)
-		item = item or blankItem
-		local y = paintLine(d.ItemSummary, summary, 0, 0)
-		local paired = item.slot and item.subtype
-		d.ItemSlot:SetWidth(paired and COL_W or INNER)
-		d.ItemSubtype:SetWidth(paired and COL_W or INNER)
-		local slotH = paintLine(d.ItemSlot, item.slot, 0, y)
-		local subtypeH = paintLine(d.ItemSubtype, item.subtype, paired and (INNER - COL_W) or 0, y)
-		y = y + max(slotH, subtypeH)
-		y = y + paintLine(d.ItemClasses, item.classes, 0, y)
-
-		local stats, all = item.stats, detailCache.allStats
-		local shownStats = all and #stats or min(#stats, STAT_PREVIEW)
-		local rowH = 0
-		for i = 1, shownStats do
-			local line = d.StatRows[i]
-			if not line then
-				line = detailLine(panel, COL_W)
-				d.StatRows[i] = line
-			end
-			local stat = stats[i]
-			local left = i % 2 == 1
-			W.Color(line, stat.dim and "textMuted" or "text")
-			rowH = max(rowH, paintLine(line, stat.text, left and 0 or (INNER - COL_W), y))
-			if not left or i == shownStats then
-				y = y + rowH
-				rowH = 0
-			end
-		end
-		for i = shownStats + 1, #d.StatRows do d.StatRows[i]:Hide() end
-		d.StatMore:SetShown(#stats > STAT_PREVIEW)
-		if d.StatMore:IsShown() then
-			W.SetButtonText(d.StatMore, all and L["Show fewer"] or L["Show all"])
-			d.StatMore:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -y)
-			y = y + d.StatMore:GetHeight() + LINE_GAP
-		end
+		local y = paintLine(d.ItemSummary, summaryText(item, quality), 0, 0)
 		y = paintTooltip(d, tooltip or itemDetails.Empty, y)
+		y = y + paintLine(d.ItemClasses, item.classes, 0, y)
 		d.ItemHead.Count:SetText(sourceCount > 0 and tostring(sourceCount) or "")
 		d.ItemHead:SetPoint("TOPLEFT", panel, "TOPLEFT", -TEXT_X, -y)
 		y = y + FOLDER_H + 6
@@ -2595,11 +2555,6 @@ local function installFilterChrome()
 		local name = UI.ClassName(class)
 		local r, g, b = Theme.ClassColor(class)
 		return c.classDormant and format(L["%s · %s"], name, L["Unknown"]) or name, r and { r, g, b }
-	end
-
-	function itemDetails.SlotName(slot)
-		loadSlots()
-		return slotLabels[slot] or format(L["Slot %d"], slot)
 	end
 
 	local function changeItemFilter(key, value)
