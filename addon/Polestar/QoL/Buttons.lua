@@ -2890,6 +2890,11 @@ do
 		r:Hide()
 		buildRow(r)
 		paintLook(r)
+		-- Over the guide window, whole (#2753): the guide window and the rows
+		-- share MEDIUM, and a row at UIParent's level drew part under the
+		-- window and its model and count over it. Raised once its parts
+		-- exist, which follow it; out of combat (applyRows), as Raise asks.
+		r:Raise()
 		local T = Theme()
 		if T and T.OnChanged then T.OnChanged(function() if not (T.LiveHidden and T.LiveHidden(r)) then paintLook(r) end end) end
 		wire(r, rowTooltip)
@@ -2948,6 +2953,8 @@ do
 		a:Hide()
 		buildMark(a)
 		paintLook(a)
+		-- Over the guide window with its rows (#2753, newRow).
+		a:Raise()
 		local T = Theme()
 		if T and T.OnChanged then T.OnChanged(function() if not (T.LiveHidden and T.LiveHidden(a)) then paintLook(a) end end) end
 
