@@ -3034,6 +3034,25 @@ fn merchant_a_grey_item_a_quest_still_needs_is_not_sold() {
 	assert!(out[1].as_array().unwrap().contains(&json!(5)), "item 5 stays in the bags");
 }
 
+// #3979 (FeelTheGurn): ten Singing Blue Crystals, grey, farmed for a guide on the route but not the active tab's,
+// went with the junk. A grey item a guide ahead uses (the tooltip's "Don't sell, used in guides") stays.
+#[test]
+fn merchant_a_grey_item_a_guide_ahead_uses_is_not_sold() {
+	let out = run(&[
+		BAGS,
+		r#"
+		q.engine.itemGuides = { [5] = { { guide = { id = "later", title = "Later", steps = {} } } } }
+		q.openMerchant()
+		stub.advance(2)
+		emit(q.sold)
+	"#,
+	]
+	.concat());
+	let mut sold: Vec<i64> = out[0].as_array().unwrap().iter().map(|v| v.as_i64().unwrap()).collect();
+	sold.sort();
+	assert_eq!(sold, vec![1, 1, 1, 1, 1], "the Ruined Pelt (5) stays");
+}
+
 #[test]
 fn merchant_a_slot_changed_between_ticks_is_re_checked_and_never_sold() {
 	let out = run(&[
