@@ -1427,6 +1427,12 @@ L["%s to buy"] = "需購買 %s 個"
 L["(only %s listed)"] = "（僅有 %s 個在售）"
 L["(old price)"] = "（舊價格）"
 -- L["Elites nearby"] = ""
+-- L["Group, or careful: a group quest, yours to do or skip"] = ""
+-- L["Group, or careful: an escort that can go wrong"] = ""
+-- L["Group, or careful: elites at your level or above"] = ""
+-- L["Group, or careful: a group is advised"] = ""
+-- L["Careful: elites nearby"] = ""
+-- L["Careful: elites, below your level"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -2187,6 +2193,7 @@ L["Leaves out grey quests, and quests behind you that pay less than full XP when
 -- L["%s: /reload after picking it."] = ""
 -- L["The step card, Up next under it."] = ""
 -- L["Alpha"] = ""
+-- L["The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "已為你選取：用 Ctrl+C（Mac 為 Cmd+C）複製，然後按 Escape。"
@@ -2637,7 +2644,6 @@ L["Install's pages: questing, groups, your route and your look, a page at a time
 L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."] = "逐頁重新設定 Polestar：解任務、小隊、你的路線、你的外觀。每項選擇立即生效。"
 L["Show experimental guides"] = "顯示實驗性指南"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "Polestar 為 Forever 新地區製作的指南，仍在測試中：列在指南選單的「升級」下，帶有「實驗性」標籤。它們不會被自動選取；無論如何，路線選擇都會在合適的位置提供它們的地區。"
-L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "在較快時，路線可能以你會的傳送法術開始：法師的主城傳送、德魯伊的月光林地，或薩滿的星界傳送（就像第二顆爐石）。主城傳送需要背包中有傳送符文。"
 L["Sell and repair reminders"] = "販賣與修理提醒"
 L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."] = "當指南即將離開城鎮，而你的背包快滿或裝備磨損時，會提示途中的商人或修理商，每次造訪提示一次。點擊即可讓箭頭指向該處。"
 L["Sell: fewer free bag slots than"] = "販賣：背包空位少於"
@@ -2660,6 +2666,7 @@ L["Drag the guide window, the arrow, the cards and the alerts where you want the
 -- L["play Tetris by beemerwt"] = ""
 -- L["Points to the current goal. Off hides only the arrow: the route lines have their own switch, under Routes. Its look and colours are on the Arrow page."] = ""
 -- L["The way to the goal on the world map and the minimap, with the arrow on or off: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = ""
+-- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."] = ""
 -- L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."] = ""
 -- L["Reload now?"] = ""
 -- L["Polestar shows the new language after a /reload."] = ""
@@ -4745,6 +4752,8 @@ L["This guide is for %s characters. Polestar won't guide you through it."] = "�
 -- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 -- L["Looking ahead."] = ""
 -- L["Looking back."] = ""
+-- L["On the way to your map point (%s)."] = ""
+-- L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "按 %s 恢復，或打開指南視窗。"
@@ -4855,8 +4864,6 @@ L["You have %s"] = "你有 %s"
 L["Send to Auctionator"] = "傳送到 Auctionator"
 L["Copy list"] = "複製清單"
 L["Show how the profession guide gets its materials"] = "顯示專業指南如何取得材料"
-L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "從頭開始：此指南約 %d%% 的任務經驗承接自 %s。"
-L["Expect about %d minutes of extra grinding, or start there."] = "預計需要額外練等約 %d 分鐘，或者從那裡開始。"
 L["Open %s"] = "開啟 %s"
 
 -- Core/ProfileStrings.lua
@@ -5340,3 +5347,6 @@ L["%d of %d"] = "%d / %d"
 -- L["Do you want to play Doom while waiting?"] = "等待時想玩 Doom 嗎？"
 -- L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "在地圖與小地圖上顯示通往目標的路：步行處為線條或圓點，飛行、航行或搭乘處為線，之後的路段較淡。繪法與 Cillian Berragan 的 Shortest Path Forever 相同。"
 -- L["Points to the current goal. Its look and colours are on the Arrow page."] = "指向目前的目標。其外觀與顏色在「箭頭」頁面。"
+-- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "在較快時，路線可能以你會的傳送法術開始：法師的主城傳送、德魯伊的月光林地，或薩滿的星界傳送（就像第二顆爐石）。主城傳送需要背包中有傳送符文。"
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "從頭開始：此指南約 %d%% 的任務經驗承接自 %s。"
+-- L["Expect about %d minutes of extra grinding, or start there."] = "預計需要額外練等約 %d 分鐘，或者從那裡開始。"

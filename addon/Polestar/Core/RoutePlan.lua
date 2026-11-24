@@ -426,6 +426,10 @@ local function xpNow(C, q, level)
 	return math.floor(rec.xp * Lv.Share(level or 1, qlvl) + 0.5)
 end
 
+-- What Plan.Carried last answered (its quest ids, "?" when it could not say;
+-- nil: never asked), for CARRIED_CHANGED below.
+local carriedSig
+
 -- The finished quests in the log (ready to hand in) no open route hands in
 -- (GetTurnIn "missed", "skipped" or "unplanned"; a later guide's `carriedTo`
 -- quest is "later" and another tab's or an open dungeon's is "other", so
@@ -434,17 +438,22 @@ end
 -- (xp nil when unknown); nil while the plan cannot say (no guide, a route
 -- choice to make, a guide not loaded).
 function Plan.Carried()
-	local C, out = ns.Compat, {}
+	local C, out, ids = ns.Compat, {}, {}
 	local level = (C.GetPlayerInfo() or {}).level
 	for _, q in ipairs(C.GetLogQuests() or {}) do
 		if C.IsQuestReadyForTurnIn(q) then
 			local r = Plan.GetTurnIn(q)
-			if r.status == "noGuide" or r.status == "choice" or r.status == "unloaded" then return nil end
+			if r.status == "noGuide" or r.status == "choice" or r.status == "unloaded" then
+				carriedSig = "?"
+				return nil
+			end
 			if NEVER[r.status] or r.pickupOnly then
 				out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = r.status, grey = grey(C, q, level), xp = xpNow(C, q, level) }
+				ids[#ids + 1] = q
 			end
 		end
 	end
+	carriedSig = table.concat(ids, ",")
 	return out
 end
 
@@ -667,3 +676,30 @@ end)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "behavior.dungeons" or path == "behavior" or path == nil or path == "" then Plan.Invalidate() end
 end)
+
+-- CARRIED_CHANGED: the finished quests no open route hands in (Plan.Carried)
+-- are no longer the ones its last caller read. They change with the quest
+-- log (a quest finished or handed in off the step) and with the plan, not
+-- only with a step: the guide window's "to hand in elsewhere" row follows
+-- them, so it and the list it opens give the same answer (#3568, #3410).
+-- Checked at most once a second, and only once something has read them (the
+-- row): with nothing shown there is nothing to bring up to date.
+local carriedQueued = false
+function Plan.CheckCarried()
+	carriedQueued = false
+	local before = carriedSig
+	if before == nil then return end
+	Plan.Carried()
+	if carriedSig ~= before then ns.Fire("CARRIED_CHANGED") end
+end
+local function queueCarried()
+	if carriedQueued or carriedSig == nil then return end
+	carriedQueued = true
+	ns.After(1, Plan.CheckCarried)
+end
+for _, event in ipairs({ "QUEST_LOG_UPDATE", "QUEST_TURNED_IN", "QUEST_REMOVED" }) do
+	ns.RegisterEvent(event, queueCarried)
+end
+for _, event in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "ROUTE_CHOSEN", "CODEX_LOADED", "DUNGEON_ANSWERED" }) do
+	ns.On(event, queueCarried)
+end

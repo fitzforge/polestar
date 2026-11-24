@@ -53,15 +53,15 @@ return {
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
 	["The {npc:511} hides in the small crypt by the {area:121}, south of {area:42}. {npc:663}'s Nightbane Vile Fangs and Tainted Ones (level 29-31) roam the woods around it: they come at the end of this guide, a level later."] = "{npc:511}은(는) {area:42} 남쪽, {area:121} 옆의 작은 납골당에 숨어 있습니다. {npc:663}의 파멸의어둠일족 송곳니투사와 오염된 자(29-31레벨)는 그 주변 숲을 돌아다닙니다. 이들은 한 레벨 뒤, 이 가이드 끝에서 처리합니다.",
 	-- {item:1946} Mary's Looking Glass
-	["{item:1946}; inside"] = "",
+	["{item:1946}; inside"] = "{item:1946}; 내부",
 
 	-- Step 13: Darkshire
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}, inside"] = "",
+	["{npc:276}, inside"] = "{npc:276}, 내부",
 
 	-- Step 14: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
-	["{area:93}: kill these as you meet them"] = "",
+	["{area:93}: kill these as you meet them"] = "{area:93}: 만나는 대로 처치하세요",
 	-- {area:42} Darkshire · {object:119} Abercrombie's Crate · {npc:300} Zzarc' Vul
 	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it. {npc:300} is inside the ogre mound's cave: go in by the cave mouth on the mound's west side."] = "{area:42}에서 남서쪽 오우거 소굴로 가세요. {object:119}은(는) 입구의 야영지에 있으며 망치주먹 오우거가 지킵니다. {npc:300}은(는) 오우거 소굴의 동굴 안에 있습니다. 소굴 서쪽의 동굴 입구로 들어가세요.",
 	-- {npc:272273} Lost Watcher · {quest:96138} Merrick's Bow
@@ -72,14 +72,14 @@ return {
 	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
 	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "데피아즈단 야영지는 {zone:1431} 남서쪽, {area:94} 남쪽의 {zone:1436} 경계 근처에 있습니다. 금고는 천막들 사이에 있습니다.",
 	-- {item:5947} Defias Docket
-	["{item:5947}; inside"] = "",
+	["{item:5947}; inside"] = "{item:5947}; 내부",
 
 	-- Step 17: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
-	["{area:492}: kill these as you meet them"] = "",
+	["{area:492}: kill these as you meet them"] = "{area:492}: 만나는 대로 처치하세요",
 	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:311} Sven Yorgen
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader · Skeletal Raiders = {npc:1110} Skeletal Raider
-	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "",
+	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "역병 전파자가 {area:492} 북반부를 돌아다닙니다. 정예 {npc:522}이(가) 묘지를 배회하니 멀리하세요.\n해골 약탈자, 치유자, 수호자가 {npc:311} 야영지 바로 동쪽 묘지 서쪽을 지킵니다.\n주의: 지하 묘지의 해골들이 바글거려 쉽게 추가 몹을 끌어올 수 있습니다.",
 
 	-- Step 18: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
@@ -102,7 +102,7 @@ return {
 	["{npc:268}, in the house behind the town hall"] = "{npc:268}, 마을 회관 뒤 집",
 	["Wait a moment, then speak with her again"] = "잠시 기다렸다가 그녀와 다시 대화하세요",
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
-	["{npc:840} walks around {area:42}: look inside the circle on the map"] = "",
+	["{npc:840} walks around {area:42}: look inside the circle on the map"] = "{npc:840}은(는) {area:42}을(를) 배회합니다. 지도 원 안을 살펴보세요.",
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "다음 가이드에서 {zone:1453}의 {npc:482}에게",
 
@@ -121,13 +121,13 @@ return {
 	-- Step 23: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "{npc:276}의 집은 비행 조련사로 가는 길, 마을 동쪽 끝에 있습니다.",
-	["Inside"] = "",
+	["Inside"] = "내부",
 
 	-- Step 24: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "{area:150}(으)로 비행",
 	-- {area:42} Darkshire
-	["{area:42} flight master"] = "",
+	["{area:42} flight master"] = "{area:42} 비행 조련사",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Menethil"] = "메네실로 돌아가기",

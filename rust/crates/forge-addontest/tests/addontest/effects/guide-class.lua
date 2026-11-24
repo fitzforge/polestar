@@ -57,5 +57,19 @@ return {
 			while B:IsShown() and B.psKind == "classQuest" do B.Close:Click(); flush() end
 			return out
 		end,
+		-- The Engine finds the open guide outlevelled (GUIDE_OUTLEVELED, once per guide a session): the banner
+		-- offers the guide that fits, or says nothing (#3585). Dismissed after.
+		["ui.outlevelNotice"] = function()
+			if not Polestar.Guides.Get("test/next") then
+				Polestar.RegisterGuide({ id = "test/next", pack = "test", title = "Next", minLevel = 1, maxLevel = 60,
+					steps = { { goals = { { t = "level", level = 60 } } } } })
+			end
+			Polestar.Fire("GUIDE_OUTLEVELED", "test/elwynn", "test/next")
+			flush()
+			local out = banner()
+			local B = GF.parts.banner
+			while B:IsShown() and B.psKind == "outlevel" do B.Close:Click(); flush() end
+			return out
+		end,
 	},
 }

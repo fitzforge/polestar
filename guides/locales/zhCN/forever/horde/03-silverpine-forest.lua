@@ -90,11 +90,11 @@ return {
 	-- Step 19: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them."] = "{npc:268684} 和 {npc:268682} 坐在 {object:172957} 的 Grommash Hold 后方，光滑的巨石就在两人周围。",
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them."] = "{npc:268684} 和 {npc:268682} 坐在 {object:172957} 的格罗玛什要塞后方，光滑的巨石就在两人周围。",
 
 	-- Step 20: Thrall
 	-- {npc:4949} Thrall · {quest:98024} Journey to the Crossroads · {quest:93739} Exploring the Horde · {quest:95350} Welcome to Azeroth
-	["{npc:4949} stands in Grommash Hold. He offers {quest:98024} and {quest:93739} once {quest:95350} is handed in."] = "{npc:4949} 站在 Grommash Hold 内。交掉 {quest:95350} 后，他会提供 {quest:98024} 和 {quest:93739}。",
+	["{npc:4949} stands in Grommash Hold. He offers {quest:98024} and {quest:93739} once {quest:95350} is handed in."] = "{npc:4949} 站在格罗玛什要塞内。交掉 {quest:95350} 后，他会提供 {quest:98024} 和 {quest:93739}。",
 	-- {npc:4949} Thrall
 	["{npc:4949}, inside Grommash Hold"] = "{npc:4949}，在格罗玛什要塞里",
 	-- {npc:4949} Thrall · {zone:1413} Barrens
@@ -112,7 +112,7 @@ return {
 
 	-- Step 21: Nazgrel
 	-- {npc:3230} Nazgrel
-	["{npc:3230}, in Grommash Hold"] = "{npc:3230}，在 Grommash Hold 内",
+	["{npc:3230}, in Grommash Hold"] = "{npc:3230}，在格罗玛什要塞内",
 
 	-- Step 22: Thrall
 	-- {npc:4949} Thrall · {item:14544} Lieutenant's Insignia · {area:817} Skull Rock · {quest:829} Neeru Fireblade · {zone:1454} Orgrimmar
@@ -331,7 +331,7 @@ return {
 	-- Step 70: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:362} Razor Hill · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	-- was: ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} 和 {npc:268682} 坐在 {object:172957} 的 Grommash Hold 后方，光滑的巨石就在两人周围。下一篇指南会从这里步行前往 {area:379} 和十字路口。"
+	-- was: ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} 和 {npc:268682} 坐在 {object:172957} 的格罗玛什要塞后方，光滑的巨石就在两人周围。下一篇指南会从这里步行前往 {area:379} 和十字路口。"
 	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:362}, then {area:379} and the Crossroads."] = "",
 
 	-- Step 71: Thrall
@@ -404,7 +404,7 @@ return {
 	-- ["{npc:2121}: {quest:516}, on the southern loop"] = "{npc:2121}：{quest:516}，在南线环路中完成",
 	-- ["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "{npc:246152}在{area:159}训练圣骑士，从飞艇塔沿道路向北步行不远即到。之后沿同一条路回来，前往银松森林。",
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{zone:1456}的{npc:246344}；{zone:1454}没有圣骑士训练师",
-	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} 和 {npc:268682} 坐在 {object:172957} 的 Grommash Hold 后方，光滑的巨石就在两人周围。下一篇指南会从这里步行前往 {area:379} 和十字路口。",
+	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} 和 {npc:268682} 坐在 {object:172957} 的格罗玛什要塞后方，光滑的巨石就在两人周围。下一篇指南会从这里步行前往 {area:379} 和十字路口。",
 	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide starts at {npc:3310}, the wind rider master in the {object:172982}."] = "{npc:268684}和{npc:268682}坐在{object:172957}的格罗玛什要塞后面；光滑的巨石就在他们周围。趁在城里时训练（德鲁伊和圣骑士在这里没有训练师）。下一个指南从{object:172982}的双足飞龙管理员{npc:3310}开始。",
 	-- ["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} 在 {zone:1412}；{zone:1454} 没有德鲁伊训练师",
 	-- ["{npc:3365}, the leatherworking trainer, works in the {object:172958}."] = "制皮训练师{npc:3365}在{object:172958}工作。",

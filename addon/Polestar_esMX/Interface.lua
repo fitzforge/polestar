@@ -2183,7 +2183,6 @@ L["Install's pages: questing, groups, your route and your look, a page at a time
 L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."] = "Volver a configurar Polestar, una página a la vez: misiones, grupos, tu ruta, tu aspecto. Cada opción se aplica al instante."
 L["Show experimental guides"] = "Mostrar guías experimentales"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "Las guías de Polestar para las zonas nuevas de Forever, todavía en pruebas: aparecen en el menú de guías, en Subir de nivel, con la etiqueta Experimental. Nunca se eligen por ti; una elección de ruta ofrece su zona donde encaja de todos modos."
-L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "Las rutas pueden empezar con un hechizo de teletransporte que conozcas cuando es más rápido: los de ciudad del mago, el Claro de la Luna del druida o el Regreso astral del chamán (como una segunda piedra de hogar). Un teletransporte a ciudad requiere una runa de teletransporte en tus bolsas."
 L["Sell and repair reminders"] = "Recordatorios de vender y reparar"
 L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."] = "Cuando la guía está por salir del pueblo con tus bolsas casi llenas o tu equipo desgastado, muestra un mercader o un reparador en el camino, una vez por visita. Haz clic para que la flecha apunte allí."
 L["Sell: fewer free bag slots than"] = "Vender: menos espacios libres que"
@@ -2206,6 +2205,7 @@ L["While paused, quests are not accepted or turned in for you, no reward is pick
 -- L["play Tetris by beemerwt"] = ""
 -- L["Points to the current goal. Off hides only the arrow: the route lines have their own switch, under Routes. Its look and colours are on the Arrow page."] = ""
 -- L["The way to the goal on the world map and the minimap, with the arrow on or off: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = ""
+-- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."] = ""
 -- L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."] = ""
 -- L["Reload now?"] = ""
 -- L["Polestar shows the new language after a /reload."] = ""
@@ -2499,6 +2499,12 @@ L["%s to buy"] = "%s por comprar"
 L["(only %s listed)"] = "(solo hay %s a la venta)"
 L["(old price)"] = "(precio antiguo)"
 -- L["Elites nearby"] = ""
+-- L["Group, or careful: a group quest, yours to do or skip"] = ""
+-- L["Group, or careful: an escort that can go wrong"] = ""
+-- L["Group, or careful: elites at your level or above"] = ""
+-- L["Group, or careful: a group is advised"] = ""
+-- L["Careful: elites nearby"] = ""
+-- L["Careful: elites, below your level"] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "personaje de nivel %d (%s)"
@@ -2611,6 +2617,7 @@ L["Leaves out grey quests, and quests behind you that pay less than full XP when
 -- L["%s: /reload after picking it."] = ""
 -- L["The step card, Up next under it."] = ""
 -- L["Alpha"] = ""
+-- L["The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup."] = ""
 
 -- Nav/Transit.lua
 L["top"] = "arriba"
@@ -4744,6 +4751,8 @@ L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danit
 L["%s (level %d)"] = "%s (nivel %d)"
 L["%s takes these once you reach their level: %s"] = "%s toma estas cuando llegues a su nivel: %s"
 L["Waiting for your level, taken where a later guide passes the giver: %s"] = "Esperando a tu nivel, se toman donde una guía posterior pasa junto al asignador: %s"
+-- L["On the way to your map point (%s)."] = ""
+-- L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Presiona %s para reanudar, o abre la ventana de la guía."
@@ -4854,8 +4863,6 @@ L["You have %s"] = "Tienes %s"
 L["Send to Auctionator"] = "Enviar a Auctionator"
 L["Copy list"] = "Copiar lista"
 L["Show how the profession guide gets its materials"] = "Mostrar cómo obtiene la guía de profesión sus materiales"
-L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "Empiezas de cero: cerca del %d%% de la PE de misiones de esta guía continúa desde %s."
-L["Expect about %d minutes of extra grinding, or start there."] = "Cuenta con unos %d minutos más de farmeo, o empieza allá."
 L["Open %s"] = "Abrir %s"
 
 -- Core/ProfileStrings.lua
@@ -5380,3 +5387,6 @@ L["%d of %d"] = "%d de %d"
 -- L["Do you want to play Doom while waiting?"] = "¿Quieres jugar Doom mientras esperas?"
 -- L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "El camino al objetivo en el mapa del mundo y el minimapa: una línea o puntos donde caminas, líneas donde vuelas, navegas o viajas, y los tramos siguientes más tenues. Dibujado como lo dibuja Shortest Path Forever de Cillian Berragan."
 -- L["Points to the current goal. Its look and colours are on the Arrow page."] = "Apunta al objetivo actual. Su aspecto y sus colores están en la página Flecha."
+-- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "Las rutas pueden empezar con un hechizo de teletransporte que conozcas cuando es más rápido: los de ciudad del mago, el Claro de la Luna del druida o el Regreso astral del chamán (como una segunda piedra de hogar). Un teletransporte a ciudad requiere una runa de teletransporte en tus bolsas."
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "Empiezas de cero: cerca del %d%% de la PE de misiones de esta guía continúa desde %s."
+-- L["Expect about %d minutes of extra grinding, or start there."] = "Cuenta con unos %d minutos más de farmeo, o empieza allá."

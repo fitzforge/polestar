@@ -8,20 +8,20 @@
 return {
 	-- Guide
 	-- {area:444} Tower of Althalaxx
-	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "",
+	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "Empieza ahora en el 22, en {area:444}; sus mobs son 28-30, así que ve ya cerca del 30 o con un amigo. Solo Alianza por ahora.",
 
 	-- Step 1: The Strange Orb
 	-- {object:409289} Strange Orb (no name in this language: may be words)
 	["The {object:409289}"] = "{object:409289}",
 	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore · {spell:686} Shadow Bolt · {object:409289} Strange Orb (no name in this language: may be words) · {item:209748} Althalaxx Orb · {object:409311} Spear of Mannoroth (no name in this language: may be words)
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
-	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the {object:409289} at the top: it gives you the {item:209748}; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "",
+	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the {object:409289} at the top: it gives you the {item:209748}; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "Sube a la cima de {area:444} en el norte de {zone:1439}. Los fanáticos de la Facción Oscura a su alrededor son fáciles (nivel 16-17), pero cuatro llamacíos de la Facción Oscura (nivel 28-29) están en la torre, camino del orbe: cada uno invoca un abisario y lanza {spell:686} a distancia. En el 22-25 trae uno o dos amigos, sácalos de uno en uno y ponte detrás de un muro para que tengan que venir a ti. Botina el {object:409289} de arriba: te da el {item:209748}; haz clic derecho en él para empezar la misión. Guarda el orbe en tus bolsas hasta {object:409311}: tres misiones posteriores lo necesitan.",
 	-- {object:409289} Strange Orb (no name in this language: may be words) · {area:444} Tower of Althalaxx · {item:209748} Althalaxx Orb
 	["{object:409289} atop the {area:444}: right-click the {item:209748} it gives"] = "{object:409289} en lo alto de la {area:444}: haz clic derecho en el {item:209748} que da",
 
 	-- Step 2: Delgren the Purifier
 	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale · {zone:1439} Darkshore · {zone:1453} Stormwind
-	["{npc:3663} stands at {area:413} in western {zone:1440}, south of the {zone:1439} road. He sends you to {zone:1453} with the orb."] = "",
+	["{npc:3663} stands at {area:413} in western {zone:1440}, south of the {zone:1439} road. He sends you to {zone:1453} with the orb."] = "{npc:3663} está en {area:413}, en el oeste de {zone:1440}, al sur del camino de {zone:1439}. Te envía a {zone:1453} con el orbe.",
 
 	-- Step 3: Katherine the Pure
 	-- {npc:5492} Katherine the Pure
@@ -29,12 +29,12 @@ return {
 
 	-- Step 4: Ursula Deline
 	-- {npc:5495} Ursula Deline · {object:2101} Mage Quarter · {object:2164} Slaughtered Lamb · {item:209778} Summoner's Salt
-	["{npc:5495}, the warlock trainer, is in the {object:2101}'s warlock sanctum, down in the {object:2164}'s cellar. She wants 14 {item:209778} to read the orb."] = "",
+	["{npc:5495}, the warlock trainer, is in the {object:2101}'s warlock sanctum, down in the {object:2164}'s cellar. She wants 14 {item:209778} to read the orb."] = "{npc:5495}, la instructora de brujos, está en el sanctuario de brujos del {object:2101}, abajo en el sótano del {object:2164}. Quiere 14 {item:209778} para leer el orbe.",
 
 	-- Step 5: Summoner's Salt
 	-- {item:209778} Summoner's Salt · {area:69} Lakeshire · {npc:334} Gath'Ilzogg
 	-- plural, as words: Blackrock Summoners = {npc:4463} Blackrock Summoner · Blackrock Shadowcasters = {npc:436} Blackrock Shadowcaster
-	["The Blackrock Summoners, Champions and Trackers (level 22-25, not elite) camp in the north-west of Redridge and drop the {item:209778}; you need 14. Two elite Blackrock Shadowcasters (22-23) stand at the cave mouth at the camp's east end: pull around them. The Blackrock camps east of {area:69} drop the salt too, but their Shadowcasters, Sentries and Hunters are elite (level 21-24), and so is {npc:334} (26): stay in the north-west."] = "",
+	["The Blackrock Summoners, Champions and Trackers (level 22-25, not elite) camp in the north-west of Redridge and drop the {item:209778}; you need 14. Two elite Blackrock Shadowcasters (22-23) stand at the cave mouth at the camp's east end: pull around them. The Blackrock camps east of {area:69} drop the salt too, but their Shadowcasters, Sentries and Hunters are elite (level 21-24), and so is {npc:334} (26): stay in the north-west."] = "Los invocadores, campeones y rastreadores Roca Negra (nivel 22-25, no élite) acampan en el noroeste de Redridge y sueltan el {item:209778}; necesitas 14. Dos nigromantes Roca Negra de élite (22-23) están en la entrada de la cueva, en el extremo este del campamento: rodea a su alrededor. Los campamentos Roca Negra al este de {area:69} también sueltan la sal, pero sus nigromantes, centinelas y cazadores son de élite (nivel 21-24), y {npc:334} (26) también: quédate en el noroeste.",
 
 	-- Step 6: Back to Ursula Deline
 	-- {npc:5495} Ursula Deline
@@ -44,13 +44,13 @@ return {
 	["Motes of Mannoroth"] = "Motas de Mannoroth",
 	-- {area:435} Demon Fall Canyon · {zone:1440} Ashenvale · {area:431} Splintertree Post · {spell:686} Shadow Bolt · {spell:348} Immolate
 	-- plural, as words: Mannoroc Lashers = {npc:11697} Mannoroc Lasher · Searing Infernals = {npc:6073} Searing Infernal · Legion Hounds = {npc:6071} Legion Hound
-	["{area:435} is in south-east {zone:1440}, east of {area:431} (a Horde camp: go round it). The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds (level 29-30, not elite) drop the Motes of Mannoroth; you need 12. Below about 27 they are hard alone: come with a second player or later. Felguards knock you down, Lashers cast {spell:686} and {spell:348}, Infernals keep a fire shield up. They respawn in five minutes."] = "",
+	["{area:435} is in south-east {zone:1440}, east of {area:431} (a Horde camp: go round it). The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds (level 29-30, not elite) drop the Motes of Mannoroth; you need 12. Below about 27 they are hard alone: come with a second player or later. Felguards knock you down, Lashers cast {spell:686} and {spell:348}, Infernals keep a fire shield up. They respawn in five minutes."] = "{area:435} está en el sureste de {zone:1440}, al este de {area:431} (un campamento de la Horda: rodéalo). Los latiguez, infernales abrasadores, guardias felinos y sabuesos de la Legión de Mannoroc (nivel 29-30, no élite) sueltan los granos de Mannoroc; necesitas 12. Por debajo del 27 son duros en solitario: ven con un segundo jugador o más tarde. Los guardias felinos te derriban, los latiguez lanzan {spell:686} y {spell:348}, los infernales mantienen un escudo de fuego. Reaparecen en cinco minutos.",
 
 	-- Step 8: The Spear of Mannoroth
 	-- {object:409311} Spear of Mannoroth (no name in this language: may be words)
 	["The {object:409311}"] = "La {object:409311}",
 	-- {object:409311} Spear of Mannoroth (no name in this language: may be words) · {area:435} Demon Fall Canyon · {item:209748} Althalaxx Orb · {object:409315} Shattered Orb (no name in this language: may be words)
-	["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the {item:209748} in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "",
+	["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the {item:209748} in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "{object:409311} está en el extremo este de {area:435}. Entrega los granos en la lanza con el {item:209748} en tus bolsas: el orbe se hace añicos, y el {object:409315} de al lado inicia la última misión.",
 	-- {object:409315} Shattered Orb (no name in this language: may be words)
 	["from the {object:409315}"] = "del {object:409315}",
 

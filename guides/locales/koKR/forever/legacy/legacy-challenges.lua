@@ -59,7 +59,7 @@ return {
 
 	-- Step 10: PvP: battleground reputations (Alliance)
 	["PvP: battleground reputations (Alliance)"] = "PvP: 전장 평판 (얼라이언스)",
-	["Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains."] = "",
+	["Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains."] = "네 전장 세력과 확고 관계이면 포인트 1개입니다. Polestar 평판 가이드의 전쟁노래 협곡 평판, 아라시 분지 평판, 알터랙 계곡 평판, 그리고 다크스페이어 제도 평판(Forever의 새 전장, 30레벨부터)을 따르세요. 유산 특전 외교관은 평판 획득량을 늘려 줍니다.",
 
 	-- Step 11: PvP: battleground reputations (Horde)
 	["PvP: battleground reputations (Horde)"] = "PvP: 전장 평판 (호드)",
@@ -99,39 +99,39 @@ return {
 
 	-- Step 16: Adventure: Saving the Best for Last (Alliance)
 	-- {quest:8999} Saving the Best for Last
-	["Adventure: {quest:8999} (Alliance)"] = "",
+	["Adventure: {quest:8999} (Alliance)"] = "모험: {quest:8999}(얼라이언스)",
 	-- {npc:16013} Deliana · {quest:8999} Saving the Best for Last
 	["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "그다음 {npc:16013}이(가) 직업별 {quest:8999}을(를) 줍니다. 이 도전의 마지막 퀘스트로, 직업별 던전 세트 투구와 가슴 방어구를 받아 강화해 줍니다.",
 
 	-- Step 17: Adventure: Saving the Best for Last (Horde)
 	-- {quest:9007} Saving the Best for Last
-	["Adventure: {quest:9007} (Horde)"] = "",
+	["Adventure: {quest:9007} (Horde)"] = "모험: {quest:9007}(호드)",
 	-- {npc:16012} Mokvar · {quest:9007} Saving the Best for Last
 	["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "그다음 {npc:16012}이(가) 직업별 {quest:9007}을(를) 줍니다. 이 도전의 마지막 퀘스트로, 직업별 던전 세트 투구와 가슴 방어구를 받아 강화해 줍니다.",
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "던전: 레벨 15-25",
 	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {zone:1454} Orgrimmar
-	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list.\nAlliance: the {area:153}'s entrance is in the ruins beside the {zone:1458}, among Horde guards: go with a group. {area:2437} is inside {zone:1454}: the {area:16919} counts for it. Horde: the {area:16919} is inside {zone:1455}: {area:2437} counts for it."] = "",
+	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list.\nAlliance: the {area:153}'s entrance is in the ruins beside the {zone:1458}, among Horde guards: go with a group. {area:2437} is inside {zone:1454}: the {area:16919} counts for it. Horde: the {area:16919} is inside {zone:1455}: {area:2437} counts for it."] = "15-25레벨 던전의 마지막 우두머리는 함께 포인트 1개를 줍니다. {area:2437}과(와) Forever의 {area:16919}({zone:1455}에 있음)은 하나로 칩니다. 어느 쪽 마지막 우두머리든 됩니다. 잡을 때마다 각 우두머리를 체크하고 목록은 게임 안 유산 창에서 확인하세요.\n얼라이언스: {area:153}의 입구는 {zone:1458} 옆 폐허에 있고 호드 경비병이 있으니 파티로 가세요. {area:2437}은(는) {zone:1454} 안에 있으며 {area:16919}이(가) 그것을 인정합니다. 호드: {area:16919}은(는) {zone:1455} 안에 있으며 {area:2437}이(가) 그것을 인정합니다.",
 	-- {area:2437} Ragefire Chasm · {npc:11519} Bazzalan · {area:16919} Hall of Thanes
-	["{area:2437}: {npc:11519} (or {area:16919})"] = "",
+	["{area:2437}: {npc:11519} (or {area:16919})"] = "{area:2437}: {npc:11519}(또는 {area:16919})",
 	-- {area:16919} Hall of Thanes · {npc:261319} Durgen Dirgehammer · {area:2437} Ragefire Chasm
-	["{area:16919}: {npc:261319} (or {area:2437})"] = "",
+	["{area:16919}: {npc:261319} (or {area:2437})"] = "{area:16919}: {npc:261319}(또는 {area:2437})",
 	-- {area:153} Ruins of Lordaeron · {zone:1420} Tirisfal Glades · {npc:256035} Viktor the Vile
-	["{area:153} (Forever's, {zone:1420}): {npc:256035}"] = "",
+	["{area:153} (Forever's, {zone:1420}): {npc:256035}"] = "{area:153}(Forever의 것, {zone:1420}): {npc:256035}",
 	-- {area:718} Wailing Caverns · {npc:3678} Disciple of Naralex
 	["{area:718} (appears after the {npc:3678}'s event)"] = "{area:718}({npc:3678} 이벤트 후에 나타남)",
 	-- {area:17732} Excavation Site: Wetlands · {npc:260326} Relic Guardian
-	["{area:17732} (Forever's): {npc:260326}"] = "",
+	["{area:17732} (Forever's): {npc:260326}"] = "{area:17732}(Forever의 것): {npc:260326}",
 
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "던전: 레벨 26-45",
 	-- {area:16550} The Drowned City · {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
-	["The final boss of every level 26-45 dungeon earns one point together. {area:16550} and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "",
+	["The final boss of every level 26-45 dungeon earns one point together. {area:16550} and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "26-45레벨 던전의 마지막 우두머리는 함께 포인트 1개를 줍니다. {area:16550}과(와) {area:17780}({zone:2548}에 있음)은 Forever에서 새로 생겼고 데이터에 없으니 직접 체크하세요.",
 	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
-	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "",
+	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "달라란 시(Forever의 것, {zone:1416}): {npc:246020}",
 	-- {area:16550} The Drowned City
-	["the final boss of the {area:16550}"] = "",
+	["the final boss of the {area:16550}"] = "{area:16550}의 마지막 우두머리",
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Graveyard"] = "{area:796}: 묘지",
 	-- {area:796} Scarlet Monastery
@@ -141,16 +141,16 @@ return {
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Cathedral"] = "{area:796}: 대성당",
 	-- {area:17780} Krol'dok Stronghold
-	["the final boss of {area:17780}"] = "",
+	["the final boss of {area:17780}"] = "{area:17780}의 마지막 우두머리",
 
 	-- Step 20: Dungeons: level 46-60
 	["Dungeons: level 46-60"] = "던전: 레벨 46-60",
 	-- {area:16620} Alcaz Prison · {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
-	["The final boss of every level 46-60 dungeon earns one point together. {area:16620}, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "",
+	["The final boss of every level 46-60 dungeon earns one point together. {area:16620}, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "46-60레벨 던전의 마지막 우두머리는 함께 포인트 1개를 줍니다. {area:16620}, {area:1216}, {area:16985}은(는) Forever에서 새로 생겼고 데이터에 없으니 직접 체크하세요.",
 	-- {area:16620} Alcaz Prison
-	["the final boss of {area:16620}"] = "",
+	["the final boss of {area:16620}"] = "{area:16620}의 마지막 우두머리",
 	-- {area:1216} Blackmaw Hold
-	["the final boss of {area:1216}"] = "",
+	["the final boss of {area:1216}"] = "{area:1216}의 마지막 우두머리",
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "{area:1583} 하층",
 	-- {area:1583} Blackrock Spire
@@ -163,13 +163,13 @@ return {
 	["Dire Maul North"] = "혈투의 전장 북쪽",
 	["Dire Maul West"] = "혈투의 전장 서쪽",
 	-- {area:16985} Shaper's Terrace
-	["the final boss of the {area:16985}"] = "",
+	["the final boss of the {area:16985}"] = "{area:16985}의 마지막 우두머리",
 
 	-- Step 21: Raids: Onyxia
 	-- {npc:10184} Onyxia
 	["Raids: {npc:10184}"] = "공격대: {npc:10184}",
 	-- {npc:10184} Onyxia · {area:2159} Onyxia's Lair · {zone:1445} Dustwallow Marsh · {item:16309} Drakefire Amulet · {zone:1428} Burning Steppes · {area:340} Kargath · {zone:1418} Badlands · {npc:10363} General Drakkisath
-	["Killing {npc:10184} is a point. {area:2159} is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in {area:340} ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "",
+	["Killing {npc:10184} is a point. {area:2159} is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in {area:340} ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "{npc:10184}을(를) 잡으면 포인트 1개입니다. {area:2159}은(는) {zone:1445}에 있는 40인 공격대이며 12월 9일부터 열립니다. 모든 공격대원은 가방에 {item:16309}을(를) 넣어야 합니다. 얼라이언스는 {zone:1428}의 용족의 위협으로, 호드는 {area:340}({zone:1418})의 피와 천둥으로 시작하며, 둘 다 검은바위 첨탑 상층부의 {npc:10363}에서 끝납니다.",
 
 	-- Step 22: Raids: Hyjal Summit
 	["Raids: Hyjal Summit"] = "공격대: Hyjal Summit",

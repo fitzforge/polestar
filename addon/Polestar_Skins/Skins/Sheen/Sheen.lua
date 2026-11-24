@@ -19,7 +19,11 @@
 local ADDON = "Polestar" -- one of Polestar's own skins: Polestar_Skins/Skins/Sheen/ (#3507)
 
 local Theme = Polestar and Polestar.Theme
-if not (Theme and Theme.RegisterSkin and (Theme.API_VERSION or 0) >= 2) then return end
+if not (Theme and Theme.RegisterSkin and Theme.SkinBuilder and (Theme.API_VERSION or 0) >= 2) then return end
+
+-- Built the first time this skin is wanted (Theme.SkinBuilder, #3881):
+-- loading the folder builds none of its ten skins.
+Theme.SkinBuilder("sheen", function()
 
 local function check(what, ok, message)
 	if not ok then
@@ -286,3 +290,4 @@ check("skin sheen", Theme.RegisterSkin("sheen", {
 		["nav.arrowGlow"] = true, ["nav.arrowGlowStrength"] = 1.3, ["nav.lineStyle"] = "line", ["nav.lineWidth"] = 3,
 	},
 }))
+end)

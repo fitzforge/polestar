@@ -22,7 +22,7 @@ return {
 
 	-- Step 3: Xanis Flameweaver
 	-- {npc:5906} Xanis Flameweaver · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {npc:5905} Prate Cloudseer · {zone:1441} Thousand Needles · {spell:10596} Nature Resistance · {npc:5892} Searn Firewarder · {quest:1532} Call of Air · {zone:1454} Orgrimmar
-	["At 30 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the Air Totem Prate gives. Already carry {npc:5892}'s {quest:1532} from {zone:1454}? It goes to {npc:5905} too: skip {npc:5906}."] = "",
+	["At 30 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the Air Totem Prate gives. Already carry {npc:5892}'s {quest:1532} from {zone:1454}? It goes to {npc:5905} too: skip {npc:5906}."] = "30 級時，{zone:1456} 的 {area:1640} 上的薩滿祭司訓練師 {npc:5906} 會讓你去 {zone:1441} 找 {npc:5905}。30 級的空氣系圖騰（根基圖騰、{spell:10596}）需要普拉特給予的空氣圖騰。已經帶著 {zone:1454} 的 {npc:5892} 給你的 {quest:1532}？它也是去找 {npc:5905}：跳過 {npc:5906} 即可。",
 
 	-- Step 4: Prate Cloudseer
 	-- {area:484} Freewind Post · {npc:5905} Prate Cloudseer

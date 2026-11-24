@@ -37,7 +37,7 @@ return {
 
 	-- Step 5: What's the Big Idea?
 	-- {npc:13085} Myrokos Silentform · {npc:266357} Barton · {area:280} Strahnbrad · {zone:1416} Alterac Mountains · {spell:921} Pick Pocket
-	["In your mid 30s {npc:13085} has two more jobs; take both. {npc:266357} leads a Syndicate scouting party at {area:280}, in the east of the {zone:1416}, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. {spell:921} can miss several times in a row."] = "",
+	["In your mid 30s {npc:13085} has two more jobs; take both. {npc:266357} leads a Syndicate scouting party at {area:280}, in the east of the {zone:1416}, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. {spell:921} can miss several times in a row."] = "35級左右時，{npc:13085} 還有兩項任務，都接下。{npc:266357} 帶領一支辛迪加偵察隊，位於 {zone:1416} 東部的 {area:280}，在其中一棟房屋內，周圍有潛行的辛迪加成員。對他使用偷竊取得報告，不要殺他：他不會掉落報告。如果你等級比他低，他能識破潛行；欺詐高手天賦有幫助，也可以先擾亂他，再消失並繞到背後接近。{spell:921} 可能連續幾次未命中。",
 	-- {item:275482} Barton's Scouting Report
 	["Pick Pocket Barton for {item:275482}"] = "對巴頓使用搜尋，獲得{item:275482}",
 

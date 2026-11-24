@@ -35,7 +35,7 @@ return {
 	-- Step 8: Westfall (1/2)
 	["14 areas to discover here, levels 9-18."] = "이곳에서 발견할 지역은 14곳, 레벨 9-18입니다.",
 	-- {area:144} Thelsamar · {zone:1453} Stormwind City · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {zone:1429} Elwynn Forest · {area:120} Westbrook Garrison · {zone:1436} Westfall
-	["Fly from {area:144} to {zone:1453} if you have its flight path; otherwise ride back to {zone:1455} and take the {area:2257}. Walk west out of {zone:1429} past the {area:120} into {zone:1436}."] = "",
+	["Fly from {area:144} to {zone:1453} if you have its flight path; otherwise ride back to {zone:1455} and take the {area:2257}. Walk west out of {zone:1429} past the {area:120} into {zone:1436}."] = "비행 경로가 있으면 {area:144}에서 {zone:1453}(으)로 날아가세요. 없으면 탈것로 {zone:1455}(으)로 돌아가 {area:2257}를(을) 타세요. {zone:1429} 서쪽 문으로 나와 {area:120}을(를) 지나 {zone:1436}(으)로 가세요.",
 	-- {area:108} Sentinel Hill
 	["Flight path here: {area:108} (Thor)."] = "이곳의 비행 경로: {area:108} (토르).",
 
@@ -49,7 +49,7 @@ return {
 	-- Step 12: Duskwood (1/2)
 	["13 areas to discover here, levels 10-30."] = "이곳에서 발견할 지역은 13곳, 레벨 10-30입니다.",
 	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire
-	["From {area:1002} take the road south into {zone:1431}; {area:42} is east along its main road. Most of Duskwood is level 24-30: come with Redridge behind you."] = "",
+	["From {area:1002} take the road south into {zone:1431}; {area:42} is east along its main road. Most of Duskwood is level 24-30: come with Redridge behind you."] = "{area:1002}에서 남쪽 길로 들어가 {zone:1431}(으)로 가세요. {area:42}는(은) 그 큰길을 따라 동쪽에 있습니다. 그늘숲 대부분은 24-30레벨이니 레드리지를 뒤에 두고 오세요.",
 	-- {area:42} Darkshire · {npc:2409} Felicia Maline
 	["Flight path here: {area:42} ({npc:2409})."] = "이곳의 비행 경로: {area:42} ({npc:2409}).",
 
@@ -65,7 +65,7 @@ return {
 	-- Step 16: Hillsbrad Foothills (1/2)
 	["12 areas to discover here, levels 20-31."] = "이곳에서 발견할 지역은 12곳, 레벨 20-31입니다.",
 	-- {area:150} Menethil Harbor · {area:271} Southshore
-	["Take the boat from {area:150} to {area:271}."] = "",
+	["Take the boat from {area:150} to {area:271}."] = "{area:150}에서 배를 타고 {area:271}(으)로 가세요.",
 	-- {area:271} Southshore · {npc:2432} Darla Harris
 	["Flight path here: {area:271} ({npc:2432})."] = "이곳의 비행 경로: {area:271} ({npc:2432}).",
 	-- {area:272} Tarren Mill

@@ -443,6 +443,40 @@ fn train_class_is_done_when_the_class_trainer_lists_nothing_to_learn_and_waits_f
 	);
 }
 
+// #3608 (JAKEJ): "Sends me to the trainer when I have things to train. It's common, probably typical to skip
+// things": the guide's `train class` step stayed open while the trainer listed a new rank of a spell he knows and
+// skips. A new rank of a known spell (the spellbook holds one of that name) is nothing new; a new spell still is.
+#[test]
+fn train_class_is_done_when_the_trainer_lists_only_new_ranks_of_known_spells_3608() {
+	let play = |services: &str| {
+		let pre = format!(
+			r#"stub.world.level = 19
+			SERVICES = {services}
+			function GetNumTrainerServices() return #SERVICES end
+			function GetTrainerServiceInfo(i) local s = SERVICES[i] if s then return s[1], s[2] end end
+			C_Spell = C_Spell or {{}}
+			C_Spell.GetSpellName = function(id) return id == 78 and "Heroic Strike" or nil end
+			C_SpellBook.GetNumSpellBookSkillLines = function() return 1 end
+			C_SpellBook.GetSpellBookSkillLineInfo = function() return {{ itemIndexOffset = 0, numSpellBookItems = 1 }} end
+			C_SpellBook.GetSpellBookItemInfo = function(k) return k == 1 and {{ spellID = 78, itemType = 1 }} or nil end"#
+		);
+		run(
+			None,
+			&pre,
+			&format!(
+				r#"{AGAIN} stub.advance(0.5)
+				stub.world.trainer(3353); stub.advance(0.5)
+				stub.world.close(); stub.advance(0.5)
+				emit({{ after = Polestar.Engine.GetStepIndex(), visit = PolestarCharDB.classTrainVisit or false }})"#
+			),
+		)
+	};
+	let rank = r#"{ { "Battle Shout", "used" }, { "Heroic Strike", "available" } }"#;
+	assert_eq!(play(rank), json!({ "after": 2, "visit": 19 }), "only Heroic Strike's next rank: done, closed without training");
+	let new = r#"{ { "Heroic Strike", "available" }, { "Hamstring", "available" } }"#;
+	assert_eq!(play(new), json!({ "after": 1, "visit": false }), "Hamstring is new: still open");
+}
+
 #[test]
 fn a_spell_learned_at_a_class_trainer_records_the_visit_s_level_opening_the_window_or_a_first_sight_does_not() {
 	let out = run(

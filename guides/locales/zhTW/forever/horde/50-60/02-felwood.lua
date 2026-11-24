@@ -80,7 +80,7 @@ return {
 
 	-- Step 17: Ruins of Eldarath: kill these as you meet them
 	-- {area:1221} Ruins of Eldarath
-	["{area:1221}: kill these as you meet them"] = "",
+	["{area:1221}: kill these as you meet them"] = "{area:1221}：遇到就殺",
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "向東騎到海岸上的廢墟。四塊石板散落在廢墟中，由惡鞭納迦（52-55級）守衛：一次拉一隻。",
 
 	-- Step 18: Ruins of Eldarath
@@ -217,7 +217,7 @@ return {
 
 	-- Step 44: Deadwood Village
 	-- {area:1769} Timbermaw Hold
-	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "",
+	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "死木熊怪的村莊就在翡翠聖地正南。每殺一個死木熊怪也會提升你在{area:1769}的聲望；留著死木頭飾羽毛。",
 
 	-- Step 45: Southern Jaedenar
 	-- {area:1763} Jaedenar

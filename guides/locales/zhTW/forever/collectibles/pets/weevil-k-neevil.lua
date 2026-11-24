@@ -8,7 +8,7 @@
 return {
 	-- Step 1: My Little Friends
 	-- {npc:217412} Amaryllis Webb · {zone:1435} Swamp of Sorrows · {item:213565} Entomology Starter Kit · {zone:1417} Arathi Highlands · {zone:1443} Desolace
-	["{npc:217412}, a Forsaken bug collector, keeps her menagerie in western {zone:1435}. She hands you an {item:213565}: open it for the tools that catch the three bugs. The bugs are far apart (northern Stranglethorn, {zone:1417} and {zone:1443}), so do them while you pass. If you lose the kit, she sells another for 50s."] = "",
+	["{npc:217412}, a Forsaken bug collector, keeps her menagerie in western {zone:1435}. She hands you an {item:213565}: open it for the tools that catch the three bugs. The bugs are far apart (northern Stranglethorn, {zone:1417} and {zone:1443}), so do them while you pass. If you lose the kit, she sells another for 50s."] = "{npc:217412} 是一名被遺忘者昆蟲收集者，她的蟲舍位於 {zone:1435} 西部。她會給你一個{item:213565}：開啟後取得捕捉三隻蟲子的工具。三隻蟲子相距很遠（荊棘谷北部、{zone:1417} 和 {zone:1443}），因此經過時順手完成即可。如果丟了工具包，她出售的補發包價格是 50 銀幣。",
 
 	-- Step 2: Arbor Tarantula in Stranglethorn Vale
 	-- {npc:217588} Arbor Tarantula · {zone:1434} Stranglethorn Vale

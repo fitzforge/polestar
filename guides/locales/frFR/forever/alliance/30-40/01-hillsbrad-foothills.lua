@@ -134,16 +134,16 @@ return {
 
 	-- Step 29: Howin Kindfeather
 	-- {quest:98291} Death to the Dragonmaw · {area:17716} Dragonmaw Retreat · {npc:270637} Howin Kindfeather
-	["{quest:98291} is a group quest: 16 elite Dragonmaw (29-30) in {area:17716}, just east of {npc:270637}. Skip it if you are alone."] = "",
+	["{quest:98291} is a group quest: 16 elite Dragonmaw (29-30) in {area:17716}, just east of {npc:270637}. Skip it if you are alone."] = "{quest:98291} est une quête de groupe : 16 Gueule-de-dragon d'élite (29-30) dans {area:17716}, juste à l'est de {npc:270637}. Évitez-la si vous êtes seul.",
 
 	-- Step 30: Dragonmaw Retreat
 	-- {npc:270637} Howin Kindfeather
 	-- plural, as words: Dragonmaw Reclaimers = {npc:271351} Dragonmaw Reclaimer
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of {npc:270637}."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of {npc:270637}."] = "Ce sont des élites : il est recommandé de se regrouper, cherchez des personnes pour le faire avec vous. Les Récupérateurs, Lieurs d'âmes et Infiltrateurs Gueule-de-dragon (29-30, élites) campent juste à l'est de {npc:270637}.",
 
 	-- Step 31: Howin Kindfeather
 	-- {npc:270637} Howin Kindfeather
-	["back west to {npc:270637}"] = "",
+	["back west to {npc:270637}"] = "revenez vers l'ouest à {npc:270637}",
 
 	-- Step 32: Prospector Whelgar
 	["Below ground"] = "Sous terre",

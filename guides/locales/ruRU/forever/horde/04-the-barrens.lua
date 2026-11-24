@@ -119,7 +119,7 @@ return {
 	["{npc:5911}, beside the flight master"] = "",
 
 	-- Step 25: Fly to Crossroads
-	["Fly to Crossroads"] = "",
+	["Fly to Crossroads"] = "Летите на Перекрёсток",
 	-- {area:378} Camp Taurajo
 	["{area:378} flight master"] = "Распорядитель полетов: {area:378}",
 

@@ -1633,3 +1633,30 @@ end
 emit(kits)"#);
 	assert_eq!(out[0], json!([{ "value": "raid", "played": 8959 }, { "value": "ready", "played": 8960 }, { "value": "whisper", "played": 12197 }]), "never the silent 37666");
 }
+
+// #3424: the sidebar said Rares 397 · Treasures 196 while the lists held 378 and 150: it counted every record of the
+// Codex, the lists only what they can show. A treasure with no spot is in no list; a rare with none is, under
+// "Dungeons and unplaced". The sidebar counts what each list shows.
+#[test]
+fn the_rares_sidebar_counts_what_the_lists_show_never_a_treasure_with_no_spot_3424() {
+	let mut codex = sample_codex();
+	codex["objects"]["2844"] = json!({ "id": 2844, "name": "Lost Chest", "treasure": true, "loot": [1179], "spawns": [] });
+	codex["npcs"]["62"] = json!({ "id": 62, "name": "Hidden Rare", "level": 30, "levelMax": null, "faction": null, "rare": true,
+		"elite": false, "boss": false, "instance": null, "roles": [], "loot": [], "spawns": [] });
+	let pack = write_codex_pack(&codex, &CodexOpts { ..Default::default() });
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_rares.lua"],
+		before: pack.stub_lua.clone(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Lookup/Lookup.xml", "UI/UI.xml", "Rares/Rares.xml"])],
+		login: true,
+		script: r#"Polestar.Codex.Load()
+local RV, R = Polestar.UI.RaresSection, Polestar.Rares
+local out = {}
+for _, it in ipairs((RV.Nav())) do out[it.key] = it.count end
+out.placed = { rare = #R.ListOf("rare"), treasure = #R.ListOf("treasure") }
+emit(out)"#
+			.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!({ "rare": 2, "treasure": 1, "seen": 0, "placed": { "rare": 1, "treasure": 1 } }), "the unplaced rare is listed, the chest with no spot is not");
+}

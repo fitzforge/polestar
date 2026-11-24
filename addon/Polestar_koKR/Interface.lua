@@ -1427,6 +1427,12 @@ L["%s to buy"] = "%s개 구매 필요"
 L["(only %s listed)"] = "(%s개만 등록됨)"
 L["(old price)"] = "(오래된 가격)"
 -- L["Elites nearby"] = ""
+-- L["Group, or careful: a group quest, yours to do or skip"] = ""
+-- L["Group, or careful: an escort that can go wrong"] = ""
+-- L["Group, or careful: elites at your level or above"] = ""
+-- L["Group, or careful: a group is advised"] = ""
+-- L["Careful: elites nearby"] = ""
+-- L["Careful: elites, below your level"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "위치"
@@ -2187,6 +2193,7 @@ L["Leaves out grey quests, and quests behind you that pay less than full XP when
 -- L["%s: /reload after picking it."] = ""
 -- L["The step card, Up next under it."] = ""
 -- L["Alpha"] = ""
+-- L["The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "선택되어 있습니다: Ctrl+C(Mac은 Cmd+C)로 복사한 뒤 Esc를 누르십시오."
@@ -2637,7 +2644,6 @@ L["Install's pages: questing, groups, your route and your look, a page at a time
 L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다: 퀘스트 진행, 파티, 내 경로, 내 모양. 선택은 바로 적용됩니다."
 L["Show experimental guides"] = "실험적 가이드 표시"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "아직 시험 중인 Forever 신규 지역용 Polestar 가이드: 가이드 메뉴의 레벨업 아래에 실험적 표시와 함께 나열됩니다. 자동으로 선택되지는 않으며, 경로 선택에서는 어느 쪽이든 맞는 곳에서 해당 지역을 제안합니다."
-L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "더 빠르면 아는 순간이동 주문으로 경로를 시작합니다: 마법사의 도시 순간이동, 드루이드의 달의 숲, 주술사의 영혼의 귀환(두 번째 귀환석처럼). 도시 순간이동에는 가방에 순간이동의 룬이 필요합니다."
 L["Sell and repair reminders"] = "판매 및 수리 알림"
 L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."] = "가이드가 마을을 떠나기 직전에 가방이 거의 가득 찼거나 장비가 닳았으면, 가는 길에 있는 상인이나 수리 상인을 방문당 한 번 알려줍니다. 클릭하면 화살표가 그곳을 가리킵니다."
 L["Sell: fewer free bag slots than"] = "판매: 가방 빈 칸이 다음보다 적을 때"
@@ -2660,6 +2666,7 @@ L["Drag the guide window, the arrow, the cards and the alerts where you want the
 -- L["play Tetris by beemerwt"] = ""
 -- L["Points to the current goal. Off hides only the arrow: the route lines have their own switch, under Routes. Its look and colours are on the Arrow page."] = ""
 -- L["The way to the goal on the world map and the minimap, with the arrow on or off: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = ""
+-- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."] = ""
 -- L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."] = ""
 -- L["Reload now?"] = ""
 -- L["Polestar shows the new language after a /reload."] = ""
@@ -4745,6 +4752,8 @@ L["This guide is for %s characters. Polestar won't guide you through it."] = "�
 -- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 -- L["Looking ahead."] = ""
 -- L["Looking back."] = ""
+-- L["On the way to your map point (%s)."] = ""
+-- L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "%s 키를 눌러 다시 시작하거나 가이드 창을 여십시오."
@@ -4855,8 +4864,6 @@ L["You have %s"] = "보유 금액: %s"
 L["Send to Auctionator"] = "Auctionator로 보내기"
 L["Copy list"] = "목록 복사"
 L["Show how the profession guide gets its materials"] = "전문 기술 가이드가 재료를 얻는 방법 보기"
-L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "새로 시작: 이 가이드의 퀘스트 경험치 중 약 %d%%가 %s에서 이어집니다."
-L["Expect about %d minutes of extra grinding, or start there."] = "약 %d분 더 사냥해야 합니다. 아니면 거기서 시작하십시오."
 L["Open %s"] = "%s 열기"
 
 -- Core/ProfileStrings.lua
@@ -5340,3 +5347,6 @@ L["%d of %d"] = "%d / %d"
 -- L["Do you want to play Doom while waiting?"] = "기다리는 동안 Doom을 플레이할까요?"
 -- L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "지도와 미니맵에 목표까지의 길: 걷는 곳은 선 또는 점, 비행·항해·탑승은 선, 이후 구간은 흐리게. Cillian Berragan의 Shortest Path Forever 방식으로 그립니다."
 -- L["Points to the current goal. Its look and colours are on the Arrow page."] = "현재 목표를 가리킵니다. 모양과 색은 화살표 페이지에 있습니다."
+-- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "더 빠르면 아는 순간이동 주문으로 경로를 시작합니다: 마법사의 도시 순간이동, 드루이드의 달의 숲, 주술사의 영혼의 귀환(두 번째 귀환석처럼). 도시 순간이동에는 가방에 순간이동의 룬이 필요합니다."
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "새로 시작: 이 가이드의 퀘스트 경험치 중 약 %d%%가 %s에서 이어집니다."
+-- L["Expect about %d minutes of extra grinding, or start there."] = "약 %d분 더 사냥해야 합니다. 아니면 거기서 시작하십시오."

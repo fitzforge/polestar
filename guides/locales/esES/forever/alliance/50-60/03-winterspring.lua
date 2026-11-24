@@ -8,9 +8,9 @@
 return {
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
-	["Fly to {area:2255}"] = "",
+	["Fly to {area:2255}"] = "Vuela a {area:2255}",
 	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "",
+	["{area:489} flight master"] = "Maestro de vuelo de {area:489}",
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
@@ -45,7 +45,7 @@ return {
 
 	-- Step 6: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
-	["{area:2246}: kill these as you meet them"] = "",
+	["{area:2246}: kill these as you meet them"] = "{area:2246}: mátalos según te los encuentres",
 	-- {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {item:14047} Runecloth · {npc:11557} Meilosh
 	-- plural, as words: Winterfall Ritual Totems = {quest:8471} Winterfall Ritual Totem
 	["The western Winterfall camp sits in the hills between {npc:9298} and the tunnel. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need): right-click it. They also drop Winterfall Ritual Totems (about one in thirty) and {item:14047}, which only matter if you are Neutral (the totem) or Friendly ({npc:11557}'s {item:14047}) with the Timbermaw: keep them then.\nCareful: the Pathfinders are 53 and the Totemics 54, but the Den Watchers inside the camp are 55: take the camp from its edge and pull one at a time."] = "",
@@ -87,7 +87,7 @@ return {
 
 	-- Step 14: The Barrens
 	-- {zone:1413} The Barrens · {area:392} Ratchet
-	["From Theramore, ride west into the {zone:1413} and north up the coast to {area:392}."] = "",
+	["From Theramore, ride west into the {zone:1413} and north up the coast to {area:392}."] = "Desde Theramore, cabalga al oeste hacia {zone:1413} y al norte por la costa hasta {area:392}.",
 
 	-- Step 15: Ratchet
 	-- {npc:8496} Liv Rizzlefix
@@ -107,11 +107,11 @@ return {
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Vuela a {area:976}",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 19: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, dentro",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, north side of town: the tar is in Un'Goro"] = "",
 
@@ -129,7 +129,7 @@ return {
 
 	-- Step 23: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	["Fly to {area:541}"] = "",
+	["Fly to {area:541}"] = "Vuela a {area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Maestro de vuelo de {area:976}",
 
@@ -139,12 +139,12 @@ return {
 	-- {npc:9997} Spraggle Frock
 	["The wooden sign beside {npc:9997}"] = "El cartel de madera junto a {npc:9997}",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, bajo tierra",
 	-- {npc:9116} Eridan Bluewind · {zone:1448} Felwood
 	["For {npc:9116} in {zone:1448}, later in this guide: keep it"] = "",
 
 	-- Step 25: Northern Pylon
-	["Northern Pylon"] = "",
+	["Northern Pylon"] = "Pilón del norte",
 	-- {npc:9166} Pterrordax · {npc:9997} Spraggle Frock · {npc:6584} King Mosh
 	["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}.\nCareful: {npc:6584} (60), a rare devilsaur, roams the crater's west around 27,46: if you meet him, ride away."] = "",
 
@@ -160,15 +160,15 @@ return {
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
 	["The gorillas live on {area:1943}, just east of the pylon: take the pelts for {npc:9619} now, while you are up here. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "Los gorilas viven en {area:1943}, justo al este de la torre: consigue ahora las pieles para {npc:9619}, ya que estás aquí arriba. No entres en la cueva más profunda: {npc:9622} es de nivel 55.\nCuidado: los gorilas de Un'Goro (nivel 50-51) piden ayuda a los aliados en un radio de 20 m cuando bajan al 25% de salud. Hay una cueva llena de simios en la zona, y luchar allí atrae a muchos enemigos.",
 	-- {item:11478} Un'Goro Gorilla Pelt
-	["{item:11478}; below ground"] = "",
+	["{item:11478}; below ground"] = "{item:11478}; bajo tierra",
 	-- {item:11479} Un'Goro Stomper Pelt
-	["{item:11479}; below ground"] = "",
+	["{item:11479}; below ground"] = "{item:11479}; bajo tierra",
 	-- {item:11480} Un'Goro Thunderer Pelt
-	["{item:11480}; below ground"] = "",
+	["{item:11480}; below ground"] = "{item:11480}; bajo tierra",
 
 	-- Step 29: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
-	["{area:538}: kill these as you meet them"] = "",
+	["{area:538}: kill these as you meet them"] = "{area:538}: mátalos según te los encuentres",
 	-- {area:538} Lakkari Tar Pits
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Tar Lords = {npc:6519} Tar Lord
 	["The Tar Beasts and Tar Lords wallow in the {area:538}, south of the refuge on the way down into the crater."] = "Las bestias de alquitrán y los señores del alquitrán se revuelcan en {area:538}, al sur del refugio, en la bajada al cráter.",
@@ -177,11 +177,11 @@ return {
 	["The crater"] = "El cráter",
 	-- {area:538} Lakkari Tar Pits · {area:537} Fire Plume Ridge · {area:540} Slithering Scar · {item:11018} Un'Goro Soil
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Gorishi Workers = {npc:6552} Gorishi Worker
-	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "",
+	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "Las bestias de alquitrán se revuelcan en {area:538}; los elementales de fuego de {area:537}, en el centro, llevan la ceniza; las avispas Gorishi de {area:540}, en el sur, llevan la glándula. Cualquier criatura del cráter puede soltar {item:11018}.\nCuidado: Las trabajadores Gorishi que bajan del 45% de salud tienen un 50% de probabilidad de pedir ayuda a los aliados a menos de 25 m.",
 
 	-- Step 31: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
-	["{npc:9619} camps at the foot of the ramp into the crater."] = "",
+	["{npc:9619} camps at the foot of the ramp into the crater."] = "{npc:9619} acampa al pie de la rampa de entrada al cráter.",
 	-- {quest:4291} The Scent of Lar'korwi
 	["{quest:4291}, if you still carry it from the first visit"] = "{quest:4291}, si aún la llevas de la primera visita",
 	-- {area:1943} Ironstone Plateau
@@ -196,7 +196,7 @@ return {
 	-- Step 35: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
-	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "",
+	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "Los gorilas viven en {area:1943}, al este de {area:541}. Guarda sus pieles para {npc:9619}. No entres en la cueva más profunda: {npc:9622} es de nivel 55.\nCuidado: Los gorilas de Un'Goro (nivel 50-51) piden ayuda a los aliados a menos de 20 m cuando bajan al 25% de salud. En la zona hay una cueva llena de simios, y pelear ahí trae muchos enemigos de más.",
 
 	-- Step 37: U'cha
 	-- {npc:9622} U'cha
@@ -217,7 +217,7 @@ return {
 
 	-- Step 41: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
-	["{area:1942}: kill these as you meet them"] = "",
+	["{area:1942}: kill these as you meet them"] = "{area:1942}: mátalos según te los encuentres",
 
 	-- Step 42: The Gorishi hive
 	["The Gorishi hive"] = "La colmena Gorishi",
@@ -230,7 +230,7 @@ return {
 	["West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle.\nCareful: Gruff (57), a rare devilsaur, prowls the south around 38,75: if you meet him, ride away."] = "",
 
 	-- Step 44: Western Pylon
-	["Western Pylon"] = "",
+	["Western Pylon"] = "Pilón del oeste",
 	["The pylon stands on the western cliffs."] = "La torre está en los acantilados del oeste.",
 
 	-- Step 45: Krakle
@@ -271,7 +271,7 @@ return {
 
 	-- Step 55: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "Vuela a {area:415}",
 
 	-- Step 56: Felwood
 	-- {area:415} Astranaar · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
@@ -283,7 +283,7 @@ return {
 	-- {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary
 	["{npc:9116} stands inside, in the {area:2479}."] = "",
 	-- {npc:9116} Eridan Bluewind
-	["{npc:9116}, inside"] = "",
+	["{npc:9116}, inside"] = "{npc:9116}, dentro",
 
 	-- Step 58: The Emerald Sanctuary
 	-- {npc:10924} Ivy Leafrunner · {npc:11079} Wynd Nightchaser · {area:2253} Starfall Village
@@ -303,21 +303,21 @@ return {
 	-- plural, as words: Jaedenar Darkweavers = {npc:7118} Jaedenar Darkweaver
 	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns: pull at the edge of each group and fight one pack at a time.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "",
 	-- {object:176159} Brazier of Malice
-	["{object:176159}, below ground"] = "",
+	["{object:176159}, below ground"] = "{object:176159}, bajo tierra",
 	-- {object:176160} Brazier of Suffering
-	["{object:176160}, below ground"] = "",
+	["{object:176160}, below ground"] = "{object:176160}, bajo tierra",
 	-- {object:176158} Brazier of Pain
-	["{object:176158}, below ground"] = "",
+	["{object:176158}, below ground"] = "{object:176158}, bajo tierra",
 	-- {object:176161} Brazier of Hatred
-	["{object:176161}, below ground"] = "",
+	["{object:176161}, below ground"] = "{object:176161}, bajo tierra",
 	-- {item:11515} Corrupted Soul Shard · {npc:9528} Arathandris Silversky
 	["{item:11515}, from the same cultists: {npc:9528} takes six by the Sanctuary if you did Cleansing Felwood"] = "",
 	-- {npc:11016} Captured Arko'narin
-	["{npc:11016}, in her cell; below ground"] = "",
+	["{npc:11016}, in her cell; below ground"] = "{npc:11016}, en su celda; bajo tierra",
 
 	-- Step 60: Arko'narin
 	-- {area:1770} Shadow Hold
-	["Lead her out of {area:1770} and keep her alive until she is outside the cave: clear the way back first."] = "",
+	["Lead her out of {area:1770} and keep her alive until she is outside the cave: clear the way back first."] = "Llévala fuera de {area:1770} y mantenla con vida hasta que esté afuera de la cueva: despeja antes el camino de vuelta.",
 
 	-- Step 62: Greta Mosshoof: A Final Blow
 	-- {quest:5242} A Final Blow · {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold
@@ -327,19 +327,19 @@ return {
 	-- {area:1770} Shadow Hold · {npc:9518} Rakaiah
 	["Back into {area:1770}: the succubus {npc:9518} (56) waits on the way to its deepest chamber, with Trey Lightforge's remains beside her.\nCareful: {npc:9518} is level 56: clear the cultists around her first and fight her at full health."] = "",
 	-- {npc:9518} Rakaiah
-	["{npc:9518}, below ground"] = "",
+	["{npc:9518}, below ground"] = "{npc:9518}, bajo tierra",
 	-- {npc:11020} Remains of Trey Lightforge
-	["{npc:11020}, below ground"] = "",
+	["{npc:11020}, below ground"] = "{npc:11020}, bajo tierra",
 
 	-- Step 64: A Final Blow
 	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {npc:9518} Rakaiah
 	["{npc:9861} and {npc:9860} guard {npc:9517} in {area:1770}'s deepest chamber, just past {npc:9518}.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
 	-- {npc:9861} Moora
-	["{npc:9861}, below ground"] = "",
+	["{npc:9861}, below ground"] = "{npc:9861}, bajo tierra",
 	-- {npc:9860} Salia
-	["{npc:9860}, below ground"] = "",
+	["{npc:9860}, below ground"] = "{npc:9860}, bajo tierra",
 	-- {npc:9517} Shadow Lord Fel'dan
-	["{npc:9517}; below ground"] = "",
+	["{npc:9517}; below ground"] = "{npc:9517}; bajo tierra",
 
 	-- Step 65: The Emerald Sanctuary
 	["Ride back south-east to the Sanctuary."] = "Vuelve al sureste hasta el Santuario.",
@@ -357,17 +357,17 @@ return {
 	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	["{npc:11558} stands just inside the {area:1769} cave: she needs Neutral with the Timbermaw; the reputation guide gets you there."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558}: walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: walks around here: look inside the circle on the map"] = "{npc:11558}: recorre esta zona: busca dentro del círculo del mapa",
 
 	-- Step 71: Meilosh
 	-- {npc:11557} Meilosh · {npc:11558} Kernda · {quest:6031} Runecloth
 	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw; the reputation guide gets you there."] = "",
 	-- {npc:11557} Meilosh
-	["{npc:11557}; below ground"] = "",
+	["{npc:11557}; below ground"] = "{npc:11557}; bajo tierra",
 
 	-- Step 72: Into Winterspring
 	-- {zone:1452} Winterspring
-	["Into {zone:1452}"] = "",
+	["Into {zone:1452}"] = "Hacia {zone:1452}",
 	-- {area:1769} Timbermaw Hold · {zone:1452} Winterspring
 	["Through {area:1769}'s tunnel to its {zone:1452} end."] = "",
 
@@ -383,7 +383,7 @@ return {
 	-- {zone:1448} Felwood · {area:1998} Talonbranch Glade · {quest:5086} Toxic Horrors · {area:1767} Irontree Woods
 	["Back through the tunnel to {zone:1448} and south past {area:1998}: the {quest:5086} (53) roam the north-eastern tip of {area:1767}."] = "",
 	-- {quest:5086} Toxic Horrors
-	["The {quest:5086}"] = "",
+	["The {quest:5086}"] = "{quest:5086}",
 
 	-- Step 75: Toxic Horrors
 	-- {quest:5086} Toxic Horrors
@@ -396,7 +396,7 @@ return {
 
 	-- Step 78: Winterspring: kill these as you meet them
 	-- {zone:1452} Winterspring
-	["{zone:1452}: kill these as you meet them"] = "",
+	["{zone:1452}: kill these as you meet them"] = "{zone:1452}: mata a estos según te los encuentres",
 	-- {quest:5087} Winterfall Runners · {area:2246} Frostfire Hot Springs · {zone:1448} Felwood · {spell:5384} Feign Death
 	["The {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "",
 
@@ -464,6 +464,8 @@ return {
 	-- ["Free Darrowshire Spirits: talk to them"] = "Libera espíritus de Villa Darrow ({npc:11064}): habla con ellos",
 	-- ["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}."] = "Los yetis Cardo Nevado viven en las colinas al sur de {area:2244}, y las Quimeras venfresco en el valle hacia {area:2255}.",
 	-- ["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}.\nCareful: the Ice Thistle Yetis are 55-56 and the Chimaeras 55-57: take the Rogue Ice Thistles (53-55) and the Fledgling Chillwinds (53-55) at the edge of the hills, and leave the Chillwind Ravagers (57-59) alone."] = "Los yetis Cardo Nevado viven en las colinas al sur de {area:2244}, y las Quimeras Viento Gélido en el valle hacia {area:2255}.\nCuidado: los Yetis Cardo Nevado son de nivel 55-56 y las Quimeras de 55-57: ve a por los Cardos Nevados huidos (53-55) y los Volantones Viento Gélido (53-55) del borde de las colinas, y deja en paz a los Devastadores Viento Gélido (57-59).",
+	-- ["Inside"] = "Dentro",
+	-- ["Into {zone:1423}"] = "Hacia {zone:1423}",
 	-- ["Its jars are filled on the {zone:1451} guide's Un'Goro visit: keep it"] = "Sus tarros se llenan en la visita a Un'Goro de la guía de {zone:1451}: guárdalo",
 	-- ["Keep it: Gregan in {zone:1444} brews the elixir later"] = "Guárdalo: Gregan, en {zone:1444}, prepara el elixir más adelante",
 	-- ["Level 55 at {area:2246}"] = "Nivel 55 en {area:2246}",
@@ -499,8 +501,12 @@ return {
 	-- ["Your Hearthstone is not set at {zone:1455} (the {zone:1425} guide binds there, and this guide leaves {zone:1452} through it): bind at {area:2255} instead, for the trips back to town."] = "Tu piedra de hogar no está vinculada en {zone:1455} (la guía de {zone:1425} te vincula allí, y esta guía sale de {zone:1452} pasando por allí): vincúlala en {area:2255}, para los viajes de vuelta al pueblo.",
 	-- ["Your Hearthstone is still set at {zone:1455}: from there the gryphon to {area:3197} is about ten minutes quicker than {area:2255}'s flight to Theramore and the boat."] = "Tu piedra de hogar sigue vinculada en {zone:1455}: desde allí, el grifo a {area:3197} es unos diez minutos más rápido que el vuelo de {area:2255} a Theramore y el barco.",
 	-- ["Zaeldarr is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "Zaeldarr es élite: se recomienda ir en grupo. Espera al fondo de {area:2261}, la cripta del suroeste de la zona.",
+	-- ["grind on {npc:7442}"] = "mata {npc:7442}",
 	-- ["grind on {npc:7460} at the {area:2247}, {zone:1452}"] = "mata {npc:7460} en {area:2247}, {zone:1452}",
+	-- ["{area:150} flight master"] = "Maestro de vuelo de {area:150}",
 	-- ["{area:199} cauldron"] = "Caldera de {area:199}",
+	-- ["{area:2247}: kill these as you meet them"] = "{area:2247}: mátalos según te los encuentres",
+	-- ["{area:2255} flight master"] = "Maestro de vuelo de {area:2255}",
 	-- ["{area:2255}'s inn"] = "La posada de {area:2255}",
 	-- ["{item:12771}, a rare drop"] = "{item:12771}, botín poco frecuente",
 	-- ["{npc:10301}'s supplies"] = "Los suministros de {npc:10301}",

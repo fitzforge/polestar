@@ -207,16 +207,22 @@ fn the_first_page_greets_the_character_by_name_says_what_polestar_does_shows_its
 		end
 		local line = said(body.Line)
 		local ahead = plain(body.Ahead:GetText())
+		local follow = { said(body.Follow), plain(body.Follow:GetText()), select(5, body.Follow:GetPoint(1)) > select(5, body.Ahead:GetPoint(1)) }
 		F:Hide()
 		uistub.player = {}
 		Wel.Show()
-		emit({ named = named, line = line, cards = parts, anonymous = title(), ahead = ahead })"#);
+		emit({ named = named, line = line, cards = parts, anonymous = title(), ahead = ahead, follow = follow })"#);
 	assert_eq!(out["named"], "Hello, Testchar");
 	assert_eq!(out["anonymous"], "Welcome to Polestar", "without a name");
 	assert_eq!(out["line"], true, "a line on what Polestar does");
 	let part = json!({ "shown": true, "title": true, "line": true, "media": true });
 	assert_eq!(out["cards"], json!([part, part, part]), "three parts, each a card with its miniature, title and line");
 	assert_eq!(out["ahead"], "The next pages set Polestar up for how you play. Each choice works at once, and Skip install keeps everything as it is.");
+	assert_eq!(
+		out["follow"],
+		json!([true, "The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup.", true]),
+		"what the arrow follows, over the line on the next pages (#3701)"
+	);
 }
 
 #[test]
@@ -464,9 +470,9 @@ fn every_choice_page_says_skip_install_keeps_its_settings_and_skipping_keeps_the
 		emit({ keep = keep, before = before, skipped = skipped, kept = get("behavior.skipGrey") })"#);
 	let line = json!("Skip install keeps these as they are.");
 	assert_eq!(out["keep"], json!([line, line, line]), "Questing, Your route, Your look");
-	assert_eq!(out["before"], json!([true, true, false, true, "dusk", "balanced"]), "the defaults, picked on a fresh account");
+	assert_eq!(out["before"], json!([true, true, true, true, "dusk", "balanced"]), "the defaults, picked on a fresh account");
 	assert_eq!(out["skipped"], json!({ "now": out["before"].clone(), "closed": true, "stored": true }), "nothing written");
-	assert_eq!(out["kept"], true);
+	assert_eq!(out["kept"], false, "Skip grey quests turned off on the page stays off");
 }
 
 #[test]
@@ -497,11 +503,11 @@ fn the_questing_page_writes_quest_automation_both_ways_grey_quests_the_login_gui
 		local custom = cards(F.Gear)
 		emit({ start = start, off = off, on = on, partly = partly, grey = get("behavior.skipGrey"), guide = get("behavior.autoSelectGuide"),
 			gear = gear, fury = fury, reset = reset, custom = custom })"#);
-	assert_eq!(out["start"], json!({ "title": "Questing", "on": true, "grey": false, "guide": true, "desc": true, "login": true, "greyDesc": true }), "the defaults picked, descriptions shown inline");
+	assert_eq!(out["start"], json!({ "title": "Questing", "on": true, "grey": true, "guide": true, "desc": true, "login": true, "greyDesc": true }), "the defaults picked, descriptions shown inline");
 	assert_eq!(out["off"], json!([false, false, false]), "one switch turns both accepting and turning in off");
 	assert_eq!(out["on"], json!([true, true, true]));
 	assert_eq!(out["partly"], false, "on only while both are on");
-	assert_eq!(out["grey"], true);
+	assert_eq!(out["grey"], false);
 	assert_eq!(out["guide"], false);
 	assert_eq!(out["gear"], json!({ "names": ["Automatic (talents)", "Arms", "Fury", "Protection (tank)"], "picked": "Automatic (talents)", "shown": true }));
 	assert_eq!(out["fury"], json!(["fury", "Fury", "auto"]), "the class's own weights, at once; other classes keep theirs");
