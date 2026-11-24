@@ -820,7 +820,7 @@ Travel.RIDING = {
 -- path nodes). A plan made while another runs (a walk cost or hook planning
 -- again) makes its own; planRoute below hands them out.
 local planScratch = { busy = false, n = 0, paths = 0, vc = {}, vx = {}, vy = {}, vkind = {}, vref = {}, vzone = {}, pathV = {},
-	dist = {}, tm = {}, prev = {}, via = {}, done = {}, stranded = {}, onFoot = {}, hk = {}, hv = {}, tw = {}, ty = {}, nw = {} }
+	dist = {}, tm = {}, prev = {}, via = {}, done = {}, wflags = {}, stranded = {}, onFoot = {}, hk = {}, hv = {}, tw = {}, ty = {}, nw = {} }
 
 local function planBody(p, S)
 	-- (planRoute's own constants: the file's main chunk keeps clear of Lua 5.1's 200 locals)
@@ -848,10 +848,14 @@ local function planBody(p, S)
 	if S then
 		vc, vx, vy, vkind, vref, vzone = S.vc, S.vx, S.vy, S.vkind, S.vref, S.vzone
 		-- What the last plan left past this one's own writes (dist and the
-		-- dense arrays are written for every vertex below).
-		local tm, prev, via, done, stranded, onFoot, tw, ty, nw = S.tm, S.prev, S.via, S.done, S.stranded, S.onFoot, S.tw, S.ty, S.nw
+		-- dense arrays are written for every vertex below; the search's arrays
+		-- hold two arrivals per vertex, #2812).
+		local tm, prev, via, done, wflags, stranded, onFoot, tw, ty, nw = S.tm, S.prev, S.via, S.done, S.wflags, S.stranded, S.onFoot, S.tw, S.ty, S.nw
 		for i = 1, S.n do
-			vref[i], vzone[i], tm[i], prev[i], via[i], done[i], stranded[i], onFoot[i], tw[i], ty[i], nw[i] = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
+			vref[i], vzone[i], stranded[i], onFoot[i], tw[i], ty[i], nw[i] = nil, nil, nil, nil, nil, nil, nil
+		end
+		for i = 1, 2 * S.n do
+			tm[i], prev[i], via[i], done[i], wflags[i] = nil, nil, nil, nil, nil
 		end
 	else
 		vc, vx, vy, vkind, vref, vzone = {}, {}, {}, {}, {}, {}
@@ -1269,14 +1273,20 @@ local function planBody(p, S)
 	end
 
 	-- Dijkstra with a binary heap (lazy deletion), ordered by cost; tm = real seconds.
-	local dist, tm, prev, via, done, hk, hv
+	-- Each vertex keeps two arrivals (#2812), searched on their own: the search's arrays are indexed v for the
+	-- cheapest arrival by a flight, a ride, the Hearthstone or a teleport (or the start), which may go on in every
+	-- way, and v + n for the cheapest on foot (wflags: its stranded and on foot flags, below), kept while it is the
+	-- cheaper. With one per vertex, a flight master first reached on foot from a cliff with no walk to the target
+	-- held no later flight's landing that could walk on, and the route was the straight arrow or the long way. Walks
+	-- keep one arrival as before: one through a crossing and back would shed its on-foot flag (#1694).
+	local dist, tm, prev, via, done, hk, hv, wflags
 	if S then
-		dist, tm, prev, via, done, hk, hv = S.dist, S.tm, S.prev, S.via, S.done, S.hk, S.hv
+		dist, tm, prev, via, done, hk, hv, wflags = S.dist, S.tm, S.prev, S.via, S.done, S.hk, S.hv, S.wflags
 		S.n = n
 	else
-		dist, tm, prev, via, done, hk, hv = {}, {}, {}, {}, {}, {}, {}
+		dist, tm, prev, via, done, hk, hv, wflags = {}, {}, {}, {}, {}, {}, {}, {}
 	end
-	for i = 1, n do dist[i] = huge end
+	for i = 1, 2 * n do dist[i] = huge end
 	dist[1], tm[1] = 0, 0
 	local size = 0
 	local function push(k, v)
@@ -1309,30 +1319,49 @@ local function planBody(p, S)
 		end
 		return v
 	end
-	-- stranded[v]: v was reached on foot from a vertex with no walk to the
-	-- target (nw) or from one reached that way. Ground walked to from there is
-	-- the same ground, so it walks on to the target no more than its start
+	-- stranded (flag 1): v was reached on foot from a vertex with no walk to
+	-- the target (nw) or from one reached that way. Ground walked to from there
+	-- is the same ground, so it walks on to the target no more than its start
 	-- does: from the Rut'theran portal's landing, the boat's pier a few yards
 	-- off was the start of a walk straight up the tree, and players in
 	-- Darnassus were sent down the portal (#1564). A ride, a flight or the
 	-- Hearthstone leaves that ground.
-	local stranded = S and S.stranded or {}
-	-- onFoot[v]: v was reached by a plain walk (straight, or measured into the
-	-- target), not along a link of its own (a crossing, a chain, a learned
-	-- path: `along` while those are walked). A plain walk on from v goes only
-	-- where the walk into v could not have gone straight (another zone, through
-	-- an open border): a walk that stops at a place only to walk on is the same
-	-- walk past it, and with v's straight estimate cheaper than the start's
-	-- measured walk into the target it led the arrow to the Searing Gorge
-	-- gate's Badlands end, 300 yd short of Kargath, and on from there (#1694).
-	local onFoot, along = S and S.onFoot or {}, false
-	local function relax(v, d, t, how, from)
-		if d < dist[v] then
-			dist[v], tm[v], prev[v], via[v] = d, t, from, how
-			stranded[v] = how == WALK and (nw[from] or stranded[from]) or nil
-			onFoot[v] = how == WALK and not along or nil
-			push(d, v)
+	-- on foot (flag 2): v was reached by a plain walk (straight, or measured
+	-- into the target), not along a link of its own (a crossing, a chain, a
+	-- learned path: `along` while those are walked). A plain walk on from v
+	-- goes only where the walk into v could not have gone straight (another
+	-- zone, through an open border): a walk that stops at a place only to walk
+	-- on is the same walk past it, and with v's straight estimate cheaper than
+	-- the start's measured walk into the target it led the arrow to the
+	-- Searing Gorge gate's Badlands end, 300 yd short of Kargath, and on from
+	-- there (#1694).
+	-- stranded[u], onFoot[u]: the flags of the arrival being searched from (cur, its vertex curU, its flags curF);
+	-- an arrival other than on foot has none.
+	local stranded, onFoot = S and S.stranded or {}, S and S.onFoot or {}
+	local along, cur, curU, curF = false, 1, 1, 0
+	-- An arrival other than on foot is kept beside a cheaper one on foot only when its way does not pass the vertex
+	-- already: a boat out and back to the dock walked to would shed the walk's flags (#1890's walk from beside East
+	-- Hold, priced dear, went to Testshire Docks, over to Farland and back, and walked on from the dock).
+	local function passes(v)
+		local s = cur
+		while s do
+			if (s - 1) % n + 1 == v then return true end
+			s = prev[s]
 		end
+		return false
+	end
+	local function relax(v, d, t, how)
+		if d >= dist[v] then return end
+		local s = v
+		if how == WALK then
+			s = v + n
+			if d >= dist[s] then return end
+			wflags[s] = ((nw[curU] or curF % 2 == 1) and 1 or 0) + (along and 0 or 2)
+		elseif dist[v + n] <= d and passes(v) then
+			return
+		end
+		dist[s], tm[s], prev[s], via[s] = d, t, cur, how
+		push(d, s)
 	end
 	-- A walk from u to v: `cost` seconds to the search, `secs` real seconds.
 	-- The walk cost hooks (p.walkHooks, Travel.WalkCostHook) may scale the
@@ -1341,7 +1370,7 @@ local function planBody(p, S)
 	if hooks and #hooks == 0 then hooks = nil end
 	local hookWalk = hooks and { from = {}, to = {} }
 	local function walk(u, v, cost, secs, du, tu)
-		if not hooks and du + cost >= dist[v] then return end
+		if not hooks and (du + cost >= dist[v + n] or du + cost >= dist[v]) then return end
 		if vc[u] ~= vc[v] then return end
 		if hooks then
 			local f, t = hookWalk.from, hookWalk.to
@@ -1352,7 +1381,7 @@ local function planBody(p, S)
 				if ok and type(c) == "number" and c >= 0 and c < huge then cost = c end
 			end
 		end
-		relax(v, du + cost, tu + secs, WALK, u)
+		relax(v, du + cost, tu + secs, WALK)
 	end
 	-- A straight walk from u to v of `s` seconds (yards x1.25 at run speed):
 	-- its cost takes the share of its length in zones far above the player,
@@ -1367,7 +1396,7 @@ local function planBody(p, S)
 	local walkDanger = p.walkDanger
 	local function straight(u, v, s, du, tu)
 		local cost = s
-		if walkDanger and s < huge and (hooks or du + s < dist[v]) then
+		if walkDanger and s < huge and (hooks or (du + s < dist[v + n] and du + s < dist[v])) then
 			local road = vkind[u] == CROSS and vkind[v] == CROSS and (vzone[u] ~= nil and vzone[u] == vzone[v] or vref[u].partner == vref[v])
 			local f = walkDanger(vc[u], vx[u], vy[u], vx[v], vy[v], road)
 			if type(f) == "number" and f > 1 and f < huge then cost = s * f end
@@ -1409,16 +1438,16 @@ local function planBody(p, S)
 	-- / TELEPORT_SHARE (4 minutes) can fall short of the share. Then the way without teleports is searched once more,
 	-- over the same graph and only up to the cost at which the teleport pays (`bound`): reaching the target below it,
 	-- that way is taken, else the first search's (`kept`).
-	local bound, kept = huge, nil
+	local bound, kept, goal = huge, nil, nil -- goal: the target's arrival the search reached
 	local function fifth()
-		local v = 2
+		local v = goal
 		while v and prev[v] ~= 1 do v = prev[v] end
-		if not (v and teleV[v]) then return false end
-		local b = (dist[2] - TELEPORT_MARGIN) / (1 - TELEPORT_SHARE)
-		if b <= dist[2] then return false end
-		kept, bound = { dist, tm, prev, via }, b
-		dist, tm, prev, via, done, stranded, onFoot = {}, {}, {}, {}, {}, {}, {}
-		for i = 1, n do dist[i] = huge end
+		if not (v and teleV[(v - 1) % n + 1]) then return false end
+		local b = (dist[goal] - TELEPORT_MARGIN) / (1 - TELEPORT_SHARE)
+		if b <= dist[goal] then return false end
+		kept, bound = { dist, tm, prev, via, goal }, b
+		dist, tm, prev, via, done, goal = {}, {}, {}, {}, {}, nil
+		for i = 1, 2 * n do dist[i] = huge end
 		dist[1], tm[1] = 0, 0
 		hk, hv, size = {}, {}, 0
 		push(0, 1)
@@ -1428,20 +1457,24 @@ local function planBody(p, S)
 	push(0, 1)
 	local pops = 0
 	while size > 0 do
-		local u = pop()
-		if not done[u] then
-			done[u] = true
-			if u == 2 or dist[u] >= bound then
+		local su = pop()
+		if not done[su] then
+			done[su] = true
+			local u = (su - 1) % n + 1
+			if u == 2 or dist[su] >= bound then
+				if u == 2 and dist[su] < bound then goal = su end
 				if kept or not fifth() then break end
-				u = pop() -- the start, for the search without teleports
-				done[u] = true
+				su, u = pop(), 1 -- the start, for the search without teleports
+				done[su] = true
 			end
+			cur, curU, curF = su, u, su > n and wflags[su] or 0
+			stranded[u], onFoot[u] = curF % 2 == 1 or nil, curF >= 2 or nil
 			pops = pops + 1
 			if pops > MAX_POPS or (clock and clock() - t0 > MAX_MS) then
 				if not kept then return nil, "budget" end
 				break -- the second search reached the planner's caps: the teleport stays
 			end
-			local du, tu, cu, xu, yu, kind = dist[u], tm[u], vc[u], vx[u], vy[u], vkind[u]
+			local du, tu, cu, xu, yu, kind = dist[su], tm[su], vc[u], vx[u], vy[u], vkind[u]
 			if kind == PATH then
 				local adj = pathAdj[vref[u]]
 				if adj then
@@ -1479,7 +1512,7 @@ local function planBody(p, S)
 					end
 				end
 			else
-				local zu, back = vzone[u], onFoot[u] and prev[u] or nil
+				local zu, back = vzone[u], onFoot[u] and (prev[su] - 1) % n + 1 or nil
 				if zu == nil then
 					for z, list in pairs(byZone) do
 						if zoneInfo[z] and zoneInfo[z].c == cu then walkTo(list, u, du, tu, xu, yu, back) end
@@ -1508,7 +1541,7 @@ local function planBody(p, S)
 				end
 			end
 			along = false
-			if kind == TAXI and not (via[u] == FLY and prev[u] == 1) then
+			if kind == TAXI and not (via[su] == FLY and prev[su] == 1) then
 				local fl = flights[vref[u].id]
 				if fl then
 					-- 10 s more to learn a flight master not learnt yet (talking to it, its "New flight path discovered").
@@ -1517,7 +1550,7 @@ local function planBody(p, S)
 					-- median from reaching it to take-off in players' recordings, including the hop's 2 s):
 					-- a cost, never a time, so a near tie walks instead of detouring to the flight master.
 					-- Local here: PlanRoute is at Lua 5.1's 60 upvalues.
-					local TAKE_OFF = via[u] == FLY and 0 or 4
+					local TAKE_OFF = via[su] == FLY and 0 or 4
 					-- A landing at a flight master the player may not have (maybeV): a cost, never a time, of
 					-- seconds, not minutes (60 until 0.4.3: a flight on a continent no flight map had opened on lost
 					-- to walks of a minute more, #3632). If the flight map at take-off doesn't list it, the plan is
@@ -1527,7 +1560,7 @@ local function planBody(p, S)
 						local v = taxiV[fl[i]]
 						if v then
 							local s = Travel.FlightLegSeconds(fl[i + 1]) + learn
-							relax(v, du + s + TAKE_OFF + (maybeV[v] and MAYBE or 0), tu + s, FLY, u)
+							relax(v, du + s + TAKE_OFF + (maybeV[v] and MAYBE or 0), tu + s, FLY)
 						end
 					end
 				end
@@ -1538,7 +1571,7 @@ local function planBody(p, S)
 					local wait, ride = departure(dockOf[u], dockSide[u], tu)
 					if wait and ride then cost = wait + ride end
 				end
-				if cost then relax(rideTo[u], du + cost, tu + cost, RIDE, u) end
+				if cost then relax(rideTo[u], du + cost, tu + cost, RIDE) end
 			elseif kind == START then
 				-- Each selectable destination is one ticket from the player's spot.
 				-- The graph prices the ticket. Only the open map authorizes boarding.
@@ -1562,7 +1595,7 @@ local function planBody(p, S)
 									s = allTimes[id] or Travel.FlightLegSeconds(yards(from.c, from.wx, from.wy, vc[v], vx[v], vy[v]))
 								end
 							end
-							relax(v, du + s, tu + s, FLY, u)
+							relax(v, du + s, tu + s, FLY)
 						end
 					end
 				end
@@ -1571,35 +1604,39 @@ local function planBody(p, S)
 				local margin = p.hearthHeld and 0 or HEARTH_MARGIN
 				if innV then
 					local s = (p.hearthWait or 0) + HEARTH_SECONDS
-					relax(innV, du + s + margin + (tie[innV] or 0), tu + s, HEARTH, u)
+					relax(innV, du + s + margin + (tie[innV] or 0), tu + s, HEARTH)
 				end
 				for v, e in pairs(bindV) do
 					local s = (e.ready or 0) + (e.cast or 10) + HEARTH_SECONDS - 10
-					relax(v, du + s + margin + tie[v], tu + s, HEARTH, u)
+					relax(v, du + s + margin + tie[v], tu + s, HEARTH)
 				end
 				-- Weighed by TELEPORT_MARGIN, as the Hearthstone by HEARTH_MARGIN; none on the search without them (fifth).
 				if not kept then
 					for v, e in pairs(teleV) do
 						local s = (e.ready or 0) + (e.cast or HEARTH_SECONDS)
-						relax(v, du + s + TELEPORT_MARGIN, tu + s, HEARTH, u)
+						relax(v, du + s + TELEPORT_MARGIN, tu + s, HEARTH)
 					end
 				end
 			end
 		end
 	end
-	if kept and not (done[2] and dist[2] < bound) then dist, tm, prev, via = kept[1], kept[2], kept[3], kept[4] end
-	if dist[2] == huge then return nil, "unreachable" end
+	if kept and not goal then dist, tm, prev, via, goal = kept[1], kept[2], kept[3], kept[4], kept[5] end
+	if not goal then return nil, "unreachable" end
 
-	-- Vertex chain, start first.
-	local chain = {}
-	local v = 2
+	-- Vertex chain, start first, with each arrival's move (cvia) and time (ctm): a vertex may be passed twice, in two
+	-- arrivals.
+	local chain, cvia, ctm = {}, {}, {}
+	local v = goal
 	while v do
-		chain[#chain + 1] = v
+		local k = #chain + 1
+		chain[k], cvia[k], ctm[k] = (v - 1) % n + 1, via[v], tm[v]
 		v = prev[v]
 	end
 	for i = 1, floor(#chain / 2) do
 		local j = #chain - i + 1
 		chain[i], chain[j] = chain[j], chain[i]
+		cvia[i], cvia[j] = cvia[j], cvia[i]
+		ctm[i], ctm[j] = ctm[j], ctm[i]
 	end
 
 	local function isWaypoint(w)
@@ -1656,15 +1693,15 @@ local function planBody(p, S)
 	local i = 1
 	while i < #chain do
 		local u = chain[i]
-		local how = via[chain[i + 1]]
+		local how = cvia[i + 1]
 		local j = i + 1
 		if how == WALK then
-			while j < #chain and via[chain[j + 1]] == WALK and not isWaypoint(chain[j]) do j = j + 1 end
+			while j < #chain and cvia[j + 1] == WALK and not isWaypoint(chain[j]) do j = j + 1 end
 		elseif how == FLY then
-			while j < #chain and via[chain[j + 1]] == FLY do j = j + 1 end
+			while j < #chain and cvia[j + 1] == FLY do j = j + 1 end
 		end
 		local to = chain[j]
-		local leg = { from = how == FLY and u == 1 and boarding.node or pointOf(u), to = pointOf(to), seconds = floor(tm[to] - tm[u] + 0.5) }
+		local leg = { from = how == FLY and u == 1 and boarding.node or pointOf(u), to = pointOf(to), seconds = floor(ctm[j] - ctm[i] + 0.5) }
 		-- yards: straight hops (a walk x1.25, as priced, or the engine's measured
 		-- yards into the target: engine = "cost"; the walking engine's path replaces it
 		-- when it splits the walk or searches it, engine = "path"); a ride's two
