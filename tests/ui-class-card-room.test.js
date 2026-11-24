@@ -135,3 +135,23 @@ test('with Grow upward the window still ends exactly at the top of the screen, n
 		emit({ full = full, worst = worst })`)[0];
 	assert.equal(out.worst, 0, `the window ends at the top of the screen: ${JSON.stringify(out)}`);
 });
+
+test('while the goals scroll, they take no click on the scroll bar\'s strip, so the bar stays draggable; a step that fits gives it back', () => {
+	const [over, fits] = run(`
+		local function strips()
+			local out = {}
+			for _, f in ipairs(GF.CardItems()) do out[#out + 1] = (f.hitInsets or { 0, 0 })[2] end
+			return out
+		end
+		emit({ over = goals.psOver, room = Polestar.Widgets.ScrollBarRoom(goals), strips = strips() })
+		Polestar.Set("ui.maxHeight", 0.9)
+		uistub.setGuide(uistub.elwynn, 3)
+		stub.advance(1)
+		emit({ over = goals.psOver, n = #strips(), strips = strips() })`);
+	assert.equal(over.over, true);
+	assert.ok(over.room > 0);
+	for (const s of over.strips) assert.equal(s, over.room, JSON.stringify(over));
+	assert.equal(fits.over, false);
+	assert.ok(fits.n > 0, JSON.stringify(fits));
+	for (const s of fits.strips) assert.equal(s, 0, JSON.stringify(fits));
+});

@@ -1268,6 +1268,16 @@ GF.Part(function(GF)
 				goals:EnableMouseWheel(over)
 				barWake()
 			end
+			-- While there is more to scroll, the goals take no click on the bar's
+			-- strip at their right edge: the bar under them stays draggable.
+			local strip = over and W.ScrollBarRoom(goals) or 0
+			for i = 1, area.n do
+				local f = area.items[i]
+				if f.psBarStrip ~= strip then
+					f.psBarStrip = strip
+					f:SetHitRectInsets(0, strip, 0, 0)
+				end
+			end
 			local cardH = fit.fixed + viewH
 			card:SetHeight(cardH)
 			local y = fit.top + cardH
