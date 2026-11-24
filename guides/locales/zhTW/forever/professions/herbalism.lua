@@ -12,100 +12,222 @@ return {
 	-- {skill:182} Herbalism · {spell:2383} Find Herbs · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {item:11584} Cactus Apple Surprise · {item:247841} Wild Harvest · {item:277113} Apprentice's Herb Pouch · {spell:1229705} Incense Candle
 	["Any {skill:182} trainer of your faction teaches Apprentice {skill:182} at any level (10c), and so does the Junior Herbalism Trainer in each starting area; the arrow picks the nearest. Turn on {spell:2383} (spellbook, General tab) so herbs show on the minimap. Forever's starting areas also have {object:656160} and {object:656161} (skill 1). The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247841} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors sell the {item:277113}, a four-slot bag for herbs (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:182}: hand it in to the herbalism trainer it names once you reach skill 20, for the {spell:1229705} recipe."] = "本陣營的任意 {skill:182} 訓練師都能在任何角色等級教授初級 {skill:182}（10銅幣），各起始地區的初級草藥學訓練師也一樣；箭頭會選擇最近的一位。開啟 {spell:2383}（法術書的綜合分頁），讓草藥顯示在微縮地圖上。無限服起始地區還有 {object:656160} 和 {object:656161}（技能1）。各起始地區最初一小時內的任務（鼠輩氾濫、寒脊山谷的送信任務、森林守護者、高爾加的 {item:11584}、一件瑣事、瑪拉的遺願）會提供獎勵 {item:247841}：閱讀後增加2點技能，最高可到15。雜貨商出售 {item:277113}，這是四格草藥包（25銅幣）。如果你曾為“廣闊天地”坐在起始地區的營火旁，那裡的露營嚮導還會提供露營 101：{skill:182}：技能達到20後，將其交還給任務指定的草藥學訓練師，獲得 {spell:1229705} 配方。",
 
-	-- Step 2: Peacebloom & Silverleaf: Elwynn Forest (1-50)
-	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {item:2449} Earthroot · {skill:182} Herbalism
-	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange), {object:656160} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "路過時採下每一個{item:2447}（1點，橙色）、{item:765}（1點，橙色）、{object:656161}（1點，橙色）、{object:656160}（1點，橙色）、{item:2449}（15點起），並繞著路標迴圈，直到{skill:182} 50。區域等級1-10。這49點大約需要60株草藥。",
+	-- Step 2: Peacebloom & Silverleaf: Elwynn Forest (1-15)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {skill:182} Herbalism
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange), {object:656160} (1, orange) you pass and circle the waypoints until {skill:182} 15. Zone level 1-10. Expect about 10 herbs for these 14 points."] = "",
 
-	-- Step 4: Peacebloom & Silverleaf: Teldrassil (1-50)
+	-- Step 3: Peacebloom & Silverleaf: Elwynn Forest (15-50) cont.
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {zone:1429} Elwynn Forest
+	["{item:2447} & {item:765}: {zone:1429} (15-50) cont."] = "",
 	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {item:2449} Earthroot · {skill:182} Herbalism
-	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "路過時採下每一個{item:2447}（1點，橙色）、{item:765}（1點，橙色）、{object:656161}（1點，橙色，稀有）、{object:656160}（1點，橙色）、{item:2449}（15點起），並繞著路標迴圈，直到{skill:182} 50。區域等級1-10。這49點大約需要60株草藥。",
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange), {object:656160} (1, orange), {item:2449} (15, orange) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 50 herbs for these 35 points."] = "",
 
-	-- Step 5: Peacebloom & Silverleaf: Zephras Isle (1-50)
+	-- Step 5: Peacebloom & Silverleaf: Dun Morogh (15-50) cont.
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {zone:1426} Dun Morogh
+	["{item:2447} & {item:765}: {zone:1426} (15-50) cont."] = "",
+
+	-- Step 6: Peacebloom & Silverleaf: Teldrassil (1-15)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {skill:182} Herbalism
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange) you pass and circle the waypoints until {skill:182} 15. Zone level 1-10. Expect about 10 herbs for these 14 points."] = "",
+
+	-- Step 7: Peacebloom & Silverleaf: Teldrassil (15-50) cont.
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {zone:1438} Teldrassil
+	["{item:2447} & {item:765}: {zone:1438} (15-50) cont."] = "",
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {item:2449} Earthroot · {skill:182} Herbalism
+	-- was: ["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "路過時採下每一個{item:2447}（1點，橙色）、{item:765}（1點，橙色）、{object:656161}（1點，橙色，稀有）、{object:656160}（1點，橙色）、{item:2449}（15點起），並繞著路標迴圈，直到{skill:182} 50。區域等級1-10。這49點大約需要60株草藥。"
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange), {item:2449} (15, orange) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 50 herbs for these 35 points."] = "",
+
+	-- Step 8: Peacebloom & Silverleaf: Zephras Isle (1-15)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {skill:182} Herbalism
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange) you pass and circle the waypoints until {skill:182} 15. Zone level 1-15. Expect about 10 herbs for these 14 points."] = "",
+
+	-- Step 9: Peacebloom & Silverleaf: Zephras Isle (15-50) cont.
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {zone:2521} Zephras Isle
+	["{item:2447} & {item:765}: {zone:2521} (15-50) cont."] = "",
 	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {skill:182} Herbalism
-	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-15. Expect about 60 herbs for these 49 points."] = "採集沿途經過的每一株{item:2447}（1，橙色）、{item:765}（1，橙色）、{item:2449}（15起），並繞著路徑點循環，直到{skill:182}50。地區等級1-15。這49點預計需要採集約60株草藥。",
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {item:2449} (15, orange) you pass and circle the waypoints until {skill:182} 50. Zone level 1-15. Expect about 50 herbs for these 35 points."] = "",
 
-	-- Step 7: Peacebloom & Silverleaf: Mulgore (1-50)
+	-- Step 11: Peacebloom & Silverleaf: Durotar (15-50) cont.
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {zone:1411} Durotar
+	["{item:2447} & {item:765}: {zone:1411} (15-50) cont."] = "",
+
+	-- Step 12: Peacebloom & Silverleaf: Mulgore (1-15)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {skill:182} Herbalism
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange), {object:656160} (1, orange, rare) you pass and circle the waypoints until {skill:182} 15. Zone level 1-10. Expect about 10 herbs for these 14 points."] = "",
+
+	-- Step 13: Peacebloom & Silverleaf: Mulgore (15-50) cont.
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {zone:1412} Mulgore
+	["{item:2447} & {item:765}: {zone:1412} (15-50) cont."] = "",
 	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {item:2449} Earthroot · {skill:182} Herbalism
-	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange, rare), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "採集沿途經過的每一株{item:2447}（1，橙色）、{item:765}（1，橙色）、矮小的銀葉草（1，橙色，稀有）、枯萎的寧神花（1，橙色，稀有）、{item:2449}（15起），並繞著路徑點循環，直到{skill:182}50。地區等級1-10。這49點預計要採約60株草藥。",
+	-- was: ["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange, rare), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "採集沿途經過的每一株{item:2447}（1，橙色）、{item:765}（1，橙色）、矮小的銀葉草（1，橙色，稀有）、枯萎的寧神花（1，橙色，稀有）、{item:2449}（15起），並繞著路徑點循環，直到{skill:182}50。地區等級1-10。這49點預計要採約60株草藥。"
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange, rare), {item:2449} (15, orange) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 50 herbs for these 35 points."] = "",
 
-	-- Step 9: Journeyman Herbalism
+	-- Step 15: Peacebloom & Silverleaf: Tirisfal Glades (15-50) cont.
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {zone:1420} Tirisfal Glades
+	["{item:2447} & {item:765}: {zone:1420} (15-50) cont."] = "",
+
+	-- Step 16: Journeyman Herbalism
 	-- {skill:182} Herbalism
 	["Journeyman {skill:182}"] = "中級{skill:182}",
 	-- {skill:182} Herbalism · {spell:1229705} Incense Candle · {item:2447} Peacebloom · {item:765} Silverleaf
 	["Journeyman {skill:182} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:182} trainer of your faction. {spell:1229705}, Forever's camping item for {skill:182}, is taught from skill 20 (1s, or free from Camping 101: {skill:182}): a {item:2447} and a {item:765} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "中級 {skill:182} 將上限提高到 150；要求技能 50，無角色等級要求，費用 5 銀幣：一到 50 就去學。箭頭會選擇本陣營最近的 {skill:182} 訓練師。無限的 {skill:182} 露營物品 {spell:1229705} 在技能 20 起可學（1 銀幣，或透過露營 101: {skill:182} 免費學習）：每次需要一個 {item:2447} 和一個 {item:765}，製作可漲技能至 25；放在營火旁，會給予營地內所有人持續一小時的增益。",
 
-	-- Step 10: Mageroyal & Briarthorn: Westfall (50-100)
-	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {skill:182} Herbalism · {item:2452} Swiftthistle
-	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70), {item:3820} (from 85) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 10-20. Expect about 130 herbs for these 50 points."] = "採集沿途經過的每一株{item:2447}（1，黃色）、{item:765}（1，黃色）、{item:2449}（15，黃色）、{item:785}（50，橙色）、{item:2450}（70起）、{item:3820}（85起），並繞著路徑點循環，直到{skill:182}100。{item:785}和{item:2450}有時也會額外給一個{item:2452}。{item:3820}生長在沿岸水下：注意呼吸。地區等級10-20。這50點預計需要採集約130株草藥。",
+	-- Step 17: Earthroot & Mageroyal: Westfall (50-70)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {skill:182} Herbalism · {item:2450} Briarthorn · {item:2452} Swiftthistle
+	-- was: ["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 10-20. Expect about 140 herbs for these 50 points."] = "採集沿途經過的每一株{item:2447}（1，黃色）、{item:765}（1，黃色）、{item:2449}（15，黃色）、{item:785}（50，橙色）、{item:2450}（70起），並繞著路徑點循環，直到{skill:182}100。{item:785}和{item:2450}有時也會額外給一個{item:2452}。地區等級10-20。這50點預計需要採集約140株草藥。"
+	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange) you pass and circle the waypoints until {skill:182} 70. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 10-20. Expect about 50 herbs for these 20 points."] = "",
 
-	-- Step 11: Mageroyal & Briarthorn: Loch Modan (50-100)
+	-- Step 18: Mageroyal & Briarthorn: Westfall (70-85) cont.
+	-- {item:785} Mageroyal · {item:2450} Briarthorn · {zone:1436} Westfall
+	["{item:785} & {item:2450}: {zone:1436} (70-85) cont."] = "",
 	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {skill:182} Herbalism · {item:2452} Swiftthistle
-	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 10-20. Expect about 140 herbs for these 50 points."] = "採集沿途經過的每一株{item:2447}（1，黃色）、{item:765}（1，黃色）、{item:2449}（15，黃色）、{item:785}（50，橙色）、{item:2450}（70起），並繞著路徑點循環，直到{skill:182}100。{item:785}和{item:2450}有時也會額外給一個{item:2452}。地區等級10-20。這50點預計需要採集約140株草藥。",
+	["Pick every {item:2447} (1, green), {item:765} (1, green), {item:2449} (15, green), {item:785} (50, orange), {item:2450} (70, orange) you pass and circle the waypoints until {skill:182} 85. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 10-20. Expect about 30 herbs for these 15 points."] = "",
 
-	-- Step 13: Mageroyal & Briarthorn: The Barrens (50-100)
-	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {skill:182} Herbalism · {item:2452} Swiftthistle · {npc:3446} Mebok Mizzyrix
-	-- plural, as words: Root Samples = {item:5056} Root Sample
-	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70), {item:3820} (from 85) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. A quest here needs {skill:182}: Root Samples (level 16, {npc:3446}). Zone level 10-25. Expect about 110 herbs for these 50 points."] = "路過時採下每一個{item:2447}（1點，黃色）、{item:765}（1點，黃色）、{item:2449}（15點，黃色）、{item:785}（50點，橙色）、{item:2450}（70點起）、{item:3820}（85點起），並繞著路標迴圈，直到{skill:182} 100。{item:785}和{item:2450}有時還會額外給一個{item:2452}。{item:3820}生長在岸邊水下：注意呼吸。這裡的某個任務需要{skill:182}：根莖樣本（16級，{npc:3446}）。區域等級10-25。這50點大約需要110株草藥。",
-
-	-- Step 14: Mageroyal & Briarthorn: Silverpine Forest (50-100)
+	-- Step 19: Briarthorn & Stranglekelp: Westfall (85-100) cont.
+	-- {item:2450} Briarthorn · {item:3820} Stranglekelp · {zone:1436} Westfall
+	["{item:2450} & {item:3820}: {zone:1436} (85-100) cont."] = "",
 	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {skill:182} Herbalism · {item:2452} Swiftthistle
-	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70), {item:3820} (from 85) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 10-20. Expect about 140 herbs for these 50 points."] = "採集沿途經過的每一株{item:2447}（1，黃色）、{item:765}（1，黃色）、{item:2449}（15，黃色）、{item:785}（50，橙色）、{item:2450}（70起）、{item:3820}（85起），並繞著路徑點循環，直到{skill:182}100。{item:785}和{item:2450}有時也會額外給一個{item:2452}。{item:3820}生長在沿岸水下：注意呼吸。地區等級10-20。這50點預計需要採集約140株草藥。",
+	["Pick every {item:2447} (1, green), {item:765} (1, green), {item:2449} (15, green), {item:785} (50, yellow), {item:2450} (70, orange), {item:3820} (85, orange) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 10-20. Expect about 30 herbs for these 15 points."] = "",
 
-	-- Step 15: Briarthorn & Bruiseweed: Redridge Mountains (100-125)
+	-- Step 21: Mageroyal & Briarthorn: Loch Modan (70-100) cont.
+	-- {item:785} Mageroyal · {item:2450} Briarthorn · {zone:1432} Loch Modan
+	["{item:785} & {item:2450}: {zone:1432} (70-100) cont."] = "",
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {skill:182} Herbalism · {item:2452} Swiftthistle
+	["Pick every {item:2447} (1, green), {item:765} (1, green), {item:2449} (15, green), {item:785} (50, orange), {item:2450} (70, orange) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 10-20. Expect about 80 herbs for these 30 points."] = "",
+
+	-- Step 22: Earthroot & Mageroyal: Darkshore (50-70)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {skill:182} Herbalism · {item:2450} Briarthorn · {item:2452} Swiftthistle
+	-- was: ["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 10-20. Expect about 140 herbs for these 50 points."] = "採集沿途經過的每一株{item:2447}（1，黃色）、{item:765}（1，黃色）、{item:2449}（15，黃色）、{item:785}（50，橙色）、{item:2450}（70起），並繞著路徑點循環，直到{skill:182}100。{item:785}和{item:2450}有時也會額外給一個{item:2452}。地區等級10-20。這50點預計需要採集約140株草藥。"
+	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange) you pass and circle the waypoints until {skill:182} 70. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 10-20. Expect about 40 herbs for these 20 points."] = "",
+
+	-- Step 23: Mageroyal & Briarthorn: Darkshore (70-85) cont.
+	-- {item:785} Mageroyal · {item:2450} Briarthorn · {zone:1439} Darkshore
+	["{item:785} & {item:2450}: {zone:1439} (70-85) cont."] = "",
+
+	-- Step 24: Briarthorn & Stranglekelp: Darkshore (85-100) cont.
+	-- {item:2450} Briarthorn · {item:3820} Stranglekelp · {zone:1439} Darkshore
+	["{item:2450} & {item:3820}: {zone:1439} (85-100) cont."] = "",
+
+	-- Step 25: Mageroyal: The Barrens (50-70)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {skill:182} Herbalism · {item:2450} Briarthorn · {item:2452} Swiftthistle · {npc:3446} Mebok Mizzyrix
+	-- plural, as words: Root Samples = {item:5056} Root Sample
+	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange) you pass and circle the waypoints until {skill:182} 70. {item:785} and {item:2450} sometimes give a {item:2452} as well. A quest here needs {skill:182}: Root Samples (level 16, {npc:3446}). Zone level 10-25. Expect about 40 herbs for these 20 points."] = "",
+
+	-- Step 26: Mageroyal & Briarthorn: The Barrens (70-85) cont.
+	-- {item:785} Mageroyal · {item:2450} Briarthorn · {zone:1413} The Barrens
+	["{item:785} & {item:2450}: {zone:1413} (70-85) cont."] = "",
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {skill:182} Herbalism · {item:2452} Swiftthistle
+	["Pick every {item:2447} (1, green), {item:765} (1, green), {item:2449} (15, green), {item:785} (50, orange), {item:2450} (70, orange) you pass and circle the waypoints until {skill:182} 85. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 10-25. Expect about 30 herbs for these 15 points."] = "",
+
+	-- Step 27: Mageroyal & Briarthorn: The Barrens (85-100) cont.
+	-- {item:785} Mageroyal · {item:2450} Briarthorn · {zone:1413} The Barrens
+	["{item:785} & {item:2450}: {zone:1413} (85-100) cont."] = "",
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {skill:182} Herbalism · {item:2452} Swiftthistle
+	["Pick every {item:2447} (1, green), {item:765} (1, green), {item:2449} (15, green), {item:785} (50, yellow), {item:2450} (70, orange), {item:3820} (85, orange) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 10-25. Expect about 30 herbs for these 15 points."] = "",
+
+	-- Step 29: Mageroyal & Briarthorn: Silverpine Forest (70-85) cont.
+	-- {item:785} Mageroyal · {item:2450} Briarthorn · {zone:1421} Silverpine Forest
+	["{item:785} & {item:2450}: {zone:1421} (70-85) cont."] = "",
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {skill:182} Herbalism · {item:2452} Swiftthistle
+	["Pick every {item:2447} (1, green), {item:765} (1, green), {item:2449} (15, green), {item:785} (50, orange), {item:2450} (70, orange) you pass and circle the waypoints until {skill:182} 85. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 10-20. Expect about 40 herbs for these 15 points."] = "",
+
+	-- Step 30: Mageroyal & Briarthorn: Silverpine Forest (85-100) cont.
+	-- {item:785} Mageroyal · {item:2450} Briarthorn · {zone:1421} Silverpine Forest
+	["{item:785} & {item:2450}: {zone:1421} (85-100) cont."] = "",
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {skill:182} Herbalism · {item:2452} Swiftthistle
+	["Pick every {item:2447} (1, green), {item:765} (1, green), {item:2449} (15, green), {item:785} (50, yellow), {item:2450} (70, orange), {item:3820} (85, orange) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 10-20. Expect about 40 herbs for these 15 points."] = "",
+
+	-- Step 31: Briarthorn & Bruiseweed: Redridge Mountains (100-125)
 	-- {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:2453} Bruiseweed · {skill:182} Herbalism · {item:2452} Swiftthistle
 	["Pick every {item:2449} (15, green), {item:785} (50, green), {item:2450} (70, yellow), {item:2453} (100, orange) you pass and circle the waypoints until {skill:182} 125. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 15-25. Expect about 60 herbs for these 25 points."] = "採集沿途經過的每一株{item:2449}（15，綠色）、{item:785}（50，綠色）、{item:2450}（70，黃色）、{item:2453}（100，橙色），並繞著路徑點循環，直到{skill:182}125。{item:785}和{item:2450}有時也會額外給一個{item:2452}。地區等級15-25。這25點預計需要採集約60株草藥。",
 
-	-- Step 16: Bruiseweed & Wild Steelbloom: Stonetalon Mountains (100-125)
+	-- Step 32: Briarthorn & Bruiseweed: Stonetalon Mountains (100-115)
+	-- {item:785} Mageroyal · {item:2450} Briarthorn · {item:2453} Bruiseweed · {skill:182} Herbalism · {item:2452} Swiftthistle
+	["Pick every {item:785} (50, green), {item:2450} (70, yellow), {item:2453} (100, orange) you pass and circle the waypoints until {skill:182} 115. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 15-27. Expect about 20 herbs for these 15 points."] = "",
+
+	-- Step 33: Bruiseweed & Wild Steelbloom: Stonetalon Mountains (115-125) cont.
+	-- {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {zone:1442} Stonetalon Mountains
+	["{item:2453} & {object:1623}: {zone:1442} (115-125) cont."] = "",
 	-- {item:785} Mageroyal · {item:2450} Briarthorn · {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {skill:182} Herbalism · {item:2452} Swiftthistle
-	["Pick every {item:785} (50, green), {item:2450} (70, yellow), {item:2453} (100, orange), {object:1623} (from 115) you pass and circle the waypoints until {skill:182} 125. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 15-27. Expect about 40 herbs for these 25 points."] = "採集沿途經過的每一株{item:785}（50，綠色）、{item:2450}（70，黃色）、{item:2453}（100，橙色）、{object:1623}（115起），並繞著路徑點循環，直到{skill:182}125。{item:785}和{item:2450}有時也會額外給一個{item:2452}。地區等級15-27。這25點預計需要採集約40株草藥。",
+	-- was: ["Pick every {item:785} (50, green), {item:2450} (70, yellow), {item:2453} (100, orange), {object:1623} (from 115) you pass and circle the waypoints until {skill:182} 125. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 15-27. Expect about 40 herbs for these 25 points."] = "採集沿途經過的每一株{item:785}（50，綠色）、{item:2450}（70，黃色）、{item:2453}（100，橙色）、{object:1623}（115起），並繞著路徑點循環，直到{skill:182}125。{item:785}和{item:2450}有時也會額外給一個{item:2452}。地區等級15-27。這25點預計需要採集約40株草藥。"
+	["Pick every {item:785} (50, green), {item:2450} (70, yellow), {item:2453} (100, orange), {object:1623} (115, orange) you pass and circle the waypoints until {skill:182} 125. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 15-27. Expect about 10 herbs for these 10 points."] = "",
 
-	-- Step 18: Stranglekelp & Bruiseweed: Hillsbrad Foothills (100-125)
-	-- {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {skill:182} Herbalism · {item:2452} Swiftthistle
-	["Pick every {item:765} (1, green, rare), {item:2449} (15, green, rare), {item:785} (50, green), {item:2450} (70, yellow), {item:3820} (85, orange), {item:2453} (100, orange), {object:1623} (from 115) you pass and circle the waypoints until {skill:182} 125. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 20-30. Expect about 40 herbs for these 25 points."] = "路過時採下每一個{item:765}（1點，綠色，稀有）、{item:2449}（15點，綠色，稀有）、{item:785}（50點，綠色）、{item:2450}（70點，黃色）、{item:3820}（85點，橙色）、{item:2453}（100點，橙色）、{object:1623}（115點起），並繞著路標迴圈，直到{skill:182} 125。{item:785}和{item:2450}有時還會額外給一個{item:2452}。{item:3820}生長在岸邊水下：注意呼吸。區域等級20-30。這25點大約需要40株草藥。",
+	-- Step 36: Stranglekelp & Bruiseweed: Hillsbrad Foothills (100-115)
+	-- {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {item:2453} Bruiseweed · {skill:182} Herbalism · {item:2452} Swiftthistle
+	-- was: ["Pick every {item:765} (1, green, rare), {item:2449} (15, green, rare), {item:785} (50, green), {item:2450} (70, yellow), {item:3820} (85, orange), {item:2453} (100, orange), {object:1623} (from 115) you pass and circle the waypoints until {skill:182} 125. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 20-30. Expect about 40 herbs for these 25 points."] = "路過時採下每一個{item:765}（1點，綠色，稀有）、{item:2449}（15點，綠色，稀有）、{item:785}（50點，綠色）、{item:2450}（70點，黃色）、{item:3820}（85點，橙色）、{item:2453}（100點，橙色）、{object:1623}（115點起），並繞著路標迴圈，直到{skill:182} 125。{item:785}和{item:2450}有時還會額外給一個{item:2452}。{item:3820}生長在岸邊水下：注意呼吸。區域等級20-30。這25點大約需要40株草藥。"
+	["Pick every {item:765} (1, green, rare), {item:2449} (15, green, rare), {item:785} (50, green), {item:2450} (70, yellow), {item:3820} (85, orange), {item:2453} (100, orange) you pass and circle the waypoints until {skill:182} 115. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 20-30. Expect about 20 herbs for these 15 points."] = "",
 
-	-- Step 19: Expert Herbalism
+	-- Step 37: Bruiseweed & Wild Steelbloom: Hillsbrad Foothills (115-125) cont.
+	-- {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {zone:1424} Hillsbrad Foothills
+	["{item:2453} & {object:1623}: {zone:1424} (115-125) cont."] = "",
+	-- {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {skill:182} Herbalism · {item:2452} Swiftthistle
+	["Pick every {item:785} (50, green), {item:2450} (70, yellow), {item:3820} (85, yellow), {item:2453} (100, orange), {object:1623} (115, orange) you pass and circle the waypoints until {skill:182} 125. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 20-30. Expect about 10 herbs for these 10 points."] = "",
+
+	-- Step 38: Expert Herbalism
 	-- {skill:182} Herbalism
 	["Expert {skill:182}"] = "高級{skill:182}",
 	-- {skill:182} Herbalism
 	["Expert {skill:182} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:182} trainer of your faction."] = "高級{skill:182}將上限提高至225；需要技能125，沒有角色等級要求，費用50銀：一到125就去學。箭頭會指向你陣營最近的{skill:182}訓練師。",
 
-	-- Step 20: Stranglekelp & Kingsblood: Stranglethorn Vale (125-160)
+	-- Step 39: Stranglekelp & Kingsblood: Stranglethorn Vale (125-150)
+	-- {item:3820} Stranglekelp · {object:1623} Wild Steelbloom · {item:3356} Kingsblood · {skill:182} Herbalism
+	-- was: ["Pick every {item:3820} (85, yellow), {object:1623} (115, orange), {item:3356} (125, orange), {item:3357} (from 150) you pass and circle the waypoints until {skill:182} 160. {item:3820} grows underwater along the shore: watch your breath. Zone level 30-45. Expect about 70 herbs for these 35 points."] = "路過時採下每一個{item:3820}（85點，黃色）、{object:1623}（115點，橙色）、{item:3356}（125點，橙色）、{item:3357}（150點起），並繞著路標迴圈，直到{skill:182} 160。{item:3820}生長在岸邊水下：注意呼吸。區域等級30-45。這35點大約需要70株草藥。"
+	["Pick every {item:3820} (85, yellow), {object:1623} (115, orange), {item:3356} (125, orange) you pass and circle the waypoints until {skill:182} 150. {item:3820} grows underwater along the shore: watch your breath. Zone level 30-45. Expect about 40 herbs for these 25 points."] = "",
+
+	-- Step 40: Kingsblood & Liferoot: Stranglethorn Vale (150-160) cont.
+	-- {item:3356} Kingsblood · {item:3357} Liferoot · {zone:1434} Stranglethorn Vale
+	["{item:3356} & {item:3357}: {zone:1434} (150-160) cont."] = "",
 	-- {item:3820} Stranglekelp · {object:1623} Wild Steelbloom · {item:3356} Kingsblood · {item:3357} Liferoot · {skill:182} Herbalism
-	["Pick every {item:3820} (85, yellow), {object:1623} (115, orange), {item:3356} (125, orange), {item:3357} (from 150) you pass and circle the waypoints until {skill:182} 160. {item:3820} grows underwater along the shore: watch your breath. Zone level 30-45. Expect about 70 herbs for these 35 points."] = "路過時採下每一個{item:3820}（85點，黃色）、{object:1623}（115點，橙色）、{item:3356}（125點，橙色）、{item:3357}（150點起），並繞著路標迴圈，直到{skill:182} 160。{item:3820}生長在岸邊水下：注意呼吸。區域等級30-45。這35點大約需要70株草藥。",
+	["Pick every {item:3820} (85, green), {object:1623} (115, yellow), {item:3356} (125, yellow), {item:3357} (150, orange) you pass and circle the waypoints until {skill:182} 160. {item:3820} grows underwater along the shore: watch your breath. Zone level 30-45. Expect about 20 herbs for these 10 points."] = "",
 
-	-- Step 21: Liferoot & Fadeleaf: Swamp of Sorrows (160-185)
+	-- Step 41: Liferoot & Fadeleaf: Swamp of Sorrows (160-170)
+	-- {item:3820} Stranglekelp · {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {skill:182} Herbalism
+	-- was: ["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. {item:3820} grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 40 herbs for these 25 points."] = "採集沿途經過的每一株{item:3820}（85，綠色）、{item:3356}（125，黃色）、{item:3357}（150，橙色）、{item:3818}（160，橙色）、{item:3821}（170起），並繞著路徑點循環，直到{skill:182}185。{item:3820}生長在沿岸水下：注意呼吸。地區等級35-45。這25點預計需要採集約40株草藥。"
+	["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange) you pass and circle the waypoints until {skill:182} 170. {item:3820} grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 10 herbs for these 10 points."] = "",
+
+	-- Step 42: Liferoot & Goldthorn: Swamp of Sorrows (170-185) cont.
+	-- {item:3357} Liferoot · {item:3821} Goldthorn · {zone:1435} Swamp of Sorrows
+	["{item:3357} & {item:3821}: {zone:1435} (170-185) cont."] = "",
 	-- {item:3820} Stranglekelp · {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {skill:182} Herbalism
-	["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. {item:3820} grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 40 herbs for these 25 points."] = "採集沿途經過的每一株{item:3820}（85，綠色）、{item:3356}（125，黃色）、{item:3357}（150，橙色）、{item:3818}（160，橙色）、{item:3821}（170起），並繞著路徑點循環，直到{skill:182}185。{item:3820}生長在沿岸水下：注意呼吸。地區等級35-45。這25點預計需要採集約40株草藥。",
+	-- was: ["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. {item:3820} grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 40 herbs for these 25 points."] = "採集沿途經過的每一株{item:3820}（85，綠色）、{item:3356}（125，黃色）、{item:3357}（150，橙色）、{item:3818}（160，橙色）、{item:3821}（170起），並繞著路徑點循環，直到{skill:182}185。{item:3820}生長在沿岸水下：注意呼吸。地區等級35-45。這25點預計需要採集約40株草藥。"
+	["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (170, orange) you pass and circle the waypoints until {skill:182} 185. {item:3820} grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 20 herbs for these 15 points."] = "",
 
-	-- Step 22: Goldthorn & Khadgar's Whisker: Feralas (185-200)
+	-- Step 43: Goldthorn & Khadgar's Whisker: Feralas (185-200)
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
 	["Pick every {object:1623} (115, green, rare), {item:3357} (150, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 40-50. Expect about 20 herbs for these 15 points."] = "採集沿途經過的每一株{object:1623}（115，綠色，稀有）、{item:3357}（150，黃色）、{item:3821}（170，橙色）、{object:2043}（185，橙色），並繞著路徑點循環，直到{skill:182}200。地區等級40-50。這15點預計需要採集約20株草藥。",
 
-	-- Step 23: Artisan Herbalism
+	-- Step 44: Artisan Herbalism
 	-- {skill:182} Herbalism
 	["Artisan {skill:182}"] = "專家級{skill:182}",
 	-- {skill:182} Herbalism
 	["Artisan {skill:182} raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest {skill:182} trainer of your faction."] = "專家級{skill:182}將上限提高至300；需要技能200，沒有角色等級要求，費用5金：一到200就去學。箭頭會指向你陣營最近的{skill:182}訓練師。",
 
-	-- Step 24: Goldthorn & Khadgar's Whisker: Feralas (200-210) cont.
+	-- Step 45: Goldthorn & Khadgar's Whisker: Feralas (200-210) cont.
 	-- {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {zone:1444} Feralas
 	["{item:3821} & {object:2043}: {zone:1444} (200-210) cont."] = "{item:3821}和{object:2043}：{zone:1444}（200-210）（續）",
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
 	["Pick every {object:1623} (115, green, rare), {item:3357} (150, green), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 40-50. Expect about 20 herbs for these 10 points."] = "採集沿途經過的每一株{object:1623}（115，綠色，稀有）、{item:3357}（150，綠色）、{item:3821}（170，黃色）、{object:2043}（185，橙色），並繞著路徑點循環，直到{skill:182}210。地區等級40-50。這10點預計需要採集約20株草藥。",
 
-	-- Step 25: Purple Lotus: The Hinterlands (210-230)
+	-- Step 46: Purple Lotus: The Hinterlands (210-230)
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:8831} Purple Lotus · {skill:182} Herbalism · {item:8153} Wildvine
 	["Pick every {object:1623} (115, green, rare), {item:3357} (150, green), {item:3818} (160, green, rare), {item:3821} (170, yellow), {object:2043} (185, yellow), {item:8831} (210, orange) you pass and circle the waypoints until {skill:182} 230. {item:8831} sometimes gives a {item:8153} as well. Zone level 40-50. Expect about 30 herbs for these 20 points."] = "採集沿途經過的每一株{object:1623}（115，綠色，稀有）、{item:3357}（150，綠色）、{item:3818}（160，綠色，稀有）、{item:3821}（170，黃色）、{object:2043}（185，黃色）、{item:8831}（210，橙色），並繞著路徑點循環，直到{skill:182}230。{item:8831}有時也會額外給一個{item:8153}。地區等級40-50。這20點預計需要採集約30株草藥。",
 
-	-- Step 26: Purple Lotus & Sungrass: The Hinterlands (230-260)
-	-- {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:8831} Purple Lotus · {item:8838} Sungrass · {item:8845} Ghost Mushroom · {skill:182} Herbalism · {item:8153} Wildvine
-	["Pick every {item:3357} (150, green, rare), {item:3818} (160, green, rare), {item:3821} (170, green), {object:2043} (185, yellow, rare), {item:8831} (210, orange), {item:8838} (230, orange), {item:8845} (from 245) you pass and circle the waypoints until {skill:182} 260. {item:8845} grows in caves and dark hollows: look inside as well. {item:8831} sometimes gives a {item:8153} as well. Zone level 40-50. Expect about 50 herbs for these 30 points."] = "路過時採下每一個{item:3357}（150點，綠色，稀有）、{item:3818}（160點，綠色，稀有）、{item:3821}（170點，綠色）、{object:2043}（185點，黃色，稀有）、{item:8831}（210點，橙色）、{item:8838}（230點，橙色）、{item:8845}（245點起），並繞著路標迴圈，直到{skill:182} 260。{item:8845}生長在洞穴和黑暗的凹坑裡：也要進洞看看。{item:8831}有時還會額外給一個{item:8153}。區域等級40-50。這30點大約需要50株草藥。",
+	-- Step 47: Purple Lotus & Sungrass: The Hinterlands (230-245)
+	-- {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:8831} Purple Lotus · {item:8838} Sungrass · {skill:182} Herbalism · {item:8153} Wildvine
+	["Pick every {item:3357} (150, green, rare), {item:3818} (160, green, rare), {item:3821} (170, green), {object:2043} (185, yellow), {item:8831} (210, orange), {item:8838} (230, orange) you pass and circle the waypoints until {skill:182} 245. {item:8831} sometimes gives a {item:8153} as well. Zone level 40-50. Expect about 20 herbs for these 15 points."] = "",
 
-	-- Step 27: Sungrass & Golden Sansam: The Hinterlands (260-285)
+	-- Step 48: Purple Lotus & Sungrass: The Hinterlands (245-260) cont.
+	-- {item:8831} Purple Lotus · {item:8838} Sungrass · {zone:1425} The Hinterlands
+	["{item:8831} & {item:8838}: {zone:1425} (245-260) cont."] = "",
+	-- {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:8831} Purple Lotus · {item:8838} Sungrass · {item:8845} Ghost Mushroom · {skill:182} Herbalism · {item:8153} Wildvine
+	-- was: ["Pick every {item:3357} (150, green, rare), {item:3818} (160, green, rare), {item:3821} (170, green), {object:2043} (185, yellow, rare), {item:8831} (210, orange), {item:8838} (230, orange), {item:8845} (from 245) you pass and circle the waypoints until {skill:182} 260. {item:8845} grows in caves and dark hollows: look inside as well. {item:8831} sometimes gives a {item:8153} as well. Zone level 40-50. Expect about 50 herbs for these 30 points."] = "路過時採下每一個{item:3357}（150點，綠色，稀有）、{item:3818}（160點，綠色，稀有）、{item:3821}（170點，綠色）、{object:2043}（185點，黃色，稀有）、{item:8831}（210點，橙色）、{item:8838}（230點，橙色）、{item:8845}（245點起），並繞著路標迴圈，直到{skill:182} 260。{item:8845}生長在洞穴和黑暗的凹坑裡：也要進洞看看。{item:8831}有時還會額外給一個{item:8153}。區域等級40-50。這30點大約需要50株草藥。"
+	["Pick every {item:3357} (150, green, rare), {item:3818} (160, green, rare), {item:3821} (170, green), {object:2043} (185, green, rare), {item:8831} (210, yellow), {item:8838} (230, orange), {item:8845} (245, orange) you pass and circle the waypoints until {skill:182} 260. {item:8845} grows in caves and dark hollows: look inside as well. {item:8831} sometimes gives a {item:8153} as well. Zone level 40-50. Expect about 30 herbs for these 15 points."] = "",
+
+	-- Step 49: Sungrass & Golden Sansam: The Hinterlands (260-285)
 	-- {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:8831} Purple Lotus · {item:8838} Sungrass · {item:8845} Ghost Mushroom · {item:13464} Golden Sansam · {skill:182} Herbalism · {item:8153} Wildvine
 	["Pick every {item:3821} (170, green), {object:2043} (185, green, rare), {item:8831} (210, green), {item:8838} (230, yellow), {item:8845} (245, orange), {item:13464} (260, orange) you pass and circle the waypoints until {skill:182} 285. {item:8845} grows in caves and dark hollows: look inside as well. {item:8831} sometimes gives a {item:8153} as well. Zone level 40-50. Expect about 70 herbs for these 25 points."] = "路過時採下每一個{item:3821}（170點，綠色）、{object:2043}（185點，綠色，稀有）、{item:8831}（210點，綠色）、{item:8838}（230點，黃色）、{item:8845}（245點，橙色）、{item:13464}（260點，橙色），並繞著路標迴圈，直到{skill:182} 285。{item:8845}生長在洞穴和黑暗的凹坑裡：也要進洞看看。{item:8831}有時還會額外給一個{item:8153}。區域等級40-50。這25點大約需要70株草藥。",
 
-	-- Step 28: Dreamfoil & Plaguebloom: Western Plaguelands (285-300)
+	-- Step 50: Dreamfoil & Plaguebloom: Western Plaguelands (285-300)
 	-- {item:8836} Arthas' Tears · {item:8838} Sungrass · {item:13463} Dreamfoil · {item:13465} Mountain Silversage · {item:13466} Plaguebloom · {skill:182} Herbalism
 	["Pick every {item:8836} (220, green), {item:8838} (230, green), {item:13463} (270, orange), {item:13465} (280, orange), {item:13466} (285, orange) you pass and circle the waypoints until {skill:182} 300. Zone level 51-58. Expect about 20 herbs for these 15 points."] = "路過時採下每一個{item:8836}（220點，綠色）、{item:8838}（230點，綠色）、{item:13463}（270點，橙色）、{item:13465}（280點，橙色）、{item:13466}（285點，橙色），並繞著路標迴圈，直到{skill:182} 300。區域等級51-58。這15點大約需要20株草藥。",
 
@@ -113,11 +235,24 @@ return {
 	-- ["Any {skill:182} trainer of your faction teaches Apprentice {skill:182} (character level 5); the arrow picks the nearest."] = "你陣營的任何{skill:182}訓練師都能教初級{skill:182}（角色等級5）；箭頭會指向最近的一位。",
 	-- ["Journeyman {skill:182} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:182} trainer of your faction."] = "中級{skill:182}將上限提高至150；需要技能50且角色等級10。箭頭會指向你陣營最近的{skill:182}訓練師。",
 	-- ["Pick every {item:2447} (1, green), {item:765} (1, green), {item:2449} (15, green), {item:785} (50, green), {item:2450} (70, yellow), {item:3820} (85, orange), {item:2453} (100, orange), {object:1623} (from 115) you pass and circle the waypoints until {skill:182} 125. Zone level 20-30."] = "採集沿途經過的每一株{item:2447}（1，綠色）、{item:765}（1，綠色）、{item:2449}（15，綠色）、{item:785}（50，綠色）、{item:2450}（70，黃色）、{item:3820}（85，橙色）、{item:2453}（100，橙色）、{object:1623}（115起），並繞著路徑點循環，直到{skill:182}125。地區等級20-30。",
+	-- ["Pick every {item:2447} (1, orange), {item:765} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-15. Expect about 60 herbs for these 49 points."] = "採集沿途經過的每一株{item:2447}（1，橙色）、{item:765}（1，橙色）、{item:2449}（15起），並繞著路徑點循環，直到{skill:182}50。地區等級1-15。這49點預計需要採集約60株草藥。",
+	-- ["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange), {object:656160} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "路過時採下每一個{item:2447}（1點，橙色）、{item:765}（1點，橙色）、{object:656161}（1點，橙色）、{object:656160}（1點，橙色）、{item:2449}（15點起），並繞著路標迴圈，直到{skill:182} 50。區域等級1-10。這49點大約需要60株草藥。",
+	-- ["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "路過時採下每一個{item:2447}（1點，橙色）、{item:765}（1點，橙色）、{object:656161}（1點，橙色，稀有）、{object:656160}（1點，橙色）、{item:2449}（15點起），並繞著路標迴圈，直到{skill:182} 50。區域等級1-10。這49點大約需要60株草藥。",
+	-- ["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange, rare), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "採集沿途經過的每一株{item:2447}（1，橙色）、{item:765}（1，橙色）、矮小的銀葉草（1，橙色，稀有）、枯萎的寧神花（1，橙色，稀有）、{item:2449}（15起），並繞著路徑點循環，直到{skill:182}50。地區等級1-10。這49點預計要採約60株草藥。",
+	-- ["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 10-20. Expect about 140 herbs for these 50 points."] = "採集沿途經過的每一株{item:2447}（1，黃色）、{item:765}（1，黃色）、{item:2449}（15，黃色）、{item:785}（50，橙色）、{item:2450}（70起），並繞著路徑點循環，直到{skill:182}100。{item:785}和{item:2450}有時也會額外給一個{item:2452}。地區等級10-20。這50點預計需要採集約140株草藥。",
+	-- ["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70), {item:3820} (from 85) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. A quest here needs {skill:182}: Root Samples (level 16, {npc:3446}). Zone level 10-25. Expect about 110 herbs for these 50 points."] = "路過時採下每一個{item:2447}（1點，黃色）、{item:765}（1點，黃色）、{item:2449}（15點，黃色）、{item:785}（50點，橙色）、{item:2450}（70點起）、{item:3820}（85點起），並繞著路標迴圈，直到{skill:182} 100。{item:785}和{item:2450}有時還會額外給一個{item:2452}。{item:3820}生長在岸邊水下：注意呼吸。這裡的某個任務需要{skill:182}：根莖樣本（16級，{npc:3446}）。區域等級10-25。這50點大約需要110株草藥。",
+	-- ["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70), {item:3820} (from 85) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 10-20. Expect about 130 herbs for these 50 points."] = "採集沿途經過的每一株{item:2447}（1，黃色）、{item:765}（1，黃色）、{item:2449}（15，黃色）、{item:785}（50，橙色）、{item:2450}（70起）、{item:3820}（85起），並繞著路徑點循環，直到{skill:182}100。{item:785}和{item:2450}有時也會額外給一個{item:2452}。{item:3820}生長在沿岸水下：注意呼吸。地區等級10-20。這50點預計需要採集約130株草藥。",
+	-- ["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70), {item:3820} (from 85) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 10-20. Expect about 140 herbs for these 50 points."] = "採集沿途經過的每一株{item:2447}（1，黃色）、{item:765}（1，黃色）、{item:2449}（15，黃色）、{item:785}（50，橙色）、{item:2450}（70起）、{item:3820}（85起），並繞著路徑點循環，直到{skill:182}100。{item:785}和{item:2450}有時也會額外給一個{item:2452}。{item:3820}生長在沿岸水下：注意呼吸。地區等級10-20。這50點預計需要採集約140株草藥。",
 	-- ["Pick every {item:2450} (70, green, rare), {item:3820} (85, green), {item:2453} (100, green, rare), {object:1623} (115, yellow, rare), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 40 herbs for these 25 points."] = "採集沿途經過的每一株{item:2450}（70，綠色，稀有）、{item:3820}（85，綠色）、{item:2453}（100，綠色，稀有）、{object:1623}（115，黃色，稀有）、{item:3356}（125，黃色）、{item:3357}（150，橙色）、{item:3818}（160，橙色）、{item:3821}（170起），並繞著路徑點循環，直到{skill:182}185。{item:785}和{item:2450}有時也會額外給一個{item:2452}。{item:3820}生長在沿岸水下：注意呼吸。地區等級35-45。這25點預計需要採集約40株草藥。",
 	-- ["Pick every {item:2453} (100, green, rare), {object:1623} (115, green, rare), {item:3356} (125, green), {item:3357} (150, yellow), {item:3818} (160, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 35-45. Expect about 20 herbs for these 15 points."] = "採集沿途經過的每一株{item:2453}（100，綠色，稀有）、{object:1623}（115，綠色，稀有）、{item:3356}（125，綠色）、{item:3357}（150，黃色）、{item:3818}（160，黃色）、{item:3821}（170，橙色）、{object:2043}（185，橙色），並繞著路徑點循環，直到{skill:182}200。地區等級35-45。這15點預計需要採集約20株草藥。",
+	-- ["Pick every {item:3357} (150, green, rare), {item:3818} (160, green, rare), {item:3821} (170, green), {object:2043} (185, yellow, rare), {item:8831} (210, orange), {item:8838} (230, orange), {item:8845} (from 245) you pass and circle the waypoints until {skill:182} 260. {item:8845} grows in caves and dark hollows: look inside as well. {item:8831} sometimes gives a {item:8153} as well. Zone level 40-50. Expect about 50 herbs for these 30 points."] = "路過時採下每一個{item:3357}（150點，綠色，稀有）、{item:3818}（160點，綠色，稀有）、{item:3821}（170點，綠色）、{object:2043}（185點，黃色，稀有）、{item:8831}（210點，橙色）、{item:8838}（230點，橙色）、{item:8845}（245點起），並繞著路標迴圈，直到{skill:182} 260。{item:8845}生長在洞穴和黑暗的凹坑裡：也要進洞看看。{item:8831}有時還會額外給一個{item:8153}。區域等級40-50。這30點大約需要50株草藥。",
+	-- ["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. {item:3820} grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 40 herbs for these 25 points."] = "採集沿途經過的每一株{item:3820}（85，綠色）、{item:3356}（125，黃色）、{item:3357}（150，橙色）、{item:3818}（160，橙色）、{item:3821}（170起），並繞著路徑點循環，直到{skill:182}185。{item:3820}生長在沿岸水下：注意呼吸。地區等級35-45。這25點預計需要採集約40株草藥。",
+	-- ["Pick every {item:3820} (85, yellow), {object:1623} (115, orange), {item:3356} (125, orange), {item:3357} (from 150) you pass and circle the waypoints until {skill:182} 160. {item:3820} grows underwater along the shore: watch your breath. Zone level 30-45. Expect about 70 herbs for these 35 points."] = "路過時採下每一個{item:3820}（85點，黃色）、{object:1623}（115點，橙色）、{item:3356}（125點，橙色）、{item:3357}（150點起），並繞著路標迴圈，直到{skill:182} 160。{item:3820}生長在岸邊水下：注意呼吸。區域等級30-45。這35點大約需要70株草藥。",
 	-- ["Pick every {item:4625} (205, yellow), {item:8838} (230, orange), {item:8846} (from 250) you pass and circle the waypoints until {skill:182} 260. Zone level 45-55."] = "採集沿途經過的每一株{item:4625}（205，黃色）、{item:8838}（230，橙色）、{item:8846}（250起），並繞著路徑點循環，直到{skill:182}260。地區等級45-55。",
+	-- ["Pick every {item:765} (1, green, rare), {item:2449} (15, green, rare), {item:785} (50, green), {item:2450} (70, yellow), {item:3820} (85, orange), {item:2453} (100, orange), {object:1623} (from 115) you pass and circle the waypoints until {skill:182} 125. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 20-30. Expect about 40 herbs for these 25 points."] = "路過時採下每一個{item:765}（1點，綠色，稀有）、{item:2449}（15點，綠色，稀有）、{item:785}（50點，綠色）、{item:2450}（70點，黃色）、{item:3820}（85點，橙色）、{item:2453}（100點，橙色）、{object:1623}（115點起），並繞著路標迴圈，直到{skill:182} 125。{item:785}和{item:2450}有時還會額外給一個{item:2452}。{item:3820}生長在岸邊水下：注意呼吸。區域等級20-30。這25點大約需要40株草藥。",
 	-- ["Pick every {item:785} (50, green), {item:2450} (70, green), {item:2453} (100, yellow), {object:1623} (115, orange), {object:1628} (120, orange), {item:3356} (125, orange) you pass and circle the waypoints until {skill:182} 160. Zone level 18-30."] = "採集沿途經過的每一株{item:785}（50，綠色）、{item:2450}（70，綠色）、{item:2453}（100，黃色）、{object:1623}（115，橙色）、{object:1628}（120，橙色）、{item:3356}（125，橙色），並繞著路徑點循環，直到{skill:182}160。地區等級18-30。",
 	-- ["Pick every {item:785} (50, green), {item:2450} (70, green), {item:3820} (85, yellow), {item:2453} (100, yellow), {object:1623} (115, orange), {object:1628} (120, orange), {item:3356} (125, orange), {item:3357} (from 150) you pass and circle the waypoints until {skill:182} 160. Zone level 30-40."] = "採集沿途經過的每一株{item:785}（50，綠色）、{item:2450}（70，綠色）、{item:3820}（85，黃色）、{item:2453}（100，黃色）、{object:1623}（115，橙色）、{object:1628}（120，橙色）、{item:3356}（125，橙色）、{item:3357}（150起），並繞著路徑點循環，直到{skill:182}160。地區等級30-40。",
+	-- ["Pick every {item:785} (50, green), {item:2450} (70, yellow), {item:2453} (100, orange), {object:1623} (from 115) you pass and circle the waypoints until {skill:182} 125. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 15-27. Expect about 40 herbs for these 25 points."] = "採集沿途經過的每一株{item:785}（50，綠色）、{item:2450}（70，黃色）、{item:2453}（100，橙色）、{object:1623}（115起），並繞著路徑點循環，直到{skill:182}125。{item:785}和{item:2450}有時也會額外給一個{item:2452}。地區等級15-27。這25點預計需要採集約40株草藥。",
 	-- ["Pick every {item:8836} (220, green), {item:8838} (230, green), {item:8846} (250, yellow), {item:13464} (260, yellow), {item:13463} (270, orange), {item:13465} (280, orange), {item:13466} (285, orange) you pass and circle the waypoints until {skill:182} 300. Zone level 48-55."] = "採集沿途經過的每一株{item:8836}（220，綠色）、{item:8838}（230，綠色）、{item:8846}（250，黃色）、{item:13464}（260，黃色）、{item:13463}（270，橙色）、{item:13465}（280，橙色）、{item:13466}（285，橙色），並繞著路徑點循環，直到{skill:182}300。地區等級48-55。",
 	-- ["Pick every {item:8836} (220, yellow), {item:8838} (230, yellow), {item:8846} (250, orange), {item:13464} (260, orange), {item:13463} (from 270), {item:13465} (from 280) you pass and circle the waypoints until {skill:182} 285. Zone level 48-55."] = "採集沿途經過的每一株{item:8836}（220，黃色）、{item:8838}（230，黃色）、{item:8846}（250，橙色）、{item:13464}（260，橙色）、{item:13463}（270起）、{item:13465}（280起），並繞著路徑點循環，直到{skill:182}285。地區等級48-55。",
 	-- ["Pick every {object:1623} (115, green, rare), {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45. Expect about 20 herbs for these 10 points."] = "採集沿途經過的每一株{object:1623}（115，綠色，稀有）、{item:3356}（125，綠色）、{item:3357}（150，綠色）、{item:3818}（160，黃色）、{item:3821}（170，黃色）、{object:2043}（185，橙色），並繞著路徑點循環，直到{skill:182}210。地區等級35-45。這10點預計需要採集約20株草藥。",
