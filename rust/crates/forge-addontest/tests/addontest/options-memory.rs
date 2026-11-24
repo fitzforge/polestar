@@ -98,7 +98,10 @@ const LOGIN_BASE: f64 = 11003.0;
 /// +44 KiB: the class cards' rewards from recorded turn-ins (#2472) list 1,034 class quests, past the 1,024 slots of
 /// the quests table's hash part, which doubles: 14,669 KiB at login on 2026-11-24, 14,625 with next's ClassRewards.lua
 /// (CI's runner 14,672). The budget: 14,700 (reported to Fitz).
-const LOGIN: f64 = LOGIN_BASE + 3697.0;
+/// +22 KiB: held quests (#3390), Quests/KeptFor.lua's hooks and the Engine's re-take: 14,717 KiB at login on
+/// 2026-11-24, 14,695 with next (CI's runner 14,711 on the pull request's first run). The budget: 14,750 (reported
+/// to Fitz in the pull request).
+const LOGIN: f64 = LOGIN_BASE + 3747.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).
