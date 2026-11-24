@@ -8499,6 +8499,26 @@ function Own.goalMoved(added, j, goal)
 	return type(e) == "table" and e[Own.goalId(goal)] ~= nil
 end
 
+-- Whether `goal` is work of a quest the update brought: a goal of a quest not
+-- taken nor done whose every accept here for the character is one the update
+-- added (Own.goalAdded). Such work holds nothing in the old guide's place
+-- either (#3464: Duskwood's The Night Watch moved to the first visit, and its
+-- Raven Hill kills, a step 0.4.2.2 had too, read as the player's place).
+function Own.addedWork(added, goal)
+	local q = goal.quest
+	if not q or goal.t == "accept" then return false end
+	local C = Compat()
+	if C.IsOnQuest(q) or questDone(q) then return false end
+	local any = false
+	for _, a in ipairs(layoutOf(guide).accepts[q] or NONE) do
+		if Guides.Matches(a.step.only, player) and Guides.Matches(a.goal.only, player) then
+			if not Own.goalAdded(added, a.s, a.goal) then return false end
+			any = true
+		end
+	end
+	return any
+end
+
 -- What an update added behind the player passes for them. At the first
 -- placement after the update with the quest log in: the player's place is the
 -- first step that holds for what the save's guide had too (a goal open that
@@ -8545,7 +8565,7 @@ function Own.passAdded()
 			local holds = false
 			for g, goal in ipairs(steps[j].goals) do
 				if Own.holds(j, goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(j, g, goal)
-					and not Own.goalAdded(added, j, goal) then
+					and not Own.goalAdded(added, j, goal) and not Own.addedWork(added, goal) then
 					holds = true
 					break
 				end

@@ -1674,6 +1674,12 @@
 		"3232": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Trek to Ashenvale (#1089, #1811): Sentinel Selarin comes and goes; her quest never holds a step and is offered again after the escort" }
 		] },
+		"3464": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-upgrade.rs", "test": "work_of_a_quest_the_update_moved_before_the_player_never_reads_as_their_place_3464" }
+		] },
+		"3609": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "the_hall_of_thanes_takes_the_dun_morogh_part_first_on_the_way_in_3609" }
+		] },
 		"3268": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Veyric Thunderhame stands only in Arathi Highlands, not at Eldrun Stormbreaker's spot (#2851)" }
 		] },
