@@ -6,7 +6,7 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { addonUpdateCount, guideUpdateCount, updateAllCount } = require('../apps/client/src/lib/addons.ts');
+const { addonUpdateCount, guideUpdateCount, updateAllCount, updateAllTitle } = require('../apps/client/src/lib/addons.ts');
 
 const snapshot = (products = [], packs = []) => ({ addons: { products }, community: { packs } });
 const pack = (extra = {}) => ({ status: 'update', blocked: null, changes: null, ...extra });
@@ -70,4 +70,21 @@ test('the Community Guides badge counts the guide updates the client announces: 
 	];
 	assert.equal(guideUpdateCount(snapshot([{ status: 'update' }], packs)), 4);
 	assert.equal(guideUpdateCount(snapshot()), 0);
+});
+
+test('the Update all tooltip says it installs community guide updates too (#3832)', () => {
+	assert.equal(updateAllTitle(snapshot([{ status: 'update' }], [pack()])), 'Installs 1 addon update and 1 community guide update.');
+	assert.equal(updateAllTitle(snapshot([{ status: 'update' }, { status: 'update' }])), 'Installs 2 addon updates.');
+	assert.equal(updateAllTitle(snapshot([], [pack(), pack()])), 'Installs 2 community guide updates.');
+});
+
+test('the Update all tooltip points guide updates that need confirmation to Community Guides', () => {
+	const s = snapshot(
+		[{ status: 'update' }],
+		[pack(), pack({ changes: changes({ removed: ['PolestarPack_guide_deDE'] }) }), pack({ status: 'replaced' }), pack({ blocked: 'This guide needs a newer version of Polestar.' })],
+	);
+	assert.equal(
+		updateAllTitle(s),
+		'Installs 1 addon update and 1 community guide update. 2 community guide updates need your OK first: open Community Guides.',
+	);
 });
