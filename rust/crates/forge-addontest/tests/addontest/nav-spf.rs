@@ -1584,6 +1584,59 @@ fn a_chokepoint_more_than_30_yd_above_or_below_the_path_is_no_stop_one_on_the_pa
 	assert_eq!(out, json!(["walk|Walk to the Ruins Door cave mouth", "walk|Target"]));
 }
 
+// #3734 (Gnomeregan's and Thunder Bluff's lifts): the landings stand a few yards apart on the map, 100 yd apart in
+// height. Off the lift at the top, the walk on climbs a ramp 20 yd and more past the top landing; that climb read as
+// riding the lift, and the arrow said "Ride the elevator up" again from the bottom, every time the route was planned.
+// A ride reaches both landings' heights; from the bottom the walk still rides up.
+#[test]
+fn issue_3734_a_walk_up_a_ramp_from_a_lifts_top_landing_rides_nothing_from_the_bottom_it_rides_up() {
+	let script = |start: &str, pts: &str| {
+		format!(
+			r#"
+		nav.useTravelWorld()
+		PolestarNavChokepoints = {{ [0] = {{
+			{{ wx = 0, wy = 6, z = 247.6, r = 6, kind = "lift", name = "Vator", liftEnd = "bottom", lift = "Vator", pair = 2 }},
+			{{ wx = 0, wy = 0, z = 348.3, r = 6, kind = "lift", name = "Vator", liftEnd = "top", lift = "Vator", pair = 1 }},
+		}} }}
+		nav.place({start})
+		target(0, -600)
+		N.Sample()
+		local job, pts = fake.last(), {{}}
+		for _, p in ipairs({{ {pts} }}) do pts[#pts + 1] = {{ map = job.map, x = p[1], y = p[2], z = p[3] }} end
+		job.callback(pts, 100, job)
+		local legs, ci = N.GetRoute()
+		local out = {{}}
+		for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit(out)"#
+		)
+	};
+	let top = run(&script("0, 0", "{ 0, 0, 348.3 }, { 0, -40, 366 }, { 0, -60, 370 }, { 0, -600, 409 }"));
+	assert_eq!(top, json!(["walk|Target"]), "off the lift at the top: on to the target");
+	let bottom = run(&script("0, 6", "{ 0, 6, 247.6 }, { 0, 5, 247.6 }, { 0, 0, 348.3 }, { 0, -40, 366 }, { 0, -60, 370 }, { 0, -600, 409 }"));
+	assert_eq!(bottom, json!(["walk|Walk to Vator, Bottom", "lift|Ride the elevator up", "walk|Target"]), "at the bottom: the ride up");
+}
+
+// A cave or building mouth whose name starts with "The" read "Walk to the The Screeching Canyon cave mouth".
+#[test]
+fn a_mouth_named_the_something_gets_one_article_walking_or_riding() {
+	let script = r#"
+		nav.useTravelWorld()
+		PolestarNavChokepoints = { [0] = {
+			{ wx = 0, wy = -200, r = 10, kind = "cave", name = "The Screeching Canyon", zone = "Testshire" },
+			{ wx = 0, wy = -400, r = 10, kind = "building", name = "The Great Hall", zone = "Testshire" },
+		} }
+		nav.place(0, 0)
+		target(0, -600)
+		N.Sample()
+		fake.resolve(0, 0, 0, -300, 0, -600)
+		local legs, ci = N.GetRoute()
+		local out = {}
+		for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit(out)"#;
+	assert_eq!(run(script), json!(["walk|Walk to the Screeching Canyon cave mouth", "walk|Walk to the Great Hall entrance", "walk|Target"]));
+	assert_eq!(run(&format!("{RIDER}{script}")), json!(["walk|Ride to the Screeching Canyon cave mouth", "walk|Ride to the Great Hall entrance", "walk|Target"]));
+}
+
 // #1046: a building mouth is named after its area, so the Gallows' End Tavern's door read "Walk to
 // the Brill entrance", the town's way in. With an inn's innkeeper beside it, it is the inn's door.
 #[test]
@@ -2759,6 +2812,50 @@ fn a_way_in_reaches_past_goals_at_the_target_s_own_spot_1338_the_optional_turn_i
 		})"#,
 	);
 	assert_eq!(out, json!({ "same": true, "elsewhere": false }));
+}
+
+// #3488: past a reached way in, the arrow pointed straight at the next NPC, through the town's houses (Northshire
+// Abbey). The straight line is kept only while the walking grid sees no wall, cliff or floor change on it from the
+// player's floor; a blocked one is walked to the end. With the floor unknown it stays straight (#914: a search from
+// no height can start on the hill above the cave). A kill goal's spots stay straight: walked round, the nearest spot
+// changes under the player and the arrow flips between two.
+#[test]
+fn a_reached_way_in_keeps_the_straight_line_only_while_nothing_blocks_it_3488() {
+	let out = run_many(
+		r#"
+		local m, tx, ty = nav.mapPoint(0, 0)          -- the NPC
+		local _, dx, dy = nav.mapPoint(0, 25)         -- the way in, a guide goto
+		local guide = { steps = {
+			{ goals = { { t = "goto", map = m, x = dx, y = dy } } },
+			{ goals = { { t = "accept", map = m, x = tx, y = ty } } },
+		} }
+		Polestar.Engine.GetGuide = function() return guide end
+		Polestar.Engine.GoalDone = function(s, g) return s == 1 and g == 1 end -- the way in reached
+		local function target() return { map = m, x = tx, y = ty, stepIndex = 2, goalIndex = 1, kind = "accept" } end
+		nav.place(0, 25)
+		local C = Polestar.Compat
+		local world = C.GetPlayerWorldPosition
+		C.GetPlayerUnitPosition = function() local c, x, y = world(); return x, y, 40, c end -- the client's height
+		local r = {}
+		local t = target()
+		fake.sight = function() return true end
+		r.clear = N.walk.FollowsGoto(t)
+		fake.sight = function() return false end
+		stub.advance(1)
+		r.wall = N.walk.FollowsGoto(t)
+		fake.sight = function() return true end
+		stub.advance(1)
+		r.stays = N.walk.FollowsGoto(t)
+		fake.sight = function() return false end
+		local grind = target()
+		grind.kind, grind.spots = "kill", { { x = tx, y = ty }, { x = tx + 0.01, y = ty } }
+		r.grind = N.walk.FollowsGoto(grind)                                -- blocked, yet straight
+		C.GetPlayerUnitPosition = function() return nil end              -- no height, no floor followed
+		fake.sight = function() return false end
+		r.noFloor = N.walk.FollowsGoto(target())
+		emit(r)"#,
+	);
+	assert_eq!(out, json!({ "clear": true, "wall": false, "stays": false, "grind": true, "noFloor": true }));
 }
 
 // A boat from Testshire Docks (-900, 0) to Farland Pier (c1: 400, 0); on Farland,
@@ -5530,8 +5627,9 @@ fn city_a1_a_goal_without_a_height_in_a_capital_ends_on_the_trail_floor_with_the
 // Phase A2, #2860 (Ironforge, the cooking trainer): his platform in the Great Forge is reached by no walk on the maps;
 // the search at his height failed, and the one asked again without it went out of the gate and over the mountain
 // (3,515 yd for a 356 yd walk). In a capital the goal's height stays: the router's reach (10 yd) ends the walk at the
-// nearest surface on its level it reaches. With none, the arrow says the last steps aren't mapped
-// and the walk is not marked unreachable (the plan would go round it).
+// nearest surface on its level it reaches. With none, the walk without his height is asked once (#2143) and kept only
+// when it is no detour (city.FLAT times the straight way plus city.SLACK): over the mountain it is not, so the arrow
+// says the last steps aren't mapped and the walk is not marked unreachable (the plan would go round it).
 #[test]
 fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_steps_are_not_mapped_2860() {
 	let out = run(&[
@@ -5559,9 +5657,12 @@ fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_st
 		r.flatRetry = { calls() - n, fake.last().from.z or "none", fake.last().from.floors and fake.last().from.floors[1] or false, fake.last().to.z }
 		n = calls()
 		fake.fail("unreachable")
+		r.flatAsk = { calls() - n, fake.last().to.z or "none" }
+		-- Over the mountain: 4,170 yd for 559 straight.
+		fake.resolve(0, 50, 2000, 50, -100, -500)
 		N.Sample()
 		stub.advance(0.3)
-		r.failed = { calls() - n, aim()[1], (N.walk.Unmapped()), said(), r.unreachable or false }
+		r.failed = { aim()[1], (N.walk.Unmapped()), said(), r.unreachable or false }
 		-- Found through the reach (job.reached): its walk is the arrow's, said.
 		N.SetTarget(m, x, y, "Daryl Riknussun", nil, "trainer", 65)
 		N.Sample()
@@ -5594,10 +5695,80 @@ fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_st
 	assert_eq!(out["startRetry"], json!([1, "none", 40, 66, 10]), "the tracked start's retry: from the surfaces near its floor, his height kept");
 	assert_eq!(out["flatRetry"], json!([2, "none", false, 66]), "then from no start height, his height kept");
 	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
-	assert_eq!(out["failed"], json!([0, "travel", true, true, false]), "no heightless search; the straight bearing, the missing walk explained");
+	assert_eq!(out["flatAsk"], json!([1, "none"]), "once more without his height (#2143)");
+	assert_eq!(out["failed"], json!(["travel", true, true, false]), "a detour over the mountain is not kept: the straight bearing, the missing walk explained");
 	assert_eq!(out["reached"], json!([0, "travel", true, true]), "the walk to the nearest reachable surface on his level, said");
 	assert_eq!(out["onFloor"], json!([false, false]));
 	assert_eq!(out["offFloor"], json!([0, true]), "kept, said");
+}
+
+// #2143 (Rilli Greasygob in the Valley of Honor): the floor players walk at her spot is one the maps don't join, so
+// 0.4.2 drew 617 yd straight across Orgrimmar where 0.4.1.1 walked 766 yd. The walk without her height, no detour
+// (at most city.FLAT times the straight way plus city.SLACK), is the arrow's, the last steps said.
+#[test]
+fn city_a_capital_goal_no_walk_reaches_is_walked_without_its_height_when_that_is_no_detour_2143() {
+	let out = run(&[
+		FLOORS,
+		CITY,
+		r#"
+		local r = {}
+		fake.surfaces = function() return { 40 } end
+		nav.place(0, 50)
+		startZ()
+		local m, x, y = nav.mapPoint(-100, -500)
+		N.travel.WalkUnreachable = function() r.unreachable = true end
+		N.SetTarget(m, x, y, "Rilli Greasygob", nil, "npc", 29)
+		N.Sample()
+		r.asked = fake.last().to.z
+		local n = calls()
+		fake.fail("no safe walking route")
+		r.flat = { calls() - n, fake.last().to.z or "none" }
+		-- 700 yd round the valley for 559 straight.
+		fake.resolve(0, 50, -300, 0, -100, -500)
+		N.Sample()
+		stub.advance(0.3)
+		r.aim = aim()
+		r.unmapped = (N.walk.Unmapped())
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out["asked"], 29, "first at her height");
+	assert_eq!(out["flat"], json!([1, "none"]), "then without it");
+	assert_eq!(out["aim"][0], "travel", "{out}");
+	let (ax, ay) = (out["aim"][2].as_f64().unwrap(), out["aim"][3].as_f64().unwrap());
+	assert!(ax < -20.0 && ay > 0.0, "along the walk's first leg to (-300, 0), not straight at her (-100, -500): {out}");
+	assert_eq!(out["unmapped"], true, "the last steps said");
+	assert_eq!(out["unreachable"], json!(null), "{out}");
+}
+
+// #2270 / #3018 (the Damaged Chest on the Splithoof Crag cave's floor, 49 yd down): the planner's near walk (Walk.Probe)
+// asked at the chest's height found nothing and was never offered, so the plan went 111 yd from the chest up the Great
+// Lift and round through the Barrens (4:39; 0.4.1.1: 24 s). Like the arrow's own walk, it is asked once more without
+// the height when no policy said no; a policy refusal stays final, and so does a capital's goal (city).
+#[test]
+fn the_planners_near_walk_to_a_floor_no_walk_reaches_is_asked_without_its_height_2270() {
+	let out = run(r#"
+		local r = {}
+		nav.place(0, 0)
+		local got = {}
+		N.walk.Probe(0, 0, 0, 0, -100, -49, function(along) got[#got + 1] = along end, true)
+		local job = fake.last()
+		r.asked = job.to.z
+		job.callback(nil, "no safe walking route", job)
+		r.again = fake.last() ~= job and (fake.last().to.z or "none") or false
+		fake.resolve(0, 0, 0, -100)
+		r.along = got[1]
+		got = {}
+		N.walk.Probe(0, 0, 0, 0, -100, -49, function(along) got[#got + 1] = along end, true)
+		job = fake.last()
+		job.blockedReason = "hostile town"
+		job.callback(nil, "no safe walking route", job)
+		r.policy = { fake.last() == job, got[1] }
+		emit(r)"#);
+	assert_eq!(out["asked"], -49, "first at the chest's height");
+	assert_eq!(out["again"], "none", "then without it");
+	assert_eq!(out["along"], 100, "and that walk offered: {out}");
+	assert_eq!(out["policy"], json!([true, false]), "a policy refusal is final");
 }
 
 // Outside the capitals (WorldFloor): the goal's height takes the router's reach too; one that finds no walk at all is

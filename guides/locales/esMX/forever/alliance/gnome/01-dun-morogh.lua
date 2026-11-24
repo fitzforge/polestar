@@ -285,8 +285,7 @@ return {
 	-- Step 46: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village
 	-- plural, as words: Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
-	-- was: ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} es la cueva de los trols en las colinas al suroeste de {area:137}. Mata cazacabezas en la entrada y recórrela hasta el fondo.\nCuidado: los desolladores Peloescarcha del interior son de nivel 9-10 y están en parejas: atráelos de uno en uno de vuelta a la entrada."
-	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore {area:135} ticks only in there, not on the hill above it.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "",
+	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore {area:135} ticks only in there, not on the hill above it.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} es la cueva de los trols en las colinas al suroeste de {area:137}. Mata cazacabezas en la entrada y luego recorre la cueva hasta el fondo: Explorar {area:135} solo se marca ahí adentro, no en la colina de arriba.\nCuidado: los desolladores Peloescarcha del interior son de nivel 9-10 y están en parejas: atráelos de uno en uno de vuelta a la entrada.",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "{npc:1123}, bajo tierra",
 
@@ -369,42 +368,38 @@ return {
 
 	-- Step 72: Protecting the Herd
 	-- {npc:1388} Vagash · {area:38} Loch Modan
-	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "Son enemigos élite: se recomienda ir en grupo, busca gente para hacerlo. {npc:1388} es un élite de nivel 12: enfréntalo con un grupo. Si vas solo, omítelo: las misiones de {zone:1432} que siguen compensan la experiencia."
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {area:38} quests ahead make up the experience."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {area:38} quests ahead make up the experience."] = "Son enemigos élite: se recomienda ir en grupo; busca gente con quien hacerla. {npc:1388} es un élite de nivel 12: enfréntalo con un grupo. Si vas solo, omítela: las misiones de {area:38} que siguen compensan la experiencia.",
 	["Below ground"] = "Bajo tierra",
 
 	-- Step 73: Rudra Amberstill
 	-- {zone:1455} Ironforge
 	["On the road back west to {zone:1455}."] = "En el camino de vuelta al oeste a {zone:1455}.",
 
-	-- Step 76: South Gate Outpost
-	-- {area:806} South Gate Outpost · {area:38} Loch Modan
-	-- was: ["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "Sigue el camino todo al este hasta {area:806}, en el túnel de {zone:1432}."
-	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "",
+	-- Step 76: North Gate Outpost
+	-- {area:808} North Gate Outpost · {npc:1960} Pilot Hammerfoot · {area:38} Loch Modan
+	["Follow the road east and take its northern fork to the {area:808}: {npc:1960} waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into {area:38} come next, down the road to the south."] = "",
 
-	-- Step 77: Bruegs Kindleborn
+	-- Step 77: South Gate Outpost
+	-- {area:806} South Gate Outpost · {area:38} Loch Modan
+	["Back south down the road to the {area:806} at the {area:38} tunnel."] = "",
+
+	-- Step 78: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
 	["{npc:257597} waits in a cave above the farm north-west of the {area:806}; the path up starts behind the farm."] = "{npc:257597} espera en una cueva sobre la granja al noroeste de {area:806}; el sendero de subida empieza detrás de la granja.",
 
-	-- Step 79: Braldir Ashmantle
+	-- Step 80: Braldir Ashmantle
 	-- {area:38} Loch Modan · {npc:257808} Braldir Ashmantle
-	-- was: ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "Cruza el túnel hasta {zone:1432}. Justo después, un sendero marcado con piedras sube por las colinas a la derecha del camino, al norte, hasta el campamento de {npc:257808}."
-	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "",
-
-	-- Step 80: North Gate Outpost
-	-- {npc:1960} Pilot Hammerfoot · {area:808} North Gate Outpost
-	["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960} espera en {area:808}, al norte de la Puerta Sur; el cadáver del enano está subiendo el paso al oeste de él.",
+	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "Cruza el túnel hasta {area:38}. Justo después, un sendero marcado con piedras sube por las colinas a la derecha del camino, al norte, hasta el campamento de {npc:257808}.",
 
 	-- Step 81: The tunnel post
 	["The tunnel post"] = "El puesto del túnel",
 	-- {area:38} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
-	-- was: ["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "Al este por el túnel de la Puerta Sur hasta {zone:1432}. {npc:1089} y {npc:1092} están en el puesto enano justo después."
-	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "",
+	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "Al este por el túnel de la Puerta Sur hasta {area:38}. {npc:1089} y {npc:1092} están en el puesto enano justo después.",
 
 	-- Step 82: Stonesplinter troggs
 	["Stonesplinter troggs"] = "Troggs Rompecantos",
 	-- plural, as words: Stonesplinter Scouts = {npc:1162} Stonesplinter Scout
-	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps."] = "",
+	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps."] = "Al norte del puesto, al oeste del camino: los troggs y exploradores Rompecantos acampan en las colinas. Los dos sueltan los dientes de piedra de trogg.\nCuidado: atrae a los exploradores y troggs Rompecantos de uno en uno. Quédate en el borde norte del valle; Headsplitter patrulla los campamentos más profundos.",
 
 	-- Step 83: Back to the tunnel post
 	["Back to the tunnel post"] = "De vuelta al puesto del túnel",
@@ -554,8 +549,7 @@ return {
 	["Tram to {zone:1453}"] = "Tranvía a {zone:1453}",
 	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
 	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	-- was: ["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "En el andén de {zone:1455} de {area:2257}, {npc:12997} pide ayuda con las ratas: usa su {item:17117} en las ratas del Tranvía alrededor del andén, entrégalas y luego lleva su carta a su hermano {npc:13018}, en el extremo de {zone:1453}."
-	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "",
+	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "En el andén de {zone:1455} de {area:2257}, {npc:12997} pide ayuda con las ratas: usa su {item:17117} en las ratas del subterráneo alrededor del andén, entrégalas y luego lleva su carta a su hermano {npc:13018}, en el extremo de {zone:1453}. El tranvía no tiene mapa adentro. Las marcas de la ciudad muestran las entradas, no a los dos hermanos.",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}, en el andén de {zone:1455}",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute
@@ -571,7 +565,7 @@ return {
 
 	-- Step 108: From the tram to Stormwind
 	-- {area:1519} Stormwind
-	["From the tram to {area:1519}"] = "",
+	["From the tram to {area:1519}"] = "Del tranvía a {area:1519}",
 
 	-- Step 109: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {zone:1436} Westfall · {object:2096} Trade District
@@ -631,6 +625,7 @@ return {
 	-- ["East along the hills to the mine at the north end of the loch: the Miners' League crates sit in its tunnels, among more Tunnel Rats."] = "Al este por las colinas hasta la mina del extremo norte del lago: las cajas de la Liga de Mineros están en sus túneles, entre más ratas del túnel.",
 	-- ["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "Al este por el túnel de la Puerta Sur hasta {zone:1432}. {npc:1089} y {npc:1092} están en el puesto enano justo después.",
 	-- ["Flintfire's shipments lie on the cave floor, and {npc:278166} is missing somewhere inside.\nCareful: Wendigos stand close together inside the cave, so fights easily pull several at once; drawing them out one at a time with ranged attacks from outside avoids this."] = "Los envíos de Pedernal están en el suelo de la cueva, y {npc:278166} anda perdido en algún lugar adentro.\nCuidado: Los wendigos están muy juntos dentro de la cueva, así que es fácil atraer a varios a la vez; atraerlos de a uno con ataques a distancia desde afuera lo evita.",
+	-- ["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "Sigue el camino todo al este hasta {area:806}, en el túnel de {area:38}.",
 	-- ["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "Sigue el camino todo al este hasta {area:806}, en el túnel de {zone:1432}.",
 	-- ["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "Sigue el camino hasta {zone:1455} y entrena con tu instructor de clase. {area:2257} sale de {object:171524}, en el este de la ciudad. Tómalo hasta {zone:1453}.",
 	-- ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "Cruza el túnel hasta {zone:1432}. Justo después, un sendero marcado con piedras sube por las colinas a la derecha del camino, al norte, hasta el campamento de {npc:257808}.",
@@ -661,6 +656,7 @@ return {
 	-- ["{npc:1377}, at the depot"] = "{npc:1377}, en el almacén",
 	-- ["{npc:1573}, the gryphon master where you landed"] = "{npc:1573}, el maestro de grifos donde aterrizaste",
 	-- ["{npc:1702}, beside him: Camping 101, engineers"] = "{npc:1702}, a su lado: Campamento 101, ingenieros",
+	-- ["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960} espera en {area:808}, al norte de la Puerta Sur; el cadáver del enano está subiendo el paso al oeste de él.",
 	-- ["{npc:2326}, inside: Camping 101, {skill:129}"] = "{npc:2326}, dentro: Campamento 101, {skill:129}",
 	-- ["{npc:257808} gives you the {item:6636}. Climb to the peak above his camp, drink the Sapta beside the Spirit Stone and defeat the {npc:5893}, then place its {item:6655} in the {object:61934}, atop the Shrine of Eternal Flame."] = "{npc:257808} te da la {item:6636}. Sube a la cima sobre su campamento, bebe la sapta junto a la piedra espiritual y derrota a {npc:5893}; luego pon su {item:6655} en {object:61934}, en lo alto del santuario de la Llama Eterna.",
 	-- ["{npc:258098}, the shaman trainer, north of the {object:32372}"] = "{npc:258098}, el instructor de chamanes, al norte de {object:32372}",

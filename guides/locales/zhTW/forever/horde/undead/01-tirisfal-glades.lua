@@ -241,16 +241,16 @@ return {
 	-- {npc:5688} Innkeeper Renee · {npc:265944} William Pickman · {npc:1931} Captured Scarlet Zealot · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["Everything here is inside the inn, through its door on the south side: {npc:5688} at the bar, {npc:265944} at the north end of the ground floor, the {npc:1931} in the cellar under that end, and {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) upstairs: take the stairs inside, the arrow cannot tell the floors apart."] = "這裡的一切都在旅店裡，從南側的門進入：{npc:5688}在吧檯，{npc:265944}在一樓北端，{npc:1931}在那一端下方的地窖裡，{npc:2128}（法師）、{npc:2129}（牧師）、{npc:2127}（術士）和{npc:2130}（盜賊）在樓上：從室內樓梯上去，箭頭無法區分樓層。",
 	-- {npc:265944} William Pickman
-	["{npc:265944}, at the inn's north end: Camping 101 asks you to learn it"] = "",
+	["{npc:265944}, at the inn's north end: Camping 101 asks you to learn it"] = "{npc:265944}，在旅店北端：野營入門需要你學會它",
 
 	-- Step 44: The cellar stairs
-	["The cellar stairs"] = "",
+	["The cellar stairs"] = "地窖樓梯",
 	-- {npc:1931} Captured Scarlet Zealot
-	["The {npc:1931} is in the cellar under the inn's north end. The stairs down start at the west side of that end: go down them, then turn east to him."] = "",
+	["The {npc:1931} is in the cellar under the inn's north end. The stairs down start at the west side of that end: go down them, then turn east to him."] = "{npc:1931}在旅店北端下方的地窖裡。向下的樓梯從那一端西側開始：走下樓梯，然後向東轉去找他。",
 
 	-- Step 45: Gallows' End Tavern
 	-- {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call · {npc:2131} Austil de Mon
-	["Back up from the cellar: {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) are upstairs, {npc:2131} (warriors) on the ground floor; take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["Back up from the cellar: {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) are upstairs, {npc:2131} (warriors) on the ground floor; take the stairs inside, the arrow cannot tell the floors apart."] = "從地窖返回樓上：{npc:2128}（法師）、{npc:2129}（牧師）、{npc:2127}（術士）和{npc:2130}（潛行者）在樓上，{npc:2131}（戰士）在一樓；從室內樓梯上去，箭頭無法區分樓層。",
 	-- {npc:1931} Captured Scarlet Zealot
 	["The {npc:1931}, in the inn's cellar"] = "{npc:1931}，在旅店地下室",
 	-- {area:159} Brill · {npc:2131} Austil de Mon · {npc:246152} Shari Stilwell

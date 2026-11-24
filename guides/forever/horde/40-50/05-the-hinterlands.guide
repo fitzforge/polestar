@@ -14,8 +14,6 @@ next forever/horde/40-50/06-azshara
 # Left out: Assisting Arch Druid Runetotem (3784).
 
 step Fly to Tarren Mill
-  zone Searing Gorge
-  goto 34.8,30.6 "Thorium Point flight master"
   fly "Tarren Mill"
   zone Hillsbrad Foothills
 

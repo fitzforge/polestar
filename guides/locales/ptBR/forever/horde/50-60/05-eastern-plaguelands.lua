@@ -177,7 +177,8 @@ return {
 
 	-- Step 41: Egan
 	-- {npc:11140} Egan · {area:2627} Terrordale · {npc:12384} Augustus the Touched
-	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut."] = "O fantasma {npc:11140} fica junto a uma cabana na {area:2627}, no canto noroeste; {npc:12384} fica dentro da cabana.",
+	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit · Crypt Horrors = {npc:8557} Crypt Horror · Crypt Walkers = {npc:8556} Crypt Walker
+	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time."] = "",
 	-- {npc:12384} Augustus the Touched
 	["{npc:12384}, inside"] = "{npc:12384}, lá dentro",
 
@@ -213,6 +214,12 @@ return {
 	["Ride south to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "Cavalgue para o sul até {area:2264}, na estrada. {item:15447} estraga em dez minutos: mate rápido o Flagelo da vila e moa as sete peças com {item:15454} de uma vez.\nCuidado: Serviçais Evanescentes chamam ajuda num raio de 25 metros quando caem a 40% de vida. Fora de combate, eles também ficam invisíveis com {spell:10228}. Se o pedido de ajuda acontecer dentro da vila, muitos monstros podem entrar na briga. Lutar perto da periferia reduz esse risco.\nCom {quest:5211} no seu registro (de {npc:11063}, no início deste guia), o Flagelo em volta da vila deixa Espíritos da Vila das Flechas: fale com cada um para libertá-lo. Liberte-os antes de começar o {item:15447}.",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "Liberte os Espíritos de Darrowshire: fale com eles",
+	-- {npc:8530} Cannibal Ghoul · {npc:11064} Darrowshire Spirit
+	["{npc:8530}: a {npc:11064} rises where one dies"] = "",
+	-- {npc:8531} Gibbering Ghoul
+	["{npc:8531}: leaves a spirit too"] = "",
+	-- {npc:8532} Diseased Flayer
+	["{npc:8532}: leaves a spirit too"] = "",
 
 	-- Step 47: Carlin Redpath
 	-- {area:2268} Light's Hope Chapel
@@ -390,23 +397,25 @@ return {
 	-- Step 90: Donova Snowden
 	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
 	["From the tunnel's {zone:1452} exit, ride south to {area:2246}."] = "Da saída do túnel para {zone:1452}, cavalgue para o sul até {area:2246}.",
+
+	-- Step 91: Donova Snowden
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "{quest:5086} fica em {zone:1448}, numa viagem futura: guarde-a.",
 
-	-- Step 91: Moontouched Owlbeasts
+	-- Step 92: Moontouched Owlbeasts
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Moontouched Owlbeasts"] = "Ferujas Lunamarcas",
 	-- {area:2255} Everlook · {area:2241} Frostsaber Rock
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Careful: they are 57-58: pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "Siga para leste até {area:2255} e saia dela para o norte; as Ferujas Lunamarcas vagam pelas colinas das encostas sul de {area:2241}. Cuidado: são de nível 57-58: puxe uma de cada vez.\nCuidado: os Hailspite, elites de nível 60, se juntam nos campos de neve a sudeste de {area:2255}, onde também vagam algumas Ferujas Lunamarcas: fique nas encostas ao norte da cidade.",
 
-	-- Step 92: Pristine Yeti Horns
+	-- Step 93: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Chifres Impolutos de Yeti",
 	-- {area:2255} Everlook
 	["Umi's horns, carried from your last {area:2255} stop: the yeti hills start just south-east of {area:2255}. Only Matriarchs and Patriarchs drop horns, and the Patriarchs reach 58: pull them one at a time."] = "Os chifres de Umi, trazidos da sua última parada em {area:2255}: as colinas dos yetis começam logo a sudeste de {area:2255}. Só Matriarcas e Patriarcas deixam cair chifres, e os Patriarcas chegam ao nível 58: puxe um de cada vez.",
 
-	-- Step 93: Umi Rumplesnicker
+	-- Step 94: Umi Rumplesnicker
 	-- {area:976} Gadgetzan · {area:2255} Everlook · {zone:2482} Mount Hyjal · {zone:1451} Silithus
 	["Umi's third prank targets goblins in {area:976}, Un'Goro and {area:2255}: keep it. {zone:2482} is next: its way in starts here in {area:2255}; {area:976}, Linken's sword and {zone:1451} follow it."] = "",
 
@@ -484,6 +493,7 @@ return {
 	-- ["{npc:10880}, outside the front gate on the way in: for {npc:7776} at {quest:7492}, at the end of this guide"] = "{npc:10880}, do lado de fora do portão da frente, na entrada: para {npc:7776} em {quest:7492}, no fim deste guia",
 	-- ["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "{npc:10880}: para {npc:7776} em {quest:7492}, no fim deste guia",
 	-- ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner."] = "O fantasma {npc:11140} fica junto a uma cabana na {area:2627}, no canto noroeste.",
+	-- ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut."] = "O fantasma {npc:11140} fica junto a uma cabana na {area:2627}, no canto noroeste; {npc:12384} fica dentro da cabana.",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}."] = "O campeão da {npc:15193} ocupa a casa da {area:2260}, ao norte da {area:2261}.",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}. His {npc:8564} hunt, in the north of the zone, waits for the next guide's Plaguelands trip."] = "O campeão da {npc:15193} ocupa a casa da {area:2260}, ao norte da {area:2261}. A caçada aos {npc:8564}, no norte da zona, fica para a viagem às Terras Pestilentas do próximo guia.",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse."] = "O campeão de {npc:15193} ocupa a casa da {area:2260}.",

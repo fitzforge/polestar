@@ -177,7 +177,8 @@ return {
 
 	-- Step 41: Egan
 	-- {npc:11140} Egan · {area:2627} Terrordale · {npc:12384} Augustus the Touched
-	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut."] = "鬼魂{npc:11140}站在西北角{area:2627}的一间小屋旁；{npc:12384}坐在小屋里。",
+	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit · Crypt Horrors = {npc:8557} Crypt Horror · Crypt Walkers = {npc:8556} Crypt Walker
+	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time."] = "",
 	-- {npc:12384} Augustus the Touched
 	["{npc:12384}, inside"] = "{npc:12384}，在屋内",
 
@@ -213,6 +214,12 @@ return {
 	["Ride south to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "沿道路向南骑往{area:2264}。{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。\n小心：无影仆从血量降到40%时会呼叫25码内的同伴求援。脱离战斗时它们还会用{spell:10228}隐形。如果在镇子里触发求援，大量怪物可能加入战斗。在镇子外围战斗可以降低这种风险。\n如果你的任务日志里有{quest:5211}（来自本指南开头的{npc:11063}），镇子周围的天灾军团死后会留下达隆郡居民的灵魂：与每一个交谈以解放它。先解放它们，再开始收集{item:15447}。",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "解放达隆郡之魂：与它们交谈",
+	-- {npc:8530} Cannibal Ghoul · {npc:11064} Darrowshire Spirit
+	["{npc:8530}: a {npc:11064} rises where one dies"] = "",
+	-- {npc:8531} Gibbering Ghoul
+	["{npc:8531}: leaves a spirit too"] = "",
+	-- {npc:8532} Diseased Flayer
+	["{npc:8532}: leaves a spirit too"] = "",
 
 	-- Step 47: Carlin Redpath
 	-- {area:2268} Light's Hope Chapel
@@ -390,23 +397,25 @@ return {
 	-- Step 90: Donova Snowden
 	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
 	["From the tunnel's {zone:1452} exit, ride south to {area:2246}."] = "从隧道的{zone:1452}出口向南骑往{area:2246}。",
+
+	-- Step 91: Donova Snowden
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "{quest:5086}在{zone:1448}，以后才会去，先保留任务。",
 
-	-- Step 91: Moontouched Owlbeasts
+	-- Step 92: Moontouched Owlbeasts
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Moontouched Owlbeasts"] = "月光枭兽",
 	-- {area:2255} Everlook · {area:2241} Frostsaber Rock
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Careful: they are 57-58: pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "向东骑往{area:2255}，再从那里向北出去；月光枭兽在{area:2241}南坡的山丘上游荡。小心：它们是57-58级：一次引一只。\n小心：60级精英冰雹怨灵聚集在{area:2255}东南方的雪原上，那里也有少量月光枭兽游荡：待在镇子北边的山坡上。",
 
-	-- Step 92: Pristine Yeti Horns
+	-- Step 93: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "完美的雪人角",
 	-- {area:2255} Everlook
 	["Umi's horns, carried from your last {area:2255} stop: the yeti hills start just south-east of {area:2255}. Only Matriarchs and Patriarchs drop horns, and the Patriarchs reach 58: pull them one at a time."] = "乌米的角，从上次{area:2255}之行带过来的任务：雪人山丘就在{area:2255}东南不远处。只有雪人女族长和雪人族长会掉落角，族长最高58级：一次引一只。",
 
-	-- Step 93: Umi Rumplesnicker
+	-- Step 94: Umi Rumplesnicker
 	-- {area:976} Gadgetzan · {area:2255} Everlook · {zone:2482} Mount Hyjal · {zone:1451} Silithus
 	["Umi's third prank targets goblins in {area:976}, Un'Goro and {area:2255}: keep it. {zone:2482} is next: its way in starts here in {area:2255}; {area:976}, Linken's sword and {zone:1451} follow it."] = "",
 
@@ -484,6 +493,7 @@ return {
 	-- ["{npc:10880} walks the {object:172982} and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk."] = "{npc:10880}在{object:172982}及其周边街道巡逻：在前往飞行管理员塔楼的路上留意他；地图上的圆圈就是他的巡逻范围。",
 	-- ["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "{npc:10880}：交给{quest:7492}的{npc:7776}，在本指南末尾",
 	-- ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner."] = "鬼魂{npc:11140}站在西北角{area:2627}的一间小屋旁。",
+	-- ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut."] = "鬼魂{npc:11140}站在西北角{area:2627}的一间小屋旁；{npc:12384}坐在小屋里。",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}."] = "{npc:15193}的勇士占据着{area:2261}北边{area:2260}的农舍。",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}. His {npc:8564} hunt, in the north of the zone, waits for the next guide's Plaguelands trip."] = "{npc:15193}的勇士占据着{area:2261}北边{area:2260}的农舍。他的{npc:8564}狩猎任务在本地区北部，留到下一份指南再来瘟疫之地时完成。",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse."] = "{npc:15193}的勇士占据着{area:2260}的农舍。",

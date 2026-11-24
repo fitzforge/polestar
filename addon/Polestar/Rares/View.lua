@@ -338,6 +338,30 @@ end
 
 local NOWHERE = "~" -- sorts last
 
+-- Rares with no spawn on any map (instances, unknown places): the rare list's
+-- "Dungeons and unplaced". Treasures have no such group: one with no spot is
+-- never listed.
+local function unplacedRares()
+	local out, C = {}, Rares.Codex(false)
+	if C then
+		C.Each("rare", function(id)
+			local rec = Rares.Info("rare", id)
+			if rec and #rec.spawns == 0 then out[#out + 1] = rec end
+		end)
+	end
+	return out
+end
+
+-- How many records the list of `kind` shows with no search: its placed ones
+-- (Rares.ListOf) and, for rares, the unplaced ones. The sidebar and the
+-- header count these, never the Codex's every record (#3424). Nil without
+-- the Codex.
+local function listed(kind)
+	local all = Rares.ListOf(kind)
+	if not all then return nil end
+	return #all + (kind == "rare" and #unplacedRares() or 0)
+end
+
 -- -> { { head = zone, count } | { key, title, sub, kind, dim } } for a tab (default the open one), and how many rows
 local function entries(kind)
 	kind = kind or tab
@@ -359,17 +383,7 @@ local function entries(kind)
 		return out, #rows
 	end
 	local all = Rares.ListOf(kind) or {}
-	local unplaced = {}
-	if kind == "rare" then
-		-- Rares with no spawn on any map (instances, unknown places) too.
-		local C = Rares.Codex(false)
-		if C then
-			C.Each("rare", function(id)
-				local rec = Rares.Info("rare", id)
-				if rec and #rec.spawns == 0 then unplaced[#unplaced + 1] = rec end
-			end)
-		end
-	end
+	local unplaced = kind == "rare" and unplacedRares() or {}
 	local here = playerMap()
 	local byZone, zones = {}, {}
 	local function add(rec, zone)
@@ -762,7 +776,7 @@ local function subtitle()
 	end
 	local nz = 0
 	for _ in pairs(zones) do nz = nz + 1 end
-	local nr, nt = r and #r or 0, t and #t or 0
+	local nr, nt = listed("rare") or 0, t and #t or 0
 	return concat({
 		nr == 1 and L["1 rare"] or format(L["%d rares"], nr),
 		nt == 1 and L["1 treasure"] or format(L["%d treasures"], nt),
@@ -807,7 +821,7 @@ function RV.Render()
 		actions(false, false, nil)
 		local text
 		if reason == "off" then
-			text = L["Rares is turned off. Turn it on under Options > Discovery > Rares."]
+			text = L["Rares is turned off. Turn it on under Settings > Discovery > Rares."]
 		else
 			local rt = LK() and LK().ReasonText
 			text = (rt and rt(reason)) or tostring(reason)
@@ -851,17 +865,14 @@ function RV.SetTab(key)
 	end
 end
 
--- The sidebar index: Rares, Treasures, Seen with their counts; while searching, what each would list (#2776).
+-- The sidebar index: Rares, Treasures, Seen with their counts: what each list shows (#3424: never a treasure with
+-- no spot, which no list holds); while searching, what each would list (#2776).
 function RV.Nav()
 	local C = Rares.Codex(false)
 	local seen = 0
 	for _ in pairs(Rares.History()) do seen = seen + 1 end
 	local r, t
-	if C then
-		r, t = 0, 0
-		C.Each("rare", function() r = r + 1 end)
-		C.Each("treasure", function() t = t + 1 end)
-	end
+	if C then r, t = listed("rare"), listed("treasure") end
 	if filter ~= "" then
 		if C then r, t = select(2, entries("rare")), select(2, entries("treasure")) end
 		seen = select(2, entries("seen"))

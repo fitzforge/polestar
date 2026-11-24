@@ -11,7 +11,7 @@ return {
 	-- {item:281060} Replica Ironforge Air Rifle · {npc:268840} Spectral Bear Cub · {item:277717} Spectral Bear Tabard · {npc:6791} Innkeeper Wiley · {area:392} Ratchet · {zone:1413} Barrens
 	["Legacy Points are account-wide: each Legacy Challenge (a class reaching 25, 45 and 60, professions, PvP, exploring) is worth one, and every point the account earns counts here, spent or not. The Legacy Challenges guide plans them. The Progress Track gives the {item:281060} at 15, the {npc:268840} at 25, the {item:277717} at 40 and the reins at 55. Claim each one from {npc:6791} at the inn in {area:392}, on the {zone:1413} coast: he offers a \"Legacy Reward\" quest once you have the points."] = "Los puntos de Legado son de toda la cuenta: cada desafío de Legado (una clase que llega a 25, 45 y 60, profesiones, JcJ, exploración) vale uno, y cada punto que gana la cuenta cuenta aquí, gastado o no. La guía de desafíos de Legado los planifica. El registro de progreso da {item:281060} con 15, {npc:268840} con 25, {item:277717} con 40 y las riendas con 55. Reclama cada una con {npc:6791} en la posada de {area:392}, en la costa de {zone:1413}: te ofrece una misión «Legacy Reward» en cuanto tengas los puntos.",
 	-- {npc:6791} Innkeeper Wiley
-	["from {npc:6791}"] = "",
+	["from {npc:6791}"] = "de {npc:6791}",
 
 	-- Step 2: Journeyman Riding
 	-- {skill:762} Riding

@@ -146,7 +146,8 @@ step Soul Dust
   collect 11083 x20 anywhere gather Enchanting 1
 
 step Enchant Chest - Inferior Stamina to 90
-  tip Enchant Chest - Inferior Stamina is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 Strange Dust. One Strange Dust a craft: the dust most level 5-20 greens break into, armour above all. Lesser Magic Essence (from weapons) does the same job through Bracer - Minor Deflect or Chest - Minor Absorption if you have more of it. Enchant any item for that slot in your bags, even a grey one.
+  tip Enchant Chest - Inferior Stamina is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 Strange Dust. One Strange Dust a craft: the dust most level 5-20 greens break into, armour above all. Lesser Magic Essence (from weapons) does the same job through Bracer - Minor Deflect or Chest - Minor Absorption if you have more of it. Enchant any item for that slot in your bags, even a grey one. If you got here without learning Enchant Chest - Inferior Stamina, learn it now: an earlier step teaches it.
+  learn 7420
   craft 7420 until 90
 
 step Enchant Cloak - Minor Protection to 130
@@ -222,7 +223,8 @@ step Expert Enchanting
   learn 13628
 
 step Enchant Bracer - Lesser Stamina to 160
-  tip Enchant Bracer - Lesser Stamina is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 Soul Dust. One Soul Dust a craft (level 21-30 greens). Make the Runed Golden Rod now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one.
+  tip Enchant Bracer - Lesser Stamina is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 Soul Dust. One Soul Dust a craft (level 21-30 greens). Make the Runed Golden Rod now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one. If you got here without learning Enchant Bracer - Lesser Stamina, learn it now: an earlier step teaches it.
+  learn 13501
   craft 13628 x1 -- a tool: keep it in your bags
   craft 13501 until 160
 
@@ -276,7 +278,7 @@ step Purple Lotus (Alliance)
   only Alliance
   zone The Hinterlands
   tip 34 Purple Lotus for Lesser Mana Oil: Herbalism: Purple Lotus (skill 210) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The densest patch of Purple Lotus in The Hinterlands is marked.
-  collect 8831 x34 @66.3,71.6 era gather Herbalism 210
+  collect 8831 x34 @62.3,69.4 era gather Herbalism 210
 
 step Purple Lotus (Horde)
   only Horde

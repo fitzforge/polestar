@@ -175,6 +175,15 @@ step Henze Faulk
   accept 1787 only Human
   collect 6846 quest 1787.1 only Human -- Defias Script: Defias Rogue Wizards
 
+step Henze Faulk
+  only Human,Paladin
+  zone Elwynn Forest
+  when turnedin 1786
+  when available 1787
+  tip Henze Faulk is already raised: take the next part of The Tome of Divinity from him, south of Stone Cairn Lake. The Defias Rogue Wizards around him carry the Defias Script.
+  accept 1787 only Human
+  collect 6846 quest 1787.1 only Human -- Defias Script: Defias Rogue Wizards
+
 step Three Corners
   zone Redridge Mountains
   tip The road east through Elwynn crosses into Redridge at Three Corners, where the roads to Redridge, Duskwood and Elwynn meet: south to Duskwood first.

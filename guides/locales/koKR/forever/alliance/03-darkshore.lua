@@ -25,8 +25,7 @@ return {
 	-- {npc:10219} Gwennyth Bly'Leggonde · {zone:1438} Teldrassil
 	["{npc:10219} (Night Elves have it from {zone:1438})"] = "",
 	-- {npc:10216} Gubber Blump
-	-- was: ["{npc:10216}, on the pier: only with {skill:356}"] = "{npc:10216}, 부두 위: {skill:356} 기술이 있을 때만"
-	["{npc:10216}, on the pier"] = "",
+	["{npc:10216}, on the pier"] = "{npc:10216}, 부두 위",
 
 	-- Step 3: Gubber Blump
 	-- {npc:10216} Gubber Blump · {item:12238} Darkshore Grouper
@@ -108,12 +107,12 @@ return {
 
 	-- Step 18: Moonglade
 	-- {spell:18960} Teleport: Moonglade
-	["Cast {spell:18960}"] = "",
+	["Cast {spell:18960}"] = "{spell:18960}을(를) 시전하세요",
 
 	-- Step 19: Trial of the Lake
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:29} Trial of the Lake · {area:442} Auberdine
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "{npc:11802}은(는) {area:2361}에 있는 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다. 성소 장신구는 {area:2361} 아래 {area:656} 바닥의 용기 속에 있습니다. 하나를 북서쪽의 {area:2362}(으)로 가져가 그곳에서 사용하고 {npc:11799}와(과) 대화하세요. {quest:29}에는 시간 제한이 있습니다. {npc:11799}이(가) 받을 때까지 순간이동이나 귀환석을 쓰지 마세요. 그런 다음 {area:2361}에서 {area:442}(으)로 날아 돌아오세요.",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "{npc:11802}은(는) {area:2361}에 있는 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다. 제단 구슬는 {area:2361} 아래 {area:656} 바닥의 용기 속에 있습니다. 하나를 북서쪽의 {area:2362}(으)로 가져가 그곳에서 사용하고 {npc:11799}와(과) 대화하세요. {quest:29}에는 시간 제한이 있습니다. {npc:11799}이(가) 받을 때까지 순간이동이나 귀환석을 쓰지 마세요. 그런 다음 {area:2361}에서 {area:442}(으)로 날아 돌아오세요.",
 	-- {quest:6122} The Principal Source · {area:445} Cliffspring Falls
 	["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122}: {area:445}에서 채집기를 채우십시오",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
@@ -211,7 +210,7 @@ return {
 	-- Step 35: The cave and the Den Mother
 	["Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time."] = "",
 	-- {npc:6788} Den Mother
-	["{npc:6788}, below ground"] = "",
+	["{npc:6788}, below ground"] = "{npc:6788}, 지하",
 
 	-- Step 36: Auberdine
 	-- {quest:948} Onu · {zone:1439} Darkshore

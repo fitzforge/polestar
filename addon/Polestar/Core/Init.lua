@@ -166,10 +166,11 @@ end
 -- status "ai"; tests/i18n.test.js keeps the two lists equal).
 ns.AI_LOCALES = { koKR = true, ptBR = true, ruRU = true, zhCN = true, zhTW = true }
 
--- True when this client reads an AI-made translation: its locale is one of
--- AI_LOCALES and its file filled L. Options' About then says so.
+-- True when Polestar shows an AI-made translation: the language it shows
+-- (Polestar.Names.Language) is one of AI_LOCALES and its file filled L.
+-- Options' About then says so.
 function ns.AITranslation()
-	return (GetLocale and ns.AI_LOCALES[GetLocale()] == true and next(L) ~= nil) or false
+	return (ns.AI_LOCALES[ns.Names.Language()] == true and next(L) ~= nil) or false
 end
 
 -- Game terms in the client's own words, so they read as the game writes them
@@ -404,8 +405,20 @@ local run = call
 -- fn wrapped so its errors are caught, noted and passed on like an event
 -- handler's (nil stays nil): for OnUpdate scripts and timer callbacks, which
 -- the client would otherwise run bare.
+-- Until login is done, and for every ticker and timer, where fn was made is
+-- noted for the perf probe (ns.NoteMadeAt): the OnUpdate scripts and tickers
+-- made as the addon loads run for the whole session, and the probe, turned on
+-- later, could not name them ("timer ?" in a report, #3640). Once logged in a
+-- plain ns.Safe/ns.After (made often, gone soon) notes nothing; the probe
+-- notes those itself while it is on.
+local noteMaking = true
+local INIT = ADDON .. "/Core/Init.lua"
+local function noteMade(fn)
+	if madeAt[fn] == nil then ns.NoteMadeAt(fn, INIT) end
+end
 function ns.Safe(fn)
 	if fn == nil then return nil end
+	if noteMaking then noteMade(fn) end
 	return function(...)
 		serial = serial + 1
 		run(fn, ...)
@@ -414,8 +427,14 @@ end
 
 -- C_Timer's After, NewTicker and NewTimer with the callback through ns.Safe.
 function ns.After(seconds, fn) return C_Timer.After(seconds, ns.Safe(fn)) end
-function ns.NewTicker(seconds, fn, n) return C_Timer.NewTicker(seconds, ns.Safe(fn), n) end
-function ns.NewTimer(seconds, fn) return C_Timer.NewTimer(seconds, ns.Safe(fn)) end
+function ns.NewTicker(seconds, fn, n)
+	if fn ~= nil then noteMade(fn) end
+	return C_Timer.NewTicker(seconds, ns.Safe(fn), n)
+end
+function ns.NewTimer(seconds, fn)
+	if fn ~= nil then noteMade(fn) end
+	return C_Timer.NewTimer(seconds, ns.Safe(fn))
+end
 
 -- A frame of Polestar's that goes under the game's own UI (the world map's
 -- canvas, the minimap, a quest reward or talent button): made with no parent,
@@ -986,16 +1005,32 @@ function ns.RegisterDefaults(section, tbl)
 	for k, v in pairs(tbl) do d[k] = v end
 end
 
+-- The layout in use's defaults (Theme.RegisterLayout's spec.defaults, set
+-- by Theme/SkinApi.lua): "guideWindow.tabs" -> value. A setting reads the
+-- player's saved value, else the layout's default, else Polestar's.
+local layered = {}
+local function defaultOf(path, keys)
+	local v = layered[path]
+	if v == nil then v = lookup(defaults, keys) end
+	return v
+end
+
 -- Values are shared, not copied: treat returned tables as read-only and Set a
 -- new table to change one.
 function ns.Get(path)
 	local keys = keysOf(path)
 	local v = lookup(DB().settings, keys)
-	if v == nil then v = lookup(defaults, keys) end
+	if v == nil then v = defaultOf(path, keys) end
 	return v
 end
 
+-- The default a setting goes back to on reset: the layout's, else Polestar's.
 function ns.GetDefault(path)
+	return defaultOf(path, keysOf(path))
+end
+
+-- Polestar's own default, whatever the layout.
+function ns.GetBaseDefault(path)
 	return lookup(defaults, keysOf(path))
 end
 
@@ -1003,6 +1038,12 @@ end
 -- Set(path, value) puts back exactly: undo, a frame's place before a move).
 function ns.GetStored(path)
 	return lookup(DB().settings, keysOf(path))
+end
+
+-- Put the layout's defaults in place (t: path -> value, or nil for none).
+function ns.SetLayoutDefaults(t)
+	layered = {}
+	for p, v in pairs(t or {}) do layered[p] = v end
 end
 
 ---------------------------------------------------------------------------
@@ -1032,7 +1073,7 @@ function ns.Set(path, value)
 		if type(node[k]) ~= "table" then node[k] = {} end
 		node = node[k]
 	end
-	if value == lookup(defaults, keys) then value = nil end
+	if value == defaultOf(path, keys) then value = nil end
 	node[keys[#keys]] = value
 	if liveDepth > 0 then
 		if not livePaths[path] then
@@ -1376,8 +1417,15 @@ function ns.CharState()
 	if type(s.pinnedQuests) ~= "table" then s.pinnedQuests = {} end
 	-- Guide id -> true: the leveling guides whose end the player reached (Engine.lua, Own.noteEnd), told once; it stands only while that end holds, and is forgotten by a reset or when a pack update changes the guide's steps (checkShape).
 	-- Those saved before 0.3.6 (guideEndsV unset) are dropped once: 0.3.5 reused guide ids for other parts of the route, and ended guides by where the player stood (the Undercity at the start of Hillsbrad), so any of them can be false; one without a live step shows nothing either way.
-	if type(s.guideEnds) ~= "table" or s.guideEndsV ~= 2 then
-		s.guideEnds, s.guideEndsV = {}, 2
+	-- Those saved by 0.3.6 up to 0.4.2.2 (guideEndsV 2) could be told with steps still open before the last one:
+	-- kept, and listed in guideEndsOld for the Engine to look at once (Own.noteEnd: forgotten with steps left, #3517).
+	if type(s.guideEnds) == "table" and s.guideEndsV == 2 then
+		s.guideEndsOld = {}
+		for id in pairs(s.guideEnds) do s.guideEndsOld[id] = true end
+		s.guideEndsV = 3
+	end
+	if type(s.guideEnds) ~= "table" or s.guideEndsV ~= 3 then
+		s.guideEnds, s.guideEndsV, s.guideEndsOld = {}, 3, nil
 	end
 	-- Guide id -> true: the guides the player finished, every step done (Engine.lua, the completion in
 	-- evaluateLoaded), kept over a reload or relog for the guide list's check (Engine.GetGuideState); a
@@ -1443,6 +1491,7 @@ local function onLogin()
 	local queue = loginQueue
 	loginQueue = nil
 	for i = 1, #queue do call(queue[i]) end
+	noteMaking = false
 end
 
 ns.RegisterEvent("ADDON_LOADED", onAddonLoaded)
@@ -1462,6 +1511,16 @@ function ns.Print(...)
 	local parts = {}
 	for i = 1, n do parts[i] = tostring((select(i, ...))) end
 	DEFAULT_CHAT_FRAME:AddMessage(PREFIX .. table.concat(parts, " "))
+end
+
+-- A line telling what Polestar did or wants by itself (a turn-in waiting on a
+-- reward, buttons upgraded, junk sold): silent with Settings > Guide >
+-- Window > Show and hide > Chat messages off (#2527). Errors and command replies use
+-- ns.Print.
+ns.RegisterDefaults("ui", { chatMessages = true })
+function ns.Notice(...)
+	if ns.Get("ui.chatMessages") == false then return end
+	ns.Print(...)
 end
 
 ns.debug = false

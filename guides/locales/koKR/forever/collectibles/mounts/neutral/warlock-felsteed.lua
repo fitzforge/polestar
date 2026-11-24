@@ -12,11 +12,11 @@ return {
 
 	-- Step 1: Summon Felsteed (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["At 40 {npc:461}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:461}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "40레벨에 {object:2101}의 {object:2164} 지하실에 있는 {npc:461}이(가) {area:392}의 {npc:6251}에게 보냅니다. 퀘스트가 없나요? 먼저 흑마법사 사냥개 연쇄 퀘스트를 끝내세요. 플레이어들은 그 뒤에 탈것을 받는다고 보고합니다.",
 
 	-- Step 2: Summon Felsteed (Ironforge)
 	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["At 40 {npc:5172}, by the warlock trainers in {zone:1455}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:5172}, by the warlock trainers in {zone:1455}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "40레벨에 {zone:1455}의 흑마법사 교관 곁 {npc:5172}이(가) {area:392}의 {npc:6251}에게 보냅니다. 퀘스트가 없나요? 먼저 흑마법사 사냥개 연쇄 퀘스트를 끝내세요. 플레이어들은 그 뒤에 탈것을 받는다고 보고합니다.",
 
 	-- Step 3: Summon Felsteed (Orgrimmar)
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:6251} Strahad Farsan · {area:392} Ratchet
@@ -30,7 +30,7 @@ return {
 	-- {npc:6251} Strahad Farsan · {area:392} Ratchet
 	["{npc:6251} in {area:392}"] = "{area:392}의 {npc:6251}",
 	-- {area:392} Ratchet · {zone:1413} Barrens · {area:35} Booty Bay · {npc:6251} Strahad Farsan · {quest:3631} Summon Felsteed
-	["{area:392} is the goblin port on the {zone:1413} coast, east of the Crossroads; from the Alliance side take the boat from {area:35}. {npc:6251} stands by his small tower on the hill above the town, not down at the docks. Hand in, then take his own {quest:3631} and hand it straight back: that teaches you the mount. No fight, and the quests ask for nothing."] = "",
+	["{area:392} is the goblin port on the {zone:1413} coast, east of the Crossroads; from the Alliance side take the boat from {area:35}. {npc:6251} stands by his small tower on the hill above the town, not down at the docks. Hand in, then take his own {quest:3631} and hand it straight back: that teaches you the mount. No fight, and the quests ask for nothing."] = "{area:392}은(는) 크로스로드 동쪽 {zone:1413} 해안의 고블린 항구입니다. 얼라이언스는 {area:35}에서 배를 타세요. {npc:6251}은(는) 마을 위 언덕의 작은 탑 곁에 서 있으며 부두 아래가 아닙니다. 제출한 뒤 그의 {quest:3631}을(를) 받아 바로 다시 제출하면 탈것을 배웁니다. 싸움도 없고 요구하는 것도 없습니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 40 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6251} in {area:392}."] = "40레벨이 되면 {object:2101} 안 {object:2164}의 {npc:461}이(가) {area:392}의 {npc:6251}에게 보냅니다.",

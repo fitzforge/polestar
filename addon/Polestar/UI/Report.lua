@@ -197,7 +197,9 @@ local function guideLines(d, on)
 				break
 			end
 			local h = e.h
-			add(d, "planned", (plain(h.title or ("#" .. e.q)) .. " [hidden: needs " .. plain(h.needTitle or ("#" .. tostring(h.need))) .. " from " .. plain(h.from or "?") .. "]"))
+			local Q = ns.QuestDB
+			local need = h.needTitle or (Q and Q.GetQuestTitle and Q.GetQuestTitle(h.need)) or ("#" .. tostring(h.need))
+			add(d, "planned", (plain(h.title or ("#" .. e.q)) .. " [hidden: needs " .. plain(need) .. (h.from and (" from " .. plain(h.from)) or "") .. "]"))
 		end
 	end
 	if not view then
@@ -310,7 +312,7 @@ local function routesLine()
 end
 
 -- The travel plan from the current leg on (Nav.GetRoute): each leg's caption
--- and time, "(maybe)" on a flight to a flight master the character may not
+-- and time, "(assumed)" on a flight to a flight master the character may not
 -- have (#1795: the first flight map there settles it); no line without a plan
 -- (the arrow leads straight). The words stay English like Routes; after
 -- Routes, so Arrow, Where and Routes keep their places for the bug bot.
@@ -324,9 +326,53 @@ local function travelLine()
 	for i = ci or 1, #legs do
 		local leg = legs[i]
 		local s = floor((leg.seconds or 0) + 0.5)
-		parts[#parts + 1] = ("%s %d:%02d%s"):format(plain(leg.label or leg.kind or "?"), floor(s / 60), s % 60, leg.maybe and " (maybe)" or "")
+		parts[#parts + 1] = ("%s %d:%02d%s"):format(plain(leg.label or leg.kind or "?"), floor(s / 60), s % 60, leg.maybe and " (assumed)" or "")
 	end
+	-- A walk a flight would beat with a flight path Polestar doesn't know of (Nav.FlightHint).
+	local hint = N.FlightHint and N.FlightHint()
+	if hint then parts[#parts + 1] = ("faster with the flight path at %s"):format(plain(hint.name or "?")) end
 	return cut((L["Travel: %s"]):format(table.concat(parts, SEP)), 300)
+end
+
+-- Where this session's walks went through what the walking maps close (Nav/Walk.lua Walk.WalkedGaps: the player's
+-- own steps the router took as open, #3641): the places, as the guides write them (map, @x,y), and the steps; the newest
+-- last. English words, as Routes; a free finder of map gaps for the data round. No line without one.
+local function walkedLine()
+	local N, C = ns.Nav, ns.Compat
+	local W, T = N and N.walk, N and N.travel
+	local gaps = W and W.WalkedGaps and W.WalkedGaps()
+	if not (gaps and #gaps > 0) then return nil end
+	local parts = {}
+	for i, g in ipairs(gaps) do
+		local zone = T and T.ZoneOf and T.ZoneOf(nil, g.c, g.x, g.y)
+		local x, y
+		if zone and C and C.WorldToMap then x, y = C.WorldToMap(g.c, g.x, g.y, zone) end
+		parts[i] = (where(zone, x, y) or ("continent %d %.0f,%.0f"):format(g.c, g.x, g.y)) .. (" (%d steps)"):format(g.n)
+	end
+	return cut("Walked where the map says blocked: " .. table.concat(parts, SEP))
+end
+
+-- The flight paths Polestar takes this character to know on the continent
+-- they stand on (Nav.GetKnownTaxiNodes: from the flight maps opened, plus
+-- flight masters met by name), by name, and whether a flight map has been
+-- opened there yet (Nav.GetTaxiSeen: until then a path learnt before
+-- Polestar ran may be missing). A report of a "Fly to" the character can't
+-- take (#3290: Theramore and Ratchet not on the map, the route flying there)
+-- then says what Polestar thought. The words stay English like Routes; after
+-- Travel. Nothing without the travel data or a position.
+local function flightsLine()
+	local N, C = ns.Nav, ns.Compat
+	if not (N and N.GetKnownTaxiNodes and N.GetTaxiNode and C and C.GetPlayerWorldPosition) then return nil end
+	local c = C.GetPlayerWorldPosition()
+	if c == nil then return nil end
+	local names = {}
+	for id in pairs(N.GetKnownTaxiNodes() or {}) do
+		local node = N.GetTaxiNode(id)
+		if node and node.c == c then names[#names + 1] = plain(node.name or tostring(id)) end
+	end
+	table.sort(names)
+	local seen = N.GetTaxiSeen and (N.GetTaxiSeen() or {})[c] and "flight map opened here" or "no flight map opened here yet"
+	return cut(("Flight paths: %d known here%s%s"):format(#names, SEP, seen) .. (#names > 0 and (SEP .. table.concat(names, ", ")) or ""), 400)
 end
 
 -- The "While you're here" line (Engine.WhileHereState): the lines shown
@@ -879,6 +925,8 @@ function R.Details()
 	add(d, "where", playerLine())
 	add(d, "routes", routesLine())
 	add(d, "travel", travelLine())
+	add(d, "walked", walkedLine())
+	add(d, "flights", flightsLine())
 	add(d, "whilehere", whileHereLine())
 	add(d, "packs", packsLine())
 	add(d, "install", installLine())
@@ -982,6 +1030,7 @@ local function cutOrder(details)
 	all("perf", -1, 1, -1)
 	all("planned", -1, 1, -1)
 	all("leftout", -1, 1, -1)
+	all("flights")
 	all("whilehere")
 	all("travel")
 	all("install")
@@ -1210,56 +1259,101 @@ local function sizeDesc()
 	W.SetScrollContent(F.DescScroll, content, view - 16)
 end
 
+-- A string's height, or a frame's, rounded once, where it is measured.
+local function textH(fs) return floor(fs:GetStringHeight() + 0.5) end
+local function frameH(f) return floor(f:GetHeight() + 0.5) end
+
+-- The flip guard (#3847): with the same inputs, a pass that would undo the
+-- last change by the same step keeps the height the window has, so two
+-- passes can never take turns frame after frame. Noted once in the Log.
+local function settle(h, key)
+	local was = F.psLayoutH
+	if was and key == F.psLayoutKey and F.psLayoutStep and h - was == -F.psLayoutStep then
+		if not F.psFlipNoted then
+			F.psFlipNoted = true
+			ns.Log(("Report window: a layout pass undid the last one (%+d); kept the first"):format(h - was))
+		end
+		return was
+	end
+	if key ~= F.psLayoutKey then F.psLayoutStep = nil end
+	if was and h ~= was then F.psLayoutStep = h - was end
+	F.psLayoutH, F.psLayoutKey = h, key
+	return h
+end
+
+-- Where the window stands: its top-left corner on UIParent at whole pixels,
+-- kept on the screen here at its height now, so the client's clamp never
+-- has to move it (#3847: the window shook by a few pixels every other
+-- frame). It opens centred, 40 up, and grows down from there; after a drag
+-- it stays where the player put it.
+local function fit()
+	local k = UIParent:GetEffectiveScale() / F:GetEffectiveScale()
+	local sw, sh = UIParent:GetWidth() * k, UIParent:GetHeight() * k
+	local w, h = F:GetWidth(), F:GetHeight()
+	if not F.psLeft then F.psLeft, F.psTop = (sw - w) / 2, (sh + h) / 2 + 40 end
+	local left = min(max(F.psLeft, 0), max(0, sw - w))
+	local top = max(min(F.psTop, sh), min(sh, h))
+	local px = Theme.PixelsPerUnit(F)
+	left, top = floor(left * px + 0.5) / px, floor(top * px + 0.5) / px
+	if F.psAtLeft == left and F.psAtTop == top and F:GetNumPoints() == 1 then return end
+	F.psAtLeft, F.psAtTop = left, top
+	F:ClearAllPoints()
+	F:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left, top)
+end
+
+-- One pass that settles at once: every label is measured at the width it
+-- is drawn at, nothing reads the window's own height or an earlier pass,
+-- and the report box's view comes from the rest of the content's total.
 local function layout()
 	local y = HEAD_H + 12
 	if F.Outdated:IsShown() then
 		put(F.Outdated, PAD, y)
-		y = y + F.Outdated:GetStringHeight() + 12
+		y = y + textH(F.Outdated) + 12
 	end
 	put(F.Context, PAD, y)
-	y = y + F.Context:GetStringHeight() + 16
+	y = y + textH(F.Context) + 16
 	put(F.DescLabel, PAD, y)
-	y = y + F.DescLabel:GetStringHeight() + 6
+	y = y + textH(F.DescLabel) + 6
 	put(F.DescWell, PAD, y)
-	y = y + F.DescWell:GetHeight() + 12
+	y = y + frameH(F.DescWell) + 12
 	put(F.SpotNote, PAD, y)
-	y = y + F.SpotNote:GetStringHeight() + 8
+	y = y + textH(F.SpotNote) + 8
 	put(F.Mark, PAD, y)
 	F.Clear:ClearAllPoints()
 	F.Clear:SetPoint("LEFT", F.Mark, "RIGHT", 8, 0)
-	y = y + F.Mark:GetHeight() + 16
+	y = y + frameH(F.Mark) + 16
 	put(F.Rule, PAD, y)
 	y = y + 1 + 16
 	-- The mark's ink starts 2px into its texture and 5px down.
 	put(F.Logo, PAD - 2, y - 4)
 	put(F.DiscordTitle, TEXT_X, y)
-	y = y + F.DiscordTitle:GetStringHeight() + 4
+	y = y + textH(F.DiscordTitle) + 4
 	put(F.DiscordNote, TEXT_X, y)
-	y = y + F.DiscordNote:GetStringHeight() + 10
+	y = y + textH(F.DiscordNote) + 10
 	put(F.Copy, TEXT_X, y)
 	F.Invite:ClearAllPoints()
 	F.Invite:SetPoint("LEFT", F.Copy, "RIGHT", 8, 0)
-	y = y + F.Copy:GetHeight()
+	y = y + frameH(F.Copy)
 	-- What goes under the box: its gap, the GitHub rule and row, the edge.
 	local bw = F.GitHub:GetWidth()
 	F.GitHubNote:SetWidth(BOX_W - bw - 12)
-	local nh, bh = F.GitHubNote:GetStringHeight(), F.GitHub:GetHeight()
+	local nh, bh = textH(F.GitHubNote), frameH(F.GitHub)
 	local row = max(nh, bh)
-	if F.BoxWell:IsShown() then
+	local shown = F.BoxWell:IsShown()
+	if shown then
 		y = y + 12
 		put(F.CopyHint, PAD, y)
-		y = y + F.CopyHint:GetStringHeight() + 6
+		y = y + textH(F.CopyHint) + 6
 		put(F.BoxWell, PAD, y)
-		local content = F.Box:GetHeight()
-		local room = WINDOW_MAX - y - (16 + 1 + 12 + row + PAD)
-		local view = min(content, max(BOX_VIEW_MIN, floor(room)))
+		local content = frameH(F.Box)
+		local view = min(content, max(BOX_VIEW_MIN, WINDOW_MAX - y - (16 + 1 + 12 + row + PAD)))
 		F.BoxWell:SetHeight(view)
 		W.SetScrollContent(F.BoxScroll, content, view)
 		y = y + view
 	else
 		y = y + 10
 		put(F.SettingsNote, TEXT_X, y)
-		y = y + F.SettingsNote:GetStringHeight()
+		y = y + textH(F.SettingsNote)
 	end
 	y = y + 16
 	put(F.GitHubRule, PAD, y)
@@ -1268,7 +1362,10 @@ local function layout()
 	put(F.GitHubNote, PAD, y + floor((row - nh) / 2 + 0.5))
 	put(F.GitHub, WIDTH - PAD - bw, y + floor((row - bh) / 2 + 0.5))
 	y = y + row
-	F:SetHeight(floor(y + PAD + 0.5))
+	local key = table.concat({ tostring(shown), F.Outdated:IsShown() and F.Outdated:GetText() or "", F.Context:GetText() or "",
+		F.SpotNote:GetText() or "", frameH(F.DescWell), frameH(F.Box) }, "\1")
+	F:SetHeight(settle(y + PAD, key))
+	fit()
 end
 
 local function showSpot()
@@ -1471,8 +1568,17 @@ local function textArea()
 			W.ScrollTo(sf, bottom - view)
 		end
 	end)
+	-- The client can repeat this event with nothing changed. In Semper's clip
+	-- (#3699) the window was laid out again every frame, the only way being
+	-- this event, and the GitHub note, its last line exactly as wide as its
+	-- box, measured 2 and 3 lines on alternate passes: the window grew and
+	-- shrank by a line every frame. Only a new text is acted on.
+	local handled
 	e:SetScript("OnTextChanged", function(self)
-		self.Placeholder:SetShown((self:GetText() or "") == "")
+		local text = self:GetText() or ""
+		if text == handled then return end
+		handled = text
+		self.Placeholder:SetShown(text == "")
 		sizeDesc()
 		if F.details then compose() end
 	end)
@@ -1487,7 +1593,7 @@ local function build()
 	F:EnableMouse(true)
 	F:SetMovable(true)
 	F:SetWidth(WIDTH)
-	F:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
+	-- Placed by fit() at its first layout.
 	F:Hide()
 	Theme.Skin(F, "window")
 
@@ -1495,7 +1601,7 @@ local function build()
 	head:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 	head:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
 	head:SetHeight(HEAD_H)
-	ns.DragWindow(head, F)
+	ns.DragWindow(head, F, { onStop = function(f) f.psLeft, f.psTop = f:GetLeft(), f:GetTop() end })
 	F.Band = Theme.Band(head, "BACKGROUND", -5)
 	F.Band:SetAllPoints(head)
 	F.Band:SetTexCoord(Theme.BandCoords(WIDTH - 2, HEAD_H))
