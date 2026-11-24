@@ -162,6 +162,11 @@ test('Moonbrook Espionage waits for Murloc Gills as well as The State of the Min
 	assert.deepEqual({ all, any }, { all: [92744], any: [92745] });
 });
 
+test('Explosive Consultation waits for A Dynamite Plan as well as the second Detonation at a Distance (#3357)', () => {
+	const { all } = blockingPrereqs({ id: 92752, start: { npc: [11026] }, preAny: [92751], ...corrections.quests[92752].set });
+	assert.deepEqual(all, [92749, 92751]);
+});
+
 test('The State of the Mines waits for both Testing the Wells and Murloc Gills (dungeon pre-quest sweep)', () => {
 	const { all, any } = blockingPrereqs({ id: 92745, start: { npc: [253092] }, ...corrections.quests[92745].set });
 	assert.deepEqual({ all, any }, { all: [92742, 92744], any: [] });

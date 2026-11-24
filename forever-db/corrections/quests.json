@@ -5292,7 +5292,8 @@
 	},
 	"92752": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"preAll": [92749, 92751]
 		},
 		"source": [
 			{
@@ -5302,9 +5303,17 @@
 			{
 				"kind": "in-game-check",
 				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-24 (Sprite Jumpsprocket's windows, 80 people): 59 people were offered Explosive Consultation; the 47 whose earlier windows show the chain all had the second Detonation at a Distance (92751) and A Dynamite Plan (92749) by then, 13 of them with A Dynamite Plan still in the log; a Night Elf Hunter who had handed 92751 in but never taken 92749 was refused it in 6 windows, Sprite offering A Dynamite Plan instead"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3357: Erik's report: Sprite offered Explosive Consultation only once A Dynamite Plan was taken and handed in"
 			}
 		],
-		"note": "Explosive Consultation (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+		"note": "Explosive Consultation (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29. Sprite Jumpsprocket offers it once the second Detonation at a Distance (92751) is handed in and A Dynamite Plan (92749) is taken: the recordings show it offered with A Dynamite Plan still in the log and refused without it, and Erik's Deadmines pick-up guide (#3357), built when the data named only the Detonation, sent him to Sprite before A Dynamite Plan. The data has no \"taken\" prerequisite, so both are listed as done: the pick-up guide hands A Dynamite Plan in first, which the game accepts too."
 	},
 	"92753": {
 		"set": {
