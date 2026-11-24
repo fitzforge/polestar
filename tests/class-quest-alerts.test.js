@@ -30,10 +30,10 @@ const short = (id) => id.replace(/^forever\/(class\/[a-z]+\/|collectibles\/mount
 // Fitz picks the worth-it list.
 const PINNED = {
 	DRUID: { prompted: ['aquatic-form', 'bear-form', 'cat-form', 'cure-poison'], optional: ['bloodpetal-poison'] },
-	HUNTER: { prompted: ['rhokdelar', 'taming-the-beast-alliance', 'taming-the-beast-horde'], optional: ['the-hunters-charm'] },
+	HUNTER: { prompted: ['taming-the-beast-alliance', 'taming-the-beast-horde'], optional: ['rhokdelar', 'the-hunters-charm'] },
 	MAGE: {
-		prompted: ['arcane-refreshment', 'celestial-orb', 'polymorph-pig', 'teleports-alliance', 'teleports-horde'],
-		optional: ['astral-knot-garment', 'atiesh', 'destroy-morphaz', 'ju-ju-heaps', 'mages-wand', 'manaweave-robe', 'nether-lace-garment', 'spellfire-robes', 'staff-or-orb-alliance'],
+		prompted: ['arcane-refreshment', 'celestial-orb', 'mages-wand', 'polymorph-pig', 'teleports-alliance', 'teleports-horde'],
+		optional: ['astral-knot-garment', 'atiesh', 'destroy-morphaz', 'ju-ju-heaps', 'manaweave-robe', 'nether-lace-garment', 'spellfire-robes', 'staff-or-orb-alliance'],
 	},
 	PALADIN: {
 		prompted: ['alliance/paladin-charger', 'alliance/paladin-warhorse', 'horde/paladin-warhorse', 'lumina-windsinger', 'tome-of-divinity', 'tyrs-watch', 'verigans-fist'],
@@ -52,14 +52,25 @@ const PINNED = {
 		optional: ['darkreaver', 'spirit-totem'],
 	},
 	WARLOCK: {
-		prompted: ['felhunter-alliance', 'felhunter-horde', 'imp-alliance', 'imp-horde', 'incubus-alliance', 'incubus-horde', 'neutral/warlock-dreadsteed', 'neutral/warlock-felsteed', 'voidwalker-alliance', 'voidwalker-horde'],
-		optional: ['dread-mage-hat', 'enchanted-gold-bloodrobe', 'impsys-request', 'orb-of-orahil', 'orb-of-soranruk', 'shard-of-the-green-flame', 'tome-of-sacrifice'],
+		prompted: ['felhunter-alliance', 'felhunter-horde', 'imp-alliance', 'imp-horde', 'incubus-alliance', 'incubus-horde', 'neutral/warlock-dreadsteed', 'neutral/warlock-felsteed', 'orb-of-soranruk', 'voidwalker-alliance', 'voidwalker-horde'],
+		optional: ['dread-mage-hat', 'enchanted-gold-bloodrobe', 'impsys-request', 'orb-of-orahil', 'shard-of-the-green-flame', 'tome-of-sacrifice'],
 	},
 	WARRIOR: { prompted: ['haggards-weapons', 'heirloom-weapon', 'whirlwind-weapon'], optional: ['brutal-armor', 'fire-hardened-armor', 'quelserrar', 'voodoo-feathers'] },
 };
 
-// The hand-picked item chains worth the trip, 4-6 across the classes.
-const WORTH = ['forever/class/hunter/rhokdelar', 'forever/class/mage/celestial-orb', 'forever/class/paladin/lumina-windsinger', 'forever/class/paladin/verigans-fist', WHIRLWIND];
+// The hand-picked item chains worth the trip while leveling (24 Nov 2026, from public class guides and players'
+// threads, checked against our recordings): no level 60 raid chain. Verigan's Fist, Call of Air and Whirlwind
+// Weapon are alerted for their spell or stance anyway; the rest are item-only, prompted as "worth".
+const WORTH = [
+	'forever/class/mage/celestial-orb',
+	'forever/class/mage/mages-wand',
+	'forever/class/paladin/lumina-windsinger',
+	'forever/class/paladin/verigans-fist',
+	'forever/class/shaman/call-of-air-alliance',
+	'forever/class/shaman/call-of-air-horde',
+	'forever/class/warlock/orb-of-soranruk',
+	WHIRLWIND,
+];
 
 test('the committed list is the one data/codex/class-quests.json and the guides build (classquests check)', () => {
 	const lua = CQ.toLua(CQ.buildClassQuestList(LIST, GUIDES));
@@ -97,11 +108,12 @@ test('the Enchanted Gold Bloodrobe is optional; the Whirlwind Axe is alerted for
 	for (const q of [1718, 1792]) assert.equal(optional[q], undefined, `${q}`);
 });
 
-test('the worth-it list: each chain with a one-line reason, 4 to 6 across the classes', () => {
+test('the worth-it list: each chain with a one-line reason, no level 60 raid chain', () => {
 	const worth = LIST.guides.filter((r) => r.worth);
 	assert.deepEqual(worth.map((r) => r.guide).sort(), WORTH);
 	for (const r of worth) assert.match(r.reason, /^[^\n]{20,200}$/, r.guide);
-	assert.deepEqual(LIST.guides.filter((r) => r.prompt === 'worth').map((r) => r.guide).sort(), WORTH.filter((id) => !/verigans|whirlwind/.test(id)), 'an item-only chain on the list is prompted as "worth"');
+	assert.deepEqual(LIST.guides.filter((r) => r.prompt === 'worth').map((r) => r.guide).sort(), WORTH.filter((id) => !/verigans|call-of-air|whirlwind/.test(id)), 'an item-only chain on the list is prompted as "worth"');
+	assert.equal(LIST.guides.find((r) => r.guide === 'forever/class/hunter/rhokdelar').prompt, 'optional', "Rhok'delar is a level 60 raid chain");
 });
 
 test('a quest a prompted guide also takes is never optional', () => {
@@ -176,29 +188,29 @@ emit(out)`);
 const HEADS_UP = {
 	Alliance: {
 		DRUID: { on: ['aquatic-form', 'bear-form', 'cat-form', 'cure-poison'], dropped: ['bloodpetal-poison'] },
-		HUNTER: { on: ['rhokdelar', 'taming-the-beast-alliance'], dropped: ['the-hunters-charm'] },
-		MAGE: { on: ['arcane-refreshment', 'celestial-orb', 'polymorph-pig'], dropped: ['astral-knot-garment', 'destroy-morphaz', 'mages-wand', 'manaweave-robe', 'staff-or-orb-alliance'] },
+		HUNTER: { on: ['taming-the-beast-alliance'], dropped: ['rhokdelar', 'the-hunters-charm'] },
+		MAGE: { on: ['arcane-refreshment', 'celestial-orb', 'mages-wand', 'polymorph-pig'], dropped: ['astral-knot-garment', 'destroy-morphaz', 'manaweave-robe', 'staff-or-orb-alliance'] },
 		PALADIN: { on: ['alliance/paladin-charger', 'alliance/paladin-warhorse', 'tome-of-divinity', 'verigans-fist'], dropped: ['holy-mightstone'] },
 		PRIEST: { on: ['divine-grace-and-feedback'], dropped: ['benediction', 'blood-of-morphaz', 'priest-robes-alliance'] },
 		ROGUE: { on: ['poisons-alliance'], dropped: ['blade-of-cunning-alliance', 'certificate-of-thievery', 'the-azure-key', 'the-eye-of-bhossca'] },
 		SHAMAN: { on: ['call-of-air-alliance', 'call-of-fire-alliance', 'call-of-water-alliance'], dropped: [] },
 		WARLOCK: {
-			on: ['felhunter-alliance', 'incubus-alliance', 'neutral/warlock-dreadsteed', 'neutral/warlock-felsteed', 'voidwalker-alliance'],
-			dropped: ['dread-mage-hat', 'enchanted-gold-bloodrobe', 'impsys-request', 'orb-of-orahil', 'orb-of-soranruk', 'shard-of-the-green-flame', 'tome-of-sacrifice'],
+			on: ['felhunter-alliance', 'incubus-alliance', 'neutral/warlock-dreadsteed', 'neutral/warlock-felsteed', 'orb-of-soranruk', 'voidwalker-alliance'],
+			dropped: ['dread-mage-hat', 'enchanted-gold-bloodrobe', 'impsys-request', 'orb-of-orahil', 'shard-of-the-green-flame', 'tome-of-sacrifice'],
 		},
 		WARRIOR: { on: ['haggards-weapons', 'whirlwind-weapon'], dropped: ['fire-hardened-armor', 'voodoo-feathers'] },
 	},
 	Horde: {
 		DRUID: { on: ['aquatic-form', 'bear-form', 'cat-form', 'cure-poison'], dropped: ['bloodpetal-poison'] },
-		HUNTER: { on: ['rhokdelar', 'taming-the-beast-horde'], dropped: ['the-hunters-charm'] },
-		MAGE: { on: ['arcane-refreshment', 'celestial-orb', 'polymorph-pig'], dropped: ['destroy-morphaz', 'ju-ju-heaps', 'mages-wand', 'nether-lace-garment', 'spellfire-robes'] },
+		HUNTER: { on: ['taming-the-beast-horde'], dropped: ['rhokdelar', 'the-hunters-charm'] },
+		MAGE: { on: ['arcane-refreshment', 'celestial-orb', 'mages-wand', 'polymorph-pig'], dropped: ['destroy-morphaz', 'ju-ju-heaps', 'nether-lace-garment', 'spellfire-robes'] },
 		PALADIN: { on: ['horde/paladin-warhorse', 'lumina-windsinger', 'tyrs-watch'], dropped: [] },
 		PRIEST: { on: ['hex-of-weakness-and-shadowguard'], dropped: ['benediction', 'blood-of-morphaz', 'priest-robes-horde'] },
 		ROGUE: { on: ['poisons-horde'], dropped: ['blade-of-cunning-horde', 'plundering-the-plunderers', 'the-azure-key', 'the-eye-of-bhossca'] },
 		SHAMAN: { on: ['call-of-air-horde', 'call-of-earth-horde', 'call-of-fire-horde', 'call-of-water-horde'], dropped: ['darkreaver', 'spirit-totem'] },
 		WARLOCK: {
-			on: ['felhunter-horde', 'incubus-horde', 'neutral/warlock-dreadsteed', 'neutral/warlock-felsteed', 'voidwalker-horde'],
-			dropped: ['enchanted-gold-bloodrobe', 'impsys-request', 'orb-of-orahil', 'orb-of-soranruk', 'shard-of-the-green-flame', 'tome-of-sacrifice'],
+			on: ['felhunter-horde', 'incubus-horde', 'neutral/warlock-dreadsteed', 'neutral/warlock-felsteed', 'orb-of-soranruk', 'voidwalker-horde'],
+			dropped: ['enchanted-gold-bloodrobe', 'impsys-request', 'orb-of-orahil', 'shard-of-the-green-flame', 'tome-of-sacrifice'],
 		},
 		WARRIOR: { on: ['heirloom-weapon', 'whirlwind-weapon'], dropped: ['brutal-armor', 'voodoo-feathers'] },
 	},
