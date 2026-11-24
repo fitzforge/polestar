@@ -34,7 +34,7 @@ test('guide name: one localized chosen NPC uses the shared macro, with the defau
 	]);
 	const marks = { mob: '/tm [@target,harm,nodead] !8', npc: '/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1' };
 	for (const [macro, name, kind] of out.slice(1)) {
-		assert.equal(macro, `/cleartarget [nocombat]\n/targetexact ${name}\n/cleartarget [dead]\n${marks[kind]}`);
+		assert.equal(macro, `/cleartarget [nocombat][dead]\n/targetexact ${name}\n/cleartarget [dead]\n${marks[kind]}`);
 	}
 });
 
@@ -128,7 +128,7 @@ test('guide name: kills and collect sources use mob marks; all NPC verbs use NPC
 	`);
 	assert.deepEqual(out.slice(0, 2), [['mob', '!6', true], ['mob', '!6', true]]);
 	for (const row of out.slice(2, 11)) assert.deepEqual(row, ['npc', '!4', true]);
-	assert.equal(out[11], '/cleartarget [nocombat]\n/targetexact Chosen NPC\n/cleartarget [dead]');
+	assert.equal(out[11], '/cleartarget [nocombat][dead]\n/targetexact Chosen NPC\n/cleartarget [dead]');
 });
 
 test('mark cycle: guide names, target button and step key advance together without losing name cycles', () => {

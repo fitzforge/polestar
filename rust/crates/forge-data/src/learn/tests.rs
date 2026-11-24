@@ -400,3 +400,33 @@ fn clone_forever(f: &crate::codex::Forever) -> crate::codex::Forever {
 		dungeons: V::Null,
 	}
 }
+
+/// An escort of quest 900 run from `on` to `off` (the client's `escort` events), then `end` ("complete",
+/// "fail" or none) at `off`.
+fn escort_run(on: f64, off: f64, end: Option<&str>) -> Vec<String> {
+	let mut ev = vec![format!(r#"{{"t":{on},"e":"escort","q":900,"on":true}}"#), format!(r#"{{"t":{off},"e":"escort","q":900,"on":false}}"#)];
+	if let Some(e) = end {
+		ev.push(format!(r#"{{"t":{},"e":"{e}","q":900}}"#, off + 1.0));
+	}
+	ev
+}
+
+// #3439: escorts.json says how long players' runs of an escort take (each player's median completed run, then the
+// median of those) and how often they fail (failed of the runs whose end is known); trusted from three counted
+// players with a completed run.
+#[test]
+fn escorts_say_the_median_time_of_a_completed_run_and_the_share_that_failed() {
+	let s = vec![
+		session("c1", "c1x", &[escort_run(10.0, 610.0, Some("complete")), escort_run(1000.0, 1100.0, Some("fail"))].concat()),
+		session("c2", "c2x", &escort_run(10.0, 730.0, Some("complete"))),
+		session("c3", "c3x", &[escort_run(10.0, 790.0, Some("complete")), escort_run(900.0, 950.0, None)].concat()),
+	];
+	let out = learn_with(&s, &quests(""), "{}", &Verdicts::default()).0;
+	let e = parse_json(&out.escorts).unwrap().get("900");
+	assert_eq!(e.get("seconds").num(), 720.0, "{}", out.escorts);
+	assert_eq!(e.get("failed").num(), 0.25, "1 of 4 runs whose end is known");
+	assert_eq!((e.get("runs").num(), e.get("voters").num(), e.get("counted").num()), (4.0, 3.0, 3.0));
+	assert_eq!(e.get("status").as_str(), Some("trusted"));
+	let two = learn_with(&s[..2], &quests(""), "{}", &Verdicts::default()).0;
+	assert_eq!(parse_json(&two.escorts).unwrap().get("900").get("status").as_str(), Some("gap"), "two players: not trusted");
+}

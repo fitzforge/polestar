@@ -480,6 +480,36 @@ emit({ plan = ender or false, guide = turnin or false, ender = e and e.name or f
 	assert_eq!(horde, json!({ "plan": "Rau Cliffrunner", "guide": "Rau Cliffrunner", "ender": "Rau Cliffrunner" }), "the Horde keeps the page's Rau");
 }
 
+// #3041 (qqname), #3019: an ender who walks about. Nikova Raskol walks a round of Old Town, which the Codex has as
+// several spawns, and the hand-in guide pointed at one of them as if she stood there. Here 90350 is turned in to
+// a walker the Codex has at four spawns in the Undercity, 25 yd from their middle at 62,42.5: the turn-in goal
+// gets her walk as its one spot, its point in the middle, and says she walks, as the guides' own steps do.
+#[test]
+fn a_hand_in_to_an_npc_who_walks_about_gets_her_walk_as_its_spot_and_says_so_3041() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	let walk: Vec<Value> = [(60, 40), (64, 40), (64, 45), (60, 45)].iter().map(|&(x, y)| json!({ "map": 1458, "x": x, "y": y, "f": "e" })).collect();
+	c["npcs"]["9013"] =
+		json!({ "id": 9013, "name": "Walking Warden", "level": 30, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false, "instance": null, "roles": [], "spawns": walk });
+	c["quests"]["90350"] = json!({
+		"id": 90350, "title": "The Color of Rot", "level": 25, "minLevel": 18, "faction": "H", "races": null, "classes": null,
+		"start": { "npc": [9013], "object": [], "item": [] }, "end": { "npc": [9013], "object": [] },
+		"objectives": [], "pre": [], "zone": 1458, "rewards": [], "choices": [], "preAny": [],
+	});
+	i["forever"]["quests"]["90350"] = json!({ "area": 209 });
+	let own = pack_of(&c, &i);
+	let script = k(r#"
+local turnin
+for _, s in ipairs(D.HandinGuide("{KEY}").steps) do
+	for _, g in ipairs(s.goals) do if g.t == "turnin" and g.quest == 90350 then turnin = g end end
+end
+local sp = turnin.spots and turnin.spots[1]
+emit({ turnin.npcName, turnin.x, turnin.y, turnin.spots and #turnin.spots or 0, sp and sp.x or false, sp and sp.y or false, sp and sp.r or false, turnin.note or false })"#);
+	let out = run(&own, &script, Opts { level: 25, ready: vec![90350], ..Default::default() }).remove(0);
+	assert_eq!(out, json!(["Walking Warden", 62, 42.5, 1, 62, 42.5, 25, "Walking Warden walks around here: look inside the circle on the map"]), "{out}");
+}
+
 // #1326 (TrustmeXD): The Glowing Shard (6981) drops inside Wailing Caverns, and its one quest-log line is to speak
 // to Sputtervalve in Ratchet, after the run, before Falla Sagewind takes it. The Codex had no line for it, so the
 // hand-in guide found it unfinished and left it out ("Not finished yet"). A quest whose open lines are all talks to
@@ -2978,6 +3008,27 @@ emit({ id = id, before = before, after = after, same = same, tabs = tabIds(), fa
 	assert_eq!(out["stale"], false, "up to date: nothing to rebuild");
 }
 
+// #2841 (The Drowned City): Kin'weelay in Grom'gol gives A Tale Spun Around the Fire (a delivery) for Master Gadrin
+// in Sen'jin Village, across the sea; the hand-in guide took it and stopped, though it already goes to Kalimdor for
+// Mazu'kon's Ancient Gurubashi Idol in Mulgore. A delivery's ender across the sea is kept when a quest of the plan
+// is turned in on that continent anyway, and still left out when none is (#1748). Here Return to Dalar is handed in
+// to Doan Karhan in the Barrens, and The Orb of Soran'ruk (1740, ready) is turned in to him too.
+#[test]
+fn a_delivery_across_the_sea_is_handed_in_when_the_hand_in_guide_goes_to_that_continent_anyway_2841() {
+	let pack = default_pack();
+	let script = k(r#"
+local dalar = Polestar.Codex.Quest(1016)
+dalar["end"].npc = { 6247 }
+emit({ steps = describe(D.HandinGuide("{KEY}")) })"#);
+	let goals = |out: &Value| -> Vec<String> { out["steps"].as_array().unwrap().iter().map(|s| text(&s["goals"]).to_string()).collect() };
+	let alone = goals(&run(&pack, &script, after_run()).remove(0));
+	assert!(alone.iter().any(|g| g.contains("accept:1016")) && !alone.iter().any(|g| g.contains("turnin:1016")), "nothing else in the Barrens: taken only, {alone:?}");
+	let barrens = goals(&run(&pack, &script, Opts { done: vec![1098, 1011], log: vec![1013], ready: vec![1014, 1740], ..Default::default() }).remove(0));
+	let at = |what: &str| barrens.iter().position(|g| g.contains(what)).unwrap_or_else(|| panic!("{what} in {barrens:?}"));
+	assert!(at("turnin:1740") < barrens.len(), "The Orb of Soran'ruk goes to the Barrens: {barrens:?}");
+	assert!(at("accept:1016") < at("turnin:1016"), "Return to Dalar is taken, then handed in on that trip: {barrens:?}");
+}
+
 // #1817 (Onrevax, Excavation Site: Wetlands): the Titan Relic from the end of the dungeon starts Lost Relic Carry
 // (95810), turned in to Prospector Whelgar, who then gives Prehistoric Prism (98824) for High Explorer Magellas in
 // Ironforge. The hand-in guide took Prehistoric Prism at Whelgar and ended there: only a follow-up with no
@@ -3793,4 +3844,63 @@ emit(r)"#,
 	)
 	.remove(0);
 	assert_eq!(out, json!({ "before": false, "plain": true, "after": 7003, "done": true }));
+}
+
+// #3703 (Soggy, Maraudon's hand-in guide on 0.4.2.2, after #3084's fix): Rot and Regret was still left out. The
+// hand-in guide read the quest-log lines by place alone, the first as the Codex's first objective (the vial), so a
+// client that lists "Woodwyrd extinguished" first had its open line read as the vial's, done, and its vial line as
+// the event's, so nothing was left but an item and the quest stayed "Not finished yet". Each line is now bound to its
+// objective by its label first (the objective's text, or its item's or NPC's name), as the Engine's goals read
+// theirs. A line no objective takes and still open still leaves the quest unfinished.
+#[test]
+fn a_dungeon_quest_whose_log_lists_its_open_event_line_first_is_still_led_there_before_the_hand_in_3703() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9031"] = sideless_npc(9031, "Woodwyrd", 1413, 48, 32);
+	c["quests"]["90603"] = json!({
+		"id": 90603, "title": "Rot and Regret", "level": 49, "minLevel": 40, "faction": null, "races": null, "classes": null,
+		"start": { "npc": [9031], "object": [], "item": [] }, "end": { "npc": [9031], "object": [] },
+		"objectives": [
+			{ "type": "item", "id": 90630, "count": 1, "text": "Vial of Earth Song Water" },
+			{ "type": "event", "id": null, "count": 1, "text": "Woodwyrd extinguished", "map": 1413, "x": 55, "y": 40 }
+		],
+		"pre": [], "zone": 1413, "rewards": [], "choices": [], "preAny": [],
+	});
+	i["forever"]["quests"]["90603"] = json!({ "area": 209 });
+	let own = pack_of(&c, &i);
+	let script = |lines: &str| {
+		k(&format!(
+			r#"
+stub.world.onQuest(90603, {lines})
+local plan = D.HandinPlan("{{KEY}}")
+local hand, unfinished, event = {{}}, {{}}, false
+for _, h in ipairs(plan.hand) do if h.quest.id == 90603 then hand[#hand + 1] = h.quest.id end end
+for _, q in ipairs(plan.unfinished) do if q.id == 90603 then unfinished[#unfinished + 1] = q.id end end
+local steps = {{}}
+for _, s in ipairs((D.HandinGuide("{{KEY}}") or {{ steps = {{}} }}).steps) do
+	local verbs = {{}}
+	for _, g in ipairs(s.goals) do
+		if g.quest == 90603 then verbs[#verbs + 1] = g.t .. ":" .. g.quest end
+		if g.t == "kill" and g.quest == 90603 then event = {{ target = g.target, oi = g.oi }} end
+	end
+	if #verbs > 0 then steps[#steps + 1] = s.title .. " " .. table.concat(verbs, " ") end
+end
+emit({{ hand = hand, unfinished = unfinished, steps = steps, event = event }})"#
+		))
+	};
+	let vial = r#"{ text = "Vial of Earth Song Water: 1/1", required = 1, fulfilled = 1 }"#;
+	let fire = r#"{ text = "Woodwyrd extinguished: 1/2", required = 2, fulfilled = 1 }"#;
+
+	let first = run(&own, &script(&format!("{{ {fire}, {vial} }}")), Opts { at: Some(BARRENS), ..Default::default() }).remove(0);
+	assert_eq!(first["hand"], json!([90603]), "the Woodwyrd's line listed first is still the open one");
+	assert_eq!(first["steps"], json!(["Woodwyrd extinguished kill:90603", "Woodwyrd turnin:90603"]), "the event's place first, then the Woodwyrd");
+	assert_eq!(first["event"], json!({ "target": "Woodwyrd extinguished", "oi": 2 }), "the goal keeps the Codex objective, which the Engine binds to its line by name");
+
+	let usual = run(&own, &script(&format!("{{ {vial}, {fire} }}")), Opts { at: Some(BARRENS), ..Default::default() }).remove(0);
+	assert_eq!(usual["hand"], json!([90603]), "the Codex's order, as before (#3084)");
+
+	let unknown = r#"{ text = "Something else: 0/1", required = 1, fulfilled = 0 }"#;
+	let odd = run(&own, &script(&format!("{{ {fire}, {vial}, {unknown} }}")), Opts { at: Some(BARRENS), ..Default::default() }).remove(0);
+	assert_eq!(odd["unfinished"], json!([90603]), "an open line the Codex does not know still leaves it unfinished");
 }

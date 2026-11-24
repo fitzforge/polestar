@@ -7550,8 +7550,9 @@ kind.
 
 ### Pressing again moves on
 
-Every target macro opens with `/cleartarget [nocombat]`, so a hand-clicked mob
-or the quest giver just turned in to cannot stop the chain. The client's
+Every target macro opens with `/cleartarget [nocombat][dead]`, so a
+hand-clicked mob, the quest giver just turned in to or a corpse in a fight
+cannot stop the chain. The client's
 `/targetexact` moves on to the next unit of a name only while the target
 already has that name, so the clear alone made every press out of combat take
 the nearest one again, tagged or not. The Target button, the step key, the
@@ -7563,8 +7564,8 @@ the clear (`TargetMacro`'s `keep`), so it takes the next one of that name;
 the corpse lines, the other names, the ping and the mark stay. A corpse, a
 unit of another name or no target keeps the clear. `PostClick` puts the
 applied macro back. In a fight nothing changes: the attribute cannot, and the
-clear is `[nocombat]` anyway. A row's mark kind for that press comes from the
-macro it ran (`pressedKind`, `pressedMixed`).
+clear is `[nocombat][dead]` anyway (a living target stays). A row's mark kind
+for that press comes from the macro it ran (`pressedKind`, `pressedMixed`).
 
 ### Clickable objectives
 
@@ -9563,7 +9564,13 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   (`GetSpellTexture` on the reward spell, else the first item's
   `GetItemIcon`, else the class icon); "<CLASS> · LEVEL <n>", the quest
   name, "Learn <spell>" or "Earn <item>" (a choice: "Earn the Whirlwind Axe,
-  Sword or Warhammer"); a NEW ABILITY / PET / MOUNT / WEAPON / ARMOR badge;
+  Sword or Warhammer"); hovering the ring or that line shows the game's
+  tooltip of what the line names (`ClassCard.TipOf`: the spell taught, else
+  the first item; `Widgets.SpellTip`/`ItemTip`, placed beside the guide
+  window by `ClassToast.PlaceTip`, keeping the window's hover look);
+  Shift-click links it; none on the slim line; the tooltip goes when the
+  card hides, folds or changes reward under a still cursor; a NEW ABILITY /
+  PET / MOUNT / WEAPON / ARMOR badge;
   the zones the chain's remaining steps cross and their count; "Only you see
   this". The step's quest names take the class colour (`UI.GoalLine`'s
   `questHex`). Compact keeps the head, name and reward line. The first time
