@@ -3238,6 +3238,14 @@ GF.Part(function(GF)
 		Theme.TextScope(F, "ui.guideTextSize")
 		if GF.live then
 			F:SetFrameStrata("MEDIUM")
+			-- Above the game's action bars, whole (#2753): at UIParent's level
+			-- its rows drew between the bars' buttons. Raised before it has
+			-- parts, which take their levels from it, and one more for its
+			-- shadow, a level under it (Theme.lua shadowFor); the target
+			-- list's rows, made later, raise over it in turn (QoL/Buttons.lua
+			-- newRow).
+			F:Raise()
+			F:SetFrameLevel(F:GetFrameLevel() + 1)
 			F:SetClampedToScreen(true)
 			F:SetMovable(true)
 			F:EnableMouse(true)
