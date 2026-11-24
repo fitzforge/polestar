@@ -14,8 +14,8 @@
 			"note": "Horde 50-60 audit (2026-11-23): Long Walks on the Beach provides the Treasure Trowel 3000 and asks to dig the fragments up with it; the step named only the Burrowers and the caches.",
 			"source": [
 				{
-					"kind": "client",
-					"ref": "quest 91568's text (the Icy Veins WoW Forever database, quest 91568): \"Dig up 10 Highborne Treasure Fragments with the Treasure Trowel 3000\", provided item Treasure Trowel 3000"
+					"kind": "in-game-check",
+					"ref": "#3884: a level 53 Horde hunter on the step had Izvi's Treasure Trowel 3000 (246683, \"Use: Dig up treasure\") in the bags and looted Highborne Treasure Fragments on the Burrowers' sands"
 				}
 			]
 		},
@@ -32,7 +32,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 4300's text (the Icy Veins WoW Forever database, quest 4300): Delivery to Jes'rimon (3541): \"He resides in The Drag... look in one of the highest buildings there\""
+					"ref": "forever-db spawn.jsonl: Jes'rimon (8659) has one spawn, Orgrimmar 55.5,34.1, in The Drag; Delivery to Jes'rimon's quest text (the client's quest cache): \"He resides in The Drag\""
 				}
 			]
 		},
@@ -49,7 +49,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 91531's text (the Icy Veins WoW Forever database, quest 91531): Delivery to Jes'rimon (3541): \"He resides in The Drag\""
+					"ref": "forever-db spawn.jsonl: Jes'rimon (8659) has one spawn, Orgrimmar 55.5,34.1, in The Drag; Delivery to Jes'rimon's quest text (the client's quest cache): \"He resides in The Drag\""
 				}
 			]
 		},
@@ -65,7 +65,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 4300's text (the Icy Veins WoW Forever database, quest 4300): Jes'rimon at 55.6,34.1 in Orgrimmar; Jediga: \"He resides in The Drag\""
+					"ref": "forever-db spawn.jsonl: Jes'rimon (8659) has one spawn, Orgrimmar 55.5,34.1, in The Drag; Delivery to Jes'rimon's quest text (the client's quest cache): \"He resides in The Drag\""
 				}
 			]
 		},
@@ -81,24 +81,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 3541's text (the Icy Veins WoW Forever database, quest 3541): \"He resides in The Drag... in one of the highest buildings there\""
-				}
-			]
-		},
-		{
-			"id": "audit-91569-arcanist-camp",
-			"faction": "Horde",
-			"at": {
-				"quest": 91569,
-				"goal": "collect",
-				"item": 246680
-			},
-			"goalNote": "Mana-Siphoning Wand, from the Blood Elf Arcanists at their own camp east of the base camp, along the cliffs",
-			"note": "Horde 50-60 audit (2026-11-23): the arcanists stay at a camp of their own east of the Thalassian Base Camp, which the step's tip and note did not say.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest 91569's text (the Icy Veins WoW Forever database, quest 91569): \"The arcanists stay at a camp east of the elves' base camp, along the cliffs\""
+					"ref": "forever-db spawn.jsonl: Jes'rimon (8659) has one spawn, Orgrimmar 55.5,34.1, in The Drag; Delivery to Jes'rimon's quest text (the client's quest cache): \"He resides in The Drag\""
 				}
 			]
 		},
@@ -116,7 +99,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 4120's text (the Icy Veins WoW Forever database, quest 4120): Cleansing Felwood (4102): \"To the north lie the Irontree Caverns. The Warpwood elementals present there...\""
+					"ref": "forever-db item_source.jsonl: Blood Amber (11503) drops from the Warpwood Moss Flayer (7100), the Warpwood Shredder (7101) and Dessecus (7104) only; Cleansing Felwood's quest text (the client's quest cache) sends you into the Irontree Caverns for them"
 				}
 			]
 		},
@@ -133,24 +116,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 4102's text (the Icy Veins WoW Forever database, quest 4102): \"To the north lie the Irontree Caverns. The Warpwood elementals present there...\""
-				}
-			]
-		},
-		{
-			"id": "audit-86612-statue-in-the-lake",
-			"faction": "Horde",
-			"at": {
-				"quest": 86612,
-				"goal": "accept",
-				"guide": "forever/horde/50-60/02-felwood"
-			},
-			"tip": "The Statue of Malorne lies at the bottom of the fel-slime pool just south of the vale, by the road north: swim down to it. Its bauble starts a quest for Winna Hazzard at Bloodvenom Post.",
-			"note": "Horde 50-60 audit (2026-11-23): the tip said the statue stands by the road; the quest text has it at the bottom of the lake.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest 86612's text (the Icy Veins WoW Forever database, quest 86612): \"It is unclear how it arrived here at the bottom of the lake\""
+					"ref": "forever-db item_source.jsonl: Blood Amber (11503) from the Warpwood Moss Flayer, Shredder and Dessecus; Cleansing Felwood's quest text: \"To the north lie the Irontree Caverns. The Warpwood elementals present there...\""
 				}
 			]
 		},
@@ -167,7 +133,11 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 3786's text (the Icy Veins WoW Forever database, quest 3786): \"Use an Evergreen Pouch with a Packet of Tharlendis Seeds and two Un'Goro Soil samples\"; provided item Evergreen Pouch"
+					"ref": "the guide's own data: Morrowgrain Research's source item is the Evergreen Pouch (11020, the complete goal's startItem)"
+				},
+				{
+					"kind": "questie",
+					"ref": "Quest 3786's source item is the Evergreen Pouch (11020), as PRDesrochers checked on #3884"
 				}
 			]
 		},
@@ -179,12 +149,12 @@
 				"goal": "accept",
 				"guide": "forever/horde/50-60/03-winterspring"
 			},
-			"tip": "Rumstag Proudstrider stands on the central rise, and Bluff Runner Windstrider walks the city's rises: look for him on the paths. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.",
-			"note": "Horde 50-60 audit (2026-11-23): the tip put both on Hunter Rise; Rumstag stands on the central rise (44.0,45.2) and Windstrider has start points all over the rises.",
+			"tip": "Bluff Runner Windstrider and Rumstag Proudstrider stand on the central rise, not on Hunter Rise. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.",
+			"note": "Horde 50-60 audit (2026-11-23): the tip put both on Hunter Rise; forever-db has each with one spawn on the central rise.",
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 1000's text (the Icy Veins WoW Forever database, quest 1000): Rumstag Proudstrider at 44.0,45.2 and 42.4,43.0; Bluff Runner Windstrider's start points from 38.2,50.6 to 56.8,47.3"
+					"ref": "forever-db spawn.jsonl: Bluff Runner Windstrider (10881) and Rumstag Proudstrider (14728) each have one spawn, both on Thunder Bluff's central rise (44.3,58.8 and 44.0,45.2), not on Hunter Rise"
 				}
 			]
 		},
@@ -200,7 +170,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 3908's text (the Icy Veins WoW Forever database, quest 3908): \"Take Linken's Sword to Donova Snowden\"; provided item Linken's Training Sword"
+					"ref": "forever-db item.jsonl: Linken's Training Sword (11133), the quest item It's a Secret to Everybody carries to Donova Snowden; the hand-in's note called it a letter"
 				}
 			]
 		},
@@ -217,7 +187,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 5158's text (the Icy Veins WoW Forever database, quest 5158): \"South of Ratchet, hidden along the shore... a small camp right along the water's edge\""
+					"ref": "forever-db spawn.jsonl: Islen Waterseer (5901) has one spawn, the Barrens 65.8,43.8, south of Ratchet (its flight master at 63.1,37.1)"
 				}
 			]
 		},
@@ -235,7 +205,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 5229's text (the Icy Veins WoW Forever database, quest 5229): Two Halves Become One (5051): \"Locate the other half of the Good Luck Charm\""
+					"ref": "Two Halves Become One (5051) is accepted two steps later (pre 5050): the Good Luck Other-Half-Charm (12722) is wanted only once it is in the log"
 				}
 			]
 		},
@@ -252,7 +222,11 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 5051's text (the Icy Veins WoW Forever database, quest 5051): \"Locate the other half of the Good Luck Charm... and reassemble it\"; provided item Good Luck Half-Charm"
+					"ref": "the guide's own data: Two Halves Become One's source item is the Good Luck Half-Charm (12721, the complete goal's startItem); its objective is the Good Luck Charm (12723), the halves joined; forever-db item_source.jsonl: the Other-Half-Charm (12722) from the Jabbering Ghouls"
+				},
+				{
+					"kind": "questie",
+					"ref": "Quest 5051's source item is the Good Luck Half-Charm (12721), as PRDesrochers checked on #3884"
 				}
 			]
 		},
@@ -269,7 +243,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 3542's text (the Icy Veins WoW Forever database, quest 3542): \"He usually holds himself up in the Undercity... right near the Apothecarium\""
+					"ref": "forever-db spawn.jsonl: Andron Gant (6522) has one spawn, Undercity 54.8,76.3, by the Apothecarium, not the Rogues' Quarter"
 				}
 			]
 		},
@@ -286,7 +260,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 5023's text (the Icy Veins WoW Forever database, quest 5023): \"a census officer located near guild and tabard registration\""
+					"ref": "forever-db spawn.jsonl: Royal Overseer Bauhaus (10781) has one spawn, Undercity 69.8,43.2, in the Trade Quarter"
 				}
 			]
 		},
@@ -302,7 +276,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 8276's text (the Icy Veins WoW Forever database, quest 8276): Cenarion Emissary Blackhoof at 47.8,65.6 in Orgrimmar"
+					"ref": "forever-db spawn.jsonl: Cenarion Emissary Blackhoof (15188) has one spawn, Orgrimmar 47.7,65.8, in the Valley of Strength"
 				}
 			]
 		},
@@ -320,7 +294,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 5542's text (the Icy Veins WoW Forever database, quest 5542): Villains of Darrowshire (5181): \"It lies at the bottom of the gorge west of Corin's Crossing\""
+					"ref": "forever-db item_source.jsonl and spawn.jsonl: the Shattered Sword of Marduk (12957) comes from object 176209, one spawn at Eastern Plaguelands 46.9,55.4, the gorge west of Corin's Crossing"
 				}
 			]
 		},
@@ -337,7 +311,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 5181's text (the Icy Veins WoW Forever database, quest 5181): \"It lies at the bottom of the gorge west of Corin's Crossing\""
+					"ref": "forever-db: the Shattered Sword of Marduk's object 176209 at Eastern Plaguelands 46.9,55.4"
 				}
 			]
 		},
@@ -354,7 +328,11 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 5902's text (the Icy Veins WoW Forever database, quest 5902): \"place the barrel in the center of the lumber mill; someplace high, like on a crate\"; provided item Barrel of Plagueland Termites; ends at the Termite Barrel"
+					"ref": "forever-db quest_end.jsonl: A Plague Upon Thee (5902) ends at the Termite Barrel object (177491), which starts 6390; forever-db item.jsonl: the Barrel of Plagueland Termites (15044)"
+				},
+				{
+					"kind": "questie",
+					"ref": "Quest 5902's source item is the Barrel of Plagueland Termites (15044), as PRDesrochers checked on #3884"
 				}
 			]
 		},
@@ -372,7 +350,11 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 5165's text (the Icy Veins WoW Forever database, quest 5165): \"Using the Purified Moon Well Water, douse the flames of the four braziers of protection within Shadow Hold\"; provided item Purified Moonwell Water"
+					"ref": "forever-db item.jsonl: Purified Moonwell Water (12906); the braziers' goal lines are below ground (the step's own notes)"
+				},
+				{
+					"kind": "questie",
+					"ref": "Quest 5165's source item is Purified Moonwell Water (12906), and its text puts the braziers \"within Shadow Hold\", as PRDesrochers checked on #3884"
 				}
 			]
 		},
@@ -389,7 +371,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 5203's text (the Icy Veins WoW Forever database, quest 5203): \"Escort Arko'narin to where Lightforge and her equipment are being held, and then protect her as you escape Shadow Hold\""
+					"ref": "Rescue From Jaedenar's objective (the client's quest cache): \"Escort Arko'narin to where Lightforge and her equipment are being held, and then protect her as you escape Shadow Hold\""
 				}
 			]
 		},
@@ -407,7 +389,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 5242's text (the Icy Veins WoW Forever database, quest 5242): Salve via Hunting (5887): \"Possessing a Cenarion beacon allows one to see a corrupted soul shard\""
+					"ref": "Salve via Hunting's quest text (the client's quest cache): a corrupted soul shard is seen only with a Cenarion beacon, which Cleansing Felwood (4102, its prerequisite in forever-db quest_prereq.jsonl) gives"
 				}
 			]
 		},
@@ -424,102 +406,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 4985's text (the Icy Veins WoW Forever database, quest 4985): \"His body lies motionless on the cottage floor\""
-				}
-			]
-		},
-		{
-			"id": "audit-95379-pristine-crystal",
-			"at": {
-				"quest": 95379,
-				"goal": "objective",
-				"objective": 1
-			},
-			"goalNote": "Brashann Grimdark: use Felflick's Pristine Fel-Slime Crystal on him first to drain his power, then kill him",
-			"note": "Horde 50-60 audit (2026-11-23): A Revenge So Sweet provides the Pristine Fel-Slime Crystal, used on Brashann before the kill; the line named only him.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest 95379's text (the Icy Veins WoW Forever database, quest 95379): provided item Pristine Fel-Slime Crystal; \"Use this pristine crystal to drain his power, then put an end to him\""
-				}
-			]
-		},
-		{
-			"id": "audit-96435-bag-of-bones",
-			"at": {
-				"quest": 96435,
-				"goal": "complete",
-				"guide": "forever/50-60/mount-hyjal"
-			},
-			"tip": "West to the bone pile by the slime pools: stand beside it and use the Bag of Ashen Warlock Bones from your bags to throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the Awakened Fel Ash Slime, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once.",
-			"note": "Horde 50-60 audit (2026-11-23): A Fitting End provides the Bag of Ashen Warlock Bones, which the step never named.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest 96435's text (the Icy Veins WoW Forever database, quest 96435): provided item Bag of Ashen Warlock Bones; objective \"Warlock Bones Thrown on Slime Altar\""
-				}
-			]
-		},
-		{
-			"id": "audit-95611-sacred-stag-bundle",
-			"at": {
-				"quest": 95611,
-				"goal": "complete",
-				"guide": "forever/50-60/mount-hyjal"
-			},
-			"tip": "The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: stand between them and use Ketharas's Sacred Stag Bundle from your bags to bury the remains.",
-			"note": "Horde 50-60 audit (2026-11-23): Rites of Respect provides the Sacred Stag Bundle, used at the shrine; the step said only to bury the remains.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest 95611's text (the Icy Veins WoW Forever database, quest 95611): provided item Sacred Stag Bundle; \"Take this bundle and visit the shrine to the west\""
-				}
-			]
-		},
-		{
-			"id": "audit-96979-drinking-gourd",
-			"at": {
-				"quest": 96979,
-				"goal": "complete",
-				"guide": "forever/50-60/mount-hyjal"
-			},
-			"tip": "Fill Galvinquam's gourd at the falls beside the bridge: stand in the water by the falls and use Galvinquam's Drinking Gourd from your bags. Solstice, one of Shalla'kal's kittens, plays just west of the falls: walk up to her.",
-			"note": "Horde 50-60 audit (2026-11-23): Sacred Refreshment provides Galvinquam's Drinking Gourd, which the step never named.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest 96979's text (the Icy Veins WoW Forever database, quest 96979): provided item Galvinquam's Drinking Gourd; \"Fill Galvinquam Leafsyre's drinking gourd at the waterfall ahead\""
-				}
-			]
-		},
-		{
-			"id": "audit-92959-call-sunderbark",
-			"at": {
-				"quest": 92959,
-				"goal": "complete",
-				"guide": "forever/50-60/mount-hyjal"
-			},
-			"tip": "Sunderbark is elite (level 56): grouping up is advised. He does not wait in the open: go to the corrupted pool east of the outpost and strike the corrupted tree there to call him out. When he is dead, use Fraxinus's Seed of the Ancients from your bags on his remains.",
-			"note": "Horde 50-60 audit (2026-11-23): the Dying Ancients' Sunderbark is called out by striking the corrupted tree at the corrupted pool, and the quest provides the Seed of the Ancients for his remains; the step said neither.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest 92959's text (the Icy Veins WoW Forever database, quest 92959): \"Go to the corrupted pool to the east... strike the corrupted tree and he will come\"; provided item Seed of the Ancients"
-				}
-			]
-		},
-		{
-			"id": "audit-96296-corrupted-growth",
-			"at": {
-				"quest": 96296,
-				"goal": "accept"
-			},
-			"goalNote": "The Corrupted Growth, on a tree north-west of the Shrine of Aviana (48.5,56.3); the other knotted trees stand around it",
-			"note": "Horde 50-60 audit (2026-11-23): the step's tip put the growth on the shrine's western slope; it starts at 48.5,56.3, north-west of the shrine (Phoebe is at 54.4,63.9).",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest 96296's text (the Icy Veins WoW Forever database, quest 96296): Start: Corrupted Growth 48.5,56.3; \"remove 6 Corrupted Knots from the trees nearby\""
+					"ref": "the accept's own note on the guide line (\"Inside\") and The Wildlife Suffers Too's text (the client's quest cache): Mulgris lies on the cottage floor"
 				}
 			]
 		},
@@ -537,7 +424,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 8318's text (the Icy Veins WoW Forever database, quest 8318): Wanted: Deathclasp's chain (8284): the Base Camp \"swarming with elementals\"; the Encrypted Twilight Text drops from npcs only"
+					"ref": "forever-db item_source.jsonl: the Encrypted Twilight Text (20404) drops from NPCs only, the Twilight's Hammer cultists; the guide's own Twilight Base Camp step (tablet fragments) has only Dust Stormers and Desert Rumblers there"
 				}
 			]
 		},
@@ -554,7 +441,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 8279's text (the Icy Veins WoW Forever database, quest 8279): \"in the mountains south of Southwind Village\"; Ortell at 67.1,69.7"
+					"ref": "forever-db spawn.jsonl: Hermit Ortell's spawns are at Silithus 67.2,69.8, south-east of Cenarion Hold (about 50,35)"
 				}
 			]
 		},
@@ -572,7 +459,11 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 4292's text (the Icy Veins WoW Forever database, quest 4292): provided item Torwa's Pouch; \"Take the meat, place it in the small valley, and then use the gland on it\""
+					"ref": "forever-db item.jsonl: Torwa's Pouch (11568)"
+				},
+				{
+					"kind": "questie",
+					"ref": "Quest 4292's source item is Torwa's Pouch (11568), as PRDesrochers checked on #3884"
 				}
 			]
 		},
@@ -589,7 +480,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 3913's text (the Icy Veins WoW Forever database, quest 3913): ends at A Conspicuous Gravestone, 53.9,29.0; \"Resurrect, then look for the gravestone\""
+					"ref": "forever-db quest_end.jsonl: A Grave Situation (3913) ends at the object A Conspicuous Gravestone (148504), Tanaris 53.9,29.0, not at Gaeriyan"
 				}
 			]
 		},
@@ -606,7 +497,7 @@
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quest 5385's text (the Icy Veins WoW Forever database, quest 5385): Retribution of the Light (5204): \"return to Shadow Hold, kill Trey's torturer and find his remains\""
+					"ref": "Retribution of the Light's quest text (the client's quest cache): \"return to Shadow Hold, kill Trey's torturer and find his remains\""
 				}
 			]
 		},
@@ -622,7 +513,11 @@
 			"source": [
 				{
 					"kind": "in-game-check",
-					"ref": "2026-11-23: a level 54 Horde hunter with a group at the Tome (59.6,31.5) could not call Rimtori: the step said to use the Tome. The quest text (Icy Veins and the Fextralife WoW Forever wiki, An Explosive Gambit 91500) says destroying a seal makes its crystal explode, which draws Rimtori, and Icy Veins lists Seals of the Sin'dorei as the provided item"
+					"ref": "#3884: a level 54 Horde hunter with a group at the Sin'dorei Tome (59.6,31.5) could not call Magus Rimtori from it"
+				},
+				{
+					"kind": "client",
+					"ref": "forever-db item.jsonl: Seals of the Sin'dorei (249390), the quest item An Explosive Gambit (91500) hands over; its quest text (the client's quest cache): destroying a seal makes its crystal explode, which draws Rimtori"
 				}
 			]
 		},
@@ -639,7 +534,7 @@
 			"source": [
 				{
 					"kind": "in-game-check",
-					"ref": "2026-11-23: a level 54 Horde hunter with a group at the Tome (59.6,31.5) could not call Rimtori: the step said to use the Tome. The quest text (Icy Veins and the Fextralife WoW Forever wiki, An Explosive Gambit 91500) says destroying a seal makes its crystal explode, which draws Rimtori, and Icy Veins lists Seals of the Sin'dorei as the provided item"
+					"ref": "#3884: the same check; see the record above"
 				}
 			]
 		},
