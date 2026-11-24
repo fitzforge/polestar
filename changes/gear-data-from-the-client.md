@@ -11,4 +11,4 @@ section: players
   a little more, the Gnome's 5% mana counts for its mana classes only, and the
   old sword, axe and mace specialisations, which Forever's racials no longer
   have, stop favouring those weapons (thanks AbaddonAbatu, who found the
-  required levels and rebased this on 0.4.3).
+  required levels).

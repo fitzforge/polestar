@@ -18,6 +18,29 @@
 --   %s (level %d)
 --   %s takes these once you reach their level: %s
 --   Waiting for your level, taken where a later guide passes the giver: %s
+--
+-- Machine-translated, to be reviewed (0.4.3 guide titles, 24 Nov 2026): translated by an AI model
+-- (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
+-- one: keep or fix it, and take it off this list. The interface texts:
+--   Quests in
+--   Passes through
+-- and, in guides/locales/zhCN/, these guides' route-order line (the Horde 55-56 guide's title too,
+-- whose zone name is the client's own):
+--   forever/alliance/30-40/05-arathi-highlands
+--   forever/alliance/40-50/01-stranglethorn-vale
+--   forever/alliance/40-50/07-un-goro-crater
+--   forever/alliance/50-60/01-burning-steppes
+--   forever/alliance/50-60/02-felwood
+--   forever/alliance/50-60/03-winterspring
+--   forever/horde/40-50/02-feralas
+--   forever/horde/40-50/05-the-hinterlands
+--   forever/horde/40-50/06-azshara
+--   forever/horde/50-60/01-un-goro-crater
+--   forever/horde/50-60/02-felwood
+--   forever/horde/50-60/03-winterspring
+--   forever/horde/50-60/04-azshara
+--   forever/horde/50-60/05-eastern-plaguelands
+--   forever/horde/50-60/06-silithus
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
@@ -254,6 +277,8 @@ L["A guide later on your route takes this quest here: taken now, its step is don
 -- L["%s. Optional: the route doesn't need it."] = ""
 -- L["Kept for %s"] = ""
 -- L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = ""
+-- L["A quest you carry that the route does not work here: its work is nearby."] = ""
+-- L["%s at %s"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "选择一个奖励以完成交还。"
@@ -619,6 +644,8 @@ L["Airship to %s"] = "前往%s的飞空艇"
 -- Quests/Tracker.lua
 L["Done"] = "完成"
 L["Not done"] = "未完成"
+-- L["Hand-ins"] = ""
+-- L["Objectives"] = ""
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "开始任务"
@@ -696,7 +723,6 @@ L["%s: 1 step ahead"] = "%s：领先 1 个步骤"
 L["%s: %d steps ahead"] = "%s：领先 %d 个步骤"
 L["%s: 1 step behind"] = "%s：落后 1 个步骤"
 L["%s: %d steps behind"] = "%s：落后 %d 个步骤"
-L["%s: on this step"] = "%s：在此步骤"
 L["Still at it: %s"] = "仍在进行：%s"
 L["already done"] = "已完成"
 L["quest log full"] = "任务日志已满"
@@ -757,6 +783,7 @@ L["%s is on Polestar %s: your guides can differ."] = "%s 使用的是 Polestar %
 L["Party sync is on: you and your party see each other's quest progress. Turn it off in Settings."] = "小队同步已开启：你和小队成员可以看到彼此的任务进度。可在设置中关闭。"
 L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = "每次登录最多发送 10 条隐藏的插件密语，对象是你在主城、战斗和地下城之外选中或鼠标指向的同阵营玩家，并回复他们发来的询问：只包含版本号，以便 Polestar 在有新版本时告诉你。关闭：不发送也不回复。"
 L["You asked a moment ago: wait 1 second."] = "你刚刚已询问过：请等待 1 秒。"
+-- L["With %s"] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "大幅提升"
@@ -1849,6 +1876,8 @@ L["This zone is new in Forever. Its guide is experimental and still a work in pr
 L["This zone is new in Forever."] = "此地区为 Forever 新增。"
 -- L["Suggested"] = ""
 -- L["The guides window only. Click to pick a size; right-click to reset."] = ""
+L["Quests in"] = "任务地区"
+L["Passes through"] = "途经"
 
 -- UI/Lookup.lua
 L["Companion"] = "小伙伴"
@@ -3294,6 +3323,7 @@ L["The licence differs from the stored guide's."] = "许可证与已存储指南
 
 -- Nav/Pins.lua
 L["Polestar trail dots"] = "Polestar 轨迹圆点"
+-- L["Click to open the zone's map"] = ""
 
 -- UI/LineStyle.lua
 L["Dots"] = "圆点"
@@ -5415,3 +5445,4 @@ L["%d of %d"] = "%d / %d"
 -- L["Expect about %d minutes of extra grinding, or start there."] = "预计需要额外刷怪约 %d 分钟，或者从那里开始。"
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "窗口最多能长到多高，按屏幕高度的比例。更长的步骤可滚动查看。"
 -- L["Max height"] = "最大高度"
+-- L["%s: on this step"] = "%s：在此步骤"

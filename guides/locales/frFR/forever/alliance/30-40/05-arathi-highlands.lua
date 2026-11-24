@@ -7,9 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {area:327} Faldir's Cove
-	-- was: ["For characters of 35 to 37. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "Pour les personnages de niveau 35 à 37. {area:327}, où les nagas et les élémentaires d'eau du professeur sont de niveau 38-40, se fait en Groupe : passez-la si vous êtes seul."
-	["For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "",
+	-- {zone:1435} Swamp of Sorrows · {area:271} Southshore · {area:327} Faldir's Cove
+	["{zone:1435} first, then north to {area:271}, Alterac and Arathi. For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "D'abord {zone:1435}, puis au nord jusqu'à {area:271}, Alterac et Arathi. Pour les personnages de niveau 36 à 38. {area:327}, où les nagas et les élémentaires d'eau du professeur sont de niveau 38-40, est une étape de groupe : passez-la si vous êtes seul.",
 
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire

@@ -112,6 +112,29 @@
 --   Perf probe: measurements cleared.
 --   /polestar perf: on, off, report or reset
 --   Find what makes your game stutter: times Polestar's own work (on, off, report, reset)
+--
+-- Machine-translated, to be reviewed (0.4.3 guide titles, 24 Nov 2026): translated by an AI model
+-- (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
+-- one: keep or fix it, and take it off this list. The interface texts:
+--   Quests in
+--   Passes through
+-- and, in guides/locales/koKR/, these guides' route-order line (the Horde 55-56 guide's title too,
+-- whose zone name is the client's own):
+--   forever/alliance/30-40/05-arathi-highlands
+--   forever/alliance/40-50/01-stranglethorn-vale
+--   forever/alliance/40-50/07-un-goro-crater
+--   forever/alliance/50-60/01-burning-steppes
+--   forever/alliance/50-60/02-felwood
+--   forever/alliance/50-60/03-winterspring
+--   forever/horde/40-50/02-feralas
+--   forever/horde/40-50/05-the-hinterlands
+--   forever/horde/40-50/06-azshara
+--   forever/horde/50-60/01-un-goro-crater
+--   forever/horde/50-60/02-felwood
+--   forever/horde/50-60/03-winterspring
+--   forever/horde/50-60/04-azshara
+--   forever/horde/50-60/05-eastern-plaguelands
+--   forever/horde/50-60/06-silithus
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "koKR") then return end
@@ -348,6 +371,8 @@ L["A guide later on your route takes this quest here: taken now, its step is don
 -- L["%s. Optional: the route doesn't need it."] = ""
 -- L["Kept for %s"] = ""
 -- L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = ""
+-- L["A quest you carry that the route does not work here: its work is nearby."] = ""
+-- L["%s at %s"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "보상을 선택해 제출을 마치십시오."
@@ -713,6 +738,8 @@ L["Airship to %s"] = "%s행 비행선"
 -- Quests/Tracker.lua
 L["Done"] = "완료"
 L["Not done"] = "미완료"
+-- L["Hand-ins"] = ""
+-- L["Objectives"] = ""
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "퀘스트 시작"
@@ -790,7 +817,6 @@ L["%s: 1 step ahead"] = "%s: 1단계 앞"
 L["%s: %d steps ahead"] = "%s: %d단계 앞"
 L["%s: 1 step behind"] = "%s: 1단계 뒤"
 L["%s: %d steps behind"] = "%s: %d단계 뒤"
-L["%s: on this step"] = "%s: 같은 단계"
 L["Still at it: %s"] = "아직 진행 중: %s"
 L["already done"] = "이미 완료함"
 L["quest log full"] = "퀘스트 목록 가득 참"
@@ -851,6 +877,7 @@ L["%s is on Polestar %s: your guides can differ."] = "%s 님은 Polestar %s 버�
 L["Party sync is on: you and your party see each other's quest progress. Turn it off in Settings."] = "파티 동기화가 켜져 있습니다. 나와 파티원이 서로의 퀘스트 진행 상황을 봅니다. 설정에서 끌 수 있습니다."
 L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = "도시, 전투, 던전 밖에서 대상으로 지정하거나 마우스를 올린 같은 진영 플레이어에게 접속당 최대 10번 숨겨진 애드온 귓속말을 보내고, 그들의 귓속말에 답합니다. 버전 번호만 주고받으므로 Polestar가 새 버전이 나왔을 때 알려 줄 수 있습니다. 끄면 보내지도 답하지도 않습니다."
 L["You asked a moment ago: wait 1 second."] = "방금 요청했습니다: 1초 기다리십시오."
+-- L["With %s"] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "큰 향상"
@@ -1942,6 +1969,8 @@ L["This zone is new in Forever. Its guide is experimental and still a work in pr
 L["This zone is new in Forever."] = "이 지역은 Forever에 새로 추가되었습니다."
 -- L["Suggested"] = ""
 -- L["The guides window only. Click to pick a size; right-click to reset."] = ""
+L["Quests in"] = "퀘스트 지역"
+L["Passes through"] = "지나가는 지역"
 
 -- UI/Lookup.lua
 L["Companion"] = "애완동물"
@@ -3387,6 +3416,7 @@ L["The licence differs from the stored guide's."] = "라이선스가 저장된 �
 
 -- Nav/Pins.lua
 L["Polestar trail dots"] = "Polestar 경로 점"
+-- L["Click to open the zone's map"] = ""
 
 -- UI/LineStyle.lua
 L["Dots"] = "점"
@@ -5500,3 +5530,4 @@ L["%d of %d"] = "%d / %d"
 -- L["Expect about %d minutes of extra grinding, or start there."] = "약 %d분 더 사냥해야 합니다. 아니면 거기서 시작하십시오."
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "창이 커질 수 있는 높이(화면 대비 비율). 더 긴 단계는 스크롤됩니다."
 -- L["Max height"] = "최대 높이"
+-- L["%s: on this step"] = "%s: 같은 단계"

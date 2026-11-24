@@ -1,6 +1,29 @@
 -- Spanish, Latin America (esMX). Keys are the English strings exactly as the
 -- code writes them; a key missing here shows in English. Game terms follow
 -- the esMX client's own wording. Grouped by the file that first uses each key.
+--
+-- Machine-translated, to be reviewed (0.4.3 guide titles, 24 Nov 2026): translated by an AI model
+-- (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
+-- one: keep or fix it, and take it off this list. The interface texts:
+--   Quests in
+--   Passes through
+-- and, in guides/locales/esMX/, these guides' route-order line (the Horde 55-56 guide's title too,
+-- whose zone name is the client's own):
+--   forever/alliance/30-40/05-arathi-highlands
+--   forever/alliance/40-50/01-stranglethorn-vale
+--   forever/alliance/40-50/07-un-goro-crater
+--   forever/alliance/50-60/01-burning-steppes
+--   forever/alliance/50-60/02-felwood
+--   forever/alliance/50-60/03-winterspring
+--   forever/horde/40-50/02-feralas
+--   forever/horde/40-50/05-the-hinterlands
+--   forever/horde/40-50/06-azshara
+--   forever/horde/50-60/01-un-goro-crater
+--   forever/horde/50-60/02-felwood
+--   forever/horde/50-60/03-winterspring
+--   forever/horde/50-60/04-azshara
+--   forever/horde/50-60/05-eastern-plaguelands
+--   forever/horde/50-60/06-silithus
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "esMX") then return end
@@ -259,6 +282,8 @@ L["A guide later on your route takes this quest here: taken now, its step is don
 -- L["%s. Optional: the route doesn't need it."] = ""
 -- L["Kept for %s"] = ""
 -- L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = ""
+-- L["A quest you carry that the route does not work here: its work is nearby."] = ""
+-- L["%s at %s"] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Requiere Polestar %s o posterior."
@@ -1144,6 +1169,8 @@ L["%d/%d (not accepted)"] = "%d/%d (no aceptada)"
 -- Quests/Tracker.lua
 L["Done"] = "Hecho"
 L["Not done"] = "Sin hacer"
+-- L["Hand-ins"] = ""
+-- L["Objectives"] = ""
 
 -- Rares/Options.lua
 L["1 minute"] = "1 minuto"
@@ -2352,6 +2379,8 @@ L["This zone is new in Forever. Its guide is experimental and still a work in pr
 L["This zone is new in Forever."] = "Esta zona es nueva en Forever."
 -- L["Suggested"] = ""
 -- L["The guides window only. Click to pick a size; right-click to reset."] = ""
+L["Quests in"] = "Misiones en"
+L["Passes through"] = "Pasa por"
 
 -- UI/Report.lua
 L["Polestar %s"] = "Polestar %s"
@@ -2767,7 +2796,6 @@ L["%s: 1 step ahead"] = "%s: 1 paso por delante"
 L["%s: %d steps ahead"] = "%s: %d pasos por delante"
 L["%s: 1 step behind"] = "%s: 1 paso por detrás"
 L["%s: %d steps behind"] = "%s: %d pasos por detrás"
-L["%s: on this step"] = "%s: en este paso"
 L["Still at it: %s"] = "Todavía en ello: %s"
 L["already done"] = "ya completada"
 L["quest log full"] = "registro de misiones lleno"
@@ -2828,6 +2856,7 @@ L["%s is on Polestar %s: your guides can differ."] = "%s usa Polestar %s: sus gu
 L["Party sync is on: you and your party see each other's quest progress. Turn it off in Settings."] = "La sincronización de grupo está activada: tú y tu grupo ven el progreso de misiones de los demás. Desactívala en Configuración."
 L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = "Hasta 10 susurros ocultos del AddOn por sesión, a jugadores de tu facción que seleccionas o sobre los que pasas el cursor fuera de ciudades, combates y calabozos, y una respuesta a los suyos: solo el número de versión, para que Polestar pueda avisarte cuando haya una más reciente. Desactivado: no se envía ni se responde ninguno."
 L["You asked a moment ago: wait 1 second."] = "Lo pediste hace un momento: espera 1 segundo."
+-- L["With %s"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascensor a %s"
@@ -3276,6 +3305,7 @@ L["The licence differs from the stored guide's."] = "La licencia es distinta de 
 
 -- Nav/Pins.lua
 L["Polestar trail dots"] = "Puntos de rastro de Polestar"
+-- L["Click to open the zone's map"] = ""
 
 -- UI/LineStyle.lua
 L["Dots"] = "Puntos"
@@ -5430,3 +5460,4 @@ L["%d of %d"] = "%d de %d"
 -- L["Expect about %d minutes of extra grinding, or start there."] = "Cuenta con unos %d minutos más de farmeo, o empieza allá."
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Cuánto puede crecer la ventana, como parte de la pantalla. Un paso más largo se desplaza."
 -- L["Max height"] = "Altura máx."
+-- L["%s: on this step"] = "%s: en este paso"

@@ -122,6 +122,29 @@
 --   Perf probe: measurements cleared.
 --   /polestar perf: on, off, report or reset
 --   Find what makes your game stutter: times Polestar's own work (on, off, report, reset)
+--
+-- Machine-translated, to be reviewed (0.4.3 guide titles, 24 Nov 2026): translated by an AI model
+-- (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
+-- one: keep or fix it, and take it off this list. The interface texts:
+--   Quests in
+--   Passes through
+-- and, in guides/locales/deDE/, these guides' route-order line (the Horde 55-56 guide's title too,
+-- whose zone name is the client's own):
+--   forever/alliance/30-40/05-arathi-highlands
+--   forever/alliance/40-50/01-stranglethorn-vale
+--   forever/alliance/40-50/07-un-goro-crater
+--   forever/alliance/50-60/01-burning-steppes
+--   forever/alliance/50-60/02-felwood
+--   forever/alliance/50-60/03-winterspring
+--   forever/horde/40-50/02-feralas
+--   forever/horde/40-50/05-the-hinterlands
+--   forever/horde/40-50/06-azshara
+--   forever/horde/50-60/01-un-goro-crater
+--   forever/horde/50-60/02-felwood
+--   forever/horde/50-60/03-winterspring
+--   forever/horde/50-60/04-azshara
+--   forever/horde/50-60/05-eastern-plaguelands
+--   forever/horde/50-60/06-silithus
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
@@ -369,6 +392,8 @@ L["A guide later on your route takes this quest here: taken now, its step is don
 -- L["%s. Optional: the route doesn't need it."] = ""
 -- L["Kept for %s"] = ""
 -- L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = ""
+-- L["A quest you carry that the route does not work here: its work is nearby."] = ""
+-- L["%s at %s"] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
@@ -963,6 +988,8 @@ L["This zone is new in Forever. Its guide is experimental and still a work in pr
 L["This zone is new in Forever."] = "Dieses Gebiet ist neu in Forever."
 -- L["Suggested"] = ""
 -- L["The guides window only. Click to pick a size; right-click to reset."] = ""
+L["Quests in"] = "Quests in"
+L["Passes through"] = "Durchquert"
 
 -- UI/Report.lua
 L["skipped"] = "übersprungen"
@@ -2722,7 +2749,6 @@ L["%s: 1 step ahead"] = "%s: 1 Schritt voraus"
 L["%s: %d steps ahead"] = "%s: %d Schritte voraus"
 L["%s: 1 step behind"] = "%s: 1 Schritt zurück"
 L["%s: %d steps behind"] = "%s: %d Schritte zurück"
-L["%s: on this step"] = "%s: bei diesem Schritt"
 L["Still at it: %s"] = "Noch dran: %s"
 L["already done"] = "schon erledigt"
 L["quest log full"] = "Questlog voll"
@@ -2783,6 +2809,7 @@ L["%s is on Polestar %s: your guides can differ."] = "%s nutzt Polestar %s: Eure
 L["Party sync is on: you and your party see each other's quest progress. Turn it off in Settings."] = "Der Gruppenabgleich ist an: Du und deine Gruppe seht gegenseitig euren Questfortschritt. Ausschalten kannst du ihn in den Einstellungen."
 L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = "Bis zu 10 versteckte Addon-Flüsternachrichten pro Sitzung an Spieler deiner Fraktion, die du außerhalb von Städten, Kämpfen und Dungeons anvisierst oder mit der Maus berührst, und eine Antwort auf ihre: nur die Versionsnummer, damit Polestar dir sagen kann, wenn eine neuere erschienen ist. Aus: Es wird nichts gesendet oder beantwortet."
 L["You asked a moment ago: wait 1 second."] = "Du hast gerade erst gefragt: Warte 1 Sekunde."
+-- L["With %s"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Aufzug nach %s"
@@ -3309,6 +3336,7 @@ L["The licence differs from the stored guide's."] = "Die Lizenz weicht von der d
 
 -- Nav/Pins.lua
 L["Polestar trail dots"] = "Polestar-Spurpunkte"
+-- L["Click to open the zone's map"] = ""
 
 -- UI/LineStyle.lua
 L["Dots"] = "Punkte"
@@ -5233,10 +5261,18 @@ L["%d of %d"] = "%d von %d"
 -- L["Keep this"] = ""
 -- L["(your current)"] = ""
 
+-- Quests/Tracker.lua
+-- L["Hand-ins"] = ""
+-- L["Objectives"] = ""
+
 -- Quests/KeptFor.lua
 -- L["kept for %s"] = ""
 -- L["kept"] = ""
 -- L["Kept for %s: the route hands it in there."] = ""
+
+-- Quests/Tracker.lua
+-- L["Hand-ins"] = ""
+-- L["Objectives"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen. Jede Wahl wirkt sofort."
@@ -5550,3 +5586,4 @@ L["%d of %d"] = "%d von %d"
 -- L["Expect about %d minutes of extra grinding, or start there."] = "Rechne mit etwa %d Minuten zusätzlichem Grinden, oder fang dort an."
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Wie hoch das Fenster werden darf, als Anteil am Bildschirm. Ein längerer Schritt wird gescrollt."
 -- L["Max height"] = "Max. Höhe"
+-- L["%s: on this step"] = "%s: bei diesem Schritt"

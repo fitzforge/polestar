@@ -56,8 +56,8 @@ return {
 
 	-- Step 8: The ancients' outpost
 	["The ancients' outpost"] = "El puesto de los ancianos",
-	-- {npc:248395} Tainted Shrubbery · {npc:249235} Kaylaena Springwhisper · {npc:260626} Bluebell · {npc:248367} Hyacinth · {npc:265586} Thylaen · {npc:248366} Fraxinus
-	["South down the west side of the shrub field to the ancients' outpost: kill the {npc:248395} you pass for {npc:249235}. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "Al sur por el lado oeste del campo de arbustos hasta el puesto de los ancianos: mata los {npc:248395} que encuentres para {npc:249235}. {npc:260626}, la maestra de vuelo, espera junto al puesto; {npc:248367} y {npc:265586} están con el anciano {npc:248366}.",
+	-- {npc:248395} Tainted Shrubbery · {item:247892} Verdant Leaves · {npc:248367} Hyacinth · {quest:91755} Leaves to Ligatures · {npc:249235} Kaylaena Springwhisper · {npc:260626} Bluebell · {npc:265586} Thylaen · {npc:248366} Fraxinus
+	["South down the west side of the shrub field to the ancients' outpost. Leave the {npc:248395} for now: their {item:247892} drop only once {npc:248367}'s {quest:91755} is in your log, and the guide brings you back to the shrub field for the leaves and {npc:249235}'s kills together. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "",
 
 	-- Step 9: Celastrus the Bitter
 	-- {quest:91923} Celastrus the Bitter
@@ -688,5 +688,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A group choice: {npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them. Drain each one first, then fight it; players in our recordings killed both once drained. Grouping up is advised."] = "Para ir en grupo: {npc:263394} y {npc:252457} son élites de nivel 60 hasta que el ojo de {npc:263406} los drena. Drena a cada uno primero y luego pelea; los jugadores de nuestras grabaciones mataron a los dos una vez drenados. Se recomienda ir en grupo.",
 	-- ["South Bonfire"] = "South Bonfire",
+	-- ["South down the west side of the shrub field to the ancients' outpost: kill the {npc:248395} you pass for {npc:249235}. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "Al sur por el lado oeste del campo de arbustos hasta el puesto de los ancianos: mata los {npc:248395} que encuentres para {npc:249235}. {npc:260626}, la maestra de vuelo, espera junto al puesto; {npc:248367} y {npc:265586} están con el anciano {npc:248366}.",
 	-- ["Southeast Bonfire"] = "Southeast Bonfire",
 }

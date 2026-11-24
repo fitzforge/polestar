@@ -7,8 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {zone:1423} Eastern Plaguelands · {zone:1448} Felwood · {zone:1452} Winterspring
-	["Western & {zone:1423}, {zone:1448} & {zone:1452}"] = "",
+	-- {zone:1423} Eastern Plaguelands · {zone:1448} Felwood
+	["Western & {zone:1423} & {zone:1448}"] = "서부 역병지대, {zone:1423} & {zone:1448}",
+	-- {area:152} The Bulwark · {zone:1448} Felwood · {zone:1452} Winterspring
+	["{area:152} and both Plaguelands, then {zone:1448} and {zone:1452}."] = "{area:152}, 양쪽 역병지대, 그다음 {zone:1448}, {zone:1452}.",
 
 	-- Step 1: The Bulwark
 	-- {area:199} Felstone Field · {area:152} The Bulwark · {npc:11055} Shadow Priestess Vandis

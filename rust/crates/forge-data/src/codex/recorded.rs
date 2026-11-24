@@ -16,11 +16,12 @@
 //! - `drops`/`objects`: per NPC or object, each item its loot windows held, with the number of
 //!   people who saw it (`voters`), a `chance` ([`crate::recordings::drop_chance`]: percent, the
 //!   median of each person's own share of their loot windows of that source; a quest drop counts
-//!   only the windows its objective was open for, [`crate::recordings::QuestLoot`]) only on trusted
+//!   only while its objective was open, a creature's on the kills the person could loot then, solo,
+//!   not the windows (#2747, [`crate::recordings::QuestLoot`]) only on trusted
 //!   evidence (`minVoters` people, or a vouched one, each with at least [`MIN_WINDOWS`] of those
-//!   windows), and `trusted` when `minVoters` people saw it, a vouched one did, or a trusted chance
-//!   backs it. The Recorder's kills are no samples: they include deaths the player only saw. NPC
-//!   loot from a gathering skill (skinning, herbs, ore) is
+//!   windows or kills), and `trusted` when `minVoters` people saw it, a vouched one did, or a trusted
+//!   chance backs it. Any other drop counts windows: a kill another player tapped is a death the
+//!   player only saw. NPC loot from a gathering skill (skinning, herbs, ore) is
 //!   left out. An object whose loot windows `minVoters` people opened inside one instance, and
 //!   nobody out in the world, carries that instance's map (`instance`, #2883).
 //! - `vendors`: per NPC, each item its merchant window listed, with `voters` and `trusted`.
@@ -122,7 +123,10 @@ impl Gather {
 		let started = rec.get("started").as_num().filter(|t| t.is_finite()).unwrap_or(0.0);
 		let (mut lvl, mut xp, mut xp_max) = (0.0f64, 0.0f64, 0.0f64);
 		let mut run: Option<(i64, f64, f64)> = None;
+		// Schema 2 records each kill: a creature's quest drop counts on them (QuestLoot).
+		self.quest_loot.begin(rec.get("schema").as_num() == Some(2.0));
 		for ev in rec.get("events").items() {
+			self.quest_loot.event(p, &ev);
 			let e = ev.get("e");
 			let e = e.as_str();
 			if matches!(e, Some("session" | "step" | "turnin" | "accept" | "level")) {
@@ -458,7 +462,7 @@ pub fn source_meta(rec: &V) -> Option<V> {
 #[cfg(test)]
 mod tests {
 	use super::*;
-	use crate::recordings::{apply_recordings, Db, Recording, Recordings};
+	use crate::recordings::{apply_recordings, Db, DropChances, Recording, Recordings};
 	use crate::spawns::DEFAULTS;
 
 	/// The snapshot of sessions already marked by `establish`, one person per [`Recording::voter`] (what
@@ -632,7 +636,7 @@ mod tests {
 		}"#);
 		let (zones, factions, instances) = (obj("{}"), obj("{}"), obj("{}"));
 		let db = Db { quests: &quests, npcs: &npcs, objects: &objects, items: &items, zones: &zones, factions: &factions, instances: &instances, gather_spells: &[], quest_items: &[] };
-		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false, true);
+		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false, DropChances::All);
 
 		let s = |v: &V| stringify(v, None);
 		for (npc, expected) in [("1501", 25.0), ("1502", 20.0)] {
@@ -714,7 +718,7 @@ mod tests {
 		}"#);
 		let (quests, objects, zones, factions, instances) = (obj("{}"), obj("{}"), obj("{}"), obj("{}"), obj("{}"));
 		let db = Db { quests: &quests, npcs: &npcs, objects: &objects, items: &items, zones: &zones, factions: &factions, instances: &instances, gather_spells: &[], quest_items: &[] };
-		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false, true);
+		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false, DropChances::All);
 
 		// Coyote Meat: 9 of 20 own windows. Large Candle: 6 of the 10 windows Kobold Candles was open for. Gold
 		// Dust: 4 of the 10 windows its objective was open for (the fast-looted candle's window held it too).
@@ -724,6 +728,60 @@ mod tests {
 			assert_eq!(codex_chance, Some(expected), "Codex: item {item} from npc {npc}");
 			assert_eq!(data_chance, codex_chance, "data build: item {item} from npc {npc}");
 		}
+	}
+
+	// #2747: a creature's quest drop counts on the kills the player could loot while it was wanted, not on the loot
+	// windows: a corpse with nothing on it can't be opened, and many are left, so the windows read the chance 1.2 to
+	// 3 times high (Hillsbrad Human Skull: 37.9% by windows, 13.0% by kills). Each of three players takes Souvenirs
+	// of Death, kills 20 humans and opens a window on 8 of them, 5 with a skull: 25%, not 62.5%. Kills another
+	// player tapped, kills and windows in a group, and kills once the quest is handed in are no tries. Linen, which
+	// drops off the quest too, still counts windows, so the data build leaves its chance to the sources.
+	#[test]
+	fn a_creatures_quest_drop_counts_on_the_kills_while_it_was_wanted_not_on_the_loot_windows_2747() {
+		let kill = r#"{"e":"kill","npc":232,"cls":"normal"}"#;
+		let window = |skull: bool| {
+			let skull = if skull { r#"{"item":3692,"count":1,"q":546,"oi":1},"# } else { "" };
+			format!(r#"{{"e":"drop","npc":232,"items":[{skull}{{"item":2589,"count":1}}],"wanted":[{{"q":546,"oi":1}}]}}"#)
+		};
+		let player = || {
+			let mut v = vec![r#"{"e":"accept","q":546}"#.to_string(), r#"{"e":"objectives","q":546,"objectives":[{"type":"item","max":12}]}"#.to_string()];
+			for i in 0..20 {
+				v.push(kill.to_string());
+				if i < 8 {
+					v.push(window(i < 5));
+				}
+			}
+			v.extend((0..10).map(|_| r#"{"e":"kill","npc":232,"cls":"normal","denied":true}"#.to_string()));
+			v.push(r#"{"e":"group","size":2}"#.to_string());
+			for _ in 0..10 {
+				v.push(r#"{"e":"kill","npc":232,"cls":"normal","group":2}"#.to_string());
+				v.push(window(true));
+			}
+			v.push(r#"{"e":"group","size":0}"#.to_string());
+			v.push(r#"{"e":"turnin","q":546}"#.to_string());
+			v.extend((0..10).map(|_| kill.to_string()));
+			v.join(",")
+		};
+		let list = vec![session("aaaaaaaaaaaaaaaa", true, &player()), session("bbbbbbbbbbbbbbbb", true, &player()), session("cccccccccccccccc", true, &player())];
+		let recs = Recordings { list, min_voters: 3 };
+		let snap = snapshot(&recs);
+		assert_eq!(snap.get("drops").get("232").get("items").get("3692").get("chance").as_num(), Some(25.0), "Codex");
+
+		let obj = |j: &str| match parse_json(j).unwrap() {
+			V::Obj(o) => o,
+			_ => unreachable!(),
+		};
+		let npcs = obj(r#"{"232":{"id":232,"name":"Farmer Ray","spawns":{}}}"#);
+		let items = obj(r#"{
+			"3692":{"id":3692,"name":"Hillsbrad Human Skull","drops":{"npc":{"232":40},"object":{}},"vendors":[]},
+			"2589":{"id":2589,"name":"Linen Cloth","drops":{"npc":{"232":20},"object":{}},"vendors":[]}
+		}"#);
+		let (quests, objects, zones, factions, instances) = (obj("{}"), obj("{}"), obj("{}"), obj("{}"), obj("{}"));
+		let db = Db { quests: &quests, npcs: &npcs, objects: &objects, items: &items, zones: &zones, factions: &factions, instances: &instances, gather_spells: &[], quest_items: &[] };
+		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false, DropChances::QuestDrops);
+		assert_eq!(items.get("3692").get("drops").get("npc").get("232").as_num(), Some(25.0), "data build: the skull");
+		assert_eq!(stringify(&items.get("3692").get("seen").get("npc").get("232"), None), r#"{"n":15,"of":60}"#);
+		assert_eq!(items.get("2589").get("drops").get("npc").get("232").as_num(), Some(20.0), "data build: Linen keeps the sources' chance");
 	}
 
 	// The archive as `forge data codex --recordings` reads it: the recordings audit's verdicts set a suspect contributor

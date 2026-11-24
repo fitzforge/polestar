@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Spanish (Spain) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1422} Western Plaguelands · {area:152} Bulwark · {zone:1447} Azshara · {zone:1448} Felwood
+	["{zone:1422} and the {area:152} first, then {zone:1447} and {zone:1448}."] = "Primero {zone:1422} y {area:152}, luego {zone:1447} y {zone:1448}.",
+
 	-- Step 1: Mulgris Deepriver
 	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
 	["He camps by the {area:202}, south-east of {area:200}."] = "Acampa junto a {area:202}, al sureste de {area:200}.",
@@ -38,12 +42,12 @@ return {
 
 	-- Step 8: Scarlet forward camp
 	["Scarlet forward camp"] = "Campamento avanzado Escarlata",
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
+	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
 	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Desde {area:152}, sigue el camino hacia el este hasta {zone:1422}. Las tiendas de la Cruzada Escarlata están justo pasada la Granja Piedra Vil, entre {area:199} y {area:200}. Incendia la tienda de mando con la {object:176092} y planta el estandarte de la Plaga. Cuidado: los Escarlata de las tiendas llegan al nivel 54 y los Invocadores lanzan hechizos; entra por el lado más cercano a la tienda de mando y deja en paz a los demás."
 	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "",
 
-	-- Step 9: The Bulwark
-	-- {area:152} The Bulwark
+	-- Step 9: Bulwark
+	-- {area:152} Bulwark
 	["Ride south-west past Felstone Farm and follow the road west back to the {area:152}."] = "Cabalga al suroeste pasando la granja de Piedramácula y sigue el camino al oeste de vuelta a {area:152}.",
 	["Derrington's watchtowers and Vandis' cauldron are done on a later visit: keep them."] = "Las atalayas de Derrington y el caldero de Vandis se hacen en una visita posterior: guárdalas.",
 

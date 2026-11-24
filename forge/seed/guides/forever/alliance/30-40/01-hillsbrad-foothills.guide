@@ -19,7 +19,9 @@ next forever/alliance/30-40/03-ashenvale
 # route does not take.
 # Spark of Freedom (87491) is a group quest (#1313): its escort starts at the far west of Dun Modr's elite Dark Iron ruins.
 # The Dark Iron War (303, the ruins' elites) and Bring Back a Bang (88756, the explosives on Direforge Hill among the same
-# elites) are group quests on the same stop (#2587): asked like Spark of Freedom, never on the solo route.
+# elites) are group quests on the same stop (#2587): asked like Spark of Freedom, never on the solo route. Motley and Ashlan
+# stand beside Rhag, so both are asked on arrival, before the escort and Modr, and the Dark Irons killed in the ruins
+# count from the first one (#3871).
 # MacKreel's Moonshine (647) is taken in 05-arathi-highlands: its 15-minute limit does not last the walk to Menethil and the boat (#1319).
 # Level tidy (0.4.0): Lifting the Curse (290), The Eye of Paleth (292) and Cleansing the Eye (293) moved off the first
 # Wetlands visit; since the 2026-11-20 round 06-wetlands takes 290 on its first Menethil stop and works it from 29, and
@@ -92,6 +94,16 @@ step Dun Modr
   turnin 472                              -- Longbraid the Grim
   accept 631                          -- Rhag Garmason
 
+step Motley Garmason
+  when group 303
+  tip The Dark Iron War is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone.
+  accept 303                          -- Motley Garmason, in the camp
+
+step Ashlan Stonesmirk
+  when group 88756
+  tip Bring Back a Bang is a group quest: the Stolen Explosives lie in the Dark Iron camp on Direforge Hill, south-east of Dun Modr, among the same elite dwarves. Skip it if you are alone.
+  accept 88756                        -- Ashlan Stonesmirk, in the camp
+
 step Captive Fire Elemental
   when group 87491
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. The Captive Fire Elemental is held at the far west end of the Dark Iron ruins, past level 27-30 elite dwarves, and Balgaras the Foul (34, elite) can be among them. Lead it east out of the ruins, then hand it in to Roggo Harlbarrow in the camp. Skip it if you are alone.
@@ -103,16 +115,6 @@ step Modr
   when group 98310
   tip Modr stands in the ruins of Dun Modr (use the Goaz Stone).
   collect 280396 quest 98310.2        -- Heart of Modr
-
-step Motley Garmason
-  when group 303
-  tip The Dark Iron War is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone.
-  accept 303                          -- Motley Garmason, in the camp
-
-step Ashlan Stonesmirk
-  when group 88756
-  tip Bring Back a Bang is a group quest: the Stolen Explosives lie in the Dark Iron camp on Direforge Hill, south-east of Dun Modr, among the same elite dwarves. Skip it if you are alone.
-  accept 88756                        -- Ashlan Stonesmirk, in the camp
 
 step The Dark Iron War
   when group 303

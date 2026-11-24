@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1434} Stranglethorn Vale · {area:75} Stonard · {zone:1446} Tanaris · {zone:1444} Feralas
+	["{zone:1434} and {area:75} first, then {zone:1446} and {zone:1444}."] = "먼저 {zone:1434}, {area:75}, 그다음 {zone:1446}, {zone:1444}.",
+
 	-- Step 1: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "{object:3202}(으)로 날아가기",

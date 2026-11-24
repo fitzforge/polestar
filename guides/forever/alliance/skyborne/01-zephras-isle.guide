@@ -126,7 +126,7 @@ step Shen'dar Village
   turnin 96638                                -- Raan Wildwind
 
 step Raan Wildwind
-  tip With a profession learned, Raan also offers its Camping 101, which its trainer in Shen'dar Village takes on the village round.
+  tip With a profession learned, Raan also offers its Camping 101, which its trainer in Shen'dar Village takes on the village round. The Strange Hermit has his own for engineers.
   accept 96101                                -- Raan Wildwind
   complete 96101 @41.73,44.78                 -- /sit by Raan's campfire until you get Boosted Rest
   turnin 96101
@@ -185,6 +185,11 @@ step Camping 101: Enchanting
   when !knows 1230643
   tip Nasalanna Windsinger takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 98286                                -- Raan Wildwind: for Nasalanna Windsinger
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  when !knows 1229705
+  tip Halassa Fernbreeze takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97968                                -- Raan Wildwind: for Halassa Fernbreeze
 
 step Zerril Softbreeze
   train Cooking npc 251905                    -- Zerril Softbreeze: Camping 101 asks you to learn it
@@ -257,6 +262,12 @@ step Fenn Fairweather
   when complete 97967
   talk 251992 quest 97967.1
   turnin 97967                                -- Fenn Fairweather, on the south edge of the village
+
+step Halassa Fernbreeze
+  when onquest 97968
+  when complete 97968
+  talk 257021 quest 97968.1
+  turnin 97968 npc 257021                     -- Halassa Fernbreeze, in the village
 
 step Prideclaws and Galestriders
   tip Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village.
@@ -636,6 +647,12 @@ step The Strange Hermit
   accept 93160
   accept 93172
 
+step Camping 101: Engineering
+  when skill Engineering 1
+  when !knows 1230656
+  tip The Strange Hermit has a Camping 101 for engineers too, and takes it back once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 98285                                -- Strange Hermit
+
 step Ruins of Ban'aethal: kill these as you meet them
   zone Zephras Isle
   tip North of the cones: the Wind Hollows drift around the refugees' camp, the Abandoned Belongings lie between the tents, and Resaan Nimbuswalker lies at its north end.
@@ -647,6 +664,12 @@ step Ruins of Ban'aethal: kill these as you meet them
 step Back to the Hermit
   turnin 93160                                -- Strange Hermit
   turnin 93172
+
+step Strange Hermit
+  when onquest 98285
+  when complete 98285
+  complete 98285 @53.96,38.9                  -- talk to the Strange Hermit
+  turnin 98285                                -- Strange Hermit: Camping 101: Engineering
 
 # ---------------------------------------------------------------- The Shrine of Akir
 

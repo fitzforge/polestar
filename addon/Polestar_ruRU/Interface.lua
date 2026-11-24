@@ -95,6 +95,29 @@
 --   Perf probe: measurements cleared.
 --   /polestar perf: on, off, report or reset
 --   Find what makes your game stutter: times Polestar's own work (on, off, report, reset)
+--
+-- Machine-translated, to be reviewed (0.4.3 guide titles, 24 Nov 2026): translated by an AI model
+-- (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
+-- one: keep or fix it, and take it off this list. The interface texts:
+--   Quests in
+--   Passes through
+-- and, in guides/locales/ruRU/, these guides' route-order line (the Horde 55-56 guide's title too,
+-- whose zone name is the client's own):
+--   forever/alliance/30-40/05-arathi-highlands
+--   forever/alliance/40-50/01-stranglethorn-vale
+--   forever/alliance/40-50/07-un-goro-crater
+--   forever/alliance/50-60/01-burning-steppes
+--   forever/alliance/50-60/02-felwood
+--   forever/alliance/50-60/03-winterspring
+--   forever/horde/40-50/02-feralas
+--   forever/horde/40-50/05-the-hinterlands
+--   forever/horde/40-50/06-azshara
+--   forever/horde/50-60/01-un-goro-crater
+--   forever/horde/50-60/02-felwood
+--   forever/horde/50-60/03-winterspring
+--   forever/horde/50-60/04-azshara
+--   forever/horde/50-60/05-eastern-plaguelands
+--   forever/horde/50-60/06-silithus
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ruRU") then return end
@@ -331,6 +354,8 @@ L["A guide later on your route takes this quest here: taken now, its step is don
 -- L["%s. Optional: the route doesn't need it."] = ""
 -- L["Kept for %s"] = ""
 -- L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = ""
+-- L["A quest you carry that the route does not work here: its work is nearby."] = ""
+-- L["%s at %s"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Выберите награду, чтобы сдать задание."
@@ -696,6 +721,8 @@ L["Airship to %s"] = "Воздушный корабль до %s"
 -- Quests/Tracker.lua
 L["Done"] = "Готово"
 L["Not done"] = "Не готово"
+-- L["Hand-ins"] = ""
+-- L["Objectives"] = ""
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "Начинает задание"
@@ -773,7 +800,6 @@ L["%s: 1 step ahead"] = "%s: на 1 шаг впереди"
 L["%s: %d steps ahead"] = "%s: впереди на %d шаг."
 L["%s: 1 step behind"] = "%s: на 1 шаг позади"
 L["%s: %d steps behind"] = "%s: позади на %d шаг."
-L["%s: on this step"] = "%s: на этом шаге"
 L["Still at it: %s"] = "Еще выполняют: %s"
 L["already done"] = "уже выполнено"
 L["quest log full"] = "журнал заданий полон"
@@ -834,6 +860,7 @@ L["%s is on Polestar %s: your guides can differ."] = "У %s Polestar %s: ваш�
 L["Party sync is on: you and your party see each other's quest progress. Turn it off in Settings."] = "Синхронизация группы включена: вы и ваша группа видите прогресс заданий друг друга. Выключить ее можно в настройках."
 L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = "До 10 скрытых шепотов аддона за сессию игрокам вашей фракции, которых вы выбираете целью или на которых наводите курсор вне городов, боя и подземелий, и ответ на их шепот: только номер версии, чтобы Polestar мог сообщить о выходе новой. Выкл.: ничего не отправляется и не отвечается."
 L["You asked a moment ago: wait 1 second."] = "Вы уже просили только что: подождите 1 секунду."
+-- L["With %s"] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "большое улучшение"
@@ -1926,6 +1953,8 @@ L["This zone is new in Forever. Its guide is experimental and still a work in pr
 L["This zone is new in Forever."] = "Эта зона появилась в Forever."
 -- L["Suggested"] = ""
 -- L["The guides window only. Click to pick a size; right-click to reset."] = ""
+L["Quests in"] = "Задания в"
+L["Passes through"] = "Проходит через"
 
 -- UI/Lookup.lua
 L["Companion"] = "Питомец"
@@ -3371,6 +3400,7 @@ L["The licence differs from the stored guide's."] = "Лицензия отлич
 
 -- Nav/Pins.lua
 L["Polestar trail dots"] = "Точки следа Polestar"
+-- L["Click to open the zone's map"] = ""
 
 -- UI/LineStyle.lua
 L["Dots"] = "Точки"
@@ -5490,3 +5520,4 @@ L["%d of %d"] = "%d из %d"
 -- L["Expect about %d minutes of extra grinding, or start there."] = "Придется гриндить примерно на %d мин. дольше, или начните оттуда."
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Насколько высоким может стать окно, в доле экрана. Более длинный шаг прокручивается."
 -- L["Max height"] = "Макс. высота"
+-- L["%s: on this step"] = "%s: на этом шаге"

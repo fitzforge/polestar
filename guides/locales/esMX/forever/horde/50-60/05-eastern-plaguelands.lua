@@ -7,8 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {zone:1423} Eastern Plaguelands · {zone:1448} Felwood · {zone:1452} Winterspring
-	["Western & {zone:1423}, {zone:1448} & {zone:1452}"] = "Occidentales y {zone:1423}, {zone:1448} y {zone:1452}",
+	-- {zone:1423} Eastern Plaguelands · {zone:1448} Felwood
+	["Western & {zone:1423} & {zone:1448}"] = "Tierras de la Peste del Oeste, {zone:1423} & {zone:1448}",
+	-- {area:152} The Bulwark · {zone:1448} Felwood · {zone:1452} Winterspring
+	["{area:152} and both Plaguelands, then {zone:1448} and {zone:1452}."] = "{area:152} y las dos Tierras de la Peste, luego {zone:1448} y {zone:1452}.",
 
 	-- Step 1: The Bulwark
 	-- {area:199} Felstone Field · {area:152} The Bulwark · {npc:11055} Shadow Priestess Vandis
@@ -479,6 +481,7 @@ return {
 	-- ["Top up here to level 56 before the Frenzied Plaguehounds of Northdale (57-58): the Noxious Plaguebats (54-56) over the fields on the way east are at your level, and {npc:11878} wants twenty of them. Or, with a group, run the {area:1583} dungeon (Lower) instead."] = "Sube aquí a nivel 56 antes de los Canes de peste demenciados de Northdale (57-58): los Murcipestes nocivos (54-56) sobre los campos camino al este son de tu nivel, y {npc:11878} quiere veinte de ellos. O, con un grupo, haz el calabozo {area:1583} (inferior) en su lugar.",
 	-- ["Umi's third prank targets goblins in {area:976}, Un'Goro and {area:2255}: keep it for later."] = "La tercera broma de Umi va contra los goblins de {area:976}, Un'Goro y {area:2255}: guárdala para después.",
 	-- ["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "Usa {item:12928} en {npc:7583}, la niña goblin de {area:976}. {npc:10977} y {npc:10978} se asustan más adelante en la ruta.",
+	-- ["Western & {zone:1423}, {zone:1448} & {zone:1452}"] = "Occidentales y {zone:1423}, {zone:1448} y {zone:1452}",
 	-- ["Zeppelin to {zone:1454}"] = "Zepelín a {zone:1454}",
 	-- ["grind on {npc:8601}"] = "farmea {npc:8601}",
 	-- ["keep it: the Rangers (59-60) wait for the next guide's second ride into the north"] = "guárdala: los Forestales (59-60) quedan para la segunda incursión al norte de la siguiente guía",

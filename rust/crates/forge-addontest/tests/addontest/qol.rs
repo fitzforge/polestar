@@ -1501,6 +1501,70 @@ fn target_button_step_key_and_rows_a_press_on_a_living_one_of_their_names_moves_
 	assert_eq!(play_macro_unit(&format!("{clear}{worker}"), &units, Some(a), false), Some(a), "the old macro took the nearest one again");
 }
 
+// #2968 (Emil, Riverglades): in a fight the target macro leaves a living target alone (clearing it cuts melee and
+// Auto Shot), so a press that found none of its names kept the Harvest Sentry the player had, and the macro's /tm
+// line put the skull on it. A macro cannot test a name: the press notes the target and its icon first and, after it,
+// puts that icon back on a target it left in place whose name is none of the macro's. A unit it moved to, or one of
+// its names it kept, keeps the mark. Here the macro is played as the client would: `to` is where the press leaves
+// the target (false: cleared), then the /tm line marks a living hostile one.
+#[test]
+fn target_button_and_step_key_in_a_fight_a_press_that_finds_none_of_its_names_leaves_the_kept_target_unmarked_2968() {
+	let out = run(r#"
+		set("markTarget", true)
+		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 }, { t = "kill", target = "Kobold Worker", quest = 7, oi = 2 } })
+		stub.runTimers()
+		local guid, sets, to = UnitGUID, {}, nil
+		function UnitGUID(unit)
+			if unit == "target" then return type(q.target) == "table" and q.target.guid or nil end
+			return guid and guid(unit)
+		end
+		function GetRaidTargetIndex(unit) if unit == "target" and type(q.target) == "table" then return q.target.mark end end
+		function SetRaidTarget(unit, i)
+			sets[#sets + 1] = i
+			if unit == "target" and type(q.target) == "table" then q.target.mark = i ~= 0 and i or nil end
+		end
+		q.ran = setmetatable({}, { __newindex = function(t, k, v)
+			rawset(t, k, v)
+			if to ~= nil then q.target = to end
+			local u = q.target
+			if type(v[2]) == "string" and v[2]:find("\n/tm [@target,harm,nodead] !8", 1, true) and type(u) == "table" and u.hostile and not u.dead then u.mark = 8 end
+		end })
+		local function press(b, target, moved)
+			sets, to, q.target = {}, moved, target
+			for k in pairs(q.ran) do rawset(q.ran, k, nil) end
+			q.keyClick(b)
+			local u = q.target
+			return { target = type(u) == "table" and u.name or false, mark = type(u) == "table" and u.mark or false, ran = rawget(q.ran, 1) ~= nil, sets = table.concat(sets, ",") }
+		end
+		local function sentry(mark) return { name = "Harvest Sentry", hostile = true, guid = "S", mark = mark } end
+		local out = {}
+		q.combat(true)
+		out.stray = press(PolestarTargetButton, sentry())
+		out.moon = press(PolestarTargetButton, sentry(5))
+		out.moved = press(PolestarTargetButton, sentry(), { name = "Kobold Vermin", hostile = true, guid = "V" })
+		out.kept = press(PolestarTargetButton, { name = "Kobold Worker", hostile = true, guid = "W" })
+		out.step = press(PolestarStepButton, sentry())
+		q.combat(false)
+		out.calm = press(PolestarTargetButton, sentry(), false)
+		emit(out)
+	"#);
+	let o = &out[0];
+	for case in ["stray", "moon", "moved", "kept", "step", "calm"] {
+		assert_eq!(o[case]["ran"], json!(true), "{case}: the macro ran");
+	}
+	assert_eq!(o["stray"]["target"], json!("Harvest Sentry"), "the kept target");
+	assert_eq!(o["stray"]["mark"], json!(false), "the report: no skull on the Harvest Sentry");
+	assert_eq!(o["stray"]["sets"], json!("0"), "taken off once, on the press that ran the macro");
+	assert_eq!(o["moon"]["mark"], json!(5), "the icon it had is put back");
+	assert_eq!(o["moved"]["mark"], json!(8), "a Kobold Vermin the press found keeps the skull");
+	assert_eq!(o["moved"]["sets"], json!(""));
+	assert_eq!(o["kept"]["mark"], json!(8), "a Kobold Worker kept (one of its names) keeps the skull");
+	assert_eq!(o["kept"]["sets"], json!(""));
+	assert_eq!(o["step"]["mark"], json!(false), "the step key too");
+	assert_eq!(o["calm"]["target"], json!(false), "out of a fight the press starts from nothing");
+	assert_eq!(o["calm"]["sets"], json!(""), "nothing to take back");
+}
+
 #[test]
 fn rare_button_targets_the_rares_in_range_comes_up_and_goes_with_them_each_click_cycles_off_with_its_setting() {
 	let out = run(r#"

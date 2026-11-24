@@ -145,6 +145,8 @@ const GUIDE_HELP: &str = "usage: forge guide compile [<dir>] [options]
        forge guide publish --from <out>/guides [--data <dir>] [--checkout <dir>]
        forge guide check-generated [--checkout <dir>]
        forge guide rehash [--checkout <dir>]
+       forge guide legacy-steps --old <guides dir> [--old <guides dir> ...] [--data <dir>] [--out <file>]
+                                [--current <guides dir>] [--root <checkout>]
 
 compile: a pack's .guide files (docs/GUIDE_FORMAT.md) into its community addon folder, as its pack.json
 describes it (TOC, Pack.lua, MapFrames.lua, Guides.lua, LICENSE-DATA.txt, and LICENSE as LICENSE.txt).
@@ -199,6 +201,12 @@ where the fix goes instead.
 rehash: recompute guides/GENERATED.json (every leveling guide with the generated header, legs.json)
 and forge/seed/SEED.json (every seed guide) from the files on disk: after the maintainer's hand edit
 to a generated guide and its seed copy, or for a merge conflict in either (take either side, run it).
+legacy-steps: addon/Polestar/Core/LegacySteps.lua (--out): each leveling guide's steps the earlier
+releases' guides had (each --old, a release's guides folder with its pack.json, in release order) that
+the current ones (--current, default guides/) no longer have, the quests a release offered in another
+guide, and the titles it gave them: an update mid-guide keeps the player's check-offs and skips
+(docs/RELEASING.md). Run at a release whose leveling guides changed; --data: reference data (default
+data/forever/).
 ";
 
 const SIM_HELP: &str = "usage: forge sim <command> [options]

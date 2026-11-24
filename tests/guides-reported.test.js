@@ -8184,9 +8184,10 @@ test(`${HILLSBRAD_ALLIANCE}: flow re-order: Dun Modr in one stop, Ebenezer on th
 	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
 	const dunModr = stepOf('turnin', 472);
 	assert.equal(stepOf('accept', 631), dunModr, 'accept 631 on the Dun Modr stop');
-	// Spark of Freedom is the group's step right after the camp (#1313), the Heart of Modr after that.
-	for (const [t, q] of [['accept', 87491], ['turnin', 87491]]) assert.equal(stepOf(t, q), dunModr + 1, `${t} ${q} right after the camp`);
-	assert.ok(list.some(({ goal, s }) => s === dunModr + 2 && goal.t === 'collect' && goal.item === 280396), 'the Heart of Modr right after it (a group step since the final review)');
+	// Motley's and Ashlan's group accepts come right after the camp (#3871), then Spark of Freedom (#1313), then the
+	// Heart of Modr.
+	for (const [t, q] of [['accept', 87491], ['turnin', 87491]]) assert.equal(stepOf(t, q), dunModr + 3, `${t} ${q} right after the camp's accepts`);
+	assert.ok(list.some(({ goal, s }) => s === dunModr + 4 && goal.t === 'collect' && goal.item === 280396), 'the Heart of Modr right after it (a group step since the final review)');
 	// #1319: the crossing is the Cache of Explosives (MacKreel's Moonshine moved to the Arathi guide).
 	const span = list[at(list, 'interact 2704 quest 633.1', (g) => g.t === 'interact' && g.quest === 633)].s;
 	assert.ok(stepOf('turnin', 631) > dunModr && stepOf('turnin', 631) < span, 'Ebenezer between Dun Modr and the span');
@@ -18135,6 +18136,24 @@ test('#2587: Wetlands (Alliance): The Dark Iron War and Bring Back a Bang are gr
 	assert.ok(at(list, 'collect the explosives', (g) => g.t === 'collect' && g.quest === 88756) < span, 'Direforge Hill before the Thandol Span');
 });
 
+// #3871 (Merkanex, 0.4.2, Alliance Wetlands): Motley's The Dark Iron War and Ashlan's Bring Back a Bang were asked after
+// Spark of Freedom's escort and the Heart of Modr, so the Dark Irons a group killed in the ruins on the escort counted for
+// nothing. Both givers stand beside Rhag: their accepts come right after the camp, before the escort and Modr.
+test('#3871: Wetlands (Alliance): The Dark Iron War and Bring Back a Bang are taken before the Dun Modr escort', { skip }, () => {
+	const list = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
+	const camp = list[at(list, 'turnin 472', is('turnin', 472))].s;
+	const escort = at(list, 'accept 87491', is('accept', 87491));
+	const modr = at(list, 'collect the Heart of Modr', (g) => g.t === 'collect' && g.item === 280396);
+	const kills = at(list, 'the first Dark Iron kill', (g) => g.t === 'kill' && g.quest === 303);
+	for (const q of [303, 88756]) {
+		const i = at(list, `accept ${q}`, is('accept', q));
+		assert.ok(list[i].s <= camp + 2, `${q}: taken on arrival at the camp`);
+		assert.ok(i < escort, `${q}: taken before the escort`);
+		assert.ok(i < modr, `${q}: taken before the Heart of Modr`);
+		assert.ok(i < kills, `${q}: taken before the Dark Iron kills`);
+	}
+});
+
 // #2822 (swork1, 0.4.0.1, Alliance Wetlands): Howin Kindfeather's Death to the Dragonmaw was never in the guide. Its 16
 // Dragonmaw (29-30) are all elite (players' recordings), so it is asked at Howin as a group quest after Razormaw Needling
 // and Trying Times, the way the Dun Modr stop asks its group quests; the solo route never gets it. Stopping the Cycle
@@ -19418,6 +19437,19 @@ test('#3578: a collect a rare and common mobs both drop leads to the common mobs
 	}
 });
 
+// #3907 (Grim): Elemental Mastery's Elemental Water led to the Summoned Guardian, the elite with a single spawn far to
+// the south-west of Arathi Highlands, the item's top dropper by the reference data's chance. Players' recordings have
+// no loot window of his; 13 of 62 Cresting Exile loot windows (9 people) held Elemental Water. The water now leads to
+// the Cresting Exiles at the Circle of East Binding, where the other exiles' elements are farmed the same way.
+test('#3907 Elemental Mastery: Elemental Water leads to the Cresting Exiles, not the elite Summoned Guardian', { skip }, () => {
+	const list = goals('forever/class/shaman/spirit-totem.guide');
+	const water = list[at(list, 'collect 7070', (g) => g.t === 'collect' && g.item === 7070)].goal;
+	assert.equal(water.map, 1417, 'in Arathi Highlands');
+	const near = (id) => Math.min(...data.spawns('npc', id).filter((s) => s.map === 1417).flatMap((s) => s.pts).map(([x, y]) => Math.hypot(x - water.x, y - water.y)));
+	assert.ok(near(2761) <= 3, `at the Cresting Exiles (${water.x},${water.y})`);
+	assert.ok(near(2794) > 20, 'not at the Summoned Guardian');
+});
+
 // #3681 (MattMaximo): Witherbark Village sent players to farm tusks and pouches round the huts first and only then
 // into the far end for the Shadow Hunter Knife, though the far end is where the tusk droppers are packed (all 16
 // Shadow Hunters at 66-70,79-82 with most Headhunters and Zalas Witherbark) and most Witch Doctors stand among the
@@ -19431,6 +19463,46 @@ test('#3681: Arathi Highlands (Alliance 30-40): Witherbark Village farms the far
 	assert.ok(knife < tusk && tusk < pouch, 'knife, tusks, then pouches');
 	assert.ok(list[tusk].goal.y >= 78, `the tusks at the far end: ${list[tusk].goal.x},${list[tusk].goal.y}`);
 	assert.ok(list[pouch].goal.y < 75, `the pouches among the huts: ${list[pouch].goal.x},${list[pouch].goal.y}`);
+});
+
+// #2749 (Liquidor): each start's campfire offers a Camping 101 for every profession the character knows, but the
+// guides took only those whose trainer stood on a stop the route already made. Now every one the campfire gives (the
+// quest data's Camping 101s of that giver and side, Cooking aside) is accepted in its start guide in a `when skill`
+// step, and handed in, in that guide or the next one of its chain, in a `when onquest` step at its trainer: a player
+// without the profession never sees either, one with it gets the trip to the trainer. In Dun Morogh two Ironforge
+// trainers give their own (Alchemy, Enchanting); on Zephras Isle the Strange Hermit gives the engineers'.
+test('#2749: every Camping 101 a start campfire gives is taken in a `when skill` step and handed in on the way on', { skip }, () => {
+	const SIDE = { Alliance: 77n | (1n << 32n), Horde: 178n | (1n << 33n) };
+	const starts = [
+		['forever/alliance/human/01-elwynn-forest.guide', 263399, 'Alliance', ['forever/alliance/02-westfall.guide'], []],
+		['forever/alliance/dwarf/01-dun-morogh.guide', 265813, 'Alliance', [], [96045, 96059]],
+		['forever/alliance/gnome/01-dun-morogh.guide', 265813, 'Alliance', [], [96045, 96059]],
+		['forever/alliance/nightelf/01-teldrassil.guide', 265811, 'Alliance', ['forever/alliance/nightelf/02-darkshore.guide'], []],
+		['forever/alliance/skyborne/01-zephras-isle.guide', 263664, 'Alliance', [], [98285]],
+		['forever/horde/orc/01-durotar.guide', 265809, 'Horde', ['forever/horde/03-silverpine-forest.guide'], []],
+		['forever/horde/troll/01-durotar.guide', 265809, 'Horde', ['forever/horde/03-silverpine-forest.guide'], []],
+		['forever/horde/tauren/01-mulgore.guide', 265810, 'Horde', [], []],
+		['forever/horde/undead/01-tirisfal-glades.guide', 265812, 'Horde', ['forever/horde/03-silverpine-forest.guide'], []],
+		['forever/horde/skyborne/01-zephras-isle.guide', 263664, 'Horde', [], [98285]],
+	];
+	compiled(starts[0][0]);
+	const when = (step) => [].concat(step.when || []);
+	for (const [guide, camp, side, later, own] of starts) {
+		const offered = Object.values(data.quests).filter((q) => /^Camping 101: /.test(q.title) && !/Cooking/.test(q.title)
+			&& (q.start?.npc || []).includes(camp) && (q.races == null || (BigInt(q.races) & SIDE[side]) !== 0n)).map((q) => q.id);
+		assert.ok(offered.length >= 9, `${guide}: the campfire's professions (${offered.length})`);
+		const list = goals(guide);
+		const after = later.flatMap((g) => goals(g));
+		for (const q of [...offered, ...own]) {
+			const take = list.findIndex(({ goal }) => goal.t === 'accept' && goal.quest === q);
+			assert.ok(take >= 0, `${guide}: accept ${q} (${data.quests[q].title})`);
+			assert.ok(when(list[take].step).some((w) => w.k === 'skill' && !w.neg), `${guide}: ${q} only with the profession`);
+			const give = [...list.slice(take + 1), ...after].find(({ goal }) => goal.t === 'turnin' && goal.quest === q);
+			assert.ok(give, `${guide}: ${q} is handed in later in the guide or the next one`);
+			assert.ok(when(give.step).some((w) => w.k === 'onquest' && !w.neg && [].concat(w.q).includes(q)), `${guide}: ${q}'s hand-in only with the quest in the log`);
+			assert.ok((data.quests[q].end?.npc || []).includes(give.goal.npc), `${guide}: ${q} goes to its trainer (${give.goal.npcName})`);
+		}
+	}
 });
 
 // #3046 (Nostaroi): A Matter of Time's Temporal Displacer had one pin (45.1,62.3), though the parasites come out at
@@ -19451,5 +19523,23 @@ test('#3046 A Matter of Time: the Temporal Displacer and its parasites search fo
 		for (const { goal } of list.filter((g) => g.s === use.s && g.goal !== use.goal && g.goal !== kill.goal)) {
 			assert.ok(!(goal.spots || []).some(({ x, y }) => silos.some(([sx, sy]) => sx === x && sy === y)), `${guide}: ${goal.t} ${goal.npc || goal.item || goal.quest} keeps its own place`);
 		}
+	}
+});
+
+// #3927 (Sekyno): Mount Hyjal's walk to the ancients' outpost told players to kill the Tainted Shrubbery they passed
+// for Kaylaena, before Hyacinth's Leaves to Ligatures (91755) was in the log. The shrubs drop the Verdant Leaves only
+// with that quest (200 of 228 leaf ticks in players' recordings came with a shrub kill, none before the accept), so
+// those kills were lost for the leaves. No step before the accept sends you at the shrubs; the shrub field after it
+// does both quests.
+test('#3927 Mount Hyjal: the Tainted Shrubbery are killed after Leaves to Ligatures is taken, not on the way to it', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const accept = at(list, 'accept 91755', is('accept', 91755));
+	const kill = at(list, 'kill 248395', (g) => g.t === 'kill' && g.npc === 248395);
+	const leaves = at(list, 'collect 247892', (g) => g.t === 'collect' && g.item === 247892);
+	assert.ok(kill > accept && leaves > accept, 'the shrub field comes after the accept');
+	assert.equal(list[kill].s, list[leaves].s, 'the kills and the leaves in one step');
+	for (const step of new Set(list.slice(0, accept + 1).map((e) => e.step))) {
+		const tip = [step.note, step.tip].flat().filter(Boolean).join(' ');
+		assert.doesNotMatch(tip, /\bkill[^.:;]*Tainted Shrubbery/i, `${step.title}: no shrub kills before the accept`);
 	}
 });

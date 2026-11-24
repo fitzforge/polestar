@@ -248,7 +248,7 @@ them are keyed by step position: `stepKeys` (a hash per step of its verbs and
 ids) lets a pack update carry them to the steps it kept (see "Placement"),
 and, for a step it changed, to the step that has the same goal now: the
 changed step's goals come from `ns.LegacySteps` (Core/LegacySteps.lua,
-written by `tools/legacy-steps.js` from earlier releases' guides), so a
+written by `forge guide legacy-steps` from earlier releases' guides), so a
 check-off goes to the goal with the same verb and quest (or item, landing),
 a skip and the saved view to the step sharing most of its quest goals
 (`Own.remap`, `Own.legacyMaps`). The save's keys are those of the steps as
@@ -1826,7 +1826,7 @@ Polestar.Engine.SetGuide(id)                -- persists CharState().guide, recom
 Polestar.Engine.ReplaceSteps(id, steps) -> true | false, reason   -- Polestar.API.ReplaceSteps: the guide takes `steps` in place, in its tab; done steps before the live step that the list leaves out stay in front (Own.stepsKept); ticks, skips, `when` outcomes and the view go with their steps by step key (Own.remap with the old steps' goals); the live step is found again, not placed afresh; GUIDE_CHANGED once while its tab is active
 Polestar.Engine.GetStepIndex() -> i | nil
 Polestar.Engine.GetStepCount() -> n
-Polestar.Engine.GetStepView(i, shared?) -> view | nil   -- built afresh; shared = true for a reader that never writes into the view: one view per step for every such reader of the same moment (the same frame and ns.Moment(): no timer, script, game event or message since, no Engine.RequestUpdate; the same evaluation and guide). QoL.CurrentStep, the map layers, the quest log's room, Gossip, Up next, the hand-off and party share it; the guide window, which keeps its view, does not
+Polestar.Engine.GetStepView(i, shared?) -> view | nil   -- built afresh; shared = true for a reader that never writes into the view: one view per step for every such reader of the same moment (the same frame and ns.Moment(): no timer, script, game event or message since, no Engine.RequestUpdate; the same evaluation and guide). QoL.CurrentStep, the map layers, the quest log's room, Gossip, Up next, the hand-off and party share it; the guide window, which keeps its view, does not. Every view of one such moment, shared or not, works each quest's prerequisite chain out once (Own.momentComing, #2827: a reader of every step, the step list or the route plan, followed each chain again from every step); the Engine's own evaluations and tries ask afresh
 Polestar.Engine.GetSection(i) -> { index, title, skill, skillLine, from, to, rank, state } | nil   -- the skill range step i of a profession guide is under (GUIDE_FORMAT.md, "Sections"): title "First Aid 1-40" (the client's profession name), state "done" (the player's skill reached `to`), "current" (the first range it has not) or "ahead"; the view's `section`. The steps of a done range are done unless one trains a rank the player lacks, and a range's counted collect/buy goals ask for their count less what its `craft … until` goals would have used from `from` to the skill (Own.needOf)
 Polestar.Engine.Next() / Prev() / Goto(i)    -- look at another step; changes nothing (Goto un-skips its target)
 Polestar.Engine.Skip() -> stepIndex         -- skip the step shown, saved; fires PLAYER_SKIPPED_STEP
@@ -2042,16 +2042,22 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   straight lines shortlist 4 trainers of the best continent and zone-level tier
   and the route planner (`ns.TravelCost`) prices each one's best leg; a trainer
   within 15 seconds of a nearer one loses to it, and a guide with no route
-  ahead gets the nearest one. The UI shows a slim
+  ahead gets the nearest one. The pick is kept per zone for the guide
+  (`Own.trainerOnRouteKept`, #3451): walking, a step change, coming back to
+  a zone and a trainer window price nothing; the next training level (an
+  even level) or a flight learned (a flight map closed with more flight
+  masters known) prices it again, and on a flight the boarding zone's pick
+  stands. The UI shows a slim
   banner with Show (temporary `Nav.SetTarget`) and Later, cleared by
   `CLASS_TRAINED`; Options → Guide → Automation → "Trainer reminders". What
   the banner names comes from `Engine.TrainingAdvice()`, live at each layout
   (the level-up spell card asks the same function, so the two always
-  agree): when the guide's own training stop (`Engine.GuideTrainStop`) is at
-  most `Engine.TRAIN_GUIDE_NEAR` (10) applicable steps ahead, the banner
-  names that ("The guide trains you in 10 steps (Orgrimmar).", or "Your
-  guide's current step trains you.") and no other trainer, without Show;
-  otherwise the planner's pick above (the notice's trainer when the engine
+  agree): when the guide has its own training stop ahead, however far
+  (`Engine.GuideTrainStop`; while the active tab is no leveling guide, a
+  Lookup or dungeon guide, the leveling tab's: `Own.routeTrainStop`, #2843),
+  the banner names that ("The guide trains you in 10 steps (Orgrimmar).", or
+  "Your guide's current step trains you.") and no other trainer, without
+  Show; otherwise the planner's pick above (the notice's trainer when the engine
   has none). The route planner prices a walk it has not measured as a
   straight line × 1.25 (`Nav.EstimateTravel`: walks into a live target are
   measured by the walking engine, candidates' are not), so a straight line
@@ -2904,7 +2910,14 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   route's next steps, its sub-line and tooltip saying why (`hereSub`,
   `hereTip`). Auto turn-in hands one in only when an open tab's guide hands
   that quest in at any step (`Own.openGuidesHandIn`, #2918); one no open
-  guide has is left to the player.
+  guide has is left to the player. A held quest that is not finished and
+  that no step from the live one on works or hands in (one taken off the
+  route, #2652) gets a work line per open quest-log line, after the stranded
+  hand-ins (`Own.hereOffRoute`, step `Own.OFF_STEP` (-4), `g` = quest × 100 +
+  line): its goal built from the quest database (`Own.objectiveGoal`, as a
+  pinned quest's: its mob, its item's best dropper or its object) when that
+  places it on the player's map, cached per map, only while the database is
+  loaded, with the stranded sub-lines.
 - **Missable quests** (`Core/Closes.lua`, setting `behavior.warnClosing`,
   default off). `Closes.For(q, title)` lists what taking `q` closes for good
   for this character: the guide accepts whose `closedBy` names `q`, across
@@ -3066,6 +3079,12 @@ goes on to after it (`Own.travelOnto`), and the player stands on that step's
 continent. Thousand Needles & Desolace opens at the Undercity's zeppelin to
 Orgrimmar, where the previous guide ends; a player who loads it at Freewind
 Post goes straight to Orgrimmar instead of to the Undercity's tower and back.
+Along one continent (#1983, `Own.pastDock`), a walk that ends at a crossing's
+dock passes when both the player and the next step's work lie nearer the
+crossing's far end than the dock. A walk-in portal counts by its mouth, its
+far end being where it lands (#3906): the portal takes the player before the
+walk's goto is reached, so Tanaris's "Portal to Darnassus" passes once the
+player is in Darnassus.
 
 With the planner off the other steps hold as written. `forge guide lint`
 reports a flight to a stop with nothing to do followed by another flight
@@ -3611,7 +3630,7 @@ holds at its opening, see "Not yet available"):
   Hillsbrad visit, was put past Orgrimmar, training and the Undercity in
   Hillsbrad 29-32, at every load), nor on a quest an earlier release's route
   offered in another leveling guide (`ns.LegacyMovedIn` in LegacySteps.lua,
-  resident, from `tools/legacy-steps.js`: 0.4.0 offers Dangerous! on Hillsbrad
+  resident, from `forge guide legacy-steps`: 0.4.0 offers Dangerous! on Hillsbrad
   30-40's first Tarren Mill stop, and Tincho's old-route progress put him there
   again). And a soft step behind it passes only
   when the quest work it leads to (the next quest goal for the character
@@ -7005,8 +7024,12 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   prints once a session per pack (`noticePack`).
 - With `party.show`, a member's position and unit are kept beside their
   counts. The guide window's party row (`GF.party`, over the XP row, not in
-  compact mode) reads `StepLine`: "Ana: 3 steps ahead", "Ben: 1 step
-  behind", "Cy: on this step" for members on your guide whose step key is in
+  compact mode) reads `StepLine`: first "With Ana, Cy" for members on your
+  step, or on another step or guide whose live step (by its "2P|" key, in
+  any guide you have) holds quest work your live step still has open: two
+  players on one quest read different step numbers, since classes and races
+  have steps of their own (#2897). Then "Ana: 3 steps ahead", "Ben: 1 step
+  behind" for members on your guide whose step key is in
   your copy of it (any pack version) or, from a member who sends no "2P|"
   (0.3.5), whose step number is on the same pack version; the count takes
   only steps both of you have (`Party.SharedSteps`: neither a class, race or
@@ -7561,6 +7584,17 @@ the button's applied list), so a fallback advances its own kind's cycle; a step
 change queued in combat while the old secure macro still runs does not change
 it. A missing, secret or unmatched name falls back to the applied first name's
 kind.
+
+In a fight the macro leaves a living target alone (clearing it cuts melee
+swings and Auto Shot), so a press that finds none of its names keeps the unit
+the player had, and the `/tm` line would mark it (#2968: the skull on a
+Harvest Sentry). A macro cannot test a name, so `Buttons.WireCycle`'s
+PreClick notes the target's GUID and icon on the press that runs the macro
+(`Buttons.NoteMark`: `useOnKeyDown`, else `ActionButtonUseKeyDown`), and its
+PostClick (`Buttons.UndoStrayMark`) puts that icon back (`SetRaidTarget`, 0
+for none) when the target is the same unit and its name is none of the
+macro's `/targetexact` names. A unit the press moved to, or one of its names
+it kept, keeps the mark.
 
 ### Pressing again moves on
 
@@ -11502,8 +11536,9 @@ same spell: Elixir of Minor Fortitude) and the client does not give it
 with the skill (`AcquireMethod` 1); else the skill seen on Forever, for the few recipes in
 forge-data's `CHECKED_LEARN` (`learnedAtFrom`: `"in-game"` a player's trainer window, Thick Leather,
 Cured Thick Hide and Thick Armor Kit at 175, #1553; `"recordings"` the skill players learned it at,
-Forever's leather armor and pants patterns 5 below their yellow, Magenta Dye 120; `"classic"`
-Classic's list where Forever kept the colours and no world DB list has it, Goldthorn Tea 175); else,
+Forever's leather armor and pants patterns 5 below their yellow, Magenta Dye 120, Black Mageweave
+Headband 200; `"classic"` Classic's list where Forever kept the colours and no world DB list has it,
+Goldthorn Tea 175); else,
 when an older (Classic) list in the same DB teaches it (`professionSpellsClassic`: the highest skill
 any Classic list asks, as CMaNGOS's; a stray low list put Thick Leather at 155, #1553), Classic's
 learn skill moved by as much as Forever moved the recipe's yellow rank from Era's
