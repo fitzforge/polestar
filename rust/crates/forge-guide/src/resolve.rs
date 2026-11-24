@@ -28,6 +28,9 @@ const MAX_NAMED_SOURCES: usize = 8;
 /// Not needed when the item's only sources are those one or two creatures (no object, no vendor): they are named
 /// whatever their chance (Kron's Amulet, 10% from two crocolisks).
 const FEW_SOURCES_BAR: f64 = 20.0;
+/// A rare that tops an item's droppers gives way to the normal ones (rare_leads) when one of them drops it at this
+/// percentage or more (#3578).
+const COMMON_SOURCE_BAR: f64 = 5.0;
 /// `fromNpcs` on a collect: at most this many names.
 const MAX_SOURCE_NPCS: usize = 5;
 /// Droppers this many levels or more above the quest do not set the likely-dropper bar (levelSplit).
@@ -610,7 +613,8 @@ fn elite_split(data: &Data, cands: &[V], sides: &V, rares: bool) -> Option<(Vec<
 	}
 }
 
-/// Droppers near a quest's level crowded out by ones far above it. -> (near, above) | None
+/// Droppers near a quest's level crowded out by ones far above it, or named beside ones far above it (resolve.js
+/// levelSplit, #2744). -> (near, above) | None
 fn level_split(data: &Data, cands: &[V], qlvl: f64) -> Option<(Vec<V>, Vec<V>)> {
 	if !(qlvl > 0.0) || !cands.iter().any(|c| c.get("chance").is_num()) {
 		return None;
@@ -636,14 +640,15 @@ fn level_split(data: &Data, cands: &[V], qlvl: f64) -> Option<(Vec<V>, Vec<V>)> 
 	}
 	let all = likely(cands);
 	let near = likely(&rest);
-	if near.iter().any(|c| !includes(&all, c)) {
+	if near.iter().any(|c| !includes(&all, c)) || above.iter().any(|c| includes(&all, c)) {
 		Some((near, above))
 	} else {
 		None
 	}
 }
 
-/// Whether a rare drops the item at the highest chance while normal sources drop it at 50% or more.
+/// Whether a rare drops the item at the highest chance while normal sources drop it at COMMON_SOURCE_BAR% or more:
+/// the common mobs are where it is farmed, the rare is often away (Alshirr Banebreath and the Jadefire satyrs, #3578).
 fn rare_leads(data: &Data, cands: &[V], sides: &V) -> bool {
 	let mut top: V = if cands.is_empty() { obj! { "chance" => 0 }.into() } else { cands[0].clone() };
 	for b in cands {
@@ -655,7 +660,7 @@ fn rare_leads(data: &Data, cands: &[V], sides: &V) -> bool {
 	if !n.truthy() || !crate::group::is_rare(&n.get("rank"), &n.get("faction"), sides) {
 		return false;
 	}
-	cands.iter().any(|c| c.get("chance").num() >= 50.0 && normal_source(data, c, sides, true))
+	cands.iter().any(|c| c.get("chance").num() >= COMMON_SOURCE_BAR && normal_source(data, c, sides, true))
 }
 
 fn elite_source(data: &Data, cand: &V, sides: &V, rares: bool) -> bool {
@@ -4031,6 +4036,12 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 		set_if(&goal, "pre", gate.get("pre"));
 		set_if(&goal, "preAll", gate.get("preAll"));
 		set_if(&goal, "parent", gate.get("parent"));
+	}
+	// A turn-in of a repeatable quest the log hands in: the client never flags it completed, so the engine
+	// remembers the hand-in itself, one per goal, and the round's accept and work with it (#3334, Zorbin's
+	// Ultra-Shrinker quests in Horde 40-50/06). A `direct` one is remembered already.
+	if v == "turnin" && !g.get("direct").truthy() && !goal.get("quest").is_undef() && data.quest(&goal.get("quest")).get("repeatable").truthy() {
+		goal.set("repeatable", true);
 	}
 	if (v == "kill" || v == "use") && goal.get("fromNpcs").is_undef() {
 		set_if(&goal, "fromNpcs", credit_npcs(data, &goal));

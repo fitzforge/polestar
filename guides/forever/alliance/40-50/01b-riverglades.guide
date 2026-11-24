@@ -277,6 +277,7 @@ step Ghostmaw
 step Sunnyglade
   tip North from Farholde Keep, past Terral's Watch and across the river, to Sunnyglade, the farm town the Twilight cult holds; keep clear of Rog'mar, the Horde's fort east of the town. Fuzzle the kobold waits in a cage at the arrow, Apprentice Claire below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and Farmer Elbrim waits at his farm on the north-eastern edge.
   accept 94961 @47.2,51.2               -- Fuzzle: Biting the Hand, in his cage
+  goto 50.0,46.0 "Claire's cave"         -- the way in: she is below the town
   accept 95642                          -- Apprentice Claire: Abominable Magics
   accept 95643                          -- Indiscriminate Purge
   accept 94829                          -- Farmer Elbrim: What We Lost
@@ -305,6 +306,7 @@ step Loose Soil
 
 step Apprentice Claire
   tip Claire is in the cave under the eastern edge of Sunnyglade: its entrance is at 50.0,46.0.
+  goto 50.0,46.0 "Claire's cave"         -- the way in: she is below the town
   turnin 95642
   turnin 95643
 
@@ -519,11 +521,11 @@ step Powderfuse Port
 
 step The pirates' ships
   tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. Admiral Lamora (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for Gul'gash on the way.
-  use 268505 quest 95165.3 @90.9,39.5   -- Remote Explosive Charge, the southern ship
+  use 268505 quest 95165.3 @90.9,39.5 "Plant a Remote Explosive Charge on the southern ship" -- on board, at the arrow
   kill 257861 quest 95124.1             -- Admiral Lamora
   collect 268506 quest 95124.2          -- Lamora's Loot
-  use 268505 quest 95165.2 @90.6,29.6   -- the middle ship
-  use 268505 quest 95165.1 @88.3,25.8   -- the northern ship
+  use 268505 quest 95165.2 @90.6,29.6 "Plant a Remote Explosive Charge on the middle ship" -- on board, at the arrow
+  use 268505 quest 95165.1 @88.3,25.8 "Plant a Remote Explosive Charge on the northern ship" -- on board, at the arrow
 
 step Rotflesh Mushrooms
   tip West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too.

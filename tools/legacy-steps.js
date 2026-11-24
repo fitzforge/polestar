@@ -58,11 +58,13 @@ if (!olds.length) {
 const data = loadData(dataDir);
 const FACTIONS = ['Alliance', 'Horde'];
 
+// The leveling guides: each faction's, and the ones both sides play (Shen'dralas, Mount Hyjal: no `faction`,
+// under a level-band folder; #3465).
 function leveling(dir) {
-	const files = findGuideFiles(dir).filter((f) => /^forever\/(horde|alliance)\//.test(f));
+	const files = findGuideFiles(dir).filter((f) => /^forever\/(horde|alliance|\d+-\d+)\//.test(f));
 	const sources = files.map((rel) => ({ source: rel, file: path.join(dir, rel), text: fs.readFileSync(path.join(dir, rel), 'utf8') }));
 	const { guides } = compileSources(sources, data, new Diagnostics(), {});
-	return guides.filter((g) => (g.category == null || g.category === 'Leveling') && FACTIONS.includes(g.faction));
+	return guides.filter((g) => (g.category == null || g.category === 'Leveling') && (g.faction == null || FACTIONS.includes(g.faction)));
 }
 
 // Lua's tostring of a goal's value, and `or`: only nil and false are false.

@@ -269,7 +269,8 @@ return {
 	-- {spell:3176} Lesser Troll's Blood Elixir
 	["{spell:3176} to 160"] = "{spell:3176} 到160",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial
-	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176}在150時為黃色（150黃、170綠、190灰）：大約12次製作可到160。每次需要2個{item:2453}、2個{item:2450}和1個{item:3372}。每次兩個{item:2453}和兩個{item:2450}；{item:2453}生長在15-30地區。",
+	-- was: ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176}在150時為黃色（150黃、170綠、190灰）：大約12次製作可到160。每次需要2個{item:2453}、2個{item:2450}和1個{item:3372}。每次兩個{item:2453}和兩個{item:2450}；{item:2453}生長在15-30地區。"
+	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 55: Alchemy recipes at 160
 	-- {skill:171} Alchemy
@@ -355,7 +356,8 @@ return {
 	-- {item:8951} Elixir of Defense
 	["{item:8951} to 230"] = "{item:8951}練到230",
 	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands
-	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951}在225時為黃色（215黃、235綠、255灰）：大約8次製作可到230。每次需要1個{item:3355}、1個{item:3821}和1個{item:3372}。{item:3355}和{item:3821}是30-45地區的草藥（荊棘谷、阿拉希、{zone:1418}）。",
+	-- was: ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951}在225時為黃色（215黃、235綠、255灰）：大約8次製作可到230。每次需要1個{item:3355}、1個{item:3821}和1個{item:3372}。{item:3355}和{item:3821}是30-45地區的草藥（荊棘谷、阿拉希、{zone:1418}）。"
+	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 70: Alchemy recipes at 230
 	-- {skill:171} Alchemy
@@ -457,11 +459,13 @@ return {
 	-- ["{item:765} (Horde)"] = "{item:765}（部落）",
 	-- ["{item:785} (Alliance)"] = "{item:785}（聯盟）",
 	-- ["{item:785} (Horde)"] = "{item:785}（部落）",
+	-- ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951}在225時為黃色（215黃、235綠、255灰）：大約8次製作可到230。每次需要1個{item:3355}、1個{item:3821}和1個{item:3372}。{item:3355}和{item:3821}是30-45地區的草藥（荊棘谷、阿拉希、{zone:1418}）。",
 	-- ["{npc:1958} (level 17-18) drop it here. The Auction House works too."] = "{npc:1958}（等級17-18）在這裡掉落。拍賣場也買得到。",
 	-- ["{npc:513} (level 14-15) drop it here. The Auction House works too."] = "{npc:513}（等級14-15）在這裡掉落。拍賣場也買得到。",
 	-- ["{skill:171} recipes at 259"] = "{skill:171}259的配方",
 	-- ["{skill:171} recipes at 85"] = "{skill:171}85的配方",
 	-- ["{skill:171} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 68s in all."] = "{skill:171}可以邊升級邊練。Forever的傳承系統會在技能150、225和300（中級、高級和專家級的上限）獎勵製造專業，所以每個關卡都很重要。1-75的材料總價約68銀。",
 	-- ["{spell:11447} to 215"] = "{spell:11447}練到215",
+	-- ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176}在150時為黃色（150黃、170綠、190灰）：大約12次製作可到160。每次需要2個{item:2453}、2個{item:2450}和1個{item:3372}。每次兩個{item:2453}和兩個{item:2450}；{item:2453}生長在15-30地區。",
 	-- ["{spell:7845} to 175"] = "{spell:7845}練到175",
 }

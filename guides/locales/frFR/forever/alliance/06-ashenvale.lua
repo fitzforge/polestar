@@ -78,7 +78,7 @@ return {
 
 	-- Step 16: Ruuzel
 	-- {quest:1009} Ruuzel · {area:414} Zoram Strand
-	["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009} arpente la pointe nord de la {area:414} avec des gardes Irequeue.",
+	["{quest:1009} and his Wrathtail guards stand on the small islet just off the northern tip of the {area:414}: swim across to it."] = "",
 
 	-- Step 17: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {npc:4787} Argent Guard Thaelrid · {zone:1457} Darnassus
@@ -493,6 +493,7 @@ return {
 	-- ["{npc:5082}, Mikhail and Tapoke Jahn are all at Menethil's inn; Tapoke fights you when you talk to Mikhail, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn.\n{npc:2104} stands in {area:2103}, a short walk from {npc:1242}.\n{npc:2104} stands in {area:2103}."] = "{npc:5082}, Mikhail et Tapoke Jahn sont tous à l'auberge de Menethil ; Tapoke vous attaque quand vous parlez à Mikhail, mais abandonne une fois battu. {npc:1480} se tient à quelques pas au nord-est de l'auberge.\n{npc:2104} se tient dans {area:2103}, à quelques pas de {npc:1242}.\n{npc:2104} se tient dans {area:2103}.",
 	-- ["{object:176364} Harbor"] = "{object:176364}",
 	-- ["{object:176634}, beside him"] = "{object:176634}, à côté de lui",
+	-- ["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009} arpente la pointe nord de la {area:414} avec des gardes Irequeue.",
 	-- ["{zone:1437}: kill these as you meet them"] = "{zone:1437} : tuez-les au passage",
 	-- ["{zone:1455} priests"] = "Prêtres d'{zone:1455}",
 }

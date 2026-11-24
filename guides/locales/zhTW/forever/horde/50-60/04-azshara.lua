@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "飛往{area:392}",
-	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "{zone:1456}飛行管理員",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -168,4 +166,5 @@ return {
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050}要交回給{area:28}的{npc:10778}：保留此任務。",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}：交給{area:1237}的{npc:8587}",
 	-- ["{zone:1454} flight master"] = "{zone:1454}的飛行管理員",
+	-- ["{zone:1456} flight master"] = "{zone:1456}飛行管理員",
 }

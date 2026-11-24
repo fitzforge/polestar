@@ -33,8 +33,6 @@ step Swamp of Sorrows
   goto 46.1,54.7 "Stonard"
 
 step Fly to Booty Bay
-  zone Swamp of Sorrows
-  goto 46.1,54.7 "Stonard flight master"
   fly "Booty Bay"
   zone Stranglethorn Vale
 
@@ -113,8 +111,7 @@ step Kin'weelay
 
 step Saving Yenniku
   when group 591
-  collect 3913 quest 592.1 @39.0,58.4 map 1434 group 2
-  use 3912 quest 592.1 @39.0,58.4 map 1434
+  use 3912 quest 592.1 @39.0,58.4 map 1434 "Use the Soul Gem on Yenniku" -- while he is alive: the gem fills; don't kill him
 
 step Nimboya
   when group 591
@@ -383,6 +380,7 @@ step Sprinkle
 
 step Gadgetzan
   zone Tanaris
+  tip Gadgetzan's Auction House is the last one before Un'Goro. There, A-Me 01 (Chasing A-Me 01) asks for a Mithril Casing, an Engineering item, before her escort: buy one here if you want that chain.
   accept 2661
   accept 4504                         -- Tran'rek, beside the wind rider master
   sethome "Gadgetzan"

@@ -234,7 +234,8 @@ step Bronze Bar
   collect 2841 x320 anywhere gather Mining 65
 
 step Rough Grinding Stone to 83
-  tip Rough Grinding Stone is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 Rough Stone. Two Rough Stone a craft. Grinding stones are parts for later plans; the extras sell to vendors.
+  tip Rough Grinding Stone is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 Rough Stone. Two Rough Stone a craft. Grinding stones are parts for later plans; the extras sell to vendors. If you got here without learning Rough Grinding Stone, learn it now: an earlier step teaches it.
+  learn 3320
   craft 3320 until 83
 
 step Runed Copper Belt to 100

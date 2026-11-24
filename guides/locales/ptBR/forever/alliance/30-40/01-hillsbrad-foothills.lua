@@ -29,23 +29,29 @@ return {
 	-- Step 7: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates
 	["{area:1038}: kill these as you meet them"] = "{area:1038}: vá matando estes pelo caminho",
-	-- {area:1036} Angerfang Encampment · {quest:98283} Carnage · {area:205} Dun Modr
-	["The whelps nest in the hills north-east of the {area:1036}; {quest:98283} prowls further north, and the Razormaw raptors hunt the highlands on the way north to {area:205}.\n{quest:98283} is elite: grouping up is advised."] = "Os dragonetes fazem ninho nas colinas a nordeste de {area:1036}; {quest:98283} ronda mais ao norte, e os raptores Rasgaqueixo caçam nas terras altas no caminho para o norte, até {area:205}.\n{quest:98283} é elite: recomenda-se ir em grupo.",
+	-- {area:1036} Angerfang Encampment · {area:205} Dun Modr · {area:1025} Green Belt · {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
+	-- plural, as words: Maddened Rotclaws = {npc:271334} Maddened Rotclaw
+	["The whelps nest in the hills north-east of the {area:1036}, and the Razormaw raptors hunt the highlands on the way north to {area:205}. The Maddened Rotclaws that roam these hills and the {area:1025} drop the {item:280331} that calls {quest:98283} out.\n{quest:98283} is elite: grouping up is advised."] = "",
+	-- {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
+	["{item:280331}, for {quest:98283}"] = "",
 
-	-- Step 8: Razormaw nests
+	-- Step 8: Carnage
+	-- {quest:98283} Carnage · {item:280331} Malignant Rotclaw Flesh · {area:1038} Dragonmaw Gates
+	["{quest:98283} only comes out when the {item:280331} is used at his lair on the hill north of the {area:1038}. He is a level 30 elite: grouping up is advised."] = "",
+	-- {quest:98283} Carnage
+	["{quest:98283} comes out to it"] = "",
+	-- {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
+	["Use the {item:280331} at {quest:98283}'s lair"] = "",
+
+	-- Step 9: Razormaw nests
 	["Razormaw nests"] = "Ninhos de Rasgaqueixo",
 	-- {quest:98246} Trying Times · {quest:98283} Carnage
 	-- plural, as words: Perfect Razormaw Eggs = {item:280132} Perfect Razormaw Egg
 	["The Perfect Razormaw Eggs for {quest:98246} lie in the raptors' nests in the hills around {quest:98283}."] = "Os Ovos de Rasgaqueixo Perfeitos para {quest:98246} ficam nos ninhos dos raptores nas colinas ao redor de {quest:98283}.",
 
-	-- Step 9: Neru
+	-- Step 10: Neru
 	-- {npc:271458} Neru · {area:1038} Dragonmaw Gates · {area:205} Dun Modr · {item:279996} Goaz Stone
 	["{npc:271458} stands in the hills between the {area:1038} and {area:205} (use the {item:279996})."] = "{npc:271458} fica nas colinas entre {area:1038} e {area:205} (use {item:279996}).",
-
-	-- Step 10: The Green Belt
-	-- {area:1025} The Green Belt · {npc:1244} Rethiel the Greenwarden · {quest:98283} Carnage
-	-- plural, as words: Maddened Rotclaws = {npc:271334} Maddened Rotclaw
-	["Maddened Rotclaws roam the {area:1025} around {npc:1244}; one of them drops the flesh. {npc:1244} takes the quest only with {quest:98283}'s head too."] = "Patapodres Enlouquecidos rondam {area:1025}, ao redor de {npc:1244}; um deles solta a carne. {npc:1244} só aceita a missão com a cabeça de {quest:98283} também.",
 
 	-- Step 11: Rethiel the Greenwarden
 	-- {quest:98283} Carnage
@@ -120,10 +126,6 @@ return {
 	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands
 	["for {npc:2700} at {area:320}, in the {zone:1417} guide"] = "",
 
-	-- Step 26: The Green Belt
-	-- {npc:270637} Howin Kindfeather · {npc:2094} James Halloran · {area:150} Menethil Harbor
-	["{npc:270637}: {npc:2094}'s crate, from {area:150}"] = "",
-
 	-- Step 27: Rethiel the Greenwarden
 	-- {area:17732} Excavation Site: Wetlands · {npc:1244} Rethiel the Greenwarden · {npc:270637} Howin Kindfeather
 	["The root core from your {area:17732} run: {npc:1244} stands by the river, just east of {npc:270637}."] = "O núcleo de raiz da sua ida à masmorra {area:17732}: {npc:1244} fica junto ao rio, logo a leste de {npc:270637}.",
@@ -177,7 +179,7 @@ return {
 	["{npc:2104}: for {npc:270637}, back east along the road"] = "{npc:2104}: para {npc:270637}, de volta a leste pela estrada",
 
 	-- Step 38: Howin Kindfeather
-	-- {area:1025} The Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
+	-- {area:1025} Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
 	["Back east along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}. Then west again to Menethil for the boat."] = "De volta a leste pela estrada até {area:1025}: {npc:270637} acampa entre os Corre-charcos, logo a oeste de {npc:1244}. Depois, de novo a oeste até Menethil para pegar o barco.",
 
 	-- Step 39: Menethil Harbor
@@ -343,6 +345,7 @@ return {
 	-- ["From {npc:2432} in {area:271}"] = "Com {npc:2432} em {area:271}",
 	-- ["Golm"] = "Golm",
 	-- ["Maddened Rotclaws roam the {area:1025} around {npc:1244}."] = "Maddened Rotclaws vagam por {area:1025}, em volta de {npc:1244}.",
+	-- ["Maddened Rotclaws roam the {area:1025} around {npc:1244}; one of them drops the flesh. {npc:1244} takes the quest only with {quest:98283}'s head too."] = "Patapodres Enlouquecidos rondam {area:1025}, ao redor de {npc:1244}; um deles solta a carne. {npc:1244} só aceita a missão com a cabeça de {quest:98283} também.",
 	-- ["North along the road to {area:205}. {npc:271460} stands in the ruins (use the {item:279996}); the {npc:271481} is held on the west side: lead it out to {npc:1072}."] = "Para o norte pela estrada até {area:205}. {npc:271460} fica nas ruínas (use a {item:279996}); {npc:271481} está preso no lado oeste: leve-o até {npc:1072}.",
 	-- ["North-east to the {area:1038}: the {npc:271373} are held there, and {npc:271338} stands at the gates (use the {item:279996})."] = "Para o nordeste, até {area:1038}: {npc:271373} está preso lá, e {npc:271338} fica nos portões (use a {item:279996}).",
 	-- ["Pick up everything in town before heading out. Off the boat, {npc:251493} is the first you meet, north-west of the flight master; {npc:2381} and {npc:2438} stand between the flight master and the inn, Farren and {npc:2366} at the inn, Maleb in the town hall."] = "Pegue tudo na cidade antes de sair. Ao desembarcar, {npc:251493} é o primeiro que você encontra, a noroeste do mestre de voo; {npc:2381} e {npc:2438} ficam entre o mestre de voo e a estalagem; Fárrio e {npc:2366}, na estalagem; Maleb, na prefeitura.",
@@ -358,6 +361,7 @@ return {
 	-- ["The Villards"] = "Os Villard",
 	-- ["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "A etapa seguinte, Derrotar Nek'rosh, coloca você contra um chefe elite: pule-a.",
 	-- ["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "A próxima etapa, {quest:474}, joga você contra um chefe elite: pule.",
+	-- ["The whelps nest in the hills north-east of the {area:1036}; {quest:98283} prowls further north, and the Razormaw raptors hunt the highlands on the way north to {area:205}.\n{quest:98283} is elite: grouping up is advised."] = "Os dragonetes fazem ninho nas colinas a nordeste de {area:1036}; {quest:98283} ronda mais ao norte, e os raptores Rasgaqueixo caçam nas terras altas no caminho para o norte, até {area:205}.\n{quest:98283} é elite: recomenda-se ir em grupo.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp."] = "Os yetis vivem na caverna nas colinas ao norte de {area:271}, no caminho para o norte até o acampamento da Camarilha.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "Os yetis vivem na caverna nas colinas ao norte de {area:271}, no caminho para o norte até o acampamento da Camarilha.\nFique em {area:277}: a caverna mais ao norte tem Yetis das Montanhas e Yetis Gigantes (32-34) em pares e {npc:13602}, um elite de nível 36.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "Os yetis vivem na caverna nas colinas ao norte de {area:271}, no caminho de volta para o sul.",

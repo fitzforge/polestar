@@ -136,7 +136,8 @@ return {
 	-- {item:7053} Azure Silk Cloak
 	["{item:7053} to 170"] = "制作{item:7053}，提升至 170",
 	-- {item:7053} Azure Silk Cloak · {spell:3839} Bolt of Silk Cloth · {item:6260} Blue Dye · {item:2321} Fine Thread
-	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053} 在技能150时为橙色（160变黄，175变绿，190变灰）：大约制作22次升到170。每次需要3卷 {spell:3839}、2份 {item:6260} 和2根 {item:2321}。先制作66卷 {spell:3839}。配方就是上面买的那张；按数据，这是这一阶段最省钱的冲点方式。",
+	-- was: ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053} 在技能150时为橙色（160变黄，175变绿，190变灰）：大约制作22次升到170。每次需要3卷 {spell:3839}、2份 {item:6260} 和2根 {item:2321}。先制作66卷 {spell:3839}。配方就是上面买的那张；按数据，这是这一阶段最省钱的冲点方式。"
+	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning {spell:3839}, learn it now: an earlier step teaches it."] = "",
 	["from the recipe in your bags"] = "使用背包里的配方",
 
 	-- Step 25: Tailoring recipes at 170
@@ -297,6 +298,7 @@ return {
 	-- ["{item:4338} (Alliance)"] = "{item:4338}（联盟）",
 	-- ["{item:4338} (Horde)"] = "{item:4338}（部落）",
 	-- ["{item:7026} to 80"] = "将{item:7026}做到 80",
+	-- ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053} 在技能150时为橙色（160变黄，175变绿，190变灰）：大约制作22次升到170。每次需要3卷 {spell:3839}、2份 {item:6260} 和2根 {item:2321}。先制作66卷 {spell:3839}。配方就是上面买的那张；按数据，这是这一阶段最省钱的冲点方式。",
 	-- ["{item:7053} to 180"] = "将{item:7053}做到 180",
 	-- ["{item:7062} to 185"] = "将{item:7062}做到 185",
 	-- ["{item:9998} to 205"] = "将{item:9998}做到 205",

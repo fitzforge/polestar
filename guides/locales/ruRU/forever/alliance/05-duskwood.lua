@@ -9,10 +9,8 @@ return {
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Летите сюда: {area:42}",
-	-- {area:69} Lakeshire · {area:42} Darkshire · {zone:1431} Duskwood
-	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "",
-	-- {area:69} Lakeshire
-	["{area:69} flight master"] = "Распорядитель полетов: {area:69}",
+	-- {area:42} Darkshire · {zone:1431} Duskwood · {area:69} Lakeshire
+	["Fly to {area:42} for {zone:1431}'s second loop: from {area:69}'s gryphon master if you come from the Redridge guide."] = "",
 
 	-- Step 2: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
@@ -238,6 +236,7 @@ return {
 	-- ["Train in {zone:1453}, north through {zone:1429}. Then take the boat from {area:17203} to {area:442}."] = "Обучитесь в городе {zone:1453}, на север через зону {zone:1429}. Затем сядьте на корабль: {area:17203} – {area:442}.",
 	-- ["Wolves, spiders and ghouls"] = "Волки, пауки и вурдалаки",
 	-- ["{area:492}, south"] = "{area:492}, юг",
+	-- ["{area:69} flight master"] = "Распорядитель полетов: {area:69}",
 	-- ["{item:1130}: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses"] = "{item:1130}: карликовые ядовитые кругопряды, ядовитые кругопряды и зеленые отшельники",
 	-- ["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "{item:1946}: {npc:511} в склепе кладбища – 26-го уровня; ждет возвращения в зону {zone:1431}",
 	-- ["{item:281046}, from the {object:673515}"] = "{item:281046}: с объекта {object:673515}",

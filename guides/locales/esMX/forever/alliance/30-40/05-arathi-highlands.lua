@@ -13,8 +13,6 @@ return {
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Vuela a {area:42}",
-	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
 	-- Step 2: The Scythe of Elune
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {zone:1430} Deadwind Pass · {npc:661} Jonathan Carevin
@@ -193,9 +191,9 @@ return {
 	["{quest:651} is a group quest at this level: three Cresting Exiles (38-39) guard the {object:2691} and attack together. Grouping up is encouraged, look for people to do it with. Skip it if you are alone."] = "{quest:651} es una Misión de Grupo a este Nivel: tres Éxilus coronadores (38-39) vigilan {object:2691} y atacan juntos. Se recomienda formar Grupo, busca gente con quien hacerla. Omítela si estás solo.",
 
 	-- Step 38: Witherbark Village
-	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village
+	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village · {npc:2712} Quae
 	-- plural, as words: Witherbark Goliaths = {npc:218032} Witherbark Goliath
-	["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "Al sur de {area:318}, pasando {area:314}, hasta {area:317} en las colinas: los médicos brujos están entre las chozas y los cazadores de las sombras vigilan el fondo del valle. Cualquier trol puede soltar un colmillo. Cuidado: los Witherbark Goliaths (35, élite) recorren el fondo con los cazadores de las sombras: atrae a los cazadores hacia ti de uno en uno, lejos de los Goliaths.",
+	["South from {area:318}, past {area:314}, through {area:317} to the far end of the valley: the Shadow Hunters there drop the knife, and the trolls packed around them give most of the tusks. Then the Witch Doctors among the huts for the pouches, on the way back out towards {npc:2712}. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "{item:5040}; bajo tierra",
 
@@ -405,6 +403,7 @@ return {
 	-- ["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "Al sur por la costa oeste hasta la cala de los goblins; Lolo vigila desde las rocas de arriba.",
 	-- ["South from the {object:2691}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "Al sur desde {object:2691}, pasando {area:314}, hasta {area:317} en las colinas: los Médicos brujos están entre las chozas y los Cazadores de las Sombras vigilan el fondo del valle. Cualquier trol puede soltar un colmillo.",
 	-- ["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "Al sur desde {area:318}, pasando {area:314}, hasta {area:317} en las colinas: los Médicos brujos están entre las chozas y los Cazadores de las Sombras vigilan el fondo del valle. Cualquier trol puede soltar un colmillo.",
+	-- ["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "Al sur de {area:318}, pasando {area:314}, hasta {area:317} en las colinas: los médicos brujos están entre las chozas y los cazadores de las sombras vigilan el fondo del valle. Cualquier trol puede soltar un colmillo. Cuidado: los Witherbark Goliaths (35, élite) recorren el fondo con los cazadores de las sombras: atrae a los cazadores hacia ti de uno en uno, lejos de los Goliaths.",
 	-- ["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {area:130}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "Al suroeste hasta el campamento del Kirin Tor en la orilla del lago al oeste de {area:279}, justo al cruzar la frontera de {area:130}: ahí está {npc:269127}. El archimago Ansirem está al sureste, junto a la cúpula.",
 	-- ["Stay with {npc:2713} while she sneaks into {area:314} and back; Horde orcs jump you on the way."] = "Quédate con {npc:2713} mientras se infiltra en {area:314} y regresa; los orcos de la Horda te atacan en el camino.",
 	-- ["Subdue the succubus"] = "Somete a la súcubo",
@@ -421,6 +420,7 @@ return {
 	-- ["Walk back onto the span: Ebenezer lies under its Arathi end."] = "Vuelve al puente: Ebenezer yace bajo su extremo de Arathi.",
 	-- ["West along the coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "Al oeste por la costa hasta la cala de los goblins; Lolo vigila desde las rocas de encima.",
 	-- ["West along the road to {area:320}, on the way to the {object:2689}."] = "Al oeste por el camino hasta {area:320}, de camino a {object:2689}.",
+	-- ["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 	-- ["{item:2321} for {npc:2438}'s cloak, from {npc:2381}, if you have none"] = "{item:2321} para la capa de {npc:2438}, de {npc:2381}, si no tienes",
 	-- ["{item:3659}: the {object:1760}"] = "{item:3659}: {object:1760}",
 	-- ["{npc:1356}, {object:32356}: for {npc:1344} in {zone:1432}, next"] = "{npc:1356}, {object:32356}: para {npc:1344} en {zone:1432}, lo siguiente",

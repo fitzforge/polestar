@@ -4473,6 +4473,22 @@ fn flight_gossip_opens_the_flight_map_taxi_icon_or_known_flight_master_shift_and
 	assert_eq!(out[5], 0);
 }
 
+// #3428: since 0.4.2 (#3088) a quest on offer that no guide takes held nothing back, so at Devrak (The Crossroads)
+// the flight map opened over his own Ride to Orgrimmar. The flight map waits again while the flight master offers
+// any quest; the bind keeps #3088's rule (issue_3088_an_off_route_quest_on_offer_does_not_hold_the_bind_back).
+#[test]
+fn issue_3428_a_flight_master_s_own_quest_on_offer_keeps_the_flight_map_closed() {
+	let out = run(r#"
+		local TAXI = { gossipOptionID = 77, name = "Show me where I can fly.", icon = 132057, orderIndex = 0 }
+		q.openGossip(3615, { options = { TAXI }, availableQuests = { { questID = 99000 } } })
+		local offered = #calls("SelectOption")
+		q.calls = {}
+		q.openGossip(3615, { options = { TAXI } })
+		emit({ offered = offered, none = calls("SelectOption") })
+	"#);
+	assert_eq!(out[0], json!({ "offered": 0, "none": [77] }));
+}
+
 #[test]
 fn flight_marks_the_route_s_next_flight_destination_else_the_fly_goal_never_takes_the_flight() {
 	let out = run(r#"

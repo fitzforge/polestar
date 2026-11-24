@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
-	-- {area:2408} Shadowprey Village
-	["{area:2408} flight master"] = "{area:2408} 비행 조련사",
 
 	-- Step 2: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
@@ -262,6 +260,7 @@ return {
 	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "야영지를 지나 서쪽 바위에는 수정가시 바실리스크(34-35)가 있습니다. 그 너머 마을의 붉은머리부족은 모두 귀를 떨어뜨릴 수 있습니다.\n야영지 남서쪽 언덕 위의 37레벨 호랑이 {npc:729}은(는) 지금은 두세요. 2레벨 높으며, 40-50 가시덤불 골짜기 가이드에서 다시 옵니다.\n주의: 랩터 둥지에는 어른 랩터를 공격하면 전투에 끼어드는 새끼 랩터가 있습니다.",
 	-- ["Zeppelin to {object:3202}"] = "{object:3202}행 비행선",
 	-- ["from {npc:4723}"] = "{npc:4723}에게서",
+	-- ["{area:2408} flight master"] = "{area:2408} 비행 조련사",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, {object:20691} 안",
 	-- ["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master."] = "{npc:2495}의 상점은 여관 동쪽 건물에 있고, {npc:2498}은(는) 여관 1층, {npc:2496}, {npc:737}, {npc:773}은(는) 위층 비행 조련사 옆에 있습니다.",
 	-- ["{npc:2496}: Cozzle's footlocker is at {area:37}, later in this guide"] = "{npc:2496}: 코즐의 사물함은 이 가이드 후반에 가는 {area:37}에 있습니다",

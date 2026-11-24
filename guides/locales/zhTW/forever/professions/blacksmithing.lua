@@ -128,7 +128,8 @@ return {
 	-- {spell:3320} Rough Grinding Stone
 	["{spell:3320} to 83"] = "{spell:3320}練到83",
 	-- {spell:3320} Rough Grinding Stone · {item:2835} Rough Stone
-	["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}在75時為綠色（45黃、65綠、85灰）：大約58次製作可到83。每次需要2個{item:2835}。每次兩個{item:2835}。磨石是後續圖紙的零件；多出來的賣給商人。",
+	-- was: ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}在75時為綠色（45黃、65綠、85灰）：大約58次製作可到83。每次需要2個{item:2835}。每次兩個{item:2835}。磨石是後續圖紙的零件；多出來的賣給商人。"
+	["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors. If you got here without learning {spell:3320}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 28: Runed Copper Belt to 100
 	-- {spell:2666} Runed Copper Belt
@@ -483,5 +484,6 @@ return {
 	-- ["{skill:393} (or the Auction House)"] = "{skill:393}（或在拍賣場購買）",
 	-- ["{spell:2668} to 121"] = "{spell:2668}練到121",
 	-- ["{spell:3117} to 112"] = "{spell:3117}練到112",
+	-- ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}在75時為綠色（45黃、65綠、85灰）：大約58次製作可到83。每次需要2個{item:2835}。每次兩個{item:2835}。磨石是後續圖紙的零件；多出來的賣給商人。",
 	-- ["{spell:3333} to 155"] = "{spell:3333}練到155",
 }

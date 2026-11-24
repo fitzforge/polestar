@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "飞往{area:2255}",
-	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "{area:489}的飞行管理员",
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
@@ -111,6 +109,8 @@ return {
 	["{area:392} flight master"] = "{area:392}的飞行管理员",
 
 	-- Step 19: Gadgetzan
+	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {quest:4243} Chasing A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} ({quest:4243}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}：在屋内",
 	-- {npc:7876} Tran'rek
@@ -520,6 +520,7 @@ return {
 	-- ["{area:2255} flight master"] = "{area:2255}的飞行管理员",
 	-- ["{area:2255}'s inn"] = "{area:2255}的旅店",
 	-- ["{area:2269}: kill these as you meet them"] = "{area:2269}：沿途击杀以下目标",
+	-- ["{area:489} flight master"] = "{area:489}的飞行管理员",
 	-- ["{item:12383}, 110 yd north"] = "{item:12383}，往北110码",
 	-- ["{item:12771}, a rare drop"] = "{item:12771}，稀有掉落",
 	-- ["{item:12886}; inside"] = "{item:12886}：在屋内",

@@ -197,7 +197,9 @@ local function guideLines(d, on)
 				break
 			end
 			local h = e.h
-			add(d, "planned", (plain(h.title or ("#" .. e.q)) .. " [hidden: needs " .. plain(h.needTitle or ("#" .. tostring(h.need))) .. " from " .. plain(h.from or "?") .. "]"))
+			local Q = ns.QuestDB
+			local need = h.needTitle or (Q and Q.GetQuestTitle and Q.GetQuestTitle(h.need)) or ("#" .. tostring(h.need))
+			add(d, "planned", (plain(h.title or ("#" .. e.q)) .. " [hidden: needs " .. plain(need) .. (h.from and (" from " .. plain(h.from)) or "") .. "]"))
 		end
 	end
 	if not view then
@@ -1566,8 +1568,17 @@ local function textArea()
 			W.ScrollTo(sf, bottom - view)
 		end
 	end)
+	-- The client can repeat this event with nothing changed. In Semper's clip
+	-- (#3699) the window was laid out again every frame, the only way being
+	-- this event, and the GitHub note, its last line exactly as wide as its
+	-- box, measured 2 and 3 lines on alternate passes: the window grew and
+	-- shrank by a line every frame. Only a new text is acted on.
+	local handled
 	e:SetScript("OnTextChanged", function(self)
-		self.Placeholder:SetShown((self:GetText() or "") == "")
+		local text = self:GetText() or ""
+		if text == handled then return end
+		handled = text
+		self.Placeholder:SetShown(text == "")
 		sizeDesc()
 		if F.details then compose() end
 	end)

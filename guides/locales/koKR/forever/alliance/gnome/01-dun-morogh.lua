@@ -376,21 +376,21 @@ return {
 	-- {zone:1455} Ironforge
 	["On the road back west to {zone:1455}."] = "{zone:1455}(으)로 서쪽으로 돌아가는 길에.",
 
-	-- Step 76: South Gate Outpost
-	-- {area:806} South Gate Outpost · {area:38} Loch Modan
-	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "도로를 따라 끝까지 동쪽으로 가 {area:38} 터널의 {area:806}까지 가세요.",
+	-- Step 76: North Gate Outpost
+	-- {area:808} North Gate Outpost · {npc:1960} Pilot Hammerfoot · {area:38} Loch Modan
+	["Follow the road east and take its northern fork to the {area:808}: {npc:1960} waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into {area:38} come next, down the road to the south."] = "",
 
-	-- Step 77: Bruegs Kindleborn
+	-- Step 77: South Gate Outpost
+	-- {area:806} South Gate Outpost · {area:38} Loch Modan
+	["Back south down the road to the {area:806} at the {area:38} tunnel."] = "",
+
+	-- Step 78: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
 	["{npc:257597} waits in a cave above the farm north-west of the {area:806}; the path up starts behind the farm."] = "{npc:257597}은(는) {area:806} 북서쪽 농장 위의 동굴에서 기다립니다. 올라가는 길은 농장 뒤에서 시작합니다.",
 
-	-- Step 79: Braldir Ashmantle
+	-- Step 80: Braldir Ashmantle
 	-- {area:38} Loch Modan · {npc:257808} Braldir Ashmantle
 	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "터널을 지나 {area:38}으로 들어가세요. 지나자마자 돌로 표시된 길이 도로 오른쪽 언덕을 올라 {npc:257808}의 야영지로 이어집니다.",
-
-	-- Step 80: North Gate Outpost
-	-- {npc:1960} Pilot Hammerfoot · {area:808} North Gate Outpost
-	["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960}은(는) 남쪽 관문 북쪽의 {area:808}에서 기다립니다; 드워프 시체는 그의 서쪽 고개 위에 놓여 있습니다.",
 
 	-- Step 81: The tunnel post
 	["The tunnel post"] = "터널 초소",
@@ -620,6 +620,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back through the tunnel to {npc:257597}' cave above the farm."] = "굴을 지나 농장 위 {npc:257597}의 동굴로 돌아가세요.",
+	-- ["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "도로를 따라 끝까지 동쪽으로 가 {area:38} 터널의 {area:806}까지 가세요.",
 	-- ["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "길을 따라 {zone:1455}(으)로 올라가 직업 상급자에게 훈련을 받으세요. {area:2257}은(는) 도시 동쪽의 {object:171524}에서 출발합니다. 그것을 타고 {zone:1453}(으)로 가세요.",
 	-- ["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "정문으로 {zone:1453}을(를) 나가 남쪽으로 {area:87}까지 간 뒤, 길을 따라 동쪽으로 {area:62}까지 가세요. {npc:881}(9레벨)은(는) 농가 옆에 서 있습니다.",
 	-- ["Leper Gnomes around Brewnall and the {area:133} road carry the cogs and gears. Ice Claw Bears, Elder Crag Boars and Snow Leopards roam the hills around the lake."] = "브루날 마을과 {area:133} 길 주변의 오염된 노움이 톱니와 기어를 지니고 있습니다. 얼음발톱흰곰, 덩치큰 멧돼지, 눈표범이 호수 주변 언덕을 돌아다닙니다.",
@@ -634,6 +635,7 @@ return {
 	-- ["{npc:1241}, below ground: Camping 101, blacksmiths"] = "{npc:1241}, 지하: 야영 기초, 대장장이",
 	-- ["{npc:1377}, at the depot"] = "{npc:1377}, 정거장에서",
 	-- ["{npc:1702}, beside him: Camping 101, engineers"] = "{npc:1702}, 그의 옆: 야영 기초, 기계공학자",
+	-- ["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960}은(는) 남쪽 관문 북쪽의 {area:808}에서 기다립니다; 드워프 시체는 그의 서쪽 고개 위에 놓여 있습니다.",
 	-- ["{npc:2326}, inside: Camping 101, {skill:129}"] = "{npc:2326}, 안: 야영 기초, {skill:129}",
 	-- ["{npc:257808} gives you the {item:6636}. Climb to the peak above his camp, drink the Sapta beside the Spirit Stone and defeat the {npc:5893}, then place its {item:6655} in the {object:61934}, atop the Shrine of Eternal Flame."] = "{npc:257808}이(가) {item:6636}을(를) 줍니다. 그의 야영지 위 봉우리로 올라가 정령석 옆에서 삽타를 마시고 {npc:5893}을(를) 물리친 뒤, 영원의 불꽃 제단 꼭대기의 {object:61934}에 {item:6655}을(를) 넣으세요.",
 	-- ["{npc:258098}, the shaman trainer, north of the {object:32372}"] = "{npc:258098}, 주술사 상급자, {object:32372} 북쪽",
