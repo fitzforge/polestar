@@ -10,7 +10,6 @@ section: players
   and rarity choices show their colours. Availability switches let you hide
   entries that are no longer obtainable or have no known source. Hover over
   a filter row to see what it uses.
-  Filter and sort menus line up with their buttons and widen to fit their choices.
   Search by item ID (for example, `#19019`) or by stat name. Item details
   show rarity and levels above the game's tooltip, with known required levels
   and sell prices filled in when missing. Class restrictions appear in class
