@@ -14916,16 +14916,6 @@ end
 
 Own.hereBack = {} -- the hand-in check's waypoint (reused)
 
--- A hand-in, once as it would appear (Own.hereMayShow): never on another
--- floor (the NPC's height `z` against the player's floor, Nav's walking
--- engine: Undercity's levels, Thunder Bluff's rises, a cave under the
--- hill) unless the walk to it on its floor is a short one (Own.hereStairs:
--- Southshore's town hall, its upstairs a staircase away, #3751); in the player's town,
--- a walk there not far longer than the straight line (a canal, a lift
--- without heights); else the detour the walking router gives (there, on to
--- the waypoint, less the waypoint straight from here) at most its seconds:
--- an NPC across a river is minutes out of the way, a few yards off. No
--- answer from the router lets the straight lines' word stand.
 -- Whether hand-in goal `goal`, d yards off on another floor, is a short walk
 -- up or down: the walking router's way to it at its height (`z`) no longer
 -- than the town's walk check allows (HERE_WALK times the straight line, and
@@ -14944,6 +14934,16 @@ function Own.hereStairs(goal, d)
 	return ok and type(there) == "number" and there * Own.HERE_SPEED <= d * Own.HERE_WALK + 20 or false
 end
 
+-- A hand-in, once as it would appear (Own.hereMayShow): never on another
+-- floor (the NPC's height `z` against the player's floor, Nav's walking
+-- engine: Undercity's levels, Thunder Bluff's rises, a cave under the
+-- hill) unless the walk to it on its floor is a short one (Own.hereStairs:
+-- Southshore's town hall, its upstairs a staircase away, #3751); in the player's town,
+-- a walk there not far longer than the straight line (a canal, a lift
+-- without heights); else the detour the walking router gives (there, on to
+-- the waypoint, less the waypoint straight from here) at most its seconds:
+-- an NPC across a river is minutes out of the way, a few yards off. No
+-- answer from the router lets the straight lines' word stand.
 function Own.hereTurninOk(e, d)
 	local goal, nav = e.goal, ns.Nav
 	local W = nav and nav.walk
