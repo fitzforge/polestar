@@ -255,6 +255,8 @@ fn it_waits_out_combat_an_instance_and_a_fresh_installs_first_two_minutes() {
 fn the_login_check_lays_the_guide_window_out_only_when_the_line_changes() {
 	let script = r#"
 		local GF2, layouts = Polestar.UI.GuideFrame, 0
+		-- A window with room to spare for the update card above it: the card takes no room from the goals (#1066).
+		Polestar.Set("ui.maxHeight", 0.9)
 		local layout = GF2.Layout
 		GF2.Layout = function(...) layouts = layouts + 1; return layout(...) end
 		stub.login()

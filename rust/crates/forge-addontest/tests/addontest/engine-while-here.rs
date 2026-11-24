@@ -1850,7 +1850,7 @@ fn the_step_key_targets_a_line_s_mobs_after_the_live_step_s_own_1316() {
 		.join("\n"),
 		..Default::default()
 	});
-	let wolves = "/cleartarget [nocombat]\n/targetexact Young Wolf\n/cleartarget [dead]";
+	let wolves = "/cleartarget [nocombat][dead]\n/targetexact Young Wolf\n/cleartarget [dead]";
 	assert_eq!(out[0], json!([true, "", wolves]));
 	assert_eq!(out[1], json!(["2:1:50", format!("{wolves}\n/targetexact [noexists] Kobold Vermin\n/cleartarget [dead]")]));
 	assert_eq!(out[2], wolves);

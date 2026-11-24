@@ -66,9 +66,9 @@ fn run(script: &str) -> Vec<Value> {
 	run_with(script, "")
 }
 
-const VERMIN: &str = "/cleartarget [nocombat]\n/targetexact Kobold Vermin\n/cleartarget [dead]";
-const WORKER: &str = "/cleartarget [nocombat]\n/targetexact Kobold Worker\n/cleartarget [dead]";
-const LABORER: &str = "/cleartarget [nocombat]\n/targetexact Kobold Laborer\n/cleartarget [dead]";
+const VERMIN: &str = "/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/cleartarget [dead]";
+const WORKER: &str = "/cleartarget [nocombat][dead]\n/targetexact Kobold Worker\n/cleartarget [dead]";
+const LABORER: &str = "/cleartarget [nocombat][dead]\n/targetexact Kobold Laborer\n/cleartarget [dead]";
 
 #[test]
 fn target_list_a_row_per_name_with_its_id_and_drop_and_its_own_macro() {
@@ -170,7 +170,7 @@ fn target_list_rows_follow_the_step_and_wait_for_the_end_of_a_fight() {
 		emit({ #rows(), t:IsShown() })
 	"#);
 	assert_eq!(out[0], 3, "no secure change in combat");
-	assert_eq!(out[1], json!([["Defias Thug", "", "/cleartarget [nocombat]\n/targetexact Defias Thug\n/cleartarget [dead]", 38]]));
+	assert_eq!(out[1], json!([["Defias Thug", "", "/cleartarget [nocombat][dead]\n/targetexact Defias Thug\n/cleartarget [dead]", 38]]));
 	assert_eq!(out[2], json!([0, false]));
 }
 
@@ -854,8 +854,8 @@ fn target_list_names_the_step_s_npcs_when_it_has_no_mob_with_the_npc_mark_and_th
 	assert_eq!(
 		out[0],
 		json!([
-			["Marshal Dughan", "", format!("/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"), 240],
-			["Gryan Stoutmantle", "", format!("/cleartarget [nocombat]\n/targetexact Gryan Stoutmantle\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"), 241]
+			["Marshal Dughan", "", format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"), 240],
+			["Gryan Stoutmantle", "", format!("/cleartarget [nocombat][dead]\n/targetexact Gryan Stoutmantle\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"), 241]
 		]),
 		"no mob: the step's NPCs, each row with the NPC's mark and, with Ping on, the ping (#2036: NPCs are pinged too)"
 	);
@@ -1217,9 +1217,9 @@ fn target_list_a_step_s_npc_and_while_you_re_here_mobs_each_row_with_its_own_kin
 		out[0],
 		json!([
 			"Marshal Dughan",
-			format!("/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"),
+			format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"),
 			"Bluegill Murloc",
-			"/cleartarget [nocombat]\n/targetexact Bluegill Murloc\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8"
+			"/cleartarget [nocombat][dead]\n/targetexact Bluegill Murloc\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8"
 		]),
 		"the NPC first (no place known: near), with its mark; the row's mob after, with the mob's mark; both pinged with Ping on (#2036)"
 	);
@@ -1249,7 +1249,7 @@ const MIXED_FOLDED: &str = r#"
 	local advance = B.AdvanceMark
 	B.AdvanceMark = function(kind) kinds[#kinds + 1] = kind; return advance(kind) end
 "#;
-const MIXED_NAMES: &str = "/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/targetexact [noexists] Bluegill Murloc\n/cleartarget [dead]";
+const MIXED_NAMES: &str = "/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/targetexact [noexists] Bluegill Murloc\n/cleartarget [dead]";
 
 #[test]
 fn target_list_folded_a_step_s_npc_and_a_while_you_re_here_mob_mark_and_advance_the_kind_targeted() {
@@ -1381,11 +1381,11 @@ fn target_list_a_name_that_turns_from_an_npc_goal_into_a_kill_takes_the_mob_s_ma
 	assert_eq!(
 		out[0],
 		json!([
-			"/cleartarget [nocombat]\n/targetexact Same Name\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1",
+			"/cleartarget [nocombat][dead]\n/targetexact Same Name\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1",
 			["Same Name", "success", "textDim", false]
 		])
 	);
-	assert_eq!(out[1], json!(["/cleartarget [nocombat]\n/targetexact Same Name\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8", ["Same Name", "danger", "danger", false]]));
+	assert_eq!(out[1], json!(["/cleartarget [nocombat][dead]\n/targetexact Same Name\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8", ["Same Name", "danger", "danger", false]]));
 }
 
 // Review of the 0.3.7 rebase: a mob on the list seen to be elite (the target, a nameplate) turns its row's name gold
@@ -1618,8 +1618,8 @@ fn target_list_rows_mark_by_default_a_skull_on_a_mob_and_a_star_on_an_npc_and_pi
 	let skull = "/tm [@target,harm,nodead] !8";
 	let star = "/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
 	assert_eq!(out[0], json!([true, false, [format!("{VERMIN}\n{skull}")]]), "mark on and ping off by default: the mob's row with the skull");
-	assert_eq!(out[1], json!([format!("/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n{star}")]), "an NPC's row: the star");
-	assert_eq!(out[2], json!([format!("/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{star}")]), "with Ping on, the NPC is pinged too");
+	assert_eq!(out[1], json!([format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n{star}")]), "an NPC's row: the star");
+	assert_eq!(out[2], json!([format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{star}")]), "with Ping on, the NPC is pinged too");
 }
 
 // Compact styles (qol.targetListStyle): slim rows, and portrait tiles in a
