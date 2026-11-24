@@ -3992,7 +3992,7 @@
 	},
 	"8922": {
 		"set": {
-			"preAny": [8905, 8906, 8907, 8908, 8909, 8910, 8911, 8912, 84149, 84150, 84152]
+			"preAny": [84148, 84149, 84150, 84151, 84152, 84153, 84154, 97447]
 		},
 		"source": [
 			{
@@ -4006,19 +4006,29 @@
 			{
 				"kind": "recording",
 				"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): a Human Paladin was offered An Earnest Proposition 84150 by Deliana (230319) and took it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): Deliana (230319) gives An Earnest Proposition as 84148-84154 and 97447, each asking for the Winterspring Blood Samples and one class's set bracers, as the Classic copies 8905-8912 did"
 			}
 		],
-		"note": "A Supernatural Device (8922) follows any class's An Earnest Proposition for Deliana in Ironforge: Forever's versions held or taken by players, the Mage's 84149 (#3918), the Paladin's 84150 and the Rogue's 84152 (#3081), as well as the eight of the Classic data, so the chain starts from the version in the player's quest log."
+		"note": "A Supernatural Device (8922) follows any class's An Earnest Proposition for Deliana in Ironforge: Forever's versions, the Mage's 84149 (#3918), the Paladin's 84150 and the Rogue's 84152 (#3081) seen in players' logs and the rest by their bracers. The Classic copies 8905-8912 are removed (their Deliana, 16013, is not on Forever), so only Forever's versions lead here."
 	},
 	"8923": {
 		"set": {
-			"preAny": [8913, 8914, 8915, 8916, 8917, 8918, 8919, 8920, 84160, 84161, 97411]
+			"preAny": [84155, 84156, 84157, 84158, 84159, 84160, 84161, 84162, 97411]
 		},
-		"source": {
-			"kind": "recording",
-			"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): at Mokvar (230317) in Orgrimmar a Troll Shaman took An Earnest Proposition 84160, two Scourge Paladins took 97411 and a Troll Warlock was offered 84161"
-		},
-		"note": "A Supernatural Device (8923) follows any class's An Earnest Proposition for Mokvar in Orgrimmar: Forever's versions players were offered or took, the Shaman's 84160, the Warlock's 84161 and the Paladin's 97411, as well as the eight of the Classic data, so the chain starts from the version in the player's quest log (#3918, the Horde side of 8922's record)."
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): at Mokvar (230317) in Orgrimmar a Troll Shaman took An Earnest Proposition 84160, two Scourge Paladins took 97411 and a Troll Warlock was offered 84161"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): Mokvar (230317) gives An Earnest Proposition as 84155-84162 and 97411, each asking for the Winterspring Blood Samples and one class's set bracers, as the Classic copies 8913-8920 did"
+			}
+		],
+		"note": "A Supernatural Device (8923) follows any class's An Earnest Proposition for Mokvar in Orgrimmar: Forever's versions, the Shaman's 84160, the Warlock's 84161 and the Paladin's 97411 seen in players' logs and the rest by their bracers (#3918, the Horde side of 8922's record). The Classic copies 8913-8920 are removed (their Mokvar, 16012, is not on Forever), so only Forever's versions lead here."
 	},
 	"9015": {
 		"set": {
@@ -21583,5 +21593,179 @@
 			}
 		],
 		"note": "Warlord's Command (Kargath, Horde Blackrock Spire attunement) opens only after Blood and Thunder: Warlord Goretooth first gives Blood and Thunder, and once it is handed in the player gets his written command and takes Warlord's Command from it. Our data had no prerequisite, so the Blackrock Spire pick-up guide sent players to him for Warlord's Command while he offered only Blood and Thunder; Eitrigg's Wisdom and For The Horde! come after it."
+	},
+	"8929": {
+		"set": {
+			"preAny": [84163, 84164, 84165, 84166, 84167, 84168, 84169, 84170]
+		},
+		"source": { "kind": "questie", "ref": "QuestieDB (Questie-Forever): Deliana (230319) gives Just Compensation as 84163-84170, each asking for the same two set pieces as one of the Classic copies 8926 and 8931-8937" },
+		"note": "In Search of Anthion (Alliance) follows Just Compensation. The Classic copies the data chained it to (8926, 8931-8937) are removed with their giver Deliana (16013), who is not on Forever, so it now follows Forever's versions from Deliana (230319), matched to the Classic ones class by class by the set pieces they ask for; without them it would have no prerequisite at all."
+	},
+	"8930": {
+		"set": {
+			"preAny": [84171, 84172, 84173, 84174, 84175, 84176, 84177, 84178, 97412]
+		},
+		"source": { "kind": "questie", "ref": "QuestieDB (Questie-Forever): Mokvar (230317) gives Just Compensation as 84171-84178 and 97412, each asking for the same two set pieces as one of the Classic copies 8927 and 8938-8944 (97412: the Paladin's, as Alliance 8933)" },
+		"note": "In Search of Anthion (Horde) follows Just Compensation. The Classic copies the data chained it to (8927, 8938-8944) are removed with their giver Mokvar (16012), who is not on Forever, so it now follows Forever's versions from Mokvar (230317), matched class by class by the set pieces they ask for; without them it would have no prerequisite at all."
+	},
+	"8905": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "An Earnest Proposition (Druid): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8906": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "An Earnest Proposition (Hunter): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8907": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "An Earnest Proposition (Mage): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8908": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "An Earnest Proposition (Paladin): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8909": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "An Earnest Proposition (Priest): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8910": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "An Earnest Proposition (Rogue): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8911": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "An Earnest Proposition (Warlock): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8912": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "An Earnest Proposition (Warrior): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8913": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "An Earnest Proposition (Druid): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8914": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "An Earnest Proposition (Hunter): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8915": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "An Earnest Proposition (Mage): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8916": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "An Earnest Proposition (Priest): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8917": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "An Earnest Proposition (Rogue): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8918": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "An Earnest Proposition (Shaman): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8919": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "An Earnest Proposition (Warlock): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8920": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "An Earnest Proposition (Warrior): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8926": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "Just Compensation (Druid): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8927": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "Just Compensation (Druid): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8931": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "Just Compensation (Hunter): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8932": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "Just Compensation (Mage): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8933": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "Just Compensation (Paladin): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8934": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "Just Compensation (Priest): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8935": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "Just Compensation (Rogue): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8936": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "Just Compensation (Warlock): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8937": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "Just Compensation (Warrior): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8938": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "Just Compensation (Hunter): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8939": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "Just Compensation (Mage): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8940": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "Just Compensation (Priest): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8941": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "Just Compensation (Rogue): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8942": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "Just Compensation (Shaman): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8943": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "Just Compensation (Warlock): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8944": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "Just Compensation (Warrior): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
 	}
 }
