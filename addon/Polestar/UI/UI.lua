@@ -350,12 +350,15 @@ end
 -- this guide"), or with `tip` its tooltip's sentence on why doing it now
 -- pays: the Engine's own words when it gives them (`hereSub`, `hereTip`: a
 -- flight path line's), else its step's (`firstStep`: the earliest step that
--- holds the objective).
+-- holds the objective). A quest kept for a later guide (`keptFor`, #3390)
+-- says so after it: "Step 14 · kept for Stranglethorn & Swamp".
 function UI.HereStep(v, tip)
 	if tip then
 		return v.hereTip or format(L["Step %d does this later; done now, that step is shorter or skipped when you get there."], UI.StepNo(v.firstStep or v.step))
 	end
-	return v.hereSub or format(v.later and L["Step %d, later in this guide"] or L["Step %d"], UI.StepNo(v.firstStep or v.step))
+	local sub = v.hereSub or format(v.later and L["Step %d, later in this guide"] or L["Step %d"], UI.StepNo(v.firstStep or v.step))
+	if v.keptFor then sub = format(L["%s · kept for %s"], sub, v.keptFor) end
+	return sub
 end
 
 -- The goal's main line. The Engine's `text` is the truth (it carries author
