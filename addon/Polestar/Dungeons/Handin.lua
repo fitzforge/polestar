@@ -40,7 +40,9 @@
 --       nothing is left to do once it is taken (no objectives: Earthen Echo,
 --       #1748; only items the bags hold: Prehistoric Prism, #1817), or once
 --       its errand is done, this character's side's, on the giver's
---       continent; errand: for one of this dungeon's own page quests done
+--       continent or on one a `hand` quest is turned in on (Sen'jin
+--       Village's Master Gadrin while Mazu'kon in Mulgore takes the idol,
+--       #2841); errand: for one of this dungeon's own page quests done
 --       outside it, the collect goals of its objectives when every one is an
 --       errand item, one to be had out in the world: no instance's NPC or
 --       object gives it, and an NPC or object spawned outside does at least
@@ -345,8 +347,12 @@ function Dungeons.HandinFollowUps(plan)
 	local out = {}
 	if not (Lk and C and C.FollowUps and #plan.hand > 0) then return out end
 	local p = Lk.PlayerInfo()
-	local handed = {}
-	for _, h in ipairs(plan.hand) do handed[h.quest.id] = h end
+	local handed, visited = {}, {}
+	for _, h in ipairs(plan.hand) do
+		handed[h.quest.id] = h
+		local c = continentOf(h.ender)
+		if c then visited[c] = true end
+	end
 	local function behind(id) return done(id) or handed[id] ~= nil end
 	local seen = {}
 	for _, h in ipairs(plan.hand) do
@@ -384,12 +390,17 @@ function Dungeons.HandinFollowUps(plan)
 					-- Prospector Whelgar to High Explorer Magellas, #1817), or
 					-- once its errand out in the world is done (Unending
 					-- Torment's three Undercity items, #2173), and its ender is
-					-- on the giver's continent (no trip across the sea).
+					-- on the giver's continent (no trip across the sea), or on
+					-- one a turn-in of the plan takes the player to anyway (The
+					-- Drowned City's A Tale Spun Around the Fire, from Kin'weelay
+					-- in Grom'gol to Master Gadrin in Sen'jin Village, while
+					-- Ancient Gurubashi Idol goes to Mazu'kon in Mulgore, #2841).
 					local errand = not carried(f) and errandGoals(plan.dungeon.key, f, giver, p, f.direct) or nil
 					local last = errand and errand[#errand]
 					local e = (carried(f) or errand) and Lk.QuestEnd(f["end"], last or giver, p) or nil
 					local ender = e and not e.hostile and endPoint(e) or nil
-					if ender and continentOf(ender) ~= continentOf(giver) then ender = nil end
+					local land = ender and continentOf(ender)
+					if ender and land ~= continentOf(giver) and not visited[land] then ender = nil end
 					-- An errand stays on the giver's continent and ends where
 					-- its quest is handed in.
 					for _, g in ipairs(errand or {}) do
