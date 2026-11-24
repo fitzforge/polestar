@@ -4796,5 +4796,227 @@
 			}
 		],
 		"note": "Talendria, who offers Vyletongue Corruption, stands at Nijel's Point in Desolace. The merged data also put her on Stonetalon Mountains' map (42.8,83.9, the same place across the zone border), and Maraudon's pick-up guide named Stonetalon for her (#3575). Her one point is Desolace's."
+	},
+	"256222": {
+		"set": {
+			"spawns": {
+				"2482": { "f": "l", "pts": [[73.26, 81.71], [73.41, 82.02]] }
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): 19 people handed quests in to Ketharas and 18 took quests from him, all at Mount Hyjal 73,82; nobody met him in Felwood"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.5 adds a spawn at Felwood 51.2,82.2 (1.1.2: Mount Hyjal only)"
+			}
+		],
+		"note": "Ketharas stands in Mount Hyjal at 73.3,81.7, where players take and hand in his quests. QuestieDB 1.1.5 also puts him in Felwood, about 2,200 yards away, which would send the hand-ins of thirteen Hyjal quests there."
+	},
+	"228216": {
+		"set": {
+			"spawns": {
+				"1452": { "f": "l", "pts": [[61.3, 36.93]] }
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): 18 people handed quests in to Nami and 14 took quests from her, all in Everlook (Winterspring 61,37); nobody met her in Mount Hyjal"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.5 adds a spawn at Mount Hyjal 60.1,61.2 (1.1.2: Everlook only)"
+			}
+		],
+		"note": "Nami stands in Everlook (Winterspring 61.3,36.9), where Premiere Parts is handed in and Crate Expectations taken. QuestieDB 1.1.5 also puts her in Mount Hyjal, about 2,500 yards away, which would send Premiere Parts' hand-in there."
+	},
+	"246020": {
+		"set": {
+			"spawns": {
+				"1416": { "f": "l", "pts": [[12.83, 61.5]] }
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): 84 kills of the Shade of the Archmage by 73 people in Alterac Mountains, median 12.83,61.5 (Forever's City of Dalaran)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.5 lists no spawn for it (1.1.2: Alterac Mountains 15.0-15.4,55.4-56.5)"
+			}
+		],
+		"note": "The Shade of the Archmage is fought in Forever's City of Dalaran in Alterac Mountains, around 12.8,61.5 where players kill it. QuestieDB 1.1.5 drops its spawns, which would leave the legacy challenge's kill step with no place."
+	},
+	"203079": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Wandering Swordsman (npc 203079), where the data places it (maps 1411,1420,1426,1429,1438)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Wandering Swordsman is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"204070": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Soboz (npc 204070), where the data places it (maps 1411,1426,1458)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Soboz is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"208124": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Raluk (npc 208124), where the data places it (maps 1411)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Raluk is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"208812": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Jorul (npc 208812), where the data places it (maps 1426)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Jorul is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"208841": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met npc 208841 (no name in the data) where the data places it (maps 1428)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "NPC 208841 is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"208846": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Sun Admirer (npc 208846), where the data places it (maps 1446)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Sun Admirer is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"208847": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met The Snatcher (npc 208847), where the data places it (maps 1436)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "The Snatcher is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"209742": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Desert Mirage (npc 209742), where the data places it (maps 1413)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Desert Mirage is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"209928": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Mowgh (npc 209928), where the data places it (maps 1438)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Mowgh is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"211951": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Koartul (npc 211951), where the data places it (maps 1424)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Koartul is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"218273": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Wandering Swordsman (npc 218273), where the data places it (maps 1418)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Wandering Swordsman is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"221333": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Doomkin (npc 221333), where the data places it (maps 1425)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Doomkin is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"222726": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Tyrant of the Hive (npc 222726), where the data places it (maps 1444)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Tyrant of the Hive is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"224965": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Khonsu (npc 224965), where the data places it (maps 1451)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Khonsu is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"228611": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Wandering Swordsman (npc 228611), where the data places it (maps 1451)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Wandering Swordsman is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"228721": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Lieutenant Skarresh (npc 228721), where the data places it (maps 1427)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Lieutenant Skarresh is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"228728": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Flamebringer Kelris (npc 228728), where the data places it (maps 1427)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Flamebringer Kelris is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"228814": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Arcterris (npc 228814), where the data places it (maps 1452)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Arcterris is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"228969": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Lord Gazzran (npc 228969), where the data places it (maps 1427)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Lord Gazzran is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"228970": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Galenges (npc 228970), where the data places it (maps 1427)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Galenges is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
+	},
+	"263935": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Old Rusthowl (npc 263935), where the data places it (maps 2482)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Old Rusthowl is not a rare players meet on Forever: no recorded player saw it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rares."
 	}
 }
