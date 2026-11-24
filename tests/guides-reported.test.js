@@ -18638,6 +18638,16 @@ for (const guide of ['forever/horde/40-50/06-azshara.guide', 'forever/alliance/5
 	});
 }
 
+// #3099 (rAmandaK, 0.4.1.1): a Horde Skyborne druid still on Zephras Isle walked off the isle's edge following the
+// arrow to Muln Earthfury's airship. A step before Child of Nature, while the player is on the isle, leads to the
+// Valanaar Skydocks, where the skycutter to Mulgore leaves.
+test('forever/class/druid/bear-form.guide: a Horde Skyborne druid on Zephras Isle is led to the Valanaar Skydocks first (#3099)', { skip }, () => {
+	const list = goals('forever/class/druid/bear-form.guide');
+	const dock = list[at(list, 'goto Valanaar Skydocks', (g) => g.t === 'goto' && g.map === 2521 && Math.hypot(g.x - 58.0, g.y - 81.0) < 1)];
+	assert.ok(dock.s < list[at(list, 'accept 94911', is('accept', 94911))].s, 'before Child of Nature');
+	assert.ok((dock.step.when || []).some((p) => p.k === 'zone' && !p.neg), 'only while on the isle');
+});
+
 // #3512 #3492 #3489 #3486 #3481 (Stö, 0.4.2, Mount Hyjal): "talked with Whisperfur / Brie / Solstice / the Peasant /
 // Elder Pinespeaker but the guide didn't mark it". A `talk` with no quest ticks only on something the player does in
 // the NPC's window (a gossip choice, an accept, a hand-in: #741), but players' recordings show these lines tick with
