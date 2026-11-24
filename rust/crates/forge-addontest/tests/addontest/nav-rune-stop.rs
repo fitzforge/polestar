@@ -106,6 +106,53 @@ fn a_seller_across_town_counts_and_the_closest_by_travel_time_is_the_one_offered
 	assert_eq!(out["closest"], "Closer");
 }
 
+// The planning is done on a route or bag change; the 3 s tick only measures the walk from where the player stands,
+// so standing by a seller or walking up to one plans nothing (the review on #3554: 4 or 5 plans every other tick).
+#[test]
+fn the_tick_plans_nothing_standing_still_or_walking_up_to_a_seller() {
+	let out = run(r#"
+		local r = {}
+		known(1, 2)
+		nav.useTravelWorld(6000)
+		local missing = { mage(0, -780) }
+		local sold = { seller(900, 600) }
+		local got
+		Polestar.Engine.SetRuneStop = function(o) got = o end
+		Polestar.Engine.RuneStopAimed = function() return false end
+		Polestar.Transit.MissingRunes = function() return missing end
+		N.nearby.Sellers = function() return sold end
+		local estimates, verdicts = 0, 0
+		local estimate, would = N.EstimateTravel, N.WouldCastTeleport
+		N.EstimateTravel = function(...) estimates = estimates + 1; return estimate(...) end
+		N.WouldCastTeleport = function(...) verdicts = verdicts + 1; return would(...) end
+		nav.place(0, 600)
+		target(0, -780, "Kobolds")
+		R.Refresh()
+		stub.advance(2)
+		r.farAway = got == nil
+		r.surveyed = estimates > 0
+		estimates, verdicts = 0, 0
+		stub.advance(30)
+		r.stillPlans = estimates + verdicts
+		nav.place(260, 600)
+		stub.advance(3.5)
+		r.walkedUp = got and got.seller.name
+		r.walkedPlans = estimates
+		r.askedOnce = verdicts
+		estimates, verdicts = 0, 0
+		nav.place(290, 600)
+		stub.advance(30)
+		r.closerPlans = estimates + verdicts
+		emit(r)"#);
+	assert_eq!(out["farAway"], true, "900 yards: past the two-minute walk");
+	assert_eq!(out["surveyed"], true);
+	assert_eq!(out["stillPlans"], 0, "ten ticks standing still");
+	assert_eq!(out["walkedUp"], "Rune Seller", "the tick sees the seller come within reach");
+	assert_eq!(out["walkedPlans"], 0, "no travel estimate on the tick");
+	assert_eq!(out["askedOnce"], 1, "the planner's yes or no, once, for the seller that clears the margin");
+	assert_eq!(out["closerPlans"], 0, "kept: no plan while walking on");
+}
+
 #[test]
 fn no_offer_when_the_planner_would_not_cast_the_teleport_after_buying() {
 	let out = run(r#"

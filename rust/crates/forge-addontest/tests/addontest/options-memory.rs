@@ -110,7 +110,11 @@ const LOGIN_BASE: f64 = 11003.0;
 /// +8 KiB: the Engine's target mark, step views, trainer pick and party line, the guide's trainer stop and off-route
 /// work (#3965): 14,774 KiB at login on 2026-11-24, 14,766 with next (CI's runner 14,778 on the pull request's run).
 /// The budget: 14,790 (reported to Fitz).
-const LOGIN: f64 = LOGIN_BASE + 3787.0;
+/// +27 KiB: the Mage's rune stop (#3547), Nav/RuneStop.lua with the Engine's line, Transit.MissingRunes,
+/// Nearby.Sellers and Nav.WouldCastTeleport: 14,792 KiB at login on 2026-11-24, 14,765 with next (CI's runner 14,803
+/// on the pull request's first run, before its survey on route changes). The budget: 14,820 (reported to Fitz in the
+/// pull request).
+const LOGIN: f64 = LOGIN_BASE + 3817.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).

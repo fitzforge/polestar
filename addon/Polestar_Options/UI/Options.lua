@@ -325,10 +325,12 @@ local BUILTIN = {
 			help = L["Also a spot near you where a herb, ore vein or fishing pool you can gather can spawn: one may be up there, or gathered already. With Find Herbs or Find Minerals on, the line says so; it says one is up when the Interact Key picks it."],
 			search = "herbs, herbalism, ore, mining, fishing pools, nodes, gathering, farm, spots, tracking, find herbs, find minerals, interact key",
 			disabled = function() return not ns.Get("behavior.whileHere") end },
-		-- 0.4.0's sell and repair reminders (Engine Own.hereVendor, #2344): on by default.
+		-- 0.4.0's sell and repair reminders (Engine Own.hereVendor, #2344): on by default. The rune stop
+		-- (Nav/RuneStop.lua, #3547) needs it on too, so its sentence is here: off, a Mage would not know why.
 		{ kind = "toggle", key = "behavior.whileHereVendors", label = L["Sell and repair reminders"], new = "0.4.0",
-			help = L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."],
-			search = "sell, repair, vendor, merchant, repairer, durability, broken gear, bags full, bag space, free slots, junk, before heading out",
+			help = L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."]
+				.. " " .. L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."],
+			search = "sell, repair, vendor, merchant, repairer, durability, broken gear, bags full, bag space, free slots, junk, before heading out, mage, rune of teleportation, teleport, reagent",
 			disabled = function() return not ns.Get("behavior.whileHere") end,
 			children = {
 				{ kind = "slider", key = "behavior.whileHereSellSlots", label = L["Sell: fewer free bag slots than"], min = 0, max = 16, step = 1, new = "0.4.0",
