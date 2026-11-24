@@ -1617,7 +1617,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	let mut slots: Vec<(String, String)> = Vec::new();
 	// (Per quest with `races` records: whether one is quest-wide, how many there are, the first's path.)
 	let mut races_of: std::collections::BTreeMap<String, (bool, usize, String)> = std::collections::BTreeMap::new();
-	const KINDS: [&str; 14] = ["tip", "goalNote", "optional", "level", "along", "early", "when", "background", "races", "follows", "split", "step", "way", "levels"];
+	const KINDS: [&str; 15] = ["tip", "goalNote", "optional", "level", "along", "early", "when", "background", "races", "follows", "split", "step", "way", "levels", "groupChoice"];
 	for (i, r) in list.items().iter().enumerate() {
 		let at = format!("fixes[{i}]");
 		ck.keys(
@@ -1642,6 +1642,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				"step",
 				"way",
 				"levels",
+				"groupChoice",
 				"faction",
 				"note",
 				"source",
@@ -1649,7 +1650,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				"pr",
 			],
 		);
-		for field in ["follows", "split", "step", "way", "levels"] {
+		for field in ["follows", "split", "step", "way", "levels", "groupChoice"] {
 			if !r.get(field).is_undef() && KINDS.iter().any(|k| *k != field && !r.get(k).is_undef()) {
 				ck.err(format!("{at}.{field}"), format!("a `{field}` fix uses a record of its own"));
 			}
@@ -1810,6 +1811,34 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 						}
 					}
 					"way"
+				}
+				(true, true) if !r.get("groupChoice").is_undef() => {
+					let choice = r.get("groupChoice");
+					let field = format!("{at}.groupChoice");
+					ck.keys(&field, &choice, &["quest", "solo", "pitch"]);
+					if a.get("goal").as_str() != Some("accept") || !has_text(&a.get("guide")) {
+						ck.err(format!("{at}.at"), "a group choice names the old root's accept and its guide");
+					}
+					let root = choice.get("quest");
+					ck.refers(&format!("{field}.quest"), "quests", &root);
+					if root.num() == a.get("quest").num() {
+						ck.err(format!("{field}.quest"), "the new group root must differ from the old one");
+					}
+					let solo = choice.get("solo");
+					if !solo.is_arr() || !solo.items().iter().any(|q| q.num() == a.get("quest").num()) {
+						ck.err(format!("{field}.solo"), "the solo quests must include the old root");
+					}
+					for (index, q) in solo.items().iter().enumerate() {
+						ck.refers(&format!("{field}.solo[{index}]"), "quests", q);
+						if q.num() == root.num() {
+							ck.err(format!("{field}.solo[{index}]"), "the new root stays with the group");
+						}
+					}
+					let pitch = choice.get("pitch");
+					if !pitch.is_undef() && (!has_text(&pitch) || pitch.as_str().is_some_and(|t| t.contains(['\n', '\r']))) {
+						ck.err(format!("{field}.pitch"), "the guide pitch is one line of text");
+					}
+					"groupChoice"
 				}
 				(true, true) if !r.get("levels").is_undef() => {
 					let l = r.get("levels");

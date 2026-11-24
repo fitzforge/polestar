@@ -11481,6 +11481,16 @@ test('Sunken Treasure: the escort tip sends you up to the cave, where two water 
 	}
 });
 
+test('Sunken Treasure: both factions can start, complete and turn in the escort solo', { skip }, () => {
+	for (const side of ['alliance', 'horde']) {
+		const list = goals(`forever/${side}/30-40/05-arathi-highlands.guide`);
+		const escort = ['accept', 'complete', 'turnin'].map((verb) => list[at(list, `${verb} 665`, is(verb, 665))]);
+		for (const { step } of escort) {
+			assert.ok(!(step.when || []).some((p) => p.k === 'group'), `${side}: the escort is available solo`);
+		}
+	}
+});
+
 // Final route review for 0.3.5 (Horde Stranglethorn 34-37): the step that lands from the zeppelin was
 // titled "Fly to Grom'gol"; the tigers' tip put them east of Nesingwary's camp along the lake (they are
 // around and south of it, the panthers west); the Venture Co. step sent you north past Nesingwary's camp
@@ -16730,13 +16740,13 @@ test("forever/alliance/30-40/04-stranglethorn-vale.guide: the Kurzen's Compound 
 
 // 0.4.0 route audit (Refs #2025, as 6558e6487 for 04b): 30-40/05 is labelled 36-38 (the levels the route plays it at),
 // while its worked quests' median is 37 and its 80th percentile 40 (Faldir's Cove and the Alterac Syndicate). The
-// pitch says the level 40 quests are there on purpose and how to take their fights.
+// pitch calls out the solo escort and the reef group choice.
 test(`${ARATHI}: the pitch says why its quests run above its label`, { skip }, () => {
 	const g = compiled(ARATHI);
 	// Fix round 2 (0.4.0): the level model without accept-time grinding plays it at 35.9-37.4: labelled 35-37, and the
 	// pitch still says why its level 40 quests are there. Fix round 2026-11-20: the route now plays it at 36.2-37.9
 	// (the round's level model), labelled 36-38; the pitch still explains its level 40 quests.
-	assert.match(g.pitch || '', /36 to 38.*Faldir's Cove.*group stop/, g.pitch);
+	assert.match(g.pitch || '', /36 to 38.*Faldir's Cove.*escort the professor solo/, g.pitch);
 	assert.equal(g.maxLevel, 38, 'the label is the levels the route plays it at');
 });
 
@@ -16744,7 +16754,7 @@ test(`${ARATHI}: the pitch says why its quests run above its label`, { skip }, (
 // the Syndicate camp at 32 (Thieves 33-34, Wizards 34-35), the Saltstone Gazers at 32-33 (34-35), Sin'Dall (37) and
 // the Lashtails (35-36) at 34, the Shadowmaw Panthers (37-38) and Skullsplitters (39-42, #2365) at 35-36, Vardus and
 // Nagaz (40) at 38, Faldir's Cove (naga 38-40, water elementals 40) at 38, the Greater Rock Elementals (42-44) at 39.
-test('Alliance level tidy 30-40: no solo quest sends players at mobs two levels over them', { skip }, () => {
+test('Alliance level tidy 30-40: route choices for the higher-level quests', { skip }, () => {
 	const g = (f) => goals(`forever/alliance/30-40/${f}.guide`);
 	const has = (list, q) => list.some(({ goal }) => goal.quest === q);
 	const hills = g('01-hillsbrad-foothills');
@@ -16789,15 +16799,15 @@ test('Alliance level tidy 30-40: no solo quest sends players at mobs two levels 
 	const mattock = badlands2.findIndex(({ goal }) => goal.t === 'collect' && goal.item === 278404);
 	assert.ok(mattock >= 0 && badlands2[mattock].s === badlands2[at(badlands2, 'kill quest 739', (x) => x.t === 'kill' && x.quest === 739)].s, '40-50/02: the mattock with Murdaloc');
 	assert.ok(mattock < at(badlands2, 'turnin 97617', is('turnin', 97617)), '40-50/02: Dorgaron takes Safety Checks on the ride north');
-	for (const q of [662, 664, 665, 666]) {
-		for (const { step } of arathi.filter(({ goal }) => goal.quest === q)) assert.ok(whenOn(step, 'group', 665), `05: ${q} only on the Faldir's Cove group choice`);
+	for (const q of [662, 664, 666]) {
+		for (const { step } of arathi.filter(({ goal }) => goal.quest === q)) assert.ok(whenOn(step, 'group', 664), `05: ${q} on the Drowned Sorrows group choice`);
 	}
 	for (const q of [523, 537, 551]) assert.ok(!has(arathi, q), `05: no ${q}`);
 	const scrap = g('06-badlands').find(({ goal }) => goal.t === 'collect' && goal.quest === 733).goal;
 	assert.ok(scrap.x < 35, `06: the scrap from the Dustbelcher Ogres west of Agmond's End (${scrap.x},${scrap.y})`);
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
 	for (const q of [1175, 523, 537, 551]) assert.ok(rf.overrides.skip.some((e) => e.q === q), `route-fixes skips ${q}`);
-	assert.ok(rf.deliberate.group.some((e) => e.q === 665), 'Faldir\'s Cove is a group record');
+	assert.ok(!rf.deliberate.group.some((e) => e.q === 665), 'the escort has no group-size override');
 });
 
 test('Swamp of Sorrows (#2416, Yunra): Karana and Pelluk on the Harborage stop, the crystals are clicked', { skip }, () => {

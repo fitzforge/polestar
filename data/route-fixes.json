@@ -9162,11 +9162,6 @@
 				"why": "#1791 sweep: Alas, Andorhal's Araj's Phylactery Shard (17114) comes only from Araj's Phylactery (object 177241) at Western Plaguelands 45.27,69.21, where Araj the Summoner (1852, elite 61) stands among Skeletal Warlords (1788, elite 56-57). A group quest only; since the 2026-11-20 Horde 50-60 flow rework it is left out of the Horde route (its prerequisite 5098 is taken in 50-60/02, so a character starting at 05's Plaguelands sweep could never be offered it)."
 			},
 			{
-				"q": 665,
-				"size": 2,
-				"why": "Alliance level tidy (0.4.0): Faldir's Cove at the end of 30-40/05-arathi-highlands, about 38 for players (recorded 25th percentile 38.3): Professor Phizzlethorpe's escort (665) is ambushed by two level 40 water elementals, and the Drowned Reef's Daggerspine naga (664: Raiders 38-39, Sorceresses 39-40) are where 11 of 18 recorded players died. The whole cove (663, 662, 664, 665, 666, 668, 669) is one group choice on that step; the route has no later Arathi visit."
-			},
-			{
 				"q": 651,
 				"size": 2,
 				"why": "Alliance 30-40 fix round 1 (0.4.0): Stones of Binding's Stone of East Binding is guarded by three Cresting Exiles (38-39) that attack together, two over players on 30-40/05 at about 37 (recorded 25th percentile 37.8), with no later Arathi visit: the quest (accept, the three keys, the hand-in) is a group choice."

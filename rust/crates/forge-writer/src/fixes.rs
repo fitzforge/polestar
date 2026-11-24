@@ -1007,6 +1007,71 @@ fn apply_follows(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usi
 	at
 }
 
+/// Retarget a guide's existing group choice, keeping solo and group goals in their original order.
+fn apply_group_choice(lines: &mut Vec<String>, r: &Value) -> Vec<usize> {
+	let choice = &r["groupChoice"];
+	let (Some(old), Some(new), Some(solo)) = (r["at"]["quest"].as_u64(), choice["quest"].as_u64(), choice["solo"].as_array()) else { return Vec::new() };
+	let old_gate = format!("when group {old}");
+	let new_gate = format!("  when group {new}");
+	let old_fallback = format!("when !group {old}");
+	let is_old_gate = |line: &str| trim(split_comment(line).0) == old_gate;
+	let solo: FxHashSet<u32> = solo.iter().filter_map(|q| u32::try_from(q.as_u64()?).ok()).collect();
+	let mut changed = Vec::new();
+	let steps: Vec<_> = (0..lines.len()).filter(|&i| is_step(&lines[i])).filter_map(|i| step_body(lines, i)).collect();
+	for (start, end) in steps.into_iter().rev() {
+		if !lines[start + 1..end].iter().any(|line| is_old_gate(line)) {
+			for (offset, line) in lines[start + 1..end].iter_mut().enumerate() {
+				if trim(split_comment(line).0) == old_fallback {
+					*line = format!("  when !group {new}");
+					changed.push(start + 1 + offset);
+				}
+			}
+			continue;
+		}
+		let goals = goals_in(lines, (start, end));
+		let first = goals.first().copied().unwrap_or(end);
+		// A non-quest goal before a quest (such as its approach) travels with that quest.
+		let mut runs = Vec::new();
+		let mut next_start = first;
+		for i in goals {
+			let Some(quest) = crate::apply::quest_of(split_comment(&lines[i]).0) else { continue };
+			let grouped = !solo.contains(&quest);
+			if runs.last().is_none_or(|&(_, previous)| previous != grouped) {
+				runs.push((next_start, grouped));
+			}
+			next_start = i + 1;
+		}
+		if runs.is_empty() {
+			runs.push((first, true));
+		}
+		let mut replacement = Vec::new();
+		for (index, &(from, grouped)) in runs.iter().enumerate() {
+			if index > 0 {
+				replacement.push(String::new());
+			}
+			replacement.push(lines[start].clone());
+			if grouped {
+				replacement.push(new_gate.clone());
+			}
+			replacement.extend(lines[start + 1..first].iter().filter(|line| !is_old_gate(line) && (index == 0 || crate::guide::kind_of(line) == crate::guide::Kind::Every)).cloned());
+			let to = runs.get(index + 1).map_or(end, |&(at, _)| at);
+			replacement.extend_from_slice(&lines[from..to]);
+		}
+		lines.splice(start..end, replacement);
+		changed.push(start);
+	}
+	if let Some(pitch) = choice["pitch"].as_str() {
+		if let Some(i) = lines.iter().take_while(|line| !is_step(line)).position(|line| line.starts_with("pitch ")) {
+			let pitch = format!("pitch {pitch}");
+			if lines[i] != pitch {
+				lines[i] = pitch;
+				changed.push(i);
+			}
+		}
+	}
+	changed
+}
+
 /// A `split` record: in each step holding an anchored line (its first), that line and the lines after
 /// it become a step of their own right after it, titled `split.title` with `split.tip`, repeating the
 /// step's `only` and `when` lines and the `zone` it is read in there (the pieces of a split step
@@ -1332,6 +1397,8 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			"background"
 		} else if r.get("early").is_some() {
 			"early"
+		} else if r.get("groupChoice").is_some() {
+			"groupChoice"
 		} else if r.get("tip").is_some() {
 			"tip"
 		} else if r.get("along").is_some() {
@@ -1364,7 +1431,8 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			r,
 			slot: format!("{anchor:?} {kind}{}{to}", r["at"]["guide"].as_str().map_or(String::new(), |g| format!(" in {g}"))),
 			want: format!(
-				"{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}",
+				"{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}",
+				r["groupChoice"],
 				r["tip"],
 				r["level"],
 				r["only"],
@@ -1389,7 +1457,9 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 	// background records last: their mention tips join the tips the other records set (a tip record
 	// replaces every tip of its step).
 	recs.sort_by_key(|x| {
-		if x.r.get("background").is_some() {
+		if x.r.get("groupChoice").is_some() {
+			-1
+		} else if x.r.get("background").is_some() {
 			3
 		} else if x.r.get("way").is_some() {
 			2
@@ -1455,6 +1525,8 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 				apply_place(&mut lines, &found, x.r, data)
 			} else if x.r.get("background").is_some() {
 				apply_background(&mut lines, x.r, data)
+			} else if x.r.get("groupChoice").is_some() {
+				apply_group_choice(&mut lines, x.r)
 			} else if x.r.get("early").is_some() {
 				apply_early(&mut lines, &found, x.r)
 			} else if x.r.get("races").is_some() {
