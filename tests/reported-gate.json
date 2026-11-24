@@ -1680,6 +1680,15 @@
 		"3282": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2825: escort givers are looked for where they wait, not along their escort" }
 		] },
+		"3432": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-sell-repair.rs", "test": "a_rare_merchant_who_wanders_is_never_the_place_to_sell_one_who_stays_put_is_3432" }
+		] },
+		"3879": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-fresh.rs", "test": "the_fresh_start_counts_only_follow_on_quests_not_grey_for_the_character_3879" }
+		] },
+		"3880": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-feeders.rs", "test": "a_left_out_accept_names_the_earlier_guide_s_quest_it_lacks_never_one_of_its_own_guide_3880" }
+		] },
 		"3287": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-feeders.rs", "test": "t_3021_duskwood_only_offers_viktori_while_carrying_the_bronze_tube" }
 		] },

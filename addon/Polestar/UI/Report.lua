@@ -197,7 +197,9 @@ local function guideLines(d, on)
 				break
 			end
 			local h = e.h
-			add(d, "planned", (plain(h.title or ("#" .. e.q)) .. " [hidden: needs " .. plain(h.needTitle or ("#" .. tostring(h.need))) .. " from " .. plain(h.from or "?") .. "]"))
+			local Q = ns.QuestDB
+			local need = h.needTitle or (Q and Q.GetQuestTitle and Q.GetQuestTitle(h.need)) or ("#" .. tostring(h.need))
+			add(d, "planned", (plain(h.title or ("#" .. e.q)) .. " [hidden: needs " .. plain(need) .. (h.from and (" from " .. plain(h.from)) or "") .. "]"))
 		end
 	end
 	if not view then

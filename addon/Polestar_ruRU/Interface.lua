@@ -1428,6 +1428,12 @@ L["%s to buy"] = "купить: %s"
 L["(only %s listed)"] = "(выставлено только %s)"
 L["(old price)"] = "(старая цена)"
 -- L["Elites nearby"] = ""
+-- L["Group, or careful: a group quest, yours to do or skip"] = ""
+-- L["Group, or careful: an escort that can go wrong"] = ""
+-- L["Group, or careful: elites at your level or above"] = ""
+-- L["Group, or careful: a group is advised"] = ""
+-- L["Careful: elites nearby"] = ""
+-- L["Careful: elites, below your level"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Место"
@@ -4746,6 +4752,8 @@ L["This guide is for %s characters. Polestar won't guide you through it."] = "Э
 -- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 -- L["Looking ahead."] = ""
 -- L["Looking back."] = ""
+-- L["On the way to your map point (%s)."] = ""
+-- L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Нажмите %s, чтобы продолжить, или откройте окно гайда."
@@ -4856,8 +4864,6 @@ L["You have %s"] = "У вас %s"
 L["Send to Auctionator"] = "Отправить в Auctionator"
 L["Copy list"] = "Копировать список"
 L["Show how the profession guide gets its materials"] = "Показать, как гайд по профессии получает материалы"
-L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "Начало с нуля: около %d%% опыта за задания этого гайда завязано на гайд %s."
-L["Expect about %d minutes of extra grinding, or start there."] = "Придется гриндить примерно на %d мин. дольше, или начните оттуда."
 L["Open %s"] = "Открыть: %s"
 
 -- Core/ProfileStrings.lua
@@ -5347,3 +5353,5 @@ L["%d of %d"] = "%d из %d"
 -- L["a game: Play"] = "Играть"
 -- L["Do you want to play Doom while waiting?"] = "Хотите поиграть в Doom, пока ждёте?"
 -- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "Маршрут может начинаться с известного вам заклинания телепорта, если так быстрее: городские телепорты мага, Лунная поляна друида или Астральное возвращение шамана (как второй камень возвращения). Для телепорта в город нужна руна телепортации в сумках."
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "Начало с нуля: около %d%% опыта за задания этого гайда завязано на гайд %s."
+-- L["Expect about %d minutes of extra grinding, or start there."] = "Придется гриндить примерно на %d мин. дольше, или начните оттуда."

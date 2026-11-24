@@ -2023,18 +2023,20 @@ end
 -- such an accept, "Requires X first"). `ok` false when the chain cannot be
 -- done from the route (a quest further down no such guide takes) or the
 -- player skipped one of its quests (Engine.SkipQuest, or a feeder step:
--- CharState().feedSkips; then `skipped`, and its accepts stay, "skipped"). -> { p, from = idx.first[p], ok, quests = { [q] = true | "turnin" }, deps = {} }
+-- CharState().feedSkips; then `skipped`, and its accepts stay, "skipped"). -> { p, from = idx.first[p], ok, quests = { [q] = true | "turnin" }, deps = {},
+-- path = { p, the quest p lacks, ... } (down to the deepest one the chain reached) }
 function Own.feederChain(p, idx)
 	local from = idx.first[p]
 	if not from then return nil end
 	local C, skips = Compat(), ns.CharState().feedSkips
-	local ch = { p = p, from = from, ok = true, quests = {}, deps = {} }
+	local ch = { p = p, from = from, ok = true, quests = {}, deps = {}, path = {} }
 	local cur = p
 	for _ = 1, 8 do
 		if Own.questSkipped(cur) or (type(skips) == "table" and skips[cur]) then
 			ch.ok, ch.skipped = false, true
 			break
 		end
+		ch.path[#ch.path + 1] = cur
 		if C.IsOnQuest(cur) then
 			ch.quests[cur] = "turnin"
 			break
@@ -2568,10 +2570,49 @@ function Own.feederPlan(g)
 	-- "skipped" (Engine.SkipQuest), not left out. So do those waiting on a
 	-- quest the player holds: "Hand in X first" says what to do. A waiting
 	-- accept that could not go in (`carry`) leaves g as it is.
+	-- What a left-out accept needs (the report's "hidden: needs X from Y", the
+	-- window's "Requires X first"): the first quest down its chain that g does
+	-- not accept itself (#3880: an accept an update passed read as "needs
+	-- Mahren Skyseer from The Barrens & Stonetalon Mountains", where the
+	-- character lacks guide 02's Cry of the Thunderhawk), with the
+	-- guide leading here that takes it, else the guide g's `fresh` header names
+	-- for it. Only a chain of g's own quests an update passed, with nothing
+	-- missing before them, names that quest: the update's pass is the reason.
+	local fresh = (g.base or g).fresh
+	local function ownAccept(q)
+		for _, t in ipairs(l.accepts[q] or NONE) do
+			if Guides.Matches(t.step.only, player) and Guides.Matches(t.goal.only, player) then return true end
+		end
+		return false
+	end
+	local function needOf(ch)
+		local path = ch.path or { ch.p }
+		for i = 1, #path do
+			local q = path[i]
+			if not ownAccept(q) then
+				local e = idx and idx.first[q]
+				if e and e.id ~= g.id then return q, e.title, e.guide, e.id end
+				for _, n in ipairs(type(fresh) == "table" and type(fresh.needs) == "table" and fresh.needs or NONE) do
+					local fg = n == q and Guides.Get(fresh.from)
+					if fg then
+						local a = layoutOf(fg).accepts[q]
+						if not Engine.TabIds()[fg.id] then Guides.Release(fg.id) end
+						return q, a and a[1].goal.title or nil, fg.title, fg.id
+					end
+				end
+				return q
+			end
+		end
+		return ch.p, ch.from.title, ch.from.guide, ch.from.id
+	end
 	for _, ch in ipairs(list) do
+		local need, needTitle, from, fromId
 		if not ch.inserted and not ch.skipped and not ch.work and not ch.carry and ch.quests[ch.p] ~= "turnin" then
+			need, needTitle, from, fromId = needOf(ch)
+		end
+		if need then
 			for _, d in ipairs(ch.deps) do
-				hidden[d.q] = { title = d.title, need = ch.p, needTitle = ch.from.title, from = ch.from.guide, fromId = ch.from.id }
+				hidden[d.q] = { title = d.title, need = need, needTitle = needTitle, from = from, fromId = fromId }
 				drop[d.q] = true
 			end
 		end
@@ -11610,16 +11651,16 @@ end
 -- compiler fills in") says how much: `share` percent of its quest XP `xp`
 -- hinges on `needs`, quests of earlier guides, most of them `from`'s. For
 -- this character the share left is scaled by the part of `needs` neither
--- done, in the log nor taken on the way (a feeder step of the guide's plan).
--- From FRESH_NOTE (30) percent as the note states it (whole percent: 29.75
--- reads "about 30%"), below the guide's top level, with `from` a guide for
--- this character: { guideId, from, fromTitle, share (whole percent),
--- minutes } | nil. minutes: the XP left out as same-level kills
--- at FRESH_KPM (1.5) a minute (farmSeconds' rate), in fives, at least 5;
--- nil without the level tables. Guides.Suggestions ranks such a guide
--- lower. (The two are locals: a key more on Own doubles its table at login.)
+-- done, in the log nor taken on the way (a feeder step of the guide's plan),
+-- nor grey for them, each weighted by the XP it pays at their level
+-- (Levels.Share; #3879: a level 25 told 42% follows on from the Barrens'
+-- level 18-23 quests, some grey or paying less; the quest's level from
+-- `from`'s accept, Levels.QuestLevel). From FRESH_NOTE (30)
+-- percent (whole percent: 29.75 counts as 30), below the guide's top level,
+-- with `from` a guide for this character: { guideId, from, fromTitle, share
+-- (whole percent) } | nil. Guides.Suggestions ranks such a guide lower.
 function Engine.FreshFor(g)
-	local FRESH_NOTE, FRESH_KPM = 30, 1.5
+	local FRESH_NOTE = 30
 	local f = type(g) == "table" and g.fresh
 	if type(f) ~= "table" or type(f.share) ~= "number" or type(f.from) ~= "string" then return nil end
 	if not (g.category == nil or g.category == "Leveling") then return nil end
@@ -11642,18 +11683,26 @@ function Engine.FreshFor(g)
 		end
 	end
 	local C = Compat()
-	local needs, have = type(f.needs) == "table" and f.needs or NONE, 0
+	local needs, left = type(f.needs) == "table" and f.needs or NONE, {}
 	for _, q in ipairs(needs) do
-		if questDone(q) or C.IsOnQuest(q) or onWay[q] then have = have + 1 end
+		if not (questDone(q) or C.IsOnQuest(q) or onWay[q]) then left[#left + 1] = q end
 	end
-	local left = #needs > 0 and f.share * (1 - have / #needs) or f.share
-	local share = math.floor(left + 0.5)
+	local function shareOf(n) return #needs > 0 and f.share * n / #needs or f.share end
+	if math.floor(shareOf(#left) + 0.5) < FRESH_NOTE then return nil end
+	-- Only now the levels: they read `from`'s steps (loaded for this, given back after).
+	local Lv, worth = ns.Levels, 0
+	for _, q in ipairs(left) do
+		local qlvl = Lv and Lv.QuestLevel and Lv.QuestLevel(q, from)
+		if not qlvl then
+			worth = worth + 1
+		elseif not C.IsQuestTrivial(qlvl, lvl) then
+			worth = worth + (Lv.Share and Lv.Share(lvl, qlvl) or 1)
+		end
+	end
+	if not Engine.TabIds()[from.id] then Guides.Release(from.id) end
+	local share = math.floor(shareOf(worth) + 0.5)
 	if share < FRESH_NOTE then return nil end
-	local Lv = ns.Levels
-	local per = Lv and Lv.MobXP and Lv.MobXP(lvl, lvl, false) or 0
-	local xp = (tonumber(f.xp) or 0) * left / 100
-	local minutes = per > 0 and xp > 0 and math.max(5, math.floor(xp / (per * FRESH_KPM) / 5 + 0.5) * 5) or nil
-	return { guideId = g.id, from = f.from, fromTitle = from.title or f.from, share = share, minutes = minutes }
+	return { guideId = g.id, from = f.from, fromTitle = from.title or f.from, share = share }
 end
 
 -- The active guide's fresh-start note (Engine.FreshFor) once the quest log is
