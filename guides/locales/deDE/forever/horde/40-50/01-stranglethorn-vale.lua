@@ -279,7 +279,7 @@ return {
 
 	-- Step 49: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
-	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "Gruppenquest: {quest:348} endet bei {npc:1449} im Nebeltal. Übergib ihm zehn Gorillafangzähne, und er ruft drei Wellen Gorillas (41-42), eine nach der anderen, dann {npc:1514} (44). In den Aufzeichnungen der Spieler starben 12 der 27, die ihn begannen, dort. Nimm ihn, wenn ein Freund oder zwei mit dir sind.",
 	-- {npc:2486} Fin Fizracket · {zone:1444} Feralas · {object:3202} Grom'gol (no name in this language: may be words)
 	["{npc:2486}, beside the inn: Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}, neben dem Gasthaus: Unbagwas Teil am {object:3202}-Stop des {zone:1444}-Guides",
 
