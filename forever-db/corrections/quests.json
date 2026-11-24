@@ -7618,7 +7618,10 @@
 				],
 				"object": [],
 				"item": []
-			}
+			},
+			"objectives": [
+				{ "type": "event", "id": null, "count": 1, "text": "Find Mason Connery's Treasure", "map": 1436, "x": 43.4, "y": 67.9 }
+			]
 		},
 		"source": [
 			{
@@ -7632,9 +7635,17 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB 1.1.1 Forever: two NPCs named Mason Connery, 264770 and 264845, and no other"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-24 (29 people): the quest log's one line at accept is \"Find Mason Connery's Treasure\" (an object, x1); 21 people ticked it and handed the quest in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3382: Olivia's report: the treasure is found at a board right behind Connery's Trunk at Moonbrook, then the quest is handed in at the trunk"
 			}
 		],
-		"note": "More Valuable Than Gold (both factions): Mason Connery gives it inside Alcaz Prison once The Man in the Iron Chains is handed in (both of the data's Mason Connerys are listed: the recordings name no NPC id inside); level 48. With a giver it holds State Secrets back until it is done. The merged data had no giver and no minimum (#2560)."
+		"note": "More Valuable Than Gold (both factions): Mason Connery gives it inside Alcaz Prison once The Man in the Iron Chains is handed in (both of the data's Mason Connerys are listed: the recordings name no NPC id inside); level 48. With a giver it holds State Secrets back until it is done. The merged data had no giver and no minimum (#2560). Its one objective, finding Mason Connery's treasure, is done at a board right behind Connery's Trunk by Moonbrook, where it is handed in: placed there, the Alcaz Prison hand-in guide leads to it before the hand-in instead of listing the quest as not finished (#3382)."
 	},
 	"96376": {
 		"set": {

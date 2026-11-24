@@ -173,6 +173,12 @@ test('Report to Sen\'jin Village is Forgotten Loa Idols\' breadcrumb, not its pr
 	assert.deepEqual(set.breadcrumbs, [805], 'held back while 805 is in the log');
 });
 
+// The hand-in guide leads to a placed objective with no id before the hand-in (Dungeons/Handin.lua, talksLeft).
+test('More Valuable Than Gold\'s treasure is placed at Connery\'s Trunk, where it is handed in (#3382)', () => {
+	const [o] = corrections.quests[96337].set.objectives;
+	assert.deepEqual([o.type, o.id, o.map, o.x, o.y], ['event', null, 1436, 43.4, 67.9]);
+});
+
 test('The State of the Mines waits for both Testing the Wells and Murloc Gills (dungeon pre-quest sweep)', () => {
 	const { all, any } = blockingPrereqs({ id: 92745, start: { npc: [253092] }, ...corrections.quests[92745].set });
 	assert.deepEqual({ all, any }, { all: [92742, 92744], any: [] });
