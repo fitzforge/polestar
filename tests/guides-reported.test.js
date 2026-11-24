@@ -18709,6 +18709,63 @@ test('forever/professions/first-aid.guide: the manual bandages say to read the m
 	}
 });
 
+// #3401 (Cip1337, 0.4.2): Heavy Wool Bandage is learned in the 115-125 step; a player who reached 125 on Wool Bandages
+// had that section passed, so its learn never showed, and the 125-150 step only asked to craft. Every profession guide:
+// a craft step whose recipe (or a part it makes first) an earlier section teaches repeats that learn in its own step.
+test('forever/professions: a recipe taught in an earlier section is learned again where a later section crafts it (#3401)', { skip }, () => {
+	for (const guide of allGuides().filter((g) => g.startsWith('forever/professions/'))) {
+		const list = goals(guide);
+		const taught = new Map(); // spell -> section of its first learn
+		for (const { step, goal } of list) if (goal.t === 'learn' && goal.spell && !taught.has(goal.spell)) taught.set(goal.spell, step.section);
+		for (const { step, goal, s } of list) {
+			if (goal.t !== 'craft' || !taught.has(goal.spell) || taught.get(goal.spell) === step.section) continue;
+			assert.ok(step.goals.some((g) => g.t === 'learn' && g.spell === goal.spell), `${guide} step ${s}: craft ${goal.spell} has its learn`);
+		}
+	}
+	const fa = goals('forever/professions/first-aid.guide');
+	const late = fa.find(({ goal, step }) => goal.t === 'craft' && goal.spell === 3278 && step.goals.some((g) => g.t === 'craft' && g.untilSkill === 150));
+	assert.ok(late && late.step.goals.some((g) => g.t === 'learn' && g.spell === 3278), 'Heavy Wool Bandage 125-150 learns it');
+});
+
+// #3365 (0.4.1.1, Felwood): the Corrupted Sabers line read only "Complete Corrupted Sabers" while the arrow led to
+// Winna Hazzard at Bloodvenom Post; its one objective is returning the cat to her. The line names her.
+test('forever/horde/50-60/03-winterspring.guide: the Corrupted Sabers line names Winna Hazzard (#3365)', { skip }, () => {
+	const list = goals('forever/horde/50-60/03-winterspring.guide');
+	const { goal } = list[at(list, 'complete 4506', is('complete', 4506))];
+	assert.match(goal.note || '', /Winna Hazzard/);
+});
+
+// #3309 (Zack, 0.4.1.1): Defenders of Darrowshire's spirits are not in the world: each rises where one of Corin's
+// Crossing's Scourge dies, so the target button, which looked for the spirits, found nothing. The step names the three
+// mobs (optional kills): the target button targets them.
+test('forever/horde/50-60/05-eastern-plaguelands.guide: the Darrowshire step targets the Scourge that leave the spirits (#3309)', { skip }, () => {
+	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const { step } = list[at(list, 'talk 11064', (g) => g.t === 'talk' && g.npc === 11064)];
+	for (const npc of [8530, 8531, 8532]) assert.ok(step.goals.some((g) => g.t === 'kill' && g.npc === npc && g.optional), `kill ${npc} optional on the spirits' step`);
+});
+
+// #3354 (Horde) and #3761 (Soggy, Alliance): A-Me 01 asks for a Mithril Casing before her escort, and the guides said so
+// only at her, in Un'Goro, with no auction house near. Gadgetzan's step, the last auction house before the crater on
+// both routes, says to buy one there.
+for (const guide of ['forever/horde/40-50/06-azshara.guide', 'forever/alliance/50-60/03-winterspring.guide']) {
+	test(`${guide}: Gadgetzan's step says to buy a Mithril Casing for A-Me 01 (#3354)`, { skip }, () => {
+		const list = goals(guide);
+		const { step } = list[at(list, 'accept 4504', is('accept', 4504))];
+		assert.match(step.note || '', /Mithril Casing/);
+		assert.ok(list.findIndex(({ goal }) => goal.t === 'turnin' && goal.quest === 4243) < 0 || at(list, 'turnin 4243', is('turnin', 4243)) > at(list, 'accept 4504', is('accept', 4504)), 'before A-Me 01');
+	});
+}
+
+// #3099 (rAmandaK, 0.4.1.1): a Horde Skyborne druid still on Zephras Isle walked off the isle's edge following the
+// arrow to Muln Earthfury's airship. A step before Child of Nature, while the player is on the isle, leads to the
+// Valanaar Skydocks, where the skycutter to Mulgore leaves.
+test('forever/class/druid/bear-form.guide: a Horde Skyborne druid on Zephras Isle is led to the Valanaar Skydocks first (#3099)', { skip }, () => {
+	const list = goals('forever/class/druid/bear-form.guide');
+	const dock = list[at(list, 'goto Valanaar Skydocks', (g) => g.t === 'goto' && g.map === 2521 && Math.hypot(g.x - 58.0, g.y - 81.0) < 1)];
+	assert.ok(dock.s < list[at(list, 'accept 94911', is('accept', 94911))].s, 'before Child of Nature');
+	assert.ok((dock.step.when || []).some((p) => p.k === 'zone' && !p.neg), 'only while on the isle');
+});
+
 // #3512 #3492 #3489 #3486 #3481 (Stö, 0.4.2, Mount Hyjal): "talked with Whisperfur / Brie / Solstice / the Peasant /
 // Elder Pinespeaker but the guide didn't mark it". A `talk` with no quest ticks only on something the player does in
 // the NPC's window (a gossip choice, an accept, a hand-in: #741), but players' recordings show these lines tick with

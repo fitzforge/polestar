@@ -260,7 +260,8 @@ step Crafted Heavy Shot to 94
   craft 3930 until 94
 
 step Copper Tube to 100
-  tip Copper Tube is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 Copper Bar and 1 Weak Flux. Two Copper Bars and a Weak Flux a craft (blacksmithing and engineering suppliers). Needs an anvil nearby.
+  tip Copper Tube is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 Copper Bar and 1 Weak Flux. Two Copper Bars and a Weak Flux a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning Copper Tube, learn it now: an earlier step teaches it.
+  learn 3924
   craft 3924 until 100
 
 step Engineering recipes at 100
@@ -268,7 +269,8 @@ step Engineering recipes at 100
   learn 8334
 
 step Practice Lock to 125
-  tip Practice Lock is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 Bronze Bar, 2 Handful of Copper Bolts and 1 Weak Flux. Make the 29 Handful of Copper Bolts first. Use the 33 Handful of Copper Bolts you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby.
+  tip Practice Lock is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 Bronze Bar, 2 Handful of Copper Bolts and 1 Weak Flux. Make the 29 Handful of Copper Bolts first. Use the 33 Handful of Copper Bolts you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning Handful of Copper Bolts, learn it now: an earlier step teaches it.
+  learn 3922
   craft 3922 x29
   craft 8334 until 125
 
@@ -389,7 +391,8 @@ step Solid Stone (Horde)
 
 step Aquadynamic Fish Attractor to 166
   zone Azeroth
-  tip Aquadynamic Fish Attractor is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 Bronze Bar, 1 Nightcrawlers and 1 Coarse Blasting Powder and makes 3. Make the 31 Coarse Blasting Powder first. Nightcrawlers come from trade and fishing suppliers; the attractors sell to fishermen.
+  tip Aquadynamic Fish Attractor is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 Bronze Bar, 1 Nightcrawlers and 1 Coarse Blasting Powder and makes 3. Make the 31 Coarse Blasting Powder first. Nightcrawlers come from trade and fishing suppliers; the attractors sell to fishermen. If you got here without learning Coarse Blasting Powder, learn it now: an earlier step teaches it.
+  learn 3929
   craft 3929 x31
   craft 9271 until 166
 
@@ -410,7 +413,9 @@ step Engineering recipes at 191
   learn 3967
 
 step Big Iron Bomb to 210
-  tip Big Iron Bomb is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 Iron Bar, 3 Heavy Blasting Powder and 1 Silver Contact and makes 2. Make the 74 Heavy Blasting Powder and 30 Silver Contact (6 crafts) first. Use the 7 Heavy Blasting Powder you made earlier; the counts above leave them out. A Silver Bar makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the Heavy Blasting Powder comes from Heavy Stone. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, Springspindle Fizzlegear (Ironforge), Lilliam Sparkspindle (Stormwind), Graham Van Talen (Undercity) or Tinkerwiz (Ratchet) sends you to Gnomish Engineering (Tinkmaster Overspark, Ironforge, or Oglethorpe Obnoticus, Booty Bay: 6 Mithril Tubes, an Accurate Scope and 2 Advanced Target Dummies) or Goblin Engineering (Nixx Sprocketspring, Gadgetzan: 20 Big Iron Bombs, 20 Solid Dynamite and 5 Explosive Sheep). The Accurate Scope schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby.
+  tip Big Iron Bomb is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 Iron Bar, 3 Heavy Blasting Powder and 1 Silver Contact and makes 2. Make the 74 Heavy Blasting Powder and 30 Silver Contact (6 crafts) first. Use the 7 Heavy Blasting Powder you made earlier; the counts above leave them out. A Silver Bar makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the Heavy Blasting Powder comes from Heavy Stone. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, Springspindle Fizzlegear (Ironforge), Lilliam Sparkspindle (Stormwind), Graham Van Talen (Undercity) or Tinkerwiz (Ratchet) sends you to Gnomish Engineering (Tinkmaster Overspark, Ironforge, or Oglethorpe Obnoticus, Booty Bay: 6 Mithril Tubes, an Accurate Scope and 2 Advanced Target Dummies) or Goblin Engineering (Nixx Sprocketspring, Gadgetzan: 20 Big Iron Bombs, 20 Solid Dynamite and 5 Explosive Sheep). The Accurate Scope schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning Heavy Blasting Powder and Silver Contact, learn them now: an earlier step teaches them.
+  learn 3945
+  learn 3973
   craft 3945 x74
   craft 3973 x6
   craft 3967 until 210
@@ -473,7 +478,9 @@ step Runecloth
   collect 14047 x24 anywhere gather levels 45-60
 
 step Hi-Impact Mithril Slugs to 245
-  tip Hi-Impact Mithril Slugs is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 Mithril Bar and 1 Solid Blasting Powder and makes 200. Make the 50 Solid Blasting Powder first. Use the 12 Solid Blasting Powder you made earlier; the counts above leave them out. One Mithril Bar and one Solid Blasting Powder a craft; hunters buy the slugs. Needs an anvil nearby.
+  tip Hi-Impact Mithril Slugs is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 Mithril Bar and 1 Solid Blasting Powder and makes 200. Make the 50 Solid Blasting Powder first. Use the 12 Solid Blasting Powder you made earlier; the counts above leave them out. One Mithril Bar and one Solid Blasting Powder a craft; hunters buy the slugs. Needs an anvil nearby. If you got here without learning Solid Blasting Powder and Hi-Impact Mithril Slugs, learn them now: an earlier step teaches them.
+  learn 12585
+  learn 12596
   craft 12585 x50
   craft 12596 until 245
 
@@ -482,7 +489,8 @@ step Engineering recipes at 245
   learn 12621
 
 step Mithril Gyro-Shot to 265
-  tip Mithril Gyro-Shot is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 Mithril Bar and 2 Solid Blasting Powder and makes 200. Make the 56 Solid Blasting Powder first. Two Mithril Bars and two Solid Blasting Powder a craft. Needs an anvil nearby.
+  tip Mithril Gyro-Shot is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 Mithril Bar and 2 Solid Blasting Powder and makes 200. Make the 56 Solid Blasting Powder first. Two Mithril Bars and two Solid Blasting Powder a craft. Needs an anvil nearby. If you got here without learning Solid Blasting Powder, learn it now: an earlier step teaches it.
+  learn 12585
   craft 12585 x56
   craft 12621 until 265
 

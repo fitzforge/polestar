@@ -241,6 +241,8 @@ return {
 	["{npc:5594}, inside"] = "{npc:5594}, 내부",
 
 	-- Step 61: Gadgetzan
+	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} (Chasing {npc:9623}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "와이번 조련사 옆의 {npc:7876}",
 

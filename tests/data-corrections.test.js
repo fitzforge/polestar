@@ -162,6 +162,23 @@ test('Moonbrook Espionage waits for Murloc Gills as well as The State of the Min
 	assert.deepEqual({ all, any }, { all: [92744], any: [92745] });
 });
 
+test('Explosive Consultation waits for A Dynamite Plan as well as the second Detonation at a Distance (#3357)', () => {
+	const { all } = blockingPrereqs({ id: 92752, start: { npc: [11026] }, preAny: [92751], ...corrections.quests[92752].set });
+	assert.deepEqual(all, [92749, 92751]);
+});
+
+test('Report to Sen\'jin Village is Forgotten Loa Idols\' breadcrumb, not its prerequisite (#3214, #796)', () => {
+	const set = corrections.quests[97225].set;
+	assert.deepEqual(blockingPrereqs({ id: 97225, start: { npc: [3304] }, pre: [805], ...set }), { all: [], any: [] });
+	assert.deepEqual(set.breadcrumbs, [805], 'held back while 805 is in the log');
+});
+
+// The hand-in guide leads to a placed objective with no id before the hand-in (Dungeons/Handin.lua, talksLeft).
+test('More Valuable Than Gold\'s treasure is placed at Connery\'s Trunk, where it is handed in (#3382)', () => {
+	const [o] = corrections.quests[96337].set.objectives;
+	assert.deepEqual([o.type, o.id, o.map, o.x, o.y], ['event', null, 1436, 43.4, 67.9]);
+});
+
 test('The State of the Mines waits for both Testing the Wells and Murloc Gills (dungeon pre-quest sweep)', () => {
 	const { all, any } = blockingPrereqs({ id: 92745, start: { npc: [253092] }, ...corrections.quests[92745].set });
 	assert.deepEqual({ all, any }, { all: [92742, 92744], any: [] });

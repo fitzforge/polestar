@@ -94,12 +94,15 @@ local function endPoint(e)
 	return { kind = e.npc and "npc" or "object", id = e.npc or e.object, name = e.name, map = s.map, x = s.x, y = s.y, f = s.f }
 end
 
--- Where the route starts: where the player stands, else (inside the dungeon,
--- where the client gives no position) its entrance, this character's side's,
--- where the player comes out after the run. Without it the stops kept the
+-- Where the route starts: where the player stands outside; inside an
+-- instance (or where the client gives no position) the dungeon's entrance,
+-- this character's side's, where the player comes out after the run. A
+-- position inside is on the instance's own map, which no travel reaches: every
+-- stop cost the same from there, and the City of Dalaran's Image of Archmage
+-- Modera, at the door, came last (#3314). Without either the stops kept the
 -- page's quest order (Fitz, 2026-11-15: the givers nearest the way out first).
 local function startPoint(key)
-	local here = ns.PlayerPoint()
+	local here = not ns.Compat.IsInInstance() and ns.PlayerPoint()
 	if here then return here end
 	local map, x, y, f = Dungeons.Entrance(key)
 	if map then return { map = map, x = x, y = y, f = f } end

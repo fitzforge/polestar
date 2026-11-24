@@ -85,7 +85,8 @@ return {
 	-- {spell:7420} Enchant Chest - Inferior Stamina
 	["{spell:7420} to 90"] = "{spell:7420} 到90",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
-	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} 在技能 75 時為黃色（70 變黃、90 變綠、110 變灰）：約製作 22 次可到 90。每次需要 1 個 {item:10940}。每次只用一個 {item:10940}：多數 5-20 級綠色物品，尤其是護甲，分解後都會獲得這種塵。如果手頭 {item:10938}（來自武器）更多，也可以透過“附魔護腕 - 初級偏斜”或“附魔胸甲 - {spell:7423}”達到同樣目的。對揹包中對應部位的任意裝備附魔即可，灰色品質也行。",
+	-- was: ["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} 在技能 75 時為黃色（70 變黃、90 變綠、110 變灰）：約製作 22 次可到 90。每次需要 1 個 {item:10940}。每次只用一個 {item:10940}：多數 5-20 級綠色物品，尤其是護甲，分解後都會獲得這種塵。如果手頭 {item:10938}（來自武器）更多，也可以透過“附魔護腕 - 初級偏斜”或“附魔胸甲 - {spell:7423}”達到同樣目的。對揹包中對應部位的任意裝備附魔即可，灰色品質也行。"
+	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one. If you got here without learning {spell:7420}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 16: Enchant Cloak - Minor Protection to 130
 	-- {spell:7771} Enchant Cloak - Minor Protection
@@ -156,7 +157,8 @@ return {
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
 	["{spell:13501} to 160"] = "{spell:13501} 到160",
 	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:11130} Runed Golden Rod
-	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501}在技能150時為橙色（155變黃、175變綠、195變灰）：約製作11次可到160。每次需要1個{item:11083}。每次一個{item:11083}（21-30級的綠色物品）。趁現在還能加點時做好{item:11130}：之後的配方需要它放在背包裡，所以一直帶著。對背包中任何該部位的物品附魔都可以，灰色物品也行。",
+	-- was: ["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501}在技能150時為橙色（155變黃、175變綠、195變灰）：約製作11次可到160。每次需要1個{item:11083}。每次一個{item:11083}（21-30級的綠色物品）。趁現在還能加點時做好{item:11130}：之後的配方需要它放在背包裡，所以一直帶著。對背包中任何該部位的物品附魔都可以，灰色物品也行。"
+	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one. If you got here without learning {spell:13501}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 30: Enchanting recipes at 160
 	-- {skill:333} Enchanting
@@ -299,9 +301,11 @@ return {
 	-- ["{skill:333} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 4g 3s in all."] = "{skill:333}可以邊升級邊練。永恆的傳承系統會在專業技能150、225和300（中級、高級和專家級的上限）時給予製造專業獎勵，所以每個階段都很重要。1-75所需材料總價約4金3銀。",
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}：分解優秀（綠色）裝備（或在拍賣場購買）",
 	-- ["{spell:13419} to 150"] = "{spell:13419}練到150",
+	-- ["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501}在技能150時為橙色（155變黃、175變綠、195變灰）：約製作11次可到160。每次需要1個{item:11083}。每次一個{item:11083}（21-30級的綠色物品）。趁現在還能加點時做好{item:11130}：之後的配方需要它放在背包裡，所以一直帶著。對背包中任何該部位的物品附魔都可以，灰色物品也行。",
 	-- ["{spell:13661} to 225"] = "{spell:13661}練到225",
 	-- ["{spell:13935} to 292"] = "{spell:13935}練到292",
 	-- ["{spell:13948} to 300"] = "{spell:13948}練到300",
+	-- ["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} 在技能 75 時為黃色（70 變黃、90 變綠、110 變灰）：約製作 22 次可到 90。每次需要 1 個 {item:10940}。每次只用一個 {item:10940}：多數 5-20 級綠色物品，尤其是護甲，分解後都會獲得這種塵。如果手頭 {item:10938}（來自武器）更多，也可以透過“附魔護腕 - 初級偏斜”或“附魔胸甲 - {spell:7423}”達到同樣目的。對揹包中對應部位的任意裝備附魔即可，灰色品質也行。",
 	-- ["{spell:7426} to 120"] = "{spell:7426}練到120",
 	-- ["{spell:7428} to 75"] = "{spell:7428}練到75",
 	-- ["{spell:7428} to 90"] = "{spell:7428}練到90",

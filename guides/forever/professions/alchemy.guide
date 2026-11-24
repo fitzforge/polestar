@@ -387,7 +387,8 @@ step Expert Alchemy
   train Alchemy Expert
 
 step Lesser Troll's Blood Elixir to 160
-  tip Lesser Troll's Blood Elixir is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 Bruiseweed, 2 Briarthorn and 1 Leaded Vial. Two Bruiseweed and two Briarthorn a craft; Bruiseweed grows in the 15-30 zones.
+  tip Lesser Troll's Blood Elixir is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 Bruiseweed, 2 Briarthorn and 1 Leaded Vial. Two Bruiseweed and two Briarthorn a craft; Bruiseweed grows in the 15-30 zones. If you got here without learning Lesser Troll's Blood Elixir, learn it now: an earlier step teaches it.
+  learn 3176
   craft 3176 until 160
 
 step Alchemy recipes at 160
@@ -468,7 +469,8 @@ step Artisan Alchemy
   train Alchemy Artisan
 
 step Elixir of Defense to 230
-  tip Elixir of Defense is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 Wild Steelbloom, 1 Goldthorn and 1 Leaded Vial. Wild Steelbloom and Goldthorn are the herbs of the 30-45 zones (Stranglethorn, Arathi, the Badlands).
+  tip Elixir of Defense is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 Wild Steelbloom, 1 Goldthorn and 1 Leaded Vial. Wild Steelbloom and Goldthorn are the herbs of the 30-45 zones (Stranglethorn, Arathi, the Badlands). If you got here without learning Elixir of Defense, learn it now: an earlier step teaches it.
+  learn 11450
   craft 11450 until 230
 
 step Alchemy recipes at 230
