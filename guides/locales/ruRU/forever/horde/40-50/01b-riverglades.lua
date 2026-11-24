@@ -195,7 +195,8 @@ return {
 
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
-	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Снова на запад: {area:16723}. {npc:260931}, сумеречный рудокоп, который хочет уйти, ждет на восточной окраине городка. Переубедите его, затем сдайте задание ({npc:256710}); один из пропавших огров стоит в нескольких шагах к западу.",
+	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Снова на запад: {area:16723}. {npc:260931}, сумеречный рудокоп, который хочет уйти, ждет на восточной окраине городка. Переубедите его, затем сдайте задание ({npc:256710}); один из пропавших огров стоит в нескольких шагах к западу."
+	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "переубедить: {npc:260931}",
 	-- {npc:261208} Twilight Brute
@@ -496,6 +497,7 @@ return {
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Нюхорыл и {npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548} лежат к югу от зоны {area:3}. Езжайте на восток от места {area:657} к месту {area:75} и летите сюда: {area:340}. Оттуда начинается спуск в зону.",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "К западу от Рог'мара культ Сумеречного Молота захватил фермерский городок {area:16723}. {npc:259158}, кобольд, который хочет уйти, прячется в центре городка.",
+	-- ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Снова на запад: {area:16723}. {npc:260931}, сумеречный рудокоп, который хочет уйти, ждет на восточной окраине городка. Переубедите его, затем сдайте задание ({npc:256710}); один из пропавших огров стоит в нескольких шагах к западу.",
 	-- ["the middle ship"] = "средний корабль",
 	-- ["the northern ship"] = "северный корабль",
 	-- ["the {object:707249} poster"] = "Плакат: {object:707249}",
