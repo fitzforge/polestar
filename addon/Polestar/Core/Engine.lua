@@ -10323,11 +10323,12 @@ end
 
 -- The loaded guide's hand-in of quest q from step `from` on (default: the
 -- live step; any step before it is placed), for the character, on a step not
--- skipped: its layout entry { s, step, goal }, or nil.
+-- skipped: its layout entry { s, step, goal }, or nil. Never a direct one
+-- (`turnin ... direct`: handed in with no accept, nothing to take again).
 function Own.handInAhead(q, from)
 	from = from or computed or 1
 	for _, t in ipairs(layoutOf(guide).turnins[q] or NONE) do
-		if t.s >= from and stepApplies(t.step) and not isSkipped(t.s) and Guides.Matches(t.goal.only, player) then return t end
+		if t.s >= from and not t.goal.direct and stepApplies(t.step) and not isSkipped(t.s) and Guides.Matches(t.goal.only, player) then return t end
 	end
 	return nil
 end
