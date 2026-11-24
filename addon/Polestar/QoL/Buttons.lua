@@ -135,7 +135,7 @@ local PORTRAIT_CAP = 16
 -- settings). TL.info, cap, keep, progress, item: what TargetNames collects
 -- for the rows (Buttons.TargetInfo).
 local TL = { MAX = 8, W = 208, H = 30, GAP = 2, FACE = 26, ANCHOR = 22, NEAR = 0.3, FLASH = 0.7,
-	rows = {}, info = {}, cap = MAX_NAMES }
+	rows = {}, info = {}, cap = MAX_NAMES, manual = {}, dismissed = {} }
 -- The list's looks (qol.targetListStyle): a row's size and its portrait's.
 -- slim: a shorter row with a smaller face, the name and count (the item
 -- line is in the tooltip); tile: the portrait alone, with how many are left
@@ -1629,7 +1629,8 @@ end
 -- guide's data), all by index. info: the target list's own call (the
 -- refresh); only it sets what Buttons.TargetInfo has for each name, so the
 -- step key's and the interact stage's calls leave the rows' records be.
-function Buttons.TargetNames(view, raw, npcs, here, cap, info)
+-- dismissed: names hidden from the current step's Target List before the cap.
+function Buttons.TargetNames(view, raw, npcs, here, cap, info, dismissed)
 	TL.cap = math.max(1, math.min(TL.MAX, math.floor(tonumber(cap) or MAX_NAMES)))
 	TL.keep = info and true or false
 	wipe(names)
@@ -1637,6 +1638,9 @@ function Buttons.TargetNames(view, raw, npcs, here, cap, info)
 	wipe(nameNpc)
 	wipe(nameSpecial)
 	wipe(nameSeen)
+	if dismissed then
+		for name in pairs(dismissed) do nameSeen[name] = true end
+	end
 	if TL.keep then wipe(TL.info) end
 	goalCount = 0
 	if not view then view, raw = QoL.CurrentStep() end
@@ -2029,7 +2033,8 @@ end
 -- only).
 function Buttons.WireCycle(b, attr)
 	attr = attr or "macrotext"
-	b:HookScript("PreClick", function(self, _, down)
+	b:HookScript("PreClick", function(self, mouse, down)
+		if mouse == "RightButton" and self:GetAttribute("*type2") == "" then return end
 		Buttons.NoteMark(self, down)
 		local p = self.press
 		if not p or QoL.InLockdown() then return end
@@ -2663,6 +2668,7 @@ do
 		for i = 1, #TL.rows do
 			local r, name, text, kind, mixed = TL.rows[i], list[i], nil, nil, false
 			r.names, r.all, r.infos, r.looks = nil, nil, nil, {}
+			r.dismissals = target.dismissals
 			if fold then
 				-- Folded: the first row tries the names in the list's order, as the
 				-- target button does, from one that came close (target.foldFirst),
@@ -2731,6 +2737,7 @@ do
 		end
 		tip:AddLine(ns.Get("ui.lockHud") and L["Click to target it. Shift-drag to move."]
 			or L["Click to target it. Drag to move."], 0.6, 0.6, 0.6)
+		tip:AddLine(L["Right-click to remove from the Target List."], 0.6, 0.6, 0.6)
 	end
 
 	-- A row's face: ground, the green wash and its flash, the crosshair, the
@@ -2938,6 +2945,8 @@ do
 		r:SetFrameStrata("MEDIUM")
 		r:RegisterForClicks("AnyUp", "AnyDown")
 		r:RegisterForDrag("LeftButton")
+		-- SecureTemplates' no-op overrides the default macro for every right click.
+		r:SetAttribute("*type2", "")
 		-- Made in a secure run (applyRows), which shows it once it has a name.
 		r:Hide()
 		buildRow(r)
@@ -2950,8 +2959,12 @@ do
 		local T = Theme()
 		if T and T.OnChanged then T.OnChanged(function() if not (T.LiveHidden and T.LiveHidden(r)) then paintLook(r) end end) end
 		wire(r, rowTooltip)
-		r:HookScript("PostClick", function(self, _, down)
+		r:HookScript("PostClick", function(self, mouse, down)
 			if down or self.dragging then return end
+			if mouse == "RightButton" then
+				TL.remove(self.applied, self.dismissals)
+				return
+			end
 			-- A macro of both kinds: the mark of the kind it targeted. A press
 			-- that moved on from the target (Buttons.WireCycle) ran its own macro.
 			local kind, mixed = self.kind or "mob", self.mixed
@@ -3571,6 +3584,39 @@ end
 local FAR_POLL = 1
 local farTicker, farWatched
 
+-- Manual names live for the session. Dismissals belong to the current guide
+-- step; rows held by lockdown keep the dismissal table of the step they show.
+function TL.syncDismissals(view)
+	local E = ns.Engine
+	local guide = E and E.GetGuide and E.GetGuide()
+	local id = guide and guide.id
+	local index = view and (view.index or E.GetStepIndex())
+	if id ~= TL.guide or index ~= TL.step then
+		TL.guide, TL.step, TL.dismissed = id, index, {}
+	end
+end
+
+function TL.withManual(list, verbs, ids, marks)
+	if #TL.manual == 0 then return list, verbs, ids, marks end
+	local names, kinds, npcs, special, seen = {}, {}, {}, {}, {}
+	for i = 1, math.min(#TL.manual, TL.cap) do
+		local mob = TL.manual[i]
+		names[i], kinds[i], npcs[i], special[i] = mob.name, "kill", mob.id, seenSpecial[mob.name]
+		seen[mob.name] = true
+		local info = TL.info[mob.name] or {}
+		info.npc = mob.id or info.npc
+		TL.info[mob.name] = info
+	end
+	for i, name in ipairs(list) do
+		if #names == TL.cap then break end
+		if not seen[name] then
+			local at = #names + 1
+			names[at], kinds[at], npcs[at], special[at] = name, verbs[i], ids[i], marks[i]
+		end
+	end
+	return names, kinds, npcs, special
+end
+
 local function refresh()
 	if not itemButton then return end
 	-- One view of the current step for all three buttons.
@@ -3589,8 +3635,13 @@ local function refresh()
 	-- The list shows qol.targetRows names; the single button, the step key
 	-- and the interact stage keep MAX_NAMES.
 	local cap = not simple() and ns.Get("qol.targetRows") or MAX_NAMES
-	local list, verbs, ids, marks
-	if QoL.On("targetButton") and guideShown and view then list, verbs, ids, marks = Buttons.TargetNames(view, raw, true, true, cap, true) else list = {} end
+	local list, verbs, ids, marks, dismissed = {}
+	TL.syncDismissals(view)
+	if QoL.On("targetButton") and guideShown then
+		dismissed = not simple() and TL.dismissed or nil
+		list, verbs, ids, marks = Buttons.TargetNames(view, raw, true, true, cap, true, dismissed)
+		if dismissed then list, verbs, ids, marks = TL.withManual(list, verbs, ids, marks) end
+	end
 	-- The mark settings and who may mark (Buttons.MarkRight) are part of both
 	-- signatures, so changing one re-applies.
 	local mark = QoL.On("markTarget") and (markSetting("mob") .. " " .. markSetting("npc") .. " " .. tostring(Buttons.MarkRight()) .. "\n") or ""
@@ -3607,8 +3658,8 @@ local function refresh()
 			.. "\t" .. tostring(verbs and verbs[i]) .. "\t" .. tostring(marks and marks[i]) .. "\t" .. tostring(ids and ids[i])
 	end
 	local sig = concat(parts, "\n")
-	if sig ~= target.sig then
-		target.sig = sig
+	if sig ~= target.sig or dismissed ~= target.dismissals then
+		target.sig, target.dismissals = sig, dismissed
 		local copy, cv, ci, cm, info = {}, {}, {}, {}, {}
 		for i = 1, #list do
 			copy[i], cv[i], ci[i], cm[i] = list[i], verbs[i], ids[i], marks[i]
@@ -3680,6 +3731,45 @@ local function refresh()
 end
 local refreshSoon, refreshOnLog = QoL.Coalesce(refresh)
 Buttons.Refresh = refresh
+
+function TL.remove(name, dismissed)
+	if not (name and dismissed) or dismissed[name] then return end
+	dismissed[name] = true
+	for i, mob in ipairs(TL.manual) do
+		if mob.name == name then
+			table.remove(TL.manual, i)
+			break
+		end
+	end
+	refreshSoon()
+end
+
+function TL.addableTarget()
+	if simple() or not QoL.On("targetButton") or not ns.GuideShown() or #TL.manual >= TL.MAX then return end
+	local C = ns.Compat
+	local guid = C.Readable(UnitGUID and UnitGUID("target"))
+	if type(guid) ~= "string" or not guid:find("^Creature%-")
+		or flag(UnitPlayerControlled, "target") ~= false or not flag(UnitCanAttack, "player", "target") then return end
+	local name = C.Readable(UnitName and UnitName("target"))
+	if not Buttons.MacroSafeName(name) or listed(target.list, name) then return end
+	for _, mob in ipairs(TL.manual) do if mob.name == name then return end end
+	return name, guid
+end
+
+function TL.addTargetMenu(_, root, context)
+	if not (context and context.fromTargetFrame and context.unit == "target") then return end
+	local name, guid = TL.addableTarget()
+	if not name then return end
+	root:CreateButton(L["Add to Target List"], function()
+		-- The target can change between opening the menu and choosing its action.
+		local current, currentGuid = TL.addableTarget()
+		if current ~= name or currentGuid ~= guid then return end
+		TL.syncDismissals(QoL.CurrentStep())
+		TL.dismissed[name] = nil
+		table.insert(TL.manual, 1, { name = name, id = ns.Compat.GetNpcID("target") })
+		refreshSoon()
+	end)
+end
 
 local function repaintItems()
 	if not itemButton then return end
@@ -3820,6 +3910,7 @@ local PLACE_KEYS = {
 ns.OnLogin(function()
 	create()
 	refresh()
+	if Menu and Menu.ModifyMenu then Menu.ModifyMenu("MENU_UNIT_TARGET", TL.addTargetMenu) end
 end)
 
 QoL.OnStep(refreshSoon)
