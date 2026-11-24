@@ -22,7 +22,8 @@
 --       group size where the wings differ, Upper Blackrock Spire's 10)
 --   Dungeons.Get(key) -> { key, name, kind, forever, minLevel, maxLevel, floor, players, playersMax, map, zone, zoneName, entrance } | nil
 --   Dungeons.ForMap(mapID) -> key | nil   -- the dungeon or raid whose instance map that is (Compat.GetInstanceMapID)
---   Dungeons.Entrance(key) -> map, x, y, f | nil
+--   Dungeons.Entrance(key) -> map, x, y, f | nil   -- this character's way in: where the instance has other doors
+--       open to both sides (Blackrock Mountain's), the one nearest the player (Get's and GuideTo's entrance too)
 --   Dungeons.BestAt(key) -> level | nil   -- the level it suits best, inside its range from its floor up:
 --       one under the median level of its encounter bosses, else of all its bosses, else of its quests,
 --       else the range's midpoint (the first that falls inside); nil without a level range
@@ -35,7 +36,8 @@
 --   Dungeons.Quests(key, faction) -> { quest, ... }   -- faction "A" | "H" | nil (all); level order
 --   Dungeons.Quest(key, id) -> quest | nil           -- page and chain quests
 --       quest = { id, title, level, minLevel, faction, classes, inside, shareable,
---         objectives = { { k = "kill"|"item"|"object"|"event", id, n (count over one), name (English) } },
+--         objectives = { { k = "kill"|"item"|"object"|"talk"|"event", id, n (count over one), name (English) } }
+--           (a talk named by its NPC; one whose text is the quest log's sentence comes as an event, #3426),
 --         start, finish (= { kind, id, name, map, x, y, f, inside }), startItem = { id, name },
 --         chain = { ids }, closedBy = { ids } | nil (taken or done, these close it for good:
 --         the quest a breadcrumb leads to, its exclusive group),
@@ -241,11 +243,28 @@ end)
 -- The instance's name and its zone's in the client's language (Names: the
 -- names pack's Map.csv name, the client's map name), else the data's English.
 -- The entrance for this character: the Alliance's own way in (`A`, the
--- City of Dalaran) for an Alliance character, else the one way in.
+-- City of Dalaran) for an Alliance character, else the one way in; where the
+-- instance has other doors open to both sides (`doors`: Blackrock Mountain's
+-- Searing Gorge and Burning Steppes doors), the one nearest the player on
+-- their continent (#3348: a player in Burning Steppes was walked through the
+-- mountain to the Searing Gorge door and back in). Elsewhere, the main door.
 local function entranceOf(s)
 	local e = s.entrance
 	if e and e.A and ns.Compat.GetPlayerFaction() == "Alliance" then return e.A end
-	return e
+	if not (e and type(e.doors) == "table" and e.doors[1]) then return e end
+	local C = ns.Compat
+	local pc, px, py = C.GetPlayerWorldPosition()
+	if not pc then return e end
+	local best, bestD = e, nil
+	local function try(d)
+		local c, wx, wy = C.MapToWorld(d.map, d.x, d.y, d.f)
+		if c ~= pc then return end
+		local dd = (wx - px) * (wx - px) + (wy - py) * (wy - py)
+		if not bestD or dd < bestD then best, bestD = d, dd end
+	end
+	try(e)
+	for _, d in ipairs(e.doors) do try(d) end
+	return best
 end
 
 -- Instances whose way in lies in one faction's land (Fitz, 2026-11-07): the
@@ -517,7 +536,7 @@ end
 
 function Dungeons.Open(key)
 	if not enabled() then
-		ns.Print(L["Dungeons are turned off (Options > Discovery > Lookup)."])
+		ns.Print(L["Dungeons are turned off (Settings > Discovery > Lookup)."])
 		return false
 	end
 	ns.Fire("SHOW_DUNGEON", key)

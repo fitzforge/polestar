@@ -118,7 +118,7 @@ local function tellOnce()
 	local db = ns.DB()
 	if db.partyChatTold then return end
 	db.partyChatTold = true
-	ns.Print(L["Polestar told your party about your quest progress in chat (Options > Questing > Quests > Group to change this)."])
+	ns.Print(L["Polestar told your party about your quest progress in chat (Settings > Questing > Quests > Group to change this)."])
 end
 
 -- Every member online runs Polestar, and the player asked to stay quiet then.

@@ -285,7 +285,8 @@ return {
 	-- Step 46: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village
 	-- plural, as words: Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
-	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} — пещера троллей в холмах к юго-западу от места {area:137}. Убивайте охотников за головами у входа и пройдите до самого конца пещеры.\nОсторожно: шкуродеры из племени Мерзлогривов внутри форта 9-10-го уровня и стоят парами: отманивайте их по одному ко входу.",
+	-- was: ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} — пещера троллей в холмах к юго-западу от места {area:137}. Убивайте охотников за головами у входа и пройдите до самого конца пещеры.\nОсторожно: шкуродеры из племени Мерзлогривов внутри форта 9-10-го уровня и стоят парами: отманивайте их по одному ко входу."
+	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore {area:135} ticks only in there, not on the hill above it.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "{npc:1123}, под землей",
 
@@ -376,23 +377,22 @@ return {
 	-- {zone:1455} Ironforge
 	["On the road back west to {zone:1455}."] = "На дороге обратно на запад, в город {zone:1455}.",
 
-	-- Step 76: South Gate Outpost
-	-- {area:806} South Gate Outpost · {area:38} Loch Modan
-	-- was: ["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "Идите по дороге до самого востока, к месту {area:806} у туннеля в зону {zone:1432}."
-	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "",
+	-- Step 76: North Gate Outpost
+	-- {area:808} North Gate Outpost · {npc:1960} Pilot Hammerfoot · {area:38} Loch Modan
+	["Follow the road east and take its northern fork to the {area:808}: {npc:1960} waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into {area:38} come next, down the road to the south."] = "",
 
-	-- Step 77: Bruegs Kindleborn
+	-- Step 77: South Gate Outpost
+	-- {area:806} South Gate Outpost · {area:38} Loch Modan
+	["Back south down the road to the {area:806} at the {area:38} tunnel."] = "",
+
+	-- Step 78: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
 	["{npc:257597} waits in a cave above the farm north-west of the {area:806}; the path up starts behind the farm."] = "{npc:257597} ждет в пещере над фермой к северо-западу от места {area:806}; тропа наверх начинается за фермой.",
 
-	-- Step 79: Braldir Ashmantle
+	-- Step 80: Braldir Ashmantle
 	-- {area:38} Loch Modan · {npc:257808} Braldir Ashmantle
 	-- was: ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "Пройдите через туннель в зону {zone:1432}. Сразу за ним тропа, отмеченная камнями, поднимается по холмам справа от дороги на север, к лагерю {npc:257808}."
 	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "",
-
-	-- Step 80: North Gate Outpost
-	-- {npc:1960} Pilot Hammerfoot · {area:808} North Gate Outpost
-	["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960} ждет в месте {area:808}, севернее Южных ворот; тело гнома лежит наверху по перевалу к западу от него.",
 
 	-- Step 81: The tunnel post
 	["The tunnel post"] = "Пост у туннеля",
@@ -641,6 +641,7 @@ return {
 	-- ["Subdue the voidwalker"] = "Подчините демона Бездны",
 	-- ["The tram arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "Поезд прибывает сюда: {object:28027}. {npc:5480} обучает воинов здесь: {object:2100}; {npc:6089} и {npc:6090} стоят вместе у таверны ({object:2152}). {npc:6090} сражается с вами за свою кружку.",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "Это элитные мобы: лучше собраться в группу, поищите напарников. {npc:1388} — элита 12-го уровня: идите на него группой. В одиночку пропустите: задания в зоне {zone:1432} восполнят опыт.",
+	-- ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} — пещера троллей в холмах к юго-западу от места {area:137}. Убивайте охотников за головами у входа и пройдите до самого конца пещеры.\nОсторожно: шкуродеры из племени Мерзлогривов внутри форта 9-10-го уровня и стоят парами: отманивайте их по одному ко входу.",
 	-- ["{item:5026} and the {item:6652}"] = "{item:5026} и {item:6652}",
 	-- ["{npc:1127}, on the way"] = "{npc:1127}, по пути",
 	-- ["{npc:1201}, on the way"] = "{npc:1201}, по пути",
@@ -649,6 +650,7 @@ return {
 	-- ["{npc:1252} stands by Eric's campfire in front of the {area:2102}; {npc:1241} is in the cellar west of it."] = "{npc:1252} стоит у костра Эрика перед местом {area:2102}; {npc:1241} — в погребе к западу от него.",
 	-- ["{npc:1377}, at the depot"] = "{npc:1377}, у депо",
 	-- ["{npc:1702}, beside him: Camping 101, engineers"] = "{npc:1702}, рядом с ним: «Основы походной жизни», инженеры",
+	-- ["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960} ждет в месте {area:808}, севернее Южных ворот; тело гнома лежит наверху по перевалу к западу от него.",
 	-- ["{npc:2326}, inside: Camping 101, {skill:129}"] = "{npc:2326}, внутри: «Основы походной жизни», {skill:129}",
 	-- ["{npc:257808} gives you the {item:6636}. Climb to the peak above his camp, drink the Sapta beside the Spirit Stone and defeat the {npc:5893}, then place its {item:6655} in the {object:61934}, atop the Shrine of Eternal Flame."] = "{npc:257808} дает вам {item:6636}. Поднимитесь на вершину над его лагерем, выпейте сапту рядом с камнем духов и победите NPC {npc:5893}, затем положите {item:6655} сюда: {object:61934}, на вершине Святилища Вечного Пламени.",
 	-- ["{npc:258098}, the shaman trainer, north of the {object:32372}"] = "{npc:258098}, учитель шаманов, к северу от места {object:32372}",

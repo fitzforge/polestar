@@ -47,9 +47,9 @@ return {
 
 	-- Step 6: Feralas: level 60+ areas
 	-- {zone:1444} Feralas
-	["{zone:1444}: level 60+ areas"] = "",
+	["{zone:1444}: level 60+ areas"] = "{zone:1444}: 60레벨 이상 지역",
 	-- {area:1113} Oneiros · {area:1111} Dream Bough
-	["{area:1113} and {area:1111} are level 60 areas, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs them."] = "",
+	["{area:1113} and {area:1111} are level 60 areas, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs them."] = "{area:1113}와(과) {area:1111}은(는) 60레벨 지역으로 이 가이드보다 훨씬 높습니다. 지금은 이 단계를 걷너뛰고 그 레벨 근처에서 돌아오세요. 지도 전체를 발견하려면 필요합니다.",
 	["level 60 area, well above this guide's range"] = "60레벨 지역으로, 이 가이드 범위보다 훨씬 높습니다",
 
 	-- Step 7: Dustwallow Marsh
@@ -67,9 +67,9 @@ return {
 
 	-- Step 8: Dustwallow Marsh: level 61+ area
 	-- {zone:1445} Dustwallow Marsh
-	["{zone:1445}: level 61+ area"] = "",
+	["{zone:1445}: level 61+ area"] = "{zone:1445}: 61레벨 이상 지역",
 	-- {area:2079} Alcaz Island
-	["{area:2079} is a level 61 area, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs it."] = "",
+	["{area:2079} is a level 61 area, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs it."] = "{area:2079}은(는) 61레벨 지역으로 이 가이드보다 훨씬 높습니다. 지금은 이 단계를 걷너뛰고 그 레벨 근처에서 돌아오세요. 지도 전체를 발견하려면 필요합니다.",
 	["level 61 area, well above this guide's range"] = "61레벨 지역으로, 이 가이드 범위보다 훨씬 높습니다",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

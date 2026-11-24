@@ -18,11 +18,11 @@ return {
 
 	-- Step 2: The Stolen Books
 	-- {object:83763} Stolen Books
-	["The {object:83763}"] = "",
+	["The {object:83763}"] = "{object:83763}",
 	-- plural, as words: Defias Thugs = {npc:38} Defias Thug
 	["The Defias tent stands in the vineyard east of the Abbey. The book is small: it lies on the ground just right of the tent's opening, beside a blue jug. Three Defias Thugs (level 3-4) guard the tent; pull them one at a time, or step inside the tent and click the book, where they cannot reach you. The book respawns three minutes after someone takes it."] = "",
 	-- {item:6785} Powers of the Void · {object:83763} Stolen Books
-	["{item:6785}, from the {object:83763}"] = "",
+	["{item:6785}, from the {object:83763}"] = "{item:6785}: {object:83763}에서",
 
 	-- Step 3: Summon Imp
 	-- {npc:459} Drusilla La Salle · {spell:688} Summon Imp

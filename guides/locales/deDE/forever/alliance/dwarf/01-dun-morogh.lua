@@ -294,7 +294,8 @@ return {
 	-- Step 47: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village
 	-- plural, as words: Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
-	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} ist die Trollhöhle in den Hügeln südwestlich von {area:137}. Töte Kopfjäger an ihrem Eingang und geh bis zu ihrem hinteren Ende durch.\nVorsicht: Die Balgabzieher der Frostmane in der Höhle sind Stufe 9-10 und stehen paarweise: Zieh sie einzeln zurück zum Eingang.",
+	-- was: ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} ist die Trollhöhle in den Hügeln südwestlich von {area:137}. Töte Kopfjäger an ihrem Eingang und geh bis zu ihrem hinteren Ende durch.\nVorsicht: Die Balgabzieher der Frostmane in der Höhle sind Stufe 9-10 und stehen paarweise: Zieh sie einzeln zurück zum Eingang."
+	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore {area:135} ticks only in there, not on the hill above it.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "{npc:1123}, unterirdisch",
 
@@ -401,23 +402,22 @@ return {
 	-- {zone:1455} Ironforge
 	["On the road back west to {zone:1455}."] = "Auf der Straße zurück nach Westen nach {zone:1455}.",
 
-	-- Step 78: South Gate Outpost
-	-- {area:806} South Gate Outpost · {area:38} Loch Modan
-	-- was: ["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "Folge der Straße ganz nach Osten zum {area:806} am Tunnel nach {zone:1432}."
-	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "",
+	-- Step 78: North Gate Outpost
+	-- {area:808} North Gate Outpost · {npc:1960} Pilot Hammerfoot · {area:38} Loch Modan
+	["Follow the road east and take its northern fork to the {area:808}: {npc:1960} waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into {area:38} come next, down the road to the south."] = "",
 
-	-- Step 79: Bruegs Kindleborn
+	-- Step 79: South Gate Outpost
+	-- {area:806} South Gate Outpost · {area:38} Loch Modan
+	["Back south down the road to the {area:806} at the {area:38} tunnel."] = "",
+
+	-- Step 80: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
 	["{npc:257597} waits in a cave above the farm north-west of the {area:806}; the path up starts behind the farm."] = "{npc:257597} wartet in einer Höhle über dem Hof nordwestlich von {area:806}; der Pfad hinauf beginnt hinter dem Hof.",
 
-	-- Step 81: Braldir Ashmantle
+	-- Step 82: Braldir Ashmantle
 	-- {area:38} Loch Modan · {npc:257808} Braldir Ashmantle
 	-- was: ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "Geh durch den Tunnel nach {zone:1432}. Gleich dahinter führt ein mit Steinen markierter Pfad die Hügel rechts der Straße nach Norden hinauf zum Lager von {npc:257808}."
 	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "",
-
-	-- Step 82: North Gate Outpost
-	-- {npc:1960} Pilot Hammerfoot · {area:808} North Gate Outpost
-	["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960} wartet am {area:808}, nördlich vom Südtor; die Zwergenleiche liegt den Pass westlich von ihm hinauf.",
 
 	-- Step 83: The tunnel post
 	["The tunnel post"] = "Der Tunnelposten",
@@ -705,6 +705,7 @@ return {
 	-- ["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "Westlich von der {object:32383} in den {object:32362}: {npc:5149}, {npc:6179} und {npc:6178} sind in der {object:32386}, {npc:6179} und {npc:6178} auf der oberen Etage: Die Treppe nach oben beginnt gleich nordöstlich von {npc:5149}. {npc:6175}, ein Bettler, streift durch die Stadt. Er bittet um zehn {item:2589}: Die Troggs und Trolle in {zone:1426} lassen es fallen, und das Auktionshaus verkauft es.",
 	-- ["{area:133}: kill these as you meet them"] = "{area:133}: Töte sie, wenn du ihnen begegnest",
 	-- ["{area:135} is the troll cave in the hills south-west of {area:137}. Ice Claw Bears, Elder Crag Boars and Snow Leopards you kill on the way count for {npc:1374}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} ist die Trollhöhle in den Hügeln südwestlich von {area:137}. Eisklauenbären, Alte Klippeneber und Schneeleoparden, die du auf dem Weg tötest, zählen für {npc:1374}. Töte Kopfjäger an ihrem Eingang und geh bis zu ihrem hinteren Ende durch.\nVorsicht: Die Fellhäuter der Frostmähnen in der Feste sind Stufe 9-10 und stehen paarweise: Zieh sie einzeln zurück zum Eingang.",
+	-- ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} ist die Trollhöhle in den Hügeln südwestlich von {area:137}. Töte Kopfjäger an ihrem Eingang und geh bis zu ihrem hinteren Ende durch.\nVorsicht: Die Balgabzieher der Frostmane in der Höhle sind Stufe 9-10 und stehen paarweise: Zieh sie einzeln zurück zum Eingang.",
 	-- ["{item:5026} and the {item:6652}"] = "{item:5026} und {item:6652}",
 	-- ["{npc:10090}: Beast Training"] = "{npc:10090}: Wildtierausbildung",
 	-- ["{npc:1127}, on the way"] = "{npc:1127}, auf dem Weg",
@@ -719,6 +720,7 @@ return {
 	-- ["{npc:1377}, at the depot"] = "{npc:1377}, am Depot",
 	-- ["{npc:1573}, the gryphon master where you landed"] = "{npc:1573}, der Greifenmeister, wo du gelandet bist",
 	-- ["{npc:1702}, beside him: Camping 101, engineers"] = "{npc:1702}, neben ihm: Camping 101, Ingenieure",
+	-- ["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960} wartet am {area:808}, nördlich vom Südtor; die Zwergenleiche liegt den Pass westlich von ihm hinauf.",
 	-- ["{npc:2326}, inside: Camping 101, {skill:129}"] = "{npc:2326}, drinnen: Camping 101, {skill:129}",
 	-- ["{npc:257808} gives you the {item:6636}. Climb to the peak above his camp, drink the Sapta beside the Spirit Stone and defeat the {npc:5893}, then place its {item:6655} in the {object:61934}, atop the Shrine of Eternal Flame."] = "{npc:257808} gibt dir {item:6636}. Klettere auf den Gipfel über seinem Lager, trink das Sapta neben dem Geisterstein und besiege {npc:5893}, dann leg {item:6655} in {object:61934} oben auf dem Schrein der Ewigen Flamme.",
 	-- ["{npc:258098}, the shaman trainer, north of the {object:32372}"] = "{npc:258098}, der Schamanenlehrer, nördlich von {object:32372}",

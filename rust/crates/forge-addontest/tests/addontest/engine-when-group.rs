@@ -2,8 +2,8 @@
 //! once per quest, per character (CharState().groupQuests, Engine.AnswerGroup). Unanswered, the step applies but
 //! is not done, so the route waits there and automation leaves the quest alone; "skip" makes `when group` fail
 //! (its turn-in goes with it, orphaned) and `when !group` hold, "do" the other way round. The answer is never
-//! guessed from the quest log. Real Core manifest, stub world (a level 1 Human Warrior in Elwynn Forest, A Threat
-//! Within 783 in the log), as tests/engine-when-dungeon.rs.
+//! guessed from the quest log, but a quest ready to hand in is not asked about (#3402). Real Core manifest, stub
+//! world (a level 1 Human Warrior in Elwynn Forest, A Threat Within 783 in the log), as tests/engine-when-dungeon.rs.
 
 use forge_addontest::{emitted, is_match, lua_value, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
@@ -137,15 +137,50 @@ stub.world.titles[7] = "Säuberung des Koboldlagers""#;
 
 #[test]
 fn a_step_whose_goals_are_done_still_waits_for_the_answer() {
-	// Step 1 asks about A Threat Within, already in the log: its accept is done.
+	// Step 1 asks about A Threat Within, already in the log with its work still to do: its accept is done.
 	let guide = GROUP_GUIDE.replacen(r#"{ k = "group", q = 7 }"#, r#"{ k = "group", q = 783 }"#, 1).replacen(
 		r#"{ t = "accept", quest = 7, title = "Kobold Camp Cleanup""#,
 		r#"{ t = "accept", quest = 783, title = "A Threat Within""#,
 		1,
 	);
-	let out = run(Opts { guide: &guide, ..opts(r#"emit(at()); E.AnswerGroup(783, "do"); flush(); emit(at())"#) });
+	let before = "stub.world.onQuest(783, { { required = 1, fulfilled = 0 } })";
+	let out = run(Opts { guide: &guide, before, ..opts(r#"emit(at()); E.AnswerGroup(783, "do"); flush(); emit(at())"#) });
 	assert_eq!(out[0], 1);
 	assert_eq!(out[1], 3);
+}
+
+// #3402 and #3412 (Stö, 0.4.2, Mount Hyjal): The Dying Ancients and Amalgamated Marrow, group quests, were taken and
+// their elites killed before the route asked "do this group quest?", and the guide held at the question with the
+// quest ready to hand in. Here the accept step asks about A Threat Within (783, in the log and finished), its kill
+// has no quest of its own (Sunderbark's), and the hand-in step after it asks nothing (`when onquest`, as Hyjal's
+// Fraxinus step), which kept the question at the accept. A finished quest's group work is behind the player: the
+// accept and kill steps pass unanswered and the route goes on to the hand-in.
+const READY_GUIDE: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/group", pack = "test", title = "Group", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "The Dying Ancients", when = { { k = "group", q = 783 } }, goals = {
+			{ t = "accept", quest = 783, title = "A Threat Within", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+		{ title = "Sunderbark", when = { { k = "group", q = 783 } }, goals = {
+			{ t = "kill", target = "Sunderbark", npc = 248709, map = 1429, x = 50, y = 50 },
+			{ t = "complete", quest = 783, title = "A Threat Within", map = 1429, x = 50, y = 50 },
+		} },
+		{ title = "Fraxinus", when = { { k = "onquest", q = { 783 } } }, goals = {
+			{ t = "turnin", quest = 783, title = "A Threat Within", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+	},
+})
+"#;
+
+#[test]
+fn a_group_quest_ready_to_hand_in_is_not_asked_about_the_route_goes_on_to_its_hand_in_3402_3412() {
+	let ask = "emit({ at = at(), q = E.GroupQuestion() or false })";
+	let ready = run(Opts { guide: READY_GUIDE, ..opts(ask) });
+	assert_eq!(ready[0], json!({ "at": 3, "q": false }), "finished: on to the hand-in, nothing asked");
+	// Its work still to do: the accept step asks, as before.
+	let open = run(Opts { guide: READY_GUIDE, before: "stub.world.onQuest(783, { { required = 1, fulfilled = 0 } })", ..opts(ask) });
+	assert_eq!(open[0], json!({ "at": 1, "q": 783 }));
 }
 
 // Barrens, Ratchet (Fitz, 0.3.7.1): WANTED: Bruuz (here A Threat Within, 783, in the log) taken at the poster by
@@ -210,11 +245,13 @@ fn the_answer_is_kept_per_character_and_asked_for_no_more() {
 
 #[test]
 fn a_solo_alternative_unanswered_waits_at_the_first_skip_takes_the_solo_way_do_the_group_way() {
-	let waiting = run(Opts { guide: PAIR_GUIDE, ..opts("emit({ at = at(), q = E.GroupQuestion() or false })") });
+	// A Threat Within in the log with its objective still to do.
+	let before = "stub.world.onQuest(783, { { required = 1, fulfilled = 0 } })";
+	let waiting = run(Opts { guide: PAIR_GUIDE, before, ..opts("emit({ at = at(), q = E.GroupQuestion() or false })") });
 	assert_eq!(waiting[0], json!({ "at": 1, "q": 783 }));
-	let solo = run(Opts { guide: PAIR_GUIDE, ..opts(r#"E.AnswerGroup(783, "skip"); flush(); emit({ at = at(), s2 = E.GetStepView(2).status })"#) });
+	let solo = run(Opts { guide: PAIR_GUIDE, before, ..opts(r#"E.AnswerGroup(783, "skip"); flush(); emit({ at = at(), s2 = E.GetStepView(2).status })"#) });
 	assert_eq!(solo[0], json!({ "at": 1, "s2": "na" }));
-	let group = run(Opts { guide: PAIR_GUIDE, ..opts(r#"E.AnswerGroup(783, "do"); flush(); emit({ at = at(), s1 = E.GetStepView(1).status })"#) });
+	let group = run(Opts { guide: PAIR_GUIDE, before, ..opts(r#"E.AnswerGroup(783, "do"); flush(); emit({ at = at(), s1 = E.GetStepView(1).status })"#) });
 	assert_eq!(group[0], json!({ "at": 2, "s1": "skipped" }));
 }
 
@@ -239,7 +276,7 @@ fn a_group_quest_the_answer_skips_is_said_when_the_route_passes_its_steps_once_a
 	let all = run(Opts { guide: LATER_GUIDE, db: r#"PolestarDB = { schema = 1, settings = { behavior = { groupQuests = "skip" } } }; "#, ..opts(HAND_IN_783) });
 	assert_eq!(
 		all[0],
-		json!({ "before": 1, "at": 4, "events": [{ "from": 2, "to": 4, "quests": ["7:group:Group quest: Options, Automation, Group quests skips them all"] }] }),
+		json!({ "before": 1, "at": 4, "events": [{ "from": 2, "to": 4, "quests": ["7:group:Group quest: Settings, Automation, Group quests skips them all"] }] }),
 		"its accept and turn-in steps pass with one notice"
 	);
 	// This one answered skip (Discovery, Group quests).

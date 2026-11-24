@@ -51,6 +51,13 @@ step Zamael Lunthistle
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Zamael Lunthistle stands inside the Twilight camp at Firewatch Ridge, west of Thorium Point, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with Highlord Mastrogonde (level 51, rare elite) beside him: Prayer to Elune needs a group of 4. Skip it if you are alone.
   accept 3377
   turnin 3377
+  accept 3378
+
+step Prayer to Elune: the page
+  when group 3377
+  when onquest 3378
+  tip The Twilight elites of Zamael's camp drop the Prayer to Elune page, about one in five: keep the group together here until one drops.
+  collect 10458 quest 3378.1 @29.6,26.3 map 1427 group 4
 
 step Velarok Windblade
   tip Velarok stands on the rim of the Cauldron, south of Thorium Point. Listen to his story.
@@ -72,12 +79,14 @@ step Velarok Windblade
 
 step Dark Iron Taskmasters
   when group 7729
-  tip With your group, look for Taskmasters on the open ledges. Stay on the surface; don't follow the arrow into the Slag Pit.
+  tip With your group, look for Taskmasters on the open ledges first. Last stop, if you still need some: take the lift (the scaffold cars) down into the Slag Pit below, where four more stand.
   loop
   goto 43.12,40.38 map 1427 r 12
   goto 45.68,39.66 map 1427 r 12
   goto 49.15,39.93 map 1427 r 12
   goto 44.79,51.93 map 1427 r 12
+  goto 39.6,50.8 map 1427 r 12
+  goto 40.6,53.6 map 1427 r 12
   kill 5846 quest 7729                -- Dark Iron Taskmaster
 
 step Dark Iron Slavers

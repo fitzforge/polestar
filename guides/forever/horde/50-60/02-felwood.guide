@@ -50,13 +50,21 @@ step High Executor Derrington
   when !turnedin 5096
   zone Tirisfal Glades
   tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
-  tip Take a Box of Incendiaries from the crate next to Derrington for Scarlet Diversions.
   accept 5096                         -- High Executor Derrington
+  collect 12814 @83.08,69.09 map 1420 era -- Flame in a Bottle, from the Box of Incendiaries next to Derrington
+
+step Box of Incendiaries
+  when onquest 5096
+  when !has 12814
+  when !complete 5096
+  zone Tirisfal Glades
+  tip Scarlet Diversions needs a Flame in a Bottle to torch the command tent: take one from the Box of Incendiaries next to High Executor Derrington.
+  collect 12814 @83.08,69.09 map 1420 era -- Flame in a Bottle, from the Box of Incendiaries
 
 step Scarlet forward camp
   when !turnedin 5096
   zone Western Plaguelands
-  tip From the Bulwark, follow the road east into the Western Plaguelands. The Scarlet Crusade's tents stand just past Felstone Farm, between Felstone Field and Dalson's Tears. Torch the command tent with the Box of Incendiaries and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be.
+  tip From the Bulwark, follow the road east into the Western Plaguelands. The Scarlet Crusade's tents stand just past Felstone Farm, between Felstone Field and Dalson's Tears. Torch the command tent with the Flame in a Bottle and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be.
   interact 176088
   complete 5096
 
@@ -92,7 +100,7 @@ step Orgrimmar
 
 step Jes'rimon
   zone Orgrimmar
-  when onquest 4300
+  when complete 4300
   tip Jes'rimon takes the ravasaur claws from Un'Goro; he stands in the Cleft of Shadow, a short walk from the middle of the city.
   turnin 4300                           -- Jes'rimon, the Cleft of Shadow
 
@@ -121,9 +129,11 @@ step Ruins of Eldarath: kill these as you meet them
 
 step Ruins of Eldarath
   when onquest 3568
-  tip Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them.
-  goto 35.0,55.0 "Ruins of Eldarath"
-  complete 3568
+  tip Fill Cuely's four vials at the tide pools on the shore, from Southridge Beach north up the coast; Spitelash naga patrol between them.
+  collect 10691 quest 3568.1 @48.0,60.6 map 1447 -- Filled Vial Labeled #1: the tide pool on Southridge Beach
+  collect 10692 quest 3568.2 @48.0,51.2 map 1447 -- #2, north along the shore
+  collect 10693 quest 3568.3 @48.7,48.4 map 1447 -- #3
+  collect 10694 quest 3568.4 @47.4,46.3 map 1447 -- #4
 
 step Makrinni Burrowers
   tip The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments.

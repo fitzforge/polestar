@@ -18,9 +18,9 @@ return {
 
 	-- Step 2: Horse Riding for other races
 	-- {spell:824} Horse Riding
-	["{spell:824} for other races"] = "",
+	["{spell:824} for other races"] = "{spell:824} (다른 종족)",
 	-- {spell:824} Horse Riding · {skill:762} Riding · {npc:4732} Randal Hunter · {faction:72} Stormwind
-	["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "",
+	["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "모든 얼라이언스 종족이 이 말을 살 수 있지만 탑승에는 {spell:824}도 필요하며 인간만 {skill:762}과(와) 함께 받습니다. {faction:72}과(와) 확고한 동맹이 되면 {npc:4732}이(가) 다른 종족에게도 가르칩니다(스톰윈드 평판 가이드가 안내). 그 전에는 이 캐릭터로 말을 사지 마세요.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "색상 고르기",
@@ -35,7 +35,7 @@ return {
 
 	-- Step 4: Black Stallion in Menethil Harbor
 	-- {npc:5404} Black Stallion · {area:150} Menethil Harbor
-	["{npc:5404} in {area:150}"] = "",
+	["{npc:5404} in {area:150}"] = "{area:150}의 {npc:5404}",
 	-- {npc:5404} Black Stallion · {npc:384} Katie Hunter · {npc:1460} Unger Statforth · {area:150} Menethil Harbor · {zone:1437} Wetlands
 	["The {npc:5404} is not at {npc:384}: {npc:1460} sells it, at the stables of {area:150} in the {zone:1437} (20g in the Forever client). Skip this unless you want that colour."] = "",
 	-- {item:2411} Black Stallion Bridle · {npc:1460} Unger Statforth

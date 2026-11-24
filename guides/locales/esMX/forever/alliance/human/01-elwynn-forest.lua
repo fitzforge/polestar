@@ -37,9 +37,9 @@ return {
 	-- Step 6: Echo Ridge Mine: kill these as you meet them
 	-- {area:34} Echo Ridge Mine
 	["{area:34}: kill these as you meet them"] = "{area:34}: mata a estos según te los encuentres",
-	-- {object:83763} Stolen Books
+	-- {object:83763} Stolen Books · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
-	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Sigue el sendero hacia el norte hasta la mina. Los Trabajadores kóbold pululan afuera; cualquier kóbold del valle puede soltar {object:83763}.",
+	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}.\nNow and then a kobold here drops a {quest:91741}: right-click it and hand it to {npc:951} on your next Abbey stop."] = "Sigue el sendero al norte hasta la mina. Los trabajadores kóbold pululan afuera; cualquier kóbold del valle puede soltar los {object:83763}.\nDe vez en cuando un kóbold de aquí suelta un {quest:91741}: haz clic derecho sobre él y entrégaselo a {npc:951} en tu próxima parada en la Abadía.",
 
 	-- Step 7: Northshire Abbey
 	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
@@ -77,27 +77,26 @@ return {
 
 	-- Step 12: Kelsey Fargo
 	-- {quest:91752} The Big Picture · {npc:248362} Shinyfinder Narf
-	["She stands outside the mine entrance. Her next errand, {quest:91752}, sends you after {npc:248362} inside, a level 3 elite: the guide gives it from level 5, when he is two levels under you."] = "",
+	["She stands outside the mine entrance. Her next errand, {quest:91752}, sends you after {npc:248362} inside, a level 3 elite: the guide gives it from level 5, when he is two levels under you."] = "Está afuera de la entrada de la mina. Su siguiente encargo, {quest:91752}, te manda tras {npc:248362} adentro, un élite de nivel 3: la guía lo da desde el nivel 5, cuando está dos niveles por debajo de ti.",
 
 	-- Step 13: The Big Picture
 	-- {quest:91752} The Big Picture · {npc:248362} Shinyfinder Narf
-	["From level 5: Kelsey's {quest:91752}. {npc:248362} (3, elite) is two levels under you then."] = "",
+	["From level 5: Kelsey's {quest:91752}. {npc:248362} (3, elite) is two levels under you then."] = "Desde el nivel 5: {quest:91752} de Kelsey. {npc:248362} (3, élite) está entonces dos niveles por debajo de ti.",
 	-- {npc:247226} Kelsey Fargo
-	["{npc:247226}, outside the mine"] = "",
+	["{npc:247226}, outside the mine"] = "{npc:247226}, afuera de la mina",
 
 	-- Step 14: Inside Echo Ridge Mine
 	-- {area:34} Echo Ridge Mine
 	["Inside {area:34}"] = "Dentro de {area:34}",
-	-- {npc:248362} Shinyfinder Narf
+	-- {npc:248362} Shinyfinder Narf · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	-- was: ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "Los Obreros kóbold trabajan en los túneles dentro de la mina. {npc:248362} espera al fondo de la segunda curva a la derecha.\nCuidado: {npc:248362} (3) es élite: déjalo a menos que tengas un amigo."
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nNow and then a Laborer drops a {quest:91741}: right-click it and hand it to {npc:951} at the Abbey after the mine.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "Los obreros kóbold trabajan en los túneles dentro de la mina. {npc:248362} espera al fondo de la segunda curva a la derecha.\nDe vez en cuando un obrero suelta un {quest:91741}: haz clic derecho sobre él y entrégaselo a {npc:951} en la Abadía después de la mina.\nCuidado: {npc:248362} (3) es élite: por debajo del nivel 5, déjalo tranquilo.",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "{npc:80} recorre {area:34}: busca dentro del círculo del mapa",
 
 	-- Step 15: Shinyfinder Narf
 	-- {npc:248362} Shinyfinder Narf
-	["From level 5 {npc:248362}, a level 3 elite, is two levels under you: he waits down the second turn on the right inside the mine.\nCareful: clear the Laborers around him first and fight him at full health."] = "",
+	["From level 5 {npc:248362}, a level 3 elite, is two levels under you: he waits down the second turn on the right inside the mine.\nCareful: clear the Laborers around him first and fight him at full health."] = "Desde el nivel 5, {npc:248362}, un élite de nivel 3, está dos niveles por debajo de ti: espera al fondo de la segunda curva a la derecha dentro de la mina.\nCuidado: limpia primero a los obreros a su alrededor y pelea con él con la salud llena.",
 
 	-- Step 16: Northshire Abbey
 	-- {npc:823} Deputy Willem
@@ -267,7 +266,7 @@ return {
 	-- {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:377} (sacerdotes), {npc:328} (magos) y {npc:917} (pícaros) están arriba en la posada: sube por la escalera de adentro, la flecha no distingue los pisos.",
 	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind · {zone:1436} Westfall
-	["{npc:279} in {zone:1453} takes it (the {zone:1436} guide)"] = "",
+	["{npc:279} in {zone:1453} takes it (the {zone:1436} guide)"] = "{npc:279} en {zone:1453} la recibe (la guía de {zone:1436})",
 
 	-- Step 52: Level 8.39
 	["Level 8.39"] = "Nivel 8.39",
@@ -390,8 +389,7 @@ return {
 	-- {npc:240} Marshal Dughan
 	["{npc:240}, while William brews"] = "{npc:240}, mientras William prepara la poción",
 	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind · {zone:1436} Westfall
-	-- was: ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, en la herrería junto a Dughan: la recibe {npc:1416} en {zone:1453} (02-westfall)"
-	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (the {zone:1436} guide)"] = "",
+	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (the {zone:1436} guide)"] = "{npc:514}, en la herrería junto a Dughan: la recibe {npc:1416} en {zone:1453} (la guía de {zone:1436})",
 	-- {npc:253} William Pestle
 	["{npc:253}, back in the inn"] = "{npc:253}, de vuelta en la posada",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
@@ -493,6 +491,7 @@ return {
 	-- ["Bait ingredients"] = "Ingredientes para el cebo",
 	-- ["Boar meat"] = "Carne de jabalí",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Los Zahoríes bribones de Defias acampan en las orillas de {area:86}; también sueltan los Pañuelos de lino rojo. {object:56} está en la aldea múrloc de la orilla noreste.",
+	-- ["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Sigue el sendero hacia el norte hasta la mina. Los Trabajadores kóbold pululan afuera; cualquier kóbold del valle puede soltar {object:83763}.",
 	-- ["Follow the road east past the {area:91} to the bridge."] = "Sigue el camino hacia el este pasando {area:91} hasta el puente.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "Sigue el camino hacia el norte desde {area:87} hasta {zone:1453}. {npc:6171} y {npc:6173} están en la Cathedral of Light; {npc:6174} está en {object:2100} y pide diez de {item:2589} (lo sueltan los humanoides; la casa de subastas lo vende).",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "Sigue el camino hacia el sur fuera del valle hasta {area:87}. {npc:295} está en la Lion's Pride Inn; {npc:240} está afuera de la herrería, al otro lado del camino; {npc:253}, frente a la posada; y {npc:241}, junto al camino, al sur.",

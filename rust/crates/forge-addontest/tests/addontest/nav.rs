@@ -154,6 +154,32 @@ fn arrow_points_at_the_target_relative_to_facing_in_all_four_quadrants_in_both_s
 	}
 }
 
+// Fitz, 0.4.2.1 candidate: the arrow's manners as in 0.4.1.1. After a pause in guidance (an arrival, a ride's
+// instruction, the wait for a walking route) the arrow turns from the heading it showed, eased as every other turn,
+// never snapping to the new bearing in one frame.
+#[test]
+fn after_a_pause_in_guidance_the_arrow_eases_from_the_heading_it_showed_never_snapping() {
+	let out = run_compass(
+		r#"
+		target(100, 0)
+		stub.advance(1)
+		local before = A.GetAngle()
+		nav.place(100, 0)                   -- at the target: Arrived, no bearing
+		stub.advance(0.5)
+		local paused = A.GetMode()
+		nav.place(100, 100)                 -- walked off west of it: the target is now to the right
+		stub.advance(0.1)
+		emit({ before = before, paused = paused, mode = A.GetMode(), early = A.GetAngle() })"#,
+	);
+	near(num(&out["before"]), 0.0, 1e-6, "before");
+	assert_eq!(out["paused"], "arrived");
+	assert_eq!(out["mode"], "travel");
+	let early = num(&out["early"]);
+	assert!(early < 0.0 && early >= -3.5 * 0.1 - 1e-6, "the turn eases from the shown heading (MAX_TURN 3.5 rad/s), not a snap to -pi/2: {early}");
+}
+
+// Main, 2026-11-21, Fitz: "go back to our original danger pathing": stepping onto enemy ground the arrow still walks
+// (0.4.2 said "unsafe" there); turning back out, the first visible stride leads away from town.
 #[test]
 fn leaving_enemy_ground_does_not_point_the_player_back_into_town() {
 	let out = run_compass(
@@ -187,11 +213,12 @@ fn leaving_enemy_ground_does_not_point_the_player_back_into_town() {
 		end
 		emit({refused, "did not resume"})"#,
 	);
-	assert_eq!(out, json!(["unsafe", "clear", true]), "the first visible walking stride must lead away from town");
+	assert_eq!(out, json!(["travel", "clear", true]), "the first visible walking stride must lead away from town");
 }
 
+// Beside enemy ground the arrow eases its turns as anywhere else (0.4.1.1's manners; 0.4.2 snapped it there).
 #[test]
-fn turning_onto_a_tangent_keeps_the_painted_stride_out_of_enemy_ground() {
+fn turning_onto_a_tangent_beside_enemy_ground_eases_as_on_friendly_ground() {
 	let out = run_compass(
 		r#"
 		nav.useGameGround()
@@ -217,8 +244,8 @@ fn turning_onto_a_tangent_keeps_the_painted_stride_out_of_enemy_ground() {
 		local h = approach("Horde")
 		emit({h, approach("Alliance")})"#,
 	);
-	assert!(num(&out[0]) >= -0.001, "Horde's visible next stride enters the enemy settlement: {}", out[0]);
-	assert!(num(&out[1]) < -0.001, "the same turn on friendly ground should still ease");
+	assert!(num(&out[1]) < -0.001, "on friendly ground the turn eases: {}", out[1]);
+	near(num(&out[0]), num(&out[1]), 1e-6, "beside enemy ground the same turn eases the same way");
 }
 
 #[test]
@@ -746,6 +773,8 @@ fn a_near_walk_probe_measures_only_a_complete_path_to_the_requested_floor() {
 		local start, goal = { x = 0, y = 0, z = 12 }, { x = 20, y = 0, z = 14 }
 		probe()
 		request.answer(nil, "no safe walking route", {})
+		-- (no policy said no: asked once more without the goal's height, #2270; that one fails too)
+		request.answer(nil, "no safe walking route", {})
 		probe()
 		request.answer({start, goal}, 20, { reached = goal })
 		probe()
@@ -760,7 +789,7 @@ fn a_near_walk_probe_measures_only_a_complete_path_to_the_requested_floor() {
 		out[#out + 1] = { request.from.z, request.to.z }
 		request.answer({ start, { x = 0, y = 15, z = 12 }, goal }, 100, {})
 		emit(out)"#);
-	assert_eq!(out, json!([[false, 1], [false, 1], [false, 1], [false, 1], [false, 1], [false, 1], [12, 14], [40, 1]]));
+	assert_eq!(out, json!([[false, 2], [false, 1], [false, 1], [false, 1], [false, 1], [false, 1], [12, 14], [40, 1]]));
 }
 
 #[test]
@@ -892,8 +921,10 @@ fn an_empty_walking_batch_is_not_a_refusal_and_does_not_ask_or_replan_again() {
 	assert_eq!(out, json!([1, 0, true, true]));
 }
 
+// Main, 2026-11-21, Fitz: "go back to our original danger pathing": a guard post on the walk refuses nothing; the walk,
+// the flight and the landing stay as they are (0.4.2: "unsafe", no line to the flight master).
 #[test]
-fn a_refused_ground_approach_draws_no_direct_line_and_leaves_the_next_flight_and_landing_intact() {
+fn a_guard_post_on_the_ground_approach_refuses_nothing_and_leaves_the_flight_and_landing_intact() {
 	let out = run_compass(
 		r#"
 		local hubs = N.danger.hubBins[0].Alliance
@@ -928,7 +959,7 @@ fn a_refused_ground_approach_draws_no_direct_line_and_leaves_the_next_flight_and
 		emit({ direct, before, refused, after, still == ci, clear, pathCounts() })"#,
 	);
 	let full = json!([["walk", 2], ["flight", 2], ["walk", 2]]);
-	assert_eq!(out, json!([["unsafe", 0], full, "unsafe", [["walk", 0], ["flight", 2], ["walk", 2]], true, "travel", full]));
+	assert_eq!(out, json!([["travel", 1], full, "travel", full, true, "travel", full]));
 }
 
 // The player's arrow colours, with Theme loaded: the arrow wears its own colour far away and the near colour
@@ -1057,7 +1088,7 @@ fn a_skin_s_own_dart_and_edge_stand_in_for_polestar_s_tinted_never_the_baked_gol
 }
 
 // The game's looks draw their own waypoint arrow and map pins, through the parts a skin addon gives (Skin API 2's
-// media, read by Theme.SkinMedia; Polestar_Looks/Parts.lua): Classic the world map's arrow (the vanilla silver arrow,
+// media, read by Theme.SkinMedia; Theme/Looks/Parts.lua): Classic the world map's arrow (the vanilla silver arrow,
 // the client's sharpest) and the minimap's dark disc, WoW Forever its quest arrow and the campaign quest's shield,
 // Blizzard Polestar's own dart in the damage meter's light grey (its accent), edged in its black, and the quest
 // marker. The client's darts show in their own colours with no edge while far; every dart is tinted up close and in
@@ -1295,7 +1326,8 @@ fn an_area_target_is_arrived_anywhere_inside_it_shows_the_distance_to_its_edge_o
 		stub.advance(0.2); snap()                     -- 200 yd from the centre: 140 to the edge
 		nav.place(150, 0); stub.advance(0.2); snap()  -- 50 from the centre: inside
 		nav.place(260, 0); stub.advance(0.2); snap()  -- 60 on the far side: on the edge
-		nav.place(125, 0); stub.advance(0.2); snap()  -- 75: 15 past the edge
+		nav.place(125, 0); stub.advance(0.2); snap()  -- 75: 15 past the edge, still arrived on open ground (#3828)
+		nav.place(65, 0); stub.advance(0.2); snap()   -- 135: 75 past the edge, past Nav.NEAR_LINE: on the way again
 		nav.showWorldMap(9000)
 		local areas = nav.pins("areas")
 		local r = { seen = seen, areas = #areas }
@@ -1314,7 +1346,8 @@ fn an_area_target_is_arrived_anywhere_inside_it_shows_the_distance_to_its_edge_o
 			["travel", "140 yd", "Kill Bristlebacks", 140],
 			["arrived", "Arrived", "Kill Bristlebacks", 0],
 			["arrived", "Arrived", "Kill Bristlebacks", 0],
-			["travel", "15 yd", "Kill Bristlebacks", 15]
+			["arrived", "Arrived", "Kill Bristlebacks", 15],
+			["travel", "75 yd", "Kill Bristlebacks", 75]
 		])
 	);
 	assert_eq!(out["areas"], 1);
@@ -1362,6 +1395,55 @@ fn an_area_objective_never_says_arrived_inside_a_spot_the_arrow_says_to_search_h
 		.concat(),
 	);
 	assert_eq!(out, json!([["travel", "140 yd", "Collect Raptor Head", false, false], ["search", "Search here", "Collect Raptor Head", "Click the arrow for the next spot", true]]));
+}
+
+// #3828 (flep): "if it's a big area to farm mobs for a quest, it keeps re-appearing when I move a bit away from the
+// actual point". Arrived in a kill goal's spawn area, the arrow stays down while the player stays within
+// Nav.NEAR_LINE (60) yards of the area on open ground, the area where no route line is drawn either (#3690), also
+// when the goal moves on to another of its spawn areas there, with no second chime. It comes back on leaving that
+// ground or on a new goal; indoors, as before, a few yards past the area's edge.
+#[test]
+fn arrived_in_a_kill_area_the_arrow_stays_down_while_the_player_stays_near_it_on_open_ground() {
+	let out = run_compass(
+		r#"
+		local function kill(wx, wy, extra)
+			local t = { kind = "kill", area = 40, quest = 7 }
+			for k, v in pairs(extra or {}) do t[k] = v end
+			return wp(wx, wy, "Kill Boar", t)
+		end
+		local seen = {}
+		local function snap(what) seen[#seen + 1] = { what, A.GetMode(), #stub.sounds } end
+		nav.setWaypoint(kill(200, 0))
+		stub.advance(0.2); snap("on the way")
+		nav.place(170, 0); stub.advance(0.2); snap("in the area")
+		nav.place(110, 0); stub.advance(0.2); snap("50 yd out")
+		nav.setWaypoint(kill(150, 60, { spot = 2 }))
+		stub.advance(0.2); snap("its next area, 32 yd off")
+		nav.place(110, -80); stub.advance(0.2); snap("100 yd off")
+		nav.place(150, 60); stub.advance(0.2); snap("in that area")
+		nav.place(110, 0); stub.advance(0.2); snap("32 yd out")
+		nav.setWaypoint(kill(150, 60, { goalIndex = 2, quest = 8 }))
+		stub.advance(0.2); snap("a new goal")
+		IsIndoors = function() return true end
+		nav.place(150, 60); stub.advance(0.2); snap("indoors, in it")
+		nav.place(150, 0); stub.advance(0.2); snap("indoors, 20 yd out")
+		emit(seen)"#,
+	);
+	assert_eq!(
+		out,
+		json!([
+			["on the way", "travel", 0],
+			["in the area", "arrived", 1],
+			["50 yd out", "arrived", 1],
+			["its next area, 32 yd off", "arrived", 1],
+			["100 yd off", "travel", 1],
+			["in that area", "arrived", 2],
+			["32 yd out", "arrived", 2],
+			["a new goal", "travel", 2],
+			["indoors, in it", "arrived", 3],
+			["indoors, 20 yd out", "travel", 3]
+		])
+	);
 }
 
 #[test]
@@ -1801,6 +1883,8 @@ fn without_a_player_position_the_arrow_says_so_keeps_the_label_and_points_again_
 fn the_arrow_label_keeps_a_long_quest_name_on_one_line_and_wraps_a_longer_one_to_two_1581() {
 	let out = run(r#"
 		local seen = {}
+		-- The label alone: no walk searched, so none missing to be explained under it (#3409).
+		Polestar.Set("nav.navRouting", false)
 		local function snap(label)
 			target(100, 0, label)
 			stub.advance(0.1)
@@ -2247,17 +2331,16 @@ fn without_waypoint_ui_the_game_waypoint_is_set_as_before() {
 	assert_eq!(out["native"], json!([["set", 9000, 0.45, 0.5], ["track", true]]));
 }
 
+// Main, 2026-11-21, Fitz: "go back to our original danger pathing": an external waypoint arrow guides across Stonard
+// for either faction (0.4.2 kept the walk through the enemy town on Polestar's own arrow, saying "unsafe").
 #[test]
-fn external_waypoints_check_the_walking_bearing_not_just_its_end() {
+fn external_waypoints_guide_across_an_enemy_town_too() {
 	let out = run(&format!(
 		r#"{WAYPOINT_UI}
 		nav.useGameGround()
 		local town = N.GetTaxiNode(56)
 		nav.maps[town.map] = {{ c = 0, top = -9620.833, bottom = -11150, left = -2222.917, right = -4516.667 }}
 		local start, finish = town.wy - 400, town.wy + 400
-		local function risk(y, Y, side) return N.danger.Blocked(0, town.wx, y, town.wx, Y, side) end
-		assert(not risk(start, start, "Alliance") and not risk(finish, finish, "Alliance"))
-		assert(risk(start, finish, "Alliance") == "opposing-settlement" and not risk(start, finish, "Horde"))
 		local x, y = nav.Compat.WorldToMap(0, town.wx, finish, town.map)
 		Polestar.Set("nav.travel", false)
 		Polestar.Set("nav.navRouting", false) -- direct compass mode, independent of the walking engine
@@ -2295,14 +2378,14 @@ fn external_waypoints_check_the_walking_bearing_not_just_its_end() {
 		out.mirror = {{ last.title, last.crazy }}
 		emit(out)"#
 	));
-	assert_eq!(out["enemy"], json!([false, false, false, true]));
+	assert_eq!(out["enemy"], json!([true, true, true, false]));
 	assert_eq!(out["friendly"], json!([true, true, true, false]));
 	assert_eq!(out["air"][0], true);
 	assert_eq!(out["air"][2], true);
 	assert_eq!(out["near"], json!([true, true, true, false]));
 	assert_eq!(out["mine"], "Player");
-	assert_eq!(out["blocked"], true);
-	assert_eq!(out["native"], json!(["track", false]));
+	assert_eq!(out["blocked"], false);
+	assert_eq!(out["native"], json!(["track", true]), "the game's waypoint tracks the walk as well");
 	assert_eq!(out["mirror"], json!(["Across Stonard", false]));
 }
 
@@ -2754,6 +2837,60 @@ fn the_steps_ahead_get_numbered_pins_fading_with_distance_steps_together_share_o
 	assert!((out["2"]["alpha"].as_f64().unwrap() - 0.35).abs() < 1e-9, "the third step ahead is the faintest");
 }
 
+// #3580: a step ahead meant for a group (an escort) or that asks for care carries the guide window's two-heads mark on
+// its numbered pin too (UI.StepMark, the same rule), top-right, in the warning colour for a group and muted for care;
+// its reason in the tooltip. A pin two steps share takes the group's. A step with neither has none.
+#[test]
+fn a_step_ahead_for_a_group_carries_the_two_heads_mark_on_its_numbered_pin_3580() {
+	// The guide window's rule itself (UI/UI.lua's StepMark) and the theme's colours and media; UI.lua reads Compat at
+	// load, so Init.lua's namespace gets the stub's (as nav-handoff.rs does).
+	let before = r#"
+do
+	local load = loadfile
+	function loadfile(file)
+		local chunk, err = load(file)
+		if not chunk or not file:match("[/\\]Polestar[/\\]Core[/\\]Init%.lua$") then return chunk, err end
+		return function(name, ns)
+			chunk(name, ns)
+			ns.Compat = stub.nav.Compat
+			ns.Compat.Readable = ns.Compat.Readable or function(v) return v end
+			ns.Compat.AddOnPresent = ns.Compat.AddOnPresent or function() return false end
+		end
+	end
+end"#;
+	let files = ["Core/Init.lua", "Theme/Theme.xml", "Nav/Nav.xml", "UI/UI.lua"];
+	let script = format!(
+		"{PRELUDE}{}",
+		r#"
+		local views = {
+			[1] = { status = "current", goals = { { map = 1429, x = 40, y = 40, status = "active" } } },
+			[2] = { title = "Escort", status = "upcoming", goals = { { map = 1429, x = 42, y = 65, status = "pending", escort = true } } },
+			[3] = { title = "Elites", status = "upcoming", goals = { { map = 1429, x = 60, y = 20, status = "pending", party = { kind = "elite", near = true } } } },
+			[4] = { title = "Plain", status = "upcoming", goals = { { map = 1429, x = 20, y = 80, status = "pending" } } },
+			[5] = { title = "Shared", status = "upcoming", goals = { { map = 1429, x = 60.1, y = 20.1, status = "pending", escort = true } } },
+		}
+		Polestar.Engine = { GetLiveStep = function() return 1 end, GetStepCount = function() return 5 end, GetStepView = function(i) return views[i] end }
+		Polestar.Set("ui.upcoming", 4)
+		local pins = N.upcoming.Build()
+		local T = Polestar.Theme
+		local warn, muted = { T.Color("warning") }, { T.Color("textMuted") }
+		local out = {}
+		for i, p in ipairs(pins) do
+			local c = p.corner
+			out[i] = { text = p.text, state = c and c.state or false, tex = c and c.tex == T.Media("icon-group") or false,
+				warn = c and c.color[1] == warn[1] and c.color[2] == warn[2] and c.color[3] == warn[3] or false, tip = p.tooltip }
+		end
+		emit(out)"#
+	);
+	let out = emitted(&RunAddon { stubs: vec!["stub_nav.lua"], before: before.into(), addons: vec![Addon::files("Polestar", &files)], login: true, script, ..Default::default() }).remove(0);
+	assert_eq!(out[0]["state"], "group", "{out}");
+	assert_eq!(out[0]["tex"], true);
+	assert_eq!(out[0]["warn"], true);
+	assert_eq!(out[0]["tip"], "Step 2: Escort (Group, or careful: an escort that can go wrong)", "the reason in the tooltip");
+	assert_eq!((out[1]["text"].as_str(), out[1]["state"].as_str()), (Some("3+"), Some("group")), "careful and group on one pin: the group's");
+	assert_eq!(out[2]["state"], false);
+}
+
 // #3197 (Vesper): with the guide's pins on too, a later step's numbered pin sat under the pin of the same place (the
 // numbered layer drew lowest of all). It draws over the guide's own pins (the step's goals 10, spawn spots 15-20, While
 // you're here 40, Nav/Layers.lua) and under the travel route's stops (50) and the arrow's target (100).
@@ -2769,4 +2906,40 @@ fn the_numbered_pins_draw_over_the_guide_pins_of_the_same_place_3197() {
 		emit({ priority = pins[1].priority })"#);
 	let p = out["priority"].as_f64().unwrap();
 	assert!(p > 40.0 && p < 50.0, "over the goal, spot and While you're here pins, under the route's stops: {p}");
+}
+
+// #3631 (imp): While you're here handed in step 90's quest while the guide was at step 86, and step 90's numbered
+// pin stayed on the map: the layer was redrawn only when the guide's own step changed. A quest-log event redraws it
+// (debounced); with the pins off nothing is asked.
+#[test]
+fn a_later_step_done_out_of_turn_loses_its_numbered_pin_on_the_quest_log_event_3631() {
+	let out = run(r#"
+		local views = {
+			[1] = { status = "current", goals = { { map = 1429, x = 40, y = 40, status = "active" } } },
+			[2] = { title = "Goldshire", status = "upcoming", goals = { { map = 1429, x = 42, y = 65, status = "pending" } } },
+			[3] = { title = "Mine", status = "upcoming", goals = { { map = 1429, x = 38, y = 80, status = "pending" } } },
+		}
+		local builds = 0
+		Polestar.Engine = { GetLiveStep = function() return 1 end, GetStepCount = function() return 3 end,
+			GetStepView = function(i) builds = builds + 1; return views[i] end }
+		local shown
+		Polestar.Pins = { SetLayer = function(_, pins) shown = {} for i, p in ipairs(pins) do shown[i] = p.text end end,
+			ClearLayer = function() shown = {} end }
+		Polestar.Set("nav.upcomingPins", true)
+		stub.advance(0.1)
+		local before = shown
+		views[2].status = "done"
+		stub.fire("QUEST_TURNED_IN", 90, 0, 0)
+		stub.fire("QUEST_LOG_UPDATE")
+		stub.advance(0.6)
+		local after = shown
+		Polestar.Set("nav.upcomingPins", false)
+		stub.advance(0.1)
+		builds = 0
+		stub.fire("QUEST_LOG_UPDATE")
+		stub.advance(0.6)
+		emit({ before = before, after = after, offBuilds = builds })"#);
+	assert_eq!(out["before"], json!(["2", "3"]));
+	assert_eq!(out["after"], json!(["3"]), "the done step's pin goes without a step change");
+	assert_eq!(out["offBuilds"], 0, "pins off: the quest log's events build nothing");
 }

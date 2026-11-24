@@ -6,59 +6,59 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: To Ironforge
-	-- {zone:1455} Ironforge
-	["To {zone:1455}"] = "前往{zone:1455}",
-
-	-- Step 2: Fly to Thelsamar
+	-- Step 1: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "飞往{area:144}",
-	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "{zone:1455}飞行管理员",
 
-	-- Step 3: Into Searing Gorge
+	-- Step 2: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into {zone:1427}"] = "进入{zone:1427}",
 
-	-- Step 4: Searing Gorge
+	-- Step 3: Searing Gorge
 	["The Grimesilt outhouse"] = "格里塞特厕所",
 
-	-- Step 5: The Grimesilt outhouse
+	-- Step 4: The Grimesilt outhouse
 	-- {area:144} Thelsamar · {zone:1418} Badlands · {area:340} Kargath · {zone:1427} Searing Gorge · {area:247} Grimesilt Dig Site · {item:4306} Silk Cloth
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
 	["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}: the {area:247} is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "从{area:144}向南骑行进入{zone:1418}，再向西经过部落城镇{area:340}（绕远些），沿小径上行进入{zone:1427}：刚进去的东南边就是{area:247}。木制厕所里的囚犯要15块{item:4306}，并要求击杀周围挖掘场的八名黑铁地质学家。如果找到钥匙，也可以用钥匙打开厕所。",
 
-	-- Step 6: The Grimesilt outhouse
+	-- Step 5: The Grimesilt outhouse
 	-- {zone:1446} Tanaris · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh
 	["The prisoner's next task, Ledger from {zone:1446}, sends you to the {zone:1435} and {zone:1445}: skip it."] = "囚犯的下一个任务“{zone:1446}的账本”会让你去{zone:1435}和{zone:1445}：跳过。",
 
-	-- Step 7: Level 48.27
+	-- Step 6: Level 48.27
 	["Level 48.27"] = "等级 48.27",
 	-- {item:3985} Monogrammed Sash
 	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan."] = "如果跳过了{item:3985}或《挑战奈古拉什》，在这里刷怪补到48.27级，以跟上路线进度。",
 	-- {npc:5839} Dark Iron Geologist
 	["grind on {npc:5839}"] = "反复击杀{npc:5839}补足经验",
 
-	-- Step 8: Dorius Stonetender
+	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
 	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "杜里奥斯·裂石在{area:247}旁的路边。向东北护送他到{area:1959}，确保他存活；结束后阅读他留在路上的{object:175704}。",
 	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
 	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "在本指南结尾交给{zone:1455}的{npc:8256}",
 
-	-- Step 9: Thorium Point
+	-- Step 8: Thorium Point
 	-- {area:1446} Thorium Point
 	["Ride west along the north of the Gorge to {area:1446}, the scaffolded camp on the north-west rim."] = "沿灼热峡谷北侧向西骑行，到达{area:1446}，即西北边缘搭着脚手架的营地。",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "{object:179827}布告板",
 
-	-- Step 10: Culling the Competition
+	-- Step 9: Culling the Competition
 	["Culling the Competition"] = "",
 	["Take the bounty from the board only if you want to hunt the linked dwarf packs with a group."] = "",
 
-	-- Step 12: Zamael Lunthistle
+	-- Step 11: Zamael Lunthistle
 	-- {npc:8436} Zamael Lunthistle · {area:1442} Firewatch Ridge · {area:1446} Thorium Point · {npc:8282} Highlord Mastrogonde · {quest:3377} Prayer to Elune
 	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:8436}站在{area:1446}西边{area:1442}的暮光营地里，周围是暮光火焰卫士、暮光崇拜者和暮光地占师（48-49 级精英），旁边还有{npc:8282}（51 级稀有精英）：{quest:3377}需要 4 人小队。独自一人时可跳过。",
+
+	-- Step 14: Prayer to Elune: the page
+	-- {quest:3378} Prayer to Elune
+	["{quest:3378}: the page"] = "",
+	-- {npc:8436} Zamael Lunthistle · {quest:3378} Prayer to Elune
+	["The Twilight elites of {npc:8436}'s camp drop the {quest:3378} page, about one in five: keep the group together here until one drops."] = "",
 
 	-- Step 15: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
@@ -80,7 +80,7 @@ return {
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster
 	["Dark Iron Taskmasters"] = "",
 	-- {area:1443} Slag Pit
-	["With your group, look for Taskmasters on the open ledges. Stay on the surface; don't follow the arrow into the {area:1443}."] = "",
+	["With your group, look for Taskmasters on the open ledges first. Last stop, if you still need some: take the lift (the scaffold cars) down into the {area:1443} below, where four more stand."] = "",
 
 	-- Step 22: Dark Iron Slavers
 	-- plural, as words: Dark Iron Slavers = {npc:5844} Dark Iron Slaver
@@ -205,6 +205,7 @@ return {
 	-- ["The spiders roam the plateaus and lava pools in the south-west of the gorge."] = "蜘蛛在峡谷西南部的高地和熔岩池中游荡。",
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Kalaran."] = "蜘蛛在{npc:8436}南面的高地和熔岩池一带游荡，前往卡拉然的路上会经过。",
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "蜘蛛在{npc:8436}南边的平台和熔岩池周围活动，前往Velarok时会经过。",
+	-- ["To {zone:1455}"] = "前往{zone:1455}",
 	-- ["Velarok Windblade"] = "Velarok Windblade",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok站在{area:1446}南边的大熔炉边缘。听他讲述故事。",
 	-- ["grind on {npc:5844}"] = "反复击杀{npc:5844}补足经验",
@@ -213,4 +214,5 @@ return {
 	-- ["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509}和黑龙军团的宝藏就在Velarok旁边，位于{area:1446}南边的边缘上。",
 	-- ["{object:147516} dwarves"] = "{object:147516}矮人",
 	-- ["{quest:3453} lies on the ground at Velarok's feet; {quest:3462} stands beside him."] = "{quest:3453}就放在Velarok脚边的地上；{quest:3462}站在他身旁。",
+	-- ["{zone:1455} flight master"] = "{zone:1455}飞行管理员",
 }

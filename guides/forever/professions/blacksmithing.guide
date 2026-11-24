@@ -96,43 +96,43 @@ step Rough Stone (Elwynn Forest)
   only Human
   zone Elwynn Forest
   tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Elwynn Forest is marked.
-  collect 2835 x286 @45.6,72.6 era gather Mining 1
+  collect 2835 x286 @20.8,77.6 era gather Mining 1
 
 step Rough Stone (Dun Morogh)
   only Dwarf,Gnome
   zone Dun Morogh
   tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Dun Morogh is marked.
-  collect 2835 x286 @70.4,55.1 era gather Mining 1
+  collect 2835 x286 @43,61.2 era gather Mining 1
 
 step Rough Stone (Darkshore)
   only NightElf
   zone Darkshore
   tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Darkshore is marked.
-  collect 2835 x286 @39.1,81.5 era gather Mining 1
+  collect 2835 x286 @55.4,19.7 era gather Mining 1
 
 step Rough Stone (Zephras Isle)
   only Skyborne
   zone Zephras Isle
   tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Zephras Isle is marked.
-  collect 2835 x286 @40.2,28 live gather Mining 1
+  collect 2835 x286 @38,49.7 live gather Mining 1
 
 step Rough Stone (Durotar)
   only Orc,Troll
   zone Durotar
   tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Durotar is marked.
-  collect 2835 x286 @49.5,35.9 era gather Mining 1
+  collect 2835 x286 @36.1,28.7 era gather Mining 1
 
 step Rough Stone (Mulgore)
   only Tauren
   zone Mulgore
   tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Mulgore is marked.
-  collect 2835 x286 @56.4,44.1 live gather Mining 1
+  collect 2835 x286 @31.4,29.1 live gather Mining 1
 
 step Rough Stone (Tirisfal Glades)
   only Undead
   zone Tirisfal Glades
   tip 286 Rough Stone for Rough Sharpening Stone and Rough Grinding Stone (116 of them for 75-150: pick them all now): Mining: Copper Vein (skill 1). The densest cluster of Copper Vein in Tirisfal Glades is marked.
-  collect 2835 x286 @50.7,34.3 era gather Mining 1
+  collect 2835 x286 @82,41.5 era gather Mining 1
 
 step Rough Sharpening Stone to 35
   zone Azeroth
@@ -186,31 +186,31 @@ step Coarse Stone (Darkshore)
   only NightElf
   zone Darkshore
   tip 256 Coarse Stone for Patterned Bronze Bracers: Mining: Tin Vein (skill 65). The densest cluster of Tin Vein in Darkshore is marked.
-  collect 2836 x256 @59.3,19.6 era gather Mining 65
+  collect 2836 x256 @37.8,63.2 era gather Mining 65
 
 step Coarse Stone (The Barrens)
   only Orc,Troll,Tauren,Skyborne,Horde
   zone The Barrens
   tip 256 Coarse Stone for Patterned Bronze Bracers: Mining: Tin Vein (skill 65). The densest cluster of Tin Vein in The Barrens is marked.
-  collect 2836 x256 @40.6,45.7 era gather Mining 65
+  collect 2836 x256 @44.9,51.2 era gather Mining 65
 
 step Coarse Stone (Silverpine Forest)
   only Undead
   zone Silverpine Forest
   tip 256 Coarse Stone for Patterned Bronze Bracers: Mining: Tin Vein (skill 65). The densest cluster of Tin Vein in Silverpine Forest is marked.
-  collect 2836 x256 @41.6,27.4 era gather Mining 65
+  collect 2836 x256 @35,8.2 era gather Mining 65
 
 step Heavy Stone (Arathi Highlands)
   only Human,Dwarf,Gnome,Skyborne,Alliance
   zone Arathi Highlands
   tip 28 Heavy Stone for Heavy Sharpening Stone: Mining: Iron Deposit (skill 125). The densest cluster of Iron Deposit in Arathi Highlands is marked.
-  collect 2838 x28 @15.8,63.2 era gather Mining 125
+  collect 2838 x28 @17.2,52.7 era gather Mining 125
 
 step Heavy Stone (Ashenvale)
   only NightElf
   zone Ashenvale
   tip 28 Heavy Stone for Heavy Sharpening Stone: Mining: Iron Deposit (skill 125). The densest cluster of Iron Deposit in Ashenvale is marked.
-  collect 2838 x28 @70.7,53.5 era gather Mining 125
+  collect 2838 x28 @64.1,53.7 era gather Mining 125
 
 step Heavy Stone (The Barrens)
   only Orc,Troll,Tauren,Skyborne,Horde
@@ -222,7 +222,7 @@ step Heavy Stone (Arathi Highlands)
   only Undead
   zone Arathi Highlands
   tip 28 Heavy Stone for Heavy Sharpening Stone: Mining: Iron Deposit (skill 125). The densest cluster of Iron Deposit in Arathi Highlands is marked.
-  collect 2838 x28 @15.8,63.2 era gather Mining 125
+  collect 2838 x28 @17.2,52.7 era gather Mining 125
 
 step Copper Bar
   zone Azeroth
@@ -234,7 +234,8 @@ step Bronze Bar
   collect 2841 x320 anywhere gather Mining 65
 
 step Rough Grinding Stone to 83
-  tip Rough Grinding Stone is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 Rough Stone. Two Rough Stone a craft. Grinding stones are parts for later plans; the extras sell to vendors.
+  tip Rough Grinding Stone is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 Rough Stone. Two Rough Stone a craft. Grinding stones are parts for later plans; the extras sell to vendors. If you got here without learning Rough Grinding Stone, learn it now: an earlier step teaches it.
+  learn 3320
   craft 3320 until 83
 
 step Runed Copper Belt to 100
@@ -286,13 +287,13 @@ step Heavy Stone (Alliance)
   only Alliance
   zone Arathi Highlands
   tip 234 Heavy Stone for Golden Scale Bracers: Mining: Iron Deposit (skill 125) in Arathi Highlands (30-40), Stranglethorn Vale (30-45) and Desolace (30-40). The densest cluster of Iron Deposit in Arathi Highlands is marked.
-  collect 2838 x234 @15.8,63.2 era gather Mining 125
+  collect 2838 x234 @17.2,52.7 era gather Mining 125
 
 step Heavy Stone (Horde)
   only Horde
   zone Thousand Needles
   tip 234 Heavy Stone for Golden Scale Bracers: Mining: Iron Deposit (skill 125) in Thousand Needles (25-35), Arathi Highlands (30-40) and Stranglethorn Vale (30-45). The densest cluster of Iron Deposit in Thousand Needles is marked.
-  collect 2838 x234 @8.9,34.3 era gather Mining 125
+  collect 2838 x234 @10.5,41.1 era gather Mining 125
 
 step Iron Bar
   zone Azeroth
@@ -311,13 +312,13 @@ step Solid Stone (Alliance)
   only Alliance
   zone Stranglethorn Vale
   tip 30 Solid Stone for Solid Sharpening Stone: Mining: Mithril Deposit (skill 175) in Stranglethorn Vale (30-45), The Hinterlands (40-50) and Feralas (40-50). The densest cluster of Mithril Deposit in Stranglethorn Vale is marked.
-  collect 7912 x30 @29.4,60.1 era gather Mining 175
+  collect 7912 x30 @41.6,41.4 era gather Mining 175
 
 step Solid Stone (Horde)
   only Horde
   zone Desolace
   tip 30 Solid Stone for Solid Sharpening Stone: Mining: Mithril Deposit (skill 175) in Desolace (30-40), The Hinterlands (40-50) and Feralas (40-50). The densest cluster of Mithril Deposit in Desolace is marked.
-  collect 7912 x30 @31.5,59.4 era gather Mining 175
+  collect 7912 x30 @39.4,85.4 era gather Mining 175
 
 step Green Iron Bracers to 175
   zone Azeroth
@@ -370,12 +371,12 @@ step Artisan Blacksmithing
   learn 16639 npc 2836 only Horde
 
 step Plans: Ornate Thorium Handaxe
-  tip Plans: Ornate Thorium Handaxe teaches Ornate Thorium Handaxe (Blacksmithing 250) for 1g 60s. Sold by Magnus Frostwake (Western Plaguelands).
-  buy 12819 nearest
+  tip Plans: Ornate Thorium Handaxe teaches Ornate Thorium Handaxe (Blacksmithing 250) for 1g 60s. Sold by Magnus Frostwake (Western Plaguelands). Magnus is a ghost: you see him only with the Spectral Essence on (from Eva Sarkhoff's Scholomance chain, level 55, a group), so skip this without it.
+  buy 12819 nearest optional
 
 step Plans: Huge Thorium Battleaxe
-  tip Plans: Huge Thorium Battleaxe teaches Huge Thorium Battleaxe (Blacksmithing 255) for 2g. Sold by Magnus Frostwake (Western Plaguelands).
-  buy 12823 nearest
+  tip Plans: Huge Thorium Battleaxe teaches Huge Thorium Battleaxe (Blacksmithing 255) for 2g. Sold by Magnus Frostwake (Western Plaguelands). Magnus is a ghost: you see him only with the Spectral Essence on (from Eva Sarkhoff's Scholomance chain, level 55, a group), so skip this without it.
+  buy 12823 nearest optional
 
 step Blacksmithing 225-300: Auction House
   tip What 225-300 takes that the Auction House sells: 44 Shadowgem, 596 Mithril Bar, 142 Thick Leather, 19 Aquamarine, 19 Star Ruby, 44 Solid Stone, 11 Black Pearl, 206 Rugged Leather, 2026 Thorium Bar, 801 Dense Stone and 10 Large Opal. The counts drop by what your bags, bank and mail hold.
@@ -430,7 +431,7 @@ step Solid Stone (Horde)
   only Horde
   zone Desolace
   tip 44 Solid Stone for Big Black Mace: Mining: Mithril Deposit (skill 175) in Desolace (30-40), The Hinterlands (40-50) and Feralas (40-50). The densest cluster of Mithril Deposit in Desolace is marked.
-  collect 7912 x44 @31.5,59.4 era gather Mining 175
+  collect 7912 x44 @39.4,85.4 era gather Mining 175
 
 step Rugged Leather (Alliance)
   only Alliance
@@ -481,14 +482,14 @@ step Big Black Mace to 250
 
 step Ornate Thorium Handaxe to 255
   tip Ornate Thorium Handaxe is orange at 250 (yellow 275, green 287, grey 300): about 5 crafts to 255, a point every craft. Each takes 20 Thorium Bar, 2 Large Opal, 2 Dense Grinding Stone and 4 Rugged Leather. Make the 10 Dense Grinding Stone first. Large Opal turns up in about one Thorium vein in 130: buy the ten at the Auction House. Five crafts only, until the battleaxe plans can be used at 255. Needs an anvil nearby.
-  learn 16969 -- from the recipe in your bags
-  craft 16639 x10
+  learn 16969 optional -- from the recipe in your bags
+  craft 16639 x10 optional
   craft 16969 until 255
 
 step Huge Thorium Battleaxe to 285
-  tip Huge Thorium Battleaxe is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285. Each takes 40 Thorium Bar, 6 Dense Grinding Stone and 6 Rugged Leather. Make the 186 Dense Grinding Stone first. Plans from Magnus Frostwake (Caer Darrow, Western Plaguelands), unlimited stock, but they bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the Imperial Plate Boots take over. Other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant's Favor sets. Needs an anvil nearby.
-  learn 16971 -- from the recipe in your bags
-  craft 16639 x186
+  tip Huge Thorium Battleaxe is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285. Each takes 40 Thorium Bar, 6 Dense Grinding Stone and 6 Rugged Leather. Make the 186 Dense Grinding Stone first. Plans from Magnus Frostwake in Caer Darrow (Western Plaguelands): he is a ghost you see only with the Spectral Essence trinket on (put it on inside Caer Darrow), the reward of Eva Sarkhoff's Scholomance chain that ends with Kirtonos the Herald (level 55, a dungeon group). Unlimited stock, but the plans bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the Imperial Plate Boots take over. Without the trinket, the other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant's Favor sets. Needs an anvil nearby.
+  learn 16971 optional -- from the recipe in your bags
+  craft 16639 x186 optional
   craft 16971 until 285
 
 step Plans: Imperial Plate Boots

@@ -56,6 +56,9 @@ pub struct Options {
 	/// The local evidence quotes (data/local/mechanics/evidence): steps running 8 words of page
 	/// text are held.
 	pub evidence: Option<PathBuf>,
+	/// A Markdown paragraph for this version's CHANGELOG.md section (`--release-note`): what the
+	/// generated counts can't say, such as why a table lost rows. Pass it on every run of that version.
+	pub release_note: Option<PathBuf>,
 }
 
 impl Options {
@@ -82,6 +85,7 @@ impl Options {
 			producer_commit: None,
 			date: None,
 			evidence: Some(local.join("mechanics").join("evidence")),
+			release_note: None,
 		}
 	}
 }
@@ -166,7 +170,7 @@ pub fn public_build_options(root: &Path, sources: &Path, questie: bool, empty_co
 	o.web_zones = false;
 	// No corrections here, and no objective text ships in the public tables (#2614's words come from
 	// corrections): the placeholder check is the full build's.
-	o.placeholder_guard = false;
+	o.placeholders = crate::Placeholders::Count;
 	o.corrections = empty_corrections.to_path_buf();
 	o.questie = if questie { crate::questie::detect_questie() } else { None };
 	let defs = o.sources.join("wowdbdefs");
@@ -346,12 +350,17 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Summary, String> {
 		return Err(format!("--version {version}: YYYY.MM.N"));
 	}
 	let client_build = data.client_build().unwrap_or_else(|| "unknown".into());
+	let note = match &o.release_note {
+		Some(p) => Some(std::fs::read_to_string(p).map_err(|e| format!("--release-note {}: {e}", p.display()))?),
+		None => None,
+	};
 	let meta = release::Meta {
 		client_build: client_build.clone(),
 		version: version.clone(),
 		date,
 		producer_commit: o.producer_commit.clone().unwrap_or_else(producer_commit),
 		pfquest_notice: data.pfquest_notice(),
+		note,
 	};
 	release::write(&o.out, &t, &meta, o.previous.as_deref(), &notes::ledger_md(&ledger))?;
 	if corrections.is_some() {

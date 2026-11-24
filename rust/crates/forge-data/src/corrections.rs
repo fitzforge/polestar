@@ -527,7 +527,7 @@ pub const KINDS: [&str; 14] = [
 	"other",
 ];
 
-const QUEST_FIELDS: [&str; 25] = [
+const QUEST_FIELDS: [&str; 27] = [
 	"title",
 	"level",
 	"minLevel",
@@ -557,6 +557,12 @@ const QUEST_FIELDS: [&str; 25] = [
 	"limit",
 	// The item the quest hands over when it is taken (a kit, a staff, a bundle of candles to use).
 	"sourceItem",
+	// Quests whose being in the log or handed in proves this one done, for a quest the game never flags completed
+	// (#2465: Seeking the Kor Gem once Kor's Fang is taken). The QuestDB's `doneBy`, read by the engine's questDone.
+	"doneBy",
+	// The set of quests the game offers one of at a time, the same name on each (#3601: Pix's weekly In Demand
+	// quests). The Codex's `v<name>`: a pick-up guide takes such a quest as optional.
+	"rotation",
 ];
 
 struct Ck<'a> {
@@ -870,7 +876,12 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 						}
 					}
 				}
-				"pre" | "preAny" | "preAll" | "excl" | "breadcrumbs" => ck.ids(&a, "quests", &v),
+				"pre" | "preAny" | "preAll" | "excl" | "breadcrumbs" | "doneBy" => ck.ids(&a, "quests", &v),
+				"rotation" => {
+					if !(v.as_str().is_some_and(|s| !s.trim().is_empty()) || v.is_nullish()) {
+						ck.err(&a, "rotation is the set's name (text) or null");
+					}
+				}
 				"next" | "breadcrumbFor" => {
 					if !v.is_nullish() {
 						ck.refers(&a, "quests", &v);
@@ -976,6 +987,14 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 						}
 						("name", _) if !v.is_str() => ck.err(&a, "must be text"),
 						("subName", _) if !(v.is_str() || v.is_nullish()) => ck.err(&a, "must be text or null"),
+						// The quest after which the NPC sells (#3138: Zorbin Fandazzle once Zapped Giants is done).
+						("vendorAfter", "npcs") => {
+							if !v.is_nullish() {
+								ck.refers(&a, "quests", &v);
+							}
+						}
+						// Seen only by a dead character (#558: Franclorn Forgewright at Forgewright's Tomb).
+						("ghostOnly", "npcs") if !matches!(v, V::Bool(_)) => ck.err(&a, "ghostOnly is true or false"),
 						("spawns", _) => ck.spawns(&a, &v),
 						_ => {}
 					}
@@ -2186,6 +2205,26 @@ mod tests {
 		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": 600 }}, {src} }} }} }}"#)), None, None), Vec::<String>::new());
 		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": "10 min" }}, {src} }}, "11": {{ "set": {{ "limit": 1.5 }}, {src} }} }} }}"#)), None, None);
 		assert_eq!(bad.len(), 2, "{bad:?}");
+	}
+
+	// #2465 (doneBy), #3601 (rotation), #3138 (vendorAfter), #558 (ghostOnly): the condition fields the engine reads.
+	#[test]
+	fn done_by_rotation_vendor_after_and_ghost_only_are_checked() {
+		let src = r#""source": { "kind": "in-game-check", "ref": "issue 1" }, "note": "checked""#;
+		let ok = format!(
+			r#"{{ "quests": {{ "10": {{ "set": {{ "doneBy": [11], "rotation": "weekly" }}, {src} }} }},
+			"npcs": {{ "20": {{ "set": {{ "vendorAfter": 10, "ghostOnly": true }}, {src} }} }} }}"#
+		);
+		assert_eq!(findings(Some(&ok), None, None), Vec::<String>::new());
+		let bad = findings(
+			Some(&format!(
+				r#"{{ "quests": {{ "10": {{ "set": {{ "doneBy": [999], "rotation": "" }}, {src} }} }},
+				"npcs": {{ "20": {{ "set": {{ "vendorAfter": 999, "ghostOnly": "yes" }}, {src} }} }} }}"#
+			)),
+			None,
+			None,
+		);
+		assert_eq!(bad.len(), 4, "an unknown quest twice, an empty set name, ghostOnly not a flag: {bad:?}");
 	}
 
 	#[test]

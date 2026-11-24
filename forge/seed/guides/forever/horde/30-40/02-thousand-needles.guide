@@ -88,12 +88,14 @@ next forever/horde/30-40/03-stranglethorn-vale
 # ---------------------------------------------------------------- Orgrimmar
 
 step Zeppelin to Orgrimmar
+  skipto freewind-post when !onquest 96,1146,1150
   when !zone "Durotar"
   when !zone "Orgrimmar"
   zone Tirisfal Glades
   goto 60.7,58.8 "Zeppelin to Orgrimmar"
 
 step Alliance Relations
+  skipto freewind-post when !onquest 96,1146,1150
   when level>=30
   zone Orgrimmar
   tip The zeppelin lands at the tower outside Orgrimmar's main gate. Craven Drok walks the Drag: if he isn't at the arrow, look along its streets to the south-west. Keldran stands in the Valley of Spirits on the west side of the city.
@@ -102,18 +104,21 @@ step Alliance Relations
   accept 1432                         -- for Takata Steelblade in Desolace, later in this guide
 
 step Orgrimmar trainers
+  skipto freewind-post when !onquest 96,1146,1150
   only Hunter,Shaman
   zone Orgrimmar
   tip Train while you are in the city.
   train class
 
 step Searn Firewarder
+  skipto freewind-post when !onquest 96,1146,1150
   only Shaman
   zone Orgrimmar
   tip Searn Firewarder stands in the Valley of Wisdom.
   accept 1531                         -- Searn Firewarder: for Prate Cloudseer by Freewind Post, later in this guide
 
 step Fly to the Crossroads
+  skipto freewind-post when !onquest 96,1146,1150
   when !turnedin 1145
   when !onquest 1145
   zone Orgrimmar
@@ -123,6 +128,7 @@ step Fly to the Crossroads
   zone The Barrens
 
 step Korran
+  skipto freewind-post when !onquest 96,1146,1150
   when !turnedin 1145
   zone The Barrens
   tip Korran stands beside the Crossroads flight master.
@@ -143,10 +149,12 @@ step Belgrom Rockmaul
   accept 1146                         -- for Moktar Krin in the Shimmering Flats, later in this guide
 
 step Orgrimmar flight master
+  skipto freewind-post when !onquest 96,1146,1150
   zone Orgrimmar
   goto 45.3,63.7 "Orgrimmar flight master"
 
 step Thunder Bluff
+  skipto freewind-post when !onquest 96,1146,1150
   only Druid
   zone Thunder Bluff
   tip Fly from Orgrimmar to Thunder Bluff and train with Turak Runetotem on Elder Rise; fly on to Freewind Post from there.
@@ -154,6 +162,7 @@ step Thunder Bluff
   train class
 
 step Islen Waterseer
+  skipto freewind-post when !onquest 96,1146,1150
   only Shaman
   zone The Barrens
   tip Fly from Orgrimmar to Ratchet. Islen Waterseer camps on the coast a short walk south of the town; fly on to Freewind Post from Ratchet.
@@ -161,6 +170,7 @@ step Islen Waterseer
   turnin 96                           -- Islen Waterseer: Healing Stream Totem and your Water Totem
 
 step Fly to Freewind Post
+  skipto freewind-post when !onquest 96,1146,1150
   only Druid
   zone Thunder Bluff
   goto 46.7,49.9 "Thunder Bluff flight master"
@@ -168,6 +178,7 @@ step Fly to Freewind Post
   zone Thousand Needles
 
 step Fly to Freewind Post
+  skipto freewind-post when !onquest 96,1146,1150
   only Shaman
   zone The Barrens
   goto 63.1,37.1 "Ratchet flight master"
@@ -175,6 +186,7 @@ step Fly to Freewind Post
   zone Thousand Needles
 
 step Fly to Freewind Post
+  skipto freewind-post when !onquest 96,1146,1150
   only Warrior,Hunter,Rogue,Priest,Paladin,Mage,Warlock
   zone Orgrimmar
   fly "Freewind Post"
@@ -183,6 +195,7 @@ step Fly to Freewind Post
 # ---------------------------------------------------------------- Freewind Post
 
 step Prate Cloudseer
+  label freewind-post
   only Shaman
   zone Thousand Needles
   tip Prate Cloudseer hides in a small cave in the canyon wall north-east of the post, on the way east.
@@ -246,6 +259,13 @@ step Moktar Krin
   zone Thousand Needles
   tip Take the lift down and follow the canyon east. Moktar Krin camps on the north-western edge of the salt flats.
   turnin 1146                         -- Moktar Krin
+  accept 1147
+
+step Moktar Krin
+  when turnedin 1146
+  when available 1147
+  zone Thousand Needles
+  tip The Swarm Grows' second part is already handed in: take the third part from Moktar Krin, on the north-western edge of the salt flats.
   accept 1147
 
 step Mirage Raceway

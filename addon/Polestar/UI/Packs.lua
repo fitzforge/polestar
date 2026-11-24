@@ -72,19 +72,20 @@ end
 -- guides. The empty states and a question at login turn it back on.
 local OWN = "Polestar_Guides"
 
--- The parts every release needs beside the guides: the settings window and
--- its looks (load on demand). An update can leave them unticked (#2594, on
--- GeForce NOW): Options then cannot open. Polestar asks before it turns them
--- back on, never on its own.
-local NEEDED = { Polestar_Options = true, Polestar_Looks = true }
+-- The parts every release needs beside the guides: the settings window
+-- (load on demand). An update can leave it
+-- unticked (#2594, on GeForce NOW): Options then cannot open. Polestar asks
+-- before it turns it back on, never on its own.
+local NEEDED = { Polestar_Options = true }
 
--- Ours to turn on with it: its race and faction parts, the walking packs
+-- Ours to turn on with it: its faction parts, the walking packs
 -- (Polestar_Nav*) and the needed parts, never the 0.2.x language folders a
--- hand install may have left (Polestar_Guides_deDE), nor the Recorder or
--- community addons.
+-- hand install may have left (Polestar_Guides_deDE), the race parts 0.4.3
+-- folded into the faction parts (Data.Folded), nor the Recorder or community
+-- addons.
 local function ownPart(name)
 	if name == OWN or NEEDED[name] or name:find("^Polestar_Nav") then return true end
-	return name:find("^Polestar_Guides_") ~= nil and not name:find("_%l%l%u%u$")
+	return name:find("^Polestar_Guides_") ~= nil and not name:find("_%l%l%u%u$") and not ns.Data.Folded(name)
 end
 
 -- The installed addons `want` picks that are off for this character:
@@ -115,7 +116,7 @@ function P.OwnGuidesOff()
 	return #offAddOns(function(name) return name == OWN end) > 0
 end
 
--- The needed parts (settings, looks) installed and turned off: their names.
+-- The needed parts (the settings) installed and turned off: their names.
 function P.NeededOff()
 	return offAddOns(function(name) return NEEDED[name] == true end)
 end

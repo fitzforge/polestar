@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "飛往{area:392}",
-	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "{zone:1456}飛行管理員",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -23,60 +21,58 @@ return {
 	-- {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Cleansed Water goes to the {area:2479} in {zone:1448}: keep it for later."] = "淨化過的水要送到{zone:1448}的{area:2479}：保留到稍後。",
 
-	-- Step 4: Dokimi's crates
-	-- {npc:256386} Dokimi
-	["{npc:256386}'s crates"] = "{npc:256386}的箱子",
-	-- {npc:256386} Dokimi · {zone:1454} Orgrimmar
-	-- was: ["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "沿著道路向北騎到十字路口；{npc:256386}站在那裡。打開她交給你的每個箱子，把裡面的東西帶回來。再從十字路口飛往{area:1237}。"
-	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {zone:1454} from the Crossroads."] = "",
-
-	-- Step 5: Fly to Orgrimmar
+	-- Step 4: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "飛往{area:1637}",
-	["Crossroads flight master"] = "十字路口飛行管理員",
+	-- {area:392} Ratchet
+	["{area:392} flight master"] = "{area:392}飛行管理員",
 
-	-- Step 6: Jes'rimon
+	-- Step 5: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}，{object:172960}",
 
-	-- Step 7: Orgrimmar
+	-- Step 6: Orgrimmar
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom · {zone:1451} Silithus
 	["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{npc:15188}，{object:172957}：保留給{zone:1451}",
 
-	-- Step 8: Zilzibin Drumlore
+	-- Step 7: Zilzibin Drumlore
 	-- {npc:7010} Zilzibin Drumlore
 	["{npc:7010} works in the Drag."] = "{npc:7010}在暗巷工作。",
 
-	-- Step 9: Zilzibin Drumlore
+	-- Step 8: Zilzibin Drumlore
 	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1451} Silithus · {zone:2482} Mount Hyjal
 	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "",
 
-	-- Step 10: Vehena
+	-- Step 9: Vehena
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "在{object:172961}。每項捐獻從你揹包中消耗六十張毛料、絲綢或魔紋布：身上帶著的就交，其餘跳過。",
 
-	-- Step 11: Rashona Straglash
+	-- Step 10: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "在{object:172958}。",
 	-- {item:14047} Runecloth
 	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "兩項{item:14047}捐獻都在路線後段交付：想要的話各留六十張{item:14047}。",
 
-	-- Step 12: Paladin trainer
+	-- Step 11: Paladin trainer
 	["Paladin trainer"] = "聖騎士訓練師",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{zone:1456}的{npc:246344}；{zone:1454}沒有聖騎士訓練師",
 
-	-- Step 13: Orgrimmar
+	-- Step 12: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Fly to {zone:1454} and train."] = "飛往{zone:1454}並訓練。",
 
-	-- Step 14: Into Durotar
+	-- Step 13: Into Durotar
 	-- {zone:1411} Durotar
 	["Into {zone:1411}"] = "進入{zone:1411}",
 
-	-- Step 15: Zeppelin to Undercity
+	-- Step 14: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "搭飛艇前往{zone:1458}",
+
+	-- Step 15: Chemist Cuely
+	-- {npc:8390} Chemist Cuely
+	["{npc:8390} works in the Apothecarium."] = "",
 
 	-- Step 16: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
@@ -124,6 +120,7 @@ return {
 	-- ["Back north-west to {npc:8420}."] = "向西北回到{npc:8420}那裡。",
 	-- ["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "回到辛多雷之書：交上徽印，然後用它召喚{npc:8578}。\n小心：哪顆水晶連結雷姆托里是隨機的。另外兩顆各會召喚出一隻敵對的地獄火。",
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "兩個{item:14047}捐獻都在路線稍後繳交：開始存{item:14047}。",
+	-- ["Crossroads flight master"] = "十字路口飛行管理員",
 	-- ["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "營地的三名軍官（53級）各帶著一枚徽印：營地中央的{npc:247006}、東端的{npc:247013}，以及在西半部巡邏的{npc:246991}：在他巡邏路線的東側、箭頭指的地方對付他。\n小心：{npc:250023}（55-57級精英）站在營地西緣，靠近霍克海姆巡邏路線的盡頭：等霍克海姆往東走回來。",
 	-- ["Fly to the {area:380}"] = "飛往{area:380}",
 	-- ["Fly to {area:1237}"] = "飛往{area:1237}",
@@ -152,6 +149,7 @@ return {
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "飛艇塔就在{zone:1454}正門東北方不遠處；搭乘前往{zone:1458}的飛艇。",
 	-- ["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "賽倫的塔位於{area:1237}北邊不遠的懸崖上：{area:1237}的{npc:8395}可以免費把你傳送上去（和他對話）；不然就從北側的蜿蜒小路上去。",
 	-- ["Zeppelin tower"] = "飛艇塔",
+	-- ["{area:1221}: kill these as you meet them"] = "{area:1221}：遇到就殺",
 	-- ["{area:1237} flight master"] = "{area:1237}飛行管理員",
 	-- ["{item:246680}, from the Blood Elf Arcanists"] = "{item:246680}，從血精靈祕法師身上取得",
 	-- ["{item:246721}, from {npc:246991}"] = "{item:246721}，來自{npc:246991}",
@@ -160,6 +158,7 @@ return {
 	-- ["{npc:11044}, in the Apothecarium"] = "{npc:11044}，在 Apothecarium",
 	-- ["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "{npc:235903}：{quest:86746}，血精靈營地北邊的薩特",
 	-- ["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "{npc:247473}：{quest:91569}，從血精靈祕法師身上取得魔杖",
+	-- ["{npc:256386}'s crates"] = "{npc:256386}的箱子",
 	-- ["{npc:3326}, the {object:172960}"] = "{npc:3326}，{object:172960}",
 	-- ["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "{npc:8576}：{quest:91531}，交給{zone:1454}的{npc:4485}",
 	-- ["{npc:8578}'s camp"] = "{npc:8578}的營地",
@@ -167,4 +166,5 @@ return {
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050}要交回給{area:28}的{npc:10778}：保留此任務。",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}：交給{area:1237}的{npc:8587}",
 	-- ["{zone:1454} flight master"] = "{zone:1454}的飛行管理員",
+	-- ["{zone:1456} flight master"] = "{zone:1456}飛行管理員",
 }

@@ -30,6 +30,8 @@ return {
 	-- Step 4: Back at Aldrassil
 	-- {area:256} Aldrassil
 	["Back at {area:256}"] = "回到{area:256}",
+	-- {npc:3595} Shanda · {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light
+	["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "",
 	-- {npc:2079} Conservator Ilthalaine · {npc:3596} Ayanna Everstride
 	["{npc:2079}: a sigil for {npc:3596}"] = "{npc:2079}：給{npc:3596}的印記",
 	-- {npc:2082} Gilshalan Windwalker
@@ -152,7 +154,7 @@ return {
 
 	-- Step 23: Zarrin
 	-- {npc:6286} Zarrin
-	["{npc:6286}, south of the inn: Camping 101 asks you to learn it"] = "",
+	["{npc:6286}, south of the inn: Camping 101 asks you to learn it"] = "{npc:6286}位於旅店南側，露營 101 要求你學習這項技能",
 
 	-- Step 24: Cyndra Kindwhisper
 	["talk to the trainer"] = "與訓練師交談",

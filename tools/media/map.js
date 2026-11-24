@@ -416,6 +416,17 @@ function medallion(m) {
 function ring() {
 	return new Canvas(64, 64).fill(sdf.ring(32, 32, 30.5, 3), WHITE);
 }
+
+// The spawn markers' mob ring (Maps/MobMarkers.lua, rohkin's design): a band
+// round the medallion whose hole is 1/1.3 of the texture (MobMarkers' HOLE),
+// at 16, 32 and 64 px so a small ring is drawn from a texture its size.
+const MOB_RING_SIZES = [16, 32, 64];
+function mobRing(n) {
+	const c = n / 2;
+	const outer = c - 0.5;
+	const inner = c / 1.3;
+	return new Canvas(n, n).fill(sdf.ring(c, c, (outer + inner) / 2, outer - inner), WHITE);
+}
 function ringDashed() {
 	const c = new Canvas(64, 64);
 	const r = 31, circ = 2 * Math.PI * r, dash = (3 / 32) * 64, gap = (2 / 32) * 64;
@@ -465,6 +476,7 @@ function generate(addonRoot) {
 	for (const [skin, m] of Object.entries(MEDALLIONS)) out.push(medallion(m).write(path.join(dir, `medallion-${skin}.tga`)));
 	out.push(ring().write(path.join(dir, 'ring.tga')));
 	out.push(ringDashed().write(path.join(dir, 'ring-dashed.tga')));
+	for (const n of MOB_RING_SIZES) out.push(mobRing(n).write(path.join(dir, `mob-ring${n}.tga`)));
 	out.push(glow().write(path.join(dir, 'glow.tga')));
 	out.push(edge().write(path.join(dir, 'edge.tga')));
 	out.push(badge().write(path.join(dir, 'badge.tga')));

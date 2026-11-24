@@ -55,7 +55,7 @@ return {
 	-- {area:1417} Sunken Temple
 	["The {area:1417}"] = "{area:1417}",
 	-- {area:1417} Sunken Temple · {area:1477} Temple of Atal'Hakkar · {area:74} Pool of Tears · {npc:5716} Zul'Lor
-	["The {area:1417} ({area:1477}, level 50-56, a group of five) stands in the middle of the {area:74}: swim down into the temple and take the stairs to the entrance. The six troll guardians (level 51-52, elite) stand on the balconies around the central pit, each with adds; each drops his feather every time: Gasher and {npc:5716} the Amber, Hukku and Mijan the Blue, Zolo and Loro the Green. Not soloable at 52."] = "",
+	["The {area:1417} ({area:1477}, level 50-56, a group of five) stands in the middle of the {area:74}: swim down into the temple and take the stairs to the entrance. The six troll guardians (level 51-52, elite) stand on the balconies around the central pit, each with adds; each drops his feather every time: Gasher and {npc:5716} the Amber, Hukku and Mijan the Blue, Zolo and Loro the Green. Not soloable at 52."] = "{area:1417}（{area:1477}，50—56級，五人小隊）位於 {area:74} 中央：遊入水下神廟，再沿樓梯前往入口。六名巨魔守護者（51—52級精英）站在中央深坑周圍的看臺上，每名身旁都有其他敵人；每次擊殺都必定掉落對應的羽毛：加什爾和 {npc:5716} 掉落琥珀色，胡庫和米杉掉落藍色，祖羅和洛若爾掉落綠色。52級時無法單刷。",
 	-- {npc:5716} Zul'Lor
 	-- plural, as words: Amber Voodoo Feathers = {item:20606} Amber Voodoo Feather
 	["Amber Voodoo Feathers: Gasher, {npc:5716}"] = "琥珀色巫毒羽毛：加舍爾、{npc:5716}",

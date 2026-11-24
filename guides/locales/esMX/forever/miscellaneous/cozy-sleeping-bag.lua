@@ -53,8 +53,9 @@ return {
 
 	-- Step 8: A hundred paces north
 	["A hundred paces north"] = "Cien pasos al norte",
-	-- {object:424012} Mound of Dirt (no name in this language: may be words)
-	["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "Camina al norte por el campamento y baja con cuidado por la pendiente empinada hasta el {object:424012} en la cornisa de abajo. Si fallas el salto solo te deslizas: pégate al acantilado y vuelve a subir caminando.",
+	-- {object:424005} Pocket Litter (no name in this language: may be words) · {object:424012} Mound of Dirt (no name in this language: may be words)
+	["From the {object:424005} walk to the camp's western edge, where the arrow points first, and drop carefully down the steep slope north to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "Desde los restos de bolsillo, camina hasta el borde oeste del campamento, donde primero señala la flecha, y baja con cuidado por la pendiente empinada al norte hasta el montículo de tierra en la cornisa de abajo. Si fallas el salto solo te deslizas: pégate al acantilado y vuelve a subir caminando.",
+	["The drop to the ledge"] = "La bajada a la cornisa",
 
 	-- Step 9: Tarren Mill on the way
 	-- {area:272} Tarren Mill
@@ -89,6 +90,7 @@ return {
 	-- ["Out of the river"] = "Sal del río",
 	-- ["Round {area:1702}"] = "Rodea {area:1702}",
 	-- ["Stonetalon from the north"] = "Sierra Espolón desde el norte",
+	-- ["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "Camina al norte por el campamento y baja con cuidado por la pendiente empinada hasta el {object:424012} en la cornisa de abajo. Si fallas el salto solo te deslizas: pégate al acantilado y vuelve a subir caminando.",
 	-- ["West bank"] = "Orilla oeste",
 	-- ["West bank, before the waterfall"] = "Orilla oeste, antes de la cascada",
 	-- ["{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon."] = "El camino de {zone:1413} hacia Sierra Espolón pasa por {area:1702}, y el que sigue hacia las colinas pasa por {area:2539} y {area:460}: todos son puestos de la Horda. Mejor entra desde el norte. Si tienes la ruta de vuelo de {area:467}, vuela hasta allá y sigue el camino hacia el sur. Si no, vuela a {area:415} y camina al suroeste hasta {area:1276}, el túnel de {zone:1440} hacia Sierra Espolón.",

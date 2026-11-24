@@ -37,9 +37,9 @@ return {
 	-- Step 6: Echo Ridge Mine: kill these as you meet them
 	-- {area:34} Echo Ridge Mine
 	["{area:34}: kill these as you meet them"] = "{area:34}: vá matando estes pelo caminho",
-	-- {object:83763} Stolen Books
+	-- {object:83763} Stolen Books · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
-	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Siga a trilha para o norte até a mina. Trabalhadores Kobold enxameiam do lado de fora; qualquer kobold do vale pode soltar {object:83763}.",
+	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}.\nNow and then a kobold here drops a {quest:91741}: right-click it and hand it to {npc:951} on your next Abbey stop."] = "",
 
 	-- Step 7: Northshire Abbey
 	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
@@ -88,10 +88,9 @@ return {
 	-- Step 14: Inside Echo Ridge Mine
 	-- {area:34} Echo Ridge Mine
 	["Inside {area:34}"] = "Dentro de {area:34}",
-	-- {npc:248362} Shinyfinder Narf
+	-- {npc:248362} Shinyfinder Narf · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	-- was: ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "Operários Kobold trabalham nos túneis dentro da mina. {npc:248362} espera depois da segunda curva à direita.\nCuidado: {npc:248362} (3) é elite: deixe-o em paz, a menos que esteja com um amigo."
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nNow and then a Laborer drops a {quest:91741}: right-click it and hand it to {npc:951} at the Abbey after the mine.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "{npc:80} anda por {area:34}: procure dentro do círculo no mapa",
 
@@ -493,6 +492,7 @@ return {
 	-- ["Bait ingredients"] = "Ingredientes da isca",
 	-- ["Boar meat"] = "Carne de javali",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Teurgos Proscritos Défias acampam nas margens de {area:86}; eles também soltam as Bandanas de Linho Vermelhas. {object:56} está na aldeia murloc da margem nordeste.",
+	-- ["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Siga a trilha para o norte até a mina. Trabalhadores Kobold enxameiam do lado de fora; qualquer kobold do vale pode soltar {object:83763}.",
 	-- ["Follow the road east past the {area:91} to the bridge."] = "Siga a estrada para o leste, passando por {area:91}, até a ponte.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "Siga a estrada para o norte, de {area:87} até {zone:1453}. {npc:6171} e {npc:6173} estão na Catedral da Luz; {npc:6174} fica em {object:2100} e pede dez {item:2589} (humanoides soltam; a Casa de Leilões vende).",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "Siga a estrada para o sul, saindo do vale, até {area:87}. {npc:295} está na Estalagem do Leão Orgulhoso; {npc:240} fica do lado de fora da ferraria, do outro lado da estrada; {npc:253}, na frente da estalagem; e {npc:241}, junto à estrada ao sul dela.",

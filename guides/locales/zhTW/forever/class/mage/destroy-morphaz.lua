@@ -28,7 +28,7 @@ return {
 	-- Step 4: Glittering Dust
 	-- {area:1220} Thalassian Base Camp · {zone:1447} Azshara · {spell:8349} Fire Nova · {spell:133} Fireball · {spell:139} Renew
 	-- plural, as words: Blood Elf Surveyors = {npc:6198} Blood Elf Surveyor
-	["The blood elves hold the {area:1220} on the hills of north-eastern {zone:1447}. Blood Elf Surveyors (51-52, {spell:8349} up close) and Reclaimers (52-53, {spell:133}, and they heal and {spell:139} each other) each drop the dust about one time in four; they spot you from far off, so pull at the edges. They come back after 5 1/2 minutes."] = "",
+	["The blood elves hold the {area:1220} on the hills of north-eastern {zone:1447}. Blood Elf Surveyors (51-52, {spell:8349} up close) and Reclaimers (52-53, {spell:133}, and they heal and {spell:139} each other) each drop the dust about one time in four; they spot you from far off, so pull at the edges. They come back after 5 1/2 minutes."] = "血精靈佔據{zone:1447}東北側山丘的{area:1220}。51–52 級血精靈勘測員近戰會施放{spell:8349}；52–53 級搜尋者使用{spell:133}，還會互相治療並施放{spell:139}。兩者各約四分之一機率掉落粉塵，警戒距離很遠，從外圍拉怪。重生時間為五分半。",
 
 	-- Step 5: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo

@@ -294,7 +294,8 @@ return {
 	-- Step 47: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village
 	-- plural, as words: Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
-	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} est la grotte des trolls dans les collines au sud-ouest de {area:137}. Tuez les chasseurs de têtes à l'entrée et traversez la grotte jusqu'au fond.\nAttention : les Ecorcheurs Frostmane à l'intérieur du repaire sont de niveau 9-10 et se tiennent par deux : attirez-les un par un jusqu'à l'entrée.",
+	-- was: ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} est la grotte des trolls dans les collines au sud-ouest de {area:137}. Tuez les chasseurs de têtes à l'entrée et traversez la grotte jusqu'au fond.\nAttention : les Ecorcheurs Frostmane à l'intérieur du repaire sont de niveau 9-10 et se tiennent par deux : attirez-les un par un jusqu'à l'entrée."
+	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore {area:135} ticks only in there, not on the hill above it.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "{npc:1123}, sous terre",
 
@@ -401,23 +402,22 @@ return {
 	-- {zone:1455} Ironforge
 	["On the road back west to {zone:1455}."] = "Sur la route du retour vers l'ouest, vers {zone:1455}.",
 
-	-- Step 78: South Gate Outpost
-	-- {area:806} South Gate Outpost · {area:38} Loch Modan
-	-- was: ["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "Suivez la route jusqu'au bout vers l'est, jusqu'à l'{area:806} au tunnel du {zone:1432}."
-	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "",
+	-- Step 78: North Gate Outpost
+	-- {area:808} North Gate Outpost · {npc:1960} Pilot Hammerfoot · {area:38} Loch Modan
+	["Follow the road east and take its northern fork to the {area:808}: {npc:1960} waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into {area:38} come next, down the road to the south."] = "",
 
-	-- Step 79: Bruegs Kindleborn
+	-- Step 79: South Gate Outpost
+	-- {area:806} South Gate Outpost · {area:38} Loch Modan
+	["Back south down the road to the {area:806} at the {area:38} tunnel."] = "",
+
+	-- Step 80: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
 	["{npc:257597} waits in a cave above the farm north-west of the {area:806}; the path up starts behind the farm."] = "{npc:257597} attend dans une grotte au-dessus de la ferme au nord-ouest de l'{area:806} ; le chemin qui y monte part de derrière la ferme.",
 
-	-- Step 81: Braldir Ashmantle
+	-- Step 82: Braldir Ashmantle
 	-- {area:38} Loch Modan · {npc:257808} Braldir Ashmantle
 	-- was: ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "Passez le tunnel pour entrer dans le {zone:1432}. Juste après, un chemin marqué de pierres grimpe dans les collines à droite de la route, vers le nord, jusqu'au camp de {npc:257808}."
 	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "",
-
-	-- Step 82: North Gate Outpost
-	-- {npc:1960} Pilot Hammerfoot · {area:808} North Gate Outpost
-	["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960} attend à l'{area:808}, au nord de la porte Sud ; le cadavre du nain se trouve en haut du col, à l'ouest de lui.",
 
 	-- Step 83: The tunnel post
 	["The tunnel post"] = "Le poste du tunnel",
@@ -710,6 +710,7 @@ return {
 	-- ["{area:133}: kill these as you meet them"] = "{area:133} : tuez-les au passage",
 	-- ["{area:134}: kill these as you meet them"] = "{area:134} : tuez-les au passage",
 	-- ["{area:135} is the troll cave in the hills south-west of {area:137}. Ice Claw Bears, Elder Crag Boars and Snow Leopards you kill on the way count for {npc:1374}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} est la grotte des trolls dans les collines au sud-ouest de {area:137}. Les Ours Griffeglace, les Anciens sangliers des rochers et les Léopards des neiges que vous tuez en chemin comptent pour {npc:1374}. Tuez les chasseurs de têtes à l'entrée et traversez la grotte jusqu'au fond.\nAttention : les Ecorcheurs Frostmane à l'intérieur du repaire sont de niveau 9-10 et se tiennent par deux : attirez-les un par un jusqu'à l'entrée.",
+	-- ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} est la grotte des trolls dans les collines au sud-ouest de {area:137}. Tuez les chasseurs de têtes à l'entrée et traversez la grotte jusqu'au fond.\nAttention : les Ecorcheurs Frostmane à l'intérieur du repaire sont de niveau 9-10 et se tiennent par deux : attirez-les un par un jusqu'à l'entrée.",
 	-- ["{item:5026} and the {item:6652}"] = "{item:5026} et {item:6652}",
 	-- ["{npc:10090} is in the {object:32390}, {npc:258785} in the {object:32386}, {npc:6120} in the {object:32383}."] = "{npc:10090} est dans la Salle des Armes, {npc:258785} dans la Salle des Mystères, {npc:6120} dans la {object:32383}.",
 	-- ["{npc:1117} along the way to {area:134}"] = "{npc:1117} sur le chemin de {area:134}",
@@ -724,6 +725,7 @@ return {
 	-- ["{npc:1377}, at the depot"] = "{npc:1377}, au dépôt",
 	-- ["{npc:1573}, the gryphon master where you landed"] = "{npc:1573}, le maître des griffons là où vous avez atterri",
 	-- ["{npc:1702}, beside him: Camping 101, engineers"] = "{npc:1702}, à côté de lui : Camping 101, ingénieurs",
+	-- ["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960} attend à l'{area:808}, au nord de la porte Sud ; le cadavre du nain se trouve en haut du col, à l'ouest de lui.",
 	-- ["{npc:2326}, inside: Camping 101, {skill:129}"] = "{npc:2326}, à l'intérieur : Camping 101, {skill:129}",
 	-- ["{npc:257808} gives you the {item:6636}. Climb to the peak above his camp, drink the Sapta beside the Spirit Stone and defeat the {npc:5893}, then place its {item:6655} in the {object:61934}, atop the Shrine of Eternal Flame."] = "{npc:257808} vous donne {item:6636}. Montez au sommet au-dessus de son camp, buvez le Sapta à côté de la Pierre de l'esprit et vainquez {npc:5893}, puis placez son {item:6655} dans {object:61934}, au sommet de l'autel de la Flamme éternelle.",
 	-- ["{npc:258098}, the shaman trainer, north of the {object:32372}"] = "{npc:258098}, le maître des chamans, au nord de {object:32372}",

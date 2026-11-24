@@ -6,59 +6,59 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: To Ironforge
-	-- {zone:1455} Ironforge
-	["To {zone:1455}"] = "{zone:1455}(으)로",
-
-	-- Step 2: Fly to Thelsamar
+	-- Step 1: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "{area:144}(으)로 비행",
-	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 
-	-- Step 3: Into Searing Gorge
+	-- Step 2: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
-	["Into {zone:1427}"] = "",
+	["Into {zone:1427}"] = "{zone:1427}(으)로",
 
-	-- Step 4: Searing Gorge
+	-- Step 3: Searing Gorge
 	["The Grimesilt outhouse"] = "검댕가루 간이화장실",
 
-	-- Step 5: The Grimesilt outhouse
+	-- Step 4: The Grimesilt outhouse
 	-- {area:144} Thelsamar · {zone:1418} Badlands · {area:340} Kargath · {zone:1427} Searing Gorge · {area:247} Grimesilt Dig Site · {item:4306} Silk Cloth
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
 	["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}: the {area:247} is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "{area:144}에서 남쪽 {zone:1418}(으)로 간 다음, 서쪽으로 호드 마을 {area:340}을(를) 지나(거리를 두십시오) 오솔길을 따라 {zone:1427}(으)로 올라가세요. {area:247}은(는) 바로 안쪽 남동쪽에 있습니다. 나무 변소 안의 죄수가 {item:4306} 15개와 그 주변 발굴지의 검은무쇠단 지질학자 8마리 처치를 원합니다. 열쇠를 찾았다면 변소를 열쇠로 열 수도 있습니다.",
 
-	-- Step 6: The Grimesilt outhouse
+	-- Step 5: The Grimesilt outhouse
 	-- {zone:1446} Tanaris · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh
 	["The prisoner's next task, Ledger from {zone:1446}, sends you to the {zone:1435} and {zone:1445}: skip it."] = "포로의 다음 임무인 {zone:1446}의 장부는 {zone:1435}와(과) {zone:1445}(으)로 보냅니다: 건너뛰십시오.",
 
-	-- Step 7: Level 48.27
+	-- Step 6: Level 48.27
 	["Level 48.27"] = "",
 	-- {item:3985} Monogrammed Sash
 	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan."] = "",
 	-- {npc:5839} Dark Iron Geologist
-	["grind on {npc:5839}"] = "",
+	["grind on {npc:5839}"] = "{npc:5839} 사냥",
 
-	-- Step 8: Dorius Stonetender
+	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
 	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "도리우스는 {area:247} 옆 길가에 서 있습니다. 그를 북동쪽 {area:1959}까지 호위하며 살려 두십시오. 끝나면 그가 길에 남긴 {object:175704}을(를) 읽으십시오.",
 	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
 	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "이 가이드의 마지막에 {zone:1455}의 {npc:8256}에게",
 
-	-- Step 9: Thorium Point
+	-- Step 8: Thorium Point
 	-- {area:1446} Thorium Point
 	["Ride west along the north of the Gorge to {area:1446}, the scaffolded camp on the north-west rim."] = "협곡 북쪽을 따라 서쪽 {area:1446}(으)로 가십시오. 북서쪽 가장자리의 비계가 세워진 야영지입니다.",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "{object:179827} 게시판",
 
-	-- Step 10: Culling the Competition
+	-- Step 9: Culling the Competition
 	["Culling the Competition"] = "",
 	["Take the bounty from the board only if you want to hunt the linked dwarf packs with a group."] = "",
 
-	-- Step 12: Zamael Lunthistle
+	-- Step 11: Zamael Lunthistle
 	-- {npc:8436} Zamael Lunthistle · {area:1442} Firewatch Ridge · {area:1446} Thorium Point · {npc:8282} Highlord Mastrogonde · {quest:3377} Prayer to Elune
 	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "정예 몹입니다. 파티를 맺는 것을 권장하니 함께할 사람을 찾아보십시오. {npc:8436}은(는) {area:1446} 서쪽, {area:1442}의 황혼의 망치단 야영지에서 황혼의망치단 화염경비병, 황혼의망치단 우상숭배자, 황혼의망치단 풍수사(48-49레벨 정예) 사이에 서 있고, 그 옆에는 {npc:8282}(51레벨 희귀 정예)이(가) 있습니다. {quest:3377}에는 4인 파티가 필요합니다. 혼자라면 건너뛰십시오.",
+
+	-- Step 14: Prayer to Elune: the page
+	-- {quest:3378} Prayer to Elune
+	["{quest:3378}: the page"] = "",
+	-- {npc:8436} Zamael Lunthistle · {quest:3378} Prayer to Elune
+	["The Twilight elites of {npc:8436}'s camp drop the {quest:3378} page, about one in five: keep the group together here until one drops."] = "",
 
 	-- Step 15: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
@@ -80,7 +80,7 @@ return {
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster
 	["Dark Iron Taskmasters"] = "",
 	-- {area:1443} Slag Pit
-	["With your group, look for Taskmasters on the open ledges. Stay on the surface; don't follow the arrow into the {area:1443}."] = "",
+	["With your group, look for Taskmasters on the open ledges first. Last stop, if you still need some: take the lift (the scaffold cars) down into the {area:1443} below, where four more stand."] = "",
 
 	-- Step 22: Dark Iron Slavers
 	-- plural, as words: Dark Iron Slavers = {npc:5844} Dark Iron Slaver
@@ -118,7 +118,7 @@ return {
 	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
 	["Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in."] = "",
 	-- {npc:9318} Incendosaur
-	["grind on {npc:9318}"] = "",
+	["grind on {npc:9318}"] = "{npc:9318} 사냥",
 
 	-- Step 33: The Flame's Casing
 	-- {npc:5860} Twilight Dark Shaman
@@ -189,10 +189,13 @@ return {
 	-- ["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "검은무쇠단 감독관과 검은무쇠단 노예상인이 용광로 곳곳에서 노예를 부리며, 누구든 {item:10551}을(를) 지니고 있을 수 있습니다. 검은무쇠단 증기기술자는 한가운데 용광로에서 일하고({item:18959}), 검은무쇠단 망꾼은 남쪽 능선에 서 있습니다(감시병의 망원경). {object:147516} 누구든 {item:11818}을(를) 떨어뜨릴 수 있으니 간직하십시오.\n주의: 검은무쇠단 노예상인(45-46레벨)은 끌어오면 15미터 안의 아군에게 도움을 청하고, 최대 15미터 거리에서 그물을 던지며, 근접 시 분쇄를 사용합니다.",
 	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "나이트 엘프 잠마엘 룬시슬이 {area:1446} 서쪽에 홀로 서 있습니다. 그의 이야기를 들으십시오.",
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "거미는 {npc:8436} 남쪽, 벨라로크에게 가는 길의 고원과 용암 웅덩이를 돌아다닙니다.",
+	-- ["To {zone:1455}"] = "{zone:1455}(으)로",
 	-- ["Velarok Windblade"] = "벨라로크 윈드블레이드",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "벨라로크는 {area:1446} 남쪽, 용광로 가장자리에 서 있습니다. 그의 이야기를 들으십시오.",
+	-- ["grind on {npc:5844}"] = "{npc:5844} 사냥",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: 이전 가이드가 귀환석으로 이곳에 데려오므로 보통 바로 완료됩니다",
 	-- ["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509}와(과) 용군단의 보물은 {area:1446} 남쪽 가장자리, 벨라록 옆에 있습니다.",
 	-- ["{object:147516} dwarves"] = "{object:147516} 드워프",
 	-- ["{quest:3453} lies on the ground at Velarok's feet; {quest:3462} stands beside him."] = "{quest:3453}은(는) 벨라록의 발치 땅바닥에 놓여 있고, {quest:3462}은(는) 그 옆에 서 있습니다.",
+	-- ["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 }

@@ -157,10 +157,13 @@ async function playGuideIn(pool, pack, g, opts) {
 	return (await pool.runAddon(playOptions(pack, g, opts))).emitted;
 }
 
-// runAddon's options for a play (playGuide).
+// runAddon's options for a play (playGuide). A leveling guide starts at its
+// first located goal for this character (its step's and its own `only`), as
+// the engine's Guides.Start reads it (#3344).
 function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', script = null, handOver = null, groups = 'skip', dungeonMaps = [], saved = null, openStartGates = false }) {
 	const raceName = race === 'Scourge' ? 'Undead' : race;
-	const first = g.steps.flatMap((s) => s.goals).find((x) => x.map && x.x != null);
+	const who = { race, faction, cls };
+	const first = g.steps.filter((s) => onlyFits(s.only, who)).flatMap((s) => s.goals).find((x) => x.map && x.x != null && onlyFits(x.only, who));
 	const home = g.category && g.category !== 'Leveling' ? HOME[race] : null;
 	const start = home ? { map: home[0], x: home[1], y: home[2] } : first;
 	return {
@@ -184,6 +187,11 @@ function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', scr
 			Polestar.Set("behavior.guideEnd", ${handOver ? '"continue"' : '"ask"'})
 			Polestar.Set("behavior.groupQuests", ${luaValue(groups)})
 			Polestar.Set("behavior.dungeons", "skip") -- the solo route, whatever "Dungeons in my route" defaults to; --dungeon chooses below
+			-- The arrow's journey off (a player's "travel planner off"): the simulated player is set down at each
+			-- goal, never riding the journey's boats or portals, in a world without walking maps or floors, so a
+			-- live route would still be on its first leg at the goal. Journey prices (Nav.EstimateTravel, which
+			-- ns.TravelCost and route choices weigh) do not need it.
+			Polestar.Set("nav.travel", false)
 			${dungeonMaps.map((m) => `Polestar.Engine.ChooseDungeon(${Number(m)}, true)`).join('\n')}
 			${handOver ? 'Polestar.Set("behavior.routeChoice", "recommended")' : ''}
 			Polestar.Engine.SetGuide(${luaValue(g.id)})

@@ -47,6 +47,7 @@ ns.Perf = Perf
 local SPIKE_MS = 2
 local FRAME_MS = 5
 local HITCH_MS = 50
+local BIG = 5
 local RING = 200
 local SAMPLE_EVERY = 5
 local TOP_K = 5
@@ -66,7 +67,10 @@ local clock
 local startedAt, stoppedAt
 local cost -- the probe's own cost per call, ms
 local stats, sites, calls
-local ring, ringHead, ringCount, spikes, slowFrames
+-- bigFrames: the BIG largest frames of HITCH_MS or more (Polestar's handlers, or the profiler's figure for Polestar
+-- and Polestar_Nav), largest first, kept whatever the ring drops (#3881: a 27-minute session's 826 ms frame had
+-- left the ring of the last RING spikes long before the report, so the report named none).
+local ring, ringHead, ringCount, spikes, slowFrames, bigFrames
 local hitches
 local depth, debt, childMs = 0, 0, {}
 -- This frame's handlers (the outermost ones) and its three slowest.
@@ -121,7 +125,11 @@ end
 -- Runs fn through the plain SafeCall and times it. The probe's own work
 -- inside a handler (its children's bookkeeping, noting where timers are
 -- made) is `debt`, taken off the handler's time.
+local noteSite
 local function timed(fn, kind, where, ...)
+	-- ns.SafeCall's callers pass functions made anywhere (a module's method, a
+	-- follower): noted where they are called from, once each ("call ?" before).
+	if kind == 4 and sites[fn] == nil and not ns.MadeAt(fn) then noteSite(fn) end
 	local d = depth + 1
 	depth = d
 	childMs[d] = 0
@@ -168,6 +176,14 @@ end
 local NAV = "Polestar_Nav"
 local navLoaded
 
+-- What happened in a frame outside the handlers the probe wraps, for a slow
+-- frame no handler accounts for (#3640: a 416 ms frame came with no name):
+-- the addons loaded in it (ADDON_LOADED) and the memory a collection freed.
+local frameLoads, lastKB = {}, nil
+local function onLoaded(_, event, name)
+	if event == "ADDON_LOADED" and #frameLoads < 4 then frameLoads[#frameLoads + 1] = tostring(name) end
+end
+
 -- Once a frame: the frame's handlers against the profiler's figures.
 local function onFrame()
 	local mine, nav, all, app
@@ -184,15 +200,32 @@ local function onFrame()
 		if app > hitches.worst then hitches.worst = app end
 		if ours then hitches.ours = hitches.ours + 1 end
 	end
+	local kb = collectgarbage("count")
 	if ours then
 		slowFrames = slowFrames + 1
 		local e = { t = now(), slow = true, ms = fSum, calls = fCalls, mine = mine, nav = nav, all = all, app = app, top = {} }
 		for i = 1, 3 do
 			if fKey[i] then e.top[i] = place({ key = fKey[i], kind = fKind[i], where = fWhere[i], ms = fMs[i] }) end
 		end
+		local outside = (mine or 0) + (nav or 0) - fSum
+		if outside >= 1 then e.outside = outside end
+		if #frameLoads > 0 then e.loads = table.concat(frameLoads, ",") end
+		if lastKB and lastKB - kb >= 1024 then e.freedKB = lastKB - kb end
 		context(e)
 		push(e)
+		local size = max(fSum, (mine or 0) + (nav or 0))
+		if size >= HITCH_MS then
+			e.size = size
+			local i = #bigFrames + 1
+			while i > 1 and bigFrames[i - 1].size < size do i = i - 1 end
+			if i <= BIG then
+				table.insert(bigFrames, i, e)
+				bigFrames[BIG + 1] = nil
+			end
+		end
 	end
+	lastKB = kb
+	if #frameLoads > 0 then frameLoads = {} end
 	clearFrame()
 end
 
@@ -256,7 +289,7 @@ local function sample()
 	topSlow = top(M.CountTimeOver10Ms) or topSlow
 end
 
-local function noteSite(fn)
+noteSite = function(fn)
 	if type(fn) ~= "function" or sites[fn] ~= nil then return end
 	local t = clock()
 	sites[fn] = type(debugstack) == "function" and ns.OurSite(debugstack(2, 12, 0) or "", SKIP) or false
@@ -298,7 +331,7 @@ end
 
 local function reset()
 	stats, sites, calls = {}, setmetatable({}, { __mode = "k" }), 0
-	ring, ringHead, ringCount, spikes, slowFrames = {}, 0, 0, 0, 0
+	ring, ringHead, ringCount, spikes, slowFrames, bigFrames = {}, 0, 0, 0, 0, {}
 	hitches = { n = 0, ours = 0, worst = 0 }
 	base, last, overall, game, topPeak, topSlow = {}, {}, nil, nil, nil, nil
 	depth, debt = 0, 0
@@ -348,6 +381,9 @@ function Perf.Start()
 	ns.SetProbe(timed)
 	watcher = watcher or CreateFrame("Frame")
 	watcher:SetScript("OnUpdate", onFrame)
+	watcher:SetScript("OnEvent", onLoaded)
+	watcher:RegisterEvent("ADDON_LOADED")
+	frameLoads, lastKB = {}, nil
 	-- Not ns.NewTicker: the probe's own sampling stays out of what it times.
 	sampler = C_Timer.NewTicker(SAMPLE_EVERY, function() call(sample) end)
 	return true
@@ -360,6 +396,7 @@ function Perf.Stop()
 	ns.SetProbe(nil)
 	unwrapMaking()
 	watcher:SetScript("OnUpdate", nil)
+	watcher:UnregisterEvent("ADDON_LOADED")
 	if sampler then sampler:Cancel() end
 	sampler = nil
 	call(sample)
@@ -447,6 +484,9 @@ local function spikeText(e)
 			s = s .. fmt(" (profiler: Polestar %s%s, addons %s, game %s)", ms1(e.mine), e.nav and (", Polestar_Nav " .. ms1(e.nav)) or "", ms1(e.all), ms1(e.app))
 		end
 		if #tops > 0 then s = s .. ": " .. concat(tops, ", ") end
+		if e.outside then s = s .. fmt("; %s ms outside the handlers", ms1(e.outside)) end
+		if e.loads then s = s .. "; loaded " .. e.loads end
+		if e.freedKB then s = s .. fmt("; garbage collected %.1f MB", e.freedKB / 1024) end
 	else
 		s = fmt("%s %s ms (own %s)", handler(e.key, e.kind, e.where, nil, e.at, e.of), ms1(e.ms), ms1(e.own))
 		if e.depth > 1 then s = s .. " nested" end
@@ -519,7 +559,7 @@ function Perf.ReportLines()
 	local out = { headLine() }
 	local w = worst(list, false)
 	if w then out[#out + 1] = "  worst call: " .. spikeText(w) end
-	local f = worst(list, true)
+	local f = bigFrames[1] or worst(list, true)
 	if f then out[#out + 1] = "  worst frame: " .. spikeText(f) end
 	local totals, parts = byTotal(), {}
 	for i = 1, math.min(3, #totals) do
@@ -570,6 +610,10 @@ function Perf.ReportText()
 			out[#out + 1] = fmt("  %s %s", duration(list[i].t), spikeText(list[i]))
 		end
 		if list[#list].guide then out[#out + 1] = "Guide at the last spike: " .. tostring(list[#list].guide) end
+	end
+	if #bigFrames > 0 then
+		out[#out + 1] = fmt("Largest frames (%d ms or more, largest first):", HITCH_MS)
+		for _, e in ipairs(bigFrames) do out[#out + 1] = fmt("  %s %s", duration(e.t), spikeText(e)) end
 	end
 	names = nil
 	return concat(out, "\n")

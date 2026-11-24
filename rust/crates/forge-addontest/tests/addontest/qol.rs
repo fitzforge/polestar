@@ -63,12 +63,17 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 	let out = run(r#"
 		local out = {}
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
-			if spec.page == "Quality of Life" or spec.page == "Questing" then
+			-- The guiding-only conveniences (buying and binding for a step, the flight master's) sit on the Guide page.
+			local guide = spec.page == "Guide"
+			if spec.page == "Quality of Life" or spec.page == "Questing" or guide then
 				-- A feature's switch in its section's header counts with the rows.
 				local list = { spec.toggle }
 				for _, c in ipairs(spec.controls) do list[#list + 1] = c end
+				-- A reference (W.Ref) stands for its home row elsewhere, which has the label and help.
 				for _, c in ipairs(list) do
-					out[#out + 1] = { key = c.key, kind = c.kind, label = c.label, help = c.help, page = spec.page, tab = spec.tab, section = spec.section }
+					if not c.ref and not (guide and not (c.key or ""):find("^qol%.")) then
+						out[#out + 1] = { key = c.key, kind = c.kind, label = c.label, help = c.help, page = spec.page, tab = spec.tab, section = spec.section }
+					end
 				end
 			end
 		end
@@ -100,7 +105,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 	for c in specs.as_array().unwrap() {
 		let name = if truthy(&c["key"]) { text(&c["key"]) } else { text(&c["label"]) };
 		assert!(truthy(&c["label"]) && truthy(&c["help"]), "{name} has label and help");
-		assert!(c["page"] == "Questing" || c["page"] == "Quality of Life");
+		assert!(c["page"] == "Questing" || c["page"] == "Quality of Life" || c["page"] == "Guide");
 		assert!(truthy(&c["tab"]) && truthy(&c["section"]));
 	}
 	assert_eq!(defaults["rewardAutoPick"], false, "auto-pick is off by default");
@@ -2873,7 +2878,8 @@ fn xp_mark_on_by_default_on_quality_of_life_trackers_and_map_experience() {
 		end
 		emit({ default = Polestar.GetDefault("qol.xpTargetMark"), where = found or "none" })
 	"#);
-	assert_eq!(out[0], json!({ "default": true, "where": { "page": "Quality of Life", "tab": "Trackers & map", "section": "Experience" } }));
+	// A guiding-only convenience: the mark sits with the level pace on the Guide page.
+	assert_eq!(out[0], json!({ "default": true, "where": { "page": "Guide", "tab": "While you play", "section": "Level pace" } }));
 }
 
 #[test]
@@ -2889,7 +2895,8 @@ fn options_open_the_quest_log_cleanup_from_quest_log_and_tooltips() {
 		if found then found.c.onClick(); found.c = nil end
 		emit({ where = found or "none", asked = asked or false })
 	"#);
-	assert_eq!(out[0], json!({ "where": { "page": "Questing", "tab": "Quests", "section": "Quest log and tooltips" }, "asked": true }));
+	// Quests' sections follow the player's journey: the cleanup sits in Quest log.
+	assert_eq!(out[0], json!({ "where": { "page": "Questing", "tab": "Quests", "section": "Quest log" }, "asked": true }));
 }
 
 // ---------------------------------------------------------------------------
@@ -2995,17 +3002,20 @@ fn merchant_never_sells_an_item_a_later_step_keeps_names_the_sellable_ones_first
 		r#"
 		-- The guide keeps Ruined Pelt (grey) for step 14, Linen Cloth for step 9 and a valueless quest item for step 3.
 		q.engine.kept = { [5] = 14, [2] = 9, [4] = 3 }
-		local before = { QoL.KeptLine(2) }
+		-- Its tooltip block (QoL.KeptLines): the guide that uses Linen Cloth, under a header that warns at a merchant.
+		q.engine.itemGuides = { [2] = { { guide = { id = "g", title = "Guide", steps = {} }, step = 9 } } }
+		local function header(id) local b = QoL.KeptLines(id); return b and b.header[1] or false end
+		local before = header(2)
 		q.openMerchant()
 		stub.advance(2)
 		local sold = {}
 		for _, id in ipairs(q.sold) do sold[id] = (sold[id] or 0) + 1 end
-		local open = { QoL.KeptLine(2) }
+		local open = header(2)
 		q.closeMerchant()
 		emit({
 			pelt = sold[5] or 0, fangs = sold[1] or 0,
 			warned = printed("Linen Cloth.*Ruined Pelt.*: later steps of the guide need them"),
-			before = before[1], open = open[1], after = QoL.KeptLine(2), none = QoL.KeptLine(3) or false,
+			before = before, open = open, after = header(2), none = header(3),
 		})
 	"#,
 	]
@@ -3014,9 +3024,9 @@ fn merchant_never_sells_an_item_a_later_step_keeps_names_the_sellable_ones_first
 		out[0],
 		json!({
 			"pelt": 0, "fangs": 5, "warned": true,
-			"before": "Kept for the guide: step 9 needs it",
-			"open": "Don't sell: the guide needs it at step 9",
-			"after": "Kept for the guide: step 9 needs it",
+			"before": "Used in guides:",
+			"open": "Don't sell, used in guides:",
+			"after": "Used in guides:",
 			"none": false,
 		})
 	);
@@ -4476,6 +4486,22 @@ fn flight_gossip_opens_the_flight_map_taxi_icon_or_known_flight_master_shift_and
 	assert_eq!(out[5], 0);
 }
 
+// #3428: since 0.4.2 (#3088) a quest on offer that no guide takes held nothing back, so at Devrak (The Crossroads)
+// the flight map opened over his own Ride to Orgrimmar. The flight map waits again while the flight master offers
+// any quest; the bind keeps #3088's rule (issue_3088_an_off_route_quest_on_offer_does_not_hold_the_bind_back).
+#[test]
+fn issue_3428_a_flight_master_s_own_quest_on_offer_keeps_the_flight_map_closed() {
+	let out = run(r#"
+		local TAXI = { gossipOptionID = 77, name = "Show me where I can fly.", icon = 132057, orderIndex = 0 }
+		q.openGossip(3615, { options = { TAXI }, availableQuests = { { questID = 99000 } } })
+		local offered = #calls("SelectOption")
+		q.calls = {}
+		q.openGossip(3615, { options = { TAXI } })
+		emit({ offered = offered, none = calls("SelectOption") })
+	"#);
+	assert_eq!(out[0], json!({ "offered": 0, "none": [77] }));
+}
+
 #[test]
 fn flight_marks_the_route_s_next_flight_destination_else_the_fly_goal_never_takes_the_flight() {
 	let out = run(r#"
@@ -4914,6 +4940,48 @@ fn death_as_a_ghost_the_arrow_is_held_on_the_faster_choice_resurrection_lets_go(
 	assert_eq!(out[2], true, "held: no target set again while the choice stands");
 	assert_eq!(out[3], json!({ "unholds": 1, "target": "The guide's step", "pins": true, "advice": true }), "alive: the guide's target again");
 	assert_eq!(out[4], true, "no more targets after resurrection");
+}
+
+// #3610 (Yendi, Dun Morogh at level 9): released by the Spirit Healer near Kharanos, the arrow led 1.2 km to the one in
+// Coldridge Valley while the map's Spirit Healer mark stood beside the ghost. The advice had already moved on to the
+// nearer Spirit Healer (its mark did), but the arrow held the first one it was given for as long as the Spirit Healer
+// stayed the choice. The arrow is on the Spirit Healer the advice names, whichever that is now.
+#[test]
+fn death_the_arrow_follows_the_advice_to_a_nearer_spirit_healer_3610() {
+	let out = run(r#"
+		-- Two Spirit Healers on one line: A 250 yd west, B 300 yd east of the place the character died.
+		local am, ax, ay = q.mapPoint(0, -250)
+		local bm, bx, by = q.mapPoint(0, 300)
+		QoL.SetData({ spiritHealers = { { 0, 0, -250, am, ax, ay }, { 0, 0, 300, bm, bx, by } }, flightMasters = {} })
+		q.level = 9
+		q.nav.target = { map = 9000, x = 10, y = 10, label = "The guide's step" }
+		-- The first look: where the character died, its corpse not answered yet: the nearest Spirit Healer is A.
+		q.player = { c = 0, wx = 0, wy = 0 }
+		q.ghost = true
+		stub.fire("PLAYER_ALIVE")
+		local t = q.nav.target
+		emit({ label = t.label, x = t.x, choice = QoL.GetDeathAdvice().choice, healer = QoL.GetDeathAdvice().healerWY })
+		-- The ghost beside B, the corpse where it died (290 yd away): B, no sickness at 9.
+		q.player = { c = 0, wx = 0, wy = 290 }
+		local _, cx, cy = q.mapPoint(0, 0)
+		q.corpse = { cx, cy }
+		stub.advance(1.1)
+		t = q.nav.target
+		emit({ label = t.label, x = t.x, y = t.y, held = q.nav.held == t, choice = QoL.GetDeathAdvice().choice, healer = QoL.GetDeathAdvice().healerWY })
+		-- Still B a second later: the arrow is not set again.
+		local sets = #q.nav.sets
+		stub.advance(1.1)
+		emit(#q.nav.sets == sets)
+		emit({ bx = bx, ax = ax })
+	"#);
+	assert_eq!(out[0]["label"], "Spirit Healer");
+	assert_eq!(out[0]["healer"], -250.0, "first look: A, the nearest one then");
+	assert_eq!(out[1]["choice"], "healer");
+	assert_eq!(out[1]["healer"], 300.0, "the advice names B");
+	assert_eq!(out[1]["label"], "Spirit Healer");
+	assert!((out[1]["x"].as_f64().unwrap() - out[3]["bx"].as_f64().unwrap()).abs() < 1e-9, "the arrow on B, not A: {} (A at {})", out[1], out[3]["ax"]);
+	assert_eq!(out[1]["held"], true);
+	assert_eq!(out[2], true, "held on B: no target set again while B stands");
 }
 
 #[test]

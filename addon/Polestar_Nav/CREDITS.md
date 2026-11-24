@@ -134,17 +134,23 @@ forge nav check
 The importer pins the source manifest and all three sidecars by SHA-256 and
 checks every source part against the manifest. It groups existing compressed
 pages by region without rebaking geometry. `Polestar_Nav/PACK.json` records
-the pins, resulting data hashes, loader hashes and region folder names.
+the pins, resulting data hashes and loader hashes. Run over a 0.4.2 checkout,
+it also deletes that release's 127 `Polestar_Nav_R*` region folders once each
+matches the hashes 0.4.2's `PACK.json` pinned.
 To check a shipped pack without the source snapshot, only `forge nav check`
 is needed. Version and translated titles/notes can change without invalidating
 a loader; its file order, dependencies, interface and load mode cannot.
+The whole chain, from `forge nav pack` through this import, is one command,
+`tools/nav/repack.sh` (docs/nav/REPACK.md in the repository).
 
 The continent holds the routing graph and a directory. Each eight-by-four-tile
-sector has separate on-demand addons for coarse floors and fine local geometry.
-In `Polestar_Nav_R<map>_<row>_<col>`, even rows hold floors; the next odd row
-holds that sector's local geometry. A cost search need not load both. WoW
-retains each loaded addon until reload: revisiting incurs no further page load,
-but travelling to more regions increases resident compressed data.
+sector's coarse floors and fine local geometry are two regions (even rows
+floors, the next odd row that sector's local geometry), and each region is one
+string in its continent's folder: `Region<map>_<row>_<col>.lua` in
+`Polestar_Nav_EK` and `Polestar_Nav_Kalimdor`, Zephras Isle's in
+`Polestar_Nav/Nav`. The router unpacks a region into its pages the first time
+a walk needs one of them and drops the string; a cost search need not unpack
+both of a sector's regions.
 
 ## With Shortest Path Forever installed too
 

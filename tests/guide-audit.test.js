@@ -62,3 +62,105 @@ test("a banner's second action that would be cut takes its own line, and the ban
 	assert.equal(narrow.cut, false, 'its label is whole');
 	assert.equal(narrow.h - wide.h >= 22, true, `the banner grows by its line: ${narrow.h} vs ${wide.h}`);
 });
+
+test('the divider lines show in the opaque window only', () => {
+	const [opaque, clear] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local p = GF.parts
+		local function rules(style)
+			Polestar.Set("ui.style", style)
+			GF.ApplyStyle()
+			return { nav = p.nav.Rule:IsShown(), xp = GF.xp.Rule:IsShown(), banner = p.banner.Rule:IsShown() }
+		end
+		emit(rules("standard"))
+		emit(rules("transparent"))`);
+	assert.deepEqual(opaque, { nav: true, xp: true, banner: true });
+	assert.deepEqual(clear, { nav: false, xp: false, banner: false });
+});
+
+test('the foot line names a later step as "Next step:", this step\'s next person as "Then:"', () => {
+	const [later, here] = run(`
+		local function after(step, whole)
+			uistub.setGuide(uistub.elwynn, step)
+			Polestar.Set("ui.wholeStep", whole)
+			GF.Render() GF.Layout()
+			return GF.parts.after.Text:GetText()
+		end
+		emit(after(3, false))
+		emit(after(4, true))`);
+	assert.match(later, /^Next step: .*Marshal McBride/);
+	assert.match(here, /^Then: .*Eagan Peltskinner/);
+});
+
+test("a finished guide's window offers the next guide as the guide-end window names it", () => {
+	const [out] = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar'],
+		script: `
+w = stub.world
+w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.moveTo(1429, 48, 42)
+Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+local steps = { { goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride" } } } }
+Polestar.RegisterGuide({ id = "test/a", pack = "test", title = "A", minLevel = 1, maxLevel = 10, next = "test/b", steps = steps })
+Polestar.RegisterGuide({ id = "test/b", pack = "test", title = "Westfall", minLevel = 10, maxLevel = 17, steps = steps })
+stub.login()
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
+Polestar.Set("ui.shown", true)
+local E, GF = Polestar.Engine, Polestar.UI.GuideFrame
+E.SetGuide("test/a")
+E.Skip()
+GF.Render(); GF.Layout(); stub.advance(1)
+local empty = GF.parts.empty
+local pn = Polestar.UI.GuideFrame.PlayNext
+local card, other = pn.card(), pn.other()
+local snap = { shown = empty:IsShown(), text = empty.Text:GetText(), go = empty.Primary:IsShown() and empty.Primary.Label:GetText(),
+	card = card:IsShown(), title = card.Title:GetText(), why = card.Why:GetText(), steps = card.Steps:GetText(),
+	start = card.Start.Label:GetText(), default = card.Start.psDefault, other = other:IsShown(), otherText = other.Label:GetText(),
+	height = card:GetHeight(), secondary = empty.Secondary:IsShown() }
+card.Start.psAction()
+snap.now = E.GetGuide().id
+emit(snap)`,
+	}).emitted;
+	assert.equal(out.shown, true, 'the complete page');
+	assert.match(out.text, /^\|c[0-9a-f]{8}A \(1–10\)\|r is done\.$/);
+	assert.equal(out.go, false, 'no Continue button: the card has the Start');
+	assert.equal(out.secondary, false, 'no Browse guides button');
+	assert.equal(out.card, true, 'the Play next card');
+	assert.match(out.title, /^Westfall \|c[0-9a-f]{8}\(10–17\)\|r$/);
+	assert.match(out.why, /^Next in your route · your level \d+$/);
+	assert.equal(out.start, 'Start');
+	assert.equal(out.default, true, 'a gamepad starts on Start');
+	assert.equal(out.other, true, 'the quiet Other guides link');
+	assert.equal(out.otherText, 'Other guides');
+	assert.equal(out.now, 'test/b', 'Start goes on to the next guide');
+});
+
+test('banners tint by their kind and resting glyphs are dim; the accent stays the live goal\'s', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local T, banner = Polestar.Theme, GF.parts.banner
+		local function same(tex, role)
+			local r, g, b = tex:GetVertexColor()
+			local R, G, B = T.Color(role)
+			return math.abs(r - R) < 0.01 and math.abs(g - G) < 0.01 and math.abs(b - B) < 0.01
+		end
+		local out = {}
+		GF.LayoutBanner(400, true, "bags", { free = 0, need = 2 })
+		out.bagsIcon, out.bagsFill = same(banner.Icon, "warning"), same(banner.Fill, "warning")
+		GF.LayoutBanner(400, true, "lost", { title = "Kobold Camp Cleanup" })
+		out.lostIcon, out.lostFill = same(banner.Icon, "textDim"), same(banner.Fill, "textDim")
+		out.lostLink = same(banner.Jump.Arrow, "accent")
+		for _, r in ipairs(GF.rows) do
+			if r:IsShown() and r.psGoal and r.psGoal.status ~= "done" then
+				out[#out + 1] = { live = r.psRowInfo.current, accent = same(r.Icon, "accent"), dim = same(r.Icon, "textDim") }
+			end
+		end
+		emit(out)`);
+	assert.deepEqual([out.bagsIcon, out.bagsFill], [true, true], 'the bags banner in the warning colour');
+	assert.deepEqual([out.lostIcon, out.lostFill], [true, true], 'another kind neutral');
+	assert.equal(out.lostLink, true, 'its main action keeps the accent');
+	const rows = Object.keys(out).filter((k) => /^\d+$/.test(k)).map((k) => out[k]);
+	assert.ok(rows.length >= 2, 'open goals on the card');
+	for (const r of rows) assert.deepEqual([r.accent, r.dim], r.live ? [true, false] : [false, true]);
+});

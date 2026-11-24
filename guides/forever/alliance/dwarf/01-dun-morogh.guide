@@ -334,7 +334,7 @@ step The Gnomeregan road
   goto 25.1,50.94 live "Frostmane Hold"
 
 step Frostmane Hold
-  tip Frostmane Hold is the troll cave in the hills south-west of Brewnall Village. Kill Headhunters at its mouth and walk through to its far end.
+  tip Frostmane Hold is the troll cave in the hills south-west of Brewnall Village. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore Frostmane Hold ticks only in there, not on the hill above it.
   tip Careful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth.
   kill 1123 quest 287                         -- Frostmane Headhunter, below ground
   goto 21.3,54.2 "Frostmane Hold"
@@ -508,10 +508,21 @@ step Amberstill Ranch
   when group 314
   turnin 314
 
+# ---------------------------------------------------------------- North Gate Outpost
+
+step North Gate Outpost
+  zone Dun Morogh
+  tip Follow the road east and take its northern fork to the North Gate Outpost: Pilot Hammerfoot waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into Loch Modan come next, down the road to the south.
+  accept 419                                  -- Pilot Hammerfoot
+  turnin 419                                  -- A Dwarven Corpse
+  accept 417
+  collect 3183 quest 417.1                    -- Mangy Claw: Mangeclaw
+  turnin 417                                  -- Pilot Hammerfoot
+
 # ---------------------------------------------------------------- South Gate Outpost
 
 step South Gate Outpost
-  tip Follow the road all the way east to the South Gate Outpost at the Loch Modan tunnel.
+  tip Back south down the road to the South Gate Outpost at the Loch Modan tunnel.
   turnin 413                                  -- Mountaineer Barleybrew
   accept 414
 
@@ -532,18 +543,6 @@ step Braldir Ashmantle
   tip Go through the tunnel into Loch Modan. Just past it, a path marked by stones climbs the hills on the right of the road north to Braldir's camp.
   turnin 94465                                -- Braldir Ashmantle
   accept 94466
-
-# ---------------------------------------------------------------- North Gate Outpost
-
-step North Gate Outpost
-  zone Dun Morogh
-  tip Pilot Hammerfoot waits at the North Gate Outpost, north of the South Gate; the dwarven corpse lies up the pass to the west of him.
-  goto 83.79,39.26 map 1426 live "North Gate Outpost" only Shaman
-  accept 419                                  -- Pilot Hammerfoot
-  turnin 419                                  -- A Dwarven Corpse
-  accept 417
-  collect 3183 quest 417.1                    -- Mangy Claw: Mangeclaw
-  turnin 417                                  -- Pilot Hammerfoot
 
 # ---------------------------------------------------------------- Loch Modan: the tunnel post, Thelsamar and the west hills
 

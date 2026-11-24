@@ -6,59 +6,59 @@
 -- A token marked "no name in this language" would show in English: write that name in Portuguese (Brazil) words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: To Ironforge
-	-- {zone:1455} Ironforge
-	["To {zone:1455}"] = "Para {zone:1455}",
-
-	-- Step 2: Fly to Thelsamar
+	-- Step 1: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "Voe para {area:144}",
-	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "Mestre de voo de {zone:1455}",
 
-	-- Step 3: Into Searing Gorge
+	-- Step 2: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into {zone:1427}"] = "Rumo a {zone:1427}",
 
-	-- Step 4: Searing Gorge
+	-- Step 3: Searing Gorge
 	["The Grimesilt outhouse"] = "A casinha de Pedrassuja",
 
-	-- Step 5: The Grimesilt outhouse
+	-- Step 4: The Grimesilt outhouse
 	-- {area:144} Thelsamar · {zone:1418} Badlands · {area:340} Kargath · {zone:1427} Searing Gorge · {area:247} Grimesilt Dig Site · {item:4306} Silk Cloth
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
 	["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}: the {area:247} is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "De {area:144}, siga para o sul até {zone:1418}, depois a oeste, passando pela cidade da Horda de {area:340} (dê espaço a ela), e suba a trilha até {zone:1427}: {area:247} fica logo na entrada, no sudeste. O prisioneiro na casinha de madeira quer 15 {item:4306} e oito Geólogos Ferro Negro mortos do sítio de escavação em volta. A casinha também abre com a chave, se você encontrou uma.",
 
-	-- Step 6: The Grimesilt outhouse
+	-- Step 5: The Grimesilt outhouse
 	-- {zone:1446} Tanaris · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh
 	["The prisoner's next task, Ledger from {zone:1446}, sends you to the {zone:1435} and {zone:1445}: skip it."] = "A próxima tarefa do prisioneiro, Livro-Caixa de {zone:1446}, manda você para {zone:1435} e {zone:1445}: pule.",
 
-	-- Step 7: Level 48.27
+	-- Step 6: Level 48.27
 	["Level 48.27"] = "Nível 48.27",
 	-- {item:3985} Monogrammed Sash
 	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan."] = "Se você pulou {item:3985} ou Confrontando Negolash, mate monstros aqui até o nível 48.27 para seguir o plano da rota.",
 	-- {npc:5839} Dark Iron Geologist
 	["grind on {npc:5839}"] = "mate {npc:5839} até subir",
 
-	-- Step 8: Dorius Stonetender
+	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
 	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "Dório fica junto à estrada, ao lado de {area:247}. Escolte-o para nordeste até {area:1959} e mantenha-o vivo; quando acabar, leia {object:175704}, que ele deixa na estrada.",
 	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
 	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "Para {npc:8256} em {zone:1455}, no fim deste guia",
 
-	-- Step 9: Thorium Point
+	-- Step 8: Thorium Point
 	-- {area:1446} Thorium Point
 	["Ride west along the north of the Gorge to {area:1446}, the scaffolded camp on the north-west rim."] = "Cavalgue para oeste pelo norte da Garganta até {area:1446}, o acampamento de andaimes na borda noroeste.",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "O quadro {object:179827}",
 
-	-- Step 10: Culling the Competition
+	-- Step 9: Culling the Competition
 	["Culling the Competition"] = "",
 	["Take the bounty from the board only if you want to hunt the linked dwarf packs with a group."] = "",
 
-	-- Step 12: Zamael Lunthistle
+	-- Step 11: Zamael Lunthistle
 	-- {npc:8436} Zamael Lunthistle · {area:1442} Firewatch Ridge · {area:1446} Thorium Point · {npc:8282} Highlord Mastrogonde · {quest:3377} Prayer to Elune
 	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:8436} fica dentro do acampamento do Crepúsculo em {area:1442}, a oeste de {area:1446}, entre Guardas das Chamas, Idólatras e Geomantes do Crepúsculo (elites de nível 48-49), com {npc:8282} (elite raro de nível 51) ao lado dele: {quest:3377} pede um grupo de 4. Se estiver sozinho, pule.",
+
+	-- Step 14: Prayer to Elune: the page
+	-- {quest:3378} Prayer to Elune
+	["{quest:3378}: the page"] = "",
+	-- {npc:8436} Zamael Lunthistle · {quest:3378} Prayer to Elune
+	["The Twilight elites of {npc:8436}'s camp drop the {quest:3378} page, about one in five: keep the group together here until one drops."] = "",
 
 	-- Step 15: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
@@ -80,7 +80,7 @@ return {
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster
 	["Dark Iron Taskmasters"] = "",
 	-- {area:1443} Slag Pit
-	["With your group, look for Taskmasters on the open ledges. Stay on the surface; don't follow the arrow into the {area:1443}."] = "",
+	["With your group, look for Taskmasters on the open ledges first. Last stop, if you still need some: take the lift (the scaffold cars) down into the {area:1443} below, where four more stand."] = "",
 
 	-- Step 22: Dark Iron Slavers
 	-- plural, as words: Dark Iron Slavers = {npc:5844} Dark Iron Slaver
@@ -199,6 +199,7 @@ return {
 	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "O elfo noturno está sozinho a oeste de {area:1446}. Ouça a história dele.",
 	-- ["The spiders roam the plateaus and lava pools in the south-west of the gorge."] = "As aranhas vagam pelos platôs e poças de lava no sudoeste da garganta.",
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Velarok."] = "As aranhas rondam os platôs e as poças de lava ao sul de {npc:8436}, no caminho até Velarok.",
+	-- ["To {zone:1455}"] = "Para {zone:1455}",
 	-- ["Velarok Windblade"] = "Velarok Windblade",
 	-- ["Velarok stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "Velarok fica na borda de O Caldeirão, ao sul de {area:1446}. Ouça a história dele.",
 	-- ["grind on {npc:5844}"] = "mate {npc:5844} até subir",
@@ -207,4 +208,5 @@ return {
 	-- ["{npc:8509} and the dragonflight's hoard are beside Velarok, on the rim south of {area:1446}."] = "{npc:8509} e o tesouro da revoada estão ao lado de Velarok, na borda ao sul de {area:1446}.",
 	-- ["{object:147516} dwarves"] = "Anões {object:147516}",
 	-- ["{quest:3453} lies on the ground at Velarok's feet; {quest:3462} stands beside him."] = "{quest:3453} está no chão aos pés de Velarok; {quest:3462} está ao lado dele.",
+	-- ["{zone:1455} flight master"] = "Mestre de voo de {zone:1455}",
 }

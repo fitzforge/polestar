@@ -294,7 +294,8 @@ return {
 	-- Step 47: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village
 	-- plural, as words: Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
-	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135}是{area:137}西南边山丘里的巨魔洞穴。先击杀洞口的猎头者，再穿过洞穴走到另一端。\n小心：要塞里的霜鬃剥皮者是9-10级，两两成对站着：一次引一只，拉回洞口。",
+	-- was: ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135}是{area:137}西南边山丘里的巨魔洞穴。先击杀洞口的猎头者，再穿过洞穴走到另一端。\n小心：要塞里的霜鬃剥皮者是9-10级，两两成对站着：一次引一只，拉回洞口。"
+	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore {area:135} ticks only in there, not on the hill above it.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "{npc:1123}：在地下",
 
@@ -401,23 +402,22 @@ return {
 	-- {zone:1455} Ironforge
 	["On the road back west to {zone:1455}."] = "沿路向西返回{zone:1455}途中完成。",
 
-	-- Step 78: South Gate Outpost
-	-- {area:806} South Gate Outpost · {area:38} Loch Modan
-	-- was: ["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "沿路一直向东，前往{zone:1432}隧道口的{area:806}。"
-	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "",
+	-- Step 78: North Gate Outpost
+	-- {area:808} North Gate Outpost · {npc:1960} Pilot Hammerfoot · {area:38} Loch Modan
+	["Follow the road east and take its northern fork to the {area:808}: {npc:1960} waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into {area:38} come next, down the road to the south."] = "",
 
-	-- Step 79: Bruegs Kindleborn
+	-- Step 79: South Gate Outpost
+	-- {area:806} South Gate Outpost · {area:38} Loch Modan
+	["Back south down the road to the {area:806} at the {area:38} tunnel."] = "",
+
+	-- Step 80: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
 	["{npc:257597} waits in a cave above the farm north-west of the {area:806}; the path up starts behind the farm."] = "{npc:257597}在{area:806}西北方农场上方的洞穴里等候；上去的小路从农场后面开始。",
 
-	-- Step 81: Braldir Ashmantle
+	-- Step 82: Braldir Ashmantle
 	-- {area:38} Loch Modan · {npc:257808} Braldir Ashmantle
 	-- was: ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "穿过隧道进入 {zone:1432}。刚出隧道，路右侧就有一条以石块标记的小径，沿它向北上山，前往 {npc:257808} 的营地。"
 	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "",
-
-	-- Step 82: North Gate Outpost
-	-- {npc:1960} Pilot Hammerfoot · {area:808} North Gate Outpost
-	["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960}在南门以北的{area:808}等候，矮人尸体位于他西侧上山通道处。",
 
 	-- Step 83: The tunnel post
 	["The tunnel post"] = "隧道哨站",
@@ -703,6 +703,7 @@ return {
 	-- ["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "从 {object:32383} 向西进入 {object:32362}：{npc:5149}、{npc:6179} 和 {npc:6178} 都在 {object:32386} 内，其中 {npc:6179} 和 {npc:6178} 在楼上；上楼的楼梯入口就在 {npc:5149} 东北侧。乞丐 {npc:6175} 在城里游荡。他需要十块 {item:2589}：{zone:1426} 的穴居人和巨魔会掉落，也可从拍卖行购买。",
 	-- ["{area:133}: kill these as you meet them"] = "{area:133}：沿途击杀以下目标",
 	-- ["{area:135} is the troll cave in the hills south-west of {area:137}. Ice Claw Bears, Elder Crag Boars and Snow Leopards you kill on the way count for {npc:1374}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135}是{area:137}西南边山丘里的巨魔洞穴。沿途击杀的冰爪熊、老峭壁野猪和雪豹都计入{npc:1374}的任务。先击杀洞口的猎头者，再穿过洞穴走到另一端。\n小心：要塞里的霜鬃剥皮者是9-10级，两两成对站着：一次引一只，拉回洞口。",
+	-- ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135}是{area:137}西南边山丘里的巨魔洞穴。先击杀洞口的猎头者，再穿过洞穴走到另一端。\n小心：要塞里的霜鬃剥皮者是9-10级，两两成对站着：一次引一只，拉回洞口。",
 	-- ["{item:5026} and the {item:6652}"] = "{item:5026}和{item:6652}",
 	-- ["{npc:1127}, on the way"] = "{npc:1127}，沿途击杀",
 	-- ["{npc:1196}, on the way to the Hold"] = "{npc:1196}，前往据点的路上顺手击杀",
@@ -715,6 +716,7 @@ return {
 	-- ["{npc:1377}, at the depot"] = "{npc:1377}，在补给站",
 	-- ["{npc:1573}, the gryphon master where you landed"] = "{npc:1573}，落地处的狮鹫管理员",
 	-- ["{npc:1702}, beside him: Camping 101, engineers"] = "{npc:1702}，在他旁边：露营 101，工程学",
+	-- ["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960}在南门以北的{area:808}等候，矮人尸体位于他西侧上山通道处。",
 	-- ["{npc:2326}, inside: Camping 101, {skill:129}"] = "{npc:2326}，在屋内：露营 101，{skill:129}",
 	-- ["{npc:257808} gives you the {item:6636}. Climb to the peak above his camp, drink the Sapta beside the Spirit Stone and defeat the {npc:5893}, then place its {item:6655} in the {object:61934}, atop the Shrine of Eternal Flame."] = "{npc:257808}会给你{item:6636}。爬到他营地上方的山顶，在灵魂石旁喝下圣水并击败{npc:5893}，然后把它的{item:6655}放进永恒之火神龛顶上的{object:61934}。",
 	-- ["{npc:258098}, the shaman trainer, north of the {object:32372}"] = "{npc:258098}，萨满祭司训练师，在{object:32372}北边",

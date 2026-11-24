@@ -20,7 +20,7 @@ return {
 
 	-- Step 2: Fly to Shadowprey Village
 	-- {area:2408} Shadowprey Village
-	["Fly to {area:2408}"] = "",
+	["Fly to {area:2408}"] = "Vuela a {area:2408}",
 	-- {zone:2652} Shen'dralas · {area:405} Desolace · {area:2657} Valley of Bones · {zone:1454} Orgrimmar · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1458} Undercity
 	["New in Forever: this guide follows what players did in {zone:2652}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the zeppelin to {zone:1454} first (from {object:3202} or the {zone:1458})."] = "Nuevo en Forever: esta guía sigue lo que hicieron los jugadores en {zone:2652}. Si un paso está mal, avísanos en el Discord o GitHub de Polestar e indica el paso.\n{zone:2652} está al sur de {area:405}, pasando por {area:2657}, y no tiene ruta de vuelo propia. Sus misiones son para los niveles 41-45. Si vienes de los Reinos del Este, toma antes el zepelín hasta {zone:1454} (desde {object:3202} o desde {zone:1458}).",
 	-- {zone:1454} Orgrimmar
@@ -99,20 +99,37 @@ return {
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift
 	["{npc:253471} sends you for the {item:255662}, kept inside the temple beside {npc:255486}. {quest:96018} asks you to gather mana with the Sieve before you repair the pylons: with it in your bags you can handle the Unstable Mana Rifts, the floating sparks of mana all along the road north."] = "{npc:253471} te envía a por el {item:255662}, guardado dentro del templo junto a {npc:255486}. {quest:96018} te pide reunir maná con el Tamiz antes de reparar los pilones: con él en las bolsas puedes usar las Fallas de maná inestables, las chispas de maná flotantes a lo largo del camino al norte.",
 
-	-- Step 17: The road south of the western pylon
+	-- Step 17: Unstable Mana Rifts: mana for the western pylon
+	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift
+	["Unstable Mana Rifts: mana for the western pylon"] = "",
+	-- {item:255662} Mana Sieve
+	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal
+	["Use the {item:255662} on the Unstable Mana Rifts, the floating sparks along the road north: each pylon takes four Coalesced Mana Crystals, and the repair uses them up."] = "",
+	-- {item:255667} Coalesced Mana Crystal · {item:255662} Mana Sieve
+	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift
+	["{item:255667}, from the Unstable Mana Rifts with the {item:255662}"] = "",
+
+	-- Step 18: The road south of the western pylon
 	["The road south of the western pylon"] = "",
 	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Magram Necrokhans = {npc:253274} Magram Necrokhan · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
 	["North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one {npc:252711} at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use {spell:1289727}, as players did to repair it.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds."] = "",
 	["the road just south of the western pylon"] = "",
 
-	-- Step 18: The western pylon: repair it
+	-- Step 19: The western pylon: repair it
 	["The western pylon: repair it"] = "El pilón occidental: repáralo",
 	["Pull a single Protector down to the road, then repair the pylon from its west side."] = "",
 	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
 	["{npc:252711}, pulled to the arrow's spot, then {spell:1289727} on the pylon's west side"] = "",
 
-	-- Step 19: Bristleback Retreat: repair the eastern pylon
+	-- Step 20: Unstable Mana Rifts: mana for the eastern pylon
+	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift
+	["Unstable Mana Rifts: mana for the eastern pylon"] = "",
+	-- {item:255662} Mana Sieve
+	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal
+	["The western repair used up your crystals: on the way east, use the {item:255662} on the Unstable Mana Rifts again for four more Coalesced Mana Crystals."] = "",
+
+	-- Step 21: Bristleback Retreat: repair the eastern pylon
 	-- {area:16677} Bristleback Retreat
 	["{area:16677}: repair the eastern pylon"] = "{area:16677}: repara el pilón oriental",
 	-- {npc:252711} Decrepit Pylon Protector · {npc:253527} Kog'thug the Brave
@@ -120,54 +137,54 @@ return {
 	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
 	["{npc:252711}, then {spell:1289727} on it"] = "{npc:252711}, luego {spell:1289727} sobre él",
 
-	-- Step 20: Evenshade's Overlook
+	-- Step 22: Evenshade's Overlook
 	-- {npc:253471} Mordent Evenshade · {quest:93016} A Brief History Lesson
 	["Back west along the valley road and south to {npc:253471}. {quest:93016} asks you to hear him out: talk to him once more, then hand it in."] = "Vuelve al oeste por el camino del valle y luego al sur hasta {npc:253471}. {quest:93016} te pide escucharle: habla con él otra vez y entrégala.",
 	-- {npc:253471} Mordent Evenshade
 	["{npc:253471}: hear him out"] = "{npc:253471}: escúchale",
 
-	-- Step 21: Liranne
+	-- Step 23: Liranne
 	-- {quest:93568} Partially Digested Collar · {npc:255385} Liranne
 	["A Prowler gave up a {quest:93568}: {npc:255385}, north of the temple, knows whose it was."] = "Un merodeador soltó un {quest:93568}: {npc:255385}, al norte del templo, sabe de quién era.",
 
-	-- Step 22: The temple: Magister Kirandis
+	-- Step 24: The temple: Magister Kirandis
 	-- {npc:254656} Magister Kirandis
 	["The temple: {npc:254656}"] = "El templo: {npc:254656}",
 	-- {npc:254656} Magister Kirandis · {npc:254578} Mithera · {quest:93341} Forlorn Gardens
 	["{npc:254656} waits inside the temple. Then {npc:254578}, on the temple's eastern side, has work in the {quest:93341}."] = "{npc:254656} espera dentro del templo. Después, {npc:254578}, en el lado este del templo, tiene trabajo en {quest:93341}.",
 
-	-- Step 23: The Forlorn Gardens: the pedestal
+	-- Step 25: The Forlorn Gardens: the pedestal
 	-- {quest:93341} Forlorn Gardens
 	["The {quest:93341}: the pedestal"] = "{quest:93341}: el pedestal",
 	-- {quest:93341} Forlorn Gardens
 	["East of the temple the {quest:93341} have run wild, and their plants attack on sight. Examine the pedestal at the gardens' southern end."] = "Al este del templo, {quest:93341} se han vuelto salvajes y sus plantas atacan nada más verte. Examina el pedestal del extremo sur de los jardines.",
 
-	-- Step 25: The Forlorn Gardens
+	-- Step 27: The Forlorn Gardens
 	-- {quest:93341} Forlorn Gardens
 	["The {quest:93341}"] = "{quest:93341}",
 	-- {npc:254674} Woodwyrd · {area:2100} Maraudon
 	-- plural, as words: Rowdy Roses = {npc:254566} Rowdy Rose · Terrible Tulips = {npc:254567} Terrible Tulip · Malevolent Marigolds = {npc:254572} Malevolent Marigold · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
 	["Rowdy Roses and Terrible Tulips grow all over the gardens; the Malevolent Marigolds keep to the northern part. {npc:254674}, the treant in the middle of the gardens, has a request of his own that needs water from {area:2100}, a dungeon: this guide leaves it.\nThe Shen'dralar who wander the gardens are neutral, like the temple's guards: leave them be and pull the flowers away from them. Careful: Nascent Pylon Protectors (elites, 43) wander the zone's middle, the gardens too: keep clear of them."] = "Las Rosas alborotadoras y los Tulipanes terribles crecen por todos los jardines; las Caléndulas malévolas se quedan en la parte norte. {npc:254674}, el antárbol del centro de los jardines, tiene su propio encargo, que requiere agua de {area:2100}, una mazmorra: esta guía lo deja.\nLos Shen'dralar que deambulan por los jardines son neutrales, como los guardias del templo: déjalos en paz y aparta las flores de ellos para atraerlas. Cuidado: los Protectores de pilón nacientes (élites, 43) deambulan por el centro de la zona, también por los jardines: mantente lejos de ellos.",
 
-	-- Step 26: Mithera
+	-- Step 28: Mithera
 	-- {npc:255486} Historian Biraxas · {npc:254656} Magister Kirandis · {npc:252711} Decrepit Pylon Protector
 	["{npc:255486}, inside the temple, has a task for you now that you have met {npc:254656}: the heart of a {npc:252711} (42-43, not elite), a short ride back up the road north."] = "{npc:255486}, dentro del templo, tiene una tarea para ti ahora que conoces a {npc:254656}: el corazón de un {npc:252711} (42-43, no élite), un poco más arriba por el camino al norte.",
 
-	-- Step 27: A Heart of Crystal
+	-- Step 29: A Heart of Crystal
 	-- {npc:252711} Decrepit Pylon Protector
 	["Use the west face of the western pylon, where you repaired it. Approach on the road from the south and pull one {npc:252711} back to you. Wait for the elite patrols to pass; do not follow a Protector around the east side."] = "",
 
-	-- Step 29: Mana Mania
+	-- Step 31: Mana Mania
 	-- {item:286647} Depleted Crystal Heart · {npc:264149} Unstable Mana Rift · {npc:276401} Nascent Pylon Protector
 	["Take the {item:286647} to an {npc:264149} on the road north of the temple and throw it into the rift. The {npc:276401} is elite: grouping up is advised."] = "",
 
-	-- Step 30: Shadowprey Village
+	-- Step 32: Shadowprey Village
 	-- {zone:2652} Shen'dralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:2408} Shadowprey Village · {area:1637} Orgrimmar · {zone:1444} Feralas · {area:1099} Camp Mojache
 	["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408} and fly to {area:1637}: the next guide picks up there, with the {zone:1444} guide's hand-ins. Keep your hearthstone (bound at {area:1099}): the next guide uses it to get from {area:1637} back to {area:1099}."] = "",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "Maestro de vuelo de {area:2408}",
 
-	-- Step 31: Back to your route
+	-- Step 33: Back to your route
 	["Back to your route"] = "De vuelta a tu ruta",
 	-- {zone:2652} Shen'dralas · {zone:1444} Feralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:1108} Forgotten Coast · {area:1116} Feathermoon Stronghold
 	["{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}."] = "{zone:2652} terminado. Tu guía de {zone:1444} continúa desde aquí: vuelve al norte por {area:2657}, al oeste por el borde sur de {area:405} y al sur hacia {zone:1444}, hasta el muelle de {area:1108}, donde el barco cruza a {area:1116}.",

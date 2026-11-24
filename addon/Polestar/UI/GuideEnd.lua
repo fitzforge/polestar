@@ -23,23 +23,27 @@
 -- six at most, and "Keep or abandon them", which opens their list with an
 -- Abandon button each (UI.ShowQuestRoom "offroute"); nothing is abandoned
 -- without the game's own confirmation.
--- The footer holds the buttons, the primary on the right:
---   next guide     Start The Barrens (Engine.StartNext: in the same tab)
---                  Not now, or Back to step 13 (the guide stays; the guide
---                  window then offers the next guide: GuideFrame's banner)
---   route choice   Choose where to go next (the route choice window), with
---                  the same second button
---   none           Pick a guide (the guide menu), Close
--- The header ✕ and Esc close it like the second button. It fades in with a
+-- The window is the guide's summary; it holds one button in the footer, Close
+-- (a finished guide) or Back to step 13 (the guide stays). The guide window
+-- owns the next guide's button: its complete page, or its banner while steps
+-- are open (GuideFrame's GF.EndOffer).
+-- The last step done before the rest (GUIDE_STEPS_LEFT, #3517) is no end
+-- yet: the same window says "2 steps left in Durotar (1–12)" and what follows
+-- once they are done or skipped (the next guide, a route choice, or the
+-- guide's end), with Back to step 13 (the guide's tab at its live step), no
+-- next guide shown and no quest lists; it closes once the live step moves
+-- on. The end itself comes later as above.
+-- The header ✕ and Esc close it like the button. It fades in with a
 -- small rise (Theme/Anim.lua; only the fade under ui.reduceMotion), plays
--- the quest-complete chime when the game's sound is on, can be dragged by
--- its header and waits for a fight to end before it opens.
+-- the quest-complete chime for an end when the game's sound is on, can be
+-- dragged by its header and waits for a fight to end before it opens.
 --
 -- Colours are Theme tokens only (the name's shadow in shade), repainted on a
 -- scheme change. Built on first use; nothing runs while it is hidden.
 --
---   UI.GuideEnd.Show(info) -> shown        info: GUIDE_END's (Engine)
---   UI.GuideEnd.Hide(), .Start(), .Later(), .IsShown(), .frame
+--   UI.GuideEnd.Show(info) -> shown        info: GUIDE_END's or
+--                                          GUIDE_STEPS_LEFT's (Engine)
+--   UI.GuideEnd.Hide(), .Later(), .IsShown(), .frame
 
 local ADDON, ns = ...
 local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
@@ -78,6 +82,23 @@ function GE.Model(info)
 	local g = info and info.guideId and G and G.Get(info.guideId)
 	if not g then return nil end
 	local m = { id = g.id, label = UI.GuideLabel(g), undone = info.undone or 0, live = info.live }
+	if info.left then
+		-- Its tab closed, or its live step moved on while a fight held the
+		-- window back (the count is stale, as in liveMoved): nothing to say.
+		local tab
+		for i, t in ipairs(E and E.GetTabs and E.GetTabs() or {}) do
+			if t.guideId == g.id then tab = i end
+		end
+		if not tab then return nil end
+		local cur = E.GetGuide and E.GetGuide()
+		if cur and cur.id == g.id and E.GetLiveStep and E.GetLiveStep() ~= info.live then return nil end
+		m.left = info.left
+		-- What follows once they are done, as the end says it.
+		local choice = info.choose and E.GetRouteChoice and E.GetRouteChoice(g.id)
+		m.choose = choice and #choice.options >= 2 or nil
+		m.next = not m.choose and info.next and G.Get(info.next) or nil
+		return m
+	end
 	m.complete = m.live == nil or m.undone == 0
 	local choice = info.choose and E and E.GetRouteChoice and E.GetRouteChoice(g.id)
 	if choice and #choice.options >= 2 then
@@ -107,10 +128,21 @@ local function paintTitle(fs)
 	local m = shown
 	if not m then return end
 	local name = "|c" .. Theme.Hex("accent") .. m.label .. "|r"
-	local pattern = m.complete and L["You've completed %s"] or L["You've reached the end of %s"]
-	fs:SetText(format(pattern, name))
+	local pattern, count
+	if m.left then
+		count = m.left ~= 1 and m.left or nil
+		pattern = count and L["%d steps left in %s"] or L["1 step left in %s"]
+	else
+		pattern = m.complete and L["You've completed %s"] or L["You've reached the end of %s"]
+	end
+	-- The count, then the guide (a translation may number them: %2$s, %1$d).
+	local function fill(p)
+		if count then return format(p, count, name) end
+		return format(p, name)
+	end
+	fs:SetText(fill(pattern))
 	if fs.GetNumLines and fs:GetNumLines() > 1 and pattern:find(" %%s$") then
-		fs:SetText(format((pattern:gsub(" %%s$", "\n%%s")), name))
+		fs:SetText(fill((pattern:gsub(" %%s$", "\n%%s"))))
 	end
 end
 
@@ -229,7 +261,9 @@ local function build()
 	end, { role = "note" })
 	F.OffLink.psTip = L["Each with its Abandon button, which asks in the game's own window first."]
 
-	-- Footer: the second button, then the primary on the right.
+	-- Footer: one button on the right. The window is the guide's summary; the
+	-- guide window owns the next guide's button (its complete page, or its
+	-- banner while steps are open: GF.EndOffer).
 	local foot = CreateFrame("Frame", nil, F)
 	foot:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 1, 1)
 	foot:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", -1, 1)
@@ -239,22 +273,20 @@ local function build()
 	F.FootRule:SetPoint("TOPLEFT", foot, "TOPLEFT", 0, 0)
 	F.FootRule:SetPoint("TOPRIGHT", foot, "TOPRIGHT", 0, 0)
 	F.Footer = foot
-	F.Go = W.Button(foot, "", function() GE.Start() end, { primary = true })
-	F.Go:SetPoint("RIGHT", foot, "RIGHT", -PAD + 1, 0)
-	F.Later = W.Button(foot, "", function() GE.Later() end, { ghost = true })
-	F.Later:SetPoint("RIGHT", F.Go, "LEFT", -8, 0)
+	F.Later = W.Button(foot, "", function() GE.Later() end)
+	F.Later:SetPoint("RIGHT", foot, "RIGHT", -PAD + 1, 0)
 
 	F:SetScript("OnShow", function(self)
 		Anim.To(self, "alpha", 0, 1, Anim.SLOW, "out")
 		Anim.To(self, "offset", -RISE, 0, Anim.SLOW, "out")
 	end)
 	ns.CloseOnEscape("PolestarGuideEnd")
-	-- A gamepad (UI/Gamepad.lua) starts on the primary button; the window
+	-- A gamepad (UI/Gamepad.lua) starts on the footer's button; the window
 	-- shows by itself, so it waits for the player before it takes the pad.
 	if ns.Gamepad and ns.Gamepad.Register then
 		ns.Gamepad.Register(F, {
 			initial = function(rows)
-				for i, w in ipairs(rows) do if w == F.Go then return i end end
+				for i, w in ipairs(rows) do if w == F.Later then return i end end
 			end,
 			back = function() GE.Later() end,
 			unasked = function() return true end,
@@ -264,13 +296,19 @@ local function build()
 	GE.frame = F
 end
 
+-- The live step as the player counts that guide's steps (#942).
+local function liveNumber(m)
+	local E, g = ns.Engine, ns.Guides.Get(m.id)
+	return E and E.StepNumberOf and g and (E.StepNumberOf(g, m.live)) or m.live
+end
+
 local function layout(m)
 	local emblem, footH = Theme.House("endEmblem") or EMBLEM, Theme.House("dialogFoot") or FOOT_H
 	F.Emblem:SetSize(emblem, emblem)
 	F.Glow:SetSize(emblem * 3, emblem * 3)
 	F.Footer:SetHeight(footH)
 	paintTitle(F.Title)
-	if m.complete then
+	if m.complete or m.left then
 		F.Undone:Hide()
 	else
 		F.Undone:SetText(m.undone == 1 and L["1 step was left undone."] or format(L["%d steps were left undone."], m.undone))
@@ -283,7 +321,16 @@ local function layout(m)
 	F.Band:SetTexCoord(Theme.BandCoords(WIDTH - 2, headH))
 
 	local y = headH + PAD
-	if m.next then
+	if m.left then
+		F.Art:Hide()
+		F.Text:SetText(m.choose and L["Do or skip what's left, and you choose where to go next."]
+			or m.next and L["Do or skip what's left, and the next guide follows."]
+			or L["Do or skip what's left, and the guide ends."])
+		F.Text:ClearAllPoints()
+		F.Text:SetPoint("TOP", F, "TOP", 0, -y)
+		F.Text:Show()
+		y = y + F.Text:GetStringHeight()
+	elseif m.next then
 		local fx, fy
 		local E = Engine()
 		if E and E.GuideFocus then fx, fy = E.GuideFocus(m.next.id) end
@@ -360,22 +407,10 @@ local function layout(m)
 		F.OffLink:Hide()
 	end
 
-	if m.choose then
-		W.SetButtonText(F.Go, L["Choose where to go next"])
-	elseif m.next then
-		W.SetButtonText(F.Go, format(L["Start %s"], m.next.title or m.next.id))
-	else
-		W.SetButtonText(F.Go, L["Pick a guide"])
-	end
-	if not (m.next or m.choose) then
+	if m.complete then
 		W.SetButtonText(F.Later, L["Close"])
-	elseif m.complete then
-		W.SetButtonText(F.Later, L["Not now"])
 	else
-		-- As the player counts that guide's steps (#942).
-		local E, g = ns.Engine, ns.Guides.Get(m.id)
-		local no = E and E.StepNumberOf and g and (E.StepNumberOf(g, m.live)) or m.live
-		W.SetButtonText(F.Later, format(L["Back to step %d"], no))
+		W.SetButtonText(F.Later, format(L["Back to step %d"], liveNumber(m)))
 	end
 	F:SetHeight(floor(y + PAD + footH + 0.5))
 	if W.LayoutRim then W.LayoutRim(F) end
@@ -385,16 +420,22 @@ end
 -- opened (or will, after combat).
 function GE.Show(info)
 	local m = GE.Model(info)
-	if not m then return false end
+	if not m then
+		-- One held back that has nothing to say any more.
+		if waiting == info then waiting = nil end
+		return false
+	end
 	if inCombat() or not ns.IsLoggedIn() then
 		waiting = info
 		return true
 	end
 	waiting = nil
 	if not F then build() end
+	-- The chime for an end, also when it follows the steps-left window.
+	local chime = not m.left and not (F:IsShown() and shown and not shown.left)
 	shown = m
 	layout(m)
-	if not F:IsShown() then
+	if chime then
 		local C = UI.ClassCard
 		if C and C.GameSoundOn and C.GameSoundOn() then
 			pcall(ns.PlaySound, (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878, "SFX")
@@ -415,33 +456,41 @@ function GE.IsShown()
 	return F ~= nil and F:IsShown()
 end
 
--- The primary button: start the next guide in the guide's tab, open the
--- route choice, or the guide menu.
-function GE.Start()
-	local m, E = shown, Engine()
-	if not m then return end
-	GE.Hide()
-	if m.choose then
-		UI.ShowRouteChoice(m.id)
-	elseif m.next then
-		if E and E.StartNext then E.StartNext(m.id) end
-	else
-		UI.ShowPicker()
-	end
-	ns.Set("ui.shown", true)
-end
-
--- The second button (and ✕, Esc): the guide stays; with steps left open the
+-- The footer's button (and ✕, Esc): the guide stays; with steps left open the
 -- guide window goes back to the live step.
 function GE.Later()
 	local m, E = shown, Engine()
 	GE.Hide()
+	-- Steps left: that guide's tab, at its live step.
+	if m and m.left and E then
+		for i, t in ipairs(E.GetTabs and E.GetTabs() or {}) do
+			if t.guideId == m.id then
+				if E.SelectTab then E.SelectTab(i) end
+				local live = E.GetLiveStep and E.GetLiveStep()
+				if live and E.GetStepIndex and E.GetStepIndex() ~= live and E.Goto then E.Goto(live) end
+				return
+			end
+		end
+		return
+	end
 	if not (m and m.live and E) then return end
 	local g = E.GetGuide and E.GetGuide()
 	if g and g.id == m.id and E.GetStepIndex and E.GetStepIndex() ~= m.live and E.Goto then E.Goto(m.live) end
 end
 
 ns.On("GUIDE_END", function(_, info) GE.Show(info) end)
+ns.On("GUIDE_STEPS_LEFT", function(_, info) GE.Show(info) end)
+
+-- Steps left: the live step moved on (one of them done or skipped), so the
+-- count is stale; the window has said its piece.
+local function liveMoved()
+	local E = Engine()
+	if not (shown and shown.left and F and F:IsShown() and E and E.GetGuide and E.GetLiveStep) then return end
+	local g = E.GetGuide()
+	if g and g.id == shown.id and E.GetLiveStep() ~= shown.live then GE.Hide() end
+end
+ns.On("STEP_CHANGED", liveMoved)
+ns.On("STEP_UPDATED", liveMoved)
 
 -- The next guide was loaded some other way: nothing left to ask.
 ns.On("GUIDE_CHANGED", function()

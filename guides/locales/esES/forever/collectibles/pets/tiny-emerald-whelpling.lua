@@ -11,7 +11,7 @@ return {
 	["Dreaming Whelps"] = "Crías dormidas",
 	-- {zone:1435} Swamp of Sorrows · {zone:1430} Deadwind Pass
 	-- plural, as words: Dreaming Whelps = {npc:741} Dreaming Whelp
-	["The Dreaming Whelps (levels 35-36) live in western {zone:1435}, near the {zone:1430} border. They drop it about once in 1,250 kills, and there are only a handful, back about every five minutes, so expect days of farming; it can be traded, so the Auction House may be quicker."] = "",
+	["The Dreaming Whelps (levels 35-36) live in western {zone:1435}, near the {zone:1430} border. They drop it about once in 1,250 kills, and there are only a handful, back about every five minutes, so expect days of farming; it can be traded, so the Auction House may be quicker."] = "Las crías soñadoras (niveles 35-36) viven en el oeste de {zone:1435}, cerca del borde con {zone:1430}. Lo sueltan una vez cada 1250 bajas, y hay solo unas pocas, que vuelven cada cinco minutos, así que calcula días de farmeo; se puede comerciar, así que la casa de subastas puede ser más rápida.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The Dreaming Whelps (level 35) in western {zone:1435} drop it about once in 1,250 kills in our data."] = "Las crías dormidas (nivel 35) del oeste de {zone:1435} lo sueltan más o menos una vez cada 1,250 muertes según nuestros datos.",

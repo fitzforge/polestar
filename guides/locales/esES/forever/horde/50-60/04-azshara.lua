@@ -9,13 +9,11 @@ return {
 	-- Step 1: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Vuela a {area:392}",
-	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
 	["Liv's workshop is at the north end of {area:392}'s docks; {object:149036} stands inside it."] = "El taller de Liv está en el extremo norte de los muelles de {area:392}; {object:149036} está dentro.",
-	["Inside"] = "",
+	["Inside"] = "Dentro",
 
 	-- Step 3: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
@@ -23,64 +21,62 @@ return {
 	-- {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Cleansed Water goes to the {area:2479} in {zone:1448}: keep it for later."] = "El agua purificada se entrega en {area:2479}, en {zone:1448}: guárdala para más adelante.",
 
-	-- Step 4: Dokimi's crates
-	-- {npc:256386} Dokimi
-	["{npc:256386}'s crates"] = "Las cajas de {npc:256386}",
-	-- {npc:256386} Dokimi · {zone:1454} Orgrimmar
-	-- was: ["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "Cabalga al norte por el camino hasta el Cruce; {npc:256386} está allí. Abre cada caja que te dé y llévale lo que haya dentro. Desde el Cruce, sigue volando a {area:1237}."
-	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {zone:1454} from the Crossroads."] = "",
-
-	-- Step 5: Fly to Orgrimmar
+	-- Step 4: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Vuela a {area:1637}",
-	["Crossroads flight master"] = "Maestro de vuelo del Cruce",
+	-- {area:392} Ratchet
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
-	-- Step 6: Jes'rimon
+	-- Step 5: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 
-	-- Step 7: Orgrimmar
+	-- Step 6: Orgrimmar
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom · {zone:1451} Silithus
 	["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{npc:15188}, {object:172957}: guárdala para {zone:1451}",
 
-	-- Step 8: Zilzibin Drumlore
+	-- Step 7: Zilzibin Drumlore
 	-- {npc:7010} Zilzibin Drumlore
 	["{npc:7010} works in the Drag."] = "{npc:7010} trabaja en La Calle Mayor.",
 
-	-- Step 9: Zilzibin Drumlore
+	-- Step 8: Zilzibin Drumlore
 	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1451} Silithus · {zone:2482} Mount Hyjal
 	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "",
 
-	-- Step 10: Vehena
+	-- Step 9: Vehena
 	-- {object:172961} Valley of Spirits
-	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "En el {object:172961}. Cada donación toma sesenta lana, seda o paño de mago de tus bolsas: entrega lo que lleves, sáltate el resto.",
 
-	-- Step 11: Rashona Straglash
+	-- Step 10: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "En {object:172958}.",
 	-- {item:14047} Runecloth
-	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
+	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "Ambas donaciones de {item:14047} se entregan más tarde en la ruta: guarda sesenta {item:14047} para cada una si las quieres.",
 
-	-- Step 12: Paladin trainer
-	["Paladin trainer"] = "",
+	-- Step 11: Paladin trainer
+	["Paladin trainer"] = "Instructor de paladines",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} en {zone:1456}; {zone:1454} no tiene instructor de paladines",
 
-	-- Step 13: Orgrimmar
+	-- Step 12: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["Fly to {zone:1454} and train."] = "",
+	["Fly to {zone:1454} and train."] = "Vuela a {zone:1454} y entrena.",
 
-	-- Step 14: Into Durotar
+	-- Step 13: Into Durotar
 	-- {zone:1411} Durotar
-	["Into {zone:1411}"] = "",
+	["Into {zone:1411}"] = "Hacia {zone:1411}",
 
-	-- Step 15: Zeppelin to Undercity
+	-- Step 14: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "Zepelín a {zone:1458}",
 
+	-- Step 15: Chemist Cuely
+	-- {npc:8390} Chemist Cuely
+	["{npc:8390} works in the Apothecarium."] = "",
+
 	-- Step 16: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
-	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "",
+	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "{npc:8390} y {npc:8393} trabajan en el Apotecarium.",
 	-- {npc:8393} Thersa Windsong
 	["{npc:8393}, beside him"] = "{npc:8393}, a su lado",
 
@@ -103,27 +99,28 @@ return {
 	-- Step 23: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
-	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "",
+	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "Solo con el {quest:79095} de la tienda de alquimia de {area:159} en las bolsas (la guía de libros de la biblioteca)",
 
 	-- Step 25: The Bulwark
 	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
-	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "",
+	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "Cabalga al este desde el {zone:1458} por la carretera; el {area:152} guarda el camino hacia el {zone:1422}.",
 	-- {npc:11615} Mickey Levine · {area:2627} Terrordale
 	["{npc:11615}: the termites are in {area:2627}, on the next guide"] = "{npc:11615}: las termitas están en {area:2627}, en la siguiente guía",
 
 	-- Step 27: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "",
+	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "La granja de {npc:10778} es la primera al este del {area:152}. Los necrófagos farfullantes de la granja llevan la otra mitad de su amuleto; {npc:11075} guarda el caldero del campo.\nCuidado: uno o dos no muertos suelen luchar a su lado, y más señores del caldero pueden atacar tras usar el caldero.",
 
 	-- Step 28: Janice Felstone
-	["Upstairs"] = "",
+	["Upstairs"] = "Piso de arriba",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back north to {npc:8420} with the rune, then south-west along the road."] = "Vuelve al norte con {npc:8420} con la runa y luego ve al suroeste por el camino.",
 	-- ["Back north-west to {npc:8420}."] = "Vuelve al noroeste con {npc:8420}.",
 	-- ["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "Vuelve al Tomo sin'dorei: entrega los sellos y úsalo para invocar a {npc:8578}.\nCuidado: el cristal vinculado a Rimtori es aleatorio. Cada uno de los otros dos invoca un infernal hostil.",
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "Las dos donaciones de {item:14047} se entregan más adelante en la ruta: empieza a guardar {item:14047}.",
+	-- ["Crossroads flight master"] = "Maestro de vuelo del Cruce",
 	-- ["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "Cada uno de los tres oficiales del campamento (53) lleva un sello: {npc:247006} en el centro del campamento, {npc:247013} en su extremo este y {npc:246991}, que patrulla su mitad oeste: enfréntate a él en el lado este de su recorrido, donde apunta la Flecha.\nCuidado: el {npc:250023}, élite de nivel 55-57, está en el borde oeste del campamento, cerca del extremo del recorrido de Hawkhelm: espera a que Hawkhelm vuelva al este.",
 	-- ["Fly to the {area:380}"] = "Vuela a {area:380}",
 	-- ["Fly to {area:1237}"] = "Vuela a {area:1237}",
@@ -152,6 +149,8 @@ return {
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "La torre del zepelín está justo al noreste de la puerta principal de {zone:1454}; toma el zepelín a {zone:1458}.",
 	-- ["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "La torre de Xylem está en el acantilado justo al norte de {area:1237}: {npc:8395}, en {area:1237}, te teletransporta arriba gratis (habla con él); si no, el camino sube serpenteando por su lado norte.",
 	-- ["Zeppelin tower"] = "Torre del zepelín",
+	-- ["{area:1221}: kill these as you meet them"] = "{area:1221}: mátalos según te los encuentres",
+	-- ["{area:1237} flight master"] = "Maestro de vuelo de {area:1237}",
 	-- ["{item:246680}, from the Blood Elf Arcanists"] = "{item:246680}, de los Arcanistas elfos de sangre",
 	-- ["{item:246721}, from {npc:246991}"] = "{item:246721}, de {npc:246991}",
 	-- ["{item:246722}, from {npc:247013}"] = "{item:246722}, de {npc:247013}",
@@ -160,6 +159,7 @@ return {
 	-- ["{npc:11044}, in the {object:36072}"] = "{npc:11044}, en {object:36072}",
 	-- ["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "{npc:235903}: {quest:86746}, los sátiros al norte del campamento de los elfos de sangre",
 	-- ["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "{npc:247473}: {quest:91569}, una varita de los arcanistas elfos de sangre",
+	-- ["{npc:256386}'s crates"] = "Las cajas de {npc:256386}",
 	-- ["{npc:3326}, the {object:172960}"] = "{npc:3326}, {object:172960}",
 	-- ["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "{npc:8576}: {quest:91531}, para {npc:4485} en {zone:1454}",
 	-- ["{npc:8578}'s camp"] = "Campamento de {npc:8578}",
@@ -167,4 +167,5 @@ return {
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} se entrega a {npc:10778} en {area:28}: guárdala.",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: para {npc:8587} en {area:1237}",
 	-- ["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
+	-- ["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 }
