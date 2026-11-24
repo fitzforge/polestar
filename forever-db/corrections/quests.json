@@ -21569,5 +21569,19 @@
 			}
 		],
 		"note": "The Return of the King? (Theramore) had no objectives in our data, so the Alcaz Prison pick-up guide sent players straight back to Sully Balloo to hand it in (#3739). Its one quest-log line is the eavesdropping: with Sully's SI:7 Disguise Kit, relieve Jaina's guard at the Theramore Mage Tower and listen in. The objective's place is Lady Jaina Proudmoore's spot in the tower (our NPC data: 1445 66.3,49.0); the quest's own text names the tower."
+	},
+	"4903": {
+		"set": {
+			"pre": [
+				98325
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): 63 windows of Warlord Goretooth (9077) by 7 people, Warlord's Command offered in none of them; 5 people at levels 55-57 who could take it were refused it while Blood and Thunder (98325) was not handed in; all 4 people who took it (levels 56-57) took it from an item's window, with no NPC, after handing in Blood and Thunder to him"
+			}
+		],
+		"note": "Warlord's Command (Kargath, Horde Blackrock Spire attunement) opens only after Blood and Thunder: Warlord Goretooth first gives Blood and Thunder, and once it is handed in the player gets his written command and takes Warlord's Command from it. Our data had no prerequisite, so the Blackrock Spire pick-up guide sent players to him for Warlord's Command while he offered only Blood and Thunder; Eitrigg's Wisdom and For The Horde! come after it."
 	}
 }
