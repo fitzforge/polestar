@@ -16074,8 +16074,8 @@ function Own.hereChanged() Own.hereDirty = true end
 for _, event in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "QUEST_LOG_UPDATE", "UNIT_QUEST_LOG_CHANGED", "PLAYER_LEVEL_UP", "BAG_UPDATE_DELAYED" }) do
 	ns.RegisterEvent(event, Own.hereChanged)
 end
--- PLAYER_SKIPPED_QUEST comes after the skip's evaluation: one more.
-for _, msg in ipairs({ "PINS_CHANGED", "PLAYER_SKIPPED_STEP", "PLAYER_SKIPPED_QUEST" }) do
+-- PLAYER_(UN)SKIPPED_QUEST comes after the skip's evaluation: one more.
+for _, msg in ipairs({ "PINS_CHANGED", "PLAYER_SKIPPED_STEP", "PLAYER_SKIPPED_QUEST", "PLAYER_UNSKIPPED_QUEST" }) do
 	ns.On(msg, function()
 		Own.hereDirty = true
 		requestUpdate()
@@ -17667,6 +17667,9 @@ function Engine.SkipQuest(questID, on)
 			if title then break end
 		end
 		ns.Fire("PLAYER_SKIPPED_QUEST", questID, ns.Names.Quest(questID) or title)
+	else
+		-- PLAYER_UNSKIPPED_QUEST(questID): brought back; the open step list redraws.
+		ns.Fire("PLAYER_UNSKIPPED_QUEST", questID)
 	end
 	return true
 end
