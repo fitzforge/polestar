@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Prendre un vol pour {area:150}",
-	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "Maître de vol de {zone:1453}",
 
 	-- Step 2: Red Jack Flint
 	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
@@ -229,4 +227,5 @@ return {
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "Des {object:19868} jonchent toutes les salines. Des Ravageurs scorpides et des Charognards des salines parcourent la moitié nord, des Claqueurs Brillecoque (tortues) toutes les salines. Les Basilics du sel gemme et les Peaux-de-cristal tiennent le centre ; les Contemplateurs (34-35) seulement l'extrême sud.",
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "Les {object:19868} jonchent les Salines. Les Scorpides ravageurs et les Charognards des Salines errent dans la moitié nord, les Tortues nacrétoiles (30-31) au milieu des Salines : chassez-les pour les carapaces. Attention : les Mordeuses nacrétoiles (34-35) errent dans toutes les Salines, et les Contemplateurs du sel gemme (34-35) et les Scorpides terrifiants (33-34) tiennent l'extrême sud : laissez-les et restez dans la moitié nord.",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176} : pour {npc:3961} à {area:415}",
+	-- ["{zone:1453} flight master"] = "Maître de vol de {zone:1453}",
 }

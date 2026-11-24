@@ -9,8 +9,6 @@ return {
 	-- Step 2: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "飛往{area:35}",
-	-- {area:75} Stonard
-	["{area:75} flight master"] = "{area:75}飛行管理員",
 
 	-- Step 3: Booty Bay
 	-- {area:75} Stonard · {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
@@ -312,6 +310,7 @@ return {
 	-- ["Xylem's tower stands on the cliff just north of {area:1237}; the path winds up its north side."] = "克希雷姆的塔位於{area:1237}北邊的懸崖上；小路沿著它的北側蜿蜒而上。",
 	-- ["Zapped giants"] = "被縮小的巨人",
 	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}：遇到就殺",
+	-- ["{area:75} flight master"] = "{area:75}飛行管理員",
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344}在{zone:1456}；{zone:1454}沒有聖騎士訓練師",
 	-- ["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}，暗巷區：如果你還帶著它",
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}：熊在{zone:1448}",

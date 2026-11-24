@@ -761,6 +761,35 @@ fn never_a_hand_in_on_another_floor() {
 	assert_eq!(out, vec![json!(["none", "turned away (another floor; checked again in 15 s or 25 yd)"]), json!("4:1 Hand in “A Fishy Peril” to Marshal Dughan 10")]);
 }
 
+// #3751 (Lamonk, Southshore): Loremaster Dibbs and Magistrate Maleb are upstairs in the town hall, more than 8 yd over
+// the street, and their four hand-ins 113 yd off were turned away as "another floor". The floor rule is for levels a
+// lift or a long way round apart (Undercity, Thunder Bluff, a cave under the hill), not a staircase in a house: on
+// another floor the walking router is asked for the way to the NPC at his height, and a walk no longer than the town's
+// walk check allows (1.6 times the straight line, and 20 yd) lets the hand-in show. A long way round, or no answer
+// from the router, still turns it away.
+#[test]
+fn a_hand_in_upstairs_a_short_walk_away_shows_another_floor_round_the_hill_does_not_3751() {
+	let script = |walk: &str| {
+		format!(
+			r#"
+		ASKED_Z = false
+		Polestar.Nav = {{ walk = {{ Floor = function() return 0 end }}, EstimateTravel = function(from, to)
+			if to.z then ASKED_Z = to.z end
+			return {walk}
+		end }}
+		at(42.0, 35.6); emit({{ here(), E.WhileHereState().why or false, ASKED_Z }})
+	"#
+		)
+	};
+	let guide = turnins(20.0, &[ELSEWHERE, ELSEWHERE], ", z = 40");
+	let stairs = run_turnins(&guide, &script("to.z and 3 or 2"));
+	assert_eq!(stairs, vec![json!(["4:1 Hand in “A Fishy Peril” to Marshal Dughan 10", false, 40])], "up the stairs: 3 s to his floor at his height");
+	let round = run_turnins(&guide, &script("to.z and 60 or 2"));
+	assert_eq!(round, vec![json!(["none", "turned away (another floor; checked again in 15 s or 25 yd)", 40])], "a minute round the hill to his floor");
+	let unknown = run_turnins(&guide, &script("nil"));
+	assert_eq!(unknown, vec![json!(["none", "turned away (another floor; checked again in 15 s or 25 yd)", 40])], "no answer: the floor's word stands");
+}
+
 // A hand-in the route walks to about now, without leading away first, is left to it: the arrow leads east to the
 // wolves at 44 (60 yd past Dughan, on the way), and his hand-in is the next step, or the step after next is at Dughan
 // (an accept), or a step at him comes after two with nothing for this character (88 is not in the log: the route

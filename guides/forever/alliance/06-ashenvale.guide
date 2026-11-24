@@ -146,7 +146,7 @@ step Talen
   accept 1009
 
 step Ruuzel
-  tip Ruuzel walks the northern tip of the Zoram Strand with Wrathtail guards.
+  tip Ruuzel and his Wrathtail guards stand on the small islet just off the northern tip of the Zoram Strand: swim across to it.
   collect 5445 quest 1009                 -- Ring of Zoram
 
 step Blackfathom Deeps

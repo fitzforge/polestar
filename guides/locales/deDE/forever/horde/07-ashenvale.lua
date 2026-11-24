@@ -11,7 +11,6 @@ return {
 	["Fly to {area:2897}"] = "Flieg nach {area:2897}",
 	-- {area:2897} Zoram'gar Outpost · {area:378} Camp Taurajo
 	["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. If your hearthstone is ready, hearth to {area:378} and fly from there instead."] = "Nach Osten die Straße entlang von Seereths Lager zum Windreitermeister im Wegekreuz, und flieg nach {area:2897}. Ist dein Ruhestein bereit, kehr stattdessen nach {area:378} zurück und flieg von dort.",
-	["Crossroads flight master"] = "Flugmeister im Wegekreuz",
 
 	-- Step 2: Zoram'gar Outpost
 	-- {npc:12736} Je'neu Sancrea · {npc:12757} Karang Amakkar · {npc:12721} Mitsuwa
@@ -430,6 +429,7 @@ return {
 	-- ["Back to {area:484}. The {area:2240}'s quests come with the next visit to the {area:439}, at 33."] = "Zurück nach {area:484}. Die Quests von {area:2240} kommen mit dem nächsten Besuch in den {area:439}, bei 33.",
 	-- ["Back west to Zoram'gar before heading east for good."] = "Zurück nach Westen nach Zoram'gar, bevor es endgültig nach Osten geht.",
 	-- ["Climb the path to the top of {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "Steig den Pfad hinauf auf den {area:2097}. {npc:10646} wird neben {npc:10896} (29) gefangen gehalten: Besiege zuerst die Wachen und {npc:10896}, befreie sie dann und beschütze sie auf dem Weg hinunter; unterwegs greifen dich Grimmtotem aus dem Hinterhalt an.",
+	-- ["Crossroads flight master"] = "Flugmeister im Wegekreuz",
 	-- ["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. Keep your hearthstone: {area:431}'s bind later in this guide saves more."] = "Nach Osten die Straße entlang von Seereths Lager zum Windreitermeister im Wegekreuz, und flieg nach {area:2897}. Spar dir deinen Ruhestein: Das Binden in {area:431} später in diesem Guide spart mehr.",
 	-- ["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold."] = "Östlich von Zoram'gar bevölkern die Furbolgs der Distelfelle das Dorf und die Hügel um ihre Höhle.",
 	-- ["Fly from {area:392} to {area:2897} on the {zone:1440} coast."] = "Flieg von {area:392} zum {area:2897} an der Küste von {zone:1440}.",

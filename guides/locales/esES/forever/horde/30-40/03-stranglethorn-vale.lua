@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Vuela a {area:1637}",
-	-- {area:2408} Shadowprey Village
-	["{area:2408} flight master"] = "Maestro de vuelo de {area:2408}",
 
 	-- Step 2: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
@@ -261,6 +259,7 @@ return {
 	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Al oeste pasado el campamento, hay basiliscos Espina de Cristal (34-35) sobre las rocas; cualquier Cabellesangre del poblado de más allá puede soltar una oreja.\nDeja por ahora a {npc:729}, el tigre de nivel 37 en la colina al suroeste del campamento: aquí te saca dos niveles, y la guía de Tuercespina 40-50 vuelve a por él.\nCuidado: el nido de raptores tiene raptores jóvenes que se unen al combate cuando atacas a los adultos.",
 	-- ["Zeppelin to {object:3202}"] = "Zepelín a {object:3202}",
 	-- ["from {npc:4723}"] = "de {npc:4723}",
+	-- ["{area:2408} flight master"] = "Maestro de vuelo de {area:2408}",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, en {object:20691}",
 	-- ["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465}: para forever/horde/40-50/01-stranglethorn-vale",
 	-- ["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master."] = "La tienda de {npc:2495} está en el edificio al este de la posada; {npc:2498} está en la planta baja de la posada, y {npc:2496}, {npc:737} y {npc:773} en el piso de arriba, junto al maestro de vuelo.",

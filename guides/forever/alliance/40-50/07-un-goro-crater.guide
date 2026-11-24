@@ -33,8 +33,6 @@ pitch For characters of 49 to 50, but most quests here are level 51-53: on purpo
 
 step Fly to Menethil Harbor
   skipto un-goro when !onquest 82,623,2605,2941,3362,3444,5863
-  zone Ironforge
-  goto 55.9,47.9 "Ironforge flight master"
   fly "Menethil Harbor"
   zone Wetlands
 
