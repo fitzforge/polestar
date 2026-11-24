@@ -12240,7 +12240,11 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
 - **Leffe's navigation maps in game** (`forge nav pack --leffe <dir>`, `pack/leffe.rs`, maps format 5): the
   walking maps taken from Leffe's navigation maps (format 4, private, never shipped as files) instead of our grid.
   His grid, height, floor and class fields already are the in-game encodings and pass through (the steps his flags
-  leave open past the walkable slope, which his reader closes, are closed); his zones too. His entrance graph is
+  leave open past the walkable slope, which his reader closes, are closed), but for the class's two hub bits, which are
+  ours (#3830: every cell a disk of the ground layers' `hubs.json` touches, as our grid's maps mark them, so the walk
+  keeps out of the towns `hubs.json` lists, Forever's own among them, and of no other; the entrance edges inside a
+  cluster whose bits change are priced again for the Alliance and Horde profiles by what the change adds to or takes
+  off their walk; PACK.json's `hubBits`); his zones too. His entrance graph is
   re-encoded as the graph field (an entrance on one of his refined ports becomes the surface owning it; an entrance
   keeps its 63 cheapest edges; an edge may be one way: an entrance lists only the edges it can walk; an edge's yards
   are his profile-free way's, as our grid's maps take theirs: he keeps a cost and a yards for each profile, and the
