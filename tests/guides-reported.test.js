@@ -19418,6 +19418,19 @@ test('#3578: a collect a rare and common mobs both drop leads to the common mobs
 	}
 });
 
+// #3907 (Grim): Elemental Mastery's Elemental Water led to the Summoned Guardian, the elite with a single spawn far to
+// the south-west of Arathi Highlands, the item's top dropper by the reference data's chance. Players' recordings have
+// no loot window of his; 13 of 62 Cresting Exile loot windows (9 people) held Elemental Water. The water now leads to
+// the Cresting Exiles at the Circle of East Binding, where the other exiles' elements are farmed the same way.
+test('#3907 Elemental Mastery: Elemental Water leads to the Cresting Exiles, not the elite Summoned Guardian', { skip }, () => {
+	const list = goals('forever/class/shaman/spirit-totem.guide');
+	const water = list[at(list, 'collect 7070', (g) => g.t === 'collect' && g.item === 7070)].goal;
+	assert.equal(water.map, 1417, 'in Arathi Highlands');
+	const near = (id) => Math.min(...data.spawns('npc', id).filter((s) => s.map === 1417).flatMap((s) => s.pts).map(([x, y]) => Math.hypot(x - water.x, y - water.y)));
+	assert.ok(near(2761) <= 3, `at the Cresting Exiles (${water.x},${water.y})`);
+	assert.ok(near(2794) > 20, 'not at the Summoned Guardian');
+});
+
 // #3681 (MattMaximo): Witherbark Village sent players to farm tusks and pouches round the huts first and only then
 // into the far end for the Shadow Hunter Knife, though the far end is where the tusk droppers are packed (all 16
 // Shadow Hunters at 66-70,79-82 with most Headhunters and Zalas Witherbark) and most Witch Doctors stand among the
