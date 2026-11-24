@@ -128,7 +128,8 @@ return {
 	-- {spell:3320} Rough Grinding Stone
 	["{spell:3320} to 83"] = "{spell:3320} hasta 83",
 	-- {spell:3320} Rough Grinding Stone · {item:2835} Rough Stone
-	["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320} es verde a 75 (amarillo 45, verde 65, gris 85): unas 58 fabricaciones hasta 83. Cada una lleva 2 {item:2835}. Dos {item:2835} por fabricación. Las piedras de afilar son piezas para planos posteriores; las que sobren se venden a los mercaderes.",
+	-- was: ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320} es verde a 75 (amarillo 45, verde 65, gris 85): unas 58 fabricaciones hasta 83. Cada una lleva 2 {item:2835}. Dos {item:2835} por fabricación. Las piedras de afilar son piezas para planos posteriores; las que sobren se venden a los mercaderes."
+	["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors. If you got here without learning {spell:3320}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 28: Runed Copper Belt to 100
 	-- {spell:2666} Runed Copper Belt
@@ -495,5 +496,6 @@ return {
 	-- ["{spell:2660} to 45"] = "{spell:2660} hasta 45",
 	-- ["{spell:2668} to 121"] = "{spell:2668} hasta 121",
 	-- ["{spell:3117} to 112"] = "{spell:3117} hasta 112",
+	-- ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320} es verde a 75 (amarillo 45, verde 65, gris 85): unas 58 fabricaciones hasta 83. Cada una lleva 2 {item:2835}. Dos {item:2835} por fabricación. Las piedras de afilar son piezas para planos posteriores; las que sobren se venden a los mercaderes.",
 	-- ["{spell:3333} to 155"] = "{spell:3333} hasta 155",
 }

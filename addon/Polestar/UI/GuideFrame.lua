@@ -328,6 +328,9 @@ GF.Part(function(GF)
 		outline = "outline", padding = 0, rowSpacing = 0, lineSpacing = 0, glyphSize = 1, checkSize = 1,
 		targetBar = true, targetBarColor = false, targetBarWidth = 2,
 		progress = true, progressPct = true, progressHeight = 3, progressColor = false, pace = true,
+		-- The XP row's own line (#3304) and the Still to do rows (#3303): each
+		-- off on its own, without compact mode.
+		xpLine = true, stillToDo = true,
 		bgColor = false, bgOpacity = false, border = true, idleAlpha = 1, combatAlpha = 0.35, veil = 0.68, shade = 0.2,
 		stepAnim = true, animSpeed = 1, foldAnim = true, rules = true, hideTaxi = false, leftOut = true, lastSteps = 0,
 		-- The step card's gaps, each its whole size in px (GF.Gap); false: the
@@ -1613,7 +1616,12 @@ GF.Part(function(GF)
 		local verb = GROUP_VERB[kind] or "goto"
 		person.Icon:SetTexture(Theme.VerbIcon(verb))
 		W.Color(person.Icon, "textDim")
-		person.Name:SetText(UI.GroupName(view, group))
+		-- The group mark after the name (UI.StepMark, #3580); its reason in the tooltip.
+		local E = Engine()
+		local guide = E and E.GetGuide and E.GetGuide()
+		local mark, reason = UI.StepMark(view, guide and guide.steps and view and guide.steps[view.index])
+		person.Name:SetText(UI.GroupName(view, group) .. (mark and (" " .. UI.StepMarkGlyph(mark)) or ""))
+		person.psMark, person.psMarkWhy = mark, reason
 		W.Color(person.Name, kind == "here" and "text" or (kind == "object" and "object" or "npc"))
 		local place = groupPlace(group)
 		local where = place and UI.MapName(place.map) or nil
@@ -1637,6 +1645,9 @@ GF.Part(function(GF)
 			lines[#lines + 1] = { L["Click to point the arrow here"], r, g, b }
 		end
 		if view and view.title and view.title ~= self.psLabel then lines[#lines + 1] = view.title end
+		if self.psMark then
+			lines[#lines + 1] = { UI.StepMarkGlyph(self.psMark) .. " " .. self.psMarkWhy, Theme.TipColor(self.psMark == "group" and "warning" or "textDim") }
+		end
 		W.Tooltip(self, tooltipAnchor(), self.psLabel or "", lines)
 		GF.HoverIn()
 	end
@@ -2341,10 +2352,13 @@ GF.Part(function(GF)
 			end
 		end
 		local n, untilStep, mixed = 0, nil, false
+		-- Still to do (both kinds below) unless turned off (guideWindow.stillToDo,
+		-- #3303); the finished ones stay in the menu's Hand in finished quests.
+		local stillToDo = GF.On("stillToDo")
 		-- First the quests an update left behind the player (Engine.GetBehind):
 		-- "Still to do: <quest>, back in <zone>, 240 yd".
 		local back = 0
-		for _, b in ipairs(E.GetBehind and E.GetBehind() or {}) do
+		for _, b in ipairs(stillToDo and E.GetBehind and E.GetBehind() or {}) do
 			if n < ALONG_MAX then
 				n, back = n + 1, back + 1
 				local r = alongRow(n)
@@ -2363,7 +2377,7 @@ GF.Part(function(GF)
 		-- (RoutePlan.Carried): "3 finished quests to hand in elsewhere (410 XP)";
 		-- a click lists them (UI/QuestRoom.lua, "carried"). The player's own
 		-- quest log: the live window's row only.
-		local carried = GF.live and ns.RoutePlan and ns.RoutePlan.Carried()
+		local carried = stillToDo and GF.live and ns.RoutePlan and ns.RoutePlan.Carried()
 		if carried and #carried > 0 and n < ALONG_MAX then
 			n, back = n + 1, back + 1
 			local r, xp = alongRow(n), 0
@@ -3919,6 +3933,8 @@ GF.Part(function(GF)
 		ns.On("STEP_CHANGED", whenReady(GF.Render))
 		ns.On("STEP_UPDATED", whenReady(GF.Update))
 		ns.On("PARTY_PROGRESS", whenReady(GF.Update))
+		-- The finished quests to hand in elsewhere changed off the step (RoutePlan, #3568): the row follows.
+		ns.On("CARRIED_CHANGED", whenReady(GF.Update))
 		-- A finished guide's card counts the quests in the log (GF.EndQuestLines):
 		-- one taken, handed in or abandoned paints it afresh. Only on that card.
 		ns.RegisterEvent("QUEST_LOG_UPDATE", function()

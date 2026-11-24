@@ -18,7 +18,11 @@
 local ADDON = "Polestar" -- one of Polestar's own skins: Polestar_Skins/Skins/Lanterns/ (#3507)
 
 local Theme = Polestar and Polestar.Theme
-if not (Theme and Theme.RegisterSkin and (Theme.API_VERSION or 0) >= 2) then return end
+if not (Theme and Theme.RegisterSkin and Theme.SkinBuilder and (Theme.API_VERSION or 0) >= 2) then return end
+
+-- Built the first time this skin is wanted (Theme.SkinBuilder, #3881):
+-- loading the folder builds none of its ten skins.
+Theme.SkinBuilder("lanterns", function()
 
 local function check(what, ok, message)
 	if not ok then
@@ -401,3 +405,4 @@ check("skin lanterns", Theme.RegisterSkin("lanterns", {
 	mapIcons = "polestar",
 	preset = { ["ui.band"] = false, ["ui.haze"] = false, ["ui.shadow"] = true, ["guideWindow.padding"] = 4 },
 }))
+end)

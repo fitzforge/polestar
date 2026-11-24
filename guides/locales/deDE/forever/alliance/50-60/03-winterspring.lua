@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "Flieg nach {area:2255}",
-	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "Flugmeister von {area:489}",
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
@@ -111,6 +109,8 @@ return {
 	["{area:392} flight master"] = "Flugmeister in {area:392}",
 
 	-- Step 19: Gadgetzan
+	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {quest:4243} Chasing A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} ({quest:4243}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, drinnen",
 	-- {npc:7876} Tran'rek
@@ -516,6 +516,7 @@ return {
 	-- ["{area:2247}: kill these as you meet them"] = "{area:2247}: Töte sie, wenn du ihnen begegnest",
 	-- ["{area:2255} flight master"] = "Flugmeister in {area:2255}",
 	-- ["{area:2255}'s inn"] = "Gasthaus von {area:2255}",
+	-- ["{area:489} flight master"] = "Flugmeister von {area:489}",
 	-- ["{item:12383}, 110 yd north"] = "{item:12383}, 110 yd nördlich",
 	-- ["{item:12771}, a rare drop"] = "{item:12771}, eine seltene Beute",
 	-- ["{item:12886}; inside"] = "{item:12886}; drinnen",

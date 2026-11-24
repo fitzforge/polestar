@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "Vuela a {area:2255}",
-	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "Maestro de vuelo de {area:489}",
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
@@ -110,6 +108,8 @@ return {
 	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 19: Gadgetzan
+	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {quest:4243} Chasing A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} ({quest:4243}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, dentro",
 	-- {npc:7876} Tran'rek
@@ -508,6 +508,7 @@ return {
 	-- ["{area:2247}: kill these as you meet them"] = "{area:2247}: mátalos según te los encuentres",
 	-- ["{area:2255} flight master"] = "Maestro de vuelo de {area:2255}",
 	-- ["{area:2255}'s inn"] = "La posada de {area:2255}",
+	-- ["{area:489} flight master"] = "Maestro de vuelo de {area:489}",
 	-- ["{item:12771}, a rare drop"] = "{item:12771}, botín poco frecuente",
 	-- ["{npc:10301}'s supplies"] = "Los suministros de {npc:10301}",
 	-- ["{npc:10431}: keep both for the Plaguelands; inside"] = "{npc:10431}: guarda ambos para las Tierras de la Peste; dentro",

@@ -136,7 +136,8 @@ return {
 	-- {item:7053} Azure Silk Cloak
 	["{item:7053} to 170"] = "{item:7053} до 170",
 	-- {item:7053} Azure Silk Cloak · {spell:3839} Bolt of Silk Cloth · {item:6260} Blue Dye · {item:2321} Fine Thread
-	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053}: оранжевый на 150 (желтый 160, зеленый 175, серый 190): около 22 изготовлений до 170. Каждое требует 3 {spell:3839}, 2 {item:6260} и 2 {item:2321}. Сначала сделайте 66 {spell:3839}. Это тот самый рецепт, купленный выше; по данным это самый дешевый способ набрать эти очки.",
+	-- was: ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053}: оранжевый на 150 (желтый 160, зеленый 175, серый 190): около 22 изготовлений до 170. Каждое требует 3 {spell:3839}, 2 {item:6260} и 2 {item:2321}. Сначала сделайте 66 {spell:3839}. Это тот самый рецепт, купленный выше; по данным это самый дешевый способ набрать эти очки."
+	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning {spell:3839}, learn it now: an earlier step teaches it."] = "",
 	["from the recipe in your bags"] = "по рецепту из сумки",
 
 	-- Step 25: Tailoring recipes at 170
@@ -272,6 +273,7 @@ return {
 	-- ["{item:4338} (Alliance)"] = "{item:4338} (Альянс)",
 	-- ["{item:4338} (Horde)"] = "{item:4338} (Орда)",
 	-- ["{item:7026} to 80"] = "{item:7026} до 80",
+	-- ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053}: оранжевый на 150 (желтый 160, зеленый 175, серый 190): около 22 изготовлений до 170. Каждое требует 3 {spell:3839}, 2 {item:6260} и 2 {item:2321}. Сначала сделайте 66 {spell:3839}. Это тот самый рецепт, купленный выше; по данным это самый дешевый способ набрать эти очки.",
 	-- ["{item:7062} to 185"] = "{item:7062} до 185",
 	-- ["{npc:11739} (level 57-59) drop it here. The Auction House works too."] = "Добыча здесь: {npc:11739} (уровень 57-59). Подойдет и аукцион.",
 	-- ["{npc:1824} (level 54-55) drop it here. The Auction House works too."] = "Добыча здесь: {npc:1824} (уровень 54-55). Подойдет и аукцион.",

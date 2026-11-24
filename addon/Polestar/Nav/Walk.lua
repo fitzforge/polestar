@@ -2722,10 +2722,16 @@ local function climbs(a)
 end
 
 -- Whether the path rides a lift at segment a: its height changes DZ.RIDE yards or more from the point before the
--- segment to the one after it (the walking engine's path steps from one landing to the other).
-local function rides(a)
+-- segment to the one after it (the walking engine's path steps from one landing to the other). With the landings'
+-- heights (z1, z2), those points reach both: a walk from the top landing up a ramp climbs as much and rides
+-- nothing (#3734: Gnomeregan's and Thunder Bluff's lifts, "Ride the elevator up" again after the ride).
+local function rides(a, z1, z2)
 	local before, after = ptsZ[a > 1 and a - 1 or 1], ptsZ[a + 2 <= count and a + 2 or count]
-	return type(before) == "number" and type(after) == "number" and abs(after - before) >= DZ.RIDE
+	if not (type(before) == "number" and type(after) == "number" and abs(after - before) >= DZ.RIDE) then return false end
+	if not (type(z1) == "number" and type(z2) == "number") then return true end
+	local tol = DZ.RIDE / 2
+	local lo, hi = before < after and before or after, before < after and after or before
+	return lo <= (z1 < z2 and z1 or z2) + tol and hi >= (z1 < z2 and z2 or z1) - tol
 end
 
 local function liftId(c, wx, wy)
@@ -2769,8 +2775,14 @@ function Walk.Stops(pc, px, py)
 		local d, a, sx, sy, along, t = project(e.wx, e.wy)
 		along = along - here
 		-- A lift the path rides is a step however near the walk's ends (the Great Lift's
-		-- bottom landing a few yards from the Thousand Needles crossing).
-		local ridden = kind == "lift" and rides(a)
+		-- bottom landing a few yards from the Thousand Needles crossing). The landings' heights: a packed
+		-- chokepoint's and its pair's, else Transit's lift's top and bottom.
+		local ridden = false
+		if kind == "lift" then
+			local P = _G.PolestarNavChokepoints
+			local o = e.pair and type(P) == "table" and type(P[gc]) == "table" and P[gc][e.pair]
+			if type(o) == "table" then ridden = rides(a, tonumber(e.z), tonumber(o.z)) else ridden = rides(a, tonumber(e.top), tonumber(e.bottom)) end
+		end
 		if d > r then return end
 		if ridden then
 			if along < -r then return end
@@ -2926,6 +2938,8 @@ local WAY_IN_YD = 500
 -- same NPC, an optional turn-in before the accept): no waypoint of its own, so
 -- the way in before it still leads to the target (#1338)
 local SAME_SPOT_YD = 3
+-- The goals whose target is one NPC or object the player goes up to (Walk.FollowsGoto, #3488).
+city.NPC_KIND = { accept = true, turnin = true, talk = true, interact = true }
 
 -- The goal's point in world yards: c, wx, wy | nil.
 local function worldOf(t)
@@ -2941,7 +2955,13 @@ end
 -- hill above the cave (#914). Only a goto on the target's continent within
 -- WAY_IN_YD of it is a way in. Goals at the target's own spot (SAME_SPOT_YD)
 -- are looked past. The goto is found once per target; its state is asked
--- every time.
+-- every time. Since the towns have walking maps, the straight line from there
+-- went through houses (#3488: Northshire Abbey): for an NPC or object the
+-- player talks to (city.NPC_KIND, one spot), it is kept only while the line from
+-- the player's floor to the target crosses no wall, cliff or floor change
+-- (city.GotoClear); a blocked one is walked like any other target. A kill or
+-- collect goal's spots stay straight: walked round, the nearest spot changes
+-- under the player and the arrow flips between two (the Elwynn stretch).
 function Walk.FollowsGoto(target)
 	if target ~= gotoTarget then
 		gotoTarget, gotoStep, gotoGoal = target, nil, nil
@@ -2974,7 +2994,33 @@ function Walk.FollowsGoto(target)
 	end
 	if not gotoStep then return false end
 	local E = ns.Engine
-	return E and E.GoalDone and E.GoalDone(gotoStep, gotoGoal) == true or false
+	if not (E and E.GoalDone and E.GoalDone(gotoStep, gotoGoal) == true) then return false end
+	if not city.NPC_KIND[target.kind] or target.spots or target.spot or target.area or target.search then return true end
+	return city.GotoClear(target)
+end
+
+-- (Walk.FollowsGoto) Whether the straight line from the player to the target crosses no wall, cliff or floor change
+-- (Path.Sight's walls), from the player's floor. True (straight, as before) while the floor is unknown (a search from
+-- no height could start on the hill above the cave, #914) or the grid cannot tell (a cluster not decoded, too long a
+-- line). Read again after MOVE yd or EVERY s; once blocked, the target is walked to its end (never back to the
+-- straight line halfway round the wall).
+function city.GotoClear(target)
+	local C, P = ns.Compat, Nav.Path
+	if not (C and C.GetPlayerWorldPosition and P and P.Sight) then return true end
+	local pc, px, py = C.GetPlayerWorldPosition()
+	local tc, tx, ty = worldOf(target)
+	if not (pc and px and tc == pc and tx) then return true end
+	local now, k = GetTime(), city.gotoSight
+	if k and k.target == target and (k.clear == false or (now - k.at < EVERY and (px - k.x) ^ 2 + (py - k.y) ^ 2 < MOVE * MOVE)) then return k.clear end
+	local z, clear = startZ(pc, px, py), true
+	if z ~= nil then
+		local profile = C.GetPlayerFaction and C.GetPlayerFaction() or nil
+		local ok, s = pcall(P.Sight, pc, px, py, z, tx, ty, tonumber(target.z), profile, true)
+		clear = not (ok and s == false)
+	end
+	if not k then k = {}; city.gotoSight = k end
+	k.target, k.at, k.x, k.y, k.clear = target, now, px, py, clear
+	return clear
 end
 
 ---------------------------------------------------------------------------

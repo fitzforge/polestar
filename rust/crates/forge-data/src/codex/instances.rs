@@ -120,9 +120,10 @@ const DOOR_YARDS: f64 = 30.0;
 /// TABLE_YARDS).
 const TABLE_YARDS: f64 = 60.0;
 
-/// instances.js `chooseEntrance`: a table entry's `A` (the Alliance's own way in) rides along as entrance.A; its `z`
-/// (the door's floor where floors stack: the Excavation Site's door over Thelgen Rock) as entrance.z when the chosen
-/// point lies within DOOR_YARDS of the entry's on the same map (a recording's point near it too).
+/// instances.js `chooseEntrance`: a table entry's `A` (the Alliance's own way in) rides along as entrance.A, its
+/// `doors` (other ways in open to both sides: Blackrock Mountain's two, #3348) as entrance.doors ([ { map, x, y } ]);
+/// its `z` (the door's floor where floors stack: the Excavation Site's door over Thelgen Rock) as entrance.z when the
+/// chosen point lies within DOOR_YARDS of the entry's on the same map (a recording's point near it too).
 fn choose_entrance(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], corpse: Option<&super::client::Corpse>, zones: &V, frames: &V, prefer: &[f64]) -> V {
 	let e = choose_entrance_point(name, recorded, table, guides, corpse, zones, frames, prefer);
 	let a = table.get("A");
@@ -132,6 +133,18 @@ fn choose_entrance(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], co
 		ao.set("x", round1(a.get("x").num()));
 		ao.set("y", round1(a.get("y").num()));
 		o.set("A", V::Obj(ao));
+	}
+	let doors = table.get("doors");
+	if let (Some(o), true) = (e.as_obj(), table.truthy() && doors.is_arr() && !doors.is_empty()) {
+		let list = V::arr();
+		for d in doors.items() {
+			let dobj = Obj::new();
+			dobj.set("map", d.get("map").num());
+			dobj.set("x", round1(d.get("x").num()));
+			dobj.set("y", round1(d.get("y").num()));
+			list.push(V::Obj(dobj));
+		}
+		o.set("doors", list);
 	}
 	let z = table.get("z");
 	if let (Some(o), true) = (e.as_obj(), table.truthy() && z.is_num() && z.num().is_finite() && e.get("map").num() == table.get("map").num()) {
@@ -847,6 +860,25 @@ pub fn load_entrance_table(text: &str) -> Result<V, String> {
 mod tests {
 	use super::*;
 	use forge_guide::js::parse_json;
+
+	// #3348: Blackrock Mountain has a door on each side, open to both factions; the table's other door rides along as
+	// entrance.doors whichever point wins (the arrow takes the nearer one in the game).
+	#[test]
+	fn a_table_entry_s_other_doors_ride_along_as_entrance_doors_3348() {
+		let brd = parse_json(r#"{ "key": "blackrock-depths", "map": 1427, "x": 34.8, "y": 85.3, "doors": [{ "map": 1428, "x": 29.41, "y": 38.3, "note": "Burning Steppes" }] }"#).unwrap();
+		let none = V::Null;
+		let e = choose_entrance("Blackrock Depths", &none, &brd, &[], None, &none, &none, &[]);
+		assert_eq!(e.get("doors").len(), 1);
+		let d = e.get("doors").at(0);
+		assert_eq!((d.get("map").num(), d.get("x").num(), d.get("y").num()), (1428.0, 29.4, 38.3));
+		assert!(!d.get("note").truthy(), "only the point rides along");
+		let recorded = parse_json(r#"[{ "map": 1427, "x": 34.9, "y": 85.0, "n": 19 }]"#).unwrap();
+		let rec = choose_entrance("Blackrock Depths", &recorded, &brd, &[], None, &none, &none, &[]);
+		assert_eq!(rec.get("x").num(), 34.9, "the recording wins");
+		assert_eq!(rec.get("doors").at(0).get("map").num(), 1428.0, "and keeps the other door");
+		let one = parse_json(r#"{ "key": "deadmines", "map": 1436, "x": 42.5, "y": 71.7 }"#).unwrap();
+		assert!(!choose_entrance("Deadmines", &none, &one, &[], None, &none, &none, &[]).get("doors").truthy(), "one way in: no doors");
+	}
 
 	#[test]
 	fn a_table_entry_s_alliance_way_in_rides_along_as_entrance_a_whichever_point_wins_706() {

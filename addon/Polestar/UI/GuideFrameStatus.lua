@@ -82,7 +82,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		local d, Q = Derived(), ns.QoL
 		if stats == nil and d.XPStats then stats = d.XPStats() end
 		local parts = {}
-		if type(stats) == "table" and not stats.maxed and Q then
+		-- The XP line (XP an hour, time to level, the pace) unless turned off
+		-- (guideWindow.xpLine, #3304); Boosted Rest keeps its own line.
+		local xpLine = GF.On("xpLine")
+		if xpLine and type(stats) == "table" and not stats.maxed and Q then
 			local short = Q.XP and Q.XP.Short
 			if type(stats.rate) == "number" and stats.rate > 0 and short then
 				parts[#parts + 1] = string.format(L["%s XP/h"], short(stats.rate))
@@ -94,7 +97,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local restLine
 		if not (type(stats) == "table" and stats.maxed) then
 			-- The pace line, unless turned off (guideWindow.pace, #2371, #2379).
-			local pace = GF.On("pace") and GF.PaceText(stats)
+			local pace = xpLine and GF.On("pace") and GF.PaceText(stats)
 			if pace then parts[#parts + 1] = pace end
 			-- Boosted Rest and the sleeping bag (QoL/Rest.lua): empty while its
 			-- setting is off or there is nothing to say.

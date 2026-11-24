@@ -128,7 +128,8 @@ return {
 	-- {spell:3320} Rough Grinding Stone
 	["{spell:3320} to 83"] = "{spell:3320} bis 83",
 	-- {spell:3320} Rough Grinding Stone · {item:2835} Rough Stone
-	["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320} ist bei 75 grün (gelb 45, grün 65, grau 85): etwa 58 Herstellungen bis 83. Jede benötigt 2 {item:2835}. Zwei {item:2835} pro Herstellung. Schleifsteine sind Teile für spätere Pläne; die überzähligen verkaufst du an Händler.",
+	-- was: ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320} ist bei 75 grün (gelb 45, grün 65, grau 85): etwa 58 Herstellungen bis 83. Jede benötigt 2 {item:2835}. Zwei {item:2835} pro Herstellung. Schleifsteine sind Teile für spätere Pläne; die überzähligen verkaufst du an Händler."
+	["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors. If you got here without learning {spell:3320}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 28: Runed Copper Belt to 100
 	-- {spell:2666} Runed Copper Belt
@@ -499,5 +500,6 @@ return {
 	-- ["{spell:2660} to 45"] = "{spell:2660} bis 45",
 	-- ["{spell:2668} to 121"] = "{spell:2668} bis 121",
 	-- ["{spell:3117} to 112"] = "{spell:3117} bis 112",
+	-- ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320} ist bei 75 grün (gelb 45, grün 65, grau 85): etwa 58 Herstellungen bis 83. Jede benötigt 2 {item:2835}. Zwei {item:2835} pro Herstellung. Schleifsteine sind Teile für spätere Pläne; die überzähligen verkaufst du an Händler.",
 	-- ["{spell:3333} to 155"] = "{spell:3333} bis 155",
 }

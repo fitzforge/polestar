@@ -272,7 +272,7 @@ function Nav.RegisterTravelData(d, replace)
 		local a, b = t.a, t.b
 		if type(a) == "table" and type(b) == "table" then
 			portals[#portals + 1] = {
-				id = t.id, kind = "portal", name = t.name, area = t.area, faction = t.faction or 3, seconds = t.seconds or 5, item = t.item,
+				id = t.id, kind = "portal", name = t.name, area = t.area, faction = t.faction or 3, seconds = t.seconds or 5, item = t.item, npc = t.npc,
 				a = withBoard(point(a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8] or "e", a[9]), a[10]),
 				b = withBoard(point(b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8] or "e", b[9]), b[10]),
 			}
@@ -448,6 +448,7 @@ end
 --       target = { c, wx, wy, label, map, x, y, f },
 --       (p.z: the player's floor height when known, Walk.Floor: a walk to an end with a height is dropped as
 --         already walked only on that floor)
+--       (p.clientZ: the player's height as the client gives it, nil without one: the side of a lift city, Travel.LiftSide)
 --       faction = 1 Alliance | 2 Horde | 0 other,
 --       known = { [taxiNodeID] = true },
 --       speed = yd/s,
@@ -653,8 +654,43 @@ function Travel.InBox(a, wx, wy)
 	if l > r then l, r = r, l end
 	return wx >= t and wx <= b and wy >= l and wy <= r
 end
-function Travel.ZoneOf(map, c, wx, wy, target, z, area)
+-- The cities whose floors only their lifts join (forge-nav f4/lifts.rs GROUPS, the walking maps' own rule): within
+-- LIFT_FOOTPRINT yards of one of a city's lift shafts a point is in the city on its side of `middle` (above it on
+-- Thunder Bluff's bluff, below it in the Undercity) and on the ground zone around it on the other, whatever the
+-- client's map says: the client names the Undercity (1458) for the Ruins of Lordaeron's courtyard and gate above
+-- it, and Thunder Bluff (1456) at its lifts' feet on Mulgore's ground (#3532). Only a point whose floor height is
+-- known (a target's or an end's own z, the player's from the client: ZoneOf's sideZ); without one the map decides,
+-- as before. The player's followed floor (Walk.Floor) is no proof here: up from a lift the floor seeded on the bluff
+-- could be the ground's, and the plan sent the player down and up the lift again and again (the Mulgore stretch).
+Travel.LIFT_FOOTPRINT = 400
+Travel.LIFT_CITIES = {
+	{ map = 1456, ground = 1412, c = 1, middle = 102, above = true, shafts = { -1032.7, -38.8, -1297.3, 187.5 } },
+	{ map = 1458, ground = 1420, c = 0, middle = 7.45, above = false, shafts = { 1595.3, 188.6, 1544.2, 240.8, 1596.2, 291.8 } },
+}
+-- -> the city's map or its ground zone's for a point (height z) within the footprint of a lift city's shafts; nil elsewhere.
+function Travel.LiftSide(c, wx, wy, z)
+	if type(z) ~= "number" or not (c and wx and wy) then return nil end
+	local r2 = Travel.LIFT_FOOTPRINT * Travel.LIFT_FOOTPRINT
+	for _, city in ipairs(Travel.LIFT_CITIES) do
+		if city.c == c then
+			local s = city.shafts
+			for i = 1, #s - 1, 2 do
+				local dx, dy = wx - s[i], wy - s[i + 1]
+				if dx * dx + dy * dy <= r2 then
+					if (z > city.middle) == city.above then return city.map end
+					return city.ground
+				end
+			end
+		end
+	end
+	return nil
+end
+-- sideZ: the height Travel.LiftSide sides the point by when it is not z (false: none).
+function Travel.ZoneOf(map, c, wx, wy, target, z, area, sideZ)
 	local zone = mapZoneOf(map, c, wx, wy, target)
+	if sideZ == nil then sideZ = z end
+	local side = zone and Travel.LiftSide(c, wx, wy, sideZ or nil)
+	if side and zoneInfo[side] then zone = side end
 	local list = zone and areasIn[zone]
 	if list then
 		for _, a in ipairs(list) do
@@ -769,6 +805,13 @@ local TAKE = {
 	tram = L["Take the tram to %s"],
 	portal = L["Take the portal to %s"],
 }
+-- Aboard a ride that has left its dock (#3538): the leg says where it is going, as a flight's does.
+Travel.RIDING = {
+	boat = L["Riding the boat to %s"],
+	zeppelin = L["Riding the zeppelin to %s"],
+	airship = L["Riding the airship to %s"],
+	tram = L["Riding the tram to %s"],
+}
 
 -- The search's arrays (vertices, costs, the heap), kept from one plan to the
 -- next: a Dungeons hub browse plans thousands of travel estimates, and each
@@ -836,7 +879,7 @@ local function planBody(p, S)
 		return n
 	end
 	-- A start in a place only portals reach (p.place: Travel.Placed saw the player go in) is there, whatever its floor.
-	local startZone = covered[p.c] and (p.place or Travel.ZoneOf(p.map, p.c, p.wx, p.wy, nil, p.z) or false)
+	local startZone = covered[p.c] and (p.place or Travel.ZoneOf(p.map, p.c, p.wx, p.wy, nil, p.z, nil, p.clientZ or false) or false)
 	add(START, p.c, p.wx, p.wy, nil, p.map, nil, startZone)
 	-- The target's zone is where the walking maps put its point (zoneOf's `target`, #1694), or with its height the
 	-- place only portals reach that holds it (the mage trainers under the Wizard's Sanctum, #1970).
@@ -1331,6 +1374,13 @@ local function planBody(p, S)
 		end
 		walk(u, v, cost, s, du, tu)
 	end
+	-- #3482: where the walking engine found no walk from the player to the target (nw[1]), a walk into the target
+	-- that nobody measured is no surer than the player's own straight walk to it, so it never costs less than that
+	-- (the straight x WALK_DETOUR), and the player's straight walk is offered at that price: a goal 20 yd off on
+	-- Auberdine's pier, which no walk reaches, was planned by the flight master and the pass to Felwood, ending in an
+	-- unmeasured walk priced from its own end. A way whose walk into the target was measured competes as before.
+	local unmeasured = nw[1] and yards(vc[1], vx[1], vy[1], vc[2], vx[2], vy[2]) or nil
+	if unmeasured == huge then unmeasured = nil end
 	-- Walks from u to every vertex of `list`: straight x1.25, or the measured walk into the target.
 	-- back: the vertex u was walked to from (onFoot): no walk on where back walks straight.
 	local function walkTo(list, u, du, tu, xu, yu, back)
@@ -1342,11 +1392,13 @@ local function planBody(p, S)
 				-- the walk into u goes there straight
 			elseif v == 2 and mu then
 				walk(u, 2, mu / speed, ty[u] / speed, du, tu)
-			elseif v == 2 and (nw[u] or stranded[u]) then
+			elseif v == 2 and (stranded[u] or (nw[u] and not (u == 1 and unmeasured))) then
 				-- no walk from u to the target
 			elseif v ~= u then
 				local dx, dy = vx[v] - xu, vy[v] - yu
-				straight(u, v, sqrt(dx * dx + dy * dy) * walkRate, du, tu)
+				local d = sqrt(dx * dx + dy * dy)
+				if v == 2 and unmeasured and d < unmeasured then d = unmeasured end
+				straight(u, v, d * walkRate, du, tu)
 			end
 		end
 	end
@@ -1417,11 +1469,13 @@ local function planBody(p, S)
 				for v = 2, keys do
 					if v == 2 and mu then
 						walk(u, 2, mu / speed, ty[u] / speed, du, tu)
-					elseif v == 2 and (nw[u] or stranded[u]) then
+					elseif v == 2 and (stranded[u] or (nw[u] and not (u == 1 and unmeasured))) then
 						-- no walk from u to the target
 					elseif v ~= u and vc[v] == cu and vkind[v] ~= INN then
 						local dx, dy = vx[v] - xu, vy[v] - yu
-						straight(u, v, sqrt(dx * dx + dy * dy) * walkRate, du, tu)
+						local d = sqrt(dx * dx + dy * dy)
+						if v == 2 and unmeasured and d < unmeasured then d = unmeasured end
+						straight(u, v, d * walkRate, du, tu)
 					end
 				end
 			else
@@ -1684,7 +1738,13 @@ local function planBody(p, S)
 			elseif k == TAXI then
 				leg.label = ride and L["Ride to the flight master"] or L["Walk to the flight master"]
 			elseif k == DOCK then
-				leg.label = ride and (Travel.RIDE_TO[dockOf[to].kind] or Travel.RIDE_TO.boat) or (WALK_TO[dockOf[to].kind] or WALK_TO.boat)
+				local d = dockOf[to]
+				if d.npc then
+					-- An NPC's teleport (#3691: Sanath Lim-yo up Xylem's tower): the walk is to the NPC.
+					leg.label = format(ride and L["Ride to %s"] or L["Walk to %s"], d.npc)
+				else
+					leg.label = ride and (Travel.RIDE_TO[d.kind] or Travel.RIDE_TO.boat) or (WALK_TO[d.kind] or WALK_TO.boat)
+				end
 			elseif k == TARGET then
 				leg.label = tg.label
 				if tg.kind == "goto" then leg.step = "goto" end
@@ -1705,7 +1765,15 @@ local function planBody(p, S)
 		elseif how == RIDE then
 			local t = dockOf[u]
 			leg.kind = t.kind
-			leg.label = format(TAKE[t.kind] or TAKE.boat, Travel.PlaceName(dockEnd[to]))
+			if t.npc then
+				leg.label = format(L["Ask %s to teleport you to %s"], t.npc, Travel.PlaceName(dockEnd[to]))
+			else
+				leg.label = format(TAKE[t.kind] or TAKE.boat, Travel.PlaceName(dockEnd[to]))
+				-- Aboard and off the dock (#3538): what the ride says, and the ride's own seconds dock to dock.
+				local riding = Travel.RIDING[t.kind]
+				if riding then leg.rideLabel = format(riding, Travel.PlaceName(dockEnd[to])) end
+				leg.ride = dockSide[u] == "a" and t.ab or t.ba
+			end
 			leg.transport, leg.side = t, dockSide[u]
 			-- A ride into or out of a place only portals reach is over when the player is seen in it, or out of it
 			-- (Travel.Placed), never by the yards to its landing: the Wizard's Sanctum's lies a few from its entrance (#1970).
@@ -2497,7 +2565,7 @@ local function plan(target, held)
 		end
 	end
 	local plan = {
-		c = pc, wx = px, wy = py, map = playerMap(), z = pz, floors = pfloors, place = Travel.Inside(pc, px, py),
+		c = pc, wx = px, wy = py, map = playerMap(), z = pz, clientZ = Travel.ObservedFloor(pc), floors = pfloors, place = Travel.Inside(pc, px, py),
 		target = { c = tc, wx = twx, wy = twy, z = tz, label = target.label, map = target.map, x = target.x, y = target.y, f = target.f, kind = target.kind },
 		liveLeft = W and W.LiveLeft and W.LiveLeft(tc, twx, twy) or nil,
 		liveTaxi = true,
@@ -2889,10 +2957,12 @@ local function departureCaption(leg)
 	return nil
 end
 
--- The current leg's instruction and caption; at a lift's landing, the ride's.
+-- The current leg's instruction and caption; at a lift's landing, the ride's; a boat, zeppelin, airship or tram
+-- under way (Travel.Aim), where it is going (#3538).
 function Travel.CurrentLabel()
 	local leg = legs and legs[ci]
 	if not leg then return nil end
+	if leg.underway and leg.rideLabel then return leg.rideLabel end
 	leg = boardingRide(leg) or leg
 	local caption = departureCaption(leg)
 	if caption and leg.label then return leg.label .. "\n" .. caption end
@@ -3710,6 +3780,18 @@ function Travel.Aim(pc, px, py)
 				elseif not boarded and d > LEAVE then
 					dirty = true
 				end
+				-- Off the dock it boarded at, carried (Transit.Carried: moved with no speed of one's own) or past LEAVE:
+				-- under way (#3538). The leg says where it goes, the arrow aims at the far dock, and the time left is
+				-- the ride's own from here (its wait is over).
+				if boarded and not leg.underway and leg.rideLabel and d > BOARD then
+					local X = ns.Transit
+					if d > LEAVE or (X and X.Carried and X.Carried()) then
+						leg.underway = true
+						legSince = GetTime() - math.max(0, leg.seconds - (leg.ride or leg.seconds))
+						Travel.version = Travel.version + 1
+					end
+				end
+				if leg.underway then return "instruction", to.c, to.wx, to.wy end
 				return "instruction", from.c, from.wx, from.wy
 			end
 		end
@@ -4013,6 +4095,18 @@ end
 
 local function onZone()
 	if riding() then return end
+	-- A subzone change on a lift ride (the ride leg current, the player within LIFT_LEAVE of its boarding landing) is the
+	-- ride itself. Planned again there, with no height from the client the walk started on the boarding floor, a few
+	-- yards under the player, and the arrow said "Ride the elevator up" again at the top (#3734: Gnomeregan, Thunder
+	-- Bluff). The ride is over when the player walks off it (LIFT_LEAVE), as without the event.
+	local leg, C = legs and legs[ci], ns.Compat
+	if leg and leg.kind == "lift" and leg.from and C and C.GetPlayerWorldPosition then
+		local pc, px, py = C.GetPlayerWorldPosition()
+		if pc == leg.from.c and px and yards(pc, px, py, leg.from.c, leg.from.wx, leg.from.wy) <= LIFT_LEAVE then
+			Travel:Refresh()
+			return
+		end
+	end
 	if not dirty then dirty = "zone" end
 	Travel:Refresh()
 end

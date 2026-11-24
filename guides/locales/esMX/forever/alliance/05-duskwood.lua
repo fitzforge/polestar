@@ -9,10 +9,8 @@ return {
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Vuela a {area:42}",
-	-- {area:69} Lakeshire · {area:42} Darkshire · {zone:1431} Duskwood
-	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "De vuelta con la maestra de grifos de {area:69}: vuela a {area:42} para el segundo circuito de {zone:1431}.",
-	-- {area:69} Lakeshire
-	["{area:69} flight master"] = "Maestro de vuelo de {area:69}",
+	-- {area:42} Darkshire · {zone:1431} Duskwood · {area:69} Lakeshire
+	["Fly to {area:42} for {zone:1431}'s second loop: from {area:69}'s gryphon master if you come from the Redridge guide."] = "",
 
 	-- Step 2: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
@@ -217,6 +215,7 @@ return {
 	["Train here, in {zone:1453}, before you go on."] = "Entrena aquí, en {zone:1453}, antes de seguir.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "De vuelta con la maestra de grifos de {area:69}: vuela a {area:42} para el segundo circuito de {zone:1431}.",
 	-- ["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "Sigue al oeste hasta {area:94}. {object:673515} brilla junto a la casa en ruinas al sur del camino.",
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Cualquier necrófago de la mitad norte de {area:492} puede soltar una costilla: los comecarnes y masticahuesos Oseral (24-27) son más fáciles de matar; los propagadores de la Peste y comesesos (27-29) también las sueltan. {npc:522}, un élite, deambula entre las tumbas: mantente lejos de él.\nCuidado: {npc:948} lanza {spell:3428} al morir, lo que trae enemigos de más.",
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters."] = "Cualquier necrófago de la mitad norte de {area:492} puede soltar una costilla: comecarnes, masticahuesos Oseral, propagadores de peste y comesesos.",
@@ -241,6 +240,7 @@ return {
 	-- ["Train in {zone:1453}, north through {zone:1429}. Then take the boat from {area:17203} to {area:442}."] = "Entrena en {zone:1453}, al norte por {zone:1429}. Luego toma el barco de {area:17203} a {area:442}.",
 	-- ["Wolves, spiders and ghouls"] = "Lobos, arañas y necrófagos",
 	-- ["{area:492}, south"] = "{area:492}, sur",
+	-- ["{area:69} flight master"] = "Maestro de vuelo de {area:69}",
 	-- ["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "{item:1946}: {npc:511} de la cripta del cementerio es de nivel 26; espera a la vuelta a {zone:1431}",
 	-- ["{item:281046}, from the {object:673515}"] = "{item:281046}, de {object:673515}",
 	-- ["{item:4371}, from {npc:3133}: limited stock. Sold out? {npc:1448} in {area:150} sells it too."] = "{item:4371}, de {npc:3133}: existencias limitadas. ¿Agotado? {npc:1448} en {area:150} también lo vende.",
