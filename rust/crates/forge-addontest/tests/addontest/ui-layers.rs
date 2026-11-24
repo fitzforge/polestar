@@ -105,13 +105,7 @@ end
 "#;
 
 fn run(stubs: Vec<&'static str>, script: &str) -> Vec<Value> {
-	emitted(&RunAddon {
-		stubs,
-		before: CLIENT.into(),
-		addons: vec![Addon::files("Polestar", &MODS)],
-		script: format!("uistub.install()\nstub.login()\n{HELPERS}\n{script}"),
-		..Default::default()
-	})
+	emitted(&RunAddon { stubs, before: CLIENT.into(), addons: vec![Addon::files("Polestar", &MODS)], script: format!("uistub.install()\nstub.login()\n{HELPERS}\n{script}"), ..Default::default() })
 }
 
 #[test]
