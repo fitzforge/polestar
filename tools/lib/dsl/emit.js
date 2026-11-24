@@ -28,8 +28,8 @@ const GOAL_KEYS = [
 	'carriedTo',
 ];
 const REAGENT_KEYS = ['item', 'itemName', 'count'];
-// `z` (heights.js) follows y in candidates and spawn areas as in goals.
-const CANDIDATE_KEYS = ['npc', 'npcName', 'map', 'x', 'y', 'z', 'f', 'faction', 'races', 'classes', 'lvl', 'rate', 'spawns'];
+// `z` (heights.js) follows y in candidates and spawn areas as in goals; `floor` (heights.js candidateFloor) the frame.
+const CANDIDATE_KEYS = ['npc', 'npcName', 'map', 'x', 'y', 'z', 'f', 'floor', 'faction', 'races', 'classes', 'lvl', 'rate', 'spawns'];
 // A collect's `fromNpcs`: the creatures its point and spawn areas belong to.
 const SOURCE_NPC_KEYS = ['npc', 'npcName'];
 // Spawn areas: map-percent centre in the goal's map and frame, its height,

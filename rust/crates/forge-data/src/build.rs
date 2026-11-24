@@ -532,6 +532,49 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		}
 	}
 	log(&format!("continent copies: {points} spawn points dropped from {npcs} NPCs and {objects} objects"));
+	// The walking grid (floors.rs grid_dir), when this machine has one: the zone each spot stands in (its area) and
+	// the floors over it (floor words, below).
+	let grid_dir = crate::floors::grid_dir(&o.root);
+	let grid = if grid_dir.join("index.json").is_file() {
+		match forge_nav::grid::Grid::open(&grid_dir, 64) {
+			Ok(g) => Some(g),
+			Err(e) => {
+				warnings.push(format!("walking grid at {} unreadable ({e}); spawns keep the zone maps the sources give and floors.json is not written", grid_dir.display()));
+				None
+			}
+		}
+	} else {
+		log(&format!("no walking grid at {}: spawns keep the zone maps the sources give, floors.json not written (compiled goals carry no floor word)", grid_dir.display()));
+		None
+	};
+	// A spawn on a zone's map that the grid puts in another zone goes to that zone's map (#2875, spawns.rs
+	// rehome_zone_points): the zone of the grid's area there (the client's AreaTable, per map chunk), where the chunks
+	// around it agree (gridzones.rs).
+	if let Some(g) = &grid {
+		let zones_of = crate::gridzones::GridZones::new(g);
+		let zone_of_area = |a: u16| fmaps.as_ref().and_then(|m| m.resolve_area(a as f64)).or_else(|| maps.resolve_area(a as f64));
+		let zone_of = |c: f64, wx: f64, wy: f64| zones_of.zone_at(c, wx, wy, &zone_of_area);
+		let home = |m: i64| -> Option<(&'static str, Frame)> {
+			if live(m) {
+				fmaps.as_ref().and_then(|f| f.frames.get(&m)).map(|f| ("l", *f))
+			} else {
+				maps.frames.get(&m).map(|f| ("e", *f))
+			}
+		};
+		// Forever's new zones (no Classic Era map) keep theirs: an older grid does not know their areas.
+		let keep = |m: i64| !maps.frames.contains_key(&m);
+		let (mut points, mut moved) = (0, 0);
+		for table in [&norm.npcs, &norm.objects] {
+			for e in table.values() {
+				if let Some((spawns, n)) = crate::spawns::rehome_zone_points(&e.get("spawns"), &frame_of, &home, &zone_of, &keep) {
+					e.set("spawns", spawns);
+					points += n;
+					moved += 1;
+				}
+			}
+		}
+		log(&format!("zone maps: {points} spawn points of {moved} NPCs and objects moved to the zone the walking grid puts them in"));
+	}
 	// The web zone lists' change notes, before our own corrections.
 	let mut wh = None;
 	if qz.is_some() && o.web_zones {
@@ -928,6 +971,37 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		log(&format!("place-name NPCs: {} dropped ({})", placeholders.len(), placeholders.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")));
 	}
 
+	// Service NPCs listed at points packed around where they stand keep the one players open their windows at
+	// (#2738, spawns.rs settle_packed): after the knowledge base, whose sniffed spawns add such points. Our
+	// corrections stay the last word.
+	const SERVICE: [&str; 8] = ["vendor", "trainer", "banker", "innkeeper", "stablemaster", "repair", "flightmaster", "auctioneer"];
+	let (mut settled, mut still) = (Vec::new(), Vec::new());
+	for e in norm.npcs.values() {
+		if !e.get("roles").items().iter().any(|r| r.as_str().is_some_and(|r| SERVICE.contains(&r))) {
+			continue;
+		}
+		let id = e.get("id").num() as i64;
+		let spots_of = |map: i64| rec.window_spots.get(&(id, map)).cloned().unwrap_or_default();
+		if let Some((spawns, _)) = crate::spawns::settle_packed(&e.get("spawns"), &frame_of, &spots_of) {
+			e.set("spawns", spawns);
+			settled.push(id);
+		}
+		if crate::spawns::packed(&e.get("spawns"), &frame_of) {
+			still.push(id);
+		}
+	}
+	if !settled.is_empty() {
+		crate::corrections::reassert(&corrections, &norm.quests, &norm.npcs, &norm.objects, &norm.items, sim);
+	}
+	let ids = |v: &[i64]| v.iter().map(i64::to_string).collect::<Vec<_>>().join(", ");
+	log(&format!(
+		"packed service NPCs: {} kept the point players open their windows at ({}); {} still packed, players' windows too few or spread to choose one ({})",
+		settled.len(),
+		ids(&settled),
+		still.len(),
+		ids(&still)
+	));
+
 	// Objectives on the game's placeholder targets (credit.rs, #2614): events in the quest log's words. Then the
 	// check: no placeholder name a player could read ships; each one left needs a correction.
 	let credits = crate::credit::retype(&norm.quests, &norm.npcs);
@@ -1049,6 +1123,24 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			("sessions", arr(recordings.names().map(s).collect())),
 		]));
 	}
+	// Floor words (#2751, floors.rs): the spawns that stand a floor up a building, at its top or below the ground,
+	// from their heights against the walking grid's surfaces.
+	let floors = match (&heights, &grid) {
+		(Some(h), Some(g)) => match crate::floors::build(g, &h.text) {
+			Ok((text, words, seen)) => {
+				log(&format!("floors: {words} of {seen} spawns stand up a building, at its top or below the ground (walking grid {})", grid_dir.display()));
+				Some(text)
+			}
+			Err(e) => {
+				warnings.push(format!("spawnz.json unreadable for the floor words ({e}); floors.json not written"));
+				None
+			}
+		},
+		_ => None,
+	};
+	if let Some(g) = &grid {
+		sources.push(crate::floors::source(g));
+	}
 	if heights.is_some() {
 		sources.push(crate::cmangos::heights_source());
 	}
@@ -1093,6 +1185,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	}
 	if let Some(h) = &heights {
 		files.push(("spawnz".into(), h.text.clone()));
+	}
+	if let Some(f) = &floors {
+		files.push(("floors".into(), f.clone()));
 	}
 	if let Some(m) = &moves {
 		files.push(("moves".into(), m.clone()));
@@ -1239,6 +1334,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	let mut stale = Vec::new();
 	if heights.is_none() {
 		stale.push("spawnz");
+	}
+	if floors.is_none() {
+		stale.push("floors");
 	}
 	if moves.is_none() {
 		stale.push("moves");

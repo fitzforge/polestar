@@ -1253,6 +1253,23 @@ N of M smart-target candidates and N of M spawn spots got z"). In the game the
 walk is searched with the height and asked again without it when that finds
 no route or one ending more than 30 yards above or below it.
 
+**Floor words.** A height doesn't tell the player which stairs to take, so a
+goal at one NPC or object (an `accept`, `turnin`, `talk`, `interact`, `buy`,
+`train`, `vendor`, `sethome`, `getfp` or `learn` with its height, not a
+`kill`'s mobs) whose spawn stands more than 6 yards above or below the ground
+there gets a note: "Upstairs" (another floor lies above it), "Top floor"
+(none does: the top of Northshire Abbey's tower) or "Below ground" (Goldshire
+inn's cellar). `data build` writes `data/forever/floors.json` from each spawn's
+height against the walking grid's surfaces at its spot (`data/local/nav4`):
+the ground is the terrain there, a floor up needs an indoor floor in the
+building (not a bridge or a deck in the open), a cellar is indoors, and a
+place without the terrain's surface (an instance's halls) gets none. Your
+own note on the goal (`-- Inside`) wins: the compiler writes the word only on
+a goal without one. A smart target's candidates get the word as `floor`
+(`up`, `top`, `below`), and the guide window adds it to the goal's line for
+the candidate the arrow picks (#2856: Maximillian Crowe, the warlock trainer
+in Goldshire's inn cellar).
+
 **Places by ID.** The game names places in the player's language
 ("Sombre-Comté" on a French client for "Darkshire") and guides name them in
 English, so the compiler gives a goal that names a place that place's ID, and

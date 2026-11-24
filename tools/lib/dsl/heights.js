@@ -31,6 +31,14 @@
 // Never: any other goto and explore (a place, not an entity), any other use
 // (an item), and `collect … nearest`'s farm spots (a cluster of several
 // droppers, no single NPC).
+//
+// Floor words (#2751): a goal at one NPC or object (not a kill's mobs) whose
+// spawn stands a floor up a building, at its top or under the ground
+// (floors.json, `data build`: the spawn's height against the walking grid's
+// surfaces there) gets the note 'Upstairs', 'Top floor' or 'Below ground'
+// where the guide gives none (goalFloor); a smart target's candidate gets the
+// word as `floor` ('up', 'top', 'below'), which the engine shows for the one
+// it picks (candidateFloor).
 
 const HEIGHT_YARDS = 15;
 const HEIGHT_VERBS = new Set(['accept', 'turnin', 'talk', 'kill', 'interact', 'buy', 'train', 'vendor', 'sethome', 'getfp', 'learn']);
@@ -53,22 +61,66 @@ function worldPoint(data, goal) {
 	return { c: fr.c, wx: fr.top + ((fr.bottom - fr.top) * goal.y) / 100, wy: fr.left + ((fr.right - fr.left) * goal.x) / 100 };
 }
 
+// The nearest spawn row ([instance map, x, y, z, ...]) of an entity to
+// `point` ({ map, x, y, f }) on the point's instance map, when that spawn is
+// within HEIGHT_YARDS, or null.
+function nearestSpawn(data, kind, id, point) {
+	if (!data.spawnz) return null;
+	const list = (data.spawnz[kind] || {})[id];
+	if (!Array.isArray(list)) return null;
+	const p = worldPoint(data, point);
+	if (!p) return null;
+	let best = null;
+	for (const e of list) {
+		if (e[0] !== p.c) continue;
+		const d = Math.hypot(e[1] - p.wx, e[2] - p.wy);
+		if (d <= HEIGHT_YARDS && (!best || d < best.d)) best = { d, e };
+	}
+	return best ? best.e : null;
+}
+
 // The height at `point` ({ map, x, y, f }) of an entity, or undefined: the z
 // of its nearest spawn on the point's instance map, when that spawn is within
 // HEIGHT_YARDS.
 function spawnHeight(data, kind, id, point) {
-	if (!data.spawnz) return undefined;
-	const list = (data.spawnz[kind] || {})[id];
-	if (!Array.isArray(list)) return undefined;
-	const p = worldPoint(data, point);
-	if (!p) return undefined;
-	let best = null;
-	for (const [map, x, y, z] of list) {
-		if (map !== p.c) continue;
-		const d = Math.hypot(x - p.wx, y - p.wy);
-		if (d <= HEIGHT_YARDS && (!best || d < best.d)) best = { d, z };
-	}
-	return best ? best.z : undefined;
+	const e = nearestSpawn(data, kind, id, point);
+	return e ? e[3] : undefined;
+}
+
+// Floor words (#2751): floors.json's word -> the English the compiler writes.
+const FLOOR_NOTES = { up: 'Upstairs', top: 'Top floor', below: 'Below ground' };
+
+// floors.json's word ('up', 'top', 'below') for the spawn an entity's height
+// at `point` comes from (its nearest, spawnHeight's), or undefined: that spawn
+// stands on the ground floor, or nothing says.
+function spawnFloor(data, kind, id, point) {
+	if (!data.floors) return undefined;
+	const e = nearestSpawn(data, kind, id, point);
+	if (!e) return undefined;
+	const row = ((data.floors[kind] || {})[id] || []).find((r) => r[0] === e[0] && r[1] === e[1] && r[2] === e[2]);
+	return row ? row[3] : undefined;
+}
+
+const FLOOR_TEXT = /\b(upstairs|downstairs|stairs|staircase|floor|floors|cellar|basement|below ground|underground|balcony|top of the)\b/i;
+
+// Whether a step's tip says which floor its NPCs stand on ('upstairs', 'the
+// cellar', 'top of the tower'): the author's word wins, so its goals get no
+// floor line (#2751).
+function namesAFloor(tip) {
+	return typeof tip === 'string' && FLOOR_TEXT.test(tip);
+}
+
+// A goal's floor line ('Upstairs', 'Top floor', 'Below ground'), or undefined:
+// for a goal at one NPC or object (heightEntity's, but a kill's: its mobs
+// spread over their spawns) standing a floor up a building, at its top or
+// under the ground. The compiler writes it as the goal's note where the guide
+// gives none (#2751).
+function goalFloor(data, goal) {
+	if (goal.t === 'kill' || goal.spread) return undefined;
+	const e = heightEntity(goal);
+	if (!e) return undefined;
+	const word = spawnFloor(data, e.kind, e.id, goal);
+	return Object.hasOwn(FLOOR_NOTES, word) ? FLOOR_NOTES[word] : undefined;
 }
 
 // The objects or creature a use or interact goal bound to a quest objective
@@ -196,6 +248,15 @@ function candidateHeight(data, cand) {
 	return spawnHeight(data, 'npc', cand.npc, cand);
 }
 
+// A smart target's candidate's floor word ('up', 'top', 'below'; its
+// `floor`), or undefined: by its own NPC, as its height. The engine shows it
+// for the candidate it picks (#2856: Maximillian Crowe in Goldshire's inn
+// cellar).
+function candidateFloor(data, cand) {
+	if (cand.npc === undefined || cand.map === undefined || cand.x === undefined || cand.y === undefined) return undefined;
+	return spawnFloor(data, 'npc', cand.npc, cand);
+}
+
 // -> { eligible, withZ, candidates, candidatesWithZ, spots, spotsWithZ }:
 // goals whose point stands for an NPC or object, their spawn spots, smart
 // targets' NPC candidates, and how many of each got a height.
@@ -222,4 +283,4 @@ function heightCounts(guides) {
 	return n;
 }
 
-module.exports = { HEIGHT_YARDS, HEIGHT_VERBS, heightEntity, worldPoint, spawnHeight, goalHeight, spotHeight, candidateHeight, gotoHeights, heightCounts };
+module.exports = { HEIGHT_YARDS, HEIGHT_VERBS, FLOOR_NOTES, heightEntity, worldPoint, spawnHeight, spawnFloor, goalHeight, goalFloor, namesAFloor, spotHeight, candidateHeight, candidateFloor, gotoHeights, heightCounts };

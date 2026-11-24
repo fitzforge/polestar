@@ -5,7 +5,7 @@
 //! District, 235 yards apart).
 
 use crate::data::Data;
-use crate::heights::candidate_height;
+use crate::heights::{candidate_floor, candidate_height};
 use crate::js::{hypot, math_round, Arr, V};
 use crate::obj;
 use std::cmp::Ordering;
@@ -241,6 +241,9 @@ pub fn build_candidates(data: &Data, entries: &[V], opts: &V) -> V {
 			let cv: V = cand.clone().into();
 			if let Some(z) = candidate_height(data, &cv) {
 				cand.set("z", round2(z.num()));
+			}
+			if let Some(floor) = candidate_floor(data, &cv) {
+				cand.set("floor", floor);
 			}
 			cand.set("faction", tag.as_str());
 			if let Some(c) = &classes {

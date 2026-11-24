@@ -15,7 +15,7 @@
 // MAX_PER_GROUP only guards against runaway data. Each candidate carries the
 // height of its NPC's spawn there (`z`, heights.js) when spawnz.json has one.
 
-const { candidateHeight } = require('./heights');
+const { candidateHeight, candidateFloor } = require('./heights');
 
 const CAP = 6; // kept for callers that ask for a hard per-group limit
 const HUB_YARDS = 250;
@@ -145,6 +145,8 @@ function buildCandidates(data, entries, opts) {
 			if (p.f) cand.f = p.f;
 			const z = candidateHeight(data, cand);
 			if (z !== undefined) cand.z = round2(z);
+			const floor = candidateFloor(data, cand);
+			if (floor !== undefined) cand.floor = floor;
 			cand.faction = tag;
 			if (meta.classes && meta.classes.length) cand.classes = meta.classes;
 			const near = ref && w && w.c === ref.c;

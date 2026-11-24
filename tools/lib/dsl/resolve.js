@@ -21,7 +21,7 @@ const { blockingPrereqs, closedByOf } = require('../data/prereqs');
 const { clusterPoints, scaleOf } = require('../questdb/cluster');
 const { groupOf, isElite, isRare, hostileTo, dungeonNamed } = require('./group');
 const { escortOf } = require('./escort');
-const { goalHeight, spotHeight, gotoHeights } = require('./heights');
+const { goalHeight, goalFloor, namesAFloor, spotHeight, gotoHeights } = require('./heights');
 const { goalArea, goalNode, goalInnkeeper, goalFlightMaster } = require('./places');
 const { areaNamed } = require('../data/areas');
 const { levelRange } = require('./when');
@@ -1049,6 +1049,10 @@ function resolveGuide(ast, data, diag, opts = {}) {
 				loop: !!s.loop,
 			};
 			const goal = resolveGoal(g, zoneId, at.prev, data, err, warn, ctx);
+			// A goal at an NPC or object up a building, at its top or under the
+			// ground, says so where neither its note nor the step's tip says
+			// which floor (heights.js goalFloor, #2751).
+			if (goal.note === undefined && !namesAFloor(s.tip)) setIf(goal, 'note', goalFloor(data, goal));
 			hidden(goal, '_line', g.line);
 			hidden(goal, '_only', g.only || null);
 			step.goals.push(goal);

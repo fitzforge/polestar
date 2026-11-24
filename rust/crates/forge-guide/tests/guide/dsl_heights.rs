@@ -272,3 +272,59 @@ fn z_is_emitted_right_after_y_deterministically() {
 	assert_eq!(a, b);
 	assert_match(&a, r#"\{ t = "talk", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48\.92, y = 41\.61, z = 12\.3, f = "e""#);
 }
+
+// #2751: a goal at an NPC whose spawn floors.json puts up a building, at its top or under the ground gets that floor
+// as its note, from the spawn its height comes from; the guide's own note wins, a kill's mobs get none, and a spawn
+// too far off to give a height gives no floor either.
+#[test]
+fn a_goal_at_an_npc_up_a_building_or_under_the_ground_gets_its_floor_as_its_note_unless_the_guide_gives_one_2751() {
+	let mut data = height_data();
+	let (mcbride, eagan) = (at(&data, 48.92, 41.61), at(&data, 48.94, 40.17));
+	let kobold = at(&data, 47.6, 31.2);
+	data.floors = v(&json!({
+		"npc": {
+			"197": [[1415, mcbride.0 + 3.0, mcbride.1, "below"]],
+			"196": [[1415, eagan.0 + 20.0, eagan.1, "up"]],
+			"6": [[1415, kobold.0, kobold.1, "top"]],
+		},
+		"object": {},
+	}));
+	let src = guide_text(&["step Floors", "  accept 7", "  talk 197 -- In the hall", "  talk 196", "  kill 6 x10 quest 7.1"]);
+	let r = compile_with(&src, &data);
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let g = goals(&r);
+	assert_eq!(find(&g, "accept", None)["note"], "Below ground", "Marshal McBride's spawn 3 yd off: {g:?}");
+	assert_eq!(find(&g, "talk", Some(197))["note"], "In the hall", "the guide's note wins");
+	assert!(find(&g, "talk", Some(196)).get("note").is_none(), "a spawn 20 yd away gives no height, so no floor");
+	assert!(find(&g, "kill", None).get("note").is_none(), "a kill's mobs spread over their spawns");
+	let mut words = |floor: &str| {
+		data.floors = v(&json!({ "npc": { "197": [[1415, mcbride.0 + 3.0, mcbride.1, floor]] }, "object": {} }));
+		find(&goals(&compile_with(&guide_text(&["step Floors", "  talk 197"]), &data)), "talk", Some(197))["note"].clone()
+	};
+	assert_eq!((words("up"), words("top")), (json!("Upstairs"), json!("Top floor")));
+	let tipped = compile_with(&guide_text(&["step Floors", "  tip The marshal waits down in the cellar.", "  talk 197"]), &data);
+	assert!(find(&goals(&tipped), "talk", Some(197)).get("note").is_none(), "the step's tip says the floor already");
+	assert!(goals(&compile_with(&src, &height_data())).iter().all(|g| g.get("note").is_none_or(|n| n == "In the hall")), "no floors.json: no word");
+}
+
+// #2856: a smart target's candidate whose spawn floors.json puts under the ground carries `floor`, emitted after
+// its frame; the engine shows it for the candidate it picks.
+#[test]
+fn a_smart_target_candidate_carries_its_spawn_s_floor_2856() {
+	let src = guide_text(&["step Smart", "  buy 159 x5 nearest"]);
+	let bare = compile(&src);
+	let cands = bare.guides[0].get("steps").at(0).get("goals").at(0).get("candidates");
+	let mut data = fixture_data();
+	let p: Vec<V> = cands.items().iter().map(|c| world_point(&data, c)).collect();
+	let n = |v: &V, k: &str| v.get(k).num();
+	let (danil, other) = ((n(&p[0], "c"), n(&p[0], "wx") + 4.0, n(&p[0], "wy")), (n(&p[1], "c"), n(&p[1], "wx"), n(&p[1], "wy")));
+	data.spawnz = v(&json!({ "npc": { "152": [[danil.0, danil.1, danil.2, 8.5]], "295": [[other.0, other.1, other.2, 3]] }, "object": {} }));
+	data.floors = v(&json!({ "npc": { "152": [[danil.0, danil.1, danil.2, "below"]] }, "object": {} }));
+	let r = compile_with(&src, &data);
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let c = &goals(&r)[0]["candidates"];
+	assert_eq!(c[0]["floor"], "below", "Brother Danil: his spawn 4 yd off");
+	assert!(c[1].get("floor").is_none(), "a spawn on the ground floor: {}", c[1]);
+	assert!(goals(&r)[0].get("note").is_none(), "a smart target's goal takes no floor of its own");
+	assert_match(&emit(&r.guides), r#"\{ npc = 152, npcName = "Brother Danil", map = \d+, x = [\d.]+, y = [\d.]+, z = 8\.5, f = "e", floor = "below""#);
+}

@@ -602,6 +602,10 @@ pub struct Stats {
 	pub overruled: Vec<String>,
 	/// Per quest, the NPCs counted players handed it in to (a `turnin` in that NPC's window).
 	pub npc_hand_ins: FxHashMap<i64, FxHashSet<i64>>,
+	/// Where counted players opened each NPC's windows (quest, gossip, trainer, vendor, flight master), per map:
+	/// (npc, map) -> one point per player (the lower median of their windows' x and y, the map's Forever frame).
+	/// spawns.rs settle_packed reads it (#2738).
+	pub window_spots: IndexMap<(i64, i64), Vec<P>>,
 }
 
 type ByMap = IndexMap<i64, Vec<P>>;
@@ -851,6 +855,8 @@ struct Overlay<'a> {
 	who: FxHashMap<(usize, i64, i64), IndexSet<String>>,
 	/// (table index, id, map) the overlay gave spawns where there were none.
 	filled: FxHashSet<(usize, i64, i64)>,
+	/// (npc, map) -> player -> where they opened its windows (Stats::window_spots).
+	windows_at: IndexMap<(i64, i64), IndexMap<String, Vec<P>>>,
 }
 
 const WHO_LIVE: usize = 0;
@@ -958,6 +964,9 @@ impl<'a> Overlay<'a> {
 		if let Some(c) = coord(ev) {
 			push_point(&mut self.live[k_ix(kind)], id, &c);
 			self.note(WHO_LIVE + k_ix(kind), id, c.map);
+			if kind == "npc" {
+				self.windows_at.entry((id, c.map)).or_default().entry(self.voter.clone()).or_default().push([c.x, c.y]);
+			}
 		}
 		true
 	}
@@ -2407,6 +2416,7 @@ pub fn apply_recordings<R: std::borrow::Borrow<Recording>>(
 		contributors: IndexSet::new(),
 		who: FxHashMap::default(),
 		filled: FxHashSet::default(),
+		windows_at: IndexMap::new(),
 	};
 	for r in recordings {
 		let r = r.borrow();
@@ -2695,6 +2705,10 @@ pub fn apply_recordings<R: std::borrow::Borrow<Recording>>(
 	let sides: FxHashMap<i64, String> = ov.faction_side.iter().filter_map(|(&id, b)| b.best().and_then(|(s, _)| s.as_str().map(|s| (id, s.to_string())))).collect();
 	resolve_factions(db.factions, &ov.factions_seen, &parents, &sides);
 	ov.stats.overruled = crate::corrections::reassert(corrections, db.quests, db.npcs, db.objects, db.items, sim);
+	for (key, players) in std::mem::take(&mut ov.windows_at) {
+		let spots: Vec<P> = players.into_values().filter_map(|pts| Some([lower_median(pts.iter().map(|p| p[0]).collect())?, lower_median(pts.iter().map(|p| p[1]).collect())?])).collect();
+		ov.stats.window_spots.insert(key, spots);
+	}
 	ov.stats
 }
 

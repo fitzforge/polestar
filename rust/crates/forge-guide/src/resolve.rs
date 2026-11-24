@@ -1988,6 +1988,11 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				loop_: s.get("loop").truthy(),
 			};
 			let goal = resolve_goal(g, &zone_id, &cursors[at].prev, r, &ctx);
+			// A goal at an NPC or object up a building, at its top or under the ground, says so where neither its
+			// note nor the step's tip says which floor (heights.rs goal_floor, #2751).
+			if goal.get("note").is_undef() && !crate::heights::names_a_floor(&s.get("tip")) {
+				set_if(&goal, "note", crate::heights::goal_floor(data, &goal).unwrap_or_default());
+			}
 			goal.set_hidden("_line", g.get("line"));
 			goal.set_hidden("_only", if gonly.truthy() { gonly.clone() } else { V::Null });
 			step_goals.push(goal.clone());

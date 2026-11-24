@@ -3280,6 +3280,17 @@ local function chosen(goal)
 	return p.list[p.i]
 end
 
+-- A goal's note with the chosen candidate's floor after it (`floor`, the
+-- compiler's: "up", "top", "below", #2751): a smart target's NPC up a building,
+-- at its top or under the ground says so (#2856: Maximillian Crowe, in
+-- Goldshire's inn cellar). A goal at one NPC has its floor in its note already.
+function Own.floorNote(note, cand)
+	local floor = cand and cand.floor
+	local word = floor == "up" and L["Upstairs"] or floor == "top" and L["Top floor"] or floor == "below" and L["Below ground"] or nil
+	if not word then return note end
+	return note and note .. "  \194\183  " .. word or word
+end
+
 -- The NPC a goal is done with (the chosen candidate's, if any; the banker
 -- for a material taken from the bank, none from the mail: Own.materialPlace),
 -- named in the client's language where Polestar.Names has it.
@@ -6580,7 +6591,7 @@ local function goalView(s, g, goal, stepStatus, group)
 		-- A vendor check-off beside other work: it does not hold the step
 		-- (Own.sideVendor).
 		side = Own.sideVendor(s, goal) or nil,
-		note = goal.note,
+		note = Own.floorNote(goal.note, chosen(goal)),
 		-- A line the window paints in the accent (a pick-up guide's "Comes
 		-- back at level N", Dungeons/Pickup.lua).
 		accent = goal.accent == true or nil,

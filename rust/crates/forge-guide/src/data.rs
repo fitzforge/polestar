@@ -8,7 +8,7 @@ use rustc_hash::FxHashMap;
 use std::cell::RefCell;
 
 pub const FILES: [&str; 7] = ["quests", "npcs", "objects", "items", "zones", "map-frames", "meta"];
-pub const OPTIONAL: [&str; 7] = ["professions", "factions", "trainers", "races", "travel", "spawnz", "moves"];
+pub const OPTIONAL: [&str; 8] = ["professions", "factions", "trainers", "races", "travel", "spawnz", "moves", "floors"];
 
 /// Classic skill lines (game facts), so `skill <Profession> <N>` resolves without professions.json.
 pub const BUILTIN_PROFESSIONS: [(u32, &str); 13] = [
@@ -98,6 +98,9 @@ pub struct Data {
 	pub travel: V,
 	/// spawnz.json ({ npc, object } -> id -> [[instance map, x, y, z]]) or Null.
 	pub spawnz: V,
+	/// floors.json ({ npc, object } -> id -> [[instance map, x, y, word]]: the spawns up a building, at its top or
+	/// below the ground, `forge data build` floors.rs) or Null; heights.rs goal_floor reads it (#2751).
+	pub floors: V,
 	/// data/goal-heights.json's `points` (beside the data folder: its parent's goal-heights.json), or Null: the
 	/// floor a goal at that point is done on where no NPC or object says (heights.rs point_height).
 	pub goal_heights: V,
@@ -156,6 +159,8 @@ impl Data {
 		let spawnz = if spawnz.is_obj() && has("spawnz.json") { spawnz } else { V::Null };
 		let moves = raw.tables.get("moves").cloned().unwrap_or_default();
 		let moves = if moves.is_obj() && has("moves.json") { moves } else { V::Null };
+		let floors = raw.tables.get("floors").cloned().unwrap_or_default();
+		let floors = if floors.is_obj() && has("floors.json") { floors } else { V::Null };
 		let mut d = Data {
 			quests: t("quests"),
 			npcs: t("npcs"),
@@ -173,6 +178,7 @@ impl Data {
 			races: t("races"),
 			travel: t("travel"),
 			spawnz,
+			floors,
 			goal_heights: V::Null,
 			recorded: V::Null,
 			escorts: V::Null,

@@ -716,3 +716,44 @@ fn a_community_pack_s_train_class_leads_to_the_nearest_trainer_of_the_class_pole
 		"by Crystal Lake: our step's zone, Dun Morogh (Kharanos: Coldridge Valley's Bromos Grummner teaches to 6, #2477); the pack's step, the trainer in Goldshire"
 	);
 }
+
+// #2856 (Maximillian Crowe, the warlock trainer in Goldshire's inn cellar): the compiler gives a smart target's
+// candidates their floor (`floor`, #2751), and the goal's line says it for the candidate picked, after the guide's own
+// note; a candidate on the ground floor adds nothing.
+#[test]
+fn a_picked_trainer_below_the_ground_or_up_a_building_says_so_after_the_goal_s_note_2856() {
+	let guides = r#"
+Polestar.RegisterGuide({ id = "test/floors", pack = "test", title = "Floors", category = "Professions", minLevel = 1, maxLevel = 60, steps = {
+	{ goals = { { t = "train", class = true, note = "Your new spells", candidates = {
+		{ npc = 906, npcName = "Maximillian Crowe", map = 1413, x = 60, y = 31, floor = "below", faction = "H", classes = { "WARLOCK" } },
+		{ npc = 3047, npcName = "Archmage Shymm", map = 1413, x = 60, y = 31, floor = "up", faction = "H", classes = { "MAGE" } },
+	} } } },
+	{ goals = { { t = "train", class = true, candidates = {
+		{ npc = 5885, npcName = "Deino", map = 1413, x = 60, y = 31, floor = "below", faction = "H", classes = { "MAGE" } },
+	} } } },
+	{ goals = { { t = "train", class = true, note = "Your new spells", candidates = {
+		{ npc = 4568, npcName = "Anastasia Hartwell", map = 1413, x = 60, y = 31, faction = "H", classes = { "MAGE" } },
+	} } } },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#;
+	let out = run(
+		"",
+		guides,
+		None,
+		r#"
+			E.SetGuide("test/floors")
+			local function at(i) local v = E.GetStepView(i).goals[1]; return { v.npcName, v.note or false } end
+			emit({ up = at(1), below = at(2), ground = at(3) })
+		"#,
+		true,
+	);
+	assert_eq!(
+		out,
+		json!({
+			"up": ["Archmage Shymm", "Your new spells  \u{b7}  Upstairs"],
+			"below": ["Deino", "Below ground"],
+			"ground": ["Anastasia Hartwell", "Your new spells"],
+		})
+	);
+}

@@ -5,6 +5,9 @@
 //! for that one (#1782: the Rod of Helcular used at the Flame of Azel, in the Foothill Caverns under Darrow Hill);
 //! one bound to an item objective, for the objects the item comes out of (#2126: the Filled Etched Phial used on the
 //! Ancient Brazier whose Cloven Hoof is the objective, deep in Splithoof Hold).
+//! Floor words (#2751): a goal at one NPC or object (not a kill's mobs) whose spawn stands a floor up a building,
+//! at its top or under the ground (floors.json, `data build`) gets the note "Upstairs", "Top floor" or "Below
+//! ground" where the guide gives none (goal_floor); a smart target's candidate gets the word as `floor` (candidate_floor).
 
 use crate::data::Data;
 use crate::js::{hypot, str_to_num, V};
@@ -48,9 +51,9 @@ pub fn world_point(data: &Data, goal: &V) -> V {
 	obj! { "c" => fr.get("c"), "wx" => top + ((bottom - top) * goal.get("y").num()) / 100.0, "wy" => left + ((right - left) * goal.get("x").num()) / 100.0 }.into()
 }
 
-/// The height at `point` ({ map, x, y, f }) of an entity, or None: the z of its nearest spawn on the
-/// point's instance map, when that spawn is within HEIGHT_YARDS.
-pub fn spawn_height(data: &Data, kind: &str, id: &V, point: &V) -> Option<V> {
+/// The nearest spawn row ([instance map, x, y, z, ...]) of an entity to `point` ({ map, x, y, f }) on the point's
+/// instance map, when that spawn is within HEIGHT_YARDS, or None.
+fn nearest_spawn(data: &Data, kind: &str, id: &V, point: &V) -> Option<V> {
 	if !data.spawnz.truthy() {
 		return None;
 	}
@@ -70,10 +73,50 @@ pub fn spawn_height(data: &Data, kind: &str, id: &V, point: &V) -> Option<V> {
 		}
 		let d = hypot(e.at(1).num() - wx, e.at(2).num() - wy);
 		if d <= HEIGHT_YARDS && best.as_ref().is_none_or(|b| d < b.0) {
-			best = Some((d, e.at(3)));
+			best = Some((d, e));
 		}
 	}
 	best.map(|b| b.1)
+}
+
+/// The height at `point` ({ map, x, y, f }) of an entity, or None: the z of its nearest spawn on the
+/// point's instance map, when that spawn is within HEIGHT_YARDS.
+pub fn spawn_height(data: &Data, kind: &str, id: &V, point: &V) -> Option<V> {
+	nearest_spawn(data, kind, id, point).map(|e| e.at(3))
+}
+
+/// The floor words a goal or candidate gets (floors.json's word -> the English the compiler writes).
+pub const FLOOR_NOTES: [(&str, &str); 3] = [("up", "Upstairs"), ("top", "Top floor"), ("below", "Below ground")];
+
+/// floors.json's word ("up", "top", "below") for the spawn an entity's height at `point` comes from (its nearest,
+/// spawn_height's), or None: that spawn stands on the ground floor, or nothing says (#2751).
+pub fn spawn_floor(data: &Data, kind: &str, id: &V, point: &V) -> Option<V> {
+	if !data.floors.truthy() {
+		return None;
+	}
+	let e = nearest_spawn(data, kind, id, point)?;
+	data.floors.get(kind).get(&id.to_js_string()).items().into_iter().find(|r| r.at(0).strict_eq(&e.at(0)) && r.at(1).strict_eq(&e.at(1)) && r.at(2).strict_eq(&e.at(2))).map(|r| r.at(3))
+}
+
+static FLOOR_TEXT: std::sync::LazyLock<regex::Regex> =
+	std::sync::LazyLock::new(|| regex::Regex::new(r"(?i)\b(upstairs|downstairs|stairs|staircase|floor|floors|cellar|basement|below ground|underground|balcony|top of the)\b").unwrap());
+
+/// Whether a step's tip says which floor its NPCs stand on ("upstairs", "the cellar", "top of the tower"): the
+/// author's word wins, so its goals get no floor line (#2751).
+pub fn names_a_floor(tip: &V) -> bool {
+	tip.as_str().is_some_and(|t| FLOOR_TEXT.is_match(t))
+}
+
+/// A goal's floor line ("Upstairs", "Top floor", "Below ground"), or None: for a goal at one NPC or object
+/// (height_entity's, but a kill's: its mobs spread over their spawns) standing a floor up a building, at its top
+/// or under the ground. The compiler writes it as the goal's note where the guide gives none (#2751).
+pub fn goal_floor(data: &Data, goal: &V) -> Option<V> {
+	if goal.get("t").as_str() == Some("kill") || goal.get("spread").truthy() {
+		return None;
+	}
+	let (kind, id) = height_entity(goal)?;
+	let word = spawn_floor(data, kind, &id, goal)?;
+	FLOOR_NOTES.iter().find(|(w, _)| word.as_str() == Some(*w)).map(|(_, note)| V::from(*note))
 }
 
 /// The objects or creature a `use` or `interact` goal bound to a quest objective (`quest Q.O`, no npc or object
@@ -230,6 +273,15 @@ pub fn candidate_height(data: &Data, cand: &V) -> Option<V> {
 		return None;
 	}
 	spawn_height(data, "npc", &cand.get("npc"), cand)
+}
+
+/// A smart target's candidate's floor word ("up", "top", "below"; its `floor`), or None: by its own NPC, as its
+/// height. The engine shows it for the candidate it picks (#2856: Maximillian Crowe in Goldshire's inn cellar).
+pub fn candidate_floor(data: &Data, cand: &V) -> Option<V> {
+	if cand.get("npc").is_undef() || cand.get("map").is_undef() || cand.get("x").is_undef() || cand.get("y").is_undef() {
+		return None;
+	}
+	spawn_floor(data, "npc", &cand.get("npc"), cand)
 }
 
 /// A `goto` without a height that leads to a goal with one (a later goal of its own step, or one of the next

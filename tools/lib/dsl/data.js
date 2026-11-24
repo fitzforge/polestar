@@ -19,7 +19,7 @@ const { loadAreas } = require('../data/areas');
 const { checkPinnedTables } = require('../data/pinned');
 
 const FILES = ['quests', 'npcs', 'objects', 'items', 'zones', 'map-frames', 'meta'];
-const OPTIONAL = ['professions', 'factions', 'trainers', 'races', 'travel', 'spawnz'];
+const OPTIONAL = ['professions', 'factions', 'trainers', 'races', 'travel', 'spawnz', 'floors'];
 
 // Classic skill lines (game facts), so `skill <Profession> <N>` resolves even
 // without professions.json. Riding (762) is Forever's one riding skill: the
@@ -106,6 +106,9 @@ class Data {
 		// Spawn heights (spawnz.json, CMaNGOS classic-db): { npc, object } ->
 		// id -> [[instance map, x, y, z]], or null without the file (heights.js).
 		this.spawnz = raw.spawnz && typeof raw.spawnz === 'object' && !this.missing.includes('spawnz.json') ? raw.spawnz : null;
+		// Floor words (floors.json, `data build`): { npc, object } -> id ->
+		// [[instance map, x, y, word]], or null without the file (heights.js).
+		this.floors = raw.floors && typeof raw.floors === 'object' && !this.missing.includes('floors.json') ? raw.floors : null;
 		// Instances from the client's Map/AreaTable/UiMapAssignment (solo.js
 		// loadInstances): { areas, maps } or null. Group content (group.js).
 		this.instances = raw.instances || null;

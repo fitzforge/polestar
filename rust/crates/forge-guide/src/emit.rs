@@ -205,8 +205,8 @@ pub const GOAL_KEYS: [&str; 93] = [
 const REAGENT_KEYS: [&str; 3] = ["item", "itemName", "count"];
 /// A `complete` goal's `objs`: each objective's text and count.
 const OBJ_KEYS: [&str; 2] = ["text", "count"];
-/// `z` (heights.js) follows y in candidates and spawn areas as in goals.
-pub const CANDIDATE_KEYS: [&str; 13] = ["npc", "npcName", "map", "x", "y", "z", "f", "faction", "races", "classes", "lvl", "rate", "spawns"];
+/// `z` (heights.js) follows y in candidates and spawn areas as in goals; `floor` (heights.js candidateFloor) the frame.
+pub const CANDIDATE_KEYS: [&str; 14] = ["npc", "npcName", "map", "x", "y", "z", "f", "floor", "faction", "races", "classes", "lvl", "rate", "spawns"];
 /// A collect's `fromNpcs`: the creatures its point and spawn areas belong to.
 const SOURCE_NPC_KEYS: [&str; 2] = ["npc", "npcName"];
 /// Spawn areas: map-percent centre in the goal's map and frame, its height,
