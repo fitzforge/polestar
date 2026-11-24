@@ -70,7 +70,7 @@ return {
 	-- Step 10: Stranglethorn Tigers
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger
 	["Stranglethorn Tigers"] = "Tigres de Tuercespina",
-	["The adult tigers prowl the hills just south and west of the camp."] = "Los tigres adultos merodean por las colinas justo al sur y al oeste del campamento.",
+	["The adult tigers prowl the hills on both sides of the camp: west of it, and east of it toward the lake. The arrow takes the eastern group."] = "",
 
 	-- Step 11: Ajeck Rouack
 	-- {area:99} Rebel Camp
@@ -239,6 +239,7 @@ return {
 	-- ["The Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp."] = "Los trols Sangrapellejo ocupan las ruinas de la costa al oeste del campamento de Nesingwary.",
 	-- ["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents."] = "Los rebeldes de Kurzen ocupan el campamento al este de {area:99}; recorre su borde exterior, donde están los jíbaros y auxiliadores, y saquea las cajas de suministros junto a las tiendas.",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "Los trols Machacacráneos ocupan las ruinas al este del camino entre Nesingwary y {object:3202}.",
+	-- ["The adult tigers prowl the hills just south and west of the camp."] = "Los tigres adultos merodean por las colinas justo al sur y al oeste del campamento.",
 	-- ["The jungle ruins"] = "Las ruinas de la jungla",
 	-- ["The jungle's quests climb to 37 from here: short of 33.2? Keep on the Stranglethorn Tigers in the hills just south and west of the camp until level 33.2. Or, with a group, run the {area:796} dungeon (Library) instead."] = "Las misiones de la jungla suben a 37 desde aquí: ¿no llegas a 33.2? Sigue con los tigres de Tuercespina en las colinas justo al sur y al oeste del campamento hasta el nivel 33.2. O, con un grupo, haz en su lugar la mazmorra {area:796} (Biblioteca).",
 	-- ["The ore drops from Drywhisker kobolds in {zone:1417}"] = "El mineral lo sueltan los kóbolds Mostacho Seco en {zone:1417}",

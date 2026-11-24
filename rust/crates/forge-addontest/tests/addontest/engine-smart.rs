@@ -245,6 +245,35 @@ fn guide_outleveled_fires_once_per_guide_three_levels_past_its_top_never_at_two(
 	assert_eq!(out, json!({ "at8": 0, "at9": 1, "fired": ["test/low>test/mid"], "guide": "test/low", "margin": 3 }));
 }
 
+// #3845 (Fitz, 23 Nov): a Class guide is outgrown 5 levels past its top, as its offer stops, and never while a
+// spell it rewards is unknown: the window's notice comes then, not at 3 past.
+#[test]
+fn a_class_guide_is_outleveled_five_levels_past_its_top_once_its_reward_spell_is_known_3845() {
+	let out = run(
+		"stub.world.level = 12",
+		r#"
+			Polestar.RegisterGuide({ id = "test/mid", pack = "test", title = "Mid", faction = "Horde", minLevel = 10, maxLevel = 30, steps = { { goals = { { t = "level", level = 60 } } } } })
+			Polestar.RegisterGuide({ id = "test/bear", pack = "test", title = "Bear", category = "Class", minLevel = 10, maxLevel = 12,
+				reward = { { spell = 5487, spellName = "Bear Form" } }, steps = { { goals = { { t = "level", level = 60 } } } } })
+		"#,
+		SKIP_GREY_OFF,
+		r#"
+			local fired = {}
+			Polestar.On("GUIDE_OUTLEVELED", function(id) fired[#fired + 1] = id end)
+			E.SetGuide("test/bear"); flush()
+			local w = stub.world
+			w.setLevel(16); flush()
+			local at16 = #fired
+			w.setLevel(17); flush()
+			local missing = #fired
+			w.learnSpell(5487); w.setLevel(18); flush()
+			emit({ at16 = at16, missing = missing, fired = fired, margin = E.CLASS_OUTGROWN })
+		"#,
+		true,
+	);
+	assert_eq!(out, json!({ "at16": 0, "missing": 0, "fired": ["test/bear"], "margin": 5 }));
+}
+
 const SKIP_GREY_ON: Option<&str> = Some("PolestarDB = { schema = 1, settings = { behavior = { skipGrey = true } } }");
 // Skip grey quests is on by default since 0.4.3: off is a stored choice.
 const SKIP_GREY_OFF: Option<&str> = Some("PolestarDB = { schema = 1, settings = { behavior = { skipGrey = false } } }");

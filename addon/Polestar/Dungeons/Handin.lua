@@ -285,6 +285,8 @@ local function errandGoals(key, rec, from, p, direct)
 				goal.fromFaction = "AH"
 			end
 		end
+		-- A source with several places, a walker's circuit among them (#3744: Tawny Grisette's 24 on the Undercity's ring).
+		if src and src.spawns and LK().SpawnSpots then LK().SpawnSpots(goal, src.spawns) end
 		goals[#goals + 1] = goal
 		at = spot
 	end

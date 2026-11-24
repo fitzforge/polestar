@@ -4774,5 +4774,27 @@
 			}
 		],
 		"note": "Melizza Brimbuzzle stands in the Maraudine camp in Desolace, where she offers Get Me Out of Here!. The merged data also had points along her escort path, down to Hornizz's camp where an escort ends, so the arrow and the map could point there (#3301). Her points are the camp's only."
+	},
+	"11715": {
+		"set": {
+			"spawns": {
+				"1443": {
+					"f": "l",
+					"pts": [
+						[
+							68.4,
+							8.97
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3575: the reporter found Talendria at Nijel's Point in Desolace; the data's live point is Desolace 68.4,8.97"
+			}
+		],
+		"note": "Talendria, who offers Vyletongue Corruption, stands at Nijel's Point in Desolace. The merged data also put her on Stonetalon Mountains' map (42.8,83.9, the same place across the zone border), and Maraudon's pick-up guide named Stonetalon for her (#3575). Her one point is Desolace's."
 	}
 }
