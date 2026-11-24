@@ -123,6 +123,33 @@ fn target_list_the_button_keeps_its_order_on_every_click() {
 	assert_eq!(out[1], "Kobold Vermin");
 }
 
+// #3824 (Shuurajou): seven droppers, and the key's macro held only the first three, so a
+// Hatefury Shadowstalker beside them was never tried. A close name goes first in the button's macro.
+#[test]
+fn target_list_the_button_s_macro_tries_a_close_mob_past_what_it_holds_first() {
+	let out = run(r#"
+		local names = { "Hatefury Rogue", "Hatefury Felsworn", "Hatefury Betrayer", "Hatefury Hellcaller",
+			"Hatefury Trickster", "Hatefury Shadowstalker", "Prince Kellen" }
+		local goals = {}
+		for i, n in ipairs(names) do goals[i] = { t = "kill", target = n, npc = 100 + i } end
+		set("targetRows", 8)
+		q.step(goals)
+		local function first() return macro():match("^[^\n]+\n/targetexact ([^\n]+)") end
+		emit({ first(), macro():find("Shadowstalker", 1, true) ~= nil })
+		q.units.nameplate2 = { name = "Hatefury Shadowstalker" }
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+		stub.runTimers()
+		emit(first())
+		q.units.nameplate2 = nil
+		stub.fire("NAME_PLATE_UNIT_REMOVED", "nameplate2")
+		stub.runTimers()
+		emit(first())
+	"#);
+	assert_eq!(out[0], json!(["Hatefury Rogue", false]), "a macro holds only some of seven names");
+	assert_eq!(out[1], "Hatefury Shadowstalker", "the close one is tried first");
+	assert_eq!(out[2], "Hatefury Rogue", "back to the list's order once none is close");
+}
+
 #[test]
 fn target_list_a_row_click_with_a_new_mark_each_press_moves_the_mark_on_every_macro() {
 	let out = run(r#"
