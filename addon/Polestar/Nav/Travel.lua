@@ -2905,6 +2905,39 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	return seconds
 end
 
+-- Whether the planner, starting at `from` with teleport t castable, would cast it on the way to `to`: its own rule
+-- (TELEPORT_MARGIN and TELEPORT_SHARE, in its weighted cost), for a stop that offers the reagent (Nav/RuneStop.lua).
+function Nav.WouldCastTeleport(from, to, t)
+	local tc, twx, twy = pointWorld(to)
+	local fc, fwx, fwy = pointWorld(from)
+	if not (tc and fc) then return false end
+	refreshFaction()
+	local wait = hearthWait()
+	local inn, bindName
+	if wait then inn, bindName = bindInn() end
+	local plan = Nav.PlanRoute({
+		c = fc, wx = fwx, wy = fwy, z = from.z, map = from.map,
+		target = { c = tc, wx = twx, wy = twy, z = to.z, map = to.map },
+		faction = playerFaction,
+		known = knownNodes(),
+		seen = seenSet(), level = Nav.danger and Nav.danger.Level(), maybe = maybeTaxi,
+		speed = RUN_SPEED,
+		hearth = inn,
+		hearthName = bindName,
+		hearthWait = inn and wait and wait > 0 and wait or nil,
+		hearthLength = inn and ns.Compat and ns.Compat.GetItemBaseCooldown and ns.Compat.GetItemBaseCooldown(HEARTH_ITEM) or nil,
+		noStone = wait == nil or nil,
+		teleports = { { spell = t.spell, name = t.name, cast = t.cast, to = t.to, ready = 0 } },
+		items = Travel.PortalItems(),
+		departure = departureFn(),
+		walkDanger = walkDanger(fc, fwx, fwy, tc, twx, twy),
+	})
+	for _, leg in ipairs(plan or {}) do
+		if leg.kind == "teleport" and leg.spell == t.spell then return true end
+	end
+	return false
+end
+
 -- A route worth following: more than one leg. A lone walk is the direct arrow.
 function Travel.Active()
 	return legs ~= nil and #legs > 1 and ci <= #legs

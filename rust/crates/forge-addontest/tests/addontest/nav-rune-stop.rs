@@ -10,6 +10,7 @@ local N = Polestar.Nav
 local R = N.runeStop
 local nav = stub.nav
 local RUNE = 17031
+Polestar.Compat.GetUnitZone = function() return 9000 end
 local function target(wx, wy, label)
 	local m, x, y = nav.mapPoint(wx, wy)
 	return N.SetTarget(m, x, y, label or "Target")
@@ -24,9 +25,10 @@ local function seller(wx, wy)
 	return { id = 77, name = "Rune Seller", map = m, x = x, y = y, c = 0, wx = wx, wy = wy }
 end
 local function mage(wx, wy)
-	local m, x, y = nav.mapPoint(wx, wy)
+	local _, x, y = nav.mapPoint(wx, wy)
+	-- Another map: the planner leaves out a teleport to the map it starts on.
 	return { spell = 3561, name = "Teleport: Testshire", cast = 10, rune = RUNE,
-		to = { name = "Testshire", c = 0, wx = wx, wy = wy, map = m, x = x, y = y } }
+		to = { name = "Testshire", c = 0, wx = wx, wy = wy, map = 9001, x = x, y = y } }
 end
 "#;
 
@@ -81,6 +83,53 @@ fn a_near_seller_is_handed_to_the_engine_when_the_teleport_clearly_beats_the_fli
 }
 
 #[test]
+fn a_seller_across_town_counts_and_the_closest_by_travel_time_is_the_one_offered() {
+	let out = run(r#"
+		local r = {}
+		known(1, 2)
+		local missing = { mage(0, -780) }
+		nav.useTravelWorld(6000) -- a long flight: the walk across town still leaves a clear saving
+		local far, close = seller(220, 600), seller(170, 600)
+		far.name, close.name = "Across town", "Closer"
+		local sellers = { far }
+		Polestar.Transit.MissingRunes = function() return missing end
+		N.nearby.Sellers = function() return sellers end
+		nav.place(0, 600)
+		target(0, -780, "Kobolds")
+		local o = R.Find()
+		r.acrossTown = o and o.seller.name
+		sellers = { far, close }
+		o = R.Find()
+		r.closest = o and o.seller.name
+		emit(r)"#);
+	assert_eq!(out["acrossTown"], "Across town", "a seller beyond 150 yards in the same zone still counts");
+	assert_eq!(out["closest"], "Closer");
+}
+
+#[test]
+fn no_offer_when_the_planner_would_not_cast_the_teleport_after_buying() {
+	let out = run(r#"
+		local r = {}
+		known(1, 2)
+		local missing = { mage(0, -780) }
+		local sold = { seller(20, 600) }
+		local asked
+		Polestar.Transit.MissingRunes = function() return missing end
+		N.nearby.Sellers = function() return sold end
+		N.WouldCastTeleport = function(from, to, t)
+			asked = from.name .. ":" .. t.spell
+			return false
+		end
+		nav.place(0, 600)
+		target(0, -780, "Kobolds")
+		r.none = R.Find() == nil
+		r.asked = asked
+		emit(r)"#);
+	assert_eq!(out["none"], true, "the line promises only a teleport the route would take");
+	assert_eq!(out["asked"], "Rune Seller:3561");
+}
+
+#[test]
 fn no_offer_without_a_near_seller_a_real_saving_a_missing_rune_or_a_flight() {
 	let out = run(r#"
 		local r = {}
@@ -91,9 +140,16 @@ fn no_offer_without_a_near_seller_a_real_saving_a_missing_rune_or_a_flight() {
 		N.nearby.Sellers = function() return sellers end
 		nav.place(0, 600)
 		target(0, -780, "Kobolds")
-		sellers = { seller(400, 600) }
+		sellers = { seller(1000, 600) }
 		r.farSeller = R.Find() == nil
+		local elsewhere = seller(20, 600)
+		elsewhere.map = 9001
+		sellers = { elsewhere }
+		r.otherZone = R.Find() == nil
 		sellers = { seller(20, 600) }
+		Polestar.Compat.GetUnitZone = function() return nil end
+		r.noZone = R.Find() == nil
+		Polestar.Compat.GetUnitZone = function() return 9000 end
 		missing = { mage(0, 590) }
 		r.noSaving = R.Find() == nil
 		missing = {}
@@ -107,7 +163,7 @@ fn no_offer_without_a_near_seller_a_real_saving_a_missing_rune_or_a_flight() {
 		target(10, 0, "Next door")
 		r.noFlight = R.Find() == nil
 		emit(r)"#);
-	assert_eq!(out, json!({ "farSeller": true, "noSaving": true, "hasRunes": true, "control": true, "combat": true, "noFlight": true }));
+	assert_eq!(out, json!({ "farSeller": true, "otherZone": true, "noZone": true, "noSaving": true, "hasRunes": true, "control": true, "combat": true, "noFlight": true }));
 }
 
 #[test]

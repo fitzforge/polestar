@@ -1,6 +1,8 @@
 -- The rune stop (#3547): a Mage with no Rune of Teleportation, on a route that
--- flies, near a vendor who sells the rune, sees that stop in While you're here
--- when walking there, buying one and teleporting clearly beats the route.
+-- flies, with a vendor who sells the rune in the same zone and a short walk
+-- away (a capital's seller counts from anywhere in it), sees that stop in While
+-- you're here when walking there, buying one and teleporting clearly beats the
+-- route.
 --
 -- It only suggests (Engine.SetRuneStop makes the line; a click points the arrow
 -- at the vendor, as a sell or repair line's does) and buys nothing. Once a rune
@@ -17,15 +19,20 @@ local Nav = ns.Nav
 local RuneStop = {}
 Nav.runeStop = RuneStop
 
-local ipairs, sqrt = ipairs, math.sqrt
+local ipairs, sqrt, sort, format = ipairs, math.sqrt, table.sort, string.format
 
-local NEAR = 150       -- yards, straight: a seller this close counts as nearby
+local MAX_WALK = 120   -- seconds to the seller: in a wide zone, further is another trip
+local TRY = 3          -- sellers, closest first, worth a travel estimate on each check
 local BUY_SECONDS = 10 -- opening the vendor and buying one
 local RUN_SPEED = 7
 local CHECK_DELAY = 1  -- seconds after a route or bag change: they come in bursts
 local TICK = 3         -- seconds: walking up to a seller changes no route
 
+local VERDICT_SECONDS = 15 -- how long the planner's answer for one seller and target is kept
+local VERDICT_MAX = 32
+
 local pending, showing, ticker = false, false, nil
+local verdicts, verdictCount = {}, 0
 
 -- The route still ahead flies and casts no teleport.
 local function fliesAhead(legs, ci)
@@ -38,13 +45,30 @@ local function fliesAhead(legs, ci)
 	return flies
 end
 
-local function nearest(places, px, py)
-	local best, bestD
+-- The sellers in `zone` that a straight run could reach in MAX_WALK, closest first.
+local function inReach(places, zone, px, py)
+	local out = {}
 	for _, p in ipairs(places) do
-		local d = (p.wx - px) ^ 2 + (p.wy - py) ^ 2
-		if d <= NEAR * NEAR and (not bestD or d < bestD) then best, bestD = p, d end
+		if p.map == zone then
+			local yards = sqrt((p.wx - px) ^ 2 + (p.wy - py) ^ 2)
+			if yards / RUN_SPEED <= MAX_WALK then out[#out + 1] = { place = p, yards = yards } end
+		end
 	end
-	if best then return best, sqrt(bestD) end
+	sort(out, function(a, b) return a.yards < b.yards end)
+	return out
+end
+
+-- Whether the planner would cast t from the seller, once the rune is bought: the line never promises a teleport the
+-- route then leaves out. A full plan, so its answer is kept a while for each seller, teleport and target.
+local function plannerAgrees(t, seller, target)
+	local key = format("%s:%s:%s:%s:%s", t.spell, seller.id or "?", target.map or "?", target.x or "?", target.y or "?")
+	local now, hit = GetTime(), verdicts[key]
+	if hit and now - hit.at < VERDICT_SECONDS then return hit.yes end
+	local yes = Nav.WouldCastTeleport(seller, target, t)
+	if verdictCount >= VERDICT_MAX then verdicts, verdictCount = {}, 0 end
+	if not hit then verdictCount = verdictCount + 1 end
+	verdicts[key] = { at = now, yes = yes }
+	return yes
 end
 
 function RuneStop.Find()
@@ -60,21 +84,22 @@ function RuneStop.Find()
 	if #missing == 0 then return nil end
 	local pc, px, py = C.GetPlayerWorldPosition()
 	if not pc then return nil end
+	local zone = C.GetUnitZone and C.GetUnitZone("player")
+	if not zone then return nil end
 	local base = legs[ci].seconds + (legs[ci].rest or 0)
 	local need = math.max(T.TELEPORT_MARGIN, T.TELEPORT_SHARE * base)
 	local best
 	for _, t in ipairs(missing) do
 		local places = near.Sellers(t.rune, pc)
-		local seller, yards
-		if places then seller, yards = nearest(places, px, py) end
-		if seller then
-			local walk = Nav.EstimateTravel(nil, seller) or yards / RUN_SPEED
-			local after = Nav.EstimateTravel(t.to, target)
-			if after then
+		local after = places and Nav.EstimateTravel(t.to, target)
+		if after then
+			for k, s in ipairs(inReach(places, zone, px, py)) do
+				if k > TRY then break end
+				local walk = Nav.EstimateTravel(nil, s.place) or s.yards / RUN_SPEED
 				local seconds = walk + BUY_SECONDS + t.cast + after
 				local saves = base - seconds
-				if saves >= need and (not best or saves > best.saves) then
-					best = { seller = seller, places = { seller }, yards = yards, teleport = t, seconds = seconds, saves = saves }
+				if walk <= MAX_WALK and saves >= need and (not best or saves > best.saves) and plannerAgrees(t, s.place, target) then
+					best = { seller = s.place, places = { s.place }, yards = s.yards, teleport = t, seconds = seconds, saves = saves }
 				end
 			end
 		end
