@@ -44,11 +44,9 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Garramanada",
 	["Prideclaw, Galestrider"] = "garraorgullo, Galestrid",
-	-- {npc:250928} Highlands Ursera
-	["Prideclaw, {npc:250928}"] = "Prideclaw, {npc:250928}",
-	["Galestrider, Cloudrunner"] = "Zancavendavales, Correnubes",
+	-- was: ["Cloudrunner, Galestrider"] = "Correnubes, Zancavientos"
+	["Cloudrunner, Galestrider"] = "",
 	["Prideclaw, Vuldren"] = "garraorgullo, Vuldren",
-	["Galestrider, Prideclaw"] = "Galestrid, garraorgullo",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -263,6 +261,7 @@ return {
 	-- ["Duskbat"] = "Murciumbrío",
 	-- ["Duskbat, {npc:1513}"] = "Murciumbrío, {npc:1513}",
 	-- ["Galestrider, Cloudrunner"] = "Zancavendavales, Correnubes",
+	-- ["Galestrider, Prideclaw"] = "Galestrid, garraorgullo",
 	-- ["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393} de oficial sube el tope a 150; requiere habilidad 50 y nivel de personaje 10. La flecha elige el instructor de {skill:393} de tu facción más cercano.",
 	-- ["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (15) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "Mata y despelleja Coyote (10), {npc:833} (11), {npc:454} (12), Dentosangre (14), {npc:547} (15) a lo largo del circuito hasta {skill:393} 100; despoja cada cadáver, luego despelléjalo, y despelleja las bestias de mayor nivel que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta nivel 20 y Lx5 por encima. Nivel de la zona 10-20. Calcula unas 120 bestias para estos 50 puntos.",
 	-- ["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (16, needs 60) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 130 beasts for these 50 points."] = "Mata y despelleja Coyote (10), {npc:833} (11), {npc:454} (12), Dentosangre (14), {npc:547} (16, requiere 60) a lo largo del circuito hasta {skill:393} 100; despoja cada cadáver, luego despelléjalo, y despelleja las bestias de mayor nivel que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta nivel 20 y Lx5 por encima. Nivel de la zona 10-20. Calcula unas 130 bestias para estos 50 puntos.",
@@ -284,6 +283,7 @@ return {
 	-- ["Kill and skin {npc:8759} (45), {npc:6375} (46, needs 230), {npc:6377} (48, needs 240) along the loop until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 45-55. Expect about 30 beasts for these 25 points."] = "Mata y despelleja: {npc:8759} (45), {npc:6375} (46, requiere 230), {npc:6377} (48, requiere 240) a lo largo del circuito hasta {skill:393} 250; saquea cada cadáver, luego despelléjalo, y despelleja las bestias del nivel más alto que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta el nivel 20 y Lx5 por encima. Nivel de la zona: 45-55. Cuenta con unas 30 bestias para estos 25 puntos.",
 	-- ["Kill and skin {npc:9165} (48), Ravasaur (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), Pterrordax (50), {npc:6514} (50), {npc:6508} (50), Diemetradon (51), {npc:9167} (51), {npc:6513} (51), {npc:6516} (52), {npc:9164} (53), {npc:11735} (54) along the loop until {skill:393} 300; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 48-55."] = "Mata y despelleja {npc:9165} (48), Ravasaurio (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), Pterrordáctilo (50), {npc:6514} (50), {npc:6508} (50), Diemetradón (51), {npc:9167} (51), {npc:6513} (51), {npc:6516} (52), {npc:9164} (53), {npc:11735} (54) a lo largo del circuito hasta {skill:393} 300; despelleja las bestias de mayor nivel que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta nivel 20 y Lx5 por encima. Nivel de la zona 48-55.",
 	-- ["Moonstalker, {npc:2165}"] = "Acechalunas, {npc:2165}",
+	-- ["Prideclaw, {npc:250928}"] = "Prideclaw, {npc:250928}",
 	-- ["Pterrordax, {npc:9164}"] = "Pterrordáctilo, {npc:9164}",
 	-- ["Worg"] = "Lupo",
 	-- ["Worg, {npc:1778}"] = "Lupo, {npc:1778}",

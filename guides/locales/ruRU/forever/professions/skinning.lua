@@ -44,11 +44,9 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Коготь прайда",
 	["Prideclaw, Galestrider"] = "Гордый коготь, ветроног",
-	-- {npc:250928} Highlands Ursera
-	["Prideclaw, {npc:250928}"] = "Коготь прайда, {npc:250928}",
-	["Galestrider, Cloudrunner"] = "Буреног, Облакобег",
+	-- was: ["Cloudrunner, Galestrider"] = "Облачный бегун, Бурный странник"
+	["Cloudrunner, Galestrider"] = "",
 	["Prideclaw, Vuldren"] = "Гордый коготь, вульдрен",
-	["Galestrider, Prideclaw"] = "Ветроног, гордый коготь",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -263,6 +261,7 @@ return {
 	-- ["Duskbat"] = "Сумеречница",
 	-- ["Duskbat, {npc:1513}"] = "Сумеречница, {npc:1513}",
 	-- ["Galestrider, Cloudrunner"] = "Буреног, Облакобег",
+	-- ["Galestrider, Prideclaw"] = "Ветроног, гордый коготь",
 	-- ["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393}, ранг «Подмастерье»: предел 150; нужен навык 50 и уровень персонажа 10. Стрелка ведет к ближайшему учителю вашей фракции ({skill:393}).",
 	-- ["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (15) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "Убивайте зверей по кругу и снимайте с них шкуры: Койот (10), {npc:833} (11), {npc:454} (12), Жутеклык (14), {npc:547} (15) – пока {skill:393} не достигнет 100; обыскивайте каждую тушу, затем снимайте шкуру; свежуйте зверей самого высокого уровня, какой позволяет навык. Зверю уровня L нужен навык (L-10)x10 до 20-го уровня и Lx5 выше. Уровень зоны: 10-20. На эти 50 очков уйдет около 120 зверей.",
 	-- ["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (16, needs 60) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 130 beasts for these 50 points."] = "Убивайте зверей по кругу и снимайте с них шкуры: Койот (10), {npc:833} (11), {npc:454} (12), Жутеклык (14), {npc:547} (16, нужно 60) – пока {skill:393} не достигнет 100; обыскивайте каждую тушу, затем снимайте шкуру; свежуйте зверей самого высокого уровня, какой позволяет навык. Зверю уровня L нужен навык (L-10)x10 до 20-го уровня и Lx5 выше. Уровень зоны: 10-20. На эти 50 очков уйдет около 130 зверей.",
@@ -284,6 +283,7 @@ return {
 	-- ["Kill and skin {npc:8759} (45), {npc:6375} (46, needs 230), {npc:6377} (48, needs 240) along the loop until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 45-55. Expect about 30 beasts for these 25 points."] = "Убивайте и снимайте шкуры с {npc:8759} (45), {npc:6375} (46, needs 230), {npc:6377} (48, needs 240) по кругу до навыка {skill:393} 250: забирайте добычу с каждого трупа, затем снимайте шкуры и бейте зверей самого высокого уровня, который позволяет навык. Зверю L уровня нужен навык (L-10)x10 до 20 уровня и Lx5 выше. Уровень зоны 45-55. На эти 25 очков нужно около 30 зверей.",
 	-- ["Kill and skin {npc:9165} (48), Ravasaur (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), Pterrordax (50), {npc:6514} (50), {npc:6508} (50), Diemetradon (51), {npc:9167} (51), {npc:6513} (51), {npc:6516} (52), {npc:9164} (53), {npc:11735} (54) along the loop until {skill:393} 300; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 48-55."] = "Убивайте зверей по кругу и снимайте с них шкуры: {npc:9165} (48), Равазавр (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), Жутедактиль (50), {npc:6514} (50), {npc:6508} (50), Деметродон (51), {npc:9167} (51), {npc:6513} (51), {npc:6516} (52), {npc:9164} (53), {npc:11735} (54) – пока {skill:393} не достигнет 300; свежуйте зверей самого высокого уровня, какой позволяет навык. Зверю уровня L нужен навык (L-10)x10 до 20-го уровня и Lx5 выше. Уровень зоны: 48-55.",
 	-- ["Moonstalker, {npc:2165}"] = "Лунопард, {npc:2165}",
+	-- ["Prideclaw, {npc:250928}"] = "Коготь прайда, {npc:250928}",
 	-- ["Pterrordax, {npc:9164}"] = "Жутедактиль, {npc:9164}",
 	-- ["Worg"] = "Ворг",
 	-- ["Worg, {npc:1778}"] = "Ворг, {npc:1778}",

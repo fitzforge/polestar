@@ -44,11 +44,9 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}、傲爪",
 	["Prideclaw, Galestrider"] = "傲爪、疾风陆行鸟",
-	-- {npc:250928} Highlands Ursera
-	["Prideclaw, {npc:250928}"] = "傲爪、{npc:250928}",
-	["Galestrider, Cloudrunner"] = "疾风陆行鸟、云行者",
+	-- was: ["Cloudrunner, Galestrider"] = "云行者、疾风陆行鸟"
+	["Cloudrunner, Galestrider"] = "",
 	["Prideclaw, Vuldren"] = "傲爪、瓦尔德伦",
-	["Galestrider, Prideclaw"] = "疾风陆行鸟、傲爪",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -306,6 +304,7 @@ return {
 	-- ["Kill and skin {npc:9165} (48), Ravasaur (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), Pterrordax (50), {npc:6514} (50), {npc:6508} (50), Diemetradon (51), {npc:9167} (51), {npc:6513} (51), {npc:6516} (52), {npc:9164} (53), {npc:11735} (54) along the loop until {skill:393} 300; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 48-55."] = "沿路线击杀并剥皮{npc:9165}（48）、暴掠龙（48）、{npc:6507}（49）、{npc:6506}（49）、{npc:9162}（49）、翼手龙（50）、{npc:6514}（50）、{npc:6508}（50）、双帆龙（51）、{npc:9167}（51）、{npc:6513}（51）、{npc:6516}（52）、{npc:9164}（53）、{npc:11735}（54），直到{skill:393}达到300；剥你技能允许的最高等级野兽。L级野兽在20级及以下需要技能(L-10)x10，20级以上需要Lx5。区域等级48-55。",
 	-- ["Kill and skin {npc:9165} (48), Ravasaur (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), Pterrordax (50), {npc:6514} (50), {npc:6508} (50), Diemetradon (51, needs 255), {npc:9167} (51, needs 255), {npc:6513} (51, needs 255), {npc:6516} (52, needs 260), {npc:9164} (53, needs 265), {npc:11735} (54, needs 270) along the loop until {skill:393} 275; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 48-55."] = "沿路线击杀并剥皮{npc:9165}（48）、暴掠龙（48）、{npc:6507}（49）、{npc:6506}（49）、{npc:9162}（49）、翼手龙（50）、{npc:6514}（50）、{npc:6508}（50）、双帆龙（51，需要255）、{npc:9167}（51，需要255）、{npc:6513}（51，需要255）、{npc:6516}（52，需要260）、{npc:9164}（53，需要265）、{npc:11735}（54，需要270），直到{skill:393}达到275；剥你技能允许的最高等级野兽。L级野兽在20级及以下需要技能(L-10)x10，20级以上需要Lx5。区域等级48-55。",
 	-- ["Moonstalker, {npc:2165}"] = "月夜猛虎、{npc:2165}",
+	-- ["Prideclaw, {npc:250928}"] = "傲爪、{npc:250928}",
 	-- ["Pterrordax, {npc:9164}"] = "翼手龙、{npc:9164}",
 	-- ["Vuldren, Galestrider"] = "瓦尔德伦、疾风陆行鸟",
 	-- ["Worg"] = "座狼",

@@ -75,8 +75,9 @@ return {
 	["{npc:1073}, in the camp"] = "{npc:1073}，在營地裡",
 
 	-- Step 15: Captive Fire Elemental
-	-- {npc:271481} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "這些是精英怪：建議組隊，找幾個人一起做。{npc:271481}守在{object:147516}廢墟最西端，要穿過27-30級的精英矮人，{npc:1364}（34級，精英）也可能在他們中間。把它引出廢墟向東帶，然後交給營地裡的{npc:1072}。只有你一個人就跳過。",
+	-- {npc:275049} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
+	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "這些是精英怪：建議組隊，找幾個人一起做。{npc:271481}守在{object:147516}廢墟最西端，要穿過27-30級的精英矮人，{npc:1364}（34級，精英）也可能在他們中間。把它引出廢墟向東帶，然後交給營地裡的{npc:1072}。只有你一個人就跳過。"
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:275049} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "",
 
 	-- Step 16: Modr
 	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
@@ -356,6 +357,7 @@ return {
 	-- ["The whelps nest in the hills north-east of the {area:1036}; {quest:98283} prowls further north, and the Razormaw raptors hunt the highlands on the way north to {area:205}.\n{quest:98283} is elite: grouping up is advised."] = "幼龍在{area:1036}東北的山丘裡築巢；{quest:98283}在更北處徘徊，向北去{area:205}途中的高地上還有銳顎迅猛龍捕獵。\n{quest:98283}是精英：建議組隊。",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "雪人住在{area:271}北邊山丘上的洞穴裡，就在往北去辛迪加營地的路上。\n待在{area:277}裡：更北邊的洞穴裡有成對出現的山嶺雪人和巨型雪人（32-34級），以及36級精英{npc:13602}。",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "雪人住在{area:271}北邊山丘的洞穴裡，就在你往南回去的路上。",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "這些是精英怪：建議組隊，找幾個人一起做。{npc:271481}守在{object:147516}廢墟最西端，要穿過27-30級的精英矮人，{npc:1364}（34級，精英）也可能在他們中間。把它引出廢墟向東帶，然後交給營地裡的{npc:1072}。只有你一個人就跳過。",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "向西前往{area:287}的農場：把{item:279386}放在市政廳裡的帳簿桌上，{npc:2335}和議員們就站在那裡。",
 	-- ["Whelps, raptors and {npc:271458}"] = "雛龍、迅猛龍與{npc:271458}",
 	-- ["for {npc:2700} at {area:320}, in 05-arathi-highlands"] = "給{area:320}的{npc:2700}，在 05-arathi-highlands 指南中",
