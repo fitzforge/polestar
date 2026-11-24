@@ -962,6 +962,21 @@
 				{ "n": 4, "action": "talk", "target": { "type": "npc", "id": 11064 }, "fact": "Talk to each Darrowshire Spirit to free it (objective 1).", "confidence": "high" }
 			],
 			"note": "Defenders of Darrowshire (5211): the Darrowshire Spirits (11064) it asks you to free are not in the world; each rises where one of the Scourge around Corin's Crossing dies (Cannibal Ghoul 8530, Gibbering Ghoul 8531, Diseased Flayer 8532). The guide's target button looked for the spirits alone. Source: Zack's report (#3309) and its confirmation; the quest's text."
+		},
+		"3568": {
+			"kinds": [
+				{
+					"kind": "use-item-at-place",
+					"confidence": "high"
+				}
+			],
+			"steps": [
+				{ "n": 1, "action": "use-item", "item": 10687, "target": { "type": "object", "id": 152598 }, "place": { "map": 1447, "x": 48.0, "y": 60.6, "f": "e" }, "fact": "Stand in the First Tide Pool, on Southridge Beach, and use Empty Vial Labeled #1 (from the Box of Empty Vials): the vial fills; the pool itself cannot be clicked.", "confidence": "high" },
+				{ "n": 2, "action": "use-item", "item": 10688, "target": { "type": "object", "id": 152604 }, "place": { "map": 1447, "x": 48.0, "y": 51.2, "f": "e" }, "fact": "Stand in the Second Tide Pool, north along the shore, and use Empty Vial Labeled #2 (from the Box of Empty Vials): the vial fills; the pool itself cannot be clicked.", "confidence": "high" },
+				{ "n": 3, "action": "use-item", "item": 10689, "target": { "type": "object", "id": 152605 }, "place": { "map": 1447, "x": 48.7, "y": 48.4, "f": "e" }, "fact": "Stand in the Third Tide Pool and use Empty Vial Labeled #3 (from the Box of Empty Vials): the vial fills; the pool itself cannot be clicked.", "confidence": "high" },
+				{ "n": 4, "action": "use-item", "item": 10690, "target": { "type": "object", "id": 152606 }, "place": { "map": 1447, "x": 47.4, "y": 46.3, "f": "e" }, "fact": "Stand in the Fourth Tide Pool, the northernmost, and use Empty Vial Labeled #4 (from the Box of Empty Vials): the vial fills; the pool itself cannot be clicked.", "confidence": "high" }
+			],
+			"note": "Seeping Corruption (3568): the quest's source item is the Box of Empty Vials (10695, the game's quest data), which holds Empty Vial Labeled #1-#4 (10687-10690); the four tide pools (152598, 152604, 152605, 152606) are spell-focus objects (type 8 in forever-db's object.jsonl), so each vial fills when it is used at its own pool. Source: the in-game check on #3857 (a level 54 Horde hunter at the Second Tide Pool: clicking the pool does nothing); the places are the #3211 record's, south to north."
 		}
 	}
 }
