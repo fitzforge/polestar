@@ -1022,10 +1022,21 @@ function CT.Reserved()
 	return placedRoom
 end
 
--- The window makes room for the card, or takes it back.
+-- The window makes room for the card, or takes it back: only when the room
+-- the card takes changed and the window is held by its cap or would be with
+-- the card (a layout redraws the whole window; a card beside it, free, or
+-- over a window with room to spare changes nothing).
+local laidRoom = 0
 local function relayout()
+	local room = CT.Reserved()
+	if room == laidRoom then return end
+	laidRoom = room
 	local G = UI.GuideFrame
-	if G and G.Layout and G.frame then G.Layout() end
+	if not (G and G.Layout and G.frame) then return end
+	local goals = G.parts and G.parts.goals
+	local capped = goals and goals.psOver
+	if not capped and G.CapHeight and G.frame:GetHeight() + room <= G.CapHeight() + 0.5 then return end
+	G.Layout()
 end
 
 -- The compact card's tooltip: what its one line leaves out.
@@ -1281,10 +1292,9 @@ end
 -- (HEADS_UP_HIDDEN, with the model dismissed).
 function CT.Hide()
 	local was = CT.current
-	local wasShown = f and f:IsShown() and was ~= nil
 	CT.current = nil
 	if f then f:Hide() end
-	if wasShown then relayout() end
+	relayout()
 	if was and ns.Fire then ns.Fire("HEADS_UP_HIDDEN", was) end
 end
 
