@@ -1710,6 +1710,38 @@ emit({ take = take, pre = pre, later = plan.later, chain = chain })"#);
 	assert_eq!(required["later"], json!(1));
 }
 
+// #3081 (Darkmantle Tunic): A Supernatural Device follows one of the class versions of An Earnest Proposition, and a
+// Rogue held Forever's (84152) while the item guide's chain went through the Classic one (8910), first in the list,
+// waiting for an accept the player never saw. Of a `preAny`, the one in the quest log comes first.
+#[test]
+fn of_a_quests_one_of_prerequisites_the_chain_takes_the_one_in_the_log_3081() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	c["npcs"]["90690"] = json!({
+		"id": 90690, "name": "Deliana", "level": 60, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+		"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": 40, "y": 40, "f": "e" }],
+	});
+	let quest = |id: i32, pre_any: &[i32]| {
+		json!({
+			"id": id, "title": format!("Quest {id}"), "level": 20, "minLevel": 10, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [90690], "object": [], "item": [] }, "end": { "npc": [90690], "object": [] },
+			"objectives": [], "pre": [], "zone": 1421, "rewards": [], "choices": [], "preAny": pre_any,
+		})
+	};
+	c["quests"]["90691"] = quest(90691, &[]);
+	c["quests"]["90692"] = quest(90692, &[]);
+	c["quests"]["90693"] = quest(90693, &[90691, 90692]);
+	let pack = pack_of(&c, &inputs);
+	let script = r#"
+local chain = {}
+for n, q in ipairs(Polestar.Lookup.QuestChain(90693, Polestar.Lookup.PlayerInfo())) do chain[n] = q.id end
+emit(chain)"#;
+	let fresh = run(&pack, script, Opts { log: vec![], ..Default::default() }).remove(0);
+	assert_eq!(fresh, json!([90691, 90693]), "none in the log: the first it can take");
+	let held = run(&pack, script, Opts { log: vec![90692], ..Default::default() }).remove(0);
+	assert_eq!(held, json!([90692, 90693]), "the one in the log");
+}
+
 // Fitz, 2026-11-08 (the honest count): the plan lists the quests that wait and why (their own level, or a
 // prerequisite's: "needs X first"); the button says "N now · 2 at level 25"; the guide's last step says
 // "Comes back at level 25" for each, in the accent; reaching 25 with that guide open prints a chat line per

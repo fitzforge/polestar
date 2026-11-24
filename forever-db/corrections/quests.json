@@ -3990,6 +3990,16 @@
 		],
 		"note": "Lunar Fireworks (8867): the quest log's two lines, \"Lunar Fireworks Fired\" x8 and \"Lunar Fireworks Cluster Fired\" x2, as the game's quest objectives give them, at the Firework Launcher (180771) and the Cluster Launcher (180772) where they are fired. The game's objectives credit the invisible marker NPCs 15893 (\"Lunar Firework Credit Marker\") and 15894 (\"Lunar Cluster Credit Marker\"), whose names no player should read (#2614)."
 	},
+	"8922": {
+		"set": {
+			"preAny": [8905, 8906, 8907, 8908, 8909, 8910, 8911, 8912, 84152]
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "#3081: a Rogue's quest log holds An Earnest Proposition as quest 84152, with 8910's objectives (15 Winterspring Blood Samples, Shadowcraft Bracers): Forever's version of the quest before A Supernatural Device"
+		},
+		"note": "A Supernatural Device (8922) follows any class's An Earnest Proposition for Deliana in Ironforge: Forever's Rogue version 84152 (#3081) as well as the eight of the Classic data, so the Darkmantle chain starts from the version a Rogue holds."
+	},
 	"9015": {
 		"set": {
 			"objectives": [
@@ -4605,6 +4615,34 @@
 			}
 		],
 		"note": "An Earnest Proposition 84150 is a second copy of 8908 (the same Deliana quest in Ironforge for Paladins). Only one source lists it and Forever's server quest table has 8908 alone, so Scholomance's Alliance pick-up guide asked Deliana for An Earnest Proposition twice. The copy leaves the data."
+	},
+	"84152": {
+		"set": {
+			"title": "An Earnest Proposition",
+			"level": 60,
+			"minLevel": 58,
+			"races": 4294967373,
+			"classes": 8,
+			"zone": 1455,
+			"start": { "npc": [230319], "object": [], "item": [] },
+			"end": { "npc": [230319], "object": [] },
+			"next": 8922,
+			"objectives": [
+				{ "type": "item", "id": 21928, "count": 15, "text": "Winterspring Blood Sample" },
+				{ "type": "item", "id": 16710, "count": 1, "text": "Shadowcraft Bracers" }
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3081: a level 60 Gnome Rogue's /polestar report has An Earnest Proposition as quest 84152 in the quest log (1 of 2 objectives), asking for 15 Winterspring Blood Samples and Shadowcraft Bracers"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): Forever's Alliance An Earnest Proposition versions 84148, 84149 and 84154 start and end at Deliana (230319) in Ironforge, who also gives A Supernatural Device (8922)"
+			}
+		],
+		"note": "An Earnest Proposition 84152 is the Rogue's version Forever gives now (the server dump of 2026-10-14 had 8910 only): the same 15 Winterspring Blood Samples and Shadowcraft Bracers for Deliana in Ironforge, before A Supernatural Device. No source had it, so the Darkmantle Tunic guide waited for an accept of 8910 the player never saw and did not notice the 84152 in the log (#3081)."
 	},
 	"84396": {
 		"set": {
