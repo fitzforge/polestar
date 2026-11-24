@@ -448,6 +448,7 @@ end
 --       target = { c, wx, wy, label, map, x, y, f },
 --       (p.z: the player's floor height when known, Walk.Floor: a walk to an end with a height is dropped as
 --         already walked only on that floor)
+--       (p.clientZ: the player's height as the client gives it, nil without one: the side of a lift city, Travel.LiftSide)
 --       faction = 1 Alliance | 2 Horde | 0 other,
 --       known = { [taxiNodeID] = true },
 --       speed = yd/s,
@@ -658,7 +659,9 @@ end
 -- Thunder Bluff's bluff, below it in the Undercity) and on the ground zone around it on the other, whatever the
 -- client's map says: the client names the Undercity (1458) for the Ruins of Lordaeron's courtyard and gate above
 -- it, and Thunder Bluff (1456) at its lifts' feet on Mulgore's ground (#3532). Only a point whose floor height is
--- known (the player's Walk.Floor, a target's or an end's own z); without one the map decides, as before.
+-- known (a target's or an end's own z, the player's from the client: ZoneOf's sideZ); without one the map decides,
+-- as before. The player's followed floor (Walk.Floor) is no proof here: up from a lift the floor seeded on the bluff
+-- could be the ground's, and the plan sent the player down and up the lift again and again (the Mulgore stretch).
 Travel.LIFT_FOOTPRINT = 400
 Travel.LIFT_CITIES = {
 	{ map = 1456, ground = 1412, c = 1, middle = 102, above = true, shafts = { -1032.7, -38.8, -1297.3, 187.5 } },
@@ -682,9 +685,11 @@ function Travel.LiftSide(c, wx, wy, z)
 	end
 	return nil
 end
-function Travel.ZoneOf(map, c, wx, wy, target, z, area)
+-- sideZ: the height Travel.LiftSide sides the point by when it is not z (false: none).
+function Travel.ZoneOf(map, c, wx, wy, target, z, area, sideZ)
 	local zone = mapZoneOf(map, c, wx, wy, target)
-	local side = zone and Travel.LiftSide(c, wx, wy, z)
+	if sideZ == nil then sideZ = z end
+	local side = zone and Travel.LiftSide(c, wx, wy, sideZ or nil)
 	if side and zoneInfo[side] then zone = side end
 	local list = zone and areasIn[zone]
 	if list then
@@ -874,7 +879,7 @@ local function planBody(p, S)
 		return n
 	end
 	-- A start in a place only portals reach (p.place: Travel.Placed saw the player go in) is there, whatever its floor.
-	local startZone = covered[p.c] and (p.place or Travel.ZoneOf(p.map, p.c, p.wx, p.wy, nil, p.z) or false)
+	local startZone = covered[p.c] and (p.place or Travel.ZoneOf(p.map, p.c, p.wx, p.wy, nil, p.z, nil, p.clientZ or false) or false)
 	add(START, p.c, p.wx, p.wy, nil, p.map, nil, startZone)
 	-- The target's zone is where the walking maps put its point (zoneOf's `target`, #1694), or with its height the
 	-- place only portals reach that holds it (the mage trainers under the Wizard's Sanctum, #1970).
@@ -2560,7 +2565,7 @@ local function plan(target, held)
 		end
 	end
 	local plan = {
-		c = pc, wx = px, wy = py, map = playerMap(), z = pz, floors = pfloors, place = Travel.Inside(pc, px, py),
+		c = pc, wx = px, wy = py, map = playerMap(), z = pz, clientZ = Travel.ObservedFloor(pc), floors = pfloors, place = Travel.Inside(pc, px, py),
 		target = { c = tc, wx = twx, wy = twy, z = tz, label = target.label, map = target.map, x = target.x, y = target.y, f = target.f, kind = target.kind },
 		liveLeft = W and W.LiveLeft and W.LiveLeft(tc, twx, twy) or nil,
 		liveTaxi = true,

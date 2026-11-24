@@ -1027,7 +1027,9 @@ fn the_near_walk_over_a_closed_zone_border_goes_only_within_its_reach_and_never_
 // f4/lifts.rs: below 7.45 in the Undercity, above 102 on Thunder Bluff's bluff, within 400 yd of a shaft), not by the
 // client's map: it names the Undercity (1458) for the Ruins of Lordaeron's courtyard above it, and Thunder Bluff
 // (1456) at the lifts' feet on Mulgore's ground, and the route sent a player at the foot of the north lift "to
-// Mulgore" first. Without a height the map decides, as before; away from the shafts nothing changes.
+// Mulgore" first. Without a height the map decides, as before; away from the shafts nothing changes. The player is
+// sided only by the client's own height (sideZ), never by a followed floor: up from a lift, a floor seeded at the
+// ground's height sent the plan back down and up the lift again and again.
 #[test]
 fn the_undercity_and_thunder_bluff_are_sided_by_height_near_their_lifts_not_by_the_clients_map_3532() {
 	let out = run_raw(
@@ -1048,6 +1050,8 @@ fn the_undercity_and_thunder_bluff_are_sided_by_height_near_their_lifts_not_by_t
 			bluff = Z(1456, 1, -1040.6, -49, nil, 140.7),         -- its top, on the bluff
 			tbNoHeight = Z(1456, 1, -1036.5, -53.1),
 			farMulgore = Z(1412, 1, -2300, -400, nil, 50),        -- far from the shafts: unchanged
+			bluffFollowed = Z(1456, 1, -1040.6, -49, nil, 69, nil, false), -- the bluff, a followed floor of 69: the map
+			footClient = Z(1456, 1, -1036.5, -53.1, nil, 140, nil, 69),   -- the client's 69 at the foot: Mulgore
 		})"#,
 	);
 	assert_eq!(out["courtyard"], 1420, "the courtyard over the Undercity is outside it");
@@ -1057,6 +1061,8 @@ fn the_undercity_and_thunder_bluff_are_sided_by_height_near_their_lifts_not_by_t
 	assert_eq!(out["bluff"], 1456);
 	assert_eq!(out["tbNoHeight"], 1456);
 	assert_eq!(out["farMulgore"], 1412);
+	assert_eq!(out["bluffFollowed"], 1456, "a followed floor never sides the player: the client's map");
+	assert_eq!(out["footClient"], 1412, "the client's height sides the player");
 }
 
 // KEPT IN JS:
