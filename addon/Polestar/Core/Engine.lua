@@ -14679,6 +14679,9 @@ end
 
 -- Quest q's built hand-in goal at its ender on map `map`, or nil (no Codex
 -- record yet, no ender known, none of the character's side, or not on it).
+-- An ender who walks about gets her walk as its one spot, its point in the
+-- middle (Lookup.Walk: Nikova Raskol's round of Old Town, #3019), so the
+-- line measures to it, the maps circle it and the line says she walks.
 function Own.strandGoal(q, map)
 	if Own.strandMap ~= map then Own.strandGoals, Own.strandMap = {}, map end
 	local goal = Own.strandGoals[q]
@@ -14692,6 +14695,8 @@ function Own.strandGoal(q, map)
 	if sp and sp.map == map then
 		goal = { t = "turnin", quest = q, title = Compat().GetQuestTitle(q) or rec.title, map = sp.map, x = sp.x, y = sp.y, f = sp.f, z = sp.z,
 			npc = e.npc, npcName = e.npc and e.name or nil, object = e.object, objName = e.object and e.name or nil }
+		-- An ender who walks about: her walk, not its point nearest the player (#3019).
+		if Lk.Walk then Lk.Walk(goal) end
 	end
 	Own.strandGoals[q] = goal
 	return goal or nil
@@ -15865,6 +15870,9 @@ function Own.hereViewOf(e)
 				end
 			elseif same then
 				text = L["Hand in %s to them"]:format(title)
+			elseif npc and goal.walks then
+				-- An NPC who walks about (Lookup.Walk, #3019): the maps circle her walk.
+				text = L["Hand in %s to %s, who walks around here: look inside the circle on the map"]:format(title, npc)
 			else
 				text = npc and L["Hand in %s to %s"]:format(title, npc) or L["Hand in %s"]:format(title)
 			end

@@ -1099,7 +1099,7 @@ local function makeControl(parent, c)
 		w = W.Toggle(parent, labelOf(c), c.key, c.help, nil, (c.gear or c.get or c.set) and { gear = c.gear, get = c.get, set = c.set } or nil)
 	elseif c.kind == "slider" then
 		local opts
-		if c.release or c.get or c.set then opts = { release = c.release, get = c.get, set = c.set } end
+		if c.release or c.get or c.set or c.parse then opts = { release = c.release, get = c.get, set = c.set, parse = c.parse } end
 		w = W.Slider(parent, labelOf(c), c.key, c.min or 0, c.max or 1, c.step or 0.1, c.format, c.help, nil, opts)
 	elseif c.kind == "dropdown" or c.kind == "font" then
 		local choices = type(c.choices) == "function" and function() return choicesOf(c) end or choicesOf(c)

@@ -325,6 +325,12 @@ L["Requires level %d: kept for a later guide"] = "Требуется урове�
 L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = "Более поздний гайд на вашем маршруте берет это задание здесь: если взять его сейчас, его шаг будет выполнен, когда вы до него дойдете."
 -- L["For %s, later on your route."] = ""
 -- L["kill %s as you meet them"] = ""
+-- L["Escort, about %d min"] = ""
+-- L["Escort"] = ""
+-- L["%s; 1 in %d runs fails"] = ""
+-- L["%s. Optional: the route doesn't need it."] = ""
+-- L["Kept for %s"] = ""
+-- L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Выберите награду, чтобы сдать задание."
@@ -573,6 +579,10 @@ L["Ride to the entrance"] = "Ехать ко входу"
 -- L["List the flight paths Polestar knows you have (reset: forget them)"] = ""
 -- L["Faster if you have the flight path at %s"] = ""
 -- L["Ask %s to teleport you to %s"] = ""
+-- L["Riding the boat to %s"] = ""
+-- L["Riding the zeppelin to %s"] = ""
+-- L["Riding the airship to %s"] = ""
+-- L["Riding the tram to %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -1336,6 +1346,7 @@ L["Tailoring"] = "Портняжное дело"
 L["Cooking"] = "Кулинария"
 L["Fishing"] = "Рыбная ловля"
 L["First Aid"] = "Первая помощь"
+-- L["%s walks around here: look inside the circle on the map"] = ""
 
 -- Lookup/Guide.lua
 L["Lookup is turned off (Settings > Discovery > Lookup)."] = "Поиск выключен (Настройки > Открытия > Поиск)."
@@ -1528,6 +1539,7 @@ L["(old price)"] = "(старая цена)"
 -- L["Group, or careful: a group is advised"] = ""
 -- L["Careful: elites nearby"] = ""
 -- L["Careful: elites, below your level"] = ""
+-- L["%s · kept for %s"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Место"
@@ -2623,7 +2635,6 @@ L["%.1f MB"] = "%.1f МБ"
 L["%d KB"] = "%d КБ"
 L["Show the whole step"] = "Показывать весь шаг"
 L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."] = "Все цели шага сразу, вместе с выполненными, вместо одного персонажа за раз и остальных по строке на каждого."
-L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Насколько высоким может стать окно, в доле экрана. Более длинный шаг прокручивается."
 L["Hide the arrow with the guide"] = "Скрывать стрелку вместе с гайдом"
 L["When the guide window is hidden, hide the arrow too."] = "Когда окно гайда скрыто, скрывать и стрелку."
 L["Did you mean:"] = "Возможно, вы искали:"
@@ -3725,6 +3736,11 @@ L["Not part of your route"] = "Вне вашего маршрута"
 L["Keep or abandon them"] = "Оставить или отказаться"
 L["Each with its Abandon button, which asks in the game's own window first."] = "У каждого своя кнопка «Отказаться», которая сначала спросит в окне самой игры."
 L["%s · at level %d"] = "%s · на %d уровне"
+-- L["%d steps left in %s"] = ""
+-- L["1 step left in %s"] = ""
+-- L["Do or skip what's left, and you choose where to go next."] = ""
+-- L["Do or skip what's left, and the next guide follows."] = ""
+-- L["Do or skip what's left, and the guide ends."] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "Щелкните, чтобы выбрать целью и пометить: %s (вне боя)."
@@ -4488,7 +4504,6 @@ L["Soft strength"] = "Сила мягкой"
 L["How dark the light shade behind each line of the transparent window is."] = "Насколько темна легкая тень за каждой строкой прозрачного окна."
 L["Keep bars shown"] = "Не скрывать панели"
 L["The whole guide window, text and all."] = "Все окно гайда вместе с текстом."
-L["Max height"] = "Макс. высота"
 L["Padding"] = "Внутренний отступ"
 L["Compact"] = "Компактно"
 L["This window's own background opacity: how much of the world shows through. Its own colour is the swatch. Unset, both follow every Polestar window's."] = "Собственная непрозрачность фона этого окна: сколько мира видно сквозь него. Собственный цвет задает образец цвета. Если не заданы, оба следуют общим настройкам окон Polestar."
@@ -4548,6 +4563,18 @@ L["The size of the guide window's text, apart from its scale and the rest of Pol
 -- L["Under the window, folded"] = ""
 -- L["On the timeline"] = ""
 -- L["In the foot"] = ""
+-- L["Window height"] = ""
+-- L["Fixed: the window is always the height below; drag its grip to resize it like any window. Follows the step: it grows with the step up to that height. Automatic: it grows into all the free room on screen."] = ""
+-- L["Fixed"] = ""
+-- L["Follows the step"] = ""
+-- L["Height"] = ""
+-- L["In pixels and as a share of the screen: click the number to type the pixels, or drag the grip at the window's corner. Changing it under Automatic switches to Fixed. A longer step scrolls."] = ""
+-- L["With a Fixed height: right under the last goal, the free room past it (above the goals with Grow upward), or on the window's edge."] = ""
+-- L["Under the last goal"] = ""
+-- L["On the window's edge"] = ""
+-- L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = ""
+-- L["XP line"] = ""
+-- L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "Стопка оповещений"
@@ -4851,6 +4878,8 @@ L["Waiting for your level, taken where a later guide passes the giver: %s"] = "�
 -- L["On the way to your map point (%s)."] = ""
 -- L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = ""
 -- L["You are past this class quest's levels."] = ""
+-- L["Escort: %s"] = ""
+-- L["Do it"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Нажмите %s, чтобы продолжить, или откройте окно гайда."
@@ -5086,6 +5115,7 @@ L["Reload to finish?"] = "Перезагрузить, чтобы закончи�
 L["Some guide window and look changes only show in full after a reload. Recommended."] = "Некоторые изменения окна гида и внешнего вида видны полностью только после перезагрузки. Рекомендуется."
 L["New settings page"] = "Новая страница настроек"
 L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "Предпросмотр настроек по группам: с вкладками, фильтром и предпросмотром рядом со строками. Настройки те же; выключите, чтобы вернуть текущую страницу."
+-- L["New settings in this group"] = ""
 
 -- UI/Essentials.lua
 L["Most used"] = "Самое нужное"
@@ -5181,6 +5211,11 @@ L["%d of %d"] = "%d из %d"
 -- L["Atlas layout and tab styles by %s"] = ""
 -- L["Keep this"] = ""
 -- L["(your current)"] = ""
+
+-- Quests/KeptFor.lua
+-- L["kept for %s"] = ""
+-- L["kept"] = ""
+-- L["Kept for %s: the route hands it in there."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Заново настроить Polestar, страница за страницей. Каждый выбор действует сразу."
@@ -5453,3 +5488,5 @@ L["%d of %d"] = "%d из %d"
 -- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "Маршрут может начинаться с известного вам заклинания телепорта, если так быстрее: городские телепорты мага, Лунная поляна друида или Астральное возвращение шамана (как второй камень возвращения). Для телепорта в город нужна руна телепортации в сумках."
 -- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "Начало с нуля: около %d%% опыта за задания этого гайда завязано на гайд %s."
 -- L["Expect about %d minutes of extra grinding, or start there."] = "Придется гриндить примерно на %d мин. дольше, или начните оттуда."
+-- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Насколько высоким может стать окно, в доле экрана. Более длинный шаг прокручивается."
+-- L["Max height"] = "Макс. высота"

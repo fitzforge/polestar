@@ -57,10 +57,20 @@ X.IsLoaded = function() return true end
 -- AT_DUGHAN (set in `before`): more quests Marshal Dughan takes in.
 X.Quest = function(id)
 	local dughan = id == 40 or id == 46 or (AT_DUGHAN or {})[id]
-	return { id = id, title = "Quest " .. id, faction = "A", level = id == 40 and 5 or 10, xp = 1000, ["end"] = dughan and { npc = { 240 } } or nil }
+	return { id = id, title = "Quest " .. id, faction = "A", level = id == 40 and 5 or 10, xp = 1000,
+		["end"] = dughan and { npc = { 240 } } or id == 47 and { npc = { 241 } } or nil }
+end
+-- Nikova (241) walks a round the Codex has as four spawns 34 yd from their middle, 44.8,39.2 (#3019).
+local WALK = { { map = 1429, x = 44.0, y = 38.0 }, { map = 1429, x = 45.6, y = 38.0 }, { map = 1429, x = 45.6, y = 40.4 }, { map = 1429, x = 44.0, y = 40.4 } }
+X.Npc = function(id)
+	if id == 241 then return { id = 241, name = "Nikova", faction = "A", roles = {}, spawns = WALK } end
+	if id == 240 then return { id = 240, name = "Marshal Dughan", faction = "A", roles = {}, spawns = { { map = 1429, x = 42.0, y = 35.1 } } } end
+	return nil
 end
 Polestar.Lookup.QuestEnd = function(ends)
 	if ends and ends.npc and ends.npc[1] == 240 then return { npc = 240, name = "Marshal Dughan", spawn = { map = 1429, x = 42.0, y = 35.1 } } end
+	-- Her spawn nearest the player.
+	if ends and ends.npc and ends.npc[1] == 241 then return { npc = 241, name = "Nikova", spawn = WALK[1] } end
 	return nil
 end
 C_QuestLog.GetQuestDifficultyLevel = function(q) return q == 40 and 5 or 10 end
@@ -127,6 +137,59 @@ fn a_finished_quest_no_route_hands_in_is_listed_with_its_ender_and_handed_in_whi
 		"{out}"
 	);
 	assert_eq!(out["guide"], json!(["lookup/carried/log", "Marshal Dughan", "turnin", 40, 1]), "{out}");
+}
+
+// #3019 (Shuurajou): a finished quest's ender who walks about. Nikova Raskol walks a round of Old Town, which the
+// Codex has as several spawns; the line pointed at the one nearest the player as if she stood there. Her walk is
+// now the hand-in's one spot, its point in the middle: the line measures to it, the maps circle it (the line's
+// layer, then the arrow's once the arrow leads there), and the line says she walks. The arrow leads to the middle
+// and says Arrived within the goal's radius of it, as at any NPC (Own.onePlace), not anywhere in the circle.
+// Marshal Dughan, at one spawn, keeps his point.
+#[test]
+fn a_stranded_hand_in_to_an_npc_who_walks_about_circles_her_walk_and_says_so_3019() {
+	let out = run_before(
+		&format!("{WORLD}w.onQuest(47, {{}}, \"The Color of Blood\")\n"),
+		r#"
+		local r = { here = {} }
+		for _, v in ipairs(E.GetWhileHereList()) do r.here[#r.here + 1] = { v.index, v.hereText } end
+		table.sort(r.here, function(a, b) return a[1] < b[1] end)
+		local g = E.AlongGoal(-2, 47)
+		r.goal = { g.x, g.y, #g.spots, g.spots[1].x, g.spots[1].y, g.spots[1].r, g.note }
+		local d = E.AlongGoal(-2, 40)
+		r.dughan = { d.x, d.y, d.spots == nil }
+		-- The maps' circle: one area at her walk's middle, in the While-here layer, then in the arrow's once it leads there.
+		local _, cx, cy = Polestar.Compat.MapToWorld(1429, 44.8, 39.2)
+		local function circles(layer)
+			local out = {}
+			for _, p in ipairs(Polestar.Pins.GetLayer(layer) or {}) do
+				if p.areaOnly then out[#out + 1] = { math.floor(p.wx - cx + 0.5), math.floor(p.wy - cy + 0.5) } end
+			end
+			return out
+		end
+		flush()
+		r.mapBefore = circles("nav.hereAreas")
+		E.DismissWhileHere(1)
+		flush()
+		for i, v in ipairs(E.GetWhileHereList()) do
+			if v.index == 47 then E.AimWhileHere(i) end
+		end
+		flush()
+		r.mapAimed = circles("nav.areas")
+		local wp = E.GetWaypoint()
+		r.waypoint = { wp.x, wp.y, wp.area or false }
+		emit(r)
+	"#,
+	);
+	assert_eq!(
+		out["here"],
+		json!([[40, "Hand in “A Fishy Peril” to Marshal Dughan"], [47, "Hand in “The Color of Blood” to Nikova, who walks around here: look inside the circle on the map"]]),
+		"{out}"
+	);
+	assert_eq!(out["goal"], json!([44.8, 39.2, 1, 44.8, 39.2, 34, "Nikova walks around here: look inside the circle on the map"]), "{out}");
+	assert_eq!(out["dughan"], json!([42, 35.1, true]), "{out}");
+	assert_eq!(out["mapBefore"], json!([[0, 0]]), "{out}");
+	assert_eq!(out["mapAimed"], json!([[0, 0]]), "{out}");
+	assert_eq!(out["waypoint"], json!([44.8, 39.2, false]), "{out}");
 }
 
 // #3390: a finished quest a later guide of the route hands in (test/b's 44, its ender Marshal Dughan here) says

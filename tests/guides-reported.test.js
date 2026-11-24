@@ -9192,11 +9192,12 @@ test("forever/alliance/50-60/03-winterspring.guide: flow re-order: the four reli
 });
 
 // Flow review (2026-11-07): Alliance Western Plaguelands fetched the Annals from Andorhal and came back to the same
-// town for the Temporal Parasites on a later loop; Chromie takes both together.
+// town for the Temporal Parasites on a later loop; Chromie takes both together. Since #3046 the parasites have the
+// silo step of their own (its `loop` would pull the Annals and the fragments onto the silos), right after the Annals'.
 test('forever/alliance/50-60/04-western-plaguelands.guide: flow re-order: the Temporal Parasites on the Annals visit to Andorhal', { skip }, () => {
 	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
-	assert.equal(stepOf('the parasites (4971)', (g) => g.t === 'kill' && g.quest === 4971), stepOf('the Annals (5154)', (g) => g.t === 'collect' && g.quest === 5154), 'one Andorhal visit');
+	assert.equal(stepOf('the parasites (4971)', (g) => g.t === 'kill' && g.quest === 4971) - stepOf('the Annals (5154)', (g) => g.t === 'collect' && g.quest === 5154), 1, 'one Andorhal visit: the silos straight after the town hall');
 });
 
 // Flow review (2026-11-07): Alliance Silithus handed Noggle's Last Hope to Beetix with Noggle standing beside him and
@@ -19430,4 +19431,25 @@ test('#3681: Arathi Highlands (Alliance 30-40): Witherbark Village farms the far
 	assert.ok(knife < tusk && tusk < pouch, 'knife, tusks, then pouches');
 	assert.ok(list[tusk].goal.y >= 78, `the tusks at the far end: ${list[tusk].goal.x},${list[tusk].goal.y}`);
 	assert.ok(list[pouch].goal.y < 75, `the pouches among the huts: ${list[pouch].goal.x},${list[pouch].goal.y}`);
+});
+
+// #3046 (Nostaroi): A Matter of Time's Temporal Displacer had one pin (45.1,62.3), though the parasites come out at
+// every grain silo of Andorhal. Both sides now search four silos on the north side of town (the Temporal Parasite's
+// spawn points there, where most players drew them out in their recordings) with the displacer and the kill, and
+// no other goal of the step is pulled onto that circuit.
+test('#3046 A Matter of Time: the Temporal Displacer and its parasites search four silos, nothing else moves there', { skip }, () => {
+	const silos = [[45.15, 62.28], [46.38, 62.33], [47.83, 63.45], [48.45, 62.81]];
+	for (const guide of ['forever/alliance/50-60/04-western-plaguelands.guide', 'forever/horde/50-60/05-eastern-plaguelands.guide']) {
+		const list = goals(guide);
+		const use = list[at(list, 'use 12627', (g) => g.t === 'use' && g.item === 12627)];
+		const kill = list[at(list, 'kill 10717', (g) => g.t === 'kill' && g.npc === 10717)];
+		assert.equal(use.s, kill.s, `${guide}: one step`);
+		for (const { goal } of [use, kill]) {
+			assert.equal(goal.map, 1422, `${guide}: ${goal.t} in Western Plaguelands`);
+			assert.deepEqual((goal.spots || []).map(({ x, y }) => [x, y]), silos, `${guide}: ${goal.t} searches the four silos in order`);
+		}
+		for (const { goal } of list.filter((g) => g.s === use.s && g.goal !== use.goal && g.goal !== kill.goal)) {
+			assert.ok(!(goal.spots || []).some(({ x, y }) => silos.some(([sx, sy]) => sx === x && sy === y)), `${guide}: ${goal.t} ${goal.npc || goal.item || goal.quest} keeps its own place`);
+		}
+	}
 });
