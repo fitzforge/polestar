@@ -286,7 +286,8 @@ step Expert Leatherworking
   learn 7151
 
 step Heavy Armor Kit to 158
-  tip Heavy Armor Kit is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 Heavy Leather and 1 Fine Thread. Five Heavy Leather a craft (beasts of level 28-40); the kits sell to vendors.
+  tip Heavy Armor Kit is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 Heavy Leather and 1 Fine Thread. Five Heavy Leather a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning Heavy Armor Kit, learn it now: an earlier step teaches it.
+  learn 3780
   craft 3780 until 158
 
 step Barbaric Shoulders to 165

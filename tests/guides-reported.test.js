@@ -18591,6 +18591,24 @@ test('forever/professions/first-aid.guide: the manual bandages say to read the m
 	}
 });
 
+// #3401 (Cip1337, 0.4.2): Heavy Wool Bandage is learned in the 115-125 step; a player who reached 125 on Wool Bandages
+// had that section passed, so its learn never showed, and the 125-150 step only asked to craft. Every profession guide:
+// a craft step whose recipe (or a part it makes first) an earlier section teaches repeats that learn in its own step.
+test('forever/professions: a recipe taught in an earlier section is learned again where a later section crafts it (#3401)', { skip }, () => {
+	for (const guide of allGuides().filter((g) => g.startsWith('forever/professions/'))) {
+		const list = goals(guide);
+		const taught = new Map(); // spell -> section of its first learn
+		for (const { step, goal } of list) if (goal.t === 'learn' && goal.spell && !taught.has(goal.spell)) taught.set(goal.spell, step.section);
+		for (const { step, goal, s } of list) {
+			if (goal.t !== 'craft' || !taught.has(goal.spell) || taught.get(goal.spell) === step.section) continue;
+			assert.ok(step.goals.some((g) => g.t === 'learn' && g.spell === goal.spell), `${guide} step ${s}: craft ${goal.spell} has its learn`);
+		}
+	}
+	const fa = goals('forever/professions/first-aid.guide');
+	const late = fa.find(({ goal, step }) => goal.t === 'craft' && goal.spell === 3278 && step.goals.some((g) => g.t === 'craft' && g.untilSkill === 150));
+	assert.ok(late && late.step.goals.some((g) => g.t === 'learn' && g.spell === 3278), 'Heavy Wool Bandage 125-150 learns it');
+});
+
 // #3512 #3492 #3489 #3486 #3481 (Stö, 0.4.2, Mount Hyjal): "talked with Whisperfur / Brie / Solstice / the Peasant /
 // Elder Pinespeaker but the guide didn't mark it". A `talk` with no quest ticks only on something the player does in
 // the NPC's window (a gossip choice, an accept, a hand-in: #741), but players' recordings show these lines tick with
