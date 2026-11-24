@@ -8069,24 +8069,27 @@
 	},
 	"97225": {
 		"set": {
-			"pre": [
-				805
-			],
-			"preAny": [
+			"pre": [],
+			"preAny": [],
+			"breadcrumbs": [
 				805
 			]
 		},
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings since launch: 7 of 7 who took Forgotten Loa Idols handed in Report to Sen'jin Village (805) first, then went back to Master Vornal"
+				"ref": "players' in-game recordings to 2026-11-24 (Master Vornal's windows, 116 of them): 64 people were offered Forgotten Loa Idols; 14 people who stood at Vornal with Report to Sen'jin Village (805) in the log were not offered it"
 			},
 			{
 				"kind": "in-game-check",
 				"ref": "#796"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3214: Iriael's Skyborne Warrior held Forgotten Loa Idols, Minshina's Skull and Zalazane with Vile Familiars (1485) and Burning Blade Medallion (794) not done (/run IsQuestFlaggedCompleted: false for both), so never Report to Sen'jin Village, which Zureetha gives only after the Medallion"
 			}
 		],
-		"note": "Forgotten Loa Idols (Sen'jin Village, Master Vornal) is offered once Report to Sen'jin Village 805 is handed in: a Troll Shaman with 805 complete but not handed in was not offered it (#796), and every recorded player took it only after handing 805 in. No quest data names this prerequisite, so the Orc and Troll routes asked for it one goal before the hand-in."
+		"note": "Forgotten Loa Idols (Sen'jin Village, Master Vornal) is held back while Report to Sen'jin Village 805 is in the log: a Troll Shaman with 805 complete but not handed in was not offered it (#796), nor were 14 recorded players with 805 in the log. It does not need 805 done: a Skyborne who never took 805 (#3214) had it. So 805 is its breadcrumb, not a prerequisite. As a prerequisite it made Polestar count 805 and the Burning Blade Medallion before it as done for that character, ticking their lines in the Durotar guide although the game had neither."
 	},
 	"97265": {
 		"set": {

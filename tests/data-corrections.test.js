@@ -167,6 +167,12 @@ test('Explosive Consultation waits for A Dynamite Plan as well as the second Det
 	assert.deepEqual(all, [92749, 92751]);
 });
 
+test('Report to Sen\'jin Village is Forgotten Loa Idols\' breadcrumb, not its prerequisite (#3214, #796)', () => {
+	const set = corrections.quests[97225].set;
+	assert.deepEqual(blockingPrereqs({ id: 97225, start: { npc: [3304] }, pre: [805], ...set }), { all: [], any: [] });
+	assert.deepEqual(set.breadcrumbs, [805], 'held back while 805 is in the log');
+});
+
 test('The State of the Mines waits for both Testing the Wells and Murloc Gills (dungeon pre-quest sweep)', () => {
 	const { all, any } = blockingPrereqs({ id: 92745, start: { npc: [253092] }, ...corrections.quests[92745].set });
 	assert.deepEqual({ all, any }, { all: [92742, 92744], any: [] });
