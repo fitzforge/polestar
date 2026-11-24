@@ -11,9 +11,9 @@ section: players
   entries that are no longer obtainable or have no known source. Hover over
   a filter row to see what it uses.
   Filter and sort menus line up with their buttons and widen to fit their choices.
-  Search by item ID (for example, `#19019`) or by stat name. Compact item
-  details show rarity, levels, slot, subtype, class restrictions and stats
-  above acquisition sources. Once the game loads the item, the details also
-  show tooltip lines such as binding, weapon damage, effects and set bonuses.
+  Search by item ID (for example, `#19019`) or by stat name. Item details
+  show rarity and levels above the game's tooltip, with known required levels
+  and sell prices filled in when missing. Class restrictions appear in class
+  colours just above the acquisition sources.
   Item filters are saved per character. Use Clear all filters below
   Availability to reset the active filters.

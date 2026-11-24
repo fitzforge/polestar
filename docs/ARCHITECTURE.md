@@ -9989,10 +9989,15 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   (`Search.Subtitle`). Lookup uses the tab row to show Codex availability.
   On `CODEX_LOADED` it refreshes the list and sidebar counts. Enter is
   named in each row's tooltip. The pane on the right shows the selection's
-  band (the zone art of its best located source), facts, the ranked
+  band (the zone art of its best located source) and facts. For an item,
+  the scroll pane shows the Codex rarity and levels, the game's tooltip
+  lines in order without the name, then any Codex class restrictions in class
+  colours above "Where to get it". It adds a missing required level and a
+  known sell price in their tooltip positions. The tooltip fills in on
+  `GET_ITEM_INFO_RECEIVED` when the item was not cached. The ranked
   sources of `Lookup.Sources` (asked once per selection; label, detail,
   travel, chance / price / standing; ones this character cannot use dimmed
-  with `whyText`), a "Guide" button on the selected source, and pinned
+  with `whyText`) follow, with a "Guide" button on the selected source and a pinned
   "Guide me" ("Open guide" when `Lookup.CuratedGuide` has one) calling
   `Lookup.Guide`; nothing guides to an unobtainable entity, and a mount
   without a curated guide has no "Guide me", only a note pointing at its
