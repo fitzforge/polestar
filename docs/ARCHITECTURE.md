@@ -4751,7 +4751,7 @@ or the minimap.
 
 ```lua
 Polestar.Pins.SetLayer(layer, pins, opts)   -- replace a layer; opts = { world = true, minimap = true, edge = false, scale = 1,
-                                            --   minimapAreas = false, minMapType = nil, worldLayout = nil }
+                                            --   minimapAreas = false, minMapType = nil, worldLayout = nil, summary = nil }
 Polestar.Pins.ClearLayer(layer)
 Polestar.Pins.SetLayerVisible(layer, visible)
 -- pin = { map, x, y, f, icon (Theme.Media name, texture path, or "map:<name>": a map mark), size, minimapSize,
@@ -4834,7 +4834,14 @@ Pins are drawn on the world map for the map being viewed (converted through Comp
 for other maps). Optional `worldLayout(projected, view)` receives this layer's
 `{ pin, x, y }` entries in viewed-map percentages and returns its world-map
 layout; map and canvas-size changes run it again. It never changes minimap
-pins. `minMapType` hides world pins on broader views.
+pins. `minMapType` hides world pins on broader views. `summary` (what the
+layer's pins are, as the player reads them: the quest layers' "Hand-ins",
+"Objectives", "Available quests") gathers the pins of every such layer into
+one pin per zone on a continent or world map: a medallion with a glyph per
+layer and their count on a badge, each layer's count in its tooltip, a click
+opening the zone's map; their areas and hulls show on the zone's map only
+(#2973). A pin's zone is its own map's (a cave's or a city quarter's counts
+for the zone around it), else the one the viewed map shows at its point.
 
 The steps ahead (`Nav/Upcoming.lua`, layer `nav.upcoming`, `nav.upcomingPins`
 off by default, Map > Guide & quests and Settings › Map pins): `Nav.upcoming.Build()` takes the steps
