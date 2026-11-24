@@ -131,3 +131,43 @@ emit(r)`);
 	assert.deepEqual(out.after, { a: 12, alpha: 1 });
 	assert.deepEqual(out.again, { a: 12, alpha: 1 });
 });
+
+// Under Atlas the card stands above the window with its other cards
+// (guidePlace "otherTab"): on the window's ground, without its own wash,
+// stripe or border, its × putting it away; back in the window under
+// Polestar's own layout, in its own look again.
+test('Atlas stacks it above the window with its cards; the default layout keeps it in the window', () => {
+	const out = run(`
+at(25)
+local T = Polestar.Theme
+T.SetLayout("atlas")
+draw()
+local f = OT.Frame()
+local card = GF.parts.card
+local function under(x, top) local p = x for _ = 1, 12 do if not p then return false end if p == top then return true end p = p:GetParent() end return false end
+local stack
+for _, c in ipairs({ GF.frame:GetChildren() }) do if rawget(c, "cards") then stack = c end end
+local r = { shown = f:IsVisible(), inCard = under(f, card), inStack = stack ~= nil and under(f, stack),
+	wash = f.Wash:IsShown(), stripe = f.Stripe:IsShown(), border = f.psBorder and f.psBorder[1]:IsShown() or false, h = f:GetHeight() }
+local _, _, _, _, py = GF.parts.person:GetPoint(1)
+r.personY = py
+stub.RunScript(f, "OnEnter") stub.RunScript(f, "OnLeave")
+r.washHover = f.Wash:IsShown()
+T.SetLayout(nil)
+draw()
+r.back = { shown = f:IsVisible(), inCard = under(f, card), wash = f.Wash:IsShown(), stripe = f.Stripe:IsShown() }
+T.SetLayout("atlas")
+draw()
+local b = f:GetParent()
+if b and b.Close then b.Close:GetScript("OnClick")(b.Close) end
+draw()
+r.closed = f:IsVisible()
+emit(r)`, ['Polestar', { name: 'Polestar_Skins', files: ['Skins/Atlas/Atlas.lua', 'Layouts/Atlas/Atlas.lua'] }]);
+	assert.equal(out.shown, true, JSON.stringify(out));
+	assert.equal(out.inStack, true, 'above the window, in the cards\' stack: ' + JSON.stringify(out));
+	assert.equal(out.inCard, false);
+	assert.deepEqual([out.wash, out.stripe, out.border, out.washHover], [false, false, false, false], 'the window\'s ground, none of its own');
+	assert.ok(out.h > 30, 'heading and a wrapped row: ' + out.h);
+	assert.deepEqual(out.back, { shown: true, inCard: true, wash: true, stripe: true }, 'Polestar\'s own layout: in the window, its own look');
+	assert.equal(out.closed, false, 'its × puts it away');
+});

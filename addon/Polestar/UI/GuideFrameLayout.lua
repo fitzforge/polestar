@@ -75,6 +75,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		local OT = GF.live and UI.OtherTabCard or nil
 		if OT then
 			local oh = OT.Layout(width, 0)
+			-- A skin may place the card itself (guidePlace "otherTab").
+			local OF = OT.Frame and OT.Frame()
+			if oh > 0 and OF and claimed("otherTab", OF, width, OF:GetHeight()) then oh = 0 end
 			if oh > 0 then
 				local CF = CC and CC.Frame and CC.Frame()
 				if y > 0 and CF and CF:GetParent() == card then

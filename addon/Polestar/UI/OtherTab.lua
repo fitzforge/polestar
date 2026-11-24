@@ -10,7 +10,9 @@
 -- by Tabs) turns it off.
 --
 -- The window places it under the alerts, over the class quest card and the
--- step (UI/GuideFrameLayout.lua).
+-- step (UI/GuideFrameLayout.lua), unless a layout takes it (guidePlace
+-- "otherTab", as Atlas stacks it above the window). A layout that dresses
+-- it its own way sets F.psPlain: no wash, stripe or border of the card's.
 --
 --   UI.OtherTabCard.Check(), .Layout(width, y) -> height, .Frame(),
 --   .Shown() -> the entry shown or nil, .Dismiss(), .SHOW, .HIDE
@@ -98,10 +100,13 @@ function paint()
 	local r, g, b = c[1], c[2], c[3]
 	F.Wash:SetVertexColor(r, g, b, F.psHover and WASH_HOVER or WASH)
 	F.Stripe:SetVertexColor(r, g, b, 1)
+	F.Wash:SetShown(not F.psPlain)
+	F.Stripe:SetShown(not F.psPlain)
 	F.Icon:SetVertexColor(r, g, b, 1)
 	F.Go:SetVertexColor(r, g, b, 1)
 	F.Head:SetTextColor(r, g, b, 1)
-	Theme.Border(F, r, g, b, 0.6)
+	local e = Theme.Border(F, r, g, b, 0.6)
+	if F.psPlain and e then for i = 1, 4 do e[i]:Hide() end end
 end
 
 local function headText()
@@ -182,6 +187,11 @@ end
 -- height with its margins (0 while hidden).
 function O.Layout(width, y)
 	if not (F and near and F:IsShown()) then return 0 end
+	-- Its own look until a layout takes it again (guidePlace "otherTab"),
+	-- which may give its strings other faces.
+	F.psPlain = nil
+	Theme.Font(F.Head, "caption")
+	Theme.Font(F.Title, "label")
 	-- Again on each layout: a look's repaint gives the strings back their
 	-- theme colours (the head's textMuted) and leaves the wash in the old look's.
 	paint()
@@ -198,7 +208,8 @@ function O.Layout(width, y)
 	local h = math.floor(7 + F.Head:GetStringHeight() + 5 + math.max(ICON, F.Title:GetStringHeight()) + 8 + 0.5)
 	F:SetSize(w, h)
 	F:ClearAllPoints()
-	F:SetPoint("TOPLEFT", F:GetParent(), "TOPLEFT", INSET, -((y or 0) + INSET))
+	-- On the guide window's card (its home), though a layout held it last time.
+	F:SetPoint("TOPLEFT", F.psHome or F:GetParent(), "TOPLEFT", INSET, -((y or 0) + INSET))
 	return h + INSET
 end
 
