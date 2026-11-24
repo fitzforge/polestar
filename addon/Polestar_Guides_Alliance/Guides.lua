@@ -15037,13 +15037,19 @@ do
 				},
 				{
 					title = "Andorhal",
-					note = "Use the {item:12627} by the grain silos to draw out Temporal Parasites. {quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: the Temporal Parasites are 55-57, and Skeletal Warlords and Flesh Golems (57, elites) walk the streets: draw the parasites out by the silos, one at a time, and let the elites pass.\n{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal.",
+					note = "{quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk the streets: let them pass.\n{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal.",
 					goals = {
 						{ t = "collect", quest = 5154, title = "The Annals of Darrowshire", item = 12900, itemName = "Annals of Darrowshire", count = 1, oi = 1, map = 1422, x = 43.41, y = 68.85, f = "e", spotsPacked = "43.37,69.51,,0;43.38,69.97,,0;43.41,68.85,,0", from = "Musty Tome", fromKind = "object", fromId = 176150, group = { kind = "elite", lvl = 60, near = true, rank = 1 } },
-						{ t = "use", item = 12627, itemName = "Temporal Displacer", text = "{item:12627}", map = 1422, x = 45.1, y = 62.3, f = "e" },
-						{ t = "kill", quest = 4971, title = "A Matter of Time", target = "Temporal Parasite", npc = 10717, count = 15, oi = 1, map = 1422, x = 45.1, y = 62.3, f = "e", spotsPacked = "45.1,62.3,,85,5;48.3,63.7,,27,4;47.8,66,,26,4,1;50.2,66.6,,19,4,1;49.2,69,,15,3,1", lvl = 57 },
-						{ t = "collect", quest = 5537, title = "Skeletal Fragments", item = 14619, itemName = "Skeletal Fragments", count = 15, oi = 1, map = 1422, x = 45.55, y = 61.81, z = 62, f = "e", spotsPacked = "46.3,61.8,,54,5;41.9,65.8,,73,6;41.9,68.9,55.1,40,5;42.6,70.7,,40,2;39.4,71.3,,40,4;39.5,68.5,,57,6;46,73.8,59.5,40,4;50.6,75.7,62.8,40,2,,51;50.8,80.6,63.2,40,1,,51;48.2,81.5,,49,6,,51;47.4,84.3,67.6,40,1,,51;54.2,80.3,30.8,40,11,,52;50,68,,40,2;47.6,50.4,60.4,40,9,,54;36.5,56.2,,69,16,,52;43.3,63.4,64.8,75,7,1;47.4,64.6,,58,5,1;44.8,66.3,,49,6,1;49.1,63.9,,40,3,1;49.1,66.5,,46,3,1;45.4,69.6,,60,9,1;48.3,69.5,65.8,47,5,1,55;47.1,71.6,62.1,43,5,1;45.8,51.1,,49,6,1,54;37.9,57.9,59.7,52,10,1,52;44.1,74.1,,50,3,1;38.4,54.7,,45,14,1,52;41.8,74.2,,42,5,1;49.2,77.5,62.4,56,4,1,51", spread = true, lvl = 56, from = "Skeletal Flayer", fromKind = "npc", fromAlso = "Skeletal Sorcerer", fromId = 1783, fromAlsoId = 1784, fromNpcs = { { npc = 1789, npcName = "Skeletal Acolyte" }, { npc = 1783, npcName = "Skeletal Flayer" }, { npc = 1784, npcName = "Skeletal Sorcerer" }, { npc = 1785, npcName = "Skeletal Terror" }, { npc = 1787, npcName = "Skeletal Executioner" } } },
+						{ t = "collect", quest = 5537, title = "Skeletal Fragments", item = 14619, itemName = "Skeletal Fragments", count = 15, oi = 1, map = 1422, x = 42.68, y = 69.99, z = 49, f = "e", spotsPacked = "42.6,70.7,,40,2;41.9,68.9,55.1,40,5;41.9,65.8,,73,6;43.3,63.4,64.8,75,7;46.3,61.8,,54,5;49.1,63.9,,40,3;50,68,,40,2;47.1,71.6,62.1,43,5;49.2,77.5,62.4,56,4,,51;48.2,81.5,,49,6,,51;47.4,84.3,67.6,40,1,,51;54.2,80.3,30.8,40,11,,52;39.5,68.5,,57,6;36.5,56.2,,69,16,,52;47.6,50.4,60.4,40,9,,54;45.4,69.6,,60,9,1;41.8,74.2,,42,5,1;44.1,74.1,,50,3,1;44.8,66.3,,49,6,1;39.4,71.3,,40,4,1;46,73.8,59.5,40,4,1;48.3,69.5,65.8,47,5,1,55;47.4,64.6,,58,5,1;49.1,66.5,,46,3,1;50.6,75.7,62.8,40,2,1,51;37.9,57.9,59.7,52,10,1,52;50.8,80.6,63.2,40,1,1,51;38.4,54.7,,45,14,1,52;45.8,51.1,,49,6,1,54", spread = true, lvl = 56, from = "Skeletal Flayer", fromKind = "npc", fromAlso = "Skeletal Sorcerer", fromId = 1783, fromAlsoId = 1784, fromNpcs = { { npc = 1787, npcName = "Skeletal Executioner" }, { npc = 1783, npcName = "Skeletal Flayer" }, { npc = 1784, npcName = "Skeletal Sorcerer" }, { npc = 1785, npcName = "Skeletal Terror" }, { npc = 1789, npcName = "Skeletal Acolyte" } } },
 						{ t = "collect", quest = 211, title = "Alas, Andorhal", item = 17114, itemName = "Araj's Phylactery Shard", count = 1, oi = 1, map = 1422, x = 45.27, y = 69.21, f = "e", spotsPacked = "45.27,69.21,,0;45.64,69.42,,0;46.22,69.38,,0", optional = true, from = "Araj's Phylactery", fromKind = "object", fromId = 177241, group = { kind = "elite", lvl = 61, near = true, rank = 1 } },
+					},
+				},
+				{
+					title = "Andorhal's grain silos",
+					note = "Use the {item:12627} by each grain silo on the north side of town to draw out Temporal Parasites, one silo after another.\nCareful: the Temporal Parasites are 55-57: draw them out one silo at a time, away from the Skeletal Warlords and Flesh Golems (57, elites) in the streets.",
+					goals = {
+						{ t = "use", quest = 4971, title = "A Matter of Time", item = 12627, itemName = "Temporal Displacer", oi = 1, map = 1422, x = 45.15, y = 62.28, f = "e", spotsPacked = "45.15,62.28,,8;46.38,62.33,,8;47.83,63.45,,8;48.45,62.81,,8", spread = true },
+						{ t = "kill", quest = 4971, title = "A Matter of Time", target = "Temporal Parasite", npc = 10717, count = 15, oi = 1, map = 1422, x = 45.15, y = 62.28, f = "e", spotsPacked = "45.15,62.28,,8;46.38,62.33,,8;47.83,63.45,,8;48.45,62.81,,8", spread = true },
 					},
 				},
 				{
@@ -26640,225 +26646,6 @@ do
 						{ t = "buy", npc = 1263, npcName = "Yarlyn Amberstill", item = 8497, itemName = "Rabbit Crate (Snowshoe)", map = 1426, x = 63.16, y = 51.01, z = 398.4, spotsPacked = "63.2,50.7,398.4,15,3", optional = true, note = "{item:8497}, 20s" },
 						{ t = "buy", npc = 1263, npcName = "Yarlyn Amberstill", item = 280797, itemName = "Rabbit Crate (Arctic)", map = 1426, x = 63.16, y = 51.01, z = 398.4, spotsPacked = "63.2,50.7,398.4,15,3", optional = true, note = "20s" },
 						{ t = "buy", npc = 1263, npcName = "Yarlyn Amberstill", item = 280801, itemName = "Rabbit Crate (Brown)", map = 1426, x = 63.16, y = 51.01, z = 398.4, spotsPacked = "63.2,50.7,398.4,15,3", optional = true, note = "20s" },
-					},
-				},
-			},
-		})
-	end
-	register()
-end
-
--- Source: forever/miscellaneous/the-drowned-city-alliance.guide
-do
-	local function register()
-		Polestar.RegisterGuide({
-			id = "forever/miscellaneous/the-drowned-city-alliance",
-			pack = "guides",
-			title = "{area:16550} (Alliance)",
-			faction = "Alliance",
-			minLevel = 35,
-			maxLevel = 40,
-			category = "Miscellaneous",
-			folder = "The Drowned City",
-			keywords = { "Drowned City", "I'lalai", "Sunken Hollow", "Vile Reef", "Rebel Camp", "Nimetz", "Yohwa", "Kurzen", "Dibbs", "Southshore", "Dalaran", "Timear", "Abra Cadabra", "Karnik", "Krazek", "Zul'Alai", "Var'Taka", "Dreadrise", "Deathless Marrow", "Min'loth", "Saltseer", "fetish", "tablet", "rubbing", "barrier", "dungeon" },
-			reward = { { item = 279880, itemName = "Ancient Voodoo Pouch", choice = true }, { item = 279881, itemName = "Intrepid Explorer's Chainmail", choice = true }, { item = 279879, itemName = "Rune-Etched Epaulets", choice = true }, { item = 279878, itemName = "Apprentice Sorcerer's Slacks", choice = true }, { item = 279882, itemName = "Rusted Troll War Belt", choice = true }, { item = 279930, itemName = "Saltseer's Helm", choice = true }, { item = 279883, itemName = "Mutinous Cuffs", choice = true }, { item = 279884, itemName = "South Seas Shroud", choice = true } },
-			why = "Every Alliance quest of the {area:16550} in one run, lead-ins included.",
-			zone = 1434,
-			zoneName = "Stranglethorn Vale",
-			author = "Polestar",
-			version = 1,
-			group = true,
-			names = { ["area:101"] = "Kurzen's Compound", ["area:102"] = "Ruins of Zul'Kunda", ["area:104"] = "Vile Reef", ["area:123"] = "Bal'lal Ruins", ["area:16550"] = "The Drowned City", ["area:17853"] = "Sunken Hollow", ["area:271"] = "Southshore", ["area:279"] = "Dalaran", ["area:35"] = "Booty Bay", ["area:99"] = "Rebel Camp", ["item:2005"] = "The First Troll Legend", ["item:2006"] = "The Second Troll Legend", ["item:2007"] = "The Third Troll Legend", ["item:2008"] = "The Fourth Troll Legend", ["item:2634"] = "Venom Fern Extract", ["npc:2277"] = "Loremaster Dibbs", ["npc:252019"] = "Abra Cadabra", ["npc:258799"] = "Brinescale Explorer", ["npc:258818"] = "Chasm Crawler", ["npc:258897"] = "Makrura Snapper", ["npc:258905"] = "Zul'Alai", ["npc:258924"] = "Var'Taka", ["npc:260042"] = "Captain Dreadrise", ["npc:260202"] = "Deathless Marrow", ["npc:260243"] = "Min'loth the Serpent", ["npc:263196"] = "Profane Necromancer", ["npc:263899"] = "Undying Offering", ["npc:2916"] = "Historian Karnik", ["npc:31439"] = "Archmage Timear", ["npc:733"] = "Sergeant Yohwa", ["npc:739"] = "Brother Nimetz", ["npc:773"] = "Krazek", ["object:263"] = "Kurzen Supplies", ["object:3202"] = "Grom'gol", ["object:32356"] = "Hall of Explorers", ["object:52"] = "Fall of Gurubashi", ["object:54"] = "The Emperor's Tomb", ["object:57"] = "Moon Over the Vale", ["object:58"] = "Gri'lek the Wanderer" },
-			written = { ["Every Alliance quest of the {area:16550} in one run, lead-ins included."] = "Every Alliance quest of the Drowned City in one run, lead-ins included.", ["To the {area:16550}"] = "To the Drowned City" },
-			steps = {
-				{
-					title = "{npc:733}",
-					note = "At the {area:99} in northern Stranglethorn.",
-					goals = {
-						{ t = "accept", quest = 203, title = "The Second Rebellion", npc = 733, npcName = "Sergeant Yohwa", minLevel = 30, qlvl = 33, map = 1434, x = 37.93, y = 3.33, z = 75.4 },
-						{ t = "accept", quest = 204, title = "Bad Medicine", npc = 733, npcName = "Sergeant Yohwa", minLevel = 30, qlvl = 34, map = 1434, x = 37.93, y = 3.33, z = 75.4 },
-					},
-				},
-				{
-					title = "{area:101}",
-					note = "South-east of the {area:99}. The medicine men, headshrinkers and witch doctors drop the remedies; the {item:2634} is in the {object:263}.",
-					goals = {
-						{ t = "kill", quest = 203, title = "The Second Rebellion", target = "Kurzen Jungle Fighter", npc = 937, count = 15, oi = 1, map = 1434, x = 43.57, y = 9.73, z = 29, f = "e", spotsPacked = "44,9.8,28.9,34,3,,33;44.9,8.5,31.3,15,2,,33;44.8,11.3,,32,3,,33;46.1,12,42.5,32,3,,33;46.6,7.82,,30;47,10.5,41.4,15,1,1,33" },
-						{ t = "collect", quest = 204, title = "Bad Medicine", item = 2633, itemName = "Jungle Remedy", count = 7, oi = 1, map = 1434, x = 43.7, y = 9.53, z = 33.9, f = "e", spotsPacked = "44.2,9.6,28.2,46,7;44.6,11.4,30,49,5;46.5,8.7,,36,2,,35;47.1,6.2,,59,4,,37;47.6,7.2,,43,6,,37;48.4,8.2,,38,3,,37;43.9,7.1,35.1,15,1,1;46.5,11.3,32.7,15,1,1;49.5,7.6,,31,3,1,37", lvl = 33, from = "Kurzen Witch Doctor", fromKind = "npc", fromAlso = "Kurzen Headshrinker", fromId = 942, fromAlsoId = 941, fromNpcs = { { npc = 940, npcName = "Kurzen Medicine Man" }, { npc = 942, npcName = "Kurzen Witch Doctor" }, { npc = 941, npcName = "Kurzen Headshrinker" } } },
-						{ t = "collect", quest = 204, title = "Bad Medicine", item = 2634, itemName = "Venom Fern Extract", count = 1, oi = 2, map = 1434, x = 44.01, y = 9.46, z = 27.9, f = "e", spotsPacked = "44.01,9.46,27.9,0;44.43,9.76,,0", from = "Kurzen Supplies", fromKind = "object", fromId = 263 },
-					},
-				},
-				{
-					title = "{area:99}",
-					goals = {
-						{ t = "turnin", quest = 203, title = "The Second Rebellion", npc = 733, npcName = "Sergeant Yohwa", map = 1434, x = 37.93, y = 3.33, z = 75.4 },
-						{ t = "turnin", quest = 204, title = "Bad Medicine", npc = 733, npcName = "Sergeant Yohwa", map = 1434, x = 37.93, y = 3.33, z = 75.4 },
-						{ t = "accept", quest = 207, title = "Kurzen's Mystery", npc = 739, npcName = "Brother Nimetz", minLevel = 30, qlvl = 38, preAll = { 204, 203 }, preTitles = { [203] = "The Second Rebellion", [204] = "Bad Medicine" }, map = 1434, x = 37.8, y = 3.51, z = 76.2 },
-					},
-				},
-				{
-					title = "{object:54}",
-					note = "{item:2008}, west of the {area:99} in the {area:102}, on the hill in the north-west.",
-					goals = {
-						{ t = "collect", quest = 207, title = "Kurzen's Mystery", item = 2008, itemName = "The Fourth Troll Legend", count = 1, oi = 4, map = 1434, x = 24.63, y = 8.9, z = 60, f = "e", from = "The Emperor's Tomb", fromKind = "object", fromId = 54 },
-					},
-				},
-				{
-					title = "{object:52}",
-					note = "{item:2007}, a little south-west in the same ruins.",
-					goals = {
-						{ t = "collect", quest = 207, title = "Kurzen's Mystery", item = 2007, itemName = "The Third Troll Legend", count = 1, oi = 3, map = 1434, x = 22.89, y = 12.06, z = 50.6, f = "e", from = "Fall of Gurubashi", fromKind = "object", fromId = 52 },
-					},
-				},
-				{
-					title = "{object:58}",
-					note = "{item:2006}, further south: the tablet lies on the sea floor of the {area:104}. Mind your breath.",
-					goals = {
-						{ t = "collect", quest = 207, title = "Kurzen's Mystery", item = 2006, itemName = "The Second Troll Legend", count = 1, oi = 2, map = 1434, x = 24.65, y = 22.86, z = -70.1, f = "e", spotsPacked = "24.65,22.86,-70.1,0;24.73,23.06,-70.1,0", from = "Gri'lek the Wanderer", fromKind = "object", fromId = 58, group = { kind = "elite", lvl = 37, near = true, rank = 1 } },
-					},
-				},
-				{
-					title = "{object:57}",
-					note = "{item:2005}, in the {area:123} north-east of the reef.",
-					goals = {
-						{ t = "collect", quest = 207, title = "Kurzen's Mystery", item = 2005, itemName = "The First Troll Legend", count = 1, oi = 1, map = 1434, x = 29.42, y = 19.01, z = 2.9, f = "e", from = "Moon Over the Vale", fromKind = "object", fromId = 57 },
-					},
-				},
-				{
-					title = "{area:99}",
-					goals = {
-						{ t = "turnin", quest = 207, title = "Kurzen's Mystery", npc = 739, npcName = "Brother Nimetz", map = 1434, x = 37.8, y = 3.51, z = 76.2 },
-						{ t = "accept", quest = 205, title = "Troll Witchery", npc = 739, npcName = "Brother Nimetz", minLevel = 30, qlvl = 40, pre = { 207 }, preTitles = { [207] = "Kurzen's Mystery" }, map = 1434, x = 37.8, y = 3.51, z = 76.2 },
-					},
-				},
-				{
-					title = "Skullsplitter trolls",
-					note = "The Skullsplitter mystics (level 39 to 40) and witch doctors (41 to 42) in the middle of Stranglethorn drop the fetishes.",
-					goals = {
-						{ t = "level", level = 39 },
-						{ t = "collect", quest = 205, title = "Troll Witchery", item = 2466, itemName = "Skullsplitter Fetish", count = 4, oi = 1, map = 1434, x = 46.51, y = 30.01, z = 36.9, f = "e", spotsPacked = "46.8,30.4,,28,2;45.9,32,39.7,48,6;47.2,33.3,,36,3;44.88,34.24,42.2,15,1;43,33.1,,36,2;43.8,34.7,,35,3;45.5,38,,33,2;42.2,35.7,29.6,41,6;47.2,39.2,59.8,51,6;45.9,40.3,53.5,55,3;48.3,40.2,,35,4;47.7,41.5,,44,3;45.1,42.1,52.8,54,6,,42;48.7,37.5,52.9,15,1,1;43.6,37.2,,39,3,1;43.8,39.7,61.3,27,5,1", lvl = 40, from = "Skullsplitter Witch Doctor", fromKind = "npc", fromAlso = "Skullsplitter Mystic", fromId = 670, fromAlsoId = 780, fromNpcs = { { npc = 780, npcName = "Skullsplitter Mystic" }, { npc = 670, npcName = "Skullsplitter Witch Doctor" } } },
-					},
-				},
-				{
-					title = "{npc:739}",
-					goals = {
-						{ t = "turnin", quest = 205, title = "Troll Witchery", npc = 739, npcName = "Brother Nimetz", map = 1434, x = 37.8, y = 3.51, z = 76.2 },
-						{ t = "accept", quest = 95786, title = "An Acquaintance in Southshore", npc = 739, npcName = "Brother Nimetz", minLevel = 30, qlvl = 40, pre = { 205 }, preTitles = { [205] = "Troll Witchery" }, map = 1434, x = 37.8, y = 3.51, z = 76.2 },
-					},
-				},
-				{
-					title = "{npc:2277}",
-					note = "In {area:271}.",
-					goals = {
-						{ t = "turnin", quest = 95786, title = "An Acquaintance in Southshore", npc = 2277, npcName = "Loremaster Dibbs", map = 1424, x = 50.42, y = 57.09, z = 15.4 },
-						{ t = "accept", quest = 95787, title = "Take Two With Water", npc = 2277, npcName = "Loremaster Dibbs", minLevel = 30, qlvl = 40, pre = { 95786 }, preTitles = { [95786] = "An Acquaintance in Southshore" }, map = 1424, x = 50.42, y = 57.09, z = 15.4 },
-						{ t = "accept", quest = 95788, title = "Magics of the Drowned City", npc = 2277, npcName = "Loremaster Dibbs", minLevel = 30, qlvl = 40, pre = { 95786 }, preTitles = { [95786] = "An Acquaintance in Southshore" }, map = 1424, x = 50.42, y = 57.09, z = 15.4 },
-					},
-				},
-				{
-					title = "{npc:31439}",
-					note = "In {area:279}. He gives this from level 34.",
-					goals = {
-						{ t = "accept", quest = 97130, title = "Ancient Gurubashi Secrets", npc = 31439, npcName = "Archmage Timear", minLevel = 34, qlvl = 40, map = 1416, x = 15.45, y = 73.96, z = 101.6, spotsPacked = "15.5,74,101.6,15,2" },
-					},
-				},
-				{
-					title = "{npc:773}",
-					note = "In {area:35}. Both factions take his two quests, from level 34.",
-					goals = {
-						{ t = "accept", quest = 95789, title = "Shady Saltseers", npc = 773, npcName = "Krazek", minLevel = 33, qlvl = 40, map = 1434, x = 26.93, y = 77.2, z = 26.4 },
-						{ t = "accept", quest = 95791, title = "The Saltseer Captain", npc = 773, npcName = "Krazek", minLevel = 33, qlvl = 40, map = 1434, x = 26.93, y = 77.2, z = 26.4 },
-					},
-				},
-				{
-					title = "To the {area:16550}",
-					note = "A dungeon for five players of level 35 to 42. Meet your group at its entrance in {area:17853}, under the {area:104}: due west of {object:3202} and south-west of the reef's tablet. {object:3202} is the Horde's camp: keep clear of its guards. Water breathing helps.",
-					goals = {
-						{ t = "enter", location = "The Drowned City", area = 16550, map = 1434, x = 21.8, y = 27.6, f = "e" },
-					},
-				},
-				{
-					title = "I'lalai Fetishes",
-					along = "dibbs",
-					goals = {
-						{ t = "collect", quest = 95788, title = "Magics of the Drowned City", item = 270343, itemName = "I'lalai Fetish", count = 5, oi = 1, map = 1434, x = 21.8, y = 27.6, f = "e", note = "Risen Sentries, Profane Necromancers and Undying Offerings drop them.", group = { kind = "group", size = 5 } },
-					},
-				},
-				{
-					title = "First tablet",
-					note = "Past the Makrura Snappers and Chasm Crawlers waits {npc:258905}, the first boss. The first tablet comes soon after him: click it for the rubbing.",
-					goals = {
-						{ t = "collect", quest = 95787, title = "Take Two With Water", item = 270308, itemName = "The First Tablet of I'lalai", count = 1, oi = 1, map = 1434, x = 21.8, y = 27.6, f = "e", group = { kind = "group", size = 5 } },
-					},
-				},
-				{
-					title = "{npc:258924}",
-					note = "Brinescale Explorers and Sorceresses guard the way to {npc:258924}, the second boss. The second tablet is close to him. No Alliance quest asks for him, but once he is dead, disrupt the barrier close to where he fell; you do it once more after {npc:260042}.",
-					goals = {
-						{ t = "collect", quest = 95787, title = "Take Two With Water", item = 270309, itemName = "The Second Tablet of I'lalai", count = 1, oi = 2, map = 1434, x = 21.8, y = 27.6, f = "e", group = { kind = "group", size = 5 } },
-						{ t = "kill", target = "Var'Taka", npc = 258924, map = 1434, x = 21.8, y = 27.6, f = "e", optional = true, group = { kind = "group", size = 5 } },
-					},
-				},
-				{
-					title = "{npc:260042}",
-					note = "The Saltseer pirates hold his ground: Murderers, Manhunters, Cultists and Coroners, and any of them can drop an artifact. The third tablet is among them, before you reach the captain. After he dies, disrupt the barrier a second time.",
-					goals = {
-						{ t = "kill", quest = 95791, title = "The Saltseer Captain", target = "Captain Dreadrise", npc = 260042, count = 1, oi = 1, map = 1434, x = 21.8, y = 27.6, f = "e", group = { kind = "group", size = 5 } },
-						{ t = "kill", quest = 95791, title = "The Saltseer Captain", target = "Saltseer Coroner", npc = 260353, count = 3, oi = 2, map = 1434, x = 21.8, y = 27.6, f = "e", group = { kind = "group", size = 5 } },
-						{ t = "collect", quest = 95787, title = "Take Two With Water", item = 270310, itemName = "The Third Tablet of I'lalai", count = 1, oi = 3, map = 1434, x = 21.8, y = 27.6, f = "e", group = { kind = "group", size = 5 } },
-						{ t = "collect", quest = 95789, title = "Shady Saltseers", item = 270333, itemName = "Voodoo-Infused Artifact", count = 10, oi = 1, map = 1434, x = 21.8, y = 27.6, f = "e", optional = true, note = "One pass through the pirates may give fewer than ten: {npc:773} takes the quest whenever you have them." },
-					},
-				},
-				{
-					title = "{npc:260202}",
-					note = "Past the Champions of the Deep, {npc:260202} fights with his guardians. He drops the idol.",
-					goals = {
-						{ t = "collect", quest = 97130, title = "Ancient Gurubashi Secrets", item = 276894, itemName = "Ancient Gurubashi Idol", count = 1, oi = 1, map = 1434, x = 21.8, y = 27.6, f = "e", group = { kind = "group", size = 5 } },
-					},
-				},
-				{
-					title = "{npc:260243}",
-					note = "The last boss. The fourth tablet is near him, and its rubbing still counts after he dies.",
-					goals = {
-						{ t = "collect", quest = 95787, title = "Take Two With Water", item = 270311, itemName = "The Fourth Tablet of I'lalai", count = 1, oi = 4, map = 1434, x = 21.8, y = 27.6, f = "e", group = { kind = "group", size = 5 } },
-						{ t = "kill", target = "Min'loth the Serpent", npc = 260243, map = 1434, x = 21.8, y = 27.6, f = "e", optional = true, group = { kind = "group", size = 5 } },
-					},
-				},
-				{
-					title = "{npc:773}",
-					goals = {
-						{ t = "turnin", quest = 95791, title = "The Saltseer Captain", npc = 773, npcName = "Krazek", map = 1434, x = 26.93, y = 77.2, z = 26.4 },
-						{ t = "turnin", quest = 95789, title = "Shady Saltseers", npc = 773, npcName = "Krazek", map = 1434, x = 26.93, y = 77.2, z = 26.4, optional = true, note = "Once you have the ten artifacts." },
-					},
-				},
-				{
-					title = "{npc:2277}",
-					label = "dibbs",
-					goals = {
-						{ t = "turnin", quest = 95787, title = "Take Two With Water", npc = 2277, npcName = "Loremaster Dibbs", map = 1424, x = 50.42, y = 57.09, z = 15.4 },
-						{ t = "turnin", quest = 95788, title = "Magics of the Drowned City", npc = 2277, npcName = "Loremaster Dibbs", map = 1424, x = 50.42, y = 57.09, z = 15.4 },
-						{ t = "accept", quest = 95799, title = "Findings for the Explorer's League", npc = 2277, npcName = "Loremaster Dibbs", minLevel = 30, qlvl = 40, pre = { 95787 }, preTitles = { [95787] = "Take Two With Water" }, map = 1424, x = 50.42, y = 57.09, z = 15.4 },
-						{ t = "accept", quest = 95798, title = "The Web of Magic", npc = 2277, npcName = "Loremaster Dibbs", minLevel = 30, qlvl = 40, pre = { 95788 }, preTitles = { [95788] = "Magics of the Drowned City" }, map = 1424, x = 50.42, y = 57.09, z = 15.4 },
-					},
-				},
-				{
-					title = "{npc:31439}",
-					goals = {
-						{ t = "turnin", quest = 97130, title = "Ancient Gurubashi Secrets", npc = 31439, npcName = "Archmage Timear", map = 1416, x = 15.45, y = 73.96, z = 101.6, spotsPacked = "15.5,74,101.6,15,2" },
-					},
-				},
-				{
-					title = "{npc:252019}",
-					note = "In {area:279}.",
-					goals = {
-						{ t = "turnin", quest = 95798, title = "The Web of Magic", npc = 252019, npcName = "Abra Cadabra", map = 1416, x = 12.07, y = 70.55, z = 96.7 },
-					},
-				},
-				{
-					title = "{npc:2916}",
-					note = "In the {object:32356}.",
-					goals = {
-						{ t = "turnin", quest = 95799, title = "Findings for the Explorer's League", npc = 2916, npcName = "Historian Karnik", map = 1455, x = 77.14, y = 11.66, z = 503.5, spotsPacked = "77.1,11.7,503.5,15,7" },
 					},
 				},
 			},

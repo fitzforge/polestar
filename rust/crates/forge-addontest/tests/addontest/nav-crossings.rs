@@ -980,6 +980,36 @@ fn a_target_outside_the_zone_the_walking_maps_name_stays_on_its_map_grenka_1918(
 	assert_eq!(out["ungoro"], out["plain"], "Un'Goro's frame ends south of her: the same walk, no Un'Goro leg");
 }
 
+// #3018 (Merkanex): the Damaged Chest in the Splithoof Crag cave (Thousand Needles 43.44,32.61) lies in the Barrens on
+// the walking maps. From Freewind Post, whose walk into the cave the engine measured (1,000 cost, 663 yd: down the
+// lift and through the cave), the plan went by the crossings into the Barrens and walked from the Great Lift's top
+// straight into the cave, unmeasured: the zone lists hold no walk from Thousand Needles to a Barrens target. A walk the
+// engine measured into the target competes whatever zones it crosses.
+#[test]
+fn a_measured_walk_into_the_target_competes_across_a_closed_zone_border_splithoof_3018() {
+	let out = run_raw(
+		r#"
+			local N = Polestar.Nav
+			local chest = { -4923.0, -2345.0 }
+			N.danger.ZoneAt = function(c, x, y)
+				if c ~= 1 then return nil end
+				if math.abs(x - chest[1]) < 60 and math.abs(y - chest[2]) < 60 then return 1413 end
+				return 1441
+			end
+			local function plan(measured)
+				local legs = N.PlanRoute({ c = 1, map = 1441, wx = -5407.8, wy = -2414.2, z = 90, faction = 2, level = 31, speed = 7,
+					target = { c = 1, map = 1441, wx = chest[1], wy = chest[2], z = -49.1, label = "Damaged Chest" },
+					walkCost = measured and function(_, _, _, start) if start then return 1000, 663 end end or nil })
+				local out = {}
+				for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind .. "|" .. l.label end
+				return out
+			end
+			emit({ measured = plan(true), estimate = plan(false) })"#,
+	);
+	assert_eq!(out["measured"], json!(["walk|Damaged Chest"]), "the measured walk from Freewind Post");
+	assert_ne!(out["estimate"], out["measured"], "without a measure the crossings' way stays: the zone lists hold no straight walk");
+}
+
 // #1543's near walk (Nav.PlanRoute's p.nearWalk): a target within that many straight yards over a closed zone border
 // is walked to straight; with p.nearProbe instead the planner only says it would be (nearProbe.yards) and plans the
 // crossing's way. Beyond the reach, without either (an estimate; the live route with no walking engine to ask, as in

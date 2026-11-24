@@ -17583,13 +17583,13 @@ do
 				},
 				{
 					title = "Andorhal watchtowers and silos",
-					note = "Ride south-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by the silos in the middle of town to bring out Temporal Parasites (55-57): fight them one at a time and let the biggest go.\nCareful: a {npc:10996}, a level 58-59 elite, can stand in Andorhal, as at many other spots of the {zone:1422}: give it room.\nCareful: Skeletal Warlords, level 56-57 elites, stand by the first and second towers (the south-western and the western one): mark those towers from the far side of the doorway once the Warlord has turned away, and never pull one. Putridius (58, rare) walks among the silos.",
+					note = "Ride south-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by each grain silo on the north side of town, one silo after another, to bring out Temporal Parasites (55-57): fight them one at a time and let the biggest go.\nCareful: a {npc:10996}, a level 58-59 elite, can stand in Andorhal, as at many other spots of the {zone:1422}: give it room.\nCareful: Skeletal Warlords, level 56-57 elites, stand by the first and second towers (the south-western and the western one): mark those towers from the far side of the doorway once the Warlord has turned away, and never pull one. Putridius (58, rare) walks among the silos.",
 					goals = {
 						{ t = "accept", quest = 4971, title = "A Matter of Time", npc = 10667, npcName = "Chromie", minLevel = 53, qlvl = 56, map = 1422, x = 39.42, y = 66.82, z = 68.6, note = "{npc:10667}, upstairs" },
 						{ t = "use", quest = 5098, title = "All Along the Watchtowers", item = 12815, itemName = "Beacon Torch", oi = 2, map = 1422, x = 42.3, y = 66.2, z = 67.1, f = "e" },
 						{ t = "kill", quest = 5098, title = "All Along the Watchtowers", target = "Andorhal Tower Two", npc = 10903, count = 1, oi = 2, text = "Mark {npc:10903} with the {item:12815}", map = 1422, x = 42.33, y = 66.24, z = 67.1, f = "e" },
-						{ t = "use", item = 12627, itemName = "Temporal Displacer", map = 1422, x = 45.2, y = 62.8, f = "e" },
-						{ t = "kill", quest = 4971, title = "A Matter of Time", target = "Temporal Parasite", npc = 10717, count = 15, oi = 1, map = 1422, x = 45.21, y = 62.83, f = "e", spotsPacked = "46.1,62.3,,42,5;48.3,63.7,,27,4;47.8,66,,26,4;50.2,66.6,,19,4;49.2,69,,15,3", lvl = 57 },
+						{ t = "use", quest = 4971, title = "A Matter of Time", item = 12627, itemName = "Temporal Displacer", oi = 1, map = 1422, x = 45.15, y = 62.28, f = "e", spotsPacked = "45.15,62.28,,8;46.38,62.33,,8;47.83,63.45,,8;48.45,62.81,,8", spread = true },
+						{ t = "kill", quest = 4971, title = "A Matter of Time", target = "Temporal Parasite", npc = 10717, count = 15, oi = 1, map = 1422, x = 45.15, y = 62.28, f = "e", spotsPacked = "45.15,62.28,,8;46.38,62.33,,8;47.83,63.45,,8;48.45,62.81,,8", spread = true },
 						{ t = "kill", quest = 5098, title = "All Along the Watchtowers", target = "Andorhal Tower Three", npc = 10904, count = 1, oi = 3, text = "Mark {npc:10904} with the {item:12815}", map = 1422, x = 44.3, y = 63.25, z = 67.7, f = "e" },
 						{ t = "kill", quest = 5098, title = "All Along the Watchtowers", target = "Andorhal Tower Four", npc = 10905, count = 1, oi = 4, text = "Mark {npc:10905} with the {item:12815}", map = 1422, x = 46.62, y = 71.05, z = 61.2, f = "e" },
 						{ t = "kill", quest = 5098, title = "All Along the Watchtowers", target = "Andorhal Tower One", npc = 10902, count = 1, oi = 1, text = "Mark {npc:10902} with the {item:12815}", map = 1422, x = 40.05, y = 71.6, z = 63.8, f = "e" },
@@ -24534,177 +24534,6 @@ do
 					note = "Take your weapon from {npc:205729}: the {item:277988} or the {item:278002}.",
 					goals = {
 						{ t = "turnin", quest = 76240, title = "Stalk With The Earthmother", npc = 205729, npcName = "Boarton Shadetotem", map = 1456, x = 39.46, y = 65.13, z = 131.3, spotsPacked = "39.5,65.6,131.3,15,5", rewards = { choices = { { item = 277988, itemName = "Hoof-Holstered Blade" }, { item = 278002, itemName = "Valley Cosh" } } } },
-					},
-				},
-			},
-		})
-	end
-	register()
-end
-
--- Source: forever/miscellaneous/the-drowned-city-horde.guide
-do
-	local function register()
-		Polestar.RegisterGuide({
-			id = "forever/miscellaneous/the-drowned-city-horde",
-			pack = "guides",
-			title = "{area:16550} (Horde)",
-			faction = "Horde",
-			minLevel = 35,
-			maxLevel = 40,
-			category = "Miscellaneous",
-			folder = "The Drowned City",
-			keywords = { "Drowned City", "I'lalai", "Sunken Hollow", "Vile Reef", "Grom'gol", "Kin'weelay", "Aggro'gosh", "Krazek", "Mazu'kon", "Gadrin", "Zul'Alai", "Var'Taka", "Dreadrise", "Deathless Marrow", "Min'loth", "Saltseer", "Brinescale", "tablet", "rubbing", "barrier", "dungeon" },
-			reward = { { item = 279885, itemName = "Ceremonial Mallet", choice = true }, { item = 279886, itemName = "Sacrificial Sword", choice = true }, { item = 279887, itemName = "I'lalai Flayer", choice = true }, { item = 279888, itemName = "Tidesoaked Leggings", choice = true }, { item = 279889, itemName = "Naga Priestess's Mantle", choice = true }, { item = 279882, itemName = "Rusted Troll War Belt", choice = true }, { item = 279930, itemName = "Saltseer's Helm", choice = true }, { item = 279883, itemName = "Mutinous Cuffs", choice = true }, { item = 279884, itemName = "South Seas Shroud", choice = true } },
-			why = "Every Horde quest of the {area:16550} in one run, lead-ins included.",
-			zone = 1434,
-			zoneName = "Stranglethorn Vale",
-			author = "Polestar",
-			version = 1,
-			group = true,
-			names = { ["area:102"] = "Ruins of Zul'Kunda", ["area:104"] = "Vile Reef", ["area:117"] = "Grom'gol Base Camp", ["area:16550"] = "The Drowned City", ["area:17853"] = "Sunken Hollow", ["area:35"] = "Booty Bay", ["area:367"] = "Sen'jin Village", ["npc:2519"] = "Kin'weelay", ["npc:258799"] = "Brinescale Explorer", ["npc:258818"] = "Chasm Crawler", ["npc:258897"] = "Makrura Snapper", ["npc:258905"] = "Zul'Alai", ["npc:258924"] = "Var'Taka", ["npc:260042"] = "Captain Dreadrise", ["npc:260202"] = "Deathless Marrow", ["npc:260243"] = "Min'loth the Serpent", ["npc:262397"] = "Brinescale Skirmisher", ["npc:264074"] = "Mazu'kon", ["npc:3188"] = "Master Gadrin", ["npc:773"] = "Krazek", ["object:3202"] = "Grom'gol", ["object:52"] = "Fall of Gurubashi", ["object:58"] = "Gri'lek the Wanderer", ["quest:629"] = "The Vile Reef", ["zone:1411"] = "Durotar", ["zone:1412"] = "Mulgore" },
-			written = { ["Every Horde quest of the {area:16550} in one run, lead-ins included."] = "Every Horde quest of the Drowned City in one run, lead-ins included.", ["To the {area:16550}"] = "To the Drowned City" },
-			steps = {
-				{
-					title = "{npc:2519}",
-					goals = {
-						{ t = "accept", quest = 629, title = "The Vile Reef", npc = 2519, npcName = "Kin'weelay", minLevel = 30, qlvl = 37, map = 1434, x = 32.18, y = 27.72, z = 3.2 },
-					},
-				},
-				{
-					title = "{quest:629}",
-					note = "The tablet, {object:58}, lies on the sea floor of the {area:104}, west of {object:3202}. Mind your breath.",
-					goals = {
-						{ t = "collect", quest = 629, title = "The Vile Reef", item = 4094, itemName = "Tablet Shard", count = 1, oi = 1, map = 1434, x = 24.73, y = 23.06, z = -70.1, f = "e", spotsPacked = "24.65,22.86,-70.1,0;24.73,23.06,-70.1,0", from = "Gri'lek the Wanderer", fromKind = "object", fromId = 58, group = { kind = "elite", lvl = 37, near = true, rank = 1 } },
-					},
-				},
-				{
-					title = "{npc:2519}",
-					goals = {
-						{ t = "turnin", quest = 629, title = "The Vile Reef", npc = 2519, npcName = "Kin'weelay", map = 1434, x = 32.18, y = 27.72, z = 3.2 },
-						{ t = "accept", quest = 95748, title = "The Gurubashi Legends of Old", npc = 2519, npcName = "Kin'weelay", minLevel = 30, qlvl = 40, pre = { 629 }, preTitles = { [629] = "The Vile Reef" }, map = 1434, x = 32.18, y = 27.72, z = 3.2 },
-					},
-				},
-				{
-					title = "{object:52}",
-					note = "In the {area:102}, on the hill north of the {area:104}. Click the tablet for the rubbing.",
-					goals = {
-						{ t = "collect", quest = 95748, title = "The Gurubashi Legends of Old", item = 2007, itemName = "The Third Troll Legend", count = 1, oi = 1, map = 1434, x = 22.89, y = 12.06, z = 50.6, f = "e", from = "Fall of Gurubashi", fromKind = "object", fromId = 52 },
-					},
-				},
-				{
-					title = "{area:117}",
-					goals = {
-						{ t = "turnin", quest = 95748, title = "The Gurubashi Legends of Old", npc = 2519, npcName = "Kin'weelay", map = 1434, x = 32.18, y = 27.72, z = 3.2 },
-						{ t = "accept", quest = 95770, title = "Locating the Lost City", npc = 2519, npcName = "Kin'weelay", minLevel = 30, qlvl = 40, pre = { 95748 }, preTitles = { [95748] = "The Gurubashi Legends of Old" }, map = 1434, x = 32.18, y = 27.72, z = 3.2 },
-						{ t = "accept", quest = 95773, title = "Enemies in the Water", npc = 2464, npcName = "Commander Aggro'gosh", minLevel = 30, qlvl = 37, pre = { 95748 }, preTitles = { [95748] = "The Gurubashi Legends of Old" }, map = 1434, x = 32.1, y = 28.78, z = 3.1 },
-					},
-				},
-				{
-					title = "The Lost City's entrance",
-					note = "Brinescale Skirmishers around the {area:104} drop the tridents. The cavern entrance the quest asks for is under the reef, in {area:17853}: due west of {object:3202} and south-west of the reef's tablet.",
-					goals = {
-						{ t = "collect", quest = 95773, title = "Enemies in the Water", item = 270305, itemName = "Brinescale Trident", count = 10, oi = 1, map = 1434, x = 30.16, y = 28.33, f = "e", spotsPacked = "30.2,28.3,,40,1;26.7,27.5,,44,6;25,26.6,,50,10;23.3,27.1,,40,5;23.3,25.6,,40,5;21.4,25.1,,49,5;21.6,27.2,,50,7;22.5,28.8,,63,9;23.9,29.9,,56,7;25.3,30.8,,58,6;20.7,30.3,,40,1;19.6,26.3,,62,6;22.1,20.6,,77,8;24.6,22.7,,40,5;18.3,16.5,,40,1;29.3,27.3,,40,1,1;26.6,29.2,,40,5,1;26.4,25.4,,41,5,1;25.3,28.7,,43,6,1;25.7,23.9,,41,4,1;24.4,24.4,,46,6,1;23.7,32,,40,2,1;23.2,22.5,,40,4,1;22.8,23.7,,40,3,1;23.8,20.7,,45,5,1;21.8,31.4,,40,2,1;21.2,23.2,,48,4,1;19.3,29,,40,3,1;19.5,18,,40,2,1;13.5,14.3,,40,1,1", spread = true, lvl = 38, from = "Brinescale Skirmisher", fromKind = "npc", fromId = 262397, fromNpcs = { { npc = 262397, npcName = "Brinescale Skirmisher" } } },
-						{ t = "complete", quest = 95770, title = "Locating the Lost City", map = 1434, x = 21.8, y = 27.6, f = "e", objs = { { text = "Find the Drowned City Entrance", count = 1 } } },
-					},
-				},
-				{
-					title = "{area:117}",
-					goals = {
-						{ t = "turnin", quest = 95770, title = "Locating the Lost City", npc = 2519, npcName = "Kin'weelay", map = 1434, x = 32.18, y = 27.72, z = 3.2 },
-						{ t = "accept", quest = 95775, title = "The Drowned City", npc = 2519, npcName = "Kin'weelay", minLevel = 30, qlvl = 40, pre = { 95770 }, preTitles = { [95770] = "Locating the Lost City" }, map = 1434, x = 32.18, y = 27.72, z = 3.2 },
-						{ t = "turnin", quest = 95773, title = "Enemies in the Water", npc = 2464, npcName = "Commander Aggro'gosh", map = 1434, x = 32.1, y = 28.78, z = 3.1 },
-						{ t = "accept", quest = 95776, title = "The Only Good Brinescale...", npc = 2464, npcName = "Commander Aggro'gosh", minLevel = 30, qlvl = 38, pre = { 95773 }, preAll = { 95770, 95773 }, preTitles = { [95770] = "Locating the Lost City", [95773] = "Enemies in the Water" }, map = 1434, x = 32.1, y = 28.78, z = 3.1 },
-					},
-				},
-				{
-					title = "{npc:773}",
-					note = "In {area:35}. Both factions take his two quests, from level 34.",
-					goals = {
-						{ t = "accept", quest = 95789, title = "Shady Saltseers", npc = 773, npcName = "Krazek", minLevel = 33, qlvl = 40, map = 1434, x = 26.93, y = 77.2, z = 26.4 },
-						{ t = "accept", quest = 95791, title = "The Saltseer Captain", npc = 773, npcName = "Krazek", minLevel = 33, qlvl = 40, map = 1434, x = 26.93, y = 77.2, z = 26.4 },
-					},
-				},
-				{
-					title = "{npc:264074}",
-					note = "Northern {zone:1412}. A long trip, but the idol only drops while his quest is in your log.",
-					goals = {
-						{ t = "accept", quest = 96774, title = "Ancient Gurubashi Idol", npc = 264074, npcName = "Mazu'kon", minLevel = 30, qlvl = 40, map = 1412, x = 32.49, y = 20.64, z = 184.8 },
-					},
-				},
-				{
-					title = "To the {area:16550}",
-					note = "A dungeon for five players of level 35 to 42. Meet your group at its entrance in {area:17853}, under the {area:104}: from the shore west of {object:3202}, swim due west. Water breathing helps.",
-					goals = {
-						{ t = "enter", location = "The Drowned City", area = 16550, map = 1434, x = 21.8, y = 27.6, f = "e" },
-					},
-				},
-				{
-					title = "First tablet",
-					note = "Past the Makrura Snappers and Chasm Crawlers waits {npc:258905}, the first boss. The first tablet comes soon after him: click it for the rubbing.",
-					goals = {
-						{ t = "collect", quest = 95775, title = "The Drowned City", item = 270308, itemName = "The First Tablet of I'lalai", count = 1, oi = 1, map = 1434, x = 21.8, y = 27.6, f = "e", group = { kind = "group", size = 5 } },
-					},
-				},
-				{
-					title = "{npc:258924}",
-					note = "Brinescale Explorers and Sorceresses guard the way to {npc:258924}, the second boss. The second tablet is close to him. Once he is dead, disrupt the barrier close to where he fell; you do it once more after {npc:260042}.",
-					goals = {
-						{ t = "kill", quest = 95776, title = "The Only Good Brinescale...", target = "Var'Taka", npc = 258924, count = 1, oi = 1, map = 1434, x = 21.8, y = 27.6, f = "e", group = { kind = "group", size = 5 } },
-						{ t = "collect", quest = 95775, title = "The Drowned City", item = 270309, itemName = "The Second Tablet of I'lalai", count = 1, oi = 2, map = 1434, x = 21.8, y = 27.6, f = "e", group = { kind = "group", size = 5 } },
-					},
-				},
-				{
-					title = "{npc:260042}",
-					note = "The Saltseer pirates hold his ground: Murderers, Manhunters, Cultists and Coroners, and any of them can drop an artifact. The third tablet is among them, before you reach the captain. After he dies, disrupt the barrier a second time.",
-					goals = {
-						{ t = "kill", quest = 95791, title = "The Saltseer Captain", target = "Captain Dreadrise", npc = 260042, count = 1, oi = 1, map = 1434, x = 21.8, y = 27.6, f = "e", group = { kind = "group", size = 5 } },
-						{ t = "kill", quest = 95791, title = "The Saltseer Captain", target = "Saltseer Coroner", npc = 260353, count = 3, oi = 2, map = 1434, x = 21.8, y = 27.6, f = "e", group = { kind = "group", size = 5 } },
-						{ t = "collect", quest = 95775, title = "The Drowned City", item = 270310, itemName = "The Third Tablet of I'lalai", count = 1, oi = 3, map = 1434, x = 21.8, y = 27.6, f = "e", group = { kind = "group", size = 5 } },
-						{ t = "collect", quest = 95789, title = "Shady Saltseers", item = 270333, itemName = "Voodoo-Infused Artifact", count = 10, oi = 1, map = 1434, x = 21.8, y = 27.6, f = "e", optional = true, note = "One pass through the pirates may give fewer than ten: {npc:773} takes the quest whenever you have them." },
-					},
-				},
-				{
-					title = "{npc:260202}",
-					note = "Past the Champions of the Deep, {npc:260202} fights with his guardians. He drops the idol.",
-					goals = {
-						{ t = "collect", quest = 96774, title = "Ancient Gurubashi Idol", item = 276894, itemName = "Ancient Gurubashi Idol", count = 1, oi = 1, map = 1434, x = 21.8, y = 27.6, f = "e", group = { kind = "group", size = 5 } },
-					},
-				},
-				{
-					title = "{npc:260243}",
-					note = "The last boss. The fourth tablet is near him, and its rubbing still counts after he dies.",
-					goals = {
-						{ t = "collect", quest = 95775, title = "The Drowned City", item = 270311, itemName = "The Fourth Tablet of I'lalai", count = 1, oi = 4, map = 1434, x = 21.8, y = 27.6, f = "e", group = { kind = "group", size = 5 } },
-						{ t = "kill", target = "Min'loth the Serpent", npc = 260243, map = 1434, x = 21.8, y = 27.6, f = "e", optional = true, group = { kind = "group", size = 5 } },
-					},
-				},
-				{
-					title = "{area:117}",
-					goals = {
-						{ t = "turnin", quest = 95775, title = "The Drowned City", npc = 2519, npcName = "Kin'weelay", map = 1434, x = 32.18, y = 27.72, z = 3.2 },
-						{ t = "accept", quest = 96078, title = "A Tale Spun Around the Fire", npc = 2519, npcName = "Kin'weelay", minLevel = 30, qlvl = 40, pre = { 95775 }, preTitles = { [95775] = "The Drowned City" }, map = 1434, x = 32.18, y = 27.72, z = 3.2 },
-						{ t = "turnin", quest = 95776, title = "The Only Good Brinescale...", npc = 2464, npcName = "Commander Aggro'gosh", map = 1434, x = 32.1, y = 28.78, z = 3.1 },
-					},
-				},
-				{
-					title = "{npc:773}",
-					goals = {
-						{ t = "turnin", quest = 95791, title = "The Saltseer Captain", npc = 773, npcName = "Krazek", map = 1434, x = 26.93, y = 77.2, z = 26.4 },
-						{ t = "turnin", quest = 95789, title = "Shady Saltseers", npc = 773, npcName = "Krazek", map = 1434, x = 26.93, y = 77.2, z = 26.4, optional = true, note = "Once you have the ten artifacts." },
-					},
-				},
-				{
-					title = "{npc:3188}",
-					note = "{area:367}, in southern {zone:1411}.",
-					goals = {
-						{ t = "turnin", quest = 96078, title = "A Tale Spun Around the Fire", npc = 3188, npcName = "Master Gadrin", map = 1411, x = 55.87, y = 74.77, z = 19.7 },
-					},
-				},
-				{
-					title = "{npc:264074}",
-					goals = {
-						{ t = "turnin", quest = 96774, title = "Ancient Gurubashi Idol", npc = 264074, npcName = "Mazu'kon", map = 1412, x = 32.49, y = 20.64, z = 184.8 },
 					},
 				},
 			},
