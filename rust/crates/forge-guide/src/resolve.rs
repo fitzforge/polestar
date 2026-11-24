@@ -4036,6 +4036,12 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 		set_if(&goal, "preAll", gate.get("preAll"));
 		set_if(&goal, "parent", gate.get("parent"));
 	}
+	// A turn-in of a repeatable quest the log hands in: the client never flags it completed, so the engine
+	// remembers the hand-in itself, one per goal, and the round's accept and work with it (#3334, Zorbin's
+	// Ultra-Shrinker quests in Horde 40-50/06). A `direct` one is remembered already.
+	if v == "turnin" && !g.get("direct").truthy() && !goal.get("quest").is_undef() && data.quest(&goal.get("quest")).get("repeatable").truthy() {
+		goal.set("repeatable", true);
+	}
 	if (v == "kill" || v == "use") && goal.get("fromNpcs").is_undef() {
 		set_if(&goal, "fromNpcs", credit_npcs(data, &goal));
 	}

@@ -730,6 +730,7 @@ The fields:
 | `candidates` | smart targets: `{ { npc, npcName, map, x, y, z, f, faction, races, classes, lvl, rate, spawns } }` (`z` optional, see `z`); Polestar picks the nearest usable one at runtime |
 | `rewards` | `{ choices = { { item, itemName, quality } }, items = { ... }, xp, money }` (money in copper) |
 | `direct` | `true` on a `turnin`: the quest is handed in straight from the giver's window and never enters the quest log, so the goal needs no `accept` before it and carries no objectives. Polestar counts it done on the hand-in itself and stores that, so a repeatable stays done after a reload |
+| `repeatable` | `true` on a `turnin` (not `direct`) of a repeatable quest, which the game never marks completed: Polestar stores the hand-in, one per goal, so the step stays done after a reload, and the accept and work of the same round before it with it. Older Polestar ignores it |
 | `gossip` | On a `talk`, `vendor` or `train`: the `gossipOptionID` Polestar picks at that NPC on the live step |
 | `seconds` | A `wait` goal's countdown, 1 to 3600 |
 | `escort` | `true` on the accept, `complete` and objective goals of an escort quest: the guide window says under the goal that the NPC may have to respawn (GUIDE_FORMAT.md, "Escort quests"). Older Polestar ignores it |

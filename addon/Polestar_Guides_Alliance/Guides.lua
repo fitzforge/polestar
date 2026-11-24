@@ -23090,7 +23090,7 @@ do
 					note = "{npc:6241} turns the ore into {item:6993}, the part Jordan wants.",
 					goals = {
 						{ t = "level", level = 21 },
-						{ t = "turnin", quest = 1655, title = "Bailor's Ore Shipment", npc = 6241, npcName = "Bailor Stonehand", map = 1432, x = 35.96, y = 44.98, z = 322.2, rewards = { items = { { item = 6993, itemName = "Jordan's Refined Ore Shipment" } } } },
+						{ t = "turnin", quest = 1655, title = "Bailor's Ore Shipment", npc = 6241, npcName = "Bailor Stonehand", map = 1432, x = 35.96, y = 44.98, z = 322.2, rewards = { items = { { item = 6993, itemName = "Jordan's Refined Ore Shipment" } } }, repeatable = true },
 						{ t = "collect", quest = 1654, title = "The Test of Righteousness", item = 6993, itemName = "Jordan's Refined Ore Shipment", count = 1, oi = 2, map = 1432, x = 35.96, y = 44.98, z = 322.2, from = "Bailor Stonehand", fromKind = "npc", fromFaction = "A", fromId = 6241, fromNpcs = { { npc = 6241, npcName = "Bailor Stonehand" } } },
 					},
 				},
@@ -23141,7 +23141,7 @@ do
 					note = "Back to {npc:3649} in {area:442}: he purifies the gem.",
 					goals = {
 						{ t = "level", level = 21 },
-						{ t = "turnin", quest = 1442, title = "Seeking the Kor Gem", npc = 3649, npcName = "Thundris Windweaver", map = 1439, x = 37.38, y = 40.14, z = 8.3, rewards = { items = { { item = 7083, itemName = "Purified Kor Gem" } } } },
+						{ t = "turnin", quest = 1442, title = "Seeking the Kor Gem", npc = 3649, npcName = "Thundris Windweaver", map = 1439, x = 37.38, y = 40.14, z = 8.3, rewards = { items = { { item = 7083, itemName = "Purified Kor Gem" } } }, repeatable = true },
 						{ t = "collect", quest = 1654, title = "The Test of Righteousness", item = 7083, itemName = "Purified Kor Gem", count = 1, oi = 4, map = 1439, x = 37.38, y = 40.14, z = 8.3, from = "Thundris Windweaver", fromKind = "npc", fromFaction = "A", fromId = 3649, fromNpcs = { { npc = 3649, npcName = "Thundris Windweaver" } } },
 					},
 				},
@@ -24747,7 +24747,7 @@ do
 					when = { { k = "onquest", q = { 94502 } }, { k = "has", neg = true, n = 1, item = 6637 } },
 					goals = {
 						{ t = "accept", quest = 94616, title = "Water Sapta", npc = 258043, npcName = "Norric Lochthane", minLevel = 20, qlvl = 20, pre = { 94501 }, preTitles = { [94501] = "Call of Water" }, map = 1432, x = 41.91, y = 19.17, spotsPacked = "41.8,19,,15,2" },
-						{ t = "turnin", quest = 94616, title = "Water Sapta", npc = 258043, npcName = "Norric Lochthane", map = 1432, x = 41.91, y = 19.17, spotsPacked = "41.8,19,,15,2", note = "{npc:258043}: a new {quest:94616}" },
+						{ t = "turnin", quest = 94616, title = "Water Sapta", npc = 258043, npcName = "Norric Lochthane", map = 1432, x = 41.91, y = 19.17, spotsPacked = "41.8,19,,15,2", note = "{npc:258043}: a new {quest:94616}", repeatable = true },
 					},
 				},
 				{
@@ -26537,7 +26537,7 @@ do
 					note = "Target one of the chickens around Saldean's farm and type /chicken at it, again and again, until it offers {quest:3861}; this can take several minutes. Then /cheer at a chicken until it turns friendly (green) and hand in the feed; right-clicking a chicken before it is friendly attacks it. The chicken lays an egg on the ground: loot it for your {item:11110}.",
 					goals = {
 						{ t = "accept", quest = 3861, title = "CLUCK!", npc = 620, npcName = "Chicken", minLevel = 1, qlvl = 1, map = 1436, x = 56.1, y = 30, z = 36.6, f = "e" },
-						{ t = "turnin", quest = 3861, title = "CLUCK!", npc = 620, npcName = "Chicken", map = 1436, x = 56.1, y = 30, z = 36.6, f = "e" },
+						{ t = "turnin", quest = 3861, title = "CLUCK!", npc = 620, npcName = "Chicken", map = 1436, x = 56.1, y = 30, z = 36.6, f = "e", repeatable = true },
 						{ t = "collect", item = 11110, itemName = "Chicken Egg", map = 1436, x = 56.1, y = 30, f = "e", note = "Loot the {object:161513} the chicken lays", from = "Farm Chicken Egg", fromKind = "object", fromId = 161513 },
 					},
 				},
@@ -28788,7 +28788,7 @@ do
 				{
 					title = "Back to {npc:10618}",
 					goals = {
-						{ t = "turnin", quest = 4970, title = "Frostsaber Provisions", npc = 10618, npcName = "Rivern Frostwind", map = 1452, x = 49.94, y = 9.84, z = 763.1, f = "e" },
+						{ t = "turnin", quest = 4970, title = "Frostsaber Provisions", npc = 10618, npcName = "Rivern Frostwind", map = 1452, x = 49.94, y = 9.84, z = 763.1, f = "e", repeatable = true },
 					},
 				},
 				{
@@ -28801,8 +28801,8 @@ do
 						{ t = "collect", quest = 4970, title = "Frostsaber Provisions", item = 12623, itemName = "Chillwind Meat", count = 5, oi = 2, map = 1452, x = 57.86, y = 13.54, z = 697.2, f = "e", spotsPacked = "58.5,13.6,,71,3;57.7,24.2,,104,7;62,30,707.3,71,1;67.6,30.5,,71,2,,57;63.4,46.5,,71,2,,57;67.1,52.6,,121,7,,57;63.3,62.1,787.7,71,1;55.6,47.3,,71,3,,57;55.6,37.1,718.8,71,1,,57;49,40.8,662.8,71,1,,55;38.5,38.5,575.7,71,1,,55;29.6,48.5,582.7,71,1,,55;59.8,11.9,,71,2,1;59,17,,71,3,1;61,14.8,,71,3,1;58.2,20.1,608.3,88,5,1;55.1,21.5,,83,4,1;60.1,22.3,611.6,84,7,1;61.9,25.9,670.8,71,1,1;65.5,25.7,,71,2,1,57;65.8,29.4,,88,3,1,57;52.3,38.2,,71,2,1,55;57.4,40.8,,71,2,1,57;61.2,41.7,695.6,71,1,1,57;45,36.3,701.9,71,1,1,55;59.1,44,,105,4,1,57;42.8,35,724.2,71,1,1,55;48.3,44,,71,2,1,55;44.8,43.7,,91,3,1,55;67,48.6,,71,3,1,57;62.3,54.6,,71,2,1;37.2,44.5,586.4,71,1,1,55;33.8,44.6,550.4,71,1,1,55", spread = true, lvl = 59, optional = true, from = "Fledgling Chillwind", fromKind = "npc", fromAlso = "Chillwind Chimaera", fromId = 7447, fromAlsoId = 7448, fromNpcs = { { npc = 7449, npcName = "Chillwind Ravager" }, { npc = 7447, npcName = "Fledgling Chillwind" }, { npc = 7448, npcName = "Chillwind Chimaera" } } },
 						{ t = "kill", quest = 5201, title = "Winterfall Intrusion", target = "Winterfall Shaman", npc = 7439, count = 5, oi = 1, map = 1452, x = 67.37, y = 35.22, z = 692.7, f = "e", spotsPacked = "67.5,35.4,692.7,15,2;68,37.5,,32,2;69.5,38.3,,15,1;67.5,39.8,,15,1", lvl = 57, optional = true },
 						{ t = "kill", quest = 5201, title = "Winterfall Intrusion", target = "Winterfall Ursa", npc = 7438, count = 5, oi = 2, map = 1452, x = 68.08, y = 36.86, z = 731.9, f = "e", spotsPacked = "68.3,37.6,,39,3;67.2,39.4,,48,3;65.8,37.6,774.3,67,5", lvl = 58, optional = true },
-						{ t = "turnin", quest = 4970, title = "Frostsaber Provisions", npc = 10618, npcName = "Rivern Frostwind", map = 1452, x = 49.94, y = 9.84, z = 763.1, f = "e", optional = true },
-						{ t = "turnin", quest = 5201, title = "Winterfall Intrusion", npc = 10618, npcName = "Rivern Frostwind", map = 1452, x = 49.94, y = 9.84, z = 763.1, f = "e", optional = true },
+						{ t = "turnin", quest = 4970, title = "Frostsaber Provisions", npc = 10618, npcName = "Rivern Frostwind", map = 1452, x = 49.94, y = 9.84, z = 763.1, f = "e", optional = true, repeatable = true },
+						{ t = "turnin", quest = 5201, title = "Winterfall Intrusion", npc = 10618, npcName = "Rivern Frostwind", map = 1452, x = 49.94, y = 9.84, z = 763.1, f = "e", optional = true, repeatable = true },
 						{ t = "rep", faction = 589, factionName = "Wintersaber Trainers", standing = 5 },
 					},
 				},
@@ -28816,8 +28816,8 @@ do
 						{ t = "collect", quest = 4970, title = "Frostsaber Provisions", item = 12623, itemName = "Chillwind Meat", count = 5, oi = 2, map = 1452, x = 57.86, y = 13.54, z = 697.2, f = "e", spotsPacked = "58.5,13.6,,71,3;57.7,24.2,,104,7;62,30,707.3,71,1;67.6,30.5,,71,2,,57;63.4,46.5,,71,2,,57;67.1,52.6,,121,7,,57;63.3,62.1,787.7,71,1;55.6,47.3,,71,3,,57;55.6,37.1,718.8,71,1,,57;49,40.8,662.8,71,1,,55;38.5,38.5,575.7,71,1,,55;29.6,48.5,582.7,71,1,,55;59.8,11.9,,71,2,1;59,17,,71,3,1;61,14.8,,71,3,1;58.2,20.1,608.3,88,5,1;55.1,21.5,,83,4,1;60.1,22.3,611.6,84,7,1;61.9,25.9,670.8,71,1,1;65.5,25.7,,71,2,1,57;65.8,29.4,,88,3,1,57;52.3,38.2,,71,2,1,55;57.4,40.8,,71,2,1,57;61.2,41.7,695.6,71,1,1,57;45,36.3,701.9,71,1,1,55;59.1,44,,105,4,1,57;42.8,35,724.2,71,1,1,55;48.3,44,,71,2,1,55;44.8,43.7,,91,3,1,55;67,48.6,,71,3,1,57;62.3,54.6,,71,2,1;37.2,44.5,586.4,71,1,1,55;33.8,44.6,550.4,71,1,1,55", spread = true, lvl = 59, optional = true, from = "Fledgling Chillwind", fromKind = "npc", fromAlso = "Chillwind Chimaera", fromId = 7447, fromAlsoId = 7448, fromNpcs = { { npc = 7449, npcName = "Chillwind Ravager" }, { npc = 7447, npcName = "Fledgling Chillwind" }, { npc = 7448, npcName = "Chillwind Chimaera" } } },
 						{ t = "kill", quest = 5201, title = "Winterfall Intrusion", target = "Winterfall Shaman", npc = 7439, count = 5, oi = 1, map = 1452, x = 67.37, y = 35.22, z = 692.7, f = "e", spotsPacked = "67.5,35.4,692.7,15,2;68,37.5,,32,2;69.5,38.3,,15,1;67.5,39.8,,15,1", lvl = 57, optional = true },
 						{ t = "kill", quest = 5201, title = "Winterfall Intrusion", target = "Winterfall Ursa", npc = 7438, count = 5, oi = 2, map = 1452, x = 68.08, y = 36.86, z = 731.9, f = "e", spotsPacked = "68.3,37.6,,39,3;67.2,39.4,,48,3;65.8,37.6,774.3,67,5", lvl = 58, optional = true },
-						{ t = "turnin", quest = 4970, title = "Frostsaber Provisions", npc = 10618, npcName = "Rivern Frostwind", map = 1452, x = 49.94, y = 9.84, z = 763.1, f = "e", optional = true },
-						{ t = "turnin", quest = 5201, title = "Winterfall Intrusion", npc = 10618, npcName = "Rivern Frostwind", map = 1452, x = 49.94, y = 9.84, z = 763.1, f = "e", optional = true },
+						{ t = "turnin", quest = 4970, title = "Frostsaber Provisions", npc = 10618, npcName = "Rivern Frostwind", map = 1452, x = 49.94, y = 9.84, z = 763.1, f = "e", optional = true, repeatable = true },
+						{ t = "turnin", quest = 5201, title = "Winterfall Intrusion", npc = 10618, npcName = "Rivern Frostwind", map = 1452, x = 49.94, y = 9.84, z = 763.1, f = "e", optional = true, repeatable = true },
 						{ t = "rep", faction = 589, factionName = "Wintersaber Trainers", standing = 6 },
 					},
 				},
@@ -28834,9 +28834,9 @@ do
 						{ t = "kill", quest = 5981, title = "Rampaging Giants", target = "Frostmaul Preserver", npc = 7429, count = 4, oi = 2, map = 1452, x = 63.83, y = 67.11, z = 816.5, f = "e", spotsPacked = "63.8,67.1,816.5,57,1;62.7,68.8,690.4,62,3;60.5,67.1,,100,4;60,70.2,834.7,57,1;58.3,67.5,835.1,57,1;63.2,72.5,,96,3;65.5,70.8,861.3,57,1", spread = true, lvl = 60, optional = true, note = "{npc:7429}, elite", group = { kind = "group", size = 3 } },
 						{ t = "collect", quest = 4970, title = "Frostsaber Provisions", item = 12622, itemName = "Shardtooth Meat", count = 5, oi = 1, map = 1452, x = 66.82, y = 69.26, z = 902.8, f = "e", spotsPacked = "66.9,69.7,917.8,57,4,,60;59.2,73.1,,59,2,,60;58.3,60.5,781.4,57,1,,58;66.6,52.1,,57,2;54.6,45.5,705.9,57,1;45.9,46.3,,57,2,,54;42.7,34.1,742.1,57,1,,54;30.8,39.2,,61,3,,54;56.6,30.8,678.8,57,1;62.6,25,666.7,57,1,,58;68,32.4,,73,4;60.2,14.6,,57,4,,58;63.4,74.4,870.1,57,1,1,60;61.1,72.9,848.3,57,1,1,60;60.8,64,800.2,57,1,1,58;58.8,71.6,,90,6,1,60;61.2,58.7,778.4,57,1,1,58;57,70.4,,85,7,1,60;66.7,54.4,808.9,57,1,1;63.1,55,,57,2,1,58;69,53.8,905.8,57,1,1;68.6,49.3,,57,2,1;66.4,48.6,778.9,57,2,1;62.4,47.6,,59,4,1;62,44.4,,57,2,1;59.5,44.7,,100,4,1;57.7,46,742.6,90,4,1;54.6,48.7,,57,2,1;59.9,41.9,,57,4,1;58,40.8,,57,2,1;56.5,38.6,714.3,57,3,1;62.4,33.4,701.6,57,1,1;59.7,34.3,711.8,57,1,1;48.1,45.8,720.2,75,4,1,54;54.1,37.4,,59,2,1,54;65.1,31.4,,57,2,1;51.1,39.2,,70,3,1,54;62.3,31,,72,3,1,58;68,28.6,789.9,57,1,1;46,41.9,704.8,57,1,1,54;64.3,27.6,,58,3,1;44.7,43.5,,57,2,1,54;51.9,32.7,733.2,57,1,1;62,26.8,704.7,58,3,1,58;57.4,28.5,649.7,57,1,1;66,26,726.8,57,1,1;47.9,35.5,,89,4,1,54;44.6,38,681.1,57,1,1,54;60,24.5,595.6,83,5,1,58;56.8,25.7,,57,2,1,58;45.9,34.9,741.5,57,1,1,54;61.1,21.3,,57,2,1,58;55.8,22.9,,57,2,1,58;42,36.6,,57,2,1,54;58.7,20.5,,92,4,1,58;39.6,38.3,,78,4,1,54;60.1,18,,57,2,1,58;55.4,19.8,,57,2,1,58;58.5,15.9,661.3,57,5,1,58;34.4,43.9,553.3,57,1,1,54;35.8,39.3,633.9,57,1,1,54;59,13.1,,92,6,1,58;33.7,39,549.4,57,1,1,54;30.2,47.2,555.2,57,1,1,54", spread = true, lvl = 56, optional = true, from = "Rabid Shardtooth", fromKind = "npc", fromAlso = "Elder Shardtooth", fromId = 7446, fromAlsoId = 7445, fromNpcs = { { npc = 7446, npcName = "Rabid Shardtooth" }, { npc = 7445, npcName = "Elder Shardtooth" }, { npc = 7444, npcName = "Shardtooth Bear" }, { npc = 7443, npcName = "Shardtooth Mauler" } } },
 						{ t = "collect", quest = 4970, title = "Frostsaber Provisions", item = 12623, itemName = "Chillwind Meat", count = 5, oi = 2, map = 1452, x = 63.34, y = 62.07, z = 787.7, f = "e", spotsPacked = "63.3,62.1,787.7,71,1;67.1,52.6,,121,7,,57;63.4,46.5,,71,2,,57;55.6,47.3,,71,3,,57;55.6,37.1,718.8,71,1,,57;49,40.8,662.8,71,1,,55;38.5,38.5,575.7,71,1,,55;29.6,48.5,582.7,71,1,,55;57.7,24.2,,104,7;62,30,707.3,71,1;67.6,30.5,,71,2,,57;59.8,11.9,,71,2;62.3,54.6,,71,2,1;67,48.6,,71,3,1,57;59.1,44,,105,4,1,57;61.2,41.7,695.6,71,1,1,57;57.4,40.8,,71,2,1,57;48.3,44,,71,2,1,55;52.3,38.2,,71,2,1,55;65.8,29.4,,88,3,1,57;44.8,43.7,,91,3,1,55;61.9,25.9,670.8,71,1,1;65.5,25.7,,71,2,1,57;45,36.3,701.9,71,1,1,55;60.1,22.3,611.6,84,7,1;42.8,35,724.2,71,1,1,55;55.1,21.5,,83,4,1;58.2,20.1,608.3,88,5,1;37.2,44.5,586.4,71,1,1,55;59,17,,71,3,1;61,14.8,,71,3,1;33.8,44.6,550.4,71,1,1,55;58.5,13.6,,71,3,1", spread = true, lvl = 59, optional = true, from = "Fledgling Chillwind", fromKind = "npc", fromAlso = "Chillwind Chimaera", fromId = 7447, fromAlsoId = 7448, fromNpcs = { { npc = 7449, npcName = "Chillwind Ravager" }, { npc = 7447, npcName = "Fledgling Chillwind" }, { npc = 7448, npcName = "Chillwind Chimaera" } } },
-						{ t = "turnin", quest = 4970, title = "Frostsaber Provisions", npc = 10618, npcName = "Rivern Frostwind", map = 1452, x = 49.94, y = 9.84, z = 763.1, f = "e", optional = true },
-						{ t = "turnin", quest = 5201, title = "Winterfall Intrusion", npc = 10618, npcName = "Rivern Frostwind", map = 1452, x = 49.94, y = 9.84, z = 763.1, f = "e", optional = true },
-						{ t = "turnin", quest = 5981, title = "Rampaging Giants", npc = 10618, npcName = "Rivern Frostwind", map = 1452, x = 49.94, y = 9.84, z = 763.1, f = "e", optional = true },
+						{ t = "turnin", quest = 4970, title = "Frostsaber Provisions", npc = 10618, npcName = "Rivern Frostwind", map = 1452, x = 49.94, y = 9.84, z = 763.1, f = "e", optional = true, repeatable = true },
+						{ t = "turnin", quest = 5201, title = "Winterfall Intrusion", npc = 10618, npcName = "Rivern Frostwind", map = 1452, x = 49.94, y = 9.84, z = 763.1, f = "e", optional = true, repeatable = true },
+						{ t = "turnin", quest = 5981, title = "Rampaging Giants", npc = 10618, npcName = "Rivern Frostwind", map = 1452, x = 49.94, y = 9.84, z = 763.1, f = "e", optional = true, repeatable = true },
 						{ t = "rep", faction = 589, factionName = "Wintersaber Trainers", standing = 8 },
 					},
 				},

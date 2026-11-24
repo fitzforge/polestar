@@ -172,6 +172,8 @@ mod engine_packs;
 mod engine_pin;
 #[path = "engine-professions.rs"]
 mod engine_professions;
+#[path = "engine-repeatable.rs"]
+mod engine_repeatable;
 #[path = "engine-reset.rs"]
 mod engine_reset;
 #[path = "engine-review.rs"]
