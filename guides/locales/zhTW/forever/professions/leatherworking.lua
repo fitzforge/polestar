@@ -189,7 +189,8 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780}練到158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}在技能150時為黃色（145變黃、155變綠、165變灰）：約製作15次可到158。每次需要5個{item:4234}和1個{item:2321}。每次五個{item:4234}（來自28-40級野獸）；做出的護甲片可以賣給商人。",
+	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}在技能150時為黃色（145變黃、155變綠、165變灰）：約製作15次可到158。每次需要5個{item:4234}和1個{item:2321}。每次五個{item:4234}（來自28-40級野獸）；做出的護甲片可以賣給商人。"
+	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 39: Barbaric Shoulders to 165
 	-- {item:5964} Barbaric Shoulders
@@ -385,4 +386,5 @@ return {
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}：分解優秀（綠色）裝備（或拍賣場）",
 	-- ["{spell:3768} to 150"] = "{spell:3768}練到150",
 	-- ["{spell:3776} to 185"] = "{spell:3776}練到185",
+	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}在技能150時為黃色（145變黃、155變綠、165變灰）：約製作15次可到158。每次需要5個{item:4234}和1個{item:2321}。每次五個{item:4234}（來自28-40級野獸）；做出的護甲片可以賣給商人。",
 }

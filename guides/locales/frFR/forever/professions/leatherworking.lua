@@ -189,7 +189,8 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780} jusqu'à 158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} est jaune à 150 (jaune 145, vert 155, gris 165) : environ 15 fabrications jusqu'à 158. Chaque fabrication demande 5 {item:4234} et 1 {item:2321}. Cinq {item:4234} par fabrication (bêtes de niveau 28-40) ; les renforts se vendent aux marchands.",
+	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} est jaune à 150 (jaune 145, vert 155, gris 165) : environ 15 fabrications jusqu'à 158. Chaque fabrication demande 5 {item:4234} et 1 {item:2321}. Cinq {item:4234} par fabrication (bêtes de niveau 28-40) ; les renforts se vendent aux marchands."
+	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 39: Barbaric Shoulders to 165
 	-- {item:5964} Barbaric Shoulders
@@ -423,6 +424,7 @@ return {
 	-- ["{spell:3763} to 105"] = "{spell:3763} jusqu'à 105",
 	-- ["{spell:3768} to 150"] = "{spell:3768} jusqu'à 150",
 	-- ["{spell:3776} to 185"] = "{spell:3776} jusqu'à 185",
+	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} est jaune à 150 (jaune 145, vert 155, gris 165) : environ 15 fabrications jusqu'à 158. Chaque fabrication demande 5 {item:4234} et 1 {item:2321}. Cinq {item:4234} par fabrication (bêtes de niveau 28-40) ; les renforts se vendent aux marchands.",
 	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 8 crafts to 155. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} est jaune à 150 (jaune 145, vert 155, gris 165) : environ 8 fabrications jusqu'à 155. Chaque fabrication demande 5 {item:4234} et 1 {item:2321}. Cinq {item:4234} par fabrication (bêtes de niveau 28-40) ; les renforts se vendent aux marchands.",
 	-- ["{spell:3780} to 155"] = "{spell:3780} jusqu'à 155",
 }

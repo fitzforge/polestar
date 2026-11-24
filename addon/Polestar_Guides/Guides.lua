@@ -1928,7 +1928,7 @@ do
 			zoneName = "Moonglade",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:1638"] = "Thunder Bluff", ["area:1639"] = "Elder Rise", ["area:1658"] = "Cenarion Enclave", ["area:16623"] = "Shen'dar Highlands", ["area:16626"] = "Gustberry Lowlands", ["area:16629"] = "Shrine of Akir", ["area:16638"] = "Valanaar", ["area:17045"] = "Skywatcher Plateau", ["area:186"] = "Dolanaar", ["area:222"] = "Bloodhoof Village", ["area:2361"] = "Nighthaven", ["area:279"] = "Dalaran", ["area:378"] = "Camp Taurajo", ["area:442"] = "Auberdine", ["area:493"] = "Moonglade", ["area:702"] = "Rut'theran Village", ["item:15208"] = "Cenarion Moondust", ["item:15710"] = "Cenarion Lunardust", ["npc:10897"] = "Sindrayl", ["npc:11798"] = "Bunthen Plainswind", ["npc:11800"] = "Silva Fil'naveth", ["npc:11802"] = "Dendrite Starblaze", ["npc:12144"] = "Lunaclaw Spirit", ["npc:12740"] = "Faustron", ["npc:252359"] = "Lotheluum Starbreeze", ["npc:2543"] = "Archmage Ansirem Runeweaver", ["npc:255853"] = "Urs'endris", ["npc:258443"] = "Ur'endra", ["npc:259084"] = "Denaaris Stargale", ["npc:259118"] = "Muln Earthfury", ["npc:270459"] = "Alfina Nightgaze", ["npc:3033"] = "Turak Runetotem", ["npc:3064"] = "Gennia Runetotem", ["npc:3602"] = "Kal", ["npc:4217"] = "Mathrengyl Bearwalker", ["npc:5504"] = "Sheldras Moontree", ["npc:6746"] = "Innkeeper Pala", ["npc:6929"] = "Innkeeper Gryshka", ["object:177525"] = "Moonkin Stone", ["quest:5922"] = "Moonglade", ["quest:5925"] = "Heeding the Call", ["quest:5928"] = "Heeding the Call", ["quest:5929"] = "Great Bear Spirit", ["quest:5930"] = "Great Bear Spirit", ["quest:5931"] = "Back to Darnassus", ["quest:5932"] = "Back to Thunder Bluff", ["quest:6001"] = "Body and Heart", ["quest:6002"] = "Body and Heart", ["quest:94638"] = "Strength and Mercy", ["quest:94911"] = "Child of Nature", ["quest:94912"] = "Child of Nature", ["spell:18960"] = "Teleport: Moonglade", ["spell:5487"] = "Bear Form", ["zone:1412"] = "Mulgore", ["zone:1413"] = "Barrens", ["zone:1453"] = "Stormwind", ["zone:1454"] = "Orgrimmar", ["zone:1456"] = "Thunder Bluff", ["zone:1457"] = "Darnassus", ["zone:2521"] = "Zephras Isle" },
+			names = { ["area:1638"] = "Thunder Bluff", ["area:1639"] = "Elder Rise", ["area:1658"] = "Cenarion Enclave", ["area:16623"] = "Shen'dar Highlands", ["area:16626"] = "Gustberry Lowlands", ["area:16628"] = "Valanaar Skydocks", ["area:16629"] = "Shrine of Akir", ["area:16638"] = "Valanaar", ["area:17045"] = "Skywatcher Plateau", ["area:186"] = "Dolanaar", ["area:222"] = "Bloodhoof Village", ["area:2361"] = "Nighthaven", ["area:279"] = "Dalaran", ["area:378"] = "Camp Taurajo", ["area:442"] = "Auberdine", ["area:493"] = "Moonglade", ["area:702"] = "Rut'theran Village", ["item:15208"] = "Cenarion Moondust", ["item:15710"] = "Cenarion Lunardust", ["npc:10897"] = "Sindrayl", ["npc:11798"] = "Bunthen Plainswind", ["npc:11800"] = "Silva Fil'naveth", ["npc:11802"] = "Dendrite Starblaze", ["npc:12144"] = "Lunaclaw Spirit", ["npc:12740"] = "Faustron", ["npc:252359"] = "Lotheluum Starbreeze", ["npc:2543"] = "Archmage Ansirem Runeweaver", ["npc:255853"] = "Urs'endris", ["npc:258443"] = "Ur'endra", ["npc:259084"] = "Denaaris Stargale", ["npc:259118"] = "Muln Earthfury", ["npc:270459"] = "Alfina Nightgaze", ["npc:3033"] = "Turak Runetotem", ["npc:3064"] = "Gennia Runetotem", ["npc:3602"] = "Kal", ["npc:4217"] = "Mathrengyl Bearwalker", ["npc:5504"] = "Sheldras Moontree", ["npc:6746"] = "Innkeeper Pala", ["npc:6929"] = "Innkeeper Gryshka", ["object:177525"] = "Moonkin Stone", ["quest:5922"] = "Moonglade", ["quest:5925"] = "Heeding the Call", ["quest:5928"] = "Heeding the Call", ["quest:5929"] = "Great Bear Spirit", ["quest:5930"] = "Great Bear Spirit", ["quest:5931"] = "Back to Darnassus", ["quest:5932"] = "Back to Thunder Bluff", ["quest:6001"] = "Body and Heart", ["quest:6002"] = "Body and Heart", ["quest:94638"] = "Strength and Mercy", ["quest:94911"] = "Child of Nature", ["quest:94912"] = "Child of Nature", ["spell:18960"] = "Teleport: Moonglade", ["spell:5487"] = "Bear Form", ["zone:1412"] = "Mulgore", ["zone:1413"] = "Barrens", ["zone:1453"] = "Stormwind", ["zone:1454"] = "Orgrimmar", ["zone:1456"] = "Thunder Bluff", ["zone:1457"] = "Darnassus", ["zone:2521"] = "Zephras Isle" },
 			written = { ["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs, past the armor vendor. The {quest:5929} sits in the woods to the north-west. Speak to it and go through all of its words (what it represents, the strength of the body, the strength of the heart, then ask for its blessing): the talk is the objective, there is no fight. It blends into the ground, has no quest mark and gives off a faint blue-grey glow by a group of three trees: from {area:2361} go west along the foot of the northern mountains, through the gap between the trees and the hills. If {npc:11802} is missing when you return, step outside and cast {spell:18960} again. Learn the {area:493} flight path ({npc:10897}, south of the lake) for later, then take {npc:11800}'s flight from the middle of {area:2361}: she flies druids straight to {area:702}, no flight path needed. Take the portal up to {zone:1457}."] = "Cast Teleport: Moonglade: it lands you beside the building where Dendrite Starblaze stands upstairs, past the armor vendor. The Great Bear Spirit sits in the woods to the north-west. Speak to it and go through all of its words (what it represents, the strength of the body, the strength of the heart, then ask for its blessing): the talk is the objective, there is no fight. It blends into the ground, has no quest mark and gives off a faint blue-grey glow by a group of three trees: from Nighthaven go west along the foot of the northern mountains, through the gap between the trees and the hills. If Dendrite is missing when you return, step outside and cast Teleport: Moonglade again. Learn the Moonglade flight path (Sindrayl, south of the lake) for later, then take Silva Fil'naveth's flight from the middle of Nighthaven: she flies druids straight to Rut'theran Village, no flight path needed. Take the portal up to Darnassus.", ["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs. The {quest:5930} sits in the woods to the north-west. Speak to it and go through all of its words (what it represents, the strength of the body, the strength of the heart, then ask for its blessing): the talk is the objective, there is no fight. It blends into the ground, has no quest mark and gives off a faint blue-grey glow by a group of three trees: from {area:2361} go west along the foot of the northern mountains, through the gap between the trees and the hills. If {npc:11802} is missing when you return, step outside and cast {spell:18960} again. Learn the {quest:5922} flight path ({npc:12740}, south-west of the lake); {npc:11798} in {area:2361} flies druids to {area:1638}."] = "Cast Teleport: Moonglade: it lands you beside the building where Dendrite Starblaze stands upstairs. The Great Bear Spirit sits in the woods to the north-west. Speak to it and go through all of its words (what it represents, the strength of the body, the strength of the heart, then ask for its blessing): the talk is the objective, there is no fight. It blends into the ground, has no quest mark and gives off a faint blue-grey glow by a group of three trees: from Nighthaven go west along the foot of the northern mountains, through the gap between the trees and the hills. If Dendrite is missing when you return, step outside and cast Teleport: Moonglade again. Learn the Moonglade flight path (Faustron, south-west of the lake); Bunthen Plainswind in Nighthaven flies druids to Thunder Bluff.", ["Fly back to {area:702} and take the portal up to {npc:4217}."] = "Fly back to Rut'theran Village and take the portal up to Mathrengyl." },
 			steps = {
 				{
@@ -2150,6 +2150,15 @@ do
 					only = { races = { "Skyborne" } },
 					goals = {
 						{ t = "turnin", quest = 94638, title = "Strength and Mercy", npc = 255853, npcName = "Urs'endris", map = 2521, x = 69.69, y = 61.57, z = 660.2, spotsPacked = "69.8,61.7,660.2,15,2", note = "{npc:255853}: {spell:5487}" },
+					},
+				},
+				{
+					title = "Skycutter to {zone:1412}",
+					note = "{npc:259118} is in {zone:1412}, where the skycutter from {zone:2521} lands. Board it at the {area:16628} on the village's south-west edge: go down through {area:16638} on its paths, not over the cliffs around it, which drop off the isle.",
+					only = { races = { "Skyborne" }, factions = { "Horde" } },
+					when = { { k = "zone", name = "Zephras Isle", area = 16593 }, { k = "onquest", neg = true, q = { 94911 } }, { k = "turnedin", neg = true, q = 94911 } },
+					goals = {
+						{ t = "goto", text = "{area:16628}", area = 16628, map = 2521, x = 57.9, y = 80.8 },
 					},
 				},
 				{
@@ -9458,6 +9467,7 @@ do
 			{ npc = 15683, npcName = "Auctioneer Naxxremis", map = 1458, x = 64.4, y = 35.81, z = -56.8, f = "e", faction = "H" },
 			{ npc = 15686, npcName = "Auctioneer Rhyker", map = 1458, x = 60.47, y = 46.44, z = -56.8, f = "e", faction = "H" },
 			{ npc = 257037, npcName = "Zelena Favorbreeze", map = 2521, x = 57.91, y = 77.12, z = 672.1, faction = "AH" },
+			{ npc = 4609, npcName = "Doctor Marsh", map = 1458, x = 51.16, y = 74.44, z = -66, faction = "H" },
 			{ npc = 2391, npcName = "Serge Hinott", map = 1416, x = 60.3, y = 80.9, z = 57.6, f = "e", faction = "H" },
 			{ npc = 5177, npcName = "Tally Berryfizz", map = 1455, x = 66.51, y = 55.12, z = 501.8, faction = "A" },
 			{ npc = 5499, npcName = "Lilyssia Nightbreeze", map = 1453, x = 55.61, y = 86.11, z = 98.4, faction = "A" },
@@ -9466,6 +9476,7 @@ do
 			{ npc = 4900, npcName = "Alchemist Narett", map = 1445, x = 63.96, y = 47.61, z = 11.5, faction = "A" },
 			{ npc = 3347, npcName = "Yelmak", map = 1454, x = 56.51, y = 33.71, z = 25.8, faction = "H" },
 			{ npc = 3009, npcName = "Bena Winterhoof", map = 1456, x = 46.86, y = 33.45, z = 140.9, faction = "H" },
+			{ npc = 11042, npcName = "Sylvanna Forestmoon", map = 1457, x = 56.24, y = 24.38, z = 1321.7, faction = "A" },
 			{ npc = 3548, npcName = "Selina Weston", map = 1420, x = 61.72, y = 50.04, z = 28.5, faction = "H" },
 			{ npc = 3556, npcName = "Andrew Hilbert", map = 1421, x = 43.13, y = 40.66, z = 104.7, faction = "H" },
 			{ npc = 2381, npcName = "Micha Yance", map = 1424, x = 48.92, y = 55.05, z = 18.9, faction = "A" },
@@ -9486,11 +9497,11 @@ do
 		}
 		local candidateLists = {
 			{ candidateRecords[96], candidateRecords[97], candidateRecords[98], candidateRecords[99], candidateRecords[100], candidateRecords[101], candidateRecords[102], candidateRecords[103], candidateRecords[104], candidateRecords[105] },
-			{ { npc = 4609, npcName = "Doctor Marsh", map = 1458, x = 51.16, y = 74.44, z = -66, faction = "H" }, candidateRecords[106], candidateRecords[107], candidateRecords[108], candidateRecords[109], candidateRecords[110], candidateRecords[111], candidateRecords[112], candidateRecords[113], { npc = 11042, npcName = "Sylvanna Forestmoon", map = 1457, x = 56.24, y = 24.38, z = 1321.7, faction = "A" } },
+			{ candidateRecords[106], candidateRecords[107], candidateRecords[108], candidateRecords[109], candidateRecords[110], candidateRecords[111], candidateRecords[112], candidateRecords[113], candidateRecords[114], candidateRecords[115] },
 			{ candidateRecords[2], candidateRecords[11], candidateRecords[8], candidateRecords[4], candidateRecords[6], candidateRecords[3], candidateRecords[1], candidateRecords[5], candidateRecords[7], candidateRecords[9], candidateRecords[10], candidateRecords[12], candidateRecords[13], candidateRecords[14] },
-			{ candidateRecords[103], candidateRecords[104], candidateRecords[102], candidateRecords[101], candidateRecords[98], candidateRecords[124], candidateRecords[97], candidateRecords[99], candidateRecords[100], candidateRecords[105] },
-			{ { npc = 8721, npcName = "Auctioneer Epitwee", map = 1458, x = 64.42, y = 52.41, z = -56.8, f = "e", faction = "H" }, { npc = 15684, npcName = "Auctioneer Tricket", map = 1458, x = 60.49, y = 41.75, z = -56.8, f = "e", faction = "H" }, { npc = 15675, npcName = "Auctioneer Stockton", map = 1458, x = 71.42, y = 46.69, z = -56.8, f = "e", faction = "H" }, { npc = 15682, npcName = "Auctioneer Cain", map = 1458, x = 67.65, y = 35.9, z = -56.8, f = "e", faction = "H" }, candidateRecords[98], candidateRecords[124], candidateRecords[97], candidateRecords[99], candidateRecords[100], candidateRecords[105] },
-			{ candidateRecords[126], candidateRecords[125] },
+			{ candidateRecords[103], candidateRecords[104], candidateRecords[102], candidateRecords[101], candidateRecords[98], candidateRecords[126], candidateRecords[97], candidateRecords[99], candidateRecords[100], candidateRecords[105] },
+			{ { npc = 8721, npcName = "Auctioneer Epitwee", map = 1458, x = 64.42, y = 52.41, z = -56.8, f = "e", faction = "H" }, { npc = 15684, npcName = "Auctioneer Tricket", map = 1458, x = 60.49, y = 41.75, z = -56.8, f = "e", faction = "H" }, { npc = 15675, npcName = "Auctioneer Stockton", map = 1458, x = 71.42, y = 46.69, z = -56.8, f = "e", faction = "H" }, { npc = 15682, npcName = "Auctioneer Cain", map = 1458, x = 67.65, y = 35.9, z = -56.8, f = "e", faction = "H" }, candidateRecords[98], candidateRecords[126], candidateRecords[97], candidateRecords[99], candidateRecords[100], candidateRecords[105] },
+			{ candidateRecords[128], candidateRecords[127] },
 			{ { npc = 8722, npcName = "Auctioneer Gullem", map = 1456, x = 38.9, y = 50.19, z = 134.9, f = "e", faction = "H" }, { npc = 8724, npcName = "Auctioneer Wabang", map = 1454, x = 55.84, y = 64.81, z = 20.1, f = "e", faction = "H" }, { npc = 8723, npcName = "Auctioneer Golothas", map = 1457, x = 56.24, y = 54.04, z = 1321.7, f = "e", faction = "A" }, candidateRecords[96], candidateRecords[98], candidateRecords[101], candidateRecords[102], candidateRecords[103], candidateRecords[104], candidateRecords[105] },
 			{ { npc = 7948, npcName = "Kylanna Windwhisper", map = 1444, x = 32.55, y = 43.76, z = 17.7, faction = "A" }, { npc = 1386, npcName = "Rogvar", map = 1435, x = 48.32, y = 55.71, z = 25.6, faction = "H" } },
 		}
@@ -9685,8 +9696,8 @@ do
 					note = "Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334}).",
 					section = 2,
 					goals = {
-						{ t = "buy", item = 3371, itemName = "Empty Vial", count = 77, candidates = { candidateRecords[114], candidateRecords[85], candidateRecords[88], candidateRecords[89], candidateRecords[86], candidateRecords[87], candidateRecords[22], candidateRecords[115], candidateRecords[24], candidateRecords[21], candidateRecords[23], candidateRecords[116], candidateRecords[32], candidateRecords[25], candidateRecords[117], candidateRecords[27], candidateRecords[30], candidateRecords[45], candidateRecords[46], candidateRecords[77], candidateRecords[76], candidateRecords[75], candidateRecords[78], candidateRecords[74], candidateRecords[33], candidateRecords[40], candidateRecords[69], candidateRecords[118], candidateRecords[119], candidateRecords[34], candidateRecords[120], candidateRecords[37], candidateRecords[36], { npc = 1250, npcName = "Drake Lindgren", map = 1429, x = 83.22, y = 66.62, z = 47, faction = "A" }, candidateRecords[121], candidateRecords[95], candidateRecords[122], candidateRecords[38], candidateRecords[39], candidateRecords[44], candidateRecords[28], candidateRecords[42], candidateRecords[43], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[47], candidateRecords[48], candidateRecords[49], candidateRecords[50], candidateRecords[51], candidateRecords[52], candidateRecords[53], candidateRecords[54], candidateRecords[55], candidateRecords[56], candidateRecords[57], candidateRecords[58], candidateRecords[59], candidateRecords[60], candidateRecords[61], candidateRecords[62], candidateRecords[63], candidateRecords[64], candidateRecords[65], candidateRecords[66], candidateRecords[70], candidateRecords[71], candidateRecords[72], candidateRecords[73], candidateRecords[79], candidateRecords[80], candidateRecords[81], candidateRecords[82], candidateRecords[83], candidateRecords[84], candidateRecords[90], candidateRecords[91], candidateRecords[92], candidateRecords[12], candidateRecords[93] } },
-						{ t = "buy", item = 3372, itemName = "Leaded Vial", count = 15, candidates = { candidateRecords[114], candidateRecords[85], candidateRecords[88], candidateRecords[89], candidateRecords[86], candidateRecords[87], candidateRecords[22], candidateRecords[115], candidateRecords[24], candidateRecords[21], candidateRecords[23], candidateRecords[116], candidateRecords[32], candidateRecords[25], candidateRecords[117], candidateRecords[27], candidateRecords[30], candidateRecords[45], candidateRecords[46], candidateRecords[77], candidateRecords[76], candidateRecords[75], candidateRecords[78], candidateRecords[74], candidateRecords[69], candidateRecords[118], candidateRecords[119], candidateRecords[120], candidateRecords[37], candidateRecords[36], candidateRecords[35], candidateRecords[121], candidateRecords[95], candidateRecords[122], candidateRecords[38], candidateRecords[39], candidateRecords[44], candidateRecords[28], candidateRecords[42], candidateRecords[43], candidateRecords[18], candidateRecords[123], candidateRecords[20], candidateRecords[49], candidateRecords[50], candidateRecords[51], candidateRecords[52], candidateRecords[53], candidateRecords[55], candidateRecords[56], candidateRecords[57], candidateRecords[58], candidateRecords[59], candidateRecords[60], candidateRecords[61], candidateRecords[62], candidateRecords[63], candidateRecords[64], candidateRecords[65], candidateRecords[66], candidateRecords[70], candidateRecords[71], candidateRecords[72], candidateRecords[73], candidateRecords[79], candidateRecords[80], candidateRecords[81], candidateRecords[82], candidateRecords[83], candidateRecords[84], candidateRecords[90], candidateRecords[91], candidateRecords[12], candidateRecords[13], candidateRecords[14] } },
+						{ t = "buy", item = 3371, itemName = "Empty Vial", count = 77, candidates = { candidateRecords[116], candidateRecords[85], candidateRecords[88], candidateRecords[89], candidateRecords[86], candidateRecords[87], candidateRecords[22], candidateRecords[117], candidateRecords[24], candidateRecords[21], candidateRecords[23], candidateRecords[118], candidateRecords[32], candidateRecords[25], candidateRecords[119], candidateRecords[27], candidateRecords[30], candidateRecords[45], candidateRecords[46], candidateRecords[77], candidateRecords[76], candidateRecords[75], candidateRecords[78], candidateRecords[74], candidateRecords[33], candidateRecords[40], candidateRecords[69], candidateRecords[120], candidateRecords[121], candidateRecords[34], candidateRecords[122], candidateRecords[37], candidateRecords[36], { npc = 1250, npcName = "Drake Lindgren", map = 1429, x = 83.22, y = 66.62, z = 47, faction = "A" }, candidateRecords[123], candidateRecords[95], candidateRecords[124], candidateRecords[38], candidateRecords[39], candidateRecords[44], candidateRecords[28], candidateRecords[42], candidateRecords[43], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[47], candidateRecords[48], candidateRecords[49], candidateRecords[50], candidateRecords[51], candidateRecords[52], candidateRecords[53], candidateRecords[54], candidateRecords[55], candidateRecords[56], candidateRecords[57], candidateRecords[58], candidateRecords[59], candidateRecords[60], candidateRecords[61], candidateRecords[62], candidateRecords[63], candidateRecords[64], candidateRecords[65], candidateRecords[66], candidateRecords[70], candidateRecords[71], candidateRecords[72], candidateRecords[73], candidateRecords[79], candidateRecords[80], candidateRecords[81], candidateRecords[82], candidateRecords[83], candidateRecords[84], candidateRecords[90], candidateRecords[91], candidateRecords[92], candidateRecords[12], candidateRecords[93] } },
+						{ t = "buy", item = 3372, itemName = "Leaded Vial", count = 15, candidates = { candidateRecords[116], candidateRecords[85], candidateRecords[88], candidateRecords[89], candidateRecords[86], candidateRecords[87], candidateRecords[22], candidateRecords[117], candidateRecords[24], candidateRecords[21], candidateRecords[23], candidateRecords[118], candidateRecords[32], candidateRecords[25], candidateRecords[119], candidateRecords[27], candidateRecords[30], candidateRecords[45], candidateRecords[46], candidateRecords[77], candidateRecords[76], candidateRecords[75], candidateRecords[78], candidateRecords[74], candidateRecords[69], candidateRecords[120], candidateRecords[121], candidateRecords[122], candidateRecords[37], candidateRecords[36], candidateRecords[35], candidateRecords[123], candidateRecords[95], candidateRecords[124], candidateRecords[38], candidateRecords[39], candidateRecords[44], candidateRecords[28], candidateRecords[42], candidateRecords[43], candidateRecords[18], candidateRecords[125], candidateRecords[20], candidateRecords[49], candidateRecords[50], candidateRecords[51], candidateRecords[52], candidateRecords[53], candidateRecords[55], candidateRecords[56], candidateRecords[57], candidateRecords[58], candidateRecords[59], candidateRecords[60], candidateRecords[61], candidateRecords[62], candidateRecords[63], candidateRecords[64], candidateRecords[65], candidateRecords[66], candidateRecords[70], candidateRecords[71], candidateRecords[72], candidateRecords[73], candidateRecords[79], candidateRecords[80], candidateRecords[81], candidateRecords[82], candidateRecords[83], candidateRecords[84], candidateRecords[90], candidateRecords[91], candidateRecords[12], candidateRecords[13], candidateRecords[14] } },
 					},
 				},
 				{
@@ -9872,7 +9883,7 @@ do
 					note = "Back to an {skill:171} trainer: {spell:3176} (from 125).",
 					section = 2,
 					goals = {
-						{ t = "learn", spell = 3176, spellName = "Lesser Troll's Blood Elixir", skillLine = 171, candidates = { candidateRecords[125], candidateRecords[106], candidateRecords[107], candidateRecords[108], candidateRecords[109], candidateRecords[110], candidateRecords[111], candidateRecords[112], candidateRecords[113], candidateRecords[126] } },
+						{ t = "learn", spell = 3176, spellName = "Lesser Troll's Blood Elixir", skillLine = 171, candidates = { candidateRecords[127], candidateRecords[107], candidateRecords[108], candidateRecords[109], candidateRecords[110], candidateRecords[111], candidateRecords[112], candidateRecords[113], candidateRecords[114], candidateRecords[128] } },
 					},
 				},
 				{
@@ -9889,7 +9900,7 @@ do
 					note = "Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334}).",
 					section = 3,
 					goals = {
-						{ t = "buy", item = 3372, itemName = "Leaded Vial", count = 83, candidates = { candidateRecords[24], candidateRecords[29], candidateRecords[22], candidateRecords[87], candidateRecords[116], candidateRecords[88], candidateRecords[89], candidateRecords[86], candidateRecords[85], candidateRecords[21], candidateRecords[114], candidateRecords[23], candidateRecords[25], candidateRecords[117], candidateRecords[32], candidateRecords[45], candidateRecords[27], candidateRecords[46], candidateRecords[77], candidateRecords[76], candidateRecords[75], candidateRecords[78], candidateRecords[74], candidateRecords[30], candidateRecords[69], candidateRecords[118], candidateRecords[119], candidateRecords[37], candidateRecords[120], candidateRecords[36], candidateRecords[35], candidateRecords[121], candidateRecords[95], candidateRecords[122], candidateRecords[39], candidateRecords[38], candidateRecords[44], candidateRecords[28], candidateRecords[42], candidateRecords[43], candidateRecords[18], candidateRecords[123], candidateRecords[20], candidateRecords[49], candidateRecords[50], candidateRecords[51], candidateRecords[52], candidateRecords[53], candidateRecords[55], candidateRecords[56], candidateRecords[57], candidateRecords[58], candidateRecords[59], candidateRecords[60], candidateRecords[61], candidateRecords[62], candidateRecords[63], candidateRecords[64], candidateRecords[65], candidateRecords[66], candidateRecords[70], candidateRecords[71], candidateRecords[72], candidateRecords[73], candidateRecords[79], candidateRecords[80], candidateRecords[81], candidateRecords[82], candidateRecords[83], candidateRecords[84], candidateRecords[90], candidateRecords[91], candidateRecords[12], candidateRecords[13], candidateRecords[14] } },
+						{ t = "buy", item = 3372, itemName = "Leaded Vial", count = 83, candidates = { candidateRecords[24], candidateRecords[29], candidateRecords[22], candidateRecords[87], candidateRecords[118], candidateRecords[88], candidateRecords[89], candidateRecords[86], candidateRecords[85], candidateRecords[21], candidateRecords[116], candidateRecords[23], candidateRecords[25], candidateRecords[119], candidateRecords[32], candidateRecords[45], candidateRecords[27], candidateRecords[46], candidateRecords[77], candidateRecords[76], candidateRecords[75], candidateRecords[78], candidateRecords[74], candidateRecords[30], candidateRecords[69], candidateRecords[120], candidateRecords[121], candidateRecords[37], candidateRecords[122], candidateRecords[36], candidateRecords[35], candidateRecords[123], candidateRecords[95], candidateRecords[124], candidateRecords[39], candidateRecords[38], candidateRecords[44], candidateRecords[28], candidateRecords[42], candidateRecords[43], candidateRecords[18], candidateRecords[125], candidateRecords[20], candidateRecords[49], candidateRecords[50], candidateRecords[51], candidateRecords[52], candidateRecords[53], candidateRecords[55], candidateRecords[56], candidateRecords[57], candidateRecords[58], candidateRecords[59], candidateRecords[60], candidateRecords[61], candidateRecords[62], candidateRecords[63], candidateRecords[64], candidateRecords[65], candidateRecords[66], candidateRecords[70], candidateRecords[71], candidateRecords[72], candidateRecords[73], candidateRecords[79], candidateRecords[80], candidateRecords[81], candidateRecords[82], candidateRecords[83], candidateRecords[84], candidateRecords[90], candidateRecords[91], candidateRecords[12], candidateRecords[13], candidateRecords[14] } },
 					},
 				},
 				{
@@ -9986,9 +9997,10 @@ do
 				},
 				{
 					title = "{spell:3176} to 160",
-					note = "{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones.",
+					note = "{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it.",
 					section = 3,
 					goals = {
+						{ t = "learn", spell = 3176, spellName = "Lesser Troll's Blood Elixir", skillLine = 171, candidates = { candidateRecords[114], candidateRecords[112], candidateRecords[111], candidateRecords[113], candidateRecords[115], candidateRecords[107], candidateRecords[110], candidateRecords[109], candidateRecords[108], candidateRecords[106] } },
 						{ t = "craft", spell = 3176, spellName = "Lesser Troll's Blood Elixir", item = 3388, itemName = "Lesser Troll's Blood Elixir", skillLine = 171, untilSkill = 160, yellow = 150, grey = 190, reagents = { { item = 2453, itemName = "Bruiseweed", count = 2 }, { item = 2450, itemName = "Briarthorn", count = 2 }, { item = 3372, itemName = "Leaded Vial", count = 1 } } },
 					},
 				},
@@ -10030,8 +10042,8 @@ do
 					note = "Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334}).",
 					section = 4,
 					goals = {
-						{ t = "buy", item = 3372, itemName = "Leaded Vial", count = 51, candidates = { candidateRecords[127], candidateRecords[56], candidateRecords[59], candidateRecords[55], candidateRecords[18], candidateRecords[57], candidateRecords[80], candidateRecords[128], candidateRecords[64], candidateRecords[53], candidateRecords[52], candidateRecords[123], candidateRecords[20], candidateRecords[51], candidateRecords[129], candidateRecords[50], candidateRecords[61], candidateRecords[73], candidateRecords[70], candidateRecords[72], candidateRecords[130], candidateRecords[62], candidateRecords[49], candidateRecords[65], candidateRecords[63], candidateRecords[66], candidateRecords[82], candidateRecords[83], candidateRecords[81], candidateRecords[84], candidateRecords[21], candidateRecords[22], candidateRecords[23], candidateRecords[24], candidateRecords[25], candidateRecords[26], candidateRecords[27], candidateRecords[28], candidateRecords[114], candidateRecords[29], candidateRecords[30], candidateRecords[31], candidateRecords[32], candidateRecords[35], candidateRecords[36], candidateRecords[37], candidateRecords[38], candidateRecords[39], candidateRecords[41], candidateRecords[42], candidateRecords[43], candidateRecords[44], candidateRecords[122], candidateRecords[45], candidateRecords[46], candidateRecords[67], candidateRecords[68], candidateRecords[69], candidateRecords[74], candidateRecords[75], candidateRecords[76], candidateRecords[77], candidateRecords[78], candidateRecords[85], candidateRecords[86], candidateRecords[87], candidateRecords[88], candidateRecords[89], candidateRecords[90], candidateRecords[91], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[94], candidateRecords[95] } },
-						{ t = "buy", item = 8925, itemName = "Crystal Vial", count = 86, candidates = { candidateRecords[127], candidateRecords[56], candidateRecords[59], candidateRecords[55], candidateRecords[18], candidateRecords[57], candidateRecords[80], candidateRecords[128], candidateRecords[64], candidateRecords[123], candidateRecords[51], candidateRecords[129], candidateRecords[50], candidateRecords[61], candidateRecords[73], candidateRecords[70], candidateRecords[72], candidateRecords[130], candidateRecords[62], candidateRecords[49], candidateRecords[65], candidateRecords[63], candidateRecords[66], candidateRecords[82], candidateRecords[83], candidateRecords[81], candidateRecords[84], candidateRecords[22], candidateRecords[23], candidateRecords[24], candidateRecords[25], candidateRecords[26], candidateRecords[27], candidateRecords[28], candidateRecords[114], candidateRecords[29], candidateRecords[30], candidateRecords[31], candidateRecords[32], candidateRecords[35], candidateRecords[36], candidateRecords[37], candidateRecords[39], { npc = 3135, npcName = "Malissa", map = 1431, x = 79.41, y = 44.43, z = 40.3, faction = "A" }, candidateRecords[120], candidateRecords[42], candidateRecords[43], candidateRecords[44], candidateRecords[122], candidateRecords[45], candidateRecords[46], candidateRecords[67], candidateRecords[68], candidateRecords[69], candidateRecords[75], candidateRecords[76], candidateRecords[77], candidateRecords[78], candidateRecords[85], candidateRecords[86], candidateRecords[87], candidateRecords[88], candidateRecords[89], candidateRecords[90], candidateRecords[91], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[94], candidateRecords[95] } },
+						{ t = "buy", item = 3372, itemName = "Leaded Vial", count = 51, candidates = { candidateRecords[129], candidateRecords[56], candidateRecords[59], candidateRecords[55], candidateRecords[18], candidateRecords[57], candidateRecords[80], candidateRecords[130], candidateRecords[64], candidateRecords[53], candidateRecords[52], candidateRecords[125], candidateRecords[20], candidateRecords[51], candidateRecords[131], candidateRecords[50], candidateRecords[61], candidateRecords[73], candidateRecords[70], candidateRecords[72], candidateRecords[132], candidateRecords[62], candidateRecords[49], candidateRecords[65], candidateRecords[63], candidateRecords[66], candidateRecords[82], candidateRecords[83], candidateRecords[81], candidateRecords[84], candidateRecords[21], candidateRecords[22], candidateRecords[23], candidateRecords[24], candidateRecords[25], candidateRecords[26], candidateRecords[27], candidateRecords[28], candidateRecords[116], candidateRecords[29], candidateRecords[30], candidateRecords[31], candidateRecords[32], candidateRecords[35], candidateRecords[36], candidateRecords[37], candidateRecords[38], candidateRecords[39], candidateRecords[41], candidateRecords[42], candidateRecords[43], candidateRecords[44], candidateRecords[124], candidateRecords[45], candidateRecords[46], candidateRecords[67], candidateRecords[68], candidateRecords[69], candidateRecords[74], candidateRecords[75], candidateRecords[76], candidateRecords[77], candidateRecords[78], candidateRecords[85], candidateRecords[86], candidateRecords[87], candidateRecords[88], candidateRecords[89], candidateRecords[90], candidateRecords[91], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[94], candidateRecords[95] } },
+						{ t = "buy", item = 8925, itemName = "Crystal Vial", count = 86, candidates = { candidateRecords[129], candidateRecords[56], candidateRecords[59], candidateRecords[55], candidateRecords[18], candidateRecords[57], candidateRecords[80], candidateRecords[130], candidateRecords[64], candidateRecords[125], candidateRecords[51], candidateRecords[131], candidateRecords[50], candidateRecords[61], candidateRecords[73], candidateRecords[70], candidateRecords[72], candidateRecords[132], candidateRecords[62], candidateRecords[49], candidateRecords[65], candidateRecords[63], candidateRecords[66], candidateRecords[82], candidateRecords[83], candidateRecords[81], candidateRecords[84], candidateRecords[22], candidateRecords[23], candidateRecords[24], candidateRecords[25], candidateRecords[26], candidateRecords[27], candidateRecords[28], candidateRecords[116], candidateRecords[29], candidateRecords[30], candidateRecords[31], candidateRecords[32], candidateRecords[35], candidateRecords[36], candidateRecords[37], candidateRecords[39], { npc = 3135, npcName = "Malissa", map = 1431, x = 79.41, y = 44.43, z = 40.3, faction = "A" }, candidateRecords[122], candidateRecords[42], candidateRecords[43], candidateRecords[44], candidateRecords[124], candidateRecords[45], candidateRecords[46], candidateRecords[67], candidateRecords[68], candidateRecords[69], candidateRecords[75], candidateRecords[76], candidateRecords[77], candidateRecords[78], candidateRecords[85], candidateRecords[86], candidateRecords[87], candidateRecords[88], candidateRecords[89], candidateRecords[90], candidateRecords[91], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[94], candidateRecords[95] } },
 					},
 				},
 				{
@@ -10117,9 +10129,10 @@ do
 				},
 				{
 					title = "{item:8951} to 230",
-					note = "{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}).",
+					note = "{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it.",
 					section = 4,
 					goals = {
+						{ t = "learn", spell = 11450, spellName = "Elixir of Defense", skillLine = 171, candidates = candidateLists[6] },
 						{ t = "craft", spell = 11450, spellName = "Elixir of Defense", item = 8951, itemName = "Elixir of Defense", skillLine = 171, untilSkill = 230, yellow = 215, grey = 255, reagents = { { item = 3355, itemName = "Wild Steelbloom", count = 1 }, { item = 3821, itemName = "Goldthorn", count = 1 }, { item = 3372, itemName = "Leaded Vial", count = 1 } } },
 					},
 				},
@@ -10510,9 +10523,10 @@ do
 				},
 				{
 					title = "{spell:3320} to 83",
-					note = "{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors.",
+					note = "{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors. If you got here without learning {spell:3320}, learn it now: an earlier step teaches it.",
 					section = 2,
 					goals = {
+						{ t = "learn", spell = 3320, spellName = "Rough Grinding Stone", skillLine = 164, candidates = { candidateRecords[8], candidateRecords[10], candidateRecords[3], candidateRecords[2], candidateRecords[6], candidateRecords[4], candidateRecords[1], candidateRecords[5], candidateRecords[7], candidateRecords[9], candidateRecords[11], candidateRecords[12] } },
 						{ t = "craft", spell = 3320, spellName = "Rough Grinding Stone", item = 3470, itemName = "Rough Grinding Stone", skillLine = 164, untilSkill = 83, yellow = 45, grey = 85, reagents = { { item = 2835, itemName = "Rough Stone", count = 2 } } },
 					},
 				},
@@ -11890,6 +11904,7 @@ do
 			{ candidateRecords[42], { npc = 8673, npcName = "Auctioneer Thathung", map = 1454, x = 55.9, y = 62.71, z = 20.1, f = "e", faction = "H" }, candidateRecords[43], { npc = 8674, npcName = "Auctioneer Stampi", map = 1456, x = 40.41, y = 51.77, z = 134.5, f = "e", faction = "H" }, candidateRecords[44], candidateRecords[45], candidateRecords[46], candidateRecords[47], candidateRecords[48], candidateRecords[49] },
 			{ candidateRecords[50], candidateRecords[51], candidateRecords[52], candidateRecords[53], candidateRecords[54], candidateRecords[55], candidateRecords[56] },
 			{ candidateRecords[58], candidateRecords[57] },
+			{ candidateRecords[58], candidateRecords[54], candidateRecords[52], candidateRecords[55], candidateRecords[50], candidateRecords[57], candidateRecords[51], candidateRecords[53], candidateRecords[56] },
 			{ { npc = 8722, npcName = "Auctioneer Gullem", map = 1456, x = 38.9, y = 50.19, z = 134.9, f = "e", faction = "H" }, { npc = 8723, npcName = "Auctioneer Golothas", map = 1457, x = 56.24, y = 54.04, z = 1321.7, f = "e", faction = "A" }, { npc = 9856, npcName = "Auctioneer Grimful", map = 1454, x = 55.25, y = 61.79, z = 20.1, f = "e", faction = "H" }, candidateRecords[42], candidateRecords[43], candidateRecords[45], candidateRecords[46], candidateRecords[47], candidateRecords[48], candidateRecords[49] },
 		}
 		Polestar.RegisterGuide({
@@ -12031,9 +12046,10 @@ do
 				},
 				{
 					title = "{spell:7420} to 90",
-					note = "{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one.",
+					note = "{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one. If you got here without learning {spell:7420}, learn it now: an earlier step teaches it.",
 					section = 2,
 					goals = {
+						{ t = "learn", spell = 7420, spellName = "Enchant Chest - Inferior Stamina", skillLine = 333, candidates = candidateLists[1] },
 						{ t = "craft", spell = 7420, spellName = "Enchant Chest - Inferior Stamina", skillLine = 333, untilSkill = 90, yellow = 70, grey = 110, reagents = { { item = 10940, itemName = "Strange Dust", count = 1 } } },
 					},
 				},
@@ -12152,14 +12168,15 @@ do
 					goals = {
 						{ t = "level", level = 20 },
 						{ t = "train", skill = "Enchanting", skillLine = 333, rank = 3, rankMax = 225, candidates = candidateLists[4] },
-						{ t = "learn", spell = 13628, spellName = "Runed Golden Rod", skillLine = 333, candidates = { candidateRecords[58], candidateRecords[54], candidateRecords[52], candidateRecords[55], candidateRecords[50], candidateRecords[57], candidateRecords[51], candidateRecords[53], candidateRecords[56] } },
+						{ t = "learn", spell = 13628, spellName = "Runed Golden Rod", skillLine = 333, candidates = candidateLists[5] },
 					},
 				},
 				{
 					title = "{spell:13501} to 160",
-					note = "{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one.",
+					note = "{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one. If you got here without learning {spell:13501}, learn it now: an earlier step teaches it.",
 					section = 3,
 					goals = {
+						{ t = "learn", spell = 13501, spellName = "Enchant Bracer - Lesser Stamina", skillLine = 333, candidates = candidateLists[5] },
 						{ t = "craft", spell = 13628, spellName = "Runed Golden Rod", item = 11130, itemName = "Runed Golden Rod", count = 1, skillLine = 333, reagents = { { item = 11128, itemName = "Golden Rod", count = 1 }, { item = 5500, itemName = "Iridescent Pearl", count = 1 }, { item = 11082, itemName = "Greater Astral Essence", count = 1 }, { item = 11083, itemName = "Soul Dust", count = 1 } }, note = "a tool: keep it in your bags" },
 						{ t = "craft", spell = 13501, spellName = "Enchant Bracer - Lesser Stamina", skillLine = 333, untilSkill = 160, yellow = 155, grey = 195, reagents = { { item = 11083, itemName = "Soul Dust", count = 1 } } },
 					},
@@ -12238,9 +12255,9 @@ do
 					note = "What 225-300 takes that the Auction House sells: 34 {item:8831}, 39 {item:11137} and 208 {item:11176}. The counts drop by what your bags, bank and mail hold.",
 					section = 4,
 					goals = {
-						{ t = "auction", item = 8831, itemName = "Purple Lotus", count = 34, candidates = candidateLists[5] },
-						{ t = "auction", item = 11137, itemName = "Vision Dust", count = 39, candidates = candidateLists[5] },
-						{ t = "auction", item = 11176, itemName = "Dream Dust", count = 208, candidates = candidateLists[5] },
+						{ t = "auction", item = 8831, itemName = "Purple Lotus", count = 34, candidates = candidateLists[6] },
+						{ t = "auction", item = 11137, itemName = "Vision Dust", count = 39, candidates = candidateLists[6] },
+						{ t = "auction", item = 11176, itemName = "Dream Dust", count = 208, candidates = candidateLists[6] },
 					},
 				},
 				{
@@ -12437,6 +12454,7 @@ do
 			{ candidateRecords[108], candidateRecords[105], candidateRecords[106], candidateRecords[107], candidateRecords[111] },
 			{ candidateRecords[100], candidateRecords[101], candidateRecords[103], candidateRecords[102], candidateRecords[97], candidateRecords[110], candidateRecords[96], candidateRecords[98], candidateRecords[99], candidateRecords[104] },
 			{ candidateRecords[111], candidateRecords[112] },
+			{ candidateRecords[113], candidateRecords[111], candidateRecords[112] },
 			{ candidateRecords[113] },
 			{ { npc = 8722, npcName = "Auctioneer Gullem", map = 1456, x = 38.9, y = 50.19, z = 134.9, f = "e", faction = "H" }, { npc = 8724, npcName = "Auctioneer Wabang", map = 1454, x = 55.84, y = 64.81, z = 20.1, f = "e", faction = "H" }, { npc = 8723, npcName = "Auctioneer Golothas", map = 1457, x = 56.24, y = 54.04, z = 1321.7, f = "e", faction = "A" }, candidateRecords[95], candidateRecords[97], candidateRecords[100], candidateRecords[101], candidateRecords[102], candidateRecords[103], candidateRecords[104] },
 		}
@@ -12452,7 +12470,7 @@ do
 			author = "Polestar",
 			version = 1,
 			names = { ["area:35"] = "Booty Bay", ["area:392"] = "Ratchet", ["area:976"] = "Gadgetzan", ["item:10505"] = "Solid Blasting Powder", ["item:10507"] = "Solid Dynamite", ["item:10512"] = "Hi-Impact Mithril Slugs", ["item:10513"] = "Mithril Gyro-Shot", ["item:10559"] = "Mithril Tube", ["item:10620"] = "Thorium Ore", ["item:12359"] = "Thorium Bar", ["item:14047"] = "Runecloth", ["item:15994"] = "Thorium Widget", ["item:16000"] = "Thorium Tube", ["item:16042"] = "Schematic: Thorium Widget", ["item:16047"] = "Schematic: Thorium Tube", ["item:2319"] = "Medium Leather", ["item:2592"] = "Wool Cloth", ["item:2770"] = "Copper Ore", ["item:2772"] = "Iron Ore", ["item:2775"] = "Silver Ore", ["item:2835"] = "Rough Stone", ["item:2836"] = "Coarse Stone", ["item:2838"] = "Heavy Stone", ["item:2840"] = "Copper Bar", ["item:2841"] = "Bronze Bar", ["item:2842"] = "Silver Bar", ["item:2880"] = "Weak Flux", ["item:3575"] = "Iron Bar", ["item:3576"] = "Tin Bar", ["item:3858"] = "Mithril Ore", ["item:3860"] = "Mithril Bar", ["item:4377"] = "Heavy Blasting Powder", ["item:4390"] = "Iron Grenade", ["item:4407"] = "Accurate Scope", ["item:5956"] = "Blacksmith Hammer", ["item:6219"] = "Arclight Spanner", ["item:6530"] = "Nightcrawlers", ["item:6533"] = "Aquadynamic Fish Attractor", ["item:6712"] = "Practice Lock", ["item:7912"] = "Solid Stone", ["npc:11017"] = "Roxxik", ["npc:11029"] = "Trixie Quikswitch", ["npc:11031"] = "Franklin Lloyd", ["npc:11185"] = "Xizzer Fizzbolt", ["npc:1286"] = "Edna Mullby", ["npc:1676"] = "Finbus Geargrind", ["npc:2248"] = "Cave Yeti", ["npc:2351"] = "Gray Bear", ["npc:2354"] = "Vicious Gray Bear", ["npc:2356"] = "Elder Gray Bear", ["npc:2384"] = "Starving Mountain Lion", ["npc:2385"] = "Feral Mountain Lion", ["npc:260565"] = "Kor'gar", ["npc:2675"] = "Explosive Sheep", ["npc:3413"] = "Sovik", ["npc:3809"] = "Ashenvale Bear", ["npc:3810"] = "Elder Ashenvale Bear", ["npc:3811"] = "Giant Ashenvale Bear", ["npc:3817"] = "Shadowhorn Stag", ["npc:3818"] = "Elder Shadowhorn Stag", ["npc:3823"] = "Ghostpaw Runner", ["npc:4586"] = "Graham Van Talen", ["npc:5174"] = "Springspindle Fizzlegear", ["npc:5175"] = "Gearcutter Cogspinner", ["npc:5494"] = "Catherine Leland", ["npc:5514"] = "Brooke Stonebraid", ["npc:5518"] = "Lilliam Sparkspindle", ["npc:5519"] = "Billibub Cogspinner", ["npc:7406"] = "Oglethorpe Obnoticus", ["npc:7944"] = "Tinkmaster Overspark", ["npc:8126"] = "Nixx Sprocketspring", ["npc:8736"] = "Buzzek Bracketswing", ["object:1731"] = "Copper Vein", ["object:1732"] = "Tin Vein", ["object:1735"] = "Iron Deposit", ["object:2040"] = "Mithril Deposit", ["skill:186"] = "Mining", ["skill:202"] = "Engineering", ["skill:393"] = "Skinning", ["spell:1230656"] = "Reagent Bot", ["spell:12585"] = "Solid Blasting Powder", ["spell:12596"] = "Hi-Impact Mithril Slugs", ["spell:12621"] = "Mithril Gyro-Shot", ["spell:20220"] = "Gnomish Engineering", ["spell:3918"] = "Rough Blasting Powder", ["spell:3922"] = "Handful of Copper Bolts", ["spell:3924"] = "Copper Tube", ["spell:3929"] = "Coarse Blasting Powder", ["spell:3930"] = "Crafted Heavy Shot", ["spell:3945"] = "Heavy Blasting Powder", ["spell:3950"] = "Big Bronze Bomb", ["spell:3953"] = "Bronze Framework", ["spell:3967"] = "Big Iron Bomb", ["spell:3973"] = "Silver Contact", ["spell:7430"] = "Arclight Spanner", ["spell:8334"] = "Practice Lock", ["spell:9271"] = "Aquadynamic Fish Attractor", ["zone:1411"] = "Durotar", ["zone:1412"] = "Mulgore", ["zone:1413"] = "The Barrens", ["zone:1417"] = "Arathi Highlands", ["zone:1420"] = "Tirisfal Glades", ["zone:1421"] = "Silverpine Forest", ["zone:1424"] = "Hillsbrad Foothills", ["zone:1425"] = "The Hinterlands", ["zone:1426"] = "Dun Morogh", ["zone:1429"] = "Elwynn Forest", ["zone:1431"] = "Duskwood", ["zone:1432"] = "Loch Modan", ["zone:1434"] = "Stranglethorn Vale", ["zone:1436"] = "Westfall", ["zone:1439"] = "Darkshore", ["zone:1440"] = "Ashenvale", ["zone:1441"] = "Thousand Needles", ["zone:1443"] = "Desolace", ["zone:1444"] = "Feralas", ["zone:1446"] = "Tanaris", ["zone:1447"] = "Azshara", ["zone:1452"] = "Winterspring", ["zone:1453"] = "Stormwind City", ["zone:1454"] = "Orgrimmar", ["zone:1455"] = "Ironforge", ["zone:1458"] = "Undercity", ["zone:2521"] = "Zephras Isle", ["zone:2548"] = "Riverglades" },
-			written = { ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "Big Iron Bomb is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 Iron Bar, 3 Heavy Blasting Powder and 1 Silver Contact and makes 2. Make the 74 Heavy Blasting Powder and 30 Silver Contact (6 crafts) first. Use the 7 Heavy Blasting Powder you made earlier; the counts above leave them out. A Silver Bar makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the Heavy Blasting Powder comes from Heavy Stone. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, Springspindle Fizzlegear (Ironforge), Lilliam Sparkspindle (Stormwind), Graham Van Talen (Undercity) or Tinkerwiz (Ratchet) sends you to Gnomish Engineering (Tinkmaster Overspark, Ironforge, or Oglethorpe Obnoticus, Booty Bay: 6 Mithril Tubes, an Accurate Scope and 2 Advanced Target Dummies) or Goblin Engineering (Nixx Sprocketspring, Gadgetzan: 20 Big Iron Bombs, 20 Solid Dynamite and 5 Explosive Sheep). The Accurate Scope schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby." },
+			written = { ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning {spell:3945} and {spell:3973}, learn them now: an earlier step teaches them."] = "Big Iron Bomb is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 Iron Bar, 3 Heavy Blasting Powder and 1 Silver Contact and makes 2. Make the 74 Heavy Blasting Powder and 30 Silver Contact (6 crafts) first. Use the 7 Heavy Blasting Powder you made earlier; the counts above leave them out. A Silver Bar makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the Heavy Blasting Powder comes from Heavy Stone. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, Springspindle Fizzlegear (Ironforge), Lilliam Sparkspindle (Stormwind), Graham Van Talen (Undercity) or Tinkerwiz (Ratchet) sends you to Gnomish Engineering (Tinkmaster Overspark, Ironforge, or Oglethorpe Obnoticus, Booty Bay: 6 Mithril Tubes, an Accurate Scope and 2 Advanced Target Dummies) or Goblin Engineering (Nixx Sprocketspring, Gadgetzan: 20 Big Iron Bombs, 20 Solid Dynamite and 5 Explosive Sheep). The Accurate Scope schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning Heavy Blasting Powder and Silver Contact, learn them now: an earlier step teaches them." },
 			sections = { { skill = "Engineering", skillLine = 202, from = 1, to = 75 }, { skill = "Engineering", skillLine = 202, from = 75, to = 150 }, { skill = "Engineering", skillLine = 202, from = 150, to = 225 }, { skill = "Engineering", skillLine = 202, from = 225, to = 300 } },
 			steps = {
 				{
@@ -12744,9 +12762,10 @@ do
 				},
 				{
 					title = "{spell:3924} to 100",
-					note = "{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby.",
+					note = "{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning {spell:3924}, learn it now: an earlier step teaches it.",
 					section = 2,
 					goals = {
+						{ t = "learn", spell = 3924, spellName = "Copper Tube", skillLine = 202, candidates = { candidateRecords[108], candidateRecords[105], candidateRecords[3], candidateRecords[106], candidateRecords[107], candidateRecords[1], candidateRecords[2], candidateRecords[4], candidateRecords[6], candidateRecords[9] } },
 						{ t = "craft", spell = 3924, spellName = "Copper Tube", item = 4361, itemName = "Copper Tube", skillLine = 202, untilSkill = 100, yellow = 80, grey = 110, reagents = { { item = 2840, itemName = "Copper Bar", count = 2 }, { item = 2880, itemName = "Weak Flux", count = 1 } } },
 					},
 				},
@@ -12760,9 +12779,10 @@ do
 				},
 				{
 					title = "{item:6712} to 125",
-					note = "{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby.",
+					note = "{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning {spell:3922}, learn it now: an earlier step teaches it.",
 					section = 2,
 					goals = {
+						{ t = "learn", spell = 3922, spellName = "Handful of Copper Bolts", skillLine = 202, candidates = candidateLists[2] },
 						{ t = "craft", spell = 3922, spellName = "Handful of Copper Bolts", item = 4359, itemName = "Handful of Copper Bolts", count = 29, skillLine = 202, reagents = { { item = 2840, itemName = "Copper Bar", count = 1 } } },
 						{ t = "craft", spell = 8334, spellName = "Practice Lock", item = 6712, itemName = "Practice Lock", skillLine = 202, untilSkill = 125, yellow = 115, grey = 130, reagents = { { item = 2841, itemName = "Bronze Bar", count = 1 }, { item = 4359, itemName = "Handful of Copper Bolts", count = 2 }, { item = 2880, itemName = "Weak Flux", count = 1 } } },
 					},
@@ -12951,9 +12971,10 @@ do
 				},
 				{
 					title = "{item:6533} to 166",
-					note = "{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen.",
+					note = "{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen. If you got here without learning {spell:3929}, learn it now: an earlier step teaches it.",
 					section = 3,
 					goals = {
+						{ t = "learn", spell = 3929, spellName = "Coarse Blasting Powder", skillLine = 202, candidates = { candidateRecords[2], candidateRecords[1], candidateRecords[6], candidateRecords[4], candidateRecords[3], candidateRecords[107], candidateRecords[106], candidateRecords[7], candidateRecords[8], candidateRecords[9] } },
 						{ t = "craft", spell = 3929, spellName = "Coarse Blasting Powder", item = 4364, itemName = "Coarse Blasting Powder", count = 31, skillLine = 202, reagents = { { item = 2836, itemName = "Coarse Stone", count = 1 } } },
 						{ t = "craft", spell = 9271, spellName = "Aquadynamic Fish Attractor", item = 6533, itemName = "Aquadynamic Fish Attractor", skillLine = 202, untilSkill = 166, yellow = 150, grey = 170, reagents = { { item = 2841, itemName = "Bronze Bar", count = 2 }, { item = 6530, itemName = "Nightcrawlers", count = 1 }, { item = 4364, itemName = "Coarse Blasting Powder", count = 1 } } },
 					},
@@ -12992,9 +13013,11 @@ do
 				},
 				{
 					title = "{spell:3967} to 210",
-					note = "{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby.",
+					note = "{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning {spell:3945} and {spell:3973}, learn them now: an earlier step teaches them.",
 					section = 3,
 					goals = {
+						{ t = "learn", spell = 3945, spellName = "Heavy Blasting Powder", skillLine = 202, candidates = { candidateRecords[111], candidateRecords[107], candidateRecords[106], candidateRecords[112], candidateRecords[108] } },
+						{ t = "learn", spell = 3973, spellName = "Silver Contact", skillLine = 202, candidates = { candidateRecords[107], candidateRecords[106], candidateRecords[105], candidateRecords[108] } },
 						{ t = "craft", spell = 3945, spellName = "Heavy Blasting Powder", item = 4377, itemName = "Heavy Blasting Powder", count = 74, skillLine = 202, reagents = { { item = 2838, itemName = "Heavy Stone", count = 1 } } },
 						{ t = "craft", spell = 3973, spellName = "Silver Contact", item = 4404, itemName = "Silver Contact", count = 30, skillLine = 202, reagents = { { item = 2842, itemName = "Silver Bar", count = 1 } } },
 						{ t = "craft", spell = 3967, spellName = "Big Iron Bomb", item = 4394, itemName = "Big Iron Bomb", skillLine = 202, untilSkill = 210, yellow = 190, grey = 230, reagents = { { item = 3575, itemName = "Iron Bar", count = 3 }, { item = 4377, itemName = "Heavy Blasting Powder", count = 3 }, { item = 4404, itemName = "Silver Contact", count = 1 } } },
@@ -13005,7 +13028,7 @@ do
 					note = "Back to an {skill:202} trainer: {spell:12596} (from 210).",
 					section = 3,
 					goals = {
-						{ t = "learn", spell = 12596, spellName = "Hi-Impact Mithril Slugs", skillLine = 202, candidates = { candidateRecords[113], candidateRecords[111], candidateRecords[112] } },
+						{ t = "learn", spell = 12596, spellName = "Hi-Impact Mithril Slugs", skillLine = 202, candidates = candidateLists[9] },
 					},
 				},
 				{
@@ -13023,7 +13046,7 @@ do
 					section = 4,
 					goals = {
 						{ t = "level", level = 35 },
-						{ t = "train", skill = "Engineering", skillLine = 202, rank = 4, rankMax = 300, candidates = candidateLists[9] },
+						{ t = "train", skill = "Engineering", skillLine = 202, rank = 4, rankMax = 300, candidates = candidateLists[10] },
 					},
 				},
 				{
@@ -13047,10 +13070,10 @@ do
 					note = "What 225-300 takes that the Auction House sells: 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047}. The counts drop by what your bags, bank and mail hold.",
 					section = 4,
 					goals = {
-						{ t = "auction", item = 3860, itemName = "Mithril Bar", count = 118, candidates = candidateLists[10] },
-						{ t = "auction", item = 7912, itemName = "Solid Stone", count = 212, candidates = candidateLists[10] },
-						{ t = "auction", item = 12359, itemName = "Thorium Bar", count = 156, candidates = candidateLists[10] },
-						{ t = "auction", item = 14047, itemName = "Runecloth", count = 24, candidates = candidateLists[10] },
+						{ t = "auction", item = 3860, itemName = "Mithril Bar", count = 118, candidates = candidateLists[11] },
+						{ t = "auction", item = 7912, itemName = "Solid Stone", count = 212, candidates = candidateLists[11] },
+						{ t = "auction", item = 12359, itemName = "Thorium Bar", count = 156, candidates = candidateLists[11] },
+						{ t = "auction", item = 14047, itemName = "Runecloth", count = 24, candidates = candidateLists[11] },
 					},
 				},
 				{
@@ -13097,9 +13120,11 @@ do
 				},
 				{
 					title = "{item:10512} to 245",
-					note = "{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby.",
+					note = "{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. If you got here without learning {item:10505} and {item:10512}, learn them now: an earlier step teaches them.",
 					section = 4,
 					goals = {
+						{ t = "learn", spell = 12585, spellName = "Solid Blasting Powder", skillLine = 202, candidates = candidateLists[8] },
+						{ t = "learn", spell = 12596, spellName = "Hi-Impact Mithril Slugs", skillLine = 202, candidates = candidateLists[9] },
 						{ t = "craft", spell = 12585, spellName = "Solid Blasting Powder", item = 10505, itemName = "Solid Blasting Powder", count = 50, skillLine = 202, reagents = { { item = 7912, itemName = "Solid Stone", count = 2 } } },
 						{ t = "craft", spell = 12596, spellName = "Hi-Impact Mithril Slugs", item = 10512, itemName = "Hi-Impact Mithril Slugs", skillLine = 202, untilSkill = 245, yellow = 210, grey = 250, reagents = { { item = 3860, itemName = "Mithril Bar", count = 1 }, { item = 10505, itemName = "Solid Blasting Powder", count = 1 } } },
 					},
@@ -13109,14 +13134,15 @@ do
 					note = "Back to an {skill:202} trainer: {spell:12621} (from 245).",
 					section = 4,
 					goals = {
-						{ t = "learn", spell = 12621, spellName = "Mithril Gyro-Shot", skillLine = 202, candidates = candidateLists[9] },
+						{ t = "learn", spell = 12621, spellName = "Mithril Gyro-Shot", skillLine = 202, candidates = candidateLists[10] },
 					},
 				},
 				{
 					title = "{item:10513} to 265",
-					note = "{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby.",
+					note = "{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby. If you got here without learning {item:10505}, learn it now: an earlier step teaches it.",
 					section = 4,
 					goals = {
+						{ t = "learn", spell = 12585, spellName = "Solid Blasting Powder", skillLine = 202, candidates = candidateLists[8] },
 						{ t = "craft", spell = 12585, spellName = "Solid Blasting Powder", item = 10505, itemName = "Solid Blasting Powder", count = 56, skillLine = 202, reagents = { { item = 7912, itemName = "Solid Stone", count = 2 } } },
 						{ t = "craft", spell = 12621, spellName = "Mithril Gyro-Shot", item = 10513, itemName = "Mithril Gyro-Shot", skillLine = 202, untilSkill = 265, yellow = 245, grey = 285, reagents = { { item = 3860, itemName = "Mithril Bar", count = 2 }, { item = 10505, itemName = "Solid Blasting Powder", count = 2 } } },
 					},
@@ -13259,9 +13285,10 @@ do
 				},
 				{
 					title = "{item:2581} (50-80)",
-					note = "{item:2581} is yellow from 50 (yellow at 50, green at 75, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere. Herbalists: {item:858} (from 55, 1s 50c; {item:2450}, two {item:2678} and an {item:3371}) is orange to 85.",
+					note = "{item:2581} is yellow from 50 (yellow at 50, green at 75, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 1s; the arrow picks the nearest. Herbalists: {item:858} (from 55, 1s 50c; {item:2450}, two {item:2678} and an {item:3371}) is orange to 85.",
 					section = 3,
 					goals = {
+						{ t = "learn", spell = 3276, spellName = "Heavy Linen Bandage", skillLine = 129, candidates = candidateLists[1] },
 						{ t = "craft", spell = 3276, spellName = "Heavy Linen Bandage", item = 2581, itemName = "Heavy Linen Bandage", skillLine = 129, untilSkill = 80, yellow = 50, grey = 100, reagents = { { item = 2589, itemName = "Linen Cloth", count = 2 } } },
 					},
 				},
@@ -13344,9 +13371,10 @@ do
 				},
 				{
 					title = "{spell:3278} (125-150)",
-					note = "{spell:3278} is yellow from 125 (yellow at 115, green at 150, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere.",
+					note = "{spell:3278} is yellow from 125 (yellow at 115, green at 150, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 10s; the arrow picks the nearest.",
 					section = 6,
 					goals = {
+						{ t = "learn", spell = 3278, spellName = "Heavy Wool Bandage", skillLine = 129, candidates = candidateLists[1] },
 						{ t = "craft", spell = 3278, spellName = "Heavy Wool Bandage", item = 3531, itemName = "Heavy Wool Bandage", skillLine = 129, untilSkill = 150, yellow = 115, grey = 185, reagents = { { item = 2592, itemName = "Wool Cloth", count = 2 } } },
 					},
 				},
@@ -13489,9 +13517,10 @@ do
 				},
 				{
 					title = "{item:8544} (225-240)",
-					note = "{item:8544} is yellow from 225 (yellow at 210, green at 240, grey at 270): about 24 crafts to 240. Bandages need no fire: craft them anywhere. {item:8544} turns green at 240: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to 260.",
+					note = "{item:8544} is yellow from 225 (yellow at 210, green at 240, grey at 270): about 24 crafts to 240. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: read the {item:16113} (the vendor who sold you the Expert {skill:129} book sells it). {item:8544} turns green at 240: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to 260.",
 					section = 10,
 					goals = {
+						{ t = "learn", spell = 10840, spellName = "Mageweave Bandage", item = 16113, itemName = "Manual: Mageweave Bandage", skillLine = 129 },
 						{ t = "craft", spell = 10840, spellName = "Mageweave Bandage", item = 8544, itemName = "Mageweave Bandage", skillLine = 129, untilSkill = 240, yellow = 210, grey = 270, reagents = { { item = 4338, itemName = "Mageweave Cloth", count = 1 } } },
 					},
 				},
@@ -13522,9 +13551,11 @@ do
 				},
 				{
 					title = "{item:8545} (240-260)",
-					note = "{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere.",
+					note = "{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321}).",
 					section = 11,
 					goals = {
+						{ t = "learn", spell = 10841, spellName = "Heavy Mageweave Bandage", npc = 12939, npcName = "Doctor Gustaf VanHowzen", skillLine = 129, map = 1445, x = 67.71, y = 48.85, z = 12, only = { factions = { "Alliance" } } },
+						{ t = "learn", spell = 10841, spellName = "Heavy Mageweave Bandage", npc = 12920, npcName = "Doctor Gregory Victor", skillLine = 129, map = 1417, x = 73.27, y = 36.88, z = 63, only = { factions = { "Horde" } } },
 						{ t = "craft", spell = 10841, spellName = "Heavy Mageweave Bandage", item = 8545, itemName = "Heavy Mageweave Bandage", skillLine = 129, untilSkill = 260, yellow = 240, grey = 300, reagents = { { item = 4338, itemName = "Mageweave Cloth", count = 2 } } },
 					},
 				},
@@ -13555,9 +13586,11 @@ do
 				},
 				{
 					title = "{item:14529} (260-300)",
-					note = "{item:14529} is yellow from 260 (yellow at 260, green at 290, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. {item:14529} turns green at 290, yet to 300 it takes about the same {item:14047} as switching to {item:14530} (the doctor teaches it at 290): one recipe is enough.",
+					note = "{item:14529} is yellow from 260 (yellow at 260, green at 290, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321}). {item:14529} turns green at 290, yet to 300 it takes about the same {item:14047} as switching to {item:14530} (the doctor teaches it at 290): one recipe is enough.",
 					section = 12,
 					goals = {
+						{ t = "learn", spell = 18629, spellName = "Runecloth Bandage", npc = 12939, npcName = "Doctor Gustaf VanHowzen", skillLine = 129, map = 1445, x = 67.71, y = 48.85, z = 12, only = { factions = { "Alliance" } } },
+						{ t = "learn", spell = 18629, spellName = "Runecloth Bandage", npc = 12920, npcName = "Doctor Gregory Victor", skillLine = 129, map = 1417, x = 73.27, y = 36.88, z = 63, only = { factions = { "Horde" } } },
 						{ t = "craft", spell = 18629, spellName = "Runecloth Bandage", item = 14529, itemName = "Runecloth Bandage", skillLine = 129, untilSkill = 300, yellow = 260, grey = 320, reagents = { { item = 14047, itemName = "Runecloth", count = 1 } } },
 					},
 				},
@@ -14982,9 +15015,10 @@ do
 				},
 				{
 					title = "{spell:3780} to 158",
-					note = "{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors.",
+					note = "{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it.",
 					section = 3,
 					goals = {
+						{ t = "learn", spell = 3780, spellName = "Heavy Armor Kit", skillLine = 165, candidates = candidateLists[6] },
 						{ t = "craft", spell = 3780, spellName = "Heavy Armor Kit", item = 4265, itemName = "Heavy Armor Kit", skillLine = 165, untilSkill = 158, yellow = 145, grey = 165, reagents = { { item = 4234, itemName = "Heavy Leather", count = 5 }, { item = 2321, itemName = "Fine Thread", count = 1 } } },
 					},
 				},
@@ -16744,10 +16778,11 @@ do
 				},
 				{
 					title = "{item:7053} to 170",
-					note = "{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data.",
+					note = "{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning {spell:3839}, learn it now: an earlier step teaches it.",
 					section = 3,
 					goals = {
 						{ t = "learn", spell = 8786, spellName = "Azure Silk Cloak", item = 7089, itemName = "Pattern: Azure Silk Cloak", skillLine = 197, note = "from the recipe in your bags" },
+						{ t = "learn", spell = 3839, spellName = "Bolt of Silk Cloth", skillLine = 197, candidates = candidateLists[3] },
 						{ t = "craft", spell = 3839, spellName = "Bolt of Silk Cloth", item = 4305, itemName = "Bolt of Silk Cloth", count = 66, skillLine = 197, reagents = { { item = 4306, itemName = "Silk Cloth", count = 4 } } },
 						{ t = "craft", spell = 8786, spellName = "Azure Silk Cloak", item = 7053, itemName = "Azure Silk Cloak", skillLine = 197, untilSkill = 170, yellow = 160, grey = 190, reagents = { { item = 4305, itemName = "Bolt of Silk Cloth", count = 3 }, { item = 6260, itemName = "Blue Dye", count = 2 }, { item = 2321, itemName = "Fine Thread", count = 2 } } },
 					},
