@@ -1030,6 +1030,77 @@ fn a_count_never_splits_across_two_lines_at_any_width() {
 	assert!(f(&out["moved"]) > 0.0, "some count had to move to the next line at some width: {}", out["moved"]);
 }
 
+// #3363 (vile, 0.4.1.1): "Kill Hillsbrad Farmhand 0/" with the "6" under it, the row's Next spot button beside it.
+// The same check with that button on the kill rows, at the window's text sizes (smallest, default, largest) and the
+// goal size's smallest, default and largest, from the narrowest window to the widest, compact or not, in the
+// standard and the transparent style.
+#[test]
+fn a_count_never_splits_with_the_next_spot_button_at_any_text_size_or_width() {
+	let out = run(r#"
+		local steps = uistub.guides[uistub.elwynn].steps
+		steps[#steps + 1] = { title = "Hillsbrad Fields", goals = {
+			{ t = "kill", verb = "Kill", subject = "Hillsbrad Farmer", subjectKind = "npc", npc = 2264, quest = 567, progress = { cur = 0, max = 6 }, status = "active", spots = 3 },
+			{ t = "kill", verb = "Kill", subject = "Hillsbrad Farmhand", subjectKind = "npc", npc = 2265, quest = 567, progress = { cur = 0, max = 6 }, status = "active", spots = 3 },
+			{ t = "kill", verb = "Kill", subject = "Farmer Ray", subjectKind = "npc", npc = 232, quest = 567, status = "active" },
+			{ t = "kill", verb = "Kill", subject = "Farmer Getz", subjectKind = "npc", npc = 2403, quest = 567, status = "active" },
+		} }
+		local n = #steps
+		Polestar.Engine.CycleSpot = function() end
+		uistub.setGuide(uistub.elwynn, 5)
+		local probe = UIParent:CreateFontString()
+		local split, counts, alts = {}, 0, 0
+		local function check(label)
+			for _, r in ipairs(GF.rows) do
+				if r:IsVisible() and r.Alt:IsShown() then alts = alts + 1 end
+				local fs = r.Text
+				local text = r:IsVisible() and fs:GetText() or ""
+				probe:SetFont(fs:GetFont())
+				probe:SetWidth(fs:GetWidth())
+				probe:SetMaxLines(fs:GetMaxLines())
+				local from = 1
+				while true do
+					local s, e = text:find("%d+/%d+", from)
+					if not s then break end
+					counts = counts + 1
+					probe:SetText(text:sub(1, s))
+					local h1 = probe:GetStringHeight()
+					probe:SetText(text:sub(1, e))
+					local h2 = probe:GetStringHeight()
+					-- A count moved to a line of its own: whole there when its glyphs fit the width. The stub counts
+					-- its colour code's characters as glyphs (the client draws them zero wide), which at the largest
+					-- sizes alone ran past the width.
+					local own = text:sub(1, s - 1):find("\n|c%x%x%x%x%x%x%x%x$") or text:sub(1, s - 1):find("\n$")
+					probe:SetText(text:sub(s, e))
+					local fits = probe:GetUnboundedStringWidth() <= fs:GetWidth()
+					if h2 ~= h1 and not (own and fits) then split[#split + 1] = label .. ": " .. plain(text) end
+					from = e + 1
+				end
+			end
+		end
+		for _, style in ipairs({ "standard", "transparent" }) do
+			Polestar.Set("ui.style", style)
+			for _, textSize in ipairs({ 0.8, 1, 1.4 }) do
+				Polestar.Set("ui.guideTextSize", textSize)
+				for _, goalSize in ipairs({ 0.7, 1, 1.8 }) do
+					Polestar.Set("guideWindow.goalSize", goalSize)
+					for _, compact in ipairs({ false, true }) do
+						Polestar.Set("ui.compact", compact)
+						for width = 260, 560, 10 do
+							Polestar.Set("ui.width", width)
+							uistub.setStep(n)
+							check(string.format("%s text %s goals %s%s %d", style, textSize, goalSize, compact and " compact" or "", width))
+						end
+					end
+				end
+			end
+		end
+		emit({ split = table.concat(split, " | "), counts = counts, alts = alts })"#)
+	.remove(0);
+	assert_eq!(out["split"], "", "no count starts on one line and ends on the next");
+	assert!(f(&out["alts"]) > 0.0, "the Next spot button was on screen: {out}");
+	assert!(f(&out["counts"]) > 1000.0, "the counts on screen were all measured: {}", out["counts"]);
+}
+
 // At the height cap the goals area ends on a whole row, in every look: never half a goal's second line ("Kreenig
 // Snarlsnout's Tusk" cut through). Its height is the top of a row (or the whole content), at caps 0.3 to 0.4, widths
 // 260 and 560 and scales 0.64, 1 and 1.5, unless the room is under three lines (CARD.minView), its floor.
