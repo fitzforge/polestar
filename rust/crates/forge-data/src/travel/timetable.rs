@@ -713,8 +713,7 @@ struct NpcPortalDef {
 // #3691: Sanath Lim-yo, camped below Archmage Xylem's tower in Azshara, teleports a player who asks up the tower
 // ("Teleport to Azshara Tower", spell 12510); without it the arrow walked the player round to the tower's foot. The
 // way back down is the attendant's at the top (spell 12520, which lands beside Sanath).
-const NPC_PORTALS: [NpcPortalDef; 1] =
-	[NpcPortalDef { npc: 8395, name: "Sanath Lim-yo", id: "portal-azshara-tower", at: (1.0, 3648.01, -4702.71, 121.06), spell: 12510, to: "Azshara Tower" }];
+const NPC_PORTALS: [NpcPortalDef; 1] = [NpcPortalDef { npc: 8395, name: "Sanath Lim-yo", id: "portal-azshara-tower", at: (1.0, 3648.01, -4702.71, 121.06), spell: 12510, to: "Azshara Tower" }];
 
 /// An object portal's end on its map (live frame first, as spawn_points reads a live spawn), or None
 /// when the data has no frame for the map.
