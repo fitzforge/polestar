@@ -29,8 +29,10 @@
 -- a level-1 chain (learned at the start), opening at the new level
 -- (PLAYER_LEVEL_UP) or within the last two levels (login), its reward not
 -- known or owned (IsPlayerSpell / IsSpellKnown; GetItemCount with the bank),
--- no quest of its chain done or in the log, once per chain per character
--- (CharState().classToastSeen). The chime follows ui.classCardSound.
+-- no quest of its chain done or in the log, not an optional chain (its Class
+-- guide listed optional in Core/ClassQuestList.lua, #3925: CT.Optional),
+-- once per chain per character (CharState().classToastSeen). The chime
+-- follows ui.classCardSound.
 --
 --   UI.ClassToast.Candidates(level, mode)  mode "levelup" | "login" | "any"
 --   UI.ClassToast.Check(level, mode)       show the best candidate
@@ -335,10 +337,21 @@ function CT.Model(q)
 	return m
 end
 
+-- Whether the chain of quest q is an optional one (Core/ClassQuestList.lua,
+-- #3925): its Class guide (CT.ClassGuide) is listed optional. No heads-up
+-- tells of it; the guide menu lists it under "Optional class quests".
+function CT.Optional(q, guideId)
+	local list = ns.ClassQuestList
+	if not (list and list.OptionalGuide) then return false end
+	if guideId == nil then guideId = CT.ClassGuide(q) end
+	return list.OptionalGuide(guideId)
+end
+
 -- The chain starts to tell the character about now, best first: the highest
 -- level, then one the loaded guide takes, then the lowest quest id. mode
 -- "levelup": opening at `level`; "login": opened within the last
--- LOGIN_LEVELS levels; "any": any reached, seen ones too. -> { quest, ... }
+-- LOGIN_LEVELS levels; "any": any reached, seen ones too. An optional chain
+-- (CT.Optional) never. -> { quest, ... }
 function CT.Candidates(level, mode)
 	local d, C = data(), CC()
 	local p = C and C.Player()
@@ -352,9 +365,12 @@ function CT.Candidates(level, mode)
 		local due = (mode == "levelup" and at == level) or (mode == "login" and at <= level and at >= level - LOGIN_LEVELS)
 			or (mode == "any" and at <= level)
 		if due and at > 1 and e and e[3] > 0 and hasBit(e[1], cbit) and giverFor(s, p) and (mode == "any" or not done[q])
-			and not CT.RewardKnown(d.rewards[e[3]]) and not CT.ChainTaken(q) and CT.Model(q) then
-			out[#out + 1] = q
-			onRoute[q] = routeStep(q, C.ChainOf(q), p) ~= nil
+			and not CT.RewardKnown(d.rewards[e[3]]) and not CT.ChainTaken(q) then
+			local m = CT.Model(q)
+			if m and not CT.Optional(q, m.guideId) then
+				out[#out + 1] = q
+				onRoute[q] = routeStep(q, C.ChainOf(q), p) ~= nil
+			end
 		end
 	end
 	table.sort(out, function(a, b)

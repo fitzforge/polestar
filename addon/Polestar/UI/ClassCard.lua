@@ -2,7 +2,9 @@
 -- the character's class quests: the quest data limits the quest to a few
 -- classes, the character's among them (UI/ClassRewards.lua). A step or goal
 -- `only <Class>` is a route choice, not a class quest (Mulgore's Druid trip
--- to Thunder Bluff), and a Class guide carries open errands too.
+-- to Thunder Bluff), and a Class guide carries open errands too. An optional
+-- chain (items only, not on the worth-it list: Core/ClassQuestList.lua,
+-- #3925) has no card outside its own Class guide: its lines read as rows.
 -- In the class colour: a border, a 4 px stripe on the left and a soft glow
 -- from it; the chain's reward icon in a ring (the spell it teaches, else the
 -- item it gives, else the class icon); "<CLASS> · LEVEL <n>", the quest's
@@ -129,6 +131,17 @@ local function rewardKnown(quest)
 	return reward ~= nil and CT ~= nil and CT.RewardKnown ~= nil and CT.RewardKnown(reward) or false
 end
 
+-- Whether class quest `quest` is of an optional chain (Core/ClassQuestList.lua,
+-- #3925: items only, not on the worth-it list): no card outside its own Class
+-- guide, its step's lines read as rows like any other (the step itself stays
+-- where the route has it). In the Class guide the player opened, the card
+-- heads its chain as ever.
+local function optionalChain(quest)
+	local list = ns.ClassQuestList
+	return list ~= nil and list.OptionalQuest ~= nil and list.OptionalQuest(quest)
+end
+CC.OptionalChain = optionalChain
+
 -- Whether the class quest of accept goal `goal` is handed in: the game says
 -- so, or the step's own turn-in of it is done.
 local function handedIn(step, view, goal)
@@ -149,15 +162,17 @@ end
 -- given once it is handed in): the card's open tick box for that accept
 -- read as though the quest in the log were not taken, every part of a chain
 -- like Call of Water bearing the same name (#1372). None for a chain whose
--- reward the character already knows or owns, nor once the accept is done
--- and its quest handed in: the card is gone then, and the accept reads as a
--- row like any other. -> goal index | nil
-local function cardGoal(step, view, p)
+-- reward the character already knows or owns, nor for an optional chain
+-- outside a Class guide (optionalChain; `inClass`: the guide is one), nor
+-- once the accept is done and its quest handed in: the card is gone then,
+-- and the accept reads as a row like any other. -> goal index | nil
+local function cardGoal(step, view, p, inClass)
 	local turnin, held, accept
 	local C = ns.Compat
 	for gi, goal in ipairs(step.goals) do
 		local v = view.goals[gi]
-		if (goal.t == "accept" or goal.t == "turnin") and v and v.status ~= "na" and matches(goal.only, p) and classQuest(goal, p.class) and not rewardKnown(goal.quest) then
+		if (goal.t == "accept" or goal.t == "turnin") and v and v.status ~= "na" and matches(goal.only, p) and classQuest(goal, p.class) and not rewardKnown(goal.quest)
+			and (inClass or not optionalChain(goal.quest)) then
 			if goal.t == "accept" then
 				accept = accept or gi
 			else
@@ -543,7 +558,7 @@ function CC.Fill(guide, index, view)
 	CC.shown = nil
 	local step = guide and index and guide.steps and guide.steps[index]
 	local p = player()
-	local gi = step and view and p and p.class and cardGoal(step, view, p)
+	local gi = step and view and p and p.class and cardGoal(step, view, p, guide.category == "Class")
 	if mode() == "off" then gi = nil end
 	if gi and chainBefore(guide, index, chainOf(step.goals[gi].quest), p) then gi = nil end
 	if not gi then
@@ -647,7 +662,7 @@ function CC.Frame() return F end
 function CC.Fold(guide, view)
 	local step = guide and view and guide.steps and guide.steps[view.index]
 	local p = step and player()
-	local gi = p and p.class and cardGoal(step, view, p)
+	local gi = p and p.class and cardGoal(step, view, p, guide.category == "Class")
 	local goal, gv = gi and step.goals[gi], gi and view.goals[gi]
 	if not (goal and goal.t == "accept" and gv) or mode() == "off" then return nil end
 	if chainBefore(guide, view.index, chainOf(goal.quest), p) then return nil end
