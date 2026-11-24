@@ -165,7 +165,7 @@ return {
 	["South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with {npc:263190}'s spears. The Alliance trains its scouts and priests at a camp on the far bank. {npc:257079}, the Alliance elite, rides the road just east of the camp: pull the scouts and priests away from it.\nCareful: {npc:263380}, an elite (level 42), hunts along this river: if he comes your way, back off and let him pass."] = "Südwestlich von Rog'mar fließt der Fluss zwischen den Höfen: Spieße die Süßwasserkrokilisken mit {npc:263190}s Speeren auf. Die Allianz bildet in einem Lager am anderen Ufer ihre Späher und Priester aus. {npc:257079}, der Allianz-Elite, reitet die Straße direkt östlich des Lagers ab: Zieh die Späher und Priester von ihr weg.\nVorsicht: {npc:263380}, ein Elite (Stufe 42), jagt entlang dieses Flusses: Wenn er in deine Richtung kommt, zieh dich zurück und lass ihn vorbeiziehen.",
 	-- {npc:263190} Tan'jani
 	-- plural, as words: Freshwater Crocolisks = {npc:259046} Freshwater Crocolisk
-	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "",
+	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "die Speere von {npc:263190}, auf den Süßwasserkrokilisken im Fluss",
 
 	-- Step 39: Tran'gul
 	-- {npc:256710} Tran'gul · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
@@ -264,7 +264,7 @@ return {
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
 	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "",
 	-- {npc:258048} Jom-jom
-	["{npc:258048}, in the cave"] = "",
+	["{npc:258048}, in the cave"] = "{npc:258048}, in der Höhle",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
 	["help {npc:258048} reach {area:16726}"] = "hilf {npc:258048}, {area:16726} zu erreichen",
 
@@ -408,7 +408,9 @@ return {
 
 	-- Step 85: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} streift durch das seichte Wasser südwestlich des Hafens, unterhalb der Strände der Murlocs. {npc:257001}, ein Elite, läuft ganz in der Nähe am Ufer entlang: Halte Abstand zu ihm.",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "",
+	-- {item:268633} Sea Monster's Head
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "",
 
 	-- Step 87: The river: Riverweed
 	-- {item:265806} Riverweed
@@ -487,6 +489,7 @@ return {
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "Noch einmal hinaus zu den Klippen der Piraten. Platziere Whizzbuzz' Sprengladungen auf den drei Schiffen, die unterhalb des Lagers vor Anker liegen, von Süden nach Norden; {quest:95124} steht beim mittleren, ihre Beutetruhe neben ihr. Halte unterwegs Ausschau nach {npc:259758}.\nVorsicht: {quest:95124} ist Stufe 45, hier ein oder zwei Stufen über dir: Räum zuerst das Deck um sie herum und geh mit voller Gesundheit rein.",
 	-- ["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "Die Lager des Kults füllen das Tal südlich und westlich von {npc:258570}. Befreie die gefangenen Späher der Rog'mar, sobald du sie findest. Twilight-Vollstrecker (Elite, Stufe 45) patrouillieren durch die Lager: Achte vor jedem Pull darauf, wo sie langlaufen. {npc:256881} und {npc:256891} (Elite, 46) halten die Festung am Kopf des Tals: Zieh die Kultisten von ihnen weg. Das Lager der Allianz von {npc:258023} liegt am Südende des Tals, und seine Aufklärer von Farholde (Stufe 46) greifen die Horde an: Bleib nördlich davon.",
 	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "Der nächste Guide fliegt ab {area:340} im {area:3}: nach Norden aus dem Tal von {npc:258570} und hinauf durch {area:16685}, den Weg ins {area:3}.",
+	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} streift durch das seichte Wasser südwestlich des Hafens, unterhalb der Strände der Murlocs. {npc:257001}, ein Elite, läuft ganz in der Nähe am Ufer entlang: Halte Abstand zu ihm.",
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Schnüffelschnauze und {npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548} liegt südlich von {area:3}. Reite von {area:657} nach Osten nach {area:75} und flieg nach {area:340}: Dort beginnt der Weg hinab ins Gebiet.",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "Westlich von Rog'mar hält der Schattenhammerkult das Bauerndorf {area:16723}. {npc:259158}, ein Kobold, der aussteigen will, versteckt sich mitten im Dorf.",

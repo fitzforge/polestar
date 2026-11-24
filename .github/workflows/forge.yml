@@ -134,9 +134,9 @@ jobs:
           scripts/doc-commands.sh target/quick/forge
 
   # forge-addontest's test binaries (its unit tests, addontest, scenes), cached by the code they are
-  # built from: rust/, the stub's simulate.lua and data/guide-fixes.json, which they embed. A hit (any
-  # pull request that changes none of them, once next's run has built them) builds nothing. A miss
-  # builds them; pushes save them for the pull requests after.
+  # built from: rust/ and the stub's simulate.lua, which they embed (the tests read the data and the
+  # guides when they run). A hit (any pull request that changes neither, once next's run has built
+  # them) builds nothing. A miss builds them; pushes save them for the pull requests after.
   addontest-bin:
     name: Addon tests build
     needs: lane
@@ -154,7 +154,7 @@ jobs:
 
       - name: Cache key
         id: key
-        run: echo "key=addontest-bin-${{ runner.os }}-${{ hashFiles('rust/**', 'tests/lua/simulate.lua', 'data/guide-fixes.json') }}" >> "$GITHUB_OUTPUT"
+        run: echo "key=addontest-bin-${{ runner.os }}-${{ hashFiles('rust/**', 'tests/lua/simulate.lua') }}" >> "$GITHUB_OUTPUT"
 
       - name: Test binaries (cache)
         id: cache
@@ -200,8 +200,9 @@ jobs:
           retention-days: 1
           if-no-files-found: error
 
-  # The addon's Lua tests in four shards: addontest's tests dealt out in turn (its --list order), the
-  # unit tests and scenes with the first shard. Run from the crate's folder, as cargo test does.
+  # The addon's Lua tests in four shards: the crate's unit tests and the scenes in the first (about three
+  # minutes on their own), addontest's tests dealt out in turn (its --list order) over the other three. Run
+  # from the crate's folder, as cargo test does.
   addontest:
     name: Addon tests ${{ matrix.shard }}/4
     needs: [lane, addontest-bin]
@@ -231,15 +232,16 @@ jobs:
         run: |
           bin=../../target/addontest-bin
           chmod +x "$bin"/*
-          mapfile -t names < <("$bin/addontest" --list --format terse | sed -n 's/: test$//p' | awk -v k="$SHARD" 'NR % 4 == k % 4')
-          echo "addontest: ${#names[@]} tests in shard $SHARD"
-          test "${#names[@]}" -gt 0
-          "$bin/addontest" --exact "${names[@]}"
           if [ "$SHARD" = 1 ]; then
             for t in "$bin"/*; do
               case "${t##*/}" in addontest) ;; *) "$t" ;; esac
             done
+            exit 0
           fi
+          mapfile -t names < <("$bin/addontest" --list --format terse | sed -n 's/: test$//p' | awk -v k="$SHARD" 'NR % 3 == k % 3')
+          echo "addontest: ${#names[@]} tests in shard $SHARD"
+          test "${#names[@]}" -gt 0
+          "$bin/addontest" --exact "${names[@]}"
 
   # The required check. It runs whatever the lane job did, so it always reports: it fails when the lane
   # job did not finish or a job its lane runs did not pass, and passes at once when the lane is skip.

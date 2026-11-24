@@ -53,10 +53,10 @@ const RUST_PATHS = ['rust/**', 'tests/fixtures/dsl/**', ...RUST_DOCS, '.github/w
 // equal).
 const FORGE_PATHS = ['rust/**', 'addon/**', 'data/**', 'forever-db/**', 'guides/**', 'tests/lua/**', 'tests/fixtures/dsl/**', ...RUST_DOCS, '.github/workflows/forge.yml'];
 
-// The areas of the part lane, first match wins. A guide's compile output (the guide packs, Polestar_Experimental's
+// The areas of the part lane, first match wins. A guide's compile output (the guide packs, Polestar's experimental
 // guides, each language's Texts.lua) goes with the guides: a guide pull request carries it.
 const AREAS = [
-	{ area: 'guides', re: /^(guides\/|experimental\/|forge\/seed\/|addon\/Polestar_Guides[^/]*\/|addon\/Polestar_Experimental\/Guides\.lua$|addon\/Polestar_[a-z]{2}[A-Z]{2}\/Texts\.lua$)/ },
+	{ area: 'guides', re: /^(guides\/|experimental\/|forge\/seed\/|addon\/Polestar_Guides[^/]*\/|addon\/Polestar\/Experimental\/Guides\.lua$|addon\/Polestar_[a-z]{2}[A-Z]{2}\/Texts\.lua$)/ },
 	{ area: 'lua', re: /^(addon\/|tests\/lua\/)/ },
 	{ area: 'data', re: /^(data\/|forever-db\/)/ },
 	{ area: 'rust', re: /^(rust\/|tests\/fixtures\/dsl\/)/ },
@@ -122,6 +122,21 @@ function forgeLane(files) {
 	return { forge: 'skip', reasons: [`no path forge.yml's suites read (${plural(changed.length, 'file')})`] };
 }
 
+// The languages whose guide texts a change can break (forge i18n guides check): a guide or a pack file (a changed
+// English text makes its translations stale until `forge i18n guides sync`) -> all; a language's texts files ->
+// that language. files: changed paths -> 'all' | [locale] (empty: none).
+const LOCALE_TEXTS = /^(?:guides|experimental)\/locales\/([a-z]{2}[A-Z]{2})\/|^addon\/Polestar_([a-z]{2}[A-Z]{2})\/Texts\.lua$/;
+function guideTextLocales(files) {
+	const changed = changedList(files);
+	if (changed.some((f) => /^(guides|experimental)\/(?!locales\/).*\.(guide|json)$/.test(f))) return 'all';
+	const out = new Set();
+	for (const f of changed) {
+		const m = LOCALE_TEXTS.exec(f);
+		if (m) out.add(m[1] || m[2]);
+	}
+	return [...out].sort();
+}
+
 function main(argv) {
 	const github = argv.includes('--github');
 	const forge = argv.includes('--forge');
@@ -133,7 +148,8 @@ function main(argv) {
 	for (const why of r.reasons) console.log(`  ${why}`);
 	if (!forge && r.lane === 'part') for (const t of r.tests) console.log(`  ${t}`);
 	if (github) {
-		fs.appendFileSync(process.env.GITHUB_OUTPUT, forge ? `forge=${r.forge}\n` : `lane=${r.lane}\nareas=${r.areas.join(',')}\ntests=${r.tests.join(' ')}\n`);
+		const locales = guideTextLocales(files);
+		fs.appendFileSync(process.env.GITHUB_OUTPUT, forge ? `forge=${r.forge}\n` : `lane=${r.lane}\nareas=${r.areas.join(',')}\ntests=${r.tests.join(' ')}\nlocales=${r.lane === 'full' ? 'all' : Array.isArray(locales) ? locales.join(' ') : locales}\n`);
 		const title = forge ? `## Forge lane: ${r.forge}` : `## Lane: ${name.slice('lane: '.length)}`;
 		const summary = [title, '', ...r.reasons.slice(0, 50).map((w) => `- ${w}`), r.reasons.length > 50 ? `- and ${r.reasons.length - 50} more` : '', ''];
 		fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary.join('\n'));
@@ -143,4 +159,4 @@ function main(argv) {
 
 if (require.main === module) process.exitCode = main(process.argv.slice(2));
 
-module.exports = { lane, forgeLane, areaOf, isDocPath, globRe, DOCS_TESTS, CI_READS, FORGE_PATHS, RUST_PATHS };
+module.exports = { lane, forgeLane, guideTextLocales, areaOf, isDocPath, globRe, DOCS_TESTS, CI_READS, FORGE_PATHS, RUST_PATHS };

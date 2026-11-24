@@ -70,6 +70,40 @@ function M.GetFrameLevel(self)
 	return p and p.GetFrameLevel and (p:GetFrameLevel() + 1) or 0
 end
 
+-- A frame's size set to a new one runs its OnSizeChanged (its script, then
+-- its hooks) with the new width and height, as the client does (#3427): what
+-- refits on it (the search box's placeholder, W.SearchBox) renders at the
+-- size it is drawn at. Not again from inside its own handler.
+local setSize, setWidth, setHeight = M.SetSize, M.SetWidth, M.SetHeight
+local REGION = { FontString = true, Texture = true, Line = true, MaskTexture = true }
+local function watched(self) return self.scripts ~= nil and not REGION[self.kind] and not self.psSizing end
+local function sized(self, w0, h0)
+	local w, h = M.GetWidth(self), M.GetHeight(self)
+	if w == w0 and h == h0 then return end
+	self.psSizing = true
+	local ok, err = pcall(stub.RunScript, self, "OnSizeChanged", w, h)
+	self.psSizing = nil
+	if not ok then error(err, 0) end
+end
+function M.SetSize(self, w, h)
+	if not watched(self) then return setSize(self, w, h) end
+	local w0, h0 = M.GetWidth(self), M.GetHeight(self)
+	setSize(self, w, h)
+	sized(self, w0, h0)
+end
+function M.SetWidth(self, w)
+	if not watched(self) then return setWidth(self, w) end
+	local w0, h0 = M.GetWidth(self), M.GetHeight(self)
+	setWidth(self, w)
+	sized(self, w0, h0)
+end
+function M.SetHeight(self, h)
+	if not watched(self) then return setHeight(self, h) end
+	local w0, h0 = M.GetWidth(self), M.GetHeight(self)
+	setHeight(self, h)
+	sized(self, w0, h0)
+end
+
 ---------------------------------------------------------------------------
 -- Text measurement with real metrics
 ---------------------------------------------------------------------------
@@ -101,17 +135,19 @@ local function codepoints(s)
 	return out
 end
 
--- Visible text: colour codes out, "||" -> "|".
+-- Visible text: colour codes out, "||" -> "|", an inline texture ("|T...|t")
+-- one U+E000, one em wide (render.js draws it as its texture).
+local INLINE = "\238\128\128"
 function preview.plain(s)
 	s = tostring(s or "")
-	s = s:gsub("||", "\1"):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("\1", "|")
+	s = s:gsub("||", "\1"):gsub("|T[^|]*|t", INLINE):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("\1", "|")
 	return s
 end
 
 function preview.width(file, size, s)
 	local m = preview.metrics[file]
 	local w = 0
-	for _, cp in ipairs(codepoints(s)) do w = w + (m.adv[cp] or m.fallback) end
+	for _, cp in ipairs(codepoints(s)) do w = w + (cp == 0xE000 and 1 or m.adv[cp] or m.fallback) end
 	return w * size
 end
 

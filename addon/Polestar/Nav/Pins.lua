@@ -2579,6 +2579,9 @@ local function drawMinimap()
 	updateTrailDriver()
 end
 
+-- Where the minimap's pins were last placed (sample), and the move in pixels that places them again.
+local drawnAt, DRAW_PX = {}, 0.5
+
 -- Compare the state the minimap pins depend on; redraw when it changed.
 -- Returns true when something changed.
 local function sample(force)
@@ -2588,8 +2591,6 @@ local function sample(force)
 	-- changed, which draw as before.
 	if not force and not Minimap:IsVisible() and not (dirty and hasMinimapPins()) then return false end
 	local C = ns.Compat
-	local pc, px, py
-	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
 	local rotate = isRotating()
 	local facing = rotate and C and C.GetPlayerFacing and C.GetPlayerFacing() or nil
 	local radius, half, height, square = viewRadius(), Minimap:GetWidth() / 2, Minimap:GetHeight(), isSquare()
@@ -2600,12 +2601,29 @@ local function sample(force)
 	local z = PIN_ZOOM.minimap
 	local zoomK = z.wide + (z.close - z.wide) * t
 	local sizeK = tonumber(ns.Get and ns.Get("nav.minimapIconSize")) or 1
+	-- Walking moves what is drawn on the minimap a fraction of a pixel a frame (7 yd/s over a 150-450 yd radius): the
+	-- pins and the view's watchers (the route line, the spawn markers) are placed again once the player has moved half
+	-- a pixel since they were, or anything else changed (#3881: the sampler drew every frame of a 27-minute session).
+	-- The move is read from UnitPosition (numbers, no table) before Compat's world position (a vector each call).
+	local d = drawnAt
+	local ux, uy, uc, _
+	if UnitPosition then ux, uy, _, uc = UnitPosition("player") end
+	if not force and not dirty and ux and d.ux and uc == d.uc and facing == sFacing and radius == sRadius and rotate == sRotate
+		and half == sHalf and height == sHeight and square == sSquare and zoomK == sZoomK and sizeK == sSizeK
+		and math.abs(ux - d.ux) * half / radius < DRAW_PX and math.abs(uy - d.uy) * half / radius < DRAW_PX then
+		local stirred = ux ~= d.lx or uy ~= d.ly
+		d.lx, d.ly = ux, uy
+		return stirred
+	end
+	local pc, px, py
+	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
 	local moved = not (pc == sPc and px == sPx and py == sPy and facing == sFacing and radius == sRadius
 		and rotate == sRotate and half == sHalf and height == sHeight and square == sSquare and zoomK == sZoomK
 		and sizeK == sSizeK)
 	local pins = hasMinimapPins()
 	if not force and not moved and not (dirty and pins) then return false end
 	sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sHeight, sSquare, sZoomK, sSizeK = pc, px, py, facing, radius, rotate, half, height, square, zoomK, sizeK
+	d.ux, d.uy, d.uc, d.lx, d.ly = ux, uy, uc, ux, uy
 	if pins then
 		dirty = false
 		drawMinimap()

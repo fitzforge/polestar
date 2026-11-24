@@ -285,6 +285,8 @@ local function errandGoals(key, rec, from, p, direct)
 				goal.fromFaction = "AH"
 			end
 		end
+		-- A source with several places, a walker's circuit among them (#3744: Tawny Grisette's 24 on the Undercity's ring).
+		if src and src.spawns and LK().SpawnSpots then LK().SpawnSpots(goal, src.spawns) end
 		goals[#goals + 1] = goal
 		at = spot
 	end
@@ -414,7 +416,8 @@ local function questGoal(t, id, title, at)
 		goal.npc, goal.npcName = at.id, at.name
 	end
 	goal.z = LK().SpawnZ(at.kind == "object" and "object" or "npc", at.id, at)
-	return goal
+	-- An NPC only the dead see: optional, and its goal says so (Lookup.GhostOnly, #558).
+	return LK().GhostOnly(goal)
 end
 
 -- plan, follow-ups -> stops: one per place a quest is turned in, the

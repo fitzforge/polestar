@@ -104,7 +104,7 @@ step Nesingwary's Expedition
   accept 191
 
 step Stranglethorn Tigers
-  tip The adult tigers prowl the hills just south and west of the camp.
+  tip The adult tigers prowl the hills on both sides of the camp: west of it, and east of it toward the lake. The arrow takes the eastern group.
   kill 682 quest 186                  -- Stranglethorn Tiger
 
 step Ajeck Rouack
@@ -248,7 +248,7 @@ step Fly to Astranaar
 step Heartswood
   only Warlock
   zone Ashenvale
-  tip From Astranaar head north-west into the hills: the Heartswood is a glowing tree north of the road to Maestra's Post. If you took What Is Love?, the Wooden Figurine lies in a house among the trees north of Maestra's Post (26.6,22.0). Then take the road west to Stonetalon.
+  tip From Astranaar head north-west into the hills: the Heartswood is a glowing tree north of the road to Maestra's Post. If you took What Is Love?, the Wooden Figurine lies in a house among the trees north of Maestra's Post (26.6,22.0): light the Unlit Torch from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon.
   collect 6912 quest 1738.1               -- Heartswood
   collect 190309 quest 65602.1 optional   -- Wooden Figurine, north of Maestra's Post
 

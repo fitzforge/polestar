@@ -78,7 +78,11 @@ return {
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "在{area:498}內部",
 
-	-- Step 13: The Dragonmurk: kill these as you meet them
+	-- Step 13: The Musty Scroll
+	-- {object:2555} Musty Scroll
+	["The {object:2555} lies to the south-west."] = "",
+
+	-- Step 14: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510}：遇到就殺",
 	-- {area:511} Wyrmbog
@@ -87,27 +91,27 @@ return {
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329}在{area:510}一帶走動：檢視地圖上的圓圈範圍",
 	["Below ground"] = "地下",
 
-	-- Step 14: Brackenwall Village
+	-- Step 15: Brackenwall Village
 	["Ride back north to Brackenwall."] = "向北騎回蕨牆村。",
 
-	-- Step 15: Onyxia's eggs
+	-- Step 16: Onyxia's eggs
 	["Onyxia's eggs"] = "奧妮克希亞的蛋",
 	-- {area:511} Wyrmbog
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "奧妮克希亞的蛋在{area:511}東南部的龍穴中，由火鬃守衛看守；砸碎五個。",
 
-	-- Step 16: Muckshell crabs
+	-- Step 17: Muckshell crabs
 	["Muckshell crabs"] = "",
 	-- plural, as words: Muckshell Razorclaws = {npc:4405} Muckshell Razorclaw
 	["On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for."] = "",
 
-	-- Step 17: Level 45.37
+	-- Step 18: Level 45.37
 	["Level 45.37"] = "等級45.37",
 	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak
 	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon instead."] = "回到蕨牆村後，{npc:4500}的挑戰需要三人隊伍。單人的話，在騎回北邊之前，先在{area:511}北緣這裡刷火鬃斥候到45.37級，這樣就不用再下來一趟。或者，有隊伍的話，改去打{area:978}地城。",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "刷{npc:4329}",
 
-	-- Step 18: Brackenwall Village
+	-- Step 19: Brackenwall Village
 	-- {npc:4791} Nazeer Bloodpike · {item:5942} Jeweled Pendant
 	["{npc:4791}: the {item:5942}"] = "",
 	-- {npc:4047} Zor Lonetree · {zone:1454} Orgrimmar · {zone:1447} Azshara
@@ -115,7 +119,7 @@ return {
 	-- {quest:3128} Natural Materials · {zone:1444} Feralas
 	["Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain."] = "",
 
-	-- Step 19: Challenge Overlord Mok'Morokk
+	-- Step 20: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "這些是精英怪：建議組隊，找人一起做。{quest:1173}需要3人小隊。單人可以跳過：本路線會安排你把經驗刷回來。\n{npc:4500}是精英：建議組隊。把他打到認輸，然後向{npc:4501}覆命。",
 
@@ -159,6 +163,7 @@ return {
 	-- ["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "又是同一段魚人海岸：噴墨者在哨站以東，食肉者在西邊的棚屋周圍，神諭者混在兩者中間。",
 	-- ["The same murlocs again, plus the Oracles, who stay near the huts on the western shore."] = "同樣的魚人，再加上待在西岸小屋附近的沼澤魚人智者。",
 	-- ["The small Horde post on the southern shore."] = "南岸的小型部落哨站。",
+	-- ["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "鉗嘴龜分佈在崗哨南邊的海灘。\n巨型淤泥蟹沿東海岸的沙灘遊蕩，數量少且分散；看到就殺，從水池騎行南下途中遇到的也別漏掉。\n小心：一隻{npc:272377}（60級）在東南部的海灘上走動：遠遠繞開它。",
 	-- ["The sprite darters flit over the grove just west of the camp and carry the {item:9589}; the Wandering Forest Walkers, a little further west, carry the Splintered Logs.\nCareful: a {npc:272401} (level 60) flies over the forest west of the camp: keep clear of it."] = "小精龍在營地西邊不遠的樹林上空飛舞，身上帶著{item:9589}；再往西一點的森林漫遊者身上帶著斷裂的原木。\n小心：一隻{npc:272401}（60級）在營地西邊的森林上空飛行：遠離牠。",
 	-- ["The zeppelin lands at {object:3202}: Stranglethorn's errands are done (40-50/02), so fly straight on to {area:75}."] = "飛艇降落在{object:3202}：荊棘谷的差事已經做完（40-50/02），所以直接飛往{area:75}。",
 	-- ["The zeppelin to {zone:1454} leaves from the tower beside {object:3202}; it lands just north-east of {zone:1454}'s main gate."] = "前往{zone:1454}的飛艇從{object:3202}旁的塔出發；降落在{zone:1454}正門東北方不遠處。",

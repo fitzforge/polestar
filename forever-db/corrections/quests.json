@@ -2938,6 +2938,29 @@
 		],
 		"note": "Allegiance to the Old Gods (6564) starts from the Damp Note and needs no earlier quest: anyone holding the note can take it. The merged data made it wait for Trouble in the Deeps (6562)."
 	},
+	"6622": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "15 Patients Saved!",
+					"map": 1417,
+					"f": "e",
+					"x": 73.4,
+					"y": 36.8
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3706: Doctor Gregory Victor (12920) in Hammerfall (1417 73.3,36.9); the wounded soldiers are in the room with him"
+			}
+		],
+		"note": "Triage (6622, Horde): Doctor Gregory Victor and the wounded soldiers are in Hammerfall (Arathi Highlands 73.3,36.9), not at the Alliance clinic in Theramore."
+	},
 	"6641": {
 		"set": {
 			"escort": true
@@ -17570,7 +17593,8 @@
 	},
 	"96076": {
 		"set": {
-			"minLevel": 60
+			"minLevel": 60,
+			"rotation": "pix-weekly"
 		},
 		"source": [
 			{
@@ -20736,5 +20760,598 @@
 			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 7 people (7 established) ran A Rest Without Pain; every accept listed two lines, 'Poultice Delivered to Enho' and 'Poultice Delivered to Maruke', each ticking as that NPC's window opened (Enho Runehoof 265862, Maruke 265895; rec.py quest 96622)" }
 		],
 		"note": "A Rest Without Pain (Mount Hyjal, Horde): two lines, one per wounded, each done by opening the NPC's window. The data had no objectives, so the guide's talks to them waited for a gossip choice that never comes (the pattern of #3486)."
+	},
+	"97540": {
+		"set": {
+			"pre": [
+				1560
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): 19 people took Oasis from Tooga (5955), every one after handing in Tooga's Quest (1560) at Torta; nobody took it without that hand-in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3546 (Gindry, German client): at the spot Tooga was missing and only Torta stood there; no quest could be taken without the escort first"
+			}
+		],
+		"note": "Oasis (Tanaris) is given by Tooga once Tooga's Quest is handed in: Tooga is led to Torta first, and only then gives it. The merged data had no prerequisite, so \"While you're here\" and the guide could offer it before the escort (#3546)."
+	},
+	"6804": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6804, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "Poisoned Water (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"6805": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6805, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "Stormers and Rumblers (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"6821": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6821, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "Eye of the Emberseer (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him for it (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"6822": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6822, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "The Molten Core (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"6823": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6823; the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "Agent of Hydraxis (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"6824": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6824, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "Hands of the Enemy (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"7486": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 7486, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "A Hero's Reward (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"7848": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 7848, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278) and no one offered Attunement to the Core"
+			}
+		],
+		"note": "Attunement to the Core (Lothos Riftwaker, Blackrock Mountain) is not in the game on Forever for now: the live server describes neither it nor any quest of Duke Hydraxis's chain, and the Molten Core it opens is not among the raids announced for Forever. The quest leaves the data with the chain (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"9415": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): nobody ever saw Scout Bloodfist (17081) or Rifleman Torrig (17082), no window of theirs, and 0 runs of 9415, 9416, 9419 or 9422, while Cenarion Hold's other quests are recorded many times"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3338 (Zack): at Cenarion Hold on two layers, Scout Bloodfist was not there and Report to General Kirika could not be taken"
+			}
+		],
+		"note": "Report to Marshal Bluewall (Alliance, from Rifleman Torrig (17082)) is not offered on Forever: the Silithus scouts who start this pair are not in the world, and no player has done either quest of it. The game still describes the quests, so they may come with later content. The quest leaves the data with its pair, so the Silithus guides and the Cenarion Circle guide stop sending players to it (#3338)."
+	},
+	"9416": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): nobody ever saw Scout Bloodfist (17081) or Rifleman Torrig (17082), no window of theirs, and 0 runs of 9415, 9416, 9419 or 9422, while Cenarion Hold's other quests are recorded many times"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3338 (Zack): at Cenarion Hold on two layers, Scout Bloodfist was not there and Report to General Kirika could not be taken"
+			}
+		],
+		"note": "Report to General Kirika (Horde, from Scout Bloodfist (17081)) is not offered on Forever: the Silithus scouts who start this pair are not in the world, and no player has done either quest of it. The game still describes the quests, so they may come with later content. The quest leaves the data with its pair, so the Silithus guides and the Cenarion Circle guide stop sending players to it (#3338)."
+	},
+	"9419": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): nobody ever saw Scout Bloodfist (17081) or Rifleman Torrig (17082), no window of theirs, and 0 runs of 9415, 9416, 9419 or 9422, while Cenarion Hold's other quests are recorded many times"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3338 (Zack): at Cenarion Hold on two layers, Scout Bloodfist was not there and Report to General Kirika could not be taken"
+			}
+		],
+		"note": "Scouring the Desert (Alliance, from Marshal Bluewall (17080), after Report to Marshal Bluewall) is not offered on Forever: the Silithus scouts who start this pair are not in the world, and no player has done either quest of it. The game still describes the quests, so they may come with later content. The quest leaves the data with its pair, so the Silithus guides and the Cenarion Circle guide stop sending players to it (#3338)."
+	},
+	"9422": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): nobody ever saw Scout Bloodfist (17081) or Rifleman Torrig (17082), no window of theirs, and 0 runs of 9415, 9416, 9419 or 9422, while Cenarion Hold's other quests are recorded many times"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3338 (Zack): at Cenarion Hold on two layers, Scout Bloodfist was not there and Report to General Kirika could not be taken"
+			}
+		],
+		"note": "Scouring the Desert (Horde, from General Kirika (17079), after Report to General Kirika) is not offered on Forever: the Silithus scouts who start this pair are not in the world, and no player has done either quest of it. The game still describes the quests, so they may come with later content. The quest leaves the data with its pair, so the Silithus guides and the Cenarion Circle guide stop sending players to it (#3338)."
+	},
+	"1270": {
+		"set": {
+			"minLevel": 36
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3192 (PierreAnken, Orc Hunter): at level 35 (80%) Ignatz \"Stinky\" offered nothing with nobody escorting him; at 36, back at the same spot, the quest was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 41 people took Stinky's Escape (Horde), every run at level 36 or above but one: a character given it at 35 without Ignatz's window (a quest shared in a group); Ignatz's windows offered it to Horde characters from level 36 and to none below"
+			}
+		],
+		"note": "Stinky's Escape (Horde, Ignatz \"Stinky\" in Dustwallow Marsh) is offered from level 36 on Forever. The game's quest record and our data said 30, so the guide and \"While you're here\" sent players at 35 to a giver who offered nothing (#3192). The Alliance version (1222) is offered lower (a level 34 character in the recordings) and keeps 30."
+	},
+	"96075": {
+		"set": {
+			"title": "In Demand - Blackrock Legal Records",
+			"level": 60,
+			"minLevel": 60,
+			"rotation": "pix-weekly",
+			"zone": 1434,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 272017,
+					"count": 1,
+					"text": "Nefarion's Remit"
+				},
+				{
+					"type": "item",
+					"id": 272018,
+					"count": 1,
+					"text": "Overseer's License"
+				},
+				{
+					"type": "item",
+					"id": 272019,
+					"count": 1,
+					"text": "Bronzebeard Wedding Contract"
+				}
+			],
+			"objectiveText": "Acquire Nefarian's Remit from General Drakkisath in Blackrock Spire, Overseer's License from Overlord Wyrmthalak in Blackrock Spire, and Bronzebeard Wedding Contract from Emperor Thaurissan in Blackrock Depths, and bring them to Pix Xizzix in Booty Bay.",
+			"start": {
+				"npc": [
+					227853
+				]
+			},
+			"end": {
+				"npc": [
+					227853
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 96075 (client quest cache, builds 1.60.1.70959 and 1.60.1.71037): title, levels, the three objectives and their text; the live quest scans describe it (open)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: Pix Xizzix offered In Demand - Blackrock Legal Records to 4 people at level 60, 3 of them in windows where In Demand - Ancient Elven Curiosities (96076) was refused; he offered 96076 to 1 other, and no window offered both"
+			}
+		],
+		"note": "In Demand - Blackrock Legal Records, one of the In Demand quests Pix Xizzix (Booty Bay) offers, a different one each week, was missing from the merged data: created from the game's quest record. With it the data holds all four of his rotation (96075, 96076, 96087, 96088), so a pick-up guide can show whichever he offers this week (#3601)."
+	},
+	"96087": {
+		"set": {
+			"title": "In Demand - Plague Records",
+			"level": 60,
+			"minLevel": 60,
+			"rotation": "pix-weekly",
+			"zone": 1434,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 272023,
+					"count": 1,
+					"text": "Headmaster's Records"
+				},
+				{
+					"type": "item",
+					"id": 272024,
+					"count": 1,
+					"text": "Grain Shipment Records"
+				},
+				{
+					"type": "item",
+					"id": 272025,
+					"count": 1,
+					"text": "Dathrohan's Correspondence"
+				}
+			],
+			"objectiveText": "Acquire Headmaster's Records from Darkmaster Gandling, Grain Shipment Orders from Baron Rivendare, and Dathrohan's Correspondence from Grand Crusader Saidan Dathrohan, and bring them to Pix Xizzix in Booty Bay.",
+			"start": {
+				"npc": [
+					227853
+				]
+			},
+			"end": {
+				"npc": [
+					227853
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 96087 (client quest cache, builds 1.60.1.70959 and 1.60.1.71037): title, levels, the three objectives and their text; the live quest scans describe it (open)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no recorded window offered it yet; at level 60 Pix Xizzix offered one In Demand quest at a time (Blackrock Legal Records to 4 people, Ancient Elven Curiosities to 1, never both)"
+			}
+		],
+		"note": "In Demand - Plague Records, one of the In Demand quests Pix Xizzix (Booty Bay) offers, a different one each week, was missing from the merged data: created from the game's quest record. With it the data holds all four of his rotation (96075, 96076, 96087, 96088), so a pick-up guide can show whichever he offers this week (#3601)."
+	},
+	"96088": {
+		"set": {
+			"title": "In Demand - Titan Relics",
+			"level": 60,
+			"minLevel": 60,
+			"rotation": "pix-weekly",
+			"zone": 1434,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 272026,
+					"count": 1,
+					"text": "Ysera's Tear"
+				},
+				{
+					"type": "item",
+					"id": 272027,
+					"count": 1,
+					"text": "Mark of Xavius"
+				},
+				{
+					"type": "item",
+					"id": 272028,
+					"count": 1,
+					"text": "Freya's Sigil"
+				}
+			],
+			"objectiveText": "Acquire Ysera's Tear from the Shade of Eranikus in the Sunken Temple, a Mark of Xavius from Varrox Bleakhoof in Blackmaw Hold, and Freya's Sigil from Nanaya in the Shaper's Terrace, and bring them to Pix Xizzix in Booty Bay.",
+			"start": {
+				"npc": [
+					227853
+				]
+			},
+			"end": {
+				"npc": [
+					227853
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 96088 (client quest cache, builds 1.60.1.70959 and 1.60.1.71037): title, levels, the three objectives and their text; the live quest scans describe it (open)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no recorded window offered it yet; at level 60 Pix Xizzix offered one In Demand quest at a time (Blackrock Legal Records to 4 people, Ancient Elven Curiosities to 1, never both)"
+			}
+		],
+		"note": "In Demand - Titan Relics, one of the In Demand quests Pix Xizzix (Booty Bay) offers, a different one each week, was missing from the merged data: created from the game's quest record. With it the data holds all four of his rotation (96075, 96076, 96087, 96088), so a pick-up guide can show whichever he offers this week (#3601)."
+	},
+	"95042": {
+		"set": {
+			"doneBy": [
+				95111
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#2465 (Juamillas, Forsaken Paladin 25, 0.4.1.1): C_QuestLog.IsQuestFlaggedCompleted gave false for Seeking the Kor Gem (95042) and true for An Underrated Talent (95111), Ott's Masterwork (95125) and The Moonsilver Blade (95126); #2366 and #3296 report the same"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 11 people handed Seeking the Kor Gem in and took An Underrated Talent after it; nobody took An Underrated Talent without that hand-in"
+			}
+		],
+		"note": "Seeking the Kor Gem (95042, the Forsaken Paladins' Moonsilver Blade chain) is never flagged completed by the game, even once the rest of the chain is done, so the class guide waited at Ulric Frostveil for an accept that could not come. It counts as done once An Underrated Talent (95111), the next quest of the chain, is in the log or handed in (#2465)."
+	},
+	"96959": {
+		"set": {
+			"objectives": [
+				{
+					"type": "object",
+					"id": 656668,
+					"count": 1,
+					"text": "South Bonfire lit"
+				},
+				{
+					"type": "object",
+					"id": 656669,
+					"count": 1,
+					"text": "Southeast Bonfire lit"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest records 96959, builds 1.60.1.70959 and 71037: two game-object objectives, 656668 \"South Bonfire lit\" and 656669 \"Southeast Bonfire lit\""
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 14 people; the quest log lists South Bonfire lit first, and each line ticks on a cast of spell 1236393 at its bonfire"
+			}
+		],
+		"note": "Blademaster's Bonfires (Mount Hyjal, Dae'gun) is done by lighting two bonfires; our data had no objectives, so the guide could not see them lit and moved on to the hand-in with them still dark (#3531)."
+	},
+	"98903": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 98903, builds 1.60.1.70840 and 70862: one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98903 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Alliance, levels 30-39) is done by winning a Darkspear Islands battleground and returning to Brelinda McFarry at Northwatch Hold. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"98904": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 98904, build 1.60.1.70862: one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98904 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Alliance, levels 40-49) is done by winning a Darkspear Islands battleground and returning to Brelinda McFarry at Northwatch Hold. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"98905": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link quest record 98905 from players' caches of the beta client, build 1.60.1.70450 (the live scans have none for it yet): one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188, as in the live records of 98903 and 98904"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98905 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Alliance, levels 50-60) is done by winning a Darkspear Islands battleground and returning to Brelinda McFarry at Northwatch Hold. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"98906": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 98906, builds 1.60.1.70840 and 70862: one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98906 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Horde, levels 30-39) is done by winning a Darkspear Islands battleground and returning to Nizook Boof at The Merchant Coast. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"98907": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 98907, build 1.60.1.70862: one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98907 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Horde, levels 40-49) is done by winning a Darkspear Islands battleground and returning to Nizook Boof at The Merchant Coast. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"98908": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link quest record 98908 from players' caches of the beta client, build 1.60.1.70450 (the live scans have none for it yet): one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188, as in the live records of 98906 and 98907"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98908 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Horde, levels 50-60) is done by winning a Darkspear Islands battleground and returning to Nizook Boof at The Merchant Coast. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"94971": {
+		"set": {
+			"pre": [],
+			"preAll": [],
+			"preAny": [],
+			"breadcrumbs": [
+				97022
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-18 (excluded contributors left out): Danitha Morr offered A Paladin's Steed at 40 to an Undead Paladin who had never taken Report to Danitha (97022) and had trained at Bandarion Keep, and 5 people took it right after handing 97022 in to her (game builds 70862 to 70938)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14's Forever quest rows (generated base, 2026-11-11): A Paladin's Steed has no prerequisite"
+			}
+		],
+		"note": "A Paladin's Steed (94971, Danitha Morr at Bandarion Keep, the Forsaken paladins' warhorse) needs no earlier quest: Report to Danitha (97022, from Garen Largo, the Undercity's paladin trainer) only sends the player to her. The merged data had 97022 as its prerequisite, from players taking the two in a row, so a paladin who went straight to Danitha would have been told to fetch the errand first (#2898)."
 	}
 }

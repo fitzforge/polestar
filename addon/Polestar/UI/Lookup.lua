@@ -165,7 +165,7 @@ function LK.ReasonText(reason)
 	if reason == "loading" then
 		return L["Loading the Codex\226\128\166"]
 	elseif reason == "off" then
-		return L["Lookup is turned off in Options > Discovery > Lookup. Items, mounts, NPCs and quests are not searched."]
+		return L["Lookup is turned off in Settings > Discovery > Lookup. Items, mounts, NPCs and quests are not searched."]
 	elseif reason == "missing" then
 		return L["The Polestar_Codex addon is not installed. Get Polestar from CurseForge or the GitHub Releases page (the Polestar zip under Assets, not \"Source code\"), install it and restart the game."]
 	elseif reason == "disabled" then
@@ -2026,7 +2026,7 @@ local function appendCategories(items, nodes, depth, totals)
 		local parent = node.children and #node.children > 0
 		local folded = not openBranches[node.key]
 		items[#items + 1] = {
-			key = node.key, label = node.label, count = count or 0, depth = depth, rowHeight = isClass and 32 or 28,
+			key = node.key, label = node.label, count = count or 0, depth = depth, rowH = isClass and 32 or 28,
 			folded = parent and folded, onToggle = parent and toggleCategory or nil,
 		}
 		if parent and not folded then appendCategories(items, node.children, 2, totals) end
@@ -2065,7 +2065,7 @@ function LK.Nav()
 			items[#items + 1] = row
 			if itemRoot then
 				row.count = totals and totals.root or 0
-				row.depth, row.rowHeight, row.folded, row.onToggle = 0, 36, not openBranches.item, toggleCategory
+				row.depth, row.rowH, row.folded, row.onToggle = 0, 36, not openBranches.item, toggleCategory
 				if not row.folded then appendCategories(items, tree.classes, 1, totals) end
 			end
 		end
@@ -2335,7 +2335,7 @@ function LK.Render()
 		else
 			empty = format(L["Nothing matches %s."], LQ .. query .. RQ)
 			if reason == "off" then
-				empty = empty .. " " .. L["Lookup is turned off in Options > Discovery > Lookup, so items, mounts, NPCs and quests are not searched."]
+				empty = empty .. " " .. L["Lookup is turned off in Settings > Discovery > Lookup, so items, mounts, NPCs and quests are not searched."]
 			elseif not loaded then
 				empty = empty .. " " .. L["Items, mounts, NPCs and quests are searched once the Codex loads."]
 			end

@@ -142,7 +142,9 @@ function Journey.Estimate(from, to, budgeted)
 end
 
 -- Point the arrow at (x, y) percent of map, moved onto the zone under it.
--- False (and a line in chat) when no route can go there.
+-- False (and a line in chat) when no route can go there. The target is the
+-- player's own point (`mine`: a map or minimap click, /way): the guide
+-- window says so, with Back to the guide (#3843).
 function Journey.PlanTo(map, x, y, label, f)
 	local zm, zx, zy = map, x, y
 	if not f then zm, zx, zy = Journey.ZonePoint(map, x, y) end
@@ -150,7 +152,9 @@ function Journey.PlanTo(map, x, y, label, f)
 		ns.Print(L["No route can be planned to that spot."])
 		return false
 	end
-	return Nav.SetTarget(zm, zx, zy, label or spotLabel(zm, zx, zy), f)
+	local t = Nav.SetTarget(zm, zx, zy, label or spotLabel(zm, zx, zy), f)
+	if t then t.mine = true end
+	return t
 end
 
 -- A planned target (any picked point) within `yards` of world (c, wx, wy)
@@ -667,8 +671,8 @@ local function tomtomInstalled()
 	if not A then return false end
 	if A.IsAddOnLoaded and A.IsAddOnLoaded("TomTom") then return true end
 	if A.GetAddOnInfo then
-		local name, _, _, loadable = A.GetAddOnInfo("TomTom")
-		if name and loadable then return true end
+		local name, _, _, loadable, reason = A.GetAddOnInfo("TomTom")
+		if name and (loadable or reason == "DEMAND_LOADED") then return true end
 	end
 	return false
 end

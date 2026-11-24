@@ -69,6 +69,7 @@ jobs:
             echo "lane=full" >> "$GITHUB_OUTPUT"
             printf '## Lane: full\n\n- %s\n' "$EVENT: every check" >> "$GITHUB_STEP_SUMMARY"
           fi
+          echo "base=$from" >> "$GITHUB_OUTPUT"
 
       - name: Documentation checks
         if: steps.lane.outputs.lane == 'docs'
@@ -128,19 +129,56 @@ jobs:
           test -x rust/target/quick/forge
           echo "FORGE=$GITHUB_WORKSPACE/rust/target/quick/forge" >> "$GITHUB_ENV"
 
-      # A fresh clone has no built data (it needs the game client and local
-      # sources), so the tests that read it skip with a reason. The part lane
-      # runs the test files its changes can break (tools/testsel.js, from the
-      # base's copy), the full lane every one.
+      # The reference data (docs/CI.md, "Reference data"): a pull request's
+      # tests read the public data next's last run built (ci-data.yml), the
+      # entry of the commit it merges into or else the newest, and fail only
+      # on failures next's run on it does not have (.ci/baseline.jsonl).
+      # Pushes run without it; ci-data.yml runs next's suite on it.
+      - name: Public data (cache)
+        id: data
+        if: steps.lane.outputs.lane != 'docs' && github.event_name != 'push'
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            data/forever
+            data/sources/wago
+            .ci/baseline.jsonl
+          key: public-data-${{ steps.lane.outputs.base }}
+          restore-keys: public-data-
+
+      - name: Public data
+        if: steps.lane.outputs.lane != 'docs'
+        env:
+          MATCHED: ${{ steps.data.outputs.cache-matched-key }}
+          BASE: ${{ steps.lane.outputs.base }}
+          # This repository's own branches: a failure of a test neither next's baseline nor the base checkout has (one
+          # the pull request adds or renames) only warns here, since their Release data job runs it on the release
+          # data (tools/ci-failures.js --unseen-ok). One the base has is run there too (tools/ci-tests.sh).
+          OWN: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository }}
+        run: |
+          if [ -f .ci/baseline.jsonl ]; then
+            echo "BASELINE=.ci/baseline.jsonl" >> "$GITHUB_ENV"
+            echo "CI_BASE=$RUNNER_TEMP/base" >> "$GITHUB_ENV"
+            [ "$OWN" = true ] && echo "CI_UNSEEN_OK=1" >> "$GITHUB_ENV"
+            note="the public data of ${MATCHED#public-data-}"
+            [ "${MATCHED#public-data-}" = "$BASE" ] || note="$note (next's newest; the base's own is not built yet)"
+          else
+            note="none: the tests that read data/forever skip"
+          fi
+          echo "Reference data: $note"
+          printf '## Reference data\n\n%s\n' "$note" >> "$GITHUB_STEP_SUMMARY"
+
+      # The part lane runs the test files its changes can break
+      # (tools/testsel.js, from the base's copy), the full lane every one.
       - name: Test
         if: steps.lane.outputs.lane == 'full'
-        run: npm test
+        run: tools/ci-tests.sh "${BASELINE:-}" "tests/**/*.test.js"
 
       - name: Test (the files the changes can break)
         if: steps.lane.outputs.lane == 'part'
         env:
           TESTS: ${{ steps.lane.outputs.tests }}
-        run: node --test --test-timeout=900000 $TESTS
+        run: tools/ci-tests.sh "${BASELINE:-}" $TESTS
 
       # Every changelog fragment in changes/ has a section and an entry, and
       # CHANGELOG.md has no "Unreleased" section of its own.
@@ -160,6 +198,20 @@ jobs:
       - name: Generated guides
         if: steps.lane.outputs.lane == 'full' || contains(steps.lane.outputs.areas, 'guides')
         run: $FORGE guide check-generated --checkout .
+
+      # The guide texts (docs/CI.md, "Guide texts"): the languages whose texts
+      # the change can break, on the public data, failing only on errors the
+      # base's own texts do not have on the same data.
+      - name: Guide texts
+        if: steps.lane.outputs.lane != 'docs' && steps.lane.outputs.locales != ''
+        env:
+          LOCALES: ${{ steps.lane.outputs.locales }}
+        run: |
+          if [ -z "${BASELINE:-}" ] || [ ! -d "$RUNNER_TEMP/base" ]; then
+            echo "::notice::No reference data or base checkout in this run: the Release data job and the post-merge gates check the guide texts."
+            exit 0
+          fi
+          tools/ci-guide-texts.sh "$RUNNER_TEMP/base" "$LOCALES"
 
       # The textures build in textures.yml, only when their inputs change.
 

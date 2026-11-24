@@ -28,6 +28,9 @@ const MAX_NAMED_SOURCES: usize = 8;
 /// Not needed when the item's only sources are those one or two creatures (no object, no vendor): they are named
 /// whatever their chance (Kron's Amulet, 10% from two crocolisks).
 const FEW_SOURCES_BAR: f64 = 20.0;
+/// A rare that tops an item's droppers gives way to the normal ones (rare_leads) when one of them drops it at this
+/// percentage or more (#3578).
+const COMMON_SOURCE_BAR: f64 = 5.0;
 /// `fromNpcs` on a collect: at most this many names.
 const MAX_SOURCE_NPCS: usize = 5;
 /// Droppers this many levels or more above the quest do not set the likely-dropper bar (levelSplit).
@@ -51,6 +54,10 @@ const STRAY_SHARE: f64 = 0.75;
 /// A goal point this far outside every trusted recorded spot of its objective is elsewhere (recorded_areas):
 /// `forge record learn`'s link distance, the ground one place of a player's ticks spans.
 const RECORDED_MISS_YARDS: f64 = 60.0;
+/// A recorded spot of a collect this near its quest's giver (from the spot's edge) is where players took the quest
+/// with the item already in their bags (recorded_areas): Camp Taurajo's Razormane drops lie 87 yd from Tatternack
+/// Steelforge's spawn.
+const GIVER_YARDS: f64 = 120.0;
 
 const GATHER_ROLES: [&str; 3] = ["mine", "herb", "fishing"];
 const LOOP_RADIUS: f64 = 30.0;
@@ -639,7 +646,8 @@ fn level_split(data: &Data, cands: &[V], qlvl: f64) -> Option<(Vec<V>, Vec<V>)> 
 	}
 }
 
-/// Whether a rare drops the item at the highest chance while normal sources drop it at 50% or more.
+/// Whether a rare drops the item at the highest chance while normal sources drop it at COMMON_SOURCE_BAR% or more:
+/// the common mobs are where it is farmed, the rare is often away (Alshirr Banebreath and the Jadefire satyrs, #3578).
 fn rare_leads(data: &Data, cands: &[V], sides: &V) -> bool {
 	let mut top: V = if cands.is_empty() { obj! { "chance" => 0 }.into() } else { cands[0].clone() };
 	for b in cands {
@@ -651,7 +659,7 @@ fn rare_leads(data: &Data, cands: &[V], sides: &V) -> bool {
 	if !n.truthy() || !crate::group::is_rare(&n.get("rank"), &n.get("faction"), sides) {
 		return false;
 	}
-	cands.iter().any(|c| c.get("chance").num() >= 50.0 && normal_source(data, c, sides, true))
+	cands.iter().any(|c| c.get("chance").num() >= COMMON_SOURCE_BAR && normal_source(data, c, sides, true))
 }
 
 fn elite_source(data: &Data, cand: &V, sides: &V, rares: bool) -> bool {
@@ -1103,7 +1111,11 @@ fn nearest_first(data: &Data, map: &V, spots: Vec<V>, x: f64, y: f64) -> Vec<V> 
 /// The goal's other spawn areas stay as they were, and so does its point, unless its first open spawn area
 /// (the one the arrow starts with) went and the point lies more than RECORDED_MISS_YARDS outside the spots.
 /// Recorded spots outside the region that no place of the goal overlaps are alternatives: the objective is
-/// done there too.
+/// done there too, except a `collect`'s spot at the quest's giver (within GIVER_YARDS of its spawn) that no
+/// source of the item spawns near (within RECORDED_MISS_YARDS of the spot's edge): there the item was in the
+/// bags already, looted before the quest was taken and ticked where it was taken (the Razormane drops at Camp
+/// Taurajo, 1,500 yd north of the Razormane at Blackthorn Ridge, #3788), and the arrow and While-here sent
+/// players to the giver. A spot far from both stays: our spawn data does not know every place a mob stands.
 ///
 /// With none at its places, the goal stays as it is while the data places its target there and knows a place
 /// players do it at too (a spawn of one of `known` in a recorded spot: the sources the compiler placed the
@@ -1237,8 +1249,34 @@ fn recorded_areas(data: &Data, goal: &V, sources: &[V], known: &[V], map: &V, f:
 	open.extend(still);
 	let mut alts: Vec<V> = rest.iter().map(|s| area(s, true)).collect();
 	alts.extend(other);
+	// The quest's givers on this map, in world yards: their spawns may be in the other frame (Tatternack's are live,
+	// the Razormane goal's era).
+	let quest = data.quest(&goal.get("quest"));
+	let mut givers: Vec<(f64, f64)> = Vec::new();
+	for kind in ["npc", "object"] {
+		for id in quest.get("start").get(kind).items() {
+			for s in data.spawns(kind, &id) {
+				if !s.get("map").strict_eq(map) {
+					continue;
+				}
+				let sf: V = if s.get("f").as_str() == Some("e") { "e".into() } else { V::Undef };
+				for p in s.get("pts").items() {
+					let w = crate::heights::world_point(data, &obj! { "map" => map.clone(), "x" => px(&p), "y" => py(&p), "f" => sf.clone() }.into());
+					if w.truthy() {
+						givers.push((w.get("wx").num(), w.get("wy").num()));
+					}
+				}
+			}
+		}
+	}
+	let at_giver = |r: &Spot| {
+		let w = crate::heights::world_point(data, &obj! { "map" => map.clone(), "x" => r.x, "y" => r.y, "f" => f.clone() }.into());
+		w.truthy() && givers.iter().any(|&(gx, gy)| hypot(w.get("wx").num() - gx, w.get("wy").num() - gy) <= radius(r) + GIVER_YARDS)
+	};
+	let sourced =
+		|r: &Spot| goal.get("t").as_str() != Some("collect") || pts.is_empty() || pts.iter().any(|p| distance(data, map, px(p), py(p), r.x, r.y) <= radius(r) + RECORDED_MISS_YARDS) || !at_giver(r);
 	for (i, r) in rec.iter().enumerate() {
-		if !region.contains(&i) && !had.iter().any(|s| overlaps(r, s)) {
+		if !region.contains(&i) && !had.iter().any(|s| overlaps(r, s)) && sourced(r) {
 			alts.push(area(r, true));
 		}
 	}

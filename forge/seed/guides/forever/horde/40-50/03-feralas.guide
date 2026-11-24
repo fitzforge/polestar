@@ -31,6 +31,7 @@ con Skips Shen'dralas: about a dozen fewer quests, a third of a level lower into
 # ---------------------------------------------------------------- Orgrimmar
 
 step Orgrimmar
+  skipto brackenwall when !onquest 625,1261,2976,3002,3121,7732
   zone Orgrimmar
   tip From the flight master: the Cleft of Shadow, then the Drag, then the Valley of Honor.
   turnin 3121                           -- Neeru Fireblade, Cleft of Shadow
@@ -48,6 +49,7 @@ step Orgrimmar
   turnin 3002                           -- Uthel'nay, Valley of Spirits
 
 step Fly to Thunder Bluff
+  skipto brackenwall when !onquest 625,1261,2976,3002,3121,7732
   only Druid,Paladin
   zone Orgrimmar
   tip Your trainer is in Thunder Bluff, on the way to Camp Mojache.
@@ -55,6 +57,7 @@ step Fly to Thunder Bluff
   fly "Thunder Bluff"
 
 step Thunder Bluff
+  skipto brackenwall when !onquest 625,1261,2976,3002,3121,7732
   only Druid,Paladin
   zone Thunder Bluff
   train class
@@ -84,12 +87,14 @@ step Camp Mojache
   accept 3128
 
 step Fly to Brackenwall Village
+  skipto brackenwall when !onquest 625,1261,2976,3002,3121,7732
   when !zone "Feralas"
   tip No Muisek vessel to bring Uzer'i (you didn't take the Feralas & Tanaris guide's chain): fly from here straight to Brackenwall Village.
   fly "Brackenwall Village"
   zone Dustwallow Marsh
 
 step Fly to Brackenwall Village
+  skipto brackenwall when !onquest 625,1261,2976,3002,3121,7732
   when zone "Feralas"
   zone Feralas
   goto 75.4,44.3 "Camp Mojache flight master"
@@ -97,6 +102,7 @@ step Fly to Brackenwall Village
   zone Dustwallow Marsh
 
 step Brackenwall Village
+  label brackenwall
   zone Dustwallow Marsh
   tip Overlord Mok'Morokk, Tharg and Draz'Zilb (below ground) are in the village; their quests are for the Wyrmbog on this trip.
   accept 1166                         -- Overlord Mok'Morokk
@@ -112,6 +118,12 @@ step The Musty Scroll
   when onquest 625
   tip Ride south-west to the Musty Scroll.
   turnin 625                            -- the Musty Scroll
+  accept 626 optional                 -- Inside Bloodfen Burrow
+
+step The Musty Scroll
+  when turnedin 625
+  when available 626
+  tip The Musty Scroll lies to the south-west.
   accept 626 optional                 -- Inside Bloodfen Burrow
 
 step The Dragonmurk: kill these as you meet them

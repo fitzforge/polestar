@@ -151,7 +151,7 @@ return {
 	["No flight path to {area:75} yet: the arrow takes the quickest way there (by the {object:3202} flight and the road through {zone:1431} and {zone:1430}). Learn {area:75}'s flight path when you arrive."] = "Маршрута полета сюда ({area:75}) еще нет: стрелка ведет кратчайшим путем (полетом до места {object:3202} и по дороге через {zone:1431} и {zone:1430}). По прибытии откройте маршрут полета ({area:75}).",
 
 	-- Step 32: Fel'zerul
-	["On the top floor"] = "",
+	["On the top floor"] = "На верхнем этаже",
 
 	-- Step 33: Fallen Hero of the Horde
 	-- {zone:1419} Blasted Lands

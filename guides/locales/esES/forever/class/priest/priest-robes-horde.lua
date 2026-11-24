@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Priest Robes at 5 (Horde)"] = "",
-	["A free uncommon robe at 5: heal and fortify a wounded guard near your first town."] = "",
+	["A free uncommon robe at 5: heal and fortify a wounded guard near your first town."] = "Una túnica poco común gratis a nivel 5: cura y fortalece a un guardia herido cerca de tu primer pueblo.",
 
 	-- Step 1: In Favor of Spirituality
 	-- {npc:3707} Ken'jai · {area:363} Valley of Trials · {npc:3706} Tai'jin · {area:362} Razor Hill · {spell:613} Lesser Heal

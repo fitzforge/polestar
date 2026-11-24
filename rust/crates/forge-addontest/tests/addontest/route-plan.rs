@@ -631,7 +631,7 @@ fn grey_quests_are_listed_as_grey_unless_the_route_still_hands_them_in() {
         return { titles = titles(list), why = why }
     end
 "#;
-	let out = run(&format!("{ROOM}{GREY}{room}{}", r#"local off = room(); P.Set("behavior.skipGrey", true); emit({ off = off, on = room() })"#), false);
+	let out = run(&format!("{ROOM}{GREY}{room}{}", r#"P.Set("behavior.skipGrey", false); local off = room(); P.Set("behavior.skipGrey", true); emit({ off = off, on = room() })"#), false);
 	assert_eq!(out["off"], json!({ "titles": ["One", "Stray"], "why": ["missed", "grey"] }), "Skip grey off: the next guide hands Five in");
 	assert_eq!(out["on"], json!({ "titles": ["One", "Five", "Stray"], "why": ["missed", "grey", "grey"] }));
 	// Westfall's own accept of 6 (level 18, not grey) needs Five first.
@@ -735,7 +735,7 @@ fn a_dungeon_pick_up_guide_in_the_active_tab_keeps_the_dungeon_s_and_the_levelin
 	assert!(!titles.contains(&"Three"), "the leveling tab's quest is kept: {titles:?}");
 	assert_eq!(out["dungeon"], json!(["other", "wc"]));
 	assert_eq!(out["leveling"], json!(["other", "future", "route/a"]));
-	assert_eq!(out["dungeonText"], "Turn in at Wailing Caverns: hand in the quests");
+	assert_eq!(out["dungeonText"], "No turn-in in this route · Wailing Caverns: hand in the quests");
 	assert!(is_match(text(&out["levelingText"]), r"^Turn in at Starter · step 3$"), "{}", out["levelingText"]);
 }
 

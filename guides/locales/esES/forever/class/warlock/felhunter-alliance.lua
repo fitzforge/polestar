@@ -41,7 +41,7 @@ return {
 
 	-- Step 7: Back to Krom Stoutarm
 	-- {npc:6294} Krom Stoutarm
-	["Back to {npc:6294}"] = "",
+	["Back to {npc:6294}"] = "Vuelve con {npc:6294}",
 	-- {npc:6294} Krom Stoutarm · {item:7006} Reconstructed Tome · {npc:6251} Strahad Farsan
 	["{npc:6294} pieces the tome together and gives you the {item:7006}: keep it, {npc:6251} takes it with the rods."] = "",
 

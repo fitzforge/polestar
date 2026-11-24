@@ -584,7 +584,8 @@ builders.craft = function(src, p, from, direct)
 	r.detail = L["Crafted"]
 	local effort = CRAFT_BASE
 	if src.spell and not ns.Compat.IsSpellKnown(src.spell) then effort = effort + CRAFT_LEARN end
-	local rank = line and ns.Compat.GetSkillRank(line)
+	local rank, maxRank
+	if line then rank, maxRank = ns.Compat.GetSkillRank(line) end
 	if rank then
 		if src.skill and rank < src.skill then effort = effort + (src.skill - rank) * SKILL_POINT end
 	elseif not name then
@@ -595,13 +596,20 @@ builders.craft = function(src, p, from, direct)
 		block(r, "profession", L["Requires"] .. " " .. L[name])
 	end
 	r.effort = effort
-	-- The nearest trainer of the profession, when the Codex lists them.
+	-- The nearest trainer of the profession, when the Codex lists them. A recipe needing a rank
+	-- the character doesn't hold yet goes to a trainer who teaches that rank and accepts the
+	-- character's skill (#3784).
 	local C = Codex()
 	if line and C.WithRole then
+		local PT = ns.ProfessionTrainers
+		local want, cap
+		if PT then want, cap = PT.RankFor(line, src.skill or 1) end
+		local needRank = want and cap and (maxRank or 0) < cap and want or nil
+		local ok = PT and PT.Accepts(line, p.code, rank or 0, needRank)
 		local best, bestT, bestNpc
 		for _, id in ipairs(C.WithRole("trainer:" .. line) or {}) do
 			local npc, s, t = npcSpawn(id, from, direct)
-			if npc and s and sideOK(npc.faction, p) and (not best or (t and (not bestT or t < bestT))) then
+			if npc and s and sideOK(npc.faction, p) and (not ok or ok(id)) and (not best or (t and (not bestT or t < bestT))) then
 				best, bestT, bestNpc = s, t, npc
 			end
 		end

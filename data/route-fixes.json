@@ -58,19 +58,6 @@
 			{
 				"a": [
 					"accept",
-					9415
-				],
-				"b": [
-					"accept",
-					8304
-				],
-				"faction": "Alliance",
-				"why": "From the Alliance flight master, start with Torrig and the commander, then visit the other quest givers on the way down into the sands.",
-				"issue": "#3144"
-			},
-			{
-				"a": [
-					"accept",
 					8304
 				],
 				"b": [
@@ -6540,7 +6527,8 @@
 			{ "a": ["turnin", 598], "b": ["turnin", 95770], "faction": "Horde", "why": "#3145: give Kin'weelay the necklaces and news of the lost city together on the return from the trophy skulls. If only one is ready, he still takes it." },
 			{ "a": ["turnin", 589], "b": ["turnin", 573], "faction": "Horde", "why": "#3145: pay Kin'weelay and Far Seer Mok'thardin at Grom'gol on the way from the flight master to the Orgrimmar zeppelin. Either ready reward can be taken without waiting for the other." },
 			{ "a": ["task", 209, 0], "b": ["task", 598, 0], "faction": "Horde", "why": "#3124: carry both drop counts at the first Skullsplitter warrior camp (the warriors drop tusks and necklaces). The trophy piles remain on their own route." },
-			{ "a": ["accept", 2987], "b": ["turnin", 2981], "faction": "Horde", "why": "#3023: Camp Mojache is walked once on the first visit: the flight master, Orwin (2987) and the inn (sethome Camp Mojache, Innkeeper Greul) on the camp's south side, then Rok Orhan (2981), Uzer'i and Jangdor, Hadoken and Krueg to the north. The bind was taken between Jangdor and Hadoken, both on the north side, which walked the camp twice (npcs.json: Greul 74.73,45.26, Rok Orhan 73.46,45.86, Jangdor 74.39,42.92, Hadoken 74.87,42.54)." }
+			{ "a": ["accept", 2987], "b": ["turnin", 2981], "faction": "Horde", "why": "#3023: Camp Mojache is walked once on the first visit: the flight master, Orwin (2987) and the inn (sethome Camp Mojache, Innkeeper Greul) on the camp's south side, then Rok Orhan (2981), Uzer'i and Jangdor, Hadoken and Krueg to the north. The bind was taken between Jangdor and Hadoken, both on the north side, which walked the camp twice (npcs.json: Greul 74.73,45.26, Rok Orhan 73.46,45.86, Jangdor 74.39,42.92, Hadoken 74.87,42.54)." },
+			{ "a": ["turnin", 417], "b": ["turnin", 413], "faction": "Alliance", "why": "#3846: the Dun Morogh starts (Dwarf, Gnome) go to Pilot Hammerfoot at the North Gate Outpost (83.8,39.3; the corpse 79.7,36.2) on the road east, then down to the South Gate Outpost (86.3,48.9) and its tunnel into Loch Modan, instead of South Gate, North Gate and back to the South Gate. Nothing at the North Gate needs the Loch Modan side (94466's items come from the Loch Modan steps)." }
 		],
 		"notes": [
 			"Yendi's report (Herble's Bronze Tube before Look to the Stars) is the quest's own order: its buy is a task of 174, before the turn-in.",
@@ -17132,19 +17120,6 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 40-50 fix round 2 (0.4.0): The Scent of Lar'korwi goes back to Torwa from the raft on the first Un'Goro visit, at about 50, instead of riding the log for 29 hours through five guides to the second visit's Torwa stop.",
-				"source": "Alliance fix round 2 2026-11-16"
-			},
-			{
-				"a": [
-					"accept",
-					8278
-				],
-				"b": [
-					"accept",
-					9415
-				],
-				"faction": "Alliance",
-				"why": "Alliance 50-60 fix round 2 (0.4.0): Report to Marshal Bluewall and The Twilight Mystery are taken on the Silithus guide's first Cenarion Hold stop, where their work and hand-ins are, not on the Western Plaguelands guide's Cenarion Hold stop at about 57, which carried them through Mount Hyjal (quest log 36 there) and the trip back.",
 				"source": "Alliance fix round 2 2026-11-16"
 			},
 			{

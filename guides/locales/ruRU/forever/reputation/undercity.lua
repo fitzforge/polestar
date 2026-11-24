@@ -15,96 +15,96 @@ return {
 
 	-- Step 1: Undercity: how it works
 	-- {faction:68} Undercity
-	["{faction:68}: how it works"] = "",
+	["{faction:68}: how it works"] = "{faction:68}: как это работает",
 	-- {faction:68} Undercity · {npc:14729} Ralston Farnsley · {object:36082} Magic Quarter · {quest:7819} Additional Runecloth · {item:14047} Runecloth · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:287} Hillsbrad · {area:272} Tarren Mill · {object:1661} The Undercity
-	["{faction:68} reputation comes from quests and cloth. {npc:14729}, the cloth quartermaster, stands in the {object:36082} beside the tailors. He takes four one-time donations of 60 cloth (150 each) and then {quest:7819}, 20 {item:14047} for 50, as often as you like. Every point you earn with the {faction:68} also gives a quarter as much to {zone:1454}, {zone:1456} and the Darkspear Trolls. While you level, do the {faction:68}'s quests within 5 levels of them: Tirisfal at 1 to 12, Silverpine at 10 to 20, {area:287} and {area:272} at 20 to 33. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored the {faction:68}'s merchants sell to you for 10% less (the Classic rule), the horse vendor included; at Exalted other races can buy the skeletal horses: 20 gold for a level 40 horse, 200 gold for a level 60 warhorse, once you have mount training. {object:1661} has no tabard or other reward."] = "",
+	["{faction:68} reputation comes from quests and cloth. {npc:14729}, the cloth quartermaster, stands in the {object:36082} beside the tailors. He takes four one-time donations of 60 cloth (150 each) and then {quest:7819}, 20 {item:14047} for 50, as often as you like. Every point you earn with the {faction:68} also gives a quarter as much to {zone:1454}, {zone:1456} and the Darkspear Trolls. While you level, do the {faction:68}'s quests within 5 levels of them: Tirisfal at 1 to 12, Silverpine at 10 to 20, {area:287} and {area:272} at 20 to 33. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored the {faction:68}'s merchants sell to you for 10% less (the Classic rule), the horse vendor included; at Exalted other races can buy the skeletal horses: 20 gold for a level 40 horse, 200 gold for a level 60 warhorse, once you have mount training. {object:1661} has no tabard or other reward."] = "Репутация с {faction:68} идёт от заданий и ткани. {npc:14729}, интендант по ткани, стоит в {object:36082} рядом с портными. Он принимает четыре одноразовых пожертвования по 60 ткани (по 150), а затем {quest:7819} — 20 {item:14047} за 50, сколько угодно раз. Каждая единица, заработанная у {faction:68}, даёт вчетверо меньше {zone:1454}, {zone:1456} и троллям Черного Копья. Пока вы поднимаете уровень, делайте задания {faction:68} в пределах 5 уровней от вашего: Тирисфаль с 1 по 12, Серебристый бор с 10 по 20, {area:287} и {area:272} с 20 по 33. Талант наследия Дипломат добавляет до 10%. Награды: на «Уважении» торговцы {faction:68} продают вам на 10% дешевле (правило классики), включая продавца коней; на «Превознесении» другие расы могут покупать скелетных коней: 20 золота за коня 40-го уровня, 200 золота за боевого коня 60-го уровня, если вы выучили езду. У {object:1661} нет гербовой накидки и другой награды.",
 	["his donations are handed in from his window and never enter the log"] = "его пожертвования сдаются через его окно и не попадают в журнал",
 
 	-- Step 2: Deathknell (optional hub)
 	-- {area:154} Deathknell
-	["{area:154} (optional hub)"] = "",
+	["{area:154} (optional hub)"] = "{area:154} (необязательный центр)",
 	-- {area:154} Deathknell · {faction:68} Undercity · {npc:1661} Novice Elreth · {npc:1570} Executor Arren · {npc:1740} Deathguard Saltain
-	["Forever pays these old quests in full at any level. {area:154}, the Forsaken start at the west end of Tirisfal: about 900 {faction:68} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:1661}, {npc:1570} and {npc:1740} stand in the village."] = "",
+	["Forever pays these old quests in full at any level. {area:154}, the Forsaken start at the west end of Tirisfal: about 900 {faction:68} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:1661}, {npc:1570} and {npc:1740} stand in the village."] = "Forever оплачивает эти старые задания полностью на любом уровне. {area:154}, стоянка Отрекшихся на западном конце Тирисфаля: около 900 репутации {faction:68} за 25 минут. Задания стартовой зоны не дают доли другим городам. {npc:1661}, {npc:1570} и {npc:1740} стоят в деревне.",
 
 	-- Step 3: Deathknell: the next quests
 	-- {area:154} Deathknell
-	["{area:154}: the next quests"] = "",
+	["{area:154}: the next quests"] = "{area:154}: следующие задания",
 
 	-- Step 4: Around Deathknell
 	-- {area:154} Deathknell
-	["Around {area:154}"] = "",
+	["Around {area:154}"] = "Вокруг {area:154}",
 	-- {object:164662} Equipment Boxes · {quest:380} Night Web's Hollow · {npc:271961} Webbed Forsaken · {npc:1919} Samuel Fipps · {object:178090} Marla's Grave
-	["The {object:164662} are all around the village. {quest:380} is the mine north-west; the {npc:271961} hang inside. {npc:1919} waits at the ruined camp by the road north-east: bury his remains at {object:178090}, in the front row of the village graveyard."] = "",
+	["The {object:164662} are all around the village. {quest:380} is the mine north-west; the {npc:271961} hang inside. {npc:1919} waits at the ruined camp by the road north-east: bury his remains at {object:178090}, in the front row of the village graveyard."] = "{object:164662} расставлены по всей деревне. {quest:380} — это шахта к северо-западу; внутри висят {npc:271961}. {npc:1919} ждёт на разорённом лагере у дороги к северо-востоку: похороните его останки у {object:178090}, в первом ряду деревенского кладбища.",
 	-- {npc:271961} Webbed Forsaken
-	["{npc:271961} freed"] = "",
+	["{npc:271961} freed"] = "{npc:271961} освобождены",
 	-- {object:178090} Marla's Grave · {item:16333} Samuel's Remains
-	["{object:178090}, with {item:16333}"] = "",
+	["{object:178090}, with {item:16333}"] = "{object:178090}, с {item:16333}",
 
 	-- Step 5: Deathknell: hand in
 	-- {area:154} Deathknell
-	["{area:154}: hand in"] = "",
+	["{area:154}: hand in"] = "{area:154}: сдача",
 
 	-- Step 6: The Scarlet camp
 	["The Scarlet camp"] = "Лагерь Алого ордена",
 	-- {area:154} Deathknell · {npc:1667} Meven Korgal
-	["The Scarlet camp is south-east of {area:154}. {npc:1667} leads it."] = "",
+	["The Scarlet camp is south-east of {area:154}. {npc:1667} leads it."] = "Лагерь Алого ордена находится к юго-востоку от {area:154}. Его ведёт {npc:1667}.",
 	-- {item:2885} Scarlet Crusade Documents · {npc:1667} Meven Korgal
 	["{item:2885}, from {npc:1667}"] = "{item:2885}, у персонажа {npc:1667}",
 	-- {quest:383} Vital Intelligence · {npc:1515} Executor Zygand · {area:159} Brill
-	["{quest:383}, +75: to {npc:1515} in {area:159}"] = "",
+	["{quest:383}, +75: to {npc:1515} in {area:159}"] = "{quest:383}, +75: к {npc:1515} в {area:159}",
 
 	-- Step 8: Brill (optional hub)
 	-- {area:159} Brill
-	["{area:159} (optional hub)"] = "",
+	["{area:159} (optional hub)"] = "{area:159} (необязательный центр)",
 	-- {area:159} Brill · {faction:68} Undercity · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren · {npc:1518} Apothecary Johaan · {npc:1496} Deathguard Dillinger · {npc:1500} Coleman Farthing
-	["Forever pays these old quests in full at any level. {area:159} and the fields around it: about 1,100 {faction:68} reputation in 45 minutes. {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} and {npc:1500} are in the town."] = "",
+	["Forever pays these old quests in full at any level. {area:159} and the fields around it: about 1,100 {faction:68} reputation in 45 minutes. {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} and {npc:1500} are in the town."] = "Forever оплачивает эти старые задания полностью на любом уровне. {area:159} и поля вокруг него: около 1 100 репутации {faction:68} за 45 минут. {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} и {npc:1500} находятся в городе.",
 
 	-- Step 9: Around Brill
 	-- {area:159} Brill
-	["Around {area:159}"] = "",
+	["Around {area:159}"] = "Вокруг {area:159}",
 	-- {item:286176} Executor's Motivator · {area:159} Brill · {quest:99141} Patience · {npc:1496} Deathguard Dillinger · {npc:251001} Deathguard Kristof · {npc:10666} Gordo · {npc:1525} Rotting Dead
-	["Use the {item:286176} on five Deathguards around {area:159}. For {quest:99141}, talk to {npc:1496} west of {area:159}, {npc:251001} at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}. The {npc:1525} walk around the old bridge west of {area:159}; the dry branches lie under the trees there. Darkhounds roam everywhere."] = "",
+	["Use the {item:286176} on five Deathguards around {area:159}. For {quest:99141}, talk to {npc:1496} west of {area:159}, {npc:251001} at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}. The {npc:1525} walk around the old bridge west of {area:159}; the dry branches lie under the trees there. Darkhounds roam everywhere."] = "Примените {item:286176} к пяти стражам смерти вокруг {area:159}. Для {quest:99141} поговорите с {npc:1496} западнее {area:159}, с {npc:251001} на придорожном посту к востоку от него и с {npc:10666} на дороге. Гноллы Гниющей Шкуры копаются в общей могиле к северу от {area:159}. {npc:1525} ходят вокруг старого моста западнее {area:159}; сухие ветки лежат под деревьями там. Темные гончие бродят повсюду.",
 	-- {area:159} Brill
 	["Motivate 5 Deathguards: the Deathguards around {area:159}"] = "Подбодрите 5 стражей смерти: стражи смерти вокруг места {area:159}",
 
 	-- Step 10: Agamand Mills
 	-- {npc:1657} Devlin Agamand · {area:157} Agamand Mills
-	["{npc:1657} walks the road to {area:157}; Nissa waits upstairs in the first house, Gregor and Thurman further on in the mills."] = "",
+	["{npc:1657} walks the road to {area:157}; Nissa waits upstairs in the first house, Gregor and Thurman further on in the mills."] = "{npc:1657} ходит по дороге в {area:157}; Нисса ждёт наверху в первом доме, Грегор и Терман дальше на мельницах.",
 
 	-- Step 11: Brill: hand in
 	-- {area:159} Brill
-	["{area:159}: hand in"] = "",
+	["{area:159}: hand in"] = "{area:159}: сдача",
 
 	-- Step 12: Agamand Mills again
 	-- {area:157} Agamand Mills
 	["{area:157} again"] = "Снова здесь: {area:157}",
 	-- {area:157} Agamand Mills
 	-- plural, as words: Darkeye Bonecasters = {npc:1522} Darkeye Bonecaster
-	["The skeletons of {area:157} drop the ribs; the Darkeye Bonecasters the skulls."] = "",
+	["The skeletons of {area:157} drop the ribs; the Darkeye Bonecasters the skulls."] = "Скелеты из {area:157} роняют рёбра; черепа — мрачноокие скелеты-заклинатели.",
 
 	-- Step 13: Ralston Farnsley: A Donation of Wool
 	-- {npc:14729} Ralston Farnsley · {item:14047} Runecloth · {quest:7819} Additional Runecloth
-	["From here it is cloth. Wool, Silk and Mageweave must all be handed in before {npc:14729} offers the {item:14047} donation, and {quest:7819} needs the {item:14047} donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, {item:14047} 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey."] = "",
+	["From here it is cloth. Wool, Silk and Mageweave must all be handed in before {npc:14729} offers the {item:14047} donation, and {quest:7819} needs the {item:14047} donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, {item:14047} 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey."] = "Дальше — ткань. Шерсть, шёлк и магическую ткань нужно сдать все до того, как {npc:14729} предложит пожертвование {item:14047}, а {quest:7819} требует пожертвования {item:14047}. Покупайте ткань на аукционе или добывайте сами: с гуманоидов падает ткань, шерсть с 15-го по 25-й уровень, шёлк с 25-го по 40-й, магическая ткань с 40-го по 50-й, {item:14047} с 50-го и выше. На 60-м уровне фармите мобов 52-го уровня и выше: более низкие — серые.",
 	-- {item:2592} Wool Cloth
-	["{item:2592}: the Thistlefur furbolgs drop it about one kill in four"] = "",
+	["{item:2592}: the Thistlefur furbolgs drop it about one kill in four"] = "{item:2592}: фурболги Хилствера роняют её примерно с одного убийства из четырёх",
 
 	-- Step 14: A Donation of Silk
 	-- {area:287} Hillsbrad
-	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "",
+	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "Шёлк: Отродье в {area:287} и Альтераке роняет его примерно с одного убийства из трёх, или купите.",
 	-- {item:4306} Silk Cloth
-	["{item:4306}: the Syndicate"] = "",
+	["{item:4306}: the Syndicate"] = "{item:4306}: Отродье",
 
 	-- Step 15: A Donation of Mageweave
 	-- {zone:1448} Felwood · {zone:1446} Tanaris
-	["Mageweave: the Jadefire satyrs in southern {zone:1448} and the Dunemaul ogres in {zone:1446} drop it about one kill in three, or buy it."] = "",
+	["Mageweave: the Jadefire satyrs in southern {zone:1448} and the Dunemaul ogres in {zone:1446} drop it about one kill in three, or buy it."] = "Магическая ткань: сатиры Нефритового Пламени в южном {zone:1448} и огры Дюнмола в {zone:1446} роняют её примерно с одного убийства из трёх, или купите.",
 	-- {item:4338} Mageweave Cloth
-	["{item:4338}: the Jadefire satyrs"] = "",
+	["{item:4338}: the Jadefire satyrs"] = "{item:4338}: сатиры Нефритового Пламени",
 
 	-- Step 16: A Donation of Runecloth
 	-- {item:14047} Runecloth · {area:2266} Tyr's Hand · {zone:1423} Eastern Plaguelands · {area:2577} Dire Maul · {zone:1444} Feralas · {zone:1451} Silithus
-	["{item:14047}: the Scarlet at {area:2266} in the {zone:1423}, the Gordok ogres outside {area:2577} in {zone:1444} and the Twilight camps of {zone:1451} drop it about one kill in three. The Auction House is faster if you have gold."] = "",
+	["{item:14047}: the Scarlet at {area:2266} in the {zone:1423}, the Gordok ogres outside {area:2577} in {zone:1444} and the Twilight camps of {zone:1451} drop it about one kill in three. The Auction House is faster if you have gold."] = "{item:14047}: Алые в {area:2266} в {zone:1423}, огры Гордок снаружи {area:2577} в {zone:1444} и лагеря Сумеречного Братства в {zone:1451} роняют её примерно с одного убийства из трёх. Аукцион быстрее, если у вас есть золото.",
 	-- {item:14047} Runecloth · {area:2266} Tyr's Hand
-	["{item:14047}: the Scarlet outside {area:2266}"] = "",
+	["{item:14047}: the Scarlet outside {area:2266}"] = "{item:14047}: Алые снаружи {area:2266}",
 
 	-- Step 17: Undercity: Harbinger Balthazad
 	-- {area:152} Bulwark · {npc:10879} Harbinger Balthazad · {faction:68} Undercity · {object:36126} Royal Quarter · {quest:5961} The Champion of the Banshee Queen · {npc:11878} Nathanos Blightcaller · {quest:6136} The Corpulent One
@@ -112,27 +112,27 @@ return {
 
 	-- Step 18: Bulwark: Scarlet Diversions
 	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity · {item:12814} Flame in a Bottle · {area:200} Dalson's Tears · {area:199} Felstone Field · {item:12807} Scourge Banner
-	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "",
+	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "{area:152} — лагерь Отрекшихся на дороге из Тирисфаля в {zone:1422}. Цепочка {npc:10837} отправляет вас против котлов Плети в {zone:1422}: около 820 репутации {faction:68}. Возьмите {item:12814} из ящика рядом с ним; сожгите командный шатёр лагеря Алого ордена между {area:200} и {area:199} и водрузьте рядом {item:12807}.",
 	-- {quest:5096} Scarlet Diversions
-	["{quest:5096}, +100 (level 53)"] = "",
+	["{quest:5096}, +100 (level 53)"] = "{quest:5096}, +100 (53-й уровень)",
 	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
 	["the {object:176088}"] = "{object:176088}",
 
 	-- Step 19: Bulwark: the cauldrons
 	-- {area:152} Bulwark
-	["{area:152}: the cauldrons"] = "",
+	["{area:152}: the cauldrons"] = "{area:152}: котлы",
 	-- {quest:5229} Target: Felstone Field
-	["{quest:5229}, +100 (level 53)"] = "",
+	["{quest:5229}, +100 (level 53)"] = "{quest:5229}, +100 (53-й уровень)",
 
 	-- Step 20: Felstone Field and the Andorhal towers
 	-- {area:199} Felstone Field
-	["{area:199} and the Andorhal towers"] = "",
+	["{area:199} and the Andorhal towers"] = "{area:199} и башни Андорхала",
 	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field · {quest:5230} Return to the Bulwark · {item:12815} Beacon Torch
-	["{npc:11075} guards the cauldron at {area:199}. Click the cauldron after the kill to start {quest:5230}. Mark the four towers of Andorhal with the {item:12815} at their doors."] = "",
+	["{npc:11075} guards the cauldron at {area:199}. Click the cauldron after the kill to start {quest:5230}. Mark the four towers of Andorhal with the {item:12815} at their doors."] = "{npc:11075} охраняет котёл в {area:199}. Нажмите на котёл после убийства, чтобы начать {quest:5230}. Отметьте четыре башни Андорхала, применив {item:12815} у их дверей.",
 	-- {object:176361} Scourge Cauldron
 	["the {object:176361}"] = "{object:176361}",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
-	["{npc:10902}: use the {item:12815} at the door"] = "",
+	["{npc:10902}: use the {item:12815} at the door"] = "{npc:10902}: примените {item:12815} у двери",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["Mark {npc:10902} with the {item:12815}"] = "Отметьте предметом {item:12815}: {npc:10902}",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
@@ -144,31 +144,31 @@ return {
 
 	-- Step 22: Dalson's Tears
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears
-	["{npc:11077} guards the cauldron at {area:200}."] = "",
+	["{npc:11077} guards the cauldron at {area:200}."] = "{npc:11077} охраняет котёл в {area:200}.",
 	-- {object:177289} Scourge Cauldron
 	["the {object:177289}"] = "{object:177289}",
 
 	-- Step 23: Bulwark: the Writhing Haunt
 	-- {area:152} Bulwark · {area:202} Writhing Haunt
-	["{area:152}: the {area:202}"] = "",
+	["{area:152}: the {area:202}"] = "{area:152}: {area:202}",
 
 	-- Step 24: Writhing Haunt
 	-- {npc:11076} Cauldron Lord Razarch · {area:202} Writhing Haunt
-	["{npc:11076} guards the cauldron at the {area:202}."] = "",
+	["{npc:11076} guards the cauldron at the {area:202}."] = "{npc:11076} охраняет котёл в {area:202}.",
 	-- {object:176393} Scourge Cauldron
 	["the {object:176393}"] = "{object:176393}",
 
 	-- Step 26: Gahrron's Withering
 	-- {npc:11078} Cauldron Lord Soulwrath · {area:201} Gahrron's Withering
-	["{npc:11078} guards the cauldron at {area:201}."] = "",
+	["{npc:11078} guards the cauldron at {area:201}."] = "{npc:11078} охраняет котёл в {area:201}.",
 	-- {object:176392} Scourge Cauldron
 	["the {object:176392}"] = "{object:176392}",
 
 	-- Step 27: Bulwark: done
 	-- {area:152} Bulwark
-	["{area:152}: done"] = "",
+	["{area:152}: done"] = "{area:152}: готово",
 	-- {area:152} Bulwark · {area:2057} Scholomance · {npc:10136} Chemist Fuely · {faction:68} Undercity · {zone:1448} Felwood · {zone:1449} Un'Goro Crater
-	["{area:152} is also where The Key to {area:2057} ends (200), after a longer chain. {npc:10136} in the {faction:68}'s Apothecarium pays about 290 more for oozes from {zone:1448} and {zone:1449}."] = "",
+	["{area:152} is also where The Key to {area:2057} ends (200), after a longer chain. {npc:10136} in the {faction:68}'s Apothecarium pays about 290 more for oozes from {zone:1448} and {zone:1449}."] = "{area:152} — также место, где заканчивается «Ключ от {area:2057}» (200), после более длинной цепочки. {npc:10136} в Аптекарии {faction:68} платит ещё около 290 за слизнюков из {zone:1448} и {zone:1449}.",
 
 	-- Step 28: Nathanos Blightcaller
 	-- {npc:11878} Nathanos Blightcaller · {zone:1423} Eastern Plaguelands · {faction:68} Undercity
@@ -176,68 +176,68 @@ return {
 
 	-- Step 29: Plaguebats, Quel'Lithien Lodge and Corin's Crossing
 	-- {area:2276} Quel'Lithien Lodge · {area:2264} Corin's Crossing
-	["Plaguebats, {area:2276} and {area:2264}"] = "",
+	["Plaguebats, {area:2276} and {area:2264}"] = "Чумные нетопыри, {area:2276} и {area:2264}",
 	-- {area:2276} Quel'Lithien Lodge · {area:2268} Light's Hope Chapel · {item:15847} Quel'Thalas Registry · {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {item:15448} Coagulated Rot
 	-- plural, as words: Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
-	["The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. {area:2276} is north-west of {area:2268}; the {item:15847} lies inside. Do {area:2264} last: its Scourge drop {item:15447}, which lasts only 10 minutes. With 7 in your bags, use the {item:15454} at once for the {item:15448}."] = "",
+	["The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. {area:2276} is north-west of {area:2268}; the {item:15847} lies inside. Do {area:2264} last: its Scourge drop {item:15447}, which lasts only 10 minutes. With 7 in your bags, use the {item:15454} at once for the {item:15448}."] = "Пагубные нетопыри летают на юге зоны, чудовищные — дальше на северо-запад. {area:2276} находится северо-западнее {area:2268}; внутри лежит {item:15847}. Делайте {area:2264} последним: с его Плети падает {item:15447}, который живёт всего 10 минут. Собрав 7 в сумку, сразу примените {item:15454} для {item:15448}.",
 	-- {item:15448} Coagulated Rot · {item:15447} Living Rot · {item:15454} Mortar and Pestle
-	["{item:15448}: 7 {item:15447} and the {item:15454}"] = "",
+	["{item:15448}: 7 {item:15447} and the {item:15454}"] = "{item:15448}: 7 {item:15447} и {item:15454}",
 
 	-- Step 30: Nathanos Blightcaller: hand in
 	-- {npc:11878} Nathanos Blightcaller
-	["{npc:11878}: hand in"] = "",
+	["{npc:11878}: hand in"] = "{npc:11878}: сдача",
 
 	-- Step 31: Duskwing and Borelgore
 	-- {npc:11897} Duskwing · {npc:11896} Borelgore
 	["{npc:11897} and {npc:11896}"] = "{npc:11897} и {npc:11896}",
 	-- {npc:11897} Duskwing · {area:2260} Marris Stead · {npc:11896} Borelgore · {area:2272} Northdale
-	["{npc:11897}, an elite bat, roams the fields north of {area:2260}. {npc:11896} paces a long valley west of {area:2272}."] = "",
+	["{npc:11897}, an elite bat, roams the fields north of {area:2260}. {npc:11896} paces a long valley west of {area:2272}."] = "{npc:11897}, элитный нетопырь, бродит по полям севернее {area:2260}. {npc:11896} ходит по длинной долине западнее {area:2272}.",
 	-- {npc:11878} Nathanos Blightcaller · {faction:68} Undercity · {area:2279} Stratholme · {npc:12337} Crimson Courier
 	["{npc:11878}: 525 {faction:68} reputation with Sylvanas's introduction. His {area:2279} quests (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) need a group."] = "{npc:11878}: 525 репутации ({faction:68}) с рекомендацией Сильваны. Его задания в подземелье {area:2279} («{npc:12337}», «Алый оракул», «Деметрия», «Рамштайн») требуют группы.",
 
 	-- Step 32: The Spider God (optional chain)
 	-- {quest:2936} The Spider God
-	["{quest:2936} (optional chain)"] = "",
+	["{quest:2936} (optional chain)"] = "{quest:2936} (необязательная цепочка)",
 	-- {zone:1425} Hinterlands · {area:272} Tarren Mill · {area:367} Sen'jin Village · {area:978} Zul'Farrak · {faction:68} Undercity · {quest:2937} Summoning Shadra · {quest:2938} Venom to the Undercity · {quest:2933} Venom Bottles
-	["Six quests across the {zone:1425}, {area:272}, {area:367}, {area:978} and the {faction:68}: 600 {faction:68} and 225 Darkspear reputation. {quest:2937} and {quest:2938} are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 and pay in full too. Allow about 90 minutes with the travel. The {quest:2933} stand on the tables of the Witherbark village in the west of the {zone:1425}: click one to start."] = "",
+	["Six quests across the {zone:1425}, {area:272}, {area:367}, {area:978} and the {faction:68}: 600 {faction:68} and 225 Darkspear reputation. {quest:2937} and {quest:2938} are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 and pay in full too. Allow about 90 minutes with the travel. The {quest:2933} stand on the tables of the Witherbark village in the west of the {zone:1425}: click one to start."] = "Шесть заданий через {zone:1425}, {area:272}, {area:367}, {area:978} и {faction:68}: 600 репутации {faction:68} и 225 репутации Черного Копья. {quest:2937} и {quest:2938} — 55-го уровня и платят 400 полностью на 60-м; четыре предыдущих — 43-45-го уровня и тоже платят полностью. Закладывайте около 90 минут с дорогой. {quest:2933} стоят на столах деревни Увядающей Коры на западе {zone:1425}: нажмите на один, чтобы начать.",
 
 	-- Step 34: Shadra'Alor: an Undamaged Venom Sac
 	-- {area:353} Shadra'Alor · {quest:2934} Undamaged Venom Sac
-	["{area:353}: an {quest:2934}"] = "",
+	["{area:353}: an {quest:2934}"] = "{area:353}: {quest:2934}",
 	-- {area:353} Shadra'Alor · {zone:1425} Hinterlands
 	-- plural, as words: Witherbark Broodguards = {npc:2686} Witherbark Broodguard
-	["The Witherbark Broodguards crawl around {area:353} in the south-west of the {zone:1425}; about one in ten carries an undamaged sac."] = "",
+	["The Witherbark Broodguards crawl around {area:353} in the south-west of the {zone:1425}; about one in ten carries an undamaged sac."] = "Пауки-няньки племени Сухокожих ползают вокруг {area:353} на юго-западе {zone:1425}; примерно у одного из десяти есть целый мешок.",
 	-- {quest:2934} Undamaged Venom Sac
 	-- plural, as words: Witherbark Broodguards = {npc:2686} Witherbark Broodguard
-	["{quest:2934}, from Witherbark Broodguards"] = "",
+	["{quest:2934}, from Witherbark Broodguards"] = "{quest:2934}, от пауков-нянек племени Сухокожих",
 
 	-- Step 35: Tarren Mill, then Sen'jin Village
 	-- {area:272} Tarren Mill · {area:367} Sen'jin Village
-	["{area:272}, then {area:367}"] = "",
+	["{area:272}, then {area:367}"] = "{area:272}, затем {area:367}",
 	-- {quest:2935} Consult Master Gadrin
-	["{quest:2935}, +75 Darkspear"] = "",
+	["{quest:2935}, +75 Darkspear"] = "{quest:2935}, +75 Черного Копья",
 	-- {npc:3188} Master Gadrin · {area:367} Sen'jin Village
 	["{npc:3188}, in {area:367}"] = "{npc:3188}, здесь: {area:367}",
 	-- {quest:2936} The Spider God
-	["{quest:2936}, +150 Darkspear"] = "",
+	["{quest:2936}, +150 Darkspear"] = "{quest:2936}, +150 Черного Копья",
 
 	-- Step 36: Zul'Farrak: the Tablet of Theka
 	-- {area:978} Zul'Farrak · {object:142715} Tablet of Theka
-	["{area:978}: the {object:142715}"] = "",
+	["{area:978}: the {object:142715}"] = "{area:978}: {object:142715}",
 	-- {area:978} Zul'Farrak · {zone:1446} Tanaris · {npc:7272} Theka the Martyr · {object:142715} Tablet of Theka
-	["{area:978} is a level 44 to 54 dungeon in northern {zone:1446}; a level 60 can clear the way alone, or bring a group. {npc:7272}, an elite troll, guards his tomb in the instance: kill him and read the {object:142715} there."] = "",
+	["{area:978} is a level 44 to 54 dungeon in northern {zone:1446}; a level 60 can clear the way alone, or bring a group. {npc:7272}, an elite troll, guards his tomb in the instance: kill him and read the {object:142715} there."] = "{area:978} — подземелье 44-54 уровней в северной части {zone:1446}; 60-й уровень может зачистить путь в одиночку или взять группу. {npc:7272}, элитный тролль, охраняет свою гробницу в подземелье: убейте его и прочитайте {object:142715} там.",
 	-- {object:142715} Tablet of Theka
-	["read the {object:142715}"] = "",
+	["read the {object:142715}"] = "прочитайте {object:142715}",
 
 	-- Step 38: Shadra'Alor: Shadra
 	-- {item:9323} Gadrin's Parchment · {area:353} Shadra'Alor · {npc:2707} Shadra
-	["Read {item:9323} at the altar of {area:353} to call {npc:2707}, an elite level 55 spider: she drops her venom every time."] = "",
+	["Read {item:9323} at the altar of {area:353} to call {npc:2707}, an elite level 55 spider: she drops her venom every time."] = "Прочитайте {item:9323} у алтаря {area:353}, чтобы призвать {npc:2707}, элитного паука 55-го уровня: она каждый раз роняет свой яд.",
 	-- {item:9324} Shadra's Venom · {npc:2707} Shadra
 	["{item:9324}, from {npc:2707}"] = "{item:9324}, у персонажа {npc:2707}",
 
 	-- Step 39: Tarren Mill and the Undercity
 	-- {area:272} Tarren Mill · {faction:68} Undercity
-	["{area:272} and the {faction:68}"] = "",
+	["{area:272} and the {faction:68}"] = "{area:272} и {faction:68}",
 	-- {npc:2055} Master Apothecary Faranell
 	["{npc:2055}, in the Apothecarium"] = "{npc:2055}, в Аптекарии",
 
@@ -245,21 +245,21 @@ return {
 	-- {quest:7819} Additional Runecloth
 	["{quest:7819} to Honored"] = "{quest:7819} — до уважения",
 	-- {quest:7819} Additional Runecloth · {item:14047} Runecloth
-	["{quest:7819}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (an Undead starts at Friendly 1,000: 100 hand-ins; every other race starts at Neutral 500 and first needs 50 hand-ins, 1,000 {item:14047}, to reach Friendly). Hand in every 20 you carry, one after another."] = "",
+	["{quest:7819}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (an Undead starts at Friendly 1,000: 100 hand-ins; every other race starts at Neutral 500 and first needs 50 hand-ins, 1,000 {item:14047}, to reach Friendly). Hand in every 20 you carry, one after another."] = "{quest:7819}: 20 {item:14047} за 50 репутации, сколько угодно раз. От «Дружелюбия» до «Уважения» — 6 000: 120 сдач, 2 400 {item:14047}, меньше того, что дали задания (нежить начинает с «Дружелюбия» 1 000: 100 сдач; каждая другая раса начинает с «Равнодушия» 500 и сначала нужно 50 сдач, 1 000 {item:14047}, чтобы достичь «Дружелюбия»). Сдавайте каждые 20, что несёте, один за другим.",
 
 	-- Step 41: Additional Runecloth to Revered
 	-- {quest:7819} Additional Runecloth
 	["{quest:7819} to Revered"] = "{quest:7819} — до почтения",
 	-- {item:14047} Runecloth · {item:12358} Darkstone Tablet · {area:1584} Blackrock Depths
-	["Honored to Revered is 12,000: 240 hand-ins, 4,800 {item:14047}. The {item:12358} ({area:1584}) pays 150 in full."] = "",
+	["Honored to Revered is 12,000: 240 hand-ins, 4,800 {item:14047}. The {item:12358} ({area:1584}) pays 150 in full."] = "От «Уважения» до «Почтения» — 12 000: 240 сдач, 4 800 {item:14047}. {item:12358} ({area:1584}) платит 150 полностью.",
 
 	-- Step 42: Additional Runecloth to Exalted
 	-- {quest:7819} Additional Runecloth
 	["{quest:7819} to Exalted"] = "{quest:7819} — до превознесения",
 	-- {item:14047} Runecloth · {npc:4731} Zachariah Post · {area:159} Brill
-	["Revered to Exalted is 21,000: 420 hand-ins, 8,400 {item:14047}. For The Horde! (Rend's head) and The Lord of Blackrock (Nefarian's head) pay 200 to every Horde city. At Exalted, {npc:4731} in {area:159} sells the skeletal horses to every Horde race: 20 gold for a level 40 horse, 200 gold for a level 60 warhorse (Forever's prices); in Classic other races needed Exalted to buy them."] = "",
+	["Revered to Exalted is 21,000: 420 hand-ins, 8,400 {item:14047}. For The Horde! (Rend's head) and The Lord of Blackrock (Nefarian's head) pay 200 to every Horde city. At Exalted, {npc:4731} in {area:159} sells the skeletal horses to every Horde race: 20 gold for a level 40 horse, 200 gold for a level 60 warhorse (Forever's prices); in Classic other races needed Exalted to buy them."] = "От «Почтения» до «Превознесения» — 21 000: 420 сдач, 8 400 {item:14047}. «За Орду!» (голова Ренда) и «Повелитель Черной Скалы» (голова Нефариана) платят 200 каждому городу Орды. На «Превознесении» {npc:4731} в {area:159} продаёт скелетных коней всем расам Орды: 20 золота за коня 40-го уровня, 200 золота за боевого коня 60-го уровня (цены Forever); в классике другим расам нужно было «Превознесение», чтобы их купить.",
 	-- {npc:4731} Zachariah Post
-	["{npc:4731}: the skeletal horses"] = "",
+	["{npc:4731}: the skeletal horses"] = "{npc:4731}: скелетные кони",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "Адепты Тьмы и темные маги (уровень 58-60) роняют его здесь; каждое убийство Плети здесь также идет в зачет фракции {object:92525} (см. тот гайд). Также можно купить на аукционе.",

@@ -15,7 +15,7 @@ return {
 	["The {object:409289}"] = "{object:409289}",
 	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore · {spell:686} Shadow Bolt · {object:409289} Strange Orb (no name in this language: may be words) · {item:209748} Althalaxx Orb · {object:409311} Spear of Mannoroth (no name in this language: may be words)
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
-	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the {object:409289} at the top: it gives you the {item:209748}; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "",
+	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the {object:409289} at the top: it gives you the {item:209748}; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "爬到 {zone:1439} 北部 {area:444} 的塔頂。周圍的暗灘狂熱者比較容易對付（16-17 級），但通往寶珠的塔內有四名暗灘喚魔師（28-29 級）：每名都會召喚虛空行者，並在遠處施放 {spell:686}。22-25 級時，帶一兩位朋友來，每次只引一名，然後躲到牆後迫使對方靠近。拾取頂層的 {object:409289}，獲得 {item:209748}；右鍵點選它開始任務。在到達 {object:409311} 之前一直把寶珠放在揹包裡：後面有三個任務要用到它。",
 	-- {object:409289} Strange Orb (no name in this language: may be words) · {area:444} Tower of Althalaxx · {item:209748} Althalaxx Orb
 	["{object:409289} atop the {area:444}: right-click the {item:209748} it gives"] = "{area:444}頂端的{object:409289}：右鍵點擊它給的{item:209748}",
 
@@ -50,7 +50,7 @@ return {
 	-- {object:409311} Spear of Mannoroth (no name in this language: may be words)
 	["The {object:409311}"] = "{object:409311}",
 	-- {object:409311} Spear of Mannoroth (no name in this language: may be words) · {area:435} Demon Fall Canyon · {item:209748} Althalaxx Orb · {object:409315} Shattered Orb (no name in this language: may be words)
-	["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the {item:209748} in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "",
+	["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the {item:209748} in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "{object:409311} 位於 {area:435} 的東端。把 {item:209748} 放在揹包裡，在長矛處交還微粒：寶珠會碎裂，旁邊的 {object:409315} 隨即提供最後一個任務。",
 	-- {object:409315} Shattered Orb (no name in this language: may be words)
 	["from the {object:409315}"] = "從{object:409315}取得",
 
