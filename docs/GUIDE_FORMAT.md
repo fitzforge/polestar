@@ -316,12 +316,16 @@ quest is ready. One failure is never stored: a `complete <quest>` that fails whi
 player carries the quest (a Wanted hand-in passed before the elite is dead)
 is checked again, and the step comes back once the quest is done. Nor, while
 the guide lasts, is a failure that can still turn as the player plays it: a
-`level>=N` or `level>N` not reached yet, or `onquest`, `complete` or
+`level>=N` or `level>N` not reached yet, a `skill <Profession> N` not
+reached yet (a profession learned or raised later), or `onquest`, `complete` or
 `turnedin` of a quest the guide still takes (or one waiting for the
 character's level). Such a step comes back if the route reaches it again (the
 level-up brings the route back to a quest's accept, and its `when onquest`
 step follows it); once it holds behind the live step, it stays passed and its
-quest's work is listed under "Still to do" instead of pulling the arrow back;
+quest's work is listed under "Still to do" instead of pulling the arrow back,
+and with a `skill` in its `when` its accepts are "While you're here" lines at
+their giver (a start camp's Camping 101 for a profession learned after the
+route passed the camp: "“Camping 101: Mining” at Sam Sarsaparilla");
 at the guide's end it is stored as skipped. A step with `group` or `dungeon`
 in its `when` is stored as it passes, as the player's answer decides it.
 Resetting the guide's progress forgets the stored outcomes.

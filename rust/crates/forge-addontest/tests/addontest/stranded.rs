@@ -381,3 +381,36 @@ fn outlevelled_the_banner_says_the_finished_quests_left_here_and_its_jump_asks_o
 	);
 	assert_eq!(out["jumped"], "test/b", "{out}");
 }
+
+// #2652: a held quest the route neither works nor hands in (42, Not Done Yet: one Prowler to kill, taken off the
+// route) showed nothing until it was finished. With the quest database loaded, While you're here lists its work at
+// the database's places on the player's map, its sub-line saying the route does not hand it in; none once the
+// line is done. Without the database, nothing (it is never loaded for this).
+#[test]
+fn a_held_quest_the_route_does_not_work_shows_its_work_while_here_from_the_quest_database_2652() {
+	let out = run(r#"
+		local r = {}
+		local function rows()
+			local out = {}
+			for _, v in ipairs(E.GetWhileHereList()) do
+				if v.quest == 42 then out[#out + 1] = { v.step, v.hereText, v.hereSub or false } end
+			end
+			return out
+		end
+		r.unloaded = rows()
+		local QDB = Polestar.QuestDB
+		QDB.IsLoaded = function() return true end
+		QDB.GetQuest = function(q) if q == 42 then return { title = "Not Done Yet", objectives = { { kind = "kill", id = 300 } } } end end
+		QDB.GetNpc = function(id)
+			if id == 300 then return { name = "Prowler", spawns = { { map = 1429, x = 43.0, y = 36.5 }, { map = 1429, x = 43.4, y = 36.8 } } } end
+		end
+		stub.fire("QUEST_LOG_UPDATE"); flush(); flush()
+		r.loaded = rows()
+		w.progress(42, 1, 1); flush(); flush()
+		r.done = rows()
+		emit(r)
+	"#);
+	assert_eq!(out["unloaded"], json!([]), "{out}");
+	assert_eq!(out["loaded"], json!([[-4, "Kill Prowler, 1 more", "Not handed in on the route ahead"]]), "{out}");
+	assert_eq!(out["done"], json!([]), "{out}");
+}
