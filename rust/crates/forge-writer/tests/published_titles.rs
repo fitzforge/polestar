@@ -39,10 +39,7 @@ fn every_generated_guide_s_title_is_the_writer_s() {
 	assert!(files.len() > 50, "the generated leveling guides: {}", files.len());
 	let texts: BTreeMap<&String, String> = files.iter().map(|f| (f, std::fs::read_to_string(root.join("guides").join(f)).unwrap())).collect();
 	// The zones: every name a guide's `zone` line gives (the build asks the data; the guides name the same zones).
-	let zones: BTreeSet<String> = texts
-		.values()
-		.flat_map(|t| t.lines().filter_map(|l| l.trim_start().strip_prefix("zone ").map(|z| z.trim().to_lowercase())))
-		.collect();
+	let zones: BTreeSet<String> = texts.values().flat_map(|t| t.lines().filter_map(|l| l.trim_start().strip_prefix("zone ").map(|z| z.trim().to_lowercase()))).collect();
 	let is_zone = |z: &str| zones.contains(&z.to_lowercase());
 	let mut wrong = Vec::new();
 	for (rel, text) in &texts {
