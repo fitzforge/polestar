@@ -4986,8 +4986,8 @@ local function stepDoneLive(s)
 	-- The route passes over an along step (Own.alongListed), a hearth-only
 	-- one (Own.hearthOnly: the arrow's route hearths when it pays), a
 	-- travel step the route flies past (Own.flightPassed), a walk to a stop
-	-- that holds nothing for the character (Own.stopEmpty), a walk to a boat
-	-- or zeppelin the player is already across (Own.alreadyAcross) and a step
+	-- that holds nothing for the character (Own.stopEmpty), a walk to a boat,
+	-- zeppelin or portal the player is already across (Own.alreadyAcross) and a step
 	-- under a section the player's skill has passed (Own.sectionPassed).
 	if guide.steps[s].along or Own.hearthOnly(guide.steps[s]) or Own.sectionPassed(s) then return true end
 	-- Waits for the player's answer (a group quest, a dungeon).
@@ -12627,7 +12627,9 @@ Own.DOCK_REACH = 60
 -- The far end of a crossing with an end within Own.DOCK_REACH yards of world
 -- point (c, x, y) and both ends on continent c, of those the one nearest
 -- (wx, wy) (Menethil Harbor's dock serves Southshore and Auberdine): its
--- world x and y, else nil.
+-- world x and y, else nil. A walk-in portal goes one way, so only its mouth
+-- (a) counts, and its far end is where it lands (b): Rut'theran Village's
+-- portal into Darnassus (#3906).
 function Own.farDock(c, x, y, wx, wy)
 	local nav = ns.Nav
 	local d = nav and nav.GetTravelData and nav.GetTravelData()
@@ -12648,15 +12650,24 @@ function Own.farDock(c, x, y, wx, wy)
 			end
 		end
 	end
+	for _, t in ipairs(d and d.portals or NONE) do
+		local a, b = t.a, t.b
+		if a and b and a.c == c and b.c == c and a.wx and a.wy and b.wx and b.wy and (a.wx - x) ^ 2 + (a.wy - y) ^ 2 <= reach then
+			local dd = (b.wx - wx) ^ 2 + (b.wy - wy) ^ 2
+			if not best or dd < best then fx, fy, best = b.wx, b.wy, dd end
+		end
+	end
 	return fx, fy
 end
 
--- Walk step s ends at a crossing's dock on the continent of the work after
--- it, step n (Own.travelOnto), and both the player and that work lie nearer
--- the crossing's far end than its dock (#1983): Feralas's "Boat to
--- Feathermoon Stronghold", a walk to the Forgotten Coast's dock, sent a
--- player who flew in to Feathermoon back over the water and across again,
--- since a walk passes only on arrival.
+-- Walk step s ends at a crossing's dock (or a portal's mouth) on the
+-- continent of the work after it, step n (Own.travelOnto), and both the
+-- player and that work lie nearer the crossing's far end than its dock
+-- (#1983): Feralas's "Boat to Feathermoon Stronghold", a walk to the
+-- Forgotten Coast's dock, sent a player who flew in to Feathermoon back over
+-- the water and across again, since a walk passes only on arrival. A portal
+-- takes the player before the walk's goto is reached: Tanaris's "Portal to
+-- Darnassus" stayed open in Darnassus (#3906).
 function Own.pastDock(s, n)
 	local c, x, y = Own.walkEnd(s)
 	if not (c and x and y) then return false end
@@ -12669,7 +12680,7 @@ function Own.pastDock(s, n)
 		and (wx - fx) ^ 2 + (wy - fy) ^ 2 < (wx - x) ^ 2 + (wy - y) ^ 2
 end
 
--- A walk to a boat or a zeppelin the player is already past (#1971, #1978):
+-- A walk to a boat, a zeppelin or a portal the player is already past (#1971, #1978, #3906):
 -- walk step s (gotos alone for the character, as written and still open)
 -- ends on another continent than the step the route goes on to after it
 -- (Own.travelOnto), and the player stands on that step's continent; or it
