@@ -10298,9 +10298,11 @@ end
 -- are left (UI/GuideEnd.lua: "Back to step 37"), once, and the end comes
 -- once they are done or skipped. The guide must have been seen unfinished
 -- once placed this session (Own.endOpen), and for the last step done ahead,
--- that step seen open (Own.lastOpen), so a guide opened, or brought back by
--- a login, already at its end does not ask (with steps left, it then says
--- nothing until they are done); and once per guide per character
+-- that step seen open as the last one (Own.lastOpen: every step that was, so
+-- an answer that moves the end back to a step seen open earlier, a group
+-- quest after it skipped, still ends there, #3330), so a guide opened, or
+-- brought back by a login, already at its end does not ask (with steps left,
+-- it then says nothing until they are done); and once per guide per character
 -- (CharState().guideEnds[guideId], kept over a reload or relog). That record
 -- is not the end itself: with a live step, it stands only while the end
 -- still holds (Own.endHolds), and Engine.ResetProgress forgets it.
@@ -10312,7 +10314,22 @@ end
 ---------------------------------------------------------------------------
 
 Own.endOpen = {} -- guideId -> true: seen unfinished once placed, this session
-Own.lastOpen = {} -- guideId -> the last step (Own.lastWork) seen open, or done ahead with steps left, once placed, this session
+Own.lastOpen = {} -- guideId -> { [step] = true }: every last step (Own.lastWork) seen open, or done ahead with steps left, once placed, this session
+
+-- Step s of guide id, the last one, seen open (Own.lastOpen).
+function Own.sawOpen(id, s)
+	if not s then return end
+	local seen = Own.lastOpen[id]
+	if not seen then
+		seen = {}
+		Own.lastOpen[id] = seen
+	end
+	seen[s] = true
+end
+function Own.wasOpen(id, s)
+	local seen = Own.lastOpen[id]
+	return seen ~= nil and s ~= nil and seen[s] == true
+end
 Own.leftTold = {} -- guideId -> the last step whose steps left were seen (told once: GUIDE_STEPS_LEFT), this session
 Own.pendingEnds, Own.pendingContinued = {}, {} -- fired at the end of the evaluation
 
@@ -10447,7 +10464,7 @@ function Own.noteEnd()
 			if old then old[id] = nil end
 			if not holds or left > 0 then
 				ends[id] = nil
-				Own.lastOpen[id] = last
+				Own.sawOpen(id, last)
 				if left > 0 then Own.leftTold[id] = last end
 			end
 			return
@@ -10462,7 +10479,7 @@ function Own.noteEnd()
 		-- optional goals or notes are offered, not the end (Own.lastWork).
 		local waits = last ~= nil and computed > last and Own.lastWork(computed - 1, false, true) ~= nil
 		if waits or not holds then
-			if last then Own.lastOpen[id] = last end
+			Own.sawOpen(id, last)
 			-- Done in turn (the live step past it, on a class's own step), it
 			-- has nothing to tell: a step brought back later (Unskip) is the
 			-- player's own going back.
@@ -10477,15 +10494,16 @@ function Own.noteEnd()
 		-- comes once they are done or skipped.
 		local left = Own.stepsLeft(last, held)
 		if left > 0 then
-			if Own.lastOpen[id] == last and Own.leftTold[id] ~= last then
+			if Own.wasOpen(id, last) and Own.leftTold[id] ~= last then
 				local nextId, asks = routeNext(guide)
 				if nextId and not Guides.Get(nextId) then nextId = nil end
 				Own.pendingEnds[#Own.pendingEnds + 1] = { guideId = id, left = left, live = computed, next = nextId, choose = asks or nil }
 			end
-			Own.lastOpen[id], Own.leftTold[id] = last, last
+			Own.sawOpen(id, last)
+			Own.leftTold[id] = last
 			return
 		end
-		if Own.lastOpen[id] ~= last then return end
+		if not Own.wasOpen(id, last) then return end
 	elseif not asks or ends[id] or not Own.endOpen[id] then
 		return
 	end

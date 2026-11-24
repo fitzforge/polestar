@@ -142,3 +142,58 @@ fn shendralas_played_in_order_asks_at_mana_mania_and_ends_either_way_once_answer
 		assert_eq!(out[0]["ended"], true, "{who}");
 	}
 }
+
+const AHEAD: &str = r#"
+${loads}
+stub.login()
+stub.fire("QUEST_LOG_UPDATE")
+Polestar.Set("behavior.autoAccept", false)
+Polestar.Set("behavior.autoTurnin", false)
+local E, w = Polestar.Engine, stub.world
+local ID = "forever/40-50/shendralas"
+local ENDS, LEFT = {}, {}
+Polestar.On("GUIDE_END", function(id, i) ENDS[#ENDS + 1] = { id = id, undone = i.undone } end)
+Polestar.On("GUIDE_STEPS_LEFT", function(id, i) LEFT[#LEFT + 1] = i.left end)
+E.SetGuide(ID)
+stub.advance(3)
+local g = E.GetGuide()
+local mithera, biraxas
+for i, step in ipairs(g.steps) do
+	if step.title == "Mithera" then mithera = i end
+	if step.title == "Historian Biraxas" then biraxas = i end
+end
+-- At Mithera (the steps before passed), her quest ready to hand in, A Heart of Crystal ready too.
+local sk = {}
+for i = 1, mithera - 1 do sk[i] = true end
+Polestar.CharState().skipped[ID] = sk
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(2)
+local r = { at = E.GetLiveStep() == mithera }
+-- Biraxas's quest handed in ahead of the live step: Mana Mania opens after the guide's end.
+w.turnIn(99257); stub.advance(3)
+r.ahead = { E.GetLiveStep() == mithera, #ENDS }
+-- Mithera's hand-in: the route comes to Mana Mania, which asks; skipped from Options, the end moves back to Biraxas.
+w.turnIn(93362); stub.advance(3)
+local live = E.GetLiveStep()
+r.asks = { live and g.steps[live].title or false, E.GroupQuestion() or false }
+E.AnswerGroup(99258, "skip"); stub.advance(3)
+r.ends, r.left, r.ended = ENDS, LEFT, E.GuideEnded(ID)
+emit(r)
+"#;
+
+// #3330: Biraxas's hand-in done ahead of the live step, the Mana Mania question answered from Options once the route
+// gets there. The answer moves the guide's end back to Biraxas, which was seen open as the last step before Mana Mania
+// opened: the end comes, once nothing required is left (#3517).
+#[test]
+fn shendralas_biraxas_handed_in_ahead_then_mana_mania_skipped_from_options_ends_the_guide() {
+	let Some((_pack, loads, maps)) = compiled("forever/40-50/shendralas", &["forever", "era"]) else { return };
+	let done = "93644, 92914, 96010, 96018, 93016, 93394, 93341, 93594";
+	let before = format!(
+		"local w = stub.world\n{maps}w.race, w.raceName = \"Human\", \"Human\"\nw.class, w.className = \"WARRIOR\", \"WARRIOR\"\nw.faction = \"Alliance\"\nw.level = 45\nw.complete({{ {done} }})\nw.accept(93362, {{}}); w.finish(93362)\nw.accept(99257, {{}}); w.finish(99257)\n"
+	);
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script: AHEAD.replace("${loads}", &loads), ..Default::default() });
+	assert_eq!(out[0]["at"], true, "{}", out[0]);
+	assert_eq!(out[0]["ahead"], json!([true, 0]), "handed in ahead: no end while Mithera's step is open: {}", out[0]);
+	assert_eq!(out[0]["asks"], json!(["Mana Mania", 99258]), "{}", out[0]);
+	assert_eq!(out[0]["ends"], json!([{ "id": "forever/40-50/shendralas", "undone": 0 }]), "{}", out[0]);
+	assert_eq!(out[0]["ended"], true);
+}
