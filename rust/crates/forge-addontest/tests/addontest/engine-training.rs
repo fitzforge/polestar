@@ -562,13 +562,15 @@ fn the_banner_s_trainer_on_the_route_is_priced_once_per_zone_until_the_next_trai
 		r#"
 		stub.advance(0.5)
 		local E, w = Polestar.Engine, stub.world
-		-- Route plans made by the trainer pick only (the reminder's and the banner's, Engine.NearestClassTrainer):
-		-- a zone change or a level-up plans other routes of its own.
+		-- Route plans made by the trainer pick only (the reminder's and the banner's, Engine.NearestClassTrainer): a
+		-- zone change or a level-up plans other routes of its own, the candidates' re-pick (pickFor's eight) among
+		-- them, made here before the counted call.
 		local plans, picking = 0, false
 		local cost = Polestar.TravelCost
 		Polestar.TravelCost = function(...) if picking then plans = plans + 1 end return cost(...) end
 		local nearest = E.NearestClassTrainer
 		E.NearestClassTrainer = function(...)
+			nearest()
 			picking = true
 			local t = nearest(...)
 			picking = false

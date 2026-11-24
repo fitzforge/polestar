@@ -491,7 +491,8 @@ fn a_held_quest_the_route_does_not_work_shows_its_work_while_here_from_the_quest
 		r.done = rows()
 		emit(r)
 	"#);
-	assert_eq!(out["unloaded"], json!([]), "{out}");
+	// An empty Lua list is emitted as `{}`.
+	assert_eq!(out["unloaded"], json!({}), "{out}");
 	assert_eq!(out["loaded"], json!([[-4, "Kill Prowler, 1 more", "Not handed in on the route ahead"]]), "{out}");
-	assert_eq!(out["done"], json!([]), "{out}");
+	assert_eq!(out["done"], json!({}), "{out}");
 }
