@@ -13,11 +13,12 @@
 //! [`Recording::voter`]: the server's cohort (contributors registered from one network share one),
 //! else the contributor; it counts once per fact however many sessions, installs or tokens it has.
 //! A number several players recorded (an objective's count, a drop chance, a quest's XP) is the
-//! median of each player's own value, so one heavy player cannot pull it. A quest field recordings
-//! set or confirmed on trusted evidence gets the source tag `recorder:<field>` (the knowledge base's
-//! `recorder` tier, kb.rs), one a single counted player filled `recorder-gap:<field>` (never
-//! published on its own); a record only recordings have carries `recorder`. Schema 1 sessions
-//! count as `local` and enUS.
+//! median of each player's own value, so one heavy player cannot pull it (a quest drop's chance
+//! pools every player's drops and tries instead: a player stops at the objective's count,
+//! [`QuestLoot`]). A quest field recordings set or confirmed on trusted evidence gets the source tag
+//! `recorder:<field>` (the knowledge base's `recorder` tier, kb.rs), one a single counted player
+//! filled `recorder-gap:<field>` (never published on its own); a record only recordings have
+//! carries `recorder`. Schema 1 sessions count as `local` and enUS.
 
 use std::collections::VecDeque;
 use std::hash::Hash;
@@ -1503,8 +1504,7 @@ impl<'a> Overlay<'a> {
 					if !it.truthy() {
 						continue;
 					}
-					let (of_by, n_by) = samples.of(k, id, item, windows, held);
-					let Some(dc) = drop_chance(of_by, n_by, self.min, |c| self.contributors[*c].clone()) else { continue };
+					let Some(dc) = samples.chance(k, id, item, windows, held, self.min, |c| self.contributors[*c].clone()) else { continue };
 					if !it.get("drops").truthy() {
 						let d = Obj::new();
 						d.set("npc", Obj::new());
@@ -1781,6 +1781,26 @@ struct Kill {
 	open: Box<[Objective]>,
 }
 
+/// What a session's quest log, group, loot windows and kills do, read in the order of their times
+/// ([`QuestLoot::end`]).
+enum Step {
+	/// A quest's objective list (`objectives`): the indexes of its item objectives.
+	Listed(i64, Vec<i64>),
+	/// An objective's tick (`progress`, one per gain): whether the Recorder says it is an item's, and
+	/// whether it is done.
+	Tick { o: Objective, item: bool, done: bool },
+	/// A quest done or gone from the log (`complete`, `abandon`, `turnin`).
+	Gone(i64),
+	/// A `group`: whether the player is in one.
+	Group(bool),
+	/// Any loot window: the item objectives open then (its `wanted`).
+	Loot(FxHashSet<Objective>),
+	/// A loot window a quest drop counts ([`QuestLoot::window`]); `grouped` is read in time order.
+	Window(Window),
+	/// A `kill`: the creature, and whether the record says a group.
+	Kill(i64, bool),
+}
+
 /// The loot windows behind the drops that fall only for a quest that wants them (Large Candle, for
 /// Kobold Candles). A player's share of every loot window of the source undercounts such a drop by
 /// all the windows they opened off the quest, so a quest drop's chance counts only while its
@@ -1793,13 +1813,19 @@ struct Kill {
 /// A creature's quest drop is counted on its kills while the item was wanted, not on the loot
 /// windows (#2747): a player opens a window on only some kills (a corpse with nothing on it can't be
 /// opened, and many are left), so the windows read the chance 1.2 to 3 times high. The kills are
-/// the session's `kill` records (schema 2) of a creature the player could loot: not one another
-/// player tapped (`denied`), not in a group (another member may loot the corpse); the item
-/// objectives open then are the session's quest log as its events go (`objectives` at the accept,
-/// `progress`, a `drop`'s `wanted`, which also names a quest carried in from an earlier session;
-/// gone at `complete`, `abandon` and `turnin`). A window in a group counts for neither side. A
-/// session with no kill records (schema 1) counts its windows, as before. An object's drop stays
-/// counted on its windows (opening one is the try).
+/// the session's `kill` records (schema 2), solo (in a group another member may loot the corpse);
+/// the Recorder's `denied` is no test (it marks as many of the player's own kills, which gave them
+/// XP and a loot window, as any other: Grizzled Thistle Bears on Grizzled Scalps, 145 of 266 kills
+/// that gave XP, looted as often). The item objectives open then are the session's quest log as its
+/// events go (`objectives` at the accept, `progress`, a `drop`'s `wanted`, which also names a quest
+/// carried in from an earlier session; gone at `complete`, `abandon` and `turnin`), in the order of
+/// their times: the Recorder writes a kill 3 s after the death with the death's time, so a kill
+/// looted fast comes after its window and its tick, and the one that finished the objective after
+/// the objective was done. A kill dropped the item when a window of it held it, or when the
+/// objective ticked before any loot window opened after it (an older Recorder read no window for
+/// one scalp in five). A window in a group counts for neither side. A session with no kill records
+/// (schema 1) counts its windows, as before. An object's drop stays counted on its windows (opening
+/// one is the try).
 #[derive(Default)]
 pub(crate) struct QuestLoot {
 	/// objective -> item -> windows whose tick named the item.
@@ -1810,35 +1836,38 @@ pub(crate) struct QuestLoot {
 	held: FxHashMap<i64, f64>,
 	/// Kills a player could loot with an item objective open -> how many.
 	kills: FxHashMap<Kill, f64>,
-	/// The session's open item objectives, whether the player is in a group and whether it records
-	/// each kill ([`QuestLoot::begin`], [`QuestLoot::event`]); its kills so far, and whether a loot
-	/// window of it named the objectives open ([`QuestLoot::end`]).
-	open: FxHashSet<Objective>,
-	grouped: bool,
+	/// (creature, player, objective) -> kills whose drop only the objective's tick tells.
+	ticked: FxHashMap<(i64, usize, Objective), f64>,
+	/// The session: its player, whether it records each kill (schema 2), whether a loot window of it
+	/// named the objectives open, its steps with their times ([`QuestLoot::event`]) and the latest time.
+	who: usize,
 	counts_kills: bool,
-	pending: Vec<Kill>,
 	wanted_seen: bool,
+	steps: Vec<(f64, Step)>,
+	t: f64,
 }
 
 type Samples = IndexMap<usize, f64>;
 
-/// What a drop chance counts ([`drop_chance`]), per player: the loot windows of the source and those
-/// of them that held the item; for a quest drop, only the windows its objective was open for.
+/// What a drop chance counts ([`DropSamples::chance`]), per player: the loot windows of the source and
+/// those of them that held the item; for a quest drop, only while its objective was open.
 pub(crate) struct DropSamples {
-	/// (kind, source, quest drop) -> per player, the windows counted and those holding it.
+	/// (kind, source, quest drop) -> per player, the tries counted and those that dropped it.
 	quest: FxHashMap<(usize, i64, i64), (Samples, Samples)>,
 	quest_drops: FxHashSet<i64>,
 	none: Samples,
 }
 
 impl DropSamples {
-	/// The samples of `item` from source `id` (kind `k`), given every loot window of the source per
-	/// player (`windows`) and those that held the item (`held`).
-	pub(crate) fn of<'a>(&'a self, k: usize, id: i64, item: i64, windows: &'a Samples, held: &'a Samples) -> (&'a Samples, &'a Samples) {
+	/// The chance of `item` from source `id` (kind `k`), given every loot window of the source per
+	/// player (`windows`) and those that held the item (`held`): a quest drop's pooled
+	/// ([`quest_drop_chance`]), any other the median of the players' own ([`drop_chance`]).
+	pub(crate) fn chance(&self, k: usize, id: i64, item: i64, windows: &Samples, held: &Samples, min: usize, name: impl Fn(&usize) -> String) -> Option<DropChance> {
 		if !self.quest_drops.contains(&item) {
-			return (windows, held);
+			return drop_chance(windows, held, min, name);
 		}
-		self.quest.get(&(k, id, item)).map_or((&self.none, &self.none), |(of, n)| (of, n))
+		let (of_by, n_by) = self.quest.get(&(k, id, item)).map_or((&self.none, &self.none), |(of, n)| (of, n));
+		quest_drop_chance(of_by, n_by, min, name)
 	}
 }
 
@@ -1847,76 +1876,114 @@ impl QuestLoot {
 	/// `counts_kills`: it records each kill (schema 2).
 	pub(crate) fn begin(&mut self, counts_kills: bool) {
 		self.end();
-		self.open.clear();
-		self.grouped = false;
 		self.counts_kills = counts_kills;
+		self.t = 0.0;
 	}
 
-	/// The session's kills count where its loot windows name the item objectives open
-	/// (`wanted`): a Recorder from before that knows of no quest drop's window, so its kills would
-	/// be tries with no drop.
+	/// A step of the session at the event's time (an event with none: the latest time).
+	fn push(&mut self, ev: &V, step: Step) {
+		let t = ev.get("t").as_num().filter(|t| t.is_finite()).unwrap_or(self.t);
+		self.t = self.t.max(t);
+		self.steps.push((t, step));
+	}
+
+	/// The session's steps in the order of their times (see [`QuestLoot`]): its windows, kills and the
+	/// drops only a tick tells. They count where its loot windows name the item objectives open
+	/// (`wanted`): a Recorder from before that knows of no quest drop's window, so its kills would be
+	/// tries with no drop.
 	fn end(&mut self) {
-		let pending = std::mem::take(&mut self.pending);
-		if std::mem::take(&mut self.wanted_seen) {
-			for k in pending {
-				*self.kills.entry(k).or_default() += 1.0;
+		let mut steps = std::mem::take(&mut self.steps);
+		if !std::mem::take(&mut self.wanted_seen) {
+			return;
+		}
+		steps.sort_by(|a, b| a.0.total_cmp(&b.0));
+		let who = self.who;
+		let mut open: FxHashSet<Objective> = FxHashSet::default();
+		let mut grouped = false;
+		// The latest counted kill no loot window followed yet, and the objectives that ticked since.
+		let mut last: Option<(i64, Vec<Objective>)> = None;
+		for (_, step) in steps {
+			match step {
+				Step::Listed(q, ois) => {
+					open.retain(|o| o.0 != q);
+					open.extend(ois.into_iter().map(|oi| (q, oi)));
+				}
+				Step::Tick { o, item, done } => {
+					if !(item || open.contains(&o)) {
+						continue;
+					}
+					if let Some((id, told)) = &mut last {
+						if open.contains(&o) && !told.contains(&o) {
+							told.push(o);
+							*self.ticked.entry((*id, who, o)).or_default() += 1.0;
+						}
+					}
+					if done {
+						open.remove(&o);
+					} else {
+						open.insert(o);
+					}
+				}
+				Step::Gone(q) => open.retain(|o| o.0 != q),
+				Step::Group(g) => grouped = g,
+				Step::Loot(wanted) => {
+					open = wanted;
+					last = None;
+				}
+				Step::Window(mut w) => {
+					w.grouped = grouped;
+					*self.windows.entry(w).or_default() += 1.0;
+				}
+				Step::Kill(id, group) => {
+					last = None;
+					if open.is_empty() || grouped || group {
+						continue;
+					}
+					let mut o: Vec<Objective> = open.iter().copied().collect();
+					o.sort_unstable();
+					*self.kills.entry(Kill { id, who, open: o.into() }).or_default() += 1.0;
+					last = Some((id, Vec::new()));
+				}
 			}
 		}
 	}
 
-	/// Each event of `who`'s session, in order: the open item objectives, the group and the kills
-	/// (see [`QuestLoot`]). A `drop` also goes to [`QuestLoot::window`].
+	/// Each event of `who`'s session, in order: the quest log, the group, the loot windows and the
+	/// kills (see [`QuestLoot`]). A `drop` also goes to [`QuestLoot::window`].
 	pub(crate) fn event(&mut self, who: usize, ev: &V) {
+		self.who = who;
 		let q = pos_int(&ev.get("q"));
-		match ev.get("e").as_str() {
+		let step = match ev.get("e").as_str() {
 			Some("objectives") => {
 				let Some(q) = q else { return };
-				self.open.retain(|o| o.0 != q);
-				for (i, o) in ev.get("objectives").items().iter().enumerate() {
-					if o.get("type").as_str() == Some("item") {
-						self.open.insert((q, i as i64 + 1));
-					}
-				}
+				let items = ev.get("objectives").items().iter().enumerate().filter(|(_, o)| o.get("type").as_str() == Some("item")).map(|(i, _)| i as i64 + 1).collect();
+				Step::Listed(q, items)
 			}
 			Some("progress") => {
 				let (Some(q), Some(oi)) = (q, pos_int(&ev.get("oi"))) else { return };
 				let (Some(cur), Some(max)) = (ev.get("cur").as_num(), ev.get("max").as_num()) else { return };
-				if !(self.open.contains(&(q, oi)) || ev.get("type").as_str() == Some("item")) {
-					return;
-				}
-				if cur >= max {
-					self.open.remove(&(q, oi));
-				} else {
-					self.open.insert((q, oi));
-				}
+				Step::Tick { o: (q, oi), item: ev.get("type").as_str() == Some("item"), done: cur >= max }
 			}
 			Some("complete" | "abandon" | "turnin") => {
-				if let Some(q) = q {
-					self.open.retain(|o| o.0 != q);
-				}
+				let Some(q) = q else { return };
+				Step::Gone(q)
 			}
-			Some("group") => self.grouped = ev.get("size").as_num().is_some_and(|s| s > 0.0),
+			Some("group") => Step::Group(ev.get("size").as_num().is_some_and(|s| s > 0.0)),
 			// The item objectives open at that moment: the quest log as the client had it (a quest
 			// carried in from an earlier session too).
-			Some("drop") => {
-				self.open = ev.get("wanted").items().iter().filter_map(|o| Some((pos_int(&o.get("q"))?, pos_int(&o.get("oi"))?))).collect();
-			}
+			Some("drop") => Step::Loot(ev.get("wanted").items().iter().filter_map(|o| Some((pos_int(&o.get("q"))?, pos_int(&o.get("oi"))?))).collect()),
 			Some("kill") => {
 				let Some(id) = pos_int(&ev.get("npc")) else { return };
-				let grouped = self.grouped || ev.get("group").as_num().is_some_and(|g| g > 0.0);
-				if self.open.is_empty() || grouped || ev.get("denied").truthy() {
-					return;
-				}
-				let mut open: Vec<Objective> = self.open.iter().copied().collect();
-				open.sort_unstable();
-				self.pending.push(Kill { id, who, open: open.into() });
+				Step::Kill(id, ev.get("group").as_num().is_some_and(|g| g > 0.0))
 			}
-			_ => {}
-		}
+			_ => return,
+		};
+		self.push(ev, step);
 	}
 
 	/// A `drop` of source `id` (kind `k`) that `who` opened, with `items` its held items.
 	pub(crate) fn window(&mut self, k: usize, id: i64, who: usize, ev: &V, items: &IndexSet<i64>) {
+		self.who = who;
 		let objective = |o: &V| Some((pos_int(&o.get("q"))?, pos_int(&o.get("oi"))?));
 		let mut ticks: Vec<Objective> = Vec::new();
 		for i in ev.get("items").items() {
@@ -1939,8 +2006,8 @@ impl QuestLoot {
 		ticks.dedup();
 		let mut held: Vec<i64> = items.iter().copied().collect();
 		held.sort_unstable();
-		let (grouped, kills) = (self.grouped, self.counts_kills);
-		*self.windows.entry(Window { k, id, who, open: open.into(), items: held.into(), ticks: ticks.into(), grouped, kills }).or_default() += 1.0;
+		let w = Window { k, id, who, open: open.into(), items: held.into(), ticks: ticks.into(), grouped: false, kills: self.counts_kills };
+		self.push(ev, Step::Window(w));
 	}
 
 	/// What every drop chance counts: a quest drop, only while its objective was open (none at a
@@ -2012,6 +2079,11 @@ impl QuestLoot {
 				*samples.entry((0, kill.id, item)).or_default().0.entry(kill.who).or_insert(0.0) += n;
 			}
 		}
+		for (&(id, who, o), &n) in &self.ticked {
+			if let Some(&item) = item_of.get(&o).filter(|item| quest.contains(item)) {
+				*samples.entry((0, id, item)).or_default().1.entry(who).or_insert(0.0) += n;
+			}
+		}
 		// Never fewer tries than drops: a kill the Recorder missed (an unreadable death) still dropped.
 		for (of_by, n_by) in samples.values_mut() {
 			for (who, &n) in n_by.iter() {
@@ -2025,11 +2097,30 @@ impl QuestLoot {
 	}
 }
 
+/// A quest drop's chance: every player's drops over every player's tries, pooled. A player collects
+/// until the objective is done, so the tries they needed follow their luck, and a share of their own
+/// reads high for the lucky and low for the unlucky; the players with many tries are the unlucky ones
+/// (Grizzled Scalp: the three with 10 kills or more, 9.09% at the median; everyone's together, 38.97%).
+/// Trusted from `min` players (or a vouched one) with [`MIN_WINDOWS`] tries for each of them
+/// together, the evidence a trusted chance of the median needs.
+fn quest_drop_chance(of_by: &Samples, n_by: &Samples, min: usize, name: impl Fn(&usize) -> String) -> Option<DropChance> {
+	let all: Vec<&usize> = of_by.iter().filter(|(_, of)| **of > 0.0).map(|(c, _)| c).collect();
+	let backers: IndexSet<String> = all.iter().map(|c| name(c)).collect();
+	let of: f64 = all.iter().map(|c| of_by[*c]).sum();
+	let n: f64 = all.iter().map(|c| n_by.get(*c).copied().unwrap_or(0.0)).sum();
+	if n <= 0.0 {
+		return None;
+	}
+	let need = if backers.iter().any(|b| vouched(b)) { 1.0 } else { min as f64 };
+	let trusted = trusted(&backers, min) && of >= MIN_WINDOWS * need;
+	Some(DropChance { chance: round2(100.0 * n / of), trusted, n, of })
+}
+
 /// From [`MIN_WINDOWS`] loot windows of their own, `min` players (or a vouched one) make a trusted
 /// chance that replaces another source's; otherwise the chance only fills a gap. Either way it is
 /// the median of each player's chance. `name` gives the player a key stands for ([`trusted`] reads
 /// names).
-pub(crate) fn drop_chance<K: Eq + Hash>(of_by: &IndexMap<K, f64>, n_by: &IndexMap<K, f64>, min: usize, name: impl Fn(&K) -> String) -> Option<DropChance> {
+fn drop_chance<K: Eq + Hash>(of_by: &IndexMap<K, f64>, n_by: &IndexMap<K, f64>, min: usize, name: impl Fn(&K) -> String) -> Option<DropChance> {
 	let all: Vec<&K> = of_by.iter().filter(|(_, of)| **of > 0.0).map(|(c, _)| c).collect();
 	let strong: Vec<&K> = all.iter().copied().filter(|c| of_by[*c] >= MIN_WINDOWS).collect();
 	let backers: IndexSet<String> = strong.iter().map(|c| name(c)).collect();
