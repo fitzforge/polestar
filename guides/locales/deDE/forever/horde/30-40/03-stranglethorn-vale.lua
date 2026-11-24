@@ -95,7 +95,7 @@ return {
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent
 	-- was: ["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "Schlingendorntiger (32) streifen durch die Hügel um das Lager und südlich davon, Panther (32) durch die Lichtungen westlich und südwestlich davon. Die Geologen der Venture Co. (34-36), die die Gerommelten Kristalle tragen, arbeiten in den Lagern bei {area:37}, südöstlich des Lagers. Vorsicht: Agenten der Venture Co. (39) stehen zwischen den Geologen in den westlichen Lagern beim Haus der Venture Co.: Bearbeite die östlichen Lager, abseits von ihnen."
-	["Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "",
+[ "Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them." ] = "Stranglethorn-Tiger (32) herrschen die Hügel westlich des Lagers und östlich...",
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Tumbled Crystals, from the geologists of the eastern camps"] = "Gerommelte Kristalle, von den Geologen der östlichen Lager",
 
@@ -113,7 +113,7 @@ return {
 	-- Step 17: Nesingwary's camp
 	["Back north to the camp."] = "Zurück nach Norden zum Lager.",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}: {npc:729} (37) comes at the end of this guide, from level 36"] = "",
+[ "{npc:717}: {npc:729} (37) comes at the end of this guide, from level 36" ] = "{npc:717}: {npc:729} (37) kommt am Ende dieses Guides, von Level 3...",
 
 	-- Step 18: Thoroughly Scavenged Supplies
 	-- {object:661516} Thoroughly Scavenged Supplies · {quest:97328} Anything of Value · {area:102} Ruins of Zul'Kunda
@@ -126,7 +126,7 @@ return {
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
 	-- was: ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Westlich am Lager vorbei sitzen Kristallrückenbasilisken (34-35) auf den Felsen; jeder Bloodscalp im Dorf dahinter kann ein Ohr fallen lassen.\nLass {npc:729}, den Tiger der Stufe 37 auf dem Hügel südwestlich des Lagers, vorerst in Ruhe: Er ist hier zwei Stufen über dir, und der Schlingendorn-Guide für 40-50 kommt zu ihm zurück.\nVorsicht: Das Raptornest hat junge Raptoren, die in den Kampf eingreifen, wenn du die ausgewachsenen angreifst."
-	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and this guide comes back to him at its end, from level 36.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
+[ "West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and this guide comes back to him at its end, from level 36.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults." ] = "Westlich des Lagers sitzen Krystal-Schwerter-Basilisken (34-35) auf den Felsen...",
 
 	-- Step 20: Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
@@ -210,19 +210,19 @@ return {
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Back to {object:3202}."] = "Zurück nach {object:3202}.",
 	-- {npc:2465} Far Seer Mok'thardin · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
-	["{npc:2465}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+[ "{npc:2465}: for the {zone:1434} & {zone:1435} guide, at about 40" ] = "{npc:2465}: für den {zone:1434} & {zone:1435} Guide, bei etwa 40...",
 	-- {npc:2497} Nimboya · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
-	["{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+[ "{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40" ] = "{npc:2497}: für den {zone:1434} & {zone:1435} Guide, bei etwa 40...",
 	-- {npc:729} Sin'Dall · {zone:1454} Orgrimmar
 	-- was: ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Der nächste Guide nimmt den Zeppelin nach {zone:1454} vom Turm auf der Westseite des Lagers."
-	["After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
+[ "After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp." ] = "Nach {npc:729}, wieder hierher: der nächste Guide nimmt den Zeppelin nach {zone...",
 
 	-- Step 34: Level 36
 	["Level 36"] = "Stufe 36",
 	-- {npc:729} Sin'Dall · {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	-- was: ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "Die Quests in Düstermarschen sind Stufe 35-38. Nach den Abgaben in {object:3202} noch unter Stufe 36? Die Schnappkieferkrokilisken (35-36) säumen den Fluss direkt östlich des Lagers, unterhalb der Mosh'Ogg-Hügel: Töte sie bis Stufe 36 und lauf dann zurück zum Zeppelinturm. Lass die Mosh'Ogg-Oger (36-37) darüber in Ruhe."
-	["Dustwallow's quests are 35-38, and {npc:729} (37) is next. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "",
+[ "Dustwallow's quests are 35-38, and {npc:729} (37) is next. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36. Leave the Mosh'Ogg ogres (36-37) above them alone." ] = "Dustwallow's Quests sind 35-38, und {npc:729} (37) ist als Nächstes...",
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "Schnappkieferkrokilisken",
 	-- {npc:1152} Snapjaw Crocolisk
@@ -231,11 +231,11 @@ return {
 	-- Step 35: Sin'Dall
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {npc:729} Sin'Dall
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
-	["North from {object:3202} to the hilltop just south-west of Nesingwary's camp: {npc:729} prowls there alone.\nCareful: {npc:729} (37) is a level over you: pull him at full health, clear of the Elder Stranglethorn Tigers (34-35) on the hill's slopes."] = "",
+[ "North from {object:3202} to the hilltop just south-west of Nesingwary's camp: {npc:729} prowls there alone.\nCareful: {npc:729} (37) is a level over you: pull him at full health, clear of the Elder Stranglethorn Tigers (34-35) on the hill's slopes." ] = "Nördlich von {object:3202} zum Berghang direkt südwestlich von Nesingwary's...",
 
 	-- Step 36: Nesingwary's camp
 	-- {npc:717} Ajeck Rouack · {object:3202} Grom'gol (no name in this language: may be words)
-	["North to {npc:717} in Nesingwary's camp, then back south to {object:3202}'s zeppelin tower."] = "",
+[ "North to {npc:717} in Nesingwary's camp, then back south to {object:3202}'s zeppelin tower." ] = "Norden zu {npc:717} im Nesingwary-Lager, dann zurück südlich zu {object:32...",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower."] = "Die Quests von Dustwallow sind 35-38. Nach den Abgaben bei {object:3202} noch unter 36? Die Mosh'Ogg-Rohlinge und Hexendoktoren lagern in den Hügeln direkt östlich des Lagers: Töte sie, bis du Stufe 36 bist, und zieh dabei einen nach dem anderen; geh dann zurück zum Zeppelinturm.",

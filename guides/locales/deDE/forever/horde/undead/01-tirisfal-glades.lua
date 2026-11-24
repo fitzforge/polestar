@@ -244,13 +244,13 @@ return {
 	["{npc:265944}, at the inn's north end: Camping 101 asks you to learn it"] = "{npc:265944}, am Nordende des Gasthauses: Camping 101 verlangt, dass du es lernst",
 
 	-- Step 44: The cellar stairs
-	["The cellar stairs"] = "",
+[ "The cellar stairs" ] = "Die Treppen zum Keller",
 	-- {npc:1931} Captured Scarlet Zealot
-	["The {npc:1931} is in the cellar under the inn's north end. The stairs down start at the west side of that end: go down them, then turn east to him."] = "",
+[ "The {npc:1931} is in the cellar under the inn's north end. The stairs down start at the west side of that end: go down them, then turn east to him." ] = "{npc:1931} ist im Keller unter dem Nordende des Gasteis. Die Treppe...",
 
 	-- Step 45: Gallows' End Tavern
 	-- {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call · {npc:2131} Austil de Mon
-	["Back up from the cellar: {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) are upstairs, {npc:2131} (warriors) on the ground floor; take the stairs inside, the arrow cannot tell the floors apart."] = "",
+[ "Back up from the cellar: {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) are upstairs, {npc:2131} (warriors) on the ground floor; take the stairs inside, the arrow cannot tell the floors apart." ] = "Hinauf vom Keller: {npc:2128} (Zauberer), {npc:2129} (Priester), {np...",
 	-- {npc:1931} Captured Scarlet Zealot
 	["The {npc:1931}, in the inn's cellar"] = "Der {npc:1931}, im Keller des Gasthauses",
 	-- {area:159} Brill · {npc:2131} Austil de Mon · {npc:246152} Shari Stilwell
@@ -343,7 +343,7 @@ return {
 	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {area:164} Garren's Haunt · {npc:1753} Maggot Eye · {area:157} Agamand Mills
 	-- plural, as words: Greater Duskbats = {npc:1553} Greater Duskbat · Vampiric Duskbats = {npc:1554} Vampiric Duskbat · Rot Hide Graverobbers = {npc:1941} Rot Hide Graverobber · Rot Hide Mongrels = {npc:1675} Rot Hide Mongrel
 	-- was: ["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "Große Nachtsauger (6-7) fliegen über die Felder um {area:159} und entlang der Straße nach Norden: Gretchen will ihre Felle, {npc:3549} ihre Flügel. Die Vampirnachtsauger (8-9) weiter draußen lassen sie auch fallen, schlagen aber härter zu.\nDas {quest:5482} wächst auf den Friedhofsfeldern direkt nördlich von {area:159}, wo die Grabräuber der Moderfelle graben; alle Moderfelle lassen den Eiter fallen.\nDie Bastarde der Moderfelle halten die Hügel weiter nördlich, um {area:164}. Lass {npc:1753} (Stufe 11) vorerst in seiner Hütte: Der Guide kommt am Ende für ihn zurück.\nDie Vile-Fin-Murlocs säumen die Nordküste: Sie lassen alle die Schuppen fallen, und die Minor Oracles und Muckdwellers die Häute für {npc:3549}. Direkt nördlich von {area:159} gibt es an der Küste Puddlejumpers und Minor Oracles (7-9) ohne Muckdwellers (9-10) in der Nähe."
-	["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him after {area:157}.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "",
+[ "Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him after {area:157}.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by." ] = "Größere Dunkelhunde (6-7) fliegen über die Felder um {area:159} und an...",
 	-- {npc:1675} Rot Hide Mongrel · {area:164} Garren's Haunt
 	["{npc:1675} walks around {area:164}: look inside the circle on the map"] = "{npc:1675} läuft um {area:164} herum: Schau im Kreis auf der Karte nach",
 
@@ -371,7 +371,7 @@ return {
 
 	-- Step 65: Magistrate Sevren
 	-- {area:159} Brill · {area:157} Agamand Mills · {npc:1753} Maggot Eye · {npc:1515} Executor Zygand
-	["Back up the road to {area:159}, on the way north-west to {area:157}. The Wanted poster for {npc:1753} stands beside {npc:1515}, in front of the inn."] = "",
+[ "Back up the road to {area:159}, on the way north-west to {area:157}. The Wanted poster for {npc:1753} stands beside {npc:1515}, in front of the inn." ] = "Hinauf die Straße zu {area:159}, auf dem Weg nordwestlich zu {area:157}...",
 	["The Wanted poster beside Zygand"] = "Der Steckbrief neben Zygand",
 
 	-- Step 66: Agamand Mills
@@ -386,7 +386,7 @@ return {
 
 	-- Step 67: Maggot Eye
 	-- {area:159} Brill · {area:164} Garren's Haunt · {npc:1753} Maggot Eye
-	["On the way back to {area:159}, {area:164} is the Rot Hide camp on the hill east of the mills, south of the shore. {npc:1753} stands in the hut.\nCareful: {npc:1753} is level 11 and gnoll guards stand outside the hut and can join the fight: clear them one at a time first. If you slip past them and fight him inside, he fights alone."] = "",
+[ "On the way back to {area:159}, {area:164} is the Rot Hide camp on the hill east of the mills, south of the shore. {npc:1753} stands in the hut.\nCareful: {npc:1753} is level 11 and gnoll guards stand outside the hut and can join the fight: clear them one at a time first. If you slip past them and fight him inside, he fights alone." ] = "Auf dem Weg zurück zu {area:159}, bei {area:164} ist das Rot-Hide...",
 	-- {item:3635} Maggot Eye's Paw
 	["{item:3635}; inside"] = "{item:3635}; drinnen",
 
@@ -460,7 +460,7 @@ return {
 	-- Step 81: Leonid Barthalomew the Revered
 	-- {area:159} Brill · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
 	-- was: ["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "Von {area:164} nach Westen an {area:157} vorbei zum {area:16616}. Leonid steht direkt nördlich vom Lager von {npc:246389}.\n{npc:246389} und {npc:259190} lagern am Waldrand direkt südlich von Leonid. Jede Klasse kann beide Quests annehmen, sobald {quest:96896} abgegeben ist (Stufe 10). Sie schicken dich in den Keller unter {area:16881}, den nächsten Halt."
-	["North-west from {area:159} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "",
+[ "North-west from {area:159} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop." ] = "Nordwestlich von {area:159} vorbei an {area:157} zum {area:16616}. Leonid...",
 	-- {npc:246378} Danitha Morr
 	["Listen to Leonid and {npc:246378}, then talk to him again"] = "Hör Leonid und {npc:246378} zu, dann sprich erneut mit ihm",
 

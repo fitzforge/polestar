@@ -9,7 +9,7 @@ return {
 	-- Guide
 	-- {area:327} Faldir's Cove
 	-- was: ["For characters of 35 to 37. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "Für Charaktere der Stufe 35 bis 37. {area:327}, wo die Naga und die Wasserelementare des Professors 38-40 sind, ist ein Gruppenstopp: Überspring ihn, wenn du allein bist."
-	["For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "",
+[ "For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone." ] = "Für Charaktere von Level 36 bis 38. {area:327}, wo die Naga und der Professor...",
 
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
@@ -19,9 +19,9 @@ return {
 
 	-- Step 2: The Scythe of Elune
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {zone:1430} Deadwind Pass · {npc:661} Jonathan Carevin
-	["South from {area:42} to the {area:121}, on the way to {zone:1430}: the mound of dirt by the Nightbane worgen (29-31) holds the evidence {npc:661} wants."] = "",
+[ "South from {area:42} to the {area:121}, on the way to {zone:1430}: the mound of dirt by the Nightbane worgen (29-31) holds the evidence {npc:661} wants." ] = "Südlich von {area:42} zu {area:121}, auf dem Weg zu {zone:1430}: die...",
 	-- {object:19030} Mound of Dirt
-	["the {object:19030}"] = "",
+[ "the {object:19030}" ] = "das {object:19030}",
 
 	-- Step 4: Watcher Biggs
 	-- {npc:5476} Watcher Biggs · {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
@@ -86,9 +86,9 @@ return {
 
 	-- Step 15: Jonathan Carevin
 	-- {npc:661} Jonathan Carevin · {area:42} Darkshire
-	["{npc:661}, in {area:42}"] = "",
+[ "{npc:661}, in {area:42}" ] = "{npc:661}, in {area:42}",
 	-- {zone:1457} Darnassus
-	["His next errand goes to {zone:1457}, off this route: leave it."] = "",
+[ "His next errand goes to {zone:1457}, off this route: leave it." ] = "Seine nächste Ehre geht zu {zone:1457}, ab diesem Route: ließe es",
 
 	-- Step 16: Fly to Stormwind
 	-- {zone:1453} Stormwind
@@ -130,7 +130,7 @@ return {
 
 	-- Step 24: Southshore
 	-- {npc:2276} Magistrate Henry Maleb · {zone:1424} Hillsbrad Foothills
-	["{npc:2276}, inside, if the {zone:1424} guide didn't take it: the Syndicate camp is on the way to Arathi"] = "",
+[ "{npc:2276}, inside, if the {zone:1424} guide didn't take it: the Syndicate camp is on the way to Arathi" ] = "{npc:2276}, drinnen, falls der {zone:1424} Guide es nicht genommen hat: das Syndi...",
 
 	-- Step 25: Shadowy Assassin
 	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
@@ -152,7 +152,7 @@ return {
 	-- {area:1057} Thoradin's Wall · {area:320} Refuge Pointe
 	["From the Syndicate camp, follow the road east over {area:1057} to {area:320}."] = "Folge vom Lager des Syndikats der Straße nach Osten über {area:1057} nach {area:320}.",
 	-- {npc:2700} Captain Nials · {npc:1075} Rhag Garmason · {zone:1437} Wetlands
-	["{npc:2700}: {npc:1075}'s plea, from the {zone:1437}"] = "",
+[ "{npc:2700}: {npc:1075}'s plea, from the {zone:1437}" ] = "{npc:2700}: {npc:1075}'s Bitte, von dem {zone:1437}",
 
 	-- Step 31: Northfold Manor
 	-- {area:320} Refuge Pointe
@@ -190,7 +190,7 @@ return {
 	-- Step 37: Witherbark Village
 	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village
 	-- plural, as words: Witherbark Goliaths = {npc:218032} Witherbark Goliath
-	["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "",
+[ "South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths." ] = "Südlich von {area:318}, vorbei an {area:314}, zu {area:317} in den Hügeln: d...",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "{item:5040}; unter der Erde",
 
@@ -238,7 +238,7 @@ return {
 	-- Step 50: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "{area:328}: Töte diese, sobald sie dir begegnen",
-	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "",
+[ "The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy." ] = "Die beiden Wracks liegen im Hafen westlich der Bucht. Die Karten und Logs...",
 	-- {npc:2595} Daggerspine Raider
 	["{npc:2595}, underwater"] = "{npc:2595}, unter Wasser",
 	-- {item:4492} Elven Gem
@@ -362,7 +362,7 @@ return {
 
 	-- Step 76: Thelsamar
 	-- {zone:2548} Riverglades · {zone:1455} Ironforge · {area:69} Lakeshire · {area:2417} Blackrock Pass
-	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "",
+[ "Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}." ] = "Verlasse den {zone:2548} für etwa Level 41: sein West-Front hat Elite...",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}, unter der Erde",
 

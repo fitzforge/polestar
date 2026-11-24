@@ -8,15 +8,15 @@
 return {
 	-- Step 1: Razor Hill
 	-- {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:814} Southfury River · {area:362} Razor Hill · {npc:3336} Takrin Pathseeker · {npc:3142} Orgnil Soulscar
-	["Leave {zone:1454} by the main gate and follow the road south through {zone:1411}. Before it turns west to the {area:814} bridge, step east into {area:362}: {npc:3336} stands on the west side of town, {npc:3142} in the middle."] = "",
+[ "Leave {zone:1454} by the main gate and follow the road south through {zone:1411}. Before it turns west to the {area:814} bridge, step east into {area:362}: {npc:3336} stands on the west side of town, {npc:3142} in the middle." ] = "Verlasse {zone:1454} über die Haupttür und folge der Straße südlich durch {...",
 	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post
-	["{npc:3336}: {npc:3337} at {area:379}, on the way"] = "",
+[ "{npc:3336}: {npc:3337} at {area:379}, on the way" ] = "{npc:3336}: {npc:3337} bei {area:379}, auf dem Weg",
 	-- {npc:3142} Orgnil Soulscar · {quest:99051} Threat from Below · {zone:1411} Durotar
-	["{npc:3142}: {quest:99051}, from {zone:1411}'s naga beach"] = "",
+[ "{npc:3142}: {quest:99051}, from {zone:1411}'s naga beach" ] = "{npc:3142}: {quest:99051}, von der {zone:1411}-Schwimmender-Naga...",
 
 	-- Step 3: Far Watch Post
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {zone:1413} The Barrens · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth · {npc:5810} Uzzek
-	["Back west to the road and over the {area:814} bridge: {area:379} sits just above it on the {zone:1413} side. {npc:3337}, {quest:809} and {npc:5810} stand together."] = "",
+[ "Back west to the road and over the {area:814} bridge: {area:379} sits just above it on the {zone:1413} side. {npc:3337}, {quest:809} and {npc:5810} stand together." ] = "Rückwärts westlich zur Straße und über die {area:814}-Brücke: {area:379} sitzt...",
 	-- {quest:809} Ak'Zeloth · {npc:3337} Kargal Battlescar · {npc:3216} Neeru Fireblade · {zone:1454} Orgrimmar
 	["{quest:809}, beside {npc:3337}: from {npc:3216} in {zone:1454}"] = "{quest:809}, neben {npc:3337}: von {npc:3216} in {zone:1454}",
 
@@ -62,7 +62,7 @@ return {
 	-- {area:380} The Crossroads · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3615} Devrak · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:3448} Tonga Runetotem
 	["{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn: {npc:3338} by the inn, Helbrim and {npc:3464} by the north gate, then up the tower to {npc:3615}, the wind rider master, {npc:3429} and {npc:3449}, and {npc:3448} at the south gate on the way out."] = "{area:380} ist deine Basis für diesen Guide. Alle, die du brauchst, stehen nur wenige Schritte vom Gasthaus entfernt: {npc:3338} beim Gasthaus, Helbrim und {npc:3464} am Nordtor, dann den Turm hinauf zu {npc:3615}, dem Windreitermeister, {npc:3429} und {npc:3449}, und {npc:3448} am Südtor auf dem Weg hinaus.",
 	-- {quest:860} Sergra Darkthorn · {quest:842} Crossroads Conscription · {area:379} Far Watch Post
-	["{quest:860}: {quest:842}, from {area:379}"] = "",
+[ "{quest:860}: {quest:842}, from {area:379}" ] = "{quest:860}: {quest:842}, von {area:379}",
 	-- {npc:3429} Thork
 	["{npc:3429}, at the top of the tower"] = "{npc:3429}, oben auf dem Turm",
 
@@ -95,7 +95,7 @@ return {
 	-- Step 21: Ratchet
 	-- {area:392} Ratchet · {npc:3391} Gazlowe · {npc:7161} Wrenix the Wretched · {npc:3442} Sputtervalve · {npc:16227} Bragok · {npc:3446} Mebok Mizzyrix · {quest:1492} Wharfmaster Dizzywig
 	-- was: ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "Folge der Straße nach Südosten nach {area:392} an der Küste: {npc:3391} und {npc:7161} am Nordende der Stadt, {npc:3442} und {npc:16227}, {npc:3446} und das Plakat {object:3972}, dann {quest:1492} auf dem Steg, auf dem Weg nach Süden hinaus."
-	["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the WANTED poster, then {quest:1492} on the dock on the way out south."] = "",
+[ "Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the WANTED poster, then {quest:1492} on the dock on the way out south." ] = "Fahre südöstlich entlang der Straße zu {area:392} an der Küste: {npc:3391} und...",
 	-- {npc:3391} Gazlowe
 	["{npc:3391}, upstairs"] = "{npc:3391}, oben",
 	-- {npc:3442} Sputtervalve · {area:382} Sludge Fen
@@ -104,10 +104,10 @@ return {
 	["{npc:16227}, beside {npc:3442}"] = "{npc:16227}, neben {npc:3442}",
 	-- {npc:3446} Mebok Mizzyrix · {area:392} Ratchet
 	-- was: ["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{npc:3446}, neben dem Plakat {object:3972}: Die Bluthorn-Raptoren kommen beim nächsten Halt in {area:392}, mit 18"
-	["{npc:3446}, beside the WANTED poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "",
+[ "{npc:3446}, beside the WANTED poster: the Sunscale raptors come on the next {area:392} stop, at 18" ] = "{npc:3446}, neben dem WANTED-Bretter: die Sunscale-Raptoren kommen auf dem...",
 	-- {npc:3467} Baron Longshore · {area:392} Ratchet
 	-- was: ["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "Das Plakat {object:3972}: {npc:3467} kommt ebenfalls beim nächsten Halt in {area:392}"
-	["The WANTED poster: {npc:3467} comes on the next {area:392} stop too"] = "",
+[ "The WANTED poster: {npc:3467} comes on the next {area:392} stop too" ] = "Das WANTED-Bretter: {npc:3467} kommt auch auf dem nächsten {area:392}-Stop...",
 	-- {quest:1492} Wharfmaster Dizzywig
 	["{quest:1492}, on the dock"] = "{quest:1492}, am Kai",
 	-- {quest:1492} Wharfmaster Dizzywig · {area:381} Boulder Lode Mine
@@ -258,7 +258,7 @@ return {
 	["Crossroads flight master"] = "Flugmeister des Wegekreuzes",
 
 	-- Step 49: Ratchet
-	["WANTED poster"] = "",
+[ "WANTED poster" ] = "WANTED-Bretter",
 
 	-- Step 50: Mebok Mizzyrix
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {quest:1491} Smart Drinks
@@ -299,7 +299,7 @@ return {
 	-- {area:392} Ratchet
 	["Back north along the beach to {area:392}."] = "Den Strand entlang zurück nach Norden nach {area:392}.",
 	-- {npc:3446} Mebok Mizzyrix
-	["{npc:3446}, beside the WANTED poster"] = "",
+[ "{npc:3446}, beside the WANTED poster" ] = "{npc:3446}, neben dem WANTED-Bretter",
 
 	-- Step 63: Dreadmist Peak
 	-- {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool (no name in this language: may be words) · {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
@@ -508,7 +508,7 @@ return {
 	["{area:392}: {area:718} quests"] = "{area:392}: Quests für {area:718}",
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {npc:3665} Crane Operator Bigglefuzz · {npc:3396} Hezrul Bloodmark
 	-- was: ["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "Deine Quests für {area:718}, falls du sie noch nicht angenommen hast: {npc:3446} neben dem Plakat {object:3972}, {npc:3665} auf dem Steg beim Flugmeister. Der Run kommt später in diesem Guide, nach {npc:3396}."
-	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the WANTED poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "",
+[ "Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the WANTED poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}." ] = "Deine {area:718}-Quests, falls du sie noch nicht genommen hast: {npc:3446} bes...",
 
 	-- Step 111: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet

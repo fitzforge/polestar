@@ -14,68 +14,68 @@ return {
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
-	["The flight lands in {area:2255}: {npc:11754} and Umi stand around the town before you ride west."] = "",
+[ "The flight lands in {area:2255}: {npc:11754} and Umi stand around the town before you ride west." ] = "Der Flug landet in {area:2255}: {npc:11754} und Umi stehen vor der Stadt im Leeren.",
 	-- {npc:11754} Meggi Peppinrocker · {npc:9298} Donova Snowden · {area:2255} Everlook
 	-- was: ["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "{npc:11754} läuft um {area:2255} umher: Schau in den Kreis auf der Karte"
-	["{npc:11754}, for {npc:9298}: walks around {area:2255}, look inside the circle on the map"] = "",
+[ "{npc:11754}, for {npc:9298}: walks around {area:2255}, look inside the circle on the map" ] = "{npc:11754}, für {npc:9298}: streift um {area:2255} herum, such innerhalb des Kreises auf der Karte",
 	-- {npc:10305} Umi Rumplesnicker
 	-- plural, as words: Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle
-	["{npc:10305}: the Rogue Ice Thistles on the road west carry the furs"] = "",
+[ "{npc:10305}: the Rogue Ice Thistles on the road west carry the furs" ] = "{npc:10305}: die Raubtier-Blüten am westlichen Weg tragen die Felle",
 
 	-- Step 3: The road west: feathers, furs and horns
-	["The road west: feathers, furs and horns"] = "",
+[ "The road west: feathers, furs and horns" ] = "Die westliche Straße: Federn, Pelze und Hörner",
 	-- {npc:9298} Donova Snowden · {item:12366} Thick Yeti Fur · {item:12444} Uncracked Chillwind Horn · {npc:10468} Felnok Steelspring
 	-- plural, as words: Moontouched Feathers = {item:12383} Moontouched Feather · Ragged Owlbeasts = {npc:7450} Ragged Owlbeast · Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind
-	["Moontouched Feathers lie on the ground all along the road west to {npc:9298}, where the Ragged Owlbeasts (53) roam: pick them up as you ride.\nThe same road crosses the Rogue Ice Thistles' ground (about one in three drops a {item:12366} for Umi) and the Fledgling Chillwinds' (about one in five drops an {item:12444} for {npc:10468}): work both here, around the road's middle.\nCareful: both are 53-55: pull the lower ones and take them one at a time."] = "",
+[ "Moontouched Feathers lie on the ground all along the road west to {npc:9298}, where the Ragged Owlbeasts (53) roam: pick them up as you ride.\nThe same road crosses the Rogue Ice Thistles' ground (about one in three drops a {item:12366} for Umi) and the Fledgling Chillwinds' (about one in five drops an {item:12444} for {npc:10468}): work both here, around the road's middle.\nCareful: both are 53-55: pull the lower ones and take them one at a time." ] = "Mondberührte Federn liegen auf dem Boden entlang der Straße westlich zu {npc:9298}, wo die Ragged Owlbeasts (53) streifen: heb sie auf dem Ritt auf.\nDieselbe Straße quert das Revier der Schurischen Eisdisteln ( etwa jede dritte lässt ein {item:12366} für Umi fallen) und das der Jung-Chillwinds (etwa jede fünfte lässt ein {item:12444} für {npc:10468} fallen): erledige beide hier, rund um die Mitte der Straße.\nVorsicht: beide sind 53-55: ziehe die Niedrigeren und nimm sie einzeln.",
 	-- {item:12366} Thick Yeti Fur
 	-- plural, as words: Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle
-	["{item:12366}, from the Rogue Ice Thistles"] = "",
+[ "{item:12366}, from the Rogue Ice Thistles" ] = "{item:12366}, aus den Raubtier-Eisklädlings",
 	-- {item:12444} Uncracked Chillwind Horn
 	-- plural, as words: Fledgling Chillwinds = {npc:7447} Fledgling Chillwind
-	["{item:12444}, from the Fledgling Chillwinds"] = "",
+[ "{item:12444}, from the Fledgling Chillwinds" ] = "{item:12444}, aus den Flügeltanzende-Kälteleinzelnen",
 
 	-- Step 4: Donova Snowden
 	-- {npc:9298} Donova Snowden
-	["{npc:9298} camps beside the hot springs at the western end of the road."] = "",
+[ "{npc:9298} camps beside the hot springs at the western end of the road." ] = "{npc:9298} camp auf der Heißquelle am westlichen Ende der Straße.",
 	-- {item:11243} Videre Elixir
-	["With the {item:11243} from Gregan"] = "",
+[ "With the {item:11243} from Gregan" ] = "Mit dem {item:11243} von Gregan",
 	-- {npc:9299} Gaeriyan · {area:976} Gadgetzan
-	["{npc:9299}, at the graveyard just east of {area:976}, later in this guide"] = "",
+[ "{npc:9299}, at the graveyard just east of {area:976}, later in this guide" ] = "{npc:9299} am Friedhof direkt östlich von {area:976}, später in diesem Guide",
 
 	-- Step 5: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
 	["{area:2246}: kill these as you meet them"] = "{area:2246}: Töte sie, wenn du ihnen begegnest",
 	-- {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {item:14047} Runecloth · {npc:11557} Meilosh
 	-- plural, as words: Winterfall Ritual Totems = {quest:8471} Winterfall Ritual Totem
-	["The western Winterfall camp sits in the hills between {npc:9298} and the tunnel. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need): right-click it. They also drop Winterfall Ritual Totems (about one in thirty) and {item:14047}, which only matter if you are Neutral (the totem) or Friendly ({npc:11557}'s {item:14047}) with the Timbermaw: keep them then.\nCareful: the Pathfinders are 53 and the Totemics 54, but the Den Watchers inside the camp are 55: take the camp from its edge and pull one at a time."] = "",
+[ "The western Winterfall camp sits in the hills between {npc:9298} and the tunnel. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need): right-click it. They also drop Winterfall Ritual Totems (about one in thirty) and {item:14047}, which only matter if you are Neutral (the totem) or Friendly ({npc:11557}'s {item:14047}) with the Timbermaw: keep them then.\nCareful: the Pathfinders are 53 and the Totemics 54, but the Den Watchers inside the camp are 55: take the camp from its edge and pull one at a time." ] = "Das winterfallende Lager von Deadwood liegt in den Hügeln zwischen {npc:9298} und dem Tunnel.",
 	-- {item:14047} Runecloth · {npc:11557} Meilosh
-	["{item:14047}, for {npc:11557}, if you are Friendly with the Timbermaw"] = "",
+[ "{item:14047}, for {npc:11557}, if you are Friendly with the Timbermaw" ] = "{item:14047}, für {npc:11557}, falls du mit der Timbermaw freundlich bist",
 
 	-- Step 6: Winterfall Ritual Totem
 	-- {npc:11558} Kernda
-	["{npc:11558} takes the totem; the quest needs Neutral with the Timbermaw; the reputation guide gets you there."] = "",
+[ "{npc:11558} takes the totem; the quest needs Neutral with the Timbermaw; the reputation guide gets you there." ] = "{npc:11558} nimmt das Totem an; der Quest braucht Neutral zu den Holzschlundfellen; der Ruftbar-Guide bringt dich dorthin.",
 	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold
-	["For {npc:11558} in {area:1769}, later in this guide: keep it"] = "",
+[ "For {npc:11558} in {area:1769}, later in this guide: keep it" ] = "Für {npc:11558} in {area:1769}, später in diesem Guide: behalten",
 
 	-- Step 7: Donova Snowden
 	-- {area:1762} Felpaw Village · {zone:1448} Felwood
-	["The Deadwood cauldron in {area:1762}, at the {zone:1448} end of the tunnel"] = "",
+[ "The Deadwood cauldron in {area:1762}, at the {zone:1448} end of the tunnel" ] = "Der heiße Topf von Deadwood steht im {area:1762}, am {zone:1448} Ende des Tunnels",
 
 	-- Step 8: Felwood
 	-- {area:1769} Timbermaw Hold · {npc:9298} Donova Snowden · {zone:1448} Felwood
-	["Through {area:1769}'s tunnel, just north of {npc:9298}, to {zone:1448}."] = "",
+[ "Through {area:1769}'s tunnel, just north of {npc:9298}, to {zone:1448}." ] = "Durch den Tunnel von {area:1769}, direkt nordlich von {npc:9298}, zu {zone:1448}.",
 	-- {area:1769} Timbermaw Hold · {zone:1448} Felwood
-	["{area:1769}, {zone:1448} side"] = "",
+[ "{area:1769}, {zone:1448} side" ] = "{area:1769}, {zone:1448} Seite",
 
 	-- Step 9: Deadwood Cauldron
 	-- {area:1762} Felpaw Village
-	["The Deadwood cauldron stands at the top of {area:1762}, just west of the cave mouth."] = "",
+[ "The Deadwood cauldron stands at the top of {area:1762}, just west of the cave mouth." ] = "Der Deadwood-Kessel steht am Gipfel von {area:1762}, direkt westlich der Höhlenmündung.",
 	-- {quest:5085} Mystery Goo · {npc:9298} Donova Snowden · {zone:1452} Winterspring
-	["{quest:5085}: {npc:9298}, on this guide's {zone:1452} loop: keep it"] = "",
+[ "{quest:5085}: {npc:9298}, on this guide's {zone:1452} loop: keep it" ] = "{quest:5085}: für {npc:9298}, auf dem {zone:1452} Loop dieser Guide: behalten",
 
 	-- Step 10: Talonbranch Glade
 	-- {area:1998} Talonbranch Glade
-	["Ride south from the cave to {area:1998}, the night elves' camp on the road."] = "",
+[ "Ride south from the cave to {area:1998}, the night elves' camp on the road." ] = "Reite südlich vom Höhle zu {area:1998}, dem Nachtelfen-Außen post an der Straße.",
 
 	-- Step 11: Fly to Ratchet
 	-- {area:392} Ratchet
@@ -90,17 +90,17 @@ return {
 
 	-- Step 14: Ratchet
 	-- {npc:8496} Liv Rizzlefix
-	["{npc:8496}: the ash is in Un'Goro; inside"] = "",
+[ "{npc:8496}: the ash is in Un'Goro; inside" ] = "{npc:8496}: der Asche liegt in Un'Goro; innen",
 
 	-- Step 15: The Stone Circle
 	-- {quest:3444} The Stone Circle
-	["{quest:3444} stands on the hill just south-west of the flight master."] = "",
+[ "{quest:3444} stands on the hill just south-west of the flight master." ] = "{quest:3444} steht auf dem Hügel direkt westlich-südwestlich vom Flugmeister.",
 
 	-- Step 16: Islen Waterseer
 	-- {npc:5901} Islen Waterseer
-	["{npc:5901} stands on the coast south-east of town."] = "",
+[ "{npc:5901} stands on the coast south-east of town." ] = "{npc:5901} steht an der Küste östlich-südöstlich der Stadt.",
 	-- {zone:1448} Felwood
-	["For Greta in {zone:1448}, later in this guide: keep it"] = "",
+[ "For Greta in {zone:1448}, later in this guide: keep it" ] = "Für Greta in {zone:1448}, später in diesem Guide: behalten",
 
 	-- Step 17: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -112,19 +112,19 @@ return {
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, drinnen",
 	-- {npc:7876} Tran'rek
-	["{npc:7876}, north side of town: the tar is in Un'Goro"] = "",
+[ "{npc:7876}, north side of town: the tar is in Un'Goro" ] = "{npc:7876}, nördliche Seite der Stadt: der Bitumen liegt in Un'Goro",
 
 	-- Step 19: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir
 	["{npc:9299} is a ghost at the graveyard just east of town: drink a {item:11243} there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby."] = "{npc:9299} ist ein Geist auf dem Friedhof direkt östlich der Stadt: Trink dort ein {item:11243}, das dich tötet, lass deinen Geist frei und sprich als Geist mit ihm. Lauf dann zurück zu deinem Körper, um wiederbelebt zu werden: Der Grabstein steht in der Nähe.",
 	-- {npc:8737} Linken · {area:541} Marshal's Refuge
-	["{npc:8737} in {area:541}, Un'Goro: keep it"] = "",
+[ "{npc:8737} in {area:541}, Un'Goro: keep it" ] = "{npc:8737} in {area:541}, Un'Goro: behalten",
 
 	-- Step 20: Broken Pillar
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar
 	["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "Reite nach Südwesten zum Lager von {npc:7771} bei {area:1938}.",
 	-- {npc:7771} Marvon Rivetseeker · {area:1417} Sunken Temple
-	["{npc:7771}'s next task, Into the Depths, is inside the {area:1417}: skip it."] = "",
+[ "{npc:7771}'s next task, Into the Depths, is inside the {area:1417}: skip it." ] = "{npc:7771}'s nächte Aufgabe, Into the Depths, ist innerhalb des {area:1417}: überspringe es.",
 
 	-- Step 22: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
@@ -134,18 +134,18 @@ return {
 
 	-- Step 23: Marshal's Refuge
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:9999} Ringo · {npc:8737} Linken · {npc:9117} J.D. Collie · {npc:9618} Karna Remtravel
-	["Fly from {area:976} to {area:541}. {npc:9997}'s friend {npc:9999} has gone missing; {npc:8737} stands at the back of the refuge, with {npc:9117} in the cave behind him; {npc:9618} stands just outside, on the way out east."] = "",
+[ "Fly from {area:976} to {area:541}. {npc:9997}'s friend {npc:9999} has gone missing; {npc:8737} stands at the back of the refuge, with {npc:9117} in the cave behind him; {npc:9618} stands just outside, on the way out east." ] = "Fliege von {area:976} zu {area:541}. {npc:9997}s Freund {npc:9999} wurde vermisst; {npc:8737} steht am hinteren Ende des Refugiums, mit {npc:9117} in der Höhle hinter ihm; {npc:9618} steht knapp draußen, auf dem Weg nach Osten hinaus.",
 	-- {npc:9997} Spraggle Frock
 	["The wooden sign beside {npc:9997}"] = "Das Holzschild neben {npc:9997}",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}, unter der Erde",
 	-- {npc:9116} Eridan Bluewind · {zone:1448} Felwood
-	["For {npc:9116} in {zone:1448}, later in this guide: keep it"] = "",
+[ "For {npc:9116} in {zone:1448}, later in this guide: keep it" ] = "Für {npc:9116} in {zone:1448}, später in diesem Guide: behalten",
 
 	-- Step 24: Northern Pylon
 	["Northern Pylon"] = "Nördlicher Kristallpylon",
 	-- {npc:9166} Pterrordax · {npc:9997} Spraggle Frock · {npc:6584} King Mosh
-	["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}.\nCareful: {npc:6584} (60), a rare devilsaur, roams the crater's west around 27,46: if you meet him, ride away."] = "",
+[ "The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}.\nCareful: {npc:6584} (60), a rare devilsaur, roams the crater's west around 27,46: if you meet him, ride away." ] = "Der Pylon steht am Hang östlich des Refugiums. {npc:9166} umkreisen die Hänge darum: sie zählen für {npc:9997}.\nVorsicht: {npc:6584} (60), ein seltener Teufelssaurier, streift im Westen des Kraters um 27,46: wenn du ihm begegnest, reite weg.",
 
 	-- Step 25: A-Me 01
 	-- {area:1943} Ironstone Plateau
@@ -203,7 +203,7 @@ return {
 
 	-- Step 37: Lar'korwi
 	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch
-	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there.\nCareful: {npc:9684} is level 56, a level or two over you here: start at full health, and clear the raptors around the lair first."] = "",
+[ "{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there.\nCareful: {npc:9684} is level 56, a level or two over you here: start at full health, and clear the raptors around the lair first." ] = "{npc:9684}s Versteck liegt im Dschungel nördlich von {npc:9619}, unterhalb der östlichen Klippen: benutze dort das {item:11568}.\nVorsicht: {npc:9684} ist Stufe 56, eine Stufe oder zwei über dir hier: starte bei vollem Leben und räume zuerst die Raptoren um das Versteck.",
 
 	-- Step 38: Eastern Pylon and the crate
 	["Eastern Pylon and the crate"] = "Östlicher Pylon und die Kiste",
@@ -219,14 +219,14 @@ return {
 	["{area:1942}: kill these as you meet them"] = "{area:1942}: Töte sie, wenn du ihnen begegnest",
 
 	-- Step 41: The Gorishi hive
-	["The Gorishi hive"] = "",
+[ "The Gorishi hive" ] = "Die Gorishi-Höhle",
 	["West along the south of the crater: the Gorishi hive fills it. Use the Scraping Vial on a hatchery, a chamber with hanging larvae."] = "Nach Westen am Südrand des Kraters entlang: Der Gorishi-Bau füllt ihn. Benutze die Schabphiole an einer Brutstätte, einer Kammer mit hängenden Larven.",
 
 	-- Step 42: Bones and equipment
 	["Bones and equipment"] = "Knochen und Ausrüstung",
 	-- {item:11112} Research Equipment
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone
-	["West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle.\nCareful: Gruff (57), a rare devilsaur, prowls the south around 38,75: if you meet him, ride away."] = "",
+[ "West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle.\nCareful: Gruff (57), a rare devilsaur, prowls the south around 38,75: if you meet him, ride away." ] = "Westlich über den Süden des Kraters: Dinosaurierknochen liegen am Boden im Südwesten, unter den Stegodons: diese sind Elite, heb die Knochen rings um sie auf und nimm den Rest von den Diemetradons. Das {item:11112} der Expedition liegt im Dschungel im Südwesten.\nVorsicht: Gruff (57), ein seltener Teufelssaurier, streift im Süden um 38,75: wenn du ihm begegnest, reite weg.",
 
 	-- Step 43: Western Pylon
 	["Western Pylon"] = "Westlicher Kristallpylon",
@@ -234,7 +234,7 @@ return {
 
 	-- Step 44: Krakle
 	-- {area:543} Golakka Hot Springs · {npc:10302} Krakle
-	["North-east from the pylon to {area:543}: {npc:10302} the goblin sits by the water."] = "",
+[ "North-east from the pylon to {area:543}: {npc:10302} the goblin sits by the water." ] = "Nordöstlich vom Pylon zu {area:543}: {npc:10302} der Goblin sitzt am Wasser.",
 
 	-- Step 45: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
@@ -242,9 +242,9 @@ return {
 
 	-- Step 46: Krakle
 	-- {npc:10302} Krakle
-	["Back west to {npc:10302} at the hot springs."] = "",
+[ "Back west to {npc:10302} at the hot springs." ] = "Westlich zurück zu {npc:10302} an den heißen Quellen.",
 	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
-	["Ends with {npc:9298} in {zone:1452}, later in this guide: keep it"] = "",
+[ "Ends with {npc:9298} in {zone:1452}, later in this guide: keep it" ] = "Endet mit {npc:9298} in {zone:1452}, später in diesem Guide: behalten",
 
 	-- Step 47: Ringo
 	-- {npc:9999} Ringo · {area:537} Fire Plume Ridge
@@ -262,7 +262,7 @@ return {
 
 	-- Step 51: Gadgetzan
 	-- {npc:10041} Gorishi Hive Queen · {area:540} Slithering Scar
-	["Pestlezugg's next task, Pawn Captures Queen, sends you back to the {npc:10041} in the {area:540}: skip it."] = "",
+[ "Pestlezugg's next task, Pawn Captures Queen, sends you back to the {npc:10041} in the {area:540}: skip it." ] = "Pestlezuggs nächste Aufgabe, Bauer schlägt Dame, schickt dich zurück zum {npc:10041} in die {area:540}: überspringe es.",
 
 	-- Step 53: Liv Rizzlefix
 	-- {npc:8496} Liv Rizzlefix
@@ -280,23 +280,23 @@ return {
 
 	-- Step 56: The Emerald Sanctuary
 	-- {npc:10924} Ivy Leafrunner · {npc:11079} Wynd Nightchaser · {area:2253} Starfall Village
-	["{npc:10924}: for {npc:11079} in {area:2253}, later in this guide; keep it"] = "",
+[ "{npc:10924}: for {npc:11079} in {area:2253}, later in this guide; keep it" ] = "{npc:10924}: für {npc:11079} in {area:2253}, später in diesem Guide; behalten",
 	-- {npc:9116} Eridan Bluewind
 	["{npc:9116}, inside"] = "{npc:9116}, drinnen",
 	-- {npc:9116} Eridan Bluewind
 	["Wait a moment for {npc:9116}"] = "Warte kurz auf {npc:9116}",
 	-- {npc:9116} Eridan Bluewind · {npc:222647} Ancient Spirit · {npc:3848} Kayneth Stillwind · {area:2358} Forest Song · {zone:1448} Felwood
-	["{npc:9116}'s next task, {npc:222647}, ends with {npc:3848} at {area:2358}, south of the route once {zone:1448} is done: skip it."] = "",
+[ "{npc:9116}'s next task, {npc:222647}, ends with {npc:3848} at {area:2358}, south of the route once {zone:1448} is done: skip it." ] = "{npc:9116}s nächste Aufgabe, {npc:222647}, endet mit {npc:3848} in {area:2358}, südlich der Route, sobald {zone:1448} erledigt ist: überspringe es.",
 	-- {npc:9116} Eridan Bluewind
 	-- plural, as words: Irontree Stompers = {npc:7139} Irontree Stomper
-	["{npc:9116}'s next task, Silver Heart, sends you to the Irontree Stompers in the north and back here: skip it."] = "",
+[ "{npc:9116}'s next task, Silver Heart, sends you to the Irontree Stompers in the north and back here: skip it." ] = "{npc:9116}s nächste Aufgabe, Silbernes Herz, schickt dich zu den Eisenholz-Zertreibern im Norden und zurück hierher: überspringe es.",
 
 	-- Step 57: Shadow Hold braziers
 	-- {area:1770} Shadow Hold
 	["{area:1770} braziers"] = "Kohlenbecken in {area:1770}",
 	-- {area:1770} Shadow Hold · {area:1763} Jaedenar · {item:12906} Purified Moonwell Water · {item:13140} Blood Red Key · {npc:11018} Arko'narin
 	-- plural, as words: Jaedenar Darkweavers = {npc:7118} Jaedenar Darkweaver
-	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns: pull at the edge of each group and fight one pack at a time.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "",
+[ "{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns: pull at the edge of each group and fight one pack at a time.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave." ] = "{area:1770} ist die Höhle am hinteren Ende von {area:1763}, westlich der Straße. Benutze das {item:12906} an den vier Kohlefassern darin.\nVorsicht: Schattenrat-Gegner der Stufe 53-55 füllen die Höhle und kommen oft in großen verbundenen Gruppen, viele mit Betäubungen: ziehe am Rand jeder Gruppe und bekämpfe ein Pack nach dem anderen.\nDie Jaedenar-Dunkelweber, -Hexenmeister und -Vollstrecker hier lassen ein {item:13140} fallen, etwa einer von dreißig Tötungen: töte sie weiter, bis es fällt. Es öffnet die Zelle von {npc:11018}, dem in der Höhle gefangenen Nachtelfen.",
 	-- {object:176159} Brazier of Malice
 	["{object:176159}, below ground"] = "{object:176159}, unterirdisch",
 	-- {object:176160} Brazier of Suffering
@@ -306,7 +306,7 @@ return {
 	-- {object:176161} Brazier of Hatred
 	["{object:176161}, below ground"] = "{object:176161}, unterirdisch",
 	-- {item:11515} Corrupted Soul Shard · {npc:9528} Arathandris Silversky
-	["{item:11515}, from the same cultists: {npc:9528} takes six by the Sanctuary if you did Cleansing Felwood"] = "",
+[ "{item:11515}, from the same cultists: {npc:9528} takes six by the Sanctuary if you did Cleansing Felwood" ] = "{item:11515}, von denselben Kultisten: {npc:9528} nimmt sechs am Heiligtum, wenn du Felwood Gesühnt hast",
 	-- {npc:11016} Captured Arko'narin
 	["{npc:11016}, in her cell; below ground"] = "{npc:11016}, in ihrer Zelle; unterirdisch",
 
@@ -316,11 +316,11 @@ return {
 
 	-- Step 60: Greta Mosshoof: A Final Blow
 	-- {quest:5242} A Final Blow · {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold
-	["{quest:5242} is a group quest at this level: {npc:9861} (52), {npc:9860} (54) and {npc:9517} (57) fight together at the back of {area:1770}. Grouping up is encouraged, look for people to do it with. Skip it if you are alone."] = "",
+[ "{quest:5242} is a group quest at this level: {npc:9861} (52), {npc:9860} (54) and {npc:9517} (57) fight together at the back of {area:1770}. Grouping up is encouraged, look for people to do it with. Skip it if you are alone." ] = "{quest:5242} ist auf dieser Stufe eine Gruppenquest: {npc:9861} (52), {npc:9860} (54) und {npc:9517} (57) kämpfen gemeinsam am hinteren Ende von {area:1770}. Ein Gruppenverband ist angeraten, such dir Leute dafür. Überspringe es, wenn du allein bist.",
 
 	-- Step 61: Rakaiah
 	-- {area:1770} Shadow Hold · {npc:9518} Rakaiah
-	["Back into {area:1770}: the succubus {npc:9518} (56) waits on the way to its deepest chamber, with Trey Lightforge's remains beside her.\nCareful: {npc:9518} is level 56: clear the cultists around her first and fight her at full health."] = "",
+[ "Back into {area:1770}: the succubus {npc:9518} (56) waits on the way to its deepest chamber, with Trey Lightforge's remains beside her.\nCareful: {npc:9518} is level 56: clear the cultists around her first and fight her at full health." ] = "Zurück in {area:1770}: die Sukkubus {npc:9518} (56) wartet auf dem Weg zu ihrer tiefsten Kammer, mit Trey Lightforges Überresten neben ihr.\nVorsicht: {npc:9518} ist Stufe 56: räume zuerst die Kultisten um sie und bekämpfe sie bei vollem Leben.",
 	-- {npc:9518} Rakaiah
 	["{npc:9518}, below ground"] = "{npc:9518}, unterirdisch",
 	-- {npc:11020} Remains of Trey Lightforge
@@ -328,7 +328,7 @@ return {
 
 	-- Step 62: A Final Blow
 	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {npc:9518} Rakaiah
-	["{npc:9861} and {npc:9860} guard {npc:9517} in {area:1770}'s deepest chamber, just past {npc:9518}.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
+[ "{npc:9861} and {npc:9860} guard {npc:9517} in {area:1770}'s deepest chamber, just past {npc:9518}.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies." ] = "{npc:9861} und {npc:9860} bewachen {npc:9517} in der tiefsten Kammer von {area:1770}, gleich hinter {npc:9518}.\nVorsicht: Die drei Bosse kämpfen als Gruppe. Töte zuerst die nahen Gegner, damit du keine Extra-Gegner anziehst.",
 	-- {npc:9861} Moora
 	["{npc:9861}, below ground"] = "{npc:9861}, unterirdisch",
 	-- {npc:9860} Salia
@@ -342,21 +342,21 @@ return {
 	-- Step 64: Arathandris Silversky
 	-- {npc:9528} Arathandris Silversky · {area:1770} Shadow Hold
 	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
-	["{npc:9528} is in the ruins just down the road from the Sanctuary: he takes the six Corrupted Soul Shards (from both trips into {area:1770}) on the spot."] = "",
+[ "{npc:9528} is in the ruins just down the road from the Sanctuary: he takes the six Corrupted Soul Shards (from both trips into {area:1770}) on the spot." ] = "{npc:9528} ist in den Ruinen direkt entlang der Straße zum Heiligtum: er nimmt die sechs Verderbten Seelenfragmente (aus beiden Fahrten in {area:1770}) an Ort und Stelle entgegen.",
 
 	-- Step 66: Timbermaw Hold
 	-- {area:1769} Timbermaw Hold
-	["Ride north up the road to the cave mouth of {area:1769}."] = "",
+[ "Ride north up the road to the cave mouth of {area:1769}." ] = "Reite nördlich bergauf die Straße zu dem Höhleneingang von {area:1769}.",
 
 	-- Step 67: Kernda
 	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold
-	["{npc:11558} stands just inside the {area:1769} cave: she needs Neutral with the Timbermaw; the reputation guide gets you there."] = "",
+[ "{npc:11558} stands just inside the {area:1769} cave: she needs Neutral with the Timbermaw; the reputation guide gets you there." ] = "{npc:11558} steht direkt innerhalb der {area:1769}-Höhle: sie braucht Neutral zu den Holzschlundfellen; der Ruftbar-Guide bringt dich dorthin.",
 	-- {npc:11558} Kernda
 	["{npc:11558}: walks around here: look inside the circle on the map"] = "{npc:11558}: läuft hier umher: Schau in den Kreis auf der Karte",
 
 	-- Step 69: Meilosh
 	-- {npc:11557} Meilosh · {npc:11558} Kernda · {quest:6031} Runecloth
-	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw; the reputation guide gets you there."] = "",
+[ "{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw; the reputation guide gets you there." ] = "{npc:11557}, direkt innerhalb der Höhle neben {npc:11558}, nimmt dreißig {quest:6031} ab Freundschaftlich zu den Holzschlundfellen; der Ruftbar-Guide bringt dich dorthin.",
 	-- {npc:11557} Meilosh
 	["{npc:11557}; below ground"] = "{npc:11557}; unterirdisch",
 
@@ -364,19 +364,19 @@ return {
 	-- {zone:1452} Winterspring
 	["Into {zone:1452}"] = "Nach {zone:1452}",
 	-- {area:1769} Timbermaw Hold · {zone:1452} Winterspring
-	["Through {area:1769}'s tunnel to its {zone:1452} end."] = "",
+[ "Through {area:1769}'s tunnel to its {zone:1452} end." ] = "Durch den Tunnel von {area:1769} zu seinem {zone:1452} Ende.",
 
 	-- Step 71: Donova Snowden
 	-- {npc:9298} Donova Snowden
-	["Ride on to {npc:9298}'s camp beside the hot springs."] = "",
+[ "Ride on to {npc:9298}'s camp beside the hot springs." ] = "Reite weiter zu {npc:9298}'s Lager neben den heißen Quellen.",
 	-- {quest:980} The New Springs · {area:2256} Darkwhisper Gorge
-	["{quest:980}' follow-up, Strange Sources, is at {area:2256}'s mouth among elite giants and Hederine: skip it."] = "",
+[ "{quest:980}' follow-up, Strange Sources, is at {area:2256}'s mouth among elite giants and Hederine: skip it." ] = "{quest:980}s Folgequest, Seltsame Quellen, liegt am {area:2256}-Mund zwischen Elite-Riesen und Hederine: überspringe es.",
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
-	["The {quest:5086} are just back through the tunnel, in {zone:1448}"] = "",
+[ "The {quest:5086} are just back through the tunnel, in {zone:1448}" ] = "Die {quest:5086} sind direkt zurück durch den Tunnel, in {zone:1448}",
 
 	-- Step 72: Felwood
 	-- {zone:1448} Felwood · {area:1998} Talonbranch Glade · {quest:5086} Toxic Horrors · {area:1767} Irontree Woods
-	["Back through the tunnel to {zone:1448} and south past {area:1998}: the {quest:5086} (53) roam the north-eastern tip of {area:1767}."] = "",
+[ "Back through the tunnel to {zone:1448} and south past {area:1998}: the {quest:5086} (53) roam the north-eastern tip of {area:1767}." ] = "Durch den Tunnel zurück nach {zone:1448} und südlich an {area:1998} vorbei: die {quest:5086} (53) streifen die nordöstliche Spitze von {area:1767}.",
 	-- {quest:5086} Toxic Horrors
 	["The {quest:5086}"] = "{quest:5086}",
 
@@ -387,60 +387,60 @@ return {
 
 	-- Step 74: Winterspring
 	-- {area:1769} Timbermaw Hold · {npc:9298} Donova Snowden
-	["Back north through {area:1769}'s tunnel to {npc:9298}."] = "",
+[ "Back north through {area:1769}'s tunnel to {npc:9298}." ] = "Nördlich zurück durch den Tunnel von {area:1769} zu {npc:9298}.",
 
 	-- Step 76: Winterspring: kill these as you meet them
 	-- {zone:1452} Winterspring
 	["{zone:1452}: kill these as you meet them"] = "{zone:1452}: Töte sie, wenn du ihnen begegnest",
 	-- {quest:5087} Winterfall Runners · {area:2246} Frostfire Hot Springs · {zone:1448} Felwood · {spell:5384} Feign Death
-	["The {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "",
+[ "The {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp." ] = "Die {quest:5087} (57) tragen ihre Kisten entlang der Straße zwischen {area:2246} und dem Tunnel von {zone:1448}.\nVorsicht: Die Abgabe beschwört drei oder vier Winterfall-Angreifer der Stufe 56-57, die dich angreifen; du kannst ihnen im Sattel, in Verstohlenheit oder mit {spell:5384} entkommen, und dann sammeln sie sich am See, sodass du die nächste Quest nehmen kannst.\nVorsicht: die {quest:5087} sind 57, hier über dir: ziehe sie einzeln, fort vom Lager.",
 
 	-- Step 78: Everlook
 	-- {area:2255} Everlook
 	["Ride east along the road to {area:2255}."] = "Reite auf der Straße nach Osten nach {area:2255}.",
 	-- {npc:11755} Harlo Wigglesworth · {npc:10301} Jaron Stoneshaper · {area:2253} Starfall Village
-	["{npc:11755}: for {npc:10301} in {area:2253}, just back up the road"] = "",
+[ "{npc:11755}: for {npc:10301} in {area:2253}, just back up the road" ] = "{npc:11755}: für {npc:10301} in {area:2253}, direkt zurück die Straße hinauf",
 	-- {npc:10431} Gregor Greystone
-	["{npc:10431}: keep it for the Plaguelands, on the next guide; inside"] = "",
+[ "{npc:10431}: keep it for the Plaguelands, on the next guide; inside" ] = "{npc:10431}: behalten für den Plaguelands, auf dem nächsten Guide; innen",
 
 	-- Step 79: Starfall Village
 	-- {area:2253} Starfall Village · {npc:11079} Wynd Nightchaser · {npc:10301} Jaron Stoneshaper
-	["Ride back north-west to {area:2253} on its hill: {npc:11079} and {npc:10301} stand together."] = "",
+[ "Ride back north-west to {area:2253} on its hill: {npc:11079} and {npc:10301} stand together." ] = "Reite nordwestlich zurück zu {area:2253} auf seinem Hügel: {npc:11079} und {npc:10301} stehen zusammen.",
 	-- {quest:5250} Starfall
-	["The relics are in the ruins just south of {quest:5250}"] = "",
+[ "The relics are in the ruins just south of {quest:5250}" ] = "Die Reliquien liegen in den Ruinen direkt südlich von {quest:5250}",
 
 	-- Step 80: The Ruins of Kel'Theril
 	-- {area:2253} Starfall Village · {npc:10304} Aurora Skycaller · {zone:1423} Eastern Plaguelands
-	["The ruins lie around the frozen lake south of {area:2253}. Pick up the four relic fragments lying in the ruins: {npc:10304} in the {zone:1423} takes them, on the next guide."] = "",
+[ "The ruins lie around the frozen lake south of {area:2253}. Pick up the four relic fragments lying in the ruins: {npc:10304} in the {zone:1423} takes them, on the next guide." ] = "Die Ruinen liegen um den gefrorenen See südlich von {area:2253}. Heb die vier Reliktfragmente in den Ruinen auf: {npc:10304} in {zone:1423} nimmt sie entgegen, im nächsten Guide.",
 
 	-- Step 81: The road to Everlook: furs and horns
 	-- {area:2255} Everlook
-	["The road to {area:2255}: furs and horns"] = "",
+[ "The road to {area:2255}: furs and horns" ] = "Die Straße zu {area:2255}: Pelze und Hörner",
 	-- {area:2255} Everlook · {npc:9298} Donova Snowden
 	-- plural, as words: Thick Yeti Furs = {item:12366} Thick Yeti Fur · Uncracked Chillwind Horns = {item:12444} Uncracked Chillwind Horn · Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind · Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti · Chillwind Chimaeras = {npc:7448} Chillwind Chimaera
-	["Still short of Thick Yeti Furs or Uncracked Chillwind Horns? The Rogue Ice Thistles and the Fledgling Chillwinds (both 53-55) live along the road west of {area:2255}, toward {npc:9298}. The hills east of {area:2255} hold only the Ice Thistle Yetis (55-56), Matriarchs and Patriarchs, and the Chillwind Chimaeras (55-57) and Ravagers (57-59): don't hunt the furs and horns there."] = "",
+[ "Still short of Thick Yeti Furs or Uncracked Chillwind Horns? The Rogue Ice Thistles and the Fledgling Chillwinds (both 53-55) live along the road west of {area:2255}, toward {npc:9298}. The hills east of {area:2255} hold only the Ice Thistle Yetis (55-56), Matriarchs and Patriarchs, and the Chillwind Chimaeras (55-57) and Ravagers (57-59): don't hunt the furs and horns there." ] = "Immer noch zu wenig Dickes Yetifell oder Ungeknackte Chillwind-Hörner? Die Schurischen Eisdisteln und die Jung-Chillwinds (beide 53-55) leben entlang der Straße westlich von {area:2255}, Richtung {npc:9298}. Die Hügel östlich von {area:2255} enthalten nur die Eisdistel-Yetis (55-56), Matriarchen und Patriarchen, sowie die Chillwind-Chimaeren (55-57) und Räuber (57-59): jage dort nicht die Felle und Hörner.",
 
 	-- Step 83: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Makellose Yetihörner",
-	["Check the two outdoor Matriarchs (56) on the western slope of the yetis' hills. Leave the Patriarchs (57) and the cave alone. If you don't get both horns on this pass, skip the hunt and Umi's hand-in."] = "",
+[ "Check the two outdoor Matriarchs (56) on the western slope of the yetis' hills. Leave the Patriarchs (57) and the cave alone. If you don't get both horns on this pass, skip the hunt and Umi's hand-in." ] = "Prüfe die beiden Außen-Matriarchen (56) auf der westlichen Hangschräge der Yetis' Hügel.",
 	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
-	["Loot the horns from Ice Thistle Matriarchs"] = "",
+[ "Loot the horns from Ice Thistle Matriarchs" ] = "Plündere die Hörner von den Eis-dorn-Matriarchen",
 
 	-- Step 84: Everlook
 	-- {area:2255} Everlook · {area:976} Gadgetzan
-	["Umi's next task scares three goblins in {area:2255}, {area:976} and Un'Goro, behind the route now: skip it."] = "",
+[ "Umi's next task scares three goblins in {area:2255}, {area:976} and Un'Goro, behind the route now: skip it." ] = "Umis nächste Aufgabe erschreckt drei Goblins in {area:2255}, {area:976} und Un'Goro, mittlerweile hinter der Route: überspringe es.",
 
 	-- Step 85: Jaron Stoneshaper's camp
 	-- {npc:10301} Jaron Stoneshaper
 	["{npc:10301}'s camp"] = "{npc:10301}s Lager",
 	-- {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2245} Mazthoril
 	-- was: ["Ride south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "Reite nach Südosten das Tal hinunter zu {npc:10301}s beschädigter Kiste im Schnee bei {area:2245}; sein zerstörter Wagen steht gleich östlich davon."
-	["Ride south-east from {area:2255} down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "",
+[ "Ride south-east from {area:2255} down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it." ] = "Reite südöstlich von {area:2255} talabwärts zu {npc:10301}s beschädigter Kiste im Schnee bei {area:2245}, mit dessen wrecked Wagen knapp östlich davon.",
 
 	-- Step 86: Sindrayl
 	-- {zone:1452} Winterspring · {area:1769} Timbermaw Hold · {area:493} Moonglade · {npc:10897} Sindrayl · {area:2361} Nighthaven
-	["Ride back north up the valley and west along the road to the tunnel at {zone:1452}'s western end, where Salfa stands. Walk into {area:1769} and take the {area:493} branch of the tunnel down to {area:493}. {npc:10897}, {area:493}'s flight master, stands south of the lake, outside {area:2361}: learn the flight path from him. The flight master in {area:2361} itself flies only Druids, from her gossip, and has no flight path to learn. The next guide flies on from here."] = "",
+[ "Ride back north up the valley and west along the road to the tunnel at {zone:1452}'s western end, where Salfa stands. Walk into {area:1769} and take the {area:493} branch of the tunnel down to {area:493}. {npc:10897}, {area:493}'s flight master, stands south of the lake, outside {area:2361}: learn the flight path from him. The flight master in {area:2361} itself flies only Druids, from her gossip, and has no flight path to learn. The next guide flies on from here." ] = "Reite nordwärts bergauf das Tal und westlich der Straße zum Tunnel am westlichen Ende von {zone:1452}, wo Salfa steht. Geh in {area:1769} hinein und nimm den {area:493}-Abzweig des Tunnels hinunter nach {area:493}. {npc:10897}, der Flugmeister von {area:493}, steht südlich des Sees, außerhalb von {area:2361}: lerne von ihm den Flugpfad. Der Flugmeister in {area:2361} selbst fliegt nur Druiden, laut ihrem Plaudern, und hat keinen lernbaren Flugpfad. Der nächste Guide fliegt von hier aus weiter.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any Winterfall furbolg can drop the totem, about one kill in thirty: if the top-up did not bring one, keep killing them here until it drops, then right-click it."] = "Jeder Winterquell-Furbolg kann das Totem fallen lassen, etwa bei jedem dreißigsten Kill: Wenn der Grind keines gebracht hat, töte sie hier weiter, bis es fällt, und klicke es dann mit Rechtsklick an.",

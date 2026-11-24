@@ -17,7 +17,7 @@ return {
 	-- {area:355} Altar of Zul · {npc:7996} Qiaga the Keeper · {npc:8636} Morta'gya the Keeper
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer · Vilebranch Totems = {item:279225} Vilebranch Totem
 	-- was: ["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Die Sterndeuter der Vilebranch (46-47) laufen rund um den Fuß des {area:355}: Ihre Totems sind für Maret Firetend. Vorsicht: {npc:7996} und {npc:8636} (50, Elite) stehen an der Südostseite des Altars: Nimm dir die Sterndeuter auf seiner Westseite vor, weg von ihnen, und bleib vom Altar runter."
-	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "",
+[ "The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar." ] = "Die Vilebranch-Zauberer (46-47) wandern um den Fuße des Berges...",
 
 	-- Step 3: Skulk Rock
 	-- {area:351} Skulk Rock · {zone:1425} The Hinterlands
@@ -26,12 +26,12 @@ return {
 
 	-- Step 4: OOX-09/HL Distress Beacon
 	-- {zone:1425} The Hinterlands
-	["Only with the distress beacon, a rare drop in the {zone:1425}: it starts a quest to find the robot it calls for."] = "",
+[ "Only with the distress beacon, a rare drop in the {zone:1425}: it starts a quest to find the robot it calls for." ] = "Nur mit dem Notrufsender, einem seltenen Drop in {zone:1425}: es startet...",
 
 	-- Step 5: OOX-09/HL
 	["OOX-09/HL"] = "OOX-09/HL",
 	-- {area:351} Skulk Rock · {area:307} Overlook Cliffs · {area:348} Aerie Peak · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
-	["The robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}, then ride back west for {area:348}; its reward waits with {npc:7406} in {area:35}, later in this guide.\nCareful: Two ambushes spawn during the escort: first three wildkin owlbeasts, then three trolls. Before each, the robot halts and announces it senses danger. Oozes, stealthed wolves and a large turtle along the path can join fights, and they respawn even if cleared beforehand."] = "",
+[ "The robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}, then ride back west for {area:348}; its reward waits with {npc:7406} in {area:35}, later in this guide.\nCareful: Two ambushes spawn during the escort: first three wildkin owlbeasts, then three trolls. Before each, the robot halts and announces it senses danger. Oozes, stealthed wolves and a large turtle along the path can join fights, and they respawn even if cleared beforehand." ] = "Der Roboter sitzt am Kopf des Flusses westlich von {area:351}. Begleite ihn...",
 
 	-- Step 6: Wildkin feathers
 	["Wildkin feathers"] = "Wildekinfedern",
@@ -50,7 +50,7 @@ return {
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, inside"] = "{npc:5636}, drinnen",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep · {zone:1428} Burning Steppes
-	["for {quest:2990} at {area:1438}: the {zone:1428} guide hands it in"] = "",
+[ "for {quest:2990} at {area:1438}: the {zone:1428} guide hands it in" ] = "für {quest:2990} bei {area:1438}: das {zone:1428} Guide überliefert es...",
 	-- {npc:270263} Farseer Maret Firetend
 	["{npc:270263}, just east of the aviary"] = "{npc:270263}, gleich östlich des Greifenhorsts",
 
@@ -88,17 +88,17 @@ return {
 
 	-- Step 16: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
-	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+[ "Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along." ] = "Gruppeaufgabe: {quest:348} endet bei {npc:1449} in Mistvale. Gib ihm zehn...",
 	-- {npc:2486} Fin Fizracket
-	["{npc:2486}, beside the inn"] = "",
+[ "{npc:2486}, beside the inn" ] = "{npc:2486}, neben dem Gastei",
 
 	-- Step 17: Oglethorpe Obnoticus
 	-- {zone:1444} Feralas · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
-	["Only if you escorted the {zone:1444} robot: its reward waits with {npc:7406} here in {area:35}."] = "",
+[ "Only if you escorted the {zone:1444} robot: its reward waits with {npc:7406} here in {area:35}." ] = "Nur wenn du den {zone:1444}-Roboter begleitet hast: sein Lohn wartet bei {np...",
 
 	-- Step 18: Oglethorpe Obnoticus
 	-- {zone:1425} The Hinterlands · {npc:7406} Oglethorpe Obnoticus
-	["Only if you escorted the {zone:1425} robot: {npc:7406} has its reward too."] = "",
+[ "Only if you escorted the {zone:1425} robot: {npc:7406} has its reward too." ] = "Nur wenn du den {zone:1425}-Roboter begleitet hast: {npc:7406} hat seinen Lohn...",
 
 	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
@@ -124,11 +124,11 @@ return {
 	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon
 	-- {npc:2535} Maury "Club Foot" Wilkins
 	-- was: ["{npc:2535} and {npc:2536}"] = "{npc:2535} und {npc:2536}"
-	["{npc:2535} and Jon-Jon"] = "",
+[ "{npc:2535} and Jon-Jon" ] = "{npc:2535} und Jon-Jon",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535} und {npc:2536} stehen zusammen in den Hügeln gleich nördlich von Zanzils Dorf.",
 	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
-	["{item:3925}, from {npc:2536}"] = "",
+[ "{item:3925}, from {npc:2536}" ] = "{item:3925}, von {npc:2536}",
 
 	-- Step 26: Gorilla hills
 	["Gorilla hills"] = "Gorillahügel",
@@ -153,7 +153,7 @@ return {
 
 	-- Step 30: Fin Fizracket
 	-- {npc:2486} Fin Fizracket
-	["{npc:2486}, by the inn"] = "",
+[ "{npc:2486}, by the inn" ] = "{npc:2486}, am Gastei",
 
 	-- Step 31: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
@@ -161,14 +161,14 @@ return {
 
 	-- Step 35: Negolash's bait
 	-- {npc:1494} Negolash
-	["{npc:1494}'s bait"] = "",
+[ "{npc:1494}'s bait" ] = "{npc:1494}'s Köder",
 	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
 	-- plural, as words: Barbecued Buzzard Wings = {item:4457} Barbecued Buzzard Wing
-	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "",
+[ "{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House." ] = "{npc:1494} kommt nur für seine Nahrung: gib {quest:619} bei Kapitän Smo...",
 	-- {item:4457} Barbecued Buzzard Wing
-	["{item:4457}: in your bags already if you cook"] = "",
+[ "{item:4457}: in your bags already if you cook" ] = "{item:4457}: schon in deinen Beutel, falls du es kochst",
 	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash
-	["{object:2289}: the food goes in, {npc:1494} comes"] = "",
+[ "{object:2289}: the food goes in, {npc:1494} comes" ] = "{object:2289}: das Essen wird hineingezaubert, {npc:1494} kommt",
 
 	-- Step 36: Facing Negolash
 	-- {npc:1494} Negolash

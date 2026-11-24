@@ -15,15 +15,15 @@ return {
 	-- Step 2: Booty Bay
 	-- {npc:4631} Wharfmaster Lozgil
 	-- was: ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "Binde deinen Ruhestein im Gasthaus: Er ist dein Weg hierher zurück aus dem Norden des Dschungels am Ende der Runde."
-	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "",
+[ "{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop." ] = "{npc:4631} steht am Dock, wo das Boot anlegt. Binde dein Hearthstone...",
 	-- {npc:4631} Wharfmaster Lozgil
-	["{npc:4631}, on the dock"] = "",
+[ "{npc:4631}, on the dock" ] = "{npc:4631}, am Dock",
 	-- {npc:4631} Wharfmaster Lozgil · {npc:2496} Baron Revilgaz
-	["{npc:4631}: for {npc:2496}, upstairs in the tavern"] = "",
+[ "{npc:4631}: for {npc:2496}, upstairs in the tavern" ] = "{npc:4631}: für {npc:2496}, oben im Gastei",
 	-- {npc:3945} Caravaneer Ruzzgot
-	["{npc:3945}, on the dock"] = "",
+[ "{npc:3945}, on the dock" ] = "{npc:3945}, am Dock",
 	-- {npc:3945} Caravaneer Ruzzgot · {npc:267} Clerk Daltry · {area:42} Darkshire
-	["{npc:3945}: for {npc:267} in {area:42}, where the second Stranglethorn loop starts"] = "",
+[ "{npc:3945}: for {npc:267} in {area:42}, where the second Stranglethorn loop starts" ] = "{npc:3945}: für {npc:267} in {area:42}, wo der zweite Stranglethorn-Weg...",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, by the bank; inside"] = "{npc:2495}, bei der Bank; drinnen",
 	-- {npc:2498} Crank Fizzlebub
@@ -42,7 +42,7 @@ return {
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, oben in der Taverne",
 	-- {npc:250660} The Baron · {area:37} Lake Nazferiti
 	-- plural, as words: Venture Co. Agents = {npc:260429} Venture Co. Agent
-	["{npc:250660}'s next errand sends you into the Venture Co. house at {area:37}, among Venture Co. Agents (39): leave it."] = "",
+[ "{npc:250660}'s next errand sends you into the Venture Co. house at {area:37}, among Venture Co. Agents (39): leave it." ] = "{npc:250660}'s nächte Ehre sendet dich ins Venture Co. Haus bei {ar...",
 
 	-- Step 3: North to Nesingwary's Expedition
 	-- {area:100} Nesingwary's Expedition
@@ -137,7 +137,7 @@ return {
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn
 	["{npc:716} collects the {item:2755}: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go."] = "{npc:716} sammelt die {item:2755}: Die Seiten lässt fast jeder Humanoide im Dschungel fallen. Füg die Seiten unterwegs zu Kapiteln zusammen.",
 	-- {npc:729} Sin'Dall
-	["Keep it for another visit: {npc:729} (37) prowls the Lashtail hill."] = "",
+[ "Keep it for another visit: {npc:729} (37) prowls the Lashtail hill." ] = "Behalte es für einen weiteren Besuch: {npc:729} (37) patrollt den Lashtail-Berg.",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["keep it: the Lashtail Raptors come on the second loop (04b), around {npc:729}'s hill"] = "Behalte sie: Die Schmetterschwänze kommen in der zweiten Runde (04b), rund um den Hügel von {npc:729}",

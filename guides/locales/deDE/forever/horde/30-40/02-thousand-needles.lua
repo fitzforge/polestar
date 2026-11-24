@@ -93,7 +93,7 @@ return {
 
 	-- Step 18: Jandia
 	-- {npc:4877} Jandia · {area:484} Freewind Post
-	["{npc:4877}, the trade supplies vendor, stands inside {area:484}'s inn. The previous guide works her harpies; this is for a character who arrives without them."] = "",
+[ "{npc:4877}, the trade supplies vendor, stands inside {area:484}'s inn. The previous guide works her harpies; this is for a character who arrives without them." ] = "{npc:4877}, der Handelsware-Verkäufer, steht im Inneren des Gasteis von {area:484}",
 	-- {npc:4877} Jandia · {area:487} Roguefeather Den
 	["{npc:4877}: the Screeching harpies of {area:487}"] = "{npc:4877}: die Kreischenden Harpyien vom {area:487}",
 	-- {npc:4877} Jandia
@@ -103,7 +103,7 @@ return {
 	-- {area:483} The Screeching Canyon
 	["{area:483}: kill these as you meet them"] = "{area:483}: Töte diese, wenn sie dir begegnen",
 	-- {area:2097} Darkcloud Pinnacle · {area:487} Roguefeather Den · {npc:4490} Grenka Bloodscreech · {npc:2986} Dorn Plainstalker · {npc:4877} Jandia · {quest:98069} Stolen Freewind Supplies · {zone:1440} Ashenvale · {zone:1441} Thousand Needles
-	["West of Freewind Post, below {area:2097}, the harpies of {area:487} (28-30). {npc:4490} (31) walks among them: thin out the harpies around her before you pull her, for {npc:2986}'s claw. {npc:4877}'s harpies and {quest:98069} (on the ground along the foot of the cliff and in the cave up on top) are here for a character who didn't do them in the {zone:1440} & {zone:1441} guide."] = "",
+[ "West of Freewind Post, below {area:2097}, the harpies of {area:487} (28-30). {npc:4490} (31) walks among them: thin out the harpies around her before you pull her, for {npc:2986}'s claw. {npc:4877}'s harpies and {quest:98069} (on the ground along the foot of the cliff and in the cave up on top) are here for a character who didn't do them in the {zone:1440} & {zone:1441} guide." ] = "Westlich des Freewind-Posts, unterhalb von {area:2097}, die Harpies von {area:487} (2...",
 	-- {quest:98069} Stolen Freewind Supplies
 	["{quest:98069}, on the ground around the den"] = "{quest:98069}, auf dem Boden um die Höhle",
 	-- {item:5843} Grenka's Claw · {npc:4490} Grenka Bloodscreech
@@ -220,7 +220,7 @@ return {
 
 	-- Step 42: Ethel Rethor
 	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
-	["From the rise, north-west across the plain to the ruined tower of {area:2405}: {npc:11863} waits inside. His errand is in {area:599}, the next stop; he takes it back on the walk up the coast later in this guide."] = "",
+[ "From the rise, north-west across the plain to the ruined tower of {area:2405}: {npc:11863} waits inside. His errand is in {area:599}, the next stop; he takes it back on the walk up the coast later in this guide." ] = "Vom Aufhangen aus, nordwestlich über die Ebene zum ruinierten Turm von {are...",
 
 	-- Step 43: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
@@ -230,25 +230,25 @@ return {
 	-- Step 44: Sargeron
 	-- {area:603} Sargeron
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
-	["East from the fortress along the northern hills to the satyrs' ruins of {area:603}. The Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "",
+[ "East from the fortress along the northern hills to the satyrs' ruins of {area:603}. The Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them." ] = "Ostlich von der Festung entlang der nördlichen Hügel zu den Satyr-Höhlen...",
 
 	-- Step 45: Khan Dez'hepah
 	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
 	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
 	-- was: ["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "Nach Süden zum {area:609}. {quest:1365} (35) läuft zwischen den Zelten auf der Ostseite umher, mit einem oder zwei Schlachtfürsten (32-33): Räume um ihn herum und zieh ihn dann allein bei voller Gesundheit.\nVorsicht: Kolkar-Schlachtfürsten rufen nahe Verbündete im Umkreis von 30 yd, sobald sie auf 20% Gesundheit fallen."
-	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: {quest:1365} is level 35, about two levels over you here, and Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "",
+[ "South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: {quest:1365} is level 35, about two levels over you here, and Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health." ] = "Südlich zu {area:609}. {quest:1365} (35) geht unter den Zelten auf der Öste...",
 
 	-- Step 46: Ghost Walker Post
 	-- {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter · {npc:5395} Felgur Twocuts · {npc:5412} Gurda Wildmane
-	["South-west down the road to the post: {npc:5641} and {npc:4498} on the rise west of it, {npc:5395} and {npc:5412} side by side in the post."] = "",
+[ "South-west down the road to the post: {npc:5641} and {npc:4498} on the rise west of it, {npc:5395} and {npc:5412} side by side in the post." ] = " Südwestlich die Straße zum Posten hinab: {npc:5641} und {npc:4498} am...",
 	-- {npc:5641} Takata Steelblade · {npc:5640} Keldran · {zone:1454} Orgrimmar
 	["{npc:5641}: for {npc:5640} in {zone:1454}, next guide"] = "{npc:5641}: für {npc:5640} in {zone:1454}, nächster Guide",
 	-- {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter · {area:603} Sargeron
-	["{npc:5641}'s next errand sends you after a demon lord with an elite guard, and {npc:4498}'s next Corrupter errand back to {area:603}: leave them."] = "",
+[ "{npc:5641}'s next errand sends you after a demon lord with an elite guard, and {npc:4498}'s next Corrupter errand back to {area:603}: leave them." ] = "{npc:5641}'s nächte Ehre sendet dich nach einem Dämonenherrscher mit einem Elite-Gu...",
 	-- {npc:5395} Felgur Twocuts · {npc:11596} Smeed Scrabblescrew
-	["{npc:5395}: the Magram centaurs south-east of the post, after {npc:11596}'s kodos"] = "",
+[ "{npc:5395}: the Magram centaurs south-east of the post, after {npc:11596}'s kodos" ] = "{npc:5395}: die Magram-Zentauren südöstlich des Posts, nach {npc:115...",
 	-- {npc:5412} Gurda Wildmane
-	["{npc:5412}: her totems drop from the same Magram centaurs"] = "",
+[ "{npc:5412}: her totems drop from the same Magram centaurs" ] = "{npc:5412}: ihre Totems fallen von denselben Magram-Zentauren",
 
 	-- Step 47: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo · {npc:11521} Kodo Apparition
@@ -261,19 +261,19 @@ return {
 	-- Step 49: Magram Village
 	-- {npc:5395} Felgur Twocuts · {item:254432} Carved Centaur Totem
 	-- plural, as words: Dread Rippers = {npc:4694} Dread Ripper
-	["South-east of Smeed's camp, the Magram centaurs camp in the hills. The Scouts and Outrunners (32-33) and the Wranglers (33-34) hold the camp's north-western edge; any centaur can drop an ear for {npc:5395} and a {item:254432} for Gurda. Careful on the way: Scorpashi Venomlashes (38-39) and Dread Rippers (39-40) roam the ground just west of the camp's edge: give them room.\nCareful: the Stormers and Pack Runners (34-35), Marauders and Maulers (35-36) and the Bonepaws (37-38) hold the middle and south of the camp: stay on its north-western edge and pull one at a time."] = "",
+[ "South-east of Smeed's camp, the Magram centaurs camp in the hills. The Scouts and Outrunners (32-33) and the Wranglers (33-34) hold the camp's north-western edge; any centaur can drop an ear for {npc:5395} and a {item:254432} for Gurda. Careful on the way: Scorpashi Venomlashes (38-39) and Dread Rippers (39-40) roam the ground just west of the camp's edge: give them room.\nCareful: the Stormers and Pack Runners (34-35), Marauders and Maulers (35-36) and the Bonepaws (37-38) hold the middle and south of the camp: stay on its north-western edge and pull one at a time." ] = "Südöstlich von Smeed's Lager halten die Magram-Zentauren das Lager in den Hügel...",
 	-- {item:6067} Centaur Ear
 	-- plural, as words: Magram Scouts = {npc:4638} Magram Scout
-	["{item:6067}, from the Magram Scouts, Outrunners and Wranglers"] = "",
+[ "{item:6067}, from the Magram Scouts, Outrunners and Wranglers" ] = "{item:6067}, von den Magram-Scouts, Outrunners und Wranglers",
 	-- {item:254432} Carved Centaur Totem
-	["{item:254432}, from the same centaurs"] = "",
+[ "{item:254432}, from the same centaurs" ] = "{item:254432}, von denselben Zentauren",
 
 	-- Step 50: Ghost Walker Post
-	["Back north-west to the post, on your way west."] = "",
+[ "Back north-west to the post, on your way west." ] = "Nach Norden zurück zum Posten auf dem Weg westwärts.",
 
 	-- Step 51: Shadowprey Village
 	-- {area:606} Gelkis Village
-	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way."] = "",
+[ "Head west to the troll village on the coast, keeping clear of the {area:606} on the way." ] = "Fahre westwärts zum Troll-Dorf an der Küste, halte dich klar von dem {are...",
 	-- {npc:11877} Roon Wildmane · {quest:5762} Hemet Nesingwary
 	["{npc:11877}: for {quest:5762} in Stranglethorn, next guide"] = "{npc:11877}: für {quest:5762} im Schlingendorntal, nächster Guide",
 	-- {npc:6726} Thalon
@@ -285,7 +285,7 @@ return {
 
 	-- Step 53: Ethel Rethor
 	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle
-	["North along the coast, then inland to {npc:11863}'s tower. The coast's clams and naga come next, on one walk north to {area:2406}."] = "",
+[ "North along the coast, then inland to {npc:11863}'s tower. The coast's clams and naga come next, on one walk north to {area:2406}." ] = "Nordlich entlang der Küste, dann ins Land zum Turm von {npc:11863}. Die Küste...",
 	-- {npc:11863} Azore Aldamort · {item:15803} Book of the Ancients · {npc:12369} Lord Kragaru · {area:2406} Ranazjar Isle
 	["{npc:11863}'s next errand, the {item:15803}, needs {npc:12369} (38) out on {area:2406}: leave it, he is over your level."] = "Der nächste Auftrag von {npc:11863}, das {item:15803}, braucht {npc:12369} (38) draußen auf {area:2406}: Lass es, er ist über deiner Stufe.",
 
@@ -309,7 +309,7 @@ return {
 	-- Step 56: Sar'theris Strand
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key · {zone:1443} Desolace
 	-- was: ["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "Weiter nach Norden zum {area:598} für {item:15881}: Jeder Slitherblade kann ihn fallen lassen.\nVorsicht: Die Myrmidonen (34-35) halten mit den Meerhexen und Orakeln (34-36, Zauberwirker) die Nordhälfte des Strands, bis zu zwei Stufen über dir mit 33: Bearbeite die Naga und Zauberinnen (32-33) der Südhälfte, bis der Schlüssel fällt, und heb dir den Norden für den zweiten Besuch in {zone:1443} auf, mit 38."
-	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at about 37."] = "",
+[ "Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at about 37." ] = "Weiter nördlich zu {area:598} für {item:15881}: jeder Schlitterblatt kann es werfen...",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, von den Schlangenschuppen-Naga",
 
@@ -323,9 +323,9 @@ return {
 	["Swim out to {area:2406} off the far northern tip: {object:177786} stands on the shore beside the {object:177673}. Open it with both keys; leave the statue alone."] = "Schwimm hinaus nach {area:2406} vor der äußersten Nordspitze: {object:177786} steht am Ufer neben der {object:177673}. Öffne sie mit beiden Schlüsseln; lass die Statue in Ruhe.",
 
 	-- Step 59: Shadowprey Village
-	["Hearth to Shadowprey (you bound it on the way in), or walk back south along the coast."] = "",
+[ "Hearth to Shadowprey (you bound it on the way in), or walk back south along the coast." ] = "Zur Herberge bei Shadowprey (du hast es am Eingang gebunden), oder laufe nach Süd...",
 	-- {item:14547} Hand of Iruxos · {npc:12340} Drulzegar Skraghook · {quest:6143} Other Fish to Fry · {zone:1443} Desolace · {zone:1454} Orgrimmar · {zone:1434} Stranglethorn Vale
-	["Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at about 37: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "",
+[ "Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at about 37: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}." ] = "Taiga's {item:14547}, {npc:12340}'s {quest:6143} (außer du hast es auf...",
 
 	-- Step 60: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii

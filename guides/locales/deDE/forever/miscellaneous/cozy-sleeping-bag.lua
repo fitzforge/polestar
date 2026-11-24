@@ -54,8 +54,8 @@ return {
 	-- Step 8: A hundred paces north
 	["A hundred paces north"] = "Hundert Schritte nach Norden",
 	-- {object:424005} Pocket Litter · {object:424012} Mound of Dirt
-	["From the {object:424005} walk to the camp's western edge, where the arrow points first, and drop carefully down the steep slope north to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "",
-	["The drop to the ledge"] = "",
+[ "From the {object:424005} walk to the camp's western edge, where the arrow points first, and drop carefully down the steep slope north to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up." ] = "Von dem {object:424005} gehst du zur westlichen Kante des Lagers, wo der Ar...",
+[ "The drop to the ledge" ] = "Der Absturz zur Fl Stephanie...",
 
 	-- Step 9: Tarren Mill on the way
 	-- {area:272} Tarren Mill

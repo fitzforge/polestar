@@ -52,8 +52,8 @@ return {
 	["The {object:179827} board"] = "Das Brett {object:179827}",
 
 	-- Step 10: Culling the Competition
-	["Culling the Competition"] = "",
-	["Take the bounty from the board only if you want to hunt the linked dwarf packs with a group."] = "",
+[ "Culling the Competition" ] = "Konkurrenz eliminieren",
+[ "Take the bounty from the board only if you want to hunt the linked dwarf packs with a group." ] = "Nimm das Preisgeldbretter nur ab, wenn du das verlinkte Ding jagst...",
 
 	-- Step 12: Zamael Lunthistle
 	-- {npc:8436} Zamael Lunthistle · {area:1442} Firewatch Ridge · {area:1446} Thorium Point · {npc:8282} Highlord Mastrogonde · {quest:3377} Prayer to Elune
@@ -62,9 +62,9 @@ return {
 
 	-- Step 15: Prayer to Elune: the page
 	-- {quest:3378} Prayer to Elune
-	["{quest:3378}: the page"] = "",
+[ "{quest:3378}: the page" ] = "{quest:3378}: die Seite",
 	-- {npc:8436} Zamael Lunthistle · {quest:3378} Prayer to Elune
-	["The Twilight elites of {npc:8436}'s camp drop the {quest:3378} page, about one in five: keep the group together here until one drops."] = "",
+[ "The Twilight elites of {npc:8436}'s camp drop the {quest:3378} page, about one in five: keep the group together here until one drops." ] = "Die Twilight-Eliten des Lagers von {npc:8436} werfen das {quest:3378}-Blatt,...",
 
 	-- Step 16: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
@@ -84,26 +84,26 @@ return {
 
 	-- Step 22: Dark Iron Taskmasters
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster
-	["Dark Iron Taskmasters"] = "",
+[ "Dark Iron Taskmasters" ] = "Dark Iron-Aufseher",
 	-- {area:1443} Slag Pit
-	["With your group, look for Taskmasters on the open ledges. Stay on the surface; don't follow the arrow into the {area:1443}."] = "",
+[ "With your group, look for Taskmasters on the open ledges. Stay on the surface; don't follow the arrow into the {area:1443}." ] = "Mit deiner Gruppe, suche nach Aufsehern auf den offenen Felsplattformen. Bleib am...",
 
 	-- Step 23: Dark Iron Slavers
 	-- plural, as words: Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Dark Iron Slavers"] = "",
-	["Careful: Slavers can net you and call allies within 15 yards. A Taskmaster or Steamsmith may be standing beside one. Wait for a clear pull or leave the pack; don't descend into the Cauldron for this bounty."] = "",
+[ "Dark Iron Slavers" ] = "Dark Iron-Sklaven",
+[ "Careful: Slavers can net you and call allies within 15 yards. A Taskmaster or Steamsmith may be standing beside one. Wait for a clear pull or leave the pack; don't descend into the Cauldron for this bounty." ] = "Vorsicht: Sklaven können dich fangen und 15 Yards entfernte Verbündete rufen...",
 
 	-- Step 24: The furnaces and southern ridges
-	["The furnaces and southern ridges"] = "",
+[ "The furnaces and southern ridges" ] = "Die Schmelzöfen und die südlichen Hügel",
 	-- {item:18959} Smithing Tuyere · {item:11818} Grimesilt Outhouse Key
-	["The Steamsmiths at the furnaces carry the {item:18959}; the Lookouts on the southern ridges carry the Spyglass. Keep the {item:11818} if a dwarf drops it."] = "",
+[ "The Steamsmiths at the furnaces carry the {item:18959}; the Lookouts on the southern ridges carry the Spyglass. Keep the {item:11818} if a dwarf drops it." ] = "Die Dampfschmiede am Schmelzofen tragen das {item:18959}; die Wächter o...",
 
 	-- Step 25: Thorium Plated Daggers
 	-- plural, as words: Thorium Plated Daggers = {item:10551} Thorium Plated Dagger
-	["Thorium Plated Daggers"] = "",
+[ "Thorium Plated Daggers" ] = "Thoritplattierte Dolche",
 	-- {item:18959} Smithing Tuyere
 	-- plural, as words: Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith · Thorium Plated Daggers = {item:10551} Thorium Plated Dagger
-	["Dark Iron Steamsmiths at the surface furnaces carry Thorium Plated Daggers as well as the {item:18959}. Pull from the outside of the camp."] = "",
+[ "Dark Iron Steamsmiths at the surface furnaces carry Thorium Plated Daggers as well as the {item:18959}. Pull from the outside of the camp." ] = "Dark Iron-Dampfschmiede am Oberflächenschmelzofen tragen Thoritplattierte Dolche...",
 
 	-- Step 29: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
@@ -122,7 +122,7 @@ return {
 	["Level 48.66"] = "Stufe 48,66",
 	-- {area:1443} Slag Pit · {quest:7701} WANTED: Overseer Maltorius · {npc:14621} Overseer Maltorius
 	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
-	["Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in."] = "",
+[ "Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in." ] = "Noch unter Level 48,66 nach dem {area:1443} (ein Solo-Spieler ist normalerweise...",
 	-- {npc:9318} Incendosaur
 	["grind on {npc:9318}"] = "Grinde an {npc:9318}",
 
@@ -151,9 +151,9 @@ return {
 	["Level 48.98"] = "Stufe 48,98",
 	-- {quest:3452} The Flame's Casing · {object:147516} Dark Iron · {area:1442} Firewatch Ridge
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider · Magma Elementals = {npc:5855} Magma Elemental
-	["Still under level 48.98 (a solo player usually is; a group's {quest:3452} covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the {object:147516} camps.\nCareful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at {area:1442}, whose cultists are elites."] = "",
+[ "Still under level 48.98 (a solo player usually is; a group's {quest:3452} covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the {object:147516} camps.\nCareful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at {area:1442}, whose cultists are elites." ] = "Noch unter Level 48,98 (ein Solo-Spieler ist normalerweise; ein Gruppens {quest:34...",
 	-- {npc:5858} Searing Lava Spider
-	["grind on {npc:5858}"] = "",
+[ "grind on {npc:5858}" ] = "kräusle auf {npc:5858}",
 
 	-- Step 40: Margol's Horn
 	-- {quest:3181} The Horn of the Beast

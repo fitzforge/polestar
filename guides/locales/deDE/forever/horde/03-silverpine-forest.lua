@@ -112,7 +112,7 @@ return {
 
 	-- Step 21: Thrall
 	-- {npc:4949} Thrall · {item:14544} Lieutenant's Insignia · {area:817} Skull Rock · {npc:3216} Neeru Fireblade · {zone:1454} Orgrimmar
-	["{npc:4949}, on his throne in Grommash Hold, takes the {item:14544} from {area:817}. His next errand is only a word with {npc:3216}, on this guide's last {zone:1454} walk."] = "",
+[ "{npc:4949}, on his throne in Grommash Hold, takes the {item:14544} from {area:817}. His next errand is only a word with {npc:3216}, on this guide's last {zone:1454} walk." ] = "{npc:4949}, auf seinem Thron in Grommash-Haldi, nimmt das {item:14544} fro...",
 
 	-- Step 22: Zeppelin to Undercity
 	-- {zone:1458} Undercity
@@ -143,7 +143,7 @@ return {
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "{npc:1952}, unter Tage",
 	-- {npc:1937} Apothecary Renferrel
-	["{npc:1937}: bear hearts from the Grizzled Bears all over the forest, the spiders' blood in the north-west hills later"] = "",
+[ "{npc:1937}: bear hearts from the Grizzled Bears all over the forest, the spiders' blood in the north-west hills later" ] = "{npc:1937}: volle Herzchen der Grau-Bären über den Wäldern, t...",
 
 	-- Step 29: The Sepulcher
 	-- {quest:264} Until Death Do Us Part · {object:24776} Yuriv's Tombstone
@@ -214,23 +214,23 @@ return {
 	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "{npc:1499} in {area:159}, auf dem Weg zum Zeppelin am Ende",
 
 	-- Step 43: North-west hills
-	["North-west hills"] = "",
+[ "North-west hills" ] = "Nordwestliche Hügel",
 	-- {area:228} The Sepulcher · {item:3254} Skittering Blood
 	-- plural, as words: Moonrage Gluttons = {npc:1779} Moonrage Glutton · Moss Stalkers = {npc:1780} Moss Stalker · Mist Creepers = {npc:1781} Mist Creeper · Giant Grizzled Bears = {npc:1797} Giant Grizzled Bear
-	["North-west of the {area:228} the Moonrage Gluttons and Darksouls roam the hills between the road and the lake; their shackles drop from them. Past them, farther north-west, Moss Stalkers and Mist Creepers bleed the {item:3254}, and Giant Grizzled Bears roam among them for the hearts (any Grizzled Bear in the forest drops one)."] = "",
+[ "North-west of the {area:228} the Moonrage Gluttons and Darksouls roam the hills between the road and the lake; their shackles drop from them. Past them, farther north-west, Moss Stalkers and Mist Creepers bleed the {item:3254}, and Giant Grizzled Bears roam among them for the hearts (any Grizzled Bear in the forest drops one)." ] = "Nordwestlich von {area:228} herumstreifen die Mondrall-Gelengräner und Dunk...",
 	-- {item:3156} Glutton Shackle
 	-- plural, as words: Moonrage Gluttons = {npc:1779} Moonrage Glutton
-	["{item:3156}, from the Moonrage Gluttons"] = "",
+[ "{item:3156}, from the Moonrage Gluttons" ] = "{item:3156}, von den Mondrall-Gelengränern",
 	-- {item:3157} Darksoul Shackle
 	-- plural, as words: Moonrage Darksouls = {npc:1782} Moonrage Darksoul
-	["{item:3157}, from the Moonrage Darksouls"] = "",
+[ "{item:3157}, from the Moonrage Darksouls" ] = "{item:3157}, von den Mondrall-Dunksoulen",
 	-- {item:3254} Skittering Blood
 	-- plural, as words: Moss Stalkers = {npc:1780} Moss Stalker · Mist Creepers = {npc:1781} Mist Creeper
-	["{item:3254}, from the Moss Stalkers and Mist Creepers"] = "",
+[ "{item:3254}, from the Moss Stalkers and Mist Creepers" ] = "{item:3254}, von den Moos-Stalkern und Nebel-Tillen",
 
 	-- Step 44: The Sepulcher
 	-- {area:228} The Sepulcher
-	["Back south-east to the {area:228}."] = "",
+[ "Back south-east to the {area:228}." ] = "Rückwärts südöstlich zum {area:228}",
 
 	-- Step 45: The Ivar Patch
 	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
@@ -255,7 +255,7 @@ return {
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}, in the Apothecarium"] = "{npc:5204}, im Apothekarium",
 	-- {npc:2055} Master Apothecary Faranell
-	["{npc:2055}, beside Zinge"] = "",
+[ "{npc:2055}, beside Zinge" ] = "{npc:2055}, neben Zinge",
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}: Helbrim at the Crossroads, in the next guide"] = "{npc:5204}: Helbrim am Wegekreuz, im nächsten Guide",
 	-- {npc:260093} Garen Largo · {area:1497} Undercity
@@ -301,7 +301,7 @@ return {
 
 	-- Step 59: Neeru Fireblade
 	-- {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:3216} Neeru Fireblade · {npc:4949} Thrall
-	["The {object:172960} is the canyon under the {object:172982}; {npc:3216} stands at its far end. Tell him what {npc:4949} found."] = "",
+[ "The {object:172960} is the canyon under the {object:172982}; {npc:3216} stands at its far end. Tell him what {npc:4949} found." ] = "{object:172960} ist das Canyon unter dem {object:172982}; {npc:3216...",
 
 	-- Step 60: Neeru Fireblade
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:3216} Neeru Fireblade
@@ -310,7 +310,7 @@ return {
 	-- Step 61: Ragefire Chasm
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow · {npc:3216} Neeru Fireblade · {npc:11520} Taragaman the Hungerer · {npc:11518} Jergosh the Invoker · {quest:5726} Hidden Enemies
 	-- was: ["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {npc:4949}'s Hidden Enemies, which this route leaves out."] = "{area:2437} ist ein Dungeon für eine Gruppe aus fünf Spielern, etwa Stufe 13 bis 18; ein kompletter Run dauert 30 bis 45 Minuten. Das Portal liegt in {object:172960}, neben {npc:3216}.\nDrinnen: Hinter Oggleflint und seinen Troggs wartet {npc:11520} in der Lavahöhle und lässt sein Herz fallen. {npc:11518} und Bazzalan, weiter drinnen, sind für Hidden Enemies von {npc:4949}, das diese Route auslässt."
-	["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {quest:5726}' Ragefire part, which this route leaves out."] = "",
+[ "{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {quest:5726}' Ragefire part, which this route leaves out." ] = "{area:2437} ist ein Gefängnis für eine Gruppe von fünf, ungefähr Level 13 bis 18,...",
 
 	-- Step 62: Neeru Fireblade
 	-- {npc:3216} Neeru Fireblade
@@ -324,11 +324,11 @@ return {
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:362} Razor Hill · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
 	-- was: ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} und {npc:268682} sitzen hinter der Burg Grommash im {object:172957}; die Glatten Felsbrocken liegen um sie herum. Der nächste Guide führt von hier nach {area:379} und zum Wegekreuz."
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:362}, then {area:379} and the Crossroads."] = "",
+[ "{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:362}, then {area:379} and the Crossroads." ] = "{npc:268684} und {npc:268682} sitzen hinter Grommash-Haldi im {object:...",
 
 	-- Step 69: Thrall
 	-- {npc:4949} Thrall · {npc:268684} Thra · {npc:268682} Migi
-	["{npc:4949} waits in Grommash Hold, beside {npc:268684} and {npc:268682}."] = "",
+[ "{npc:4949} waits in Grommash Hold, beside {npc:268684} and {npc:268682}." ] = "{npc:4949} wartet in Grommash-Haldi, neben {npc:268684} und {...",
 
 	-- Step 70: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {npc:4049} Seereth Stonebreak

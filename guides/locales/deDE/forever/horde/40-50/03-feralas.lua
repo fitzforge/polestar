@@ -8,13 +8,13 @@
 return {
 	-- Guide
 	-- {zone:1454} Orgrimmar · {area:1099} Camp Mojache · {area:511} Wyrmbog · {area:496} Brackenwall Village
-	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "",
+[ "{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}." ] = "{zone:1454}'s Hand-ins, {area:1099}'s Muisek-Schiff, dann Dustwallow's...",
 	["Takes you to level 47"] = "Bringt dich auf Stufe 47",
 	-- {zone:1446} Tanaris
 	["Then on to {zone:1446}"] = "Dann weiter nach {zone:1446}",
 	["Stays on the main route"] = "Bleibt auf der Hauptroute",
 	-- {zone:2652} Shen'dralas · {zone:1446} Tanaris
-	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "",
+[ "Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}" ] = "Überspringt {zone:2652}: etwa ein Dutzend weniger Quests, ein Drittel eines Levels...",
 
 	-- Step 1: Orgrimmar
 	-- {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
@@ -25,13 +25,13 @@ return {
 	["{npc:6986}, the Drag"] = "{npc:6986}, die Gasse",
 	-- {zone:1425} Hinterlands
 	-- was: ["for the {zone:1425}, around level 50"] = "für {zone:1425}, etwa ab Stufe 50"
-	["for the {zone:1425}, around level 49"] = "",
+[ "for the {zone:1425}, around level 49" ] = "für den {zone:1425}, um etwa Level 49",
 
 	-- Step 3: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Flieg nach {area:1638}",
 	-- {area:1638} Thunder Bluff · {area:1099} Camp Mojache
-	["Your trainer is in {area:1638}, on the way to {area:1099}."] = "",
+[ "Your trainer is in {area:1638}, on the way to {area:1099}." ] = "Dein Trainer ist in {area:1638}, auf dem Weg zu {area:1099}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Flugmeister: {zone:1454}",
 
@@ -43,18 +43,18 @@ return {
 
 	-- Step 6: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {zone:1446} Tanaris
-	["Fly to {area:1099} (or hearth there, if your hearthstone is ready: it is still bound there from the {zone:1444} & {zone:1446} guide)."] = "",
+[ "Fly to {area:1099} (or hearth there, if your hearthstone is ready: it is still bound there from the {zone:1444} & {zone:1446} guide)." ] = "Fliege zu {area:1099} (oder von dort aus zur Herberge, falls dein Hearthstone bereit...",
 
 	-- Step 7: Camp Mojache
 	-- {zone:1425} Hinterlands
 	-- was: ["for the {zone:1425} owlbeasts, around level 48"] = "für die Eulenbestien im {zone:1425}, etwa ab Stufe 48"
-	["for the {zone:1425} owlbeasts, around level 49"] = "",
+[ "for the {zone:1425} owlbeasts, around level 49" ] = "für die {zone:1425}-Euleben, um etwa Level 49",
 
 	-- Step 8: Fly to Brackenwall Village
 	-- {area:496} Brackenwall Village
 	["Fly to {area:496}"] = "Flieg nach {area:496}",
 	-- {zone:1444} Feralas · {zone:1446} Tanaris · {area:496} Brackenwall Village
-	["No Muisek vessel to bring Uzer'i (you didn't take the {zone:1444} & {zone:1446} guide's chain): fly from here straight to {area:496}."] = "",
+[ "No Muisek vessel to bring Uzer'i (you didn't take the {zone:1444} & {zone:1446} guide's chain): fly from here straight to {area:496}." ] = "Kein Muisek-Schiff für Uzer'i zu bringen (du hast das {zone:1444} & {z...",
 
 	-- Step 9: Fly to Brackenwall Village
 	-- {area:1099} Camp Mojache
@@ -96,9 +96,9 @@ return {
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "Die Eier von Onyxia liegen in den Drachenhöhlen im Südosten von {area:511}, bewacht von den Bannschuppen; zerschlag fünf.",
 
 	-- Step 16: Muckshell crabs
-	["Muckshell crabs"] = "",
+[ "Muckshell crabs" ] = "Muckshell-Krabben",
 	-- plural, as words: Muckshell Razorclaws = {npc:4405} Muckshell Razorclaw
-	["On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for."] = "",
+[ "On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for." ] = "Auf dem Rückweg nördlich der Drachenhöhlen halten die Muckshell-Rasorc...",
 
 	-- Step 17: Level 45.37
 	["Level 45.37"] = "Stufe 45.37",
@@ -109,11 +109,11 @@ return {
 
 	-- Step 18: Brackenwall Village
 	-- {npc:4791} Nazeer Bloodpike · {item:5942} Jeweled Pendant
-	["{npc:4791}: the {item:5942}"] = "",
+[ "{npc:4791}: the {item:5942}" ] = "{npc:4791}: das {item:5942}",
 	-- {npc:4047} Zor Lonetree · {zone:1454} Orgrimmar · {zone:1447} Azshara
-	["for {npc:4047} in {zone:1454}, on the {zone:1447} guide's {zone:1454} stop"] = "",
+[ "for {npc:4047} in {zone:1454}, on the {zone:1447} guide's {zone:1454} stop" ] = "für {npc:4047} in {zone:1454}, auf dem {zone:1447} Guide's {zone:1454...",
 	-- {quest:3128} Natural Materials · {zone:1444} Feralas
-	["Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain."] = "",
+[ "Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain." ] = "Behalte {quest:3128} und Verbesserte Qualität: {zone:1444}'s Sprites, Hippogryp...",
 
 	-- Step 19: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb

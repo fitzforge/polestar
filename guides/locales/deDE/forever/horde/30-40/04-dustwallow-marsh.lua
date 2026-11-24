@@ -95,7 +95,7 @@ return {
 	-- {npc:4503} Mudcrush Durtfeet · {npc:4791} Nazeer Bloodpike · {npc:4926} Krog
 	["Head back west to Brackenwall with the head: {npc:4503} stands at the south edge of the village where the road comes in, {npc:4791} and {npc:4926} in the village."] = "Geh mit dem Kopf zurück nach Westen nach Brackenwall: {npc:4503} steht am Südrand des Dorfes, wo die Straße hereinkommt, {npc:4791} und {npc:4926} im Dorf.",
 	-- {npc:2519} Kin'weelay · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
-	["For {npc:2519} at {object:3202}, in the {zone:1434} & {zone:1435} guide"] = "",
+[ "For {npc:2519} at {object:3202}, in the {zone:1434} & {zone:1435} guide" ] = "Für {npc:2519} bei {object:3202}, in dem {zone:1434} & {zone:1435} Guide...",
 
 	-- Step 20: Level 36
 	["Level 36"] = "Stufe 36",
@@ -143,7 +143,7 @@ return {
 
 	-- Step 27: Aka'rai
 	-- {npc:268705} Aka'rai · {area:2408} Shadowprey Village · {area:603} Sargeron · {area:599} Thunder Axe Fortress
-	["{npc:268705} stands by the path out of {area:2408}, on your way east: her Hatefury satyrs are at {area:603}, past {area:599} later on this visit."] = "",
+[ "{npc:268705} stands by the path out of {area:2408}, on your way east: her Hatefury satyrs are at {area:603}, past {area:599} later on this visit." ] = "{npc:268705} steht am Pfad aus {area:2408}, auf deinem Weg nach Osten:...",
 
 	-- Step 28: Ghost Walker Post
 	-- {area:597} Ghost Walker Post · {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
@@ -174,18 +174,18 @@ return {
 
 	-- Step 34: Sargeron
 	-- {area:603} Sargeron
-	["East from the fortress to {area:603}, the Hatefury satyrs' ruins in the north-east (32-33, well under you now): two of each kind."] = "",
+[ "East from the fortress to {area:603}, the Hatefury satyrs' ruins in the north-east (32-33, well under you now): two of each kind." ] = "Östlich von der Festung zu {area:603}, den Ruinen der Hatefury-Satyrs in den...",
 
 	-- Step 35: Sar'theris Strand
 	-- {area:598} Sar'theris Strand
 	-- plural, as words: Slitherblade Myrmidons = {npc:4714} Slitherblade Myrmidon
 	-- was: ["West from the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "Geh von der Festung nach Westen zur Küste am {area:598}: Die Myrmidonen, Naga und Zauberinnen der Zackenkämme halten den Strand. Zieh sie einzeln; die Seehexen und Orakel (34-36) zaubern aus der Ferne."
-	["West past the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "",
+[ "West past the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range." ] = "Westlich der Festung zur Küste bei {area:598}: die Schlitterblatt-Myogriph...",
 
 	-- Step 36: Shadowprey Village
 	-- {npc:268705} Aka'rai · {npc:11624} Taiga Wisemane · {area:602} Mannoroc Coven · {npc:12340} Drulzegar Skraghook
 	-- was: ["South down the coast to Shadowprey: {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "Geh die Küste nach Süden hinunter nach Schattenflucht: {npc:11624} nimmt den Kasten und schickt dich damit zum {area:602}; {npc:12340} nimmt die Naga."
-	["South down the coast to Shadowprey: {npc:268705} first, on the path into the village; {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "",
+[ "South down the coast to Shadowprey: {npc:268705} first, on the path into the village; {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga." ] = "Südlich der Küste zu Shadowprey: {npc:268705} zuerst, am Pfad in...",
 
 	-- Step 37: Portals of the Legion
 	-- {area:602} Mannoroc Coven · {quest:5381} Hand of Iruxos · {npc:11624} Taiga Wisemane · {npc:11937} Demon Portal Guardian

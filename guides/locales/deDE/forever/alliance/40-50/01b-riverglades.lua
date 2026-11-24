@@ -27,7 +27,7 @@ return {
 	-- Step 3: Scout Bolain
 	-- {npc:260026} Scout Bolain · {zone:1434} Stranglethorn Vale · {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "",
+[ "{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first." ] = "{npc:260026} wartet am Weges östlich des Passes.\nDieser Guide wird...",
 
 	-- Step 4: Southern Watch
 	-- {area:16744} Southern Watch
@@ -188,7 +188,7 @@ return {
 	-- Step 38: WANTED: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo · {area:16743} Rog'mar
 	["{npc:263071} is an elite (level 42) at the Horde's training grounds north of {area:16743}, where this guide goes later: grouping up is advised."] = "{npc:263071} ist ein Elite (Stufe 42) auf dem Übungsgelände der Horde nördlich von {area:16743}, wohin dieser Guide später geht: Eine Gruppe wird empfohlen.",
-	["the Wanted poster"] = "",
+[ "the Wanted poster" ] = "das Wanted-Bretter",
 
 	-- Step 39: Ghostmaw
 	-- {npc:263380} Ghostmaw · {area:16725} Wheeler's Grange · {area:16729} Terral's Watch
@@ -196,9 +196,9 @@ return {
 
 	-- Step 40: Sunnyglade
 	-- {area:16724} Farholde Keep · {area:16729} Terral's Watch · {area:16723} Sunnyglade · {area:16743} Rog'mar · {npc:259158} Fuzzle · {npc:256831} Apprentice Claire · {npc:258697} Farmer Elbrim
-	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
+[ "North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge." ] = "Fahre nördlich von {area:16724}, vorbei an {area:16729} und über den Fluss zu {...",
 	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
-	["{npc:259158}: {quest:94961}, in his cage"] = "",
+[ "{npc:259158}: {quest:94961}, in his cage" ] = "{npc:259158}: {quest:94961}, in seinem Käfig",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "Der Schattenhammerkult",
@@ -215,7 +215,7 @@ return {
 
 	-- Step 42: Apprentice Claire
 	-- {area:16723} Sunnyglade
-	["Claire is in the cave under the eastern edge of {area:16723}: its entrance is at 50.0,46.0."] = "",
+[ "Claire is in the cave under the eastern edge of {area:16723}: its entrance is at 50.0,46.0." ] = "Claire ist in der Höhle unter dem östlichen Rand von {area:16723}: dessen Ein...",
 
 	-- Step 43: Cut Off the Heads
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade · {npc:257591} Ashe Amberhall · {area:16724} Farholde Keep
@@ -355,10 +355,10 @@ return {
 	["Most beasts in the {zone:2548} drop {item:268632} for {npc:260231}: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: {npc:257001} (elite, 42), Komuk (a Horde elite, 45) and {npc:263380} (elite, 42) range over the zone's wilds: take your beasts away from them."] = "Die meisten Wildtiere in {zone:2548} lassen {item:268632} für {npc:260231} fallen: die Uferkriecher an dieser Küste und die Eber auf dem Kamm westlich der Piraten.\nVorsicht: {npc:257001} (Elite, 42), Komuk (ein Horde-Elite, 45) und {npc:263380} (Elite, 42) streifen durch die Wildnis des Gebiets: Zieh deine Wildtiere von ihnen weg.",
 
 	-- Step 68: Level 44 on the Eastsea pirates
-	["Level 44 on the Eastsea pirates"] = "",
+[ "Level 44 on the Eastsea pirates" ] = "Level 44 auf den Ostseekriegen",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash · {area:1517} Uldaman
 	-- was: ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Vor der zweiten Welle: Ihre Plünderer und Bombardiere (43-45) und danach die Schiffe der Piraten sind unter 44.4 eine Stufe über dir. Füll an den Freibeutern und Musketieren (41-43) des ersten Lagers an dessen südwestlichem Ende auf, weg vom Hafen. {npc:259758}, ein Rare-Elite der Stufe 49, streift über diese Klippen: Wenn du ihn siehst, halte dich fern. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:1517}."
-	["Before the second wave: its raiders (44-45), bombardiers (43-44) and {quest:95124}'s ships after them (45) are more than a level over you below 44. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "",
+[ "Before the second wave: its raiders (44-45), bombardiers (43-44) and {quest:95124}'s ships after them (45) are more than a level over you below 44. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead." ] = "Vor der zweiten Welle: seine Räuber (44-45), Bombenwerfer (43-44) und...",
 	-- {npc:257901} Eastsea Buccaneer
 	["grind on {npc:257901}"] = "farme {npc:257901}",
 
@@ -377,7 +377,7 @@ return {
 	-- Step 72: The pirates' ships
 	["The pirates' ships"] = "Die Schiffe der Piraten",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
-	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
+[ "Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way." ] = "Wieder aus zu den Piratenschutz: lege Whizzbuzz's Ladungen an die...",
 	-- {item:268505} Remote Explosive Charge
 	["{item:268505}, the southern ship"] = "{item:268505}, das südliche Schiff",
 	["the middle ship"] = "das mittlere Schiff",
@@ -464,7 +464,7 @@ return {
 	-- Step 94: The Western Front
 	-- {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "",
+[ "Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend." ] = "Achtung: das Western Front ist für Level 44 und höher geschrieben. Seine Twiligh...",
 
 	-- Step 95: Sergeant Riftan
 	-- {area:16685} Twilight's Shroud · {npc:258023} Sergeant Riftan

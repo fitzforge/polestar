@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- was: ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "Für Charaktere der Stufe 49 bis 50, aber die meisten Quests hier sind Stufe 51-53: mit Absicht, wegen ihrer Erfahrung. Dieser erste Besuch bleibt in der Osthälfte des Kraters, wo die Bestien 48-52 sind, also zieh sie einzeln; die Pylonen, die Knochen und der Bau warten auf den späteren Un'Goro-Besuch mit etwa 56."
-	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "",
+[ "For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54." ] = "Für Charaktere von Level 49 bis 50, aber die meisten Quests hier sind Level 51-53: auf p...",
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -25,12 +25,12 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Flieg nach {area:392}",
 	-- {npc:7771} Marvon Rivetseeker · {item:10556} Stone Circle · {area:392} Ratchet · {area:976} Gadgetzan
-	["{npc:7771}'s {item:10556} stands in {area:392}: fly there first, then on to {area:976}."] = "",
+[ "{npc:7771}'s {item:10556} stands in {area:392}: fly there first, then on to {area:976}." ] = "{npc:7771}'s {item:10556} steht in {area:392}: fliege dort zuerst, dann...",
 	["Theramore flight master"] = "Flugmeister von Theramore",
 
 	-- Step 5: The Stone Circle
 	-- {quest:3444} The Stone Circle
-	["{quest:3444} stands on the hill just south-west of the flight master."] = "",
+[ "{quest:3444} stands on the hill just south-west of the flight master." ] = "{quest:3444} steht auf dem Hügel direkt südwestlich des Flugmeisters",
 
 	-- Step 6: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -40,7 +40,7 @@ return {
 
 	-- Step 8: Gadgetzan
 	-- {area:976} Gadgetzan
-	["The flight lands in {area:976}."] = "",
+[ "The flight lands in {area:976}." ] = "Der Flug landet in {area:976}",
 
 	-- Step 9: Marin Noggenfogger
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Das hast du beim früheren Besuch der Route hier verpasst: Es kommt jetzt zuerst. Es geht schnell und öffnet die Quests danach.",
@@ -71,9 +71,9 @@ return {
 
 	-- Step 15: Broken Pillar
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {item:10556} Stone Circle
-	["On the ride south, {npc:7771}'s dig camp stands at the {area:1938}: hand him the {item:10556}."] = "",
+[ "On the ride south, {npc:7771}'s dig camp stands at the {area:1938}: hand him the {item:10556}." ] = "Auf dem Rundweg nach Süden steht das Grabungslager von {npc:7771} am {area:1938}: ha...",
 	-- {npc:7771} Marvon Rivetseeker · {area:1417} Sunken Temple
-	["{npc:7771}'s next task, Into the Depths, is inside the {area:1417}: skip it."] = "",
+[ "{npc:7771}'s next task, Into the Depths, is inside the {area:1417}: skip it." ] = "{npc:7771}'s nächte Aufgabe, Into the Depths, liegt im {area:1417}: sk...",
 
 	-- Step 16: The Gaping Chasm
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
@@ -83,7 +83,7 @@ return {
 
 	-- Step 17: Gadgetzan
 	-- {npc:7740} Gracina Spiritmight · {zone:1457} Darnassus · {zone:1448} Felwood
-	["For {npc:7740} in {zone:1457}, on the {zone:1448} guide's {zone:1457} stop: keep it"] = "",
+[ "For {npc:7740} in {zone:1457}, on the {zone:1448} guide's {zone:1457} stop: keep it" ] = "Für {npc:7740} in {zone:1457}, auf dem {zone:1448} Guide's {zone:1457...",
 
 	-- Step 19: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
@@ -99,7 +99,7 @@ return {
 	["{quest:87494}, if a ravasaur dropped the scale"] = "{quest:87494}, falls ein Ravasaurus die Schuppe gedroppt hat",
 	-- {area:1943} Ironstone Plateau
 	-- was: ["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "Die Gorillas auf dem {area:1943} tragen die Felle: Behalte es für den zweiten Besuch im Un'Goro, etwa auf Stufe 56"
-	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 54"] = "",
+[ "The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 54" ] = "Die Gorillas auf {area:1943} tragen die Pelze: behalte es für den zweiten Un...",
 
 	-- Step 22: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
@@ -127,7 +127,7 @@ return {
 	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, hinten in der Höhle; unter der Erde",
 	-- {npc:9272} Spark Nilminer · {npc:9271} Hol'anyee Marshal · {npc:9270} Williden Marshal · {npc:9618} Karna Remtravel
 	-- was: ["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "{npc:9272}, {npc:9271}, {npc:9270} und {npc:9618} haben Quests bei Mobs der Stufe 51-55: Heb sie dir für den späteren Besuch im Un'Goro auf, etwa auf Stufe 56."
-	["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 54."] = "",
+[ "{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 54." ] = "{npc:9272}, {npc:9271}, {npc:9270} und {npc:9618} haben Quests unter Mo...",
 
 	-- Step 25: Fire Plume Ridge and the eastern jungle
 	-- {area:537} Fire Plume Ridge
@@ -154,7 +154,7 @@ return {
 	["Level 50"] = "Stufe 50",
 	-- {zone:1455} Ironforge
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
-	["Still short of level 50 after the refuge's hand-ins? The next guide opens in {zone:1455} with quests that need level 50: top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "",
+[ "Still short of level 50 after the refuge's hand-ins? The next guide opens in {zone:1455} with quests that need level 50: top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater." ] = "Noch kurz hinter Level 50 nach den Handins des Refugiums? Der nächste Guide öff...",
 	-- {npc:6511} Bloodpetal Thresher
 	["grind on {npc:6511}"] = "grinde {npc:6511}",
 

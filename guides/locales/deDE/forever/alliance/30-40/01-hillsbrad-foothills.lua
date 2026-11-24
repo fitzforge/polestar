@@ -118,11 +118,11 @@ return {
 	-- {area:205} Dun Modr
 	["Back over the span and down the road through {area:205} on the way south."] = "Zurück über die Brücke und die Straße durch {area:205} nach Süden.",
 	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands
-	["for {npc:2700} at {area:320}, in the {zone:1417} guide"] = "",
+[ "for {npc:2700} at {area:320}, in the {zone:1417} guide" ] = "für {npc:2700} bei {area:320}, in dem {zone:1417} Guide",
 
 	-- Step 26: The Green Belt
 	-- {npc:270637} Howin Kindfeather · {npc:2094} James Halloran · {area:150} Menethil Harbor
-	["{npc:270637}: {npc:2094}'s crate, from {area:150}"] = "",
+[ "{npc:270637}: {npc:2094}'s crate, from {area:150}" ] = "{npc:270637}: {npc:2094}'s Kiste, von {area:150}",
 
 	-- Step 27: Rethiel the Greenwarden
 	-- {area:17732} Excavation Site: Wetlands · {npc:1244} Rethiel the Greenwarden · {npc:270637} Howin Kindfeather
@@ -134,16 +134,16 @@ return {
 
 	-- Step 29: Howin Kindfeather
 	-- {quest:98291} Death to the Dragonmaw · {area:17716} Dragonmaw Retreat · {npc:270637} Howin Kindfeather
-	["{quest:98291} is a group quest: 16 elite Dragonmaw (29-30) in {area:17716}, just east of {npc:270637}. Skip it if you are alone."] = "",
+[ "{quest:98291} is a group quest: 16 elite Dragonmaw (29-30) in {area:17716}, just east of {npc:270637}. Skip it if you are alone." ] = "{quest:98291} ist eine Gruppeaufgabe: 16 Elite-Drachenmaul (29-30) in {area:17...",
 
 	-- Step 30: Dragonmaw Retreat
 	-- {npc:270637} Howin Kindfeather
 	-- plural, as words: Dragonmaw Reclaimers = {npc:271351} Dragonmaw Reclaimer
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of {npc:270637}."] = "",
+[ "These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of {npc:270637}." ] = "Das sind Elite-Mobs: Gruppierung ist empfohlen, suche nach Menschen, die d...",
 
 	-- Step 31: Howin Kindfeather
 	-- {npc:270637} Howin Kindfeather
-	["back west to {npc:270637}"] = "",
+[ "back west to {npc:270637}" ] = "Rückwärts westlich zu {npc:270637}",
 
 	-- Step 32: Prospector Whelgar
 	["Below ground"] = "Unter der Erde",
@@ -211,7 +211,7 @@ return {
 	-- {npc:2228} Lieutenant Farren Orinelle
 	["{npc:2228}, inside"] = "{npc:2228}, drinnen",
 	-- {npc:2366} Barkeep Kelly · {area:35} Booty Bay · {zone:1434} Stranglethorn Vale
-	["{npc:2366}, in the inn: for {area:35} (the {zone:1434} guide)"] = "",
+[ "{npc:2366}, in the inn: for {area:35} (the {zone:1434} guide)" ] = "{npc:2366}, im Gastei: für {area:35} (der {zone:1434} Guide)",
 	-- {npc:2430} Chef Jessen
 	["{npc:2430}, upstairs"] = "{npc:2430}, oben",
 	-- {npc:2382} Darren Malvew
@@ -220,7 +220,7 @@ return {
 	["{item:3713}, from {npc:2381}"] = "{item:3713}, von {npc:2381}",
 	-- {npc:2276} Magistrate Henry Maleb · {zone:1417} Arathi Highlands
 	-- was: ["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}, drinnen: Behalte sie, das Lager des Syndikats kommt auf dem Weg nach Norden ins Arathi (05-arathi-highlands)"
-	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (the {zone:1417} guide)"] = "",
+[ "{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (the {zone:1417} guide)" ] = "{npc:2276}, drinnen: behalte es, das Syndikat-Lager wartet auf die Straße nörd...",
 
 	-- Step 44: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring
@@ -309,7 +309,7 @@ return {
 	-- Step 67: The Islander
 	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet · {zone:1434} Stranglethorn Vale
 	-- was: ["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479} bildet in {object:2100} Krieger aus, neben der Taverne „Zum Schwein und Pfeife“. {npc:6236} wartet auf {area:720} im {zone:1413}, auf dem Weg nach {area:392} viel später (40-50/01)."
-	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (the 40-50 {zone:1434} guide)."] = "",
+[ "{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (the 40-50 {zone:1434} guide)." ] = "{npc:5479} trainiert Krieger in {object:2100}, neben dem Schwein und dem Pfeife...",
 
 	-- Step 69: Cathedral of Light
 	["Cathedral of Light"] = "Kathedrale des Lichts",

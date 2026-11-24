@@ -107,7 +107,7 @@ return {
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}, unter der Erde",
 	-- {npc:9997} Spraggle Frock · {npc:9999} Ringo
-	["{npc:9997}, beside the flight master: {npc:9999} is found at the end of this loop"] = "",
+[ "{npc:9997}, beside the flight master: {npc:9999} is found at the end of this loop" ] = "{npc:9997}, neben dem Flugmeister: {npc:9999} wird am Ende von...",
 	-- {npc:9118} Larion · {quest:4147} Marvon's Workshop · {npc:8737} Linken
 	["Keep {npc:9118}'s {quest:4147} and {npc:8737}'s letter for later guides."] = "Behalte {quest:4147} von {npc:9118} und den Brief von {npc:8737} für spätere Guides.",
 
@@ -157,7 +157,7 @@ return {
 	-- Step 32: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
 	-- plural, as words: Living Blazes = {npc:6521} Living Blaze · Scorching Elementals = {npc:6520} Scorching Elemental
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "",
+[ "Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it." ] = "Reite östlich zu {area:537}, kletter es hinauf und nutze {npc:10541} am Lavadach...",
 
 	-- Step 33: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -165,7 +165,7 @@ return {
 
 	-- Step 34: Ringo
 	-- {area:537} Fire Plume Ridge · {npc:9999} Ringo
-	["Ride east again to the foot of {area:537}: {npc:9999} sits on its eastern slope, lost and exhausted."] = "",
+[ "Ride east again to the foot of {area:537}: {npc:9999} sits on its eastern slope, lost and exhausted." ] = "Wieder östlich zum Fuße von {area:537}: {npc:9999} sitzt auf seinem östlichen...",
 
 	-- Step 35: Escort Ringo
 	-- {npc:9999} Ringo
@@ -175,7 +175,7 @@ return {
 
 	-- Step 36: J.D. Collie
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:9117} J.D. Collie
-	["{area:541}: {npc:9997} beside the flight master, {npc:9117} below ground."] = "",
+[ "{area:541}: {npc:9997} beside the flight master, {npc:9117} below ground." ] = "{area:541}: {npc:9997} neben dem Flugmeister, {npc:9117} unten gruppiert...",
 	-- {npc:9997} Spraggle Frock
 	["{npc:9997}, beside the flight master"] = "{npc:9997}, neben dem Flugmeister",
 	["Below ground"] = "Unter der Erde",
@@ -218,24 +218,24 @@ return {
 
 	-- Step 45: Kargath's poster
 	-- {area:340} Kargath
-	["{area:340}'s poster"] = "",
+[ "{area:340}'s poster" ] = "{area:340}'s Poster",
 	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
 	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Für deinen Run durch {area:1584}, als Nächstes, auf dem Weg durch {area:254}: Das Plakat {object:164867} in {area:340} will, dass die Anvilrage-Zwerge drinnen dezimiert werden."
-	["For your {area:1584} run, next, on the way through {area:254}: the WANTED poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "",
+[ "For your {area:1584} run, next, on the way through {area:254}: the WANTED poster in {area:340} wants the Anvilrage dwarves inside thinned out." ] = "Für deinen {area:1584}-Run, als Nächstes, auf dem Weg durch {area:254}: das WAN...",
 
 	-- Step 46: Thunderheart
 	-- {npc:9084} Thunderheart · {area:340} Kargath · {quest:3906} Disharmony of Flame · {npc:9026} Overmaster Pyron · {area:1584} Blackrock Depths · {area:254} Blackrock Mountain
-	["{npc:9084} stands in {area:340} beside the Hierophant. His {quest:3906} is {npc:9026} (52, elite), at the {area:1584} portal inside {area:254}, on the way through the mountain: a fight for a group."] = "",
+[ "{npc:9084} stands in {area:340} beside the Hierophant. His {quest:3906} is {npc:9026} (52, elite), at the {area:1584} portal inside {area:254}, on the way through the mountain: a fight for a group." ] = "{npc:9084} steht in {area:340} neben dem Hierophant. Seine {quest:3906...",
 
 	-- Step 47: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into the {zone:1427}"] = "In die {zone:1427}",
 	-- {area:340} Kargath · {zone:1427} Searing Gorge · {npc:8479} Velarok Windblade · {area:1446} Thorium Point
-	["Take the pass out of {area:340}'s west side into the {zone:1427} and ride west to {npc:8479}, on the rim of the Cauldron south of {area:1446}."] = "",
+[ "Take the pass out of {area:340}'s west side into the {zone:1427} and ride west to {npc:8479}, on the rim of the Cauldron south of {area:1446}." ] = "Nimm den Pass aus dem Westteil von {area:340} in die {zone:1427} und fahre...",
 
 	-- Step 49: The Flame's Casing
 	-- {npc:8479} Velarok Windblade · {item:10552} Symbol of Ragnaros
-	["The Twilight's Hammer cultists camp in the hills west of {npc:8479}. The {item:10552} drops from their Dark Shamans (47-48), Fire Guards (48-49) and Geomancers (49-50): elites, but two to five levels under you now, so one at a time is fine. The Idolaters (49-51) at the altar further north drop it too, more rarely: leave them alone."] = "",
+[ "The Twilight's Hammer cultists camp in the hills west of {npc:8479}. The {item:10552} drops from their Dark Shamans (47-48), Fire Guards (48-49) and Geomancers (49-50): elites, but two to five levels under you now, so one at a time is fine. The Idolaters (49-51) at the altar further north drop it too, more rarely: leave them alone." ] = "Die Twilight's Hammer-Kultisten halten Lager in den Hügeln westlich von {npc:8479}...",
 
 	-- Step 51: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
@@ -250,26 +250,26 @@ return {
 	["Sentry Braziers"] = "Wachkohlenbecken",
 	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "",
+[ "Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east." ] = "Trage das {object:149047} südlang entlang des Randes des Krühlers und licht...",
 
 	-- Step 54: Squire Maltrake
 	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade
-	["Back north to {npc:8509} beside {npc:8479}."] = "",
+[ "Back north to {npc:8509} beside {npc:8479}." ] = "Nach Norden zurück zu {npc:8509} neben {npc:8479}",
 	-- {object:149502} Hoard of the Black Dragonflight · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous · {zone:1428} Burning Steppes
-	["The {object:149502} holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}"] = "",
+[ "The {object:149502} holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}" ] = "Das {object:149502} hält ein {item:10575}: behalte es für {npc:9459} im...",
 
 	-- Step 55: Into Blackrock Mountain
 	-- {area:254} Blackrock Mountain
-	["Into {area:254}"] = "",
+[ "Into {area:254}" ] = "Hinein in {area:254}",
 	-- {area:254} Blackrock Mountain
 	-- was: ["Take the pass out of {area:340}'s west side into the {zone:1427}, then ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals."] = "Nimm den Pass an der Westseite von {area:340} in die {zone:1427} und reite dann nach Süden durch die Schlucht zur langen Brücke in den Berg ({area:254}). Folge drinnen den Kettenstegen nach unten und verlass ihn durch den Südausgang; bleib von den Wegen zu den Dungeonportalen fern."
-	["Ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals."] = "",
+[ "Ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals." ] = "Reite südlich über die Schlucht zur langen Brücke in {area:254}. Innerhalb...",
 	-- {area:254} Blackrock Mountain
 	["Bridge into {area:254}"] = "Brücke in den Berg ({area:254})",
 
 	-- Step 56: Overmaster Pyron
 	-- {npc:9026} Overmaster Pyron · {area:1584} Blackrock Depths
-	["With your group: {npc:9026} (52, elite) guards the way to the {area:1584} portal, down the walkways inside the mountain."] = "",
+[ "With your group: {npc:9026} (52, elite) guards the way to the {area:1584} portal, down the walkways inside the mountain." ] = "Mit deiner Gruppe: {npc:9026} (52, Elite) bewacht den Weg zum {area:15...",
 
 	-- Step 57: Blackrock Depths
 	-- {area:1584} Blackrock Depths · {zone:1428} Burning Steppes
@@ -295,11 +295,11 @@ return {
 
 	-- Step 62: Cyrus Therepentous
 	-- {quest:3821} Dreadmaul Rock · {zone:1428} Burning Steppes · {object:149502} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
-	["Ride north-east from {quest:3821} to the small cave in the far east of the {zone:1428}. Open the {object:149502} from the {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight.\nCareful: Volchan (60, a rare fire elemental) roams the hills around {npc:9459}'s cave: if he is about, wait for him to pass."] = "",
+[ "Ride north-east from {quest:3821} to the small cave in the far east of the {zone:1428}. Open the {object:149502} from the {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight.\nCareful: Volchan (60, a rare fire elemental) roams the hills around {npc:9459}'s cave: if he is about, wait for him to pass." ] = "Fahre nordöstlich von {quest:3821} zum kleinen Höhle im fernen Osten...",
 	-- {item:10575} Black Dragonflight Molt
 	["{item:10575}, from the hoard"] = "{item:10575}, aus dem Hort",
 	-- {npc:9459} Cyrus Therepentous · {area:1584} Blackrock Depths
-	["{npc:9459}' next errand is in {area:1584}: leave it."] = "",
+[ "{npc:9459}' next errand is in {area:1584}: leave it." ] = "{npc:9459}'s nächte Ehre ist in {area:1584}: ließe es",
 
 	-- Step 63: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
@@ -307,7 +307,7 @@ return {
 	-- {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900 · {npc:7040} Black Dragonspawn · {npc:7044} Black Drake
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
 	-- was: ["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills: pull the broodlings away from them, or bring a group."] = "Reite nach Westen zur Ausgrabungsstätte. {quest:4296} steht in ihrer Mitte zwischen den Thaurissan-Zwergen. Kopiere sie.\nSchwarze Brutlinge nisten in den Hügeln direkt östlich von {area:251}. Benutze {item:12284} von {npc:10267} an einem Brutling, wenn er fast tot ist, um seine Essenz einzufangen.\nVorsicht: Eine {npc:7040} und ein {npc:7044}, Elites der Stufe 50-53, wandern durch dieselben Hügel: Zieh die Brutlinge von ihnen weg oder nimm eine Gruppe mit."
-	["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills, and Volchan (60, a rare fire elemental) roams them too: pull the broodlings away from them, or bring a group."] = "",
+[ "Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills, and Volchan (60, a rare fire elemental) roams them too: pull the broodlings away from them, or bring a group." ] = "Reite westlich zum Grabungsplatz. Das {quest:4296} steht in seiner Mitte unter...",
 
 	-- Step 64: Flame Crest
 	-- {area:251} Flame Crest

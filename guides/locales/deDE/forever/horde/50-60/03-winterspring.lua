@@ -19,13 +19,13 @@ return {
 	["Ride south from the tunnel: {npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "Reite südlich vom Tunnel: {npc:9298} lagert zwischen den dampfenden Becken von {area:2246}, im Westen des Tals.",
 	["Linken's letter"] = "Linkens Brief",
 	-- {quest:980} The New Springs
-	["{quest:980}, from Krakle in Un'Goro"] = "",
+[ "{quest:980}, from Krakle in Un'Goro" ] = "{quest:980}, von Krakle in Un'Goro",
 	-- {quest:3909} The Videre Elixir · {npc:7775} Gregan Brewspewer · {zone:1444} Feralas · {npc:9298} Donova Snowden · {area:2256} Darkwhisper Gorge · {zone:1452} Winterspring
-	["{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide. {npc:9298}'s next errand, Strange Sources, is at the mouth of {area:2256} among level 59-60 elites: it waits for the last guide's {zone:1452} loop."] = "",
+[ "{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide. {npc:9298}'s next errand, Strange Sources, is at the mouth of {area:2256} among level 59-60 elites: it waits for the last guide's {zone:1452} loop." ] = "{quest:3909} kommt von {npc:7775} in {zone:1444}, später im Guide...",
 
 	-- Step 4: Winterspring
 	-- {area:2251} Lake Kel'Theril · {area:2255} Everlook · {npc:9298} Donova Snowden
-	["Ride east along the road past {area:2251} to {area:2255} first: its yeti and chimaera errands bring you about a quarter of a level, which the Frostfire furbolg camps want; {npc:9298}'s camps come on the ride back west."] = "",
+[ "Ride east along the road past {area:2251} to {area:2255} first: its yeti and chimaera errands bring you about a quarter of a level, which the Frostfire furbolg camps want; {npc:9298}'s camps come on the ride back west." ] = "Fahre östlich entlang der Straße vorbei an {area:2251} nach {area:2255} zuerst: dessen...",
 
 	-- Step 5: Everlook
 	-- {area:2255} Everlook
@@ -38,19 +38,19 @@ return {
 	["Ice Thistle yetis"] = "Eisdistelyetis",
 	-- {area:2255} Everlook
 	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
-	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur. Careful: the Ice Thistle Yetis are 55-56: take the 55s one at a time, and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "",
+[ "The yeti hills start just south-east of {area:2255}. Every yeti drops fur. Careful: the Ice Thistle Yetis are 55-56: take the 55s one at a time, and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit." ] = "Die Yeti-Hügel beginnen direkt südöstlich von {area:2255}. Jeder Yeti wirft...",
 
 	-- Step 7: Chillwind chimaeras
 	["Chillwind chimaeras"] = "Eiswindschimären",
 	-- {area:2255} Everlook · {area:2251} Lake Kel'Theril · {area:2245} Mazthoril
 	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind
-	["The chimaeras roam the snowfields south and west of {area:2255}. Careful: Chillwind Chimaeras are 55-57: take only the 55s, and the Fledgling Chillwinds (53-55) by {area:2251}, which carry the horns too. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "",
+[ "The chimaeras roam the snowfields south and west of {area:2255}. Careful: Chillwind Chimaeras are 55-57: take only the 55s, and the Fledgling Chillwinds (53-55) by {area:2251}, which carry the horns too. Stay clear of {area:2245}'s cave: its blue dragonkin are elite." ] = "Die Chimaeras waten die Schneefelder südlich und westlich von {area:2255}. Vorsicht...",
 
 	-- Step 8: Everlook
 	-- {zone:1423} Eastern Plaguelands · {area:2255} Everlook
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	-- was: ["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 57"] = "Umi: behalten, die Makellosen Yetihörner kommen beim Halt in {area:2255} im Guide für {zone:1423} mit etwa 57"
-	["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 56"] = "",
+[ "Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 56" ] = "Umi: behalte es, die unreinen Yeti-Hörner kommen auf dem {zone:1423} Guide's ...",
 	["The Matriarchs and Patriarchs that carry Umi's horns are 56-58: leave them for that later stop."] = "Die Matriarchinnen und Patriarchen mit Umis Hörnern sind Stufe 56-58: Heb sie dir für diesen späteren Halt auf.",
 
 	-- Step 9: Raging Owlbeasts
@@ -59,7 +59,7 @@ return {
 	-- {area:2251} Lake Kel'Theril · {area:2255} Everlook · {area:2246} Frostfire Hot Springs
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
 	-- was: ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Tobende Eulenbestien streifen durch die Hügel nördlich von {area:2251}, an der Straße zwischen {area:2246} und {area:2255}. Vorsicht: Die größten sind Stufe 56: Zieh sie einzeln."
-	["Ride back west: Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2255} and {area:2246}. Careful: the biggest are level 56: pull them one at a time."] = "",
+[ "Ride back west: Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2255} and {area:2246}. Careful: the biggest are level 56: pull them one at a time." ] = "Fahre nach Westen zurück: wütende Euleben waten die Hügel nördlich von {area:2251} ...",
 
 	-- Step 10: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
@@ -67,7 +67,7 @@ return {
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
 	-- was: ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Pfadfinder, Höhlenbehüter und Totemiker teilen sich die Furbolglager um die heißen Quellen; Struppige Eulenbestien streifen über die Hänge dazwischen. Töte zuerst die Totemiker. Heb jeden {item:14047}, den du plünderst, für Meilosh auf.\nVorsicht: Die Höhlenbehüter sind bis Stufe 56: Zieh sie einzeln und halte dich von den Totems der Lager fern."
-	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers are 55-56: pull the 55s, one at a time, and keep clear of the camps' totems."] = "",
+[ "Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers are 55-56: pull the 55s, one at a time, and keep clear of the camps' totems." ] = "Pathfinders, Den Watchers und Totemitiste teilen die Furbolgen-Lagerr...",
 	-- {item:12771} Empty Firewater Flask
 	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "{item:12771}: Etwa jeder zehnte Winterquell-Furbolg trägt einen; töte sie weiter, bis einer fallen gelassen wird",
 	-- {quest:8471} Winterfall Ritual Totem
@@ -81,40 +81,40 @@ return {
 	-- {area:431} Splintertree Post
 	["Fly to {area:431}"] = "Flieg nach {area:431}",
 	-- {zone:1448} Felwood · {area:2255} Everlook · {area:431} Splintertree Post · {area:1237} Valormok
-	["{zone:1448}'s southern hand-ins are next: ride back east to {area:2255}'s flight master, fly to {area:431} (by way of {area:1237}) and ride north into {zone:1448}, so the forest is ridden once, south to north."] = "",
+[ "{zone:1448}'s southern hand-ins are next: ride back east to {area:2255}'s flight master, fly to {area:431} (by way of {area:1237}) and ride north into {zone:1448}, so the forest is ridden once, south to north." ] = "{zone:1448}'s südliche Hand-ins sind als Nächstes: fahre nach Osten zu {area:2255...",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "Flugmeister in {area:2255}",
 
 	-- Step 13: Overlord Ror
 	-- {zone:1448} Felwood · {area:1761} Deadwood Village
-	["Ride north-west along the road into {zone:1448}. Ror stands at the far south end of {area:1761}, just inside the border."] = "",
+[ "Ride north-west along the road into {zone:1448}. Ror stands at the far south end of {area:1761}, just inside the border." ] = "Fahre nordwestlich entlang der Straße in {zone:1448}. Ror steht am weitesten...",
 
 	-- Step 14: Emerald Sanctuary
-	["North to the druids' camp."] = "",
+[ "North to the druids' camp." ] = "Norden zum Druiden-Lager",
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the Sanctuary"] = "{npc:9529}, auf der Westseite des Refugiums",
 	-- {quest:5158} Seeking Spiritual Aid · {npc:5901} Islen Waterseer · {area:392} Ratchet
-	["Keep {quest:5158}: {npc:5901} is by {area:392}, on the next guide."] = "",
+[ "Keep {quest:5158}: {npc:5901} is by {area:392}, on the next guide." ] = "Behalte {quest:5158}: {npc:5901} steht bei {area:392}, auf dem nächsten Guide...",
 
 	-- Step 15: The Jadefire moonwell
 	["The Jadefire moonwell"] = "Der Mondbrunnen der Jadefeuersatyrn",
 	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
-	["Ride north-west past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "",
+[ "Ride north-west past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there." ] = "Fahre nordwestlich vorbei an {area:1763} zum korrupten Mondschild der Jade...",
 
 	-- Step 16: Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
-	["North up the road to {area:1997}."] = "",
+[ "North up the road to {area:1997}." ] = "Nadel entlang der Straße nach {area:1997}",
 	-- {npc:9996} Winna Hazzard · {quest:86612} Stag Lord's Bauble
 	["{npc:9996}: the {quest:86612}"] = "{npc:9996}: {quest:86612}",
 	-- {npc:10306} Trull Failbane · {zone:1452} Winterspring · {zone:1423} Eastern Plaguelands
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
-	["{npc:10306}'s Moontouched Owlbeasts are 57-58, in {zone:1452}: keep it for the {zone:1423} guide's {zone:1452} stop."] = "",
+[ "{npc:10306}'s Moontouched Owlbeasts are 57-58, in {zone:1452}: keep it for the {zone:1423} guide's {zone:1452} stop." ] = "{npc:10306}'s Mondselig-Ädleb sind 57-58, in {zone:1452}: behalte es...",
 
 	-- Step 17: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "{npc:9996}s Kätzchen",
 	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
-	["Take the kitten back to the Jadefire moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "",
+[ "Take the kitten back to the Jadefire moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over." ] = "Nimm die Kätzchen zurück zum Jadefern-Mondschild und setze es dort los...",
 	-- {item:12565} Winna's Kitten Carrier
 	["{item:12565}, at the Jadefire moonwell"] = "{item:12565}, am Mondbrunnen der Jadefeuersatyrn",
 
@@ -122,7 +122,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Flieg zum {area:1099}",
 	-- {area:1997} Bloodvenom Post
-	["{area:1997} flight master"] = "",
+[ "{area:1997} flight master" ] = "{area:1997} Flugmeister",
 
 	-- Step 21: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
@@ -156,11 +156,11 @@ return {
 
 	-- Step 29: Magatha Grimtotem
 	-- {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise
-	["{npc:4046} stands on {area:1639}."] = "",
+[ "{npc:4046} stands on {area:1639}." ] = "{npc:4046} steht auf {area:1639}",
 	-- {npc:4046} Magatha Grimtotem · {zone:1447} Azshara
-	["Delivery to {npc:4046}, from Jediga in {zone:1447}"] = "",
+[ "Delivery to {npc:4046}, from Jediga in {zone:1447}" ] = "Lieferung an {npc:4046}, von Jediga in {zone:1447}",
 	-- {npc:4046} Magatha Grimtotem · {zone:1447} Azshara
-	["{npc:4046}'s payment goes back to Jediga in {zone:1447}, which the route doesn't pass again: leave it."] = "",
+[ "{npc:4046}'s payment goes back to Jediga in {zone:1447}, which the route doesn't pass again: leave it." ] = "{npc:4046}'s Bezahlung geht zurück zu Jediga in {zone:1447}, das die Route...",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any Winterfall furbolg can carry the beads; the camps just south of {npc:11556} are the closest."] = "Jeder Furbolg der Winterfelle kann die Perlen tragen; die Lager gleich südlich von {npc:11556} sind am nächsten.",

@@ -8,7 +8,7 @@
 return {
 	-- Step 2: Mirage Raceway
 	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek · {quest:1137} News for Fizzle
-	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. With {quest:1137} handed in, {npc:4630} has work: {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
+[ "The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. With {quest:1137} handed in, {npc:4630} has work: {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}." ] = "{area:2240} liegt auf dem {area:439} im Südosten von {zone:1441}: {npc...",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}: {quest:1137}, von Martek in {zone:1418}",
 
@@ -74,7 +74,7 @@ return {
 
 	-- Step 12: Ship Schedules
 	-- {item:9250} Ship Schedule · {npc:7882} Security Chief Bilgewhizzle
-	["Only if a Southsea pirate gave you a {item:9250}: it starts a quest for {npc:7882}, inside, where you stand."] = "",
+[ "Only if a Southsea pirate gave you a {item:9250}: it starts a quest for {npc:7882}, inside, where you stand." ] = "Nur wenn ein Süßmeer-Pirat dir ein {item:9250} gab: es startet eine Quest...",
 
 	-- Step 14: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "Vorsicht: Diebe wirken Entwaffnen. Schurken bleiben mit Schleichen versteckt. Assassinen benutzen Hinrichten, wenn deine Gesundheit bei 20 % oder darunter liegt.",
@@ -121,9 +121,9 @@ return {
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {quest:3161} Gahz'ridian
 	["Ride south to the dig camp at the {area:1938}. {npc:7771} hands you a detector helm: wear it to see the {quest:3161} mounds, which lie thick in the sand around the camp and south-west toward the ogres."] = "Reite nach Süden zum Grabungslager an der {area:1938}. {npc:7771} gibt dir einen Detektorhelm: Trag ihn, um die Hügel von {quest:3161} zu sehen, die dicht im Sand rund um das Lager und nach Südwesten Richtung Oger liegen.",
 	-- {npc:7771} Marvon Rivetseeker · {quest:3380} The Sunken Temple
-	["{npc:7771}: {quest:3380}, from Angelas in Feathermoon"] = "",
+[ "{npc:7771}: {quest:3380}, from Angelas in Feathermoon" ] = "{npc:7771}: {quest:3380}, von Angelas in Feathermoon",
 	-- {npc:7771} Marvon Rivetseeker · {item:10556} Stone Circle · {area:392} Ratchet · {area:976} Gadgetzan
-	["{npc:7771}: the {item:10556} is in {area:392}, on the Un'Goro guide's flight to {area:976}, which hands it in here: keep it"] = "",
+[ "{npc:7771}: the {item:10556} is in {area:392}, on the Un'Goro guide's flight to {area:976}, which hands it in here: keep it" ] = "{npc:7771}: das {item:10556} ist in {area:392}, auf dem Un'Goro Guide's...",
 
 	-- Step 25: Dunemaul Compound
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
@@ -139,7 +139,7 @@ return {
 	["{npc:5955}'s escort"] = "Eskorte von {npc:5955}",
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
 	-- was: ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "Die kleine Schildkröte {npc:5955} versteckt sich am Nordende des {quest:3362}: Hol ihn vom Rand aus und lass die Distelsträucher (48-50) in Ruhe. Führe ihn heim zu seiner Frau {npc:6015}, am Wasser gleich östlich von {area:977}: Er läuft langsam und die Bestien der Wüste greifen ihn an, also halte ihn am Leben."
-	["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "",
+[ "The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive." ] = "Die kleine Schildkröte {npc:5955} zieht die Westkante von {quest:3362}...",
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}, neben ihr: Oase",
 

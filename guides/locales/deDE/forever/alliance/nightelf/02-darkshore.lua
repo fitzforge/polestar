@@ -40,10 +40,10 @@ return {
 
 	-- Step 8: Darkshore Threshers
 	-- plural, as words: Darkshore Threshers = {npc:2185} Darkshore Thresher
-	["Darkshore Threshers"] = "",
+[ "Darkshore Threshers" ] = "Dunkeltal-Thresher",
 	-- {quest:983} Buzzbox 827 · {area:452} Mist's Edge · {quest:1001} Buzzbox 411 · {quest:954} Bashal'Aran
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye · Darkshore Threshers = {npc:2185} Darkshore Thresher
-	["{quest:983} stands on the beach just south of the docks: once his crawler legs are in, he asks for Thresher Eyes. The Darkshore Threshers (12-14) swim in the shallows off the docks and up the shore to {area:452}; {quest:1001}, who takes the eyes, stands north of {quest:954} at the end of the first loop."] = "",
+[ "{quest:983} stands on the beach just south of the docks: once his crawler legs are in, he asks for Thresher Eyes. The Darkshore Threshers (12-14) swim in the shallows off the docks and up the shore to {area:452}; {quest:1001}, who takes the eyes, stands north of {quest:954} at the end of the first loop." ] = "{quest:983} steht auf dem Strand direkt südlich der Dock: once his craw...",
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
 	["Thresher Eyes; underwater"] = "Thresher Eyes; unter Wasser",
 
@@ -52,7 +52,7 @@ return {
 	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	-- was: ["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Rabid Thistle Bears streifen durch die Hügel südlich von {area:442}: Benutze {item:7586} an einem, um ihn einzufangen. Geh dann zum Furbolg-Lager direkt östlich von ihnen: Noch ist nichts zu töten."
-	["Rabid Thistle Bears roam the hills south of {area:442}: use {quest:2139} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
+[ "Rabid Thistle Bears roam the hills south of {area:442}: use {quest:2139} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet." ] = "Rabid Thistle Bears waten die Hügel südlich von {area:442}: use {quest:213...",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "die Rabid Thistle Bears in der Nähe von {npc:3701}",
@@ -76,7 +76,7 @@ return {
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
 	-- was: ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Nördlich an den Hügeln entlang. {npc:3650} wartet in den Ruinen von {quest:954}; Wild Grells und Vile Sprites bevölkern sie, Deth'ryll Satyrs den Ostrand. {object:17183} steht an der Straße westlich der Ruinen; ein {quest:4723} liegt auf dem Weg zu ihm am Ufer."
-	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road north-north-west of {npc:3650}; a {quest:4723} lies on the shore on the way to him."] = "",
+[ "North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road north-north-west of {npc:3650}; a {quest:4723} lies on the shore on the way to him." ] = "Nordlich entlang der Hügel. {npc:3650} wartet in den Ruinen von {quest:954}; W...",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
 	["Grell Earrings"] = "Grell-Ohrringe",
 	-- {item:5338} Ancient Moonstone Seal
@@ -86,24 +86,24 @@ return {
 	-- Step 13: Buzzbox 411
 	-- {quest:4723} Beached Sea Creature · {quest:1001} Buzzbox 411 · {area:442} Auberdine
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
-	["North-north-west of Asterion by the road, past the {quest:4723}: {quest:1001} wants Moonstalker Fangs next, from the second loop's hills. Then south-west down to {area:442}."] = "",
+[ "North-north-west of Asterion by the road, past the {quest:4723}: {quest:1001} wants Moonstalker Fangs next, from the second loop's hills. Then south-west down to {area:442}." ] = "Nord-Nord-Westlich von Asterion am Wege, vorbei an {quest:4723}: {ques...",
 
 	-- Step 14: Auberdine
 	-- {npc:3693} Terenthis · {npc:3649} Thundris Windweaver
-	["{npc:3693}: for {npc:3649}, at the north end of the village"] = "",
+[ "{npc:3693}: for {npc:3649}, at the north end of the village" ] = "{npc:3693}: für {npc:3649}, am nordischen Ende des Dorfes",
 	-- {npc:6301} Gorbold Steelhand · {zone:1439} Darkshore
-	["{npc:6301}, on the way north: the bay wrecks, on your next {zone:1439} visit"] = "",
+[ "{npc:6301}, on the way north: the bay wrecks, on your next {zone:1439} visit" ] = "{npc:6301}, auf dem Weg nach Norden: die Bay Wracks, in deinem nächsten {zone:1439}",
 
 	-- Step 15: Auberdine
 	-- {npc:3701} Tharnariun Treetender
-	["{npc:3701}: the bears are on the loop ahead"] = "",
+[ "{npc:3701}: the bears are on the loop ahead" ] = "{npc:3701}: die Bären sind am Loop am Wege",
 	-- {npc:3649} Thundris Windweaver · {area:445} Cliffspring Falls
-	["{npc:3649}: his sample comes from the {area:445}, at the end of the next loop"] = "",
+[ "{npc:3649}: his sample comes from the {area:445}, at the end of the next loop" ] = "{npc:3649}: seine Probe kommt von {area:445}, am Ende des ne...",
 	["Fill the tube at the moonwell in the village"] = "Fülle die Phiole am Mondbrunnen im Dorf",
 
 	-- Step 16: Cerellean Whiteclaw
 	-- {npc:3644} Cerellean Whiteclaw · {npc:3667} Anaya Dawnrunner · {area:447} Ameth'Aran · {zone:1439} Darkshore
-	["{npc:3644} waits where the pier meets the shore. {npc:3667} (16), whose pendant he wants, walks {area:447} on the loop ahead: from level 14.5 you take it there, else on your next {zone:1439} visit."] = "",
+[ "{npc:3644} waits where the pier meets the shore. {npc:3667} (16), whose pendant he wants, walks {area:447} on the loop ahead: from level 14.5 you take it there, else on your next {zone:1439} visit." ] = "{npc:3644} wartet, wo der Kai das Ufer trifft. {npc:3667} (16), whos...",
 	-- {npc:3644} Cerellean Whiteclaw
 	["{npc:3644}, on the pier"] = "{npc:3644}, auf dem Steg",
 
@@ -112,10 +112,10 @@ return {
 	["{npc:2164} on the way"] = "{npc:2164} auf dem Weg",
 
 	-- Step 18: Moonstalkers on the way
-	["Moonstalkers on the way"] = "",
+[ "Moonstalkers on the way" ] = "Mondstalker auf dem Weg",
 	-- {area:442} Auberdine · {area:456} Cliffspring River
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["The Moonstalkers (14-15) roam the hills of the loop ahead, south of {area:442} and around the {area:456} at its end: any of them drops the fangs. Leave the Moonstalker Sires (17-18) and Matriarchs (19-20) south of the Grove."] = "",
+[ "The Moonstalkers (14-15) roam the hills of the loop ahead, south of {area:442} and around the {area:456} at its end: any of them drops the fangs. Leave the Moonstalker Sires (17-18) and Matriarchs (19-20) south of the Grove." ] = "Die Mondstalker (14-15) waten die Hügel des Loops am Wege, südlich von {a...",
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
 	["Moonstalker Fangs"] = "Mondpirscher-Fangzähne",
 
@@ -124,7 +124,7 @@ return {
 	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder · Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	-- was: ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "Pfadfinder und Windsprecher der Schwarzfelle halten das Lager südöstlich von {area:442}.\nVorsicht: Die Windsprecher (13-14) wirken aus der Ferne und die Furbolgs stehen paarweise: Zieh sie einzeln."
-	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}; Rabid Thistle Bears roam the hills around it.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "",
+[ "Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}; Rabid Thistle Bears roam the hills around it.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time." ] = "Blackwood Pathfinders und Windtalkers halten das Lager Süd-Osten von {are...",
 
 	-- Step 20: The southern beaches
 	["The southern beaches"] = "Die südlichen Strände",
@@ -135,7 +135,7 @@ return {
 	-- Step 21: Onu
 	-- {quest:952} Grove of the Ancients · {npc:3616} Onu · {npc:11218} Kerlonian Evershade
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["From the beached creature, head east to the {quest:952}. Watch for level 16 bears and level 17 Moonstalker Sires between the beach and the grove; go around them. {npc:3616} stands beside Arbal and the sleeping {npc:11218}."] = "",
+[ "From the beached creature, head east to the {quest:952}. Watch for level 16 bears and level 17 Moonstalker Sires between the beach and the grove; go around them. {npc:3616} stands beside Arbal and the sleeping {npc:11218}." ] = "Von der strandenden Kreatur aus, geh ostwärts zum {quest:952}. Watch for lev...",
 
 	-- Step 22: Ameth'Aran
 	-- {area:447} Ameth'Aran
@@ -143,55 +143,55 @@ return {
 
 	-- Step 23: Anaya's Pendant
 	-- {npc:3667} Anaya Dawnrunner · {npc:2184} Lady Moongazer
-	["Careful: {npc:3667} (16) is over you: pull her on her own at full health. {npc:2184}, a rare (17), also walks the ruins: leave her be."] = "",
+[ "Careful: {npc:3667} (16) is over you: pull her on her own at full health. {npc:2184}, a rare (17), also walks the ruins: leave her be." ] = "Achtung: {npc:3667} (16) ist über dir: pull her on her own at full heal...",
 	-- {item:5382} Anaya's Pendant · {npc:3667} Anaya Dawnrunner
-	["{item:5382}: {npc:3667}'s ghost walks the ruins"] = "",
+[ "{item:5382}: {npc:3667}'s ghost walks the ruins" ] = "{item:5382}: {npc:3667}'s ghost wandert durch die Ruinen",
 
 	-- Step 24: The red crystal
 	["Back north-east into the mountains to the crystal."] = "Zurück nach Nordosten in die Berge zum Kristall.",
 
 	-- Step 26: Bashal'Aran
 	-- {npc:3650} Asterion · {area:456} Cliffspring River
-	["North along the hills to {npc:3650}, then on north-east to the {area:456}."] = "",
+[ "North along the hills to {npc:3650}, then on north-east to the {area:456}." ] = "Nordlich entlang der Hügel zu {npc:3650}, dann nordöstlich zum {area:4...",
 
 	-- Step 27: Cliffspring Falls
 	-- {area:456} Cliffspring River · {npc:6788} Den Mother
 	-- plural, as words: Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
-	["North-east up the {area:456} to the falls: fill the sampler at the water there. Moonstalkers (14-15) roam the hills around the river.\nCareful: Encrusted Tide Crawlers (17-20) line the shore below the falls and the {npc:6788}'s bears (18-19) lair in the hills south of them: keep to the river."] = "",
+[ "North-east up the {area:456} to the falls: fill the sampler at the water there. Moonstalkers (14-15) roam the hills around the river.\nCareful: Encrusted Tide Crawlers (17-20) line the shore below the falls and the {npc:6788}'s bears (18-19) lair in the hills south of them: keep to the river." ] = "Nord-Ost hoch zum {area:456} zur Wasserfall: fülle die Sampler am Wat...",
 	-- {item:12349} Cliffspring River Sample
 	["{item:12349}, at the waterfall"] = "{item:12349}, am Wasserfall",
 
 	-- Step 28: Buzzbox 323
 	-- {quest:1002} Buzzbox 323 · {object:17185} Buzzbox 525 · {zone:1439} Darkshore
-	["{quest:1002} stands on the hill above the falls. He offers {object:17185} next: its bears are far south, for your next {zone:1439} visit."] = "",
+[ "{quest:1002} stands on the hill above the falls. He offers {object:17185} next: its bears are far south, for your next {zone:1439} visit." ] = "{quest:1002} steht auf dem Hügel über dem Wasserfall. Er bietet {object:171...",
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
-	["Moonstalker Fangs: the Moonstalkers around the river"] = "",
+[ "Moonstalker Fangs: the Moonstalkers around the river" ] = "Mondstalker Fangs: die Mondstalker um den Fluss",
 
 	-- Step 29: Beached Sea Turtle
 	-- {quest:4725} Beached Sea Turtle · {quest:954} Bashal'Aran · {area:442} Auberdine
 	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Greymist Warriors = {npc:2205} Greymist Warrior
-	["West along the north shore: the {quest:4725} lies on the beach north of {quest:954}, among Reef Crawlers and Greymist Warriors (15). Then south-west down to {area:442}."] = "",
+[ "West along the north shore: the {quest:4725} lies on the beach north of {quest:954}, among Reef Crawlers and Greymist Warriors (15). Then south-west down to {area:442}." ] = "Westlich entlang der Nordküste: der {quest:4725} liegt auf dem Strand nördlich...",
 
 	-- Step 30: Auberdine
 	-- {npc:3657} Sentinel Elissa Starbreeze · {npc:3693} Terenthis · {area:444} Tower of Althalaxx · {zone:1439} Darkshore
-	["{npc:3657}, beside {npc:3693}: for Balthule at the {area:444}, on your next {zone:1439} visit"] = "",
+[ "{npc:3657}, beside {npc:3693}: for Balthule at the {area:444}, on your next {zone:1439} visit" ] = "{npc:3657}, neben {npc:3693}: für Balthule bei {area:444}, auf deinem...",
 	-- {npc:3701} Tharnariun Treetender · {npc:6788} Den Mother · {zone:1439} Darkshore
-	["{npc:3701}: the {npc:6788}, on your next {zone:1439} visit"] = "",
+[ "{npc:3701}: the {npc:6788}, on your next {zone:1439} visit" ] = "{npc:3701}: das {npc:6788}, bei deinem nächsten {zone:1439} Besuch",
 	-- {npc:3583} Barithras Moonshade · {area:445} Cliffspring Falls · {zone:1439} Darkshore
-	["{npc:3583}: the cave by the {area:445}, on your next {zone:1439} visit"] = "",
+[ "{npc:3583}: the cave by the {area:445}, on your next {zone:1439} visit" ] = "{npc:3583}: die Höhle am {area:445}, bei deinem nächsten {zone:1439} Besuch",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
-	["{npc:3649}: for {npc:1646} in {zone:1453}, on the walk from the boat"] = "",
+[ "{npc:3649}: for {npc:1646} in {zone:1453}, on the walk from the boat" ] = "{npc:3649}: für {npc:1646} in {zone:1453}, auf dem Spaziergang vom Boot",
 
 	-- Step 31: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {quest:4763} The Blackwood Corrupted · {zone:1439} Darkshore
-	["From level 15 {npc:3649} also has {quest:4763}: its samples come from the northern Blackwood camp on your next {zone:1439} visit. Fill its bowl at the moonwell in the middle of the village now."] = "",
+[ "From level 15 {npc:3649} also has {quest:4763}: its samples come from the northern Blackwood camp on your next {zone:1439} visit. Fill its bowl at the moonwell in the middle of the village now." ] = "Ab Level 15 hat {npc:3649} auch {quest:4763}: seine Proben kommen von...",
 	-- {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell
 	["{item:12347}: fill the {item:12346} at the {object:174795}"] = "{item:12347}: Fülle die {item:12346} an der {object:174795}",
 
 	-- Step 32: Cerellean Whiteclaw
 	-- {npc:3644} Cerellean Whiteclaw
 	-- was: ["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}, wo der Steg auf das Ufer trifft, auf dem Weg zum Boot"
-	["{npc:3644} waits where the pier meets the shore, on the way to the boat."] = "",
+[ "{npc:3644} waits where the pier meets the shore, on the way to the boat." ] = "{npc:3644} wartet, wo der Kai das Ufer trifft, auf dem Weg zum Boot...",
 
 	-- Step 33: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
@@ -212,11 +212,11 @@ return {
 	-- Step 36: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:2096} Trade District · {zone:1436} Westfall · {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	-- was: ["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "{npc:1646} steht in {object:2098}, westlich von {object:2096}: Sein Kompass liegt in seinem alten Haus in {zone:1436}, auf dem Weg."
-	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way. His reply to {npc:3649} goes back to {area:442} with you."] = "",
+[ "{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way. His reply to {npc:3649} goes back to {area:442} with you." ] = "{npc:1646} steht in {object:2098}, westlich von {object:2096}: seine com...",
 	-- {npc:1646} Baros Alexston · {npc:3649} Thundris Windweaver
-	["{npc:1646}: {npc:3649}'s letter"] = "",
+[ "{npc:1646}: {npc:3649}'s letter" ] = "{npc:1646}: {npc:3649}'s Brief",
 	-- {npc:1646} Baros Alexston · {quest:97926} Making Do · {npc:3649} Thundris Windweaver · {zone:1439} Darkshore
-	["{npc:1646}: {quest:97926}, for {npc:3649} on your next {zone:1439} visit"] = "",
+[ "{npc:1646}: {quest:97926}, for {npc:3649} on your next {zone:1439} visit" ] = "{npc:1646}: {quest:97926}, für {npc:3649} bei deinem nächsten {zone:1439} vis...",
 
 	-- Step 37: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
