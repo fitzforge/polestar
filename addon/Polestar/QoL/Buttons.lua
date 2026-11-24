@@ -3177,7 +3177,10 @@ local function seeAll()
 	end
 end
 
-ns.RegisterEvent("PLAYER_TARGET_CHANGED", function() seeUnit("target") end)
+ns.RegisterEvent("PLAYER_TARGET_CHANGED", function()
+	TL.targetRevision = (TL.targetRevision or 0) + 1
+	seeUnit("target")
+end)
 ns.RegisterEvent("UPDATE_MOUSEOVER_UNIT", function() seeUnit("mouseover") end)
 ns.RegisterEvent("NAME_PLATE_UNIT_ADDED", function(_, unit) if type(unit) == "string" then seeUnit(unit) end end)
 
@@ -3601,11 +3604,11 @@ function TL.withManual(list, verbs, ids, marks)
 	local names, kinds, npcs, special, seen = {}, {}, {}, {}, {}
 	for i = 1, math.min(#TL.manual, TL.cap) do
 		local mob = TL.manual[i]
-		names[i], kinds[i], npcs[i], special[i] = mob.name, "kill", mob.id, seenSpecial[mob.name]
-		seen[mob.name] = true
 		local info = TL.info[mob.name] or {}
 		info.npc = mob.id or info.npc
 		TL.info[mob.name] = info
+		names[i], kinds[i], npcs[i], special[i] = mob.name, "kill", info.npc, seenSpecial[mob.name]
+		seen[mob.name] = true
 	end
 	for i, name in ipairs(list) do
 		if #names == TL.cap then break end
@@ -3751,12 +3754,14 @@ end
 
 function TL.addableTarget()
 	if simple() or not QoL.On("targetButton") or not ns.GuideShown() or #TL.manual >= TL.MAX then return end
+	if flag(UnitIsPlayer, "target") ~= false or flag(UnitPlayerControlled, "target") ~= false
+		or not flag(UnitCanAttack, "player", "target") then return end
 	local C = ns.Compat
+	-- Forever can hide the GUID while the name used for targeting is readable.
 	local guid = C.Readable(UnitGUID and UnitGUID("target"))
-	if type(guid) ~= "string" or not guid:find("^Creature%-")
-		or flag(UnitPlayerControlled, "target") ~= false or not flag(UnitCanAttack, "player", "target") then return end
+	if guid and not guid:find("^Creature%-") then return end
 	local name = C.Readable(UnitName and UnitName("target"))
-	if not Buttons.MacroSafeName(name) or listed(target.list, name) then return end
+	if not Buttons.MacroSafeName(name) then return end
 	for _, mob in ipairs(TL.manual) do if mob.name == name then return end end
 	return name, guid
 end
@@ -3765,13 +3770,15 @@ function TL.addTargetMenu(_, root, context)
 	if not (context and context.fromTargetFrame and context.unit == "target") then return end
 	local name, guid = TL.addableTarget()
 	if not name then return end
+	local revision = TL.targetRevision
 	root:CreateButton(L["Add to Target List"], function()
 		-- The target can change between opening the menu and choosing its action.
+		if TL.targetRevision ~= revision then return end
 		local current, currentGuid = TL.addableTarget()
-		if current ~= name or currentGuid ~= guid then return end
+		if current ~= name or (guid and currentGuid and currentGuid ~= guid) then return end
 		TL.syncDismissals(QoL.CurrentStep())
 		TL.dismissed[name] = nil
-		table.insert(TL.manual, 1, { name = name, id = ns.Compat.GetNpcID("target") })
+		table.insert(TL.manual, 1, { name = name, id = currentGuid and ns.Compat.GetNpcID("target") })
 		refreshSoon()
 	end)
 end

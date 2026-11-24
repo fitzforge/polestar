@@ -65,7 +65,7 @@ test('a target menu adds an attackable creature once and a row right-click only 
 	`), ['Forest Wolf', true, 47, true, '', 1]);
 });
 
-test('the menu skips other frames, friends, pets, players, secret values and stale targets', () => {
+test('the menu skips other frames, friends, pets, players, unreadable names and stale targets', () => {
 	assert.deepEqual(run(`
 		mob("Forest Wolf", 47)
 		emit(targetMenu({ unit = "target" }) == nil)
@@ -81,9 +81,35 @@ test('the menu skips other frames, friends, pets, players, secret values and sta
 		q.target.controlled, q.target.guid = false, "Player-1-23"
 		emit(targetMenu() == nil)
 		mob("Forest Wolf", 47)
-		issecretvalue = function(value) return value == q.target.guid end
+		issecretvalue = function(value) return value == q.target.name end
 		emit(targetMenu() == nil)
 	`), [true, true, '', true, true, true, true]);
+});
+
+test('a mob with a readable name can be added when its GUID is secret', () => {
+	assert.deepEqual(run(`
+		mob("Forest Wolf", 47)
+		issecretvalue = function(value) return value == q.target.guid end
+		local stale = assert(targetMenu())
+		mob("Forest Wolf", 48)
+		stub.fire("PLAYER_TARGET_CHANGED")
+		stale(); stub.runTimers()
+		emit(names())
+		add()
+		emit(names())
+		emit(B.TargetInfo("Forest Wolf").npc == nil)
+	`), ['', 'Forest Wolf', true]);
+});
+
+test('a mob already shown by the guide can be kept for the session without adding a duplicate', () => {
+	assert.deepEqual(run(`
+		q.step({ { t = "kill", target = "Forest Wolf" } }, 1)
+		mob("Forest Wolf", 47); add()
+		emit(names())
+		emit(targetMenu() == nil)
+		q.step({}, 2)
+		emit(names())
+	`), ['Forest Wolf', true, 'Forest Wolf']);
 });
 
 test('guide dismissals refill the list and expire on step change while manual targets stay', () => {
