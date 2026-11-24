@@ -1023,4 +1023,21 @@ mod tests {
 		assert!(a.get("source").as_str().is_some_and(|s| s.starts_with("https://")));
 		assert!(a.get("note").truthy());
 	}
+
+	/// #3025 (Logan): the way into Gnomeregan is at the bottom of its lift, 120 yd under the tunnel from Dun Morogh.
+	/// Players' entries (on the Eastern Kingdoms map: no zone map down there) place it on Dun Morogh's map, and the
+	/// curated entry beside them gives it the lift's bottom floor, so the walk ends at the door and rides the lift.
+	#[test]
+	fn gnomeregans_way_in_carries_the_floor_at_the_bottom_of_the_lift_3025() {
+		let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../../data/codex/entrances.json")).unwrap();
+		let table = load_entrance_table(&text).unwrap().get("gnomeregan");
+		let frames = parse_json(
+			r#"{ "1415": { "c": 0, "left": 16000, "right": -19199.9, "top": 7466.6, "bottom": -16000 },
+			     "1426": { "c": 0, "left": 1802.083, "right": -3122.917, "top": -3877.083, "bottom": -7160.417 } }"#,
+		)
+		.unwrap();
+		let rec = parse_json(r#"[{ "map": 1415, "x": 43.41, "y": 53.75, "n": 156 }, { "map": 1426, "x": 42, "y": 47.09, "n": 2 }]"#).unwrap();
+		let e = choose_entrance("Gnomeregan", &rec, &table, &[], None, &V::Null, &frames, &[]);
+		assert_eq!((e.get("map").num(), e.get("x").num(), e.get("y").num(), e.get("z").num()), (1426.0, 22.0, 38.7, 248.0));
+	}
 }

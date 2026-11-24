@@ -3759,7 +3759,7 @@ do
 					note = "Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road.",
 					skipto = { { to = "ashenvale", when = { k = "onquest", neg = true, q = { 945, 967, 968, 990, 98461 } } } },
 					goals = {
-						{ t = "accept", quest = 5321, title = "The Sleeper Has Awakened", npc = 11218, npcName = "Kerlonian Evershade", minLevel = 17, qlvl = 20, limit = 1500, map = 1439, x = 43.81, y = 76.12, spotsPacked = "44.3,76.4,51.6,15,1;43.3,75.8,,15,1", escort = true },
+						{ t = "accept", quest = 5321, title = "The Sleeper Has Awakened", npc = 11218, npcName = "Kerlonian Evershade", minLevel = 17, qlvl = 20, limit = 1500, map = 1439, x = 43.81, y = 76.12, spotsPacked = "44.3,76.4,51.6,15,1;43.3,75.8,,15,1", escort = true, escortSecs = 232, escortFail = 0.32 },
 						{ t = "goto", text = "{npc:11218}", map = 1439, x = 44.4, y = 76.4, f = "e" },
 						{ t = "complete", quest = 5321, title = "The Sleeper Has Awakened", map = 1439, x = 41.6, y = 89.9, f = "e", escort = true, objs = { { text = "Escort Kerlonian Evershade on the road south to his bag", count = 1 } } },
 						{ t = "note", text = "Escort {npc:11218} south along the road to his bag at the southern edge of {zone:1439}, then go on to {npc:11219} at {area:413}." },
@@ -11412,7 +11412,7 @@ do
 					title = "{npc:5955}",
 					note = "The little turtle {npc:5955} wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Take him from the edge and leave the Thistleshrubs (48-50) alone.",
 					goals = {
-						{ t = "accept", quest = 1560, title = "Tooga's Quest", npc = 5955, npcName = "Tooga", minLevel = 40, qlvl = 50, limit = 1800, map = 1446, x = 28.59, y = 67.38, f = "e", spotsPacked = "28.59,67.38,,30;30.23,70.7,,30;29.8,73.9,,30;30.31,64.56,,30;29.47,60.44,,30", spread = true, escort = true },
+						{ t = "accept", quest = 1560, title = "Tooga's Quest", npc = 5955, npcName = "Tooga", minLevel = 40, qlvl = 50, limit = 1800, map = 1446, x = 28.59, y = 67.38, f = "e", spotsPacked = "28.59,67.38,,30;30.23,70.7,,30;29.8,73.9,,30;30.31,64.56,,30;29.47,60.44,,30", spread = true, escort = true, escortSecs = 606, escortFail = 0.11 },
 					},
 				},
 				{
@@ -13760,7 +13760,7 @@ do
 					note = "Ride west into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest.",
 					goals = {
 						{ t = "turnin", quest = 2844, title = "The Giant Guardian", npc = 7774, npcName = "Shay Leafrunner", map = 1444, x = 38.19, y = 10.32, z = 94.5 },
-						{ t = "accept", quest = 2845, title = "Wandering Shay", npc = 7774, npcName = "Shay Leafrunner", minLevel = 44, qlvl = 49, limit = 900, pre = { 2844 }, preTitles = { [2844] = "The Giant Guardian" }, map = 1444, x = 38.19, y = 10.32, z = 94.5, escort = true },
+						{ t = "accept", quest = 2845, title = "Wandering Shay", npc = 7774, npcName = "Shay Leafrunner", minLevel = 44, qlvl = 49, limit = 900, pre = { 2844 }, preTitles = { [2844] = "The Giant Guardian" }, map = 1444, x = 38.19, y = 10.32, z = 94.5, escort = true, escortSecs = 262, escortFail = 0 },
 						{ t = "collect", quest = 2845, title = "Wandering Shay", item = 9189, itemName = "Shay's Bell", count = 1, oi = 1, map = 1444, x = 38.21, y = 10.27, z = 94.4, f = "e", from = "Shay's Chest", fromKind = "object", fromId = 144054, escort = true },
 					},
 				},
@@ -14201,7 +14201,7 @@ do
 					note = "{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater.",
 					goals = {
 						{ t = "turnin", quest = 4492, title = "Lost!", npc = 9999, npcName = "Ringo", map = 1449, x = 51.84, y = 49.92, z = -231.4, note = "Below ground" },
-						{ t = "accept", quest = 4491, title = "A Little Help From My Friends", npc = 9999, npcName = "Ringo", minLevel = 50, qlvl = 55, limit = 1500, pre = { 4492 }, preTitles = { [4492] = "Lost!" }, map = 1449, x = 51.84, y = 49.92, z = -231.4, escort = true },
+						{ t = "accept", quest = 4491, title = "A Little Help From My Friends", npc = 9999, npcName = "Ringo", minLevel = 50, qlvl = 55, limit = 1500, pre = { 4492 }, preTitles = { [4492] = "Lost!" }, map = 1449, x = 51.84, y = 49.92, z = -231.4, escort = true, escortSecs = 269, escortFail = 0.17 },
 					},
 				},
 				{
@@ -19763,7 +19763,7 @@ do
 					note = "The Bloodfeather harpies nest on the slopes west and north of the glade. {quest:938}, an injured sabercat, lies by the glade's west wall among them: lead her back to Sentinel Arynia at the moonwell before her time runs out.\nCareful: The harpies stand packed together, so extra ones often join a fight. Casters are mixed in among them.",
 					goals = {
 						{ t = "collect", quest = 937, title = "The Enchanted Glade", item = 5204, itemName = "Bloodfeather Belt", count = 6, oi = 1, map = 1438, x = 37.32, y = 37.79, z = 1318.9, f = "e", spotsPacked = "36.8,38.1,1325.7,40,4;35.7,38.1,,40,8;34.5,35.03,1333.2,40,11;32.31,32.35,1332.1,42,5,,11;33.16,29.72,1320.4,30,6,,11;34.5,27.7,1328.5,61,8,,11;36.6,27.5,1322.6,57,5,,11;38.6,40.5,1314.4,40,1;37.1,41,,52,6;37.7,43.5,1324.6,57,7", spread = true, lvl = 9, fromNpcs = { { npc = 2017, npcName = "Bloodfeather Rogue" }, { npc = 2015, npcName = "Bloodfeather Harpy" }, { npc = 2018, npcName = "Bloodfeather Sorceress" }, { npc = 2019, npcName = "Bloodfeather Fury" }, { npc = 2020, npcName = "Bloodfeather Wind Witch" }, { npc = 2021, npcName = "Bloodfeather Matriarch" }, { npc = 14431, npcName = "Fury Shelda" } }, fromNpcsAt = "1,2,7,6,5,3,4;1,3,2,7,6,5,4;1,2,3,7,6,5,4;6,5,1,2,3,4,7;5,4,6,1,2,3,7;6,4,5,1,2,3,7;5,4,6,1,2,3,7;2,1,6,5,3,4,7;1,2,6,5,3,4,7;2,1,3,6,5,4,7" },
-						{ t = "accept", quest = 938, title = "Mist", npc = 3568, npcName = "Mist", minLevel = 7, qlvl = 12, limit = 540, map = 1438, x = 31.48, y = 31.7, z = 1331.6, note = "{quest:938}, by the west wall", escort = true },
+						{ t = "accept", quest = 938, title = "Mist", npc = 3568, npcName = "Mist", minLevel = 7, qlvl = 12, limit = 540, map = 1438, x = 31.48, y = 31.7, z = 1331.6, note = "{quest:938}, by the west wall", escort = true, escortSecs = 93, escortFail = 0.09 },
 						{ t = "complete", quest = 938, title = "Mist", map = 1438, x = 38.3, y = 34.4, f = "e", note = "Lead {quest:938} to the moonwell", escort = true, objs = { { text = "Lead Mist safely to Sentinel Arynia Cloudsbreak", count = 1 } } },
 					},
 				},
