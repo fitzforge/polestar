@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in German words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:3197} Chillwind Camp · {zone:1428} Burning Steppes · {zone:1419} Blasted Lands · {zone:1447} Azshara
+	["{area:3197} first, then the {zone:1428} and the {zone:1419}, then {zone:1447}."] = "Zuerst {area:3197}, dann {zone:1428} und {zone:1419}, danach {zone:1447}.",
+
 	-- Step 1: To Ironforge
 	-- {zone:1455} Ironforge
 	["To {zone:1455}"] = "Zum {zone:1455}",

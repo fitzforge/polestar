@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {zone:1451} Silithus · {zone:1446} Tanaris
-	["{zone:1451}, then Un'Goro and {zone:1446}."] = "{zone:1451}, luego Un'Goro y {zone:1446}.",
+	-- {area:976} Gadgetzan · {zone:1451} Silithus · {zone:1446} Tanaris
+	["{area:976} first, then {zone:1451}, Un'Goro and back to {zone:1446}."] = "Primero {area:976}, luego {zone:1451}, Un'Goro y de vuelta a {zone:1446}.",
 
 	-- Step 1: Innkeeper Vizzie
 	-- {npc:11118} Innkeeper Vizzie · {area:2255} Everlook · {area:2249} Frostwhisper Gorge
@@ -385,4 +385,5 @@ return {
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "Ahora {npc:9619} pide la piel de {npc:9622}, en la cueva del noreste: omítela.",
 	-- ["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "El fragmento de {quest:105} está a los pies de {npc:1852}, en el centro de Andorhal: es un élite de nivel 61 con señores de la guerra esqueléticos élite a su alrededor, una pelea para grupo.",
 	-- ["{zone:1449}: kill these as you meet them"] = "{zone:1449}: mata a estos según te los encuentres",
+	-- ["{zone:1451}, then Un'Goro and {zone:1446}."] = "{zone:1451}, luego Un'Goro y {zone:1446}.",
 }
