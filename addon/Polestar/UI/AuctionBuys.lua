@@ -32,6 +32,9 @@
 --   beside the game's window while either group has something to buy and goes
 --   with it, and each row's Search opens the item in the game's own buy view
 --   with the count filled in (Materials.Search; the player presses Buy).
+--   Each quest item's ✕ leaves it out from then on, for this character
+--   (AuctionBuys.Ignore, #3607); "Show N hidden items again" under the rows
+--   brings them all back.
 --
 -- Another heads-up on the card goes first: these wait for it to be dismissed
 -- (HEADS_UP_HIDDEN), the newest of each kind kept. Colours are Theme tokens.
@@ -307,6 +310,8 @@ local function build()
 		if N and N.Go and N.Go("auction") then F:Hide() end
 	end, { primary = true, height = 28 })
 
+	F.Unhide = W.Button(F, "", function() AB().Ignore(nil, false) end, { height = 24 })
+
 	-- The running profession guide's materials to buy (Materials.BuyRows), under the quest items.
 	F.MatHead = W.Text(F, "caption", "textDim")
 	F.MatHead:SetJustifyH("LEFT")
@@ -340,8 +345,13 @@ local function row(i, pool)
 	r.Item:SetScript("OnEnter", function(self) if self.psItem then W.ItemTip(self, self.psItem) end end)
 	r.Item:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
 	r.Item:SetScript("OnClick", function(self) if self.psItem then W.ItemClick(self.psItem) end end)
+	-- A quest item's ✕: not suggested again (the materials have their guide's own ways).
+	r.Ignore = W.IconButton(r, "close", 24, L["Don't suggest this item again"], function(self)
+		local item = self:GetParent().psItem
+		if item then AB().Ignore(item, true) end
+	end, 12)
+	r.Ignore:SetPoint("RIGHT", r, "RIGHT", 0, 0)
 	r.Search = W.Button(r, L["Search"], search, { height = 24 })
-	r.Search:SetPoint("RIGHT", r, "RIGHT", 0, 0)
 	r.Title = W.Text(r, "label", "text")
 	r.Title:SetPoint("TOPLEFT", r.Item, "TOPRIGHT", 10, 1)
 	r.Title:SetJustifyH("LEFT")
@@ -355,16 +365,20 @@ local function row(i, pool)
 end
 
 -- A row's texts run up to its Search button while the Auction House is open, else to its edge.
-local function fill(r, item, count, title, why, open)
+local function fill(r, item, count, title, why, open, ignorable)
 	r.psItem, r.psCount, r.Item.psItem = item, count, item
+	r.Ignore:SetShown(ignorable and true or false)
+	r.Search:ClearAllPoints()
+	r.Search:SetPoint("RIGHT", ignorable and r.Ignore or r, ignorable and "LEFT" or "RIGHT", ignorable and -4 or 0, 0)
 	r.Item.Icon:SetTexture(ns.Compat.ItemIcon(item) or 134400)
 	r.Title:SetText(title)
 	r.Why:SetText(why)
 	r.Search:SetShown(open)
-	local right = open and r.Search or r
-	local point = open and "LEFT" or "RIGHT"
-	r.Title:SetPoint("RIGHT", right, point, open and -8 or 0, 0)
-	r.Why:SetPoint("RIGHT", right, point, open and -8 or 0, 0)
+	local right = (open and r.Search) or (ignorable and r.Ignore) or r
+	local point = right == r and "RIGHT" or "LEFT"
+	local gap = right == r and 0 or -8
+	r.Title:SetPoint("RIGHT", right, point, gap, 0)
+	r.Why:SetPoint("RIGHT", right, point, gap, 0)
 end
 
 -- What the running profession guide still buys (Materials.BuyRows), or none.
@@ -408,7 +422,7 @@ function AU.Layout()
 		local M = ns.Materials
 		local price = M and M.Price and M.Price(e.item, e.need)
 		if price then parts[#parts + 1] = Theme.Approx() .. " " .. ns.MoneyText(price) end
-		fill(r, e.item, e.need, format(L["%d %s"], e.need, e.name), concat(parts, DOT), open)
+		fill(r, e.item, e.need, format(L["%d %s"], e.need, e.name), concat(parts, DOT), open, true)
 		r:Show()
 		y = y + ROW_H + 6
 	end
@@ -441,6 +455,14 @@ function AU.Layout()
 	F.Go:SetPoint("TOPRIGHT", F, "TOPRIGHT", -PAD, -y)
 	F.Go:SetShown(go)
 	if go then y = y + 28 + 6 end
+	local hidden = on() and AB().IgnoredCount() or 0
+	F.Unhide:ClearAllPoints()
+	F.Unhide:SetPoint("TOPRIGHT", F, "TOPRIGHT", -PAD, -y)
+	F.Unhide:SetShown(hidden > 0)
+	if hidden > 0 then
+		W.SetButtonText(F.Unhide, format(L["Show %d hidden items again"], hidden))
+		y = y + 24 + 6
+	end
 	F:SetHeight(y + PAD - 6)
 end
 

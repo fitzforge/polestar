@@ -51,6 +51,10 @@
 --       The judgement is kept until what the quests want changes (the step, the log, the guide);
 --       the bags only count again.
 --   AuctionBuys.Judge(itemID, count, goal, buys) -> why, kills, skill | false | nil (not known yet)
+--   AuctionBuys.Ignore(itemID, on) / AuctionBuys.Ignored(itemID) -> bool / AuctionBuys.IgnoredCount()
+--       an item the player said not to suggest again (#3607: "Turn these off" was too strong),
+--       left out of every list for this character (CharState().auctionIgnore) until shown again;
+--       AuctionBuys.Ignore(nil, false) shows them all again.
 
 local ADDON, ns = ...
 local Q = ns.QuestDB
@@ -402,7 +406,7 @@ function AB.List(scope)
 	local list, Cp, M = {}, C(), ns.Materials
 	for _, c in ipairs(j.cands) do
 		local have = M and M.Have and tonumber((M.Have(c.item))) or Cp.GetItemCount(c.item, true) or 0
-		if have < c.count then
+		if have < c.count and not AB.Ignored(c.item) then
 			list[#list + 1] = { item = c.item, name = c.name, need = c.count - have, have = have, count = c.count,
 				quests = c.quests, why = c.why, kills = c.kills, skill = c.skill }
 		end
@@ -434,6 +438,37 @@ local function changed()
 	announce()
 end
 AB.Changed = changed
+
+local function ignoreSet(make)
+	local st = ns.CharState and ns.CharState()
+	if type(st) ~= "table" then return nil end
+	if make and type(st.auctionIgnore) ~= "table" then st.auctionIgnore = {} end
+	return type(st.auctionIgnore) == "table" and st.auctionIgnore or nil
+end
+
+function AB.Ignored(id)
+	local set = ignoreSet(false)
+	return set ~= nil and set[id] == true
+end
+
+function AB.IgnoredCount()
+	local n = 0
+	for _ in pairs(ignoreSet(false) or {}) do n = n + 1 end
+	return n
+end
+
+-- Counted again, not judged: the judgement does not read the set.
+function AB.Ignore(id, on)
+	local set = ignoreSet(on)
+	if not set then return end
+	if id == nil then
+		if not on then for k in pairs(set) do set[k] = nil end end
+	else
+		set[id] = on and true or nil
+	end
+	cache = {}
+	announce()
+end
 -- Only what the character holds changed: counted again, not judged.
 local function recount()
 	cache = {}
