@@ -2297,7 +2297,10 @@ emit(describe(D.HandinGuide("{KEY}")))"#),
 // gives no position, so the route was planned from nowhere and kept the page's order: two hand-ins in the
 // Undercity first (the page's lower-level quests), then the one in Silverpine next to Shadowfang Keep's door.
 // With no position the route starts at the entrance (where the player comes out); in the Undercity's two
-// hand-ins stay together.
+// hand-ins stay together. #3314 (Sley, #3760 Thomas): a client that gives a position inside the instance gives it
+// on the instance's own map, from which every stop cost the same, and the City of Dalaran's Image of Archmage
+// Modera, at the door, came last: inside an instance the route starts at the entrance whatever the position says
+// (here the stub puts the player by the Undercity's enders).
 #[test]
 fn after_the_run_the_hand_in_route_starts_with_the_givers_nearest_the_way_out_then_on_in_travel_order() {
 	let (codex, inputs) = fixture_parts();
@@ -2321,7 +2324,8 @@ emit(out)"#);
 	let o = |at: Option<[i32; 3]>| Opts { at, done: vec![1098], log: vec![], ready: vec![90720, 90721, 90722], ..Default::default() };
 	let inside = run(&own, &script, o(None)).remove(0);
 	let door = run(&own, &script, o(Some([1421, 45, 67]))).remove(0);
-	for (out, at) in [(&inside, "inside the dungeon"), (&door, "at the entrance")] {
+	let placed = run(&own, &format!("function IsInInstance() return true, \"party\" end\n{script}"), o(Some([1458, 66, 44]))).remove(0);
+	for (out, at) in [(&inside, "inside the dungeon"), (&door, "at the entrance"), (&placed, "inside, with a position (#3314)")] {
 		assert_eq!(out[0], 90721, "{at}: the giver by the dungeon's door first: {out}");
 		let mut rest: Vec<i64> = out.as_array().unwrap()[1..].iter().map(|v| v.as_i64().unwrap()).collect();
 		rest.sort();
