@@ -347,10 +347,9 @@ emit(out)`,
 	assert.equal(out.polestar[0], out.own, "Polestar's own layout: its own room");
 });
 
-// A quest's [level] in the goal rows: a size smaller than the line, as a
-// string of its own after it where the line holds it on one line; in the
-// line, wrapping with it, where it does not.
-test('the Atlas goal rows draw the quest level a size smaller', () => {
+// A quest's [level] in the goal rows: none, at any width (#3876: the guide
+// window shows no quest level anywhere, Atlas included).
+test('the Atlas goal rows draw no quest level', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
 		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
@@ -366,14 +365,10 @@ stub.advance(1)
 local function look()
 	for _, row in ipairs(T.GuideParts().rows or {}) do
 		if row:IsShown() and (row.Text:GetText() or ""):find("Kobold", 1, true) then
-			local level
 			for _, r in ipairs({ row:GetRegions() }) do
-				if r ~= row.Text and r.GetText and r:IsShown() and (r:GetText() or ""):find("[24]", 1, true) then level = r end
+				if r.GetText and r:IsShown() and (r:GetText() or ""):find("[24]", 1, true) then return "level" end
 			end
-			local _, size = row.Text:GetFont()
-			local lsize
-			if level then lsize = select(2, level:GetFont()) end
-			return { inText = (row.Text:GetText() or ""):find("[24]", 1, true) ~= nil, own = level ~= nil, down = level and size - lsize or false }
+			return "none"
 		end
 	end
 	return false
@@ -389,8 +384,8 @@ stub.advance(1)
 out.narrow = look()
 emit(out)`,
 	}).emitted;
-	assert.deepEqual(out.wide, { inText: false, own: true, down: 2 }, 'on one line: its own string, 2 smaller');
-	assert.deepEqual(out.narrow, { inText: true, own: false, down: false }, 'a line that wraps: in the line');
+	assert.equal(out.wide, 'none', 'a line on one line: no level');
+	assert.equal(out.narrow, 'none', 'a line that wraps: no level');
 });
 
 // The real thing: the layout addon registers, SetLayout picks it, the window
