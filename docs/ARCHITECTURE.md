@@ -3079,6 +3079,12 @@ goes on to after it (`Own.travelOnto`), and the player stands on that step's
 continent. Thousand Needles & Desolace opens at the Undercity's zeppelin to
 Orgrimmar, where the previous guide ends; a player who loads it at Freewind
 Post goes straight to Orgrimmar instead of to the Undercity's tower and back.
+Along one continent (#1983, `Own.pastDock`), a walk that ends at a crossing's
+dock passes when both the player and the next step's work lie nearer the
+crossing's far end than the dock. A walk-in portal counts by its mouth, its
+far end being where it lands (#3906): the portal takes the player before the
+walk's goto is reached, so Tanaris's "Portal to Darnassus" passes once the
+player is in Darnassus.
 
 With the planner off the other steps hold as written. `forge guide lint`
 reports a flight to a stop with nothing to do followed by another flight
