@@ -85,6 +85,10 @@ ns.Engine = Engine
 -- the guide window calls it outgrown (GUIDE_OUTLEVELED): most players run a
 -- little ahead of the route, so 2 past the top is still the guide's ground.
 Engine.OUTGROWN = 3
+-- The same for a Class guide (Fitz, 2026-11-23, #3845): its chain is no longer
+-- offered (QoL/ClassQuests.lua) and its window calls it outgrown 5 levels past
+-- its top, never while a spell it rewards is still unknown.
+Engine.CLASS_OUTGROWN = 5
 
 -- The player's own word: goal skips, the current goal, header arrival, the
 -- saved view, state carried over pack updates. One table (Lua 5.1 caps a
@@ -581,6 +585,31 @@ function Own.usedBy(goal)
 	return hit or nil
 end
 
+-- A `buy` (no quest) of an item a quest this guide accepts asks for (an
+-- objective, the quest database: the Holy Candles for Keeping the Light On)
+-- -> those accepts, so the purchase goes with its quests (#3458): left out
+-- (Skip grey quests, the catch-up) or not this character's, it is no longer
+-- bought, counted or kept. Nil without the quest database (read live,
+-- remembered per goal once it has answered), for a buy no quest here asks
+-- for, or outside the loaded guide.
+Own.buyFor = setmetatable({}, { __mode = "k" })
+function Own.boughtFor(goal)
+	if goal.t ~= "buy" or goal.quest or not goal.item or not guide then return nil end
+	local hit = Own.buyFor[goal]
+	if hit ~= nil then return hit or nil end
+	local Q, l = ns.QuestDB, layoutOf(guide)
+	if not (l.stepOf[goal] and Q and Q.IsLoaded() and Q.Asks) then return nil end
+	hit = false
+	for q, list in pairs(l.accepts) do
+		if Q.Asks(q, goal.item) then
+			hit = hit or {}
+			for _, a in ipairs(list) do hit[#hit + 1] = a.goal end
+		end
+	end
+	Own.buyFor[goal] = hit
+	return hit or nil
+end
+
 -- A turn-in, complete or objective goal for a quest the character neither
 -- has nor has done, and that this guide does not (for this character) accept
 -- at or before that step, in a step the player has not skipped, with an
@@ -677,6 +706,18 @@ local function goalApplies(goal)
 	-- and so is one it works with (Own.usedBy, #2670).
 	local starts = goal.t == "collect" and not goal.quest and guide and layoutOf(guide).starters[goal] or Own.usedBy(goal)
 	if starts and not goalApplies(starts) then return false end
+	-- A purchase goes with the quests that ask for it (Own.boughtFor, #3458): one of them still the character's.
+	local fors = goal.t == "buy" and Own.boughtFor(goal)
+	if fors then
+		local any = false
+		for i = 1, #fors do
+			if goalApplies(fors[i]) then
+				any = true
+				break
+			end
+		end
+		if not any then return false end
+	end
 	if goal.t == "die" and not Own.deathskips() then return false end
 	-- A material's gather or Auction House goal applies while its item's way is theirs (Own.materialApplies).
 	if (goal.t == "auction" or goal.gather) and not Own.materialApplies(goal) then return false end
@@ -10700,6 +10741,21 @@ function Own.watchHearth()
 	end)
 end
 
+-- Whether the character `p` (level, faction) has outgrown guide g: Engine.OUTGROWN
+-- levels past its top; a Class guide Engine.CLASS_OUTGROWN past it, and only once
+-- they know every spell it rewards (Compat.KnowsSpell). False with no top.
+function Engine.Outgrown(g, p)
+	local _, top = Guides.Levels(g, p.faction)
+	if not top then return false end
+	local level = p.level or 1
+	if g.category ~= "Class" then return level >= top + Engine.OUTGROWN end
+	if level < top + Engine.CLASS_OUTGROWN then return false end
+	for _, r in ipairs(g.reward or {}) do
+		if r.spell and not ns.Compat.KnowsSpell(r.spell, r.spellName) then return false end
+	end
+	return true
+end
+
 -- Evaluate every tab, the active one last.
 local function evaluate()
 	lastEval = GetTime()
@@ -10716,11 +10772,10 @@ local function evaluate()
 	Own.watchHearth()
 	Own.watchWait()
 	Own.progressQueue() -- a progress count that waited for this evaluation
-	-- Out-levelled (Engine.OUTGROWN past the top): once per guide per session; for a guide the catch-up may
+	-- Out-levelled (Engine.Outgrown): once per guide per session; for a guide the catch-up may
 	-- pass whole for the player (Own.opened, autoChain), once it is placed.
 	local mayPass = placing and autoChain and Own.opened[guide and guide.id or ""] and ns.Get("behavior.skipGrey")
-	local _, top = Guides.Levels(guide, player.faction)
-	if guide and top and (player.level or 1) >= top + Engine.OUTGROWN and not outleveled[guide.id] and not mayPass then
+	if guide and not outleveled[guide.id] and not mayPass and Engine.Outgrown(guide, player) then
 		outleveled[guide.id] = true
 		local suggested = Guides.Suggest()
 		-- The next guide instead of the level-best one while the guides between
@@ -17605,20 +17660,23 @@ function Own.trainerLearned()
 end
 
 -- The open window of a class trainer of the character's class lists nothing
--- the character can learn now (no "available" service): that is the visit
--- `train class` remembers for the level too (Own.nothingToTrain), so a
--- training step never holds the guide when there is nothing new (a Dwarf at
--- 19 in Ironforge held Loch Modan's step, 2026-11-09). With a spell
--- available it waits for the spell learned, as before. Unknown without the
--- client's trainer list, or with its "available" filter off (the list then
--- hides them). On TRAINER_SHOW and TRAINER_UPDATE (the list after a purchase).
+-- new the character can learn now (no "available" service, or only new ranks
+-- of spells they know: a spellbook spell of that name, Compat.KnowsSpellNamed;
+-- #3608, JAKEJ skips ranks on purpose): that is the visit `train class`
+-- remembers for the level too (Own.nothingToTrain), so a training step never
+-- holds the guide when there is nothing new (a Dwarf at 19 in Ironforge held
+-- Loch Modan's step, 2026-11-09). With a new spell available it waits for the
+-- spell learned, as before. Unknown without the client's trainer list, or
+-- with its "available" filter off (the list then hides them). On TRAINER_SHOW
+-- and TRAINER_UPDATE (the list after a purchase).
 function Own.trainerChecked()
 	if openKind ~= "train" or not (openNpc and player) or not Engine.IsClassTrainer(openNpc) then return end
 	if not (GetNumTrainerServices and GetTrainerServiceInfo) then return end
 	if GetTrainerServiceTypeFilter and not GetTrainerServiceTypeFilter("available") then return end
+	local C = Compat()
 	for i = 1, GetNumTrainerServices() or 0 do
-		local _, kind = GetTrainerServiceInfo(i)
-		if kind == "available" then return end
+		local name, kind = GetTrainerServiceInfo(i)
+		if kind == "available" and not C.KnowsSpellNamed(C.Readable(name)) then return end
 	end
 	refreshPlayer()
 	local s, level = ns.CharState(), player.level or 1

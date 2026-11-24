@@ -361,7 +361,11 @@ version throughout.
    Then the pin coverage guard: every issue closed as completed has a test
    that names it (in `tests/reported-gate.json`, or a test mentioning `#N`),
    and every route, guide and place record still names a quest some guide
-   has. The gaps known when the guard came in are listed with why in
+   has. An issue labelled `released:<tag>` for a release already out (at or
+   before `package.json`'s version, which step 7 bumps after the gates) is
+   that release's fix, not this one's: a report closed as already fixed
+   carries the older release's label (CONTRIBUTING.md, "How a report is
+   handled"). The gaps known when the guard came in are listed with why in
    `tests/pin-coverage.json`; anything else fails:
 
    ```sh

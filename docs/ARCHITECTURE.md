@@ -171,7 +171,7 @@ out again (`GF.Layout`) only when its text would change, never for the login
 check alone.
 
 Modules fire their own (`TABS_CHANGED`, `ROUTE_*`, `TRAIN_DUE`,
-`CLASS_TRAINED`, `GUIDE_OUTLEVELED`, `QUESTDB_*`, `CODEX_LOADED`,
+`CLASS_TRAINED`, `GUIDE_OUTLEVELED`, `CARRIED_CHANGED`, `QUESTDB_*`, `CODEX_LOADED`,
 `ITEMDB_LOADED`, `GEAR_UPDATED`, `FLIGHT_STARTED`/`FLIGHT_ENDED`,
 `FLIGHT_MARK_CHANGED`, `QOL_HEARTH_CHANGED`, `QOL_XP_UPDATED`, `MOUNT_SPOTTED`, `RARE_SPOTTED`,
 `RARE_NAMED`, `RARES_HISTORY`, `SHOW_LOOKUP`, `SHOW_DUNGEON`, `SHOW_RARES`), documented
@@ -1994,7 +1994,10 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   for that guide for the session).
 - **Out-levelled guides.** When the player's level exceeds the active guide's
   top (`maxLevel`, or their side's `factionLevels` one: `Guides.Levels`) by
-  `Engine.OUTGROWN` (3) or more, the Engine fires `GUIDE_OUTLEVELED(guideId,
+  `Engine.OUTGROWN` (3) or more (`Engine.Outgrown`; a Class guide by
+  `Engine.CLASS_OUTGROWN` (5), and only once the character knows every spell
+  its `reward` lines name, the level where QoL/ClassQuests.lua stops
+  offering it, #3845), the Engine fires `GUIDE_OUTLEVELED(guideId,
   suggestedId)` once per guide per session, once the guide is placed (a
   catch-up may pass it whole first); the UI offers the jump. While the
   guides between the active one and the level-best suggestion still hand in

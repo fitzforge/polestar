@@ -100,9 +100,11 @@ Polestar.Guides = {
 	GuideMatches = function(g, p) return not g.classes or g.classes[1] == p.class end,
 }
 local gates = { ["c/air"] = { level = 30 } }
+local outgrown = {}
 Polestar.Engine = {
 	StartGate = function(id) return gates[id] end,
 	GetGuideState = function() return "new" end,
+	Outgrown = function(g) return outgrown[g.id] == true end,
 }
 local offers = {}
 Polestar.On("CLASS_QUEST_READY", function(n) offers[#offers + 1] = n end)
@@ -1044,4 +1046,55 @@ emit(r)"#
 			.into(),
 	});
 	assert_eq!(out[0], json!({ "first": 35, "at30": false, "at33": false, "at34": true }));
+}
+
+#[test]
+fn a_guide_the_engine_calls_outgrown_is_never_offered_3845() {
+	let out = run_qol(
+		r#"
+		outgrown["c/fire"] = true
+		levelUp(20)
+		emit(#offers)"#,
+	);
+	assert_eq!(out[0], 0);
+}
+
+// NoThink's report (#3845): a level-25 Human mage in Duskwood was offered the level-15 class quest (Manaweave Robe,
+// levels 15-17), and the guide it opened called itself outgrown at once. Fitz, 23 Nov: a class quest stops being
+// offered 5 levels past its guide's top, unless it rewards a spell the character still lacks (Bear Form, 10-12).
+// The shipped pack, the real Engine.Outgrown.
+#[test]
+fn a_class_quest_stops_being_offered_five_levels_past_its_guide_s_top_unless_its_spell_is_still_missing_3845() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: r#"
+local w = stub.world
+w.addMap(1431, { name = "Duskwood", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.race, w.raceName, w.raceID, w.class, w.className, w.classID, w.faction, w.level = "Human", "Human", 1, "MAGE", "Mage", 8, "Alliance", 21
+w.moveTo(1431, 50, 50)
+"#
+		.into(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "QoL/QoL.xml"]), Addon::name("Polestar_Guides"), Addon::name("Polestar_Guides_Alliance")],
+		saved: vec![("Polestar".into(), "PolestarCharDB = { schema = 1 }".into())],
+		login: true,
+		script: r#"
+local G, E, CQ = Polestar.Guides, Polestar.Engine, Polestar.QoL.ClassQuests
+local robe = "forever/class/mage/manaweave-robe"
+local function ready(id)
+	for _, g in ipairs(CQ.Ready()) do if g.id == id then return true end end
+	return false
+end
+local r = { levels = { G.Levels(G.Get(robe), "Alliance") } }
+for _, n in ipairs({ 21, 22, 25 }) do stub.world.setLevel(n); stub.advance(2); r["robe" .. n] = ready(robe) end
+-- Bear Form (10-12) for a Night Elf druid: 17 is 5 past its top; the spell decides.
+local bear = G.Get("forever/class/druid/bear-form")
+local p = { level = 17, faction = "Alliance" }
+r.bearMissing = E.Outgrown(bear, p)
+stub.world.learnSpell(5487)
+r.bearKnown = E.Outgrown(bear, p)
+r.bearAt16 = E.Outgrown(bear, { level = 16, faction = "Alliance" })
+emit(r)"#
+			.into(),
+	});
+	assert_eq!(out[0], json!({ "levels": [15, 17], "robe21": true, "robe22": false, "robe25": false, "bearMissing": false, "bearKnown": true, "bearAt16": false }));
 }

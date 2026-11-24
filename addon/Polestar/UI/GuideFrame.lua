@@ -3927,6 +3927,8 @@ GF.Part(function(GF)
 		ns.On("STEP_CHANGED", whenReady(GF.Render))
 		ns.On("STEP_UPDATED", whenReady(GF.Update))
 		ns.On("PARTY_PROGRESS", whenReady(GF.Update))
+		-- The finished quests to hand in elsewhere changed off the step (RoutePlan, #3568): the row follows.
+		ns.On("CARRIED_CHANGED", whenReady(GF.Update))
 		-- A finished guide's card counts the quests in the log (GF.EndQuestLines):
 		-- one taken, handed in or abandoned paints it afresh. Only on that card.
 		ns.RegisterEvent("QUEST_LOG_UPDATE", function()
