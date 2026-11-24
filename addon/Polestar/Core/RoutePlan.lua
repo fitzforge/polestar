@@ -248,6 +248,27 @@ function Plan.GetTurnIn(questId)
 	return r
 end
 
+-- The later guide quest q, in the log, is kept for (#3390): a guide of the
+-- route after the active one hands it in (GetTurnIn's "later"). The Booty
+-- Bay quests the Stranglethorn guide takes for the next one's Wild Shore
+-- stop. -> that guide's id and title (its id when it has none), or nil (not
+-- in the log, handed in by the active guide, or by no guide of the route).
+function Plan.KeptFor(q)
+	local C = ns.Compat
+	if not (q and C and C.IsOnQuest and C.IsOnQuest(q)) then return nil end
+	local r = Plan.GetTurnIn(q)
+	if r.status == "later" and type(r.guide) == "string" then return r.guide, r.title or r.guide end
+	return nil
+end
+
+-- Whether the route still hands quest q in ahead (this guide's live step on,
+-- or a later guide's): a quest that left the log is one the player may take
+-- again (Engine, Own.retakeAsk, #3390).
+function Plan.StillHandsIn(q)
+	local r = q and Plan.GetTurnIn(q)
+	return r ~= nil and AHEAD[r.status] == true
+end
+
 function Plan.Describe(result)
 	local r = result or { status = "noGuide" }
 	local E = ns.Engine
