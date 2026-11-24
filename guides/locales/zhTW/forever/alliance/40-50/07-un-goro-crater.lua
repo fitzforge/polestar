@@ -13,8 +13,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "飛往{area:150}",
-	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "{zone:1455}飛行管理員",
 
 	-- Step 3: Theramore
 	["Theramore"] = "塞拉摩",
@@ -235,4 +233,5 @@ return {
 	-- ["{npc:9998}, at the refuge entrance"] = "{npc:9998}，在避難營入口",
 	-- ["{npc:9998}, at the refuge's entrance"] = "{npc:9998}，在避難營入口",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}坐在環形山中央{area:537}的東南坡上。",
+	-- ["{zone:1455} flight master"] = "{zone:1455}飛行管理員",
 }

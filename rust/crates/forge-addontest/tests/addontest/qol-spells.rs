@@ -430,7 +430,7 @@ fn the_level_up_card_shows_the_spells_their_cost_the_trainer_and_hides_by_itself
 		emit(card())
 		emit(#stub.sounds)
 		stub.advance(31)
-		emit(card().shown)"#,
+		emit(card().shown and card().title or false)"#,
 	);
 	let c = &out[0];
 	assert_eq!(c["shown"], true, "{c}");
@@ -441,7 +441,9 @@ fn the_level_up_card_shows_the_spells_their_cost_the_trainer_and_hides_by_itself
 	assert_eq!(c["route"], "Class trainer: High Priestess Laurena, Stormwind City.", "{c}");
 	assert_eq!(c["act"], "Show me");
 	assert_eq!(out[1], 0, "a quiet card: no chime");
-	assert_eq!(out[2], false, "gone by itself");
+	// Gone by itself; a class quest card waiting behind it (a level 10 Priest's Divine Grace, its giver placed
+	// since #2472) may come up next.
+	assert_ne!(out[2], "3 new spells to train", "gone by itself");
 }
 
 #[test]

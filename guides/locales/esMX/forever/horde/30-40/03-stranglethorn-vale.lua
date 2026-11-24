@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Vuela a {area:1637}",
-	-- {area:2408} Shadowprey Village
-	["{area:2408} flight master"] = "Maestro de vuelo de {area:2408}",
 
 	-- Step 2: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
@@ -266,6 +264,7 @@ return {
 	-- ["from {npc:4723}"] = "de {npc:4723}",
 	-- ["grind on {npc:1142}"] = "farmea {npc:1142}",
 	-- ["grind on {npc:686}"] = "farmea {npc:686}",
+	-- ["{area:2408} flight master"] = "Maestro de vuelo de {area:2408}",
 	-- ["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35."] = "Las siguientes misiones de {area:35} y de {object:3202} son de nivel 35-38. ¿Sigues por debajo de 35 después de la entrega de Aggro'gosh? Los Raptores colazote (35) cazan en la selva justo al norte de {object:3202}: mátalos hasta el nivel 35.",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, en {object:20691}",
 	-- ["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465}: para forever/horde/40-50/01-stranglethorn-vale",

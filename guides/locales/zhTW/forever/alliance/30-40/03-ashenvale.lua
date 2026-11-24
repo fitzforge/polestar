@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "飛往{area:150}",
-	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "{zone:1453}飛行管理員",
 
 	-- Step 2: Red Jack Flint
 	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
@@ -215,4 +213,5 @@ return {
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}、{npc:4963}和{npc:4962}·賈恩都在米奈希爾的旅店；你和{npc:4963}說話時塔伯克會攻擊你，但被打敗後就會投降。{npc:1480}站在旅店東北方不遠處。",
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}散布在整片鹽湖上。恐蠍搶奪者和鹽湖食腐鷲在北半部遊蕩，鹽殼龜（30-31）在鹽湖中部：獵殺牠們取得龜殼。注意：鹽殼鉗嘴龜（34-35）在整片鹽湖遊蕩，鹽石凝視者（34-35）和恐蠍（33-34）佔據最南端：別理牠們，待在北半部。",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}：交給{area:415}的{npc:3961}",
+	-- ["{zone:1453} flight master"] = "{zone:1453}飛行管理員",
 }

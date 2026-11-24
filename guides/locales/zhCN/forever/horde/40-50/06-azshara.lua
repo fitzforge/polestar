@@ -9,8 +9,6 @@ return {
 	-- Step 2: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "飞往{area:35}",
-	-- {area:75} Stonard
-	["{area:75} flight master"] = "{area:75}的飞行管理员",
 
 	-- Step 3: Booty Bay
 	-- {area:75} Stonard · {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
@@ -317,6 +315,7 @@ return {
 	-- ["grind on {npc:6125}"] = "击杀{npc:6125}刷经验",
 	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}：沿途击杀以下目标",
 	-- ["{area:1221}: kill these as you meet them"] = "{area:1221}：沿途遇到就击杀",
+	-- ["{area:75} flight master"] = "{area:75}的飞行管理员",
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{zone:1456}的{npc:246344}；{zone:1454}没有圣骑士训练师",
 	-- ["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}，在暗巷区：如果你还带着它",
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}：熊在{zone:1448}",
