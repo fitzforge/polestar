@@ -134,24 +134,28 @@ return {
 	-- {npc:5471} Dunemaul Ogre
 	["grind on {npc:5471}, at the compound's south end"] = "farmea {npc:5471}, en el extremo sur del recinto",
 
-	-- Step 26: Tooga's escort
+	-- Step 26: Tooga
+	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
+	["The little turtle {npc:5955} wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Take him from the edge and leave the Thistleshrubs (48-50) alone."] = "",
+
+	-- Step 27: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "La escolta de {npc:5955}",
-	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
-	["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "La pequeña tortuga {npc:5955} vaga por el borde oeste de {quest:3362}, sobre todo por donde lleva la flecha: tómalo desde el borde y deja en paz a los Cardizales (48-50). Llévalo a casa de su esposa {npc:6015}, junto al agua justo al este de {area:977}: camina despacio y las bestias del desierto lo atacan, así que mantenlo con vida.",
+	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port
+	["Lead {npc:5955} home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "",
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}, a su lado: Oasis",
 
-	-- Step 27: Steamwheedle Port
+	-- Step 28: Steamwheedle Port
 	-- {npc:6015} Torta · {area:977} Steamwheedle Port
 	["From {npc:6015}, {area:977} is just west along the shore."] = "Desde {npc:6015}, {area:977} está justo al oeste por la costa.",
 
-	-- Step 28: Caliph Scorpidsting
+	-- Step 29: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Cabalga al sureste hasta {area:985}. {npc:7847} está en el centro del campamento Vagayermos del sur: despeja primero a su alrededor.\nCuidado: Dos pícaros Vagayermos en sigilo lo acompañan adondequiera que vaya. En su campamento de aparición, dos magos oscuros y sus esbirros están lo bastante cerca para sumarse a la pelea. Junto a las torres puedes pelear con él sin ellos.",
 
-	-- Step 30: Fly to Auberdine
+	-- Step 31: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Vuela a {area:442}",
 	-- {zone:1457} Darnassus · {npc:7763} Curgle Cranklehop · {area:442} Auberdine · {area:150} Menethil Harbor · {area:348} Aerie Peak
@@ -159,13 +163,13 @@ return {
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Maestro de vuelo de {area:976}",
 
-	-- Step 31: Teldrassil
+	-- Step 32: Teldrassil
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:3838} Vesprystus
 	["Take the boat from {area:442}'s dock to {area:702}; {npc:3838}, the hippogryph master, stands on the rise just east of the landing: learn the flight path on the way up to the village."] = "Toma el barco desde el muelle de {area:442} hasta {area:702}; {npc:3838}, el maestro de hipogrifos, está en la loma justo al este del desembarcadero: aprende la ruta de vuelo de camino a la aldea.",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "Maestro de vuelo de {area:702}",
 
-	-- Step 32: Rut'theran Village
+	-- Step 33: Rut'theran Village
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} está arriba, encima de {npc:7916}: sube por adentro, la flecha no distingue los pisos.",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
@@ -174,45 +178,45 @@ return {
 	["{npc:7916}: the feathers lie in the {zone:1425}, next"] = "{npc:7916}: las plumas están en {zone:1425}, lo siguiente",
 	["the book on her table"] = "el libro sobre su mesa",
 
-	-- Step 34: Temple of the Moon
+	-- Step 35: Temple of the Moon
 	["Temple of the Moon"] = "Templo de la Luna",
 	-- {zone:1457} Darnassus
 	["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "Cruza el portal hacia {zone:1457}. El Templo de la Luna está en el sur de la ciudad.",
 
-	-- Step 38: Cenarion Enclave
+	-- Step 39: Cenarion Enclave
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}, en lo alto del árbol",
 
-	-- Step 39: Class trainer
+	-- Step 40: Class trainer
 	["Class trainer"] = "Instructor de clase",
 
-	-- Step 40: Cenarion Enclave
+	-- Step 41: Cenarion Enclave
 	-- {zone:1449} Un'Goro Crater
 	["the soil comes from {zone:1449}, later"] = "la tierra viene de {zone:1449}, más adelante",
 
-	-- Step 41: Portal to Teldrassil
+	-- Step 42: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "Portal a {zone:1438}",
 
-	-- Step 43: Boat to Menethil Harbor
+	-- Step 44: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "Barco a {area:150}",
 
-	-- Step 44: Fly to Aerie Peak
+	-- Step 45: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "Vuela a {area:348}",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "Maestro de vuelo de {area:150}",
 
-	-- Step 45: Fly to Southshore
+	-- Step 46: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Vuela a {area:271}",
 
-	-- Step 46: Hinterlands
+	-- Step 47: Hinterlands
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1425} Hinterlands
 	["No flight path to {area:348} yet: ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border."] = "Aún no tienes ruta de vuelo a {area:348}: cabalga al noreste saliendo de {area:271} por el camino hacia {zone:1425}; {area:348} está justo pasando la frontera.",
 
-	-- Step 47: Aerie Peak
+	-- Step 48: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master"] = "{npc:5636}, junto al maestro de vuelo",
 	-- {npc:7884} Fraggar Thundermantle
@@ -246,6 +250,7 @@ return {
 	-- ["The Wanted poster by {npc:7882}"] = "El cartel de Se busca junto a {npc:7882}",
 	-- ["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "La pequeña tortuga {npc:5955} se esconde en el extremo norte del valle. Llévalo a casa con su esposa {npc:6015}, junto al agua justo al este de {area:977}: camina despacio y las bestias del desierto lo atacan, así que mantenlo con vida.",
 	-- ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "La pequeña tortuga {npc:5955} se esconde en el extremo norte de {quest:3362}: tómalo desde el borde y deja en paz a los Cardizales (48-50). Llévalo a casa con su esposa {npc:6015}, junto al agua justo al este de {area:977}: camina despacio y las bestias del desierto lo atacan, así que mantenlo con vida.",
+	-- ["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "La pequeña tortuga {npc:5955} vaga por el borde oeste de {quest:3362}, sobre todo por donde lleva la flecha: tómalo desde el borde y deja en paz a los Cardizales (48-50). Llévalo a casa de su esposa {npc:6015}, junto al agua justo al este de {area:977}: camina despacio y las bestias del desierto lo atacan, así que mantenlo con vida.",
 	-- ["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later."] = "Los pícaros, magos oscuros y asesinos Vagayermo, más duros, acampan al sureste de {area:976}, al sur de los bandidos. Deja a {npc:7847}, en el centro del campamento del sur, para más tarde.",
 	-- ["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240} está en {area:439}, al sureste de {zone:1441}: {npc:4454} está en el campamento de los gnomos junto a la pista, y Zamek, junto al campamento goblin.",
 	-- ["Underwater"] = "Bajo el agua",

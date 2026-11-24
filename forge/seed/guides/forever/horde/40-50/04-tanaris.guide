@@ -118,9 +118,18 @@ step Thistleshrub Valley
   collect 8428 quest 2605.1 @29.2,66.1
   collect 8623 optional                 -- OOX-17/TN Distress Beacon, a rare drop
 
+step Tooga
+  tip Tooga, a little turtle, wanders the west edge of the Thistleshrub Valley between several spots: the arrow goes from one to the next until you find him. Leave the Thistleshrubs (48-50) alone.
+  loop
+  goto 28.59,67.38 map 1446
+  goto 30.23,70.7 map 1446
+  goto 29.8,73.9 map 1446
+  goto 30.31,64.56 map 1446
+  goto 29.47,60.44 map 1446
+  accept 1560                                    -- Tooga
+
 step Tooga's escort
-  tip Tooga waits in the valley. Walk him all the way to his wife Torta in Steamwheedle Port, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. Yeh'kinya stands in the port too.
-  accept 1560 @30.2,70.7 map 1446                -- Tooga
+  tip Walk Tooga all the way to his wife Torta in Steamwheedle Port, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. Yeh'kinya stands in the port too.
   complete 1560
   turnin 1560                           -- Torta, Steamwheedle Port
   turnin 3520                           -- Yeh'kinya

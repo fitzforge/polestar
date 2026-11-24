@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "飛往{area:2255}",
-	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "{area:489}飛行管理員",
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
@@ -512,6 +510,7 @@ return {
 	-- ["{area:2247}: kill these as you meet them"] = "{area:2247}：遇到就殺",
 	-- ["{area:2255} flight master"] = "{area:2255}飛行管理員",
 	-- ["{area:2255}'s inn"] = "{area:2255}的旅店",
+	-- ["{area:489} flight master"] = "{area:489}飛行管理員",
 	-- ["{item:12771}, a rare drop"] = "{item:12771}，稀有掉落",
 	-- ["{item:12886}; inside"] = "{item:12886}；室內",
 	-- ["{item:12888}; inside"] = "{item:12888}；室內",

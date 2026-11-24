@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Prendre un vol pour {area:272}",
-	-- {area:1446} Thorium Point
-	["{area:1446} flight master"] = "Maître de vol de {area:1446}",
 
 	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
@@ -216,6 +214,7 @@ return {
 	-- ["Vulture hills"] = "Collines des vautours",
 	-- ["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples."] = "À l'ouest de l'île, les Scalpeurs Vilebranch tiennent les temples d'{area:1884} et de {area:1917}. Les outils du Forgeron Slagtree se trouvent dans l'un des temples.",
 	-- ["grind on {npc:5982} at the northern hills, {zone:1419}"] = "tuez des {npc:5982} sur les collines du nord, {zone:1419}",
+	-- ["{area:1446} flight master"] = "Maître de vol de {area:1446}",
 	-- ["{area:321} flight master"] = "Maître de vol de {area:321}",
 	-- ["{npc:6741}: for {zone:1456}, around level 50"] = "{npc:6741} : pour {zone:1456}, vers le niveau 50",
 	-- ["{npc:7825}, the {object:36126}"] = "{npc:7825}, {object:36126}",

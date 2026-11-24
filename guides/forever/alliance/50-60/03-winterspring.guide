@@ -31,8 +31,6 @@ next forever/alliance/50-60/04-western-plaguelands
 # ---------------------------------------------------------------- Donova Snowden
 
 step Fly to Everlook
-  zone Feralas
-  goto 89.5,45.9 "Thalanaar flight master"
   fly "Everlook"
   zone Winterspring
 

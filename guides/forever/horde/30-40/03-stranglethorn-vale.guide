@@ -12,8 +12,6 @@ next forever/horde/30-40/04-dustwallow-marsh
 
 step Fly to Orgrimmar
   only !Druid
-  zone Desolace
-  goto 21.6,74.0 "Shadowprey Village flight master"
   fly "Orgrimmar"
   zone Orgrimmar
 
