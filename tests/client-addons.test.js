@@ -85,6 +85,10 @@ test('the Update all tooltip points guide updates that need confirmation to Comm
 	);
 	assert.equal(
 		updateAllTitle(s),
-		'Installs 1 addon update and 1 community guide update. 2 community guide updates need your OK first: open Community Guides.',
+		'Installs 1 addon update and 1 community guide update. 2 community guide updates ask first: open Community Guides.',
+	);
+	assert.equal(
+		updateAllTitle(snapshot([{ status: 'update' }], [pack({ status: 'replaced' })])),
+		'Installs 1 addon update. 1 community guide update asks first: open Community Guides.',
 	);
 });

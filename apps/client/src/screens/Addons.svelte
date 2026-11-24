@@ -156,7 +156,7 @@
 				class:primary={!addons.gameRunning}
 				class:armed={armed === 'all'}
 				disabled={updatingAll || !addons.gameFound}
-				title={updateAllTitle(snapshot)}
+				title={addons.gameFound ? updateAllTitle(snapshot) : 'Find the game folder first (Settings > Game).'}
 				onclick={() => (addons.gameRunning ? confirm('all', updateAll) : updateAll())}
 				in:swap
 			>

@@ -158,9 +158,10 @@ the upload API, and the public list of what is never collected.
   guide was replaced by another one: it shows as replaced and is only
   installed after you confirm. An update whose publisher or folders changed
   also asks first, naming what changed. Guide updates count in the Community
-  Guides badge; Update all takes only the routine ones, and its tooltip says so. They install by
-  themselves only with their own setting, "Update guides automatically"
-  (off by default), and then only with the game closed, a day after the
+  Guides badge; Update all takes only the routine ones, and its tooltip says
+  so. They install by themselves only with their own setting, "Update guides
+  automatically" (off by default), and then only with the game closed, a day
+  after the
   version was published, and with the same uid, publisher and folders;
   anything else is announced in
   the tray and waits for you. With any guide installed, the 6-hourly check

@@ -29,6 +29,6 @@ export function updateAllTitle(s: Snapshot): string {
 	const routine = routineGuideCount(s);
 	const parts = [addons && updates(addons, 'addon'), routine && updates(routine, 'community guide')].filter(Boolean);
 	const held = guideUpdateCount(s) - routine;
-	const wait = held > 0 ? ` ${updates(held, 'community guide')} ${held === 1 ? 'needs' : 'need'} your OK first: open Community Guides.` : '';
+	const wait = held > 0 ? ` ${updates(held, 'community guide')} ${held === 1 ? 'asks' : 'ask'} first: open Community Guides.` : '';
 	return `Installs ${parts.join(' and ')}.${wait}`;
 }
