@@ -18609,6 +18609,14 @@ test('forever/professions: a recipe taught in an earlier section is learned agai
 	assert.ok(late && late.step.goals.some((g) => g.t === 'learn' && g.spell === 3278), 'Heavy Wool Bandage 125-150 learns it');
 });
 
+// #3365 (0.4.1.1, Felwood): the Corrupted Sabers line read only "Complete Corrupted Sabers" while the arrow led to
+// Winna Hazzard at Bloodvenom Post; its one objective is returning the cat to her. The line names her.
+test('forever/horde/50-60/03-winterspring.guide: the Corrupted Sabers line names Winna Hazzard (#3365)', { skip }, () => {
+	const list = goals('forever/horde/50-60/03-winterspring.guide');
+	const { goal } = list[at(list, 'complete 4506', is('complete', 4506))];
+	assert.match(goal.note || '', /Winna Hazzard/);
+});
+
 // #3512 #3492 #3489 #3486 #3481 (Stö, 0.4.2, Mount Hyjal): "talked with Whisperfur / Brie / Solstice / the Peasant /
 // Elder Pinespeaker but the guide didn't mark it". A `talk` with no quest ticks only on something the player does in
 // the NPC's window (a gossip choice, an accept, a hand-in: #741), but players' recordings show these lines tick with
