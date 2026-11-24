@@ -773,10 +773,24 @@ ns.UI.GuideFrame.Part(function(GF)
 			placeLink(banner.Jump, n.kind == "old" and L["How to update"] or L["Update"], 0, -4)
 			banner.Close:SetShown(n.closable)
 		end
-		-- The action on the right: the text stops short of it, no row under.
+		-- The action on the right: the text stops short of it, no row under,
+		-- while the text still reads on one line there. Text that would wrap
+		-- into a narrow column beside it (#3878: Atlas's "Fresh start" card ran
+		-- six short lines) keeps the full width, the action on its own line
+		-- under it at the right.
 		if onRight > 0 and banner.Jump:IsShown() then
-			banner.Text:SetWidth(width - PAD * 2 - 21 - closeRoom - onRight)
-			oneLine = true
+			local full = banner.Text:GetWidth()
+			banner.Text:SetWidth(full - onRight)
+			local text = banner.Text:GetText() or ""
+			local lineH = banner.Text:GetLineHeight() or 12
+			if not text:find("\n", 1, true) and banner.Text:GetStringHeight() <= lineH * 1.5 then
+				oneLine = true
+			else
+				banner.Text:SetWidth(full)
+				banner.Jump:ClearAllPoints()
+				banner.Jump:SetPoint("TOPRIGHT", banner.Text, "BOTTOMRIGHT", 0, -4)
+				onRight = 0
+			end
 		end
 		if noClose then banner.Close:Hide() end
 		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + (secondRow and laterPlaced and 4 + 18 or 0) + 9 + 0.5)
