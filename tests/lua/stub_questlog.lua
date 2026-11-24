@@ -18,6 +18,7 @@
 --   ql.log = { id, ... }                 -- quests in the log, in order
 --   ql.updateLog()                       -- QuestLogQuests_Update()
 --   ql.logText(id) -> title text in the log
+--   ql.hoverLog(id) -> GameTooltip's lines with the cursor on its row (QuestMapLogTitleButton_OnEnter)
 --   ql.updateTracker(id [, campaign])    -- the module's LayoutContents for one watched quest
 --   ql.trackerText(id [, campaign])
 --   ql.gossip({ { id, active = bool, level = n }, ... }) -> { buttons }  (GossipFrameSharedMixin:Update)
@@ -121,6 +122,22 @@ function ql.updateLog() QuestLogQuests_Update() end
 function ql.logText(id)
 	for b in QuestScrollFrame.titleFramePool:EnumerateActive() do
 		if b.questID == id then return b.Text:GetText() end
+	end
+end
+
+-- QuestMapLogTitleButton_OnEnter: the row's tooltip, the title first (the client's own lines after it left out).
+function QuestMapLogTitleButton_OnEnter(self)
+	GameTooltip:SetOwner(self, "ANCHOR_PRESERVE")
+	GameTooltip:SetText(self.info.title)
+end
+
+-- The cursor on quest id's row in the log -> the tooltip's lines.
+function ql.hoverLog(id)
+	for b in QuestScrollFrame.titleFramePool:EnumerateActive() do
+		if b.questID == id then
+			QuestMapLogTitleButton_OnEnter(b)
+			return GameTooltip.lines
+		end
 	end
 end
 
