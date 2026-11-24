@@ -39,7 +39,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Vuela a {area:1099}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 6: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {zone:1446} Tanaris
@@ -52,7 +52,7 @@ return {
 
 	-- Step 8: Fly to Brackenwall Village
 	-- {area:496} Brackenwall Village
-	["Fly to {area:496}"] = "",
+	["Fly to {area:496}"] = "Vuela a {area:496}",
 	-- {zone:1444} Feralas · {zone:1446} Tanaris · {area:496} Brackenwall Village
 	["No Muisek vessel to bring Uzer'i (you didn't take the {zone:1444} & {zone:1446} guide's chain): fly from here straight to {area:496}."] = "",
 
@@ -64,11 +64,11 @@ return {
 	-- {npc:4500} Overlord Mok'Morokk · {npc:4502} Tharg · {npc:4501} Draz'Zilb · {area:511} Wyrmbog
 	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "",
 	-- {npc:4501} Draz'Zilb
-	["{npc:4501}, below ground"] = "",
+	["{npc:4501}, below ground"] = "{npc:4501}, bajo tierra",
 
 	-- Step 11: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
-	["The {object:2555}"] = "",
+	["The {object:2555}"] = "{object:2555}",
 
 	-- Step 12: The Musty Scroll
 	-- {object:2555} Musty Scroll
@@ -76,7 +76,7 @@ return {
 	-- {object:2555} Musty Scroll
 	["the {object:2555}"] = "{object:2555}",
 	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "",
+	["Inside {area:498}"] = "Dentro de {area:498}",
 
 	-- Step 13: The Musty Scroll
 	-- {object:2555} Musty Scroll
@@ -84,7 +84,7 @@ return {
 
 	-- Step 14: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
-	["{area:510}: kill these as you meet them"] = "",
+	["{area:510}: kill these as you meet them"] = "{area:510}: mátalos según te los encuentres",
 	-- {area:511} Wyrmbog
 	-- was: ["Ride south-west to the {object:2555}, then east through the {area:511}. The Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Cabalga hacia el suroeste hasta {object:2555} y luego al este por {area:511}. Los Exploradores y Ceniazotes Pirocabello recorren su borde norte con las Proles y Crías abrasadoras; los Horrocrustos guardan las cuevas de dragones más al sureste. El rapé, el grog y la caja fuerte de Mok'Morokk están en los campamentos de los dragonantes."
 	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "",
@@ -110,7 +110,7 @@ return {
 	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak
 	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon instead."] = "El desafío de {npc:4500}, de vuelta en Murohelecho, requiere un grupo de tres. Si vas solo, mata Exploradores Pirocabello aquí, en el borde norte de {area:511}, hasta el nivel 45.37 antes de volver cabalgando al norte, para no tener que bajar otra vez a por ello. O bien, con un grupo, haz en su lugar la mazmorra de {area:978}.",
 	-- {npc:4329} Firemane Scout
-	["grind on {npc:4329}"] = "",
+	["grind on {npc:4329}"] = "mata {npc:4329}",
 
 	-- Step 19: Brackenwall Village
 	-- {npc:4791} Nazeer Bloodpike · {item:5942} Jeweled Pendant
@@ -166,6 +166,7 @@ return {
 	-- ["The {area:1108}"] = "{area:1108}",
 	-- ["The {area:511}"] = "{area:511}",
 	-- ["Three zones, lots of travel"] = "Tres zonas, muchos viajes",
+	-- ["To {area:1099}"] = "A {area:1099}",
 	-- ["To {area:75}"] = "A {area:75}",
 	-- ["Underwater"] = "Bajo el agua",
 	-- ["You start in {area:75}. Bind here: you hearth back after the coast."] = "Empiezas en {area:75}. Vincula aquí tu Piedra de hogar: volverás con ella después de la costa.",
@@ -179,15 +180,21 @@ return {
 	-- ["for the {object:2555} in {zone:1445}, later in this guide"] = "para {object:2555} en {zone:1445}, más adelante en esta guía",
 	-- ["for the {zone:1425} owlbeasts, around level 48"] = "para las lechubestias de {zone:1425}, hacia el nivel 48",
 	-- ["for the {zone:1425}, around level 50"] = "para {zone:1425}, hacia el nivel 50",
+	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}: mátalos según te los encuentres",
+	-- ["{area:2403}: kill these as you meet them"] = "{area:2403}: mátalos según te los encuentres",
+	-- ["{area:496} flight master"] = "Maestro de vuelo de {area:496}",
 	-- ["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904}, sobre los Zancaolas y Zancaprofundas del agua",
 	-- ["{item:18958}, from the Sea Sprays"] = "{item:18958}, de los Rocíos marinos",
 	-- ["{npc:2934}, on the way back to Zinge"] = "{npc:2934}, de camino de vuelta a Zinge",
 	-- ["{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "{npc:4500} es élite: se recomienda ir en grupo. Golpéalo hasta que se rinda y luego informa a {npc:4501}.",
 	-- ["{npc:4773}, riding trainer"] = "{npc:4773}, instructora de equitación",
+	-- ["{npc:5591}, inside"] = "{npc:5591}, dentro",
 	-- ["{npc:7776}'s Northspring harpies (48-50) wait for your {zone:1444} visit at about 51: keep the quest."] = "Las arpías Fuenteboreal (48-50) de {npc:7776} esperan a tu visita a {zone:1444} hacia el nivel 51: conserva la misión.",
 	-- ["{npc:7825}, the {object:36126}"] = "{npc:7825}, {object:36126}",
+	-- ["{npc:7854}, inside"] = "{npc:7854}, dentro",
 	-- ["{npc:7875}: for {npc:7010} in {zone:1454}, around level 50"] = "{npc:7875}: para {npc:7010} en {zone:1454}, hacia el nivel 50",
 	-- ["{object:172958}, then the {object:172960} and the {object:172961}."] = "{object:172958}, luego {object:172960} y {object:172961}.",
+	-- ["{object:3202} flight master"] = "Maestro de vuelo de {object:3202}",
 	-- ["{quest:7738}, a rare drop"] = "{quest:7738}, botín raro",
 	-- ["{zone:1435} and Dustwallow first, then {zone:1444}."] = "Primero {zone:1435} y Marjal Revolcafango, luego {zone:1444}.",
 }

@@ -57,7 +57,7 @@ return {
 	-- {npc:1231} Grif Wildheart · {area:131} Kharanos
 	["{npc:1231} in {area:131}"] = "{npc:1231}，在{area:131}",
 	-- {npc:1231} Grif Wildheart · {area:131} Kharanos · {quest:6074} The Hunter's Path · {npc:5116} Olmin Burningbeard · {zone:1455} Ironforge · {npc:11807} Tristane Shadowstone · {npc:5515} Einris Brightspear · {zone:1453} Stormwind · {npc:251507} Josephine Carson · {area:87} Goldshire
-	["At 10 go to {npc:1231}, the hunter trainer at the smithy in {area:131}. {quest:6074} from {npc:5116} in {zone:1455}, {npc:11807} north-west of {area:131} or {npc:5515} in {zone:1453} also leads here, for a little experience; it is only a pointer. In Elwynn at 10 instead? {npc:251507}'s chain in {area:87} teaches the same."] = "",
+	["At 10 go to {npc:1231}, the hunter trainer at the smithy in {area:131}. {quest:6074} from {npc:5116} in {zone:1455}, {npc:11807} north-west of {area:131} or {npc:5515} in {zone:1453} also leads here, for a little experience; it is only a pointer. In Elwynn at 10 instead? {npc:251507}'s chain in {area:87} teaches the same."] = "10級時，去找{area:131}鐵匠鋪裡的獵人訓練師{npc:1231}。{zone:1455}的{npc:5116}、{area:131}西北面的{npc:11807}或{zone:1453}的{npc:5515}給予的{quest:6074}也會指引你來這裡，能額外獲得少量經驗；它只是引導任務。10級時人在艾爾文森林？{area:87}的{npc:251507}提供的任務鏈也教相同的技能。",
 	-- {npc:1231} Grif Wildheart · {item:15908} Taming Rod
 	["{npc:1231}: the first {item:15908}"] = "{npc:1231}：第一根{item:15908}",
 
@@ -92,7 +92,7 @@ return {
 	-- {npc:3601} Dazalar · {area:186} Dolanaar
 	["{npc:3601} in {area:186}"] = "{npc:3601}，在{area:186}",
 	-- {npc:3601} Dazalar · {area:186} Dolanaar · {quest:6071} The Hunter's Path · {npc:3596} Ayanna Everstride · {area:256} Aldrassil · {npc:4146} Jocaste · {zone:1457} Darnassus · {npc:5515} Einris Brightspear · {zone:1453} Stormwind · {npc:5116} Olmin Burningbeard · {zone:1455} Ironforge · {npc:1231} Grif Wildheart · {area:131} Kharanos · {npc:251507} Josephine Carson · {area:87} Goldshire
-	["At 10 go to {npc:3601}, the hunter trainer in {area:186}. {quest:6071} from {npc:3596} at {area:256}, {npc:4146} in {zone:1457}, {npc:5515} in {zone:1453}, {npc:5116} in {zone:1455} or {npc:1231} in {area:131} also leads here, for a little experience; it is only a pointer. In Elwynn at 10 instead? {npc:251507}'s chain in {area:87} teaches the same."] = "",
+	["At 10 go to {npc:3601}, the hunter trainer in {area:186}. {quest:6071} from {npc:3596} at {area:256}, {npc:4146} in {zone:1457}, {npc:5515} in {zone:1453}, {npc:5116} in {zone:1455} or {npc:1231} in {area:131} also leads here, for a little experience; it is only a pointer. In Elwynn at 10 instead? {npc:251507}'s chain in {area:87} teaches the same."] = "10級時，去找{area:186}的獵人訓練師{npc:3601}。{area:256}的{npc:3596}、{zone:1457}的{npc:4146}、{zone:1453}的{npc:5515}、{zone:1455}的{npc:5116}或{area:131}的{npc:1231}給予的{quest:6071}也會指引你來這裡，能額外獲得少量經驗；它只是引導任務。10級時人在艾爾文森林？{area:87}的{npc:251507}提供的任務鏈也教相同的技能。",
 	-- {npc:3601} Dazalar · {item:15908} Taming Rod
 	["{npc:3601}: the first {item:15908}"] = "{npc:3601}：第一根{item:15908}",
 

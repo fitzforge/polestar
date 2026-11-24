@@ -20,14 +20,14 @@ return {
 
 	-- Step 2: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:18960} Teleport: Moonglade
-	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. He teaches you {spell:18960} with the quest (it stays in your spellbook, Balance tab)."] = "",
+	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. He teaches you {spell:18960} with the quest (it stays in your spellbook, Balance tab)."] = "{npc:4217} está en el piso de arriba del edificio de los druidas de {area:1658}. Te enseña {spell:18960} con la misión (se queda en tu libro de hechizos, pestaña Equilibrio).",
 
 	-- Step 6: Mathrengyl Bearwalker
 	["or whichever of the three letters you carry"] = "o la carta que lleves de las tres",
 
 	-- Step 7: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:5929} Great Bear Spirit · {area:2361} Nighthaven · {area:493} Moonglade · {npc:10897} Sindrayl · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village · {zone:1457} Darnassus
-	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs, past the armor vendor. The {quest:5929} sits in the woods to the north-west. Speak to it and go through all of its words (what it represents, the strength of the body, the strength of the heart, then ask for its blessing): the talk is the objective, there is no fight. It blends into the ground, has no quest mark and gives off a faint blue-grey glow by a group of three trees: from {area:2361} go west along the foot of the northern mountains, through the gap between the trees and the hills. If {npc:11802} is missing when you return, step outside and cast {spell:18960} again. Learn the {area:493} flight path ({npc:10897}, south of the lake) for later, then take {npc:11800}'s flight from the middle of {area:2361}: she flies druids straight to {area:702}, no flight path needed. Take the portal up to {zone:1457}."] = "",
+	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs, past the armor vendor. The {quest:5929} sits in the woods to the north-west. Speak to it and go through all of its words (what it represents, the strength of the body, the strength of the heart, then ask for its blessing): the talk is the objective, there is no fight. It blends into the ground, has no quest mark and gives off a faint blue-grey glow by a group of three trees: from {area:2361} go west along the foot of the northern mountains, through the gap between the trees and the hills. If {npc:11802} is missing when you return, step outside and cast {spell:18960} again. Learn the {area:493} flight path ({npc:10897}, south of the lake) for later, then take {npc:11800}'s flight from the middle of {area:2361}: she flies druids straight to {area:702}, no flight path needed. Take the portal up to {zone:1457}."] = "Lanza {spell:18960}: te deja junto al edificio donde {npc:11802} está arriba, pasando el vendedor de armaduras. {quest:5929} está en el bosque al noroeste. Habla con él y recorre todas sus palabras (lo que representa, la fuerza del cuerpo, la fuerza del corazón, y luego pide su bendición): la conversación es el objetivo, no hay pelea. Se funde con el suelo, no tiene marca de misión y emite un tenue brillo gris azulado junto a un grupo de tres árboles: desde {area:2361} ve al oeste a pie de la cordillera norte, por el hueco entre los árboles y las colinas. Si {npc:11802} falta al volver, sal y lanza {spell:18960} de nuevo. Aprende la ruta de vuelo de {area:493} ({npc:10897}, al sur del lago) para después, y luego toma el vuelo de {npc:11800} desde el centro de {area:2361}: ella lleva a los druidas directos a {area:702}, sin ruta de vuelo. Toma el portal hacia arriba a {zone:1457}.",
 	-- {quest:5929} Great Bear Spirit
 	["Speak with the {quest:5929}"] = "Habla con el {quest:5929}",
 
@@ -35,7 +35,7 @@ return {
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "{object:177525}",
 	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
-	["Fly from {area:702} to {area:442}. The {object:177525} stands inside the nearest moonkin cave east of the village: the northern of two small rock-pile caves where the {area:442} road meets the main north-south road. Moonkin (level 11-13) stand outside, the cave is empty: slip past them. Use the {item:15208} by the stone: Lunaclaw (level 12-13) walks in towards you and stays three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Another druid's Lunaclaw gives you the spirit too."] = "",
+	["Fly from {area:702} to {area:442}. The {object:177525} stands inside the nearest moonkin cave east of the village: the northern of two small rock-pile caves where the {area:442} road meets the main north-south road. Moonkin (level 11-13) stand outside, the cave is empty: slip past them. Use the {item:15208} by the stone: Lunaclaw (level 12-13) walks in towards you and stays three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Another druid's Lunaclaw gives you the spirit too."] = "Vuela de {area:702} a {area:442}. {object:177525} está dentro de la cueva de moonkin más cercana al este de la aldea: la norte de dos cuevas pequeñas de montones de roca donde el camino de {area:442} se cruza con el camino principal de norte a sur. Los moonkin (nivel 11-13) están fuera, la cueva está vacía: pasa de puntillas entre ellos. Usa el {item:15208} junto a la piedra: Lunaclaw (nivel 12-13) entra caminando hacia ti y se queda tres minutos. Mátala, y luego habla con el {npc:12144} que aparece y pide la fuerza de su cuerpo y de su corazón: la conversación es el mérito. El Lunaclaw de otro druida también te da el espíritu.",
 
 	-- Step 11: Body and Heart
 	-- {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker
@@ -49,7 +49,7 @@ return {
 
 	-- Step 15: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade
-	["{npc:3033} stands in the druids' hut on {area:1639}, over the rope bridges east of the lifts. He teaches you {spell:18960} with the quest (it stays in your spellbook, Balance tab)."] = "",
+	["{npc:3033} stands in the druids' hut on {area:1639}, over the rope bridges east of the lifts. He teaches you {spell:18960} with the quest (it stays in your spellbook, Balance tab)."] = "{npc:3033} está en la cabaña de los druidas de {area:1639}, sobre los puentes de cuerda al este de los ascensores. Te enseña {spell:18960} con la misión (se queda en tu libro de hechizos, pestaña Equilibrio).",
 
 	-- Step 16: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:5930} Great Bear Spirit · {area:2361} Nighthaven · {quest:5922} Moonglade · {npc:12740} Faustron · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
@@ -59,7 +59,7 @@ return {
 
 	-- Step 18: The Moonkin Stone
 	-- {object:177525} Moonkin Stone · {zone:1413} Barrens · {area:378} Camp Taurajo · {zone:1412} Mulgore · {item:15710} Cenarion Lunardust · {npc:12144} Lunaclaw Spirit
-	["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "",
+	["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "{object:177525} está en {zone:1413} al suroeste de {area:378}, junto al camino que sale de {zone:1412}. Los Thunderheads de nivel 20 rondan cerca: limpia el camino primero. Usa el {item:15710} junto a la piedra: Lunaclaw (nivel 12-13) aparece durante tres minutos. Mátala, y luego habla con el {npc:12144} que aparece y pide la fuerza de su cuerpo y de su corazón: la conversación es el mérito. ¿Muere en la pelea? Lunaclaw se queda junto a la piedra: corre de vuelta y remátala.",
 
 	-- Step 19: Body and Heart
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
@@ -87,7 +87,7 @@ return {
 	-- {npc:255853} Urs'endris · {npc:258443} Ur'endra
 	["{npc:255853} and {npc:258443}"] = "{npc:255853} y {npc:258443}",
 	-- {npc:255853} Urs'endris · {area:16629} Shrine of Akir · {area:16638} Valanaar · {npc:258443} Ur'endra · {area:16623} Shen'dar Highlands · {area:16626} Gustberry Lowlands
-	["{npc:255853} waits by the waterfall below the {area:16629}, north-east of {area:16638}. {npc:258443} (the bear you must defeat) lairs in an unmarked cave high on the cliff face west of him, where the {area:16623} meet the {area:16626}: take the path west out of {area:16638} (not north), cross the river on the log bridge and reach the cave from the cliff's upper, northern side. The cave at the foot of the cliffs and the foggy cave are the wrong ones."] = "",
+	["{npc:255853} waits by the waterfall below the {area:16629}, north-east of {area:16638}. {npc:258443} (the bear you must defeat) lairs in an unmarked cave high on the cliff face west of him, where the {area:16623} meet the {area:16626}: take the path west out of {area:16638} (not north), cross the river on the log bridge and reach the cave from the cliff's upper, northern side. The cave at the foot of the cliffs and the foggy cave are the wrong ones."] = "{npc:255853} espera junto a la cascada bajo {area:16629}, al noreste de {area:16638}. {npc:258443} (el oso que debes vencer) mora en una cueva sin marcar en lo alto de la pared del acantilado al oeste de él, donde {area:16623} se encuentra con {area:16626}: toma el camino al oeste desde {area:16638} (no al norte), cruza el río por el puente de troncos y llega a la cueva por el lado superior y norte del acantilado. La cueva al pie de los acantilados y la cueva brumosa son las equivocadas.",
 
 	-- Step 24: Strength and Mercy
 	-- {npc:255853} Urs'endris
@@ -99,7 +99,7 @@ return {
 
 	-- Step 26: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade
-	["{npc:3033} trains druids in the druids' hut on {area:1639}, over the rope bridges east of the lifts. He teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "",
+	["{npc:3033} trains druids in the druids' hut on {area:1639}, over the rope bridges east of the lifts. He teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "{npc:3033} entrena druidas en la cabaña de los druidas de {area:1639}, sobre los puentes de cuerda al este de los ascensores. Te enseña {spell:18960} con la siguiente misión (se queda en tu libro de hechizos, pestaña Equilibrio).",
 
 	-- Step 27: Child of Nature
 	-- {npc:270459} Alfina Nightgaze · {npc:259084} Denaaris Stargale · {area:279} Dalaran · {zone:2521} Zephras Isle · {npc:2543} Archmage Ansirem Runeweaver
@@ -107,7 +107,7 @@ return {
 
 	-- Step 28: Sheldras Moontree
 	-- {zone:1453} Stormwind · {npc:5504} Sheldras Moontree · {spell:18960} Teleport: Moonglade
-	["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer (the arrow points at him); he teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "",
+	["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer (the arrow points at him); he teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "El portal de los Cielonatos te lleva a {zone:1453}. {npc:5504} es el instructor de druidas de la ciudad (la flecha lo señala); te enseña {spell:18960} con la siguiente misión (se queda en tu libro de hechizos, pestaña Equilibrio).",
 
 	-- Step 29: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:12740} Faustron · {npc:10897} Sindrayl

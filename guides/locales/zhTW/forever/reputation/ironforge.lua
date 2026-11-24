@@ -154,7 +154,7 @@ return {
 	-- {quest:7806} Additional Runecloth
 	["{quest:7806} to Revered"] = "{quest:7806}到崇敬",
 	-- {npc:1261} Veron Amberstill · {item:14047} Runecloth
-	["Honored: in Classic Ironforge's vendors take 10% off for you, {npc:1261}'s rams (20g, the swift ones 200g) included; Forever has not settled it, and guide sites report 5% at Friendly rising to 20% at Exalted. Honored to Revered is 12,000 reputation: 240 turn-ins, 4,800 {item:14047}."] = "",
+	["Honored: in Classic Ironforge's vendors take 10% off for you, {npc:1261}'s rams (20g, the swift ones 200g) included; Forever has not settled it, and guide sites report 5% at Friendly rising to 20% at Exalted. Honored to Revered is 12,000 reputation: 240 turn-ins, 4,800 {item:14047}."] = "尊敬：經典懷舊服中，鐵爐堡商人會給你 10% 折扣，包括 {npc:1261} 出售的山羊（20 金幣，迅捷型 200 金幣）；無限尚未確定，指南網站報告為友善 5%，逐步提高到崇拜 20%。尊敬到崇敬需要 12,000 點聲望：交還 240 次，共 4,800 個 {item:14047}。",
 
 	-- Step 27: Additional Runecloth to Exalted
 	-- {quest:7806} Additional Runecloth

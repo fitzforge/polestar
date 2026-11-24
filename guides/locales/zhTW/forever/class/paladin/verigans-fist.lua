@@ -62,7 +62,7 @@ return {
 
 	-- Step 10: Jordan's Smithing Hammer
 	-- {area:236} Shadowfang Keep · {zone:1421} Silverpine Forest · {zone:1437} Wetlands · {area:287} Hillsbrad
-	["{area:236} is a dungeon for a group of five in the low to mid 20s, in southern {zone:1421}, Horde land: a long trip for the Alliance, through the {zone:1437}, Arathi and {area:287}. The hammer lies on a crate across from the horses in the stables, early in the dungeon, at the far end of the courtyard before the ramp up; it is back five minutes after someone takes it."] = "",
+	["{area:236} is a dungeon for a group of five in the low to mid 20s, in southern {zone:1421}, Horde land: a long trip for the Alliance, through the {zone:1437}, Arathi and {area:287}. The hammer lies on a crate across from the horses in the stables, early in the dungeon, at the far end of the courtyard before the ramp up; it is back five minutes after someone takes it."] = "{area:236} 是適合 20 級出頭至 25 級左右五人小隊的地下城，位於部落領土 {zone:1421} 南部：聯盟要走很遠，途經 {zone:1437}、阿拉希和 {area:287}。錘子在地下城前段的馬廄裡，放在馬匹對面的箱子上，位於庭院盡頭、上行斜坡之前；被人取走後五分鐘會重新出現。",
 	-- {object:91138} Jordan's Hammer
 	["{object:91138}, inside"] = "{object:91138}，副本內",
 
@@ -72,9 +72,9 @@ return {
 
 	-- Step 12: The north end of the Zoram Strand
 	-- {area:414} Zoram Strand
-	["The north end of the {area:414}"] = "",
+	["The north end of the {area:414}"] = "{area:414}的北端",
 	-- {area:414} Zoram Strand · {zone:1439} Darkshore
-	["The naga's flooded ruins lie just past the north end of the {area:414}, south of {zone:1439} along the coast. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins."] = "",
+	["The naga's flooded ruins lie just past the north end of the {area:414}, south of {zone:1439} along the coast. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins."] = "納迦的水淹廢墟就在{area:414}北端稍遠處，在{zone:1439}南邊沿海岸。箭頭找不到下行的路，所以先把你引到水邊：從那裡向北遊進廢墟。",
 
 	-- Step 13: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem

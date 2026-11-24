@@ -6342,7 +6342,7 @@ do
 					title = "Mottled Worgs",
 					note = "Mottled Worgs prowl the hills around the house.",
 					goals = {
-						{ t = "collect", quest = 429, title = "Wild Hearts", item = 3164, itemName = "Discolored Worg Heart", count = 3, oi = 1, map = 1421, x = 54.9, y = 13.6, z = 51.8, f = "e", spotsPacked = "54.9,13.6,51.8,67,4;57.2,9.4,,52,7;58.6,13.8,,40,2;59.3,10.5,,40,2;56.5,16.4,38.7,49,3,1;52.5,17.6,45.4,40,2,1,13;59.5,16,37.5,40,1,1;49.7,14.5,,40,2,1;50.5,18.8,,40,3,1,13;59.2,7.8,60.7,42,3,1,13;61.3,11.9,49.4,40,1,1;50.9,21.8,38.1,40,1,1;61.6,8.8,48.3,40,3,1;49.1,21.3,,40,2,1;47.1,17.8,,40,1,1,13;47.5,21.8,42.6,40,1,1;64,11.1,36.7,43,3,1;64.5,6.8,,40,5,1,11;46.9,24.9,,45,5,1,13;66.5,9.1,50.5,50,4,1,11;66.1,5.9,,40,2,1,11;46.1,28,,40,1,1,13;44.5,26.1,,40,2,1;69.1,6.6,,50,8,1,11;46.5,45.9,125.7,40,1,1,11;47.9,48.1,125.3,40,1,1,11;44.2,47.9,126.4,40,1,1,11;45.8,50.2,146,40,1,1,11;43.2,52.4,141,40,1,1,11", lvl = 12, fromNpcs = { { npc = 1766, npcName = "Mottled Worg" }, { npc = 12431, npcName = "Gorefang" }, { npc = 1765, npcName = "Worg" } } },
+						{ t = "collect", quest = 429, title = "Wild Hearts", item = 3164, itemName = "Discolored Worg Heart", count = 3, oi = 1, map = 1421, x = 54.9, y = 13.6, z = 51.8, f = "e", spotsPacked = "54.9,13.6,51.8,67,4;57.2,9.4,,52,7;58.9,14.6,,49,3;59.4,10,,40,3;56.5,16.4,38.7,49,3,1;52.3,17.5,45.4,40,1,1;49.7,14.5,,40,2,1;50.7,18.7,,40,2,1;58.5,6.8,62.7,40,1,1;61.3,11.9,49.4,40,1,1;50.9,21.8,38.1,40,1,1;49,20.1,37.5,40,1,1;61.6,8.8,48.3,40,3,1;48.3,22.1,,40,2,1;64,11.1,36.7,43,3,1;47.1,24.9,,47,4,1;65,6.6,,67,7,1,11;66.5,9.1,50.5,50,4,1,11;44.5,26.1,,40,2,1;69.1,6.6,,50,8,1,11;46.5,45.9,125.7,40,1,1,11;47.9,48.1,125.3,40,1,1,11;44.2,47.9,126.4,40,1,1,11;45.8,50.2,146,40,1,1,11;43.2,52.4,141,40,1,1,11", lvl = 12, fromNpcs = { { npc = 1766, npcName = "Mottled Worg" }, { npc = 1765, npcName = "Worg" } } },
 					},
 				},
 				{
@@ -6779,6 +6779,7 @@ do
 					title = "Fly to {area:1638}",
 					note = "Fly to {area:1638} (without its flight path the arrow goes by {area:378} and {zone:1412}): two of its elders give quests worked on this guide's and the next guide's walks, and {npc:3419} takes Lydon's toxin.",
 					when = { { k = "onquest", neg = true, q = { 97538 } } },
+					skipto = { { to = "camp-taurajo", when = { k = "onquest", neg = true, q = { 868, 959, 1094, 1491, 1536, 6401 } } } },
 					goals = {
 						{ t = "fly", location = "Thunder Bluff", node = 22, area = 1638 },
 					},
@@ -6796,6 +6797,7 @@ do
 					title = "{npc:3419}",
 					note = "The toxin is already with {npc:3419}: take {quest:1086} from her in the {area:2197}, under {area:1640}.",
 					when = { { k = "turnedin", q = 1067 }, { k = "available", q = 1086, minLevel = 13, pre = { 1067 } } },
+					skipto = { { to = "camp-taurajo", when = { k = "onquest", neg = true, q = { 868, 959, 1094, 1491, 1536, 6401 } } } },
 					goals = {
 						{ t = "accept", quest = 1086, title = "The Flying Machine Airport", npc = 3419, npcName = "Apothecary Zamah", minLevel = 13, qlvl = 23, pre = { 1067 }, preTitles = { [1067] = "Return to Thunder Bluff" }, map = 1456, x = 22.8, y = 20.97, z = 112, spotsPacked = "22.9,20.9,112,15,5", note = "{npc:3419}: the {item:5638} goes on the {object:19594} at {area:461}, on this guide's Windshear trip" },
 					},
@@ -6804,6 +6806,7 @@ do
 					title = "{area:1638}",
 					note = "{npc:2995}, the wind rider master, stands on the central rise: take his flight path if you don't have it. {npc:3024} and {npc:4721} stand a short walk east of him.",
 					when = { { k = "onquest", neg = true, q = { 97538 } } },
+					skipto = { { to = "camp-taurajo", when = { k = "onquest", neg = true, q = { 868, 959, 1094, 1491, 1536, 6401 } } } },
 					goals = {
 						{ t = "getfp", npc = 2995, npcName = "Tal", location = "Thunder Bluff", node = 22, area = 1638, map = 1456, x = 46.55, y = 49.67, z = 177, spotsPacked = "46.8,50,177,15,11" },
 						{ t = "accept", quest = 97538, title = "Pigments for Paints", npc = 3024, npcName = "Tah Winterhoof", minLevel = 20, qlvl = 26, map = 1456, x = 53.73, y = 47.68, z = 162.8, spotsPacked = "54.1,47.5,162.8,15,6", note = "{npc:3024}: the {object:667362} grows in {area:464}, by Sun Rock" },
@@ -6813,6 +6816,7 @@ do
 				{
 					title = "Fly to {area:378}",
 					note = "Fly to {area:378}: {npc:2995} on {zone:1456}'s central rise, or the Crossroads' wind rider master if you start this guide there.",
+					skipto = { { to = "camp-taurajo", when = { k = "onquest", neg = true, q = { 868, 959, 1094, 1491, 1536, 6401 } } } },
 					goals = {
 						{ t = "fly", location = "Camp Taurajo", node = 77, area = 378 },
 					},
@@ -6820,6 +6824,7 @@ do
 				{
 					title = "{area:378}",
 					note = "The flight lands at {area:378}'s wind rider master. {npc:3433} stands at the north edge of the camp, {npc:3387} and {npc:3430} (in the cage) in the middle.",
+					label = "camp-taurajo",
 					goals = {
 						{ t = "accept", quest = 893, title = "Weapons of Choice", npc = 3433, npcName = "Tatternack Steelforge", minLevel = 17, qlvl = 24, map = 1413, x = 45.06, y = 57.68, z = 96, note = "{npc:3433}, at the north edge of the camp" },
 						{ t = "accept", quest = 874, title = "Mahren Skyseer", npc = 3387, npcName = "Jorn Skyseer", minLevel = 9, qlvl = 27, pre = { 913 }, preTitles = { [913] = "Cry of the Thunderhawk" }, map = 1413, x = 44.78, y = 59.14, z = 95.9 },
@@ -9342,6 +9347,7 @@ do
 				{
 					title = "Zeppelin to {zone:1454}",
 					when = { { k = "zone", neg = true, name = "Durotar", area = 14 }, { k = "zone", neg = true, name = "Orgrimmar", area = 1637 } },
+					skipto = { { to = "freewind-post", when = { k = "onquest", neg = true, q = { 96, 1146, 1150 } } } },
 					goals = {
 						{ t = "goto", text = "Zeppelin to {zone:1454}", map = 1420, x = 60.7, y = 58.8, f = "e" },
 					},
@@ -9350,6 +9356,7 @@ do
 					title = "{quest:1431}",
 					note = "The zeppelin lands at the tower outside {zone:1454}'s main gate. {npc:5639} walks the Drag: if he isn't at the arrow, look along its streets to the south-west. {npc:5640} stands in the {object:172961} on the west side of the city.",
 					when = { { k = "level", op = ">=", n = 30 } },
+					skipto = { { to = "freewind-post", when = { k = "onquest", neg = true, q = { 96, 1146, 1150 } } } },
 					goals = {
 						{ t = "accept", quest = 1431, title = "Alliance Relations", npc = 5639, npcName = "Craven Drok", minLevel = 30, qlvl = 30, map = 1454, x = 46.19, y = 50.35, z = -11.1, f = "e", spotsPacked = "44.3,51.6,,31,4;50,47.8,,24,2", note = "{npc:5639}: offered from level 30" },
 						{ t = "turnin", quest = 1431, title = "Alliance Relations", npc = 5640, npcName = "Keldran", map = 1454, x = 22.46, y = 54.03, z = 53.2, spotsPacked = "22.2,53.3,53.2,15,8" },
@@ -9360,6 +9367,7 @@ do
 					title = "{zone:1454} trainers",
 					note = "Train while you are in the city.",
 					only = { classes = { "HUNTER", "SHAMAN" } },
+					skipto = { { to = "freewind-post", when = { k = "onquest", neg = true, q = { 96, 1146, 1150 } } } },
 					goals = {
 						{ t = "train", class = true, zone = 1454, candidates = { { npc = 3403, npcName = "Sian'tsu", map = 1454, x = 37.95, y = 36.53, z = 42.2, faction = "H", classes = { "SHAMAN" } }, { npc = 3352, npcName = "Ormak Grimshot", map = 1454, x = 66.25, y = 18.6, z = 58.8, faction = "H", classes = { "HUNTER" } }, { npc = 3171, npcName = "Thotar", map = 1411, x = 51.82, y = 43.51, z = 11.7, faction = "H", classes = { "HUNTER" } }, { npc = 3173, npcName = "Swart", map = 1411, x = 54.36, y = 42.55, z = 10.6, faction = "H", classes = { "SHAMAN" } }, { npc = 3157, npcName = "Shikrik", map = 1411, x = 42.38, y = 68.9, z = 38.4, faction = "H", classes = { "SHAMAN" } }, { npc = 3154, npcName = "Jen'shan", map = 1411, x = 42.78, y = 69.2, z = 38.4, faction = "H", classes = { "HUNTER" } }, { npc = 262558, npcName = "Palah Thunderhoof", map = 1412, x = 33.56, y = 22.47, z = 187.2, faction = "H", classes = { "SHAMAN" } }, { npc = 3040, npcName = "Urek Thunderhorn", map = 1456, x = 59.18, y = 86.49, z = 159.1, faction = "H", classes = { "HUNTER" } }, { npc = 3031, npcName = "Tigor Skychaser", map = 1456, x = 23.32, y = 19.06, z = 138.1, faction = "H", classes = { "SHAMAN" } }, { npc = 3065, npcName = "Yaw Sharpmane", map = 1412, x = 46.83, y = 59.64, z = -4.5, faction = "H", classes = { "HUNTER" } }, { npc = 3066, npcName = "Narm Skychaser", map = 1412, x = 47.39, y = 62.6, z = -5.4, faction = "H", classes = { "SHAMAN" } }, { npc = 3062, npcName = "Meela Dawnstrider", map = 1412, x = 44.58, y = 76.64, z = 54, faction = "H", classes = { "SHAMAN" } }, { npc = 3061, npcName = "Lanka Farshot", map = 1412, x = 43.9, y = 76.34, z = 55, faction = "H", classes = { "HUNTER" } }, { npc = 1404, npcName = "Kragg", map = 1434, x = 31.25, y = 28.62, z = 2.4, faction = "H", classes = { "HUNTER" } }, { npc = 986, npcName = "Haromm", map = 1435, x = 48.19, y = 57.94, z = 20.9, f = "e", faction = "H", classes = { "SHAMAN" } }, { npc = 987, npcName = "Ogromm", map = 1435, x = 47.14, y = 53.35, z = 20.4, faction = "H", classes = { "HUNTER" } }, { npc = 251374, npcName = "Windshaper Boro", map = 2521, x = 42.71, y = 23.56, z = 976.8, faction = "H", classes = { "SHAMAN" } }, { npc = 251376, npcName = "Tai'ree Farsight", map = 2521, x = 42.4, y = 23.78, z = 976.8, faction = "AH", classes = { "HUNTER" } }, { npc = 252382, npcName = "Sessaria Skystride", map = 2521, x = 58.23, y = 78.57, z = 656.8, faction = "H", classes = { "SHAMAN" } }, { npc = 252389, npcName = "Quel'ana Quickgale", map = 2521, x = 59.58, y = 72.6, z = 675.3, faction = "AH", classes = { "HUNTER" } }, { npc = 254082, npcName = "Aarnor Galestrike", map = 2521, x = 43.45, y = 44.81, z = 823.8, faction = "H", classes = { "SHAMAN" } }, { npc = 254084, npcName = "Elayaa Easewind", map = 2521, x = 45.2, y = 44.28, z = 827.3, faction = "AH", classes = { "HUNTER" } } } },
 					},
@@ -9368,6 +9376,7 @@ do
 					title = "{npc:5892}",
 					note = "{npc:5892} stands in the {object:172957}.",
 					only = { classes = { "SHAMAN" } },
+					skipto = { { to = "freewind-post", when = { k = "onquest", neg = true, q = { 96, 1146, 1150 } } } },
 					goals = {
 						{ t = "accept", quest = 1531, title = "Call of Air", npc = 5892, npcName = "Searn Firewarder", minLevel = 30, qlvl = 30, closedBy = { 1532, 96136 }, endNpcs = { 5905 }, xp = 2450, preTitles = { [1532] = "Call of Air", [96136] = "Call of Air" }, map = 1454, x = 37.9, y = 37.59, z = 42.2, spotsPacked = "38,37.6,42.2,15,3", note = "{npc:5892}: for {npc:5905} by {area:484}, later in this guide" },
 					},
@@ -9376,6 +9385,7 @@ do
 					title = "Fly to the Crossroads",
 					note = "{npc:3428}'s {quest:1145} needed level 29 on the last guide's Crossroads stop: take it now, on a short flight to the Crossroads and back.",
 					when = { { k = "turnedin", neg = true, q = 1145 }, { k = "onquest", neg = true, q = { 1145 } } },
+					skipto = { { to = "freewind-post", when = { k = "onquest", neg = true, q = { 96, 1146, 1150 } } } },
 					goals = {
 						{ t = "goto", text = "{zone:1454} flight master", map = 1454, x = 45.3, y = 63.7, f = "e" },
 						{ t = "fly", location = "Crossroads", node = 25 },
@@ -9385,6 +9395,7 @@ do
 					title = "{npc:3428}",
 					note = "{npc:3428} stands beside the Crossroads flight master.",
 					when = { { k = "turnedin", neg = true, q = 1145 } },
+					skipto = { { to = "freewind-post", when = { k = "onquest", neg = true, q = { 96, 1146, 1150 } } } },
 					goals = {
 						{ t = "accept", quest = 1145, title = "The Swarm Grows", npc = 3428, npcName = "Korran", minLevel = 29, qlvl = 33, map = 1413, x = 51.03, y = 29.57, z = 99, note = "{npc:3428}: for {npc:4485} in {zone:1454}" },
 					},
@@ -9408,6 +9419,7 @@ do
 				},
 				{
 					title = "{zone:1454} flight master",
+					skipto = { { to = "freewind-post", when = { k = "onquest", neg = true, q = { 96, 1146, 1150 } } } },
 					goals = {
 						{ t = "goto", text = "{zone:1454} flight master", map = 1454, x = 45.3, y = 63.7, f = "e" },
 					},
@@ -9416,6 +9428,7 @@ do
 					title = "{area:1638}",
 					note = "Fly from {zone:1454} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {area:484} from there.",
 					only = { classes = { "DRUID" } },
+					skipto = { { to = "freewind-post", when = { k = "onquest", neg = true, q = { 96, 1146, 1150 } } } },
 					goals = {
 						{ t = "fly", location = "Thunder Bluff", node = 22, area = 1638 },
 						{ t = "train", class = true, zone = 1456, candidates = { { npc = 3034, npcName = "Sheal Runetotem", map = 1456, x = 76.88, y = 27.24, z = 159.1, faction = "H", classes = { "DRUID" } }, { npc = 262560, npcName = "Hana Lighthoof", map = 1412, x = 33.39, y = 22.17, z = 187.2, faction = "H", classes = { "DRUID" } }, { npc = 3064, npcName = "Gennia Runetotem", map = 1412, x = 47.43, y = 62.88, z = -5.4, faction = "H", classes = { "DRUID" } }, { npc = 3060, npcName = "Gart Mistrunner", map = 1412, x = 44.61, y = 76.62, z = 54.1, faction = "H", classes = { "DRUID" } }, { npc = 12042, npcName = "Loganaar", map = 1450, x = 52.3, y = 40.51, z = 486.9, faction = "AH", classes = { "DRUID" } }, { npc = 8142, npcName = "Jannos Lighthoof", map = 1444, x = 75.98, y = 42.3, z = 34.2, faction = "H", classes = { "DRUID" } }, { npc = 251373, npcName = "Xyton Silverwind", map = 2521, x = 41.65, y = 23.34, z = 980.9, faction = "AH", classes = { "DRUID" } }, { npc = 252359, npcName = "Lotheluum Starbreeze", map = 2521, x = 63.93, y = 75.06, z = 691.4, faction = "AH", classes = { "DRUID" } }, { npc = 254081, npcName = "Naeluna Swiftmend", map = 2521, x = 45.13, y = 44.31, z = 827.3, faction = "AH", classes = { "DRUID" } } } },
@@ -9425,6 +9438,7 @@ do
 					title = "{npc:5901}",
 					note = "Fly from {zone:1454} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to {area:484} from {area:392}.",
 					only = { classes = { "SHAMAN" } },
+					skipto = { { to = "freewind-post", when = { k = "onquest", neg = true, q = { 96, 1146, 1150 } } } },
 					goals = {
 						{ t = "fly", location = "Ratchet", node = 80, area = 392 },
 						{ t = "turnin", quest = 96, title = "Call of Water", npc = 5901, npcName = "Islen Waterseer", map = 1413, x = 65.77, y = 43.76, z = 6, note = "{npc:5901}: {npc:3527} and your {item:5177}" },
@@ -9433,6 +9447,7 @@ do
 				{
 					title = "Fly to {area:484}",
 					only = { classes = { "DRUID" } },
+					skipto = { { to = "freewind-post", when = { k = "onquest", neg = true, q = { 96, 1146, 1150 } } } },
 					goals = {
 						{ t = "goto", text = "{zone:1456} flight master", map = 1456, x = 46.7, y = 49.9, f = "e" },
 						{ t = "fly", location = "Freewind Post", node = 30, area = 484 },
@@ -9441,6 +9456,7 @@ do
 				{
 					title = "Fly to {area:484}",
 					only = { classes = { "SHAMAN" } },
+					skipto = { { to = "freewind-post", when = { k = "onquest", neg = true, q = { 96, 1146, 1150 } } } },
 					goals = {
 						{ t = "goto", text = "{area:392} flight master", map = 1413, x = 63.1, y = 37.1, f = "e" },
 						{ t = "fly", location = "Freewind Post", node = 30, area = 484 },
@@ -9449,6 +9465,7 @@ do
 				{
 					title = "Fly to {area:484}",
 					only = { classes = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "MAGE", "WARLOCK" } },
+					skipto = { { to = "freewind-post", when = { k = "onquest", neg = true, q = { 96, 1146, 1150 } } } },
 					goals = {
 						{ t = "fly", location = "Freewind Post", node = 30, area = 484 },
 					},
@@ -9456,6 +9473,7 @@ do
 				{
 					title = "{npc:5905}",
 					note = "{npc:5905} hides in a small cave in the canyon wall north-east of the post, on the way east.",
+					label = "freewind-post",
 					only = { classes = { "SHAMAN" } },
 					goals = {
 						{ t = "turnin", quest = 1531, title = "Call of Air", npc = 5905, npcName = "Prate Cloudseer", map = 1441, x = 53.52, y = 42.66, z = -7.4, note = "{npc:5905}: your {item:5178}" },
@@ -9818,7 +9836,7 @@ do
 					title = "{area:598}",
 					note = "Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at about 37.",
 					goals = {
-						{ t = "collect", quest = 6161, title = "Claim Rackmore's Treasure!", item = 15881, itemName = "Rackmore's Golden Key", count = 1, oi = 2, map = 1443, x = 28.44, y = 7.86, f = "e", spotsPacked = "28.44,7.86,,96;29.49,14.39,,0,,1,35;34.44,5.44,,0,,1,35;39.61,13.18,,0,,1,35;39.79,18.83,,59,,1;42.17,19.01,-24,0,,1,35", note = "{item:15881}, from the Slitherblade naga", from = "Accursed Slitherblade", fromKind = "npc", fromRank = 4, fromId = 14229, fromNpcs = { { npc = 14229, npcName = "Accursed Slitherblade" } } },
+						{ t = "collect", quest = 6161, title = "Claim Rackmore's Treasure!", item = 15881, itemName = "Rackmore's Golden Key", count = 1, oi = 2, map = 1443, x = 35.16, y = 27.79, z = -13, f = "e", spotsPacked = "35.5,28.3,,40,2;35.7,26.4,,60,4,,34;36.2,24,,40,4;32.6,23.9,-5.2,40,3,,34;34.8,22.3,-42.1,40,4,,34;38.5,23.7,2,40,1;36.7,21.2,-31.2,40,3;31.9,21.2,-2,43,3,,34;39.79,18.83,,59,1;31.6,17,-39.1,40,1;33.4,14.3,,40,2,,34;27.8,6.2,3.6,40,2,1,34", lvl = 33, note = "{item:15881}, from the Slitherblade naga", fromNpcs = { { npc = 4711, npcName = "Slitherblade Naga" }, { npc = 4713, npcName = "Slitherblade Warrior" }, { npc = 4712, npcName = "Slitherblade Sorceress" } } },
 					},
 				},
 				{
@@ -10367,18 +10385,22 @@ do
 				{
 					title = "Zeppelin to {zone:1454}",
 					when = { { k = "zone", neg = true, name = "Durotar", area = 14 }, { k = "zone", neg = true, name = "Orgrimmar", area = 1637 } },
+					skipto = { { to = "dustwallow", when = { k = "onquest", neg = true, q = { 1148 } } } },
 					goals = {
 						{ t = "goto", text = "Zeppelin to {zone:1454}", map = 1434, x = 31.4, y = 29.9, f = "e" },
 					},
 				},
 				{
 					title = "{zone:1454}",
+					note = "The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}.",
+					skipto = { { to = "dustwallow", when = { k = "onquest", neg = true, q = { 1148 } } } },
 					goals = {
 						{ t = "goto", text = "The middle of {zone:1454}", map = 1454, x = 51.5, y = 45.6, f = "e" },
 					},
 				},
 				{
 					title = "{zone:1454}",
+					skipto = { { to = "dustwallow", when = { k = "onquest", neg = true, q = { 1148 } } } },
 					goals = {
 						{ t = "buy", item = 3713, itemName = "Soothing Spices", count = 3, note = "{item:3713}, for \"Swamp Eye\" Jarl", candidates = { candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[6], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[10], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21], candidateRecords[22], candidateRecords[23], candidateRecords[24], candidateRecords[25], candidateRecords[26], candidateRecords[27], candidateRecords[28], candidateRecords[29], candidateRecords[30], candidateRecords[31] } },
 						{ t = "accept", quest = 1718, title = "The Islander", npc = 3354, npcName = "Sorek", minLevel = 30, qlvl = 30, map = 1454, x = 80.09, y = 32.31, z = 56.8, spotsPacked = "80.3,32.3,56.8,15,3", only = { classes = { "WARRIOR" } }, note = "{npc:3354}, {object:172958}: for {area:720}, later in this guide (offered from level 30)" },
@@ -10386,6 +10408,7 @@ do
 				},
 				{
 					title = "Fly to the Crossroads",
+					skipto = { { to = "dustwallow", when = { k = "onquest", neg = true, q = { 1148 } } } },
 					goals = {
 						{ t = "goto", text = "{zone:1454} flight master", map = 1454, x = 45.3, y = 63.7, f = "e" },
 						{ t = "fly", location = "Crossroads", node = 25 },
@@ -10394,6 +10417,7 @@ do
 				{
 					title = "{npc:3428}",
 					note = "{npc:3428} stands beside the Crossroads flight master.",
+					skipto = { { to = "dustwallow", when = { k = "onquest", neg = true, q = { 1148 } } } },
 					goals = {
 						{ t = "turnin", quest = 1148, title = "Parts of the Swarm", npc = 3428, npcName = "Korran", map = 1413, x = 51.03, y = 29.57, z = 99 },
 						{ t = "accept", quest = 1184, title = "Parts of the Swarm", npc = 3428, npcName = "Korran", minLevel = 28, qlvl = 35, pre = { 1148 }, preTitles = { [1148] = "Parts of the Swarm" }, map = 1413, x = 51.03, y = 29.57, z = 99, note = "for {npc:4485} in {zone:1454}, at the end of this guide" },
@@ -10408,6 +10432,7 @@ do
 				},
 				{
 					title = "{zone:1445}",
+					label = "dustwallow",
 					goals = {
 						{ t = "goto", text = "{area:403}", area = 403, map = 1445, x = 29.7, y = 47.6, f = "e" },
 					},
@@ -13036,6 +13061,7 @@ do
 					title = "Fly to {object:3202}",
 					note = "Coming from the {zone:2548}: {area:340}'s flight master stands at the foot of the fortress.",
 					when = { { k = "zone", name = "Badlands", area = 3 } },
+					skipto = { { to = "feralas", when = { k = "onquest", neg = true, q = { 209, 348, 573, 576, 587, 604, 609, 617, 621, 624, 728, 1137, 1183, 1426, 1430, 2872, 95033, 95296 } } } },
 					goals = {
 						{ t = "goto", text = "{area:340} flight master", map = 1418, x = 4.1, y = 44.9, f = "e" },
 						{ t = "fly", location = "Grom'gol", node = 20 },
@@ -13044,6 +13070,7 @@ do
 				{
 					title = "Fly to {object:3202}",
 					when = { { k = "zone", name = "Swamp of Sorrows", area = 8 } },
+					skipto = { { to = "feralas", when = { k = "onquest", neg = true, q = { 209, 348, 573, 576, 587, 604, 609, 617, 621, 624, 728, 1137, 1183, 1426, 1430, 2872, 95033, 95296 } } } },
 					goals = {
 						{ t = "goto", text = "{area:75} flight master", map = 1435, x = 46.1, y = 54.7, f = "e" },
 						{ t = "fly", location = "Grom'gol", node = 20 },
@@ -13052,6 +13079,7 @@ do
 				{
 					title = "{area:117}",
 					note = "The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the {zone:1435} and the {zone:1458}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest.",
+					skipto = { { to = "feralas", when = { k = "onquest", neg = true, q = { 209, 348, 573, 576, 587, 604, 609, 617, 621, 624, 728, 1137, 1183, 1426, 1430, 2872, 95033, 95296 } } } },
 					goals = {
 						{ t = "accept", quest = 586, title = "Speaking with Gan'zulah", object = 2076, objName = "Bubbling Cauldron", minLevel = 30, qlvl = 46, pre = { 584 }, preTitles = { [584] = "Bloodscalp Clan Heads" }, map = 1434, x = 32.15, y = 27.54, z = 2.9, note = "the {object:2076}: {quest:586}" },
 					},
@@ -13183,6 +13211,7 @@ do
 					title = "{npc:2491} and {npc:2486}",
 					note = "Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now.",
 					when = { { k = "onquest", neg = true, q = { 348 } }, { k = "turnedin", neg = true, q = 348 } },
+					skipto = { { to = "feralas", when = { k = "onquest", neg = true, q = { 209, 348, 573, 576, 587, 604, 609, 617, 621, 624, 728, 1137, 1183, 1426, 1430, 2872, 95033, 95296 } } } },
 					goals = {
 						{ t = "accept", quest = 580, title = "Whiskey Slim's Lost Grog", npc = 2491, npcName = "Whiskey Slim", minLevel = 40, qlvl = 50, map = 1434, x = 27.07, y = 77.36, z = 15.2, note = "{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48" },
 						{ t = "accept", quest = 2872, title = "Stoley's Debt", npc = 2501, npcName = "\"Sea Wolf\" MacKinley", minLevel = 40, qlvl = 45, closedBy = { 2873 }, endNpcs = { 7881 }, xp = 390, preTitles = { [2873] = "Stoley's Shipment" }, map = 1434, x = 27.71, y = 77.1, z = 15.8, note = "MacKinley, on the top floor: {quest:2872}, for {npc:7881} in {zone:1446} on this guide" },
@@ -13810,6 +13839,7 @@ do
 				},
 				{
 					title = "{zone:1444}",
+					label = "feralas",
 					goals = {
 						{ t = "goto", text = "{area:1099}", area = 1099, map = 1444, x = 75.7, y = 44.3, z = 29.3, f = "e" },
 					},
@@ -13992,6 +14022,7 @@ do
 				{
 					title = "{zone:1454}",
 					note = "From the flight master: the {object:172960}, then the Drag, then the {object:172958}.",
+					skipto = { { to = "brackenwall", when = { k = "onquest", neg = true, q = { 625, 1261, 2976, 3002, 3121, 7732 } } } },
 					goals = {
 						{ t = "turnin", quest = 3121, title = "A Strange Request", npc = 3216, npcName = "Neeru Fireblade", map = 1454, x = 49.46, y = 50.4, z = -17.3, spotsPacked = "49.5,50.4,-17.3,15,4", note = "{npc:3216}, {object:172960}" },
 						{ t = "accept", quest = 3122, title = "Return to Witch Doctor Uzer'i", npc = 3216, npcName = "Neeru Fireblade", minLevel = 40, qlvl = 45, pre = { 3121 }, preTitles = { [3121] = "A Strange Request" }, map = 1454, x = 49.61, y = 50.41, z = -17.3, spotsPacked = "49.5,50.4,-17.3,15,4" },
@@ -14014,6 +14045,7 @@ do
 					title = "Fly to {area:1638}",
 					note = "Your trainer is in {area:1638}, on the way to {area:1099}.",
 					only = { classes = { "PALADIN", "DRUID" } },
+					skipto = { { to = "brackenwall", when = { k = "onquest", neg = true, q = { 625, 1261, 2976, 3002, 3121, 7732 } } } },
 					goals = {
 						{ t = "goto", text = "{zone:1454} flight master", map = 1454, x = 45.3, y = 63.7, f = "e" },
 						{ t = "fly", location = "Thunder Bluff", node = 22, area = 1638 },
@@ -14022,6 +14054,7 @@ do
 				{
 					title = "{zone:1456}",
 					only = { classes = { "PALADIN", "DRUID" } },
+					skipto = { { to = "brackenwall", when = { k = "onquest", neg = true, q = { 625, 1261, 2976, 3002, 3121, 7732 } } } },
 					goals = {
 						{ t = "train", class = true, zone = 1456, candidates = { { npc = 3034, npcName = "Sheal Runetotem", map = 1456, x = 76.88, y = 27.24, z = 159.1, faction = "H", classes = { "DRUID" } }, { npc = 246344, npcName = "Alodan the Hopeful", map = 1456, x = 25.08, y = 14.54, z = 97.4, faction = "H", classes = { "PALADIN" } }, { npc = 262560, npcName = "Hana Lighthoof", map = 1412, x = 33.39, y = 22.17, z = 187.2, faction = "H", classes = { "DRUID" } }, { npc = 3064, npcName = "Gennia Runetotem", map = 1412, x = 47.43, y = 62.88, z = -5.4, faction = "H", classes = { "DRUID" } }, { npc = 3060, npcName = "Gart Mistrunner", map = 1412, x = 44.61, y = 76.62, z = 54.1, faction = "H", classes = { "DRUID" } }, { npc = 12042, npcName = "Loganaar", map = 1450, x = 52.3, y = 40.51, z = 486.9, faction = "AH", classes = { "DRUID" } }, { npc = 8142, npcName = "Jannos Lighthoof", map = 1444, x = 75.98, y = 42.3, z = 34.2, faction = "H", classes = { "DRUID" } }, { npc = 244808, npcName = "Aramis Hammerhand", map = 1420, x = 30.99, y = 66.33, z = 97, faction = "H", classes = { "PALADIN" } }, { npc = 246152, npcName = "Shari Stilwell", map = 1420, x = 60.15, y = 52.6, z = 35.2, faction = "H", classes = { "PALADIN" } }, { npc = 246389, npcName = "Hilda the Breaker", map = 1420, x = 21.84, y = 47.15, z = 134.5, faction = "H", classes = { "PALADIN" } }, { npc = 260093, npcName = "Garen Largo", map = 1458, x = 47.36, y = 15.24, z = -57.1, faction = "H", classes = { "PALADIN" } }, { npc = 251373, npcName = "Xyton Silverwind", map = 2521, x = 41.65, y = 23.34, z = 980.9, faction = "AH", classes = { "DRUID" } }, { npc = 252359, npcName = "Lotheluum Starbreeze", map = 2521, x = 63.93, y = 75.06, z = 691.4, faction = "AH", classes = { "DRUID" } }, { npc = 254081, npcName = "Naeluna Swiftmend", map = 2521, x = 45.13, y = 44.31, z = 827.3, faction = "AH", classes = { "DRUID" } } } },
 					},
@@ -14058,6 +14091,7 @@ do
 					title = "Fly to {area:496}",
 					note = "No Muisek vessel to bring Uzer'i (you didn't take the {zone:1444} & {zone:1446} guide's chain): fly from here straight to {area:496}.",
 					when = { { k = "zone", neg = true, name = "Feralas", area = 357 } },
+					skipto = { { to = "brackenwall", when = { k = "onquest", neg = true, q = { 625, 1261, 2976, 3002, 3121, 7732 } } } },
 					goals = {
 						{ t = "fly", location = "Brackenwall Village", node = 55, area = 496 },
 					},
@@ -14065,6 +14099,7 @@ do
 				{
 					title = "Fly to {area:496}",
 					when = { { k = "zone", name = "Feralas", area = 357 } },
+					skipto = { { to = "brackenwall", when = { k = "onquest", neg = true, q = { 625, 1261, 2976, 3002, 3121, 7732 } } } },
 					goals = {
 						{ t = "goto", text = "{area:1099} flight master", map = 1444, x = 75.4, y = 44.3, f = "e" },
 						{ t = "fly", location = "Brackenwall Village", node = 55, area = 496 },
@@ -14073,6 +14108,7 @@ do
 				{
 					title = "{area:496}",
 					note = "{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip.",
+					label = "brackenwall",
 					goals = {
 						{ t = "accept", quest = 1166, title = "Overlord Mok'Morokk's Concern", npc = 4500, npcName = "Overlord Mok'Morokk", minLevel = 38, qlvl = 43, map = 1445, x = 36.19, y = 31.49, z = 34.8 },
 						{ t = "accept", quest = 1168, title = "Army of the Black Dragon", npc = 4502, npcName = "Tharg", minLevel = 38, qlvl = 43, map = 1445, x = 37.27, y = 31.38, z = 35.6 },
@@ -14940,8 +14976,8 @@ do
 						{ t = "collect", quest = 2601, title = "The Basilisk's Bite", item = 8396, itemName = "Vulture Gizzard", count = 2, oi = 2, map = 1419, x = 50.2, y = 17.2, f = "e", spotsPacked = "50.3,18,,40,4,,48;46.4,19,,40,5,,48;45.22,24.51,,48;57.6,28.4,,40,1,,48;61.95,26.58,,23,1,,48;55.68,36.24,,21,2,,48;55.13,43.88,,26,3,,48;60.4,42.1,,40,1,,48", spread = true, fromNpcs = { { npc = 5982, npcName = "Black Slayer" } } },
 						{ t = "collect", quest = 2585, title = "The Decisive Striker", item = 8396, itemName = "Vulture Gizzard", count = 2, oi = 2, map = 1419, x = 50.2, y = 17.2, f = "e", spotsPacked = "50.3,18,,40,4;46.4,19,,40,5;57.6,28.4,,40,1;61.97,26.47,,23,1;55.68,36.24,,21,2;55.11,43.72,,26,3;60.4,42.1,,40,1", spread = true, lvl = 48, fromNpcs = { { npc = 5982, npcName = "Black Slayer" } } },
 						{ t = "collect", quest = 2603, title = "Vulture's Vigor", item = 8396, itemName = "Vulture Gizzard", count = 10, oi = 1, map = 1419, x = 50.2, y = 17.2, f = "e", spotsPacked = "50.3,18,,40,4,,48;46.4,19,,40,5,,48;45.06,24.57,,50;57.6,28.4,,40,1,,48;62.03,26.91,,25,2,,48;56.18,36.58,,38,5,,48;55.14,44.03,,22,2,,48;60.4,42.1,,40,1,,48", spread = true, fromNpcs = { { npc = 5982, npcName = "Black Slayer" } } },
-						{ t = "collect", quest = 2581, title = "Snickerfang Jowls", item = 8391, itemName = "Snickerfang Jowl", count = 3, oi = 1, map = 1419, x = 48.3, y = 17.84, f = "e", spotsPacked = "48.3,17.8,,40,1;45.8,17.5,,40,1;46.6,20.7,,45,3;48.2,24,,40,2;51.46,28.47,,26,1;49.5,36.6,0.9,52,5,,51;52,39,3.1,44,3,,50;54.9,42.6,0.3,40,1,,50;60.5,36.6,,67,6,,51;56,17.6,,40,1;43.9,25.6,,40,1;46,35.7,6.6,57,7,,51;52.4,57.2,14,40,1,1,50", spread = true, lvl = 46, fromNpcs = { { npc = 5984, npcName = "Starving Snickerfang" }, { npc = 8300, npcName = "Ravage" }, { npc = 5985, npcName = "Snickerfang Hyena" } } },
-						{ t = "collect", quest = 2603, title = "Vulture's Vigor", item = 8391, itemName = "Snickerfang Jowl", count = 2, oi = 2, map = 1419, x = 48.3, y = 17.84, f = "e", spotsPacked = "48.3,17.8,,40,1,,46;45.8,17.5,,40,1,,46;46.6,20.7,,45,3,,46;48.2,24,,40,2,,46;43.9,25.6,,40,1,,46;46,35.7,6.6,57,7,,51;49.5,36.6,0.9,52,5,,51;52,39,3.1,44,3,,50;54.9,42.6,0.3,40,1,,50;60.5,36.6,,67,6,,51;51.84,28.47,,35;56,17.6,,40,1,,46;52.4,57.2,14,40,1,1,50", spread = true, fromNpcs = { { npc = 5984, npcName = "Starving Snickerfang" }, { npc = 8300, npcName = "Ravage" }, { npc = 5985, npcName = "Snickerfang Hyena" } } },
+						{ t = "collect", quest = 2581, title = "Snickerfang Jowls", item = 8391, itemName = "Snickerfang Jowl", count = 3, oi = 1, map = 1419, x = 48.3, y = 17.84, f = "e", spotsPacked = "46.8,19.5,,63,5;48.2,24,,51,2;51.46,28.47,,26,1;51.2,38,,78,5,,50;54.9,42.6,0.3,51,1,,50;43.9,25.6,,51,1;56,17.6,,51,1;45.5,34.5,,51,2,1,50;52.4,57.2,14,51,1,1,50", spread = true, lvl = 46, fromNpcs = { { npc = 5984, npcName = "Starving Snickerfang" }, { npc = 5985, npcName = "Snickerfang Hyena" } } },
+						{ t = "collect", quest = 2603, title = "Vulture's Vigor", item = 8391, itemName = "Snickerfang Jowl", count = 2, oi = 2, map = 1419, x = 48.3, y = 17.84, f = "e", spotsPacked = "46.8,19.5,,63,5,,46;48.2,24,,51,2,,46;43.9,25.6,,51,1,,46;51.84,28.47,,35;51.2,38,,78,5,,50;54.9,42.6,0.3,51,1,,50;56,17.6,,51,1,,46;45.5,34.5,,51,2,1,50;52.4,57.2,14,51,1,1,50", spread = true, fromNpcs = { { npc = 5984, npcName = "Starving Snickerfang" }, { npc = 5985, npcName = "Snickerfang Hyena" } } },
 						{ t = "collect", quest = 2601, title = "The Basilisk's Bite", item = 8394, itemName = "Basilisk Brain", count = 10, oi = 1, map = 1419, x = 48.46, y = 20.34, z = 9.1, f = "e", spotsPacked = "49.3,20.5,,47,2,,49;45.8,19.6,,69,5,,49;44.5,27.1,,70,6,,49;47.62,36.17,,69;51.7,39.36,,77;55,29.1,,47,1,,48;61.3,28.1,,52,3,,48;60.2,37,,47,4,,52;59.6,42.9,,54,4,,52;64.1,52.5,,47,1,,52;45.54,48.87,,23;45.3,55,9.8,47,1,,52", spread = true, fromNpcs = { { npc = 8302, npcName = "Deatheye" }, { npc = 5990, npcName = "Redstone Basilisk" }, { npc = 5991, npcName = "Redstone Crystalhide" } } },
 						{ t = "collect", quest = 2583, title = "A Boar's Vitality", item = 8394, itemName = "Basilisk Brain", count = 1, oi = 3, map = 1419, x = 48.46, y = 20.34, z = 9.1, f = "e", spotsPacked = "49.3,20.5,,47,2,,49;45.8,19.6,,69,5,,49;44.5,27.1,,70,6,,49;56.84,32.05,,70;60.85,29.01,,20;60.2,37,,47,4,,52;59.6,42.9,,54,4,,52;64.1,52.5,,47,1,,52;46.8,50.2,,47,2,,52;45.3,55,9.8,47,1,,52", spread = true, fromNpcs = { { npc = 8302, npcName = "Deatheye" }, { npc = 5990, npcName = "Redstone Basilisk" }, { npc = 5991, npcName = "Redstone Crystalhide" } } },
 						{ t = "collect", quest = 2583, title = "A Boar's Vitality", item = 8392, itemName = "Blasted Boar Lung", count = 3, oi = 1, map = 1419, x = 52.27, y = 27.39, z = 8.9, f = "e", spotsPacked = "52.9,28.3,,42,3,,50;56.7,29.5,,66,7,,50;56.6,33.7,,40,2,,50;59.3,36,,40,1,,49;62.4,28.3,,40,6,,50;59.3,27,,46,4,,50;53.42,38.66,,25,3;51.3,37.3,,52,11;54.8,43.2,,41,5;52,56.8,,40,3;46.5,50.4,,62,9;45.56,35.77,,59,15;46.2,48.2,,40,4,1;51.8,54.1,,55,11,1", spread = true, lvl = 53, fromNpcs = { { npc = 8303, npcName = "Grunter" }, { npc = 5993, npcName = "Helboar" }, { npc = 5992, npcName = "Ashmane Boar" } } },
@@ -25508,7 +25544,7 @@ do
 						{ t = "level", level = 18 },
 						{ t = "collect", quest = 821, title = "Chen's Empty Keg", item = 4893, itemName = "Savannah Lion Tusk", count = 5, oi = 1, map = 1413, x = 61.37, y = 34.59, z = 93.7, f = "e", spotsPacked = "61.4,34.6,93.7,40,1,,18;61.9,32.8,,41,6,,18;61.71,32.31,93.3,15,1,,18;59.7,34.64,,17,1;59,36.5,91.8,40,1;57.7,39.3,91.8,40,1;55.3,30.5,91.8,40,4,,13;49.24,27.39,,32,2,,12;51.2,20.7,91.8,51,7,,13;53.5,15.5,91.8,51,7;47,13.7,92.1,40,1,,16;40.6,20.7,,49,4;40.8,22.2,,51,4;41.9,23.4,91.8,40,2;41.3,24.3,92,40,1;41.3,28.5,92.1,40,2;42.6,28.9,92.2,40,1;44.21,31.3,91.8,27,2;43,33.5,91.8,40,3;43.5,39.3,91.7,40,1;63,27.7,,42,3;63.6,5.9,29.4,40,3;60.5,33.4,92,40,1,1,18;62.8,33.5,91.8,40,1,1,18;59.5,32,91.8,40,1,1,18;63,29.1,,40,2,1;59.1,40.9,91.7,53,3,1;54.4,31.1,,53,4,1,12;55,29,92.3,40,1,1,12;54.6,29.9,,46,5,1,12;53.5,27.4,92,40,2,1,12;50.7,31.5,94.7,40,1,1,12;51.8,26,94.2,40,3,1,13;51.3,26.7,,40,2,1,12;50,31.8,91.8,40,1,1,12;50.3,27.2,,40,1,1,13;51.2,24,91.8,40,1,1,12;50.3,23.3,91.8,53,4,1,12;55.6,16.3,91.8,40,3,1;55.6,14.7,91.8,40,2,1;54.6,14.9,,43,4,1;53.7,13.7,91.8,40,2,1;50,15.7,,52,9,1,13;43.9,32.8,92.3,40,2,1;43.8,37.8,91.8,40,2,1;43.6,35.4,91.8,40,2,1;60.4,7.9,,40,2,1;63.3,7.3,31.1,40,1,1;42.5,34.9,91.8,40,2,1;42.5,32.9,,44,4,1;45.5,16.6,92.5,40,1,1,16;44.4,15.8,94.4,40,1,1,16;40.9,26.7,91.8,40,3,1;43.9,16.7,91.8,40,1,1,16;44.5,14.1,91.9,40,1,1,16;43.1,15,91.9,40,1,1,16", spread = true, lvl = 15, from = "Savannah Patriarch", fromKind = "npc", fromAlso = "Savannah Highmane", fromId = 3241, fromAlsoId = 3243, fromNpcs = { { npc = 3416, npcName = "Savannah Matriarch" }, { npc = 3241, npcName = "Savannah Patriarch" }, { npc = 3243, npcName = "Savannah Highmane" }, { npc = 3415, npcName = "Savannah Huntress" }, { npc = 3425, npcName = "Savannah Prowler" }, { npc = 5865, npcName = "Dishu" } }, fromNpcsAt = "1,5,2;1,2,5;1,5,2;5,1,2;5,1,2;5,1,2;3,4,5,2,6;4,5,2,3,6;4,3,6,5,2;5,4,2,3,6;2,4,5,3,6;5;5;5;5;5;5;5;5;5;5,1,2;5;1,5,2;1,5,2;1,5,2;5,1,2;5,1,2;4,5,2,3,6;4,5,2,3,6;4,5,2,3,6;4,5,2,3,6;4,5,2,3,6;4,3,5,2,6;4,5,2,3,6;4,5,2,3,6;6,4,5,2,3;4,5,2,3,6;4,5,2,3,6;5,4,2,3,6;5,4,2,3,6;5,4,2,3,6;5,4,2,3,6;4,3,6,5,2;5;5;5;5;5;5;5;2,4,5,3,6;2,4,5,3,6;5;2,4,5,3,6;2,4,5,3,6;2,4,5,3,6" },
 						{ t = "collect", quest = 821, title = "Chen's Empty Keg", item = 4894, itemName = "Plainstrider Kidney", count = 5, oi = 2, map = 1413, x = 60.07, y = 31.48, f = "e", spotsPacked = "60.07,31.48,,50,1,,17;60.96,31.54,,21;60.9,22.6,,76,3,,13;61.4,13.2,90.8,50,1,,17;56,5.8,,50,2,,17;53,18.9,93.5,50,1,,13;44.9,13.6,91.8,50,3,,17;44.2,25.1,,64,3,,13;48.9,32.2,165.1,50,3,,13;54.7,38.5,93.1,50,1,,13;49.5,49.6,,77,4,,17;62,49.2,79.9,50,1,,17;37.6,28.1,,50,2,,17;60.8,33.8,,61,3,1,17;58.3,31.9,140.7,50,1,1,13;57.3,30.7,,76,9,1,13;57.8,28.7,,50,2,1,13;63.8,31,,63,3,1,13;56.6,29.2,204.1,95,7,1,13;56.8,34.5,94.7,50,1,1,13;63.6,29.1,,50,2,1,13;57.1,27.4,,60,5,1,13;56,32.5,,50,2,1,13;58,26.1,135.4,50,1,1,13;63.9,35.7,13.5,50,2,1,13;54.6,32.1,92.1,50,1,1,12;54.4,34.8,92.1,92,4,1,13;57.2,23,,50,2,1,13;55.6,24.5,,50,3,1,12;54.4,36.4,92.8,50,1,1,13;53.6,28.7,,92,6,1,12;53.3,30.8,91.9,52,3,1,12;53.2,32.8,,59,5,1,12;55.8,22.7,94.2,50,1,1,13;58.7,20.7,,50,2,1,13;53,34.8,,50,2,1,13;57,21,,50,3,1,13;53.4,37.4,93.9,50,1,1,13;54.2,23.4,,53,3,1,12;52.8,26.3,91.9,52,4,1,12;52.4,37,91.8,50,1,1,13;53.3,22.7,,92,4,1,12;51.4,27.6,,73,5,1,12;51.3,35.2,,75,4,1,13;50.8,33.2,92.1,50,3,1,12;50.6,31.2,,61,3,1,12;52.4,21.2,,69,5,1,13;51.6,22.4,,55,5,1,12;49.2,29.9,,82,5,1,12;49.6,36.4,,94,4,1,13;61.2,48.3,,50,2,1,17;49.5,38.5,,50,2,1,13;55.6,47.8,,50,3,1,17;51.4,19.2,93.7,57,5,1,12;48.6,25.4,,72,4,1,12;59.1,49.7,,50,2,1,17;48,27.8,,61,3,1,12;48.9,23.5,91.8,73,6,1,12;47.7,32.1,,72,4,1,13;47.7,34.4,,50,2,1,13;56.2,49.4,94.9,50,1,1,17;47.5,29.8,157.4,50,1,1,13;49.5,21.1,171.3,80,5,1,13;51.2,17.5,92,50,4,1,12;53.7,48.3,94.2,67,4,1,17;47.8,37.8,,78,5,1,13;52.4,47.4,,68,3,1,17;52.3,15.4,92.2,63,3,1,13;47.2,26.1,,66,3,1,13;54.7,50,,63,4,1,17;46.5,33.2,,75,4,1,13;48.7,19.8,212.9,87,7,1,13;57.8,51.9,,69,3,1,17;46.2,30.6,,50,3,1,13;46.3,28,,51,2,1,13;55.6,51.5,,70,3,1,17;60.9,10.4,,50,2,1,17;50.9,15.4,97.5,50,2,1,12;46.7,24.4,92.2,50,1,1,13;50.1,46.7,,50,2,1,17;59.5,52.8,,50,2,1,17;49.1,17.8,159.8,88,5,1,13;47.5,21,,80,6,1,13;54.1,51.8,,50,3,1,17;55,52.6,93.4,50,1,1,17;44.9,32.2,,50,2,1,13;49.4,47.9,,54,4,1,17;51,13,,50,2,1,13;45.1,26.7,94.1,50,1,1,13;60,8.5,89.3,50,1,1,17;47.4,44.5,,50,2,1,17;50.1,13.9,,88,5,1,13;44.9,35.9,93.9,50,1,1,13;44.5,34.5,,59,4,1,13;46.5,19.4,,50,2,1,13;48.4,15.5,,50,2,1,13;58.3,7.9,91.8,50,1,1,17;59.3,7.3,,50,2,1,17;45.8,43.3,92.6,50,1,1,17;43.5,31.7,,50,2,1,13;47.8,14.1,,80,7,1,17;43.2,33,94.1,50,1,1,13;57.3,6.4,91.7,50,1,1,17;45.5,17.1,91.8,50,1,1,17;42.6,29.9,91.8,50,1,1,13;42.6,25.1,93.5,50,1,1,13;45.5,15.3,,51,3,1,17;46.8,12.8,,50,2,1,17;44.1,17.2,92,50,1,1,17;44.1,15.1,,87,4,1,17;39.9,24.7,92,50,1,1,17;42.1,15.7,,50,2,1,17;38.8,25,88.3,50,1,1,17;38.1,26.3,,50,2,1,17", spread = true, fromNpcs = { { npc = 3245, npcName = "Ornery Plainstrider" }, { npc = 3244, npcName = "Greater Plainstrider" }, { npc = 3246, npcName = "Fleeting Plainstrider" } } },
-						{ t = "collect", quest = 821, title = "Chen's Empty Keg", item = 4895, itemName = "Thunder Lizard Horn", count = 1, oi = 3, map = 1413, x = 48.45, y = 50.91, f = "e", spotsPacked = "48.45,50.91,,37;45,77.3,,15,1,1,24;48.1,79.8,94.9,15,1,1,24", from = "Thunderstomp", fromKind = "npc", fromRank = 4, fromId = 5832, fromNpcs = { { npc = 5832, npcName = "Thunderstomp" } } },
+						{ t = "collect", quest = 821, title = "Chen's Empty Keg", item = 4895, itemName = "Thunder Lizard Horn", count = 1, oi = 3, map = 1413, x = 48.45, y = 50.91, f = "e", spotsPacked = "48.45,50.91,,37;47.7,51.8,94.9,45,1,1,19;47.5,49.2,94,45,1,1,19;46.7,50.5,,73,4,1,19;50.5,52.8,93.6,52,3,1,19;49.8,53.9,,45,4,1,19;47,47.7,,78,5,1,19;45.5,52.3,91.8,45,1,1,19;49.1,55.8,,64,4,1,19;46.4,46.3,82.7,45,1,1,19;44.7,49.4,91.8,45,1,1,19;46.6,56.1,,45,3,1,19;48.4,56.8,,45,3,1,19;45,47.8,,76,5,1,19;44.2,53.4,92.5,45,1,1,19;46.2,44.8,85.1,45,1,1,19;45.5,56.4,,54,3,1,19;48.2,58,,45,3,1,21;52.7,54.8,,56,3,1,19;43.5,49.5,,45,2,1,19;45,45.3,,59,3,1,19;44.1,46.6,,45,2,1,19;49.6,59,,66,6,1,24;52.6,56.5,,53,4,1,19;48.4,60.3,,100,7,1,21;42.2,48.8,93.7,45,1,1,19;43.7,44.4,91.8,45,1,1,19;42.7,46.3,93.2,63,4,1,19;50.2,60.4,,52,3,1,21;49,61.9,92,67,6,1,24;42.2,57.7,91.7,45,1,1,19;46.9,62.3,,54,3,1,21;44,60.9,,45,2,1,21;42.8,60.6,,45,3,1,21;48,63.8,,45,3,1,21;43.9,62.1,94.3,45,3,1,24;45.8,63.4,96,69,5,1,24;44.4,63.6,,45,2,1,21;47.1,65.2,94.1,45,1,1,21;45.2,64.9,93.9,45,1,1,21;47.3,66.8,,45,2,1,21;45.6,66.9,91.9,67,5,1,21;46.3,68.9,,53,3,1,21;46.8,72.7,92,45,2,1,23;48.5,74.3,,63,4,1,23;44.4,74,,62,3,1,23;47.1,74.9,91.8,45,3,1,23;45.5,74.9,92.7,45,1,1,23;48.2,75.9,,45,4,1,23;48.9,76.6,,45,3,1,23;50.4,76.5,,45,2,1,23;44.1,75.9,91.8,64,4,1,23;45,76.8,,45,2,1,23;46.6,77.3,,45,2,1,23;49.3,79.3,94.7,60,3,1,23;43.2,78.4,91.9,45,1,1,23;44.5,78.9,,45,2,1,23;46.5,79.5,,45,2,1,23;50.1,80.4,91.8,45,1,1,23;47.9,80.9,,45,2,1,23;47.1,82.3,92.2,45,1,1,23", fromNpcs = { { npc = 3240, npcName = "Stormsnout" }, { npc = 3238, npcName = "Stormhide" }, { npc = 3239, npcName = "Thunderhead" }, { npc = 3473, npcName = "Owatanka" } } },
 					},
 				},
 				{

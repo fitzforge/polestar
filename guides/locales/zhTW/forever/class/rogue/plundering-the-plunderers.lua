@@ -42,7 +42,7 @@ return {
 
 	-- Step 7: Fenwick Thatros
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {quest:1998} Fenwick Thatros · {area:1338} Lordamere Lake · {area:228} Sepulcher
-	["Take the zeppelin from {zone:1454} to the {zone:1458} and head south into Silverpine. {quest:1998} (level 16) stands alone on the old ferry dock on {area:1338}, north-east of the {area:228}. His Uppercut knocks you back, so do not fight him at the dock's edge. He always drops his head and is back 4 1/2 minutes after a death."] = "",
+	["Take the zeppelin from {zone:1454} to the {zone:1458} and head south into Silverpine. {quest:1998} (level 16) stands alone on the old ferry dock on {area:1338}, north-east of the {area:228}. His Uppercut knocks you back, so do not fight him at the dock's edge. He always drops his head and is back 4 1/2 minutes after a death."] = "從 {zone:1454} 乘飛艇前往 {zone:1458}，再向南進入銀松森林。{quest:1998}（16 級）獨自站在 {area:1338} 的舊渡口碼頭上，位於 {area:228} 東北方。他的上勾拳會將你擊退，因此不要在碼頭邊緣與他戰鬥。他必定掉落頭顱，死亡 4 分半後重生。",
 
 	-- Step 8: Mennet Carkad
 	-- {item:5060} Thieves' Tools · {npc:6566} Estelle Gendry · {object:36073} Rogues' Quarter

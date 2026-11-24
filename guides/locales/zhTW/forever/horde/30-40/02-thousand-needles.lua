@@ -97,15 +97,15 @@ return {
 	-- {npc:4877} Jandia · {area:487} Roguefeather Den
 	["{npc:4877}: the Screeching harpies of {area:487}"] = "{npc:4877}：{area:487}的尖嘯鷹身人",
 	-- {npc:4877} Jandia
-	["{npc:4877}: her stolen supplies lie in the same harpy den"] = "",
+	["{npc:4877}: her stolen supplies lie in the same harpy den"] = "{npc:4877}：她被偷的物資也在同一處鷹身人巢穴",
 
 	-- Step 19: The Screeching Canyon: kill these as you meet them
 	-- {area:483} The Screeching Canyon
-	["{area:483}: kill these as you meet them"] = "",
+	["{area:483}: kill these as you meet them"] = "{area:483}：遇到就殺",
 	-- {area:2097} Darkcloud Pinnacle · {area:487} Roguefeather Den · {npc:4490} Grenka Bloodscreech · {npc:2986} Dorn Plainstalker · {npc:4877} Jandia · {quest:98069} Stolen Freewind Supplies · {zone:1440} Ashenvale · {zone:1441} Thousand Needles
 	["West of Freewind Post, below {area:2097}, the harpies of {area:487} (28-30). {npc:4490} (31) walks among them: thin out the harpies around her before you pull her, for {npc:2986}'s claw. {npc:4877}'s harpies and {quest:98069} (on the ground along the foot of the cliff and in the cave up on top) are here for a character who didn't do them in the {zone:1440} & {zone:1441} guide."] = "",
 	-- {quest:98069} Stolen Freewind Supplies
-	["{quest:98069}, on the ground around the den"] = "",
+	["{quest:98069}, on the ground around the den"] = "{quest:98069}，在巢穴周圍的地面上",
 	-- {item:5843} Grenka's Claw · {npc:4490} Grenka Bloodscreech
 	["{item:5843}, from {npc:4490}"] = "{item:5843}，來自{npc:4490}",
 
@@ -198,7 +198,7 @@ return {
 
 	-- Step 36: Freewind Post
 	-- {npc:10537} Cliffwatcher Longhorn
-	["{npc:10537} stands in the middle of the post, on the way to the flight master."] = "",
+	["{npc:10537} stands in the middle of the post, on the way to the flight master."] = "{npc:10537}站在崗哨中央，去飛行管理員的路上會經過。",
 	-- {npc:10537} Cliffwatcher Longhorn · {npc:11259} Nataka Longhorn · {zone:1443} Desolace
 	["{npc:10537}: for {npc:11259} in {zone:1443}, next"] = "{npc:10537}：交給{zone:1443}的{npc:11259}，在下一份指南中",
 

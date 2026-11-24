@@ -23,9 +23,9 @@ return {
 
 	-- Step 4: Fly to Sentinel Hill
 	-- {area:108} Sentinel Hill
-	["Fly to {area:108}"] = "",
+	["Fly to {area:108}"] = "{area:108}(으)로 날아가기",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "{zone:1453} 비행 조련사",
 
 	-- Step 5: Half Pendant of Aquatic Endurance
 	-- {area:108} Sentinel Hill · {object:177790} Strange Lockbox
@@ -38,7 +38,7 @@ return {
 	["The {area:91}"] = "{area:91}",
 
 	-- Step 7: Theocritus
-	["On the top floor"] = "",
+	["On the top floor"] = "최상층에",
 
 	-- Step 8: Henze Faulk
 	-- {area:91} Tower of Azora · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
@@ -67,7 +67,7 @@ return {
 	-- {npc:265} Madame Eva
 	["{npc:265}, in her house by the tavern; inside"] = "",
 	-- {npc:265} Madame Eva
-	["{npc:265}, inside"] = "",
+	["{npc:265}, inside"] = "{npc:265}, 내부",
 	-- {npc:6790} Innkeeper Trelayne
 	["{npc:6790}, Scarlet Raven Tavern"] = "{npc:6790}, 여관",
 	-- {npc:267} Clerk Daltry
@@ -87,7 +87,7 @@ return {
 	-- {npc:276} Viktori Prism'Antras · {quest:174} Look to the Stars · {item:4371} Bronze Tube
 	["{npc:276} is in her house at the east end of town. {quest:174} needs a {item:4371}, so this step shows only while you carry one: without a tube the guide passes {npc:276} and her chain."] = "{npc:276}은(는) 마을 동쪽 끝 자기 집에 있습니다. {quest:174}에는 {item:4371}이(가) 필요하므로, 이 단계는 그것을 가지고 있을 때만 표시됩니다. 없으면 가이드는 {npc:276}와(과) 그녀의 연계 퀘스트를 건너뜁니다.",
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}, inside"] = "",
+	["{npc:276}, inside"] = "{npc:276}, 내부",
 
 	-- Step 14: Viktori Prism'Antras
 	-- {npc:302} Blind Mary
@@ -99,7 +99,7 @@ return {
 
 	-- Step 16: Tranquil Gardens Cemetery: kill these as you meet them
 	-- {area:121} Tranquil Gardens Cemetery
-	["{area:121}: kill these as you meet them"] = "",
+	["{area:121}: kill these as you meet them"] = "{area:121}: 만나는 대로 처치하세요",
 	-- {area:42} Darkshire · {npc:302} Blind Mary · {zone:1431} Duskwood · {item:2378} Skeleton Finger
 	-- plural, as words: Skeletal Warriors = {npc:48} Skeletal Warrior · Skeletal Mages = {npc:203} Skeletal Mage
 	["Skeletal Warriors and Skeletal Mages walk among the graves south-east of {area:42}, below {npc:302}'s house on the hill. Every skeleton in {zone:1431} can drop a {item:2378}.\nCareful: Because the skeletons stand near each other, running straight in tends to pull several at once."] = "",
@@ -122,7 +122,7 @@ return {
 
 	-- Step 20: The Hushed Bank: kill these as you meet them
 	-- {area:1097} The Hushed Bank
-	["{area:1097}: kill these as you meet them"] = "",
+	["{area:1097}: kill these as you meet them"] = "{area:1097}: 만나는 대로 처치하세요",
 	-- {npc:289} Abercrombie · {area:1097} The Hushed Bank · {quest:163} Raven Hill · {npc:311} Sven Yorgen · {zone:1436} Westfall
 	-- plural, as words: Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider
 	["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders are the small spiders, and few: most crawl along the {area:1097} west of {quest:163}, fewer up north towards {npc:311}'s camp; they drop the venom too. Every ghoul of the cemetery's northern half can drop a fang. Wolves and the bigger spiders share the {zone:1436} border, so pull with care."] = "",
@@ -138,7 +138,7 @@ return {
 
 	-- Step 22: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
-	["{area:492}: kill these as you meet them"] = "",
+	["{area:492}: kill these as you meet them"] = "{area:492}: 만나는 대로 처치하세요",
 	-- {npc:522} Mor'Ladim
 	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Skeletal Fiends = {npc:531} Skeletal Fiend · Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Fetid Corpses = {npc:1270} Fetid Corpse
 	["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends (23-25) walk its southern half and carry the fingers; for the fangs, Flesh Eaters (24-25) drop the most, so leave the Bone Chewers, Plague Spreaders and Fetid Corpses (26-30) further in alone. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: Eliza, a level 31 elite, rises from her grave at the cemetery's north end: keep away from it."] = "묘지는 마을 북쪽에 있습니다. 해골 병사와 해골 악령(23-25)이 남쪽 절반을 돌아다니며 손가락을 지니고 있습니다. 송곳니는 굶주린 시체(24-25)가 가장 많이 떨어뜨리니, 더 안쪽의 뼈만남은 시체, 역병걸린 시체, 악취나는 시체(26-30)는 건드리지 마십시오. 정예 {npc:522}이(가) 무덤 사이를 돌아다니니 멀리하십시오.\n주의: 31레벨 정예 엘리자가 묘지 북쪽 끝의 무덤에서 일어나니 그곳을 멀리하십시오.",
@@ -152,7 +152,7 @@ return {
 
 	-- Step 25: Darkshire
 	-- {npc:268} Sirra Von'Indi
-	["{npc:268}, inside"] = "",
+	["{npc:268}, inside"] = "{npc:268}, 내부",
 	-- {npc:272} Chef Grual
 	["{npc:272}, in the Scarlet Raven Tavern"] = "",
 	-- {npc:272} Chef Grual · {zone:1431} Duskwood
@@ -190,7 +190,7 @@ return {
 	-- {npc:341} Foreman Oslow
 	["{npc:341}, beside him"] = "{npc:341}, 그의 옆",
 	-- {npc:900} Bailiff Conacher
-	["{npc:900}, in the town hall"] = "",
+	["{npc:900}, in the town hall"] = "{npc:900}, 마을 회관 안",
 	["The Wanted poster by the inn"] = "여관 옆의 현상수배 전단",
 
 	-- Step 31: Bellygrub
@@ -253,13 +253,13 @@ return {
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
 	["From the keep head back west along the lake's north shore and north up the {area:95} to {area:997}; {area:69}'s hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley."] = "",
 	-- {npc:435} Blackrock Champion
-	["{npc:435}, below ground"] = "",
+	["{npc:435}, below ground"] = "{npc:435}, 지하",
 
 	-- Step 43: Corporal Keeshan
 	-- {zone:1428} Burning Steppes · {area:69} Lakeshire
 	["Keeshan hides at the very north end of the valley, by the {zone:1428} border. Escort him down to {area:69}; Blackrock orcs ambush you on the way."] = "키샨은 계곡 맨 북쪽 끝, {zone:1428} 경계 근처에 숨어 있습니다. 그를 호위하여 {area:69}까지 내려가세요. 가는 길에 검은바위부족 오크가 습격합니다.",
 	-- {npc:349} Corporal Keeshan
-	["{npc:349}, below ground"] = "",
+	["{npc:349}, below ground"] = "{npc:349}, 지하",
 
 	-- Step 44: Magistrate Solomon: Gath'Ilzogg
 	-- {npc:344} Magistrate Solomon

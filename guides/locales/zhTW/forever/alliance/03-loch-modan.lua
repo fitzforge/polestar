@@ -14,7 +14,7 @@ return {
 
 	-- Step 2: Menethil Harbor
 	-- {zone:1437} Wetlands · {zone:1440} Ashenvale · {zone:1442} Stonetalon Mountains
-	["Off the boat, walk up the pier to the flight master by the inn. Nothing to take here yet: Menethil's quests are for your {zone:1437} visit, after {zone:1440} and the {zone:1442}."] = "",
+	["Off the boat, walk up the pier to the flight master by the inn. Nothing to take here yet: Menethil's quests are for your {zone:1437} visit, after {zone:1440} and the {zone:1442}."] = "下船後沿碼頭前往旅店旁的飛行管理員。這裡暫時沒有要接的任務：米奈希爾的任務留到你走完{zone:1440}和{zone:1442}、來{zone:1437}時再做。",
 
 	-- Step 3: Into Loch Modan
 	-- {zone:1432} Loch Modan
@@ -119,7 +119,7 @@ return {
 	-- Step 24: Mountaineer Ylva
 	-- {npc:269185} Headsplitter · {zone:1418} Badlands
 	-- plural, as words: Stonevault Cave Hunters = {npc:4856} Stonevault Cave Hunter
-	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}.\nCareful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the {zone:1418}: stay by the banner and don't chase troggs south."] = "",
+	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}.\nCareful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the {zone:1418}: stay by the banner and don't chase troggs south."] = "塞爾薩瑪南邊，伊爾瓦的遺體躺在一個穴居人洞口。右鍵點選揹包裡的旗幟，將它豎在遺體旁並守住：穴居人會從兩側分波來襲，最後出現{npc:269185}。\n小心：石窟獵手（36級，精英）守在伊爾瓦南邊、通往{zone:1418}的山口：待在旗幟旁，別向南追穴居人。",
 	-- {item:253247} Banner of Ironforge · {npc:269185} Headsplitter
 	["{item:253247}: raise it beside Ylva, then hold the spot until {npc:269185} comes"] = "",
 
@@ -194,7 +194,7 @@ return {
 
 	-- Step 37: Lakeshire
 	-- {npc:8965} Shawn · {npc:8962} Hilary · {npc:341} Foreman Oslow · {npc:415} Verner Osgood · {npc:344} Magistrate Solomon · {npc:381} Dockmaster Baren · {npc:266} Wiley the Black · {npc:379} Darcy · {npc:343} Chef Breanna
-	["Cross the long bridge north into town: {npc:8965} and {npc:8962} play by the shore at its north end, {npc:341} stands there too, {npc:415} by the smithy, {npc:344} in the town hall, {npc:381} on the docks, {npc:266} upstairs in the inn and {npc:379} and {npc:343} inside it."] = "",
+	["Cross the long bridge north into town: {npc:8965} and {npc:8962} play by the shore at its north end, {npc:341} stands there too, {npc:415} by the smithy, {npc:344} in the town hall, {npc:381} on the docks, {npc:266} upstairs in the inn and {npc:379} and {npc:343} inside it."] = "向北穿過長橋進鎮：{npc:8965}和{npc:8962}在橋北端的岸邊玩耍，{npc:341}也在那裡；{npc:415}在鐵匠鋪旁，{npc:344}在市政廳，{npc:381}在碼頭，{npc:266}在旅店樓上，{npc:379}和{npc:343}也在旅店內。",
 	-- {npc:415} Verner Osgood · {npc:514} Smith Argus · {area:87} Goldshire
 	["{npc:415}: for {npc:514} in {area:87}"] = "{npc:415}：交給{area:87}的{npc:514}",
 	-- {npc:344} Magistrate Solomon · {npc:466} General Marcus Jonathan · {zone:1453} Stormwind
@@ -286,9 +286,10 @@ return {
 
 	-- Step 51: Stormwind
 	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:1617} Valley of Heroes
+	-- was: ["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332}在{object:2100}的軍情七處（SI:7）大樓樓上：樓梯起初不太顯眼。{npc:466}騎著馬守在城門裡大橋的盡頭；之後返回{object:2096}的獅鷲處。"
 	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "",
 	-- {npc:332} Master Mathias Shaw
-	["{npc:332}, SI:7; upstairs"] = "",
+	["{npc:332}, SI:7; upstairs"] = "{npc:332}，軍情七處（SI:7）；樓上",
 
 	-- Step 52: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle
@@ -299,7 +300,7 @@ return {
 	["{area:20} and the Defias hills"] = "{area:20}與迪菲亞丘陵",
 	-- {area:20} Moonbrook · {area:1581} The Deadmines
 	-- plural, as words: Defias Pathstalkers = {npc:121} Defias Pathstalker
-	["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "",
+	["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "迪菲亞巡路者和拳匪在{area:20}巡邏；迪菲亞路霸（17級）成對在它南邊和東邊的匕首嶺巡邏：把它們分開拉。鐵匠鋪裡的{area:1581}入口是小隊地城。\n小心：匕首嶺上的營地有混編的迪菲亞，如果你等級低，很容易一次拉到不止一個。",
 	-- {item:254676} Suspicious Industrial Supplies · {area:20} Moonbrook
 	["{item:254676}, from the crates around {area:20}"] = "{item:254676}，來自{area:20}周圍的箱子",
 
@@ -388,7 +389,7 @@ return {
 
 	-- Step 69: Fly to Stormwind
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {zone:1453} Stormwind
-	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "",
+	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "返回{area:442}，繼續{zone:1439}南邊的路線：先坐獅鷲到{zone:1453}，再從港口坐船。爐石可用（自第一次來{zone:1439}起就繫結在{area:442}）？那就直接用爐石：一到{zone:1439}，這些步驟就會自動消失。",
 	-- {area:69} Lakeshire
 	["{area:69} flight master"] = "{area:69}飛行管理員",
 
@@ -432,4 +433,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "威利的迪菲亞兄弟會不會給任務（這條線從{zone:1436}裡{npc:234}的信開始）：跳過{zone:1436}。沿路從{area:87}向北到{zone:1453}：{npc:466}騎在馬上，就在城門外橋的另一端。然後坐{object:2096}裡的獅鷲，回到{area:69}。",
+	-- ["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332}在{object:2100}的軍情七處（SI:7）大樓樓上：樓梯起初不太顯眼。{npc:466}騎著馬守在城門裡大橋的盡頭；之後返回{object:2096}的獅鷲處。",
 }

@@ -9,7 +9,7 @@ return {
 	-- Step 1: Mulgris Deepriver
 	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
 	["He camps by the {area:202}, south-east of {area:200}."] = "그는 {area:200} 남동쪽, {area:202} 옆에 야영하고 있습니다.",
-	["Inside"] = "",
+	["Inside"] = "내부",
 
 	-- Step 2: Diseased Wolves
 	["Diseased Wolves"] = "역병에 걸린 늑대",
@@ -48,9 +48,9 @@ return {
 	["Derrington's watchtowers and Vandis' cauldron are done on a later visit: keep them."] = "데링턴의 감시탑과 반디스의 가마솥은 나중에 들를 때 처리합니다. 보관하세요.",
 
 	-- Step 11: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "성기사 상급자",
 	-- {npc:246152} Shari Stilwell · {zone:1420} Tirisfal Glades · {zone:1454} Orgrimmar
-	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "{npc:246152}은(는) {zone:1420}에 있습니다. {zone:1454}에는 성전사 교관이 없습니다.",
 
 	-- Step 12: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -58,7 +58,7 @@ return {
 
 	-- Step 13: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "{zone:1454} 중앙",
 
 	-- Step 14: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
@@ -80,7 +80,7 @@ return {
 
 	-- Step 17: Ruins of Eldarath: kill these as you meet them
 	-- {area:1221} Ruins of Eldarath
-	["{area:1221}: kill these as you meet them"] = "",
+	["{area:1221}: kill these as you meet them"] = "{area:1221}: 만나는 대로 처치하세요",
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "동쪽 해안의 폐허로 가세요. 석판 네 개가 폐허 곳곳에 있으며, 원한의꼬리일족 나가(52-55)가 지키고 있습니다. 한 번에 한 마리씩 끌어오세요.",
 
 	-- Step 18: Ruins of Eldarath
@@ -180,7 +180,7 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
 	-- {area:1237} Valormok
-	["{area:1237} flight master"] = "",
+	["{area:1237} flight master"] = "{area:1237} 비행 조련사",
 
 	-- Step 36: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
@@ -196,7 +196,7 @@ return {
 	-- Step 38: Druid trainer
 	["Druid trainer"] = "드루이드 상급자",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
-	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
+	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034}은(는) {zone:1412}에 있습니다. {zone:1454}에는 드루이드 교관이 없습니다.",
 
 	-- Step 39: Fly to Valormok
 	-- {zone:1448} Felwood · {area:1237} Valormok · {npc:8587} Jediga · {npc:8659} Jes'rimon · {area:431} Splintertree Post
@@ -204,7 +204,7 @@ return {
 
 	-- Step 41: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
-	["Fly to {area:431}"] = "",
+	["Fly to {area:431}"] = "{area:431}(으)로 날아가기",
 
 	-- Step 43: Emerald Sanctuary
 	["The druids' camp is just past the border."] = "드루이드 야영지는 경계를 막 지나서 있습니다.",
@@ -217,7 +217,7 @@ return {
 
 	-- Step 44: Deadwood Village
 	-- {area:1769} Timbermaw Hold
-	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "",
+	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "죽은나무 퍼볼그 마을은 성지 바로 남쪽에 있습니다. 죽은나무를 처치할 때마다 {area:1769} 평판도 오르니 머리깃을 보관하세요.",
 
 	-- Step 45: Southern Jaedenar
 	-- {area:1763} Jaedenar
@@ -285,7 +285,7 @@ return {
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside. She speaks to you only from Neutral with the Timbermaw."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558} walks around here: look inside the circle on the map"] = "",
+	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558}이(가) 이 주변을 배회합니다. 지도 원 안을 살펴보세요.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "{item:13140}을(를) 얻었다면: 사용해 퀘스트를 시작한 뒤, {area:1763} 북쪽 끝 동굴인 {area:1770}의 우리에서 {npc:11018}을(를) 풀어 주세요.",
@@ -352,6 +352,7 @@ return {
 	-- ["grind on Deadwood Avengers at {area:1762}, {zone:1448}"] = "{zone:1448} {area:1762}에서 마른가지일족 복수자 사냥",
 	-- ["grind on Scarlet Knights at {area:192}, {zone:1422}"] = "{zone:1422} {area:192}에서 붉은십자군 기사 사냥",
 	-- ["grind on {npc:7157}"] = "{npc:7157} 사냥",
+	-- ["grind on {npc:8957}"] = "{npc:8957} 사냥",
 	-- ["{area:190}'s Scarlets are level 58-60. Ride in to the high point marked on your map, look over the town, and get out."] = "{area:190}의 붉은십자군은 58-60레벨입니다. 지도에 표시된 높은 곳까지 들어가 마을을 살펴본 뒤 빠져나오세요.",
 	-- ["{area:2627}: kill these as you meet them"] = "{area:2627}: 만나는 대로 처치하세요",
 	-- ["{item:12565}, at the Jadefire moonwell"] = "비취불꽃 달샘에서 {item:12565}",

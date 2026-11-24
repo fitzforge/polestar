@@ -57,7 +57,7 @@ return {
 	-- {area:16724} Farholde Keep · {npc:257087} Gretchen Mayberry
 	["Flight path here: {area:16724} ({npc:257087})."] = "飞行路线：{area:16724}（{npc:257087}）。",
 	-- {area:16743} Rog'mar
-	["Flight path here: {area:16743} (Grakna)."] = "飞行路线：{area:16743}（Grakna）。",
+	["Flight path here: {area:16743} (Grakna)."] = "飞行路线：{area:16743}（格拉克纳）。",
 
 	-- Step 9: Swamp of Sorrows (1/2)
 	["11 areas to discover here, levels 36-43."] = "这里有11个区域待发现，36-43级。",

@@ -9,149 +9,149 @@ return {
 	-- Guide
 	["Argent Dawn Reputation"] = "은빛 여명회 평판",
 	-- {area:2057} Scholomance · {area:2279} Stratholme
-	["Scourgestones, {area:2057} and {area:2279}: the shoulder resistance enchants and a dozen recipes."] = "",
-	["Recipes for Tailors, Leatherworkers, Blacksmiths, Enchanters and Alchemists from Honored and Revered"] = "",
+	["Scourgestones, {area:2057} and {area:2279}: the shoulder resistance enchants and a dozen recipes."] = "스컬지석, {area:2057}과 {area:2279}: 어깨 저항 마법부여와 제작법 여러 개.",
+	["Recipes for Tailors, Leatherworkers, Blacksmiths, Enchanters and Alchemists from Honored and Revered"] = "우호적과 매우 우호적에서 얻는 재봉술, 가죽세공, 대장기술, 마법부여, 연금술 제작법.",
 
 	-- Step 1: Argent Dawn Commission (Alliance)
 	-- {quest:5401} Argent Dawn Commission
 	["{quest:5401} (Alliance)"] = "{quest:5401} (얼라이언스)",
 	-- {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {object:2160} The Argent Dawn · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel
-	["{npc:10840} stands in {area:3197}, in the south of the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "",
+	["{npc:10840} stands in {area:3197}, in the south of the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "{npc:10840}은(는) {zone:1422} 남부의 {area:3197}에 서 있습니다. {object:2160}은(는) 모두에게 중립 200에서 시작합니다. 스컬지와 싸울 때는 위임장 장신구를 착용하세요. 스컬지석은 착용하는 동안에만 떨어집니다. {area:2268}의 {npc:11039}도 같은 위임장을 주며, 하나만 받을 수 있습니다.",
 
 	-- Step 2: Argent Dawn Commission (Horde)
 	-- {quest:5405} Argent Dawn Commission
 	["{quest:5405} (Horde)"] = "{quest:5405} (호드)",
 	-- {npc:10839} Argent Officer Garush · {area:152} Bulwark · {zone:1420} Tirisfal Glades · {zone:1422} Western Plaguelands · {object:2160} The Argent Dawn · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel
-	["{npc:10839} stands at the {area:152}, on the road from {zone:1420} into the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "",
+	["{npc:10839} stands at the {area:152}, on the road from {zone:1420} into the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "{npc:10839}은(는) {area:152}, {zone:1420}에서 {zone:1422}로 들어가는 길에 서 있습니다. {object:2160}은(는) 모두에게 중립 200에서 시작합니다. 스컬지와 싸울 때는 위임장 장신구를 착용하세요. 스컬지석은 착용하는 동안에만 떨어집니다. {area:2268}의 {npc:11039}도 같은 위임장을 주며, 하나만 받을 수 있습니다.",
 
 	-- Step 3: Neutral to Friendly: Scourge of the Western Plaguelands
 	-- {zone:1422} Western Plaguelands
-	["Neutral to Friendly: Scourge of the {zone:1422}"] = "",
+	["Neutral to Friendly: Scourge of the {zone:1422}"] = "중립에서 약간 우호적: {zone:1422}의 스컬지",
 	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {area:202} Writhing Haunt · {area:201} Gahrron's Withering · {quest:5510} Minion's Scourgestones · {npc:10838} Commander Ashlam Valorfist · {area:3197} Chillwind Camp
 	-- plural, as words: Scourge Cauldrons = {object:176392} Scourge Cauldron
-	["Every Scourge kill in the Plaguelands gives 5 reputation (named ones 15), from the level 50 ghouls and skeletons up; at level 60 pick the level 53 and up ones, since in Classic grey mobs give only about a fifth. Neutral to Friendly is 2,800: about 560 kills, fewer with the Plaguelands quests on the way. The densest Scourge stand around the four Scourge Cauldrons: {area:199} west of Andorhal (skeletons, 50-53), {area:200} north of Andorhal (zombies and ghouls, 52-55), the {area:202} in the south (ghouls, 54-55) and {area:201} in the east (ghosts, 56-57). Keep every Scourgestone and every quest you can save: turn-ins never stop counting, kills do. {quest:5510} drop from about four in ten of these Scourge, Invader's from about a third of the level 56 and up ones. If you die, take the Commission off and put it back on: it can lose its effect. Paladins (Human and Dwarf): {npc:10838} at {area:3197} asks 20 {quest:5510} once for Dispelling Evil, 100 reputation instead of 25. The Legacy perk Diplomat adds up to 10% to every gain."] = "",
+	["Every Scourge kill in the Plaguelands gives 5 reputation (named ones 15), from the level 50 ghouls and skeletons up; at level 60 pick the level 53 and up ones, since in Classic grey mobs give only about a fifth. Neutral to Friendly is 2,800: about 560 kills, fewer with the Plaguelands quests on the way. The densest Scourge stand around the four Scourge Cauldrons: {area:199} west of Andorhal (skeletons, 50-53), {area:200} north of Andorhal (zombies and ghouls, 52-55), the {area:202} in the south (ghouls, 54-55) and {area:201} in the east (ghosts, 56-57). Keep every Scourgestone and every quest you can save: turn-ins never stop counting, kills do. {quest:5510} drop from about four in ten of these Scourge, Invader's from about a third of the level 56 and up ones. If you die, take the Commission off and put it back on: it can lose its effect. Paladins (Human and Dwarf): {npc:10838} at {area:3197} asks 20 {quest:5510} once for Dispelling Evil, 100 reputation instead of 25. The Legacy perk Diplomat adds up to 10% to every gain."] = "역병지대의 모든 스컬지 처치는 평판 5를 주고(이름 있는 스컬지는 15), 50레벨 구울과 해골부터 주고, 60레벨이면 53레벨 이상을 잡으세요. 클래식에서는 회색 몹이 5분의 1밖에 주지 않습니다. 중립에서 약간 우호적까지 2,800이며, 약 560처치입니다. 길에서 역병지대 퀘스트를 하면 더 적습니다. 스컬지가 가장 몰려 있는 곳은 네 개의 스컬지 가마솥 주변입니다. 안도랄 서쪽 {area:199}(해골, 50-53), 안도랄 북쪽 {area:200}(좀비와 구울, 52-55), 남쪽 {area:202}(구울, 54-55), 동쪽 {area:201}(유령, 56-57). 스컬지석과 미루어 둘 수 있는 퀘스트는 모두 아껴 두세요. 제출은 계속 인정되고, 처치는 그렇지 않습니다. {quest:5510}은(는) 이 스컬지 열 마리 중 네 마리에서 떨어집니다. 침입자의 돌은 56레벨 이상의 삼분의 일 정도에서 떨어집니다. 죽으면 위임장을 벗었다가 다시 착용하세요. 효과가 풀릴 수 있습니다. 성기사(인간과 드워프): {area:3197}의 {npc:10838}이(가) {quest:5510} 20개를 일회성으로 받아 악을 물리치다에 평판 100을 줍니다. 유산 특전 외교관은 모든 획득량에 최대 10%를 더합니다.",
 	-- {quest:5510} Minion's Scourgestones
-	["{quest:5510}: keep them"] = "",
+	["{quest:5510}: keep them"] = "{quest:5510}: 보관하세요",
 	-- {area:201} Gahrron's Withering
 	-- plural, as words: Hungering Wraiths = {npc:1802} Hungering Wraith
-	["Hungering Wraiths at {area:201}; any Scourge counts"] = "",
+	["Hungering Wraiths at {area:201}; any Scourge counts"] = "{area:201}의 굶주린 망령. 아무 스컬지나 인정됩니다",
 	-- {area:202} Writhing Haunt
 	-- plural, as words: Soulless Ghouls = {npc:1794} Soulless Ghoul
-	["Soulless Ghouls at the {area:202}"] = "",
+	["Soulless Ghouls at the {area:202}"] = "{area:202}의 영혼 없는 구울",
 
 	-- Step 4: Plaguelands quests and the Scourge Cauldrons
 	-- plural, as words: Scourge Cauldrons = {object:176392} Scourge Cauldron
-	["Plaguelands quests and the Scourge Cauldrons"] = "",
+	["Plaguelands quests and the Scourge Cauldrons"] = "역병지대 퀘스트와 스컬지 가마솥",
 	-- {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp · {npc:11055} Shadow Priestess Vandis · {area:152} Bulwark · {npc:1852} Araj the Summoner · {area:2268} Light's Hope Chapel · {npc:11063} Carlin Redpath · {area:2262} Darrowshire · {npc:10926} Pamela Redpath · {npc:12250} Zaeldarr the Outcast · {npc:11038} Caretaker Alen · {npc:11056} Alchemist Arbington · {npc:11057} Apothecary Dithers · {item:13370} Vitreous Focuser · {item:14047} Runecloth · {area:201} Gahrron's Withering · {item:13354} Ectoplasmic Resonator
 	-- plural, as words: Arcane Quickeners = {item:13320} Arcane Quickener
-	["The Plaguelands quests pay in full at 60 from level 55 up and never stop counting, about 1,500 in all; the leveling guides walk them. The cauldron chain from {npc:11053} at {area:3197} (Horde: {npc:11055} at the {area:152}): 150 per cauldron with its return, then Mission Accomplished! 200. Alas, Andorhal 150 ({npc:1852}, elite). At {area:2268}, {npc:11063}'s {area:2262} quests (Brother Carlin 50 from Chromie in Andorhal, Villains of Darrowshire 100, Marauders of Darrowshire 100) and {npc:10926}'s Hidden Treasures 200 at the end of the {area:2262} story; {npc:12250} 75 from {npc:11038}. After Mission Accomplished!, each cauldron takes a repeatable delivery: 25 reputation every time, until Exalted. {npc:11056} at {area:3197} (Horde: {npc:11057} at the {area:152}) gives you a {item:13370}, without which the reagents never drop, and sells Arcane Quickeners for 50 silver (one per delivery; it crumbles after 30 minutes, so buy it last). Each delivery also takes 4 {item:14047}. Farm {area:201}: its ghosts drop an {item:13354} about one time in four, so about 16 kills fill a delivery; the other cauldrons want 5 or 6 reagents that drop one time in ten or less. Once the Plaguelands Scourge stop counting, this earns about four times what their Scourgestones alone do."] = "",
+	["The Plaguelands quests pay in full at 60 from level 55 up and never stop counting, about 1,500 in all; the leveling guides walk them. The cauldron chain from {npc:11053} at {area:3197} (Horde: {npc:11055} at the {area:152}): 150 per cauldron with its return, then Mission Accomplished! 200. Alas, Andorhal 150 ({npc:1852}, elite). At {area:2268}, {npc:11063}'s {area:2262} quests (Brother Carlin 50 from Chromie in Andorhal, Villains of Darrowshire 100, Marauders of Darrowshire 100) and {npc:10926}'s Hidden Treasures 200 at the end of the {area:2262} story; {npc:12250} 75 from {npc:11038}. After Mission Accomplished!, each cauldron takes a repeatable delivery: 25 reputation every time, until Exalted. {npc:11056} at {area:3197} (Horde: {npc:11057} at the {area:152}) gives you a {item:13370}, without which the reagents never drop, and sells Arcane Quickeners for 50 silver (one per delivery; it crumbles after 30 minutes, so buy it last). Each delivery also takes 4 {item:14047}. Farm {area:201}: its ghosts drop an {item:13354} about one time in four, so about 16 kills fill a delivery; the other cauldrons want 5 or 6 reagents that drop one time in ten or less. Once the Plaguelands Scourge stop counting, this earns about four times what their Scourgestones alone do."] = "역병지대 퀘스트는 55레벨부터 60레벨에서 전부 인정되고 계속 인정되며, 모두 약 1,500입니다. 레벨업 가이드가 그 퀘스트를 안내합니다. {area:3197}의 {npc:11053} 가마솥 사슬(호드: {area:152}의 {npc:11055}): 가마솥마다 150과 반환 150이며, 그 다음 임무 완수! 200. 안도랄 150({npc:1852}, 정예). {area:2268}에서 {npc:11063}의 {area:2262} 퀘스트(안도랄의 크로미가 주는 카를린 형제 50, 달샤라의 악당 100, 달샤라 약탈자 100)와 {area:2262} 이야기 끝의 {npc:10926} 숨겨진 보물 200, {npc:11038}에게서 {npc:12250} 75. 임무 완수! 이후 각 가마솥은 반복 배달을 받습니다. 확고한 동맹이 될 때까지 매번 평판 25입니다. {area:3197}의 {npc:11056}(호드: {area:152}의 {npc:11057})이(가) {item:13370}을(를) 주며, 이것이 없으면 재료가 안 떨어집니다. 비전 촉매제를 50실버에 팝니다(배달당 1개, 30분 뒤 부서지니 마지막에 사세요). 배달에는 {item:14047} 4개도 필요합니다. {area:201}을(를) 사냥하세요. 유령이 {item:13354}을(를) 4분의 1 확률로 떨어뜨리니 약 16처치로 배달 한 번이 채워집니다. 다른 가마솥은 5~6개의 재료가 필요하고 10분의 1 이하 확률입니다. 역병지대 스컬지가 평판을 주지 않게 되면, 이 일은 스컬지석만으로 하는 것보다 약 4배 빠릅니다.",
 	-- {npc:11056} Alchemist Arbington · {item:13370} Vitreous Focuser
-	["{npc:11056}: ask for a {item:13370}"] = "",
+	["{npc:11056}: ask for a {item:13370}"] = "{npc:11056}: {item:13370}을(를) 달라고 하세요",
 	-- {npc:11057} Apothecary Dithers · {area:152} Bulwark · {item:13370} Vitreous Focuser
-	["{npc:11057}, at the {area:152}: ask for a {item:13370}"] = "",
+	["{npc:11057}, at the {area:152}: ask for a {item:13370}"] = "{area:152}의 {npc:11057}: {item:13370}을(를) 달라고 하세요",
 	-- plural, as words: Ectoplasmic Resonators = {item:13354} Ectoplasmic Resonator
-	["Ectoplasmic Resonators: the ghosts around the cauldron"] = "",
+	["Ectoplasmic Resonators: the ghosts around the cauldron"] = "심령 공명체: 가마솥 주변의 유령",
 	-- {item:13320} Arcane Quickener
-	["{item:13320}, 50 silver"] = "",
+	["{item:13320}, 50 silver"] = "{item:13320}, 50실버",
 	-- {area:201} Gahrron's Withering
 	["the cauldron at {area:201}: handed in from its window, never in the log"] = "{area:201}의 가마솥: 창에서 바로 제출하며, 퀘스트 목록에는 나타나지 않습니다",
 
 	-- Step 5: Light's Hope Chapel quests
 	-- {area:2268} Light's Hope Chapel
-	["{area:2268} quests"] = "",
+	["{area:2268} quests"] = "{area:2268} 퀘스트",
 	-- {area:2268} Light's Hope Chapel · {zone:1423} Eastern Plaguelands · {faction:529} Argent Dawn · {npc:11039} Duke Nicholas Zverenhoff · {npc:11035} Betina Bigglezink · {npc:243252} Leonid Barthalomew · {area:2279} Stratholme · {area:2057} Scholomance · {object:176317} Argent Hold
-	["{area:2268}, on the east side of the {zone:1423}, is the {faction:529}'s home: {npc:11039}, {npc:11035} and {npc:243252} give its dungeon quests, 100 to 200 reputation each and about 1,700 in all. They are group quests for {area:2279} and {area:2057} (level 58-60, five players): take the ones your group will run. The Duke's chain ends at the {object:176317}, a chest of {faction:529} gear."] = "",
+	["{area:2268}, on the east side of the {zone:1423}, is the {faction:529}'s home: {npc:11039}, {npc:11035} and {npc:243252} give its dungeon quests, 100 to 200 reputation each and about 1,700 in all. They are group quests for {area:2279} and {area:2057} (level 58-60, five players): take the ones your group will run. The Duke's chain ends at the {object:176317}, a chest of {faction:529} gear."] = "{area:2268}은(는) {zone:1423} 동쪽에 있고 {faction:529}의 본거지입니다. {npc:11039}, {npc:11035}, {npc:243252}이(가) 던전 퀘스트를 주며, 각 100~200 평판이고 모두 약 1,700입니다. {area:2279}과 {area:2057}을(를) 위한 5인 파티 퀘스트(58-60레벨)이니 파티가 돌 것을 받으세요. 공작의 사슬은 {faction:529} 장비 상자인 {object:176317}에서 끝납니다.",
 
 	-- Step 6: Stratholme
 	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands · {npc:10440} Baron Rivendare · {item:12843} Corruptor's Scourgestone
-	["{area:2279} is a group of five at the north end of the {zone:1423}. Its Scourge give 5 reputation a kill up to the last point of Honored, and its Scourge bosses 25 until Exalted ({npc:10440} 50), each with a {item:12843}. The Black Guard Sentries by the Baron give 5 until Exalted. The Scourge side, through the service entrance, pays far more than the Scarlet side."] = "",
+	["{area:2279} is a group of five at the north end of the {zone:1423}. Its Scourge give 5 reputation a kill up to the last point of Honored, and its Scourge bosses 25 until Exalted ({npc:10440} 50), each with a {item:12843}. The Black Guard Sentries by the Baron give 5 until Exalted. The Scourge side, through the service entrance, pays far more than the Scarlet side."] = "{area:2279}은(는) {zone:1423} 북쪽 끝의 5인 파티용입니다. 스컬지는 우호적의 마지막 지점까지 처치당 5를 주고, 스컬지 우두머리는 확고한 동맹까지 25를 줍니다({npc:10440}은(는) 50). 각각 {item:12843}을(를) 지닙니다. 남작 옆의 검은 경비병 초소병은 확고한 동맹까지 5를 줍니다. 스컬지 쪽 구역은 서비스 입구로 들어가며, 붉은십자군 쪽보다 훨씬 더 많은 평판을 줍니다.",
 	-- plural, as words: Plagued Flesh Samples = {item:13174} Plagued Flesh Sample
-	["Plagued Flesh Samples: the Scourge inside"] = "",
+	["Plagued Flesh Samples: the Scourge inside"] = "역병걸린 살덩어리 견본: 안쪽의 스컬지",
 	-- {item:13180} Stratholme Holy Water
-	["{item:13180}: the supply crates"] = "",
+	["{item:13180}: the supply crates"] = "{item:13180}: 보급품 상자",
 	-- {npc:10811} Archivist Galford
-	["{npc:10811}, Scarlet side"] = "",
+	["{npc:10811}, Scarlet side"] = "{npc:10811}, 붉은십자군 쪽",
 	-- {object:176245} Scarlet Archive
-	["the {object:176245}: burn it, Scarlet side"] = "",
+	["the {object:176245}: burn it, Scarlet side"] = "{object:176245}: 불태우세요, 붉은십자군 쪽",
 
 	-- Step 7: Scholomance
 	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {item:13704} Skeleton Key · {faction:529} Argent Dawn · {quest:5508} Corruptor's Scourgestones · {npc:10508} Ras Frostwhisper · {npc:1853} Darkmaster Gandling
-	["{area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}; your side's {area:2057} quests give the {item:13704} that opens it. It is the best {faction:529} run: its mobs give 5 up to the last point of Honored, and its thirteen bosses about 375 reputation a full clear plus ten or so {quest:5508} (about 250 more). {npc:10508} and {npc:1853} give 50 each."] = "",
+	["{area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}; your side's {area:2057} quests give the {item:13704} that opens it. It is the best {faction:529} run: its mobs give 5 up to the last point of Honored, and its thirteen bosses about 375 reputation a full clear plus ten or so {quest:5508} (about 250 more). {npc:10508} and {npc:1853} give 50 each."] = "{area:2057}은(는) {zone:1422} 남동쪽의 섬 마을 {area:2298} 아래에 있습니다. 아군 측의 {area:2057} 퀘스트가 여는 {item:13704}을(를) 줍니다. 가장 좋은 {faction:529} 파밍입니다. 몹이 우호적의 마지막 지점까지 5를 주고, 우두머리 열세 마리가 한 번 클리어에 약 375과 {quest:5508} 10개 안팎(약 250 더)을 줍니다. {npc:10508}과 {npc:1853}은(는) 각각 50을 줍니다.",
 	-- {quest:5529} Plagued Hatchlings
-	["{quest:5529}, in the hatchery"] = "",
+	["{quest:5529}, in the hatchery"] = "{quest:5529}, 부화장",
 
 	-- Step 8: Back at Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
-	["Back at {area:2268}"] = "",
+	["Back at {area:2268}"] = "{area:2268}(으)로 돌아가기",
 	-- {quest:5212} The Flesh Does Not Lie · {quest:5213} The Active Agent · {item:13176} Scourge Data · {area:2279} Stratholme · {item:13209} Seal of the Dawn · {item:19812} Rune of the Dawn · {quest:5251} The Archivist · {item:13250} Head of Balnazzar · {npc:10440} Baron Rivendare · {item:13920} Healthy Dragon Scale · {quest:5529} Plagued Hatchlings · {npc:10267} Tinkee Steamboil · {zone:1428} Burning Steppes · {area:1583} Blackrock Spire · {npc:243252} Leonid Barthalomew · {npc:11035} Betina Bigglezink · {item:12368} Dawn's Gambit · {area:2057} Scholomance
-	["{quest:5212} leads to {quest:5213} (the {item:13176} in a {area:2279} ziggurat), which rewards the {item:13209} or the {item:19812}: better trinkets that also make Scourgestones drop, so they can replace the Commission. {quest:5251} leads on to the {item:13250} and {npc:10440}. A {item:13920}, a rare drop (about 6%) from the {quest:5529} once {quest:5529} is done, starts a quest worth 50 each time: keep them until Revered. {npc:10267} in the {zone:1428}, at the end of her {area:1583} quests, sends you to {npc:243252} (75) and on to {npc:11035}'s {item:12368} in {area:2057} (25 and 200)."] = "",
+	["{quest:5212} leads to {quest:5213} (the {item:13176} in a {area:2279} ziggurat), which rewards the {item:13209} or the {item:19812}: better trinkets that also make Scourgestones drop, so they can replace the Commission. {quest:5251} leads on to the {item:13250} and {npc:10440}. A {item:13920}, a rare drop (about 6%) from the {quest:5529} once {quest:5529} is done, starts a quest worth 50 each time: keep them until Revered. {npc:10267} in the {zone:1428}, at the end of her {area:1583} quests, sends you to {npc:243252} (75) and on to {npc:11035}'s {item:12368} in {area:2057} (25 and 200)."] = "{quest:5212}은(는) {area:2279} 지그라트에 있는 {item:13176}을(를) 거쳐 {quest:5213}으로 이어지고, {item:13209} 또는 {item:19812}을(를) 보상으로 줍니다. 스컬지석도 떨어뜨리게 하는 더 좋은 장신구이니 위임장을 대체할 수 있습니다. {quest:5251}은(는) {item:13250}과 {npc:10440}으로 이어집니다. {quest:5529}이(가) 끝난 뒤 {quest:5529}에서 약 6% 확률로 떨어지는 {item:13920}은(는) 반복 가능한 퀘스트를 시작하고 매번 평판 50을 줍니다. 매우 우호적이 될 때까지 아껴 두세요. {zone:1428}의 {npc:10267}은(가) 그녀의 {area:1583} 퀘스트 끝에서 {npc:243252}(75)에게 보내고, 이어서 {area:2057}의 {npc:11035}에게 가서 {item:12368}(25와 200)을(를) 줍니다.",
 
 	-- Step 9: Friendly to Honored: stones and named Scourge
-	["Friendly to Honored: stones and named Scourge"] = "",
+	["Friendly to Honored: stones and named Scourge"] = "약간 우호적에서 우호적: 돌과 이름 있는 스컬지",
 	-- {npc:10826} Lord Darkscythe · {npc:10821} Hed'mush the Rotting · {npc:10825} Gish the Unmoving · {area:2057} Scholomance · {area:2279} Stratholme · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp · {area:152} Bulwark · {item:12844} Argent Dawn Valor Token · {quest:5509} Invader's Scourgestones · {area:2272} Northdale · {item:12843} Corruptor's Scourgestone · {npc:1850} Putridius
 	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept · Shadowmages = {npc:8550} Shadowmage · Dread Weavers = {npc:8528} Dread Weaver · Scourge Champions = {npc:8529} Scourge Champion · Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
-	["Normal Scourge outside the dungeons stop giving reputation halfway through Friendly (3,000 of 6,000); {npc:10826}, {npc:10821} and {npc:10825} stop at the end of Friendly. After that only Araj, the {area:2057} and {area:2279} mobs, the cauldron deliveries and Scourgestones count. Now turn in the stones you saved: {npc:11039} at {area:2268} takes all three kinds, and so do the officers at {area:3197} and the {area:152}. Every turn-in pays 25 and an {item:12844}: keep 35 tokens for the mantles at Revered and Exalted. {quest:5509} are worth twice as much per stone: the Dark Adepts, Shadowmages, Dread Weavers and Scourge Champions (level 58-60) at {area:2272}, just north of {area:2268}, drop them about a third of the time or more, next to the turn-in. The named Scourge below drop a {item:12843} half the time or more ({npc:1850} two times in three, Araj and {npc:10821} half the time) and give 15 a kill, Araj until Exalted; {npc:1850} gives no reputation, only the stone. Friendly opens the Enriched Manna Biscuits (60 silver) at the quartermasters."] = "",
+	["Normal Scourge outside the dungeons stop giving reputation halfway through Friendly (3,000 of 6,000); {npc:10826}, {npc:10821} and {npc:10825} stop at the end of Friendly. After that only Araj, the {area:2057} and {area:2279} mobs, the cauldron deliveries and Scourgestones count. Now turn in the stones you saved: {npc:11039} at {area:2268} takes all three kinds, and so do the officers at {area:3197} and the {area:152}. Every turn-in pays 25 and an {item:12844}: keep 35 tokens for the mantles at Revered and Exalted. {quest:5509} are worth twice as much per stone: the Dark Adepts, Shadowmages, Dread Weavers and Scourge Champions (level 58-60) at {area:2272}, just north of {area:2268}, drop them about a third of the time or more, next to the turn-in. The named Scourge below drop a {item:12843} half the time or more ({npc:1850} two times in three, Araj and {npc:10821} half the time) and give 15 a kill, Araj until Exalted; {npc:1850} gives no reputation, only the stone. Friendly opens the Enriched Manna Biscuits (60 silver) at the quartermasters."] = "던전 밖의 일반 스컬지는 약간 우호적 한복판(6,000 중 3,000)에서 평판을 주지 않게 되고, {npc:10826}, {npc:10821}, {npc:10825}은(는) 약간 우호적 끝에서 멈춥니다. 그 뒤로는 아라즈, {area:2057}과 {area:2279} 몹, 가마솥 배달, 스컬지석만 인정됩니다. 이제 아껴 둔 돌을 제출하세요. {area:2268}의 {npc:11039}은(는) 세 종류를 모두 받고, {area:3197}과 {area:152}의 장교들도 같습니다. 제출마다 25와 {item:12844}을(를) 주며, 매우 우호적과 확고한 동맹의 어깨 방어구를 위해 토큰 35개를 아껴 두세요. {quest:5509}은(는) 돌당 두 배입니다. {area:2268} 바로 북쪽 {area:2272}의 암흑의 수행사제, 어둠마법사, 공포술사, 스컬지 용사(58-60레벨)이 삼분의 일 이상 확률로 떨어뜨립니다. 아래의 이름 있는 스컬지는 절반 이상 확률로 {item:12843}을(를) 떨어뜨리고({npc:1850}은 3분의 2, 아라즈와 {npc:10821}은 절반), 처치당 15를 주고, 아라즈는 확고한 동맹까지 줍니다. {npc:1850}은(는) 평판을 주지 않고 돌만 줍니다. 약간 우호적이 되면 병참장교에게 맛 좋은 만나빵(60실버)이 열립니다.",
 	-- {item:12843} Corruptor's Scourgestone
 	["{item:12843}: the named Scourge below, and dungeon bosses"] = "{item:12843}: 아래의 이름 있는 스컬지와 던전 우두머리",
 	-- {area:2272} Northdale
 	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept · Shadowmages = {npc:8550} Shadowmage
-	["Dark Adepts and Shadowmages at {area:2272}"] = "",
+	["Dark Adepts and Shadowmages at {area:2272}"] = "{area:2272}의 암흑의 수행사제와 어둠마법사",
 	-- {npc:1852} Araj the Summoner
-	["{npc:1852}, Andorhal"] = "",
+	["{npc:1852}, Andorhal"] = "{npc:1852}, 안도랄",
 	-- {npc:1850} Putridius · {zone:1422} Western Plaguelands
-	["{npc:1850}, {zone:1422}: the stone only"] = "",
+	["{npc:1850}, {zone:1422}: the stone only"] = "{npc:1850}, {zone:1422}: 돌만",
 	-- {quest:5510} Minion's Scourgestones
-	["{quest:5510}: 20 for 25 reputation"] = "",
+	["{quest:5510}: 20 for 25 reputation"] = "{quest:5510}: 25 평판을 위해 20개",
 	-- {quest:5509} Invader's Scourgestones
-	["{quest:5509}: 10 for 25 reputation"] = "",
+	["{quest:5509}: 10 for 25 reputation"] = "{quest:5509}: 25 평판을 위해 10개",
 	-- {quest:5508} Corruptor's Scourgestones
-	["{quest:5508}: 1 for 25 reputation"] = "",
+	["{quest:5508}: 1 for 25 reputation"] = "{quest:5508}: 25 평판을 위해 1개",
 
 	-- Step 10: Honored to Revered: dungeons and stones
-	["Honored to Revered: dungeons and stones"] = "",
+	["Honored to Revered: dungeons and stones"] = "우호적에서 매우 우호적: 던전과 돌",
 	-- {area:2057} Scholomance · {area:2279} Stratholme · {quest:5509} Invader's Scourgestones · {npc:11536} Quartermaster Miranda Breechlock · {area:2268} Light's Hope Chapel · {npc:10857} Argent Quartermaster Lightspark · {area:3197} Chillwind Camp · {npc:10856} Argent Quartermaster Hasana · {area:152} Bulwark · {item:22014} Hallowed Brazier
-	["Honored to Revered is 12,000: about 2,400 {area:2057} and {area:2279} mobs, fewer with their bosses. Their mobs stop at 11,999 of 12,000 Honored; a boss or a turn-in takes you over. Solo, only Scourgestones, the cauldron deliveries and Araj count: 12,000 is 480 turn-ins, or 4,800 {quest:5509}. Keep the stones you get in the dungeons until their mobs stop counting. Honored opens recipes at all three quartermasters: {npc:11536} at {area:2268}, {npc:10857} at {area:3197}, {npc:10856} at the {area:152}. Also the {item:22014} (133 gold) for the Three Kings of Flame quest."] = "",
+	["Honored to Revered is 12,000: about 2,400 {area:2057} and {area:2279} mobs, fewer with their bosses. Their mobs stop at 11,999 of 12,000 Honored; a boss or a turn-in takes you over. Solo, only Scourgestones, the cauldron deliveries and Araj count: 12,000 is 480 turn-ins, or 4,800 {quest:5509}. Keep the stones you get in the dungeons until their mobs stop counting. Honored opens recipes at all three quartermasters: {npc:11536} at {area:2268}, {npc:10857} at {area:3197}, {npc:10856} at the {area:152}. Also the {item:22014} (133 gold) for the Three Kings of Flame quest."] = "우호적에서 매우 우호적까지 12,000이며, {area:2057}과 {area:2279} 몹 약 2,400마리입니다. 우두머리를 포함하면 더 적습니다. 이 몹들은 우호적 12,000 중 11,999에서 멈추고, 우두머리나 제출이 마저 채웁니다. 솔로로 스컬지석, 가마솥 배달, 아라즈만 하면, 12,000은 제출 480번 또는 {quest:5509} 4,800개입니다. 던전에서 얻은 돌은 몹이 평판을 주지 않게 될 때까지 아껴 두세요. 우호적이 되면 세 병참장교가 제작법을 엽니다. {area:2268}의 {npc:11536}, {area:3197}의 {npc:10857}, {area:152}의 {npc:10856}. 또한 불의 세 왕 퀘스트용 {item:22014}(금 133)도 있습니다.",
 	-- {item:19446} Formula: Enchant Bracer - Mana Regeneration
-	["{item:19446}, 3 gold"] = "",
+	["{item:19446}, 3 gold"] = "{item:19446}, 금 3",
 	-- {item:19216} Pattern: Argent Boots · {skill:197} Tailoring
-	["{item:19216} ({skill:197}), 2 gold 20 silver"] = "",
+	["{item:19216} ({skill:197}), 2 gold 20 silver"] = "{item:19216}({skill:197}), 금 2 실버 20",
 	-- {item:19328} Pattern: Dawn Treaders · {skill:165} Leatherworking
-	["{item:19328} ({skill:165}), 2 gold 20 silver"] = "",
+	["{item:19328} ({skill:165}), 2 gold 20 silver"] = "{item:19328}({skill:165}), 금 2 실버 20",
 	-- {item:19203} Plans: Girdle of the Dawn · {skill:164} Blacksmithing
-	["{item:19203} ({skill:164}), 2 gold 20 silver"] = "",
+	["{item:19203} ({skill:164}), 2 gold 20 silver"] = "{item:19203}({skill:164}), 금 2 실버 20",
 	-- {item:13482} Recipe: Transmute Air to Fire · {skill:171} Alchemy
-	["{item:13482} ({skill:171}), 1 gold 50 silver"] = "",
+	["{item:13482} ({skill:171}), 1 gold 50 silver"] = "{item:13482}({skill:171}), 금 1 실버 50",
 	-- {item:19442} Formula: Powerful Anti-Venom · {skill:129} First Aid
-	["{item:19442} ({skill:129}), 10 gold"] = "",
+	["{item:19442} ({skill:129}), 10 gold"] = "{item:19442}({skill:129}), 금 10",
 
 	-- Step 11: Mantles of the Dawn
 	-- {npc:11536} Quartermaster Miranda Breechlock · {quest:5513} Mantles of the Dawn · {faction:529} Argent Dawn · {item:18173} Shadow Mantle of the Dawn · {item:13810} Blessed Sunfruit
 	-- plural, as words: Argent Dawn Valor Tokens = {item:12844} Argent Dawn Valor Token
-	["At Revered, {npc:11536} takes 10 Argent Dawn Valor Tokens for {quest:5513} (100 reputation). After it, any {faction:529} quartermaster sells the five shoulder enchants for 10 gold each: Flame, Frost, Arcane, Nature and {item:18173}, +5 to that resistance. Revered also opens the {item:13810} and its juice (60 silver) and the Revered recipes."] = "",
+	["At Revered, {npc:11536} takes 10 Argent Dawn Valor Tokens for {quest:5513} (100 reputation). After it, any {faction:529} quartermaster sells the five shoulder enchants for 10 gold each: Flame, Frost, Arcane, Nature and {item:18173}, +5 to that resistance. Revered also opens the {item:13810} and its juice (60 silver) and the Revered recipes."] = "매우 우호적이 되면 {npc:11536}이(가) 은빛 여명회 명예 휘장 10개를 받아 {quest:5513}(평판 100)을(를) 줍니다. 그 뒤로 {faction:529} 병참장교가 어깨 마법부여 다섯 가지를 각 금 10에 팝니다. 화염, 냉기, 비전, 자연, {item:18173}으로 해당 저항 +5입니다. 매우 우호적은 {item:13810}과 그 주스(60실버), 매우 우호적 제작법도 엽니다.",
 	-- plural, as words: Argent Dawn Valor Tokens = {item:12844} Argent Dawn Valor Token
-	["Argent Dawn Valor Tokens, from the stone turn-ins"] = "",
+	["Argent Dawn Valor Tokens, from the stone turn-ins"] = "은빛 여명회 명예 휘장, 돌 제출에서",
 	-- {item:18170} Frost Mantle of the Dawn
-	["{item:18170}: pick the resistance you need, 10 gold"] = "",
+	["{item:18170}: pick the resistance you need, 10 gold"] = "{item:18170}: 필요한 저항을 고르세요, 금 10",
 	-- {item:19447} Formula: Enchant Bracer - Healing
-	["{item:19447}, 6 gold"] = "",
+	["{item:19447}, 6 gold"] = "{item:19447}, 금 6",
 	-- {item:19217} Pattern: Argent Shoulders · {skill:197} Tailoring
-	["{item:19217} ({skill:197}), 4 gold"] = "",
+	["{item:19217} ({skill:197}), 4 gold"] = "{item:19217}({skill:197}), 금 4",
 	-- {item:19329} Pattern: Golden Mantle of the Dawn · {skill:165} Leatherworking
-	["{item:19329} ({skill:165}), 4 gold"] = "",
+	["{item:19329} ({skill:165}), 4 gold"] = "{item:19329}({skill:165}), 금 4",
 	-- {item:19205} Plans: Gloves of the Dawn · {skill:164} Blacksmithing
-	["{item:19205} ({skill:164}), 4 gold"] = "",
+	["{item:19205} ({skill:164}), 4 gold"] = "{item:19205}({skill:164}), 금 4",
 
 	-- Step 12: Revered to Exalted
-	["Revered to Exalted"] = "",
+	["Revered to Exalted"] = "매우 우호적에서 확고한 동맹",
 	-- {quest:5508} Corruptor's Scourgestones · {area:2057} Scholomance · {item:13920} Healthy Dragon Scale
-	["Revered to Exalted is 21,000: 840 Scourgestone or cauldron turn-ins, or the dungeon bosses with their {quest:5508} (a full {area:2057} clear is about 600). Turn in every stone and {item:13920} you saved."] = "",
+	["Revered to Exalted is 21,000: 840 Scourgestone or cauldron turn-ins, or the dungeon bosses with their {quest:5508} (a full {area:2057} clear is about 600). Turn in every stone and {item:13920} you saved."] = "매우 우호적에서 확고한 동맹까지 21,000이며, 스컬지석 또는 가마솥 제출 840번이거나, 던전 우두머리와 {quest:5508}입니다({area:2057} 한 번 클리어가 약 600). 아껴 둔 돌과 {item:13920}을(를) 모두 제출하세요.",
 
 	-- Step 13: Chromatic Mantle of the Dawn
 	-- {npc:11536} Quartermaster Miranda Breechlock · {quest:5517} Chromatic Mantle of the Dawn
 	-- plural, as words: Argent Dawn Valor Tokens = {item:12844} Argent Dawn Valor Token
-	["At Exalted, {npc:11536} takes 25 Argent Dawn Valor Tokens for the {quest:5517} (150 reputation): +5 to every resistance, on your shoulders. After it, the quartermasters sell more for 40 gold each."] = "",
+	["At Exalted, {npc:11536} takes 25 Argent Dawn Valor Tokens for the {quest:5517} (150 reputation): +5 to every resistance, on your shoulders. After it, the quartermasters sell more for 40 gold each."] = "확고한 동맹이 되면 {npc:11536}이(가) 은빛 여명회 명예 휘장 25개를 받아 {quest:5517}(평판 150)을(를) 줍니다. 모든 저항 +5가 어깨에 붙습니다. 그 뒤로 병참장교가 더 팔며, 각 금 40입니다.",
 	-- plural, as words: Argent Dawn Valor Tokens = {item:12844} Argent Dawn Valor Token
-	["Argent Dawn Valor Tokens"] = "",
+	["Argent Dawn Valor Tokens"] = "은빛 여명회 명예 휘장",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop Invader's Scourgestones here, along with Minion's stones and {item:14047}. Hand Invader's in 10 at a time and Minion's 20 at a time to {npc:11039} at {area:2268}. In Classic both stop giving reputation at Honored."] = "{npc:8546}와(과) 어둠마법사(58-60레벨)가 이곳에서 {item:12841}을(를) 떨어뜨리며, 앞잡이의 스컬지석과 {item:14047}도 떨어뜨립니다. {area:2268}의 {npc:11039}에게 침입자의 스컬지석은 10개씩, 앞잡이의 스컬지석은 20개씩 제출하세요. 클래식에서는 둘 다 우호적부터 평판을 주지 않습니다.",

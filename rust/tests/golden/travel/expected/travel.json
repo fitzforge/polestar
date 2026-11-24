@@ -114,7 +114,7 @@
 		"recordedCrossings": 0,
 		"shippedCrossings": 54,
 		"timetables": 15,
-		"portals": 8,
+		"portals": 9,
 		"teleports": 8
 	},
 	"taxi": {
@@ -7352,6 +7352,34 @@
 				},
 				"seconds": 5,
 				"source": "gameobject 617085 spawn (Forever world DB) -> recorded arrivals at 2521:66.3,79.7 beside Elaadrin Evengale (3 people)"
+			},
+			{
+				"id": "portal-azshara-tower",
+				"name": "Azshara Tower",
+				"area": 0,
+				"a": {
+					"name": "Sanath Lim-yo",
+					"c": 1,
+					"wx": 3648,
+					"wy": -4702.7,
+					"map": 1447,
+					"x": 28.11,
+					"y": 50.09,
+					"f": "e"
+				},
+				"b": {
+					"name": "Azshara Tower",
+					"c": 1,
+					"wx": 3778,
+					"wy": -4612,
+					"map": 1447,
+					"x": 26.33,
+					"y": 46.25,
+					"f": "e"
+				},
+				"seconds": 5,
+				"npc": "Sanath Lim-yo",
+				"source": "creature 8395 spawn (classic-db) -> spell_target_position 12510"
 			}
 		],
 		"teleports": [
