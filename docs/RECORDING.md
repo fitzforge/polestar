@@ -445,7 +445,9 @@ their own client, so nothing trusts a single upload.
   players with many kills are the unlucky ones, a quest drop's chance pools
   every voter's drops and kills, 3 voters with 30 kills between them
   (#2747); the data build takes only those quest drops' chances, any other
-  drop keeps its sources'), or of `local` or
+  drop keeps its sources', and an item's sources no player measured are
+  scaled by the median ratio of its measured chances to the sources' figures
+  for them, so the guide compares its droppers on one scale), or of `local` or
   `sent-*`; one counted voter fills only gaps no other source has. Nothing
   a recording says overrides one of Polestar's own corrections
   (`forever-db/corrections`): the build keeps the corrected value and lists

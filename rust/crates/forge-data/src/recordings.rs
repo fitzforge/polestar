@@ -1492,6 +1492,9 @@ impl<'a> Overlay<'a> {
 		let db = self.db;
 		let mut chances = 0;
 		let samples = std::mem::take(&mut self.quest_loot).finish();
+		// Per item: the recorded chance over the sources' at each source a trusted one replaced, and every
+		// source a recorded chance was set for.
+		let mut rescale: IndexMap<i64, (Vec<f64>, FxHashSet<(usize, i64)>)> = IndexMap::new();
 		for kind in ["npc", "object"].into_iter().filter(|_| self.drop_chances != DropChances::Off) {
 			let k = k_ix(kind);
 			for (&id, m) in &self.loots[k] {
@@ -1518,6 +1521,11 @@ impl<'a> Overlay<'a> {
 					if !cur.is_nullish() && !dc.trusted {
 						continue;
 					}
+					let (ratios, measured) = rescale.entry(item).or_default();
+					measured.insert((k, id));
+					if let Some(was) = cur.as_num().filter(|c| *c > 0.0 && dc.trusted) {
+						ratios.push(dc.chance / was);
+					}
 					it.get("drops").get(kind).set(&id.to_string(), dc.chance);
 					chances += 1;
 					if !it.get("seen").truthy() {
@@ -1532,6 +1540,28 @@ impl<'a> Overlay<'a> {
 					s.set("of", dc.of);
 					it.get("seen").get(kind).set(&id.to_string(), s);
 					tag_field(&it, "drops", dc.trusted);
+				}
+			}
+		}
+		// An item's chances stay on one scale: where players measured some of its sources, the sources'
+		// figures for its others are off by the same factor (the median of the measured ones'), since the
+		// guide picks the likely droppers by comparing them. The Enchanted Gyrozephyr: the sources put it at
+		// 100% in both kinds of Construct Parts; players found it in 30.3% of the 616466 ones, so the other
+		// kind, which nobody looted, reads 30.3% beside them, not 100% that sent the arrow there alone.
+		for (item, (ratios, measured)) in rescale {
+			if ratios.is_empty() {
+				continue;
+			}
+			let f = median(ratios);
+			let drops = db.items.get(&item.to_string()).get("drops");
+			for kind in ["npc", "object"] {
+				let k = k_ix(kind);
+				for (id, v) in drops.get(kind).entries() {
+					let Some(c) = v.as_num().filter(|c| *c > 0.0) else { continue };
+					if id.parse::<i64>().is_ok_and(|id| measured.contains(&(k, id))) {
+						continue;
+					}
+					drops.get(kind).set(&id, round2((c * f).min(100.0)));
 				}
 			}
 		}
