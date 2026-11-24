@@ -70,7 +70,7 @@ return {
 	-- Step 10: Stranglethorn Tigers
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger
 	["Stranglethorn Tigers"] = "Tigres-do-espinhaço",
-	["The adult tigers prowl the hills just south and west of the camp."] = "Os tigres adultos rondam as colinas logo ao sul e a oeste do acampamento.",
+	["The adult tigers prowl the hills on both sides of the camp: west of it, and east of it toward the lake. The arrow takes the eastern group."] = "",
 
 	-- Step 11: Ajeck Rouack
 	-- {area:99} Rebel Camp
@@ -238,6 +238,7 @@ return {
 	-- ["Take the road north; {npc:738} stands on it, the camp sits in the hills to the west."] = "Pegue a estrada para o norte; {npc:738} está nela, e o acampamento fica nas colinas a oeste.",
 	-- ["The Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp."] = "Os trolls Sanguescalpo dominam as ruínas na costa a oeste do acampamento de Rosarães.",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "Os trolls Rachacrânio dominam as ruínas a leste da estrada, entre Rosarães e {object:3202}.",
+	-- ["The adult tigers prowl the hills just south and west of the camp."] = "Os tigres adultos rondam as colinas logo ao sul e a oeste do acampamento.",
 	-- ["The jungle ruins"] = "As ruínas da selva",
 	-- ["The jungle's quests climb to 37 from here: short of 33.2? Keep on the Stranglethorn Tigers in the hills just south and west of the camp until level 33.2. Or, with a group, run the {area:796} dungeon (Library) instead."] = "As missões da selva sobem para 37 a partir daqui: abaixo de 33.2? Continue nos Tigres-do-espinhaço nas colinas logo ao sul e a oeste do acampamento até o nível 33.2. Ou, com um grupo, faça a masmorra {area:796} (Biblioteca).",
 	-- ["The ore drops from Drywhisker kobolds in {zone:1417}"] = "O minério cai dos kobolds Bigodesseco em {zone:1417}",

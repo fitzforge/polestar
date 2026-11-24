@@ -48,27 +48,33 @@ next forever/horde/30-40/05-arathi-highlands
 # ---------------------------------------------------------------- Orgrimmar and the Crossroads
 
 step Zeppelin to Orgrimmar
+  skipto dustwallow when !onquest 1148
   when !zone "Durotar"
   when !zone "Orgrimmar"
   zone Stranglethorn Vale
   goto 31.4,29.9 "Zeppelin to Orgrimmar"
 
 step Orgrimmar
+  skipto dustwallow when !onquest 1148
+  tip The Orgrimmar and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in Dustwallow Marsh.
   zone Orgrimmar
   goto 51.5,45.6 "The middle of Orgrimmar"
 
 step Orgrimmar
+  skipto dustwallow when !onquest 1148
   zone Orgrimmar
   buy 3713 x3 nearest                 -- Soothing Spices, for "Swamp Eye" Jarl
   accept 1718 only Warrior            -- Sorek, Valley of Honor: for Fray Island, later in this guide (offered from level 30)
 
 step Fly to the Crossroads
+  skipto dustwallow when !onquest 1148
   zone Orgrimmar
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Crossroads"
   zone The Barrens
 
 step Korran
+  skipto dustwallow when !onquest 1148
   zone The Barrens
   tip Korran stands beside the Crossroads flight master.
   turnin 1148                         -- Korran
@@ -80,6 +86,7 @@ step Fly to Camp Taurajo
   fly "Camp Taurajo"
 
 step Dustwallow Marsh
+  label dustwallow
   zone Dustwallow Marsh
   goto 29.7,47.6 "Shady Rest Inn"
 
