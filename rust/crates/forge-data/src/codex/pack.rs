@@ -182,13 +182,6 @@ fn encode_field_sources(item: &V) -> u8 {
 	(of("reqSource") | (of("itemLevelSource") << 2) | (of("qualitySource") << 4) | (of("allowSource") << 6)) as u8
 }
 
-/// Whether a required level came from fallback data. Keep legacy records that carry no source.
-fn fallback_level(item: &V) -> bool {
-	let own = item.get("reqSource");
-	let source = if own.is_nullish() { item.get("levelsSource") } else { own };
-	!source.is_nullish() && source.as_str() != Some("client")
-}
-
 fn stat_varint(out: &mut Vec<u8>, mut value: u32) {
 	while value >= 128 {
 		out.push((value as u8 & 127) | 128);
@@ -466,7 +459,6 @@ fn encode_item(rec: &V) -> Result<String, String> {
 		V::Num(0.0) => String::new(),
 		level => num(&level)?,
 	};
-	let mark_fallback = !req_level.is_empty() && fallback_level(rec);
 	let mut parts = vec![
 		num(&rec.get("quality"))? + status_letter(rec),
 		req_level,
@@ -478,10 +470,6 @@ fn encode_item(rec: &V) -> Result<String, String> {
 	];
 	for s in rec.get("sources").items() {
 		parts.push(encode_source(&s)?);
-	}
-	if mark_fallback {
-		// The detail record may exist without a search row. Older decoders skip this field.
-		parts.push("u".to_string());
 	}
 	Ok(parts.join(";"))
 }
@@ -1265,10 +1253,9 @@ mod tests {
 	}
 
 	// Required level, item level, rarity and classes each carry their own source beside the filter
-	// column (leaving it out while they all take levelsSource's). Fallback levels also carry a
-	// marker in the detail record so readers can distinguish them without a search row.
+	// column (leaving it out while they all take levelsSource's).
 	#[test]
-	fn field_sources_label_each_fact_and_mark_fallback_levels() {
+	fn field_sources_label_each_fact() {
 		let items = parse_json(
 			r#"{
 				"5200":{"name":"Impaling Harpoon","itemClass":2,"itemSubclass":6,"slot":17,"reqLevel":20,"itemLevel":22,"allowClass":1503,"quality":3,"levelsSource":"forever","typeSource":"forever","reqSource":"era","qualitySource":"none"},
@@ -1309,20 +1296,9 @@ return s(5200) .. ' ' .. s(932) .. ' ' .. s(6948)"#,
 			.unwrap();
 		assert_eq!(shown, "forever,era,-,none,- -,era,-,era,- client,-,-,-,-");
 
-		let plain = |json: &str| {
-			let item = parse_json(json).unwrap();
-			(encode_field_sources(&item), fallback_level(&item))
-		};
-		assert_eq!(plain(r#"{"levelsSource":"client"}"#), (0x55, false));
-		assert_eq!(plain(r#"{"levelsSource":"forever","reqSource":"era","qualitySource":"none","allowSource":"client"}"#), (0x4B, true));
-		assert!(!plain(r#"{"reqSource":"client","levelsSource":"era"}"#).1);
-		assert!(plain(r#"{"reqSource":"none","levelsSource":"client"}"#).1);
-		assert!(!plain(r#"{}"#).1, "an item with no source at all keeps the legacy level gate");
-		let record = |json: &str| encode_item(&parse_json(json).unwrap()).unwrap();
-		assert_eq!(record(r#"{"quality":3,"reqLevel":20,"levelsSource":"client","sources":[]}"#), "3;20;;;;;");
-		assert_eq!(record(r#"{"quality":3,"reqLevel":20,"levelsSource":"forever","reqSource":"era","sources":[]}"#), "3;20;;;;;;u");
-		assert_eq!(record(r#"{"quality":3,"reqLevel":20,"levelsSource":"forever","sources":[]}"#), "3;20;;;;;;u");
-		assert_eq!(record(r#"{"quality":3,"reqLevel":20,"sources":[]}"#), "3;20;;;;;");
+		let plain = |json: &str| encode_field_sources(&parse_json(json).unwrap());
+		assert_eq!(plain(r#"{"levelsSource":"client"}"#), 0x55);
+		assert_eq!(plain(r#"{"levelsSource":"forever","reqSource":"era","qualitySource":"none","allowSource":"client"}"#), 0x4B);
 	}
 
 	#[test]

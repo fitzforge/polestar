@@ -13,6 +13,8 @@
 --   Lookup.QuestFor(quest) -> { classes, races } | nil   -- who a quest's masks
 --       are for (class and race files); nil: anyone of its side
 --   Lookup.QuestForText(quest) -> "Warlock only" | nil   -- the same in words
+--   Lookup.Walk(goal) -> goal   -- a goal at an NPC who walks about gets her walk as its one
+--       spot (see "Walkers" below; #3019)
 --
 -- Ranking: available rows first (faction, race, class, level, professions,
 -- reputation), then cost = travel + effort in seconds. Travel is
@@ -302,6 +304,59 @@ local function questEnd(ends, from, p, direct)
 end
 Lookup.QuestEnd = questEnd
 Lookup.SideOK = sideOK
+
+-- Walkers: an NPC who walks about (docs/GUIDE_FORMAT.md, "Spawn areas", walkers),
+-- read from the Codex's spawns, as the game has no movement data: two or
+-- more of its spawns on the goal's map and frame, every one within
+-- WALK.PLACE yards of their middle (one place, as the compiler groups spawns)
+-- and the farthest WALK.YARDS or more from it (a walk, as forge-guide's
+-- walks.rs counts one). Nikova Raskol's round of Old Town is four such spawns
+-- (#3019): she is met anywhere on it, not at the one nearest the player. A
+-- goal at such an NPC, with no spots of its own, gets that ground as its one
+-- spot { x, y, r, n = 1 } (r in yards, at least WALK.MIN_R), as compiled
+-- guides give a walker's goal, and its point moves to the middle: the maps
+-- circle it, the arrow leads to the middle (Arrived within the goal's radius
+-- of it, as at any NPC: Engine's Own.onePlace), While you're here measures to
+-- it. `walks` marks it; `note` (when it has none) says so, as the guides do.
+-- -> goal, changed or not.
+local WALK = { YARDS = 20, PLACE = 70, MIN_R = 15 }
+function Lookup.Walk(goal)
+	if type(goal) ~= "table" or not (goal.npc and goal.map and goal.x and goal.y) or goal.spots then return goal end
+	local C = Codex()
+	local npc = C and C.Npc and C.Npc(goal.npc)
+	local toWorld = ns.Compat.MapToWorld
+	if not (npc and type(npc.spawns) == "table" and toWorld) then return goal end
+	local era = goal.f == "e"
+	local pts, sx, sy = {}, 0, 0
+	for _, s in ipairs(npc.spawns) do
+		if s.map == goal.map and (s.f == "e") == era and s.x and s.y then
+			local c, wx, wy = toWorld(s.map, s.x, s.y, goal.f)
+			if not c then return goal end
+			pts[#pts + 1] = { c = c, wx = wx, wy = wy }
+			sx, sy = sx + s.x, sy + s.y
+		end
+	end
+	local n = #pts
+	if n < 2 then return goal end
+	local x, y = floor(sx / n * 100 + 0.5) / 100, floor(sy / n * 100 + 0.5) / 100
+	local c0, cx, cy = toWorld(goal.map, x, y, goal.f)
+	if not c0 then return goal end
+	local far = 0
+	for i = 1, n do
+		local p = pts[i]
+		if p.c ~= c0 then return goal end
+		local d = ((p.wx - cx) ^ 2 + (p.wy - cy) ^ 2) ^ 0.5
+		if d > WALK.PLACE then return goal end
+		if d > far then far = d end
+	end
+	if far < WALK.YARDS then return goal end
+	goal.spots = { { x = x, y = y, r = math.max(WALK.MIN_R, math.ceil(far)), n = 1 } }
+	goal.x, goal.y, goal.walks = x, y, true
+	if not goal.note then
+		goal.note = format(L["%s walks around here: look inside the circle on the map"], goal.npcName or npc.name or "")
+	end
+	return goal
+end
 
 ---------------------------------------------------------------------------
 -- Effort
@@ -815,14 +870,6 @@ local function itemSources(id, p, from, direct)
 	-- Item-wide gates: class mounts, required level, what a vendor asks.
 	local spell = item.spell and C.Spell(item.spell)
 	local class = spell and spell.class
-	local tooLow = item.reqLevel and item.reqLevel > p.level and not item.reqLevelFallback
-	if tooLow and C.FilterFacts then
-		-- Older filter packs only marked the group source. Earlier packs with no
-		-- source data keep their original level requirements.
-		local facts = C.FilterFacts(item.kind or "item", id)
-		local source = facts and C.FactSource(facts, "req")
-		if source == "era" or source == "forever" or (facts and facts.reqSource == false) then tooLow = false end
-	end
 	for _, r in ipairs(list) do
 		if (r.type == "drop" or r.type == "object") and r.src.requiresQuests and (ns.Compat.GetItemCount(id, true) or 0) == 0 then
 			local steps, why, q = Lookup.DropQuestSteps(r.src, p, from, direct)
@@ -846,7 +893,7 @@ local function itemSources(id, p, from, direct)
 		end
 		if class and p.class and class ~= p.class then
 			r.available, r.why, r.whyText = false, "class", L["Class mount"]
-		elseif tooLow then
+		elseif item.reqLevel and item.reqLevel > p.level then
 			block(r, "level", levelText(item.reqLevel))
 		end
 		if PURCHASE[r.type] or r.type == "gift" then purchaseGates(item, r) end

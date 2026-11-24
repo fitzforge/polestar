@@ -375,12 +375,8 @@ local function decodeItem(group, id, s)
 		sources = {},
 	}
 	for i = 8, n do
-		if t[i] == "u" then
-			rec.reqLevelFallback = true
-		else
-			local src = decodeSource(t[i])
-			if src then rec.sources[#rec.sources + 1] = src end
-		end
+		local src = decodeSource(t[i])
+		if src then rec.sources[#rec.sources + 1] = src end
 	end
 	return rec
 end

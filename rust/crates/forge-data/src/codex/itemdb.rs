@@ -100,7 +100,7 @@ impl ItemDb {
 					let mask = rec.allow.num();
 					item.set("allowClass", if mask == 0.0 { ALL_CLASSES } else { to_int32(mask) & ALL_CLASSES });
 					// Each ItemDB file states all four facts of a row, so they share levelsSource
-					// (no reqSource and the like). Only a client row gates a character by level.
+					// (no reqSource and the like).
 				}
 				if !item.has("typeSource") {
 					item.set("typeSource", source);

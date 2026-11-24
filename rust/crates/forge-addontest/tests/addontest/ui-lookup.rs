@@ -2505,7 +2505,7 @@ fn item_details_scroll_tooltip_and_sources_with_the_acquisition_action_pinned() 
 		assert(summary() == "Item level 20 · Requires level 10")
 		assert(not d.ItemClasses:IsShown())
 		open(72)
-		assert(summary() == "Client epic")
+		assert(summary() == "Client epic · Requires level 60")
 		assert(not d.TooltipRows[1].Left:IsShown() and not d.ItemClasses:IsShown())
 		local link
 		GameTooltip.SetHyperlink = function(_, value) link = value end
@@ -2543,8 +2543,7 @@ fn lookup_pack_compatibility_keeps_known_summary_and_drops_most_without_supporte
 			assert(menuChoice("Best match") and menuChoice("A to Z"))
 			assert(not menuChoice("Most Stamina") and not menuChoice("Choose a stat…"))
 			UI.ShowLookup({{ query = "#932" }})
-			assert(Polestar.Codex.Item(932).reqLevelFallback)
-			assert(not LK.details.ItemSummary:GetText():find("Requires", 1, true) and #LK.detail.facts == 0)
+			assert(LK.details.ItemSummary:GetText():match("Requires level 25$") and #LK.detail.facts == 0)
 			emit(true)
 			"##
 			),

@@ -11197,9 +11197,7 @@ was already built without it.
   older files, a matching Era required level is attributed to Era. Other
   equal values and possible defaults have no attributed source.
   The Era client tables alone supply a level and rarity as `era` and
-  no `levelsSource`. A fallback required level carries a `u` field in
-  the item record. Lookup can display and filter by that level while
-  keeping "Guide me" available. Client and legacy requirements still gate.
+  no `levelsSource`.
 - Item stats (`codex/itemdb.rs`): for `levelsSource = "client"`, the
   Forever client's stat codes determine presence and the selected
   ItemDB row supplies matching amounts where the units agree. For

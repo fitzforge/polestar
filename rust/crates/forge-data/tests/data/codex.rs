@@ -167,11 +167,10 @@ DB.RegisterLeveling({}, { names = { npcs = {
 }
 
 // The Era CSV (the cached Classic Era ItemSparse) can be the only table that knows an item: its level and rarity
-// are kept as a fallback and named Classic Era's, with no levelsSource (so no stat coverage claim), and the
-// detail record marks the level as fallback. Fel Steed Saddlebags (#932) is the case; its
+// are kept as a fallback and named Classic Era's, with no levelsSource (so no stat coverage claim). Fel Steed Saddlebags (#932) is the case; its
 // values in this test are the fixture's own (a copy of an Era row of the golden input with new numbers).
 #[test]
-fn the_era_csv_alone_supplies_a_labelled_level_and_rarity_that_never_gates() {
+fn the_era_csv_alone_supplies_a_labelled_level_and_rarity() {
 	use serde_json::{json, Value};
 	use std::fs;
 
@@ -201,7 +200,7 @@ fn the_era_csv_alone_supplies_a_labelled_level_and_rarity_that_never_gates() {
 	let pack: String = out.pack.iter().map(|(_, text)| text.as_str()).collect();
 	let record = pack.match_indices(r"\n932\t").map(|(at, found)| &pack[at + found.len()..]).filter_map(|rest| rest.split(r"\n").next()).find(|record| record.contains(';')).expect("932's record");
 	let fields: Vec<&str> = record.split(';').collect();
-	assert!(fields[0].starts_with('3') && fields[1] == "25" && fields.last() == Some(&"u"), "the level is marked as fallback: {record}");
+	assert!(fields[0].starts_with('3') && fields[1] == "25", "{record}");
 }
 
 /// Every quest on the release build's dungeon pages: (id, its XP).

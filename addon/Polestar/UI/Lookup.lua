@@ -1583,7 +1583,7 @@ do
 		local levels = {}
 		if f and f.itemLevel then levels[#levels + 1] = format(L["Item level %d"], f.itemLevel) end
 		local req = f and f.reqLevel
-		if not f and entity and not entity.reqLevelFallback then req = entity.reqLevel end
+		if not f and entity then req = entity.reqLevel end
 		if req then levels[#levels + 1] = req == 0 and L["No level required"] or format(L["Requires level %d"], req) end
 		local classes = f and restrictedClasses(S, f)
 		return {

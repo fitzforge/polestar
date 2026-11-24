@@ -170,10 +170,8 @@ assert(harpoon.itemLevelSource == nil and harpoon.allowSource == nil)
 assert(saddlebags.levelsSource == nil and saddlebags.reqLevel == 25 and saddlebags.reqSource == 'era' and saddlebags.qualitySource == 'era')
 assert(control.reqSource == nil and control.qualitySource == nil and C.FilterFacts('item', 647).reqSource == nil)
 emit({ row(5200), row(932), row(19019), row(647) })
-assert(C.Item(19019).reqLevel == 60 and not C.Item(19019).reqLevelFallback)
-assert(C.Item(5200).reqLevel == 20 and C.Item(5200).reqLevelFallback)
-assert(C.Item(932).reqLevel == 25 and C.Item(932).reqLevelFallback)
-assert(C.Item(647).reqLevel == 52 and C.Item(647).reqLevelFallback)
+assert(C.Item(19019).reqLevel == 60 and C.Item(5200).reqLevel == 20)
+assert(C.Item(932).reqLevel == 25 and C.Item(647).reqLevel == 52)
 "#,
 		"",
 		Some(&pack),
