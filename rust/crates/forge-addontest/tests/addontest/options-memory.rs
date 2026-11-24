@@ -107,7 +107,10 @@ const LOGIN_BASE: f64 = 11003.0;
 /// +13 KiB: the guide window's height modes and the class card's room (#1066, #1067): the cap by mode, the grip's
 /// vertical drag and its limit line, the whole-row scroll stops: 14,755 KiB at login on 2026-11-24, 14,742 with next
 /// (CI's runner 14,761 on the pull request's run). The budget: 14,775 (reported to Fitz in the pull request).
-const LOGIN: f64 = LOGIN_BASE + 3772.0;
+/// +8 KiB: the Engine's target mark, step views, trainer pick and party line, the guide's trainer stop and off-route
+/// work (#3965): 14,774 KiB at login on 2026-11-24, 14,766 with next (CI's runner 14,778 on the pull request's run).
+/// The budget: 14,790 (reported to Fitz).
+const LOGIN: f64 = LOGIN_BASE + 3787.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).
