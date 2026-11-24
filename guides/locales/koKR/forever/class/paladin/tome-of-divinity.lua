@@ -53,7 +53,7 @@ return {
 
 	-- Step 9: The Defias Script
 	-- {item:6846} Defias Script
-	["The {item:6846}"] = "",
+	["The {item:6846}"] = "{item:6846}",
 	-- {npc:6172} Henze Faulk · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["The Defias Rogue Wizards around the big stone tablet east of {npc:6172} carry the {item:6846}: about one kill in two drops it, but some players need many kills. They respawn in three minutes."] = "",
@@ -92,7 +92,7 @@ return {
 
 	-- Step 18: The Dark Iron Script
 	-- {item:6847} Dark Iron Script
-	["The {item:6847}"] = "",
+	["The {item:6847}"] = "{item:6847}",
 	-- {item:6847} Dark Iron Script
 	["The Dark Iron Spies (level 9-11, twelve of them) sneak around the little house below the lake, just south of Narm; you see them from his hill. About one kill in two drops the {item:6847}. They run for help at low health: finish them or step back. They respawn in three minutes."] = "",
 	-- {item:6847} Dark Iron Script

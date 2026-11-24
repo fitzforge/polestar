@@ -1,5 +1,5 @@
 -- Flight masters: open the flight map straight from the gossip (Shift
--- suppresses; never when the NPC offers quests to pick up or hand in), and
+-- suppresses; never when the NPC offers any quest to pick up, or one to hand in), and
 -- on the open map mark the node the travel route flies to next (else the
 -- current step's `fly` location) and, on TaxiFrame, draw the route's hops
 -- to it in the accent. By default the flight is only ever taken by the
@@ -80,7 +80,7 @@ function Flight.OnGossip()
 	local opt = Flight.TaxiOption(G.GetOptions() or {})
 	shiftGossip = opt ~= nil and QoL.Shift()
 	if not QoL.On("flightAutoOpen") or QoL.Shift() or automationPaused() then return false end
-	if QoL.HasQuestBusiness() then return false end
+	if QoL.HasQuestBusiness(true) then return false end -- any quest on offer: the player's pick (#3428)
 	return opt ~= nil and QoL.SelectGossip(opt)
 end
 
@@ -404,7 +404,7 @@ local function markNode()
 		Flight.DrawRoute(index)
 	elseif not told then
 		told = true
-		ns.Print(format(L["Route: fly to %s."], TaxiNodeName(index) or dest))
+		ns.Notice(format(L["Route: fly to %s."], TaxiNodeName(index) or dest))
 	end
 end
 

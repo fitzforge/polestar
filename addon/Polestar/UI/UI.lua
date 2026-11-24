@@ -29,7 +29,10 @@ ns.RegisterDefaults("ui", {
 	opacity = 1,
 	bgOpacity = 0.94, -- the ground of every Polestar window
 	width = 340,
+	stepListHeight = 0, -- the step browser's height, dragged with the window's grip while it is open; 0: the window's height when it opens
 	maxHeight = 0.5, -- the guide window's tallest, as a share of the screen's height; a longer step scrolls (#843)
+	footAt = "goals", -- with heightMode "fixed": the progress bar right under the last goal ("goals") or on the window's edge ("edge")
+	heightMode = "fit", -- "fit": the window follows the step up to maxHeight; "fixed": it is always maxHeight tall; "auto": it grows into all the room on screen (under its top edge; with growUp, over its bottom one)
 	wholeStep = false, -- the card lists every goal of the step, finished ones kept, instead of one person at a time (#843)
 	upcoming = 0, -- Up next is off by default (the reading flow names the next person instead)
 	upcomingOpen = false, -- when on, upcoming steps start listed instead of collapsed
@@ -39,6 +42,7 @@ ns.RegisterDefaults("ui", {
 	instance = "hide", -- "show" | "hide": in dungeons, raids, battlegrounds and arenas, until the player opens it there; hidden by default, a healer asked for it out of the way
 	reduceMotion = false,
 	classCardSound = true, -- the class-quest card's and the class quest heads-up's chime (UI/ClassCard.lua, UI/ClassToast.lua)
+	-- layout: unset (Polestar's own) | a registered layout's id (Theme.SetLayout, Theme.RegisterLayout)
 	skin = "polestar", -- "polestar" (the house style, the default) | "halo" | "hearth" | "forever" | "blizzard" | "classic" (Polestar.Theme, "Skins")
 	font = "skin", -- "skin" (the game's in Polestar) | "opensans" | "game" | "inter" | "fira"
 	textSize = 1, -- 0.8..1.4: every text role's size against its own (Theme.FontSpec), apart from the window scale; the guide window has its own (guideTextSize)
@@ -50,7 +54,8 @@ ns.RegisterDefaults("ui", {
 	matchAccent = true, -- with EllesmereUI: follow its accent
 	classAccent = false, -- the accent follows the player's class colour
 	matchFont = false, -- with EllesmereUI: follow its font
-	menuScale = 1, -- options and picker windows
+	menuScale = 1, -- the settings window (drawn at this x W.SETTINGS_SCALE_BASE)
+	pickerScale = 1, -- the guides window (a profile from before keeps its menuScale: migration "pickerScale", Theme.lua)
 	-- Every window's frame (Theme.WindowBorder, the "windowBorder" token):
 	border = true, -- the window border
 	borderColor = false, -- false: the scheme's hairline (or the accent); { r, g, b }: your own
@@ -63,6 +68,12 @@ ns.RegisterDefaults("ui", {
 })
 
 UI.MIN_WIDTH, UI.MAX_WIDTH = 260, 560
+-- The guide window's scale is kept inside these whatever ui.scale holds (a
+-- profile import may carry any number), and its height cap never cuts it
+-- shorter than MIN_HEIGHT (its own units) however small ui.maxHeight of the
+-- screen comes out at that scale.
+UI.MIN_SCALE, UI.MAX_SCALE = 0.5, 2
+UI.MIN_HEIGHT = 200
 
 -- The player's faction through Compat, when Compat is there.
 function UI.PlayerFaction()
@@ -87,6 +98,32 @@ function UI.QuestTitle(quest)
 		if ok and title and title ~= "" then return title end
 	end
 	return nil
+end
+
+-- The quest tooltip a quest row shows on hover (UI/QuestRoom.lua's lists,
+-- the guide end's, the dungeon guide's): the quest's name over its level,
+-- zone and faction, the New in Forever line and, while it is in the log,
+-- its objectives (done ones in green); then `extra`, the row's own lines.
+-- From the client and the quest database when it is loaded (never loads
+-- it); a fact neither knows is left out. W.HideTooltip(owner) hides it.
+function UI.QuestTip(owner, quest, anchor, extra, title)
+	local C, Q, lines = ns.Compat, ns.QuestDB, {}
+	local ok, r = pcall(function() return Q and Q.IsLoaded() and Q.GetQuest(quest) end)
+	r = ok and r or {}
+	local level = C.GetQuestLevel(quest) or r.level
+	if level then
+		lines[#lines + 1] = { left = L["Level"], right = (r.minLevel and r.minLevel ~= level) and format(L["%d (from %d)"], level, r.minLevel) or tostring(level) }
+	end
+	local zone = type(r.zone) == "number" and r.zone > 0 and C.GetAreaName(r.zone)
+	if zone then lines[#lines + 1] = { left = L["Zone"], right = zone } end
+	if r.id then lines[#lines + 1] = { left = L["Faction"], right = ns.FactionName(r.faction) or L["Both factions"] } end
+	local new = ns.NewQuests and ns.NewQuests.TooltipText(quest)
+	if new then lines[#lines + 1] = { new, Theme.Accent() } end
+	for _, o in ipairs(C.GetQuestObjectives(quest) or {}) do
+		if o.text ~= "" then lines[#lines + 1] = { o.text, Theme.TipColor(o.finished and "success" or "text") } end
+	end
+	for _, l in ipairs(extra or {}) do lines[#lines + 1] = l end
+	ns.Widgets.Tooltip(owner, anchor, title or UI.QuestTitle(quest) or r.title or (L["Quest"] .. " " .. quest), lines)
 end
 
 -- "1–6" / "12" / nil
@@ -161,6 +198,28 @@ function UI.Category(guide)
 	local c = guide and guide.category
 	if type(c) ~= "string" or c == "" then return "Leveling" end
 	return c
+end
+
+-- The glyph (a Media/UI name) each guide category wears: in the picker's
+-- list of categories and on a guide's tab. Dungeons is the dungeon guides'
+-- own mark (the hub's), Favorites and Lookup the picker's two extra entries.
+UI.CATEGORY_ICON = {
+	Leveling = "icon-level", Class = "icon-train", Professions = "icon-craft", Reputation = "icon-rep", Exploration = "icon-explore",
+	Legacy = "icon-achieve", Collectibles = "icon-collect", Miscellaneous = "icon-treasure", Dungeons = "icon-dungeon",
+	Favorites = "star", Lookup = "search",
+}
+
+-- The picker's own entries, not kinds of guide: on a tab a Lookup guide keeps
+-- Leveling's chevrons, since a magnifier there reads as a search control.
+local PICKER_ONLY = { Favorites = true, Lookup = true }
+
+-- The glyph of a category name ("Class"), or of a guide (its category, the
+-- dungeon mark for a dungeon guide, whatever its category); an unknown
+-- category wears Leveling's. `onTab`: for a guide's tab (PICKER_ONLY left out).
+function UI.CategoryIcon(c, onTab)
+	if type(c) == "table" then c = c.dungeon and "Dungeons" or UI.Category(c) end
+	if onTab and PICKER_ONLY[c] then c = nil end
+	return UI.CATEGORY_ICON[c] or UI.CATEGORY_ICON.Leveling
 end
 
 -- Where a guide happens, as the player should read it: a leveling guide's
@@ -291,12 +350,15 @@ end
 -- this guide"), or with `tip` its tooltip's sentence on why doing it now
 -- pays: the Engine's own words when it gives them (`hereSub`, `hereTip`: a
 -- flight path line's), else its step's (`firstStep`: the earliest step that
--- holds the objective).
+-- holds the objective). A quest kept for a later guide (`keptFor`, #3390)
+-- says so after it: "Step 14 · kept for Stranglethorn & Swamp".
 function UI.HereStep(v, tip)
 	if tip then
 		return v.hereTip or format(L["Step %d does this later; done now, that step is shorter or skipped when you get there."], UI.StepNo(v.firstStep or v.step))
 	end
-	return v.hereSub or format(v.later and L["Step %d, later in this guide"] or L["Step %d"], UI.StepNo(v.firstStep or v.step))
+	local sub = v.hereSub or format(v.later and L["Step %d, later in this guide"] or L["Step %d"], UI.StepNo(v.firstStep or v.step))
+	if v.keptFor then sub = format(L["%s · kept for %s"], sub, v.keptFor) end
+	return sub
 end
 
 -- The goal's main line. The Engine's `text` is the truth (it carries author
@@ -514,13 +576,17 @@ end
 -- Group content (the goal's `party`, the compiled `group`): "Elite: group
 -- advised", "Rare elite: group advised", "Boss: group advised", "Dungeon:
 -- Dire Maul", "Raid: Molten Core", "Group of 3 advised" or "Group advised",
--- in the dungeon colour. Nil once the goal is done or skipped.
+-- in the dungeon colour; an object's work among elites (`near`: the crate
+-- needs no group, the camp round it has elites, #3653) "Elites nearby".
+-- Nil once the goal is done or skipped.
 local ELITE_LINE = { [1] = L["Elite: group advised"], [2] = L["Rare elite: group advised"], [3] = L["Boss: group advised"] }
 function UI.GroupLine(goal)
 	local p = goal.party
 	if type(p) ~= "table" or goal.status == "done" or goal.status == "skipped" then return nil end
 	local text
-	if p.kind == "elite" then
+	if p.kind == "elite" and p.near then
+		text = L["Elites nearby"]
+	elseif p.kind == "elite" then
 		text = ELITE_LINE[p.rank] or ELITE_LINE[1]
 	elseif (p.kind == "dungeon" or p.kind == "raid") and type(p.name) == "string" then
 		text = format(p.kind == "raid" and L["Raid: %s"] or L["Dungeon: %s"], (type(p.map) == "number" and ns.Names.Instance(p.map)) or p.name)
@@ -537,6 +603,72 @@ end
 function UI.EscortLine(goal)
 	if goal.escort ~= true or goal.status == "done" or goal.status == "skipped" then return nil end
 	return "|c" .. Theme.Hex("dungeon") .. L["Escort: if the NPC is not there, wait for it to respawn"] .. "|r"
+end
+
+-- The group mark (#3580): two heads beside a step meant for a group or
+-- holding a hard fight, in the step browser's card header and after the
+-- step header's name. Driven from what the step already carries, no guide
+-- syntax of its own. Two states, one shape:
+--   "group" (the warning colour): a group choice (a `when group <quest>`
+--   step, taken or still asked), an escort (`escort`), elite work at or
+--   above the player's level or of no known level, an author's group size;
+--   "careful" (muted): elites near an object's work (`near`), elite work
+--   below the player's level.
+-- Dungeon and raid work keep the dungeon mark alone. Goals done, skipped or
+-- not applying count for nothing; `raw` is the compiled step (its `when`).
+-- -> state, the tooltip's reason | nil
+local MARK_GROUP = {
+	choice = L["Group, or careful: a group quest, yours to do or skip"],
+	escort = L["Group, or careful: an escort that can go wrong"],
+	elite = L["Group, or careful: elites at your level or above"],
+	group = L["Group, or careful: a group is advised"],
+}
+local MARK_CAREFUL = { near = L["Careful: elites nearby"], below = L["Careful: elites, below your level"] }
+function UI.StepMark(view, raw)
+	if type(view) ~= "table" or view.status == "done" or view.status == "skipped" or view.status == "na" or view.skipped == true then return nil end
+	for _, p in ipairs(type(raw) == "table" and raw.when or {}) do
+		if p.k == "group" and not p.neg then return "group", MARK_GROUP.choice end
+	end
+	local level
+	local careful
+	for _, goal in ipairs(view.goals or {}) do
+		local s = goal.status
+		if s ~= "done" and s ~= "skipped" and s ~= "na" and not goal.dismissed then
+			if goal.escort == true then return "group", MARK_GROUP.escort end
+			local p = goal.party
+			if type(p) == "table" and p.kind == "group" then return "group", MARK_GROUP.group end
+			if type(p) == "table" and p.kind == "elite" then
+				if p.near then
+					careful = careful or MARK_CAREFUL.near
+				else
+					if level == nil then
+						local C = ns.Compat
+						local ok, info = pcall(C.GetPlayerInfo)
+						level = ok and type(info) == "table" and info.level or 0
+					end
+					if type(p.lvl) ~= "number" or p.lvl >= level then return "group", MARK_GROUP.elite end
+					careful = MARK_CAREFUL.below
+				end
+			end
+		end
+	end
+	if careful then return "careful", careful end
+	return nil
+end
+
+-- The mark as an inline texture at the line's height, in its state's colour
+-- (warning, textMuted), made again when the colour changes (a new scheme).
+local markGlyph = {}
+function UI.StepMarkGlyph(state)
+	local r, g, b = Theme.Color(state == "group" and "warning" or "textMuted")
+	local key = r .. "," .. g .. "," .. b
+	local c = markGlyph[state]
+	if not c or c.key ~= key then
+		c = { key = key, text = format("|T%s:0:0:0:0:32:32:0:32:0:32:%d:%d:%d|t", Theme.Media("icon-group"),
+			math.floor(r * 255 + 0.5), math.floor(g * 255 + 0.5), math.floor(b * 255 + 0.5)) }
+		markGlyph[state] = c
+	end
+	return c.text
 end
 
 -- A dungeon's way in (the goal view's `entrance`: a dungeon guide's "Enter

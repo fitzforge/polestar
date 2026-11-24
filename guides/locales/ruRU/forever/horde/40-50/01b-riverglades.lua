@@ -195,7 +195,8 @@ return {
 
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
-	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Снова на запад: {area:16723}. {npc:260931}, сумеречный рудокоп, который хочет уйти, ждет на восточной окраине городка. Переубедите его, затем сдайте задание ({npc:256710}); один из пропавших огров стоит в нескольких шагах к западу.",
+	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Снова на запад: {area:16723}. {npc:260931}, сумеречный рудокоп, который хочет уйти, ждет на восточной окраине городка. Переубедите его, затем сдайте задание ({npc:256710}); один из пропавших огров стоит в нескольких шагах к западу."
+	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "переубедить: {npc:260931}",
 	-- {npc:261208} Twilight Brute
@@ -384,10 +385,13 @@ return {
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	-- was: ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "Еще раз к пиратским утесам. Заложите заряды Вжиквжика на три корабля, стоящих под лагерем, с юга на север; {quest:95124} стоит у среднего, рядом с сундуком с добычей. По пути остерегайтесь: {npc:259758}.\nОсторожно: {quest:95124} — 45-го уровня, на уровень-два выше вас: сначала зачистите палубу вокруг нее и вступайте в бой с полным здоровьем."
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "",
+	["on board, at the arrow"] = "",
 	-- {item:268505} Remote Explosive Charge
-	["{item:268505}, the southern ship"] = "{item:268505}, южный корабль",
-	["the middle ship"] = "средний корабль",
-	["the northern ship"] = "северный корабль",
+	["Plant a {item:268505} on the southern ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the middle ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the northern ship"] = "",
 
 	-- Step 82: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
@@ -408,7 +412,9 @@ return {
 
 	-- Step 85: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} рыщет по отмели к юго-западу от порта, ниже пляжей мурлоков. {npc:257001} (элита) ходит по берегу неподалеку: держитесь от него подальше.",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "",
+	-- {item:268633} Sea Monster's Head
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "",
 
 	-- Step 87: The river: Riverweed
 	-- {item:265806} Riverweed
@@ -487,10 +493,15 @@ return {
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "Еще раз к пиратским утесам. Заложите заряды Вжиквжика на три корабля, стоящих под лагерем, с юга на север; {quest:95124} стоит у среднего, рядом с сундуком с добычей. По пути остерегайтесь: {npc:259758}.\nОсторожно: {quest:95124} — 45-го уровня, на уровень-два выше вас: сначала зачистите палубу вокруг нее и вступайте в бой с полным здоровьем.",
 	-- ["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "Лагеря культа занимают долину к югу и западу от NPC {npc:258570}. Освобождайте пленных разведчиков Рог'мара по пути. Через лагеря патрулируют каратели Сумеречного Молота (элита, 45-й уровень): прежде чем атаковать, следите за их маршрутом. {npc:256881} и {npc:256891} (элита, 46) удерживают крепость в верхней части долины: оттаскивайте сектантов подальше от них. Лагерь Альянса ({npc:258023}) находится в южном конце долины, и его дозорные Фархольда (46-й уровень) нападают на Орду: держитесь к северу от него.",
 	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "Следующий гайд начинается с полета из места {area:340} ({area:3}): на север из долины NPC {npc:258570} и вверх через {area:16685} – это путь в {area:3}.",
+	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} рыщет по отмели к юго-западу от порта, ниже пляжей мурлоков. {npc:257001} (элита) ходит по берегу неподалеку: держитесь от него подальше.",
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Нюхорыл и {npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548} лежат к югу от зоны {area:3}. Езжайте на восток от места {area:657} к месту {area:75} и летите сюда: {area:340}. Оттуда начинается спуск в зону.",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "К западу от Рог'мара культ Сумеречного Молота захватил фермерский городок {area:16723}. {npc:259158}, кобольд, который хочет уйти, прячется в центре городка.",
+	-- ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Снова на запад: {area:16723}. {npc:260931}, сумеречный рудокоп, который хочет уйти, ждет на восточной окраине городка. Переубедите его, затем сдайте задание ({npc:256710}); один из пропавших огров стоит в нескольких шагах к западу.",
+	-- ["the middle ship"] = "средний корабль",
+	-- ["the northern ship"] = "северный корабль",
 	-- ["the {object:707249} poster"] = "Плакат: {object:707249}",
+	-- ["{item:268505}, the southern ship"] = "{item:268505}, южный корабль",
 	-- ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "{npc:257062} дает последние два боя после поручений Гобама (по записям игроков), которые этот гайд пропускает. Они 44-го и 45-го уровней: отложите их на потом, если бой с {npc:258626} дался с трудом.",
 	-- ["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048} ждет у лагеря огров Сумеречного Молота к северо-востоку от NPC {npc:256728}: отведите его домой ({area:16726}) и отгоняйте от него культистов. Если он погибнет, возьмите задание у него снова.",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "Копья ({npc:263190}) – на пресноводных кроколисков",

@@ -17,7 +17,7 @@ return {
 	-- {faction:81} Thunder Bluff
 	["{faction:81}: how it works"] = "{faction:81}：運作方式",
 	-- {faction:81} Thunder Bluff · {item:11040} Morrowgrain · {npc:14728} Rumstag Proudstrider · {quest:7825} Additional Runecloth · {item:14047} Runecloth · {zone:1454} Orgrimmar · {zone:1458} Undercity · {zone:1412} Mulgore · {area:378} Camp Taurajo · {zone:1441} Thousand Needles
-	["{faction:81} reputation comes from quests, {item:11040} and cloth. {npc:14728}, the cloth quartermaster, stands on the central rise among the leatherworkers' and tailors' tents. He takes four one-time donations of 60 cloth (150 each) and then {quest:7825}, 20 {item:14047} for 50, as often as you like. Every point you earn with {faction:81} also gives a quarter as much to {zone:1454}, the {zone:1458} and the Darkspear Trolls. While you level, do {faction:81}'s quests within 5 levels of them: {zone:1412} at 1 to 12, {area:378} and the Crossroads at 13 to 22, {zone:1441} at 25 to 30. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Thunder Bluff's merchants sell to you for 10% less (the Classic rule), the kodo vendor included; at Exalted other races can buy the kodos: 20 gold for a level 40 kodo, 200 gold for a great kodo at level 60, once you have mount training. {faction:81} has no tabard or other reward."] = "",
+	["{faction:81} reputation comes from quests, {item:11040} and cloth. {npc:14728}, the cloth quartermaster, stands on the central rise among the leatherworkers' and tailors' tents. He takes four one-time donations of 60 cloth (150 each) and then {quest:7825}, 20 {item:14047} for 50, as often as you like. Every point you earn with {faction:81} also gives a quarter as much to {zone:1454}, the {zone:1458} and the Darkspear Trolls. While you level, do {faction:81}'s quests within 5 levels of them: {zone:1412} at 1 to 12, {area:378} and the Crossroads at 13 to 22, {zone:1441} at 25 to 30. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Thunder Bluff's merchants sell to you for 10% less (the Classic rule), the kodo vendor included; at Exalted other races can buy the kodos: 20 gold for a level 40 kodo, 200 gold for a great kodo at level 60, once you have mount training. {faction:81} has no tabard or other reward."] = "{faction:81}聲望來自任務、{item:11040}和布料。布匹軍需官{npc:14728}站在中央高地的制皮與裁縫帳篷之間。他接收四種一次性捐贈，每種60塊布（各150聲望），之後可無限重複{quest:7825}，每20塊{item:14047}換50聲望。每獲得一點{faction:81}聲望，{zone:1454}、{zone:1458}和暗矛巨魔也會獲得四分之一。練級時，應在與任務相差不超過5級時完成{faction:81}的任務：1至12級做{zone:1412}，13至22級做{area:378}和十字路口，25至30級做{zone:1441}。傳承特長“外交家”最多增加10%。獎勵：尊敬後，雷霆崖商人的售價降低10%（經典舊世規則），包括科多獸商人；崇拜後，其他種族也能購買科多獸：40級科多獸20金幣，60級大型科多獸200金幣，均需先接受坐騎訓練。{faction:81}沒有戰袍或其他獎勵。",
 	["his donations are handed in from his window and never enter the log"] = "他的捐獻任務在他的視窗中直接繳交，不會進入任務日誌",
 
 	-- Step 2: Camp Narache (optional hub)
@@ -174,21 +174,21 @@ return {
 	-- {quest:4882} Guarding Secrets · {npc:5770} Nara Wildmane · {faction:81} Thunder Bluff
 	["{quest:4882}, +100: to {npc:5770} in {faction:81}"] = "{quest:4882}，+100：交給{faction:81}的{npc:5770}",
 
-	-- Step 30: Thunder Bluff: Nara Wildmane
+	-- Step 31: Thunder Bluff: Nara Wildmane
 	-- {npc:5770} Nara Wildmane · {area:1639} Elder Rise · {npc:5769} Arch Druid Hamuul Runetotem
 	["{npc:5770} stands on {area:1639}, beside {npc:5769}."] = "{npc:5770}站在{area:1639}上，就在{npc:5769}旁邊。",
 
-	-- Step 31: Morrowgrain (optional)
+	-- Step 32: Morrowgrain (optional)
 	-- {item:11040} Morrowgrain
 	["{item:11040} (optional)"] = "{item:11040}（可選）",
 	-- {quest:3804} Morrowgrain to Thunder Bluff · {item:11040} Morrowgrain · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {npc:6746} Innkeeper Pala · {npc:5769} Arch Druid Hamuul Runetotem · {area:1639} Elder Rise
-	["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "",
+	["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "{quest:3804}每次收取10份{item:11040}，獎勵50點聲望，可無限次交還，60級時仍提供全額獎勵，但速度較慢：{item:11020}每10分鐘產出一個常青草藥包，平均每個草藥包約含一份{item:11040}，因此每次交還約需等待90分鐘，消耗18份{quest:3761}及9包種子（90銀幣）。可以邊做其他事邊進行，每小時獲得略多於30點聲望。前置任務鏈為50級，{npc:6746}會派往{area:1639}找{npc:5769}，他需要20份{quest:3761}。",
 
-	-- Step 32: Un'Goro Crater: Un'Goro Soil
+	-- Step 33: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain
 	["Nearly every beast, plant and silithid in the crater drops {quest:3761}, about one kill in three (the Bloodpetals and the Gorishi wasps about one in two), and the dirt mounds give it too. Take far more than 20: every casing uses 2, about 18 for each {item:11040} hand-in."] = "環形山裡幾乎每種野獸、植物和異種蟲都會掉{quest:3761}，約每三次擊殺掉一個（血瓣花和格里什蜂約每兩次掉一個），土堆也會出。拿的遠多過20個：每個外殼要消耗2個，每次上繳{item:11040}約要18個。",
 
-	-- Step 33: Thunder Bluff: Morrowgrain Research
+	-- Step 34: Thunder Bluff: Morrowgrain Research
 	-- {npc:9076} Ghede · {npc:9087} Bashana Runetotem · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {item:11024} Evergreen Herb Casing · {item:11040} Morrowgrain
 	["{npc:9076} takes the soil. {npc:9087} sells the {item:11020} (1 gold) and Packets of Tharlendris Seeds (10 silver each). With a seed packet and 2 {quest:3761} in your bags, use the pouch: it grows an {item:11024}, once every 10 minutes. Open each casing: about one in three holds 1 to 5 {item:11040}, the rest common herbs. Use the pouch whenever it is ready while you follow the rest of this guide."] = "{npc:9076}收土壤。{npc:9087}出售{item:11020}（1金）和薩倫迪斯種子包（每個10銀）。揹包裡有種子包和2個{quest:3761}時使用袋子：它會培育出一個{item:11024}，每10分鐘一次。開啟每個外殼：約三分之一裝有1到5個{item:11040}，其餘是普通草藥。在跟隨本攻略餘下步驟的過程中，袋子一冷卻好就用。",
 	-- {item:11020} Evergreen Pouch
@@ -196,25 +196,25 @@ return {
 	-- {item:11022} Packet of Tharlendris Seeds
 	["{item:11022}, 10 silver each"] = "{item:11022}，每個10銀",
 
-	-- Step 34: Morrowgrain as you go
+	-- Step 35: Morrowgrain as you go
 	-- {item:11040} Morrowgrain
 	["{item:11040} as you go"] = "{item:11040}，邊做邊收",
 	-- {item:11040} Morrowgrain · {npc:9087} Bashana Runetotem
 	["{item:11040}: use the pouch every 10 minutes and open the casings; {npc:9087} takes it"] = "{item:11040}：每10分鐘用一次袋子並開啟外殼；{npc:9087}收",
 
-	-- Step 35: Bashana Runetotem: Morrowgrain Research
+	-- Step 36: Bashana Runetotem: Morrowgrain Research
 	-- {npc:9087} Bashana Runetotem · {area:1639} Elder Rise · {item:11040} Morrowgrain
 	["{npc:9087} stands on {area:1639}. If your 10 {item:11040} are not ready yet, skip this step and go on with the cloth: the cloth steps below list the {item:11040} hand-in too."] = "{npc:9087}站在{area:1639}上。如果你的10個{item:11040}還沒湊齊，跳過這一步先去做捐布：下面的捐布步驟也會列出{item:11040}的上繳。",
 
-	-- Step 36: Additional Runecloth to Honored
+	-- Step 37: Additional Runecloth to Honored
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Honored"] = "{quest:7825}到尊敬",
 	-- {quest:7825} Additional Runecloth · {item:14047} Runecloth
-	["{quest:7825}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (a tauren starts at Friendly 1,000: 100 hand-ins; an Undead at Neutral 500 first needs 50 more to reach Friendly). Hand in every 20 you carry, one after another."] = "",
+	["{quest:7825}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (a tauren starts at Friendly 1,000: 100 hand-ins; an Undead at Neutral 500 first needs 50 more to reach Friendly). Hand in every 20 you carry, one after another."] = "{quest:7825}：每 20 個 {item:14047} 換取 50 點聲望，可以無限重複。從友善到尊敬需要 6,000 點：交還 120 次，共 2,400 個 {item:14047}，再扣除任務已提供的聲望（牛頭人起始為友善 1,000 點：需交還 100 次；亡靈起始為中立 500 點，先額外交還 50 次才能達到友善）。把身上每 20 個作為一組，逐次交還。",
 	-- {item:11040} Morrowgrain · {npc:9087} Bashana Runetotem
 	["{item:11040}, if you grow it: {npc:9087} takes it"] = "{item:11040}，如果你有培育：{npc:9087}收",
 
-	-- Step 37: Additional Runecloth to Revered
+	-- Step 38: Additional Runecloth to Revered
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Revered"] = "{quest:7825}到崇敬",
 	-- {item:14047} Runecloth · {item:11040} Morrowgrain · {area:1584} Blackrock Depths · {area:340} Kargath · {npc:9017} Lord Incendius
@@ -222,7 +222,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040}, if you grow it"] = "{item:11040}，如果你有培育",
 
-	-- Step 38: Additional Runecloth to Exalted
+	-- Step 39: Additional Runecloth to Exalted
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Exalted"] = "{quest:7825}到崇拜",
 	-- {item:14047} Runecloth · {npc:3685} Harb Clawhoof · {area:222} Bloodhoof Village

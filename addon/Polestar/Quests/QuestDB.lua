@@ -144,13 +144,15 @@ end
 local QUEST_TITLE, QUEST_LEVEL, QUEST_MIN, QUEST_RACES, QUEST_CLASSES, QUEST_FACTION = 1, 2, 3, 4, 5, 6
 local QUEST_START, QUEST_FINISH, QUEST_START_ITEM, QUEST_PRE, QUEST_EXCL, QUEST_OBJ = 7, 8, 9, 10, 11, 12
 local QUEST_ZONE, QUEST_EVENTS, QUEST_SKILL, QUEST_HOLIDAY, QUEST_PRE_ALL, QUEST_RACE_HIGH = 13, 14, 15, 16, 17, 18
-local QUEST_ITEMS, QUEST_LIMIT = 19, 20
+-- QUEST_DONE_BY: quests whose being in the log or handed in proves this one done, for a quest the game never
+-- flags completed (Seeking the Kor Gem once An Underrated Talent is taken, #2465); one id or a list.
+local QUEST_ITEMS, QUEST_LIMIT, QUEST_DONE_BY = 19, 20, 21
 Q.F = {
 	TITLE = QUEST_TITLE, LEVEL = QUEST_LEVEL, MIN = QUEST_MIN, RACES = QUEST_RACES, CLASSES = QUEST_CLASSES,
 	FACTION = QUEST_FACTION, START = QUEST_START, FINISH = QUEST_FINISH, START_ITEM = QUEST_START_ITEM,
 	PRE = QUEST_PRE, EXCL = QUEST_EXCL, OBJ = QUEST_OBJ, ZONE = QUEST_ZONE, EVENTS = QUEST_EVENTS,
 	SKILL = QUEST_SKILL, HOLIDAY = QUEST_HOLIDAY, PRE_ALL = QUEST_PRE_ALL, RACE_HIGH = QUEST_RACE_HIGH,
-	ITEMS = QUEST_ITEMS, LIMIT = QUEST_LIMIT,
+	ITEMS = QUEST_ITEMS, LIMIT = QUEST_LIMIT, DONE_BY = QUEST_DONE_BY,
 }
 -- Objective kinds by their packed number; 5: a talk to an NPC (a story to hear, an item to show).
 Q.KIND = { "kill", "item", "object", "event", "talk" }
@@ -184,20 +186,27 @@ function Q.HandsOver(questID, itemID)
 	return false
 end
 
+-- Whether quest questID asks for item itemID: one of its objectives is that
+-- item (Holy Candles for Keeping the Light On). False while the database is
+-- not loaded. Allocation-free.
+function Q.Asks(questID, itemID)
+	local r = data.quests[questID]
+	local obj = r and r[QUEST_OBJ]
+	if obj then
+		for i = 1, #obj, 3 do
+			if obj[i] == 2 and obj[i + 1] == itemID then return true end
+		end
+	end
+	return false
+end
+
 -- Whether quest questID uses item itemID without asking for it: the item is
 -- in its handed-over field, which also holds the items its work needs (the
 -- Sunscale Feather for the Scytheclaw nests, the Fresh Zhevra Carcass that
 -- lures Ishamuhale), and no objective of it is that item, so no quest-log
 -- line counts it. False while the database is not loaded. Allocation-free.
 function Q.UsesOnly(questID, itemID)
-	if not Q.HandsOver(questID, itemID) then return false end
-	local obj = data.quests[questID][QUEST_OBJ]
-	if obj then
-		for i = 1, #obj, 3 do
-			if obj[i] == 2 and obj[i + 1] == itemID then return false end
-		end
-	end
-	return true
+	return Q.HandsOver(questID, itemID) and not Q.Asks(questID, itemID)
 end
 
 -- A ref is an NPC id (> 0) or an object id (< 0), as in start/finish lists.

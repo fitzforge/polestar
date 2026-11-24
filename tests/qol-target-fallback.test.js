@@ -280,7 +280,24 @@ test('uniform target macros retain their existing command sequence', () => {
 	`);
 	for (const row of rows) {
 		assert.deepEqual(outcome(row), ['Boar', 8, 1]);
-		assert.equal(row.macro, '/cleartarget [nocombat]\n/targetexact Wolf\n/cleartarget [dead]\n'
+		assert.equal(row.macro, '/cleartarget [nocombat][dead]\n/targetexact Wolf\n/cleartarget [dead]\n'
 			+ '/targetexact [noexists] Boar\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8');
 	}
+});
+
+test('in combat, a dead target is cleared before acquiring the next living mob while a living target with no match is kept (#3006)', () => {
+	const rows = run(`
+		q.step({ { t = "kill", target = "Wolf" }, { t = "kill", target = "Boar" } })
+		q.combat(true)
+		for _, button in ipairs({ PolestarTargetButton, PolestarStepButton }) do
+			world(unit("Boar", true)); q.target = unit("Dead Mob", true, 0, true); emit(click(button))
+			world(unit("Wolf", true)); q.target = unit("Dead Mob", true, 0, true); emit(click(button))
+			world(); q.target = unit("Dead Mob", true, 0, true); emit(click(button))
+			world(); q.target = unit("Living Opponent", true); emit(click(button))
+		end
+	`);
+	assert.deepEqual(rows.map(outcome), [
+		['Boar', 8, 1], ['Wolf', 8, 1], [false, 0, 0], ['Living Opponent', 8, 1],
+		['Boar', 8, 1], ['Wolf', 8, 1], [false, 0, 0], ['Living Opponent', 8, 1],
+	]);
 });

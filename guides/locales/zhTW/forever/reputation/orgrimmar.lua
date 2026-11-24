@@ -17,7 +17,7 @@ return {
 	-- {faction:76} Orgrimmar
 	["{faction:76}: how it works"] = "{faction:76}：機制說明",
 	-- {faction:76} Orgrimmar · {npc:14726} Rashona Straglash · {quest:7832} Additional Runecloth · {item:14047} Runecloth · {zone:1456} Thunder Bluff · {zone:1458} Undercity · {zone:1411} Durotar · {npc:4949} Thrall · {quest:5726} Hidden Enemies
-	["{faction:76} reputation comes from quests and cloth. {npc:14726}, the cloth quartermaster, stands in the Drag beside the cloth and leather armor shop. She takes four one-time donations of 60 cloth (150 each) and then {quest:7832}, 20 {item:14047} for 50, as often as you like. Every point you earn with {faction:76} also gives a quarter as much to {zone:1456}, the {zone:1458} and the Darkspear Trolls. While you level, do {faction:76}'s quests within 5 levels of them: {zone:1411} at 5 to 12, the Crossroads at 12 to 20, {npc:4949}'s {quest:5726} at 12 to 16. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Orgrimmar's merchants sell to you for 10% less (the Classic rule), the wolf vendor included; at Exalted other races can buy the wolves: 20 gold for a level 40 wolf, 200 gold for a swift wolf at level 60, once you have mount training. {faction:76} has no tabard or other reward."] = "",
+	["{faction:76} reputation comes from quests and cloth. {npc:14726}, the cloth quartermaster, stands in the Drag beside the cloth and leather armor shop. She takes four one-time donations of 60 cloth (150 each) and then {quest:7832}, 20 {item:14047} for 50, as often as you like. Every point you earn with {faction:76} also gives a quarter as much to {zone:1456}, the {zone:1458} and the Darkspear Trolls. While you level, do {faction:76}'s quests within 5 levels of them: {zone:1411} at 5 to 12, the Crossroads at 12 to 20, {npc:4949}'s {quest:5726} at 12 to 16. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Orgrimmar's merchants sell to you for 10% less (the Classic rule), the wolf vendor included; at Exalted other races can buy the wolves: 20 gold for a level 40 wolf, 200 gold for a swift wolf at level 60, once you have mount training. {faction:76} has no tabard or other reward."] = "{faction:76} 聲望來自任務和布料。布匹軍需官 {npc:14726} 站在暗巷區的布甲與皮甲商店旁。她接受四種各 60 塊布的一次性捐獻（每種獎勵 150 點聲望），隨後可無限重複 {quest:7832}，每 20 個 {item:14047} 換取 50 點聲望。每獲得一點 {faction:76} 聲望，還會給 {zone:1456}、{zone:1458} 和暗矛巨魔各提供四分之一的聲望。升級時，在任務等級與你相差不超過 5 級時完成 {faction:76} 的任務：5 至 12 級做 {zone:1411}，12 至 20 級做十字路口，12 至 16 級做 {npc:4949} 的 {quest:5726}。傳承特權外交家可使聲望收益最多提高 10%。獎勵：尊敬後，奧格瑞瑪商人會給你 10% 折扣（經典舊世規則），包括座狼商人；崇拜後，其他種族也可購買座狼：學會騎術後，40 級座狼為 20 金幣，60 級迅捷座狼為 200 金幣。{faction:76} 沒有戰袍或其他獎勵。",
 	["her donations are handed in from her window and never enter the log"] = "她的捐獻任務在她的視窗中直接繳交，不會進入任務日誌",
 
 	-- Step 2: Valley of Trials (optional hub)
@@ -195,13 +195,13 @@ return {
 	-- {faction:76} Orgrimmar · {zone:1413} Barrens · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth · {area:379} Far Watch Post
 	["Run out of {faction:76}'s west gate and over the bridge into the {zone:1413}. {npc:3337} and {quest:809} stand at {area:379}."] = "從{faction:76}西門跑出，過橋進入{zone:1413}。{npc:3337}和{quest:809}在{area:379}。",
 	-- {quest:842} Crossroads Conscription · {quest:860} Sergra Darkthorn
-	["{quest:842}, +100: to {quest:860}"] = "",
+	["{quest:842}, +100: to {quest:860}"] = "{quest:842}，+100 點聲望：交給 {quest:860}。",
 
 	-- Step 33: The Crossroads (optional hub)
 	-- {area:380} The Crossroads
 	["{area:380} (optional hub)"] = "{area:380}（可選據點）",
 	-- {area:380} The Crossroads · {faction:76} Orgrimmar · {quest:860} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:267310} Gur'ak · {npc:3432} Mankrik
-	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {quest:860}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "",
+	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {quest:860}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "Forever中，無論角色等級多少，這些舊任務都提供全額聲望。{area:380}：70分鐘可獲得約1,500點{faction:76}聲望，只提供{faction:76}聲望。{quest:860}、{npc:3464}、{npc:3429}、{npc:3449}和{npc:267310}在鎮內，{npc:3432}在旅店旁。",
 
 	-- Step 34: Around the Crossroads
 	["Around the Crossroads"] = "十字路口周邊",

@@ -1,0 +1,117 @@
+name: Public data
+
+# The reference data the pull requests' Tests job reads on GitHub's runners (docs/CI.md, "Reference data"). On every
+# push to next: build data/forever from public sources (.github/actions/public-data), run the whole Node suite on it,
+# and save both in the Actions cache as `public-data-<sha>`: the data, the client tables beside it, and the suite's
+# failures on next (.ci/baseline.jsonl, tools/ci-failures.js). A pull request's Tests job restores the entry of the
+# commit it merges into (or the newest), runs its tests with the data, and fails only on failures the baseline lacks:
+# the public data is close to the release data but not equal to it, and some tests fail on it on next too.
+# Nothing here is private: the sources are public and the data is built on the runner. Pushes only: a pull request's
+# code never runs here, and only next's runs write the entries pull requests read.
+on:
+  push:
+    branches: [next]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One run at a time, to the end: a run takes longer than the time between merges on a busy day, so cancelling
+# would never save an entry. A newer push waits, and replaces an older waiting one.
+concurrency:
+  group: ci-data-${{ github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  data:
+    name: Public data and baseline
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      POLESTAR_TIMING_BUDGETS: warn
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - name: Install Lua 5.1
+        run: sudo apt-get update -q && sudo apt-get install -y -q lua5.1
+
+      # The same forge cache ci.yml's Tests job reads and fills.
+      - name: Forge cache key
+        id: forgekey
+        run: echo "key=forge-quick-${{ runner.os }}-${{ hashFiles('rust/**', 'tests/lua/simulate.lua') }}" >> "$GITHUB_OUTPUT"
+
+      - name: Forge (cache)
+        id: forgecache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: rust/target/quick/forge
+          key: ${{ steps.forgekey.outputs.key }}
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        if: steps.forgecache.outputs.cache-hit != 'true'
+        with:
+          toolchain: stable
+
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        if: steps.forgecache.outputs.cache-hit != 'true'
+        with:
+          workspaces: rust
+          key: ci
+
+      - name: Build forge
+        if: steps.forgecache.outputs.cache-hit != 'true'
+        working-directory: rust
+        run: cargo build --profile quick --locked -p forge
+
+      - name: Forge (save)
+        if: steps.forgecache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: rust/target/quick/forge
+          key: ${{ steps.forgekey.outputs.key }}
+
+      - name: Forge path
+        run: echo "FORGE=$GITHUB_WORKSPACE/rust/target/quick/forge" >> "$GITHUB_ENV"
+
+      - name: Public data
+        uses: ./.github/actions/public-data
+        with:
+          forge: ${{ github.workspace }}/rust/target/quick/forge
+
+      # Every Node test on the public data; the failures are the baseline, not this run's verdict (the release
+      # data's gates are the post-merge workflow's, docs/CI.md "After a merge").
+      - name: Node suite on the public data
+        run: |
+          mkdir -p .ci
+          rc=0
+          node --test --test-timeout=900000 --test-reporter=dot --test-reporter-destination=stdout \
+            --test-reporter=./tools/ci-failures.js --test-reporter-destination=.ci/baseline.jsonl \
+            "tests/**/*.test.js" || rc=$?
+          if [ "$rc" != 0 ] && ! grep -qv '"ok":true' .ci/baseline.jsonl; then echo "::error::the suite failed ($rc) with no test failing: no baseline"; exit 1; fi
+          n=$(jq -s '[.[] | select(.ok | not)] | length' .ci/baseline.jsonl)
+          {
+            echo "## Public data baseline"
+            echo
+            echo "$n failing test line(s) on next with the public data (pull requests leave these out), of $(wc -l < .ci/baseline.jsonl) tests run."
+            echo
+            jq -r 'select(.ok | not) | "- \(.file): \(.name)"' .ci/baseline.jsonl | sort -u | head -n 200
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Save for pull requests
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            data/forever
+            data/sources/wago
+            .ci/baseline.jsonl
+          key: public-data-${{ github.sha }}

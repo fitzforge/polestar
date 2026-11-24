@@ -2,7 +2,7 @@
 //! Candidate sets for smart targets (`train <Profession>`, `train class`, `buy … nearest`, `vendor nearest`,
 //! `sethome nearest`): every matching NPC with a spawn point and a faction tag, one per town (hub); on a capital
 //! city's map one per district (#2018: Stormwind's Alexandra Bolero in the Mage Quarter and Edna Mullby in the Trade
-//! District, 235 yards apart).
+//! District, 235 yards apart). Of one hub's NPCs, the one most players train with (trainers.json `visits`, #2992).
 
 use crate::data::Data;
 use crate::heights::candidate_height;
@@ -26,6 +26,18 @@ fn hub_yards(a: &V, b: &V) -> f64 {
 		CITY_HUB_YARDS
 	} else {
 		HUB_YARDS
+	}
+}
+
+/// The players recorded training with a candidate's NPC (trainers.json `visits`, `forge data trainers`), 0 for
+/// one it does not list: opts `trainers` when given (the table `forge data trainers` is building), else the data's.
+fn visits(data: &Data, opts: &V, cand: &V) -> f64 {
+	let table = if opts.get("trainers").truthy() { opts.get("trainers") } else { data.trainers_raw.clone() };
+	let v = table.get(&cand.get("npc").to_js_string()).get("visits");
+	if v.num() > 0.0 {
+		v.num()
+	} else {
+		0.0
 	}
 }
 
@@ -292,8 +304,13 @@ pub fn build_candidates(data: &Data, entries: &[V], opts: &V) -> V {
 				break;
 			}
 			let same_hub =
-				a.w.as_ref().is_some_and(|aw| hubs.iter().any(|h| h.w.as_ref().is_some_and(|hw| hw.c.strict_eq(&aw.c) && hypot(hw.wx - aw.wx, hw.wy - aw.wy) < hub_yards(&h.cand, &a.cand))));
-			if same_hub {
+				a.w.as_ref().and_then(|aw| hubs.iter().position(|h| h.w.as_ref().is_some_and(|hw| hw.c.strict_eq(&aw.c) && hypot(hw.wx - aw.wx, hw.wy - aw.wy) < hub_yards(&h.cand, &a.cand))));
+			if let Some(i) = same_hub {
+				// Of one hub's NPCs, the one most players train with (trainers.json `visits`, #2992: Jocaste on the
+				// Cenarion Enclave's floor, not Jeen'ra Nightrunner at the top of its tower, lower in id).
+				if visits(data, opts, &a.cand) > visits(data, opts, &hubs[i].cand) {
+					hubs[i] = a;
+				}
 				continue;
 			}
 			if a.w.is_none() && hubs.iter().any(|h| h.w.is_none() && h.cand.get("map").strict_eq(&a.cand.get("map"))) {

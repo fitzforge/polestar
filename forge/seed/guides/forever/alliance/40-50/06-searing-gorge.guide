@@ -79,12 +79,14 @@ step Velarok Windblade
 
 step Dark Iron Taskmasters
   when group 7729
-  tip With your group, look for Taskmasters on the open ledges. Stay on the surface; don't follow the arrow into the Slag Pit.
+  tip With your group, look for Taskmasters on the open ledges first. Last stop, if you still need some: take the lift (the scaffold cars) down into the Slag Pit below, where four more stand.
   loop
   goto 43.12,40.38 map 1427 r 12
   goto 45.68,39.66 map 1427 r 12
   goto 49.15,39.93 map 1427 r 12
   goto 44.79,51.93 map 1427 r 12
+  goto 39.6,50.8 map 1427 r 12
+  goto 40.6,53.6 map 1427 r 12
   kill 5846 quest 7729                -- Dark Iron Taskmaster
 
 step Dark Iron Slavers

@@ -13,8 +13,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Flieg nach {area:150}",
-	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "Flugmeister von {zone:1455}",
 
 	-- Step 3: Theramore
 	["Theramore"] = "Theramore",
@@ -249,4 +247,5 @@ return {
 	-- ["{npc:9998}, at the refuge entrance"] = "{npc:9998}, am Eingang der Zuflucht",
 	-- ["{npc:9998}, at the refuge's entrance"] = "{npc:9998}, am Eingang der Zuflucht",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999} sitzt am Südosthang des {area:537}, in der Mitte des Kraters.",
+	-- ["{zone:1455} flight master"] = "Flugmeister von {zone:1455}",
 }

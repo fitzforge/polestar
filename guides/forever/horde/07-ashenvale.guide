@@ -56,9 +56,7 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # Allegiance to the Old Gods part 2 (6565, a second run) and the Warlock's Orb of Soran'ruk (1740, class guide).
 
 step Fly to Zoram'gar Outpost
-  zone The Barrens
   tip East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to Zoram'gar Outpost. If your hearthstone is ready, hearth to Camp Taurajo and fly from there instead.
-  goto 51.5,30.4 "Crossroads flight master"
   fly "Zoram'gar Outpost"
   zone Ashenvale
 
@@ -111,9 +109,12 @@ step Thistlefur Village
   kill 3924 quest 216.2
 
 step Thistlefur Hold
-  tip Inside the hold, Troll Chests lie along the tunnels. Ruul Snowhoof is held deep inside: free him and protect him all the way out, then he runs home to Night Run.
-  tip Careful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where Dal Bloodclaw roams.
+  tip Inside the hold, Troll Chests lie along the tunnels.
   collect 16602 quest 6462            -- Below ground
+
+step Ruul Snowhoof
+  tip Ruul Snowhoof is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to Night Run.
+  tip Careful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where Dal Bloodclaw roams.
   accept 6482                         -- Ruul Snowhoof, below ground
   complete 6482
 
@@ -377,6 +378,13 @@ step Zangen Stonehoof
   turnin 1195                         -- Zangen Stonehoof
   accept 1196                         -- Zangen Stonehoof: Rau Cliffrunner at Freewind Post, later in this guide
 
+step Zangen Stonehoof
+  zone Thunder Bluff
+  when turnedin 1195
+  when available 1196
+  tip The phial is already with Zangen Stonehoof: take The Sacred Flame from him, a short walk east of Tal.
+  accept 1196                         -- Zangen Stonehoof: Rau Cliffrunner at Freewind Post, later in this guide
+
 step Tah Winterhoof
   zone Thunder Bluff
   when complete 97538
@@ -502,16 +510,23 @@ step Level 28
   level 28 grind 10759                -- grind on Grimtotem Stomper
 
 step Lakota Windsong
-  tip Great Lift detour warning: the arrow may miss the path up Darkcloud Pinnacle. If you are on the canyon floor, follow the path and rope bridges up Darkcloud Pinnacle. Lakota Windsong is held captive beside Arnak Grimtotem (29): clear the guards and Arnak first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way.
+  tip Great Lift detour warning: the arrow may miss the path up Darkcloud Pinnacle. If you are on the canyon floor, follow the path and rope bridges up Darkcloud Pinnacle. Arnak Grimtotem (29) stands among his guards there: clear the guards, then Arnak.
   collect 12884 quest 5147 @38.1,26.9 -- Arnak Grimtotem
+
+step Escort Lakota Windsong
+  tip Lakota Windsong is held captive beside where Arnak stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way.
   accept 4904 @37.95,26.45            -- Lakota Windsong
   complete 4904
 
 step Highperch
   zone Thousand Needles
-  tip West of Whitereach the wyverns nest on the Highperch cliffs; the eggs lie in the nests. Pao'ka Swiftmountain waits on the east side of the nesting grounds: free him and keep him alive on the walk back to Whitereach Post.
+  tip West of Whitereach the wyverns nest on the Highperch cliffs; the eggs lie in the nests.
   tip Careful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them.
   collect 12356 quest 4767
+
+step Escort Pao'ka Swiftmountain
+  zone Thousand Needles
+  tip Pao'ka Swiftmountain waits on the east side of the nesting grounds: free him and keep him alive on the walk back to Whitereach Post.
   accept 4770                         -- Pao'ka Swiftmountain
   complete 4770
 

@@ -133,10 +133,13 @@ fn recorded_trainers_from_the_server_follow_the_trust_rules() {
 	let t = run("trainers-trust-one", &[("a1", a, "i1", 30.0, "MAGE", 911), ("a2", a, "i2", 30.0, "MAGE", 911), ("a3", a, "i1", 30.0, "MAGE", 6928), ("c1", new, "i3", 1.0, "WARRIOR", 6928)]);
 	assert_eq!(t["911"]["classes"], serde_json::json!(["WARRIOR"]), "one player on two installs does not change a curated trainer");
 	assert_eq!((&t["6928"]["classes"], &t["6928"]["sources"]), (&serde_json::json!(["MAGE"]), &serde_json::json!(["record"])), "one player fills a gap; a new player's second class does not hide it");
+	// #2992: the counted players who trained there, each once however many installs; a new player is not counted.
+	assert_eq!((&t["911"]["visits"], &t["6928"]["visits"]), (&serde_json::json!(1), &serde_json::json!(1)), "visits: one player on two installs is one");
 	let t = run("trainers-trust-two", &[("a1", a, "i1", 30.0, "MAGE", 911), ("b1", b, "i2", 30.0, "MAGE", 911)]);
 	assert_eq!(t["911"]["classes"], serde_json::json!(["WARRIOR"]), "two players do not add a class");
 	let t = run("trainers-trust-three", &[("a1", a, "i1", 30.0, "MAGE", 911), ("b1", b, "i2", 30.0, "MAGE", 911), ("d1", d, "i3", 30.0, "MAGE", 911)]);
 	assert_eq!(t["911"]["classes"], serde_json::json!(["WARRIOR", "MAGE"]), "three established players add a class");
+	assert_eq!(t["911"]["visits"], serde_json::json!(3), "visits: three players");
 	let t = run("trainers-trust-new", &[("a1", a, "i1", 30.0, "MAGE", 911), ("b1", b, "i2", 30.0, "MAGE", 911), ("c1", new, "i3", 1.0, "MAGE", 911)]);
 	assert_eq!(t["911"]["classes"], serde_json::json!(["WARRIOR"]), "a new player does not make the third");
 }

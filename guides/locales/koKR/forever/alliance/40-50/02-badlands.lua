@@ -10,7 +10,7 @@ return {
 	-- {npc:1470} Ghak Healtouch · {area:144} Thelsamar · {area:1517} Uldaman · {zone:1418} Badlands
 	["{npc:1470} is below ground in {area:144}, by the inn, where the flight lands. His mushrooms grow in the {area:1517} dig at the {zone:1418}' northern edge, on this guide's loop back north."] = "{npc:1470}은(는) 비행 경로가 도착하는 {area:144}의 여관 옆 지하에 있습니다. 그의 버섯은 {zone:1418} 북쪽 끝의 {area:1517} 발굴지에서 자라며, 이 가이드에서 북쪽으로 돌아오는 길에 들르게 됩니다.",
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, below ground"] = "",
+	["{npc:1470}, below ground"] = "{npc:1470}, 지하",
 
 	-- Step 3: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2860} Sigrun Ironhew
@@ -54,7 +54,7 @@ return {
 
 	-- Step 12: Into Loch Modan
 	-- {zone:1432} Loch Modan
-	["Into {zone:1432}"] = "",
+	["Into {zone:1432}"] = "{zone:1432}(으)로",
 
 	-- Step 13: Ironband's Excavation Site
 	-- {zone:1432} Loch Modan
@@ -62,7 +62,7 @@ return {
 
 	-- Step 14: Into Badlands
 	-- {zone:1418} Badlands
-	["Into {zone:1418}"] = "",
+	["Into {zone:1418}"] = "{zone:1418}(으)로",
 
 	-- Step 15: Badlands
 	-- {area:1517} Uldaman
@@ -97,7 +97,7 @@ return {
 	-- {npc:3980} Raleigh the Devout
 	["{npc:3980} preaches by the inn."] = "",
 	-- {npc:3980} Raleigh the Devout
-	["{npc:3980}, upstairs"] = "",
+	["{npc:3980}, upstairs"] = "{npc:3980}, 위층",
 	-- {area:796} Scarlet Monastery
 	["Raleigh's next errand is in the {area:796}: skip it."] = "랄레이의 다음 심부름은 {area:796}에 있으니 건너뛰십시오.",
 
@@ -109,9 +109,9 @@ return {
 	-- {area:271} Southshore · {zone:1425} The Hinterlands · {area:348} Aerie Peak · {npc:5635} Falstad Wildhammer · {quest:1450} Gryphon Master Talonaxe · {npc:7884} Fraggar Thundermantle
 	["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "길을 따라 북동쪽으로 {area:271}을(를) 빠져나가 {zone:1425}로 가십시오. {area:348}은(는) 경계 바로 너머에 있습니다. {npc:5635}은(는) 꼭대기에, {quest:1450}은(는) 그리핀 둥지에, {npc:7884}은(는) 여관 옆에 있습니다.",
 	-- {quest:1450} Gryphon Master Talonaxe
-	["{quest:1450}, inside"] = "",
+	["{quest:1450}, inside"] = "{quest:1450}, 내부",
 	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884}, inside"] = "",
+	["{npc:7884}, inside"] = "{npc:7884}, 내부",
 
 	-- Step 25: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -132,34 +132,36 @@ return {
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "{area:150}(으)로 비행",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "{area:348} 비행 조련사",
 
 	-- Step 30: Theramore
 	["Theramore"] = "테라모어 섬",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "",
-	-- {npc:4794} Morgan Stern
-	["{npc:4794}, inside"] = "",
 
-	-- Step 31: Mudsprocket
+	-- Step 31: Morgan Stern
+	-- {npc:4794} Morgan Stern
+	["{npc:4794}, inside"] = "{npc:4794}, 내부",
+
+	-- Step 32: Mudsprocket
 	["Mudsprocket"] = "진흙톱니",
 	-- {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle
 	["Take the road south-west out of Theramore to Mudsprocket, the goblin camp at the edge of the {area:511}. {npc:270723} and {npc:270727} stand together in the camp."] = "테라모어에서 남서쪽 길을 따라 {area:511} 가장자리의 고블린 야영지인 진흙톱니로 가십시오. {npc:270723}와(과) {npc:270727}은(는) 야영지에 함께 있습니다.",
 
-	-- Step 32: The Wyrmbog
+	-- Step 33: The Wyrmbog
 	-- {area:511} Wyrmbog
 	["The {area:511}"] = "{area:511}",
 	-- {item:280092} Wyrmtail
 	-- plural, as words: Searing Hatchlings = {npc:4323} Searing Hatchling · Firemane Scalebanes = {npc:4328} Firemane Scalebane
 	["The {item:280092} grows in the bog east of the camp: gather it first. Then the Searing Hatchlings and Whelps (41-43) and the Firemane dragonkin nest in the bog north and west of Mudsprocket, on the way back; all of them drop the shed scales.\nCareful: the Firemane Scalebanes and Flamecallers are 43-44 and cast fire: pull them one at a time."] = "{item:280092}은(는) 야영지 동쪽 늪에서 자랍니다: 먼저 채집하십시오. 그런 다음 돌아오는 길에 진흙톱니 북쪽과 서쪽 늪에 둥지를 튼 갓 부화한 화염 새끼용과 새끼용(41-43), 화염갈기혈족 용족을 처치하십시오. 모두 허물 비늘을 떨어뜨립니다.\n주의: 화염갈기혈족 맹독전사와 화염술사는 43-44레벨이며 화염 주문을 씁니다: 하나씩 끌어오십시오.",
 
-	-- Step 33: Mudsprocket
+	-- Step 34: Mudsprocket
 	["Then ride back north-east to Theramore's flight master."] = "그런 다음 북동쪽으로 돌아가 테라모어의 비행 조련사에게 가십시오.",
 
-	-- Step 34: Theramore flight master
+	-- Step 35: Theramore flight master
 	["Theramore flight master"] = "테라모어 섬 비행 조련사",
 
-	-- Step 36: Warlock: Summon Felsteed
+	-- Step 37: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "흑마법사: {quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan

@@ -703,6 +703,268 @@
 				}
 			],
 			"note": "Raene's Cleansing (1027): the Iron Pommel (5519) comes only from Rusty Chests (19021), and the chests come from Rotting Slimes (3928). Source: Shuurajou's report (#3002: \"they are inside and dropped by rotting slimes\"); the chests' known points are spread over the barrow den's slopes, where the slimes roam, not set like a camp's; players' in-game recordings to 2026-11-20: pommel ticks right after a Rotting Slime was seen or killed."
+		},
+		"93176": {
+			"kinds": [
+				{
+					"kind": "use-item-on-mob",
+					"confidence": "high"
+				}
+			],
+			"params": [
+				{
+					"kind": "use-item-on-mob",
+					"item": 213562,
+					"npcs": [
+						217588,
+						217589,
+						217590
+					]
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"target": {
+						"type": "npc",
+						"id": 217588
+					},
+					"item": {
+						"id": 213562
+					},
+					"fact": "Catch an Arbor Tarantula with the Bug Catching Net from Amaryllis Webb's Entomology Starter Kit: use the net on it, don't kill it.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "use-item",
+					"target": {
+						"type": "npc",
+						"id": 217589
+					},
+					"item": {
+						"id": 213562
+					},
+					"fact": "Catch a Hay Weevil with the Bug Catching Net: use the net on it, don't kill it.",
+					"place": {
+						"map": 1417,
+						"x": 31.3,
+						"y": 27.2
+					},
+					"confidence": "high"
+				},
+				{
+					"n": 3,
+					"action": "use-item",
+					"target": {
+						"type": "npc",
+						"id": 217590
+					},
+					"item": {
+						"id": 213562
+					},
+					"fact": "Catch a Flesh Picker with the Bug Catching Net: use the net on it, don't kill it.",
+					"confidence": "high"
+				}
+			],
+			"note": "My Little Friends (93176): each specimen is caught by using the Bug Catching Net (213562, from the Entomology Starter Kit Amaryllis Webb gives with the quest) on an Arbor Tarantula (217588), a Hay Weevil (217589) or a Flesh Picker (217590). Our data listed the specimens as their drops, so the goal read \"Kill Hay Weevil\" (#3545). Source: players' in-game recordings to 2026-11-22: 22 people, every objective tick right after a cast of Collect Specimen (spell 434957); the client's item tables give that spell as the net's use."
+		},
+		"6402": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "talk",
+					"target": { "type": "npc", "id": 17804 },
+					"fact": "At the gates of Stormwind, speak with Squire Rowe so he tells Reginald Windsor you are there; Windsor then comes to the gates, and you hand the quest in to him.",
+					"confidence": "high"
+				}
+			],
+			"note": "Stormwind Rendezvous (6402, the Alliance's Onyxia chain): its turn-in, Reginald Windsor (12580), comes only after Squire Rowe (17804) is spoken to; the guide sent players to Windsor's spot without saying so. Source: the game's quest text ('venture to the city gates. Speak with Squire Rowe so that he may let Marshal Windsor know that you have arrived'); our NPC data has Squire Rowe and Windsor side by side at the gates."
+		},
+		"6403": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "escort",
+					"target": { "type": "npc", "id": 12580 },
+					"fact": "An escort: follow Reginald Windsor from the gates through Stormwind to the keep and keep him alive. It ends in the throne room, where you speak to Highlord Bolvar Fordragon. Bring a group.",
+					"confidence": "high"
+				}
+			],
+			"note": "The Great Masquerade (6403): an escort of Reginald Windsor (12580) whose one objective, Reginald's March, is met at Bolvar Fordragon in Stormwind Keep. Source: the game's quest text ('Follow Reginald Windsor through Stormwind. Protect him from harm!'); Forever's quest data places the objective by Bolvar (1453 79.7,38.8) and marks the quest for a group."
+		},
+		"4322": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "escort",
+					"target": { "type": "npc", "id": 9023 },
+					"fact": "An escort inside Blackrock Depths: Marshal Windsor walks out of the prison, getting his gear back and freeing his friends on the way. Keep him alive, then report to Marshal Maxwell in the Burning Steppes.",
+					"confidence": "high"
+				}
+			],
+			"note": "Jail Break! (4322, the Alliance's Onyxia chain): its one objective is an event with no place, so the guide said nothing about what to do. Source: the game's quest text ('Help Marshal Windsor get his gear back and free his friends. Return to Marshal Maxwell if you succeed'); the server data marks it an escort of Marshal Windsor (9023)."
+		},
+		"6566": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "talk",
+					"target": { "type": "npc", "id": 4949 },
+					"fact": "Speak to Thrall again after taking it and go through his whole story; it finishes the quest.",
+					"confidence": "high"
+				}
+			],
+			"note": "What the Wind Carries (6566, the Horde's Onyxia chain): its one objective, Thrall's Tale, is met by listening to Thrall. Source: the game's quest text ('Listen to Thrall'); Forever's quest data places the objective at Thrall in Grommash Hold."
+		},
+		"6570": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "talk",
+					"target": { "type": "npc", "id": 10321 },
+					"item": { "id": 16787, "name": "Amulet of Draconic Subversion" },
+					"fact": "In Emberstrife's Den in the Wyrmbog, put on the Amulet of Draconic Subversion from Myranda the Hag and use it to take a black dragonkin's shape, then speak to Emberstrife.",
+					"confidence": "high"
+				}
+			],
+			"note": "Emberstrife (6570, the Horde's Onyxia chain): Emberstrife (10321) talks only to a character wearing the Amulet of Draconic Subversion (16787, Oculus Illusions' reward). Source: the game's quest text ('wear the Amulet of Draconic Subversion and speak with Emberstrife'); the server data has the quest use the amulet's Illusion: Black Dragonkin."
+		},
+		"3802": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "interact",
+					"target": { "type": "object", "id": 164689 },
+					"fact": "Fineous Darkvire carries Ironfel inside Blackrock Depths. Take it to the Shrine of Thaurissan and place it on Franclorn Forgewright's statue: that ends the quest and gives the Shadowforge Key.",
+					"confidence": "high"
+				}
+			],
+			"note": "Dark Iron Legacy (3802): Ironfel (10999) drops from Fineous Darkvire (9056) and the quest ends at the Monument of Franclorn Forgewright (164689), both inside Blackrock Depths; it rewards the Shadowforge Key (11000). Source: the game's quest text ('Slay Fineous Darkvire and recover the great hammer, Ironfel. Take Ironfel to the Shrine of Thaurissan and place it on the statue of Franclorn Forgewright')."
+		},
+		"5801": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "use",
+					"target": { "type": "item", "id": 14644 },
+					"fact": "Bring the Skeleton Key Mold and 2 Thorium Bars to the top of Fire Plume Ridge in Un'Goro Crater and use the mold by the lava lake: it forges the Unfinished Skeleton Key.",
+					"confidence": "high"
+				}
+			],
+			"note": "Fire Plume Forged (5801, the Alliance's Scholomance key): the objective, the Unfinished Skeleton Key (14645), is made by using the Skeleton Key Mold (14644) at Fire Plume Ridge's lava lake, and the 2 Thorium Bars are in no objective. Source: the game's quest text ('Take the Skeleton Key Mold and 2 Thorium Bars to the top of Fire Plume Ridge in Un'Goro Crater. Use the Skeleton Key Mold by the lava lake'); the server data has the mold's use at the lava lake (objects 4004, 177306)."
+		},
+		"5802": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "use",
+					"target": { "type": "item", "id": 14644 },
+					"fact": "Bring the Skeleton Key Mold and 2 Thorium Bars to the top of Fire Plume Ridge in Un'Goro Crater and use the mold by the lava lake: it forges the Unfinished Skeleton Key.",
+					"confidence": "high"
+				}
+			],
+			"note": "Fire Plume Forged (5802, the Horde's Scholomance key): as 5801. Source: the game's quest text ('Take the Skeleton Key Mold and 2 Thorium Bars to the top of Fire Plume Ridge in Un'Goro Crater. Use the Skeleton Key Mold by the lava lake'); the server data has the mold's use at the lava lake (objects 4004, 177306)."
+		},
+		"5097": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "use",
+					"target": { "type": "item", "id": 12815 },
+					"fact": "Use the Beacon Torch standing in the doorway of each of Andorhal's four towers to mark it.",
+					"confidence": "high"
+				}
+			],
+			"note": "All Along the Watchtowers (5097, the Alliance's Scholomance key): its four objectives are tower markers marked with the Beacon Torch (12815). Source: the game's quest text ('Using the Beacon Torch, mark each tower in Andorhal; you will need to stand in the doorway of the tower'); the server data has the torch's use at the four towers."
+		},
+		"5098": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "use",
+					"target": { "type": "item", "id": 12815 },
+					"fact": "Use the Beacon Torch standing in the doorway of each of Andorhal's four towers to mark it.",
+					"confidence": "high"
+				}
+			],
+			"note": "All Along the Watchtowers (5098, the Horde's Scholomance key): as 5097. Source: the game's quest text ('Using the Beacon Torch, mark each tower in Andorhal; you will need to stand in the doorway of the tower'); the server data has the torch's use at the four towers."
+		},
+		"4241": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "talk",
+					"target": { "type": "npc", "id": 9023 },
+					"fact": "Marshal Windsor is held in the prison of Blackrock Depths; find his cell and speak to him.",
+					"confidence": "high"
+				}
+			],
+			"note": "Marshal Windsor (4241, the Alliance's Onyxia chain): its turn-in, Marshal Windsor (9023), has no open-world spawn; the Codex places him in Blackrock Depths. Source: the game's quest text ('enter Blackrock Depths. Find out what became of Marshal Windsor. You recall Ragged John talking about Windsor being dragged off to a prison')."
+		},
+		"98283": {
+			"kinds": [
+				{ "kind": "summon-by-item", "confidence": "high" }
+			],
+			"params": [
+				{ "kind": "summon-by-item", "item": 280331, "npc": 271336 }
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "kill",
+					"target": { "type": "npc", "id": 271334 },
+					"fact": "Kill Maddened Rotclaws (25-26) in the Green Belt and the hills north of it for the Malignant Rotclaw Flesh.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "use-item",
+					"item": { "id": 280331 },
+					"fact": "Use the Malignant Rotclaw Flesh at Carnage's lair on the hill north of the Dragonmaw Gates: Carnage comes out to it.",
+					"place": { "map": 1437, "x": 70.0, "y": 29.0, "f": "e" },
+					"confidence": "high"
+				},
+				{
+					"n": 3,
+					"action": "kill",
+					"target": { "type": "npc", "id": 271336 },
+					"fact": "Kill Carnage (level 30, elite) for Carnage's Head.",
+					"place": { "map": 1437, "x": 70.0, "y": 29.0, "f": "e" },
+					"confidence": "high"
+				}
+			],
+			"note": "Carnage (98283): Carnage (271336) only comes out when the Malignant Rotclaw Flesh (280331), a Maddened Rotclaw's (271334) drop, is used at his lair; the guide listed his head first and the flesh only once the head was in the bags (#3804, holyjezus). Source: players' in-game recordings: the flesh's cast (spell 1308246) 13 times, every one at Wetlands 70,29, Carnage's spawn; of the 39 people whose recordings have both items, 33 had the flesh first."
+		},
+		"592": {
+			"kinds": [
+				{ "kind": "use-item-on-mob", "confidence": "high" }
+			],
+			"params": [
+				{ "kind": "use-item-on-mob", "item": 3912, "npcs": [2530] }
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"target": { "type": "npc", "id": 2530 },
+					"item": { "id": 3912 },
+					"fact": "Use the Soul Gem on Yenniku while he is alive: the gem fills (the Filled Soul Gem). Don't kill him.",
+					"place": { "map": 1434, "x": 39.0, "y": 58.4, "f": "e" },
+					"confidence": "high"
+				}
+			],
+			"note": "Saving Yenniku (592): the Filled Soul Gem (3913) comes from using the Soul Gem (3912) on Yenniku (2530) while he is alive; our quest data lists it as his drop, so the step read \"Kill Yenniku for Filled Soul Gem\" before the gem's use (#3825, Meta). Source: an in-game check: the reporter used the gem on him alive and the quest completed (592 done in the report's quest log)."
+		},
+		"5211": {
+			"steps": [
+				{ "n": 1, "action": "kill", "target": { "type": "npc", "id": 8530 }, "fact": "Kill the Cannibal Ghouls around Corin's Crossing: a Darrowshire Spirit rises where one dies.", "confidence": "high" },
+				{ "n": 2, "action": "kill", "target": { "type": "npc", "id": 8531 }, "fact": "Gibbering Ghouls around Corin's Crossing leave a Darrowshire Spirit too.", "confidence": "high" },
+				{ "n": 3, "action": "kill", "target": { "type": "npc", "id": 8532 }, "fact": "Diseased Flayers around Corin's Crossing leave a Darrowshire Spirit too.", "confidence": "high" },
+				{ "n": 4, "action": "talk", "target": { "type": "npc", "id": 11064 }, "fact": "Talk to each Darrowshire Spirit to free it (objective 1).", "confidence": "high" }
+			],
+			"note": "Defenders of Darrowshire (5211): the Darrowshire Spirits (11064) it asks you to free are not in the world; each rises where one of the Scourge around Corin's Crossing dies (Cannibal Ghoul 8530, Gibbering Ghoul 8531, Diseased Flayer 8532). The guide's target button looked for the spirits alone. Source: Zack's report (#3309) and its confirmation; the quest's text."
 		}
 	}
 }

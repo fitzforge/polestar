@@ -417,3 +417,27 @@ fn smart_goals_emit_the_lua_the_engine_reads() {
 	);
 	assert_match(&lua, r#"\{ t = "accept", quest = 9500, title = "Either Way", npc = 823, npcName = "Deputy Willem", minLevel = 1, qlvl = 3, pre = \{ 9201, 783 \},"#);
 }
+
+// #2992 (nes): the three Darnassus hunter trainers stand within 60 yards, one city hub, and the hub kept the lowest
+// id: Jeen'ra Nightrunner at the top of the Cenarion Enclave's tower, not Jocaste on its floor. Of one hub's NPCs
+// the class trainers' smart target keeps the one most players train with (trainers.json `visits`); without visits
+// the lowest id, as before.
+#[test]
+fn of_one_city_hub_s_trainers_the_one_most_players_train_with_is_kept_2992() {
+	let frame = json!({ "c": 1, "left": 2938.363, "right": 1880.03, "top": 10238.316, "bottom": 9532.587 });
+	let npc = |id: u32, name: &str, x: f64, y: f64| json!({ "id": id, "name": name, "faction": "A", "spawns": { "1457": { "f": "l", "pts": [[x, y]] } } });
+	let kept = |visits: bool| -> Vec<f64> {
+		let mut t = Map::new();
+		t.insert("map-frames".into(), json!({ "forever": { "1457": frame.clone() } }));
+		t.insert("zones".into(), json!({ "1457": { "id": 1457, "name": "Darnassus", "type": 3 } }));
+		t.insert("npcs".into(), json!({ "4138": npc(4138, "Jeen'ra Nightrunner", 39.62, 5.89), "4146": npc(4146, "Jocaste", 40.09, 8.73), "4205": npc(4205, "Dorion", 41.78, 7.68) }));
+		let tr = |id: u32, n: u32| if visits { json!({ "id": id, "classes": ["HUNTER"], "visits": n }) } else { json!({ "id": id, "classes": ["HUNTER"] }) };
+		t.insert("trainers".into(), json!({ "4138": tr(4138, 3), "4146": tr(4146, 14), "4205": tr(4205, 5) }));
+		let data = data_from(&t, Value::Null, Value::Null);
+		let entries: Vec<forge_guide::js::V> = [4138, 4146, 4205].iter().map(|id| v(&json!({ "npc": id, "classes": ["HUNTER"] }))).collect();
+		let out = forge_guide::candidates::build_candidates(&data, &entries, &v(&json!({ "sides": ["Alliance"], "ref": null })));
+		out.get("candidates").items().iter().map(|c| c.get("npc").num()).collect()
+	};
+	assert_eq!(kept(true), vec![4146.0], "Jocaste, 14 players");
+	assert_eq!(kept(false), vec![4138.0], "without visits: the lowest id, as before");
+}

@@ -874,14 +874,22 @@ local function known(t)
 	return C and C.IsSpellKnown and C.IsSpellKnown(t.spell) or false
 end
 
+-- Its reagents in the bags, or, without them, the game says it can be cast: a
+-- talent that does away with the reagent (a mage's Reagent Economy: a city
+-- teleport with no Rune of Teleportation, #3815). Only a plain yes counts:
+-- short of mana, the game does not say whether the reagent is there too.
 local function stocked(t)
 	local r = t.reagents
 	if not r then return true end
 	local C = ns.Compat
+	local held = C ~= nil and C.GetItemCount ~= nil
 	for i = 1, #r - 1, 2 do
-		if not (C and C.GetItemCount) or (C.GetItemCount(r[i]) or 0) < r[i + 1] then return false end
+		if not held or (C.GetItemCount(r[i]) or 0) < r[i + 1] then
+			held = false
+			break
+		end
 	end
-	return true
+	return held or (C ~= nil and C.IsSpellUsable ~= nil and C.IsSpellUsable(t.spell) == true)
 end
 
 -- Seconds until the spell is off cooldown (0 = now; the global cooldown

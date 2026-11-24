@@ -23,6 +23,21 @@ use crate::tables::{self, Source};
 /// Bumped when the output for the same inputs changes (forge build's stage key).
 pub const VERSION: &str = "polestar-data 1";
 
+/// What the data build does with a placeholder name a player would read (#2614), one the corrections
+/// give no words.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Placeholders {
+	/// Stop the build, naming each: our own builds (`forge build`, `forge data build
+	/// --strict-placeholders`).
+	Stop,
+	/// Name each as a warning and build on: `forge data build` without `--strict-placeholders`, a guide
+	/// author's build from their own sources, whose QuestieDB may be newer than the corrections (#3797).
+	Warn,
+	/// Count them only: `forge data publish`'s public builds, which take no corrections and whose
+	/// tables carry no objective text, so those corrections are not needed there.
+	Count,
+}
+
 pub struct Options {
 	/// The checkout (relative cache paths in meta.json, forever-db/corrections).
 	pub root: PathBuf,
@@ -52,10 +67,9 @@ pub struct Options {
 	/// wants is looked up first (`sources::web_xp`); the CLI fetches the other sources before the build.
 	pub offline: bool,
 	pub web_zones: bool,
-	/// Stop on a placeholder name a player would read (#2614). Off for `forge data publish`'s public
-	/// builds: they take no corrections (the tier decides which count), and the public tables carry no
-	/// objective text, so the corrections that give those objectives their words are not needed there.
-	pub placeholder_guard: bool,
+	/// What a placeholder name a player would read does to the build (#2614): [`Placeholders::Stop`]
+	/// by default, our own builds.
+	pub placeholders: Placeholders,
 	pub cap: usize,
 	/// meta.json builtAt (ISO 8601, as `new Date(x).toISOString()` prints it).
 	pub built_at: String,
@@ -208,7 +222,7 @@ impl Options {
 			web_xp: true,
 			offline: true,
 			web_zones: true,
-			placeholder_guard: true,
+			placeholders: Placeholders::Stop,
 			cap: DEFAULTS.cap,
 			built_at: now_iso(),
 			kb: None,
@@ -919,15 +933,22 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	let credits = crate::credit::retype(&norm.quests, &norm.npcs);
 	log(&format!("placeholder targets: {} quest(s) whose objective names a credit NPC are events", credits.len()));
 	let shown = crate::credit::scan(&norm.quests, &norm.npcs, &norm.objects, &norm.items);
-	if !shown.is_empty() && o.placeholder_guard {
-		return Err(format!(
-			"{} placeholder name(s) a player would read (#2614); give each objective its quest-log words in forever-db/corrections/quests.json, or the NPC, object or item its name:\n{}",
-			shown.len(),
-			shown.join("\n")
-		));
-	}
 	if !shown.is_empty() {
-		log(&format!("placeholder names left (public build, no corrections): {}", shown.len()));
+		match o.placeholders {
+			Placeholders::Stop => {
+				return Err(format!(
+					"{} placeholder name(s) a player would read (#2614); give each objective its quest-log words in forever-db/corrections/quests.json, or the NPC, object or item its name:\n{}",
+					shown.len(),
+					shown.join("\n")
+				))
+			}
+			Placeholders::Warn => log(&format!(
+				"warning: {} placeholder name(s) a player would read (#2614), kept as they are: their source (a newer QuestieDB?) is ahead of forever-db/corrections/quests.json. A guide step on one of these shows that name; --strict-placeholders stops here instead:\n{}",
+				shown.len(),
+				shown.join("\n")
+			)),
+			Placeholders::Count => log(&format!("placeholder names left (public build, no corrections): {}", shown.len())),
+		}
 	}
 
 	// ---- meta.json sources

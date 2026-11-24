@@ -444,7 +444,8 @@ fn the_preview_paints_the_route_with_the_maps_painters_and_runs_no_onupdate_whil
 	assert_eq!(out["hotspots"], json!(["nav.boatColor", "nav.flightColor", "nav.minimapLineSize", "nav.walkColor"]), "click targets on the preview, the minimap's the drawn style's size");
 	assert_eq!(out["jumped"], true, "a click on the flight jumps to its row");
 	assert_eq!(out["red"], json!([1, 0, 0]), "a setting repaints it");
-	assert_eq!(out["width"], 8);
+	// 8 pixels on screen: the preview draws at true size in a window drawn at 0.92 (W.SETTINGS_SCALE_BASE), 8 / 0.92.
+	assert!((f(&out["width"]) - 8.0 / 0.92).abs() < 1e-6, "{}", out["width"]);
 	assert_eq!(out["sparkling"], true, "sparkles animate while shown");
 	assert!(f(&out["sparkles"]) > 0.0 && f(&out["mmSparkles"]) > 0.0, "sparkles on both: {out}");
 	assert_eq!(out["linesWhileSparkling"], 0);

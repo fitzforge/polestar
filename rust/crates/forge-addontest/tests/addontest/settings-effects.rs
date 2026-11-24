@@ -51,6 +51,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "routes", src: include_str!("effects/routes.lua") },
 	Group { name: "theme", src: include_str!("effects/theme.lua") },
 	Group { name: "guidewindow", src: include_str!("effects/guidewindow.lua") },
+	Group { name: "guidewindow_atlas", src: include_str!("effects/guidewindow-atlas.lua") },
 	Group { name: "integrations", src: include_str!("effects/integrations.lua") },
 	Group { name: "integrations_arcade", src: include_str!("effects/integrations-arcade.lua") },
 	Group { name: "discovery", src: include_str!("effects/discovery.lua") },
@@ -91,6 +92,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "trackers_instances", src: include_str!("effects/trackers-instances.lua") },
 	Group { name: "trackers_party", src: include_str!("effects/trackers-party.lua") },
 	Group { name: "pins_world", src: include_str!("effects/pins-world.lua") },
+	Group { name: "pins_spawns", src: include_str!("effects/pins-spawns.lua") },
 	Group { name: "pause", src: include_str!("effects/pause.lua") },
 ];
 
@@ -156,13 +158,17 @@ local function idOf(c, page)
 	if c.kind == "binding" then return "action:" .. tostring(c.action) end
 	return (page or (c.page and c.page.name) or "?") .. ":" .. tostring(labelOf(c))
 end
-local specs = {}
+local specs, refs = {}, {}
 local function put(c, page)
-	if type(c) ~= "table" or rawget(c, "ref") then return end
+	if type(c) ~= "table" then return end
 	local id = idOf(c, page)
+	-- A reference (W.Ref) is the same setting as its home row; it stands in only where the home's page is not
+	-- loaded in this environment (the arrow's switch, homed on Guide, checked on the Arrow page's nav env).
+	if rawget(c, "ref") then refs[id] = refs[id] or c; return end
 	specs[id] = specs[id] or c
 	for _, e in ipairs(c.extras or {}) do put(e, page) end
 	for _, m in ipairs(type(c.more) == "table" and c.more or {}) do put(m, page) end
+	for _, k in ipairs(type(c.children) == "table" and c.children or {}) do put(k, page) end
 end
 for _, spec in ipairs(W.OptionsRegistry or {}) do
 	if spec.toggle then put(spec.toggle, spec.page) end
@@ -170,6 +176,7 @@ for _, spec in ipairs(W.OptionsRegistry or {}) do
 end
 local O = Polestar.UI and Polestar.UI.Options
 if O and O.AllControls then for _, c in ipairs(O.AllControls()) do put(c) end end
+for id, c in pairs(refs) do specs[id] = specs[id] or c end
 -- The value now, and another one the control could write (than `cur`, when given: a login check's default). A
 -- control with its own get/set reads and writes through them, as its widget does (the minimap size of the style in
 -- use; deathskips, off on Hardcore).
@@ -373,6 +380,13 @@ fn env(name: &str) -> Env {
 			login: false,
 			prelude: "uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\n".into(),
 		},
+		// The "ui" environment with our skins' folder loaded (the Atlas layout is in it since 0.4.3), for a setting
+		// only that layout draws.
+		"atlas" => {
+			let mut e = env("ui");
+			e.addons.push(Addon::name("Polestar_Skins"));
+			e
+		}
 		// The whole addon with EllesmereUI installed before it loads (theme.rs).
 		"eui" => Env { before: "stub.withEllesmere()\n", ..env("world") },
 		// The whole addon with a guide that has a step for every dungeon in the route (Dungeons.ROUTE's, read from
@@ -579,6 +593,11 @@ fn guidewindow() {
 }
 
 #[test]
+fn guidewindow_atlas() {
+	check("guidewindow_atlas");
+}
+
+#[test]
 fn integrations() {
 	check("integrations");
 }
@@ -776,6 +795,11 @@ fn trackers_party() {
 #[test]
 fn pins_world() {
 	check("pins_world");
+}
+
+#[test]
+fn pins_spawns() {
+	check("pins_spawns");
 }
 
 #[test]

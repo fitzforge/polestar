@@ -9,9 +9,10 @@
 --   /polestar near <kind> [profession]   kinds: trainer, class, repair, reagents, vendor,
 --                                        innkeeper, bank, mailbox, auction, flight, stable, transmog;
 --                                        `/polestar near mining` = trainer mining
---   Nearby.Find(kind, line) -> place, seconds | nil, reason
---       reason "kind" | "combat" | "none" | a Codex failure: "missing" (not installed, or no
---       Codex module), "disabled" (off in the AddOns list), "empty" (loaded, but its NPC roles
+--   Nearby.Find(kind, line) -> place, seconds, rank | nil, reason, rank
+--       reason "kind" | "combat" | "none" | "rank" (no trainer on the player's side teaches the
+--       profession's next rank and accepts their skill) | a Codex failure: "missing" (not installed,
+--       or no Codex module), "disabled" (off in the AddOns list), "empty" (loaded, but its NPC roles
 --       read as nothing: a broken install), else Data.Pack's reason ("interface_version", "error"...)
 --   Nearby.Go(kind, line) -> true | false   points the arrow there, says so in one line
 --   Nearby.Near(kind, yards) -> place, yards | nil, reason   the nearest one in the player's zone
@@ -274,6 +275,28 @@ end
 -- The spawns of the Codex NPCs with `role` on the player's side, outside
 -- instances. A class's own flight master (Nav.TaxiNpcClass: Nighthaven's fly
 -- Druids only, from their gossip) is a flight master for that class alone.
+-- A rare whose spawns lie more than WANDER yards apart is no service place: it
+-- wanders between them and is often not up (#3432: Mount Hyjal's Pexmit,
+-- "Someone's Minion", a rare merchant with 8 spawns across the zone, met at
+-- 11 spots, where "Sell before heading out" sent players). One that stays at
+-- one spot keeps its place (Riverglades' stablemaster Reginald Holmsby).
+local WANDER = 100
+local function wanders(npc, C)
+	if not npc.rare then return false end
+	local c0, x0, y0
+	for _, s in ipairs(npc.spawns or {}) do
+		local c, wx, wy = C.MapToWorld(s.map, s.x, s.y, s.f)
+		if c then
+			if not c0 then
+				c0, x0, y0 = c, wx, wy
+			elseif c ~= c0 or (wx - x0) ^ 2 + (wy - y0) ^ 2 > WANDER * WANDER then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 local function rolePlaces(role)
 	local list = index[role]
 	if list then return list end
@@ -285,7 +308,7 @@ local function rolePlaces(role)
 	for _, id in ipairs(X.WithRole(role)) do
 		local npc = X.Npc(id)
 		local class = only and only(id)
-		if npc and not npc.instance and friendly(npc.faction, code) and not (class and class ~= (info and info.class)) then
+		if npc and not npc.instance and friendly(npc.faction, code) and not (class and class ~= (info and info.class)) and not wanders(npc, C) then
 			for _, s in ipairs(npc.spawns or {}) do
 				local c, wx, wy = C.MapToWorld(s.map, s.x, s.y, s.f)
 				if c then
@@ -335,7 +358,22 @@ local function candidates(kind, line)
 	local ok, why = codexReady()
 	if not ok then return nil, why end
 	if kind.key == "trainer" then
-		if line then return rolePlaces("trainer:" .. line) end
+		if line then
+			-- The role's places are cached unfiltered; the rank and skill filter a copy
+			local places = rolePlaces("trainer:" .. line)
+			local PT = ns.ProfessionTrainers
+			if not PT then return places end
+			local C = ns.Compat
+			local skill, maxRank
+			if C.GetSkillRank then skill, maxRank = C.GetSkillRank(line) end
+			local rank = PT.NextRank(line, skill or 0, maxRank)
+			local info = C.GetPlayerInfo and C.GetPlayerInfo()
+			local ok = PT.Accepts(line, info and FACTION[info.faction], skill or 0, rank)
+			if not ok then return places end
+			local out = {}
+			for _, p in ipairs(places) do if ok(p.id) then out[#out + 1] = p end end
+			return out, nil, rank
+		end
 		local all = {}
 		for _, l in ipairs(professionLines()) do
 			for _, p in ipairs(rolePlaces("trainer:" .. l)) do all[#all + 1] = p end
@@ -454,15 +492,15 @@ function Nearby.Find(key, line)
 			return place, estimate(place)
 		end
 	end
-	local places, why = candidates(kind, line)
-	if not places then return nil, why end
+	local places, why, rank = candidates(kind, line)
+	if not places then return nil, why, rank end
 	local C = ns.Compat
 	local here
 	local pc, px, py = C.GetPlayerWorldPosition()
 	if pc then here = { c = pc, wx = px, wy = py } end
 	local place, seconds = Nearby.Rank(places, here, estimate)
-	if not place then return nil, "none" end
-	return place, seconds
+	if not place then return nil, rank and "rank" or "none", rank end
+	return place, seconds, rank
 end
 
 -- The nearest place of a kind in the player's zone (its spawn on the
@@ -511,15 +549,22 @@ function Nearby.PlacesOn(key, c)
 	return list
 end
 
-local function kindLabel(key, line)
-	if key == "trainer" and line then return format(L["%s trainer"], Nearby.ProfessionName(line)) end
+local function kindLabel(key, line, rank)
+	if key == "trainer" and line then
+		local name = Nearby.ProfessionName(line)
+		-- Literal keys only: a translated value can arrive after Nearby loads
+		if rank == 2 then name = format(L["Journeyman %s"], name)
+		elseif rank == 3 then name = format(L["Expert %s"], name)
+		elseif rank == 4 then name = format(L["Artisan %s"], name) end
+		return format(L["%s trainer"], name)
+	end
 	if key == "weapon" and WEAPON_BY_LINE[line] then return format(L["Weapon master (%s)"], WEAPON_BY_LINE[line].label) end
 	return BY_KEY[key].label
 end
 
 function Nearby.Go(key, line)
 	key = ALIAS[key] or key
-	local place, seconds = Nearby.Find(key, line)
+	local place, seconds, rank = Nearby.Find(key, line)
 	if not place then
 		local why = seconds
 		if why == "kind" then
@@ -532,6 +577,8 @@ function Nearby.Go(key, line)
 			ns.Print(L["Nearby services need the Polestar Codex addon: turn it on in the AddOns list."])
 		elseif why == "empty" then
 			ns.Print(L["Nearby services could not read the Polestar Codex: reinstall Polestar."])
+		elseif why == "rank" then
+			ns.Print(format(L["No %s for your side."], lower(kindLabel(key, line, rank))))
 		elseif why == "none" then
 			ns.Print(format(L["No %s known for your faction."], lower(kindLabel(key, line))))
 		else
@@ -544,14 +591,14 @@ function Nearby.Go(key, line)
 	-- A trip (Nav.StartTrip): it ends at the service, or on "Back to the guide".
 	local target = Nav.SetTarget(place.map, place.x, place.y, name, place.f, BY_KEY[key].stop, place.z)
 	if not target then return false end
-	Nav.StartTrip(target, name, kindLabel(key, line))
+	Nav.StartTrip(target, name, kindLabel(key, line, rank))
 	local zone = ns.Compat.GetMapName(place.map) or "?"
 	local Q = ns.QoL
 	local time = seconds and Q and Q.Duration and Q.Duration(seconds)
 	if time then
-		ns.Print(format(L["Nearest %s: %s, %s, about %s away."], lower(kindLabel(key, line)), name, zone, time))
+		ns.Print(format(L["Nearest %s: %s, %s, about %s away."], lower(kindLabel(key, line, rank)), name, zone, time))
 	else
-		ns.Print(format(L["Nearest %s: %s, %s."], lower(kindLabel(key, line)), name, zone))
+		ns.Print(format(L["Nearest %s: %s, %s."], lower(kindLabel(key, line, rank)), name, zone))
 	end
 	Nav.SayGuideHidden()
 	return true

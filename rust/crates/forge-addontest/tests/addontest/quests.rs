@@ -330,7 +330,7 @@ emit({ sq.pins.layers["quests.objectives"] == nil, sq.pins.layers["quests.turnin
 	let ready = &out[3];
 	assert_eq!(ready[0], json!({}), "no objective markers once complete");
 	assert_eq!(ready[1], json!(["Marshal McBride@48.9,41.6:map:quest-turnin"]));
-	assert_eq!(ready[2], json!({ "world": true, "minimap": true, "edge": false, "scale": 1 }));
+	assert_eq!(ready[2], json!({ "world": true, "minimap": true, "edge": false, "scale": 1, "summary": "Hand-ins" }));
 	assert_eq!(out[4], json!([true, true]));
 }
 
@@ -1213,8 +1213,8 @@ emit({ sq.pins.layers["quests.available"] == nil, #Q.GetAvailableQuests() })
 "#,
 		"w.complete({ 783 })",
 	);
-	let opts = json!({ "world": true, "minimap": false, "edge": false, "scale": 1 });
-	let objectives = json!({ "world": true, "minimap": false, "edge": false, "scale": 1, "minimapAreas": true });
+	let opts = json!({ "world": true, "minimap": false, "edge": false, "scale": 1, "summary": "Available quests" });
+	let objectives = json!({ "world": true, "minimap": false, "edge": false, "scale": 1, "minimapAreas": true, "summary": "Objectives" });
 	assert_eq!(out[0], json!([objectives, opts]), "objective areas would follow the layer onto the minimap");
 	assert_eq!(out[1], true);
 	assert_eq!(out[2], json!([true, 0]));
@@ -1460,8 +1460,12 @@ local out, other = { Questing = {}, Map = {} }, {}
 local reg = Polestar.Widgets and Polestar.Widgets.OptionsRegistry or {}
 if #reg == 0 then reg = Q.OPTIONS end
 for _, spec in ipairs(reg) do
-	for _, c in ipairs(spec.controls) do
-		if c.key and mine[c.key] then
+	-- Quest data's switch is its section's header (the module switch, its rows under it); the Map page's header
+	-- over the quest markers is a reference to it.
+	local list = { spec.toggle }
+	for _, c in ipairs(spec.controls) do list[#list + 1] = c end
+	for _, c in ipairs(list) do
+		if c.key and mine[c.key] and not c.ref then
 			local list = out[spec.page]
 			if list and (spec.page == "Map" or spec.tab == "Quests") then
 				list[#list + 1] = c.key .. (c.help and "+help" or "")

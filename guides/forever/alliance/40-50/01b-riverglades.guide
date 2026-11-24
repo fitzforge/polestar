@@ -277,12 +277,13 @@ step Ghostmaw
 step Sunnyglade
   tip North from Farholde Keep, past Terral's Watch and across the river, to Sunnyglade, the farm town the Twilight cult holds; keep clear of Rog'mar, the Horde's fort east of the town. Fuzzle the kobold waits in a cage at the arrow, Apprentice Claire below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and Farmer Elbrim waits at his farm on the north-eastern edge.
   accept 94961 @47.2,51.2               -- Fuzzle: Biting the Hand, in his cage
+  goto 50.0,46.0 "Claire's cave"         -- the way in: she is below the town
   accept 95642                          -- Apprentice Claire: Abominable Magics
   accept 95643                          -- Indiscriminate Purge
   accept 94829                          -- Farmer Elbrim: What We Lost
 
 step The Twilight cult
-  tip The cultists fill the streets and fields of Sunnyglade. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the Farmers' Mementos the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.
+  tip The cultists fill the streets and fields of Sunnyglade. Start at the ritual circles in the middle (fill Claire's catalyst there), then work west through the burnt houses to the edge of town. The charms, pages and finger bones drop from the cultists; keep the Farmers' Mementos the Twilight Raiders drop: five, one for each grave west of Elbrim's farm.
   tip Keep the Mageweave Cloth they drop: Brother Lowley in Farholde Keep asks for twenty when you are back there. Now and then a cultist drops the Field Marshal's Log: right-click it to start the quest.
   tip Careful: Chogg'Zac, an elite ogre (level 41), walks the western streets of Sunnyglade, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.
   tip Ghostmaw, the river's elite (level 42), can wander up from the south-western fields: let him pass.
@@ -295,11 +296,17 @@ step The Twilight cult
   kill 256798 x8 quest 94877.3          -- Twilight Neophyte
   collect 267073 x20 quest 94961.1      -- Twilight Finger Bone
   collect 266425 x25 quest 94881.1      -- Twilight Charm
-  interact 621813 quest 94829.1 @48.2,44.6  -- Loose Soil, west of Elbrim's farm: each grave takes one of the Farmers' Mementos the Twilight Raiders drop, so loot five first
+  collect 266148 x5                     -- Farmers' Mementos, from the Twilight Raiders: one for each grave
   accept 94885 optional                 -- Field Marshal's Log: only if a cultist dropped the log
+
+step Loose Soil
+  when has 266148
+  tip Back north-east to the loose soil west of Elbrim's farm: bury the Farmers' Mementos there, one in each grave.
+  interact 621813 quest 94829.1 @48.2,44.6  -- Loose Soil, west of Elbrim's farm: each grave takes one of the Farmers' Mementos the Twilight Raiders drop
 
 step Apprentice Claire
   tip Claire is in the cave under the eastern edge of Sunnyglade: its entrance is at 50.0,46.0.
+  goto 50.0,46.0 "Claire's cave"         -- the way in: she is below the town
   turnin 95642
   turnin 95643
 
@@ -514,11 +521,11 @@ step Powderfuse Port
 
 step The pirates' ships
   tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. Admiral Lamora (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for Gul'gash on the way.
-  use 268505 quest 95165.3 @90.9,39.5   -- Remote Explosive Charge, the southern ship
+  use 268505 quest 95165.3 @90.9,39.5 "Plant a Remote Explosive Charge on the southern ship" -- on board, at the arrow
   kill 257861 quest 95124.1             -- Admiral Lamora
   collect 268506 quest 95124.2          -- Lamora's Loot
-  use 268505 quest 95165.2 @90.6,29.6   -- the middle ship
-  use 268505 quest 95165.1 @88.3,25.8   -- the northern ship
+  use 268505 quest 95165.2 @90.6,29.6 "Plant a Remote Explosive Charge on the middle ship" -- on board, at the arrow
+  use 268505 quest 95165.1 @88.3,25.8 "Plant a Remote Explosive Charge on the northern ship" -- on board, at the arrow
 
 step Rotflesh Mushrooms
   tip West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too.
@@ -555,8 +562,8 @@ step Powderfuse Port
 
 step The Monster Surfaces
   when onquest 95267
-  tip The Monstrous Threshadon prowls the shallows south-west of the port, below the murlocs' beaches. Old Rot-Chum, an elite, walks the shore close by: give him room.
-  collect 268633 quest 95267.1          -- Sea Monster's Head
+  tip The Monstrous Threshadon comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. Old Rot-Chum, an elite, walks the shore close by: give him room.
+  collect 268633 quest 95267.1 @74.4,72.4 live -- Sea Monster's Head, where the Threshadon surfaces when you call him
 
 step Argo Brinewhistle
   when onquest 95267

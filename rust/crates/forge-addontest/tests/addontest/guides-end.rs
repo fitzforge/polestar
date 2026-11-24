@@ -1,5 +1,6 @@
-//! Every leveling guide of ours reaches its end when the player does its last step ahead of the live one
-//! (behavior.guideEnd "ask"; Engine, Own.noteEnd / Own.endDoneAhead): the guides compiled from guides/ with
+//! Every leveling guide of ours, its last step done ahead of the live one, says how many steps are left and ends
+//! once they are skipped (behavior.guideEnd "ask"; Engine, Own.noteEnd / Own.endDoneAhead / Own.stepsLeft,
+//! #3517): the guides compiled from guides/ with
 //! the reference data (data/forever; skipped with a note without it), loaded by the full addon on the stub
 //! world. Per guide one character it serves (its first race and class, at its first level and first located
 //! goal; at a higher level when its last step takes a quest that needs it, see below), and one more of a class
@@ -9,7 +10,8 @@
 //! applicable step's goals are done the way the game does them (quest state, the level, bags, flight paths
 //! from the flight map, position for goto and explore, the zone text for a flight's landing, the named NPC's
 //! window for train, vendor and talk; a vendor beside other work is left alone, Own.sideVendor); then
-//! GUIDE_END must fire with steps left undone and the guide stay. Where the player stands, which NPC's
+//! GUIDE_STEPS_LEFT must fire, no GUIDE_END yet, and the guide stay; the steps left skipped one by one
+//! (the player leaving them for good), GUIDE_END must fire with the last skip. Where the player stands, which NPC's
 //! window they opened or a flight path known (goto, explore, fly, hearth, enter, getfp; train, vendor, a talk with no quest: Own.byPresence)
 //! is no end ahead (0.3.5: the Undercity at the start of Hillsbrad ended it): a last step with such a goal not
 //! followed by other work must not end the guide; those are listed (`place`), not failed. The character plays
@@ -33,8 +35,9 @@ Polestar.Set("behavior.autoAccept", false)
 Polestar.Set("behavior.autoTurnin", false)
 Polestar.Set("behavior.groupQuests", "skip")
 local E, G, w = Polestar.Engine, Polestar.Guides, stub.world
-local ENDS = {}
+local ENDS, LEFTS = {}, {}
 Polestar.On("GUIDE_END", function(id, i) ENDS[#ENDS + 1] = { id = id, undone = i.undone } end)
+Polestar.On("GUIDE_STEPS_LEFT", function(id, i) LEFTS[#LEFTS + 1] = { id = id, left = i.left } end)
 E.SetGuide(@ID@)
 stub.advance(3)
 local g = G.Get(@ID@)
@@ -128,7 +131,7 @@ if r.own then
 		if v and v.status ~= "na" then satisfy(i, true) end
 	end
 	stub.advance(2)
-	r.ownEnded = ENDS[1] ~= nil
+	r.ownEnded = ENDS[1] ~= nil or LEFTS[1] ~= nil
 end
 -- A last step whose `when` stops holding once done (`level<N`) leaves the
 -- step before it as the last: that one next, a few times. One whose work
@@ -137,7 +140,7 @@ end
 -- step: the player does it too.
 local s = lastWork(nil, true)
 for _ = 1, 3 do
-	if not s or s <= live or ENDS[1] then break end
+	if not s or s <= live or ENDS[1] or LEFTS[1] then break end
 	satisfy(s)
 	stub.advance(2)
 	local now = lastWork(nil, true)
@@ -163,10 +166,19 @@ do
 	r.place = not covered
 end
 r.ended = ENDS[1] and ENDS[1].id == @ID@ or false
-r.undone = ENDS[1] and ENDS[1].undone or false
+r.told = LEFTS[1] and LEFTS[1].id == @ID@ and LEFTS[1].left or false
 r.stays = E.GetGuide() and E.GetGuide().id == @ID@ or false
 r.now = E.GetLiveStep() or false
 r.after = statuses(r.last)
+-- The steps left skipped, one at a time: the end comes with the last skip.
+if r.told and not r.ended and not r.place then
+	for _ = 1, #g.steps do
+		if ENDS[1] or not E.GetLiveStep() then break end
+		E.Skip()
+		stub.advance(0.5)
+	end
+	r.skipEnded = ENDS[1] and ENDS[1].id == @ID@ or false
+end
 emit(r)
 "#;
 
@@ -287,15 +299,15 @@ fn every_leveling_guide_ends_when_its_last_step_is_done_ahead_of_the_live_step()
 			} else if r["before"].is_null() {
 				format!("skip  {who}: live {} last {}", r["live"], r["last"])
 			} else if r["place"] == true {
-				if r["ended"] == true {
+				if r["ended"] == true || r["told"] != false {
 					let v = format!("FAIL  {who}: [{}] where the player stands or an NPC's window ended the guide ahead of the live step {r}", kinds.join(", "));
 					fails.push(v.clone());
 					v
 				} else {
 					format!("place {who}: [{}] (where the player stands is no end ahead: it ends on screen)", kinds.join(", "))
 				}
-			} else if r["ended"] == true && r["stays"] == true && r["undone"].as_f64().unwrap_or(0.0) > 0.0 {
-				format!("pass  {who}: [{}]{own}", kinds.join(", "))
+			} else if r["told"].as_f64().unwrap_or(0.0) > 0.0 && r["ended"] == false && r["stays"] == true && r["skipEnded"] == true {
+				format!("pass  {who}: [{}]{own} ({} steps left, ended once skipped)", kinds.join(", "), r["told"])
 			} else if r["required"].as_str().is_some_and(|b| b.split(',').all(|x| x == "done" || x == "skipped")) {
 				format!("ready {who}: [{}] (reads done from the start, {}: ends when the rest is done)", kinds.join(", "), r["before"])
 			} else if kinds.iter().any(|k| k == "train class") {

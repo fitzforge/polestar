@@ -13,6 +13,8 @@
 --   Lookup.QuestFor(quest) -> { classes, races } | nil   -- who a quest's masks
 --       are for (class and race files); nil: anyone of its side
 --   Lookup.QuestForText(quest) -> "Warlock only" | nil   -- the same in words
+--   Lookup.Walk(goal) -> goal   -- a goal at an NPC who walks about gets her walk as its one
+--       spot (see "Walkers" below; #3019)
 --
 -- Ranking: available rows first (faction, race, class, level, professions,
 -- reputation), then cost = travel + effort in seconds. Travel is
@@ -303,6 +305,59 @@ end
 Lookup.QuestEnd = questEnd
 Lookup.SideOK = sideOK
 
+-- Walkers: an NPC who walks about (docs/GUIDE_FORMAT.md, "Spawn areas", walkers),
+-- read from the Codex's spawns, as the game has no movement data: two or
+-- more of its spawns on the goal's map and frame, every one within
+-- WALK.PLACE yards of their middle (one place, as the compiler groups spawns)
+-- and the farthest WALK.YARDS or more from it (a walk, as forge-guide's
+-- walks.rs counts one). Nikova Raskol's round of Old Town is four such spawns
+-- (#3019): she is met anywhere on it, not at the one nearest the player. A
+-- goal at such an NPC, with no spots of its own, gets that ground as its one
+-- spot { x, y, r, n = 1 } (r in yards, at least WALK.MIN_R), as compiled
+-- guides give a walker's goal, and its point moves to the middle: the maps
+-- circle it, the arrow leads to the middle (Arrived within the goal's radius
+-- of it, as at any NPC: Engine's Own.onePlace), While you're here measures to
+-- it. `walks` marks it; `note` (when it has none) says so, as the guides do.
+-- -> goal, changed or not.
+local WALK = { YARDS = 20, PLACE = 70, MIN_R = 15 }
+function Lookup.Walk(goal)
+	if type(goal) ~= "table" or not (goal.npc and goal.map and goal.x and goal.y) or goal.spots then return goal end
+	local C = Codex()
+	local npc = C and C.Npc and C.Npc(goal.npc)
+	local toWorld = ns.Compat.MapToWorld
+	if not (npc and type(npc.spawns) == "table" and toWorld) then return goal end
+	local era = goal.f == "e"
+	local pts, sx, sy = {}, 0, 0
+	for _, s in ipairs(npc.spawns) do
+		if s.map == goal.map and (s.f == "e") == era and s.x and s.y then
+			local c, wx, wy = toWorld(s.map, s.x, s.y, goal.f)
+			if not c then return goal end
+			pts[#pts + 1] = { c = c, wx = wx, wy = wy }
+			sx, sy = sx + s.x, sy + s.y
+		end
+	end
+	local n = #pts
+	if n < 2 then return goal end
+	local x, y = floor(sx / n * 100 + 0.5) / 100, floor(sy / n * 100 + 0.5) / 100
+	local c0, cx, cy = toWorld(goal.map, x, y, goal.f)
+	if not c0 then return goal end
+	local far = 0
+	for i = 1, n do
+		local p = pts[i]
+		if p.c ~= c0 then return goal end
+		local d = ((p.wx - cx) ^ 2 + (p.wy - cy) ^ 2) ^ 0.5
+		if d > WALK.PLACE then return goal end
+		if d > far then far = d end
+	end
+	if far < WALK.YARDS then return goal end
+	goal.spots = { { x = x, y = y, r = math.max(WALK.MIN_R, math.ceil(far)), n = 1 } }
+	goal.x, goal.y, goal.walks = x, y, true
+	if not goal.note then
+		goal.note = format(L["%s walks around here: look inside the circle on the map"], goal.npcName or npc.name or "")
+	end
+	return goal
+end
+
 ---------------------------------------------------------------------------
 -- Effort
 ---------------------------------------------------------------------------
@@ -503,6 +558,7 @@ builders.drop = function(src, p, from, direct)
 		if inst.entrance then
 			local t = travel(from, inst.entrance, direct)
 			place(r, inst.entrance, t)
+			r.z = inst.entrance.z
 		end
 		r.instance = inst.key
 		r.detail = detail(L["Drop"], inst.name)
@@ -583,7 +639,8 @@ builders.craft = function(src, p, from, direct)
 	r.detail = L["Crafted"]
 	local effort = CRAFT_BASE
 	if src.spell and not ns.Compat.IsSpellKnown(src.spell) then effort = effort + CRAFT_LEARN end
-	local rank = line and ns.Compat.GetSkillRank(line)
+	local rank, maxRank
+	if line then rank, maxRank = ns.Compat.GetSkillRank(line) end
 	if rank then
 		if src.skill and rank < src.skill then effort = effort + (src.skill - rank) * SKILL_POINT end
 	elseif not name then
@@ -594,13 +651,20 @@ builders.craft = function(src, p, from, direct)
 		block(r, "profession", L["Requires"] .. " " .. L[name])
 	end
 	r.effort = effort
-	-- The nearest trainer of the profession, when the Codex lists them.
+	-- The nearest trainer of the profession, when the Codex lists them. A recipe needing a rank
+	-- the character doesn't hold yet goes to a trainer who teaches that rank and accepts the
+	-- character's skill (#3784).
 	local C = Codex()
 	if line and C.WithRole then
+		local PT = ns.ProfessionTrainers
+		local want, cap
+		if PT then want, cap = PT.RankFor(line, src.skill or 1) end
+		local needRank = want and cap and (maxRank or 0) < cap and want or nil
+		local ok = PT and PT.Accepts(line, p.code, rank or 0, needRank)
 		local best, bestT, bestNpc
 		for _, id in ipairs(C.WithRole("trainer:" .. line) or {}) do
 			local npc, s, t = npcSpawn(id, from, direct)
-			if npc and s and sideOK(npc.faction, p) and (not best or (t and (not bestT or t < bestT))) then
+			if npc and s and sideOK(npc.faction, p) and (not ok or ok(id)) and (not best or (t and (not bestT or t < bestT))) then
 				best, bestT, bestNpc = s, t, npc
 			end
 		end
@@ -985,6 +1049,7 @@ function Lookup.Sources(kind, id, direct)
 			local r = newRow(nil, "entrance")
 			r.label = entity.name
 			place(r, entity.entrance, travel(from, entity.entrance, direct))
+			r.z = entity.entrance.z
 			r.detail = detail(L["Entrance"], r.zone)
 			local need = entity.levels and entity.levels[1]
 			if need and need > p.level then block(r, "level", levelText(need)) end

@@ -1,7 +1,7 @@
 //! The "New in Forever" mark (addon/Polestar/Quests/NewQuests.lua, ids from NewQuestIds.lua, `forge data
 //! newquests`): a small ∞ in the accent colour after the name of a quest Forever added, on the guide window's goal
 //! rows and their tooltip, the "While you're here" rows and toast, the Codex's quest page and result rows, and the
-//! quest lines of tooltips (quests.rs); ui.newInForever (Options > Guide > Window, "What it shows") turns it off.
+//! quest lines of tooltips (quests.rs); ui.newInForever (Options > Questing > Quests, "Quest log and tooltips") turns it off.
 //! The ids' resident cost stays within its budget.
 
 use forge_addontest::{emitted, text, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
@@ -145,10 +145,10 @@ fn a_while_you_re_here_hand_in_of_a_forever_quest_carries_the_mark_on_its_row_to
 	assert_eq!(text(&out[3]), "Hand in \u{201c}Crimson Crate Delivery\u{201d} to Marshal Dughan");
 }
 
-// Options > Guide > Window ("What it shows"): the toggle shows the setting (on by default), writes it and follows a
-// change made elsewhere.
+// Options > Questing > Quests ("Quest log and tooltips"): the toggle shows the setting (on by default), writes it and
+// follows a change made elsewhere.
 #[test]
-fn the_option_sits_with_what_the_guide_window_shows_on_by_default() {
+fn the_option_sits_with_the_quest_log_and_tooltips_on_by_default() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Quests/NewQuests.lua", "UI/UI.xml"])],
@@ -156,8 +156,8 @@ fn the_option_sits_with_what_the_guide_window_shows_on_by_default() {
 stub.login()
 Polestar.UI.LoadOptions()
 local UI, O = Polestar.UI, Polestar.UI.Options
-UI.ShowOptions("guide")
-local c = O.Controls("guide")["ui.newInForever"]
+UI.ShowOptions("questing")
+local c = O.Controls("questing")["ui.newInForever"]
 local on = c and c.checked
 if c then c:Click() end
 local after = Polestar.Get("ui.newInForever")

@@ -24,7 +24,7 @@ return {
 	["Andorhal watchtowers and silos"] = "Wachtürme und Silos von Andorhal",
 	-- {npc:10667} Chromie · {item:12815} Beacon Torch · {item:12627} Temporal Displacer · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
 	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite · Skeletal Warlords = {npc:1788} Skeletal Warlord
-	["Ride south-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by the silos in the middle of town to bring out Temporal Parasites (55-57): fight them one at a time and let the biggest go.\nCareful: a {npc:10996}, a level 58-59 elite, can stand in Andorhal, as at many other spots of the {zone:1422}: give it room.\nCareful: Skeletal Warlords, level 56-57 elites, stand by the first and second towers (the south-western and the western one): mark those towers from the far side of the doorway once the Warlord has turned away, and never pull one. Putridius (58, rare) walks among the silos."] = "",
+	["Ride south-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by each grain silo on the north side of town, one silo after another, to bring out Temporal Parasites (55-57): fight them one at a time and let the biggest go.\nCareful: a {npc:10996}, a level 58-59 elite, can stand in Andorhal, as at many other spots of the {zone:1422}: give it room.\nCareful: Skeletal Warlords, level 56-57 elites, stand by the first and second towers (the south-western and the western one): mark those towers from the far side of the doorway once the Warlord has turned away, and never pull one. Putridius (58, rare) walks among the silos."] = "",
 	-- {npc:10667} Chromie
 	["{npc:10667}, upstairs"] = "{npc:10667}, oben",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
@@ -177,7 +177,8 @@ return {
 
 	-- Step 41: Egan
 	-- {npc:11140} Egan · {area:2627} Terrordale · {npc:12384} Augustus the Touched
-	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut."] = "Der Geist {npc:11140} steht bei einer Hütte im {area:2627}, in der Nordwestecke; {npc:12384} sitzt in der Hütte.",
+	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit · Crypt Horrors = {npc:8557} Crypt Horror · Crypt Walkers = {npc:8556} Crypt Walker
+	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time."] = "",
 	-- {npc:12384} Augustus the Touched
 	["{npc:12384}, inside"] = "{npc:12384}, drinnen",
 
@@ -213,6 +214,12 @@ return {
 	["Ride south to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "Reite auf der Straße nach Süden zu {area:2264}. {item:15447} verdirbt binnen zehn Minuten: Töte die Geißel des Orts zügig und zerreibe die sieben Stücke sofort mit {item:15454}.\nVorsicht: Ungesehene Diener rufen im Umkreis von 25 Metern um Hilfe, sobald sie auf 40 % Gesundheit fallen. Außerhalb des Kampfes werden sie außerdem mit {spell:10228} unsichtbar. Wenn innerhalb des Orts um Hilfe gerufen wird, können sich sehr viele Gegner dem Kampf anschließen. Am Ortsrand zu kämpfen senkt dieses Risiko.\nMit {quest:5211} in deinem Questlog (von {npc:11063} zu Beginn dieses Guides) hinterlässt die Geißel rund um den Ort Geister von Darrowshire: Sprich jeden an, um ihn zu befreien. Befreie sie, bevor du mit {item:15447} anfängst.",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "Befreie Geister von Darrowehr: Sprich mit ihnen",
+	-- {npc:8530} Cannibal Ghoul · {npc:11064} Darrowshire Spirit
+	["{npc:8530}: a {npc:11064} rises where one dies"] = "",
+	-- {npc:8531} Gibbering Ghoul
+	["{npc:8531}: leaves a spirit too"] = "",
+	-- {npc:8532} Diseased Flayer
+	["{npc:8532}: leaves a spirit too"] = "",
 
 	-- Step 47: Carlin Redpath
 	-- {area:2268} Light's Hope Chapel
@@ -390,23 +397,25 @@ return {
 	-- Step 90: Donova Snowden
 	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
 	["From the tunnel's {zone:1452} exit, ride south to {area:2246}."] = "Reite vom Tunnelausgang nach {zone:1452} nach Süden zu {area:2246}.",
+
+	-- Step 91: Donova Snowden
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "{quest:5086} sind in {zone:1448}, bei einer späteren Reise: Behalte sie.",
 
-	-- Step 91: Moontouched Owlbeasts
+	-- Step 92: Moontouched Owlbeasts
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Moontouched Owlbeasts"] = "Mondbestrahlte Eulenbestien",
 	-- {area:2255} Everlook · {area:2241} Frostsaber Rock
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Careful: they are 57-58: pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "Reite nach Osten nach {area:2255} und von dort nach Norden; die Mondbestrahlten Eulenbestien streifen durch die Hügel an den Südhängen von {area:2241}. Vorsicht: Sie sind Stufe 57-58: Zieh sie einzeln.\nVorsicht: Hailspite, Elites der Stufe 60, sammeln sich in den Schneefeldern südöstlich von {area:2255}, wo auch ein paar Mondbestrahlte Eulenbestien umherstreifen: Bleib an den Hängen nördlich der Stadt.",
 
-	-- Step 92: Pristine Yeti Horns
+	-- Step 93: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Makellose Yetihörner",
 	-- {area:2255} Everlook
 	["Umi's horns, carried from your last {area:2255} stop: the yeti hills start just south-east of {area:2255}. Only Matriarchs and Patriarchs drop horns, and the Patriarchs reach 58: pull them one at a time."] = "Umis Hörner, mitgebracht von deinem letzten Halt in {area:2255}: Die Yetihügel beginnen direkt südöstlich von {area:2255}. Nur Matriarchen und Patriarchen lassen Hörner fallen, und die Patriarchen erreichen Stufe 58: Zieh sie einzeln.",
 
-	-- Step 93: Umi Rumplesnicker
+	-- Step 94: Umi Rumplesnicker
 	-- {area:976} Gadgetzan · {area:2255} Everlook · {zone:2482} Mount Hyjal · {zone:1451} Silithus
 	["Umi's third prank targets goblins in {area:976}, Un'Goro and {area:2255}: keep it. {zone:2482} is next: its way in starts here in {area:2255}; {area:976}, Linken's sword and {zone:1451} follow it."] = "",
 
@@ -479,6 +488,7 @@ return {
 	-- ["{npc:10880} walks the {object:172982} and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk."] = "{npc:10880} läuft durch das {object:172982} und die angrenzenden Straßen: Halte auf dem Weg zum Turm des Flugmeisters nach ihm Ausschau; der Kreis auf der Karte ist sein Laufweg.",
 	-- ["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "{npc:10880}: für {npc:7776} im {quest:7492}, am Ende dieses Guides",
 	-- ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner."] = "Der Geist {npc:11140} steht bei einer Hütte im {area:2627}, in der Nordwestecke.",
+	-- ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut."] = "Der Geist {npc:11140} steht bei einer Hütte im {area:2627}, in der Nordwestecke; {npc:12384} sitzt in der Hütte.",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}."] = "Der Champion von {npc:15193} hält das Bauernhaus von {area:2260}, nördlich vom Tiefgewölbe ({area:2261}).",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}. His {npc:8564} hunt, in the north of the zone, waits for the next guide's Plaguelands trip."] = "Der Champion von {npc:15193} hält das Bauernhaus von {area:2260}, nördlich vom {area:2261}. Seine Jagd auf {npc:8564} im Norden des Gebiets wartet auf die nächste Reise in die Pestländer im nächsten Guide.",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse."] = "Der Champion von {npc:15193} hält das Bauernhaus von {area:2260}.",
