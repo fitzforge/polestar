@@ -1,5 +1,6 @@
 ---
 section: forge
 ---
-- Guide corrections now report an invalid when condition even when the same
-  record also supplies a tip (thanks fitzforge).
+- `forge data check-corrections` checks a guide fix's `when` condition (now
+  also `[!]group Q` and `[!]has I [xN]`) even when the same record also sets
+  a tip, so a typo in one no longer ships (#3596).
