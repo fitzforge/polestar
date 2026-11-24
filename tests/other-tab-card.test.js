@@ -108,3 +108,26 @@ emit(res)`, ['Polestar']);
 		assert.ok(r.contrast >= 3, `${id}: the title reads on the window ${JSON.stringify(r)}`);
 	}
 });
+
+// In the client a texture's SetAlpha sets its vertex colour's alpha, so the
+// hover must change the wash's vertex colour only: SetAlpha(1.6) drew the
+// wash solid sky, hiding the sky stripe, icon and chevron (#1684 alike).
+test('hovering deepens the wash through its colour and leaving gives it back, never SetAlpha', () => {
+	const out = run(`
+at(25) draw()
+local f = OT.Frame()
+local function wash() local _, _, _, a = f.Wash:GetVertexColor() return { a = math.floor(a * 100 + 0.5), alpha = f.Wash:GetAlpha() } end
+local r = { before = wash() }
+stub.RunScript(f, "OnEnter")
+r.hover = wash()
+stub.RunScript(f, "OnLeave")
+r.after = wash()
+stub.RunScript(f, "OnEnter") stub.RunScript(f, "OnLeave")
+draw()
+r.again = wash()
+emit(r)`);
+	assert.deepEqual(out.before, { a: 12, alpha: 1 });
+	assert.deepEqual(out.hover, { a: 20, alpha: 1 }, 'a little deeper, still a wash: ' + JSON.stringify(out));
+	assert.deepEqual(out.after, { a: 12, alpha: 1 });
+	assert.deepEqual(out.again, { a: 12, alpha: 1 });
+});
