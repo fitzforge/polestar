@@ -61,26 +61,26 @@ return {
 	-- {area:205} Dun Modr · {npc:1071} Longbraid the Grim · {npc:1075} Rhag Garmason · {object:147516} Dark Iron
 	["North along the road to {area:205}. {npc:1071} and {npc:1075} stand together in the dwarves' camp on the east side of the road; the {object:147516} ruins west of it are full of elites."] = "沿路向北到{area:205}。{npc:1071}和{npc:1075}一起站在路東側的矮人營地裡；它西邊的{object:147516}廢墟裡全是精英。",
 
-	-- Step 13: Captive Fire Elemental
-	-- {npc:271481} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "這些是精英怪：建議組隊，找幾個人一起做。{npc:271481}守在{object:147516}廢墟最西端，要穿過27-30級的精英矮人，{npc:1364}（34級，精英）也可能在他們中間。把它引出廢墟向東帶，然後交給營地裡的{npc:1072}。只有你一個人就跳過。",
-
-	-- Step 14: Modr
-	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
-	["{npc:271460} stands in the ruins of {area:205} (use the {item:279996})."] = "{npc:271460}站在{area:205}的廢墟裡（使用{item:279996}）。",
-
-	-- Step 15: Motley Garmason
+	-- Step 13: Motley Garmason
 	-- {quest:303} The Dark Iron War
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron
 	["{quest:303} is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone."] = "{quest:303}是小隊任務：營地西邊的廢墟里有30個黑鐵精英（27-31級）。單人就跳過。",
 	-- {npc:1074} Motley Garmason
 	["{npc:1074}, in the camp"] = "{npc:1074}，在營地裡",
 
-	-- Step 16: Ashlan Stonesmirk
+	-- Step 14: Ashlan Stonesmirk
 	-- {quest:88756} Bring Back a Bang · {item:280806} Stolen Explosives · {object:147516} Dark Iron · {area:1016} Direforge Hill · {area:205} Dun Modr
 	["{quest:88756} is a group quest: the {item:280806} lie in the {object:147516} camp on {area:1016}, south-east of {area:205}, among the same elite dwarves. Skip it if you are alone."] = "{quest:88756}是小隊任務：{item:280806}在{area:1016}的{object:147516}營地裡，位於{area:205}東南，就在那群精英矮人中間。單人就跳過。",
 	-- {npc:1073} Ashlan Stonesmirk
 	["{npc:1073}, in the camp"] = "{npc:1073}，在營地裡",
+
+	-- Step 15: Captive Fire Elemental
+	-- {npc:271481} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "這些是精英怪：建議組隊，找幾個人一起做。{npc:271481}守在{object:147516}廢墟最西端，要穿過27-30級的精英矮人，{npc:1364}（34級，精英）也可能在他們中間。把它引出廢墟向東帶，然後交給營地裡的{npc:1072}。只有你一個人就跳過。",
+
+	-- Step 16: Modr
+	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
+	["{npc:271460} stands in the ruins of {area:205} (use the {item:279996})."] = "{npc:271460}站在{area:205}的廢墟裡（使用{item:279996}）。",
 
 	-- Step 17: The Dark Iron War
 	-- {npc:1364} Balgaras the Foul
