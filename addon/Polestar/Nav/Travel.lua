@@ -1410,6 +1410,9 @@ local function planBody(p, S)
 	-- unmeasured walk priced from its own end. A way whose walk into the target was measured competes as before.
 	local unmeasured = nw[1] and yards(vc[1], vx[1], vy[1], vc[2], vx[2], vy[2]) or nil
 	if unmeasured == huge then unmeasured = nil end
+	-- The target's own map, where it is a zone of the crossing data other than the one the walking maps put its
+	-- point in (#3018; below).
+	local mapZone = tg.map and tg.map ~= vzone[2] and zoneInfo[tg.map] and tg.map or nil
 	-- Walks from u to every vertex of `list`: straight x1.25, or the measured walk into the target.
 	-- back: the vertex u was walked to from (onFoot): no walk on where back walks straight.
 	local function walkTo(list, u, du, tu, xu, yu, back)
@@ -1526,6 +1529,12 @@ local function planBody(p, S)
 				end
 				walkTo(free[cu], u, du, tu, xu, yu, back)
 				if u == 1 and nearCross then straight(1, 2, nearCross, du, tu) end
+				-- A target whose map is another zone than the walking maps put its point in (#3018: the Splithoof
+				-- chest's cave, on Thousand Needles' map, lies in the Barrens on the walking maps): a walk the
+				-- engine measured into it from its map's zone competes too. The zone lists held none, so from
+				-- Freewind Post's landing only the crossings into the Barrens reached it, and an unmeasured walk
+				-- from the Great Lift's top straight down into the cave won over the measured walk from the landing.
+				if tw[u] and not back and mapZone and zu == mapZone then walk(u, 2, tw[u] / speed, ty[u] / speed, du, tu) end
 			end
 			along = true
 			local ex = extra[u]
