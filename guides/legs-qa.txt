@@ -98,7 +98,7 @@ forever/alliance/03-loch-modan	step 25	0:-6091,-2881>-5878,-2642	no way on eithe
 forever/alliance/03-loch-modan	step 26	0:-5878,-2642>-5845,-2630	detour 2.46x straight on grid, no named passage
 forever/alliance/03-loch-modan	step 28	0:-5422,-2929>-5506,-2433	detour 1.81x straight on grid, no named passage
 forever/alliance/03-loch-modan	step 37	0:-9442,-2233>-9350,-2204	detour 3.14x straight on leffe, no named passage
-forever/alliance/03-loch-modan	step 42	0:-9381,-2456>-9362,-2400	detour 1.83x straight on leffe, no named passage
+forever/alliance/03-loch-modan	step 42	0:-9345,-2431>-9362,-2400	detour 1.93x straight on leffe, no named passage
 forever/alliance/03-loch-modan	step 43	0:-9362,-2400>-9349,-2202	detour 1.54x straight on leffe, no named passage
 forever/alliance/03-loch-modan	step 60	0:-10508,1067>-10508,1050	detour 1.51x straight on leffe, no named passage
 forever/alliance/03-loch-modan	step 63	0:-10508,1050>-10503,1034	detour 9.10x straight on grid, no named passage
@@ -159,6 +159,7 @@ forever/alliance/30-40/01-hillsbrad-foothills	step 69	0:-8691,325>-8423,402	deto
 forever/alliance/30-40/01-hillsbrad-foothills	step 70	0:-8423,402>-8527,856	detour 1.65x straight on leffe, no named passage
 forever/alliance/30-40/02-desolace	step 4	1:-15,1081>163,1262	detour 1.51x straight on leffe, no named passage
 forever/alliance/30-40/02-desolace	step 7	1:-360,2488>-460,2611	detour 3.45x straight on leffe, no named passage
+forever/alliance/30-40/03-ashenvale	step 16	1:-4791,-1811>-5183,-1221	detour 2.12x straight on leffe, no named passage
 forever/alliance/30-40/04-stranglethorn-vale	step 15	0:-11310,-200>-11564,-565	detour 1.53x straight on grid, no named passage
 forever/alliance/30-40/04-stranglethorn-vale	step 21	0:-12122,823>-14468,419	detour 1.60x straight on leffe, no named passage
 forever/alliance/30-40/04-stranglethorn-vale	step 31	1:3826,165>426,1781	detour 1.86x straight on leffe, no named passage
@@ -341,7 +342,7 @@ forever/alliance/nightelf/01-teldrassil	step 107	1:8645,841>6325,92	no way on ei
 forever/alliance/nightelf/01-teldrassil	step 109	1:6342,557>10156,2559	no way on either map
 forever/alliance/nightelf/01-teldrassil	step 110	1:10179,2564>8645,841	no way on either map
 forever/alliance/nightelf/02-darkshore	step 5	1:6368,581>6343,548	detour 1.89x straight on leffe, no named passage
-forever/alliance/nightelf/02-darkshore	step 7	1:6343,548>6277,610	detour 1.83x straight on leffe, no named passage
+forever/alliance/nightelf/02-darkshore	step 7	1:6343,548>6277,610	detour 1.90x straight on leffe, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 3	2991:3955,1803>4062,1800	detour 1.97x straight on grid, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 34	2991:3347,1801>3345,1828	detour 1.84x straight on grid, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 59	2991:2199,567>2118,551	no way on either map
@@ -409,7 +410,7 @@ forever/horde/07-ashenvale	step 5	1:4127,864>4168,916	no way on either map
 forever/horde/07-ashenvale	step 6	1:4168,916>4127,864	no way on either map
 forever/horde/07-ashenvale	step 7	1:4127,864>3212,-130	detour 1.61x straight on leffe, no named passage
 forever/horde/07-ashenvale	step 11	1:3348,1018>3355,1036	detour 1.57x straight on leffe, no named passage
-forever/horde/07-ashenvale	step 25	1:2353,-2536>2517,-2152	detour 3.21x straight on leffe, no named passage
+forever/horde/07-ashenvale	step 25	1:2353,-2536>2567,-2154	detour 3.01x straight on leffe, no named passage
 forever/horde/07-ashenvale	step 29	1:1870,-1772>1982,-953	detour 1.50x straight on leffe, no named passage
 forever/horde/07-ashenvale	step 40	1:3348,1018>3355,1036	detour 1.57x straight on leffe, no named passage
 forever/horde/07-ashenvale	step 73	1:-4923,-1833>-4891,-1973	detour 2.26x straight on leffe, no named passage
@@ -556,6 +557,7 @@ forever/horde/orc/01-durotar	step 91	1:1935,-4134>2000,-4195	detour 3.06x straig
 forever/horde/orc/01-durotar	step 92	1:2013,-4227>1477,-4770	detour 1.92x straight on leffe, no named passage
 forever/horde/orc/01-durotar	step 95	1:1497,-4744>1466,-4690	detour 2.04x straight on leffe, no named passage
 forever/horde/orc/01-durotar	step 100	1:287,-4720>479,-4659	detour 1.66x straight on grid, no named passage
+forever/horde/orc/01-durotar	step 103	1:950,-4146>2101,-4606	detour 1.98x straight on leffe, no named passage
 forever/horde/orc/01-durotar	step 105	1:2102,-4607>2088,-4819	detour 1.78x straight on leffe, no named passage
 forever/horde/orc/01-durotar	step 107	1:1598,-4460>1845,-4357	detour 2.47x straight on leffe, no named passage
 forever/horde/skyborne/01-zephras-isle	step 11	2991:3989,2248>4024,1877	detour 1.58x straight on grid, no named passage
@@ -579,6 +581,7 @@ forever/horde/skyborne/01-zephras-isle	step 98	2991:3091,582>2991,65	no way on e
 forever/horde/skyborne/01-zephras-isle	step 99	2991:2976,71>1999,945	no way on either map
 forever/horde/skyborne/01-zephras-isle	step 101	2991:2255,904>2119,551	no way on either map
 forever/horde/tauren/01-mulgore	step 15	1:-2885,-247>-2494,-359	detour 3.40x straight on leffe, no named passage
+forever/horde/tauren/01-mulgore	step 50	1:-1654,418>-1981,442	detour 1.64x straight on grid, no named passage
 forever/horde/tauren/01-mulgore	step 51	1:-1981,442>-2321,402	detour 2.49x straight on grid, no named passage
 forever/horde/tauren/01-mulgore	step 58	1:-1202,29>-1133,-7	detour 2.19x straight on leffe, no named passage
 forever/horde/tauren/01-mulgore	step 62	1:-1242,105>-1119,49	detour 1.51x straight on leffe, no named passage
@@ -599,6 +602,7 @@ forever/horde/troll/01-durotar	step 92	1:1935,-4134>2000,-4195	detour 3.06x stra
 forever/horde/troll/01-durotar	step 93	1:2013,-4227>1477,-4770	detour 1.92x straight on leffe, no named passage
 forever/horde/troll/01-durotar	step 96	1:1497,-4744>1466,-4690	detour 2.04x straight on leffe, no named passage
 forever/horde/troll/01-durotar	step 101	1:287,-4720>479,-4659	detour 1.66x straight on grid, no named passage
+forever/horde/troll/01-durotar	step 104	1:950,-4146>2101,-4606	detour 1.98x straight on leffe, no named passage
 forever/horde/troll/01-durotar	step 106	1:2102,-4607>2088,-4819	detour 1.78x straight on leffe, no named passage
 forever/horde/troll/01-durotar	step 108	1:1598,-4460>1845,-4357	detour 2.47x straight on leffe, no named passage
 forever/horde/undead/01-tirisfal-glades	step 11	0:1913,1783>2016,1771	detour 1.56x straight on grid, no named passage
