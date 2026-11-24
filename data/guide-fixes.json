@@ -17084,6 +17084,15 @@
 			"issue": 3279
 		},
 		{
+			"id": "3123-blackrock-walk-only-without-flame-crest",
+			"faction": "Horde",
+			"at": { "quest": 4296, "goal": "accept", "guide": "forever/horde/50-60/01-un-goro-crater" },
+			"way": { "when": "!taxi \"Flame Crest\"" },
+			"note": "#3123: the walk into Blackrock Mountain from the Searing Gorge (step Into Blackrock Mountain) is the way to Flame Crest and its flight path on foot. Zack already knew Flame Crest's flight path and was walked through the mountain all the same. It is for a character without that flight path only; one who has it goes on to Flame Crest the way the travel planner finds. Overmaster Pyron and Blackrock Depths keep their own conditions.",
+			"source": { "kind": "in-game-check", "ref": "#3123: Zack's report (sent into Blackrock Mountain for a flight path he had), confirmed by fitzforge" },
+			"issue": 3123
+		},
+		{
 			"id": "3365-corrupted-sabers-winna",
 			"faction": "Horde",
 			"at": { "quest": 4506, "goal": "complete" },

@@ -80,9 +80,10 @@ local DOTS, SPACINGS, UNIT = { 2, 10 }, { 5, 24 }, { 0, 1 }
 -- there read as the player). Its dots are otherwise 0.3.5's: round, the same
 -- size and spacing.
 local PLAYER_GAP = 9
--- In the line style a walk drawn straight, no walking path known for it (the
--- geometry's `straight`), is dashed and GUESS_ALPHA as strong. The dots keep
--- their look: the players who keep them see what they saw.
+-- A walk drawn straight, no walking path known for it (the geometry's
+-- `straight`: the arrow's fallback where no walk was found, #3409), is dashed
+-- and GUESS_ALPHA as strong in every style, so it never reads as a found walk
+-- (#3418): the dots and the sparkles draw it as the line style's dashes.
 local GUESS_ALPHA = 0.55
 
 Strokes.THICKNESS, Strokes.DOT, Strokes.RIM, Strokes.SPACING = THICKNESS, DOT, RIM, SPACING
@@ -371,8 +372,8 @@ local function DashSegment(x1, y1, dx, dy, length, start, low, high, color, wide
 end
 
 -- mode: "solid" (default), "dots" (the dots style's walk), "line" (the line
--- style's walk), "dash" (the line style's flight), "guess" (the line style's
--- walk with no walking path known: dashed as thick as the line).
+-- style's walk), "dash" (the line style's flight), "guess" (a walk with no
+-- walking path known, in every style: dashed as thick as the line).
 -- Clip before subdividing: even continent-sized walks need only the visible
 -- breadcrumbs. Dots sit every `spacing` pixels along the whole walk, walked
 -- carrying the distance across segment joins so bends never bunch them.
@@ -439,7 +440,7 @@ end
 local function modeOf(path)
 	local kind = path.kind
 	fade = path.later and laterAlpha or 1
-	if lined and path.guess then
+	if path.guess then
 		fade = fade * GUESS_ALPHA
 		return "guess"
 	end

@@ -4681,6 +4681,8 @@ function Own.goalDoneLive(s, g, goal)
 	if t ~= "accept" and checked(s, g) then return true end
 	local now = Own.passedNow[guide.id]
 	if now and now[Own.key(s, g)] then return true end
+	-- A repeatable's accept and work, its round handed in (Own.roundHanded, #3334).
+	if goal.quest and t ~= "turnin" and t ~= "abandon" and Own.roundHanded(s, goal.quest) then return true end
 	if t == "accept" then
 		return C.IsOnQuest(goal.quest) or questDone(goal.quest) or Own.abandonedByGuide(goal.quest, s) or Own.lostHeld(goal.quest, s)
 	elseif t == "turnin" then
@@ -4690,8 +4692,10 @@ function Own.goalDoneLive(s, g, goal)
 		-- before the goal was `direct` is never flagged, so a Paladin who had
 		-- done the chain was sent back to it). The session's turn-ins would
 		-- close every later goal of a repeatable at the first hand-in; one
-		-- hand-in closes one goal.
+		-- hand-in closes one goal. A repeatable taken from the log
+		-- (`repeatable`, #3334) likewise, by its own latch alone.
 		if goal.direct then return (C.IsQuestCompleted(goal.quest) or Own.laterQuestDone(s, g)) and true or false end
+		if goal.repeatable then return C.IsQuestCompleted(goal.quest) and true or false end
 		return questDone(goal.quest) and true or false
 	elseif t == "complete" then
 		if questDone(goal.quest) or C.IsQuestReadyForTurnIn(goal.quest) then return true end
@@ -9563,15 +9567,19 @@ end
 -- `turnin ... direct` is one in practice) is stored like the latches above, so
 -- it stays done after a /reload. The quest's own goal in the live step, and in
 -- the step in view when the player looks elsewhere: one hand-in checks off one
--- goal, so a guide that repeats the same quest keeps its later steps open.
+-- goal, so a guide that repeats the same quest keeps its later steps open. A
+-- repeatable taken from the log (compiled `repeatable`, #3334: Zorbin's
+-- Ultra-Shrinker quests) handed in ahead of its step stores the next turn-in
+-- of it from the live step on, the round the player was on.
 function Own.latchTurnin(questID)
 	if not (guide and questID) then return false end
-	local hit = false
+	local hit, found = false, false
 	for pass = 1, 2 do
 		local s = pass == 1 and current or computed
 		if s and (pass == 1 or s ~= current) then
 			for g, goal in ipairs(guide.steps[s].goals) do
-				if goal.t == "turnin" and goal.direct and goal.quest == questID and goalApplies(goal) then
+				if goal.t == "turnin" and (goal.direct or goal.repeatable) and goal.quest == questID and goalApplies(goal) then
+					found = true
 					local m = manualFor(guide.id, true)
 					local key = s .. ":" .. g
 					if not m[key] then
@@ -9582,12 +9590,42 @@ function Own.latchTurnin(questID)
 			end
 		end
 	end
+	local ahead = not found and computed and layoutOf(guide).turnins[questID]
+	for _, e in ipairs(ahead or NONE) do
+		if e.s >= computed and e.goal.repeatable and stepApplies(e.step) and not isSkipped(e.s) and goalApplies(e.goal) then
+			local m = manualFor(guide.id, true)
+			if not m[e.key] then
+				m[e.key] = true
+				hit = true
+				break
+			end
+		end
+	end
 	if current and logReady then
 		for s = current, #guide.steps do
 			if Own.holdOnQuest(s, questID) then hit = true end
 		end
 	end
 	return hit
+end
+
+-- A repeatable quest's round (#3334): its accept and work at step s are done
+-- once the next turn-in of it (compiled `repeatable`) from s on is stored as
+-- handed in (Own.latchTurnin). The client never flags the quest completed,
+-- so after a /reload the accept would read as not taken and send the route
+-- back to the giver; a guide that repeats the quest (a reputation guide's
+-- rounds) keeps each later round to its own hand-in.
+function Own.roundHanded(s, q)
+	local list = layoutOf(guide).turnins[q]
+	if not list then return false end
+	for i = 1, #list do
+		local e = list[i]
+		if e.s >= s and e.goal.repeatable and goalApplies(e.goal) then
+			local m = manualFor(guide.id)
+			return m ~= nil and m[e.key] ~= nil
+		end
+	end
+	return false
 end
 
 -- A step the route has not passed, shown only while quest q is in the log or
