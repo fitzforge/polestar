@@ -1524,6 +1524,38 @@ fn check_places(ck: &mut Ck, d: &V) {
 	}
 }
 
+/// A top-level guide-fix condition uses this subset of the guide's step predicates.
+fn check_guide_when(ck: &mut Ck, at: &str, when: &V) {
+	let text = when.as_str().filter(|w| !w.contains(['\r', '\n'])).unwrap_or("");
+	let parsed = forge_guide::when::parse_when(text);
+	if let Ok(p) = parsed {
+		let kind = p.get("k");
+		match kind.as_str() {
+			Some("level") if text.starts_with("level>=") && !text.contains('+') && p.get("n").num() >= 2.0 => return,
+			Some("onquest") if text.strip_prefix("onquest ").is_some_and(|list| list.split(',').all(|q| q.trim().parse::<u32>().is_ok())) => {
+				for q in p.get("q").items() {
+					ck.refers(at, "quests", &q);
+				}
+				return;
+			}
+			Some("group" | "complete" | "turnedin") => {
+				ck.refers(at, "quests", &p.get("q"));
+				return;
+			}
+			Some("has") => {
+				ck.refers(at, "items", &p.get("item"));
+				return;
+			}
+			Some("knows") => return,
+			_ => {}
+		}
+	}
+	ck.err(
+		at,
+		format!("{}: `level>=N` (levels 2 to 60, including fractional progress), `onquest Q[,Q...]`, `[!]complete Q`, `[!]turnedin Q`, `[!]knows S`, `[!]group Q` or `[!]has I [xN]`", show(when)),
+	);
+}
+
 /// data/guide-fixes.json: `{ about, fixes: [{ id, at: { quest, goal: accept | turnin | complete |
 /// objective, objective? }, tip | goalNote | optional: true | level (after?, only?) | along: false | early | when, note, source, issue, pr }] }`. `along: false` (an
 /// objective goal only): the writer never lists the objective "on the way" before its step. `after: true`
@@ -1680,6 +1712,9 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 		}
 		let (tip, level, along, early, when) = (r.get("tip"), r.get("level"), r.get("along"), r.get("early"), r.get("when"));
 		let (background, races) = (r.get("background"), r.get("races"));
+		if !when.is_undef() {
+			check_guide_when(ck, &format!("{at}.when"), &when);
+		}
 		if !races.is_undef() && [&tip, &level].iter().any(|v| !v.is_undef()) {
 			ck.err(&at, "a `races` fix uses a record of its own");
 		}
@@ -1805,27 +1840,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 					}
 					"background"
 				}
-				(true, true) if !when.is_undef() && early.is_undef() && along.is_undef() => {
-					let level_ok = |w: &str| w.strip_prefix("level>=").is_some_and(|n| n.parse::<u32>().is_ok_and(|n| (2..=60).contains(&n)));
-					// (`[!]knows <spell>`: a spell or recipe the character knows, #1867's camp items.)
-					let knows_ok = |w: &str| w.trim_start_matches('!').strip_prefix("knows ").is_some_and(|n| n.trim().parse::<u32>().is_ok_and(|n| n > 0));
-					let quests = when.as_str().and_then(|w| w.strip_prefix("onquest ")).map(|l| l.split(',').map(|q| q.trim().parse::<u32>().ok()).collect::<Option<Vec<u32>>>());
-					// (`[!]complete Q` / `[!]turnedin Q`: one quest ready to hand in, or handed in; #1952's Camping 101
-					// trainer steps wait until the profession reaches 20.)
-					let state =
-						when.as_str().map(|w| w.trim_start_matches('!')).and_then(|w| w.strip_prefix("complete ").or_else(|| w.strip_prefix("turnedin "))).map(|q| q.trim().parse::<u32>().ok());
-					match (quests, state) {
-						(Some(Some(qs)), _) if !qs.is_empty() => {
-							for q in qs {
-								ck.refers(&format!("{at}.when"), "quests", &V::from(q as f64));
-							}
-						}
-						(_, Some(Some(q))) => ck.refers(&format!("{at}.when"), "quests", &V::from(q as f64)),
-						_ if when.as_str().is_some_and(level_ok) || when.as_str().is_some_and(knows_ok) => {}
-						_ => ck.err(format!("{at}.when"), format!("{}: `level>=N` (N a level from 2 to 60), `onquest Q[,Q...]`, `[!]complete Q`, `[!]turnedin Q` or `[!]knows <spell>`", show(&when))),
-					}
-					"when"
-				}
+				(true, true) if !when.is_undef() && early.is_undef() && along.is_undef() => "when",
 				(true, true) if !early.is_undef() && along.is_undef() => {
 					ck.keys(&format!("{at}.early"), &early, &["after", "title", "when", "tip"]);
 					let from = early.get("after");
@@ -2360,6 +2375,38 @@ mod tests {
 			let bad = note.replace("\"Mine the deposits.\"", value);
 			assert!(record_findings(None, Some(&bad)).iter().any(|f| f.contains("goalNote")), "{value}");
 		}
+	}
+
+	#[test]
+	fn top_level_when_is_always_checked() {
+		let src = r#""source": { "kind": "in-game-check", "ref": "issue #3596" }, "note": "checked""#;
+		let record = |condition: &str, extra: &str| format!(r#"{{ "fixes": [ {{ "id": "condition", "at": {{ "quest": 10, "goal": "accept" }}, "when": {condition}{extra}, {src} }} ] }}"#);
+		for extra in ["", r#", "tip": "A tip.""#] {
+			for good in [r#""level>=14.5""#, r#""group 10""#, r#""!group 10""#, r#""has 40""#, r#""has 40 x2""#, r#""onquest 10,11""#, r#""!complete 11""#, r#""!knows 123""#] {
+				let f = record_findings(None, Some(&record(good, extra)));
+				assert!(f.is_empty(), "{good} {extra}: {f:?}");
+			}
+			for bad in [
+				r#""groupp 10""#,
+				r#""group x""#,
+				r#""group 12""#,
+				r#""has 999999""#,
+				r#""has 40 x0""#,
+				r#""level>=14.""#,
+				r#""level>=1""#,
+				r#""!!complete 10""#,
+				r#""onquest 10,""#,
+				r#""onquest 12""#,
+				"null",
+				"42",
+			] {
+				let f = record_findings(None, Some(&record(bad, extra)));
+				assert!(f.iter().any(|x| x.contains("fixes[0].when")), "{bad} {extra}: {f:?}");
+			}
+		}
+		let f = record_findings(None, Some(&record(r#""groupp 10""#, r#", "optional": true"#)));
+		assert!(f.iter().any(|x| x.contains("fixes[0].when")));
+		assert!(f.iter().any(|x| x.contains("fixes[0].optional")));
 	}
 
 	#[test]
