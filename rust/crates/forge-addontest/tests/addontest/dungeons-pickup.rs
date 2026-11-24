@@ -2978,6 +2978,27 @@ emit({ id = id, before = before, after = after, same = same, tabs = tabIds(), fa
 	assert_eq!(out["stale"], false, "up to date: nothing to rebuild");
 }
 
+// #2841 (The Drowned City): Kin'weelay in Grom'gol gives A Tale Spun Around the Fire (a delivery) for Master Gadrin
+// in Sen'jin Village, across the sea; the hand-in guide took it and stopped, though it already goes to Kalimdor for
+// Mazu'kon's Ancient Gurubashi Idol in Mulgore. A delivery's ender across the sea is kept when a quest of the plan
+// is turned in on that continent anyway, and still left out when none is (#1748). Here Return to Dalar is handed in
+// to Doan Karhan in the Barrens, and The Orb of Soran'ruk (1740, ready) is turned in to him too.
+#[test]
+fn a_delivery_across_the_sea_is_handed_in_when_the_hand_in_guide_goes_to_that_continent_anyway_2841() {
+	let pack = default_pack();
+	let script = k(r#"
+local dalar = Polestar.Codex.Quest(1016)
+dalar["end"].npc = { 6247 }
+emit({ steps = describe(D.HandinGuide("{KEY}")) })"#);
+	let goals = |out: &Value| -> Vec<String> { out["steps"].as_array().unwrap().iter().map(|s| text(&s["goals"]).to_string()).collect() };
+	let alone = goals(&run(&pack, &script, after_run()).remove(0));
+	assert!(alone.iter().any(|g| g.contains("accept:1016")) && !alone.iter().any(|g| g.contains("turnin:1016")), "nothing else in the Barrens: taken only, {alone:?}");
+	let barrens = goals(&run(&pack, &script, Opts { done: vec![1098, 1011], log: vec![1013], ready: vec![1014, 1740], ..Default::default() }).remove(0));
+	let at = |what: &str| barrens.iter().position(|g| g.contains(what)).unwrap_or_else(|| panic!("{what} in {barrens:?}"));
+	assert!(at("turnin:1740") < barrens.len(), "The Orb of Soran'ruk goes to the Barrens: {barrens:?}");
+	assert!(at("accept:1016") < at("turnin:1016"), "Return to Dalar is taken, then handed in on that trip: {barrens:?}");
+}
+
 // #1817 (Onrevax, Excavation Site: Wetlands): the Titan Relic from the end of the dungeon starts Lost Relic Carry
 // (95810), turned in to Prospector Whelgar, who then gives Prehistoric Prism (98824) for High Explorer Magellas in
 // Ironforge. The hand-in guide took Prehistoric Prism at Whelgar and ended there: only a follow-up with no
