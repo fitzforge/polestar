@@ -51,8 +51,10 @@ fn load(gamepad: bool, cvar: Option<&str>) -> Value {
 		Some(c) => {
 			let s = serde_json::to_string(c).unwrap();
 			String::from("C_CVar = C_CVar or {}\ndo\n\tlocal get = C_CVar.GetCVar\n\tC_CVar.GetCVar = function(name) if name == \"InputDeviceInterfaceStyle\" then return ")
-				+ &s + " end return get and get(name) end\n\tlocal global = GetCVar\n\tGetCVar = function(name) if name == \"InputDeviceInterfaceStyle\" then return "
-				+ &s + " end return global and global(name) end\nend"
+				+ &s
+				+ " end return get and get(name) end\n\tlocal global = GetCVar\n\tGetCVar = function(name) if name == \"InputDeviceInterfaceStyle\" then return "
+				+ &s
+				+ " end return global and global(name) end\nend"
 		}
 		None => String::new(),
 	};
