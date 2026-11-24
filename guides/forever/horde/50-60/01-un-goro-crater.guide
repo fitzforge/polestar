@@ -446,6 +446,7 @@ step Squire Maltrake
   turnin 3481 object 149502           -- The Hoard of the Black Dragonflight holds a Black Dragonflight Molt: keep it for Cyrus Therepentous in the Burning Steppes
 
 step Into Blackrock Mountain
+  when !taxi "Flame Crest"
   zone Searing Gorge
   tip Ride south across the gorge to the long bridge into Blackrock Mountain. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals.
   goto 34.8,83.0 "Bridge into Blackrock Mountain"

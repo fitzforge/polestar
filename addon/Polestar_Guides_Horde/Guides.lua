@@ -4239,7 +4239,7 @@ do
 					note = "Find an {npc:269452}, a little critter in the canal water beside {npc:4612}, target it and /dance at it, again and again, until it dances back and offers {quest:97583}; this takes many tries. Hand in the sludge right away. If the slime seems tired, /dance with it again before you hand in.",
 					goals = {
 						{ t = "accept", quest = 97583, title = "WRIGGLE.", npc = 269452, npcName = "Excitable Slime", minLevel = 1, qlvl = 1, map = 1458, x = 57.4, y = 63.6, z = -66.3, spotsPacked = "57.4,63.6,-66.3,15,0;53.5,59.2,-66.3,26,2,1;64.2,68,-66.3,40,3,1;49.9,39.9,-66.3,41,3,1;77,61.6,-66.3,60,6,1;55.2,25.4,-66.3,37,3,1;82.4,44.7,-66.3,28,3,1;67.6,20.4,-66.3,45,3,1;78.5,29.7,,33,2,1" },
-						{ t = "turnin", quest = 97583, title = "WRIGGLE.", npc = 269452, npcName = "Excitable Slime", map = 1458, x = 57.4, y = 63.6, z = -66.3, spotsPacked = "57.4,63.6,-66.3,15,0;53.5,59.2,-66.3,26,2,1;64.2,68,-66.3,40,3,1;49.9,39.9,-66.3,41,3,1;77,61.6,-66.3,60,6,1;55.2,25.4,-66.3,37,3,1;82.4,44.7,-66.3,28,3,1;67.6,20.4,-66.3,45,3,1;78.5,29.7,,33,2,1" },
+						{ t = "turnin", quest = 97583, title = "WRIGGLE.", npc = 269452, npcName = "Excitable Slime", map = 1458, x = 57.4, y = 63.6, z = -66.3, spotsPacked = "57.4,63.6,-66.3,15,0;53.5,59.2,-66.3,26,2,1;64.2,68,-66.3,40,3,1;49.9,39.9,-66.3,41,3,1;77,61.6,-66.3,60,6,1;55.2,25.4,-66.3,37,3,1;82.4,44.7,-66.3,28,3,1;67.6,20.4,-66.3,45,3,1;78.5,29.7,,33,2,1", repeatable = true },
 						{ t = "collect", item = 275682, itemName = "Excitable Slime", map = 1458, x = 57.4, y = 63.6 },
 					},
 				},
@@ -15581,8 +15581,8 @@ do
 				{
 					title = "{npc:14637}",
 					goals = {
-						{ t = "turnin", quest = 7725, title = "Again With the Zapped Giants", npc = 14637, npcName = "Zorbin Fandazzle", map = 1444, x = 44.74, y = 43.38, z = 1.5 },
-						{ t = "turnin", quest = 7726, title = "Refuel for the Zapping", npc = 14637, npcName = "Zorbin Fandazzle", map = 1444, x = 44.74, y = 43.38, z = 1.5 },
+						{ t = "turnin", quest = 7725, title = "Again With the Zapped Giants", npc = 14637, npcName = "Zorbin Fandazzle", map = 1444, x = 44.74, y = 43.38, z = 1.5, repeatable = true },
+						{ t = "turnin", quest = 7726, title = "Refuel for the Zapping", npc = 14637, npcName = "Zorbin Fandazzle", map = 1444, x = 44.74, y = 43.38, z = 1.5, repeatable = true },
 					},
 				},
 				{
@@ -15619,7 +15619,7 @@ do
 						{ t = "accept", quest = 3129, title = "Weapons of Spirit", npc = 8115, npcName = "Witch Doctor Uzer'i", minLevel = 40, qlvl = 50, preAll = { 3127, 3128 }, preTitles = { [3127] = "Mountain Giant Muisek", [3128] = "Natural Materials" }, map = 1444, x = 74.35, y = 43.63, z = 25.5, spotsPacked = "74.4,43.5,25.5,15,2" },
 						{ t = "turnin", quest = 3129, title = "Weapons of Spirit", npc = 8115, npcName = "Witch Doctor Uzer'i", map = 1444, x = 74.35, y = 43.63, z = 25.5, spotsPacked = "74.4,43.5,25.5,15,2" },
 						{ t = "turnin", quest = 7734, title = "Improved Quality", npc = 7854, npcName = "Jangdor Swiftstrider", map = 1444, x = 74.39, y = 42.92, z = 26.4, note = "{npc:7854}, inside" },
-						{ t = "turnin", quest = 7738, title = "Perfect Yeti Hide", npc = 7854, npcName = "Jangdor Swiftstrider", map = 1444, x = 74.39, y = 42.92, z = 26.4, optional = true },
+						{ t = "turnin", quest = 7738, title = "Perfect Yeti Hide", npc = 7854, npcName = "Jangdor Swiftstrider", map = 1444, x = 74.39, y = 42.92, z = 26.4, optional = true, repeatable = true },
 						{ t = "turnin", quest = 3063, title = "Vengeance on the Northspring", npc = 7776, npcName = "Talo Thornhoof", map = 1444, x = 76.11, y = 43.7, z = 25.6 },
 					},
 				},
@@ -16202,6 +16202,7 @@ do
 				{
 					title = "Into {area:254}",
 					note = "Ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals.",
+					when = { { k = "taxi", neg = true, name = "Flame Crest", node = 70 } },
 					goals = {
 						{ t = "goto", text = "Bridge into {area:254}", map = 1427, x = 34.8, y = 83, f = "e" },
 					},

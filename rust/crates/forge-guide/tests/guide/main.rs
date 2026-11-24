@@ -47,6 +47,7 @@ mod exact_points;
 mod experimental_index;
 mod guidecheck;
 mod hand_spots;
+mod legs_shared;
 mod lint_flights;
 mod lint_format;
 mod lint_goto;
