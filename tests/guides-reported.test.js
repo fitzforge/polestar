@@ -8184,9 +8184,10 @@ test(`${HILLSBRAD_ALLIANCE}: flow re-order: Dun Modr in one stop, Ebenezer on th
 	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
 	const dunModr = stepOf('turnin', 472);
 	assert.equal(stepOf('accept', 631), dunModr, 'accept 631 on the Dun Modr stop');
-	// Spark of Freedom is the group's step right after the camp (#1313), the Heart of Modr after that.
-	for (const [t, q] of [['accept', 87491], ['turnin', 87491]]) assert.equal(stepOf(t, q), dunModr + 1, `${t} ${q} right after the camp`);
-	assert.ok(list.some(({ goal, s }) => s === dunModr + 2 && goal.t === 'collect' && goal.item === 280396), 'the Heart of Modr right after it (a group step since the final review)');
+	// Motley's and Ashlan's group accepts come right after the camp (#3871), then Spark of Freedom (#1313), then the
+	// Heart of Modr.
+	for (const [t, q] of [['accept', 87491], ['turnin', 87491]]) assert.equal(stepOf(t, q), dunModr + 3, `${t} ${q} right after the camp's accepts`);
+	assert.ok(list.some(({ goal, s }) => s === dunModr + 4 && goal.t === 'collect' && goal.item === 280396), 'the Heart of Modr right after it (a group step since the final review)');
 	// #1319: the crossing is the Cache of Explosives (MacKreel's Moonshine moved to the Arathi guide).
 	const span = list[at(list, 'interact 2704 quest 633.1', (g) => g.t === 'interact' && g.quest === 633)].s;
 	assert.ok(stepOf('turnin', 631) > dunModr && stepOf('turnin', 631) < span, 'Ebenezer between Dun Modr and the span');
@@ -18133,6 +18134,24 @@ test('#2587: Wetlands (Alliance): The Dark Iron War and Bring Back a Bang are gr
 		assert.ok(at(list, `accept ${q}`, is('accept', q)) < span, `${q}: before the Thandol Span`);
 	}
 	assert.ok(at(list, 'collect the explosives', (g) => g.t === 'collect' && g.quest === 88756) < span, 'Direforge Hill before the Thandol Span');
+});
+
+// #3871 (Merkanex, 0.4.2, Alliance Wetlands): Motley's The Dark Iron War and Ashlan's Bring Back a Bang were asked after
+// Spark of Freedom's escort and the Heart of Modr, so the Dark Irons a group killed in the ruins on the escort counted for
+// nothing. Both givers stand beside Rhag: their accepts come right after the camp, before the escort and Modr.
+test('#3871: Wetlands (Alliance): The Dark Iron War and Bring Back a Bang are taken before the Dun Modr escort', { skip }, () => {
+	const list = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
+	const camp = list[at(list, 'turnin 472', is('turnin', 472))].s;
+	const escort = at(list, 'accept 87491', is('accept', 87491));
+	const modr = at(list, 'collect the Heart of Modr', (g) => g.t === 'collect' && g.item === 280396);
+	const kills = at(list, 'the first Dark Iron kill', (g) => g.t === 'kill' && g.quest === 303);
+	for (const q of [303, 88756]) {
+		const i = at(list, `accept ${q}`, is('accept', q));
+		assert.ok(list[i].s <= camp + 2, `${q}: taken on arrival at the camp`);
+		assert.ok(i < escort, `${q}: taken before the escort`);
+		assert.ok(i < modr, `${q}: taken before the Heart of Modr`);
+		assert.ok(i < kills, `${q}: taken before the Dark Iron kills`);
+	}
 });
 
 // #2822 (swork1, 0.4.0.1, Alliance Wetlands): Howin Kindfeather's Death to the Dragonmaw was never in the guide. Its 16

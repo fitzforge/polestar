@@ -76,6 +76,33 @@ test('Damp Note requires The Essence of Aku\'Mai on the recorded Priestess drop,
 	assert.notEqual(corrections.quests[6564]?.set?.pre?.includes(6563), true, 'accepting the root is enough; it is not a completion prerequisite');
 });
 
+// #3918 (Deadshot): a Gnome Mage held Forever's An Earnest Proposition 84149 while the Lookup guide for the chain
+// waited for the Classic 8907, since 8922 did not follow 84149 and the data gave it no class or objectives. Every
+// version players' quest logs held or Deliana and Mokvar offered (game build 70959) is one of A Supernatural Device's
+// prerequisites on its side, for its class, with the side's samples and the class's bracers, given and taken back by
+// the side's giver.
+test('A Supernatural Device follows every recorded class version of An Earnest Proposition (#3918, #3081)', () => {
+	const SAMPLE = { 8922: 21928, 8923: 22381 };
+	const GIVER = { 8922: 230319, 8923: 230317 };
+	const versions = [
+		[84149, 8922, 128, 16683], // Mage: Magister's Bindings
+		[84150, 8922, 2, 16722], // Paladin: Lightforge Bracers
+		[84152, 8922, 8, 16710], // Rogue: Shadowcraft Bracers
+		[84160, 8923, 64, 16671], // Shaman: Bindings of Elements
+		[84161, 8923, 256, 16703], // Warlock: Dreadmist Bracers
+		[97411, 8923, 2, 16722], // Paladin (Horde): Lightforge Bracers
+	];
+	for (const [id, device, cls, bracers] of versions) {
+		assert.ok(corrections.quests[device].set.preAny.includes(id), `${device} follows ${id}`);
+		const { set, remove } = corrections.quests[id];
+		assert.ok(!remove, `${id} stays in the data`);
+		assert.equal(set.classes, cls, `${id}'s class`);
+		assert.equal(set.next, device, `${id} leads to ${device}`);
+		assert.deepEqual(set.objectives.map((o) => [o.id, o.count]), [[SAMPLE[device], 15], [bracers, 1]], `${id}'s objectives`);
+		for (const end of [set.start, set.end].filter(Boolean)) assert.deepEqual(end.npc, [GIVER[device]], `${id} at its side's giver`);
+	}
+});
+
 test('the overlay takes mechanics flat or under quests; mechanics 603 and 1064 stay private', () => {
 	const out = overlayCorrections({ mechanics: {} }, { mechanics: { quests: { 603: { note: 'nested' } }, 1064: { note: 'flat' } } });
 	assert.deepEqual(Object.keys(out.mechanics).sort(), ['1064', '603']);

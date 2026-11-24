@@ -5954,6 +5954,22 @@ do
 					},
 				},
 				{
+					title = "{npc:1074}",
+					note = "{quest:303} is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone.",
+					when = { { k = "group", q = 303 } },
+					goals = {
+						{ t = "accept", quest = 303, title = "The Dark Iron War", npc = 1074, npcName = "Motley Garmason", minLevel = 22, qlvl = 30, map = 1437, x = 49.57, y = 18.14, z = 80.2, note = "{npc:1074}, in the camp" },
+					},
+				},
+				{
+					title = "{npc:1073}",
+					note = "{quest:88756} is a group quest: the {item:280806} lie in the {object:147516} camp on {area:1016}, south-east of {area:205}, among the same elite dwarves. Skip it if you are alone.",
+					when = { { k = "group", q = 88756 } },
+					goals = {
+						{ t = "accept", quest = 88756, title = "Bring Back a Bang", npc = 1073, npcName = "Ashlan Stonesmirk", minLevel = 25, qlvl = 31, map = 1437, x = 49.95, y = 18.26, z = 80.5, note = "{npc:1073}, in the camp" },
+					},
+				},
+				{
 					title = "{npc:271481}",
 					note = "These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone.",
 					when = { { k = "group", q = 87491 } },
@@ -5969,22 +5985,6 @@ do
 					when = { { k = "group", q = 98310 } },
 					goals = {
 						{ t = "collect", quest = 98310, title = "Gleaning Our Future", item = 280396, itemName = "Heart of Modr", count = 1, oi = 2, map = 1437, x = 50.14, y = 18.22, f = "e", spotsPacked = "50.7,18.9,,40,7;51.51,17.18,,15,2;50.9,21.3,,40,5;51.1,23.5,,48,8;49.4,27.3,,40,2;49.5,34.4,,40,1;49.7,37.1,,40,1;49.1,39.8,,40,2;51.8,40.3,,40,1;48.6,16.9,,86,10;51.2,8.2,,40,1", spread = true, lvl = 32, from = "Modr", fromKind = "npc", fromRank = 1, fromId = 271460, fromNpcs = { { npc = 271460, npcName = "Modr" } }, group = { kind = "elite", lvl = 32, rank = 1 } },
-					},
-				},
-				{
-					title = "{npc:1074}",
-					note = "{quest:303} is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone.",
-					when = { { k = "group", q = 303 } },
-					goals = {
-						{ t = "accept", quest = 303, title = "The Dark Iron War", npc = 1074, npcName = "Motley Garmason", minLevel = 22, qlvl = 30, map = 1437, x = 49.57, y = 18.14, z = 80.2, note = "{npc:1074}, in the camp" },
-					},
-				},
-				{
-					title = "{npc:1073}",
-					note = "{quest:88756} is a group quest: the {item:280806} lie in the {object:147516} camp on {area:1016}, south-east of {area:205}, among the same elite dwarves. Skip it if you are alone.",
-					when = { { k = "group", q = 88756 } },
-					goals = {
-						{ t = "accept", quest = 88756, title = "Bring Back a Bang", npc = 1073, npcName = "Ashlan Stonesmirk", minLevel = 25, qlvl = 31, map = 1437, x = 49.95, y = 18.26, z = 80.5, note = "{npc:1073}, in the camp" },
 					},
 				},
 				{
