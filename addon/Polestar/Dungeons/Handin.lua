@@ -136,6 +136,47 @@ local function carried(rec)
 	return true
 end
 
+-- The client's quest-log lines of quest record `rec`'s objectives `objs`, as
+-- { [oi] = line }: the line labelled with the objective's words (its text, or
+-- its item's, NPC's or object's name in the client's language: Polestar.Names)
+-- first, else the one at the objective's place when free, else the first free
+-- one. The client need not list them in the Codex's order (#3703: Rot and
+-- Regret's open "Woodwyrd extinguished" line read as its vial's, done, by
+-- place alone, left the quest out of Maraudon's hand-in guide). extra: true
+-- when a line no objective takes is open (the Codex does not know it).
+local LINE_NAME = { item = "Item", kill = "Npc", talk = "Npc", object = "Object" }
+local function linesOf(objs, lines)
+	local bound = {}
+	if not lines then return bound, false end
+	local label, N = ns.Compat.ObjectiveLabel, ns.Names
+	local taken = {}
+	for oi, o in ipairs(objs) do
+		local kind = LINE_NAME[o.type]
+		local name = kind and o.id and N and N[kind] and N[kind](o.id) or nil
+		for k = 1, #lines do
+			local l = not taken[k] and label(lines[k].text) or ""
+			if l ~= "" and (l == o.text or l == name) then
+				bound[oi], taken[k] = lines[k], true
+				break
+			end
+		end
+	end
+	for oi = 1, #objs do
+		if not bound[oi] then
+			local k = lines[oi] and not taken[oi] and oi or nil
+			for j = 1, #lines do
+				if k then break end
+				if not taken[j] then k = j end
+			end
+			if k then bound[oi], taken[k] = lines[k], true end
+		end
+	end
+	for k = 1, #lines do
+		if not taken[k] and not lines[k].finished then return bound, true end
+	end
+	return bound, false
+end
+
 -- The talks left before quest `id` can be handed in: its open quest-log
 -- lines when each is a talk objective of the Codex quest at an NPC with a
 -- place this character may speak to (Lookup.QuestEnd), or an event the Codex
@@ -144,15 +185,18 @@ end
 -- points with the line's `oi` (an event's: kind "event", its text as the
 -- name); nil when a line is anything else (a kill, an item, an unplaced
 -- event, one the Codex does not know) or none is open. The client's lines
--- decide which are open; without them, every line of the Codex quest is.
+-- decide which are open (each read as linesOf binds it to its objective);
+-- without them, every line of the Codex quest is.
 local function talksLeft(id, rec, from, p)
 	local objs = rec and rec.objectives
 	if type(objs) ~= "table" or #objs == 0 then return nil end
 	local lines = ns.Compat.GetQuestObjectives(id)
+	local bound, extra = linesOf(objs, lines)
+	if extra then return nil end
 	local Lk, out = LK(), {}
 	local endC
-	for oi = 1, math.max(#objs, lines and #lines or 0) do
-		local line = lines and lines[oi]
+	for oi = 1, #objs do
+		local line = bound[oi]
 		if not (line and line.finished) then
 			local o = objs[oi]
 			if o and o.type == "talk" and o.id then
