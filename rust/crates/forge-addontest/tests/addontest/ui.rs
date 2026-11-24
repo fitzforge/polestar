@@ -3073,21 +3073,23 @@ fn the_training_banner_says_how_many_steps_ahead_the_guide_trains_the_class_or_t
 		GF.Layout()
 		emit({ ahead = ahead, untitled = untitled, none = B.Text:GetText() })"#)
 	.remove(0);
-	let first = "Level 12  \u{b7}  new Warrior skills  \u{b7}  Ander Germaine, Stormwind City";
+	let first = "Level 12  \u{b7}  new Warrior skills";
 	assert_eq!(
 		out,
 		json!({
 			"ahead": format!("{first}\nThe guide trains you in 14 steps (Thunderbrew Distillery)."),
 			"untitled": format!("{first}\nThe guide trains you in 12 steps."),
-			"none": format!("{first}\nThe guide has no class training ahead."),
+			"none": format!("{first}  \u{b7}  Ander Germaine, Stormwind City\nThe guide has no class training ahead."),
 		})
 	);
 }
 
 // A level-18 Tauren at the Crossroads was told "Jen'shan, Durotar" while the guide trains in Orgrimmar in 10
-// steps: with the guide's own stop within 10 steps the banner names that and no other trainer, and has no Show.
+// steps, and a Gnome Warlock in Darkshore "Strahad Farsan, Ratchet" while the guide trains him in Ironforge after
+// the Wetlands (#2843): with the guide's own stop ahead, however far, the banner names that and no other trainer,
+// and has no Show. With none ahead, the planner's pick, live, over the notice's.
 #[test]
-fn with_the_guide_s_training_stop_within_10_steps_the_banner_names_it_and_no_other_trainer() {
+fn with_the_guide_s_training_stop_ahead_the_banner_names_it_and_no_other_trainer_2843() {
 	let out = run(r#"
 		uistub.openTabs(TABS, 1)
 		local B = GF.parts.banner
@@ -3099,18 +3101,21 @@ fn with_the_guide_s_training_stop_within_10_steps_the_banner_names_it_and_no_oth
 		uistub.trainStop = { 1, "Orgrimmar" }
 		GF.Layout()
 		local here = seen()
-		-- 11 steps: the planner's pick, live, over the notice's.
-		uistub.trainStop = { 11, "Orgrimmar" }
+		uistub.trainStop = { 40, "Ironforge" }
+		GF.Layout()
+		local later = seen()
+		uistub.trainStop = { false }
 		uistub.plannerTrainer = { npc = 3171, npcName = "Thotar", map = 1411, x = 51.8, y = 43.5 }
 		GF.Layout()
-		local far = seen()
+		local none = seen()
 		B.Jump:Click()
-		emit({ near = near, here = here, far = far, target = lastCall("SetTarget") })"#)
+		emit({ near = near, here = here, later = later, none = none, target = lastCall("SetTarget") })"#)
 	.remove(0);
 	let head = "Level 18  \u{b7}  new Warrior skills";
 	assert_eq!(out["near"], json!({ "text": format!("{head}\nThe guide trains you in 10 steps (Orgrimmar)."), "show": false, "later": true }));
 	assert_eq!(out["here"], json!({ "text": format!("{head}\nYour guide's current step trains you."), "show": false, "later": true }));
-	assert_eq!(out["far"], json!({ "text": format!("{head}  \u{b7}  Thotar, Durotar\nThe guide trains you in 11 steps (Orgrimmar)."), "show": true, "later": true }));
+	assert_eq!(out["later"], json!({ "text": format!("{head}\nThe guide trains you in 40 steps (Ironforge)."), "show": false, "later": true }));
+	assert_eq!(out["none"], json!({ "text": format!("{head}  \u{b7}  Thotar, Durotar\nThe guide has no class training ahead."), "show": true, "later": true }));
 	assert_eq!(out["target"], json!(["SetTarget", 1411, 51.8, 43.5, "Thotar"]));
 }
 

@@ -348,6 +348,8 @@ L["A guide later on your route takes this quest here: taken now, its step is don
 -- L["%s. Optional: the route doesn't need it."] = ""
 -- L["Kept for %s"] = ""
 -- L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = ""
+-- L["A quest you carry that the route does not work here: its work is nearby."] = ""
+-- L["%s at %s"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "選擇一項獎勵以完成繳交。"
@@ -713,6 +715,8 @@ L["Airship to %s"] = "前往 %s 的飛艇"
 -- Quests/Tracker.lua
 L["Done"] = "已完成"
 L["Not done"] = "未完成"
+-- L["Hand-ins"] = ""
+-- L["Objectives"] = ""
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "開始一個任務"
@@ -790,7 +794,6 @@ L["%s: 1 step ahead"] = "%s：領先 1 步"
 L["%s: %d steps ahead"] = "%s：領先 %d 步"
 L["%s: 1 step behind"] = "%s：落後 1 步"
 L["%s: %d steps behind"] = "%s：落後 %d 步"
-L["%s: on this step"] = "%s：在此步驟"
 L["Still at it: %s"] = "仍在進行：%s"
 L["already done"] = "已完成"
 L["quest log full"] = "任務日誌已滿"
@@ -851,6 +854,7 @@ L["%s is on Polestar %s: your guides can differ."] = "%s 使用的是 Polestar %
 L["Party sync is on: you and your party see each other's quest progress. Turn it off in Settings."] = "隊伍同步已開啟：你和隊友可以看到彼此的任務進度。可在「設定」中關閉。"
 L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = "每次登入最多傳送 10 則隱藏的插件密語，對象是你在主城、戰鬥和地城之外選取或滑鼠指向的同陣營玩家，並回覆他們的詢問：只包含版本號，讓 Polestar 能在有新版本時告訴你。關閉：不傳送也不回覆。"
 L["You asked a moment ago: wait 1 second."] = "你剛才已詢問過：請等待 1 秒。"
+-- L["With %s"] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "大幅提升"
@@ -3387,6 +3391,7 @@ L["The licence differs from the stored guide's."] = "授權條款與已儲存指
 
 -- Nav/Pins.lua
 L["Polestar trail dots"] = "Polestar 路徑圓點"
+-- L["Click to open the zone's map"] = ""
 
 -- UI/LineStyle.lua
 L["Dots"] = "圓點"
@@ -5500,3 +5505,4 @@ L["%d of %d"] = "%d / %d"
 -- L["Expect about %d minutes of extra grinding, or start there."] = "預計需要額外練等約 %d 分鐘，或者從那裡開始。"
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "視窗最多能長到多高，以螢幕高度的比例計。較長的步驟可捲動查看。"
 -- L["Max height"] = "最大高度"
+-- L["%s: on this step"] = "%s：在此步驟"

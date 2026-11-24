@@ -348,6 +348,8 @@ L["A guide later on your route takes this quest here: taken now, its step is don
 -- L["%s. Optional: the route doesn't need it."] = ""
 -- L["Kept for %s"] = ""
 -- L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = ""
+-- L["A quest you carry that the route does not work here: its work is nearby."] = ""
+-- L["%s at %s"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "보상을 선택해 제출을 마치십시오."
@@ -713,6 +715,8 @@ L["Airship to %s"] = "%s행 비행선"
 -- Quests/Tracker.lua
 L["Done"] = "완료"
 L["Not done"] = "미완료"
+-- L["Hand-ins"] = ""
+-- L["Objectives"] = ""
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "퀘스트 시작"
@@ -790,7 +794,6 @@ L["%s: 1 step ahead"] = "%s: 1단계 앞"
 L["%s: %d steps ahead"] = "%s: %d단계 앞"
 L["%s: 1 step behind"] = "%s: 1단계 뒤"
 L["%s: %d steps behind"] = "%s: %d단계 뒤"
-L["%s: on this step"] = "%s: 같은 단계"
 L["Still at it: %s"] = "아직 진행 중: %s"
 L["already done"] = "이미 완료함"
 L["quest log full"] = "퀘스트 목록 가득 참"
@@ -851,6 +854,7 @@ L["%s is on Polestar %s: your guides can differ."] = "%s 님은 Polestar %s 버�
 L["Party sync is on: you and your party see each other's quest progress. Turn it off in Settings."] = "파티 동기화가 켜져 있습니다. 나와 파티원이 서로의 퀘스트 진행 상황을 봅니다. 설정에서 끌 수 있습니다."
 L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = "도시, 전투, 던전 밖에서 대상으로 지정하거나 마우스를 올린 같은 진영 플레이어에게 접속당 최대 10번 숨겨진 애드온 귓속말을 보내고, 그들의 귓속말에 답합니다. 버전 번호만 주고받으므로 Polestar가 새 버전이 나왔을 때 알려 줄 수 있습니다. 끄면 보내지도 답하지도 않습니다."
 L["You asked a moment ago: wait 1 second."] = "방금 요청했습니다: 1초 기다리십시오."
+-- L["With %s"] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "큰 향상"
@@ -3387,6 +3391,7 @@ L["The licence differs from the stored guide's."] = "라이선스가 저장된 �
 
 -- Nav/Pins.lua
 L["Polestar trail dots"] = "Polestar 경로 점"
+-- L["Click to open the zone's map"] = ""
 
 -- UI/LineStyle.lua
 L["Dots"] = "점"
@@ -5500,3 +5505,4 @@ L["%d of %d"] = "%d / %d"
 -- L["Expect about %d minutes of extra grinding, or start there."] = "약 %d분 더 사냥해야 합니다. 아니면 거기서 시작하십시오."
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "창이 커질 수 있는 높이(화면 대비 비율). 더 긴 단계는 스크롤됩니다."
 -- L["Max height"] = "최대 높이"
+-- L["%s: on this step"] = "%s: 같은 단계"
