@@ -14452,7 +14452,7 @@ do
 					title = "{npc:5955}",
 					note = "{npc:5955}, a little turtle, wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Leave the Thistleshrubs (48-50) alone.",
 					goals = {
-						{ t = "accept", quest = 1560, title = "Tooga's Quest", npc = 5955, npcName = "Tooga", minLevel = 40, qlvl = 50, limit = 1800, map = 1446, x = 28.59, y = 67.38, f = "e", spotsPacked = "28.59,67.38,,30;30.23,70.7,,30;29.8,73.9,,30;30.31,64.56,,30;29.47,60.44,,30", spread = true, escort = true },
+						{ t = "accept", quest = 1560, title = "Tooga's Quest", npc = 5955, npcName = "Tooga", minLevel = 40, qlvl = 50, limit = 1800, map = 1446, x = 28.59, y = 67.38, f = "e", spotsPacked = "28.59,67.38,,30;30.23,70.7,,30;29.8,73.9,,30;30.31,64.56,,30;29.47,60.44,,30", spread = true, escort = true, escortSecs = 606, escortFail = 0.11 },
 					},
 				},
 				{
@@ -16017,7 +16017,7 @@ do
 					note = "Ride east again to the foot of {area:537}: {npc:9999} sits on its eastern slope, lost and exhausted.",
 					goals = {
 						{ t = "turnin", quest = 4492, title = "Lost!", npc = 9999, npcName = "Ringo", map = 1449, x = 51.84, y = 49.92, z = -231.4 },
-						{ t = "accept", quest = 4491, title = "A Little Help From My Friends", npc = 9999, npcName = "Ringo", minLevel = 50, qlvl = 55, limit = 1500, pre = { 4492 }, preTitles = { [4492] = "Lost!" }, map = 1449, x = 51.84, y = 49.92, z = -231.4, escort = true },
+						{ t = "accept", quest = 4491, title = "A Little Help From My Friends", npc = 9999, npcName = "Ringo", minLevel = 50, qlvl = 55, limit = 1500, pre = { 4492 }, preTitles = { [4492] = "Lost!" }, map = 1449, x = 51.84, y = 49.92, z = -231.4, escort = true, escortSecs = 269, escortFail = 0.17 },
 					},
 				},
 				{
@@ -18787,7 +18787,7 @@ do
 					when = { { k = "onquest", q = { 4492 } } },
 					goals = {
 						{ t = "turnin", quest = 4492, title = "Lost!", npc = 9999, npcName = "Ringo", map = 1449, x = 51.84, y = 49.92, z = -231.4, note = "Below ground" },
-						{ t = "accept", quest = 4491, title = "A Little Help From My Friends", npc = 9999, npcName = "Ringo", minLevel = 50, qlvl = 55, limit = 1500, pre = { 4492 }, preTitles = { [4492] = "Lost!" }, map = 1449, x = 51.84, y = 49.92, z = -231.4, escort = true },
+						{ t = "accept", quest = 4491, title = "A Little Help From My Friends", npc = 9999, npcName = "Ringo", minLevel = 50, qlvl = 55, limit = 1500, pre = { 4492 }, preTitles = { [4492] = "Lost!" }, map = 1449, x = 51.84, y = 49.92, z = -231.4, escort = true, escortSecs = 269, escortFail = 0.17 },
 					},
 				},
 				{

@@ -1343,6 +1343,22 @@ of the escort after it). There is no modifier: a wrong label is a data fix.
 While you're here never offers an escort's accept ahead of its own step
 ("Take X: saves a trip back"): the NPC walks off the moment it is taken.
 
+An escort is the player's choice (#3439). A required `accept` of an escort
+quest asks at its step as a group quest does (`when group`): the guide window
+says how long players' runs of it take and how often they fail ("Escort,
+about 12 min; 1 in 3 runs fails. Optional: the route doesn't need it."), with
+Skip it (the default) and Do it. The answer is kept per character and quest
+with the group answers, Options lists it with the group quests, and "Group
+quests" in Options, Guide, Automation answers it too. Skipped, the quest's
+accept, work and hand-in are out of the route and of its level sums, with no
+"left out" line. The compiler writes the time and the failures on the accept
+(`escortSecs`, the median seconds a completed run takes; `escortFail`, the
+share of runs that failed) from `data/recorded/escorts.json` (`forge record
+learn`, docs/forge/learn.md), only from three or more counted players; without
+them the line says "Escort." alone. A step that asks about the quest itself
+(`when group <quest>` or `when !group <quest>`) keeps the author's choice, and
+an `optional` accept asks nothing.
+
 ## Quests carried to a later guide
 
 A quest worked in one guide and handed in only in a later guide of its chain

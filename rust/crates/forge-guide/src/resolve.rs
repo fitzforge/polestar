@@ -4042,6 +4042,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 	}
 	set_if(&goal, "group", crate::group::group_of(&goal, &g.get("group"), &ctx.sides, data));
 	set_if(&goal, "escort", crate::escort::escort_of(&goal, data));
+	let (secs, fail) = crate::escort::recorded_of(&goal, data);
+	set_if(&goal, "escortSecs", secs);
+	set_if(&goal, "escortFail", fail);
 	set_if(&goal, "only", only_of(&g.get("only")));
 	set_if(&goal, "note", g.get("note"));
 	set_if(&goal, "spots", crate::walks::walk_spot(data, &goal).unwrap_or_default());
