@@ -17,7 +17,7 @@ use std::{collections::BTreeMap, fs, io::Read, path::Path};
 const MANIFEST: &str = "Polestar_Nav/PACK.json";
 // The reviewed pack: forge nav pack with joins.json's four joins of #3098, #3618, #3495 and #3581 (Nav0_20 and
 // Nav0_21 unchanged from the 0.4.2 pack bcbe88bb), the 0.4.2 pack's appended layers kept.
-const SOURCE: &str = "a1beba9cca42d8775daa6727652e7dfa14ae9cd8073a70ec0afd0a228ce2d9e3";
+const SOURCE: &str = "7c230fe71aeb5171f363c34c452b2eb4b28b1f47664528ab739c713fe9bec6b3";
 const PARTS: [&str; 2] = ["Polestar_Nav_EK/Nav0_20.lua", "Polestar_Nav_EK/Nav0_21.lua"];
 const CLUSTER: usize = 471;
 const CELL: usize = 15594;

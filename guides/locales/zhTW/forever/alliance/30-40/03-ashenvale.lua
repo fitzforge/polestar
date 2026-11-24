@@ -162,6 +162,7 @@ return {
 
 	-- Step 27: Ratchet
 	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay · {npc:3391} Gazlowe · {quest:1111} Wharfmaster Dizzywig
+	-- was: ["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "從塞拉摩沿路向西北穿過沼澤進入{zone:1413}，再沿海岸北上到{area:392}：荊棘谷從海對面的{area:35}開始。{area:392}的獅鷲管理員站在碼頭上方。"
 	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock; {npc:3391} is upstairs in the house above it; {quest:1111} waits on the dock by the boat."] = "",
 	-- {npc:3391} Gazlowe · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	["{npc:3391}: for {npc:4631}, on {area:35}'s dock where the boat lands"] = "",
@@ -180,9 +181,11 @@ return {
 	-- ["Back west along the road to the satyr camps of {area:429}."] = "沿著道路向西回到{area:429}的薩特營地。",
 	-- ["Boat to {area:150}"] = "搭船前往{area:150}",
 	-- ["Dartol's Rod"] = "達圖爾的變形魔棒",
+	-- ["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills."] = "乘{area:485}下到{zone:1441}，再向西前往{area:482}的雙足飛龍懸崖。那裡所有雙足飛龍都可能掉落毒囊。小心：在平臺上等升降梯與平臺齊平後再踏上去，並一直站到它停下；旁邊的落差會摔死人。",
 	-- ["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "沿著道路向東前往{area:429}的薩特營地；{npc:3920}躲在營地邊緣。",
 	-- ["Follow the road west out of Theramore to the burned inn on the road toward the {zone:1413}: the black shield lies in the ashes and the hoofprints are in the mud beside the inn."] = "從塞拉摩沿路向西，到通往{zone:1413}路上的燒燬旅店：黑盾躺在灰燼裡，蹄印在旅店旁的泥地裡。",
 	-- ["Follow the road west out of {area:415}; {area:413} lies north of it."] = "沿著道路向西離開{area:415}；{area:413}在道路北邊。",
+	-- ["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "從塞拉摩沿路向西北穿過沼澤進入{zone:1413}，再沿海岸北上到{area:392}：荊棘谷從海對面的{area:35}開始。{area:392}的獅鷲管理員站在碼頭上方。",
 	-- ["From {area:608}"] = "從{area:608}出發",
 	-- ["Geltharis"] = "加薩里斯",
 	-- ["Insane druids"] = "發狂的德魯伊",

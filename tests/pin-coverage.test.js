@@ -47,6 +47,22 @@ test('fixed means closed as completed, without a label saying nothing changed', 
 	);
 });
 
+// #3625: a stale report closed as completed because an earlier release fixed it failed the next release's gate
+// (#3566, #3611, #3173). Closed with that release's `released:v<X>` label, it is that release's fix, pinned at
+// its gates; a fix of the release being gated (labelled after it ships) and a Client release's label still count.
+test('a fix labelled with a release out already is not this release\'s to pin', () => {
+	const closed = [
+		{ number: 1, title: 'older', stateReason: 'COMPLETED', labels: [{ name: 'bug' }, { name: 'released:v0.4.1.1' }] },
+		{ number: 2, title: 'the last one', stateReason: 'COMPLETED', labels: ['released:v0.4.2.2'] },
+		{ number: 3, title: 'this release', stateReason: 'COMPLETED', labels: [{ name: 'released:v0.4.3' }] },
+		{ number: 4, title: 'client', stateReason: 'COMPLETED', labels: [{ name: 'released:client-v0.1.6' }] },
+		{ number: 5, title: 'no label', stateReason: 'COMPLETED', labels: [] },
+		{ number: 6, title: 'short tag', stateReason: 'COMPLETED', labels: [{ name: 'released:v0.4.2' }] },
+	];
+	assert.deepEqual(fixedIssues(closed, '0.4.2.2').map((i) => i.number), [3, 4, 5]);
+	assert.deepEqual(fixedIssues(closed).map((i) => i.number), [1, 2, 3, 4, 5, 6], 'no version: every completed fix');
+});
+
 test('a new unpinned fix or a dead record fails; a known one passes; one closed since is named', () => {
 	const fixed = [
 		{ number: 10, title: 'known' },

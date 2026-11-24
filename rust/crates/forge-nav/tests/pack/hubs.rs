@@ -4,7 +4,7 @@
 
 use super::golden_dir;
 use forge_nav::grid::{cell_of, Grid};
-use forge_nav::hubs::{add_forever, build_hubs, csv_rows, forever_flags, guard_name, hubs_doc, role_of, Hostility, HubsIn};
+use forge_nav::hubs::{add_forever, build_hubs, csv_rows, forever_flags, forever_sides, guard_name, hubs_doc, role_of, Hostility, HubsIn};
 use forge_nav::pack::layers::Frames;
 use serde_json::{json, Value};
 
@@ -106,7 +106,11 @@ fn issue_1961_forever_npcs_classic_db_lacks_join_the_hubs_kirin_tor_guards_make_
 	assert_eq!((flags[&900001], flags[&900002], flags[&900003], flags[&900004]), (0x4 | 0x2, 0x4 | 0x4000, 0x10, 0x2), "roles and quests as NpcFlags");
 	let mut templates = json!({ "2": { "name": "Classic Guard", "faction": 85, "npcFlags": 0, "extraFlags": 0x400, "rank": 0, "minLevel": 60 } });
 	let mut spawns = json!({ "2": [[1, 100.0, 100.0, 5.0]] });
-	assert_eq!(add_forever(&mut templates, &mut spawns, &npcs, &spawn_rows, &flags), 6, "the two Kirin Tor NPCs and the camp's four; not the one classic-db has, nor one without a faction");
+	assert_eq!(
+		add_forever(&mut templates, &mut spawns, &npcs, &spawn_rows, &flags, &Default::default()),
+		6,
+		"the two Kirin Tor NPCs and the camp's four; not the one classic-db has, nor one without a faction"
+	);
 	assert_eq!(templates["246848"], json!({ "name": "Kirin Tor Guard", "faction": 3681, "npcFlags": 0, "extraFlags": 0, "rank": 0, "minLevel": 55 }));
 	assert_eq!(spawns["246848"], json!([[0, -27.5, 33.0], [0, -12.0, 80.0]]), "its NPC spawns, not an object's");
 	assert_eq!(spawns["2"], json!([[1, 100.0, 100.0, 5.0]]), "classic-db's own spawns stay");
@@ -124,6 +128,36 @@ fn issue_1961_forever_npcs_classic_db_lacks_join_the_hubs_kirin_tor_guards_make_
 	let camp: Vec<&Value> = hubs.iter().filter(|h| h["side"] == "Horde" && h["disks"][0][0] == 2000).collect();
 	assert_eq!(camp.len(), 1, "four Forever service NPCs of the Horde are a hub: {hubs:?}");
 	assert_eq!(camp[0]["services"], 4);
+}
+
+// #3830: Riverglades' Rog'mar (Horde) and Farholde Keep (Alliance) were no hubs: their NPCs have no faction template in
+// forever-db. The codex's friendliness (npcs.json `faction`, one side only) gives their side; friendly to both or
+// neither stays out.
+#[test]
+fn issue_3830_forever_npcs_without_a_faction_template_take_the_codex_side_rogmar_and_farholde_keep_are_hubs() {
+	let head = "ID,Faction,FactionGroup,EnemyGroup,Enemies_0,Friend_0\n";
+	let rows = "1,1,3,12,0,0\n3,3,3,12,0,0\n4,4,3,12,0,0\n115,115,3,12,0,0\n2,2,5,10,0,0\n5,5,5,10,0,0\n6,6,5,10,0,0\n116,116,5,10,0,0\n";
+	let factions = csv_rows(&format!("{head}{rows}"));
+	let areas = csv_rows("ID,AreaName_lang,ParentAreaID,Flags_0\n16591,Riverglades,0,0\n16600,Rog'mar,16591,0\n16601,Farholde Keep,16591,0\n");
+	let npcs: Vec<Value> = [
+		json!({ "id": 255996, "name": "Rog'mar Grunt", "level_min": 55, "rank": 0 }),
+		json!({ "id": 257080, "name": "Cavalry Guard", "level_min": 42, "rank": 0 }),
+		json!({ "id": 255894, "name": "Innkeeper Zizplink", "level_min": 40, "rank": 0 }),
+		json!({ "id": 900010, "name": "Neutral Guard", "level_min": 40, "rank": 0 }),
+	]
+	.into();
+	let spawn = |id: u64, x: f64, y: f64| json!({ "id": id, "kind": "npc", "map": 0, "x": x, "y": y });
+	let spawn_rows = vec![spawn(255996, -8087.0, -4805.0), spawn(257080, -9090.0, -4897.0), spawn(255894, -8212.0, -5712.0), spawn(900010, -8500.0, -5000.0)];
+	let codex = json!({ "255996": { "faction": "H" }, "257080": { "faction": "A" }, "255894": { "faction": "AH", "roles": ["innkeeper"] }, "900010": {} });
+	let sides = forever_sides(&codex);
+	assert_eq!((sides.get(&255996), sides.get(&257080), sides.get(&255894), sides.get(&900010)), (Some(&"Horde"), Some(&"Alliance"), None, None));
+	let (mut templates, mut spawns) = (json!({}), json!({}));
+	assert_eq!(add_forever(&mut templates, &mut spawns, &npcs, &spawn_rows, &forever_flags(&codex, &json!({})), &sides), 2, "the two one-sided NPCs; not the goblin innkeeper nor one with no side");
+	assert_eq!(templates["255996"]["side"], "Horde");
+	let area_at = |_: u32, x: f64, _: f64| if x > -8500.0 { 16600 } else { 16601 };
+	let out = build_hubs(&HubsIn { spawns: &spawns, templates: &templates, faction_templates: &factions, area_table: &areas, area_at: &area_at, zone_at: None, maps: &[0] }).unwrap();
+	let hubs: Vec<(&str, &str, u64)> = out[0].1.iter().map(|h| (h["side"].as_str().unwrap(), h["name"].as_str().unwrap(), h["guards"].as_u64().unwrap())).collect();
+	assert_eq!(hubs, [("Alliance", "Farholde Keep", 1), ("Horde", "Rog'mar", 1)]);
 }
 
 /// The hubs layer built for this checkout (<repo>/data/local/nav-layers/hubs.json), when there is one.

@@ -94,8 +94,7 @@ return {
 	["{zone:1434}: kill these as you meet them"] = "{zone:1434}：遇到就殺",
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent
-	-- was: ["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "荊棘谷猛虎（32級）在營地周圍及南邊的山丘上遊蕩，黑豹（32級）在營地西邊和西南邊的空地。帶著打磨過的水晶的風險投資公司地質學家（34-36級）在營地東南方{area:37}旁的營地工作。小心：風險投資公司特務（39級）站在風險投資公司房屋旁西側營地的地質學家之間：去東側營地打，避開他們。"
-	["Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "",
+	["Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "荊棘谷猛虎（32級）在營地西邊和東邊朝向湖邊的山丘上游蕩：箭頭帶你去東邊的，順路去找地質學家。黑豹（32級）在營地西邊和西南邊的空地上游蕩。風險投資公司地質學家（34-36級）帶著打磨過的水晶，在營地東南方{area:37}旁的營地中工作。小心：西邊靠近風險投資公司房子的營地裡，地質學家之間有風險投資公司特工（39級）：去東邊的營地，遠離他們。",
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Tumbled Crystals, from the geologists of the eastern camps"] = "打磨過的水晶，來自東側營地的地質學家",
 
@@ -118,7 +117,7 @@ return {
 	-- Step 18: Thoroughly Scavenged Supplies
 	-- {object:661516} Thoroughly Scavenged Supplies (no name in this language: may be words) · {quest:97328} Anything of Value · {area:102} Ruins of Zul'Kunda
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
-	["On the walk west from Nesingwary's camp, a pile of {object:661516} lies by the path: it starts {quest:97328}, whose Stolen Shipments lie in the {area:102} on the coast ahead."] = "從奈辛瓦里營地往西走時，路邊有一堆{object:661516}：它會開啟{quest:97328}，遭竊的貨物就在前方海岸的{area:102}。",
+	["On the walk west from Nesingwary's camp, a pile of {object:661516} lies by the path: it starts {quest:97328}, whose Stolen Shipments lie in the {area:102} on the coast ahead."] = "從奈辛瓦裏營地往西走時，路邊有一堆{object:661516}：它會開啟{quest:97328}，遭竊的貨物就在前方海岸的{area:102}。",
 
 	-- Step 19: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
@@ -187,9 +186,9 @@ return {
 	["Level 35"] = "35級",
 	-- {quest:629} The Vile Reef · {area:35} Booty Bay · {object:3202} Grom'gol
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter · Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger · Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{quest:629}'s and Zul'Kunda's quests are next, with Bloodscalp Headhunters of 36-37. Still below 35 after {area:35}'s hand-ins? The Elder Stranglethorn Tigers (34-35) roam the hills north of {object:3202}, below Nesingwary's camp: kill them until level 35. The Lashtail Raptors (35-36) beside them are a level higher."] = "接下來是{quest:629}和祖昆達的任務，血頂獵頭者是36-37級。繳交完{area:35}的任務後還不到35級？老年荊棘谷猛虎（34-35級）在{object:3202}北邊、奈辛瓦里營地下方的山丘上遊蕩：擊殺牠們直到35級。旁邊的鞭尾迅猛龍（35-36級）高一級。",
+	["{quest:629}'s and Zul'Kunda's quests are next, with Bloodscalp Headhunters of 36-37. Still below 35 after {area:35}'s hand-ins? The Elder Stranglethorn Tigers (34-35) roam the hills north of {object:3202}, below Nesingwary's camp: kill them until level 35. The Lashtail Raptors (35-36) beside them are a level higher."] = "接下來是{quest:629}和祖昆達的任務，血頂獵頭者是36-37級。繳交完{area:35}的任務後還不到35級？老年荊棘谷猛虎（34-35級）在{object:3202}北邊、奈辛瓦裏營地下方的山丘上遊蕩：擊殺牠們直到35級。旁邊的鞭尾迅猛龍（35-36級）高一級。",
 	-- {npc:1085} Elder Stranglethorn Tiger
-	["grind on {npc:1085}"] = "",
+	["grind on {npc:1085}"] = "刷{npc:1085}",
 
 	-- Step 29: The Vile Reef
 	-- {area:104} Vile Reef · {item:4094} Tablet Shard
@@ -233,7 +232,7 @@ return {
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "鉗嘴鱷魚",
 	-- {npc:1152} Snapjaw Crocolisk
-	["grind on {npc:1152}"] = "",
+	["grind on {npc:1152}"] = "刷{npc:1152}",
 
 	-- Step 36: Sin'Dall
 	-- {object:3202} Grom'gol · {npc:729} Sin'Dall
@@ -270,6 +269,6 @@ return {
 	-- ["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2497}：留給（forever/horde/40-50/01-stranglethorn-vale）",
 	-- ["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}. Then lead him out of the ruins: {npc:4631} in {area:35} takes the news and the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992}被關在{area:102}的東側邊緣；遭竊的貨物散落在他周圍的遺跡中。那裡的血頂斥候、獵手和秘法師（34-35級）身上帶著他的{item:277957}。然後帶他離開遺跡：{area:35}的{npc:4631}會接收消息和貨物。\n小心：血頂狂戰士、獵頭者（36-37級）和巫醫（37級，施法者）佔據著{npc:268992}北邊和西邊的遺跡，靠近北側的貨物（約24.9,9.6）：先撿{npc:268992}附近南側遺跡的貨物，如果要往北，一次只拉一隻。",
 	-- ["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}. Careful: Venture Co. Agents (39) stand in and around the house: clear the doorway before you go in."] = "{npc:4723}（38級）在{area:37}西岸的風險投資公司房屋內，周圍都是地質學家：他的鑰匙可以打開同一棟房屋裡的{object:20691}，裡面有給{npc:2496}的藍圖。小心：風險投資公司特工（39級）站在房屋內外：進去前先清掉門口。",
-	-- ["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}：{npc:729}（37級）留到下次造訪奈辛瓦里營地時再處理，大約40級，在forever/horde/40-50/01-stranglethorn-vale",
+	-- ["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}：{npc:729}（37級）留到下次造訪奈辛瓦裏營地時再處理，大約40級，在forever/horde/40-50/01-stranglethorn-vale",
 	-- ["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "{npc:773}失蹤的獵人營地就是奈辛瓦里的營地：在帳篷之間走一走，調查就會完成。淡水鱷沿著營地下方的河邊趴著。",
 }

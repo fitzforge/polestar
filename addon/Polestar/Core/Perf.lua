@@ -47,6 +47,7 @@ ns.Perf = Perf
 local SPIKE_MS = 2
 local FRAME_MS = 5
 local HITCH_MS = 50
+local BIG = 5
 local RING = 200
 local SAMPLE_EVERY = 5
 local TOP_K = 5
@@ -66,7 +67,10 @@ local clock
 local startedAt, stoppedAt
 local cost -- the probe's own cost per call, ms
 local stats, sites, calls
-local ring, ringHead, ringCount, spikes, slowFrames
+-- bigFrames: the BIG largest frames of HITCH_MS or more (Polestar's handlers, or the profiler's figure for Polestar
+-- and Polestar_Nav), largest first, kept whatever the ring drops (#3881: a 27-minute session's 826 ms frame had
+-- left the ring of the last RING spikes long before the report, so the report named none).
+local ring, ringHead, ringCount, spikes, slowFrames, bigFrames
 local hitches
 local depth, debt, childMs = 0, 0, {}
 -- This frame's handlers (the outermost ones) and its three slowest.
@@ -209,6 +213,16 @@ local function onFrame()
 		if lastKB and lastKB - kb >= 1024 then e.freedKB = lastKB - kb end
 		context(e)
 		push(e)
+		local size = max(fSum, (mine or 0) + (nav or 0))
+		if size >= HITCH_MS then
+			e.size = size
+			local i = #bigFrames + 1
+			while i > 1 and bigFrames[i - 1].size < size do i = i - 1 end
+			if i <= BIG then
+				table.insert(bigFrames, i, e)
+				bigFrames[BIG + 1] = nil
+			end
+		end
 	end
 	lastKB = kb
 	if #frameLoads > 0 then frameLoads = {} end
@@ -317,7 +331,7 @@ end
 
 local function reset()
 	stats, sites, calls = {}, setmetatable({}, { __mode = "k" }), 0
-	ring, ringHead, ringCount, spikes, slowFrames = {}, 0, 0, 0, 0
+	ring, ringHead, ringCount, spikes, slowFrames, bigFrames = {}, 0, 0, 0, 0, {}
 	hitches = { n = 0, ours = 0, worst = 0 }
 	base, last, overall, game, topPeak, topSlow = {}, {}, nil, nil, nil, nil
 	depth, debt = 0, 0
@@ -545,7 +559,7 @@ function Perf.ReportLines()
 	local out = { headLine() }
 	local w = worst(list, false)
 	if w then out[#out + 1] = "  worst call: " .. spikeText(w) end
-	local f = worst(list, true)
+	local f = bigFrames[1] or worst(list, true)
 	if f then out[#out + 1] = "  worst frame: " .. spikeText(f) end
 	local totals, parts = byTotal(), {}
 	for i = 1, math.min(3, #totals) do
@@ -596,6 +610,10 @@ function Perf.ReportText()
 			out[#out + 1] = fmt("  %s %s", duration(list[i].t), spikeText(list[i]))
 		end
 		if list[#list].guide then out[#out + 1] = "Guide at the last spike: " .. tostring(list[#list].guide) end
+	end
+	if #bigFrames > 0 then
+		out[#out + 1] = fmt("Largest frames (%d ms or more, largest first):", HITCH_MS)
+		for _, e in ipairs(bigFrames) do out[#out + 1] = fmt("  %s %s", duration(e.t), spikeText(e)) end
 	end
 	names = nil
 	return concat(out, "\n")

@@ -9,9 +9,9 @@ return {
 	-- Step 1: Bloodsail pirates
 	["Bloodsail pirates"] = "붉은해적단 해적",
 	-- {area:43} Wild Shore · {area:35} Booty Bay
-	["Every Bloodsail pirate on the Stranglethorn coast (level 39-45) can drop it, but only about once in 5,000 kills; the Swabbies on the ships off the southern tip, about once in 2,500. That is a grind of many hours, so most players kill pirates while doing something else there, or buy the cage on the Auction House. The waypoint is the Swashbucklers' and Warlocks' camp on the {area:43}, south of {area:35}. Every pirate kill also lowers your Bloodsail Buccaneers standing."] = "",
+	["Every Bloodsail pirate on the Stranglethorn coast (level 39-45) can drop it, but only about once in 5,000 kills; the Swabbies on the ships off the southern tip, about once in 2,500. That is a grind of many hours, so most players kill pirates while doing something else there, or buy the cage on the Auction House. The waypoint is the Swashbucklers' and Warlocks' camp on the {area:43}, south of {area:35}. Every pirate kill also lowers your Bloodsail Buccaneers standing."] = "스트랭글쏜 해안의 블러드세일 해적(39-45레벨)은 약 5,000회에 한 번 떨어뜨리고, 최남단 앞바다 배들의 갑판원은 약 2,500회에 한 번입니다. 몇 시간씩 걸리는 작업이니 대부분은 다른 일을 하며 해적을 잡거나 경매장에서 우리갑을 삽니다. 지점은 {area:35} 남쪽 {area:43}의 해적선단과 흑마술사 야영지입니다. 해적을 처치할 때마다 블러드세일 해적단 평판도 내려갑니다.",
 	-- {area:43} Wild Shore
-	["Bloodsail camp, the {area:43}"] = "",
+	["Bloodsail camp, the {area:43}"] = "블러드세일 야영지, {area:43}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bloodsail camps"] = "붉은해적단 야영지",

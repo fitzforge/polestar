@@ -539,3 +539,44 @@ fn a_leveling_guide_with_a_saved_end_is_done_after_a_reload() {
 	let out = run("", Some(saved), r#"flush(); emit({ state = E.GetGuideState("test/lvl"), done = PolestarCharDB.guideDone["test/lvl"] or false })"#);
 	assert_eq!(out, json!({ "state": "done", "done": false }));
 }
+
+// Fitz (preview5): the arrow seemed to stay on the other tab's goal after a switch (not reproduced: the walking-map
+// harness switched at once too, with tab 2's walk still being planned). With the whole addon (Nav too) and two tabs
+// whose goals lie in different zones, SelectTab(1) gives tab 1's waypoint and the arrow's target in the same frame, and
+// never tab 2's again. (The walk's hold for a measure, #3594, is for the target it was planned for only.)
+#[test]
+fn switching_tabs_retargets_the_arrow_at_once_and_never_back_to_the_other_tab_s_goal() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}\nstub.world.addMap(1433, {{ name = \"Redridge Mountains\", c = 0, left = -1500, right = -4500, top = 500, bottom = -1500 }})\n"),
+		addons: vec![Addon::name("Polestar")],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			GUIDES,
+			r#"Polestar.RegisterGuide({ id = "test/far", pack = "test", title = "Redridge", category = "Exploration", minLevel = 1, maxLevel = 60, steps = {
+	{ goals = { { t = "goto", label = "Lakeshire", map = 1433, x = 30, y = 60 } } },
+} })"#,
+			HELPERS,
+			"stub.login()",
+			r#"
+			local N = Polestar.Nav
+			local function target() local t = N.GetTarget(); return t and t.map or false end
+			flush()
+			local r = { one = target() }
+			E.OpenTab("test/far", true)
+			N.Sample()
+			r.two = target()
+			E.SelectTab(1)
+			r.back = { E.GetWaypoint().map, target() }
+			local seen = 0
+			for i = 1, 30 do N.Sample(); stub.advance(1 / 30); if target() == 1433 then seen = seen + 1 end end
+			r.seen = seen
+			emit(r)"#,
+		]
+		.join("\n"),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out, json!({ "one": 1429, "two": 1433, "back": [1429, 1429], "seen": 0 }));
+}

@@ -81,6 +81,7 @@ step Neru
   collect 280398 quest 98310.4        -- Heart of Neru
 
 step Rethiel the Greenwarden
+  when group 98283
   when complete 98283
   turnin 98283                        -- With Carnage's head and the flesh
 

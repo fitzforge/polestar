@@ -483,6 +483,8 @@ mod ui_card;
 mod ui_dungeons;
 #[path = "ui-game-menu.rs"]
 mod ui_game_menu;
+#[path = "ui-group-mark.rs"]
+mod ui_group_mark;
 #[path = "ui-guide-end.rs"]
 mod ui_guide_end;
 #[path = "ui-headsup-card.rs"]

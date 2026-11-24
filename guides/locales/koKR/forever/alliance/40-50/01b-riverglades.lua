@@ -27,7 +27,7 @@ return {
 	-- Step 3: Scout Bolain
 	-- {npc:260026} Scout Bolain · {zone:1434} Stranglethorn Vale · {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "",
+	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "{npc:260026}은(는) 고개 동쪽 도로 곁에서 기다립니다.\n이 가이드는 41-45레벨용입니다. 경로는 {zone:1434} 이후 약 41레벨에 여기로 옵니다. 항구의 두 번째 무리와 북부 서부전선 야영지는 43-45레벨이며 정예 황혼 집행자(45레벨)가 순찰하고 {npc:256881}(46레벨, 정예)은 파티 전용입니다. 41레벨 아래라면 먼저 스트랭글쏜을 하세요.",
 
 	-- Step 4: Southern Watch
 	-- {area:16744} Southern Watch
@@ -221,6 +221,7 @@ return {
 	["Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave."] = "",
 	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
+	-- was: ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, 엘브림 농장 서쪽: 묘지마다 황혼 약탈자가 떨어뜨리는 {item:266148}이(가) 하나 필요하니 먼저 다섯 개를 모으세요"
 	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop"] = "",
 
 	-- Step 43: Apprentice Claire
@@ -479,7 +480,7 @@ return {
 	-- Step 95: The Western Front
 	-- {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "",
+	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "주의: 서부전선은 44레벨 이상용입니다. 황혼 챔피언은 43-44레벨, 하수인은 44레벨이고 황혼 집행자(정예, 45레벨)가 야영지를 순찰하며 {npc:256881}(46레벨, 정예)은 파티 전용입니다. 44레벨 아래라면 항구 곁 동해적을 더 잡거나 친구와 다시 오세요.",
 
 	-- Step 96: Sergeant Riftan
 	-- {area:16685} Twilight's Shroud · {npc:258023} Sergeant Riftan
@@ -553,10 +554,10 @@ return {
 
 	-- Step 112: Stormwind flight master
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "{zone:1453} 비행 조련사",
 
 	-- Step 113: Shaman trainer
-	["Shaman trainer"] = "",
+	["Shaman trainer"] = "주술사 교관",
 	-- {zone:2548} Riverglades · {zone:1453} Stormwind · {zone:1418} Badlands · {zone:1425} Hinterlands · {area:1537} Ironforge · {area:144} Thelsamar
 	["No shaman trainer stands in the {zone:2548} or in {zone:1453}, and the {zone:1418} & {zone:1425} guide passes none: fly to {area:1537} and train there; {area:144} is a short flight on."] = "{zone:2548}과(와) {zone:1453}에는 주술사 상급자가 없고, {zone:1418} & {zone:1425} 가이드도 상급자를 거치지 않습니다: {area:1537}(으)로 날아가서 수련하십시오. {area:144}은(는) 거기서 조금만 더 날아가면 됩니다.",
 
@@ -590,5 +591,6 @@ return {
 	-- ["{item:268505}, the southern ship"] = "{item:268505}, 남쪽 배",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026}은(는) 고개 동쪽 길가에서 기다립니다.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}은(는) {area:16724} 남서쪽 구석의 옛 대성당을 지키고 있습니다. 박쥐는 대성당 위층에 둥지를 틀고 있고, 그 옆에서 {npc:272437}이(가) 신성한 양초를 나눠 주며, 무덤은 예배당 묘지에 있습니다.\n53레벨 정예인 {npc:271742}이(가) 대성당 안에 서 있습니다: 먼저 공격하지 않으니 절대 공격하지 말고, 박쥐는 그에게서 떨어진 곳으로 끌어내십시오.",
+	-- ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, 엘브림 농장 서쪽: 묘지마다 황혼 약탈자가 떨어뜨리는 {item:266148}이(가) 하나 필요하니 먼저 다섯 개를 모으세요",
 	-- ["{object:621813}: bury the mementos"] = "{object:621813}: 유품 묻기",
 }

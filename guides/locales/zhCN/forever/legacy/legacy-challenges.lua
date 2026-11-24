@@ -118,18 +118,18 @@ return {
 	-- {area:16919} Hall of Thanes · {npc:261319} Durgen Dirgehammer · {area:2437} Ragefire Chasm
 	["{area:16919}: {npc:261319} (or {area:2437})"] = "{area:16919}：{npc:261319}（或 {area:2437}）",
 	-- {area:153} Ruins of Lordaeron · {zone:1420} Tirisfal Glades · {npc:256035} Viktor the Vile
-	["{area:153} (Forever's, {zone:1420}): {npc:256035}"] = "{area:153}（Forever，{zone:1420}）：{npc:256035}",
+	["{area:153} (Forever's, {zone:1420}): {npc:256035}"] = "{area:153}（无限版本，{zone:1420}）：{npc:256035}",
 	-- {area:718} Wailing Caverns · {npc:3678} Disciple of Naralex
 	["{area:718} (appears after the {npc:3678}'s event)"] = "{area:718}（在{npc:3678}的事件之后出现）",
 	-- {area:17732} Excavation Site: Wetlands · {npc:260326} Relic Guardian
-	["{area:17732} (Forever's): {npc:260326}"] = "{area:17732}（Forever）：{npc:260326}",
+	["{area:17732} (Forever's): {npc:260326}"] = "{area:17732}（无限版本）：{npc:260326}",
 
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "地下城：26-45级",
 	-- {area:16550} The Drowned City · {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
 	["The final boss of every level 26-45 dungeon earns one point together. {area:16550} and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "所有26-45级地下城的最终首领全部击败后，共计一点。{area:16550}和{area:17780}（位于{zone:2548}）是无限服新增内容，未收录在我们的数据中：请自行勾选完成。",
 	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
-	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "达拉然城（Forever，{zone:1416}）：{npc:246020}",
+	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "达拉然城（无限版本，{zone:1416}）：{npc:246020}",
 	-- {area:16550} The Drowned City
 	["the final boss of the {area:16550}"] = "{area:16550}的最终首领",
 	-- {area:796} Scarlet Monastery
@@ -169,7 +169,7 @@ return {
 	-- {npc:10184} Onyxia
 	["Raids: {npc:10184}"] = "团队副本：{npc:10184}",
 	-- {npc:10184} Onyxia · {area:2159} Onyxia's Lair · {zone:1445} Dustwallow Marsh · {item:16309} Drakefire Amulet · {zone:1428} Burning Steppes · {area:340} Kargath · {zone:1418} Badlands · {npc:10363} General Drakkisath
-	["Killing {npc:10184} is a point. {area:2159} is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in {area:340} ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "击杀{npc:10184}可获得一点。{area:2159}是{zone:1445}的40人团队副本，12月9日起开放。每名团队成员背包中都必须有{item:16309}：联盟任务链从{zone:1428}的“黑龙的威胁”开始，部落任务链从{area:340}（{zone:1418}）的“Blood and Thunder”开始；两条任务链最终都要在黑石塔上层对付{npc:10363}。",
+	["Killing {npc:10184} is a point. {area:2159} is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in {area:340} ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "击杀{npc:10184}可获得一点。{area:2159}是{zone:1445}的40人团队副本，12月9日起开放。每名团队成员背包中都必须有{item:16309}：联盟任务链从{zone:1428}的“黑龙的威胁”开始，部落任务链从{area:340}（{zone:1418}）的“鲜血与雷鸣”开始；两条任务链最终都要在黑石塔上层对付{npc:10363}。",
 
 	-- Step 22: Raids: Hyjal Summit
 	["Raids: Hyjal Summit"] = "团队副本：海加尔峰",

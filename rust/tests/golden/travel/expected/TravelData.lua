@@ -206,7 +206,7 @@ N.RegisterTravelData({
 		{a={"Valanaar Skydocks",2991,1952.5,1019.1,2521,57.75,81,"l",16628},ab=147,b={"Mulgore",1,-802,366.5,1412,34.33,26.05,"l",215},ba=84,faction=2,id="airship-zephras-mulgore",kind="airship",waitA=170,waitB=170},
 		{a={"Stormwind",0,-8346.5,514,1453,69.58,30.27,"l",1519},ab=74,b={"Ironforge",0,-4840.3,-1330.5,1455,78.02,51.37,"e",1537},ba=74,faction=1,id="tram-stormwind-ironforge",kind="tram",waitA=68,waitB=68},
 	},
-	-- walk-in portals, one way a -> b: id, destination name and area, ends as transports (with z), seconds (the loading screen), item (one the player must carry, else none)
+	-- walk-in portals, one way a -> b: id, destination name and area, ends as transports (with z), seconds (the loading screen), item (one the player must carry, else none), npc (the NPC who teleports the player who asks, else none)
 	portals = {
 		{a={"Darnassus",1,9947.5,2630,1457,29.13,41.21,"e",1657},area=702,b={"Rut'theran Village",1,8785.8,967,1438,55.93,89.74,"e",702},id="portal-ruttheran",name="Rut'theran Village",seconds=5},
 		{a={"Rut'theran Village",1,8799.4,969.8,1438,55.87,89.34,"e",702},area=1657,b={"Darnassus",1,9946.3,2613,1457,30.75,41.39,"e",1657},id="portal-darnassus",name="Darnassus",seconds=5},
@@ -216,6 +216,7 @@ N.RegisterTravelData({
 		{a={"Gnomeregan",0,-5096.8,750.2,1426,21.36,37.15,"e",133},area=35,b={"Booty Bay",0,-14460,463.3,1434,27.54,77.37,"e",35},id="portal-booty-bay",item=9173,name="Booty Bay",seconds=5},
 		{a={"Shrine of Akir",2991,3089.5,584.5,2521,65.56,50.34,"l",16629},area=16630,b={"Rohashi Spires",2991,3079.8,426.5,2521,68.4,50.6,"l",16630},id="portal-rohashi-spires",name="Rohashi Spires",seconds=5},
 		{a={"Rohashi Spires",2991,2981.6,54.9,2521,75.08,53.25,"l",16630},area=16638,b={"Valanaar",2991,2000.7,543.3,2521,66.3,79.7,"l",16638},id="portal-valanaar",name="Valanaar",seconds=5},
+		{a={"Sanath Lim-yo",1,3648,-4702.7,1447,28.11,50.09,"e",nil},area=0,b={"Azshara Tower",1,3778,-4612,1447,26.33,46.25,"e",nil},id="portal-azshara-tower",name="Azshara Tower",npc="Sanath Lim-yo",seconds=5},
 	},
 	-- bind location names (as GetBindLocation reports them), AreaTable area (WoW Forever client build 1.60.1.70450), innkeeper NPC, position
 	inns = {

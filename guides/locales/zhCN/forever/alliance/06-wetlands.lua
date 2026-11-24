@@ -58,7 +58,7 @@ return {
 	-- {npc:2104} Captain Stoutfist
 	["{npc:2104}, by the keep; on the top floor"] = "{npc:2104}，在要塞处；顶层",
 	-- {npc:2104} Captain Stoutfist · {quest:98221} From the Ashes · {area:1036} Angerfang Encampment
-	["{npc:2104}: {quest:98221}, the Attack Plans in the {area:1036}"] = "{npc:2104}：{quest:98221}，收集{area:1036}的Attack Plans",
+	["{npc:2104}: {quest:98221}, the Attack Plans in the {area:1036}"] = "{npc:2104}：{quest:98221}，摧毁{area:1036}的进攻计划",
 	-- {npc:1242} Karl Boran
 	["{npc:1242}, on the pier north of the inn"] = "{npc:1242}，在旅店北边的码头上",
 	-- {npc:2094} James Halloran
@@ -68,7 +68,7 @@ return {
 
 	-- Step 15: Harlo Barnaby
 	-- {npc:2097} Harlo Barnaby · {npc:1071} Longbraid the Grim · {area:205} Dun Modr
-	["{npc:2097}, by the north gate: {npc:1071} takes it at {area:205}, at the north end of this visit's east loop"] = "",
+	["{npc:2097}, by the north gate: {npc:1071} takes it at {area:205}, at the north end of this visit's east loop"] = "在北门旁找{npc:2097}接任务。本次东线走到最北端的{area:205}时，交给{npc:1071}。",
 
 	-- Step 16: Glorin Steelbrow
 	-- {quest:270} The Doomed Fleet · {npc:1212} Bishop Farthing · {zone:1453} Stormwind City · {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {quest:321} Lightforge Iron · {item:279915} Nord'el
@@ -176,12 +176,12 @@ return {
 
 	-- Step 33: Angerfang Encampment
 	-- {zone:1455} Ironforge · {npc:2091} Chieftain Nek'rosh · {quest:98221} From the Ashes
-	["North from the dig into the Dragonmaw camp: click the four sets of Attack Plans. The {zone:1455} plan lies at the camp's west end, the other three further east. {npc:2091}, an elite, stands apart to the south-east: {quest:98221} doesn't need him."] = "从挖掘场向北进入龙喉营地，点击四份Attack Plans。{zone:1455}的计划在营地西端，其余三份在更东面。精英{npc:2091}单独站在东南方，{quest:98221}不需要击杀他。",
+	["North from the dig into the Dragonmaw camp: click the four sets of Attack Plans. The {zone:1455} plan lies at the camp's west end, the other three further east. {npc:2091}, an elite, stands apart to the south-east: {quest:98221} doesn't need him."] = "从挖掘场向北进入龙喉营地，点击并摧毁四份进攻计划。{zone:1455}的计划在营地西端，其余三份在更东面。精英{npc:2091}单独站在东南方，{quest:98221}不需要击杀他。",
 	-- {item:3337} Dragonmaw War Banner
 	["{item:3337}: the camp's Raiders and Swamprunners"] = "{item:3337}：营地里的龙喉袭击者和龙喉沼泽行者掉落",
 
 	-- Step 34: Mosshide gnolls
-	["Mosshide gnolls"] = "",
+	["Mosshide gnolls"] = "藓皮豺狼人",
 	-- {quest:277} Fire Taboo · {item:2611} Crude Flint · {area:309} Ironbeard's Tomb · {area:1025} Green Belt · {npc:1244} Rethiel the Greenwarden
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Maddened Rotclaws = {npc:271334} Maddened Rotclaw · Mosshide Brutes = {npc:1012} Mosshide Brute
 	["{quest:277} is still short of its nine {item:2611}: the Mosshide Fenrunners and Trappers (22-24) along the river north-west of the Angerfang camp, south-west of {area:309}, drop them. Almost every one carries some.\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244}; Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "",
@@ -195,7 +195,7 @@ return {
 	["{npc:270637} camps among the Fenrunners, just west of {npc:1244}."] = "{npc:270637}的营地在{npc:1244}西边不远，周围是藓皮沼泽行者。",
 	-- {area:1038} Dragonmaw Gates
 	-- plural, as words: Razormaw Incisors = {item:280103} Razormaw Incisor · Fen Creepers = {npc:1040} Fen Creeper
-	["Razormaw Incisors: from the raptors by the {area:1038}, after the Fen Creepers"] = "",
+	["Razormaw Incisors: from the raptors by the {area:1038}, after the Fen Creepers"] = "打完沼泽爬行者后，去{area:1038}附近击杀迅猛龙，收集刺喉龙门牙。",
 	-- {quest:98246} Trying Times
 	-- was: ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}：同一趟路线上的刺喉龙蛋"
 	["{quest:98246}: the Razormaw eggs, on the same walk"] = "",
@@ -275,7 +275,7 @@ return {
 
 	-- Step 50: Excavation Site: Wetlands
 	-- {area:17732} Excavation Site: Wetlands · {npc:260808} Highland Horror · {npc:1244} Rethiel the Greenwarden · {npc:260326} Relic Guardian · {item:270865} Titan Relic · {npc:1077} Prospector Whelgar
-	["{area:17732} is a dungeon for a group of five at about level 28 to 31. Its entrance lies just south of the road west, east of Whelgar's dig.\nInside: the Thicket raptors and Shadetooth drop the hides for Halloran, a {npc:260808} the root core for {npc:1244}. Saltspine, Shadetooth and the {npc:260326} are the bosses; the {npc:260326} drops a {item:270865}, which starts a quest for {npc:1077}."] = "{area:17732}是适合28-31级左右五人小队的地下城。入口就在向西道路的南边，维尔加挖掘场的东边。\n副本内：Thicket迅猛龙和Shadetooth掉落哈洛兰要的皮，{npc:260808}掉落{npc:1244}要的根核。Saltspine、Shadetooth和{npc:260326}是首领；{npc:260326}掉落{item:270865}，它会开启一个交给{npc:1077}的任务。",
+	["{area:17732} is a dungeon for a group of five at about level 28 to 31. Its entrance lies just south of the road west, east of Whelgar's dig.\nInside: the Thicket raptors and Shadetooth drop the hides for Halloran, a {npc:260808} the root core for {npc:1244}. Saltspine, Shadetooth and the {npc:260326} are the bosses; the {npc:260326} drops a {item:270865}, which starts a quest for {npc:1077}."] = "{area:17732}是适合28-31级左右五人小队的地下城。入口就在向西道路的南边，维尔加挖掘场的东边。\n副本内：灌木丛迅猛龙和暗齿掉落哈洛兰要的皮，{npc:260808}掉落{npc:1244}要的根核。盐脊、暗齿和{npc:260326}是首领；{npc:260326}掉落{item:270865}，它会开启一个交给{npc:1077}的任务。",
 	-- {quest:98815} Highland Hides
 	["{quest:98815}: the hides, inside"] = "{quest:98815}：皮，在副本内",
 	-- {quest:95646} Horrors in the Highland
@@ -299,7 +299,7 @@ return {
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks."] = "",
 	["On the top floor"] = "在最顶层",
 	-- {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
-	["For the Dragonmaw catapult, on the {zone:1437} loop of the {zone:1424} guide"] = "",
+	["For the Dragonmaw catapult, on the {zone:1437} loop of the {zone:1424} guide"] = "走{zone:1424}路线的{zone:1437}环线时，再去处理龙喉投石车。",
 	-- {npc:2094} James Halloran · {npc:270637} Howin Kindfeather · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
 	["{npc:2094}: the crate for {npc:270637}, on the {zone:1437} loop of the {zone:1424} guide"] = "",
 
@@ -342,8 +342,7 @@ return {
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["{npc:3649} stands at the north end of {area:442}."] = "{npc:3649}在{area:442}北端。",
 	-- {zone:1439} Darkshore · {area:442} Auberdine
-	-- was: ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "巴隆斯·阿历克斯顿的回信，如果还带在身上（路线已安排在03-darkshore-return首次到{area:442}时交还）"
-	["Alexston's reply, if you still carry it (the route hands it in on the {zone:1439} return's first {area:442} stop)"] = "",
+	["Alexston's reply, if you still carry it (the route hands it in on the {zone:1439} return's first {area:442} stop)"] = "如果还带着巴隆斯·阿历克斯顿的回信，就在这里交还。路线原本安排在回访{zone:1439}、第一次到{area:442}时交还。",
 
 	-- Step 61: Auberdine
 	-- {npc:3693} Terenthis · {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin
@@ -737,4 +736,5 @@ return {
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619}率领{area:429}的萨特；树枝在他身上。",
 	-- ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}：同一趟路线上的刺喉龙蛋",
 	-- ["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "{quest:98283}，一只精英迅猛龙，在30-40/01-hillsbrad-foothills的{zone:1437}路线中处理",
+	-- ["{quest:98283}, an elite raptor, on the {zone:1437} loop of the {zone:1424} guide"] = "「{quest:98283}」的目标是一只精英迅猛龙，等{zone:1424}路线走到{zone:1437}环线时再打。",
 }

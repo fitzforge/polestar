@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:16743} Rog'mar
-	["About 70 quests in Forever's new zone, from the fort of {area:16743}."] = "Forever新地区里约有70个任务，从{area:16743}要塞开始。",
+	["About 70 quests in Forever's new zone, from the fort of {area:16743}."] = "无限服新增地区里约有70个任务，从{area:16743}要塞开始。",
 
 	-- Step 1: Fly to Kargath
 	-- {area:340} Kargath
@@ -22,13 +22,13 @@ return {
 	-- {area:16591} Riverglades
 	["Into the {area:16591}"] = "进入{area:16591}",
 	-- {area:16591} Riverglades · {area:340} Kargath · {area:3} Badlands · {area:16685} Twilight's Shroud · {area:16743} Rog'mar
-	["New in Forever: this guide follows what players did in the {area:16591}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nFrom {area:340}, ride south-east across the {area:3} to the zone's southern edge: the pass of {area:16685} leads down into the {area:16591}. {area:16743}, the Horde's fort, stands in the middle of the zone, east along the valley."] = "Forever新内容：本指南依据玩家在{area:16591}的实际流程编写。如果某个步骤有误，请在Polestar的Discord或GitHub上告诉我们，并注明是哪个步骤。\n从{area:340}向东南骑行，穿过{area:3}到达该地区南缘：{area:16685}山口通往下方的{area:16591}。部落要塞{area:16743}位于地区中部，沿山谷向东即到。",
+	["New in Forever: this guide follows what players did in the {area:16591}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nFrom {area:340}, ride south-east across the {area:3} to the zone's southern edge: the pass of {area:16685} leads down into the {area:16591}. {area:16743}, the Horde's fort, stands in the middle of the zone, east along the valley."] = "无限服新增内容：本指南依据玩家在{area:16591}的实际流程编写。如果某个步骤有误，请在Polestar的Discord或GitHub上告诉我们，并注明是哪个步骤。\n从{area:340}向东南骑行，穿过{area:3}到达该地区南缘：{area:16685}山口通往下方的{area:16591}。部落要塞{area:16743}位于地区中部，沿山谷向东即到。",
 
 	-- Step 3: Fly to Freewind Post
 	-- {area:484} Freewind Post
 	["Fly to {area:484}"] = "飞往{area:484}",
 	-- {zone:2548} Riverglades · {zone:1446} Tanaris · {area:977} Steamwheedle Port · {area:976} Gadgetzan · {area:16727} Powderfuse Port · {area:484} Freewind Post · {zone:1441} Thousand Needles · {area:439} Shimmering Flats · {area:340} Kargath · {area:3} Badlands · {area:16685} Twilight's Shroud
-	["New in Forever: this guide follows what players did in the {zone:2548}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe {zone:2548} lie across the sea from {zone:1446}: a goblin boat sails from {area:977}, north-east of {area:976}, to {area:16727}. Fly to {area:484} in {zone:1441} and head south-east through the {area:439} to {area:976}. (If you already know {area:340} in the {area:3}, the way in through {area:16685} works too.)"] = "Forever新内容：本指南依据玩家在{zone:2548}的实际流程编写。如果某个步骤有误，请在Polestar的Discord或GitHub上告诉我们，并注明是哪个步骤。\n{zone:2548}与{zone:1446}隔海相望：一艘地精船从{area:976}东北的{area:977}开往{area:16727}。飞往{zone:1441}的{area:484}，再向东南穿过{area:439}前往{area:976}。（如果你已经有{area:3}的{area:340}飞行路线，也可以经{area:16685}进入。）",
+	["New in Forever: this guide follows what players did in the {zone:2548}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe {zone:2548} lie across the sea from {zone:1446}: a goblin boat sails from {area:977}, north-east of {area:976}, to {area:16727}. Fly to {area:484} in {zone:1441} and head south-east through the {area:439} to {area:976}. (If you already know {area:340} in the {area:3}, the way in through {area:16685} works too.)"] = "无限服新增内容：本指南依据玩家在{zone:2548}的实际流程编写。如果某个步骤有误，请在Polestar的Discord或GitHub上告诉我们，并注明是哪个步骤。\n{zone:2548}与{zone:1446}隔海相望：一艘地精船从{area:976}东北的{area:977}开往{area:16727}。飞往{zone:1441}的{area:484}，再向东南穿过{area:439}前往{area:976}。（如果你已经有{area:3}的{area:340}飞行路线，也可以经{area:16685}进入。）",
 
 	-- Step 4: Gadgetzan
 	-- {area:976} Gadgetzan
@@ -42,7 +42,7 @@ return {
 
 	-- Step 6: Powderfuse Port
 	-- {npc:255897} Friz Frazzlespark
-	["New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{npc:255897} keeps a stall at the west end of the docks. The port's other jobs are for later in this guide: this crate goes to the Horde's fort."] = "Forever新内容：如果某个步骤有误，请在Polestar的Discord或GitHub上告诉我们，并注明是哪个步骤。\n{npc:255897}在码头西端摆摊。港口的其他任务留到本指南后面再做：这个箱子要送到部落要塞。",
+	["New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{npc:255897} keeps a stall at the west end of the docks. The port's other jobs are for later in this guide: this crate goes to the Horde's fort."] = "无限服新增内容：如果某个步骤有误，请在Polestar的Discord或GitHub上告诉我们，并注明是哪个步骤。\n{npc:255897}在码头西端摆摊。港口的其他任务留到本指南后面再做：这个箱子要送到部落要塞。",
 	-- {quest:95062} Frazzlespark's Crate · {npc:256418} Krom'rosh · {area:16743} Rog'mar
 	["{quest:95062}: for {npc:256418} in {area:16743}"] = "{quest:95062}：交给{area:16743}的{npc:256418}",
 
@@ -165,7 +165,7 @@ return {
 	["South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with {npc:263190}'s spears. The Alliance trains its scouts and priests at a camp on the far bank. {npc:257079}, the Alliance elite, rides the road just east of the camp: pull the scouts and priests away from it.\nCareful: {npc:263380}, an elite (level 42), hunts along this river: if he comes your way, back off and let him pass."] = "罗格玛西南方，河流从农场之间流过：用{npc:263190}的长矛刺穿淡水鳄。联盟在对岸的营地里训练斥候和牧师。联盟精英{npc:257079}在营地东边不远的道路上骑行巡逻：把斥候和牧师引离那里再打。\n小心：精英{npc:263380}（42级）沿这条河狩猎：如果他朝你过来，就后退让他过去。",
 	-- {npc:263190} Tan'jani
 	-- plural, as words: Freshwater Crocolisks = {npc:259046} Freshwater Crocolisk
-	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "",
+	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "{npc:263190}的长矛，在河里的淡水鳄身上",
 
 	-- Step 39: Tran'gul
 	-- {npc:256710} Tran'gul · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
@@ -264,7 +264,7 @@ return {
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
 	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "",
 	-- {npc:258048} Jom-jom
-	["{npc:258048}, in the cave"] = "",
+	["{npc:258048}, in the cave"] = "{npc:258048}，在洞里",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
 	["help {npc:258048} reach {area:16726}"] = "帮助{npc:258048}抵达{area:16726}",
 
