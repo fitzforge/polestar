@@ -9,3 +9,5 @@ section: players
   Xorpio89's translation (#3921) and bumblei3's guide texts (#4017); the rest
   are machine-translated and listed at the top of each language file for a
   native speaker to check.
+- Attunements: the next step's chest (the Tome of Dalaran's Black Tome) is
+  named in your language where the game has a name for it.
