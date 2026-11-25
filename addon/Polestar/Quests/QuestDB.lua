@@ -29,6 +29,7 @@ ns.RegisterDefaults("qol", {
 	questTooltips = true, -- quest lines on unit, item and object tooltips
 	questDropChance = false, -- ... with how often a mob or object gives the quest item, on its tooltip
 	questTooltipsReplace = false, -- ... in place of the client's own rows for the same quests
+	questTooltipsQuestie = false, -- ... and in place of Questie's lines for the same quests (Quests/QuestieLines.lua)
 	questTooltipsNpc = false, -- ... and on an NPC, the quests it gives now and the ready ones it takes
 	questSellWarning = true, -- at a vendor, offer to buy back a sold item a quest needs
 	questBagMarks = true, -- a quest mark on bag items a quest (in the log or ahead in the guide) still needs

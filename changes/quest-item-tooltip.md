@@ -5,4 +5,6 @@ section: players
   the quest's level before its name and colour the name by difficulty (grey,
   green, yellow, orange, red). An item a quest in your log handed you says
   "In your quest log" or "Turn in" beside that quest, and a leftover quest
-  item names the quests you handed in for it. (thanks Olivia)
+  item names the quests you handed in for it. With Questie, the new setting
+  Replace Questie's quest lines (under Quest tooltips) shows each quest once:
+  Questie leaves out its lines for the quests Polestar names. (thanks Olivia)

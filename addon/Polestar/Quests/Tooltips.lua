@@ -27,7 +27,14 @@ end
 -- Tooltip lines
 ---------------------------------------------------------------------------
 
-local function addLine(tt, left, right, lc, rc)
+-- While Q.TooltipQuests runs, the quests the lines name (no line is drawn).
+local collect
+
+local function addLine(tt, left, right, lc, rc, q)
+	if collect then
+		if q then collect[q] = true end
+		return
+	end
 	ns.Hooks.AddLine(tt, left, right, lc.r, lc.g, lc.b, rc.r, rc.g, rc.b)
 end
 
@@ -101,7 +108,7 @@ local function addObjectiveLines(tt, list, selfKind, selfID, selfName)
 			if chance and chance > 0 then what = what .. "  " .. chanceText(chance) end
 		end
 		local name, nc = Q.TooltipQuestName(o.q, e.title)
-		addLine(tt, name .. ":", what, nc, (o.done or e.ready) and ok or dim)
+		addLine(tt, name .. ":", what, nc, (o.done or e.ready) and ok or dim, o.q)
 		added = added + 1
 	end
 	return added
@@ -116,7 +123,7 @@ local function addStartLines(tt, itemID)
 		local q = list[i]
 		if not ns.Compat.IsQuestCompleted(q) and not ns.Compat.IsOnQuest(q) then
 			local name, nc = Q.TooltipQuestName(q)
-			addLine(tt, L["Starts a quest"] .. ":", name, qc, nc)
+			addLine(tt, L["Starts a quest"] .. ":", name, qc, nc, q)
 			added = added + 1
 		end
 	end
@@ -180,7 +187,7 @@ local function addAheadLines(tt, itemID)
 		local e = list[i]
 		local have = ns.Compat.GetItemCount and ns.Compat.GetItemCount(itemID) or 0
 		local name, nc = Q.TooltipQuestName(e.q)
-		addLine(tt, name .. ":", L["%d/%d (not accepted)"]:format(math.min(have, e.n), e.n), nc, dim)
+		addLine(tt, name .. ":", L["%d/%d (not accepted)"]:format(math.min(have, e.n), e.n), nc, dim, e.q)
 	end
 	return #list
 end
@@ -203,7 +210,7 @@ local function addHandedLines(tt, itemID, objectives)
 		if not listed and Q.HandsOver(q, itemID) and C.IsOnQuest(q) then
 			local name, nc = Q.TooltipQuestName(q)
 			local ready = C.IsQuestReadyForTurnIn and C.IsQuestReadyForTurnIn(q)
-			addLine(tt, name .. ":", ready and L["Turn in"] or L["In your quest log"], nc, ready and ok or dim)
+			addLine(tt, name .. ":", ready and L["Turn in"] or L["In your quest log"], nc, ready and ok or dim, q)
 			added = added + 1
 		end
 	end
@@ -226,7 +233,7 @@ local function addNpcQuestLines(tt, npcID)
 		local e = taken[i]
 		if e.ready then
 			local name, nc = Q.TooltipQuestName(e.q, e.title)
-			addLine(tt, name .. ":", L["Turn in"], nc, ok)
+			addLine(tt, name .. ":", L["Turn in"], nc, ok, e.q)
 			added = added + 1
 		end
 	end
@@ -234,7 +241,7 @@ local function addNpcQuestLines(tt, npcID)
 	for i = 1, given and #given or 0 do
 		local q = given[i]
 		local name, nc = Q.TooltipQuestName(q)
-		addLine(tt, L["Starts a quest"] .. ":", name, qc, nc)
+		addLine(tt, L["Starts a quest"] .. ":", name, qc, nc, q)
 		added = added + 1
 	end
 	return added
@@ -259,6 +266,21 @@ function Q.AddObjectLines(tt, objectID, name)
 	local list = objectID and Q.ObjectivesForObject(objectID)
 	if not list and name then list = Q.ObjectivesForObjectName(name) end
 	return addObjectiveLines(tt, list, 3, objectID, name)
+end
+
+-- The quests these lines name on a tooltip, built by the same code that draws
+-- them (nothing is drawn): kind "unit" (an NPC id), "item" or "object" (an
+-- object id). -> { [questID] = true } or nil when they name none.
+local ADD = { unit = Q.AddUnitLines, item = Q.AddItemLines, object = Q.AddObjectLines }
+function Q.TooltipQuests(kind, id)
+	local add = ADD[kind]
+	if not (add and id) then return nil end
+	local set = {}
+	collect = set
+	local ok, err = pcall(add, nil, id)
+	collect = nil
+	if not ok then error(err, 0) end
+	return next(set) ~= nil and set or nil
 end
 
 -- The client's own quest rows. On a mob or object of a quest in the log the

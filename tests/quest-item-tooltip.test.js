@@ -90,3 +90,78 @@ test('quest tooltips name the quest with its level, difficulty colour and state'
 		[['[12] Mail Run:', 'Kill Kobold Vermin 3/10', 1, 0.82, 0]],
 	]);
 });
+
+// qol.questTooltipsQuestie: Questie's GetTooltip leaves out the quests Polestar
+// names on that mob or item, puts its entries back, and stays as it was
+// with the setting off, in a group, or when Polestar's side fails.
+test('Questie leaves out its lines for the quests Polestar names', () => {
+	const fixture = path.join(__dirname, 'fixtures', 'questdb', 'expected', 'Quests.lua');
+	const out = runAddon({
+		before: `state = { log = {}, group = false }
+			C_QuestLog = { IsOnQuest = function(id) return state.log[id] == true end }
+			C_AddOns = C_AddOns or {}
+			C_AddOns.IsAddOnLoaded = function(name) return name == "Questie" end
+			IsInGroup = function() return state.group end
+			questie = { lookupByKey = {} }
+			function questie.GetTooltip(key)
+				if questie.fail then error("questie broke") end
+				local ids = {}
+				for _, e in pairs(questie.lookupByKey[key] or {}) do ids[#ids + 1] = e.questId end
+				table.sort(ids)
+				return ids
+			end
+			QuestieLoader = { ImportModule = function(_, name) if name == "QuestieTooltips" then return questie end end }`,
+		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Core/LuaChunks.lua', 'Core/BagSlots.lua', 'Quests/QuestDB.lua', 'Quests/Tooltips.lua', 'Quests/QuestieLines.lua'] }],
+		script: `
+		local Q, s = Polestar.QuestDB, state
+		dofile(${JSON.stringify(fixture.replace(/\\/g, '/'))})
+		local fields = {}
+		for i = 1, 20 do fields[i] = "" end
+		fields[1], fields[2], fields[19] = "'Mail Run", "12", "902"
+		Q.AddChunk("quests", 9001, 9001, string.char(10) .. "9001" .. string.char(9) .. table.concat(fields, ";") .. string.char(10))
+		Q.SetMeta({})
+		Q.IsRunning = function() return true end
+		Q.Color = function() return { r = 0, g = 0, b = 0 } end
+		Q.ProgressText = function() return "3/10" end
+		Q.ObjectivesForItem = function() return nil end
+		Q.ObjectivesForTalk = function() return nil end
+		Q.ObjectivesForNpc = function(id)
+			if id == 66 then error("polestar broke") end
+			if id == 55 then return { { q = 9001, kind = 1, id = 55, name = "Kobold Vermin", entry = { title = "Mail Run" } } } end
+		end
+		Polestar.Compat = {
+			GetPlayerLevel = function() return 10 end, IsSecret = function() return false end,
+			IsOnQuest = function(id) return s.log[id] == true end, IsQuestCompleted = function() return false end,
+		}
+		Polestar.Hooks = { UnitLines = function() end, ItemLines = function() end, AddLine = function() end }
+		local errors = 0
+		Polestar.NoteError = function() errors = errors + 1 end
+		questie.lookupByKey.m_55 = { ["9001 1"] = { questId = 9001 }, ["9002 1"] = { questId = 9002 } }
+		questie.lookupByKey.m_66 = { ["9001 1"] = { questId = 9001 } }
+		questie.lookupByKey.i_902 = { ["9001 1"] = { questId = 9001 } }
+		local function count(key) local n = 0 for _ in pairs(questie.lookupByKey[key]) do n = n + 1 end return n end
+		Polestar.Set("qol.questTooltips", true)
+		emit(questie.GetTooltip("m_55"))
+		Polestar.Set("qol.questTooltipsQuestie", true)
+		emit(questie.GetTooltip("m_55"))
+		emit(count("m_55"))
+		emit(#questie.GetTooltip("i_902"))
+		s.log[9001] = true
+		emit(#questie.GetTooltip("i_902"))
+		s.group = true
+		emit(questie.GetTooltip("m_55"))
+		s.group = false
+		emit({ #questie.GetTooltip("m_66"), errors })
+		questie.fail = true
+		emit({ pcall(questie.GetTooltip, "m_55") == false, count("m_55") })
+		questie.fail = nil
+		Polestar.Set("qol.questTooltips", false)
+		emit(questie.GetTooltip("m_55"))
+		Polestar.Set("qol.questTooltips", true)
+		Polestar.Set("qol.questTooltipsQuestie", false)
+		emit(questie.GetTooltip("m_55"))
+	` }).emitted;
+	assert.deepEqual(out, [
+		[9001, 9002], [9002], 2, 1, 0, [9001, 9002], [1, 1], [true, 2], [9001, 9002], [9001, 9002],
+	]);
+});
