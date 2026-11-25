@@ -2948,6 +2948,17 @@ test('forever/reputation/timbermaw-hold.guide: the Blackmaw chain comes after Ne
 		assert.ok(at(list, `turnin ${pre}`, is('turnin', pre)) < at(list, `accept ${q}`, is('accept', q)), `${q} after ${pre} is handed in`);
 	}
 });
+// #3974 follow-up: Scholomance (5533) needs level 55; the level model reached its accept on 04-western-plaguelands'
+// third Chillwind Camp stop at 54.93 in 21 of 28 Alliance runs (refused). A level 55 hold sits right before the
+// accept in the same step, after the stop's hand-ins, so no player is sent to Valorfist below 55.
+test('forever/alliance/50-60/04-western-plaguelands.guide: Scholomance waits for level 55 at its accept (#3974)', { skip }, () => {
+	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const take = at(list, 'accept 5533', is('accept', 5533));
+	const gate = list.slice(0, take).findLastIndex(({ goal, s }) => s === list[take].s && goal.t === 'level');
+	assert.ok(gate >= 0, 'a level goal before the accept, in the same step');
+	assert.ok(list[gate].goal.level >= data.quests[5533].minLevel, `level ${list[gate].goal.level} >= the quest's minimum ${data.quests[5533].minLevel}`);
+	assert.equal(list[take + 1]?.goal.t === 'turnin' && list[take + 1].goal.quest, 5533, 'handed in on the same visit');
+});
 // Partially Digested Collar (93568) is started by the collar and counts the collar as its objective: the accept
 // leaves it in the bags (players' recordings: 10 people, "item x1 Partially Digested Collar" at the accept, handed
 // in to Liranne). So the Liranne step may wait on the collar and hold the accept and the hand-in together; the
