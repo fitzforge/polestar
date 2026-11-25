@@ -96,8 +96,12 @@ the upload API, and the public list of what is never collected.
   touches its own folders: Polestar's are `Polestar` and the `Polestar_*`
   folders whose .toc says `## Author: Polestar`, plus Polestar 0.4.2's
   walking-map folders `Polestar_Nav_R<map>_<row>_<col>` whose .toc title
-  starts with `Polestar Nav [` (they had no author line); an update also
-  removes the ones its new release no longer has; never another addon. Updates are
+  starts with `Polestar Nav [` (they had no author line), plus the 24
+  folders Polestar 0.4.3 folded into others, by name whatever their .toc
+  says (docs/client/sweep-0.4.3.md). Other `Polestar_Skin_*` and
+  `Polestar_Layout_*` folders are skins and layouts, the example included,
+  and never Polestar's. An update also removes the ones its new release no
+  longer has; never another addon. Updates are
   looked for every 6 hours (off in Settings) and announced in the tray;
   they install by themselves only if you turn that on, and never while the
   game is running. The Stable channel offers releases, Beta pre-releases too.
