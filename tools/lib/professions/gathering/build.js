@@ -172,6 +172,24 @@ function rareKinds(prof, points) {
 	return new Set([...byKind].filter(([, n]) => n < total / 20).map(([k]) => k));
 }
 
+// A common kind first gathered inside [from, to) splits the step there
+// (#2892). Each part clusters only points its starting skill can gather.
+// Rare kinds add no split, but count in parts that can gather them.
+// Skinning already picks zones and bands around the levels of their beasts
+// (coversStart). -> [{ from, to, points }]
+function startParts(prof, points, from, to) {
+	if (prof.rareLeads) return [{ from, to, points }];
+	const rare = rareKinds(prof, points);
+	const cuts = [...new Set(points.filter((p) => !rare.has(p.name) && p.req > from && p.req < to).map((p) => p.req))].sort((a, b) => a - b);
+	const parts = [];
+	let at = from;
+	for (const next of [...cuts, to]) {
+		parts.push({ from: at, to: next, points: points.filter((p) => p.req <= at) });
+		at = next;
+	}
+	return parts;
+}
+
 // Plan: a list of { kind: 'learn'|'train'|'recipes'|'band', ... } entries in guide order.
 // A trainer recipe is learned on a rank visit, or on a visit of its own at a
 // band start when its reagent is common there; else it is named in the
@@ -211,9 +229,11 @@ function plan(ctx, prof) {
 			const soon = [...(from === band.from ? skipped : []), ...within.filter((r) => r.learnedAt > from && r.learnedAt < stop)];
 			for (const m of merged.filter((x) => x.from < stop && x.to > from)) {
 				const entry = m.factions.length === 1 ? flightMaster(ctx, m.zone, m.factions[0]) : null;
-				const loop = R.loop(m.points, ctx.project, { entry: entry ? entry.pt : null, radius: prof.radius || 110, rare: rareKinds(prof, m.points) });
 				const at = Math.max(from, m.from);
-				out.push({ kind: 'band', cond: m.cond, zone: m.zone, from: at, to: Math.min(stop, m.to), band, loop, points: m.points, cont: at !== m.from, soon });
+				for (const part of startParts(prof, m.points, at, Math.min(stop, m.to))) {
+					const loop = R.loop(part.points, ctx.project, { entry: entry ? entry.pt : null, radius: prof.radius || 110, rare: rareKinds(prof, part.points) });
+					out.push({ kind: 'band', cond: m.cond, zone: m.zone, from: part.from, to: part.to, band, loop, points: part.points, cont: part.from !== m.from, soon: part.from === at ? soon : [] });
+				}
 			}
 			const rank = splits.find((r) => r.learnAt === stop);
 			if (rank) out.push({ kind: 'train', rank, recipes: within.filter((r) => r.learnedAt === stop) });
@@ -386,4 +406,4 @@ function buildAll(ctx) {
 	return out;
 }
 
-module.exports = { plan, render, buildAll, mergePicks, pickZones, rareKinds, label, coversTop, coversStart, OUT_DIR };
+module.exports = { plan, render, buildAll, mergePicks, pickZones, rareKinds, startParts, label, coversTop, coversStart, OUT_DIR };

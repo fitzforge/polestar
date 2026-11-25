@@ -165,6 +165,68 @@ test('every generated gathering band lists something the band\'s starting skill 
 	assert.deepEqual(bad, []);
 });
 
+test('a step splits where a common kind first becomes gatherable, and no part leads to one it cannot gather yet: Loch Modan\'s Briarthorn (70) in Herbalism 50-100 (#2892)', () => {
+	const { startParts } = require('../tools/lib/professions/gathering/build');
+	const pts = [];
+	const at = (name, req, n) => {
+		for (let i = 0; i < n; i++) pts.push({ name, req, up: 1, w: 1, pt: { c: 0, wx: pts.length * 30, wy: 0 } });
+	};
+	at('Earthroot', 15, 10);
+	at('Mageroyal', 50, 20);
+	at('Briarthorn', 70, 20);
+	at('Stranglekelp', 85, 10);
+	// Under a twentieth: it opens no part of its own and joins at the next split.
+	at('Wild Steelbloom', 75, 1);
+	const parts = startParts({}, pts, 50, 100).map((p) => [p.from, p.to, [...new Set(p.points.map((q) => q.name))].sort().join(', ')]);
+	assert.deepEqual(parts, [
+		[50, 70, 'Earthroot, Mageroyal'],
+		[70, 85, 'Briarthorn, Earthroot, Mageroyal'],
+		[85, 100, 'Briarthorn, Earthroot, Mageroyal, Stranglekelp, Wild Steelbloom'],
+	]);
+	assert.deepEqual(startParts({}, pts, 85, 100).length, 1, 'nothing new inside 85-100');
+	assert.deepEqual(startParts({ rareLeads: true }, pts, 50, 100).map((p) => [p.from, p.to, p.points.length]), [[50, 100, pts.length]], 'skinning: one part, every beast (coversStart splits its bands)');
+});
+
+test('a rare herb that becomes common after a split cannot lead a waypoint before its skill (#2892)', () => {
+	const { startParts, rareKinds, label } = require('../tools/lib/professions/gathering/build');
+	const project = makeProjector({ era: { 1432: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } } });
+	const points = [];
+	const add = (name, count, x, y) => {
+		for (let i = 0; i < count; i++) {
+			points.push({ name, req: T.HERB_NODES[name], w: 1, up: 1, pt: project.point(1432, x + i * 0.15, y, 'e') });
+		}
+	};
+	add('Mageroyal', 6, 10, 10);
+	add('Briarthorn', 40, 80, 80);
+	add('Stranglekelp', 1, 50, 50);
+	assert.ok(rareKinds({}, points).has('Stranglekelp'));
+	const [early] = startParts({}, points, 50, 100);
+	const rare = rareKinds({}, early.points);
+	const waypoints = R.loop(early.points, project, { rare }).map((cluster) => label({}, cluster, rare));
+	assert.deepEqual(waypoints, ['Mageroyal']);
+});
+
+test('no Herbalism waypoint names a herb the step\'s starting skill cannot pick (#2892)', () => {
+	const bad = [];
+	let step = null;
+	let from = null;
+	for (const line of fs.readFileSync(path.join(ROOT, 'guides', 'forever', 'professions', 'herbalism.guide'), 'utf8').split('\n')) {
+		if (line.startsWith('step ')) {
+			const m = line.match(/\((\d+)-\d+\)( cont\.)?$/);
+			step = m ? line : null;
+			from = m ? Number(m[1]) : null;
+		} else if (step && line.startsWith('  goto ')) {
+			const label = (line.match(/"([^"]*)"/) || [])[1] || '';
+			for (const name of label.split(', ')) {
+				const req = T.HERB_NODES[name];
+				assert.ok(req !== undefined, `${step}: "${name}" is no herb`);
+				if (req > from) bad.push(`${step}: ${name} (${req})`);
+			}
+		}
+	}
+	assert.deepEqual(bad, []);
+});
+
 test('live-frame spawns come out in the Era frame, so loops on redrawn maps match `coords era`', () => {
 	// A map Forever redrew: its live frame is offset from the Era frame and
 	// covers 800 yards instead of 1000.

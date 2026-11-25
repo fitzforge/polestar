@@ -888,7 +888,8 @@ emit({{ steps = describe(def), ghost = ghost }})
 D.Attune("wailing-caverns", "fang")
 stub.advance(0.6)
 SIM_GUIDE = Polestar.Engine.GetGuide()
-{SIMULATE}"#
+{SIMULATE}"#,
+			SIMULATE = SIMULATE.as_str()
 		),
 		"Horde",
 		"Tauren",
