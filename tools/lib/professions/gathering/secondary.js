@@ -206,8 +206,8 @@ function renderSegment(ctx, P, seg, L) {
 			const d = dropSpot(ctx, rg.item, seg.zone);
 			const sells = !d.via && !((P.materials[rg.item] || {}).bop);
 			const facts = sells ? ` gather${d.levels ? ` levels ${d.levels[0]}-${d.levels[1]}` : ''}` : '';
-			const who = d.mobs.length ? d.mobs.join(', ') : 'Mobs';
-			const where = d.via ? `${who} in ${zone} drop ${itemName(ctx, d.via)}s: open each one for its ${name}` : `${who} in ${zone} drop it`;
+			const who = d.mobs.length ? d.mobs.join(', ') : 'mobs';
+			const where = d.via ? `It comes in ${itemName(ctx, d.via)}s, which ${who} in ${zone} drop: open each one` : `It drops from ${who} in ${zone}`;
 			gets.push({
 				name,
 				lines: [
