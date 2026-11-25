@@ -2106,7 +2106,6 @@ L["Skipped"] = "Übersprungen"
 L["Finished, %d skipped"] = "Abgeschlossen, %d übersprungen"
 L["All %d done"] = "Alle %d erledigt"
 L["Click to open its page."] = "Klicken, um seine Seite zu öffnen."
-L["Then any of: %s"] = "Danach eine beliebige von: %s"
 
 -- QoL/Options.lua
 L["Off by default: %s does this too."] = "Standardmäßig aus: %s macht das auch."
@@ -5720,3 +5719,4 @@ L["Kept for %s: the route hands it in there."] = "Aufgehoben für %s: Die Route 
 -- L["%s: on this step"] = "%s: bei diesem Schritt"
 -- L["Layout"] = "Layout"
 -- L["Your current design"] = "Dein aktuelles Design"
+-- L["Then any of: %s"] = "Danach eine beliebige von: %s"

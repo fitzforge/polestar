@@ -2433,7 +2433,6 @@ L["Skipped"] = "건너뜀"
 L["Finished, %d skipped"] = "완료, %d개 건너뜀"
 L["All %d done"] = "%d개 모두 완료"
 L["Click to open its page."] = "클릭하여 페이지를 엽니다."
-L["Then any of: %s"] = "그다음 다음 중 하나: %s"
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "제출 가능"
@@ -5902,3 +5901,4 @@ L["Kept for %s: the route hands it in there."] = "%s용으로 보관: 경로가 
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "창이 커질 수 있는 높이(화면 대비 비율). 더 긴 단계는 스크롤됩니다."
 -- L["Max height"] = "최대 높이"
 -- L["%s: on this step"] = "%s: 같은 단계"
+-- L["Then any of: %s"] = "그다음 다음 중 하나: %s"

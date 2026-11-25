@@ -2340,7 +2340,6 @@ L["Skipped"] = "已跳过"
 L["Finished, %d skipped"] = "已结束，跳过 %d 个任务"
 L["All %d done"] = "%d 个任务已全部完成"
 L["Click to open its page."] = "点击打开任务详情。"
-L["Then any of: %s"] = "后续可接：%s"
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "可交还"
@@ -5817,3 +5816,4 @@ L["Kept for %s: the route hands it in there."] = "留给 %s：路线会在那里
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "窗口最多能长到多高，按屏幕高度的比例。更长的步骤可滚动查看。"
 -- L["Max height"] = "最大高度"
 -- L["%s: on this step"] = "%s：在此步骤"
+-- L["Then any of: %s"] = "后续可接：%s"

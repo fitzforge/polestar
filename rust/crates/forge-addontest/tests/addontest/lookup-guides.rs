@@ -692,12 +692,9 @@ emit({ quests = quests, step = ch.step, total = ch.total, done = ch.done, branch
 #[test]
 fn follow_up_quests_show_their_live_states_without_calling_a_finished_part_the_whole_chain() {
 	let mut c = ctx();
-	for (id, title, faction, min, pre) in [
-		(9521, "First Part", "A", 15, vec![]),
-		(9522, "Follow East", "A", 15, vec![9521]),
-		(9523, "Follow West", "A", 25, vec![9521]),
-		(9524, "Other Side", "H", 15, vec![9521]),
-	] {
+	for (id, title, faction, min, pre) in
+		[(9521, "First Part", "A", 15, vec![]), (9522, "Follow East", "A", 15, vec![9521]), (9523, "Follow West", "A", 25, vec![9521]), (9524, "Other Side", "H", 15, vec![9521])]
+	{
 		c.codex["quests"][id.to_string()] = json!({
 			"id": id, "title": title, "level": min + 2, "minLevel": min, "faction": faction,
 			"start": { "npc": [5008] }, "end": { "npc": [5008] }, "objectives": [],
