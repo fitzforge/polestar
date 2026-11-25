@@ -338,7 +338,7 @@ Polestar.Profiles.Apply(preview, name, pick?) -> true, undo   -- name = Active()
 Polestar.Profiles.Undo(undo) -> true | nil, why           -- an Apply taken back
 Polestar.Profiles.CategoryOf(path) -> id, how             -- how: "position" | "own" | "page" | "hidden" | "fallback"
 Polestar.Profiles.RegisterPosition(path, shape)          -- a position setting a string may carry ("xy" | "pxy" | "ppxy" | "anchor")
-Polestar.RegisterMigration(id, fn(settings), opts?)       -- at file load: runs once per id over every profile; opts.strings = false: never over a profile string
+Polestar.RegisterMigration(id, fn(settings, ran), opts?)  -- at file load: runs once per id over every profile; ran: the ids run over those settings before; opts.strings = false: never over a profile string
 ```
 
 `Core/Profiles.lua`. A profile is a named set of settings. The one in use
@@ -350,7 +350,9 @@ its class's (`PolestarDB.classProfiles[CLASS]`), else the account's
 (`PolestarDB.profile`, `"Default"`). At `ADDON_LOADED`, before any `OnInit`
 handler (Init.lua calls `Profiles.Load`), that profile is swapped in and the
 registered migrations run (`PolestarDB.migrations[id] = true`, over the settings
-in use and every stored profile; one registered later runs at once). An
+in use and every stored profile; one registered later runs at once). Each gets
+the ids that had run before this login (a string's: those it names), so it can
+tell which version the settings are from. An
 import runs the ones a string is from before over its settings, except those
 registered with `strings = false`: a changed default kept for the players who
 had it (`behavior.skipGrey`, on since 0.4.3, stays off in every profile saved
