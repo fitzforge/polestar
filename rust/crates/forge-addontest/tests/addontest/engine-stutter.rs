@@ -297,3 +297,59 @@ fn the_while_here_build_reads_the_quest_log_once() {
 	// Base: 7 reads of the log over the update.
 	assert_eq!(out, json!({ "reads": 3, "step": 1, "lines": 3 }));
 }
+
+// Fitz's 0.4.3-rc probe: the kill that completed the Charred Vale's step, still in the fight, cost a 107.8 ms frame
+// (the Engine's evaluation) and a 24.8 ms one after it (the While-here build, the target buttons): the step's travel
+// plan and the While-here candidates for the next step were made in the fight's frames. In a fight neither shows
+// anything new (the route's walk and measures wait out the fight, the While-here lines hold through it), so each waits
+// for the fight's end and runs once after it.
+#[test]
+fn a_step_completed_in_a_fight_plans_its_route_and_builds_while_here_after_the_fight() {
+	let out = run(
+		vec![Addon::name("Polestar")],
+		&format!(
+			r#"
+		{TEST_PACK}
+		{TEST_SOURCE}
+		local steps = {{ {{ title = "Kill", goals = {{ {{ t = "kill", quest = 2000, oi = 1, npc = 299, target = "Kobold", count = 1, map = 1429, x = 40.5, y = 40.5 }} }} }},
+			{{ title = "Hand in", goals = {{ {{ t = "turnin", quest = 2007, title = "Q2007", map = 1429, x = 40.1, y = 40, npc = 300 }} }} }} }}
+		for i = 1, 6 do
+			local q = 2000 + i
+			steps[#steps + 1] = {{ title = "Hand in " .. i, goals = {{ {{ t = "turnin", quest = q, title = "Q" .. q, map = 1429, x = 40 + i * 0.2, y = 40, npc = 300 + i }} }} }}
+		end
+		Polestar.RegisterGuide({{ id = "test/fight", pack = "test", title = "Fight", faction = "Alliance", minLevel = 1, maxLevel = 30, zone = 1429, steps = steps }})
+		local E, N, w = Polestar.Engine, Polestar.Nav, stub.world
+		Polestar.Set("nav.travel", true)
+		stub.login(); stub.advance(0.25)
+		w.accept(2000, {{ 1 }})
+		for i = 1, 7 do w.accept(2000 + i, {{ 1 }}); w.finish(2000 + i) end
+		E.SetGuide("test/fight"); stub.advance(1)
+		local plans = 0
+		local plan = N.PlanRoute
+		N.PlanRoute = function(...) plans = plans + 1 return plan(...) end
+		local function steps2()
+			local n = 0
+			for _, c in ipairs(E.GetWhileHereCandidates()) do if c.step <= 2 then n = n + 1 end end
+			return n
+		end
+		local r = {{ before = {{ step = E.GetStepIndex(), here2 = steps2() }} }}
+		stub.inCombat = true
+		stub.fire("PLAYER_REGEN_DISABLED")
+		stub.advance(0.5)
+		plans = 0
+		w.finish(2000)
+		stub.advance(1)
+		r.fight = {{ step = E.GetStepIndex(), plans = plans, here2 = steps2() }}
+		plans = 0
+		stub.inCombat = false
+		stub.fire("PLAYER_REGEN_ENABLED")
+		stub.advance(1)
+		r.after = {{ step = E.GetStepIndex(), plans = plans > 0, here2 = steps2() }}
+		emit(r)"#
+		),
+	);
+	assert_eq!(out["before"]["step"], 1, "{out}");
+	assert!(out["before"]["here2"].as_i64().unwrap() > 0, "step 1's candidates hold step 2's hand-in: {out}");
+	assert_eq!(out["fight"], json!({ "step": 2, "plans": 0, "here2": out["before"]["here2"] }), "in the fight: the step moves on, no plan, no build: {out}");
+	assert_eq!(out["after"], json!({ "step": 2, "plans": true, "here2": 0 }), "after it: the route planned, step 2's candidates built: {out}");
+}

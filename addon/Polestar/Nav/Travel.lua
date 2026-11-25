@@ -2700,9 +2700,24 @@ local function plan(target, held)
 end
 
 local keepLive -- (old, i, progress, fresh, target, pc, px, py) -> keep the live route against the fresh plan (below sameWay)
+-- In a fight nothing is planned: the plan is owed (dirty) and made as the fight ends (PLAYER_REGEN_ENABLED, below). A
+-- route for another target goes at once (no route, the arrow on the target as before any plan); the walk search and
+-- the measures wait out the fight anyway (Routing/PathJobs.lua, Walk.Measure), so a plan made in it was made again
+-- once they came in. Fitz's 0.4.3-rc probe: the kill that completed the Charred Vale's step planned Sun Rock's
+-- turn-ins in the fight's frame, with the step's render and the While-here build.
 function Travel.Replan()
 	if onTaxi() then
 		dirty = true
+		return
+	end
+	local C = ns.Compat
+	if C and C.InCombat and C.InCombat() then
+		dirty = legsFor ~= Nav.GetTarget() or dirty or true
+		if legs and legsFor ~= Nav.GetTarget() then
+			legs, ci, boarded, progressYards, remeasureOwed = nil, 1, false, nil, false
+			Travel.version = Travel.version + 1
+			ns.Fire("ROUTE_CHANGED", nil)
+		end
 		return
 	end
 	-- Planned again for a zone change or for walking on (dirty "zone", not for anything that changed the way):
@@ -4215,6 +4230,10 @@ ns.RegisterEvent("TAXIMAP_CLOSED", function()
 end)
 ns.RegisterEvent("PLAYER_LEAVING_WORLD", function() Travel.taxiOffer = nil end)
 ns.RegisterEvent("UI_INFO_MESSAGE", onInfoMessage)
+-- The plan a fight owed (Travel.Replan).
+ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
+	if dirty and not onTaxi() and Nav.GetTarget() and ns.Get("nav.travel") then Travel.Replan() end
+end)
 
 -- The known flight paths and the continents a flight map has shown, kept a second time account-wide by character
 -- (PolestarFlightsDB["Name-Realm"]: its own saved file, which neither a profile reset nor a lost or reset
